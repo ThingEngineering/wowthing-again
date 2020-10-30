@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30330.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wowthing.Web", "src\Wowthing.Web\Wowthing.Web.csproj", "{4054020D-540C-4016-B305-75E372CCEFEA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4054020D-540C-4016-B305-75E372CCEFEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4054020D-540C-4016-B305-75E372CCEFEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4054020D-540C-4016-B305-75E372CCEFEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4054020D-540C-4016-B305-75E372CCEFEA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0C4BA5B1-49AB-4EAB-82F1-984A59E4C6AB}
+	EndGlobalSection
+EndGlobal
