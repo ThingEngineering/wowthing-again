@@ -6,27 +6,35 @@ services:
     environment:
       POSTGRES_PASSWORD: topsecret
       POSTGRES_USER: wowthing
+    networks:
+      - wowthing
     ports:
-      - "55432:5432"
+      - "55532:5432"
     restart: always
     volumes:
       - postgres:/var/lib/postgresql/data
 
   redis:
     image: redis:latest
+    networks:
+      - wowthing
     ports:
-      - "56379:6379"
+      - "55579:6379"
     restart: always
     volumes:
       - redis:/data
 
   web:
     build:
-      context: ./src/Wowthing.web
+      context: ./src/Wowthing.Web
       dockerfile: development.Dockerfile
     depends_on:
       - postgres
       - redis
+    networks:
+      - wowthing
+    ports:
+      - "55500:5000"
     volumes:
       - ./:/app/
 
