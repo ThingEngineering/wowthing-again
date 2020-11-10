@@ -45,7 +45,7 @@ jobs:
         run: TAG=$(echo $GITHUB_SHA | head -c7) sed -i 's|_VERSION_|'${TAG}'|' $GITHUB_WORKSPACE/.k8s/web-deployment.yml
 
       - name: Save Kubernetes config
-        run: doctl kubernetes cluster kubeconfig save actions-wowthing-web
+        run: doctl kubernetes cluster kubeconfig save thing
 
       - name: Deploy to Kubernetes
         run: kubectl apply -f $GITHUB_WORKSPACE/.k8s/web-deployment.yml
