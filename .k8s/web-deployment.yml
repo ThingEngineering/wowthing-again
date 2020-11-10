@@ -47,5 +47,3 @@ spec:
                   key: redis
             - name: ASPNETCORE_ENVIRONMENT
               value: "Production"
-      imagePullSecrets:
-        - name: wowthing-again-registry
