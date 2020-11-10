@@ -45,7 +45,7 @@ jobs:
         run: doctl kubernetes cluster kubeconfig save thing
 
       - name: Update deployment file
-        run: TAG=$(echo $GITHUB_SHA | head -c7) echo $TAG && sed -i "s/_VERSION_/${TAG}/" $GITHUB_WORKSPACE/.k8s/web-deployment.yml
+        run: sed -i "s/_VERSION_/${GITHUB_SHA::7}/" $GITHUB_WORKSPACE/.k8s/web-deployment.yml
 
       - name: Sigh
         run: cat $GITHUB_WORKSPACE/.k8s/web-deployment.yml
