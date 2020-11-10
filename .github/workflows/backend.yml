@@ -1,12 +1,12 @@
-name: Build and deploy web
+name: Build and deploy backend
 
 on:
   push:
     branches:
       - main
     paths:
+      - 'src/Wowthing.Backend/*'
       - 'src/Wowthing.Lib/*'
-      - 'src/Wowthing.Web/*'
   workflow_dispatch:
 
 jobs:
@@ -23,8 +23,8 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
-          repository: thingengineering/wowthing/wowthing-web
-          dockerfile: src/Wowthing.Web/Dockerfile
+          repository: thingengineering/wowthing/wowthing-backend
+          dockerfile: src/Wowthing.Backend/Dockerfile
           tag_with_ref: true
           tag_with_sha: true
 
