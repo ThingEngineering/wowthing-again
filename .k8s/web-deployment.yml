@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wowthing-again
+  namespace: things
+  labels:
+    app: wowthing-again
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wowthing-again
+  template:
+    metadata:
+      labels:
+        app: wowthing-again
+    spec:
+      containers:
+        - name: wowthing-again
+          image: docker.pkg.github.com/thingengineering/wowthing/wowthing-web:_VERSION_
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 5000
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 5000
+            initialDelaySeconds: 15
+            timeoutSeconds: 1
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 5000
+            initialDelaySeconds: 0
+            timeoutSeconds: 10
+          env:
+            - name: ConnectionStrings__Database_Web
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: postgres
+            - name: ConnectionStrings__Redis
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: redis
+            - name: ASPNETCORE_ENVIRONMENT
+              value: "Production"
+      imagePullSecrets:
+        - name: wowthing-again-registry

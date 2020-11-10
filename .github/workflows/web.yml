@@ -32,7 +32,28 @@ jobs:
       #  run: TAG=$(echo $GITHUB_SHA | head -c7) sed -i 's|<IMAGE>|'${TAG}'|'
 
       #- name: Deploy to k8s
-      #  run: kubectl apply -f deployment.yml
+      #  run: kubectl apply -f web-deployment.yml
 
       #- name: Verify deployment
       #  run: kubectl rollout status
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Update deployment file
+        run: TAG=$(echo $GITHUB_SHA | head -c7) sed -i 's|_VERSION_|'${TAG}'|' $GITHUB_WORKSPACE/.k8s/web-deployment.yml
+
+      - name: Save Kubernetes config
+        run: doctl kubernetes cluster kubeconfig save actions-wowthing-web
+
+      - name: Deploy to Kubernetes
+        run: kubectl apply -f $GITHUB_WORKSPACE/.k8s/web-deployment.yml
+
+      - name: Verify deployment
+        run: kubectl -n things rollout status deployment/wowthing-again
