@@ -1,6 +1,32 @@
 version: "3.8"
 
 services:
+  backend:
+    build:
+      context: .
+      dockerfile: src/Wowthing.Backend/development.Dockerfile
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - wowthing
+    volumes:
+      - ./:/app/
+
+  web:
+    build:
+      context: .
+      dockerfile: src/Wowthing.Web/development.Dockerfile
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - wowthing
+    ports:
+      - "55500:5000"
+    volumes:
+      - ./:/app/
+
   postgres:
     image: postgres:13
     environment:
@@ -23,20 +49,6 @@ services:
     restart: always
     volumes:
       - redis:/data
-
-  web:
-    build:
-      context: ./src/Wowthing.Web
-      dockerfile: development.Dockerfile
-    depends_on:
-      - postgres
-      - redis
-    networks:
-      - wowthing
-    ports:
-      - "55500:5000"
-    volumes:
-      - ./:/app/
 
 networks:
   wowthing:
