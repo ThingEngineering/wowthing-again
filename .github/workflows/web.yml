@@ -23,7 +23,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
-          repository: ThingEngineering/wowthing/wowthing-web
+          repository: thingengineering/wowthing/wowthing-web
           path: src/Wowthing.Web
           tag_with_ref: true
           tag_with_sha: true
