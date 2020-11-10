@@ -1,0 +1,37 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'src/Wowthing.Lib/*'
+      - 'src/Wowthing.Web/*'
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Push to GitHub Packages
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: ThingEngineering/wowthing/wowthing-web
+          path: src/Wowthing.Web
+          tag_with_ref: true
+          tag_with_sha: true
+
+      #- name: Update deployment file
+      #  run: TAG=$(echo $GITHUB_SHA | head -c7) sed -i 's|<IMAGE>|'${TAG}'|'
+
+      #- name: Deploy to k8s
+      #  run: kubectl apply -f deployment.yml
+
+      #- name: Verify deployment
+      #  run: kubectl rollout status
