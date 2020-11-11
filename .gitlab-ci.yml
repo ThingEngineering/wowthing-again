@@ -1,6 +1,6 @@
 include:
-  - '/magic/build.yml'
-  - '/magic/deploy.yml'
+  - '/_magic/build.yml'
+  - '/_magic/deploy.yml'
 
 image: docker:latest
 
