@@ -1,22 +1,24 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
+FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
 
-#RUN apt-get update && apt-get install -y build-essential nodejs npm
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
+RUN apt-get install -y nodejs
 
 WORKDIR /app
 
 # Restore npm packages now so that this step is cached
-#COPY src/OpenWoW.Web/package*.json /app/openwow.io/src/OpenWoW.Web/
-#WORKDIR /app/openwow.io/src/OpenWoW.Web
-#RUN npm install
+COPY src/Wowthing.Web/package*.json ./src/Wowthing.Web/
+WORKDIR /app/src/Wowthing.Web
+RUN npm install
 
+WORKDIR /app
 COPY . .
 
 WORKDIR /app/src/Wowthing.Web
-#RUN npm run build-prod
+RUN npm run build
 RUN dotnet publish -c Release -o out
 
 
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-alpine AS runtime
+FROM mcr.microsoft.com/dotnet/aspnet:3.1-alpine AS runtime
 WORKDIR /app
 COPY --from=build /app/src/Wowthing.Web/out ./
 
