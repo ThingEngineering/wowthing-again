@@ -1,4 +1,10 @@
 .git
+.idea
 .vs
+_magic
 **/bin
 **/obj
+.dockerignore
+.gitignore
+.gitlab-ci.yml
+docker-compose.yml
