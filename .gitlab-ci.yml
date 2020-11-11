@@ -19,16 +19,17 @@ backend-build:
   extends: .build
   variables:
     DOCKER_FILE: src/Wowthing.Backend/Dockerfile
+    IMAGE_NAME: backend
 
 #backend-deploy:
 #  extends: .deploy
-
 
 # Wowthing.Web
 web-build:
   extends: .build
   variables:
     DOCKER_FILE: src/Wowthing.Web/Dockerfile
+    IMAGE_NAME: web
 
 web-deploy:
   extends: .deploy
