@@ -1,0 +1,16 @@
+.deploy:
+  stage: deploy
+  only:
+    - master
+  environment:
+    name: production
+  image: dtzar/helm-kubectl
+  before_script:
+    - kubectl config set-cluster k8s --server="${KUBE_URL}"
+    - kubectl config set clusters.k8s.certificate-authority-data ${KUBE_CA_DATA}
+    - kubectl config set-credentials gitlab --token="${KUBE_TOKEN}"
+    - kubectl config set-context default --cluster=k8s --user=gitlab --namespace=things
+    - kubectl config use-context default
+  script:
+    - sed -i "s/_VERSION_/${CI_COMMIT_SHORT_SHA}/g" $DEPLOYMENT_FILE
+    - kubectl apply -f $DEPLOYMENT_FILE

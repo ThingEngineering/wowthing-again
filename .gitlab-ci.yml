@@ -1,0 +1,36 @@
+include:
+  - '/magic/build.yml'
+  - '/magic/deploy.yml'
+
+image: docker:latest
+
+services:
+  - docker:dind
+
+variables:
+  DOCKER_DRIVER: overlay2
+
+stages:
+  - build
+  - deploy
+
+# Wowthing.Backend
+backend-build:
+  extends: .build
+  variables:
+    DOCKER_FILE: src/Wowthing.Backend/Dockerfile
+
+backend-deploy:
+  extends: .deploy
+
+
+# Wowthing.Web
+web-build:
+  extends: .build
+  variables:
+    DOCKER_FILE: src/Wowthing.Web/Dockerfile
+
+web-deploy:
+  extends: .deploy
+  variables:
+    DOCKER_FILE: _magic/web-deployment.yml

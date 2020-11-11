@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: wowthing-again
+  name: wowthing-again-web
   namespace: things
   labels:
-    app: wowthing-again
+    app: wowthing-again-web
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: wowthing-again
+      app: wowthing-again-web
   template:
     metadata:
       labels:
-        app: wowthing-again
+        app: wowthing-again-web
     spec:
       containers:
-        - name: wowthing-again
-          image: docker.pkg.github.com/thingengineering/wowthing/wowthing-web:_VERSION_
+        - name: wowthing-again-web
+          image: registry.gitlab.com/thingengineering/wowthing-again/wowthing-web:_VERSION_
           imagePullPolicy: Always
           ports:
             - name: http
