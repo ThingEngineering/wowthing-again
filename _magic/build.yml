@@ -1,7 +1,8 @@
 .build:
   stage: build
   only:
-    - main
+    refs:
+      - main
   before_script:
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
   script:

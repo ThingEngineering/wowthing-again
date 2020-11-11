@@ -20,6 +20,10 @@ backend-build:
   variables:
     DOCKER_FILE: src/Wowthing.Backend/Dockerfile
     IMAGE_NAME: backend
+  only:
+    changes:
+      - src/Wowthing.Backend/**/*
+      - src/Wowthing.Lib/**/*
 
 #backend-deploy:
 #  extends: .deploy
@@ -30,6 +34,10 @@ web-build:
   variables:
     DOCKER_FILE: src/Wowthing.Web/Dockerfile
     IMAGE_NAME: web
+  only:
+    changes:
+      - src/Wowthing.Web/**/*
+      - src/Wowthing.Lib/**/*
 
 web-deploy:
   extends: .deploy
