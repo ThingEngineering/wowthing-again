@@ -1,7 +1,7 @@
 .deploy:
   stage: deploy
   only:
-    - master
+    - main
   environment:
     name: production
   image: dtzar/helm-kubectl
