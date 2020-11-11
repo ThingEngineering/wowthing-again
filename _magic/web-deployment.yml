@@ -35,15 +35,15 @@ spec:
             initialDelaySeconds: 0
             timeoutSeconds: 10
           env:
-            - name: ConnectionStrings__Database_Web
-              valueFrom:
-                secretKeyRef:
-                  name: secrets
-                  key: postgres
-            - name: ConnectionStrings__Redis
-              valueFrom:
-                secretKeyRef:
-                  name: secrets
-                  key: redis
             - name: ASPNETCORE_ENVIRONMENT
               value: "Production"
+          #  - name: ConnectionStrings__Database_Web
+          #    valueFrom:
+          #      secretKeyRef:
+          #        name: secrets
+          #        key: postgres
+          #  - name: ConnectionStrings__Redis
+          #    valueFrom:
+          #      secretKeyRef:
+          #        name: secrets
+          #        key: redis
