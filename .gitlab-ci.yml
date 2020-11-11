@@ -32,5 +32,6 @@ web-build:
 
 web-deploy:
   extends: .deploy
+  needs: ["web-build"]
   variables:
     DEPLOYMENT_FILE: _magic/web-deployment.yml
