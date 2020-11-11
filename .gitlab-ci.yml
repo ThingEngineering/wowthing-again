@@ -20,8 +20,8 @@ backend-build:
   variables:
     DOCKER_FILE: src/Wowthing.Backend/Dockerfile
 
-backend-deploy:
-  extends: .deploy
+#backend-deploy:
+#  extends: .deploy
 
 
 # Wowthing.Web
@@ -33,4 +33,4 @@ web-build:
 web-deploy:
   extends: .deploy
   variables:
-    DOCKER_FILE: _magic/web-deployment.yml
+    DEPLOYMENT_FILE: _magic/web-deployment.yml
