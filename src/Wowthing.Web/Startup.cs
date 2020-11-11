@@ -23,7 +23,8 @@ namespace Wowthing.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
+            services.AddControllersWithViews();
+            services.AddResponseCompression();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -38,6 +39,7 @@ namespace Wowthing.Web
                 app.UseExceptionHandler("/Error");
             }
 
+            app.UseResponseCompression();
             app.UseStaticFiles();
 
             app.UseRouting();
@@ -46,7 +48,7 @@ namespace Wowthing.Web
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
+                endpoints.MapControllers();
             });
         }
     }
