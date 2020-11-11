@@ -4,6 +4,7 @@
 _magic
 **/bin
 **/obj
+**/node_modules
 .dockerignore
 .gitignore
 .gitlab-ci.yml

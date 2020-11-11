@@ -1,0 +1,15 @@
+{
+  "name": "wowthing",
+  "version": "0.0.1",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "lodash": "^4.17.20",
+    "node-sass": "^5.0.0",
+    "rollup": "^2.33.1",
+    "svelte": "^3.29.7",
+    "typescript": "^4.0.5"
+  },
+  "devDependencies": {}
+}
