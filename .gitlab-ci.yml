@@ -15,32 +15,42 @@ stages:
   - deploy
 
 # Wowthing.Backend
-backend-build:
-  extends: .build
-  variables:
-    DOCKER_FILE: src/Wowthing.Backend/Dockerfile
-    IMAGE_NAME: backend
+.backend-only:
   only:
     changes:
       - src/Wowthing.Backend/**/*
       - src/Wowthing.Lib/**/*
 
+backend-build:
+  extends:
+    - .build
+    - .backend-only
+  variables:
+    DOCKER_FILE: src/Wowthing.Backend/Dockerfile
+    IMAGE_NAME: backend
+
 #backend-deploy:
 #  extends: .deploy
 
 # Wowthing.Web
-web-build:
-  extends: .build
-  variables:
-    DOCKER_FILE: src/Wowthing.Web/Dockerfile
-    IMAGE_NAME: web
+.web-only:
   only:
     changes:
       - src/Wowthing.Web/**/*
       - src/Wowthing.Lib/**/*
 
+web-build:
+  extends:
+    - .build
+    - .web-only
+  variables:
+    DOCKER_FILE: src/Wowthing.Web/Dockerfile
+    IMAGE_NAME: web
+
 web-deploy:
-  extends: .deploy
+  extends:
+    - .deploy
+    - .web-only
   needs: ["web-build"]
   variables:
     DEPLOYMENT_FILE: _magic/web-deployment.yml
