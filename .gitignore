@@ -1,5 +1,11 @@
-bin/
-obj/
+# User-specific files
+*.user
+
+# Editor garbage
 .idea/
 .vs/
+
+# Generated stuff
+bin/
+obj/
 node_modules/
