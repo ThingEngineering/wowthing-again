@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: wowthing-again-web
-          image: registry.gitlab.com/thingengineering/wowthing-again/wowthing-web:_VERSION_
+          image: registry.gitlab.com/thing-engineering/wowthing/wowthing-again/web:_VERSION_
           imagePullPolicy: Always
           ports:
             - name: http
