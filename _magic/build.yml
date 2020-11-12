@@ -7,7 +7,24 @@
     - IMAGE_FULL="$CI_REGISTRY_IMAGE/$IMAGE_NAME"
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
   script:
-    - docker pull "$IMAGE_FULL:latest" || true
-    - docker build --cache-from "$IMAGE_FULL:latest" --tag "$IMAGE_FULL:$CI_COMMIT_SHORT_SHA" --tag "$IMAGE_FULL:latest" --file "$DOCKER_FILE" .
-    - docker push "$IMAGE_FULL:$CI_COMMIT_SHORT_SHA"
-    - docker push "$IMAGE_FULL:latest"
+    - docker pull $IMAGE_FULL:build || true
+    - docker pull $IMAGE_FULL:latest || true
+    - >
+      docker build
+      --file $DOCKER_FILE
+      --target build
+      --cache-from=$IMAGE_FULL:build
+      --tag $IMAGE_FULL:build
+      .
+    - >
+      docker build
+      --file $DOCKER_FILE
+      --target runtime
+      --cache-from $IMAGE_FULL:build
+      --cache-from $IMAGE_FULL:latest
+      --tag $IMAGE_FULL:$CI_COMMIT_SHORT_SHA
+      --tag $IMAGE_FULL:latest
+      .
+    - docker push $IMAGE_FULL:build
+    - docker push $IMAGE_FULL:$CI_COMMIT_SHORT_SHA
+    - docker push $IMAGE_FULL:latest
