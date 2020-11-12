@@ -1,17 +1,17 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Wowthing.Web.Controllers
 {
-    public class HomeController : Controller
+    public class UserController : Controller
     {
-        [HttpGet("")]
+        [HttpGet("u/{username:minlength(4)}")]
         public IActionResult Index()
         {
-            return View();
+            return NotFound();
         }
     }
 }
