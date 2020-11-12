@@ -1,0 +1,23 @@
+body {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: #202428;
+  color: #f0f4f8;
+}
+
+header {
+  position: sticky;
+  top: 0;
+  background: #303438;
+}
+
+main {
+  flex: 1;
+}
+
+footer {
+  background: #303438;
+  flex: none;
+}

@@ -1,7 +1,8 @@
 <script lang="ts">
 </script>
 
-<style>
+<style lang="scss" global>
+    @import "../scss/global.scss";
 </style>
 
 <p>Hello</p>

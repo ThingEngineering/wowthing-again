@@ -15,27 +15,6 @@ console.log('production', production)
 
 rimraf.sync('wwwroot/dist')
 
-function serve() {
-    let server
-    
-    function toExit() {
-        if (server) server.kill(0)
-    }
-
-    return {
-        writeBundle() {
-            if (server) return
-            server = require('child_process').spawn('npm', ['run', 'start', '--', '--dev'], {
-                stdio: ['ignore', 'inherit', 'inherit'],
-                shell: true
-            })
-
-            process.on('SIGTERM', toExit)
-            process.on('exit', toExit)
-        }
-    }
-}
-
 export default {
     input: 'frontend/ts/main.ts',
     output: {
@@ -43,18 +22,24 @@ export default {
         format: 'iife',
         name: 'app',
         dir: 'wwwroot/dist',
-        entryFileNames: '[name].[hash].js',
-        assetFileNames: '[name].[hash][extname]',
+        entryFileNames: production ? '[name].[hash].js' : '[name].dev.js',
     },
     plugins: [
         svelte({
             // enable run-time checks when not in production
             dev: !production,
             css: (css) => {
-                const hash = crypto.createHash('md5').update(css.code).digest('hex').substr(0, 8)
-                css.write(`main.${hash}.css`, !production)
+                if (production) {
+                    const hash = crypto.createHash('md5').update(css.code).digest('hex').substr(0, 8)
+                    css.write(`main.${hash}.css`, false)
+                }
+                else {
+                    css.write('main.dev.css', true)
+                }
             },
-            preprocess: sveltePreprocess(),
+            preprocess: sveltePreprocess({
+                postcss: true,
+            }),
         }),
         resolve({
             browser: true,
@@ -66,10 +51,6 @@ export default {
             inlineSources: !production
         }),
 
-        // In dev mode, call `npm run start` once
-        // the bundle has been generated
-        !production && serve(),
-
         // Watch the `dist` directory and refresh the
         // browser on changes when not in production
         !production && livereload('wwwroot/dist'),
@@ -79,6 +60,10 @@ export default {
         production && terser(),
     ],
     watch: {
+        include: 'frontend/**/*',
+        chokidar: {
+            usePolling: true,
+        },
         clearScreen: false
     }
 }
