@@ -1,0 +1,19 @@
+﻿@using Microsoft.AspNetCore.Authentication 
+@model AuthenticationScheme[]
+@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="login">
+    <h1>Login</h1>
+
+    @foreach (var scheme in Model.OrderBy(s => s.DisplayName))
+    {
+        <form action="" method="post">
+            <input type="hidden" name="Provider" value="@scheme.Name" />
+            <input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
+
+            <button class="btn btn-lg btn-success m-1" type="submit">Connect using @scheme.DisplayName</button>
+        </form>
+    }
+</div>
