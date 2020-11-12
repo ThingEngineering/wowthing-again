@@ -9,4 +9,4 @@
 bin/
 obj/
 node_modules/
-src/Wowthing.Web/wwwroot/assets/
+src/Wowthing.Web/wwwroot/dist/
