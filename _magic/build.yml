@@ -22,9 +22,9 @@
       --target runtime
       --cache-from $IMAGE_FULL:build
       --cache-from $IMAGE_FULL:latest
-      --tag $IMAGE_FULL:$CI_COMMIT_SHORT_SHA
+      --tag $IMAGE_FULL:sha-$CI_COMMIT_SHA
       --tag $IMAGE_FULL:latest
       .
     - docker push $IMAGE_FULL:build
-    - docker push $IMAGE_FULL:$CI_COMMIT_SHORT_SHA
+    - docker push $IMAGE_FULL:sha-$CI_COMMIT_SHA
     - docker push $IMAGE_FULL:latest

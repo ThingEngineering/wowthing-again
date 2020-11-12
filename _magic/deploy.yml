@@ -12,5 +12,5 @@
     - kubectl config set-context default --cluster=k8s --user=gitlab --namespace=things
     - kubectl config use-context default
   script:
-    - sed -i "s/_VERSION_/${CI_COMMIT_SHORT_SHA}/g" $DEPLOYMENT_FILE
+    - sed -i "s/_VERSION_/sha-${CI_COMMIT_SHA}/g" $DEPLOYMENT_FILE
     - kubectl apply -f $DEPLOYMENT_FILE
