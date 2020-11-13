@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Wowthing.Backend.Services;
 
 namespace Wowthing.Backend
 {
@@ -18,6 +19,7 @@ namespace Wowthing.Backend
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((hostContext, services) =>
                 {
+                    services.AddHostedService<SchedulerService>();
                     services.AddHostedService<Worker>();
                 });
     }
