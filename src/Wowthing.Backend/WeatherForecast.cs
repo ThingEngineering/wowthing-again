@@ -1,6 +1,6 @@
 using System;
 
-namespace WoWthing.Backend
+namespace Wowthing.Backend
 {
     public class WeatherForecast
     {

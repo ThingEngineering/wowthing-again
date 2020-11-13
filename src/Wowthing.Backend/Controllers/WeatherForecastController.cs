@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace WoWthing.Backend.Controllers
+namespace Wowthing.Backend.Controllers
 {
     [ApiController]
     [Route("[controller]")]

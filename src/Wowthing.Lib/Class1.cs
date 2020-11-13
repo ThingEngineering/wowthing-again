@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WoWthing.Lib
+namespace Wowthing.Lib
 {
     public class Class1
     {

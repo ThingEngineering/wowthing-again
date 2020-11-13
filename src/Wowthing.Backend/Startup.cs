@@ -11,7 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace WoWthing.Backend
+namespace Wowthing.Backend
 {
     public class Startup
     {

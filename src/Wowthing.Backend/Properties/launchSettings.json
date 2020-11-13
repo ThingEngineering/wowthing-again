@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "WoWthing.Backend": {
+    "Wowthing.Backend": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "weatherforecast",
