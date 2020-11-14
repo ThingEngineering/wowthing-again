@@ -1,3 +1,6 @@
+.env
+core
+
 # User-specific files
 *.user
 
