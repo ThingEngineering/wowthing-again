@@ -21,16 +21,30 @@ TODO
 - screenshots
 - link to alternatives - Altoholic addon, ???
 
-## How do I make it work?
+## Getting it running
+
+You're going to need API credentials:
+
+1. Log in or sign up for a [Battle.Net Developer](https://develop.battle.net) account
+1. Create an API client, "API ACCESS" in the nav bar:
+    - Client Name: something unique like "Steve's WoWthing"
+    - Redirect URLs: `http://localhost:55500/something` TODO
+    - Service URL: `https://wowthing.org` probably
+    - Intended Use: I go with some variation of "A website for keeping track of multiple WoW characters"
+    - SAVE
+
+1. Clone the repository using whichever Git client you feel like using, I like [Fork](https://git-fork.com/)
+1. Create a `.dev` file in the root of this repository with the values from your Battle.Net API Client:
+    ```
+    BattleNet__ClientID=abcdefg
+    BattleNet__ClientSecret=t0ps3cr3tk3y
+    ```
 
 1. Install Docker and Docker Compose - [Windows install instructions](https://docs.docker.com/docker-for-windows/install/)
-1. Clone the repository using whichever Git client you feel like using, I like [Fork](https://git-fork.com/)
-1. Run `docker-compose up --build`, this will start cache + database + backend + website
+1. Run `docker-compose up --build` in a terminal window to start everything
 1. Visit http://localhost:55500
 
 TODO
 
-- environment variables for bnet oauth
-- backend instructions?
 - creating/testing database migrations
 - pull requests - CONTRIBUTING.md?
