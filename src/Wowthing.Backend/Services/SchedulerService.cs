@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,20 +8,20 @@ using System.Threading.Tasks;
 
 namespace Wowthing.Backend.Services
 {
-    public class SchedulerService : IHostedService, IDisposable
+    public sealed class SchedulerService : IHostedService, IDisposable
     {
-        private ILogger<SchedulerService> _logger;
+        private readonly ILogger _logger;
         private Timer _timer;
 
-        public SchedulerService(ILogger<SchedulerService> logger)
+        public SchedulerService()
         {
-            _logger = logger;
+            _logger = Log.ForContext("Service", $"Scheduler | ");
         }
 
         #region IHostedService
         public Task StartAsync(CancellationToken stoppingToken)
         {
-            _logger.LogInformation("Scheduler service starting");
+            _logger.Information("Service starting");
 
             _timer = new Timer(TimerCallback, null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
 
@@ -30,7 +30,7 @@ namespace Wowthing.Backend.Services
 
         public Task StopAsync(CancellationToken stoppingToken)
         {
-            _logger.LogInformation("Scheduler service stopping");
+            _logger.Information("Service stopping");
 
             _timer?.Change(Timeout.Infinite, 0);
 
@@ -47,7 +47,7 @@ namespace Wowthing.Backend.Services
 
         private void TimerCallback(Object state)
         {
-            _logger.LogInformation("Scheduler TimerCallback");
+            _logger.Information("TimerCallback");
 
             // Attempt to get scheduler lock - Redis SET NX EX something?
 
