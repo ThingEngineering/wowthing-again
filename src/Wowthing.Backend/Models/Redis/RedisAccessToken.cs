@@ -13,12 +13,16 @@ namespace Wowthing.Backend.Models.Redis
         public string AccessToken { get; set; }
         public DateTime ExpiresAt { get; set; }
 
+        public RedisAccessToken()
+        { }
+
         public RedisAccessToken(ApiAccessToken apiToken)
         {
             AccessToken = apiToken.AccessToken;
             ExpiresAt = DateTime.Now.AddSeconds(apiToken.ExpiresIn);
         }
 
+        [JsonIgnore]
         public bool RefreshRequired => (ExpiresAt.Subtract(DateTime.Now) <= MINIMUM_REMAINING);
     }
 }

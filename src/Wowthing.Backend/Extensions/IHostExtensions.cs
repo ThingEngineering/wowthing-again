@@ -9,7 +9,7 @@ public static class IHostExtensions
         if (options != null)
         {
             // Retrieve the value to trigger validation
-            var optionsValue = ((IOptions<object>)options).Value;
+            var _ = ((IOptions<object>)options).Value;
         }
         return host;
     }
