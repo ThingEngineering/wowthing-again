@@ -11,6 +11,7 @@ using Serilog;
 using StackExchange.Redis;
 using Wowthing.Backend.Models;
 using Wowthing.Backend.Services;
+using Wowthing.Lib.Database.Contexts;
 using Wowthing.Lib.Extensions;
 
 namespace Wowthing.Backend
@@ -59,16 +60,18 @@ namespace Wowthing.Backend
 
         private static void ConfigureServices(HostBuilderContext hostContext, IServiceCollection services)
         {
+            // Databases
+            services.AddPostgres(Configuration.GetConnectionString("Postgres"));
+            services.AddRedis(Configuration.GetConnectionString("Redis"));
+
+            // Options
             services.AddOptions<BattleNetOptions>()
                 .Bind(Configuration.GetSection("BattleNet"))
-                //.ValidateDataAnnotations()
                 .Validate(config =>
                 {
                     Console.WriteLine("um");
                     return !(string.IsNullOrWhiteSpace(config.ClientID) || string.IsNullOrWhiteSpace(config.ClientSecret));
                 }, "BattleNet.ClientID and .ClientSecret must be set");
-
-            services.AddRedis(Configuration.GetConnectionString("Redis"));
 
             services.AddHostedService<AuthorizationService>();
             services.AddHostedService<SchedulerService>();
