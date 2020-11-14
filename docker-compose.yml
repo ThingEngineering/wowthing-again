@@ -8,6 +8,9 @@ services:
     depends_on:
       - postgres
       - redis
+    environment:
+      BattleNet__ClientID: $BattleNet__ClientID
+      BattleNet__ClientSecret: $BattleNet__ClientSecret
     networks:
       - wowthing
     volumes:
