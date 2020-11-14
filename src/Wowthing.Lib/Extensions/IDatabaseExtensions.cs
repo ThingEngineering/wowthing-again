@@ -9,11 +9,16 @@ namespace Wowthing.Lib.Extensions
 {
     public static class IDatabaseExtensions
     {
-        public static async Task<T> GetJson<T>(this IDatabase db, string key)
+        public static async Task<T> JsonGetAsync<T>(this IDatabase db, string key)
             where T : class
         {
             string value = await db.StringGetAsync(key);
             return value == null ? null : JsonSerializer.Deserialize<T>(value);
+        }
+
+        public static async Task<bool> JsonSetAsync<T>(this IDatabase db, string key, T obj)
+        {
+            return await db.StringSetAsync(key, JsonSerializer.Serialize<T>(obj));
         }
     }
 }
