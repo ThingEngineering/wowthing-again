@@ -44,7 +44,15 @@ You're going to need API credentials:
 1. Run `docker-compose up --build` in a terminal window to start everything
 1. Visit http://localhost:55500
 
-TODO
+## Database changes
 
-- creating/testing database migrations
+Changes need to be made in the `Wowthing.Lib` project. If adding a new column, make sure it's nullable or that it has a  default value. If adding a new model, remember to add a `DbSet<Model>` property to `WowDbContext`.
+
+1. Start a shell: `docker-compose exec backend bash`
+1. Create a migration: `./ef.sh migrations add Descriptive_Name_Here`
+1. Apply migrations: `./ef.sh database update` (or just wait for backend/web to restart and apply it)
+
+
+## TODO
+
 - pull requests - CONTRIBUTING.md?
