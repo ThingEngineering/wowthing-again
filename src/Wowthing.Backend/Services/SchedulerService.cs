@@ -8,46 +8,14 @@ using System.Threading.Tasks;
 
 namespace Wowthing.Backend.Services
 {
-    public sealed class SchedulerService : IHostedService, IDisposable
+    public sealed class SchedulerService : TimerService
     {
-        private readonly ILogger _logger;
-        private Timer _timer;
+        public SchedulerService() : base("Scheduler", TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(5))
+        { }
 
-        public SchedulerService()
+        protected override void TimerCallback(object state)
         {
-            _logger = Log.ForContext("Service", $"Scheduler | ");
-        }
-
-        #region IHostedService
-        public Task StartAsync(CancellationToken stoppingToken)
-        {
-            _logger.Information("Service starting");
-
-            _timer = new Timer(TimerCallback, null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
-
-            return Task.CompletedTask;
-        }
-
-        public Task StopAsync(CancellationToken stoppingToken)
-        {
-            _logger.Information("Service stopping");
-
-            _timer?.Change(Timeout.Infinite, 0);
-
-            return Task.CompletedTask;
-        }
-        #endregion
-
-        #region IDisposable
-        public void Dispose()
-        {
-            _timer?.Dispose();
-        }
-        #endregion
-
-        private void TimerCallback(Object state)
-        {
-            _logger.Information("TimerCallback");
+            //_logger.Information("TimerCallback");
 
             // Attempt to get scheduler lock - Redis SET NX EX something?
 

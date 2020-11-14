@@ -23,13 +23,17 @@ namespace Wowthing.Backend.Services
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken) => Task.Run(async () =>
         {
+
             while (!stoppingToken.IsCancellationRequested)
             {
+
+                //var thing = await 
                 // TODO:
                 // - request job from Redis
                 // - do things based on job
                 //   - reflection to find jobs?
-                await Task.Delay(2000, stoppingToken);
+                await Task.Delay(5000, stoppingToken);
+                //_logger.Debug("hello");
             }
         });
     }
