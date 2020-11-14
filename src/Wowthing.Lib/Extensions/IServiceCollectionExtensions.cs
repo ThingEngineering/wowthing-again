@@ -1,14 +1,31 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
+using Wowthing.Lib.Database.Contexts;
 
 namespace Wowthing.Lib.Extensions
 {
     public static class IServiceCollectionExtensions
     {
+        public static IServiceCollection AddPostgres(this IServiceCollection services, string connectionString)
+        {
+            services.AddDbContext<WowDbContext>(options =>
+            {
+                options.UseNpgsql(connectionString);
+#if DEBUG
+                options.EnableSensitiveDataLogging();
+#endif
+            });
+
+            //services.AddScoped<IRepo, Repo>();
+
+            return services;
+        }
+
         public static IServiceCollection AddRedis(this IServiceCollection services, string connectionString)
         {
             var options = ConfigurationOptions.Parse(connectionString);
