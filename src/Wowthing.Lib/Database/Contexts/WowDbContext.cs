@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
@@ -31,10 +32,18 @@ namespace Wowthing.Lib.Database.Contexts
             optionsBuilder.UseSnakeCaseNamingConvention();
         }
 
-        /*protected override void OnModelCreating(ModelBuilder builder)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-        }*/
+
+            builder.Entity<ApplicationUser>().ToTable("asp_net_users");
+            builder.Entity<IdentityUserToken<string>>().ToTable("asp_net_user_tokens");
+            builder.Entity<IdentityUserLogin<string>>().ToTable("asp_net_user_logins");
+            builder.Entity<IdentityUserClaim<string>>().ToTable("asp_net_user_claims");
+            builder.Entity<IdentityRole>().ToTable("asp_net_roles");
+            builder.Entity<IdentityUserRole<string>>().ToTable("asp_net_user_roles");
+            builder.Entity<IdentityRoleClaim<string>>().ToTable("asp_net_role_claims");
+        }
 
         public NpgsqlConnection GetConnection() => (NpgsqlConnection)Database.GetDbConnection();
     }

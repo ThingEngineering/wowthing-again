@@ -9,7 +9,7 @@ namespace Wowthing.Lib.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "AspNetRoles",
+                name: "asp_net_roles",
                 columns: table => new
                 {
                     id = table.Column<string>(nullable: false),
@@ -23,7 +23,7 @@ namespace Wowthing.Lib.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AspNetUsers",
+                name: "asp_net_users",
                 columns: table => new
                 {
                     id = table.Column<string>(nullable: false),
@@ -48,7 +48,7 @@ namespace Wowthing.Lib.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AspNetRoleClaims",
+                name: "asp_net_role_claims",
                 columns: table => new
                 {
                     id = table.Column<int>(nullable: false)
@@ -63,13 +63,13 @@ namespace Wowthing.Lib.Migrations
                     table.ForeignKey(
                         name: "fk_role_claims_asp_net_roles_identity_role_id",
                         column: x => x.role_id,
-                        principalTable: "AspNetRoles",
+                        principalTable: "asp_net_roles",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "AspNetUserClaims",
+                name: "asp_net_user_claims",
                 columns: table => new
                 {
                     id = table.Column<int>(nullable: false)
@@ -84,13 +84,13 @@ namespace Wowthing.Lib.Migrations
                     table.ForeignKey(
                         name: "fk_user_claims_asp_net_users_application_user_id",
                         column: x => x.user_id,
-                        principalTable: "AspNetUsers",
+                        principalTable: "asp_net_users",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "AspNetUserLogins",
+                name: "asp_net_user_logins",
                 columns: table => new
                 {
                     login_provider = table.Column<string>(nullable: false),
@@ -104,13 +104,13 @@ namespace Wowthing.Lib.Migrations
                     table.ForeignKey(
                         name: "fk_user_logins_asp_net_users_application_user_id",
                         column: x => x.user_id,
-                        principalTable: "AspNetUsers",
+                        principalTable: "asp_net_users",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "AspNetUserRoles",
+                name: "asp_net_user_roles",
                 columns: table => new
                 {
                     user_id = table.Column<string>(nullable: false),
@@ -122,19 +122,19 @@ namespace Wowthing.Lib.Migrations
                     table.ForeignKey(
                         name: "fk_user_roles_asp_net_roles_identity_role_id",
                         column: x => x.role_id,
-                        principalTable: "AspNetRoles",
+                        principalTable: "asp_net_roles",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "fk_user_roles_asp_net_users_application_user_id",
                         column: x => x.user_id,
-                        principalTable: "AspNetUsers",
+                        principalTable: "asp_net_users",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "AspNetUserTokens",
+                name: "asp_net_user_tokens",
                 columns: table => new
                 {
                     user_id = table.Column<string>(nullable: false),
@@ -148,45 +148,45 @@ namespace Wowthing.Lib.Migrations
                     table.ForeignKey(
                         name: "fk_user_tokens_asp_net_users_application_user_id",
                         column: x => x.user_id,
-                        principalTable: "AspNetUsers",
+                        principalTable: "asp_net_users",
                         principalColumn: "id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
                 name: "ix_role_claims_role_id",
-                table: "AspNetRoleClaims",
+                table: "asp_net_role_claims",
                 column: "role_id");
 
             migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
-                table: "AspNetRoles",
+                table: "asp_net_roles",
                 column: "normalized_name",
                 unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "ix_user_claims_user_id",
-                table: "AspNetUserClaims",
+                table: "asp_net_user_claims",
                 column: "user_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_user_logins_user_id",
-                table: "AspNetUserLogins",
+                table: "asp_net_user_logins",
                 column: "user_id");
 
             migrationBuilder.CreateIndex(
                 name: "ix_user_roles_role_id",
-                table: "AspNetUserRoles",
+                table: "asp_net_user_roles",
                 column: "role_id");
 
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",
-                table: "AspNetUsers",
+                table: "asp_net_users",
                 column: "normalized_email");
 
             migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
-                table: "AspNetUsers",
+                table: "asp_net_users",
                 column: "normalized_user_name",
                 unique: true);
         }
@@ -194,25 +194,25 @@ namespace Wowthing.Lib.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AspNetRoleClaims");
+                name: "asp_net_role_claims");
 
             migrationBuilder.DropTable(
-                name: "AspNetUserClaims");
+                name: "asp_net_user_claims");
 
             migrationBuilder.DropTable(
-                name: "AspNetUserLogins");
+                name: "asp_net_user_logins");
 
             migrationBuilder.DropTable(
-                name: "AspNetUserRoles");
+                name: "asp_net_user_roles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUserTokens");
+                name: "asp_net_user_tokens");
 
             migrationBuilder.DropTable(
-                name: "AspNetRoles");
+                name: "asp_net_roles");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "asp_net_users");
         }
     }
 }

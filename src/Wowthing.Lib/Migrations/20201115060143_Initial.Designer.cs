@@ -10,7 +10,7 @@ using Wowthing.Lib.Database.Contexts;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    [Migration("20201114221007_Initial")]
+    [Migration("20201115060143_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,7 +49,7 @@ namespace Wowthing.Lib.Migrations
                         .IsUnique()
                         .HasName("RoleNameIndex");
 
-                    b.ToTable("AspNetRoles");
+                    b.ToTable("asp_net_roles");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -79,7 +79,7 @@ namespace Wowthing.Lib.Migrations
                     b.HasIndex("RoleId")
                         .HasName("ix_role_claims_role_id");
 
-                    b.ToTable("AspNetRoleClaims");
+                    b.ToTable("asp_net_role_claims");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -109,7 +109,7 @@ namespace Wowthing.Lib.Migrations
                     b.HasIndex("UserId")
                         .HasName("ix_user_claims_user_id");
 
-                    b.ToTable("AspNetUserClaims");
+                    b.ToTable("asp_net_user_claims");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -137,7 +137,7 @@ namespace Wowthing.Lib.Migrations
                     b.HasIndex("UserId")
                         .HasName("ix_user_logins_user_id");
 
-                    b.ToTable("AspNetUserLogins");
+                    b.ToTable("asp_net_user_logins");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -156,7 +156,7 @@ namespace Wowthing.Lib.Migrations
                     b.HasIndex("RoleId")
                         .HasName("ix_user_roles_role_id");
 
-                    b.ToTable("AspNetUserRoles");
+                    b.ToTable("asp_net_user_roles");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -180,7 +180,7 @@ namespace Wowthing.Lib.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name")
                         .HasName("pk_user_tokens");
 
-                    b.ToTable("AspNetUserTokens");
+                    b.ToTable("asp_net_user_tokens");
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Database.Models.ApplicationUser", b =>
@@ -260,7 +260,7 @@ namespace Wowthing.Lib.Migrations
                         .IsUnique()
                         .HasName("UserNameIndex");
 
-                    b.ToTable("AspNetUsers");
+                    b.ToTable("asp_net_users");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

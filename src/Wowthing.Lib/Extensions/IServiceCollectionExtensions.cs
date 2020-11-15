@@ -26,12 +26,14 @@ namespace Wowthing.Lib.Extensions
             return services;
         }
 
-        public static IServiceCollection AddRedis(this IServiceCollection services, string connectionString)
+        public static IConnectionMultiplexer AddRedis(this IServiceCollection services, string connectionString)
         {
             var options = ConfigurationOptions.Parse(connectionString);
             options.ClientName = Assembly.GetCallingAssembly().GetName().Name;
 
-            return services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(options));
+            var redis = ConnectionMultiplexer.Connect(options);
+            services.AddSingleton<IConnectionMultiplexer>(redis);
+            return redis;
         }
     }
 }
