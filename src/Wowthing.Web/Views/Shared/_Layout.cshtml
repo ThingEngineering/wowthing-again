@@ -9,21 +9,29 @@
 <body>
     <header>
         <nav class="nav">
-            @if (User.Identity.IsAuthenticated)
-            {
-                <p>HI @User.Identity.Name</p>
-            }
-            else
-            {
-                <a asp-controller="Authentication" asp-action="Login">Login with Battle.Net</a>
-            }
+            <ul></ul>
+            <ul>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li>@User.Identity.Name</li>
+                    <li>
+                        <a asp-controller="Authentication" asp-action="Logout">Logout</a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a asp-controller="Authentication" asp-action="Login">Login</a>
+                    </li>
+                }
+            </ul>
         </nav>
     </header>
     <main>
         @RenderBody()
     </main>
     <footer>
-        &copy; 2020 Thing Engineering
+        <a href="https://gitlab.com/thing-engineering/wowthing/wowthing-again">GitLab</a>
     </footer>
 
     <script type="text-javascript" asp-src-include="~/dist/main.*js"></script>
