@@ -6,6 +6,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -29,35 +30,39 @@ namespace Wowthing.Web.Controllers
 
         // Shows the login page with providers
         [HttpGet("auth/login")]
-        public async Task<IActionResult> Login()
-        {
-            return View(await HttpContext.GetExternalProvidersAsync());
-        }
-
-        // Starts the OAuth login process
-        [HttpPost("auth/login")]
-        public IActionResult Login([FromForm] string provider)
+        public IActionResult Login(string returnUrl = null)
         {
             var redirectUrl = Url.Action("Callback", "Authentication");
-            var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
-            return new ChallengeResult(provider, properties);
+            var properties = _signInManager.ConfigureExternalAuthenticationProperties("BattleNet", redirectUrl);
+            return new ChallengeResult("BattleNet", properties);
         }
 
         [HttpGet("auth/callback")]
         public async Task<IActionResult> Callback(string returnUrl = null, string remoteError = null)
         {
-            var info = await _signInManager.GetExternalLoginInfoAsync();
-            if (info == null)
+            if (remoteError != null)
             {
+                // TODO useful error
+                throw new Exception(remoteError);
+            }
+
+            var loginInfo = await _signInManager.GetExternalLoginInfoAsync();
+            if (loginInfo == null)
+            {
+                // TODO useful error
                 throw new Exception("uh-oh");
             }
 
-            foreach (var claim in info.Principal.Claims)
+            foreach (var claim in loginInfo.Principal.Claims)
             {
-                _logger.LogDebug($"Type: {claim.Type} | Value: {claim.Value}");
+                _logger.LogDebug($"Claim! Type: {claim.Type} | Value: {claim.Value}");
+            }
+            foreach (var token in loginInfo.AuthenticationTokens)
+            {
+                _logger.LogDebug($"Token! Name: {token.Name} | Value: {token.Value}");
             }
 
-            string userId = info.Principal.FindFirstValue(ClaimTypes.NameIdentifier);
+            string userId = loginInfo.Principal.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
             {
@@ -66,17 +71,37 @@ namespace Wowthing.Web.Controllers
                     Id = userId,
                     UserName = Guid.NewGuid().ToString("N").ToLowerInvariant(),
                 };
-                // TODO validate
+
                 var createResult = await _userManager.CreateAsync(user);
-                // TODO validate
-                var addLoginResult = await _userManager.AddLoginAsync(user, info);
+                if (!createResult.Succeeded)
+                {
+                    // TODO useful error
+                    //   createResult.Errors?
+                    throw new Exception("create fail");
+                }
+
+                var addLoginResult = await _userManager.AddLoginAsync(user, loginInfo);
+                if (!addLoginResult.Succeeded)
+                {
+                    // TODO useful error
+                    //   addLoginResult.Errors?
+                    throw new Exception("create fail");
+                }
             }
 
-            // TODO validate
-            var signInResult = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, true);
-            return Redirect("/");
+            // Sign in the user
+            var props = new AuthenticationProperties();
+            props.StoreTokens(loginInfo.AuthenticationTokens);
+            props.IsPersistent = true;
+            await _signInManager.SignInAsync(user, props);
+
+            // Store the external tokens in AspNetUserTokens, we need `access_token` to pull character list
+            await _signInManager.UpdateExternalAuthenticationTokensAsync(loginInfo);
+
+            return Redirect(returnUrl ?? "/");
         }
 
+        [Authorize]
         [HttpGet("auth/logout")]
         public async Task<IActionResult> Logout()
         {

@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
@@ -39,17 +42,9 @@ namespace Wowthing.Web
             services.AddPostgres(Configuration.GetConnectionString("Postgres"));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
-                .AddEntityFrameworkStores<WowDbContext>()
-                .AddDefaultTokenProviders();
+                .AddEntityFrameworkStores<WowDbContext>();
 
-            //services.ConfigureNonBreakingSameSiteCookies();
-
-            services.AddAuthentication(/*options =>
-                {
-                    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                    options.DefaultChallengeScheme = "BattleNet";
-                }*/)
+            services.AddAuthentication()
                 .AddCookie(options =>
                 {
                     options.LoginPath = "/login";
