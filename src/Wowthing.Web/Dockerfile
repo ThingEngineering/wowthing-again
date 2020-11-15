@@ -1,7 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
-
-RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
-RUN apt-get install -y nodejs
+FROM wafflefred/dotnet-sdk-nodejs:latest AS build
 
 WORKDIR /app
 
