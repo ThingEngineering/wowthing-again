@@ -6,8 +6,14 @@
 
   <ItemGroup>
     <PackageReference Include="AspNet.Security.OAuth.BattleNet" Version="3.1.6" />
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="3.1.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.10" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="3.1.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Wowthing.Lib\Wowthing.Lib.csproj" />
   </ItemGroup>
 
 </Project>

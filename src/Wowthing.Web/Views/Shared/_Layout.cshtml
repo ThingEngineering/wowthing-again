@@ -8,7 +8,16 @@
 </head>
 <body>
     <header>
-        Header
+        <nav class="nav">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <p>HI @User.Identity.Name</p>
+            }
+            else
+            {
+                <a asp-controller="Authentication" asp-action="Login">Login with Battle.Net</a>
+            }
+        </nav>
     </header>
     <main>
         @RenderBody()

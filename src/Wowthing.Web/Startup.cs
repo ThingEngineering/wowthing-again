@@ -2,10 +2,15 @@ using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Wowthing.Lib.Database.Contexts;
+using Wowthing.Lib.Database.Models;
+using Wowthing.Lib.Extensions;
 using Wowthing.Web.Extensions;
 
 namespace Wowthing.Web
@@ -24,15 +29,27 @@ namespace Wowthing.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddResponseCompression(options =>
+            {
+                options.EnableForHttps = true;
+            });
+
             services.AddControllersWithViews();
 
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = "BattleNet";
+            services.AddPostgres(Configuration.GetConnectionString("Postgres"));
 
-            })
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<WowDbContext>()
+                .AddDefaultTokenProviders();
+
+            //services.ConfigureNonBreakingSameSiteCookies();
+
+            services.AddAuthentication(/*options =>
+                {
+                    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = "BattleNet";
+                }*/)
                 .AddCookie(options =>
                 {
                     options.LoginPath = "/login";
@@ -40,16 +57,23 @@ namespace Wowthing.Web
                 })
                 .AddBattleNet(options =>
                 {
-                    options.ClientId = Configuration["BattleNet:ClientId"] ?? "a";
-                    options.ClientSecret = Configuration["BattleNet:ClientSecret"] ?? "b";
+                    options.ClientId = Configuration["BattleNet:ClientID"];
+                    options.ClientSecret = Configuration["BattleNet:ClientSecret"];
+                    options.SaveTokens = true;
+                    options.Scope.Add("wow.profile");
                 });
 
-            services.AddResponseCompression();
+            // Redis
+            var redis = services.AddRedis(Configuration.GetConnectionString("Redis"));
+            services.AddDataProtection()
+                .PersistKeysToStackExchangeRedis(redis);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app)
         {
+            //app.UseCookiePolicy();
+
             if (Env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

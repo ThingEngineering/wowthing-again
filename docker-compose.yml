@@ -30,6 +30,7 @@ services:
       - wowthing
     ports:
       - "55500:5000"
+      - "55501:5001"
     volumes:
       - ./:/app/
 
