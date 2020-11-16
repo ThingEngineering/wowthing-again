@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Wowthing.Lib.Database.Models;
+using Wowthing.Lib.Models;
 using Wowthing.Web.Extensions;
 
 namespace Wowthing.Web.Controllers

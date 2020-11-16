@@ -14,8 +14,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Wowthing.Lib.Database.Contexts;
-using Wowthing.Lib.Database.Models;
+using Wowthing.Lib.Contexts;
+using Wowthing.Lib.Models;
 using Wowthing.Lib.Extensions;
 using Wowthing.Web.Extensions;
 

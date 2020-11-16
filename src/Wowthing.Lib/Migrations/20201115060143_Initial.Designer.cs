@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using Wowthing.Lib.Database.Contexts;
+using Wowthing.Lib.Contexts;
 
 namespace Wowthing.Lib.Migrations
 {
@@ -183,7 +183,7 @@ namespace Wowthing.Lib.Migrations
                     b.ToTable("asp_net_user_tokens");
                 });
 
-            modelBuilder.Entity("Wowthing.Lib.Database.Models.ApplicationUser", b =>
+            modelBuilder.Entity("Wowthing.Lib.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnName("id")
@@ -275,7 +275,7 @@ namespace Wowthing.Lib.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Wowthing.Lib.Database.Models.ApplicationUser", null)
+                    b.HasOne("Wowthing.Lib.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .HasConstraintName("fk_user_claims_asp_net_users_application_user_id")
@@ -285,7 +285,7 @@ namespace Wowthing.Lib.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Wowthing.Lib.Database.Models.ApplicationUser", null)
+                    b.HasOne("Wowthing.Lib.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .HasConstraintName("fk_user_logins_asp_net_users_application_user_id")
@@ -302,7 +302,7 @@ namespace Wowthing.Lib.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Wowthing.Lib.Database.Models.ApplicationUser", null)
+                    b.HasOne("Wowthing.Lib.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .HasConstraintName("fk_user_roles_asp_net_users_application_user_id")
@@ -312,7 +312,7 @@ namespace Wowthing.Lib.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Wowthing.Lib.Database.Models.ApplicationUser", null)
+                    b.HasOne("Wowthing.Lib.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .HasConstraintName("fk_user_tokens_asp_net_users_application_user_id")

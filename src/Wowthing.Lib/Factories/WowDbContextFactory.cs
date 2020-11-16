@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using Microsoft.EntityFrameworkCore.Design;
-using Wowthing.Lib.Database.Contexts;
+using Wowthing.Lib.Contexts;
 
-namespace Wowthing.Lib.Database.Factories
+namespace Wowthing.Lib.Factories
 {
     public class WowDbContextFactory : IDesignTimeDbContextFactory<WowDbContext>
     {

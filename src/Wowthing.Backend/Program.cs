@@ -11,7 +11,7 @@ using Serilog;
 using StackExchange.Redis;
 using Wowthing.Backend.Models;
 using Wowthing.Backend.Services;
-using Wowthing.Lib.Database.Contexts;
+using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Extensions;
 
 namespace Wowthing.Backend

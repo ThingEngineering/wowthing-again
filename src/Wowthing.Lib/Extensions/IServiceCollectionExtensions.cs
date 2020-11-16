@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
-using Wowthing.Lib.Database.Contexts;
+using Wowthing.Lib.Contexts;
 
 namespace Wowthing.Lib.Extensions
 {

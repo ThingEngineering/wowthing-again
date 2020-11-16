@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
-using Wowthing.Lib.Database.Models;
+using Wowthing.Lib.Models;
 
-namespace Wowthing.Lib.Database.Contexts
+namespace Wowthing.Lib.Contexts
 {
     public class WowDbContext : IdentityDbContext<ApplicationUser>
     {
