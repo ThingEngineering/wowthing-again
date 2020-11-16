@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Wowthing.Lib.Repositories;
 
 namespace Wowthing.Backend.Services
 {
@@ -14,25 +15,32 @@ namespace Wowthing.Backend.Services
 
         private readonly int _instanceId;
         private readonly ILogger _logger;
+        private readonly JobRepository _jobRepository;
 
-        public WorkerService()
+        public WorkerService(JobRepository jobRepository)
         {
+            _jobRepository = jobRepository;
+
             _instanceId = Interlocked.Increment(ref _instanceCount);
             _logger = Log.ForContext("Service", $"Worker {_instanceId,2} | ");
         }
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken) => Task.Run(async () =>
         {
-
             while (!stoppingToken.IsCancellationRequested)
             {
+                await Task.Delay(100);
+                var result = await _jobRepository.GetJobAsync();
+                if (result == null)
+                {
+                    continue;
+                }
+                
+                _logger.Debug("Got one! {a} {b} {c}", result.Data, result.Priority, result.Type);
 
-                //var thing = await 
                 // TODO:
-                // - request job from Redis
                 // - do things based on job
                 //   - reflection to find jobs?
-                await Task.Delay(5000, stoppingToken);
                 //_logger.Debug("hello");
             }
         });

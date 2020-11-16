@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 using Wowthing.Lib.Contexts;
+using Wowthing.Lib.Repositories;
 
 namespace Wowthing.Lib.Extensions
 {
@@ -33,6 +34,9 @@ namespace Wowthing.Lib.Extensions
 
             var redis = ConnectionMultiplexer.Connect(options);
             services.AddSingleton<IConnectionMultiplexer>(redis);
+
+            services.AddSingleton<JobRepository>();
+
             return redis;
         }
     }
