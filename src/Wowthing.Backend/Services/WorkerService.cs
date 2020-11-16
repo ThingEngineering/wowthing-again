@@ -29,7 +29,7 @@ namespace Wowthing.Backend.Services
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                await Task.Delay(100);
+                await Task.Delay(500);
                 var result = await _jobRepository.GetJobAsync();
                 if (result == null)
                 {
