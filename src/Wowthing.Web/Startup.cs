@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -68,7 +69,8 @@ namespace Wowthing.Web
             {
                 services.Configure<ForwardedHeadersOptions>(options =>
                 {
-                    options.ForwardedForHeaderName = "CF-Connecting-IP";
+                    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+                    //options.ForwardedForHeaderName = "CF-Connecting-IP";
                 });
             }
         }
