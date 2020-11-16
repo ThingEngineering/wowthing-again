@@ -37,13 +37,6 @@ spec:
           env:
             - name: ASPNETCORE_ENVIRONMENT
               value: "Production"
-          #  - name: ConnectionStrings__Database_Web
-          #    valueFrom:
-          #      secretKeyRef:
-          #        name: secrets
-          #        key: postgres
-          #  - name: ConnectionStrings__Redis
-          #    valueFrom:
-          #      secretKeyRef:
-          #        name: secrets
-          #        key: redis
+          envFrom:
+            - secretRef:
+                name: wowthing-again
