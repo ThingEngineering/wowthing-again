@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30330.147
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wowthing.Web", "src\Wowthing.Web\Wowthing.Web.csproj", "{4054020D-540C-4016-B305-75E372CCEFEA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WoWthing.Lib", "src\Wowthing.Lib\WoWthing.Lib.csproj", "{C300116D-A6B0-4746-9A91-69764774962F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wowthing.Lib", "src\Wowthing.Lib\Wowthing.Lib.csproj", "{C300116D-A6B0-4746-9A91-69764774962F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{10E37C5C-C824-4C52-B56B-A94CA2BC69A4}"
 	ProjectSection(SolutionItems) = preProject
