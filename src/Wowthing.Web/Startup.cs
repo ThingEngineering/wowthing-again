@@ -62,6 +62,15 @@ namespace Wowthing.Web
             var redis = services.AddRedis(Configuration.GetConnectionString("Redis"));
             services.AddDataProtection()
                 .PersistKeysToStackExchangeRedis(redis);
+
+            // Forwarded headers in production
+            if (Env.IsProduction())
+            {
+                services.Configure<ForwardedHeadersOptions>(options =>
+                {
+                    options.ForwardedForHeaderName = "CF-Connecting-IP";
+                });
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -77,6 +86,7 @@ namespace Wowthing.Web
             else
             {
                 app.UseExceptionHandler("/Error");
+                app.UseForwardedHeaders();
                 app.UseStaticFilesWithCaching();
             }
 
