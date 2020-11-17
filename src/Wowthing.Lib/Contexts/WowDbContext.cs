@@ -9,7 +9,7 @@ using Wowthing.Lib.Models;
 
 namespace Wowthing.Lib.Contexts
 {
-    public class WowDbContext : IdentityDbContext<ApplicationUser>
+    public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long>, long>
     {
         private readonly string _connectionString;
 
@@ -37,12 +37,12 @@ namespace Wowthing.Lib.Contexts
             base.OnModelCreating(builder);
 
             builder.Entity<ApplicationUser>().ToTable("asp_net_users");
-            builder.Entity<IdentityUserToken<string>>().ToTable("asp_net_user_tokens");
-            builder.Entity<IdentityUserLogin<string>>().ToTable("asp_net_user_logins");
-            builder.Entity<IdentityUserClaim<string>>().ToTable("asp_net_user_claims");
+            builder.Entity<IdentityUserToken<long>>().ToTable("asp_net_user_tokens");
+            builder.Entity<IdentityUserLogin<long>>().ToTable("asp_net_user_logins");
+            builder.Entity<IdentityUserClaim<long>>().ToTable("asp_net_user_claims");
             builder.Entity<IdentityRole>().ToTable("asp_net_roles");
-            builder.Entity<IdentityUserRole<string>>().ToTable("asp_net_user_roles");
-            builder.Entity<IdentityRoleClaim<string>>().ToTable("asp_net_role_claims");
+            builder.Entity<IdentityUserRole<long>>().ToTable("asp_net_user_roles");
+            builder.Entity<IdentityRoleClaim<long>>().ToTable("asp_net_role_claims");
         }
 
         public NpgsqlConnection GetConnection() => (NpgsqlConnection)Database.GetDbConnection();

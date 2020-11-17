@@ -66,7 +66,7 @@ namespace Wowthing.Web.Controllers
                 _logger.LogDebug($"Token! Name: {token.Name} | Value: {token.Value}");
             }
 
-            string userId = loginInfo.Principal.FindFirstValue(ClaimTypes.NameIdentifier);
+            long userId = long.Parse(loginInfo.Principal.FindFirstValue(ClaimTypes.NameIdentifier));
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
             {
@@ -103,7 +103,7 @@ namespace Wowthing.Web.Controllers
             await _signInManager.UpdateExternalAuthenticationTokensAsync(loginInfo);
 
             // Queue a job
-            await _jobRepository.AddJobAsync(JobType.UserCharacters, user.Id, JobPriority.High);
+            await _jobRepository.AddJobAsync(JobPriority.High, JobType.UserCharacters, user.Id.ToString());
 
             return Redirect(returnUrl ?? "/");
         }

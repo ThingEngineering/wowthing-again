@@ -26,6 +26,32 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("ConcurrencyStamp")
+                        .HasColumnName("concurrency_stamp")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnName("name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("NormalizedName")
+                        .HasColumnName("normalized_name")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id")
+                        .HasName("pk_identity_role");
+
+                    b.ToTable("asp_net_roles");
+                });
+
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<long>", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id")
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnName("concurrency_stamp")
                         .HasColumnType("text");
@@ -47,10 +73,10 @@ namespace Wowthing.Lib.Migrations
                         .IsUnique()
                         .HasName("RoleNameIndex");
 
-                    b.ToTable("asp_net_roles");
+                    b.ToTable("AspNetRoles");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<long>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -66,10 +92,9 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnName("claim_value")
                         .HasColumnType("text");
 
-                    b.Property<string>("RoleId")
-                        .IsRequired()
+                    b.Property<long>("RoleId")
                         .HasColumnName("role_id")
-                        .HasColumnType("text");
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id")
                         .HasName("pk_role_claims");
@@ -80,7 +105,7 @@ namespace Wowthing.Lib.Migrations
                     b.ToTable("asp_net_role_claims");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<long>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -96,10 +121,9 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnName("claim_value")
                         .HasColumnType("text");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
+                    b.Property<long>("UserId")
                         .HasColumnName("user_id")
-                        .HasColumnType("text");
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id")
                         .HasName("pk_user_claims");
@@ -110,7 +134,7 @@ namespace Wowthing.Lib.Migrations
                     b.ToTable("asp_net_user_claims");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<long>", b =>
                 {
                     b.Property<string>("LoginProvider")
                         .HasColumnName("login_provider")
@@ -124,10 +148,9 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnName("provider_display_name")
                         .HasColumnType("text");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
+                    b.Property<long>("UserId")
                         .HasColumnName("user_id")
-                        .HasColumnType("text");
+                        .HasColumnType("bigint");
 
                     b.HasKey("LoginProvider", "ProviderKey")
                         .HasName("pk_user_logins");
@@ -138,15 +161,15 @@ namespace Wowthing.Lib.Migrations
                     b.ToTable("asp_net_user_logins");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<long>", b =>
                 {
-                    b.Property<string>("UserId")
+                    b.Property<long>("UserId")
                         .HasColumnName("user_id")
-                        .HasColumnType("text");
+                        .HasColumnType("bigint");
 
-                    b.Property<string>("RoleId")
+                    b.Property<long>("RoleId")
                         .HasColumnName("role_id")
-                        .HasColumnType("text");
+                        .HasColumnType("bigint");
 
                     b.HasKey("UserId", "RoleId")
                         .HasName("pk_user_roles");
@@ -157,11 +180,11 @@ namespace Wowthing.Lib.Migrations
                     b.ToTable("asp_net_user_roles");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<long>", b =>
                 {
-                    b.Property<string>("UserId")
+                    b.Property<long>("UserId")
                         .HasColumnName("user_id")
-                        .HasColumnType("text");
+                        .HasColumnType("bigint");
 
                     b.Property<string>("LoginProvider")
                         .HasColumnName("login_provider")
@@ -183,9 +206,11 @@ namespace Wowthing.Lib.Migrations
 
             modelBuilder.Entity("Wowthing.Lib.Models.ApplicationUser", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnName("id")
-                        .HasColumnType("text");
+                        .HasColumnType("bigint")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnName("access_failed_count")
@@ -261,17 +286,17 @@ namespace Wowthing.Lib.Migrations
                     b.ToTable("asp_net_users");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<long>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<long>", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .HasConstraintName("fk_role_claims_asp_net_roles_identity_role_id")
+                        .HasConstraintName("fk_role_claims_asp_net_roles_identity_role_long_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<long>", b =>
                 {
                     b.HasOne("Wowthing.Lib.Models.ApplicationUser", null)
                         .WithMany()
@@ -281,7 +306,7 @@ namespace Wowthing.Lib.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<long>", b =>
                 {
                     b.HasOne("Wowthing.Lib.Models.ApplicationUser", null)
                         .WithMany()
@@ -291,12 +316,12 @@ namespace Wowthing.Lib.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<long>", b =>
                 {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<long>", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .HasConstraintName("fk_user_roles_asp_net_roles_identity_role_id")
+                        .HasConstraintName("fk_user_roles_asp_net_roles_identity_role_long_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -308,7 +333,7 @@ namespace Wowthing.Lib.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
+            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<long>", b =>
                 {
                     b.HasOne("Wowthing.Lib.Models.ApplicationUser", null)
                         .WithMany()
