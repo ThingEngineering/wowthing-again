@@ -6,7 +6,7 @@ namespace Wowthing.Lib.Jobs
 {
     public enum JobType
     {
-        AllCharacters = 1,
+        UserCharacters = 1,
         Character,
     }
 }
