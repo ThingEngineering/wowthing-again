@@ -12,7 +12,7 @@ namespace Wowthing.Web.Extensions
     {
         public static async Task<ApplicationUser> FindByIdAsync(this UserManager<ApplicationUser> manager, long id)
         {
-            return await manager.Users.Where(u => u.Id == id).FirstAsync();
+            return await manager.Users.Where(u => u.Id == id).FirstOrDefaultAsync();
         }
     }
 }

@@ -44,7 +44,7 @@ namespace Wowthing.Web
 
             services.AddPostgres(Configuration.GetConnectionString("Postgres"));
 
-            services.AddIdentityCore<ApplicationUser>()
+            services.AddIdentity<ApplicationUser, IdentityRole<long>>()
                 .AddEntityFrameworkStores<WowDbContext>();
 
             services.AddAuthentication()
