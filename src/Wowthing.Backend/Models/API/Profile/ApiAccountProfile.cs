@@ -14,13 +14,13 @@ namespace Wowthing.Backend.Models.API.Profile
 
         public class Account
         {
-            public long ID { get; set; }
+            public long Id { get; set; }
 
             public List<Character> Characters { get; set; }
 
             public class Character
             {
-                public long ID { get; set; }
+                public long Id { get; set; }
                 public string Name { get; set; }
                 public int Level { get; set; }
                 public Realm Realm { get; set; }
@@ -34,17 +34,17 @@ namespace Wowthing.Backend.Models.API.Profile
 
             public class Realm
             {
-                public int ID { get; set; }
+                public int Id { get; set; }
             }
 
             public class PlayableClass
             {
-                public int ID { get; set; }
+                public int Id { get; set; }
             }
 
             public class PlayableRace
             {
-                public int ID { get; set; }
+                public int Id { get; set; }
             }
         }
     }

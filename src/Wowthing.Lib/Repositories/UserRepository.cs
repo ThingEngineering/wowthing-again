@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Wowthing.Lib.Contexts;
+using Wowthing.Lib.Models;
 
 namespace Wowthing.Lib.Repositories
 {
@@ -23,6 +24,22 @@ namespace Wowthing.Lib.Repositories
                 .Where(t => t.UserId == userId && t.LoginProvider == "BattleNet" && t.Name == "access_token")
                 .Select(t => t.Value)
                 .FirstOrDefaultAsync();
+        }
+
+        public async Task<List<WowAccount>> GetWowAccountsByUserId(long userId)
+        {
+            return await _context.WowAccount
+                .Where(a => a.UserId == userId)
+                .ToListAsync();
+        }
+
+        public async Task AddWowAccounts(List<WowAccount> accounts)
+        {
+            if (accounts.Count > 0)
+            {
+                _context.WowAccount.AddRange(accounts);
+                await _context.SaveChangesAsync();
+            }
         }
     }
 }
