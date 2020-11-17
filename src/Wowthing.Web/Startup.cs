@@ -85,8 +85,6 @@ namespace Wowthing.Web
         {
             dbContext.Database.Migrate();
 
-            //app.UseCookiePolicy();
-
             if (Env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -98,6 +96,8 @@ namespace Wowthing.Web
                 app.UseForwardedHeaders();
                 app.UseStaticFilesWithCaching();
             }
+
+            app.UseStatusCodePagesWithReExecute("/error", "?statusCode={0}");
 
             app.UseResponseCompression();
 

@@ -1,0 +1,16 @@
+@model ErrorViewModel
+@{
+    ViewData["Title"] = "Not Found";
+}
+
+<div class="error">
+    <h1>404 Not Found</h1>
+    <p>The specified URL does not exist: @Model.OriginalURL</p>
+
+@if (Model.ShowRequestId)
+{
+    <p>
+        ID: <code>@Model.RequestId</code>
+    </p>
+}
+</div>

@@ -1,0 +1,16 @@
+@model ErrorViewModel
+@{
+    ViewData["Title"] = "Forbidden";
+}
+
+<div class="error">
+    <h1>403 Forbidden</h1>
+    <p>Access denied to URL: @Model.OriginalURL</p>
+
+@if (Model.ShowRequestId)
+{
+    <p>
+        ID: <code>@Model.RequestId</code>
+    </p>
+}
+</div>
