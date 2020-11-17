@@ -8,7 +8,7 @@ namespace Wowthing.Web.Controllers
 {
     public class UserController : Controller
     {
-        [HttpGet("u/{username:minlength(4)}")]
+        [HttpGet("user/{username:minlength(4)}")]
         public IActionResult Index()
         {
             return NotFound();
