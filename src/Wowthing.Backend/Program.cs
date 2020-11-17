@@ -60,6 +60,8 @@ namespace Wowthing.Backend
 
         private static void ConfigureServices(HostBuilderContext hostContext, IServiceCollection services)
         {
+            services.AddSingleton<StateService>();
+
             // Databases
             services.AddPostgres(Configuration.GetConnectionString("Postgres"));
             services.AddRedis(Configuration.GetConnectionString("Redis"));

@@ -25,7 +25,7 @@ namespace Wowthing.Lib.Repositories
                 .ToArray();
         }
 
-        public async Task AddJobAsync(JobType type, string data, JobPriority priority = JobPriority.Low)
+        public async Task AddJobAsync(JobPriority priority, JobType type, params string[] data)
         {
             var database = _redis.GetDatabase();
 
@@ -33,7 +33,6 @@ namespace Wowthing.Lib.Repositories
             {
                 Type = type,
                 Data = data,
-                Priority = priority,
             };
             await database.ListRightPushAsync(priority.GetQueueName(), JsonSerializer.Serialize(job));
         }

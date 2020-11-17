@@ -1,9 +1,11 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,18 +15,22 @@ using Wowthing.Lib.Repositories;
 
 namespace Wowthing.Backend.Services
 {
-    class WorkerService : BackgroundService
+    public class WorkerService : BackgroundService
     {
         private static int _instanceCount;
-        private static Dictionary<JobType, Type> _jobTypeToClass = new Dictionary<JobType, Type>();
+        private static readonly Dictionary<JobType, Type> _jobTypeToClass = new Dictionary<JobType, Type>();
 
         private readonly int _instanceId;
         private readonly HttpClient _http;
         private readonly ILogger _logger;
+        private readonly IServiceProvider _services;
         private readonly JobRepository _jobRepository;
+        private readonly StateService _stateService;
 
-        public WorkerService(JobRepository jobRepository)
+        public WorkerService(IServiceProvider services, StateService stateService, JobRepository jobRepository)
         {
+            _services = services;
+            _stateService = stateService;
             _jobRepository = jobRepository;
 
             _instanceId = Interlocked.Increment(ref _instanceCount);
@@ -41,7 +47,7 @@ namespace Wowthing.Backend.Services
                 .ToArray();
             foreach (var jobType in jobTypes)
             {
-                var typeName = jobType.Name.Substring(0, jobType.Name.Length - 3);
+                var typeName = jobType.Name[0..^3];
                 _jobTypeToClass[Enum.Parse<JobType>(typeName)] = jobType;
             }
         }
@@ -51,6 +57,12 @@ namespace Wowthing.Backend.Services
             while (!stoppingToken.IsCancellationRequested)
             {
                 await Task.Delay(500);
+                if (_stateService.AccessToken?.RefreshRequired != false)
+                {
+                    _logger.Debug("Waiting for auth service to be ready");
+                    continue;
+                }
+
                 var result = await _jobRepository.GetJobAsync();
                 if (result == null)
                 {
@@ -59,8 +71,21 @@ namespace Wowthing.Backend.Services
                 
                 _logger.Debug("Got one! {@result}", result);
 
-                var job = (IWorkerJob)Activator.CreateInstance(_jobTypeToClass[result.Type], _http, _logger, result.Data);
-                await job.Run();
+                using (var scope = _services.CreateScope())
+                {
+                    var userRepository = scope.ServiceProvider.GetRequiredService<UserRepository>();
+
+                    _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _stateService.AccessToken.AccessToken);
+                    var job = (IJob)Activator.CreateInstance(_jobTypeToClass[result.Type], _http, _logger, userRepository);
+                    try
+                    {
+                        await job.Run(result.Data);
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.Error(ex, "Job failed");
+                    }
+                }
 
                 // TODO:
                 // - do things based on job

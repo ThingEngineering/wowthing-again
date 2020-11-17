@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace Wowthing.Backend.Jobs
 {
-    public interface IWorkerJob
+    public interface IJob
     {
-        Task Run();
+        Task Run(params string[] data);
     }
 }

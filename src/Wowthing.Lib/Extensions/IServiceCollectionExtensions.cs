@@ -22,7 +22,7 @@ namespace Wowthing.Lib.Extensions
 #endif
             });
 
-            //services.AddScoped<IRepo, Repo>();
+            services.AddScoped<UserRepository>();
 
             return services;
         }
