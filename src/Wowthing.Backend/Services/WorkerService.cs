@@ -71,26 +71,18 @@ namespace Wowthing.Backend.Services
                 
                 _logger.Debug("Got one! {@result}", result);
 
-                using (var scope = _services.CreateScope())
+                using var scope = _services.CreateScope();
+
+                var job = (IJob)Activator.CreateInstance(_jobTypeToClass[result.Type], _http, _logger, scope);
+
+                try
                 {
-                    var userRepository = scope.ServiceProvider.GetRequiredService<UserRepository>();
-
-                    _http.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _stateService.AccessToken.AccessToken);
-                    var job = (IJob)Activator.CreateInstance(_jobTypeToClass[result.Type], _http, _logger, userRepository);
-                    try
-                    {
-                        await job.Run(result.Data);
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.Error(ex, "Job failed");
-                    }
+                    await job.Run(result.Data);
                 }
-
-                // TODO:
-                // - do things based on job
-                //   - reflection to find jobs?
-                //_logger.Debug("hello");
+                catch (Exception ex)
+                {
+                    _logger.Error(ex, "Job failed");
+                }
             }
         });
     }
