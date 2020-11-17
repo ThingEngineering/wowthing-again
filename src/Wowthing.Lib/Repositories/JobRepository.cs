@@ -25,21 +25,23 @@ namespace Wowthing.Lib.Repositories
                 .ToArray();
         }
 
-        public async void AddJobAsync(JobType type, string data, JobPriority priority = JobPriority.Low)
+        public async Task AddJobAsync(JobType type, string data, JobPriority priority = JobPriority.Low)
         {
+            var database = _redis.GetDatabase();
+
             var job = new WorkerJob
             {
                 Type = type,
                 Data = data,
                 Priority = priority,
             };
-            var database = _redis.GetDatabase();
-            await database.JsonSetAsync(priority.GetQueueName(), job);
+            await database.ListRightPushAsync(priority.GetQueueName(), JsonSerializer.Serialize(job));
         }
 
         public async Task<WorkerJob> GetJobAsync()
         {
             var database = _redis.GetDatabase();
+
             foreach (var queueName in _queues)
             {
                 var result = await database.ListLeftPopAsync(queueName);
