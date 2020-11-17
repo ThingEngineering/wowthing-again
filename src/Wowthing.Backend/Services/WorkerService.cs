@@ -36,7 +36,7 @@ namespace Wowthing.Backend.Services
                     continue;
                 }
                 
-                _logger.Debug("Got one! {a} {b} {c}", result.Data, result.Priority, result.Type);
+                _logger.Debug("Got one! {@result}", result);
 
                 // TODO:
                 // - do things based on job
