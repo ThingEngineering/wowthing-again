@@ -26,6 +26,13 @@ namespace Wowthing.Lib.Repositories
                 .FirstOrDefaultAsync();
         }
 
+        public async Task<List<WowAccount>> GetAccountsByIds(IEnumerable<long> ids)
+        {
+            return await _context.WowAccount
+                .Where(a => ids.Contains(a.Id))
+                .ToListAsync();
+        }
+
         public async Task<List<WowAccount>> GetAccountsByUserId(long userId)
         {
             return await _context.WowAccount

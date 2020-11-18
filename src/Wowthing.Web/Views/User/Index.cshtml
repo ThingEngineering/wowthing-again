@@ -1,5 +1,21 @@
-﻿@{
-    ViewData["Title"] = "???";
+﻿@model UserViewModel
+@{
+    ViewData["Title"] = Model.User.UserName;
 }
 
-<div id="app"></div>
+<div id="app">
+    <!-- jank town -->
+    <table>
+        @foreach (var character in Model.Characters.OrderByDescending(c => c.Level).ThenBy(c => c.Name))
+        {
+            <tr>
+                <td>@character.Gender</td>
+                <td>@character.RaceId</td>
+                <td>@character.ClassId</td>
+                <td>@character.Name</td>
+                <td>@character.RealmId</td>
+                <td>@character.Level</td>
+            </tr>
+        }
+    </table>
+</div>
