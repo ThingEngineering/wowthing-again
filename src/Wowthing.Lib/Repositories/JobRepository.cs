@@ -52,5 +52,29 @@ namespace Wowthing.Lib.Repositories
 
             return null;
         }
+
+        public async Task<bool> TestCheckTime(string thing, TimeSpan maximumAge)
+        {
+            var db = _redis.GetDatabase();
+            string key = $"check:{thing}";
+            bool set;
+
+            var value = await db.StringGetAsync(key);
+            if (value.IsNullOrEmpty)
+            {
+                set = true;
+            }
+            else
+            {
+                var dto = DateTimeOffset.Parse(value.ToString());
+                set = (DateTimeOffset.Now - dto) >= maximumAge;
+            }
+
+            if (set)
+            {
+                await db.StringSetAsync(key, DateTimeOffset.Now.ToString("O"));
+            }
+            return set;
+        }
     }
 }

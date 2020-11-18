@@ -8,5 +8,11 @@ namespace Wowthing.Backend.Models.API
     {
         public string Type { get; set; }
         public string Name { get; set; }
+
+        public TEnum EnumParse<TEnum>()
+            where TEnum : struct, Enum
+        {
+            return Enum.Parse<TEnum>(Name, true);
+        }
     }
 }

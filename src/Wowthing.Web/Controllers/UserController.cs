@@ -13,11 +13,13 @@ namespace Wowthing.Web.Controllers
     public class UserController : Controller
     {
         private readonly CharacterRepository _characterRepository;
+        private readonly DataRepository _dataRepository;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public UserController(CharacterRepository characterRepository, UserManager<ApplicationUser> userManager)
+        public UserController(CharacterRepository characterRepository, DataRepository dataRepository, UserManager<ApplicationUser> userManager)
         {
             _characterRepository = characterRepository;
+            _dataRepository = dataRepository;
             _userManager = userManager;
         }
 
@@ -33,8 +35,9 @@ namespace Wowthing.Web.Controllers
             // J a n k
             var characters = (await _characterRepository.GetCharactersByUserId(user.Id))
                 .Where(c => c.Level >= 10).ToList();
+            var races = (await _dataRepository.GetAllRaces()).ToDictionary(k => k.Id);
 
-            return View(new UserViewModel(user, characters));
+            return View(new UserViewModel(user, characters, races));
         }
     }
 }

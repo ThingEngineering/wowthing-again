@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
@@ -9,9 +10,10 @@ using Wowthing.Lib.Contexts;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    partial class WowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201118055140_Add_WowCharacter_Faction")]
+    partial class Add_WowCharacter_Faction
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -374,30 +376,6 @@ namespace Wowthing.Lib.Migrations
                         .HasName("ix_wow_character_account_id");
 
                     b.ToTable("wow_character");
-                });
-
-            modelBuilder.Entity("Wowthing.Lib.Models.WowRace", b =>
-                {
-                    b.Property<int>("Id")
-                        .HasColumnName("id")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("IconFemale")
-                        .HasColumnName("icon_female")
-                        .HasColumnType("text");
-
-                    b.Property<string>("IconMale")
-                        .HasColumnName("icon_male")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .HasColumnName("name")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id")
-                        .HasName("pk_wow_race");
-
-                    b.ToTable("wow_race");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<long>", b =>

@@ -6,7 +6,10 @@ namespace Wowthing.Lib.Jobs
 {
     public enum JobType
     {
-        UserCharacters = 1,
-        Character,
+        UserCharacters = 0,
+
+        Character = 100,
+        
+        DataPlayableRaces = 200,
     }
 }

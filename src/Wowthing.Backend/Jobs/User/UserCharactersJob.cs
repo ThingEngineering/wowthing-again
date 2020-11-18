@@ -95,7 +95,8 @@ namespace Wowthing.Backend.Jobs
                                 Level = character.Level,
                                 RaceId = character.Race.Id,
                                 RealmId = character.Realm.Id,
-                                Gender = Enum.Parse<WowGender>(character.Gender.Name, true),
+                                Faction = character.Faction.EnumParse<WowFaction>(),
+                                Gender = character.Gender.EnumParse<WowGender>(),
                                 Name = character.Name,
                                 LastModified = DateTime.MinValue,
                             });

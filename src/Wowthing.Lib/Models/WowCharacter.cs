@@ -21,6 +21,7 @@ namespace Wowthing.Lib.Models
         public int Level { get; set; }
         public int RaceId { get; set; }
         public int RealmId { get; set; }
+        public WowFaction Faction { get; set; }
         public WowGender Gender { get; set; }
         
         public string Name { get; set; }

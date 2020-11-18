@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
+using StackExchange.Redis;
 using Wowthing.Backend.Extensions;
 using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Services;
@@ -22,12 +23,13 @@ namespace Wowthing.Backend.Jobs
 {
     public abstract class JobBase : IJob
     {
+        private const string API_URL = "https://{0}.api.blizzard.com/{1}";
+
         protected readonly HttpClient _http;
         protected readonly ILogger _logger;
+
         private readonly IServiceScope _serviceScope;
         private readonly StateService _stateService;
-
-        private const string API_URL = "https://{0}.api.blizzard.com/{1}";
 
         private static readonly Dictionary<ApiNamespace, string> _namespaceToString = EnumUtilities.GetValues<ApiNamespace>()
             .ToDictionary(k => k, v => v.ToString().ToLowerInvariant());

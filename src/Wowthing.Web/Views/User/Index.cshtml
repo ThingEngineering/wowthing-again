@@ -9,8 +9,9 @@
         @foreach (var character in Model.Characters.OrderByDescending(c => c.Level).ThenBy(c => c.Name))
         {
             <tr>
-                <td>@character.Gender</td>
-                <td>@character.RaceId</td>
+                <td>
+                    <img src="https://img.wowthing.org/@(Model.GetRaceIcon(character.Gender, character.RaceId)).png" alt="@character.Gender @character.RaceId" height="20" width="20" />
+                </td>
                 <td>@character.ClassId</td>
                 <td>@character.Name</td>
                 <td>@character.RealmId</td>
