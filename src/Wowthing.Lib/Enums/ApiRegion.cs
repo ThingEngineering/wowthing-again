@@ -6,9 +6,9 @@ namespace Wowthing.Lib.Enums
 {
     public enum ApiRegion
     {
-        US,
-        EU,
+        US = 1,
         KR,
+        EU,
         TW,
     }
 }
