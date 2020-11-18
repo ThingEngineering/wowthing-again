@@ -289,10 +289,8 @@ namespace Wowthing.Lib.Migrations
             modelBuilder.Entity("Wowthing.Lib.Models.WowAccount", b =>
                 {
                     b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnName("id")
-                        .HasColumnType("bigint")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Name")
                         .HasColumnName("name")
@@ -313,6 +311,65 @@ namespace Wowthing.Lib.Migrations
                         .HasName("ix_wow_account_user_id");
 
                     b.ToTable("wow_account");
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.WowCharacter", b =>
+                {
+                    b.Property<long>("Id")
+                        .HasColumnName("id")
+                        .HasColumnType("bigint");
+
+                    b.Property<long?>("AccountId")
+                        .HasColumnName("account_id")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("ActiveTitleId")
+                        .HasColumnName("active_title_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ClassId")
+                        .HasColumnName("class_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Experience")
+                        .HasColumnName("experience")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Gender")
+                        .HasColumnName("gender")
+                        .HasColumnType("integer");
+
+                    b.Property<long>("GuildId")
+                        .HasColumnName("guild_id")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("LastModified")
+                        .HasColumnName("last_modified")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<int>("Level")
+                        .HasColumnName("level")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .HasColumnName("name")
+                        .HasColumnType("text");
+
+                    b.Property<int>("RaceId")
+                        .HasColumnName("race_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("RealmId")
+                        .HasColumnName("realm_id")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id")
+                        .HasName("pk_wow_character");
+
+                    b.HasIndex("AccountId")
+                        .HasName("ix_wow_character_account_id");
+
+                    b.ToTable("wow_character");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<long>", b =>
@@ -380,6 +437,15 @@ namespace Wowthing.Lib.Migrations
                         .HasConstraintName("fk_wow_account_users_user_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.WowCharacter", b =>
+                {
+                    b.HasOne("Wowthing.Lib.Models.WowAccount", "Account")
+                        .WithMany("Characters")
+                        .HasForeignKey("AccountId")
+                        .HasConstraintName("fk_wow_character_wow_account_account_id")
+                        .OnDelete(DeleteBehavior.SetNull);
                 });
 #pragma warning restore 612, 618
         }

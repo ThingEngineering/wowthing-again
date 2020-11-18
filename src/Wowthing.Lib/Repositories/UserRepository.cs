@@ -26,20 +26,22 @@ namespace Wowthing.Lib.Repositories
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<List<WowAccount>> GetWowAccountsByUserId(long userId)
+        public async Task<List<WowAccount>> GetAccountsByUserId(long userId)
         {
             return await _context.WowAccount
                 .Where(a => a.UserId == userId)
                 .ToListAsync();
         }
 
-        public async Task AddWowAccounts(List<WowAccount> accounts)
+        public async Task AddAccounts(IEnumerable<WowAccount> accounts)
         {
-            if (accounts.Count > 0)
+            if (accounts.Count() == 0)
             {
-                _context.WowAccount.AddRange(accounts);
-                await _context.SaveChangesAsync();
+                return;
             }
+
+            _context.WowAccount.AddRange(accounts);
+            await _context.SaveChangesAsync();
         }
     }
 }

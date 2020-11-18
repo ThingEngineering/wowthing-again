@@ -9,6 +9,7 @@ namespace Wowthing.Lib.Models
 {
     public class WowAccount
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Key]
         public long Id { get; set; }
 
@@ -18,5 +19,7 @@ namespace Wowthing.Lib.Models
 
         [ForeignKey("UserId")]
         public ApplicationUser User { get; set; }
+
+        public List<WowCharacter> Characters { get; set; }
     }
 }

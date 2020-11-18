@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Wowthing.Lib.Enums
 {
-    public enum WowGender : byte
+    public enum WowGender
     {
         Female,
         Male,

@@ -73,10 +73,9 @@ namespace Wowthing.Backend.Services
 
                 using var scope = _services.CreateScope();
 
-                var job = (IJob)Activator.CreateInstance(_jobTypeToClass[result.Type], _http, _logger, scope);
-
                 try
                 {
+                    var job = (IJob)Activator.CreateInstance(_jobTypeToClass[result.Type], _http, _logger, scope);
                     await job.Run(result.Data);
                 }
                 catch (Exception ex)

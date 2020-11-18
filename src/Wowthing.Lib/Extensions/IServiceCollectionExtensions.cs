@@ -22,6 +22,7 @@ namespace Wowthing.Lib.Extensions
 #endif
             });
 
+            services.AddScoped<CharacterRepository>();
             services.AddScoped<UserRepository>();
 
             return services;
