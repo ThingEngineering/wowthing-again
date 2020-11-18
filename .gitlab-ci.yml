@@ -16,6 +16,7 @@ stages:
 
 # Wowthing.Backend
 .backend-only:
+  environment: production/backend
   only:
     changes:
       - src/Wowthing.Backend/**/*
@@ -39,6 +40,7 @@ backend-deploy:
 
 # Wowthing.Web
 .web-only:
+  environment: production/web
   only:
     changes:
       - src/Wowthing.Web/**/*
