@@ -29,8 +29,13 @@ backend-build:
     DOCKER_FILE: src/Wowthing.Backend/Dockerfile
     IMAGE_NAME: backend
 
-#backend-deploy:
-#  extends: .deploy
+backend-deploy:
+  extends:
+    - .deploy
+    - .backend-only
+  needs: ["backend-build"]
+  variables:
+    DEPLOYMENT_FILE: _magic/deployment-backend.yml
 
 # Wowthing.Web
 .web-only:
