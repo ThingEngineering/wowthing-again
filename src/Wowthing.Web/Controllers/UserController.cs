@@ -24,7 +24,7 @@ namespace Wowthing.Web.Controllers
         }
 
         [HttpGet("user/{username:minlength(4)}")]
-        public async Task<IActionResult> Index(string username)
+        public async Task<IActionResult> Index([FromRoute] string username)
         {
             var user = await _userManager.FindByNameAsync(username);
             if (user == null)
@@ -32,7 +32,10 @@ namespace Wowthing.Web.Controllers
                 return NotFound();
             }
 
-            // J a n k
+            // TODO checks:
+            //      - user == logged in user? all data
+            //      - user != logged in user? limited data (min level, etc)
+            //        - check anonymize data setting
             var characters = await _context.UserCharacter.Where(c => c.Account.UserId == user.Id && c.Level >= 10).ToListAsync();
 
             return View(new UserViewModel(user, characters, new Dictionary<int, WowRace>()));
