@@ -5,20 +5,24 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using StackExchange.Redis;
 using Wowthing.Backend.Jobs;
-using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Repositories;
 
 namespace Wowthing.Backend.Services
 {
     public sealed class SchedulerService : TimerService
     {
+        private const int TIMER_INTERVAL = 5;
+        
+        private readonly IConnectionMultiplexer _redis;
         private readonly JobRepository _jobRepository;
         private readonly List<ScheduledJob> _scheduledJobs = new List<ScheduledJob>();
 
-        public SchedulerService(JobRepository jobRepository)
-            : base("Scheduler", TimeSpan.FromSeconds(5), TimeSpan.FromSeconds(5))
+        public SchedulerService(IConnectionMultiplexer redis, JobRepository jobRepository)
+            : base("Scheduler", TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(TIMER_INTERVAL))
         {
+            _redis = redis;
             _jobRepository = jobRepository;
 
             // Schedule jobs for all IScheduledJob implementers
@@ -35,22 +39,32 @@ namespace Wowthing.Backend.Services
 
         protected override async void TimerCallback(object state)
         {
-            // TODO attempt to get scheduler lock - Redis SET NX EX something?
-            //      Return if not our turn to schedule
+            // Attempt to get exclusive scheduler lock
+            var lockValue = new Guid().ToString("N");
+            var lockSuccess = await _jobRepository.AcquireLockAsync("scheduler", lockValue, TimeSpan.FromSeconds(TIMER_INTERVAL - 1));
+            if (!lockSuccess)
+            {
+                _logger.Debug("Skipping scheduler, lock failed");
+                return;
+            }
 
             // Scheduled jobs run on an interval, see if any need to be started
             foreach (var scheduledJob in _scheduledJobs)
             {
-                if (await _jobRepository.TestCheckTime(scheduledJob.Type.ToString(), scheduledJob.Interval))
+                if (await _jobRepository.CheckLastTime("scheduled_job", scheduledJob.Type.ToString(), scheduledJob.Interval))
                 {
-                    _logger.Information("Scheduled task {0} starting", scheduledJob.Type.ToString());
+                    _logger.Information("Queueing scheduled task {0}", scheduledJob.Type.ToString());
                     await _jobRepository.AddJobAsync(scheduledJob.Priority, scheduledJob.Type);
                 }
             }
 
-            // Schedule jobs:
+            // TODO other jobs:
             // - execute some sort of nasty database query to get characters that need checking
             // - queue jobs for each character
+            // - store API checked time in redis or database?
+
+            // Release exclusive scheduler lock
+            await _jobRepository.ReleaseLockAsync("scheduler", lockValue);
         }
     }
 }

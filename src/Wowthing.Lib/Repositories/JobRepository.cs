@@ -53,10 +53,10 @@ namespace Wowthing.Lib.Repositories
             return null;
         }
 
-        public async Task<bool> TestCheckTime(string thing, TimeSpan maximumAge)
+        public async Task<bool> CheckLastTime(string prefix, string suffix, TimeSpan maximumAge)
         {
             var db = _redis.GetDatabase();
-            string key = $"check:{thing}";
+            string key = $"{prefix}:{suffix}";
             bool set;
 
             var value = await db.StringGetAsync(key);
@@ -75,6 +75,27 @@ namespace Wowthing.Lib.Repositories
                 await db.StringSetAsync(key, DateTimeOffset.Now.ToString("O"));
             }
             return set;
+        }
+
+        public async Task<bool> AcquireLockAsync(string key, string value, TimeSpan expiry)
+        {
+            var db = _redis.GetDatabase();
+            return await db.StringSetAsync($"lock:{key}", value, expiry, When.NotExists);
+        }
+
+        private const string _releaseScript = @"
+if redis.call(""GET"", @key) == @value then
+    return redis.call(""DEL"", @key)
+else
+    return 0
+end
+";
+
+        public async Task ReleaseLockAsync(string key, string value)
+        {
+            var db = _redis.GetDatabase();
+            var script = LuaScript.Prepare(_releaseScript);
+            await db.ScriptEvaluateAsync(script, new { key = $"lock:{key}", value });
         }
     }
 }
