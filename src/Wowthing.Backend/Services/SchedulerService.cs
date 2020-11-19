@@ -26,6 +26,7 @@ namespace Wowthing.Backend.Services
             // TODO better way of doing this
             ScheduleTask(JobType.DataPlayableClassIndex, JobPriority.High, TimeSpan.FromDays(1));
             ScheduleTask(JobType.DataPlayableRaceIndex, JobPriority.High, TimeSpan.FromDays(1));
+            ScheduleTask(JobType.DataRealmIndex, JobPriority.High, TimeSpan.FromDays(1));
         }
 
         public void ScheduleTask(JobType jobType, JobPriority priority, TimeSpan interval)
@@ -48,6 +49,7 @@ namespace Wowthing.Backend.Services
             {
                 if (await _jobRepository.TestCheckTime(scheduledJob.Type.ToString(), scheduledJob.Interval))
                 {
+                    _logger.Information("Scheduled task {0} starting", scheduledJob.Type.ToString());
                     await _jobRepository.AddJobAsync(scheduledJob.Priority, scheduledJob.Type);
                 }
             }

@@ -13,5 +13,6 @@ namespace Wowthing.Lib.Jobs
         DataPlayableRaceIndex = 200,
         DataPlayableClassIndex,
         DataPlayableClass,
+        DataRealmIndex,
     }
 }

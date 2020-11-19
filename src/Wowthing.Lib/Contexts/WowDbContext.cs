@@ -13,10 +13,12 @@ namespace Wowthing.Lib.Contexts
     {
         private readonly string _connectionString;
 
-        public DbSet<WowAccount> WowAccount { get; set; }
-        public DbSet<WowCharacter> WowCharacter { get; set; }
         public DbSet<WowClass> WowClass { get; set; }
         public DbSet<WowRace> WowRace { get; set; }
+        public DbSet<WowRealm> WowRealm { get; set; }
+
+        public DbSet<WowAccount> WowAccount { get; set; }
+        public DbSet<WowCharacter> WowCharacter { get; set; }
 
         public WowDbContext(string connectionString)
             : base()
