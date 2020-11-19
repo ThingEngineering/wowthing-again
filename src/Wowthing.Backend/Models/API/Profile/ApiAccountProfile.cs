@@ -7,7 +7,7 @@ namespace Wowthing.Backend.Models.API.Profile
 {
     public class ApiAccountProfile
     {
-        public long ID { get; set; }
+        public long Id { get; set; }
 
         [JsonPropertyName("wow_accounts")]
         public List<ApiAccountProfileAccount> Accounts { get; set; }

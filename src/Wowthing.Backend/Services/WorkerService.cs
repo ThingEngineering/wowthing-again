@@ -81,8 +81,6 @@ namespace Wowthing.Backend.Services
                 try
                 {
                     var job = _jobFactory.Create(_jobTypeToClass[result.Type], scope);
-                    /*var job = (IJob)
-                    var job = (IJob)Activator.CreateInstance(_jobTypeToClass[result.Type], _http, _jobRepository, _logger, scope);*/
                     await job.Run(result.Data);
                 }
                 catch (Exception ex)
