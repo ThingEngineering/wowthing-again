@@ -105,7 +105,7 @@ namespace Wowthing.Web.Controllers
             // Queue a job
             await _jobRepository.AddJobAsync(JobPriority.High, JobType.UserCharacters, user.Id.ToString());
 
-            return Redirect(returnUrl ?? "/");
+            return Redirect(returnUrl ?? Url.Action("Index", "User", new { username = user.UserName }));
         }
 
         [Authorize]
