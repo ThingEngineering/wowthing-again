@@ -10,6 +10,8 @@ namespace Wowthing.Lib.Jobs
 
         Character = 100,
         
-        DataPlayableRaces = 200,
+        DataPlayableRaceIndex = 200,
+        DataPlayableClassIndex,
+        DataPlayableClass,
     }
 }

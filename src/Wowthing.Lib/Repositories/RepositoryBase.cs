@@ -10,7 +10,7 @@ namespace Wowthing.Lib.Repositories
     {
         protected readonly WowDbContext _context;
 
-        public RepositoryBase(WowDbContext context)
+        protected RepositoryBase(WowDbContext context)
         {
             _context = context;
         }

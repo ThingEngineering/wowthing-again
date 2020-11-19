@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Wowthing.Backend.Models.API.Data
 {
-    public class ApiDataPlayableRaces
+    public class ApiDataPlayableRaceIndex
     {
         public List<ApiObnoxiousObject> Races { get; set; }
     }

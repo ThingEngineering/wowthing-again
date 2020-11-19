@@ -12,6 +12,7 @@ using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.API.Profile;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Enums;
+using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Repositories;
@@ -26,7 +27,7 @@ namespace Wowthing.Backend.Jobs
         private readonly CharacterRepository _characterRepository;
         private readonly UserRepository _userRepository;
 
-        public UserCharactersJob(HttpClient http, ILogger logger, IServiceScope serviceScope) : base(http, logger, serviceScope)
+        public UserCharactersJob(IServiceScope serviceScope) : base(serviceScope)
         {
             _characterRepository = GetService<CharacterRepository>();
             _userRepository = GetService<UserRepository>();
@@ -44,16 +45,13 @@ namespace Wowthing.Backend.Jobs
 
             var path = string.Format(API_PATH, accessToken);
 
-            // Fetch existing data
-            var accountMap = (await _userRepository.GetAccountsByUserId(userId))
-                .ToDictionary(k => k.Id);
-            var characterMap = (await _characterRepository.GetCharactersByUserId(userId))
-                .ToDictionary(k => k.Id);
+            // Fetch existing accounts
+            var accountMap = await _userRepository.GetAccountsByUserId(userId)
+                .ToDictionaryAsync(k => k.Id);
 
+            // Add any new accounts
+            var apiAccounts = new List<ApiAccountProfileAccount>();
             var newAccounts = new List<WowAccount>();
-            var newCharacters = new List<WowCharacter>();
-            var seenCharacters = new HashSet<long>();
-
             foreach (var region in EnumUtilities.GetValues<ApiRegion>())
             {
                 var uri = GenerateUri(region, ApiNamespace.Profile, path);
@@ -67,6 +65,9 @@ namespace Wowthing.Backend.Jobs
 
                     foreach (ApiAccountProfileAccount account in profile.Accounts)
                     {
+                        apiAccounts.Add(account);
+
+                        // TODO handle account changing owner? is that even possible?
                         if (!accountMap.ContainsKey(account.Id))
                         {
                             newAccounts.Add(new WowAccount
@@ -76,31 +77,6 @@ namespace Wowthing.Backend.Jobs
                                 Region = region,
                             });
                             _logger.Debug("{0} new account {1}", region, account.Id);
-                        }
-
-                        foreach (ApiAccountProfileCharacter character in account.Characters)
-                        {
-                            seenCharacters.Add(character.Id);
-                            if (characterMap.ContainsKey(character.Id))
-                            {
-                                continue;
-                            }
-
-                            newCharacters.Add(new WowCharacter
-                            {
-                                Id = character.Id,
-                                AccountId = account.Id,
-                                GuildId = 0,
-                                ClassId = character.Class.Id,
-                                Level = character.Level,
-                                RaceId = character.Race.Id,
-                                RealmId = character.Realm.Id,
-                                Faction = character.Faction.EnumParse<WowFaction>(),
-                                Gender = character.Gender.EnumParse<WowGender>(),
-                                Name = character.Name,
-                                LastModified = DateTime.MinValue,
-                            });
-                            _logger.Debug("{0} new character {1}", region, character.Id);
                         }
                     }
                 }
@@ -114,10 +90,49 @@ namespace Wowthing.Backend.Jobs
                 }
             }
 
-            await _userRepository.AddAccounts(newAccounts);
-            await _characterRepository.AddCharacters(newCharacters);
+            _userRepository.AddAccounts(newAccounts);
+            await _userRepository.SaveChangesAsync();
 
-            // delete characters not seen?
+            // Fetch existing users
+            var characterIds = apiAccounts.SelectMany(a => a.Characters).Select(c => c.Id);
+            var characterMap = await _characterRepository.GetCharactersByIds(characterIds)
+                .ToDictionaryAsync(k => k.Id);
+
+            var newCharacters = new List<WowCharacter>();
+            var seenCharacters = new HashSet<long>();
+            foreach (ApiAccountProfileAccount apiAccount in apiAccounts)
+            {
+                foreach (ApiAccountProfileCharacter apiCharacter in apiAccount.Characters)
+                {
+                    seenCharacters.Add(apiCharacter.Id);
+
+                    if (!characterMap.TryGetValue(apiCharacter.Id, out WowCharacter character))
+                    {
+                        character = new WowCharacter
+                        {
+                            Id = character.Id,
+                            GuildId = 0,
+                            LastModified = DateTime.MinValue,
+                        };
+                        newCharacters.Add(character);
+                    }
+
+                    character.AccountId = apiAccount.Id;
+                    character.ClassId = apiCharacter.Class.Id;
+                    character.Level = apiCharacter.Level;
+                    character.RaceId = apiCharacter.Race.Id;
+                    character.RealmId = apiCharacter.Realm.Id;
+                    character.Faction = apiCharacter.Faction.EnumParse<WowFaction>();
+                    character.Gender = apiCharacter.Gender.EnumParse<WowGender>();
+                    character.Name = apiCharacter.Name;
+                }
+            }
+
+            _characterRepository.AddCharacters(newCharacters);
+            await _characterRepository.SaveChangesAsync();
+
+            // Orphan characters not seen
+            await _characterRepository.OrphanCharacters(apiAccounts.Select(a => a.Id), seenCharacters);
         }
     }
 }

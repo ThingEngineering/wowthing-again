@@ -9,13 +9,10 @@ using Wowthing.Lib.Models;
 
 namespace Wowthing.Lib.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : RepositoryBase, IUserRepository
     {
-        private readonly WowDbContext _context;
-
-        public UserRepository(WowDbContext context)
+        public UserRepository(WowDbContext context) : base(context)
         {
-            _context = context;
         }
 
         public async Task<string> GetAccessTokenByUserId(long userId)
@@ -26,29 +23,23 @@ namespace Wowthing.Lib.Repositories
                 .FirstOrDefaultAsync();
         }
 
-        public async Task<List<WowAccount>> GetAccountsByIds(IEnumerable<long> ids)
+        public async Task<WowAccount[]> GetAccountsByIds(IEnumerable<long> ids)
         {
             return await _context.WowAccount
                 .Where(a => ids.Contains(a.Id))
-                .ToListAsync();
+                .ToArrayAsync();
         }
 
-        public async Task<List<WowAccount>> GetAccountsByUserId(long userId)
+        public async Task<WowAccount[]> GetAccountsByUserId(long userId)
         {
             return await _context.WowAccount
                 .Where(a => a.UserId == userId)
-                .ToListAsync();
+                .ToArrayAsync();
         }
 
-        public async Task AddAccounts(IEnumerable<WowAccount> accounts)
+        public void AddAccounts(IEnumerable<WowAccount> accounts)
         {
-            if (accounts.Count() == 0)
-            {
-                return;
-            }
-
             _context.WowAccount.AddRange(accounts);
-            await _context.SaveChangesAsync();
         }
     }
 }

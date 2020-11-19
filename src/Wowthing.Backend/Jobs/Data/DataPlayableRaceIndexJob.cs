@@ -8,18 +8,22 @@ using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.API.Data;
+using Wowthing.Backend.Services;
 using Wowthing.Lib.Enums;
+using Wowthing.Lib.Extensions;
+using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Repositories;
 
 namespace Wowthing.Backend.Jobs.Data
 {
-    public class DataPlayableRacesJob : JobBase
+    public class DataPlayableRaceIndexJob : JobBase
     {
         private const string API_PATH = "data/wow/playable-race/index";
+        
         private readonly DataRepository _dataRepository;
 
-        public DataPlayableRacesJob(HttpClient http, ILogger logger, IServiceScope serviceScope) : base(http, logger, serviceScope)
+        public DataPlayableRaceIndexJob(IServiceScope serviceScope) : base(serviceScope)
         {
             _dataRepository = GetService<DataRepository>();
         }
@@ -27,36 +31,32 @@ namespace Wowthing.Backend.Jobs.Data
         public override async Task Run(params string[] data)
         {
             // Fetch existing data
-            var raceMap = (await _dataRepository.GetAllRaces())
-                .ToDictionary(k => k.Id);
+            var raceMap = await _dataRepository.GetAllRaces()
+                .ToDictionaryAsync(k => k.Id);
 
             // Fetch API data
             var uri = GenerateUri(ApiRegion.US, ApiNamespace.Static, API_PATH);
-            var result = await GetJson<ApiDataPlayableRaces>(uri);
+            var result = await GetJson<ApiDataPlayableRaceIndex>(uri);
 
             var newRaces = new List<WowRace>();
-            foreach (var race in result.Races)
+            foreach (var apiRace in result.Races)
             {
-                string baseName = race.Name.Replace(' ', '_').ToLowerInvariant();
+                string baseName = apiRace.Name.Replace(' ', '_').ToLowerInvariant();
                 string iconFemale = $"race_{baseName}_female";
                 string iconMale = $"race_{baseName}_male";
 
-                if (raceMap.TryGetValue(race.Id, out WowRace existing))
+                if (!raceMap.TryGetValue(apiRace.Id, out WowRace race))
                 {
-                    existing.Name = race.Name;
-                    existing.IconFemale = iconFemale;
-                    existing.IconMale = iconMale;
-                }
-                else
-                {
-                    newRaces.Add(new WowRace
+                    race = new WowRace
                     {
-                        Id = race.Id,
-                        Name = race.Name,
-                        IconFemale = iconFemale,
-                        IconMale = iconMale,
-                    });
+                        Id = apiRace.Id,
+                    };
+                    newRaces.Add(race);
                 }
+
+                race.Name = apiRace.Name;
+                race.IconFemale = iconFemale;
+                race.IconMale = iconMale;
             }
 
             _dataRepository.AddRaces(newRaces);

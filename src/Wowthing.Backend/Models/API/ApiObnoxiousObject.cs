@@ -8,5 +8,6 @@ namespace Wowthing.Backend.Models.API
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public ApiObnoxiousHref Href { get; set; }
     }
 }

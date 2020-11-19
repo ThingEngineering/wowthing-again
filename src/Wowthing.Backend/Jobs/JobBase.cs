@@ -25,11 +25,12 @@ namespace Wowthing.Backend.Jobs
     {
         private const string API_URL = "https://{0}.api.blizzard.com/{1}";
 
-        protected readonly HttpClient _http;
-        protected readonly ILogger _logger;
+        internal HttpClient _http;
+        internal JobRepository _jobRepository;
+        internal ILogger _logger;
+        internal StateService _stateService;
 
         private readonly IServiceScope _serviceScope;
-        private readonly StateService _stateService;
 
         private static readonly Dictionary<ApiNamespace, string> _namespaceToString = EnumUtilities.GetValues<ApiNamespace>()
             .ToDictionary(k => k, v => v.ToString().ToLowerInvariant());
@@ -43,18 +44,17 @@ namespace Wowthing.Backend.Jobs
             { ApiRegion.TW, "zh_TW" },
         };
 
-        protected JobBase(HttpClient http, ILogger logger, IServiceScope serviceScope)
+        protected JobBase(IServiceScope serviceScope)
         {
-            _http = http;
-            _logger = logger;
             _serviceScope = serviceScope;
-
-            _stateService = GetService<StateService>();
         }
 
         #region IJob
         public abstract Task Run(params string[] data);
         #endregion
+
+        protected async Task AddJobAsync(JobPriority priority, JobType type, params string[] data) =>
+            await _jobRepository.AddJobAsync(priority, type, data);
 
         protected T GetService<T>() => _serviceScope.ServiceProvider.GetRequiredService<T>();
 

@@ -6,16 +6,21 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Models;
+using Z.EntityFramework.Plus;
 
 namespace Wowthing.Lib.Repositories
 {
-    public class CharacterRepository
+    public class CharacterRepository : RepositoryBase
     {
-        private readonly WowDbContext _context;
-
-        public CharacterRepository(WowDbContext context)
+        public CharacterRepository(WowDbContext context) : base(context)
         {
-            _context = context;
+        }
+
+        public async Task<WowCharacter[]> GetCharactersByIds(IEnumerable<long> ids)
+        {
+            return await _context.WowCharacter
+                .Where(c => ids.Contains(c.Id))
+                .ToArrayAsync();
         }
 
         public async Task<List<WowCharacter>> GetCharactersByUserId(long userId)
@@ -25,15 +30,16 @@ namespace Wowthing.Lib.Repositories
                 .ToListAsync();
         }
 
-        public async Task AddCharacters(IEnumerable<WowCharacter> characters)
+        public void AddCharacters(IEnumerable<WowCharacter> characters)
         {
-            if (characters.Count() == 0)
-            {
-                return;
-            }
-
             _context.WowCharacter.AddRange(characters);
-            await _context.SaveChangesAsync();
+        }
+
+        public async Task OrphanCharacters(IEnumerable<long> accountIds, IEnumerable<long> characterIds)
+        {
+            await _context.WowCharacter
+                .Where(c => accountIds.Contains(c.AccountId.Value) && !characterIds.Contains(c.Id))
+                .UpdateAsync(c => new WowCharacter() { Account = null });
         }
     }
 }

@@ -21,21 +21,26 @@ namespace Wowthing.Backend.Services
         private static readonly Dictionary<JobType, Type> _jobTypeToClass = new Dictionary<JobType, Type>();
 
         private readonly int _instanceId;
-        private readonly HttpClient _http;
-        private readonly ILogger _logger;
         private readonly IServiceProvider _services;
-        private readonly JobRepository _jobRepository;
         private readonly StateService _stateService;
+
+        private readonly HttpClient _http;
+        private readonly JobRepository _jobRepository;
+        private readonly ILogger _logger;
+
+        private readonly JobFactory _jobFactory;
 
         public WorkerService(IServiceProvider services, StateService stateService, JobRepository jobRepository)
         {
             _services = services;
             _stateService = stateService;
-            _jobRepository = jobRepository;
 
             _instanceId = Interlocked.Increment(ref _instanceCount);
             _http = new HttpClient();
+            _jobRepository = jobRepository;
             _logger = Log.ForContext("Service", $"Worker {_instanceId,2} | ");
+
+            _jobFactory = new JobFactory(_http, _jobRepository, _logger, stateService);
         }
 
         // Find all jobs and cache them
@@ -68,14 +73,16 @@ namespace Wowthing.Backend.Services
                 {
                     continue;
                 }
-                
+
                 _logger.Debug("Got one! {@result}", result);
 
                 using var scope = _services.CreateScope();
 
                 try
                 {
-                    var job = (IJob)Activator.CreateInstance(_jobTypeToClass[result.Type], _http, _logger, scope);
+                    var job = _jobFactory.Create(_jobTypeToClass[result.Type], scope);
+                    /*var job = (IJob)
+                    var job = (IJob)Activator.CreateInstance(_jobTypeToClass[result.Type], _http, _jobRepository, _logger, scope);*/
                     await job.Run(result.Data);
                 }
                 catch (Exception ex)

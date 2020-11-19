@@ -15,11 +15,21 @@ namespace Wowthing.Lib.Repositories
         {
         }
 
-        public async Task<List<WowRace>> GetAllRaces() => await _context.WowRace.ToListAsync();
+        public void AddClass(WowClass cls) => _context.WowClass.Add(cls);
 
-        public void AddRaces(IEnumerable<WowRace> races)
+        public void AddClasses(IEnumerable<WowClass> classes) => _context.WowClass.AddRange(classes);
+        
+        public async Task<WowClass[]> GetAllClasses() => await _context.WowClass.ToArrayAsync();
+        
+        public async Task<WowClass> GetClassById(int classId)
         {
-            _context.WowRace.AddRange(races);
+            return await _context.WowClass
+                .Where(c => c.Id == classId)
+                .FirstOrDefaultAsync();
         }
+
+        public void AddRaces(IEnumerable<WowRace> races) => _context.WowRace.AddRange(races);
+        
+        public async Task<WowRace[]> GetAllRaces() => await _context.WowRace.ToArrayAsync();
     }
 }

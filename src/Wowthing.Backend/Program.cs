@@ -76,6 +76,7 @@ namespace Wowthing.Backend
 
             services.AddHostedService<AuthorizationService>();
             services.AddHostedService<SchedulerService>();
+            
             // TODO: setting for this
             for (int i = 0; i < 4; i++)
             {
