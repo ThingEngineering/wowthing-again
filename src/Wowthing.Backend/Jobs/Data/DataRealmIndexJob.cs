@@ -23,7 +23,7 @@ namespace Wowthing.Backend.Jobs.Data
             // Fetch existing data
             var realmMap = await _context.WowRealm.ToDictionaryAsync(k => k.Id);
 
-            foreach (var region in EnumUtilities.GetValues<ApiRegion>())
+            foreach (var region in EnumUtilities.GetValues<WowRegion>())
             {
                 // Fetch API data
                 var uri = GenerateUri(region, ApiNamespace.Dynamic, API_PATH);

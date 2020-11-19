@@ -14,7 +14,7 @@ namespace Wowthing.Lib.Models
         public long Id { get; set; }
 
         public long UserId { get; set; }
-        public ApiRegion Region { get; set; }
+        public WowRegion Region { get; set; }
         public string Name { get; set; }
 
         [ForeignKey("UserId")]

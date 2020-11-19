@@ -7,7 +7,6 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using StackExchange.Redis;
 using Wowthing.Backend.Extensions;
@@ -33,14 +32,14 @@ namespace Wowthing.Backend.Jobs
 
         private static readonly Dictionary<ApiNamespace, string> _namespaceToString = EnumUtilities.GetValues<ApiNamespace>()
             .ToDictionary(k => k, v => v.ToString().ToLowerInvariant());
-        private static readonly Dictionary<ApiRegion, string> _regionToString = EnumUtilities.GetValues<ApiRegion>()
+        private static readonly Dictionary<WowRegion, string> _regionToString = EnumUtilities.GetValues<WowRegion>()
             .ToDictionary(k => k, v => v.ToString().ToLowerInvariant());
-        private static readonly Dictionary<ApiRegion, string> _regionToLocale = new Dictionary<ApiRegion, string>
+        private static readonly Dictionary<WowRegion, string> _regionToLocale = new Dictionary<WowRegion, string>
         {
-            { ApiRegion.US, "en_US" },
-            { ApiRegion.EU, "en_GB" },
-            { ApiRegion.KR, "ko_KR" },
-            { ApiRegion.TW, "zh_TW" },
+            { WowRegion.US, "en_US" },
+            { WowRegion.EU, "en_GB" },
+            { WowRegion.KR, "ko_KR" },
+            { WowRegion.TW, "zh_TW" },
         };
 
         protected JobBase()
@@ -54,7 +53,7 @@ namespace Wowthing.Backend.Jobs
         protected async Task AddJobAsync(JobPriority priority, JobType type, params string[] data) =>
             await _jobRepository.AddJobAsync(priority, type, data);
 
-        protected static Uri GenerateUri(ApiRegion region, ApiNamespace lamespace, string path)
+        protected static Uri GenerateUri(WowRegion region, ApiNamespace lamespace, string path)
         {
             var builder = new UriBuilder(string.Format(API_URL, _regionToString[region], path));
             var query = HttpUtility.ParseQueryString(builder.Query);

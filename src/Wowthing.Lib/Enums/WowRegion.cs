@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Wowthing.Lib.Enums
 {
-    public enum ApiRegion
+    public enum WowRegion
     {
         US = 1,
         KR,

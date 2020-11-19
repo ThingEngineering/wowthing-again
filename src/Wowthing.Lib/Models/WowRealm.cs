@@ -10,7 +10,7 @@ namespace Wowthing.Lib.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
-        public ApiRegion Region { get; set; }
+        public WowRegion Region { get; set; }
         public string Name { get; set; }
         public string Slug { get; set; }
     }

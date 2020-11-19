@@ -8,10 +8,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
-using StackExchange.Redis;
 using Wowthing.Backend.Models;
 using Wowthing.Backend.Services;
-using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Extensions;
 
 namespace Wowthing.Backend

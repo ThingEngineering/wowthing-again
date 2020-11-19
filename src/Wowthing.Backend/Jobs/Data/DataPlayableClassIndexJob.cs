@@ -17,7 +17,7 @@ namespace Wowthing.Backend.Jobs.Data
         public override async Task Run(params string[] data)
         {
             // Fetch API data
-            var uri = GenerateUri(ApiRegion.US, ApiNamespace.Static, API_PATH);
+            var uri = GenerateUri(WowRegion.US, ApiNamespace.Static, API_PATH);
             var result = await GetJson<ApiDataPlayableClassIndex>(uri);
             
             foreach (var apiClass in result.Classes)

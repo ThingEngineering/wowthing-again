@@ -31,7 +31,7 @@ namespace Wowthing.Backend.Jobs.Data
             }
 
             // Fetch API data
-            var uri = GenerateUri(ApiRegion.US, ApiNamespace.Static, string.Format(API_PATH, classId));
+            var uri = GenerateUri(WowRegion.US, ApiNamespace.Static, string.Format(API_PATH, classId));
             var apiClass = await GetJson<ApiDataPlayableClass>(uri);
 
             // Update object

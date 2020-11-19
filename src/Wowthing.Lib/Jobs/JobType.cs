@@ -6,13 +6,13 @@ namespace Wowthing.Lib.Jobs
 {
     public enum JobType
     {
-        UserCharacters = 0,
-
-        Character = 100,
-        
-        DataPlayableRaceIndex = 200,
+        DataPlayableRaceIndex = 0,
         DataPlayableClassIndex,
         DataPlayableClass,
         DataRealmIndex,
+
+        UserCharacters = 100,
+
+        Character = 200,
     }
 }

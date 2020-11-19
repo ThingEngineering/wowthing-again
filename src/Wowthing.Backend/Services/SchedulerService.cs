@@ -1,13 +1,10 @@
-﻿using Microsoft.Extensions.Hosting;
-using Serilog;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Wowthing.Backend.Jobs;
-using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Repositories;
 

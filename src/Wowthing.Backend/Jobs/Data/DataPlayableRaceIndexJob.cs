@@ -23,7 +23,7 @@ namespace Wowthing.Backend.Jobs.Data
             var raceMap = await _context.WowRace.ToDictionaryAsync(k => k.Id);
 
             // Fetch API data
-            var uri = GenerateUri(ApiRegion.US, ApiNamespace.Static, API_PATH);
+            var uri = GenerateUri(WowRegion.US, ApiNamespace.Static, API_PATH);
             var result = await GetJson<ApiDataPlayableRaceIndex>(uri);
 
             var newRaces = new List<WowRace>();

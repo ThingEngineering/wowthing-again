@@ -6,17 +6,11 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Serilog;
-using Wowthing.Backend.Extensions;
 using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.API.Profile;
-using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Extensions;
-using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models;
-using Wowthing.Lib.Repositories;
 using Wowthing.Lib.Utilities;
 
 namespace Wowthing.Backend.Jobs
@@ -43,7 +37,7 @@ namespace Wowthing.Backend.Jobs
             // Add any new accounts
             var apiAccounts = new List<ApiAccountProfileAccount>();
             var newAccounts = new List<UserAccount>();
-            foreach (var region in EnumUtilities.GetValues<ApiRegion>())
+            foreach (var region in EnumUtilities.GetValues<WowRegion>())
             {
                 var uri = GenerateUri(region, ApiNamespace.Profile, path);
                 try
