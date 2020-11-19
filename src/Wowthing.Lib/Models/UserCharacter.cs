@@ -6,7 +6,7 @@ using Wowthing.Lib.Enums;
 
 namespace Wowthing.Lib.Models
 {
-    public class WowCharacter
+    public class UserCharacter
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long Id { get; set; }
@@ -29,6 +29,6 @@ namespace Wowthing.Lib.Models
         public DateTime LastModified { get; set; }
 
         [ForeignKey("AccountId")]
-        public WowAccount Account { get; set; }
+        public UserAccount Account { get; set; }
     }
 }

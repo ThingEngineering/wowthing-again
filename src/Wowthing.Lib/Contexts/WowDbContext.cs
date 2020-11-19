@@ -17,8 +17,8 @@ namespace Wowthing.Lib.Contexts
         public DbSet<WowRace> WowRace { get; set; }
         public DbSet<WowRealm> WowRealm { get; set; }
 
-        public DbSet<WowAccount> WowAccount { get; set; }
-        public DbSet<WowCharacter> WowCharacter { get; set; }
+        public DbSet<UserAccount> UserAccount { get; set; }
+        public DbSet<UserCharacter> UserCharacter { get; set; }
 
         public WowDbContext(string connectionString)
             : base()
@@ -52,7 +52,7 @@ namespace Wowthing.Lib.Contexts
             builder.Entity<IdentityRoleClaim<long>>().ToTable("asp_net_role_claims");
 
             // Update WowCharacter table if related WowAccount is deleted
-            builder.Entity<WowCharacter>()
+            builder.Entity<UserCharacter>()
                 .HasOne(c => c.Account)
                 .WithMany(a => a.Characters)
                 .OnDelete(DeleteBehavior.SetNull);

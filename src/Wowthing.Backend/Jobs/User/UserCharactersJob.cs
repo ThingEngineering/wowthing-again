@@ -35,14 +35,14 @@ namespace Wowthing.Backend.Jobs
                 return;
             }
 
-            var path = string.Format(API_PATH, accessToken);
+            var path = string.Format(API_PATH, accessToken.Value);
 
             // Fetch existing accounts
-            var accountMap = await _context.WowAccount.Where(a => a.UserId == userId).ToDictionaryAsync(k => k.Id);
+            var accountMap = await _context.UserAccount.Where(a => a.UserId == userId).ToDictionaryAsync(k => k.Id);
 
             // Add any new accounts
             var apiAccounts = new List<ApiAccountProfileAccount>();
-            var newAccounts = new List<WowAccount>();
+            var newAccounts = new List<UserAccount>();
             foreach (var region in EnumUtilities.GetValues<ApiRegion>())
             {
                 var uri = GenerateUri(region, ApiNamespace.Profile, path);
@@ -61,7 +61,7 @@ namespace Wowthing.Backend.Jobs
                         // TODO handle account changing owner? is that even possible?
                         if (!accountMap.ContainsKey(account.Id))
                         {
-                            newAccounts.Add(new WowAccount
+                            newAccounts.Add(new UserAccount
                             {
                                 Id = account.Id,
                                 UserId = userId,
@@ -81,14 +81,13 @@ namespace Wowthing.Backend.Jobs
                 }
             }
 
-            _context.WowAccount.AddRange(newAccounts);
+            _context.UserAccount.AddRange(newAccounts);
             await _context.SaveChangesAsync();
 
             // Fetch existing users
             var characterIds = apiAccounts.SelectMany(a => a.Characters).Select(c => c.Id);
-            var characterMap = await _context.WowCharacter.Where(c => characterIds.Contains(c.Id)).ToDictionaryAsync(k => k.Id);
+            var characterMap = await _context.UserCharacter.Where(c => characterIds.Contains(c.Id)).ToDictionaryAsync(k => k.Id);
 
-            var newCharacters = new List<WowCharacter>();
             var seenCharacters = new HashSet<long>();
             foreach (ApiAccountProfileAccount apiAccount in apiAccounts)
             {
@@ -96,15 +95,15 @@ namespace Wowthing.Backend.Jobs
                 {
                     seenCharacters.Add(apiCharacter.Id);
 
-                    if (!characterMap.TryGetValue(apiCharacter.Id, out WowCharacter character))
+                    if (!characterMap.TryGetValue(apiCharacter.Id, out UserCharacter character))
                     {
-                        character = new WowCharacter
+                        character = new UserCharacter
                         {
-                            Id = character.Id,
+                            Id = apiCharacter.Id,
                             GuildId = 0,
                             LastModified = DateTime.MinValue,
                         };
-                        newCharacters.Add(character);
+                        _context.UserCharacter.Add(character);
                     }
 
                     character.AccountId = apiAccount.Id;
@@ -118,7 +117,6 @@ namespace Wowthing.Backend.Jobs
                 }
             }
 
-            _context.WowCharacter.AddRange(newCharacters);
             await _context.SaveChangesAsync();
 
             // Orphan characters not seen

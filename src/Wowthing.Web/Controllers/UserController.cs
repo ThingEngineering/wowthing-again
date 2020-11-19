@@ -33,7 +33,7 @@ namespace Wowthing.Web.Controllers
             }
 
             // J a n k
-            var characters = await _context.WowCharacter.Where(c => c.Account.UserId == user.Id && c.Level >= 10).ToListAsync();
+            var characters = await _context.UserCharacter.Where(c => c.Account.UserId == user.Id && c.Level >= 10).ToListAsync();
 
             return View(new UserViewModel(user, characters, new Dictionary<int, WowRace>()));
         }
