@@ -1,21 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.API.Data;
 using Wowthing.Lib.Enums;
-using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Utilities;
 
 namespace Wowthing.Backend.Jobs.Data
 {
-    public class DataRealmIndexJob : JobBase
+    public class DataRealmIndexJob : JobBase, IScheduledJob
     {
         public static ScheduledJob Schedule = new ScheduledJob
         {
