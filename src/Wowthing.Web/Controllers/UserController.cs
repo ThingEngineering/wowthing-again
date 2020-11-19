@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Repositories;
 using Wowthing.Web.ViewModels;
@@ -12,14 +14,12 @@ namespace Wowthing.Web.Controllers
 {
     public class UserController : Controller
     {
-        private readonly CharacterRepository _characterRepository;
-        private readonly DataRepository _dataRepository;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly WowDbContext _context;
 
-        public UserController(CharacterRepository characterRepository, DataRepository dataRepository, UserManager<ApplicationUser> userManager)
+        public UserController(UserManager<ApplicationUser> userManager, WowDbContext context)
         {
-            _characterRepository = characterRepository;
-            _dataRepository = dataRepository;
+            _context = context;
             _userManager = userManager;
         }
 
@@ -33,11 +33,9 @@ namespace Wowthing.Web.Controllers
             }
 
             // J a n k
-            var characters = (await _characterRepository.GetCharactersByUserId(user.Id))
-                .Where(c => c.Level >= 10).ToList();
-            var races = (await _dataRepository.GetAllRaces()).ToDictionary(k => k.Id);
+            var characters = await _context.WowCharacter.Where(c => c.Account.UserId == user.Id && c.Level >= 10).ToListAsync();
 
-            return View(new UserViewModel(user, characters, races));
+            return View(new UserViewModel(user, characters, new Dictionary<int, WowRace>()));
         }
     }
 }

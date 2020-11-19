@@ -5,6 +5,7 @@ using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Wowthing.Backend.Services;
+using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Repositories;
 
 namespace Wowthing.Backend.Jobs
@@ -31,13 +32,14 @@ namespace Wowthing.Backend.Jobs
             return obj;
         }
 
-        public IJob Create(Type type, IServiceScope serviceScope)
+        public IJob Create(Type type, WowDbContext context)
         {
-            var obj = (JobBase)Activator.CreateInstance(type, serviceScope);
+            var obj = (JobBase)Activator.CreateInstance(type);
             obj._http = _http;
             obj._jobRepository = _jobRepository;
             obj._logger = _logger;
             obj._stateService = _stateService;
+            obj._context = context;
             return obj;
         }
     }

@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Wowthing.Backend.Extensions;
@@ -24,19 +25,10 @@ namespace Wowthing.Backend.Jobs
     {
         private const string API_PATH = "profile/user/wow?access_token={0}";
 
-        private readonly CharacterRepository _characterRepository;
-        private readonly UserRepository _userRepository;
-
-        public UserCharactersJob(IServiceScope serviceScope) : base(serviceScope)
-        {
-            _characterRepository = GetService<CharacterRepository>();
-            _userRepository = GetService<UserRepository>();
-        }
-
         public override async Task Run(params string[] data)
         {
             var userId = long.Parse(data[0]);
-            var accessToken = await _userRepository.GetAccessTokenByUserId(userId);
+            var accessToken = await _context.UserTokens.FirstOrDefaultAsync(t => t.UserId == userId && t.LoginProvider == "BattleNet" && t.Name == "access_token");
             if (accessToken == null)
             {
                 _logger.Error("No access_token for user {0}", userId);
@@ -46,8 +38,7 @@ namespace Wowthing.Backend.Jobs
             var path = string.Format(API_PATH, accessToken);
 
             // Fetch existing accounts
-            var accountMap = await _userRepository.GetAccountsByUserId(userId)
-                .ToDictionaryAsync(k => k.Id);
+            var accountMap = await _context.WowAccount.Where(a => a.UserId == userId).ToDictionaryAsync(k => k.Id);
 
             // Add any new accounts
             var apiAccounts = new List<ApiAccountProfileAccount>();
@@ -90,13 +81,12 @@ namespace Wowthing.Backend.Jobs
                 }
             }
 
-            _userRepository.AddAccounts(newAccounts);
-            await _userRepository.SaveChangesAsync();
+            _context.WowAccount.AddRange(newAccounts);
+            await _context.SaveChangesAsync();
 
             // Fetch existing users
             var characterIds = apiAccounts.SelectMany(a => a.Characters).Select(c => c.Id);
-            var characterMap = await _characterRepository.GetCharactersByIds(characterIds)
-                .ToDictionaryAsync(k => k.Id);
+            var characterMap = await _context.WowCharacter.Where(c => characterIds.Contains(c.Id)).ToDictionaryAsync(k => k.Id);
 
             var newCharacters = new List<WowCharacter>();
             var seenCharacters = new HashSet<long>();
@@ -128,11 +118,11 @@ namespace Wowthing.Backend.Jobs
                 }
             }
 
-            _characterRepository.AddCharacters(newCharacters);
-            await _characterRepository.SaveChangesAsync();
+            _context.WowCharacter.AddRange(newCharacters);
+            await _context.SaveChangesAsync();
 
             // Orphan characters not seen
-            await _characterRepository.OrphanCharacters(apiAccounts.Select(a => a.Id), seenCharacters);
+            //await _characterRepository.OrphanCharacters(apiAccounts.Select(a => a.Id), seenCharacters);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Wowthing.Web.Controllers
 {
     public class ErrorController : Controller
     {
-        private static HashSet<int> _specificViews = new HashSet<int>
+        private static readonly HashSet<int> _specificViews = new HashSet<int>
         {
             (int)HttpStatusCode.Forbidden, // 403
             (int)HttpStatusCode.NotFound, // 404

@@ -29,8 +29,7 @@ namespace Wowthing.Backend.Jobs
         internal JobRepository _jobRepository;
         internal ILogger _logger;
         internal StateService _stateService;
-
-        private readonly IServiceScope _serviceScope;
+        internal WowDbContext _context;
 
         private static readonly Dictionary<ApiNamespace, string> _namespaceToString = EnumUtilities.GetValues<ApiNamespace>()
             .ToDictionary(k => k, v => v.ToString().ToLowerInvariant());
@@ -44,9 +43,8 @@ namespace Wowthing.Backend.Jobs
             { ApiRegion.TW, "zh_TW" },
         };
 
-        protected JobBase(IServiceScope serviceScope)
+        protected JobBase()
         {
-            _serviceScope = serviceScope;
         }
 
         #region IJob
@@ -55,8 +53,6 @@ namespace Wowthing.Backend.Jobs
 
         protected async Task AddJobAsync(JobPriority priority, JobType type, params string[] data) =>
             await _jobRepository.AddJobAsync(priority, type, data);
-
-        protected T GetService<T>() => _serviceScope.ServiceProvider.GetRequiredService<T>();
 
         protected static Uri GenerateUri(ApiRegion region, ApiNamespace lamespace, string path)
         {

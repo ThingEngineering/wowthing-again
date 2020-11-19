@@ -1,15 +1,15 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Serilog;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Serilog;
 using Wowthing.Backend.Jobs;
+using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Repositories;
 
@@ -24,7 +24,6 @@ namespace Wowthing.Backend.Services
         private readonly IServiceProvider _services;
         private readonly StateService _stateService;
 
-        private readonly HttpClient _http;
         private readonly JobRepository _jobRepository;
         private readonly ILogger _logger;
 
@@ -36,11 +35,10 @@ namespace Wowthing.Backend.Services
             _stateService = stateService;
 
             _instanceId = Interlocked.Increment(ref _instanceCount);
-            _http = new HttpClient();
             _jobRepository = jobRepository;
             _logger = Log.ForContext("Service", $"Worker {_instanceId,2} | ");
 
-            _jobFactory = new JobFactory(_http, _jobRepository, _logger, stateService);
+            _jobFactory = new JobFactory(new HttpClient(), _jobRepository, _logger, stateService);
         }
 
         // Find all jobs and cache them
@@ -59,6 +57,9 @@ namespace Wowthing.Backend.Services
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken) => Task.Run(async () =>
         {
+            using var scope = _services.CreateScope();
+            var context = scope.ServiceProvider.GetService<WowDbContext>();
+
             while (!stoppingToken.IsCancellationRequested)
             {
                 await Task.Delay(500);
@@ -76,11 +77,9 @@ namespace Wowthing.Backend.Services
 
                 _logger.Debug("Got one! {@result}", result);
 
-                using var scope = _services.CreateScope();
-
                 try
                 {
-                    var job = _jobFactory.Create(_jobTypeToClass[result.Type], scope);
+                    var job = _jobFactory.Create(_jobTypeToClass[result.Type], context);
                     await job.Run(result.Data);
                 }
                 catch (Exception ex)

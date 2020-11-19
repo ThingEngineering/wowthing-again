@@ -4,15 +4,11 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
-using Serilog;
+using Microsoft.EntityFrameworkCore;
 using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.API.Data;
 using Wowthing.Lib.Enums;
-using Wowthing.Lib.Extensions;
-using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models;
-using Wowthing.Lib.Repositories;
 
 namespace Wowthing.Backend.Jobs.Data
 {
@@ -20,24 +16,18 @@ namespace Wowthing.Backend.Jobs.Data
     {
         private const string API_PATH = "data/wow/playable-class/{0}";
 
-        private readonly DataRepository _dataRepository;
-
-        public DataPlayableClassJob(IServiceScope serviceScope) : base(serviceScope)
-        {
-            _dataRepository = GetService<DataRepository>();
-        }
-
         public override async Task Run(params string[] data)
         {
             // Fetch existing data
             int classId = int.Parse(data[0]);
-            var cls = await _dataRepository.GetClassById(classId);
+            var cls = await _context.WowClass.FirstOrDefaultAsync(c => c.Id == classId);
             if (cls == null)
             {
                 cls = new WowClass
                 {
                     Id = classId,
                 };
+                _context.WowClass.Add(cls);
             }
 
             // Fetch API data
@@ -52,8 +42,7 @@ namespace Wowthing.Backend.Jobs.Data
             cls.Icon = iconName;
             cls.SpecializationIds = apiClass.Specializations.Select(s => s.Id).ToList();
 
-            _dataRepository.AddClass(cls);
-            await _dataRepository.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
     }
 }
