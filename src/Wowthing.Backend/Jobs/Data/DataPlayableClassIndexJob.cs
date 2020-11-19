@@ -10,8 +10,15 @@ using Wowthing.Lib.Jobs;
 
 namespace Wowthing.Backend.Jobs.Data
 {
-    public class DataPlayableClassIndexJob : JobBase
+    public class DataPlayableClassIndexJob : JobBase, IScheduledJob
     {
+        public static ScheduledJob Schedule = new ScheduledJob
+        {
+            Type = JobType.DataPlayableClassIndex,
+            Priority = JobPriority.High,
+            Interval = TimeSpan.FromDays(1),
+        };
+
         private const string API_PATH = "data/wow/playable-class/index";
 
         public override async Task Run(params string[] data)

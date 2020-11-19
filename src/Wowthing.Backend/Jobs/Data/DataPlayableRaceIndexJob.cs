@@ -9,12 +9,20 @@ using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.API.Data;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Extensions;
+using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models;
 
 namespace Wowthing.Backend.Jobs.Data
 {
-    public class DataPlayableRaceIndexJob : JobBase
+    public class DataPlayableRaceIndexJob : JobBase, IScheduledJob
     {
+        public static ScheduledJob Schedule = new ScheduledJob
+        {
+            Type = JobType.DataPlayableRaceIndex,
+            Priority = JobPriority.High,
+            Interval = TimeSpan.FromDays(1),
+        };
+
         private const string API_PATH = "data/wow/playable-race/index";
 
         public override async Task Run(params string[] data)

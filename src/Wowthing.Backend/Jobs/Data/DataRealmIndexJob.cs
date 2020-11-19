@@ -9,6 +9,7 @@ using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.API.Data;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Extensions;
+using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Utilities;
 
@@ -16,6 +17,13 @@ namespace Wowthing.Backend.Jobs.Data
 {
     public class DataRealmIndexJob : JobBase
     {
+        public static ScheduledJob Schedule = new ScheduledJob
+        {
+            Type = JobType.DataRealmIndex,
+            Priority = JobPriority.High,
+            Interval = TimeSpan.FromDays(1),
+        };
+
         private const string API_PATH = "data/wow/realm/index";
 
         public override async Task Run(params string[] data)

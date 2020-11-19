@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,20 +21,16 @@ namespace Wowthing.Backend.Services
         {
             _jobRepository = jobRepository;
 
-            // TODO better way of doing this
-            ScheduleTask(JobType.DataPlayableClassIndex, JobPriority.High, TimeSpan.FromDays(1));
-            ScheduleTask(JobType.DataPlayableRaceIndex, JobPriority.High, TimeSpan.FromDays(1));
-            ScheduleTask(JobType.DataRealmIndex, JobPriority.High, TimeSpan.FromDays(1));
-        }
-
-        public void ScheduleTask(JobType jobType, JobPriority priority, TimeSpan interval)
-        {
-            _scheduledJobs.Add(new ScheduledJob
+            // Schedule jobs for all IScheduledJob implementers
+            var jobTypes = AppDomain.CurrentDomain.GetAssemblies()
+                .SelectMany(a => a.GetTypes())
+                .Where(t => t.IsClass && !t.IsAbstract && t.GetInterfaces().Contains(typeof(IScheduledJob)))
+                .ToArray();
+            foreach (var jobType in jobTypes)
             {
-                Type = jobType,
-                Priority = priority,
-                Interval = interval,
-            });
+                var fieldInfo = jobType.GetField("Schedule", BindingFlags.Public | BindingFlags.Static);
+                _scheduledJobs.Add((ScheduledJob)fieldInfo.GetValue(null));
+            }
         }
 
         protected override async void TimerCallback(object state)
