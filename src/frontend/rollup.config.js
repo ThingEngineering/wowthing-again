@@ -11,17 +11,17 @@ import sveltePreprocess from 'svelte-preprocess'
 
 
 const production = !process.env.ROLLUP_WATCH
-console.log('production', production)
+const distPath = '../Wowthing.Web/wwwroot/dist'
 
-rimraf.sync('wwwroot/dist')
+rimraf.sync(`${distPath}/*`)
 
 export default {
-    input: 'frontend/ts/main.ts',
+    input: 'ts/main.ts',
     output: {
         sourcemap: !production,
         format: 'iife',
         name: 'app',
-        dir: 'wwwroot/dist',
+        dir: distPath,
         entryFileNames: production ? '[name].[hash].js' : '[name].dev.js',
     },
     plugins: [
@@ -38,7 +38,7 @@ export default {
                 }
             },
             preprocess: sveltePreprocess({
-                postcss: true,
+                //postcss: true,
             }),
         }),
         resolve({
@@ -53,14 +53,14 @@ export default {
 
         // Watch the `dist` directory and refresh the
         // browser on changes when not in production
-        !production && livereload('wwwroot/dist'),
+        !production && livereload(distPath),
 
         // If we're building for production (npm run build
         // instead of npm run dev), minify
         production && terser(),
     ],
     watch: {
-        include: 'frontend/**/*',
+        include: ['scss/**/*', 'ts/**/*'],
         chokidar: {
             usePolling: true,
         },

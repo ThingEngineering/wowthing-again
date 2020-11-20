@@ -3,15 +3,17 @@ FROM wafflefred/dotnet-sdk-nodejs:latest AS build
 WORKDIR /app
 
 # Restore npm packages now so that this step is cached
-COPY src/Wowthing.Web/package*.json ./src/Wowthing.Web/
-WORKDIR /app/src/Wowthing.Web
+COPY src/frontend/package*.json ./src/frontend/
+WORKDIR /app/src/frontend
 RUN npm install
+
+COPY src/frontend/ .
+RUN npm run build
 
 WORKDIR /app
 COPY . .
 
 WORKDIR /app/src/Wowthing.Web
-RUN npm run build
 RUN dotnet publish -c Release -o out
 
 
