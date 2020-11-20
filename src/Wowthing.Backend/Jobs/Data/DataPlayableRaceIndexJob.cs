@@ -37,7 +37,7 @@ namespace Wowthing.Backend.Jobs.Data
             var newRaces = new List<WowRace>();
             foreach (var apiRace in result.Races)
             {
-                string baseName = apiRace.Name.Replace(' ', '_').ToLowerInvariant();
+                string baseName = apiRace.Name.Replace(' ', '_').Replace("'", "").ToLowerInvariant();
                 string iconFemale = $"race_{baseName}_female";
                 string iconMale = $"race_{baseName}_male";
 
