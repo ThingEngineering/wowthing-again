@@ -18,6 +18,7 @@ using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Extensions;
 using Wowthing.Web.Extensions;
+using Wowthing.Web.Misc;
 
 namespace Wowthing.Web
 {
@@ -43,6 +44,11 @@ namespace Wowthing.Web
 
             services.AddControllersWithViews()
                 .AddNewtonsoftJson();
+
+            services.AddRouting(options =>
+            {
+                options.ConstraintMap.Add("username", typeof(UsernameRouteConstraint));
+            });
 
             services.AddPostgres(Configuration.GetConnectionString("Postgres"));
 

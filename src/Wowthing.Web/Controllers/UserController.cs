@@ -23,7 +23,7 @@ namespace Wowthing.Web.Controllers
             _userManager = userManager;
         }
 
-        [HttpGet("user/{username:minlength(4)}")]
+        [HttpGet("user/{username:username}")]
         public async Task<IActionResult> Index([FromRoute] string username)
         {
             var user = await _userManager.FindByNameAsync(username);
