@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Wowthing.Backend.Models.Redis;
 using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Jobs;
@@ -25,12 +25,12 @@ namespace Wowthing.Backend.Jobs.Misc
 
             var cacheData = new RedisStaticCache
             {
-                Class = await _context.WowClass.ToDictionaryAsync(c => c.Id.ToString()),
-                Race = await _context.WowRace.ToDictionaryAsync(c => c.Id.ToString()),
-                Realm = await _context.WowRealm.ToDictionaryAsync(c => c.Id.ToString()),
+                Class = new SortedDictionary<int, Lib.Models.WowClass>(await _context.WowClass.ToDictionaryAsync(c => c.Id)),
+                Race = new SortedDictionary<int, Lib.Models.WowRace>(await _context.WowRace.ToDictionaryAsync(c => c.Id)),
+                Realm = new SortedDictionary<int, Lib.Models.WowRealm>(await _context.WowRealm.ToDictionaryAsync(c => c.Id)),
             };
             
-            var cacheJson = JsonSerializer.Serialize(cacheData);
+            var cacheJson = JsonConvert.SerializeObject(cacheData);
             var cacheHash = cacheJson.Md5();
 
             db.WaitAll(

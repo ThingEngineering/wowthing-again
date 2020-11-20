@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using StackExchange.Redis;
 using Wowthing.Backend.Models;
 using Wowthing.Backend.Models.API;
@@ -65,8 +65,8 @@ namespace Wowthing.Backend.Services
             using var response = await _http.SendAsync(request);
             response.EnsureSuccessStatusCode();
 
-            var contentStream = await response.Content.ReadAsStreamAsync();
-            var apiToken = await JsonSerializer.DeserializeAsync<ApiAccessToken>(contentStream);
+            var content = await response.Content.ReadAsStringAsync();
+            var apiToken = JsonConvert.DeserializeObject<ApiAccessToken>(content);
             _logger.Debug("API token: {@token}", apiToken);
 
             // Save to Redis

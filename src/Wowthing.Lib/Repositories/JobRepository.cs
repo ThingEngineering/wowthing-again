@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using StackExchange.Redis;
 using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Jobs;
@@ -34,7 +34,7 @@ namespace Wowthing.Lib.Repositories
                 Type = type,
                 Data = data,
             };
-            await database.ListRightPushAsync(priority.GetQueueName(), JsonSerializer.Serialize(job));
+            await database.ListRightPushAsync(priority.GetQueueName(), JsonConvert.SerializeObject(job));
         }
 
         public async Task<WorkerJob> GetJobAsync()
@@ -46,7 +46,7 @@ namespace Wowthing.Lib.Repositories
                 var result = await database.ListLeftPopAsync(queueName);
                 if (!result.IsNullOrEmpty)
                 {
-                    return JsonSerializer.Deserialize<WorkerJob>(result);
+                    return JsonConvert.DeserializeObject<WorkerJob>(result);
                 }
             }
 

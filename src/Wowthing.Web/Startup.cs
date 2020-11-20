@@ -41,7 +41,8 @@ namespace Wowthing.Web
             });*/
             services.AddResponseCaching();
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson();
 
             services.AddPostgres(Configuration.GetConnectionString("Postgres"));
 

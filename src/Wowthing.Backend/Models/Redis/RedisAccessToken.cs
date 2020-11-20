@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 using Wowthing.Backend.Models.API;
 
 namespace Wowthing.Backend.Models.Redis

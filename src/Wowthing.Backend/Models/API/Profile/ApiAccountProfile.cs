@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace Wowthing.Backend.Models.API.Profile
 {
@@ -9,7 +9,7 @@ namespace Wowthing.Backend.Models.API.Profile
     {
         public long Id { get; set; }
 
-        [JsonPropertyName("wow_accounts")]
+        [JsonProperty("wow_accounts")]
         public List<ApiAccountProfileAccount> Accounts { get; set; }
     }
 
@@ -29,10 +29,10 @@ namespace Wowthing.Backend.Models.API.Profile
         public ApiTypeName Faction { get; set; }
         public ApiTypeName Gender { get; set; }
 
-        [JsonPropertyName("playable_class")]
+        [JsonProperty("playable_class")]
         public ApiObnoxiousObject Class { get; set; }
 
-        [JsonPropertyName("playable_race")]
+        [JsonProperty("playable_race")]
         public ApiObnoxiousObject Race { get; set; }
     }
 }

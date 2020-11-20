@@ -1,9 +1,9 @@
-﻿using StackExchange.Redis;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using StackExchange.Redis;
 
 namespace Wowthing.Lib.Extensions
 {
@@ -13,12 +13,12 @@ namespace Wowthing.Lib.Extensions
             where T : class
         {
             string value = await db.StringGetAsync(key);
-            return value == null ? null : JsonSerializer.Deserialize<T>(value);
+            return value == null ? null : JsonConvert.DeserializeObject<T>(value);
         }
 
         public static async Task<bool> JsonSetAsync<T>(this IDatabase db, string key, T obj)
         {
-            return await db.StringSetAsync(key, JsonSerializer.Serialize<T>(obj));
+            return await db.StringSetAsync(key, JsonConvert.SerializeObject(obj));
         }
     }
 }

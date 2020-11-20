@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace Wowthing.Backend.Models.API.Character
 {
@@ -17,7 +17,7 @@ namespace Wowthing.Backend.Models.API.Character
         
         public int Level { get; set; }
 
-        [JsonPropertyName("last_login_timestamp")]
+        [JsonProperty("last_login_timestamp")]
         public long LastLogout { get; set; }
         
         public string Name { get; set; }
@@ -32,13 +32,13 @@ namespace Wowthing.Backend.Models.API.Character
 
         public ApiObnoxiousObject Realm { get; set; }
 
-        [JsonPropertyName("active_spec")]
+        [JsonProperty("active_spec")]
         public ApiObnoxiousObject ActiveSpec { get; set; }
 
-        [JsonPropertyName("active_title")]
+        [JsonProperty("active_title")]
         public ApiObnoxiousObject ActiveTitle { get; set; }
 
-        [JsonPropertyName("character_class")]
+        [JsonProperty("character_class")]
         public ApiObnoxiousObject Class { get; set; }
     }
 }
