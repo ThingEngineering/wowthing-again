@@ -2,18 +2,20 @@
     import { onMount } from 'svelte'
     import Router from 'svelte-spa-router'
 
-    import Sidebar from './components/Sidebar.svelte'
-    import Home from './routes/Home.svelte'
-    import Settings from './routes/Settings.svelte'
+    import { error as staticError, loading as staticLoading, fetch as fetchStatic } from './stores/static-store'
+    import { error as userError, loading as userLoading, fetch as fetchUser } from './stores/user-store'
 
-    import { error as staticError, loading as staticLoading, fetch as staticFetch } from './stores/static-store'
+    import Home from './components/Home.svelte'
+    import Settings from './components/Settings.svelte'
+    import Sidebar from './components/Sidebar.svelte'
 
     const routes = {
         '/': Home,
         '/settings': Settings,
     }
 
-    onMount(() => staticFetch())
+    onMount(() => fetchStatic())
+    onMount(() => fetchUser())
 </script>
 
 <style lang="scss" global>
@@ -22,9 +24,9 @@
 
 <Sidebar />
 <div>
-    {#if $staticError}
+    {#if $staticError || $userError}
         <p>KABOOM! Something has gone horribly wrong, try reloading the page?</p>
-    {:else if $staticLoading}
+    {:else if $staticLoading || $userLoading}
         <p>L O A D I N G</p>
     {:else}
         <Router {routes} />

@@ -4,6 +4,6 @@
 }
 
 <div id="app"
-     data-api="@Url.Action("UserData", "Api", new { username = Model.User.UserName })"
-     data-static="@Url.Action("StaticData", "Api", new { hash = Model.StaticHash })">
+     data-static="@Url.Action("StaticData", "Api", new { hash = Model.StaticHash })"
+     data-user="@Url.Action("UserData", "Api", new { username = Model.User.UserName })">
 </div>

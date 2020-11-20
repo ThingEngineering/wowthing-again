@@ -8,6 +8,7 @@
         border-radius: 4px;
         margin-right: 2rem;
         padding: 0.5rem 0;
+        min-width: 10em;
         width: 10em;
     }
     a {
