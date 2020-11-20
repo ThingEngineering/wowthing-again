@@ -102,6 +102,7 @@ namespace Wowthing.Web.Controllers
                 user.Settings = new ApplicationUserSettings();
             }
             user.Settings.Migrate();
+            _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
             // Sign in the user
