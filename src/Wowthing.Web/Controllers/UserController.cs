@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using StackExchange.Redis;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Repositories;
@@ -14,13 +15,15 @@ namespace Wowthing.Web.Controllers
 {
     public class UserController : Controller
     {
+        private readonly IConnectionMultiplexer _redis;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly WowDbContext _context;
 
-        public UserController(UserManager<ApplicationUser> userManager, WowDbContext context)
+        public UserController(IConnectionMultiplexer redis, UserManager<ApplicationUser> userManager, WowDbContext context)
         {
-            _context = context;
+            _redis = redis;
             _userManager = userManager;
+            _context = context;
         }
 
         [HttpGet("user/{username:username}")]
@@ -32,13 +35,10 @@ namespace Wowthing.Web.Controllers
                 return NotFound();
             }
 
-            // TODO checks:
-            //      - user == logged in user? all data
-            //      - user != logged in user? limited data (min level, etc)
-            //        - check anonymize data setting
-            var characters = await _context.UserCharacter.Where(c => c.Account.UserId == user.Id && c.Level >= 10).ToListAsync();
+            var db = _redis.GetDatabase();
+            var staticHash = await db.StringGetAsync("cached_static:hash");
 
-            return View(new UserViewModel(user, characters, new Dictionary<int, WowRace>()));
+            return View(new UserViewModel(user, staticHash));
         }
     }
 }
