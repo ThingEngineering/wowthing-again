@@ -6,13 +6,15 @@ namespace Wowthing.Lib.Jobs
 {
     public enum JobType
     {
-        DataPlayableRaceIndex = 0,
+        UserCharacters = 0,
+
+        Character = 100,
+
+        // Scheduled jobs
+        DataPlayableRaceIndex = 1000,
         DataPlayableClassIndex,
         DataPlayableClass,
         DataRealmIndex,
-
-        UserCharacters = 100,
-
-        Character = 200,
+        CacheStatic,
     }
 }

@@ -30,7 +30,7 @@ namespace Wowthing.Backend.Jobs.Data
             foreach (var apiClass in result.Classes)
             {
                 // Absolute garbage API design on Blizzard's part, cool
-                await AddJobAsync(JobPriority.High, JobType.DataPlayableClass, apiClass.Id.ToString());
+                await _jobRepository.AddJobAsync(JobPriority.High, JobType.DataPlayableClass, apiClass.Id.ToString());
             }
         }
     }

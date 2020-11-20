@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Text;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
+using StackExchange.Redis;
 using Wowthing.Backend.Services;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Repositories;
@@ -15,21 +16,16 @@ namespace Wowthing.Backend.Jobs
         private readonly HttpClient _http;
         private readonly JobRepository _jobRepository;
         private readonly ILogger _logger;
+        private readonly IConnectionMultiplexer _redis;
         private readonly StateService _stateService;
 
-        public JobFactory(HttpClient http, JobRepository jobRepository, ILogger logger, StateService stateService)
+        public JobFactory(HttpClient http, JobRepository jobRepository, ILogger logger, IConnectionMultiplexer redis, StateService stateService)
         {
             _http = http;
             _jobRepository = jobRepository;
             _logger = logger;
+            _redis = redis;
             _stateService = stateService;
-        }
-
-        public T Create<T>(IServiceScope serviceScope)
-            where T : JobBase, new()
-        {
-            T obj = (T)Activator.CreateInstance(typeof(T), serviceScope);
-            return obj;
         }
 
         public IJob Create(Type type, WowDbContext context)
@@ -38,6 +34,7 @@ namespace Wowthing.Backend.Jobs
             obj._http = _http;
             obj._jobRepository = _jobRepository;
             obj._logger = _logger;
+            obj._redis = _redis;
             obj._stateService = _stateService;
             obj._context = context;
             return obj;

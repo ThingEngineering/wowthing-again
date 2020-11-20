@@ -27,6 +27,7 @@ namespace Wowthing.Backend.Jobs
         internal HttpClient _http;
         internal JobRepository _jobRepository;
         internal ILogger _logger;
+        internal IConnectionMultiplexer _redis;
         internal StateService _stateService;
         internal WowDbContext _context;
 
@@ -49,9 +50,6 @@ namespace Wowthing.Backend.Jobs
         #region IJob
         public abstract Task Run(params string[] data);
         #endregion
-
-        protected async Task AddJobAsync(JobPriority priority, JobType type, params string[] data) =>
-            await _jobRepository.AddJobAsync(priority, type, data);
 
         protected static Uri GenerateUri(WowRegion region, ApiNamespace lamespace, string path)
         {

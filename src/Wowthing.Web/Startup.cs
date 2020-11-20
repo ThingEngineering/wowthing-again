@@ -35,10 +35,11 @@ namespace Wowthing.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddResponseCompression(options =>
+            /*services.AddResponseCompression(options =>
             {
                 options.EnableForHttps = true;
-            });
+            });*/
+            services.AddResponseCaching();
 
             services.AddControllersWithViews();
 
@@ -99,9 +100,13 @@ namespace Wowthing.Web
 
             app.UseStatusCodePagesWithReExecute("/error", "?statusCode={0}");
 
-            app.UseResponseCompression();
+            //app.UseResponseCompression();
 
             app.UseRouting();
+
+            // TODO CORS
+
+            app.UseResponseCaching();
 
             app.UseAuthentication();
             app.UseAuthorization();

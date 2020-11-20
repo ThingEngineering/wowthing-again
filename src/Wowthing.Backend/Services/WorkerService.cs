@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
+using StackExchange.Redis;
 using Wowthing.Backend.Jobs;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Jobs;
@@ -29,7 +30,7 @@ namespace Wowthing.Backend.Services
 
         private readonly JobFactory _jobFactory;
 
-        public WorkerService(IServiceProvider services, StateService stateService, JobRepository jobRepository)
+        public WorkerService(IServiceProvider services, IConnectionMultiplexer redis, JobRepository jobRepository, StateService stateService)
         {
             _services = services;
             _stateService = stateService;
@@ -38,7 +39,7 @@ namespace Wowthing.Backend.Services
             _jobRepository = jobRepository;
             _logger = Log.ForContext("Service", $"Worker {_instanceId,2} | ");
 
-            _jobFactory = new JobFactory(new HttpClient(), _jobRepository, _logger, stateService);
+            _jobFactory = new JobFactory(new HttpClient(), _jobRepository, _logger, redis, stateService);
         }
 
         // Find all jobs and cache them

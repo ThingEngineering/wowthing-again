@@ -96,6 +96,7 @@ namespace Wowthing.Web.Controllers
                 }
             }
 
+            // Ensure user settings are created and migrated
             if (user.Settings == null)
             {
                 user.Settings = new ApplicationUserSettings();
@@ -112,7 +113,7 @@ namespace Wowthing.Web.Controllers
             // Store the external tokens in AspNetUserTokens, we need `access_token` to pull character list
             await _signInManager.UpdateExternalAuthenticationTokensAsync(loginInfo);
 
-            // Queue a job
+            // Queue a job to retrieve their characters
             await _jobRepository.AddJobAsync(JobPriority.High, JobType.UserCharacters, user.Id.ToString());
 
             return Redirect(returnUrl ?? Url.Action("Index", "User", new { username = user.UserName }));
