@@ -44,7 +44,6 @@ namespace Wowthing.Web.Controllers
                 return NotFound();
             }
 
-            // TODO set cache headers
             return Content(jsonData, "application/json");
         }
 

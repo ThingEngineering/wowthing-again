@@ -34,7 +34,6 @@ namespace Wowthing.Backend.Jobs
 
             // Add any new accounts
             var apiAccounts = new List<ApiAccountProfileAccount>();
-            var newAccounts = new List<PlayerAccount>();
             foreach (var region in EnumUtilities.GetValues<WowRegion>())
             {
                 var uri = GenerateUri(region, ApiNamespace.Profile, path);
@@ -53,7 +52,7 @@ namespace Wowthing.Backend.Jobs
                         // TODO handle account changing owner? is that even possible?
                         if (!accountMap.ContainsKey(account.Id))
                         {
-                            newAccounts.Add(new PlayerAccount
+                            _context.PlayerAccount.Add(new PlayerAccount
                             {
                                 Id = account.Id,
                                 UserId = userId,
@@ -73,7 +72,6 @@ namespace Wowthing.Backend.Jobs
                 }
             }
 
-            _context.PlayerAccount.AddRange(newAccounts);
             await _context.SaveChangesAsync();
 
             // Fetch existing users

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Wowthing.Backend.Extensions
 {
@@ -11,11 +11,8 @@ namespace Wowthing.Backend.Extensions
     {
         public static async Task<T> DeserializeJsonAsync<T>(this HttpResponseMessage response)
         {
-            var contentStream = await response.Content.ReadAsStreamAsync();
-            return await JsonSerializer.DeserializeAsync<T>(contentStream, new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true,
-            });
+            var contentString = await response.Content.ReadAsStringAsync();
+            return JsonConvert.DeserializeObject<T>(contentString);
         }
     }
 }
