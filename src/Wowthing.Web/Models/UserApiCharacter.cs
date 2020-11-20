@@ -17,7 +17,7 @@ namespace Wowthing.Web.Models
         public WowFaction Faction { get; set; }
         public WowGender Gender { get; set; }
 
-        public UserApiCharacter(UserCharacter character, bool pub = false, bool anon = false)
+        public UserApiCharacter(PlayerCharacter character, bool pub = false, bool anon = false)
         {
             ClassId = character.ClassId;
             Faction = character.Faction;

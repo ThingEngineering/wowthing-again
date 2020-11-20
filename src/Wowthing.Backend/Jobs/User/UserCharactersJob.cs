@@ -30,11 +30,11 @@ namespace Wowthing.Backend.Jobs
             var path = string.Format(API_PATH, accessToken.Value);
 
             // Fetch existing accounts
-            var accountMap = await _context.UserAccount.Where(a => a.UserId == userId).ToDictionaryAsync(k => k.Id);
+            var accountMap = await _context.PlayerAccount.Where(a => a.UserId == userId).ToDictionaryAsync(k => k.Id);
 
             // Add any new accounts
             var apiAccounts = new List<ApiAccountProfileAccount>();
-            var newAccounts = new List<UserAccount>();
+            var newAccounts = new List<PlayerAccount>();
             foreach (var region in EnumUtilities.GetValues<WowRegion>())
             {
                 var uri = GenerateUri(region, ApiNamespace.Profile, path);
@@ -53,7 +53,7 @@ namespace Wowthing.Backend.Jobs
                         // TODO handle account changing owner? is that even possible?
                         if (!accountMap.ContainsKey(account.Id))
                         {
-                            newAccounts.Add(new UserAccount
+                            newAccounts.Add(new PlayerAccount
                             {
                                 Id = account.Id,
                                 UserId = userId,
@@ -73,12 +73,12 @@ namespace Wowthing.Backend.Jobs
                 }
             }
 
-            _context.UserAccount.AddRange(newAccounts);
+            _context.PlayerAccount.AddRange(newAccounts);
             await _context.SaveChangesAsync();
 
             // Fetch existing users
             var characterIds = apiAccounts.SelectMany(a => a.Characters).Select(c => c.Id);
-            var characterMap = await _context.UserCharacter.Where(c => characterIds.Contains(c.Id)).ToDictionaryAsync(k => k.Id);
+            var characterMap = await _context.PlayerCharacter.Where(c => characterIds.Contains(c.Id)).ToDictionaryAsync(k => k.Id);
 
             var seenCharacters = new HashSet<long>();
             foreach (ApiAccountProfileAccount apiAccount in apiAccounts)
@@ -87,15 +87,15 @@ namespace Wowthing.Backend.Jobs
                 {
                     seenCharacters.Add(apiCharacter.Id);
 
-                    if (!characterMap.TryGetValue(apiCharacter.Id, out UserCharacter character))
+                    if (!characterMap.TryGetValue(apiCharacter.Id, out PlayerCharacter character))
                     {
-                        character = new UserCharacter
+                        character = new PlayerCharacter
                         {
                             Id = apiCharacter.Id,
                             GuildId = 0,
                             LastModified = DateTime.MinValue,
                         };
-                        _context.UserCharacter.Add(character);
+                        _context.PlayerCharacter.Add(character);
                     }
 
                     character.AccountId = apiAccount.Id;

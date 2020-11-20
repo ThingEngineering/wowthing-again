@@ -66,7 +66,7 @@ namespace Wowthing.Web.Controllers
             bool anon = user.Settings.Privacy.Anonymized;
 
             // Retrieve data
-            var characterQuery = _context.UserCharacter.Where(c => c.Account.UserId == user.Id);
+            var characterQuery = _context.PlayerCharacter.Where(c => c.Account.UserId == user.Id);
             if (pub)
             {
                 characterQuery = characterQuery.Where(c => c.Level >= 11);

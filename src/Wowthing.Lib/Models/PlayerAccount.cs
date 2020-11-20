@@ -7,7 +7,7 @@ using Wowthing.Lib.Enums;
 
 namespace Wowthing.Lib.Models
 {
-    public class UserAccount
+    public class PlayerAccount
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Key]
@@ -20,6 +20,6 @@ namespace Wowthing.Lib.Models
         [ForeignKey("UserId")]
         public ApplicationUser User { get; set; }
 
-        public List<UserCharacter> Characters { get; set; }
+        public List<PlayerCharacter> Characters { get; set; }
     }
 }
