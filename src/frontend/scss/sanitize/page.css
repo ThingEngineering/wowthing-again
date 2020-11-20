@@ -1,0 +1,13 @@
+/**
+ * Use a comfortable measure in all browsers (opinionated).
+ */
+
+html {
+  padding: 1em;
+}
+
+@media (min-width: 34em) {
+  html {
+    padding: 1em calc(50% - 16em);
+  }
+}
