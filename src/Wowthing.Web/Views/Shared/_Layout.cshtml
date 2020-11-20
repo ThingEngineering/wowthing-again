@@ -4,6 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title>@ViewData["Title"] - WoWthing</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="stylesheet" asp-href-include="~/dist/main.*css" />
 </head>
 <body>
@@ -31,7 +33,14 @@
         @RenderBody()
     </main>
     <footer>
-        <a href="https://gitlab.com/thing-engineering/wowthing/wowthing-again">GitLab</a>
+        <ul>
+            <li>
+                <a href="https://gitlab.com/thing-engineering/wowthing/wowthing-again">GitLab</a>
+            </li>
+            <li>
+                <div>Favicon by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a></div>
+            </li>
+        </ul>
     </footer>
 
     <script type="text/javascript" asp-src-include="~/dist/main.*js"></script>

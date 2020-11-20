@@ -2,18 +2,19 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background: #121212;
+  background: $body-background;
   color: #ffffff;
 }
 
 header {
   position: sticky;
   top: 0;
+  border-bottom: 1px solid $border-color;
 }
 
 header,
 footer {
-  background: #303438;
+  background: $header-footer-background;
   padding: 0.8rem;
 }
 
@@ -21,8 +22,18 @@ footer {
   display: flex;
   justify-content: space-between;
 
-  > ul {
+  ul {
     margin: 0;
+
+    li {
+      display: inline-block;
+
+      & + li {
+        border-left: 1px solid #888;
+        margin-left: 0.4rem;
+        padding-left: 0.6rem;
+      }
+    }
   }
 }
 
@@ -33,6 +44,23 @@ main {
 
 footer {
   flex: none;
+  border-top: 1px solid $border-color;
+
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    li {
+      display: inline-block;
+
+      & + li {
+        border-left: 1px solid #888;
+        margin-left: 0.4rem;
+        padding-left: 0.6rem;
+      }
+    }
+  }
 }
 
 a,

@@ -2,24 +2,37 @@
 </script>
 
 <style lang="scss">
+    @import "../../scss/variables.scss";
     nav {
-        background: #232323;
-        border: 1px solid #4fff4f;
-        border-radius: 4px;
+        background: $thing-background;
+        border: 1px solid $border-color;
         margin-right: 2rem;
         padding: 0.5rem 0;
-        min-width: 10em;
-        width: 10em;
+        min-width: 8em;
+        width: 8rem;
     }
-    a {
-        display: block;
-        padding: 0.5rem 1rem;
+    ul {
+        margin: 0;
+    }
+    li {
+        padding: 0.2rem 1rem;
+    }
+    .spacer {
+      height: 1rem;
     }
 </style>
 
 <nav>
-    <a href="#/">Home</a>
-    <a href="#/">Also Home</a>
-    <hr>
-    <a href="#/settings">Settings</a>
+    <ul>
+        <li>
+            <a href="#/">Home</a>
+        </li>
+        <li>
+            <a href="#/">Also Home</a>
+        </li>
+        <li class="spacer"></li>
+        <li>
+            <a href="#/settings">Settings</a>
+        </li>
+    </ul>
 </nav>

@@ -124,9 +124,9 @@ nav ul {
  * Prevent VoiceOver from ignoring list semantics in Safari (opinionated).
  */
 
-nav li::before {
+/*nav li::before {
   content: "\200B";
-}
+}*/
 
 /**
  * 1. Correct the inheritance and scaling of font size in all browsers.
