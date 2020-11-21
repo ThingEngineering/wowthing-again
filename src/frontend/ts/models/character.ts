@@ -4,7 +4,10 @@ import { data } from '../stores/static-store'
 import getImg from '../utils/get-img'
 
 
-const staticData = get(data) as any
+let staticData: any
+data.subscribe(value => {
+    staticData = value
+})
 
 
 class Character {
@@ -23,7 +26,7 @@ class Character {
         return getImg(staticData.Class[this.classId].Icon, size)
     }
     getRealmName(): string {
-        const realm = (get(data) as any).Realm[this.realmId]
+        const realm = staticData.Realm[this.realmId]
         return realm?.Name ?? "Honkstrasza"
     }
 }
