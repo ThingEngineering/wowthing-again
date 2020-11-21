@@ -7,6 +7,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using Newtonsoft.Json;
 using Serilog;
 using StackExchange.Redis;
 using Wowthing.Backend.Extensions;
@@ -14,6 +15,7 @@ using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Services;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Enums;
+using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Repositories;
 using Wowthing.Lib.Utilities;
@@ -23,6 +25,7 @@ namespace Wowthing.Backend.Jobs
     public abstract class JobBase : IJob
     {
         private const string API_URL = "https://{0}.api.blizzard.com/{1}";
+        private readonly TimeSpan CACHE_TIME = TimeSpan.FromMinutes(60);
 
         internal HttpClient _http;
         internal JobRepository _jobRepository;
@@ -61,8 +64,17 @@ namespace Wowthing.Backend.Jobs
             return builder.Uri;
         }
 
-        protected async Task<T> GetJson<T>(Uri uri, bool needsAuthorization = true)
+        protected async Task<T> GetJson<T>(Uri uri, bool needsAuthorization = true, bool useCache = false)
         {
+            // Try from cache first
+            var cacheKey = $"getjson:${uri.ToString().Md5()}";
+            var db = _redis.GetDatabase();
+            string cached = await db.StringGetAsync(cacheKey);
+            if (!string.IsNullOrEmpty(cached))
+            {
+                return JsonConvert.DeserializeObject<T>(cached);
+            }
+
             using var request = new HttpRequestMessage(HttpMethod.Get, uri);
             
             if (needsAuthorization)
@@ -77,7 +89,9 @@ namespace Wowthing.Backend.Jobs
                 throw new HttpRequestException(((int)response.StatusCode).ToString());
             }
 
-            return await response.DeserializeJsonAsync<T>();
+            var contentString = await response.Content.ReadAsStringAsync();
+            await db.StringSetAsync(cacheKey, contentString, CACHE_TIME);
+            return JsonConvert.DeserializeObject<T>(contentString);
         }
     }
 }

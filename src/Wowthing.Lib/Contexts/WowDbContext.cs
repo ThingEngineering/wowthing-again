@@ -16,6 +16,7 @@ namespace Wowthing.Lib.Contexts
         public DbSet<WowClass> WowClass { get; set; }
         public DbSet<WowRace> WowRace { get; set; }
         public DbSet<WowRealm> WowRealm { get; set; }
+        public DbSet<WowTitle> WowTitle { get; set; }
 
         public DbSet<PlayerAccount> PlayerAccount { get; set; }
         public DbSet<PlayerCharacter> PlayerCharacter { get; set; }

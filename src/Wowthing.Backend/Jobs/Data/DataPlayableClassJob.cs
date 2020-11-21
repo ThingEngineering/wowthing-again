@@ -32,7 +32,7 @@ namespace Wowthing.Backend.Jobs.Data
 
             // Fetch API data
             var uri = GenerateUri(WowRegion.US, ApiNamespace.Static, string.Format(API_PATH, classId));
-            var apiClass = await GetJson<ApiDataPlayableClass>(uri);
+            var apiClass = await GetJson<ApiDataPlayableClass>(uri, useCache: true);
 
             // Update object
             string baseName = apiClass.Name.Replace(' ', '_').ToLowerInvariant();

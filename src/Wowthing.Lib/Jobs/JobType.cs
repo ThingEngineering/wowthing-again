@@ -10,11 +10,14 @@ namespace Wowthing.Lib.Jobs
 
         Character = 100,
 
+        DataPlayableClass = 200,
+        DataTitle,
+
         // Scheduled jobs
-        DataPlayableRaceIndex = 1000,
+        CacheStatic = 1000,
+        DataPlayableRaceIndex,
         DataPlayableClassIndex,
-        DataPlayableClass,
         DataRealmIndex,
-        CacheStatic,
+        DataTitleIndex,
     }
 }
