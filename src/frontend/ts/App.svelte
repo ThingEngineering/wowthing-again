@@ -23,7 +23,7 @@
 </style>
 
 <Sidebar />
-<div>
+<div style="width: 100%">
     {#if $staticError || $userError}
         <p>KABOOM! Something has gone horribly wrong, try reloading the page?</p>
     {:else if $staticLoading || $userLoading}
