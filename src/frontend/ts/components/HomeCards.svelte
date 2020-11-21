@@ -8,14 +8,14 @@
   section {
     display: grid;
     grid-template-columns: repeat(auto-fill, 8rem);
-    grid-gap: 1rem;
+    grid-gap: 0.9rem;
     justify-content: left;
-    margin-top: 2rem; // FIXME remove later
     width: 100%;
   }
   article {
     background: $thing-background;
     border: 1px solid $border-color;
+    border-radius: 8px;
     display: inline-block;
     padding: 0.5rem 0.75rem;
     text-align: center;

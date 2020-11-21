@@ -8,8 +8,8 @@
         border: 1px solid $border-color;
         margin-right: 2rem;
         padding: 0.5rem 0;
-        min-width: 8em;
-        width: 8rem;
+        min-width: 9rem;
+        width: 9rem;
     }
     ul {
         margin: 0;
@@ -25,10 +25,10 @@
 <nav>
     <ul>
         <li>
-            <a href="#/">Home</a>
+            <a href="#/">Home (Table)</a>
         </li>
         <li>
-            <a href="#/">Also Home</a>
+            <a href="#/cards">Home (Cards)</a>
         </li>
         <li class="spacer"></li>
         <li>
