@@ -1,6 +1,10 @@
 import { get } from 'svelte/store'
 
 import { data } from '../stores/static-store'
+import getImg from '../utils/get-img'
+
+
+const staticData = get(data) as any
 
 
 class Character {
@@ -13,12 +17,10 @@ class Character {
     level: number
 
     getRaceIcon(size: number): string {
-        const race = (get(data) as any).Race[this.raceId]
-        return `<img src="https://img.wowthing.org/${race[this.gender === 1 ? 'IconMale' : 'IconFemale']}.png" width="${size}" height="${size}"}>`
+        return getImg(staticData.Race[this.raceId][this.gender === 1 ? 'IconMale' : 'IconFemale'], size)
     }
     getClassIcon(size: number): string {
-        const cls = (get(data) as any).Class[this.classId]
-        return `<img src="https://img.wowthing.org/${cls.Icon}.png" width="${size}" height="${size}">`
+        return getImg(staticData.Class[this.classId].Icon, size)
     }
     getRealmName(): string {
         const realm = (get(data) as any).Realm[this.realmId]
