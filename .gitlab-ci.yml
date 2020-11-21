@@ -45,6 +45,7 @@ backend-deploy:
     changes:
       - src/Wowthing.Web/**/*
       - src/Wowthing.Lib/**/*
+      - src/frontend/**/*
 
 web-build:
   extends:
