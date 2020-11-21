@@ -43,7 +43,9 @@ main {
 }
 
 footer {
+  display: flex;
   flex: none;
+  justify-content: space-between;
   border-top: 1px solid $border-color;
 
   ul {
