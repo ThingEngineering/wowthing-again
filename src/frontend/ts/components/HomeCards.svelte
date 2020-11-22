@@ -1,5 +1,8 @@
 <script lang="ts">
-  import { data } from '../stores/user-store'
+  import {data} from '../stores/user-store'
+
+  import ClassIcon from './images/ClassIcon.svelte'
+  import RaceIcon from './images/RaceIcon.svelte'
 </script>
 
 <style lang="scss">
@@ -37,8 +40,8 @@
 <section>
     {#each $data.characters as character}
         <article class="{character.faction === 0 ? 'faction0' : 'faction1'}">
-            {@html character.getRaceIcon(48)}
-            {@html character.getClassIcon(48)}
+            <RaceIcon size="48" character="{character}" />
+            <ClassIcon size="48" character="{character}" />
             <div class="name">{character.name}</div>
             <div class="realm">{character.getRealmName()}</div>
             <div class="level">Level {character.level}</div>
