@@ -18,6 +18,12 @@ namespace Wowthing.Backend.Jobs.Misc
 {
     public class CacheStaticJob : JobBase, IScheduledJob
     {
+#if DEBUG
+        private static readonly string DATA_PATH = Path.Join("..", "..", "data");
+#else
+        private static readonly string BASE_PATH = "data";
+#endif
+
         public static ScheduledJob Schedule = new ScheduledJob
         {
             Type = JobType.CacheStatic,
@@ -59,7 +65,7 @@ namespace Wowthing.Backend.Jobs.Misc
                 .WithNamingConvention(LowerCaseNamingConvention.Instance)
                 .Build();
 
-            var basePath = Path.Join("..", "..", "data", dirName);
+            var basePath = Path.Join(DATA_PATH, dirName);
             foreach (var line in File.ReadLines(Path.Join(basePath, "_order")))
             {
                 var filePath = Path.Join(basePath, line);
