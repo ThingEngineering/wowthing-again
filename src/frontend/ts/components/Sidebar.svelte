@@ -32,6 +32,16 @@
         </li>
         <li class="spacer"></li>
         <li>
+            <a href="#/mounts">Mounts [NYI]</a>
+        </li>
+        <li>
+            <a href="#/pets">Pets [NYI]</a>
+        </li>
+        <li>
+            <a href="#/toys">Toys [NYI]</a>
+        </li>
+        <li class="spacer"></li>
+        <li>
             <a href="#/settings">Settings</a>
         </li>
     </ul>
