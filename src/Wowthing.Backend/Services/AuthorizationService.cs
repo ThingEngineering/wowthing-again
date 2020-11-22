@@ -34,17 +34,11 @@ namespace Wowthing.Backend.Services
 
         protected override async void TimerCallback(object state)
         {
-            if (_stateService.AccessToken?.RefreshRequired == false)
-            {
-                _logger.Debug("Token is fine");
-                return;
-            }
-
             // Try fetching from Redis
             var db = _redis.GetDatabase();
             var redisToken = await db.JsonGetAsync<RedisAccessToken>(REDIS_KEY_TOKEN);
 
-            if (redisToken?.RefreshRequired == false)
+            if (redisToken.Valid)
             {
                 _stateService.AccessToken = redisToken;
                 _logger.Debug("Retrieved valid access token from Redis");

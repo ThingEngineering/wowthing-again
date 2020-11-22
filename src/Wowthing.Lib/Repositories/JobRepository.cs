@@ -72,7 +72,7 @@ namespace Wowthing.Lib.Repositories
 
             if (set)
             {
-                await db.StringSetAsync(key, DateTimeOffset.Now.ToString("O"));
+                await db.StringSetAsync(key, DateTimeOffset.Now.ToString("O"), maximumAge);
             }
             return set;
         }

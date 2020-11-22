@@ -60,9 +60,9 @@ namespace Wowthing.Backend.Services
             // Scheduled jobs run on an interval, see if any need to be started
             foreach (var scheduledJob in _scheduledJobs)
             {
-                if (await _jobRepository.CheckLastTime("scheduled_job", scheduledJob.Type.ToString(), scheduledJob.Interval))
+                if (await _jobRepository.CheckLastTime("scheduled_job", scheduledJob.RedisKey, scheduledJob.Interval))
                 {
-                    _logger.Information("Queueing scheduled task {0}", scheduledJob.Type.ToString());
+                    _logger.Information("Queueing scheduled task {0}", scheduledJob.RedisKey);
                     await _jobRepository.AddJobAsync(scheduledJob.Priority, scheduledJob.Type);
                 }
             }

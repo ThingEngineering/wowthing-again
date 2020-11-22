@@ -63,8 +63,8 @@ namespace Wowthing.Backend.Services
 
             while (!stoppingToken.IsCancellationRequested)
             {
-                await Task.Delay(500);
-                if (_stateService.AccessToken?.RefreshRequired != false)
+                await Task.Delay(10);
+                if (_stateService.AccessToken?.Valid != true)
                 {
                     _logger.Debug("Waiting for auth service to be ready");
                     continue;
