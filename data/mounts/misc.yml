@@ -68,3 +68,96 @@ groups:
   -  628 # Trained Rocktusk
   -  637 # Trained Silverpelt
   -  647 # Trained Snarler
+
+- name: Guild
+  things:
+  -  403 409 # Golden King/Kor'kron Annihilator
+  -  401 # Dark Phoenix
+  -  466 # Thundering Jade Cloud Serpent
+  -  619 # Blacksteel Battleboar (Guild Glory of the Draenor Raider)
+
+- name: Misc
+  things:
+  -  539 # Black Primal Raptor
+  -  540 # Green Primal Raptor
+  -  538 # Red Primal Raptor
+
+- name: Order Halls
+  things:
+  -  866 # Deathlord's Vilebrood Vanquisher (Death Knight)
+  -  868 # Slayer's Felbroken Shrieker (Demon Hunter)
+  -  872 # Huntmaster's Dire Wolfhawk (Hunter)
+  -  870 # Huntmaster's Fierce Wolfhawk (Hunter)
+  -  865 # Huntmaster's Loyal Wolfhawk (Hunter)
+  -  860 # Archmage's Prismatic Disc (Mage)
+  -  864 # Ban-Lu, Grandmaster's Companion (Monk)
+  -  885 # Highlord's Golden Charger (Paladin)
+  -  894 # Highlord's Valorous Charger (Paladin)
+  -  892 # Highlord's Vengeful Charger (Paladin)
+  -  893 # Highlord's Vigilant Charger (Paladin)
+  -  861 # High Priest's Lightsworn Seeker (Priest)
+  -  890 # Shadowblade's Baneful Omen (Rogue)
+  -  891 # Shadowblade's Crimson Omen (Rogue)
+  -  889 # Shadowblade's Lethal Omen (Rogue)
+  -  884 # Shadowblade's Murderous Omen (Rogue)
+  -  888 # Farseer's Raging Temptest (Shaman)
+  -  931 # Netherlord's Accursed Wrathsteed (Warlock)
+  -  930 # Netherlord's Brimstone Wrathsteed (Warlock)
+  -  898 # Netherlord's Chaotic Wrathsteed (Warlock)
+  -  867 # Battlelord's Bloodthirsty War Wyrm (Warrior)
+
+- name: Puzzles
+  things:
+  - 838 # Fathom Dweller (Kosumoth)
+  - 802 # Long-Forgotten Hippogryph (Azsuna crystals)
+  - 961 # Lucid Nightmare (weird puzzle?)
+  - 947 # Riddler's Mind-Worm (Gift of the Mind-Seekers)
+
+- name: Quests
+  things:
+  -  537 # Bone-White Primal Raptor
+  -  373 # Vashj'ir Seahorse
+  -  237 # White Polar Bear
+
+- name: Quests - Legion
+  things:
+  -  881 # Arcanist's Manasaber (Suramar, Balance of Power chain)
+  -  656 # Llothien Prowler (random drop?)
+  -  794 # Brilliant Direbeak
+  -  793 # Predatory Bloodgazer
+  -  795 # Snowfeather Hunter
+  -  796 # Viridian Sharptalon
+
+- name: Quests - BfA
+  things:
+  - 1043 # Kua'fon (Down, But Not Out - Zuldazar)
+
+- name: World Drops?
+  things:
+  -  928 # Dune Scavenger (?? Vol'dun)
+  - 1019 # Goldenmane (?? Stormsong)
+  -  956 # Leaping Veinseeker (?? Nazmir)
+  - 1057 # Nazjatar Blood Serpent (Adherent of the Abyss - Stormsong Valley) ?
+  - 1018 # Terrified Pack Mule (?? Drustvar)
+
+- name: World Events
+  things:
+  -  352 # Big Love Rocket (Love is in the Air)
+  -  434 # Darkmoon Dancing Bear (Darkmoon Faire Vendor)
+  -  962 # Darkmoon Dirigible (Darkmoon Faire)
+  -  855 # Darkwater Skate (Darkmoon Faire Vendor)
+  -  226 # Great Brewfest Kodo (Brewfest)
+  -  219 # Headless Horseman's Mount
+  -  769 # Minion of Grumpus
+  -  202 # Swift Brewfest Ram (Brewfest)
+  -  429 # Swift Forest Strider
+  -  431 # Swift Lovebird (Love is in the Air)
+  -  430 # Swift Springstrider
+
+- name: Recruit-A-Friend
+  things:
+  -  224 # Swift Zhevra
+  -  382 # X-53 Touring Rocket
+  -  455 # Obsidian Nightwing
+  -  568 # Emerald Hippogryph
+  -  454 # Cindermane Charger
