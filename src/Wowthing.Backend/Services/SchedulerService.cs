@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
-using StackExchange.Redis;
+using ServiceStack.Redis;
 using Wowthing.Backend.Jobs;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Repositories;
@@ -17,14 +17,14 @@ namespace Wowthing.Backend.Services
     {
         private const int TIMER_INTERVAL = 5;
         
-        private readonly IConnectionMultiplexer _redis;
+        private readonly IRedisClientsManager _redis;
         private readonly JobRepository _jobRepository;
         private readonly IServiceScope _scope;
         private readonly WowDbContext _context;
         
         private readonly List<ScheduledJob> _scheduledJobs = new List<ScheduledJob>();
 
-        public SchedulerService(IConnectionMultiplexer redis, IServiceProvider services, JobRepository jobRepository)
+        public SchedulerService(IRedisClientsManager redis, IServiceProvider services, JobRepository jobRepository)
             : base("Scheduler", TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(TIMER_INTERVAL))
         {
             _redis = redis;

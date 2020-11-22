@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using StackExchange.Redis;
+using ServiceStack.Redis;
 using Wowthing.Backend.Models;
 using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.Redis;
@@ -19,12 +19,12 @@ namespace Wowthing.Backend.Services
     {
         private readonly HttpClient _http = new HttpClient();
         private readonly StateService _stateService;
-        private readonly IConnectionMultiplexer _redis;
+        private readonly IRedisClientsManager _redis;
         private readonly IOptions<BattleNetOptions> _bnetOptions;
 
         private const string REDIS_KEY_TOKEN = "access_token:backend";
 
-        public AuthorizationService(StateService stateService, IConnectionMultiplexer redis, IOptions<BattleNetOptions> bnetOptions)
+        public AuthorizationService(StateService stateService, IRedisClientsManager redis, IOptions<BattleNetOptions> bnetOptions)
             : base("Authorize", TimeSpan.FromSeconds(0), TimeSpan.FromHours(1))
         {
             _stateService = stateService;
@@ -35,10 +35,9 @@ namespace Wowthing.Backend.Services
         protected override async void TimerCallback(object state)
         {
             // Try fetching from Redis
-            var db = _redis.GetDatabase();
+            var db = await _redis.GetClientAsync();
             var redisToken = await db.JsonGetAsync<RedisAccessToken>(REDIS_KEY_TOKEN);
-
-            if (redisToken.Valid)
+            if (redisToken?.Valid == true)
             {
                 _stateService.AccessToken = redisToken;
                 _logger.Debug("Retrieved valid access token from Redis");
