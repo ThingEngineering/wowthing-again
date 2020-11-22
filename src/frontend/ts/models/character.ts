@@ -20,13 +20,13 @@ class Character {
     level: number
 
     getRaceIcon(size: number): string {
-        return getImg(staticData.Race[this.raceId][this.gender === 1 ? 'IconMale' : 'IconFemale'], size)
+        return getImg(staticData.Races[this.raceId][this.gender === 1 ? 'IconMale' : 'IconFemale'], size)
     }
     getClassIcon(size: number): string {
-        return getImg(staticData.Class[this.classId].Icon, size)
+        return getImg(staticData.Classes[this.classId].Icon, size)
     }
     getRealmName(): string {
-        const realm = staticData.Realm[this.realmId]
+        const realm = staticData.Realms[this.realmId]
         return realm?.Name ?? "Honkstrasza"
     }
 }
