@@ -30,14 +30,12 @@ namespace Wowthing.Backend.Jobs.Character
             }
             catch (HttpRequestException e)
             {
-                // Not Modified is fine, nothing else to do
-                if (e.Message == "304")
+                // Not Modified is fine
+                if (e.Message != "304")
                 {
-                    return;
+                    _logger.Error("{0}: character {1}/{2}", e.Message, query.RealmSlug, query.CharacterName.ToLowerInvariant());
                 }
-
-                _logger.Error("{0}: character {1}/{2}", e.Message, query.RealmSlug, query.CharacterName.ToLowerInvariant());
-                throw e;
+                return;
             }
 
             // Get character from database
@@ -49,11 +47,14 @@ namespace Wowthing.Backend.Jobs.Character
             }
 
             character.ActiveTitleId = apiCharacter.ActiveTitle.Id;
+            character.AverageItemLevel = apiCharacter.AverageItemLevel;
             character.ClassId = apiCharacter.Class.Id;
+            character.EquippedItemLevel = apiCharacter.EquippedItemLevel;
             character.Experience = apiCharacter.Experience;
             character.Faction = apiCharacter.Faction.EnumParse<WowFaction>();
             character.Gender = apiCharacter.Gender.EnumParse<WowGender>();
             character.GuildId = apiCharacter.Guild.Id;
+            character.LastModified = DateTimeOffset.FromUnixTimeMilliseconds(apiCharacter.LastLogout).UtcDateTime;
             character.Level = apiCharacter.Level;
             character.Name = apiCharacter.Name;
             character.RaceId = apiCharacter.Race.Id;
