@@ -1,0 +1,70 @@
+groups:
+- name: Pandaren
+  things:
+  -  498 # Great Black Dragon Turtle
+  -  499 # Great Blue Dragon Turtle
+  -  500 # Great Brown Dragon Turtle
+  -  497 # Great Green Dragon Turtle
+  -  501 # Great Purple Dragon Turtle
+  -  453 # Great Red Dragon Turtle
+  -  492 # Black Dragon Turtle
+  -  493 # Blue Dragon Turtle
+  -  494 # Brown Dragon Turtle
+  -  452 # Green Dragon Turtle
+  -  495 # Purple Dragon Turtle
+  -  496 # Red Dragon Turtle
+
+- name: PvP
+  things:
+  -  109 108 # Stormpike Battle Charger/Frostwolf Howler (Alterac Valley)
+  -  271 272 # Black War Bear
+  -  834 # Prestigious Azure Courser
+  -  826 # Prestigious Bronze Courser
+  -  832 # Prestigious Forest Courser
+  -  833 # Prestigious Ivory Courser
+  -  836 # Prestigious Midnight Courser
+  -  831 # Prestigious Royal Courser
+
+- name: Class
+  things:
+  -   41 # Warhorse (Paladin)
+  -   84 # Charger (Paladin)
+  -  367 # Exarch's Elekk (Draenei Paladin)
+  -  368 # Great Exarch's Elekk (Draenei Paladin)
+  -  150 # Thalassian Warhorse (BE Paladin)
+  -  149 # Thalassian Charger (BE Paladin)
+  -  350 # Sunwalker Kodo (Tauren Paladin)
+  -  351 # Great Sunwalker Kodo (Tauren Paladin)
+  -  338 # Argent Charger (Paladin)
+  - 1046 # Darkforge Ram (Dark Iron Paladin?)
+  - 1047 # Dawnforge Ram (Dark Iron Paladin?)
+  -   17 # Felsteed (Warlock)
+  -   83 # Dreadsteed (Warlock)
+  -  221 # Acherus Deathcharger (Death Knight)
+  -  236 # Winged Steed of the Ebon Blade (Death Knight)
+  -  780 # Felsaber (Demon Hunter Class Mount)
+
+- name: Garrison
+  things:
+  -  488 # Crimson Water Strider (Fishing Shack)
+  -  618 645 # Armored Irontusk/Ironside Warwolf (Trading Post)
+  -  762 # Coalfist Gronnling (Mission)
+  -  631 # Mudback Riverbeast (Mission)
+
+- name: Garrison - Invasion
+  things:
+  -  642 # Garn Steelmaw
+  -  626 # Giant Coldsnout
+  -  616 # Shadowhide Pearltusk
+  -  649 # Smoky Direwolf
+
+- name: Garrison - Stables
+  things:
+  -  621 # Armored Frostboar
+  -  644 # Armored Frostwolf
+  -  609 # Trained Icehoof
+  -  615 # Trained Meadowstomper
+  -  629 # Trained Riverwallow
+  -  628 # Trained Rocktusk
+  -  637 # Trained Silverpelt
+  -  647 # Trained Snarler

@@ -9,10 +9,18 @@ namespace Wowthing.Backend.Models.Redis
     public class RedisStaticCache
     {
         [JsonProperty(Order = 0)]
-        public SortedDictionary<int, WowClass> Class { get; set; }
+        public SortedDictionary<int, WowClass> Classes { get; set; }
         [JsonProperty(Order = 1)]
-        public SortedDictionary<int, WowRace> Race { get; set; }
+        public SortedDictionary<int, WowRace> Races { get; set; }
         [JsonProperty(Order = 2)]
-        public SortedDictionary<int, WowRealm> Realm { get; set; }
+        public SortedDictionary<int, WowRealm> Realms { get; set; }
+
+        [JsonProperty(Order = 10)]
+        public SortedDictionary<int, int> Mounts { get; set; }
+        //[JsonProperty(Order = 11)]
+        //public SortedDictionary<int, int> Pets { get; set; }
+
+        [JsonProperty(Order = 20)]
+        public List<RedisSetCategory> MountSets { get; set; }
     }
 }

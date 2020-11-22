@@ -5,8 +5,10 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 using StackExchange.Redis;
 using Wowthing.Backend.Jobs;
+using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Repositories;
 
 namespace Wowthing.Backend.Services
@@ -17,13 +19,20 @@ namespace Wowthing.Backend.Services
         
         private readonly IConnectionMultiplexer _redis;
         private readonly JobRepository _jobRepository;
+        private readonly IServiceScope _scope;
+        private readonly WowDbContext _context;
+        
         private readonly List<ScheduledJob> _scheduledJobs = new List<ScheduledJob>();
 
-        public SchedulerService(IConnectionMultiplexer redis, JobRepository jobRepository)
+        public SchedulerService(IConnectionMultiplexer redis, IServiceProvider services, JobRepository jobRepository)
             : base("Scheduler", TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(TIMER_INTERVAL))
         {
             _redis = redis;
             _jobRepository = jobRepository;
+
+            // Get a scope and context
+            _scope = services.CreateScope();
+            _context = _scope.ServiceProvider.GetService<WowDbContext>();
 
             // Schedule jobs for all IScheduledJob implementers
             var jobTypes = AppDomain.CurrentDomain.GetAssemblies()
@@ -60,6 +69,8 @@ namespace Wowthing.Backend.Services
 
             // TODO other jobs:
             // - execute some sort of nasty database query to get characters that need checking
+            //var chars = await _context.PlayerCharacter.Where(c => c)
+
             // - queue jobs for each character
             // - store API checked time in redis or database?
 
