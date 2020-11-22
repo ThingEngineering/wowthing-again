@@ -21,7 +21,7 @@ namespace Wowthing.Backend.Jobs.Misc
 #if DEBUG
         private static readonly string DATA_PATH = Path.Join("..", "..", "data");
 #else
-        private static readonly string BASE_PATH = "data";
+        private static readonly string DATA_PATH = "data";
 #endif
 
         public static ScheduledJob Schedule = new ScheduledJob
