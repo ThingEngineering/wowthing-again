@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using CsvHelper;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using ServiceStack.Redis;
 using Wowthing.Backend.Models.Data;
 using Wowthing.Backend.Models.Redis;
 using Wowthing.Lib.Extensions;
@@ -36,7 +37,7 @@ namespace Wowthing.Backend.Jobs.Misc
 
         public override async Task Run(params string[] data)
         {
-            var db = _redis.GetDatabase();
+            var db = await _redis.GetClientAsync();
 
             var cacheData = new RedisStaticCache
             {
@@ -52,8 +53,8 @@ namespace Wowthing.Backend.Jobs.Misc
             var cacheJson = JsonConvert.SerializeObject(cacheData);
             var cacheHash = cacheJson.Md5();
 
-            await db.StringSetAsync("cached_static:data", cacheJson);
-            await db.StringSetAsync("cached_static:hash", cacheHash);
+            await db.SetValueAsync("cached_static:data", cacheJson);
+            await db.SetValueAsync("cached_static:hash", cacheHash);
         }
 
         private async Task<SortedDictionary<int, int>> LoadMountDump()

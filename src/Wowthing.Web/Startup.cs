@@ -71,8 +71,8 @@ namespace Wowthing.Web
 
             // Redis
             var redis = services.AddRedis(Configuration.GetConnectionString("Redis"));
-            services.AddDataProtection()
-                .PersistKeysToStackExchangeRedis(redis);
+            services.AddDataProtection();
+                //.PersistKeysToStackExchangeRedis(redis);
 
             // Forwarded headers in production
             if (Env.IsProduction())

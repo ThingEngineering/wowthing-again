@@ -10,8 +10,8 @@ namespace Wowthing.Backend.Models.Redis
     {
         private static readonly TimeSpan MINIMUM_REMAINING = TimeSpan.FromHours(4);
 
-        public string AccessToken { get; }
-        public DateTime ExpiresAt { get; }
+        public string AccessToken { get; set; }
+        public DateTime ExpiresAt { get; set; }
 
         public RedisAccessToken()
         { }
@@ -22,7 +22,7 @@ namespace Wowthing.Backend.Models.Redis
             ExpiresAt = DateTime.Now.AddSeconds(apiToken.ExpiresIn);
         }
 
-        private bool? _valid;
+        private bool? _valid = null;
         [JsonIgnore]
         public bool Valid
         {
@@ -30,7 +30,7 @@ namespace Wowthing.Backend.Models.Redis
             {
                 if (_valid == null)
                 {
-                    _valid = ExpiresAt.Subtract(DateTime.Now) <= MINIMUM_REMAINING;
+                    _valid = ExpiresAt.Subtract(DateTime.Now) >= MINIMUM_REMAINING;
                 }
                 return _valid.Value;
             }
