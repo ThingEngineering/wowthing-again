@@ -6,6 +6,9 @@ _magic
 **/obj
 **/node_modules
 .dockerignore
+.gitattributes
 .gitignore
 .gitlab-ci.yml
+development.Dockerfile
 docker-compose.yml
+Dockerfile
