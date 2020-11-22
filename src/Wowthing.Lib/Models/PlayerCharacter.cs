@@ -16,7 +16,9 @@ namespace Wowthing.Lib.Models
         public long GuildId { get; set; }
 
         public int ActiveTitleId { get; set; } = 0;
+        public int AverageItemLevel { get; set; } = 0;
         public int ClassId { get; set; }
+        public int EquippedItemLevel { get; set; } = 0;
         public int Experience { get; set; } = 0;
         public int Level { get; set; }
         public int RaceId { get; set; }
