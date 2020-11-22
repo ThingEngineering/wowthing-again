@@ -66,32 +66,42 @@ namespace Wowthing.Backend.Jobs
 
         protected async Task<T> GetJson<T>(Uri uri, bool needsAuthorization = true, bool useCache = false)
         {
+            var timer = new JankTimer();
+
             // Try from cache first
-            var cacheKey = $"getjson:${uri.ToString().Md5()}";
+            var cacheKey = $"getjson:{uri.ToString().Md5()}";
             var db = _redis.GetDatabase();
-            string cached = await db.StringGetAsync(cacheKey);
-            if (!string.IsNullOrEmpty(cached))
+            string contentString = await db.StringGetAsync(cacheKey);
+            if (string.IsNullOrEmpty(contentString))
             {
-                return JsonConvert.DeserializeObject<T>(cached);
+                using var request = new HttpRequestMessage(HttpMethod.Get, uri);
+
+                if (needsAuthorization)
+                {
+                    request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _stateService.AccessToken.AccessToken);
+                }
+
+                var response = await _http.SendAsync(request);
+                if (!response.IsSuccessStatusCode)
+                {
+                    response.Content?.Dispose();
+                    throw new HttpRequestException(((int)response.StatusCode).ToString());
+                }
+
+                contentString = await response.Content.ReadAsStringAsync();
+                await db.StringSetAsync(cacheKey, contentString, CACHE_TIME);
+                timer.AddPoint("API");
+            }
+            else
+            {
+                timer.AddPoint("Cache");
             }
 
-            using var request = new HttpRequestMessage(HttpMethod.Get, uri);
-            
-            if (needsAuthorization)
-            {
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _stateService.AccessToken.AccessToken);
-            }
+            T obj = JsonConvert.DeserializeObject<T>(contentString);
+            timer.AddPoint("JSON", true);
+            _logger.Debug("{0}", timer.ToString());
 
-            var response = await _http.SendAsync(request);
-            if (!response.IsSuccessStatusCode)
-            {
-                response.Content?.Dispose();
-                throw new HttpRequestException(((int)response.StatusCode).ToString());
-            }
-
-            var contentString = await response.Content.ReadAsStringAsync();
-            await db.StringSetAsync(cacheKey, contentString, CACHE_TIME);
-            return JsonConvert.DeserializeObject<T>(contentString);
+            return obj;
         }
     }
 }

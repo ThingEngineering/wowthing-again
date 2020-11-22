@@ -10,5 +10,19 @@ namespace Wowthing.Backend.Jobs
         public JobPriority Priority;
         public JobType Type;
         public TimeSpan Interval;
+        public int Version = 1;
+
+        private string _redisKey;
+        public string RedisKey
+        {
+            get
+            {
+                if (_redisKey == null)
+                {
+                    _redisKey = $"{Type}_v{Version}";
+                }
+                return _redisKey;
+            }
+        }
     }
 }

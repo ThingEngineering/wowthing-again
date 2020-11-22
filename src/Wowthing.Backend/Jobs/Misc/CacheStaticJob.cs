@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CsvHelper;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Wowthing.Backend.Models.Data;
@@ -29,6 +31,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
+            Version = 2,
         };
 
         public override async Task Run(params string[] data)
@@ -41,6 +44,8 @@ namespace Wowthing.Backend.Jobs.Misc
                 Races = new SortedDictionary<int, WowRace>(await _context.WowRace.ToDictionaryAsync(c => c.Id)),
                 Realms = new SortedDictionary<int, WowRealm>(await _context.WowRealm.ToDictionaryAsync(c => c.Id)),
 
+                MountToSpell = await LoadMountDump(),
+
                 MountSets = LoadSets("mounts"),
             };
             
@@ -51,10 +56,24 @@ namespace Wowthing.Backend.Jobs.Misc
             await db.StringSetAsync("cached_static:hash", cacheHash);
         }
 
-        private SortedDictionary<int, int> LoadMounts()
+        private async Task<SortedDictionary<int, int>> LoadMountDump()
         {
-            var ret = new SortedDictionary<int, int>();
+            var records = await LoadDumpCsv<DataMountDump>("mount");
+            return new SortedDictionary<int, int>(records.ToDictionary(k => k.ID, v => v.SourceSpellID));
+        }
 
+        private async Task<List<T>> LoadDumpCsv<T>(string fileName)
+        {
+            var basePath = Path.Join(DATA_PATH, "dumps");
+            var filePath = Directory.GetFiles(basePath, $"{fileName}-*.csv").OrderByDescending(f => f).First();
+
+            var csvReader = new CsvReader(File.OpenText(filePath), CultureInfo.InvariantCulture);
+
+            var ret = new List<T>();
+            await foreach (T record in csvReader.GetRecordsAsync<T>())
+            {
+                ret.Add(record);
+            }
             return ret;
         }
 

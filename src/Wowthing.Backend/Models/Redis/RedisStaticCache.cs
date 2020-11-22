@@ -16,7 +16,7 @@ namespace Wowthing.Backend.Models.Redis
         public SortedDictionary<int, WowRealm> Realms { get; set; }
 
         [JsonProperty(Order = 10)]
-        public SortedDictionary<int, int> Mounts { get; set; }
+        public SortedDictionary<int, int> MountToSpell { get; set; }
         //[JsonProperty(Order = 11)]
         //public SortedDictionary<int, int> Pets { get; set; }
 
