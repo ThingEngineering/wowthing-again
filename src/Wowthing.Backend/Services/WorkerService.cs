@@ -77,7 +77,7 @@ namespace Wowthing.Backend.Services
                     continue;
                 }
 
-                _logger.Debug("Got one! {@result}", result);
+                //_logger.Debug("Got one! {@result}", result);
 
                 try
                 {

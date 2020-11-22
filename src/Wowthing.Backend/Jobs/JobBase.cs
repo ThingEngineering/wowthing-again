@@ -64,21 +64,31 @@ namespace Wowthing.Backend.Jobs
             return builder.Uri;
         }
 
-        protected async Task<T> GetJson<T>(Uri uri, bool needsAuthorization = true, bool useCache = false)
+        protected async Task<T> GetJson<T>(Uri uri, DateTime? lastModified = null, bool useAuthorization = true, bool useCache = false)
         {
             var timer = new JankTimer();
+            var db = await _redis.GetClientAsync();
 
             // Try from cache first
-            var cacheKey = $"getjson:{uri.ToString().Md5()}";
-            var db = await _redis.GetClientAsync();
-            string contentString = await db.GetValueAsync(cacheKey);
+            string cacheKey = $"getjson:{uri.ToString().Md5()}";
+            string contentString = null;
+            if (useCache)
+            {
+                contentString = await db.GetValueAsync(cacheKey);
+            }
+
             if (string.IsNullOrEmpty(contentString))
             {
                 using var request = new HttpRequestMessage(HttpMethod.Get, uri);
 
-                if (needsAuthorization)
+                if (useAuthorization)
                 {
                     request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _stateService.AccessToken.AccessToken);
+                }
+                if (lastModified > DateTime.MinValue)
+                {
+                    request.Headers.IfModifiedSince = new DateTimeOffset(lastModified.Value);
+                    _logger.Debug("dt: {0} dto: {1}", lastModified.Value, request.Headers.IfModifiedSince);
                 }
 
                 var response = await _http.SendAsync(request);
@@ -89,7 +99,12 @@ namespace Wowthing.Backend.Jobs
                 }
 
                 contentString = await response.Content.ReadAsStringAsync();
-                await db.SetValueAsync(cacheKey, contentString, CACHE_TIME);
+
+                if (useCache)
+                {
+                    await db.SetValueAsync(cacheKey, contentString, CACHE_TIME);
+                }
+
                 timer.AddPoint("API");
             }
             else

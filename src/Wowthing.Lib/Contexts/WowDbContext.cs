@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using Wowthing.Lib.Models;
+using Wowthing.Lib.Models.Query;
 
 namespace Wowthing.Lib.Contexts
 {
@@ -20,6 +21,9 @@ namespace Wowthing.Lib.Contexts
 
         public DbSet<PlayerAccount> PlayerAccount { get; set; }
         public DbSet<PlayerCharacter> PlayerCharacter { get; set; }
+
+        // Garbage query types
+        public DbSet<CharacterQuery> CharacterQuery { get; set; }
 
         public WowDbContext(string connectionString)
             : base()
@@ -57,6 +61,10 @@ namespace Wowthing.Lib.Contexts
                 .HasOne(c => c.Account)
                 .WithMany(a => a.Characters)
                 .OnDelete(DeleteBehavior.SetNull);
+
+            // Query types have no keys
+            builder.Entity<CharacterQuery>()
+                .HasNoKey();
         }
 
         public NpgsqlConnection GetConnection() => (NpgsqlConnection)Database.GetDbConnection();

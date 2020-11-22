@@ -5,11 +5,16 @@ using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 using ServiceStack.Redis;
 using Wowthing.Backend.Jobs;
 using Wowthing.Lib.Contexts;
+using Wowthing.Lib.Jobs;
+using Wowthing.Lib.Models;
 using Wowthing.Lib.Repositories;
+using Z.EntityFramework.Plus;
 
 namespace Wowthing.Backend.Services
 {
@@ -23,6 +28,28 @@ namespace Wowthing.Backend.Services
         private readonly WowDbContext _context;
         
         private readonly List<ScheduledJob> _scheduledJobs = new List<ScheduledJob>();
+
+        private const string QUERY_CHARACTERS = @"
+SELECT  c.id AS character_id,
+        c.name AS character_name,
+        c.level AS character_level,
+        c.last_modified,
+        c.last_api_check,
+        r.region,
+        r.slug AS realm_slug,
+        a.user_id
+FROM    player_character c
+INNER JOIN wow_realm r ON c.realm_id = r.id
+INNER JOIN player_account a ON c.account_id = a.id
+WHERE (
+    current_timestamp - c.last_api_check > (
+        '10 minutes'::interval +
+        ('1 minute'::interval * LEAST(50, GREATEST(0, 60 - c.level)))
+    )
+)
+ORDER BY c.last_api_check
+LIMIT 100
+";
 
         public SchedulerService(IRedisClientsManager redis, IServiceProvider services, JobRepository jobRepository)
             : base("Scheduler", TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(TIMER_INTERVAL))
@@ -67,12 +94,20 @@ namespace Wowthing.Backend.Services
                 }
             }
 
-            // TODO other jobs:
-            // - execute some sort of nasty database query to get characters that need checking
-            //var chars = await _context.PlayerCharacter.Where(c => c)
+            // Execute some sort of nasty database query to get characters that need an API check
+            var characters = await _context.CharacterQuery.FromSqlRaw(QUERY_CHARACTERS).ToArrayAsync();
+            if (characters.Length > 0)
+            {
+                // Queue jobs
+                _logger.Information("Queueing {0} character job(s)", characters.Length);
+                var temp = characters.Select(c => new string[] { JsonConvert.SerializeObject(c) });
+                await _jobRepository.AddJobsAsync(JobPriority.Low, JobType.Character, temp);
 
-            // - queue jobs for each character
-            // - store API checked time in redis or database?
+                // Update ApiCheckTime
+                var ids = characters.Select(s => s.CharacterId);
+                await _context.PlayerCharacter.Where(c => ids.Contains(c.Id))
+                    .UpdateAsync(c => new PlayerCharacter { LastApiCheck = DateTime.Now });
+            }
 
             // Release exclusive scheduler lock
             await _jobRepository.ReleaseLockAsync("scheduler", lockValue);
