@@ -9,8 +9,10 @@ namespace Wowthing.Backend.Models.API.Character
     {
         public long Id { get; set; }
 
+        [JsonProperty("average_item_level")]
         public int AverageItemLevel { get; set; }
-        
+
+        [JsonProperty("equipped_item_level")]
         public int EquippedItemLevel { get; set; }
         
         public int Experience { get; set; }

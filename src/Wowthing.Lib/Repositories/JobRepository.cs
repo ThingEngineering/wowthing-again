@@ -37,6 +37,18 @@ namespace Wowthing.Lib.Repositories
             await db.AddItemToListAsync(priority.GetQueueName(), JsonConvert.SerializeObject(job));
         }
 
+        public async Task AddJobsAsync(JobPriority priority, JobType type, IEnumerable<string[]> datas)
+        {
+            var db = await _redis.GetClientAsync();
+
+            var jobs = datas.Select(data => JsonConvert.SerializeObject(new WorkerJob
+            {
+                Type = type,
+                Data = data,
+            })).ToList();
+            await db.AddRangeToListAsync(priority.GetQueueName(), jobs);
+        }
+
         public async Task<WorkerJob> GetJobAsync(CancellationToken token)
         {
             var db = await _redis.GetClientAsync(token);
@@ -63,12 +75,12 @@ namespace Wowthing.Lib.Repositories
             else
             {
                 var dto = DateTimeOffset.Parse(result);
-                set = (DateTimeOffset.Now - dto) >= maximumAge;
+                set = (DateTimeOffset.UtcNow - dto) >= maximumAge;
             }
 
             if (set)
             {
-                await db.SetValueAsync(key, DateTimeOffset.Now.ToString("O"), maximumAge);
+                await db.SetValueAsync(key, DateTimeOffset.UtcNow.ToString("O"), maximumAge);
             }
             return set;
         }

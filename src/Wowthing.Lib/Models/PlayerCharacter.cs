@@ -26,7 +26,8 @@ namespace Wowthing.Lib.Models
         
         public string Name { get; set; }
 
-        public DateTime LastModified { get; set; }
+        public DateTime LastApiCheck { get; set; } = DateTime.MinValue;
+        public DateTime LastModified { get; set; } = DateTime.MinValue;
 
         [ForeignKey("AccountId")]
         public PlayerAccount Account { get; set; }

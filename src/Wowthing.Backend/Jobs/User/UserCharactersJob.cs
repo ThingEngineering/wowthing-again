@@ -39,7 +39,7 @@ namespace Wowthing.Backend.Jobs
                 var uri = GenerateUri(region, ApiNamespace.Profile, path);
                 try
                 {
-                    var profile = await GetJson<ApiAccountProfile>(uri, false);
+                    var profile = await GetJson<ApiAccountProfile>(uri, useAuthorization: false);
                     if (profile?.Accounts == null)
                     {
                         continue;
@@ -90,8 +90,6 @@ namespace Wowthing.Backend.Jobs
                         character = new PlayerCharacter
                         {
                             Id = apiCharacter.Id,
-                            GuildId = 0,
-                            LastModified = DateTime.MinValue,
                         };
                         _context.PlayerCharacter.Add(character);
                     }
