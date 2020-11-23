@@ -7,10 +7,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using MoreLinq;
 using Newtonsoft.Json;
 using ServiceStack.Redis;
 using Wowthing.Backend.Jobs;
 using Wowthing.Lib.Contexts;
+using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Repositories;
@@ -98,7 +100,7 @@ LIMIT 100
             var characters = await _context.CharacterQuery.FromSqlRaw(QUERY_CHARACTERS).ToArrayAsync();
             if (characters.Length > 0)
             {
-                // Queue jobs
+                // Queue character jobs
                 _logger.Information("Queueing {0} character job(s)", characters.Length);
                 var temp = characters.Select(c => new string[] { JsonConvert.SerializeObject(c) });
                 await _jobRepository.AddJobsAsync(JobPriority.Low, JobType.Character, temp);
@@ -106,7 +108,23 @@ LIMIT 100
                 // Update ApiCheckTime
                 var ids = characters.Select(s => s.CharacterId);
                 await _context.PlayerCharacter.Where(c => ids.Contains(c.Id))
-                    .UpdateAsync(c => new PlayerCharacter { LastApiCheck = DateTime.Now });
+                    .UpdateAsync(c => new PlayerCharacter { LastApiCheck = DateTime.UtcNow });
+
+                // Try some user checks I guess
+                // TODO clean this mess up
+                var distinctUsers = characters.DistinctBy(c => c.UserId).ToArray();
+                var db = await _redis.GetClientAsync();
+                var cached = await db.SaneGetValuesAsync(distinctUsers.Select(u => $"user:{u.UserId}:collections").ToArray());
+
+                // This ends up being distinct UserIds that don't have a redis key set
+                var yikes = distinctUsers.Select((q, index) => (q, index))
+                    .Where(t => string.IsNullOrEmpty(cached[t.index]))
+                    .Select(t => t.q.UserId);
+                
+                temp = yikes.Select(y => new string[] { y.ToString() });
+                await _jobRepository.AddJobsAsync(JobPriority.Low, JobType.Collections, temp);
+
+                await db.SaneSetValuesAsync(yikes.Select(y => $"user:{y}:collections"), "whee", TimeSpan.FromMinutes(10));
             }
 
             // Release exclusive scheduler lock

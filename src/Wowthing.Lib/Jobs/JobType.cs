@@ -9,6 +9,7 @@ namespace Wowthing.Lib.Jobs
         UserCharacters = 0,
 
         Character = 100,
+        Collections = 101,
 
         DataPlayableClass = 200,
         DataTitle,
