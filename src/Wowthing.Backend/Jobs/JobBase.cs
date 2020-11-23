@@ -88,7 +88,6 @@ namespace Wowthing.Backend.Jobs
                 if (lastModified > DateTime.MinValue)
                 {
                     request.Headers.IfModifiedSince = new DateTimeOffset(lastModified.Value);
-                    _logger.Debug("dt: {0} dto: {1}", lastModified.Value, request.Headers.IfModifiedSince);
                 }
 
                 var response = await _http.SendAsync(request);
