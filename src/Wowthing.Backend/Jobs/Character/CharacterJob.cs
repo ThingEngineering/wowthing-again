@@ -23,6 +23,14 @@ namespace Wowthing.Backend.Jobs.Character
             var path = string.Format(API_PATH, query.RealmSlug, query.CharacterName.ToLowerInvariant());
             var uri = GenerateUri(query.Region, ApiNamespace.Profile, path);
 
+            // Get character from database
+            var character = await _context.PlayerCharacter.FindAsync(query.CharacterId);
+            if (character == null)
+            {
+                // This shouldn't be possible
+                throw new InvalidOperationException("Character does not exist?!");
+            }
+
             ApiCharacter apiCharacter;
             try
             {
@@ -30,20 +38,26 @@ namespace Wowthing.Backend.Jobs.Character
             }
             catch (HttpRequestException e)
             {
-                // Not Modified is fine
                 if (e.Message != "304")
                 {
                     _logger.Error("{0}: character {1}/{2}", e.Message, query.RealmSlug, query.CharacterName.ToLowerInvariant());
                 }
-                return;
-            }
 
-            // Get character from database
-            var character = await _context.PlayerCharacter.FindAsync(query.CharacterId);
-            if (character == null)
-            {
-                // This shouldn't be possible
-                throw new InvalidOperationException("Character does not exist?!");
+                if (e.Message == "403")
+                {
+                    // 403s are pretty bad, seem to happen for characters on unsubscribed accounts
+                    character.DelayHours += 24;
+                }
+                else
+                {
+                    // Treat every other error as relatively minor, try again later
+                    // 404s are weird, can just mean "character hasn't logged in for a while"
+                    character.DelayHours += 1;
+                }
+                
+                await _context.SaveChangesAsync();
+
+                return;
             }
 
             character.ActiveTitleId = apiCharacter.ActiveTitle?.Id ?? 0;
@@ -54,11 +68,13 @@ namespace Wowthing.Backend.Jobs.Character
             character.Faction = apiCharacter.Faction.EnumParse<WowFaction>();
             character.Gender = apiCharacter.Gender.EnumParse<WowGender>();
             character.GuildId = apiCharacter.Guild?.Id ?? 0;
-            character.LastModified = DateTimeOffset.FromUnixTimeMilliseconds(apiCharacter.LastLogout).UtcDateTime;
             character.Level = apiCharacter.Level;
             character.Name = apiCharacter.Name;
             character.RaceId = apiCharacter.Race.Id;
             character.RealmId = apiCharacter.Realm.Id;
+
+            character.DelayHours = 0;
+            character.LastModified = DateTimeOffset.FromUnixTimeMilliseconds(apiCharacter.LastLogout).UtcDateTime;
 
             await _context.SaveChangesAsync();
         }

@@ -46,7 +46,8 @@ INNER JOIN player_account a ON c.account_id = a.id
 WHERE (
     current_timestamp - c.last_api_check > (
         '10 minutes'::interval +
-        ('1 minute'::interval * LEAST(50, GREATEST(0, 60 - c.level)))
+        ('1 minute'::interval * LEAST(50, GREATEST(0, 60 - c.level))) +
+        ('1 hour'::interval * LEAST(168, c.delay_hours))
     )
 )
 ORDER BY c.last_api_check

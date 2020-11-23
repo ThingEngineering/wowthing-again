@@ -28,6 +28,7 @@ namespace Wowthing.Lib.Models
         
         public string Name { get; set; }
 
+        public int DelayHours { get; set; } = 0;
         public DateTime LastApiCheck { get; set; } = DateTime.MinValue;
         public DateTime LastModified { get; set; } = DateTime.MinValue;
 
