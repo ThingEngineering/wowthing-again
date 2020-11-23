@@ -46,14 +46,14 @@ namespace Wowthing.Backend.Jobs.Character
                 throw new InvalidOperationException("Character does not exist?!");
             }
 
-            character.ActiveTitleId = apiCharacter.ActiveTitle.Id;
+            character.ActiveTitleId = apiCharacter.ActiveTitle?.Id ?? 0;
             character.AverageItemLevel = apiCharacter.AverageItemLevel;
             character.ClassId = apiCharacter.Class.Id;
             character.EquippedItemLevel = apiCharacter.EquippedItemLevel;
             character.Experience = apiCharacter.Experience;
             character.Faction = apiCharacter.Faction.EnumParse<WowFaction>();
             character.Gender = apiCharacter.Gender.EnumParse<WowGender>();
-            character.GuildId = apiCharacter.Guild.Id;
+            character.GuildId = apiCharacter.Guild?.Id ?? 0;
             character.LastModified = DateTimeOffset.FromUnixTimeMilliseconds(apiCharacter.LastLogout).UtcDateTime;
             character.Level = apiCharacter.Level;
             character.Name = apiCharacter.Name;
