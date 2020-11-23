@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using ServiceStack.Redis;
+using StackExchange.Redis;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Models;
 using Wowthing.Web.Models;
@@ -17,11 +17,11 @@ namespace Wowthing.Web.Controllers
     [Route("api")]
     public class ApiController : Controller
     {
-        private readonly IRedisClientsManager _redis;
+        private readonly IConnectionMultiplexer _redis;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly WowDbContext _context;
 
-        public ApiController(IRedisClientsManager redis, UserManager<ApplicationUser> userManager, WowDbContext context)
+        public ApiController(IConnectionMultiplexer redis, UserManager<ApplicationUser> userManager, WowDbContext context)
         {
             _redis = redis;
             _userManager = userManager;
@@ -32,15 +32,19 @@ namespace Wowthing.Web.Controllers
         [ResponseCache(Duration = 365 * 24 * 60 * 60)]
         public async Task<IActionResult> StaticData([FromRoute] string hash)
         {
-            var db = await _redis.GetClientAsync();
+            var db = _redis.GetDatabase();
 
-            var jsonHash = await db.GetValueAsync("cached_static:hash");
+            var dataWait = db.StringGetAsync("cached_static:data");
+            var hashWait = db.StringGetAsync("cached_static:hash");
+            string jsonData = await dataWait;
+            string jsonHash = await hashWait;
+
             if (hash != jsonHash)
             {
                 return NotFound();
             }
 
-            return Content(await db.GetValueAsync("cached_static:data"), "application/json");
+            return Content(jsonData, "application/json");
         }
 
         [HttpGet("user/{username:username}")]

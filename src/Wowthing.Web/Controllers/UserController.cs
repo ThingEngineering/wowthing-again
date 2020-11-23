@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using ServiceStack.Redis;
+using StackExchange.Redis;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Repositories;
@@ -15,11 +15,11 @@ namespace Wowthing.Web.Controllers
 {
     public class UserController : Controller
     {
-        private readonly IRedisClientsManager _redis;
+        private readonly IConnectionMultiplexer _redis;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly WowDbContext _context;
 
-        public UserController(IRedisClientsManager redis, UserManager<ApplicationUser> userManager, WowDbContext context)
+        public UserController(IConnectionMultiplexer redis, UserManager<ApplicationUser> userManager, WowDbContext context)
         {
             _redis = redis;
             _userManager = userManager;
@@ -35,8 +35,8 @@ namespace Wowthing.Web.Controllers
                 return NotFound();
             }
 
-            var db = await _redis.GetClientAsync();
-            var staticHash = await db.GetValueAsync("cached_static:hash");
+            var db = _redis.GetDatabase();
+            var staticHash = await db.StringGetAsync("cached_static:hash");
 
             return View(new UserViewModel(user, staticHash));
         }
