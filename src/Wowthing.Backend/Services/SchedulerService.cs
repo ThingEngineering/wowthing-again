@@ -97,34 +97,42 @@ LIMIT 100
             }
 
             // Execute some sort of nasty database query to get characters that need an API check
-            var characters = await _context.CharacterQuery.FromSqlRaw(QUERY_CHARACTERS).ToArrayAsync();
-            if (characters.Length > 0)
+            var results = await _context.CharacterQuery.FromSqlRaw(QUERY_CHARACTERS).ToArrayAsync();
+            if (results.Length > 0)
             {
+                var db = _redis.GetDatabase();
+
+                var resultData = results.Select(r => new
+                {
+                    Result = r,
+                    Json = JsonConvert.SerializeObject(r),
+                });
+
                 // Queue character jobs
-                _logger.Information("Queueing {0} character job(s)", characters.Length);
-                var temp = characters.Select(c => new string[] { JsonConvert.SerializeObject(c) });
-                await _jobRepository.AddJobsAsync(JobPriority.Low, JobType.Character, temp);
+                _logger.Information("Queueing {0} character job(s)", results.Length);
+                await _jobRepository.AddJobsAsync(JobPriority.Low, JobType.Character, resultData.Select(d => d.Json));
 
                 // Update ApiCheckTime
-                var ids = characters.Select(s => s.CharacterId);
+                var ids = results.Select(s => s.CharacterId);
                 await _context.PlayerCharacter.Where(c => ids.Contains(c.Id))
                     .UpdateAsync(c => new PlayerCharacter { LastApiCheck = DateTime.UtcNow });
 
                 // Try some user checks I guess
                 // TODO clean this mess up
-                var distinctUsers = characters.DistinctBy(c => c.UserId).ToArray();
-                var db = _redis.GetDatabase();
-                var cached = await db.SaneGetValuesAsync(distinctUsers.Select(u => $"user:{u.UserId}:collections").ToArray());
+                var distinctUsers = resultData.DistinctBy(r => r.Result.UserId).ToArray();
+                var cached = await db.StringMultiGetAsync(distinctUsers.Select(u => $"user:{u.Result.UserId}:collections"));
 
                 // This ends up being distinct UserIds that don't have a redis key set
-                var yikes = distinctUsers.Select((q, index) => (q, index))
+                var yikes = distinctUsers.Select((result, index) => (result, index))
                     .Where(t => string.IsNullOrEmpty(cached[t.index]))
-                    .Select(t => t.q.UserId);
-                
-                temp = yikes.Select(y => new string[] { y.ToString() });
-                await _jobRepository.AddJobsAsync(JobPriority.Low, JobType.Collections, temp);
+                    .Select(t => t.result)
+                    .ToArray();
+                if (yikes.Length > 0)
+                {
+                    await _jobRepository.AddJobsAsync(JobPriority.Low, JobType.Collections, yikes.Select(y => y.Json));
 
-                await db.SaneSetValuesAsync(yikes.Select(y => $"user:{y}:collections"), "whee", TimeSpan.FromMinutes(10));
+                    await db.StringMultiSetAsync(yikes.Select(y => $"user:{y.Result.UserId}:collections"), "whee", TimeSpan.FromMinutes(10));
+                }
             }
 
             // Release exclusive scheduler lock
