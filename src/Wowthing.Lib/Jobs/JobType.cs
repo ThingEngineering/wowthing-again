@@ -7,10 +7,11 @@ namespace Wowthing.Lib.Jobs
     public enum JobType
     {
         UserCharacters = 0,
+        UserMounts,
+        UserPets,
 
         Character = 100,
-        Collections = 101,
-
+      
         DataPlayableClass = 200,
         DataTitle,
 

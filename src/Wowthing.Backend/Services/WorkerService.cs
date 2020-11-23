@@ -61,6 +61,9 @@ namespace Wowthing.Backend.Services
             using var scope = _services.CreateScope();
             var context = scope.ServiceProvider.GetService<WowDbContext>();
 
+            // Give things a chance to get organized
+            await Task.Delay(5000);
+
             while (!stoppingToken.IsCancellationRequested)
             {
                 await Task.Delay(10);
