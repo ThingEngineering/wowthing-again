@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
-using ServiceStack.Redis;
+using StackExchange.Redis;
 using Wowthing.Backend.Jobs;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Jobs;
@@ -30,7 +30,7 @@ namespace Wowthing.Backend.Services
 
         private readonly JobFactory _jobFactory;
 
-        public WorkerService(IServiceProvider services, IRedisClientsManager redis, JobRepository jobRepository, StateService stateService)
+        public WorkerService(IServiceProvider services, IConnectionMultiplexer redis, JobRepository jobRepository, StateService stateService)
         {
             _services = services;
             _stateService = stateService;
@@ -63,17 +63,16 @@ namespace Wowthing.Backend.Services
 
             while (!stoppingToken.IsCancellationRequested)
             {
+                await Task.Delay(10);
                 if (_stateService.AccessToken?.Valid != true)
                 {
                     _logger.Debug("Waiting for auth service to be ready");
-                    await Task.Delay(1000);
                     continue;
                 }
 
-                var result = await _jobRepository.GetJobAsync(stoppingToken);
+                var result = await _jobRepository.GetJobAsync();
                 if (result == null)
                 {
-                    await Task.Delay(10);
                     continue;
                 }
 

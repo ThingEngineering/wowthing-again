@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using MoreLinq;
 using Newtonsoft.Json;
-using ServiceStack.Redis;
+using StackExchange.Redis;
 using Wowthing.Backend.Jobs;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Extensions;
@@ -24,7 +24,7 @@ namespace Wowthing.Backend.Services
     {
         private const int TIMER_INTERVAL = 5;
         
-        private readonly IRedisClientsManager _redis;
+        private readonly IConnectionMultiplexer _redis;
         private readonly JobRepository _jobRepository;
         private readonly IServiceScope _scope;
         private readonly WowDbContext _context;
@@ -53,7 +53,7 @@ ORDER BY c.last_api_check
 LIMIT 100
 ";
 
-        public SchedulerService(IRedisClientsManager redis, IServiceProvider services, JobRepository jobRepository)
+        public SchedulerService(IConnectionMultiplexer redis, IServiceProvider services, JobRepository jobRepository)
             : base("Scheduler", TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(TIMER_INTERVAL))
         {
             _redis = redis;

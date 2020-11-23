@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using ServiceStack.Redis;
+using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -25,12 +25,13 @@ namespace Wowthing.Lib.Extensions
             return services;
         }
 
-        public static IRedisClientsManager AddRedis(this IServiceCollection services, string connectionString)
+        public static IConnectionMultiplexer AddRedis(this IServiceCollection services, string connectionString)
         {
-            connectionString = connectionString.Replace("client=*", $"client={Assembly.GetCallingAssembly().GetName().Name}");
-            
-            var redis = new RedisManagerPool(connectionString);
-            services.AddSingleton<IRedisClientsManager>(redis);
+            var options = ConfigurationOptions.Parse(connectionString);
+            options.ClientName = Assembly.GetCallingAssembly().GetName().Name;
+
+            var redis = ConnectionMultiplexer.Connect(options);
+            services.AddSingleton<IConnectionMultiplexer>(redis);
 
             services.AddSingleton<JobRepository>();
 

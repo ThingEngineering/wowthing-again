@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Newtonsoft.Json;
 using Serilog;
-using ServiceStack.Redis;
+using StackExchange.Redis;
 using Wowthing.Backend.Extensions;
 using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Services;
@@ -30,7 +30,7 @@ namespace Wowthing.Backend.Jobs
         internal HttpClient _http;
         internal JobRepository _jobRepository;
         internal ILogger _logger;
-        internal IRedisClientsManager _redis;
+        internal IConnectionMultiplexer _redis;
         internal StateService _stateService;
         internal WowDbContext _context;
 
@@ -67,14 +67,14 @@ namespace Wowthing.Backend.Jobs
         protected async Task<T> GetJson<T>(Uri uri, DateTime? lastModified = null, bool useAuthorization = true, bool useCache = false)
         {
             var timer = new JankTimer();
-            var db = await _redis.GetClientAsync();
+            var db = _redis.GetDatabase();
 
             // Try from cache first
             string cacheKey = $"getjson:{uri.ToString().Md5()}";
             string contentString = null;
             if (useCache)
             {
-                contentString = await db.GetValueAsync(cacheKey);
+                contentString = await db.StringGetAsync(cacheKey);
             }
 
             if (string.IsNullOrEmpty(contentString))
@@ -101,7 +101,7 @@ namespace Wowthing.Backend.Jobs
 
                 if (useCache)
                 {
-                    await db.SetValueAsync(cacheKey, contentString, CACHE_TIME);
+                    await db.StringSetAsync(cacheKey, contentString, CACHE_TIME);
                 }
 
                 timer.AddPoint("API");
