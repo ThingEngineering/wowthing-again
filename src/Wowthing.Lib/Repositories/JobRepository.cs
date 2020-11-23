@@ -48,6 +48,11 @@ namespace Wowthing.Lib.Repositories
             await db.ListRightPushAsync(priority.GetQueueName(), jobs, When.Always);
         }
 
+        public async Task AddJobsAsync(JobPriority priority, JobType type, IEnumerable<string> datas)
+        {
+            await AddJobsAsync(priority, type, datas.Select(d => new string[] { d }));
+        }
+
         public async Task<WorkerJob> GetJobAsync()
         {
             var database = _redis.GetDatabase();
