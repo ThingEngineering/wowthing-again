@@ -20,5 +20,31 @@ namespace Wowthing.Lib.Extensions
         {
             return await db.StringSetAsync(key, JsonConvert.SerializeObject(obj));
         }
+
+        public static async Task<string[]> SaneGetValuesAsync(this IDatabase db, string[] keys)
+        {
+            var ret = new string[keys.Length];
+            /*await using var pipeline = db.CreatePipeline();
+            for (int i = 0; i < keys.Length; i++)
+            {
+                // capture index
+                int index = i;
+                pipeline.QueueCommand(r => r.GetValueAsync(keys[i]), s => ret[index] = s);
+            }
+            await pipeline.FlushAsync();*/
+            await Task.Delay(1);
+            return ret;
+        }
+
+        public static async Task SaneSetValuesAsync(this IDatabase db, IEnumerable<string> keys, string value, TimeSpan expiry)
+        {
+            /*await using var pipeline = db.CreatePipeline();
+            foreach (string key in keys)
+            {
+                pipeline.QueueCommand(r => r.SetValueAsync(key, value, expiry));
+            }
+            await pipeline.FlushAsync();*/
+            await Task.Delay(1);
+        }
     }
 }

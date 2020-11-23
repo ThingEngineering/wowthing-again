@@ -37,6 +37,17 @@ namespace Wowthing.Lib.Repositories
             await database.ListRightPushAsync(priority.GetQueueName(), JsonConvert.SerializeObject(job));
         }
 
+        public async Task AddJobsAsync(JobPriority priority, JobType type, IEnumerable<string[]> datas)
+        {
+            var db = _redis.GetDatabase();
+            var jobs = datas.Select(data => new RedisValue(JsonConvert.SerializeObject(new WorkerJob
+            {
+                Type = type,
+                Data = data,
+            }))).ToArray();
+            await db.ListRightPushAsync(priority.GetQueueName(), jobs, When.Always);
+        }
+
         public async Task<WorkerJob> GetJobAsync()
         {
             var database = _redis.GetDatabase();
