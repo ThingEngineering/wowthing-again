@@ -21,6 +21,7 @@ namespace Wowthing.Lib.Contexts
 
         public DbSet<PlayerAccount> PlayerAccount { get; set; }
         public DbSet<PlayerCharacter> PlayerCharacter { get; set; }
+        public DbSet<PlayerCollections> PlayerCollections { get; set; }
 
         // Garbage query types
         public DbSet<CharacterQuery> CharacterQuery { get; set; }

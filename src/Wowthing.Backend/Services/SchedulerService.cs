@@ -129,7 +129,9 @@ LIMIT 100
                     .ToArray();
                 if (yikes.Length > 0)
                 {
-                    await _jobRepository.AddJobsAsync(JobPriority.Low, JobType.Collections, yikes.Select(y => y.Json));
+                    var datas = yikes.Select(y => y.Json).ToArray();
+                    await _jobRepository.AddJobsAsync(JobPriority.Low, JobType.UserMounts, datas);
+                    //await _jobRepository.AddJobsAsync(JobPriority.Low, JobType.UserPets, datas);
 
                     await db.StringMultiSetAsync(yikes.Select(y => $"user:{y.Result.UserId}:collections"), "whee", TimeSpan.FromMinutes(10));
                 }
