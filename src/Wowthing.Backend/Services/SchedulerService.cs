@@ -113,7 +113,7 @@ LIMIT 100
                 // Try some user checks I guess
                 // TODO clean this mess up
                 var distinctUsers = characters.DistinctBy(c => c.UserId).ToArray();
-                var db = await _redis.GetClientAsync();
+                var db = _redis.GetDatabase();
                 var cached = await db.SaneGetValuesAsync(distinctUsers.Select(u => $"user:{u.UserId}:collections").ToArray());
 
                 // This ends up being distinct UserIds that don't have a redis key set
