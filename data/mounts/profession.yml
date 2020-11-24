@@ -1,42 +1,51 @@
-- ('Alchemy', (
-  - 407, # Sandstone Drake (Alchemy)
-  - )),
-  - ('Archaeology', (
-  - 386, # Fossilized Raptor
-  - 404, # Ultramarine Qiraji Battle Tank (Scepter of Azj'Aqir)
-  - 779,# Spirit of Eche'ro
-  - )),
-  - ('Blacksmithing', (
-  - 797,# Steelbound Devourer (Blacksmithing)
-  - )),
-  - ('Engineering', (
-  - (275, 240), # Mekgineer's Chopper/Mechano-Hog
-  - 522,# Sky Golem
-  - 204, # Turbo-Charged Flying Machine
-  - 469,# Depleted-Kyparium Rocket
-  - 205, # Flying Machine
-  - 470,# Geosynchronous World Spinner
-  - )),
-  - ('Fishing', (
-  - 800,# Brinedeep Bottom-Feeder (Conjurer Margoss - Honored, Fishing)
-  - 1166,# Great Sea Ray (Fishing)
-  - 982,# Pond Nettle (Fishing)
-  - 312, # Sea Turtle (Fishing)
-  - )),
-  - ('Jewelcrafting', (
-  - 451,# Jeweled Onyx Panther
-  - 457,# Jade Panther
-  - 458,# Ruby Panther
-  - 456,# Sapphire Panther
-  - 459,# Sunstone Panther
-  - )),
-  - ('Leatherworking', (
-  - 650,# Dustmane Direwolf (Leatherworking)
-  - 854,# Great Northern Elderhorn (Leatherworking)
-  - )),
-  - ('Tailoring', (
-  - 603,# Creeping Carpet
-  - 285, # Flying Carpet
-  - 375, # Frosty Flying Carpet
-  - 279, # Magnificent Flying Carpet
-  - )),
+name: Professions
+groups:
+- name: Alchemy
+  things:
+  -  407 # Sandstone Drake (Alchemy)
+
+- name: Archaeology
+  things:
+  -  386 # Fossilized Raptor
+  -  404 # Ultramarine Qiraji Battle Tank (Scepter of Azj'Aqir)
+  -  779 # Spirit of Eche'ro
+
+- name: Blacksmithing
+  things:
+  -  797 # Steelbound Devourer (Blacksmithing)
+
+- name: Engineering
+  things:
+  -  275 240 # Mekgineer's Chopper/Mechano-Hog
+  -  522 # Sky Golem
+  -  204 # Turbo-Charged Flying Machine
+  -  469 # Depleted-Kyparium Rocket
+  -  205 # Flying Machine
+  -  470 # Geosynchronous World Spinner
+
+- name: Fishing
+  things:
+  -  800 # Brinedeep Bottom-Feeder (Conjurer Margoss - Honored, Fishing)
+  - 1166 # Great Sea Ray (Fishing)
+  -  982 # Pond Nettle (Fishing)
+  -  312 # Sea Turtle (Fishing)
+
+- name: Jewelcrafting
+  things:
+  -  451 # Jeweled Onyx Panther
+  -  457 # Jade Panther
+  -  458 # Ruby Panther
+  -  456 # Sapphire Panther
+  -  459 # Sunstone Panther
+
+- name: Leatherworking
+  things:
+  -  650 # Dustmane Direwolf (Leatherworking)
+  -  854 # Great Northern Elderhorn (Leatherworking)
+
+- name: Tailoring
+  things:
+  -  603 # Creeping Carpet
+  -  285 # Flying Carpet
+  -  375 # Frosty Flying Carpet
+  -  279 # Magnificent Flying Carpet

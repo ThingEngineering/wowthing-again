@@ -2,14 +2,24 @@
     import find from 'lodash/find'
 
     import BaseImage from '../images/BaseImage.svelte'
+    import {getContext} from 'svelte'
 
     export let thingType: string
     export let thingMap
     export let userHas
     export let things
 
+    const { hasStore, totalStore } = getContext("collection")
+
     $: userHasThing = find(things, (t) => userHas[t])
     $: thingId = thingMap[userHasThing ?? find(things, (t) => t > 0)]
+
+    $: {
+        if (userHasThing) {
+            hasStore.update(n => n + 1)
+        }
+    }
+    totalStore.update(n => n + 1)
 </script>
 
 <style lang="scss">
