@@ -3,9 +3,9 @@ groups:
 - name: Classic
   things:
   -   69 # Rivendare's Deathcharger (Stratholme)
-  -  117 # Blue Qiraji Battle Tank (AQ40)
+  -  117 935 # Blue Qiraji Battle Tank (AQ40)
   -  120 # Green Qiraji Battle Tank (AQ40)
-  -  118 # Red Qiraji Battle Tank (AQ40)
+  -  118 936 # Red Qiraji Battle Tank (AQ40)
   -  119 # Yellow Qiraji Battle Tank (AQ40)
 
 - name: TBC

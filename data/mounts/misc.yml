@@ -109,10 +109,11 @@ groups:
 
 - name: Puzzles
   things:
-  - 838 # Fathom Dweller (Kosumoth)
-  - 802 # Long-Forgotten Hippogryph (Azsuna crystals)
-  - 961 # Lucid Nightmare (weird puzzle?)
-  - 947 # Riddler's Mind-Worm (Gift of the Mind-Seekers)
+  -  838 # Fathom Dweller (Kosumoth)
+  -  802 # Long-Forgotten Hippogryph (Azsuna crystals)
+  -  961 # Lucid Nightmare (weird puzzle?)
+  -  947 # Riddler's Mind-Worm (Gift of the Mind-Seekers)
+  - 1025 # The Hivemind (??)
 
 - name: Quests
   things:

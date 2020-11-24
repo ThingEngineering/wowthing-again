@@ -31,7 +31,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
-            Version = 3,
+            Version = 4,
         };
 
         public override async Task Run(params string[] data)
@@ -41,29 +41,7 @@ namespace Wowthing.Backend.Jobs.Misc
             // Mounts
             var mountToSpell = await LoadMountDump();
             var mountSets = LoadSets("mounts");
-
-            var missing = mountToSpell.Keys
-                .Except(mountSets
-                    .SelectMany(s => s.Groups)
-                    .SelectMany(g => g.Things)
-                    .SelectMany(t => t)
-                )
-                .ToArray();
-            if (missing.Length > 0)
-            {
-                mountSets.Add(new RedisSetCategory
-                {
-                    Name = "UNCATEGORIZED",
-                    Groups = new List<RedisSetGroup>
-                    {
-                        new RedisSetGroup
-                        {
-                            Name = "UNCATEGORIZED",
-                            Things = missing.Select(m => new int[]{ m }).ToList(),
-                        }
-                    }
-                });
-            }
+            AddUncategorized("mounts", mountToSpell, mountSets);
 
             // Ok we're done
             var cacheData = new RedisStaticCache
@@ -119,6 +97,48 @@ namespace Wowthing.Backend.Jobs.Misc
             }
 
             return categories;
+        }
+
+        private void AddUncategorized(string dirName, SortedDictionary<int, int> thingToSpell, List<RedisSetCategory> thingSets)
+        {
+            var skip = Array.Empty<int>();
+            var skipPath = Path.Join(DATA_PATH, dirName, "_skip.yml");
+            if (File.Exists(skipPath))
+            {
+                var newSkip = new DeserializerBuilder()
+                    .Build()
+                    .Deserialize<int[]>(File.OpenText(skipPath));
+                if (newSkip != null)
+                {
+                    skip = newSkip;
+                }
+            }
+
+            // Lookup keys - things in sets - skip
+            var missing = thingToSpell.Keys
+                .Except(thingSets
+                    .SelectMany(s => s.Groups)
+                    .SelectMany(g => g.Things)
+                    .SelectMany(t => t)
+                )
+                .Except(skip)
+                .ToArray();
+            
+            if (missing.Length > 0)
+            {
+                thingSets.Add(new RedisSetCategory
+                {
+                    Name = "UNCATEGORIZED",
+                    Groups = new List<RedisSetGroup>
+                    {
+                        new RedisSetGroup
+                        {
+                            Name = "UNCATEGORIZED",
+                            Things = missing.Select(m => new int[]{ m }).ToList(),
+                        }
+                    }
+                });
+            }
         }
     }
 }

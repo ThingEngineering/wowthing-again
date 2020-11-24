@@ -4,6 +4,8 @@ groups:
   things:
   - 1048 # Dark Iron Core Hound (Dark Iron Dwarf)
   - 1006 # Lightforged Felcrusher (Lightforged Draenei)
+  - 1198 # Kul Tiran Charger (Kul Tiran)
+  - 1283 # Mechagon Mechanostrider (Mechagnome)
   - 1009 # Starcursed Voidstrider (Void Elf)
 
 - name: Darnassus
@@ -32,8 +34,8 @@ groups:
 
 - name: Gnomeregan
   things:
-  -   40 # Blue Mechanostrider
-  -   57 # Green Mechanostrider
+  -   40 145 # Blue Mechanostrider
+  -   43 57 # Green Mechanostrider
   -   39 # Red Mechanostrider
   -   58 # Unpainted Mechanostrider
   -   90 # Swift Green Mechanostrider
