@@ -1,6 +1,10 @@
 misc.yml
 alliance.yml
 horde.yml
+achievement.yml
+instance.yml
+profession.yml
+rare_spawn.yml
 reputation.yml
 vendor.yml
 unavailable.yml

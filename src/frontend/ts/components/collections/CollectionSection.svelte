@@ -1,10 +1,17 @@
 <script lang="ts">
     import CollectionGroup from './CollectionGroup.svelte'
+    import {setContext} from 'svelte'
+    import {writable} from 'svelte/store'
 
     export let thingType: string
     export let thingMap
     export let userHas
     export let section
+
+    const hasStore = writable(0)
+    const totalStore = writable(0)
+
+    setContext("collection", { hasStore, totalStore })
 </script>
 
 <style lang="scss">
@@ -16,6 +23,13 @@
         width: 100%;
         background: mix($thing-background, #0000ff, 90%);
         border-bottom: 1px solid $border-color;
+    }
+    span {
+        font-size: 0.9rem;
+        font-weight: normal;
+    }
+    em {
+        color: mix($body-text, #00ff00, 80%);
     }
     section {
         background: $thing-background;
@@ -31,7 +45,7 @@
 
 <section>
     {#if section.Name}
-        <h3>{section.Name}</h3>
+        <h3>{section.Name} <span>[ <em>{$hasStore}</em> / <em>{$totalStore}</em> ]</span></h3>
     {/if}
     {#each section.Groups as group}
         <CollectionGroup thingType={thingType} thingMap={thingMap} userHas={userHas} group={group} />

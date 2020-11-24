@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {afterUpdate} from 'svelte'
+    import {afterUpdate, setContext} from 'svelte'
 
     import CollectionSection from './CollectionSection.svelte'
 

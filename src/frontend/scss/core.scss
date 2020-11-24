@@ -3,7 +3,7 @@ body {
   flex-direction: column;
   min-height: 100vh;
   background: $body-background;
-  color: #ffffff;
+  color: $body-text;
 }
 
 header {

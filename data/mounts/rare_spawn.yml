@@ -1,51 +1,58 @@
-- ('WotLK', (
-  - 265, # Time-Lost Proto-Drake
-- )),
-- ('Cata', (
-  - 400, # Grey Riding Camel (Uldum)
-  - 393, # Phosporescent Stone Drake (Deepholm)
-  - 420, # Subdued Seahorse (Vashj'ir - Poseidus)
-- )),
-- ('MoP', (
-  - 534,# Amber Primordial Direhorn (Zandalari Warbringer)
-  - 536,# Jade Primordial Direhorn (Zandalari Warbringer)
-  - 535,# Slate Primordial Direhorn (Zandalari Warbringer)
-  - 473,# Heavenly Onyx Cloud Serpent (Sha of Anger)
-  - 515,# Son of Galleon (Galleon)
-  - 542,# Thundering Cobalt Cloud Serpent (Nalak)
-  - 561,# Thundering Onyx Cloud Serpent (Huolon)
-  - 533, # Cobalt Primordial Direhorn (Oondasta)
-- )),
-- ('WoD', (
-  - 612,# Bloodhoof Bull
-  - 657,# Garn Nighthowl
-  - 627,# Great Greytusk
-  - 614,# Mottled Meadowstomper
-  - 630,# Sapphire Riverbeast
-  - 634,# Solar Spirehawk (World Boss - WoD)
-  - 655,# Sunhide Gronnling
-  - 636,# Swift Breezestrider
-  - 682,# Voidtalon of the Dark Star
-  - 622,# Armored Razorback (Tanaan big rares)
-  - 611,# Tundra Icehoof (Tanaan big rares)
-  - 643,# Warsong Direfang (Tanaan big rares)
-- )),
-- ('Legion', (
-  - 906,# Darkspore Mana Ray (Fel-Spotted Egg - Naroua/Sabuul/Varga)
-  - 975,# Felglow Mana Ray (Fel-Spotted Egg - Naroua/Sabuul/Varga)
-  - 973,# Lambent Mana Ray (Fel-Spotted Egg - Naroua/Sabuul/Varga)
-  - 976,# Scintillating Mana Ray (Fel-Spotted Egg - Naroua/Sabuul/Varga)
-  - 974,# Vibrant Mana Ray (Fel-Spotted Egg - Naroua/Sabuul/Varga)
-  - 980,# Acid Belcher (Skreeg the Devourer, Mac'Aree)
-  - 979,# Crimson Slavermaw (Blistermaw, Antoran Wastes)
-  - 955,# Vile Fiend (Houndmaster Kerrax, Antoran Wastes)
-  - 970,# Maddened Chaosrunner (Wrangler Kravos, Mac'Aree)
-- )),
-- ('BfA - Arathi', (
-  - 1173,# Broken Highland Mustang (Knight-Captain Aldrin - Arathi Highlands) ?
-  - 1174,# Highland Mustang (Doomrider Helgrim - Arathi Highlands) ?
-  - 1182,# Lil' Donkey (Overseer Krix - Arathi Highlands) ?
-  - 1183,# Skullripper (Skullripper - Arathi Highlands) ?
-  - 1180,# Swift Albino Raptor (Beastrider Kama - Arathi Highlands) ?
-  - 1185,# Witherbark Direwing (Nimar the Slayer - Arathi Highlands) ?
-- )),
+name: Rare Spawns
+groups:
+- name: WotLK
+  things:
+  -  265 # Time-Lost Proto-Drake
+
+- name: Cata
+  things:
+  -  400 # Grey Riding Camel (Uldum)
+  -  393 # Phosporescent Stone Drake (Deepholm)
+  -  420 # Subdued Seahorse (Vashj'ir - Poseidus)
+
+- name: MoP
+  things:
+  -  534 # Amber Primordial Direhorn (Zandalari Warbringer)
+  -  536 # Jade Primordial Direhorn (Zandalari Warbringer)
+  -  535 # Slate Primordial Direhorn (Zandalari Warbringer)
+  -  473 # Heavenly Onyx Cloud Serpent (Sha of Anger)
+  -  515 # Son of Galleon (Galleon)
+  -  542 # Thundering Cobalt Cloud Serpent (Nalak)
+  -  561 # Thundering Onyx Cloud Serpent (Huolon)
+  -  533 # Cobalt Primordial Direhorn (Oondasta)
+
+- name: WoD
+  things:
+  -  612 # Bloodhoof Bull
+  -  657 # Garn Nighthowl
+  -  627 # Great Greytusk
+  -  614 # Mottled Meadowstomper
+  -  630 # Sapphire Riverbeast
+  -  634 # Solar Spirehawk (World Boss - WoD)
+  -  655 # Sunhide Gronnling
+  -  636 # Swift Breezestrider
+  -  682 # Voidtalon of the Dark Star
+  -  622 # Armored Razorback (Tanaan big rares)
+  -  611 # Tundra Icehoof (Tanaan big rares)
+  -  643 # Warsong Direfang (Tanaan big rares)
+
+- name: Legion
+  things:
+  -  906 # Darkspore Mana Ray (Fel-Spotted Egg - Naroua/Sabuul/Varga)
+  -  975 # Felglow Mana Ray (Fel-Spotted Egg - Naroua/Sabuul/Varga)
+  -  973 # Lambent Mana Ray (Fel-Spotted Egg - Naroua/Sabuul/Varga)
+  -  976 # Scintillating Mana Ray (Fel-Spotted Egg - Naroua/Sabuul/Varga)
+  -  974 # Vibrant Mana Ray (Fel-Spotted Egg - Naroua/Sabuul/Varga)
+  -  980 # Acid Belcher (Skreeg the Devourer, Mac'Aree)
+  -  979 # Crimson Slavermaw (Blistermaw, Antoran Wastes)
+  -  955 # Vile Fiend (Houndmaster Kerrax, Antoran Wastes)
+  -  970 # Maddened Chaosrunner (Wrangler Kravos, Mac'Aree)
+
+- name: BfA - Arathi
+  things:
+  - 1173 # Broken Highland Mustang (Knight-Captain Aldrin)
+  - 1174 # Highland Mustang (Doomrider Helgrim)
+  - 1182 # Lil' Donkey (Overseer Krix)
+  - 1183 # Skullripper (Skullripper)
+  - 1180 # Swift Albino Raptor (Beastrider Kama)
+  - 1185 # Witherbark Direwing (Nimar the Slayer)

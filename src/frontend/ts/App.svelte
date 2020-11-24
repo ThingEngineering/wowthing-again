@@ -28,10 +28,6 @@
     @import "../scss/global.scss";
 </style>
 
-<svelte:head>
-    <script type="text/javascript" src="//static-azeroth.cursecdn.com/current/js/syndication/tt.js"></script>
-</svelte:head>
-
 <Sidebar />
 {#if $staticError || $userError}
     <p>KABOOM! Something has gone horribly wrong, try reloading the page?</p>
