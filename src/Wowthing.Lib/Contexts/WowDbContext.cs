@@ -21,10 +21,9 @@ namespace Wowthing.Lib.Contexts
 
         public DbSet<PlayerAccount> PlayerAccount { get; set; }
         public DbSet<PlayerCharacter> PlayerCharacter { get; set; }
-        public DbSet<PlayerCollections> PlayerCollections { get; set; }
 
         // Garbage query types
-        public DbSet<CharacterQuery> CharacterQuery { get; set; }
+        public DbSet<SchedulerCharacterQuery> SchedulerCharacterQuery { get; set; }
 
         public WowDbContext(string connectionString)
             : base()
@@ -64,7 +63,7 @@ namespace Wowthing.Lib.Contexts
                 .OnDelete(DeleteBehavior.SetNull);
 
             // Query types have no keys
-            builder.Entity<CharacterQuery>()
+            builder.Entity<SchedulerCharacterQuery>()
                 .HasNoKey();
         }
 

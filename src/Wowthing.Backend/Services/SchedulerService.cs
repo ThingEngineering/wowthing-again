@@ -34,9 +34,7 @@ namespace Wowthing.Backend.Services
         private const string QUERY_CHARACTERS = @"
 SELECT  c.id AS character_id,
         c.name AS character_name,
-        c.level AS character_level,
         c.last_modified,
-        c.last_api_check,
         r.region,
         r.slug AS realm_slug,
         a.user_id
@@ -98,7 +96,7 @@ LIMIT 100
             }
 
             // Execute some sort of nasty database query to get characters that need an API check
-            var results = await _context.CharacterQuery.FromSqlRaw(QUERY_CHARACTERS).ToArrayAsync();
+            var results = await _context.SchedulerCharacterQuery.FromSqlRaw(QUERY_CHARACTERS).ToArrayAsync();
             if (results.Length > 0)
             {
                 var db = _redis.GetDatabase();
@@ -117,25 +115,6 @@ LIMIT 100
                 var ids = results.Select(s => s.CharacterId);
                 await _context.PlayerCharacter.Where(c => ids.Contains(c.Id))
                     .UpdateAsync(c => new PlayerCharacter { LastApiCheck = DateTime.UtcNow });
-
-                // Try some user checks I guess
-                // TODO clean this mess up
-                var distinctUsers = resultData.DistinctBy(r => r.Result.UserId).ToArray();
-                var cached = await db.StringMultiGetAsync(distinctUsers.Select(u => $"user:{u.Result.UserId}:collections"));
-
-                // This ends up being distinct UserIds that don't have a redis key set
-                var yikes = distinctUsers.Select((result, index) => (result, index))
-                    .Where(t => string.IsNullOrEmpty(cached[t.index]))
-                    .Select(t => t.result)
-                    .ToArray();
-                if (yikes.Length > 0)
-                {
-                    var datas = yikes.Select(y => y.Json).ToArray();
-                    await _jobRepository.AddJobsAsync(JobPriority.Low, JobType.UserMounts, datas);
-                    //await _jobRepository.AddJobsAsync(JobPriority.Low, JobType.UserPets, datas);
-
-                    await db.StringMultiSetAsync(yikes.Select(y => $"user:{y.Result.UserId}:collections"), "whee", TimeSpan.FromMinutes(10));
-                }
             }
 
             // Release exclusive scheduler lock

@@ -28,5 +28,7 @@
     "tslib": "^2.0.3",
     "typescript": "^4.0.5"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@types/lodash": "^4.14.165"
+  }
 }

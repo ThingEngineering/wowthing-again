@@ -9,10 +9,14 @@
     import HomeTable from './components/HomeTable.svelte'
     import Settings from './components/Settings.svelte'
     import Sidebar from './components/Sidebar.svelte'
+    import Mounts from './components/collections/Mounts.svelte'
 
     const routes = {
         '/': HomeTable,
         '/cards': HomeCards,
+
+        '/mounts': Mounts,
+
         '/settings': Settings,
     }
 

@@ -10,6 +10,12 @@ namespace Wowthing.Lib.Extensions
 {
     public static class IDatabaseExtensions
     {
+        public static async Task<string[]> GetSetMembersAsync(this IDatabase db, string key)
+        {
+            var members = await db.SetMembersAsync(key);
+            return members?.Select(r => (string)r)?.ToArray() ?? Array.Empty<string>();
+        }
+
         public static async Task<T> JsonGetAsync<T>(this IDatabase db, string key)
             where T : class
         {

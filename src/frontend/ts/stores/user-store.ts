@@ -1,12 +1,13 @@
-import { Writable, writable } from 'svelte/store'
+import { writable } from 'svelte/store'
 
 import Character from '../models/character'
+import UserData from '../models/user-data'
 import fetch_json from '../utils/fetch-json'
 
 
 export const error = writable(false)
 export const loading = writable(true)
-export const data = writable({})
+export const data = writable<UserData>(new UserData())
 
 export const fetch = async function() {
     const url = document.getElementById('app').getAttribute('data-user')
@@ -24,7 +25,7 @@ export const fetch = async function() {
     })
     temp.characters = characters
 
-    data.set(temp)
+    data.set(temp as UserData)
     loading.set(false)
 }
 

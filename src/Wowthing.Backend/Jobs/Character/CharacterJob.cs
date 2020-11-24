@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.API.Character;
 using Wowthing.Lib.Enums;
+using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Query;
 
@@ -18,7 +19,7 @@ namespace Wowthing.Backend.Jobs.Character
 
         public override async Task Run(params string[] data)
         {
-            var query = JsonConvert.DeserializeObject<CharacterQuery>(data[0]);
+            var query = JsonConvert.DeserializeObject<SchedulerCharacterQuery>(data[0]);
 
             var path = string.Format(API_PATH, query.RealmSlug, query.CharacterName.ToLowerInvariant());
             var uri = GenerateUri(query.Region, ApiNamespace.Profile, path);
@@ -77,6 +78,9 @@ namespace Wowthing.Backend.Jobs.Character
             character.LastModified = DateTimeOffset.FromUnixTimeMilliseconds(apiCharacter.LastLogout).UtcDateTime;
 
             await _context.SaveChangesAsync();
+
+            // Character changed, queue some more stuff
+            await _jobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterMounts, data);
         }
     }
 }

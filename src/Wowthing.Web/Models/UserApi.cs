@@ -11,5 +11,6 @@ namespace Wowthing.Web.Models
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public List<UserApiAccount> Accounts { get; set; }
         public List<UserApiCharacter> Characters { get; set; }
+        public Dictionary<string, int> Mounts { get; set; }
     }
 }

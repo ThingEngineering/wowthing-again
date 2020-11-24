@@ -1,0 +1,93 @@
+name: Alliance
+groups:
+- name: Allied Races
+  things:
+  - 1048 # Dark Iron Core Hound (Dark Iron Dwarf)
+  - 1006 # Lightforged Felcrusher (Lightforged Draenei)
+  - 1009 # Starcursed Voidstrider (Void Elf)
+
+- name: Darnassus
+  things:
+  -   31 # Spotted Frostsaber
+  -  337 # Striped Dawnsaber
+  -   26 # Striped Frostsaber
+  -   34 # Striped Nightsaber
+  -   87 # Swift Frostsaber
+  -   85 # Swift Mistsaber
+  -  107 # Swift Stormsaber
+
+- name: Exodar
+  things:
+  -  147 # Brown Elekk
+  -  163 # Gray Elekk
+  -  164 # Purple Elekk
+  -  166 # Great Blue Elekk
+  -  165 # Great Green Elekk
+  -  167 # Great Purple Elekk
+
+- name: Gilneas
+  things:
+  -  435 # Mountain Horse
+  -  436 # Swift Mountain Horse
+
+- name: Gnomeregan
+  things:
+  -   40 # Blue Mechanostrider
+  -   57 # Green Mechanostrider
+  -   39 # Red Mechanostrider
+  -   58 # Unpainted Mechanostrider
+  -   90 # Swift Green Mechanostrider
+  -   89 # Swift White Mechanostrider
+  -   88 # Swift Yellow Mechanostrider
+
+- name: Ironforge
+  things:
+  -   25 # Brown Ram
+  -   21 # Gray Ram
+  -   24 # White Ram
+  -   94 # Swift Brown Ram
+  -   95 # Swift Gray Ram
+  -   96 # Swift White Ram
+
+- name: Stormwind
+  things:
+  -    9 # Black Stallion
+  -    6 # Brown Horse
+  -   18 # Chestnut Mare
+  -   11 # Pinto Bridle
+  -   93 # Swift Brown Steed
+  -   91 # Swift Palomino
+  -   92 # Swift White Steed
+
+- name: Argent Tournament
+  things:
+  -  297 # Darnassian Nightsaber
+  -  319 # Swift Moonsaber
+  -  299 # Exodar Elekk
+  -  318 # Great Red Elekk
+  -  298 # Gnomeregan Mechanostrider
+  -  323 # Turbostrider
+  -  296 # Ironforge Ram
+  -  324 # Swift Violet Ram
+  -  294 # Stormwind Steed
+  -  321 # Swift Gray Steed
+
+- name: PvP
+  things:
+  -   77 # Black Battlestrider
+  -  220 # Black War Elekk
+  -   78 # Black War Ram
+  -   75 # Black War Steed
+  -   81 # Black War Tiger
+  -  841 # Vicious Gilnean Warhorse
+  - 1027 # Vicious War Basilisk
+  -  873 # Vicious War Bear (Alliance)
+  -  844 # Vicious War Elekk
+  -  945 # Vicious War Fox (Stormwind, PvP alliance)
+  -  876 # Vicious War Lion (Alliance)
+  -  755 # Vicious War Mechanostrider
+  -  640 # Vicious War Ram
+  - 1050 # Vicious War Riverbeast
+  -  554 # Vicious Warsaber
+  -  422 # Vicious War Steed
+  -  900 # Vicious War Turtle (Alliance)
