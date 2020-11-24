@@ -1,0 +1,92 @@
+name: Unavailable
+groups:
+- name: Vanilla
+  things:
+  -  199      # Amani War Bear (ZA)
+  -   46    0 # Ancient Frostsaber
+  -    0   51 # Arctic Wolf
+  -   45    0 # Black Nightsaber
+  -  122      # Black Qiraji Battle Tank (AQ40 opening)
+  -   64    0 # Black Ram
+  -  201      # Brewfest Ram
+  -   63    0 # Frost Ram
+  -    0   73 # Green Kodo
+  -   62    0 # Icy Blue Mechanostrider Mod A
+  -    0   56 # Ivory Raptor ?10795
+  -   52    0 # Palomino
+  -    0   50 # Red Wolf
+# -  337      # Swift Dawnsaber - Duplicates Striped Dawnsaber?
+  -  110      # Swift Razzashi Raptor (ZG)
+  -  111      # Swift Zulian Tiger (ZG)
+  -    0   74 # Teal Kodo
+  -    0   54 # Mottled Red Raptor
+  -   42    0 # White Mechanostrider Mod B
+  -   53    0 # White Stallion ?468
+
+- name: WotLK
+  things:
+  -  266      # Plagued Proto-Drake (Naxx/etc 10 meta)
+  -  263      # Black Proto-Drake (Naxx/etc 25 meta)
+  -  343  342 # Swift Alliance Steed/Swift Horde Wolf (ToGC 10H)
+  -  344  345 # Crusader's White/Black Warhorse (ToGC - A Tribute to Immortality)
+
+- name: MoP
+  things:
+  -  550      # Brawler's Burly Mushan Beast (Brawler's Guild)
+  -  518      # Ashen Pandaren Phoenix (CM)
+  -  503      # Crimson Pandaren Phoenix (CM)
+  -  519      # Emerald Pandaren Phoenix (CM)
+  -  520      # Violet Pandaren Phoenix (CM)
+  -  558      # Kor'kron War Wolf (Garrosh)
+  -    0  651 # Warlord's Deathwheel
+
+- name: WoD
+  things:
+  -  638      # Breezestrider Stallion (Vol'jin's Spear)
+  -  639      # Pale Thorngrazer (Wrynn's Vanguard)
+  -  654      # Challenger's War Yeti (Challenge Warlord: Silver)
+  -  606      # Core Hound (Lv100 Molten Core)
+  -  764      # Grove Warden (HFC)
+
+- name: Legion
+  things:
+  -  878      # Brawler's Burly Basilisk (Brawler's Guild)
+  -  978      # Violet Spellwing (Blood of a Titan - kill Argus)
+  - 1054 1049 # Teldrassil Hippogryph/Undercity Plaguebat (Burning of Teldrassil)
+
+- name: Arena
+  things:
+  -  169      # Swift Nether Drake
+  -  207      # Merciless Nether Drake
+  -  223      # Vengeful Nether Drake
+  -  241      # Brutal Nether Drake
+  -  313      # Deadly Gladiator's Frost Wyrm
+  -  317      # Furious Gladiator's Frost Worm
+  -  340      # Relentless Gladiator's Frost Wyrm
+  -  358      # Wrathful Gladiator's Frost Wyrm
+  -  424      # Vicious Gladiator's Twilight Drake
+  -  428      # Ruthless Gladiator's Twilight Drake
+  -  467      # Cataclysmic Gladiator's Twilight Drake
+  -  541      # Malevolent Gladiator's Cloud Serpent
+  -  562      # Tryannical Gladiator's Cloud Serpent
+  -  563      # Grievous Gladiator's Cloud Serpent
+  -  564      # Prideful Gladiator's Cloud Serpent
+  -  759      # Primal Gladiator's Felblood Gronnling (Warlords S1)
+  -  760      # Wild Gladiator's Felblood Gronnling (Warlords S2)
+  -  761      # Warmongering Gladiator's Felblood Gronnling (Warlords S3)
+  -  848      # Vindictive Gladiator's Storm Dragon (Legion S1)
+  -  849      # Fearless Gladiator's Storm Dragon (Legion S2)
+  -  850      # Cruel Gladiator's Storm Dragon (Legion S3)
+  -  851      # Ferocious Gladiator's Storm Dragon (Legion S4)
+  -  852      # Fierce Gladiator's Storm Dragon (Legion S5)
+  -  853      # Dominating Gladiator's Storm Dragon (Legion S6)
+  -  948      # Demonic Gladiator's Storm Dragon (Legion S7)
+  - 1030      # Dread Gladiator's Proto-Drake (BfA Season 1)
+
+- name: Promotions
+  things:
+  -  243      # Big Blizzard Bear (Blizzcon)
+  -  959  960 # Stormwind Skychaser/Orgrimmar Interceptor (Blizzcon 2017)
+  -  439      # Tyrael's Charger (Annual Pass)
+  -  440  441 # Spectral Gryphon/Spectral Wind Rider (Scroll of Resurrection)
+  -  896      # Primal Flamesaber (Heroes of the Storm)

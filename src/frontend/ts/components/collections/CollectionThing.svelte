@@ -9,25 +9,28 @@
     export let things
 
     $: userHasThing = find(things, (t) => userHas[t])
-    $: thingId = thingMap[userHasThing ?? things[0]]
+    $: thingId = thingMap[userHasThing ?? find(things, (t) => t > 0)]
 </script>
 
 <style lang="scss">
+    @import '../../../scss/variables.scss';
+
     div {
         display: inline-block;
         margin-right: 2px;
 
         &.thing-yes {
-            border: 1px solid #00ff00;
+            border: 2px solid #00ff00;
         }
         &.thing-no {
-            border: 1px solid #ff0000;
+            border: 2px solid $border-color;
+            opacity: 0.5;
         }
     }
 </style>
 
 <div class:thing-yes={userHasThing} class:thing-no={!userHasThing}>
-    <a href="https://www.wowhead.com/{thingType}={thingId}">
+    <a href="https://www.wowdb.com/{thingType}s/{thingId}">
         <BaseImage name="{thingType}_{thingId}" size="32" />
     </a>
 </div>
