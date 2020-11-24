@@ -8,7 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using StackExchange.Redis;
+using Wowthing.Lib.Constants;
 using Wowthing.Lib.Contexts;
+using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Models;
 using Wowthing.Web.Models;
 
@@ -34,17 +36,13 @@ namespace Wowthing.Web.Controllers
         {
             var db = _redis.GetDatabase();
 
-            var dataWait = db.StringGetAsync("cached_static:data");
-            var hashWait = db.StringGetAsync("cached_static:hash");
-            string jsonData = await dataWait;
-            string jsonHash = await hashWait;
-
+            string jsonHash = await db.StringGetAsync("cached_static:hash");
             if (hash != jsonHash)
             {
                 return NotFound();
             }
 
-            return Content(jsonData, "application/json");
+            return Content(await db.StringGetAsync("cached_static:data"), "application/json");
         }
 
         [HttpGet("user/{username:username}")]
@@ -61,6 +59,7 @@ namespace Wowthing.Web.Controllers
                 return NotFound();
             }
 
+            var db = _redis.GetDatabase();
             bool pub = User.Identity.Name != user.UserName;
             bool anon = user.Settings.Privacy.Anonymized;
 
@@ -71,12 +70,14 @@ namespace Wowthing.Web.Controllers
                 characterQuery = characterQuery.Where(c => c.Level >= 11);
             }
 
+            var mounts = await db.GetSetMembersAsync(string.Format(RedisKeys.UserMounts, user.Id));
+
             // Build response
             var apiData = new UserApi
             {
                 Characters = characterQuery.Select(c => new UserApiCharacter(c, pub, anon)).ToList(),
+                Mounts = mounts.ToDictionary(k => k, v => 1),
             };
-
 
             return Ok(apiData);
         }

@@ -6,6 +6,7 @@
     nav {
         background: $thing-background;
         border: 1px solid $border-color;
+        border-radius: $thing-border-radius;
         margin-right: 2rem;
         padding: 0.5rem 0;
         min-width: 9rem;
@@ -32,7 +33,7 @@
         </li>
         <li class="spacer"></li>
         <li>
-            <a href="#/mounts">Mounts [NYI]</a>
+            <a href="#/mounts">Mounts</a>
         </li>
         <li>
             <a href="#/pets">Pets [NYI]</a>
