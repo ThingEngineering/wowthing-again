@@ -11,12 +11,17 @@ namespace Wowthing.Backend.Models.Redis
         public string Name { get; set; }
         public List<int[]> Things { get; set; }
 
+        public RedisSetGroup()
+        {
+        }
+
         public RedisSetGroup(DataSetGroup group)
         {
             Name = group.Name;
             Things = group.Things
                 .Select(t =>
-                    t.Split(' ')
+                    t.Trim()
+                        .Split(' ', StringSplitOptions.RemoveEmptyEntries)
                         .Select(s => int.Parse(s))
                         .ToArray())
                 .ToList();
