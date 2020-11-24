@@ -12,7 +12,8 @@
     const { hasStore, totalStore } = getContext("collection")
 
     $: userHasThing = find(things, (t) => userHas[t])
-    $: thingId = thingMap[userHasThing ?? find(things, (t) => t > 0)]
+    $: origId = userHasThing ?? find(things, (t) => t > 0)
+    $: thingId = thingMap[origId]
 
     $: {
         if (userHasThing) {
@@ -27,7 +28,6 @@
 
     div {
         display: inline-block;
-        margin-right: 2px;
 
         &.thing-yes {
             border: 2px solid #00ff00;
@@ -37,9 +37,12 @@
             opacity: 0.5;
         }
     }
+    div:not(:first-of-type) {
+        margin-left: 2px;
+    }
 </style>
 
-<div class:thing-yes={userHasThing} class:thing-no={!userHasThing}>
+<div class:thing-yes={userHasThing} class:thing-no={!userHasThing} data-orig-id="{origId}">
     <a href="https://www.wowdb.com/{thingType}s/{thingId}">
         <BaseImage name="{thingType}_{thingId}" size="32" />
     </a>

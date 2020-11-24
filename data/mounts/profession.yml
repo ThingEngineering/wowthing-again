@@ -16,12 +16,13 @@ groups:
 
 - name: Engineering
   things:
-  -  275 240 # Mekgineer's Chopper/Mechano-Hog
-  -  522 # Sky Golem
-  -  204 # Turbo-Charged Flying Machine
   -  469 # Depleted-Kyparium Rocket
   -  205 # Flying Machine
   -  470 # Geosynchronous World Spinner
+  - 1028 # Mecha-Mogul Mk2
+  -  275 240 # Mekgineer's Chopper/Mechano-Hog
+  -  522 # Sky Golem
+  -  204 # Turbo-Charged Flying Machine
 
 - name: Fishing
   things:

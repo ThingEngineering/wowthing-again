@@ -2,10 +2,11 @@ name: Horde
 groups:
 - name: Allied Races
   things:
-  - 1007 # Highmountain Thunderhoof (Allied Races: Highmountain Tauren)
-  - 1044 # Mag'har Direwolf (Allied Races: Mag'har Orc)
-  - 1008 # Nightborne Manasaber (Allied Races: Nightborne)
-  - 1038 # Zandalari Direhorn (Allied Races: Zandalari Troll)
+  - 1286 # Caravan Hyena (Vulpera)
+  - 1007 # Highmountain Thunderhoof (Highmountain Tauren)
+  - 1044 # Mag'har Direwolf (Mag'har Orc)
+  - 1008 # Nightborne Manasaber (Nightborne)
+  - 1038 # Zandalari Direhorn (Zandalari Troll)
 
 - name: Bilgewater Cartel
   things:
