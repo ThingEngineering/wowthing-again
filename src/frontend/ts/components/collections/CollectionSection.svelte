@@ -8,13 +8,24 @@
 </script>
 
 <style lang="scss">
+    @import '../../../scss/variables.scss';
+
     h3 {
         margin: 0;
+        padding: 0.25rem 0.5rem;
         width: 100%;
+        background: mix($thing-background, #0000ff, 90%);
+        border-bottom: 1px solid $border-color;
     }
     section {
+        background: $thing-background;
+        border: 1px solid $border-color;
+        border-radius: $thing-border-radius;
         display: flex;
         flex-wrap: wrap;
+    }
+    section:not(:first-child) {
+        margin-top: 1rem;
     }
 </style>
 

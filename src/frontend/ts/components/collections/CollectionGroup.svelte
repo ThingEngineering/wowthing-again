@@ -11,9 +11,6 @@
     @import '../../../scss/variables.scss';
 
     article {
-        background: $thing-background;
-        border: 1px solid $border-color;
-        border-radius: $thing-border-radius;
         margin: 0 0.75rem 0.75rem 0;
         padding: 0 0.5rem 0.5rem 0.5rem;
     }

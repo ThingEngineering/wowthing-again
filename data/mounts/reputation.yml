@@ -1,0 +1,116 @@
+name: Reputation
+groups:
+- name: Classic
+  things:
+  -  203      # Cenarion War Hippogryph (Cenarion Expedtion)
+  -   55  311 # Winterspring Frostsaber/Whistle of the Venomhide Ravasaur (Wintersaber Trainers/whatever dudes)
+
+- name: TBC - Kurenai/Mag'har
+  things:
+  -  170 # Cobalt Riding Talbuk
+  -  172 # Silver Riding Talbuk
+  -  173 # Tan Riding Talbuk
+  -  174 # White Riding Talbuk
+  -  153 # Cobalt War Talbuk
+  -  155 # Silver War Talbuk
+  -  156 # Tan War Talbuk
+  -  154 # White War Talbuk
+
+- name: TBC - Netherwing
+  things:
+  -  187 # Azure Netherwing Drake
+  -  188 # Cobalt Netherwing Drake
+  -  186 # Onyx Netherwing Drake
+  -  189 # Purple Netherwing Drake
+  -  190 # Veridian Netherwing Drake
+  -  191 # Violet Netherwing Drake
+
+- name: TBC - Sha'tari Skyguard
+  things:
+  -  180 # Blue Riding Nether Ray
+  -  176 # Green Riding Nether Ray
+  -  178 # Purple Riding Nether Ray
+  -  177 # Red Riding Nether Ray
+  -  179 # Silver Riding Nether Ray
+
+- name: WotLK
+  things:
+  -  278 # Green Proto-Drake (Oracles)
+  -  329  330 # Silver Covenant Hippogryph/Sunreaver Dragonhawk (Silver Covenant)
+  -  331  332 # Quel'dorei Steed/Sunreaver Hawkstrider (Silver Covenant)
+  -  288  289 # Grand Ice Mammoth (Sons of Hodir)
+  -  258  259 # Ice Mammoth (Sons of Hodir)
+  -  249 # Red Drake (Wyrmrest Accord)
+
+- name: Cata
+  things:
+  -  394 # Drake of the West Wind (Baradin's Wardens)
+  -  405  406 # Spectral Steed/Spectral Wolf (Baradin's Wardens)
+  -  398 # Brown Riding Camel (Ramkahen)
+  -  399 # Tan Riding Camel (Ramkahen)
+
+- name: MoP
+  things:
+  -  449 # Azure Water Strider (Anglers)
+  -  504 # Thundering August Cloud Serpent (August Celestials)
+  -  517 # Thundering Ruby Cloud Serpent (August Celestials)
+  -  479 # Azure Riding Crane (Golden Lotus)
+  -  480 # Golden Riding Crane (Golden Lotus)
+  -  481 # Regal Riding Crane (Golden Lotus)
+  -  463 # Amber Scorpion (Klaxxi)
+  -  509 # Red Flying Cloud (Lorewalkers)
+  -  464 # Azure Cloud Serpent (Order of the Cloud Serpent)
+  -  465 # Golden Cloud Serpent (Order of the Cloud Serpent)
+  -  448 # Jade Cloud Serpent (Order of the Cloud Serpent)
+  -  506 # Blue Shado-Pan Riding Tiger (Shado-Pan)
+  -  505 # Green Shado-Pan Riding Tiger (Shado-Pan)
+  -  507 # Red Shado-Pan Riding Tiger (Shado-Pan)
+  -  471 # Onyx Cloud Serpent (Shado-Pan)
+  -  511 # Black Riding Goat (Tillers)
+  -  508 # Brown Riding Goat (Tillers)
+  -  510 # White Riding Goat (Tillers)
+  -  528  529 # Grand Gryphon/Grand Wyvern (Operation: Shieldwall/Dominance Offensive)
+  -  526  527 # Grand Armored Gryphon/Grand Armored Wyvern (Operation: Shieldwall/Dominance Offensive)
+  -  545  546 # Golden/Crimson Primal Direhorn (Kirin Tor Offensive/Sunreaver Onslaught)
+  -  475 # Heavenly Golden Cloud Serpent (Emperor Shaohao)
+
+- name: WoD
+  things:
+  -  635 # Shadowmane Charger (Arakkoa Outcasts)
+  -  617    0 # Dusty Rockhide (Council of Exarchs)
+  -    0  648 # Swift Frostwolf (Frostwolf Orcs)
+  -  765 # Bristling Hellboar (The Sabrestalkers)
+  -  624 # Wild Goretusk (The Sabrestalkers)
+  -  625 # Domesticated Razorback (Steamwheedle Preservation Society)
+  -  768 # Deathtusk Felboar (Vol'jin's Headhunters/Hand of the Prophets)
+
+- name: Legion
+  things:
+  -  943 # Cloudwing Hippogryph (Farondis Chest)
+  -  941 # Highmountain Elderhorn (Highmountain Supplies)
+  -  877 # Ivory Hawkstrider (Talon's Vengeance Exalted)
+  -  905 # Leywoven Flying Carpet (Nightfallen Cache)
+  -  944 # Valarjar Stormwing (Valarjar Strongbox)
+  -  942 # Wild Dreamrunner (Dreamweaver Cache)
+
+- name: Legion - Argus
+  things:
+  -  964 # Amethyst Ruinstrider (Argussian Reach, Exalted)
+  -  966 # Beryl Ruinstrider (Argussian Reach, Exalted)
+  -  965 # Cerulean Ruinstrider (Argussian Reach, Exalted)
+  -  968 # Russet Ruinstrider (Argussian Reach, Exalted)
+  -  939 # Sable Ruinstrider (Argussian Reach, Exaled)
+  -  967 # Umber Ruinstrider (Argussian Reach, Exalted)
+  -  985 # Avenging Felcrusher (Gleaming Footlocker - Army of the Light)
+  -  984 # Blessed Felcrusher (Gleaming Footlocker - Army of the Light)
+  -  983 # Glorious Felcrusher (Gleaming Footlocker - Army of the Light)
+  -  932 # Lightforged Warframe (Army of the Light, Exalted)
+
+- name: BfA
+  things:
+  - 1010 # Admiralty Stallion (Proudmoore Admiralty - Exalted)
+  -  926 # Alabaster Hyena (Voldunai - Exalted)
+  - 1058 # Cobalt Pterrordax (Zandalari Empire - Exalted)
+  - 1015 # Dapple Gray (Storm's Wake - Exalted)
+  - 1061 # Expedition Bloodswarmer (Talanji's Expedition - Exalted)
+  - 1016 # Smoky Charger (Order of Embers - Exalted)
