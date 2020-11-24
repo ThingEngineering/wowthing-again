@@ -11,6 +11,10 @@ namespace Wowthing.Backend.Models.Redis
         public string Name { get; set; }
         public List<RedisSetGroup> Groups { get; set; }
 
+        public RedisSetCategory()
+        {
+        }
+
         public RedisSetCategory(DataSetCategory cat)
         {
             Name = cat.Name;

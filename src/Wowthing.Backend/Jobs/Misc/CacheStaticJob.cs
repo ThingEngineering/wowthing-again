@@ -31,24 +31,51 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
-            Version = 2,
+            Version = 3,
         };
 
         public override async Task Run(params string[] data)
         {
             var db = _redis.GetDatabase();
 
+            // Mounts
+            var mountToSpell = await LoadMountDump();
+            var mountSets = LoadSets("mounts");
+
+            var missing = mountToSpell.Keys
+                .Except(mountSets
+                    .SelectMany(s => s.Groups)
+                    .SelectMany(g => g.Things)
+                    .SelectMany(t => t)
+                )
+                .ToArray();
+            if (missing.Length > 0)
+            {
+                mountSets.Add(new RedisSetCategory
+                {
+                    Name = "UNCATEGORIZED",
+                    Groups = new List<RedisSetGroup>
+                    {
+                        new RedisSetGroup
+                        {
+                            Name = "UNCATEGORIZED",
+                            Things = missing.Select(m => new int[]{ m }).ToList(),
+                        }
+                    }
+                });
+            }
+
+            // Ok we're done
             var cacheData = new RedisStaticCache
             {
                 Classes = new SortedDictionary<int, WowClass>(await _context.WowClass.ToDictionaryAsync(c => c.Id)),
                 Races = new SortedDictionary<int, WowRace>(await _context.WowRace.ToDictionaryAsync(c => c.Id)),
                 Realms = new SortedDictionary<int, WowRealm>(await _context.WowRealm.ToDictionaryAsync(c => c.Id)),
 
-                MountToSpell = await LoadMountDump(),
-
-                MountSets = LoadSets("mounts"),
+                MountToSpell = mountToSpell,
+                MountSets = mountSets,
             };
-            
+
             var cacheJson = JsonConvert.SerializeObject(cacheData);
             var cacheHash = cacheJson.Md5();
 
