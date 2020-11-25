@@ -53,7 +53,7 @@ namespace Wowthing.Backend.Jobs.Character
                 {
                     // Treat every other error as relatively minor, try again later
                     // 404s are weird, can just mean "character hasn't logged in for a while"
-                    character.DelayHours += 1;
+                    character.DelayHours += 4;
                 }
                 
                 await _context.SaveChangesAsync();
