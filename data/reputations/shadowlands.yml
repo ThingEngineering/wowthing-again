@@ -1,0 +1,33 @@
+name: Shadowlands
+reputations:
+# 9.0
+-
+  - both:
+      id: 2407
+      name: The Ascended
+      icon: a
+
+  - both:
+      id: 2439
+      name: The Avowed
+      icon: a
+
+  - both:
+      id: 2413
+      name: Court of Harvesters
+      icon: a
+
+  - both:
+      id: 2410
+      name: The Undying Army
+      icon: a
+
+  - both:
+      id: 2432
+      name: Ve'nari
+      icon: a
+
+  - both:
+      id: 2465
+      name: The Wild Hunt
+      icon: a
