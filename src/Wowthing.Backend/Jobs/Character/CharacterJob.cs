@@ -39,11 +39,13 @@ namespace Wowthing.Backend.Jobs.Character
             }
             catch (HttpRequestException e)
             {
-                if (e.Message != "304")
+                if (e.Message == "304")
                 {
-                    _logger.Error("{0}: character {1}/{2}", e.Message, query.RealmSlug, query.CharacterName.ToLowerInvariant());
+                    _logger.Information("{0}: character {1}/{2}", e.Message, query.RealmSlug, query.CharacterName.ToLowerInvariant());
+                    return;
                 }
 
+                _logger.Error("{0}: character {1}/{2}", e.Message, query.RealmSlug, query.CharacterName.ToLowerInvariant());
                 if (e.Message == "403")
                 {
                     // 403s are pretty bad, seem to happen for characters on unsubscribed accounts
