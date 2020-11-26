@@ -108,10 +108,17 @@ groups:
 
 - name: BfA
   things:
-  - 1010 # Admiralty Stallion (Proudmoore Admiralty - Exalted)
-  -  926 # Alabaster Hyena (Voldunai - Exalted)
-  - 1058 # Cobalt Pterrordax (Zandalari Empire - Exalted)
-  - 1015 # Dapple Gray (Storm's Wake - Exalted)
-  - 1061 # Expedition Bloodswarmer (Talanji's Expedition - Exalted)
-  - 1016 # Smoky Charger (Order of Embers - Exalted)
-  -  958 # Spectral Terrorwing (Zandalari Empire - Exalted)
+  - 1010 # Admiralty Stallion (Proudmoore Admiralty, Exalted)
+  -  926 # Alabaster Hyena (Voldunai, Exalted)
+  - 1059 # Captured Swampstalker (Talanji's Expedition, Exalted)
+  - 1058 # Cobalt Pterrordax (Zandalari Empire, Exalted)
+  - 1015 # Dapple Gray (Storm's Wake, Exalted)
+  - 1061 # Expedition Bloodswarmer (Talanji's Expedition, Exalted)
+  - 1016 # Smoky Charger (Order of Embers, Exalted)
+  -  958 # Spectral Terrorwing (Zandalari Empire, Exalted)
+  - 1060 # Voldunai Dunescraper (Voldunai, Exalted)
+  - 1013 # Honeyback Harvester (Beeeeeees, Exalted)
+  - 1231 # Ankoan Waveray (Unshackled, Exalted)
+  - 1230 # Unshackled Waveray (Unshackled, Exalted)
+  - 1237 # Royal Snapdragon (Unshackled, Paragon)
+  

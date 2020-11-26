@@ -158,8 +158,10 @@ groups:
 
 - name: Recruit-A-Friend
   things:
+  -  454 # Cindermane Charger
+  -  568 # Emerald Hippogryph
+  - 1288 # Explorer's Dunetrekker
+  - 1287 # Explorer's Jungle Hopper
+  -  455 # Obsidian Nightwing
   -  224 # Swift Zhevra
   -  382 # X-53 Touring Rocket
-  -  455 # Obsidian Nightwing
-  -  568 # Emerald Hippogryph
-  -  454 # Cindermane Charger
