@@ -23,6 +23,8 @@
         width: 100%;
         background: $highlight-background;
         border-bottom: 1px solid $border-color;
+        border-top-left-radius: $thing-border-radius;
+        border-top-right-radius: $thing-border-radius;
     }
     span {
         font-size: 0.9rem;
