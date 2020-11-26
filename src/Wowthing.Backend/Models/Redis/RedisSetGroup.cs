@@ -16,9 +16,14 @@ namespace Wowthing.Backend.Models.Redis
         }
 
         public RedisSetGroup(DataSetGroup group)
+            : this(group.Name, group.Things)
         {
-            Name = group.Name;
-            Things = group.Things
+        }
+
+        public RedisSetGroup(string name, IEnumerable<string> things)
+        {
+            Name = name;
+            Things = things
                 .Select(t =>
                     t.Trim()
                         .Split(' ', StringSplitOptions.RemoveEmptyEntries)
