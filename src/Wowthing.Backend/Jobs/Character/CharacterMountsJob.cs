@@ -19,16 +19,22 @@ namespace Wowthing.Backend.Jobs.User
 
         public override async Task Run(params string[] data)
         {
-            var result = JsonConvert.DeserializeObject<SchedulerCharacterQuery>(data[0]);
-            _logger.Debug("sigh {@d}", result);
+            var query = JsonConvert.DeserializeObject<SchedulerCharacterQuery>(data[0]);
+            using var shrug = CharacterLog(query);
 
-            var path = string.Format(API_PATH, result.RealmSlug, result.CharacterName.ToLowerInvariant());
-            var uri = GenerateUri(result.Region, ApiNamespace.Profile, path);
-            var apiMounts = await GetJson<ApiCharacterMounts>(uri);
+            var path = string.Format(API_PATH, query.RealmSlug, query.CharacterName.ToLowerInvariant());
+            var uri = GenerateUri(query.Region, ApiNamespace.Profile, path);
+
+            var result = await GetJson<ApiCharacterMounts>(uri);
+            if (result.NotModified)
+            {
+                _logger.Information("304 Not Modified");
+                return;
+            }
 
             var db = _redis.GetDatabase();
-            var key = string.Format(RedisKeys.UserMounts, result.UserId);
-            var values = apiMounts.Mounts.Select(m => new RedisValue(m.Mount.Id.ToString())).ToArray();
+            var key = string.Format(RedisKeys.UserMounts, query.UserId);
+            var values = result.Data.Mounts.Select(m => new RedisValue(m.Mount.Id.ToString())).ToArray();
             await db.SetAddAsync(key, values);
         }
     }

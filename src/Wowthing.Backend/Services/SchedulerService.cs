@@ -34,7 +34,6 @@ namespace Wowthing.Backend.Services
         private const string QUERY_CHARACTERS = @"
 SELECT  c.id AS character_id,
         c.name AS character_name,
-        c.last_modified,
         r.region,
         r.slug AS realm_slug,
         a.user_id

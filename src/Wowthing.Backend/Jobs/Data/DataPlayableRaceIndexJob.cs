@@ -27,15 +27,19 @@ namespace Wowthing.Backend.Jobs.Data
 
         public override async Task Run(params string[] data)
         {
-            // Fetch existing data
-            var raceMap = await _context.WowRace.ToDictionaryAsync(k => k.Id);
-
             // Fetch API data
             var uri = GenerateUri(WowRegion.US, ApiNamespace.Static, API_PATH);
             var result = await GetJson<ApiDataPlayableRaceIndex>(uri);
+            if (result.NotModified)
+            {
+                return;
+            }
+
+            // Fetch existing data
+            var raceMap = await _context.WowRace.ToDictionaryAsync(k => k.Id);
 
             var newRaces = new List<WowRace>();
-            foreach (var apiRace in result.Races)
+            foreach (var apiRace in result.Data.Races)
             {
                 string baseName = apiRace.Name.Replace(' ', '_').Replace("'", "").ToLowerInvariant();
                 string iconFemale = $"race_{baseName}_female";
