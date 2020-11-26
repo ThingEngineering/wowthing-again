@@ -13,6 +13,7 @@ using Wowthing.Backend.Models.Redis;
 using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models;
+using Wowthing.Lib.Utilities;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
@@ -31,39 +32,50 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
-            Version = 4,
+            Version = 5,
         };
 
         public override async Task Run(params string[] data)
         {
             var db = _redis.GetDatabase();
+            var timer = new JankTimer();
 
             // Mounts
             var mountToSpell = await LoadMountDump();
             var mountSets = LoadSets("mounts");
             AddUncategorized("mounts", mountToSpell, mountSets);
+            timer.AddPoint("Mounts");
 
             // Reputations
             var reputations = LoadReputations();
-            _logger.Debug("reps {@r}", reputations);
+            timer.AddPoint("Reputations");
+
+            // Basic database dumps
+            var classes = new SortedDictionary<int, WowClass>(await _context.WowClass.ToDictionaryAsync(c => c.Id));
+            var races = new SortedDictionary<int, WowRace>(await _context.WowRace.ToDictionaryAsync(c => c.Id));
+            var realms = new SortedDictionary<int, WowRealm>(await _context.WowRealm.ToDictionaryAsync(c => c.Id));
+            timer.AddPoint("Database");
 
             // Ok we're done
             var cacheData = new RedisStaticCache
             {
-                Classes = new SortedDictionary<int, WowClass>(await _context.WowClass.ToDictionaryAsync(c => c.Id)),
-                Races = new SortedDictionary<int, WowRace>(await _context.WowRace.ToDictionaryAsync(c => c.Id)),
-                Realms = new SortedDictionary<int, WowRealm>(await _context.WowRealm.ToDictionaryAsync(c => c.Id)),
+                Classes = classes,
+                Races = races,
+                Realms = realms,
 
                 MountToSpell = mountToSpell,
                 MountSets = mountSets,
                 Reputations = reputations,
             };
-
             var cacheJson = JsonConvert.SerializeObject(cacheData);
             var cacheHash = cacheJson.Md5();
+            timer.AddPoint("JSON");
 
             await db.StringSetAsync("cached_static:data", cacheJson);
             await db.StringSetAsync("cached_static:hash", cacheHash);
+            timer.AddPoint("Cache", true);
+
+            _logger.Information("CacheStaticJob: {0}", timer.ToString());
         }
 
         private List<DataReputationCategory> LoadReputations()
