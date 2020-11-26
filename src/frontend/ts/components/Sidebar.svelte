@@ -19,7 +19,7 @@
         padding: 0.2rem 1rem;
     }
     .spacer {
-      height: 1rem;
+        height: 1rem;
     }
 </style>
 
@@ -30,6 +30,9 @@
         </li>
         <li>
             <a href="#/cards">Home (Cards)</a>
+        </li>
+        <li>
+            <a href="#/reputations/shadowlands">Reputations</a>
         </li>
         <li class="spacer"></li>
         <li>

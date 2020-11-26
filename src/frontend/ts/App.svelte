@@ -10,10 +10,12 @@
     import Settings from './components/Settings.svelte'
     import Sidebar from './components/Sidebar.svelte'
     import Mounts from './components/collections/Mounts.svelte'
+    import Reputations from './components/reputations/Reputations.svelte'
 
     const routes = {
         '/': HomeTable,
         '/cards': HomeCards,
+        '/reputations/:slug?': Reputations,
 
         '/mounts': Mounts,
 
