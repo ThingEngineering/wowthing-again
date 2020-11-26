@@ -56,6 +56,11 @@ namespace Wowthing.Lib.Contexts
             builder.Entity<IdentityUserRole<long>>().ToTable("asp_net_user_roles");
             builder.Entity<IdentityRoleClaim<long>>().ToTable("asp_net_role_claims");
 
+            // Player Accounts are weird
+            builder.Entity<PlayerAccount>()
+                .HasIndex(a => new { a.Region, a.AccountId })
+                .IsUnique(true);
+
             // Update WowCharacter table if related WowAccount is deleted
             builder.Entity<PlayerCharacter>()
                 .HasOne(c => c.Account)
