@@ -43,6 +43,10 @@ namespace Wowthing.Backend.Jobs.Misc
             var mountSets = LoadSets("mounts");
             AddUncategorized("mounts", mountToSpell, mountSets);
 
+            // Reputations
+            var reputations = LoadReputations();
+            _logger.Debug("reps {@r}", reputations);
+
             // Ok we're done
             var cacheData = new RedisStaticCache
             {
@@ -52,6 +56,7 @@ namespace Wowthing.Backend.Jobs.Misc
 
                 MountToSpell = mountToSpell,
                 MountSets = mountSets,
+                Reputations = reputations,
             };
 
             var cacheJson = JsonConvert.SerializeObject(cacheData);
@@ -59,6 +64,23 @@ namespace Wowthing.Backend.Jobs.Misc
 
             await db.StringSetAsync("cached_static:data", cacheJson);
             await db.StringSetAsync("cached_static:hash", cacheHash);
+        }
+
+        private List<DataReputationCategory> LoadReputations()
+        {
+            var categories = new List<DataReputationCategory>();
+            var yaml = new DeserializerBuilder()
+                .WithNamingConvention(LowerCaseNamingConvention.Instance)
+                .Build();
+
+            var basePath = Path.Join(DATA_PATH, "reputations");
+            foreach (var line in File.ReadLines(Path.Join(basePath, "_order")))
+            {
+                var filePath = Path.Join(basePath, line);
+                categories.Add(yaml.Deserialize<DataReputationCategory>(File.OpenText(filePath)));
+            }
+
+            return categories;
         }
 
         private async Task<SortedDictionary<int, int>> LoadMountDump()

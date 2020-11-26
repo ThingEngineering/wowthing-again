@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Wowthing.Lib.Extensions
 {
@@ -22,6 +23,16 @@ namespace Wowthing.Lib.Extensions
             return string.Concat(hash
                 .ComputeHash(Encoding.UTF8.GetBytes(s))
                 .Select(b => b.ToString("x2")));
+        }
+
+        private static readonly Regex _invalidCharacters = new Regex(@"[^a-z0-9\s-]", RegexOptions.Compiled);
+        private static readonly Regex _whitespace = new Regex(@"\s", RegexOptions.Compiled);
+        public static string Slugify(this string s)
+        {
+            s = s.ToLower();
+            s = _invalidCharacters.Replace(s, "");
+            s = _whitespace.Replace(s, "-");
+            return s;
         }
     }
 }
