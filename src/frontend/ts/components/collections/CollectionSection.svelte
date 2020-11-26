@@ -21,7 +21,7 @@
         margin: 0;
         padding: 0.25rem 0.5rem;
         width: 100%;
-        background: mix($thing-background, #0000ff, 90%);
+        background: $highlight-background;
         border-bottom: 1px solid $border-color;
     }
     span {

@@ -4,7 +4,6 @@ import rimraf from 'rimraf'
 import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
-import livereload from 'rollup-plugin-livereload'
 import svelte from 'rollup-plugin-svelte'
 import { terser } from 'rollup-plugin-terser'
 import sveltePreprocess from 'svelte-preprocess'
@@ -53,7 +52,7 @@ export default {
 
         // Watch the `dist` directory and refresh the
         // browser on changes when not in production
-        !production && livereload(distPath),
+        //!production && livereload(distPath),
 
         // If we're building for production (npm run build
         // instead of npm run dev), minify
