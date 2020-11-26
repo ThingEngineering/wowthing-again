@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
@@ -11,9 +12,10 @@ using Wowthing.Lib.Models;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    partial class WowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201126000037_Fix_PlayerAccount_mess")]
+    partial class Fix_PlayerAccount_mess
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -292,122 +294,6 @@ namespace Wowthing.Lib.Migrations
                     b.ToTable("asp_net_users");
                 });
 
-            modelBuilder.Entity("Wowthing.Lib.Models.PlayerAccount", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasColumnType("bigint")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<long>("AccountId")
-                        .HasColumnName("account_id")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("Name")
-                        .HasColumnName("name")
-                        .HasColumnType("text");
-
-                    b.Property<int>("Region")
-                        .HasColumnName("region")
-                        .HasColumnType("integer");
-
-                    b.Property<long>("UserId")
-                        .HasColumnName("user_id")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id")
-                        .HasName("pk_player_account");
-
-                    b.HasIndex("UserId")
-                        .HasName("ix_player_account_user_id");
-
-                    b.HasIndex("Region", "AccountId")
-                        .IsUnique()
-                        .HasName("ix_player_account_region_account_id");
-
-                    b.ToTable("player_account");
-                });
-
-            modelBuilder.Entity("Wowthing.Lib.Models.PlayerCharacter", b =>
-                {
-                    b.Property<long>("Id")
-                        .HasColumnName("id")
-                        .HasColumnType("bigint");
-
-                    b.Property<long?>("AccountId")
-                        .HasColumnName("account_id")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("ActiveTitleId")
-                        .HasColumnName("active_title_id")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("AverageItemLevel")
-                        .HasColumnName("average_item_level")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("ClassId")
-                        .HasColumnName("class_id")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("DelayHours")
-                        .HasColumnName("delay_hours")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("EquippedItemLevel")
-                        .HasColumnName("equipped_item_level")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Experience")
-                        .HasColumnName("experience")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Faction")
-                        .HasColumnName("faction")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Gender")
-                        .HasColumnName("gender")
-                        .HasColumnType("integer");
-
-                    b.Property<long>("GuildId")
-                        .HasColumnName("guild_id")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("LastApiCheck")
-                        .HasColumnName("last_api_check")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<DateTime>("LastModified")
-                        .HasColumnName("last_modified")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<int>("Level")
-                        .HasColumnName("level")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Name")
-                        .HasColumnName("name")
-                        .HasColumnType("text");
-
-                    b.Property<int>("RaceId")
-                        .HasColumnName("race_id")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("RealmId")
-                        .HasColumnName("realm_id")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id")
-                        .HasName("pk_player_character");
-
-                    b.HasIndex("AccountId")
-                        .HasName("ix_player_character_account_id");
-
-                    b.ToTable("player_character");
-                });
-
             modelBuilder.Entity("Wowthing.Lib.Models.Query.SchedulerCharacterQuery", b =>
                 {
                     b.Property<long>("CharacterId")
@@ -590,25 +476,6 @@ namespace Wowthing.Lib.Migrations
                         .HasConstraintName("fk_user_tokens_asp_net_users_application_user_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Wowthing.Lib.Models.PlayerAccount", b =>
-                {
-                    b.HasOne("Wowthing.Lib.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .HasConstraintName("fk_player_account_users_user_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Wowthing.Lib.Models.PlayerCharacter", b =>
-                {
-                    b.HasOne("Wowthing.Lib.Models.PlayerAccount", "Account")
-                        .WithMany("Characters")
-                        .HasForeignKey("AccountId")
-                        .HasConstraintName("fk_player_character_player_account_account_id")
-                        .OnDelete(DeleteBehavior.SetNull);
                 });
 #pragma warning restore 612, 618
         }

@@ -30,10 +30,10 @@ namespace Wowthing.Backend.Jobs
             var path = string.Format(API_PATH, accessToken.Value);
 
             // Fetch existing accounts
-            var accountMap = await _context.PlayerAccount.Where(a => a.UserId == userId).ToDictionaryAsync(k => k.Id);
+            var accountMap = await _context.PlayerAccount.Where(a => a.UserId == userId).ToDictionaryAsync(k => (k.Region, k.AccountId));
 
             // Add any new accounts
-            var apiAccounts = new List<ApiAccountProfileAccount>();
+            var apiAccounts = new List<(WowRegion, ApiAccountProfileAccount)>();
             foreach (var region in EnumUtilities.GetValues<WowRegion>())
             {
                 var uri = GenerateUri(region, ApiNamespace.Profile, path);
@@ -47,17 +47,19 @@ namespace Wowthing.Backend.Jobs
 
                     foreach (ApiAccountProfileAccount account in profile.Accounts)
                     {
-                        apiAccounts.Add(account);
+                        apiAccounts.Add((region, account));
 
                         // TODO handle account changing owner? is that even possible?
-                        if (!accountMap.ContainsKey(account.Id))
+                        if (!accountMap.ContainsKey((region, account.Id)))
                         {
-                            _context.PlayerAccount.Add(new PlayerAccount
+                            var newAccount = new PlayerAccount
                             {
-                                Id = account.Id,
-                                UserId = userId,
+                                AccountId = account.Id,
                                 Region = region,
-                            });
+                                UserId = userId,
+                            };
+                            _context.PlayerAccount.Add(newAccount);
+                            accountMap[(region, account.Id)] = newAccount;
                             _logger.Debug("{0} new account {1}", region, account.Id);
                         }
                     }
@@ -75,12 +77,13 @@ namespace Wowthing.Backend.Jobs
             await _context.SaveChangesAsync();
 
             // Fetch existing users
-            var characterIds = apiAccounts.SelectMany(a => a.Characters).Select(c => c.Id);
+            var characterIds = apiAccounts.SelectMany(a => a.Item2.Characters).Select(c => c.Id);
             var characterMap = await _context.PlayerCharacter.Where(c => characterIds.Contains(c.Id)).ToDictionaryAsync(k => k.Id);
 
             var seenCharacters = new HashSet<long>();
-            foreach (ApiAccountProfileAccount apiAccount in apiAccounts)
+            foreach ((var region, var apiAccount) in apiAccounts)
             {
+                var accountId = accountMap[(region, apiAccount.Id)].Id;
                 foreach (ApiAccountProfileCharacter apiCharacter in apiAccount.Characters)
                 {
                     seenCharacters.Add(apiCharacter.Id);
@@ -94,7 +97,7 @@ namespace Wowthing.Backend.Jobs
                         _context.PlayerCharacter.Add(character);
                     }
 
-                    character.AccountId = apiAccount.Id;
+                    character.AccountId = accountId;
                     character.ClassId = apiCharacter.Class.Id;
                     character.Level = apiCharacter.Level;
                     character.RaceId = apiCharacter.Race.Id;

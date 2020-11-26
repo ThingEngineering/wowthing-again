@@ -11,7 +11,7 @@ namespace Wowthing.Lib.Models
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long Id { get; set; }
 
-        public long? AccountId { get; set; }
+        public int? AccountId { get; set; }
 
         public long GuildId { get; set; }
 

@@ -9,12 +9,12 @@ namespace Wowthing.Lib.Models
 {
     public class PlayerAccount
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Key]
-        public long Id { get; set; }
+        public int Id { get; set; }
 
         public long UserId { get; set; }
         public WowRegion Region { get; set; }
+        public long AccountId { get; set; }
         public string Name { get; set; }
 
         [ForeignKey("UserId")]
