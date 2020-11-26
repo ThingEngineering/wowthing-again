@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Serilog.Context;
 using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.API.Character;
 using Wowthing.Lib.Enums;
@@ -16,10 +17,12 @@ namespace Wowthing.Backend.Jobs.Character
     public class CharacterJob : JobBase
     {
         private const string API_PATH = "profile/wow/character/{0}/{1}";
+        private static readonly TimeSpan CACHE_TIME = TimeSpan.FromMinutes(10);
 
         public override async Task Run(params string[] data)
         {
             var query = JsonConvert.DeserializeObject<SchedulerCharacterQuery>(data[0]);
+            using var shrug = CharacterLog(query);
 
             var path = string.Format(API_PATH, query.RealmSlug, query.CharacterName.ToLowerInvariant());
             var uri = GenerateUri(query.Region, ApiNamespace.Profile, path);
@@ -35,17 +38,18 @@ namespace Wowthing.Backend.Jobs.Character
             ApiCharacter apiCharacter;
             try
             {
-                apiCharacter = await GetJson<ApiCharacter>(uri, lastModified: query.LastModified);
-            }
-            catch (HttpRequestException e)
-            {
-                if (e.Message == "304")
+                var result = await GetJson<ApiCharacter>(uri);
+                if (result.NotModified)
                 {
-                    _logger.Information("{0}: character {1}/{2}", e.Message, query.RealmSlug, query.CharacterName.ToLowerInvariant());
+                    _logger.Information("304 Not Modified");
                     return;
                 }
 
-                _logger.Error("{0}: character {1}/{2}", e.Message, query.RealmSlug, query.CharacterName.ToLowerInvariant());
+                apiCharacter = result.Data;
+            }
+            catch (HttpRequestException e)
+            {
+                _logger.Error("HTTP {0}", e.Message);
                 if (e.Message == "403")
                 {
                     // 403s are pretty bad, seem to happen for characters on unsubscribed accounts
@@ -77,7 +81,6 @@ namespace Wowthing.Backend.Jobs.Character
             character.RealmId = apiCharacter.Realm.Id;
 
             character.DelayHours = 0;
-            character.LastModified = DateTimeOffset.FromUnixTimeMilliseconds(apiCharacter.LastLogout).UtcDateTime;
 
             await _context.SaveChangesAsync();
 

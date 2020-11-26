@@ -30,7 +30,6 @@ namespace Wowthing.Lib.Models
 
         public int DelayHours { get; set; } = 0;
         public DateTime LastApiCheck { get; set; } = DateTime.MinValue;
-        public DateTime LastModified { get; set; } = DateTime.MinValue;
 
         [ForeignKey("AccountId")]
         public PlayerAccount Account { get; set; }

@@ -26,8 +26,12 @@ namespace Wowthing.Backend.Jobs.Data
             // Fetch API data
             var uri = GenerateUri(WowRegion.US, ApiNamespace.Static, API_PATH);
             var result = await GetJson<ApiDataPlayableClassIndex>(uri);
+            if (result.NotModified)
+            {
+                return;
+            }
             
-            foreach (var apiClass in result.Classes)
+            foreach (var apiClass in result.Data.Classes)
             {
                 // Absolute garbage API design on Blizzard's part, cool
                 await _jobRepository.AddJobAsync(JobPriority.High, JobType.DataPlayableClass, apiClass.Id.ToString());

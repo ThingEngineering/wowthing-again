@@ -34,8 +34,12 @@ namespace Wowthing.Backend.Jobs.Data
                 // Fetch API data
                 var uri = GenerateUri(region, ApiNamespace.Dynamic, API_PATH);
                 var result = await GetJson<ApiDataRealmIndex>(uri);
+                if (result.NotModified)
+                {
+                    continue;
+                }
 
-                foreach (var apiRealm in result.Realms)
+                foreach (var apiRealm in result.Data.Realms)
                 {
                     if (!realmMap.TryGetValue(apiRealm.Id, out WowRealm realm))
                     {

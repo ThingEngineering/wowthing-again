@@ -39,7 +39,8 @@ namespace Wowthing.Backend.Jobs
                 var uri = GenerateUri(region, ApiNamespace.Profile, path);
                 try
                 {
-                    var profile = await GetJson<ApiAccountProfile>(uri, useAuthorization: false);
+                    var result = await GetJson<ApiAccountProfile>(uri, useAuthorization: false, useLastModified: false);
+                    var profile = result.Data;
                     if (profile?.Accounts == null)
                     {
                         continue;

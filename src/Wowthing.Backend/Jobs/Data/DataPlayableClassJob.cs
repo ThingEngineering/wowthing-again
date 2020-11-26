@@ -18,8 +18,19 @@ namespace Wowthing.Backend.Jobs.Data
 
         public override async Task Run(params string[] data)
         {
-            // Fetch existing data
             int classId = int.Parse(data[0]);
+
+            // Fetch API data
+            var uri = GenerateUri(WowRegion.US, ApiNamespace.Static, string.Format(API_PATH, classId));
+            var result = await GetJson<ApiDataPlayableClass>(uri);
+            if (result.NotModified)
+            {
+                return;
+            }
+
+            var apiClass = result.Data;
+
+            // Fetch existing data
             var cls = await _context.WowClass.FirstOrDefaultAsync(c => c.Id == classId);
             if (cls == null)
             {
@@ -29,10 +40,6 @@ namespace Wowthing.Backend.Jobs.Data
                 };
                 _context.WowClass.Add(cls);
             }
-
-            // Fetch API data
-            var uri = GenerateUri(WowRegion.US, ApiNamespace.Static, string.Format(API_PATH, classId));
-            var apiClass = await GetJson<ApiDataPlayableClass>(uri, useCache: true);
 
             // Update object
             string baseName = apiClass.Name.Replace(' ', '_').ToLowerInvariant();

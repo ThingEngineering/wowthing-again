@@ -17,8 +17,18 @@ namespace Wowthing.Backend.Jobs.Data
 
         public override async Task Run(params string[] data)
         {
-            // Fetch existing data
             int titleId = int.Parse(data[0]);
+
+            // Fetch API data
+            var uri = GenerateUri(WowRegion.US, ApiNamespace.Static, string.Format(API_PATH, titleId));
+            var result = await GetJson<ApiDataTitle>(uri);
+            if (result.NotModified)
+            {
+                return;
+            }
+            var apiTitle = result.Data;
+
+            // Fetch existing data
             var title = await _context.WowTitle.FirstOrDefaultAsync(c => c.Id == titleId);
             if (title == null)
             {
@@ -28,10 +38,6 @@ namespace Wowthing.Backend.Jobs.Data
                 };
                 _context.WowTitle.Add(title);
             }
-
-            // Fetch API data
-            var uri = GenerateUri(WowRegion.US, ApiNamespace.Static, string.Format(API_PATH, titleId));
-            var apiTitle = await GetJson<ApiDataTitle>(uri, useCache: true);
 
             // Update object
             title.Name = apiTitle.Name;

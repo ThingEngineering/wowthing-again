@@ -12,6 +12,5 @@ namespace Wowthing.Lib.Models.Query
         public string RealmSlug { get; set; }
         public long CharacterId { get; set; }
         public string CharacterName { get; set; }
-        public DateTime LastModified { get; set; }
     }
 }

@@ -9,14 +9,17 @@ using System.Threading.Tasks;
 using System.Web;
 using Newtonsoft.Json;
 using Serilog;
+using Serilog.Context;
 using StackExchange.Redis;
 using Wowthing.Backend.Extensions;
+using Wowthing.Backend.Models;
 using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Services;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Jobs;
+using Wowthing.Lib.Models.Query;
 using Wowthing.Lib.Repositories;
 using Wowthing.Lib.Utilities;
 
@@ -25,7 +28,7 @@ namespace Wowthing.Backend.Jobs
     public abstract class JobBase : IJob
     {
         private const string API_URL = "https://{0}.api.blizzard.com/{1}";
-        private readonly TimeSpan CACHE_TIME = TimeSpan.FromMinutes(60);
+        private const string CACHE_KEY_LAST_MODIFIED = "last_modified:{0}";
 
         internal HttpClient _http;
         internal JobRepository _jobRepository;
@@ -54,6 +57,12 @@ namespace Wowthing.Backend.Jobs
         public abstract Task Run(params string[] data);
         #endregion
 
+        protected IDisposable CharacterLog(SchedulerCharacterQuery query)
+        {
+            var jobName = this.GetType().Name[0..^3];
+            return LogContext.PushProperty("Task", $"{query.RealmSlug}/{query.CharacterName.ToLowerInvariant()} {jobName}: ");
+        }
+
         protected static Uri GenerateUri(WowRegion region, ApiNamespace lamespace, string path)
         {
             var builder = new UriBuilder(string.Format(API_URL, _regionToString[region], path));
@@ -64,17 +73,23 @@ namespace Wowthing.Backend.Jobs
             return builder.Uri;
         }
 
-        protected async Task<T> GetJson<T>(Uri uri, DateTime? lastModified = null, bool useAuthorization = true, bool useCache = false)
+        protected async Task<JsonResult<T>> GetJson<T>(Uri uri, bool useAuthorization = true, bool useLastModified = true)
+            //where T : class
         {
             var timer = new JankTimer();
             var db = _redis.GetDatabase();
 
             // Try from cache first
-            string cacheKey = $"getjson:{uri.ToString().Md5()}";
+            string cacheKey = string.Format(CACHE_KEY_LAST_MODIFIED, uri.ToString().Md5());
             string contentString = null;
-            if (useCache)
+            DateTime lastModified = DateTime.MinValue;
+            if (useLastModified)
             {
-                contentString = await db.StringGetAsync(cacheKey);
+                var value = await db.StringGetAsync(cacheKey);
+                if (value.HasValue)
+                {
+                    lastModified = DateTime.Parse(value.ToString());
+                }
             }
 
             if (string.IsNullOrEmpty(contentString))
@@ -87,10 +102,15 @@ namespace Wowthing.Backend.Jobs
                 }
                 if (lastModified > DateTime.MinValue)
                 {
-                    request.Headers.IfModifiedSince = new DateTimeOffset(lastModified.Value);
+                    request.Headers.IfModifiedSince = new DateTimeOffset(lastModified);
                 }
 
                 var response = await _http.SendAsync(request);
+                if (response.StatusCode == HttpStatusCode.NotModified)
+                {
+                    return new JsonResult<T> { NotModified = true };
+                }
+
                 if (!response.IsSuccessStatusCode)
                 {
                     response.Content?.Dispose();
@@ -99,12 +119,13 @@ namespace Wowthing.Backend.Jobs
 
                 contentString = await response.Content.ReadAsStringAsync();
 
-                if (useCache)
-                {
-                    await db.StringSetAsync(cacheKey, contentString, CACHE_TIME);
-                }
-
                 timer.AddPoint("API");
+
+                if (useLastModified && response.Content.Headers.LastModified.HasValue)
+                {
+                    await db.StringSetAsync(cacheKey, response.Content.Headers.LastModified.Value.UtcDateTime.ToString("O"));
+                    timer.AddPoint("Cache");
+                }
             }
             else
             {
@@ -115,7 +136,7 @@ namespace Wowthing.Backend.Jobs
             timer.AddPoint("JSON", true);
             _logger.Debug("{0}", timer.ToString());
 
-            return obj;
+            return new JsonResult<T> { Data = obj };
         }
     }
 }
