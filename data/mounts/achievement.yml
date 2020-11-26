@@ -39,24 +39,26 @@ groups:
 
 - name: WoD
   things:
-  -  772      # Soaring Skyterror (Draenor Pathfinder)
-  -  623      # Frostplains Battleboar (Glory of the Draenor Hero)
-  -  607      # Gorestrider Gronnling (Glory of the Draenor Raider)
-  -  758      # Infernal Direwolf (Glory of the Hellfire Raider)
+  -  772 # Soaring Skyterror (Draenor Pathfinder)
+  -  623 # Frostplains Battleboar (Glory of the Draenor Hero)
+  -  607 # Gorestrider Gronnling (Glory of the Draenor Raider)
+  -  758 # Infernal Direwolf (Glory of the Hellfire Raider)
 
 - name: Legion
   things:
-  -  846      # Leyfeather Hippogryph (Glory of the Legion Hero)
-  -  773      # Grove Defiler (Glory of the Legion Raider)
-  -  972      # Antoran Gloomhound (Glory of the Argus Raider)
-  -  986      # Bleakhoof Ruinstrider (...And Chew Mana Buns)
-  -  804      # Ratstallion (Underbelly Tycoon)
-  -  775  784 # Prestigious War Steed/Prestigious War Wolf (Free For All, More For Me)
+  -  846 # Leyfeather Hippogryph (Glory of the Legion Hero)
+  -  773 # Grove Defiler (Glory of the Legion Raider)
+  -  972 # Antoran Gloomhound (Glory of the Argus Raider)
+  -  986 # Bleakhoof Ruinstrider (...And Chew Mana Buns)
+  -  804 # Ratstallion (Underbelly Tycoon)
+  -  775 784 # Prestigious War Steed/Prestigious War Wolf (Free For All, More For Me)
 
 - name: BfA
   things:
+  - 1224 # WOnderwing 2.0 (Battle for Azeroth Pathfinder, Part Two)
   -  933 # Obsidian Krolusk (Glory of the Wartorn Hero)
   -  963 # Bloodgorged Crawg (Glory of the Uldir Raider)
+  - 1218 # Dazar'alor Windreaver (Glory of the Dazar'alor Raider)
   - 1172 # Conqueror's Scythemaw (Conqueror of Azeroth)
 
 - name: Other

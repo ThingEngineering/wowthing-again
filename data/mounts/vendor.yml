@@ -50,5 +50,8 @@ groups:
 
 - name: BfA
   things:
-  - 1039      # Mighty Caravan Brutosaur (Vendor)
-  - 1179      # Palehide Direhorn (Vendor)
+  - 1039 # Mighty Caravan Brutosaur (? unavailable)
+  - 1179 # Palehide Direhorn (?)
+  - 1206 # Blue Marsh Hopper (Gottum, Nazmir)
+  - 1012 # Green Marsh Hopper (Gottum, Nazmir)
+  - 1207 # Yellow Marsh Hopper (Gottum, Nazmir)

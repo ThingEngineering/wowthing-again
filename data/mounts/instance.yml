@@ -68,17 +68,27 @@ groups:
 
 - name: BfA
   things:
-  -  995 # Sharkbait (Harlan Sweete, Freehold) dungeon
-  - 1040 # Tomb Stalker (King Dazar, Kings' Rest) dungeon
-  - 1053 # Underrot Crawg (Unbound Abomination, The Underrot) dungeon
+  - 1227 # Aerial Unit R-21/X (King Mechagon, Operation: Mechagon)
+  - 1252 # Mechagon Peacekeeper (HK-8 Aerial Oppression Unit, Operation: Mechagon Mythic)
+  - 1229 # Rusty Mechanocrawler (??, Mechagon)
+  -  995 # Sharkbait (Harlan Sweete, Freehold)
+  - 1040 # Tomb Stalker (King Dazar, Kings' Rest)
+  - 1053 # Underrot Crawg (Unbound Abomination, The Underrot)
+  - 1217 # G.M.O.D. (High Tinker Mekkatorque, Battle of Dazar'alor)
+  - 1219 # Glacial Tidestorm (Jaina Proudmoore Mythic, Battle of Dazar'alor)
+  - 1293 # My'alotha Allseer (N'Zoth the Corruptor Mythic, Ny'alotha the Waking City)
 
 - name: BfA - Islands
   things:
-  - 1176 # Craghorn Chasm-Leaper (Island Expeditions)
-  - 1178 # Qinsho's Eternal Hound (Island Expeditions)
-  -  993 # Squawks (Island Expeditions)
-  - 1169 # Surf Jelly (Island Expeditions)
-  - 1175 # Twilight Avenger (Island Expeditions)
+  - 1211 # Bloodgorged Hunter ()
+  - 1176 # Craghorn Chasm-Leaper ()
+  - 1212 # Island Thunderscale ()
+  - 1178 # Qinsho's Eternal Hound ()
+  - 1213 # Risen Mare ()
+  -  993 # Squawks ()
+  - 1209 # Stonetide Elderhorn
+  - 1169 # Surf Jelly ()
+  - 1175 # Twilight Avenger ()
 
 - name: Other
   things:

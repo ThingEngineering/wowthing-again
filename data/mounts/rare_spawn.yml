@@ -56,3 +56,15 @@ groups:
   - 1183 # Skullripper (Skullripper)
   - 1180 # Swift Albino Raptor (Beastrider Kama)
   - 1185 # Witherbark Direwing (Nimar the Slayer)
+
+- name: BfA - Darkshore
+  things:
+  - 1200 # Ashenvale Chimaera (Alash'anir)
+  - 1199 # Blackpaw (Blackpaw)
+  - 1202 # Frightened Kodo (Frightened Kodo)
+  - 1205 # Kaldorei Nightsaber (Crox Bloodrage / Shadowclaw)
+  - 1203 # Umber Nightsaber (Athil Dewfire / Moxo the Beheader)
+
+- name: BfA - Mechisland
+  things:
+  - 1248 # Junkheap Drifter (Rustfeather)

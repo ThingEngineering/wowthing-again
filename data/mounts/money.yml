@@ -6,19 +6,24 @@ groups:
   -  600 # Dread Raven (WoD)
   -  763 # Illidari Felstalker (Legion)
   -  996 997 # Seabraid Stallion/Gilded Ravasaur (Battle for Azeroth Collector's Edition)
+  - 1289 # Ensorcelled Everwyrm (Shadowlands Heroic Edition)
 
 - name: Store
   things:
   -  544 # Armored Bloodwing
   -  376 # Celestial Steed
+  - 1051 # The Dreadwake
   -  551 # Enchanted Fey Dragon
   -  594 # Grinning Reaver
   -  446 # Heart of the Aspects
+  - 1221 # Hogrus, Swine of Good Fortune
   -  571 # Iron Skyreaver
   -  949 # Luminous Starseeker
   -  741 # Mystic Runesaber
   - 1011 # Shu-zen, the Divine Sentinel
   -  523 # Swift Windsteed
+  - 1223 # Sylverian Dreamer
+  - 1222 # Vulpine Familiar
   -  593 # Warforged Nightmare
   -  421 # Winged Guardian
 
