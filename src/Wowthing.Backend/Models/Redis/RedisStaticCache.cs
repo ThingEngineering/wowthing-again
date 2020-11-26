@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
+using Wowthing.Backend.Models.Data;
 using Wowthing.Lib.Models;
 
 namespace Wowthing.Backend.Models.Redis
@@ -22,5 +23,7 @@ namespace Wowthing.Backend.Models.Redis
 
         [JsonProperty(Order = 20)]
         public List<RedisSetCategory> MountSets { get; set; }
+        [JsonProperty(Order = 23)]
+        public List<DataReputationCategory> Reputations { get; set; }
     }
 }

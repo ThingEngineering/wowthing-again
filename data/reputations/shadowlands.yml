@@ -16,6 +16,7 @@ reputations:
       id: 2413
       name: Court of Harvesters
       icon: a
+    paragon: True
 
   - both:
       id: 2410
