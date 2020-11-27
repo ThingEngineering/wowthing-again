@@ -32,7 +32,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
-            Version = 5,
+            Version = 6,
         };
 
         public override async Task Run(params string[] data)
@@ -47,13 +47,15 @@ namespace Wowthing.Backend.Jobs.Misc
             timer.AddPoint("Mounts");
 
             // Reputations
-            var reputations = LoadReputations();
+            var reputationSets = LoadReputations();
             timer.AddPoint("Reputations");
 
             // Basic database dumps
             var classes = new SortedDictionary<int, WowClass>(await _context.WowClass.ToDictionaryAsync(c => c.Id));
             var races = new SortedDictionary<int, WowRace>(await _context.WowRace.ToDictionaryAsync(c => c.Id));
             var realms = new SortedDictionary<int, WowRealm>(await _context.WowRealm.ToDictionaryAsync(c => c.Id));
+            var reputations = new SortedDictionary<int, WowReputation>(await _context.WowReputation.ToDictionaryAsync(c => c.Id));
+            var reputationTiers = new SortedDictionary<int, WowReputationTier>(await _context.WowReputationTier.ToDictionaryAsync(c => c.Id));
             timer.AddPoint("Database");
 
             // Ok we're done
@@ -62,10 +64,12 @@ namespace Wowthing.Backend.Jobs.Misc
                 Classes = classes,
                 Races = races,
                 Realms = realms,
+                Reputations = reputations,
+                ReputationTiers = reputationTiers,
 
                 MountToSpell = mountToSpell,
                 MountSets = mountSets,
-                Reputations = reputations,
+                ReputationSets = reputationSets,
             };
             var cacheJson = JsonConvert.SerializeObject(cacheData);
             var cacheHash = cacheJson.Md5();
