@@ -16,6 +16,7 @@ namespace Wowthing.Web.Models
         public string Name { get; set; }
         public WowFaction Faction { get; set; }
         public WowGender Gender { get; set; }
+        public Dictionary<int, int> Reputations { get; set; } = new Dictionary<int, int>();
 
         public UserApiCharacter(PlayerCharacter character, bool pub = false, bool anon = false)
         {
@@ -33,6 +34,12 @@ namespace Wowthing.Web.Models
             {
                 Name = character.Name;
                 RealmId = character.RealmId;
+            }
+
+            if (character.ReputationIds != null && character.ReputationValues != null)
+            {
+                Reputations = character.ReputationIds.Zip(character.ReputationValues)
+                    .ToDictionary(k => k.First, v => v.Second);
             }
         }
     }
