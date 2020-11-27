@@ -1,5 +1,48 @@
 name: Shadowlands
 groups:
+- name: Achievements
+  things:
+  - 1442 # Corridor Creeper (Twisting Corridors: Layer 8)
+  - 1377 # Rampart Screecher (Glory of the Nathria Raider)
+  - 1419 # Sintouched Deathwalker (Shadowlands Keystone Master: Season One)
+  - 1443 # Voracious Gorger (Glory of the Shadowlands Hero)
+
+- name: Rare Spawns
+  things:
+  - 1415 # Arboreal Gulper (Humon'gozz, Ardenweald)
+  - 1372 # Blisterback Bloodtusk (Warbring Mal'Korak, Maldraxxus)
+  #-  # Bonecleaver's Skullboar (Sabriel the Bonecleaver, Maldraxxus)
+  - 1379 # Endmire Flyer (Famu the Infinite, Revendreth)
+  - 1373 # Gorespine (Nerissa Heartless, Maldraxxus)
+  #-  # Hopecrusher Gargon (Hopecrusher, Revendreth)
+  - 1310 # Horrid Dredwing (Harika the Horrid, Revendreth)
+  - 1410 # Hulking Deathroc (Violet Mistake, Maldraxxus)
+  - 1391 # Loyal Gorger (Worldedge Gorger, Revendreth)
+  - 1304 # Mawsworn Soulhunter (Gorged Shadehound, The Maw)
+  - 1411 # Predatory Plagueroc (Gieger, Maldraxxus)
+  - 1362 # Spinemaw Gladechewer (Gormtamer Tizo, Ardenweald)
+  - 1307 # Sundancer (Sundancer, Ardenweald)
+  - 1306 # Swift Gloomhoof (Night Mare, Adrenweald)
+  - 1393 # Wild Glimmerfur Prowler (Valfir the Unrelenting, Ardenweald)
+
+- name: Reputations
+  things:
+  - 1428 # Amber Adrenmoth (Wild Hunt Emissary)
+  #-  # Colossal Slaughterclaw (? Emissary)
+  - 1350 # Court Sinrunner (Court of Harvesters, Exalted)
+  - 1361 # Duskflutter Ardenmoth (The Wild Hunt, Exalted)
+  - 1425 # Gilded Prowler (The Ascended, Exalted)
+  #-  # Inquisition Gargon (The Avowed, Exalted) Vampire bonus faction?
+  - 1375 # Lurid Bloodtusk (The Undying Army, Paragon?)
+
+- name: Treasures
+  things:
+  - 1426 # Ascended Skymane (Cache of the Ascended, Bastion)
+  - 1360 # Shimmermist Runner (Mistveil Tangle Area, Ardenweald)
+  - 1404 # Silverwind Larion (Cache of the Ascended, Bastion)
+  - 1414 # Sinrunner Blanchy (Dead Blanchy, Revendreth)
+  - 1397 # Wildseed Cradle (Cache of the Moon, Ardenweald)
+
 - name: Covenant - Kyrian
   things:
   - 1396 # Phalynx of Courage
@@ -10,6 +53,28 @@ groups:
   - 1402 # Eternal Phalynx of Humility
   - 1401 # Eternal Phalynx of Loyalty
   - 1399 # Eternal Phalynx of Purity
+
+- name: Covenant - Necrolord
+  things:
+  - 1366 # Bonehoof Tauralus
+  - 1367 # Chosen Tauralus
+  - 1365 # Plaguerot Tauralus
+  - 1364 # War-Bred Tauralus
+  - 1370 # Armored Bonehoof Tauralus
+  - 1371 # Armored Chosen Tauralus
+  - 1369 # Armored Plaguerot Tauralus
+  - 1368 # Armored War-Bred Tauralus
+
+- name: Covenant - Night Fae
+  things:
+  - 1302 # Dreamlight Runestag
+  - 1354 # Shadeleaf Runestag
+  - 1355 # Wakener's Runestag
+  - 1356 # Winterborn Runestag
+  - 1303 # Enchanted Dreamlight Runestag
+  - 1357 # Enchanted Shadeleaf Runestag
+  - 1358 # Enchanted Wakener's Runestag
+  - 1359 # Enchanted Winterborn Runestag
 
 - name: Covenant - Venthyr
   things:
