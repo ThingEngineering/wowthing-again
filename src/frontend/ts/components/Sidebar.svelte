@@ -1,4 +1,5 @@
 <script lang="ts">
+    import active from 'svelte-spa-router/active'
 </script>
 
 <style lang="scss">
@@ -25,27 +26,27 @@
 
 <nav>
     <ul>
-        <li>
+        <li use:active={'/'}>
             <a href="#/">Home (Table)</a>
         </li>
-        <li>
+        <li use:active={'/cards'}>
             <a href="#/cards">Home (Cards)</a>
         </li>
-        <li>
+        <li use:active={'/reputations/*'}>
             <a href="#/reputations/shadowlands">Reputations</a>
         </li>
         <li class="spacer"></li>
-        <li>
+        <li use:active={'/mounts'}>
             <a href="#/mounts">Mounts</a>
         </li>
-        <li>
+        <li use:active={'/pets'}>
             <a href="#/pets">Pets [NYI]</a>
         </li>
-        <li>
+        <li use:active={'/toys'}>
             <a href="#/toys">Toys [NYI]</a>
         </li>
         <li class="spacer"></li>
-        <li>
+        <li use:active={'/settings'}>
             <a href="#/settings">Settings</a>
         </li>
     </ul>
