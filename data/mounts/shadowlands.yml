@@ -1,0 +1,21 @@
+name: Shadowlands
+groups:
+- name: Covenant - Kyrian
+  things:
+  - 1396 # Phalynx of Courage
+  - 1395 # Phalynx of Humility
+  - 1394 # Phalynx of Loyalty
+  - 1398 # Phalynx of Purity
+  - 1400 # Eternal Phalynx of Courage
+  - 1402 # Eternal Phalynx of Humility
+  - 1401 # Eternal Phalynx of Loyalty
+  - 1399 # Eternal Phalynx of Purity
+
+- name: Covenant - Venthyr
+  things:
+  - 1385 # Crypt Gargon
+  - 1382 # Inquisition Gargon
+  - 1384 # Sinfall Gargon
+  - 1389 # Battle Gargon Silessa
+  - 1387 # Desire's Battle Gargon
+  - 1388 # Gravestone Battle Gargon
