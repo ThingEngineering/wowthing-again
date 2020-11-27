@@ -10,7 +10,7 @@ export class StaticData {
 
     MountSets: any // FIXME
     MountToSpell: Dictionary<number>
-    ReputationSets: any // FIXME
+    ReputationSets: StaticDataSetCategory<StaticDataReputationSet>[]
 }
 
 class StaticDataClass {
@@ -34,15 +34,34 @@ class StaticDataRealm {
     Slug: string
 }
 
-class StaticDataReputation {
+export class StaticDataReputation {
     Id: number
     Name: string
     TierId: number
 }
 
-class StaticDataReputationTier {
+export class StaticDataReputationTier {
     Id: number
     MinValues: number[]
     MaxValues: number[]
     Names: string[]
+}
+
+class StaticDataSetCategory<T> {
+    Name: string
+    Reputations: T[][]
+    Slug: string
+}
+
+export class StaticDataReputationSet {
+    Both: StaticDataReputationReputation
+    Alliance: StaticDataReputationReputation
+    Horde: StaticDataReputationReputation
+    Paragon: boolean
+}
+
+class StaticDataReputationReputation {
+    Id: number
+    Name: string
+    Icon: string
 }

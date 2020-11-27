@@ -10,3 +10,21 @@ $alliance-border:          #0044ff;
 $horde-border:             #ff0000;
 
 $thing-border-radius:      5px;
+
+// poor
+$quality0-color: #9d9d9d;
+// common
+$quality1-color: #ddd;
+// uncommon
+$quality2-color: darken(#1eff00, 12%);
+// rare
+$quality3-color: darken(#0070ff, 5%);
+// epic
+//$quality4-color: darken(#a335ee, 5%);
+$quality4-color: #B237FF;
+// legendary
+$quality5-color: darken(#ff8000, 8%);
+// artifact
+$quality6-color: darken(#e6cc80, 25%);
+// heirloom
+$quality7-color: darken(#e6cc80, 25%);

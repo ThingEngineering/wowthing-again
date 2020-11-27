@@ -9,8 +9,10 @@
 
     th {
         text-align: center;
+        width: 4em;
     }
     div {
+        display: inline-block;
         position: relative;
         height: 36px;
         width: 36px;
