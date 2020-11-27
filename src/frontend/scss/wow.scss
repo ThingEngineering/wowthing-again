@@ -1,0 +1,59 @@
+// Junk
+.quality0 {
+    color: $quality0-color;
+    div,img {
+        border-color: $quality0-color;
+    }
+}
+// Common
+.quality1 {
+    color: $quality1-color;
+    div,img {
+        border-color: darken($quality1-color, 5%) !important;
+    }
+}
+// Uncommon
+.quality2 {
+    color: $quality2-color;
+    div,img {
+        border-color: darken($quality2-color, 5%) !important;
+    }
+}
+// Rare
+.quality3 {
+    color: $quality3-color;
+    div,img {
+        border-color: darken($quality3-color, 5%) !important;
+    }
+}
+// Epic
+.quality4 {
+    color: $quality4-color;
+    div,img {
+        border-color: darken($quality4-color, 5%) !important;
+    }
+}
+// Legendary
+.quality5 {
+    color: $quality5-color;
+    div,img {
+        border-color: lighten($quality5-color, 5%) !important;
+    }
+    span {
+        color: #ffb400 !important;
+    }
+}
+// Artifact
+.quality6 {
+    color: $quality6-color;
+    div,img {
+        border-color: $quality6-color !important;
+    }
+}
+// Heirloom
+.quality7 {
+    color: $quality7-color;
+    div,img {
+        border-color: $quality7-color !important;
+    }
+}
