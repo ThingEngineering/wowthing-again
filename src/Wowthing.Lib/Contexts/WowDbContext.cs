@@ -17,6 +17,7 @@ namespace Wowthing.Lib.Contexts
         public DbSet<WowClass> WowClass { get; set; }
         public DbSet<WowRace> WowRace { get; set; }
         public DbSet<WowRealm> WowRealm { get; set; }
+        public DbSet<WowReputation> WowReputation { get; set; } 
         public DbSet<WowReputationTier> WowReputationTier { get; set; }
         public DbSet<WowTitle> WowTitle { get; set; }
 
