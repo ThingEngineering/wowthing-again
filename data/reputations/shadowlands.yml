@@ -5,30 +5,32 @@ reputations:
   - both:
       id: 2407
       name: The Ascended
-      icon: a
-
-  - both:
-      id: 2439
-      name: The Avowed
-      icon: a
+      icon: inv_tabard_bastion_d_01
 
   - both:
       id: 2413
       name: Court of Harvesters
-      icon: a
+      icon: inv_tabard_revendreth_d_01
     paragon: True
 
   - both:
       id: 2410
       name: The Undying Army
-      icon: a
-
-  - both:
-      id: 2432
-      name: Ve'nari
-      icon: a
+      icon: inv_tabard_maldraxxus_d_01
 
   - both:
       id: 2465
       name: The Wild Hunt
-      icon: a
+      icon: inv_tabard_ardenweald_d_01
+
+-
+  - both:
+      id: 2439
+      name: The Avowed
+      icon: 6bf_blackrock_nova
+
+  - both:
+      id: 2432
+      name: Ve'nari
+      icon: inv_stygia
+
