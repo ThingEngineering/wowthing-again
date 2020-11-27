@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
+using ComposableAsync;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using RateLimiter;
 using Serilog;
 using Wowthing.Backend.Models;
 using Wowthing.Backend.Services;
@@ -58,7 +61,7 @@ namespace Wowthing.Backend
 
         private static void ConfigureServices(HostBuilderContext hostContext, IServiceCollection services)
         {
-            services.AddSingleton<StateService>();
+            AddRateLimitedHttpClient(services);
 
             // Databases
             services.AddPostgres(Configuration.GetConnectionString("Postgres"));
@@ -72,6 +75,8 @@ namespace Wowthing.Backend
                     return !(string.IsNullOrWhiteSpace(config.ClientID) || string.IsNullOrWhiteSpace(config.ClientSecret));
                 }, "BattleNet.ClientID and .ClientSecret must be set");
 
+            // Services
+            services.AddSingleton<StateService>();
             services.AddHostedService<AuthorizationService>();
             services.AddHostedService<SchedulerService>();
             
@@ -80,6 +85,19 @@ namespace Wowthing.Backend
             {
                 services.AddSingleton<IHostedService, WorkerService>();
             }
+        }
+
+        private static void AddRateLimitedHttpClient(IServiceCollection services)
+        {
+            // default limit of 100 per second
+            var perSecond = new CountByIntervalAwaitableConstraint(90, TimeSpan.FromSeconds(1));
+            // default limit of 36,000 per hour
+            var perHour = new CountByIntervalAwaitableConstraint(32400, TimeSpan.FromHours(1));
+
+            var rateLimiter = TimeLimiter.Compose(perSecond, perHour)
+                .AsDelegatingHandler();
+            var httpClient = new HttpClient(rateLimiter);
+            services.AddSingleton(httpClient);
         }
     }
 }

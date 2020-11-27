@@ -12,6 +12,7 @@ namespace Wowthing.Lib.Jobs
         CharacterMounts,
       
         DataPlayableClass = 200,
+        DataReputationFaction,
         DataReputationTiers,
         DataTitle,
 
@@ -20,6 +21,7 @@ namespace Wowthing.Lib.Jobs
         DataPlayableRaceIndex,
         DataPlayableClassIndex,
         DataRealmIndex,
+        DataReputationFactionIndex,
         DataReputationTiersIndex,
         DataTitleIndex,
     }
