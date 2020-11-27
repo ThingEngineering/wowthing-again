@@ -1,7 +1,7 @@
 <script lang="ts">
     import find from 'lodash/find'
 
-    import BaseImage from '../images/BaseImage.svelte'
+    import WowthingImage from '../images/sources/WowthingImage.svelte'
     import {getContext} from 'svelte'
 
     export let thingType: string
@@ -44,6 +44,6 @@
 
 <div class:thing-yes={userHasThing} class:thing-no={!userHasThing} data-orig-id="{origId}">
     <a href="https://www.wowdb.com/{thingType}s/{thingId}">
-        <BaseImage name="{thingType}_{thingId}" size="32" />
+        <WowthingImage name="{thingType}_{thingId}" size="32" />
     </a>
 </div>

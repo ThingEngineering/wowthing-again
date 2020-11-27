@@ -8,7 +8,7 @@
 
     export let slug: string
 
-    $: category = find($staticData.Reputations, (r) => r.Slug === slug)
+    $: category = find($staticData.ReputationSets, (r) => r.Slug === slug)
 </script>
 
 <style lang="scss">
