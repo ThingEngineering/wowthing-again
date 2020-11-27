@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using System.Text.Json.Serialization;
 using Wowthing.Lib.Enums;
 
 namespace Wowthing.Lib.Models
@@ -27,6 +28,9 @@ namespace Wowthing.Lib.Models
         public WowGender Gender { get; set; }
         
         public string Name { get; set; }
+
+        public List<int> ReputationIds { get; set; }
+        public List<int> ReputationValues { get; set; }
 
         public int DelayHours { get; set; } = 0;
         public DateTime LastApiCheck { get; set; } = DateTime.MinValue;
