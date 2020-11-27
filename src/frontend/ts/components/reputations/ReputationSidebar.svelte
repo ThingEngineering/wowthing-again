@@ -31,7 +31,7 @@
 
 <nav>
     <ul>
-        {#each $staticData.Reputations as reputation}
+        {#each $staticData.ReputationSets as reputation}
             <li use:active={'/reputations/' + reputation.Slug}>
                 <a href="/reputations/{ reputation.Slug }" use:link>{ reputation.Name }</a>
             </li>
