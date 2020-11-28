@@ -46,5 +46,5 @@
 {#if characterRep !== undefined}
     <td class="reputation{repTier.Tier}" use:tippy={tooltip}>{repTier.Percent}%</td>
 {:else}
-    <td></td>
+    <td>&nbsp;</td>
 {/if}
