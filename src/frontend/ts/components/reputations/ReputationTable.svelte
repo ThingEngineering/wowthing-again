@@ -15,39 +15,36 @@
 <style lang="scss">
     @import '../../../scss/variables.scss';
 
-    div {
+    table {
         background: $thing-background;
         border: 1px solid $border-color;
-        border-radius: $thing-border-radius;
-        padding: 0.5rem 0 0.5rem 0.5rem;
     }
-    table {
+    th {
+        border-bottom: 1px solid $border-color;
     }
     colgroup:nth-child(even) {
-        background: lighten($thing-background, 8%);
+        background: lighten($thing-background, 4%);
     }
 </style>
 
-<div>
-    <table>
-        <colgroup span="2"></colgroup>
-        {#each category.Reputations as grouping}
-            <colgroup span="{grouping.length}"></colgroup>
+<table>
+    <colgroup span="2"></colgroup>
+    {#each category.Reputations as grouping}
+        <colgroup span="{grouping.length}"></colgroup>
+    {/each}
+    <thead>
+        <tr>
+            <th colspan="2"></th>
+            {#key category.Name}
+                {#each flatten(category.Reputations) as reputation}
+                    <ReputationTableIcon reputation={reputation} />
+                {/each}
+            {/key}
+        </tr>
+    </thead>
+    <tbody>
+        {#each $userData.characters as character}
+            <ReputationTableRow category={category} character={character} />
         {/each}
-        <thead>
-            <tr>
-                <th colspan="2"></th>
-                {#key category.Name}
-                    {#each flatten(category.Reputations) as reputation}
-                        <ReputationTableIcon reputation={reputation} />
-                    {/each}
-                {/key}
-            </tr>
-        </thead>
-        <tbody>
-            {#each $userData.characters as character}
-                <ReputationTableRow category={category} character={character} />
-            {/each}
-        </tbody>
-    </table>
-</div>
+    </tbody>
+</table>

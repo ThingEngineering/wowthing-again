@@ -10,13 +10,16 @@
 </script>
 
 <style lang="scss">
+    .name {
+        padding: 0 0 0 0.3rem;
+    }
     .realm {
         padding: 0 1rem;
     }
 </style>
 
 <tr class="{character.faction === 0 ? 'faction0' : 'faction1'}">
-    <td>
+    <td class="name">
         <RaceIcon character={character} size={20} />
         <ClassIcon character={character} size={20} />
         {character.name}

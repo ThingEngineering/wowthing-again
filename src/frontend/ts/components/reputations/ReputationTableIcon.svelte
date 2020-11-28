@@ -15,6 +15,10 @@
     @import 'scss/variables.scss';
 
     th {
+        border-left: 1px solid $border-color;
+        border-top: 1px solid $border-color;
+        border-bottom: 1px solid $border-color;
+        padding: 0.3rem 0;
         text-align: center;
         width: 4em;
     }
