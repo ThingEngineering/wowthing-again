@@ -12,4 +12,4 @@
   $: tooltip = $data.Classes[character.classId].Name
 </script>
 
-<WowthingImage name={name} size={size} tooltip={tooltip} />
+<WowthingImage name={name} size={size} tooltip={tooltip} border="1" />
