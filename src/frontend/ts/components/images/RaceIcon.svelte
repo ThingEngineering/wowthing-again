@@ -12,4 +12,4 @@
   $: tooltip = `${ gender } ${ $data.Races[character.raceId].Name }`
 </script>
 
-<WowthingImage name={iconName} size={size} tooltip={tooltip} border="1" />
+<WowthingImage name={iconName} size={size} tooltip={tooltip} border=1 />
