@@ -1,5 +1,6 @@
 <script lang="ts">
     import find from 'lodash/find'
+    import flatten from 'lodash/flatten'
 
     import {data as staticData} from '../../stores/static-store'
     import {data as userData} from '../../stores/user-store'
@@ -36,11 +37,11 @@
         <thead>
             <tr>
                 <th colspan="2"></th>
-                {#each category.Reputations as grouping}
-                    {#each grouping as reputation}
+                {#key category.Name}
+                    {#each flatten(category.Reputations) as reputation}
                         <ReputationTableIcon reputation={reputation} />
                     {/each}
-                {/each}
+                {/key}
             </tr>
         </thead>
         <tbody>
