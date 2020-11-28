@@ -10,8 +10,8 @@
 
   section {
     display: grid;
-    grid-template-columns: repeat(auto-fill, 8rem);
-    grid-gap: 0.9rem;
+    grid-template-columns: repeat(auto-fill, 8.5rem);
+    grid-gap: 1rem;
     justify-content: left;
     width: 100%;
   }

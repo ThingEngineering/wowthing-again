@@ -1,12 +1,12 @@
 <script lang="ts">
     import tippy from '../../../utils/tippy'
 
-    export let size
+    export let size: string
     export let name: string
     export let tooltip: object = undefined
-    export let border: number = 0
+    export let border: string = "0"
 
-    const actualSize = size + (border * 2)
+    const actualSize = parseInt(size) + (parseInt(border) * 2)
     const tooltipProps = {
         content: tooltip,
     }
