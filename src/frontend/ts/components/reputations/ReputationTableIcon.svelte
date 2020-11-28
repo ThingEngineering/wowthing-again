@@ -1,7 +1,14 @@
 <script lang="ts">
-    import WowdbImage from '../images/sources/WowdbImage.svelte'
+    import tippy from '../../utils/tippy'
 
-    export let reputation
+    import WowdbImage from '../images/sources/WowdbImage.svelte'
+    import {StaticDataReputationSet} from '../../types'
+
+    export let reputation: StaticDataReputationSet
+
+    $: tooltip = {
+        content: reputation.Both ? reputation.Both.Name : `${reputation.Alliance.Name} / ${reputation.Horde.Name}`,
+    }
 </script>
 
 <style lang="scss">
@@ -34,7 +41,7 @@
     }
 </style>
 
-<th>
+<th use:tippy={tooltip}>
     {#if reputation.Both}
         <div class="split-no">
             <WowdbImage name={reputation.Both.Icon} size="medium" />

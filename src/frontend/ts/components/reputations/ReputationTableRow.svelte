@@ -1,4 +1,6 @@
 <script lang="ts">
+    import flatten from 'lodash/flatten'
+
     import ClassIcon from '../images/ClassIcon.svelte'
     import RaceIcon from '../images/RaceIcon.svelte'
     import ReputationTableCell from './ReputationTableCell.svelte'
@@ -20,9 +22,9 @@
         {character.name}
     </td>
     <td class="realm">&ndash; {character.getRealmName()}</td>
-    {#each category.Reputations as grouping}
-        {#each grouping as reputation}
+    {#key category.Name}
+        {#each flatten(category.Reputations) as reputation}
             <ReputationTableCell character={character} reputationSet={reputation} />
         {/each}
-    {/each}
+    {/key}
 </tr>

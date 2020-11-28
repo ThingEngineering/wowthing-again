@@ -6,6 +6,13 @@ $highlight-background:     mix($thing-background, #0000ff, 90%);
 $active-background:        mix($thing-background, #0088ff, 80%);
 $border-color:             #4d4e4f;
 
+$tooltip-background:       #0a0b0c;
+$tooltip-color:            #ffffff;
+$tooltip-border:           #8b8d8f;
+$tooltip-title-background: $active-background;
+$tooltip-title-color:      $tooltip-color;
+$tooltip-padding:          8px;
+
 $alliance-border:          #0044ff;
 $horde-border:             #ff0000;
 

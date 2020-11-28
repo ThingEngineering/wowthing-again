@@ -7,7 +7,9 @@
   export let character: Character
   export let size: number
 
-  $: name = $data.Races[character.raceId][character.gender === 1 ? 'IconMale' : 'IconFemale']
+  $: gender = character.gender === 1 ? 'Male' : 'Female'
+  $: iconName = $data.Races[character.raceId]['Icon' + gender]
+  $: tooltip = `${ gender } ${ $data.Races[character.raceId].Name }`
 </script>
 
-<WowthingImage name={name} size={size} />
+<WowthingImage name={iconName} size={size} tooltip={tooltip} />

@@ -1,0 +1,142 @@
+.tooltip-table {
+    text-align:center;
+
+    > h4 {
+        margin: $tooltip-padding*-1 $tooltip-padding*-1 0.5rem $tooltip-padding*-1;
+        padding: 0.3rem 0.5rem;
+        border-bottom: 1px solid $tooltip-border;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+        background: $tooltip-title-background;
+        color: $tooltip-title-color;
+        font-size: 1rem;
+        font-weight: normal;
+    }
+}
+
+// tippy.js tippy.css
+.tippy-box[data-animation="fade"][data-state="hidden"] {
+    opacity: 0;
+}
+[data-tippy-root] {
+    max-width: calc(100vw - 10px);
+}
+.tippy-box {
+    position: relative;
+    background-color: $tooltip-background;
+    color: $tooltip-color;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.4;
+    outline: 0;
+    transition-property: transform, visibility, opacity;
+    border: 1px solid $tooltip-border;
+}
+.tippy-box[data-placement^="top"] > .tippy-arrow {
+    bottom: 0;
+}
+.tippy-box[data-placement^="top"] > .tippy-arrow:before {
+    bottom: -7px;
+    left: 0;
+    border-width: 8px 8px 0;
+    border-top-color: initial;
+    transform-origin: center top;
+}
+.tippy-box[data-placement^="bottom"] > .tippy-arrow {
+    top: 0;
+}
+.tippy-box[data-placement^="bottom"] > .tippy-arrow:before {
+    top: -7px;
+    left: 0;
+    border-width: 0 8px 8px;
+    border-bottom-color: initial;
+    transform-origin: center bottom;
+}
+.tippy-box[data-placement^="left"] > .tippy-arrow {
+    right: 0;
+}
+.tippy-box[data-placement^="left"] > .tippy-arrow:before {
+    border-width: 8px 0 8px 8px;
+    border-left-color: initial;
+    right: -7px;
+    transform-origin: center left;
+}
+.tippy-box[data-placement^="right"] > .tippy-arrow {
+    left: 0;
+}
+.tippy-box[data-placement^="right"] > .tippy-arrow:before {
+    left: -7px;
+    border-width: 8px 8px 8px 0;
+    border-right-color: initial;
+    transform-origin: center right;
+}
+.tippy-box[data-inertia][data-state="visible"] {
+    transition-timing-function: cubic-bezier(0.54, 1.5, 0.38, 1.11);
+}
+.tippy-arrow {
+    width: 16px;
+    height: 16px;
+    color: $tooltip-background;
+}
+.tippy-arrow:before {
+    content: "";
+    position: absolute;
+    border-color: transparent;
+    border-style: solid;
+}
+.tippy-content {
+    position: relative;
+    padding: $tooltip-padding;
+    z-index: 1;
+}
+
+// tippy.js border.css
+/*.tippy-box {
+    border: 1px transparent;
+}*/
+.tippy-box[data-placement^="top"] > .tippy-arrow:after {
+    border-top-color: inherit;
+    border-width: 8px 8px 0;
+    bottom: -8px;
+    left: 0;
+}
+.tippy-box[data-placement^="bottom"] > .tippy-arrow:after {
+    border-bottom-color: inherit;
+    border-width: 0 8px 8px;
+    top: -8px;
+    left: 0;
+}
+.tippy-box[data-placement^="left"] > .tippy-arrow:after {
+    border-left-color: inherit;
+    border-width: 8px 0 8px 8px;
+    right: -8px;
+    top: 0;
+}
+.tippy-box[data-placement^="right"] > .tippy-arrow:after {
+    border-width: 8px 8px 8px 0;
+    left: -8px;
+    top: 0;
+    border-right-color: inherit;
+}
+.tippy-box[data-placement^="top"] > .tippy-svg-arrow > svg:first-child:not(:last-child) {
+    top: 17px;
+}
+.tippy-box[data-placement^="bottom"] > .tippy-svg-arrow > svg:first-child:not(:last-child) {
+    bottom: 17px;
+}
+.tippy-box[data-placement^="left"] > .tippy-svg-arrow > svg:first-child:not(:last-child) {
+    left: 12px;
+}
+.tippy-box[data-placement^="right"] > .tippy-svg-arrow > svg:first-child:not(:last-child) {
+    right: 12px;
+}
+.tippy-arrow {
+    border-color: inherit;
+}
+.tippy-arrow:after {
+    content: "";
+    z-index: -1;
+    position: absolute;
+    border-color: transparent;
+    border-style: solid;
+}
