@@ -2,6 +2,7 @@ import crypto from 'crypto'
 
 import rimraf from 'rimraf'
 import commonjs from '@rollup/plugin-commonjs'
+import replace from '@rollup/plugin-replace'
 import resolve from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
 import svelte from 'rollup-plugin-svelte'
@@ -39,6 +40,9 @@ export default {
             preprocess: sveltePreprocess({
                 //postcss: true,
             }),
+        }),
+        replace({
+            'process.env.NODE_ENV': JSON.stringify(production ? 'production' : 'development'),
         }),
         resolve({
             browser: true,
