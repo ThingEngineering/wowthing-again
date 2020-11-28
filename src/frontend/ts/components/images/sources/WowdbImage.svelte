@@ -1,8 +1,9 @@
 <script lang="ts">
     export let size
     export let name: string
+    export let border: number = 0
 
-    const px = (size === 'large' ? 56 : (size === 'medium' ? 36 : 16));
+    const actualSize = (size === 'large' ? 56 : (size === 'medium' ? 36 : 16)) + (border * 2);
 </script>
 
-<img src="https://icons.wowdb.com/retail/{size}/{name}.jpg" width="{px}" height="{px}">
+<img src="https://icons.wowdb.com/retail/{size}/{name}.jpg" width="{actualSize}" height="{actualSize}">
