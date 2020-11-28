@@ -19,6 +19,7 @@ stages:
   environment: production/backend
   only:
     changes:
+      - src/data/**/*
       - src/Wowthing.Backend/**/*
       - src/Wowthing.Lib/**/*
 
@@ -43,9 +44,9 @@ backend-deploy:
   environment: production/web
   only:
     changes:
-      - src/Wowthing.Web/**/*
-      - src/Wowthing.Lib/**/*
       - src/frontend/**/*
+      - src/Wowthing.Lib/**/*
+      - src/Wowthing.Web/**/*
 
 web-build:
   extends:
