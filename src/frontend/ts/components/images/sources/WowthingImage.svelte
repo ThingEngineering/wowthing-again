@@ -12,4 +12,4 @@
     }
 </script>
 
-<img src="https://img.wowthing.org/{size}/{name}.png" width="{actualSize}" height="{actualSize}" use:tippy={tooltipProps}>
+<img src="https://img.wowthing.org/{size}/{name}.png" width="{actualSize}" height="{actualSize}" use:tippy={tooltipProps} loading="lazy">
