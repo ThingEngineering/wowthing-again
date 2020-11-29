@@ -26,7 +26,7 @@ namespace Wowthing.Lib.Models
         public int RealmId { get; set; }
         public WowFaction Faction { get; set; }
         public WowGender Gender { get; set; }
-        
+
         public string Name { get; set; }
 
         public List<int> ReputationIds { get; set; }
@@ -37,5 +37,7 @@ namespace Wowthing.Lib.Models
 
         [ForeignKey("AccountId")]
         public PlayerAccount Account { get; set; }
+
+        public PlayerCharacterShadowlands Shadowlands { get; set; }
     }
 }

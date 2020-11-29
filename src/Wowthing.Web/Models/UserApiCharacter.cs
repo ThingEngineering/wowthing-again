@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models;
 
@@ -17,6 +18,9 @@ namespace Wowthing.Web.Models
         public WowFaction Faction { get; set; }
         public WowGender Gender { get; set; }
         public Dictionary<int, int> Reputations { get; set; } = new Dictionary<int, int>();
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public UserApiCharacterShadowlands Shadowlands { get; set; }
 
         public UserApiCharacter(PlayerCharacter character, bool pub = false, bool anon = false)
         {
@@ -41,6 +45,29 @@ namespace Wowthing.Web.Models
                 Reputations = character.ReputationIds.Zip(character.ReputationValues)
                     .ToDictionary(k => k.First, v => v.Second);
             }
+
+            if (character.Shadowlands != null)
+            {
+                Shadowlands = new UserApiCharacterShadowlands(character.Shadowlands);
+            }
+        }
+    }
+
+    public class UserApiCharacterShadowlands
+    {
+        public int CovenantId { get; }
+        public int RenownLevel { get; }
+        public int SoulbindId { get; }
+        public List<int[]> Conduits { get; }
+
+        public UserApiCharacterShadowlands(PlayerCharacterShadowlands shadowlands)
+        {
+            CovenantId = shadowlands.CovenantId;
+            RenownLevel = shadowlands.RenownLevel;
+            SoulbindId = shadowlands.SoulbindId;
+
+            Conduits = shadowlands.ConduitIds.Zip(shadowlands.ConduitRanks)
+                .Select(z => new int[] { z.First, z.Second }).ToList();
         }
     }
 }

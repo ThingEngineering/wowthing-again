@@ -38,7 +38,8 @@ namespace Wowthing.Backend.Jobs.Character
             ApiCharacter apiCharacter;
             try
             {
-                var result = await GetJson<ApiCharacter>(uri);
+                // FIXME crappy hack for my main
+                var result = await GetJson<ApiCharacter>(uri, useLastModified: character.Name != "Wataki");
                 if (result.NotModified)
                 {
                     _logger.Information("304 Not Modified");
@@ -87,6 +88,12 @@ namespace Wowthing.Backend.Jobs.Character
             // Character changed, queue some more stuff
             await _jobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterMounts, data);
             await _jobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterReputations, data);
+
+            // Shadowlands specific
+            if (character.Level > 50)
+            {
+                await _jobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterSoulbinds, data);
+            }
         }
     }
 }
