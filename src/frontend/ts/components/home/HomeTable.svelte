@@ -1,12 +1,12 @@
 <script lang="ts">
-    import { data } from '../stores/user-store'
+    import { data } from '../../stores/user-store'
 
-    import ClassIcon from './images/ClassIcon.svelte'
-    import RaceIcon from './images/RaceIcon.svelte'
+    import ClassIcon from '../images/ClassIcon.svelte'
+    import RaceIcon from '../images/RaceIcon.svelte'
 </script>
 
 <style lang="scss">
-    @import "../../scss/variables.scss";
+    @import "../../../scss/variables.scss";
     div {
         background: $thing-background;
         border: 1px solid $border-color;

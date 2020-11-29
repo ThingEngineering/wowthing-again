@@ -10,4 +10,12 @@ export class Character {
     level: number
 
     reputations: Dictionary<number>
+    shadowlands?: CharacterShadowlands
+}
+
+class CharacterShadowlands {
+    conduits: number[][]
+    covenantId: number
+    renownLevel: number
+    soulbindId: number
 }

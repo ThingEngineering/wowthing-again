@@ -5,11 +5,11 @@
     import { error as staticError, loading as staticLoading, fetch as fetchStatic } from './stores/static-store'
     import { error as userError, loading as userLoading, fetch as fetchUser } from './stores/user-store'
 
-    import HomeCards from './components/HomeCards.svelte'
-    import HomeTable from './components/HomeTable.svelte'
     import Settings from './components/Settings.svelte'
     import Sidebar from './components/Sidebar.svelte'
     import Mounts from './components/collections/Mounts.svelte'
+    import HomeCards from './components/home/HomeCards.svelte'
+    import HomeTable from './components/home/HomeTable.svelte'
     import Reputations from './components/reputations/Reputations.svelte'
 
     const routes = {
