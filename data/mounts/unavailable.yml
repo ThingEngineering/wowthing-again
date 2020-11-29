@@ -2,94 +2,94 @@ name: Unavailable
 groups:
 - name: Vanilla
   things:
-  -  199 # Amani War Bear (ZA)
-  -   46 # Ancient Frostsaber
-  -   51 # Arctic Wolf
-  -   45 # Black Nightsaber
-  -  116 121 122 # Black Qiraji Battle Tank (AQ40 opening)
-  -   64 # Black Ram
-  -  201 # Brewfest Ram
-  -   63 # Frost Ram
-  -   73 # Green Kodo
-  -   62 # Icy Blue Mechanostrider Mod A
-  -   35 56 # Ivory Raptor
-  -   52 # Palomino
-  -   50 # Red Wolf
-# -  337 # Swift Dawnsaber - Duplicates Striped Dawnsaber?
-  -  110 # Swift Razzashi Raptor (ZG)
-  -  111 # Swift Zulian Tiger (ZG)
-  -   74 # Teal Kodo
-  -   54 # Mottled Red Raptor
-  -   42 # White Mechanostrider Mod B
-  -   53 # White Stallion
+  -  43688 # Amani War Bear (ZA)
+  -   16056 # Ancient Frostsaber
+  -   16081 # Arctic Wolf
+  -   16055 # Black Nightsaber
+  -  25863 26655 26656 # Black Qiraji Battle Tank (AQ40 opening)
+  -   17461 # Black Ram
+  -  43899 # Brewfest Ram
+  -   17460 # Frost Ram
+  -   18991 # Green Kodo
+  -   17459 # Icy Blue Mechanostrider Mod A
+  -   10795 17450 # Ivory Raptor
+  -   16082 # Palomino
+  -   16080 # Red Wolf
+# -  66847 # Swift Dawnsaber - Duplicates Striped Dawnsaber?
+  -  24242 # Swift Razzashi Raptor (ZG)
+  -  24252 # Swift Zulian Tiger (ZG)
+  -   18992 # Teal Kodo
+  -   16084 # Mottled Red Raptor
+  -   15779 # White Mechanostrider Mod B
+  -   16083 # White Stallion
 
 - name: WotLK
   things:
-  -  266 # Plagued Proto-Drake (Naxx/etc 10 meta)
-  -  263 # Black Proto-Drake (Naxx/etc 25 meta)
-  -  343  342 # Swift Alliance Steed/Swift Horde Wolf (ToGC 10H)
-  -  344  345 # Crusader's White/Black Warhorse (ToGC - A Tribute to Immortality)
+  -  60021 # Plagued Proto-Drake (Naxx/etc 10 meta)
+  -  59976 # Black Proto-Drake (Naxx/etc 6899 meta)
+  -  68057  68056 # Swift Alliance Steed/Swift Horde Wolf (ToGC 10H)
+  -  68187  68188 # Crusader's White/Black Warhorse (ToGC - A Tribute to Immortality)
 
 - name: MoP
   things:
-  -  550 # Brawler's Burly Mushan Beast (Brawler's Guild)
-  -  518 # Ashen Pandaren Phoenix (CM)
-  -  503 # Crimson Pandaren Phoenix (CM)
-  -  519 # Emerald Pandaren Phoenix (CM)
-  -  520 # Violet Pandaren Phoenix (CM)
-  -  558 # Kor'kron War Wolf (Garrosh)
-  -    0  651 # Warlord's Deathwheel
+  -  142641 # Brawler's Burly Mushan Beast (Brawler's Guild)
+  -  132117 # Ashen Pandaren Phoenix (CM)
+  -  129552 # Crimson Pandaren Phoenix (CM)
+  -  132118 # Emerald Pandaren Phoenix (CM)
+  -  132119 # Violet Pandaren Phoenix (CM)
+  -  148396 # Kor'kron War Wolf (Garrosh)
+  -    0  171845 # Warlord's Deathwheel
 
 - name: WoD
   things:
-  -  638 # Breezestrider Stallion (Vol'jin's Spear)
-  -  639 # Pale Thorngrazer (Wrynn's Vanguard)
-  -  654 # Challenger's War Yeti (Challenge Warlord: Silver)
-  -  606 # Core Hound (Lv100 Molten Core)
-  -  764 # Grove Warden (HFC)
+  -  171832 # Breezestrider Stallion (Vol'jin's Spear)
+  -  171833 # Pale Thorngrazer (Wrynn's Vanguard)
+  -  171848 # Challenger's War Yeti (Challenge Warlord: Silver)
+  -  170347 # Core Hound (Lv100 Molten Core)
+  -  189999 # Grove Warden (HFC)
 
 - name: Legion
   things:
-  -  878 # Brawler's Burly Basilisk (Brawler's Guild)
-  -  978 # Violet Spellwing (Blood of a Titan - kill Argus)
-  - 1054 1049 # Teldrassil Hippogryph/Undercity Plaguebat (Burning of Teldrassil)
+  -  230844 # Brawler's Burly Basilisk (Brawler's Guild)
+  -  253639 # Violet Spellwing (Blood of a Titan - kill Argus)
+  - 274610 272472 # Teldrassil Hippogryph/Undercity Plaguebat (Burning of Teldrassil)
 
 - name: Arena
   things:
-  -  169 # Swift Nether Drake
-  -  207 # Merciless Nether Drake
-  -  223 # Vengeful Nether Drake
-  -  241 # Brutal Nether Drake
-  -  313 # Deadly Gladiator's Frost Wyrm
-  -  317 # Furious Gladiator's Frost Worm
-  -  340 # Relentless Gladiator's Frost Wyrm
-  -  358 # Wrathful Gladiator's Frost Wyrm
-  -  424 # Vicious Gladiator's Twilight Drake
-  -  428 # Ruthless Gladiator's Twilight Drake
-  -  467 # Cataclysmic Gladiator's Twilight Drake
-  -  541 # Malevolent Gladiator's Cloud Serpent
-  -  562 # Tryannical Gladiator's Cloud Serpent
-  -  563 # Grievous Gladiator's Cloud Serpent
-  -  564 # Prideful Gladiator's Cloud Serpent
-  -  759 # Primal Gladiator's Felblood Gronnling (Warlords S1)
-  -  760 # Wild Gladiator's Felblood Gronnling (Warlords S2)
-  -  761 # Warmongering Gladiator's Felblood Gronnling (Warlords S3)
-  -  848 # Vindictive Gladiator's Storm Dragon (Legion S1)
-  -  849 # Fearless Gladiator's Storm Dragon (Legion S2)
-  -  850 # Cruel Gladiator's Storm Dragon (Legion S3)
-  -  851 # Ferocious Gladiator's Storm Dragon (Legion S4)
-  -  852 # Fierce Gladiator's Storm Dragon (Legion S5)
-  -  853 # Dominating Gladiator's Storm Dragon (Legion S6)
-  -  948 # Demonic Gladiator's Storm Dragon (Legion S7)
-  - 1030 # Dread Gladiator's Proto-Drake (BfA Season 1)
-  - 1031 # Sinister Gladiator's Proto-Drake (Bfa Season 2)
-  - 1032 # Notorious Gladiator's Proto-Drake (BfA Season 3)
-  - 1035 # Corrupted Gladiator's Proto-Drake (BfA Season 4)
+  -  37015 # Swift Nether Drake
+  -  44744 # Merciless Nether Drake
+  -  49193 # Vengeful Nether Drake
+  -  58615 # Brutal Nether Drake
+  -  64927 # Deadly Gladiator's Frost Wyrm
+  -  65439 # Furious Gladiator's Frost Worm
+  -  67336 # Relentless Gladiator's Frost Wyrm
+  -  71810 # Wrathful Gladiator's Frost Wyrm
+  -  101282 # Vicious Gladiator's Twilight Drake
+  -  101821 # Ruthless Gladiator's Twilight Drake
+  -  124550 # Cataclysmic Gladiator's Twilight Drake
+  -  139407 # Malevolent Gladiator's Cloud Serpent
+  -  148618 # Tryannical Gladiator's Cloud Serpent
+  -  148619 # Grievous Gladiator's Cloud Serpent
+  -  148620 # Prideful Gladiator's Cloud Serpent
+  -  186828 # Primal Gladiator's Felblood Gronnling (Warlords S1)
+  -  189043 # Wild Gladiator's Felblood Gronnling (Warlords S2)
+  -  189044 # Warmongering Gladiator's Felblood Gronnling (Warlords S3)
+  -  227986 # Vindictive Gladiator's Storm Dragon (Legion S1)
+  -  227988 # Fearless Gladiator's Storm Dragon (Legion S2)
+  -  227989 # Cruel Gladiator's Storm Dragon (Legion S3)
+  -  227991 # Ferocious Gladiator's Storm Dragon (Legion S4)
+  -  227994 # Fierce Gladiator's Storm Dragon (Legion S5)
+  -  227995 # Dominating Gladiator's Storm Dragon (Legion S6)
+  -  243201 # Demonic Gladiator's Storm Dragon (Legion S7)
+  - 262022 # Dread Gladiator's Proto-Drake (BfA Season 1)
+  - 262023 # Sinister Gladiator's Proto-Drake (Bfa Season 2)
+  - 262024 # Notorious Gladiator's Proto-Drake (BfA Season 3)
+  - 262027 # Corrupted Gladiator's Proto-Drake (BfA Season 4)
 
 - name: Promotions
   things:
-  -  243 # Big Blizzard Bear (Blizzcon)
-  -  959  960 # Stormwind Skychaser/Orgrimmar Interceptor (Blizzcon 2017)
-  -  439 # Tyrael's Charger (Annual Pass)
-  -  440  441 # Spectral Gryphon/Spectral Wind Rider (Scroll of Resurrection)
-  -  896 # Primal Flamesaber (Heroes of the Storm)
+  -  58983 # Big Blizzard Bear (Blizzcon)
+  -  245723  245725 # Stormwind Skychaser/Orgrimmar Interceptor (Blizzcon 2017)
+  -  107203 # Tyrael's Charger (Annual Pass)
+  -  107516  107517 # Spectral Gryphon/Spectral Wind Rider (Scroll of Resurrection)
+  -  232405 # Primal Flamesaber (Heroes of the Storm)
