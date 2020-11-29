@@ -11,6 +11,7 @@ namespace Wowthing.Lib.Jobs
         Character = 100,
         CharacterMounts,
         CharacterReputations,
+        CharacterSoulbinds,
       
         DataPlayableClass = 200,
         DataReputationFaction,

@@ -64,11 +64,14 @@ namespace Wowthing.Web.Controllers
             bool anon = user.Settings.Privacy.Anonymized;
 
             // Retrieve data
-            var characterQuery = _context.PlayerCharacter.Where(c => c.Account.UserId == user.Id);
+            var characterQuery = _context.PlayerCharacter
+                .Where(c => c.Account.UserId == user.Id);
             if (pub)
             {
                 characterQuery = characterQuery.Where(c => c.Level >= 11);
             }
+
+            characterQuery = characterQuery.Include(c => c.Shadowlands);
 
             var mounts = await db.GetSetMembersAsync(string.Format(RedisKeys.UserMounts, user.Id));
 
