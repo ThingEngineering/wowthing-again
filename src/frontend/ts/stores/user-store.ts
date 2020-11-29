@@ -1,7 +1,6 @@
 import { writable } from 'svelte/store'
 
-import Character from '../models/character'
-import {UserData} from '../types'
+import {Character, UserData} from '../types'
 import fetch_json from '../utils/fetch-json'
 
 
