@@ -32,7 +32,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
-            Version = 6,
+            Version = 7,
         };
 
         public override async Task Run(params string[] data)
@@ -41,9 +41,9 @@ namespace Wowthing.Backend.Jobs.Misc
             var timer = new JankTimer();
 
             // Mounts
-            var mountToSpell = await LoadMountDump();
+            var spellToMount = await LoadMountDump();
             var mountSets = LoadSets("mounts");
-            AddUncategorized("mounts", mountToSpell, mountSets);
+            AddUncategorized("mounts", spellToMount, mountSets);
             timer.AddPoint("Mounts");
 
             // Reputations
@@ -67,9 +67,9 @@ namespace Wowthing.Backend.Jobs.Misc
                 Reputations = reputations,
                 ReputationTiers = reputationTiers,
 
-                MountToSpell = mountToSpell,
                 MountSets = mountSets,
                 ReputationSets = reputationSets,
+                SpellToMount = spellToMount,
             };
             var cacheJson = JsonConvert.SerializeObject(cacheData);
             var cacheHash = cacheJson.Md5();
@@ -102,7 +102,7 @@ namespace Wowthing.Backend.Jobs.Misc
         private async Task<SortedDictionary<int, int>> LoadMountDump()
         {
             var records = await LoadDumpCsv<DataMountDump>("mount");
-            return new SortedDictionary<int, int>(records.ToDictionary(k => k.ID, v => v.SourceSpellID));
+            return new SortedDictionary<int, int>(records.ToDictionary(k => k.SourceSpellID, v => v.ID));
         }
 
         private async Task<List<T>> LoadDumpCsv<T>(string fileName)
@@ -137,7 +137,7 @@ namespace Wowthing.Backend.Jobs.Misc
             return categories;
         }
 
-        private void AddUncategorized(string dirName, SortedDictionary<int, int> thingToSpell, List<RedisSetCategory> thingSets)
+        private void AddUncategorized(string dirName, SortedDictionary<int, int> spellToThing, List<RedisSetCategory> thingSets)
         {
             var skip = Array.Empty<int>();
             var skipPath = Path.Join(DATA_PATH, dirName, "_skip.yml");
@@ -153,7 +153,7 @@ namespace Wowthing.Backend.Jobs.Misc
             }
 
             // Lookup keys - things in sets - skip
-            var missing = thingToSpell.Keys
+            var missing = spellToThing.Keys
                 .Except(thingSets
                     .SelectMany(s => s.Groups)
                     .SelectMany(g => g.Things)
