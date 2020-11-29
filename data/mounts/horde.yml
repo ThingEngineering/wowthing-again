@@ -10,86 +10,87 @@ groups:
 
 - name: Bilgewater Cartel
   things:
-  -  87090 # Goblin Trike Key
-  -  87091 # Goblin Turbo-Trike Key
+  - 87090 # Goblin Trike Key
+  - 87091 # Goblin Turbo-Trike Key
 
 - name: Darkspear Trolls
   things:
-  -   8395 # Emerald Raptor
-  -   10796 # Turqoise Raptor
-  -   10799 # Violet Raptor
-  -   23241 # Swift Blue Raptor
-  -   23242 # Swift Olive Raptor
-  -   23243 # Swift Orange Raptor
+  - 8395 # Emerald Raptor
+  - 10796 # Turqoise Raptor
+  - 10799 # Violet Raptor
+  - 23241 # Swift Blue Raptor
+  - 23242 # Swift Olive Raptor
+  - 23243 # Swift Orange Raptor
 
 - name: Orgrimmar
   things:
-  -  64658 # Black Wolf ?578
-  -   6654 # Brown Wolf
-  -   6653 # Dire Wolf
-  -   580 # Timber Wolf
-  -  23250 # Swift Brown Wolf
-  -  23252 # Swift Gray Wolf
-  -  23251 # Swift Timber Wolf
+  - 578 64658 # Black Wolf
+  - 6654 # Brown Wolf
+  - 6653 # Dire Wolf
+  - 459 # Gray Wolf
+  - 580 # Timber Wolf
+  - 23250 # Swift Brown Wolf
+  - 23252 # Swift Gray Wolf
+  - 23251 # Swift Timber Wolf
 
 - name: Silvermoon City
   things:
-  -  35022 # Black Hawkstrider
-  -  35020 # Blue Hawkstrider
-  -  35018 # Purple Hawkstrider
-  -  34795 # Red Hawkstrider
-  -  35025 # Swift Green Hawkstrider
-  -  33660 # Swift Pink Hawkstrider
-  -  35027 # Swift Purple Hawkstrider
+  - 35022 # Black Hawkstrider
+  - 35020 # Blue Hawkstrider
+  - 35018 # Purple Hawkstrider
+  - 34795 # Red Hawkstrider
+  - 35025 # Swift Green Hawkstrider
+  - 33660 # Swift Pink Hawkstrider
+  - 35027 # Swift Purple Hawkstrider
 
 - name: Thunder Bluff
   things:
-  -   18990 # Brown Kodo
-  -   18989 # Gray Kodo
-  -  64657 # White Kodo
-  -  23249 # Great Brown Kodo
-  -  23248 # Great Gray Kodo
-  -  23247 # Great White Kodo
+  - 18990 # Brown Kodo
+  - 18989 # Gray Kodo
+  - 64657 # White Kodo
+  - 23249 # Great Brown Kodo
+  - 23248 # Great Gray Kodo
+  - 23247 # Great White Kodo
 
 - name: Undercity
   things:
-  -   17465 # Green Skeletal Warhorse
-  -  66846 # Ochre Skeletal Warhorse
-  -  23246 # Purple Skeletal Warhorse
-  -  64977 # Black Skeletal Horse
-  -   17463 # Blue Skeletal Horse
-  -   17464 # Brown Skeletal Horse
-  -   17462 # Red Skeletal Horse
+  - 17465 # Green Skeletal Warhorse
+  - 66846 # Ochre Skeletal Warhorse
+  - 23246 # Purple Skeletal Warhorse
+  - 64977 # Black Skeletal Horse
+  - 17463 # Blue Skeletal Horse
+  - 17464 # Brown Skeletal Horse
+  - 17462 # Red Skeletal Horse
 
 - name: Argent Tournament
   things:
-  -  63635 # Darkspear Raptor
-  -  65644 # Swift Purple Raptor
-  -  63640 # Orgrimmar Wolf
-  -  65646 # Swift Burgundy Wolf
-  -  63642 # Silvermoon Hawkstrider
-  -  65639 # Swift Red Hawkstrider
-  -  63641 # Thunder Bluff Kodo
-  -  65641 # Great Golden Kodo
-  -  63643 # Forsaken Warhorse
-  -  65645 # White Skeletal Warhorse
+  - 63635 # Darkspear Raptor
+  - 65644 # Swift Purple Raptor
+  - 63640 # Orgrimmar Wolf
+  - 65646 # Swift Burgundy Wolf
+  - 63642 # Silvermoon Hawkstrider
+  - 65639 # Swift Red Hawkstrider
+  - 63641 # Thunder Bluff Kodo
+  - 65641 # Great Golden Kodo
+  - 63643 # Forsaken Warhorse
+  - 65645 # White Skeletal Warhorse
 
 - name: PvP
   things:
-  -   22718 # Black War Kodo
-  -   22721 # Black War Raptor
-  -   22724 # Black War Wolf
-  -   22722 # Red Skeletal Warhorse
-  -  35028 # Swift Warstrider
-  -  146622 # Vicious Skeletal Warhorse
+  - 22718 # Black War Kodo
+  - 22721 # Black War Raptor
+  - 22724 # Black War Wolf
+  - 22722 # Red Skeletal Warhorse
+  - 35028 # Swift Warstrider
+  - 146622 # Vicious Skeletal Warhorse
   - 261434 # Vicious War Basilisk
-  -  229486 # Vicious War Bear (Horde)
+  - 229486 # Vicious War Bear (Horde)
   - 270560 # Vicious War Clefthoof
-  -  242897 # Vicious War Fox (Orgrimmar PvP horde)
-  -  185052 # Vicious War Kodo
-  -  171835 # Vicious War Raptor
-  -  230988 # Vicious War Scorpion (Horde)
-  -  223354 # Vicious War Trike
-  -  232525 # Vicious War Turtle (Horde)
-  -  100333 # Vicious War Wolf
-  -  223363 # Vicious Warstrider
+  - 242897 # Vicious War Fox (Orgrimmar PvP horde)
+  - 185052 # Vicious War Kodo
+  - 171835 # Vicious War Raptor
+  - 230988 # Vicious War Scorpion (Horde)
+  - 223354 # Vicious War Trike
+  - 232525 # Vicious War Turtle (Horde)
+  - 100333 # Vicious War Wolf
+  - 223363 # Vicious Warstrider
