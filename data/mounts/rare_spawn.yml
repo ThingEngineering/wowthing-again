@@ -2,69 +2,69 @@ name: Rare Spawns
 groups:
 - name: WotLK
   things:
-  -  265 # Time-Lost Proto-Drake
+  -  60002 # Time-Lost Proto-Drake
 
 - name: Cata
   things:
-  -  400 # Grey Riding Camel (Uldum)
-  -  393 # Phosporescent Stone Drake (Deepholm)
-  -  420 # Subdued Seahorse (Vashj'ir - Poseidus)
+  -  88750 # Grey Riding Camel (Uldum)
+  -  88718 # Phosporescent Stone Drake (Deepholm)
+  -  98718 # Subdued Seahorse (Vashj'ir - Poseidus)
 
 - name: MoP
   things:
-  -  534 # Amber Primordial Direhorn (Zandalari Warbringer)
-  -  536 # Jade Primordial Direhorn (Zandalari Warbringer)
-  -  535 # Slate Primordial Direhorn (Zandalari Warbringer)
-  -  473 # Heavenly Onyx Cloud Serpent (Sha of Anger)
-  -  515 # Son of Galleon (Galleon)
-  -  542 # Thundering Cobalt Cloud Serpent (Nalak)
-  -  561 # Thundering Onyx Cloud Serpent (Huolon)
-  -  533 # Cobalt Primordial Direhorn (Oondasta)
+  -  138424 # Amber Primordial Direhorn (Zandalari Warbringer)
+  -  138426 # Jade Primordial Direhorn (Zandalari Warbringer)
+  -  138425 # Slate Primordial Direhorn (Zandalari Warbringer)
+  -  127158 # Heavenly Onyx Cloud Serpent (Sha of Anger)
+  -  130965 # Son of Galleon (Galleon)
+  -  139442 # Thundering Cobalt Cloud Serpent (Nalak)
+  -  148476 # Thundering Onyx Cloud Serpent (Huolon)
+  -  138423 # Cobalt Primordial Direhorn (Oondasta)
 
 - name: WoD
   things:
-  -  612 # Bloodhoof Bull
-  -  657 # Garn Nighthowl
-  -  627 # Great Greytusk
-  -  614 # Mottled Meadowstomper
-  -  630 # Sapphire Riverbeast
-  -  634 # Solar Spirehawk (World Boss - WoD)
-  -  655 # Sunhide Gronnling
-  -  636 # Swift Breezestrider
-  -  682 # Voidtalon of the Dark Star
-  -  622 # Armored Razorback (Tanaan big rares)
-  -  611 # Tundra Icehoof (Tanaan big rares)
-  -  643 # Warsong Direfang (Tanaan big rares)
+  -  171620 # Bloodhoof Bull
+  -  171851 # Garn Nighthowl
+  -  171636 # Great Greytusk
+  -  171622 # Mottled Meadowstomper
+  -  171824 # Sapphire Riverbeast
+  -  171828 # Solar Spirehawk (World Boss - WoD)
+  -  171849 # Sunhide Gronnling
+  -  171830 # Swift Breezestrider
+  -  179478 # Voidtalon of the Dark Star
+  -  171630 # Armored Razorback (Tanaan big rares)
+  -  171619 # Tundra Icehoof (Tanaan big rares)
+  -  171837 # Warsong Direfang (Tanaan big rares)
 
 - name: Legion
   things:
-  -  906 # Darkspore Mana Ray (Fel-Spotted Egg - Naroua/Sabuul/Varga)
-  -  975 # Felglow Mana Ray (Fel-Spotted Egg - Naroua/Sabuul/Varga)
-  -  973 # Lambent Mana Ray (Fel-Spotted Egg - Naroua/Sabuul/Varga)
-  -  976 # Scintillating Mana Ray (Fel-Spotted Egg - Naroua/Sabuul/Varga)
-  -  974 # Vibrant Mana Ray (Fel-Spotted Egg - Naroua/Sabuul/Varga)
-  -  980 # Acid Belcher (Skreeg the Devourer, Mac'Aree)
-  -  979 # Crimson Slavermaw (Blistermaw, Antoran Wastes)
-  -  955 # Vile Fiend (Houndmaster Kerrax, Antoran Wastes)
-  -  970 # Maddened Chaosrunner (Wrangler Kravos, Mac'Aree)
+  -  235764 # Darkspore Mana Ray (Fel-Spotted Egg - Naroua/Sabuul/Varga)
+  -  253108 # Felglow Mana Ray (Fel-Spotted Egg - Naroua/Sabuul/Varga)
+  -  253107 # Lambent Mana Ray (Fel-Spotted Egg - Naroua/Sabuul/Varga)
+  -  253109 # Scintillating Mana Ray (Fel-Spotted Egg - Naroua/Sabuul/Varga)
+  -  253106 # Vibrant Mana Ray (Fel-Spotted Egg - Naroua/Sabuul/Varga)
+  -  253662 # Acid Belcher (Skreeg the Devourer, Mac'Aree)
+  -  253661 # Crimson Slavermaw (Blistermaw, Antoran Wastes)
+  -  243652 # Vile Fiend (Houndmaster Kerrax, Antoran Wastes)
+  -  253058 # Maddened Chaosrunner (Wrangler Kravos, Mac'Aree)
 
 - name: BfA - Arathi
   things:
-  - 1173 # Broken Highland Mustang (Knight-Captain Aldrin)
-  - 1174 # Highland Mustang (Doomrider Helgrim)
-  - 1182 # Lil' Donkey (Overseer Krix)
-  - 1183 # Skullripper (Skullripper)
-  - 1180 # Swift Albino Raptor (Beastrider Kama)
-  - 1185 # Witherbark Direwing (Nimar the Slayer)
+  - 279457 # Broken Highland Mustang (Knight-Captain Aldrin)
+  - 279456 # Highland Mustang (Doomrider Helgrim)
+  - 279608 # Lil' Donkey (Overseer Krix)
+  - 279611 # Skullripper (Skullripper)
+  - 279569 # Swift Albino Raptor (Beastrider Kama)
+  - 279868 # Witherbark Direwing (Nimar the Slayer)
 
 - name: BfA - Darkshore
   things:
-  - 1200 # Ashenvale Chimaera (Alash'anir)
-  - 1199 # Blackpaw (Blackpaw)
+  - 288495 # Ashenvale Chimaera (Alash'anir)
+  - 288438 # Blackpaw (Blackpaw)
   - 1202 # Frightened Kodo (Frightened Kodo)
-  - 1205 # Kaldorei Nightsaber (Crox Bloodrage / Shadowclaw)
-  - 1203 # Umber Nightsaber (Athil Dewfire / Moxo the Beheader)
+  - 288505 # Kaldorei Nightsaber (Crox Bloodrage / Shadowclaw)
+  - 288503 # Umber Nightsaber (Athil Dewfire / Moxo the Beheader)
 
 - name: BfA - Mechisland
   things:
-  - 1248 # Junkheap Drifter (Rustfeather)
+  - 297157 # Junkheap Drifter (Rustfeather)
