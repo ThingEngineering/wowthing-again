@@ -2,76 +2,76 @@ name: Instances
 groups:
 - name: Classic
   things:
-  -   17481 # Rivendare's Deathcharger (Stratholme)
-  -  25953 239766 # Blue Qiraji Battle Tank (AQ40)
-  -  26056 # Green Qiraji Battle Tank (AQ40)
-  -  26054 239767 # Red Qiraji Battle Tank (AQ40)
-  -  26055 # Yellow Qiraji Battle Tank (AQ40)
+  - 17481 # Rivendare's Deathcharger (Stratholme)
+  - 25953 239766 # Blue Qiraji Battle Tank (AQ40)
+  - 26056 # Green Qiraji Battle Tank (AQ40)
+  - 26054 239767 # Red Qiraji Battle Tank (AQ40)
+  - 26055 # Yellow Qiraji Battle Tank (AQ40)
 
 - name: TBC
   things:
-  -  36702 # Fiery Warhorse (Kara)
-  -  40192 # Ashes of Al'ar (TK)
-  -  41252 # Raven Lord (Sethekk Halls)
-  -  46628 # Swift White Hawkstrider (Magister's Terrace)
+  - 36702 # Fiery Warhorse (Kara)
+  - 40192 # Ashes of Al'ar (TK)
+  - 41252 # Raven Lord (Sethekk Halls)
+  - 46628 # Swift White Hawkstrider (Magister's Terrace)
 
 - name: WotLK
   things:
-  -  59567 # Azure Drake (Malygos)
-  -  59568 # Blue Drake (Malygos)
-  -  59650 # Black Drake (OS)
-  -  59571 # Twilight Drake (OS)
-  -  61465  61467 # Grand Black War Mammoth (VoA)
-  -  63796 # Mimiron's Head (Uld)
-  -  69395 # Onyxian Drake (Ony)
-  -  72286 # Invincible (ICC)
-  -  59996 # Blue Proto-Drake (Utgarde Pinnacle)
-  -  59569 # Bronze Drake (CoS)
-  -  73313 # Crimson Deathcharger (ICC, Shadowmourne quest)
+  - 59567 # Azure Drake (Malygos)
+  - 59568 # Blue Drake (Malygos)
+  - 59650 # Black Drake (OS)
+  - 59571 # Twilight Drake (OS)
+  - 61465  61467 # Grand Black War Mammoth (VoA)
+  - 63796 # Mimiron's Head (Uld)
+  - 69395 # Onyxian Drake (Ony)
+  - 72286 # Invincible (ICC)
+  - 59996 # Blue Proto-Drake (Utgarde Pinnacle)
+  - 59569 # Bronze Drake (CoS)
+  - 73313 # Crimson Deathcharger (ICC, Shadowmourne quest)
 
 - name: Cata
   things:
-  -  88742 # Drake of the North Wind (VP)
-  -  88744 # Drake of the South Wind (ToFW)
-  -  101542 # Flametalon of Alysrazor (FL)
-  -  97493 # Pureblood Fire Hawk (FL)
-  -  107842 # Blazing Drake (DS)
-  -  110039 # Experiment 578-B (DS)
-  -  107845 # Life-Binder's Handmaiden (DS)
-  -  88746 # Vitreous Stone Drake (SC)
-  -  98204 # Amani Battle Bear (ZA)
-  -  96491 # Armored Razzashi Raptor (ZG)
-  -  96499 # Swift Zulian Panther (ZG)
+  - 88742 # Drake of the North Wind (VP)
+  - 88744 # Drake of the South Wind (ToFW)
+  - 101542 # Flametalon of Alysrazor (FL)
+  - 97493 # Pureblood Fire Hawk (FL)
+  - 107842 # Blazing Drake (DS)
+  - 110039 # Experiment 578-B (DS)
+  - 107845 # Life-Binder's Handmaiden (DS)
+  - 88746 # Vitreous Stone Drake (SC)
+  - 98204 # Amani Battle Bear (ZA)
+  - 96491 # Armored Razzashi Raptor (ZG)
+  - 96499 # Swift Zulian Panther (ZG)
 
 - name: MoP
   things:
-  -  127170 # Astral Cloud Serpent (MSV)
-  -  136471 # Spawn of Horridon (ToT)
-  -  139448 # Clutch of Ji-Kun (ToT)
-  -  148417 # Kor'kron Juggernaut (SoO)
+  - 127170 # Astral Cloud Serpent (MSV)
+  - 136471 # Spawn of Horridon (ToT)
+  - 139448 # Clutch of Ji-Kun (ToT)
+  - 148417 # Kor'kron Juggernaut (SoO)
 
 - name: WoD
   things:
-  -  171621 # Ironhoof Destroyer (BRF)
-  -  182912 # Felsteel Annihilator (HFC)
+  - 171621 # Ironhoof Destroyer (BRF)
+  - 182912 # Felsteel Annihilator (HFC)
 
 - name: Legion
   things:
-  -  229499 # Midnight (Karazhan, Attumen)
-  -  231428 # Smoldering Ember Wyrm (Karazhan, Nightbane)
-  -  213134 # Felblaze Infernal (Gul'dan, Nighthold)
-  -  171827 # Hellfire Infernal (Gul'dan mythic, Nighthold)
-  -  232519 # Abyss Worm (Mistress Sassz'ine, Tomb of Sargeras)
-  -  253088 # Antoran Charhound (Felhounds of Sargeras, Antorus)
-  -  253660 # Biletooth Gnasher (Argus?)
-  -  243651 # Shackled Ur'zul (Argus the Unmaker Mythic, Antorus)
+  - 229499 # Midnight (Karazhan, Attumen)
+  - 231428 # Smoldering Ember Wyrm (Karazhan, Nightbane)
+  - 213134 # Felblaze Infernal (Gul'dan, Nighthold)
+  - 171827 # Hellfire Infernal (Gul'dan mythic, Nighthold)
+  - 232519 # Abyss Worm (Mistress Sassz'ine, Tomb of Sargeras)
+  - 253088 # Antoran Charhound (Felhounds of Sargeras, Antorus)
+  - 253660 # Biletooth Gnasher (Argus?)
+  - 243651 # Shackled Ur'zul (Argus the Unmaker Mythic, Antorus)
 
 - name: BfA
   things:
   - 290718 # Aerial Unit R-6777/X (King Mechagon, Operation: Mechagon)
   - 299158 # Mechagon Peacekeeper (HK-468 Aerial Oppression Unit, Operation: Mechagon Mythic)
   - 291492 # Rusty Mechanocrawler (??, Mechagon)
-  -  254813 # Sharkbait (Harlan Sweete, Freehold)
+  - 254813 # Sharkbait (Harlan Sweete, Freehold)
   - 266058 # Tomb Stalker (King Dazar, Kings' Rest)
   - 273541 # Underrot Crawg (Unbound Abomination, The Underrot)
   - 289083 # G.M.O.D. (High Tinker Mekkatorque, Battle of Dazar'alor)
@@ -85,11 +85,11 @@ groups:
   - 288721 # Island Thunderscale ()
   - 279469 # Qinsho's Eternal Hound ()
   - 288722 # Risen Mare ()
-  -  254811 # Squawks ()
+  - 254811 # Squawks ()
   - 288712 # Stonetide Elderhorn
   - 278979 # Surf Jelly ()
   - 279466 # Twilight Avenger ()
 
 - name: Other
   things:
-  -  201098 # Infinite Timereaver (Timewalking)
+  - 201098 # Infinite Timereaver (Timewalking)

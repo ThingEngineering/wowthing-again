@@ -2,69 +2,69 @@ name: Achievements
 groups:
 - name: Collect
   things:
-  -  60025 # Albino Drake (50 mounts)
-  -  61996 61997 # Blue/Red Dragonhawk (100 mounts)
-  -  133023 # Jade Pandaren Kite (150 mounts)
-  -  142478 142266 # Armored Blue/Red Dragonhawk (200 mounts)
-  -  97501 # Felfire Hawk (250 mounts)
-  -  127169 # Heavenly Azure Cloud Serpent (300 mounts)
+  - 60025 # Albino Drake (50 mounts)
+  - 61996 61997 # Blue/Red Dragonhawk (100 mounts)
+  - 133023 # Jade Pandaren Kite (150 mounts)
+  - 142478 142266 # Armored Blue/Red Dragonhawk (200 mounts)
+  - 97501 # Felfire Hawk (250 mounts)
+  - 127169 # Heavenly Azure Cloud Serpent (300 mounts)
   - 213350 # Frostshard Infernal (No Stable Big Enough, 350 mounts)
   - 280729 # Frenzied Feltalon (A Horde of Hoofbeats, 400 mounts)
-  -  179244 179245 # Chauffeured Mechano-Hog/Chauffeured Mekgineer's Chopper (Heirloom Hoarder)
-  -  223814 # Mechanized Lumber Extractor (300 toys)
+  - 179244 179245 # Chauffeured Mechano-Hog/Chauffeured Mekgineer's Chopper (Heirloom Hoarder)
+  - 223814 # Mechanized Lumber Extractor (300 toys)
 
 - name: WotLK
   things:
-  -  59961 # Red Proto-Drake
-  -  63963 # Rusted Proto-Drake
-  -  63956 # Ironbound Proto-Drake
-  -  72808 # Bloodbathed Frostbrood Vanquisher
-  -  72807 # Icebound Frostbrood Vanquisher
+  - 59961 # Red Proto-Drake
+  - 63963 # Rusted Proto-Drake
+  - 63956 # Ironbound Proto-Drake
+  - 72808 # Bloodbathed Frostbrood Vanquisher
+  - 72807 # Icebound Frostbrood Vanquisher
 
 - name: Cata
   things:
-  -  97359 # Flameward Hippogryph (Molten Front)
-  -  88331 # Volcanic Stone Drake (Glory of the Cataclysm Hero)
-  -  88335 # Drake of the East Wind (Glory of the Cataclysm Raider)
-  -  97560 # Corrupted Fire Hawk (Glory of the Firelands Raider)
-  -  107844 # Twilight Harbinger (Glory of the Dragon Soul Raider)
+  - 97359 # Flameward Hippogryph (Molten Front)
+  - 88331 # Volcanic Stone Drake (Glory of the Cataclysm Hero)
+  - 88335 # Drake of the East Wind (Glory of the Cataclysm Raider)
+  - 97560 # Corrupted Fire Hawk (Glory of the Firelands Raider)
+  - 107844 # Twilight Harbinger (Glory of the Dragon Soul Raider)
 
 - name: MoP
   things:
-  -  130985 118737 # Pandaren Kite String (Pandaren Ambassador)
-  -  127156 # Crimson Cloud Serpent
-  -  127161 # Heavenly Crimson Cloud Serpent
-  -  136400 # Armored Skyscreamer
-  -  148392 # Spawn of Galakras
+  - 130985 118737 # Pandaren Kite String (Pandaren Ambassador)
+  - 127156 # Crimson Cloud Serpent
+  - 127161 # Heavenly Crimson Cloud Serpent
+  - 136400 # Armored Skyscreamer
+  - 148392 # Spawn of Galakras
 
 - name: WoD
   things:
-  -  191633 # Soaring Skyterror (Draenor Pathfinder)
-  -  171632 # Frostplains Battleboar (Glory of the Draenor Hero)
-  -  171436 # Gorestrider Gronnling (Glory of the Draenor Raider)
-  -  186305 # Infernal Direwolf (Glory of the Hellfire Raider)
+  - 191633 # Soaring Skyterror (Draenor Pathfinder)
+  - 171632 # Frostplains Battleboar (Glory of the Draenor Hero)
+  - 171436 # Gorestrider Gronnling (Glory of the Draenor Raider)
+  - 186305 # Infernal Direwolf (Glory of the Hellfire Raider)
 
 - name: Legion
   things:
-  -  225765 # Leyfeather Hippogryph (Glory of the Legion Hero)
-  -  193007 # Grove Defiler (Glory of the Legion Raider)
-  -  253087 # Antoran Gloomhound (Glory of the Argus Raider)
-  -  254260 # Bleakhoof Ruinstrider (...And Chew Mana Buns)
-  -  215558 # Ratstallion (Underbelly Tycoon)
-  -  193695 204166 # Prestigious War Steed/Prestigious War Wolf (Free For All, More For Me)
+  - 225765 # Leyfeather Hippogryph (Glory of the Legion Hero)
+  - 193007 # Grove Defiler (Glory of the Legion Raider)
+  - 253087 # Antoran Gloomhound (Glory of the Argus Raider)
+  - 254260 # Bleakhoof Ruinstrider (...And Chew Mana Buns)
+  - 215558 # Ratstallion (Underbelly Tycoon)
+  - 193695 204166 # Prestigious War Steed/Prestigious War Wolf (Free For All, More For Me)
 
 - name: BfA
   things:
   - 290328 # WOnderwing 2.0 (Battle for Azeroth Pathfinder, Part Two)
-  -  239049 # Obsidian Krolusk (Glory of the Wartorn Hero)
-  -  250735 # Bloodgorged Crawg (Glory of the Uldir Raider)
+  - 239049 # Obsidian Krolusk (Glory of the Wartorn Hero)
+  - 250735 # Bloodgorged Crawg (Glory of the Uldir Raider)
   - 289101 # Dazar'alor Windreaver (Glory of the Dazar'alor Raider)
   - 279454 # Conqueror's Scythemaw (Conqueror of Azeroth)
 
 - name: Other
   things:
-  -  60024 # Violet Proto-Drake (world events)
-  -  142073 # Hearthsteed
-  -  175700 # Emerald Drake (instance mounts)
+  - 60024 # Violet Proto-Drake (world events)
+  - 142073 # Hearthsteed
+  - 175700 # Emerald Drake (instance mounts)
   - 280730 # Pureheart Courser (100 Exalted Reputations)
   - 281044 # Prestigious Bloodforged Courser (Honor Level 500)

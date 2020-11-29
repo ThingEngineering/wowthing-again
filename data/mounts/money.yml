@@ -2,47 +2,47 @@ name: $$$$$
 groups:
 - name: CE
   things:
-  -  124659 # Imperial Quilen (MoP)
-  -  155741 # Dread Raven (WoD)
-  -  189998 # Illidari Felstalker (Legion)
-  -  255695 255696 # Seabraid Stallion/Gilded Ravasaur (Battle for Azeroth Collector's Edition)
+  - 124659 # Imperial Quilen (MoP)
+  - 155741 # Dread Raven (WoD)
+  - 189998 # Illidari Felstalker (Legion)
+  - 255695 255696 # Seabraid Stallion/Gilded Ravasaur (Battle for Azeroth Collector's Edition)
   - 307932 # Ensorcelled Everwyrm (Shadowlands Heroic Edition)
 
 - name: Store
   things:
-  -  139595 # Armored Bloodwing
-  -  75614 # Celestial Steed
+  - 139595 # Armored Bloodwing
+  - 75614 # Celestial Steed
   - 272770 # The Dreadwake
-  -  142878 # Enchanted Fey Dragon
-  -  163025 # Grinning Reaver
-  -  110051 # Heart of the Aspects
+  - 142878 # Enchanted Fey Dragon
+  - 163025 # Grinning Reaver
+  - 110051 # Heart of the Aspects
   - 290134 # Hogrus, Swine of Good Fortune
-  -  153489 # Iron Skyreaver
-  -  243512 # Luminous Starseeker
-  -  180545 # Mystic Runesaber
+  - 153489 # Iron Skyreaver
+  - 243512 # Luminous Starseeker
+  - 180545 # Mystic Runesaber
   - 259395 # Shu-zen, the Divine Sentinel
-  -  134573 # Swift Windsteed
+  - 134573 # Swift Windsteed
   - 290132 # Sylverian Dreamer
   - 290133 # Vulpine Familiar
-  -  163024 # Warforged Nightmare
-  -  98727 # Winged Guardian
+  - 163024 # Warforged Nightmare
+  - 98727 # Winged Guardian
 
 - name: TCG
   things:
-  -  96503 # Amani Dragonhawk
-  -  51412 # Big Battle Bear
-  -  74856 # Blazing Hippogryph
-  -  102514 # Corrupted Hippogryph
-  -  113120 # Feldrake
-  -  136505 # Ghastly Charger
-  -  65917 66122 66123 66124 # Magic Rooster
-  -  93623 # Mottled Drake
-  -  30174 # Riding Turtle
-  -  97581 # Savage Raptor
-  -  42776 # Spectral Tiger
-  -  42777 # Swift Spectral Tiger
-  -  101573 # Swift Shorestrider
-  -  102488 # White Riding Camel
-  -  74918 # Wooly White Rhino
-  -  46197 # X-16081 Nether-Rocket
-  -  46199 # X-16081 Nether-Rocket X-TREME
+  - 96503 # Amani Dragonhawk
+  - 51412 # Big Battle Bear
+  - 74856 # Blazing Hippogryph
+  - 102514 # Corrupted Hippogryph
+  - 113120 # Feldrake
+  - 136505 # Ghastly Charger
+  - 65917 66122 66123 66124 # Magic Rooster
+  - 93623 # Mottled Drake
+  - 30174 # Riding Turtle
+  - 97581 # Savage Raptor
+  - 42776 # Spectral Tiger
+  - 42777 # Swift Spectral Tiger
+  - 101573 # Swift Shorestrider
+  - 102488 # White Riding Camel
+  - 74918 # Wooly White Rhino
+  - 46197 # X-16081 Nether-Rocket
+  - 46199 # X-16081 Nether-Rocket X-TREME
