@@ -2,7 +2,7 @@
     text-align:center;
 
     > h4 {
-        margin: $tooltip-padding*-1 $tooltip-padding*-1 0.5rem $tooltip-padding*-1;
+        margin: $tooltip-padding-y*-1 $tooltip-padding-x*-1 0.5rem $tooltip-padding-x*-1;
         padding: 0.3rem 0.5rem;
         border-bottom: 1px solid $tooltip-border;
         border-top-left-radius: 4px;
@@ -86,7 +86,7 @@
 }
 .tippy-content {
     position: relative;
-    padding: $tooltip-padding;
+    padding: $tooltip-padding-y $tooltip-padding-x;
     z-index: 1;
 }
 
