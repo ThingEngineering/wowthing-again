@@ -2,51 +2,51 @@ name: Vendor
 groups:
 - name: Misc
   things:
-  -  171846    0 # Champion's Treadblade (Alliance chopper thing)
-  -  194464      # Eclipse Dragonhawk
-  -  142910      # Ironbound Wraithcharger
-  -  127165      # Yu'lei, Daughter of Jade (Timewalking)
+  - 171846 # Champion's Treadblade (Alliance chopper thing)
+  - 194464 # Eclipse Dragonhawk
+  - 142910 # Ironbound Wraithcharger
+  - 127165 # Yu'lei, Daughter of Jade (Timewalking)
 
 - name: TBC
   things:
-  -  39316      # Dark Riding Talbuk (Halaa)
-  -  34790      # Dark War Talbuk (Halaa)
-  -  32242  32296 # Swift Blue Gryphon/Swift Yellow Wind Rider
-  -  32290  32295 # Swift Green Gryphon/Swift Green Wind Rider
-  -  32292  32297 # Swift Purple Gryphon/Swift Purple Wind Rider
-  -  32289  32246 # Swift Red Gryphon/Swift Red Wind Rider
-  -  32239  32243 # Ebon Gryphon/Tawny Wind Rider
-  -  32235  32245 # Golden Gryphon/Green Wind Rider
-  -  32240  32244 # Snowy Gryphon/Blue Wind Rider
+  - 39316 # Dark Riding Talbuk (Halaa)
+  - 34790 # Dark War Talbuk (Halaa)
+  - 32242 32296 # Swift Blue Gryphon/Swift Yellow Wind Rider
+  - 32290 32295 # Swift Green Gryphon/Swift Green Wind Rider
+  - 32292 32297 # Swift Purple Gryphon/Swift Purple Wind Rider
+  - 32289 32246 # Swift Red Gryphon/Swift Red Wind Rider
+  - 32239 32243 # Ebon Gryphon/Tawny Wind Rider
+  - 32235 32245 # Golden Gryphon/Green Wind Rider
+  - 32240 32244 # Snowy Gryphon/Blue Wind Rider
 
 - name: WotLK
   things:
-  -  60114  60116 # Armored Brown Bear (Dalaran)
-  -  61229  61230 # Armored Snowy Gryphon/Armored Blue Wind Rider (Dalaran)
-  -  61447  61425 # Traveler's Tundra Mammoth (Dalaran)
-  -  59791  59793 # Wooly Mammoth (Dalaran)
-  -  59785  59788 # Black War Mammoth
-  -  63844      # Argent Hippogryph
-  -  67466      # Argent Warhorse
+  - 60114 60116 # Armored Brown Bear (Dalaran)
+  - 61229 61230 # Armored Snowy Gryphon/Armored Blue Wind Rider (Dalaran)
+  - 61447 61425 # Traveler's Tundra Mammoth (Dalaran)
+  - 59791 59793 # Wooly Mammoth (Dalaran)
+  - 59785 59788 # Black War Mammoth
+  - 63844 # Argent Hippogryph
+  - 67466 # Argent Warhorse
 
 - name: MoP
   things:
-  -  122708      # Grand Expedition Yak (Kun-Lai Summit)
-  -  127220      # Blonde Riding Yak (Kun-Lai Summit)
-  -  127216      # Grey Riding Yak (Kun-Lai Summit)
-  -  148428      # Ashhide Mushan Beast (Timeless Isle)
+  - 122708 # Grand Expedition Yak (Kun-Lai Summit)
+  - 127220 # Blonde Riding Yak (Kun-Lai Summit)
+  - 127216 # Grey Riding Yak (Kun-Lai Summit)
+  - 148428 # Ashhide Mushan Beast (Timeless Isle)
 
 - name: WoD
   things:
-  -  183117      # Corrupted Dreadwing (Apexis Crystals)
-  -  171825      # Mosshide Riverwallow (Apexis Crystals)
-  -  171628      # Rocktusk Battleboar (Gold - Garrison)
-  -  171616      # Witherhide Cliffstomper (Gold - Garrison)
+  - 183117 # Corrupted Dreadwing (Apexis Crystals)
+  - 171825 # Mosshide Riverwallow (Apexis Crystals)
+  - 171628 # Rocktusk Battleboar (Gold - Garrison)
+  - 171616 # Witherhide Cliffstomper (Gold - Garrison)
 
 - name: Legion
   things:
-  -  227956      # Arcadian War Turtle (Curious Coins)
-  -  213115      # Bloodfang Widow (The Mad Merchant)
+  - 227956 # Arcadian War Turtle (Curious Coins)
+  - 213115 # Bloodfang Widow (The Mad Merchant)
 
 - name: BfA
   things:

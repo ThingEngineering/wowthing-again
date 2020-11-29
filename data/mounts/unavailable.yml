@@ -28,8 +28,8 @@ groups:
   things:
   - 60021 # Plagued Proto-Drake (Naxx/etc 10 meta)
   - 59976 # Black Proto-Drake (Naxx/etc 6899 meta)
-  - 68057  68056 # Swift Alliance Steed/Swift Horde Wolf (ToGC 10H)
-  - 68187  68188 # Crusader's White/Black Warhorse (ToGC - A Tribute to Immortality)
+  - 68057 68056 # Swift Alliance Steed/Swift Horde Wolf (ToGC 10H)
+  - 68187 68188 # Crusader's White/Black Warhorse (ToGC - A Tribute to Immortality)
 
 - name: MoP
   things:
@@ -39,7 +39,7 @@ groups:
   - 132118 # Emerald Pandaren Phoenix (CM)
   - 132119 # Violet Pandaren Phoenix (CM)
   - 148396 # Kor'kron War Wolf (Garrosh)
-  - 0 171845 # Warlord's Deathwheel
+  - 171845 # Warlord's Deathwheel
 
 - name: WoD
   things:
@@ -90,7 +90,7 @@ groups:
 - name: Promotions
   things:
   - 58983 # Big Blizzard Bear (Blizzcon)
-  - 245723  245725 # Stormwind Skychaser/Orgrimmar Interceptor (Blizzcon 2017)
+  - 245723 245725 # Stormwind Skychaser/Orgrimmar Interceptor (Blizzcon 2017)
   - 107203 # Tyrael's Charger (Annual Pass)
-  - 107516  107517 # Spectral Gryphon/Spectral Wind Rider (Scroll of Resurrection)
+  - 107516 107517 # Spectral Gryphon/Spectral Wind Rider (Scroll of Resurrection)
   - 232405 # Primal Flamesaber (Heroes of the Storm)
