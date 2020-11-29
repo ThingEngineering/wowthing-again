@@ -22,4 +22,4 @@
     import Collection from './Collection.svelte'
 </script>
 
-<Collection thingType="spell" thingMap={$staticData.MountToSpell} userHas={$userData.mounts} sets={$staticData.MountSets} />
+<Collection thingType="spell" thingMap={$staticData.SpellToMount} userHas={$userData.mounts} sets={$staticData.MountSets} />

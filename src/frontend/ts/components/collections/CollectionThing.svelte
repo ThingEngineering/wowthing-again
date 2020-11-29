@@ -11,9 +11,8 @@
 
     const { hasStore, totalStore } = getContext("collection")
 
-    $: userHasThing = find(things, (t) => userHas[t])
+    $: userHasThing = find(things, (t) => userHas[thingMap[t]])
     $: origId = userHasThing ?? find(things, (t) => t > 0)
-    $: thingId = thingMap[origId]
 
     $: {
         if (userHasThing) {
@@ -43,7 +42,7 @@
 </style>
 
 <div class:thing-yes={userHasThing} class:thing-no={!userHasThing} data-orig-id="{origId}">
-    <a href="https://www.wowdb.com/{thingType}s/{thingId}">
-        <WowthingImage name="{thingType}_{thingId}" size=32 />
+    <a href="https://www.wowdb.com/{thingType}s/{origId}">
+        <WowthingImage name="{thingType}_{origId}" size=32 />
     </a>
 </div>
