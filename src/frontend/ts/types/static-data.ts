@@ -9,8 +9,8 @@ export class StaticData {
     ReputationTiers: Dictionary<StaticDataReputationTier>
 
     MountSets: any // FIXME
-    MountToSpell: Dictionary<number>
     ReputationSets: StaticDataSetCategory<StaticDataReputationSet>[]
+    SpellToMount: Dictionary<number>
 }
 
 class StaticDataClass {
