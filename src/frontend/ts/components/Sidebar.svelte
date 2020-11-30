@@ -17,7 +17,7 @@
         margin: 0;
     }
     li {
-        padding: 0.2rem 1rem;
+        padding: 0.2rem 0.5rem;
     }
     .spacer {
         height: 1rem;

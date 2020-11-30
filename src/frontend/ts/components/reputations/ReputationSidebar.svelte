@@ -16,16 +16,16 @@
         background: $thing-background;
         border: 1px solid $border-color;
         border-radius: $thing-border-radius;
-        margin-right: 2rem;
+        margin-right: 1rem;
         padding: 0.5rem 0;
-        min-width: 10rem;
-        width: 10rem;
+        min-width: 11rem;
+        width: 11rem;
     }
     ul {
         margin: 0;
     }
     li {
-        padding: 0.2rem 1rem;
+        padding: 0.2rem 0.5rem;
     }
 </style>
 

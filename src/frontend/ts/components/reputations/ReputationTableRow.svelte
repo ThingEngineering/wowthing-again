@@ -14,9 +14,11 @@
 <style lang="scss">
     .name {
         padding: 0 0 0 0.3rem;
+        white-space: nowrap;
     }
     .realm {
         padding: 0 1rem;
+        white-space: nowrap;
     }
 </style>
 
