@@ -28,7 +28,12 @@
 
             tooltip = {
                 allowHTML: true,
-                content: `<div class='tooltip-table'><h4>${reputation.Name}</h4>${valueRank}</div>`,
+                content: `
+<div class='tooltip-table'>
+    <h4>${reputation.Name}</h4>
+    ${valueRank}
+    ${repInfo.Note !== null ? '<p><em>' + repInfo.Note + '</em></p>' : ''}
+</div>`,
             }
         }
     }

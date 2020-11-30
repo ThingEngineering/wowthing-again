@@ -7,7 +7,8 @@
     export let reputation: StaticDataReputationSet
 
     $: tooltip = {
-        content: reputation.Both ? reputation.Both.Name : `${reputation.Alliance.Name} / ${reputation.Horde.Name}`,
+        allowHTML: true,
+        content: reputation.Both ? reputation.Both.Name : `[A] ${reputation.Alliance.Name}<br>[H] ${reputation.Horde.Name}`,
     }
 </script>
 
