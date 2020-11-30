@@ -1,3 +1,5 @@
+<svelte:options immutable={true} />
+
 <script lang="ts">
     import flatten from 'lodash/flatten'
 
@@ -12,13 +14,22 @@
 </script>
 
 <style lang="scss">
+    @import '../../../scss/variables.scss';
+
+    td {
+        border-left: 1px solid $border-color;
+    }
     .name {
         padding: 0 0 0 0.3rem;
         white-space: nowrap;
     }
     .realm {
+        border-left: none;
         padding: 0 1rem;
         white-space: nowrap;
+    }
+    .sigh {
+        background: $body-background;
     }
 </style>
 
@@ -34,4 +45,5 @@
             <ReputationTableCell character={character} reputationSet={reputation} />
         {/each}
     {/key}
+    <td class="sigh"></td>
 </tr>
