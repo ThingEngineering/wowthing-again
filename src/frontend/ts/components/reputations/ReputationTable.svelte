@@ -18,12 +18,20 @@
     table {
         background: $thing-background;
         border: 1px solid $border-color;
+        table-layout: fixed;
+        width: 100%;
     }
     th {
         border-bottom: 1px solid $border-color;
     }
     colgroup:nth-child(even) {
-        background: lighten($thing-background, 4%);
+        background: darken($thing-background, 3%);
+    }
+    .name {
+        width: 9rem;
+    }
+    .realm {
+        width: 9rem;
     }
 </style>
 
@@ -34,7 +42,8 @@
     {/each}
     <thead>
         <tr>
-            <th colspan="2"></th>
+            <th class="name"></th>
+            <th class="realm"></th>
             {#key category.Name}
                 {#each flatten(category.Reputations) as reputation}
                     <ReputationTableIcon reputation={reputation} />
