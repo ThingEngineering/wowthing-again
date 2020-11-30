@@ -17,7 +17,6 @@
 
     table {
         background: $thing-background;
-        border: 1px solid $border-color;
         table-layout: fixed;
         width: 100%;
     }
@@ -28,10 +27,16 @@
         background: darken($thing-background, 3%);
     }
     .name {
-        width: 9rem;
+        background: $body-background;
+        width: 10rem;
     }
     .realm {
-        width: 9rem;
+        background: $body-background;
+        width: 8.5rem;
+    }
+    .sigh {
+        background: $body-background;
+        border-width: 0;
     }
 </style>
 
@@ -49,6 +54,7 @@
                     <ReputationTableIcon reputation={reputation} />
                 {/each}
             {/key}
+            <th class="sigh"></th>
         </tr>
     </thead>
     <tbody>
