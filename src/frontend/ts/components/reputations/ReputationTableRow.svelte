@@ -1,6 +1,8 @@
 <script lang="ts">
     import flatten from 'lodash/flatten'
 
+    import getRealmName from '../../utils/get-realm-name'
+
     import ClassIcon from '../images/ClassIcon.svelte'
     import RaceIcon from '../images/RaceIcon.svelte'
     import ReputationTableCell from './ReputationTableCell.svelte'
@@ -24,7 +26,7 @@
         <ClassIcon character={character} size={20} />
         {character.name}
     </td>
-    <td class="realm">&ndash; {character.getRealmName()}</td>
+    <td class="realm">&ndash; {getRealmName(character.realmId)}</td>
     {#key category.Name}
         {#each flatten(category.Reputations) as reputation}
             <ReputationTableCell character={character} reputationSet={reputation} />

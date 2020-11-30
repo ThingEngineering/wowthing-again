@@ -1,5 +1,6 @@
 <script lang="ts">
     import { data } from '../../stores/user-store'
+    import getRealmName from '../../utils/get-realm-name'
 
     import ClassIcon from '../images/ClassIcon.svelte'
     import RaceIcon from '../images/RaceIcon.svelte'
@@ -23,7 +24,7 @@
                 <td><RaceIcon character={character} size=20 /></td>
                 <td><ClassIcon character={character} size=20 /></td>
                 <td>{character.name}</td>
-                <td>&mdash; {character.getRealmName()}</td>
+                <td>&mdash; {getRealmName(character.realmId)}</td>
                 <td>{character.level}</td>
             </tr>
         {/each}
