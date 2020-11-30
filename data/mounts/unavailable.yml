@@ -82,14 +82,17 @@ groups:
   - 227995 # Dominating Gladiator's Storm Dragon (Legion S6)
   - 243201 # Demonic Gladiator's Storm Dragon (Legion S7)
   - 262022 # Dread Gladiator's Proto-Drake (BfA Season 1)
-  - 262023 # Sinister Gladiator's Proto-Drake (Bfa Season 2)
+  - 262023 # Sinister Gladiator's Proto-Drake (BfA Season 2)
+  - 165019 281890 # Vicious Black Warsaber/Vicious Black Bonesteed (BfA Season 2)
   - 262024 # Notorious Gladiator's Proto-Drake (BfA Season 3)
   - 262027 # Corrupted Gladiator's Proto-Drake (BfA Season 4)
+  - 165019 281889 # Vicious White Warsaber/Vicious White Bonesteed (BfA Season 4)
 
 - name: Promotions
   things:
   - 58983 # Big Blizzard Bear (Blizzcon)
+  - 281554 # Meat Wagon (Warcraft III: Reforged Spoils of War Edition)
+  - 232405 # Primal Flamesaber (Heroes of the Storm)
+  - 107516 107517 # Spectral Gryphon/Spectral Wind Rider (Scroll of Resurrection)
   - 245723 245725 # Stormwind Skychaser/Orgrimmar Interceptor (Blizzcon 2017)
   - 107203 # Tyrael's Charger (Annual Pass)
-  - 107516 107517 # Spectral Gryphon/Spectral Wind Rider (Scroll of Resurrection)
-  - 232405 # Primal Flamesaber (Heroes of the Storm)

@@ -55,16 +55,19 @@ groups:
 
 - name: BfA
   things:
-  - 290328 # Wonderwing 2.0 (Battle for Azeroth Pathfinder, Part Two)
-  - 239049 # Obsidian Krolusk (Glory of the Wartorn Hero)
+  - 292419 # Azshari Bloatray (Glory of the Palace Raider)
   - 250735 # Bloodgorged Crawg (Glory of the Uldir Raider)
-  - 289101 # Dazar'alor Windreaver (Glory of the Dazar'alor Raider)
   - 279454 # Conqueror's Scythemaw (Conqueror of Azeroth)
+  - 289101 # Dazar'alor Windreaver (Glory of the Dazar'alor Raider)
+  - 239049 # Obsidian Krolusk (Glory of the Wartorn Hero)
+  - 294039 # Snapback Scuttler (Undersea Usurper)
+  - 290328 # Wonderwing 2.0 (Battle for Azeroth Pathfinder, Part Two)
 
 - name: Other
   things:
-  - 60024 # Violet Proto-Drake (world events)
-  - 142073 # Hearthsteed
   - 175700 # Emerald Drake (instance mounts)
-  - 280730 # Pureheart Courser (100 Exalted Reputations)
+  - 142073 # Hearthsteed
+  - 294197 # Obsidian Worldbreaker (15th anniversary event)
   - 281044 # Prestigious Bloodforged Courser (Honor Level 500)
+  - 280730 # Pureheart Courser (100 Exalted Reputations)
+  - 60024 # Violet Proto-Drake (world events)
