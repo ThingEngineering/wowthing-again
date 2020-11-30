@@ -11,30 +11,30 @@ groups:
   things:
   - 39316 # Dark Riding Talbuk (Halaa)
   - 34790 # Dark War Talbuk (Halaa)
+  - 32235 32245 # Golden Gryphon/Green Wind Rider
+  - 32240 32244 # Snowy Gryphon/Blue Wind Rider
+  - 32239 32243 # Ebon Gryphon/Tawny Wind Rider
   - 32242 32296 # Swift Blue Gryphon/Swift Yellow Wind Rider
   - 32290 32295 # Swift Green Gryphon/Swift Green Wind Rider
   - 32292 32297 # Swift Purple Gryphon/Swift Purple Wind Rider
   - 32289 32246 # Swift Red Gryphon/Swift Red Wind Rider
-  - 32239 32243 # Ebon Gryphon/Tawny Wind Rider
-  - 32235 32245 # Golden Gryphon/Green Wind Rider
-  - 32240 32244 # Snowy Gryphon/Blue Wind Rider
 
 - name: WotLK
   things:
-  - 60114 60116 # Armored Brown Bear (Dalaran)
-  - 61229 61230 # Armored Snowy Gryphon/Armored Blue Wind Rider (Dalaran)
-  - 61425 61447 # Traveler's Tundra Mammoth (Dalaran)
-  - 59791 59793 # Wooly Mammoth (Dalaran)
-  - 59785 59788 # Black War Mammoth
   - 63844 # Argent Hippogryph
   - 67466 # Argent Warhorse
+  - 60114 60116 # Armored Brown Bear (Dalaran)
+  - 61229 61230 # Armored Snowy Gryphon/Armored Blue Wind Rider (Dalaran)
+  - 59785 59788 # Black War Mammoth
+  - 61425 61447 # Traveler's Tundra Mammoth (Dalaran)
+  - 59791 59793 # Wooly Mammoth (Dalaran)
 
 - name: MoP
   things:
-  - 122708 # Grand Expedition Yak (Kun-Lai Summit)
-  - 127220 # Blonde Riding Yak (Kun-Lai Summit)
-  - 127216 # Grey Riding Yak (Kun-Lai Summit)
   - 148428 # Ashhide Mushan Beast (Timeless Isle)
+  - 127220 # Blonde Riding Yak (Kun-Lai Summit)
+  - 122708 # Grand Expedition Yak (Kun-Lai Summit)
+  - 127216 # Grey Riding Yak (Kun-Lai Summit)
 
 - name: WoD
   things:
@@ -50,8 +50,15 @@ groups:
 
 - name: BfA
   things:
-  - 264058 # Mighty Caravan Brutosaur (? unavailable)
-  - 279474 # Palehide Direhorn (?)
+  - 288736 # Azureshell Krolusk (Service Medal)
+  - 288714 # Bloodthirsty Dreadwing (Service Medal)
   - 288587 # Blue Marsh Hopper (Gottum, Nazmir)
   - 259740 # Green Marsh Hopper (Gottum, Nazmir)
+  - 264058 # Mighty Caravan Brutosaur (? unavailable)
+  - 279474 # Palehide Direhorn (?)
+  - 288740 # Priestess' Moonsaber (Service Medal)
+  - 288735 # Rubyshell Krolusk (Service Medal)
+  - 288711 # Saltwater Seahorse (Seafarer's Dubloon)
+  - 288506 # Sandy Nightsaber (Service Medal)
+  - 266925 # Siltwing Albatross (Seafarer's Dubloon)
   - 288589 # Yellow Marsh Hopper (Gottum, Nazmir)

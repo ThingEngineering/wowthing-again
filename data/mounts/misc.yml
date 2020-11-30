@@ -1,5 +1,10 @@
 name: Misc
 groups:
+- name: BfA
+  things:
+  - 294143 # X-995 Mechanocat (Mechagon craftable)
+  - 256123 # Xiwyllag ATV (BS & eng crafted items from Operation: Mechagon)
+
 - name: Pandaren
   things:
   - 127295 # Great Black Dragon Turtle
@@ -30,13 +35,14 @@ groups:
   things:
   - 13819 # Warhorse (Paladin)
   - 23214 # Charger (Paladin)
+  - 66906 # Argent Charger (Paladin)
   - 73629 # Exarch's Elekk (Draenei Paladin)
   - 73630 # Great Exarch's Elekk (Draenei Paladin)
   - 34769 # Thalassian Warhorse (BE Paladin)
   - 34767 # Thalassian Charger (BE Paladin)
   - 69820 # Sunwalker Kodo (Tauren Paladin)
   - 69826 # Great Sunwalker Kodo (Tauren Paladin)
-  - 66906 # Argent Charger (Paladin)
+  - 290608 # Crusader's Direhorn (Zandalari Paladin)
   - 270562 # Darkforge Ram (Dark Iron Paladin?)
   - 270564 # Dawnforge Ram (Dark Iron Paladin?)
   - 5784 # Felsteed (Warlock)
@@ -118,6 +124,7 @@ groups:
 - name: Quests
   things:
   - 138640 # Bone-White Primal Raptor
+  - 166724 # Bruce (Brawler's Guild questline)
   - 75207 # Vashj'ir Seahorse (Kelp'thar Forest, The Abyssal Ride quest)
   - 54753 # White Polar Bear (The Storm Peaks, Brunnhildar Village daily, random Hyldnir Spoils reward)
 
