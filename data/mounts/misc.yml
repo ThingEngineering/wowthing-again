@@ -118,8 +118,8 @@ groups:
 - name: Quests
   things:
   - 138640 # Bone-White Primal Raptor
-  - 75207 # Vashj'ir Seahorse
-  - 54753 # White Polar Bear
+  - 75207 # Vashj'ir Seahorse (Kelp'thar Forest, The Abyssal Ride quest)
+  - 54753 # White Polar Bear (The Storm Peaks, Brunnhildar Village daily, random Hyldnir Spoils reward)
 
 - name: Quests - Legion
   things:

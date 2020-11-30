@@ -6,23 +6,22 @@ groups:
   - 16056 # Ancient Frostsaber
   - 16081 # Arctic Wolf
   - 16055 # Black Nightsaber
-  - 25863 26655 26656 # Black Qiraji Battle Tank (AQ40 opening)
-  - 6896 17461 # Black Ram
+  - 26656 # Black Qiraji Battle Tank (AQ40 opening)
+  - 17461 # Black Ram
   - 43899 # Brewfest Ram
   - 17460 # Frost Ram
   - 18991 # Green Kodo
   - 17459 # Icy Blue Mechanostrider Mod A
-  - 10795 17450 # Ivory Raptor
+  - 17450 # Ivory Raptor
   - 16082 # Palomino
-  - 579 16080 # Red Wolf
+  - 16080 # Red Wolf
 # - 66847 # Swift Dawnsaber - Duplicates Striped Dawnsaber?
   - 24242 # Swift Razzashi Raptor (ZG)
   - 24252 # Swift Zulian Tiger (ZG)
   - 18992 # Teal Kodo
   - 16084 # Mottled Red Raptor
   - 15779 # White Mechanostrider Mod B
-  - 468 16083 # White Stallion
-  - 581 # Winter Wolf
+  - 16083 # White Stallion
 
 - name: WotLK
   things:
