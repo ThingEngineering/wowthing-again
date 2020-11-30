@@ -3,9 +3,9 @@ groups:
 - name: Classic
   things:
   - 17481 # Rivendare's Deathcharger (Stratholme)
-  - 25953 239766 # Blue Qiraji Battle Tank (AQ40)
+  - 25953 # Blue Qiraji Battle Tank (AQ40)
   - 26056 # Green Qiraji Battle Tank (AQ40)
-  - 26054 239767 # Red Qiraji Battle Tank (AQ40)
+  - 26054 # Red Qiraji Battle Tank (AQ40)
   - 26055 # Yellow Qiraji Battle Tank (AQ40)
 
 - name: TBC
@@ -21,7 +21,7 @@ groups:
   - 59568 # Blue Drake (Malygos)
   - 59650 # Black Drake (OS)
   - 59571 # Twilight Drake (OS)
-  - 61465  61467 # Grand Black War Mammoth (VoA)
+  - 61465 61467 # Grand Black War Mammoth (VoA)
   - 63796 # Mimiron's Head (Uld)
   - 69395 # Onyxian Drake (Ony)
   - 72286 # Invincible (ICC)

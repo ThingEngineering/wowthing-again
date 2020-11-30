@@ -24,7 +24,7 @@ groups:
 
 - name: Orgrimmar
   things:
-  - 578 64658 # Black Wolf
+  - 64658 # Black Wolf
   - 6654 # Brown Wolf
   - 6653 # Dire Wolf
   - 580 # Timber Wolf

@@ -34,8 +34,8 @@ groups:
 
 - name: Gnomeregan
   things:
-  - 10969 33630 # Blue Mechanostrider
-  - 15780 17453 # Green Mechanostrider
+  - 10969 # Blue Mechanostrider
+  - 17453 # Green Mechanostrider
   - 10873 # Red Mechanostrider
   - 17454 # Unpainted Mechanostrider
   - 23225 # Swift Green Mechanostrider
