@@ -1,0 +1,38 @@
+name: Cataclysm
+reputations:
+
+# 4.2 - ?
+- - both:
+      id: 1204
+      name: Avengers of Hyjal
+      icon: inv_neck_hyjaldaily_04
+
+# 4.0
+- - alliance:
+      id: 1174
+      name: Kirin Tor Offensive
+      icon: inv_misc_tabard_wildhammerclan
+    horde:
+      id: 1172
+      name: Sunreaver Onslaught
+      icon: inv_misc_tabard_dragonmawclan
+
+  - both:
+      id: 1135
+      name: The Earthen Ring
+      icon: inv_misc_tabard_earthenring
+
+  - both:
+      id: 1158
+      name: Guardians of Hyjal
+      icon: inv_misc_tabard_guardiansofhyjal
+
+  - both:
+      id: 1173
+      name: Ramkahen
+      icon: inv_misc_tabard_tolvir
+
+  - both:
+      id: 1171
+      name: Therazane
+      icon: inv_misc_tabard_therazane
