@@ -1,0 +1,94 @@
+name: Mists of Pandaria
+reputations:
+
+# 6.x - Tanaan Jungle
+- - alliance:
+      id: 1847
+      name: Hand of the Prophet
+      icon: inv_guild_standard_alliance_c
+    horde:
+      id: 1848
+      name: Vol'jin's Headhunters
+      icon: inv_guild_standard_horde_c
+
+  - both:
+      id: 1849
+      name: Order of the Awakened
+      icon: inv_tabard_a_82awakenedorder
+
+  - both:
+      id: 1850
+      name: The Saberstalkers
+      icon: inv_misc_blacksaberonfang
+
+# 6.0
+- - alliance:
+      id: 1731
+      name: Council of Exarchs
+      icon: inv_tabard_a_81exarchs
+    horde:
+      id: 1445
+      name: Frostwolf Orcs
+      icon: inv_tabard_a_01frostwolfclan
+
+  - alliance:
+      id: 1710
+      name: Sha'tari Defense
+      icon: inv_tabard_a_shataridefense
+    horde:
+      id: 1708
+      name: Laughing Skull Orcs
+      icon: inv_tabard_a_80laughingskull
+
+  - alliance:
+      id: 1682
+      name: Wrynn's Vanguard
+      icon: inv_tabard_a_78wrynnvanguard
+    horde:
+      id: 1681
+      name: Vol'jin's Spear
+      icon: inv_tabard_a_77voljinsspear
+
+  - both:
+      id: 1515
+      name: Arakkoa Outcasts
+      icon: inv_tabard_a_76arakkoaoutcast
+
+  - both:
+      id: 1711
+      name: Steamwheedle Preservation Society
+      icon: achievement_goblinhead
+
+# Friends
+- - alliance:
+      id: 1733
+      name: Delvar Ironfist
+      icon: FollowerPortrait_59353
+    horde:
+      id: 1739
+      name: Vivianne
+      icon: FollowerPortrait_56610
+
+  - both:
+      id: 1736
+      name: Tormmok
+      icon: FollowerPortrait_57173
+
+  - alliance:
+      id: 1738
+      name: Defender Illona
+      icon: FollowerPortrait_59839
+    horde:
+      id: 1740
+      name: Aeda Brightdawn
+      icon: FollowerPortrait_59874
+
+  - both:
+      id: 1741
+      name: Leorajh
+      icon: FollowerPortrait_61487
+
+  - both:
+      id: 1737
+      name: Talonpriest Ishaal
+      icon: FollowerPortrait_59461
