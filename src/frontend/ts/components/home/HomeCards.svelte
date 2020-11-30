@@ -1,5 +1,6 @@
 <script lang="ts">
     import {data} from '../../stores/user-store'
+    import getRealmName from '../../utils/get-realm-name'
 
     import ClassIcon from '../images/ClassIcon.svelte'
     import RaceIcon from '../images/RaceIcon.svelte'
@@ -72,7 +73,7 @@
                 <div class="level">{character.level}</div>
             </div>
             <div class="name">{character.name}</div>
-            <div class="realm">{character.getRealmName()}</div>
+            <div class="realm">{getRealmName(character.realmId)}</div>
             {#if character.shadowlands}
                 <div class="covenant">
                     <CharacterShadowlands character={character} />
