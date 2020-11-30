@@ -1,0 +1,96 @@
+name: Legion
+reputations:
+
+# 7.3 - Argus
+- - both:
+      id: 2170
+      name: Argussian Reach
+      icon: inv_legion_faction_argussianreach
+    paragon: true
+
+  - both:
+      id: 2165
+      name: Army of the Light
+      icon: inv_legion_faction_armyofthelight
+    paragon: true
+
+# 7.2 - Broken Shore
+- - both:
+      id: 2045
+      name: Armies of Legionfall
+      icon: achievement_faction_legionfall
+    paragon: true
+
+# 7.0
+- - both:
+      id: 1900
+      name: Court of Farondis
+      icon: inv_legion_faction_courtoffarnodis
+    paragon: true
+
+  - both:
+      id: 1883
+      name: Dreamweavers
+      icon: inv_legion_faction_dreamweavers
+    paragon: true
+
+  - both:
+      id: 1828
+      name: Highmountain Tribe
+      icon: inv_legion_faction_hightmountaintribes
+    paragon: true
+
+  - both:
+      id: 1828
+      name: The Nightfallen
+      icon: inv_legion_faction_nightfallen
+    paragon: true
+
+  - both:
+      id: 1828
+      name: Valarjar
+      icon: inv_legion_faction_valarjar
+    paragon: true
+
+  - both:
+      id: 1828
+      name: The Wardens
+      icon: inv_legion_faction_warden
+    paragon: true
+
+# Friends - 7.?
+- - both:
+      id: 1975
+      name: Conjurer Margoss
+      icon: inv_elemental_primal_water
+
+# Friends
+- - both:
+      id: 2099
+      name: Akule Riverhorn
+      icon: trade_archaeology_vrykul_runestick
+
+  - both:
+      id: 2100
+      name: Corbyn
+      icon: inv_jewelcrafting_gem_27
+
+  - both:
+      id: 2097
+      name: Ilyssia of the Waters
+      icon: ability_monk_forcesphere
+
+  - both:
+      id: 2102
+      name: Impus
+      icon: ability_deathknight_desecratedground
+
+  - both:
+      id: 2098
+      name: Keeper Raynae
+      icon: ability_xavius_corruptingnova
+
+  - both:
+      id: 2101
+      name: Sha'leth
+      icon: inv_misc_fish_58
