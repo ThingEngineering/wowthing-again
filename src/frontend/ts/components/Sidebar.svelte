@@ -8,7 +8,7 @@
         background: $thing-background;
         border: 1px solid $border-color;
         border-radius: $thing-border-radius;
-        margin-right: 2rem;
+        margin-right: 1rem;
         padding: 0.5rem 0;
         min-width: 9rem;
         width: 9rem;

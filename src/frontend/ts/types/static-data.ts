@@ -64,4 +64,5 @@ class StaticDataReputationReputation {
     Id: number
     Name: string
     Icon: string
+    Note: string
 }

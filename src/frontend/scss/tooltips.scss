@@ -2,7 +2,7 @@
     text-align:center;
 
     > h4 {
-        margin: $tooltip-padding-y*-1 $tooltip-padding-x*-1 0.5rem $tooltip-padding-x*-1;
+        margin: $tooltip-padding-y*-1 $tooltip-padding-x*-1 $tooltip-padding-y $tooltip-padding-x*-1;
         padding: 0.3rem 0.5rem;
         border-bottom: 1px solid $tooltip-border;
         border-top-left-radius: 4px;
@@ -11,6 +11,13 @@
         color: $tooltip-title-color;
         font-size: 1rem;
         font-weight: normal;
+    }
+    em {
+        color: #4fc3f7;
+    }
+    p {
+        margin-top: 0.5rem;
+        margin-bottom: 0;
     }
 }
 
