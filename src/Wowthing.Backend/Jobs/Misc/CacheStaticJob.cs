@@ -145,10 +145,10 @@ namespace Wowthing.Backend.Jobs.Misc
             {
                 var newSkip = new DeserializerBuilder()
                     .Build()
-                    .Deserialize<int[]>(File.OpenText(skipPath));
+                    .Deserialize<string[]>(File.OpenText(skipPath));
                 if (newSkip != null)
                 {
-                    skip = newSkip;
+                    skip = newSkip.SelectMany(s => s.Split(' ')).Select(s => int.Parse(s)).ToArray();
                 }
             }
 
