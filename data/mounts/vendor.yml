@@ -38,6 +38,8 @@ groups:
 
 - name: WoD
   things:
+  - 294568 # Beastlord's Irontusk (Timewarped Badge)
+  - 294569 # Beastlord's Warwolf (Timewarped Badge)
   - 183117 # Corrupted Dreadwing (Apexis Crystals)
   - 171825 # Mosshide Riverwallow (Apexis Crystals)
   - 171628 # Rocktusk Battleboar (Gold - Garrison)
@@ -53,12 +55,16 @@ groups:
   - 288736 # Azureshell Krolusk (Service Medal)
   - 288714 # Bloodthirsty Dreadwing (Service Medal)
   - 288587 # Blue Marsh Hopper (Gottum, Nazmir)
+  - 300153 # Crimson Tidestallion (Mrrl, Nazjatar)
   - 259740 # Green Marsh Hopper (Gottum, Nazmir)
+  - 300151 # Inkscale Deepseeker (Nazjatar Battle Commendation)
   - 264058 # Mighty Caravan Brutosaur (? unavailable)
   - 279474 # Palehide Direhorn (?)
   - 288740 # Priestess' Moonsaber (Service Medal)
+  - 315427 # Rajani Warserpent (Pristine Cloud Serpent Scale)
   - 288735 # Rubyshell Krolusk (Service Medal)
   - 288711 # Saltwater Seahorse (Seafarer's Dubloon)
   - 288506 # Sandy Nightsaber (Service Medal)
   - 266925 # Siltwing Albatross (Seafarer's Dubloon)
+  - 316340 # Wicked Swarmer (Corrupted Mementos)
   - 288589 # Yellow Marsh Hopper (Gottum, Nazmir)
