@@ -8,5 +8,6 @@ namespace Wowthing.Lib.Enums
     {
         Alliance,
         Horde,
+        Neutral,
     }
 }
