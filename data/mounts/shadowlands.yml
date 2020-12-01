@@ -3,9 +3,30 @@ groups:
 - name: Achievements
   things:
   - 344578 # Corridor Creeper (Twisting Corridors: Layer 8)
+  - 318052 # Deathbringer's Flayedwing (Deathbringer)
   - 332903 # Rampart Screecher (Glory of the Nathria Raider)
+  - 332400 # Sinful Gladiator's Soul Eater (Sinful Gladiator: Shadowlands Season 1)
   - 340068 # Sintouched Deathwalker (Shadowlands Keystone Master: Season One)
   - 344659 # Voracious Gorger (Glory of the Shadowlands Hero)
+
+- name: Adventures
+  things:
+  - 312776 # Chittering Animite
+  - 312763 # Darkwarren Hardshell
+  - 341776 # Highwind Darkmane
+  - 341766 # Warstitched Darkhound
+
+- name: Instances
+  things:
+  - 336036 # Marrowfang (The Necrotic Wake)
+
+- name: Professions
+  things:
+  - 336041 # Bonesewn Fleshroc (Abominable Stitching)
+
+- name: PvP
+  things:
+  - 327407 327408 # Vicious War Spider (Season 1)
 
 - name: Rare Spawns
   things:
@@ -14,7 +35,6 @@ groups:
   #-  # Bonecleaver's Skullboar (Sabriel the Bonecleaver, Maldraxxus)
   - 332905 # Endmire Flyer (Famu the Infinite, Revendreth)
   - 332480 # Gorespine (Nerissa Heartless, Maldraxxus)
-  #-  # Hopecrusher Gargon (Hopecrusher, Revendreth)
   - 332882 # Horrid Dredwing (Harika the Horrid, Revendreth)
   - 336042 # Hulking Deathroc (Violet Mistake, Maldraxxus)
   - 333027 # Loyal Gorger (Worldedge Gorger, Revendreth)
@@ -28,8 +48,7 @@ groups:
 - name: Reputations
   things:
   - 342666 # Amber Adrenmoth (Wild Hunt Emissary)
-  #-  # Colossal Slaughterclaw (? Emissary)
-  - 327405 # Court Sinrunner (Court of Harvesters, Exalted)
+  - 341639 # Court Sinrunner (Court of Harvesters, Exalted)
   - 332256 # Duskflutter Ardenmoth (The Wild Hunt, Exalted)
   - 342334 # Gilded Prowler (The Ascended, Exalted)
   #-  # Inquisition Gargon (The Avowed, Exalted) Vampire bonus faction?
@@ -42,6 +61,29 @@ groups:
   - 334433 # Silverwind Larion (Cache of the Ascended, Bastion)
   - 339588 # Sinrunner Blanchy (Dead Blanchy, Revendreth)
   - 334352 # Wildseed Cradle (Cache of the Moon, Ardenweald)
+
+- name: Vendors
+  things:
+  - 318051 # Silky Shimmermoth (Master Clerk Salorn, Ardenweald)
+  - 340503 # Umbral Scythehorn (Spindlenose, Ardenweald)
+  - 342667 # Vibrant Flutterwing (Cortinarius, Ardenweald)
+
+- name: World Drops
+  things:
+  - 344228 # Battle-Bound Warhound (Theatre of Pain, Maldraxxus)
+  - 344574 # Bulbous Necroray (Supplies of the Undying Army)
+  - 336038 # Callow Flayedwing (Maldraxxus)
+  - 327405 # Colossal Slaughterclaw (Supplies of the Undying Army, Maldraxxus)
+  - 344576 # Infested Necroray (Supplies of the Undying Army)
+  - 344575 # Pestilent Necroray (Supplies of the Undying Army)
+  - 346141 # Slime Serpent (Slime Serpent, Plaguefall)
+
+- name: Covenant
+  things:
+  - 336064 # Dauntless Duskrunner
+  - 336039 # Gruesome Flayedwing
+  - 334365 # Pale Acidmaw
+  - 312777 # Silvertip Dredwing
 
 - name: Covenant - Kyrian
   things:
@@ -79,8 +121,10 @@ groups:
 - name: Covenant - Venthyr
   things:
   - 332932 # Crypt Gargon
+  - 312753 # Hopecrusher Gargon (Revendreth)
   - 332923 # Inquisition Gargon
   - 332927 # Sinfall Gargon
   - 333023 # Battle Gargon Silessa
+  - 312754 # Battle Gargon Vrednic
   - 332949 # Desire's Battle Gargon
   - 333021 # Gravestone Battle Gargon
