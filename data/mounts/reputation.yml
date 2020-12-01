@@ -2,123 +2,127 @@ name: Reputation
 groups:
 - name: Classic
   things:
-  -  43927      # Cenarion War Hippogryph (Cenarion Expedtion)
-  -   17229  64659 # Winterspring Frostsaber/Whistle of the Venomhide Ravasaur (Wintersaber Trainers/whatever dudes)
+  - 43927 # Cenarion War Hippogryph (Cenarion Expedtion)
+  - 17229 64659 # Winterspring Frostsaber/Whistle of the Venomhide Ravasaur (Wintersaber Trainers/whatever dudes)
 
 - name: TBC - Kurenai/Mag'har
   things:
-  -  39315 # Cobalt Riding Talbuk
-  -  39317 # Silver Riding Talbuk
-  -  39318 # Tan Riding Talbuk
-  -  39319 # White Riding Talbuk
-  -  34896 # Cobalt War Talbuk
-  -  34898 # Silver War Talbuk
-  -  34899 # Tan War Talbuk
-  -  34897 # White War Talbuk
+  - 39315 # Cobalt Riding Talbuk
+  - 39317 # Silver Riding Talbuk
+  - 39318 # Tan Riding Talbuk
+  - 39319 # White Riding Talbuk
+  - 34896 # Cobalt War Talbuk
+  - 34898 # Silver War Talbuk
+  - 34899 # Tan War Talbuk
+  - 34897 # White War Talbuk
 
 - name: TBC - Netherwing
   things:
-  -  41514 # Azure Netherwing Drake
-  -  41515 # Cobalt Netherwing Drake
-  -  41513 # Onyx Netherwing Drake
-  -  41516 # Purple Netherwing Drake
-  -  41517 # Veridian Netherwing Drake
-  -  41518 # Violet Netherwing Drake
+  - 41514 # Azure Netherwing Drake
+  - 41515 # Cobalt Netherwing Drake
+  - 41513 # Onyx Netherwing Drake
+  - 41516 # Purple Netherwing Drake
+  - 41517 # Veridian Netherwing Drake
+  - 41518 # Violet Netherwing Drake
 
 - name: TBC - Sha'tari Skyguard
   things:
-  -  39803 # Blue Riding Nether Ray
-  -  39798 # Green Riding Nether Ray
-  -  39801 # Purple Riding Nether Ray
-  -  39800 # Red Riding Nether Ray
-  -  39802 # Silver Riding Nether Ray
+  - 39803 # Blue Riding Nether Ray
+  - 39798 # Green Riding Nether Ray
+  - 39801 # Purple Riding Nether Ray
+  - 39800 # Red Riding Nether Ray
+  - 39802 # Silver Riding Nether Ray
 
 - name: WotLK
   things:
-  -  61294 # Green Proto-Drake (Oracles)
-  -  66087  66088 # Silver Covenant Hippogryph/Sunreaver Dragonhawk (Silver Covenant)
-  -  66090  66091 # Quel'dorei Steed/Sunreaver Hawkstrider (Silver Covenant)
-  -  61469  61470 # Grand Ice Mammoth (Sons of Hodir)
-  -  59797  59799 # Ice Mammoth (Sons of Hodir)
-  -  59570 # Red Drake (Wyrmrest Accord)
+  - 61294 # Green Proto-Drake (Oracles)
+  - 66087 66088 # Silver Covenant Hippogryph/Sunreaver Dragonhawk (Silver Covenant)
+  - 66090 66091 # Quel'dorei Steed/Sunreaver Hawkstrider (Silver Covenant)
+  - 61469 61470 # Grand Ice Mammoth (Sons of Hodir)
+  - 59797 59799 # Ice Mammoth (Sons of Hodir)
+  - 59570 # Red Drake (Wyrmrest Accord)
 
 - name: Cata
   things:
-  -  88741 # Drake of the West Wind (Baradin's Wardens)
-  -  92231  92232 # Spectral Steed/Spectral Wolf (Baradin's Wardens)
-  -  88748 # Brown Riding Camel (Ramkahen)
-  -  88749 # Tan Riding Camel (Ramkahen)
+  - 88741 # Drake of the West Wind (Baradin's Wardens)
+  - 92231 92232 # Spectral Steed/Spectral Wolf (Baradin's Wardens)
+  - 88748 # Brown Riding Camel (Ramkahen)
+  - 88749 # Tan Riding Camel (Ramkahen)
 
 - name: MoP
   things:
-  -  118089 # Azure Water Strider (Anglers)
-  -  129918 # Thundering August Cloud Serpent (August Celestials)
-  -  132036 # Thundering Ruby Cloud Serpent (August Celestials)
-  -  127174 # Azure Riding Crane (Golden Lotus)
-  -  127176 # Golden Riding Crane (Golden Lotus)
-  -  127177 # Regal Riding Crane (Golden Lotus)
-  -  123886 # Amber Scorpion (Klaxxi)
-  -  130092 # Red Flying Cloud (Lorewalkers)
-  -  123992 # Azure Cloud Serpent (Order of the Cloud Serpent)
-  -  123993 # Golden Cloud Serpent (Order of the Cloud Serpent)
-  -  113199 # Jade Cloud Serpent (Order of the Cloud Serpent)
-  -  129934 # Blue Shado-Pan Riding Tiger (Shado-Pan)
-  -  129932 # Green Shado-Pan Riding Tiger (Shado-Pan)
-  -  129935 # Red Shado-Pan Riding Tiger (Shado-Pan)
-  -  127154 # Onyx Cloud Serpent (Shado-Pan)
-  -  130138 # Black Riding Goat (Tillers)
-  -  130086 # Brown Riding Goat (Tillers)
-  -  130137 # White Riding Goat (Tillers)
-  -  136163  136164 # Grand Gryphon/Grand Wyvern (Operation: Shieldwall/Dominance Offensive)
-  -  135416  135418 # Grand Armored Gryphon/Grand Armored Wyvern (Operation: Shieldwall/Dominance Offensive)
-  -  140249  140250 # Golden/Crimson Primal Direhorn (Kirin Tor Offensive/Sunreaver Onslaught)
-  -  127164 # Heavenly Golden Cloud Serpent (Emperor Shaohao)
+  - 118089 # Azure Water Strider (Anglers)
+  - 129918 # Thundering August Cloud Serpent (August Celestials)
+  - 132036 # Thundering Ruby Cloud Serpent (August Celestials)
+  - 127174 # Azure Riding Crane (Golden Lotus)
+  - 127176 # Golden Riding Crane (Golden Lotus)
+  - 127177 # Regal Riding Crane (Golden Lotus)
+  - 123886 # Amber Scorpion (Klaxxi)
+  - 130092 # Red Flying Cloud (Lorewalkers)
+  - 123992 # Azure Cloud Serpent (Order of the Cloud Serpent)
+  - 123993 # Golden Cloud Serpent (Order of the Cloud Serpent)
+  - 113199 # Jade Cloud Serpent (Order of the Cloud Serpent)
+  - 129934 # Blue Shado-Pan Riding Tiger (Shado-Pan)
+  - 129932 # Green Shado-Pan Riding Tiger (Shado-Pan)
+  - 129935 # Red Shado-Pan Riding Tiger (Shado-Pan)
+  - 127154 # Onyx Cloud Serpent (Shado-Pan)
+  - 130138 # Black Riding Goat (Tillers)
+  - 130086 # Brown Riding Goat (Tillers)
+  - 130137 # White Riding Goat (Tillers)
+  - 136163 136164 # Grand Gryphon/Grand Wyvern (Operation: Shieldwall/Dominance Offensive)
+  - 135416 135418 # Grand Armored Gryphon/Grand Armored Wyvern (Operation: Shieldwall/Dominance Offensive)
+  - 140249 140250 # Golden/Crimson Primal Direhorn (Kirin Tor Offensive/Sunreaver Onslaught)
+  - 127164 # Heavenly Golden Cloud Serpent (Emperor Shaohao)
 
 - name: WoD
   things:
-  -  171829 # Shadowmane Charger (Arakkoa Outcasts)
-  -  171625    0 # Dusty Rockhide (Council of Exarchs)
-  -    0  171842 # Swift Frostwolf (Frostwolf Orcs)
-  -  190690 # Bristling Hellboar (The Sabrestalkers)
-  -  171633 # Wild Goretusk (The Sabrestalkers)
-  -  171634 # Domesticated Razorback (Steamwheedle Preservation Society)
-  -  190977 # Deathtusk Felboar (Vol'jin's Headhunters/Hand of the Prophets)
+  - 171829 # Shadowmane Charger (Arakkoa Outcasts)
+  - 171625 # Dusty Rockhide (Council of Exarchs)
+  - 171842 # Swift Frostwolf (Frostwolf Orcs)
+  - 190690 # Bristling Hellboar (The Sabrestalkers)
+  - 171633 # Wild Goretusk (The Sabrestalkers)
+  - 171634 # Domesticated Razorback (Steamwheedle Preservation Society)
+  - 190977 # Deathtusk Felboar (Vol'jin's Headhunters/Hand of the Prophets)
 
 - name: Legion
   things:
-  -  242881 # Cloudwing Hippogryph (Farondis Chest)
-  -  242874 # Highmountain Elderhorn (Highmountain Supplies)
-  -  230401 # Ivory Hawkstrider (Talon's Vengeance Exalted)
-  -  233364 # Leywoven Flying Carpet (Nightfallen Cache)
-  -  242882 # Valarjar Stormwing (Valarjar Strongbox)
-  -  242875 # Wild Dreamrunner (Dreamweaver Cache)
+  - 242881 # Cloudwing Hippogryph (Farondis Chest)
+  - 242874 # Highmountain Elderhorn (Highmountain Supplies)
+  - 230401 # Ivory Hawkstrider (Talon's Vengeance Exalted)
+  - 233364 # Leywoven Flying Carpet (Nightfallen Cache)
+  - 242882 # Valarjar Stormwing (Valarjar Strongbox)
+  - 242875 # Wild Dreamrunner (Dreamweaver Cache)
 
 - name: Legion - Argus
   things:
-  -  253004 # Amethyst Ruinstrider (Argussian Reach, Exalted)
-  -  253005 # Beryl Ruinstrider (Argussian Reach, Exalted)
-  -  253007 # Cerulean Ruinstrider (Argussian Reach, Exalted)
-  -  253006 # Russet Ruinstrider (Argussian Reach, Exalted)
-  -  242305 # Sable Ruinstrider (Argussian Reach, Exaled)
-  -  253008 # Umber Ruinstrider (Argussian Reach, Exalted)
-  -  254259 # Avenging Felcrusher (Gleaming Footlocker - Army of the Light)
-  -  254258 # Blessed Felcrusher (Gleaming Footlocker - Army of the Light)
-  -  254069 # Glorious Felcrusher (Gleaming Footlocker - Army of the Light)
-  -  239013 # Lightforged Warframe (Army of the Light, Exalted)
+  - 253004 # Amethyst Ruinstrider (Argussian Reach, Exalted)
+  - 253005 # Beryl Ruinstrider (Argussian Reach, Exalted)
+  - 253007 # Cerulean Ruinstrider (Argussian Reach, Exalted)
+  - 253006 # Russet Ruinstrider (Argussian Reach, Exalted)
+  - 242305 # Sable Ruinstrider (Argussian Reach, Exaled)
+  - 253008 # Umber Ruinstrider (Argussian Reach, Exalted)
+  - 254259 # Avenging Felcrusher (Gleaming Footlocker - Army of the Light)
+  - 254258 # Blessed Felcrusher (Gleaming Footlocker - Army of the Light)
+  - 254069 # Glorious Felcrusher (Gleaming Footlocker - Army of the Light)
+  - 239013 # Lightforged Warframe (Army of the Light, Exalted)
 
 - name: BfA
   things:
   - 259213 # Admiralty Stallion (Proudmoore Admiralty, Exalted)
-  -  237287 # Alabaster Hyena (Voldunai, Exalted)
+  - 237287 # Alabaster Hyena (Voldunai, Exalted)
+  - 292407 # Ankoan Waveray (Unshackled, Exalted)
   - 275838 # Captured Swampstalker (Talanji's Expedition, Exalted)
   - 275837 # Cobalt Pterrordax (Zandalari Empire, Exalted)
   - 260172 # Dapple Gray (Storm's Wake, Exalted)
+  - 275859 # Dusky Waycrest Gryphon (Order of Embers - Exalted)
   - 275841 # Expedition Bloodswarmer (Talanji's Expedition, Exalted)
-  - 260173 # Smoky Charger (Order of Embers, Exalted)
-  -  244712 # Spectral Terrorwing (Zandalari Empire, Exalted)
-  - 275840 # Voldunai Dunescraper (Voldunai, Exalted)
   - 259741 # Honeyback Harvester (Beeeeeees, Exalted)
-  - 292407 # Ankoan Waveray (Unshackled, Exalted)
-  - 291538 # Unshackled Waveray (Unshackled, Exalted)
+  - 275868 # Proudmoore Sea Scout (Proudmoore Admiralty - Exalted)
   - 294038 # Royal Snapdragon (Unshackled, Paragon)
-
+  - 299170 # Rustbolt Resistor (Rustbolt Resistance, Exalted)
+  - 260173 # Smoky Charger (Order of Embers, Exalted)
+  - 244712 # Spectral Terrorwing (Zandalari Empire, Exalted)
+  - 275866 # Stormsong Coastwatcher (Storm's Wake - Exalted)
+  - 291538 # Unshackled Waveray (Unshackled, Exalted)
+  - 275840 # Voldunai Dunescraper (Voldunai, Exalted)
+  - 316276 # Wastewander Skyterror (Uldum Accord, Exalted)

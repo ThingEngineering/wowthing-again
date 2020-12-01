@@ -1,167 +1,192 @@
 name: Misc
 groups:
+- name: BfA
+  things:
+  - 294143 # X-995 Mechanocat (Mechagon craftable)
+  - 256123 # Xiwyllag ATV (BS & eng crafted items from Operation: Mechagon)
+
 - name: Pandaren
   things:
-  -  127295 # Great Black Dragon Turtle
-  -  127302 # Great Blue Dragon Turtle
-  -  127308 # Great Brown Dragon Turtle
-  -  127293 # Great Green Dragon Turtle
-  -  127310 # Great Purple Dragon Turtle
-  -  120822 # Great Red Dragon Turtle
-  -  127286 # Black Dragon Turtle
-  -  127287 # Blue Dragon Turtle
-  -  127288 # Brown Dragon Turtle
-  -  120395 # Green Dragon Turtle
-  -  127289 # Purple Dragon Turtle
-  -  127290 # Red Dragon Turtle
+  - 127295 # Great Black Dragon Turtle
+  - 127302 # Great Blue Dragon Turtle
+  - 127308 # Great Brown Dragon Turtle
+  - 127293 # Great Green Dragon Turtle
+  - 127310 # Great Purple Dragon Turtle
+  - 120822 # Great Red Dragon Turtle
+  - 127286 # Black Dragon Turtle
+  - 127287 # Blue Dragon Turtle
+  - 127288 # Brown Dragon Turtle
+  - 120395 # Green Dragon Turtle
+  - 127289 # Purple Dragon Turtle
+  - 127290 # Red Dragon Turtle
 
 - name: PvP
   things:
-  -  23510 23509 # Stormpike Battle Charger/Frostwolf Howler (Alterac Valley)
-  -  60118 60119 # Black War Bear
-  -  222240 # Prestigious Azure Courser
-  -  222202 # Prestigious Bronze Courser
-  -  222237 # Prestigious Forest Courser
-  -  222238 # Prestigious Ivory Courser
-  -  222241 # Prestigious Midnight Courser
-  -  222236 # Prestigious Royal Courser
+  - 23510 23509 # Stormpike Battle Charger/Frostwolf Howler (Alterac Valley)
+  - 60118 60119 # Black War Bear
+  - 222240 # Prestigious Azure Courser
+  - 222202 # Prestigious Bronze Courser
+  - 222237 # Prestigious Forest Courser
+  - 222238 # Prestigious Ivory Courser
+  - 222241 # Prestigious Midnight Courser
+  - 222236 # Prestigious Royal Courser
 
 - name: Class
   things:
-  -   13819 # Warhorse (Paladin)
-  -   23214 # Charger (Paladin)
-  -  73629 # Exarch's Elekk (Draenei Paladin)
-  -  73630 # Great Exarch's Elekk (Draenei Paladin)
-  -  34769 # Thalassian Warhorse (BE Paladin)
-  -  34767 # Thalassian Charger (BE Paladin)
-  -  69820 # Sunwalker Kodo (Tauren Paladin)
-  -  69826 # Great Sunwalker Kodo (Tauren Paladin)
-  -  66906 # Argent Charger (Paladin)
+  - 13819 # Warhorse (Paladin)
+  - 23214 # Charger (Paladin)
+  - 66906 # Argent Charger (Paladin)
+  - 73629 # Exarch's Elekk (Draenei Paladin)
+  - 73630 # Great Exarch's Elekk (Draenei Paladin)
+  - 34769 # Thalassian Warhorse (BE Paladin)
+  - 34767 # Thalassian Charger (BE Paladin)
+  - 69820 # Sunwalker Kodo (Tauren Paladin)
+  - 69826 # Great Sunwalker Kodo (Tauren Paladin)
+  - 290608 # Crusader's Direhorn (Zandalari Paladin)
   - 270562 # Darkforge Ram (Dark Iron Paladin?)
   - 270564 # Dawnforge Ram (Dark Iron Paladin?)
-  -   5784 # Felsteed (Warlock)
-  -   23161 # Dreadsteed (Warlock)
-  -  48778 # Acherus Deathcharger (Death Knight)
-  -  54729 # Winged Steed of the Ebon Blade (Death Knight)
-  -  200175 # Felsaber (Demon Hunter Class Mount)
+  - 5784 # Felsteed (Warlock)
+  - 23161 # Dreadsteed (Warlock)
+  - 48778 # Acherus Deathcharger (Death Knight)
+  - 54729 # Winged Steed of the Ebon Blade (Death Knight)
+  - 200175 # Felsaber (Demon Hunter Class Mount)
 
 - name: Garrison
   things:
-  -  127271 # Crimson Water Strider (Fishing Shack)
-  -  171626 171839 # Armored Irontusk/Ironside Warwolf (Trading Post)
-  -  189364 # Coalfist Gronnling (Mission)
-  -  171826 # Mudback Riverbeast (Mission)
+  - 127271 # Crimson Water Strider (Fishing Shack)
+  - 171626 171839 # Armored Irontusk/Ironside Warwolf (Trading Post)
+  - 189364 # Coalfist Gronnling (Mission)
+  - 171826 # Mudback Riverbeast (Mission)
 
 - name: Garrison - Invasion
   things:
-  -  171836 # Garn Steelmaw
-  -  171635 # Giant Coldsnout
-  -  171624 # Shadowhide Pearltusk
-  -  171843 # Smoky Direwolf
+  - 171836 # Garn Steelmaw
+  - 171635 # Giant Coldsnout
+  - 171624 # Shadowhide Pearltusk
+  - 171843 # Smoky Direwolf
 
 - name: Garrison - Stables
   things:
-  -  171629 # Armored Frostboar
-  -  171838 # Armored Frostwolf
-  -  171617 # Trained Icehoof
-  -  171623 # Trained Meadowstomper
-  -  171638 # Trained Riverwallow
-  -  171637 # Trained Rocktusk
-  -  171831 # Trained Silverpelt
-  -  171841 # Trained Snarler
+  - 171629 # Armored Frostboar
+  - 171838 # Armored Frostwolf
+  - 171617 # Trained Icehoof
+  - 171623 # Trained Meadowstomper
+  - 171638 # Trained Riverwallow
+  - 171637 # Trained Rocktusk
+  - 171831 # Trained Silverpelt
+  - 171841 # Trained Snarler
 
 - name: Guild
   things:
-  -  90621 93644 # Golden King/Kor'kron Annihilator
-  -  88990 # Dark Phoenix
-  -  124408 # Thundering Jade Cloud Serpent
-  -  171627 # Blacksteel Battleboar (Guild Glory of the Draenor Raider)
+  - 90621 93644 # Golden King/Kor'kron Annihilator
+  - 88990 # Dark Phoenix
+  - 124408 # Thundering Jade Cloud Serpent
+  - 171627 # Blacksteel Battleboar (Guild Glory of the Draenor Raider)
 
 - name: Misc
   things:
-  -  138642 # Black Primal Raptor
-  -  138643 # Green Primal Raptor
-  -  138641 # Red Primal Raptor
+  - 138642 # Black Primal Raptor
+  - 138643 # Green Primal Raptor
+  - 138641 # Red Primal Raptor
+  - 316493 # Elusive Quickhoof (Vol'dun)
+  - 300150 # Fabious (Take S.E.L.F.I.E. with the mob in Nazjatar)
 
 - name: Order Halls
   things:
-  -  229387 # Deathlord's Vilebrood Vanquisher (Death Knight)
-  -  229417 # Slayer's Felbroken Shrieker (Demon Hunter)
-  -  229439 # Huntmaster's Dire Wolfhawk (Hunter)
-  -  229438 # Huntmaster's Fierce Wolfhawk (Hunter)
-  -  229386 # Huntmaster's Loyal Wolfhawk (Hunter)
-  -  229376 # Archmage's Prismatic Disc (Mage)
-  -  229385 # Ban-Lu, Grandmaster's Companion (Monk)
-  -  231435 # Highlord's Golden Charger (Paladin)
-  -  231589 # Highlord's Valorous Charger (Paladin)
-  -  231587 # Highlord's Vengeful Charger (Paladin)
-  -  231588 # Highlord's Vigilant Charger (Paladin)
-  -  229377 # High Priest's Lightsworn Seeker (Priest)
-  -  231524 # Shadowblade's Baneful Omen (Rogue)
-  -  231525 # Shadowblade's Crimson Omen (Rogue)
-  -  231523 # Shadowblade's Lethal Omen (Rogue)
-  -  231434 # Shadowblade's Murderous Omen (Rogue)
-  -  231442 # Farseer's Raging Temptest (Shaman)
-  -  238454 # Netherlord's Accursed Wrathsteed (Warlock)
-  -  238452 # Netherlord's Brimstone Wrathsteed (Warlock)
-  -  232412 # Netherlord's Chaotic Wrathsteed (Warlock)
-  -  229388 # Battlelord's Bloodthirsty War Wyrm (Warrior)
+  - 229387 # Deathlord's Vilebrood Vanquisher (Death Knight)
+  - 229417 # Slayer's Felbroken Shrieker (Demon Hunter)
+  - 229439 # Huntmaster's Dire Wolfhawk (Hunter)
+  - 229438 # Huntmaster's Fierce Wolfhawk (Hunter)
+  - 229386 # Huntmaster's Loyal Wolfhawk (Hunter)
+  - 229376 # Archmage's Prismatic Disc (Mage)
+  - 229385 # Ban-Lu, Grandmaster's Companion (Monk)
+  - 231435 # Highlord's Golden Charger (Paladin)
+  - 231589 # Highlord's Valorous Charger (Paladin)
+  - 231587 # Highlord's Vengeful Charger (Paladin)
+  - 231588 # Highlord's Vigilant Charger (Paladin)
+  - 229377 # High Priest's Lightsworn Seeker (Priest)
+  - 231524 # Shadowblade's Baneful Omen (Rogue)
+  - 231525 # Shadowblade's Crimson Omen (Rogue)
+  - 231523 # Shadowblade's Lethal Omen (Rogue)
+  - 231434 # Shadowblade's Murderous Omen (Rogue)
+  - 231442 # Farseer's Raging Temptest (Shaman)
+  - 238454 # Netherlord's Accursed Wrathsteed (Warlock)
+  - 238452 # Netherlord's Brimstone Wrathsteed (Warlock)
+  - 232412 # Netherlord's Chaotic Wrathsteed (Warlock)
+  - 229388 # Battlelord's Bloodthirsty War Wyrm (Warrior)
 
 - name: Puzzles
   things:
-  -  223018 # Fathom Dweller (Kosumoth)
-  -  215159 # Long-Forgotten Hippogryph (Azsuna crystals)
-  -  247402 # Lucid Nightmare (weird puzzle?)
-  -  243025 # Riddler's Mind-Worm (Gift of the Mind-Seekers)
+  - 223018 # Fathom Dweller (Kosumoth)
+  - 215159 # Long-Forgotten Hippogryph (Azsuna crystals)
+  - 247402 # Lucid Nightmare (weird puzzle?)
+  - 243025 # Riddler's Mind-Worm (Gift of the Mind-Seekers)
   - 261395 # The Hivemind (??)
 
 - name: Quests
   things:
-  -  138640 # Bone-White Primal Raptor
-  -  75207 # Vashj'ir Seahorse
-  -  54753 # White Polar Bear
+  - 138640 # Bone-White Primal Raptor
+  - 166724 # Bruce (Brawler's Guild questline)
+  - 75207 # Vashj'ir Seahorse (Kelp'thar Forest, The Abyssal Ride quest)
+  - 54753 # White Polar Bear (The Storm Peaks, Brunnhildar Village daily, random Hyldnir Spoils reward)
 
 - name: Quests - Legion
   things:
-  -  230987 # Arcanist's Manasaber (Suramar, Balance of Power chain)
-  -  171850 # Llothien Prowler (random drop?)
-  -  213164 # Brilliant Direbeak
-  -  213158 # Predatory Bloodgazer
-  -  213163 # Snowfeather Hunter
-  -  213165 # Viridian Sharptalon
+  - 230987 # Arcanist's Manasaber (Suramar, Balance of Power chain)
+  - 171850 # Llothien Prowler (random drop?)
+  - 213164 # Brilliant Direbeak
+  - 213158 # Predatory Bloodgazer
+  - 213163 # Snowfeather Hunter
+  - 213165 # Viridian Sharptalon
 
 - name: Quests - BfA
   things:
-  - 267270 # Kua'fon (Down, But Not Out - Zuldazar)
+  - 297560 # Child of Torcali (Wander Not Alone, Zuldazar)
+  - 300147 300146 # Deepcoral Snapdragon/Snapdragon Kelpstalker (Wild Tame/Good Girl, Nazjatar)
+  - 267270 # Kua'fon (Down, But Not Out, Zuldazar)
+  - 299159 # Scrapforged Mechaspider (Drive It Away Today, Mechagon)
+  - 316339 # Shadowbarb Drone (My Own Drone, Uldum)
+  - 316802 # Springfur Alpaca (Alpaca It In, Uldum)
+  - 302143 # Uncorrupted Voidwing (Lost Flight, Ny'alotha)
 
 - name: World Drops?
   things:
-  -  237286 # Dune Scavenger (?? Vol'dun)
+  - 312751 # Clutch of Ha-Li (Ha-Li, Vale of Eternal Blossoms)
+  - 315847 # Drake of the Four Winds (Ishak of the Four Winds, Uldum)
+  - 237286 # Dune Scavenger (?? Vol'dun)
   - 260175 # Goldenmane (?? Stormsong)
-  -  243795 # Leaping Veinseeker (?? Nazmir)
-  - 275623 # Nazjatar Blood Serpent (Adherent of the Abyss - Stormsong Valley) ?
+  - 315014 # Ivory Cloud Serpent (Vale of Eternal Blossoms)
+  - 243795 # Leaping Veinseeker (?? Nazmir)
+  - 315987 # Mail Muncher (Mail Muncher, Horrific Visions)
+  - 316337 # Malevolent Drone (Corpse Eater, Uldum)
+  - 298367 # Mollie (Dunegorger Kraulok, Vol'dun)
+  - 275623 # Nazjatar Blood Serpent (Adherent of the Abyss, Stormsong Valley) ?
+  - 316722 # Ren's Stalwart Hound (Houndlord Ren, Vale of Eternal Blossoms)
+  - 300149 # Silent Glider (Soundless, Nazjatar)
   - 260174 # Terrified Pack Mule (?? Drustvar)
+  - 316275 # Waste Marauder (Rotfeaster, Uldum)
+  - 316723 # Xinlao (Anh-De the Loyal, Vale of Eternal Blossoms)
 
 - name: World Events
   things:
-  -  71342 # Big Love Rocket (Love is in the Air)
-  -  103081 # Darkmoon Dancing Bear (Darkmoon Faire Vendor)
-  -  247448 # Darkmoon Dirigible (Darkmoon Faire)
-  -  228919 # Darkwater Skate (Darkmoon Faire Vendor)
-  -  49379 # Great Brewfest Kodo (Brewfest)
-  -  48025 # Headless Horseman's Mount
-  -  191314 # Minion of Grumpus
-  -  43900 # Swift Brewfest Ram (Brewfest)
-  -  102346 # Swift Forest Strider
-  -  102350 # Swift Lovebird (Love is in the Air)
-  -  102349 # Swift Springstrider
+  - 71342 # Big Love Rocket (Love is in the Air)
+  - 103081 # Darkmoon Dancing Bear (Darkmoon Faire Vendor)
+  - 247448 # Darkmoon Dirigible (Darkmoon Faire)
+  - 228919 # Darkwater Skate (Darkmoon Faire Vendor)
+  - 49379 # Great Brewfest Kodo (Brewfest)
+  - 48025 # Headless Horseman's Mount
+  - 191314 # Minion of Grumpus
+  - 43900 # Swift Brewfest Ram (Brewfest)
+  - 102346 # Swift Forest Strider
+  - 102350 # Swift Lovebird (Love is in the Air)
+  - 102349 # Swift Springstrider
 
 - name: Recruit-A-Friend
   things:
-  -  171847 # Cindermane Charger
-  -  149801 # Emerald Hippogryph
+  - 171847 # Cindermane Charger
+  - 149801 # Emerald Hippogryph
   - 307263 # Explorer's Dunetrekker
   - 307256 # Explorer's Jungle Hopper
-  -  121820 # Obsidian Nightwing
-  -  49322 # Swift Zhevra
-  -  75973 # X-16083 Touring Rocket
+  - 121820 # Obsidian Nightwing
+  - 49322 # Swift Zhevra
+  - 75973 # X-16083 Touring Rocket
