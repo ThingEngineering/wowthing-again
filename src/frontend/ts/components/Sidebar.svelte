@@ -9,8 +9,10 @@
         border: 1px solid $border-color;
         border-radius: $thing-border-radius;
         margin-right: 1rem;
-        padding: 0.5rem 0;
         min-width: 9rem;
+        padding: 0.5rem 0;
+        position: sticky;
+        top: 0;
         width: 9rem;
     }
     ul {

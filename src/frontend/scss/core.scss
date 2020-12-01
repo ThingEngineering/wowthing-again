@@ -1,15 +1,15 @@
 body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
   background: $body-background;
   color: $body-text;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
 header {
+  border-bottom: 1px solid $border-color;
   position: sticky;
   top: 0;
-  border-bottom: 1px solid $border-color;
 }
 
 header,
@@ -38,15 +38,21 @@ footer {
 }
 
 main {
+  display: flex;
   flex: 1;
-  padding: 1rem;
+  flex-direction: column;
+  height: 100%;
+  margin: 1rem 0 0 0;
+  overflow: auto;
+  padding: 0 1rem;
 }
 
 footer {
+  border-top: 1px solid $border-color;
   display: flex;
   flex: none;
   justify-content: space-between;
-  border-top: 1px solid $border-color;
+  margin: 1rem -1rem 0 -1rem;
 
   ul {
     list-style: none;
@@ -63,6 +69,11 @@ footer {
       }
     }
   }
+}
+
+table {
+  border-collapse: separate;
+  border-spacing: 0;
 }
 
 a,
@@ -86,8 +97,9 @@ h1 {
 }
 
 #app {
+  align-items: flex-start;
   display: flex;
-  align-items: flex-start
+  flex: 1 0 auto;
 }
 
 .faction0 {

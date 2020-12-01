@@ -58,6 +58,15 @@ export class StaticDataReputationSet {
     Alliance: StaticDataReputationReputation
     Horde: StaticDataReputationReputation
     Paragon: boolean
+
+    get tooltip(): string {
+        if (this.Both) {
+            return this.Both.Name;
+        }
+        else {
+            return `[A] ${this.Alliance.Name}<br>[H] ${this.Horde.Name}`
+        }
+    }
 }
 
 class StaticDataReputationReputation {
