@@ -19,9 +19,15 @@
         background: $thing-background;
         table-layout: fixed;
         width: 100%;
-    }
-    th {
-        border-bottom: 1px solid $border-color;
+
+        & :global(th) {
+            border-bottom: 1px solid $border-color;
+            position: sticky;
+            top: 0;
+        }
+        & :global(tr:last-child td:not(.sigh)) {
+            border-bottom: 1px solid $border-color;
+        }
     }
     colgroup:nth-child(even) {
         background: darken($thing-background, 3%);
@@ -36,7 +42,8 @@
     }
     .sigh {
         background: $body-background;
-        border-width: 0;
+        border-left: 1px solid $border-color;
+        border-bottom-width: 0;
     }
 </style>
 

@@ -17,8 +17,10 @@
         border: 1px solid $border-color;
         border-radius: $thing-border-radius;
         margin-right: 1rem;
-        padding: 0.5rem 0;
         min-width: 11rem;
+        padding: 0.5rem 0;
+        position: sticky;
+        top: 0;
         width: 11rem;
     }
     ul {
