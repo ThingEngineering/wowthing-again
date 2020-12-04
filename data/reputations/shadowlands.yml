@@ -1,8 +1,7 @@
 name: Shadowlands
 reputations:
 # 9.0
--
-  - both:
+- - both:
       id: 2407
       name: The Ascended
       icon: inv_tabard_bastion_d_01
@@ -23,14 +22,19 @@ reputations:
       name: The Wild Hunt
       icon: inv_tabard_ardenweald_d_01
 
--
-  - both:
+# Friends
+- - both:
+      id: 2432
+      name: Ve'nari
+      icon: inv_stygia
+
+# Covenant things
+- - both:
       id: 2439
       name: The Avowed
       icon: 6bf_blackrock_nova
 
   - both:
-      id: 2432
-      name: Ve'nari
-      icon: inv_stygia
-
+      id: 2464
+      name: Court of Night
+      icon: inv_babyhorse2_ardenweald_blue
