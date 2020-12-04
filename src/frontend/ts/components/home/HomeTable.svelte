@@ -26,6 +26,8 @@
                 <td>{character.name}</td>
                 <td>&mdash; {getRealmName(character.realmId)}</td>
                 <td>{character.level}</td>
+                <td>⚔</td>
+                <td style="text-align: right">{character.equippedItemLevel}</td>
             </tr>
         {/each}
     </table>

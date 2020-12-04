@@ -1,6 +1,7 @@
 <script lang="ts">
     import {data} from '../../stores/user-store'
     import getRealmName from '../../utils/get-realm-name'
+    import tippy from '../../utils/tippy'
 
     import ClassIcon from '../images/ClassIcon.svelte'
     import RaceIcon from '../images/RaceIcon.svelte'
@@ -43,21 +44,28 @@
     .icons :global(img) {
         border-radius: 0.5rem;
     }
-    .level {
+    .level, .item-level {
         position: absolute;
-        bottom: -6px;
-        left: 50%;
-        transform: translateX(-50%);
+        bottom: -10px;
         background: $thing-background;
         border: 1px solid lighten($border-color, 20%);
         border-radius: 0.5rem;
         color: #ffff88;
+        font-size: 0.8rem;
         letter-spacing: 0.0625em;
         line-height: 1;
-        padding: 0.15rem 0.25rem;
+        padding: 0.2rem 0.3rem;
+    }
+    .level {
+        left: 25px;
+        transform: translateX(-50%);
+    }
+    .item-level {
+        right: 25px;
+        transform: translateX(50%);
     }
     .name {
-        margin-top: 0.2rem;
+        margin-top: 0.6rem;
     }
     .realm {
         font-size: 0.9rem;
@@ -70,7 +78,8 @@
             <div class="icons">
                 <RaceIcon size="48" character={character} />
                 <ClassIcon size="48" character={character} />
-                <div class="level">{character.level}</div>
+                <div class="level" use:tippy={{content: `Level ${character.level}`}}>{character.level}</div>
+                <div class="item-level" use:tippy={{content: `Item Level ${character.equippedItemLevel}`}}>⚔{character.equippedItemLevel}</div>
             </div>
             <div class="name">{character.name}</div>
             <div class="realm">{getRealmName(character.realmId)}</div>
