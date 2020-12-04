@@ -11,6 +11,7 @@ namespace Wowthing.Web.Models
     public class UserApiCharacter
     {
         public int ClassId { get; set; }
+        public int EquippedItemLevel { get; set; }
         public int Level { get; set; }
         public int RaceId { get; set; }
         public int RealmId { get; set; }
@@ -25,6 +26,7 @@ namespace Wowthing.Web.Models
         public UserApiCharacter(PlayerCharacter character, bool pub = false, bool anon = false)
         {
             ClassId = character.ClassId;
+            EquippedItemLevel = character.EquippedItemLevel;
             Faction = character.Faction;
             Gender = character.Gender;
             Level = character.Level;
