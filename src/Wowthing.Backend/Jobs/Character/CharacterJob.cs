@@ -68,6 +68,7 @@ namespace Wowthing.Backend.Jobs.Character
                 return;
             }
 
+            character.ActiveSpecId = apiCharacter.ActiveSpec?.Id ?? 0;
             character.ActiveTitleId = apiCharacter.ActiveTitle?.Id ?? 0;
             character.AverageItemLevel = apiCharacter.AverageItemLevel;
             character.ClassId = apiCharacter.Class.Id;

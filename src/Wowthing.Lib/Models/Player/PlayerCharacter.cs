@@ -16,6 +16,7 @@ namespace Wowthing.Lib.Models
 
         public long GuildId { get; set; }
 
+        public int ActiveSpecId { get; set; } = 0;
         public int ActiveTitleId { get; set; } = 0;
         public int AverageItemLevel { get; set; } = 0;
         public int ClassId { get; set; }
