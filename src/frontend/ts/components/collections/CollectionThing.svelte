@@ -6,7 +6,7 @@
 
     export let thingType: string
     export let thingMap
-    export let userHas
+    export let userHas = {}
     export let things
 
     const { hasStore, totalStore } = getContext("collection")

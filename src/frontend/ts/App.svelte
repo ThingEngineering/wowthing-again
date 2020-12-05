@@ -8,16 +8,19 @@
     import Settings from './components/Settings.svelte'
     import Sidebar from './components/Sidebar.svelte'
     import Mounts from './components/collections/Mounts.svelte'
+    import Pets from './components/collections/Pets.svelte'
     import HomeCards from './components/home/HomeCards.svelte'
     import HomeTable from './components/home/HomeTable.svelte'
     import Reputations from './components/reputations/Reputations.svelte'
 
     const routes = {
-        '/': HomeTable,
+        '/': HomeCards,
         '/cards': HomeCards,
+        '/table': HomeTable,
         '/reputations/:slug?': Reputations,
 
         '/mounts': Mounts,
+        '/pets': Pets,
 
         '/settings': Settings,
     }
