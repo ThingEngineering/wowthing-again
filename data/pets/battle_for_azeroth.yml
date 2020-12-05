@@ -1,0 +1,95 @@
+name: Battle for Azeroth
+groups:
+- name: Instances
+  things:
+  - 139049 # Filthy Slime (Gol'than the Malodorous, Tol Dagor)
+  - 138964 # Spawn of Merektha (Merektha, Temple of Sethraliss)
+
+- name: Island Expeditions
+  things:
+  - 143796 # Barnaby
+  - 143816 # Bloodstone Tunneler
+  - 143795 # Captain Nibs
+  - 143821 # Coldlight Surfrunner
+  - 143803 # Craghoof Kid
+  - 143807 # Deathsting Scorpid
+  - 143804 # False Knucklebump
+  - 143809 # Giggling Flame
+  - 143799 # Inky
+  - 143819 # Juvenile Brineshell
+  - 143802 # Kindleweb Spiderling
+  - 143820 # Kunchong Hatchling
+  - 143810 # Laughing Stonekin
+  - 143813 # Littlehoof
+  - 143812 # Mischievous Zephyr
+  - 143818 # Muskflank Calfling
+  - 143798 # Octopode Fry
+  - 143811 # Playful Frostkin
+  - 143797 # Poro
+  - 143806 # Sandshell Chitterer
+  - 143794 # Scuttle
+  - 143814 # Snapper
+  - 143817 # Snort
+  - 143801 # Sparkleshell Sandcrawler
+  - 143815 # Sunscale Hatchling
+  - 143808 # Thistlebrush Bud
+  - 143805 # Tinder Pup
+  - 143822 # Voru'kar Leecher
+
+- name: Quests
+  things:
+  - 131644 # Dart (It Seems You've Made a Friend, Nazmir)
+  - 139252 # Guardian Cobra Hatchling (My Hungry Neighbor, Vol'dun)
+  - 139073 # Poda (Missing Business, Vol'dun)
+  - 139770 # Taptaf (Taptaf the Pig!, Drustvar)
+  - 139372 # Vengeful Chicken (Cutting Edge Poultry Science, ??)
+
+- name: Rare Spawns - Arathi
+  things:
+  - 143503 # Aldrusian Sproutling (Drop - Branchlord Aldrus, Arathi Highlands)
+  - 143564 # Foulfeather (Drop - Plaguefeather, Arathi Highlands)
+  - 143627 # Fozling (Drop - Fozruk, Arathi Highlands)
+  - 143499 # Fuzzy Creepling (Drop - Venomarus, Arathi Highlands)
+  - 143563 # Ragepeep (Drop - Ragebeak, Arathi Highlands)
+  - 143533 # Scabby (Drop - Yogursa, Arathi Highlands)
+  - 143628 # Squawkling (Drop - Man-Hunter Rog, Arathi Highlands)
+  - 143515 # Teeny Titan Orb (Drop - Echo of Myzrael, Arathi Highlands)
+  - 143507 # Voidwiggler (Drop - Darbel Montrose, Arathi Highlands)
+
+- name: Reputations
+  things:
+  - 143611 # Azerite Puddle (Champions of Azeroth, Revered)
+  - 143214 # Azeriti (Champions of Azeroth, Revered)
+  - 143177 # Corlain Falcon (Order of Embers, Revered)
+  - 143209 # Cou'pa (Tortollan Seekers, Revered)
+  - 143738 # Lil' Siege Tower (7th Legion?)
+  - 143739 # Lil' War Machine (The Honorbound?)
+  - 143176 # Seabreeze Bumblebee (Storm's Wake, Revered)
+  - 143195 # Tragg the Curious (Talanji's Expedition, Revered)
+
+- name: Vendors
+  things:
+  - 143175 # Abyssal Eel (Madeline Netley, Stormsong Valley)
+  - 143200 # Accursed Hexxer (Shoak, Nazmir)
+  - 143206 # Barnacled Hermit Crab (Madeline Netley, Stormsang Valley/Jenoh, Vol'dun)
+  - 143181 # Bilefang Skitterer (Nigel Rifthold, Drustvar)
+  - 143194 # Bloodfeaster Larvae (Shoak, Nazmir)
+  - 143203 # Blue Flitter (Madeline Netley, Stormsang Valley/Happy Holaua, Zuldazar)
+  - 143211 # Carnivorous Lasher (Madeline Netley, Stormsang Valley/Jenoh, Vol'dun)
+  - 143198 # Child of Jani (Happy Holaua, Zuldazar)
+  - 143205 # Crimson Frog (Nigel Rifthold, Drustvar/Shoak, Nazmir)
+  - 143178 # Drustvar Piglet (Nigel Rifthold, Drustvar)
+  - 143179 # Frenzied Cottontail (Nigel Rifthold, Drustvar)
+  - 143204 # Freshwater Pincher (Madeline Netley, Stormsong Valley/Jenoh, Vol'dun)
+  - 143184 # Greating Macaw (Dana Pull, Tiaragarde Sound)
+  - 143196 # Lil' Ben'fon (Happy Holaua, Zuldazar)
+  - 139622 # Lil' Tika (Happy Holaua, Zuldazar)
+  - 143360 # Lost Platysaur (Talutu, Zuldazar/Tricky Nick, Tiragarde Sound)
+  - 143188 # Mechanical Prairie Dog (Dana Pull, Tiragarde Sounde)
+  - 143197 # Ranishu Runt (Jenoh, Vol'dun)
+  - 143207 # Sandstinger Wasp (Madeline Netley, Stormsang Valley/Jenoh, Vol'dun)
+  - 143202 # Saurolisk Hatchling (Madeline Netley, Stormsang Valley/Happy Holaua, Zuldazar)
+  - 139081 # Smoochums (Nigel Rifthold, Drustvar)
+  - 143199 # Swamp Toad (Shoak, Nazmir)
+  - 143191 # Tiny Direhorn (Happy Holaua, Zuldazar)
+  - 143193 # Zandalari Shinchomper (Happy Holaua, Zuldazar)

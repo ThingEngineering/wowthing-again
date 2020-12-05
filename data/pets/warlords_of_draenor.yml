@@ -1,0 +1,71 @@
+name: Warlords of Draenor
+groups:
+- name: Garrison
+  things:
+  -  93143 # Cinder Pup - Mission
+  -  79039 # Crazy Carrot - Herb Garden
+  -  94927 # Crusher - Vendor
+  -  88222 # Everbloom Peachick - Inn
+  -  94867 # Left Shark - Mission
+  -  87257 # Pygmy Cow - Barn
+
+- name: Garrison - Pet Menagerie
+  things:
+  -  77021 # Albino Chimaeraling
+  -  87704 # Firewing
+  -  83817 # Ghastly Kid
+  -  88300 # Puddle Terror
+  -  83588 # Sun Sproutling
+  -  88367 # Sunfire Kaliri
+  -  78421 # Weebomination
+  -  88577 # Bone Serpent
+  -  91407 # Slithershock Elver
+  -  91408 # Young Talbuk
+  -  88514 # Bloodthorn Hatchling - Vendor
+  -  88415 # Dusty Sporewing - Vendor
+  -  88575 # Glowing Sporebat - Vendor
+  -  93142 # Lost Netherpup - Vendor
+
+- name: Instances
+  things:
+  -  94623 # Corrupted Nest Guardian - Hellfire Citadel
+  -  86532 # Lanticore Spawnling - UBRS
+
+- name: Rare Spawns
+  things:
+  -  86719 # Brilliant Spore (?, Spires of Arak)
+  -  88103 # Doom Bloom (?, Gorgrond)
+  -  98237 # Empowered Manafiend (?, Nagrand)
+  -  98238 # Empyreal Manafiend (?, Nagrand)
+  -  98236 # Energized Manafiend (?, Nagrand)
+  -  88490 # Eye of Observation (?, Talador)
+  -  91823 # Fel Pup (?, Tanaan Jungle)
+  -  86081 # Netherspawn (?, Nagrand)
+  -  88692 # Servant of Demidos (?, Shadowmoon Valley)
+
+- name: Reputations
+  things:
+  -  85281 # Albino River Calf - Steamwheedle Preservation Society
+  -  96123 # Blazing Firehawk - Order of the Awakened
+  -  85014 # Bone Wasp - Laughing Skull
+  -  84885 # Draenei Micro Defender - Council of Exarchs
+  -  83583 # Forest Sproutling - Steamwheedle Preservation Society
+  -  87111 # Frostwolf Pup - Frostwolf Orcs
+  -  96126 # Savage Cub - The Saberstalkers
+  -  88452 # Sky Fry - Sha'tari Defense
+  -  88401 # Son of Sethe - Arakkoa Outcasts
+
+- name: Treasures
+  things:
+  -  86716 # Crimson Spore (?, Gorgrond)
+  -  85387 # Fruit Hunter (?, Frostfire Ridge)
+  -  86879 # Hydraling (?, Spires of Arak)
+  -  95572 # Shard of Cyrukh (?, Tanaan Jungle)
+  -  85231 # Stonegrinder (?, Talador)
+  -  81431 # Teroclaw Hatchling (?, Talador)
+  -  86717 # Umbrafen Spore (?, Shadowmoon Valley)
+
+- name: Vendors
+  things:
+  -  88574 # Kaliri Hatchling (Vesharr, Spires of Arak)
+  -  88573 # Veilwatcher Hatchling (Vesharr, Spires of Arak)
