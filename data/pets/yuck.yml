@@ -1,0 +1,2203 @@
+name: Yuck
+groups:
+- name: Achievements
+  things:
+  - 143160 # Brutus (Achievement - Toyboy Tycoon)
+  -  63724 # Elayna (Glory of the Tomb Raider)
+  -  64632 # Hopling - Ling-Ting's Herbal Journey
+  -  32643 # Kirin Tor Familiar - Higher Learning
+  - 112167 # Lagan (Poor Unfortunate Souls, Maw of Souls)
+  - 132366 # Mailemental (Achievement - Priority Mail)
+  - 140125 # Miimii (Achievement - How to Keep a Mummy)
+  -  45247 # Pebble - Rock Lover
+  -  37865 # Perky Pug - Looking For Multitudes
+  - 107206 # Zoom (Zoom!, Stonedark Grotto)
+  - 143730 # Bumbles (Achievement - Let's Bee Friends)
+
+- name: Achievements - Pets
+  things:
+  -  23274 # Stinker - Shop Smart, Shop Pet...Smart (50 pets)
+  -  32939 # Little Fawn - Lil' Game Hunter (75 pets)
+  -  54227 # Nuts - Petting Zoo (100 pets)
+  -  54374 # Brilliant Kaliri - Menagerie (125 pets)
+  -  40624 # Celestial Dragon - Littlest Pet Shop (150 pets)
+  -  63621 # Feral Vermling - Going to Need More Leashes (250 pets)
+  -  66491 # Venus - That's a Lot of Pet Food (400 pets)
+  -  87705 # Stormwing - So. Many. Pets. (600 pets)
+  - 143142 # Rooter (Achievement - Pet Emporium, 800 pets)
+  -  66450 # Jade Tentacle (400 pet achievement points)
+  -  64232 # Singing Cricket - Pro Pet Mob (75 pets to 25)
+  -  69849 # Stunted Direhorn - Brutal Pet Brawler
+  -  80101 # Royal Peachick - Draenor Safari
+  - 113855 # Rescued Fawn (Legion Safari)
+  - 143464 # Dreadtick Leecher (Achievement - Battle Safari)
+  -  88830 # Trunks - An Awfully Big Adventure
+  - 112945 # Nightmare Treant (Legion meta)
+  - 128146 # Felclaw Marsuul (Achievement, Family Fighter)
+  -  68655 # Mr. Bigglesworth - Raiding With Leashes
+  -  71023 # Tito - Raiding With Leashes II
+  -  90215 # K'ute - Raiding With Leashes III
+  - 127956 # Amalgam of Destruction (Achievement, Raiding with Leashes V: Cataclysm)
+
+- name: Garrison
+  things:
+  -  93143 # Cinder Pup - Mission
+  -  79039 # Crazy Carrot - Herb Garden
+  -  94927 # Crusher - Vendor
+  -  88222 # Everbloom Peachick - Inn
+  -  94867 # Left Shark - Mission
+  -  87257 # Pygmy Cow - Barn
+
+- name: Garrison - Pet Menagerie
+  things:
+  -  77021 # Albino Chimaeraling
+  -  87704 # Firewing
+  -  83817 # Ghastly Kid
+  -  88300 # Puddle Terror
+  -  83588 # Sun Sproutling
+  -  88367 # Sunfire Kaliri
+  -  78421 # Weebomination
+  -  88577 # Bone Serpent
+  -  91407 # Slithershock Elver
+  -  91408 # Young Talbuk
+  -  88514 # Bloodthorn Hatchling - Vendor
+  -  88415 # Dusty Sporewing - Vendor
+  -  88575 # Glowing Sporebat - Vendor
+  -  93142 # Lost Netherpup - Vendor
+
+- name: Order Hall
+  things:
+  - 112144 # Corgnelius
+  - 112132 # Firebat Pup
+  -  97178 # Hateful Eye
+  - 119498 # Bloodbrood Whelpling (Order Hall, Death Knight)
+  - 119499 # Frostbrood Whelpling (Order Hall, Death Knight)
+  - 119500 # Vilebrood Whelpling (Order Hall, Death Knight)
+  -  98463 # Broot (Order Hall, Druid)
+  - 112798 # Nightmare Lasher (Order Hall, Druid)
+  - 120830 # Ban-Fu, Cub of Ban-Lu (Order Hall, Monk)
+  - 116871 # Crackers (Order Hall, Rogue?)
+
+- name: Promotion
+  things:
+  - 103159 # Baby Winston (Overwatch)
+  -  36871 # Core Hound Pup (Authenticator)
+  - 106283 # Corgi Pup (12th Anniversary)
+  -  33578 # Murkimus the Gladiator (Arena Tournament)
+  -  91226 # Graves (Heroes of the Storm)
+  -  25146 # Golden Pig (RAF)
+  -  34930 # Jade Tiger (RAF)
+  -  25147 # Silver Pig (RAF)
+  -  36910 # Zipao Tiger (RAF)
+
+- name: PvP
+  things:
+  - 111202 # Alliance Enthusiast (Prestige)
+  - 111296 # Horde Fanatic (Prestige)
+  - 115919 # Dutiful Gruntling (Prestige)
+  - 115918 # Dutiful Squire (Prestige)
+  - 144004 # Bucketshell (Honor 400, Horde)
+  - 144005 # Sir Snips (Honor 400, Alliance)
+
+- name: Trainer
+  things:
+  -  63098 # Gilnean Raven - Worgen
+  -  65314 # Jade Crane Chick - Pandaren
+  -  63097 # Shore Crawler - Goblin
+
+- name: Treasure
+  things:
+  -  73534 # Azure Crane Chick - Timeless Isle
+  -  73668 # Bonkers - Timeless Isle
+  -  86716 # Crimson Spore - Gorgrond
+  -  35396 # Darting Hatchling - Dustwallow Marsh
+  - 134406 # Francois (Treasure - Tiragarde Sound)
+  -  85387 # Fruit Hunter - Frostfire Ridge
+  -  86879 # Hydraling - Spires of Arak
+  -  35387 # Leaping Hatchling - The Barrens
+  -  99526 # Leyline Broodling ()
+  -  88814 # Nethaera's Light - Dalaran
+  -  35397 # Ravasaur Hatchling - Un'goro Crater
+  -  35398 # Razormaw Hatchling - Wetlands
+  - 120397 # Scraps (Curious Wyrmtongue Cache, Broken Shore)
+  -  25706 # Searing Scorchling
+  -  95572 # Shard of Cyrukh - Tanaan
+  -  85231 # Stonegrinder - Talador
+  -  61087 # Sun Darter Hatchling (puzzle?)
+  -  81431 # Teroclaw Hatchling - Talador
+  -  63365 # Terrible Turnip - MoP Farm
+  -  99389 # Thistleleaf Adventurer ()
+  -  86717 # Umbrafen Spore - Shadowmoon Valley
+
+- name: Vendor
+  things:
+  -   7394 # Ancona Chicken - Thousand Needles
+  - 106270 # Celestial Calf ()
+  -   7390 # Cockatiel - Cape of Stranglethorn
+  -  53661 # Crimson Lasher - Molten Front
+  - 128118 # Cross Gazer (Quest, A Pile of Intact Demon Eyes, Antoran Wastes - eye vendor?)
+  -  94927 # Crusher - Garrison
+  - 106278 # Felbat Pup (Nethershard)
+  -  53658 # Hyjal Bear Cub - Molten Front
+  - 118060 # Infinite Hatchling (Timeless Isle - Mistweaver Xia)
+  -  88574 # Kaliri Hatchling - Spires of Arak
+  - 118063 # Paradox Spirit (Timeless Isle - Mistweaver Xia)
+  - 119040 # Tylarr Gronnden (Deeprun Tram/Brawl'gar Arena)
+  -  88573 # Veilwatcher Hatchling - Spires of Arak
+  -  52831 # Winterspring Cub - Winterspring
+
+- name: Vendor - Alliance
+  things:
+  -   7385 # Bombay Cat - Elwynn Forest
+  -   7384 # Cornish Rex Cat - Elwynn Forest
+  -   7382 # Orange Tabby Cat - Elwynn Forest
+  -   7381 # Silver Tabby Cat - Elwynn Forest
+  -   7386 # White Kitten - Stormwind City
+  -  21010 # Blue Moth - Exodar
+  -  21009 # Red Moth - Exodar
+  -  21018 # White Moth - Exodar
+  -  21008 # Yellow Moth - Exodar
+  -   7553 # Great Horned Owl - Teldrassil
+  -   7555 # Hawk Owl - Teldrassil
+  -   7560 # Snowshoe Rabbit - Dun Morogh
+
+- name: Vendor - Dalaran
+  things:
+  -   7561 # Albino Snake - Dalaran
+  -  99425 # Alarm-o-Bot (vendor Dalaran)
+  -  83584 # Autumnal Sproutling (Dalaran - Draemus)
+  -  40295 # Blue Clockwork Rocket Bot - Dalaran
+  -  34364 # Calico Cat - Dalaran
+  -  98185 # Fel Piglet (vendor dalaran)
+  -  29147 # Ghostly Skull - Dalaran
+  -  97127 # Nightwatch Swooper (vendor tokens)
+  -  97238 # Nursery Spider (Dalaran)
+  -  35399 # Obsidian Hatchling - Dalaran
+  -  98132 # Plump Jelly (vendor dalaran)
+  -  98128 # Sewer-Pipe Jelly (vendor dalaran)
+  - 117371 # Trashy (Dalaran - Conjurer Margoss)
+
+- name: Vendor - Guild
+  things:
+  -  49587 # Guild Herald
+  -  49590 # Guild Herald
+  -  49586 # Guild Page
+  -  49588 # Guild Page
+  -  48242 # Armadillo Pup - Critter Kill Squad
+  -  47944 # Dark Phoenix Hatchling - United Nations
+  -  84521 # Deathwatch Hatchling - Challenge Warlords: Gold - Guild Edition
+  -  54027 # Lil' Tarecgosa - Dragonwrath, Tarecgosa's Rest - Guild Edition
+  -  65313 # Thundering Serpent Hatchling - Challenge Conquerors: Gold - Guild Edition ?
+
+- name: Vendor - Horde
+  things:
+  -   7565 # Black Kingsnake - Orgrimmar
+  -   7562 # Brown Snake - Orgrimmar
+  -   7567 # Crimson Snake - Orgrimmar
+  -  21056 # Blue Dragonhawk - Silvermoon
+  -  21055 # Golden Dragonhawk - Silvermoon
+  -  21064 # Red Dragonhawk - Silvermoon
+  -  21063 # Silver Dragonhawk - Silvermoon
+  -  14421 # Brown Prairie Dog - Mulgore
+  -   7395 # Undercity Cockroach - Undercity
+
+- name: Vendor - Netherstorm
+  things:
+  -  20472 # Brown Rabbit - Netherstorm
+  -   7567 # Crimson Snake - Netherstorm
+  -  20408 # Mana Wyrmling - Netherstorm
+  -  21009 # Red Moth - Netherstorm
+  -   7389 # Senegal - Cape of Stranglethorn/Netherstorm
+  -   7380 # Siamese Cat - Netherstorm
+  -   7395 # Undercity Cockroach - Netherstorm
+
+- name: Vendor - Timeless Isle
+  things:
+  -  72462 # Chi-Chi, Hatchling of Chi-Ji
+  -  71942 # Xu-Fu, Cub of Xuen
+  -  72463 # Yu'la, Broodling of Yu'lon
+  -  72464 # Zao, Calfling of Niuzao
+  -  73809 # Sky Lantern - Timeless Isle
+  -  73688 # Vengeful Porcupette - Timeless Isle
+
+- name: Vendor - BfA
+  things:
+  - 143175 # Abyssal Eel (Vendor - Madeline Netley, Stormsong Valley)
+  - 143200 # Accursed Hexxer (Vendor - Shoak, Nazmir)
+  - 143206 # Barnacled Hermit Crab (Vendor - Madeline Netley, Stormsang Valley/Jenoh, Vol'dun)
+  - 143181 # Bilefang Skitterer (Vendor - Nigel Rifthold, Drustvar)
+  - 143194 # Bloodfeaster Larvae (Vendor - Shoak, Nazmir)
+  - 143203 # Blue Flitter (Vendor - Madeline Netley, Stormsang Valley/Happy Holaua, Zuldazar)
+  - 143211 # Carnivorous Lasher (Vendor - Madeline Netley, Stormsang Valley/Jenoh, Vol'dun)
+  - 143198 # Child of Jani (Vendor - Happy Holaua, Zuldazar)
+  - 143205 # Crimson Frog (Vendor - Nigel Rifthold, Drustvar/Shoak, Nazmir)
+  - 143178 # Drustvar Piglet (Vendor - Nigel Rifthold, Drustvar)
+  - 143179 # Frenzied Cottontail (Vendor - Nigel Rifthold, Drustvar)
+  - 143204 # Freshwater Pincher (Vendor - Madeline Netley, Stormsong Valley/Jenoh, Vol'dun)
+  - 143184 # Greating Macaw (Vendor - Dana Pull, Tiaragarde Sound)
+  - 143196 # Lil' Ben'fon (Vendor - Happy Holaua, Zuldazar)
+  - 139622 # Lil' Tika (Vendor - Happy Holaua, Zuldazar)
+  - 143360 # Lost Platysaur (Vendor - Talutu, Zuldazar/Tricky Nick, Tiragarde Sound)
+  - 143188 # Mechanical Prairie Dog (Vendor - Dana Pull, Tiragarde Sounde)
+  - 143197 # Ranishu Runt (Vendor - Jenoh, Vol'dun)
+  - 143207 # Sandstinger Wasp (Vendor - Madeline Netley, Stormsang Valley/Jenoh, Vol'dun)
+  - 143202 # Saurolisk Hatchling (Vendor - Madeline Netley, Stormsang Valley/Happy Holaua, Zuldazar)
+  - 139081 # Smoochums (Vendor - Nigel Rifthold, Drustvar)
+  - 143199 # Swamp Toad (Vendor - Shoak, Nazmir)
+  - 143191 # Tiny Direhorn (Vendor - Happy Holaua, Zuldazar)
+  - 143193 # Zandalari Shinchomper (Vendor - Happy Holaua, Zuldazar)
+
+- name: World Drops
+  things:
+  -   7547 # Azure Whelpling
+  -   7546 # Bronze Whelpling
+  -   7544 # Crimson Whelpling
+  -   7543 # Dark Whelpling
+  -   7545 # Emerald Whelpling
+  -   7383 # Black Tabby Cat - Hillsbrad Foothills
+  -  35395 # Deviate Hatchling
+  -  15429 # Disgusting Oozeling
+  -  71201 # Filthling - Isle of Thunder
+  -  21076 # Firefly
+  -  48641 # Fox Kit - Tol Barad
+  -  71159 # Gahz'rooki - Northern Barrens
+  -  35400 # Gundrak Hatchling
+  -   7391 # Hyacinth Macaw - Stranglethorn
+  -  35394 # Razzashi Hatchling
+  -   9662 # Sprite Darter
+  -  83562 # Zomstrok - Shadowmoon Valley (WoD)
+
+- name: Misc
+  things:
+  - 124594 # Dig Rat (Pickpocket)
+  - 124389 # Sneaky Marmot (Pickpocket)
+
+- name: Unknown
+  things:
+  - 116080 # Albino Buzzard (pet supplies?)
+  - 120591 # Arne's Test Pet (PH)
+  -  98182 # Black Piglet (??)
+  -  98181 # Brown Piglet (??)
+  - 105355 # Essence of Mana (??)
+  - 105353 # Font of Mana (??)
+  - 120973 # Golden Retriever
+  - 117343 # Hearthy (??)
+  -  99874 # Mini Arcanotron (??)
+  -  99876 # Mini Electron (??)
+  -  99856 # Mini Magmatron (??)
+  - 117341 # Mini Naxxy (PH)
+  - 117340 # Mini Spider Tank (PH)
+  -  98572 # Rocko (??)
+  -  83592 # Sassy Sproutling (unknown)
+  - 105356 # Seed of Mana (??)
+  - 114063 # Snowfang (??)
+  -  98004 # Son of Goredome (??)
+
+- name: Unknown - BfA
+  things:
+  - 143189 # Wicker Pup (Drustvar??)
+  - 125494 # SpeedyNumberIII (??)
+  - 129253 # REUSE (??)
+  - 140193 # "Fixed" Remote Control Rocket Chicken (??)
+  - 129256 # Bloodfeaster Larva (??)
+  - 133825 # Colonel Shucks (??)
+  - 141588 # Bloodtusk (??)
+  - 141909 # Baa'l (??)
+  - 141941 # Baa'l (??)
+  - 141950 # Clubber (??)
+
+- name: Unavailable
+  things:
+  -  32841 # Baby Blizzard Bear - WoW's 4th Anniversary
+  -  36607 # Onyxian Whelpling - WoW's 5th Anniversary
+  -  84915 # Molten Corgi - WoW's 10th Anniversary
+  -  87669 # Hatespark the Tiny - Molten Core
+  -  27346 # Essence of Competition - ? 2008
+  -  16069 # Gurky - EU Fansite Thing
+  -  23198 # Lucky - World Wide Invitational 2007
+  -  29089 # Mini Tyrael - World Wide Invitational 2008
+  -  29726 # Mr. Chilly - Battle.net Account Merger
+  -  15361 # Murki - Korea something
+  -  35468 # Onyx Panther - Korea something
+  -  16456 # Poley - iCoke
+  -  68502 # Spectral Cub - Battle.net World Championship Shanghai 2012
+  -  27217 # Spirit of Competition - Beijing Olympics 2008
+  -  16445 # Terky - iCoke
+  -  14755 # Tiny Green Dragon - iCoke
+  -  14756 # Tiny Red Dragon - iCoke
+  -  28513 # Vampiric Batling - Karazhan event thing
+  -  34587 # Warbot - Mountain Dew
+
+
+# Instances
+- name: Challenge Dungeons
+  things:
+  - 117182 # Cavern Moccasin (Wailing Caverns)
+  - 117180 # Everliving Spore (Wailing Caverns)
+  - 121317 # Son of Skum (Wailing Caverns)
+  - 117184 # Young Venomfang (Wailing Caverns)
+  - 122629 # Foe Reaper 0.9 (Deadmines)
+  - 124589 # Mining Monkey (Deadmines)
+  - 119794 # Pocket Cannon (Deadmines)
+  - 122612 # Tricorne (Deadmines)
+
+- name: Vanilla
+  things:
+  -  68666 # Ashstone Core - MC
+  -  68664 # Corefire Imp - MC
+  -  68665 # Harbinger of Flame - MC
+  -  68662 # Chrominius - BWL
+  -  68663 # Death Talon - BWL
+  -  68661 # Untamed Hatchling - BWL
+  -  68659 # Anubisath Idol - AQ40
+  -  68658 # Mini Mindslayer - AQ40
+  -  68660 # Viscidus Globule - AQ40
+  -   7387 # Green Wing Macaw - Deadmines
+  -  10598 # Smolderdweb Hatchling - LBRS
+  -  10259 # Worg Pup - LBRS
+
+- name: WotLK
+  things:
+  -  68657 # Fungal Abomination - Naxx
+  -  68656 # Giant Bone Spider - Naxx
+  -  68654 # Stitched Pup - Naxx
+
+- name: TBC
+  things:
+  -  71033 # Fiendish Imp - Karazhan
+  -  71014 # Lil' Bad Wolf - Karazhan
+  -  71015 # Menagerie Custodian - Karazhan
+  -  71016 # Netherspace Abyssal - Karazhan
+  -  71019 # Coilfang Stalker - SSC
+  -  71018 # Tainted Waveling - SSC
+  -  71017 # Tideskipper - SSC
+  -  71021 # Lesser Voidcaller - Tempest Keep
+  -  71022 # Phoenix Hawk Hatchling - Tempest Keep
+  -  71020 # Pocket Reaver - Tempest Keep
+  -  90200 # Grotesque - Hyjal Summit
+  -  90208 # Hyjal Wisp - Hyjal Summit
+  -  90207 # Stinkrot - Hyjal Summit
+  -  90202 # Abyssius - Black Temple
+  -  90203 # Fragment of Anger - Black Temple
+  -  90205 # Fragment of Desire - Black Temple
+  -  90204 # Fragment of Suffering - Black Temple
+  -  90201 # Leviathan Hatchling - Black Temple
+  -  90206 # Sister of Temptation - Black Temple
+  -  90213 # Chaos Pup - Sunwell
+  -  90212 # Sunblade Micro-Defender - Sunwell
+  -  90214 # Wretched Servant - Sunwell
+  -  26119 # Phoenix Hatchling - Magisters' Terrace
+  -  24480 # Mojo - Zul'Aman
+
+- name: WotLK
+  things:
+  - 115145 # Creeping Tentacle (Ulduar)
+  - 115144 # G0-R41-0N Ultratonk (Ulduar)
+  - 115139 # Ironbound Proto-Whelp (Ulduar)
+  - 115138 # Magma Rageling (Ulduar)
+  - 115140 # Runeforged Servitor (Ulduar)
+  - 115141 # Sanctum Cub (Ulduar)
+  - 115143 # Snaplasher (Ulduar)
+  - 115142 # Winter Rageling (Ulduar)
+  - 115135 # Dreadmaw (Trial of the Crusader)
+  - 115137 # Nerubian Swarmer (Trial of the Crusader)
+  - 115136 # Snobold Runt (Trial of the Crusader)
+  - 115146 # Boneshard (Icecrown Citadel)
+  - 115148 # Blightbreath (Icecrown Citadel)
+  - 115147 # Blood Boil (Icecrown Citadel)
+  - 115150 # Drudge Ghoul (Icecrown Citadel)
+  - 115149 # Soulbroken Whelpling (Icecrown Citadel)
+  - 115152 # Wicked Soul (Icecrown Citadel)
+  - 115158 # Stardust (??)
+
+- name: Cata
+  things:
+  - 127858 # Bound Stream (Elementium Monstrosity, Bastion of Twilight)
+  - 127859 # Faceless Minion (Cho'gall, Bastion of Twilight)
+  - 127857 # Twilght Clutch-Sister (Valiona, Bastion of Twilight)
+  - 127852 # Discarded Experiment (Maloriak, Blackwing Descent)
+  - 127853 # Rattlejaw (Nefarian, Blackwing Descent)
+  - 127850 # Tinytron (Magmatron, Blackwing Descent)
+  - 127953 # Corrupted Blood (Spine of Deathwing, Dragon Soul)
+  - 127952 # Faceless Mindlasher (Yor'sahj the Unsleeping, Dragon Soul)
+  - 127954 # Unstable Tendril (Deathwing, Dragon Soul)
+  - 127947 # Blazehound (Shannox, Firelands)
+  - 127948 # Cinderweb Recluse (Beth'tilac, Firelands)
+  - 127951 # Infernal Pyreclaw (Majordomo Staghelm, Firelands)
+  - 127950 # Surger (Baleroc, Firelands)
+  - 127863 # Drafty (Nezir, Throne of the Four Winds)
+  - 127862 # Zephyrian Prince (Al'Akir, Throne of the Four Winds)
+
+- name: MoP
+  things:
+  -  70144 # Ji-Kun Hatchling - Throne of Thunder
+  -  71199 # Living Fluid - Throne of Thunder
+  -  69748 # Living Sandling - Throne of Thunder
+  -  70083 # Pygmy Direhorn - Throne of Thunder
+  -  69820 # Son of Animus - Throne of Thunder
+  -  71200 # Viscous Horror - Throne of Thunder
+  -  73352 # Blackfuse Bombling - Siege of Orgrimmar
+  -  73350 # Droplet of Y'Shaarj - Siege of Orgrimmar
+  -  73351 # Gooey Sha-ling - Siege of Orgrimmar
+  -  73354 # Kovok - Siege of Orgrimmar
+
+- name: WoD
+  things:
+  -  94623 # Corrupted Nest Guardian - Hellfire Citadel
+  -  86532 # Lanticore Spawnling - UBRS
+
+- name: Legion
+  things:
+  - 124944 # Ageless Bronze Drake (Chromie scenario)
+  - 124858 # Bronze Proto-Whelp (Chromie scenario)
+  -  97206 # Dream Whelpling (Emerald Nightmare)
+  - 112015 # Nightmare Whelpling (Emerald Nightmare)
+
+- name: BfA
+  things:
+  - 139049 # Filthy Slime (Drop - Gol'than the Malodorous, Tol Dagor)
+  - 138964 # Spawn of Merektha (Drop - Merektha, Temple of Sethraliss)
+
+- name: BfA - Island Expeditions
+  things:
+  - 143796 # Barnaby (Island Expeditions)
+  - 143816 # Bloodstone Tunneler (Island Expeditions)
+  - 143795 # Captain Nibs (Island Expeditions)
+  - 143821 # Coldlight Surfrunner (Island Expeditions)
+  - 143803 # Craghoof Kid (Island Expeditions)
+  - 143807 # Deathsting Scorpid (Island Expeditions)
+  - 143804 # False Knucklebump (Island Expeditions)
+  - 143809 # Giggling Flame (Island Expeditions)
+  - 143799 # Inky (Island Expeditions)
+  - 143819 # Juvenile Brineshell (Island Expeditions)
+  - 143802 # Kindleweb Spiderling (Island Expeditions)
+  - 143820 # Kunchong Hatchling (Island Expeditions)
+  - 143810 # Laughing Stonekin (Island Expeditions)
+  - 143813 # Littlehoof (Island Expeditions)
+  - 143812 # Mischievous Zephyr (Island Expeditions)
+  - 143818 # Muskflank Calfling (Island Expeditions)
+  - 143798 # Octopode Fry (Island Expeditions)
+  - 143811 # Playful Frostkin (Island Expeditions)
+  - 143797 # Poro (Island Expeditions)
+  - 143806 # Sandshell Chitterer (Island Expeditions)
+  - 143794 # Scuttle (Island Expeditions)
+  - 143814 # Snapper (Island Expeditions)
+  - 143817 # Snort (Island Expeditions)
+  - 143801 # Sparkleshell Sandcrawler (Island Expeditions)
+  - 143815 # Sunscale Hatchling (Island Expeditions)
+  - 143808 # Thistlebrush Bud (Island Expeditions)
+  - 143805 # Tinder Pup (Island Expeditions)
+  - 143822 # Voru'kar Leecher (Island Expeditions)
+
+
+# Professions
+- name: Other
+  things:
+  -  84853 # Soul of the Forge - Blacksmithing
+  -  78895 # Lil' Leftovers - Cooking
+  - 128137 # Fel Lasher (Herbalism)
+  -  83594 # Nightshade Sproutling - Herbalism (Garrison?)
+  -  66104 # Chi-Ji Kite - Inscription
+  -  66105 # Yu'lon Kite - Inscription
+  -  61877 # Jade Owl - Jewelcrafting
+  -  61883 # Sapphire Cub - Jewelcrafting
+  -  50722 # Elementium Geode - Mining
+  -  85667 # Ore Eater - Mining (Garrison?)
+  - 128160 # Fossorial Bile Larva (Skinning)
+
+- name: Alchemy
+  things:
+  - 143374 # Baby Crawg (Alchemy)
+  - 143958 # Bloodfeaster Larva (Alchemy)
+  - 143957 # Gearspring Hopper (Alchemy)
+  -  98172 # Ridgeback Piglet (Alchemy)
+  - 143959 # Slippy (Alchemy)
+  -  98183 # Thaumaturgical Piglet (Alchemy)
+  - 111425 # Transmutant (Alchemy)
+
+- name: Archaeology
+  things:
+  -  86420 # Ancient Nest Guardian
+  -  48609 # Clockwork Gnome
+  -  45128 # Crawling Claw
+  - 139744 # Direhorn Hatchling (Archaeology)
+  -  45340 # Fossilized Hatchling
+  -  86422 # Frostwolf Ghostpup
+  -  53225 # Pterrordax Hatchling
+  - 139782 # Restored Revenant (Archaeology)
+  -  53232 # Voodoo Figurine
+  - 106232 # Wyrmy Tunkins (Archaeology)
+
+- name: Enchanting
+  things:
+  -  96403 # Enchanted Cauldron
+  -  46898 # Enchanted Lantern
+  -  96405 # Enchanted Pen
+  - 139743 # Enchanted Tiki Mask (Enchating)
+  -  96404 # Enchanted Torch
+  -  50545 # Magic Lamp
+
+- name: Engineering
+  things:
+  -  43916 # De-Weaponized Mechanical Companion
+  -  80329 # Lifelike Mechanical Frostboar
+  -  12419 # Lifelike Toad
+  -   9657 # Lil' Smoky
+  -  79410 # Mechanical Axebeak
+  -  64899 # Mechanical Pandaren Dragonling
+  -  88134 # Mechanical Scorpid
+  - 154787 # Mechanical Squirrel
+  -  43800 # Personal World Destroyer
+  -   9656 # Pet Bombling
+  -  70082 # Pierre
+  -  71693 # Rascal-Bot
+  -  15699 # Tranquil Mechanical Yeti
+  - 106210 # Trigger (Engineering)
+
+- name: Fishing
+  things:
+  -  26056 # Chuck
+  - 126579 # Ghost Shark (fishing vendor)
+  -  31575 # Giant Sewer Rat
+  -  86445 # Land Shark
+  -  18839 # Magical Crawdad
+  -  24389 # Muckbreath
+  -  84441 # Sea Calf
+  -  55386 # Sea Pony
+  -  26050 # Snarly
+  - 109216 # Sting Ray Pup (fishing vendor)
+  -  33226 # Strand Crawler
+  -  70258 # Tiny Blue Carp
+  -  70259 # Tiny Green Carp
+  -  70257 # Tiny Red Carp
+  -  70260 # Tiny White Carp
+  -  24388 # Toothy
+
+- name: Tailoring
+  things:
+  -  82464 # Elekk Plushie - Tailoring
+  -  67230 # Imperial Moth - Tailoring
+  -  67233 # Imperial Silkworm - Tailoring
+
+
+# Quests
+- name: Quests
+  things:
+  -  54539 # Alliance Balloon
+  -  42177 # Blue Mini Jouster
+  -  62829 # Fishy
+  -  42183 # Gold Mini Jouster
+  -  54541 # Horde Balloon
+  -  86447 # Ikky
+  -  77221 # Iron Starlette
+  -  52894 # Lashtail Hatchling
+  -  84330 # Meadowstomper Calf - Nagrand (WoD)
+  -   8376 # Mechanical Chicken
+  -  22445 # Miniwing
+  -  52226 # Panther Cub
+  -  69649 # Red Panda
+  -  88225 # Sentinel's Companion
+  -  51090 # Singing Sunflower
+  -  69848 # Spectral Porcupette
+  -  51632 # Tiny Flamefly
+  -  30379 # Westfall Chicken
+  -  34278 # Withers
+
+- name: Daily
+  things:
+  -  69892 # Mountain Panda - MoP Trainer Daily
+  -  69893 # Snowy Panda - MoP Trainer Daily
+  -  69891 # Sunfur Panda - MoP Trainer Daily
+  -  68467 # Pandaren Air Spirit - MoP Spirit Daily
+  -  68468 # Pandaren Earth Spirit - MoP Spirit Daily
+  -  68466 # Pandaren Fire Spirit - MoP Spirit Daily
+  -  66950 # Pandaren Water Spirit - MoP Spirit Daily
+  -  61086 # Porcupette
+  -  93483 # Nightmare Bell
+  -  93352 # Periwinkle Calf
+  -  86718 # Seaborne Spore
+  -  86715 # Zangar Spore
+  -  73011 # Lil' Bling - Blingtron
+  -  85284 # Sky-Bo - Blingtron 5000
+  -  99505 # Knockoff Blingtron (Blingtron 6000)
+
+- name: Legion
+  things:
+  -  96649 # Ashmaw Cub ()
+  -  97207 # Emmigosa ()
+  -  96622 # Grumpy ()
+  - 111421 # Lurking Owl Kitten ()
+  -  97079 # Skyhorn Nestling ()
+  - 111423 # Untethered Wyrmling ()
+  - 113827 # Wonderous Wisdomball ()
+  - 115787 # Bloodgazer Hatchling (Quest)
+  - 115785 # Direbeak Hatchling (Quest)
+  - 115786 # Sharptalon Hatchling (Quest)
+  - 115784 # Snowfeather Hatchling (Quest)
+
+- name: BfA
+  things:
+  - 131644 # Dart (Quest - It Seems You've Made a Friend, Nazmir)
+  - 139252 # Guardian Cobra Hatchling (Quest - My Hungry Neighbor, Vol'dun)
+  - 139073 # Poda (Quest - Missing Business, Vol'dun)
+  - 139770 # Taptaf (Quest - Taptaf the Pig!, Drustvar)
+  - 139372 # Vengeful Chicken (Quest - Cutting Edge Poultry Science, ??)
+
+
+# Rare Mobs
+- name: Other
+  things:
+  - 133064 # Silithid Mini-Tank (Drop - Silithus: The Wound)
+  -  48982 # Tiny Shale Spider - Jadefang
+
+- name: MoP
+  things:
+  -  64633 # Aqua Strider
+  -  73533 # Ashleaf Spriteling
+  -  73532 # Dandelion Frolicker
+  -  73364 # Death Adder Hatchling
+  -  70154 # Direhorn Runt
+  -  64634 # Grinder
+  -  73730 # Gu'chi Swarmling
+  -  73359 # Gulp Froglet
+  -  73738 # Jadefire Spirit
+  -  73355 # Jademist Dancer
+  -  50586 # Mr. Grubbs
+  -  73357 # Ominous Flame
+  -  73356 # Ruby Droplet
+  -  73367 # Skunky Alemental
+  -  70098 # Spawn of G'nathus
+  -  73366 # Spineclaw Crab
+  -  69778 # Sunreaver Micro-Sentry
+  -  70451 # Zandalari Anklerender
+  -  70452 # Zandalari Footslasher
+  -  69796 # Zandalari Kneebiter
+  -  70453 # Zandalari Toenibbler
+
+- name: WoD
+  things:
+  -  86719 # Brilliant Spore - Spires of Arak
+  -  88103 # Doom Bloom - Gorgrond
+  -  98237 # Empowered Manafiend - Nagrand
+  -  98238 # Empyreal Manafiend - Nagrand
+  -  98236 # Energized Manafiend - Nagrand
+  -  88490 # Eye of Observation - Talador
+  -  91823 # Fel Pup - Tanaan
+  -  86081 # Netherspawn - Nagrand
+  -  88692 # Servant of Demidos - Shadowmoon
+
+- name: Legion
+  things:
+  - 113136 # Benax (drop Suramar)
+  -  98116 # Bleakwater Jelly (drop Helheim)
+  -  98077 # Crispin (drop Highmountain)
+  -  97179 # Eye of Inquisition (drop Suramar)
+  -  99394 # Fetid Waveling (drop Val'sharah)
+  - 111984 # Hungering Claw (drop? Kosumoth)
+  - 108568 # Pygmy Owl (drop Val'sharah)
+  -  99403 # Risen Saber Kitten (drop Val'sharah)
+  -  97205 # Stormborne Whelpling (drop Stormheim)
+
+- name: Legion - Argus
+  things:
+  - 128157 # Docile Skyfin (Fel-Spotted Egg, Argus rare drop)
+  - 128158 # Fel-Afflicted Skyfin (Fel-Spotted Egg, Argus rare drop)
+  - 128159 # Grasping Manifestation (Ataxon, Mac'Aree)
+  - 128388 # Rebellious Imp (Drop, Mother Rosula)
+  - 128396 # Uuna (Drop, The Many-Faced Devourer)
+
+- name: BfA - Arathi
+  things:
+  - 143503 # Aldrusian Sproutling (Drop - Branchlord Aldrus, Arathi Highlands)
+  - 143564 # Foulfeather (Drop - Plaguefeather, Arathi Highlands)
+  - 143627 # Fozling (Drop - Fozruk, Arathi Highlands)
+  - 143499 # Fuzzy Creepling (Drop - Venomarus, Arathi Highlands)
+  - 143563 # Ragepeep (Drop - Ragebeak, Arathi Highlands)
+  - 143533 # Scabby (Drop - Yogursa, Arathi Highlands)
+  - 143628 # Squawkling (Drop - Man-Hunter Rog, Arathi Highlands)
+  - 143515 # Teeny Titan Orb (Drop - Echo of Myzrael, Arathi Highlands)
+  - 143507 # Voidwiggler (Drop - Darbel Montrose, Arathi Highlands)
+
+
+# Reputation
+- name: TBC
+  things:
+  -  28470 # Nether Ray Fry - Sha'tari Skyguard
+  -  25062 # Tiny Sporebat - Sporeggar
+
+- name: WotLK
+  things:
+  -  32591 # Cobra Hatchling - The Oracles
+  -  32595 # Pengu - The Kalu'ak
+  -  32592 # Proto-Drake Whelp - The Oracles
+  -  32589 # Tickbird Hatchling - The Oracles
+  -  32590 # White Tickbird hatchling - The Oracles
+
+- name: Cata
+  things:
+  -  48107 # Rustberg Gull - Baradin's Wardens
+
+- name: MoP
+  things:
+  -  73732 # Harmonious Porcupette - Emperor Shaohao
+  -  63370 # Red Cricket - Sho (MoP Farm)
+  -  63559 # Tiny Goldfish - The Anglers
+
+- name: WoD
+  things:
+  -  85281 # Albino River Calf - Steamwheedle Preservation Society
+  -  96123 # Blazing Firehawk - Order of the Awakened
+  -  85014 # Bone Wasp - Laughing Skull
+  -  84885 # Draenei Micro Defender - Council of Exarchs
+  -  83583 # Forest Sproutling - Steamwheedle Preservation Society
+  -  87111 # Frostwolf Pup - Frostwolf Orcs
+  -  96126 # Savage Cub - The Saberstalkers
+  -  88452 # Sky Fry - Sha'tari Defense
+  -  88401 # Son of Sethe - Arakkoa Outcasts
+
+- name: Legion
+  things:
+  -  17254 # Ash'ana (rep Legion)
+  - 106152 # Baby Elderhorn (rep)
+  - 112728 # Court Scribe (rep)
+  -  97174 # Extinguished Eye (rep Legion)
+  -  97128 # Fledgling Warden Owl (rep Legion)
+  - 121715 # Orphaned Felbat (Armies of Legionfall Paragon)
+  - 128119 # Orphaned Marsuul (Argussian Reach - Honored)
+  - 106181 # Sunborne Val'kyr (rep)
+
+- name: BfA
+  things:
+  - 143611 # Azerite Puddle (Reputation - Champions of Azeroth, Revered)
+  - 143214 # Azeriti (Reputation - Champions of Azeroth, Revered)
+  - 143177 # Corlain Falcon (Reputation - Order of Embers, Revered)
+  - 143209 # Cou'pa (Reputation - Tortollan Seekers, Revered)
+  - 143738 # Lil' Siege Tower (Reputation - 7th Legion?)
+  - 143739 # Lil' War Machine (Reputation - The Honorbound?)
+  - 143176 # Seabreeze Bumblebee (Reputation - Storm's Wake, Revered)
+  - 143195 # Tragg the Curious (Reputation - Talanji's Expedition, Revered)
+
+
+# World Events
+- name: Other
+  things:
+  -  68601 # Clock'em - Brawler's Guild
+  -  34770 # Macabre Marionette - Day of the Dead
+  -  55574 # Festival Lantern - Lunar Festival
+  -  55571 # Lunar Lantern - Lunar Festival
+  -  85773 # Mystical Spring Bouquet - Noblegarden
+  -  33975 # Noblegarden Bunny - Noblegarden
+  -  32791 # Spring Rabbit - Noblegarden
+  -  85846 # Bush Chicken - Pilgrim's Bounty
+  -  32818 # Plump Turkey - Pilgrim's Bounty
+
+- name: Argent Tournament
+  things:
+  -  33239 # Argent Gruntling
+  -  33238 # Argent Squire
+  -  33205 # Ammen Vale Lashling
+  -  33194 # Dun Morogh Cub
+  -  33198 # Durotar Scorpion
+  -  33200 # Elwynn Lamb
+  -  33227 # Enchanted Broom
+  -  33274 # Mechanopeep
+  -  33219 # Mulgore Hatchling
+  -  33810 # Sen'jin Fetish
+  -  34724 # Shimmering Wyrmling
+  -  33188 # Teldrassil Sproutling
+  -  33197 # Tirisfal Batling
+
+- name: Brewfest
+  things:
+  -  24753 # Pint-Sized Pink Pachyderm
+  -  85994 # Stout Alemental
+  -  22943 # Wolpertinger
+
+- name: Children\'s Week
+  things:
+  -  33530 # Curious Oracle Hatchling
+  -  33529 # Curious Wolvar Pup
+  -  23258 # Egbert
+  -  53048 # Legs
+  -  16548 # Mr. Wiggles
+  -  23266 # Peanut
+  -  51635 # Scooter the Snail
+  -  16547 # Speedy
+  -  16549 # Whiskers the Rat
+  -  23231 # Willy
+
+- name: Darkmoon Faire
+  things:
+  -  93814 # Blorp
+  -  67443 # Crow
+  -  55187 # Darkmoon Balloon
+  -  56031 # Darkmoon Cub
+  -  67332 # Darkmoon Eye
+  -  67329 # Darkmoon Glowfly
+  -  67319 # Darkmoon Hatchling
+  -  54491 # Darkmoon Monkey
+  -  59358 # Darkmoon Rabbit
+  -  55356 # Darkmoon Tonk
+  -  54487 # Darkmoon Turtle
+  -  55367 # Darkmoon Zeppelin
+  -  93808 # Ghostshell Crab
+  -  76873 # Hogs - That's Whack! achieve
+  -  14878 # Jubling
+  -  72160 # Moon Moon
+  -  90345 # Race MiniZep - Big Rocketeer: Gold achieve
+  -  55386 # Sea Pony
+  -  85527 # Syd the Squid
+  -   7549 # Tree Frog
+  -   7550 # Wood Frog
+
+- name: Hallow\'s End
+  things:
+  -  54128 # Creepy Crate
+  -  86061 # Cursed Birman
+  -  53884 # Feline Familiar
+  -  97569 # Ghostly Maggot
+  -  97568 # Ghostly Rat
+  -  23909 # Sinister Squashling
+  -  97324 # Spectral Spinner
+  -  86067 # Widget the Departed
+
+- name: Love is in the Air
+  things:
+  -  85710 # Lovebird Hatchling
+  -  16085 # Peddlefeet
+  -  38374 # Toxic Wasteling
+
+- name: Midsummer
+  things:
+  -  85872 # Blazing Cindercrawler
+  -  40198 # Frigid Frostling
+  - 114543 # Igneous Flameling
+  -  16701 # Spirit of Summer
+
+- name: Winter Veil
+  things:
+  -  24968 # Clockwork Rocket Bot
+  -  15698 # Father Winter's Helper
+  - 128156 # Globe Yeti (Feast of Winter Veil)
+  -  97229 # Grumpling
+  -  55215 # Lumpy
+  -  73741 # Rotten Little Helper
+  -  15710 # Tiny Snowman
+  -  15706 # Winter Reindeer
+  -  15705 # Winter's Little Helper
+
+# End World Events
+
+# $$$$$
+- name: BlizzCon
+  things:
+  -  15186 # Murky - BlizzCon 2005
+  -  34694 # Grunty - BlizzCon 2009
+  -  51122 # Deathy - BlizzCon 2010
+  -  54438 # Murkablo - BlizzCon 2011
+  -  74405 # Murkalot - BlizzCon 2013
+  -  88805 # Grommloc - BlizzCon 2014
+  -  85009 # Murkidan - BlizzCon 2015
+  - 113983 # Knight-Captain Murky (Blizzcon 2016)
+  - 113984 # Legionnaire Murky (Blizzcon 2016)
+
+- name: CE
+  things:
+  -  11326 # Mini Diablo - Vanilla
+  -  11325 # Panda Cub - Vanilla
+  -  11327 # Zergling - Vanilla
+  -  15358 # Lurky - TBC (EU)
+  -  18381 # Netherwhelp - TBC
+  -  28883 # Frosty - WotLK
+  -  46896 # Lil' Deathwing - Cata
+  -  63832 # Lucky Quilen Cub - MoP
+  -  77137 # Dread Hatchling - WoD
+  -  95841 # Nibbles - Legion
+  - 129049 # Tottle (BfA Collector's Edition)
+  -  56266 # Fetish Shaman - D3
+  -  74413 # Treasure Goblin - D3:RoS
+  -  42078 # Mini Thor - SC2:WoL
+  -  66984 # Baneling - SC2:HotS
+  -  71655 # Zeradar - SC2:LotV
+
+- name: Store
+  things:
+  -  74402 # Alterac Brew-Pup
+  -  88807 # Argi
+  -  71488 # Blossoming Ancient
+  -  85283 # Brightpaw
+  -  53623 # Cenarion Hatchling
+  -  68267 # Cinder Kitten
+  -  36908 # Gryphon Hatchling
+  -  53283 # Guardian Cub
+  -  36979 # Lil' K.T.
+  -  51600 # Lil' Ragnaros
+  -  40703 # Lil' XT
+  - 113527 # Mischief (Shop)
+  -  51601 # Moonkin Hatchling (Alliance)
+  -  51649 # Moonkin Hatchling (Horde)
+  -  36911 # Pandaren Monk
+  - 123650 # Shadow (Shop)
+  -  58163 # Soul of the Aspects
+  - 122033 # Twilight (Shop)
+  -  36909 # Wind Rider Cub
+
+- name: TCG
+  things:
+  -  23234 # Bananas
+  -  25110 # Dragon Kite
+  -  27914 # Ethereal Soul-Trader
+  -  59020 # Eye of the Legion
+  -  54730 # Gregarious Grell
+  -  69208 # Gusting Grimoire
+  -  17255 # Hippogryph Hatchling
+  -  52343 # Landro's Lichling
+  -  50468 # Landro's Lil' XT
+  -  52344 # Nightsaber Cub
+  -  54383 # Purple Puffer
+  -  25109 # Rocket Chicken
+  -  54745 # Sand Scarab
+  -  36511 # Spectral Tiger Cub
+  -  36482 # Tuskarr Kite
+
+# End $$$$$
+
+#Kul Tiras/Zandalar Pet Battles
+- name: Drustvar
+  things:
+  - 143045 # Coastal Scuttler (Drustvar)
+  - 143037 # River Otter (Drustvar, Stormsong Valley)
+
+- name: Nazmir
+  things:
+  - 143047 # Bloodfever Tarantula (Nazmir)
+  - 143055 # Boghopper (Nazmir)
+  - 143057 # Coastal Bounder (Nazmir)
+  - 143048 # Elusive Skimmer (Nazmir)
+  - 143053 # Glutted Bleeder (Nazmir)
+  - 143052 # Returned Hatchling (Nazmir)
+  - 143054 # Spectral Raven (Nazmir)
+  - 143051 # Sticky Oozeling (Nazmir)
+  - 143050 # Young Sand Sifter (Nazmir)
+
+- name: Stormsong Valley
+  things:
+  - 143033 # Freshwater Crawler (Stormsong Valley)
+  - 143038 # Honey Bee (Stormsong Valley)
+  - 143032 # River Frog (Stormsong Valley)
+  - 143037 # River Otter (Drustvar, Stormsong Valley)
+  - 143036 # Sandyback Crawler (Stormsong Valley, Tiragarde Sound)
+  - 143031 # Shadowback Crawler (Stormsong Valley)
+  - 143034 # Vale Marmot (Stormsong Valley)
+  - 143035 # Valley Chicken (Stormsong Valley)
+
+- name: Tiragarde Sound
+  things:
+  - 143042 # Giant Woodworm (Tiragarde Sound)
+  - 143041 # Inland Croaker (Tiragarde Sound)
+  - 143039 # Parasitic Boarfly (Tiragarde Sound)
+  - 143036 # Sandyback Crawler (Stormsong Valley, Tiragarde Sound)
+  - 143040 # Shack Crab (Tiragarde Sound)
+
+- name: "Vol'dun"
+  things:
+  - 143056 # Hermit Crab (Vol'dun)
+
+- name: Zuldazar
+  things:
+  - 143044 # Barrier Hermit (Zuldazar)
+  - 143046 # Golden Beetle (Zuldazar)
+  - 143049 # Leafy Flutterwing (Zuldazar)
+  - 143043 # Shore Butterfly (Zuldazar)
+
+
+#Broken Isles Pet Battles
+- name: Argus
+  things:
+  - 128175 # Antoran Bilescourge (Battle, Antoran Wastes, Argus)
+  - 128163 # Antoran Bile Larva (Battle, Antoran Wastes, Argus)
+  - 128164 # Bilescourge (Battle, Krokuun, Argus)
+  - 128162 # Bile Larva (Battle, Krokuun, Argus)
+  - 128166 # Flickering Argunite (Battle, Krokuun, Argus)
+  - 128172 # Arcane Gorger (Battle, Mac'Aree, Argus)
+  - 128174 # Felcrazed Wyrm (Battle, Mac'Aree, Argus)
+  - 128173 # Pygmy Marsuul (Battle, Mac'Aree, Argus)
+  - 128167 # Skyfin Juvenile (Battle, Mac'Aree, Argus)
+  - 128171 # Void Shardling (Battle, Mac'Aree, Argus)
+  - 128168 # Voidstalker Runt (Battle, Mac'Aree, Argus)
+  - 128170 # Warpstalker Runt (Battle, Mac'Aree, Argus)
+
+- name: Azsuna
+  things:
+  -  97323 # Felspider (Azsuna, Highmountain)
+  -  97018 # Albatross Chick (Azsuna, Stormheim)
+  - 110826 # Coastal Sandpiper (Azsuna, Suramar)
+  -  98386 # Eldritch Manafiend (Azsuna)
+  -  98385 # Erudite Manafiend (Azsuna)
+  -  97076 # Fledgling Kingfeather (Azsuna)
+  -  97078 # Fledgling Oliveback (Azsuna)
+  -  97283 # Juvenile Scuttleback (Azsuna)
+  -  97294 # Olivetail Hare (Azsuna)
+  -  97542 # Slithering Brownscale (Azsuna, Stormheim, Val'sharah)
+
+
+- name: Dalaran
+  things:
+  - 111158 # Blind Rat (Dalaran Sewers)
+  -  98506 # Dust Bunny
+  - 110666 # Young Mutant Warturtle
+
+
+- name: Highmountain
+  things:
+  -  97741 # Black-Footed Fox Kit (Highmountain, Stormheim)
+  -  97236 # Burrow Spiderling (Highmountain)
+  -  98428 # Coralback Fiddler (Highmountain)
+  -  88542 # Echo Batling (Highmountain)
+  -  97323 # Felspider (Azsuna, Highmountain)
+  -  98192 # Hog-Nosed Bat (Highmountain)
+  -  97118 # Long-Eared Owl (Highmountain, Stormheim)
+  -  97743 # Mist Fox Kit (Highmountain, Stormheim)
+  -  98446 # Mudshell Conch (Highmountain)
+  -  97126 # Northern Hawk Owl (Highmountain)
+  -  98211 # Spiketail Beaver (Highmountain)
+
+- name: Stormheim
+  things:
+  -  97018 # Albatross Chick (Azsuna, Stormheim)
+  -  97741 # Black-Footed Fox Kit (Highmountain, Stormheim)
+  -  97080 # Golden Eaglet (Stormheim)
+  -  97118 # Long-Eared Owl (Highmountain, Stormheim)
+  -  97743 # Mist Fox Kit (Highmountain, Stormheim)
+  -  97840 # Rose Taipan (Stormheim)
+  -  97542 # Slithering Brownscale (Azsuna, Stormheim, Val'sharah)
+  - 111172 # Stormstruck Beaver (Stormheim)
+  -  97952 # Tiny Apparition (Stormheim)
+
+- name: Suramar
+  things:
+  - 110826 # Coastal Sandpiper (Azsuna, Suramar)
+  -  99527 # Crystalline Broodling (Suramar)
+  -  99528 # Thornclaw Broodling (Suramar)
+  -  99513 # Vicious Broodling (Suramar)
+
+- name: The Great Sea
+  things:
+  - 113440 # Squirky (The Great Sea)
+
+- name: "Val'sharah"
+  things:
+  -  97555 # Auburn Ringtail (Val'sharah)
+  - 110741 # Gleamhoof Fawn (Val'sharah)
+  -  97511 # Shimmering Aquafly (Val'sharah)
+  -  97542 # Slithering Brownscale (Azsuna, Stormheim, Val'sharah)
+  -  97559 # Spring Strider (Val'sharah)
+  -  97531 # Terror Larva (Val'sharah)
+  -  97547 # Vale Flitter (Val'sharah)
+
+
+#Draenor Pet Battles
+
+- name: Frostfire Ridge
+  things:
+  -  62886 # Fire-Proof Roach
+  -  82715 # Frostfur Rat
+  -  88480 # Frostshell Pincher
+  -  85003 # Icespine Hatchling
+  -  88474 # Ironclaw Scuttler
+  -  61366 # Rat
+  -  85253 # Twilight Wasp
+
+
+- name: Gorgrond
+  things:
+  -  85257 # Amberbarb Wasp
+  -  85389 # Axebeak Hatchling
+  -  61752 # Brown Marmot
+  -  61384 # Cockroach
+  -  61438 # Gold Beetle
+  -  85192 # Junglebeak
+  -  63919 # Leopard Tree Frog
+  -  88571 # Mudback Calf
+  -  89194 # Parched Lizard
+  -  63001 # Silkbead Snail
+  -  85253 # Twilight Wasp
+  -  85254 # Wood Wasp
+
+
+- name: Nagrand
+  things:
+  -  61325 # Adder
+  -  89198 # Leatherhide Runt
+  -  83642 # Mud Jumper
+  -  61141 # Prairie Dog
+  -  61080 # Rabbit
+  -  61366 # Rat
+  -  61158 # Shore Crab
+  -  61255 # Skunk
+  -  61142 # Snake
+  -  61081 # Squirrel
+  -  61369 # Toad
+
+
+- name: Shadowmoon Valley
+  things:
+  -  61320 # Forest Spiderling
+  -  82045 # Moonshell Crab
+  -  85005 # Mossbite Skitterer
+  -  88417 # Royal Moth
+  -  61327 # Spider
+  -  88355 # Waterfly
+  -  88466 # Zangar Crawler
+
+
+- name: Spires of Arak
+  things:
+  -  61325 # Adder
+  -  85255 # Bloodsting Wasp
+  -  85798 # Golden Dawnfeather
+  -  83642 # Mud Jumper
+  -  61366 # Rat
+  -  88356 # Sapphire Firefly
+  -  63001 # Silkbead Snail
+  -  61312 # Strand Crab
+  -  88359 # Swamplighter Firefly
+  -  85007 # Thicket Skitterer
+  -  88355 # Waterfly
+
+
+- name: Talador
+  things:
+  -  61420 # Ash Spiderling
+  -  88385 # Brilliant Bloodfeather
+  -  88413 # Crimsonwing Moth
+  -  88572 # Flat-Tooth Calf
+  -  88465 # Kelp Scuttler
+  -  83642 # Mud Jumper
+  -  61757 # Red-Tailed Chipmunk
+  -  88417 # Royal Moth
+  -  62953 # Sea Gull
+  -  88576 # Shadow Sporebat
+  -  63001 # Silkbead Snail
+  -  88355 # Waterfly
+
+
+- name: Tanaan Jungle
+  things:
+  -  85388 # Bloodbeak
+  -  88422 # Cerulean Moth
+  -  62621 # Fel Flame
+  -  88473 # Fen Crab
+  -  62185 # Horny Toad
+  -  61753 # Maggot
+  -  61318 # Tree Python
+  -  88357 # Violet Firefly
+  -  88355 # Waterfly
+
+# End Draenor
+
+#Pandaria Pet Battles
+
+- name: Dread Wastes
+  things:
+  -  65187 # Amber Moth
+  -  64242 # Clouded Hedgehog
+  -  63548 # Crunchy Scorpion
+  -  65203 # Emperor Crab
+  -  64352 # Rapana Whelk
+  -  64238 # Resilient Roach
+  -  64804 # Silent Hedgehog
+
+
+- name: Isle of Thunder
+  things:
+  -  69818 # Elder Python
+  -  69794 # Electrified Razortooth
+  -  69819 # Swamp Croaker
+  -  69648 # Thundertail Flapper
+
+
+- name: Krasarang Wilds
+  things:
+  -  63288 # Amethyst Spiderling
+  -  62994 # Emerald Turtle
+  -  65054 # Feverbite
+  -  63304 # Jungle Grub
+  -  65124 # Luyu Moth
+  -  63094 # Malayan Quillrat
+  -  65185 # Mei Li Sparkler
+  -  63291 # Savory Beetle
+  -  62953 # Sea Gull
+  -  63057 # Sifang Otter
+  -  63358 # Sifang Otter Pup
+  -  63293 # Spiny Terrapin
+  -  68506 # Sumprush Rodent
+  -  67022 # Wanderer's Festival Hatchling
+
+
+- name: Kun-Lai Summit
+  things:
+  -  63550 # Alpine Foxling
+  -  63551 # Alpine Foxling Kit
+  -  63850 # Effervescent Glowfly
+  -  68846 # Kun-Lai Runt
+  -  63547 # Plains Monitor
+  -  59702 # Prairie Mouse
+  -  64248 # Summit Kid
+  -  63585 # Szechuan Chicken
+  -  63557 # Tolai Hare
+  -  63558 # Tolai Hare Pup
+  -  63555 # Zooey Snake
+
+
+- name: The Jade Forest
+  things:
+  -  63062 # Bandicoon
+  -  63064 # Bandicoon Kit
+  -  62992 # Bucktooth Flapper
+  -  62991 # Coral Adder
+  -  62994 # Emerald Turtle
+  -  63002 # Garden Frog
+  -  65215 # Garden Moth
+  -  63838 # Gilded Moth
+  -  63004 # Grove Viper
+  -  63715 # Jumping Spider
+  -  62997 # Jungle Darter
+  -  63919 # Leopard Tree Frog
+  -  63094 # Malayan Quillrat
+  -  63003 # Masked Tanuki
+  -  63716 # Masked Tanuki Pup
+  -  62998 # Mirror Strider
+  -  63006 # Sandy Petrel
+  -  65216 # Shrine Fly
+  -  63057 # Sifang Otter
+  -  63358 # Sifang Otter Pup
+  -  63001 # Silkbead Snail
+  -  63293 # Spiny Terrapin
+  -  63005 # Spirebound Crab
+  -  62999 # Temple Snake
+  -  65321 # Wild Crimson Hatchling
+  -  65324 # Wild Golden Hatchling
+  -  65323 # Wild Jade Hatchling
+
+
+- name: The Veiled Stair
+  things:
+  -  63062 # Bandicoon
+  -  63094 # Malayan Quillrat
+  -  63095 # Malayan Quillrat Pup
+
+
+- name: Timeless Isle
+  things:
+  -  73542 # Ashwing Moth
+  -  73543 # Flamering Moth
+  -  73368 # Skywisp Moth
+
+
+- name: Townlong Steppes
+  things:
+  -  63550 # Alpine Foxling
+  -  63551 # Alpine Foxling Kit
+  -  65187 # Amber Moth
+  -  64242 # Clouded Hedgehog
+  -  63548 # Crunchy Scorpion
+  -  63549 # Grassland Hopper
+  -  63953 # Kuitan Mongoose
+  -  65190 # Mongoose
+  -  63954 # Mongoose Pup
+  -  64804 # Silent Hedgehog
+  -  63557 # Tolai Hare
+  -  63957 # Yakrat
+
+
+- name: Vale of Eternal Blossoms
+  things:
+  -  63847 # Dancing Water Skimmer
+  -  63850 # Effervescent Glowfly
+  -  61088 # Eternal Strider
+  -  63838 # Gilded Moth
+  -  63841 # Golden Civet
+  -  63842 # Golden Civet Kitten
+  -  63849 # Yellow-Bellied Bullfrog
+
+
+- name: Valley of the Four Winds
+  things:
+  -  63062 # Bandicoon
+  -  63064 # Bandicoon Kit
+  -  62992 # Bucktooth Flapper
+  -  62994 # Emerald Turtle
+  -  63094 # Malayan Quillrat
+  -  63095 # Malayan Quillrat Pup
+  -  63096 # Marsh Fiddler
+  -  64246 # Shy Bandicoon
+  -  63057 # Sifang Otter
+  -  63358 # Sifang Otter Pup
+  -  63060 # Softshell Snapling
+
+# End Pandaria
+
+#Northrend Pet Battles
+
+- name: Borean Tundra
+  things:
+  -  62693 # Arctic Hare
+  -  62695 # Borean Marmot
+  -  68845 # Nexus Whelpling
+  -  62697 # Oily Slimeling
+  -  61158 # Shore Crab
+  -  62835 # Tundra Penguin
+  -  71163 # Unborn Val'kyr
+
+
+- name: Crystalsong Forest
+  things:
+  -  61143 # Mouse
+  -  61080 # Rabbit
+  -  61366 # Rat
+  -  61081 # Squirrel
+  -  71163 # Unborn Val'kyr
+
+
+- name: Dragonblight
+  things:
+  -  62693 # Arctic Hare
+  -  62852 # Dragonbone Hatchling
+  -  62835 # Tundra Penguin
+  -  71163 # Unborn Val'kyr
+
+
+- name: Grizzly Hills
+  things:
+  -  61165 # Fawn
+  -  62818 # Grizzly Squirrel
+  -  62819 # Imperial Eagle Chick
+  -  61677 # Mountain Skunk
+  -  71163 # Unborn Val'kyr
+
+
+- name: Howling Fjord
+  things:
+  -  62664 # Chicken
+  -  62640 # Devouring Maggot
+  -  62641 # Fjord Rat
+  -  62669 # Fjord Worg Pup
+  -  62818 # Grizzly Squirrel
+  -  61753 # Maggot
+  -  61677 # Mountain Skunk
+  -  61080 # Rabbit
+  -  61366 # Rat
+  -  61169 # Roach
+  -  61158 # Shore Crab
+  -  61255 # Skunk
+  -  61142 # Snake
+  -  61327 # Spider
+  -  61081 # Squirrel
+  -  61369 # Toad
+  -  62648 # Turkey
+  -  71163 # Unborn Val'kyr
+
+
+- name: Icecrown
+  things:
+  -  61384 # Cockroach
+  -  62854 # Scourged Whelpling
+  -  71163 # Unborn Val'kyr
+
+
+- name: Sholazar Basin
+  things:
+  -  62815 # Biletoad
+  -  68850 # Emerald Proto-Whelp
+  -  61142 # Snake
+  -  61081 # Squirrel
+  -  62816 # Stunted Shardhorn
+  -  71163 # Unborn Val'kyr
+
+
+- name: The Storm Peaks
+  things:
+  -  62864 # Arctic Fox Kit
+  -  62693 # Arctic Hare
+  -  61677 # Mountain Skunk
+  -  61327 # Spider
+  -  71163 # Unborn Val'kyr
+
+
+- name: Zul\'Drak
+  things:
+  -  62693 # Arctic Hare
+  -  61368 # Huge Toad
+  -  61142 # Snake
+  -  61327 # Spider
+  -  71163 # Unborn Val'kyr
+  -  62820 # Water Waveling
+
+# End Northrend
+
+#Outland Pet Battles
+
+- name: Blade\'s Edge Mountains
+  things:
+  -  61752 # Brown Marmot
+  -  68841 # Cogblade Raptor
+  -  61080 # Rabbit
+  -  62184 # Rock Viper
+  -  62628 # Scalded Basilisk Hatchling
+  -  61326 # Scorpid
+  -  62638 # Skittering Cavern Crawler
+
+
+- name: Hellfire Peninsula
+  things:
+  -  61325 # Adder
+  -  61326 # Scorpid
+
+
+- name: Nagrand
+  things:
+  -  61325 # Adder
+  -  62620 # Clefthoof Runt
+  -  61141 # Prairie Dog
+  -  61080 # Rabbit
+  -  61366 # Rat
+  -  61142 # Snake
+  -  61081 # Squirrel
+  -  61369 # Toad
+
+
+- name: Netherstorm
+  things:
+  -  62019 # Cat
+  -  62627 # Fledgling Nether Ray
+  -  61143 # Mouse
+  -  62625 # Nether Roach
+
+
+- name: Shadowmoon Valley
+  things:
+  -  61385 # Ash Viper
+  -  62621 # Fel Flame
+  -  62314 # Tainted Cockroach
+  -  62583 # Warpstalker Hatchling
+
+
+- name: Shattrath City
+  things:
+  -  61366 # Rat
+
+
+- name: Terokkar Forest
+  things:
+  -  62555 # Flayer Youngling
+  -  61366 # Rat
+  -  61255 # Skunk
+  -  61142 # Snake
+  -  61081 # Squirrel
+  -  61440 # Stripe-Tailed Scorpid
+  -  62583 # Warpstalker Hatchling
+
+
+- name: Zangarmarsh
+  things:
+  -  61071 # Small Frog
+  -  61142 # Snake
+  -  62564 # Sporeling Sprout
+
+# End Outland
+
+#The Maelstrom Pet Battles
+
+- name: Darkmoon Island
+  things:
+  -  67443 # Crow
+  -  67329 # Darkmoon Glowfly
+  -  62953 # Sea Gull
+
+
+- name: Deepholm
+  things:
+  -  62182 # Amethyst Shale Hatchling
+  -  62927 # Crimson Geode
+  -  62922 # Crimson Shale Hatchling
+  -  62925 # Crystal Beetle
+  -  62924 # Deepholm Cockroach
+  -  62915 # Emerald Shale Hatchling
+  -  62916 # Fungal Moth
+  -  62921 # Stowaway Rat
+  -  62181 # Topaz Shale Hatchling
+  -  62118 # Twilight Beetle
+  -  62117 # Twilight Spider
+
+# End The Maelstrom
+
+#Eastern Kingdoms Pet Battles
+
+- name: Arathi Highlands
+  things:
+  -  62019 # Cat
+  -  61704 # Grasslands Cottontail
+  -  61751 # Hare
+  -  61141 # Prairie Dog
+  -  61366 # Rat
+  -  61071 # Small Frog
+  -  61703 # Tiny Twister
+
+
+- name: Badlands
+  things:
+  -  61319 # Beetle
+  -  61257 # Black Rat
+  -  61438 # Gold Beetle
+  -  61443 # King Snake
+  -  61439 # Rattlesnake
+  -  61441 # Spiky Lizard
+  -  61440 # Stripe-Tailed Scorpid
+
+
+- name: Blasted Lands
+  things:
+  -  61325 # Adder
+  -  61328 # Fire Beetle
+  -  61326 # Scorpid
+  -  61329 # Scorpling
+  -  61327 # Spider
+
+
+- name: Burning Steppes
+  things:
+  -  61385 # Ash Viper
+  -  61384 # Cockroach
+  -  61328 # Fire Beetle
+  -  61386 # Lava Beetle
+  -  61383 # Lava Crab
+  -  61326 # Scorpid
+
+
+- name: Deadwind Pass
+  things:
+  -  68819 # Arcane Eye
+  -  61375 # Restless Shadeling
+
+
+- name: Dun Morogh
+  things:
+  -  61325 # Adder
+  -  61690 # Alpine Hare
+  -  68838 # Fluxfire Feline
+  -  61691 # Irradiated Roach
+  -  61753 # Maggot
+  -  61080 # Rabbit
+  -  61366 # Rat
+  -  61169 # Roach
+  -  61689 # Snow Cub
+  -  61327 # Spider
+  -  61312 # Strand Crab
+  -  61369 # Toad
+
+
+- name: Duskwood
+  things:
+  -  61257 # Black Rat
+  -  62664 # Chicken
+  -  61253 # Dusk Spiderling
+  -  61143 # Mouse
+  -  61080 # Rabbit
+  -  61258 # Rat Snake
+  -  61169 # Roach
+  -  61255 # Skunk
+  -  61071 # Small Frog
+  -  61081 # Squirrel
+  -  61259 # Widow Spiderling
+
+
+- name: Eastern Plaguelands
+  things:
+  -  61829 # Bat
+  -  61257 # Black Rat
+  -  61830 # Festering Maggot
+  -  61827 # Infected Fawn
+  -  61828 # Infected Squirrel
+  -  61326 # Scorpid
+  -  61327 # Spider
+
+
+- name: Elwynn Forest
+  things:
+  -  60649 # Black Lamb
+  -  62019 # Cat
+  -  62664 # Chicken
+  -  61165 # Fawn
+  -  61080 # Rabbit
+  -  61071 # Small Frog
+  -  61327 # Spider
+  -  61081 # Squirrel
+  -  62954 # Stormwind Rat
+
+
+- name: Eversong Woods
+  things:
+  -  62019 # Cat
+  -  61080 # Rabbit
+  -  62020 # Ruby Sapling
+  -  61071 # Small Frog
+  -  61142 # Snake
+  -  61369 # Toad
+
+
+- name: Ghostlands
+  things:
+  -  62022 # Larva
+  -  61753 # Maggot
+  -  61366 # Rat
+  -  61071 # Small Frog
+  -  61142 # Snake
+  -  61327 # Spider
+  -  62034 # Spirit Crab
+  -  61369 # Toad
+
+
+- name: Gilneas
+  things:
+  -  61327 # Spider
+  -  61369 # Toad
+
+
+- name: Gilneas City
+  things:
+  -  61327 # Spider
+
+
+- name: Hillsbrad Foothills
+  things:
+  -  62664 # Chicken
+  -  61368 # Huge Toad
+  -  61758 # Infested Bear Cub
+  -  68806 # Lofty Libram
+  -  61753 # Maggot
+  -  61080 # Rabbit
+  -  61366 # Rat
+  -  61757 # Red-Tailed Chipmunk
+  -  61755 # Snowshoe Hare
+  -  61327 # Spider
+  -  61081 # Squirrel
+  -  61369 # Toad
+
+
+- name: Ironforge
+  things:
+  -  61317 # Long-tailed Mole
+
+
+- name: Loch Modan
+  things:
+  -  61459 # Little Black Ram
+  -  61366 # Rat
+  -  61169 # Roach
+  -  61071 # Small Frog
+  -  61142 # Snake
+  -  61689 # Snow Cub
+  -  61081 # Squirrel
+
+
+- name: New Tinkertown
+  things:
+  -  61690 # Alpine Hare
+  -  68838 # Fluxfire Feline
+  -  61691 # Irradiated Roach
+  -  61689 # Snow Cub
+
+
+- name: Northern Stranglethorn
+  things:
+  -  61319 # Beetle
+  -  61314 # Crimson Moth
+  -  61320 # Forest Spiderling
+  -  61321 # Lizard Hatchling
+  -  61317 # Long-tailed Mole
+  -  61313 # Parrot
+  -  61322 # Polly
+  -  61169 # Roach
+  -  61312 # Strand Crab
+  -  61318 # Tree Python
+
+
+- name: Redridge Mountains
+  things:
+  -  62664 # Chicken
+  -  61171 # Fledgling Buzzard
+  -  61167 # Mountain Cottontail
+  -  61080 # Rabbit
+  -  61168 # Redridge Rat
+  -  61169 # Roach
+
+
+- name: Searing Gorge
+  things:
+  -  61420 # Ash Spiderling
+  -  61328 # Fire Beetle
+  -  61443 # King Snake
+  -  61383 # Lava Crab
+  -  61425 # Molten Hatchling
+
+
+- name: Silvermoon City
+  things:
+  -  62019 # Cat
+  -  61143 # Mouse
+  -  61080 # Rabbit
+
+
+- name: Silverpine Forest
+  things:
+  -  61890 # Blighted Squirrel
+  -  61827 # Infected Fawn
+  -  61828 # Infected Squirrel
+  -  61080 # Rabbit
+  -  61366 # Rat
+  -  61757 # Red-Tailed Chipmunk
+  -  61142 # Snake
+  -  61081 # Squirrel
+  -  61369 # Toad
+
+
+- name: Stormwind City
+  things:
+  -  61080 # Rabbit
+  -  61366 # Rat
+  -  61081 # Squirrel
+  -  62954 # Stormwind Rat
+  -  61081 # Squirrel
+
+
+- name: Sunstrider Isle
+  things:
+  -  62019 # Cat
+
+
+- name: Swamp of Sorrows
+  things:
+  -  61368 # Huge Toad
+  -  61372 # Moccasin
+  -  61313 # Parrot
+  -  61366 # Rat
+  -  61327 # Spider
+  -  61312 # Strand Crab
+  -  61370 # Swamp Moth
+  -  61369 # Toad
+  -  61367 # Water Snake
+
+
+- name: The Cape of Stranglethorn
+  things:
+  -  61324 # Baby Ape
+  -  61319 # Beetle
+  -  61314 # Crimson Moth
+  -  61320 # Forest Spiderling
+  -  61321 # Lizard Hatchling
+  -  61317 # Long-tailed Mole
+  -  61313 # Parrot
+  -  61366 # Rat
+  -  61169 # Roach
+  -  61312 # Strand Crab
+  -  61318 # Tree Python
+  -  61323 # Wharf Rat
+
+
+- name: The Hinterlands
+  things:
+  -  61752 # Brown Marmot
+  -  61384 # Cockroach
+  -  61751 # Hare
+  -  61718 # Jade Oozeling
+  -  61753 # Maggot
+  -  61366 # Rat
+  -  61327 # Spider
+
+
+- name: Tirisfal Glades
+  things:
+  -  61829 # Bat
+  -  62664 # Chicken
+  -  61905 # Lost of Lordaeron
+  -  61753 # Maggot
+  -  61080 # Rabbit
+  -  61366 # Rat
+  -  61169 # Roach
+  -  61327 # Spider
+
+
+- name: Twilight Highlands
+  things:
+  -  61257 # Black Rat
+  -  61384 # Cockroach
+  -  62818 # Grizzly Squirrel
+  -  62905 # Highlands Mouse
+  -  62907 # Highlands Skunk
+  -  62906 # Highlands Turkey
+  -  61368 # Huge Toad
+  -  61439 # Rattlesnake
+  -  61326 # Scorpid
+  -  61158 # Shore Crab
+  -  61369 # Toad
+  -  62914 # Twilight Fiendling
+  -  62117 # Twilight Spider
+  -  61367 # Water Snake
+  -  62904 # Yellow-Bellied Marmot
+  -  62900 # Wildhammer Gryphon Hatchling
+
+
+- name: Undercity
+  things:
+  -  61829 # Bat
+  -  61905 # Lost of Lordaeron
+  -  61169 # Roach
+  -  61889 # Undercity Rat
+
+
+- name: Western Plaguelands
+  things:
+  -  61257 # Black Rat
+  -  61826 # Blighthawk
+  -  61080 # Rabbit
+  -  61081 # Squirrel
+
+
+- name: Westfall
+  things:
+  -  62664 # Chicken
+  -  61143 # Mouse
+  -  61141 # Prairie Dog
+  -  61080 # Rabbit
+  -  61158 # Shore Crab
+  -  61071 # Small Frog
+  -  61142 # Snake
+  -  61081 # Squirrel
+  -  61160 # Tiny Harvester
+
+
+- name: Wetlands
+  things:
+  -  61257 # Black Rat
+  -  61384 # Cockroach
+  -  62905 # Highlands Mouse
+  -  61677 # Mountain Skunk
+  -  61143 # Mouse
+  -  61080 # Rabbit
+  -  61081 # Squirrel
+  -  61686 # Tiny Bog Beast
+  -  61369 # Toad
+  -  61367 # Water Snake
+
+# End Eastern Kingdoms
+
+#Kalimdor Pet Battles
+
+- name: "Ahn'Qiraj: The Fallen Kingdom"
+  things:
+  -  62524 # Scarab Hatchling
+  -  62523 # Sidewinder
+
+
+- name: Ammen Vale
+  things:
+  -  62050 # Grey Moth
+
+
+- name: Ashenvale
+  things:
+  -  61319 # Beetle
+  -  62177 # Forest Moth
+  -  62312 # Frog
+  -  61753 # Maggot
+  -  61080 # Rabbit
+  -  61366 # Rat
+  -  61169 # Roach
+  -  62313 # Rusty Snail
+  -  61081 # Squirrel
+  -  61369 # Toad
+
+
+- name: Azshara
+  things:
+  -  61080 # Rabbit
+  -  62120 # Rabid Nut Varmint 5000
+  -  61366 # Rat
+  -  61169 # Roach
+  -  62119 # Robo-Chick
+  -  61158 # Shore Crab
+  -  61255 # Skunk
+  -  61327 # Spider
+  -  61081 # Squirrel
+  -  62121 # Turquoise Turtle
+  -  62118 # Twilight Beetle
+  -  62117 # Twilight Spider
+
+
+- name: Azuremyst Isle
+  things:
+  -  62050 # Grey Moth
+  -  61080 # Rabbit
+  -  61255 # Skunk
+  -  61081 # Squirrel
+
+
+- name: Bloodmyst Isle
+  things:
+  -  62664 # Chicken
+  -  61827 # Infected Fawn
+  -  61828 # Infected Squirrel
+  -  61366 # Rat
+  -  62051 # Ravager Hatchling
+  -  61255 # Skunk
+
+
+- name: Darkshore
+  things:
+  -  62250 # Darkshore Cub
+  -  61080 # Rabbit
+  -  61366 # Rat
+  -  62246 # Shimmershell Snail
+  -  61081 # Squirrel
+
+
+- name: Darnassus
+  things:
+  -  62178 # Elfin Rabbit
+  -  62177 # Forest Moth
+  -  61757 # Red-Tailed Chipmunk
+  -  61071 # Small Frog
+
+
+- name: Desolace
+  things:
+  -  62182 # Amethyst Shale Hatchling
+  -  62186 # Desert Spider
+  -  62178 # Elfin Rabbit
+  -  62177 # Forest Moth
+  -  62185 # Horny Toad
+  -  61366 # Rat
+  -  61757 # Red-Tailed Chipmunk
+  -  61169 # Roach
+  -  62184 # Rock Viper
+  -  62187 # Stone Armadillo
+  -  62181 # Topaz Shale Hatchling
+
+
+- name: Durotar
+  things:
+  -  61325 # Adder
+  -  61384 # Cockroach
+  -  62116 # Creepy Crawly
+  -  62115 # Dung Beetle
+  -  61751 # Hare
+  -  62114 # Spiny Lizard
+  -  61369 # Toad
+  -  61367 # Water Snake
+
+
+- name: Dustwallow Marsh
+  things:
+  -  61257 # Black Rat
+  -  61143 # Mouse
+  -  61142 # Snake
+  -  62201 # Spawn of Onyxia
+  -  61327 # Spider
+  -  61369 # Toad
+
+
+- name: Felwood
+  things:
+  -  62317 # Minfernal
+  -  62314 # Tainted Cockroach
+  -  62315 # Tainted Moth
+  -  62316 # Tainted Rat
+  -  61369 # Toad
+
+
+- name: Feralas
+  things:
+  -  62395 # Nether Faerie Dragon
+  -  61080 # Rabbit
+  -  61142 # Snake
+  -  61081 # Squirrel
+  -  68805 # Stunted Yeti
+
+
+- name: Moonglade
+  things:
+  -  62177 # Forest Moth
+  -  61080 # Rabbit
+  -  62373 # Silky Moth
+  -  61081 # Squirrel
+
+
+- name: Mount Hyjal
+  things:
+  -  62189 # Alpine Chipmunk
+  -  62364 # Ash Lizard
+  -  61829 # Bat
+  -  62885 # Carrion Rat
+  -  62887 # Death's Head Cockroach
+  -  62178 # Elfin Rabbit
+  -  61328 # Fire Beetle
+  -  62886 # Fire-Proof Roach
+  -  62177 # Forest Moth
+  -  62884 # Grotto Vole
+  -  62888 # Nordrassil Wisp
+  -  61080 # Rabbit
+  -  62184 # Rock Viper
+  -  62373 # Silky Moth
+  -  61081 # Squirrel
+  -  62118 # Twilight Beetle
+
+
+- name: Mulgore
+  things:
+  -  62176 # Gazelle Fawn
+  -  61143 # Mouse
+  -  61141 # Prairie Dog
+  -  61080 # Rabbit
+
+
+- name: Northern Barrens
+  things:
+  -  61325 # Adder
+  -  62129 # Cheetah Cub
+  -  62127 # Emerald Boa
+  -  68804 # Harpy Youngling
+  -  61141 # Prairie Dog
+  -  61071 # Small Frog
+
+
+- name: Orgrimmar
+  things:
+  -  62115 # Dung Beetle
+  -  62119 # Robo-Chick
+  -  61327 # Spider
+  -  62114 # Spiny Lizard
+  -  61369 # Toad
+  -  61367 # Water Snake
+
+
+- name: Silithus
+  things:
+  -  61319 # Beetle
+  -  62186 # Desert Spider
+  -  62526 # Qiraji Guardling
+  -  62184 # Rock Viper
+  -  62524 # Scarab Hatchling
+  -  61326 # Scorpid
+  -  62523 # Sidewinder
+  -  61441 # Spiky Lizard
+
+
+- name: Southern Barrens
+  things:
+  -  61325 # Adder
+  -  62129 # Cheetah Cub
+  -  62127 # Emerald Boa
+  -  62130 # Giraffe Calf
+  -  61141 # Prairie Dog
+  -  61071 # Small Frog
+
+
+- name: Stonetalon Mountains
+  things:
+  -  62189 # Alpine Chipmunk
+  -  62190 # Coral Snake
+  -  61677 # Mountain Skunk
+  -  61080 # Rabbit
+  -  62120 # Rabid Nut Varmint 5000
+  -  61366 # Rat
+  -  61169 # Roach
+  -  61327 # Spider
+  -  62191 # Venomspitter Hatchling
+
+
+- name: Tanaris
+  things:
+  -  62186 # Desert Spider
+  -  61438 # Gold Beetle
+  -  68820 # Infinite Whelpling
+  -  61439 # Rattlesnake
+  -  62257 # Sand Kitten
+  -  62953 # Sea Gull
+  -  62258 # Silithid Hatchling
+  -  62256 # Stinkbug
+  -  61440 # Stripe-Tailed Scorpid
+
+
+- name: Teldrassil
+  things:
+  -  62242 # Crested Owl
+  -  62178 # Elfin Rabbit
+  -  61165 # Fawn
+  -  62177 # Forest Moth
+  -  61080 # Rabbit
+  -  61757 # Red-Tailed Chipmunk
+  -  61071 # Small Frog
+  -  61327 # Spider
+  -  61369 # Toad
+
+
+- name: The Exodar
+  things:
+  -  62050 # Grey Moth
+  -  61143 # Mouse
+
+
+- name: Thousand Needles
+  things:
+  -  61169 # Roach
+  -  61326 # Scorpid
+  -  62255 # Twilight Iguana
+
+
+- name: Thunder Bluff
+  things:
+  -  61141 # Prairie Dog
+
+
+- name: Uldum
+  things:
+  -  62186 # Desert Spider
+  -  62115 # Dung Beetle
+  -  62127 # Emerald Boa
+  -  62894 # Horned Lizard
+  -  62896 # Leopard Scorpid
+  -  62893 # Locust
+  -  62892 # Mac Frog
+  -  62895 # Oasis Moth
+  -  62523 # Sidewinder
+  -  62899 # Tol'vir Scarab
+
+
+- name: Un\'Goro Crater
+  things:
+  -  62364 # Ash Lizard
+  -  61319 # Beetle
+  -  61384 # Cockroach
+  -  62375 # Diemetradon Hatchling
+  -  62127 # Emerald Boa
+  -  61328 # Fire Beetle
+  -  61317 # Long-tailed Mole
+  -  61313 # Parrot
+  -  62373 # Silky Moth
+  -  62370 # Spotted Bell Frog
+  -  61318 # Tree Python
+
+
+- name: Winterspring
+  things:
+  -  62189 # Alpine Chipmunk
+  -  61690 # Alpine Hare
+  -  68839 # Anodized Robo Cub
+  -  62435 # Crystal Spider
+  -  62120 # Rabid Nut Varmint 5000
+  -  62119 # Robo-Chick
+  -   7554 # Snowy Owl
+  -  61327 # Spider
+
+# End Kalimdor
