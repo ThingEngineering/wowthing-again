@@ -32,5 +32,8 @@ namespace Wowthing.Backend.Models.Redis
 
         [JsonProperty(Order = 30)]
         public List<DataReputationCategory> ReputationSets { get; set; }
+
+        [JsonProperty(Order = 40)]
+        public List<RedisSetCategory> ToySets { get; set; }
     }
 }
