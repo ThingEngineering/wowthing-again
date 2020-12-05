@@ -32,7 +32,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
-            Version = 8,
+            Version = 9,
         };
 
         public override async Task Run(params string[] data)
@@ -55,6 +55,12 @@ namespace Wowthing.Backend.Jobs.Misc
             // Reputations
             var reputationSets = LoadReputations();
             timer.AddPoint("Reputations");
+
+            // Toys
+            var itemToToy = await LoadToyDump();
+            var toySets = LoadSets("toys");
+            AddUncategorized("toys", itemToToy, toySets);
+            timer.AddPoint("Toys");
 
             // Basic database dumps
             var classes = new SortedDictionary<int, WowClass>(await _context.WowClass.ToDictionaryAsync(c => c.Id));
@@ -80,6 +86,8 @@ namespace Wowthing.Backend.Jobs.Misc
                 PetSets = petSets,
 
                 ReputationSets = reputationSets,
+
+                ToySets = toySets,
             };
             var cacheJson = JsonConvert.SerializeObject(cacheData);
             var cacheHash = cacheJson.Md5();
@@ -119,6 +127,12 @@ namespace Wowthing.Backend.Jobs.Misc
         {
             var records = await LoadDumpCsv<DataPetDump>("battlepetspecies");
             return new SortedDictionary<int, int>(records.ToDictionary(k => k.CreatureID, v => v.ID));
+        }
+
+        private async Task<SortedDictionary<int, int>> LoadToyDump()
+        {
+            var records = await LoadDumpCsv<DataToyDump>("toy");
+            return new SortedDictionary<int, int>(records.ToDictionary(k => k.ItemID, v => v.ID));
         }
 
         private async Task<List<T>> LoadDumpCsv<T>(string fileName)
