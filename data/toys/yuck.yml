@@ -1,0 +1,731 @@
+name: Yuck
+groups:
+- name: Achievements
+  things:
+  - 139773 # Emerald Winds (achievement)
+  -  87528 # Honorary Brewmaster Keg
+  - 143660 # Mrgrglhjorn (Achievement, No Shellfish Endeavour)
+  - 119215 # Robo-Gnomebulator
+  -  92738 # Safari Hat
+  -  43824 # The Schools of Arcane Magic - Mastery (Achievement)
+  -  44430 # Titanium Seal of Dalaran
+
+- name: Garrison
+  things:
+#119220,# Alliance Gladiator's Banner
+  - 119217 # Alliance Flag of Victory
+  - 119093 # Aviana's Feather (quest garrison WoD)
+  - 115503 # Blazing Diamond Pendant
+  - 113096 # Bloodmane Charm (Smugglers Run?)
+  - 122298 # Bodyguard Miniaturization Device (vendor garrison)
+  - 119210 # Hearthstone Board
+#119221,# Horde Gladiator's Banner
+  - 119218 # Horde Flag of Victory
+  - 127707 # Indestructible Bone
+  - 127696 # Magic Pet Mirror
+  - 127864 # Personal Spotlight
+  - 122700 # Portable Audiophone
+  - 119134 # Sargerei Disguise
+  - 127695 # Spirit Wand
+  - 122293 # Trans-Dimensional Bird Whistle
+#122187,# Tune-o-tron Micro
+  - 119219 # Warlord's Flag of Victory
+  - 117573 # Wayfarer's Bonfire
+  - 119212 # Winning Hand
+
+- name: Garrison - Inn
+  things:
+  - 119083 # Fruit Basket
+  - 118937 # Gamon's Braid
+  - 119039 # Lilian's Warning Sign
+  - 118938 # Manastorm's Duplicator
+  - 119092 # Moroes' Famous Polish
+  - 119003 # Void Totem
+
+- name: Garrison - Missions
+  things:
+  - 118191 # Archmage Vargoth's Spare Staff
+  - 118427 # Autographed Hearthstone Card
+  - 128310 # Burning Blade
+  - 123851 # Photo B.O.M.B.
+  - 122674 # S.E.L.F.I.E Cameria MkII
+
+- name: Order Halls
+  things:
+  - 147537 # A Tiny Set of Warglaives (Falara Nightsong, DH order hall) OH vendor
+  - 147838 # Akazamzarak's Spare Hat (Down the Rabbgit Hole, Mage) OH quest
+  - 147832 # Magical Saucer (Uhtel'nay, Hall of the Guardian) OH vendor
+  - 140160 # Stormforged Vrykul Horn (warrior OH?)
+  - 139587 # Suspicious Crate (rogue OH)
+
+- name: PvP
+  things:
+  - 134026 # Honorable Pennant (Prestige 3)
+  - 134031 # Prestigious Pennant (Prestige 8)
+  - 134032 # Elite Pennant (Prestige 12)
+  - 134034 # Esteemed Pennant (Prestige 16)
+
+- name: World Drops
+  things:
+  -  36863 # Decahedral Dwarven Dice
+  -  63269 # Loaded Gnomish Dice
+  -   1973 # Orb of Deception
+  -  37254 # Super Simian Sphere
+  -  36862 # Worn Troll Dice
+
+- name: Misc
+  things:
+  - 151877 # Barrel of Eyepatches (Pickpocketing?)
+  -  89139 # Chain Pet Leash (pet supply bag?)
+
+- name: Unknown
+  things:
+  - 134831 # "Guy Incognito" Costume (??)
+  - 119220 # Alliance Gladiator's Banner (??)
+  - 142360 # Blazing Ember Signet
+  - 143727 # Champion's Salute () unk
+  - 147865 # Crescent Moonstone () unk
+  - 140779 # Falanaar Echo (??)
+  - 143545 # Fel Focusing Crystal (Demon Hunter, ??)
+  - 119211 # Golden Hearthstone Card: Lord Jaraxxus (???)
+  - 119221 # Horde Gladiator's Banner (??)
+  - 129111 # Kvaldir Raiding Horn (??)
+  - 147697 # Pocket Portal of Felstalker Pups () unk
+  - 130194 # Silver Gilnean Brooch
+  - 129045 # Whitewater Tsunami
+
+- name: Unavailable
+  things:
+  -  54653 # Darkspear Pride
+  -  54651 # Gnomeregan Pride
+  -  89205 # Mini Mana Bomb
+  - 142542 # Tome of Town Portal (Diablo 20th Anniversary)
+  - 143543 # Twelve-String Guitar (Diablo 20th Anniversary)
+
+- name: $$$$$
+  things:
+  -  49704 # Carved Ogre Idol
+  -  38301 # D.I.S.C.O.
+  -  93672 # Dark Portal (Promotion)
+  -  79769 # Demon Hunter's Aspect
+  -  54452 # Ethereal Portal (Promotion)
+  -  33223 # Fishing Chair
+  -  45063 # Foam Sword Rack
+  -  69227 # Fool's Gold
+  -  33219 # Goblin Gubmo Kettle
+  -  35227 # Goblin Weather Machine - Prototype 01-B
+  -  67097 # Grim Campfire
+  -  32542 # Imp in a Ball
+  -  54212 # Instant Statue Pedestal
+  -  72159 # Magical Ogre Idol
+  -  33079 # Murloc Costume
+  - 112324 # Nightmarish Hitching Post
+  -  46780 # Ogre Pinata
+  -  34499 # Paper Flying Machine Kit
+  -  49703 # Perpetual Purple Firework
+  -  32566 # Picnic Basket
+  -  71628 # Sack of Starfish
+  -  72161 # Spurious Sarcophagus
+  -  38578 # The Flag of Ownership
+  -  69215 # War Party Hitching Post
+
+
+# Instances
+- name: Dungeons
+  things:
+  - 134019 # Don Carlos' Famous Hat (Old Hillsbrad)
+  -  88566 # Krastinov's Bag of Horrors (H-Scholomance)
+  -  35275 # Orb of the Sin'dorei (H-Magister's Terrace)
+  -  13379 # Piccolo of the Flaming Fire (Stratholme)
+  - 153004 # Unstable Portal Emitter (Vixx the Collector, Seat of the Triumvirate)
+  - 152982 # Vixx's Chest of Tricks (Vixx the Collector, Seat of the Triumvirate)
+
+- name: Raids
+  things:
+  - 122304 # Fandral's Seed Pouch (Firelands)
+  -  98136 # Gastropod Shell (Throne of Thunder)
+  - 142536 # Memory Cube (The Nighthold -> Karazhan)
+  -  52201 # Muradin's Favor (ICC - Frostmourne)
+  -  98132 # Shado-Pan Geyser Gun (Throne of Thunder)
+  - 143544 # Skull of Corruption (The Nighthold - Gul'dan)
+  -  52253 # Sylvanas' Music Box (ICC - Frostmourne)
+
+- name: Island Expeditions
+  things:
+  - 164375 # Bad Mojo Banana (Island Expeditions)
+  - 164373 # Enchanted Soup Stone (Island Expeditions)
+  - 164372 # Jinyu Light Globe (Island Expeditions)
+  - 164374 # Magic Monkey Banana (Island Expeditions)
+  - 163795 # Oomgut Ritual Drum (Island Expeditions)
+  - 164377 # Regenerating Banana Bunch (Island Expeditions)
+  - 163924 # Whiskerwax Candle (Island Expeditions)
+  - 164371 # Yaungol Oil Stove (Island Expeditions)
+
+
+# Professions
+- name: Archaeology
+  things:
+  -  89614 # Anatomical Dummy (Archaeology)
+  -  69776 # Ancient Amber
+  -  64456 # Arrival of the Naaru
+  -  64481 # Blessing of the Old God
+  -  64646 # Bones of Transformation
+  -  64373 # Chalice of the Mountain Kings
+  - 160740 # Croak Crock (Zandalari Archaeology)
+  - 131724 # Crystalline Eye of Undravius (Archaeology)
+  - 160751 # Dance of the Dead (Drust Archaeology)
+  -  64361 # Druid and Priest Statue Set
+  -  69777 # Haunted War Drum
+  -  64358 # Highborne Soul Mirror
+  -  64383 # Kaldorei Wind Chimes
+  -  64881 # Pendant of the Scarab Storm
+  -  64482 # Puzzle Box of Yogg-Saron
+  -  64488 # The Innkeeper's Daughter (Archaeology)
+  -  69775 # Vyrkul Drinking Horn
+  -  64651 # Wisp Amulet
+
+- name: Engineering
+  things:
+  -  87214 # Blingtron 4000 (Engineering)
+  - 111821 # Blingtron 5000 (Engineering)
+  - 132518 # Blingtron's Circuit Design Tutorial (Engineering)
+  -  23767 # Crashin' Thrashin' Robot
+  -  30542 # Dimensional Ripper - Area 52 (Engineering)
+  -  18984 # Dimensional Ripper - Everlook (Engineering)
+  - 109167 # Findle's Loot-A-Rang (Engineering)
+  -  40727 # Gnomish Gravity Well (Engineering)
+  -  40895 # Gnomish X-Ray Specs
+  -  60854 # Loot-A-Rang (Engineering)
+  -  40768 # MOLL-E (Engineering)
+  - 108745 # Personal Hologram
+  -  17716 # Snowmaster 9000
+  -  18986 # Ultrasafe Transporter: Gadgetzan (Engineering)
+  -  30544 # Ultrasafe Transporter: Toshley's Station (Engineering)
+  -  18660 # World Enlarger
+  - 109183 # World Shrinker
+  - 112059 # Wormhole Centrifuge (Engineering)
+  - 151652 # Wormhole Generator: Argus (Engineering)
+  -  48933 # Wormhole Generator: Northrend (Engineering)
+  -  87215 # Wormhole Generator: Pandaria (Engineering)
+
+- name: Fishing
+  things:
+  - 142528 # Crate of Bobbers: Can of Worms (Fishing)
+  - 142529 # Crate of Bobbers: Cat Head (Fishing)
+  - 142532 # Crate of Bobbers: Murloc Head (vendor Fishing, Conjurer Margoss)
+  - 142531 # Crate of Bobbers: Squeaky Duck (vendor Fishing, Conjurer Margoss)
+  - 142530 # Crate of Bobbers: Tugboat (Fishing)
+  - 143662 # Crate of Bobbers: Wooden Pepe (Fishing)
+  - 147307 # Carved Wooden Helm (Corbyn, Stormheim) fishing rep
+  - 152574 # Corbyn's Beacon (Fishing, Corbyn - Helpful Friend)
+  - 147312 # Demon Noggin (Impus, Broken Shore) fishing rep
+  - 147308 # Enchanted Bobber (Ilyssia of the Waters, Azsuna) fishing rep
+  - 147309 # Face of the Forest (Keeper Raynae, Val'sharah) fishing rep
+  - 147310 # Floating Totem (Akule Riverhorn, Highmountain) fishing rep
+  - 108739 # Pretty Draenor Pearl (Fishing)
+  - 147311 # Replica Gondola (Sha'leth, Suramar) fishing rep
+  - 152556 # Trawler Totem (Fishing, Akule Riverhorn - Good Friend)
+  -  45984 # Unusual Compass (Fishing)
+
+- name: Leatherworking
+  things:
+  - 129961 # Flaming Hoop (Leatherworking)
+  - 129956 # Leather Love Seat (Leatherworking)
+  - 129958 # Leather Pet Leash (Leatherworking)
+  - 129960 # Leather Pet Bed (Leatherworking)
+
+- name: Other
+  things:
+  - 130254 # Chatterstone (Jewelcrafting)
+  - 130251 # JewelCraft (Jewelcrafting)
+  - 128536 # Leylight Brazier (Enchanting)
+  - 129211 # Steamy Romance Novel Kit (Inscription)
+  - 130102 # Mother's Skinning Knife (Quest, Skinning)
+
+
+# Quests
+- name: Classic
+  things:
+  - 133997 # Black Ice
+  - 133998 # Rainbow Generator
+  - 134021 # X-52 Rocket Helmet
+
+- name: Quests
+  things:
+  -  53057 # Faded Wizard Hat
+  -  30690 # Power Converter
+  -  32782 # Time-Lost Figurine
+
+- name: Cata
+  things:
+  -  71259 # Leyara's Locket (Molten Front)
+  -  70161 # Mushroom Chair (Molten Front)
+  -  70159 # Mylune's Call (Molten Front)
+
+- name: MoP
+  things:
+  -  88589 # Cremating Torch
+  -  88417 # Gokk'lok's Shell
+  -  88385 # Hozen Idol
+  -  88580 # Ken-Ken's Mask
+  -  95567 # Kirin Tor Beacon (quest MoP)
+  -  88579 # Jin Warmkeg's Brew
+  -  88531 # Lao Chin's Last Mug
+  -  88370 # Puntable Marmot
+  -  82467 # Ruthers' Harness (MoP)
+  -  88387 # Shushen's Spittoon
+  -  88381 # Silversage Incense
+  -  95568 # Sunreaver Beacon (quest MoP)
+  -  80822 # The Golden Banana
+  -  88584 # Totem of Harmony
+  -  88377 # Turnip Paint "Gun"
+  -  88375 # Turnip Punching Bag (quest MoP)
+
+- name: WoD
+  things:
+  - 119145 # Firefury Totem
+#110586,# Mysterious Flower
+  - 119001 # Mystery Keg
+  - 128328 # Skoller's Bag of Squirrel Treats
+  - 119144 # Touch of the Naaru
+  - 115506 # Treessassin's Guise (quest WoD)
+
+- name: Legion
+  things:
+  - 141879 # Berglrgl Perrgl Girggrlf (quest Leg)
+  - 138878 # Copy of Daglop's Contract (quest Leg)
+  - 131933 # Critter Hand Cannon (quest Leg)
+  - 156833 # Katy's Stampwhistle
+  - 138873 # Mystical Frosh Hat (quest Leg)
+  - 130209 # Never Ending Toy Chest (quest Leg)
+  - 129093 # Ravenbear Disguise (Quest, Stormheim)
+  - 138876 # Runas' Crystal Grinder (quest Leg)
+  - 142496 # Dirty Spoon (Quest, Falcosaurs)
+  - 142495 # Fake Teeth (Quest, Falcosaurs)
+  - 142494 # Purple Blossom (Quest, Falcosaurs)
+  - 142497 # Tiny Pack (Quest, Falcosaurs)
+
+- name: BfA
+  things:
+  - 160509 # Echoes of Rezan (World Quest - Old R'gal/Wrath of Rezan)
+  - 163607 # Lucille's Sewing Needle (Quest - Sharp Thinking, Drustvar)
+
+
+# Rare Mobs
+- name: Other
+  things:
+  - 134022 # Burgy Blackheart's Handsome Hat (drop Cata)
+  - 142265 # Big Red Raygun (drop Doctor Weavil, Dustwallow Marsh)
+
+- name: MoP
+  things:
+  -  86589 # Ai-Li's Skymirror
+  -  85973 # Ancient Pandaren Fishing Charm (rare MoP)
+  -  86582 # Aqua Jewel (rare MoP)
+  -  86565 # Battle Horn (rare MoP)
+  -  90067 # B. F. F. Necklace
+  - 134023 # Bottled Tornado (drop MoP)
+  -  86575 # Chalice of Secrets
+  -  86590 # Essence of the Breeze (rare MoP)
+  -  86578 # Eternal Warrior's Sigil (rare MoP)
+  -  86581 # Farwater Conch
+  -  86584 # Hardened Shell (rare MoP)
+  -  86594 # Helpful Wikky's Whistle (rare MoP)
+  -  86593 # Hozen Beach Ball
+  -  86571 # Kang's Bindstone
+  -  86568 # Mr. Smite's Brass Compass
+  -  86588 # Pandaren Firework Launcher
+  -  86586 # Panflute of Pandaria
+  -  86583 # Salyin Battle Banner (rare MoP)
+  -  86573 # Shard of Archstone
+
+- name: MoP - Timeless Isle
+  things:
+  - 104329 # Ash-Covered Horn
+  - 104302 # Blackflame Daggers
+  - 134024 # Cursed Swabby Helmet
+  - 104309 # Eternal Kiln
+  - 104262 # Odd Polished Stone
+  - 104294 # Rime of the Time-Lost Mariner
+  - 104331 # Warning Sign
+
+- name: WoD
+  things:
+  - 113570 # Ancient's Bloom
+  - 113540 # Ba'ruun's Bountiful Bloom (rare WoD)
+  - 119178 # Black Whirlwind
+  - 119432 # Botani Camouflage
+  - 116113 # Breath of Talador (rare WoD)
+  - 114227 # Bubble Wand
+  - 116122 # Burning Legion Missive
+  - 118935 # Ever-Blooming Frond (rare WoD)
+  - 119180 # Goren "Log" Roller (rare WoD)
+  - 113631 # Hypnosis Goggles
+  - 118244 # Iron Buccaneer's Hat
+  - 116125 # Klikixx's Webspinner
+  - 113670 # Mournful Moan of Murmur
+  - 118224 # Ogre Brewing Kit (rare WoD)
+  - 120276 # Outrider's Bridle Chain
+  - 118221 # Petrification Stone
+  - 119163 # Soul Inhaler
+  - 118222 # Spirit of Bashiok
+  - 113543 # Spirit of Shinri (rare WoD)
+  - 111476 # Stolen Breath
+  - 113542 # Whispers of Rai'Vosh (rare WoD)
+
+- name: WoD - Tanaan Jungle
+  things:
+  - 108633 # Crashin' Thrashin' Cannon Controller
+  - 108634 # Crashin' Thrashin' Mortar Controller
+  - 108631 # Crashin' Thrashin' Roller Controller
+  - 122117 # Cursed Feather of Ikzan
+  - 127652 # Felflame Campfire
+  - 127659 # Ghostly Iron Buccaneer's Hat
+  - 127655 # Sassy Imp
+  - 127666 # Vial of Red Goo
+
+- name: Legion
+  things:
+  - 140314 # Crab Shank (drop Pinchshank, Suramar)
+  - 130171 # Cursed Orb (drop Leg)
+  - 129113 # Faintly Glowing Flagon of Mead (drop Leg)
+  - 131900 # Majestic Elderhorn Hoof (drop Leg)
+  - 141331 # Vial of Green Goo (drop Leg)
+  - 130214 # Worn Doll (drop Leg)
+
+- name: Legion - Argus
+  things:
+  - 153179 # Blue Conservatory Scroll (Instructor Tarahna, Mac'Aree)
+  - 153181 # Red Conservatory Scroll (Instructor Tarahna, Mac'Aree)
+  - 153180 # Yellow Conservatory Scroll (Instructor Tarahna, Mac'Aree)
+  - 153193 # Baarut the Brisk (Baruut the Bloodthirsty, Mac'Aree)
+  - 153183 # Barrier Generator (Vigilant Kuro/Vigilant Thanos, Mac'Aree)
+  - 153194 # Legion Communication Orb (Doomcaster Suprax, Antoran Wastes)
+  - 153126 # Micro-Artillery Controller (Wrath-Lord Yarez, Antoran Wastes)
+  - 153293 # Sightless Eye (Rezira the Seer, Antoran Wastes)
+  - 153124 # Spire of Spite (Sister Subversia, Krokuun)
+  - 153253 # S.F.E. Interceptor (Squadron Commander Vishax, Antoran Wastes)
+
+- name: BfA - Arathi
+  things:
+  - 163713 # Brazier Cap (Drop - Geomancer Flintdagger, Arathi Highlands)
+  - 163744 # Coldrage's Cooler (Drop - Kor'gresh Coldrage, Arathi Highlands)
+  - 163735 # Foul Belly (Drop - Foulbelly, Arathi Highlands)
+  - 163750 # Kovork Kostume (Drop - Kovork, Arathi Highlands)
+  - 163741 # Magic Fun Rock (Drop - Ruul Onestone, Arathi Highlands)
+  - 163775 # Molok Morion (Drop - Molok the Crusher, Arathi Highlands)
+  - 163736 # Spectral Visage (Drop - Horrific Apparition, Arathi Highlands)
+  - 163738 # Syndicate Mask (Drop - Singer, Arathi Highlands)
+  - 163828 # Toy Siege Tower (Drop - Doom's Howl, Arathi Highlands)
+  - 163829 # Toy War Machine (Drop - The Lion's Roar, Arathi Highlands)
+  - 163745 # Witherbark Gong (Drop - Zalas Witherbark, Arathi Highlands)
+
+
+# Reputation
+- name: Classic
+  things:
+  -  44719 # Frenzyheart Brew
+  -  66888 # Stave of Fur and Claw
+
+- name: Cata
+  things:
+  -  64997 # Tol Barad Searchlight
+  -  63141 # Tol Barad Searchlight
+
+- name: MoP
+  things:
+  -  85500 # Anglers Fishing Raft (rep MoP)
+  - 103685 # Celestial Defender's Medallion
+  -  89222 # Cloud Ring
+  -  90175 # Gin-Ji Knife Set
+  -  95589 # Glorious Standard of the Kirin Tor Offensive
+  -  95590 # Glorious Standard of the Sunreaver Onslaught
+  -  86596 # Nat's Fishing Chair
+  -  89869 # Pandaren Scarecrow
+
+- name: WoD
+  things:
+  - 128471 # Frostwolf Grunt's Battlegear
+  - 128462 # Karabor Councilor's Attire
+  - 115468 # Permanent Frost Essence
+  - 115472 # Permanent Time Bubble (rep WoD)
+  - 122283 # Rukhmar's Sacred Memory
+  - 119421 # Sha'tari Defender's Medallion
+  - 119182 # Soul Evacuation Crystal
+  - 119160 # Tickle Totem
+
+- name: Legion
+  things:
+  - 153039 # Crystalline Campfire (Argussian Reach - Honored)
+  - 131812 # Darkshard Fragment (rep Leg)
+  - 129149 # Death's Door Charm (rep Leg)
+  - 129279 # Enchanted Stone Whistle (rep Leg)
+  - 153182 # Holy Lightsphere (Gleaming Footlocker - Army of the Light Paragon)
+  - 140325 # Home Made Party Mask (rep Leg)
+  - 147708 # Legion Invasion Simulator (Armies of Legionfall)
+  - 130199 # Legion Pocket Portal (rep Leg?)
+  - 140324 # Mobile Telemancy Beacon (rep Leg)
+  - 130232 # Moonfeather Statue (rep Leg)
+  - 130158 # Path of Elothir (rep Leg)
+  - 147843 # Sira's Extra Cloak (Warden's Supply Kit) rep
+  - 130157 # Syxsehnz Rod (rep Leg)
+  - 130170 # Tear of the Green Aspect (rep Leg)
+  - 130191 # Trapped Treasure Chest Kit (rep Leg)
+  - 129367 # Vrykul Toy Boat Kit (Valarjar Honored)
+  - 131814 # Whitewater Carp (rep Leg)
+
+- name: BfA
+  things:
+  - 163211 # Akunda's Firesticks (Voldunai - Honored)
+  - 163200 # Cursed Spyglass (Proudmoore Admiralty - Revered)
+  - 163463 # Dead Ringer (Storm's Wake - Revered)
+  - 159753 # Desert Flute (Voldunai - Honored)
+  - 163201 # Gnoll Targetting Barrel (Proudmoore Admiralty - Honored)
+  - 163210 # Party Totem (Zandalari Empire - Revered)
+
+
+# Treasure
+- name: WoD
+  things:
+  - 127670 # Accursed Tome of the Sargerei
+  - 117550 # Angry Beehive
+  - 108735 # Arena Master's War Horn
+  - 128223 # Bottomless Stygana Mushroom Brew (treasure Tan)
+  - 127859 # Dazzling Rod
+  - 108743 # Deceptia's Smoldering Boots
+  - 117569 # Giant Deathweb Egg
+  - 118716 # Goren Garb
+  - 127668 # Jewel of Hellfire
+  - 127394 # Podling Camouflage
+  - 127669 # Skull of the Mad Chief (treasure Tan)
+  - 109739 # Star Chart
+  - 116120 # Tasty Talador Lunch (treasure WoD)
+  - 127766 # The Perfect Blossom
+  - 127709 # Throbbing Blood Orb
+  - 113375 # Vindicator's Armor Polish Kit
+
+- name: Legion
+  things:
+  - 141296 # Ancient Mana Basin (treasure Leg)
+  - 141297 # Arcano-Shower (treasure Leg)
+  - 129165 # Barnacle-Encrusted Gem (treasure Leg)
+  - 141298 # Displacer Meditation Stone (treasure Leg)
+  - 140780 # Fal'dorei Egg (treasure Leg)
+  - 141299 # Kal'dorei Light Globe (treasure Leg)
+  - 140632 # Lava Fountain (treasure Leg)
+  - 140786 # Ley Spider Eggs (treasure Leg)
+  - 141300 # Magi Focusing Crystal (treasure Leg)
+  - 147867 # Pilfered Sweeper (Curious Wyrmtongue Cache) ??
+  - 131811 # Rocfeather Skyhorn Kite (Highmountain)
+  - 129055 # Shoe Shine Kit (treasure Leg)
+  - 122681 # Sternfathom's Pet Journal (treasure Leg)
+  - 130147 # Thistleleaf Branch (treasure Leg)
+  - 130169 # Tournament Favor (treasure Leg)
+  - 141301 # Unstable Powder Box (treasure Leg)
+  - 143534 # Wand of Simulated Life (Dalaran treasure)
+  - 130249 # Waywatcher's Boon (treasure Leg)
+  - 141306 # Wisp in a Bottle (treasure Leg)
+
+- name: BfA
+  things:
+  - 163740 # Drust Ritual Knife (Treasure - Drustvar)
+  - 161342 # Gem of Acquiescence (?? weird puzzle thing)
+  - 163742 # Heartsbane Grimoire (Treasure - Drustvar)
+  - 163603 # Lucille's Handkerchief (Treasure - Drustvar)
+
+
+# Vendor
+- name: Vendor
+  things:
+  - 153204 # All-Seer's Eye (Orix the All-Seer, Antoran Wastes - 1000 eyes)
+  - 120857 # Barrel of Bandanas
+  -  97921 # Bom'bay's Color-Seein' Sauce (Lenny "Fingers" McCoy, Stormwind)
+  - 134007 # Eternal Black Diamond Ring
+  - 133511 # Gurboggle's Gleaming Bauble
+  - 159749 # Haw'li's Hot & Spicy Chili (Vendor - Trader Haw'li, Zuldazar)
+  - 136855 # Hunter's Call
+  -  43499 # Iron Boot Flask
+  -  68806 # Kalytha's Haunted Locket
+  - 140231 # Narcissa's Mirror (vendor pet)
+  - 136849 # Nature's Beacon
+  - 134004 # Noble's Eternal Elementium Signet
+  - 136934 # Raging Elemental Stone
+  - 136927 # Scarlet Confessional Book
+  -  97942 # Sen'jin Spirit Drum (Ravika, Durotar)
+  - 136935 # Tadpole Cloudseeder
+  - 136928 # Thaumaturgist's Orb
+  - 136937 # Vol'jin's Serpent Totem
+  - 138490 # Waterspeaker's Totem
+  -  97919 # Whole-Body Shrinka' (Ravika, Durotar)
+  -  98552 # Xan'tish's Flute (Ravika, Durotar)
+
+- name: Broken Isles
+  things:
+  - 140336 # Brulfist Idol (vendor Leg)
+  - 142452 # Lingering Wyrmtongue Essence (Treasure Master Iks'reeged - Broken Shore)
+  - 141862 # Mote of Light (Xur'ios, Dalaran)
+  - 140309 # Prismatic Bauble
+  - 130151 # The "Devilsaur" Lunchbox (vendor Leg)
+
+- name: Dalaran
+  things:
+  -  54343 # Blue Crashin' Thrashin' Racer Controller
+  - 129057 # Dalaran Disc (vendor Leg)
+  - 137294 # Dalaran Initiates' Pin
+  - 136846 # Familiar Stone
+  -  44820 # Red Ribbon Pet Leash
+  -  37460 # Rope Pet Leash
+  - 137663 # Soft Foam Sword
+  -  54438 # Tiny Blue Ragdoll
+  -  54437 # Tiny Green Ragdoll
+  -  44606 # Toy Train Set
+  -  45057 # Wind-Up Train Wrecker
+
+- name: Heirlooms
+  things:
+  - 150745 # The Azeroth Campaign (Heirloom vendors)
+  - 150746 # To Modernize the Provisioning of Azeroth (Heirloom vendors)
+  - 150743 # Surviving Kalimdor (Heirloom vendors)
+  - 150744 # Walking Kalimdor with the Earthmother (Heirloom vendors)
+
+- name: Pandaria
+  things:
+  - 102467 # Censer of Eternal Agony
+  - 134020 # Chef's Hat
+  -  88801 # Flippable Table
+  -  88802 # Foxicopter Controller
+  -  91904 # Stackable Stag
+
+- name: Timewalking
+  things:
+  - 144072 # Adopted Puppy Crate (Mistweaver Xia, Timeless Isle - Timewalking)
+  - 129929 # Ever-Shifting Mirror
+  - 151016 # Fractured Necrolyte Skull (Cupri, Shattrath - Timewalking)
+  - 129965 # Grizzlesnout's Fang (Timewalking, Wrath)
+  - 129952 # Hourglass of Eternity
+  - 129926 # Mark of the Ashtongue
+  - 144393 # Portable Yak Wash (Timewalking, MoP)
+  - 133542 # Tosselwrench's Mega-Accurate Simulation Viewfinder
+  - 151184 # Verdant Throwing Sphere (Cupri, Shattrah - Timewalking)
+  - 129938 # Will of Northrend
+
+
+# World Events
+- name: Argent Tournament
+  things:
+  -  46843 # Argent Crusader's Banner
+  -  45021 # Darnassus Banner
+  -  45020 # Exodar Banner
+  -  45019 # Gnomeregan Banner
+  -  45018 # Ironforge Banner
+  -  45014 # Orgrimmar Banner
+  -  45015 # Sen'jin Banner
+  -  45017 # Silvermoon City Banner
+  -  45011 # Stormwind Banner
+  -  45013 # Thunder Bluff Banner
+  -  45016 # Undercity Banner
+
+- name: Brewfest
+  things:
+  - 116758 # Brewfest Banner
+  -  71137 # Brewfest Keg Pony
+  -  33927 # Brewfest Pony Key
+  - 138900 # Gravil Goldbraid's Famous Sausage Hat (Brewfest)
+  -  90427 # Pandaren Brewpack
+  - 116757 # Steamworks Sausage Grill
+
+- name: Day of the Dead
+  things:
+  - 116856 # "Blooming Rose" Contender's Costume
+  - 116888 # "Night Demon" Contender's Costume
+  - 116889 # "Purple Phantom" Contender's Costume
+  - 116890 # "Santo's Sun" Contender's Costume
+  - 116891 # "Snowy Owl" Contender's Costume
+
+- name: Darkmoon Faire
+  things:
+  - 122126 # Attraction Sign
+  - 116115 # Blazing Wings
+  - 151265 # Blight Boar Microphone (Death Metal Knight drop, DMF)
+  - 122121 # Darkmoon Gazer
+  - 122123 # Darkmoon Ring-Flinger
+  -  97994 # Darkmoon Seesaw
+  - 122122 # Darkmoon Tonk Controller
+  -  90899 # Darkmoon Whistle
+  - 122119 # Everlasting Darkmoon Firework
+  - 122129 # Fire-Eater's Vial
+  -  75042 # Flimsy Yellow Balloon
+  - 122120 # Gaze of the Darkmoon
+  - 116139 # Haunting Memento
+  - 101571 # Moonfang Shroud
+  - 105898 # Moonfang's Paw
+  - 116067 # Ring of Broken Promises
+  - 126931 # Seafarer's Slidewhistle
+  - 138202 # Sparklepony XL (DMF)
+
+- name: Hallow's End
+  things:
+  - 128807 # Coin of Many Faces (Hallow's End)
+  - 151271 # Horse Head Costume (Hallow's End)
+  - 151270 # Horse Tail Costume (Hallow's End)
+  -  70722 # Little Wickerman (Hallow's End)
+  - 128794 # Sack of Spectral Spiders (Hallow's End)
+
+- name: Love is in the Air
+  things:
+  - 142341 # Love Boat (Love is in the Air)
+  -  34480 # Romantic Picnic Basket (Love is in the Air)
+  - 144339 # Sturdy Love Fool (Love is in the Air)
+  -  50471 # The Heartbreaker (Love is in the Air)
+  - 116651 # True Love Prism (Love is in the Air)
+
+- name: Lunar Festival
+  things:
+  - 143828 # Dragon Body Costume (Lunar Festival)
+  - 143827 # Dragon Head Costume (Lunar Festival)
+  - 143829 # Dragon Tail Costume (Lunar Festival)
+  -  21540 # Elune's Lantern (Lunar Festival)
+  -  89999 # Everlasting Alliance Firework (Lunar Festival)
+  -  90000 # Everlasting Horde Firework (Lunar Festival)
+
+- name: Midsummer Fire Festival
+  things:
+  -  34686 # Brazier of Dancing Flames (Midsummer Fire Festival)
+  - 116440 # Burning Defender's Medallion (Midsummer Fire Festival)
+  - 116435 # Cozy Bonfire (Midsummer Fire Festival)
+  - 141649 # Set of Matches (Midsummer Fire Festival)
+
+- name: Winter Veil
+  things:
+  - 108632 # Crashin' Thrashin' Flamer Controller
+  - 104318 # Crashin' Thrashin' Flyer Controller
+  - 108635 # Crashin' Thrashin' Killdozer Controller
+  -  37710 # Crashin' Thrashin' Racer Controller
+  - 116763 # Crashin' Thrashin' Shredder Controller
+  -  46709 # MiniZep Controller
+  -  17712 # Winter Veil Disguise Kit
+  -  90888 # Foot Ball
+  - 104324 # Foot Ball
+  -  90883 # The Pigskin
+  - 104323 # The Pigskin
+  - 116692 # Fuzzy Green Lounge Cushion
+  - 116689 # Pineapple Lounge Cushion
+  - 116690 # Safari Lounge Cushion
+  - 116691 # Zhevra Lounge Cushion
+  - 116456 # Scroll of Storytelling
+  - 139337 # Disposable Winter Veil Suits
+  - 128636 # Endothermic Blaster
+  - 128776 # Red Wooden Sled
+  - 151343 # Hearthstation (Alliance)
+  - 151344 # Hearthstation (Horde)
+  - 151349 # Toy Weapon Set (Alliance)
+  - 151348 # Toy Weapon Set (Horde)
+
+- name: Other
+  things:
+  -  69895 # Green Balloon (Children's Week)
+  - 150547 # Jolly Roger (Pirates' Day)
+  - 140363 # Pocket Fel Spreader (drop?)
+  - 116400 # Silver-Plated Turkey Shooter (Pilgrim's Bounty)
+  - 138415 # Slightly-Chewed Insult Book (Pirates' Day)
+  -  69896 # Yellow Balloon (Children's Week)
