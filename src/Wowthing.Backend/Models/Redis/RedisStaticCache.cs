@@ -21,13 +21,16 @@ namespace Wowthing.Backend.Models.Redis
         public SortedDictionary<int, WowReputationTier> ReputationTiers { get; set; }
 
         [JsonProperty(Order = 10)]
-        public SortedDictionary<int, int> SpellToMount { get; set; }
-        //[JsonProperty(Order = 11)]
-        //public SortedDictionary<int, int> Pets { get; set; }
-
-        [JsonProperty(Order = 20)]
         public List<RedisSetCategory> MountSets { get; set; }
-        [JsonProperty(Order = 23)]
+        [JsonProperty(Order = 11)]
+        public SortedDictionary<int, int> SpellToMount { get; set; }
+        
+        [JsonProperty(Order = 20)]
+        public List<RedisSetCategory> PetSets { get; set; }
+        [JsonProperty(Order = 21)]
+        public SortedDictionary<int, int> CreatureToPet { get; set; }
+
+        [JsonProperty(Order = 30)]
         public List<DataReputationCategory> ReputationSets { get; set; }
     }
 }
