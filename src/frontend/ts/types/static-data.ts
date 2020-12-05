@@ -9,8 +9,12 @@ export class StaticData {
     ReputationTiers: Dictionary<StaticDataReputationTier>
 
     MountSets: any // FIXME
-    ReputationSets: StaticDataSetCategory<StaticDataReputationSet>[]
     SpellToMount: Dictionary<number>
+
+    PetSets: any // FIXME
+    CreatureToPet: Dictionary<number>
+
+    ReputationSets: StaticDataSetCategory<StaticDataReputationSet>[]
 }
 
 class StaticDataClass {

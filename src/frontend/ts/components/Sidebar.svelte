@@ -42,7 +42,7 @@
             <a href="#/mounts">Mounts</a>
         </li>
         <li use:active={'/pets'}>
-            <a href="#/pets">Pets [NYI]</a>
+            <a href="#/pets">Pets</a>
         </li>
         <li use:active={'/toys'}>
             <a href="#/toys">Toys [NYI]</a>
