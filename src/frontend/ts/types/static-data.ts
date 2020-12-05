@@ -15,6 +15,8 @@ export class StaticData {
     CreatureToPet: Dictionary<number>
 
     ReputationSets: StaticDataSetCategory<StaticDataReputationSet>[]
+
+    ToySets: any // FIXME
 }
 
 class StaticDataClass {

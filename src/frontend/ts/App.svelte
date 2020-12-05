@@ -9,6 +9,7 @@
     import Sidebar from './components/Sidebar.svelte'
     import Mounts from './components/collections/Mounts.svelte'
     import Pets from './components/collections/Pets.svelte'
+    import Toys from './components/collections/Toys.svelte'
     import HomeCards from './components/home/HomeCards.svelte'
     import HomeTable from './components/home/HomeTable.svelte'
     import Reputations from './components/reputations/Reputations.svelte'
@@ -21,6 +22,7 @@
 
         '/mounts': Mounts,
         '/pets': Pets,
+        '/toys': Toys,
 
         '/settings': Settings,
     }
