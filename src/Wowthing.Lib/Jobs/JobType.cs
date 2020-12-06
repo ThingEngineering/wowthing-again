@@ -10,6 +10,7 @@ namespace Wowthing.Lib.Jobs
 
         Character = 100,
         CharacterMounts,
+        CharacterQuestsCompleted,
         CharacterReputations,
         CharacterSoulbinds,
       

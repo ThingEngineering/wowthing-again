@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.API.Character;
+using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Query;
 
 namespace Wowthing.Backend.Jobs.User
 {
-    public class CharacterReputationsJob : JobBase
+    public class CharacterQuestsCompletedJob : JobBase
     {
-        private const string API_PATH = "profile/wow/character/{0}/{1}/reputations";
+        private const string API_PATH = "profile/wow/character/{0}/{1}/quests/completed";
 
         public override async Task Run(params string[] data)
         {
@@ -23,18 +24,25 @@ namespace Wowthing.Backend.Jobs.User
             var path = string.Format(API_PATH, query.RealmSlug, query.CharacterName.ToLowerInvariant());
             var uri = GenerateUri(query.Region, ApiNamespace.Profile, path);
 
-            var result = await GetJson<ApiCharacterReputations>(uri);
+            var result = await GetJson<ApiCharacterQuestsCompleted>(uri);
             if (result.NotModified)
             {
                 _logger.Information("304 Not Modified");
                 return;
             }
 
-            // Fetch character
-            var character = await _context.PlayerCharacter.FindAsync(query.CharacterId);
+            // Fetch character data
+            var quests = await _context.PlayerCharacterQuests.FindAsync(query.CharacterId);
+            if (quests == null)
+            {
+                quests = new PlayerCharacterQuests
+                {
+                    CharacterId = query.CharacterId,
+                };
+                _context.PlayerCharacterQuests.Add(quests);
+            }
 
-            character.ReputationIds = result.Data.Reputations.Select(r => r.Faction.Id).ToList();
-            character.ReputationValues = result.Data.Reputations.Select(r => r.Standing.Raw).ToList();
+            quests.CompletedIds = result.Data.Quests.Select(q => q.Id).ToList();
 
             await _context.SaveChangesAsync();
         }
