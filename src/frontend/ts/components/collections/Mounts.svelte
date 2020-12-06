@@ -2,24 +2,9 @@
     import { data as staticData } from '../../stores/static-store'
     import { data as userData } from '../../stores/user-store'
 
-    /*
-     MountToSpell = { mountID : spellID }
-     MountSets = [
-        {
-            Name: "" (null for first)
-            Groups: [
-                {
-                    Name: "Things"
-                    Things: [
-                        [1, 2] (mountIDs)
-                    ]
-                }
-            ]
-        }
-    ]
-     */
-
     import Collection from './Collection.svelte'
+
+    export let params: { slug }
 </script>
 
-<Collection thingType="spell" thingMap={$staticData.SpellToMount} userHas={$userData.mounts} sets={$staticData.MountSets} />
+<Collection route="mounts" slug={params.slug} thingType="spell" thingMap={$staticData.SpellToMount} userHas={$userData.mounts} sets={$staticData.MountSets} />

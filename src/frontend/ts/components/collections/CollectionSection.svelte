@@ -1,17 +1,15 @@
 <script lang="ts">
+    import find from 'lodash/find'
+    import {getContext, setContext} from 'svelte'
+
     import CollectionGroup from './CollectionGroup.svelte'
-    import {setContext} from 'svelte'
-    import {writable} from 'svelte/store'
+    import {data as userData} from '../../stores/user-store'
 
-    export let thingType: string
-    export let thingMap
-    export let userHas
-    export let section
+    export let slug
 
-    const hasStore = writable(0)
-    const totalStore = writable(0)
-
-    setContext("collection", { hasStore, totalStore })
+    const {route, sets, thingMap, thingType, userHas} = getContext("collection")
+    $: section = find(sets, (s) => s.Slug === slug)
+    $: counts = $userData.setCounts[route][slug]
 </script>
 
 <style lang="scss">
@@ -40,14 +38,11 @@
         display: flex;
         flex-wrap: wrap;
     }
-    section:not(:first-child) {
-        margin-top: 1rem;
-    }
 </style>
 
 <section>
     {#if section.Name}
-        <h3>{section.Name} <span>[ <em>{$hasStore}</em> / <em>{$totalStore}</em> ]</span></h3>
+        <h3>{section.Name} <span>[ <em>{ counts.have }</em> / <em>{ counts.total }</em> ]</span></h3>
     {/if}
     {#each section.Groups as group}
         <CollectionGroup thingType={thingType} thingMap={thingMap} userHas={userHas} group={group} />

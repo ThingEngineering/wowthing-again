@@ -4,4 +4,5 @@ import type {Dictionary} from './dictionary'
 export class UserData {
     characters: Character[]
     mounts: Dictionary<number>
+    setCounts: any
 }

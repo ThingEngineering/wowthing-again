@@ -7,7 +7,7 @@ import resolve from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
 import svelte from 'rollup-plugin-svelte'
 import { terser } from 'rollup-plugin-terser'
-import sveltePreprocess from 'svelte-preprocess'
+import autoPreprocess from 'svelte-preprocess'
 
 
 const production = !process.env.ROLLUP_WATCH
@@ -37,9 +37,7 @@ export default {
                     css.write('main.dev.css', true)
                 }
             },
-            preprocess: sveltePreprocess({
-                //postcss: true,
-            }),
+            preprocess: autoPreprocess(),
         }),
         replace({
             'process.env.NODE_ENV': JSON.stringify(production ? 'production' : 'development'),

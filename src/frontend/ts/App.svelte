@@ -1,34 +1,21 @@
 <script lang="ts">
-    import { onMount } from 'svelte'
-    import Router from 'svelte-spa-router'
+    import {onMount} from 'svelte'
 
-    import { error as staticError, loading as staticLoading, fetch as fetchStatic } from './stores/static-store'
-    import { error as userError, loading as userLoading, fetch as fetchUser } from './stores/user-store'
+    import {error as staticError, loading as staticLoading, fetch as fetchStatic} from './stores/static-store'
+    import {error as userError, loading as userLoading, fetch as fetchUser} from './stores/user-store'
+    import initializeSets from './utils/initialize-sets'
 
-    import Settings from './components/Settings.svelte'
+    import Routes from './components/Routes.svelte'
     import Sidebar from './components/Sidebar.svelte'
-    import Mounts from './components/collections/Mounts.svelte'
-    import Pets from './components/collections/Pets.svelte'
-    import Toys from './components/collections/Toys.svelte'
-    import HomeCards from './components/home/HomeCards.svelte'
-    import HomeTable from './components/home/HomeTable.svelte'
-    import Reputations from './components/reputations/Reputations.svelte'
-
-    const routes = {
-        '/': HomeCards,
-        '/cards': HomeCards,
-        '/table': HomeTable,
-        '/reputations/:slug?': Reputations,
-
-        '/mounts': Mounts,
-        '/pets': Pets,
-        '/toys': Toys,
-
-        '/settings': Settings,
-    }
 
     onMount(() => fetchStatic())
     onMount(() => fetchUser())
+
+    $: {
+        if (!$staticLoading && !$userLoading) {
+            initializeSets()
+        }
+    }
 </script>
 
 <style lang="scss" global>
@@ -41,5 +28,5 @@
 {:else if $staticLoading || $userLoading}
     <p>L O A D I N G</p>
 {:else}
-    <Router {routes} />
+    <Routes />
 {/if}

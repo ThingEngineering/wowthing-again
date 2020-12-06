@@ -3,6 +3,8 @@
     import { data as userData } from '../../stores/user-store'
 
     import Collection from './Collection.svelte'
+
+    export let params: { slug }
 </script>
 
-<Collection thingType="npc" thingMap={$staticData.CreatureToPet} userHas={$userData.pets} sets={$staticData.PetSets} />
+<Collection route="pets" slug={params.slug} thingType="npc" thingMap={$staticData.CreatureToPet} userHas={$userData.pets} sets={$staticData.PetSets} />
