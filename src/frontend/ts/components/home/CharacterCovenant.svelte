@@ -22,5 +22,4 @@
 <div class="{'covenant' + character.shadowlands.covenantId}">
     <WowthingImage name={covenant.icon} size="24" border="1" tooltip="{covenant.name}" />
     {character.shadowlands.renownLevel}
-    [{character.shadowlands.soulbindId}]
 </div>

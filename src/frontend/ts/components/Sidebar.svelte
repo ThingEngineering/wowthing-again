@@ -29,10 +29,10 @@
 <nav>
     <ul>
         <li use:active={'/'}>
-            <a href="#/">Home (Table)</a>
+            <a href="#/">Home (Cards)</a>
         </li>
-        <li use:active={'/cards'}>
-            <a href="#/cards">Home (Cards)</a>
+        <li use:active={'/table'}>
+            <a href="#/table">Home (Table)</a>
         </li>
         <li use:active={'/reputations/*'}>
             <a href="#/reputations/shadowlands">Reputations</a>

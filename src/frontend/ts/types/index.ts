@@ -1,3 +1,4 @@
+export * from './account'
 export * from './character'
 export * from './dictionary'
 export * from './reputation-tier'
