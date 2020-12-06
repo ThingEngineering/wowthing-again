@@ -39,6 +39,7 @@ namespace Wowthing.Lib.Models
         [ForeignKey("AccountId")]
         public PlayerAccount Account { get; set; }
 
+        public PlayerCharacterQuests Quests { get; set; }
         public PlayerCharacterShadowlands Shadowlands { get; set; }
     }
 }
