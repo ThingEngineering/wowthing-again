@@ -44,7 +44,7 @@
     {#if section.Name}
         <h3>{section.Name} <span>[ <em>{ counts.have }</em> / <em>{ counts.total }</em> ]</span></h3>
     {/if}
-    {#each section.Groups as group}
+    {#each section.Groups as group, i (`${thingType}-${slug}-${i}`)}
         <CollectionGroup thingType={thingType} thingMap={thingMap} userHas={userHas} group={group} />
     {/each}
 </section>
