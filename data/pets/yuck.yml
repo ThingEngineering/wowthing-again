@@ -463,19 +463,6 @@ groups:
   -  85284 # Sky-Bo - Blingtron 5000
   -  99505 # Knockoff Blingtron (Blingtron 6000)
 
-- name: Legion
-  things:
-  -  96649 # Ashmaw Cub ()
-  -  97207 # Emmigosa ()
-  -  96622 # Grumpy ()
-  - 111421 # Lurking Owl Kitten ()
-  -  97079 # Skyhorn Nestling ()
-  - 111423 # Untethered Wyrmling ()
-  - 113827 # Wonderous Wisdomball ()
-  - 115787 # Bloodgazer Hatchling (Quest)
-  - 115785 # Direbeak Hatchling (Quest)
-  - 115786 # Sharptalon Hatchling (Quest)
-  - 115784 # Snowfeather Hatchling (Quest)
 
 
 # Rare Mobs
