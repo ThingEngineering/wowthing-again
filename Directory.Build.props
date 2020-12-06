@@ -1,18 +1,29 @@
 <Project>
+    <PropertyGroup>
+        <DefaultItemExcludes>$(DefaultItemExcludes);$(MSBuildProjectDirectory)/obj/**/*</DefaultItemExcludes>
+        <DefaultItemExcludes>$(DefaultItemExcludes);$(MSBuildProjectDirectory)/bin/**/*</DefaultItemExcludes>
+    </PropertyGroup>
 
-  <PropertyGroup>
-    <DefaultItemExcludes>$(DefaultItemExcludes);$(MSBuildProjectDirectory)/obj/**/*</DefaultItemExcludes>
-    <DefaultItemExcludes>$(DefaultItemExcludes);$(MSBuildProjectDirectory)/bin/**/*</DefaultItemExcludes>
-  </PropertyGroup>
+    <Choose>
+        <When Condition=" '$(DOTNET_RUNNING_IN_CONTAINER)' == 'true' ">
+            <PropertyGroup>
+                <BaseIntermediateOutputPath>$(MSBuildProjectDirectory)/obj/container/</BaseIntermediateOutputPath>
+                <BaseOutputPath>$(MSBuildProjectDirectory)/bin/container/</BaseOutputPath>
+            </PropertyGroup>
+        </When>
 
-  <PropertyGroup Condition="'$(DOTNET_RUNNING_IN_CONTAINER)' == 'true'">
-    <BaseIntermediateOutputPath>$(MSBuildProjectDirectory)/obj/container/</BaseIntermediateOutputPath>
-    <BaseOutputPath>$(MSBuildProjectDirectory)/bin/container/</BaseOutputPath>
-  </PropertyGroup>
+        <When Condition="' $(COMPUTERNAME)' != '' ">
+            <PropertyGroup>
+                <BaseIntermediateOutputPath>$(MSBuildProjectDirectory)/obj/$(COMPUTERNAME)/</BaseIntermediateOutputPath>
+                <BaseOutputPath>$(MSBuildProjectDirectory)/bin/$(COMPUTERNAME)/</BaseOutputPath>
+            </PropertyGroup>
+        </When>
 
-  <PropertyGroup Condition="'$(DOTNET_RUNNING_IN_CONTAINER)' != 'true'">
-    <BaseIntermediateOutputPath>$(MSBuildProjectDirectory)/obj/$(OS)/</BaseIntermediateOutputPath>
-    <BaseOutputPath>$(MSBuildProjectDirectory)/bin/$(OS)/</BaseOutputPath>
-  </PropertyGroup>
-
+        <Otherwise>
+            <PropertyGroup>
+                <BaseIntermediateOutputPath>$(MSBuildProjectDirectory)/obj/$(OS)/</BaseIntermediateOutputPath>
+                <BaseOutputPath>$(MSBuildProjectDirectory)/bin/$(OS)/</BaseOutputPath>
+            </PropertyGroup>
+        </Otherwise>
+    </Choose>
 </Project>
