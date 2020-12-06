@@ -10,6 +10,8 @@ export class Character {
     level: number
     equippedItemLevel: number
 
+    accountId?: number
+
     reputations: Dictionary<number>
     shadowlands?: CharacterShadowlands
 }

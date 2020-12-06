@@ -5,7 +5,7 @@
     import Mounts from './collections/Mounts.svelte'
     import Pets from './collections/Pets.svelte'
     import Toys from './collections/Toys.svelte'
-    import HomeCards from './home/HomeCards.svelte'
+    import HomeCards from './home/cards/Index.svelte'
     import HomeTable from './home/HomeTable.svelte'
     import Reputations from './reputations/Reputations.svelte'
 
