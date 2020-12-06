@@ -38,14 +38,14 @@
             <a href="#/reputations/shadowlands">Reputations</a>
         </li>
         <li class="spacer"></li>
-        <li use:active={'/mounts'}>
-            <a href="#/mounts">Mounts</a>
+        <li use:active={'/mounts/*'}>
+            <a href="#/mounts/shadowlands">Mounts</a>
         </li>
-        <li use:active={'/pets'}>
-            <a href="#/pets">Pets</a>
+        <li use:active={'/pets/*'}>
+            <a href="#/pets">Pets [WIP]</a>
         </li>
-        <li use:active={'/toys'}>
-            <a href="#/toys">Toys [NYI]</a>
+        <li use:active={'/toys/*'}>
+            <a href="#/toys">Toys [WIP]</a>
         </li>
         <li class="spacer"></li>
         <li use:active={'/settings'}>

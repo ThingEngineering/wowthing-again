@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Wowthing.Backend.Models.Data;
+using Wowthing.Lib.Extensions;
 
 namespace Wowthing.Backend.Models.Redis
 {
@@ -13,6 +14,8 @@ namespace Wowthing.Backend.Models.Redis
 
         public string Name { get; set; }
         public List<RedisSetGroup> Groups { get; set; } = new List<RedisSetGroup>();
+
+        public string Slug => Name.Slugify();
 
         public RedisSetCategory()
         {

@@ -8,15 +8,15 @@ export class StaticData {
     Reputations: Dictionary<StaticDataReputation>
     ReputationTiers: Dictionary<StaticDataReputationTier>
 
-    MountSets: any // FIXME
+    MountSets: StaticDataSetCategory[]
     SpellToMount: Dictionary<number>
 
-    PetSets: any // FIXME
+    PetSets: StaticDataSetCategory[]
     CreatureToPet: Dictionary<number>
 
-    ReputationSets: StaticDataSetCategory<StaticDataReputationSet>[]
+    ReputationSets: StaticDataReputationCategory[]
 
-    ToySets: any // FIXME
+    ToySets: StaticDataSetCategory[]
 }
 
 class StaticDataClass {
@@ -40,6 +40,7 @@ class StaticDataRealm {
     Slug: string
 }
 
+// Reputations
 export class StaticDataReputation {
     Id: number
     Name: string
@@ -53,9 +54,9 @@ export class StaticDataReputationTier {
     Names: string[]
 }
 
-class StaticDataSetCategory<T> {
+class StaticDataReputationCategory {
     Name: string
-    Reputations: T[][]
+    Reputations: StaticDataReputationSet[][]
     Slug: string
 }
 
@@ -80,4 +81,16 @@ class StaticDataReputationReputation {
     Name: string
     Icon: string
     Note: string
+}
+
+// Sets
+export class StaticDataSetCategory {
+    Name: string
+    Slug: string
+    Groups: StaticDataSetGroup[]
+}
+
+class StaticDataSetGroup {
+    Name: string
+    Things: number[][]
 }
