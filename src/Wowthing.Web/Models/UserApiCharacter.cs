@@ -21,6 +21,9 @@ namespace Wowthing.Web.Models
         public Dictionary<int, int> Reputations { get; set; } = new Dictionary<int, int>();
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public int? AccountId { get; set; }
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public UserApiCharacterShadowlands Shadowlands { get; set; }
 
         public UserApiCharacter(PlayerCharacter character, bool pub = false, bool anon = false)
@@ -34,12 +37,17 @@ namespace Wowthing.Web.Models
 
             if (pub && anon)
             {
-                Name = "SecretGoose008";
+                Name = "SecretGoose";
             }
             else
             {
                 Name = character.Name;
                 RealmId = character.RealmId;
+            }
+
+            if (!pub)
+            {
+                AccountId = character.AccountId;
             }
 
             if (character.ReputationIds != null && character.ReputationValues != null)

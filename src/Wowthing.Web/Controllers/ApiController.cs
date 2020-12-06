@@ -64,6 +64,15 @@ namespace Wowthing.Web.Controllers
             bool anon = user.Settings.Privacy.Anonymized;
 
             // Retrieve data
+            Dictionary<int, UserApiAccount> accounts = null;
+            if (!pub)
+            {
+                accounts = await _context.PlayerAccount
+                    .Where(a => a.UserId == user.Id)
+                    .Select(a => new UserApiAccount(a))
+                    .ToDictionaryAsync(a => a.Id);
+            }
+
             var characterQuery = _context.PlayerCharacter
                 .Where(c => c.Account.UserId == user.Id);
             if (pub)
@@ -78,7 +87,8 @@ namespace Wowthing.Web.Controllers
             // Build response
             var apiData = new UserApi
             {
-                Characters = characterQuery.Select(c => new UserApiCharacter(c, pub, anon)).ToList(),
+                Accounts = accounts,
+                Characters = await characterQuery.Select(c => new UserApiCharacter(c, pub, anon)).ToListAsync(),
                 Mounts = mounts.ToDictionary(k => k, v => 1),
             };
 
