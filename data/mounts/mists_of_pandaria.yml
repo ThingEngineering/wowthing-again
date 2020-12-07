@@ -16,6 +16,12 @@ groups:
   - 148417 # Kor'kron Juggernaut (SoO)
   - 136471 # Spawn of Horridon (ToT)
 
+- name: Mob Drops
+  things:
+  - 138642 # Black Primal Raptor
+  - 138643 # Green Primal Raptor
+  - 138641 # Red Primal Raptor
+
 - name: Quests
   things:
   - 138640 # Bone-White Primal Raptor

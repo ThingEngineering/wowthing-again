@@ -2,6 +2,7 @@ name: World Events
 groups:
 
 - name: Achievements
+  things:
   - 60024 # Violet Proto-Drake (world events)
 
 - name: Misc

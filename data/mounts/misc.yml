@@ -33,9 +33,6 @@ groups:
 
 - name: Misc
   things:
-  - 138642 # Black Primal Raptor
-  - 138643 # Green Primal Raptor
-  - 138641 # Red Primal Raptor
   - 316493 # Elusive Quickhoof (Vol'dun)
   - 300150 # Fabious (Take S.E.L.F.I.E. with the mob in Nazjatar)
 
