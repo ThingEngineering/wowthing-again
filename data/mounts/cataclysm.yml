@@ -1,0 +1,41 @@
+name: Cataclysm
+groups:
+
+- name: Achievements
+  things:
+  - 97359 # Flameward Hippogryph (Molten Front)
+  - 88331 # Volcanic Stone Drake (Glory of the Cataclysm Hero)
+  - 88335 # Drake of the East Wind (Glory of the Cataclysm Raider)
+  - 97560 # Corrupted Fire Hawk (Glory of the Firelands Raider)
+  - 107844 # Twilight Harbinger (Glory of the Dragon Soul Raider)
+
+- name: Instances
+  things:
+  - 98204 # Amani Battle Bear (ZA)
+  - 96491 # Armored Razzashi Raptor (ZG)
+  - 107842 # Blazing Drake (DS)
+  - 88742 # Drake of the North Wind (VP)
+  - 88744 # Drake of the South Wind (ToFW)
+  - 110039 # Experiment 578-B (DS)
+  - 101542 # Flametalon of Alysrazor (FL)
+  - 107845 # Life-Binder's Handmaiden (DS)
+  - 97493 # Pureblood Fire Hawk (FL)
+  - 96499 # Swift Zulian Panther (ZG)
+  - 88746 # Vitreous Stone Drake (SC)
+
+- name: Quests
+  things:
+  -  75207 # Vashj'ir Seahorse (Kelp'thar Forest, The Abyssal Ride quest)
+
+- name: Rare Spawns
+  things:
+  - 88750 # Grey Riding Camel (Uldum)
+  - 88718 # Phosporescent Stone Drake (Deepholm)
+  - 98718 # Subdued Seahorse (Vashj'ir - Poseidus)
+
+- name: Reputations
+  things:
+  - 88748 # Brown Riding Camel (Ramkahen)
+  - 88741 # Drake of the West Wind (Baradin's Wardens)
+  - 92231 92232 # Spectral Steed/Spectral Wolf (Baradin's Wardens)
+  - 88749 # Tan Riding Camel (Ramkahen)

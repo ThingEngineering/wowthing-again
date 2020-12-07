@@ -1,0 +1,98 @@
+name: Legion
+groups:
+
+- name: Achievements
+  things:
+  - 225765 # Leyfeather Hippogryph (Glory of the Legion Hero)
+  - 193007 # Grove Defiler (Glory of the Legion Raider)
+  - 253087 # Antoran Gloomhound (Glory of the Argus Raider)
+  - 254260 # Bleakhoof Ruinstrider (...And Chew Mana Buns)
+  - 215558 # Ratstallion (Underbelly Tycoon)
+  - 193695 204166 # Prestigious War Steed/Prestigious War Wolf (Free For All, More For Me)
+
+- name: Instances
+  things:
+  - 229499 # Midnight (Karazhan, Attumen)
+  - 231428 # Smoldering Ember Wyrm (Karazhan, Nightbane)
+  - 213134 # Felblaze Infernal (Gul'dan, Nighthold)
+  - 171827 # Hellfire Infernal (Gul'dan mythic, Nighthold)
+  - 232519 # Abyss Worm (Mistress Sassz'ine, Tomb of Sargeras)
+  - 253088 # Antoran Charhound (Felhounds of Sargeras, Antorus)
+  - 253660 # Biletooth Gnasher (Argus?)
+  - 243651 # Shackled Ur'zul (Argus the Unmaker Mythic, Antorus)
+
+- name: Order Halls
+  things:
+  - 229387 # Deathlord's Vilebrood Vanquisher (Death Knight)
+  - 229417 # Slayer's Felbroken Shrieker (Demon Hunter)
+  - 229439 # Huntmaster's Dire Wolfhawk (Hunter)
+  - 229438 # Huntmaster's Fierce Wolfhawk (Hunter)
+  - 229386 # Huntmaster's Loyal Wolfhawk (Hunter)
+  - 229376 # Archmage's Prismatic Disc (Mage)
+  - 229385 # Ban-Lu, Grandmaster's Companion (Monk)
+  - 231435 # Highlord's Golden Charger (Paladin)
+  - 231589 # Highlord's Valorous Charger (Paladin)
+  - 231587 # Highlord's Vengeful Charger (Paladin)
+  - 231588 # Highlord's Vigilant Charger (Paladin)
+  - 229377 # High Priest's Lightsworn Seeker (Priest)
+  - 231524 # Shadowblade's Baneful Omen (Rogue)
+  - 231525 # Shadowblade's Crimson Omen (Rogue)
+  - 231523 # Shadowblade's Lethal Omen (Rogue)
+  - 231434 # Shadowblade's Murderous Omen (Rogue)
+  - 231442 # Farseer's Raging Temptest (Shaman)
+  - 238454 # Netherlord's Accursed Wrathsteed (Warlock)
+  - 238452 # Netherlord's Brimstone Wrathsteed (Warlock)
+  - 232412 # Netherlord's Chaotic Wrathsteed (Warlock)
+  - 229388 # Battlelord's Bloodthirsty War Wyrm (Warrior)
+
+- name: Puzzles
+  things:
+  - 215159 # Long-Forgotten Hippogryph (Azsuna crystals)
+
+- name: Quests
+  things:
+  - 230987 # Arcanist's Manasaber (Suramar, Balance of Power chain)
+  - 171850 # Llothien Prowler (random drop?)
+  - 213164 # Brilliant Direbeak (?)
+  - 213158 # Predatory Bloodgazer (?)
+  - 213163 # Snowfeather Hunter (?)
+  - 213165 # Viridian Sharptalon (?)
+
+- name: Rare Spawns
+  things:
+  - 235764 # Darkspore Mana Ray (Fel-Spotted Egg - Naroua/Sabuul/Varga)
+  - 253108 # Felglow Mana Ray (Fel-Spotted Egg - Naroua/Sabuul/Varga)
+  - 253107 # Lambent Mana Ray (Fel-Spotted Egg - Naroua/Sabuul/Varga)
+  - 253109 # Scintillating Mana Ray (Fel-Spotted Egg - Naroua/Sabuul/Varga)
+  - 253106 # Vibrant Mana Ray (Fel-Spotted Egg - Naroua/Sabuul/Varga)
+  - 253662 # Acid Belcher (Skreeg the Devourer, Mac'Aree)
+  - 253661 # Crimson Slavermaw (Blistermaw, Antoran Wastes)
+  - 243652 # Vile Fiend (Houndmaster Kerrax, Antoran Wastes)
+  - 253058 # Maddened Chaosrunner (Wrangler Kravos, Mac'Aree)
+
+- name: Reputations
+  things:
+  - 242881 # Cloudwing Hippogryph (Farondis Chest)
+  - 242874 # Highmountain Elderhorn (Highmountain Supplies)
+  - 230401 # Ivory Hawkstrider (Talon's Vengeance Exalted)
+  - 233364 # Leywoven Flying Carpet (Nightfallen Cache)
+  - 242882 # Valarjar Stormwing (Valarjar Strongbox)
+  - 242875 # Wild Dreamrunner (Dreamweaver Cache)
+
+- name: Reputations - Argus
+  things:
+  - 253004 # Amethyst Ruinstrider (Argussian Reach, Exalted)
+  - 253005 # Beryl Ruinstrider (Argussian Reach, Exalted)
+  - 253007 # Cerulean Ruinstrider (Argussian Reach, Exalted)
+  - 253006 # Russet Ruinstrider (Argussian Reach, Exalted)
+  - 242305 # Sable Ruinstrider (Argussian Reach, Exaled)
+  - 253008 # Umber Ruinstrider (Argussian Reach, Exalted)
+  - 254259 # Avenging Felcrusher (Gleaming Footlocker - Army of the Light)
+  - 254258 # Blessed Felcrusher (Gleaming Footlocker - Army of the Light)
+  - 254069 # Glorious Felcrusher (Gleaming Footlocker - Army of the Light)
+  - 239013 # Lightforged Warframe (Army of the Light, Exalted)
+
+- name: Vendors
+  things:
+  - 227956 # Arcadian War Turtle (Curious Coins)
+  - 213115 # Bloodfang Widow (The Mad Merchant)

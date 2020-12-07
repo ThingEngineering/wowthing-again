@@ -1,0 +1,37 @@
+name: World Events
+groups:
+
+- name: Achievements
+  - 60024 # Violet Proto-Drake (world events)
+
+- name: Misc
+  things:
+  - 48025 # Headless Horseman's Mount
+  - 191314 # Minion of Grumpus
+  - 102349 # Swift Springstrider
+
+- name: Brewfest
+  things:
+  - 49379 # Great Brewfest Kodo (Brewfest)
+  - 43900 # Swift Brewfest Ram (Brewfest)
+
+- name: Darkmoon Faire
+  things:
+  - 103081 # Darkmoon Dancing Bear (Darkmoon Faire Vendor)
+  - 247448 # Darkmoon Dirigible (Darkmoon Faire)
+  - 228919 # Darkwater Skate (Darkmoon Faire Vendor)
+  - 102346 # Swift Forest Strider
+
+- name: Love is in the Air
+  things:
+  - 71342 # Big Love Rocket (Love is in the Air)
+  - 102350 # Swift Lovebird (Love is in the Air)
+
+- name: Timewalking
+  things:
+  - 294568 # Beastlord's Irontusk (Timewarped Badge)
+  - 294569 # Beastlord's Warwolf (Timewarped Badge)
+  - 194464 # Eclipse Dragonhawk
+  - 201098 # Infinite Timereaver (Timewalking)
+  - 142910 # Ironbound Wraithcharger
+  - 127165 # Yu'lei, Daughter of Jade (Timewalking)
