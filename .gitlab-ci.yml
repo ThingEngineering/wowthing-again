@@ -19,7 +19,7 @@ stages:
   environment: production/backend
   only:
     changes:
-      - src/data/**/*
+      - data/**/*
       - src/Wowthing.Backend/**/*
       - src/Wowthing.Lib/**/*
 
