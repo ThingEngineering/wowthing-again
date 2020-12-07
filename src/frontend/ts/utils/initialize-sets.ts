@@ -35,13 +35,14 @@ function sigh(thing: string, sets: StaticDataSetCategory[], userHas: Dictionary<
 
             for (let k = 0; k < group.Things.length; k++) {
                 const things = group.Things[k]
+                total++
 
                 for (let l = 0; l < things.length; l++) {
                     const thing = things[l]
                     if ((map && userHas[map[thing]]) || (!map && userHas[thing])) {
                         have++
+                        break
                     }
-                    total++
                 }
             }
         }
