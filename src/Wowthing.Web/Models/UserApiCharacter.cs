@@ -18,6 +18,8 @@ namespace Wowthing.Web.Models
         public string Name { get; set; }
         public WowFaction Faction { get; set; }
         public WowGender Gender { get; set; }
+
+        public Dictionary<int, int> Quests { get; set; }
         public Dictionary<int, int> Reputations { get; set; } = new Dictionary<int, int>();
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
@@ -50,9 +52,16 @@ namespace Wowthing.Web.Models
                 AccountId = character.AccountId;
             }
 
+            if (character.Quests != null)
+            {
+                Quests = character.Quests.CompletedIds
+                    .ToDictionary(k => k, v => 1);
+            }
+
             if (character.ReputationIds != null && character.ReputationValues != null)
             {
-                Reputations = character.ReputationIds.Zip(character.ReputationValues)
+                Reputations = character.ReputationIds
+                    .Zip(character.ReputationValues)
                     .ToDictionary(k => k.First, v => v.Second);
             }
 
