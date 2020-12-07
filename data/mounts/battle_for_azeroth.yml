@@ -1,0 +1,132 @@
+name: Battle for Azeroth
+groups:
+
+- name: Achievements
+  things:
+  - 316637 # Awakened Mindborer (Battle for Azeroth Keystone Master: Season Four)
+  - 292419 # Azshari Bloatray (Glory of the Palace Raider)
+  - 305182 # Black Serpent of N'Zoth (Through the Depths of Visions)
+  - 250735 # Bloodgorged Crawg (Glory of the Uldir Raider)
+  - 279454 # Conqueror's Scythemaw (Conqueror of Azeroth)
+  - 289101 # Dazar'alor Windreaver (Glory of the Dazar'alor Raider)
+  - 295386 295387 # Ironclad Frostclaw/Bloodflank Charger (Two Sides to Every Tale)
+  - 296788 # Mechacycle Model W (Mecha-Done)
+  - 239049 # Obsidian Krolusk (Glory of the Wartorn Hero)
+  - 294039 # Snapback Scuttler (Undersea Usurper)
+  - 290328 # Wonderwing 2.0 (Battle for Azeroth Pathfinder, Part Two)
+  - 316343 # Wriggling Parasite (Glory of the Ny'alotha Raider)
+
+- name: Instances
+  things:
+  - 290718 # Aerial Unit R-6777/X (King Mechagon, Operation: Mechagon)
+  - 299158 # Mechagon Peacekeeper (HK-468 Aerial Oppression Unit, Operation: Mechagon Mythic)
+  - 291492 # Rusty Mechanocrawler (??, Mechagon)
+  - 254813 # Sharkbait (Harlan Sweete, Freehold)
+  - 266058 # Tomb Stalker (King Dazar, Kings' Rest)
+  - 273541 # Underrot Crawg (Unbound Abomination, The Underrot)
+  - 289083 # G.M.O.D. (High Tinker Mekkatorque, Battle of Dazar'alor)
+  - 289555 # Glacial Tidestorm (Jaina Proudmoore Mythic, Battle of Dazar'alor)
+  - 308814 # My'alotha Allseer (N'Zoth the Corruptor Mythic, Ny'alotha the Waking City)
+
+- name: Instances - Islands
+  things:
+  - 288720 # Bloodgorged Hunter ()
+  - 279467 # Craghorn Chasm-Leaper ()
+  - 288721 # Island Thunderscale ()
+  - 279469 # Qinsho's Eternal Hound ()
+  - 288722 # Risen Mare ()
+  - 254811 # Squawks ()
+  - 288712 # Stonetide Elderhorn
+  - 278979 # Surf Jelly ()
+  - 279466 # Twilight Avenger ()
+
+- name: Quests
+  things:
+  - 297560 # Child of Torcali (Wander Not Alone, Zuldazar)
+  - 300147 300146 # Deepcoral Snapdragon/Snapdragon Kelpstalker (Wild Tame/Good Girl, Nazjatar)
+  - 267270 # Kua'fon (Down, But Not Out, Zuldazar)
+  - 299159 # Scrapforged Mechaspider (Drive It Away Today, Mechagon)
+  - 316339 # Shadowbarb Drone (My Own Drone, Uldum)
+  - 316802 # Springfur Alpaca (Alpaca It In, Uldum)
+  - 302143 # Uncorrupted Voidwing (Lost Flight, Ny'alotha)
+
+- name: Rare Spawns
+  things:
+  - 237286 # Dune Scavenger (??, Vol'dun)
+  - 260175 # Goldenmane (??, Stormsong)
+  - 297157 # Junkheap Drifter (Rustfeather, Mechagon)
+  - 243795 # Leaping Veinseeker (??, Nazmir)
+  - 298367 # Mollie (Dunegorger Kraulok, Vol'dun)
+  - 275623 # Nazjatar Blood Serpent (Adherent of the Abyss, Stormsong Valley) ?
+  - 300149 # Silent Glider (Soundless, Nazjatar)
+  - 260174 # Terrified Pack Mule (??, Drustvar)
+
+- name: Rare Spawns - Arathi Highlands
+  things:
+  - 279457 # Broken Highland Mustang (Knight-Captain Aldrin)
+  - 279456 # Highland Mustang (Doomrider Helgrim)
+  - 279608 # Lil' Donkey (Overseer Krix)
+  - 279611 # Skullripper (Skullripper)
+  - 279569 # Swift Albino Raptor (Beastrider Kama)
+  - 279868 # Witherbark Direwing (Nimar the Slayer)
+
+- name: "Rare Spawns: Darkshore"
+  things:
+  - 288495 # Ashenvale Chimaera (Alash'anir)
+  - 288438 # Blackpaw (Blackpaw)
+  - 288499 # Frightened Kodo (Frightened Kodo)
+  - 288505 # Kaldorei Nightsaber (Crox Bloodrage / Shadowclaw)
+  - 288503 # Umber Nightsaber (Athil Dewfire / Moxo the Beheader)
+
+- name: "Rare Spawns: Uldum"
+  things:
+  - 315847 # Drake of the Four Winds (Ishak of the Four Winds)
+  - 316337 # Malevolent Drone (Corpse Eater)
+  - 316275 # Waste Marauder (Rotfeaster)
+
+- name: "Rare Spawns: Vale of Eternal Blossoms"
+  things:
+  - 312751 # Clutch of Ha-Li (Ha-Li)
+  - 315014 # Ivory Cloud Serpent (Vale of Eternal Blossoms)
+  - 316722 # Ren's Stalwart Hound (Houndlord Ren)
+  - 316723 # Xinlao (Anh-De the Loyal)
+
+- name: Reputation
+  things:
+  - 259213 # Admiralty Stallion (Proudmoore Admiralty, Exalted)
+  - 237287 # Alabaster Hyena (Voldunai, Exalted)
+  - 292407 # Ankoan Waveray (Unshackled, Exalted)
+  - 275838 # Captured Swampstalker (Talanji's Expedition, Exalted)
+  - 275837 # Cobalt Pterrordax (Zandalari Empire, Exalted)
+  - 260172 # Dapple Gray (Storm's Wake, Exalted)
+  - 275859 # Dusky Waycrest Gryphon (Order of Embers - Exalted)
+  - 275841 # Expedition Bloodswarmer (Talanji's Expedition, Exalted)
+  - 259741 # Honeyback Harvester (Beeeeeees, Exalted)
+  - 275868 # Proudmoore Sea Scout (Proudmoore Admiralty - Exalted)
+  - 294038 # Royal Snapdragon (Unshackled, Paragon)
+  - 299170 # Rustbolt Resistor (Rustbolt Resistance, Exalted)
+  - 260173 # Smoky Charger (Order of Embers, Exalted)
+  - 244712 # Spectral Terrorwing (Zandalari Empire, Exalted)
+  - 275866 # Stormsong Coastwatcher (Storm's Wake - Exalted)
+  - 291538 # Unshackled Waveray (Unshackled, Exalted)
+  - 275840 # Voldunai Dunescraper (Voldunai, Exalted)
+  - 316276 # Wastewander Skyterror (Uldum Accord, Exalted)
+
+- name: Vendor
+  things:
+  - 288736 # Azureshell Krolusk (Service Medal)
+  - 288714 # Bloodthirsty Dreadwing (Service Medal)
+  - 288587 # Blue Marsh Hopper (Gottum, Nazmir)
+  - 300153 # Crimson Tidestallion (Mrrl, Nazjatar)
+  - 259740 # Green Marsh Hopper (Gottum, Nazmir)
+  - 300151 # Inkscale Deepseeker (Nazjatar Battle Commendation)
+  - 264058 # Mighty Caravan Brutosaur (? unavailable)
+  - 279474 # Palehide Direhorn (?)
+  - 288740 # Priestess' Moonsaber (Service Medal)
+  - 315427 # Rajani Warserpent (Pristine Cloud Serpent Scale)
+  - 288735 # Rubyshell Krolusk (Service Medal)
+  - 288711 # Saltwater Seahorse (Seafarer's Dubloon)
+  - 288506 # Sandy Nightsaber (Service Medal)
+  - 266925 # Siltwing Albatross (Seafarer's Dubloon)
+  - 316340 # Wicked Swarmer (Corrupted Mementos)
+  - 288589 # Yellow Marsh Hopper (Gottum, Nazmir)

@@ -1,0 +1,139 @@
+name: Racial
+groups:
+
+- name: "Alliance: Allied Races"
+  things:
+  - 271646 # Dark Iron Core Hound (Dark Iron Dwarf)
+  - 258022 # Lightforged Felcrusher (Lightforged Draenei)
+  - 282682 # Kul Tiran Charger (Kul Tiran)
+  - 305592 # Mechagon Mechanostrider (Mechagnome)
+  - 259202 # Starcursed Voidstrider (Void Elf)
+
+- name: "Alliance: Darnassus"
+  things:
+  - 10789 # Spotted Frostsaber
+  - 66847 # Striped Dawnsaber
+  - 8394 # Striped Frostsaber
+  - 10793 # Striped Nightsaber
+  - 23221 # Swift Frostsaber
+  - 23219 # Swift Mistsaber
+  - 23338 # Swift Stormsaber
+
+- name: "Alliance: Exodar"
+  things:
+  - 34406 # Brown Elekk
+  - 35710 # Gray Elekk
+  - 35711 # Purple Elekk
+  - 35713 # Great Blue Elekk
+  - 35712 # Great Green Elekk
+  - 35714 # Great Purple Elekk
+
+- name: "Alliance: Gilneas"
+  things:
+  - 103195 # Mountain Horse
+  - 103196 # Swift Mountain Horse
+
+- name: "Alliance: Gnomeregan"
+  things:
+  - 10969 # Blue Mechanostrider
+  - 17453 # Green Mechanostrider
+  - 10873 # Red Mechanostrider
+  - 17454 # Unpainted Mechanostrider
+  - 23225 # Swift Green Mechanostrider
+  - 23223 # Swift White Mechanostrider
+  - 23222 # Swift Yellow Mechanostrider
+
+- name: "Alliance: Ironforge"
+  things:
+  - 6899 # Brown Ram
+  - 6777 # Gray Ram
+  - 6898 # White Ram
+  - 23238 # Swift Brown Ram
+  - 23239 # Swift Gray Ram
+  - 23240 # Swift White Ram
+
+- name: "Alliance: Stormwind"
+  things:
+  - 470 # Black Stallion
+  - 458 # Brown Horse
+  - 6648 # Chestnut Mare
+  - 472 # Pinto Bridle
+  - 23229 # Swift Brown Steed
+  - 23227 # Swift Palomino
+  - 23228 # Swift White Steed
+
+- name: "Horde: Allied Races"
+  things:
+  - 306423 # Caravan Hyena (Vulpera)
+  - 258060 # Highmountain Thunderhoof (Highmountain Tauren)
+  - 267274 # Mag'har Direwolf (Mag'har Orc)
+  - 258845 # Nightborne Manasaber (Nightborne)
+  - 263707 # Zandalari Direhorn (Zandalari Troll)
+
+- name: "Horde: Bilgewater Cartel"
+  things:
+  - 87090 # Goblin Trike Key
+  - 87091 # Goblin Turbo-Trike Key
+
+- name: "Horde: Darkspear Trolls"
+  things:
+  - 8395 # Emerald Raptor
+  - 10796 # Turqoise Raptor
+  - 10799 # Violet Raptor
+  - 23241 # Swift Blue Raptor
+  - 23242 # Swift Olive Raptor
+  - 23243 # Swift Orange Raptor
+
+- name: "Horde: Orgrimmar"
+  things:
+  - 64658 # Black Wolf
+  - 6654 # Brown Wolf
+  - 6653 # Dire Wolf
+  - 580 # Timber Wolf
+  - 23250 # Swift Brown Wolf
+  - 23252 # Swift Gray Wolf
+  - 23251 # Swift Timber Wolf
+
+- name: "Horde: Silvermoon City"
+  things:
+  - 35022 # Black Hawkstrider
+  - 35020 # Blue Hawkstrider
+  - 35018 # Purple Hawkstrider
+  - 34795 # Red Hawkstrider
+  - 35025 # Swift Green Hawkstrider
+  - 33660 # Swift Pink Hawkstrider
+  - 35027 # Swift Purple Hawkstrider
+
+- name: "Horde: Thunder Bluff"
+  things:
+  - 18990 # Brown Kodo
+  - 18989 # Gray Kodo
+  - 64657 # White Kodo
+  - 23249 # Great Brown Kodo
+  - 23248 # Great Gray Kodo
+  - 23247 # Great White Kodo
+
+- name: "Horde: Undercity"
+  things:
+  - 17465 # Green Skeletal Warhorse
+  - 66846 # Ochre Skeletal Warhorse
+  - 23246 # Purple Skeletal Warhorse
+  - 64977 # Black Skeletal Horse
+  - 17463 # Blue Skeletal Horse
+  - 17464 # Brown Skeletal Horse
+  - 17462 # Red Skeletal Horse
+
+- name: Pandaren
+  things:
+  - 127295 # Great Black Dragon Turtle
+  - 127302 # Great Blue Dragon Turtle
+  - 127308 # Great Brown Dragon Turtle
+  - 127293 # Great Green Dragon Turtle
+  - 127310 # Great Purple Dragon Turtle
+  - 120822 # Great Red Dragon Turtle
+  - 127286 # Black Dragon Turtle
+  - 127287 # Blue Dragon Turtle
+  - 127288 # Brown Dragon Turtle
+  - 120395 # Green Dragon Turtle
+  - 127289 # Purple Dragon Turtle
+  - 127290 # Red Dragon Turtle

@@ -1,0 +1,56 @@
+name: PvP
+groups:
+
+- name: Achievements
+  things:
+  - 60118 60119 # Black War Bear (For The Alliance!/For The Horde!)
+  - 100332 # Vicious War Steed (Veteran of the Alliance II)
+  - 100333 # Vicious War Wolf (Veteran of the Horde II)
+
+- name: Honor Level
+  things:
+  - 222202 # Prestigious Bronze Courser (Honor Level 15)
+  - 222238 # Prestigious Ivory Courser (Honor Level 40)
+  - 222240 # Prestigious Azure Courser (Honor Level 70)
+  - 222237 # Prestigious Forest Courser (Honor Level 125)
+  - 222236 # Prestigious Royal Courser (Honor Level 150)
+  - 222241 # Prestigious Midnight Courser (Honor Level 250)
+  - 281044 # Prestigious Bloodforged Courser (Honor Level 500)
+
+- name: Vendors
+  things:
+  - 23510 23509 # Stormpike Battle Charger/Frostwolf Howler (Alterac Valley)
+
+- name: "Vendors: Alliance"
+  things:
+  - 22719 # Black Battlestrider
+  - 48027 # Black War Elekk
+  - 22720 # Black War Ram
+  - 22717 # Black War Steed
+  - 22723 # Black War Tiger
+  - 223341 # Vicious Gilnean Warhorse
+  - 229487 # Vicious War Bear (Alliance)
+  - 223578 # Vicious War Elekk
+  - 242896 # Vicious War Fox (Stormwind, PvP alliance)
+  - 229512 # Vicious War Lion (Alliance)
+  - 183889 # Vicious War Mechanostrider
+  - 171834 # Vicious War Ram
+  - 146615 # Vicious Warsaber
+  - 232523 # Vicious War Turtle (Alliance)
+
+- name: "Vendors: Horde"
+  things:
+  - 22718 # Black War Kodo
+  - 22721 # Black War Raptor
+  - 22724 # Black War Wolf
+  - 22722 # Red Skeletal Warhorse
+  - 35028 # Swift Warstrider
+  - 146622 # Vicious Skeletal Warhorse
+  - 229486 # Vicious War Bear (Horde)
+  - 242897 # Vicious War Fox (Orgrimmar PvP horde)
+  - 185052 # Vicious War Kodo
+  - 171835 # Vicious War Raptor
+  - 230988 # Vicious War Scorpion (Horde)
+  - 223354 # Vicious War Trike
+  - 232525 # Vicious War Turtle (Horde)
+  - 223363 # Vicious Warstrider
