@@ -17,11 +17,11 @@
         border: 1px solid $border-color;
         border-radius: $thing-border-radius;
         margin-right: 1rem;
-        min-width: 13rem;
+        min-width: 14rem;
         padding: 0.5rem 0;
         position: sticky;
         top: 0;
-        width: 13rem;
+        width: 14rem;
     }
     ul {
         margin: 0;
