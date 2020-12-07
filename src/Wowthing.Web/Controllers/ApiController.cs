@@ -80,7 +80,9 @@ namespace Wowthing.Web.Controllers
                 characterQuery = characterQuery.Where(c => c.Level >= 11);
             }
 
-            characterQuery = characterQuery.Include(c => c.Shadowlands);
+            characterQuery = characterQuery
+                .Include(c => c.Quests)
+                .Include(c => c.Shadowlands);
 
             var mounts = await db.GetSetMembersAsync(string.Format(RedisKeys.UserMounts, user.Id));
 
