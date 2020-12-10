@@ -1,10 +1,12 @@
 import crypto from 'crypto'
+import fs from 'fs'
 
 import rimraf from 'rimraf'
 import commonjs from '@rollup/plugin-commonjs'
 import replace from '@rollup/plugin-replace'
 import resolve from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
+import css from 'rollup-plugin-css-only'
 import svelte from 'rollup-plugin-svelte'
 import { terser } from 'rollup-plugin-terser'
 import autoPreprocess from 'svelte-preprocess'
@@ -13,7 +15,7 @@ import autoPreprocess from 'svelte-preprocess'
 const production = !process.env.ROLLUP_WATCH
 const distPath = '../Wowthing.Web/wwwroot/dist'
 
-rimraf.sync(`${distPath}/*`)
+rimraf.sync(`${distPath}/main*`)
 
 export default {
     input: 'ts/main.ts',
@@ -26,18 +28,24 @@ export default {
     },
     plugins: [
         svelte({
-            // enable run-time checks when not in production
-            dev: !production,
-            css: (css) => {
-                if (production) {
-                    const hash = crypto.createHash('md5').update(css.code).digest('hex').substr(0, 8)
-                    css.write(`main.${hash}.css`, false)
-                }
-                else {
-                    css.write('main.dev.css', true)
-                }
+            compilerOptions: {
+                // enable run-time checks when not in production
+                dev: !production,
             },
             preprocess: autoPreprocess(),
+        }),
+        css({
+            output: (css, styleNodes) => {
+                let outputPath = 'main.dev.css';
+                if (production) {
+                    const hash = crypto.createHash('md5')
+                        .update(css)
+                        .digest('hex')
+                        .substr(0, 8)
+                    outputPath = `main.${hash}.css`
+                }
+                fs.writeFileSync(`${distPath}/${outputPath}`, css)
+            },
         }),
         replace({
             'process.env.NODE_ENV': JSON.stringify(production ? 'production' : 'development'),
@@ -48,6 +56,7 @@ export default {
         }),
         commonjs(),
         typescript({
+            cacheDir: '.tscache',
             sourceMap: !production,
             inlineSources: !production
         }),
