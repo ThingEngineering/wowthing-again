@@ -1,10 +1,14 @@
-battle_for_azeroth.yml battles/battle_for_azeroth.yml
-legion.yml battles/legion.yml
-warlords_of_draenor.yml battles/warlords_of_draenor.yml
-mists_of_pandaria.yml battles/mists_of_pandaria.yml
-wrath_of_the_lich_king.yml battles/wrath_of_the_lich_king.yml
-the_burning_crusade.yml battles/the_burning_crusade.yml
+z8_shadowlands.yml
+z7_battle_for_azeroth.yml battles/z7_battle_for_azeroth.yml
+z6_legion.yml battles/z6_legion.yml
+z5_warlords_of_draenor.yml battles/z5_warlords_of_draenor.yml
+z4_mists_of_pandaria.yml battles/z4_mists_of_pandaria.yml
+z3_cataclysm.yml
+z2_wrath_of_the_lich_king.yml battles/z2_wrath_of_the_lich_king.yml
+z1_the_burning_crusade.yml battles/z1_the_burning_crusade.yml
+-
 instances.yml
 professions.yml
 world_events.yml
+-
 yuck.yml

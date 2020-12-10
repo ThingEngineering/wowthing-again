@@ -1,0 +1,43 @@
+name: Battle for Azeroth
+groups:
+
+- name: Island Expeditions
+  things:
+  - 164375 # Bad Mojo Banana (Island Expeditions)
+  - 164373 # Enchanted Soup Stone (Island Expeditions)
+  - 164372 # Jinyu Light Globe (Island Expeditions)
+  - 164374 # Magic Monkey Banana (Island Expeditions)
+  - 163795 # Oomgut Ritual Drum (Island Expeditions)
+  - 164377 # Regenerating Banana Bunch (Island Expeditions)
+  - 163924 # Whiskerwax Candle (Island Expeditions)
+  - 164371 # Yaungol Oil Stove (Island Expeditions)
+
+- name: "Rare Spawns: Arathi Highlands"
+  things:
+  - 163713 # Brazier Cap (Geomancer Flintdagger, Arathi Highlands)
+  - 163744 # Coldrage's Cooler (Kor'gresh Coldrage, Arathi Highlands)
+  - 163735 # Foul Belly (Foulbelly, Arathi Highlands)
+  - 163750 # Kovork Kostume (Kovork, Arathi Highlands)
+  - 163741 # Magic Fun Rock (Ruul Onestone, Arathi Highlands)
+  - 163775 # Molok Morion (Molok the Crusher, Arathi Highlands)
+  - 163736 # Spectral Visage (Horrific Apparition, Arathi Highlands)
+  - 163738 # Syndicate Mask (Singer, Arathi Highlands)
+  - 163828 # Toy Siege Tower (Doom's Howl, Arathi Highlands)
+  - 163829 # Toy War Machine (The Lion's Roar, Arathi Highlands)
+  - 163745 # Witherbark Gong (Zalas Witherbark, Arathi Highlands)
+
+- name: Reputations
+  things:
+  - 163211 # Akunda's Firesticks (Voldunai, Honored)
+  - 163200 # Cursed Spyglass (Proudmoore Admiralty, Revered)
+  - 163463 # Dead Ringer (Storm's Wake, Revered)
+  - 159753 # Desert Flute (Voldunai, Honored)
+  - 163201 # Gnoll Targetting Barrel (Proudmoore Admiralty, Honored)
+  - 163210 # Party Totem (Zandalari Empire, Revered)
+
+- name: Treasures
+  things:
+  - 163740 # Drust Ritual Knife (Treasure - Drustvar)
+  - 161342 # Gem of Acquiescence (?? weird puzzle thing)
+  - 163742 # Heartsbane Grimoire (Treasure - Drustvar)
+  - 163603 # Lucille's Handkerchief (Treasure - Drustvar)

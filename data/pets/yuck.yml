@@ -278,10 +278,6 @@ groups:
   -  32589 # Tickbird Hatchling - The Oracles
   -  32590 # White Tickbird hatchling - The Oracles
 
-- name: Cata
-  things:
-  -  48107 # Rustberg Gull - Baradin's Wardens
-
 # $$$$$
 - name: BlizzCon
   things:

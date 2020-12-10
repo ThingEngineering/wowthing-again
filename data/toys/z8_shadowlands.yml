@@ -1,0 +1,9 @@
+name: Shadowlands
+groups:
+
+- name: Covenants
+  things:
+  - 184353 # Kyrian Hearthstone (Kyrian)
+  - 182773 # Necrolord Hearthstone (Necrolord)
+  - 180290 # Night Fae Hearthstone (Night Fae)
+  - 183716 # Venthyr Sinstone (Venthyr)

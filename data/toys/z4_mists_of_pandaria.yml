@@ -1,0 +1,50 @@
+name: Mists of Pandaria
+groups:
+
+- name: Instances
+  things:
+  -  98136 # Gastropod Shell (Throne of Thunder)
+  -  98132 # Shado-Pan Geyser Gun (Throne of Thunder)
+
+- name: Rare Spawns
+  things:
+  -  86589 # Ai-Li's Skymirror
+  -  85973 # Ancient Pandaren Fishing Charm
+  -  86582 # Aqua Jewel
+  -  86565 # Battle Horn
+  -  90067 # B. F. F. Necklace
+  - 134023 # Bottled Tornado
+  -  86575 # Chalice of Secrets
+  -  86590 # Essence of the Breeze
+  -  86578 # Eternal Warrior's Sigil
+  -  86581 # Farwater Conch
+  -  86584 # Hardened Shell
+  -  86594 # Helpful Wikky's Whistle
+  -  86593 # Hozen Beach Ball
+  -  86571 # Kang's Bindstone
+  -  86568 # Mr. Smite's Brass Compass
+  -  86588 # Pandaren Firework Launcher
+  -  86586 # Panflute of Pandaria
+  -  86583 # Salyin Battle Banner
+  -  86573 # Shard of Archstone
+
+- name: "Rare Spawns: Timeless Isle"
+  things:
+  - 104329 # Ash-Covered Horn
+  - 104302 # Blackflame Daggers
+  - 134024 # Cursed Swabby Helmet
+  - 104309 # Eternal Kiln
+  - 104262 # Odd Polished Stone
+  - 104294 # Rime of the Time-Lost Mariner
+  - 104331 # Warning Sign
+
+- name: Reputations
+  things:
+  -  85500 # Anglers Fishing Raft
+  - 103685 # Celestial Defender's Medallion
+  -  89222 # Cloud Ring
+  -  90175 # Gin-Ji Knife Set
+  -  95589 # Glorious Standard of the Kirin Tor Offensive
+  -  95590 # Glorious Standard of the Sunreaver Onslaught
+  -  86596 # Nat's Fishing Chair
+  -  89869 # Pandaren Scarecrow
