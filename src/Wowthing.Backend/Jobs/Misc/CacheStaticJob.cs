@@ -125,7 +125,7 @@ namespace Wowthing.Backend.Jobs.Misc
 
         private async Task<SortedDictionary<int, int>> LoadPetDump()
         {
-            var records = await LoadDumpCsv<DataPetDump>("battlepetspecies");
+            var records = await LoadDumpCsv<DataPetDump>("battlepetspecies", p => (p.Flags & 32) == 0);
             return new SortedDictionary<int, int>(records.ToDictionary(k => k.CreatureID, v => v.ID));
         }
 
@@ -135,7 +135,7 @@ namespace Wowthing.Backend.Jobs.Misc
             return new SortedDictionary<int, int>(records.ToDictionary(k => k.ItemID, v => v.ID));
         }
 
-        private async Task<List<T>> LoadDumpCsv<T>(string fileName)
+        private async Task<List<T>> LoadDumpCsv<T>(string fileName, Func<T, bool> validFunc = null)
         {
             var basePath = Path.Join(DATA_PATH, "dumps");
             var filePath = Directory.GetFiles(basePath, $"{fileName}-*.csv").OrderByDescending(f => f).First();
@@ -145,7 +145,10 @@ namespace Wowthing.Backend.Jobs.Misc
             var ret = new List<T>();
             await foreach (T record in csvReader.GetRecordsAsync<T>())
             {
-                ret.Add(record);
+                if (validFunc == null || validFunc(record))
+                {
+                    ret.Add(record);
+                }
             }
             return ret;
         }
