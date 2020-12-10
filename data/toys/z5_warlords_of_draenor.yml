@@ -1,0 +1,107 @@
+name: Warlords of Draenor
+groups:
+
+- name: Garrisons
+  things:
+  #119220,# Alliance Gladiator's Banner
+  - 119217 # Alliance Flag of Victory
+  - 119093 # Aviana's Feather (quest garrison WoD)
+  - 115503 # Blazing Diamond Pendant
+  - 113096 # Bloodmane Charm (Smugglers Run?)
+  - 122298 # Bodyguard Miniaturization Device (vendor garrison)
+  - 119210 # Hearthstone Board
+  #119221,# Horde Gladiator's Banner
+  - 119218 # Horde Flag of Victory
+  - 127707 # Indestructible Bone
+  - 127696 # Magic Pet Mirror
+  - 127864 # Personal Spotlight
+  - 122700 # Portable Audiophone
+  - 119134 # Sargerei Disguise
+  - 127695 # Spirit Wand
+  - 122293 # Trans-Dimensional Bird Whistle
+  #122187,# Tune-o-tron Micro
+  - 119219 # Warlord's Flag of Victory
+  - 117573 # Wayfarer's Bonfire
+  - 119212 # Winning Hand
+
+- name: "Garrisons: Inn"
+  things:
+  - 119083 # Fruit Basket
+  - 118937 # Gamon's Braid
+  - 119039 # Lilian's Warning Sign
+  - 118938 # Manastorm's Duplicator
+  - 119092 # Moroes' Famous Polish
+  - 119003 # Void Totem
+
+- name: "Garrisons: Missions"
+  things:
+  - 118191 # Archmage Vargoth's Spare Staff
+  - 118427 # Autographed Hearthstone Card
+  - 128310 # Burning Blade
+  - 123851 # Photo B.O.M.B.
+  - 122674 # S.E.L.F.I.E Cameria MkII
+
+- name: Rare Spawns
+  things:
+  - 113570 # Ancient's Bloom
+  - 113540 # Ba'ruun's Bountiful Bloom
+  - 119178 # Black Whirlwind
+  - 119432 # Botani Camouflage
+  - 116113 # Breath of Talador
+  - 114227 # Bubble Wand
+  - 116122 # Burning Legion Missive
+  - 118935 # Ever-Blooming Frond
+  - 119180 # Goren "Log" Roller
+  - 113631 # Hypnosis Goggles
+  - 118244 # Iron Buccaneer's Hat
+  - 116125 # Klikixx's Webspinner
+  - 113670 # Mournful Moan of Murmur
+  - 118224 # Ogre Brewing Kit
+  - 120276 # Outrider's Bridle Chain
+  - 118221 # Petrification Stone
+  - 119163 # Soul Inhaler
+  - 118222 # Spirit of Bashiok
+  - 113543 # Spirit of Shinri
+  - 111476 # Stolen Breath
+  - 113542 # Whispers of Rai'Vosh
+
+- name: "Rare Spawns: Tanaan Jungle"
+  things:
+  - 108633 # Crashin' Thrashin' Cannon Controller
+  - 108634 # Crashin' Thrashin' Mortar Controller
+  - 108631 # Crashin' Thrashin' Roller Controller
+  - 122117 # Cursed Feather of Ikzan
+  - 127652 # Felflame Campfire
+  - 127659 # Ghostly Iron Buccaneer's Hat
+  - 127655 # Sassy Imp
+  - 127666 # Vial of Red Goo
+
+- name: Reputations
+  things:
+  - 128471 # Frostwolf Grunt's Battlegear
+  - 128462 # Karabor Councilor's Attire
+  - 115468 # Permanent Frost Essence
+  - 115472 # Permanent Time Bubble
+  - 122283 # Rukhmar's Sacred Memory
+  - 119421 # Sha'tari Defender's Medallion
+  - 119182 # Soul Evacuation Crystal
+  - 119160 # Tickle Totem
+
+- name: Treasures
+  things:
+  - 127670 # Accursed Tome of the Sargerei
+  - 117550 # Angry Beehive
+  - 108735 # Arena Master's War Horn
+  - 128223 # Bottomless Stygana Mushroom Brew
+  - 127859 # Dazzling Rod
+  - 108743 # Deceptia's Smoldering Boots
+  - 117569 # Giant Deathweb Egg
+  - 118716 # Goren Garb
+  - 127668 # Jewel of Hellfire
+  - 127394 # Podling Camouflage
+  - 127669 # Skull of the Mad Chief
+  - 109739 # Star Chart
+  - 116120 # Tasty Talador Lunch
+  - 127766 # The Perfect Blossom
+  - 127709 # Throbbing Blood Orb
+  - 113375 # Vindicator's Armor Polish Kit
