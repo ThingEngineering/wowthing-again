@@ -15,6 +15,10 @@
     li {
         position: relative;
     }
+    .separator {
+        border-top: 1px solid $border-color;
+        margin-top: 0.5rem;
+    }
     a {
         display: block;
     }
@@ -39,10 +43,16 @@
 </style>
 
 <SubSidebar>
-    {#each sets.map(categories => ({category: categories[0], counts: $userData.setCounts[route][categories[0].Slug]})) as { category, counts }}
-        <li use:active={`/${route}/${category.Slug}`}>
-            <a href="/{ route }/{ category.Slug }" use:link>{ category.Name }</a>
-            <span><em>{ counts.have }</em> / <em>{ counts.total }</em></span>
-        </li>
+    {#each sets as categories}
+        {#if categories}
+            <li use:active={`/${route}/${categories[0].Slug}`}>
+                <a href="/{ route }/{ categories[0].Slug }" use:link>{ categories[0].Name }</a>
+                <span>
+                    <em>{ $userData.setCounts[route][categories[0].Slug].have }</em> / <em>{ $userData.setCounts[route][categories[0].Slug].total }</em>
+                </span>
+            </li>
+        {:else}
+            <li class="separator"></li>
+        {/if}
     {/each}
 </SubSidebar>
