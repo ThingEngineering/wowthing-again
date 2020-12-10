@@ -8,15 +8,15 @@ export class StaticData {
     Reputations: Dictionary<StaticDataReputation>
     ReputationTiers: Dictionary<StaticDataReputationTier>
 
-    MountSets: StaticDataSetCategory[]
+    MountSets: StaticDataSetCategory[][]
     SpellToMount: Dictionary<number>
 
-    PetSets: StaticDataSetCategory[]
+    PetSets: StaticDataSetCategory[][]
     CreatureToPet: Dictionary<number>
 
     ReputationSets: StaticDataReputationCategory[]
 
-    ToySets: StaticDataSetCategory[]
+    ToySets: StaticDataSetCategory[][]
 }
 
 class StaticDataClass {

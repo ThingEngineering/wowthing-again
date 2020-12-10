@@ -23,30 +23,39 @@ export default function initializeSets() {
     console.timeEnd('initializeSets')
 }
 
-function sigh(thing: string, sets: StaticDataSetCategory[], userHas: Dictionary<number>, map?: Dictionary<number>) {
+function sigh(thing: string, sets: StaticDataSetCategory[][], userHas: Dictionary<number>, map?: Dictionary<number>) {
     userData.setCounts[thing] = {}
 
     for (let i = 0; i < sets.length; i++) {
-        const category = sets[i]
-        let have = 0, total = 0
+        const categories = sets[i]
+        let categoryHave = 0, categoryTotal = 0
 
-        for (let j = 0; j < category.Groups.length; j++) {
-            const group = category.Groups[j]
+        for (let j = 0; j < categories.length; j++) {
+            const section = categories[j]
+            let sectionHave = 0, sectionTotal = 0
 
-            for (let k = 0; k < group.Things.length; k++) {
-                const things = group.Things[k]
-                total++
+            for (let k = 0; k < section.Groups.length; k++) {
+                const group = section.Groups[k]
 
-                for (let l = 0; l < things.length; l++) {
-                    const thing = things[l]
-                    if ((map && userHas[map[thing]]) || (!map && userHas[thing])) {
-                        have++
-                        break
+                for (let l = 0; l < group.Things.length; l++) {
+                    const things = group.Things[l]
+                    categoryTotal++
+                    sectionTotal++
+
+                    for (let m = 0; m < things.length; m++) {
+                        const thing = things[m]
+                        if ((map && userHas[map[thing]]) || (!map && userHas[thing])) {
+                            categoryHave++
+                            sectionHave++
+                            break
+                        }
                     }
                 }
             }
+
+            userData.setCounts[thing][`${categories[0].Slug}_${section.Slug}`] = { have: sectionHave, total: sectionTotal }
         }
 
-        userData.setCounts[thing][category.Slug] = { have, total }
+        userData.setCounts[thing][categories[0].Slug] = { have: categoryHave, total: categoryTotal }
     }
 }

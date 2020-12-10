@@ -150,9 +150,9 @@ namespace Wowthing.Backend.Jobs.Misc
             return ret;
         }
 
-        private List<RedisSetCategory> LoadSets(string dirName)
+        private List<List<RedisSetCategory>> LoadSets(string dirName)
         {
-            var categories = new List<RedisSetCategory>();
+            var categories = new List<List<RedisSetCategory>>();
             var yaml = new DeserializerBuilder()
                 .WithNamingConvention(LowerCaseNamingConvention.Instance)
                 .Build();
@@ -160,14 +160,19 @@ namespace Wowthing.Backend.Jobs.Misc
             var basePath = Path.Join(DATA_PATH, dirName);
             foreach (var line in File.ReadLines(Path.Join(basePath, "_order")))
             {
-                var filePath = Path.Join(basePath, line);
-                categories.Add(new RedisSetCategory(yaml.Deserialize<DataSetCategory>(File.OpenText(filePath))));
+                var things = new List<RedisSetCategory>();
+                foreach (string fileName in line.Split(' '))
+                {
+                    var filePath = Path.Join(basePath, fileName);
+                    things.Add(new RedisSetCategory(yaml.Deserialize<DataSetCategory>(File.OpenText(filePath))));
+                }
+                categories.Add(things);
             }
 
             return categories;
         }
 
-        private void AddUncategorized(string dirName, SortedDictionary<int, int> spellToThing, List<RedisSetCategory> thingSets)
+        private void AddUncategorized(string dirName, SortedDictionary<int, int> spellToThing, List<List<RedisSetCategory>> thingSets)
         {
             var skip = Array.Empty<int>();
             var skipPath = Path.Join(DATA_PATH, dirName, "_skip.yml");
@@ -185,6 +190,7 @@ namespace Wowthing.Backend.Jobs.Misc
             // Lookup keys - things in sets - skip
             var missing = spellToThing.Keys
                 .Except(thingSets
+                    .SelectMany(s => s)
                     .SelectMany(s => s.Groups)
                     .SelectMany(g => g.Things)
                     .SelectMany(t => t)
@@ -194,15 +200,17 @@ namespace Wowthing.Backend.Jobs.Misc
             
             if (missing.Length > 0)
             {
-                thingSets.Add(new RedisSetCategory
-                {
-                    Name = "UNCATEGORIZED",
-                    Groups = new List<RedisSetGroup>
+                thingSets.Add(new List<RedisSetCategory>{
+                    new RedisSetCategory
                     {
-                        new RedisSetGroup
+                        Name = "UNCATEGORIZED",
+                        Groups = new List<RedisSetGroup>
                         {
-                            Name = "UNCATEGORIZED",
-                            Things = missing.Select(m => new int[]{ m }).ToList(),
+                            new RedisSetGroup
+                            {
+                                Name = "UNCATEGORIZED",
+                                Things = missing.Select(m => new int[]{ m }).ToList(),
+                            }
                         }
                     }
                 });
