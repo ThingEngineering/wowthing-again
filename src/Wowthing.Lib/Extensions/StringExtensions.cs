@@ -34,5 +34,11 @@ namespace Wowthing.Lib.Extensions
             s = _whitespace.Replace(s, "-");
             return s;
         }
+
+        private static readonly string[] _splits = new[] { "\r\n", "\r", "\n" };
+        public static string[] SplitLines(this string s, bool removeEmpty = false)
+        {
+            return s.Split(_splits, removeEmpty ? StringSplitOptions.RemoveEmptyEntries : StringSplitOptions.None);
+        }
     }
 }
