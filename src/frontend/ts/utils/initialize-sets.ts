@@ -28,6 +28,10 @@ function sigh(thing: string, sets: StaticDataSetCategory[][], userHas: Dictionar
 
     for (let i = 0; i < sets.length; i++) {
         const categories = sets[i]
+        if (categories === null) {
+            continue;
+        }
+
         let categoryHave = 0, categoryTotal = 0
 
         for (let j = 0; j < categories.length; j++) {
