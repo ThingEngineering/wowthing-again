@@ -28,16 +28,23 @@
 </script>
 
 <style lang="scss">
-    div {
+    .collections {
         align-items: flex-start;
         display: flex;
         width: 100%;
     }
+    .sections {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
 </style>
 
-<div>
+<div class="collections">
     <CollectionSidebar />
     {#if slug}
-        <CollectionSection slug={slug} />
+        <div class="sections">
+            <CollectionSection slug={slug} />
+        </div>
     {/if}
 </div>

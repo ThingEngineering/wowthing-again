@@ -39,7 +39,7 @@
 </style>
 
 <SubSidebar>
-    {#each sets.map(category => ({category, counts: $userData.setCounts[route][category.Slug]})) as { category, counts }}
+    {#each sets.map(categories => ({category: categories[0], counts: $userData.setCounts[route][categories[0].Slug]})) as { category, counts }}
         <li use:active={`/${route}/${category.Slug}`}>
             <a href="/{ route }/{ category.Slug }" use:link>{ category.Name }</a>
             <span><em>{ counts.have }</em> / <em>{ counts.total }</em></span>
