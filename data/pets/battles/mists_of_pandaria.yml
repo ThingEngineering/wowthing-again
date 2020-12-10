@@ -1,0 +1,131 @@
+name: Pet Battles
+groups:
+
+- name: Dread Wastes
+  things:
+  -  65187 # Amber Moth
+  -  64242 # Clouded Hedgehog
+  -  63548 # Crunchy Scorpion
+  -  65203 # Emperor Crab
+  -  64352 # Rapana Whelk
+  -  64238 # Resilient Roach
+  -  64804 # Silent Hedgehog
+
+- name: Isle of Thunder
+  things:
+  -  69818 # Elder Python
+  -  69794 # Electrified Razortooth
+  -  69819 # Swamp Croaker
+  -  69648 # Thundertail Flapper
+
+- name: Krasarang Wilds
+  things:
+  -  63288 # Amethyst Spiderling
+  -  62994 # Emerald Turtle
+  -  65054 # Feverbite
+  -  63304 # Jungle Grub
+  -  65124 # Luyu Moth
+  -  63094 # Malayan Quillrat
+  -  65185 # Mei Li Sparkler
+  -  63291 # Savory Beetle
+  -  62953 # Sea Gull
+  -  63057 # Sifang Otter
+  -  63358 # Sifang Otter Pup
+  -  63293 # Spiny Terrapin
+  -  68506 # Sumprush Rodent
+  -  67022 # Wanderer's Festival Hatchling
+
+- name: The Jade Forest
+  things:
+  -  63062 # Bandicoon
+  -  63064 # Bandicoon Kit
+  -  62992 # Bucktooth Flapper
+  -  62991 # Coral Adder
+  -  62994 # Emerald Turtle
+  -  63002 # Garden Frog
+  -  65215 # Garden Moth
+  -  63838 # Gilded Moth
+  -  63004 # Grove Viper
+  -  63715 # Jumping Spider
+  -  62997 # Jungle Darter
+  -  63919 # Leopard Tree Frog
+  -  63094 # Malayan Quillrat
+  -  63003 # Masked Tanuki
+  -  63716 # Masked Tanuki Pup
+  -  62998 # Mirror Strider
+  -  63006 # Sandy Petrel
+  -  65216 # Shrine Fly
+  -  63057 # Sifang Otter
+  -  63358 # Sifang Otter Pup
+  -  63001 # Silkbead Snail
+  -  63293 # Spiny Terrapin
+  -  63005 # Spirebound Crab
+  -  62999 # Temple Snake
+  -  65321 # Wild Crimson Hatchling
+  -  65324 # Wild Golden Hatchling
+  -  65323 # Wild Jade Hatchling
+
+- name: Kun-Lai Summit
+  things:
+  -  63550 # Alpine Foxling
+  -  63551 # Alpine Foxling Kit
+  -  63850 # Effervescent Glowfly
+  -  68846 # Kun-Lai Runt
+  -  63547 # Plains Monitor
+  -  59702 # Prairie Mouse
+  -  64248 # Summit Kid
+  -  63585 # Szechuan Chicken
+  -  63557 # Tolai Hare
+  -  63558 # Tolai Hare Pup
+  -  63555 # Zooey Snake
+
+- name: Timeless Isle
+  things:
+  -  73542 # Ashwing Moth
+  -  73543 # Flamering Moth
+  -  73368 # Skywisp Moth
+
+- name: Townlong Steppes
+  things:
+  -  63550 # Alpine Foxling
+  -  63551 # Alpine Foxling Kit
+  -  65187 # Amber Moth
+  -  64242 # Clouded Hedgehog
+  -  63548 # Crunchy Scorpion
+  -  63549 # Grassland Hopper
+  -  63953 # Kuitan Mongoose
+  -  65190 # Mongoose
+  -  63954 # Mongoose Pup
+  -  64804 # Silent Hedgehog
+  -  63557 # Tolai Hare
+  -  63957 # Yakrat
+
+- name: Vale of Eternal Blossoms
+  things:
+  -  63847 # Dancing Water Skimmer
+  -  63850 # Effervescent Glowfly
+  -  61088 # Eternal Strider
+  -  63838 # Gilded Moth
+  -  63841 # Golden Civet
+  -  63842 # Golden Civet Kitten
+  -  63849 # Yellow-Bellied Bullfrog
+
+- name: Valley of the Four Winds
+  things:
+  -  63062 # Bandicoon
+  -  63064 # Bandicoon Kit
+  -  62992 # Bucktooth Flapper
+  -  62994 # Emerald Turtle
+  -  63094 # Malayan Quillrat
+  -  63095 # Malayan Quillrat Pup
+  -  63096 # Marsh Fiddler
+  -  64246 # Shy Bandicoon
+  -  63057 # Sifang Otter
+  -  63358 # Sifang Otter Pup
+  -  63060 # Softshell Snapling
+
+- name: The Veiled Stair
+  things:
+  - 63062 # Bandicoon
+  - 63094 # Malayan Quillrat
+  - 63095 # Malayan Quillrat Pup

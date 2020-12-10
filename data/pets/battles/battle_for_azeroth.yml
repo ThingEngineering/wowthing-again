@@ -1,0 +1,49 @@
+name: Pet Battles
+groups:
+
+- name: Drustvar
+  things:
+  - 143045 # Coastal Scuttler (Drustvar)
+  - 143037 # River Otter (Drustvar, Stormsong Valley)
+
+- name: Nazmir
+  things:
+  - 143047 # Bloodfever Tarantula (Nazmir)
+  - 143055 # Boghopper (Nazmir)
+  - 143057 # Coastal Bounder (Nazmir)
+  - 143048 # Elusive Skimmer (Nazmir)
+  - 143053 # Glutted Bleeder (Nazmir)
+  - 143052 # Returned Hatchling (Nazmir)
+  - 143054 # Spectral Raven (Nazmir)
+  - 143051 # Sticky Oozeling (Nazmir)
+  - 143050 # Young Sand Sifter (Nazmir)
+
+- name: Stormsong Valley
+  things:
+  - 143033 # Freshwater Crawler (Stormsong Valley)
+  - 143038 # Honey Bee (Stormsong Valley)
+  - 143032 # River Frog (Stormsong Valley)
+  - 143037 # River Otter (Drustvar, Stormsong Valley)
+  - 143036 # Sandyback Crawler (Stormsong Valley, Tiragarde Sound)
+  - 143031 # Shadowback Crawler (Stormsong Valley)
+  - 143034 # Vale Marmot (Stormsong Valley)
+  - 143035 # Valley Chicken (Stormsong Valley)
+
+- name: Tiragarde Sound
+  things:
+  - 143042 # Giant Woodworm (Tiragarde Sound)
+  - 143041 # Inland Croaker (Tiragarde Sound)
+  - 143039 # Parasitic Boarfly (Tiragarde Sound)
+  - 143036 # Sandyback Crawler (Stormsong Valley, Tiragarde Sound)
+  - 143040 # Shack Crab (Tiragarde Sound)
+
+- name: "Vol'dun"
+  things:
+  - 143056 # Hermit Crab (Vol'dun)
+
+- name: Zuldazar
+  things:
+  - 143044 # Barrier Hermit (Zuldazar)
+  - 143046 # Golden Beetle (Zuldazar)
+  - 143049 # Leafy Flutterwing (Zuldazar)
+  - 143043 # Shore Butterfly (Zuldazar)

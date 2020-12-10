@@ -1,0 +1,100 @@
+name: Professions
+groups:
+
+- name: Other
+  things:
+  - 78895 # Lil' Leftovers - Cooking
+  - 128137 # Fel Lasher (Herbalism)
+  - 83594 # Nightshade Sproutling - Herbalism (Garrison?)
+  - 50722 # Elementium Geode - Mining
+  - 85667 # Ore Eater - Mining (Garrison?)
+  - 128160 # Fossorial Bile Larva (Skinning)
+
+- name: Alchemy
+  things:
+  - 143374 # Baby Crawg (Transmute: Meat to Pet)
+  - 143958 # Bloated Bloodfeaster (Transmute: Meat to Pet)
+  - 143957 # Gearspring Hopper (Transmute: Meat to Pet)
+  -  98172 # Ridgeback Piglet
+  - 143959 # Slippy (Transmute: Meat to Pet)
+  -  98183 # Thaumaturgical Piglet
+  - 111425 # Transmutant
+
+- name: Archaeology
+  things:
+  -  86420 # Ancient Nest Guardian
+  -  48609 # Clockwork Gnome
+  -  45128 # Crawling Claw
+  - 139744 # Direhorn Hatchling (Zandalari)
+  -  45340 # Fossilized Hatchling
+  -  86422 # Frostwolf Ghostpup
+  -  53225 # Pterrordax Hatchling
+  - 139782 # Restored Revenant (Drust)
+  -  53232 # Voodoo Figurine
+  - 106232 # Wyrmy Tunkins
+
+- name: Blacksmithing
+  things:
+  -  84853 # Soul of the Forge - Blacksmithing
+
+- name: Enchanting
+  things:
+  -  96403 # Enchanted Cauldron
+  -  46898 # Enchanted Lantern
+  -  96405 # Enchanted Pen
+  - 139743 # Enchanted Tiki Mask
+  -  96404 # Enchanted Torch
+  -  50545 # Magic Lamp
+
+- name: Engineering
+  things:
+  -  43916 # De-Weaponized Mechanical Companion
+  -  80329 # Lifelike Mechanical Frostboar
+  -  12419 # Lifelike Toad
+  -   9657 # Lil' Smoky
+  -  79410 # Mechanical Axebeak
+  -  64899 # Mechanical Pandaren Dragonling
+  -  88134 # Mechanical Scorpid
+  - 154787 # Mechanical Squirrel
+  - 147619 # Mechantula
+  -  43800 # Personal World Destroyer
+  -   9656 # Pet Bombling
+  -  70082 # Pierre
+  -  71693 # Rascal-Bot
+  -  15699 # Tranquil Mechanical Yeti
+  - 106210 # Trigger
+
+- name: Fishing
+  things:
+  -  26056 # Chuck
+  - 126579 # Ghost Shark (fishing vendor)
+  -  31575 # Giant Sewer Rat
+  -  86445 # Land Shark
+  -  18839 # Magical Crawdad
+  -  24389 # Muckbreath
+  -  84441 # Sea Calf
+  -  55386 # Sea Pony
+  -  26050 # Snarly
+  - 109216 # Sting Ray Pup (fishing vendor)
+  -  33226 # Strand Crawler
+  -  70258 # Tiny Blue Carp
+  -  70259 # Tiny Green Carp
+  -  70257 # Tiny Red Carp
+  -  70260 # Tiny White Carp
+  -  24388 # Toothy
+
+- name: Inscription
+  things:
+  -  66104 # Chi-Ji Kite
+  -  66105 # Yu'lon Kite
+
+- name: Jewelcrafting
+  things:
+  - 61877 # Jade Owl
+  - 61883 # Sapphire Cub
+
+- name: Tailoring
+  things:
+  -  82464 # Elekk Plushie
+  -  67230 # Imperial Moth
+  -  67233 # Imperial Silkworm
