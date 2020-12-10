@@ -163,13 +163,20 @@ namespace Wowthing.Backend.Jobs.Misc
             var basePath = Path.Join(DATA_PATH, dirName);
             foreach (var line in File.ReadLines(Path.Join(basePath, "_order")))
             {
-                var things = new List<RedisSetCategory>();
-                foreach (string fileName in line.Split(' '))
+                if (line == "-")
                 {
-                    var filePath = Path.Join(basePath, fileName);
-                    things.Add(new RedisSetCategory(yaml.Deserialize<DataSetCategory>(File.OpenText(filePath))));
+                    categories.Add(null);
                 }
-                categories.Add(things);
+                else
+                {
+                    var things = new List<RedisSetCategory>();
+                    foreach (string fileName in line.Split(' '))
+                    {
+                        var filePath = Path.Join(basePath, fileName);
+                        things.Add(new RedisSetCategory(yaml.Deserialize<DataSetCategory>(File.OpenText(filePath))));
+                    }
+                    categories.Add(things);
+                }
             }
 
             return categories;
@@ -193,6 +200,7 @@ namespace Wowthing.Backend.Jobs.Misc
             // Lookup keys - things in sets - skip
             var missing = spellToThing.Keys
                 .Except(thingSets
+                    .Where(s => s != null)
                     .SelectMany(s => s)
                     .SelectMany(s => s.Groups)
                     .SelectMany(g => g.Things)
