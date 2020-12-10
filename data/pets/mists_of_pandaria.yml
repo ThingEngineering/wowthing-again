@@ -1,0 +1,56 @@
+name: Mists of Pandaria
+groups:
+
+- name: Achievements
+  things:
+  - 150385 # Happiness (Raiding with Leashes VI: Pets of Pandaria)
+
+- name: Instances
+  things:
+  -  70144 # Ji-Kun Hatchling (Throne of Thunder)
+  -  71199 # Living Fluid (Throne of Thunder)
+  -  69748 # Living Sandling (Throne of Thunder)
+  -  70083 # Pygmy Direhorn (Throne of Thunder)
+  -  69820 # Son of Animus (Throne of Thunder)
+  -  71200 # Viscous Horror (Throne of Thunder)
+  -  73352 # Blackfuse Bombling (Siege of Orgrimmar)
+  -  73350 # Droplet of Y'Shaarj (Siege of Orgrimmar)
+  -  73351 # Gooey Sha-ling (Siege of Orgrimmar)
+  -  73354 # Kovok (Siege of Orgrimmar)
+  #- 150354 # Stoneclaw (Stone Guard, Mogu'shan Vaults)
+
+- name: Rare Spawns
+  things:
+  -  64633 # Aqua Strider
+  -  73533 # Ashleaf Spriteling
+  -  73532 # Dandelion Frolicker
+  -  73364 # Death Adder Hatchling
+  -  70154 # Direhorn Runt
+  -  64634 # Grinder
+  -  73730 # Gu'chi Swarmling
+  -  73359 # Gulp Froglet
+  -  73738 # Jadefire Spirit
+  -  73355 # Jademist Dancer
+  -  50586 # Mr. Grubbs
+  -  73357 # Ominous Flame
+  -  73356 # Ruby Droplet
+  -  73367 # Skunky Alemental
+  -  70098 # Spawn of G'nathus
+  -  73366 # Spineclaw Crab
+  -  69778 # Sunreaver Micro-Sentry
+  -  70451 # Zandalari Anklerender
+  -  70452 # Zandalari Footslasher
+  -  69796 # Zandalari Kneebiter
+  -  70453 # Zandalari Toenibbler
+
+- name: Reputations
+  things:
+  -  73732 # Harmonious Porcupette (Emperor Shaohao, ?)
+  -  63370 # Red Cricket (Sho @ Farm, ?)
+  -  63559 # Tiny Goldfish (The Anglers, ?)
+
+- name: Treasures
+  things:
+  -  73534 # Azure Crane Chick (Timeless Isle)
+  -  73668 # Bonkers (Timeless Isle)
+  -  63365 # Terrible Turnip (Farm)

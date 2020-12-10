@@ -1,0 +1,92 @@
+name: Pet Battles
+groups:
+
+- name: Frostfire Ridge
+  things:
+  - 62886 # Fire-Proof Roach
+  - 82715 # Frostfur Rat
+  - 88480 # Frostshell Pincher
+  - 85003 # Icespine Hatchling
+  - 88474 # Ironclaw Scuttler
+  - 61366 # Rat
+  - 85253 # Twilight Wasp
+
+- name: Gorgrond
+  things:
+  - 85257 # Amberbarb Wasp
+  - 85389 # Axebeak Hatchling
+  - 61752 # Brown Marmot
+  - 61384 # Cockroach
+  - 61438 # Gold Beetle
+  - 85192 # Junglebeak
+  - 63919 # Leopard Tree Frog
+  - 88571 # Mudback Calf
+  - 89194 # Parched Lizard
+  - 63001 # Silkbead Snail
+  - 85253 # Twilight Wasp
+  - 85254 # Wood Wasp
+
+- name: Nagrand
+  things:
+  - 61325 # Adder
+  - 89198 # Leatherhide Runt
+  - 83642 # Mud Jumper
+  - 61141 # Prairie Dog
+  - 61080 # Rabbit
+  - 61366 # Rat
+  - 61158 # Shore Crab
+  - 61255 # Skunk
+  - 61142 # Snake
+  - 61081 # Squirrel
+  - 61369 # Toad
+
+- name: Shadowmoon Valley
+  things:
+  - 61320 # Forest Spiderling
+  - 82045 # Moonshell Crab
+  - 85005 # Mossbite Skitterer
+  - 88417 # Royal Moth
+  - 61327 # Spider
+  - 88355 # Waterfly
+  - 88466 # Zangar Crawler
+
+- name: Spires of Arak
+  things:
+  - 61325 # Adder
+  - 85255 # Bloodsting Wasp
+  - 85798 # Golden Dawnfeather
+  - 83642 # Mud Jumper
+  - 61366 # Rat
+  - 88356 # Sapphire Firefly
+  - 63001 # Silkbead Snail
+  - 61312 # Strand Crab
+  - 88359 # Swamplighter Firefly
+  - 85007 # Thicket Skitterer
+  - 88355 # Waterfly
+
+- name: Talador
+  things:
+  - 61420 # Ash Spiderling
+  - 88385 # Brilliant Bloodfeather
+  - 88413 # Crimsonwing Moth
+  - 88572 # Flat-Tooth Calf
+  - 88465 # Kelp Scuttler
+  - 83642 # Mud Jumper
+  - 61757 # Red-Tailed Chipmunk
+  - 88417 # Royal Moth
+  - 62953 # Sea Gull
+  - 88576 # Shadow Sporebat
+  - 63001 # Silkbead Snail
+  - 88355 # Waterfly
+
+- name: Tanaan Jungle
+  things:
+  - 85388 # Bloodbeak
+  - 88422 # Cerulean Moth
+  - 62621 # Fel Flame
+  - 88473 # Fen Crab
+  - 62185 # Horny Toad
+  - 61753 # Maggot
+  - 61318 # Tree Python
+  - 88357 # Violet Firefly
+  - 88355 # Waterfly

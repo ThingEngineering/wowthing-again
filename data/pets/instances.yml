@@ -1,0 +1,46 @@
+name: Instances
+groups:
+
+- name: Challenge Dungeons
+  things:
+  - 117182 # Cavern Moccasin (Wailing Caverns)
+  - 117180 # Everliving Spore (Wailing Caverns)
+  - 121317 # Son of Skum (Wailing Caverns)
+  - 117184 # Young Venomfang (Wailing Caverns)
+  - 122629 # Foe Reaper 0.9 (Deadmines)
+  - 124589 # Mining Monkey (Deadmines)
+  - 119794 # Pocket Cannon (Deadmines)
+  - 122612 # Tricorne (Deadmines)
+
+- name: Vanilla
+  things:
+  -  68666 # Ashstone Core - MC
+  -  68664 # Corefire Imp - MC
+  -  68665 # Harbinger of Flame - MC
+  -  68662 # Chrominius - BWL
+  -  68663 # Death Talon - BWL
+  -  68661 # Untamed Hatchling - BWL
+  -  68659 # Anubisath Idol - AQ40
+  -  68658 # Mini Mindslayer - AQ40
+  -  68660 # Viscidus Globule - AQ40
+  -   7387 # Green Wing Macaw - Deadmines
+  -  10598 # Smolderdweb Hatchling - LBRS
+  -  10259 # Worg Pup - LBRS
+
+- name: Cataclysm
+  things:
+  - 127858 # Bound Stream (Elementium Monstrosity, Bastion of Twilight)
+  - 127859 # Faceless Minion (Cho'gall, Bastion of Twilight)
+  - 127857 # Twilght Clutch-Sister (Valiona, Bastion of Twilight)
+  - 127852 # Discarded Experiment (Maloriak, Blackwing Descent)
+  - 127853 # Rattlejaw (Nefarian, Blackwing Descent)
+  - 127850 # Tinytron (Magmatron, Blackwing Descent)
+  - 127953 # Corrupted Blood (Spine of Deathwing, Dragon Soul)
+  - 127952 # Faceless Mindlasher (Yor'sahj the Unsleeping, Dragon Soul)
+  - 127954 # Unstable Tendril (Deathwing, Dragon Soul)
+  - 127947 # Blazehound (Shannox, Firelands)
+  - 127948 # Cinderweb Recluse (Beth'tilac, Firelands)
+  - 127951 # Infernal Pyreclaw (Majordomo Staghelm, Firelands)
+  - 127950 # Surger (Baleroc, Firelands)
+  - 127863 # Drafty (Nezir, Throne of the Four Winds)
+  - 127862 # Zephyrian Prince (Al'Akir, Throne of the Four Winds)

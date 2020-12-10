@@ -1,0 +1,125 @@
+name: World Events
+groups:
+
+- name: Argent Tournament
+  things:
+  -  33239 # Argent Gruntling
+  -  33238 # Argent Squire
+  -  33205 # Ammen Vale Lashling
+  -  33194 # Dun Morogh Cub
+  -  33198 # Durotar Scorpion
+  -  33200 # Elwynn Lamb
+  -  33227 # Enchanted Broom
+  -  33274 # Mechanopeep
+  -  33219 # Mulgore Hatchling
+  -  33810 # Sen'jin Fetish
+  -  34724 # Shimmering Wyrmling
+  -  33188 # Teldrassil Sproutling
+  -  33197 # Tirisfal Batling
+
+- name: Brawler's Guild
+  things:
+  -  68601 # Clock'em - Brawler's Guild
+
+- name: Brewfest
+  things:
+  -  24753 # Pint-Sized Pink Pachyderm
+  -  85994 # Stout Alemental
+  -  22943 # Wolpertinger
+
+- name: Children's Week
+  things:
+  -  33530 # Curious Oracle Hatchling
+  -  33529 # Curious Wolvar Pup
+  -  23258 # Egbert
+  -  53048 # Legs
+  - 150098 # Mr. Crabs
+  -  16548 # Mr. Wiggles
+  -  23266 # Peanut
+  -  51635 # Scooter the Snail
+  -  16547 # Speedy
+  -  16549 # Whiskers the Rat
+  -  23231 # Willy
+
+- name: Darkmoon Faire
+  things:
+  -  93814 # Blorp
+  -  67443 # Crow
+  -  55187 # Darkmoon Balloon
+  -  56031 # Darkmoon Cub
+  -  67332 # Darkmoon Eye
+  -  67329 # Darkmoon Glowfly
+  -  67319 # Darkmoon Hatchling
+  -  54491 # Darkmoon Monkey
+  -  59358 # Darkmoon Rabbit
+  -  55356 # Darkmoon Tonk
+  -  54487 # Darkmoon Turtle
+  -  55367 # Darkmoon Zeppelin
+  -  93808 # Ghostshell Crab
+  -  76873 # Hogs (That's Whack! achievement)
+  - 145946 # Horse Balloon
+  -  14878 # Jubling
+  -  72160 # Moon Moon
+  - 145947 # Murloc Balloon
+  -  90345 # Race MiniZep (Big Rocketeer: Gold achievement)
+  -  55386 # Sea Pony
+  -  85527 # Syd the Squid
+  -   7549 # Tree Frog
+  - 145948 # Wolf Balloon
+  -   7550 # Wood Frog
+
+- name: Day of the Dead
+  things:
+  -  34770 # Macabre Marionette - Day of the Dead
+
+- name: Hallow's End
+  things:
+  -  54128 # Creepy Crate
+  -  86061 # Cursed Birman
+  -  53884 # Feline Familiar
+  -  97569 # Ghostly Maggot
+  -  97568 # Ghostly Rat
+  -  23909 # Sinister Squashling
+  -  97324 # Spectral Spinner
+  -  86067 # Widget the Departed
+
+- name: Love is in the Air
+  things:
+  -  85710 # Lovebird Hatchling
+  -  16085 # Peddlefeet
+  -  38374 # Toxic Wasteling
+
+- name: Lunar Festival
+  things:
+  -  55574 # Festival Lantern - Lunar Festival
+  -  55571 # Lunar Lantern - Lunar Festival
+
+- name: Midsummer
+  things:
+  -  85872 # Blazing Cindercrawler
+  -  40198 # Frigid Frostling
+  - 114543 # Igneous Flameling
+  -  16701 # Spirit of Summer
+
+- name: Noblegarden
+  things:
+  -  85773 # Mystical Spring Bouquet
+  -  33975 # Noblegarden Bunny
+  -  32791 # Spring Rabbit
+
+- name: Pilgrim's Bounty
+  things:
+  -  85846 # Bush Chicken - Pilgrim's Bounty
+  -  32818 # Plump Turkey - Pilgrim's Bounty
+
+- name: Winter Veil
+  things:
+  -  24968 # Clockwork Rocket Bot
+  -  15698 # Father Winter's Helper
+  - 128156 # Globe Yeti (Feast of Winter Veil)
+  -  97229 # Grumpling
+  -  55215 # Lumpy
+  -  73741 # Rotten Little Helper
+  -  15710 # Tiny Snowman
+  -  15706 # Winter Reindeer
+  -  15705 # Winter's Little Helper

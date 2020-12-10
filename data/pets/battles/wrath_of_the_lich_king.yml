@@ -1,0 +1,88 @@
+name: Pet Battles
+groups:
+
+- name: Borean Tundra
+  things:
+  - 62693 # Arctic Hare
+  - 62695 # Borean Marmot
+  - 68845 # Nexus Whelpling
+  - 62697 # Oily Slimeling
+  - 61158 # Shore Crab
+  - 62835 # Tundra Penguin
+  - 71163 # Unborn Val'kyr
+
+- name: Crystalsong Forest
+  things:
+  - 61143 # Mouse
+  - 61080 # Rabbit
+  - 61366 # Rat
+  - 61081 # Squirrel
+  - 71163 # Unborn Val'kyr
+
+- name: Dragonblight
+  things:
+  - 62693 # Arctic Hare
+  - 62852 # Dragonbone Hatchling
+  - 62835 # Tundra Penguin
+  - 71163 # Unborn Val'kyr
+
+- name: Grizzly Hills
+  things:
+  - 61165 # Fawn
+  - 62818 # Grizzly Squirrel
+  - 62819 # Imperial Eagle Chick
+  - 61677 # Mountain Skunk
+  - 71163 # Unborn Val'kyr
+
+- name: Howling Fjord
+  things:
+  - 62664 # Chicken
+  - 62640 # Devouring Maggot
+  - 62641 # Fjord Rat
+  - 62669 # Fjord Worg Pup
+  - 62818 # Grizzly Squirrel
+  - 61753 # Maggot
+  - 61677 # Mountain Skunk
+  - 61080 # Rabbit
+  - 61366 # Rat
+  - 61169 # Roach
+  - 61158 # Shore Crab
+  - 61255 # Skunk
+  - 61142 # Snake
+  - 61327 # Spider
+  - 61081 # Squirrel
+  - 61369 # Toad
+  - 62648 # Turkey
+  - 71163 # Unborn Val'kyr
+
+- name: Icecrown
+  things:
+  - 61384 # Cockroach
+  - 62854 # Scourged Whelpling
+  - 71163 # Unborn Val'kyr
+
+- name: Sholazar Basin
+  things:
+  - 62815 # Biletoad
+  - 68850 # Emerald Proto-Whelp
+  - 61142 # Snake
+  - 61081 # Squirrel
+  - 62816 # Stunted Shardhorn
+  - 71163 # Unborn Val'kyr
+
+- name: The Storm Peaks
+  things:
+  - 62864 # Arctic Fox Kit
+  - 62693 # Arctic Hare
+  - 61677 # Mountain Skunk
+  - 61327 # Spider
+  - 71163 # Unborn Val'kyr
+
+- name: Zul'Drak
+  things:
+  - 62693 # Arctic Hare
+  - 61368 # Huge Toad
+  - 61142 # Snake
+  - 61327 # Spider
+  - 71163 # Unborn Val'kyr
+  - 62820 # Water Waveling

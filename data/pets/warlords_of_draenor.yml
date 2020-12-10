@@ -9,7 +9,7 @@ groups:
   -  94867 # Left Shark - Mission
   -  87257 # Pygmy Cow - Barn
 
-- name: Garrison - Pet Menagerie
+- name: "Garrison: Pet Menagerie"
   things:
   -  77021 # Albino Chimaeraling
   -  87704 # Firewing

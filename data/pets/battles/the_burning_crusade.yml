@@ -1,0 +1,62 @@
+name: Pet Battles
+groups:
+
+- name: Blade's Edge Mountains
+  things:
+  -  61752 # Brown Marmot
+  -  68841 # Cogblade Raptor
+  -  61080 # Rabbit
+  -  62184 # Rock Viper
+  -  62628 # Scalded Basilisk Hatchling
+  -  61326 # Scorpid
+  -  62638 # Skittering Cavern Crawler
+
+- name: Hellfire Peninsula
+  things:
+  -  61325 # Adder
+  -  61326 # Scorpid
+
+- name: Nagrand
+  things:
+  -  61325 # Adder
+  -  62620 # Clefthoof Runt
+  -  61141 # Prairie Dog
+  -  61080 # Rabbit
+  -  61366 # Rat
+  -  61142 # Snake
+  -  61081 # Squirrel
+  -  61369 # Toad
+
+- name: Netherstorm
+  things:
+  -  62019 # Cat
+  -  62627 # Fledgling Nether Ray
+  -  61143 # Mouse
+  -  62625 # Nether Roach
+
+- name: Shadowmoon Valley
+  things:
+  -  61385 # Ash Viper
+  -  62621 # Fel Flame
+  -  62314 # Tainted Cockroach
+  -  62583 # Warpstalker Hatchling
+
+- name: Shattrath City
+  things:
+  -  61366 # Rat
+
+- name: Terokkar Forest
+  things:
+  -  62555 # Flayer Youngling
+  -  61366 # Rat
+  -  61255 # Skunk
+  -  61142 # Snake
+  -  61081 # Squirrel
+  -  61440 # Stripe-Tailed Scorpid
+  -  62583 # Warpstalker Hatchling
+
+- name: Zangarmarsh
+  things:
+  -  61071 # Small Frog
+  -  61142 # Snake
+  -  62564 # Sporeling Sprout

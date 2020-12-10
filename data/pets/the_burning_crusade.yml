@@ -1,0 +1,29 @@
+name: The Burning Crusade
+groups:
+
+- name: Instances
+  things:
+  -  71033 # Fiendish Imp - Karazhan
+  -  71014 # Lil' Bad Wolf - Karazhan
+  -  71015 # Menagerie Custodian - Karazhan
+  -  71016 # Netherspace Abyssal - Karazhan
+  -  71019 # Coilfang Stalker (SSC
+  -  71018 # Tainted Waveling (SSC
+  -  71017 # Tideskipper (SSC
+  -  71021 # Lesser Voidcaller (Tempest Keep
+  -  71022 # Phoenix Hawk Hatchling (Tempest Keep
+  -  71020 # Pocket Reaver (Tempest Keep
+  -  90200 # Grotesque - Hyjal Summit
+  -  90208 # Hyjal Wisp - Hyjal Summit
+  -  90207 # Stinkrot - Hyjal Summit
+  -  90202 # Abyssius - Black Temple
+  -  90203 # Fragment of Anger - Black Temple
+  -  90205 # Fragment of Desire - Black Temple
+  -  90204 # Fragment of Suffering - Black Temple
+  -  90201 # Leviathan Hatchling - Black Temple
+  -  90206 # Sister of Temptation - Black Temple
+  -  90213 # Chaos Pup (Sunwell
+  -  90212 # Sunblade Micro-Defender (Sunwell
+  -  90214 # Wretched Servant (Sunwell
+  -  26119 # Phoenix Hatchling - Magisters' Terrace
+  -  24480 # Mojo - Zul'Aman
