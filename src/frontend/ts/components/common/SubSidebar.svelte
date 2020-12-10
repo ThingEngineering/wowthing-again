@@ -1,8 +1,4 @@
 <script lang="ts">
-    import {link} from 'svelte-spa-router'
-    import active from 'svelte-spa-router/active'
-
-    import { data as staticData } from '../../stores/static-store'
 </script>
 
 <style lang="scss">
@@ -31,7 +27,7 @@
     }
 </style>
 
-<nav>
+<nav id="sub-sidebar">
     <ul>
         <slot></slot>
     </ul>
