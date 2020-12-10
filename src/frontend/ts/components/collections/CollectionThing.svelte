@@ -19,7 +19,7 @@
         display: inline-block;
 
         &.thing-yes {
-            border: 2px solid #00ff00;
+            border: 2px solid #44aa44;
         }
         &.thing-no {
             border: 2px solid $border-color;
