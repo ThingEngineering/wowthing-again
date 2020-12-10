@@ -9,6 +9,7 @@ core
 .vs/
 
 # Generated stuff
+.tscache/
 bin/
 obj/
 node_modules/
