@@ -1,0 +1,13 @@
+name: Unavailable
+groups:
+
+- name: Events
+  things:
+  -  54653 # Darkspear Pride (Cataclysm pre-launch event)
+  -  54651 # Gnomeregan Pride (Cataclysm pre-launch event)
+  -  89205 # Mini Mana Bomb (Theramore event)
+
+- name: Promotions
+  things:
+  - 142542 # Tome of Town Portal (Diablo 20th Anniversary)
+  - 143543 # Twelve-String Guitar (Diablo 20th Anniversary)

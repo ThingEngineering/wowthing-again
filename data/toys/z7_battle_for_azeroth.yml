@@ -1,16 +1,32 @@
 name: Battle for Azeroth
 groups:
 
-- name: Island Expeditions
+- name: Achievements
   things:
-  - 164375 # Bad Mojo Banana (Island Expeditions)
-  - 164373 # Enchanted Soup Stone (Island Expeditions)
-  - 164372 # Jinyu Light Globe (Island Expeditions)
-  - 164374 # Magic Monkey Banana (Island Expeditions)
-  - 163795 # Oomgut Ritual Drum (Island Expeditions)
-  - 164377 # Regenerating Banana Bunch (Island Expeditions)
-  - 163924 # Whiskerwax Candle (Island Expeditions)
-  - 164371 # Yaungol Oil Stove (Island Expeditions)
+  - 166247 # Citizens Brigade Whistle (Upright Citizens)
+  - 163697 # Laser Pointer (Battle on Zandalar and Kul Tiras)
+
+- name: "Instances: Island Expeditions"
+  things:
+  - 164375 # Bad Mojo Banana
+  - 164373 # Enchanted Soup Stone
+  - 164372 # Jinyu Light Globe
+  - 164374 # Magic Monkey Banana
+  - 163795 # Oomgut Ritual Drum
+  - 164377 # Regenerating Banana Bunch
+  - 163924 # Whiskerwax Candle
+  - 164371 # Yaungol Oil Stove
+
+- name: "Instances: Visions"
+  things:
+  - 174920 # Coifcurl's Close Shave Kit (Orgrimmar)
+  - 174928 # Rotten Apple (Stormwind)
+  - 174921 # Void-Touched Skull (Stormwind)
+  - 174924 # Void-Touched Souvenier Totem (Orgrimmar)
+
+- name: Quests
+  things:
+  - 166544 # Dark Ranger's Spare Cowl (Dark Ranger Round-Up, Darkshore)
 
 - name: "Rare Spawns: Arathi Highlands"
   things:
@@ -26,18 +42,44 @@ groups:
   - 163829 # Toy War Machine (The Lion's Roar, Arathi Highlands)
   - 163745 # Witherbark Gong (Zalas Witherbark, Arathi Highlands)
 
+- name: "Rare Spawns: Darkshore"
+  things:
+  - 166785 # Detoxified Blight Grenade (Gren Tornfur)
+  - 166790 # Highborne Memento (Commander Drald / Thelar Moonstrike)
+  - 166784 # Narassin's Soul Gem (Athrikus Narassin)
+  - 166787 # Twiddle Twirler: Sentinel's Glaive (Commander Ra'lesh)
+  - 166788 # Twiddle Twirler: Shredder Blade (Sapper Odette / Burninator Mark V)
+
 - name: Reputations
   things:
   - 163211 # Akunda's Firesticks (Voldunai, Honored)
   - 163200 # Cursed Spyglass (Proudmoore Admiralty, Revered)
   - 163463 # Dead Ringer (Storm's Wake, Revered)
   - 159753 # Desert Flute (Voldunai, Honored)
-  - 163201 # Gnoll Targetting Barrel (Proudmoore Admiralty, Honored)
+  - 163201 # Gnoll Targeting Barrel (Proudmoore Admiralty, Honored)
   - 163210 # Party Totem (Zandalari Empire, Revered)
+  - 169108 # Rustbolt Banner (Rustbolt Resistance, Revered)
+  - 174995 # Void Tendril Pet Leash (Uldum Accord, Honored)
+  - 165021 # Words of Akunda (Voldunai, Exalted)
+
+- name: "Reputations: Paragon"
+  things:
+  - 166877 # Azerite Firework Launcher (Champions of Azeroth, Paragon)
+  - 166808 # Bewitching Tea Set (Order of Embers, Paragon)
+  - 166704 # Bowl of Glowing Pufferfish (Tortollan Seekers, Paragon)
+  - 170203 # Flopping Fish (Waveblade Ankoan / The Unshackled, Paragon)
+  - 166308 # For da Blood God! (Talanji's Expedition, Paragon)
+  - 166703 # Goldtusk Inn Breakfast Buffet (Voldunai, Paragon)
+  - 170469 # Memento of the Deeps (Waveblade Ankoan / The Unshackled, Paragon)
+  - 166880 # Meerah's Jukebox (Voldunai, Paragon)
+  - 166702 # Proudmoore Music Box (Proudmoore Admiralty, Paragon)
+  - 166879 # Rallying War Banner (7th Legion / The Honorbound, Paragon)
+  - 166701 # Warbeast Kraal Dinner Bell (Zandalari Empire, Paragon)
 
 - name: Treasures
   things:
-  - 163740 # Drust Ritual Knife (Treasure - Drustvar)
+  - 163740 # Drust Ritual Knife (?, Drustvar)
   - 161342 # Gem of Acquiescence (?? weird puzzle thing)
-  - 163742 # Heartsbane Grimoire (Treasure - Drustvar)
-  - 163603 # Lucille's Handkerchief (Treasure - Drustvar)
+  - 163742 # Heartsbane Grimoire (?, Drustvar)
+  - 163603 # Lucille's Handkerchief (?, Drustvar)
+  - 168824 # Ocean Simulator (?)
