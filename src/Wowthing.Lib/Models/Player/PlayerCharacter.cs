@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -9,37 +10,40 @@ namespace Wowthing.Lib.Models
 {
     public class PlayerCharacter
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public long Id { get; set; }
+        [Key]
+        public int Id { get; set; }
 
+        // Blizzard character ID, may not actually need this
+        public long CharacterId { get; set; }
+
+        [ForeignKey("Account")]
         public int? AccountId { get; set; }
+        public PlayerAccount Account { get; set; }
 
-        public long GuildId { get; set; }
-
-        public int ActiveSpecId { get; set; } = 0;
-        public int ActiveTitleId { get; set; } = 0;
-        public int AverageItemLevel { get; set; } = 0;
+        // Available after UserCharacters pull
         public int ClassId { get; set; }
-        public int EquippedItemLevel { get; set; } = 0;
-        public int Experience { get; set; } = 0;
         public int Level { get; set; }
         public int RaceId { get; set; }
         public int RealmId { get; set; }
         public WowFaction Faction { get; set; }
         public WowGender Gender { get; set; }
-
         public string Name { get; set; }
 
-        public List<int> ReputationIds { get; set; }
-        public List<int> ReputationValues { get; set; }
+        // Available later after Character pull
+        public int ActiveSpecId { get; set; } = 0;
+        public int ActiveTitleId { get; set; } = 0;
+        public int AverageItemLevel { get; set; } = 0;
+        public int EquippedItemLevel { get; set; } = 0;
+        public int Experience { get; set; } = 0;
+        public long GuildId { get; set; } = 0;
 
+        // Bookkeeping
         public int DelayHours { get; set; } = 0;
         public DateTime LastApiCheck { get; set; } = DateTime.MinValue;
 
-        [ForeignKey("AccountId")]
-        public PlayerAccount Account { get; set; }
-
+        // Navigation properties
         public PlayerCharacterQuests Quests { get; set; }
+        public PlayerCharacterReputations Reputations { get; set; }
         public PlayerCharacterShadowlands Shadowlands { get; set; }
     }
 }

@@ -6,17 +6,13 @@ using System.Text;
 
 namespace Wowthing.Lib.Models
 {
-    public class PlayerCharacterShadowlands
+    public class PlayerCharacterReputations
     {
         [Key, ForeignKey("Character")]
         public int CharacterId { get; set; }
         public PlayerCharacter Character { get; set; }
 
-        // Covenants
-        public int CovenantId { get; set; }
-        public int RenownLevel { get; set; }
-        public int SoulbindId { get; set; }
-        public List<int> ConduitIds { get; set; }
-        public List<int> ConduitRanks { get; set; }
+        public List<int> ReputationIds { get; set; }
+        public List<int> ReputationValues { get; set; }
     }
 }

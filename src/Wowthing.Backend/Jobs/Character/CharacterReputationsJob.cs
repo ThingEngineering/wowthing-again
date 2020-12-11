@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.API.Character;
+using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Query;
 
 namespace Wowthing.Backend.Jobs.User
@@ -30,11 +31,19 @@ namespace Wowthing.Backend.Jobs.User
                 return;
             }
 
-            // Fetch character
-            var character = await _context.PlayerCharacter.FindAsync(query.CharacterId);
+            // Fetch character data
+            var reputations = await _context.PlayerCharacterReputations.FindAsync(query.CharacterId);
+            if (reputations == null)
+            {
+                reputations = new PlayerCharacterReputations
+                {
+                    CharacterId = query.CharacterId,
+                };
+                _context.PlayerCharacterReputations.Add(reputations);
+            }
 
-            character.ReputationIds = result.Data.Reputations.Select(r => r.Faction.Id).ToList();
-            character.ReputationValues = result.Data.Reputations.Select(r => r.Standing.Raw).ToList();
+            reputations.ReputationIds = result.Data.Reputations.Select(r => r.Faction.Id).ToList();
+            reputations.ReputationValues = result.Data.Reputations.Select(r => r.Standing.Raw).ToList();
 
             await _context.SaveChangesAsync();
         }
