@@ -21,7 +21,7 @@
         border: 1px solid $border-color;
         border-radius: $thing-border-radius;
 
-        & + section {
+        & + .section {
             margin-top: 1rem;
         }
     }
