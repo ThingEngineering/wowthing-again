@@ -16,8 +16,8 @@ const production = !process.env.ROLLUP_WATCH
 const distPath = '../Wowthing.Web/wwwroot/dist'
 
 // Ensure distPath exists and is relatively empty
-if (!fs.existsSync(distPath)) {
-    fs.mkdirSync(distPath)
+if (fs.existsSync(distPath)) {
+    fs.mkdirSync(distPath, { recursive: true })
 }
 rimraf.sync(`${distPath}/main*`)
 
