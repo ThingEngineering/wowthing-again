@@ -15,7 +15,12 @@ import autoPreprocess from 'svelte-preprocess'
 const production = !process.env.ROLLUP_WATCH
 const distPath = '../Wowthing.Web/wwwroot/dist'
 
+// Ensure distPath exists and is relatively empty
+if (!fs.existsSync(distPath)) {
+    fs.mkdirSync(distPath)
+}
 rimraf.sync(`${distPath}/main*`)
+
 
 export default {
     input: 'ts/main.ts',
