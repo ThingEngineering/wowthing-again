@@ -3,18 +3,18 @@ groups:
 
 - name: Achievements
   things:
-  - 60024 # Violet Proto-Drake (world events)
+  -  60024 # Violet Proto-Drake (world events)
 
 - name: Misc
   things:
-  - 48025 # Headless Horseman's Mount
+  -  48025 # Headless Horseman's Mount
   - 191314 # Minion of Grumpus
   - 102349 # Swift Springstrider
 
 - name: Brewfest
   things:
-  - 49379 # Great Brewfest Kodo (Brewfest)
-  - 43900 # Swift Brewfest Ram (Brewfest)
+  -  49379 # Great Brewfest Kodo
+  -  43900 # Swift Brewfest Ram
 
 - name: Darkmoon Faire
   things:
@@ -25,7 +25,7 @@ groups:
 
 - name: Love is in the Air
   things:
-  - 71342 # Big Love Rocket (Love is in the Air)
+  -  71342 # Big Love Rocket (Love is in the Air)
   - 102350 # Swift Lovebird (Love is in the Air)
 
 - name: Timewalking

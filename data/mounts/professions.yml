@@ -2,34 +2,34 @@ name: Professions
 groups:
 - name: Alchemy
   things:
-  - 93326 # Sandstone Drake (Alchemy)
+  - 93326 # Sandstone Drake
 
 - name: Archaeology
   things:
-  - 84751 # Fossilized Raptor
-  - 92155 # Ultramarine Qiraji Battle Tank (Scepter of Azj'Aqir)
+  -  84751 # Fossilized Raptor
   - 196681 # Spirit of Eche'ro
+  -  92155 # Ultramarine Qiraji Battle Tank (Scepter of Azj'Aqir)
 
 - name: Blacksmithing
   things:
-  - 213209 # Steelbound Devourer (Blacksmithing)
+  - 213209 # Steelbound Devourer
 
 - name: Engineering
   things:
   - 126507 # Depleted-Kyparium Rocket
-  - 44153 # Flying Machine
+  -  44153 # Flying Machine
   - 126508 # Geosynchronous World Spinner
   - 261437 # Mecha-Mogul Mk2
-  - 60424 55531 # Mekgineer's Chopper/Mechano-Hog
+  -  60424 55531 # Mekgineer's Chopper/Mechano-Hog
   - 134359 # Sky Golem
-  - 44151 # Turbo-Charged Flying Machine
+  -  44151 # Turbo-Charged Flying Machine
 
 - name: Fishing
   things:
   - 214791 # Brinedeep Bottom-Feeder (Conjurer Margoss - Honored, Fishing)
   - 278803 # Great Sea Ray (Fishing)
   - 253711 # Pond Nettle (Fishing)
-  - 64731 # Sea Turtle (Fishing)
+  -  64731 # Sea Turtle (Fishing)
 
 - name: Jewelcrafting
   things:
@@ -41,12 +41,12 @@ groups:
 
 - name: Leatherworking
   things:
-  - 171844 # Dustmane Direwolf (Leatherworking)
-  - 213339 # Great Northern Elderhorn (Leatherworking)
+  - 171844 # Dustmane Direwolf
+  - 213339 # Great Northern Elderhorn
 
 - name: Tailoring
   things:
   - 169952 # Creeping Carpet
-  - 61451 # Flying Carpet
-  - 75596 # Frosty Flying Carpet
-  - 61309 # Magnificent Flying Carpet
+  -  61451 # Flying Carpet
+  -  75596 # Frosty Flying Carpet
+  -  61309 # Magnificent Flying Carpet
