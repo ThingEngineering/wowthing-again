@@ -12,8 +12,8 @@ using Wowthing.Lib.Models;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    [Migration("20201127073129_Add_WowReputation")]
-    partial class Add_WowReputation
+    [Migration("20201211233814_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -306,6 +306,10 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnName("account_id")
                         .HasColumnType("bigint");
 
+                    b.Property<bool>("Enabled")
+                        .HasColumnName("enabled")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Name")
                         .HasColumnName("name")
                         .HasColumnType("text");
@@ -313,6 +317,10 @@ namespace Wowthing.Lib.Migrations
                     b.Property<int>("Region")
                         .HasColumnName("region")
                         .HasColumnType("integer");
+
+                    b.Property<string>("Tag")
+                        .HasColumnName("tag")
+                        .HasColumnType("text");
 
                     b.Property<long>("UserId")
                         .HasColumnName("user_id")
@@ -333,12 +341,18 @@ namespace Wowthing.Lib.Migrations
 
             modelBuilder.Entity("Wowthing.Lib.Models.PlayerCharacter", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnName("id")
-                        .HasColumnType("bigint");
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<int?>("AccountId")
                         .HasColumnName("account_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ActiveSpecId")
+                        .HasColumnName("active_spec_id")
                         .HasColumnType("integer");
 
                     b.Property<int>("ActiveTitleId")
@@ -348,6 +362,10 @@ namespace Wowthing.Lib.Migrations
                     b.Property<int>("AverageItemLevel")
                         .HasColumnName("average_item_level")
                         .HasColumnType("integer");
+
+                    b.Property<long>("CharacterId")
+                        .HasColumnName("character_id")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("ClassId")
                         .HasColumnName("class_id")
@@ -403,7 +421,79 @@ namespace Wowthing.Lib.Migrations
                     b.HasIndex("AccountId")
                         .HasName("ix_player_character_account_id");
 
+                    b.HasIndex("RealmId", "Name")
+                        .IsUnique()
+                        .HasName("ix_player_character_realm_id_name");
+
                     b.ToTable("player_character");
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.PlayerCharacterQuests", b =>
+                {
+                    b.Property<int>("CharacterId")
+                        .HasColumnName("character_id")
+                        .HasColumnType("integer");
+
+                    b.Property<List<int>>("CompletedIds")
+                        .HasColumnName("completed_ids")
+                        .HasColumnType("integer[]");
+
+                    b.HasKey("CharacterId")
+                        .HasName("pk_player_character_quests");
+
+                    b.ToTable("player_character_quests");
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.PlayerCharacterReputations", b =>
+                {
+                    b.Property<int>("CharacterId")
+                        .HasColumnName("character_id")
+                        .HasColumnType("integer");
+
+                    b.Property<List<int>>("ReputationIds")
+                        .HasColumnName("reputation_ids")
+                        .HasColumnType("integer[]");
+
+                    b.Property<List<int>>("ReputationValues")
+                        .HasColumnName("reputation_values")
+                        .HasColumnType("integer[]");
+
+                    b.HasKey("CharacterId")
+                        .HasName("pk_player_character_reputations");
+
+                    b.ToTable("player_character_reputations");
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.PlayerCharacterShadowlands", b =>
+                {
+                    b.Property<int>("CharacterId")
+                        .HasColumnName("character_id")
+                        .HasColumnType("integer");
+
+                    b.Property<List<int>>("ConduitIds")
+                        .HasColumnName("conduit_ids")
+                        .HasColumnType("integer[]");
+
+                    b.Property<List<int>>("ConduitRanks")
+                        .HasColumnName("conduit_ranks")
+                        .HasColumnType("integer[]");
+
+                    b.Property<int>("CovenantId")
+                        .HasColumnName("covenant_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("RenownLevel")
+                        .HasColumnName("renown_level")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SoulbindId")
+                        .HasColumnName("soulbind_id")
+                        .HasColumnType("integer");
+
+                    b.HasKey("CharacterId")
+                        .HasName("pk_player_character_shadowlands");
+
+                    b.ToTable("player_character_shadowlands");
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.Query.SchedulerCharacterQuery", b =>
@@ -429,6 +519,75 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnType("bigint");
 
                     b.ToTable("scheduler_character_query");
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.Team", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("DefaultRealmId")
+                        .HasColumnName("default_realm_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Description")
+                        .HasColumnName("description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnName("name")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Region")
+                        .HasColumnName("region")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id")
+                        .HasName("pk_team");
+
+                    b.ToTable("team");
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.TeamCharacter", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("id")
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("CharacterId")
+                        .HasColumnName("character_id")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Note")
+                        .HasColumnName("note")
+                        .HasColumnType("text");
+
+                    b.Property<int>("PrimaryRole")
+                        .HasColumnName("primary_role")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SecondaryRole")
+                        .HasColumnName("secondary_role")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid?>("TeamId")
+                        .HasColumnName("team_id")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id")
+                        .HasName("pk_team_character");
+
+                    b.HasIndex("CharacterId")
+                        .HasName("ix_team_character_character_id");
+
+                    b.HasIndex("TeamId")
+                        .HasName("ix_team_character_team_id");
+
+                    b.ToTable("team_character");
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.WowClass", b =>
@@ -647,6 +806,51 @@ namespace Wowthing.Lib.Migrations
                         .HasForeignKey("AccountId")
                         .HasConstraintName("fk_player_character_player_account_account_id")
                         .OnDelete(DeleteBehavior.SetNull);
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.PlayerCharacterQuests", b =>
+                {
+                    b.HasOne("Wowthing.Lib.Models.PlayerCharacter", "Character")
+                        .WithOne("Quests")
+                        .HasForeignKey("Wowthing.Lib.Models.PlayerCharacterQuests", "CharacterId")
+                        .HasConstraintName("fk_player_character_quests_player_character_character_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.PlayerCharacterReputations", b =>
+                {
+                    b.HasOne("Wowthing.Lib.Models.PlayerCharacter", "Character")
+                        .WithOne("Reputations")
+                        .HasForeignKey("Wowthing.Lib.Models.PlayerCharacterReputations", "CharacterId")
+                        .HasConstraintName("fk_player_character_reputations_player_character_character_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.PlayerCharacterShadowlands", b =>
+                {
+                    b.HasOne("Wowthing.Lib.Models.PlayerCharacter", "Character")
+                        .WithOne("Shadowlands")
+                        .HasForeignKey("Wowthing.Lib.Models.PlayerCharacterShadowlands", "CharacterId")
+                        .HasConstraintName("fk_player_character_shadowlands_player_character_character_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.TeamCharacter", b =>
+                {
+                    b.HasOne("Wowthing.Lib.Models.PlayerCharacter", "Character")
+                        .WithMany()
+                        .HasForeignKey("CharacterId")
+                        .HasConstraintName("fk_team_character_player_character_character_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Wowthing.Lib.Models.Team", null)
+                        .WithMany("Characters")
+                        .HasForeignKey("TeamId")
+                        .HasConstraintName("fk_team_character_team_team_id");
                 });
 #pragma warning restore 612, 618
         }

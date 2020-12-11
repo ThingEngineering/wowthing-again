@@ -78,22 +78,36 @@ namespace Wowthing.Backend.Jobs
             await _context.SaveChangesAsync();
 
             // Fetch existing users
-            var characterIds = apiAccounts.SelectMany(a => a.Item2.Characters).Select(c => c.Id);
-            var characterMap = await _context.PlayerCharacter.Where(c => characterIds.Contains(c.Id)).ToDictionaryAsync(k => k.Id);
+            var characterPairs = apiAccounts
+                .SelectMany(a => a.Item2.Characters)
+                .Select(c => (c.Realm.Id, c.Name))
+                .ToArray();
 
-            var seenCharacters = new HashSet<long>();
+            var orPredicate = PredicateBuilder.False<PlayerCharacter>();
+            foreach ((int realmId, string name) in characterPairs)
+            {
+                orPredicate = orPredicate.Or(c => c.RealmId == realmId && c.Name == name);
+            }
+
+            var characterMap = await _context.PlayerCharacter
+                .Where(orPredicate)
+                .ToDictionaryAsync(k => (k.RealmId, k.Name));
+
+            // Loop over API results
+            var seenCharacters = new HashSet<(int, string)>();
             foreach ((var region, var apiAccount) in apiAccounts)
             {
                 var accountId = accountMap[(region, apiAccount.Id)].Id;
                 foreach (ApiAccountProfileCharacter apiCharacter in apiAccount.Characters)
                 {
-                    seenCharacters.Add(apiCharacter.Id);
+                    var key = (apiCharacter.Realm.Id, apiCharacter.Name);
+                    seenCharacters.Add(key);
 
-                    if (!characterMap.TryGetValue(apiCharacter.Id, out PlayerCharacter character))
+                    if (!characterMap.TryGetValue(key, out PlayerCharacter character))
                     {
                         character = new PlayerCharacter
                         {
-                            Id = apiCharacter.Id,
+                            CharacterId = apiCharacter.Id,
                         };
                         _context.PlayerCharacter.Add(character);
                     }

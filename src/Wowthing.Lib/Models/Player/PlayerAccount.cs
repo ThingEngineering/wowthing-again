@@ -12,7 +12,10 @@ namespace Wowthing.Lib.Models
         [Key]
         public int Id { get; set; }
 
+        [ForeignKey("User")]
         public long UserId { get; set; }
+        public ApplicationUser User { get; set; }
+
         public WowRegion Region { get; set; }
         public long AccountId { get; set; }
 
@@ -20,9 +23,7 @@ namespace Wowthing.Lib.Models
         public string Tag { get; set; }
         public bool Enabled { get; set; } = true;
 
-        [ForeignKey("UserId")]
-        public ApplicationUser User { get; set; }
-
+        // Navigation properties
         public List<PlayerCharacter> Characters { get; set; }
     }
 }

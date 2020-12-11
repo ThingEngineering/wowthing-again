@@ -17,14 +17,18 @@ namespace Wowthing.Lib.Contexts
         public DbSet<WowClass> WowClass { get; set; }
         public DbSet<WowRace> WowRace { get; set; }
         public DbSet<WowRealm> WowRealm { get; set; }
-        public DbSet<WowReputation> WowReputation { get; set; } 
+        public DbSet<WowReputation> WowReputation { get; set; }
         public DbSet<WowReputationTier> WowReputationTier { get; set; }
         public DbSet<WowTitle> WowTitle { get; set; }
 
         public DbSet<PlayerAccount> PlayerAccount { get; set; }
         public DbSet<PlayerCharacter> PlayerCharacter { get; set; }
         public DbSet<PlayerCharacterQuests> PlayerCharacterQuests { get; set; }
+        public DbSet<PlayerCharacterReputations> PlayerCharacterReputations { get; set; }
         public DbSet<PlayerCharacterShadowlands> PlayerCharacterShadowlands { get; set; }
+
+        public DbSet<Team> Team { get; set; }
+        public DbSet<TeamCharacter> TeamCharacter { get; set; }
 
         // Garbage query types
         public DbSet<SchedulerCharacterQuery> SchedulerCharacterQuery { get; set; }
@@ -60,12 +64,16 @@ namespace Wowthing.Lib.Contexts
             builder.Entity<IdentityUserRole<long>>().ToTable("asp_net_user_roles");
             builder.Entity<IdentityRoleClaim<long>>().ToTable("asp_net_role_claims");
 
-            // Player Accounts are weird
+            // Unique indexes
             builder.Entity<PlayerAccount>()
                 .HasIndex(a => new { a.Region, a.AccountId })
                 .IsUnique(true);
 
-            // Update WowCharacter table if related WowAccount is deleted
+            builder.Entity<PlayerCharacter>()
+                .HasIndex(c => new { c.RealmId, c.Name })
+                .IsUnique(true);
+
+            // Explicitly update WowCharacter table if related WowAccount is deleted
             builder.Entity<PlayerCharacter>()
                 .HasOne(c => c.Account)
                 .WithMany(a => a.Characters)

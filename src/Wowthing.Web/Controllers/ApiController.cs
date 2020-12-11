@@ -82,6 +82,7 @@ namespace Wowthing.Web.Controllers
 
             characterQuery = characterQuery
                 .Include(c => c.Quests)
+                .Include(c => c.Reputations)
                 .Include(c => c.Shadowlands);
 
             var mounts = await db.GetSetMembersAsync(string.Format(RedisKeys.UserMounts, user.Id));

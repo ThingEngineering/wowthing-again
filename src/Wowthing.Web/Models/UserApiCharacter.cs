@@ -58,10 +58,10 @@ namespace Wowthing.Web.Models
                     .ToDictionary(k => k, v => 1);
             }
 
-            if (character.ReputationIds != null && character.ReputationValues != null)
+            if (character.Reputations?.ReputationIds != null && character.Reputations?.ReputationValues != null)
             {
-                Reputations = character.ReputationIds
-                    .Zip(character.ReputationValues)
+                Reputations = character.Reputations.ReputationIds
+                    .Zip(character.Reputations.ReputationValues)
                     .ToDictionary(k => k.First, v => v.Second);
             }
 
