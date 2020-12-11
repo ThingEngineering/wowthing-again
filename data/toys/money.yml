@@ -1,6 +1,12 @@
 name: Money 💸
 groups:
 
+- name: Blizzard Shop
+  things:
+  - 166778 # Horde's Might Firework
+  - 166777 # Lion's Pride Firework
+  - 166779 # Transmorpher Beacon
+
 - name: $$$$$
   things:
   -  49704 # Carved Ogre Idol

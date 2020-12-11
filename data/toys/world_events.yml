@@ -104,6 +104,19 @@ groups:
   things:
   - 165802 # Noble Gardener's Hearthstone
 
+- name: Timewalking
+  things:
+  - 144072 # Adopted Puppy Crate (Mistweaver Xia, Timeless Isle)
+  - 129929 # Ever-Shifting Mirror
+  - 151016 # Fractured Necrolyte Skull (Cupri, Shattrath)
+  - 129965 # Grizzlesnout's Fang (Wrath?)
+  - 129952 # Hourglass of Eternity
+  - 129926 # Mark of the Ashtongue
+  - 144393 # Portable Yak Wash (MoP?)
+  - 133542 # Tosselwrench's Mega-Accurate Simulation Viewfinder
+  - 151184 # Verdant Throwing Sphere (Cupri, Shattrah)
+  - 129938 # Will of Northrend
+
 - name: Winter Veil
   things:
   - 108632 # Crashin' Thrashin' Flamer Controller

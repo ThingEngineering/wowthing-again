@@ -45,6 +45,7 @@ groups:
   - 151652 # Wormhole Generator: Argus
   -  48933 # Wormhole Generator: Northrend
   -  87215 # Wormhole Generator: Pandaria
+  - 172924 # Wormhole Generator: Shadowlands
 
 - name: Fishing
   things:

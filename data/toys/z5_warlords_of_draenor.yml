@@ -3,14 +3,12 @@ groups:
 
 - name: Garrisons
   things:
-  #119220,# Alliance Gladiator's Banner
   - 119217 # Alliance Flag of Victory
   - 119093 # Aviana's Feather (quest garrison WoD)
   - 115503 # Blazing Diamond Pendant
   - 113096 # Bloodmane Charm (Smugglers Run?)
   - 122298 # Bodyguard Miniaturization Device (vendor garrison)
   - 119210 # Hearthstone Board
-  #119221,# Horde Gladiator's Banner
   - 119218 # Horde Flag of Victory
   - 127707 # Indestructible Bone
   - 127696 # Magic Pet Mirror
@@ -19,7 +17,6 @@ groups:
   - 119134 # Sargerei Disguise
   - 127695 # Spirit Wand
   - 122293 # Trans-Dimensional Bird Whistle
-  #122187,# Tune-o-tron Micro
   - 119219 # Warlord's Flag of Victory
   - 117573 # Wayfarer's Bonfire
   - 119212 # Winning Hand
@@ -39,7 +36,15 @@ groups:
   - 118427 # Autographed Hearthstone Card
   - 128310 # Burning Blade
   - 123851 # Photo B.O.M.B.
-  - 122674 # S.E.L.F.I.E Cameria MkII
+  - 122674 # S.E.L.F.I.E Camera MkII
+
+- name: Quests
+  things:
+  - 119145 # Firefury Totem
+  - 119001 # Mystery Keg
+  - 128328 # Skoller's Bag of Squirrel Treats
+  - 119144 # Touch of the Naaru
+  - 115506 # Treessassin's Guise
 
 - name: Rare Spawns
   things:

@@ -13,6 +13,21 @@ groups:
   - 140160 # Stormforged Vrykul Horn (?, Warrior)
   - 139587 # Suspicious Crate (?, Rogue)
 
+- name: Quests
+  things:
+  - 141879 # Berglrgl Perrgl Girggrlf
+  - 138878 # Copy of Daglop's Contract
+  - 131933 # Critter Hand Cannon
+  - 156833 # Katy's Stampwhistle
+  - 138873 # Mystical Frosh Hat
+  - 130209 # Never Ending Toy Chest
+  - 129093 # Ravenbear Disguise (?, Stormheim)
+  - 138876 # Runas' Crystal Grinder
+  - 142496 # Dirty Spoon (?, Falcosaurs)
+  - 142495 # Fake Teeth (?, Falcosaurs)
+  - 142494 # Purple Blossom (?, Falcosaurs)
+  - 142497 # Tiny Pack (?, Falcosaurs)
+
 - name: Rare Spawns
   things:
   - 140314 # Crab Shank (Pinchshank, Suramar)

@@ -29,31 +29,22 @@ groups:
   things:
   - 151877 # Barrel of Eyepatches (Pickpocketing?)
   -  89139 # Chain Pet Leash (pet supply bag?)
-
-- name: Unknown
-  things:
-  - 134831 # "Guy Incognito" Costume (??)
-  - 119220 # Alliance Gladiator's Banner (??)
-  - 142360 # Blazing Ember Signet
-  - 143727 # Champion's Salute () unk
-  - 147865 # Crescent Moonstone () unk
-  - 140779 # Falanaar Echo (??)
-  - 143545 # Fel Focusing Crystal (Demon Hunter, ??)
-  - 119211 # Golden Hearthstone Card: Lord Jaraxxus (???)
-  - 119221 # Horde Gladiator's Banner (??)
-  - 129111 # Kvaldir Raiding Horn (??)
-  - 147697 # Pocket Portal of Felstalker Pups () unk
-  - 130194 # Silver Gilnean Brooch
-  - 129045 # Whitewater Tsunami
-
-- name: Unavailable
-  things:
-  -  54653 # Darkspear Pride
-  -  54651 # Gnomeregan Pride
-  -  89205 # Mini Mana Bomb
-  - 142542 # Tome of Town Portal (Diablo 20th Anniversary)
-  - 143543 # Twelve-String Guitar (Diablo 20th Anniversary)
-
+#
+#- name: Unknown
+#  things:
+#  - 134831 # "Guy Incognito" Costume (??)
+#  - 119220 # Alliance Gladiator's Banner (??)
+#  - 142360 # Blazing Ember Signet
+#  - 143727 # Champion's Salute () unk
+#  - 147865 # Crescent Moonstone () unk
+#  - 140779 # Falanaar Echo (??)
+#  - 143545 # Fel Focusing Crystal (Demon Hunter, ??)
+#  - 119211 # Golden Hearthstone Card: Lord Jaraxxus (???)
+#  - 119221 # Horde Gladiator's Banner (??)
+#  - 129111 # Kvaldir Raiding Horn (??)
+#  - 147697 # Pocket Portal of Felstalker Pups () unk
+#  - 130194 # Silver Gilnean Brooch
+#  - 129045 # Whitewater Tsunami
 
 # Instances
 - name: Dungeons
@@ -85,55 +76,6 @@ groups:
   -  30690 # Power Converter
   -  32782 # Time-Lost Figurine
 
-- name: Cata
-  things:
-  -  71259 # Leyara's Locket (Molten Front)
-  -  70161 # Mushroom Chair (Molten Front)
-  -  70159 # Mylune's Call (Molten Front)
-
-- name: MoP
-  things:
-  -  88589 # Cremating Torch
-  -  88417 # Gokk'lok's Shell
-  -  88385 # Hozen Idol
-  -  88580 # Ken-Ken's Mask
-  -  95567 # Kirin Tor Beacon (quest MoP)
-  -  88579 # Jin Warmkeg's Brew
-  -  88531 # Lao Chin's Last Mug
-  -  88370 # Puntable Marmot
-  -  82467 # Ruthers' Harness (MoP)
-  -  88387 # Shushen's Spittoon
-  -  88381 # Silversage Incense
-  -  95568 # Sunreaver Beacon (quest MoP)
-  -  80822 # The Golden Banana
-  -  88584 # Totem of Harmony
-  -  88377 # Turnip Paint "Gun"
-  -  88375 # Turnip Punching Bag (quest MoP)
-
-- name: WoD
-  things:
-  - 119145 # Firefury Totem
-#110586,# Mysterious Flower
-  - 119001 # Mystery Keg
-  - 128328 # Skoller's Bag of Squirrel Treats
-  - 119144 # Touch of the Naaru
-  - 115506 # Treessassin's Guise (quest WoD)
-
-- name: Legion
-  things:
-  - 141879 # Berglrgl Perrgl Girggrlf (quest Leg)
-  - 138878 # Copy of Daglop's Contract (quest Leg)
-  - 131933 # Critter Hand Cannon (quest Leg)
-  - 156833 # Katy's Stampwhistle
-  - 138873 # Mystical Frosh Hat (quest Leg)
-  - 130209 # Never Ending Toy Chest (quest Leg)
-  - 129093 # Ravenbear Disguise (Quest, Stormheim)
-  - 138876 # Runas' Crystal Grinder (quest Leg)
-  - 142496 # Dirty Spoon (Quest, Falcosaurs)
-  - 142495 # Fake Teeth (Quest, Falcosaurs)
-  - 142494 # Purple Blossom (Quest, Falcosaurs)
-  - 142497 # Tiny Pack (Quest, Falcosaurs)
-
 - name: BfA
   things:
   - 160509 # Echoes of Rezan (World Quest - Old R'gal/Wrath of Rezan)
@@ -152,11 +94,6 @@ groups:
   things:
   -  44719 # Frenzyheart Brew
   -  66888 # Stave of Fur and Claw
-
-- name: Cata
-  things:
-  -  64997 # Tol Barad Searchlight
-  -  63141 # Tol Barad Searchlight
 
 # Vendor
 - name: Vendor
@@ -219,16 +156,3 @@ groups:
   -  88801 # Flippable Table
   -  88802 # Foxicopter Controller
   -  91904 # Stackable Stag
-
-- name: Timewalking
-  things:
-  - 144072 # Adopted Puppy Crate (Mistweaver Xia, Timeless Isle - Timewalking)
-  - 129929 # Ever-Shifting Mirror
-  - 151016 # Fractured Necrolyte Skull (Cupri, Shattrath - Timewalking)
-  - 129965 # Grizzlesnout's Fang (Timewalking, Wrath)
-  - 129952 # Hourglass of Eternity
-  - 129926 # Mark of the Ashtongue
-  - 144393 # Portable Yak Wash (Timewalking, MoP)
-  - 133542 # Tosselwrench's Mega-Accurate Simulation Viewfinder
-  - 151184 # Verdant Throwing Sphere (Cupri, Shattrah - Timewalking)
-  - 129938 # Will of Northrend

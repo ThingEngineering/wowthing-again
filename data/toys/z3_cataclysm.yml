@@ -1,0 +1,12 @@
+name: Cataclysm
+groups:
+
+- name: Quests
+  things:
+  - 71259 # Leyara's Locket (Molten Front)
+  - 70161 # Mushroom Chair (Molten Front)
+  - 70159 # Mylune's Call (Molten Front)
+
+- name: Reputations
+  things:
+  - 63141 64997 # Tol Barad Searchlight
