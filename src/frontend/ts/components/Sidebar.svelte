@@ -48,8 +48,8 @@
             <a href="#/toys/">Toys [WIP]</a>
         </li>
         <li class="spacer"></li>
-        <li use:active={'/settings'}>
-            <a href="#/settings">Settings</a>
+        <li use:active={'/settings/*'}>
+            <a href="#/settings/">Settings</a>
         </li>
     </ul>
 </nav>

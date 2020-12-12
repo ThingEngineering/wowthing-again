@@ -1,7 +1,7 @@
 <script lang="ts">
     import Router from 'svelte-spa-router'
 
-    import Settings from './Settings.svelte'
+    import Settings from './settings/Settings.svelte'
     import Mounts from './collections/Mounts.svelte'
     import Pets from './collections/Pets.svelte'
     import Toys from './collections/Toys.svelte'
@@ -19,7 +19,7 @@
         '/pets/:slug?': Pets,
         '/toys/:slug?': Toys,
 
-        '/settings': Settings,
+        '/settings/*': Settings,
     }
 </script>
 
