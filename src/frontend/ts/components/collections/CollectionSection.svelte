@@ -2,15 +2,14 @@
     import find from 'lodash/find'
     import {getContext, setContext} from 'svelte'
 
+    import CollectionCount from './CollectionCount.svelte'
     import CollectionGroup from './CollectionGroup.svelte'
-    import CollectionSectionName from './CollectionSectionName.svelte'
     import {data as userData} from '../../stores/user-store'
 
     export let slug: string
 
     const {route, sets, thingMap, thingType, userHas} = getContext('collection')
     $: sections = find(sets, (s) => s !== null && s[0].Slug === slug)
-    $: counts = $userData.setCounts[route][slug]
 </script>
 
 <style lang="scss">
@@ -25,6 +24,20 @@
             margin-top: 1rem;
         }
     }
+    h3 {
+        margin: 0;
+        padding: 0.25rem 0.5rem;
+        width: 100%;
+        background: $highlight-background;
+        border-bottom: 1px solid $border-color;
+        border-top-left-radius: $thing-border-radius;
+        border-top-right-radius: $thing-border-radius;
+    }
+    span {
+        font-size: 0.9rem;
+        font-weight: normal;
+        margin-left: 0.5rem;
+    }
     .container {
         display: flex;
         flex-wrap: wrap;
@@ -35,7 +48,7 @@
 {#each sections as section}
     <div class="section">
         {#if section.Name}
-            <CollectionSectionName slug={slug} section={section} />
+            <h3>{section.Name} <span>[ <CollectionCount counts={$userData.setCounts[route][`${slug}_${section.Slug}`]} /> ]</span></h3>
         {/if}
         <div class="container">
             {#each section.Groups as group, i (`${thingType}-${slug}-${i}`)}
