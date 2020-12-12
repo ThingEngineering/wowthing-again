@@ -38,7 +38,7 @@ namespace Wowthing.Backend.Services
             var db = _redis.GetDatabase();
             var redisToken = await db.JsonGetAsync<RedisAccessToken>(REDIS_KEY_TOKEN);
 
-            if (redisToken.Valid)
+            if (redisToken?.Valid == true)
             {
                 _stateService.AccessToken = redisToken;
                 _logger.Debug("Retrieved valid access token from Redis");
