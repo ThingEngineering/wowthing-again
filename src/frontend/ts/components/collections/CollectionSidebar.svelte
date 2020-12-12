@@ -4,9 +4,10 @@
     import active from 'svelte-spa-router/active'
 
     import {data as userData} from '../../stores/user-store'
+    import CollectionCount from './CollectionCount.svelte'
     import SubSidebar from '../common/SubSidebar.svelte'
 
-    const {route, sets} = getContext("collection")
+    const {route, sets} = getContext('collection')
 </script>
 
 <style lang="scss">
@@ -37,9 +38,6 @@
         transform: translateY(-50%);
         word-spacing: -0.2ch;
     }
-    em {
-        color: mix($body-text, #00ff00, 80%);
-    }
 </style>
 
 <SubSidebar>
@@ -48,7 +46,7 @@
             <li use:active={`/${route}/${categories[0].Slug}`}>
                 <a href="/{ route }/{ categories[0].Slug }" use:link>{ categories[0].Name }</a>
                 <span>
-                    <em>{ $userData.setCounts[route][categories[0].Slug].have }</em> / <em>{ $userData.setCounts[route][categories[0].Slug].total }</em>
+                    <CollectionCount counts={$userData.setCounts[route][categories[0].Slug]} />
                 </span>
             </li>
         {:else}
