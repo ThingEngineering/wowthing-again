@@ -16,12 +16,12 @@
     let repTier: ReputationTier
     let tooltip: object
 
-    $: if (character || reputationSet) {
+    $: if (character && reputationSet) {
         const repInfo = reputationSet.Both || (character.faction === 0 ? reputationSet.Alliance : reputationSet.Horde)
+        const reputation: StaticDataReputation = $data.Reputations[repInfo.Id]
         characterRep = character.reputations[repInfo.Id]
 
-        if (characterRep !== undefined) {
-            const reputation: StaticDataReputation = $data.Reputations[repInfo.Id]
+        if (characterRep !== undefined && reputation !== undefined) {
             const tiers: StaticDataReputationTier = $data.ReputationTiers[reputation.TierId]
             repTier = findReputationTier(tiers, characterRep)
             let valueRank = repTier.MaxValue ? `${repTier.Value} / ${repTier.MaxValue} ${repTier.Name}` : repTier.Name
@@ -48,7 +48,7 @@
     }
 </style>
 
-{#if characterRep !== undefined}
+{#if characterRep !== undefined && tooltip !== undefined}
     <td class="reputation{repTier.Tier}" use:tippy={tooltip}>{repTier.Percent}%</td>
 {:else}
     <td>&nbsp;</td>
