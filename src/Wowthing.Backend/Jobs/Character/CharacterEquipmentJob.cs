@@ -27,7 +27,7 @@ namespace Wowthing.Backend.Jobs.User
             var path = string.Format(API_PATH, query.RealmSlug, query.CharacterName.ToLowerInvariant());
             var uri = GenerateUri(query.Region, ApiNamespace.Profile, path);
 
-            var result = await GetJson<ApiCharacterEquipment>(uri, useLastModified: false);
+            var result = await GetJson<ApiCharacterEquipment>(uri);
             if (result.NotModified)
             {
                 _logger.Information("304 Not Modified");
