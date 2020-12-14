@@ -23,6 +23,7 @@ namespace Wowthing.Lib.Contexts
 
         public DbSet<PlayerAccount> PlayerAccount { get; set; }
         public DbSet<PlayerCharacter> PlayerCharacter { get; set; }
+        public DbSet<PlayerCharacterEquippedItem> PlayerCharacterEquippedItem { get; set; }
         public DbSet<PlayerCharacterQuests> PlayerCharacterQuests { get; set; }
         public DbSet<PlayerCharacterReputations> PlayerCharacterReputations { get; set; }
         public DbSet<PlayerCharacterShadowlands> PlayerCharacterShadowlands { get; set; }
@@ -63,6 +64,10 @@ namespace Wowthing.Lib.Contexts
             builder.Entity<IdentityRole>().ToTable("asp_net_roles");
             builder.Entity<IdentityUserRole<long>>().ToTable("asp_net_user_roles");
             builder.Entity<IdentityRoleClaim<long>>().ToTable("asp_net_role_claims");
+
+            // Composite keys
+            builder.Entity<PlayerCharacterEquippedItem>()
+                .HasKey(ei => new { ei.CharacterId, ei.InventorySlot });
 
             // Unique indexes
             builder.Entity<PlayerAccount>()

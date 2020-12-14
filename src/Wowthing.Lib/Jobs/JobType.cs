@@ -9,6 +9,7 @@ namespace Wowthing.Lib.Jobs
         UserCharacters = 0,
 
         Character = 100,
+        CharacterEquipment,
         CharacterMounts,
         CharacterQuestsCompleted,
         CharacterReputations,
