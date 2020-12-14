@@ -19,6 +19,7 @@ namespace Wowthing.Web.Models
         public WowFaction Faction { get; set; }
         public WowGender Gender { get; set; }
 
+        public Dictionary<int, UserApiCharacterEquippedItem> EquippedItems { get; set; }
         public Dictionary<int, int> Quests { get; set; }
         public Dictionary<int, int> Reputations { get; set; } = new Dictionary<int, int>();
 
@@ -52,6 +53,12 @@ namespace Wowthing.Web.Models
                 AccountId = character.AccountId;
             }
 
+            if (character.EquippedItems != null)
+            {
+                EquippedItems = character.EquippedItems
+                    .ToDictionary(k => (int)k.InventorySlot, v => new UserApiCharacterEquippedItem(v));
+            }
+
             if (character.Quests != null)
             {
                 Quests = character.Quests.CompletedIds
@@ -69,6 +76,28 @@ namespace Wowthing.Web.Models
             {
                 Shadowlands = new UserApiCharacterShadowlands(character.Shadowlands);
             }
+        }
+    }
+
+    public class UserApiCharacterEquippedItem
+    {
+        public int Context { get; set; }
+        public int ItemId { get; set; }
+        public int ItemLevel { get; set; }
+        public WowQuality Quality { get; set; }
+
+        public List<int> BonusIds { get; set; }
+        public List<int> EnchantmentIds { get; set; }
+
+        public UserApiCharacterEquippedItem(PlayerCharacterEquippedItem equippedItem)
+        {
+            Context = equippedItem.Context;
+            ItemId = equippedItem.ItemId;
+            ItemLevel = equippedItem.ItemLevel;
+            Quality = equippedItem.Quality;
+
+            BonusIds = equippedItem.BonusIds;
+            EnchantmentIds = equippedItem.EnchantmentIds;
         }
     }
 
