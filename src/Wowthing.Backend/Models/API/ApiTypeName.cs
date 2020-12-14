@@ -12,7 +12,7 @@ namespace Wowthing.Backend.Models.API
         public TEnum EnumParse<TEnum>()
             where TEnum : struct, Enum
         {
-            return Enum.Parse<TEnum>(Name, true);
+            return Enum.Parse<TEnum>(Name.Replace(" ", ""), true);
         }
     }
 }
