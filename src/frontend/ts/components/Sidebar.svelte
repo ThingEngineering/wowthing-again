@@ -34,6 +34,10 @@
         <li use:active={'/table'}>
             <a href="#/table">Home (Table)</a>
         </li>
+        <li class="spacer"></li>
+        <li use:active={'/gear'}>
+            <a href="#/gear">Gear</a>
+        </li>
         <li use:active={'/reputations/*'}>
             <a href="#/reputations/shadowlands">Reputations</a>
         </li>
