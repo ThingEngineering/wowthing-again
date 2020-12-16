@@ -15,6 +15,7 @@ namespace Wowthing.Lib.Contexts
         private readonly string _connectionString;
 
         public DbSet<WowClass> WowClass { get; set; }
+        public DbSet<WowPeriod> WowPeriod { get; set; }
         public DbSet<WowRace> WowRace { get; set; }
         public DbSet<WowRealm> WowRealm { get; set; }
         public DbSet<WowReputation> WowReputation { get; set; }
@@ -68,6 +69,9 @@ namespace Wowthing.Lib.Contexts
             // Composite keys
             builder.Entity<PlayerCharacterEquippedItem>()
                 .HasKey(ei => new { ei.CharacterId, ei.InventorySlot });
+
+            builder.Entity<WowPeriod>()
+                .HasKey(p => new { p.Region, p.Id });
 
             // Unique indexes
             builder.Entity<PlayerAccount>()
