@@ -22,6 +22,8 @@ namespace Wowthing.Lib.Jobs
 
         // Scheduled jobs
         CacheStatic = 1000,
+        DataMythicKeystonePeriod,
+        DataMythicKeystonePeriodIndex,
         DataPlayableRaceIndex,
         DataPlayableClassIndex,
         DataRealmIndex,
