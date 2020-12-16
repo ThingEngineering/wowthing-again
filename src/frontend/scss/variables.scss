@@ -2,11 +2,14 @@ $body-background:          #121314;
 $body-text:                #ffffff;
 $link-color:               lighten(#a5d6a7, 8%);
 
+$border-color:             #4d4e4f;
+$border-radius:            5px;
+$border-radius-small:      3px;
+
 $header-footer-background: #2c2d2e;
 $thing-background:         #1d1e1f;
 $highlight-background:     #04080f;
 $active-background:        mix($thing-background, #0088ff, 80%);
-$border-color:             #4d4e4f;
 
 $tooltip-background:       #0a0b0c;
 $tooltip-color:            #ffffff;
@@ -29,12 +32,11 @@ $quality0-color: #9d9d9d;
 // common
 $quality1-color: #ddd;
 // uncommon
-$quality2-color: darken(#1eff00, 12%);
+$quality2-color: #35ff1a; //darken(#1eff00, 12%);
 // rare
-$quality3-color: darken(#0070ff, 5%);
+$quality3-color: #339fff; //darken(#0070ff, 5%);
 // epic
-//$quality4-color: darken(#a335ee, 5%);
-$quality4-color: #B237FF;
+$quality4-color: #a943ef; //#B237FF;
 // legendary
 $quality5-color: darken(#ff8000, 8%);
 // artifact
