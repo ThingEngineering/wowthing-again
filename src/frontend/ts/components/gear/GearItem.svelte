@@ -1,5 +1,6 @@
 <script lang="ts">
     import {Character} from '../../types'
+    import {getItemUrl} from '../../utils/get-item-url'
     import {InventorySlot} from '../../data/inventory-slot'
     import WowthingImage from '../images/sources/WowthingImage.svelte'
 
@@ -7,7 +8,6 @@
     export let inventorySlot: InventorySlot
 
     $: equipped = character.equippedItems[inventorySlot]
-    $: console.log(equipped, equipped !== undefined ? equipped.url : '<undefined>')
 </script>
 
 <style lang="scss">
@@ -47,7 +47,7 @@
 <td>
     {#if equipped !== undefined}
         <div>
-            <a class="quality{equipped.quality}" href="{equipped.url}">
+            <a class="quality{equipped.quality}" href="{getItemUrl(equipped)}">
                 <WowthingImage size="40" name="item/{equipped.itemId}" border="2" />
                 <span>{equipped.itemLevel}</span>
             </a>

@@ -1,4 +1,6 @@
 <script lang="ts">
+    import {afterUpdate} from 'svelte'
+
     import {slotOrder} from '../../data/inventory-slot'
     import {data as userData} from '../../stores/user-store'
     import getRealmName from '../../utils/get-realm-name'
@@ -7,6 +9,12 @@
     import TableItemLevel from '../common/TableItemLevel.svelte'
     import ClassIcon from '../images/ClassIcon.svelte'
     import RaceIcon from '../images/RaceIcon.svelte'
+
+    afterUpdate(() => {
+        if (window.__tip) {
+            window.__tip.watchElligibleElements()
+        }
+    })
 </script>
 
 <style lang="scss">
