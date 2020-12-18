@@ -5,9 +5,6 @@
 <style lang="scss">
     @import "../../scss/variables.scss";
     nav {
-        background: $thing-background;
-        border: 1px solid $border-color;
-        border-radius: $thing-border-radius;
         margin-right: 1rem;
         min-width: 9rem;
         padding: 0.5rem 0;
@@ -26,7 +23,7 @@
     }
 </style>
 
-<nav>
+<nav class="thing-container">
     <ul>
         <li use:active={'/'}>
             <a href="#/">Home (Cards)</a>

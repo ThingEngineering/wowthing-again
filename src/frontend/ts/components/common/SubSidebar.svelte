@@ -9,9 +9,6 @@
     }
 
     nav {
-        background: $thing-background;
-        border: 1px solid $border-color;
-        border-radius: $thing-border-radius;
         margin-right: 1rem;
         min-width: 14rem;
         padding: 0.5rem 0;
@@ -27,7 +24,7 @@
     }
 </style>
 
-<nav id="sub-sidebar">
+<nav id="sub-sidebar" class="thing-container">
     <ul>
         <slot></slot>
     </ul>

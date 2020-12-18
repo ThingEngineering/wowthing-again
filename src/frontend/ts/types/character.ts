@@ -1,6 +1,6 @@
 import type {Dictionary} from './dictionary'
 
-export class Character {
+class Character {
     name: string
     realmId: number
     faction: number
@@ -9,10 +9,11 @@ export class Character {
     classId: number
     level: number
     equippedItemLevel: number
+    calculatedItemLevel: string
 
     accountId?: number
 
-    equippedItems: CharacterEquippedItem[]
+    equippedItems: Dictionary<CharacterEquippedItem>
     reputations: Dictionary<number>
     shadowlands?: CharacterShadowlands
 }
@@ -32,4 +33,9 @@ class CharacterShadowlands {
     covenantId: number
     renownLevel: number
     soulbindId: number
+}
+
+export {
+    Character,
+    CharacterEquippedItem
 }

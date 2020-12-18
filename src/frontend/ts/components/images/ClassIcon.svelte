@@ -6,9 +6,6 @@
 
   export let character: Character
   export let size: number
-
-  $: name = $data.Classes[character.classId].Icon
-  $: tooltip = $data.Classes[character.classId].Name
 </script>
 
-<WowthingImage name={name} size={size} tooltip={tooltip} border=1 />
+<WowthingImage name={$data.Classes[character.classId].Icon} {size} tooltip={$data.Classes[character.classId].Name} border=1 />
