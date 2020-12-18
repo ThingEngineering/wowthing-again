@@ -1,0 +1,12 @@
+.table-striped {
+    tbody {
+        tr:nth-child(odd) {
+            background: $table-striped-background;
+        }
+        tr:not(:last-child) {
+            td {
+                border-bottom: 1px solid $border-color;
+            }
+        }
+    }
+}

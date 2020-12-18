@@ -2,6 +2,7 @@ import { writable } from 'svelte/store'
 
 import {Character, UserData} from '../types'
 import fetch_json from '../utils/fetch-json'
+import initializeUser from '../utils/initialize-user'
 
 
 export const error = writable(false)
@@ -23,6 +24,8 @@ export const fetch = async function() {
         return a.name.localeCompare(b.name)
     })
     temp.characters = characters
+
+    initializeUser(temp)
 
     data.set(temp as UserData)
     loading.set(false)

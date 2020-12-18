@@ -15,14 +15,8 @@
 <style lang="scss">
     @import '../../../scss/variables.scss';
 
-    .section {
-        background: $thing-background;
-        border: 1px solid $border-color;
-        border-radius: $thing-border-radius;
-
-        & + .section {
-            margin-top: 1rem;
-        }
+    .section + .section {
+        margin-top: 1rem;
     }
     h3 {
         margin: 0;
@@ -30,8 +24,8 @@
         width: 100%;
         background: $highlight-background;
         border-bottom: 1px solid $border-color;
-        border-top-left-radius: $thing-border-radius;
-        border-top-right-radius: $thing-border-radius;
+        border-top-left-radius: $border-radius;
+        border-top-right-radius: $border-radius;
     }
     span {
         font-size: 0.9rem;
@@ -46,7 +40,7 @@
 </style>
 
 {#each sections as section}
-    <div class="section">
+    <div class="section thing-container">
         {#if section.Name}
             <h3>{section.Name} <span>[ <CollectionCount counts={$userData.setCounts[route][`${slug}_${section.Slug}`]} /> ]</span></h3>
         {/if}

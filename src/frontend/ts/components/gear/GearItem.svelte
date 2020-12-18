@@ -7,12 +7,14 @@
     export let inventorySlot: InventorySlot
 
     $: equipped = character.equippedItems[inventorySlot]
+    $: console.log(equipped, equipped !== undefined ? equipped.url : '<undefined>')
 </script>
 
 <style lang="scss">
     @import "scss/variables.scss";
 
     td {
+        padding: 2px;
         text-align: center;
         width: 46px;
     }
@@ -22,7 +24,7 @@
         width: 44px;
     }
     div :global(img) {
-        border-radius: $thing-border-radius;
+        border-radius: $border-radius;
         border-width: 2px;
     }
     span {
@@ -45,7 +47,7 @@
 <td>
     {#if equipped !== undefined}
         <div>
-            <a class="quality{equipped.quality}" href="https://www.wowdb.com">
+            <a class="quality{equipped.quality}" href="{equipped.url}">
                 <WowthingImage size="40" name="item/{equipped.itemId}" border="2" />
                 <span>{equipped.itemLevel}</span>
             </a>
