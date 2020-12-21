@@ -9,6 +9,7 @@
     import TableItemLevel from '../common/TableItemLevel.svelte'
     import ClassIcon from '../images/ClassIcon.svelte'
     import RaceIcon from '../images/RaceIcon.svelte'
+    import TableCharacterName from '../common/TableCharacterName.svelte'
 
     afterUpdate(() => {
         if (window.__tip) {
@@ -23,6 +24,9 @@
     div {
         padding: 0 0.5rem;
     }
+    .spacer {
+        width: 0.5rem;
+    }
 </style>
 
 <div class="thing-container">
@@ -30,11 +34,9 @@
         <tbody>
             {#each $userData.characters as character}
                 <tr class="{character.faction === 0 ? 'faction0' : 'faction1'}">
-                    <td><RaceIcon character={character} size=20 /></td>
-                    <td><ClassIcon character={character} size=20 /></td>
-                    <td>{character.name}</td>
-                    <td>&mdash; {getRealmName(character.realmId)}</td>
+                    <TableCharacterName {character} />
                     <TableItemLevel {character} />
+                    <td class="spacer"></td>
                     {#each slotOrder as inventorySlot}
                         <GearItem {character} {inventorySlot} />
                     {/each}
