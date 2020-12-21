@@ -71,11 +71,11 @@
         padding: 0.2rem 0.3rem;
     }
     .level {
-        left: 25px;
+        left: 27px;
         transform: translateX(-50%);
     }
     .item-level {
-        right: 25px;
+        right: 27px;
         transform: translateX(50%);
     }
     .name {
