@@ -11,7 +11,17 @@
 <body>
     <header>
         <nav class="nav">
-            <ul></ul>
+            <ul>
+                <li class="header-title">
+                    <a href="/">WoWthing</a>
+                </li>
+                @if (User.Identity.IsAuthenticated)
+                {
+                <li>
+                    <a asp-controller="User" asp-action="Index" asp-route-username="@User.Identity.Name">Home</a>
+                </li>
+                }
+            </ul>
             <ul>
                 @if (User.Identity.IsAuthenticated)
                 {
