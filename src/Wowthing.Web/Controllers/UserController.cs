@@ -30,7 +30,7 @@ namespace Wowthing.Web.Controllers
         public async Task<IActionResult> Index([FromRoute] string username)
         {
             var user = await _userManager.FindByNameAsync(username);
-            if (user == null)
+            if (user == null || !user.Settings.Privacy.Public)
             {
                 return NotFound();
             }
