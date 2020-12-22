@@ -1,5 +1,7 @@
 import crypto from 'crypto'
 import fs from 'fs'
+import path from 'path'
+import map from 'lodash/map'
 
 import rimraf from 'rimraf'
 import commonjs from '@rollup/plugin-commonjs'
@@ -14,69 +16,81 @@ import autoPreprocess from 'svelte-preprocess'
 
 const production = !process.env.ROLLUP_WATCH
 const distPath = '../Wowthing.Web/wwwroot/dist'
+const buildMe = ['home', 'teams']
+
 
 // Ensure distPath exists and is relatively empty
 fs.mkdirSync(distPath, { recursive: true })
-rimraf.sync(`${distPath}/main*`)
 
+buildMe.forEach((baseName) => rimraf.sync(path.join(distPath, `${baseName}.*`)))
 
-export default {
-    input: 'ts/main.ts',
-    output: {
-        sourcemap: !production,
-        format: 'iife',
-        name: 'app',
-        dir: distPath,
-        entryFileNames: production ? '[name].[hash].js' : '[name].dev.js',
-    },
-    plugins: [
-        svelte({
-            compilerOptions: {
-                // enable run-time checks when not in production
-                dev: !production,
-            },
-            preprocess: autoPreprocess(),
-        }),
-        css({
-            output: (css, styleNodes) => {
-                let outputPath = 'main.dev.css';
-                if (production) {
-                    const hash = crypto.createHash('md5')
-                        .update(css)
-                        .digest('hex')
-                        .substr(0, 8)
-                    outputPath = `main.${hash}.css`
-                }
-                fs.writeFileSync(`${distPath}/${outputPath}`, css)
-            },
-        }),
-        replace({
-            'process.env.NODE_ENV': JSON.stringify(production ? 'production' : 'development'),
-        }),
-        resolve({
-            browser: true,
-            dedupe: ['svelte']
-        }),
-        commonjs(),
-        typescript({
-            cacheDir: '.tscache',
-            sourceMap: !production,
-            inlineSources: !production
-        }),
-
-        // Watch the `dist` directory and refresh the
-        // browser on changes when not in production
-        //!production && livereload(distPath),
-
-        // If we're building for production (npm run build
-        // instead of npm run dev), minify
-        production && terser(),
-    ],
-    watch: {
-        include: ['scss/**/*', 'ts/**/*'],
-        chokidar: {
-            usePolling: true,
+const sigh = function(baseName) {
+    return {
+        input: path.join('ts', `${baseName}.ts`),
+        output: {
+            sourcemap: !production,
+            format: 'iife',
+            name: 'app',
+            dir: distPath,
+            entryFileNames: production ? '[name].[hash].js' : '[name].dev.js',
         },
-        clearScreen: false
+        plugins: [
+            svelte({
+                compilerOptions: {
+                    // enable run-time checks when not in production
+                    dev: !production,
+                },
+                preprocess: autoPreprocess(),
+            }),
+            css({
+                output: (css, styleNodes) => {
+                    let outputPath = `${baseName}.dev.css`;
+                    if (production) {
+                        const hash = crypto.createHash('md5')
+                            .update(css)
+                            .digest('hex')
+                            .substr(0, 8)
+                        outputPath = `${baseName}.${hash}.css`
+                    }
+                    fs.writeFileSync(path.join(distPath, outputPath), css)
+                },
+            }),
+            replace({
+                'process.env.NODE_ENV': JSON.stringify(production ? 'production' : 'development'),
+            }),
+            resolve({
+                browser: true,
+                dedupe: ['svelte']
+            }),
+            commonjs(),
+            typescript({
+                cacheDir: '.tscache',
+                sourceMap: !production,
+                inlineSources: !production
+            }),
+
+            // Watch the `dist` directory and refresh the
+            // browser on changes when not in production
+            //!production && livereload(distPath),
+
+            // If we're building for production (npm run build
+            // instead of npm run dev), minify
+            production && terser(),
+        ],
+        watch: {
+            include: ['scss/**/*', 'ts/**/*'],
+            chokidar: {
+                usePolling: true,
+            },
+            clearScreen: false
+        }
     }
 }
+
+const buildAll = (function () {
+    return map(buildMe, (basePath) => sigh(basePath))
+})()
+
+console.log(buildAll)
+
+export default buildAll
