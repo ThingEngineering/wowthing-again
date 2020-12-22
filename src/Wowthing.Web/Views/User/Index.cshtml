@@ -3,6 +3,11 @@
     ViewData["Title"] = Model.User.UserName;
 }
 
+@section scripts
+{
+    <script type="text/javascript" asp-src-include="~/dist/home.*js"></script>
+}
+
 <div id="app"
      data-static="@Url.Action("StaticData", "Api", new { hash = Model.StaticHash })"
      data-user="@Url.Action("UserData", "Api", new { username = Model.User.UserName })">

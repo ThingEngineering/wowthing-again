@@ -6,7 +6,7 @@
     <title>@ViewData["Title"] - WoWthing</title>
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="stylesheet" asp-href-include="~/dist/main.*css" />
+    <link rel="stylesheet" asp-href-include="~/dist/home.*css" />
 </head>
 <body>
     <header>
@@ -33,7 +33,7 @@
                 else
                 {
                     <li>
-                        <a asp-controller="Authentication" asp-action="Login">Login with Battle.Net</a>
+                        <a asp-controller="Authentication" asp-action="Login">Login/Register with Battle.Net</a>
                     </li>
                 }
             </ul>
@@ -59,8 +59,7 @@
         </footer>
     </main>
 
-    <script type="text/javascript" src="//www.wowdb.com/current/js/syndication/tt.js"></script>
-    <script type="text/javascript" asp-src-include="~/dist/main.*js"></script>
-    @RenderSection("Scripts", required: false)
+    <script type="text/javascript" src="https://www.wowdb.com/current/js/syndication/tt.js"></script>
+    @RenderSection("scripts", required: false)
 </body>
 </html>
