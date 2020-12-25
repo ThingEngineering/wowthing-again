@@ -23,9 +23,9 @@ namespace Wowthing.Lib.Extensions
             return value == null ? null : JsonConvert.DeserializeObject<T>(value);
         }
 
-        public static async Task<bool> JsonSetAsync<T>(this IDatabase db, string key, T obj)
+        public static async Task<bool> JsonSetAsync<T>(this IDatabase db, string key, T obj, TimeSpan? expiry = null)
         {
-            return await db.StringSetAsync(key, JsonConvert.SerializeObject(obj));
+            return await db.StringSetAsync(key, JsonConvert.SerializeObject(obj), expiry);
         }
 
         public static async Task<string[]> StringMultiGetAsync(this IDatabase db, IEnumerable<string> keys)
