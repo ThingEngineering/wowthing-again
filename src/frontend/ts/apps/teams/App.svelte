@@ -1,10 +1,10 @@
 <script lang="ts">
     import {onMount} from 'svelte'
 
-    import {error as staticError, loading as staticLoading, fetch as fetchStatic} from '../stores/static-store'
-    import {error as teamError, loading as teamLoading, fetch as fetchTeam} from '../stores/team-store'
+    import {error as staticError, loading as staticLoading, fetch as fetchStatic} from '../../stores/static-store'
+    import {error as teamError, loading as teamLoading, fetch as fetchTeam} from '../../stores/team-store'
 
-    import Team from '../components/team/Team.svelte'
+    import Team from '../../components/team/Team.svelte'
 
     onMount(() => fetchStatic())
     onMount(() => fetchTeam())
