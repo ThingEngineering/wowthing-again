@@ -1,6 +1,6 @@
-import Home from './apps/Home.svelte'
+import App from './apps/home/App.svelte'
 
 const target = document.querySelector('#app');
-const app = target ? new Home({ target }) : null
+const app = target ? new App({ target }) : null
 
 export default app

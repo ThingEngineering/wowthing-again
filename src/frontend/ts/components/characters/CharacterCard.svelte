@@ -1,12 +1,12 @@
 <script lang="ts">
-    import {data as userData} from '../../../stores/user-store'
-    import {Character} from '../../../types'
-    import getRealmName from '../../../utils/get-realm-name'
-    import tippy from '../../../utils/tippy'
+    import {data as userData} from '../../stores/user-store'
+    import {Character} from '../../types'
+    import getRealmName from '../../utils/get-realm-name'
+    import tippy from '../../utils/tippy'
 
-    import ClassIcon from '../../images/ClassIcon.svelte'
-    import RaceIcon from '../../images/RaceIcon.svelte'
-    import CharacterShadowlands from '../CharacterCovenant.svelte'
+    import ClassIcon from '../images/ClassIcon.svelte'
+    import RaceIcon from '../images/RaceIcon.svelte'
+    import CharacterShadowlands from './CharacterCovenant.svelte'
 
     export let character: Character
 
@@ -15,7 +15,7 @@
 </script>
 
 <style lang="scss">
-    @import "../../../../scss/variables.scss";
+    @import "../../../scss/variables.scss";
 
     article {
         background: $thing-background;

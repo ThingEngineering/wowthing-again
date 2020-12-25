@@ -5,7 +5,7 @@
 
     import {data as userData} from '../../stores/user-store'
     import CollectionCount from './CollectionCount.svelte'
-    import SubSidebar from '../common/SubSidebar.svelte'
+    import Sidebar from '../common/Sidebar.svelte'
 
     const {route, sets} = getContext('collection')
 </script>
@@ -15,10 +15,6 @@
 
     li {
         position: relative;
-    }
-    .separator {
-        border-top: 1px solid $border-color;
-        margin-top: 0.5rem;
     }
     a {
         display: block;
@@ -40,7 +36,7 @@
     }
 </style>
 
-<SubSidebar>
+<Sidebar width="14rem">
     {#each sets as categories}
         {#if categories}
             <li use:active={`/${route}/${categories[0].Slug}`}>
@@ -53,4 +49,4 @@
             <li class="separator"></li>
         {/if}
     {/each}
-</SubSidebar>
+</Sidebar>

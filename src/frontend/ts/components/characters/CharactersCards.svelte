@@ -1,11 +1,11 @@
 <script lang="ts">
-    import {data} from '../../../stores/user-store'
+    import {data} from '../../stores/user-store'
 
-    import Character from './Character.svelte'
+    import CharacterCard from './CharacterCard.svelte'
 </script>
 
 <style lang="scss">
-    @import "../../../../scss/variables.scss";
+    @import "../../../scss/variables.scss";
 
     section {
         align-items: flex-start;
@@ -19,6 +19,6 @@
 
 <section>
     {#each $data.characters as character}
-        <Character character={character} />
+        <CharacterCard character={character} />
     {/each}
 </section>

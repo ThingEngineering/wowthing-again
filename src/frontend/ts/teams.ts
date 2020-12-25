@@ -1,6 +1,6 @@
-import Teams from './apps/Teams.svelte'
+import App from './apps/teams/App.svelte'
 
 const target = document.querySelector('#app');
-const app = target ? new Teams({ target }) : null
+const app = target ? new App({ target }) : null
 
 export default app
