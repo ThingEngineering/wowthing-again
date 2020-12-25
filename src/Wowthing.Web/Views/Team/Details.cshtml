@@ -1,0 +1,18 @@
+﻿@model TeamViewModel
+@{
+    ViewData["Title"] = Model.Team.Name;
+}
+
+@section head
+{
+    <link rel="stylesheet" asp-href-include="~/dist/teams.*css" />
+}
+
+@section scripts
+{
+    <script type="text/javascript" asp-src-include="~/dist/teams.*js"></script>
+}
+
+<div id="app"
+     data-static="@Url.Action("StaticData", "Api", new { hash = Model.StaticHash })"
+     data-team="@Url.Action("TeamData", "Api", new { guid = Model.Team.Guid })"></div>

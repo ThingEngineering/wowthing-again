@@ -14,6 +14,8 @@ namespace Wowthing.Lib.Contexts
     {
         private readonly string _connectionString;
 
+        public DbSet<ApplicationUser> ApplicationUser { get; set; }
+
         public DbSet<WowClass> WowClass { get; set; }
         public DbSet<WowPeriod> WowPeriod { get; set; }
         public DbSet<WowRace> WowRace { get; set; }

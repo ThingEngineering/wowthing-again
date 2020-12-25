@@ -45,6 +45,24 @@ namespace Wowthing.Web.Controllers
             return Content(await db.StringGetAsync("cached_static:data"), "application/json");
         }
 
+        [HttpGet("team/{guid:guid}")]
+        public async Task<IActionResult> TeamData([FromRoute] Guid guid)
+        {
+            var team = await _context.Team
+                .Include(t => t.Characters)
+                    .ThenInclude(c => c.Character)
+                    .ThenInclude(c => c.EquippedItems)
+                .FirstOrDefaultAsync(t => t.Guid == guid);
+            if (team == null)
+            {
+                return NotFound();
+            }
+
+            var data = new TeamApi(_context, team);
+
+            return Ok(data);
+        }
+
         [HttpGet("user/{username:username}")]
         public async Task<IActionResult> UserData([FromRoute] string username)
         {
@@ -92,7 +110,7 @@ namespace Wowthing.Web.Controllers
             var apiData = new UserApi
             {
                 Accounts = accounts,
-                Characters = await characterQuery.Select(c => new UserApiCharacter(c, pub, anon)).ToListAsync(),
+                Characters = await characterQuery.Select(c => new UserApiCharacter(_context, c, pub, anon)).ToListAsync(),
                 Mounts = mounts.ToDictionary(k => k, v => 1),
             };
 
