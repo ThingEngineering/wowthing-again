@@ -82,6 +82,10 @@ namespace Wowthing.Lib.Contexts
                 .HasIndex(c => new { c.RealmId, c.Name })
                 .IsUnique(true);
 
+            builder.Entity<Team>()
+                .HasIndex(t => new { t.Guid })
+                .IsUnique(true);
+
             // Explicitly update WowCharacter table if related WowAccount is deleted
             builder.Entity<PlayerCharacter>()
                 .HasOne(c => c.Account)

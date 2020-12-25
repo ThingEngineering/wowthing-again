@@ -12,6 +12,10 @@ namespace Wowthing.Lib.Models
         [Key]
         public int Id { get; set; }
 
+        [ForeignKey("Team")]
+        public int TeamId { get; set; }
+        public Team Team { get; set; }
+
         [ForeignKey("Character")]
         public int CharacterId { get; set; }
         public PlayerCharacter Character { get; set; }
