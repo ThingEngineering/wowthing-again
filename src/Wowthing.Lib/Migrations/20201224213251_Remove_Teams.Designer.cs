@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
@@ -11,9 +12,10 @@ using Wowthing.Lib.Models;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    partial class WowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201224213251_Remove_Teams")]
+    partial class Remove_Teams
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -559,95 +561,6 @@ namespace Wowthing.Lib.Migrations
                     b.ToTable("scheduler_character_query");
                 });
 
-            modelBuilder.Entity("Wowthing.Lib.Models.Team", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("DefaultRealmId")
-                        .HasColumnName("default_realm_id")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Description")
-                        .HasColumnName("description")
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("Guid")
-                        .HasColumnName("guid")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Name")
-                        .HasColumnName("name")
-                        .HasColumnType("text");
-
-                    b.Property<int>("Region")
-                        .HasColumnName("region")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Slug")
-                        .HasColumnName("slug")
-                        .HasColumnType("text");
-
-                    b.Property<long>("UserId")
-                        .HasColumnName("user_id")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id")
-                        .HasName("pk_team");
-
-                    b.HasIndex("Guid")
-                        .IsUnique()
-                        .HasName("ix_team_guid");
-
-                    b.HasIndex("UserId")
-                        .HasName("ix_team_user_id");
-
-                    b.ToTable("team");
-                });
-
-            modelBuilder.Entity("Wowthing.Lib.Models.TeamCharacter", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<int>("CharacterId")
-                        .HasColumnName("character_id")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Note")
-                        .HasColumnName("note")
-                        .HasColumnType("text");
-
-                    b.Property<int>("PrimaryRole")
-                        .HasColumnName("primary_role")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("SecondaryRole")
-                        .HasColumnName("secondary_role")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("TeamId")
-                        .HasColumnName("team_id")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id")
-                        .HasName("pk_team_character");
-
-                    b.HasIndex("CharacterId")
-                        .HasName("ix_team_character_character_id");
-
-                    b.HasIndex("TeamId")
-                        .HasName("ix_team_character_team_id");
-
-                    b.ToTable("team_character");
-                });
-
             modelBuilder.Entity("Wowthing.Lib.Models.WowClass", b =>
                 {
                     b.Property<int>("Id")
@@ -926,33 +839,6 @@ namespace Wowthing.Lib.Migrations
                         .WithOne("Shadowlands")
                         .HasForeignKey("Wowthing.Lib.Models.PlayerCharacterShadowlands", "CharacterId")
                         .HasConstraintName("fk_player_character_shadowlands_player_character_character_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Wowthing.Lib.Models.Team", b =>
-                {
-                    b.HasOne("Wowthing.Lib.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .HasConstraintName("fk_team_application_user_user_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Wowthing.Lib.Models.TeamCharacter", b =>
-                {
-                    b.HasOne("Wowthing.Lib.Models.PlayerCharacter", "Character")
-                        .WithMany()
-                        .HasForeignKey("CharacterId")
-                        .HasConstraintName("fk_team_character_player_character_character_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Wowthing.Lib.Models.Team", "Team")
-                        .WithMany("Characters")
-                        .HasForeignKey("TeamId")
-                        .HasConstraintName("fk_team_character_team_team_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
