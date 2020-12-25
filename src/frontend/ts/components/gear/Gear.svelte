@@ -1,15 +1,11 @@
 <script lang="ts">
     import {afterUpdate} from 'svelte'
 
-    import {slotOrder} from '../../data/inventory-slot'
     import {data as userData} from '../../stores/user-store'
-    import getRealmName from '../../utils/get-realm-name'
 
-    import GearItem from './GearItem.svelte'
-    import TableItemLevel from '../common/TableItemLevel.svelte'
-    import ClassIcon from '../images/ClassIcon.svelte'
-    import RaceIcon from '../images/RaceIcon.svelte'
+    import GearItems from './GearItems.svelte'
     import TableCharacterName from '../common/TableCharacterName.svelte'
+    import TableItemLevel from '../common/TableItemLevel.svelte'
 
     afterUpdate(() => {
         if (window.__tip) {
@@ -24,9 +20,6 @@
     div {
         padding: 0 0.5rem;
     }
-    .spacer {
-        width: 0.5rem;
-    }
 </style>
 
 <div class="thing-container">
@@ -36,10 +29,7 @@
                 <tr class="{character.faction === 0 ? 'faction0' : 'faction1'}">
                     <TableCharacterName {character} />
                     <TableItemLevel {character} />
-                    <td class="spacer"></td>
-                    {#each slotOrder as inventorySlot}
-                        <GearItem {character} {inventorySlot} />
-                    {/each}
+                    <GearItems {character} />
                 </tr>
             {/each}
         </tbody>

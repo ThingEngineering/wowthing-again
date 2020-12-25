@@ -47,6 +47,7 @@ namespace Wowthing.Web
 
             services.AddRouting(options =>
             {
+                options.ConstraintMap.Add("slug", typeof(SlugRouteConstraint));
                 options.ConstraintMap.Add("username", typeof(UsernameRouteConstraint));
             });
 

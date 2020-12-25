@@ -6,8 +6,6 @@
 </script>
 
 <style lang="scss">
-    @import "../../../scss/variables.scss";
-
     div {
         padding: 0 0.5rem;
     }
