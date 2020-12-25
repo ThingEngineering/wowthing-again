@@ -4,6 +4,8 @@
     import {error as staticError, loading as staticLoading, fetch as fetchStatic} from '../../stores/static-store'
     import {error as teamError, loading as teamLoading, fetch as fetchTeam} from '../../stores/team-store'
 
+    import Routes from './Routes.svelte'
+    import Sidebar from './Sidebar.svelte'
     import Team from '../../components/team/Team.svelte'
 
     onMount(() => fetchStatic())
@@ -14,10 +16,13 @@
     //@import "../../scss/global.scss";
 </style>
 
+<Sidebar />
 {#if $staticError || $teamError}
     <p>KABOOM! Something has gone horribly wrong, try reloading the page?</p>
 {:else if $staticLoading || $teamLoading}
     <p>L O A D I N G</p>
 {:else}
-    <Team />
+    <Team>
+        <Routes />
+    </Team>
 {/if}

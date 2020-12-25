@@ -7,17 +7,12 @@
 </script>
 
 <style lang="scss">
-    div {
-        padding: 0.5rem;
-    }
 </style>
 
-<div class="thing-container">
-    <h2>[flag] { $teamData.name }</h2>
-    <p>{ $teamData.description }</p>
-    <table class="table-striped">
-        <tbody>
-            <slot></slot>
-        </tbody>
-    </table>
-</div>
+{#each $teamData.characters as teamCharacter}
+    <tr class="faction{teamCharacter.character.faction}">
+        <TableCharacterName character={teamCharacter.character} />
+        <TableItemLevel character={teamCharacter.character} />
+        <GearItems character={teamCharacter.character} />
+    </tr>
+{/each}
