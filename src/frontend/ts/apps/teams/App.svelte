@@ -6,7 +6,6 @@
 
     import Routes from './Routes.svelte'
     import Sidebar from './Sidebar.svelte'
-    import Team from '../../components/team/Team.svelte'
 
     onMount(() => fetchStatic())
     onMount(() => fetchTeam())
@@ -22,7 +21,5 @@
 {:else if $staticLoading || $teamLoading}
     <p>L O A D I N G</p>
 {:else}
-    <Team>
-        <Routes />
-    </Team>
+    <Routes />
 {/if}

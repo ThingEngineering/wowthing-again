@@ -13,11 +13,6 @@
 <style lang="scss">
     @import "scss/variables.scss";
 
-    td {
-        padding: 2px;
-        text-align: center;
-        width: 46px;
-    }
     div {
         height: 44px;
         position: relative;
@@ -44,15 +39,13 @@
     }
 </style>
 
-<td>
-    {#if equipped !== undefined}
-        <div>
-            <a class="quality{equipped.quality}" href="{getItemUrl(equipped)}">
-                <WowthingImage size="40" name="item/{equipped.itemId}" border="2" />
-                <span>{equipped.itemLevel}</span>
-            </a>
-        </div>
-    {:else}
-        &nbsp;
-    {/if}
-</td>
+{#if equipped !== undefined}
+    <div>
+        <a class="quality{equipped.quality}" href="{getItemUrl(equipped)}">
+            <WowthingImage size="40" name="item/{equipped.itemId}" border="2" />
+            <span>{equipped.itemLevel}</span>
+        </a>
+    </div>
+{:else}
+    &nbsp;
+{/if}

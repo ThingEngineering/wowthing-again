@@ -9,6 +9,7 @@ export class TeamData {
     characters: TeamDataCharacter[]
 }
 
-class TeamDataCharacter {
+export class TeamDataCharacter {
     character: Character
+    note: string
 }

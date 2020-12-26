@@ -11,7 +11,7 @@
 
 {#each $teamData.characters as teamCharacter}
     <tr class="faction{teamCharacter.character.faction}">
-        <TableCharacterName character={teamCharacter.character} />
+        <TableCharacterName character={teamCharacter.character} note={teamCharacter.note} />
         <TableItemLevel character={teamCharacter.character} />
         <GearItems character={teamCharacter.character} />
     </tr>

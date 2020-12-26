@@ -1,9 +1,14 @@
 <script lang="ts">
+    import {location} from 'svelte-spa-router'
+
     import {data as teamData} from '../../stores/team-store'
 
-    import TableCharacterName from '../common/TableCharacterName.svelte'
+    import CharacterName from './CharacterName.svelte'
+    import CharacterNote from './CharacterNote.svelte'
     import TableItemLevel from '../common/TableItemLevel.svelte'
     import GearItems from '../gear/GearItems.svelte'
+    import ClassIcon from '../images/ClassIcon.svelte'
+    import RaceIcon from '../images/RaceIcon.svelte'
 </script>
 
 <style lang="scss">
@@ -15,9 +20,25 @@
 <div class="thing-container">
     <h2>[flag] { $teamData.name }</h2>
     <p>{ $teamData.description }</p>
-    <table class="table-striped">
+    <table class="table-striped2">
         <tbody>
-            <slot></slot>
+            {#each $teamData.characters as teamCharacter}
+                <tr class="faction{teamCharacter.character.faction}">
+                    <td>
+                        <RaceIcon character={teamCharacter.character} size=20 />
+                        <ClassIcon character={teamCharacter.character} size=20 />
+                    </td>
+                    <CharacterName {teamCharacter} />
+                    <TableItemLevel character={teamCharacter.character} />
+                    {#if $location === '/' || $location === '/gear'}
+                        <GearItems character={teamCharacter.character} rowspan=2 />
+                    {/if}
+                </tr>
+                <tr class="faction{teamCharacter.character.faction}">
+                    <td></td>
+                    <CharacterNote {teamCharacter} />
+                </tr>
+            {/each}
         </tbody>
     </table>
 </div>
