@@ -10,3 +10,17 @@
         }
     }
 }
+
+.table-striped2 {
+    tbody {
+        tr:nth-child(4n+1),
+        tr:nth-child(4n+2) {
+            background: $table-striped-background;
+        }
+        tr:nth-child(2n):not(:last-child) {
+            td {
+                border-bottom: 1px solid $border-color;
+            }
+        }
+    }
+}

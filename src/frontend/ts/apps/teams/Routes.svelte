@@ -1,11 +1,13 @@
 <script lang="ts">
     import Router from 'svelte-spa-router'
 
-    import Gear from '../../components/team/Gear.svelte'
+    import Team from '../../components/team/Team.svelte'
 
+    // TODO: this is pretty jank, come up with a better way to do this
     const routes = {
-        '/': Gear,
-        '/gear': Gear,
+        '/': Team,
+        '/gear': Team,
+        '/mythic-plus': Team,
     }
 </script>
 

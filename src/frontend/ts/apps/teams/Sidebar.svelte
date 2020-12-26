@@ -11,7 +11,7 @@
     <li use:active={'/gear'}>
         <a href="#/gear">Gear</a>
     </li>
-    <li use:active={'/mythicplus'}>
-        <a href="#/mythicplus">Mythic+</a>
+    <li use:active={'/mythic-plus'}>
+        <a href="#/mythic-plus">Mythic+</a>
     </li>
 </Sidebar>
