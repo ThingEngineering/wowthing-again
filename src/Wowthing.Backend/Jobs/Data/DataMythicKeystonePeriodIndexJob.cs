@@ -35,7 +35,7 @@ namespace Wowthing.Backend.Jobs.Data
                     return;
                 }
 
-                foreach (var period in result.Data.Periods.TakeLast(3))
+                foreach (var period in result.Data.Periods.TakeLast(5))
                 {
                     // Absolute garbage API design on Blizzard's part, cool
                     await _jobRepository.AddJobAsync(JobPriority.High, JobType.DataMythicKeystonePeriod, region.ToString(), period.Id.ToString());

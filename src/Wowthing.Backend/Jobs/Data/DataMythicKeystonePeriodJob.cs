@@ -34,7 +34,7 @@ namespace Wowthing.Backend.Jobs.Data
 
             // Fetch existing data
             var period = await _context.WowPeriod.FirstOrDefaultAsync(p => p.Region == region && p.Id == periodId);
-            if (period != null)
+            if (period == null)
             {
                 period = new WowPeriod
                 {
