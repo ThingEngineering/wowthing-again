@@ -10,6 +10,7 @@ class Character {
     level: number
     equippedItemLevel: number
     calculatedItemLevel: string
+    calculatedItemLevelQuality: number
 
     accountId?: number
 

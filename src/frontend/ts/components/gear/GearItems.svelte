@@ -5,7 +5,7 @@
     import GearItem from './GearItem.svelte'
 
     export let character: Character
-    export let rowspan: number
+    export let rowspan: number = undefined
 </script>
 
 <style lang="scss">
