@@ -4,9 +4,9 @@
     import getRealmName from '../../utils/get-realm-name'
     import tippy from '../../utils/tippy'
 
+    import CharacterCovenant from './CharacterCovenant.svelte'
     import ClassIcon from '../images/ClassIcon.svelte'
     import RaceIcon from '../images/RaceIcon.svelte'
-    import CharacterShadowlands from './CharacterCovenant.svelte'
 
     export let character: Character
 
@@ -26,8 +26,8 @@
         position: relative;
         text-align: center;
 
-        &.disabled {
-            opacity: 0.5;
+        &.inactive {
+            opacity: 0.3;
         }
         &.faction0 {
             background: mix($thing-background, $alliance-border, 90%);
@@ -43,11 +43,11 @@
         border: 1px solid lighten($border-color, 20%);
         border-radius: 8px;
         font-size: 0.8rem;
-        left: 0;
+        left: -1px;
         line-height: 1;
         padding: 0.2rem 0.3rem;
         position: absolute;
-        top: 0;
+        top: -1px;
         z-index: 10;
     }
     .icons {
@@ -82,11 +82,12 @@
         margin-top: 0.6rem;
     }
     .realm {
+        color: #cbcdcf;
         font-size: 0.9rem;
     }
 </style>
 
-<article class:faction0={character.faction === 0} class:faction1={character.faction === 1} class:disabled={!accountEnabled}>
+<article class:faction0={character.faction === 0} class:faction1={character.faction === 1} class:inactive={!accountEnabled}>
     {#if accountTag}
         <div class="tag">{accountTag}</div>
     {/if}
@@ -94,13 +95,11 @@
         <RaceIcon size="48" character={character} />
         <ClassIcon size="48" character={character} />
         <div class="level" use:tippy={{content: `Level ${character.level}`}}>{character.level}</div>
-        <div class="item-level" use:tippy={{content: `Item Level ${character.equippedItemLevel}`}}>⚔{character.equippedItemLevel}</div>
+        <div class="item-level quality{character.calculatedItemLevelQuality}" use:tippy={{content: `Item Level ${character.equippedItemLevel}`}}>{character.calculatedItemLevel}</div>
     </div>
     <div class="name">{character.name}</div>
     <div class="realm">{getRealmName(character.realmId)}</div>
     {#if character.shadowlands}
-        <div class="covenant">
-            <CharacterShadowlands character={character} />
-        </div>
+        <CharacterCovenant character={character} />
     {/if}
 </article>

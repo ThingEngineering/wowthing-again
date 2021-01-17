@@ -5,7 +5,7 @@
 
     import CharacterName from './CharacterName.svelte'
     import CharacterNote from './CharacterNote.svelte'
-    import TableItemLevel from '../common/TableItemLevel.svelte'
+    import CharacterCovenant from '../characters/CharacterCovenant.svelte'
     import GearItems from '../gear/GearItems.svelte'
     import ClassIcon from '../images/ClassIcon.svelte'
     import RaceIcon from '../images/RaceIcon.svelte'
@@ -14,6 +14,9 @@
 <style lang="scss">
     div {
         padding: 0.5rem;
+    }
+    .item-level {
+        padding-left: 0.5rem;
     }
 </style>
 
@@ -29,14 +32,17 @@
                         <ClassIcon character={teamCharacter.character} size=20 />
                     </td>
                     <CharacterName {teamCharacter} />
-                    <TableItemLevel character={teamCharacter.character} />
+                    <td class="item-level quality{teamCharacter.character.calculatedItemLevelQuality}">{teamCharacter.character.calculatedItemLevel}</td>
                     {#if $location === '/' || $location === '/gear'}
                         <GearItems character={teamCharacter.character} rowspan=2 />
                     {/if}
                 </tr>
                 <tr class="faction{teamCharacter.character.faction}">
-                    <td></td>
+                    <td>Roles</td>
                     <CharacterNote {teamCharacter} />
+                    <td>
+                        <CharacterCovenant character={teamCharacter.character} />
+                    </td>
                 </tr>
             {/each}
         </tbody>

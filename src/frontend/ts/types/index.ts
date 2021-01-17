@@ -1,5 +1,6 @@
 export * from './account'
 export * from './character'
+export * from './covenant'
 export * from './dictionary'
 export * from './reputation-tier'
 export * from './static-data'
