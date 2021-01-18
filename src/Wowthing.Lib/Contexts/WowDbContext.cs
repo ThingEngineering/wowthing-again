@@ -22,11 +22,14 @@ namespace Wowthing.Lib.Contexts
         public DbSet<WowRealm> WowRealm { get; set; }
         public DbSet<WowReputation> WowReputation { get; set; }
         public DbSet<WowReputationTier> WowReputationTier { get; set; }
+        public DbSet<WowMythicPlusSeason> WowMythicPlusSeason { get; set; }
         public DbSet<WowTitle> WowTitle { get; set; }
 
         public DbSet<PlayerAccount> PlayerAccount { get; set; }
         public DbSet<PlayerCharacter> PlayerCharacter { get; set; }
         public DbSet<PlayerCharacterEquippedItem> PlayerCharacterEquippedItem { get; set; }
+        public DbSet<PlayerCharacterMythicPlus> PlayerCharacterMythicPlus { get; set; }
+        public DbSet<PlayerCharacterMythicPlusSeason> PlayerCharacterMythicPlusSeason { get; set; }
         public DbSet<PlayerCharacterQuests> PlayerCharacterQuests { get; set; }
         public DbSet<PlayerCharacterReputations> PlayerCharacterReputations { get; set; }
         public DbSet<PlayerCharacterShadowlands> PlayerCharacterShadowlands { get; set; }
@@ -72,8 +75,14 @@ namespace Wowthing.Lib.Contexts
             builder.Entity<PlayerCharacterEquippedItem>()
                 .HasKey(ei => new { ei.CharacterId, ei.InventorySlot });
 
+            builder.Entity<PlayerCharacterMythicPlusSeason>()
+                .HasKey(mps => new { mps.CharacterId, mps.Season });
+
             builder.Entity<WowPeriod>()
                 .HasKey(p => new { p.Region, p.Id });
+
+            builder.Entity<WowMythicPlusSeason>()
+                .HasKey(s => new { s.Region, s.Id });
 
             // Unique indexes
             builder.Entity<PlayerAccount>()
@@ -87,6 +96,9 @@ namespace Wowthing.Lib.Contexts
             builder.Entity<Team>()
                 .HasIndex(t => new { t.Guid })
                 .IsUnique(true);
+
+            // Relationships
+
 
             // Explicitly update WowCharacter table if related WowAccount is deleted
             builder.Entity<PlayerCharacter>()

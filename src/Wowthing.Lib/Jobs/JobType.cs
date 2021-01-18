@@ -11,6 +11,8 @@ namespace Wowthing.Lib.Jobs
         Character = 100,
         CharacterEquipment,
         CharacterMounts,
+        CharacterMythicKeystoneProfile,
+        CharacterMythicKeystoneProfileSeason,
         CharacterQuestsCompleted,
         CharacterReputations,
         CharacterSoulbinds,
@@ -20,10 +22,13 @@ namespace Wowthing.Lib.Jobs
         DataReputationTiers,
         DataTitle,
 
+        Upload = 999,
+
         // Scheduled jobs
         CacheStatic = 1000,
         DataMythicKeystonePeriod,
         DataMythicKeystonePeriodIndex,
+        DataMythicKeystoneSeasonIndex,
         DataPlayableRaceIndex,
         DataPlayableClassIndex,
         DataRealmIndex,
