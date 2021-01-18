@@ -25,6 +25,8 @@ namespace Wowthing.Web.Models
 
         public Dictionary<int, UserApiCharacterEquippedItem> EquippedItems { get; set; } = new Dictionary<int, UserApiCharacterEquippedItem>();
 
+        public UserApiCharacterMythicPlus MythicPlus { get; }
+
         public Dictionary<int, int> Quests { get; set; } = new Dictionary<int, int>();
 
         public Dictionary<int, int> Reputations { get; set; } = new Dictionary<int, int>();
@@ -60,6 +62,11 @@ namespace Wowthing.Web.Models
             {
                 EquippedItems = character.EquippedItems
                     .ToDictionary(k => (int)k.InventorySlot, v => new UserApiCharacterEquippedItem(v));
+            }
+
+            if (context.Entry(character).Reference(nameof(character.MythicPlus)).IsLoaded && character.MythicPlus != null)
+            {
+                MythicPlus = new UserApiCharacterMythicPlus(character.MythicPlus, character.MythicPlusSeasons);
             }
 
             if (context.Entry(character).Reference(nameof(character.Quests)).IsLoaded && character.Quests != null)
@@ -101,6 +108,26 @@ namespace Wowthing.Web.Models
 
             BonusIds = equippedItem.BonusIds;
             EnchantmentIds = equippedItem.EnchantmentIds;
+        }
+    }
+
+    public class UserApiCharacterMythicPlus
+    {
+        public int CurrentPeriodId { get; }
+        public Dictionary<int, List<PlayerCharacterMythicPlusRun>> PeriodRuns { get; }
+        public Dictionary<int, Dictionary<int, List<PlayerCharacterMythicPlusRun>>> Seasons { get; }
+
+        public UserApiCharacterMythicPlus(PlayerCharacterMythicPlus mythicPlus, List<PlayerCharacterMythicPlusSeason> seasons)
+        {
+            CurrentPeriodId = mythicPlus.CurrentPeriodId;
+            PeriodRuns = mythicPlus.PeriodRuns
+                .GroupBy(k => k.DungeonId)
+                .ToDictionary(k => k.Key, v => v.ToList());
+            Seasons = seasons
+                .ToDictionary(k => k.Season, v => v.Runs
+                    .GroupBy(k => k.DungeonId)
+                    .ToDictionary(k => k.Key, v => v.ToList())
+                );
         }
     }
 
