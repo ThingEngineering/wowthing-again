@@ -89,6 +89,7 @@ namespace Wowthing.Backend.Jobs.Character
             // Character changed, queue some more stuff
             await _jobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterEquipment, data);
             await _jobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterMounts, data);
+            await _jobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterMythicKeystoneProfile, data);
             await _jobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterQuestsCompleted, data);
             await _jobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterReputations, data);
 
