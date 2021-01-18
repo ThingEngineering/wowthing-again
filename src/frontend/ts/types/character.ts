@@ -15,6 +15,7 @@ class Character {
     accountId?: number
 
     equippedItems: Dictionary<CharacterEquippedItem>
+    mythicPlus: CharacterMythicPlus
     reputations: Dictionary<number>
     shadowlands?: CharacterShadowlands
 }
@@ -27,6 +28,29 @@ class CharacterEquippedItem {
 
     bonusIds: number[]
     enchantmentIds: number[]
+}
+
+class CharacterMythicPlus {
+    currentPeriodId: number
+    periodRuns: Dictionary<CharacterMythicPlusRun[]>
+    seasons: Dictionary<Dictionary<CharacterMythicPlusRun[]>>
+}
+
+class CharacterMythicPlusRun {
+    affixes: number[]
+    completed: string
+    dungeonId: number
+    duration: number
+    keystoneLevel: number
+    members: CharacterMythicPlusRunMember[]
+    timed: boolean
+}
+
+class CharacterMythicPlusRunMember {
+    itemLevel: number
+    name: string
+    realmId: number
+    specializationId: number
 }
 
 class CharacterShadowlands {

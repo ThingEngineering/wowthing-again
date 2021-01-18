@@ -98,7 +98,9 @@ namespace Wowthing.Lib.Contexts
                 .IsUnique(true);
 
             // Relationships
-
+            builder.Entity<PlayerCharacterMythicPlusSeason>()
+                .HasOne(s => s.Character)
+                .WithMany(c => c.MythicPlusSeasons);
 
             // Explicitly update WowCharacter table if related WowAccount is deleted
             builder.Entity<PlayerCharacter>()

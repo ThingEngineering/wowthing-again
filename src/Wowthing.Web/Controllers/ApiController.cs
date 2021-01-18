@@ -100,6 +100,8 @@ namespace Wowthing.Web.Controllers
 
             characterQuery = characterQuery
                 .Include(c => c.EquippedItems)
+                .Include(c => c.MythicPlus)
+                .Include(c => c.MythicPlusSeasons)
                 .Include(c => c.Quests)
                 .Include(c => c.Reputations)
                 .Include(c => c.Shadowlands);
@@ -111,6 +113,9 @@ namespace Wowthing.Web.Controllers
             {
                 Accounts = accounts,
                 Characters = await characterQuery.Select(c => new UserApiCharacter(_context, c, pub, anon)).ToListAsync(),
+                CurrentPeriod = await _context.WowPeriod
+                    .Where(p => p.Starts <= DateTime.UtcNow && p.Ends > DateTime.UtcNow)
+                    .ToDictionaryAsync(k => (int)k.Region),
                 Mounts = mounts.ToDictionary(k => k, v => 1),
             };
 

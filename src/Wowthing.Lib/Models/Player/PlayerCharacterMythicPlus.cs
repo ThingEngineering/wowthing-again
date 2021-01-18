@@ -16,8 +16,6 @@ namespace Wowthing.Lib.Models
 
         [Column(TypeName = "jsonb")]
         public List<PlayerCharacterMythicPlusRun> PeriodRuns { get; set; }
-
-        public List<PlayerCharacterMythicPlusSeason> Seasons { get; set; }
     }
 
     public class PlayerCharacterMythicPlusRun
