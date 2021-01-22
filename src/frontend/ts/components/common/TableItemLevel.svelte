@@ -6,6 +6,7 @@
 
 <style lang="scss">
     td {
+        padding-right: 0.5rem;
         text-align: right;
         width: 3rem;
     }

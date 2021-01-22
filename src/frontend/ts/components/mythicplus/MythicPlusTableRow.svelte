@@ -3,10 +3,12 @@
 <script lang="ts">
     import MythicPlusTableCell from './MythicPlusTableCell.svelte'
     import TableCharacterName from '../common/TableCharacterName.svelte'
+    import TableItemLevel from '../common/TableItemLevel.svelte'
+    import type {MythicPlusSeason} from '../../types'
 
     export let character
-    export let order: number[] = []
     export let runsFunc
+    export let season: MythicPlusSeason
 </script>
 
 <style lang="scss">
@@ -14,15 +16,6 @@
 
     td {
         border-left: 1px solid $border-color;
-    }
-    .name {
-        padding: 0 0 0 0.3rem;
-        white-space: nowrap;
-    }
-    .realm {
-        border-left: none;
-        padding: 0 1rem;
-        white-space: nowrap;
     }
     .sigh {
         background: $body-background;
@@ -32,8 +25,11 @@
 
 <tr class="{character.faction === 0 ? 'faction0' : 'faction1'}">
     <TableCharacterName {character} />
-    {#each order as dungeonId}
-        <MythicPlusTableCell runs={runsFunc(character, dungeonId)} />
+    <TableItemLevel {character} />
+    {#each season.Orders as order}
+        {#each order as dungeonId}
+            <MythicPlusTableCell runs={runsFunc(character, dungeonId)} />
+        {/each}
     {/each}
     <td class="sigh"></td>
 </tr>
