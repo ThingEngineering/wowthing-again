@@ -1,24 +1,26 @@
 <script lang="ts">
-    import {orderShadowlands, seasonDungeonOrder} from '../../data/dungeon'
+    import sortBy from 'lodash/sortBy'
+
+    import {seasonMap} from '../../data/dungeon'
     import {data as userData} from '../../stores/user-store'
     import type {Character} from '../../types'
 
     import MythicPlusDungeon from './MythicPlusDungeon.svelte'
     import MythicPlusTableRow from './MythicPlusTableRow.svelte'
     import TableCharacterNameHead from '../common/TableCharacterNameHead.svelte'
+    import type {MythicPlusSeason} from '../../types'
 
     export let slug: string
 
-    let order: number[] = []
+    let season: MythicPlusSeason
     let runsFunc = (char: Character, dungeonId: number) => []
     $: {
         if (slug === 'thisweek') {
-            order = orderShadowlands
+            season = sortBy(seasonMap, (s) => -s.Id)[0]
             runsFunc = (char, dungeonId) => char.mythicPlus?.periodRuns?.[dungeonId] || []
         } else {
-            const season = slug.replace('season', '')
-            order = seasonDungeonOrder[season]
-            runsFunc = (char, dungeonId) => char.mythicPlus?.seasons?.[season]?.[dungeonId]
+            season = seasonMap[slug.replace('season', '')]
+            runsFunc = (char, dungeonId) => char.mythicPlus?.seasons?.[season.Id]?.[dungeonId]
         }
     }
 </script>
@@ -35,6 +37,9 @@
             border-bottom: 1px solid $border-color;
             position: sticky;
             top: 0;
+        }
+        & :global(thead th:nth-child(-n+6)) {
+            background: $body-background;
         }
         & :global(tr:last-child td:not(.sigh)) {
             border-bottom: 1px solid $border-color;
@@ -55,19 +60,28 @@
 </style>
 
 <table class="table-striped">
+    <colgroup span="6"></colgroup>
+    {#each season.Orders as order}
+        <colgroup span="{order.length}"></colgroup>
+    {/each}
     <thead>
         <tr>
             <TableCharacterNameHead />
-            {#each order as dungeonId}
-                <MythicPlusDungeon {dungeonId} />
-            {/each}
+            <th style="width: 3em"></th>
+            {#key season.Id}
+                {#each season.Orders as order}
+                    {#each order as dungeonId}
+                        <MythicPlusDungeon {dungeonId} />
+                    {/each}
+                {/each}
+            {/key}
             <th class="sigh"></th>
         </tr>
     </thead>
     <tbody>
         {#each $userData.characters as character}
-            {#if character.level >= 50}
-                <MythicPlusTableRow {character} {order} {runsFunc} />
+            {#if character.level >= season.MinLevel}
+                <MythicPlusTableRow {character} {season} {runsFunc} />
             {/if}
         {/each}
     </tbody>
