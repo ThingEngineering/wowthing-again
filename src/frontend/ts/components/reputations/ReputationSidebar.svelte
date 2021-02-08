@@ -6,7 +6,7 @@
     import Sidebar from '../common/Sidebar.svelte'
 </script>
 
-<Sidebar>
+<Sidebar width="12rem">
     {#each $staticData.ReputationSets as reputation}
         <li use:active={'/reputations/' + reputation.Slug}>
             <a href="/reputations/{ reputation.Slug }" use:link>{ reputation.Name }</a>

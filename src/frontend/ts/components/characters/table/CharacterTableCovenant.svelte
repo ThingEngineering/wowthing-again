@@ -1,0 +1,33 @@
+<script lang="ts">
+    import {covenantMap} from '../../../data/covenant'
+    import {Character} from '../../../types'
+    import tippy from '../../../utils/tippy'
+
+    import TableIcon from '../../common/TableIcon.svelte'
+    import WowthingImage from '../../images/sources/WowthingImage.svelte'
+
+    export let character: Character
+
+    const covenant = character.shadowlands !== undefined ? covenantMap[character.shadowlands.covenantId] : undefined
+</script>
+
+<style lang="scss">
+    @import "../../../../scss/variables.scss";
+
+    td {
+        text-align: right;
+        width: 1.5rem;
+    }
+</style>
+
+{#if covenant !== undefined}
+    <TableIcon>
+        <WowthingImage name={covenant.Icon} size=20 border=1 />
+    </TableIcon>
+    <td use:tippy={covenant.getTooltip(character.shadowlands.renownLevel)}>
+        {character.shadowlands.renownLevel}
+    </td>
+{:else}
+    <TableIcon>&nbsp;</TableIcon>
+    <td>&nbsp;</td>
+{/if}

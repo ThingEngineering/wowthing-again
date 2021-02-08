@@ -7,6 +7,7 @@ class Character {
     gender: number
     raceId: number
     classId: number
+    activeSpecId: number
     level: number
     equippedItemLevel: number
     calculatedItemLevel: string

@@ -38,7 +38,7 @@
             position: sticky;
             top: 0;
         }
-        & :global(thead th:nth-child(-n+6)) {
+        & :global(thead th:nth-child(-n+7)) {
             background: $body-background;
         }
         & :global(tr:last-child td:not(.sigh)) {
@@ -60,7 +60,7 @@
 </style>
 
 <table class="table-striped">
-    <colgroup span="6"></colgroup>
+    <colgroup span="7"></colgroup>
     {#each season.Orders as order}
         <colgroup span="{order.length}"></colgroup>
     {/each}

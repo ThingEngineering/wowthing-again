@@ -20,6 +20,7 @@
 
 <th class="icon"></th>
 <th class="icon"></th>
+<th class="icon"></th>
 <th class="level"></th>
 <th class="name"></th>
 <th class="realm"></th>

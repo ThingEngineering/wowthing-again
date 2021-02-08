@@ -3,7 +3,14 @@
 
     export let runs = []
 
-    $: sortedRuns = sortBy(runs, (r) => !r.timed)
+    let sortedRuns
+    $: {
+        sortedRuns = sortBy(runs, (r) => !r.timed)
+        if (sortedRuns.length === 2 && sortedRuns[1].keystoneLevel <= sortedRuns[0].keystoneLevel) {
+            sortedRuns = [sortedRuns[0]]
+        }
+    }
+
 </script>
 
 <style lang="scss">
