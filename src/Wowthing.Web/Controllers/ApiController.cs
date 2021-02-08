@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using StackExchange.Redis;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Models;
+using Wowthing.Lib.Utilities;
 using Wowthing.Web.Models;
 
 namespace Wowthing.Web.Controllers
@@ -20,12 +22,14 @@ namespace Wowthing.Web.Controllers
     public class ApiController : Controller
     {
         private readonly IConnectionMultiplexer _redis;
+        private readonly ILogger<ApiController> _logger;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly WowDbContext _context;
 
-        public ApiController(IConnectionMultiplexer redis, UserManager<ApplicationUser> userManager, WowDbContext context)
+        public ApiController(IConnectionMultiplexer redis, ILogger<ApiController> logger, UserManager<ApplicationUser> userManager, WowDbContext context)
         {
             _redis = redis;
+            _logger = logger;
             _userManager = userManager;
             _context = context;
         }
@@ -66,22 +70,31 @@ namespace Wowthing.Web.Controllers
         [HttpGet("user/{username:username}")]
         public async Task<IActionResult> UserData([FromRoute] string username)
         {
+            var timer = new JankTimer();
+
             var user = await _userManager.FindByNameAsync(username);
             if (user == null)
             {
                 return NotFound();
             }
 
+            timer.AddPoint("Find user");
+
             if (!user.Settings.Privacy.Public)
             {
                 return NotFound();
             }
+
+            timer.AddPoint("Privacy");
 
             var db = _redis.GetDatabase();
             bool pub = User.Identity.Name != user.UserName;
             bool anon = user.Settings.Privacy.Anonymized;
 
             // Retrieve data
+            var mounts = await db.GetSetMembersAsync(string.Format(RedisKeys.UserMounts, user.Id));
+            timer.AddPoint("Get mounts");
+
             Dictionary<int, UserApiAccount> accounts = null;
             if (!pub)
             {
@@ -91,6 +104,8 @@ namespace Wowthing.Web.Controllers
                     .ToDictionaryAsync(a => a.Id);
             }
 
+            timer.AddPoint("Get accounts");
+
             var characterQuery = _context.PlayerCharacter
                 .Where(c => c.Account.UserId == user.Id);
             if (pub)
@@ -98,26 +113,34 @@ namespace Wowthing.Web.Controllers
                 characterQuery = characterQuery.Where(c => c.Level >= 11);
             }
 
-            characterQuery = characterQuery
+            var characters = await characterQuery
                 .Include(c => c.EquippedItems)
                 .Include(c => c.MythicPlus)
                 .Include(c => c.MythicPlusSeasons)
                 .Include(c => c.Quests)
                 .Include(c => c.Reputations)
-                .Include(c => c.Shadowlands);
+                .Include(c => c.Shadowlands)
+                .AsSplitQuery()
+                .ToArrayAsync();
 
-            var mounts = await db.GetSetMembersAsync(string.Format(RedisKeys.UserMounts, user.Id));
+            timer.AddPoint("characterQuery");
+
+            var currentPeriods = await _context.WowPeriod
+                    .Where(p => p.Starts <= DateTime.UtcNow && p.Ends > DateTime.UtcNow)
+                    .ToDictionaryAsync(k => (int)k.Region);
+            timer.AddPoint("currentPeriods");
 
             // Build response
             var apiData = new UserApi
             {
                 Accounts = accounts,
-                Characters = await characterQuery.Select(c => new UserApiCharacter(_context, c, pub, anon)).ToListAsync(),
-                CurrentPeriod = await _context.WowPeriod
-                    .Where(p => p.Starts <= DateTime.UtcNow && p.Ends > DateTime.UtcNow)
-                    .ToDictionaryAsync(k => (int)k.Region),
+                Characters = characters.Select(c => new UserApiCharacter(_context, c, pub, anon)).ToList(),
+                CurrentPeriod = currentPeriods,
                 Mounts = mounts.ToDictionary(k => k, v => 1),
             };
+
+            timer.AddPoint("Build response", true);
+            _logger.LogDebug($"{timer}");
 
             return Ok(apiData);
         }

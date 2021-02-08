@@ -13,7 +13,7 @@ namespace Wowthing.Web.Models
     {
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public int? AccountId { get; set; }
-
+        public int ActiveSpecId { get; }
         public int ClassId { get; set; }
         public int EquippedItemLevel { get; set; }
         public int Level { get; set; }
@@ -36,6 +36,7 @@ namespace Wowthing.Web.Models
 
         public UserApiCharacter(WowDbContext context, PlayerCharacter character, bool pub = false, bool anon = false)
         {
+            ActiveSpecId = character.ActiveSpecId;
             ClassId = character.ClassId;
             EquippedItemLevel = character.EquippedItemLevel;
             Faction = character.Faction;
@@ -58,31 +59,31 @@ namespace Wowthing.Web.Models
                 AccountId = character.AccountId;
             }
 
-            if (context.Entry(character).Collection(nameof(character.EquippedItems)).IsLoaded && character.EquippedItems != null)
+            if (/*context.Entry(character).Collection(nameof(character.EquippedItems)).IsLoaded &&*/ character.EquippedItems != null)
             {
                 EquippedItems = character.EquippedItems
                     .ToDictionary(k => (int)k.InventorySlot, v => new UserApiCharacterEquippedItem(v));
             }
 
-            if (context.Entry(character).Reference(nameof(character.MythicPlus)).IsLoaded && character.MythicPlus != null)
+            if (/*context.Entry(character).Reference(nameof(character.MythicPlus)).IsLoaded &&*/ character.MythicPlus != null)
             {
                 MythicPlus = new UserApiCharacterMythicPlus(character.MythicPlus, character.MythicPlusSeasons);
             }
 
-            if (context.Entry(character).Reference(nameof(character.Quests)).IsLoaded && character.Quests != null)
+            if (/*context.Entry(character).Reference(nameof(character.Quests)).IsLoaded &&*/ character.Quests != null)
             {
                 Quests = character.Quests.CompletedIds
                     .ToDictionary(k => k, v => 1);
             }
 
-            if (context.Entry(character).Reference(nameof(character.Reputations)).IsLoaded && character.Reputations?.ReputationIds != null && character.Reputations?.ReputationValues != null)
+            if (/*context.Entry(character).Reference(nameof(character.Reputations)).IsLoaded &&*/ character.Reputations?.ReputationIds != null && character.Reputations?.ReputationValues != null)
             {
                 Reputations = character.Reputations.ReputationIds
                     .Zip(character.Reputations.ReputationValues)
                     .ToDictionary(k => k.First, v => v.Second);
             }
 
-            if (context.Entry(character).Reference(nameof(character.Shadowlands)).IsLoaded && character.Shadowlands != null)
+            if (/*context.Entry(character).Reference(nameof(character.Shadowlands)).IsLoaded &&*/ character.Shadowlands != null)
             {
                 Shadowlands = new UserApiCharacterShadowlands(character.Shadowlands);
             }
