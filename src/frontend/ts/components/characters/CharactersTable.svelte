@@ -1,6 +1,7 @@
 <script lang="ts">
     import {data} from '../../stores/user-store'
 
+    import CharacterTableCovenant from './table/CharacterTableCovenant.svelte'
     import TableCharacterName from '../common/TableCharacterName.svelte'
     import TableItemLevel from '../common/TableItemLevel.svelte'
 </script>
@@ -18,6 +19,7 @@
                 <tr class="faction{character.faction}">
                     <TableCharacterName {character} />
                     <TableItemLevel {character} />
+                    <CharacterTableCovenant {character} />
                 </tr>
             {/each}
         </tbody>
