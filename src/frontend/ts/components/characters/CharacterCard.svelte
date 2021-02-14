@@ -1,4 +1,5 @@
 <script lang="ts">
+    import {specializationMap} from '../../data/specialization'
     import {data as userData} from '../../stores/user-store'
     import {Character} from '../../types'
     import getRealmName from '../../utils/get-realm-name'
@@ -7,11 +8,13 @@
     import CharacterCovenant from './CharacterCovenant.svelte'
     import ClassIcon from '../images/ClassIcon.svelte'
     import RaceIcon from '../images/RaceIcon.svelte'
+    import SpecializationIcon from '../images/SpecializationIcon.svelte'
 
     export let character: Character
 
     $: accountEnabled = (character.accountId === undefined || $userData.accounts[character.accountId].enabled)
     $: accountTag = $userData.accounts?.[character.accountId]?.tag
+    $: spec = specializationMap[character.activeSpecId]
 </script>
 
 <style lang="scss">
@@ -58,6 +61,25 @@
     .icons :global(img) {
         border-radius: 0.5rem;
     }
+    .spec {
+        height: 28px;
+        pointer-events: none;
+        position: absolute;
+        right: -1px;
+        top: -5px;
+        width: 28px;
+
+        & :global(img) {
+            border-width: 2px;
+            box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.75);
+        }
+    }
+    .faction0 .spec :global(img) {
+        border-color: $alliance-border-dark;
+    }
+    .faction1 .spec :global(img) {
+        border-color: $horde-border-dark;
+    }
     .level, .item-level {
         position: absolute;
         bottom: -10px;
@@ -94,6 +116,11 @@
     <div class="icons">
         <RaceIcon size="48" character={character} />
         <ClassIcon size="48" character={character} />
+        {#if spec !== undefined}
+            <div class="spec">
+                <SpecializationIcon {character} size=24 border=2 />
+            </div>
+        {/if}
         <div class="level" use:tippy={{content: `Level ${character.level}`}}>{character.level}</div>
         <div class="item-level quality{character.calculatedItemLevelQuality}" use:tippy={{content: `Item Level ${character.equippedItemLevel}`}}>{character.calculatedItemLevel}</div>
     </div>
