@@ -20,7 +20,9 @@ $tooltip-padding-x:        7px;
 $tooltip-padding-y:        5px;
 
 $alliance-border:          #0044ff;
+$alliance-border-dark:     darken($alliance-border, 20%);
 $horde-border:             #ff0000;
+$horde-border-dark:        darken($horde-border, 20%);
 
 $sidebar-pill-background:  $highlight-background;
 $sidebar-pill-scale:       0.8;
