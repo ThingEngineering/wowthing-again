@@ -1,0 +1,68 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
+using Wowthing.Backend.Models.API;
+using Wowthing.Backend.Models.API.Character;
+using Wowthing.Backend.Models.API.NonBlizzard;
+using Wowthing.Lib.Enums;
+using Wowthing.Lib.Models;
+using Wowthing.Lib.Models.Query;
+using Z.EntityFramework.Plus;
+
+namespace Wowthing.Backend.Jobs.User
+{
+    public class CharacterRaiderIoJob : JobBase
+    {
+        // FIXME generate this from stored season info
+        private const string API_URL = "https://raider.io/api/v1/characters/profile?region={0}&realm={1}&name={2}&fields=mythic_plus_scores_by_season%3Aseason-sl-1";
+
+        public override async Task Run(params string[] data)
+        {
+            var query = JsonConvert.DeserializeObject<SchedulerCharacterQuery>(data[0]);
+            using var shrug = CharacterLog(query);
+
+            // Fetch API data
+            var uri = new Uri(string.Format(API_URL, query.Region.ToString().ToLowerInvariant(), query.RealmSlug, query.CharacterName.ToLowerInvariant()));
+
+            var result = await GetJson<ApiCharacterRaiderIo>(uri, useAuthorization: false, useLastModified: false);
+            /*if (result.NotModified)
+            {
+                _logger.Information("304 Not Modified");
+                return;
+            }*/
+
+            // Fetch character data
+            var raiderIo = await _context.PlayerCharacterRaiderIo.FindAsync(query.CharacterId);
+            if (raiderIo == null)
+            {
+                raiderIo = new PlayerCharacterRaiderIo
+                {
+                    CharacterId = query.CharacterId,
+                };
+                _context.PlayerCharacterRaiderIo.Add(raiderIo);
+            }
+
+            raiderIo.Seasons = result.Data.ScoresBySeason
+                .ToDictionary(
+                    k => k.SeasonId,
+                    v => new PlayerCharacterRaiderIoSeasonScores
+                    {
+                        All = v.ScoreAll,
+                        Dps = v.ScoreDps,
+                        Healer = v.ScoreHealer,
+                        Tank = v.ScoreTank,
+                        Spec1 = v.ScoreSpec1,
+                        Spec2 = v.ScoreSpec2,
+                        Spec3 = v.ScoreSpec3,
+                        Spec4 = v.ScoreSpec4,
+                    }
+                );
+
+            await _context.SaveChangesAsync();
+        }
+    }
+}

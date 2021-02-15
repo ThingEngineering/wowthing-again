@@ -41,7 +41,7 @@ namespace Wowthing.Backend.Jobs
             .ToDictionary(k => k, v => v.ToString().ToLowerInvariant());
         private static readonly Dictionary<WowRegion, string> _regionToString = EnumUtilities.GetValues<WowRegion>()
             .ToDictionary(k => k, v => v.ToString().ToLowerInvariant());
-        private static readonly Dictionary<WowRegion, string> _regionToLocale = new Dictionary<WowRegion, string>
+        protected static readonly Dictionary<WowRegion, string> _regionToLocale = new Dictionary<WowRegion, string>
         {
             { WowRegion.US, "en_US" },
             { WowRegion.EU, "en_GB" },
