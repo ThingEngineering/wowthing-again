@@ -3,6 +3,7 @@
 <script lang="ts">
     import MythicPlusTableCell from './MythicPlusTableCell.svelte'
     import TableCharacterName from '../common/TableCharacterName.svelte'
+    import TableCharacterRaiderIo from '../common/TableCharacterRaiderIo.svelte'
     import TableItemLevel from '../common/TableItemLevel.svelte'
     import type {MythicPlusSeason} from '../../types'
 
@@ -26,6 +27,7 @@
 <tr class="{character.faction === 0 ? 'faction0' : 'faction1'}">
     <TableCharacterName {character} />
     <TableItemLevel {character} />
+    <TableCharacterRaiderIo {character} {season} />
     {#each season.Orders as order}
         {#each order as dungeonId}
             <MythicPlusTableCell runs={runsFunc(character, dungeonId)} />
