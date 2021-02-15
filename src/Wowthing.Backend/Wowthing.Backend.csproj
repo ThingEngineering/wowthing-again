@@ -6,20 +6,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CsvHelper" Version="22.1.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.2" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="5.0.2" />
+    <PackageReference Include="CsvHelper" Version="23.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="5.0.3" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
     <PackageReference Include="morelinq" Version="3.3.2" />
     <PackageReference Include="RateLimiter" Version="2.2.0" />
     <PackageReference Include="Serilog" Version="2.10.0" />
-    <PackageReference Include="Serilog.Extensions.Hosting" Version="3.1.0" />
+    <PackageReference Include="Serilog.Extensions.Hosting" Version="4.0.0" />
     <PackageReference Include="Serilog.Settings.Configuration" Version="3.1.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
     <PackageReference Include="Serilog.Sinks.File" Version="4.1.0" />
     <PackageReference Include="StackExchange.Redis" Version="2.2.4" />
     <PackageReference Include="YamlDotNet" Version="9.1.4" />
-    <PackageReference Include="Z.EntityFramework.Plus.EFCore" Version="5.1.16" />
+    <PackageReference Include="Z.EntityFramework.Plus.EFCore" Version="5.1.17" />
   </ItemGroup>
 
   <ItemGroup>
