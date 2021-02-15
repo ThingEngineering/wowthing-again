@@ -6,6 +6,7 @@ namespace Wowthing.Lib.Models
 {
     public class ApplicationUserSettings
     {
+        public ApplicationUserSettingsGeneral General { get; set; }
         public ApplicationUserSettingsPrivacy Privacy { get; set; }
 
         public ApplicationUserSettings()
@@ -15,11 +16,20 @@ namespace Wowthing.Lib.Models
 
         public void Migrate()
         {
+            if (General == null)
+            {
+                General = new ApplicationUserSettingsGeneral();
+            }
             if (Privacy == null)
             {
                 Privacy = new ApplicationUserSettingsPrivacy();
             }
         }
+    }
+
+    public class ApplicationUserSettingsGeneral
+    {
+        public bool ShowRealm { get; set; } = true;
     }
 
     public class ApplicationUserSettingsPrivacy

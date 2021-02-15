@@ -9,7 +9,7 @@
     const seasons = sortBy(seasonMap, (s) => -s.Id)
 </script>
 
-<Sidebar>
+<Sidebar width="8rem">
     <li use:active={'/mythicplus/thisweek'}>
         <a href="/mythicplus/thisweek" use:link>This Week</a>
     </li>

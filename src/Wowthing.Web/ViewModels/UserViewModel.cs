@@ -7,6 +7,7 @@ namespace Wowthing.Web.ViewModels
     public class UserViewModel
     {
         public readonly ApplicationUser User;
+        public readonly string SettingsJson;
         public readonly string StaticHash;
 
         public UserViewModel(ApplicationUser user, string staticHash)

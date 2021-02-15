@@ -1,4 +1,5 @@
 <script lang="ts">
+    import {data as settings} from '../../stores/settings-store'
     import type {Character} from '../../types'
     import getRealmName from '../../utils/get-realm-name'
 
@@ -32,4 +33,6 @@
 <TableIcon><SpecializationIcon {character} size=20 /></TableIcon>
 <td class="level">{character.level}</td>
 <td class="name">{character.name}</td>
-<td class="realm">&ndash; {getRealmName(character.realmId)}</td>
+{#if $settings.General.ShowRealm}
+    <td class="realm">&ndash; {getRealmName(character.realmId)}</td>
+{/if}

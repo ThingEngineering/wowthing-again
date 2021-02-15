@@ -9,6 +9,7 @@
 }
 
 <div id="app"
+     data-settings="@Model.SettingsJson"
      data-static="@Url.Action("StaticData", "Api", new { hash = Model.StaticHash })"
      data-user="@Url.Action("UserData", "Api", new { username = Model.User.UserName })"
 ></div>

@@ -1,5 +1,6 @@
 <script lang="ts">
     import {specializationMap} from '../../data/specialization'
+    import {data as settings} from '../../stores/settings-store'
     import {data as userData} from '../../stores/user-store'
     import {Character} from '../../types'
     import getRealmName from '../../utils/get-realm-name'
@@ -125,7 +126,9 @@
         <div class="item-level quality{character.calculatedItemLevelQuality}" use:tippy={{content: `Item Level ${character.equippedItemLevel}`}}>{character.calculatedItemLevel}</div>
     </div>
     <div class="name">{character.name}</div>
-    <div class="realm">{getRealmName(character.realmId)}</div>
+    {#if $settings.General.ShowRealm}
+        <div class="realm">{getRealmName(character.realmId)}</div>
+    {/if}
     {#if character.shadowlands}
         <CharacterCovenant character={character} />
     {/if}
