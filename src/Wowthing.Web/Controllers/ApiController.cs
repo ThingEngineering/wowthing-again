@@ -80,7 +80,7 @@ namespace Wowthing.Web.Controllers
 
             timer.AddPoint("Find user");
 
-            if (!user.Settings.Privacy.Public)
+            if (User.Identity.Name != user.UserName && !user.Settings.Privacy.Public)
             {
                 return NotFound();
             }
