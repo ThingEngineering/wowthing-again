@@ -44,6 +44,7 @@ namespace Wowthing.Lib.Models
         // Navigation properties
         public List<PlayerCharacterEquippedItem> EquippedItems { get; set; }
         public PlayerCharacterMythicPlus MythicPlus { get; set; }
+        public List<PlayerCharacterMythicPlusSeason> MythicPlusSeasons { get; set; }
         public PlayerCharacterQuests Quests { get; set; }
         public PlayerCharacterRaiderIo RaiderIo { get; set; }
         public PlayerCharacterReputations Reputations { get; set; }

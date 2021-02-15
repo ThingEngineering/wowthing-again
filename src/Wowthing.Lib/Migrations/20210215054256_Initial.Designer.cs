@@ -12,8 +12,8 @@ using Wowthing.Lib.Models;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    [Migration("20210215051749_Add_PlayerCharacterRaiderIo")]
-    partial class Add_PlayerCharacterRaiderIo
+    [Migration("20210215054256_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

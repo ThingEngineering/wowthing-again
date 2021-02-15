@@ -29,6 +29,8 @@ namespace Wowthing.Web.Models
 
         public Dictionary<int, int> Quests { get; set; } = new Dictionary<int, int>();
 
+        public Dictionary<int, PlayerCharacterRaiderIoSeasonScores> RaiderIo { get; }
+
         public Dictionary<int, int> Reputations { get; set; } = new Dictionary<int, int>();
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
@@ -59,31 +61,36 @@ namespace Wowthing.Web.Models
                 AccountId = character.AccountId;
             }
 
-            if (/*context.Entry(character).Collection(nameof(character.EquippedItems)).IsLoaded &&*/ character.EquippedItems != null)
+            if (character.EquippedItems != null)
             {
                 EquippedItems = character.EquippedItems
                     .ToDictionary(k => (int)k.InventorySlot, v => new UserApiCharacterEquippedItem(v));
             }
 
-            if (/*context.Entry(character).Reference(nameof(character.MythicPlus)).IsLoaded &&*/ character.MythicPlus != null)
+            if (character.MythicPlus != null)
             {
                 MythicPlus = new UserApiCharacterMythicPlus(character.MythicPlus, character.MythicPlusSeasons);
             }
 
-            if (/*context.Entry(character).Reference(nameof(character.Quests)).IsLoaded &&*/ character.Quests != null)
+            if (character.Quests != null)
             {
                 Quests = character.Quests.CompletedIds
                     .ToDictionary(k => k, v => 1);
             }
 
-            if (/*context.Entry(character).Reference(nameof(character.Reputations)).IsLoaded &&*/ character.Reputations?.ReputationIds != null && character.Reputations?.ReputationValues != null)
+            if (character.RaiderIo != null)
+            {
+                RaiderIo = character.RaiderIo.Seasons;
+            }
+
+            if (character.Reputations?.ReputationIds != null && character.Reputations?.ReputationValues != null)
             {
                 Reputations = character.Reputations.ReputationIds
                     .Zip(character.Reputations.ReputationValues)
                     .ToDictionary(k => k.First, v => v.Second);
             }
 
-            if (/*context.Entry(character).Reference(nameof(character.Shadowlands)).IsLoaded &&*/ character.Shadowlands != null)
+            if (character.Shadowlands != null)
             {
                 Shadowlands = new UserApiCharacterShadowlands(character.Shadowlands);
             }

@@ -12,8 +12,8 @@ using Wowthing.Lib.Models;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    [Migration("20210214225020_Initial")]
-    partial class Initial
+    [Migration("20210215074818_Add_PlayerCharacterMythicPlusSeason")]
+    partial class Add_PlayerCharacterMythicPlusSeason
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -458,14 +458,30 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnType("jsonb")
                         .HasColumnName("period_runs");
 
-                    b.Property<Dictionary<int, PlayerCharacterMythicPlusSeason>>("Seasons")
-                        .HasColumnType("jsonb")
-                        .HasColumnName("seasons");
-
                     b.HasKey("CharacterId")
                         .HasName("pk_player_character_mythic_plus");
 
                     b.ToTable("player_character_mythic_plus");
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.PlayerCharacterMythicPlusSeason", b =>
+                {
+                    b.Property<int>("CharacterId")
+                        .HasColumnType("integer")
+                        .HasColumnName("character_id");
+
+                    b.Property<int>("Season")
+                        .HasColumnType("integer")
+                        .HasColumnName("season");
+
+                    b.Property<List<PlayerCharacterMythicPlusRun>>("Runs")
+                        .HasColumnType("jsonb")
+                        .HasColumnName("runs");
+
+                    b.HasKey("CharacterId", "Season")
+                        .HasName("pk_player_character_mythic_plus_season");
+
+                    b.ToTable("player_character_mythic_plus_season");
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.PlayerCharacterQuests", b =>
@@ -482,6 +498,22 @@ namespace Wowthing.Lib.Migrations
                         .HasName("pk_player_character_quests");
 
                     b.ToTable("player_character_quests");
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.PlayerCharacterRaiderIo", b =>
+                {
+                    b.Property<int>("CharacterId")
+                        .HasColumnType("integer")
+                        .HasColumnName("character_id");
+
+                    b.Property<Dictionary<int, PlayerCharacterRaiderIoSeasonScores>>("Seasons")
+                        .HasColumnType("jsonb")
+                        .HasColumnName("seasons");
+
+                    b.HasKey("CharacterId")
+                        .HasName("pk_player_character_raider_io");
+
+                    b.ToTable("player_character_raider_io");
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.PlayerCharacterReputations", b =>
@@ -936,12 +968,36 @@ namespace Wowthing.Lib.Migrations
                     b.Navigation("Character");
                 });
 
+            modelBuilder.Entity("Wowthing.Lib.Models.PlayerCharacterMythicPlusSeason", b =>
+                {
+                    b.HasOne("Wowthing.Lib.Models.PlayerCharacter", "Character")
+                        .WithMany("MythicPlusSeasons")
+                        .HasForeignKey("CharacterId")
+                        .HasConstraintName("fk_player_character_mythic_plus_season_player_character_charac")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Character");
+                });
+
             modelBuilder.Entity("Wowthing.Lib.Models.PlayerCharacterQuests", b =>
                 {
                     b.HasOne("Wowthing.Lib.Models.PlayerCharacter", "Character")
                         .WithOne("Quests")
                         .HasForeignKey("Wowthing.Lib.Models.PlayerCharacterQuests", "CharacterId")
                         .HasConstraintName("fk_player_character_quests_player_character_character_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Character");
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.PlayerCharacterRaiderIo", b =>
+                {
+                    b.HasOne("Wowthing.Lib.Models.PlayerCharacter", "Character")
+                        .WithOne("RaiderIo")
+                        .HasForeignKey("Wowthing.Lib.Models.PlayerCharacterRaiderIo", "CharacterId")
+                        .HasConstraintName("fk_player_character_raider_io_player_character_character_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1016,7 +1072,11 @@ namespace Wowthing.Lib.Migrations
 
                     b.Navigation("MythicPlus");
 
+                    b.Navigation("MythicPlusSeasons");
+
                     b.Navigation("Quests");
+
+                    b.Navigation("RaiderIo");
 
                     b.Navigation("Reputations");
 
