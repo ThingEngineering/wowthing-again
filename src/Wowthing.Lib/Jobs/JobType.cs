@@ -22,7 +22,11 @@ namespace Wowthing.Lib.Jobs
         DataReputationTiers,
         DataTitle,
 
-        Upload = 999,
+        // Non-Blizzard jobs
+        CharacterRaiderIo = 500,
+
+        // Internal jobs
+        Upload = 900,
 
         // Scheduled jobs
         CacheStatic = 1000,

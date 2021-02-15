@@ -37,23 +37,26 @@ namespace Wowthing.Backend.Jobs.User
             }
 
             // Fetch character data
-            var seasonMap = await _context.PlayerCharacterMythicPlusSeason
-                .Where(mps => mps.CharacterId == query.CharacterId)
-                .ToDictionaryAsync(k => k.Season);
+            var mythicPlus = await _context.PlayerCharacterMythicPlus.FindAsync(query.CharacterId);
+            if (mythicPlus == null)
+            {
+                // This shouldn't be possible
+                throw new InvalidOperationException("PlayerCharacterMythicPlus does not exist?!");
+            }
+
+            if (mythicPlus.Seasons == null)
+            {
+                mythicPlus.Seasons = new Dictionary<int, PlayerCharacterMythicPlusSeason>();
+            }
 
             if (result.Data.BestRuns != null)
             {
-                if (!seasonMap.TryGetValue(seasonId, out PlayerCharacterMythicPlusSeason season))
+                if (!mythicPlus.Seasons.TryGetValue(seasonId, out PlayerCharacterMythicPlusSeason season))
                 {
-                    season = new PlayerCharacterMythicPlusSeason
-                    {
-                        CharacterId = query.CharacterId,
-                        Season = seasonId,
-                    };
-                    _context.PlayerCharacterMythicPlusSeason.Add(season);
+                    mythicPlus.Seasons[seasonId] = new PlayerCharacterMythicPlusSeason();
                 }
 
-                season.Runs = result.Data.BestRuns
+                mythicPlus.Seasons[seasonId].Runs = result.Data.BestRuns
                     .Select(run => new PlayerCharacterMythicPlusRun()
                     {
                         Affixes = run.Affixes.Select(a => a.Id).ToList(),

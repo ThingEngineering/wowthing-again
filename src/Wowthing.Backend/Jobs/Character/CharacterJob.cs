@@ -39,7 +39,7 @@ namespace Wowthing.Backend.Jobs.Character
             try
             {
                 // FIXME crappy hack for my main
-                var result = await GetJson<ApiCharacter>(uri, useLastModified: character.Name != "Wataki");
+                var result = await GetJson<ApiCharacter>(uri, useLastModified: character.Name != "Wataki" && character.Name != "Momokan");
                 if (result.NotModified)
                 {
                     _logger.Information("304 Not Modified");
@@ -89,14 +89,25 @@ namespace Wowthing.Backend.Jobs.Character
             // Character changed, queue some more stuff
             await _jobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterEquipment, data);
             await _jobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterMounts, data);
-            await _jobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterMythicKeystoneProfile, data);
             await _jobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterQuestsCompleted, data);
             await _jobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterReputations, data);
 
+            // API only has M+ data from BfA onwards
+            if (character.Level >= 50)
+            {
+                await _jobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterMythicKeystoneProfile, data);
+            }
+
             // Shadowlands specific
-            if (character.Level > 50)
+            if (character.Level >= 50)
             {
                 await _jobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterSoulbinds, data);
+            }
+
+            // FIXME RaiderIO for max level people?
+            if (character.Level == 60)
+            {
+                await _jobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterRaiderIo, data);
             }
         }
     }

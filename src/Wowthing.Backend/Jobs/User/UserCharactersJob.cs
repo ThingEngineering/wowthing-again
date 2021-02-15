@@ -70,7 +70,7 @@ namespace Wowthing.Backend.Jobs
                     _logger.Debug("exception: {e}", e.Message);
                     if (e.Message != "404")
                     {
-                        throw e;
+                        throw;
                     }
                 }
             }
