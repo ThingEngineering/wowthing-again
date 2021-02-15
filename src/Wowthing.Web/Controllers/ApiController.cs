@@ -118,8 +118,10 @@ namespace Wowthing.Web.Controllers
                 .Include(c => c.MythicPlus)
                 .Include(c => c.MythicPlusSeasons)
                 .Include(c => c.Quests)
+                .Include(c => c.RaiderIo)
                 .Include(c => c.Reputations)
                 .Include(c => c.Shadowlands)
+                .AsNoTracking()
                 .AsSplitQuery()
                 .ToArrayAsync();
 
