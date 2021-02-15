@@ -6,7 +6,7 @@ using Wowthing.Lib.Models;
 
 namespace Wowthing.Lib.Migrations
 {
-    public partial class Add_PlayerCharacterRaiderIo : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

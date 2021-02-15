@@ -29,6 +29,7 @@ namespace Wowthing.Lib.Contexts
         public DbSet<PlayerCharacter> PlayerCharacter { get; set; }
         public DbSet<PlayerCharacterEquippedItem> PlayerCharacterEquippedItem { get; set; }
         public DbSet<PlayerCharacterMythicPlus> PlayerCharacterMythicPlus { get; set; }
+        public DbSet<PlayerCharacterMythicPlusSeason> PlayerCharacterMythicPlusSeason { get; set; }
         public DbSet<PlayerCharacterQuests> PlayerCharacterQuests { get; set; }
         public DbSet<PlayerCharacterRaiderIo> PlayerCharacterRaiderIo { get; set; }
         public DbSet<PlayerCharacterReputations> PlayerCharacterReputations { get; set; }
@@ -75,8 +76,8 @@ namespace Wowthing.Lib.Contexts
             builder.Entity<PlayerCharacterEquippedItem>()
                 .HasKey(ei => new { ei.CharacterId, ei.InventorySlot });
 
-            //builder.Entity<PlayerCharacterMythicPlusSeason>()
-            //    .HasKey(mps => new { mps.CharacterId, mps.Season });
+            builder.Entity<PlayerCharacterMythicPlusSeason>()
+                .HasKey(mps => new { mps.CharacterId, mps.Season });
 
             builder.Entity<WowPeriod>()
                 .HasKey(p => new { p.Region, p.Id });
@@ -98,9 +99,9 @@ namespace Wowthing.Lib.Contexts
                 .IsUnique(true);
 
             // Relationships
-            //builder.Entity<PlayerCharacterMythicPlusSeason>()
-            //    .HasOne(s => s.Character)
-            //    .WithMany(c => c.MythicPlusSeasons);
+            builder.Entity<PlayerCharacterMythicPlusSeason>()
+                .HasOne(s => s.Character)
+                .WithMany(c => c.MythicPlusSeasons);
 
             // Explicitly update WowCharacter table if related WowAccount is deleted
             builder.Entity<PlayerCharacter>()
