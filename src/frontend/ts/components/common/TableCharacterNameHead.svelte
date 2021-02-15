@@ -1,3 +1,7 @@
+<script lang="ts">
+    import {data as settings} from '../../stores/settings-store'
+</script>
+
 <style lang="scss">
     @import '../../../scss/variables.scss';
 
@@ -23,4 +27,6 @@
 <th class="icon"></th>
 <th class="level"></th>
 <th class="name"></th>
-<th class="realm"></th>
+{#if $settings.General.ShowRealm}
+    <th class="realm"></th>
+{/if}

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using StackExchange.Redis;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Models;
@@ -38,7 +39,9 @@ namespace Wowthing.Web.Controllers
             var db = _redis.GetDatabase();
             var staticHash = await db.StringGetAsync("cached_static:hash");
 
-            return View(new UserViewModel(user, staticHash));
+            var settings = User.Identity.Name == user.UserName ? user.Settings : new ApplicationUserSettings();
+
+            return View(new UserViewModel(user, JsonConvert.SerializeObject(settings), staticHash));
         }
     }
 }
