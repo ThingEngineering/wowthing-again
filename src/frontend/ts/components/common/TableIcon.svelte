@@ -10,7 +10,7 @@
 
         & :global(img) {
             border-radius: $border-radius;
-            margin-top: -4px;
+            margin-top: -5px;
         }
     }
 </style>

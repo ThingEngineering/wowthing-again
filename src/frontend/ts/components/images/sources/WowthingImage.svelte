@@ -1,8 +1,9 @@
 <script lang="ts">
     import tippy from '../../../utils/tippy'
 
-    export let size: string
     export let name: string
+    export let ext: string = "png"
+    export let size: string
     export let tooltip: object = undefined
     export let border: string = "0"
 
@@ -12,4 +13,4 @@
     }
 </script>
 
-<img src="https://img.wowthing.org/{size}/{name}.png" width="{actualSize}" height="{actualSize}" use:tippy={tooltipProps} alt="{name}" loading="lazy">
+<img src="https://img.wowthing.org/{size}/{name}.{ext}" width="{actualSize}" height="{actualSize}" use:tippy={tooltipProps} alt="{name}" loading="lazy">

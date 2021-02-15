@@ -8,6 +8,7 @@
     import MythicPlusDungeon from './MythicPlusDungeon.svelte'
     import MythicPlusTableRow from './MythicPlusTableRow.svelte'
     import TableCharacterNameHead from '../common/TableCharacterNameHead.svelte'
+    import TableCharacterRaiderIoHead from '../common/TableCharacterRaiderIoHead.svelte'
     import type {MythicPlusSeason} from '../../types'
 
     export let slug: string
@@ -38,7 +39,7 @@
             position: sticky;
             top: 0;
         }
-        & :global(thead th:nth-child(-n+7)) {
+        & :global(thead th:nth-child(-n+9)) {
             background: $body-background;
         }
         & :global(tr:last-child td:not(.sigh)) {
@@ -60,7 +61,7 @@
 </style>
 
 <table class="table-striped">
-    <colgroup span="7"></colgroup>
+    <colgroup span="9"></colgroup>
     {#each season.Orders as order}
         <colgroup span="{order.length}"></colgroup>
     {/each}
@@ -68,6 +69,7 @@
         <tr>
             <TableCharacterNameHead />
             <th style="width: 3em"></th>
+            <TableCharacterRaiderIoHead />
             {#key season.Id}
                 {#each season.Orders as order}
                     {#each order as dungeonId}

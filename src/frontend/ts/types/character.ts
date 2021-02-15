@@ -17,6 +17,7 @@ class Character {
 
     equippedItems: Dictionary<CharacterEquippedItem>
     mythicPlus: CharacterMythicPlus
+    raiderIo: CharacterRaiderIo
     reputations: Dictionary<number>
     shadowlands?: CharacterShadowlands
 }
@@ -52,6 +53,10 @@ class CharacterMythicPlusRunMember {
     name: string
     realmId: number
     specializationId: number
+}
+
+class CharacterRaiderIo {
+
 }
 
 class CharacterShadowlands {
