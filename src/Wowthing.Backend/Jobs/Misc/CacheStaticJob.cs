@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using CsvHelper;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using Wowthing.Backend.Jobs.NonBlizzard;
+using Wowthing.Backend.Models.API.NonBlizzard;
 using Wowthing.Backend.Models.Data;
 using Wowthing.Backend.Models.Redis;
 using Wowthing.Lib.Extensions;
@@ -32,13 +34,16 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
-            Version = 10,
+            Version = 11,
         };
 
         public override async Task Run(params string[] data)
         {
             var db = _redis.GetDatabase();
             var timer = new JankTimer();
+
+            // RaiderIO
+            var raiderIoScoreTiers = await db.JsonGetAsync<List<ApiDataRaiderIoScoreTier>>(DataRaiderIoScoreTiersJob.CACHE_KEY);
 
             // Mounts
             var spellToMount = await LoadMountDump();
@@ -88,6 +93,8 @@ namespace Wowthing.Backend.Jobs.Misc
                 ReputationSets = reputationSets,
 
                 ToySets = toySets,
+
+                RaiderIoScoreTiers = raiderIoScoreTiers,
             };
             var cacheJson = JsonConvert.SerializeObject(cacheData);
             var cacheHash = cacheJson.Md5();
