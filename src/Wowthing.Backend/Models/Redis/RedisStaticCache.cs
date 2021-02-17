@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
+using Wowthing.Backend.Models.API.NonBlizzard;
 using Wowthing.Backend.Models.Data;
 using Wowthing.Lib.Models;
 
@@ -35,5 +36,8 @@ namespace Wowthing.Backend.Models.Redis
 
         [JsonProperty(Order = 40)]
         public List<List<RedisSetCategory>> ToySets { get; set; }
+
+        [JsonProperty(Order = 100)]
+        public List<ApiDataRaiderIoScoreTier> RaiderIoScoreTiers { get; set; }
     }
 }

@@ -31,7 +31,7 @@
         text-align: center;
 
         &.inactive {
-            opacity: 0.3;
+            opacity: $inactive-opacity;
         }
         &.faction0 {
             background: mix($thing-background, $alliance-border, 90%);

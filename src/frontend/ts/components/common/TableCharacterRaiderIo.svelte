@@ -1,5 +1,8 @@
 <script lang="ts">
+    import {raiderIoScores} from '../../data/raider-io'
+    import {data as staticData} from '../../stores/static-store'
     import type {Character, MythicPlusSeason} from '../../types'
+    import tippy from '../../utils/tippy'
 
     import TableIcon from './TableIcon.svelte'
     import RaiderIoIcon from '../images/RaiderIoIcon.svelte'
@@ -7,7 +10,42 @@
     export let character: Character
     export let season: MythicPlusSeason
 
-    $: score = character?.raiderIo?.[season.Id]?.["all"]
+    let scores = undefined
+    let color: string = "#bbbbbb"
+    let tooltip: object
+
+    $: {
+        scores = character.raiderIo?.[season.Id]
+        if (scores !== undefined) {
+            for (let i = 0; i < $staticData.RaiderIoScoreTiers.length; i++) {
+                const tier = $staticData.RaiderIoScoreTiers[i]
+                if (scores.all >= tier.Score) {
+                    color = tier.RgbHex
+                    break
+                }
+            }
+
+            let scoresTable = []
+            for (const k in raiderIoScores) {
+                scoresTable.push(`
+<tr>
+    <td style="text-align: left">${raiderIoScores[k]}</td>
+    <td style="text-align: right">${scores[k].toFixed(1)}</td>
+</tr>`)
+            }
+
+            tooltip = {
+                allowHTML: true,
+                content: `
+<div class='tooltip-table'>
+    <h4>RaiderIO Scores</h4>
+    <table width="100%">
+        ${scoresTable.join('')}
+    </table>
+</div>`,
+            }
+        }
+    }
 </script>
 
 <style lang="scss">
@@ -20,15 +58,11 @@
     }
 </style>
 
-{#if score !== undefined}
+{#if scores !== undefined}
     <TableIcon>
         <RaiderIoIcon size=20 border=1 />
     </TableIcon>
-    <td
-        class:quality2={score >= 400 && score <= 799}
-        class:quality3={score >= 800 && score <= 1199}
-        class:quality4={score >= 1200 && score <= 1599}
-    >{ score }</td>
+    <td style="color: {color}" use:tippy={tooltip}>{ scores.all }</td>
 {:else}
     <TableIcon />
     <td></td>

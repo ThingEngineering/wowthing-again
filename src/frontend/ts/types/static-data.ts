@@ -17,6 +17,8 @@ export class StaticData {
     ReputationSets: StaticDataReputationCategory[]
 
     ToySets: StaticDataSetCategory[][]
+
+    RaiderIoScoreTiers: StaticDataRaiderIoScoreTier[]
 }
 
 class StaticDataClass {
@@ -93,4 +95,10 @@ export class StaticDataSetCategory {
 class StaticDataSetGroup {
     Name: string
     Things: number[][]
+}
+
+// RaiderIO
+class StaticDataRaiderIoScoreTier {
+    Score: number
+    RgbHex: string
 }

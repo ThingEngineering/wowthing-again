@@ -35,6 +35,7 @@ namespace Wowthing.Lib.Jobs
         DataMythicKeystoneSeasonIndex,
         DataPlayableRaceIndex,
         DataPlayableClassIndex,
+        DataRaiderIoScoreTiers,
         DataRealmIndex,
         DataReputationFactionIndex,
         DataReputationTiersIndex,
