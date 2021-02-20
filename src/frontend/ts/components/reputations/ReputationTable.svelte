@@ -4,69 +4,39 @@
 
     import {data as staticData} from '../../stores/static-store'
     import {data as userData} from '../../stores/user-store'
+
     import ReputationTableIcon from './ReputationTableIcon.svelte'
-    import ReputationTableRow from './ReputationTableRow.svelte'
+    import CharacterTable from '../common/CharacterTable.svelte'
+    import CharacterTableHead from '../common/CharacterTableHead.svelte'
+    import ReputationTableCell from './ReputationTableCell.svelte'
 
     export let slug: string
 
     $: category = find($staticData.ReputationSets, (r) => r.Slug === slug)
 </script>
 
-<style lang="scss">
-    @import '../../../scss/variables.scss';
+<CharacterTable endSpacer=false>
+    <slot slot="colgroup">
+        {#each category.Reputations as grouping}
+            <colgroup span="{grouping.length}"></colgroup>
+        {/each}
+    </slot>
 
-    table {
-        background: $thing-background;
-        table-layout: fixed;
-        width: 100%;
-
-        & :global(th) {
-            border-bottom: 1px solid $border-color;
-            position: sticky;
-            top: 0;
-        }
-        & :global(tr:last-child td:not(.sigh)) {
-            border-bottom: 1px solid $border-color;
-        }
-    }
-    colgroup:nth-child(even) {
-        background: darken($thing-background, 3%);
-    }
-    .name {
-        background: $body-background;
-        width: 10rem;
-    }
-    .realm {
-        background: $body-background;
-        width: 8.5rem;
-    }
-    .sigh {
-        background: $body-background;
-        border-left: 1px solid $border-color;
-        border-bottom-width: 0;
-    }
-</style>
-
-<table>
-    <colgroup span="2"></colgroup>
-    {#each category.Reputations as grouping}
-        <colgroup span="{grouping.length}"></colgroup>
-    {/each}
-    <thead>
-        <tr>
-            <th class="name"></th>
-            <th class="realm"></th>
+    <slot slot="head">
+        <CharacterTableHead>
             {#key category.Name}
                 {#each flatten(category.Reputations) as reputation}
                     <ReputationTableIcon reputation={reputation} />
                 {/each}
             {/key}
-            <th class="sigh"></th>
-        </tr>
-    </thead>
-    <tbody>
-        {#each $userData.characters as character}
-            <ReputationTableRow category={category} character={character} />
-        {/each}
-    </tbody>
-</table>
+        </CharacterTableHead>
+    </slot>
+
+    <slot slot="rowExtra">
+        {#key category.Name}
+            {#each flatten(category.Reputations) as reputation}
+                <ReputationTableCell reputationSet={reputation} />
+            {/each}
+        {/key}
+    </slot>
+</CharacterTable>

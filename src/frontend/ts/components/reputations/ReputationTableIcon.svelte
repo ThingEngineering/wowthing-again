@@ -16,12 +16,12 @@
     @import 'scss/variables.scss';
 
     th {
-        background: $thing-background;
         border: 1px solid $border-color;
         border-right-width: 0;
+        border-top-width: 0;
         padding: 0.3rem 0;
-        text-align: center;
-        width: 4em;
+        min-width: $reputation-width-cell;
+        width: $reputation-width-cell;
     }
     div {
         display: inline-block;

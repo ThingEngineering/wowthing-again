@@ -6,10 +6,10 @@ export function getItemUrl(item: CharacterEquippedItem): string {
     // WowDB
     if (true) {
         let params = []
-        if (item.bonusIds.length > 0) {
+        if (item.bonusIds?.length > 0) {
             params.push('bonusIDs=' + item.bonusIds.join(','))
         }
-        if (item.enchantmentIds.length > 0) {
+        if (item.enchantmentIds?.length > 0) {
             // TODO find out if wowdb supports multiple enchantments
             params.push('enchantment=' + item.enchantmentIds[0])
         }

@@ -91,6 +91,6 @@ const buildAll = (function () {
     return map(buildMe, (basePath) => sigh(basePath))
 })()
 
-console.log(buildAll)
+//console.log(buildAll)
 
 export default buildAll

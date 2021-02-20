@@ -1,7 +1,6 @@
 <script lang="ts">
-    import tippy from '../../utils/tippy'
-
     import {dungeonMap} from '../../data/dungeon'
+    import tippy from '../../utils/tippy'
 
     import WowthingImage from '../images/sources/WowthingImage.svelte'
 
@@ -17,6 +16,7 @@
         background: $thing-background;
         border: 1px solid $border-color;
         border-right-width: 0;
+        border-top-width: 0;
         padding: 0.3rem 0;
         text-align: center;
         width: 4em;

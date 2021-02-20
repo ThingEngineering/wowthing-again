@@ -1,11 +1,17 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy'
+    import {getContext} from 'svelte'
 
-    export let runs = []
+    import type {Character} from '../../types'
+
+    export let dungeonId: number
+    export let runsFunc: (char: Character, dungeonId: number) => []
+
+    const character: Character = getContext('character')
 
     let sortedRuns
     $: {
-        sortedRuns = sortBy(runs, (r) => !r.timed)
+        sortedRuns = sortBy(runsFunc(character, dungeonId), (r) => !r.timed)
         if (sortedRuns.length === 2 && sortedRuns[1].keystoneLevel <= sortedRuns[0].keystoneLevel) {
             sortedRuns = [sortedRuns[0]]
         }

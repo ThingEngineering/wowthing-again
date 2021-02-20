@@ -1,19 +1,24 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy'
+    import {getContext} from 'svelte'
 
     import {seasonMap} from '../../data/dungeon'
-    import {data as userData} from '../../stores/user-store'
-    import type {Character} from '../../types'
+    import type {Character, MythicPlusSeason} from '../../types'
 
     import MythicPlusDungeon from './MythicPlusDungeon.svelte'
-    import MythicPlusTableRow from './MythicPlusTableRow.svelte'
-    import TableCharacterNameHead from '../common/TableCharacterNameHead.svelte'
-    import TableCharacterRaiderIoHead from '../common/TableCharacterRaiderIoHead.svelte'
-    import type {MythicPlusSeason} from '../../types'
+    import MythicPlusTableCell from './MythicPlusTableCell.svelte'
+    import CharacterRowItemLevel from '../common/CharacterRowItemLevel.svelte'
+    import CharacterRowRaiderIo from '../common/CharacterRowRaiderIo.svelte'
+    import CharacterTable from '../common/CharacterTable.svelte'
+    import CharacterTableHead from '../common/CharacterTableHead.svelte'
+    import CharacterTableHeadItemLevel from '../common/CharacterTableHeadItemLevel.svelte'
+    import CharacterTableHeadRaiderIo from '../common/CharacterTableHeadRaiderIo.svelte'
 
     export let slug: string
 
     let season: MythicPlusSeason
+
+    let filterFunc: (char: Character) => boolean = undefined
     let runsFunc = (char: Character, dungeonId: number) => []
     $: {
         if (slug === 'thisweek') {
@@ -23,53 +28,21 @@
             season = seasonMap[slug.replace('season', '')]
             runsFunc = (char, dungeonId) => char.mythicPlus?.seasons?.[season.Id]?.[dungeonId]
         }
+        filterFunc = (char: Character) => char.level >= season.MinLevel
     }
 </script>
 
-<style lang="scss">
-    @import '../../../scss/variables.scss';
+<CharacterTable {filterFunc} extraSpan=3 endSpacer=false>
+    <slot slot="colgroup">
+        {#each season.Orders as order}
+            <colgroup span="{order.length}"></colgroup>
+        {/each}
+    </slot>
 
-    table {
-        background: $thing-background;
-        table-layout: fixed;
-        width: 100%;
-
-        & :global(th) {
-            border-bottom: 1px solid $border-color;
-            position: sticky;
-            top: 0;
-        }
-        & :global(thead th:nth-child(-n+9)) {
-            background: $body-background;
-        }
-        & :global(tr:last-child td:not(.sigh)) {
-            border-bottom: 1px solid $border-color;
-        }
-        & :global(tbody td) {
-            white-space: nowrap;
-        }
-    }
-    colgroup:nth-child(even) {
-        background: darken($thing-background, 3%);
-    }
-    .sigh {
-        background: $body-background;
-        border-left: 1px solid $border-color;
-        border-bottom-width: 0;
-        width: 100%;
-    }
-</style>
-
-<table class="table-striped">
-    <colgroup span="9"></colgroup>
-    {#each season.Orders as order}
-        <colgroup span="{order.length}"></colgroup>
-    {/each}
-    <thead>
-        <tr>
-            <TableCharacterNameHead />
-            <th style="width: 3em"></th>
-            <TableCharacterRaiderIoHead />
+    <slot slot="head">
+        <CharacterTableHead>
+            <CharacterTableHeadItemLevel />
+            <CharacterTableHeadRaiderIo />
             {#key season.Id}
                 {#each season.Orders as order}
                     {#each order as dungeonId}
@@ -77,14 +50,16 @@
                     {/each}
                 {/each}
             {/key}
-            <th class="sigh"></th>
-        </tr>
-    </thead>
-    <tbody>
-        {#each $userData.characters as character}
-            {#if character.level >= season.MinLevel}
-                <MythicPlusTableRow {character} {season} {runsFunc} />
-            {/if}
+        </CharacterTableHead>
+    </slot>
+
+    <slot slot="rowExtra">
+        <CharacterRowItemLevel />
+        <CharacterRowRaiderIo {season} />
+        {#each season.Orders as order}
+            {#each order as dungeonId}
+                <MythicPlusTableCell {dungeonId} {runsFunc} />
+            {/each}
         {/each}
-    </tbody>
-</table>
+    </slot>
+</CharacterTable>

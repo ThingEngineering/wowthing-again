@@ -1,21 +1,16 @@
 <script lang="ts">
-    import {data} from '../../stores/user-store'
-
-    import CharacterTableRow from './table/CharacterTableRow.svelte'
+    import CharacterRowCovenant from './table/CharacterRowCovenant.svelte'
+    import CharacterRowItemLevel from '../common/CharacterRowItemLevel.svelte'
+    import CharacterTable from '../common/CharacterTable.svelte'
+    import CharacterTableHead from '../common/CharacterTableHead.svelte'
 </script>
 
-<style lang="scss">
-    div {
-        padding: 0 0.5rem;
-    }
-</style>
-
-<div class="thing-container">
-    <table class="table-striped">
-        <tbody>
-            {#each $data.characters as character}
-                <CharacterTableRow {character} />
-            {/each}
-        </tbody>
-    </table>
-</div>
+<CharacterTable>
+    <slot slot="head">
+        <CharacterTableHead />
+    </slot>
+    <slot slot="rowExtra">
+        <CharacterRowItemLevel />
+        <CharacterRowCovenant />
+    </slot>
+</CharacterTable>
