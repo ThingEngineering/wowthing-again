@@ -1,4 +1,6 @@
 <script lang="ts">
+    import {getContext} from 'svelte'
+
     import {covenantMap} from '../../../data/covenant'
     import {Character} from '../../../types'
     import tippy from '../../../utils/tippy'
@@ -6,7 +8,7 @@
     import TableIcon from '../../common/TableIcon.svelte'
     import WowthingImage from '../../images/sources/WowthingImage.svelte'
 
-    export let character: Character
+    const character: Character = getContext('character')
 
     const covenant = character.shadowlands !== undefined ? covenantMap[character.shadowlands.covenantId] : undefined
 </script>

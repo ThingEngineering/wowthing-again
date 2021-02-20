@@ -1,11 +1,14 @@
 <script lang="ts">
+    import {getContext} from 'svelte'
+
     import {slotOrder} from '../../data/inventory-slot'
     import type {Character} from '../../types'
 
     import GearItem from './GearItem.svelte'
 
-    export let character: Character
     export let rowspan: number = undefined
+
+    $: character = getContext('character')
 </script>
 
 <style lang="scss">

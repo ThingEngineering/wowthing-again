@@ -1,4 +1,6 @@
 <script lang="ts">
+    import {getContext} from 'svelte'
+
     import {raiderIoScores} from '../../data/raider-io'
     import {data as staticData} from '../../stores/static-store'
     import type {Character, MythicPlusSeason} from '../../types'
@@ -7,7 +9,8 @@
     import TableIcon from './TableIcon.svelte'
     import RaiderIoIcon from '../images/RaiderIoIcon.svelte'
 
-    export let character: Character
+    const character: Character = getContext('character')
+
     export let season: MythicPlusSeason
 
     let scores = undefined

@@ -1,7 +1,9 @@
 <script lang="ts">
+    import {getContext} from 'svelte'
+
     import type {Character} from '../../types'
 
-    export let character: Character
+    const character: Character = getContext('character')
 </script>
 
 <style lang="scss">
