@@ -61,10 +61,10 @@ namespace Wowthing.Web.Models
                 AccountId = character.AccountId;
             }
 
-            if (character.EquippedItems != null)
+            if (character.EquippedItems?.Items != null)
             {
-                EquippedItems = character.EquippedItems
-                    .ToDictionary(k => (int)k.InventorySlot, v => new UserApiCharacterEquippedItem(v));
+                EquippedItems = character.EquippedItems.Items
+                    .ToDictionary(k => (int)k.Key, v => new UserApiCharacterEquippedItem(v.Value));
             }
 
             if (character.MythicPlus != null)

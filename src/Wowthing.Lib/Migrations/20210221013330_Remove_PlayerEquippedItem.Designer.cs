@@ -3,18 +3,19 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
-using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models;
 
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    partial class WowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210221013330_Remove_PlayerEquippedItem")]
+    partial class Remove_PlayerEquippedItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -403,20 +404,44 @@ namespace Wowthing.Lib.Migrations
                     b.ToTable("player_character");
                 });
 
-            modelBuilder.Entity("Wowthing.Lib.Models.PlayerCharacterEquippedItems", b =>
+            modelBuilder.Entity("Wowthing.Lib.Models.PlayerCharacterEquippedItem", b =>
                 {
                     b.Property<int>("CharacterId")
                         .HasColumnType("integer")
                         .HasColumnName("character_id");
 
-                    b.Property<Dictionary<WowInventorySlot, PlayerCharacterEquippedItem>>("Items")
-                        .HasColumnType("jsonb")
-                        .HasColumnName("items");
+                    b.Property<int>("InventorySlot")
+                        .HasColumnType("integer")
+                        .HasColumnName("inventory_slot");
 
-                    b.HasKey("CharacterId")
-                        .HasName("pk_player_character_equipped_items");
+                    b.Property<List<int>>("BonusIds")
+                        .HasColumnType("integer[]")
+                        .HasColumnName("bonus_ids");
 
-                    b.ToTable("player_character_equipped_items");
+                    b.Property<int>("Context")
+                        .HasColumnType("integer")
+                        .HasColumnName("context");
+
+                    b.Property<List<int>>("EnchantmentIds")
+                        .HasColumnType("integer[]")
+                        .HasColumnName("enchantment_ids");
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("integer")
+                        .HasColumnName("item_id");
+
+                    b.Property<int>("ItemLevel")
+                        .HasColumnType("integer")
+                        .HasColumnName("item_level");
+
+                    b.Property<int>("Quality")
+                        .HasColumnType("integer")
+                        .HasColumnName("quality");
+
+                    b.HasKey("CharacterId", "InventorySlot")
+                        .HasName("pk_player_character_equipped_item");
+
+                    b.ToTable("player_character_equipped_item");
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.PlayerCharacterMythicPlus", b =>
@@ -919,12 +944,12 @@ namespace Wowthing.Lib.Migrations
                     b.Navigation("Account");
                 });
 
-            modelBuilder.Entity("Wowthing.Lib.Models.PlayerCharacterEquippedItems", b =>
+            modelBuilder.Entity("Wowthing.Lib.Models.PlayerCharacterEquippedItem", b =>
                 {
                     b.HasOne("Wowthing.Lib.Models.PlayerCharacter", "Character")
-                        .WithOne("EquippedItems")
-                        .HasForeignKey("Wowthing.Lib.Models.PlayerCharacterEquippedItems", "CharacterId")
-                        .HasConstraintName("fk_player_character_equipped_items_player_character_character_")
+                        .WithMany("EquippedItems")
+                        .HasForeignKey("CharacterId")
+                        .HasConstraintName("fk_player_character_equipped_item_player_character_character_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

@@ -35,55 +35,31 @@ namespace Wowthing.Backend.Jobs.User
             }
 
             // Fetch character data
-            var equippedBySlot = await _context.PlayerCharacterEquippedItem
-                .Where(ei => ei.CharacterId == query.CharacterId)
-                .ToDictionaryAsync(k => k.InventorySlot);
-            var seenSlots = new HashSet<WowInventorySlot>();
-
-            foreach (var item in result.Data.Items)
+            var equipped = await _context.PlayerCharacterEquippedItems.FindAsync(query.CharacterId);
+            if (equipped == null)
             {
-                var slot = item.Slot.EnumParse<WowInventorySlot>();
-                seenSlots.Add(slot);
-
-                if (!equippedBySlot.TryGetValue(slot, out var equippedItem))
+                equipped = new PlayerCharacterEquippedItems
                 {
-                    equippedItem = new PlayerCharacterEquippedItem
-                    {
-                        CharacterId = query.CharacterId,
-                        InventorySlot = slot,
-                    };
-                    _context.Add(equippedItem);
-                }
-
-                equippedItem.Context = item.Context;
-                equippedItem.ItemId = item.Item.Id;
-                equippedItem.ItemLevel = item.Level.Value;
-                equippedItem.Quality = item.Quality.EnumParse<WowQuality>();
-
-                if (item.BonusList != null)
-                {
-                    equippedItem.BonusIds = item.BonusList.OrderBy(b => b).ToList();
-                }
-                else
-                {
-                    equippedItem.BonusIds = new List<int>();
-                } 
-
-                if (item.Enchantments != null)
-                {
-                    equippedItem.EnchantmentIds = item.Enchantments.Select(e => e.Id).OrderBy(e => e).ToList();
-                }
-                else
-                {
-                    equippedItem.EnchantmentIds = new List<int>();
-                } 
+                    CharacterId = query.CharacterId,
+                };
+                _context.PlayerCharacterEquippedItems.Add(equipped);
             }
 
-            await _context.SaveChangesAsync();
+            equipped.Items = result.Data.Items
+                .ToDictionary(
+                    item => item.Slot.EnumParse<WowInventorySlot>(),
+                    item => new PlayerCharacterEquippedItem
+                    {
+                        Context = item.Context,
+                        ItemId = item.Item.Id,
+                        ItemLevel = item.Level.Value,
+                        Quality = item.Quality.EnumParse<WowQuality>(),
+                        BonusIds = item.BonusList?.OrderBy(b => b).ToList() ?? new List<int>(),
+                        EnchantmentIds = item.Enchantments?.Select(e => e.Id).OrderBy(e => e).ToList() ?? new List<int>(),
+                    }
+                );
 
-            await _context.PlayerCharacterEquippedItem
-                .Where(ei => ei.CharacterId == query.CharacterId && !seenSlots.Contains(ei.InventorySlot))
-                .DeleteAsync();
+            await _context.SaveChangesAsync();
         }
     }
 }

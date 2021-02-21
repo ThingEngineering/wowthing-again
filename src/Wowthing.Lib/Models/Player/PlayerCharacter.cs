@@ -42,7 +42,7 @@ namespace Wowthing.Lib.Models
         public DateTime LastApiCheck { get; set; } = DateTime.MinValue;
 
         // Navigation properties
-        public List<PlayerCharacterEquippedItem> EquippedItems { get; set; }
+        public PlayerCharacterEquippedItems EquippedItems { get; set; }
         public PlayerCharacterMythicPlus MythicPlus { get; set; }
         public List<PlayerCharacterMythicPlusSeason> MythicPlusSeasons { get; set; }
         public PlayerCharacterQuests Quests { get; set; }
