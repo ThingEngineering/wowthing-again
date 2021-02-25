@@ -91,6 +91,6 @@ namespace Wowthing.Backend.Services
                     _logger.Error(ex, "Job failed");
                 }
             }
-        });
+        }, stoppingToken);
     }
 }

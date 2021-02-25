@@ -12,7 +12,7 @@ namespace Wowthing.Backend.Jobs.Data
 {
     public class DataReputationTiersIndexJob : JobBase, IScheduledJob
     {
-        public static ScheduledJob Schedule = new ScheduledJob
+        public static readonly ScheduledJob Schedule = new ScheduledJob
         {
             Type = JobType.DataReputationTiersIndex,
             Priority = JobPriority.High,

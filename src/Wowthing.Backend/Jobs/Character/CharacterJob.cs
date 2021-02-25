@@ -17,7 +17,6 @@ namespace Wowthing.Backend.Jobs.Character
     public class CharacterJob : JobBase
     {
         private const string API_PATH = "profile/wow/character/{0}/{1}";
-        private static readonly TimeSpan CACHE_TIME = TimeSpan.FromMinutes(10);
 
         public override async Task Run(params string[] data)
         {

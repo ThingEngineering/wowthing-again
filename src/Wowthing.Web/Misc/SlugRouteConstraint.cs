@@ -11,7 +11,7 @@ namespace Wowthing.Web.Misc
 {
     public class SlugRouteConstraint : IRouteConstraint
     {
-        private Regex _regex = new Regex(
+        private readonly Regex _regex = new Regex(
             @"^[A-Za-z0-9-]+$",
             RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase,
             TimeSpan.FromMilliseconds(100)

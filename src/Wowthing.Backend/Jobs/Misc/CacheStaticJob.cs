@@ -29,7 +29,7 @@ namespace Wowthing.Backend.Jobs.Misc
         private static readonly string DATA_PATH = "data";
 #endif
 
-        public static ScheduledJob Schedule = new ScheduledJob
+        public static readonly ScheduledJob Schedule = new ScheduledJob
         {
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
@@ -107,7 +107,7 @@ namespace Wowthing.Backend.Jobs.Misc
             _logger.Information("CacheStaticJob: {0}", timer.ToString());
         }
 
-        private List<DataReputationCategory> LoadReputations()
+        private static List<DataReputationCategory> LoadReputations()
         {
             var categories = new List<DataReputationCategory>();
             var yaml = new DeserializerBuilder()
@@ -124,25 +124,25 @@ namespace Wowthing.Backend.Jobs.Misc
             return categories;
         }
 
-        private async Task<SortedDictionary<int, int>> LoadMountDump()
+        private static async Task<SortedDictionary<int, int>> LoadMountDump()
         {
             var records = await LoadDumpCsv<DataMountDump>("mount");
             return new SortedDictionary<int, int>(records.ToDictionary(k => k.SourceSpellID, v => v.ID));
         }
 
-        private async Task<SortedDictionary<int, int>> LoadPetDump()
+        private static async Task<SortedDictionary<int, int>> LoadPetDump()
         {
             var records = await LoadDumpCsv<DataPetDump>("battlepetspecies", p => (p.Flags & 32) == 0);
             return new SortedDictionary<int, int>(records.ToDictionary(k => k.CreatureID, v => v.ID));
         }
 
-        private async Task<SortedDictionary<int, int>> LoadToyDump()
+        private static async Task<SortedDictionary<int, int>> LoadToyDump()
         {
             var records = await LoadDumpCsv<DataToyDump>("toy");
             return new SortedDictionary<int, int>(records.ToDictionary(k => k.ItemID, v => v.ID));
         }
 
-        private async Task<List<T>> LoadDumpCsv<T>(string fileName, Func<T, bool> validFunc = null)
+        private static async Task<List<T>> LoadDumpCsv<T>(string fileName, Func<T, bool> validFunc = null)
         {
             var basePath = Path.Join(DATA_PATH, "dumps");
             var filePath = Directory.GetFiles(basePath, $"{fileName}-*.csv").OrderByDescending(f => f).First();
@@ -160,7 +160,7 @@ namespace Wowthing.Backend.Jobs.Misc
             return ret;
         }
 
-        private List<List<RedisSetCategory>> LoadSets(string dirName)
+        private static List<List<RedisSetCategory>> LoadSets(string dirName)
         {
             var categories = new List<List<RedisSetCategory>>();
             var yaml = new DeserializerBuilder()
@@ -189,7 +189,7 @@ namespace Wowthing.Backend.Jobs.Misc
             return categories;
         }
 
-        private void AddUncategorized(string dirName, SortedDictionary<int, int> spellToThing, List<List<RedisSetCategory>> thingSets)
+        private static void AddUncategorized(string dirName, SortedDictionary<int, int> spellToThing, List<List<RedisSetCategory>> thingSets)
         {
             var skip = Array.Empty<int>();
             var skipPath = Path.Join(DATA_PATH, dirName, "_skip.yml");

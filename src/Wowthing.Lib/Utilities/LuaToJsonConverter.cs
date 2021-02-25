@@ -11,7 +11,7 @@ namespace Wowthing.Lib.Utilities
     {
         private int _index = 0;
         private int _indent = 0;
-        private string[] _lines;
+        private readonly string[] _lines;
 
         public LuaToJsonConverter(string luaText)
         {
