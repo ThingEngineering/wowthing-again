@@ -105,7 +105,23 @@ namespace Wowthing.Backend.Jobs
                     request.Headers.IfModifiedSince = new DateTimeOffset(lastModified);
                 }
 
-                var response = await _http.SendAsync(request);
+                HttpResponseMessage response;
+                try
+                {
+                    response = await _http.SendAsync(request);
+                }
+                catch (OperationCanceledException ex)
+                {
+                    if (ex.InnerException != null)
+                    {
+                        throw ex.InnerException;
+                    }
+                    else
+                    {
+                        throw new HttpRequestException("Operation canceled??");
+                    } 
+                }
+
                 if (response.StatusCode == HttpStatusCode.NotModified)
                 {
                     return new JsonResult<T> { NotModified = true };
