@@ -63,6 +63,12 @@ namespace Wowthing.Backend.Jobs
             return LogContext.PushProperty("Task", $"{query.RealmSlug}/{query.CharacterName.ToLowerInvariant()} {jobName}: ");
         }
 
+        protected IDisposable UserLog(string userId)
+        {
+            var jobName = this.GetType().Name[0..^3];
+            return LogContext.PushProperty("Task", $"{userId} {jobName}: ");
+        }
+
         protected static Uri GenerateUri(WowRegion region, ApiNamespace lamespace, string path)
         {
             var builder = new UriBuilder(string.Format(API_URL, _regionToString[region], path));

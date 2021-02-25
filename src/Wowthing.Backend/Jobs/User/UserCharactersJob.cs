@@ -19,7 +19,10 @@ namespace Wowthing.Backend.Jobs
 
         public override async Task Run(params string[] data)
         {
+            using var shrug = UserLog(data[0]);
+            
             var userId = long.Parse(data[0]);
+
             var accessToken = await _context.UserTokens.FirstOrDefaultAsync(t => t.UserId == userId && t.LoginProvider == "BattleNet" && t.Name == "access_token");
             if (accessToken == null)
             {
@@ -67,11 +70,7 @@ namespace Wowthing.Backend.Jobs
                 }
                 catch (HttpRequestException e)
                 {
-                    _logger.Debug("exception: {e}", e.Message);
-                    if (e.Message != "404")
-                    {
-                        throw;
-                    }
+                    _logger.Debug("HTTP request failed: {region} {e}", region, e.Message);
                 }
             }
 
