@@ -11,7 +11,7 @@ namespace Wowthing.Backend.Jobs.NonBlizzard
 {
     public class DataRaiderIoScoreTiersJob : JobBase, IScheduledJob
     {
-        public static ScheduledJob Schedule = new ScheduledJob
+        public static readonly ScheduledJob Schedule = new ScheduledJob
         {
             Type = JobType.DataRaiderIoScoreTiers,
             Priority = JobPriority.High,

@@ -15,7 +15,7 @@ namespace Wowthing.Backend.Jobs.Data
 {
     public class DataRealmIndexJob : JobBase, IScheduledJob
     {
-        public static ScheduledJob Schedule = new ScheduledJob
+        public static readonly ScheduledJob Schedule = new ScheduledJob
         {
             Type = JobType.DataRealmIndex,
             Priority = JobPriority.High,

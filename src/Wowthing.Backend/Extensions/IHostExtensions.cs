@@ -1,16 +1,19 @@
 ﻿using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 
-public static class IHostExtensions
+namespace Wowthing.Backend.Extensions
 {
-    public static IHost ValidateOptions<T>(this IHost host)
+    public static class IHostExtensions
     {
-        object options = host.Services.GetService(typeof(IOptions<>).MakeGenericType(typeof(T)));
-        if (options != null)
+        public static IHost ValidateOptions<T>(this IHost host)
         {
-            // Retrieve the value to trigger validation
-            var _ = ((IOptions<object>)options).Value;
+            object options = host.Services.GetService(typeof(IOptions<>).MakeGenericType(typeof(T)));
+            if (options != null)
+            {
+                // Retrieve the value to trigger validation
+                var _ = ((IOptions<object>)options).Value;
+            }
+            return host;
         }
-        return host;
     }
 }

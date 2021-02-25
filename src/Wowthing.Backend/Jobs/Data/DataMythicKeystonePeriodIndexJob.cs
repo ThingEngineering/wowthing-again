@@ -14,7 +14,7 @@ namespace Wowthing.Backend.Jobs.Data
 {
     public class DataMythicKeystonePeriodIndexJob : JobBase, IScheduledJob
     {
-        public static ScheduledJob Schedule = new ScheduledJob
+        public static readonly ScheduledJob Schedule = new ScheduledJob
         {
             Type = JobType.DataMythicKeystonePeriodIndex,
             Priority = JobPriority.High,

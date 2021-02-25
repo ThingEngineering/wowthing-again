@@ -16,7 +16,7 @@ namespace Wowthing.Backend.Jobs.Data
 {
     public class DataPlayableRaceIndexJob : JobBase, IScheduledJob
     {
-        public static ScheduledJob Schedule = new ScheduledJob
+        public static readonly ScheduledJob Schedule = new ScheduledJob
         {
             Type = JobType.DataPlayableRaceIndex,
             Priority = JobPriority.High,

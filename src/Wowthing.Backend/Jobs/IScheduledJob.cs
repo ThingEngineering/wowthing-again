@@ -6,6 +6,6 @@ namespace Wowthing.Backend.Jobs
 {
     public interface IScheduledJob
     {
-        public static ScheduledJob Schedule;
+        public static readonly ScheduledJob Schedule;
     }
 }
