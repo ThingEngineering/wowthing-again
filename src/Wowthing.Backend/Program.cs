@@ -90,7 +90,6 @@ namespace Wowthing.Backend
         private static void AddRateLimitedHttpClient(IServiceCollection services)
         {
             // NOTE Blizzard's provided numbers are complete bullshit and you'll get 429 spam if you try
-
             // default limit of 100 per second
             var perSecond = new CountByIntervalAwaitableConstraint(10, TimeSpan.FromSeconds(1));
             // default limit of 36,000 per hour
@@ -98,7 +97,13 @@ namespace Wowthing.Backend
 
             var rateLimiter = TimeLimiter.Compose(perSecond, perHour)
                 .AsDelegatingHandler();
-            var httpClient = new HttpClient(rateLimiter);
+            
+            var httpClient = new HttpClient(rateLimiter)
+            {
+                // Set a more reasonable timeout, default is 100s
+                Timeout = TimeSpan.FromSeconds(10)
+            };
+
             services.AddSingleton(httpClient);
         }
     }
