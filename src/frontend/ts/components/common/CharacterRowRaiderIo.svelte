@@ -65,7 +65,7 @@
     <TableIcon>
         <RaiderIoIcon size=20 border=1 />
     </TableIcon>
-    <td style="color: {color}" use:tippy={tooltip}>{ scores.all }</td>
+    <td style="color: {color}" use:tippy={tooltip}>{ scores.all.toFixed(1) }</td>
 {:else}
     <TableIcon />
     <td></td>
