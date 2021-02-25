@@ -13,8 +13,8 @@ const dungeonMap: Dictionary<Dungeon> = {
     251: new Dungeon(251, 'The Underrot', 'UR', 'dungeon_the_underrot'),
     252: new Dungeon(252, 'Shrine of the Storm', 'SoS', 'dungeon_shrine_of_the_storm'),
     353: new Dungeon(353, 'Siege of Boralus', 'SoB', 'dungeon_siege_of_boralus'),
-    369: new Dungeon(369, 'Operation: Mechagon - Junkyard', 'OMJ', 'dungeon_operation_mechagon'),
-    370: new Dungeon(370, 'Operation: Mechagon - Workshop', 'OMW', 'dungeon_operation_mechagon'),
+    369: new Dungeon(369, 'Operation: Mechagon - Junkyard', 'OMJ', 'dungeon_operation_mechagon_junkyard'),
+    370: new Dungeon(370, 'Operation: Mechagon - Workshop', 'OMW', 'dungeon_operation_mechagon_workshop'),
 
     // Shadowlands
     375: new Dungeon(375, 'Mists of Tirna Scithe', 'MTS', 'dungeon_mists_of_tirna_scithe'),
