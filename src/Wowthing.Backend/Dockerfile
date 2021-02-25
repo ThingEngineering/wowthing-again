@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
+FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 
 WORKDIR /app
 COPY . .
@@ -7,7 +7,7 @@ WORKDIR /app/src/Wowthing.Backend
 RUN dotnet publish -c Release -o out
 
 
-FROM mcr.microsoft.com/dotnet/aspnet:3.1-alpine AS runtime
+FROM mcr.microsoft.com/dotnet/aspnet:5.0-alpine AS runtime
 WORKDIR /app
 COPY --from=build /app/data/ ./data/
 COPY --from=build /app/src/Wowthing.Backend/out ./
