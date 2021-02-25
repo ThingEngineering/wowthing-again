@@ -18,15 +18,12 @@ namespace Wowthing.Web.Extensions
             {
                 OnPrepareResponse = (ctx) =>
                 {
-                    if (ctx.Context.Request.Path.StartsWithSegments("/dist/"))
+                    var headers = ctx.Context.Response.GetTypedHeaders();
+                    headers.CacheControl = new CacheControlHeaderValue
                     {
-                        var headers = ctx.Context.Response.GetTypedHeaders();
-                        headers.CacheControl = new CacheControlHeaderValue
-                        {
-                            Public = true,
-                            MaxAge = CACHE_DURATION,
-                        };
-                    }
+                        Public = true,
+                        MaxAge = CACHE_DURATION,
+                    };
                 }
             });
         }
