@@ -2,47 +2,72 @@
 .quality0 {
     color: $quality0-color !important;
     div, img {
-        border-color: $quality0-color !important;
+        border-color: $quality0-border !important;
     }
 }
+img.quality0 {
+    border-color: $quality0-border !important;
+}
+
 // Common
 .quality1 {
     color: $quality1-color !important;
     div, img {
-        border-color: darken($quality1-color, 5%) !important;
+        border-color: $quality1-border !important;
     }
 }
+img.quality1 {
+    border-color: $quality1-border !important;
+}
+
 // Uncommon
 .quality2 {
     color: $quality2-color !important;
+
     div, img {
-        border-color: darken($quality2-color, 5%) !important;
+        border-color: $quality2-border !important;
     }
 }
+img.quality2 {
+    border-color: $quality2-border !important;
+}
+
 // Rare
 .quality3 {
     color: $quality3-color !important;
     div, img {
-        border-color: darken($quality3-color, 5%) !important;
+        border-color: $quality3-border !important;
     }
 }
+img.quality3 {
+    border-color: $quality3-border !important;
+}
+
 // Epic
 .quality4 {
     color: $quality4-color !important;
     div, img {
-        border-color: darken($quality4-color, 5%) !important;
+        border-color: $quality4-border !important;
     }
 }
+img.quality4 {
+    border-color: $quality4-border !important;
+}
+
 // Legendary
 .quality5 {
     color: $quality5-color !important;
     div, img {
-        border-color: lighten($quality5-color, 5%) !important;
+        border-color: $quality5-border !important;
     }
     span {
         color: #ffb400 !important;
     }
 }
+img.quality5 {
+    border-color: $quality5-border !important;
+}
+
 // Artifact
 .quality6 {
     color: $quality6-color !important;

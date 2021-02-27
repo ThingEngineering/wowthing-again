@@ -16,7 +16,7 @@
     div :global(img) {
         background: rgba(0x4d, 0x4e, 0x4f, 0.4);
         border-color: $border-color;
-        border-radius: 8px;
+        border-radius: $border-radius;
     }
 </style>
 

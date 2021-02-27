@@ -5,8 +5,8 @@
         margin: $tooltip-padding-y*-1 $tooltip-padding-x*-1 $tooltip-padding-y $tooltip-padding-x*-1;
         padding: 0.3rem 0.5rem;
         border-bottom: 1px solid $tooltip-border;
-        border-top-left-radius: 4px;
-        border-top-right-radius: 4px;
+        border-top-left-radius: $border-radius;
+        border-top-right-radius: $border-radius;
         background: $tooltip-title-background;
         color: $tooltip-title-color;
         font-size: 1rem;

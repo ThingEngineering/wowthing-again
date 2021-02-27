@@ -65,7 +65,15 @@ const seasonMap: Dictionary<MythicPlusSeason> = {
     5: new MythicPlusSeason(5, 60, [orderShadowlands]),
 }
 
+const badgeToClass: Dictionary<string> = {
+    2: 'quality2',
+    5: 'quality3',
+    10: 'quality4',
+    15: 'quality5',
+}
+
 export {
     dungeonMap,
     seasonMap,
+    badgeToClass,
 }

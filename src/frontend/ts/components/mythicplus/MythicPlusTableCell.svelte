@@ -16,7 +16,6 @@
             sortedRuns = [sortedRuns[0]]
         }
     }
-
 </script>
 
 <style lang="scss">
@@ -39,14 +38,12 @@
     {#each sortedRuns as run}
         <span
             class:failed={!run.timed}
-            class:quality2={run.timed && run.keystoneLevel >= 4 && run.keystoneLevel < 7}
-            class:quality3={run.timed && run.keystoneLevel >= 7 && run.keystoneLevel < 10}
+            class:quality2={run.timed && run.keystoneLevel >= 2 && run.keystoneLevel < 5}
+            class:quality3={run.timed && run.keystoneLevel >= 5 && run.keystoneLevel < 10}
             class:quality4={run.timed && run.keystoneLevel >= 10 && run.keystoneLevel < 15}
             class:quality5={run.timed && run.keystoneLevel >= 15}
         >
             {run.keystoneLevel}
         </span>
-    {:else}
-        &nbsp;
     {/each}
 </td>

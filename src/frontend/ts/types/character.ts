@@ -35,7 +35,7 @@ class CharacterEquippedItem {
 class CharacterMythicPlus {
     currentPeriodId: number
     periodRuns: Dictionary<CharacterMythicPlusRun[]>
-    seasons: Dictionary<Dictionary<CharacterMythicPlusRun[]>>
+    seasons: Dictionary<Dictionary<string | CharacterMythicPlusRun[]>>
 }
 
 class CharacterMythicPlusRun {
@@ -68,5 +68,6 @@ class CharacterShadowlands {
 
 export {
     Character,
-    CharacterEquippedItem
+    CharacterEquippedItem,
+    CharacterMythicPlusRun,
 }

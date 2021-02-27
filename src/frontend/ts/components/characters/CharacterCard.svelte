@@ -24,7 +24,7 @@
     article {
         background: $thing-background;
         border: 1px solid $border-color;
-        border-radius: 8px;
+        border-radius: $border-radius-large;
         display: inline-block;
         padding: 0.5rem 0.75rem;
         position: relative;
@@ -45,7 +45,7 @@
     .tag {
         background: $thing-background;
         border: 1px solid lighten($border-color, 20%);
-        border-radius: 8px;
+        border-radius: $border-radius-large;
         font-size: 0.8rem;
         left: -1px;
         line-height: 1;
@@ -60,7 +60,7 @@
         position: relative;
     }
     .icons :global(img) {
-        border-radius: 0.5rem;
+        border-radius: $border-radius;
     }
     .spec {
         height: 28px;
@@ -86,7 +86,7 @@
         bottom: -10px;
         background: $thing-background;
         border: 1px solid lighten($border-color, 20%);
-        border-radius: 0.5rem;
+        border-radius: $border-radius;
         color: #ffff88;
         font-size: 0.8rem;
         letter-spacing: 0.0625em;
