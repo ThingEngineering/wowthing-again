@@ -18,15 +18,34 @@ namespace Wowthing.Backend.Jobs.User
     public class CharacterRaiderIoJob : JobBase
     {
         // FIXME generate this from stored season info
-        private const string API_URL = "https://raider.io/api/v1/characters/profile?region={0}&realm={1}&name={2}&fields=mythic_plus_scores_by_season%3Aseason-sl-1";
+        private const string API_URL = "https://raider.io/api/v1/characters/profile?region={0}&realm={1}&name={2}&fields=mythic_plus_scores_by_season%3A{3}";
 
         public override async Task Run(params string[] data)
         {
             var query = JsonConvert.DeserializeObject<SchedulerCharacterQuery>(data[0]);
             using var shrug = CharacterLog(query);
 
+            // Fetch seasons
+            var seasons = await _context.WowMythicPlusSeason
+                .Where(s => s.Region == query.Region)
+                .Select(s => s.Id)
+                .OrderByDescending(s => s)
+                .ToArrayAsync();
+
+            var oof = string.Join(":", seasons.Select(s =>
+            {
+                if (s >= 5)
+                {
+                    return $"season-sl-{s - 4}";
+                }
+                else
+                {
+                    return $"season-bfa-{s}";
+                } 
+            }));
+
             // Fetch API data
-            var uri = new Uri(string.Format(API_URL, query.Region.ToString().ToLowerInvariant(), query.RealmSlug, query.CharacterName.ToLowerInvariant()));
+            var uri = new Uri(string.Format(API_URL, query.Region.ToString().ToLowerInvariant(), query.RealmSlug, query.CharacterName.ToLowerInvariant(), oof));
 
             var result = await GetJson<ApiCharacterRaiderIo>(uri, useAuthorization: false, useLastModified: false);
             /*if (result.NotModified)
