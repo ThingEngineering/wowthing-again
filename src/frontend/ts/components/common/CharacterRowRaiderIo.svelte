@@ -14,7 +14,7 @@
     export let season: MythicPlusSeason
 
     let scores = undefined
-    let color: string = "#bbbbbb"
+    let color: string = '#bbbbbb'
     let tooltip: object
 
     $: {
@@ -54,18 +54,18 @@
 <style lang="scss">
     @import '../../../scss/variables.scss';
 
-    td {
+    .score {
         padding-right: 0.5rem;
         text-align: right;
         width: $character-width-raider-io;
     }
 </style>
 
-{#if scores !== undefined}
+{#if scores !== undefined && scores.all > 0}
     <TableIcon>
         <RaiderIoIcon size=20 border=1 />
     </TableIcon>
-    <td style="color: {color}" use:tippy={tooltip}>{ scores.all.toFixed(1) }</td>
+    <td class="score" style="color: {color}" use:tippy={tooltip}>{ scores.all.toFixed(1) }</td>
 {:else}
     <TableIcon />
     <td></td>

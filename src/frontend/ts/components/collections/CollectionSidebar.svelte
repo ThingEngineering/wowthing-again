@@ -22,14 +22,16 @@
     span {
         background: $sidebar-pill-background;
         border: 1px solid $border-color;
-        border-radius: 0.3rem;
+        border-top-left-radius: $border-radius;
+        border-bottom-left-radius: $border-radius;
+        color: #bbb;
         float: right;
         font-size: #{$sidebar-pill-scale}rem;
         line-height: calc(1.5 / #{$sidebar-pill-scale});
         padding: 0 0.3rem 0.1rem;
         pointer-events: none;
         position: absolute;
-        right: 0.3rem;
+        right: -1px;
         top: 50%;
         transform: translateY(-50%);
         word-spacing: -0.2ch;
