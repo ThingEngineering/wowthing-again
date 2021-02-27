@@ -17,6 +17,10 @@ namespace Wowthing.Backend.Models.API.NonBlizzard
     {
         private static readonly Dictionary<string, int> _seasonMap = new Dictionary<string, int>
         {
+            { "season-bfa-1", 1 },
+            { "season-bfa-2", 2 },
+            { "season-bfa-3", 3 },
+            { "season-bfa-4", 4 },
             { "season-sl-1", 5 },
         };
 
