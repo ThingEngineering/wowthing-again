@@ -34,7 +34,7 @@
                 tooltip = {
                     allowHTML: true,
                     content: `
-<div class='tooltip-table'>
+<div class='wowthing-tooltip'>
     <h4>${reputation.Name}</h4>
     ${valueRank}
     ${repInfo.Note !== null ? '<p><em>' + repInfo.Note + '</em></p>' : ''}

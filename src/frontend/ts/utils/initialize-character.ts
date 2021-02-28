@@ -1,5 +1,6 @@
 import keys from 'lodash/keys'
 
+import getItemLevelQuality from './get-item-level-quality'
 import {seasonMap} from '../data/dungeon'
 import {InventorySlot, slotOrder} from '../data/inventory-slot'
 import type {Character, CharacterMythicPlusRun} from '../types'
@@ -31,13 +32,7 @@ export default function initializeCharacter(character: Character) {
         character.calculatedItemLevel = character.equippedItemLevel.toFixed(1)
     }
 
-    // 226 = mythic  5
-    // 213 = heroic  4
-    // 200 = normal  3
-    // 187 = lfr     2
-    // 174 = ?       1
-    // 161 = ?       0
-    character.calculatedItemLevelQuality = Math.floor(Math.max(0, Math.min(6, (parseFloat(character.calculatedItemLevel) - 148) / 13)))
+    character.calculatedItemLevelQuality = getItemLevelQuality(parseFloat(character.calculatedItemLevel))
 
     // mythic+ seasons
     if (character.mythicPlus?.seasons) {
