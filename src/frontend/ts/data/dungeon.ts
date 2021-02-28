@@ -1,5 +1,31 @@
-import {Dungeon, MythicPlusSeason} from '../types'
+import {Dungeon, MythicPlusAffix, MythicPlusSeason} from '../types'
 import type {Dictionary} from '../types'
+
+const affixMap: Dictionary<MythicPlusAffix> = {
+      1: new MythicPlusAffix('Overflowing'),
+      2: new MythicPlusAffix('Skittish'),
+      3: new MythicPlusAffix('Volcanic'),
+      4: new MythicPlusAffix('Necrotic'),
+      5: new MythicPlusAffix('Teeming'),
+      6: new MythicPlusAffix('Raging'),
+      7: new MythicPlusAffix('Bolstering'),
+      8: new MythicPlusAffix('Sanguine'),
+      9: new MythicPlusAffix('Tyrannical'),
+     10: new MythicPlusAffix('Fortified'),
+     11: new MythicPlusAffix('Bursting'),
+     12: new MythicPlusAffix('Grievous'),
+     13: new MythicPlusAffix('Explosive'),
+     14: new MythicPlusAffix('Quaking'),
+    122: new MythicPlusAffix('Inspiring'),
+    123: new MythicPlusAffix('Spiteful'),
+    124: new MythicPlusAffix('Storming'),
+    // Seasonal
+     16: new MythicPlusAffix('Infested'), // BfA S1
+    117: new MythicPlusAffix('Reaping'), // BfA S2
+    119: new MythicPlusAffix('Beguiling'), // BfA S3
+    120: new MythicPlusAffix('Awakened'), // BfA S4
+    121: new MythicPlusAffix('Prideful'), // SL S1
+}
 
 const dungeonMap: Dictionary<Dungeon> = {
     // Battle for Azeroth
@@ -73,6 +99,7 @@ const badgeToClass: Dictionary<string> = {
 }
 
 export {
+    affixMap,
     dungeonMap,
     seasonMap,
     badgeToClass,

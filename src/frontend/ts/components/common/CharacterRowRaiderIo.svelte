@@ -40,7 +40,7 @@
             tooltip = {
                 allowHTML: true,
                 content: `
-<div class='tooltip-table'>
+<div class='wowthing-tooltip'>
     <h4>RaiderIO Scores</h4>
     <table width="100%">
         ${scoresTable.join('')}

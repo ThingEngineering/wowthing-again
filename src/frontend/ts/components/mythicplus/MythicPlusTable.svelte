@@ -62,11 +62,11 @@
         {#key season.Id}
             <CharacterRowRaiderIo {season} />
             <CharacterRowMythicPlusSeasonBadge {season} />
-        {/key}
-        {#each season.Orders as order}
-            {#each order as dungeonId}
-                <MythicPlusTableCell {dungeonId} {runsFunc} />
+            {#each season.Orders as order}
+                {#each order as dungeonId}
+                    <MythicPlusTableCell {dungeonId} {runsFunc} />
+                {/each}
             {/each}
-        {/each}
+        {/key}
     </slot>
 </CharacterTable>

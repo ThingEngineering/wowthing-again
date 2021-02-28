@@ -1,3 +1,11 @@
+class MythicPlusAffix {
+    Name: string
+
+    constructor(name: string) {
+        this.Name = name
+    }
+}
+
 class MythicPlusSeason {
     Id: number
     MinLevel: number
@@ -11,5 +19,6 @@ class MythicPlusSeason {
 }
 
 export {
+    MythicPlusAffix,
     MythicPlusSeason,
 }

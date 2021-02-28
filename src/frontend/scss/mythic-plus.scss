@@ -1,0 +1,44 @@
+.mythic-plus-tooltip {
+    margin-top: 0.5rem;
+    width: 100%;
+
+    & + .mythic-plus-tooltip {
+        margin-top: 1rem;
+    }
+
+    img {
+        border: 1px solid $border-color;
+        border-radius: $border-radius;
+        margin-top: -2px;
+
+        & + img {
+            margin-left: 1px;
+        }
+    }
+
+    th {
+        border-bottom: 1px solid $border-color;
+        //border-top: 1px solid $border-color;
+        padding: 0.2rem 0.3rem;
+        text-align: left;
+    }
+
+    td {
+        padding: 0.2rem 0.3rem;
+
+        &:nth-child(1) {
+            text-align: left;
+            width: calc(46px + 0.6rem);
+        }
+        &:nth-child(2) {
+            text-align: right;
+            width: 2.1rem;
+        }
+        &:nth-child(3) {
+            width: 6rem;
+        }
+        &:nth-child(n+3) {
+            text-align: left;
+        }
+    }
+}
