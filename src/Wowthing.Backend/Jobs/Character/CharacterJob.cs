@@ -42,6 +42,8 @@ namespace Wowthing.Backend.Jobs.Character
                 if (result.NotModified)
                 {
                     _logger.Information("304 Not Modified");
+                    character.DelayHours = 0;
+                    await _context.SaveChangesAsync();
                     return;
                 }
 
