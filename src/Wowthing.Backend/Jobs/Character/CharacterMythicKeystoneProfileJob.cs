@@ -74,8 +74,8 @@ namespace Wowthing.Backend.Jobs.User
             await _context.SaveChangesAsync();
 
             // Start jobs for all seasons
-            foreach (var apiSeason in result.Data.Seasons)
-            {
+            foreach (var apiSeason in result.Data?.Seasons ?? Enumerable.Empty<ApiObnoxiousObject>())
+            { 
                 await _jobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterMythicKeystoneProfileSeason, data[0], apiSeason.Id.ToString());
             }
         }
