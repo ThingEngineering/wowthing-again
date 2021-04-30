@@ -78,7 +78,9 @@ namespace Wowthing.Backend
 
             // Services
             services.AddSingleton<StateService>();
+
             services.AddHostedService<AuthorizationService>();
+            services.AddHostedService<JobQueueService>(); 
             services.AddHostedService<SchedulerService>();
             
             // TODO: setting for this

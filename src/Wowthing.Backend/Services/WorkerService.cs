@@ -33,10 +33,11 @@ namespace Wowthing.Backend.Services
         public WorkerService(HttpClient http, IServiceProvider services, IConnectionMultiplexer redis, JobRepository jobRepository, StateService stateService)
         {
             _services = services;
+
+            _jobRepository = jobRepository;
             _stateService = stateService;
 
             _instanceId = Interlocked.Increment(ref _instanceCount);
-            _jobRepository = jobRepository;
             _logger = Log.ForContext("Service", $"Worker {_instanceId,2} | ");
 
             _jobFactory = new JobFactory(http, _jobRepository, _logger, redis, stateService);
@@ -64,19 +65,12 @@ namespace Wowthing.Backend.Services
             // Give things a chance to get organized
             await Task.Delay(5000);
 
-            while (!stoppingToken.IsCancellationRequested)
+            await foreach (var result in _stateService.JobQueueReader.ReadAllAsync())
             {
-                await Task.Delay(10);
-                if (_stateService.AccessToken?.Valid != true)
+                while (_stateService.AccessToken?.Valid != true)
                 {
                     _logger.Debug("Waiting for auth service to be ready");
-                    continue;
-                }
-
-                var result = await _jobRepository.GetJobAsync();
-                if (result == null)
-                {
-                    continue;
+                    await Task.Delay(1000);
                 }
 
                 //_logger.Debug("Got one! {@result}", result);
