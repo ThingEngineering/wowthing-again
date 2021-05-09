@@ -644,7 +644,7 @@ It's a Mystery!,278,118191,2,0
 |cFFFFD200Allied Races: |rVulpera|n|cFFFFD200Quest: |rSip and Savor|n|cFFFFD200Zone: |rSuramar,985,173727,2,-1
 |cFFFFD200World Quest: |rServant of N'Zoth,986,173951,0,-1
 |cFFFFD200Treasure: |rScroll of Aeons|n|cFFFFD200Zone: |rBastion,992,173984,0,0
-|cFFFFD200Drop: |rThe Shadowlands,993,174445,0,0
+|cFFFFD200Drop: |rThe Shadowlands,993,174445,2,0
 |cFFFFD200Achievement: |rPet Battle Challenge: Blackrock Depths|n|cFFFFD200Category: |rPet Battles,994,174830,0,5
 |cFFFFD200Achievement: |rThe Shadows Revealed|n|cFFFFD200Category: |rPet Battles,995,174871,0,5
 |cFFFFD200Drop: |rTashara|n|cFFFFD200Zone: |rVale of Eternal Blossoms,996,174873,0,0
@@ -658,6 +658,7 @@ It's a Mystery!,278,118191,2,0
 |cFFFFD200Vendor: |rProvisioner Qorra|n|cFFFFD200Zone: |rUldum|n|cFFFFD200Faction: |rUldum Accord - Honored|n|cFFFFD200Cost: |r20|Hitem:163036|h|TInterface\ICONS\INV_Currency_PetBattle.BLP:0|t|h 100|Hcurrency:1719|h|TInterface\ICONS\Archaeology_5_0_MoguCoin.blp:0|t|h,1005,174995,4,2
 |cFFFFD200Drop: |rWill of N'Zoth|n|cFFFFD200Zone: |rVale of Eternal Blossoms|n|n|cFFFFD200Drop: |rGaze of N'Zoth|n|cFFFFD200Zone: |rUldum,1006,175140,0,-1
 |cFFFFD200Quest: |rComing Out of His Shell|n|cFFFFD200Zone: |rUldum,1007,175063,0,1
+|cFFFFD200World Event:|r Feast of Winter Veil|n|n,1062,178530,0,6
 |cFFFFD200Quest: |rGlimmerflight|n|cFFFFD200Zone: |rBastion,1063,177951,0,1
 |cFFFFD200Profession:|r Engineering,1064,172924,2,3
 |cFFFFD200Drop: |rOrophea|n|cFFFFD200Zone: |rThe Maw,1065,181794,0,0
