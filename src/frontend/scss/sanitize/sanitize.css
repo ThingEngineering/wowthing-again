@@ -266,7 +266,7 @@ svg:not(:root) {
  */
 
 table {
-  //border-collapse: collapse; /* 1 */
+  /*border-collapse: collapse; /* 1 */
   border-color: inherit; /* 2 */
   text-indent: 0; /* 3 */
 }
