@@ -19,6 +19,7 @@ using Wowthing.Lib.Models;
 using Wowthing.Lib.Extensions;
 using Wowthing.Web.Extensions;
 using Wowthing.Web.Misc;
+using Wowthing.Web.Services;
 
 namespace Wowthing.Web
 {
@@ -87,6 +88,9 @@ namespace Wowthing.Web
                     //options.ForwardedForHeaderName = "CF-Connecting-IP";
                 });
             }
+
+            // Our services
+            services.AddScoped<UploadService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
