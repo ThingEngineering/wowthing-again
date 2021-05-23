@@ -1,6 +1,6 @@
 <script lang="ts">
-    import MythicPlusSidebar from './MythicPlusSidebar.svelte'
-    import MythicPlusTable from './MythicPlusTable.svelte'
+    import MythicPlusSidebar from './Sidebar.svelte'
+    import MythicPlusTable from './Table.svelte'
 
     export let params: { slug }
 </script>

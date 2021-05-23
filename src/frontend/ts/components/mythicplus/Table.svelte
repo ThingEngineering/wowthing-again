@@ -4,16 +4,15 @@
     import {seasonMap} from '../../data/dungeon'
     import type {Character, MythicPlusSeason} from '../../types'
 
-    import MythicPlusDungeon from './MythicPlusDungeon.svelte'
-    import MythicPlusTableCell from './MythicPlusTableCell.svelte'
-    import CharacterRowItemLevel from '../common/CharacterRowItemLevel.svelte'
-    import CharacterRowMythicPlusSeasonBadge from '../common/CharacterRowMythicPlusSeasonBadge.svelte'
-    import CharacterRowRaiderIo from '../common/CharacterRowRaiderIo.svelte'
-    import CharacterTable from '../common/CharacterTable.svelte'
+    import MythicPlusDungeon from './TableHeadDungeon.svelte'
+    import MythicPlusTableCell from './TableRowDungeon.svelte'
+    import CharacterRowItemLevel from '../common/character-table/row/ItemLevel.svelte'
+    import CharacterRowMythicPlusSeasonBadge from '../common/character-table/row/MythicPlusBadge.svelte'
+    import CharacterRowRaiderIo from '../common/character-table/row/RaiderIo.svelte'
+    import CharacterTable from '../common/character-table/Table.svelte'
     import CharacterTableHead from '../common/CharacterTableHead.svelte'
     import CharacterTableHeadItemLevel from '../common/CharacterTableHeadItemLevel.svelte'
     import CharacterTableHeadRaiderIo from '../common/CharacterTableHeadRaiderIo.svelte'
-    import TableIcon from '../common/TableIcon.svelte'
     import CharacterHeadMythicPlusSeasonBadge from '../common/CharacterHeadMythicPlusSeasonBadge.svelte'
 
     export let slug: string

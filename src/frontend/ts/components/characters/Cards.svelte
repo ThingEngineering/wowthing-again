@@ -1,7 +1,7 @@
 <script lang="ts">
     import {data} from '../../stores/user-store'
 
-    import CharacterCard from './CharacterCard.svelte'
+    import CharacterCard from './card/Card.svelte'
 </script>
 
 <style lang="scss">

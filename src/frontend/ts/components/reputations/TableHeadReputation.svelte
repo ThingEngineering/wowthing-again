@@ -13,7 +13,7 @@
 </script>
 
 <style lang="scss">
-    @import 'scss/variables.scss';
+    @import "../../../scss/variables.scss";
 
     th {
         border: 1px solid $border-color;

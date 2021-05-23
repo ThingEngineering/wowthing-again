@@ -1,15 +1,15 @@
 <script lang="ts">
     import {getContext, setContext} from 'svelte'
 
-    import {data as settings} from '../../stores/settings-store'
-    import {data as userData} from '../../stores/user-store'
-    import type {Character} from '../../types'
-    import getRealmName from '../../utils/get-realm-name'
+    import {data as settings} from '../../../stores/settings-store'
+    import {data as userData} from '../../../stores/user-store'
+    import type {Character} from '../../../types'
+    import getRealmName from '../../../utils/get-realm-name'
 
-    import TableIcon from './TableIcon.svelte'
-    import ClassIcon from '../images/ClassIcon.svelte'
-    import RaceIcon from '../images/RaceIcon.svelte'
-    import SpecializationIcon from '../images/SpecializationIcon.svelte'
+    import TableIcon from '../TableIcon.svelte'
+    import ClassIcon from '../../images/ClassIcon.svelte'
+    import RaceIcon from '../../images/RaceIcon.svelte'
+    import SpecializationIcon from '../../images/SpecializationIcon.svelte'
 
     export let character: Character
 
@@ -20,7 +20,7 @@
 </script>
 
 <style lang="scss">
-    @import '../../../scss/variables.scss';
+    @import '../../../../scss/variables';
 
     .inactive {
         opacity: $inactive-opacity;

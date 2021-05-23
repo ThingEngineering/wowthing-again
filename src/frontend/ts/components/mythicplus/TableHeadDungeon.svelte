@@ -10,7 +10,7 @@
 </script>
 
 <style lang="scss">
-    @import 'scss/variables.scss';
+    @import "../../../scss/variables.scss";
 
     th {
         background: $thing-background;

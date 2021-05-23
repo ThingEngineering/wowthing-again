@@ -1,13 +1,13 @@
 <script lang="ts">
     import {getContext} from 'svelte'
 
-    import {raiderIoScores} from '../../data/raider-io'
-    import {data as staticData} from '../../stores/static-store'
-    import type {Character, MythicPlusSeason} from '../../types'
-    import tippy from '../../utils/tippy'
+    import {raiderIoScores} from '../../../../data/raider-io'
+    import {data as staticData} from '../../../../stores/static-store'
+    import type {Character, MythicPlusSeason} from '../../../../types'
+    import tippy from '../../../../utils/tippy'
 
-    import TableIcon from './TableIcon.svelte'
-    import RaiderIoIcon from '../images/RaiderIoIcon.svelte'
+    import TableIcon from '../../TableIcon.svelte'
+    import RaiderIoIcon from '../../../images/RaiderIoIcon.svelte'
 
     const character: Character = getContext('character')
 
@@ -52,7 +52,7 @@
 </script>
 
 <style lang="scss">
-    @import '../../../scss/variables.scss';
+    @import '../../../../../scss/variables';
 
     .score {
         padding-right: 0.5rem;

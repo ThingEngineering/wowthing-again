@@ -3,12 +3,11 @@
     import flatten from 'lodash/flatten'
 
     import {data as staticData} from '../../stores/static-store'
-    import {data as userData} from '../../stores/user-store'
 
-    import ReputationTableIcon from './ReputationTableIcon.svelte'
-    import CharacterTable from '../common/CharacterTable.svelte'
+    import ReputationTableIcon from './TableHeadReputation.svelte'
+    import CharacterTable from '../common/character-table/Table.svelte'
     import CharacterTableHead from '../common/CharacterTableHead.svelte'
-    import ReputationTableCell from './ReputationTableCell.svelte'
+    import ReputationTableCell from './TableRowReputation.svelte'
 
     export let slug: string
 

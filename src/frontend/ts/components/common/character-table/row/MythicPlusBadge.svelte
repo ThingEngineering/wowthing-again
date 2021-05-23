@@ -1,16 +1,16 @@
 <script lang="ts">
     import {getContext} from 'svelte'
 
-    import {badgeToClass} from '../../data/dungeon'
-    import type {Character, MythicPlusSeason} from '../../types'
+    import {badgeToClass} from '../../../../data/dungeon'
+    import type {Character, MythicPlusSeason} from '../../../../types'
 
-    import TableIcon from './TableIcon.svelte'
-    import WowthingImage from '../images/sources/WowthingImage.svelte'
+    import TableIcon from '../../TableIcon.svelte'
+    import WowthingImage from '../../../images/sources/WowthingImage.svelte'
 
     export let season: MythicPlusSeason
 
     const character: Character = getContext('character')
-    $: badge = character.mythicPlus?.seasons?.[season.Id]?.badge
+    $: badge = character.mythicPlus?.seasonBadges?.[season.Id]
 </script>
 
 <TableIcon>

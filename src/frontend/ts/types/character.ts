@@ -35,7 +35,8 @@ class CharacterEquippedItem {
 class CharacterMythicPlus {
     currentPeriodId: number
     periodRuns: Dictionary<CharacterMythicPlusRun[]>
-    seasons: Dictionary<Dictionary<string | CharacterMythicPlusRun[]>>
+    seasons: Dictionary<Dictionary<CharacterMythicPlusRun[]>>
+    seasonBadges: Dictionary<string>
 }
 
 class CharacterMythicPlusRun {

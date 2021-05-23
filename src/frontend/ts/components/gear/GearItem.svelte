@@ -11,7 +11,7 @@
 </script>
 
 <style lang="scss">
-    @import "scss/variables.scss";
+    @import "../../../scss/variables.scss";
 
     div {
         height: 44px;
