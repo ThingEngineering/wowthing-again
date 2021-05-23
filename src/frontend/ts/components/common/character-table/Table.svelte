@@ -3,11 +3,11 @@
     import sumBy from 'lodash/sumBy'
     import {setContext} from 'svelte'
 
-    import {data as settings} from '../../stores/settings-store'
-    import {data as userData} from '../../stores/user-store'
-    import type {Character} from '../../types'
+    import {data as settings} from '../../../stores/settings-store'
+    import {data as userData} from '../../../stores/user-store'
+    import type {Character} from '../../../types'
 
-    import CharacterRow from '../common/CharacterRow.svelte'
+    import CharacterRow from './Row.svelte'
 
     export let extraSpan: string = '0'
     export let endSpacer: boolean = true
@@ -23,7 +23,7 @@
 </script>
 
 <style lang="scss">
-    @import '../../../scss/variables.scss';
+    @import '../../../../scss/variables';
 
     table {
         background: $thing-background;

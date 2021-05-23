@@ -56,6 +56,7 @@ const sigh = function(baseName) {
                 },
             }),
             replace({
+                preventAssignment: true,
                 'process.env.NODE_ENV': JSON.stringify(production ? 'production' : 'development'),
             }),
             resolve({

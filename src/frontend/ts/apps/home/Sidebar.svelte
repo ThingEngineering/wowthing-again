@@ -28,14 +28,18 @@
     <li use:active={'/mounts/*'}>
         <a href="#/mounts/">Mounts</a>
     </li>
+    <li class="separator"></li>
     <li use:active={'/pets/*'}>
-        <a href="#/pets/">Pets [WIP]</a>
+        <a href="#/pets/">🚧 Pets</a>
     </li>
     <li use:active={'/toys/*'}>
-        <a href="#/toys/">Toys [WIP]</a>
+        <a href="#/toys/">🚧 Toys</a>
+    </li>
+    <li use:active={'/transmog/*'}>
+        <a href="#/transmog/shadowlands">🚧 Transmog</a>
     </li>
     <li class="separator"></li>
     <li use:active={'/settings/*'}>
-        <a href="#/settings/">Settings</a>
+        <a href="#/settings/">🚧 Settings</a>
     </li>
 </Sidebar>

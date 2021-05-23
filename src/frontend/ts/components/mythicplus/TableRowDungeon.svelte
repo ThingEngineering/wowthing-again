@@ -2,7 +2,8 @@
     import sortBy from 'lodash/sortBy'
     import {getContext} from 'svelte'
 
-    import type {Character} from '../../types'
+    import type {Character, CharacterMythicPlusRun} from '../../types'
+    import getMythicPlusRunQuality from '../../utils/get-mythic-plus-run-quality'
     import getMythicPlusRunTooltip from '../../utils/get-mythic-plus-run-tooltip'
     import tippy from '../../utils/tippy'
 
@@ -11,7 +12,7 @@
 
     const character: Character = getContext('character')
 
-    let sortedRuns
+    let sortedRuns: CharacterMythicPlusRun[]
     let tooltip: object
     $: {
         sortedRuns = sortBy(runsFunc(character, dungeonId), (r) => !r.timed)
@@ -43,13 +44,7 @@
 {#if sortedRuns.length > 0}
     <td use:tippy={tooltip}>
         {#each sortedRuns as run}
-            <span
-                class:failed={!run.timed}
-                class:quality2={run.timed && run.keystoneLevel >= 2 && run.keystoneLevel < 5}
-                class:quality3={run.timed && run.keystoneLevel >= 5 && run.keystoneLevel < 10}
-                class:quality4={run.timed && run.keystoneLevel >= 10 && run.keystoneLevel < 15}
-                class:quality5={run.timed && run.keystoneLevel >= 15}
-            >
+            <span class="{ getMythicPlusRunQuality(run) }">
                 {run.keystoneLevel}
             </span>
         {/each}

@@ -5,7 +5,7 @@
 </script>
 
 <style lang="scss">
-    @import "scss/variables.scss";
+    @import "../../../scss/variables.scss";
 
     em {
         //color: mix($body-text, #00ff00, 80%);

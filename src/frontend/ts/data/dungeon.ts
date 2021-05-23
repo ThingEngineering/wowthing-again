@@ -92,15 +92,29 @@ const seasonMap: Dictionary<MythicPlusSeason> = {
 }
 
 const badgeToClass: Dictionary<string> = {
-    2: 'quality2',
-    5: 'quality3',
-    10: 'quality4',
-    15: 'quality5',
+    2: 'quality1',
+    5: 'quality2',
+    10: 'quality3',
+    15: 'quality4',
 }
+
+// [key level, item level] first match >= key is used
+const keyVaultItemLevel: Array<Array<number>> = [
+    [14, 226],
+    [12, 223],
+    [10, 220],
+    [8, 216],
+    [7, 213],
+    [5, 210],
+    [4, 207],
+    [3, 203],
+    [2, 200],
+]
 
 export {
     affixMap,
     dungeonMap,
     seasonMap,
     badgeToClass,
+    keyVaultItemLevel,
 }

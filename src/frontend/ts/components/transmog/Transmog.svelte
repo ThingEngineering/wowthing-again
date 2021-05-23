@@ -1,6 +1,7 @@
 <script lang="ts">
-    import ReputationSidebar from './Sidebar.svelte'
-    import ReputationTable from './Table.svelte'
+    import {data as staticData} from '../../stores/static-store'
+
+    import TransmogSidebar from './Sidebar.svelte'
 
     export let params: { slug }
 </script>
@@ -14,6 +15,5 @@
 </style>
 
 <div>
-    <ReputationSidebar />
-    <ReputationTable slug={params.slug} />
+    <TransmogSidebar />
 </div>

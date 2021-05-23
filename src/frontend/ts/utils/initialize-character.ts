@@ -36,8 +36,9 @@ export default function initializeCharacter(character: Character) {
 
     // mythic+ seasons
     if (character.mythicPlus?.seasons) {
+        character.mythicPlus.seasonBadges = {}
         for (let seasonId in seasonMap) {
-            const season = seasonMap[seasonId];
+            const season = seasonMap[seasonId]
             if (character.level >= season.MinLevel) {
                 const characterSeason = character.mythicPlus.seasons[seasonId]
                 if (characterSeason !== undefined) {
@@ -67,16 +68,16 @@ export default function initializeCharacter(character: Character) {
                     }
 
                     if (timed15 === total) {
-                        characterSeason['badge'] = '15'
+                        character.mythicPlus.seasonBadges[season.Id] = '15'
                     }
                     else if (timed10 === total) {
-                        characterSeason['badge'] = '10'
+                        character.mythicPlus.seasonBadges[season.Id] = '10'
                     }
                     else if (timed5 === total) {
-                        characterSeason['badge'] = '5'
+                        character.mythicPlus.seasonBadges[season.Id] = '5'
                     }
                     else if (timed2 === total) {
-                        characterSeason['badge'] = '2'
+                        character.mythicPlus.seasonBadges[season.Id] = '2'
                     }
                 }
             }

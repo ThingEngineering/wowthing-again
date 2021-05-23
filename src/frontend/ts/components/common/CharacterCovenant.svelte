@@ -11,10 +11,10 @@
 </script>
 
 <style lang="scss">
-    @import "../../../scss/variables.scss";
+    @import "../../../scss/variables";
 
     div :global(img) {
-        background: rgba(0x4d, 0x4e, 0x4f, 0.4);
+        background: rgba(77, 78, 79, 0.4);
         border-color: $border-color;
         border-radius: $border-radius;
     }
