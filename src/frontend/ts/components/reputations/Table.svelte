@@ -4,10 +4,10 @@
 
     import {data as staticData} from '../../stores/static-store'
 
-    import ReputationTableIcon from './TableHeadReputation.svelte'
     import CharacterTable from '../common/character-table/Table.svelte'
-    import CharacterTableHead from '../common/CharacterTableHead.svelte'
-    import ReputationTableCell from './TableRowReputation.svelte'
+    import Head from '../common/character-table/Head.svelte'
+    import HeadReputation from './TableHeadReputation.svelte'
+    import RowReputation from './TableRowReputation.svelte'
 
     export let slug: string
 
@@ -22,19 +22,19 @@
     </slot>
 
     <slot slot="head">
-        <CharacterTableHead>
+        <Head>
             {#key category.Name}
                 {#each flatten(category.Reputations) as reputation}
-                    <ReputationTableIcon reputation={reputation} />
+                    <HeadReputation reputation={reputation} />
                 {/each}
             {/key}
-        </CharacterTableHead>
+        </Head>
     </slot>
 
     <slot slot="rowExtra">
         {#key category.Name}
             {#each flatten(category.Reputations) as reputation}
-                <ReputationTableCell reputationSet={reputation} />
+                <RowReputation reputationSet={reputation} />
             {/each}
         {/key}
     </slot>

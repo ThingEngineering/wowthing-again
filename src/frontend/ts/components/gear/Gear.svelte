@@ -1,9 +1,9 @@
 <script lang="ts">
     import {afterUpdate} from 'svelte'
 
-    import GearItems from './GearItems.svelte'
     import CharacterTable from '../common/character-table/Table.svelte'
-    import CharacterRowItemLevel from '../common/character-table/row/ItemLevel.svelte'
+    import GearItems from './TableRowItems.svelte'
+    import RowItemLevel from '../common/character-table/row/ItemLevel.svelte'
 
     afterUpdate(() => {
         if (window.__tip) {
@@ -14,7 +14,7 @@
 
 <CharacterTable>
     <slot slot="rowExtra">
-        <CharacterRowItemLevel />
+        <RowItemLevel />
         <GearItems />
     </slot>
 </CharacterTable>

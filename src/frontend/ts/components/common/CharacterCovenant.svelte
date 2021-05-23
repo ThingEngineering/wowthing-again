@@ -11,7 +11,7 @@
 </script>
 
 <style lang="scss">
-    @import "../../../scss/variables";
+    @import "../../../scss/variables.scss";
 
     div :global(img) {
         background: rgba(77, 78, 79, 0.4);

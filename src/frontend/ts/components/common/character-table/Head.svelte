@@ -1,13 +1,13 @@
 <script lang="ts">
     import {getContext} from 'svelte'
 
-    import {data as settings} from '../../stores/settings-store'
+    import {data as settings} from '../../../stores/settings-store'
 
     $: endSpacer = getContext('endSpacer')
 </script>
 
 <style lang="scss">
-    @import '../../../scss/variables.scss';
+    @import '../../../../scss/variables';
 
     tr :global(th) {
         background: $thing-background;
