@@ -9,9 +9,9 @@
 
     import CharacterRow from './Row.svelte'
 
-    export let extraSpan: string = '0'
+    export let extraSpan: number = 0
     export let endSpacer: boolean = true
-    export let filterFunc: (char: Character) => boolean = (c) => true
+    export let filterFunc: (char: Character) => boolean = () => true
 
     setContext('endSpacer', endSpacer)
 
@@ -59,7 +59,7 @@
 
 <div class="thing-container">
     <table class="table-striped">
-        <colgroup span="{span + parseInt(extraSpan)}"></colgroup>
+        <colgroup span="{span + extraSpan}"></colgroup>
         <slot name="colgroup" />
         <slot name="head" />
         <tbody>

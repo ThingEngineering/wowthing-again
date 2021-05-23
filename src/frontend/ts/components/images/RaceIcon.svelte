@@ -1,6 +1,6 @@
 <script lang="ts">
   import {data} from '../../stores/static-store'
-  import {Character} from '../../types'
+  import type {Character} from '../../types'
 
   import WowthingImage from './sources/WowthingImage.svelte'
 
@@ -12,4 +12,4 @@
   $: tooltip = `${ gender } ${ $data.Races[character.raceId].Name }`
 </script>
 
-<WowthingImage name={iconName} size={size} tooltip={tooltip} border=1 />
+<WowthingImage name={iconName} size={size} tooltip={tooltip} border={1} />

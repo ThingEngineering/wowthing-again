@@ -1,10 +1,12 @@
 <script lang="ts">
+    import type {Dictionary, StaticDataSetGroup} from '../../types'
+
     import CollectionThing from './CollectionThing.svelte'
 
     export let thingType: string
-    export let thingMap
-    export let userHas
-    export let group
+    export let thingMap: Dictionary<number>
+    export let userHas: Dictionary<number>
+    export let group: StaticDataSetGroup
 </script>
 
 <style lang="scss">
@@ -21,6 +23,6 @@
 <div>
     <p>{group.Name}</p>
     {#each group.Things as things}
-        <CollectionThing thingType={thingType} thingMap={thingMap} userHas={userHas} things={things} />
+        <CollectionThing {thingType} {thingMap} {userHas} {things} />
     {/each}
 </div>

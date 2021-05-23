@@ -2,7 +2,7 @@
     import ReputationSidebar from './Sidebar.svelte'
     import ReputationTable from './Table.svelte'
 
-    export let params: { slug }
+    export let params: { slug: string }
 </script>
 
 <style lang="scss">

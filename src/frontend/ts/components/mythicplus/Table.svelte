@@ -2,7 +2,7 @@
     import sortBy from 'lodash/sortBy'
 
     import {seasonMap} from '../../data/dungeon'
-    import type {Character, MythicPlusSeason} from '../../types'
+    import type {Character, CharacterMythicPlusRun, MythicPlusSeason} from '../../types'
 
     import CharacterTable from '../common/character-table/Table.svelte'
     import Head from '../common/character-table/Head.svelte'
@@ -17,15 +17,16 @@
 
     export let slug: string
 
-    let filterFunc: (char: Character) => boolean = undefined
-    let runsFunc = (char: Character, dungeonId: number) => []
+    let filterFunc: (char: Character) => boolean
+    let runsFunc: (char: Character, dungeonId: number) => CharacterMythicPlusRun[]
     let season: MythicPlusSeason
 
     $: {
         if (slug === 'thisweek') {
             season = sortBy(seasonMap, (s) => -s.Id)[0]
             runsFunc = (char, dungeonId) => char.mythicPlus?.periodRuns?.[dungeonId] || []
-        } else {
+        }
+        else {
             season = seasonMap[slug.replace('season', '')]
             runsFunc = (char, dungeonId) => char.mythicPlus?.seasons?.[season.Id]?.[dungeonId]
         }
@@ -34,7 +35,7 @@
     }
 </script>
 
-<CharacterTable {filterFunc} extraSpan=4 endSpacer=false>
+<CharacterTable {filterFunc} extraSpan={4} endSpacer={false}>
     <slot slot="colgroup">
         {#each season.Orders as order}
             <colgroup span="{order.length}"></colgroup>

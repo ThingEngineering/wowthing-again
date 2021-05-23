@@ -1,6 +1,4 @@
 <script lang="ts">
-    import active from 'svelte-spa-router/active'
-
     export let width = "10rem"
 </script>
 

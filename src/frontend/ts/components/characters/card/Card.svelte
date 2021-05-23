@@ -2,7 +2,7 @@
     import {specializationMap} from '../../../data/specialization'
     import {data as settings} from '../../../stores/settings-store'
     import {data as userData} from '../../../stores/user-store'
-    import {Character} from '../../../types'
+    import type {Character} from '../../../types'
     import getRealmName from '../../../utils/get-realm-name'
     import tippy from '../../../utils/tippy'
 
@@ -115,11 +115,11 @@
         <div class="tag">{accountTag}</div>
     {/if}
     <div class="icons">
-        <RaceIcon size="48" character={character} />
-        <ClassIcon size="48" character={character} />
+        <RaceIcon size={48} character={character} />
+        <ClassIcon size={48} character={character} />
         {#if spec !== undefined}
             <div class="spec">
-                <SpecializationIcon {character} size=24 border=2 />
+                <SpecializationIcon {character} size={24} border={2} />
             </div>
         {/if}
         <div class="level" use:tippy={{content: `Level ${character.level}`}}>{character.level}</div>

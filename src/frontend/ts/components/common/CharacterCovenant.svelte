@@ -1,6 +1,6 @@
 <script lang="ts">
     import {covenantMap} from '../../data/covenant'
-    import {Character} from '../../types'
+    import type {Character} from '../../types'
     import tippy from '../../utils/tippy'
 
     import WowthingImage from '../images/sources/WowthingImage.svelte'
@@ -22,7 +22,7 @@
 
 {#if covenant !== undefined}
     <div class="{'covenant' + character.shadowlands.covenantId}" use:tippy={covenant.getTooltip(character.shadowlands.renownLevel)}>
-        <WowthingImage name={covenant.Icon} size="24" border="1" />
+        <WowthingImage name={covenant.Icon} size={24} border={1} />
         {character.shadowlands.renownLevel}
     </div>
 {:else}

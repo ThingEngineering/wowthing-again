@@ -92,7 +92,7 @@ export class StaticDataSetCategory {
     Groups: StaticDataSetGroup[]
 }
 
-class StaticDataSetGroup {
+export class StaticDataSetGroup {
     Name: string
     Things: number[][]
 }
