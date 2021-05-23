@@ -60,7 +60,7 @@
     <CollectionSidebar />
     {#if slug}
         <div class="sections">
-            <CollectionSection slug={slug} />
+            <CollectionSection {slug} />
         </div>
     {/if}
 </div>

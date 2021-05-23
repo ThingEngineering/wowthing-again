@@ -14,15 +14,15 @@
 
     const character: Character = getContext('character')
 
-    export let reputationSet: StaticDataReputationSet
+    export let reputation: StaticDataReputationSet
 
     let characterRep: number | undefined
     let repTier: ReputationTier
     let tooltip: object
 
     $: {
-        if (character && reputationSet) {
-            const repInfo = reputationSet.Both || (character.faction === 0 ? reputationSet.Alliance : reputationSet.Horde)
+        if (character && reputation) {
+            const repInfo = reputation.Both || (character.faction === 0 ? reputation.Alliance : reputation.Horde)
             const reputation: StaticDataReputation = $data.Reputations[repInfo.Id]
             characterRep = character.reputations[repInfo.Id]
 

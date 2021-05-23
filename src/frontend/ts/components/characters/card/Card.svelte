@@ -115,8 +115,8 @@
         <div class="tag">{accountTag}</div>
     {/if}
     <div class="icons">
-        <RaceIcon size={48} character={character} />
-        <ClassIcon size={48} character={character} />
+        <RaceIcon size={48} {character} />
+        <ClassIcon size={48} {character} />
         {#if spec !== undefined}
             <div class="spec">
                 <SpecializationIcon {character} size={24} border={2} />
@@ -130,6 +130,6 @@
         <div class="realm">{getRealmName(character.realmId)}</div>
     {/if}
     {#if character.shadowlands}
-        <CharacterCovenant character={character} />
+        <CharacterCovenant {character} />
     {/if}
 </article>
