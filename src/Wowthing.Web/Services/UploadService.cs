@@ -22,11 +22,12 @@ namespace Wowthing.Web.Services
         {
             using var memoryStream = new MemoryStream();
             await luaFile.CopyToAsync(memoryStream);
+            memoryStream.Seek(0, SeekOrigin.Begin);
 
             using var reader = new StreamReader(memoryStream, System.Text.Encoding.UTF8, true);
             var data = await reader.ReadToEndAsync();
 
-            await _jobRepository.AddJobAsync(JobPriority.High, JobType.Upload, userId.ToString(), data);
+            await _jobRepository.AddJobAsync(JobPriority.High, JobType.UserUpload, userId.ToString(), data);
         }
     }
 }
