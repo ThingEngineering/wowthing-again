@@ -1,14 +1,24 @@
 <script lang="ts">
     import find from 'lodash/find'
-    import {getContext, setContext} from 'svelte'
+    import {getContext} from 'svelte'
+
+    import {data as userData} from '../../stores/user-store'
+    import type {StaticDataSetCategory} from '../../types'
 
     import CollectionCount from './CollectionCount.svelte'
     import CollectionGroup from './CollectionGroup.svelte'
-    import {data as userData} from '../../stores/user-store'
 
     export let slug: string
 
-    const {route, sets, thingMap, thingType, userHas} = getContext('collection')
+    const {
+        route,
+        sets,
+        thingMap,
+        thingType,
+        userHas
+    } = getContext('collection')
+
+    let sections: StaticDataSetCategory[]
     $: sections = find(sets, (s) => s !== null && s[0].Slug === slug)
 </script>
 

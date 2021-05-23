@@ -14,7 +14,7 @@
     $: category = find($staticData.ReputationSets, (r) => r.Slug === slug)
 </script>
 
-<CharacterTable endSpacer=false>
+<CharacterTable endSpacer={false}>
     <slot slot="colgroup">
         {#each category.Reputations as grouping}
             <colgroup span="{grouping.length}"></colgroup>

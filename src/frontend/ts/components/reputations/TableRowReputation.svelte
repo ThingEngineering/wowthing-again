@@ -2,7 +2,7 @@
     import {getContext} from 'svelte'
 
     import {data} from '../../stores/static-store'
-    import {
+    import type {
         Character,
         ReputationTier,
         StaticDataReputation,

@@ -1,8 +1,9 @@
 <script lang="ts">
     import tippy from '../../utils/tippy'
 
+    import type {StaticDataReputationSet} from '../../types'
+
     import WowdbImage from '../images/sources/WowdbImage.svelte'
-    import {StaticDataReputationSet} from '../../types'
 
     export let reputation: StaticDataReputationSet
 

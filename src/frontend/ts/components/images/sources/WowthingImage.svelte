@@ -3,15 +3,13 @@
 
     export let name: string
     export let ext: string = "png"
-    export let size: string
-    export let tooltip: object = undefined
-    export let border: string = "0"
+    export let size: number
+    export let tooltip: object | string = undefined
+    export let border: number = 0
     export let cls: string = undefined
 
-    const actualSize = parseInt(size) + (parseInt(border) * 2)
-    const tooltipProps = {
-        content: tooltip,
-    }
+    const actualSize = size + (border * 2)
+    const tooltipProps = typeof(tooltip) === 'string' ? { content: tooltip } : tooltip
 </script>
 
 <img

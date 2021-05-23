@@ -10,3 +10,10 @@ export * from './specialization'
 export * from './static-data'
 export * from './team-data'
 export * from './user-data'
+
+
+declare global {
+    interface Window {
+        __tip: { watchElligibleElements: Function } | undefined
+    }
+}

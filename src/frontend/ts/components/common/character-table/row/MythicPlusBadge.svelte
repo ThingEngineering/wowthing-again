@@ -15,6 +15,6 @@
 
 <TableIcon>
     {#if badge !== undefined}
-        <WowthingImage name="mythic_plus_{badge}" cls="{badgeToClass[badge]}" size=20 border=1 tooltip="All timed +{badge} or higher" />
+        <WowthingImage name="mythic_plus_{badge}" cls="{badgeToClass[badge]}" size={20} border={1} tooltip="All timed +{badge} or higher" />
     {/if}
 </TableIcon>

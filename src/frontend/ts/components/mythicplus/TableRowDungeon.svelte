@@ -8,7 +8,7 @@
     import tippy from '../../utils/tippy'
 
     export let dungeonId: number
-    export let runsFunc: (char: Character, dungeonId: number) => []
+    export let runsFunc: (char: Character, dungeonId: number) => CharacterMythicPlusRun[]
 
     const character: Character = getContext('character')
 

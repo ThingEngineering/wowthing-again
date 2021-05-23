@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import SettingsRoutes from './SettingsRoutes.svelte'
     import SettingsSidebar from './SettingsSidebar.svelte'
 </script>

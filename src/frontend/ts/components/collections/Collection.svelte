@@ -2,15 +2,17 @@
     import {afterUpdate, setContext} from 'svelte'
     import {replace} from 'svelte-spa-router'
 
+    import type {Dictionary, StaticDataSetCategory} from '../../types'
+
     import CollectionSection from './CollectionSection.svelte'
     import CollectionSidebar from './CollectionSidebar.svelte'
 
     export let slug: string
     export let route: string
     export let thingType: string
-    export let thingMap
-    export let userHas
-    export let sets
+    export let thingMap: Dictionary<number>
+    export let userHas: Dictionary<number>
+    export let sets: StaticDataSetCategory[][]
 
     setContext("collection", {
         slug,
@@ -22,9 +24,7 @@
     })
 
     afterUpdate(() => {
-        if (window.__tip) {
-            window.__tip.watchElligibleElements()
-        }
+        window.__tip?.watchElligibleElements()
 
         const key = `route-${route}`
         if (slug === null) {

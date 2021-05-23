@@ -63,7 +63,7 @@
 
 {#if scores !== undefined && scores.all > 0}
     <TableIcon>
-        <RaiderIoIcon size=20 border=1 />
+        <RaiderIoIcon size={20} border={1} />
     </TableIcon>
     <td class="score" style="color: {color}" use:tippy={tooltip}>{ scores.all.toFixed(1) }</td>
 {:else}

@@ -6,5 +6,11 @@ export class UserData {
     accounts?: Account[]
     characters: Character[]
     mounts: Dictionary<number>
-    setCounts: any
+    setCounts: Dictionary<Dictionary<UserDataSetCount>>
+    toys: Dictionary<number>
+}
+
+class UserDataSetCount {
+    have: number
+    total: number
 }

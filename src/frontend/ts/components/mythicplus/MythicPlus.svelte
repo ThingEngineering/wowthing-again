@@ -2,7 +2,7 @@
     import MythicPlusSidebar from './Sidebar.svelte'
     import MythicPlusTable from './Table.svelte'
 
-    export let params: { slug }
+    export let params: { slug: string }
 </script>
 
 <style lang="scss">

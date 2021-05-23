@@ -1,10 +1,12 @@
 <script lang="ts">
     import find from 'lodash/find'
 
+    import type {Dictionary} from '../../types'
+
     import WowthingImage from '../images/sources/WowthingImage.svelte'
 
     export let thingType: string
-    export let thingMap
+    export let thingMap: Dictionary<number>
     export let userHas = {}
     export let things: number[] = []
 
@@ -33,6 +35,6 @@
 
 <div class:thing-yes={userHasThing} class:thing-no={!userHasThing}>
     <a href="https://www.wowdb.com/{thingType}s/{origId}">
-        <WowthingImage name="{thingType}/{origId}" size=32 />
+        <WowthingImage name="{thingType}/{origId}" size={32} />
     </a>
 </div>

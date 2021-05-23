@@ -45,13 +45,13 @@
 <tr class="faction{character.faction}" class:inactive={!accountEnabled}>
     <td class="spacer"></td>
     <TableIcon>
-        <RaceIcon {character} size=20 />
+        <RaceIcon {character} size={20} />
     </TableIcon>
     <TableIcon>
-        <ClassIcon {character} size=20 />
+        <ClassIcon {character} size={20} />
     </TableIcon>
     <TableIcon>
-        <SpecializationIcon {character} size=20 />
+        <SpecializationIcon {character} size={20} />
     </TableIcon>
     <td class="level">{character.level}</td>
     <td class="name">{character.name}</td>

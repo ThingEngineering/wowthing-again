@@ -28,13 +28,13 @@
             {#each $teamData.characters as teamCharacter}
                 <tr class="faction{teamCharacter.character.faction}">
                     <td>
-                        <RaceIcon character={teamCharacter.character} size=20 />
-                        <ClassIcon character={teamCharacter.character} size=20 />
+                        <RaceIcon character={teamCharacter.character} size={20} />
+                        <ClassIcon character={teamCharacter.character} size={20} />
                     </td>
                     <CharacterName {teamCharacter} />
                     <td class="item-level quality{teamCharacter.character.calculatedItemLevelQuality}">{teamCharacter.character.calculatedItemLevel}</td>
                     {#if $location === '/' || $location === '/gear'}
-                        <GearItems character={teamCharacter.character} rowspan=2 />
+                        <GearItems character={teamCharacter.character} rowspan={2} />
                     {/if}
                 </tr>
                 <tr class="faction{teamCharacter.character.faction}">

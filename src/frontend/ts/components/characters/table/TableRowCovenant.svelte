@@ -2,7 +2,7 @@
     import {getContext} from 'svelte'
 
     import {covenantMap} from '../../../data/covenant'
-    import {Character} from '../../../types'
+    import type {Character} from '../../../types'
     import tippy from '../../../utils/tippy'
 
     import TableIcon from '../../common/TableIcon.svelte'
@@ -24,7 +24,7 @@
 
 {#if covenant !== undefined}
     <TableIcon>
-        <WowthingImage name={covenant.Icon} size=20 border=1 />
+        <WowthingImage name={covenant.Icon} size={20} border={1} />
     </TableIcon>
     <td use:tippy={covenant.getTooltip(character.shadowlands.renownLevel)}>
         {character.shadowlands.renownLevel}
