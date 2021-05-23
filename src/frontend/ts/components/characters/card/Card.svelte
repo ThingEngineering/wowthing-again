@@ -19,7 +19,7 @@
 </script>
 
 <style lang="scss">
-    @import "../../../../scss/variables";
+    @import "../../../../scss/variables.scss";
 
     article {
         background: $thing-background;

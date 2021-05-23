@@ -1,16 +1,16 @@
 <script lang="ts">
-    import CharacterRowCovenant from './table/TableRowCovenant.svelte'
-    import CharacterRowItemLevel from '../common/character-table/row/ItemLevel.svelte'
+    import RowCovenant from './table/TableRowCovenant.svelte'
+    import RowItemLevel from '../common/character-table/row/ItemLevel.svelte'
     import CharacterTable from '../common/character-table/Table.svelte'
-    import CharacterTableHead from '../common/CharacterTableHead.svelte'
+    import Head from '../common/character-table/Head.svelte'
 </script>
 
 <CharacterTable>
     <slot slot="head">
-        <CharacterTableHead />
+        <Head />
     </slot>
     <slot slot="rowExtra">
-        <CharacterRowItemLevel />
-        <CharacterRowCovenant />
+        <RowItemLevel />
+        <RowCovenant />
     </slot>
 </CharacterTable>

@@ -2,9 +2,8 @@
     import {getContext} from 'svelte'
 
     import {slotOrder} from '../../data/inventory-slot'
-    import type {Character} from '../../types'
 
-    import GearItem from './GearItem.svelte'
+    import GearItem from './TableRowItem.svelte'
 
     export let rowspan: number = undefined
 

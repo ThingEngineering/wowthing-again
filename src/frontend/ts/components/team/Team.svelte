@@ -6,7 +6,7 @@
     import CharacterName from './CharacterName.svelte'
     import CharacterNote from './CharacterNote.svelte'
     import CharacterCovenant from '../common/CharacterCovenant.svelte'
-    import GearItems from '../gear/GearItems.svelte'
+    import GearItems from '../gear/TableRowItems.svelte'
     import ClassIcon from '../images/ClassIcon.svelte'
     import RaceIcon from '../images/RaceIcon.svelte'
 </script>

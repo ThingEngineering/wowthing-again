@@ -4,16 +4,16 @@
     import {seasonMap} from '../../data/dungeon'
     import type {Character, MythicPlusSeason} from '../../types'
 
-    import MythicPlusDungeon from './TableHeadDungeon.svelte'
-    import MythicPlusTableCell from './TableRowDungeon.svelte'
-    import CharacterRowItemLevel from '../common/character-table/row/ItemLevel.svelte'
-    import CharacterRowMythicPlusSeasonBadge from '../common/character-table/row/MythicPlusBadge.svelte'
-    import CharacterRowRaiderIo from '../common/character-table/row/RaiderIo.svelte'
     import CharacterTable from '../common/character-table/Table.svelte'
-    import CharacterTableHead from '../common/CharacterTableHead.svelte'
-    import CharacterTableHeadItemLevel from '../common/CharacterTableHeadItemLevel.svelte'
-    import CharacterTableHeadRaiderIo from '../common/CharacterTableHeadRaiderIo.svelte'
-    import CharacterHeadMythicPlusSeasonBadge from '../common/CharacterHeadMythicPlusSeasonBadge.svelte'
+    import Head from '../common/character-table/Head.svelte'
+    import HeadDungeon from './TableHeadDungeon.svelte'
+    import HeadItemLevel from '../common/character-table/head/ItemLevel.svelte'
+    import HeadMythicPlusBadge from '../common/character-table/head/MythicPlusBadge.svelte'
+    import HeadRaiderIo from '../common/character-table/head/RaiderIo.svelte'
+    import RowDungeon from './TableRowDungeon.svelte'
+    import RowItemLevel from '../common/character-table/row/ItemLevel.svelte'
+    import RowMythicPlusBadge from '../common/character-table/row/MythicPlusBadge.svelte'
+    import RowRaiderIo from '../common/character-table/row/RaiderIo.svelte'
 
     export let slug: string
 
@@ -42,28 +42,28 @@
     </slot>
 
     <slot slot="head">
-        <CharacterTableHead>
-            <CharacterTableHeadItemLevel />
-            <CharacterTableHeadRaiderIo />
-            <CharacterHeadMythicPlusSeasonBadge />
+        <Head>
+            <HeadItemLevel />
+            <HeadRaiderIo />
+            <HeadMythicPlusBadge />
             {#key season.Id}
                 {#each season.Orders as order}
                     {#each order as dungeonId}
-                        <MythicPlusDungeon {dungeonId} />
+                        <HeadDungeon {dungeonId} />
                     {/each}
                 {/each}
             {/key}
-        </CharacterTableHead>
+        </Head>
     </slot>
 
     <slot slot="rowExtra">
-        <CharacterRowItemLevel />
+        <RowItemLevel />
         {#key season.Id}
-            <CharacterRowRaiderIo {season} />
-            <CharacterRowMythicPlusSeasonBadge {season} />
+            <RowRaiderIo {season} />
+            <RowMythicPlusBadge {season} />
             {#each season.Orders as order}
                 {#each order as dungeonId}
-                    <MythicPlusTableCell {dungeonId} {runsFunc} />
+                    <RowDungeon {dungeonId} {runsFunc} />
                 {/each}
             {/each}
         {/key}

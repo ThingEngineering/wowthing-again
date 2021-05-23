@@ -3,7 +3,7 @@
 
     //import TableCharacterName from '../common/TableCharacterName.svelte'
     //import TableItemLevel from '../common/TableItemLevel.svelte'
-    import GearItems from '../gear/GearItems.svelte'
+    import GearItems from '../gear/TableRowItems.svelte'
 </script>
 
 <style lang="scss">
