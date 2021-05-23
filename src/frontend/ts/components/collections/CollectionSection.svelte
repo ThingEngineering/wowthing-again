@@ -56,7 +56,7 @@
         {/if}
         <div class="container">
             {#each section.Groups as group, i (`${thingType}-${slug}-${i}`)}
-                <CollectionGroup thingType={thingType} thingMap={thingMap} userHas={userHas} group={group} />
+                <CollectionGroup {thingType} {thingMap} {userHas} {group} />
             {/each}
         </div>
     </div>

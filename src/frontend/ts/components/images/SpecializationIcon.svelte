@@ -12,5 +12,5 @@
 </script>
 
 {#if spec !== undefined}
-    <WowthingImage name={spec.Icon} {size} tooltip={spec.Name} border={border} />
+    <WowthingImage name={spec.Icon} {size} tooltip={spec.Name} {border} />
 {/if}

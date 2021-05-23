@@ -25,7 +25,7 @@
         <Head>
             {#key category.Name}
                 {#each flatten(category.Reputations) as reputation}
-                    <HeadReputation reputation={reputation} />
+                    <HeadReputation {reputation} />
                 {/each}
             {/key}
         </Head>
@@ -34,7 +34,7 @@
     <slot slot="rowExtra">
         {#key category.Name}
             {#each flatten(category.Reputations) as reputation}
-                <RowReputation reputationSet={reputation} />
+                <RowReputation {reputation} />
             {/each}
         {/key}
     </slot>

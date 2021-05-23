@@ -19,6 +19,6 @@
 
 <section>
     {#each $data.characters as character}
-        <CharacterCard character={character} />
+        <CharacterCard {character} />
     {/each}
 </section>

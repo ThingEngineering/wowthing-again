@@ -11,4 +11,4 @@
     $: tooltip = character.activeSpecId > 0 ? `${specializationMap[character.activeSpecId].Name} ${$data.Classes[character.classId].Name}` : $data.Classes[character.classId].Name;
 </script>
 
-<WowthingImage name={$data.Classes[character.classId].Icon} {size} tooltip={tooltip} border={1} />
+<WowthingImage name={$data.Classes[character.classId].Icon} {size} border={1} {tooltip} />
