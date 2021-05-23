@@ -6,7 +6,8 @@
   "scripts": {
     "build": "rollup -c",
     "watch": "rollup -c -w",
-    "start": "sirv build"
+    "start": "sirv build",
+    "check": "svelte-check"
   },
   "dependencies": {
     "lodash": "^4.17.21",
@@ -28,6 +29,7 @@
     "rollup-plugin-svelte": "^7.1.0",
     "rollup-plugin-terser": "^7.0.2",
     "svelte": "^3.38.2",
+    "svelte-check": "^1.5.4",
     "svelte-preprocess": "^4.7.3",
     "svelte-spa-router": "^3.1.0",
     "tslib": "^2.2.0",
