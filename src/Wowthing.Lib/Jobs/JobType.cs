@@ -26,7 +26,7 @@ namespace Wowthing.Lib.Jobs
         CharacterRaiderIo = 500,
 
         // Internal jobs
-        Upload = 900,
+        UserUpload = 900,
 
         // Scheduled jobs
         CacheStatic = 1000,
