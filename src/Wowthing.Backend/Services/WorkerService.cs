@@ -57,20 +57,20 @@ namespace Wowthing.Backend.Services
             }
         }
 
-        protected override Task ExecuteAsync(CancellationToken stoppingToken) => Task.Run(async () =>
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             using var scope = _services.CreateScope();
             var context = scope.ServiceProvider.GetService<WowDbContext>();
 
             // Give things a chance to get organized
-            await Task.Delay(5000);
+            await Task.Delay(5000, stoppingToken);
 
-            await foreach (var result in _stateService.JobQueueReader.ReadAllAsync())
+            await foreach (var result in _stateService.JobQueueReader.ReadAllAsync(stoppingToken))
             {
                 while (_stateService.AccessToken?.Valid != true)
                 {
                     _logger.Debug("Waiting for auth service to be ready");
-                    await Task.Delay(1000);
+                    await Task.Delay(1000, stoppingToken);
                 }
 
                 //_logger.Debug("Got one! {@result}", result);
@@ -85,6 +85,6 @@ namespace Wowthing.Backend.Services
                     _logger.Error(ex, "Job failed");
                 }
             }
-        }, stoppingToken);
+        }
     }
 }
