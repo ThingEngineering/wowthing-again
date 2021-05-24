@@ -49,5 +49,6 @@ namespace Wowthing.Lib.Models
         public PlayerCharacterRaiderIo RaiderIo { get; set; }
         public PlayerCharacterReputations Reputations { get; set; }
         public PlayerCharacterShadowlands Shadowlands { get; set; }
+        public PlayerCharacterWeekly Weekly { get; set; }
     }
 }

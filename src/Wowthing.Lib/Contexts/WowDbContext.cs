@@ -34,6 +34,7 @@ namespace Wowthing.Lib.Contexts
         public DbSet<PlayerCharacterRaiderIo> PlayerCharacterRaiderIo { get; set; }
         public DbSet<PlayerCharacterReputations> PlayerCharacterReputations { get; set; }
         public DbSet<PlayerCharacterShadowlands> PlayerCharacterShadowlands { get; set; }
+        public DbSet<PlayerCharacterWeekly> PlayerCharacterWeekly { get; set; }
 
         public DbSet<Team> Team { get; set; }
         public DbSet<TeamCharacter> TeamCharacter { get; set; }

@@ -36,6 +36,9 @@ namespace Wowthing.Web.Models
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public UserApiCharacterShadowlands Shadowlands { get; set; }
 
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public PlayerCharacterWeekly Weekly { get; }
+
         public UserApiCharacter(WowDbContext context, PlayerCharacter character, bool pub = false, bool anon = false)
         {
             ActiveSpecId = character.ActiveSpecId;
@@ -94,6 +97,11 @@ namespace Wowthing.Web.Models
             {
                 Shadowlands = new UserApiCharacterShadowlands(character.Shadowlands);
             }
+            
+            if (character.Weekly != null)
+            {
+                Weekly = character.Weekly;
+            } 
         }
     }
 
