@@ -121,6 +121,7 @@ namespace Wowthing.Web.Controllers
                 .Include(c => c.RaiderIo)
                 .Include(c => c.Reputations)
                 .Include(c => c.Shadowlands)
+                .Include(c => c.Weekly)
                 .AsNoTracking()
                 .AsSplitQuery()
                 .ToArrayAsync();

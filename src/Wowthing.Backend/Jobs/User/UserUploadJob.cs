@@ -28,6 +28,7 @@ namespace Wowthing.Backend.Jobs.User
             // Fetch character data for this account
             var characterMap = await _context.PlayerCharacter
                 .Where(c => c.Account.UserId == userId)
+                .Include(c => c.Weekly)
                 .ToDictionaryAsync(k => (k.RealmId, k.Name));
 
             var realmIds = characterMap.Values
@@ -61,7 +62,53 @@ namespace Wowthing.Backend.Jobs.User
                 }
 
                 _logger.Information("Found character: {0} => {1}", addonId, character.Id);
+
+                if (character.Weekly == null)
+                {
+                    character.Weekly = new PlayerCharacterWeekly
+                    {
+                        Character = character,
+                    };
+                }
+
+                character.Weekly.KeystoneDungeon = characterData.KeystoneInstance;
+                character.Weekly.KeystoneLevel = characterData.KeystoneLevel;
+
+                if (characterData.ScanTimes.TryGetValue("vault", out int vaultScanned))
+                {
+                    character.Weekly.Vault.ScannedAt = DateTimeOffset.FromUnixTimeSeconds(vaultScanned).UtcDateTime;
+
+                    if (characterData.MythicDungeons != null)
+                    {
+                        character.Weekly.Vault.MythicPlusRuns = characterData.MythicDungeons
+                            .Select(d => new List<int> { d.Map, d.Level })
+                            .ToList();
+                    }
+
+                    if (characterData.Vault != null)
+                    {
+                        // https://wowpedia.fandom.com/wiki/API_C_WeeklyRewards.GetActivities
+                        character.Weekly.Vault.MythicPlusProgress = ConvertVault(characterData.Vault[0]);
+                        character.Weekly.Vault.RankedPvpProgress = ConvertVault(characterData.Vault[1]);
+                        character.Weekly.Vault.RaidProgress = ConvertVault(characterData.Vault[2]);
+                    }
+                }
             }
+
+            await _context.SaveChangesAsync();
+        }
+
+        private static List<PlayerCharacterWeeklyVaultProgress> ConvertVault(UploadCharacterVault[] vault)
+        {
+            return vault
+                .OrderBy(v => v.Threshold)
+                .Select(v => new PlayerCharacterWeeklyVaultProgress
+                {
+                    Level = v.Level,
+                    Progress = v.Progress,
+                    Threshold = v.Threshold,
+                })
+                .ToList();
         }
     }
 }
