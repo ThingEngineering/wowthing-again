@@ -29,11 +29,11 @@ namespace Wowthing.Backend.Services
             stateService.JobQueueReader = _channel.Reader;
         }
 
-        protected override Task ExecuteAsync(CancellationToken stoppingToken) => Task.Run(async () =>
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                await Task.Delay(10);
+                await Task.Delay(10, stoppingToken);
 
                 var result = await _jobRepository.GetJobAsync();
                 if (result == null)
@@ -41,8 +41,8 @@ namespace Wowthing.Backend.Services
                     continue;
                 }
 
-                await _channel.Writer.WriteAsync(result);
+                await _channel.Writer.WriteAsync(result, stoppingToken);
             }
-        }, stoppingToken);
+        }
     }
 }
