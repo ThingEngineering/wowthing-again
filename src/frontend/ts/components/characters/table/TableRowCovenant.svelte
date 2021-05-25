@@ -17,8 +17,10 @@
     @import "../../../../scss/variables.scss";
 
     td {
+        padding-left: 0.1rem;
+        padding-right: 0.7rem;
         text-align: right;
-        width: 1.5rem;
+        width: 2.0rem;
     }
 </style>
 
