@@ -69,29 +69,26 @@ namespace Wowthing.Backend.Jobs.User
                     {
                         Character = character,
                     };
+                    _context.PlayerCharacterWeekly.Add(character.Weekly);
                 }
 
                 character.Weekly.KeystoneDungeon = characterData.KeystoneInstance;
                 character.Weekly.KeystoneLevel = characterData.KeystoneLevel;
 
-                if (characterData.ScanTimes.TryGetValue("vault", out int vaultScanned))
+                if (characterData.ScanTimes.TryGetValue("vault", out int vaultScanned) && characterData.MythicDungeons != null && characterData.Vault != null)
                 {
                     character.Weekly.Vault.ScannedAt = DateTimeOffset.FromUnixTimeSeconds(vaultScanned).UtcDateTime;
 
-                    if (characterData.MythicDungeons != null)
-                    {
-                        character.Weekly.Vault.MythicPlusRuns = characterData.MythicDungeons
-                            .Select(d => new List<int> { d.Map, d.Level })
-                            .ToList();
-                    }
+                    character.Weekly.Vault.MythicPlusRuns = characterData.MythicDungeons
+                        .Select(d => new List<int> { d.Map, d.Level })
+                        .ToList();
 
-                    if (characterData.Vault != null)
-                    {
-                        // https://wowpedia.fandom.com/wiki/API_C_WeeklyRewards.GetActivities
-                        character.Weekly.Vault.MythicPlusProgress = ConvertVault(characterData.Vault[0]);
-                        character.Weekly.Vault.RankedPvpProgress = ConvertVault(characterData.Vault[1]);
-                        character.Weekly.Vault.RaidProgress = ConvertVault(characterData.Vault[2]);
-                    }
+                    // https://wowpedia.fandom.com/wiki/API_C_WeeklyRewards.GetActivities
+                    character.Weekly.Vault.MythicPlusProgress = ConvertVault(characterData.Vault[0]);
+                    character.Weekly.Vault.RankedPvpProgress = ConvertVault(characterData.Vault[1]);
+                    character.Weekly.Vault.RaidProgress = ConvertVault(characterData.Vault[2]);
+
+                    _context.Entry(character.Weekly).Property(e => e.Vault).IsModified = true;
                 }
             }
 
