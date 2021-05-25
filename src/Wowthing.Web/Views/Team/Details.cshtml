@@ -16,3 +16,8 @@
 <div id="app"
      data-static="@Url.Action("StaticData", "Api", new { hash = Model.StaticHash })"
      data-team="@Url.Action("TeamData", "Api", new { guid = Model.Team.Guid })"></div>
+
+@if (User.Identity.IsAuthenticated)
+{
+    await Html.RenderPartialAsync("AddCharacterForm", Model.AddForm);
+}
