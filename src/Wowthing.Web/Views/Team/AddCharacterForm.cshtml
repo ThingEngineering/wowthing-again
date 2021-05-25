@@ -1,0 +1,23 @@
+﻿@model Wowthing.Web.Forms.TeamAddCharacterForm
+
+<form asp-action="AddCharacter" asp-controller="Team">
+    <label asp-for="RealmId">Realm
+        <input asp-for="RealmId" />
+    </label>
+
+    <label asp-for="CharacterName">Character
+        <input asp-for="CharacterName" />
+    </label>
+
+    <label asp-for="PrimaryRole">Primary Role
+        <input asp-for="PrimaryRole" />
+    </label>
+
+    <label asp-for="SecondaryRole">Secondary Role
+        <input asp-for="SecondaryRole" />
+    </label>
+
+    <input asp-for="TeamId" />
+
+    <input type="submit" />
+</form>

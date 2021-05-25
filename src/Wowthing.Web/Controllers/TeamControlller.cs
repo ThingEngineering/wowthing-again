@@ -48,5 +48,11 @@ namespace Wowthing.Web.Controllers
 
             return View("Details", new TeamViewModel(team, staticHash));
         }
+
+        [HttpPost("team/add_character")]
+        public async Task<IActionResult> AddCharacter()
+        {
+            return Ok();
+        }
     }
 }
