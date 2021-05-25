@@ -21,13 +21,13 @@
     let tooltip: object
 
     $: {
-        if (character && reputation) {
+        if (character !== undefined && reputation !== undefined) {
             const repInfo = reputation.Both || (character.faction === 0 ? reputation.Alliance : reputation.Horde)
-            const reputation: StaticDataReputation = $data.Reputations[repInfo.Id]
+            const dataRep: StaticDataReputation = $data.Reputations[repInfo.Id]
             characterRep = character.reputations[repInfo.Id]
 
-            if (characterRep !== undefined && reputation !== undefined) {
-                const tiers: StaticDataReputationTier = $data.ReputationTiers[reputation.TierId]
+            if (characterRep !== undefined && dataRep !== undefined) {
+                const tiers: StaticDataReputationTier = $data.ReputationTiers[dataRep.TierId]
                 repTier = findReputationTier(tiers, characterRep)
                 let valueRank = repTier.MaxValue ? `${repTier.Value} / ${repTier.MaxValue} ${repTier.Name}` : repTier.Name
 
@@ -35,7 +35,7 @@
                     allowHTML: true,
                     content: `
 <div class='wowthing-tooltip'>
-    <h4>${reputation.Name}</h4>
+    <h4>${dataRep.Name}</h4>
     ${valueRank}
     ${repInfo.Note !== null ? '<p><em>' + repInfo.Note + '</em></p>' : ''}
 </div>`,
