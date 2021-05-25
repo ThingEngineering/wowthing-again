@@ -1,0 +1,27 @@
+.vault-mythic-tooltip {
+  margin-top: 0.5rem;
+  width: 100%;
+
+  tr.vault-reward {
+    color: #1eff00;
+  }
+
+  td {
+    padding: 0.2rem 0.3rem;
+
+    &:nth-child(1) {
+      max-width: 2rem;
+      text-align: right;
+      white-space: nowrap;
+    }
+    &:nth-child(2) {
+      max-width: 10rem;
+      text-align: left;
+      white-space: nowrap;
+    }
+    &:nth-child(3) {
+      max-width: 3rem;
+      white-space: nowrap;
+    }
+  }
+}

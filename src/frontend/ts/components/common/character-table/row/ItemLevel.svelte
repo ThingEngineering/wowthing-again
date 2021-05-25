@@ -10,7 +10,7 @@
     @import '../../../../../scss/variables';
 
     td {
-        padding-right: 0.5rem;
+        padding-right: 0.7rem;
         text-align: right;
         width: $character-width-item-level;
     }

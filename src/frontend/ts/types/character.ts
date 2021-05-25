@@ -20,6 +20,7 @@ class Character {
     raiderIo: CharacterRaiderIo
     reputations: Dictionary<number>
     shadowlands?: CharacterShadowlands
+    weekly?: CharacterWeekly
 }
 
 class CharacterEquippedItem {
@@ -65,6 +66,26 @@ class CharacterShadowlands {
     covenantId: number
     renownLevel: number
     soulbindId: number
+}
+
+class CharacterWeekly {
+    keystoneDungeon: number
+    keystoneLevel: number
+
+    vault: CharacterWeeklyVault
+}
+
+class CharacterWeeklyVault {
+    mythicPlusProgress: CharacterWeeklyProgress
+    mythicPlusRuns: Array<Array<number>>
+    rankedPvpProgress: CharacterWeeklyProgress
+    raidProgress: CharacterWeeklyProgress
+}
+
+export class CharacterWeeklyProgress {
+    level: number
+    progress: number
+    threshold: number
 }
 
 export {

@@ -23,8 +23,8 @@ export default function initializeSets() {
     console.timeEnd('initializeSets')
 }
 
-function sigh(thing: string, sets: StaticDataSetCategory[][], userHas: Dictionary<number>, map?: Dictionary<number>) {
-    userData.setCounts[thing] = {}
+function sigh(category: string, sets: StaticDataSetCategory[][], userHas: Dictionary<number>, map?: Dictionary<number>) {
+    userData.setCounts[category] = {}
 
     for (let i = 0; i < sets.length; i++) {
         const categories = sets[i]
@@ -57,9 +57,9 @@ function sigh(thing: string, sets: StaticDataSetCategory[][], userHas: Dictionar
                 }
             }
 
-            userData.setCounts[thing][`${categories[0].Slug}_${section.Slug}`] = { have: sectionHave, total: sectionTotal }
+            userData.setCounts[category][`${categories[0].Slug}_${section.Slug}`] = { have: sectionHave, total: sectionTotal }
         }
 
-        userData.setCounts[thing][categories[0].Slug] = { have: categoryHave, total: categoryTotal }
+        userData.setCounts[category][categories[0].Slug] = { have: categoryHave, total: categoryTotal }
     }
 }
