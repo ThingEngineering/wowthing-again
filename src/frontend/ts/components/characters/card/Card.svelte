@@ -1,21 +1,27 @@
 <script lang="ts">
-    import {specializationMap} from '@/data/specialization'
+    import {specializationMap} from '@/data/character-specialization'
     import {data as settings} from '@/stores/settings-store'
     import {data as userData} from '@/stores/user-store'
-    import type {Character} from '@/types'
+    import type {Character, CharacterSpecialization} from '@/types'
     import getRealmName from '@/utils/get-realm-name'
     import tippy from '@/utils/tippy'
 
     import CharacterCovenant from '@/components/common/CharacterCovenant.svelte'
     import ClassIcon from '@/components/images/ClassIcon.svelte'
     import RaceIcon from '@/components/images/RaceIcon.svelte'
-    import SpecializationIcon from '@/components/images/SpecializationIcon.svelte'
+    import SpecializationIcon from '../../images/SpecializationIcon.svelte'
 
     export let character: Character
 
-    $: accountEnabled = (character.accountId === undefined || $userData.accounts[character.accountId].enabled)
-    $: accountTag = $userData.accounts?.[character.accountId]?.tag
-    $: spec = specializationMap[character.activeSpecId]
+    let accountEnabled: boolean
+    let accountTag: string | undefined
+    let spec: CharacterSpecialization
+
+    $: {
+        accountEnabled = (character.accountId === undefined || $userData.accounts[character.accountId].enabled)
+        accountTag = $userData.accounts?.[character.accountId]?.tag
+        spec = specializationMap[character.activeSpecId]
+    }
 </script>
 
 <style lang="scss">

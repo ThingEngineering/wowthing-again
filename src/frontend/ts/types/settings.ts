@@ -1,13 +1,13 @@
-export class Settings {
+export interface Settings {
     General: SettingsGeneral
     Privacy: SettingsPrivacy
 }
 
-class SettingsGeneral {
+interface SettingsGeneral {
     ShowRealm: boolean
 }
 
-class SettingsPrivacy {
+interface SettingsPrivacy {
     Anonymized: boolean
     Public: boolean
     ShowInLeaderboards: boolean

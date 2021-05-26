@@ -1,4 +1,4 @@
-export default async function fetch_json(request: string): Promise<string> {
+export default async function fetch_json(request: string): Promise<string | null> {
     return fetch(request)
         .then(response => {
             if (response.ok) {

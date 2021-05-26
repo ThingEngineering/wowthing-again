@@ -7,9 +7,24 @@
   export let character: Character
   export let size: number
 
-  $: gender = character.gender === 1 ? 'Male' : 'Female'
-  $: iconName = $data.Races[character.raceId]['Icon' + gender]
-  $: tooltip = `${ gender } ${ $data.Races[character.raceId].Name }`
+  let gender: string
+  let iconName: string
+  let tooltip: string
+
+  $: {
+      const race = $data.Races[character.raceId]
+
+      if (character.gender === 1) {
+          gender = 'Male'
+          iconName = race.IconMale
+      }
+      else {
+          gender = 'Female'
+          iconName = race.IconFemale
+      }
+
+      tooltip = `${ gender } ${ race.Name }`
+  }
 </script>
 
 <WowthingImage name={iconName} {size} border={1} {tooltip} />

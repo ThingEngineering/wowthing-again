@@ -3,11 +3,13 @@
     import {link} from 'svelte-spa-router'
     import active from 'svelte-spa-router/active'
 
+    import type {CollectionContext} from '@/types/contexts'
+
     import {data as userData} from '@/stores/user-store'
     import CollectionCount from './CollectionCount.svelte'
     import Sidebar from '@/components/common/Sidebar.svelte'
 
-    const {route, sets} = getContext('collection')
+    const { route, sets } = getContext('collection') as CollectionContext
 </script>
 
 <style lang="scss">

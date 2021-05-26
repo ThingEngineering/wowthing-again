@@ -2,7 +2,7 @@ import type {Account} from './account'
 import type {Character} from './character'
 import type {Dictionary} from './dictionary'
 
-export class UserData {
+export interface UserData {
     accounts?: Account[]
     characters: Character[]
     mounts: Dictionary<number>
@@ -10,7 +10,7 @@ export class UserData {
     toys: Dictionary<number>
 }
 
-class UserDataSetCount {
+interface UserDataSetCount {
     have: number
     total: number
 }
