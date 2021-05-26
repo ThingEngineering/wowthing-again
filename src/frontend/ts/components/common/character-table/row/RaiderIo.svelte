@@ -3,7 +3,7 @@
 
     import {raiderIoScores} from '@/data/raider-io'
     import {data as staticData} from '@/stores/static-store'
-    import type {Character, MythicPlusSeason} from '@/types'
+    import type {Character, CharacterRaiderIoSeason, MythicPlusSeason} from '@/types'
     import tippy from '@/utils/tippy'
 
     import TableIcon from '@/components/common/TableIcon.svelte'
@@ -13,7 +13,7 @@
 
     export let season: MythicPlusSeason
 
-    let scores = undefined
+    let scores: CharacterRaiderIoSeason | undefined
     let color: string = '#bbbbbb'
     let tooltip: object
 

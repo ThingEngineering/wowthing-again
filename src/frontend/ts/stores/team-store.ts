@@ -1,13 +1,13 @@
 import { writable } from 'svelte/store'
 
-import {TeamData} from '@/types'
+import type {TeamData} from '@/types'
 import fetch_json from '@/utils/fetch-json'
 import initializeTeam from '@/utils/initialize-team'
 
 
 export const error = writable(false)
 export const loading = writable(true)
-export const data = writable<TeamData>(new TeamData())
+export const data = writable<TeamData>(undefined)
 
 export const fetch = async function() {
     const url = document.getElementById('app').getAttribute('data-team')

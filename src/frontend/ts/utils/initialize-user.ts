@@ -33,8 +33,8 @@ export default function initializeUser(userData: UserData) {
 function nastySort(userData: UserData, key: string, a: Character, b: Character): number {
     // Account enabled
     if (key === 'enabled') {
-        const aEnabled = a.accountId === undefined || userData.accounts[a.accountId].enabled
-        const bEnabled = b.accountId === undefined || userData.accounts[b.accountId].enabled
+        const aEnabled = a.accountId === undefined || userData.accounts?.[a.accountId].enabled
+        const bEnabled = b.accountId === undefined || userData.accounts?.[b.accountId].enabled
 
         if (aEnabled && !bEnabled) { return -1 }
         else if (!aEnabled && bEnabled) { return 1 }

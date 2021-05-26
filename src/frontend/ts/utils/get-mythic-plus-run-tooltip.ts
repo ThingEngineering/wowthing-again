@@ -3,7 +3,7 @@ import sortBy from 'lodash/sortBy'
 import getItemLevelQuality from './get-item-level-quality'
 import getRealmName from './get-realm-name'
 import {dungeonMap} from '@/data/dungeon'
-import {specializationMap} from '@/data/specialization'
+import {specializationMap} from '@/data/character-specialization'
 import {data as sData} from '@/stores/static-store'
 import type {CharacterMythicPlusRun, StaticData} from '@/types'
 
@@ -38,16 +38,16 @@ export default function getMythicPlusRunTooltip(runs: CharacterMythicPlusRun[]):
         <tbody>
 `
 
-        const members = sortBy(run.members, (m) => [specializationMap[m.specializationId].Role, m.name])
+        const members = sortBy(run.members, (m) => [specializationMap[m.specializationId].role, m.name])
         for (let j = 0; j < members.length; j++) {
             const member = members[j]
             const spec = specializationMap[member.specializationId]
-            const cls = staticData.Classes[spec.ClassId]
+            const cls = staticData.Classes[spec.classId]
 
             tooltip += `
             <tr>
                 <td>
-                    <img src="https://img.wowthing.org/20/${cls.Icon}.png" width="22" height="22"><img src="https://img.wowthing.org/20/${spec.Icon}.png" width="22" height="22">
+                    <img src="https://img.wowthing.org/20/${cls.Icon}.png" width="22" height="22"><img src="https://img.wowthing.org/20/${spec.icon}.png" width="22" height="22">
                 </td>
                 <td class="quality${getItemLevelQuality(member.itemLevel)}">${member.itemLevel}</td>
                 <td>${member.name}</td>

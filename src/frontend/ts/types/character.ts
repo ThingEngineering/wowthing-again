@@ -1,6 +1,6 @@
 import type {Dictionary} from './dictionary'
 
-class Character {
+export interface Character {
     name: string
     realmId: number
     faction: number
@@ -17,13 +17,13 @@ class Character {
 
     equippedItems: Dictionary<CharacterEquippedItem>
     mythicPlus: CharacterMythicPlus
-    raiderIo: CharacterRaiderIo
+    raiderIo: Dictionary<CharacterRaiderIoSeason>
     reputations: Dictionary<number>
     shadowlands?: CharacterShadowlands
     weekly?: CharacterWeekly
 }
 
-class CharacterEquippedItem {
+export interface CharacterEquippedItem {
     context: number
     itemId: number
     itemLevel: number
@@ -33,14 +33,14 @@ class CharacterEquippedItem {
     enchantmentIds: number[]
 }
 
-class CharacterMythicPlus {
+export interface CharacterMythicPlus {
     currentPeriodId: number
     periodRuns: Dictionary<CharacterMythicPlusRun[]>
     seasons: Dictionary<Dictionary<CharacterMythicPlusRun[]>>
     seasonBadges: Dictionary<string>
 }
 
-class CharacterMythicPlusRun {
+export interface CharacterMythicPlusRun {
     affixes: number[]
     completed: string
     dungeonId: number
@@ -50,46 +50,49 @@ class CharacterMythicPlusRun {
     timed: boolean
 }
 
-class CharacterMythicPlusRunMember {
+interface CharacterMythicPlusRunMember {
     itemLevel: number
     name: string
     realmId: number
     specializationId: number
 }
 
-class CharacterRaiderIo {
+export interface CharacterRaiderIoSeason {
+    [key: string]: number
 
+    all: number
+    dps: number
+    healer: number
+    spec1: number
+    spec2: number
+    spec3: number
+    spec4: number
+    tank: number
 }
 
-class CharacterShadowlands {
+interface CharacterShadowlands {
     conduits: number[][]
     covenantId: number
     renownLevel: number
     soulbindId: number
 }
 
-class CharacterWeekly {
+interface CharacterWeekly {
     keystoneDungeon: number
     keystoneLevel: number
 
     vault: CharacterWeeklyVault
 }
 
-class CharacterWeeklyVault {
-    mythicPlusProgress: CharacterWeeklyProgress
+interface CharacterWeeklyVault {
+    mythicPlusProgress: CharacterWeeklyProgress[]
     mythicPlusRuns: Array<Array<number>>
-    rankedPvpProgress: CharacterWeeklyProgress
-    raidProgress: CharacterWeeklyProgress
+    rankedPvpProgress: CharacterWeeklyProgress[]
+    raidProgress: CharacterWeeklyProgress[]
 }
 
-export class CharacterWeeklyProgress {
+export interface CharacterWeeklyProgress {
     level: number
     progress: number
     threshold: number
-}
-
-export {
-    Character,
-    CharacterEquippedItem,
-    CharacterMythicPlusRun,
 }

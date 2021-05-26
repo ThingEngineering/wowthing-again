@@ -1,7 +1,7 @@
 import type {Dictionary} from './dictionary'
 
 
-export class StaticData {
+export interface StaticData {
     Classes: Dictionary<StaticDataClass>
     Races: Dictionary<StaticDataRace>
     Realms: Dictionary<StaticDataRealm>
@@ -21,21 +21,21 @@ export class StaticData {
     RaiderIoScoreTiers: StaticDataRaiderIoScoreTier[]
 }
 
-class StaticDataClass {
+interface StaticDataClass {
     Id: number
     Name: string
     Icon: string
     SpecializationIds: number[]
 }
 
-class StaticDataRace {
+interface StaticDataRace {
     Id: number
     Name: string
     IconFemale: string
     IconMale: string
 }
 
-class StaticDataRealm {
+interface StaticDataRealm {
     Id: number
     Region: number
     Name: string
@@ -43,42 +43,42 @@ class StaticDataRealm {
 }
 
 // Reputations
-export class StaticDataReputation {
+export interface StaticDataReputation {
     Id: number
     Name: string
     TierId: number
 }
 
-export class StaticDataReputationTier {
+export interface StaticDataReputationTier {
     Id: number
     MinValues: number[]
     MaxValues: number[]
     Names: string[]
 }
 
-class StaticDataReputationCategory {
+interface StaticDataReputationCategory {
     Name: string
     Reputations: StaticDataReputationSet[][]
     Slug: string
 }
 
-export class StaticDataReputationSet {
+export interface StaticDataReputationSet {
     Both: StaticDataReputationReputation
     Alliance: StaticDataReputationReputation
     Horde: StaticDataReputationReputation
     Paragon: boolean
 
-    get tooltip(): string {
+    /*get tooltip(): string {
         if (this.Both) {
             return this.Both.Name;
         }
         else {
             return `[A] ${this.Alliance.Name}<br>[H] ${this.Horde.Name}`
         }
-    }
+    }*/
 }
 
-class StaticDataReputationReputation {
+interface StaticDataReputationReputation {
     Id: number
     Name: string
     Icon: string
@@ -86,19 +86,19 @@ class StaticDataReputationReputation {
 }
 
 // Sets
-export class StaticDataSetCategory {
+export interface StaticDataSetCategory {
     Name: string
     Slug: string
     Groups: StaticDataSetGroup[]
 }
 
-export class StaticDataSetGroup {
+export interface StaticDataSetGroup {
     Name: string
     Things: number[][]
 }
 
 // RaiderIO
-class StaticDataRaiderIoScoreTier {
+interface StaticDataRaiderIoScoreTier {
     Score: number
     RgbHex: string
 }

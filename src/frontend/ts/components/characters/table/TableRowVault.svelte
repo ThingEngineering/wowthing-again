@@ -11,7 +11,7 @@
 
     const character: Character = getContext('character')
 
-    let mythicPlus: CharacterWeeklyProgress = undefined
+    let mythicPlus: CharacterWeeklyProgress[] = []
     let mythicPlusTooltip: object
     $: {
         if (character.level >= 60) {
@@ -25,8 +25,8 @@
 
 <style lang="scss">
     td {
-      text-align: center;
-      width: 2.3rem;
+        text-align: center;
+        width: 2.3rem;
     }
 </style>
 

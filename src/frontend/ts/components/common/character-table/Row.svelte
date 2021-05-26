@@ -9,7 +9,7 @@
     import TableIcon from '../TableIcon.svelte'
     import ClassIcon from '@/components/images/ClassIcon.svelte'
     import RaceIcon from '@/components/images/RaceIcon.svelte'
-    import SpecializationIcon from '@/components/images/SpecializationIcon.svelte'
+    import SpecializationIcon from '../../images/SpecializationIcon.svelte'
 
     export let character: Character
 

@@ -1,6 +1,6 @@
 import type {Character} from './character'
 
-export class TeamData {
+export interface TeamData {
     defaultRealmId: number
     description: string
     name: string
@@ -9,7 +9,7 @@ export class TeamData {
     characters: TeamDataCharacter[]
 }
 
-export class TeamDataCharacter {
+export interface TeamDataCharacter {
     character: Character
     note: string
 }

@@ -1,6 +1,6 @@
 import sortBy from 'lodash/sortBy'
 
-import {dungeonMap, seasonMap} from '@/data/dungeon'
+import {dungeonMap} from '@/data/dungeon'
 import type {Character} from '@/types'
 import getMythicPlusVaultItemLevel from './get-mythic-plus-vault-item-level'
 
@@ -13,24 +13,30 @@ export default function getMythicPlusVaultTooltip(character: Character): object 
         <tbody>
 `
 
-    const runs = sortBy(character.weekly.vault.mythicPlusRuns, (r) => -r[1])
-    for (let i = 0; i < runs.length; i++) {
-        const [dungeonId, level] = runs[i]
-        const dungeon = dungeonMap[dungeonId]
-        const itemLevel = getMythicPlusVaultItemLevel(level)
+    const runs = character.weekly?.vault.mythicPlusRuns ?? [[]]
+    if (runs.length > 0) {
+        const sortedRuns = sortBy(character.weekly?.vault.mythicPlusRuns, (r) => -r[1])
+        for (let i = 0; i < sortedRuns.length; i++) {
+            const [dungeonId, level] = sortedRuns[i]
+            const dungeon = dungeonMap[dungeonId]
+            const itemLevel = getMythicPlusVaultItemLevel(level)
 
-        let cls = ''
-        if (i === 0 || i === 3 || i === 9) {
-            cls = ' class="vault-reward"'
+            let cls = ''
+            if (i === 0 || i === 3 || i === 9) {
+                cls = ' class="vault-reward"'
+            }
+
+            tooltip += `
+                <tr${cls}>
+                    <td>${level}</td>
+                    <td>${dungeon.Name}</td>
+                    <td>${itemLevel}</td>
+                </tr>
+            `
         }
-
-        tooltip += `
-            <tr${cls}>
-                <td>${level}</td>
-                <td>${dungeon.Name}</td>
-                <td>${itemLevel}</td>
-            </tr>
-        `
+    }
+    else {
+        tooltip += '<tr><td colspan="3">Do some Mythic+!</td></tr>'
     }
 
     tooltip += `

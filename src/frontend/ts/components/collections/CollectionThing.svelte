@@ -7,11 +7,15 @@
 
     export let thingType: string
     export let thingMap: Dictionary<number>
-    export let userHas = {}
+    export let userHas: Dictionary<number>
     export let things: number[] = []
 
-    $: userHasThing = find(things, (t) => userHas[thingMap[t] || 0])
-    $: origId = userHasThing ?? things[0]
+    let userHasThing: number | undefined
+    let origId: number
+    $: {
+        userHasThing = find(things, (value: number): boolean => userHas[thingMap[value] || -1] !== undefined)
+        origId = userHasThing ?? things[0]
+    }
 </script>
 
 <style lang="scss">

@@ -6,10 +6,10 @@
 
     import RowItem from './TableRowItem.svelte'
 
-    export let rowspan: number = undefined
+    export let character: Character | undefined = undefined
+    export let rowspan: number = 0
 
-    export let character: Character
-    $: character = getContext('character')
+    $: character = character || getContext('character')
 </script>
 
 <style lang="scss">
