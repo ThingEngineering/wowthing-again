@@ -1,13 +1,13 @@
 <script lang="ts">
     import {getContext} from 'svelte'
 
-    import type {Character} from '../../../../types'
+    import type {Character} from '@/types'
 
     const character: Character = getContext('character')
 </script>
 
 <style lang="scss">
-    @import '../../../../../scss/variables';
+    @import 'scss/variables';
 
     td {
         padding-right: 0.7rem;

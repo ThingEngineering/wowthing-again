@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type {TeamDataCharacter} from '../../types'
+    import type {TeamDataCharacter} from '@/types'
 
     export let teamCharacter: TeamDataCharacter
 </script>

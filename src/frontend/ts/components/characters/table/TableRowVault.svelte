@@ -1,13 +1,13 @@
 <script lang="ts">
     import {getContext} from 'svelte'
 
-    import type {Character, CharacterWeeklyProgress} from '../../../types'
-    import getMythicPlusVaultItemLevel from '../../../utils/get-mythic-plus-vault-item-level'
-    import getMythicPlusVaultTooltip from '../../../utils/get-mythic-plus-vault-tooltip'
-    import tippy from '../../../utils/tippy'
+    import type {Character, CharacterWeeklyProgress} from '@/types'
+    import getMythicPlusVaultItemLevel from '@/utils/get-mythic-plus-vault-item-level'
+    import getMythicPlusVaultTooltip from '@/utils/get-mythic-plus-vault-tooltip'
+    import tippy from '@/utils/tippy'
 
-    import TableIcon from '../../common/TableIcon.svelte'
-    import WowthingImage from '../../images/sources/WowthingImage.svelte'
+    import TableIcon from '@/components/common/TableIcon.svelte'
+    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     const character: Character = getContext('character')
 

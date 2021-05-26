@@ -1,4 +1,4 @@
-import type { Role } from '../data/role'
+import type { Role } from '@/data/role'
 
 export class Specialization {
     ClassId: number

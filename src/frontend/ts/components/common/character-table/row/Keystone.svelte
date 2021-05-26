@@ -1,12 +1,12 @@
 <script lang="ts">
     import {getContext} from 'svelte'
 
-    import {dungeonMap} from '../../../../data/dungeon'
-    import type {Character, Dungeon} from '../../../../types'
-    import getMythicPlusRunQuality from '../../../../utils/get-mythic-plus-run-quality'
+    import {dungeonMap} from '@/data/dungeon'
+    import type {Character, Dungeon} from '@/types'
+    import getMythicPlusRunQuality from '@/utils/get-mythic-plus-run-quality'
 
-    import TableIcon from '../../TableIcon.svelte'
-    import WowthingImage from '../../../images/sources/WowthingImage.svelte'
+    import TableIcon from '@/components/common/TableIcon.svelte'
+    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     const character: Character = getContext('character')
 
@@ -19,7 +19,7 @@
 </script>
 
 <style lang="scss">
-    @import '../../../../../scss/variables';
+    @import 'scss/variables';
 
     .level {
         min-width: $table-width-key-level;

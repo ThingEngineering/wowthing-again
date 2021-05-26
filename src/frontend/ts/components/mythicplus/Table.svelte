@@ -1,21 +1,21 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy'
 
-    import {seasonMap} from '../../data/dungeon'
-    import type {Character, CharacterMythicPlusRun, MythicPlusSeason} from '../../types'
+    import {seasonMap} from '@/data/dungeon'
+    import type {Character, CharacterMythicPlusRun, MythicPlusSeason} from '@/types'
 
-    import CharacterTable from '../common/character-table/Table.svelte'
-    import Head from '../common/character-table/Head.svelte'
+    import CharacterTable from '@/components/common/character-table/Table.svelte'
+    import Head from '@/components/common/character-table/Head.svelte'
     import HeadDungeon from './TableHeadDungeon.svelte'
-    import HeadItemLevel from '../common/character-table/head/ItemLevel.svelte'
-    import HeadKeystone from '../common/character-table/head/Keystone.svelte'
-    import HeadMythicPlusBadge from '../common/character-table/head/MythicPlusBadge.svelte'
-    import HeadRaiderIo from '../common/character-table/head/RaiderIo.svelte'
+    import HeadItemLevel from '@/components/common/character-table/head/ItemLevel.svelte'
+    import HeadKeystone from '@/components/common/character-table/head/Keystone.svelte'
+    import HeadMythicPlusBadge from '@/components/common/character-table/head/MythicPlusBadge.svelte'
+    import HeadRaiderIo from '@/components/common/character-table/head/RaiderIo.svelte'
     import RowDungeon from './TableRowDungeon.svelte'
-    import RowItemLevel from '../common/character-table/row/ItemLevel.svelte'
-    import RowKeystone from '../common/character-table/row/Keystone.svelte'
-    import RowMythicPlusBadge from '../common/character-table/row/MythicPlusBadge.svelte'
-    import RowRaiderIo from '../common/character-table/row/RaiderIo.svelte'
+    import RowItemLevel from '@/components/common/character-table/row/ItemLevel.svelte'
+    import RowKeystone from '@/components/common/character-table/row/Keystone.svelte'
+    import RowMythicPlusBadge from '@/components/common/character-table/row/MythicPlusBadge.svelte'
+    import RowRaiderIo from '@/components/common/character-table/row/RaiderIo.svelte'
 
     export let slug: string
 

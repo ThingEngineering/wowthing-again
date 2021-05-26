@@ -2,8 +2,8 @@
     import find from 'lodash/find'
     import {getContext} from 'svelte'
 
-    import {data as userData} from '../../stores/user-store'
-    import type {StaticDataSetCategory} from '../../types'
+    import {data as userData} from '@/stores/user-store'
+    import type {StaticDataSetCategory} from '@/types'
 
     import CollectionCount from './CollectionCount.svelte'
     import CollectionGroup from './CollectionGroup.svelte'
@@ -23,7 +23,7 @@
 </script>
 
 <style lang="scss">
-    @import '../../../scss/variables.scss';
+    @import 'scss/variables';
 
     .section + .section {
         margin-top: 1rem;

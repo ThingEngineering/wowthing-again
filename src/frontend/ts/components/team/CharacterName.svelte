@@ -1,6 +1,6 @@
 <script lang="ts">
-    import type {TeamDataCharacter} from '../../types'
-    import getRealmName from '../../utils/get-realm-name'
+    import type {TeamDataCharacter} from '@/types'
+    import getRealmName from '@/utils/get-realm-name'
 
     export let teamCharacter: TeamDataCharacter
 </script>

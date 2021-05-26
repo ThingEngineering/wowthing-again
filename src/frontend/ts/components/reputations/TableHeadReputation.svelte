@@ -1,9 +1,8 @@
 <script lang="ts">
-    import tippy from '../../utils/tippy'
+    import tippy from '@/utils/tippy'
+    import type {StaticDataReputationSet} from '@/types'
 
-    import type {StaticDataReputationSet} from '../../types'
-
-    import WowdbImage from '../images/sources/WowdbImage.svelte'
+    import WowdbImage from '@/components/images/sources/WowdbImage.svelte'
 
     export let reputation: StaticDataReputationSet
 
@@ -14,7 +13,7 @@
 </script>
 
 <style lang="scss">
-    @import "../../../scss/variables.scss";
+    @import 'scss/variables';
 
     th {
         border: 1px solid $border-color;

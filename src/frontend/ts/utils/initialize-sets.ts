@@ -1,6 +1,6 @@
-import {data as sData} from '../stores/static-store'
-import {data as uData} from '../stores/user-store'
-import type {Dictionary, StaticData, StaticDataSetCategory, UserData} from '../types'
+import {data as sData} from '@/stores/static-store'
+import {data as uData} from '@/stores/user-store'
+import type {Dictionary, StaticData, StaticDataSetCategory, UserData} from '@/types'
 
 let staticData: StaticData
 sData.subscribe(value => {

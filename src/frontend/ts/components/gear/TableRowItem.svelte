@@ -1,8 +1,9 @@
 <script lang="ts">
-    import type {InventorySlot} from '../../data/inventory-slot'
-    import type {Character} from '../../types'
-    import {getItemUrl} from '../../utils/get-item-url'
-    import WowthingImage from '../images/sources/WowthingImage.svelte'
+    import type {InventorySlot} from '@/data/inventory-slot'
+    import type {Character} from '@/types'
+    import {getItemUrl} from '@/utils/get-item-url'
+
+    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
     export let inventorySlot: InventorySlot
@@ -11,7 +12,7 @@
 </script>
 
 <style lang="scss">
-    @import "../../../scss/variables.scss";
+    @import 'scss/variables';
 
     div {
         height: 44px;

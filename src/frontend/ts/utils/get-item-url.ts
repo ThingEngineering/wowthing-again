@@ -1,4 +1,4 @@
-import type {CharacterEquippedItem} from '../types'
+import type {CharacterEquippedItem} from '@/types'
 
 export function getItemUrl(item: CharacterEquippedItem): string {
     let url: string = ''

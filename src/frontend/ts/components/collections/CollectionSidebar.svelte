@@ -3,15 +3,15 @@
     import {link} from 'svelte-spa-router'
     import active from 'svelte-spa-router/active'
 
-    import {data as userData} from '../../stores/user-store'
+    import {data as userData} from '@/stores/user-store'
     import CollectionCount from './CollectionCount.svelte'
-    import Sidebar from '../common/Sidebar.svelte'
+    import Sidebar from '@/components/common/Sidebar.svelte'
 
     const {route, sets} = getContext('collection')
 </script>
 
 <style lang="scss">
-    @import "../../../scss/variables.scss";
+    @import 'scss/variables';
 
     li {
         position: relative;

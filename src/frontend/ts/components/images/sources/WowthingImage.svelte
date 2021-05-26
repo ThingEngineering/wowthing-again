@@ -1,5 +1,5 @@
 <script lang="ts">
-    import tippy from '../../../utils/tippy'
+    import tippy from '@/utils/tippy'
 
     export let name: string
     export let ext: string = "png"

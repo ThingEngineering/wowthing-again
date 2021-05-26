@@ -1,7 +1,7 @@
 import sortBy from 'lodash/sortBy'
 
-import {dungeonMap, seasonMap} from '../data/dungeon'
-import type {Character} from '../types'
+import {dungeonMap, seasonMap} from '@/data/dungeon'
+import type {Character} from '@/types'
 import getMythicPlusVaultItemLevel from './get-mythic-plus-vault-item-level'
 
 

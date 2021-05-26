@@ -1,4 +1,4 @@
-import type {CharacterMythicPlusRun} from '../types'
+import type {CharacterMythicPlusRun} from '@/types'
 
 
 export default function getMythicPlusRunQuality(run: CharacterMythicPlusRun | number): string {

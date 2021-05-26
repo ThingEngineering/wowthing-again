@@ -1,8 +1,8 @@
 <script lang="ts">
     import {getContext} from 'svelte'
 
-    import type {Character} from '../../types'
-    import {slotOrder} from '../../data/inventory-slot'
+    import type {Character} from '@/types'
+    import {slotOrder} from '@/data/inventory-slot'
 
     import RowItem from './TableRowItem.svelte'
 

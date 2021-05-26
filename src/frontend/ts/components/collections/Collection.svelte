@@ -2,7 +2,7 @@
     import {afterUpdate, setContext} from 'svelte'
     import {replace} from 'svelte-spa-router'
 
-    import type {Dictionary, StaticDataSetCategory} from '../../types'
+    import type {Dictionary, StaticDataSetCategory} from '@/types'
 
     import CollectionSection from './CollectionSection.svelte'
     import CollectionSidebar from './CollectionSidebar.svelte'

@@ -1,7 +1,7 @@
 <script lang="ts">
     import active from 'svelte-spa-router/active'
 
-    import Sidebar from '../../components/common/Sidebar.svelte'
+    import Sidebar from '@/components/common/Sidebar.svelte'
 </script>
 
 <style lang="scss">

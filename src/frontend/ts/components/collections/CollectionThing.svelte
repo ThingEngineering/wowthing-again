@@ -1,9 +1,9 @@
 <script lang="ts">
     import find from 'lodash/find'
 
-    import type {Dictionary} from '../../types'
+    import type {Dictionary} from '@/types'
 
-    import WowthingImage from '../images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let thingType: string
     export let thingMap: Dictionary<number>
@@ -15,7 +15,7 @@
 </script>
 
 <style lang="scss">
-    @import '../../../scss/variables.scss';
+    @import 'scss/variables';
 
     div {
         display: inline-block;
