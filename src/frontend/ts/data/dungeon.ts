@@ -1,5 +1,5 @@
-import {Dungeon, MythicPlusAffix, MythicPlusSeason} from '../types'
-import type {Dictionary} from '../types'
+import {Dungeon, MythicPlusAffix, MythicPlusSeason} from '@/types'
+import type {Dictionary} from '@/types'
 
 const affixMap: Dictionary<MythicPlusAffix> = {
       1: new MythicPlusAffix('Overflowing'),

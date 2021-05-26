@@ -4,8 +4,11 @@
   "include": ["ts/**/*"],
   "exclude": ["node_modules/*"],
   "compilerOptions": {
+    "baseUrl": ".",
     "incremental": true,
-    "rootDir": ".",
+    "paths": {
+      "@/*": [ "ts/*" ]
+    },
     "tsBuildInfoFile": "../Wowthing.Web/wwwroot/dist/.tsbuildinfo"
   }
 }

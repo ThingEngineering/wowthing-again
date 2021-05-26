@@ -1,7 +1,7 @@
 import {PlayableClass} from './playable-class'
 import {Role} from './role'
-import type {Dictionary} from '../types'
-import {Specialization} from '../types'
+import type {Dictionary} from '@/types'
+import {Specialization} from '@/types'
 
 const specializationMap: Dictionary<Specialization> = {
     // Death Knight

@@ -1,8 +1,8 @@
 import { writable } from 'svelte/store'
 
-import {TeamData} from '../types'
-import fetch_json from '../utils/fetch-json'
-import initializeTeam from '../utils/initialize-team'
+import {TeamData} from '@/types'
+import fetch_json from '@/utils/fetch-json'
+import initializeTeam from '@/utils/initialize-team'
 
 
 export const error = writable(false)

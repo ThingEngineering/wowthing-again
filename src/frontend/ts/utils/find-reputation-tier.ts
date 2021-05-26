@@ -1,5 +1,5 @@
-import type {StaticDataReputationTier} from '../types'
-import {ReputationTier} from '../types'
+import type {StaticDataReputationTier} from '@/types'
+import {ReputationTier} from '@/types'
 
 export default function findReputationTier(tiers: StaticDataReputationTier, characterRep: number): ReputationTier | undefined {
     for (let i = 0; i < tiers.MinValues.length; i++) {

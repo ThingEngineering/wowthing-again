@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type {Dictionary, StaticDataSetGroup} from '../../types'
+    import type {Dictionary, StaticDataSetGroup} from '@/types'
 
     import CollectionThing from './CollectionThing.svelte'
 
@@ -10,7 +10,7 @@
 </script>
 
 <style lang="scss">
-    @import '../../../scss/variables.scss';
+    @import 'scss/variables';
 
     div {
         margin: 0 0.75rem 0.75rem 0;

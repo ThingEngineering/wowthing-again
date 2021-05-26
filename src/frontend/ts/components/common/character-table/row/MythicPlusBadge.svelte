@@ -1,11 +1,11 @@
 <script lang="ts">
     import {getContext} from 'svelte'
 
-    import {badgeToClass} from '../../../../data/dungeon'
-    import type {Character, MythicPlusSeason} from '../../../../types'
+    import {badgeToClass} from '@/data/dungeon'
+    import type {Character, MythicPlusSeason} from '@/types'
 
-    import TableIcon from '../../TableIcon.svelte'
-    import WowthingImage from '../../../images/sources/WowthingImage.svelte'
+    import TableIcon from '@/components/common/TableIcon.svelte'
+    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let season: MythicPlusSeason
 

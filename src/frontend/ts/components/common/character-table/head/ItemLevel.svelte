@@ -1,5 +1,5 @@
 <style lang="scss">
-    @import '../../../../../scss/variables';
+    @import 'scss/variables';
 
     .item-level {
         min-width: $character-width-item-level;

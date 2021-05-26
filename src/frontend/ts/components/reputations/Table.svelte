@@ -2,10 +2,10 @@
     import find from 'lodash/find'
     import flatten from 'lodash/flatten'
 
-    import {data as staticData} from '../../stores/static-store'
+    import {data as staticData} from '@/stores/static-store'
 
-    import CharacterTable from '../common/character-table/Table.svelte'
-    import Head from '../common/character-table/Head.svelte'
+    import CharacterTable from '@/components/common/character-table/Table.svelte'
+    import Head from '@/components/common/character-table/Head.svelte'
     import HeadReputation from './TableHeadReputation.svelte'
     import RowReputation from './TableRowReputation.svelte'
 

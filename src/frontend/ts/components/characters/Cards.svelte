@@ -1,11 +1,11 @@
 <script lang="ts">
-    import {data} from '../../stores/user-store'
+    import {data} from '@/stores/user-store'
 
     import CharacterCard from './card/Card.svelte'
 </script>
 
 <style lang="scss">
-    @import "../../../scss/variables.scss";
+    @import 'scss/variables';
 
     section {
         align-items: flex-start;

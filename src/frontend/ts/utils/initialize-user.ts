@@ -1,5 +1,5 @@
 import initializeCharacter from './initialize-character'
-import type {Character, UserData} from '../types'
+import type {Character, UserData} from '@/types'
 
 export default function initializeUser(userData: UserData) {
     console.time('initializeUser')

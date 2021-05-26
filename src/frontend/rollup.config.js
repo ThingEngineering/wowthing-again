@@ -3,11 +3,12 @@ import fs from 'fs'
 import path from 'path'
 import map from 'lodash/map'
 
-import rimraf from 'rimraf'
+import alias from '@rollup/plugin-alias'
 import commonjs from '@rollup/plugin-commonjs'
 import replace from '@rollup/plugin-replace'
 import resolve from '@rollup/plugin-node-resolve'
 import typescript from '@rollup/plugin-typescript'
+import rimraf from 'rimraf'
 import css from 'rollup-plugin-css-only'
 import svelte from 'rollup-plugin-svelte'
 import { terser } from 'rollup-plugin-terser'
@@ -68,6 +69,12 @@ const sigh = function(baseName) {
                 cacheDir: '.tscache',
                 sourceMap: !production,
                 inlineSources: !production
+            }),
+            alias({
+                resolve: ['.svelte', '.ts'],
+                entries: [
+                    { find: '@', replacement: path.resolve(__dirname, 'ts') },
+                ]
             }),
 
             // Watch the `dist` directory and refresh the

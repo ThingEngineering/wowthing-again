@@ -1,9 +1,9 @@
 import keys from 'lodash/keys'
 
 import getItemLevelQuality from './get-item-level-quality'
-import {seasonMap} from '../data/dungeon'
-import {InventorySlot, slotOrder} from '../data/inventory-slot'
-import type {Character, CharacterMythicPlusRun} from '../types'
+import {seasonMap} from '@/data/dungeon'
+import {InventorySlot, slotOrder} from '@/data/inventory-slot'
+import type {Character, CharacterMythicPlusRun} from '@/types'
 
 export default function initializeCharacter(character: Character) {
     // item levels

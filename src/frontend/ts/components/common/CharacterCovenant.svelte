@@ -1,9 +1,9 @@
 <script lang="ts">
-    import {covenantMap} from '../../data/covenant'
-    import type {Character} from '../../types'
-    import tippy from '../../utils/tippy'
+    import {covenantMap} from '@/data/covenant'
+    import type {Character} from '@/types'
+    import tippy from '@/utils/tippy'
 
-    import WowthingImage from '../images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
 
@@ -11,7 +11,7 @@
 </script>
 
 <style lang="scss">
-    @import "../../../scss/variables.scss";
+    @import 'scss/variables';
 
     div :global(img) {
         background: rgba(77, 78, 79, 0.4);

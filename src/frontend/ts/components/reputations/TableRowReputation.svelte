@@ -1,16 +1,16 @@
 <script lang="ts">
     import {getContext} from 'svelte'
 
-    import {data} from '../../stores/static-store'
+    import {data} from '@/stores/static-store'
     import type {
         Character,
         ReputationTier,
         StaticDataReputation,
         StaticDataReputationSet,
         StaticDataReputationTier,
-    } from '../../types'
-    import findReputationTier from '../../utils/find-reputation-tier'
-    import tippy from '../../utils/tippy'
+    } from '@/types'
+    import findReputationTier from '@/utils/find-reputation-tier'
+    import tippy from '@/utils/tippy'
 
     const character: Character = getContext('character')
 
@@ -46,7 +46,7 @@
 </script>
 
 <style lang="scss">
-    @import "../../../scss/variables.scss";
+    @import 'scss/variables';
 
     td {
         border-left: 1px solid $border-color;

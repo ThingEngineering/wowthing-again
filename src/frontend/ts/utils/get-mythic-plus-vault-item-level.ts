@@ -1,4 +1,4 @@
-import { keyVaultItemLevel } from '../data/dungeon'
+import { keyVaultItemLevel } from '@/data/dungeon'
 
 export default function getMythicPlusVaultItemLevel(level: number): number {
     for (let i = 0; i < keyVaultItemLevel.length; i++) {

@@ -2,10 +2,10 @@ import sortBy from 'lodash/sortBy'
 
 import getItemLevelQuality from './get-item-level-quality'
 import getRealmName from './get-realm-name'
-import {dungeonMap} from '../data/dungeon'
-import {specializationMap} from '../data/specialization'
-import {data as sData} from '../stores/static-store'
-import type {CharacterMythicPlusRun, StaticData} from '../types'
+import {dungeonMap} from '@/data/dungeon'
+import {specializationMap} from '@/data/specialization'
+import {data as sData} from '@/stores/static-store'
+import type {CharacterMythicPlusRun, StaticData} from '@/types'
 
 
 let staticData: StaticData

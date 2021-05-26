@@ -1,8 +1,8 @@
 <script lang="ts">
-    import {dungeonMap} from '../../data/dungeon'
-    import tippy from '../../utils/tippy'
+    import {dungeonMap} from '@/data/dungeon'
+    import tippy from '@/utils/tippy'
 
-    import WowthingImage from '../images/sources/WowthingImage.svelte'
+    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let dungeonId: number = 0
 
@@ -10,7 +10,7 @@
 </script>
 
 <style lang="scss">
-    @import "../../../scss/variables.scss";
+    @import 'scss/variables';
 
     th {
         background: $thing-background;

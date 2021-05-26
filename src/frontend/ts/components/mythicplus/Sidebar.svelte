@@ -3,8 +3,9 @@
     import {link} from 'svelte-spa-router'
     import active from 'svelte-spa-router/active'
 
-    import Sidebar from '../common/Sidebar.svelte'
-    import {seasonMap} from '../../data/dungeon'
+    import {seasonMap} from '@/data/dungeon'
+
+    import Sidebar from '@/components/common/Sidebar.svelte'
 
     const seasons = sortBy(seasonMap, (s) => -s.Id)
 </script>

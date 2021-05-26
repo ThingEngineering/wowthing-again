@@ -3,7 +3,7 @@
 </script>
 
 <style lang="scss">
-    @import "../../../scss/variables.scss";
+    @import 'scss/variables';
 
     nav {
         margin-right: 1rem;

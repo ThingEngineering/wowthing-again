@@ -2,7 +2,7 @@
 </script>
 
 <style lang="scss">
-    @import '../../../scss/variables.scss';
+    @import 'scss/variables';
 
     td {
         text-align: center;

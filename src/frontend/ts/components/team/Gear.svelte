@@ -1,9 +1,9 @@
 <script lang="ts">
-    import {data as teamData} from '../../stores/team-store'
+    import {data as teamData} from '@/stores/team-store'
 
-    //import TableCharacterName from '../common/TableCharacterName.svelte'
-    //import TableItemLevel from '../common/TableItemLevel.svelte'
-    import GearItems from '../gear/TableRowItems.svelte'
+    //import TableCharacterName from '@/components/common/TableCharacterName.svelte'
+    //import TableItemLevel from '@/components/common/TableItemLevel.svelte'
+    import GearItems from '@/components/gear/TableRowItems.svelte'
 </script>
 
 <style lang="scss">

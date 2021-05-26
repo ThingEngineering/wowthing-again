@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store'
 
-import fetch_json from '../utils/fetch-json'
-import {StaticData} from '../types'
+import fetch_json from '@/utils/fetch-json'
+import {StaticData} from '@/types'
 
 
 export const error = writable(false)

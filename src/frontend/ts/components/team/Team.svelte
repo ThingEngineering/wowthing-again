@@ -1,14 +1,14 @@
 <script lang="ts">
     import {location} from 'svelte-spa-router'
 
-    import {data as teamData} from '../../stores/team-store'
+    import {data as teamData} from '@/stores/team-store'
 
     import CharacterName from './CharacterName.svelte'
     import CharacterNote from './CharacterNote.svelte'
-    import CharacterCovenant from '../common/CharacterCovenant.svelte'
-    import GearItems from '../gear/TableRowItems.svelte'
-    import ClassIcon from '../images/ClassIcon.svelte'
-    import RaceIcon from '../images/RaceIcon.svelte'
+    import CharacterCovenant from '@/components/common/CharacterCovenant.svelte'
+    import GearItems from '@/components/gear/TableRowItems.svelte'
+    import ClassIcon from '@/components/images/ClassIcon.svelte'
+    import RaceIcon from '@/components/images/RaceIcon.svelte'
 </script>
 
 <style lang="scss">

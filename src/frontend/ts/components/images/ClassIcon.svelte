@@ -1,7 +1,7 @@
 <script lang="ts">
-    import {specializationMap} from '../../data/specialization'
-    import {data} from '../../stores/static-store'
-    import type {Character} from '../../types'
+    import {specializationMap} from '@/data/specialization'
+    import {data} from '@/stores/static-store'
+    import type {Character} from '@/types'
 
     import WowthingImage from './sources/WowthingImage.svelte'
 

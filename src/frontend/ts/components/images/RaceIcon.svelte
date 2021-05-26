@@ -1,6 +1,6 @@
 <script lang="ts">
-  import {data} from '../../stores/static-store'
-  import type {Character} from '../../types'
+  import {data} from '@/stores/static-store'
+  import type {Character} from '@/types'
 
   import WowthingImage from './sources/WowthingImage.svelte'
 

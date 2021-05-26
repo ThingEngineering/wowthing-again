@@ -2,10 +2,10 @@
     import sortBy from 'lodash/sortBy'
     import {getContext} from 'svelte'
 
-    import type {Character, CharacterMythicPlusRun} from '../../types'
-    import getMythicPlusRunQuality from '../../utils/get-mythic-plus-run-quality'
-    import getMythicPlusRunTooltip from '../../utils/get-mythic-plus-run-tooltip'
-    import tippy from '../../utils/tippy'
+    import type {Character, CharacterMythicPlusRun} from '@/types'
+    import getMythicPlusRunQuality from '@/utils/get-mythic-plus-run-quality'
+    import getMythicPlusRunTooltip from '@/utils/get-mythic-plus-run-tooltip'
+    import tippy from '@/utils/tippy'
 
     export let dungeonId: number
     export let runsFunc: (char: Character, dungeonId: number) => CharacterMythicPlusRun[]
@@ -26,7 +26,7 @@
 </script>
 
 <style lang="scss">
-    @import "../../../scss/variables.scss";
+    @import 'scss/variables';
 
     td {
         border-left: 1px solid $border-color;

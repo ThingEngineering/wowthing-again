@@ -2,8 +2,9 @@
     import {link} from 'svelte-spa-router'
     import active from 'svelte-spa-router/active'
 
-    import { data as staticData } from '../../stores/static-store'
-    import Sidebar from '../common/Sidebar.svelte'
+    import { data as staticData } from '@/stores/static-store'
+
+    import Sidebar from '@/components/common/Sidebar.svelte'
 </script>
 
 <Sidebar width="12rem">
