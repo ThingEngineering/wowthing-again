@@ -43,7 +43,7 @@ const dungeonMap: Dictionary<Dungeon> = {
     370: new Dungeon(370, 'Operation: Mechagon - Workshop', 'OMW', 'dungeon_operation_mechagon_workshop'),
 
     // Shadowlands
-    375: new Dungeon(375, 'Mists of Tirna Scithe', 'MTS', 'dungeon_mists_of_tirna_scithe'),
+    375: new Dungeon(375, 'Mists of Tirna Scithe', 'MoTS', 'dungeon_mists_of_tirna_scithe'),
     376: new Dungeon(376, 'The Necrotic Wake', 'NW', 'dungeon_the_necrotic_wake'),
     377: new Dungeon(377, 'De Other Side', 'DOS', 'dungeon_de_other_side'),
     378: new Dungeon(378, 'Halls of Atonement', 'HoA', 'dungeon_halls_of_atonement'),
