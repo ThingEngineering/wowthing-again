@@ -14,17 +14,16 @@
     let mythicPlus: CharacterWeeklyProgress = undefined
     let mythicPlusTooltip: object
     $: {
-        mythicPlus = character.weekly?.vault?.mythicPlusProgress
-        if (mythicPlus) {
-            mythicPlusTooltip = getMythicPlusVaultTooltip(character)
+        if (character.level >= 60) {
+            mythicPlus = character.weekly?.vault?.mythicPlusProgress
+            if (mythicPlus) {
+                mythicPlusTooltip = getMythicPlusVaultTooltip(character)
+            }
         }
     }
 </script>
 
 <style lang="scss">
-    span {
-        padding: 0 0.2rem;
-    }
     td {
       text-align: center;
       width: 2.3rem;
