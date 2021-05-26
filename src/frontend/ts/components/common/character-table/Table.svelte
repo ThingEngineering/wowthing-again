@@ -15,6 +15,7 @@
 
     setContext('endSpacer', endSpacer)
 
+    let characters: Character[]
     $: characters = filter($userData.characters, filterFunc)
 
     const span = 6 + sumBy([
