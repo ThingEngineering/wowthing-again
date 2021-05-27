@@ -142,7 +142,7 @@ namespace Wowthing.Web.Models
             Seasons = seasons
                 .ToDictionary(k => k.Season, v => v.Runs
                     .GroupBy(k => k.DungeonId)
-                    .ToDictionary(k => k.Key, v => v.ToList())
+                    .ToDictionary(k => k.Key, v => v.OrderByDescending(r => r.Timed).ToList())
                 );
         }
     }
