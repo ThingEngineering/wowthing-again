@@ -2,7 +2,7 @@
     import {getContext} from 'svelte'
 
     import {dungeonMap} from '@/data/dungeon'
-    import type {Character, Dungeon} from '@/types'
+    import type {Character, CharacterMythicPlusRun, Dungeon} from '@/types'
     import getMythicPlusRunQuality from '@/utils/get-mythic-plus-run-quality'
 
     import TableIcon from '@/components/common/TableIcon.svelte'
@@ -11,9 +11,15 @@
     const character: Character = getContext('character')
 
     let dungeon: Dungeon = undefined
+    let upgrade: boolean = false
     $: {
         if (character.weekly?.keystoneDungeon) {
             dungeon = dungeonMap[character.weekly.keystoneDungeon]
+            // FIXME set active season somewhere
+            const run: CharacterMythicPlusRun | undefined = character.mythicPlus?.seasons[5]?.[dungeon.Id]?.[0]
+            if (run?.timed !== true || (run?.timed === true && character.weekly.keystoneLevel > run.keystoneLevel)) {
+                upgrade = true
+            }
         }
     }
 </script>
@@ -33,6 +39,9 @@
         width: $table-width-key-dungeon;
         padding-right: 0.7rem;
     }
+    .upgrade {
+        color: #ff88ff;
+    }
 </style>
 
 {#if character.level >= 60 && dungeon}
@@ -40,7 +49,7 @@
         <WowthingImage name="{dungeon.Icon}" size={20} border={1} />
     </TableIcon>
     <td class="level { getMythicPlusRunQuality(character.weekly.keystoneLevel) }">{ character.weekly.keystoneLevel }</td>
-    <td class="dungeon">{ dungeon.Abbreviation }</td>
+    <td class="dungeon" class:upgrade>{ dungeon.Abbreviation }</td>
 {:else}
     <td colspan="3"></td>
 {/if}

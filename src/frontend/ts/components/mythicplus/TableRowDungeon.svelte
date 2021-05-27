@@ -1,5 +1,4 @@
 <script lang="ts">
-    import sortBy from 'lodash/sortBy'
     import {getContext} from 'svelte'
 
     import type {Character, CharacterMythicPlusRun} from '@/types'
@@ -12,15 +11,15 @@
 
     const character: Character = getContext('character')
 
-    let sortedRuns: CharacterMythicPlusRun[]
+    let runs: CharacterMythicPlusRun[]
     let tooltip: object
     $: {
-        sortedRuns = sortBy(runsFunc(character, dungeonId), (r) => !r.timed)
-        if (sortedRuns.length === 2 && sortedRuns[1].keystoneLevel <= sortedRuns[0].keystoneLevel) {
-            sortedRuns = [sortedRuns[0]]
+        runs = runsFunc(character, dungeonId) ?? []
+        if (runs.length === 2 && runs[1].keystoneLevel <= runs[0].keystoneLevel) {
+            runs = [runs[0]]
         }
-        if (sortedRuns.length > 0) {
-            tooltip = getMythicPlusRunTooltip(sortedRuns)
+        if (runs.length > 0) {
+            tooltip = getMythicPlusRunTooltip(runs)
         }
     }
 </script>
@@ -41,9 +40,9 @@
     }
 </style>
 
-{#if sortedRuns.length > 0}
+{#if runs.length > 0}
     <td use:tippy={tooltip}>
-        {#each sortedRuns as run}
+        {#each runs as run}
             <span class="{ getMythicPlusRunQuality(run) }">
                 {run.keystoneLevel}
             </span>
