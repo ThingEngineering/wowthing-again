@@ -6,8 +6,8 @@
 
     import RowItem from './TableRowItem.svelte'
 
-    export let character: Character | undefined = undefined
-    export let rowspan: number = 0
+    export let character: Character
+    export let rowspan: number
 
     $: character = character || getContext('character')
 </script>
