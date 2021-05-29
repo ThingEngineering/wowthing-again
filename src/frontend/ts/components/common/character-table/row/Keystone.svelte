@@ -35,12 +35,19 @@
         text-align: right;
     }
     .dungeon {
+        display: flex;
+        justify-content: space-between;
         min-width: $table-width-key-dungeon;
         width: $table-width-key-dungeon;
-        padding-right: 0.7rem;
+        padding-right: 0.5rem;
+
+        span+span {
+            font-size: 0.9rem;
+        }
     }
     .upgrade {
         color: #ff88ff;
+        //filter: drop-shadow(0 0 2px darken(#ff88ff, 30%));
     }
 </style>
 
@@ -49,7 +56,12 @@
         <WowthingImage name="{dungeon.Icon}" size={20} border={1} />
     </TableIcon>
     <td class="level { getMythicPlusRunQuality(character.weekly.keystoneLevel) }">{ character.weekly.keystoneLevel }</td>
-    <td class="dungeon" class:upgrade>{ dungeon.Abbreviation }</td>
+    <td class="dungeon">
+        <span>{ dungeon.Abbreviation }</span>
+        {#if upgrade}
+            <span class="upgrade">★</span>
+        {/if}
+    </td>
 {:else}
     <td colspan="3"></td>
 {/if}
