@@ -2,8 +2,6 @@ import type {Dictionary} from './dictionary'
 
 
 export interface StaticData {
-    Classes: Dictionary<StaticDataClass>
-    Races: Dictionary<StaticDataRace>
     Realms: Dictionary<StaticDataRealm>
     Reputations: Dictionary<StaticDataReputation>
     ReputationTiers: Dictionary<StaticDataReputationTier>
@@ -19,20 +17,6 @@ export interface StaticData {
     ToySets: StaticDataSetCategory[][]
 
     RaiderIoScoreTiers: StaticDataRaiderIoScoreTier[]
-}
-
-interface StaticDataClass {
-    Id: number
-    Name: string
-    Icon: string
-    SpecializationIds: number[]
-}
-
-interface StaticDataRace {
-    Id: number
-    Name: string
-    IconFemale: string
-    IconMale: string
 }
 
 interface StaticDataRealm {

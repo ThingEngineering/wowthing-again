@@ -1,5 +1,6 @@
 <script lang="ts">
     import filter from 'lodash/filter'
+    import sortBy from 'lodash/sortBy'
     import sumBy from 'lodash/sumBy'
     import {setContext} from 'svelte'
 
@@ -12,11 +13,17 @@
     export let extraSpan: number = 0
     export let endSpacer: boolean = true
     export let filterFunc: (char: Character) => boolean = () => true
+    export let sortFunc: (char: Character) => number
 
     setContext('endSpacer', endSpacer)
 
     let characters: Character[]
-    $: characters = filter($userData.characters, filterFunc)
+    $: {
+        characters = filter($userData.characters, filterFunc)
+        if (sortFunc) {
+            characters = sortBy(characters, sortFunc)
+        }
+    }
 
     const span = 6 + sumBy([
         $settings.General.ShowRealm,
@@ -65,9 +72,11 @@
         <slot name="head" />
         <tbody>
             {#each characters as character}
-                <CharacterRow {character}>
-                    <slot slot="rowExtra" name="rowExtra" />
-                </CharacterRow>
+                {#key `${character.realmId}-${character.name}`}
+                    <CharacterRow {character}>
+                        <slot slot="rowExtra" name="rowExtra" />
+                    </CharacterRow>
+                {/key}
             {/each}
         </tbody>
     </table>

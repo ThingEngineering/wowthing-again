@@ -22,6 +22,7 @@
     const firstSeason = sortBy(seasonMap, (s: MythicPlusSeason) => -s.Id)[0]
 
     let filterFunc: (char: Character) => boolean
+    let sortFunc: (char: Character) => number
     let runsFunc: (char: Character, dungeonId: number) => CharacterMythicPlusRun[]
     let season: MythicPlusSeason
 
@@ -32,13 +33,14 @@
         } else {
             season = seasonMap[slug.replace('season', '')]
             runsFunc = (char, dungeonId) => char.mythicPlus?.seasons?.[season.Id]?.[dungeonId]
+            sortFunc = (char) => -(char.raiderIo?.[season.Id]?.all ?? 0)
         }
 
         filterFunc = (char: Character) => char.level >= season.MinLevel
     }
 </script>
 
-<CharacterTable {filterFunc} extraSpan={4 + (season.Id === firstSeason.Id ? 3 : 0)} endSpacer={false}>
+<CharacterTable {filterFunc} {sortFunc} extraSpan={4 + (season.Id === firstSeason.Id ? 3 : 0)} endSpacer={false}>
     <slot slot="colgroup">
         {#each season.Orders as order}
             <colgroup span="{order.length}"></colgroup>
