@@ -30,7 +30,7 @@ namespace Wowthing.Backend.Services
 
         private readonly JobFactory _jobFactory;
 
-        public WorkerService(HttpClient http, IServiceProvider services, IConnectionMultiplexer redis, JobRepository jobRepository, StateService stateService)
+        public WorkerService(IHttpClientFactory clientFactory, IServiceProvider services, IConnectionMultiplexer redis, JobRepository jobRepository, StateService stateService)
         {
             _services = services;
 
@@ -40,7 +40,7 @@ namespace Wowthing.Backend.Services
             _instanceId = Interlocked.Increment(ref _instanceCount);
             _logger = Log.ForContext("Service", $"Worker {_instanceId,2} | ");
 
-            _jobFactory = new JobFactory(http, _jobRepository, _logger, redis, stateService);
+            _jobFactory = new JobFactory(_jobRepository, clientFactory, _logger, redis, stateService);
         }
 
         // Find all jobs and cache them
@@ -57,27 +57,27 @@ namespace Wowthing.Backend.Services
             }
         }
 
-        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+        protected override async Task ExecuteAsync(CancellationToken cancellationToken)
         {
             using var scope = _services.CreateScope();
             var context = scope.ServiceProvider.GetService<WowDbContext>();
 
             // Give things a chance to get organized
-            await Task.Delay(5000, stoppingToken);
+            await Task.Delay(5000, cancellationToken);
 
-            await foreach (var result in _stateService.JobQueueReader.ReadAllAsync(stoppingToken))
+            await foreach (var result in _stateService.JobQueueReader.ReadAllAsync(cancellationToken))
             {
                 while (_stateService.AccessToken?.Valid != true)
                 {
                     _logger.Debug("Waiting for auth service to be ready");
-                    await Task.Delay(1000, stoppingToken);
+                    await Task.Delay(1000, cancellationToken);
                 }
 
                 //_logger.Debug("Got one! {@result}", result);
 
                 try
                 {
-                    var job = _jobFactory.Create(_jobTypeToClass[result.Type], context);
+                    var job = _jobFactory.Create(_jobTypeToClass[result.Type], context, cancellationToken);
                     await job.Run(result.Data);
                 }
                 catch (Exception ex)

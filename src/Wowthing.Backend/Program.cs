@@ -4,15 +4,15 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using ComposableAsync;
+using System.Threading;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using RateLimiter;
 using Serilog;
 using Wowthing.Backend.Extensions;
 using Wowthing.Backend.Models;
 using Wowthing.Backend.Services;
+using Wowthing.Backend.Utilities;
 using Wowthing.Lib.Extensions;
 
 namespace Wowthing.Backend
@@ -65,8 +65,15 @@ namespace Wowthing.Backend
 
             // Databases
             services.AddPostgres(Configuration.GetConnectionString("Postgres"));
-            services.AddRedis(Configuration.GetConnectionString("Redis"));
+            var redis = services.AddRedis(Configuration.GetConnectionString("Redis"));
 
+            // HTTP clients
+            services.AddHttpClient("limited", config =>
+            {
+                config.Timeout = TimeSpan.FromSeconds(10);
+            })
+                .AddHttpMessageHandler(() => new RateLimitHttpMessageHandler(redis))
+                .SetHandlerLifetime(Timeout.InfiniteTimeSpan);
             // Options
             services.AddOptions<BattleNetOptions>()
                 .Bind(Configuration.GetSection("BattleNet"))
@@ -93,20 +100,20 @@ namespace Wowthing.Backend
         {
             // NOTE Blizzard's provided numbers are complete bullshit and you'll get 429 spam if you try
             // default limit of 100 per second
-            var perSecond = new CountByIntervalAwaitableConstraint(10, TimeSpan.FromSeconds(1));
+            /*var perSecond = new CountByIntervalAwaitableConstraint(10, TimeSpan.FromSeconds(1));
             // default limit of 36,000 per hour
             var perHour = new CountByIntervalAwaitableConstraint(3600, TimeSpan.FromHours(1));
 
             var rateLimiter = TimeLimiter.Compose(perSecond, perHour)
-                .AsDelegatingHandler();
-            
-            var httpClient = new HttpClient(rateLimiter)
+                .AsDelegatingHandler();*/
+
+            /*var httpClient = new HttpClient()
             {
                 // Set a more reasonable timeout, default is 100s
                 Timeout = TimeSpan.FromSeconds(10)
             };
 
-            services.AddSingleton(httpClient);
+            services.AddSingleton(httpClient);*/
         }
     }
 }

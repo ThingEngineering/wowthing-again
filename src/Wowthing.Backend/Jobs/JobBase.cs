@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using Newtonsoft.Json;
@@ -36,6 +37,7 @@ namespace Wowthing.Backend.Jobs
         internal IConnectionMultiplexer _redis;
         internal StateService _stateService;
         internal WowDbContext _context;
+        internal CancellationToken _cancellationToken;
 
         private static readonly Dictionary<ApiNamespace, string> _namespaceToString = EnumUtilities.GetValues<ApiNamespace>()
             .ToDictionary(k => k, v => v.ToString().ToLowerInvariant());
@@ -114,7 +116,7 @@ namespace Wowthing.Backend.Jobs
                 HttpResponseMessage response;
                 try
                 {
-                    response = await _http.SendAsync(request);
+                    response = await _http.SendAsync(request, _cancellationToken);
                 }
                 catch (OperationCanceledException ex)
                 {
@@ -125,7 +127,7 @@ namespace Wowthing.Backend.Jobs
                     else
                     {
                         throw new HttpRequestException("Operation canceled??");
-                    } 
+                    }
                 }
 
                 if (response.StatusCode == HttpStatusCode.NotModified)
