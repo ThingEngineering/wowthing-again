@@ -8,10 +8,13 @@
     export let size: number
     export let border: number = 1
 
-    let spec: CharacterSpecialization
-    $: spec = specializationMap[character.activeSpecId]
+    let iconName: string
+    let tooltip: string
+    $: {
+        const spec: CharacterSpecialization = specializationMap[character.activeSpecId]
+        iconName = spec?.icon ?? 'spec_unknown'
+        tooltip = spec?.name ?? 'Unknown'
+    }
 </script>
 
-{#if spec !== undefined}
-    <WowthingImage name={spec.icon} {size} tooltip={spec.name} {border} />
-{/if}
+<WowthingImage name={iconName} {size} {tooltip} {border} />

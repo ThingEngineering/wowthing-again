@@ -9,15 +9,15 @@
     import TableIcon from '@/components/common/TableIcon.svelte'
     import RaiderIoIcon from '@/components/images/RaiderIoIcon.svelte'
 
-    const character: Character = getContext('character')
-
     export let season: MythicPlusSeason
 
+    let character: Character
     let scores: CharacterRaiderIoSeason | undefined
     let color: string = '#bbbbbb'
     let tooltip: object
 
     $: {
+        character = getContext('character')
         scores = character.raiderIo?.[season.Id]
         if (scores !== undefined) {
             for (let i = 0; i < $staticData.RaiderIoScoreTiers.length; i++) {
