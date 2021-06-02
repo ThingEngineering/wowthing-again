@@ -19,12 +19,18 @@
     th {
         border-bottom: 1px solid $border-color;
         //border-top: 1px solid $border-color;
+        font-size: 1rem;
         padding: 0.2rem 0.3rem;
         text-align: left;
+
+        &:nth-child(n+2) {
+            text-align: right;
+        }
     }
 
     td {
         padding: 0.2rem 0.3rem;
+        white-space: nowrap;
 
         &:nth-child(1) {
             text-align: left;
@@ -35,9 +41,10 @@
             width: 2.1rem;
         }
         &:nth-child(3) {
-            width: 6rem;
+            text-align: left;
+            width: 6.5rem;
         }
-        &:nth-child(n+3) {
+        &:nth-child(4) {
             text-align: left;
         }
     }

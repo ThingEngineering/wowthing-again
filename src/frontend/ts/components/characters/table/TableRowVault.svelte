@@ -11,7 +11,7 @@
 
     const character: Character = getContext('character')
 
-    let mythicPlus: CharacterWeeklyProgress[] = []
+    let mythicPlus: CharacterWeeklyProgress[] | undefined
     let mythicPlusTooltip: object
     $: {
         if (character.level >= 60) {

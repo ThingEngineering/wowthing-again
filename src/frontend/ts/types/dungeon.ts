@@ -1,19 +1,63 @@
 export class Dungeon {
-    Id: number
-    Name: string
-    Abbreviation: string
-    Icon: string
+    id: number
+    name: string
+    abbreviation: string
+    icon: string
+    timer1: number
+    timer2: number
+    timer3: number
 
-    constructor(id: number, name: string, abbreviation: string, icon: string) {
-        this.Id = id
-        this.Name = name
-        this.Abbreviation = abbreviation
-        this.Icon = icon
+    constructor(id: number, name: string, abbreviation: string, icon: string, timerMinutes: number) {
+        this.id = id
+        this.name = name
+        this.abbreviation = abbreviation
+        this.icon = icon
+        this.timer1 = timerMinutes * 60 * 1000
+        this.timer2 = this.timer1 * 0.8
+        this.timer3 = this.timer1 * 0.6
     }
 
     getTooltip(): object {
         return {
-            content: `${this.Name}`
+            content: `${this.name}`
         }
     }
+
+    getTimed(ms: number): DungeonTimedResult {
+        console.log(this, ms)
+        const delta = this.timer1 - ms
+
+        if (ms < this.timer3) {
+            return {
+                plus: 3,
+                under: this.timer3 - ms,
+            }
+        }
+        else if (ms < this.timer2) {
+            return {
+                plus: 2,
+                under: this.timer2 - ms,
+                over: ms - this.timer3,
+            }
+        }
+        else if (ms < this.timer1) {
+            return {
+                plus: 1,
+                under: this.timer1 - ms,
+                over: ms - this.timer2,
+            }
+        }
+        else {
+            return {
+                plus: 0,
+                over: ms - this.timer1,
+            }
+        }
+    }
+}
+
+interface DungeonTimedResult {
+    plus: number
+    under?: number
+    over?: number
 }

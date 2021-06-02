@@ -16,7 +16,7 @@
         if (character.weekly?.keystoneDungeon) {
             dungeon = dungeonMap[character.weekly.keystoneDungeon]
             // FIXME set active season somewhere
-            const run: CharacterMythicPlusRun | undefined = character.mythicPlus?.seasons[5]?.[dungeon.Id]?.[0]
+            const run: CharacterMythicPlusRun | undefined = character.mythicPlus?.seasons[5]?.[dungeon.id]?.[0]
             if (run?.timed !== true || (run?.timed === true && character.weekly.keystoneLevel > run.keystoneLevel)) {
                 upgrade = true
             }
@@ -53,11 +53,11 @@
 
 {#if character.level >= 60 && dungeon}
     <TableIcon>
-        <WowthingImage name="{dungeon.Icon}" size={20} border={1} />
+        <WowthingImage name="{dungeon.icon}" size={20} border={1} />
     </TableIcon>
     <td class="level { getMythicPlusRunQuality(character.weekly.keystoneLevel) }">{ character.weekly.keystoneLevel }</td>
     <td class="dungeon">
-        <span>{ dungeon.Abbreviation }</span>
+        <span>{ dungeon.abbreviation }</span>
         {#if upgrade}
             <span class="upgrade">★</span>
         {/if}

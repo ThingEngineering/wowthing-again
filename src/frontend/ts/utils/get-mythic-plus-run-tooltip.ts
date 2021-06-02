@@ -1,3 +1,4 @@
+import repeat from 'lodash/repeat'
 import sortBy from 'lodash/sortBy'
 
 import getItemLevelQuality from './get-item-level-quality'
@@ -15,24 +16,36 @@ sData.subscribe(value => {
 })
 
 export default function getMythicPlusRunTooltip(runs: CharacterMythicPlusRun[]): object {
+    const dungeon = dungeonMap[runs[0].dungeonId]
+
     let tooltip = `
 <div class="wowthing-tooltip">
-    <h4>${dungeonMap[runs[0].dungeonId].Name}</h4>
+    <h4>${dungeon.name}</h4>
 `
 
     for (let i = 0; i < runs.length; i++) {
         const run = runs[i]
+        const result = dungeon.getTimed(run.duration)
 
         let affixes = ''
         for (let j = 0; j < run.affixes.length; j++) {
             affixes += `<img src="https://img.wowthing.org/20/affix_${run.affixes[j]}.png" width="22" height="22">`
         }
 
+        let level: string
+        if (result.plus > 0) {
+            level = `${run.keystoneLevel}<span>${repeat('+', result.plus)}</span>`
+        }
+        else {
+            level = `${run.keystoneLevel}`
+        }
+
         tooltip += `
     <table class="mythic-plus-tooltip table-striped">
         <thead>
             <tr>
-                <th colspan="3">${affixes} ${run.keystoneLevel}</th>
+                <th colspan="2">${level}</th>
+                <th>${affixes}</th>
                 <th>${run.completed.split('T')[0]}</th>
             </tr>
         </thead>
