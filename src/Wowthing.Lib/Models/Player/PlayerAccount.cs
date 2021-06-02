@@ -25,5 +25,6 @@ namespace Wowthing.Lib.Models
 
         // Navigation properties
         public List<PlayerCharacter> Characters { get; set; }
+        public PlayerAccountToys Toys { get; set; }
     }
 }

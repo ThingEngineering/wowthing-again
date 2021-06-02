@@ -28,12 +28,12 @@
     <li use:active={'/mounts/*'}>
         <a href="#/mounts/">Mounts</a>
     </li>
+    <li use:active={'/toys/*'}>
+        <a href="#/toys/">Toys</a>
+    </li>
     <li class="separator"></li>
     <li use:active={'/pets/*'}>
         <a href="#/pets/">🚧 Pets</a>
-    </li>
-    <li use:active={'/toys/*'}>
-        <a href="#/toys/">🚧 Toys</a>
     </li>
     <li use:active={'/transmog/*'}>
         <a href="#/transmog/shadowlands">🚧 Transmog</a>

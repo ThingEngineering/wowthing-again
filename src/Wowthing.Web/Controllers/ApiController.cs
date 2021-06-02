@@ -95,13 +95,19 @@ namespace Wowthing.Web.Controllers
             var mounts = await db.GetSetMembersAsync(string.Format(RedisKeys.UserMounts, user.Id));
             timer.AddPoint("Get mounts");
 
-            Dictionary<int, UserApiAccount> accounts = null;
+            List<PlayerAccount> accounts = null;
+            var tempAccounts = await _context.PlayerAccount
+                .Where(a => a.UserId == user.Id)
+                .Include(a => a.Toys)
+                .ToListAsync();
+
+            var toyIds = tempAccounts
+                .SelectMany(a => a.Toys?.ToyIds ?? Enumerable.Empty<int>())
+                .Distinct();
+
             if (!pub)
             {
-                accounts = await _context.PlayerAccount
-                    .Where(a => a.UserId == user.Id)
-                    .Select(a => new UserApiAccount(a))
-                    .ToDictionaryAsync(a => a.Id);
+                accounts = tempAccounts;
             }
 
             timer.AddPoint("Get accounts");
@@ -136,10 +142,11 @@ namespace Wowthing.Web.Controllers
             // Build response
             var apiData = new UserApi
             {
-                Accounts = accounts,
+                Accounts = accounts.ToDictionary(k => k.Id, v => new UserApiAccount(v)),
                 Characters = characters.Select(c => new UserApiCharacter(_context, c, pub, anon)).ToList(),
                 CurrentPeriod = currentPeriods,
                 Mounts = mounts.ToDictionary(k => k, v => 1),
+                Toys = toyIds.ToDictionary(k => k, v => 1),
             };
 
             timer.AddPoint("Build response", true);
