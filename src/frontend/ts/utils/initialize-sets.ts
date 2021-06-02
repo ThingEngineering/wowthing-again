@@ -16,9 +16,9 @@ export default function initializeSets() {
     console.time('initializeSets')
     userData.setCounts = {}
 
-    sigh("mounts", staticData.MountSets, userData.mounts, staticData.SpellToMount)
-    sigh("pets", staticData.PetSets, {})
-    sigh("toys", staticData.ToySets, {})
+    sigh('mounts', staticData.MountSets, userData.mounts, staticData.SpellToMount)
+    sigh('pets', staticData.PetSets, {})
+    sigh('toys', staticData.ToySets, userData.toys)
 
     console.timeEnd('initializeSets')
 }

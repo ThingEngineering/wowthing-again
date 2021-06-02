@@ -38,7 +38,9 @@ namespace Wowthing.Backend.Jobs.User
             var realmMap = await _context.WowRealm
                 .ToDictionaryAsync(k => (k.Region, k.Name));
 
-            //
+            int accountId = 0;
+
+            // ?
             foreach (var (addonId, characterData) in parsed.Characters)
             {
                 // US/Mal'Ganis/Fakenamehere
@@ -62,6 +64,7 @@ namespace Wowthing.Backend.Jobs.User
                 }
 
                 _logger.Information("Found character: {0} => {1}", addonId, character.Id);
+                accountId = character.AccountId.Value;
 
                 if (character.Weekly == null)
                 {
@@ -90,6 +93,20 @@ namespace Wowthing.Backend.Jobs.User
 
                     _context.Entry(character.Weekly).Property(e => e.Vault).IsModified = true;
                 }
+            }
+
+            if (accountId > 0 && parsed.Toys != null)
+            {
+                var accountToys = _context.PlayerAccountToys.Find(accountId);
+                if (accountToys == null)
+                {
+                    accountToys = new PlayerAccountToys
+                    {
+                        AccountId = accountId,
+                    };
+                    _context.PlayerAccountToys.Add(accountToys);
+                } 
+                accountToys.ToyIds = parsed.Toys.OrderBy(t => t).ToList();
             }
 
             await _context.SaveChangesAsync();

@@ -18,5 +18,6 @@ namespace Wowthing.Web.Models
         public Dictionary<int, WowPeriod> CurrentPeriod { get; set; }
 
         public Dictionary<string, int> Mounts { get; set; }
+        public Dictionary<int, int> Toys { get; set; }
     }
 }
