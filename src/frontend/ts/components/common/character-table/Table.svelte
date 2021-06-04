@@ -13,7 +13,7 @@
     export let extraSpan: number = 0
     export let endSpacer: boolean = true
     export let filterFunc: (char: Character) => boolean = () => true
-    export let sortFunc: (char: Character) => number
+    export let sortFunc: (char: Character) => number = undefined
 
     setContext('endSpacer', endSpacer)
 
