@@ -1,0 +1,56 @@
+name: Order Halls
+groups:
+
+- name: Death Knight
+  things:
+  - 229387 # Deathlord's Vilebrood Vanquisher (Death Knight)
+
+- name: Demon Hunter
+  things:
+  - 229417 # Slayer's Felbroken Shrieker (Demon Hunter)
+
+- name: Hunter
+  things:
+  - 229439 # Huntmaster's Dire Wolfhawk (Hunter)
+  - 229438 # Huntmaster's Fierce Wolfhawk (Hunter)
+  - 229386 # Huntmaster's Loyal Wolfhawk (Hunter)
+
+- name: Mage
+  things:
+  - 229376 # Archmage's Prismatic Disc (Mage)
+
+- name: Monk
+  things:
+  - 229385 # Ban-Lu, Grandmaster's Companion (Monk)
+
+- name: Paladin
+  things:
+  - 231435 # Highlord's Golden Charger (Paladin)
+  - 231589 # Highlord's Valorous Charger (Paladin)
+  - 231587 # Highlord's Vengeful Charger (Paladin)
+  - 231588 # Highlord's Vigilant Charger (Paladin)
+
+- name: Priest
+  things:
+  - 229377 # High Priest's Lightsworn Seeker (Priest)
+
+- name: Rogue
+  things:
+  - 231524 # Shadowblade's Baneful Omen (Rogue)
+  - 231525 # Shadowblade's Crimson Omen (Rogue)
+  - 231523 # Shadowblade's Lethal Omen (Rogue)
+  - 231434 # Shadowblade's Murderous Omen (Rogue)
+
+- name: Shaman
+  things:
+  - 231442 # Farseer's Raging Temptest (Shaman)
+
+- name: Warlock
+  things:
+  - 238454 # Netherlord's Accursed Wrathsteed (Warlock)
+  - 238452 # Netherlord's Brimstone Wrathsteed (Warlock)
+  - 232412 # Netherlord's Chaotic Wrathsteed (Warlock)
+
+- name: Warrior
+  things:
+  - 229388 # Battlelord's Bloodthirsty War Wyrm (Warrior)

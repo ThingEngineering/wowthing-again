@@ -12,6 +12,12 @@ groups:
   - 180290 # Night Fae Hearthstone (Night Fae)
   - 183716 # Venthyr Sinstone (Venthyr)
 
+- name: Quests
+  things:
+  - 183847 # Acolyte's Guise (Maldraxxus, The Better Part of Valor)
+  - 177665 # Spectral Handkerchief (Revendreth, Words Have Power)
+  - 180947 # Tithe Collector's Vessel (Revendreth, An Unwelcome Incursion)
+
 - name: Rare Spawns
   things:
   - 184312 # Borr-Geth's Fiery Brimstone (Borr-Geth) @ The Maw:23.8:21.4
@@ -19,6 +25,11 @@ groups:
   - 182655 # Hill King's Roarbox (Basilofos, King of the Hill) @ Bastion:48.6:51.9
   - 181794 # Orophea's Lyre (Orophea) @ The Maw:23.8:21.4
   - 180873 # Smolderheart (Sire Ladinas) @ Revendreth:33.6:55.4
+
+- name: Reputations
+  things:
+  - 182890 # Rapid Recitation Quill (The Avowed - Revered)
+  - 183900 # Sinvyr Tea Set (Court of Harvesters - Honored)
 
 - name: Treasures
   things:
