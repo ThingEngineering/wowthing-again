@@ -64,11 +64,6 @@ groups:
   -  52253 # Sylvanas' Music Box (ICC - Frostmourne)
 
 # Quests
-- name: Classic
-  things:
-  - 133997 # Black Ice
-  - 133998 # Rainbow Generator
-  - 134021 # X-52 Rocket Helmet
 
 - name: Quests
   things:
@@ -89,11 +84,6 @@ groups:
   - 142265 # Big Red Raygun (drop Doctor Weavil, Dustwallow Marsh)
 
 
-# Reputation
-- name: Classic
-  things:
-  -  44719 # Frenzyheart Brew
-  -  66888 # Stave of Fur and Claw
 
 # Vendor
 - name: Vendor

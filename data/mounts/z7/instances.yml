@@ -1,0 +1,29 @@
+name: Instances
+groups:
+
+- name: Dungeons
+  things:
+  - 290718 # Aerial Unit R-6777/X (King Mechagon, Operation: Mechagon)
+  - 299158 # Mechagon Peacekeeper (HK-468 Aerial Oppression Unit, Operation: Mechagon Mythic)
+  - 291492 # Rusty Mechanocrawler (??, Mechagon)
+  - 254813 # Sharkbait (Harlan Sweete, Freehold)
+  - 266058 # Tomb Stalker (King Dazar, Kings' Rest)
+  - 273541 # Underrot Crawg (Unbound Abomination, The Underrot)
+  - 289083 # G.M.O.D. (High Tinker Mekkatorque, Battle of Dazar'alor)
+
+- name: Raids
+  things:
+  - 289555 # Glacial Tidestorm (Jaina Proudmoore Mythic, Battle of Dazar'alor)
+  - 308814 # My'alotha Allseer (N'Zoth the Corruptor Mythic, Ny'alotha the Waking City)
+
+- name: Islands
+  things:
+  - 288720 # Bloodgorged Hunter ()
+  - 279467 # Craghorn Chasm-Leaper ()
+  - 288721 # Island Thunderscale ()
+  - 279469 # Qinsho's Eternal Hound ()
+  - 288722 # Risen Mare ()
+  - 254811 # Squawks ()
+  - 288712 # Stonetide Elderhorn
+  - 278979 # Surf Jelly ()
+  - 279466 # Twilight Avenger ()
