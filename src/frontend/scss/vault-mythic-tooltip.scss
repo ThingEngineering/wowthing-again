@@ -9,18 +9,23 @@
   td {
     padding: 0.2rem 0.3rem;
 
-    &:nth-child(1) {
+    &.key-level {
       max-width: 2rem;
       text-align: right;
       white-space: nowrap;
     }
-    &:nth-child(2) {
+    &.dungeon-name {
       max-width: 10rem;
       text-align: left;
       white-space: nowrap;
     }
-    &:nth-child(3) {
+    &.item-level {
       max-width: 3rem;
+      white-space: nowrap;
+    }
+
+    &.do-some {
+      max-width: 15rem;
       white-space: nowrap;
     }
   }

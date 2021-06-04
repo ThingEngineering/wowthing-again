@@ -28,15 +28,15 @@ export default function getMythicPlusVaultTooltip(character: Character): object 
 
             tooltip += `
                 <tr${cls}>
-                    <td>${level}</td>
-                    <td>${dungeon.name}</td>
-                    <td>${itemLevel}</td>
+                    <td class="key-level">${level}</td>
+                    <td class="dungeon-name">${dungeon.name}</td>
+                    <td class="item-level">${itemLevel}</td>
                 </tr>
             `
         }
     }
     else {
-        tooltip += '<tr><td colspan="3">Do some Mythic+!</td></tr>'
+        tooltip += '<tr><td colspan="3">Do some Mythic+ dungeons!</td></tr>'
     }
 
     tooltip += `
