@@ -20,7 +20,7 @@ namespace Wowthing.Backend.Jobs
         public override async Task Run(params string[] data)
         {
             using var shrug = UserLog(data[0]);
-            
+
             var userId = long.Parse(data[0]);
 
             var accessToken = await _context.UserTokens.FirstOrDefaultAsync(t => t.UserId == userId && t.LoginProvider == "BattleNet" && t.Name == "access_token");
@@ -104,7 +104,7 @@ namespace Wowthing.Backend.Jobs
 
                     if (!characterMap.TryGetValue(key, out PlayerCharacter character))
                     {
-                        character = new PlayerCharacter
+                        character = characterMap[key] = new PlayerCharacter
                         {
                             CharacterId = apiCharacter.Id,
                         };
@@ -124,8 +124,21 @@ namespace Wowthing.Backend.Jobs
 
             await _context.SaveChangesAsync();
 
-            // Orphan characters not seen
-            //await _characterRepository.OrphanCharacters(apiAccounts.Select(a => a.Id), seenCharacters);
+            foreach ((var region, var apiAccount) in apiAccounts)
+            {
+                var accountId = accountMap[(region, apiAccount.Id)].Id;
+                var characterIds = apiAccount.Characters
+                    .Select(c => characterMap[(c.Realm.Id, c.Name)].Id)
+                    .ToArray();
+                
+                int deleted = await _context.PlayerCharacter
+                    .Where(c => c.AccountId == accountId && !characterIds.Contains(c.Id))
+                    .DeleteFromQueryAsync();
+                if (deleted > 0)
+                {
+                    _logger.Information("Deleted {0} character(s) from account {1}", deleted, accountId);
+                }
+            }
         }
     }
 }
