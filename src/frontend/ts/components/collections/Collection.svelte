@@ -10,8 +10,8 @@
     export let slug: string
     export let route: string
     export let thingType: string
-    export let thingMap: Dictionary<number>
-    export let userHas: Dictionary<number>
+    export let thingMap: Dictionary<number> = {}
+    export let userHas: Dictionary<number> = {}
     export let sets: StaticDataSetCategory[][]
 
     setContext("collection", {

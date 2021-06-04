@@ -11,6 +11,7 @@ $header-footer-background: #2c2d2e;
 $thing-background:         #1d1e1f;
 $highlight-background:     #04080f;
 $active-background:        mix($thing-background, #0088ff, 80%);
+$collection-background:    $highlight-background;
 
 $tooltip-background:       #0a0b0c;
 $tooltip-color:            #ffffff;
