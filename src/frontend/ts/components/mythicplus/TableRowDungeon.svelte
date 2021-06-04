@@ -1,8 +1,7 @@
 <script lang="ts">
     import {getContext} from 'svelte'
 
-    import {dungeonMap} from '@/data/dungeon'
-    import type {Character, CharacterMythicPlusRun, Dungeon} from '@/types'
+    import type {Character, CharacterMythicPlusRun} from '@/types'
     import getMythicPlusRunQuality from '@/utils/get-mythic-plus-run-quality'
     import getMythicPlusRunTooltip from '@/utils/get-mythic-plus-run-tooltip'
     import tippy from '@/utils/tippy'
@@ -12,12 +11,9 @@
 
     const character: Character = getContext('character')
 
-    let dungeon: Dungeon
     let runs: CharacterMythicPlusRun[]
     let tooltip: object
-    let plus: number
     $: {
-        dungeon = dungeonMap[dungeonId]
         runs = runsFunc(character, dungeonId) ?? []
         // If there are 2 runs and the second run isn't higher than the first, discard it
         if (runs.length === 2 && runs[1].keystoneLevel <= runs[0].keystoneLevel) {
@@ -25,8 +21,6 @@
         }
         if (runs.length > 0) {
             tooltip = getMythicPlusRunTooltip(runs)
-            const result = dungeon.getTimed(runs[0].duration)
-            plus = result.plus
         }
     }
 </script>
