@@ -3,6 +3,8 @@ import type {Character} from './character'
 import type {Dictionary} from './dictionary'
 
 export interface UserData {
+    public: boolean
+    
     accounts?: Account[]
     characters: Character[]
     mounts: Dictionary<number>

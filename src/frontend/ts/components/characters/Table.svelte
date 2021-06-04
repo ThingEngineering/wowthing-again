@@ -1,4 +1,6 @@
 <script lang="ts">
+    import {data as userData} from '@/stores/user-store'
+
     import CharacterTable from '@/components/common/character-table/Table.svelte'
     import RowCovenant from './table/TableRowCovenant.svelte'
     import RowGold from './table/TableRowGold.svelte'
@@ -9,7 +11,9 @@
 
 <CharacterTable>
     <slot slot="rowExtra">
-        <RowGold />
+        {#if $userData.public === false}
+            <RowGold />
+        {/if}
         <RowItemLevel />
         <RowCovenant />
         <RowKeystone />
