@@ -10,6 +10,8 @@ namespace Wowthing.Web.Models
 {
     public class UserApi
     {
+        public bool Public { get; internal set; }
+
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public Dictionary<int, UserApiAccount> Accounts { get; set; }
 
@@ -17,7 +19,7 @@ namespace Wowthing.Web.Models
 
         public Dictionary<int, WowPeriod> CurrentPeriod { get; set; }
 
-        public Dictionary<string, int> Mounts { get; set; }
+        public Dictionary<int, int> Mounts { get; set; }
         public Dictionary<int, int> Toys { get; set; }
     }
 }

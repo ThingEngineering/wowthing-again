@@ -92,10 +92,11 @@ namespace Wowthing.Web.Controllers
             bool anon = user.Settings.Privacy.Anonymized;
 
             // Retrieve data
-            var mounts = await db.GetSetMembersAsync(string.Format(RedisKeys.UserMounts, user.Id));
+            var mountIds = await db.GetSetMembersAsync(string.Format(RedisKeys.UserMounts, user.Id));
+            
             timer.AddPoint("Get mounts");
 
-            List<PlayerAccount> accounts = null;
+            List<PlayerAccount> accounts = new List<PlayerAccount>();
             var tempAccounts = await _context.PlayerAccount
                 .Where(a => a.UserId == user.Id)
                 .Include(a => a.Toys)
@@ -137,16 +138,21 @@ namespace Wowthing.Web.Controllers
             var currentPeriods = await _context.WowPeriod
                     .Where(p => p.Starts <= DateTime.UtcNow && p.Ends > DateTime.UtcNow)
                     .ToDictionaryAsync(k => (int)k.Region);
+
             timer.AddPoint("currentPeriods");
 
             // Build response
+            var mountMap = mountIds.ToDictionary(k => int.Parse(k), v => 1);
+            var toyMap = toyIds.ToDictionary(k => k, v => 1);
+
             var apiData = new UserApi
             {
                 Accounts = accounts.ToDictionary(k => k.Id, v => new UserApiAccount(v)),
                 Characters = characters.Select(c => new UserApiCharacter(_context, c, pub, anon)).ToList(),
                 CurrentPeriod = currentPeriods,
-                Mounts = mounts.ToDictionary(k => k, v => 1),
-                Toys = toyIds.ToDictionary(k => k, v => 1),
+                Mounts = mountMap,
+                Public = pub,
+                Toys = toyMap,
             };
 
             timer.AddPoint("Build response", true);

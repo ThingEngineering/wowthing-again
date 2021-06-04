@@ -46,7 +46,6 @@ namespace Wowthing.Web.Models
             EquippedItemLevel = character.EquippedItemLevel;
             Faction = character.Faction;
             Gender = character.Gender;
-            Gold = (character?.Copper ?? 0) / 10000;
             Level = character.Level;
             RaceId = character.RaceId;
 
@@ -63,6 +62,7 @@ namespace Wowthing.Web.Models
             if (!pub)
             {
                 AccountId = character.AccountId;
+                Gold = (character?.Copper ?? 0) / 10000;
             }
 
             if (character.EquippedItems?.Items != null)
