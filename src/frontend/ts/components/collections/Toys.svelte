@@ -11,7 +11,6 @@
     for (const toyId in $userData.toys) {
         thingMap[toyId] = parseInt(toyId)
     }
-    console.log($userData.toys, thingMap)
 </script>
 
 <Collection route="toys" slug={params.slug} thingType="item" {thingMap} userHas={$userData.toys} sets={$staticData.ToySets} />

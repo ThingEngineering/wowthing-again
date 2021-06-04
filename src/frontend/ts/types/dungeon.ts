@@ -24,7 +24,6 @@ export class Dungeon {
     }
 
     getTimed(ms: number): DungeonTimedResult {
-        console.log(this, ms)
         const delta = this.timer1 - ms
 
         if (ms < this.timer3) {
