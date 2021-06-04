@@ -19,10 +19,10 @@ namespace Wowthing.Web.Models
         public int Level { get; set; }
         public int RaceId { get; set; }
         public int RealmId { get; set; }
+        public long Gold { get; }
         public string Name { get; set; }
         public WowFaction Faction { get; set; }
         public WowGender Gender { get; set; }
-
         public Dictionary<int, UserApiCharacterEquippedItem> EquippedItems { get; set; } = new Dictionary<int, UserApiCharacterEquippedItem>();
 
         public UserApiCharacterMythicPlus MythicPlus { get; }
@@ -46,6 +46,7 @@ namespace Wowthing.Web.Models
             EquippedItemLevel = character.EquippedItemLevel;
             Faction = character.Faction;
             Gender = character.Gender;
+            Gold = (character?.Copper ?? 0) / 10000;
             Level = character.Level;
             RaceId = character.RaceId;
 

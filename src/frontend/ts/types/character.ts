@@ -8,6 +8,7 @@ export interface Character {
     raceId: number
     classId: number
     activeSpecId: number
+    gold: number
     level: number
     equippedItemLevel: number
     calculatedItemLevel: string

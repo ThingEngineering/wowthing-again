@@ -33,6 +33,7 @@ namespace Wowthing.Lib.Models
         public int ActiveSpecId { get; set; } = 0;
         public int ActiveTitleId { get; set; } = 0;
         public int AverageItemLevel { get; set; } = 0;
+        public long Copper { get; set; } = 0;
         public int EquippedItemLevel { get; set; } = 0;
         public int Experience { get; set; } = 0;
         public long GuildId { get; set; } = 0;

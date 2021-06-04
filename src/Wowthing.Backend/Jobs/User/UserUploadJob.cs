@@ -36,6 +36,7 @@ namespace Wowthing.Backend.Jobs.User
                 .Distinct()
                 .ToArray();
             var realmMap = await _context.WowRealm
+                .Where(r => realmIds.Contains(r.Id))
                 .ToDictionaryAsync(k => (k.Region, k.Name));
 
             int accountId = 0;
@@ -51,7 +52,7 @@ namespace Wowthing.Backend.Jobs.User
                 }
 
                 var region = Enum.Parse<WowRegion>(parts[0]);
-                if (!realmMap.TryGetValue((Enum.Parse<WowRegion>(parts[0]), parts[1]), out WowRealm realm))
+                if (!realmMap.TryGetValue((region, parts[1]), out WowRealm realm))
                 {
                     _logger.Warning("Invalid realm: {0}/{1}", parts[0], parts[1]);
                     continue;
@@ -65,6 +66,8 @@ namespace Wowthing.Backend.Jobs.User
 
                 _logger.Information("Found character: {0} => {1}", addonId, character.Id);
                 accountId = character.AccountId.Value;
+
+                character.Copper = characterData.Copper;
 
                 if (character.Weekly == null)
                 {
