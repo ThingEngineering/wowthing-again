@@ -39,6 +39,6 @@
 
 <div class:thing-yes={userHasThing} class:thing-no={!userHasThing}>
     <a href="https://www.wowdb.com/{thingType}s/{origId}">
-        <WowthingImage name="{thingType}/{origId}" size={32} />
+        <WowthingImage name="{thingType}/{origId}" size={40} />
     </a>
 </div>

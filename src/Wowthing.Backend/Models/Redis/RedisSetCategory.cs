@@ -25,7 +25,7 @@ namespace Wowthing.Backend.Models.Redis
         {
             Name = cat.Name;
 
-            foreach (var group in cat.Groups)
+            foreach (var group in cat.Groups ?? Enumerable.Empty<DataSetGroup>())
             {
                 if (group.Things.Count <= SPLIT_THRESHOLD)
                 {
