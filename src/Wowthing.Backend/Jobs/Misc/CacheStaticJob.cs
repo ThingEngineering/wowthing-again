@@ -68,8 +68,6 @@ namespace Wowthing.Backend.Jobs.Misc
             timer.AddPoint("Toys");
 
             // Basic database dumps
-            var classes = new SortedDictionary<int, WowClass>(await _context.WowClass.ToDictionaryAsync(c => c.Id));
-            var races = new SortedDictionary<int, WowRace>(await _context.WowRace.ToDictionaryAsync(c => c.Id));
             var realms = new SortedDictionary<int, WowRealm>(await _context.WowRealm.ToDictionaryAsync(c => c.Id));
             var reputations = new SortedDictionary<int, WowReputation>(await _context.WowReputation.ToDictionaryAsync(c => c.Id));
             var reputationTiers = new SortedDictionary<int, WowReputationTier>(await _context.WowReputationTier.ToDictionaryAsync(c => c.Id));
@@ -78,8 +76,6 @@ namespace Wowthing.Backend.Jobs.Misc
             // Ok we're done
             var cacheData = new RedisStaticCache
             {
-                Classes = classes,
-                Races = races,
                 Realms = realms,
                 Reputations = reputations,
                 ReputationTiers = reputationTiers,
