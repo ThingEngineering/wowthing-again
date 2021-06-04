@@ -90,7 +90,7 @@ namespace Wowthing.Backend.Jobs.Misc
 
                 ToySets = toySets,
 
-                RaiderIoScoreTiers = raiderIoScoreTiers,
+                RaiderIoScoreTiers = raiderIoScoreTiers ?? new List<ApiDataRaiderIoScoreTier>(),
             };
             var cacheJson = JsonConvert.SerializeObject(cacheData);
             var cacheHash = cacheJson.Md5();
