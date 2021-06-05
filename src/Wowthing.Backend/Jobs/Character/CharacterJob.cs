@@ -38,7 +38,7 @@ namespace Wowthing.Backend.Jobs.Character
             try
             {
                 // FIXME crappy hack for my main
-                var result = await GetJson<ApiCharacter>(uri, useLastModified: character.Name != "Wataki" && character.Name != "Momokan");
+                var result = await GetJson<ApiCharacter>(uri, useLastModified: true);
                 if (result.NotModified)
                 {
                     _logger.Information("304 Not Modified");
