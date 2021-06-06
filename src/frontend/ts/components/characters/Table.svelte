@@ -1,4 +1,5 @@
 <script lang="ts">
+    import {data as settings} from '@/stores/settings-store'
     import {data as userData} from '@/stores/user-store'
 
     import CharacterTable from '@/components/common/character-table/Table.svelte'
@@ -6,7 +7,7 @@
     import RowGold from './table/RowGold.svelte'
     import RowItemLevel from '@/components/common/character-table/row/ItemLevel.svelte'
     import RowKeystone from '@/components/common/character-table/row/Keystone.svelte'
-    import RowMountSpeed from './table/RowMountSpeed.svelte'
+    import RowMountSkill from './table/RowMountSkill.svelte'
     import RowStatuses from './table/RowStatuses.svelte'
     import RowUghQuests from './table/RowUghQuests.svelte'
     import RowVault from './table/RowVault.svelte'
@@ -17,13 +18,21 @@
         {#if $userData.public === false}
             <RowGold />
         {/if}
-        <RowItemLevel />
-        <RowMountSpeed />
+        {#if $settings.home.showItemLevel}
+            <RowItemLevel />
+        {/if}
+        {#if $settings.home.showMountSkill}
+            <RowMountSkill />
+        {/if}
         <RowCovenant />
         <RowUghQuests />
-        <RowKeystone />
-        <RowVault />
-        {#if $userData.public === false}
+        {#if $settings.home.showKeystone}
+            <RowKeystone />
+        {/if}
+        {#if $settings.home.showVault}
+            <RowVault />
+        {/if}
+        {#if $settings.home.showStatuses && $userData.public === false}
             <RowStatuses />
         {/if}
     </slot>
