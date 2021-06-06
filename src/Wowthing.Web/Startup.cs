@@ -20,6 +20,8 @@ using Wowthing.Lib.Extensions;
 using Wowthing.Web.Extensions;
 using Wowthing.Web.Misc;
 using Wowthing.Web.Services;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Wowthing.Web
 {
@@ -96,6 +98,14 @@ namespace Wowthing.Web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, WowDbContext dbContext)
         {
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+            {
+                ContractResolver = new DefaultContractResolver
+                {
+                    NamingStrategy = new CamelCaseNamingStrategy(),
+                }
+            };
+
             dbContext.Database.Migrate();
 
             if (Env.IsDevelopment())

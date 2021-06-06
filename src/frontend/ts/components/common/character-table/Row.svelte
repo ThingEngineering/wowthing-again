@@ -59,7 +59,7 @@
     </TableIcon>
     <td class="level">{character.level}</td>
     <td class="name">{character.name}</td>
-    {#if $settings.General.ShowRealm}
+    {#if $settings.general.showRealm}
         <td class="realm">&ndash; {getRealmName(character.realmId)}</td>
     {/if}
     <slot name="rowExtra" />

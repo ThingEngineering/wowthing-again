@@ -45,7 +45,7 @@
         <th class="icon"></th>
         <th class="level"></th>
         <th class="name"></th>
-        {#if $settings.General.ShowRealm}
+        {#if $settings.general.showRealm}
             <th class="realm"></th>
         {/if}
         <slot />

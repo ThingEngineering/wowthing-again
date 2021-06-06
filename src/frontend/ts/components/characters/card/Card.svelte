@@ -132,7 +132,7 @@
         <div class="item-level quality{character.calculatedItemLevelQuality}" use:tippy={{content: `Item Level ${character.equippedItemLevel}`}}>{character.calculatedItemLevel}</div>
     </div>
     <div class="name">{character.name}</div>
-    {#if $settings.General.ShowRealm}
+    {#if $settings.general.showRealm}
         <div class="realm">{getRealmName(character.realmId)}</div>
     {/if}
     {#if character.shadowlands}
