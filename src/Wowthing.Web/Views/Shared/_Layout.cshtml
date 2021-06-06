@@ -18,9 +18,12 @@
                 </li>
                 @if (User.Identity.IsAuthenticated)
                 {
-                <li>
-                    <a asp-controller="User" asp-action="Index" asp-route-username="@User.Identity.Name">Home</a>
-                </li>
+                    <li>
+                        <a asp-controller="User" asp-action="Index" asp-route-username="@User.Identity.Name">Home</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Upload" asp-action="Index">Upload</a>
+                    </li>
                 }
             </ul>
             <ul>
