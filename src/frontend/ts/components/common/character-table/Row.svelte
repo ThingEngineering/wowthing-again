@@ -48,15 +48,21 @@
 
 <tr class="faction{character.faction}" class:inactive={!accountEnabled}>
     <td class="spacer"></td>
-    <TableIcon>
-        <RaceIcon {character} size={20} />
-    </TableIcon>
-    <TableIcon>
-        <ClassIcon {character} size={20} />
-    </TableIcon>
-    <TableIcon>
-        <SpecializationIcon {character} size={20} />
-    </TableIcon>
+    {#if $settings.general.showRaceIcon}
+        <TableIcon>
+            <RaceIcon {character} size={20} />
+        </TableIcon>
+    {/if}
+    {#if $settings.general.showClassIcon}
+        <TableIcon>
+            <ClassIcon {character} size={20} />
+        </TableIcon>
+    {/if}
+    {#if $settings.general.showSpecIcon}
+        <TableIcon>
+            <SpecializationIcon {character} size={20} />
+        </TableIcon>
+    {/if}
     <td class="level">{character.level}</td>
     <td class="name">{character.name}</td>
     {#if $settings.general.showRealm}

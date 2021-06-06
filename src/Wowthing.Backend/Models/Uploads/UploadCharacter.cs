@@ -25,5 +25,6 @@ namespace Wowthing.Backend.Models.Uploads
         public UploadCharacterMythicDungeon[] MythicDungeons { get; set; }
         public Dictionary<string, int> ScanTimes { get; set; }
         public UploadCharacterVault[][] Vault { get; set; }
+        public Dictionary<string, UploadWeeklyUghQuest> WeeklyUghQuests { get; set; }
     }
 }

@@ -8,6 +8,7 @@
     import RowKeystone from '@/components/common/character-table/row/Keystone.svelte'
     import RowMountSpeed from './table/RowMountSpeed.svelte'
     import RowStatuses from './table/RowStatuses.svelte'
+    import RowUghQuests from './table/RowUghQuests.svelte'
     import RowVault from './table/RowVault.svelte'
 </script>
 
@@ -17,12 +18,13 @@
             <RowGold />
         {/if}
         <RowItemLevel />
+        <RowMountSpeed />
+        <RowCovenant />
+        <RowUghQuests />
+        <RowKeystone />
+        <RowVault />
         {#if $userData.public === false}
             <RowStatuses />
         {/if}
-        <RowMountSpeed />
-        <RowCovenant />
-        <RowKeystone />
-        <RowVault />
     </slot>
 </CharacterTable>
