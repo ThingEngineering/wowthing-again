@@ -9,10 +9,10 @@
 
 <Sidebar>
     <li use:active={'/'}>
-        <a href="#/">Home (Cards)</a>
+        <a href="#/">Home</a>
     </li>
-    <li use:active={'/table'}>
-        <a href="#/table">Home (Table)</a>
+    <li use:active={'/cards'}>
+        <a href="#/cards">🚧 Home (Cards)</a>
     </li>
     <li class="separator"></li>
     <li use:active={'/gear'}>
