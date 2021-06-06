@@ -44,6 +44,7 @@ namespace Wowthing.Lib.Models
 
     public class ApplicationUserSettingsHome
     {
+        public bool ShowCovenant { get; set; } = true;
         public bool ShowKeystone { get; set; } = true;
         public bool ShowMountSkill { get; set; } = true;
         public bool ShowStatuses { get; set; } = true;

@@ -24,7 +24,9 @@
         {#if $settings.home.showMountSkill}
             <RowMountSkill />
         {/if}
-        <RowCovenant />
+        {#if $settings.home.showCovenant}
+            <RowCovenant />
+        {/if}
         <RowUghQuests />
         {#if $settings.home.showKeystone}
             <RowKeystone />
