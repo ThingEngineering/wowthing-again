@@ -17,7 +17,7 @@ namespace Wowthing.Web.Models
 
         public TeamApiCharacter(WowDbContext context, TeamCharacter character)
         {
-            Character = new UserApiCharacter(context, character.Character, pub: true);
+            Character = new UserApiCharacter(character.Character, pub: true);
             Note = character.Note;
             PrimaryRole = character.PrimaryRole;
             SecondaryRole = character.SecondaryRole;

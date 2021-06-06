@@ -15,8 +15,12 @@
 
     setContext('character', character)
 
-    $: accountEnabled = (character.accountId === undefined || $userData.accounts[character.accountId].enabled)
-    $: endSpacer = getContext('endSpacer')
+    let accountEnabled: boolean
+    let endSpacer: boolean
+    $: {
+        accountEnabled = (character.accountId === undefined || $userData.accounts[character.accountId].enabled)
+        endSpacer = getContext('endSpacer')
+    }
 </script>
 
 <style lang="scss">

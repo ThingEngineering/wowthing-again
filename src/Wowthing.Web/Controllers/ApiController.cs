@@ -148,7 +148,7 @@ namespace Wowthing.Web.Controllers
             var apiData = new UserApi
             {
                 Accounts = accounts.ToDictionary(k => k.Id, v => new UserApiAccount(v)),
-                Characters = characters.Select(c => new UserApiCharacter(_context, c, pub, anon)).ToList(),
+                Characters = characters.Select(character => new UserApiCharacter(character, pub, anon)).ToList(),
                 CurrentPeriod = currentPeriods,
                 Mounts = mountMap,
                 Public = pub,

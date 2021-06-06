@@ -11,9 +11,13 @@ namespace Wowthing.Web.Models
 {
     public class UserApiCharacter
     {
+        public bool IsResting { get; set; }
+        public bool IsWarMode { get; set; }
+
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public int? AccountId { get; set; }
         public int ActiveSpecId { get; }
+        public int ChromieTime { get; set; }
         public int ClassId { get; set; }
         public int EquippedItemLevel { get; set; }
         public int Level { get; set; }
@@ -23,6 +27,7 @@ namespace Wowthing.Web.Models
         public string Name { get; set; }
         public WowFaction Faction { get; set; }
         public WowGender Gender { get; set; }
+        public WowMountSkill MountSkill { get; set; }
         public Dictionary<int, UserApiCharacterEquippedItem> EquippedItems { get; set; } = new Dictionary<int, UserApiCharacterEquippedItem>();
 
         public UserApiCharacterMythicPlus MythicPlus { get; }
@@ -39,7 +44,7 @@ namespace Wowthing.Web.Models
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public PlayerCharacterWeekly Weekly { get; }
 
-        public UserApiCharacter(WowDbContext context, PlayerCharacter character, bool pub = false, bool anon = false)
+        public UserApiCharacter(PlayerCharacter character, bool pub = false, bool anon = false)
         {
             ActiveSpecId = character.ActiveSpecId;
             ClassId = character.ClassId;
@@ -47,6 +52,7 @@ namespace Wowthing.Web.Models
             Faction = character.Faction;
             Gender = character.Gender;
             Level = character.Level;
+            MountSkill = character.MountSkill;
             RaceId = character.RaceId;
 
             if (pub && anon)
@@ -62,7 +68,10 @@ namespace Wowthing.Web.Models
             if (!pub)
             {
                 AccountId = character.AccountId;
+                ChromieTime = character.ChromieTime;
                 Gold = (character?.Copper ?? 0) / 10000;
+                IsResting = character.IsResting;
+                IsWarMode = character.IsWarMode;
             }
 
             if (character.EquippedItems?.Items != null)

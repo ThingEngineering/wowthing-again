@@ -1,20 +1,24 @@
 import type {Dictionary} from './dictionary'
 
 export interface Character {
-    name: string
-    realmId: number
+    accountId?: number
+    activeSpecId: number
+    chromieTime: number
+    classId: number
+    equippedItemLevel: number
     faction: number
     gender: number
-    raceId: number
-    classId: number
-    activeSpecId: number
     gold: number
+    isResting: boolean
+    isWarMode: boolean
     level: number
-    equippedItemLevel: number
+    mountSkill: number
+    name: string
+    realmId: number
+    raceId: number
+
     calculatedItemLevel: string
     calculatedItemLevelQuality: number
-
-    accountId?: number
 
     equippedItems: Dictionary<CharacterEquippedItem>
     mythicPlus: CharacterMythicPlus
