@@ -1,6 +1,7 @@
 <script lang="ts">
     import {getContext} from 'svelte'
 
+    import {Constants} from '@/data/constants'
     import {dungeonMap} from '@/data/dungeon'
     import type {Character, CharacterMythicPlusRun, Dungeon} from '@/types'
     import getMythicPlusRunQuality from '@/utils/get-mythic-plus-run-quality'
@@ -51,7 +52,7 @@
     }
 </style>
 
-{#if character.level >= 60 && dungeon}
+{#if character.level === Constants.characterMaxLevel && dungeon}
     <TableIcon>
         <WowthingImage name="{dungeon.icon}" size={20} border={1} />
     </TableIcon>
