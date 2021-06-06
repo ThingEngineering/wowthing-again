@@ -26,7 +26,6 @@
                 if (nextSkill.requiredLevel === -1) {
                     nextSkill = mountSkillMap[character.mountSkill + 2]
                 }
-                console.log(character.name, mountSkill, nextSkill)
 
                 afford = character.gold >= nextSkill.price
                 upgrade = character.level >= nextSkill.requiredLevel
