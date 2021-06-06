@@ -67,7 +67,11 @@ namespace Wowthing.Backend.Jobs.User
                 _logger.Information("Found character: {0} => {1}", addonId, character.Id);
                 accountId = character.AccountId.Value;
 
+                character.ChromieTime = characterData.ChromieTime;
                 character.Copper = characterData.Copper;
+                character.IsResting = characterData.IsResting;
+                character.IsWarMode = characterData.IsWarMode;
+                character.MountSkill = Enum.IsDefined(typeof(WowMountSkill), characterData.MountSkill) ? (WowMountSkill)characterData.MountSkill : 0;
 
                 if (character.Weekly == null)
                 {

@@ -2,11 +2,13 @@
     import {data as userData} from '@/stores/user-store'
 
     import CharacterTable from '@/components/common/character-table/Table.svelte'
-    import RowCovenant from './table/TableRowCovenant.svelte'
-    import RowGold from './table/TableRowGold.svelte'
+    import RowCovenant from './table/RowCovenant.svelte'
+    import RowGold from './table/RowGold.svelte'
     import RowItemLevel from '@/components/common/character-table/row/ItemLevel.svelte'
     import RowKeystone from '@/components/common/character-table/row/Keystone.svelte'
-    import RowVault from './table/TableRowVault.svelte'
+    import RowMountSpeed from './table/RowMountSpeed.svelte'
+    import RowStatuses from './table/RowStatuses.svelte'
+    import RowVault from './table/RowVault.svelte'
 </script>
 
 <CharacterTable>
@@ -15,6 +17,10 @@
             <RowGold />
         {/if}
         <RowItemLevel />
+        {#if $userData.public === false}
+            <RowStatuses />
+        {/if}
+        <RowMountSpeed />
         <RowCovenant />
         <RowKeystone />
         <RowVault />

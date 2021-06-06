@@ -30,7 +30,8 @@
         if (slug === 'thisweek') {
             season = firstSeason
             runsFunc = (char, dungeonId) => char.mythicPlus?.periodRuns?.[dungeonId] || []
-        } else {
+        }
+        else {
             season = seasonMap[slug.replace('season', '')]
             runsFunc = (char, dungeonId) => char.mythicPlus?.seasons?.[season.Id]?.[dungeonId]
             sortFunc = (char) => -(char.raiderIo?.[season.Id]?.all ?? 0)
