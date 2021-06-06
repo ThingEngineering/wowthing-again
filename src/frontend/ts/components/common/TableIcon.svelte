@@ -5,8 +5,9 @@
     @import 'scss/variables';
 
     td {
-        text-align: center;
+        min-width: $character-width-icon;
         width: $character-width-icon;
+        text-align: center;
 
         & :global(img) {
             border-radius: $border-radius;
