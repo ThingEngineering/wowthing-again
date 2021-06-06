@@ -26,7 +26,7 @@
     }
 
     const span = 6 + sumBy([
-        $settings.General.ShowRealm,
+        $settings.general.showRealm,
     ], (setting) => Number(setting))
 </script>
 

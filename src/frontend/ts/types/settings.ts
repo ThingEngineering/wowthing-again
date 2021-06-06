@@ -1,14 +1,11 @@
 export interface Settings {
-    General: SettingsGeneral
-    Privacy: SettingsPrivacy
-}
+    general: {
+        showRealm: boolean
+    }
 
-interface SettingsGeneral {
-    ShowRealm: boolean
-}
-
-interface SettingsPrivacy {
-    Anonymized: boolean
-    Public: boolean
-    ShowInLeaderboards: boolean
+    privacy: {
+        anonymized: boolean
+        public: boolean
+        showInLeaderboards: boolean
+    }
 }
