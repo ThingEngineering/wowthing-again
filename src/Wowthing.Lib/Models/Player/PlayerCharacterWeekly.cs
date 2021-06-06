@@ -21,6 +21,9 @@ namespace Wowthing.Lib.Models
         public int KeystoneLevel { get; set; }
 
         [Column(TypeName = "jsonb")]
+        public Dictionary<string, PlayerCharacterWeeklyUghQuest> UghQuests { get; set; }
+
+        [Column(TypeName = "jsonb")]
         public PlayerCharacterWeeklyVault Vault { get; set; } = new PlayerCharacterWeeklyVault();
     }
 
@@ -33,6 +36,14 @@ namespace Wowthing.Lib.Models
         public List<PlayerCharacterWeeklyVaultProgress> MythicPlusProgress { get; set; }
         public List<PlayerCharacterWeeklyVaultProgress> RaidProgress { get; set; }
         public List<PlayerCharacterWeeklyVaultProgress> RankedPvpProgress { get; set; }
+    }
+
+    public class PlayerCharacterWeeklyUghQuest
+    {
+        public int? Have { get; set; }
+        public int? Need { get; set; }
+        public int Status { get; set; }
+        public string Text { get; set; }
     }
 
     public class PlayerCharacterWeeklyVaultProgress

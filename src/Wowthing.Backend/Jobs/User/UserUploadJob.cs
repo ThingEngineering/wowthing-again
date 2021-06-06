@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Wowthing.Backend.Models.Uploads;
 using Wowthing.Lib.Enums;
+using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Utilities;
 
@@ -73,6 +74,7 @@ namespace Wowthing.Backend.Jobs.User
                 character.IsWarMode = characterData.IsWarMode;
                 character.MountSkill = Enum.IsDefined(typeof(WowMountSkill), characterData.MountSkill) ? (WowMountSkill)characterData.MountSkill : 0;
 
+                // Weekly
                 if (character.Weekly == null)
                 {
                     character.Weekly = new PlayerCharacterWeekly
@@ -99,6 +101,23 @@ namespace Wowthing.Backend.Jobs.User
                     character.Weekly.Vault.RaidProgress = ConvertVault(characterData.Vault[2]);
 
                     _context.Entry(character.Weekly).Property(e => e.Vault).IsModified = true;
+                }
+
+                // Weekly ugh quests
+                if (characterData.WeeklyUghQuests != null)
+                {
+                    character.Weekly.UghQuests = new Dictionary<string, PlayerCharacterWeeklyUghQuest>();
+
+                    foreach (var (questKey, questData) in characterData.WeeklyUghQuests)
+                    {
+                        character.Weekly.UghQuests[questKey.Truncate(32)] = new PlayerCharacterWeeklyUghQuest
+                        {
+                            Have = questData.Have,
+                            Need = questData.Need,
+                            Status = questData.Status,
+                            Text = questData.Text?.Truncate(64),
+                        };
+                    }
                 }
             }
 

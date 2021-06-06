@@ -86,7 +86,15 @@ interface CharacterWeekly {
     keystoneDungeon: number
     keystoneLevel: number
 
+    ughQuests: Dictionary<CharacterWeeklyUghQuest>
     vault: CharacterWeeklyVault
+}
+
+export interface CharacterWeeklyUghQuest {
+    have?: number
+    need?: number
+    status: number
+    text?: string
 }
 
 interface CharacterWeeklyVault {

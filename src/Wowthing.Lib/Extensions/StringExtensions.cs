@@ -40,5 +40,10 @@ namespace Wowthing.Lib.Extensions
         {
             return s.Split(_splits, removeEmpty ? StringSplitOptions.RemoveEmptyEntries : StringSplitOptions.None);
         }
+
+        public static string Truncate(this string s, int maxLength)
+        {
+            return s.Substring(0, Math.Min(s.Length, maxLength));
+        }
     }
 }

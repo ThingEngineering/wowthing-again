@@ -25,7 +25,10 @@
         }
     }
 
-    const span = 6 + sumBy([
+    const span = 3 + sumBy([
+        $settings.general.showRaceIcon,
+        $settings.general.showClassIcon,
+        $settings.general.showSpecIcon,
         $settings.general.showRealm,
     ], (setting) => Number(setting))
 </script>
