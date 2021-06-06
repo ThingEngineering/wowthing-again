@@ -1,6 +1,7 @@
 export interface Settings {
     general: {
         showClassIcon: boolean
+        showItemLevel: boolean
         showRaceIcon: boolean
         showRealm: boolean
         showSpecIcon: boolean

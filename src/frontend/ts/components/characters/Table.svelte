@@ -18,7 +18,7 @@
         {#if $userData.public === false}
             <RowGold />
         {/if}
-        {#if $settings.home.showItemLevel}
+        {#if $settings.general.showItemLevel}
             <RowItemLevel />
         {/if}
         {#if $settings.home.showMountSkill}
