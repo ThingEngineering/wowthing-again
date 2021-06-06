@@ -8,6 +8,7 @@ export interface Settings {
     }
 
     home: {
+        showCovenant: boolean
         showKeystone: boolean
         showMountSkill: boolean
         showStatuses: boolean
