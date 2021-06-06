@@ -1,8 +1,9 @@
 <script lang="ts">
     import {getContext} from 'svelte'
 
+    import {Constants} from '@/data/constants'
+    import {data as settings} from '@/stores/settings-store'
     import type {Character} from '@/types'
-    import tippy from '@/utils/tippy'
 
     import RowUghQuest from './RowUghQuest.svelte'
     import TableIcon from '@/components/common/TableIcon.svelte'
@@ -24,7 +25,7 @@
     }
 </style>
 
-{#if anima}
+{#if $settings.home.showWeeklyAnima && character.level === Constants.characterMaxLevel && anima}
     <TableIcon>
         <WowthingImage name="spell/341209" size={20} border={1} />
     </TableIcon>
@@ -34,7 +35,7 @@
     <td></td>
 {/if}
 
-{#if souls}
+{#if $settings.home.showWeeklySouls && character.level === Constants.characterMaxLevel && souls}
     <TableIcon>
         <WowthingImage name="spell/225100" size={20} border={1} />
     </TableIcon>
