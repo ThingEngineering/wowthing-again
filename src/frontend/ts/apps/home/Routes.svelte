@@ -13,7 +13,7 @@
     import Transmog from '@/components/transmog/Transmog.svelte'
 
     const routes = {
-        '/': CharactersCards,
+        '/': CharactersTable,
         '/cards': CharactersCards,
         '/table': CharactersTable,
 
