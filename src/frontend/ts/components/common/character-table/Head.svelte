@@ -40,9 +40,15 @@
 <thead>
     <tr>
         <th class="spacer"></th>
-        <th class="icon"></th>
-        <th class="icon"></th>
-        <th class="icon"></th>
+        {#if $settings.general.showRaceIcon}
+            <th class="icon"></th>
+        {/if}
+        {#if $settings.general.showClassIcon}
+            <th class="icon"></th>
+        {/if}
+        {#if $settings.general.showSpecIcon}
+            <th class="icon"></th>
+        {/if}
         <th class="level"></th>
         <th class="name"></th>
         {#if $settings.general.showRealm}
