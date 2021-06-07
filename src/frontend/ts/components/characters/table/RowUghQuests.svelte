@@ -25,22 +25,26 @@
     }
 </style>
 
-{#if $settings.home.showWeeklyAnima && character.level === Constants.characterMaxLevel && anima}
-    <TableIcon>
-        <WowthingImage name="spell/341209" size={20} border={1} />
-    </TableIcon>
-    <RowUghQuest ughQuest={anima} />
-{:else}
-    <TableIcon />
-    <td></td>
+{#if $settings.home.showWeeklyAnima}
+    {#if character.level === Constants.characterMaxLevel && anima}
+        <TableIcon>
+            <WowthingImage name="spell/341209" size={20} border={1} />
+        </TableIcon>
+        <RowUghQuest ughQuest={anima} />
+    {:else}
+        <TableIcon />
+        <td></td>
+    {/if}
 {/if}
 
-{#if $settings.home.showWeeklySouls && character.level === Constants.characterMaxLevel && souls}
-    <TableIcon>
-        <WowthingImage name="spell/225100" size={20} border={1} />
-    </TableIcon>
-    <RowUghQuest ughQuest={souls} />
-{:else}
-    <TableIcon />
-    <td></td>
+{#if $settings.home.showWeeklySouls}
+    {#if character.level === Constants.characterMaxLevel && souls}
+        <TableIcon>
+            <WowthingImage name="spell/225100" size={20} border={1} />
+        </TableIcon>
+        <RowUghQuest ughQuest={souls} />
+    {:else}
+        <TableIcon />
+        <td></td>
+    {/if}
 {/if}
