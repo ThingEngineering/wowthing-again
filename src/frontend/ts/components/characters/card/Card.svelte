@@ -25,8 +25,6 @@
 </script>
 
 <style lang="scss">
-    @import 'scss/variables';
-
     article {
         background: $thing-background;
         border: 1px solid $border-color;

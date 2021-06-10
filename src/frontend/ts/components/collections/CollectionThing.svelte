@@ -19,8 +19,6 @@
 </script>
 
 <style lang="scss">
-    @import 'scss/variables';
-
     div {
         display: inline-block;
 

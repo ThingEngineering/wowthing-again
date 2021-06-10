@@ -1,6 +1,4 @@
 <style lang="scss">
-    @import 'scss/variables';
-
     .icon {
         min-width: $character-width-icon;
         width: $character-width-icon;

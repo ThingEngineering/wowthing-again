@@ -10,8 +10,6 @@
 </script>
 
 <style lang="scss">
-    @import 'scss/variables';
-
     div {
         margin: 0 0.75rem 0.75rem 0;
     }

@@ -10,8 +10,6 @@
 </script>
 
 <style lang="scss">
-    @import 'scss/variables';
-
     th {
         background: $thing-background;
         border: 1px solid $border-color;

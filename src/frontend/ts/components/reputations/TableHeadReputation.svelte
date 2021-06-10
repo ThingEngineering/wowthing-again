@@ -13,8 +13,6 @@
 </script>
 
 <style lang="scss">
-    @import 'scss/variables';
-
     th {
         border: 1px solid $border-color;
         border-right-width: 0;
