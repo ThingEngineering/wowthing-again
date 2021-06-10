@@ -7,8 +7,6 @@
 </script>
 
 <style lang="scss">
-    @import 'scss/variables';
-
     tr :global(th) {
         background: $thing-background;
     }

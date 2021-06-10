@@ -7,8 +7,6 @@
 </script>
 
 <style lang="scss">
-    @import 'scss/variables';
-
     td {
         padding-right: 0.7rem;
         text-align: right;

@@ -24,8 +24,6 @@
 </script>
 
 <style lang="scss">
-    @import 'scss/variables';
-
     .inactive {
         opacity: $inactive-opacity;
     }

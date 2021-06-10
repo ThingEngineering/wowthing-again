@@ -11,8 +11,6 @@
 </script>
 
 <style lang="scss">
-    @import 'scss/variables';
-
     div :global(img) {
         background: rgba(77, 78, 79, 0.4);
         border-color: $border-color;

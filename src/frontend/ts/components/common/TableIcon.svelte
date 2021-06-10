@@ -2,8 +2,6 @@
 </script>
 
 <style lang="scss">
-    @import 'scss/variables';
-
     td {
         min-width: $character-width-icon;
         width: $character-width-icon;

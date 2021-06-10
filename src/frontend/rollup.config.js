@@ -7,18 +7,18 @@ import alias from '@rollup/plugin-alias'
 import commonjs from '@rollup/plugin-commonjs'
 import replace from '@rollup/plugin-replace'
 import resolve from '@rollup/plugin-node-resolve'
-import typescript from '@rollup/plugin-typescript'
+import typescript from 'rollup-plugin-typescript2'
 import rimraf from 'rimraf'
 import css from 'rollup-plugin-css-only'
 import svelte from 'rollup-plugin-svelte'
 import { terser } from 'rollup-plugin-terser'
-import autoPreprocess from 'svelte-preprocess'
+import sveltePreprocess from 'svelte-preprocess'
 
 
 const production = !process.env.ROLLUP_WATCH
 const distPath = '../Wowthing.Web/wwwroot/dist'
 const buildMe = ['home', 'teams']
-
+const extensions = ['.js', '.svelte', '.ts']
 
 // Ensure distPath exists and is relatively empty
 fs.mkdirSync(distPath, { recursive: true })
@@ -36,12 +36,21 @@ const sigh = function(baseName) {
             entryFileNames: production ? '[name].[hash].js' : '[name].dev.js',
         },
         plugins: [
+            replace({
+                preventAssignment: true,
+                'process.env.NODE_ENV': JSON.stringify(production ? 'production' : 'development'),
+            }),
             svelte({
                 compilerOptions: {
                     // enable run-time checks when not in production
                     dev: !production,
                 },
-                preprocess: autoPreprocess(),
+                preprocess: sveltePreprocess({
+                    sourceMap: !production,
+                    scss: {
+                        prependData: `@import 'scss/variables.scss';`
+                    },
+                }),
             }),
             css({
                 output: (css, styleNodes) => {
@@ -56,25 +65,22 @@ const sigh = function(baseName) {
                     fs.writeFileSync(path.join(distPath, outputPath), css)
                 },
             }),
-            replace({
-                preventAssignment: true,
-                'process.env.NODE_ENV': JSON.stringify(production ? 'production' : 'development'),
-            }),
-            resolve({
-                browser: true,
-                dedupe: ['svelte']
-            }),
-            commonjs(),
-            typescript({
-                cacheDir: '.tscache',
-                sourceMap: !production,
-                inlineSources: !production
-            }),
             alias({
-                resolve: ['.svelte', '.ts'],
+                resolve: extensions,
                 entries: [
                     { find: '@', replacement: path.resolve(__dirname, 'ts') },
                 ]
+            }),
+            resolve({
+                browser: true,
+                dedupe: ['svelte'],
+                extensions
+            }),
+            commonjs(),
+            typescript({
+                //cacheDir: '.tscache',
+                //sourceMap: !production,
+                //inlineSources: !production
             }),
 
             // Watch the `dist` directory and refresh the
