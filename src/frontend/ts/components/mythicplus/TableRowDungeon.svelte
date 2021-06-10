@@ -26,8 +26,6 @@
 </script>
 
 <style lang="scss">
-    @import 'scss/variables';
-
     td {
         border-left: 1px solid $border-color;
         position: relative;

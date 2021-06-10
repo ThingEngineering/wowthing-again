@@ -52,8 +52,6 @@
 </script>
 
 <style lang="scss">
-    @import 'scss/variables';
-
     .score {
         padding-right: 0.5rem;
         text-align: right;

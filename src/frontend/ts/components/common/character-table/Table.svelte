@@ -34,8 +34,6 @@
 </script>
 
 <style lang="scss">
-    @import 'scss/variables';
-
     table {
         background: $thing-background;
         border-radius: $border-radius;

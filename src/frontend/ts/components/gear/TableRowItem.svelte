@@ -12,8 +12,6 @@
 </script>
 
 <style lang="scss">
-    @import 'scss/variables';
-
     div {
         height: 44px;
         position: relative;

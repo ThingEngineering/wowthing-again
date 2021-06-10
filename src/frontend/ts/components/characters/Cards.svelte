@@ -5,8 +5,6 @@
 </script>
 
 <style lang="scss">
-    @import 'scss/variables';
-
     section {
         align-items: flex-start;
         display: grid;
