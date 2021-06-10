@@ -24,8 +24,6 @@
 </script>
 
 <style lang="scss">
-    @import 'scss/variables';
-
     .section + .section {
         margin-top: 1rem;
     }

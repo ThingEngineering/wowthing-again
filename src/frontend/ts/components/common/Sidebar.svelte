@@ -3,8 +3,6 @@
 </script>
 
 <style lang="scss">
-    @import 'scss/variables';
-
     nav {
         margin-right: 1rem;
         min-width: var(--width);

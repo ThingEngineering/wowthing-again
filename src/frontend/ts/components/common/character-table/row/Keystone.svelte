@@ -26,8 +26,6 @@
 </script>
 
 <style lang="scss">
-    @import 'scss/variables';
-
     .level {
         min-width: $table-width-key-level;
         width: $table-width-key-level;

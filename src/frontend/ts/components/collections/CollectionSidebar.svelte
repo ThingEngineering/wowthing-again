@@ -13,8 +13,6 @@
 </script>
 
 <style lang="scss">
-    @import 'scss/variables';
-
     li {
         position: relative;
     }

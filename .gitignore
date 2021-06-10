@@ -14,3 +14,4 @@ bin/
 obj/
 node_modules/
 src/Wowthing.Web/wwwroot/dist/
+*.log
