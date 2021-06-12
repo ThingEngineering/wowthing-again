@@ -39,7 +39,7 @@ namespace Wowthing.Web.Controllers
         [HttpGet("auth/login")]
         public IActionResult Login(string returnUrl = null)
         {
-            var redirectUrl = Url.Action("Callback", "Authentication");
+            var redirectUrl = Url.Action("Callback", "Authentication", new { returnUrl });
             var properties = _signInManager.ConfigureExternalAuthenticationProperties("BattleNet", redirectUrl);
             return new ChallengeResult("BattleNet", properties);
         }
@@ -117,7 +117,7 @@ namespace Wowthing.Web.Controllers
             // Queue a job to retrieve their characters
             await _jobRepository.AddJobAsync(JobPriority.High, JobType.UserCharacters, user.Id.ToString());
 
-            return Redirect(returnUrl ?? Url.Action("Index", "User", new { username = user.UserName }));
+            return LocalRedirect(returnUrl ?? Url.Action("Index", "User", new { username = user.UserName }));
         }
 
         [Authorize]
