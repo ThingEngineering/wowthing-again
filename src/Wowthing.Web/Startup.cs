@@ -60,11 +60,6 @@ namespace Wowthing.Web
                 .AddEntityFrameworkStores<WowDbContext>();
 
             services.AddAuthentication()
-                .AddCookie(options =>
-                {
-                    options.LoginPath = "/login";
-                    options.LogoutPath = "/logout";
-                })
                 .AddBattleNet(options =>
                 {
                     options.ClientId = Configuration["BattleNet:ClientID"];
@@ -72,6 +67,12 @@ namespace Wowthing.Web
                     options.SaveTokens = true;
                     options.Scope.Add("wow.profile");
                 });
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/auth/login";
+                options.LogoutPath = "/auth/logout";
+            });
 
             // Redis
             var redis = services.AddRedis(Configuration.GetConnectionString("Redis"));
