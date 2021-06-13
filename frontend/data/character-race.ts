@@ -1,0 +1,30 @@
+import { CharacterRace } from '@/types'
+import type { Dictionary } from '@/types'
+
+export const raceMap: Dictionary<CharacterRace> = {
+    1: new CharacterRace(1, 'Human'),
+    2: new CharacterRace(2, 'Orc'),
+    3: new CharacterRace(3, 'Dwarf'),
+    4: new CharacterRace(4, 'Night Elf'),
+    5: new CharacterRace(5, 'Undead'),
+    6: new CharacterRace(6, 'Tauren'),
+    7: new CharacterRace(7, 'Gnome'),
+    8: new CharacterRace(8, 'Troll'),
+    9: new CharacterRace(9, 'Goblin'),
+    10: new CharacterRace(10, 'Blood Elf'),
+    11: new CharacterRace(11, 'Draenei'),
+    22: new CharacterRace(22, 'Worgen'),
+    24: new CharacterRace(24, 'Pandaren'),
+    25: new CharacterRace(25, 'Pandaren'),
+    26: new CharacterRace(26, 'Pandaren'),
+    27: new CharacterRace(27, 'Nightborne'),
+    28: new CharacterRace(28, 'Highmountain Tauren'),
+    29: new CharacterRace(29, 'Void Elf'),
+    30: new CharacterRace(30, 'Lightforged Draenei'),
+    31: new CharacterRace(31, 'Zandalari Troll'),
+    32: new CharacterRace(32, 'Kul Tiran'),
+    34: new CharacterRace(34, 'Dark Iron Dwarf'),
+    35: new CharacterRace(35, 'Vulpera'),
+    36: new CharacterRace(36, "Mag'har Orc"),
+    37: new CharacterRace(37, 'Mechagnome'),
+}

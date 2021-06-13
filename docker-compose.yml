@@ -23,7 +23,7 @@ services:
   frontend:
     build:
       context: .
-      dockerfile: src/frontend/development.Dockerfile
+      dockerfile: frontend/development.Dockerfile
     logging:
       options:
         max-size: "1m"
@@ -34,7 +34,7 @@ services:
       - ./:/app/
       - frontend-cache:/root/.cache
       - frontend-dist:/app/src/Wowthing.Web/wwwroot/dist/
-      - frontend-nm:/app/src/frontend/node_modules/
+      - frontend-nm:/app/frontend/node_modules/
 
   web:
     build:
