@@ -11,11 +11,14 @@ export * from './reputation-tier'
 export * from './settings'
 export * from './static-data'
 export * from './team-data'
+export * from './tippy'
 export * from './user-data'
 
 
 declare global {
     interface Window {
-        __tip: { watchElligibleElements: Function } | undefined
+        __tip?: {
+            watchElligibleElements: () => void
+        }
     }
 }

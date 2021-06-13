@@ -4,14 +4,14 @@
     import sumBy from 'lodash/sumBy'
     import {setContext} from 'svelte'
 
-    import {data as settings} from '../../../stores/settings'
-    import {data as userData} from '../../../stores/user'
+    import {data as settings} from '@/stores/settings'
+    import {data as userData} from '@/stores/user'
     import type {Character} from '@/types'
 
     import CharacterRow from './Row.svelte'
 
-    export let extraSpan: number = 0
-    export let endSpacer: boolean = true
+    export let extraSpan = 0
+    export let endSpacer = true
     export let filterFunc: (char: Character) => boolean = () => true
     export let sortFunc: (char: Character) => number = undefined
 

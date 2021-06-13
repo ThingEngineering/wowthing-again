@@ -1,6 +1,6 @@
 <script lang="ts">
     import type {CharacterWeeklyUghQuest} from '@/types'
-    import tippy from '@/utils/tippy'
+    //import tippy from '@/utils/tippy'
 
     export let ughQuest: CharacterWeeklyUghQuest
 </script>

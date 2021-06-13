@@ -1,6 +1,6 @@
 <script lang="ts">
   export let size: number
-  export let border: number = 0
+  export let border = 0
 
   const actualSize = size + (border * 2)
 </script>

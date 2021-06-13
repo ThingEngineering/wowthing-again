@@ -1,7 +1,7 @@
 <script lang="ts">
     export let size: string
     export let name: string
-    export let border: number = 0
+    export let border = 0
 
     const actualSize = (size === 'large' ? 56 : (size === 'medium' ? 36 : 16)) + (border * 2);
 </script>

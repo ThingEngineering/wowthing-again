@@ -1,3 +1,5 @@
+import type {TippyProps} from '@/types/tippy'
+
 export class Covenant {
     Name: string
     Icon: string
@@ -7,7 +9,7 @@ export class Covenant {
         this.Icon = icon
     }
 
-    getTooltip(renown: number): object {
+    getTooltip(renown: number): TippyProps {
         return {
             content: `${this.Name} R${renown}`
         }

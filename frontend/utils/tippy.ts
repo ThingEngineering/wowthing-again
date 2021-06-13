@@ -1,11 +1,11 @@
 import tippy, { Props, SingleTarget } from 'tippy.js'
 
-export default function(node: SingleTarget, props: Partial<Props>) {
+export default function(node: SingleTarget, props: Partial<Props>): void {
     if (props?.content !== undefined) {
         props = {
             //placement: 'right',
             ...props
         }
-        const sigh = tippy(node, props)
+        tippy(node, props)
     }
 }

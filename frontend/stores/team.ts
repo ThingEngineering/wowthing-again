@@ -9,7 +9,7 @@ export const error = writable(false)
 export const loading = writable(true)
 export const data = writable<TeamData>(undefined)
 
-export const fetch = async function() {
+export const fetch = async function(): Promise<void> {
     const url = document.getElementById('app').getAttribute('data-team')
     const json = await fetch_json(url)
     if (json === null) {

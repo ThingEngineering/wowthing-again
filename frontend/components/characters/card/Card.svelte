@@ -1,7 +1,7 @@
 <script lang="ts">
     import {specializationMap} from '@/data/character-specialization'
-    import {data as settings} from '../../../stores/settings'
-    import {data as userData} from '../../../stores/user'
+    import {data as settings} from '@/stores/settings'
+    import {data as userData} from '@/stores/user'
     import type {Character, CharacterSpecialization} from '@/types'
     import getRealmName from '@/utils/get-realm-name'
     import tippy from '@/utils/tippy'
@@ -9,7 +9,7 @@
     import CharacterCovenant from '@/components/common/CharacterCovenant.svelte'
     import ClassIcon from '@/components/images/ClassIcon.svelte'
     import RaceIcon from '@/components/images/RaceIcon.svelte'
-    import SpecializationIcon from '../../images/SpecializationIcon.svelte'
+    import SpecializationIcon from '@/components/images/SpecializationIcon.svelte'
 
     export let character: Character
 

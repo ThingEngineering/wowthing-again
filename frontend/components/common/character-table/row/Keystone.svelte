@@ -12,7 +12,7 @@
     const character: Character = getContext('character')
 
     let dungeon: Dungeon = undefined
-    let upgrade: boolean = false
+    let upgrade = false
     $: {
         if (character.weekly?.keystoneDungeon) {
             dungeon = dungeonMap[character.weekly.keystoneDungeon]

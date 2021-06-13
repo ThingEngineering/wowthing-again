@@ -1,7 +1,7 @@
 <script lang="ts">
     import {location} from 'svelte-spa-router'
 
-    import {data as teamData} from '../../stores/team'
+    import {data as teamData} from '@/stores/team'
 
     import CharacterName from './CharacterName.svelte'
     import CharacterNote from './CharacterNote.svelte'

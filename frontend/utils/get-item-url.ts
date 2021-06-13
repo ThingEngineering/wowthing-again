@@ -1,11 +1,11 @@
 import type {CharacterEquippedItem} from '@/types'
 
 export function getItemUrl(item: CharacterEquippedItem): string {
-    let url: string = ''
+    let url
 
     // WowDB
-    if (true) {
-        let params = []
+    //if (true) {
+        const params = []
         if (item.bonusIds?.length > 0) {
             params.push('bonusIDs=' + item.bonusIds.join(','))
         }
@@ -19,7 +19,7 @@ export function getItemUrl(item: CharacterEquippedItem): string {
         if (params.length > 0) {
             url += `?${params.join('&')}`
         }
-    }
+    //}
     // Wowhead
 
     return url

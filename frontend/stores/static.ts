@@ -8,7 +8,7 @@ export const error = writable(false)
 export const loading = writable(true)
 export const data = writable<StaticData>(undefined)
 
-export const fetch = async function() {
+export const fetch = async function(): Promise<void> {
     const url = document.getElementById('app').getAttribute('data-static')
     const json = await fetch_json(url)
     if (json === null) {

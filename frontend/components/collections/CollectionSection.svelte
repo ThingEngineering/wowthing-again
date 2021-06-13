@@ -3,7 +3,7 @@
     import find from 'lodash/find'
     import {getContext} from 'svelte'
 
-    import {data as userData} from '../../stores/user'
+    import {data as userData} from '@/stores/user'
     import type {StaticDataSetCategory} from '@/types'
 
     import CollectionCount from './CollectionCount.svelte'

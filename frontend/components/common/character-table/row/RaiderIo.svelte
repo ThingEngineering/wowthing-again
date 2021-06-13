@@ -2,8 +2,8 @@
     import {getContext} from 'svelte'
 
     import {raiderIoScores} from '@/data/raider-io'
-    import {data as staticData} from '../../../../stores/static'
-    import type {Character, CharacterRaiderIoSeason, MythicPlusSeason} from '@/types'
+    import {data as staticData} from '@/stores/static'
+    import type {Character, CharacterRaiderIoSeason, MythicPlusSeason, TippyProps} from '@/types'
     import tippy from '@/utils/tippy'
 
     import TableIcon from '@/components/common/TableIcon.svelte'
@@ -13,8 +13,8 @@
 
     let character: Character
     let scores: CharacterRaiderIoSeason | undefined
-    let color: string = '#bbbbbb'
-    let tooltip: object
+    let color = '#bbbbbb'
+    let tooltip: TippyProps
 
     $: {
         character = getContext('character')

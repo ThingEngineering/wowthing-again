@@ -1,8 +1,9 @@
 <script lang="ts">
     import {getContext} from 'svelte'
 
-    import {data as settings} from '../../../stores/settings'
+    import {data as settings} from '@/stores/settings'
 
+    let endSpacer: boolean
     $: endSpacer = getContext('endSpacer')
 </script>
 

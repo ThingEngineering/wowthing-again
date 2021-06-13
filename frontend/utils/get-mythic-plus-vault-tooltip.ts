@@ -1,11 +1,11 @@
 import sortBy from 'lodash/sortBy'
 
 import {dungeonMap} from '@/data/dungeon'
-import type {Character} from '@/types'
+import type {Character, TippyProps} from '@/types'
 import getMythicPlusVaultItemLevel from './get-mythic-plus-vault-item-level'
 
 
-export default function getMythicPlusVaultTooltip(character: Character): object {
+export default function getMythicPlusVaultTooltip(character: Character): TippyProps {
     let tooltip = `
 <div class="wowthing-tooltip">
     <h4>${character.name}</h4>

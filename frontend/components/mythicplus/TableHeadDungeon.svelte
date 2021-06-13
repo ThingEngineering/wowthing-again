@@ -4,7 +4,7 @@
 
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
-    export let dungeonId: number = 0
+    export let dungeonId = 0
 
     $: dungeon = dungeonMap[dungeonId]
 </script>

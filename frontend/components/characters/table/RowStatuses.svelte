@@ -3,7 +3,7 @@
 
     import {Constants} from '@/data/constants'
     import type {Character} from '@/types'
-    import tippy from '@/utils/tippy'
+    //import tippy from '@/utils/tippy'
 
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
