@@ -1,7 +1,7 @@
 <script lang="ts">
     import {getContext} from 'svelte'
 
-    import type {Character, CharacterMythicPlusRun} from '@/types'
+    import type {Character, CharacterMythicPlusRun, TippyProps} from '@/types'
     import getMythicPlusRunQuality from '@/utils/get-mythic-plus-run-quality'
     import getMythicPlusRunTooltip from '@/utils/get-mythic-plus-run-tooltip'
     import tippy from '@/utils/tippy'
@@ -12,7 +12,7 @@
     const character: Character = getContext('character')
 
     let runs: CharacterMythicPlusRun[]
-    let tooltip: object
+    let tooltip: TippyProps
     $: {
         runs = runsFunc(character, dungeonId) ?? []
         // If there are 2 runs and the second run isn't higher than the first, discard it

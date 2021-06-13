@@ -1,3 +1,5 @@
+import type {TippyProps} from '@/types/tippy'
+
 export class Dungeon {
     id: number
     name: string
@@ -17,15 +19,13 @@ export class Dungeon {
         this.timer3 = this.timer1 * 0.6
     }
 
-    getTooltip(): object {
+    getTooltip(): TippyProps {
         return {
             content: `${this.name}`
         }
     }
 
     getTimed(ms: number): DungeonTimedResult {
-        const delta = this.timer1 - ms
-
         if (ms < this.timer3) {
             return {
                 plus: 3,

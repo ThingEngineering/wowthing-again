@@ -5,7 +5,7 @@ import {seasonMap} from '@/data/dungeon'
 import {InventorySlot, slotOrder} from '@/data/inventory-slot'
 import type {Character, CharacterMythicPlusRun} from '@/types'
 
-export default function initializeCharacter(character: Character) {
+export default function initializeCharacter(character: Character): void {
     // item levels
     if (keys(character.equippedItems).length > 0) {
         let count = 0, itemLevels = 0
@@ -37,7 +37,7 @@ export default function initializeCharacter(character: Character) {
     // mythic+ seasons
     if (character.mythicPlus?.seasons) {
         character.mythicPlus.seasonBadges = {}
-        for (let seasonId in seasonMap) {
+        for (const seasonId in seasonMap) {
             const season = seasonMap[seasonId]
             if (character.level >= season.MinLevel) {
                 const characterSeason = character.mythicPlus.seasons[seasonId]

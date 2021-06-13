@@ -2,7 +2,7 @@
     import {getContext} from 'svelte'
 
     import {mountSkillMap} from '@/data/mount-skill'
-    import {data as userData} from '../../../stores/user'
+    import {data as userData} from '@/stores/user'
     import type {Character} from '@/types'
 
     import TableIcon from '@/components/common/TableIcon.svelte'

@@ -12,7 +12,7 @@ uData.subscribe(value => {
     userData = value
 })
 
-export default function initializeSets() {
+export default function initializeSets(): void {
     console.time('initializeSets')
     userData.setCounts = {}
 

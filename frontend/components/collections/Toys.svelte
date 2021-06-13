@@ -1,6 +1,6 @@
 <script lang="ts">
-    import { data as staticData } from '../../stores/static'
-    import { data as userData } from '../../stores/user'
+    import { data as staticData } from '@/stores/static'
+    import { data as userData } from '@/stores/user'
     import type {Dictionary} from '@/types'
 
     import Collection from './Collection.svelte'

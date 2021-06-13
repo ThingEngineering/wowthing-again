@@ -1,7 +1,7 @@
 import initializeCharacter from './initialize-character'
 import type {Character, UserData} from '@/types'
 
-export default function initializeUser(userData: UserData) {
+export default function initializeUser(userData: UserData): void {
     console.time('initializeUser')
     for (let i = 0; i < userData.characters.length; i++) {
         const character = userData.characters[i]

@@ -2,7 +2,7 @@
     import {getContext} from 'svelte'
 
     import {Constants} from '@/data/constants'
-    import {data as settings} from '../../../stores/settings'
+    import {data as settings} from '@/stores/settings'
     import type {Character} from '@/types'
 
     import RowUghQuest from './RowUghQuest.svelte'

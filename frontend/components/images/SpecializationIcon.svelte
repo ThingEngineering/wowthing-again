@@ -6,7 +6,7 @@
 
     export let character: Character
     export let size: number
-    export let border: number = 1
+    export let border = 1
 
     let iconName: string
     let tooltip: string

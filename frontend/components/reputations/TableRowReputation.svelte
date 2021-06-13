@@ -1,13 +1,14 @@
 <script lang="ts">
     import {getContext} from 'svelte'
 
-    import {data} from '../../stores/static'
+    import {data} from '@/stores/static'
     import type {
         Character,
         ReputationTier,
         StaticDataReputation,
         StaticDataReputationSet,
         StaticDataReputationTier,
+        TippyProps,
     } from '@/types'
     import findReputationTier from '@/utils/find-reputation-tier'
     import tippy from '@/utils/tippy'
@@ -18,7 +19,7 @@
 
     let characterRep: number | undefined
     let repTier: ReputationTier
-    let tooltip: object
+    let tooltip: TippyProps
 
     $: {
         if (character !== undefined && reputation !== undefined) {

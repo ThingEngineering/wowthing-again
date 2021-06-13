@@ -2,7 +2,7 @@
     import {link} from 'svelte-spa-router'
     import active from 'svelte-spa-router/active'
 
-    import { data as staticData } from '../../stores/static'
+    import { data as staticData } from '@/stores/static'
 
     import Sidebar from '@/components/common/Sidebar.svelte'
 </script>

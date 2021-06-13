@@ -1,6 +1,6 @@
 <script lang="ts">
-    import {data as settings} from '../../stores/settings'
-    import {data as userData} from '../../stores/user'
+    import {data as settings} from '@/stores/settings'
+    import {data as userData} from '@/stores/user'
 
     import CharacterTable from '@/components/common/character-table/Table.svelte'
     import RowCovenant from './table/RowCovenant.svelte'

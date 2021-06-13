@@ -6,16 +6,16 @@ import getRealmName from './get-realm-name'
 import {classMap} from '@/data/character-class'
 import {specializationMap} from '@/data/character-specialization'
 import {dungeonMap} from '@/data/dungeon'
-import {data as sData} from '@/stores/static'
-import type {CharacterMythicPlusRun, StaticData} from '@/types'
+//import {data as sData} from '@/stores/static'
+import type {CharacterMythicPlusRun, TippyProps/*, StaticData*/} from '@/types'
 
 
-let staticData: StaticData
+/*let staticData: StaticData
 sData.subscribe(value => {
     staticData = value
-})
+})*/
 
-export default function getMythicPlusRunTooltip(runs: CharacterMythicPlusRun[]): object {
+export default function getMythicPlusRunTooltip(runs: CharacterMythicPlusRun[]): TippyProps {
     const dungeon = dungeonMap[runs[0].dungeonId]
 
     let tooltip = `

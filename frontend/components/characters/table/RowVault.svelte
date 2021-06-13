@@ -2,7 +2,7 @@
     import {getContext} from 'svelte'
 
     import {Constants} from '@/data/constants'
-    import type {Character, CharacterWeeklyProgress} from '@/types'
+    import type {Character, CharacterWeeklyProgress, TippyProps} from '@/types'
     import getMythicPlusVaultItemLevel from '@/utils/get-mythic-plus-vault-item-level'
     import getMythicPlusVaultTooltip from '@/utils/get-mythic-plus-vault-tooltip'
     import tippy from '@/utils/tippy'
@@ -13,7 +13,7 @@
     const character: Character = getContext('character')
 
     let mythicPlus: CharacterWeeklyProgress[] | undefined
-    let mythicPlusTooltip: object
+    let mythicPlusTooltip: TippyProps
     $: {
         if (character.level === Constants.characterMaxLevel) {
             mythicPlus = character.weekly?.vault?.mythicPlusProgress

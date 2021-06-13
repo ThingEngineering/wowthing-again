@@ -1,15 +1,15 @@
 <script lang="ts">
     import {getContext, setContext} from 'svelte'
 
-    import {data as settings} from '../../../stores/settings'
-    import {data as userData} from '../../../stores/user'
+    import {data as settings} from '@/stores/settings'
+    import {data as userData} from '@/stores/user'
     import type {Character} from '@/types'
     import getRealmName from '@/utils/get-realm-name'
 
-    import TableIcon from '../TableIcon.svelte'
+    import TableIcon from '@/components/common/TableIcon.svelte'
     import ClassIcon from '@/components/images/ClassIcon.svelte'
     import RaceIcon from '@/components/images/RaceIcon.svelte'
-    import SpecializationIcon from '../../images/SpecializationIcon.svelte'
+    import SpecializationIcon from '@/components/images/SpecializationIcon.svelte'
 
     export let character: Character
 

@@ -5,7 +5,7 @@
 
     import type {CollectionContext} from '@/types/contexts'
 
-    import {data as userData} from '../../stores/user'
+    import {data as userData} from '@/stores/user'
     import CollectionCount from './CollectionCount.svelte'
     import Sidebar from '@/components/common/Sidebar.svelte'
 

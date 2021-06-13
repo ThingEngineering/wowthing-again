@@ -1,7 +1,7 @@
 import initializeCharacter from './initialize-character'
 import type {TeamData} from '@/types'
 
-export default function initializeTeam(teamData: TeamData) {
+export default function initializeTeam(teamData: TeamData): void {
     console.time('initializeTeam')
     for (let i = 0; i < teamData.characters.length; i++) {
         const character = teamData.characters[i].character

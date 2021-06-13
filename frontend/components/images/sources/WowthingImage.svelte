@@ -1,11 +1,12 @@
 <script lang="ts">
+    import type {TippyProps} from '@/types'
     import tippy from '@/utils/tippy'
 
     export let name: string
-    export let ext: string = "png"
+    export let ext = "png"
     export let size: number
-    export let tooltip: object | string = undefined
-    export let border: number = 0
+    export let tooltip: TippyProps | string = undefined
+    export let border = 0
     export let cls: string = undefined
 
     const actualSize = size + (border * 2)

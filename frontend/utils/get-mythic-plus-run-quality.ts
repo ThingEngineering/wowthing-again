@@ -2,7 +2,7 @@ import type {CharacterMythicPlusRun} from '@/types'
 
 
 export default function getMythicPlusRunQuality(run: CharacterMythicPlusRun | number): string {
-    let level: number = 0
+    let level = 0
     if (typeof(run) !== 'number') {
         if (!run.timed) {
             return 'quality0'
