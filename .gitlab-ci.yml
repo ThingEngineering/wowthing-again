@@ -44,7 +44,7 @@ backend-deploy:
   environment: production/web
   only:
     changes:
-      - src/frontend/**/*
+      - frontend/**/*
       - src/Wowthing.Lib/**/*
       - src/Wowthing.Web/**/*
 

@@ -3,11 +3,11 @@ FROM wafflefred/dotnet-sdk-nodejs:latest AS build
 WORKDIR /app
 
 # Restore npm packages now so that this step is cached
-COPY src/frontend/package*.json ./src/frontend/
-WORKDIR /app/src/frontend
+COPY frontend/package*.json ./frontend/
+WORKDIR /app/frontend
 RUN npm install
 
-COPY src/frontend/ .
+COPY frontend/ .
 RUN npm run build
 
 WORKDIR /app

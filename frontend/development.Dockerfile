@@ -1,5 +1,5 @@
 FROM node:14-alpine
 
-WORKDIR /app/src/frontend
+WORKDIR /app/frontend
 
 ENTRYPOINT yarn && yarn watch
