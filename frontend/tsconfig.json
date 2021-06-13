@@ -6,8 +6,6 @@
   "compilerOptions": {
     "baseUrl": ".",
     "incremental": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
     "paths": {
       "@/*": [ "*" ]
     },
