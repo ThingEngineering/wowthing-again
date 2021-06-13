@@ -1,7 +1,7 @@
 <script lang="ts">
-    import {location} from 'svelte-spa-router'
+    import { location } from 'svelte-spa-router'
 
-    import {data as teamData} from '@/stores/team'
+    import { data as teamData } from '@/stores/team'
 
     import CharacterName from './CharacterName.svelte'
     import CharacterNote from './CharacterNote.svelte'
@@ -21,27 +21,42 @@
 </style>
 
 <div class="thing-container">
-    <h2>[flag] { $teamData.name }</h2>
-    <p>{ $teamData.description }</p>
+    <h2>[flag] {$teamData.name}</h2>
+    <p>{$teamData.description}</p>
     <table class="table-striped2">
         <tbody>
             {#each $teamData.characters as teamCharacter}
                 <tr class="faction{teamCharacter.character.faction}">
                     <td>
-                        <RaceIcon character={teamCharacter.character} size={20} />
-                        <ClassIcon character={teamCharacter.character} size={20} />
+                        <RaceIcon
+                            character={teamCharacter.character}
+                            size={20}
+                        />
+                        <ClassIcon
+                            character={teamCharacter.character}
+                            size={20}
+                        />
                     </td>
                     <CharacterName {teamCharacter} />
-                    <td class="item-level quality{teamCharacter.character.calculatedItemLevelQuality}">{teamCharacter.character.calculatedItemLevel}</td>
+                    <td
+                        class="item-level quality{teamCharacter.character
+                            .calculatedItemLevelQuality}"
+                        >{teamCharacter.character.calculatedItemLevel}</td
+                    >
                     {#if $location === '/' || $location === '/gear'}
-                        <GearItems character={teamCharacter.character} rowspan={2} />
+                        <GearItems
+                            character={teamCharacter.character}
+                            rowspan={2}
+                        />
                     {/if}
                 </tr>
                 <tr class="faction{teamCharacter.character.faction}">
                     <td>Roles</td>
                     <CharacterNote {teamCharacter} />
                     <td>
-                        <CharacterCovenant character={teamCharacter.character} />
+                        <CharacterCovenant
+                            character={teamCharacter.character}
+                        />
                     </td>
                 </tr>
             {/each}

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type {CharacterWeeklyUghQuest} from '@/types'
+    import type { CharacterWeeklyUghQuest } from '@/types'
     //import tippy from '@/utils/tippy'
 
     export let ughQuest: CharacterWeeklyUghQuest

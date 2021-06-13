@@ -1,5 +1,5 @@
-import {CharacterRace} from '@/types'
-import type {Dictionary} from '@/types'
+import { CharacterRace } from '@/types'
+import type { Dictionary } from '@/types'
 
 export const raceMap: Dictionary<CharacterRace> = {
     1: new CharacterRace(1, 'Human'),
@@ -25,6 +25,6 @@ export const raceMap: Dictionary<CharacterRace> = {
     32: new CharacterRace(32, 'Kul Tiran'),
     34: new CharacterRace(34, 'Dark Iron Dwarf'),
     35: new CharacterRace(35, 'Vulpera'),
-    36: new CharacterRace(36, 'Mag\'har Orc'),
+    36: new CharacterRace(36, "Mag'har Orc"),
     37: new CharacterRace(37, 'Mechagnome'),
 }

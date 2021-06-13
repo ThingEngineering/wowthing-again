@@ -7,4 +7,11 @@
     export let params: { slug: string }
 </script>
 
-<Collection route="mounts" slug={params.slug} thingType="spell" thingMap={$staticData.SpellToMount} userHas={$userData.mounts} sets={$staticData.MountSets} />
+<Collection
+    route="mounts"
+    slug={params.slug}
+    thingType="spell"
+    thingMap={$staticData.SpellToMount}
+    userHas={$userData.mounts}
+    sets={$staticData.MountSets}
+/>

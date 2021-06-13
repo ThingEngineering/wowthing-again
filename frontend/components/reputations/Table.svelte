@@ -2,7 +2,7 @@
     import find from 'lodash/find'
     import flatten from 'lodash/flatten'
 
-    import {data as staticData} from '@/stores/static'
+    import { data as staticData } from '@/stores/static'
 
     import CharacterTable from '@/components/common/character-table/Table.svelte'
     import Head from '@/components/common/character-table/Head.svelte'
@@ -17,7 +17,7 @@
 <CharacterTable endSpacer={false}>
     <slot slot="colgroup">
         {#each category.Reputations as grouping}
-            <colgroup span="{grouping.length}"></colgroup>
+            <colgroup span={grouping.length} />
         {/each}
     </slot>
 

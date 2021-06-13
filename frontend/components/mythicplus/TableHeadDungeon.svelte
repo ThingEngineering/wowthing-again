@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {dungeonMap} from '@/data/dungeon'
+    import { dungeonMap } from '@/data/dungeon'
     import tippy from '@/utils/tippy'
 
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
@@ -28,7 +28,7 @@
 
 {#if dungeon !== undefined}
     <th use:tippy={dungeon.getTooltip()}>
-        <WowthingImage name="{ dungeon.icon }" size={48} border={1} />
+        <WowthingImage name={dungeon.icon} size={48} border={1} />
     </th>
 {:else}
     <th>&nbsp;</th>

@@ -14,7 +14,7 @@
     <li use:active={'/cards'}>
         <a href="#/cards">🚧 Home (Cards)</a>
     </li>
-    <li class="separator"></li>
+    <li class="separator" />
     <li use:active={'/gear'}>
         <a href="#/gear">Gear</a>
     </li>
@@ -24,21 +24,21 @@
     <li use:active={'/reputations/*'}>
         <a href="#/reputations/shadowlands">Reputations</a>
     </li>
-    <li class="separator"></li>
+    <li class="separator" />
     <li use:active={'/mounts/*'}>
         <a href="#/mounts/">Mounts</a>
     </li>
     <li use:active={'/toys/*'}>
         <a href="#/toys/">Toys</a>
     </li>
-    <li class="separator"></li>
+    <li class="separator" />
     <li use:active={'/pets/*'}>
         <a href="#/pets/">🚧 Pets</a>
     </li>
     <li use:active={'/transmog/*'}>
         <a href="#/transmog/shadowlands">🚧 Transmog</a>
     </li>
-    <li class="separator"></li>
+    <li class="separator" />
     <li use:active={'/settings/*'}>
         <a href="#/settings/">🚧 Settings</a>
     </li>

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {data as teamData} from '@/stores/team'
+    import { data as teamData } from '@/stores/team'
 
     //import TableCharacterName from '@/components/common/TableCharacterName.svelte'
     //import TableItemLevel from '@/components/common/TableItemLevel.svelte'

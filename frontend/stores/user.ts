@@ -1,15 +1,14 @@
 import { writable } from 'svelte/store'
 
-import type {UserData} from '@/types'
+import type { UserData } from '@/types'
 import fetch_json from '@/utils/fetch-json'
 import initializeUser from '@/utils/initialize-user'
-
 
 export const error = writable(false)
 export const loading = writable(true)
 export const data = writable<UserData>(undefined)
 
-export const fetch = async function(): Promise<void> {
+export const fetch = async function (): Promise<void> {
     const url = document.getElementById('app')?.getAttribute('data-user')
     if (!url) {
         error.set(true)

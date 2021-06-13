@@ -44,7 +44,4 @@ const slotOrder: InventorySlot[] = [
     InventorySlot.Trinket2,
 ]
 
-export {
-    InventorySlot,
-    slotOrder,
-}
+export { InventorySlot, slotOrder }

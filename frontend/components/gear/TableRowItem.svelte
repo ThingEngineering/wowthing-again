@@ -1,7 +1,7 @@
 <script lang="ts">
-    import type {InventorySlot} from '@/data/inventory-slot'
-    import type {Character} from '@/types'
-    import {getItemUrl} from '@/utils/get-item-url'
+    import type { InventorySlot } from '@/data/inventory-slot'
+    import type { Character } from '@/types'
+    import { getItemUrl } from '@/utils/get-item-url'
 
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
@@ -40,7 +40,7 @@
 
 {#if equipped !== undefined}
     <div>
-        <a class="quality{equipped.quality}" href="{getItemUrl(equipped)}">
+        <a class="quality{equipped.quality}" href={getItemUrl(equipped)}>
             <WowthingImage name="item/{equipped.itemId}" size={40} border={2} />
             <span>{equipped.itemLevel}</span>
         </a>

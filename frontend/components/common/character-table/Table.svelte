@@ -2,11 +2,11 @@
     import filter from 'lodash/filter'
     import sortBy from 'lodash/sortBy'
     import sumBy from 'lodash/sumBy'
-    import {setContext} from 'svelte'
+    import { setContext } from 'svelte'
 
-    import {data as settings} from '@/stores/settings'
-    import {data as userData} from '@/stores/user'
-    import type {Character} from '@/types'
+    import { data as settings } from '@/stores/settings'
+    import { data as userData } from '@/stores/user'
+    import type { Character } from '@/types'
 
     import CharacterRow from './Row.svelte'
 
@@ -25,12 +25,17 @@
         }
     }
 
-    const span = 3 + sumBy([
-        $settings.general.showRaceIcon,
-        $settings.general.showClassIcon,
-        $settings.general.showSpecIcon,
-        $settings.general.showRealm,
-    ], (setting) => Number(setting))
+    const span =
+        3 +
+        sumBy(
+            [
+                $settings.general.showRaceIcon,
+                $settings.general.showClassIcon,
+                $settings.general.showSpecIcon,
+                $settings.general.showRealm,
+            ],
+            (setting) => Number(setting),
+        )
 </script>
 
 <style lang="scss">
@@ -68,7 +73,7 @@
 
 <div class="thing-container">
     <table class="table-striped">
-        <colgroup span="{span + extraSpan}"></colgroup>
+        <colgroup span={span + extraSpan} />
         <slot name="colgroup" />
         <slot name="head" />
         <tbody>

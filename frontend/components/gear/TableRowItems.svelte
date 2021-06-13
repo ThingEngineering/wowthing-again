@@ -1,8 +1,8 @@
 <script lang="ts">
-    import {getContext} from 'svelte'
+    import { getContext } from 'svelte'
 
-    import type {Character} from '@/types'
-    import {slotOrder} from '@/data/inventory-slot'
+    import type { Character } from '@/types'
+    import { slotOrder } from '@/data/inventory-slot'
 
     import RowItem from './TableRowItem.svelte'
 
@@ -23,9 +23,9 @@
     }
 </style>
 
-<td class="spacer" rowspan="{rowspan}"></td>
+<td class="spacer" {rowspan} />
 {#each slotOrder as inventorySlot}
-    <td class="gear" rowspan="{rowspan}">
+    <td class="gear" {rowspan}>
         <RowItem {character} {inventorySlot} />
     </td>
 {/each}

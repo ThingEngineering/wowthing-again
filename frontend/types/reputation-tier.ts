@@ -5,7 +5,13 @@ export class ReputationTier {
     Tier: number
     Value: number
 
-    constructor(name: string, tier: number, maxValue: number, value: number, percent: string) {
+    constructor(
+        name: string,
+        tier: number,
+        maxValue: number,
+        value: number,
+        percent: string,
+    ) {
         this.Name = name
         this.Tier = tier
         this.MaxValue = maxValue

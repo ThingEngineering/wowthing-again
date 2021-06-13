@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {afterUpdate} from 'svelte'
+    import { afterUpdate } from 'svelte'
 
     import CharacterTable from '@/components/common/character-table/Table.svelte'
     import RowItemLevel from '@/components/common/character-table/row/ItemLevel.svelte'

@@ -1,7 +1,7 @@
 <script lang="ts">
-    import {getContext} from 'svelte'
+    import { getContext } from 'svelte'
 
-    import {data as settings} from '@/stores/settings'
+    import { data as settings } from '@/stores/settings'
 
     let endSpacer: boolean
     $: endSpacer = getContext('endSpacer')
@@ -38,24 +38,24 @@
 
 <thead>
     <tr>
-        <th class="spacer"></th>
+        <th class="spacer" />
         {#if $settings.general.showRaceIcon}
-            <th class="icon"></th>
+            <th class="icon" />
         {/if}
         {#if $settings.general.showClassIcon}
-            <th class="icon"></th>
+            <th class="icon" />
         {/if}
         {#if $settings.general.showSpecIcon}
-            <th class="icon"></th>
+            <th class="icon" />
         {/if}
-        <th class="level"></th>
-        <th class="name"></th>
+        <th class="level" />
+        <th class="name" />
         {#if $settings.general.showRealm}
-            <th class="realm"></th>
+            <th class="realm" />
         {/if}
         <slot />
         {#if endSpacer === true}
-            <th class="spacer"></th>
+            <th class="spacer" />
         {/if}
     </tr>
 </thead>

@@ -1,8 +1,12 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy'
 
-    import {seasonMap} from '@/data/dungeon'
-    import type {Character, CharacterMythicPlusRun, MythicPlusSeason} from '@/types'
+    import { seasonMap } from '@/data/dungeon'
+    import type {
+        Character,
+        CharacterMythicPlusRun,
+        MythicPlusSeason,
+    } from '@/types'
 
     import CharacterTable from '@/components/common/character-table/Table.svelte'
     import Head from '@/components/common/character-table/Head.svelte'
@@ -23,17 +27,21 @@
 
     let filterFunc: (char: Character) => boolean
     let sortFunc: (char: Character) => number
-    let runsFunc: (char: Character, dungeonId: number) => CharacterMythicPlusRun[]
+    let runsFunc: (
+        char: Character,
+        dungeonId: number,
+    ) => CharacterMythicPlusRun[]
     let season: MythicPlusSeason
 
     $: {
         if (slug === 'thisweek') {
             season = firstSeason
-            runsFunc = (char, dungeonId) => char.mythicPlus?.periodRuns?.[dungeonId] || []
-        }
-        else {
+            runsFunc = (char, dungeonId) =>
+                char.mythicPlus?.periodRuns?.[dungeonId] || []
+        } else {
             season = seasonMap[slug.replace('season', '')]
-            runsFunc = (char, dungeonId) => char.mythicPlus?.seasons?.[season.Id]?.[dungeonId]
+            runsFunc = (char, dungeonId) =>
+                char.mythicPlus?.seasons?.[season.Id]?.[dungeonId]
             sortFunc = (char) => -(char.raiderIo?.[season.Id]?.all ?? 0)
         }
 
@@ -41,10 +49,15 @@
     }
 </script>
 
-<CharacterTable {filterFunc} {sortFunc} extraSpan={4 + (season.Id === firstSeason.Id ? 3 : 0)} endSpacer={false}>
+<CharacterTable
+    {filterFunc}
+    {sortFunc}
+    extraSpan={4 + (season.Id === firstSeason.Id ? 3 : 0)}
+    endSpacer={false}
+>
     <slot slot="colgroup">
         {#each season.Orders as order}
-            <colgroup span="{order.length}"></colgroup>
+            <colgroup span={order.length} />
         {/each}
     </slot>
 

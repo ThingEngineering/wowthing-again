@@ -1,7 +1,7 @@
 <script lang="ts">
     import tippy from '@/utils/tippy'
 
-    import type {StaticDataReputationSet, TippyProps} from '@/types'
+    import type { StaticDataReputationSet, TippyProps } from '@/types'
 
     import WowdbImage from '@/components/images/sources/WowdbImage.svelte'
 
@@ -11,7 +11,9 @@
     $: {
         tooltip = {
             allowHTML: true,
-            content: reputation.Both ? reputation.Both.Name : `[A] ${reputation.Alliance.Name}<br>[H] ${reputation.Horde.Name}`,
+            content: reputation.Both
+                ? reputation.Both.Name
+                : `[A] ${reputation.Alliance.Name}<br>[H] ${reputation.Horde.Name}`,
         }
     }
 </script>

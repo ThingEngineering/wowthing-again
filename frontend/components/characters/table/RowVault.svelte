@@ -1,8 +1,12 @@
 <script lang="ts">
-    import {getContext} from 'svelte'
+    import { getContext } from 'svelte'
 
-    import {Constants} from '@/data/constants'
-    import type {Character, CharacterWeeklyProgress, TippyProps} from '@/types'
+    import { Constants } from '@/data/constants'
+    import type {
+        Character,
+        CharacterWeeklyProgress,
+        TippyProps,
+    } from '@/types'
     import getMythicPlusVaultItemLevel from '@/utils/get-mythic-plus-vault-item-level'
     import getMythicPlusVaultTooltip from '@/utils/get-mythic-plus-vault-tooltip'
     import tippy from '@/utils/tippy'
@@ -37,11 +41,15 @@
     </TableIcon>
     {#each mythicPlus as progress}
         {#if progress.progress >= progress.threshold}
-            <td class="quality4" use:tippy={mythicPlusTooltip}>{getMythicPlusVaultItemLevel(progress.level)}</td>
+            <td class="quality4" use:tippy={mythicPlusTooltip}
+                >{getMythicPlusVaultItemLevel(progress.level)}</td
+            >
         {:else}
-            <td use:tippy={mythicPlusTooltip}>{progress.threshold - progress.progress} !</td>
+            <td use:tippy={mythicPlusTooltip}
+                >{progress.threshold - progress.progress} !</td
+            >
         {/if}
     {/each}
 {:else}
-    <td colspan="4"></td>
+    <td colspan="4" />
 {/if}

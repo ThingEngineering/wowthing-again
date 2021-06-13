@@ -1,11 +1,12 @@
 import sortBy from 'lodash/sortBy'
 
-import {dungeonMap} from '@/data/dungeon'
-import type {Character, TippyProps} from '@/types'
+import { dungeonMap } from '@/data/dungeon'
+import type { Character, TippyProps } from '@/types'
 import getMythicPlusVaultItemLevel from './get-mythic-plus-vault-item-level'
 
-
-export default function getMythicPlusVaultTooltip(character: Character): TippyProps {
+export default function getMythicPlusVaultTooltip(
+    character: Character,
+): TippyProps {
     let tooltip = `
 <div class="wowthing-tooltip">
     <h4>${character.name}</h4>
@@ -15,7 +16,10 @@ export default function getMythicPlusVaultTooltip(character: Character): TippyPr
 
     const runs = character.weekly?.vault.mythicPlusRuns ?? [[]]
     if (runs.length > 0) {
-        const sortedRuns = sortBy(character.weekly?.vault.mythicPlusRuns, (r) => -r[1])
+        const sortedRuns = sortBy(
+            character.weekly?.vault.mythicPlusRuns,
+            (r) => -r[1],
+        )
         for (let i = 0; i < sortedRuns.length; i++) {
             const [dungeonId, level] = sortedRuns[i]
             const dungeon = dungeonMap[dungeonId]
@@ -34,8 +38,7 @@ export default function getMythicPlusVaultTooltip(character: Character): TippyPr
                 </tr>
             `
         }
-    }
-    else {
+    } else {
         tooltip += '<tr><td colspan="3">Do some Mythic+ dungeons!</td></tr>'
     }
 

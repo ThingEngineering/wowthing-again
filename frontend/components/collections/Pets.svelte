@@ -7,4 +7,11 @@
     export let params: { slug: string }
 </script>
 
-<Collection route="pets" slug={params.slug} thingType="npc" thingMap={$staticData.CreatureToPet} userHas={$userData.pets} sets={$staticData.PetSets} />
+<Collection
+    route="pets"
+    slug={params.slug}
+    thingType="npc"
+    thingMap={$staticData.CreatureToPet}
+    userHas={$userData.pets}
+    sets={$staticData.PetSets}
+/>

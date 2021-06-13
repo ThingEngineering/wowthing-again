@@ -1,4 +1,4 @@
-import type {TippyProps} from '@/types/tippy'
+import type { TippyProps } from '@/types/tippy'
 
 export class Dungeon {
     id: number
@@ -9,7 +9,13 @@ export class Dungeon {
     timer2: number
     timer3: number
 
-    constructor(id: number, name: string, abbreviation: string, icon: string, timerMinutes: number) {
+    constructor(
+        id: number,
+        name: string,
+        abbreviation: string,
+        icon: string,
+        timerMinutes: number,
+    ) {
         this.id = id
         this.name = name
         this.abbreviation = abbreviation
@@ -21,7 +27,7 @@ export class Dungeon {
 
     getTooltip(): TippyProps {
         return {
-            content: `${this.name}`
+            content: `${this.name}`,
         }
     }
 
@@ -31,22 +37,19 @@ export class Dungeon {
                 plus: 3,
                 under: this.timer3 - ms,
             }
-        }
-        else if (ms < this.timer2) {
+        } else if (ms < this.timer2) {
             return {
                 plus: 2,
                 under: this.timer2 - ms,
                 over: ms - this.timer3,
             }
-        }
-        else if (ms < this.timer1) {
+        } else if (ms < this.timer1) {
             return {
                 plus: 1,
                 under: this.timer1 - ms,
                 over: ms - this.timer2,
             }
-        }
-        else {
+        } else {
             return {
                 plus: 0,
                 over: ms - this.timer1,

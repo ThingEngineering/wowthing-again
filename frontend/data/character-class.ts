@@ -1,5 +1,5 @@
-import {CharacterClass} from '@/types'
-import type {Dictionary} from '@/types'
+import { CharacterClass } from '@/types'
+import type { Dictionary } from '@/types'
 
 export const classMap: Dictionary<CharacterClass> = {
     1: new CharacterClass(1, 'Warrior', [71, 72, 73]),

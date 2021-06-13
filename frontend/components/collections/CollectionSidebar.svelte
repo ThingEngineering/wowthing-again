@@ -1,11 +1,11 @@
 <script lang="ts">
-    import {getContext} from 'svelte'
-    import {link} from 'svelte-spa-router'
+    import { getContext } from 'svelte'
+    import { link } from 'svelte-spa-router'
     import active from 'svelte-spa-router/active'
 
-    import type {CollectionContext} from '@/types/contexts'
+    import type { CollectionContext } from '@/types/contexts'
 
-    import {data as userData} from '@/stores/user'
+    import { data as userData } from '@/stores/user'
     import CollectionCount from './CollectionCount.svelte'
     import Sidebar from '@/components/common/Sidebar.svelte'
 
@@ -42,13 +42,17 @@
     {#each sets as categories}
         {#if categories}
             <li use:active={`/${route}/${categories[0].Slug}`}>
-                <a href="/{ route }/{ categories[0].Slug }" use:link>{ categories[0].Name }</a>
+                <a href="/{route}/{categories[0].Slug}" use:link
+                    >{categories[0].Name}</a
+                >
                 <span>
-                    <CollectionCount counts={$userData.setCounts[route][categories[0].Slug]} />
+                    <CollectionCount
+                        counts={$userData.setCounts[route][categories[0].Slug]}
+                    />
                 </span>
             </li>
         {:else}
-            <li class="separator"></li>
+            <li class="separator" />
         {/if}
     {/each}
 </Sidebar>

@@ -18,7 +18,4 @@ class MythicPlusSeason {
     }
 }
 
-export {
-    MythicPlusAffix,
-    MythicPlusSeason,
-}
+export { MythicPlusAffix, MythicPlusSeason }
