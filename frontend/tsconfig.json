@@ -1,0 +1,18 @@
+{
+  "extends": "@tsconfig/svelte/tsconfig.json",
+
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules/*"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "incremental": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "paths": {
+      "@/*": [ "*" ]
+    },
+    "strict": true,
+    "strictNullChecks": false,
+    "tsBuildInfoFile": "../src/Wowthing.Web/wwwroot/dist/.tsbuildinfo"
+  }
+}
