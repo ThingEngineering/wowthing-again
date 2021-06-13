@@ -1,17 +1,4 @@
-# WoWthing Again
-
-This is a rewrite of [the original WoWthing project](https://gitlab.com/thing-engineering/wowthing)
-for several reasons:
-
-- Too many languages to keep track of: Python website, Go backend, JS frontend, Lua addon.
-  I work with C# and TypeScript in my day job, neither of which are used in the old stack.
-- The [frontend code](https://gitlab.com/thing-engineering/wowthing/wowthing/-/tree/master/assets)
-  is an unmanageable mess, including a single 145KB JS file.
-- Everything to do with setting up development/production environments was awful, it's time
-  to use reproducible environments (Docker/Docker Compose).
-- .NET Core has matured to the point where it's solid and usable on Linux.
-
-## What is WoWthing?
+# WoWthing (again)
 
 WoWthing is a web tool to help manage your [World of Warcraft](https://worldofwarcraft.com/en-us/)
 characters. It makes extensive use of:
