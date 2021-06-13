@@ -1,9 +1,9 @@
 <script lang="ts">
-    import {getContext, setContext} from 'svelte'
+    import { getContext, setContext } from 'svelte'
 
-    import {data as settings} from '@/stores/settings'
-    import {data as userData} from '@/stores/user'
-    import type {Character} from '@/types'
+    import { data as settings } from '@/stores/settings'
+    import { data as userData } from '@/stores/user'
+    import type { Character } from '@/types'
     import getRealmName from '@/utils/get-realm-name'
 
     import TableIcon from '@/components/common/TableIcon.svelte'
@@ -18,7 +18,9 @@
     let accountEnabled: boolean
     let endSpacer: boolean
     $: {
-        accountEnabled = (character.accountId === undefined || $userData.accounts[character.accountId].enabled)
+        accountEnabled =
+            character.accountId === undefined ||
+            $userData.accounts[character.accountId].enabled
         endSpacer = getContext('endSpacer')
     }
 </script>
@@ -45,7 +47,7 @@
 </style>
 
 <tr class="faction{character.faction}" class:inactive={!accountEnabled}>
-    <td class="spacer"></td>
+    <td class="spacer" />
     {#if $settings.general.showRaceIcon}
         <TableIcon>
             <RaceIcon {character} size={20} />
@@ -68,6 +70,6 @@
     {/if}
     <slot name="rowExtra" />
     {#if endSpacer === true}
-        <td class="spacer"></td>
+        <td class="spacer" />
     {/if}
 </tr>

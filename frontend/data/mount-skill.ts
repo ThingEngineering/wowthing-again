@@ -1,4 +1,4 @@
-import type {Dictionary} from '@/types'
+import type { Dictionary } from '@/types'
 
 export interface MountSkill {
     allianceSpellId: number

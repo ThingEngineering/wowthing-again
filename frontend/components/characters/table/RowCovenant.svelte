@@ -1,8 +1,8 @@
 <script lang="ts">
-    import {getContext} from 'svelte'
+    import { getContext } from 'svelte'
 
-    import {covenantMap} from '@/data/covenant'
-    import type {Character} from '@/types'
+    import { covenantMap } from '@/data/covenant'
+    import type { Character } from '@/types'
     import tippy from '@/utils/tippy'
 
     import TableIcon from '@/components/common/TableIcon.svelte'
@@ -10,7 +10,10 @@
 
     const character: Character = getContext('character')
 
-    const covenant = character.shadowlands !== undefined ? covenantMap[character.shadowlands.covenantId] : undefined
+    const covenant =
+        character.shadowlands !== undefined
+            ? covenantMap[character.shadowlands.covenantId]
+            : undefined
 </script>
 
 <style lang="scss">
@@ -18,7 +21,7 @@
         padding-left: 0.1rem;
         padding-right: 0.7rem;
         text-align: right;
-        width: 2.0rem;
+        width: 2rem;
     }
 </style>
 

@@ -1,4 +1,4 @@
-import type {TippyProps} from '@/types/tippy'
+import type { TippyProps } from '@/types/tippy'
 
 export class Covenant {
     Name: string
@@ -11,7 +11,7 @@ export class Covenant {
 
     getTooltip(renown: number): TippyProps {
         return {
-            content: `${this.Name} R${renown}`
+            content: `${this.Name} R${renown}`,
         }
     }
 }

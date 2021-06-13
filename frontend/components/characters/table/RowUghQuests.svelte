@@ -1,9 +1,9 @@
 <script lang="ts">
-    import {getContext} from 'svelte'
+    import { getContext } from 'svelte'
 
-    import {Constants} from '@/data/constants'
-    import {data as settings} from '@/stores/settings'
-    import type {Character} from '@/types'
+    import { Constants } from '@/data/constants'
+    import { data as settings } from '@/stores/settings'
+    import type { Character } from '@/types'
 
     import RowUghQuest from './RowUghQuest.svelte'
     import TableIcon from '@/components/common/TableIcon.svelte'
@@ -19,7 +19,7 @@
         padding-left: 0.1rem;
         padding-right: 0.7rem;
         text-align: right;
-        width: 2.0rem;
+        width: 2rem;
     }
 </style>
 
@@ -31,7 +31,7 @@
         <RowUghQuest ughQuest={anima} />
     {:else}
         <TableIcon />
-        <td></td>
+        <td />
     {/if}
 {/if}
 
@@ -43,6 +43,6 @@
         <RowUghQuest ughQuest={souls} />
     {:else}
         <TableIcon />
-        <td></td>
+        <td />
     {/if}
 {/if}

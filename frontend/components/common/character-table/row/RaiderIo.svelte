@@ -1,9 +1,14 @@
 <script lang="ts">
-    import {getContext} from 'svelte'
+    import { getContext } from 'svelte'
 
-    import {raiderIoScores} from '@/data/raider-io'
-    import {data as staticData} from '@/stores/static'
-    import type {Character, CharacterRaiderIoSeason, MythicPlusSeason, TippyProps} from '@/types'
+    import { raiderIoScores } from '@/data/raider-io'
+    import { data as staticData } from '@/stores/static'
+    import type {
+        Character,
+        CharacterRaiderIoSeason,
+        MythicPlusSeason,
+        TippyProps,
+    } from '@/types'
     import tippy from '@/utils/tippy'
 
     import TableIcon from '@/components/common/TableIcon.svelte'
@@ -63,8 +68,10 @@
     <TableIcon>
         <RaiderIoIcon size={20} border={1} />
     </TableIcon>
-    <td class="score" style="color: {color}" use:tippy={tooltip}>{ scores.all.toFixed(1) }</td>
+    <td class="score" style="color: {color}" use:tippy={tooltip}
+        >{scores.all.toFixed(1)}</td
+    >
 {:else}
     <TableIcon />
-    <td></td>
+    <td />
 {/if}

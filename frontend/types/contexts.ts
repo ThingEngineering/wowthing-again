@@ -1,4 +1,4 @@
-import type {Dictionary, StaticDataSetCategory} from '.'
+import type { Dictionary, StaticDataSetCategory } from '.'
 
 export interface CollectionContext {
     slug: string

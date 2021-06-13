@@ -14,7 +14,6 @@ export * from './team-data'
 export * from './tippy'
 export * from './user-data'
 
-
 declare global {
     interface Window {
         __tip?: {

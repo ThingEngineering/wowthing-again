@@ -1,4 +1,4 @@
-import type {Dictionary} from './dictionary'
+import type { Dictionary } from './dictionary'
 
 export interface Character {
     accountId?: number

@@ -1,5 +1,4 @@
-import type {Dictionary} from './dictionary'
-
+import type { Dictionary } from './dictionary'
 
 export interface StaticData {
     Realms: Dictionary<StaticDataRealm>

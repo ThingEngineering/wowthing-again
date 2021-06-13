@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type {TeamDataCharacter} from '@/types'
+    import type { TeamDataCharacter } from '@/types'
 
     export let teamCharacter: TeamDataCharacter
 </script>
@@ -10,4 +10,4 @@
     }
 </style>
 
-<td colspan="2">{ teamCharacter.note }</td>
+<td colspan="2">{teamCharacter.note}</td>

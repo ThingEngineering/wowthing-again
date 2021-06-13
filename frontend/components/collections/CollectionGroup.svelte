@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type {Dictionary, StaticDataSetGroup} from '@/types'
+    import type { Dictionary, StaticDataSetGroup } from '@/types'
 
     import CollectionThing from './CollectionThing.svelte'
 

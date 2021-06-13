@@ -1,14 +1,13 @@
 <script lang="ts">
-    import {getContext} from 'svelte'
+    import { getContext } from 'svelte'
 
-    import {Constants} from '@/data/constants'
-    import type {Character} from '@/types'
+    import { Constants } from '@/data/constants'
+    import type { Character } from '@/types'
     //import tippy from '@/utils/tippy'
 
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     const character: Character = getContext('character')
-
 </script>
 
 <style lang="scss">
@@ -25,9 +24,19 @@
 
 <td>
     {#if false && character.isResting && character.level < Constants.characterMaxLevel}
-        <WowthingImage name="spell/140430" size={20} border={1} tooltip="Rested" />
+        <WowthingImage
+            name="spell/140430"
+            size={20}
+            border={1}
+            tooltip="Rested"
+        />
     {/if}
     {#if character.isWarMode}
-        <WowthingImage name="spell/304019" size={20} border={1} tooltip="War Mode" />
+        <WowthingImage
+            name="spell/304019"
+            size={20}
+            border={1}
+            tooltip="War Mode"
+        />
     {/if}
 </td>

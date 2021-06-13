@@ -1,8 +1,16 @@
 <script lang="ts">
-    import {onMount} from 'svelte'
+    import { onMount } from 'svelte'
 
-    import {error as staticError, loading as staticLoading, fetch as fetchStatic} from '@/stores/static'
-    import {error as teamError, loading as teamLoading, fetch as fetchTeam} from '@/stores/team'
+    import {
+        error as staticError,
+        loading as staticLoading,
+        fetch as fetchStatic,
+    } from '@/stores/static'
+    import {
+        error as teamError,
+        loading as teamLoading,
+        fetch as fetchTeam,
+    } from '@/stores/team'
 
     import Routes from './Routes.svelte'
     import Sidebar from './Sidebar.svelte'

@@ -1,4 +1,4 @@
-import type {Character} from './character'
+import type { Character } from './character'
 
 export interface TeamData {
     defaultRealmId: number

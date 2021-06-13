@@ -1,7 +1,7 @@
 <script lang="ts">
-    import {getContext} from 'svelte'
+    import { getContext } from 'svelte'
 
-    import {data} from '@/stores/static'
+    import { data } from '@/stores/static'
     import type {
         Character,
         ReputationTier,
@@ -23,14 +23,21 @@
 
     $: {
         if (character !== undefined && reputation !== undefined) {
-            const repInfo = reputation.Both || (character.faction === 0 ? reputation.Alliance : reputation.Horde)
+            const repInfo =
+                reputation.Both ||
+                (character.faction === 0
+                    ? reputation.Alliance
+                    : reputation.Horde)
             const dataRep: StaticDataReputation = $data.Reputations[repInfo.Id]
             characterRep = character.reputations[repInfo.Id]
 
             if (characterRep !== undefined && dataRep !== undefined) {
-                const tiers: StaticDataReputationTier = $data.ReputationTiers[dataRep.TierId]
+                const tiers: StaticDataReputationTier =
+                    $data.ReputationTiers[dataRep.TierId]
                 repTier = findReputationTier(tiers, characterRep)
-                let valueRank = repTier.MaxValue ? `${repTier.Value} / ${repTier.MaxValue} ${repTier.Name}` : repTier.Name
+                let valueRank = repTier.MaxValue
+                    ? `${repTier.Value} / ${repTier.MaxValue} ${repTier.Name}`
+                    : repTier.Name
 
                 tooltip = {
                     allowHTML: true,
@@ -54,7 +61,9 @@
 </style>
 
 {#if characterRep !== undefined && tooltip !== undefined}
-    <td class="reputation{repTier.Tier}" use:tippy={tooltip}>{repTier.Percent}%</td>
+    <td class="reputation{repTier.Tier}" use:tippy={tooltip}
+        >{repTier.Percent}%</td
+    >
 {:else}
     <td>&nbsp;</td>
 {/if}

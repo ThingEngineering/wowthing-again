@@ -1,7 +1,7 @@
 <script lang="ts">
     import find from 'lodash/find'
 
-    import type {Dictionary} from '@/types'
+    import type { Dictionary } from '@/types'
 
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
@@ -13,7 +13,11 @@
     let userHasThing: number | undefined
     let origId: number
     $: {
-        userHasThing = find(things, (value: number): boolean => userHas[thingMap[value] || -1] !== undefined)
+        userHasThing = find(
+            things,
+            (value: number): boolean =>
+                userHas[thingMap[value] || -1] !== undefined,
+        )
         origId = userHasThing ?? things[0]
     }
 </script>

@@ -1,5 +1,5 @@
-import {Covenant} from '@/types'
-import type {Dictionary} from '@/types'
+import { Covenant } from '@/types'
+import type { Dictionary } from '@/types'
 
 const covenantMap: Dictionary<Covenant> = {
     1: new Covenant('Kyrian', 'covenant_kyrian'),
@@ -8,6 +8,4 @@ const covenantMap: Dictionary<Covenant> = {
     4: new Covenant('Necrolord', 'covenant_necrolord'),
 }
 
-export {
-    covenantMap
-}
+export { covenantMap }

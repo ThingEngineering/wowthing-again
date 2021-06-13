@@ -1,8 +1,8 @@
 <script lang="ts">
-    import {getContext} from 'svelte'
+    import { getContext } from 'svelte'
 
-    import {badgeToClass} from '@/data/dungeon'
-    import type {Character, MythicPlusSeason} from '@/types'
+    import { badgeToClass } from '@/data/dungeon'
+    import type { Character, MythicPlusSeason } from '@/types'
 
     import TableIcon from '@/components/common/TableIcon.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
@@ -15,6 +15,12 @@
 
 <TableIcon>
     {#if badge !== undefined}
-        <WowthingImage name="mythic_plus_{badge}" cls="{badgeToClass[badge]}" size={20} border={1} tooltip="All timed +{badge} or higher" />
+        <WowthingImage
+            name="mythic_plus_{badge}"
+            cls={badgeToClass[badge]}
+            size={20}
+            border={1}
+            tooltip="All timed +{badge} or higher"
+        />
     {/if}
 </TableIcon>

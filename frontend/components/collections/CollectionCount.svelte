@@ -1,7 +1,7 @@
 <script lang="ts">
-    export let counts: { have: number, total: number }
+    export let counts: { have: number; total: number }
 
-    $: per = counts.have / counts.total * 100
+    $: per = (counts.have / counts.total) * 100
 </script>
 
 <style type="scss">
@@ -11,5 +11,6 @@
 </style>
 
 <span>
-    <em class="quality{ Math.floor(per / 25) + 1 }">{ counts.have }</em> / <em class="quality{ Math.floor(per / 25) + 1 }">{ counts.total }</em>
+    <em class="quality{Math.floor(per / 25) + 1}">{counts.have}</em> /
+    <em class="quality{Math.floor(per / 25) + 1}">{counts.total}</em>
 </span>

@@ -1,5 +1,5 @@
 <script lang="ts">
-    export let width = "10rem"
+    export let width = '10rem'
 </script>
 
 <style lang="scss">
@@ -28,6 +28,6 @@
 
 <nav class="thing-container" style="--width: {width}">
     <ul>
-        <slot></slot>
+        <slot />
     </ul>
 </nav>

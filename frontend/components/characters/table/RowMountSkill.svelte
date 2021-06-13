@@ -1,9 +1,9 @@
 <script lang="ts">
-    import {getContext} from 'svelte'
+    import { getContext } from 'svelte'
 
-    import {mountSkillMap} from '@/data/mount-skill'
-    import {data as userData} from '@/stores/user'
-    import type {Character} from '@/types'
+    import { mountSkillMap } from '@/data/mount-skill'
+    import { data as userData } from '@/stores/user'
+    import type { Character } from '@/types'
 
     import TableIcon from '@/components/common/TableIcon.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
@@ -18,7 +18,10 @@
         const mountSkill = mountSkillMap[character.mountSkill]
         if (mountSkill !== undefined) {
             speed = mountSkill.speed
-            spellId = character.faction === 0 ? mountSkill.allianceSpellId : mountSkill.hordeSpellId
+            spellId =
+                character.faction === 0
+                    ? mountSkill.allianceSpellId
+                    : mountSkill.hordeSpellId
 
             let nextSkill = mountSkillMap[character.mountSkill + 1]
             if (nextSkill) {
@@ -54,8 +57,11 @@
     <TableIcon>
         <WowthingImage name="spell/{spellId}" size={20} border={1} />
     </TableIcon>
-    <td class:success={upgrade && (afford || $userData.public)} class:broke={upgrade && (!afford && !$userData.public)}>{speed}</td>
+    <td
+        class:success={upgrade && (afford || $userData.public)}
+        class:broke={upgrade && !afford && !$userData.public}>{speed}</td
+    >
 {:else}
-    <TableIcon></TableIcon>
+    <TableIcon />
     <td>&nbsp;</td>
 {/if}

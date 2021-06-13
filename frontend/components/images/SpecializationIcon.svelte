@@ -1,6 +1,6 @@
 <script lang="ts">
-    import {specializationMap} from '@/data/character-specialization'
-    import type {Character, CharacterSpecialization} from '@/types'
+    import { specializationMap } from '@/data/character-specialization'
+    import type { Character, CharacterSpecialization } from '@/types'
 
     import WowthingImage from './sources/WowthingImage.svelte'
 
@@ -11,7 +11,8 @@
     let iconName: string
     let tooltip: string
     $: {
-        const spec: CharacterSpecialization = specializationMap[character.activeSpecId]
+        const spec: CharacterSpecialization =
+            specializationMap[character.activeSpecId]
         iconName = spec?.icon ?? 'spec_unknown'
         tooltip = spec?.name ?? 'Unknown'
     }

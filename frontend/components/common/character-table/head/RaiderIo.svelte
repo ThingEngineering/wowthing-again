@@ -9,5 +9,5 @@
     }
 </style>
 
-<th class="icon"></th>
-<th class="raider-io"></th>
+<th class="icon" />
+<th class="raider-io" />

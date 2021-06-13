@@ -1,7 +1,7 @@
 <script lang="ts">
-    import {getContext} from 'svelte'
+    import { getContext } from 'svelte'
 
-    import type {Character} from '@/types'
+    import type { Character } from '@/types'
 
     const character: Character = getContext('character')
 </script>
@@ -14,4 +14,6 @@
     }
 </style>
 
-<td class="quality{character.calculatedItemLevelQuality}">{character.calculatedItemLevel}</td>
+<td class="quality{character.calculatedItemLevelQuality}"
+    >{character.calculatedItemLevel}</td
+>

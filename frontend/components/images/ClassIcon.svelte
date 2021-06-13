@@ -1,6 +1,6 @@
 <script lang="ts">
-    import {classMap} from '@/data/character-class'
-    import type {Character, CharacterClass} from '@/types'
+    import { classMap } from '@/data/character-class'
+    import type { Character, CharacterClass } from '@/types'
 
     import WowthingImage from './sources/WowthingImage.svelte'
 

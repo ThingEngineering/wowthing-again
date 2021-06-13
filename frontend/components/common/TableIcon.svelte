@@ -15,5 +15,5 @@
 </style>
 
 <td>
-    <slot></slot>
+    <slot />
 </td>

@@ -1,21 +1,25 @@
 import keys from 'lodash/keys'
 
 import getItemLevelQuality from './get-item-level-quality'
-import {seasonMap} from '@/data/dungeon'
-import {InventorySlot, slotOrder} from '@/data/inventory-slot'
-import type {Character, CharacterMythicPlusRun} from '@/types'
+import { seasonMap } from '@/data/dungeon'
+import { InventorySlot, slotOrder } from '@/data/inventory-slot'
+import type { Character, CharacterMythicPlusRun } from '@/types'
 
 export default function initializeCharacter(character: Character): void {
     // item levels
     if (keys(character.equippedItems).length > 0) {
-        let count = 0, itemLevels = 0
+        let count = 0,
+            itemLevels = 0
         for (let j = 0; j < slotOrder.length; j++) {
             const slot = slotOrder[j]
             const item = character.equippedItems[slot]
             if (item !== undefined) {
                 itemLevels += item.itemLevel
                 count++
-                if (slot === InventorySlot.MainHand && character.equippedItems[InventorySlot.OffHand] === undefined) {
+                if (
+                    slot === InventorySlot.MainHand &&
+                    character.equippedItems[InventorySlot.OffHand] === undefined
+                ) {
                     itemLevels += item.itemLevel
                     count++
                 }
@@ -23,7 +27,7 @@ export default function initializeCharacter(character: Character): void {
         }
 
         const itemLevel = itemLevels / count
-        if ((itemLevel - character.equippedItemLevel) < 1) {
+        if (itemLevel - character.equippedItemLevel < 1) {
             character.calculatedItemLevel = itemLevel.toFixed(1)
         }
     }
@@ -32,7 +36,9 @@ export default function initializeCharacter(character: Character): void {
         character.calculatedItemLevel = character.equippedItemLevel.toFixed(1)
     }
 
-    character.calculatedItemLevelQuality = getItemLevelQuality(parseFloat(character.calculatedItemLevel))
+    character.calculatedItemLevelQuality = getItemLevelQuality(
+        parseFloat(character.calculatedItemLevel),
+    )
 
     // mythic+ seasons
     if (character.mythicPlus?.seasons) {
@@ -42,7 +48,11 @@ export default function initializeCharacter(character: Character): void {
             if (character.level >= season.MinLevel) {
                 const characterSeason = character.mythicPlus.seasons[seasonId]
                 if (characterSeason !== undefined) {
-                    let total = 0, timed2 = 0, timed5 = 0, timed10 = 0, timed15 = 0
+                    let total = 0,
+                        timed2 = 0,
+                        timed5 = 0,
+                        timed10 = 0,
+                        timed15 = 0
                     for (let i = 0; i < season.Orders.length; i++) {
                         for (let j = 0; j < season.Orders[i].length; j++) {
                             total++
@@ -69,14 +79,11 @@ export default function initializeCharacter(character: Character): void {
 
                     if (timed15 === total) {
                         character.mythicPlus.seasonBadges[season.Id] = '15'
-                    }
-                    else if (timed10 === total) {
+                    } else if (timed10 === total) {
                         character.mythicPlus.seasonBadges[season.Id] = '10'
-                    }
-                    else if (timed5 === total) {
+                    } else if (timed5 === total) {
                         character.mythicPlus.seasonBadges[season.Id] = '5'
-                    }
-                    else if (timed2 === total) {
+                    } else if (timed2 === total) {
                         character.mythicPlus.seasonBadges[season.Id] = '2'
                     }
                 }

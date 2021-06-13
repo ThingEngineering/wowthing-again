@@ -5,4 +5,4 @@
     }
 </style>
 
-<th class="icon"></th>
+<th class="icon" />

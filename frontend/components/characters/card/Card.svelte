@@ -1,8 +1,8 @@
 <script lang="ts">
-    import {specializationMap} from '@/data/character-specialization'
-    import {data as settings} from '@/stores/settings'
-    import {data as userData} from '@/stores/user'
-    import type {Character, CharacterSpecialization} from '@/types'
+    import { specializationMap } from '@/data/character-specialization'
+    import { data as settings } from '@/stores/settings'
+    import { data as userData } from '@/stores/user'
+    import type { Character, CharacterSpecialization } from '@/types'
     import getRealmName from '@/utils/get-realm-name'
     import tippy from '@/utils/tippy'
 
@@ -18,7 +18,9 @@
     let spec: CharacterSpecialization
 
     $: {
-        accountEnabled = (character.accountId === undefined || $userData.accounts[character.accountId].enabled)
+        accountEnabled =
+            character.accountId === undefined ||
+            $userData.accounts[character.accountId].enabled
         accountTag = $userData.accounts?.[character.accountId]?.tag
         spec = specializationMap[character.activeSpecId]
     }
@@ -85,7 +87,8 @@
     .faction1 .spec :global(img) {
         border-color: $horde-border-dark;
     }
-    .level, .item-level {
+    .level,
+    .item-level {
         position: absolute;
         bottom: -10px;
         background: $thing-background;
@@ -114,7 +117,11 @@
     }
 </style>
 
-<article class:faction0={character.faction === 0} class:faction1={character.faction === 1} class:inactive={!accountEnabled}>
+<article
+    class:faction0={character.faction === 0}
+    class:faction1={character.faction === 1}
+    class:inactive={!accountEnabled}
+>
     {#if accountTag}
         <div class="tag">{accountTag}</div>
     {/if}
@@ -126,8 +133,15 @@
                 <SpecializationIcon {character} size={24} border={2} />
             </div>
         {/if}
-        <div class="level" use:tippy={{content: `Level ${character.level}`}}>{character.level}</div>
-        <div class="item-level quality{character.calculatedItemLevelQuality}" use:tippy={{content: `Item Level ${character.equippedItemLevel}`}}>{character.calculatedItemLevel}</div>
+        <div class="level" use:tippy={{ content: `Level ${character.level}` }}>
+            {character.level}
+        </div>
+        <div
+            class="item-level quality{character.calculatedItemLevelQuality}"
+            use:tippy={{ content: `Item Level ${character.equippedItemLevel}` }}
+        >
+            {character.calculatedItemLevel}
+        </div>
     </div>
     <div class="name">{character.name}</div>
     {#if $settings.general.showRealm}

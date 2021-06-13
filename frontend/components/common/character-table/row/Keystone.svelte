@@ -1,9 +1,9 @@
 <script lang="ts">
-    import {getContext} from 'svelte'
+    import { getContext } from 'svelte'
 
-    import {Constants} from '@/data/constants'
-    import {dungeonMap} from '@/data/dungeon'
-    import type {Character, CharacterMythicPlusRun, Dungeon} from '@/types'
+    import { Constants } from '@/data/constants'
+    import { dungeonMap } from '@/data/dungeon'
+    import type { Character, CharacterMythicPlusRun, Dungeon } from '@/types'
     import getMythicPlusRunQuality from '@/utils/get-mythic-plus-run-quality'
 
     import TableIcon from '@/components/common/TableIcon.svelte'
@@ -17,8 +17,13 @@
         if (character.weekly?.keystoneDungeon) {
             dungeon = dungeonMap[character.weekly.keystoneDungeon]
             // FIXME set active season somewhere
-            const run: CharacterMythicPlusRun | undefined = character.mythicPlus?.seasons[5]?.[dungeon.id]?.[0]
-            if (run?.timed !== true || (run?.timed === true && character.weekly.keystoneLevel > run.keystoneLevel)) {
+            const run: CharacterMythicPlusRun | undefined =
+                character.mythicPlus?.seasons[5]?.[dungeon.id]?.[0]
+            if (
+                run?.timed !== true ||
+                (run?.timed === true &&
+                    character.weekly.keystoneLevel > run.keystoneLevel)
+            ) {
                 upgrade = true
             }
         }
@@ -40,7 +45,7 @@
         width: $table-width-key-dungeon;
         padding-right: 0.5rem;
 
-        span+span {
+        span + span {
             font-size: 0.9rem;
         }
     }
@@ -52,15 +57,17 @@
 
 {#if character.level === Constants.characterMaxLevel && dungeon}
     <TableIcon>
-        <WowthingImage name="{dungeon.icon}" size={20} border={1} />
+        <WowthingImage name={dungeon.icon} size={20} border={1} />
     </TableIcon>
-    <td class="level { getMythicPlusRunQuality(character.weekly.keystoneLevel) }">{ character.weekly.keystoneLevel }</td>
+    <td class="level {getMythicPlusRunQuality(character.weekly.keystoneLevel)}"
+        >{character.weekly.keystoneLevel}</td
+    >
     <td class="dungeon">
-        <span>{ dungeon.abbreviation }</span>
+        <span>{dungeon.abbreviation}</span>
         {#if upgrade}
             <span class="upgrade">★</span>
         {/if}
     </td>
 {:else}
-    <td colspan="3"></td>
+    <td colspan="3" />
 {/if}

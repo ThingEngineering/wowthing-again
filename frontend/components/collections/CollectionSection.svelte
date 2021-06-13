@@ -1,26 +1,24 @@
 <script lang="ts">
     import filter from 'lodash/filter'
     import find from 'lodash/find'
-    import {getContext} from 'svelte'
+    import { getContext } from 'svelte'
 
-    import {data as userData} from '@/stores/user'
-    import type {StaticDataSetCategory} from '@/types'
+    import { data as userData } from '@/stores/user'
+    import type { StaticDataSetCategory } from '@/types'
 
     import CollectionCount from './CollectionCount.svelte'
     import CollectionGroup from './CollectionGroup.svelte'
 
     export let slug: string
 
-    const {
-        route,
-        sets,
-        thingMap,
-        thingType,
-        userHas
-    } = getContext('collection')
+    const { route, sets, thingMap, thingType, userHas } =
+        getContext('collection')
 
     let sections: StaticDataSetCategory[]
-    $: sections = filter(find(sets, (s) => s !== null && s[0].Slug === slug), (s) => s.Groups.length > 0)
+    $: sections = filter(
+        find(sets, (s) => s !== null && s[0].Slug === slug),
+        (s) => s.Groups.length > 0,
+    )
 </script>
 
 <style lang="scss">
@@ -38,7 +36,7 @@
         color: #ddd;
     }
     span {
-        font-size: 1.0rem;
+        font-size: 1rem;
         font-weight: normal;
         margin-left: 0.5rem;
     }
@@ -52,7 +50,16 @@
 {#each sections as section}
     <div class="section thing-container">
         {#if section.Name}
-            <h3>{section.Name} <span><CollectionCount counts={$userData.setCounts[route][`${slug}_${section.Slug}`]} /></span></h3>
+            <h3>
+                {section.Name}
+                <span
+                    ><CollectionCount
+                        counts={$userData.setCounts[route][
+                            `${slug}_${section.Slug}`
+                        ]}
+                    /></span
+                >
+            </h3>
         {/if}
         <div class="container">
             {#each section.Groups as group, i (`${thingType}-${slug}-${i}`)}

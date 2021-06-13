@@ -13,6 +13,6 @@
     }
 </style>
 
-<th class="icon"></th>
-<th class="keystone-level"></th>
-<th class="keystone-dungeon"></th>
+<th class="icon" />
+<th class="keystone-level" />
+<th class="keystone-dungeon" />
