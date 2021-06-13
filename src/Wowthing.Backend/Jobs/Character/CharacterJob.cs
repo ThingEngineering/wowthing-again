@@ -88,27 +88,36 @@ namespace Wowthing.Backend.Jobs.Character
             await _context.SaveChangesAsync();
 
             // Character changed, queue some more stuff
-            await _jobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterEquipment, data);
-            await _jobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterMounts, data);
-            await _jobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterQuestsCompleted, data);
-            await _jobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterReputations, data);
+            var jobs = new List<JobType>
+            {
+                JobType.CharacterAchievements,
+                JobType.CharacterEquipment,
+                JobType.CharacterMounts,
+                JobType.CharacterQuestsCompleted,
+                JobType.CharacterReputations,
+            };
 
             // API only has M+ data from BfA onwards
             if (character.Level >= 50)
             {
-                await _jobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterMythicKeystoneProfile, data);
+                jobs.Add(JobType.CharacterMythicKeystoneProfile);
             }
 
             // Shadowlands specific
             if (character.Level >= 50)
             {
-                await _jobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterSoulbinds, data);
+                jobs.Add(JobType.CharacterSoulbinds);
             }
 
             // FIXME RaiderIO for max level people?
             if (character.Level == 60)
             {
-                await _jobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterRaiderIo, data);
+                jobs.Add(JobType.CharacterRaiderIo);
+            }
+
+            foreach (var jobType in jobs)
+            {
+                await _jobRepository.AddJobAsync(JobPriority.Low, jobType, data);
             }
         }
     }
