@@ -27,6 +27,7 @@ namespace Wowthing.Lib.Contexts
         public DbSet<PlayerAccountToys> PlayerAccountToys { get; set; }
 
         public DbSet<PlayerCharacter> PlayerCharacter { get; set; }
+        public DbSet<PlayerCharacterAchievements> PlayerCharacterAchievements { get; set; }
         public DbSet<PlayerCharacterEquippedItems> PlayerCharacterEquippedItems { get; set; }
         public DbSet<PlayerCharacterMythicPlus> PlayerCharacterMythicPlus { get; set; }
         public DbSet<PlayerCharacterMythicPlusSeason> PlayerCharacterMythicPlusSeason { get; set; }

@@ -439,6 +439,26 @@ namespace Wowthing.Lib.Migrations
                     b.ToTable("player_character");
                 });
 
+            modelBuilder.Entity("Wowthing.Lib.Models.PlayerCharacterAchievements", b =>
+                {
+                    b.Property<int>("CharacterId")
+                        .HasColumnType("integer")
+                        .HasColumnName("character_id");
+
+                    b.Property<Dictionary<int, int>>("AchievementTimestamps")
+                        .HasColumnType("jsonb")
+                        .HasColumnName("achievement_timestamps");
+
+                    b.Property<Dictionary<int, long>>("CriteriaAmounts")
+                        .HasColumnType("jsonb")
+                        .HasColumnName("criteria_amounts");
+
+                    b.HasKey("CharacterId")
+                        .HasName("pk_player_character_achievements");
+
+                    b.ToTable("player_character_achievements");
+                });
+
             modelBuilder.Entity("Wowthing.Lib.Models.PlayerCharacterEquippedItems", b =>
                 {
                     b.Property<int>("CharacterId")
@@ -945,6 +965,18 @@ namespace Wowthing.Lib.Migrations
                         .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Account");
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.PlayerCharacterAchievements", b =>
+                {
+                    b.HasOne("Wowthing.Lib.Models.PlayerCharacter", "Character")
+                        .WithMany()
+                        .HasForeignKey("CharacterId")
+                        .HasConstraintName("fk_player_character_achievements_player_character_character_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Character");
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.PlayerCharacterEquippedItems", b =>
