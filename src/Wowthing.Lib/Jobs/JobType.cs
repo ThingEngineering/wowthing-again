@@ -14,6 +14,7 @@ namespace Wowthing.Lib.Jobs
         CharacterMounts,
         CharacterMythicKeystoneProfile,
         CharacterMythicKeystoneProfileSeason,
+        CharacterProfessions,
         CharacterQuestsCompleted,
         CharacterReputations,
         CharacterSoulbinds,

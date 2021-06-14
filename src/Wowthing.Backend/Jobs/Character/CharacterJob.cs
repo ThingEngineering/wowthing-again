@@ -93,6 +93,7 @@ namespace Wowthing.Backend.Jobs.Character
                 JobType.CharacterAchievements,
                 JobType.CharacterEquipment,
                 JobType.CharacterMounts,
+                JobType.CharacterProfessions,
                 JobType.CharacterQuestsCompleted,
                 JobType.CharacterReputations,
             };
