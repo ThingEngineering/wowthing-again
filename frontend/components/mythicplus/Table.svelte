@@ -8,18 +8,18 @@
         MythicPlusSeason,
     } from '@/types'
 
-    import CharacterTable from '@/components/common/character-table/Table.svelte'
-    import Head from '@/components/common/character-table/Head.svelte'
+    import CharacterTable from '@/components/character-table/Table.svelte'
+    import Head from '@/components/character-table/Head.svelte'
     import HeadDungeon from './TableHeadDungeon.svelte'
-    import HeadItemLevel from '@/components/common/character-table/head/ItemLevel.svelte'
-    import HeadKeystone from '@/components/common/character-table/head/Keystone.svelte'
-    import HeadMythicPlusBadge from '@/components/common/character-table/head/MythicPlusBadge.svelte'
-    import HeadRaiderIo from '@/components/common/character-table/head/RaiderIo.svelte'
+    import HeadItemLevel from '@/components/character-table/head/ItemLevel.svelte'
+    import HeadKeystone from '@/components/character-table/head/Keystone.svelte'
+    import HeadMythicPlusBadge from '@/components/character-table/head/MythicPlusBadge.svelte'
+    import HeadRaiderIo from '@/components/character-table/head/RaiderIo.svelte'
     import RowDungeon from './TableRowDungeon.svelte'
-    import RowItemLevel from '@/components/common/character-table/row/ItemLevel.svelte'
-    import RowKeystone from '@/components/common/character-table/row/Keystone.svelte'
-    import RowMythicPlusBadge from '@/components/common/character-table/row/MythicPlusBadge.svelte'
-    import RowRaiderIo from '@/components/common/character-table/row/RaiderIo.svelte'
+    import RowItemLevel from '@/components/character-table/row/ItemLevel.svelte'
+    import RowKeystone from '@/components/character-table/row/Keystone.svelte'
+    import RowMythicPlusBadge from '@/components/character-table/row/MythicPlusBadge.svelte'
+    import RowRaiderIo from '@/components/character-table/row/RaiderIo.svelte'
 
     export let slug: string
 

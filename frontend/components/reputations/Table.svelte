@@ -4,8 +4,8 @@
 
     import { data as staticData } from '@/stores/static'
 
-    import CharacterTable from '@/components/common/character-table/Table.svelte'
-    import Head from '@/components/common/character-table/Head.svelte'
+    import CharacterTable from '@/components/character-table/Table.svelte'
+    import Head from '@/components/character-table/Head.svelte'
     import HeadReputation from './TableHeadReputation.svelte'
     import RowReputation from './TableRowReputation.svelte'
 

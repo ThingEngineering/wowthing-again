@@ -2,8 +2,8 @@
     import Router from 'svelte-spa-router'
 
     import Gear from '@/components/gear/Gear.svelte'
-    import CharactersCards from '@/components/characters/Cards.svelte'
-    import CharactersTable from '@/components/characters/Table.svelte'
+    import HomeCards from '@/components/home/Cards.svelte'
+    import HomeTable from '@/components/home/Table.svelte'
     import Mounts from '@/components/collections/Mounts.svelte'
     import MythicPlus from '@/components/mythicplus/MythicPlus.svelte'
     import Pets from '@/components/collections/Pets.svelte'
@@ -13,9 +13,9 @@
     import Transmog from '@/components/transmog/Transmog.svelte'
 
     const routes = {
-        '/': CharactersTable,
-        '/cards': CharactersCards,
-        '/table': CharactersTable,
+        '/': HomeTable,
+        '/cards': HomeCards,
+        '/table': HomeTable,
 
         '/gear': Gear,
         '/mythicplus/:slug?': MythicPlus,
