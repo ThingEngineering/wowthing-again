@@ -29,9 +29,6 @@
     .inactive {
         opacity: $inactive-opacity;
     }
-    .spacer {
-        width: $character-width-spacer;
-    }
     .level {
         padding-left: 0.5rem;
         text-align: right;
@@ -47,19 +44,18 @@
 </style>
 
 <tr class="faction{character.faction}" class:inactive={!accountEnabled}>
-    <td class="spacer" />
     {#if $settings.general.showRaceIcon}
         <TableIcon>
             <RaceIcon {character} size={20} />
         </TableIcon>
     {/if}
     {#if $settings.general.showClassIcon}
-        <TableIcon>
+        <TableIcon padLeft="0px">
             <ClassIcon {character} size={20} />
         </TableIcon>
     {/if}
     {#if $settings.general.showSpecIcon}
-        <TableIcon>
+        <TableIcon padLeft="0px">
             <SpecializationIcon {character} size={20} />
         </TableIcon>
     {/if}
@@ -70,6 +66,6 @@
     {/if}
     <slot name="rowExtra" />
     {#if endSpacer === true}
-        <td class="spacer" />
+        <td class="spacer">&nbsp;</td>
     {/if}
 </tr>

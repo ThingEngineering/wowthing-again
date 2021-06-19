@@ -23,7 +23,7 @@
     }
 </style>
 
-<td class="spacer" {rowspan} />
+<td class="spacer" {rowspan}>&nbsp;</td>
 {#each slotOrder as inventorySlot}
     <td class="gear" {rowspan}>
         <RowItem {character} {inventorySlot} />

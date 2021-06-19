@@ -1,6 +1,4 @@
 <script lang="ts">
-    import { getContext } from 'svelte'
-
     import { Constants } from '@/data/constants'
     import type {
         Character,
@@ -11,10 +9,7 @@
     import getMythicPlusVaultTooltip from '@/utils/get-mythic-plus-vault-tooltip'
     import tippy from '@/utils/tippy'
 
-    import TableIcon from '@/components/common/TableIcon.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
-
-    const character: Character = getContext('character')
+    export let character: Character
 
     let mythicPlus: CharacterWeeklyProgress[] | undefined
     let mythicPlusTooltip: TippyProps
@@ -30,15 +25,13 @@
 
 <style lang="scss">
     td {
+        min-width: $character-width-vault;
+        width: $character-width-vault;
         text-align: center;
-        width: 2.3rem;
     }
 </style>
 
 {#if mythicPlus}
-    <TableIcon>
-        <WowthingImage name="idk_keystone" size={20} border={1} />
-    </TableIcon>
     {#each mythicPlus as progress}
         {#if progress.progress >= progress.threshold}
             <td class="quality4" use:tippy={mythicPlusTooltip}
@@ -51,5 +44,7 @@
         {/if}
     {/each}
 {:else}
-    <td colspan="4" />
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
 {/if}

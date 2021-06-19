@@ -1,4 +1,5 @@
 import type { Dictionary } from './dictionary'
+import type {Faction} from '@/data/faction'
 
 export interface Character {
     accountId?: number
@@ -6,9 +7,10 @@ export interface Character {
     chromieTime: number
     classId: number
     equippedItemLevel: number
-    faction: number
+    faction: Faction
     gender: number
     gold: number
+    id: number
     isResting: boolean
     isWarMode: boolean
     level: number

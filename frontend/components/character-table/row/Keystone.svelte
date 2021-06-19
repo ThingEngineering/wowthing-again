@@ -63,11 +63,13 @@
         >{character.weekly.keystoneLevel}</td
     >
     <td class="dungeon">
-        <span>{dungeon.abbreviation}</span>
+        {dungeon.abbreviation}
         {#if upgrade}
             <span class="upgrade">★</span>
         {/if}
     </td>
 {:else}
-    <td colspan="3" />
+    <TableIcon />
+    <td class="level">&nbsp;</td>
+    <td class="dungeon">&nbsp;</td>
 {/if}

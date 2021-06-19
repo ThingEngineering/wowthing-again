@@ -38,7 +38,6 @@
 
 <thead>
     <tr>
-        <th class="spacer" />
         {#if $settings.general.showRaceIcon}
             <th class="icon" />
         {/if}
