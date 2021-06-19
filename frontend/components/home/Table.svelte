@@ -3,20 +3,25 @@
     import { data as userData } from '@/stores/user'
 
     import CharacterTable from '@/components/character-table/Table.svelte'
+    import GroupHead from './table/GroupHead.svelte'
     import RowCovenant from './table/RowCovenant.svelte'
-    import RowGold from './table/RowGold.svelte'
+    import RowGold from '../character-table/row/Gold.svelte'
     import RowItemLevel from '@/components/character-table/row/ItemLevel.svelte'
     import RowKeystone from '@/components/character-table/row/Keystone.svelte'
     import RowMountSkill from './table/RowMountSkill.svelte'
     import RowStatuses from './table/RowStatuses.svelte'
     import RowUghQuests from './table/RowUghQuests.svelte'
-    import RowVault from './table/RowVault.svelte'
+    import RowVault from '../character-table/row/Vault.svelte'
 </script>
 
-<CharacterTable>
+<CharacterTable let:group let:groupIndex let:character>
+    <slot slot="groupHead">
+        <GroupHead {group} {groupIndex} />
+    </slot>
+
     <slot slot="rowExtra">
         {#if $userData.public === false}
-            <RowGold />
+            <RowGold gold={character.gold} />
         {/if}
         {#if $settings.general.showItemLevel}
             <RowItemLevel />
@@ -32,7 +37,7 @@
             <RowKeystone />
         {/if}
         {#if $settings.home.showVault}
-            <RowVault />
+            <RowVault {character} />
         {/if}
         {#if $settings.home.showStatuses && $userData.public === false}
             <RowStatuses />

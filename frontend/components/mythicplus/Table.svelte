@@ -15,35 +15,39 @@
     import HeadKeystone from '@/components/character-table/head/Keystone.svelte'
     import HeadMythicPlusBadge from '@/components/character-table/head/MythicPlusBadge.svelte'
     import HeadRaiderIo from '@/components/character-table/head/RaiderIo.svelte'
+    import HeadVault from '@/components/character-table/head/Vault.svelte'
     import RowDungeon from './TableRowDungeon.svelte'
     import RowItemLevel from '@/components/character-table/row/ItemLevel.svelte'
     import RowKeystone from '@/components/character-table/row/Keystone.svelte'
     import RowMythicPlusBadge from '@/components/character-table/row/MythicPlusBadge.svelte'
     import RowRaiderIo from '@/components/character-table/row/RaiderIo.svelte'
+    import RowVault from '@/components/character-table/row/Vault.svelte'
 
     export let slug: string
 
-    const firstSeason = sortBy(seasonMap, (s: MythicPlusSeason) => -s.Id)[0]
+    const firstSeason: MythicPlusSeason = sortBy(seasonMap, (s: MythicPlusSeason) => -s.Id)[0]
 
+    let isCurrentSeason: boolean
+    let isThisWeek: boolean
     let filterFunc: (char: Character) => boolean
     let sortFunc: (char: Character) => number
-    let runsFunc: (
-        char: Character,
-        dungeonId: number,
-    ) => CharacterMythicPlusRun[]
+    let runsFunc: (char: Character, dungeonId: number) => CharacterMythicPlusRun[]
     let season: MythicPlusSeason
 
     $: {
         if (slug === 'thisweek') {
+            isThisWeek = true
             season = firstSeason
-            runsFunc = (char, dungeonId) =>
-                char.mythicPlus?.periodRuns?.[dungeonId] || []
-        } else {
+            runsFunc = (char, dungeonId) => char.mythicPlus?.periodRuns?.[dungeonId] || []
+        }
+        else {
+            isThisWeek = false
             season = seasonMap[slug.replace('season', '')]
-            runsFunc = (char, dungeonId) =>
-                char.mythicPlus?.seasons?.[season.Id]?.[dungeonId]
+            runsFunc = (char, dungeonId) => char.mythicPlus?.seasons?.[season.Id]?.[dungeonId]
             sortFunc = (char) => -(char.raiderIo?.[season.Id]?.all ?? 0)
         }
+
+        isCurrentSeason = season.Id === firstSeason.Id
 
         filterFunc = (char: Character) => char.level >= season.MinLevel
     }
@@ -52,23 +56,35 @@
 <CharacterTable
     {filterFunc}
     {sortFunc}
-    extraSpan={4 + (season.Id === firstSeason.Id ? 3 : 0)}
     endSpacer={false}
+    extraSpan={1}
+    let:character
 >
-    <slot slot="colgroup">
-        {#each season.Orders as order}
-            <colgroup span={order.length} />
-        {/each}
-    </slot>
-
     <slot slot="head">
+        {#if isCurrentSeason}
+            <colgroup span="3"></colgroup>
+        {/if}
+
+        <colgroup span="3"></colgroup>
+
+        {#each season.Orders as order}
+            <colgroup span={order.length}></colgroup>
+        {/each}
+
         <Head>
             <HeadItemLevel />
-            {#if season.Id === firstSeason.Id}
+
+            {#if isCurrentSeason}
                 <HeadKeystone />
             {/if}
-            <HeadRaiderIo />
-            <HeadMythicPlusBadge />
+
+            {#if isThisWeek}
+                <HeadVault />
+            {:else}
+                <HeadRaiderIo />
+                <HeadMythicPlusBadge />
+            {/if}
+
             {#key season.Id}
                 {#each season.Orders as order}
                     {#each order as dungeonId}
@@ -81,12 +97,18 @@
 
     <slot slot="rowExtra">
         <RowItemLevel />
-        {#key season.Id}
-            {#if season.Id === firstSeason.Id}
+        {#key slug}
+            {#if isCurrentSeason}
                 <RowKeystone />
             {/if}
-            <RowRaiderIo {season} />
-            <RowMythicPlusBadge {season} />
+
+            {#if isThisWeek}
+                <RowVault {character} />
+            {:else}
+                <RowRaiderIo {season} />
+                <RowMythicPlusBadge {season} />
+            {/if}
+
             {#each season.Orders as order}
                 {#each order as dungeonId}
                     <RowDungeon {dungeonId} {runsFunc} />

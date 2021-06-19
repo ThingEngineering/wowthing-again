@@ -15,13 +15,11 @@
 </script>
 
 <CharacterTable endSpacer={false}>
-    <slot slot="colgroup">
-        {#each category.Reputations as grouping}
-            <colgroup span={grouping.length} />
-        {/each}
-    </slot>
-
     <slot slot="head">
+        {#each category.Reputations as grouping}
+            <colgroup span={grouping.length}></colgroup>
+        {/each}
+
         <Head>
             {#key category.Name}
                 {#each flatten(category.Reputations) as reputation}

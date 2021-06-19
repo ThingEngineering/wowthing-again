@@ -58,7 +58,6 @@
 
 <style lang="scss">
     .score {
-        padding-right: 0.5rem;
         text-align: right;
         width: $character-width-raider-io;
     }
