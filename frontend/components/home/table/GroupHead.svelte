@@ -26,11 +26,19 @@
     tr {
         :global(td) {
             background: adjust-color($active-background, $alpha: -0.5); //rgba(255, 0, 0, 0.25);
+            border-top: 1px solid $border-color;
             font-size: 1.05rem;
         }
     }
     td {
         text-align: center;
+
+        &:first-child {
+            border-top-left-radius: $border-radius;
+        }
+        &:last-child {
+            border-top-right-radius: $border-radius;
+        }
     }
 </style>
 
@@ -47,10 +55,10 @@
         <td>&nbsp;</td>
     {/if}
     {#if $settings.home.showMountSkill}
-        <td colspan="2">?</td>
+        <td colspan="2">Mount</td>
     {/if}
     {#if $settings.home.showCovenant}
-        <td colspan="2">Cov</td>
+        <td colspan="2">Cov.</td>
     {/if}
     {#if $settings.home.showWeeklyAnima}
         <td colspan="2">Anima</td>

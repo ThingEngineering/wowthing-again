@@ -58,6 +58,7 @@
 
 <style lang="scss">
     .score {
+        color: var(--color);
         text-align: right;
         width: $character-width-raider-io;
     }
@@ -67,10 +68,10 @@
     <TableIcon>
         <RaiderIoIcon size={20} border={1} />
     </TableIcon>
-    <td class="score" style="color: {color}" use:tippy={tooltip}
+    <td class="score" style="--color: {color}" use:tippy={tooltip}
         >{scores.all.toFixed(1)}</td
     >
 {:else}
     <TableIcon />
-    <td>&nbsp;</td>
+    <td class="score">&nbsp;</td>
 {/if}

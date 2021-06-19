@@ -34,7 +34,6 @@
 <style lang="scss">
     td {
         border-left: 1px solid $border-color;
-        position: relative;
         text-align: center;
     }
     span {

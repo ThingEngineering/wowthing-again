@@ -60,16 +60,6 @@
     let:character
 >
     <slot slot="head">
-        {#if isCurrentSeason}
-            <colgroup span="3"></colgroup>
-        {/if}
-
-        <colgroup span="3"></colgroup>
-
-        {#each season.Orders as order}
-            <colgroup span={order.length}></colgroup>
-        {/each}
-
         <Head>
             <HeadItemLevel />
 

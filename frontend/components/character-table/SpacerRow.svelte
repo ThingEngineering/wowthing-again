@@ -1,6 +1,7 @@
 <style lang="scss">
-    tr {
+    td {
         background: $body-background !important;
+        border-width: 0 !important;
     }
 </style>
 
