@@ -39,10 +39,8 @@
 
 <style lang="scss">
     td {
-        padding-left: 0.1rem;
-        padding-right: 0.7rem;
         text-align: right;
-        width: 2.5rem;
+        width: 2.1rem;
 
         &.success {
             color: #1eff00;

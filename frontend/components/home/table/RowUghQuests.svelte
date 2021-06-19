@@ -17,7 +17,6 @@
 <style lang="scss">
     td {
         padding-left: 0.1rem;
-        padding-right: 0.7rem;
         text-align: right;
         width: 2rem;
     }
@@ -31,7 +30,7 @@
         <RowUghQuest ughQuest={anima} />
     {:else}
         <TableIcon />
-        <td />
+        <td></td>
     {/if}
 {/if}
 
@@ -43,6 +42,6 @@
         <RowUghQuest ughQuest={souls} />
     {:else}
         <TableIcon />
-        <td />
+        <td></td>
     {/if}
 {/if}

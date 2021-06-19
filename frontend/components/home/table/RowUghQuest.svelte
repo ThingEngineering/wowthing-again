@@ -8,7 +8,6 @@
 <style lang="scss">
     td {
         padding-left: 0.2rem;
-        padding-right: 0.7rem;
         white-space: nowrap;
         word-spacing: -0.2ch;
 

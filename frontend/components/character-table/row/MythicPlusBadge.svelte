@@ -13,7 +13,7 @@
     $: badge = character.mythicPlus?.seasonBadges?.[season.Id]
 </script>
 
-<TableIcon>
+<TableIcon padRight="0.5rem">
     {#if badge !== undefined}
         <WowthingImage
             name="mythic_plus_{badge}"

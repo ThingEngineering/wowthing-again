@@ -13,7 +13,6 @@
     import HeadDungeon from './TableHeadDungeon.svelte'
     import HeadItemLevel from '@/components/character-table/head/ItemLevel.svelte'
     import HeadKeystone from '@/components/character-table/head/Keystone.svelte'
-    import HeadMythicPlusBadge from '@/components/character-table/head/MythicPlusBadge.svelte'
     import HeadRaiderIo from '@/components/character-table/head/RaiderIo.svelte'
     import HeadVault from '@/components/character-table/head/Vault.svelte'
     import RowDungeon from './TableRowDungeon.svelte'
@@ -82,7 +81,6 @@
                 <HeadVault />
             {:else}
                 <HeadRaiderIo />
-                <HeadMythicPlusBadge />
             {/if}
 
             {#key season.Id}
