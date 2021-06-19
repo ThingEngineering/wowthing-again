@@ -40,7 +40,9 @@
 
 <tr>
     <td colspan="{span}">&nbsp;</td>
-    <RowGold {gold} />
+    {#if !$userData.public}
+        <RowGold {gold} />
+    {/if}
     {#if $settings.general.showItemLevel}
         <td>&nbsp;</td>
     {/if}
