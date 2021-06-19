@@ -47,44 +47,54 @@
 <style lang="scss">
     table {
         background: $thing-background;
-        border-collapse: collapse;
         border-radius: $border-radius;
         table-layout: fixed;
 
-        & :global(colgroup) {
-            border-left: 1px solid $border-color;
-        }
-        & :global(colgroup:nth-child(even)) {
-            background: darken($thing-background, 3%);
-        }
-
-        & :global(thead th) {
+        & :global(thead > tr > th) {
             border-bottom: 1px solid $border-color;
+            border-top: 1px solid $border-color;
             font-weight: 600;
             position: sticky;
             top: 0;
         }
-        & :global(tbody td) {
-            white-space: nowrap;
-        }
-        & :global(tbody tr:first-child td:first-child) {
+        & :global(thead > tr > th:first-child) {
+            border-left: 1px solid $border-color;
             border-top-left-radius: $border-radius;
         }
-        & :global(tbody tr:first-child td:last-child) {
+        & :global(thead > tr > th:last-child) {
+            border-right: 1px solid $border-color;
             border-top-right-radius: $border-radius;
         }
-        & :global(tbody tr:last-child td:first-child) {
+
+        & :global(tbody > tr > td) {
+            white-space: nowrap;
+        }
+        & :global(tbody > tr > td:first-child) {
+            border-left: 1px solid $border-color;
+        }
+        & :global(tbody > tr > td:last-child) {
+            border-right: 1px solid $border-color;
+        }
+        & :global(tbody:first-child > tr:first-child > td) {
+            border-top: 1px solid $border-color;
+        }
+        & :global(tbody:first-child > tr:first-child > td:first-child) {
+            border-top-left-radius: $border-radius;
+        }
+        & :global(tbody:first-child > tr:first-child > td:last-child) {
+            border-top-right-radius: $border-radius;
+        }
+        & :global(tbody > tr:last-child > td:first-child) {
             border-bottom-left-radius: $border-radius;
         }
-        & :global(tbody tr:last-child td:last-child) {
+        & :global(tbody > tr:last-child > td:last-child) {
             border-bottom-right-radius: $border-radius;
         }
     }
 </style>
 
 <div class="thing-container">
-    <table class="table-striped">
-        <colgroup span={span + extraSpan}></colgroup>
+    <table class="table table-striped">
         <slot name="head" />
         <tbody>
             {#each groups as group, groupIndex}

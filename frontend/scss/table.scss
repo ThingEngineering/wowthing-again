@@ -1,12 +1,14 @@
+.table {
+    background: $thing-background;
+    //border-collapse: collapse;
+    border-radius: $border-radius;
+    table-layout: fixed;
+}
+
 .table-striped {
     tbody {
         tr:nth-child(odd) {
             background: $table-striped-background;
-        }
-        tr:not(:last-child) {
-            td {
-                border-bottom: 1px solid $border-color;
-            }
         }
     }
 }
@@ -21,6 +23,16 @@
             td {
                 border-bottom: 1px solid $border-color;
             }
+        }
+    }
+}
+
+.table-striped,
+.table-striped2
+{
+    tr {
+        td {
+            border-bottom: 1px solid $border-color;
         }
     }
 }
