@@ -7,7 +7,7 @@ import type { Character} from '@/types'
 
 export default function getCharacterGroupFunc(): (char: Character) => string {
     // TODO hook this up to settings
-    const groupBy = ['enabled', 'faction']
+    const groupBy = ['faction']
 
     return (char: Character) => {
         const out: string[] = []
