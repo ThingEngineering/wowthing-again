@@ -10,8 +10,6 @@
     export let cls: string = undefined
 
     const actualSize = size + border * 2
-    const tooltipProps =
-        typeof tooltip === 'string' ? { content: tooltip } : tooltip
 </script>
 
 <img
@@ -21,5 +19,5 @@
     height={actualSize}
     alt={name}
     loading="lazy"
-    use:tippy={tooltipProps}
+    use:tippy={tooltip}
 />
