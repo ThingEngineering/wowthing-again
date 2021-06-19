@@ -39,15 +39,8 @@
         text-align: right;
     }
     .dungeon {
-        display: flex;
-        justify-content: space-between;
         min-width: $table-width-key-dungeon;
         width: $table-width-key-dungeon;
-        padding-right: 0.5rem;
-
-        span + span {
-            font-size: 0.9rem;
-        }
     }
     .upgrade {
         color: #ff88ff;
@@ -62,11 +55,8 @@
     <td class="level {getMythicPlusRunQuality(character.weekly.keystoneLevel)}"
         >{character.weekly.keystoneLevel}</td
     >
-    <td class="dungeon">
+    <td class="dungeon" class:upgrade>
         {dungeon.abbreviation}
-        {#if upgrade}
-            <span class="upgrade">★</span>
-        {/if}
     </td>
 {:else}
     <TableIcon />

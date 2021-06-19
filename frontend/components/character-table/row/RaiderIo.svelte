@@ -72,5 +72,5 @@
     >
 {:else}
     <TableIcon />
-    <td />
+    <td>&nbsp;</td>
 {/if}

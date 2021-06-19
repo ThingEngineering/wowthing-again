@@ -3,12 +3,11 @@
 
 <style lang="scss">
     th {
-        min-width: $character-width-vault;
-        width: $character-width-vault;
+        min-width: calc(#{$character-width-vault} * 3);
+        width: calc(#{$character-width-vault} * 3);
         text-align: center;
+        vertical-align: bottom;
     }
 </style>
 
-<th>&nbsp;</th>
-<th>&nbsp;</th>
-<th>&nbsp;</th>
+<th colspan="3">M+ Vault</th>

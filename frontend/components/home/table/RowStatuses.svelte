@@ -12,7 +12,6 @@
 
 <style lang="scss">
     td {
-        padding-right: 0.7rem;
         white-space: nowrap;
 
         & :global(img) {

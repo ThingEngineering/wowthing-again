@@ -1,13 +1,10 @@
 <style lang="scss">
-    .icon {
-        min-width: $character-width-icon;
+    th {
+        min-width: calc(#{$character-width-icon} + #{$character-width-raider-io});
         width: $character-width-icon;
-    }
-    .raider-io {
-        min-width: $character-width-raider-io;
-        width: $character-width-raider-io;
+        text-align: center;
+        vertical-align: bottom;
     }
 </style>
 
-<th class="icon" />
-<th class="raider-io" />
+<th colspan="3">Raider.IO</th>

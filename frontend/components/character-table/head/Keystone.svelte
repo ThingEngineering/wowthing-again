@@ -1,18 +1,10 @@
 <style lang="scss">
-    .icon {
-        min-width: $character-width-icon;
-        width: $character-width-icon;
-    }
-    .keystone-level {
-        min-width: $table-width-key-level;
-        width: $table-width-key-level;
-    }
-    .keystone-dungeon {
-        min-width: $table-width-key-dungeon;
-        width: $table-width-key-dungeon;
+    th {
+        min-width: calc(#{$character-width-icon} + #{$table-width-key-level} + #{$table-width-key-dungeon});
+        width: calc(#{$character-width-icon} + #{$table-width-key-level} + #{$table-width-key-dungeon});
+        text-align: center;
+        vertical-align: bottom;
     }
 </style>
 
-<th class="icon" />
-<th class="keystone-level" />
-<th class="keystone-dungeon" />
+<th colspan="3">Keystone</th>

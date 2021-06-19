@@ -18,10 +18,8 @@
 
 <style lang="scss">
     td {
-        padding-left: 0.1rem;
-        padding-right: 0.7rem;
         text-align: right;
-        width: 2rem;
+        width: 1.5rem;
     }
 </style>
 

@@ -71,6 +71,7 @@
 
         & :global(thead th) {
             border-bottom: 1px solid $border-color;
+            font-weight: 600;
             position: sticky;
             top: 0;
         }

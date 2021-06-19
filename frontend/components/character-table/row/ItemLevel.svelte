@@ -8,7 +8,7 @@
 
 <style lang="scss">
     td {
-        padding-right: 0.7rem;
+        padding-right: 0.5rem;
         text-align: right;
         width: $character-width-item-level;
     }
