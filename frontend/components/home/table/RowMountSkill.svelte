@@ -26,24 +26,24 @@
                 character.faction === 0
                     ? mountSkill.allianceSpellId
                     : mountSkill.hordeSpellId
-
             nextSkill = mountSkillMap[character.mountSkill + 1]
-            if (nextSkill) {
-                // Stupid deprecated skill
-                if (nextSkill.requiredLevel === -1) {
-                    nextSkill = mountSkillMap[character.mountSkill + 2]
-                }
-
-                afford = character.gold >= nextSkill.price
-                maxed = character.level < nextSkill.requiredLevel
-            }
-            else {
-                maxed = true
-            }
         }
         else {
             speed = 0
             spellId = 296113 // Old Heavy Boot
+            nextSkill = mountSkillMap[1]
+        }
+
+        if (nextSkill) {
+            // Stupid deprecated skill
+            if (nextSkill.requiredLevel === -1) {
+                nextSkill = mountSkillMap[character.mountSkill + 2]
+            }
+
+            afford = character.gold >= nextSkill.price
+            maxed = character.level < nextSkill.requiredLevel
+        }
+        else {
             maxed = true
         }
     }
