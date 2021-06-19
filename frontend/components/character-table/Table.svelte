@@ -15,6 +15,7 @@
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
 
     import CharacterRow from './Row.svelte'
+    import getCharacterTableSpan from '../../utils/get-character-table-span'
 
     export let extraSpan = 0
     export let endSpacer = true
@@ -26,8 +27,9 @@
 
     let characters: Character[]
     let groups: Character[][]
+    let span: number
+
     $: {
-        console.time('reactive')
         characters = filter($userData.characters, filterFunc)
         const grouped = groupBy(characters, groupFunc)
         for (const key of keys(grouped)) {
@@ -38,21 +40,8 @@
         pairs.sort()
 
         groups = map(pairs, (pair) => pair[1])
-        console.log(groups)
-        console.timeEnd('reactive')
+        span = getCharacterTableSpan() + extraSpan
     }
-
-    const span =
-        2 +
-        sumBy(
-            [
-                $settings.general.showRaceIcon,
-                $settings.general.showClassIcon,
-                $settings.general.showSpecIcon,
-                $settings.general.showRealm,
-            ],
-            (setting) => Number(setting),
-        )
 </script>
 
 <style lang="scss">

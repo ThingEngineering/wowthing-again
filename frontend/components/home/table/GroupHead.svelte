@@ -4,6 +4,7 @@
     import { data as settings } from '@/stores/settings'
     import { data as userData } from '@/stores/user'
     import type {Character} from '@/types'
+    import getCharacterTableSpan from '@/utils/get-character-table-span'
 
     import RowGold from '@/components/character-table/row/Gold.svelte'
     import SpacerRow from '@/components/character-table/SpacerRow.svelte'
@@ -17,6 +18,8 @@
     $: {
         gold = sumBy(group, (c: Character) => c.gold)
     }
+
+    const span = getCharacterTableSpan()
 </script>
 
 <style lang="scss">
@@ -36,9 +39,7 @@
 {/if}
 
 <tr>
-    <td>&nbsp;</td>
-    <td colspan="3">&nbsp;</td>
-    <td>&nbsp;</td>
+    <td colspan="{span}">&nbsp;</td>
     <RowGold {gold} />
     {#if $settings.general.showItemLevel}
         <td>&nbsp;</td>
