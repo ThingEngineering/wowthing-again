@@ -92,7 +92,8 @@ const sigh = function(baseName) {
             production && terser(),
         ],
         watch: {
-            include: ['scss/**/*', 'ts/**/*'],
+            exclude: ['node_modules/**'],
+            include: ['**/*.scss', '**/*.svelte', '**/*.ts'],
             chokidar: {
                 usePolling: true,
             },
