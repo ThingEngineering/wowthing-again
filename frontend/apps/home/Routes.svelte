@@ -5,7 +5,7 @@
     import HomeCards from '@/components/home/Cards.svelte'
     import HomeTable from '@/components/home/Table.svelte'
     import Mounts from '@/components/collections/Mounts.svelte'
-    import MythicPlus from '@/components/mythicplus/MythicPlus.svelte'
+    import MythicPlus from '@/components/mythic-plus/MythicPlus.svelte'
     import Pets from '@/components/collections/Pets.svelte'
     import Reputations from '@/components/reputations/Reputations.svelte'
     import Settings from '@/components/settings/Settings.svelte'
