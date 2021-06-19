@@ -20,6 +20,7 @@ namespace Wowthing.Web.Models
         public int ChromieTime { get; set; }
         public int ClassId { get; set; }
         public int EquippedItemLevel { get; set; }
+        public int Id { get; }
         public int Level { get; set; }
         public int RaceId { get; set; }
         public int RealmId { get; set; }
@@ -51,6 +52,7 @@ namespace Wowthing.Web.Models
             EquippedItemLevel = character.EquippedItemLevel;
             Faction = character.Faction;
             Gender = character.Gender;
+            Id = character.Id;
             Level = character.Level;
             MountSkill = character.MountSkill;
             RaceId = character.RaceId;
