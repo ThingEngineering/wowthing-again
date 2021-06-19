@@ -35,7 +35,7 @@ namespace Wowthing.Lib.Models
 
     public class ApplicationUserSettingsGeneral
     {
-        public bool ShowClassIcon { get; set; } = false;
+        public bool ShowClassIcon { get; set; } = true;
         public bool ShowItemLevel { get; set; } = true;
         public bool ShowRaceIcon { get; set; } = true;
         public bool ShowSpecIcon { get; set; } = true;
@@ -46,11 +46,11 @@ namespace Wowthing.Lib.Models
     {
         public bool ShowCovenant { get; set; } = true;
         public bool ShowKeystone { get; set; } = true;
-        public bool ShowMountSkill { get; set; } = false;
+        public bool ShowMountSkill { get; set; } = true;
         public bool ShowStatuses { get; set; } = true;
         public bool ShowVault { get; set; } = true;
         public bool ShowWeeklyAnima { get; set; } = true;
-        public bool ShowWeeklySouls { get; set; } = false;
+        public bool ShowWeeklySouls { get; set; } = true;
     }
 
     public class ApplicationUserSettingsPrivacy
