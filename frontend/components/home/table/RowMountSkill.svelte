@@ -1,9 +1,11 @@
 <script lang="ts">
     import { getContext } from 'svelte'
 
-    import { mountSkillMap } from '@/data/mount-skill'
+    import {mountSkillMap} from '@/data/mount-skill'
+    import type { MountSkill } from '@/data/mount-skill'
     import { data as userData } from '@/stores/user'
     import type { Character } from '@/types'
+    import tippy from '@/utils/tippy'
 
     import TableIcon from '@/components/common/TableIcon.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
@@ -13,7 +15,9 @@
     let speed: number
     let spellId: number
     let afford: boolean
-    let upgrade: boolean
+    let maxed: boolean
+    let nextSkill: MountSkill
+
     $: {
         const mountSkill = mountSkillMap[character.mountSkill]
         if (mountSkill !== undefined) {
@@ -23,7 +27,7 @@
                     ? mountSkill.allianceSpellId
                     : mountSkill.hordeSpellId
 
-            let nextSkill = mountSkillMap[character.mountSkill + 1]
+            nextSkill = mountSkillMap[character.mountSkill + 1]
             if (nextSkill) {
                 // Stupid deprecated skill
                 if (nextSkill.requiredLevel === -1) {
@@ -31,7 +35,34 @@
                 }
 
                 afford = character.gold >= nextSkill.price
-                upgrade = character.level >= nextSkill.requiredLevel
+                maxed = character.level < nextSkill.requiredLevel
+            }
+            else {
+                maxed = true
+            }
+        }
+        else {
+            speed = 0
+            spellId = 296113 // Old Heavy Boot
+            maxed = true
+        }
+    }
+
+    let cls: string
+    let tooltip: string
+    $: {
+        if (maxed) {
+            cls = 'maxed'
+            tooltip = 'Your mount speed is maxed out!'
+        }
+        else {
+            if (afford || $userData.public) {
+                cls = 'afford'
+                tooltip = `Upgrade to ${nextSkill.speed}% ${nextSkill.speed > 100 ? 'flying' : 'ground'} for ${nextSkill.price.toLocaleString()}g!`
+            }
+            else {
+                cls = 'broke'
+                tooltip = `You need ${nextSkill.price.toLocaleString()}g to upgrade!`
             }
         }
     }
@@ -42,8 +73,11 @@
         text-align: right;
         width: 2.1rem;
 
-        &.success {
+        &.maxed {
             color: #1eff00;
+        }
+        &.afford {
+            color: #efef00;
         }
         &.broke {
             color: #ff1e00;
@@ -51,15 +85,7 @@
     }
 </style>
 
-{#if speed > 0}
-    <TableIcon>
-        <WowthingImage name="spell/{spellId}" size={20} border={1} />
-    </TableIcon>
-    <td
-        class:success={upgrade && (afford || $userData.public)}
-        class:broke={upgrade && !afford && !$userData.public}>{speed}</td
-    >
-{:else}
-    <TableIcon />
-    <td>&nbsp;</td>
-{/if}
+<TableIcon>
+    <WowthingImage name="spell/{spellId}" size={20} border={1} />
+</TableIcon>
+<td class="{cls}" use:tippy={{content: tooltip}}>{speed}</td>
