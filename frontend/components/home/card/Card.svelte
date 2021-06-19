@@ -133,12 +133,12 @@
                 <SpecializationIcon {character} size={24} border={2} />
             </div>
         {/if}
-        <div class="level" use:tippy={{ content: `Level ${character.level}` }}>
+        <div class="level" use:tippy={`Level ${character.level}`}>
             {character.level}
         </div>
         <div
             class="item-level quality{character.calculatedItemLevelQuality}"
-            use:tippy={{ content: `Item Level ${character.equippedItemLevel}` }}
+            use:tippy={`Item Level ${character.equippedItemLevel}`}
         >
             {character.calculatedItemLevel}
         </div>

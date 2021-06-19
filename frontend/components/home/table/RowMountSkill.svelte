@@ -88,4 +88,4 @@
 <TableIcon>
     <WowthingImage name="spell/{spellId}" size={20} border={1} />
 </TableIcon>
-<td class="{cls}" use:tippy={{content: tooltip}}>{speed}</td>
+<td class="{cls}" use:tippy={tooltip}>{speed}</td>

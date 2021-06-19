@@ -11,7 +11,7 @@ export class Covenant {
 
     getTooltip(renown: number): TippyProps {
         return {
-            content: `${this.Name} R${renown}`,
+            content: `${this.Name} Renown ${renown}`,
         }
     }
 }
