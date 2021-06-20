@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: wowthing-again-backend
-          image: ghcr.io/thingengineering/wowthing-again/backend:_VERSION_
+          image: 'ghcr.io/thingengineering/wowthing-again/backend:_VERSION_'
           imagePullPolicy: Always
           env:
             - name: ASPNETCORE_ENVIRONMENT
