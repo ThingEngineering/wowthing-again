@@ -102,11 +102,11 @@ jobs:
 
       - name: Setup kubectl
         run: |
-        kubectl config set-cluster k8s --server="${{ secrets.KUBE_URL }}"
-        kubectl config set clusters.k8s.certificate-authority-data ${{ secrets.KUBE_CA_DATA }}
-        kubectl config set-credentials gitlab --token="${{ secrets.KUBE_TOKEN }}"
-        kubectl config set-context default --cluster=k8s --user=gitlab --namespace=things
-        kubectl config use-context default
+          kubectl config set-cluster k8s --server="${{ secrets.KUBE_URL }}"
+          kubectl config set clusters.k8s.certificate-authority-data ${{ secrets.KUBE_CA_DATA }}
+          kubectl config set-credentials github --token="${{ secrets.KUBE_TOKEN }}"
+          kubectl config set-context default --cluster=k8s --user=github --namespace=things
+          kubectl config use-context default
 
       - name: Deploy to k8s
         run: |
