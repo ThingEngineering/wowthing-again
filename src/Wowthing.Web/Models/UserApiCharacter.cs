@@ -43,7 +43,7 @@ namespace Wowthing.Web.Models
         public UserApiCharacterShadowlands Shadowlands { get; set; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public PlayerCharacterWeekly Weekly { get; }
+        public UserApiCharacterWeekly Weekly { get; }
 
         public UserApiCharacter(PlayerCharacter character, bool pub = false, bool anon = false)
         {
@@ -109,11 +109,11 @@ namespace Wowthing.Web.Models
             {
                 Shadowlands = new UserApiCharacterShadowlands(character.Shadowlands);
             }
-            
+
             if (character.Weekly != null)
             {
-                Weekly = character.Weekly;
-            } 
+                Weekly = new UserApiCharacterWeekly(character.Weekly, pub);
+            }
         }
     }
 
@@ -174,6 +174,28 @@ namespace Wowthing.Web.Models
 
             Conduits = shadowlands.ConduitIds.Zip(shadowlands.ConduitRanks)
                 .Select(z => new int[] { z.First, z.Second }).ToList();
+        }
+    }
+
+    public class UserApiCharacterWeekly
+    {
+        public int KeystoneDungeon { get; set; }
+        public int KeystoneLevel { get; set; }
+        public PlayerCharacterWeeklyVault Vault { get; set; } = new PlayerCharacterWeeklyVault();
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public Dictionary<string, PlayerCharacterWeeklyUghQuest> UghQuests { get; set; }
+
+        public UserApiCharacterWeekly(PlayerCharacterWeekly weekly, bool pub)
+        {
+            KeystoneDungeon = weekly.KeystoneDungeon;
+            KeystoneLevel = weekly.KeystoneLevel;
+            Vault = weekly.Vault;
+
+            if (!pub)
+            {
+                UghQuests = weekly.UghQuests;
+            }
         }
     }
 }

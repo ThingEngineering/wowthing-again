@@ -10,9 +10,8 @@ export interface Settings {
     home: {
         showCovenant: boolean
         showKeystone: boolean
-        showMountSkill: boolean
+        showMountSpeed: boolean
         showStatuses: boolean
-        showVault: boolean
         showVaultMythicPlus: boolean
         showVaultPvp: boolean
         showVaultRaid: boolean

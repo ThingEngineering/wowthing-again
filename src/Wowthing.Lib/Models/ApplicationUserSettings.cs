@@ -46,9 +46,11 @@ namespace Wowthing.Lib.Models
     {
         public bool ShowCovenant { get; set; } = true;
         public bool ShowKeystone { get; set; } = true;
-        public bool ShowMountSkill { get; set; } = true;
+        public bool ShowMountSpeed { get; set; } = true;
         public bool ShowStatuses { get; set; } = true;
-        public bool ShowVault { get; set; } = true;
+        public bool ShowVaultMythicPlus { get; set; } = true;
+        public bool ShowVaultPvp { get; set; } = true;
+        public bool ShowVaultRaid { get; set; } = true;
         public bool ShowWeeklyAnima { get; set; } = true;
         public bool ShowWeeklySouls { get; set; } = true;
     }
