@@ -1,4 +1,5 @@
 <script lang="ts">
+    export let vaultType: string
 </script>
 
 <style lang="scss">
@@ -10,4 +11,4 @@
     }
 </style>
 
-<th colspan="3">M+ Vault</th>
+<th colspan="3">{vaultType} Vault</th>

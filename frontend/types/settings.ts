@@ -13,6 +13,9 @@ export interface Settings {
         showMountSkill: boolean
         showStatuses: boolean
         showVault: boolean
+        showVaultMythicPlus: boolean
+        showVaultPvp: boolean
+        showVaultRaid: boolean
         showWeeklyAnima: boolean
         showWeeklySouls: boolean
     }

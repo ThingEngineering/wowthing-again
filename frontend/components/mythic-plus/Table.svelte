@@ -20,7 +20,7 @@
     import RowKeystone from '@/components/character-table/row/Keystone.svelte'
     import RowMythicPlusBadge from '@/components/character-table/row/MythicPlusBadge.svelte'
     import RowRaiderIo from '@/components/character-table/row/RaiderIo.svelte'
-    import RowVault from '@/components/character-table/row/Vault.svelte'
+    import RowVaultMythicPlus from '@/components/character-table/row/VaultMythicPlus.svelte'
 
     export let slug: string
 
@@ -68,7 +68,7 @@
             {/if}
 
             {#if isThisWeek}
-                <HeadVault />
+                <HeadVault vaultType={'M+'} />
             {:else}
                 <HeadRaiderIo />
             {/if}
@@ -91,7 +91,7 @@
             {/if}
 
             {#if isThisWeek}
-                <RowVault {character} />
+                <RowVaultMythicPlus {character} />
             {:else}
                 <RowRaiderIo {season} />
                 <RowMythicPlusBadge {season} />
