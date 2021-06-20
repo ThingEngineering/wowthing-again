@@ -16,7 +16,7 @@ RUN yarn run build
 FROM wafflefred/dotnet-sdk-nodejs:latest AS build-web
 
 WORKDIR /app/src
-COPY . .
+COPY src/ ./
 
 WORKDIR /app/src/Wowthing.Web
 RUN dotnet publish -c Release -o out
