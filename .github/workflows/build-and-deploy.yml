@@ -63,9 +63,16 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
       # We need a docker-container builder to export cache to registry
       # https://github.com/docker/buildx/blob/master/docs/reference/buildx_build.md#-use-an-external-cache-source-for-a-build---cache-from
-      - name: Setup
+      - name: Setup Docker builder
         run: |
           docker buildx create --name sighbuilder --use
           echo "IMAGE_URL=ghcr.io/thingengineering/wowthing-again/$(echo ${{ matrix.project }} | tr A-Z a-z)" >> $GITHUB_ENV
