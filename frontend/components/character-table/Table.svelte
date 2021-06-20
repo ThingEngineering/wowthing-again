@@ -13,9 +13,9 @@
     import type {Character} from '@/types'
     import getCharacterGroupFunc from '@/utils/get-character-group-func'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
+    import getCharacterTableSpan from '@/utils/get-character-table-span'
 
     import CharacterRow from './Row.svelte'
-    import getCharacterTableSpan from '../../utils/get-character-table-span'
 
     export let extraSpan = 0
     export let endSpacer = true

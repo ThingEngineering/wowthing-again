@@ -5,13 +5,13 @@
     import CharacterTable from '@/components/character-table/Table.svelte'
     import GroupHead from './table/GroupHead.svelte'
     import RowCovenant from './table/RowCovenant.svelte'
-    import RowGold from '../character-table/row/Gold.svelte'
+    import RowGold from '@/components/character-table/row/Gold.svelte'
     import RowItemLevel from '@/components/character-table/row/ItemLevel.svelte'
     import RowKeystone from '@/components/character-table/row/Keystone.svelte'
     import RowMountSkill from './table/RowMountSkill.svelte'
     import RowStatuses from './table/RowStatuses.svelte'
     import RowUghQuests from './table/RowUghQuests.svelte'
-    import RowVault from '../character-table/row/Vault.svelte'
+    import RowVaultMythicPlus from '@/components/character-table/row/VaultMythicPlus.svelte'
 </script>
 
 <CharacterTable let:group let:groupIndex let:character>
@@ -37,7 +37,7 @@
             <RowKeystone />
         {/if}
         {#if $settings.home.showVault}
-            <RowVault {character} />
+            <RowVaultMythicPlus {character} />
         {/if}
         {#if $settings.home.showStatuses && $userData.public === false}
             <RowStatuses />
