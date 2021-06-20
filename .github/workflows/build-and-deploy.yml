@@ -14,6 +14,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v2
+      
       # Work out which projects changed in this push
       - uses: dorny/paths-filter@v2.9.2
         id: filter
