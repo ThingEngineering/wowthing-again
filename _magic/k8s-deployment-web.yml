@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wowthing-again-web
+  namespace: things
+  labels:
+    app: wowthing-again-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wowthing-again-web
+  template:
+    metadata:
+      labels:
+        app: wowthing-again-web
+    spec:
+      containers:
+        - name: wowthing-again-web
+          image: ghcr.io/thingengineering/wowthing-again/web:_VERSION_
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 5000
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 5000
+            initialDelaySeconds: 15
+            timeoutSeconds: 1
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 5000
+            initialDelaySeconds: 0
+            timeoutSeconds: 10
+          env:
+            - name: ASPNETCORE_ENVIRONMENT
+              value: "Production"
+          envFrom:
+            - secretRef:
+                name: wowthing-again
