@@ -15,7 +15,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      
+
       # Work out which projects changed in this push
       - uses: dorny/paths-filter@v2.9.2
         id: filter
@@ -73,7 +73,7 @@ jobs:
             --cache-from=type=registry,ref=$IMAGE_URL:cache \
             --cache-to=type=registry,ref=$IMAGE_URL:cache,mode=max \
             --output type=image,\"name=$IMAGE_URL:$GITHUB_SHA,$IMAGE_URL:latest\",push=true \
-            --file=./src/Wowthing.${{ matrix.project }}/Dockerfile
+            --file=./src/Wowthing.${{ matrix.project }}/Dockerfile \
             .
 
   deploy:
