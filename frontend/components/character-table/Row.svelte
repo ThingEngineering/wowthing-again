@@ -12,6 +12,7 @@
     import SpecializationIcon from '@/components/images/SpecializationIcon.svelte'
 
     export let character: Character
+    export let last: boolean
 
     setContext('character', character)
 
@@ -43,7 +44,7 @@
     }
 </style>
 
-<tr class="faction{character.faction}" class:inactive={!accountEnabled}>
+<tr class="faction{character.faction}" class:inactive={!accountEnabled} class:last-of-group={last}>
     {#if $settings.general.showRaceIcon}
         <TableIcon>
             <RaceIcon {character} size={20} />

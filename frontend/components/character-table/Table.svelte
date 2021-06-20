@@ -84,10 +84,10 @@
         & :global(tbody:first-child > tr:first-child > td:last-child) {
             border-top-right-radius: $border-radius;
         }
-        & :global(tbody > tr:last-child > td:first-child) {
+        & :global(tbody > tr.last-of-group > td:first-child) {
             border-bottom-left-radius: $border-radius;
         }
-        & :global(tbody > tr:last-child > td:last-child) {
+        & :global(tbody > tr.last-of-group > td:last-child) {
             border-bottom-right-radius: $border-radius;
         }
     }
@@ -100,8 +100,8 @@
             {#each groups as group, groupIndex}
                 <slot name="groupHead" {group} {groupIndex} />
 
-                {#each group as character (character.id)}
-                    <CharacterRow {character}>
+                {#each group as character, characterIndex (character.id)}
+                    <CharacterRow {character} last={characterIndex === (group.length - 1)}>
                         <slot slot="rowExtra" name="rowExtra" {character} />
                     </CharacterRow>
                 {/each}
