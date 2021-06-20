@@ -1,4 +1,5 @@
 <script lang="ts">
+    export let id = ''
     export let width = '10rem'
 </script>
 
@@ -27,7 +28,7 @@
     }
 </style>
 
-<nav class="thing-container" style="--width: {width}">
+<nav id="{id}" class="thing-container" style="--width: {width}">
     <ul>
         <slot />
     </ul>
