@@ -12,20 +12,18 @@
     export let group: Character[]
     export let groupIndex: number
 
-    console.log(groupIndex, group)
-
     let gold: number
+    let span: number
     $: {
         gold = sumBy(group, (c: Character) => c.gold)
+        span = getCharacterTableSpan()
     }
-
-    const span = getCharacterTableSpan()
 </script>
 
 <style lang="scss">
     tr {
         :global(td) {
-            background: adjust-color($active-background, $alpha: -0.5); //rgba(255, 0, 0, 0.25);
+            background: adjust-color($active-background, $alpha: -0.5);
             border-top: 1px solid $border-color;
             font-size: 1.05rem;
         }
