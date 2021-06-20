@@ -1,0 +1,83 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+  # Allow job to be manually started
+  workflow_dispatch:
+
+jobs:
+  find-changes:
+    name: Find Changes
+    runs-on: ubuntu-latest
+
+    steps:
+      # Work out which projects changed in this push
+      - uses: dorny/paths-filter@v2.9.2
+        id: filter
+        if: github.event_name != 'workflow_dispatch'
+        with:
+          filters: |
+            Backend:
+              - 'data/**'
+              - 'src/Wowthing.Backend/**'
+              - 'src/Wowthing.Lib/**'
+              - 'Directory.Build.props'
+              - 'Wowthing.Backend.sln'
+
+            Web:
+              - 'frontend/**'
+              - 'src/Wowthing.Lib/**'
+              - 'src/Wowthing.Web/**'
+              - 'Directory.Build.props'
+              - 'Wowthing.Web.sln'
+
+      - name: Automatic run
+        if: github.event_name != 'workflow_dispatch'
+        run: |
+          echo 'PROJECTS=${{ steps.filter.outputs.changes }}' >> $GITHUB_ENV
+
+      # Deploy everything for manually triggered workflow
+      - name: Manual run
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          echo 'PROJECTS=["Backend", "Web"]' >> $GITHUB_ENV
+
+    outputs:
+      projects: ${{ env.PROJECTS }}
+
+  build:
+    name: Build
+    needs: find-changes
+    runs-on: ubuntu-latest
+    if: needs.find-changes.outputs.projects != '[]'
+
+    strategy:
+      matrix:
+        project: ${{ fromJSON(needs.find-changes.outputs.projects) }}
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build and push container image
+        env:
+          IMAGE_URL: 'ghcr.io/thingengineering/wowthing-again/${{ matrix.project }}'
+        run: |
+          docker buildx build \
+            --progress=plain \
+            --rm \
+            --cache-from=type=registry,ref=$IMAGE_URL:cache \
+            --cache-to=type=registry,ref=$IMAGE_URL:cache,mode=max \
+            --output type=image,\"name=$IMAGE_URL:$GITHUB_SHA,$IMAGE_URL:latest\",push=true \
+            --file=./src/Wowthing.${{ matrix.project }}/Dockerfile
+            .
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: echo 'Hi Mum'
