@@ -8,7 +8,7 @@
     import RowGold from '@/components/character-table/row/Gold.svelte'
     import RowItemLevel from '@/components/character-table/row/ItemLevel.svelte'
     import RowKeystone from '@/components/character-table/row/Keystone.svelte'
-    import RowMountSkill from './table/RowMountSkill.svelte'
+    import RowMountSpeed from './table/RowMountSpeed.svelte'
     import RowStatuses from './table/RowStatuses.svelte'
     import RowUghQuests from './table/RowUghQuests.svelte'
     import RowVaultMythicPlus from '@/components/character-table/row/VaultMythicPlus.svelte'
@@ -23,22 +23,31 @@
         {#if $userData.public === false}
             <RowGold gold={character.gold} />
         {/if}
+
         {#if $settings.general.showItemLevel}
             <RowItemLevel />
         {/if}
-        {#if $settings.home.showMountSkill}
-            <RowMountSkill />
+
+        {#if $settings.home.showMountSpeed}
+            <RowMountSpeed />
         {/if}
+
         {#if $settings.home.showCovenant}
             <RowCovenant />
         {/if}
-        <RowUghQuests />
+
+        {#if $userData.public === false}
+            <RowUghQuests />
+        {/if}
+
         {#if $settings.home.showKeystone}
             <RowKeystone />
         {/if}
-        {#if $settings.home.showVault}
+
+        {#if $settings.home.showVaultMythicPlus}
             <RowVaultMythicPlus {character} />
         {/if}
+
         {#if $settings.home.showStatuses && $userData.public === false}
             <RowStatuses />
         {/if}

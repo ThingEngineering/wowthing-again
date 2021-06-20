@@ -46,32 +46,50 @@
 
 <tr>
     <td colspan="{span}">&nbsp;</td>
+
     {#if !$userData.public}
         <RowGold {gold} />
     {/if}
+
     {#if $settings.general.showItemLevel}
         <td>&nbsp;</td>
     {/if}
-    {#if $settings.home.showMountSkill}
+
+    {#if $settings.home.showMountSpeed}
         <td colspan="2">Mount</td>
     {/if}
+
     {#if $settings.home.showCovenant}
         <td colspan="2">Cov.</td>
     {/if}
-    {#if $settings.home.showWeeklyAnima}
+
+    {#if $settings.home.showWeeklyAnima && $userData.public === false}
         <td colspan="2">Anima</td>
     {/if}
-    {#if $settings.home.showWeeklySouls}
+
+    {#if $settings.home.showWeeklySouls && $userData.public === false}
         <td colspan="2">Souls</td>
     {/if}
+
     {#if $settings.home.showKeystone}
         <td colspan="3">Keystone</td>
     {/if}
-    {#if $settings.home.showVault}
+
+    <!--{#if $settings.home.showVaultRaid}
+        <td colspan="3">Raid Vault</td>
+    {/if}-->
+
+    {#if $settings.home.showVaultMythicPlus}
         <td colspan="3">M+ Vault</td>
     {/if}
+
+    <!--{#if $settings.home.showVaultPvp}
+        <td colspan="3">PvP Vault</td>
+    {/if}-->
+
     {#if $settings.home.showStatuses && $userData.public === false}
         <td>&nbsp;</td>
     {/if}
+
     <td>&nbsp;</td>
 </tr>
