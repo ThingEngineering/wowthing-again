@@ -22,6 +22,9 @@
 </script>
 
 <style lang="scss">
+    .section {
+        border: 1px solid $border-color;
+    }
     .section + .section {
         margin-top: 1rem;
     }
