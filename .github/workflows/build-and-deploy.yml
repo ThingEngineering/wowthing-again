@@ -72,13 +72,13 @@ jobs:
 
       # We need a docker-container builder to export cache to registry
       # https://github.com/docker/buildx/blob/master/docs/reference/buildx_build.md#-use-an-external-cache-source-for-a-build---cache-from
-      - name: Setup Docker builder
+      - name: Setup docker
         run: |
           docker buildx create --name sighbuilder --use
-          echo "IMAGE_URL=ghcr.io/thingengineering/wowthing-again/$(echo ${{ matrix.project }} | tr A-Z a-z)" >> $GITHUB_ENV
 
       - name: Build and push container image
         run: |
+          IMAGE_URL="ghcr.io/thingengineering/wowthing-again/$(echo ${{ matrix.project }} | tr A-Z a-z)"
           docker buildx build \
             --progress=plain \
             --rm \
@@ -90,8 +90,26 @@ jobs:
 
   deploy:
     name: Deploy
-    needs: build
+    needs: [find-changes, build]
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        project: ${{ fromJSON(needs.find-changes.outputs.projects) }}
+
     steps:
-      - run: echo 'Hi Mum'
+      - uses: azure/setup-kubectl@v1
+
+      - name: Setup kubectl
+        run: |
+        kubectl config set-cluster k8s --server="${{ secrets.KUBE_URL }}"
+        kubectl config set clusters.k8s.certificate-authority-data ${{ secrets.KUBE_CA_DATA }}
+        kubectl config set-credentials gitlab --token="${{ secrets.KUBE_TOKEN }}"
+        kubectl config set-context default --cluster=k8s --user=gitlab --namespace=things
+        kubectl config use-context default
+
+      - name: Deploy to k8s
+        run: |
+          DEPLOYMENT_FILE="_magic/k8s-deployment-$(echo ${{ matrix.project }} | tr A-Z a-z)"
+          sed -i "s/_VERSION_/${{ env.GITHUB_SHA }}/g" $DEPLOYMENT_FILE
+          kubectl apply -f $DEPLOYMENT_FILE
