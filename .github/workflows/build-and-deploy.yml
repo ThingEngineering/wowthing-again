@@ -63,6 +63,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      # We need a docker-container builder to export cache to registry
+      # https://github.com/docker/buildx/blob/master/docs/reference/buildx_build.md#-use-an-external-cache-source-for-a-build---cache-from
+      - name: Setup
+        run: docker buildx create --name sighbuilder --use
+
       - name: Build and push container image
         env:
           IMAGE_URL: 'ghcr.io/thingengineering/wowthing-again/${{ matrix.project }}'
