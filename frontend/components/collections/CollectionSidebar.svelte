@@ -38,7 +38,7 @@
     }
 </style>
 
-<Sidebar width="14rem">
+<Sidebar id="sub-sidebar" width="14rem">
     {#each sets as categories}
         {#if categories}
             <li use:active={`/${route}/${categories[0].Slug}`}>
