@@ -110,6 +110,6 @@ jobs:
 
       - name: Deploy to k8s
         run: |
-          DEPLOYMENT_FILE="_magic/k8s-deployment-$(echo ${{ matrix.project }} | tr A-Z a-z)"
+          DEPLOYMENT_FILE="_magic/k8s-deployment-$(echo ${{ matrix.project }} | tr A-Z a-z).yml"
           sed -i "s/_VERSION_/${{ env.GITHUB_SHA }}/g" $DEPLOYMENT_FILE
           kubectl apply -f $DEPLOYMENT_FILE
