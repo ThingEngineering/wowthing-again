@@ -98,6 +98,8 @@ jobs:
         project: ${{ fromJSON(needs.find-changes.outputs.projects) }}
 
     steps:
+      - uses: actions/checkout@v2
+
       - uses: azure/setup-kubectl@v1
 
       - name: Setup kubectl
