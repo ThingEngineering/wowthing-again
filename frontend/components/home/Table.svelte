@@ -14,12 +14,10 @@
     import RowVaultMythicPlus from '@/components/character-table/row/VaultMythicPlus.svelte'
 </script>
 
-<CharacterTable let:group let:groupIndex let:character>
-    <slot slot="groupHead">
-        <GroupHead {group} {groupIndex} />
-    </slot>
+<CharacterTable>
+    <GroupHead slot="groupHead" let:group let:groupIndex {group} {groupIndex} />
 
-    <slot slot="rowExtra">
+    <svelte:fragment slot="rowExtra" let:character>
         {#if $userData.public === false}
             <RowGold gold={character.gold} />
         {/if}
@@ -51,5 +49,5 @@
         {#if $settings.home.showStatuses && $userData.public === false}
             <RowStatuses />
         {/if}
-    </slot>
+    </svelte:fragment>
 </CharacterTable>
