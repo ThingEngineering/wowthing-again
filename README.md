@@ -37,6 +37,7 @@ TODO
 
 - screenshots
 - link to alternatives - Altoholic addon, ???
+- moo
 
 
 ## Development
