@@ -52,38 +52,30 @@
     }
 </script>
 
-<CharacterTable
-    {filterFunc}
-    {sortFunc}
-    endSpacer={false}
-    extraSpan={1}
-    let:character
->
-    <slot slot="head">
-        <Head>
-            <HeadItemLevel />
+<CharacterTable {filterFunc} {sortFunc} endSpacer={false}>
+    <Head slot="head">
+        <HeadItemLevel />
 
-            {#if isCurrentSeason}
-                <HeadKeystone />
-            {/if}
+        {#if isCurrentSeason}
+            <HeadKeystone />
+        {/if}
 
-            {#if isThisWeek}
-                <HeadVault vaultType={'M+'} />
-            {:else}
-                <HeadRaiderIo />
-            {/if}
+        {#if isThisWeek}
+            <HeadVault vaultType={'M+'} />
+        {:else}
+            <HeadRaiderIo />
+        {/if}
 
-            {#key season.Id}
-                {#each season.Orders as order}
-                    {#each order as dungeonId}
-                        <HeadDungeon {dungeonId} />
-                    {/each}
+        {#key season.Id}
+            {#each season.Orders as order}
+                {#each order as dungeonId}
+                    <HeadDungeon {dungeonId} />
                 {/each}
-            {/key}
-        </Head>
-    </slot>
+            {/each}
+        {/key}
+    </Head>
 
-    <slot slot="rowExtra">
+    <svelte:fragment slot="rowExtra" let:character>
         <RowItemLevel />
         {#key slug}
             {#if isCurrentSeason}
@@ -103,5 +95,5 @@
                 {/each}
             {/each}
         {/key}
-    </slot>
+    </svelte:fragment>
 </CharacterTable>
