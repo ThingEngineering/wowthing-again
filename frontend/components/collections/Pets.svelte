@@ -12,6 +12,6 @@
     slug={params.slug}
     thingType="npc"
     thingMap={$staticData.CreatureToPet}
-    userHas={$userData.pets}
+    userHas={$userData.mounts}
     sets={$staticData.PetSets}
 />

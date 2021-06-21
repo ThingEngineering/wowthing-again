@@ -21,6 +21,7 @@ module.exports = {
     ],
     settings: {
         'svelte3/ignore-styles': () => true, // ignore styles, SASS breaks things
+        'svelte3/named-blocks': true, // use named blocks
         'svelte3/typescript': true, // load TypeScript as a peer dependency
     },
 }
