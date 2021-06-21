@@ -7,4 +7,4 @@
     }
 </style>
 
-<th colspan="3">Raider.IO</th>
+<th colspan="2">Raider.IO</th>
