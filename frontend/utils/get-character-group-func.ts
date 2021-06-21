@@ -1,7 +1,6 @@
 import { get } from 'svelte/store'
 
 import {Faction} from '@/data/faction'
-import { data as settings } from '@/stores/settings'
 import { data as userData } from '@/stores/user'
 import type { Character} from '@/types'
 

@@ -4,20 +4,16 @@
     import keys from 'lodash/keys'
     import map from 'lodash/map'
     import sortBy from 'lodash/sortBy'
-    import sumBy from 'lodash/sumBy'
     import toPairs from 'lodash/toPairs'
     import { setContext } from 'svelte'
 
-    import { data as settings } from '@/stores/settings'
     import { data as userData } from '@/stores/user'
     import type {Character} from '@/types'
     import getCharacterGroupFunc from '@/utils/get-character-group-func'
-    import getCharacterSortFunc from '@/utils/get-character-sort-func'
-    import getCharacterTableSpan from '@/utils/get-character-table-span'
+    //import getCharacterSortFunc from '@/utils/get-character-sort-func'
 
     import CharacterRow from './Row.svelte'
 
-    export let extraSpan = 0
     export let endSpacer = true
     export let filterFunc: (char: Character) => boolean = () => true
     export let groupFunc: (char: Character) => string = getCharacterGroupFunc()
@@ -27,7 +23,6 @@
 
     let characters: Character[]
     let groups: Character[][]
-    let span: number
 
     $: {
         characters = filter($userData.characters, filterFunc)
@@ -40,7 +35,6 @@
         pairs.sort()
 
         groups = map(pairs, (pair) => pair[1])
-        span = getCharacterTableSpan() + extraSpan
     }
 </script>
 

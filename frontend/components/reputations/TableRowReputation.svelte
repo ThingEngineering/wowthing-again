@@ -35,7 +35,7 @@
                 const tiers: StaticDataReputationTier =
                     $data.ReputationTiers[dataRep.TierId]
                 repTier = findReputationTier(tiers, characterRep)
-                let valueRank = repTier.MaxValue
+                const valueRank = repTier.MaxValue
                     ? `${repTier.Value} / ${repTier.MaxValue} ${repTier.Name}`
                     : repTier.Name
 

@@ -11,9 +11,6 @@
     } from '@/types'
     import tippy from '@/utils/tippy'
 
-    import TableIcon from '@/components/common/TableIcon.svelte'
-    import RaiderIoIcon from '@/components/images/RaiderIoIcon.svelte'
-
     export let season: MythicPlusSeason
 
     let character: Character
@@ -33,7 +30,7 @@
                 }
             }
 
-            let scoresTable = []
+            const scoresTable = []
             for (const k in raiderIoScores) {
                 scoresTable.push(`
 <tr>
