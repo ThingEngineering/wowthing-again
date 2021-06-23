@@ -11,7 +11,7 @@
     route="mounts"
     slug={params.slug}
     thingType="spell"
-    thingMap={$staticData.SpellToMount}
+    thingMap={$staticData.spellToMount}
     userHas={$userData.mounts}
-    sets={$staticData.MountSets}
+    sets={$staticData.mountSets}
 />

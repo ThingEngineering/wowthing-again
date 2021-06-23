@@ -41,13 +41,13 @@
 <Sidebar id="sub-sidebar" width="14rem">
     {#each sets as categories}
         {#if categories}
-            <li use:active={`/${route}/${categories[0].Slug}`}>
-                <a href="/{route}/{categories[0].Slug}" use:link
-                    >{categories[0].Name}</a
+            <li use:active={`/${route}/${categories[0].slug}`}>
+                <a href="/{route}/{categories[0].slug}" use:link
+                    >{categories[0].name}</a
                 >
                 <span>
                     <CollectionCount
-                        counts={$userData.setCounts[route][categories[0].Slug]}
+                        counts={$userData.setCounts[route][categories[0].slug]}
                     />
                 </span>
             </li>
