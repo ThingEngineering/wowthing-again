@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Decepticon.RateLimit;
 using StackExchange.Redis;
 
-namespace Wowthing.Backend.Utilities
+namespace Wowthing.Backend
 {
     public class RateLimitHttpMessageHandler : DelegatingHandler
     {

@@ -12,6 +12,7 @@ using Wowthing.Backend.Jobs.NonBlizzard;
 using Wowthing.Backend.Models.API.NonBlizzard;
 using Wowthing.Backend.Models.Data;
 using Wowthing.Backend.Models.Redis;
+using Wowthing.Backend.Services;
 using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models;
@@ -23,18 +24,12 @@ namespace Wowthing.Backend.Jobs.Misc
 {
     public class CacheStaticJob : JobBase, IScheduledJob
     {
-#if DEBUG
-        private static readonly string DATA_PATH = Path.Join("..", "..", "data");
-#else
-        private static readonly string DATA_PATH = "data";
-#endif
-
         public static readonly ScheduledJob Schedule = new ScheduledJob
         {
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
-            Version = 11,
+            Version = 12,
         };
 
         public override async Task Run(params string[] data)
@@ -44,6 +39,10 @@ namespace Wowthing.Backend.Jobs.Misc
 
             // RaiderIO
             var raiderIoScoreTiers = await db.JsonGetAsync<List<ApiDataRaiderIoScoreTier>>(DataRaiderIoScoreTiersJob.CACHE_KEY);
+
+            // Currencies
+            var currencies = await LoadCurrencies();
+            var currencyCategories = await LoadCurrencyCategories();
 
             // Mounts
             var spellToMount = await LoadMountDump();
@@ -76,6 +75,8 @@ namespace Wowthing.Backend.Jobs.Misc
             // Ok we're done
             var cacheData = new RedisStaticCache
             {
+                Currencies = currencies,
+                CurrencyCategories = currencyCategories,
                 Realms = realms,
                 Reputations = reputations,
                 ReputationTiers = reputationTiers,
@@ -110,7 +111,7 @@ namespace Wowthing.Backend.Jobs.Misc
                 .WithNamingConvention(LowerCaseNamingConvention.Instance)
                 .Build();
 
-            var basePath = Path.Join(DATA_PATH, "reputations");
+            var basePath = Path.Join(Utilities.DATA_PATH, "reputations");
             foreach (var line in File.ReadLines(Path.Join(basePath, "_order")))
             {
                 var filePath = Path.Join(basePath, line);
@@ -120,40 +121,34 @@ namespace Wowthing.Backend.Jobs.Misc
             return categories;
         }
 
+        private static async Task<SortedDictionary<int, DataCurrency>> LoadCurrencies()
+        {
+            var types = await Utilities.LoadDumpCsvAsync<DumpCurrencyTypes>("currencytypes");
+            return new SortedDictionary<int, DataCurrency>(types.ToDictionary(k => k.ID, v => new DataCurrency(v)));
+        }
+
+        private static async Task<SortedDictionary<int, DataCurrencyCategory>> LoadCurrencyCategories()
+        {
+            var categories = await Utilities.LoadDumpCsvAsync<DumpCurrencyCategory>("currencycategory");
+            return new SortedDictionary<int, DataCurrencyCategory>(categories.ToDictionary(k => k.ID, v => new DataCurrencyCategory(v)));
+        }
+
         private static async Task<SortedDictionary<int, int>> LoadMountDump()
         {
-            var records = await LoadDumpCsv<DataMountDump>("mount");
+            var records = await Utilities.LoadDumpCsvAsync<DataMountDump>("mount");
             return new SortedDictionary<int, int>(records.ToDictionary(k => k.SourceSpellID, v => v.ID));
         }
 
         private static async Task<SortedDictionary<int, int>> LoadPetDump()
         {
-            var records = await LoadDumpCsv<DataPetDump>("battlepetspecies", p => (p.Flags & 32) == 0);
+            var records = await Utilities.LoadDumpCsvAsync<DataPetDump>("battlepetspecies", p => (p.Flags & 32) == 0);
             return new SortedDictionary<int, int>(records.ToDictionary(k => k.CreatureID, v => v.ID));
         }
 
         private static async Task<SortedDictionary<int, int>> LoadToyDump()
         {
-            var records = await LoadDumpCsv<DataToyDump>("toy");
+            var records = await Utilities.LoadDumpCsvAsync<DataToyDump>("toy");
             return new SortedDictionary<int, int>(records.ToDictionary(k => k.ItemID, v => v.ID));
-        }
-
-        private static async Task<List<T>> LoadDumpCsv<T>(string fileName, Func<T, bool> validFunc = null)
-        {
-            var basePath = Path.Join(DATA_PATH, "dumps");
-            var filePath = Directory.GetFiles(basePath, $"{fileName}-*.csv").OrderByDescending(f => f).First();
-
-            var csvReader = new CsvReader(File.OpenText(filePath), CultureInfo.InvariantCulture);
-
-            var ret = new List<T>();
-            await foreach (T record in csvReader.GetRecordsAsync<T>())
-            {
-                if (validFunc == null || validFunc(record))
-                {
-                    ret.Add(record);
-                }
-            }
-            return ret;
         }
 
         private static List<List<RedisSetCategory>> LoadSets(string dirName)
@@ -163,7 +158,7 @@ namespace Wowthing.Backend.Jobs.Misc
                 .WithNamingConvention(LowerCaseNamingConvention.Instance)
                 .Build();
 
-            var basePath = Path.Join(DATA_PATH, dirName);
+            var basePath = Path.Join(Utilities.DATA_PATH, dirName);
             foreach (var line in File.ReadLines(Path.Join(basePath, "_order")))
             {
                 if (line == "-")
@@ -188,7 +183,7 @@ namespace Wowthing.Backend.Jobs.Misc
         private static void AddUncategorized(string dirName, SortedDictionary<int, int> spellToThing, List<List<RedisSetCategory>> thingSets)
         {
             var skip = Array.Empty<int>();
-            var skipPath = Path.Join(DATA_PATH, dirName, "_skip.yml");
+            var skipPath = Path.Join(Utilities.DATA_PATH, dirName, "_skip.yml");
             if (File.Exists(skipPath))
             {
                 var newSkip = new DeserializerBuilder()
