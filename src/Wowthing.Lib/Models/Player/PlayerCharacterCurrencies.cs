@@ -22,7 +22,6 @@ namespace Wowthing.Lib.Models
 
     public class PlayerCharacterCurrenciesCurrency
     {
-        public int Id { get; set; }
         public int Total { get; set; }
         public int TotalMax { get; set; }
         public int Week { get; set; }

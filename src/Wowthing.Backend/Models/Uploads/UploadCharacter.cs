@@ -20,7 +20,7 @@ namespace Wowthing.Backend.Models.Uploads
         public int RestedXp { get; set; }
         public long Copper { get; set; }
 
-        // currencies
+        public Dictionary<int, List<int>> Currencies { get; set; }
         // lockouts
         public UploadCharacterMythicDungeon[] MythicDungeons { get; set; }
         public Dictionary<string, int> ScanTimes { get; set; }
