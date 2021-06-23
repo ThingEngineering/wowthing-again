@@ -39,10 +39,6 @@ namespace Wowthing.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            /*services.AddResponseCompression(options =>
-            {
-                options.EnableForHttps = true;
-            });*/
             services.AddResponseCaching();
 
             services.AddControllersWithViews()
@@ -79,6 +75,15 @@ namespace Wowthing.Web
             services.AddDataProtection()
                 .PersistKeysToStackExchangeRedis(redis);
 
+
+            if (Env.IsDevelopment())
+            {
+                services.AddResponseCompression(options =>
+                {
+                    options.EnableForHttps = true;
+                });
+            }
+
             // Forwarded headers in production
             if (Env.IsProduction())
             {
@@ -112,6 +117,7 @@ namespace Wowthing.Web
             if (Env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseResponseCompression();
                 app.UseStaticFiles();
             }
             else
@@ -122,8 +128,6 @@ namespace Wowthing.Web
             }
 
             app.UseStatusCodePagesWithReExecute("/error", "?statusCode={0}");
-
-            //app.UseResponseCompression();
 
             app.UseRouting();
 
