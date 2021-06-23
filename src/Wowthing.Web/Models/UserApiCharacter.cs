@@ -29,14 +29,12 @@ namespace Wowthing.Web.Models
         public WowFaction Faction { get; set; }
         public WowGender Gender { get; set; }
         public WowMountSkill MountSkill { get; set; }
+
+        public Dictionary<int, PlayerCharacterCurrenciesCurrency> Currencies { get; }
         public Dictionary<int, UserApiCharacterEquippedItem> EquippedItems { get; set; } = new Dictionary<int, UserApiCharacterEquippedItem>();
-
         public UserApiCharacterMythicPlus MythicPlus { get; }
-
         public Dictionary<int, int> Quests { get; set; } = new Dictionary<int, int>();
-
         public Dictionary<int, PlayerCharacterRaiderIoSeasonScores> RaiderIo { get; }
-
         public Dictionary<int, int> Reputations { get; set; } = new Dictionary<int, int>();
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
@@ -71,6 +69,7 @@ namespace Wowthing.Web.Models
             {
                 AccountId = character.AccountId;
                 ChromieTime = character.ChromieTime;
+                Currencies = character.Currencies?.Currencies;
                 Gold = (character?.Copper ?? 0) / 10000;
                 IsResting = character.IsResting;
                 IsWarMode = character.IsWarMode;
