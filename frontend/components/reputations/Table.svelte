@@ -11,14 +11,14 @@
 
     export let slug: string
 
-    $: category = find($staticData.ReputationSets, (r) => r.Slug === slug)
+    $: category = find($staticData.reputationSets, (r) => r.slug === slug)
 </script>
 
 <CharacterTable endSpacer={false}>
     <slot slot="head">
         <Head>
-            {#key category.Name}
-                {#each flatten(category.Reputations) as reputation}
+            {#key category.name}
+                {#each flatten(category.reputations) as reputation}
                     <HeadReputation {reputation} />
                 {/each}
             {/key}
@@ -26,8 +26,8 @@
     </slot>
 
     <slot slot="rowExtra">
-        {#key category.Name}
-            {#each flatten(category.Reputations) as reputation}
+        {#key category.name}
+            {#each flatten(category.reputations) as reputation}
                 <RowReputation {reputation} />
             {/each}
         {/key}

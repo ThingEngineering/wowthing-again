@@ -19,5 +19,5 @@
     thingType="item"
     {thingMap}
     userHas={$userData.toys}
-    sets={$staticData.ToySets}
+    sets={$staticData.toySets}
 />

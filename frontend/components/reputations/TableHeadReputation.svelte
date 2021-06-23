@@ -11,9 +11,9 @@
     $: {
         tooltip = {
             allowHTML: true,
-            content: reputation.Both
-                ? reputation.Both.Name
-                : `[A] ${reputation.Alliance.Name}<br>[H] ${reputation.Horde.Name}`,
+            content: reputation.both
+                ? reputation.both.name
+                : `[A] ${reputation.alliance.name}<br>[H] ${reputation.horde.name}`,
         }
     }
 </script>
@@ -51,14 +51,14 @@
 </style>
 
 <th use:tippy={tooltip}>
-    {#if reputation.Both}
+    {#if reputation.both}
         <div class="split-no">
-            <WowdbImage name={reputation.Both.Icon} size="medium" />
+            <WowdbImage name={reputation.both.icon} size="medium" />
         </div>
     {:else}
         <div class="split-yes">
-            <WowdbImage name={reputation.Alliance.Icon} size="medium" />
-            <WowdbImage name={reputation.Horde.Icon} size="medium" />
+            <WowdbImage name={reputation.alliance.icon} size="medium" />
+            <WowdbImage name={reputation.horde.icon} size="medium" />
         </div>
     {/if}
 </th>

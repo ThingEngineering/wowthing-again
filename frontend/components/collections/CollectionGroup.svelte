@@ -19,8 +19,8 @@
 </style>
 
 <div>
-    <p>{group.Name}</p>
-    {#each group.Things as things}
+    <p>{group.name}</p>
+    {#each group.things as things}
         <CollectionThing {thingType} {thingMap} {userHas} {things} />
     {/each}
 </div>

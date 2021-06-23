@@ -16,8 +16,8 @@
 
     let sections: StaticDataSetCategory[]
     $: sections = filter(
-        find(sets, (s) => s !== null && s[0].Slug === slug),
-        (s) => s.Groups.length > 0,
+        find(sets, (s) => s !== null && s[0].slug === slug),
+        (s) => s.groups.length > 0,
     )
 </script>
 
@@ -52,20 +52,20 @@
 
 {#each sections as section}
     <div class="section thing-container">
-        {#if section.Name}
+        {#if section.name}
             <h3>
-                {section.Name}
+                {section.name}
                 <span
                     ><CollectionCount
                         counts={$userData.setCounts[route][
-                            `${slug}_${section.Slug}`
+                            `${slug}_${section.slug}`
                         ]}
                     /></span
                 >
             </h3>
         {/if}
         <div class="container">
-            {#each section.Groups as group, i (`${thingType}-${slug}-${i}`)}
+            {#each section.groups as group, i (`${thingType}-${slug}-${i}`)}
                 <CollectionGroup {thingType} {thingMap} {userHas} {group} />
             {/each}
         </div>

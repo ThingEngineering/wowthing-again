@@ -23,12 +23,12 @@ export default function initializeSets(): void {
 
     sigh(
         'mounts',
-        staticData.MountSets,
+        staticData.mountSets,
         userData.mounts,
-        staticData.SpellToMount,
+        staticData.spellToMount,
     )
-    sigh('pets', staticData.PetSets, {})
-    sigh('toys', staticData.ToySets, userData.toys)
+    sigh('pets', staticData.petSets, {})
+    sigh('toys', staticData.toySets, userData.toys)
 
     console.timeEnd('initializeSets')
 }
@@ -55,11 +55,11 @@ function sigh(
             let sectionHave = 0,
                 sectionTotal = 0
 
-            for (let k = 0; k < section.Groups.length; k++) {
-                const group = section.Groups[k]
+            for (let k = 0; k < section.groups.length; k++) {
+                const group = section.groups[k]
 
-                for (let l = 0; l < group.Things.length; l++) {
-                    const things = group.Things[l]
+                for (let l = 0; l < group.things.length; l++) {
+                    const things = group.things[l]
                     categoryTotal++
                     sectionTotal++
 
@@ -78,11 +78,11 @@ function sigh(
             }
 
             userData.setCounts[category][
-                `${categories[0].Slug}_${section.Slug}`
+                `${categories[0].slug}_${section.slug}`
             ] = { have: sectionHave, total: sectionTotal }
         }
 
-        userData.setCounts[category][categories[0].Slug] = {
+        userData.setCounts[category][categories[0].slug] = {
             have: categoryHave,
             total: categoryTotal,
         }

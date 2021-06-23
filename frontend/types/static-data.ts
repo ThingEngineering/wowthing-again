@@ -1,87 +1,78 @@
 import type { Dictionary } from './dictionary'
 
 export interface StaticData {
-    Realms: Dictionary<StaticDataRealm>
-    Reputations: Dictionary<StaticDataReputation>
-    ReputationTiers: Dictionary<StaticDataReputationTier>
+    realms: Dictionary<StaticDataRealm>
+    reputations: Dictionary<StaticDataReputation>
+    reputationTiers: Dictionary<StaticDataReputationTier>
 
-    MountSets: StaticDataSetCategory[][]
-    SpellToMount: Dictionary<number>
+    mountSets: StaticDataSetCategory[][]
+    spellToMount: Dictionary<number>
 
-    PetSets: StaticDataSetCategory[][]
-    CreatureToPet: Dictionary<number>
+    petSets: StaticDataSetCategory[][]
+    creatureToPet: Dictionary<number>
 
-    ReputationSets: StaticDataReputationCategory[]
+    reputationSets: StaticDataReputationCategory[]
 
-    ToySets: StaticDataSetCategory[][]
+    toySets: StaticDataSetCategory[][]
 
-    RaiderIoScoreTiers: StaticDataRaiderIoScoreTier[]
+    raiderIoScoreTiers: StaticDataRaiderIoScoreTier[]
 }
 
 interface StaticDataRealm {
-    Id: number
-    Region: number
-    Name: string
-    Slug: string
+    id: number
+    region: number
+    name: string
+    slug: string
 }
 
 // Reputations
 export interface StaticDataReputation {
-    Id: number
-    Name: string
-    TierId: number
+    id: number
+    name: string
+    tierId: number
 }
 
 export interface StaticDataReputationTier {
-    Id: number
-    MinValues: number[]
-    MaxValues: number[]
-    Names: string[]
+    id: number
+    minValues: number[]
+    maxValues: number[]
+    names: string[]
 }
 
 interface StaticDataReputationCategory {
-    Name: string
-    Reputations: StaticDataReputationSet[][]
-    Slug: string
+    name: string
+    reputations: StaticDataReputationSet[][]
+    slug: string
 }
 
 export interface StaticDataReputationSet {
-    Both: StaticDataReputationReputation
-    Alliance: StaticDataReputationReputation
-    Horde: StaticDataReputationReputation
-    Paragon: boolean
-
-    /*get tooltip(): string {
-        if (this.Both) {
-            return this.Both.Name;
-        }
-        else {
-            return `[A] ${this.Alliance.Name}<br>[H] ${this.Horde.Name}`
-        }
-    }*/
+    both: StaticDataReputationReputation
+    alliance: StaticDataReputationReputation
+    horde: StaticDataReputationReputation
+    paragon: boolean
 }
 
 interface StaticDataReputationReputation {
-    Id: number
-    Name: string
-    Icon: string
-    Note: string
+    id: number
+    name: string
+    icon: string
+    note: string
 }
 
 // Sets
 export interface StaticDataSetCategory {
-    Name: string
-    Slug: string
-    Groups: StaticDataSetGroup[]
+    name: string
+    slug: string
+    groups: StaticDataSetGroup[]
 }
 
 export interface StaticDataSetGroup {
-    Name: string
-    Things: number[][]
+    name: string
+    things: number[][]
 }
 
 // RaiderIO
-interface StaticDataRaiderIoScoreTier {
-    Score: number
-    RgbHex: string
+export interface StaticDataRaiderIoScoreTier {
+    score: number
+    rgbHex: string
 }
