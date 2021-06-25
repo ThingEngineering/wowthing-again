@@ -8,10 +8,10 @@
 </script>
 
 <Sidebar width="12rem">
-    {#each $staticData.ReputationSets as reputation}
-        <li use:active={'/reputations/' + reputation.Slug}>
-            <a href="/reputations/{reputation.Slug}" use:link
-                >{reputation.Name}</a
+    {#each $staticData.reputationSets as reputation}
+        <li use:active={'/reputations/' + reputation.slug}>
+            <a href="/reputations/{reputation.slug}" use:link
+                >{reputation.name}</a
             >
         </li>
     {/each}

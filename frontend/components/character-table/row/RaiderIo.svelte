@@ -7,6 +7,7 @@
         Character,
         CharacterRaiderIoSeason,
         MythicPlusSeason,
+        StaticDataRaiderIoScoreTier,
         TippyProps,
     } from '@/types'
     import tippy from '@/utils/tippy'
@@ -22,10 +23,10 @@
         character = getContext('character')
         scores = character.raiderIo?.[season.Id]
         if (scores !== undefined) {
-            for (let i = 0; i < $staticData.RaiderIoScoreTiers.length; i++) {
-                const tier = $staticData.RaiderIoScoreTiers[i]
-                if (scores.all >= tier.Score) {
-                    color = tier.RgbHex
+            for (let i = 0; i < $staticData.raiderIoScoreTiers.length; i++) {
+                const tier: StaticDataRaiderIoScoreTier = $staticData.raiderIoScoreTiers[i]
+                if (scores.all >= tier.score) {
+                    color = tier.rgbHex
                     break
                 }
             }

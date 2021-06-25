@@ -24,16 +24,16 @@
     $: {
         if (character !== undefined && reputation !== undefined) {
             const repInfo =
-                reputation.Both ||
+                reputation.both ||
                 (character.faction === 0
-                    ? reputation.Alliance
-                    : reputation.Horde)
-            const dataRep: StaticDataReputation = $data.Reputations[repInfo.Id]
-            characterRep = character.reputations[repInfo.Id]
+                    ? reputation.alliance
+                    : reputation.horde)
+            const dataRep: StaticDataReputation = $data.reputations[repInfo.id]
+            characterRep = character.reputations[repInfo.id]
 
             if (characterRep !== undefined && dataRep !== undefined) {
                 const tiers: StaticDataReputationTier =
-                    $data.ReputationTiers[dataRep.TierId]
+                    $data.reputationTiers[dataRep.tierId]
                 repTier = findReputationTier(tiers, characterRep)
                 const valueRank = repTier.MaxValue
                     ? `${repTier.Value} / ${repTier.MaxValue} ${repTier.Name}`
@@ -43,9 +43,9 @@
                     allowHTML: true,
                     content: `
 <div class='wowthing-tooltip'>
-    <h4>${dataRep.Name}</h4>
+    <h4>${dataRep.name}</h4>
     ${valueRank}
-    ${repInfo.Note !== null ? '<p><em>' + repInfo.Note + '</em></p>' : ''}
+    ${repInfo.note !== null ? '<p><em>' + repInfo.note + '</em></p>' : ''}
 </div>`,
                 }
             }

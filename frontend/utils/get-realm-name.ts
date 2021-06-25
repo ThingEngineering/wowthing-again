@@ -7,6 +7,6 @@ data.subscribe((value) => {
 })
 
 export default function getRealmName(realmId: number): string {
-    const realm = staticData.Realms[realmId]
-    return realm?.Name ?? 'Honkstrasza'
+    const realm = staticData.realms[realmId]
+    return realm?.name ?? 'Honkstrasza'
 }

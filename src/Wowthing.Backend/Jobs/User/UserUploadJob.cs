@@ -29,6 +29,7 @@ namespace Wowthing.Backend.Jobs.User
             // Fetch character data for this account
             var characterMap = await _context.PlayerCharacter
                 .Where(c => c.Account.UserId == userId)
+                .Include(c => c.Currencies)
                 .Include(c => c.Weekly)
                 .ToDictionaryAsync(k => (k.RealmId, k.Name));
 
@@ -74,51 +75,8 @@ namespace Wowthing.Backend.Jobs.User
                 character.IsWarMode = characterData.IsWarMode;
                 character.MountSkill = Enum.IsDefined(typeof(WowMountSkill), characterData.MountSkill) ? (WowMountSkill)characterData.MountSkill : 0;
 
-                // Weekly
-                if (character.Weekly == null)
-                {
-                    character.Weekly = new PlayerCharacterWeekly
-                    {
-                        Character = character,
-                    };
-                    _context.PlayerCharacterWeekly.Add(character.Weekly);
-                }
-
-                character.Weekly.KeystoneDungeon = characterData.KeystoneInstance;
-                character.Weekly.KeystoneLevel = characterData.KeystoneLevel;
-
-                if (characterData.ScanTimes.TryGetValue("vault", out int vaultScanned) && characterData.MythicDungeons != null && characterData.Vault != null)
-                {
-                    character.Weekly.Vault.ScannedAt = DateTimeOffset.FromUnixTimeSeconds(vaultScanned).UtcDateTime;
-
-                    character.Weekly.Vault.MythicPlusRuns = characterData.MythicDungeons
-                        .Select(d => new List<int> { d.Map, d.Level })
-                        .ToList();
-
-                    // https://wowpedia.fandom.com/wiki/API_C_WeeklyRewards.GetActivities
-                    character.Weekly.Vault.MythicPlusProgress = ConvertVault(characterData.Vault[0]);
-                    character.Weekly.Vault.RankedPvpProgress = ConvertVault(characterData.Vault[1]);
-                    character.Weekly.Vault.RaidProgress = ConvertVault(characterData.Vault[2]);
-
-                    _context.Entry(character.Weekly).Property(e => e.Vault).IsModified = true;
-                }
-
-                // Weekly ugh quests
-                if (characterData.WeeklyUghQuests != null)
-                {
-                    character.Weekly.UghQuests = new Dictionary<string, PlayerCharacterWeeklyUghQuest>();
-
-                    foreach (var (questKey, questData) in characterData.WeeklyUghQuests)
-                    {
-                        character.Weekly.UghQuests[questKey.Truncate(32)] = new PlayerCharacterWeeklyUghQuest
-                        {
-                            Have = questData.Have,
-                            Need = questData.Need,
-                            Status = questData.Status,
-                            Text = questData.Text?.Truncate(64),
-                        };
-                    }
-                }
+                HandleCurrencies(character, characterData);
+                HandleWeekly(character, characterData);
             }
 
             if (accountId > 0 && parsed.Toys != null)
@@ -136,6 +94,82 @@ namespace Wowthing.Backend.Jobs.User
             }
 
             await _context.SaveChangesAsync();
+        }
+
+        private void HandleCurrencies(PlayerCharacter character, UploadCharacter characterData)
+        {
+            if (character.Currencies == null)
+            {
+                character.Currencies = new PlayerCharacterCurrencies
+                {
+                    Character = character,
+                };
+                _context.PlayerCharacterCurrencies.Add(character.Currencies);
+            }
+
+            character.Currencies.Currencies = new Dictionary<int, PlayerCharacterCurrenciesCurrency>();
+
+            foreach ((int currencyId, List<int> currencyData) in characterData.Currencies.EmptyIfNull())
+            {
+                if (currencyData.Count == 4)
+                {
+                    character.Currencies.Currencies[currencyId] = new PlayerCharacterCurrenciesCurrency
+                    {
+                        Total = currencyData[0],
+                        TotalMax = currencyData[1],
+                        Week = currencyData[2],
+                        WeekMax = currencyData[3],
+                    };
+                }
+            }
+        }
+
+        private void HandleWeekly(PlayerCharacter character, UploadCharacter characterData)
+        {
+            if (character.Weekly == null)
+            {
+                character.Weekly = new PlayerCharacterWeekly
+                {
+                    Character = character,
+                };
+                _context.PlayerCharacterWeekly.Add(character.Weekly);
+            }
+
+            character.Weekly.KeystoneDungeon = characterData.KeystoneInstance;
+            character.Weekly.KeystoneLevel = characterData.KeystoneLevel;
+
+            if (characterData.ScanTimes.TryGetValue("vault", out int vaultScanned) && characterData.MythicDungeons != null && characterData.Vault != null)
+            {
+                character.Weekly.Vault.ScannedAt = DateTimeOffset.FromUnixTimeSeconds(vaultScanned).UtcDateTime;
+
+                character.Weekly.Vault.MythicPlusRuns = characterData.MythicDungeons
+                    .Select(d => new List<int> { d.Map, d.Level })
+                    .ToList();
+
+                // https://wowpedia.fandom.com/wiki/API_C_WeeklyRewards.GetActivities
+                character.Weekly.Vault.MythicPlusProgress = ConvertVault(characterData.Vault[0]);
+                character.Weekly.Vault.RankedPvpProgress = ConvertVault(characterData.Vault[1]);
+                character.Weekly.Vault.RaidProgress = ConvertVault(characterData.Vault[2]);
+
+                _context.Entry(character.Weekly).Property(e => e.Vault).IsModified = true;
+            }
+
+            // Weekly ugh quests
+            if (characterData.WeeklyUghQuests != null)
+            {
+                character.Weekly.UghQuests = new Dictionary<string, PlayerCharacterWeeklyUghQuest>();
+
+                foreach (var (questKey, questData) in characterData.WeeklyUghQuests)
+                {
+                    character.Weekly.UghQuests[questKey.Truncate(32)] = new PlayerCharacterWeeklyUghQuest
+                    {
+                        Have = questData.Have,
+                        Need = questData.Need,
+                        Status = questData.Status,
+                        Text = questData.Text?.Truncate(64),
+                    };
+                }
+            }
         }
 
         private static List<PlayerCharacterWeeklyVaultProgress> ConvertVault(UploadCharacterVault[] vault)

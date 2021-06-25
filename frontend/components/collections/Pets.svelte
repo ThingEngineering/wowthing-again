@@ -11,7 +11,7 @@
     route="pets"
     slug={params.slug}
     thingType="npc"
-    thingMap={$staticData.CreatureToPet}
+    thingMap={$staticData.creatureToPet}
     userHas={$userData.mounts}
-    sets={$staticData.PetSets}
+    sets={$staticData.petSets}
 />
