@@ -15,6 +15,9 @@
         <a href="#/cards">🚧 Home (Cards)</a>
     </li>
     <li class="separator" />
+    <li use:active={'/currencies/*'}>
+        <a href="#/currencies/shadowlands">Currencies</a>
+    </li>
     <li use:active={'/gear'}>
         <a href="#/gear">Gear</a>
     </li>

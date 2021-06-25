@@ -1,6 +1,7 @@
 <script lang="ts">
     import Router from 'svelte-spa-router'
 
+    import Currencies from '@/components/currencies/Currencies.svelte'
     import Gear from '@/components/gear/Gear.svelte'
     import HomeCards from '@/components/home/Cards.svelte'
     import HomeTable from '@/components/home/Table.svelte'
@@ -17,6 +18,7 @@
         '/cards': HomeCards,
         '/table': HomeTable,
 
+        '/currencies/:slug?': Currencies,
         '/gear': Gear,
         '/mythicplus/:slug?': MythicPlus,
         '/reputations/:slug?': Reputations,

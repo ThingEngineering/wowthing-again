@@ -1,0 +1,30 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using CsvHelper.Configuration.Attributes;
+
+namespace Wowthing.Backend.Models.Data
+{
+    public class DumpCurrencyTypes
+    {
+        public int ID { get; set; }
+
+        public int CategoryID { get; set; }
+        public int MaxEarnablePerWeek { get; set; }
+        public int MaxQty { get; set; }
+
+        [Name("Flags[0]")]
+        public int Flags0 { get; set; }
+
+        [Name("Flags[1]")]
+        public int Flags1 { get; set; }
+
+        [Name("Name_lang")]
+        public string Name { get; set; }
+
+        [Name("Description_lang")]
+        public string Description { get; set; }
+    }
+}

@@ -50,6 +50,7 @@
             font-weight: 600;
             position: sticky;
             top: 0;
+            z-index: 1;
         }
         & :global(thead > tr > th:first-child) {
             border-left: 1px solid $border-color;
