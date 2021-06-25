@@ -22,12 +22,20 @@ export interface Character {
     calculatedItemLevel: string
     calculatedItemLevelQuality: number
 
+    currencies: Dictionary<CharacterCurrency>
     equippedItems: Dictionary<CharacterEquippedItem>
     mythicPlus: CharacterMythicPlus
     raiderIo: Dictionary<CharacterRaiderIoSeason>
     reputations: Dictionary<number>
     shadowlands?: CharacterShadowlands
     weekly?: CharacterWeekly
+}
+
+export interface CharacterCurrency {
+    total: number
+    totalMax: number
+    week: number
+    weekMax: number
 }
 
 export interface CharacterEquippedItem {

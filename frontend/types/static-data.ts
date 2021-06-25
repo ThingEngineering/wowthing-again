@@ -1,6 +1,8 @@
 import type { Dictionary } from './dictionary'
 
 export interface StaticData {
+    currencies: Dictionary<StaticDataCurrency>
+    currencyCategories: Dictionary<StaticDataCurrencyCategory>
     realms: Dictionary<StaticDataRealm>
     reputations: Dictionary<StaticDataReputation>
     reputationTiers: Dictionary<StaticDataReputationTier>
@@ -16,6 +18,21 @@ export interface StaticData {
     toySets: StaticDataSetCategory[][]
 
     raiderIoScoreTiers: StaticDataRaiderIoScoreTier[]
+}
+
+export interface StaticDataCurrency {
+    id: number
+    categoryId: number
+    description: string
+    maxPerWeek: number
+    maxTotal: number
+    name: string
+}
+
+export interface StaticDataCurrencyCategory {
+    id: number
+    name: string
+    slug: string
 }
 
 interface StaticDataRealm {
