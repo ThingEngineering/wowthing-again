@@ -1,0 +1,74 @@
+.character-table {
+    --icon-border-width: 1px;
+
+    thead {
+        tr {
+            th {
+                border-bottom: 1px solid $border-color;
+                border-top: 1px solid $border-color;
+                font-weight: 600;
+                position: sticky;
+                top: 0;
+                z-index: 1;
+
+                &:first-child {
+                    border-left: 1px solid $border-color;
+                    border-top-left-radius: $border-radius;
+                }
+
+                &:last-child {
+                    border-right: 1px solid $border-color;
+                    border-top-right-radius: $border-radius;
+                }
+            }
+        }
+    }
+
+    tbody {
+        tr {
+            td {
+                white-space: nowrap;
+
+                --icon-margin-top: -4px;
+
+                &:first-child {
+                    border-left: 1px solid $border-color;
+                }
+
+                &:last-child {
+                    border-right: 1px solid $border-color;
+                }
+            }
+
+            // Last row in a character grouping
+            &.last-of-group {
+                td {
+                    &:first-child {
+                        border-bottom-left-radius: $border-radius;
+                    }
+
+                    &:last-child {
+                        border-bottom-right-radius: $border-radius;
+                    }
+                }
+            }
+        }
+
+        // Only if no thead is present
+        &:first-child {
+            tr:first-child {
+                td {
+                    border-top: 1px solid $border-color;
+
+                    &:first-child {
+                        border-top-left-radius: $border-radius;
+                    }
+
+                    &:last-child {
+                        border-top-right-radius: $border-radius;
+                    }
+                }
+            }
+        }
+    }
+}
