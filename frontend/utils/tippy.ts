@@ -1,7 +1,8 @@
 import tippy, { SingleTarget } from 'tippy.js'
+
 import type {TippyProps} from '@/types'
 
-export default function (node: SingleTarget, props: TippyProps | string): void {
+export default function (node: SingleTarget, props: TippyProps | string): any {
     if (props === undefined) {
         return
     }
@@ -19,5 +20,11 @@ export default function (node: SingleTarget, props: TippyProps | string): void {
         }
     }
 
-    tippy(node, tippyProps)
+    const tp = tippy(node, tippyProps)
+
+    return {
+        destroy() {
+            tp.destroy()
+        }
+    }
 }
