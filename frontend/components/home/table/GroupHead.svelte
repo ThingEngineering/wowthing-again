@@ -82,7 +82,7 @@
     {/if}-->
 
     {#if $settings.home.showVaultMythicPlus}
-        <td colspan="3">M+ Vault</td>
+        <td>M+ Vault</td>
     {/if}
 
     <!--{#if $settings.home.showVaultPvp}

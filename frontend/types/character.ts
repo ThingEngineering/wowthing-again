@@ -109,7 +109,7 @@ export interface CharacterWeeklyUghQuest {
 
 interface CharacterWeeklyVault {
     mythicPlusProgress: CharacterWeeklyProgress[]
-    mythicPlusRuns: Array<Array<number>>
+    mythicPlusRuns: number[][]
     rankedPvpProgress: CharacterWeeklyProgress[]
     raidProgress: CharacterWeeklyProgress[]
 }

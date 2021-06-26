@@ -1,50 +1,45 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
-    import type {
-        Character,
-        CharacterWeeklyProgress,
-        TippyProps,
-    } from '@/types'
+    import type {Character, CharacterWeeklyProgress} from '@/types'
     import getMythicPlusVaultItemLevel from '@/utils/get-mythic-plus-vault-item-level'
-    import getMythicPlusVaultTooltip from '@/utils/get-mythic-plus-vault-tooltip'
-    import tippy from '@/utils/tippy'
+    import {tippyComponent} from '@/utils/tippy'
+
+    import MythicPlusVaultTooltip from '@/tooltips/mythic-plus-vault/Tooltip.svelte'
 
     export let character: Character
 
     let mythicPlus: CharacterWeeklyProgress[] | undefined
-    let mythicPlusTooltip: TippyProps
     $: {
         if (character.level === Constants.characterMaxLevel) {
             mythicPlus = character.weekly?.vault?.mythicPlusProgress
-            if (mythicPlus) {
-                mythicPlusTooltip = getMythicPlusVaultTooltip(character)
-            }
         }
     }
 </script>
 
 <style lang="scss">
     td {
-        min-width: $character-width-vault;
-        width: $character-width-vault;
+        @include cell-width($character-width-vault);
+    }
+    span {
+        display: inline-block;
         text-align: center;
+        width: calc(#{$character-width-vault} / 3 - 0.2rem);
+        word-spacing: -0.2ch;
     }
 </style>
 
 {#if mythicPlus}
-    {#each mythicPlus as progress}
-        {#if progress.progress >= progress.threshold}
-            <td class="quality4" use:tippy={mythicPlusTooltip}
-                >{getMythicPlusVaultItemLevel(progress.level)}</td
-            >
-        {:else}
-            <td use:tippy={mythicPlusTooltip}
-                >{progress.threshold - progress.progress} !</td
-            >
-        {/if}
-    {/each}
+    <td use:tippyComponent={{component: MythicPlusVaultTooltip, props: {character}}}>
+        <div class="flex-wrapper">
+            {#each mythicPlus as progress}
+                {#if progress.progress >= progress.threshold}
+                    <span class="quality4">{getMythicPlusVaultItemLevel(progress.level)}</span>
+                {:else}
+                    <span>{progress.threshold - progress.progress} !</span>
+                {/if}
+            {/each}
+        </div>
+    </td>
 {:else}
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
     <td>&nbsp;</td>
 {/if}
