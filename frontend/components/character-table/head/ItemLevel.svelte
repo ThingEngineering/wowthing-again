@@ -5,4 +5,4 @@
     }
 </style>
 
-<th class="item-level" />
+<th class="item-level"></th>
