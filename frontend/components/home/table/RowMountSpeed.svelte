@@ -7,7 +7,6 @@
     import type { Character } from '@/types'
     import tippy from '@/utils/tippy'
 
-    import TableIcon from '@/components/common/TableIcon.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     const character: Character = getContext('character')
@@ -19,7 +18,7 @@
     let nextSkill: MountSkill
 
     $: {
-        const mountSkill = mountSkillMap[character.mountSkill]
+        const mountSkill: MountSkill = mountSkillMap[character.mountSkill]
         if (mountSkill !== undefined) {
             speed = mountSkill.speed
             spellId =
@@ -70,8 +69,7 @@
 
 <style lang="scss">
     td {
-        text-align: right;
-        width: 2.1rem;
+        @include cell-width($character-width-mount);
 
         &.maxed {
             color: #1eff00;
@@ -85,7 +83,9 @@
     }
 </style>
 
-<TableIcon>
-    <WowthingImage name="spell/{spellId}" size={20} border={1} />
-</TableIcon>
-<td class="{cls}" use:tippy={tooltip}>{speed}</td>
+<td class="{cls}" use:tippy={tooltip}>
+    <div class="flex-wrapper">
+        <WowthingImage name="spell/{spellId}" size={20} border={1} />
+        <span>{speed}</span>
+    </div>
+</td>

@@ -35,9 +35,6 @@
 </script>
 
 <style lang="scss">
-    td {
-        @include cell-flex();
-    }
     span {
         display: inline-block;
     }
@@ -60,9 +57,11 @@
 
 {#if character.level === Constants.characterMaxLevel && dungeon}
     <td use:tippy={{allowHTML: true, content: tooltip}}>
-        <WowthingImage name={dungeon.icon} size={20} border={1} />
-        <span class="level {getMythicPlusRunQuality(character.weekly.keystoneLevel)}">{character.weekly.keystoneLevel}</span>
-        <span class="dungeon" class:upgrade>{dungeon.abbreviation}</span>
+        <div class="flex-wrapper">
+            <WowthingImage name={dungeon.icon} size={20} border={1} />
+            <span class="level {getMythicPlusRunQuality(character.weekly.keystoneLevel)}">{character.weekly.keystoneLevel}</span>
+            <span class="dungeon" class:upgrade>{dungeon.abbreviation}</span>
+        </div>
     </td>
 {:else}
     <td>&nbsp;</td>
