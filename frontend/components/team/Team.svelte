@@ -28,14 +28,8 @@
             {#each $teamData.characters as teamCharacter}
                 <tr class="faction{teamCharacter.character.faction}">
                     <td>
-                        <RaceIcon
-                            character={teamCharacter.character}
-                            size={20}
-                        />
-                        <ClassIcon
-                            character={teamCharacter.character}
-                            size={20}
-                        />
+                        <RaceIcon character={teamCharacter.character} />
+                        <ClassIcon character={teamCharacter.character} />
                     </td>
                     <CharacterName {teamCharacter} />
                     <td

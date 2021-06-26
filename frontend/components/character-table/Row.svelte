@@ -47,19 +47,19 @@
 <tr class="faction{character.faction}" class:inactive={!accountEnabled} class:last-of-group={last}>
     {#if $settings.general.showRaceIcon}
         <TableIcon>
-            <RaceIcon {character} size={20} />
+            <RaceIcon {character} />
         </TableIcon>
     {/if}
 
     {#if $settings.general.showClassIcon}
         <TableIcon padLeft="0px">
-            <ClassIcon {character} size={20} />
+            <ClassIcon {character} />
         </TableIcon>
     {/if}
 
     {#if $settings.general.showSpecIcon}
         <TableIcon padLeft="0px">
-            <SpecializationIcon {character} size={20} />
+            <SpecializationIcon {character} />
         </TableIcon>
     {/if}
 
