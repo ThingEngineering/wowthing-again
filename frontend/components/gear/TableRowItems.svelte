@@ -20,6 +20,8 @@
         padding: 2px;
         text-align: center;
         width: 46px;
+
+        --icon-margin-top: 0;
     }
 </style>
 

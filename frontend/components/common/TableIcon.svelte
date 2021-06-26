@@ -10,11 +10,6 @@
         padding-left: var(--pad-left);
         padding-right: var(--pad-right);
         text-align: center;
-
-        & :global(img) {
-            border-radius: $border-radius;
-            margin-top: -4px;
-        }
     }
 </style>
 
