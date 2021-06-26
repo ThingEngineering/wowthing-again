@@ -35,6 +35,9 @@
 </script>
 
 <style lang="scss">
+    td {
+        @include cell-width($character-width-keystone);
+    }
     span {
         display: inline-block;
     }

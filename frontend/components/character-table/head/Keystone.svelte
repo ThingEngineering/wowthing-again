@@ -1,8 +1,7 @@
 <style lang="scss">
     th {
-        min-width: calc(#{$character-width-icon} + 2px + #{$table-width-key-level} + #{$table-width-key-dungeon});
-        width: calc(#{$character-width-icon} + #{$table-width-key-level} + #{$table-width-key-dungeon});
-        text-align: center;
+        @include cell-width($character-width-keystone);
+
         vertical-align: bottom;
     }
 </style>
