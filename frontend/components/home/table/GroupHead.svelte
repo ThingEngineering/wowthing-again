@@ -6,6 +6,7 @@
     import type {Character} from '@/types'
     import getCharacterTableSpan from '@/utils/get-character-table-span'
 
+    import HeadCovenant from './head/Covenant.svelte'
     import RowGold from '@/components/character-table/row/Gold.svelte'
     import SpacerRow from '@/components/character-table/SpacerRow.svelte'
 
@@ -60,7 +61,7 @@
     {/if}
 
     {#if $settings.home.showCovenant}
-        <td colspan="2">Cov.</td>
+        <HeadCovenant />
     {/if}
 
     {#if $settings.home.showWeeklyAnima && $userData.public === false}

@@ -36,7 +36,7 @@
 
 <style lang="scss">
     td {
-        @include flex-cell();
+        @include cell-flex();
     }
     span {
         display: inline-block;

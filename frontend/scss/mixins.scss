@@ -1,6 +1,14 @@
-@mixin flex-cell {
+@mixin cell-flex {
     align-items: center;
     display: flex;
 
     --icon-margin-top: 0 !important;
+}
+
+@mixin cell-width($width, $paddingLeft: $character-padding-left, $paddingRight: 0px) {
+    $calcWidth: calc(#{$width} + #{$paddingLeft} + #{$paddingRight});
+    min-width: $calcWidth;
+    width: $calcWidth;
+    padding-left: $paddingLeft;
+    padding-right: $paddingRight;
 }
