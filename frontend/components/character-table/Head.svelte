@@ -39,22 +39,28 @@
 <thead>
     <tr>
         {#if $settings.general.showRaceIcon}
-            <th class="icon" />
+            <th class="icon"></th>
         {/if}
+
         {#if $settings.general.showClassIcon}
-            <th class="icon" />
+            <th class="icon"></th>
         {/if}
+
         {#if $settings.general.showSpecIcon}
-            <th class="icon" />
+            <th class="icon"></th>
         {/if}
-        <th class="level" />
-        <th class="name" />
+
+        <th class="level"></th>
+        <th class="name"></th>
+
         {#if $settings.general.showRealm}
-            <th class="realm" />
+            <th class="realm"></th>
         {/if}
+
         <slot />
+
         {#if endSpacer === true}
-            <th class="spacer" />
+            <th class="spacer"></th>
         {/if}
     </tr>
 </thead>

@@ -16,8 +16,6 @@
 <style lang="scss">
     div :global(img) {
         background: rgba(77, 78, 79, 0.4);
-        border-color: $border-color;
-        border-radius: $border-radius;
     }
 </style>
 
@@ -26,8 +24,11 @@
         class={'covenant' + character.shadowlands.covenantId}
         use:tippy={covenant.getTooltip(character.shadowlands.renownLevel)}
     >
-        <WowthingImage name={covenant.Icon} size={24} border={1} />
-        {character.shadowlands.renownLevel}
+        <WowthingImage
+            name={covenant.Icon}
+            size={24}
+            border={1}
+        />{character.shadowlands.renownLevel}
     </div>
 {:else}
     &nbsp;

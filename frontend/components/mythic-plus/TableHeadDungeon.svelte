@@ -28,7 +28,7 @@
 
 {#if dungeon !== undefined}
     <th use:tippy={dungeon.getTooltip()}>
-        <WowthingImage name={dungeon.icon} size={48} border={1} />
+        <WowthingImage name={dungeon.icon} size={48} />
     </th>
 {:else}
     <th>&nbsp;</th>
