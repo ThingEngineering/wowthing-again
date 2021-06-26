@@ -2,8 +2,13 @@
   margin-top: 0.5rem;
   width: 100%;
 
-  tr.vault-reward {
-    color: #1eff00;
+  tr {
+    &.vault-more {
+      color: #00ccff;
+    }
+    &.vault-reward {
+      color: #1eff00;
+    }
   }
 
   td {

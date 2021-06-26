@@ -4,11 +4,10 @@
 
 <style lang="scss">
     th {
-        min-width: calc(#{$character-width-vault} * 3);
-        width: calc(#{$character-width-vault} * 3);
-        text-align: center;
+        @include cell-width($character-width-vault);
+
         vertical-align: bottom;
     }
 </style>
 
-<th colspan="3">{vaultType} Vault</th>
+<th>{vaultType} Vault</th>
