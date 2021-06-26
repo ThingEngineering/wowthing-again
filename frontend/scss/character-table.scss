@@ -4,6 +4,7 @@
     thead {
         tr {
             th {
+                background: $thing-background;
                 border-bottom: 1px solid $border-color;
                 border-top: 1px solid $border-color;
                 font-weight: 600;

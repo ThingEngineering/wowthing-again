@@ -79,7 +79,7 @@
         <RowItemLevel />
         {#key slug}
             {#if isCurrentSeason}
-                <RowKeystone />
+                <RowKeystone {character} />
             {/if}
 
             {#if isThisWeek}
