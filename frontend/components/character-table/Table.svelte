@@ -39,61 +39,10 @@
 </script>
 
 <style lang="scss">
-    table {
-        background: $thing-background;
-        border-radius: $border-radius;
-        table-layout: fixed;
-
-        --icon-border-width: 1px;
-
-        & :global(thead > tr > th) {
-            border-bottom: 1px solid $border-color;
-            border-top: 1px solid $border-color;
-            font-weight: 600;
-            position: sticky;
-            top: 0;
-            z-index: 1;
-        }
-        & :global(thead > tr > th:first-child) {
-            border-left: 1px solid $border-color;
-            border-top-left-radius: $border-radius;
-        }
-        & :global(thead > tr > th:last-child) {
-            border-right: 1px solid $border-color;
-            border-top-right-radius: $border-radius;
-        }
-
-        & :global(tbody > tr > td) {
-            white-space: nowrap;
-
-            --icon-margin-top: -4px;
-        }
-        & :global(tbody > tr > td:first-child) {
-            border-left: 1px solid $border-color;
-        }
-        & :global(tbody > tr > td:last-child) {
-            border-right: 1px solid $border-color;
-        }
-        & :global(tbody:first-child > tr:first-child > td) {
-            border-top: 1px solid $border-color;
-        }
-        & :global(tbody:first-child > tr:first-child > td:first-child) {
-            border-top-left-radius: $border-radius;
-        }
-        & :global(tbody:first-child > tr:first-child > td:last-child) {
-            border-top-right-radius: $border-radius;
-        }
-        & :global(tbody > tr.last-of-group > td:first-child) {
-            border-bottom-left-radius: $border-radius;
-        }
-        & :global(tbody > tr.last-of-group > td:last-child) {
-            border-bottom-right-radius: $border-radius;
-        }
-    }
 </style>
 
 <div class="thing-container">
-    <table class="table table-striped">
+    <table class="table table-striped character-table">
         <slot name="head" />
         <tbody>
             {#each groups as group, groupIndex}
