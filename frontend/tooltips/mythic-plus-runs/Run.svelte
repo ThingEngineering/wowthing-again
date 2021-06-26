@@ -12,7 +12,6 @@
     export let run: CharacterMythicPlusRun
 
     let completed: string
-    let level: string
     let members: CharacterMythicPlusRunMember[]
     let result: DungeonTimedResult
     $: {
@@ -44,7 +43,7 @@
         </tr>
     </thead>
     <tbody>
-        {#each run.members as member}
+        {#each members as member}
             <Member {member} />
         {/each}
     </tbody>
