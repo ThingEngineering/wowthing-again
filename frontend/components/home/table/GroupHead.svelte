@@ -72,7 +72,7 @@
     {/if}
 
     {#if $settings.home.showKeystone}
-        <td colspan="3">Keystone</td>
+        <td>Keystone</td>
     {/if}
 
     <!--{#if $settings.home.showVaultRaid}

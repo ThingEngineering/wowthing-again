@@ -1,0 +1,6 @@
+@mixin flex-cell {
+    align-items: center;
+    display: flex;
+
+    --icon-margin-top: 0 !important;
+}

@@ -8,9 +8,6 @@
 </script>
 
 <style lang="scss">
-    tr :global(th) {
-        background: $thing-background;
-    }
     .spacer {
         min-width: $character-width-spacer;
         width: $character-width-spacer;
