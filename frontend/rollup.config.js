@@ -48,7 +48,10 @@ const sigh = function(baseName) {
                 preprocess: sveltePreprocess({
                     sourceMap: !production,
                     scss: {
-                        prependData: `@import 'scss/variables.scss';`
+                        prependData: `
+@import 'scss/mixins.scss';
+@import 'scss/variables.scss';
+`
                     },
                 }),
             }),
