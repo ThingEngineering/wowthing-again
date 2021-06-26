@@ -1,23 +1,21 @@
 <script lang="ts">
-    import type { TippyProps } from '@/types'
-    import tippy from '@/utils/tippy'
+    import type {TippyProps} from '@/types'
+
+    import Icon from '../Icon.svelte'
 
     export let name: string
-    export let ext = 'png'
     export let size: number
-    export let tooltip: TippyProps | string = undefined
     export let border = 0
     export let cls: string = undefined
+    export let tooltip: TippyProps | string = undefined
 
-    const actualSize = size + border * 2
+    const actualSize = size + (border * 2)
 </script>
 
-<img
-    src="https://img.wowthing.org/{size}/{name}.{ext}"
-    class={cls}
-    width={actualSize}
-    height={actualSize}
+<Icon
+    src="https://img.wowthing.org/{size}/{name}.png"
     alt={name}
-    loading="lazy"
-    use:tippy={tooltip}
+    size={actualSize}
+    {cls}
+    {tooltip}
 />

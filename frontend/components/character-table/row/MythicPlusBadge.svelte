@@ -10,6 +10,8 @@
     export let season: MythicPlusSeason
 
     const character: Character = getContext('character')
+
+    let badge: string
     $: badge = character.mythicPlus?.seasonBadges?.[season.Id]
 </script>
 

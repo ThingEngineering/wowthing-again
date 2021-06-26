@@ -112,12 +112,9 @@ div.content {
 }
 
 .faction0 {
-  img {
-    border: 1px solid $alliance-border;
-  }
+    --icon-border-color: #{$alliance-border};
 }
+
 .faction1 {
-  img {
-    border: 1px solid $horde-border;
-  }
+    --icon-border-color: #{$horde-border};
 }

@@ -50,22 +50,28 @@
             <RaceIcon {character} size={20} />
         </TableIcon>
     {/if}
+
     {#if $settings.general.showClassIcon}
         <TableIcon padLeft="0px">
             <ClassIcon {character} size={20} />
         </TableIcon>
     {/if}
+
     {#if $settings.general.showSpecIcon}
         <TableIcon padLeft="0px">
             <SpecializationIcon {character} size={20} />
         </TableIcon>
     {/if}
+
     <td class="level">{character.level}</td>
     <td class="name">{character.name}</td>
+
     {#if $settings.general.showRealm}
         <td class="realm">&ndash; {getRealmName(character.realmId)}</td>
     {/if}
+
     <slot name="rowExtra" />
+
     {#if endSpacer === true}
         <td class="spacer">&nbsp;</td>
     {/if}

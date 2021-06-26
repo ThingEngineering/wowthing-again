@@ -44,6 +44,8 @@
         border-radius: $border-radius;
         table-layout: fixed;
 
+        --icon-border-width: 1px;
+
         & :global(thead > tr > th) {
             border-bottom: 1px solid $border-color;
             border-top: 1px solid $border-color;
@@ -63,6 +65,8 @@
 
         & :global(tbody > tr > td) {
             white-space: nowrap;
+
+            --icon-margin-top: -4px;
         }
         & :global(tbody > tr > td:first-child) {
             border-left: 1px solid $border-color;
