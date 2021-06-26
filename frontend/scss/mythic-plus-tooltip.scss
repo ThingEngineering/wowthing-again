@@ -2,18 +2,15 @@
     margin-top: 0.5rem;
     width: 100%;
 
+    --icon-border-width: 1px;
+    --icon-margin-top: -2px;
+
     & + .mythic-plus-tooltip {
         margin-top: 1rem;
     }
 
-    img {
-        border: 1px solid $border-color;
-        border-radius: $border-radius;
-        margin-top: -2px;
-
-        & + img {
-            margin-left: 1px;
-        }
+    img + img {
+        margin-left: 1px;
     }
 
     th {

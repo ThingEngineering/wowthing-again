@@ -65,7 +65,7 @@ export interface CharacterMythicPlusRun {
     timed: boolean
 }
 
-interface CharacterMythicPlusRunMember {
+export interface CharacterMythicPlusRunMember {
     itemLevel: number
     name: string
     realmId: number
