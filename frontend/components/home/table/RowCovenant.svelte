@@ -21,7 +21,6 @@
 
 <style lang="scss">
     td {
-        @include cell-flex();
         @include cell-width($character-width-covenant);
 
         justify-content: space-between;
@@ -30,8 +29,10 @@
 
 <td use:tippy={tooltip}>
     {#if covenant !== undefined}
-        <WowthingImage name={covenant.Icon} size={20} border={1} />
-        <span>{character.shadowlands.renownLevel}</span>
+        <div class="flex-wrapper">
+            <WowthingImage name={covenant.Icon} size={20} border={1} />
+            <span>{character.shadowlands.renownLevel}</span>
+        </div>
     {:else}
         &nbsp;
     {/if}

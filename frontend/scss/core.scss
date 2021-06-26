@@ -118,3 +118,11 @@ div.content {
 .faction1 {
     --icon-border-color: #{$horde-border};
 }
+
+.flex-wrapper {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+
+  --icon-margin-top: 0 !important;
+}
