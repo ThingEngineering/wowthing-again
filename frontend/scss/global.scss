@@ -1,10 +1,11 @@
 @import "variables";
 @import "sanitize";
 
+@import "character-table";
 @import "core";
 @import "container";
 @import "error";
-@import "mythic-plus";
+@import "mythic-plus-tooltip";
 @import "reputation";
 @import "table";
 @import "tooltips";

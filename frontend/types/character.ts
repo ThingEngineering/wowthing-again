@@ -65,7 +65,7 @@ export interface CharacterMythicPlusRun {
     timed: boolean
 }
 
-interface CharacterMythicPlusRunMember {
+export interface CharacterMythicPlusRunMember {
     itemLevel: number
     name: string
     realmId: number
@@ -109,7 +109,7 @@ export interface CharacterWeeklyUghQuest {
 
 interface CharacterWeeklyVault {
     mythicPlusProgress: CharacterWeeklyProgress[]
-    mythicPlusRuns: Array<Array<number>>
+    mythicPlusRuns: number[][]
     rankedPvpProgress: CharacterWeeklyProgress[]
     raidProgress: CharacterWeeklyProgress[]
 }

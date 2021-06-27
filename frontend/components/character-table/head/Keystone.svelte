@@ -1,10 +1,9 @@
 <style lang="scss">
     th {
-        min-width: calc(#{$character-width-icon} + #{$table-width-key-level} + #{$table-width-key-dungeon});
-        width: calc(#{$character-width-icon} + #{$table-width-key-level} + #{$table-width-key-dungeon});
-        text-align: center;
+        @include cell-width($width-keystone);
+
         vertical-align: bottom;
     }
 </style>
 
-<th colspan="3">Keystone</th>
+<th>Keystone</th>

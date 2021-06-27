@@ -6,6 +6,8 @@
     import type {Character} from '@/types'
     import getCharacterTableSpan from '@/utils/get-character-table-span'
 
+    import HeadCovenant from './head/Covenant.svelte'
+    import HeadMount from './head/Mount.svelte'
     import RowGold from '@/components/character-table/row/Gold.svelte'
     import SpacerRow from '@/components/character-table/SpacerRow.svelte'
 
@@ -56,11 +58,11 @@
     {/if}
 
     {#if $settings.home.showMountSpeed}
-        <td colspan="2">Mount</td>
+        <HeadMount />
     {/if}
 
     {#if $settings.home.showCovenant}
-        <td colspan="2">Cov.</td>
+        <HeadCovenant />
     {/if}
 
     {#if $settings.home.showWeeklyAnima && $userData.public === false}
@@ -72,7 +74,7 @@
     {/if}
 
     {#if $settings.home.showKeystone}
-        <td colspan="3">Keystone</td>
+        <td>Keystone</td>
     {/if}
 
     <!--{#if $settings.home.showVaultRaid}
@@ -80,7 +82,7 @@
     {/if}-->
 
     {#if $settings.home.showVaultMythicPlus}
-        <td colspan="3">M+ Vault</td>
+        <td>M+ Vault</td>
     {/if}
 
     <!--{#if $settings.home.showVaultPvp}

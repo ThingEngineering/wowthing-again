@@ -171,6 +171,7 @@ const badgeToClass: Dictionary<string> = {
     5: 'quality2',
     10: 'quality3',
     15: 'quality4',
+    20: 'quality5',
 }
 
 // [key level, item level] first match >= key is used

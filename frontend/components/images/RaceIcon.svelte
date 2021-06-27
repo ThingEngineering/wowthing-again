@@ -4,19 +4,23 @@
 
     import WowthingImage from './sources/WowthingImage.svelte'
 
-    export let character: Character
-    export let size: number
+    export let character: Character = undefined
+    export let characterRace: CharacterRace = undefined
+    export let gender = 0
+    export let raceId = 0
+    export let size = 20
+    export let border = 1
 
     let iconName: string
     let tooltip: string
 
     $: {
-        const race: CharacterRace = raceMap[character.raceId]
-        iconName = race?.icons[character.gender] ?? 'unknown_race'
-        tooltip = `${['Female', 'Male'][character.gender]} ${
+        const race: CharacterRace = characterRace || raceMap[character?.raceId || raceId]
+        iconName = race?.icons[character?.gender || gender] ?? 'unknown_race'
+        tooltip = `${['Female', 'Male'][character?.gender || gender]} ${
             race?.name ?? 'Unknown'
         }`
     }
 </script>
 
-<WowthingImage name={iconName} {size} border={1} {tooltip} />
+<WowthingImage name={iconName} {size} {border} {tooltip} />

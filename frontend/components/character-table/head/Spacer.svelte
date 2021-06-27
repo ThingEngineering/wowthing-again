@@ -1,6 +1,6 @@
 <style lang="scss">
     th {
-        @include cell-width($width-item-level);
+        width: 0.5rem;
     }
 </style>
 
