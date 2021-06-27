@@ -18,12 +18,12 @@
 
 <style lang="scss">
     td {
-        @include cell-width($character-width-vault);
+        @include cell-width($width-vault);
     }
     span {
         display: inline-block;
         text-align: center;
-        width: calc(#{$character-width-vault} / 3 - 0.2rem);
+        width: calc(#{$width-vault} / 3 - 0.2rem);
         word-spacing: -0.2ch;
     }
 </style>

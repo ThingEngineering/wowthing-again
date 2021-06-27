@@ -4,7 +4,7 @@
 
 <style lang="scss">
     th {
-        @include cell-width($character-width-vault);
+        @include cell-width($width-vault);
 
         vertical-align: bottom;
     }

@@ -3,8 +3,8 @@
 
 <style lang="scss">
     td {
-        min-width: $character-width-vault;
-        width: $character-width-vault;
+        min-width: $width-vault;
+        width: $width-vault;
         text-align: center;
     }
 </style>

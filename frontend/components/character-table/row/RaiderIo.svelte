@@ -58,7 +58,7 @@
     .score {
         color: var(--color);
         text-align: right;
-        width: $character-width-raider-io;
+        width: $width-raider-io;
     }
 </style>
 

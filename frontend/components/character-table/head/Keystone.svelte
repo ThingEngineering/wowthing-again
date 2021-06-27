@@ -1,6 +1,6 @@
 <style lang="scss">
     th {
-        @include cell-width($character-width-keystone);
+        @include cell-width($width-keystone);
 
         vertical-align: bottom;
     }

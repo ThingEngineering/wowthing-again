@@ -33,26 +33,22 @@ $table-striped-background: lighten($thing-background, 3%);
 
 $character-padding-left:   0.7rem;
 
-$character-width-spacer:   0.5rem;
-$character-width-covenant: 2.9rem;
-$character-width-icon:     26px;
-$character-width-keystone: 6rem;
-$character-width-level:    1.7rem;
-$character-width-mount:    3.4rem;
-$character-width-name:     7rem;
-$character-width-realm:    8rem;
-$character-width-item-level: 2.6rem;
-$character-width-raider-io: 3.3rem;
-$character-width-vault:    6.5rem;
-
-$table-width-key-dungeon:  2.9rem;
-$table-width-key-level:    1.7rem;
-
-
-$reputation-width-cell:    3.8rem;
+$width-covenant:            2.9rem;
+$width-icon:                26px;
+$width-item-level:          2.6rem;
+$width-keystone:            6rem;
+$width-keystone-dungeon:    2.9rem;
+$width-keystone-level:      1.7rem;
+$width-level:               1.2rem;
+$width-mount-speed:         3.4rem;
+$width-name:                7rem;
+$width-raider-io:           3.3rem;
+$width-realm:               8rem;
+$width-reputation:          3.8rem;
+$width-spacer:              0.5rem;
+$width-vault:               6.5rem;
 
 $inactive-opacity:         0.4;
-
 
 // poor
 $quality0-color:           #9d9d9d;
