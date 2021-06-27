@@ -9,7 +9,7 @@
         border-top-right-radius: $border-radius;
         background: $tooltip-title-background;
         color: $tooltip-title-color;
-        font-size: 1rem;
+        font-size: 1.1rem;
         font-weight: normal;
     }
     em {
@@ -33,7 +33,7 @@
     background-color: $tooltip-background;
     color: $tooltip-color;
     border-radius: $border-radius;
-    font-size: 0.9rem;
+    font-size: 1rem;
     line-height: 1.4;
     outline: 0;
     transition-property: transform, visibility, opacity;

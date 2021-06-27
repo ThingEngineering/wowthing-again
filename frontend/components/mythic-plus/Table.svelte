@@ -14,12 +14,14 @@
     import HeadItemLevel from '@/components/character-table/head/ItemLevel.svelte'
     import HeadKeystone from '@/components/character-table/head/Keystone.svelte'
     import HeadRaiderIo from '@/components/character-table/head/RaiderIo.svelte'
+    import HeadSpacer from '@/components/character-table/head/Spacer.svelte'
     import HeadVault from '@/components/character-table/head/Vault.svelte'
     import RowDungeon from './TableRowDungeon.svelte'
     import RowItemLevel from '@/components/character-table/row/ItemLevel.svelte'
     import RowKeystone from '@/components/character-table/row/Keystone.svelte'
     import RowMythicPlusBadge from '@/components/character-table/row/MythicPlusBadge.svelte'
     import RowRaiderIo from '@/components/character-table/row/RaiderIo.svelte'
+    import RowSpacer from '@/components/character-table/row/Spacer.svelte'
     import RowVaultMythicPlus from '@/components/character-table/row/VaultMythicPlus.svelte'
 
     export let slug: string
@@ -66,6 +68,8 @@
             <HeadRaiderIo />
         {/if}
 
+        <HeadSpacer />
+
         {#key season.Id}
             {#each season.Orders as order}
                 {#each order as dungeonId}
@@ -79,7 +83,7 @@
         <RowItemLevel />
         {#key slug}
             {#if isCurrentSeason}
-                <RowKeystone />
+                <RowKeystone {character} />
             {/if}
 
             {#if isThisWeek}
@@ -88,6 +92,8 @@
                 <RowRaiderIo {season} />
                 <RowMythicPlusBadge {season} />
             {/if}
+
+            <RowSpacer />
 
             {#each season.Orders as order}
                 {#each order as dungeonId}

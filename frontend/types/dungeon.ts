@@ -58,7 +58,7 @@ export class Dungeon {
     }
 }
 
-interface DungeonTimedResult {
+export interface DungeonTimedResult {
     plus: number
     under?: number
     over?: number

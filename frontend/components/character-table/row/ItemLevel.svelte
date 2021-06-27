@@ -8,12 +8,10 @@
 
 <style lang="scss">
     td {
-        padding-right: 0.5rem;
+        @include cell-width($width-item-level);
+
         text-align: right;
-        width: $character-width-item-level;
     }
 </style>
 
-<td class="quality{character.calculatedItemLevelQuality}"
-    >{character.calculatedItemLevel}</td
->
+<td class="quality{character.calculatedItemLevelQuality}">{character.calculatedItemLevel}</td>

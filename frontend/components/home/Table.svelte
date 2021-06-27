@@ -39,7 +39,7 @@
         {/if}
 
         {#if $settings.home.showKeystone}
-            <RowKeystone />
+            <RowKeystone {character} />
         {/if}
 
         {#if $settings.home.showVaultMythicPlus}

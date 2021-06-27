@@ -4,18 +4,19 @@
 
     import WowthingImage from './sources/WowthingImage.svelte'
 
-    export let character: Character
-    export let size: number
+    export let character: Character = undefined
+    export let characterSpec: CharacterSpecialization = undefined
+    export let specId = 0
+    export let size = 20
     export let border = 1
 
     let iconName: string
     let tooltip: string
     $: {
-        const spec: CharacterSpecialization =
-            specializationMap[character.activeSpecId]
+        const spec: CharacterSpecialization = characterSpec || specializationMap[character?.activeSpecId || specId]
         iconName = spec?.icon ?? 'spec_unknown'
         tooltip = spec?.name ?? 'Unknown'
     }
 </script>
 
-<WowthingImage name={iconName} {size} {tooltip} {border} />
+<WowthingImage name={iconName} {size} {border} {tooltip} />

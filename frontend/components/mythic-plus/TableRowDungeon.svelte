@@ -1,32 +1,23 @@
 <script lang="ts">
     import { getContext } from 'svelte'
 
-    import type { Character, CharacterMythicPlusRun, TippyProps } from '@/types'
+    import type { Character, CharacterMythicPlusRun } from '@/types'
     import getMythicPlusRunQuality from '@/utils/get-mythic-plus-run-quality'
-    import getMythicPlusRunTooltip from '@/utils/get-mythic-plus-run-tooltip'
-    import tippy from '@/utils/tippy'
+    import { tippyComponent } from '@/utils/tippy'
+
+    import MythicPlusRunsTooltip from '@/tooltips/mythic-plus-runs/Tooltip.svelte'
 
     export let dungeonId: number
-    export let runsFunc: (
-        char: Character,
-        dungeonId: number,
-    ) => CharacterMythicPlusRun[]
+    export let runsFunc: (char: Character, dungeonId: number) => CharacterMythicPlusRun[]
 
     const character: Character = getContext('character')
 
     let runs: CharacterMythicPlusRun[]
-    let tooltip: TippyProps
     $: {
         runs = runsFunc(character, dungeonId) ?? []
         // If there are 2 runs and the second run isn't higher than the first, discard it
-        if (
-            runs.length === 2 &&
-            runs[1].keystoneLevel <= runs[0].keystoneLevel
-        ) {
+        if (runs.length === 2 && runs[1].keystoneLevel <= runs[0].keystoneLevel) {
             runs = [runs[0]]
-        }
-        if (runs.length > 0) {
-            tooltip = getMythicPlusRunTooltip(runs)
         }
     }
 </script>
@@ -47,12 +38,11 @@
 </style>
 
 {#if runs.length > 0}
-    <td use:tippy={tooltip}>
+    <td use:tippyComponent={{component: MythicPlusRunsTooltip, props: {runs}}}>
         {#each runs as run}
-            <span class={getMythicPlusRunQuality(run)}>{run.keystoneLevel}</span
-            >
+            <span class={getMythicPlusRunQuality(run)}>{run.keystoneLevel}</span>
         {/each}
     </td>
 {:else}
-    <td />
+    <td>&nbsp;</td>
 {/if}

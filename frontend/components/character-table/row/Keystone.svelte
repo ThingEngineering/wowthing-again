@@ -1,24 +1,23 @@
 <script lang="ts">
-    import { getContext } from 'svelte'
-
     import { Constants } from '@/data/constants'
     import { dungeonMap } from '@/data/dungeon'
     import type { Character, CharacterMythicPlusRun, Dungeon } from '@/types'
     import getMythicPlusRunQuality from '@/utils/get-mythic-plus-run-quality'
+    import tippy from '@/utils/tippy'
 
-    import TableIcon from '@/components/common/TableIcon.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
-    const character: Character = getContext('character')
+    export let character: Character
 
     let dungeon: Dungeon = undefined
+    let tooltip: string
     let upgrade = false
     $: {
         if (character.weekly?.keystoneDungeon) {
             dungeon = dungeonMap[character.weekly.keystoneDungeon]
             // FIXME set active season somewhere
             const run: CharacterMythicPlusRun | undefined =
-                character.mythicPlus?.seasons[5]?.[dungeon.id]?.[0]
+                character.mythicPlus?.seasons[Constants.mythicPlusSeason]?.[dungeon.id]?.[0]
             if (
                 run?.timed !== true ||
                 (run?.timed === true &&
@@ -26,21 +25,32 @@
             ) {
                 upgrade = true
             }
+
+            tooltip = `${character.name} has a ${dungeon.name} +${character.weekly.keystoneLevel} key`
+            if (upgrade) {
+                tooltip += "<br><br>It's a Raider.IO score upgrade!"
+            }
         }
     }
 </script>
 
 <style lang="scss">
+    td {
+        @include cell-width($width-keystone);
+    }
+    span {
+        display: inline-block;
+    }
     .level {
-        min-width: $table-width-key-level;
-        width: $table-width-key-level;
+        min-width: $width-keystone-level;
+        width: $width-keystone-level;
         padding-left: 0.1rem;
         padding-right: 0.3rem;
         text-align: right;
     }
     .dungeon {
-        min-width: $table-width-key-dungeon;
-        width: $table-width-key-dungeon;
+        min-width: $width-keystone-dungeon;
+        width: $width-keystone-dungeon;
     }
     .upgrade {
         color: #ff88ff;
@@ -49,17 +59,13 @@
 </style>
 
 {#if character.level === Constants.characterMaxLevel && dungeon}
-    <TableIcon>
-        <WowthingImage name={dungeon.icon} size={20} border={1} />
-    </TableIcon>
-    <td class="level {getMythicPlusRunQuality(character.weekly.keystoneLevel)}"
-        >{character.weekly.keystoneLevel}</td
-    >
-    <td class="dungeon" class:upgrade>
-        {dungeon.abbreviation}
+    <td use:tippy={{allowHTML: true, content: tooltip}}>
+        <div class="flex-wrapper">
+            <WowthingImage name={dungeon.icon} size={20} border={1} />
+            <span class="level {getMythicPlusRunQuality(character.weekly.keystoneLevel)}">{character.weekly.keystoneLevel}</span>
+            <span class="dungeon" class:upgrade>{dungeon.abbreviation}</span>
+        </div>
     </td>
 {:else}
-    <TableIcon />
-    <td class="level">&nbsp;</td>
-    <td class="dungeon">&nbsp;</td>
+    <td>&nbsp;</td>
 {/if}
