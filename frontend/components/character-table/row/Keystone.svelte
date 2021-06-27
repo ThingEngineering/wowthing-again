@@ -36,21 +36,21 @@
 
 <style lang="scss">
     td {
-        @include cell-width($character-width-keystone);
+        @include cell-width($width-keystone);
     }
     span {
         display: inline-block;
     }
     .level {
-        min-width: $table-width-key-level;
-        width: $table-width-key-level;
+        min-width: $width-keystone-level;
+        width: $width-keystone-level;
         padding-left: 0.1rem;
         padding-right: 0.3rem;
         text-align: right;
     }
     .dungeon {
-        min-width: $table-width-key-dungeon;
-        width: $table-width-key-dungeon;
+        min-width: $width-keystone-dungeon;
+        width: $width-keystone-dungeon;
     }
     .upgrade {
         color: #ff88ff;

@@ -1,6 +1,6 @@
 <style lang="scss">
     td {
-        @include cell-width($character-width-covenant);
+        @include cell-width($width-covenant);
 
         text-align: center;
     }

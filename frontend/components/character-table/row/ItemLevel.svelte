@@ -8,7 +8,7 @@
 
 <style lang="scss">
     td {
-        @include cell-width($character-width-item-level);
+        @include cell-width($width-item-level);
 
         text-align: right;
     }

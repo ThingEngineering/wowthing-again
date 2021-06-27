@@ -1,6 +1,6 @@
 <style lang="scss">
     td {
-        @include cell-width($character-width-mount);
+        @include cell-width($width-mount-speed);
 
         text-align: center;
     }

@@ -14,14 +14,11 @@
 
     $: {
         let prog: CharacterWeeklyProgress
-        if (index === 0) {
-            prog = progress[0]
-        }
-        else if (index === 3) {
-            prog = progress[1]
-        }
-        else if (index === 9) {
-            prog = progress[2]
+        for (const thing of progress) {
+            if (index === (thing.threshold - 1)) {
+                prog = thing
+                break
+            }
         }
 
         if (prog) {

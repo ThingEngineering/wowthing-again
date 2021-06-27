@@ -3,33 +3,26 @@
 
     import { data as settings } from '@/stores/settings'
 
+    import HeadSpacer from './head/Spacer.svelte'
+
     let endSpacer: boolean
     $: endSpacer = getContext('endSpacer')
 </script>
 
 <style lang="scss">
-    .spacer {
-        min-width: $character-width-spacer;
-        width: $character-width-spacer;
-    }
     .icon {
-        min-width: $character-width-icon;
-        width: $character-width-icon;
+        @include cell-width($width-icon, 0px);
     }
     .level {
-        padding-left: 0.5rem;
+        @include cell-width($width-level, 0.4rem);
+
         text-align: right;
-        min-width: $character-width-level;
-        width: $character-width-level;
     }
     .name {
-        padding-left: 0.5rem;
-        min-width: $character-width-name;
-        width: $character-width-name;
+        @include cell-width($width-name);
     }
     .realm {
-        min-width: $character-width-realm;
-        width: $character-width-realm;
+        @include cell-width($width-realm);
     }
 </style>
 
@@ -57,7 +50,7 @@
         <slot />
 
         {#if endSpacer === true}
-            <th class="spacer"></th>
+            <HeadSpacer />
         {/if}
     </tr>
 </thead>

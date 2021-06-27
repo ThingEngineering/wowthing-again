@@ -21,7 +21,7 @@
 
 <style lang="scss">
     td {
-        @include cell-width($character-width-covenant);
+        @include cell-width($width-covenant);
 
         justify-content: space-between;
     }

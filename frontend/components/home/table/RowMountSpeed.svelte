@@ -69,7 +69,7 @@
 
 <style lang="scss">
     td {
-        @include cell-width($character-width-mount);
+        @include cell-width($width-mount-speed);
 
         &.maxed {
             color: #1eff00;

@@ -24,8 +24,8 @@
         border-right-width: 0;
         border-top-width: 0;
         padding: 0.3rem 0;
-        min-width: $reputation-width-cell;
-        width: $reputation-width-cell;
+        min-width: $width-reputation;
+        width: $width-reputation;
     }
     div {
         display: inline-block;
