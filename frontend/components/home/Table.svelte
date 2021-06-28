@@ -10,6 +10,7 @@
     import RowKeystone from '@/components/character-table/row/Keystone.svelte'
     import RowMountSpeed from './table/RowMountSpeed.svelte'
     import RowStatuses from './table/RowStatuses.svelte'
+    import RowTorghast from './table/row/Torghast.svelte'
     import RowUghQuests from './table/RowUghQuests.svelte'
     import RowVaultMythicPlus from '@/components/character-table/row/VaultMythicPlus.svelte'
 </script>
@@ -36,6 +37,10 @@
 
         {#if $userData.public === false}
             <RowUghQuests />
+        {/if}
+
+        {#if $settings.home.showTorghast}
+            <RowTorghast {character} />
         {/if}
 
         {#if $settings.home.showKeystone}
