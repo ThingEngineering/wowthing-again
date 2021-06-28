@@ -1,4 +1,4 @@
-@mixin cell-width($width, $paddingLeft: $character-padding-left, $paddingRight: 0px) {
+@mixin cell-width($width, $paddingLeft: $width-spacer, $paddingRight: 0px) {
     $calcWidth: calc(#{$width} + #{$paddingLeft} + #{$paddingRight});
     min-width: $calcWidth;
     width: $calcWidth;

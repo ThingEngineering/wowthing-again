@@ -48,6 +48,7 @@ namespace Wowthing.Lib.Models
         public bool ShowKeystone { get; set; } = true;
         public bool ShowMountSpeed { get; set; } = true;
         public bool ShowStatuses { get; set; } = true;
+        public bool ShowTorghast { get; set; } = true;
         public bool ShowVaultMythicPlus { get; set; } = true;
         public bool ShowVaultPvp { get; set; } = true;
         public bool ShowVaultRaid { get; set; } = true;
