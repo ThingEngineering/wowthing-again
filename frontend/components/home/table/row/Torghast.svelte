@@ -11,7 +11,7 @@
     export let character: Character
 
     // wing1, wing2?
-    let wings: [string, number] = []
+    let wings: [string, number][] = []
     $: {
         if (character.weekly?.torghast) {
             wings = toPairs(character.weekly.torghast)
