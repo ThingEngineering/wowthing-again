@@ -180,6 +180,7 @@ namespace Wowthing.Web.Models
     {
         public int KeystoneDungeon { get; set; }
         public int KeystoneLevel { get; set; }
+        public Dictionary<string, int> Torghast { get; set; }
         public PlayerCharacterWeeklyVault Vault { get; set; } = new PlayerCharacterWeeklyVault();
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
@@ -189,6 +190,7 @@ namespace Wowthing.Web.Models
         {
             KeystoneDungeon = weekly.KeystoneDungeon;
             KeystoneLevel = weekly.KeystoneLevel;
+            Torghast = weekly.Torghast;
             Vault = weekly.Vault;
 
             if (!pub)
