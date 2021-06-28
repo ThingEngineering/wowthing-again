@@ -12,6 +12,7 @@ export interface Settings {
         showKeystone: boolean
         showMountSpeed: boolean
         showStatuses: boolean
+        showTorghast: boolean
         showVaultMythicPlus: boolean
         showVaultPvp: boolean
         showVaultRaid: boolean

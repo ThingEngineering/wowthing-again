@@ -8,6 +8,7 @@
 
     import HeadCovenant from './head/Covenant.svelte'
     import HeadMount from './head/Mount.svelte'
+    import HeadTorghast from './head/Torghast.svelte'
     import RowGold from '@/components/character-table/row/Gold.svelte'
     import SpacerRow from '@/components/character-table/SpacerRow.svelte'
 
@@ -71,6 +72,10 @@
 
     {#if $settings.home.showWeeklySouls && $userData.public === false}
         <td colspan="2">Souls</td>
+    {/if}
+
+    {#if $settings.home.showTorghast}
+        <HeadTorghast />
     {/if}
 
     {#if $settings.home.showKeystone}

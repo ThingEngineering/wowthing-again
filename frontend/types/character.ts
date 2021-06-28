@@ -25,6 +25,7 @@ export interface Character {
     currencies: Dictionary<CharacterCurrency>
     equippedItems: Dictionary<CharacterEquippedItem>
     mythicPlus: CharacterMythicPlus
+    quests: Dictionary<number>
     raiderIo: Dictionary<CharacterRaiderIoSeason>
     reputations: Dictionary<number>
     shadowlands?: CharacterShadowlands
@@ -96,6 +97,7 @@ interface CharacterWeekly {
     keystoneDungeon: number
     keystoneLevel: number
 
+    torghast: Dictionary<number>
     ughQuests: Dictionary<CharacterWeeklyUghQuest>
     vault: CharacterWeeklyVault
 }
