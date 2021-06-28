@@ -2,7 +2,7 @@
     import type {Character} from '@/types'
 
     export let character: Character
-    export let wings: [string, number]
+    export let wings: [string, number][]
 </script>
 
 <div class="wowthing-tooltip">
