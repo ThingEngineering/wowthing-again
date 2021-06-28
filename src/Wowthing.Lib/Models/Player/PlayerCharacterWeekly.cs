@@ -21,6 +21,9 @@ namespace Wowthing.Lib.Models
         public int KeystoneLevel { get; set; }
 
         [Column(TypeName = "jsonb")]
+        public Dictionary<string, int> Torghast { get; set; }
+
+        [Column(TypeName = "jsonb")]
         public Dictionary<string, PlayerCharacterWeeklyUghQuest> UghQuests { get; set; }
 
         [Column(TypeName = "jsonb")]
