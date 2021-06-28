@@ -138,6 +138,17 @@ namespace Wowthing.Backend.Jobs.User
             character.Weekly.KeystoneDungeon = characterData.KeystoneInstance;
             character.Weekly.KeystoneLevel = characterData.KeystoneLevel;
 
+            // Torghast
+            if (characterData.Torghast?.Count == 2)
+            {
+                character.Weekly.Torghast = new();
+                foreach (var wing in characterData.Torghast)
+                {
+                    character.Weekly.Torghast[wing.Name.Truncate(32)] = Math.Max(0, Math.Min(32, wing.Level));
+                } 
+            }
+
+            // Vault
             if (characterData.ScanTimes.TryGetValue("vault", out int vaultScanned) && characterData.MythicDungeons != null && characterData.Vault != null)
             {
                 character.Weekly.Vault.ScannedAt = DateTimeOffset.FromUnixTimeSeconds(vaultScanned).UtcDateTime;
@@ -154,7 +165,7 @@ namespace Wowthing.Backend.Jobs.User
                 _context.Entry(character.Weekly).Property(e => e.Vault).IsModified = true;
             }
 
-            // Weekly ugh quests
+            // Ugh, quests
             if (characterData.WeeklyUghQuests != null)
             {
                 character.Weekly.UghQuests = new Dictionary<string, PlayerCharacterWeeklyUghQuest>();

@@ -24,7 +24,20 @@ namespace Wowthing.Backend.Models.Uploads
         // lockouts
         public UploadCharacterMythicDungeon[] MythicDungeons { get; set; }
         public Dictionary<string, int> ScanTimes { get; set; }
+        public List<UploadCharacterTorghast> Torghast { get; set; }
         public UploadCharacterVault[][] Vault { get; set; }
         public Dictionary<string, UploadWeeklyUghQuest> WeeklyUghQuests { get; set; }
+    }
+
+    public class UploadCharacterMythicDungeon
+    {
+        public int Level { get; set; }
+        public int Map { get; set; }
+    }
+
+    public class UploadCharacterTorghast
+    {
+        public int Level { get; set; }
+        public string Name { get; set; }
     }
 }
