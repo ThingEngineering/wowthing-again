@@ -4,6 +4,10 @@ export abstract class Constants {
     static readonly mythicPlusSeason: number = 5
 
     static readonly icons = {
+        resting: 'spell/140430', // Passed Out
         torghast: 'spell/334746', // Access to Torghast
+        warMode: 'spell/304019', // Conflict and Strife
+        weeklyAnima: 'spell/341209', // Overwhelming Anima
+        weeklySouls: 'spell/225100', // Charging Station
     }
 }

@@ -24,7 +24,7 @@
 <td>
     {#if false && character.isResting && character.level < Constants.characterMaxLevel}
         <WowthingImage
-            name="spell/140430"
+            name={Constants.icons.resting}
             size={20}
             border={1}
             tooltip="Rested"
@@ -32,7 +32,7 @@
     {/if}
     {#if character.isWarMode}
         <WowthingImage
-            name="spell/304019"
+            name={Constants.icons.warMode}
             size={20}
             border={1}
             tooltip="War Mode"
