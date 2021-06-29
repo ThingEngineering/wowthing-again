@@ -20,13 +20,22 @@ namespace Wowthing.Backend.Models.Uploads
         public int RestedXp { get; set; }
         public long Copper { get; set; }
 
-        public Dictionary<int, List<int>> Currencies { get; set; }
+        public List<UploadCharacterCurrency> Currencies { get; set; }
         // lockouts
         public UploadCharacterMythicDungeon[] MythicDungeons { get; set; }
         public Dictionary<string, int> ScanTimes { get; set; }
         public List<UploadCharacterTorghast> Torghast { get; set; }
         public UploadCharacterVault[][] Vault { get; set; }
         public Dictionary<string, UploadWeeklyUghQuest> WeeklyUghQuests { get; set; }
+    }
+
+    public class UploadCharacterCurrency
+    {
+        public int Id { get; set; }
+        public int Total { get; set; }
+        public int MaxTotal { get; set; }
+        public int Week { get; set; }
+        public int MaxWeek { get; set; }
     }
 
     public class UploadCharacterMythicDungeon
