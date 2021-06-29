@@ -84,7 +84,13 @@ namespace Wowthing.Web.Models
 
             if (character.Lockouts != null)
             {
-                Lockouts = character.Lockouts.Lockouts;
+                Lockouts = character.Lockouts.Lockouts
+                    .Where(l => l.ResetTime >= DateTime.UtcNow)
+                    .GroupBy(l => $"{l.Id}-{l.Difficulty}")
+                    .ToDictionary(
+                        k => k.Key,
+                        v => v.OrderByDescending(l => l.ResetTime).First()
+                    );
             }
 
             if (character.MythicPlus != null)
