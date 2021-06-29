@@ -82,7 +82,7 @@ namespace Wowthing.Web.Models
                     .ToDictionary(k => (int)k.Key, v => new UserApiCharacterEquippedItem(v.Value));
             }
 
-            if (character.Lockouts != null)
+            if (character.Lockouts?.Lockouts != null)
             {
                 Lockouts = character.Lockouts.Lockouts
                     .Where(l => l.ResetTime >= DateTime.UtcNow)
