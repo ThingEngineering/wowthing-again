@@ -109,18 +109,15 @@ namespace Wowthing.Backend.Jobs.User
 
             character.Currencies.Currencies = new Dictionary<int, PlayerCharacterCurrenciesCurrency>();
 
-            foreach ((int currencyId, List<int> currencyData) in characterData.Currencies.EmptyIfNull())
+            foreach (var currency in characterData.Currencies.EmptyIfNull())
             {
-                if (currencyData.Count == 4)
+                character.Currencies.Currencies[currency.Id] = new PlayerCharacterCurrenciesCurrency
                 {
-                    character.Currencies.Currencies[currencyId] = new PlayerCharacterCurrenciesCurrency
-                    {
-                        Total = currencyData[0],
-                        TotalMax = currencyData[1],
-                        Week = currencyData[2],
-                        WeekMax = currencyData[3],
-                    };
-                }
+                    Total = currency.Total,
+                    TotalMax = currency.MaxTotal,
+                    Week = currency.Week,
+                    WeekMax = currency.MaxWeek,
+                };
             }
         }
 
