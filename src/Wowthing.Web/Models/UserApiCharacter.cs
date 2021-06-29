@@ -32,6 +32,7 @@ namespace Wowthing.Web.Models
 
         public Dictionary<int, PlayerCharacterCurrenciesCurrency> Currencies { get; }
         public Dictionary<int, UserApiCharacterEquippedItem> EquippedItems { get; set; } = new Dictionary<int, UserApiCharacterEquippedItem>();
+        public Dictionary<string, PlayerCharacterLockoutsLockout> Lockouts { get; }
         public UserApiCharacterMythicPlus MythicPlus { get; }
         public Dictionary<int, int> Quests { get; set; } = new Dictionary<int, int>();
         public Dictionary<int, PlayerCharacterRaiderIoSeasonScores> RaiderIo { get; }
@@ -79,6 +80,11 @@ namespace Wowthing.Web.Models
             {
                 EquippedItems = character.EquippedItems.Items
                     .ToDictionary(k => (int)k.Key, v => new UserApiCharacterEquippedItem(v.Value));
+            }
+
+            if (character.Lockouts != null)
+            {
+                Lockouts = character.Lockouts.Lockouts;
             }
 
             if (character.MythicPlus != null)

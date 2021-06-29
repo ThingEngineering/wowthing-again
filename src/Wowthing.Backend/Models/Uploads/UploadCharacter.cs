@@ -21,7 +21,7 @@ namespace Wowthing.Backend.Models.Uploads
         public long Copper { get; set; }
 
         public List<UploadCharacterCurrency> Currencies { get; set; }
-        // lockouts
+        public List<UploadCharacterLockout> Lockouts { get; set; }
         public UploadCharacterMythicDungeon[] MythicDungeons { get; set; }
         public Dictionary<string, int> ScanTimes { get; set; }
         public List<UploadCharacterTorghast> Torghast { get; set; }
@@ -36,6 +36,24 @@ namespace Wowthing.Backend.Models.Uploads
         public int MaxTotal { get; set; }
         public int Week { get; set; }
         public int MaxWeek { get; set; }
+    }
+
+    public class UploadCharacterLockout
+    {
+        public bool Locked { get; set; }
+        public int DefeatedBosses { get; set; }
+        public int Difficulty { get; set; }
+        public int Id { get; set; }
+        public int MaxBosses { get; set; }
+        public int ResetTime { get; set; }
+        public string Name { get; set; }
+        public List<UploadCharacterLockoutBoss> Bosses { get; set; }
+    }
+
+    public class UploadCharacterLockoutBoss
+    {
+        public bool Dead { get; set; }
+        public string Name { get; set; }
     }
 
     public class UploadCharacterMythicDungeon
