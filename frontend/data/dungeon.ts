@@ -1,7 +1,7 @@
 import { Dungeon, MythicPlusAffix, MythicPlusSeason } from '@/types'
 import type { Dictionary } from '@/types'
 
-const affixMap: Dictionary<MythicPlusAffix> = {
+export const affixMap: Dictionary<MythicPlusAffix> = {
     1: new MythicPlusAffix('Overflowing'),
     2: new MythicPlusAffix('Skittish'),
     3: new MythicPlusAffix('Volcanic'),
@@ -27,7 +27,7 @@ const affixMap: Dictionary<MythicPlusAffix> = {
     121: new MythicPlusAffix('Prideful'), // SL S1
 }
 
-const dungeonMap: Dictionary<Dungeon> = {
+export const dungeonMap: Dictionary<Dungeon> = {
     // Battle for Azeroth
     244: new Dungeon(244, "Atal'Dazar", 'AD', 'dungeon_atal_dazar', 0),
     245: new Dungeon(245, 'Freehold', 'FH', 'dungeon_freehold', 0),
@@ -155,7 +155,7 @@ const orderShadowlands: number[] = [
     382, // Theater of Pain
 ]
 
-const seasonMap: Dictionary<MythicPlusSeason> = {
+export const seasonMap: Dictionary<MythicPlusSeason> = {
     1: new MythicPlusSeason(1, 50, [orderBattleForAzeroth]),
     2: new MythicPlusSeason(2, 50, [orderBattleForAzeroth]),
     3: new MythicPlusSeason(3, 50, [orderBattleForAzeroth]),
@@ -166,7 +166,7 @@ const seasonMap: Dictionary<MythicPlusSeason> = {
     5: new MythicPlusSeason(5, 60, [orderShadowlands]),
 }
 
-const badgeToClass: Dictionary<string> = {
+export const badgeToClass: Dictionary<string> = {
     2: 'quality1',
     5: 'quality2',
     10: 'quality3',
@@ -175,7 +175,7 @@ const badgeToClass: Dictionary<string> = {
 }
 
 // [key level, item level] first match >= key is used
-const keyVaultItemLevel: Array<Array<number>> = [
+export const keyVaultItemLevel: Array<Array<number>> = [
     [14, 226],
     [12, 223],
     [10, 220],
@@ -186,5 +186,3 @@ const keyVaultItemLevel: Array<Array<number>> = [
     [3, 203],
     [2, 200],
 ]
-
-export { affixMap, dungeonMap, seasonMap, badgeToClass, keyVaultItemLevel }

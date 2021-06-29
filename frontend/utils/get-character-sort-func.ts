@@ -1,8 +1,8 @@
 import { get } from 'svelte/store'
 
-import {Faction} from '@/data/faction'
 import { data as userData } from '@/stores/user'
 import type { Character} from '@/types'
+import {Faction} from '@/types/enums'
 
 export default function getCharacterSortFunc(): (char: Character) => string {
     // TODO hook this up to settings
