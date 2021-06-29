@@ -27,8 +27,8 @@ namespace Wowthing.Lib.Models
         public int Difficulty { get; set; }
         public int Id { get; set; }
         public int MaxBosses { get; set; }
-        public int ResetTime { get; set; }
         public string Name { get; set; }
+        public DateTime ResetTime { get; set; }
         public List<PlayerCharacterLockoutsLockoutBoss> Bosses { get; set; }
     }
 

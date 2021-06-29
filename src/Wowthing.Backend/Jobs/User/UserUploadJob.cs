@@ -148,7 +148,7 @@ namespace Wowthing.Backend.Jobs.User
                         Id = lockoutData.Id,
                         MaxBosses = lockoutData.MaxBosses,
                         Name = lockoutData.Name.Truncate(32),
-                        ResetTime = lockoutData.ResetTime,
+                        ResetTime = lockoutData.ResetTime.AsUtcDateTime(),
                         Bosses = lockoutData.Bosses.EmptyIfNull()
                             .Select(boss => new PlayerCharacterLockoutsLockoutBoss
                             {
