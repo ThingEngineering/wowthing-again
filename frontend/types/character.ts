@@ -24,6 +24,7 @@ export interface Character {
 
     currencies: Dictionary<CharacterCurrency>
     equippedItems: Dictionary<CharacterEquippedItem>
+    lockouts: Dictionary<CharacterLockout>
     mythicPlus: CharacterMythicPlus
     quests: Dictionary<number>
     raiderIo: Dictionary<CharacterRaiderIoSeason>
@@ -47,6 +48,22 @@ export interface CharacterEquippedItem {
 
     bonusIds: number[]
     enchantmentIds: number[]
+}
+
+export interface CharacterLockout {
+    bosses: CharacterLockoutBoss[]
+    defeatedBosses: number
+    difficulty: number
+    id: number
+    locked: boolean
+    maxBosses: number
+    name: string
+    resetTime: string // datetime?
+}
+
+export interface CharacterLockoutBoss {
+    dead: boolean
+    name: string
 }
 
 export interface CharacterMythicPlus {
