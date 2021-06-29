@@ -1,5 +1,5 @@
 import type { Dictionary } from './dictionary'
-import type {Faction} from '@/data/faction'
+import type {Faction} from '@/types/enums'
 
 export interface Character {
     accountId?: number

@@ -1,31 +1,6 @@
-enum InventorySlot {
-    Ammo,
-    Head,
-    Neck,
-    Shoulders,
-    Shirt,
-    Chest,
-    Waist,
-    Legs,
-    Feet,
-    Wrist,
-    Hands,
-    Ring1,
-    Ring2,
-    Trinket1,
-    Trinket2,
-    Back,
-    MainHand,
-    OffHand,
-    Ranged,
-    Tabard,
-    Bag1,
-    Bag2,
-    Bag3,
-    Bag4,
-}
+import {InventorySlot} from '@/types/enums'
 
-const slotOrder: InventorySlot[] = [
+export const slotOrder: InventorySlot[] = [
     InventorySlot.MainHand,
     InventorySlot.OffHand,
     InventorySlot.Head,
@@ -43,5 +18,3 @@ const slotOrder: InventorySlot[] = [
     InventorySlot.Trinket1,
     InventorySlot.Trinket2,
 ]
-
-export { InventorySlot, slotOrder }

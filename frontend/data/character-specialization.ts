@@ -1,6 +1,5 @@
-import { PlayableClass } from './playable-class'
-import { Role } from './role'
-import type { Dictionary, CharacterSpecialization } from '@/types'
+import { PlayableClass, Role } from '@/types/enums'
+import type { CharacterSpecialization, Dictionary } from '@/types'
 
 export const specializationMap: Dictionary<CharacterSpecialization> = {
     // Death Knight
