@@ -683,7 +683,7 @@ It's a Mystery!,278,118191,2,0
 |cFFFFD200Vendor: |rGrand Marshal Mudrag|n|cFFFFD200Zone: |rRevendreth|n|cFFFFD200Cost: |r50|Hcurrency:1820|h|TInterface\ICONS\INV_Jewelcrafting_LivingRuby_01.blp:0|t|h,1086,183989,0,2
 |cFFFFD200Treasure: |rTaskmaster's Trove|n|cFFFFD200Zone: |rRevendreth,1087,183986,0,0
 |cFFFFD200Treasure: |rForbidden Chamber Lockbox|n|cFFFFD200Zone: |rRevendreth,1088,184075,0,0
-|cFFFFD200Vendor: |rArchivist Janeera|n|cFFFFD200Zone: |rRevendreth|n|cFFFFD200Faction: |rThe Avowed - Exalted|n|cFFFFD200Cost: |r1000|Hcurrency:1816|h|TInterface\ICONS\6BF_Blackrock_Nova.BLP:0|t|h,1089,184218,0,2
+|cFFFFD200Vendor: |rArchivist Janeera|n|cFFFFD200Zone: |rRevendreth|n|cFFFFD200Faction: |rThe Avowed - Exalted|n|cFFFFD200Cost: |r1000|Hcurrency:1816|h|TInterface\ICONS\6BF_Blackrock_Nova.BLP:0|t|h,1089,184218,4,2
 |cFFFFD200Achievement: |rTwisting Corridors: Layer 4|n|cFFFFD200Category: |rTorghast,1090,184223,0,5
 |cFFFFD200Drop: |rMorguliax|n|cFFFFD200Zone: |rThe Maw,1091,184292,0,0
 |cFFFFD200Drop: |rBorr-Geth|n|cFFFFD200Zone: |rThe Maw,1092,184312,0,0
@@ -708,3 +708,27 @@ It's a Mystery!,278,118191,2,0
 ,1111,184418,0,-1
 ,1112,184413,0,-1
 ,1113,184435,0,-1
+|cFFFFD200Drop: |rDoomwalker|n|cFFFFD200Zone: |rTanaris|n|cFFFFD200Event: |rWoW 17th Anniversary,1114,186501,2,-1
+|cFFFFD200Profession: |rLeatherworking(50),1115,186686,0,3
+|cFFFFD200Profession: |rLeatherworking(75),1116,186702,0,3
+,1117,186973,0,-1
+,1118,186985,0,-1
+"|cFFFFD200Vendor: |rLayers 9-12 Brokers|n|cFFFFD200Zone: |rTorghast, Tower of the Damned|n|cFFFFD200Cost: |r300|Hcurrency:1728|h|TInterface\ICONS\INV_Phantasma.BLP:0|t|h",1119,186974,0,-1
+"|cFFFFD200Drop: |rLayers 9-12 Bosses|n|cFFFFD200Zone: |rTorghast, Tower of the Damned",1120,187075,0,-1
+|cFFFFD200Drop: |rWild Worldcracker|n|cFFFFD200Zone: |rKorthia,1121,187176,0,0
+|cFFFFD200Quest: |r Bastion Visitor Dailies|n|cFFFFD200Zone: |rKorthia,1122,187184,0,-1
+|cFFFFD200Drop:|r Ascended War Chest|n|cFFFFD200Zone:|r The Maw,1123,187185,0,0
+|cFFFFD200Treasure: |rZovaal's Vault|n|cFFFFD200Zone: |rThe Maw,1124,187416,0,0
+"|cFFFFD200Drop:|r Adamant Vaults|n|cFFFFD200Zone:|r Torghast, Tower of the Damned|n",1125,187417,0,0
+|cFFFFD200Treasure: |rZovaal's Vault|n|cFFFFD200Zone: |rThe Maw,1126,187113,0,0
+|cFFFFD200Relic Quest: |rShadow Slicing Shortsword|n|cFFFFD200Zone: |rKorthia,1127,187159,0,1
+|cFFFFD200Relic Quest: |rDiviner's Rune Chits|n|cFFFFD200Zone: |rKorthia,1128,187154,0,1
+|cFFFFD200Relic Quest: |rGuise of the Changeling|n|cFFFFD200Zone: |rKorthia,1129,187155,0,1
+|cFFFFD200Relic Quest: |rRing of Self-Reflection|n|cFFFFD200Zone: |rKorthia,1130,187140,0,1
+|cFFFFD200Treasure: |rOffering Box|n|cFFFFD200Zone: |rKorthia,1131,187344,0,0
+|cFFFFD200Treasure:|r Dislodged Nest|n|cFFFFD200Zone:|r Korthia|n,1132,187339,0,0
+|cFFFFD200Drop: |rThe Rift|n,1133,187174,0,0
+|cFFFFD200Treasure: |rForgotten Feather|n|cFFFFD200Zone: |rKorthia,1134,187051,0,0
+|cFFFFD200Drop: |rTorglluun|n|cFFFFD200Zone: |rThe Maw,1135,187139,0,0
+|cFFFFD200Drop: |rObserver Yorik|n|cFFFFD200Zone: |rKorthia,1137,187420,0,0
+|cFFFFD200Drop: |rDarklord Taraxis|n|cFFFFD200Zone: |rThe Maw,1138,183901,0,0
