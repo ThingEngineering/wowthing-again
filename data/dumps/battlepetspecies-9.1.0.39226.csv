@@ -641,7 +641,7 @@ Seems odd that he doesn't like flies... right?,|cFFFFD200Achievement: |rThat's a
 ,,992,66709,0,133936,8,48,-1,6,7,0
 ,,993,66710,0,132211,7,48,-1,6,7,0
 ,,994,66711,0,236196,2,48,4,6,7,0
-,,995,66715,0,648918,7,48,4,6,7,0
+,,995,66715,0,648918,4,48,4,6,7,0
 ,,996,66716,0,646148,6,48,0,6,7,0
 ,,997,66718,0,133939,6,48,1,6,7,0
 ,,998,66712,0,648918,7,48,-1,6,7,0
@@ -1098,7 +1098,7 @@ Its eyesight is better than its hearing.,"|cFFFFD200Pet Battle: |rHighmountain, 
 Its sharp eyes can spot a snowshoe rabbit in a snowstorm.,|cFFFFD200Pet Battle: |rHighmountain,1714,97126,0,1387709,2,26,4,6,7,0
 These creatures can hunt in almost pure darkness.,|cFFFFD200Vendor:|r Draemus|n|cFFFFD200Zone:|r Dalaran|n|cFFFFD200Cost:|r 100|TINTERFACE\ICONS\ACHIEVEMENT_GUILDPERK_HONORABLEMENTION.BLP:0|t,1715,97127,194393,1387709,2,26,2,6,7,0
 A young companion in need of training.,|cFFFFD200Vendor: |rMarin Bladewing|n|cFFFFD200Zone: |rAzsuna|n|cFFFFD200Faction: |rThe Wardens - Revered|n|cFFFFD200Cost: |r500|TINTERFACE\MONEYFRAME\UI-GOLDICON.BLP:0|t,1716,97128,210669,1387709,2,2,2,6,7,0
-What was once a great enemy is now an adorable friend!,|cFFFFD200Vendor: |rFirst Arcanist Thalyssra|n|cFFFFD200Zone: |rSuramar|n|cFFFFD200Faction: |rThe Nightfallen - Revered|n|cFFFFD200Cost: |r500|TINTERFACE\MONEYFRAME\UI-GOLDICON.BLP:0|t,1717,97174,210671,1387707,5,2,2,39,7,0
+What was once a great enemy is now an adorable friend!,|cFFFFD200Vendor: |rFirst Arcanist Thalyssra|n|cFFFFD200Zone: |rSuramar|n|cFFFFD200Faction: |rThe Nightfallen - Revered|n|cFFFFD200Cost: |r500|TINTERFACE\MONEYFRAME\UI-GOLDICON.BLP:0|t,1717,97174,210671,1387707,5,2,2,399,398,0
 What are YOU looking at?!,"|cFFFFD200Order Hall:|r Dreadscar Rift, The Fel Hammer",1718,97178,210672,1387707,5,18,4,39,7,0
 Hello. Is it me you're looking for?,|cFFFFD200Drop: |rFelsoul Inquisitor|n|cFFFFD200Zone: |rSuramar,1719,97179,210673,1387707,5,10,0,39,7,0
 The great-great-great-great-great granddaughter of Senegos.,|cFFFFD200Quest: |rOn the Brink|n|cFFFFD200Zone: |rAzsuna,1720,97207,193388,134155,1,66,1,6,7,0
@@ -1322,7 +1322,7 @@ They say Fleet Admiral Tethys was never without his trusty parrot by his side - 
 Untouched by the deviate corruption seeping through the Wailing Caverns.,|cFFFFD200Drop: |rDamp Pet Supplies,2000,117184,233335,132209,2,2,0,6,7,0
 "This tiny robot specializes in drilling, clamping, and shooting lightning out of its brain. A typical gnome invention.",|cFFFFD200Drop:|r Leprous Sack of Pet Supplies|n,2001,117340,233647,1548512,9,2,0,6,7,0
 It's just constantly barfing plague fluid. Where does it come from? Where does it go?,|cFFFFD200World Event:|r Hallow's End|n|cFFFFD200Vendor: |rWoim|n|cFFFFD200Zone: |rTirisfal Glades|n|cFFFFD200Cost: |r150|TINTERFACE\ICONS\achievement_halloween_candy_01:0|t|n|n|cFFFFD200Vendor: |rPippi|n|cFFFFD200Zone: |rStormwind|n|cFFFFD200Cost: |r150|TINTERFACE\ICONS\achievement_halloween_candy_01:0|t|n,2002,117341,233649,1548513,3,2,6,6,7,0
-Crafted by a great and powerful wizard who refused to wear robes with pockets.,|cFFFFD200Achievement: |rMaster of Minions|n|cFFFFD200Category: |rCollect,2003,117343,233650,1551374,6,82,5,6,7,0
+Crafted by a great and powerful wizard who refused to wear robes with pockets.,|cFFFFD200Achievement: |rMaster of Minions|n|cFFFFD200Category: |rCollect,2003,117343,233650,1551374,6,82,5,400,401,0
 How do you kill that which lives in garbage?,|cFFFFD200Vendor: |rConjuror Margoss|n|cFFFFD200Zone: |rDalaran|n|cFFFFD200Faction: |rConjuror Margoss - Best Friend|n|cFFFFD200Cost: |r50|TINTERFACE\ICONS\INV_ELEMENTAL_MOTE_WATER01:0|t,2004,117371,233805,646059,4,82,2,6,7,0
 ,,2008,117979,0,254502,5,32,-1,6,7,0
 ,,2009,117980,0,236407,5,32,0,6,7,0
@@ -2049,7 +2049,7 @@ These dredbats are built by the Stonewright for the Court of Harvesters. They ar
 "Identified by the signature coloring of their many legs, these spiders are known for elaborate dances used to threaten and confuse foes.",|cFFFFD200Pet Battle:|r Revendreth|n,3007,173506,0,2027952,7,26,4,6,7,0
 "No longer lost, it's now considering a name change.",|cFFFFD200Drop:|r Lost Quill|n|cFFFFD200Zone:|r Revendreth,3008,173508,339593,2103805,5,2,0,6,7,0
 "Roosting in the grounds of Castle Nathria, The Count did not foresee falling into an eternal stone slumber.",|cFFFFD200Treasure: |rThe Count|n|cFFFFD200Zone: |rRevendreth|n|cFFFFD200Cost: |r99|Hcurrency:1820|h|TInterface\ICONS\INV_Jewelcrafting_LivingRuby_01.blp:0|t|h,3009,173531,339668,3860423,2,2,0,6,7,0
-"Most of the screechers in Sinfall scattered when the halls were occupied again, yet a few young dredbats remained, curiously watching over the new inhabitants.",,3010,173533,339670,3860424,2,34,-1,6,7,0
+Joining with their new residents in Sinfall a few of these juvenile dredbats accompanied Renathal's forces into the maw.,|cFFFFD200Drop: |r Bastion Maw Assault|n|cFFFFD200Treasure: |rSinfall Screecher Cage|n|cFFFFD200Zone: |rThe Maw,3010,173533,339670,3860424,2,2,0,6,7,0
 "Roosting over Sinfall, Battie was roused one evening by the music of the first Ember Court. She has not missed a single one since.",|cFFFFD200Vendor: |rTemel|n|cFFFFD200Zone: |rRevendreth|n|cFFFFD200Faction: |rThe Ember Court - Revered|n|cFFFFD200Covenant: |rVenthyr|n|cFFFFD200Cost: |r250|Hitem:163036|h|TInterface\ICONS\INV_Currency_PetBattle.BLP:0|t|h,3011,173535,339671,3860422,2,2,2,6,7,0
 "Abandoned by its master in a secluded room, the little bat has been hibernating in stone for ages.",|cFFFFD200Treasure: |rRepaired Transport Mirror|n|cFFFFD200Covenant: |rVenthyr|n|cFFFFD200Zone: |rRevendreth,3012,173536,339674,3860425,2,2,0,6,7,0
 What vile subtance is jiggling around inside of this creature?,|cFFFFD200Treasure:|r Strange Growth|n|cFFFFD200Zone:|r Maldraxxus|n,3013,173534,339677,3860396,4,2,0,6,7,0
@@ -2065,7 +2065,7 @@ These critters are capable of holding a tremendous amount of food in their cheek
 "No one is quite sure where Reginald got his or her name, but what we do know is they don't answer to anything else.",|cFFFFD200Vendor: |rCortinarius|n|cFFFFD200Zone: |rArdenweald|n|cFFFFD200Faction: |rMarasmius - Friendly|n|cFFFFD200Covenant: |rNight Fae|n|cFFFFD200Cost: |r250|Hitem:163036|h|TInterface\ICONS\INV_Currency_PetBattle.BLP:0|t|h,3023,173593,340002,3749006,4,2,2,6,7,0
 "The skies may have scorched part of Revendreth, but persistent creatures are still able to exist in these harsh conditions.",|cFFFFD200Drop:|r Ashen Amalgamation|n|cFFFFD200Covenant Feature:|r Ember Court|n|cFFFFD200Covenant:|r Venthyr|n|cFFFFD200Zone:|r Revendreth,3024,173842,340710,134389,6,2,0,6,7,0
 Nobody knows why all of these skeletal hands are from the left hand. Where did the right hands go?,|cFFFFD200Treasure:|r Skeletal Hand Fragments|n|cFFFFD200Zone:|r Maldraxxus,3025,173847,340717,3386322,3,2,0,6,7,0
-"Torghast is a tower of hardship and perpetual agony, which is a perfect environment for these creatures.",|cFFFFD200Drop:|r Torghast|n,3026,173849,340721,3579946,4,2,0,6,7,0
+"Torghast is a tower of hardship and perpetual agony, which is a perfect environment for these creatures.",|cFFFFD200Drop:|r Torghast|n,3026,173849,340721,3579945,4,2,0,6,7,0
 "Many have asked where these creatures came from, and how they made it to the Maw, but none that researched them have ever been heard from again.",|cFFFFD200Drop:|r Torghast|n|n,3027,173850,340722,3579948,4,2,0,6,7,0
 "If a detached hand claps by itself inside of Torghast, can the Jailer hear it?",|cFFFFD200Drop:|r Torghast|n|n,3028,173851,340723,3862168,3,2,0,6,7,0
 "The mysterious forces that animate this mobile mitt don't seem particularly evil, yet.",|cFFFFD200Drop:|r Torghast|n,3029,173988,341289,3862169,3,2,0,6,7,0
@@ -2114,3 +2114,55 @@ The allegiances of the spriggan are as changing as the seasons.,|cFFFFD200Achiev
 These grubs consume anima-depleted materials of all types. They aren't picky.,|cFFFFD200Pet Battle: |rArdenweald,3081,176020,0,3065166,4,26,4,6,7,0
 The wings of this moth glitter like the starry skies above Ardenweald.,|cFFFFD200Pet Battle: |rArdenweald,3082,176021,0,3255390,2,26,4,6,7,0
 "For a pet that's all mouth, where does anything it eats go? Maldraxxus necromancers have dissected many of these pets, and have no answers.",|cFFFFD200Pet Battle: |rMaldraxxus,3083,176024,0,3731581,2,26,4,6,7,0
+,,3089,176657,0,132263,9,48,-1,6,7,0
+,,3090,176659,0,2490921,2,48,-1,6,7,0
+,,3091,176658,0,1600298,7,48,-1,6,7,0
+Squibbles is engineered to never leave your side.,|cFFFFD200Drop:|r Grummlepouch|n,3092,176662,348561,2490921,9,2,0,6,7,0
+"Baubleworms are highly prized in the Veiled Market, where those featuring few gemstone flaws can fetch extreme prices.",|cFFFFD200Vendor: |rKeeper Ta'hult|n|cFFFFD200Zone: |rOribos|n|cFFFFD200Cost: |r10000|Hitem:163036|h|TInterface\ICONS\INV_Currency_PetBattle.BLP:0|t|h,3097,178216,351636,3856132,7,2,2,6,7,0
+"The fields of battle teem with Lil'Abom parts, which are perfectly interchangable and easy to put back together.",|cFFFFD200Drop:|r Maldraxxus Maw Assault|n,3098,179008,353206,3622121,3,2,0,6,7,0
+"Infused etherwyrms can be used as portable anima batteries, but they must be trained not to flee at the sight of combat.",|cFFFFD200Drop:|r Ardenweald Maw Assault|n|cFFFFD200Treasure: |rEtherwyrm Cage|n|cFFFFD200Zone: |rThe Maw|n,3099,179025,353230,3046536,2,2,0,6,7,0
+"Dragons come in all types of temporal classification -- timeless, time-lost, and even infinite.",|cFFFFD200Vendor: |rHistorian Ma'di|n|cFFFFD200Zone: |rTanaris|n|cFFFFD200Cost: |r200|Hcurrency:1166|h|TInterface\ICONS\PVECurrency-Justice.blp:0|t|h,3100,179125,353442,2892271,9,2,2,6,7,0
+"Sly snuck aboard for a trip into the Maw. He's not scared, he just really wants to stay in your backpack for a while.",|cFFFFD200Achievement: |rA Sly Fox|n|cFFFFD200Category: |rCollect,3101,179083,353450,3072461,7,2,5,6,7,0
+A young animite will rapidly grow if fed in excess. It is suggested that no more than one average soul's worth of anima be consumed per year to keep them docile.,|cFFFFD200Pet Battle: |rKorthia,3102,179131,0,3155460,2,26,4,6,7,0
+The brilliant scales of the etherwyrm reflect the bright skies of Bastion.,|cFFFFD200Drop:|r Ascended War Chest|n|cFFFFD200Zone:|r The Maw,3103,179132,353451,3046536,2,2,0,6,7,0
+The gemstones on a baubleworm will quickly deteriorate if the worm is killed. Healthy worms are kept as prized pets by wealthy Brokers.,|cFFFFD200Vendor: |rKeeper Ta'hult|n|cFFFFD200Zone: |rOribos|n|cFFFFD200Cost: |r1|Hitem:36812|h|TInterface\ICONS\INV_Misc_Gear_01.blp:0|t|h 1|Hitem:62072|h|TInterface\ICONS\INV_Staff_11.blp:0|t|h 1|Hitem:67410|h|TInterface\ICONS\INV_Stone_13.blp:0|t|h,3104,179137,353456,3856131,7,2,2,6,7,0
+"Baubleworms were found by the Brokers on an unknown world, and so gorgeous were their gems, that quickly the expedition turned against one another.",|cFFFFD200Vendor: |rKeeper Ta'hult|n|cFFFFD200Zone: |rOribos|n|cFFFFD200Cost: |r1|Hitem:3300|h|TInterface\ICONS\INV_Gauntlets_02.blp:0|t|h 1|Hitem:3670|h|TInterface\ICONS\INV_Misc_Bone_01.blp:0|t|h 1|Hitem:6150|h|TInterface\ICONS\INV_Misc_Bandage_06.blp:0|t|h,3105,179138,353457,3856130,7,2,2,6,7,0
+"Baubleworms have no natural predators, and grow their gemstones to attract mates.",|cFFFFD200Vendor: |rKeeper Ta'hult|n|cFFFFD200Zone: |rOribos|n|cFFFFD200Cost: |r1|Hitem:11406|h|TInterface\ICONS\INV_Misc_Pelt_Bear_Ruin_02.blp:0|t|h 1|Hitem:11944|h|TInterface\ICONS\INV_Boots_06.blp:0|t|h 1|Hitem:25402|h|TInterface\ICONS\INV_Hammer_16.blp:0|t|h,3106,179139,353458,3856129,7,2,2,6,7,0
+"The Purrkin hunt the invasive skrats in the Veiled Market, keeping the population just high enough that they are still needed.","|cFFFFD200Pet Battle: |rTazavesh, the Veiled Market",3108,179164,0,3742945,7,26,4,6,7,0
+Purrkins are a traditional pet of the Brokers and the two have a mutually beneficial relationship -- a necessity in Broker culture.,"|cFFFFD200Pet Battle: |rTazavesh, the Veiled Market",3109,179165,0,3742948,7,26,4,6,7,0
+"Gizmo is considered a perfect purrkin, perhaps the best that has ever existed. He is also a ruthless murderer of small critters.","|cFFFFD200Drop: |rP.O.S.T. Master|n|cFFFFD200Zone: |rTazavesh, the Veiled Market",3110,179166,353525,3742944,7,2,0,6,7,0
+"Skrats are poisonous, venomous, and unusually damp -- everything you want in a pet.","|cFFFFD200Pet Battle: |rTazavesh, the Veiled Market",3111,179167,0,3856133,4,26,4,6,7,0
+"Skrats are an especially invasive species, in that they can reproduce with only a sole skrat, and consume almost anything.","|cFFFFD200Pet Battle: |rTazavesh, the Veiled Market",3112,179168,0,3856135,4,26,4,6,7,0
+"One particular Broker has taken a liking to the skrat species, kept this rare specimin as a pet, and inherited the smell as a souvenir.","|cFFFFD200Zone:|r Tazavesh, the Veiled Market|n",3113,179169,353528,3856134,4,2,0,6,7,0
+"When you're a Maldraxxian stitchcrafter and you have to name a lot of abominations, sometimes you just go with the obvious choice.",|cFFFFD200Drop:|r War Chest of the Undying Army|n|cFFFFD200Zone:|r The Maw|n,3114,179171,353529,3622122,3,2,0,6,7,0
+"Not quite alive, not quite dead, simply an arm, with no head.",|cFFFFD200Pet Battle: |rThe Maw,3115,179179,0,3386323,3,26,4,6,7,0
+"Gorm find a way to invade just about anywhere, and the Maw is no exception.",|cFFFFD200Drop:|r War Chest of the Wild Hunt|n|cFFFFD200Zone:|r The Maw,3116,179180,353569,3084138,2,2,0,6,7,0
+"Though the spawn of a gorm queen lost within the Maw, this pet appears to be untainted by the Jailer's foul magics.","|cFFFFD200Drop: |rGralebboih
+|cFFFFD200Zone: |rThe Maw",3117,179181,353570,3084141,2,2,0,6,7,0
+The nails of the mawrat can inflict one of several afterlife-ending illnesses.,|cFFFFD200Pet Battle: |rThe Maw,3118,179182,0,3860391,4,26,4,6,7,0
+"Fragments of souls abound in the Maw, searching for meaning, or an end to their torment. But some just want to give you a hand.",|cFFFFD200Pet Battle: |rThe Maw,3119,179183,0,3862167,3,26,4,6,7,0
+These ensorcelled gauntlets are used by the mawsworn to capture escaping prisoners.,|cFFFFD200Pet Battle: |rThe Maw,3120,179219,0,3861531,3,26,4,6,7,0
+"Struggle all you want, it will just grip harder.",|cFFFFD200Drop:|r The Maw|n,3121,179220,353638,3861530,3,2,0,6,7,0
+There was once a mawsworn so vile that he was killed by his own minions. So great was his malice that a fragment of him lives on in this glove.,|cFFFFD200Drop: |rSoulrender Dormazain|n|cFFFFD200Zone: |rSanctum of Domination,3122,179222,353639,3861529,3,2,0,6,7,0
+"A species of wild pest that exists within the Maw, no one is quite sure what it eats or why it exists, but they can't get rid of it.",|cFFFFD200Pet Battle: |rThe Maw,3123,179226,0,3579946,4,26,4,6,7,0
+"Every deathroach is technically considered vile, but these really take the cake.",|cFFFFD200Pet Battle: |rThe Maw,3124,179227,0,3579947,4,26,4,6,7,0
+See reflections on the water? There's more than darkness in the depths.,|cFFFFD200Drop: |rHelsworn Soulseeker|n|cFFFFD200Zone: |rThe Maw,3125,179228,353644,3729672,5,2,0,6,7,0
+"These eyes were sent to slow and debilitate the wayward souls of the Maw, so that they could be more easily captured.","|cFFFFD200Pet Battle: |rKorthia, The Maw",3126,179229,0,3729823,5,26,4,6,7,0
+"One of several indistinguishable pets, all named Chompy.",|cFFFFD200Visitor Daily: |rOozing with Character|n|cFFFFD200Zone: |rKorthia|n|n|cFFFFD200Visitor Daily: |rLocal Reagents|n|cFFFFD200Zone: |rKorthia,3127,179230,353645,3860692,2,2,0,6,7,0
+"The Eye of the Jailer, diffused, is now merely an all-seeing magical bauble.",|cFFFFD200Drop: |rEye of the Jailer|n|cFFFFD200Zone: |rSanctum of Domination,3128,179232,353648,4062740,5,2,0,6,7,0
+The rage Zovaal harbored for his punished existence echoes through the eye.,|cFFFFD200Drop: |rEye of the Jailer|n|cFFFFD200Zone: |rSanctum of Domination|n|cFFFFD200Difficulty: |rMythic,3129,179233,353649,4069937,5,2,0,6,7,0
+The golden armor on these mawsworn is flimsy and easily bent -- the gilded armor is a punishment.,"|cFFFFD200Drop:|r Adamant Vaults|n|cFFFFD200Zone:|r Torghast, Tower of the Damned|n",3130,179239,353656,3731619,0,2,0,6,7,0
+"The Sanctum of Domination accepts mawsworn of all shapes, sizes, and levels of corporeality.",|cFFFFD200Drop: |rKel'Thuzad|n|cFFFFD200Zone: |rSanctum of Domination,3131,179240,353658,3731616,0,2,0,6,7,0
+"A ruthless tormenter of the smallest souls. Some say he was known in life as ""Thermaplugg.""","|cFFFFD200Achievement: |rMany, Many Things|n|cFFFFD200Category: |rTorghast",3132,179241,353659,3731620,0,82,5,6,7,0
+"Rook never speaks, and little about them is known.",|cFFFFD200Drop:|r Ve'nari Scavenged Supplies|n|cFFFFD200Zone:|r The Maw,3133,179242,353661,3731621,0,2,0,6,7,0
+You have never met a pet that is more about chewing.,|cFFFFD200Pet Battle: |rKorthia,3134,179248,0,3931156,4,26,4,6,7,0
+"The garnetgullet rolls in bright red flowers to enhance its color, serving as a call to similar species and a warning to enemies.",|cFFFFD200Pet Battle: |rKorthia,3135,179250,0,3931158,4,26,4,6,7,0
+"With Korthia torn asunder by the Jailer, the few species that remain must be archived.",|cFFFFD200Drop: |rZelnithop|n|cFFFFD200Zone: |rKorthia,3136,179251,353663,3931157,4,2,0,6,7,0
+"The hide color of this species is more rare on Korthia, and helps it hide from predators. And mawsworn, in this case.",|cFFFFD200Drop:|r Death's Advance Supplies|n|cFFFFD200Zone:|r Korthia,3137,179252,353664,3931155,4,2,0,6,7,0
+"A domesticated species, it is quite calm and seems hungry.",|cFFFFD200Vendor: |rDuchess Mynx|n|cFFFFD200Zone: |rKorthia|n|cFFFFD200Faction: |rDeath's Advance - Honored|n|cFFFFD200Cost: |r50|Hitem:163036|h|TInterface\ICONS\INV_Currency_PetBattle.BLP:0|t|h 1500|Hcurrency:1767|h|TInterface\ICONS\INV_Stygia.BLP:0|t|h,3138,179253,353665,3931159,4,2,2,6,7,0
+"Devourers exist throughout the In-Between of various types and levels of power, but always seeking anima.",|cFFFFD200Pet Battle: |rKorthia,3139,179256,0,3924117,7,26,4,6,7,0
+"It only has two teeth, and they both mean business.",|cFFFFD200Drop:|r Supplies of the Archivists' Codex|n|cFFFFD200Zone:|r Korthia,3140,179255,353666,3924116,7,2,0,6,7,0
+"Corpsefly eggs end up everywhere in Maldraxxus, and are easily transported accidentally.",|cFFFFD200Pet Battle:|r Korthia|n,3141,179329,0,3896756,2,26,4,6,7,0
+,,3155,179966,0,3987165,0,48,-1,6,7,0
+,,3156,179809,0,1716280,2,32,-1,6,7,0
+,,3158,179967,0,3069889,5,32,3,6,7,0

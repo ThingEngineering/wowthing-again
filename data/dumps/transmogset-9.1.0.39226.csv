@@ -1929,18 +1929,18 @@ Sin Slayer's Leathers,2162,3592,0,0,183,13193,0,1,8,90002,200,0
 Sin Slayer's Leathers,2163,3592,0,0,183,1641,2162,1,8,90002,100,0
 Sin Slayer's Leathers,2164,3592,0,0,183,2015,2162,1,8,90002,300,0
 Sin Slayer's Leathers,2165,3592,0,0,183,13145,2162,1,8,90002,400,0
-Sinful Gladiator's Vestment,2166,400,0,48,182,3859,2170,1,8,90002,300,0
-Sinful Gladiator's Leathers,2167,3592,0,48,182,3859,2171,1,8,90002,300,0
-Sinful Gladiator's Chain,2168,68,0,48,182,3859,2172,1,8,90002,300,0
-Sinful Gladiator's Plate,2169,35,0,48,182,3859,2173,1,8,90002,300,0
-Sinful Gladiator's Vestment,2170,400,0,16,182,13301,0,1,8,90002,200,0
-Sinful Gladiator's Leathers,2171,3592,0,16,182,13301,0,1,8,90002,200,0
-Sinful Gladiator's Chain,2172,68,0,16,182,13301,0,1,8,90002,200,0
-Sinful Gladiator's Plate,2173,35,0,16,182,13301,0,1,8,90002,200,0
-Sinful Aspirant's Vestment,2174,400,0,16,182,13303,2170,1,8,90002,100,0
-Sinful Aspirant's Leathers,2175,3592,0,16,182,13303,2171,1,8,90002,100,0
-Sinful Aspirant's Chain,2176,68,0,16,182,13303,2172,1,8,90002,100,0
-Sinful Aspirant's Plate,2177,35,0,16,182,13303,2173,1,8,90002,100,0
+Sinful Gladiator's Vestment,2166,400,0,18,182,3859,2170,1,8,90002,300,0
+Sinful Gladiator's Leathers,2167,3592,0,18,182,3859,2171,1,8,90002,300,0
+Sinful Gladiator's Chain,2168,68,0,18,182,3859,2172,1,8,90002,300,0
+Sinful Gladiator's Plate,2169,35,0,18,182,3859,2173,1,8,90002,300,0
+Sinful Gladiator's Vestment,2170,400,0,18,182,13301,0,1,8,90002,200,0
+Sinful Gladiator's Leathers,2171,3592,0,18,182,13301,0,1,8,90002,200,0
+Sinful Gladiator's Chain,2172,68,0,18,182,13301,0,1,8,90002,200,0
+Sinful Gladiator's Plate,2173,35,0,18,182,13301,0,1,8,90002,200,0
+Sinful Aspirant's Vestment,2174,400,0,18,182,13303,2170,1,8,90002,100,0
+Sinful Aspirant's Leathers,2175,3592,0,18,182,13303,2171,1,8,90002,100,0
+Sinful Aspirant's Chain,2176,68,0,18,182,13303,2172,1,8,90002,100,0
+Sinful Aspirant's Plate,2177,35,0,18,182,13303,2173,1,8,90002,100,0
 Stitchmasters' Weapons,2178,0,62901,1,0,0,0,1,8,90002,1670,70104
 Doubt's Weapon Cache,2179,0,62989,1,0,0,0,1,8,90002,1670,0
 Wisdom's Weapon Cache,2180,0,62990,1,0,0,0,1,8,90002,1670,0
@@ -1961,3 +1961,65 @@ Corrupted Aspirant's Arsenal,2196,0,63233,21,0,0,0,1,8,90002,600,0
 Corrupted Aspirant's Arsenal,2197,0,63234,25,0,0,0,1,8,90002,600,0
 Corrupted Gladiator's Arsenal,2198,0,63236,21,0,0,0,1,8,90002,600,0
 Corrupted Gladiator's Arsenal,2199,0,63235,25,0,0,0,1,8,90002,600,0
+Garb of the Azure Dusk,2202,0,63595,0,184,13859,2205,1,8,90100,10,70103
+Garb of the Twilight Grove,2203,0,63596,0,184,13850,2205,1,8,90100,10,70103
+Garb of Fall's Promise,2204,0,63597,0,184,13849,2205,1,8,90100,10,70103
+Garb of Pure Spirit,2205,0,63598,0,184,13591,0,1,8,90100,10,70103
+Battlefield Messenger's Regalia,2206,0,63599,0,185,13849,2208,1,8,90100,10,70101
+Foresworn Aspirant's Regalia,2207,0,63600,0,185,13850,2208,1,8,90100,10,70101
+Aspiring Aspirant's Regalia,2208,0,63601,0,185,13591,0,1,8,90100,10,70101
+Devoted Aspirant's Regalia,2209,0,63602,0,185,13859,2208,1,8,90100,10,70101
+Frontline Necromancer's Vestments,2210,0,63626,0,186,13849,2212,1,8,90100,10,70104
+Marileth's Assistant's Vestments,2211,0,63627,0,186,13859,2212,1,8,90100,10,70104
+Initiate's Necromantle Vestments,2212,0,63628,0,186,13591,0,1,8,90100,10,70104
+Rogue Necromancer's Vestments,2213,0,63629,0,186,13850,2212,1,8,90100,10,70104
+Harvester's Court Attire,2214,0,63630,0,187,13591,0,1,8,90100,10,70102
+Renathal's Battlefield Attire,2215,0,63631,0,187,13849,2214,1,8,90100,10,70102
+Radiant Court Attire,2216,0,63632,0,187,13850,2214,1,8,90100,10,70102
+Sinful Venthyr Attire,2217,0,63633,0,187,13859,2214,1,8,90100,10,70102
+Court Inquisitor's Vestments,2218,0,63634,0,188,13591,0,1,8,90100,10,70102
+Renathal's Field Inquisitor's Vestments,2219,0,63635,0,188,13849,2218,1,8,90100,10,70102
+Redeemed Inquisitor's Vestments,2220,0,63636,0,188,13850,2218,1,8,90100,10,70102
+Sinful Inquisitor's Vestments,2221,0,63637,0,188,13859,2218,1,8,90100,10,70102
+Unchained Gladiator's Vestment,2224,400,0,16,189,13301,0,1,8,90100,2000,0
+Unchained Gladiator's Leathers,2225,3592,0,16,189,13301,0,1,8,90100,2000,0
+Unchained Gladiator's Chain,2226,68,0,16,189,13301,0,1,8,90100,2000,0
+Unchained Gladiator's Plate,2227,35,0,16,189,13301,0,1,8,90100,2000,0
+Unchained Gladiator's Vestment,2228,400,0,48,189,3859,2224,1,8,90100,2000,0
+Unchained Gladiator's Leathers,2229,3592,0,48,189,3859,2225,1,8,90100,2000,0
+Unchained Gladiator's Chain,2230,68,0,48,189,3859,2226,1,8,90100,2000,0
+Unchained Gladiator's Plate,2231,35,0,48,189,3859,2227,1,8,90100,2000,0
+Unchained Gladiator's Vestment,2232,0,0,19,0,0,0,1,8,90100,1550,0
+Unchained Gladiator's Vestment,2233,0,0,19,0,0,0,1,8,90100,10,0
+Unchained Gladiator's Vestment,2234,400,0,19,0,0,0,1,8,90100,2000,0
+Unchained Gladiator's Vestment,2235,400,0,19,0,0,0,1,8,90100,2000,0
+Unchained Gladiator's Vestment,2236,400,0,19,0,0,0,1,8,90100,2000,0
+Unchained Gladiator's Leathers,2237,3592,0,19,0,0,0,1,8,90100,2000,0
+Unchained Gladiator's Leathers,2238,3592,0,19,0,0,0,1,8,90100,2000,0
+Unchained Gladiator's Leathers,2239,3592,0,19,0,0,0,1,8,90100,2000,0
+Unchained Gladiator's Chain,2240,68,0,19,0,0,0,1,8,90100,2000,0
+Unchained Gladiator's Chain,2241,68,0,19,0,0,0,1,8,90100,2000,0
+Unchained Gladiator's Chain,2242,68,0,19,0,0,0,1,8,90100,2000,0
+Unchained Gladiator's Plate,2243,35,0,19,0,0,0,1,8,90100,2000,0
+Unchained Gladiator's Plate,2244,35,0,19,0,0,0,1,8,90100,2000,0
+Unchained Gladiator's Plate,2245,35,0,19,0,0,0,1,8,90100,2000,0
+Unchained Aspirant's Vestment,2246,400,0,16,189,13303,2224,1,8,90100,1580,0
+Unchained Aspirant's Leathers,2247,1576,0,16,189,13303,2225,1,8,90100,1580,0
+Unchained Aspirant's Chain,2248,68,0,16,189,13303,2226,1,8,90100,1580,0
+Unchained Aspirant's Plate,2249,35,0,16,189,13303,2227,1,8,90100,1580,0
+Soulforged Dreadplate,2250,35,0,0,190,13193,0,1,8,90100,2260,0
+Soulforged Dreadplate,2251,35,0,0,190,1641,2250,1,8,90100,2260,0
+Soulforged Dreadplate,2252,35,0,0,190,2015,2250,1,8,90100,2260,0
+Soulforged Dreadplate,2253,35,0,0,190,13145,2250,1,8,90100,2260,0
+Tower Ascendant's Battlegear,2254,68,0,0,190,13193,0,1,8,90100,2260,0
+Tower Ascendant's Battlegear,2255,68,0,0,190,1641,2254,1,8,90100,2260,0
+Tower Ascendant's Battlegear,2256,68,0,0,190,2015,2254,1,8,90100,2260,0
+Tower Ascendant's Battlegear,2257,68,0,0,190,13145,2254,1,8,90100,2260,0
+Sanctum Assailant's Trappings,2258,3592,0,0,190,13193,0,1,8,90100,2260,0
+Sanctum Assailant's Trappings,2259,3592,0,0,190,1641,2258,1,8,90100,2260,0
+Sanctum Assailant's Trappings,2260,3592,0,0,190,2015,2258,1,8,90100,2260,0
+Sanctum Assailant's Trappings,2261,3592,0,0,190,13145,2258,1,8,90100,2260,0
+Dark Supplicant's Garb,2262,400,0,0,190,13193,0,1,8,90100,2260,0
+Dark Supplicant's Garb,2263,400,0,0,190,1641,2262,1,8,90100,2260,0
+Dark Supplicant's Garb,2264,400,0,0,190,2015,2262,1,8,90100,2260,0
+Dark Supplicant's Garb,2265,400,0,0,190,13145,2262,1,8,90100,2260,0
