@@ -29,7 +29,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
-            Version = 12,
+            Version = 13,
         };
 
         public override async Task Run(params string[] data)
@@ -43,6 +43,9 @@ namespace Wowthing.Backend.Jobs.Misc
             // Currencies
             var currencies = await LoadCurrencies();
             var currencyCategories = await LoadCurrencyCategories();
+
+            // Instances
+            var instances = await LoadInstances();
 
             // Mounts
             var spellToMount = await LoadMountDump();
@@ -77,6 +80,7 @@ namespace Wowthing.Backend.Jobs.Misc
             {
                 Currencies = currencies,
                 CurrencyCategories = currencyCategories,
+                Instances = instances,
                 Realms = realms,
                 Reputations = reputations,
                 ReputationTiers = reputationTiers,
@@ -131,6 +135,41 @@ namespace Wowthing.Backend.Jobs.Misc
         {
             var categories = await Utilities.LoadDumpCsvAsync<DumpCurrencyCategory>("currencycategory");
             return new SortedDictionary<int, DataCurrencyCategory>(categories.ToDictionary(k => k.ID, v => new DataCurrencyCategory(v)));
+        }
+
+        private static readonly HashSet<int> INSTANCE_TYPES = new HashSet<int>() {
+            1, // Party Dungeon
+            2, // Raid Dungeon
+        };
+        private async Task<SortedDictionary<int, DataInstance>> LoadInstances()
+        {
+            var journalInstances = await Utilities.LoadDumpCsvAsync<DumpJournalInstance>("journalinstance");
+            var mapIdToInstanceId = journalInstances
+                .GroupBy(instance => instance.MapID)
+                .ToDictionary(k => k.Key, v => v.OrderByDescending(instance => instance.OrderIndex).First().ID);
+
+            var maps = await Utilities.LoadDumpCsvAsync<DumpMap>("map");
+
+            var sigh = new SortedDictionary<int, DataInstance>();
+            foreach (var map in maps.Where(m => mapIdToInstanceId.ContainsKey(m.ID) && INSTANCE_TYPES.Contains(m.InstanceType)))
+            {
+                if (mapIdToInstanceId.TryGetValue(map.ID, out int instanceId))
+                {
+                    if (sigh.ContainsKey(instanceId))
+                    {
+                        _logger.Information("DUPLICATE BULLSHIT {0}", map.ID, instanceId);
+                    }
+                    else
+                    {
+                        sigh.Add(instanceId, new DataInstance(map, instanceId));
+                    } 
+                }
+                else
+                {
+                    _logger.Information("No mapIdToInstanceId for {0}??", map.ID);
+                } 
+            }
+            return sigh;
         }
 
         private static async Task<SortedDictionary<int, int>> LoadMountDump()
