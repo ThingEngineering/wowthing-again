@@ -15,3 +15,7 @@ node_modules/
 src/Wowthing.Web/wwwroot/dist/
 .eslintcache
 *.log
+
+# Misc
+api_responses/
+src/Test/
