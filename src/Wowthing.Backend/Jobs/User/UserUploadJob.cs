@@ -120,6 +120,7 @@ namespace Wowthing.Backend.Jobs.User
                     Week = currency.Week,
                     WeekMax = currency.MaxWeek,
                 };
+            }
         }
 
         private void HandleLockouts(PlayerCharacter character, UploadCharacter characterData)
