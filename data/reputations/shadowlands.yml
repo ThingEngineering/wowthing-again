@@ -1,5 +1,17 @@
 name: Shadowlands
 reputations:
+
+# 9.1
+- - both:
+      id: 2472
+      name: The Archivist's Codex
+      icon: inv_inscription_80_scroll
+
+  - both:
+      id: 2470
+      name: Death's Advance
+      icon: inv_tabard_deathsadvance_b_01
+
 # 9.0
 - - both:
       id: 2407
