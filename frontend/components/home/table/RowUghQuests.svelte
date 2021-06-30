@@ -25,7 +25,7 @@
 {#if $settings.home.showWeeklyAnima}
     {#if character.level === Constants.characterMaxLevel && anima}
         <TableIcon>
-            <WowthingImage name="spell/341209" size={20} border={1} />
+            <WowthingImage name={Constants.icons.weeklyAnima} size={20} border={1} />
         </TableIcon>
         <RowUghQuest ughQuest={anima} />
     {:else}
@@ -37,7 +37,7 @@
 {#if $settings.home.showWeeklySouls}
     {#if character.level === Constants.characterMaxLevel && souls}
         <TableIcon>
-            <WowthingImage name="spell/225100" size={20} border={1} />
+            <WowthingImage name={Constants.icons.weeklySouls} size={20} border={1} />
         </TableIcon>
         <RowUghQuest ughQuest={souls} />
     {:else}

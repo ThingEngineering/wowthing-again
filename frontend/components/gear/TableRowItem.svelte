@@ -1,6 +1,6 @@
 <script lang="ts">
-    import type { InventorySlot } from '@/data/inventory-slot'
-    import type { Character } from '@/types'
+    import type { Character, CharacterEquippedItem } from '@/types'
+    import type { InventorySlot } from '@/types/enums'
     import { getItemUrl } from '@/utils/get-item-url'
 
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
@@ -8,6 +8,7 @@
     export let character: Character
     export let inventorySlot: InventorySlot
 
+    let equipped: CharacterEquippedItem
     $: equipped = character.equippedItems[inventorySlot]
 </script>
 

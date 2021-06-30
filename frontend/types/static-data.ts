@@ -3,6 +3,7 @@ import type { Dictionary } from './dictionary'
 export interface StaticData {
     currencies: Dictionary<StaticDataCurrency>
     currencyCategories: Dictionary<StaticDataCurrencyCategory>
+    instances: Dictionary<StaticDataInstance>
     realms: Dictionary<StaticDataRealm>
     reputations: Dictionary<StaticDataReputation>
     reputationTiers: Dictionary<StaticDataReputationTier>
@@ -33,6 +34,13 @@ export interface StaticDataCurrencyCategory {
     id: number
     name: string
     slug: string
+}
+
+export interface StaticDataInstance {
+    expansion: number
+    id: number
+    name: string
+    shortName: string
 }
 
 interface StaticDataRealm {

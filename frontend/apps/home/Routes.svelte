@@ -5,6 +5,7 @@
     import Gear from '@/components/gear/Gear.svelte'
     import HomeCards from '@/components/home/Cards.svelte'
     import HomeTable from '@/components/home/Table.svelte'
+    import Lockouts from '@/components/lockouts/Lockouts.svelte'
     import Mounts from '@/components/collections/Mounts.svelte'
     import MythicPlus from '@/components/mythic-plus/MythicPlus.svelte'
     import Pets from '@/components/collections/Pets.svelte'
@@ -20,6 +21,7 @@
 
         '/currencies/:slug?': Currencies,
         '/gear': Gear,
+        '/lockouts': Lockouts,
         '/mythicplus/:slug?': MythicPlus,
         '/reputations/:slug?': Reputations,
         '/transmog/:slug?': Transmog,

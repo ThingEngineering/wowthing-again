@@ -51,6 +51,7 @@ namespace Wowthing.Lib.Models
         // Navigation properties
         public PlayerCharacterCurrencies Currencies { get; set; }
         public PlayerCharacterEquippedItems EquippedItems { get; set; }
+        public PlayerCharacterLockouts Lockouts { get; set; }
         public PlayerCharacterMythicPlus MythicPlus { get; set; }
         public List<PlayerCharacterMythicPlusSeason> MythicPlusSeasons { get; set; }
         public PlayerCharacterQuests Quests { get; set; }

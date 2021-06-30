@@ -1,3 +1,4 @@
+import type {Difficulty} from '@/types/difficulty'
 import type { TippyProps } from '@/types/tippy'
 
 export class Dungeon {
@@ -62,4 +63,10 @@ export interface DungeonTimedResult {
     plus: number
     under?: number
     over?: number
+}
+
+export interface InstanceDifficulty {
+    difficulty: Difficulty
+    instanceId: number
+    key: string
 }

@@ -23,31 +23,11 @@
     }
 </script>
 
-<style lang="scss">
-    tr {
-        :global(td) {
-            background: adjust-color($active-background, $alpha: -0.5);
-            border-top: 1px solid $border-color;
-            font-size: 1.05rem;
-        }
-    }
-    td {
-        text-align: center;
-
-        &:first-child {
-            border-top-left-radius: $border-radius;
-        }
-        &:last-child {
-            border-top-right-radius: $border-radius;
-        }
-    }
-</style>
-
 {#if groupIndex > 0}
     <SpacerRow />
 {/if}
 
-<tr>
+<tr class="table-group-head">
     <td colspan="{span}">&nbsp;</td>
 
     {#if !$userData.public}

@@ -21,6 +21,9 @@
     <li use:active={'/gear'}>
         <a href="#/gear">Gear</a>
     </li>
+    <li use:active={'/lockouts'}>
+        <a href="#/lockouts">Lockouts</a>
+    </li>
     <li use:active={'/mythicplus/*'}>
         <a href="#/mythicplus/thisweek">Mythic+</a>
     </li>
