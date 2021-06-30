@@ -30,6 +30,7 @@ namespace Wowthing.Backend.Jobs.User
             var characterMap = await _context.PlayerCharacter
                 .Where(c => c.Account.UserId == userId)
                 .Include(c => c.Currencies)
+                .Include(c => c.Lockouts)
                 .Include(c => c.Weekly)
                 .ToDictionaryAsync(k => (k.RealmId, k.Name));
 
@@ -76,6 +77,7 @@ namespace Wowthing.Backend.Jobs.User
                 character.MountSkill = Enum.IsDefined(typeof(WowMountSkill), characterData.MountSkill) ? (WowMountSkill)characterData.MountSkill : 0;
 
                 HandleCurrencies(character, characterData);
+                HandleLockouts(character, characterData);
                 HandleWeekly(character, characterData);
             }
 
@@ -118,6 +120,43 @@ namespace Wowthing.Backend.Jobs.User
                     Week = currency.Week,
                     WeekMax = currency.MaxWeek,
                 };
+        }
+
+        private void HandleLockouts(PlayerCharacter character, UploadCharacter characterData)
+        {
+            if (character.Lockouts == null)
+            {
+                character.Lockouts = new PlayerCharacterLockouts
+                {
+                    Character = character,
+                };
+                _context.PlayerCharacterLockouts.Add(character.Lockouts);
+            }
+
+            if (characterData.ScanTimes.TryGetValue("lockouts", out int lockoutsScanned) && characterData.Lockouts != null)
+            {
+                character.Lockouts.LastUpdated = lockoutsScanned.AsUtcDateTime();
+                character.Lockouts.Lockouts = new List<PlayerCharacterLockoutsLockout>();
+
+                foreach (var lockoutData in characterData.Lockouts)
+                {
+                    character.Lockouts.Lockouts.Add(new PlayerCharacterLockoutsLockout
+                    {
+                        Locked = lockoutData.Locked,
+                        DefeatedBosses = lockoutData.DefeatedBosses,
+                        Difficulty = lockoutData.Difficulty,
+                        Id = lockoutData.Id,
+                        MaxBosses = lockoutData.MaxBosses,
+                        Name = lockoutData.Name.Truncate(32),
+                        ResetTime = lockoutData.ResetTime.AsUtcDateTime(),
+                        Bosses = lockoutData.Bosses.EmptyIfNull()
+                            .Select(boss => new PlayerCharacterLockoutsLockoutBoss
+                            {
+                                Dead = boss.Dead,
+                                Name = boss.Name.Truncate(32),
+                            }).ToList(),
+                    });
+                }
             }
         }
 
@@ -148,7 +187,7 @@ namespace Wowthing.Backend.Jobs.User
             // Vault
             if (characterData.ScanTimes.TryGetValue("vault", out int vaultScanned) && characterData.MythicDungeons != null && characterData.Vault != null)
             {
-                character.Weekly.Vault.ScannedAt = DateTimeOffset.FromUnixTimeSeconds(vaultScanned).UtcDateTime;
+                character.Weekly.Vault.ScannedAt = vaultScanned.AsUtcDateTime();
 
                 character.Weekly.Vault.MythicPlusRuns = characterData.MythicDungeons
                     .Select(d => new List<int> { d.Map, d.Level })

@@ -32,6 +32,7 @@ namespace Wowthing.Web.Models
 
         public Dictionary<int, PlayerCharacterCurrenciesCurrency> Currencies { get; }
         public Dictionary<int, UserApiCharacterEquippedItem> EquippedItems { get; set; } = new Dictionary<int, UserApiCharacterEquippedItem>();
+        public Dictionary<string, PlayerCharacterLockoutsLockout> Lockouts { get; }
         public UserApiCharacterMythicPlus MythicPlus { get; }
         public Dictionary<int, int> Quests { get; set; } = new Dictionary<int, int>();
         public Dictionary<int, PlayerCharacterRaiderIoSeasonScores> RaiderIo { get; }
@@ -79,6 +80,17 @@ namespace Wowthing.Web.Models
             {
                 EquippedItems = character.EquippedItems.Items
                     .ToDictionary(k => (int)k.Key, v => new UserApiCharacterEquippedItem(v.Value));
+            }
+
+            if (character.Lockouts?.Lockouts != null)
+            {
+                Lockouts = character.Lockouts.Lockouts
+                    .Where(l => l.ResetTime >= DateTime.UtcNow)
+                    .GroupBy(l => $"{l.Id}-{l.Difficulty}")
+                    .ToDictionary(
+                        k => k.Key,
+                        v => v.OrderByDescending(l => l.ResetTime).First()
+                    );
             }
 
             if (character.MythicPlus != null)

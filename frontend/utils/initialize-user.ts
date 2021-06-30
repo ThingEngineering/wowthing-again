@@ -1,11 +1,34 @@
+import keys from 'lodash/keys'
+
 import initializeCharacter from './initialize-character'
-import type { Character, UserData } from '@/types'
+import type { Character, Dictionary, UserData } from '@/types'
+import {difficultyMap} from '@/data/difficulty'
 
 export default function initializeUser(userData: UserData): void {
     console.time('initializeUser')
+
+    const allLockouts: Dictionary<boolean> = {}
     for (let i = 0; i < userData.characters.length; i++) {
         const character = userData.characters[i]
         initializeCharacter(character)
+
+        for (const key of keys(character.lockouts)) {
+            allLockouts[key] = true
+        }
+    }
+
+    userData.allLockouts = []
+    for (const instanceDifficulty of keys(allLockouts)) {
+        const [instanceId, difficultyId] = instanceDifficulty.split('-')
+        const difficulty = difficultyMap[difficultyId]
+
+        if (difficulty && instanceId) {
+            userData.allLockouts.push({
+                difficulty,
+                instanceId: parseInt(instanceId),
+                key: instanceDifficulty,
+            })
+        }
     }
 
     // TODO hook up saved settings

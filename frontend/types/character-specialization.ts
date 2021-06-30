@@ -1,4 +1,4 @@
-import type { Role } from '@/data/role'
+import type { Role } from '@/types/enums'
 
 export interface CharacterSpecialization {
     classId: number
