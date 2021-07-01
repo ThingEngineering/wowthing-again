@@ -17,6 +17,7 @@ reputations:
       id: 2407
       name: The Ascended
       icon: inv_tabard_bastion_d_01
+    paragon: True
 
   - both:
       id: 2413
@@ -28,11 +29,13 @@ reputations:
       id: 2410
       name: The Undying Army
       icon: inv_tabard_maldraxxus_d_01
+    paragon: True
 
   - both:
       id: 2465
       name: The Wild Hunt
       icon: inv_tabard_ardenweald_d_01
+    paragon: True
 
 # Friends
 - - both:
