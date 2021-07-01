@@ -32,8 +32,7 @@
             characterRep = character.reputations[repInfo.id]
 
             if (characterRep !== undefined && dataRep !== undefined) {
-                const tiers: StaticDataReputationTier =
-                    $data.reputationTiers[dataRep.tierId]
+                const tiers: StaticDataReputationTier = $data.reputationTiers[dataRep.tierId] ?? $data.reputationTiers[0]
                 repTier = findReputationTier(tiers, characterRep)
                 const valueRank = repTier.MaxValue
                     ? `${repTier.Value} / ${repTier.MaxValue} ${repTier.Name}`

@@ -14,5 +14,8 @@ namespace Wowthing.Lib.Models
 
         public List<int> ReputationIds { get; set; }
         public List<int> ReputationValues { get; set; }
+
+        public List<int> ExtraReputationIds { get; set; }
+        public List<int> ExtraReputationValues { get; set; }
     }
 }

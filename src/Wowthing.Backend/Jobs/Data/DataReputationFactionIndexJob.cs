@@ -10,7 +10,7 @@ using Wowthing.Lib.Jobs;
 
 namespace Wowthing.Backend.Jobs.Data
 {
-    public class DataReputationFactionIndexJob : JobBase, IScheduledJob
+    public class DataReputationFactionIndexJob : JobBase//, IScheduledJob
     {
         public static readonly ScheduledJob Schedule = new ScheduledJob
         {

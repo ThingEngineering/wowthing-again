@@ -31,6 +31,7 @@ namespace Wowthing.Backend.Jobs.User
                 .Where(c => c.Account.UserId == userId)
                 .Include(c => c.Currencies)
                 .Include(c => c.Lockouts)
+                .Include(c => c.Reputations)
                 .Include(c => c.Weekly)
                 .ToDictionaryAsync(k => (k.RealmId, k.Name));
 
@@ -78,6 +79,7 @@ namespace Wowthing.Backend.Jobs.User
 
                 HandleCurrencies(character, characterData);
                 HandleLockouts(character, characterData);
+                HandleReputations(character, characterData);
                 HandleWeekly(character, characterData);
             }
 
@@ -159,6 +161,24 @@ namespace Wowthing.Backend.Jobs.User
                     });
                 }
             }
+        }
+
+        private void HandleReputations(PlayerCharacter character, UploadCharacter characterData)
+        {
+            if (character.Reputations == null)
+            {
+                return;
+            }
+
+            character.Reputations.ExtraReputationIds = characterData.Reputations
+                .EmptyIfNull()
+                .Select(r => r.Id)
+                .ToList();
+            
+            character.Reputations.ExtraReputationValues = characterData.Reputations
+                .EmptyIfNull()
+                .Select(r => r.Value)
+                .ToList();
         }
 
         private void HandleWeekly(PlayerCharacter character, UploadCharacter characterData)
