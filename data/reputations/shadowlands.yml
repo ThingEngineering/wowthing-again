@@ -53,3 +53,8 @@ reputations:
       id: 2464
       name: Court of Night
       icon: inv_babyhorse2_ardenweald_blue
+
+  - both:
+      id: 2462
+      name: Stitchmasters
+      icon: sanctum_features_buildabom
