@@ -19,7 +19,7 @@ namespace Wowthing.Backend.Models.Redis
         [JsonProperty(Order = 3)]
         public SortedDictionary<int, WowRealm> Realms { get; set; }
         [JsonProperty(Order = 4)]
-        public SortedDictionary<int, WowReputation> Reputations { get; set; }
+        public SortedDictionary<int, OutReputation> Reputations { get; set; }
         [JsonProperty(Order = 5)]
         public SortedDictionary<int, WowReputationTier> ReputationTiers { get; set; }
 
