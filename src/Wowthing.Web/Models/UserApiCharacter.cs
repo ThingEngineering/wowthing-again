@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Wowthing.Lib.Enums;
+using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Models;
 
 namespace Wowthing.Web.Models
@@ -110,8 +111,8 @@ namespace Wowthing.Web.Models
 
             if (character.Reputations?.ReputationIds != null && character.Reputations?.ReputationValues != null)
             {
-                Reputations = character.Reputations.ReputationIds
-                    .Zip(character.Reputations.ReputationValues)
+                Reputations = character.Reputations.ReputationIds.Concat(character.Reputations.ExtraReputationIds.EmptyIfNull())
+                    .Zip(character.Reputations.ReputationValues.Concat(character.Reputations.ExtraReputationValues.EmptyIfNull()))
                     .ToDictionary(k => k.First, v => v.Second);
             }
 

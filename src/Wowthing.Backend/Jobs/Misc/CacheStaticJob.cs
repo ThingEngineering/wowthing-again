@@ -60,7 +60,9 @@ namespace Wowthing.Backend.Jobs.Misc
             timer.AddPoint("Pets");
 
             // Reputations
-            var reputationSets = LoadReputations();
+            var reputations = await LoadReputations();
+
+            var reputationSets = LoadReputationSets();
             timer.AddPoint("Reputations");
 
             // Toys
@@ -71,7 +73,7 @@ namespace Wowthing.Backend.Jobs.Misc
 
             // Basic database dumps
             var realms = new SortedDictionary<int, WowRealm>(await _context.WowRealm.ToDictionaryAsync(c => c.Id));
-            var reputations = new SortedDictionary<int, WowReputation>(await _context.WowReputation.ToDictionaryAsync(c => c.Id));
+            //var reputations = new SortedDictionary<int, WowReputation>(await _context.WowReputation.ToDictionaryAsync(c => c.Id));
             var reputationTiers = new SortedDictionary<int, WowReputationTier>(await _context.WowReputationTier.ToDictionaryAsync(c => c.Id));
             timer.AddPoint("Database");
 
@@ -108,7 +110,7 @@ namespace Wowthing.Backend.Jobs.Misc
             _logger.Information("CacheStaticJob: {0}", timer.ToString());
         }
 
-        private static List<DataReputationCategory> LoadReputations()
+        private static List<DataReputationCategory> LoadReputationSets()
         {
             var categories = new List<DataReputationCategory>();
             var yaml = new DeserializerBuilder()
@@ -135,6 +137,13 @@ namespace Wowthing.Backend.Jobs.Misc
         {
             var categories = await Utilities.LoadDumpCsvAsync<DumpCurrencyCategory>("currencycategory");
             return new SortedDictionary<int, DataCurrencyCategory>(categories.ToDictionary(k => k.ID, v => new DataCurrencyCategory(v)));
+        }
+
+        private static async Task<SortedDictionary<int, OutReputation>> LoadReputations()
+        {
+            var factions = await Utilities.LoadDumpCsvAsync<DumpFaction>("faction");
+
+            return new SortedDictionary<int, OutReputation>(factions.ToDictionary(k => k.ID, v => new OutReputation(v)));
         }
 
         private static readonly HashSet<int> INSTANCE_TYPES = new HashSet<int>() {
