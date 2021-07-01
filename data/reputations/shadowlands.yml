@@ -55,6 +55,11 @@ reputations:
       icon: inv_babyhorse2_ardenweald_blue
 
   - both:
+      id: 2463
+      name: Marasmius
+      icon: druid_ability_wildmushroom_b
+
+  - both:
       id: 2462
       name: Stitchmasters
       icon: sanctum_features_buildabom
