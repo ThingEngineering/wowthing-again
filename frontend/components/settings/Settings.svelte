@@ -1,9 +1,19 @@
 <script lang="ts">
-    import SettingsRoutes from './SettingsRoutes.svelte'
-    import SettingsSidebar from './SettingsSidebar.svelte'
+    import SettingsGeneral from './SettingsGeneral.svelte'
+    import SettingsHome from './SettingsHome.svelte'
 </script>
 
-<div class="settings">
-    <SettingsSidebar />
-    <SettingsRoutes />
+<style lang="scss">
+    div {
+        align-items: flex-start;
+        display: flex;
+        width: 100%;
+    }
+</style>
+
+<div>
+    <form>
+        <SettingsGeneral />
+        <SettingsHome />
+    </form>
 </div>
