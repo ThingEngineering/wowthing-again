@@ -96,7 +96,7 @@ const sigh = function(baseName) {
         ],
         watch: {
             exclude: ['node_modules/**'],
-            include: ['**/*.scss', '**/*.svelte', '**/*.ts'],
+            include: ['**/*.css', '**/*.scss', '**/*.svelte', '**/*.ts'],
             chokidar: {
                 usePolling: true,
             },
