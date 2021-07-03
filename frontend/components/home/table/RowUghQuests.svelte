@@ -6,42 +6,33 @@
     import type { Character } from '@/types'
 
     import RowUghQuest from './RowUghQuest.svelte'
-    import TableIcon from '@/components/common/TableIcon.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     const character: Character = getContext('character')
     const anima = character.weekly?.ughQuests?.['anima']
+    const shapingFate = character.weekly?.ughQuests?.['shapingFate']
     const souls = character.weekly?.ughQuests?.['souls']
 </script>
 
-<style lang="scss">
-    td {
-        padding-left: 0.1rem;
-        text-align: right;
-        width: 2rem;
-    }
-</style>
-
 {#if $settings.home.showWeeklyAnima}
     {#if character.level === Constants.characterMaxLevel && anima}
-        <TableIcon>
-            <WowthingImage name={Constants.icons.weeklyAnima} size={20} border={1} />
-        </TableIcon>
-        <RowUghQuest ughQuest={anima} />
+        <RowUghQuest icon={Constants.icons.weeklyAnima} ughQuest={anima} cls="anima" />
     {:else}
-        <TableIcon />
+        <td></td>
+    {/if}
+{/if}
+
+{#if $settings.home.showWeeklyShapingFate}
+    {#if character.level === Constants.characterMaxLevel && shapingFate}
+        <RowUghQuest icon={Constants.icons.weeklyShapingFate} ughQuest={shapingFate} />
+    {:else}
         <td></td>
     {/if}
 {/if}
 
 {#if $settings.home.showWeeklySouls}
     {#if character.level === Constants.characterMaxLevel && souls}
-        <TableIcon>
-            <WowthingImage name={Constants.icons.weeklySouls} size={20} border={1} />
-        </TableIcon>
-        <RowUghQuest ughQuest={souls} />
+        <RowUghQuest icon={Constants.icons.weeklySouls} ughQuest={souls} />
     {:else}
-        <TableIcon />
         <td></td>
     {/if}
 {/if}
