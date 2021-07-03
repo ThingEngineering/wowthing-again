@@ -17,6 +17,7 @@ export interface Settings {
         showVaultPvp: boolean
         showVaultRaid: boolean
         showWeeklyAnima: boolean
+        showWeeklyShapingFate: boolean
         showWeeklySouls: boolean
     }
 

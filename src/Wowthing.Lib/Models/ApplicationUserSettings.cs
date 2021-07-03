@@ -53,6 +53,7 @@ namespace Wowthing.Lib.Models
         public bool ShowVaultPvp { get; set; } = true;
         public bool ShowVaultRaid { get; set; } = true;
         public bool ShowWeeklyAnima { get; set; } = true;
+        public bool ShowWeeklyShapingFate { get; set; } = true;
         public bool ShowWeeklySouls { get; set; } = true;
     }
 

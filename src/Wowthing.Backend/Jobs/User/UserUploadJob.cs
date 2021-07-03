@@ -235,6 +235,7 @@ namespace Wowthing.Backend.Jobs.User
                         Need = questData.Need,
                         Status = questData.Status,
                         Text = questData.Text?.Truncate(64),
+                        Type = questData.Type?.Truncate(16),
                     };
                 }
             }
