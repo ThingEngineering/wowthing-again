@@ -311,7 +311,8 @@ button,
  */
 
 fieldset {
-  border: 1px solid #a0a0a0; /* 1 */
+  //border: 1px solid #a0a0a0; /* 1 */
+  border: none;
   padding: 0.35em 0.75em 0.625em; /* 2 */
 }
 

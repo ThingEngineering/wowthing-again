@@ -1,0 +1,17 @@
+.settings-container {
+    h2 {
+        font-weight: 600;
+        text-align: center;
+    }
+    ul {
+        list-style: none;
+        margin: 0;
+        max-width: 15rem;
+        padding: 0;
+        width: 100%;
+    }
+
+    & + .settings-container {
+        margin-top: 1rem;
+    }
+}
