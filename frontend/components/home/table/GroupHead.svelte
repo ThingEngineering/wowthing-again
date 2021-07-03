@@ -47,11 +47,15 @@
     {/if}
 
     {#if $settings.home.showWeeklyAnima && $userData.public === false}
-        <td colspan="2">Anima</td>
+        <td>Anima</td>
+    {/if}
+
+    {#if $settings.home.showWeeklyShapingFate && $userData.public === false}
+        <td>Shaping</td>
     {/if}
 
     {#if $settings.home.showWeeklySouls && $userData.public === false}
-        <td colspan="2">Souls</td>
+        <td>Souls</td>
     {/if}
 
     {#if $settings.home.showTorghast}

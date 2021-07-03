@@ -124,6 +124,7 @@ export interface CharacterWeeklyUghQuest {
     need?: number
     status: number
     text?: string
+    type?: string
 }
 
 interface CharacterWeeklyVault {

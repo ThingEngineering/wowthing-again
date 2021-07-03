@@ -1,15 +1,47 @@
 <script lang="ts">
-    import type { CharacterWeeklyUghQuest } from '@/types'
+    import {Constants} from '@/data/constants'
+    import type {CharacterWeeklyUghQuest} from '@/types'
     //import tippy from '@/utils/tippy'
 
+    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+
+    export let cls: string
+    export let icon: string
     export let ughQuest: CharacterWeeklyUghQuest
+
+    let text = ''
+    if (ughQuest.status === 2) {
+        text = 'Done'
+    }
+    else if (ughQuest.status === 1) {
+        if (ughQuest.type === 'progressbar') {
+            text = `${ughQuest.have} %`
+        }
+        else {
+            text = `${ughQuest.have} / ${ughQuest.need}`
+        }
+    }
+    else {
+        text = 'Get!'
+    }
 </script>
 
 <style lang="scss">
     td {
-        padding-left: 0.2rem;
+        @include cell-width($width-ugh-quest);
+
         white-space: nowrap;
         word-spacing: -0.2ch;
+
+        &.anima {
+            @include cell-width($width-ugh-anima);
+        }
+    }
+
+    span {
+        display: inline-block;
+        flex: 1;
+        margin-left: 0.3rem;
 
         &.status2 {
             color: #1eff00;
@@ -21,19 +53,12 @@
         &.status0 {
             color: #ff1e00;
         }
-
-        span {
-            color: #bbb;
-        }
     }
 </style>
 
-<td class="status{ughQuest.status}">
-    {#if ughQuest.status === 2}
-        Done
-    {:else if ughQuest.status === 1}
-        {ughQuest.have} <span>/</span> {ughQuest.need}
-    {:else}
-        Get!
-    {/if}
+<td class="{cls}">
+    <div class="flex-wrapper">
+        <WowthingImage name={icon} size={20} border={1} />
+        <span class="status{ughQuest.status}">{text}</span>
+    </div>
 </td>
