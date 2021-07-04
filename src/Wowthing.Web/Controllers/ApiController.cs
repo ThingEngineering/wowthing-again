@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -32,6 +33,23 @@ namespace Wowthing.Web.Controllers
             _logger = logger;
             _userManager = userManager;
             _context = context;
+        }
+
+        [HttpPost("settings")]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Settings([FromBody] ApplicationUserSettings settings)
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            user.Settings = settings;
+            await _userManager.UpdateAsync(user);
+
+            return Ok();
         }
 
         [HttpGet("static.{hash:length(32)}.json")]
