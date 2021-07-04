@@ -18,7 +18,7 @@ namespace Wowthing.Web.Services
             _jobRepository = jobRepository;
         }
 
-        public async Task Process(int userId, IFormFile luaFile)
+        public async Task Process(long userId, IFormFile luaFile)
         {
             using var memoryStream = new MemoryStream();
             await luaFile.CopyToAsync(memoryStream);
@@ -27,7 +27,12 @@ namespace Wowthing.Web.Services
             using var reader = new StreamReader(memoryStream, System.Text.Encoding.UTF8, true);
             var data = await reader.ReadToEndAsync();
 
-            await _jobRepository.AddJobAsync(JobPriority.High, JobType.UserUpload, userId.ToString(), data);
+            await Process(userId, data);
+        }
+
+        public async Task Process(long userId, string luaData)
+        {
+            await _jobRepository.AddJobAsync(JobPriority.High, JobType.UserUpload, userId.ToString(), luaData);
         }
     }
 }
