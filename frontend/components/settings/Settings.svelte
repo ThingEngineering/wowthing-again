@@ -3,10 +3,6 @@
     import SettingsHome from './SettingsHome.svelte'
     import SettingsPrivacy from './SettingsPrivacy.svelte'
     import SettingsSave from './SettingsSave.svelte'
-
-    async function postForm() {
-
-    }
 </script>
 
 <style lang="scss">

@@ -51,16 +51,16 @@
     let tooltip: string
     $: {
         if (maxed) {
-            cls = 'maxed'
+            cls = 'status-success'
             tooltip = 'Your mount speed is maxed out!'
         }
         else {
             if (afford || $userData.public) {
-                cls = 'afford'
+                cls = 'status-shrug'
                 tooltip = `Upgrade to ${nextSkill.speed}% ${nextSkill.speed > 100 ? 'flying' : 'ground'} for ${nextSkill.price.toLocaleString()}g!`
             }
             else {
-                cls = 'broke'
+                cls = 'status-fail'
                 tooltip = `You need ${nextSkill.price.toLocaleString()}g to upgrade!`
             }
         }
@@ -70,16 +70,6 @@
 <style lang="scss">
     td {
         @include cell-width($width-mount-speed);
-
-        &.maxed {
-            color: #1eff00;
-        }
-        &.afford {
-            color: #efef00;
-        }
-        &.broke {
-            color: #ff1e00;
-        }
     }
 </style>
 
