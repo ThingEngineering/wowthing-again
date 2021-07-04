@@ -1,4 +1,5 @@
 <script lang="ts">
+    import SettingsApiKey from './SettingsApiKey.svelte'
     import SettingsGeneral from './SettingsGeneral.svelte'
     import SettingsHome from './SettingsHome.svelte'
     import SettingsPrivacy from './SettingsPrivacy.svelte'
@@ -16,4 +17,5 @@
     <SettingsGeneral />
     <SettingsHome />
     <SettingsPrivacy />
+    <SettingsApiKey />
 </form>
