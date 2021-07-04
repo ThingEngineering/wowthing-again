@@ -44,6 +44,10 @@
         display: inline-block;
         flex: 1;
         margin-left: 0.3rem;
+
+        &.status-shrug {
+            text-align: right;
+        }
     }
 </style>
 
