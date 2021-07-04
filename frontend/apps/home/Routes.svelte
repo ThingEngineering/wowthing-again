@@ -30,7 +30,7 @@
         '/pets/:slug?': Pets,
         '/toys/:slug?': Toys,
 
-        '/settings/*': Settings,
+        '/settings': Settings,
     }
 </script>
 
