@@ -1,19 +1,23 @@
 <script lang="ts">
     import SettingsGeneral from './SettingsGeneral.svelte'
     import SettingsHome from './SettingsHome.svelte'
+    import SettingsPrivacy from './SettingsPrivacy.svelte'
+    import SettingsSave from './SettingsSave.svelte'
+
+    async function postForm() {
+
+    }
 </script>
 
 <style lang="scss">
-    div {
-        align-items: flex-start;
-        display: flex;
+    form {
         width: 100%;
     }
 </style>
 
-<div>
-    <form>
-        <SettingsGeneral />
-        <SettingsHome />
-    </form>
-</div>
+<form>
+    <SettingsSave />
+    <SettingsGeneral />
+    <SettingsHome />
+    <SettingsPrivacy />
+</form>
