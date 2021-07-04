@@ -3,6 +3,14 @@
     ViewData["Title"] = Model.User.UserName;
 }
 
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@functions {
+    public string GetAntiXsrfRequestToken()
+    {
+        return Xsrf.GetAndStoreTokens(Context).RequestToken;
+    }
+}
+
 @section scripts
 {
     <script type="text/javascript" asp-src-include="~/dist/home.*js"></script>
@@ -12,4 +20,5 @@
      data-settings="@Model.SettingsJson"
      data-static="@Url.Action("StaticData", "Api", new { hash = Model.StaticHash })"
      data-user="@Url.Action("UserData", "Api", new { username = Model.User.UserName })"
+     data-xsrf="@(User.Identity.IsAuthenticated ? GetAntiXsrfRequestToken() : "")"
 ></div>

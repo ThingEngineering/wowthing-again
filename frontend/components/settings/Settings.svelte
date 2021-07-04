@@ -1,9 +1,23 @@
 <script lang="ts">
-    import SettingsRoutes from './SettingsRoutes.svelte'
-    import SettingsSidebar from './SettingsSidebar.svelte'
+    import SettingsGeneral from './SettingsGeneral.svelte'
+    import SettingsHome from './SettingsHome.svelte'
+    import SettingsPrivacy from './SettingsPrivacy.svelte'
+    import SettingsSave from './SettingsSave.svelte'
+
+    async function postForm() {
+
+    }
 </script>
 
-<div class="settings">
-    <SettingsSidebar />
-    <SettingsRoutes />
-</div>
+<style lang="scss">
+    form {
+        width: 100%;
+    }
+</style>
+
+<form>
+    <SettingsSave />
+    <SettingsGeneral />
+    <SettingsHome />
+    <SettingsPrivacy />
+</form>
