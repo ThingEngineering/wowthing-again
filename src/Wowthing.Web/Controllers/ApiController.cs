@@ -35,6 +35,43 @@ namespace Wowthing.Web.Controllers
             _context = context;
         }
 
+        [HttpGet("api-key-get")]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ApiKeyGet()
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            if (string.IsNullOrWhiteSpace(user.ApiKey))
+            {
+                user.GenerateApiKey();
+                await _userManager.UpdateAsync(user);
+            }
+
+            return Json(new { key = user.ApiKey });
+        }
+
+        [HttpPost("api-key-reset")]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ApiKeyReset()
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            user.GenerateApiKey();
+            await _userManager.UpdateAsync(user);
+
+            return Json(new { key = user.ApiKey });
+        }
+
         [HttpPost("settings")]
         [Authorize]
         [ValidateAntiForgeryToken]
