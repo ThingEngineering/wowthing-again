@@ -1,5 +1,4 @@
 <script lang="ts">
-    import {Constants} from '@/data/constants'
     import type {CharacterWeeklyUghQuest} from '@/types'
     //import tippy from '@/utils/tippy'
 

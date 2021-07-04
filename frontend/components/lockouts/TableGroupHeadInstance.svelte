@@ -1,6 +1,6 @@
 <script lang="ts">
     import {data as staticData} from '@/stores/static'
-    import type {Difficulty, InstanceDifficulty, StaticDataInstance} from '@/types'
+    import type {InstanceDifficulty,} from '@/types'
     import tippy from '@/utils/tippy'
 
     export let instanceDifficulty: InstanceDifficulty
