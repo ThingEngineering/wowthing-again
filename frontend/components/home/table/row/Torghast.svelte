@@ -42,9 +42,9 @@
         <div class="flex-wrapper">
             <WowthingImage name={Constants.icons.torghast} size={20} border={1} />
             <div class="flex-wrapper">
-                <span class="wing">{wings[0][1]}</span>
+                <span class="wing" class:status-success={wings[0][1] >= Constants.maxTorghastWing}>{wings[0][1]}</span>
                 <span class="separator">/</span>
-                <span class="wing">{wings[1][1]}</span>
+                <span class="wing" class:status-success={wings[1][1] >= Constants.maxTorghastWing}>{wings[1][1]}</span>
             </div>
         </div>
     </td>
