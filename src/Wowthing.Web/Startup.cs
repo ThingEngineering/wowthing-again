@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Anemonis.AspNetCore.RequestDecompression;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
@@ -41,6 +42,13 @@ namespace Wowthing.Web
         {
             services.AddResponseCaching();
 
+            services.AddRequestDecompression(options =>
+            {
+                options.Providers.Add<DeflateDecompressionProvider>();
+                options.Providers.Add<GzipDecompressionProvider>();
+                options.Providers.Add<BrotliDecompressionProvider>();
+            });
+            
             services.AddControllersWithViews()
                 .AddNewtonsoftJson();
 
@@ -134,7 +142,8 @@ namespace Wowthing.Web
             // TODO CORS
 
             app.UseResponseCaching();
-
+            app.UseRequestDecompression();
+            
             app.UseAuthentication();
             app.UseAuthorization();
 
