@@ -5,24 +5,27 @@
 
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
-    export let cls: string
+    export let cls: string = undefined
     export let icon: string
     export let ughQuest: CharacterWeeklyUghQuest
 
+    let status = ''
     let text = ''
-    if (ughQuest.status === 2) {
-        text = 'Done'
-    }
-    else if (ughQuest.status === 1) {
-        if (ughQuest.type === 'progressbar') {
-            text = `${ughQuest.have} %`
+    $: {
+        if (ughQuest.status === 2) {
+            status = 'success'
+            text = 'Done'
+        } else if (ughQuest.status === 1) {
+            status = 'shrug'
+            if (ughQuest.type === 'progressbar') {
+                text = `${ughQuest.have} %`
+            } else {
+                text = `${ughQuest.have} / ${ughQuest.need}`
+            }
+        } else {
+            status = 'fail'
+            text = 'Get!'
         }
-        else {
-            text = `${ughQuest.have} / ${ughQuest.need}`
-        }
-    }
-    else {
-        text = 'Get!'
     }
 </script>
 
@@ -42,23 +45,12 @@
         display: inline-block;
         flex: 1;
         margin-left: 0.3rem;
-
-        &.status2 {
-            color: #1eff00;
-        }
-        &.status1 {
-            color: #ffff00;
-            text-align: right;
-        }
-        &.status0 {
-            color: #ff1e00;
-        }
     }
 </style>
 
 <td class="{cls}">
     <div class="flex-wrapper">
         <WowthingImage name={icon} size={20} border={1} />
-        <span class="status{ughQuest.status}">{text}</span>
+        <span class="status-{status}">{text}</span>
     </div>
 </td>

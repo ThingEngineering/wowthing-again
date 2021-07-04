@@ -8,12 +8,20 @@ export interface UserData {
 
     accounts?: Account[]
     characters: Character[]
+    currentPeriod: Dictionary<UserDataCurrentPeriod>
     mounts: Dictionary<number>
     setCounts: Dictionary<Dictionary<UserDataSetCount>>
     toys: Dictionary<number>
 
     // Calculated
     allLockouts: InstanceDifficulty[]
+}
+
+interface UserDataCurrentPeriod {
+    id: number
+    region: number
+    starts: string
+    ends: string
 }
 
 interface UserDataSetCount {
