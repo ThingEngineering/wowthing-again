@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -16,6 +17,7 @@ using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Utilities;
 using Wowthing.Web.Models;
+using Wowthing.Web.Services;
 
 namespace Wowthing.Web.Controllers
 {
@@ -24,13 +26,15 @@ namespace Wowthing.Web.Controllers
     {
         private readonly IConnectionMultiplexer _redis;
         private readonly ILogger<ApiController> _logger;
+        private readonly UploadService _uploadService;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly WowDbContext _context;
-
-        public ApiController(IConnectionMultiplexer redis, ILogger<ApiController> logger, UserManager<ApplicationUser> userManager, WowDbContext context)
+        
+        public ApiController(IConnectionMultiplexer redis, ILogger<ApiController> logger, UploadService uploadService, UserManager<ApplicationUser> userManager, WowDbContext context)
         {
             _redis = redis;
             _logger = logger;
+            _uploadService = uploadService;
             _userManager = userManager;
             _context = context;
         }
@@ -80,7 +84,7 @@ namespace Wowthing.Web.Controllers
             var user = await _userManager.GetUserAsync(HttpContext.User);
             if (user == null)
             {
-                return NotFound();
+                return NotFound("User does not exist");
             }
 
             user.Settings = settings;
@@ -98,7 +102,7 @@ namespace Wowthing.Web.Controllers
             string jsonHash = await db.StringGetAsync("cached_static:hash");
             if (hash != jsonHash)
             {
-                return NotFound();
+                return NotFound("Invalid static data hash");
             }
 
             return Content(await db.StringGetAsync("cached_static:data"), "application/json");
@@ -114,7 +118,7 @@ namespace Wowthing.Web.Controllers
                 .FirstOrDefaultAsync(t => t.Guid == guid);
             if (team == null)
             {
-                return NotFound();
+                return NotFound("Team not found");
             }
 
             var data = new TeamApi(_context, team);
@@ -122,6 +126,34 @@ namespace Wowthing.Web.Controllers
             return Ok(data);
         }
 
+        [HttpPost("upload")]
+        public async Task<IActionResult> Upload([FromBody] ApiUpload apiUpload)
+        {
+            // TODO rate limit
+            if (apiUpload?.ApiKey == null || apiUpload?.LuaFile == null)
+            {
+                _logger.LogDebug("Upload: {0}", JsonConvert.SerializeObject(apiUpload));
+                return BadRequest("Invalid request format");
+            }
+            
+            if (apiUpload.ApiKey.Length != ApplicationUser.API_KEY_LENGTH * 2)
+            {
+                return BadRequest("Invalid API key format");
+            }
+
+            var user = await _context.ApplicationUser
+                .Where(u => u.ApiKey == apiUpload.ApiKey)
+                .FirstOrDefaultAsync();
+            if (user == null)
+            {
+                return StatusCode((int) HttpStatusCode.Forbidden, "Invalid API key");
+            }
+
+            await _uploadService.Process(user.Id, apiUpload.LuaFile);
+
+            return Ok("Upload accepted");
+        }
+        
         [HttpGet("user/{username:username}")]
         public async Task<IActionResult> UserData([FromRoute] string username)
         {

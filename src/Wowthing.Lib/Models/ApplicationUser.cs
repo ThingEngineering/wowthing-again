@@ -9,9 +9,9 @@ namespace Wowthing.Lib.Models
 {
     public class ApplicationUser : IdentityUser<long>
     {
-        public string ApiKey { get; set; }
+        public const int API_KEY_LENGTH = 16;
 
-        private const int API_KEY_LENGTH = 16;
+        public string ApiKey { get; set; }
 
         [Column(TypeName = "jsonb")]
         public ApplicationUserSettings Settings { get; set; }
