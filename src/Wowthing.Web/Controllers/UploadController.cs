@@ -30,24 +30,13 @@ namespace Wowthing.Web.Controllers
             return View();
         }
 
-        [HttpPost("api")]
-        public async Task<IActionResult> FromApi([FromBody] string apiToken, [FromBody] IFormFile luaFile)
-        {
-            // Validate API token
-
-
-            // Process upload
-
-            return Ok();
-        }
-
         [HttpPost("web")]
         [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> FromWeb([FromForm] IFormFile luaFile)
         {
             // Process upload
-            await _uploadService.Process(int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value), luaFile);
+            await _uploadService.Process(long.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value), luaFile);
 
             return Redirect(Url.Action("Index", "Upload"));
         }
