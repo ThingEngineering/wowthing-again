@@ -1,9 +1,9 @@
 <script lang="ts">
     import { data as settingsData } from '@/stores/settings'
 
-    async function onClick(e) {
+    async function onClick() {
         const xsrf = document.getElementById('app').getAttribute('data-xsrf')
-        const response = await fetch('/api/settings', {
+        await fetch('/api/settings', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
