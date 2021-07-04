@@ -56,7 +56,7 @@
     {#if !$userLoading && !$userData.public}
         <li class="separator"></li>
         <li use:active={'/settings/*'}>
-            <a href="#/settings/">🚧 Settings</a>
+            <a href="#/settings/">Settings</a>
         </li>
     {/if}
 </Sidebar>
