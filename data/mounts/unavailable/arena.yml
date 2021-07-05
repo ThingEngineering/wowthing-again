@@ -50,3 +50,7 @@ groups:
   - 262023 # Sinister Gladiator's Proto-Drake (BfA Season 2)
   - 262024 # Notorious Gladiator's Proto-Drake (BfA Season 3)
   - 262027 # Corrupted Gladiator's Proto-Drake (BfA Season 4)
+
+- name: Shadowlands
+  things:
+  - 332400 # Sinful Gladiator's Soul Eater (Sinful Gladiator: Shadowlands Season 1)

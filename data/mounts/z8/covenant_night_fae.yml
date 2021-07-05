@@ -1,0 +1,30 @@
+name: Covenant - Night Fae
+groups:
+
+- name: Campaign
+  things:
+  - 312759 # Dreamlight Runestag
+  - 312761 # Enchanted Dreamlight Runestag
+
+- name: Renown
+  things:
+  - 332243 # Shadeleaf Runestag
+  - 332246 # Enchanted Shadeleaf Runestag
+  - 353856 # Ardenweald Wilderling (Renown 45)
+  - 353857 # Autumnal Wilderling (Renown 70)
+
+- name: Reputation
+  things:
+  - 340503 # Umbral Scythehorn (Revered, Court of Night)
+  - 332245 # Winterborn Runestag (Revered, Court of Night)
+  - 342667 # Vibrant Flutterwing (Revered, Marasmius)
+  - 332248 # Enchanted Winterborn Runestag (Revered, Marasmius)
+
+- name: Queen's Conservatory
+  things:
+  - 332244 # Wakener's Runestag (Greater Untamed Spirit + 2 Catalysts)
+  - 332247 # Enchanted Wakener's Runestag (Divine Untamed Spirit + 4 Catalysts)
+
+- name: Weird
+  things:
+  - 334366 # Wild Glimmerfur Prowler (Valfir the Unrelenting, Ardenweald)
