@@ -1,0 +1,59 @@
+.landing-page {
+    @media screen and (max-width: 1239px) {
+        min-width: 100%;
+        width: 100%;
+    }
+
+    @media screen and (min-width: 1240px) {
+        margin: 0 auto;
+        min-width: 1200px;
+        width: 1200px;
+    }
+
+    h1 {
+        text-align: center;
+    }
+
+    p {
+        font-size: 1.1rem;
+    }
+
+    .thing-container {
+        border: 1px solid $border-color;
+        padding: 1rem;
+
+    }
+}
+
+.landing-feature-list {
+    align-items: flex-start;
+    display: grid;
+    grid-column-gap: 2rem;
+    grid-row-gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
+    justify-content: center;
+}
+
+.landing-feature {
+    h2 {
+        text-align: center;
+    }
+
+    img {
+        display: block;
+        margin: 0 auto;
+        // maintain aspect ratio
+        height: auto;
+        max-height: 100%;
+        width: auto;
+        max-width: 100%;
+    }
+
+    p {
+        margin: 1rem 0 0.5rem 0;
+    }
+}
+
+.landing-hero {
+    grid-column: 1 / -1;
+}
