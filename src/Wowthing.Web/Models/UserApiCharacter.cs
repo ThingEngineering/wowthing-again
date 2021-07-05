@@ -95,7 +95,7 @@ namespace Wowthing.Web.Models
 
             if (character.MythicPlus != null)
             {
-                MythicPlus = new UserApiCharacterMythicPlus(character.MythicPlus, character.MythicPlusSeasons);
+                MythicPlus = new UserApiCharacterMythicPlus(character.MythicPlus, character.MythicPlusSeasons, pub && anon);
             }
 
             if (character.Quests != null)
@@ -156,7 +156,7 @@ namespace Wowthing.Web.Models
         public Dictionary<int, List<PlayerCharacterMythicPlusRun>> PeriodRuns { get; }
         public Dictionary<int, Dictionary<int, List<PlayerCharacterMythicPlusRun>>> Seasons { get; }
 
-        public UserApiCharacterMythicPlus(PlayerCharacterMythicPlus mythicPlus, List<PlayerCharacterMythicPlusSeason> seasons)
+        public UserApiCharacterMythicPlus(PlayerCharacterMythicPlus mythicPlus, List<PlayerCharacterMythicPlusSeason> seasons, bool anon)
         {
             CurrentPeriodId = mythicPlus.CurrentPeriodId;
             PeriodRuns = mythicPlus.PeriodRuns
@@ -167,6 +167,29 @@ namespace Wowthing.Web.Models
                     .GroupBy(k => k.DungeonId)
                     .ToDictionary(k => k.Key, v => v.OrderByDescending(r => r.Timed).ToList())
                 );
+
+            if (anon)
+            {
+                var allRuns = PeriodRuns.Values
+                    .SelectMany(x => x)
+                    .Concat(
+                        Seasons.Values
+                            .SelectMany(x => x.Values.SelectMany(y => y))
+                    );
+                
+                foreach (var run in allRuns)
+                {
+                    run.Members = run.Members
+                        .Select(orig => new PlayerCharacterMythicPlusRunMember()
+                        {
+                            ItemLevel = orig.ItemLevel,
+                            Name = "SecretGoose",
+                            RealmId = 0,
+                            SpecializationId = orig.SpecializationId,
+                        })
+                        .ToList();
+                }
+            }
         }
     }
 
