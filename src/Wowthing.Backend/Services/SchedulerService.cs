@@ -2,17 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using MoreLinq;
 using Newtonsoft.Json;
 using StackExchange.Redis;
 using Wowthing.Backend.Jobs;
 using Wowthing.Lib.Contexts;
-using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Repositories;
@@ -75,49 +70,77 @@ LIMIT 100
 
         protected override async void TimerCallback(object state)
         {
-            // Attempt to get exclusive scheduler lock
             var lockValue = new Guid().ToString("N");
-            var lockSuccess = await _jobRepository.AcquireLockAsync("scheduler", lockValue, TimeSpan.FromSeconds(TIMER_INTERVAL - 1));
-            if (!lockSuccess)
+            
+            try
             {
-                _logger.Debug("Skipping scheduler, lock failed");
+                // Attempt to get exclusive scheduler lock
+                var lockSuccess = await _jobRepository.AcquireLockAsync("scheduler", lockValue,
+                    TimeSpan.FromSeconds(TIMER_INTERVAL * 5));
+                if (!lockSuccess)
+                {
+                    _logger.Warning("Skipping scheduler, lock failed");
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Kaboom!");
                 return;
             }
 
-            // Scheduled jobs run on an interval, see if any need to be started
-            foreach (var scheduledJob in _scheduledJobs)
+            try
             {
-                if (await _jobRepository.CheckLastTime("scheduled_job", scheduledJob.RedisKey, scheduledJob.Interval))
+                // Scheduled jobs run on an interval, see if any need to be started
+                foreach (var scheduledJob in _scheduledJobs)
                 {
-                    _logger.Information("Queueing scheduled task {0}", scheduledJob.RedisKey);
-                    await _jobRepository.AddJobAsync(scheduledJob.Priority, scheduledJob.Type);
+                    if (await _jobRepository.CheckLastTime("scheduled_job", scheduledJob.RedisKey,
+                        scheduledJob.Interval))
+                    {
+                        _logger.Information("Queueing scheduled task {0}", scheduledJob.RedisKey);
+                        await _jobRepository.AddJobAsync(scheduledJob.Priority, scheduledJob.Type);
+                    }
                 }
             }
-
-            // Execute some sort of nasty database query to get characters that need an API check
-            var results = await _context.SchedulerCharacterQuery.FromSqlRaw(QUERY_CHARACTERS).ToArrayAsync();
-            if (results.Length > 0)
+            catch (Exception ex)
             {
-                var db = _redis.GetDatabase();
-
-                var resultData = results.Select(r => new
-                {
-                    Result = r,
-                    Json = JsonConvert.SerializeObject(r),
-                });
-
-                // Queue character jobs
-                _logger.Information("Queueing {0} character job(s)", results.Length);
-                await _jobRepository.AddJobsAsync(JobPriority.Low, JobType.Character, resultData.Select(d => d.Json));
-
-                // Update ApiCheckTime
-                var ids = results.Select(s => s.CharacterId);
-                await _context.PlayerCharacter.Where(c => ids.Contains(c.Id))
-                    .UpdateAsync(c => new PlayerCharacter { LastApiCheck = DateTime.UtcNow });
+                _logger.Error(ex, "Kaboom!");
             }
 
-            // Release exclusive scheduler lock
-            await _jobRepository.ReleaseLockAsync("scheduler", lockValue);
+            try
+            {
+                // Execute some sort of nasty database query to get characters that need an API check
+                var results = await _context.SchedulerCharacterQuery.FromSqlRaw(QUERY_CHARACTERS).ToArrayAsync();
+                if (results.Length > 0)
+                {
+                    var db = _redis.GetDatabase();
+
+                    var resultData = results.Select(r => new
+                    {
+                        Result = r,
+                        Json = JsonConvert.SerializeObject(r),
+                    });
+
+                    // Queue character jobs
+                    _logger.Information("Queueing {0} character job(s)", results.Length);
+                    await _jobRepository.AddJobsAsync(JobPriority.Low, JobType.Character,
+                        resultData.Select(d => d.Json));
+
+                    // Update ApiCheckTime
+                    var ids = results.Select(s => s.CharacterId);
+                    await _context.PlayerCharacter.Where(c => ids.Contains(c.Id))
+                        .UpdateAsync(c => new PlayerCharacter {LastApiCheck = DateTime.UtcNow});
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex, "Kaboom!");
+            }
+            finally
+            {
+                // Release exclusive scheduler lock
+                await _jobRepository.ReleaseLockAsync("scheduler", lockValue);
+            }
         }
     }
 }
