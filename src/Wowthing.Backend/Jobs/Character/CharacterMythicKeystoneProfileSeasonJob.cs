@@ -32,7 +32,7 @@ namespace Wowthing.Backend.Jobs.User
             var result = await GetJson<ApiCharacterMythicKeystoneProfileSeason>(uri);
             if (result.NotModified)
             {
-                _logger.Information("304 Not Modified");
+                LogNotModified();
                 return;
             }
 
