@@ -54,6 +54,7 @@ namespace Wowthing.Backend.Jobs.User
                 }
 
                 season.Runs = result.Data.BestRuns
+                    .EmptyIfNull()
                     .Select(run => new PlayerCharacterMythicPlusRun()
                     {
                         Affixes = run.Affixes.Select(a => a.Id).ToList(),
