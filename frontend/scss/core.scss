@@ -15,7 +15,7 @@ header {
 header,
 footer {
   background: $header-footer-background;
-  padding: 0.5rem;
+  padding: 0.5rem 1rem;
 }
 
 .nav {
@@ -98,6 +98,7 @@ h3,
 h4,
 h5,
 h6 {
+  font-weight: 600;
   margin: 0;
 }
 
