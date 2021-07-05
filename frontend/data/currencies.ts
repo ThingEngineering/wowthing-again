@@ -58,4 +58,7 @@ export const skipCurrencies: Dictionary<boolean> = {
 
     // Warlords of Draenor
     897: true, // UNUSED
+
+    // Shadowlands
+    1754: true, // Argent Commendation??
 }
