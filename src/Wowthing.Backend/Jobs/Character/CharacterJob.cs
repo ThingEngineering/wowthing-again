@@ -41,7 +41,7 @@ namespace Wowthing.Backend.Jobs.Character
                 var result = await GetJson<ApiCharacter>(uri, useLastModified: true);
                 if (result.NotModified)
                 {
-                    _logger.Information("304 Not Modified");
+                    LogNotModified();
                     character.DelayHours = 0;
                     await _context.SaveChangesAsync();
                     return;

@@ -162,5 +162,10 @@ namespace Wowthing.Backend.Jobs
 
             return new JsonResult<T> { Data = obj };
         }
+
+        protected void LogNotModified()
+        {
+            _logger.Debug("304 Not Modified");
+        } 
     }
 }
