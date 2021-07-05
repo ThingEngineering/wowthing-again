@@ -2,7 +2,91 @@
     ViewData["Title"] = "Home";
 }
 
-<div class="content">
-    <h1>WoWthing</h1>
-    <p>Words are hard words are hard words are hard.</p>
+<div class="content landing-page">
+    <h1>WoWthing [insert cool logo here]</h1>
+
+    <p>
+        Do <em>you</em> have an alt problem? Struggling to remember which of your characters
+        have done all of the things this week? WoWthing is here to help manage your
+        <a href="https://worldofwarcraft.com/en-us/">World of Warcraft</a> characters!
+    </p>
+
+    <p>
+        WoWthing is free and will (hopefully) always be free. I have no interest in running ads
+        or charging for premium functionality, and since everything is open source someone else
+        could just host a free version anyway.
+    </p>
+
+    <p>Let's take a quick tour:</p>
+
+    <div class="landing-feature-list">
+        <div class="landing-feature landing-hero">
+            <a href="img/home_20210704.png">
+                <img src="img/home_20210704.png" alt="Screenshot of WoWthing Home view">
+            </a>
+            <p>
+                The at-a-glance view of your characters. Most of the columns are configurable,
+                this is an example of absolutely everything being enabled. The faded rows at
+                the bottom are characters on an inactive account.
+            </p>
+            <p>
+                <strong>NOTE:</strong> most of this functionality requires saved data from the
+                <a href="https://curseforge.com/wow/addons/wowthing-collector">WoWthing_Collector</a>
+                addon to be uploaded - gold, mount speed, weekly quests (Anima/Shaping Fate/Souls),
+                Torghast completion, Mythic+ keystone, Mythic+ vault.
+            </p>
+        </div>
+
+        <div class="landing-feature">
+            <h2>Currencies</h2>
+            <a href="img/currencies_20210704.png">
+                <img src="img/currencies_20210704.png" alt="Screenshot of WoWthing Currencies view">
+            </a>
+            <p>
+                Keep track of how much of each currency all of your characters have. In the
+                near future you'll be able to display this on the Home screen also.
+            </p>
+        </div>
+
+        <div class="landing-feature">
+            <h2>Gear</h2>
+            <a href="img/gear_20210704.png">
+                <img src="img/gear_20210704.png" alt="Screenshot of WoWthing Gear view">
+            </a>
+            <p>
+                Keep track of all of that sweet gear you're stuck with for months on end
+                because the loot gods never smile upon you.
+            </p>
+        </div>
+
+        <div class="landing-feature">
+            <h2>Mythic+</h2>
+            <a href="img/mythic_plus_20210704.png">
+                <img src="img/mythic_plus_20210704.png" alt="Screenshot of WoWthing Mythic+ view">
+            </a>
+            <p>
+                Keep track of your current keystone, Mythic+ Vault status, Raider.IO score, and
+                which dungeons you've done at what level in the current week/season.
+            </p>
+        </div>
+
+        <div class="landing-feature">
+            <h2>Reputations</h2>
+            <a href="img/reputations_20210704.png">
+                <img src="img/reputations_20210704.png" alt="Screenshot of WoWthing Reputations view">
+            </a>
+            <p>
+                Keep track of your current reputation level with every faction in the game.
+            </p>
+        </div>
+
+        <div class="landing-feature landing-hero">
+            <p>
+                ... and more, probably! Get started by
+                <a asp-controller="Authentication" asp-action="Login">registering using Battle.Net</a>,
+                and feel free to stop by <a href="https://discord.gg/4UkTT5y">our Discord</a> if
+                you have any questions, feature requests, or just to say hi.
+            </p>
+        </div>
+    </div>
 </div>
