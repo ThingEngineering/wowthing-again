@@ -42,5 +42,16 @@ namespace Wowthing.Backend.Models.API.Character
 
         [JsonProperty("character_class")]
         public ApiObnoxiousObject Class { get; set; }
+        
+        [JsonProperty("covenant_progress")]
+        public ApiCharacterCovenantProgress CovenantProgress { get; set; } 
+    }
+
+    public class ApiCharacterCovenantProgress
+    {
+        [JsonProperty("chosen_covenant")]
+        public ApiObnoxiousObject ChosenCovenant { get; set; }
+        
+        public Dictionary<string, string> Soulbinds { get; set; }
     }
 }

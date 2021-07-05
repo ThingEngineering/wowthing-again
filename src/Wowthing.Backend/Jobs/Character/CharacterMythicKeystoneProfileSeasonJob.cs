@@ -32,7 +32,7 @@ namespace Wowthing.Backend.Jobs.User
             var result = await GetJson<ApiCharacterMythicKeystoneProfileSeason>(uri);
             if (result.NotModified)
             {
-                _logger.Information("304 Not Modified");
+                LogNotModified();
                 return;
             }
 
@@ -54,6 +54,7 @@ namespace Wowthing.Backend.Jobs.User
                 }
 
                 season.Runs = result.Data.BestRuns
+                    .EmptyIfNull()
                     .Select(run => new PlayerCharacterMythicPlusRun()
                     {
                         Affixes = run.Affixes.Select(a => a.Id).ToList(),

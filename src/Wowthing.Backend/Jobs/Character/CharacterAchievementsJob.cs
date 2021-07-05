@@ -28,7 +28,7 @@ namespace Wowthing.Backend.Jobs.Character
             var result = await GetJson<ApiCharacterAchievements>(uri);
             if (result.NotModified)
             {
-                _logger.Information("304 Not Modified");
+                LogNotModified();
                 return;
             }
 
