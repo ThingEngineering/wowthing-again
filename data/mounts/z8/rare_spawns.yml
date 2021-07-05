@@ -1,0 +1,40 @@
+name: Rare Spawns
+groups:
+
+- name: Ardenweald
+  things:
+  - 339632 # Arboreal Gulper (Humon'gozz, Ardenweald)
+  - 334364 # Spinemaw Gladechewer (Gormtamer Tizo, Ardenweald)
+  - 312765 # Sundancer (Sundancer, Ardenweald)
+  - 312767 # Swift Gloomhoof (Night Mare, Adrenweald)
+
+#- name: Bastion
+#  things:
+
+- name: Maldraxxus
+  things:
+  - 332466 # Armored Bonehoof Tauralus (Sabriel the Bonecleaver, Maldraxxus)
+  - 332478 # Blisterback Bloodtusk (Warbring Mal'Korak, Maldraxxus)
+  - 332480 # Gorespine (Nerissa Heartless, Maldraxxus)
+  - 336042 # Hulking Deathroc (Violet Mistake, Maldraxxus)
+
+- name: Revendreth
+  things:
+  - 332905 # Endmire Flyer (Famu the Infinite, Revendreth)
+  - 332882 # Horrid Dredwing (Harika the Horrid, Revendreth)
+  - 333027 # Loyal Gorger (Worldedge Gorger, Revendreth)
+
+- name: The Maw
+  things:
+  - 354353 # Fallen Charger (Fallen Charger)
+  - 312762 # Mawsworn Soulhunter (Gorged Shadehound, The Maw)
+
+- name: Korthia
+  things:
+  - 354357 # Crimson Shardhide (Malbog)
+  - 353877 # Foresworn Aquilon
+  - 354360 # Garnet Razorwing (Reliwik the Defiant)
+  - 347250 # Lord of the Corpseflies
+  - 215545 # Mastercraft Gravewing
+  - 356501 # Rampaging Mauler (Konthrogz the Obliterator)
+  - 353859 # Summer Wilderling

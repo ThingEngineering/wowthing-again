@@ -1,0 +1,25 @@
+name: Covenant - Necrolord
+groups:
+
+- name: Campaign
+  things:
+  - 332455 # War-Bred Tauralus (Chapter 2)
+  - 332462 # Armored War-Bred Tauralus (Final Chapter)
+
+- name: Renown
+  things:
+  - 332456 # Plaguerot Tauralus (Renown 23)
+  - 332464 # Armored Plaguerot Tauralus (Renown 39)
+  - 353883 # Maldraxxian Corpsefly
+  - 353884 # Regal Corpsefly
+
+- name: Abomination Stitching
+  things:
+  - 336041 # Bonesewn Fleshroc (Level 5)
+  - 332460 # Chosen Tauralus (The Gang's All Here achievement)
+  - 332467 # Armored Chosen Tauralus (Things To Do When You're Dead achievement)
+
+- name: Weird
+  things:
+  - 332457 # Bonehoof Tauralus (Tahonta, Maldraxxus)
+  - 336045 # Predatory Plagueroc (Gieger, Maldraxxus)

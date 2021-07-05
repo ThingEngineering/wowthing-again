@@ -1,0 +1,24 @@
+name: Covenant - Kyrian
+groups:
+
+- name: Campaign
+  things:
+  - 334391 # Phalynx of Courage (Chapter 3)
+  - 334406 # Eternal Phalynx of Courage (Chapter 6)
+
+- name: Renown
+  things:
+  - 334398 # Phalynx of Purity (Renown 23)
+  - 334403 # Eternal Phalynx of Purity (Renown 39)
+  - 353875 # Elysian Aquilon (Renown 45)
+  - 353880 # Ascendant's Aquilon (Renown 70)
+
+- name: Path of Ascension
+  things:
+  - 334382 # Phalynx of Loyalty (Loyalty, Mad Mortimer)
+  - 334408 # Eternal Phalynx of Loyalty (Death Foursworn achievement)
+  - 334409 # Eternal Phalynx of Humility (Learning from the Masters achievement)
+
+- name: Weird
+  things:
+  - 334386 # Phalynx of Humility
