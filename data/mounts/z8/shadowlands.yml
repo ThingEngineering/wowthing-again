@@ -1,0 +1,97 @@
+name: Shadowlands
+groups:
+- name: Achievements
+  things:
+  - 344578 # Corridor Creeper (Twisting Corridors: Layer 8)
+  - 318052 # Deathbringer's Flayedwing (Deathbringer)
+  - 339957 # Hand of Hrestimorak (Glory of the Dominant Raider)
+  - 354355 # Hand of Salaranga (Breaking the Chains)
+  - 339956 # Mawsworn Charger (Flawless Master)
+  - 332903 # Rampart Screecher (Glory of the Nathria Raider)
+  - 340068 # Sintouched Deathwalker (Shadowlands Keystone Master: Season One)
+  - 358319 # Soultwisted Deathwalker (Shadowlands Keystone Master: Season Two)
+  - 346554 # Tazavesh Gearglider (Fake It 'Til You Make It, Tazavesh)
+  - 353036 # Unchained Gladiator's Soul Eater (Gladiator: Shadowlands Season 2)
+  - 344659 # Voracious Gorger (Glory of the Shadowlands Hero)
+
+- name: Adventures
+  things:
+  - 312776 # Chittering Animite
+  - 312763 # Darkwarren Hardshell
+  - 341776 # Highwind Darkmane
+  - 341766 # Warstitched Darkhound
+
+- name: Covenant Assaults
+  things:
+  - 332904 # Harvester's Dredwing
+  - 352742 # Undying Darkhound
+  - 352441 # Wild Hunt Legsplitter
+  - 343550 # Battle-Hardened Aquilon (On the Offensive achievement + Exalted)
+  - 353885 # Battlefield Swarmer (On the Offensive achievement + Exalted)
+  - 353873 # Pale Gravewing (On the Offensive achievement + Exalted)
+  - 353858 # Winter Wilderling (On the Offensive achievement + Exalted)
+
+- name: Instances
+  things:
+  - 353263 # Cartel Master's Gearglider (Hard mode, Tazavesh)
+  - 336036 # Marrowfang (The Necrotic Wake)
+  - 354351 # Sanctum Gloomcharger (The Nine, Sanctum of Domination)
+  - 351195 # Vengeance (Mythic Sylvanas, Sanctum of Domination)
+
+- name: Puzzles
+  things:
+  - 344577 # Bound Shadehound (The Maw)
+  - 354354 # Hand of Nilganihmaht (The Maw)
+  - 346141 # Slime Serpent (Slime Serpent, Plaguefall)
+
+- name: PvP
+  things:
+  - 327407 327408 # Vicious War Spider (Season 1)
+  - 348770 348769 # Vicious War Gorm (Season 2)
+
+- name: Reputations
+  things:
+  - 342666 # Amber Adrenmoth (Wild Hunt Emissary)
+  - 354356 # Amber Shardhide (Death's Advance, Revered)
+  - 347810 # Beryl Shardhide (Death's Advance, Paragon)
+  - 341639 # Court Sinrunner (Court of Harvesters, Exalted)
+  - 332256 # Duskflutter Ardenmoth (The Wild Hunt, Exalted)
+  - 354359 # Fierce Razorwing (Death's Advance, Paragon)
+  - 342334 # Gilded Prowler (The Ascended, Exalted)
+  - 332923 # Inquisition Gargon (The Avowed, Exalted) Vampire bonus faction?
+  - 332484 # Lurid Bloodtusk (The Undying Army, Paragon?)
+  - 347251 # Soaring Razorwing (The Archivist's Codex, Tier 6)
+  - 354352 # Soulbound Gloomcharger (Ve'nari, Paragon)
+  - 347536 # Tamed Mauler (The Archivist's Codex, Paragon)
+
+- name: Treasures
+  things:
+  - 342335 # Ascended Skymane (Cache of the Ascended, Bastion)
+  - 354358 # Darkmaul (Darkmaul, Korthia)
+  - 354361 # Dusklight Razorwing (Dusklight Razorwing, Korthia)
+  - 332252 # Shimmermist Runner (Mistveil Tangle Area, Ardenweald)
+  - 334433 # Silverwind Larion (Cache of the Ascended, Bastion)
+  - 339588 # Sinrunner Blanchy (Dead Blanchy, Revendreth)
+  - 354362 # Wandering Arden Doe (Maelie, Korthia)
+  - 334352 # Wildseed Cradle (Cache of the Moon, Ardenweald)
+
+- name: Vendors
+  things:
+  - 318051 # Silky Shimmermoth (Master Clerk Salorn, Ardenweald)
+
+- name: World Drops
+  things:
+  - 344228 # Battle-Bound Warhound (Theatre of Pain, Maldraxxus)
+  - 344574 # Bulbous Necroray (Supplies of the Undying Army)
+  - 336038 # Callow Flayedwing (Maldraxxus)
+  - 327405 # Colossal Slaughterclaw (Supplies of the Undying Army, Maldraxxus)
+  - 352309 # Hand of Bahmethra (Tormentors of Torghast)
+  - 344576 # Infested Necroray (Supplies of the Undying Army)
+  - 344575 # Pestilent Necroray (Supplies of the Undying Army)
+
+- name: Covenant
+  things:
+  - 336064 # Dauntless Duskrunner
+  - 336039 # Gruesome Flayedwing
+  - 334365 # Pale Acidmaw
+  - 312777 # Silvertip Dredwing
