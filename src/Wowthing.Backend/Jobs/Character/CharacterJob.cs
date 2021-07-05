@@ -105,7 +105,7 @@ namespace Wowthing.Backend.Jobs.Character
             }
 
             // Shadowlands specific
-            if (character.Level >= 50)
+            if (apiCharacter.CovenantProgress?.Soulbinds?.ContainsKey("href") == true)
             {
                 jobs.Add(JobType.CharacterSoulbinds);
             }
