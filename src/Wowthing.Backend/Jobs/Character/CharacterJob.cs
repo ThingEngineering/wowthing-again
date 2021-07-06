@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Serilog.Context;
 using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.API.Character;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Jobs;
-using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Query;
 
 namespace Wowthing.Backend.Jobs.Character

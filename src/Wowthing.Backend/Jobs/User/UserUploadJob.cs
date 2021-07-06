@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Wowthing.Backend.Models.Uploads;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Extensions;
-using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Wow;
 using Wowthing.Lib.Utilities;

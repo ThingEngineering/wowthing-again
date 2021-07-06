@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.API.Data;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Jobs;
-using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Wow;
 using Wowthing.Lib.Utilities;
 

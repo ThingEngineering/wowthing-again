@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using StackExchange.Redis;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Models;
-using Wowthing.Lib.Repositories;
 using Wowthing.Web.ViewModels;
 
 namespace Wowthing.Web.Controllers
