@@ -1,5 +1,6 @@
 export interface Settings {
     general: {
+        minimumLevel: number
         showClassIcon: boolean
         showItemLevel: boolean
         showRaceIcon: boolean
