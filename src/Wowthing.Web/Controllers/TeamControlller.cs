@@ -21,9 +21,9 @@ namespace Wowthing.Web.Controllers
         }
 
         [HttpGet("team/{guid:guid}")]
-        public async Task<IActionResult> GetTeamByGuid([FromRoute] string guid)
+        public async Task<IActionResult> GetTeamByGuid([FromRoute] Guid guid)
         {
-            var team = await _context.Team.FirstOrDefaultAsync(t => t.Guid == new Guid(guid));
+            var team = await _context.Team.FirstOrDefaultAsync(t => t.Guid == guid);
             return await GetTeam(team);
         }
 
@@ -48,7 +48,7 @@ namespace Wowthing.Web.Controllers
         }
 
         [HttpPost("team/add_character")]
-        public async Task<IActionResult> AddCharacter()
+        public IActionResult AddCharacter()
         {
             return Ok();
         }

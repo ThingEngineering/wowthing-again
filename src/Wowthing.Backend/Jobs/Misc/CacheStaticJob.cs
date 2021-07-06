@@ -262,7 +262,7 @@ namespace Wowthing.Backend.Jobs.Misc
                             new RedisSetGroup
                             {
                                 Name = "UNCATEGORIZED",
-                                Things = missing.Select(m => new int[]{ m }).ToList(),
+                                Things = missing.Select(m => new[]{ m }).ToList(),
                             }
                         }
                     }

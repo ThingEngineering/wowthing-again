@@ -5,7 +5,6 @@ using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
-using StackExchange.Redis;
 using Wowthing.Backend.Jobs;
 using Wowthing.Backend.Services.Base;
 using Wowthing.Lib.Contexts;
@@ -20,9 +19,7 @@ namespace Wowthing.Backend.Services
     {
         private const int TimerInterval = 5;
         
-        private readonly IConnectionMultiplexer _redis;
         private readonly JobRepository _jobRepository;
-        private readonly IServiceScope _scope;
         private readonly WowDbContext _context;
         
         private readonly List<ScheduledJob> _scheduledJobs = new List<ScheduledJob>();
@@ -47,15 +44,14 @@ ORDER BY c.last_api_check
 LIMIT 100
 ";
 
-        public SchedulerService(IConnectionMultiplexer redis, IServiceProvider services, JobRepository jobRepository)
+        public SchedulerService(IServiceProvider services, JobRepository jobRepository)
             : base("Scheduler", TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(TimerInterval))
         {
-            _redis = redis;
             _jobRepository = jobRepository;
 
             // Get a scope and context
-            _scope = services.CreateScope();
-            _context = _scope.ServiceProvider.GetService<WowDbContext>();
+            var scope = services.CreateScope();
+            _context = scope.ServiceProvider.GetService<WowDbContext>();
 
             // Schedule jobs for all IScheduledJob implementers
             var jobTypes = AppDomain.CurrentDomain.GetAssemblies()
@@ -114,8 +110,6 @@ LIMIT 100
                 var results = await _context.SchedulerCharacterQuery.FromSqlRaw(QueryCharacters).ToArrayAsync();
                 if (results.Length > 0)
                 {
-                    var db = _redis.GetDatabase();
-
                     var resultData = results.Select(r => new
                     {
                         Result = r,

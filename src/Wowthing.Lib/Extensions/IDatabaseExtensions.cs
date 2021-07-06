@@ -29,7 +29,7 @@ namespace Wowthing.Lib.Extensions
 
         public static async Task<string[]> StringMultiGetAsync(this IDatabase db, IEnumerable<string> keys)
         {
-            var tasks = keys.Select(k => db.StringGetAsync(k));
+            var tasks = keys.Select(k => db.StringGetAsync(k)).ToArray();
             await Task.WhenAll(tasks);
             return tasks.Select(t => t.Result.ToString()).ToArray();
         }

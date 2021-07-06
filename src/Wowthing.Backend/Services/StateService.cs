@@ -8,9 +8,5 @@ namespace Wowthing.Backend.Services
     {
         public ChannelReader<WorkerJob> JobQueueReader;
         public RedisAccessToken AccessToken;
-
-        public StateService()
-        {
-        }
     }
 }

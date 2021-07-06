@@ -70,7 +70,7 @@ namespace Wowthing.Web.Models
                 AccountId = character.AccountId;
                 ChromieTime = character.ChromieTime;
                 Currencies = character.Currencies?.Currencies;
-                Gold = (character?.Copper ?? 0) / 10000;
+                Gold = character.Copper / 10000;
                 IsResting = character.IsResting;
                 IsWarMode = character.IsWarMode;
             }
@@ -100,7 +100,7 @@ namespace Wowthing.Web.Models
             if (character.Quests != null)
             {
                 Quests = character.Quests.CompletedIds
-                    .ToDictionary(k => k, v => 1);
+                    .ToDictionary(k => k, _ => 1);
             }
 
             if (character.RaiderIo != null)
@@ -162,9 +162,9 @@ namespace Wowthing.Web.Models
                 .GroupBy(k => k.DungeonId)
                 .ToDictionary(k => k.Key, v => v.ToList());
             Seasons = seasons
-                .ToDictionary(k => k.Season, v => v.Runs
-                    .GroupBy(k => k.DungeonId)
-                    .ToDictionary(k => k.Key, v => v.OrderByDescending(r => r.Timed).ToList())
+                .ToDictionary(season => season.Season, season => season.Runs
+                    .GroupBy(run => run.DungeonId)
+                    .ToDictionary(group => group.Key, group => group.OrderByDescending(r => r.Timed).ToList())
                 );
 
             if (anon)
@@ -206,7 +206,7 @@ namespace Wowthing.Web.Models
             SoulbindId = shadowlands.SoulbindId;
 
             Conduits = shadowlands.ConduitIds.Zip(shadowlands.ConduitRanks)
-                .Select(z => new int[] { z.First, z.Second }).ToList();
+                .Select(z => new[] { z.First, z.Second }).ToList();
         }
     }
 

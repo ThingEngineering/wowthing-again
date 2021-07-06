@@ -43,12 +43,12 @@ namespace Wowthing.Lib.Repositories
                 Type = type,
                 Data = data,
             }))).ToArray();
-            await db.ListRightPushAsync(priority.GetQueueName(), jobs, When.Always);
+            await db.ListRightPushAsync(priority.GetQueueName(), jobs);
         }
 
         public async Task AddJobsAsync(JobPriority priority, JobType type, IEnumerable<string> datas)
         {
-            await AddJobsAsync(priority, type, datas.Select(d => new string[] { d }));
+            await AddJobsAsync(priority, type, datas.Select(d => new[] { d }));
         }
 
         public async Task<WorkerJob> GetJobAsync()

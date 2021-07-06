@@ -48,10 +48,6 @@ namespace Wowthing.Backend.Jobs
             { WowRegion.Tw, "zh_TW" },
         };
 
-        protected JobBase()
-        {
-        }
-
         #region IJob
         public abstract Task Run(params string[] data);
         #endregion

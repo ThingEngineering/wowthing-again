@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using StackExchange.Redis;
-using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Models;
 using Wowthing.Web.ViewModels;
 
@@ -13,20 +12,18 @@ namespace Wowthing.Web.Controllers
     {
         private readonly IConnectionMultiplexer _redis;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly WowDbContext _context;
 
-        public UserController(IConnectionMultiplexer redis, UserManager<ApplicationUser> userManager, WowDbContext context)
+        public UserController(IConnectionMultiplexer redis, UserManager<ApplicationUser> userManager)
         {
             _redis = redis;
             _userManager = userManager;
-            _context = context;
         }
 
         [HttpGet("user/{username:username}")]
         public async Task<IActionResult> Index([FromRoute] string username)
         {
             var user = await _userManager.FindByNameAsync(username);
-            if (user == null || (User.Identity.Name != user.UserName && !user.Settings.Privacy.Public))
+            if (user == null || (User?.Identity?.Name != user.UserName && user.Settings?.Privacy?.Public != true))
             {
                 return NotFound();
             }

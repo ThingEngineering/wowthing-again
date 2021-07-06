@@ -8,8 +8,8 @@ namespace Wowthing.Lib.Utilities
 {
     public class LuaToJsonConverter
     {
-        private int _index = 0;
-        private int _indent = 0;
+        private int _index;
+        private int _indent;
         private readonly string[] _lines;
 
         public LuaToJsonConverter(string luaText)
