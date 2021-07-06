@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.API.Character;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Jobs;
+using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
 
 namespace Wowthing.Backend.Jobs.Character
@@ -23,24 +26,20 @@ namespace Wowthing.Backend.Jobs.Character
             var path = string.Format(ApiPath, query.RealmSlug, query.CharacterName.ToLowerInvariant());
             var uri = GenerateUri(query.Region, ApiNamespace.Profile, path);
 
-            // Get character from database
-            var character = await Context.PlayerCharacter.FindAsync(query.CharacterId);
-            if (character == null)
-            {
-                // This shouldn't be possible
-                throw new InvalidOperationException("Character does not exist?!");
-            }
-
+            // Get character from API
             ApiCharacter apiCharacter;
             try
             {
-                // FIXME crappy hack for my main
                 var result = await GetJson<ApiCharacter>(uri, useLastModified: true);
                 if (result.NotModified)
                 {
                     LogNotModified();
-                    character.DelayHours = 0;
-                    await Context.SaveChangesAsync();
+
+                    await Context.BatchUpdate<PlayerCharacter>()
+                        .Set(c => c.DelayHours, c => 0)
+                        .Where(c => c.Id == query.CharacterId)
+                        .ExecuteAsync();
+
                     return;
                 }
 
@@ -49,21 +48,34 @@ namespace Wowthing.Backend.Jobs.Character
             catch (HttpRequestException e)
             {
                 Logger.Error("HTTP {0}", e.Message);
+
+                var delayHoursIncrement = 0;
                 if (e.Message == "403")
                 {
                     // 403s are pretty bad, seem to happen for characters on unsubscribed accounts
-                    character.DelayHours += 24;
+                    delayHoursIncrement = 24;
                 }
                 else
                 {
                     // Treat every other error as relatively minor, try again later
                     // 404s are weird, can just mean "character hasn't logged in for a while"
-                    character.DelayHours += 4;
+                    delayHoursIncrement = 4;
                 }
-                
-                await Context.SaveChangesAsync();
+
+                await Context.BatchUpdate<PlayerCharacter>()
+                    .Set(c => c.DelayHours, c => c.DelayHours + delayHoursIncrement)
+                    .Where(c => c.Id == query.CharacterId)
+                    .ExecuteAsync();
 
                 return;
+            }
+
+            // Get character from database
+            var character = await Context.PlayerCharacter.FindAsync(query.CharacterId);
+            if (character == null)
+            {
+                // This shouldn't be possible
+                throw new InvalidOperationException("Character does not exist?!");
             }
 
             character.ActiveSpecId = apiCharacter.ActiveSpec?.Id ?? 0;
