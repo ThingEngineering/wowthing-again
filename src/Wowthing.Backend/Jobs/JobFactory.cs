@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading;
-using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using StackExchange.Redis;
 using Wowthing.Backend.Services;

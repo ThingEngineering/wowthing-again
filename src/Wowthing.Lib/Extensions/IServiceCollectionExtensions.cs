@@ -1,10 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using StackExchange.Redis;
-using System;
-using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Repositories;
 

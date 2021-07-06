@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Wowthing.Web.ViewModels
+﻿namespace Wowthing.Web.ViewModels
 {
     public class ErrorViewModel
     {

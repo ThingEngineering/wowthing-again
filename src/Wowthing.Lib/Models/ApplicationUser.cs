@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Cryptography;
-using System.Text;
 using Microsoft.AspNetCore.Identity;
 
 namespace Wowthing.Lib.Models
