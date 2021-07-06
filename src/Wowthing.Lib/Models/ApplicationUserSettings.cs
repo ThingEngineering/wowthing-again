@@ -31,6 +31,7 @@ namespace Wowthing.Lib.Models
 
     public class ApplicationUserSettingsGeneral
     {
+        public int MinimumLevel { get; set; } = 1;
         public bool ShowClassIcon { get; set; } = true;
         public bool ShowItemLevel { get; set; } = true;
         public bool ShowRaceIcon { get; set; } = true;

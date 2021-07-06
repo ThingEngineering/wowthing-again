@@ -7,6 +7,7 @@
     import toPairs from 'lodash/toPairs'
     import { setContext } from 'svelte'
 
+    import { data as settingsData } from '@/stores/settings'
     import { data as userData } from '@/stores/user'
     import type {Character} from '@/types'
     import getCharacterGroupFunc from '@/utils/get-character-group-func'
@@ -15,7 +16,7 @@
     import CharacterRow from './Row.svelte'
 
     export let endSpacer = true
-    export let filterFunc: (char: Character) => boolean = () => true
+    export let filterFunc: (char: Character) => boolean = (char) => char.level >= $settingsData.general.minimumLevel
     export let groupFunc: (char: Character) => string = getCharacterGroupFunc()
     export let sortFunc: (char: Character) => number = undefined
 
