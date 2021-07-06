@@ -8,6 +8,7 @@ using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.API.Character;
 using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Models;
+using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
 
 namespace Wowthing.Backend.Jobs.Character

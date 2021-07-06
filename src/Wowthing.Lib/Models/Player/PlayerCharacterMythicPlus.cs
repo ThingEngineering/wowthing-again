@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
-namespace Wowthing.Lib.Models
+namespace Wowthing.Lib.Models.Player
 {
     public class PlayerCharacterMythicPlus
     {

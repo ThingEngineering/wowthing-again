@@ -9,6 +9,7 @@ using Wowthing.Backend.Models.API.Data;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models;
+using Wowthing.Lib.Models.Wow;
 using Wowthing.Lib.Utilities;
 
 namespace Wowthing.Backend.Jobs.Data

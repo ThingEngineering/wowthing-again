@@ -16,6 +16,7 @@ using Wowthing.Backend.Services;
 using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models;
+using Wowthing.Lib.Models.Wow;
 using Wowthing.Lib.Utilities;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
@@ -117,7 +118,7 @@ namespace Wowthing.Backend.Jobs.Misc
                 .WithNamingConvention(LowerCaseNamingConvention.Instance)
                 .Build();
 
-            var basePath = Path.Join(Utilities.DATA_PATH, "reputations");
+            var basePath = Path.Join(Utilities.Utilities.DATA_PATH, "reputations");
             foreach (var line in File.ReadLines(Path.Join(basePath, "_order")))
             {
                 var filePath = Path.Join(basePath, line);
@@ -129,19 +130,19 @@ namespace Wowthing.Backend.Jobs.Misc
 
         private static async Task<SortedDictionary<int, DataCurrency>> LoadCurrencies()
         {
-            var types = await Utilities.LoadDumpCsvAsync<DumpCurrencyTypes>("currencytypes");
+            var types = await Utilities.Utilities.LoadDumpCsvAsync<DumpCurrencyTypes>("currencytypes");
             return new SortedDictionary<int, DataCurrency>(types.ToDictionary(k => k.ID, v => new DataCurrency(v)));
         }
 
         private static async Task<SortedDictionary<int, DataCurrencyCategory>> LoadCurrencyCategories()
         {
-            var categories = await Utilities.LoadDumpCsvAsync<DumpCurrencyCategory>("currencycategory");
+            var categories = await Utilities.Utilities.LoadDumpCsvAsync<DumpCurrencyCategory>("currencycategory");
             return new SortedDictionary<int, DataCurrencyCategory>(categories.ToDictionary(k => k.ID, v => new DataCurrencyCategory(v)));
         }
 
         private static async Task<SortedDictionary<int, OutReputation>> LoadReputations()
         {
-            var factions = await Utilities.LoadDumpCsvAsync<DumpFaction>("faction");
+            var factions = await Utilities.Utilities.LoadDumpCsvAsync<DumpFaction>("faction");
 
             return new SortedDictionary<int, OutReputation>(factions.ToDictionary(k => k.ID, v => new OutReputation(v)));
         }
@@ -152,12 +153,12 @@ namespace Wowthing.Backend.Jobs.Misc
         };
         private async Task<SortedDictionary<int, DataInstance>> LoadInstances()
         {
-            var journalInstances = await Utilities.LoadDumpCsvAsync<DumpJournalInstance>("journalinstance");
+            var journalInstances = await Utilities.Utilities.LoadDumpCsvAsync<DumpJournalInstance>("journalinstance");
             var mapIdToInstanceId = journalInstances
                 .GroupBy(instance => instance.MapID)
                 .ToDictionary(k => k.Key, v => v.OrderByDescending(instance => instance.OrderIndex).First().ID);
 
-            var maps = await Utilities.LoadDumpCsvAsync<DumpMap>("map");
+            var maps = await Utilities.Utilities.LoadDumpCsvAsync<DumpMap>("map");
 
             var sigh = new SortedDictionary<int, DataInstance>();
             foreach (var map in maps.Where(m => mapIdToInstanceId.ContainsKey(m.ID) && INSTANCE_TYPES.Contains(m.InstanceType)))
@@ -183,19 +184,19 @@ namespace Wowthing.Backend.Jobs.Misc
 
         private static async Task<SortedDictionary<int, int>> LoadMountDump()
         {
-            var records = await Utilities.LoadDumpCsvAsync<DataMountDump>("mount");
+            var records = await Utilities.Utilities.LoadDumpCsvAsync<DataMountDump>("mount");
             return new SortedDictionary<int, int>(records.ToDictionary(k => k.SourceSpellID, v => v.ID));
         }
 
         private static async Task<SortedDictionary<int, int>> LoadPetDump()
         {
-            var records = await Utilities.LoadDumpCsvAsync<DataPetDump>("battlepetspecies", p => (p.Flags & 32) == 0);
+            var records = await Utilities.Utilities.LoadDumpCsvAsync<DataPetDump>("battlepetspecies", p => (p.Flags & 32) == 0);
             return new SortedDictionary<int, int>(records.ToDictionary(k => k.CreatureID, v => v.ID));
         }
 
         private static async Task<SortedDictionary<int, int>> LoadToyDump()
         {
-            var records = await Utilities.LoadDumpCsvAsync<DataToyDump>("toy");
+            var records = await Utilities.Utilities.LoadDumpCsvAsync<DataToyDump>("toy");
             return new SortedDictionary<int, int>(records.ToDictionary(k => k.ItemID, v => v.ID));
         }
 
@@ -206,7 +207,7 @@ namespace Wowthing.Backend.Jobs.Misc
                 .WithNamingConvention(LowerCaseNamingConvention.Instance)
                 .Build();
 
-            var basePath = Path.Join(Utilities.DATA_PATH, dirName);
+            var basePath = Path.Join(Utilities.Utilities.DATA_PATH, dirName);
             foreach (var line in File.ReadLines(Path.Join(basePath, "_order")))
             {
                 if (line == "-")
@@ -231,7 +232,7 @@ namespace Wowthing.Backend.Jobs.Misc
         private static void AddUncategorized(string dirName, SortedDictionary<int, int> spellToThing, List<List<RedisSetCategory>> thingSets)
         {
             var skip = Array.Empty<int>();
-            var skipPath = Path.Join(Utilities.DATA_PATH, dirName, "_skip.yml");
+            var skipPath = Path.Join(Utilities.Utilities.DATA_PATH, dirName, "_skip.yml");
             if (File.Exists(skipPath))
             {
                 var newSkip = new DeserializerBuilder()

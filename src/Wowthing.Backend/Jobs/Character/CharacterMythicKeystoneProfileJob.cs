@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using StackExchange.Redis;
 using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.API.Character;
-using Wowthing.Lib.Constants;
 using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Jobs;
-using Wowthing.Lib.Models;
+using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
 
-namespace Wowthing.Backend.Jobs.User
+namespace Wowthing.Backend.Jobs.Character
 {
     public class CharacterMythicKeystoneProfileJob : JobBase
     {
