@@ -6,6 +6,7 @@ using StackExchange.Redis;
 using Wowthing.Backend.Services;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Repositories;
+using Wowthing.Lib.Utilities;
 
 namespace Wowthing.Backend.Jobs
 {
@@ -14,16 +15,16 @@ namespace Wowthing.Backend.Jobs
         private readonly IHttpClientFactory _clientFactory;
         private readonly JobRepository _jobRepository;
         private readonly ILogger _logger;
-        private readonly IConnectionMultiplexer _redis;
         private readonly StateService _stateService;
+        private readonly string _redisConnectionString;
 
-        public JobFactory(JobRepository jobRepository, IHttpClientFactory clientFactory, ILogger logger, IConnectionMultiplexer redis, StateService stateService)
+        public JobFactory(JobRepository jobRepository, IHttpClientFactory clientFactory, ILogger logger, StateService stateService, string redisConnectionString)
         {
             _clientFactory = clientFactory;
             _jobRepository = jobRepository;
             _logger = logger;
-            _redis = redis;
             _stateService = stateService;
+            _redisConnectionString = redisConnectionString;
         }
 
         public IJob Create(Type type, WowDbContext context, CancellationToken cancellationToken)
@@ -32,7 +33,7 @@ namespace Wowthing.Backend.Jobs
             obj.Http = _clientFactory.CreateClient("limited");
             obj.JobRepository = _jobRepository;
             obj.Logger = _logger;
-            obj.Redis = _redis;
+            obj.Redis = RedisUtilities.GetConnection(_redisConnectionString);
             obj.StateService = _stateService;
             obj.Context = context;
             obj.CancellationToken = cancellationToken;
