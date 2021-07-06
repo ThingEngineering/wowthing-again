@@ -6,7 +6,10 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using Wowthing.Lib.Models;
+using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
+using Wowthing.Lib.Models.Team;
+using Wowthing.Lib.Models.Wow;
 
 namespace Wowthing.Lib.Contexts
 {

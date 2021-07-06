@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Enums;
-using Wowthing.Lib.Models;
 
-namespace Wowthing.Web.Models
+namespace Wowthing.Web.Models.Team
 {
     public class TeamApi
     {
@@ -20,7 +17,7 @@ namespace Wowthing.Web.Models
         // Navigation properties
         public List<TeamApiCharacter> Characters { get; set; }
 
-        public TeamApi(WowDbContext context, Team team)
+        public TeamApi(WowDbContext context, Lib.Models.Team.Team team)
         {
             Id = team.Id;
             Region = team.Region;

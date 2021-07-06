@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models;
+using Wowthing.Lib.Models.Player;
 
 namespace Wowthing.Lib.Migrations
 {

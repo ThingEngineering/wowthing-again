@@ -14,6 +14,7 @@ using Serilog;
 using Wowthing.Backend.Extensions;
 using Wowthing.Backend.Models;
 using Wowthing.Backend.Services;
+using Wowthing.Backend.Utilities;
 using Wowthing.Lib.Extensions;
 
 namespace Wowthing.Backend

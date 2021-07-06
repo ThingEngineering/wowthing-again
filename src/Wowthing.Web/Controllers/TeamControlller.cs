@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using StackExchange.Redis;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Models;
+using Wowthing.Lib.Models.Team;
 using Wowthing.Web.ViewModels;
 
 namespace Wowthing.Web.Controllers

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models;
+using Wowthing.Lib.Models.Wow;
 
 namespace Wowthing.Web.Models
 {
