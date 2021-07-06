@@ -1,11 +1,12 @@
-﻿using CsvHelper.Configuration.Attributes;
+﻿// ReSharper disable InconsistentNaming
+using CsvHelper.Configuration.Attributes;
 
 namespace Wowthing.Backend.Models.Data
 {
     public class DumpFaction
     {
-        public int Id { get; set; }
-        public int FriendshipRepId { get; set; }
+        public int ID { get; set; }
+        public int FriendshipRepID { get; set; }
         
         [Name("Name_lang")]
         public string Name { get; set; }

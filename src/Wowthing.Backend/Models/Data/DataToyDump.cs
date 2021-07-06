@@ -1,8 +1,9 @@
-﻿namespace Wowthing.Backend.Models.Data
+﻿// ReSharper disable InconsistentNaming
+namespace Wowthing.Backend.Models.Data
 {
     public class DataToyDump
     {
-        public int Id { get; set; }
-        public int ItemId { get; set; }
+        public int ID { get; set; }
+        public int ItemID { get; set; }
     }
 }

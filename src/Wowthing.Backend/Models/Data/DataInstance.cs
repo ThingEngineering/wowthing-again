@@ -21,7 +21,7 @@ namespace Wowthing.Backend.Models.Data
 
         public DataInstance(DumpMap map, int instanceId)
         {
-            Expansion = map.ExpansionId;
+            Expansion = map.ExpansionID;
             Id = instanceId;
             Name = map.Name;
         }

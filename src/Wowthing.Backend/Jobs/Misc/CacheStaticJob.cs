@@ -126,20 +126,20 @@ namespace Wowthing.Backend.Jobs.Misc
         private static async Task<SortedDictionary<int, DataCurrency>> LoadCurrencies()
         {
             var types = await Utilities.Utilities.LoadDumpCsvAsync<DumpCurrencyTypes>("currencytypes");
-            return new SortedDictionary<int, DataCurrency>(types.ToDictionary(k => k.Id, v => new DataCurrency(v)));
+            return new SortedDictionary<int, DataCurrency>(types.ToDictionary(k => k.ID, v => new DataCurrency(v)));
         }
 
         private static async Task<SortedDictionary<int, DataCurrencyCategory>> LoadCurrencyCategories()
         {
             var categories = await Utilities.Utilities.LoadDumpCsvAsync<DumpCurrencyCategory>("currencycategory");
-            return new SortedDictionary<int, DataCurrencyCategory>(categories.ToDictionary(k => k.Id, v => new DataCurrencyCategory(v)));
+            return new SortedDictionary<int, DataCurrencyCategory>(categories.ToDictionary(k => k.ID, v => new DataCurrencyCategory(v)));
         }
 
         private static async Task<SortedDictionary<int, OutReputation>> LoadReputations()
         {
             var factions = await Utilities.Utilities.LoadDumpCsvAsync<DumpFaction>("faction");
 
-            return new SortedDictionary<int, OutReputation>(factions.ToDictionary(k => k.Id, v => new OutReputation(v)));
+            return new SortedDictionary<int, OutReputation>(factions.ToDictionary(k => k.ID, v => new OutReputation(v)));
         }
 
         private static readonly HashSet<int> InstanceTypes = new HashSet<int>() {
@@ -150,19 +150,19 @@ namespace Wowthing.Backend.Jobs.Misc
         {
             var journalInstances = await Utilities.Utilities.LoadDumpCsvAsync<DumpJournalInstance>("journalinstance");
             var mapIdToInstanceId = journalInstances
-                .GroupBy(instance => instance.MapId)
-                .ToDictionary(k => k.Key, v => v.OrderByDescending(instance => instance.OrderIndex).First().Id);
+                .GroupBy(instance => instance.MapID)
+                .ToDictionary(k => k.Key, v => v.OrderByDescending(instance => instance.OrderIndex).First().ID);
 
             var maps = await Utilities.Utilities.LoadDumpCsvAsync<DumpMap>("map");
 
             var sigh = new SortedDictionary<int, DataInstance>();
-            foreach (var map in maps.Where(m => mapIdToInstanceId.ContainsKey(m.Id) && InstanceTypes.Contains(m.InstanceType)))
+            foreach (var map in maps.Where(m => mapIdToInstanceId.ContainsKey(m.ID) && InstanceTypes.Contains(m.InstanceType)))
             {
-                if (mapIdToInstanceId.TryGetValue(map.Id, out int instanceId))
+                if (mapIdToInstanceId.TryGetValue(map.ID, out int instanceId))
                 {
                     if (sigh.ContainsKey(instanceId))
                     {
-                        Logger.Information("DUPLICATE BULLSHIT {0}", map.Id, instanceId);
+                        Logger.Information("DUPLICATE BULLSHIT {0}", map.ID, instanceId);
                     }
                     else
                     {
@@ -171,7 +171,7 @@ namespace Wowthing.Backend.Jobs.Misc
                 }
                 else
                 {
-                    Logger.Information("No mapIdToInstanceId for {0}??", map.Id);
+                    Logger.Information("No mapIdToInstanceId for {0}??", map.ID);
                 } 
             }
             return sigh;
@@ -180,19 +180,19 @@ namespace Wowthing.Backend.Jobs.Misc
         private static async Task<SortedDictionary<int, int>> LoadMountDump()
         {
             var records = await Utilities.Utilities.LoadDumpCsvAsync<DataMountDump>("mount");
-            return new SortedDictionary<int, int>(records.ToDictionary(k => k.SourceSpellId, v => v.Id));
+            return new SortedDictionary<int, int>(records.ToDictionary(k => k.SourceSpellID, v => v.ID));
         }
 
         private static async Task<SortedDictionary<int, int>> LoadPetDump()
         {
             var records = await Utilities.Utilities.LoadDumpCsvAsync<DataPetDump>("battlepetspecies", p => (p.Flags & 32) == 0);
-            return new SortedDictionary<int, int>(records.ToDictionary(k => k.CreatureId, v => v.Id));
+            return new SortedDictionary<int, int>(records.ToDictionary(k => k.CreatureID, v => v.ID));
         }
 
         private static async Task<SortedDictionary<int, int>> LoadToyDump()
         {
             var records = await Utilities.Utilities.LoadDumpCsvAsync<DataToyDump>("toy");
-            return new SortedDictionary<int, int>(records.ToDictionary(k => k.ItemId, v => v.Id));
+            return new SortedDictionary<int, int>(records.ToDictionary(k => k.ItemID, v => v.ID));
         }
 
         private static List<List<RedisSetCategory>> LoadSets(string dirName)
