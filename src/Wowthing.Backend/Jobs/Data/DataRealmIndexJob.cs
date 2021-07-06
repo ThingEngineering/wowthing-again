@@ -1,14 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.API.Data;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Jobs;
-using Wowthing.Lib.Models;
+using Wowthing.Lib.Models.Wow;
 using Wowthing.Lib.Utilities;
 
 namespace Wowthing.Backend.Jobs.Data
@@ -22,17 +19,17 @@ namespace Wowthing.Backend.Jobs.Data
             Interval = TimeSpan.FromDays(1),
         };
 
-        private const string API_PATH = "data/wow/realm/index";
+        private const string ApiPath = "data/wow/realm/index";
 
         public override async Task Run(params string[] data)
         {
             // Fetch existing data
-            var realmMap = await _context.WowRealm.ToDictionaryAsync(k => k.Id);
+            var realmMap = await Context.WowRealm.ToDictionaryAsync(k => k.Id);
 
             foreach (var region in EnumUtilities.GetValues<WowRegion>())
             {
                 // Fetch API data
-                var uri = GenerateUri(region, ApiNamespace.Dynamic, API_PATH);
+                var uri = GenerateUri(region, ApiNamespace.Dynamic, ApiPath);
                 var result = await GetJson<ApiDataRealmIndex>(uri);
                 if (result.NotModified)
                 {
@@ -47,7 +44,7 @@ namespace Wowthing.Backend.Jobs.Data
                         {
                             Id = apiRealm.Id,
                         };
-                        _context.WowRealm.Add(realm);
+                        Context.WowRealm.Add(realm);
                     }
 
                     realm.Region = region;
@@ -56,7 +53,7 @@ namespace Wowthing.Backend.Jobs.Data
                 }
             }
 
-            await _context.SaveChangesAsync();
+            await Context.SaveChangesAsync();
         }
     }
 }

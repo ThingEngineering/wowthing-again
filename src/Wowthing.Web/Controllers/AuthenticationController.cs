@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Repositories;
@@ -24,15 +19,13 @@ namespace Wowthing.Web.Controllers
         private readonly JobRepository _jobRepository;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly WowDbContext _context;
 
-        public AuthenticationController(ILogger<AuthenticationController> logger, JobRepository jobRepository, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, WowDbContext context)
+        public AuthenticationController(ILogger<AuthenticationController> logger, JobRepository jobRepository, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
         {
             _logger = logger;
             _jobRepository = jobRepository;
             _signInManager = signInManager;
             _userManager = userManager;
-            _context = context;
         }
 
         // Shows the login page with providers

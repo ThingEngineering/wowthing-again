@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -15,8 +14,10 @@ using Wowthing.Lib.Constants;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Models;
+using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Utilities;
 using Wowthing.Web.Models;
+using Wowthing.Web.Models.Team;
 using Wowthing.Web.Services;
 
 namespace Wowthing.Web.Controllers
@@ -121,7 +122,7 @@ namespace Wowthing.Web.Controllers
                 return NotFound("Team not found");
             }
 
-            var data = new TeamApi(_context, team);
+            var data = new TeamApi(team);
 
             return Ok(data);
         }
@@ -130,7 +131,7 @@ namespace Wowthing.Web.Controllers
         public async Task<IActionResult> Upload([FromBody] ApiUpload apiUpload)
         {
             // TODO rate limit
-            if (apiUpload?.ApiKey == null || apiUpload?.LuaFile == null)
+            if (apiUpload?.ApiKey == null || apiUpload.LuaFile == null)
             {
                 _logger.LogDebug("Upload: {0}", JsonConvert.SerializeObject(apiUpload));
                 return BadRequest("Invalid request format");
@@ -167,7 +168,7 @@ namespace Wowthing.Web.Controllers
 
             timer.AddPoint("Find user");
 
-            if (User.Identity.Name != user.UserName && !user.Settings.Privacy.Public)
+            if (User?.Identity?.Name != user.UserName && user.Settings?.Privacy?.Public != true)
             {
                 return NotFound();
             }
@@ -175,11 +176,11 @@ namespace Wowthing.Web.Controllers
             timer.AddPoint("Privacy");
 
             var db = _redis.GetDatabase();
-            bool pub = User.Identity.Name != user.UserName;
-            bool anon = user.Settings.Privacy.Anonymized;
+            var pub = User?.Identity?.Name != user.UserName;
+            var anon = user.Settings?.Privacy?.Anonymized == true;
 
             // Retrieve data
-            var mountIds = await db.GetSetMembersAsync(string.Format(RedisKeys.UserMounts, user.Id));
+            var mountIds = await db.GetSetMembersAsync(string.Format(RedisKeys.USER_MOUNTS, user.Id));
             
             timer.AddPoint("Get mounts");
 
@@ -231,8 +232,8 @@ namespace Wowthing.Web.Controllers
             timer.AddPoint("currentPeriods");
 
             // Build response
-            var mountMap = mountIds.ToDictionary(k => int.Parse(k), v => 1);
-            var toyMap = toyIds.ToDictionary(k => k, v => 1);
+            var mountMap = mountIds.ToDictionary(k => int.Parse(k), _ => 1);
+            var toyMap = toyIds.ToDictionary(k => k, _ => 1);
 
             var apiData = new UserApi
             {

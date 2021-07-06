@@ -3,7 +3,7 @@ using Microsoft.Extensions.Options;
 
 namespace Wowthing.Backend.Extensions
 {
-    public static class IHostExtensions
+    public static class HostExtensions
     {
         public static IHost ValidateOptions<T>(this IHost host)
         {

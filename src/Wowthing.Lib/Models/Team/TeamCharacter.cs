@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 using Wowthing.Lib.Enums;
+using Wowthing.Lib.Models.Player;
 
-namespace Wowthing.Lib.Models
+namespace Wowthing.Lib.Models.Team
 {
     public class TeamCharacter
     {

@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading;
-using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using StackExchange.Redis;
 using Wowthing.Backend.Services;
@@ -32,13 +29,13 @@ namespace Wowthing.Backend.Jobs
         public IJob Create(Type type, WowDbContext context, CancellationToken cancellationToken)
         {
             var obj = (JobBase)Activator.CreateInstance(type);
-            obj._http = _clientFactory.CreateClient("limited");
-            obj._jobRepository = _jobRepository;
-            obj._logger = _logger;
-            obj._redis = _redis;
-            obj._stateService = _stateService;
-            obj._context = context;
-            obj._cancellationToken = cancellationToken;
+            obj.Http = _clientFactory.CreateClient("limited");
+            obj.JobRepository = _jobRepository;
+            obj.Logger = _logger;
+            obj.Redis = _redis;
+            obj.StateService = _stateService;
+            obj.Context = context;
+            obj.CancellationToken = cancellationToken;
             return obj;
         }
     }

@@ -1,21 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.API.Data;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Extensions;
-using Wowthing.Lib.Models;
+using Wowthing.Lib.Models.Wow;
 
 namespace Wowthing.Backend.Jobs.Data
 {
     public class DataMythicKeystonePeriodJob : JobBase
     {
-        private const string API_PATH = "data/wow/mythic-keystone/period/{0}";
+        private const string ApiPath = "data/wow/mythic-keystone/period/{0}";
 
         public override async Task Run(params string[] data)
         {
@@ -23,17 +19,15 @@ namespace Wowthing.Backend.Jobs.Data
             int periodId = int.Parse(data[1]);
 
             // Fetch API data
-            var uri = GenerateUri(region, ApiNamespace.Dynamic, string.Format(API_PATH, periodId));
+            var uri = GenerateUri(region, ApiNamespace.Dynamic, string.Format(ApiPath, periodId));
             var result = await GetJson<ApiDataMythicKeystonePeriod>(uri);
             if (result.NotModified)
             {
                 return;
             }
 
-            var apiClass = result.Data;
-
             // Fetch existing data
-            var period = await _context.WowPeriod.FirstOrDefaultAsync(p => p.Region == region && p.Id == periodId);
+            var period = await Context.WowPeriod.FirstOrDefaultAsync(p => p.Region == region && p.Id == periodId);
             if (period == null)
             {
                 period = new WowPeriod
@@ -41,14 +35,14 @@ namespace Wowthing.Backend.Jobs.Data
                     Region = region,
                     Id = periodId,
                 };
-                _context.WowPeriod.Add(period);
+                Context.WowPeriod.Add(period);
             }
 
             // Update object
             period.Starts = result.Data.StartTimestamp.AsUtcTimestamp();
             period.Ends = result.Data.EndTimestamp.AsUtcTimestamp();
 
-            await _context.SaveChangesAsync();
+            await Context.SaveChangesAsync();
         }
     }
 }

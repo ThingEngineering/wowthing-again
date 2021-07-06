@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Net;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Wowthing.Web.ViewModels;
@@ -11,7 +8,7 @@ namespace Wowthing.Web.Controllers
 {
     public class ErrorController : Controller
     {
-        private static readonly HashSet<int> _specificViews = new HashSet<int>
+        private static readonly HashSet<int> SpecificViews = new HashSet<int>
         {
             (int)HttpStatusCode.Forbidden, // 403
             (int)HttpStatusCode.NotFound, // 404
@@ -28,10 +25,10 @@ namespace Wowthing.Web.Controllers
             var feature = HttpContext.Features.Get<IStatusCodeReExecuteFeature>();
             if (feature != null)
             {
-                viewModel.OriginalURL = feature.OriginalPathBase + feature.OriginalPath + feature.OriginalQueryString;
+                viewModel.OriginalUrl = feature.OriginalPathBase + feature.OriginalPath + feature.OriginalQueryString;
             }
 
-            if (statusCode.HasValue && _specificViews.Contains(statusCode.Value))
+            if (statusCode.HasValue && SpecificViews.Contains(statusCode.Value))
             {
                 return View(statusCode.Value.ToString(), viewModel);
             }

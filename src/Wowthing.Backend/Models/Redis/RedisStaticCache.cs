@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
 using Wowthing.Backend.Models.API.NonBlizzard;
 using Wowthing.Backend.Models.Data;
-using Wowthing.Lib.Models;
+using Wowthing.Lib.Models.Wow;
 
 namespace Wowthing.Backend.Models.Redis
 {

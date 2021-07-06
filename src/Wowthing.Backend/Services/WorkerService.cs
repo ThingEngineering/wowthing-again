@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,13 +18,11 @@ namespace Wowthing.Backend.Services
     public class WorkerService : BackgroundService
     {
         private static int _instanceCount;
-        private static readonly Dictionary<JobType, Type> _jobTypeToClass = new Dictionary<JobType, Type>();
+        private static readonly Dictionary<JobType, Type> JobTypeToClass = new Dictionary<JobType, Type>();
 
-        private readonly int _instanceId;
         private readonly IServiceProvider _services;
         private readonly StateService _stateService;
 
-        private readonly JobRepository _jobRepository;
         private readonly ILogger _logger;
 
         private readonly JobFactory _jobFactory;
@@ -34,13 +31,12 @@ namespace Wowthing.Backend.Services
         {
             _services = services;
 
-            _jobRepository = jobRepository;
             _stateService = stateService;
 
-            _instanceId = Interlocked.Increment(ref _instanceCount);
-            _logger = Log.ForContext("Service", $"Worker {_instanceId,2} | ");
+            var instanceId = Interlocked.Increment(ref _instanceCount);
+            _logger = Log.ForContext("Service", $"Worker {instanceId,2} | ");
 
-            _jobFactory = new JobFactory(_jobRepository, clientFactory, _logger, redis, stateService);
+            _jobFactory = new JobFactory(jobRepository, clientFactory, _logger, redis, stateService);
         }
 
         // Find all jobs and cache them
@@ -53,7 +49,7 @@ namespace Wowthing.Backend.Services
             foreach (var jobType in jobTypes)
             {
                 var typeName = jobType.Name[0..^3];
-                _jobTypeToClass[Enum.Parse<JobType>(typeName)] = jobType;
+                JobTypeToClass[Enum.Parse<JobType>(typeName)] = jobType;
             }
         }
 
@@ -77,7 +73,7 @@ namespace Wowthing.Backend.Services
 
                 try
                 {
-                    var job = _jobFactory.Create(_jobTypeToClass[result.Type], context, cancellationToken);
+                    var job = _jobFactory.Create(JobTypeToClass[result.Type], context, cancellationToken);
                     await job.Run(result.Data);
                 }
                 catch (Exception ex)

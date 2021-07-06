@@ -1,31 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using StackExchange.Redis;
 using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.API.Character;
-using Wowthing.Lib.Constants;
 using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Jobs;
-using Wowthing.Lib.Models;
+using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
 
-namespace Wowthing.Backend.Jobs.User
+namespace Wowthing.Backend.Jobs.Character
 {
     public class CharacterMythicKeystoneProfileJob : JobBase
     {
-        private const string API_PATH = "profile/wow/character/{0}/{1}/mythic-keystone-profile";
+        private const string ApiPath = "profile/wow/character/{0}/{1}/mythic-keystone-profile";
 
         public override async Task Run(params string[] data)
         {
             var query = JsonConvert.DeserializeObject<SchedulerCharacterQuery>(data[0]);
             using var shrug = CharacterLog(query);
 
-            var path = string.Format(API_PATH, query.RealmSlug, query.CharacterName.ToLowerInvariant());
+            var path = string.Format(ApiPath, query.RealmSlug, query.CharacterName.ToLowerInvariant());
             var uri = GenerateUri(query.Region, ApiNamespace.Profile, path);
 
             var result = await GetJson<ApiCharacterMythicKeystoneProfile>(uri);
@@ -36,14 +31,14 @@ namespace Wowthing.Backend.Jobs.User
             }
             
             // Fetch character data
-            var mythicPlus = await _context.PlayerCharacterMythicPlus.FindAsync(query.CharacterId);
+            var mythicPlus = await Context.PlayerCharacterMythicPlus.FindAsync(query.CharacterId);
             if (mythicPlus == null)
             {
                 mythicPlus = new PlayerCharacterMythicPlus
                 {
                     CharacterId = query.CharacterId,
                 };
-                _context.PlayerCharacterMythicPlus.Add(mythicPlus);
+                Context.PlayerCharacterMythicPlus.Add(mythicPlus);
             }
 
             mythicPlus.CurrentPeriodId = result.Data.CurrentPeriod.Period.Id;
@@ -71,12 +66,12 @@ namespace Wowthing.Backend.Jobs.User
                     .ToList();
             }
 
-            await _context.SaveChangesAsync();
+            await Context.SaveChangesAsync();
 
             // Start jobs for all seasons
             foreach (var apiSeason in result.Data?.Seasons ?? Enumerable.Empty<ApiObnoxiousObject>())
             { 
-                await _jobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterMythicKeystoneProfileSeason, data[0], apiSeason.Id.ToString());
+                await JobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterMythicKeystoneProfileSeason, data[0], apiSeason.Id.ToString());
             }
         }
     }

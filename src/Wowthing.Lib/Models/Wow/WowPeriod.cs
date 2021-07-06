@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Wowthing.Lib.Enums;
 
-namespace Wowthing.Lib.Models
+namespace Wowthing.Lib.Models.Wow
 {
     public class WowPeriod
     {

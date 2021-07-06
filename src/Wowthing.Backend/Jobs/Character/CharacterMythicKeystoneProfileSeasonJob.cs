@@ -1,24 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
-using StackExchange.Redis;
 using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.API.Character;
-using Wowthing.Lib.Constants;
 using Wowthing.Lib.Extensions;
-using Wowthing.Lib.Jobs;
-using Wowthing.Lib.Models;
+using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
 
-namespace Wowthing.Backend.Jobs.User
+namespace Wowthing.Backend.Jobs.Character
 {
     public class CharacterMythicKeystoneProfileSeasonJob : JobBase
     {
-        private const string API_PATH = "profile/wow/character/{0}/{1}/mythic-keystone-profile/season/{2}";
+        private const string ApiPath = "profile/wow/character/{0}/{1}/mythic-keystone-profile/season/{2}";
 
         public override async Task Run(params string[] data)
         {
@@ -26,7 +20,7 @@ namespace Wowthing.Backend.Jobs.User
             var seasonId = int.Parse(data[1]);
             using var shrug = CharacterLog(query);
 
-            var path = string.Format(API_PATH, query.RealmSlug, query.CharacterName.ToLowerInvariant(), seasonId);
+            var path = string.Format(ApiPath, query.RealmSlug, query.CharacterName.ToLowerInvariant(), seasonId);
             var uri = GenerateUri(query.Region, ApiNamespace.Profile, path);
 
             var result = await GetJson<ApiCharacterMythicKeystoneProfileSeason>(uri);
@@ -37,7 +31,7 @@ namespace Wowthing.Backend.Jobs.User
             }
 
             // Fetch character data
-            var seasonMap = await _context.PlayerCharacterMythicPlusSeason
+            var seasonMap = await Context.PlayerCharacterMythicPlusSeason
                 .Where(mps => mps.CharacterId == query.CharacterId)
                 .ToDictionaryAsync(k => k.Season);
 
@@ -50,7 +44,7 @@ namespace Wowthing.Backend.Jobs.User
                         CharacterId = query.CharacterId,
                         Season = seasonId,
                     };
-                    _context.PlayerCharacterMythicPlusSeason.Add(season);
+                    Context.PlayerCharacterMythicPlusSeason.Add(season);
                 }
 
                 season.Runs = result.Data.BestRuns
@@ -74,7 +68,7 @@ namespace Wowthing.Backend.Jobs.User
                     .ToList();
             }
 
-            await _context.SaveChangesAsync();
+            await Context.SaveChangesAsync();
         }
     }
 }

@@ -2,15 +2,12 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Net.Http.Headers;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Wowthing.Web.Extensions
 {
-    public static class IApplicationBuilderExtensions
+    public static class ApplicationBuilderExtensions
     {
-        private static readonly TimeSpan CACHE_DURATION = TimeSpan.FromDays(365);
+        private static readonly TimeSpan CacheDuration = TimeSpan.FromDays(365);
 
         public static IApplicationBuilder UseStaticFilesWithCaching(this IApplicationBuilder app)
         {
@@ -22,7 +19,7 @@ namespace Wowthing.Web.Extensions
                     headers.CacheControl = new CacheControlHeaderValue
                     {
                         Public = true,
-                        MaxAge = CACHE_DURATION,
+                        MaxAge = CacheDuration,
                     };
                 }
             });

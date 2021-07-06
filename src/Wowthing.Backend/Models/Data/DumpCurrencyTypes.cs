@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CsvHelper.Configuration.Attributes;
+﻿using CsvHelper.Configuration.Attributes;
 
 namespace Wowthing.Backend.Models.Data
 {
     public class DumpCurrencyTypes
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
 
-        public int CategoryID { get; set; }
+        public int CategoryId { get; set; }
         public int MaxEarnablePerWeek { get; set; }
         public int MaxQty { get; set; }
 

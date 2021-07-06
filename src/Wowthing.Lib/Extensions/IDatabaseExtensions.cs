@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using StackExchange.Redis;
 
 namespace Wowthing.Lib.Extensions
 {
-    public static class IDatabaseExtensions
+    public static class DatabaseExtensions
     {
         public static async Task<string[]> GetSetMembersAsync(this IDatabase db, string key)
         {
@@ -30,7 +29,7 @@ namespace Wowthing.Lib.Extensions
 
         public static async Task<string[]> StringMultiGetAsync(this IDatabase db, IEnumerable<string> keys)
         {
-            var tasks = keys.Select(k => db.StringGetAsync(k));
+            var tasks = keys.Select(k => db.StringGetAsync(k)).ToArray();
             await Task.WhenAll(tasks);
             return tasks.Select(t => t.Result.ToString()).ToArray();
         }

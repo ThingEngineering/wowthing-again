@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using StackExchange.Redis;
@@ -45,12 +43,12 @@ namespace Wowthing.Lib.Repositories
                 Type = type,
                 Data = data,
             }))).ToArray();
-            await db.ListRightPushAsync(priority.GetQueueName(), jobs, When.Always);
+            await db.ListRightPushAsync(priority.GetQueueName(), jobs);
         }
 
         public async Task AddJobsAsync(JobPriority priority, JobType type, IEnumerable<string> datas)
         {
-            await AddJobsAsync(priority, type, datas.Select(d => new string[] { d }));
+            await AddJobsAsync(priority, type, datas.Select(d => new[] { d }));
         }
 
         public async Task<WorkerJob> GetJobAsync()
@@ -99,7 +97,7 @@ namespace Wowthing.Lib.Repositories
             return await db.StringSetAsync($"lock:{key}", value, expiry, When.NotExists);
         }
 
-        private const string _releaseScript = @"
+        private const string ReleaseScript = @"
 if redis.call(""GET"", @key) == @value then
     return redis.call(""DEL"", @key)
 else
@@ -110,7 +108,7 @@ end
         public async Task ReleaseLockAsync(string key, string value)
         {
             var db = _redis.GetDatabase();
-            var script = LuaScript.Prepare(_releaseScript);
+            var script = LuaScript.Prepare(ReleaseScript);
             await db.ScriptEvaluateAsync(script, new { key = $"lock:{key}", value });
         }
     }
