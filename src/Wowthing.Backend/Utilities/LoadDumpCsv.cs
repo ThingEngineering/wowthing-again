@@ -13,7 +13,7 @@ namespace Wowthing.Backend.Utilities
 #if DEBUG
         public static readonly string DataPath = Path.Join("..", "..", "data");
 #else
-        public static readonly string DATA_PATH = "data";
+        public static readonly string DataPath = "data";
 #endif
 
         public static async Task<List<T>> LoadDumpCsvAsync<T>(string fileName, Func<T, bool> validFunc = null)
