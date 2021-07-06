@@ -34,7 +34,6 @@ namespace Wowthing.Backend
             Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(Configuration)
                 .Enrich.FromLogContext()
-                .MinimumLevel.Debug()
                 .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss.fff} {Level:u3}] {Service}{Task}{Message:lj}{NewLine}{Exception}")
                 .CreateLogger();
 
