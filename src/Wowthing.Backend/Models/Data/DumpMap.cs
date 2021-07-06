@@ -1,12 +1,13 @@
-﻿using CsvHelper.Configuration.Attributes;
+﻿// ReSharper disable InconsistentNaming
+using CsvHelper.Configuration.Attributes;
 
 namespace Wowthing.Backend.Models.Data
 {
     public class DumpMap
     {
-        public int Id { get; set; }
+        public int ID { get; set; }
 
-        public int ExpansionId { get; set; }
+        public int ExpansionID { get; set; }
         public int InstanceType { get; set; }
         public int MaxPlayers { get; set; }
 
