@@ -21,8 +21,7 @@ namespace Wowthing.Backend.Services
             
             redis.GetSubscriber().Subscribe("jobs").OnMessage(async msg =>
             {
-                Console.WriteLine("HI MUM");
-                var job = JsonConvert.DeserializeObject<WorkerJob>(msg.Message);            
+                var job = JsonConvert.DeserializeObject<WorkerJob>(msg.Message);
                 await channel.Writer.WriteAsync(job);
             });
             
