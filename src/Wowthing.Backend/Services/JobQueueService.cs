@@ -1,43 +1,39 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
+using StackExchange.Redis;
 using Wowthing.Lib.Jobs;
-using Wowthing.Lib.Repositories;
 
 namespace Wowthing.Backend.Services
 {
     public class JobQueueService : BackgroundService
     {
-        private readonly Channel<WorkerJob> _channel;
-        private readonly JobRepository _jobRepository;
-
-        public JobQueueService(JobRepository jobRepository, StateService stateService)
+        public JobQueueService(StateService stateService, IConnectionMultiplexer redis)
         {
-            _jobRepository = jobRepository;
-
-            _channel = Channel.CreateUnbounded<WorkerJob>(new UnboundedChannelOptions
+            var channel = Channel.CreateUnbounded<WorkerJob>(new UnboundedChannelOptions
             {
                 SingleReader = false,
-                SingleWriter = true,
+                SingleWriter = false,
             });
             
-            stateService.JobQueueReader = _channel.Reader;
+            redis.GetSubscriber().Subscribe("jobs").OnMessage(async msg =>
+            {
+                Console.WriteLine("HI MUM");
+                var job = JsonConvert.DeserializeObject<WorkerJob>(msg.Message);            
+                await channel.Writer.WriteAsync(job);
+            });
+            
+            stateService.JobQueueReader = channel.Reader;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                await Task.Delay(10, stoppingToken);
-
-                var result = await _jobRepository.GetJobAsync();
-                if (result == null)
-                {
-                    continue;
-                }
-
-                await _channel.Writer.WriteAsync(result, stoppingToken);
+                await Task.Delay(10000, stoppingToken);
             }
         }
     }

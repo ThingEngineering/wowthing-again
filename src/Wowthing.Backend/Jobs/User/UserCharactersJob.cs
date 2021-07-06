@@ -68,7 +68,7 @@ namespace Wowthing.Backend.Jobs.User
                 }
                 catch (HttpRequestException e)
                 {
-                    Logger.Debug("HTTP request failed: {region} {e}", region, e.Message);
+                    Logger.Warning("HTTP request failed: {region} {e}", region, e.Message);
                 }
             }
 
