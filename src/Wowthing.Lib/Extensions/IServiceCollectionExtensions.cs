@@ -7,7 +7,7 @@ using Wowthing.Lib.Repositories;
 
 namespace Wowthing.Lib.Extensions
 {
-    public static class IServiceCollectionExtensions
+    public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddPostgres(this IServiceCollection services, string connectionString)
         {

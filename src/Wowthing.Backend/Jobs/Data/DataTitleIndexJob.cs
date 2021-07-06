@@ -16,12 +16,12 @@ namespace Wowthing.Backend.Jobs.Data
             Interval = TimeSpan.FromDays(1),
         };
 
-        private const string API_PATH = "data/wow/title/index";
+        private const string ApiPath = "data/wow/title/index";
 
         public override async Task Run(params string[] data)
         {
             // Fetch API data
-            var uri = GenerateUri(WowRegion.US, ApiNamespace.Static, API_PATH);
+            var uri = GenerateUri(WowRegion.Us, ApiNamespace.Static, ApiPath);
             var result = await GetJson<ApiDataTitleIndex>(uri);
             if (result.NotModified)
             {
@@ -31,7 +31,7 @@ namespace Wowthing.Backend.Jobs.Data
             foreach (var apiTitle in result.Data.Titles)
             {
                 // Absolute garbage API design on Blizzard's part, cool
-                await _jobRepository.AddJobAsync(JobPriority.High, JobType.DataTitle, apiTitle.Id.ToString());
+                await JobRepository.AddJobAsync(JobPriority.High, JobType.DataTitle, apiTitle.Id.ToString());
             }
         }
     }

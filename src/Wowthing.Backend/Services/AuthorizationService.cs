@@ -21,7 +21,7 @@ namespace Wowthing.Backend.Services
         private readonly IConnectionMultiplexer _redis;
         private readonly IOptions<BattleNetOptions> _bnetOptions;
 
-        private const string REDIS_KEY_TOKEN = "access_token:backend";
+        private const string RedisKeyToken = "access_token:backend";
 
         public AuthorizationService(StateService stateService, IConnectionMultiplexer redis, IOptions<BattleNetOptions> bnetOptions)
             : base("Authorize", TimeSpan.FromSeconds(0), TimeSpan.FromHours(1))
@@ -37,12 +37,12 @@ namespace Wowthing.Backend.Services
             {
                 // Try fetching from Redis
                 var db = _redis.GetDatabase();
-                var redisToken = await db.JsonGetAsync<RedisAccessToken>(REDIS_KEY_TOKEN);
+                var redisToken = await db.JsonGetAsync<RedisAccessToken>(RedisKeyToken);
 
                 if (redisToken?.Valid == true)
                 {
                     _stateService.AccessToken = redisToken;
-                    _logger.Debug("Retrieved valid access token from Redis");
+                    Logger.Debug("Retrieved valid access token from Redis");
                     return;
                 }
 
@@ -50,7 +50,7 @@ namespace Wowthing.Backend.Services
                 var request = new HttpRequestMessage(HttpMethod.Post, "https://us.battle.net/oauth/token");
 
                 var bytes = new UTF8Encoding().GetBytes(
-                    $"{_bnetOptions.Value.ClientID}:{_bnetOptions.Value.ClientSecret}");
+                    $"{_bnetOptions.Value.ClientId}:{_bnetOptions.Value.ClientSecret}");
                 request.Headers.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(bytes));
 
                 request.Content = new FormUrlEncodedContent(new List<KeyValuePair<string, string>>
@@ -63,17 +63,17 @@ namespace Wowthing.Backend.Services
 
                 var content = await response.Content.ReadAsStringAsync();
                 var apiToken = JsonConvert.DeserializeObject<ApiAccessToken>(content);
-                _logger.Debug("API token: {@token}", apiToken);
+                Logger.Debug("API token: {@token}", apiToken);
 
                 // Save to Redis
                 _stateService.AccessToken = new RedisAccessToken(apiToken);
-                await db.JsonSetAsync(REDIS_KEY_TOKEN, _stateService.AccessToken);
+                await db.JsonSetAsync(RedisKeyToken, _stateService.AccessToken);
 
-                _logger.Information("Retrieved valid access token from API");
+                Logger.Information("Retrieved valid access token from API");
             }
             catch (Exception ex)
             {
-                _logger.Error(ex, "Kaboom!");
+                Logger.Error(ex, "Kaboom!");
             }
         }
     }

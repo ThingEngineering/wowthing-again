@@ -11,7 +11,7 @@ namespace Wowthing.Backend.Models.Data
 
         public DataCurrencyCategory(DumpCurrencyCategory currencyCategory)
         {
-            Id = currencyCategory.ID;
+            Id = currencyCategory.Id;
             Name = currencyCategory.Name;
         }
     }

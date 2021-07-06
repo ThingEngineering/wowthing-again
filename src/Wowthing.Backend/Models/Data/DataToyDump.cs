@@ -2,7 +2,7 @@
 {
     public class DataToyDump
     {
-        public int ID { get; set; }
-        public int ItemID { get; set; }
+        public int Id { get; set; }
+        public int ItemId { get; set; }
     }
 }

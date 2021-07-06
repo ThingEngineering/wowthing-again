@@ -2,7 +2,7 @@
 {
     public class DataMountDump
     {
-        public int ID { get; set; }
-        public int SourceSpellID { get; set; }
+        public int Id { get; set; }
+        public int SourceSpellId { get; set; }
     }
 }

@@ -8,8 +8,8 @@ namespace Wowthing.Backend.Models.Redis
 {
     public class RedisSetCategory
     {
-        private const int SPLIT_THRESHOLD = 10;
-        private const int SPLIT_SIZE = 8;
+        private const int SplitThreshold = 10;
+        private const int SplitSize = 8;
 
         public string Name { get; set; }
         public List<RedisSetGroup> Groups { get; set; } = new List<RedisSetGroup>();
@@ -26,15 +26,15 @@ namespace Wowthing.Backend.Models.Redis
 
             foreach (var group in cat.Groups ?? Enumerable.Empty<DataSetGroup>())
             {
-                if (group.Things.Count <= SPLIT_THRESHOLD)
+                if (group.Things.Count <= SplitThreshold)
                 {
                     Groups.Add(new RedisSetGroup(group));
                 }
                 else
                 {
                     var things = group.Things.ToArray();
-                    var count = things.Length / SPLIT_SIZE;
-                    var leftovers = things.Length % SPLIT_SIZE;
+                    var count = things.Length / SplitSize;
+                    var leftovers = things.Length % SplitSize;
 
                     for (int i = 0; i < count; i++)
                     {
@@ -43,8 +43,8 @@ namespace Wowthing.Backend.Models.Redis
                             name,
                             new ArraySegment<string>(
                                 things,
-                                i * SPLIT_SIZE,
-                                SPLIT_SIZE
+                                i * SplitSize,
+                                SplitSize
                             )
                         ));
                     }
@@ -56,7 +56,7 @@ namespace Wowthing.Backend.Models.Redis
                             name,
                             new ArraySegment<string>(
                                 things,
-                                count * SPLIT_SIZE,
+                                count * SplitSize,
                                 leftovers
                             )
                         ));

@@ -12,7 +12,7 @@ namespace Wowthing.Backend.Jobs.Character
 {
     public class CharacterProfessionsJob : JobBase
     {
-        private const string API_PATH = "profile/wow/character/{0}/{1}/professions";
+        private const string ApiPath = "profile/wow/character/{0}/{1}/professions";
 
         public override async Task Run(params string[] data)
         {
@@ -20,7 +20,7 @@ namespace Wowthing.Backend.Jobs.Character
             using var shrug = CharacterLog(query);
 
             // Fetch API data
-            var path = string.Format(API_PATH, query.RealmSlug, query.CharacterName.ToLowerInvariant());
+            var path = string.Format(ApiPath, query.RealmSlug, query.CharacterName.ToLowerInvariant());
             var uri = GenerateUri(query.Region, ApiNamespace.Profile, path);
 
             var result = await GetJson<ApiCharacterProfessions>(uri);
@@ -31,14 +31,14 @@ namespace Wowthing.Backend.Jobs.Character
             }
 
             // Fetch character data
-            var professions = await _context.PlayerCharacterProfessions.FindAsync(query.CharacterId);
+            var professions = await Context.PlayerCharacterProfessions.FindAsync(query.CharacterId);
             if (professions == null)
             {
                 professions = new PlayerCharacterProfessions
                 {
                     CharacterId = query.CharacterId,
                 };
-                _context.PlayerCharacterProfessions.Add(professions);
+                Context.PlayerCharacterProfessions.Add(professions);
             }
 
             professions.Professions = new Dictionary<int, Dictionary<int, PlayerCharacterProfessionTier>>();
@@ -75,7 +75,7 @@ namespace Wowthing.Backend.Jobs.Character
                 }
             }
 
-            await _context.SaveChangesAsync();
+            await Context.SaveChangesAsync();
         }
 
         private static void RecurseCriteria(Dictionary<int, long> criteriaAmounts, List<ApiCharacterAchievementsCriteriaChild> childCriteria)

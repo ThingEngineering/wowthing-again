@@ -97,7 +97,7 @@ namespace Wowthing.Lib.Repositories
             return await db.StringSetAsync($"lock:{key}", value, expiry, When.NotExists);
         }
 
-        private const string _releaseScript = @"
+        private const string ReleaseScript = @"
 if redis.call(""GET"", @key) == @value then
     return redis.call(""DEL"", @key)
 else
@@ -108,7 +108,7 @@ end
         public async Task ReleaseLockAsync(string key, string value)
         {
             var db = _redis.GetDatabase();
-            var script = LuaScript.Prepare(_releaseScript);
+            var script = LuaScript.Prepare(ReleaseScript);
             await db.ScriptEvaluateAsync(script, new { key = $"lock:{key}", value });
         }
     }

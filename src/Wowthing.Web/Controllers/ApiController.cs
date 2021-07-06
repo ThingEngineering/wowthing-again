@@ -180,7 +180,7 @@ namespace Wowthing.Web.Controllers
             bool anon = user.Settings.Privacy.Anonymized;
 
             // Retrieve data
-            var mountIds = await db.GetSetMembersAsync(string.Format(RedisKeys.UserMounts, user.Id));
+            var mountIds = await db.GetSetMembersAsync(string.Format(RedisKeys.USER_MOUNTS, user.Id));
             
             timer.AddPoint("Get mounts");
 

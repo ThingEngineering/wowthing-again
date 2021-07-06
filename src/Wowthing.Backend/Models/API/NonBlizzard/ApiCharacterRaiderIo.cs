@@ -11,7 +11,7 @@ namespace Wowthing.Backend.Models.API.NonBlizzard
 
     public class ApiCharacterRaiderIoSeason
     {
-        private static readonly Dictionary<string, int> _seasonMap = new Dictionary<string, int>
+        private static readonly Dictionary<string, int> SeasonMap = new Dictionary<string, int>
         {
             { "season-bfa-1", 1 },
             { "season-bfa-2", 2 },
@@ -23,7 +23,7 @@ namespace Wowthing.Backend.Models.API.NonBlizzard
         public string Season { get; set; }
         public Dictionary<string, decimal> Scores { get; set; }
 
-        public int SeasonId => _seasonMap[Season];
+        public int SeasonId => SeasonMap[Season];
         public decimal ScoreAll => Scores.GetValueOrDefault("all");
         public decimal ScoreDps => Scores.GetValueOrDefault("dps");
         public decimal ScoreHealer => Scores.GetValueOrDefault("healer");

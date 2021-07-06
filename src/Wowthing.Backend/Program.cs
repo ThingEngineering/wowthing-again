@@ -72,7 +72,7 @@ namespace Wowthing.Backend
                 .Bind(Configuration.GetSection("BattleNet"))
                 .Validate(config =>
                 {
-                    return !(string.IsNullOrWhiteSpace(config.ClientID) || string.IsNullOrWhiteSpace(config.ClientSecret));
+                    return !(string.IsNullOrWhiteSpace(config.ClientId) || string.IsNullOrWhiteSpace(config.ClientSecret));
                 }, "BattleNet.ClientID and .ClientSecret must be set");
 
             var backendOptions = new WowthingBackendOptions();

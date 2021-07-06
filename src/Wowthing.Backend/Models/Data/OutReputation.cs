@@ -8,8 +8,8 @@
 
         public OutReputation(DumpFaction faction)
         {
-            Id = faction.ID;
-            TierId = faction.FriendshipRepID;
+            Id = faction.Id;
+            TierId = faction.FriendshipRepId;
             Name = faction.Name;
         }
     }

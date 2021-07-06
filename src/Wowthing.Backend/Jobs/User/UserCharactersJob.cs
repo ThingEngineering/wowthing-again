@@ -13,7 +13,7 @@ namespace Wowthing.Backend.Jobs.User
 {
     public class UserCharactersJob : JobBase
     {
-        private const string API_PATH = "profile/user/wow?access_token={0}";
+        private const string ApiPath = "profile/user/wow?access_token={0}";
 
         public override async Task Run(params string[] data)
         {
@@ -21,17 +21,17 @@ namespace Wowthing.Backend.Jobs.User
 
             var userId = long.Parse(data[0]);
 
-            var accessToken = await _context.UserTokens.FirstOrDefaultAsync(t => t.UserId == userId && t.LoginProvider == "BattleNet" && t.Name == "access_token");
+            var accessToken = await Context.UserTokens.FirstOrDefaultAsync(t => t.UserId == userId && t.LoginProvider == "BattleNet" && t.Name == "access_token");
             if (accessToken == null)
             {
-                _logger.Error("No access_token for user {0}", userId);
+                Logger.Error("No access_token for user {0}", userId);
                 return;
             }
 
-            var path = string.Format(API_PATH, accessToken.Value);
+            var path = string.Format(ApiPath, accessToken.Value);
 
             // Fetch existing accounts
-            var accountMap = await _context.PlayerAccount.Where(a => a.UserId == userId).ToDictionaryAsync(k => (k.Region, k.AccountId));
+            var accountMap = await Context.PlayerAccount.Where(a => a.UserId == userId).ToDictionaryAsync(k => (k.Region, k.AccountId));
 
             // Add any new accounts
             var apiAccounts = new List<(WowRegion, ApiAccountProfileAccount)>();
@@ -60,19 +60,19 @@ namespace Wowthing.Backend.Jobs.User
                                 Region = region,
                                 UserId = userId,
                             };
-                            _context.PlayerAccount.Add(newAccount);
+                            Context.PlayerAccount.Add(newAccount);
                             accountMap[(region, account.Id)] = newAccount;
-                            _logger.Debug("{0} new account {1}", region, account.Id);
+                            Logger.Debug("{0} new account {1}", region, account.Id);
                         }
                     }
                 }
                 catch (HttpRequestException e)
                 {
-                    _logger.Debug("HTTP request failed: {region} {e}", region, e.Message);
+                    Logger.Debug("HTTP request failed: {region} {e}", region, e.Message);
                 }
             }
 
-            await _context.SaveChangesAsync();
+            await Context.SaveChangesAsync();
 
             // Fetch existing users
             var characterPairs = apiAccounts
@@ -86,7 +86,7 @@ namespace Wowthing.Backend.Jobs.User
                 orPredicate = orPredicate.Or(c => c.RealmId == realmId && c.Name == name);
             }
 
-            var characterMap = await _context.PlayerCharacter
+            var characterMap = await Context.PlayerCharacter
                 .Where(orPredicate)
                 .ToDictionaryAsync(k => (k.RealmId, k.Name));
 
@@ -106,7 +106,7 @@ namespace Wowthing.Backend.Jobs.User
                         {
                             CharacterId = apiCharacter.Id,
                         };
-                        _context.PlayerCharacter.Add(character);
+                        Context.PlayerCharacter.Add(character);
                     }
 
                     character.AccountId = accountId;
@@ -120,7 +120,7 @@ namespace Wowthing.Backend.Jobs.User
                 }
             }
 
-            await _context.SaveChangesAsync();
+            await Context.SaveChangesAsync();
 
             foreach ((var region, var apiAccount) in apiAccounts)
             {
@@ -129,12 +129,12 @@ namespace Wowthing.Backend.Jobs.User
                     .Select(c => characterMap[(c.Realm.Id, c.Name)].Id)
                     .ToArray();
                 
-                int deleted = await _context.PlayerCharacter
+                int deleted = await Context.PlayerCharacter
                     .Where(c => c.AccountId == accountId && !characterIds.Contains(c.Id))
                     .DeleteFromQueryAsync();
                 if (deleted > 0)
                 {
-                    _logger.Information("Deleted {0} character(s) from account {1}", deleted, accountId);
+                    Logger.Information("Deleted {0} character(s) from account {1}", deleted, accountId);
                 }
             }
         }

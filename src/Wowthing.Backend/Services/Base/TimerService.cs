@@ -8,7 +8,7 @@ namespace Wowthing.Backend.Services.Base
 {
     public abstract class TimerService : IHostedService, IDisposable
     {
-        protected readonly ILogger _logger;
+        protected readonly ILogger Logger;
         private readonly TimeSpan _initial;
         private readonly TimeSpan _interval;
 
@@ -16,7 +16,7 @@ namespace Wowthing.Backend.Services.Base
 
         protected TimerService(string name, TimeSpan initial, TimeSpan interval)
         {
-            _logger = Log.ForContext("Service", $"{name,-9} | ");
+            Logger = Log.ForContext("Service", $"{name,-9} | ");
             _initial = initial;
             _interval = interval;
         }
@@ -24,7 +24,7 @@ namespace Wowthing.Backend.Services.Base
         #region IHostedService
         public Task StartAsync(CancellationToken stoppingToken)
         {
-            _logger.Information("Service starting");
+            Logger.Information("Service starting");
 
             _timer = new Timer(TimerCallback, null, _initial, _interval);
 
@@ -33,7 +33,7 @@ namespace Wowthing.Backend.Services.Base
 
         public Task StopAsync(CancellationToken stoppingToken)
         {
-            _logger.Information("Service stopping");
+            Logger.Information("Service stopping");
 
             _timer?.Change(Timeout.Infinite, 0);
 

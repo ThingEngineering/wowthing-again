@@ -9,14 +9,14 @@ namespace Wowthing.Backend.Jobs.Data
 {
     public class DataTitleJob : JobBase
     {
-        private const string API_PATH = "data/wow/title/{0}";
+        private const string ApiPath = "data/wow/title/{0}";
 
         public override async Task Run(params string[] data)
         {
             int titleId = int.Parse(data[0]);
 
             // Fetch API data
-            var uri = GenerateUri(WowRegion.US, ApiNamespace.Static, string.Format(API_PATH, titleId));
+            var uri = GenerateUri(WowRegion.Us, ApiNamespace.Static, string.Format(ApiPath, titleId));
             var result = await GetJson<ApiDataTitle>(uri);
             if (result.NotModified)
             {
@@ -25,14 +25,14 @@ namespace Wowthing.Backend.Jobs.Data
             var apiTitle = result.Data;
 
             // Fetch existing data
-            var title = await _context.WowTitle.FirstOrDefaultAsync(c => c.Id == titleId);
+            var title = await Context.WowTitle.FirstOrDefaultAsync(c => c.Id == titleId);
             if (title == null)
             {
                 title = new WowTitle
                 {
                     Id = titleId,
                 };
-                _context.WowTitle.Add(title);
+                Context.WowTitle.Add(title);
             }
 
             // Update object
@@ -40,7 +40,7 @@ namespace Wowthing.Backend.Jobs.Data
             title.TitleFemale = apiTitle.GenderName.Female;
             title.TitleMale = apiTitle.GenderName.Male;
 
-            await _context.SaveChangesAsync();
+            await Context.SaveChangesAsync();
         }
     }
 }

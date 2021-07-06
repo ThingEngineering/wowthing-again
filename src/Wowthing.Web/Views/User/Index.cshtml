@@ -3,11 +3,11 @@
     ViewData["Title"] = Model.User.UserName;
 }
 
-@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery _xsrf
 @functions {
     public string GetAntiXsrfRequestToken()
     {
-        return Xsrf.GetAndStoreTokens(Context).RequestToken;
+        return _xsrf.GetAndStoreTokens(Context).RequestToken;
     }
 }
 
