@@ -2,9 +2,9 @@
 {
     public enum WowRegion
     {
-        US = 1,
-        KR,
-        EU,
-        TW,
+        Us = 1,
+        Kr,
+        Eu,
+        Tw,
     }
 }

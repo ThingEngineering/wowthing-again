@@ -2,7 +2,7 @@
 {
     public class BattleNetOptions
     {
-        public string ClientID { get; set; }
+        public string ClientId { get; set; }
         public string ClientSecret { get; set; }
     }
 }

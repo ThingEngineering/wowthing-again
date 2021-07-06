@@ -18,7 +18,7 @@ namespace Wowthing.Backend.Services
     public class WorkerService : BackgroundService
     {
         private static int _instanceCount;
-        private static readonly Dictionary<JobType, Type> _jobTypeToClass = new Dictionary<JobType, Type>();
+        private static readonly Dictionary<JobType, Type> JobTypeToClass = new Dictionary<JobType, Type>();
 
         private readonly int _instanceId;
         private readonly IServiceProvider _services;
@@ -52,7 +52,7 @@ namespace Wowthing.Backend.Services
             foreach (var jobType in jobTypes)
             {
                 var typeName = jobType.Name[0..^3];
-                _jobTypeToClass[Enum.Parse<JobType>(typeName)] = jobType;
+                JobTypeToClass[Enum.Parse<JobType>(typeName)] = jobType;
             }
         }
 
@@ -76,7 +76,7 @@ namespace Wowthing.Backend.Services
 
                 try
                 {
-                    var job = _jobFactory.Create(_jobTypeToClass[result.Type], context, cancellationToken);
+                    var job = _jobFactory.Create(JobTypeToClass[result.Type], context, cancellationToken);
                     await job.Run(result.Data);
                 }
                 catch (Exception ex)

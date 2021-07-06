@@ -19,17 +19,17 @@ namespace Wowthing.Backend.Jobs.Data
             Interval = TimeSpan.FromHours(1),
         };
 
-        private const string API_PATH = "data/wow/mythic-keystone/season/index";
+        private const string ApiPath = "data/wow/mythic-keystone/season/index";
 
         public override async Task Run(params string[] data)
         {
-            var seasonMap = await _context.WowMythicPlusSeason
+            var seasonMap = await Context.WowMythicPlusSeason
                 .ToDictionaryAsync(s => (s.Region, s.Id));
 
             foreach (var region in EnumUtilities.GetValues<WowRegion>())
             {
                 // Fetch API data
-                var uri = GenerateUri(region, ApiNamespace.Dynamic, API_PATH);
+                var uri = GenerateUri(region, ApiNamespace.Dynamic, ApiPath);
                 var result = await GetJson<ApiDataMythicKeystoneSeasonIndex>(uri);
                 if (result.NotModified)
                 {
@@ -40,7 +40,7 @@ namespace Wowthing.Backend.Jobs.Data
                 {
                     if (!seasonMap.TryGetValue((region, apiSeason.Id), out WowMythicPlusSeason season))
                     {
-                        _context.WowMythicPlusSeason.Add(new WowMythicPlusSeason()
+                        Context.WowMythicPlusSeason.Add(new WowMythicPlusSeason()
                         {
                             Region = region,
                             Id = apiSeason.Id,
@@ -49,7 +49,7 @@ namespace Wowthing.Backend.Jobs.Data
                 }
             }
 
-            await _context.SaveChangesAsync();
+            await Context.SaveChangesAsync();
         }
     }
 }

@@ -11,8 +11,8 @@
 
         public DataCurrency(DumpCurrencyTypes currencyType)
         {
-            Id = currencyType.ID;
-            CategoryId = currencyType.CategoryID;
+            Id = currencyType.Id;
+            CategoryId = currencyType.CategoryId;
             MaxPerWeek = currencyType.MaxEarnablePerWeek;
             MaxTotal = currencyType.MaxQty;
             Description = currencyType.Description;

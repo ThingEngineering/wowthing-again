@@ -17,12 +17,12 @@ namespace Wowthing.Backend.Jobs.Data
             Interval = TimeSpan.FromDays(1),
         };
 
-        private const string API_PATH = "data/wow/reputation-faction/index";
+        private const string ApiPath = "data/wow/reputation-faction/index";
 
         public override async Task Run(params string[] data)
         {
             // Fetch API data
-            var uri = GenerateUri(WowRegion.US, ApiNamespace.Static, API_PATH);
+            var uri = GenerateUri(WowRegion.Us, ApiNamespace.Static, ApiPath);
             var result = await GetJson<ApiDataReputationFactionIndex>(uri);
             if (result.NotModified)
             {
@@ -31,7 +31,7 @@ namespace Wowthing.Backend.Jobs.Data
 
             // Absolute garbage API design on Blizzard's part, cool
             var datas = result.Data.Factions.Select(x => x.Id.ToString());
-            await _jobRepository.AddJobsAsync(JobPriority.High, JobType.DataReputationFaction, datas);
+            await JobRepository.AddJobsAsync(JobPriority.High, JobType.DataReputationFaction, datas);
         }
     }
 }

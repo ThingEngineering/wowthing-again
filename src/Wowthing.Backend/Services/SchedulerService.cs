@@ -18,7 +18,7 @@ namespace Wowthing.Backend.Services
 {
     public sealed class SchedulerService : TimerService
     {
-        private const int TIMER_INTERVAL = 5;
+        private const int TimerInterval = 5;
         
         private readonly IConnectionMultiplexer _redis;
         private readonly JobRepository _jobRepository;
@@ -27,7 +27,7 @@ namespace Wowthing.Backend.Services
         
         private readonly List<ScheduledJob> _scheduledJobs = new List<ScheduledJob>();
 
-        private const string QUERY_CHARACTERS = @"
+        private const string QueryCharacters = @"
 SELECT  c.id AS character_id,
         c.name AS character_name,
         r.region,
@@ -48,7 +48,7 @@ LIMIT 100
 ";
 
         public SchedulerService(IConnectionMultiplexer redis, IServiceProvider services, JobRepository jobRepository)
-            : base("Scheduler", TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(TIMER_INTERVAL))
+            : base("Scheduler", TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(TimerInterval))
         {
             _redis = redis;
             _jobRepository = jobRepository;
@@ -77,16 +77,16 @@ LIMIT 100
             {
                 // Attempt to get exclusive scheduler lock
                 var lockSuccess = await _jobRepository.AcquireLockAsync("scheduler", lockValue,
-                    TimeSpan.FromSeconds(TIMER_INTERVAL * 5));
+                    TimeSpan.FromSeconds(TimerInterval * 5));
                 if (!lockSuccess)
                 {
-                    _logger.Warning("Skipping scheduler, lock failed");
+                    Logger.Warning("Skipping scheduler, lock failed");
                     return;
                 }
             }
             catch (Exception ex)
             {
-                _logger.Error(ex, "Kaboom!");
+                Logger.Error(ex, "Kaboom!");
                 return;
             }
 
@@ -98,20 +98,20 @@ LIMIT 100
                     if (await _jobRepository.CheckLastTime("scheduled_job", scheduledJob.RedisKey,
                         scheduledJob.Interval))
                     {
-                        _logger.Information("Queueing scheduled task {0}", scheduledJob.RedisKey);
+                        Logger.Information("Queueing scheduled task {0}", scheduledJob.RedisKey);
                         await _jobRepository.AddJobAsync(scheduledJob.Priority, scheduledJob.Type);
                     }
                 }
             }
             catch (Exception ex)
             {
-                _logger.Error(ex, "Kaboom!");
+                Logger.Error(ex, "Kaboom!");
             }
 
             try
             {
                 // Execute some sort of nasty database query to get characters that need an API check
-                var results = await _context.SchedulerCharacterQuery.FromSqlRaw(QUERY_CHARACTERS).ToArrayAsync();
+                var results = await _context.SchedulerCharacterQuery.FromSqlRaw(QueryCharacters).ToArrayAsync();
                 if (results.Length > 0)
                 {
                     var db = _redis.GetDatabase();
@@ -123,7 +123,7 @@ LIMIT 100
                     });
 
                     // Queue character jobs
-                    _logger.Information("Queueing {0} character job(s)", results.Length);
+                    Logger.Information("Queueing {0} character job(s)", results.Length);
                     await _jobRepository.AddJobsAsync(JobPriority.Low, JobType.Character,
                         resultData.Select(d => d.Json));
 
@@ -135,7 +135,7 @@ LIMIT 100
             }
             catch (Exception ex)
             {
-                _logger.Error(ex, "Kaboom!");
+                Logger.Error(ex, "Kaboom!");
             }
             finally
             {

@@ -18,14 +18,14 @@ namespace Wowthing.Backend.Jobs.Data
             Interval = TimeSpan.FromHours(1),
         };
 
-        private const string API_PATH = "data/wow/mythic-keystone/period/index";
+        private const string ApiPath = "data/wow/mythic-keystone/period/index";
 
         public override async Task Run(params string[] data)
         {
             foreach (var region in EnumUtilities.GetValues<WowRegion>())
             {
                 // Fetch API data
-                var uri = GenerateUri(region, ApiNamespace.Dynamic, API_PATH);
+                var uri = GenerateUri(region, ApiNamespace.Dynamic, ApiPath);
                 var result = await GetJson<ApiDataMythicKeystonePeriodIndex>(uri);
                 if (result.NotModified)
                 {
@@ -35,7 +35,7 @@ namespace Wowthing.Backend.Jobs.Data
                 foreach (var period in result.Data.Periods.TakeLast(5))
                 {
                     // Absolute garbage API design on Blizzard's part, cool
-                    await _jobRepository.AddJobAsync(JobPriority.High, JobType.DataMythicKeystonePeriod, region.ToString(), period.Id.ToString());
+                    await JobRepository.AddJobAsync(JobPriority.High, JobType.DataMythicKeystonePeriod, region.ToString(), period.Id.ToString());
                 }
             }
         }

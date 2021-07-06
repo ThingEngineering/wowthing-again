@@ -40,9 +40,9 @@ namespace Wowthing.Lib.Utilities
             return sb.ToString();
         }
 
-        private static readonly Regex _comment = new Regex(@" -- \[\d+\]$", RegexOptions.Compiled);
-        private static readonly Regex _line = new Regex(@"^\s*(.*?)?$", RegexOptions.Compiled);
-        private static readonly Regex _keyValue = new Regex(@"^\[(.*?)\] = (.*?)?$", RegexOptions.Compiled);
+        private static readonly Regex Comment = new Regex(@" -- \[\d+\]$", RegexOptions.Compiled);
+        private static readonly Regex Line = new Regex(@"^\s*(.*?)?$", RegexOptions.Compiled);
+        private static readonly Regex KeyValue = new Regex(@"^\[(.*?)\] = (.*?)?$", RegexOptions.Compiled);
 
         public (StructureType, string) Recurse()
         {
@@ -58,11 +58,11 @@ namespace Wowthing.Lib.Utilities
                 _index++;
 
                 // Strip comments
-                line = _comment.Replace(line, "");
+                line = Comment.Replace(line, "");
                 // Trailing commas are annoying too
                 line = line.TrimEnd(',');
 
-                var m = _line.Match(line);
+                var m = Line.Match(line);
                 if (!m.Success)
                 {
                     throw new Exception($"Bad input line >{_lines[_index-1]}< >{line}<");
@@ -89,7 +89,7 @@ namespace Wowthing.Lib.Utilities
                 }
 
                 // ["foo"] = {
-                m = _keyValue.Match(line);
+                m = KeyValue.Match(line);
                 if (m.Success)
                 {
                     type = StructureType.Dictionary;

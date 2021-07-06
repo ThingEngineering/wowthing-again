@@ -13,18 +13,18 @@ namespace Wowthing.Backend.Jobs.Character
 {
     public class CharacterJob : JobBase
     {
-        private const string API_PATH = "profile/wow/character/{0}/{1}";
+        private const string ApiPath = "profile/wow/character/{0}/{1}";
 
         public override async Task Run(params string[] data)
         {
             var query = JsonConvert.DeserializeObject<SchedulerCharacterQuery>(data[0]);
             using var shrug = CharacterLog(query);
 
-            var path = string.Format(API_PATH, query.RealmSlug, query.CharacterName.ToLowerInvariant());
+            var path = string.Format(ApiPath, query.RealmSlug, query.CharacterName.ToLowerInvariant());
             var uri = GenerateUri(query.Region, ApiNamespace.Profile, path);
 
             // Get character from database
-            var character = await _context.PlayerCharacter.FindAsync(query.CharacterId);
+            var character = await Context.PlayerCharacter.FindAsync(query.CharacterId);
             if (character == null)
             {
                 // This shouldn't be possible
@@ -40,7 +40,7 @@ namespace Wowthing.Backend.Jobs.Character
                 {
                     LogNotModified();
                     character.DelayHours = 0;
-                    await _context.SaveChangesAsync();
+                    await Context.SaveChangesAsync();
                     return;
                 }
 
@@ -48,7 +48,7 @@ namespace Wowthing.Backend.Jobs.Character
             }
             catch (HttpRequestException e)
             {
-                _logger.Error("HTTP {0}", e.Message);
+                Logger.Error("HTTP {0}", e.Message);
                 if (e.Message == "403")
                 {
                     // 403s are pretty bad, seem to happen for characters on unsubscribed accounts
@@ -61,7 +61,7 @@ namespace Wowthing.Backend.Jobs.Character
                     character.DelayHours += 4;
                 }
                 
-                await _context.SaveChangesAsync();
+                await Context.SaveChangesAsync();
 
                 return;
             }
@@ -82,7 +82,7 @@ namespace Wowthing.Backend.Jobs.Character
 
             character.DelayHours = 0;
 
-            await _context.SaveChangesAsync();
+            await Context.SaveChangesAsync();
 
             // Character changed, queue some more stuff
             var jobs = new List<JobType>
@@ -115,7 +115,7 @@ namespace Wowthing.Backend.Jobs.Character
 
             foreach (var jobType in jobs)
             {
-                await _jobRepository.AddJobAsync(JobPriority.Low, jobType, data);
+                await JobRepository.AddJobAsync(JobPriority.Low, jobType, data);
             }
         }
     }

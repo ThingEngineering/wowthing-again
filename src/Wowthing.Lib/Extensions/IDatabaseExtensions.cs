@@ -7,7 +7,7 @@ using StackExchange.Redis;
 
 namespace Wowthing.Lib.Extensions
 {
-    public static class IDatabaseExtensions
+    public static class DatabaseExtensions
     {
         public static async Task<string[]> GetSetMembersAsync(this IDatabase db, string key)
         {

@@ -5,6 +5,6 @@
         public string RequestId;
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 
-        public string OriginalURL { get; set; }
+        public string OriginalUrl { get; set; }
     }
 }
