@@ -1,4 +1,5 @@
-﻿namespace Wowthing.Lib.Enums
+﻿// ReSharper disable InconsistentNaming
+namespace Wowthing.Lib.Enums
 {
     public enum WowRegion
     {

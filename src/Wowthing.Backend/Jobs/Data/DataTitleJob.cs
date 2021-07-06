@@ -16,7 +16,7 @@ namespace Wowthing.Backend.Jobs.Data
             int titleId = int.Parse(data[0]);
 
             // Fetch API data
-            var uri = GenerateUri(WowRegion.Us, ApiNamespace.Static, string.Format(ApiPath, titleId));
+            var uri = GenerateUri(WowRegion.US, ApiNamespace.Static, string.Format(ApiPath, titleId));
             var result = await GetJson<ApiDataTitle>(uri);
             if (result.NotModified)
             {

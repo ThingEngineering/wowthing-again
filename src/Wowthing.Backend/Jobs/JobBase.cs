@@ -42,10 +42,10 @@ namespace Wowthing.Backend.Jobs
             .ToDictionary(k => k, v => v.ToString().ToLowerInvariant());
         protected static readonly Dictionary<WowRegion, string> RegionToLocale = new Dictionary<WowRegion, string>
         {
-            { WowRegion.Us, "en_US" },
-            { WowRegion.Eu, "en_GB" },
-            { WowRegion.Kr, "ko_KR" },
-            { WowRegion.Tw, "zh_TW" },
+            { WowRegion.US, "en_US" },
+            { WowRegion.EU, "en_GB" },
+            { WowRegion.KR, "ko_KR" },
+            { WowRegion.TW, "zh_TW" },
         };
 
         #region IJob

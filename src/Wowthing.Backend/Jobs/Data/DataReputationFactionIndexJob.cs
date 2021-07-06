@@ -22,7 +22,7 @@ namespace Wowthing.Backend.Jobs.Data
         public override async Task Run(params string[] data)
         {
             // Fetch API data
-            var uri = GenerateUri(WowRegion.Us, ApiNamespace.Static, ApiPath);
+            var uri = GenerateUri(WowRegion.US, ApiNamespace.Static, ApiPath);
             var result = await GetJson<ApiDataReputationFactionIndex>(uri);
             if (result.NotModified)
             {
