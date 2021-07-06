@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Wowthing.Backend.Models.Data
 {
-    public class DataInstance
+    public class OutInstance
     {
         public int Expansion { get; set; }
         public int Id { get; set; }
@@ -19,7 +19,7 @@ namespace Wowthing.Backend.Models.Data
             }
         }
 
-        public DataInstance(DumpMap map, int instanceId)
+        public OutInstance(DumpMap map, int instanceId)
         {
             Expansion = map.ExpansionID;
             Id = instanceId;
