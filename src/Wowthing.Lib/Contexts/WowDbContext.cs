@@ -62,6 +62,7 @@ namespace Wowthing.Lib.Contexts
                 optionsBuilder.UseNpgsql(_connectionString);
             }
             optionsBuilder.UseSnakeCaseNamingConvention();
+            optionsBuilder.UseBatchEF_Npgsql();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
