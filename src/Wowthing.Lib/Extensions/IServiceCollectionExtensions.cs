@@ -4,6 +4,7 @@ using StackExchange.Redis;
 using System.Reflection;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Repositories;
+using Wowthing.Lib.Utilities;
 
 namespace Wowthing.Lib.Extensions
 {
@@ -24,10 +25,7 @@ namespace Wowthing.Lib.Extensions
 
         public static IConnectionMultiplexer AddRedis(this IServiceCollection services, string connectionString)
         {
-            var options = ConfigurationOptions.Parse(connectionString);
-            options.ClientName = Assembly.GetCallingAssembly().GetName().Name;
-
-            var redis = ConnectionMultiplexer.Connect(options);
+            var redis = RedisUtilities.GetConnection(connectionString);
             services.AddSingleton<IConnectionMultiplexer>(redis);
 
             services.AddSingleton<JobRepository>();

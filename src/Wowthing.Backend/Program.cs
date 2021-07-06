@@ -13,6 +13,7 @@ using Wowthing.Backend.Models;
 using Wowthing.Backend.Services;
 using Wowthing.Backend.Utilities;
 using Wowthing.Lib.Extensions;
+using Wowthing.Lib.Utilities;
 
 namespace Wowthing.Backend
 {
@@ -80,14 +81,16 @@ namespace Wowthing.Backend
             
             // Databases
             services.AddPostgres(Configuration.GetConnectionString("Postgres"));
-            var redis = services.AddRedis(Configuration.GetConnectionString("Redis"));
+
+            var redisConnectionString = Configuration.GetConnectionString("Redis");
+            services.AddRedis(redisConnectionString);
 
             // HTTP clients
             services.AddHttpClient("limited", config =>
             {
                 config.Timeout = TimeSpan.FromSeconds(10);
             })
-                .AddHttpMessageHandler(() => new RateLimitHttpMessageHandler(redis, backendOptions.ApiRateLimit))
+                .AddHttpMessageHandler(() => new RateLimitHttpMessageHandler(RedisUtilities.GetConnection(redisConnectionString), backendOptions.ApiRateLimit))
                 .SetHandlerLifetime(Timeout.InfiniteTimeSpan);
 
             // Services
