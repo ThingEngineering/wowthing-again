@@ -123,16 +123,16 @@ namespace Wowthing.Backend.Jobs.Misc
             return categories;
         }
 
-        private static async Task<SortedDictionary<int, DataCurrency>> LoadCurrencies()
+        private static async Task<SortedDictionary<int, OutCurrency>> LoadCurrencies()
         {
             var types = await Utilities.Utilities.LoadDumpCsvAsync<DumpCurrencyTypes>("currencytypes");
-            return new SortedDictionary<int, DataCurrency>(types.ToDictionary(k => k.ID, v => new DataCurrency(v)));
+            return new SortedDictionary<int, OutCurrency>(types.ToDictionary(k => k.ID, v => new OutCurrency(v)));
         }
 
-        private static async Task<SortedDictionary<int, DataCurrencyCategory>> LoadCurrencyCategories()
+        private static async Task<SortedDictionary<int, OutCurrencyCategory>> LoadCurrencyCategories()
         {
             var categories = await Utilities.Utilities.LoadDumpCsvAsync<DumpCurrencyCategory>("currencycategory");
-            return new SortedDictionary<int, DataCurrencyCategory>(categories.ToDictionary(k => k.ID, v => new DataCurrencyCategory(v)));
+            return new SortedDictionary<int, OutCurrencyCategory>(categories.ToDictionary(k => k.ID, v => new OutCurrencyCategory(v)));
         }
 
         private static async Task<SortedDictionary<int, OutReputation>> LoadReputations()
@@ -146,7 +146,7 @@ namespace Wowthing.Backend.Jobs.Misc
             1, // Party Dungeon
             2, // Raid Dungeon
         };
-        private async Task<SortedDictionary<int, DataInstance>> LoadInstances()
+        private async Task<SortedDictionary<int, OutInstance>> LoadInstances()
         {
             var journalInstances = await Utilities.Utilities.LoadDumpCsvAsync<DumpJournalInstance>("journalinstance");
             var mapIdToInstanceId = journalInstances
@@ -155,7 +155,7 @@ namespace Wowthing.Backend.Jobs.Misc
 
             var maps = await Utilities.Utilities.LoadDumpCsvAsync<DumpMap>("map");
 
-            var sigh = new SortedDictionary<int, DataInstance>();
+            var sigh = new SortedDictionary<int, OutInstance>();
             foreach (var map in maps.Where(m => mapIdToInstanceId.ContainsKey(m.ID) && InstanceTypes.Contains(m.InstanceType)))
             {
                 if (mapIdToInstanceId.TryGetValue(map.ID, out int instanceId))
@@ -166,7 +166,7 @@ namespace Wowthing.Backend.Jobs.Misc
                     }
                     else
                     {
-                        sigh.Add(instanceId, new DataInstance(map, instanceId));
+                        sigh.Add(instanceId, new OutInstance(map, instanceId));
                     } 
                 }
                 else
@@ -179,19 +179,19 @@ namespace Wowthing.Backend.Jobs.Misc
 
         private static async Task<SortedDictionary<int, int>> LoadMountDump()
         {
-            var records = await Utilities.Utilities.LoadDumpCsvAsync<DataMountDump>("mount");
+            var records = await Utilities.Utilities.LoadDumpCsvAsync<DumpMount>("mount");
             return new SortedDictionary<int, int>(records.ToDictionary(k => k.SourceSpellID, v => v.ID));
         }
 
         private static async Task<SortedDictionary<int, int>> LoadPetDump()
         {
-            var records = await Utilities.Utilities.LoadDumpCsvAsync<DataPetDump>("battlepetspecies", p => (p.Flags & 32) == 0);
+            var records = await Utilities.Utilities.LoadDumpCsvAsync<DumpBattlePetSpecies>("battlepetspecies", p => (p.Flags & 32) == 0);
             return new SortedDictionary<int, int>(records.ToDictionary(k => k.CreatureID, v => v.ID));
         }
 
         private static async Task<SortedDictionary<int, int>> LoadToyDump()
         {
-            var records = await Utilities.Utilities.LoadDumpCsvAsync<DataToyDump>("toy");
+            var records = await Utilities.Utilities.LoadDumpCsvAsync<DumpToy>("toy");
             return new SortedDictionary<int, int>(records.ToDictionary(k => k.ItemID, v => v.ID));
         }
 

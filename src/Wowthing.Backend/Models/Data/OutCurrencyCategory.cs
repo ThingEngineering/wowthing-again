@@ -2,14 +2,14 @@
 
 namespace Wowthing.Backend.Models.Data
 {
-    public class DataCurrencyCategory
+    public class OutCurrencyCategory
     {
         public int Id { get; set; }
         public string Name { get; set; }
 
         public string Slug => Name.Slugify();
 
-        public DataCurrencyCategory(DumpCurrencyCategory currencyCategory)
+        public OutCurrencyCategory(DumpCurrencyCategory currencyCategory)
         {
             Id = currencyCategory.ID;
             Name = currencyCategory.Name;
