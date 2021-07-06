@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Wowthing.Backend.Models.Uploads;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Extensions;
-using Wowthing.Lib.Models;
+using Wowthing.Lib.Models.Player;
+using Wowthing.Lib.Models.Wow;
 using Wowthing.Lib.Utilities;
 
 namespace Wowthing.Backend.Jobs.User
@@ -21,13 +20,13 @@ namespace Wowthing.Backend.Jobs.User
             int userId = int.Parse(data[0]);
             using var shrug = UserLog(userId.ToString());
 
-            _logger.Information("Processing upload...");
+            Logger.Information("Processing upload...");
 
             var json = LuaToJsonConverter.Convert(data[1].Replace("WWTCSaved = ", ""));
             var parsed = JsonConvert.DeserializeObject<Upload[]>(json)[0]; // TODO work out why this is an array of objects
 
             // Fetch character data for this account
-            var characterMap = await _context.PlayerCharacter
+            var characterMap = await Context.PlayerCharacter
                 .Where(c => c.Account.UserId == userId)
                 .Include(c => c.Currencies)
                 .Include(c => c.Lockouts)
@@ -39,7 +38,7 @@ namespace Wowthing.Backend.Jobs.User
                 .Select(c => c.RealmId)
                 .Distinct()
                 .ToArray();
-            var realmMap = await _context.WowRealm
+            var realmMap = await Context.WowRealm
                 .Where(r => realmIds.Contains(r.Id))
                 .ToDictionaryAsync(k => (k.Region, k.Name));
 
@@ -58,17 +57,17 @@ namespace Wowthing.Backend.Jobs.User
                 var region = Enum.Parse<WowRegion>(parts[0]);
                 if (!realmMap.TryGetValue((region, parts[1]), out WowRealm realm))
                 {
-                    _logger.Warning("Invalid realm: {0}/{1}", parts[0], parts[1]);
+                    Logger.Warning("Invalid realm: {0}/{1}", parts[0], parts[1]);
                     continue;
                 }
 
                 if (!characterMap.TryGetValue((realm.Id, parts[2]), out PlayerCharacter character))
                 {
-                    _logger.Warning("Invalid character: {0}/{1}/{2}", parts[0], parts[1], parts[2]);
+                    Logger.Warning("Invalid character: {0}/{1}/{2}", parts[0], parts[1], parts[2]);
                     continue;
                 }
 
-                _logger.Information("Found character: {0} => {1}", addonId, character.Id);
+                Logger.Information("Found character: {0} => {1}", addonId, character.Id);
                 accountId = character.AccountId.Value;
 
                 character.ChromieTime = characterData.ChromieTime;
@@ -85,19 +84,19 @@ namespace Wowthing.Backend.Jobs.User
 
             if (accountId > 0 && parsed.Toys != null)
             {
-                var accountToys = _context.PlayerAccountToys.Find(accountId);
+                var accountToys = Context.PlayerAccountToys.Find(accountId);
                 if (accountToys == null)
                 {
                     accountToys = new PlayerAccountToys
                     {
                         AccountId = accountId,
                     };
-                    _context.PlayerAccountToys.Add(accountToys);
+                    Context.PlayerAccountToys.Add(accountToys);
                 } 
                 accountToys.ToyIds = parsed.Toys.OrderBy(t => t).ToList();
             }
 
-            await _context.SaveChangesAsync();
+            await Context.SaveChangesAsync();
         }
 
         private void HandleCurrencies(PlayerCharacter character, UploadCharacter characterData)
@@ -108,7 +107,7 @@ namespace Wowthing.Backend.Jobs.User
                 {
                     Character = character,
                 };
-                _context.PlayerCharacterCurrencies.Add(character.Currencies);
+                Context.PlayerCharacterCurrencies.Add(character.Currencies);
             }
 
             character.Currencies.Currencies = new Dictionary<int, PlayerCharacterCurrenciesCurrency>();
@@ -133,7 +132,7 @@ namespace Wowthing.Backend.Jobs.User
                 {
                     Character = character,
                 };
-                _context.PlayerCharacterLockouts.Add(character.Lockouts);
+                Context.PlayerCharacterLockouts.Add(character.Lockouts);
             }
 
             if (characterData.ScanTimes.TryGetValue("lockouts", out int lockoutsScanned) && characterData.Lockouts != null)
@@ -189,7 +188,7 @@ namespace Wowthing.Backend.Jobs.User
                 {
                     Character = character,
                 };
-                _context.PlayerCharacterWeekly.Add(character.Weekly);
+                Context.PlayerCharacterWeekly.Add(character.Weekly);
             }
 
             character.Weekly.KeystoneDungeon = characterData.KeystoneInstance;
@@ -219,7 +218,7 @@ namespace Wowthing.Backend.Jobs.User
                 character.Weekly.Vault.RankedPvpProgress = ConvertVault(characterData.Vault[1]);
                 character.Weekly.Vault.RaidProgress = ConvertVault(characterData.Vault[2]);
 
-                _context.Entry(character.Weekly).Property(e => e.Vault).IsModified = true;
+                Context.Entry(character.Weekly).Property(e => e.Vault).IsModified = true;
             }
 
             // Ugh, quests

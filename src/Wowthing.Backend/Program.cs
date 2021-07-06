@@ -1,9 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Threading;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,6 +11,7 @@ using Serilog;
 using Wowthing.Backend.Extensions;
 using Wowthing.Backend.Models;
 using Wowthing.Backend.Services;
+using Wowthing.Backend.Utilities;
 using Wowthing.Lib.Extensions;
 
 namespace Wowthing.Backend
@@ -74,7 +72,7 @@ namespace Wowthing.Backend
                 .Bind(Configuration.GetSection("BattleNet"))
                 .Validate(config =>
                 {
-                    return !(string.IsNullOrWhiteSpace(config.ClientID) || string.IsNullOrWhiteSpace(config.ClientSecret));
+                    return !(string.IsNullOrWhiteSpace(config.ClientId) || string.IsNullOrWhiteSpace(config.ClientSecret));
                 }, "BattleNet.ClientID and .ClientSecret must be set");
 
             var backendOptions = new WowthingBackendOptions();

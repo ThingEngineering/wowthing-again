@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Newtonsoft.Json;
 using Wowthing.Backend.Models.API;
 
@@ -8,7 +6,7 @@ namespace Wowthing.Backend.Models.Redis
 {
     public class RedisAccessToken
     {
-        private static readonly TimeSpan MINIMUM_REMAINING = TimeSpan.FromHours(4);
+        private static readonly TimeSpan MinimumRemaining = TimeSpan.FromHours(4);
 
         public string AccessToken { get; }
         public DateTime ExpiresAt { get; }
@@ -30,7 +28,7 @@ namespace Wowthing.Backend.Models.Redis
             {
                 if (_valid == null)
                 {
-                    _valid = ExpiresAt.Subtract(DateTime.UtcNow) >= MINIMUM_REMAINING;
+                    _valid = ExpiresAt.Subtract(DateTime.UtcNow) >= MinimumRemaining;
                 }
                 return _valid.Value;
             }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Wowthing.Lib.Extensions;
+﻿using Wowthing.Lib.Extensions;
 
 namespace Wowthing.Backend.Models.Data
 {
@@ -16,7 +11,7 @@ namespace Wowthing.Backend.Models.Data
 
         public DataCurrencyCategory(DumpCurrencyCategory currencyCategory)
         {
-            Id = currencyCategory.ID;
+            Id = currencyCategory.Id;
             Name = currencyCategory.Name;
         }
     }

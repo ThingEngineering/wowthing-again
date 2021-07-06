@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
@@ -12,14 +11,12 @@ using Newtonsoft.Json;
 using Serilog;
 using Serilog.Context;
 using StackExchange.Redis;
-using Wowthing.Backend.Extensions;
 using Wowthing.Backend.Models;
 using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Services;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Extensions;
-using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models.Query;
 using Wowthing.Lib.Repositories;
 using Wowthing.Lib.Utilities;
@@ -28,32 +25,28 @@ namespace Wowthing.Backend.Jobs
 {
     public abstract class JobBase : IJob
     {
-        private const string API_URL = "https://{0}.api.blizzard.com/{1}";
-        private const string CACHE_KEY_LAST_MODIFIED = "last_modified:{0}";
+        private const string ApiUrl = "https://{0}.api.blizzard.com/{1}";
+        private const string CacheKeyLastModified = "last_modified:{0}";
 
-        internal HttpClient _http;
-        internal JobRepository _jobRepository;
-        internal ILogger _logger;
-        internal IConnectionMultiplexer _redis;
-        internal StateService _stateService;
-        internal WowDbContext _context;
-        internal CancellationToken _cancellationToken;
+        internal HttpClient Http;
+        internal JobRepository JobRepository;
+        internal ILogger Logger;
+        internal IConnectionMultiplexer Redis;
+        internal StateService StateService;
+        internal WowDbContext Context;
+        internal CancellationToken CancellationToken;
 
-        private static readonly Dictionary<ApiNamespace, string> _namespaceToString = EnumUtilities.GetValues<ApiNamespace>()
+        private static readonly Dictionary<ApiNamespace, string> NamespaceToString = EnumUtilities.GetValues<ApiNamespace>()
             .ToDictionary(k => k, v => v.ToString().ToLowerInvariant());
-        private static readonly Dictionary<WowRegion, string> _regionToString = EnumUtilities.GetValues<WowRegion>()
+        private static readonly Dictionary<WowRegion, string> RegionToString = EnumUtilities.GetValues<WowRegion>()
             .ToDictionary(k => k, v => v.ToString().ToLowerInvariant());
-        protected static readonly Dictionary<WowRegion, string> _regionToLocale = new Dictionary<WowRegion, string>
+        protected static readonly Dictionary<WowRegion, string> RegionToLocale = new Dictionary<WowRegion, string>
         {
-            { WowRegion.US, "en_US" },
-            { WowRegion.EU, "en_GB" },
-            { WowRegion.KR, "ko_KR" },
-            { WowRegion.TW, "zh_TW" },
+            { WowRegion.Us, "en_US" },
+            { WowRegion.Eu, "en_GB" },
+            { WowRegion.Kr, "ko_KR" },
+            { WowRegion.Tw, "zh_TW" },
         };
-
-        protected JobBase()
-        {
-        }
 
         #region IJob
         public abstract Task Run(params string[] data);
@@ -73,10 +66,10 @@ namespace Wowthing.Backend.Jobs
 
         protected static Uri GenerateUri(WowRegion region, ApiNamespace lamespace, string path)
         {
-            var builder = new UriBuilder(string.Format(API_URL, _regionToString[region], path));
+            var builder = new UriBuilder(string.Format(ApiUrl, RegionToString[region], path));
             var query = HttpUtility.ParseQueryString(builder.Query);
-            query["locale"] = _regionToLocale[region];
-            query["namespace"] = $"{ _namespaceToString[lamespace] }-{ _regionToString[region] }";
+            query["locale"] = RegionToLocale[region];
+            query["namespace"] = $"{ NamespaceToString[lamespace] }-{ RegionToString[region] }";
             builder.Query = query.ToString();
             return builder.Uri;
         }
@@ -85,10 +78,10 @@ namespace Wowthing.Backend.Jobs
             //where T : class
         {
             var timer = new JankTimer();
-            var db = _redis.GetDatabase();
+            var db = Redis.GetDatabase();
 
             // Try from cache first
-            string cacheKey = string.Format(CACHE_KEY_LAST_MODIFIED, uri.ToString().Md5());
+            string cacheKey = string.Format(CacheKeyLastModified, uri.ToString().Md5());
             string contentString = null;
             DateTime lastModified = DateTime.MinValue;
             if (useLastModified)
@@ -106,7 +99,7 @@ namespace Wowthing.Backend.Jobs
 
                 if (useAuthorization)
                 {
-                    request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", _stateService.AccessToken.AccessToken);
+                    request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", StateService.AccessToken.AccessToken);
                 }
                 if (lastModified > DateTime.MinValue)
                 {
@@ -116,7 +109,7 @@ namespace Wowthing.Backend.Jobs
                 HttpResponseMessage response;
                 try
                 {
-                    response = await _http.SendAsync(request, _cancellationToken);
+                    response = await Http.SendAsync(request, CancellationToken);
                 }
                 catch (OperationCanceledException ex)
                 {
@@ -158,14 +151,14 @@ namespace Wowthing.Backend.Jobs
 
             T obj = JsonConvert.DeserializeObject<T>(contentString);
             timer.AddPoint("JSON", true);
-            _logger.Debug("{0}", timer.ToString());
+            Logger.Debug("{0}", timer.ToString());
 
             return new JsonResult<T> { Data = obj };
         }
 
         protected void LogNotModified()
         {
-            _logger.Debug("304 Not Modified");
+            Logger.Debug("304 Not Modified");
         } 
     }
 }

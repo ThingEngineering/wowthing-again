@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StackExchange.Redis;
 using Wowthing.Lib.Contexts;
-using Wowthing.Lib.Models;
+using Wowthing.Lib.Models.Team;
 using Wowthing.Web.ViewModels;
 
 namespace Wowthing.Web.Controllers
@@ -23,9 +21,9 @@ namespace Wowthing.Web.Controllers
         }
 
         [HttpGet("team/{guid:guid}")]
-        public async Task<IActionResult> GetTeamByGuid([FromRoute] string guid)
+        public async Task<IActionResult> GetTeamByGuid([FromRoute] Guid guid)
         {
-            var team = await _context.Team.FirstOrDefaultAsync(t => t.Guid == new Guid(guid));
+            var team = await _context.Team.FirstOrDefaultAsync(t => t.Guid == guid);
             return await GetTeam(team);
         }
 
@@ -50,7 +48,7 @@ namespace Wowthing.Web.Controllers
         }
 
         [HttpPost("team/add_character")]
-        public async Task<IActionResult> AddCharacter()
+        public IActionResult AddCharacter()
         {
             return Ok();
         }

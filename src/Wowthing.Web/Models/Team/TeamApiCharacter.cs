@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Wowthing.Lib.Contexts;
-using Wowthing.Lib.Enums;
-using Wowthing.Lib.Models;
+﻿using Wowthing.Lib.Enums;
+using Wowthing.Lib.Models.Team;
 
-namespace Wowthing.Web.Models
+namespace Wowthing.Web.Models.Team
 {
     public class TeamApiCharacter
     {
@@ -15,7 +10,7 @@ namespace Wowthing.Web.Models
         public WowRole PrimaryRole { get; set; }
         public WowRole SecondaryRole { get; set; }
 
-        public TeamApiCharacter(WowDbContext context, TeamCharacter character)
+        public TeamApiCharacter(TeamCharacter character)
         {
             Character = new UserApiCharacter(character.Character, pub: true);
             Note = character.Note;

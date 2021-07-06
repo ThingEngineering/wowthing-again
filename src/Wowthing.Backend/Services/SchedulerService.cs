@@ -5,11 +5,11 @@ using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
-using StackExchange.Redis;
 using Wowthing.Backend.Jobs;
+using Wowthing.Backend.Services.Base;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Jobs;
-using Wowthing.Lib.Models;
+using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Repositories;
 using Z.EntityFramework.Plus;
 
@@ -17,16 +17,14 @@ namespace Wowthing.Backend.Services
 {
     public sealed class SchedulerService : TimerService
     {
-        private const int TIMER_INTERVAL = 5;
+        private const int TimerInterval = 5;
         
-        private readonly IConnectionMultiplexer _redis;
         private readonly JobRepository _jobRepository;
-        private readonly IServiceScope _scope;
         private readonly WowDbContext _context;
         
         private readonly List<ScheduledJob> _scheduledJobs = new List<ScheduledJob>();
 
-        private const string QUERY_CHARACTERS = @"
+        private const string QueryCharacters = @"
 SELECT  c.id AS character_id,
         c.name AS character_name,
         r.region,
@@ -46,15 +44,14 @@ ORDER BY c.last_api_check
 LIMIT 100
 ";
 
-        public SchedulerService(IConnectionMultiplexer redis, IServiceProvider services, JobRepository jobRepository)
-            : base("Scheduler", TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(TIMER_INTERVAL))
+        public SchedulerService(IServiceProvider services, JobRepository jobRepository)
+            : base("Scheduler", TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(TimerInterval))
         {
-            _redis = redis;
             _jobRepository = jobRepository;
 
             // Get a scope and context
-            _scope = services.CreateScope();
-            _context = _scope.ServiceProvider.GetService<WowDbContext>();
+            var scope = services.CreateScope();
+            _context = scope.ServiceProvider.GetService<WowDbContext>();
 
             // Schedule jobs for all IScheduledJob implementers
             var jobTypes = AppDomain.CurrentDomain.GetAssemblies()
@@ -76,16 +73,16 @@ LIMIT 100
             {
                 // Attempt to get exclusive scheduler lock
                 var lockSuccess = await _jobRepository.AcquireLockAsync("scheduler", lockValue,
-                    TimeSpan.FromSeconds(TIMER_INTERVAL * 5));
+                    TimeSpan.FromSeconds(TimerInterval * 5));
                 if (!lockSuccess)
                 {
-                    _logger.Warning("Skipping scheduler, lock failed");
+                    Logger.Warning("Skipping scheduler, lock failed");
                     return;
                 }
             }
             catch (Exception ex)
             {
-                _logger.Error(ex, "Kaboom!");
+                Logger.Error(ex, "Kaboom!");
                 return;
             }
 
@@ -97,24 +94,22 @@ LIMIT 100
                     if (await _jobRepository.CheckLastTime("scheduled_job", scheduledJob.RedisKey,
                         scheduledJob.Interval))
                     {
-                        _logger.Information("Queueing scheduled task {0}", scheduledJob.RedisKey);
+                        Logger.Information("Queueing scheduled task {0}", scheduledJob.RedisKey);
                         await _jobRepository.AddJobAsync(scheduledJob.Priority, scheduledJob.Type);
                     }
                 }
             }
             catch (Exception ex)
             {
-                _logger.Error(ex, "Kaboom!");
+                Logger.Error(ex, "Kaboom!");
             }
 
             try
             {
                 // Execute some sort of nasty database query to get characters that need an API check
-                var results = await _context.SchedulerCharacterQuery.FromSqlRaw(QUERY_CHARACTERS).ToArrayAsync();
+                var results = await _context.SchedulerCharacterQuery.FromSqlRaw(QueryCharacters).ToArrayAsync();
                 if (results.Length > 0)
                 {
-                    var db = _redis.GetDatabase();
-
                     var resultData = results.Select(r => new
                     {
                         Result = r,
@@ -122,7 +117,7 @@ LIMIT 100
                     });
 
                     // Queue character jobs
-                    _logger.Information("Queueing {0} character job(s)", results.Length);
+                    Logger.Information("Queueing {0} character job(s)", results.Length);
                     await _jobRepository.AddJobsAsync(JobPriority.Low, JobType.Character,
                         resultData.Select(d => d.Json));
 
@@ -134,7 +129,7 @@ LIMIT 100
             }
             catch (Exception ex)
             {
-                _logger.Error(ex, "Kaboom!");
+                Logger.Error(ex, "Kaboom!");
             }
             finally
             {

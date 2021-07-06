@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Wowthing.Backend.Models.Data
 {
@@ -17,19 +14,19 @@ namespace Wowthing.Backend.Models.Data
             get
             {
                 // lookup thing
-                string shortName = SHORT_NAME_OVERRIDE.GetValueOrDefault(Name) ?? string.Join("", Name.Split().Where(w => w.ToLowerInvariant() != "the").Select(w => w[0]));
+                string shortName = _shortNameOverride.GetValueOrDefault(Name) ?? string.Join("", Name.Split().Where(w => w.ToLowerInvariant() != "the").Select(w => w[0]));
                 return shortName;
             }
         }
 
         public DataInstance(DumpMap map, int instanceId)
         {
-            Expansion = map.ExpansionID;
+            Expansion = map.ExpansionId;
             Id = instanceId;
             Name = map.Name;
         }
 
-        private static Dictionary<string, string> SHORT_NAME_OVERRIDE = new()
+        private static Dictionary<string, string> _shortNameOverride = new()
         {
             { "Atal'Dazar", "AD" },
             { "Plaguefall", "PF" },

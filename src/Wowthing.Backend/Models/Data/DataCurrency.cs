@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Wowthing.Backend.Models.Data
+﻿namespace Wowthing.Backend.Models.Data
 {
     public class DataCurrency
     {
@@ -17,8 +11,8 @@ namespace Wowthing.Backend.Models.Data
 
         public DataCurrency(DumpCurrencyTypes currencyType)
         {
-            Id = currencyType.ID;
-            CategoryId = currencyType.CategoryID;
+            Id = currencyType.Id;
+            CategoryId = currencyType.CategoryId;
             MaxPerWeek = currencyType.MaxEarnablePerWeek;
             MaxTotal = currencyType.MaxQty;
             Description = currencyType.Description;

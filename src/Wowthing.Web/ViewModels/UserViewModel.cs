@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Wowthing.Lib.Enums;
-using Wowthing.Lib.Models;
+﻿using Wowthing.Lib.Models;
 
 namespace Wowthing.Web.ViewModels
 {

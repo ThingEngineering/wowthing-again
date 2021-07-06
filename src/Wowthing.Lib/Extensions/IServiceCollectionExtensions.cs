@@ -1,16 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using StackExchange.Redis;
-using System;
-using System.Collections.Generic;
 using System.Reflection;
-using System.Text;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Repositories;
 
 namespace Wowthing.Lib.Extensions
 {
-    public static class IServiceCollectionExtensions
+    public static class ServiceCollectionExtensions
     {
         public static IServiceCollection AddPostgres(this IServiceCollection services, string connectionString)
         {

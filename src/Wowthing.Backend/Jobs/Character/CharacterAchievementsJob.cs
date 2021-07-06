@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.API.Character;
 using Wowthing.Lib.Extensions;
-using Wowthing.Lib.Models;
+using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
 
 namespace Wowthing.Backend.Jobs.Character
 {
     public class CharacterAchievementsJob : JobBase
     {
-        private const string API_PATH = "profile/wow/character/{0}/{1}/achievements";
+        private const string ApiPath = "profile/wow/character/{0}/{1}/achievements";
 
         public override async Task Run(params string[] data)
         {
@@ -22,7 +19,7 @@ namespace Wowthing.Backend.Jobs.Character
             using var shrug = CharacterLog(query);
 
             // Fetch API data
-            var path = string.Format(API_PATH, query.RealmSlug, query.CharacterName.ToLowerInvariant());
+            var path = string.Format(ApiPath, query.RealmSlug, query.CharacterName.ToLowerInvariant());
             var uri = GenerateUri(query.Region, ApiNamespace.Profile, path);
 
             var result = await GetJson<ApiCharacterAchievements>(uri);
@@ -33,14 +30,14 @@ namespace Wowthing.Backend.Jobs.Character
             }
 
             // Fetch character data
-            var achievements = await _context.PlayerCharacterAchievements.FindAsync(query.CharacterId);
+            var achievements = await Context.PlayerCharacterAchievements.FindAsync(query.CharacterId);
             if (achievements == null)
             {
                 achievements = new PlayerCharacterAchievements
                 {
                     CharacterId = query.CharacterId,
                 };
-                _context.PlayerCharacterAchievements.Add(achievements);
+                Context.PlayerCharacterAchievements.Add(achievements);
             }
 
             achievements.AchievementTimestamps = new Dictionary<int, int>();
@@ -63,7 +60,7 @@ namespace Wowthing.Backend.Jobs.Character
                 RecurseCriteria(achievements.CriteriaAmounts, dataAchievement.Criteria?.ChildCriteria);
             }
 
-            await _context.SaveChangesAsync();
+            await Context.SaveChangesAsync();
         }
 
         private static void RecurseCriteria(Dictionary<int, long> criteriaAmounts, List<ApiCharacterAchievementsCriteriaChild> childCriteria)

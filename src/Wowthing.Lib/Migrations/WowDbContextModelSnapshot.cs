@@ -8,6 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models;
+using Wowthing.Lib.Models.Player;
 
 namespace Wowthing.Lib.Migrations
 {

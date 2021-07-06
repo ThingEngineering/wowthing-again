@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using Wowthing.Lib.Models;
+using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
+using Wowthing.Lib.Models.Team;
+using Wowthing.Lib.Models.Wow;
 
 namespace Wowthing.Lib.Contexts
 {
@@ -47,7 +47,6 @@ namespace Wowthing.Lib.Contexts
         public DbSet<SchedulerCharacterQuery> SchedulerCharacterQuery { get; set; }
 
         public WowDbContext(string connectionString)
-            : base()
         {
             _connectionString = connectionString;
         }
@@ -90,15 +89,15 @@ namespace Wowthing.Lib.Contexts
             // Unique indexes
             builder.Entity<PlayerAccount>()
                 .HasIndex(a => new { a.Region, a.AccountId })
-                .IsUnique(true);
+                .IsUnique();
 
             builder.Entity<PlayerCharacter>()
                 .HasIndex(c => new { c.RealmId, c.Name })
-                .IsUnique(true);
+                .IsUnique();
 
             builder.Entity<Team>()
                 .HasIndex(t => new { t.Guid })
-                .IsUnique(true);
+                .IsUnique();
 
             // Relationships
             builder.Entity<PlayerCharacterMythicPlusSeason>()

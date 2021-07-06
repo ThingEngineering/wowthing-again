@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using Wowthing.Lib.Enums;
 
-namespace Wowthing.Lib.Models
+namespace Wowthing.Lib.Models.Wow
 {
     public class WowRealm
     {

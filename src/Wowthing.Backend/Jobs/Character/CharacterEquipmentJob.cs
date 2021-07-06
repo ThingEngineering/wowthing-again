@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.API.Character;
 using Wowthing.Lib.Enums;
-using Wowthing.Lib.Models;
+using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
-using Z.EntityFramework.Plus;
 
-namespace Wowthing.Backend.Jobs.User
+namespace Wowthing.Backend.Jobs.Character
 {
     public class CharacterEquipmentJob : JobBase
     {
-        private const string API_PATH = "profile/wow/character/{0}/{1}/equipment";
+        private const string ApiPath = "profile/wow/character/{0}/{1}/equipment";
 
         public override async Task Run(params string[] data)
         {
@@ -24,7 +20,7 @@ namespace Wowthing.Backend.Jobs.User
             using var shrug = CharacterLog(query);
 
             // Fetch API data
-            var path = string.Format(API_PATH, query.RealmSlug, query.CharacterName.ToLowerInvariant());
+            var path = string.Format(ApiPath, query.RealmSlug, query.CharacterName.ToLowerInvariant());
             var uri = GenerateUri(query.Region, ApiNamespace.Profile, path);
 
             var result = await GetJson<ApiCharacterEquipment>(uri);
@@ -35,14 +31,14 @@ namespace Wowthing.Backend.Jobs.User
             }
 
             // Fetch character data
-            var equipped = await _context.PlayerCharacterEquippedItems.FindAsync(query.CharacterId);
+            var equipped = await Context.PlayerCharacterEquippedItems.FindAsync(query.CharacterId);
             if (equipped == null)
             {
                 equipped = new PlayerCharacterEquippedItems
                 {
                     CharacterId = query.CharacterId,
                 };
-                _context.PlayerCharacterEquippedItems.Add(equipped);
+                Context.PlayerCharacterEquippedItems.Add(equipped);
             }
 
             equipped.Items = result.Data.Items
@@ -59,7 +55,7 @@ namespace Wowthing.Backend.Jobs.User
                     }
                 );
 
-            await _context.SaveChangesAsync();
+            await Context.SaveChangesAsync();
         }
     }
 }

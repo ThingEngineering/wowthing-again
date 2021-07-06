@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Wowthing.Backend.Models.Data
+﻿namespace Wowthing.Backend.Models.Data
 {
     public class OutReputation
     {
@@ -14,8 +8,8 @@ namespace Wowthing.Backend.Models.Data
 
         public OutReputation(DumpFaction faction)
         {
-            Id = faction.ID;
-            TierId = faction.FriendshipRepID;
+            Id = faction.Id;
+            TierId = faction.FriendshipRepId;
             Name = faction.Name;
         }
     }
