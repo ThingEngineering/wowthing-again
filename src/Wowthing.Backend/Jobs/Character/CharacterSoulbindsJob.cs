@@ -48,7 +48,11 @@ namespace Wowthing.Backend.Jobs.Character
             {
                 shadowlands.SoulbindId = soulbind.Soulbind.Id;
 
-                var conduits = soulbind.Traits.Where(t => t.Conduit?.Socket != null).OrderBy(t => t.Tier);
+                var conduits = soulbind.Traits
+                    .Where(t => t.Conduit?.Socket != null)
+                    .OrderBy(t => t.Tier)
+                    .ToArray();
+                
                 shadowlands.ConduitIds = conduits.Select(c => c.Conduit.Socket.Conduit.Id).ToList();
                 shadowlands.ConduitRanks = conduits.Select(c => c.Conduit.Socket.Rank).ToList();
             }

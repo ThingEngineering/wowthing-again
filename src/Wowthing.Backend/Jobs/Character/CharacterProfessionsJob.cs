@@ -77,17 +77,5 @@ namespace Wowthing.Backend.Jobs.Character
 
             await Context.SaveChangesAsync();
         }
-
-        private static void RecurseCriteria(Dictionary<int, long> criteriaAmounts, List<ApiCharacterAchievementsCriteriaChild> childCriteria)
-        {
-            foreach (var child in childCriteria.EmptyIfNull())
-            {
-                if (child.Amount.HasValue)
-                {
-                    criteriaAmounts[child.Id] = (long)child.Amount.Value;
-                }
-                RecurseCriteria(criteriaAmounts, child.ChildCriteria);
-            }
-        }
     }
 }

@@ -48,8 +48,9 @@ namespace Wowthing.Web
 
             services.AddRouting(options =>
             {
-                options.ConstraintMap.Add("slug", typeof(SlugRouteConstraint));
-                options.ConstraintMap.Add("username", typeof(UsernameRouteConstraint));
+                // NOTE these did use .Add() but https://youtrack.jetbrains.com/issue/RSRP-484029
+                options.ConstraintMap["slug"] = typeof(SlugRouteConstraint);
+                options.ConstraintMap["username"] = typeof(UsernameRouteConstraint);
             });
 
             services.AddPostgres(Configuration.GetConnectionString("Postgres"));

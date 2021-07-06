@@ -26,8 +26,6 @@ namespace Wowthing.Backend.Jobs.Data
                 return;
             }
 
-            var apiClass = result.Data;
-
             // Fetch existing data
             var period = await Context.WowPeriod.FirstOrDefaultAsync(p => p.Region == region && p.Id == periodId);
             if (period == null)

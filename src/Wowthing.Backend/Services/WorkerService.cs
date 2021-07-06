@@ -20,11 +20,9 @@ namespace Wowthing.Backend.Services
         private static int _instanceCount;
         private static readonly Dictionary<JobType, Type> JobTypeToClass = new Dictionary<JobType, Type>();
 
-        private readonly int _instanceId;
         private readonly IServiceProvider _services;
         private readonly StateService _stateService;
 
-        private readonly JobRepository _jobRepository;
         private readonly ILogger _logger;
 
         private readonly JobFactory _jobFactory;
@@ -33,13 +31,12 @@ namespace Wowthing.Backend.Services
         {
             _services = services;
 
-            _jobRepository = jobRepository;
             _stateService = stateService;
 
-            _instanceId = Interlocked.Increment(ref _instanceCount);
-            _logger = Log.ForContext("Service", $"Worker {_instanceId,2} | ");
+            var instanceId = Interlocked.Increment(ref _instanceCount);
+            _logger = Log.ForContext("Service", $"Worker {instanceId,2} | ");
 
-            _jobFactory = new JobFactory(_jobRepository, clientFactory, _logger, redis, stateService);
+            _jobFactory = new JobFactory(jobRepository, clientFactory, _logger, redis, stateService);
         }
 
         // Find all jobs and cache them

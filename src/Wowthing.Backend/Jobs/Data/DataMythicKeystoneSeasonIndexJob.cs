@@ -38,7 +38,7 @@ namespace Wowthing.Backend.Jobs.Data
 
                 foreach (var apiSeason in result.Data.Seasons)
                 {
-                    if (!seasonMap.TryGetValue((region, apiSeason.Id), out WowMythicPlusSeason season))
+                    if (!seasonMap.ContainsKey((region, apiSeason.Id)))
                     {
                         Context.WowMythicPlusSeason.Add(new WowMythicPlusSeason()
                         {
