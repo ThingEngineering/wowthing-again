@@ -10,6 +10,7 @@ namespace Wowthing.Lib.Models
         public const int API_KEY_LENGTH = 16;
 
         public string ApiKey { get; set; }
+        public DateTime LastVisit { get; set; } = DateTime.MinValue;
 
         [Column(TypeName = "jsonb")]
         public ApplicationUserSettings Settings { get; set; }
@@ -17,7 +18,7 @@ namespace Wowthing.Lib.Models
         public void GenerateApiKey()
         {
             var serviceProvider = new RNGCryptoServiceProvider();
-            byte[] bytes = new byte[API_KEY_LENGTH];
+            var bytes = new byte[API_KEY_LENGTH];
             serviceProvider.GetBytes(bytes);
             ApiKey = BitConverter.ToString(bytes).Replace("-", "");
         }

@@ -179,6 +179,13 @@ namespace Wowthing.Web.Controllers
             var pub = User?.Identity?.Name != user.UserName;
             var anon = user.Settings?.Privacy?.Anonymized == true;
 
+            // Update user last visit
+            if (!pub)
+            {
+                user.LastVisit = DateTime.Now;
+                await _userManager.UpdateAsync(user);
+            }
+
             // Retrieve data
             var mountIds = await db.GetSetMembersAsync(string.Format(RedisKeys.USER_MOUNTS, user.Id));
             

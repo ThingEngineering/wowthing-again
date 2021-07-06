@@ -17,12 +17,12 @@ namespace Wowthing.Backend.Services
 {
     public sealed class SchedulerService : TimerService
     {
-        private const int TimerInterval = 5;
+        private const int TimerInterval = 10;
         
         private readonly JobRepository _jobRepository;
         private readonly WowDbContext _context;
         
-        private readonly List<ScheduledJob> _scheduledJobs = new List<ScheduledJob>();
+        private readonly List<ScheduledJob> _scheduledJobs = new();
 
         private const string QueryCharacters = @"
 SELECT  c.id AS character_id,
@@ -33,15 +33,17 @@ SELECT  c.id AS character_id,
 FROM    player_character c
 INNER JOIN wow_realm r ON c.realm_id = r.id
 INNER JOIN player_account a ON c.account_id = a.id
+LEFT OUTER JOIN asp_net_users u ON a.user_id = u.id
 WHERE (
     (current_timestamp - c.last_api_check) > (
         '10 minutes'::interval +
         ('1 minute'::interval * LEAST(50, GREATEST(0, 60 - c.level))) +
+        ('10 minutes'::interval * LEAST(24, EXTRACT(EPOCH FROM current_timestamp - COALESCE(u.last_visit, current_timestamp - '24 hours'::interval)) / 86400)) +
         ('1 hour'::interval * LEAST(168, c.delay_hours))
     )
 )
 ORDER BY c.last_api_check
-LIMIT 100
+LIMIT 500
 ";
 
         public SchedulerService(IServiceProvider services, JobRepository jobRepository)

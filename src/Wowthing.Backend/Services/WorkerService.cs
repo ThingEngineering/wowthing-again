@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
@@ -27,7 +29,7 @@ namespace Wowthing.Backend.Services
 
         private readonly JobFactory _jobFactory;
 
-        public WorkerService(IHttpClientFactory clientFactory, IServiceProvider services, IConnectionMultiplexer redis, JobRepository jobRepository, StateService stateService)
+        public WorkerService(IConfiguration config, IHttpClientFactory clientFactory, IServiceProvider services, IConnectionMultiplexer redis, JobRepository jobRepository, StateService stateService)
         {
             _services = services;
 
@@ -36,7 +38,8 @@ namespace Wowthing.Backend.Services
             var instanceId = Interlocked.Increment(ref _instanceCount);
             _logger = Log.ForContext("Service", $"Worker {instanceId,2} | ");
 
-            _jobFactory = new JobFactory(jobRepository, clientFactory, _logger, redis, stateService);
+            var redisConnectionString = config.GetConnectionString("Redis");
+            _jobFactory = new JobFactory(jobRepository, clientFactory, _logger, stateService, redisConnectionString);
         }
 
         // Find all jobs and cache them
