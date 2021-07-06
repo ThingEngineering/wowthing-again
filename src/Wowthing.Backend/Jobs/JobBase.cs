@@ -93,59 +93,52 @@ namespace Wowthing.Backend.Jobs
                 }
             }
 
-            if (string.IsNullOrEmpty(contentString))
+            using var request = new HttpRequestMessage(HttpMethod.Get, uri);
+
+            if (useAuthorization)
             {
-                using var request = new HttpRequestMessage(HttpMethod.Get, uri);
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", StateService.AccessToken.AccessToken);
+            }
+            if (lastModified > DateTime.MinValue)
+            {
+                request.Headers.IfModifiedSince = new DateTimeOffset(lastModified);
+            }
 
-                if (useAuthorization)
+            HttpResponseMessage response;
+            try
+            {
+                response = await Http.SendAsync(request, CancellationToken);
+            }
+            catch (OperationCanceledException ex)
+            {
+                if (ex.InnerException != null)
                 {
-                    request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", StateService.AccessToken.AccessToken);
+                    throw ex.InnerException;
                 }
-                if (lastModified > DateTime.MinValue)
+                else
                 {
-                    request.Headers.IfModifiedSince = new DateTimeOffset(lastModified);
-                }
-
-                HttpResponseMessage response;
-                try
-                {
-                    response = await Http.SendAsync(request, CancellationToken);
-                }
-                catch (OperationCanceledException ex)
-                {
-                    if (ex.InnerException != null)
-                    {
-                        throw ex.InnerException;
-                    }
-                    else
-                    {
-                        throw new HttpRequestException("Operation canceled??");
-                    }
-                }
-
-                if (response.StatusCode == HttpStatusCode.NotModified)
-                {
-                    return new JsonResult<T> { NotModified = true };
-                }
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    response.Content?.Dispose();
-                    throw new HttpRequestException(((int)response.StatusCode).ToString());
-                }
-
-                contentString = await response.Content.ReadAsStringAsync();
-
-                timer.AddPoint("API");
-
-                if (useLastModified && response.Content.Headers.LastModified.HasValue)
-                {
-                    await db.StringSetAsync(cacheKey, response.Content.Headers.LastModified.Value.UtcDateTime.ToString("O"));
-                    timer.AddPoint("Cache");
+                    throw new HttpRequestException("Operation canceled??");
                 }
             }
-            else
+
+            if (response.StatusCode == HttpStatusCode.NotModified)
             {
+                return new JsonResult<T> { NotModified = true };
+            }
+
+            if (!response.IsSuccessStatusCode)
+            {
+                response.Content?.Dispose();
+                throw new HttpRequestException(((int)response.StatusCode).ToString());
+            }
+
+            contentString = await response.Content.ReadAsStringAsync();
+
+            timer.AddPoint("API");
+
+            if (useLastModified && response.Content.Headers.LastModified.HasValue)
+            {
+                await db.StringSetAsync(cacheKey, response.Content.Headers.LastModified.Value.UtcDateTime.ToString("O"));
                 timer.AddPoint("Cache");
             }
 
