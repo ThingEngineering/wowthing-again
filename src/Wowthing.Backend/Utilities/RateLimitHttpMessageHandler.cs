@@ -10,10 +10,12 @@ namespace Wowthing.Backend.Utilities
     public class RateLimitHttpMessageHandler : DelegatingHandler
     {
         private readonly RateLimiter _rateLimiter;
+        private readonly int _perSecond;
 
-        public RateLimitHttpMessageHandler(IConnectionMultiplexer redis)
+        public RateLimitHttpMessageHandler(IConnectionMultiplexer redis, int perSecond)
         {
             _rateLimiter = new RateLimiter(redis.GetDatabase());
+            _perSecond = perSecond;
         }
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
@@ -22,8 +24,8 @@ namespace Wowthing.Backend.Utilities
             var limitRequest = new ThrottleRateLimitRequest
             {
                 Key = request.RequestUri.Host,
-                Capacity = 10, // 10 max burst
-                RefillRate = 10, // 10 per second refill
+                Capacity = _perSecond, // max burst
+                RefillRate = _perSecond, // per second refill
             };
 
             while (true)
@@ -38,7 +40,7 @@ namespace Wowthing.Backend.Utilities
                 await Task.Delay(backoff, cancellationToken);
                 backoff *= 2;
 
-                if (backoff > 3200)
+                if (backoff >= 5000)
                 {
                     throw new TimeoutException("Giving up, rate limiter is sad");
                 } 
