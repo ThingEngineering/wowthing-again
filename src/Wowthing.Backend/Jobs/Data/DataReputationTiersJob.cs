@@ -17,7 +17,7 @@ namespace Wowthing.Backend.Jobs.Data
             int tierId = int.Parse(data[0]);
 
             // Fetch API data
-            var uri = GenerateUri(WowRegion.Us, ApiNamespace.Static, string.Format(ApiPath, tierId));
+            var uri = GenerateUri(WowRegion.US, ApiNamespace.Static, string.Format(ApiPath, tierId));
             var result = await GetJson<ApiDataReputationTiers>(uri);
             if (result.NotModified)
             {

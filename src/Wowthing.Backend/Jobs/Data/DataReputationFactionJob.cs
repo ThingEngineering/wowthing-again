@@ -16,7 +16,7 @@ namespace Wowthing.Backend.Jobs.Data
             int factionId = int.Parse(data[0]);
 
             // Fetch API data
-            var uri = GenerateUri(WowRegion.Us, ApiNamespace.Static, string.Format(ApiPath, factionId));
+            var uri = GenerateUri(WowRegion.US, ApiNamespace.Static, string.Format(ApiPath, factionId));
             var result = await GetJson<ApiDataReputationFaction>(uri);
             if (result.NotModified)
             {
