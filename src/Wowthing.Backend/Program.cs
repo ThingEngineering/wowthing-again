@@ -34,7 +34,6 @@ namespace Wowthing.Backend
             Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(Configuration)
                 .Enrich.FromLogContext()
-                .MinimumLevel.Debug()
                 .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss.fff} {Level:u3}] {Service}{Task}{Message:lj}{NewLine}{Exception}")
                 .CreateLogger();
 
@@ -70,19 +69,6 @@ namespace Wowthing.Backend
 
         private static void ConfigureServices(HostBuilderContext hostContext, IServiceCollection services)
         {
-            AddRateLimitedHttpClient(services);
-
-            // Databases
-            services.AddPostgres(Configuration.GetConnectionString("Postgres"));
-            var redis = services.AddRedis(Configuration.GetConnectionString("Redis"));
-
-            // HTTP clients
-            services.AddHttpClient("limited", config =>
-            {
-                config.Timeout = TimeSpan.FromSeconds(10);
-            })
-                .AddHttpMessageHandler(() => new RateLimitHttpMessageHandler(redis))
-                .SetHandlerLifetime(Timeout.InfiniteTimeSpan);
             // Options
             services.AddOptions<BattleNetOptions>()
                 .Bind(Configuration.GetSection("BattleNet"))
@@ -91,6 +77,21 @@ namespace Wowthing.Backend
                     return !(string.IsNullOrWhiteSpace(config.ClientID) || string.IsNullOrWhiteSpace(config.ClientSecret));
                 }, "BattleNet.ClientID and .ClientSecret must be set");
 
+            var backendOptions = new WowthingBackendOptions();
+            Configuration.GetSection("WowthingBackend").Bind(backendOptions);
+            
+            // Databases
+            services.AddPostgres(Configuration.GetConnectionString("Postgres"));
+            var redis = services.AddRedis(Configuration.GetConnectionString("Redis"));
+
+            // HTTP clients
+            services.AddHttpClient("limited", config =>
+            {
+                config.Timeout = TimeSpan.FromSeconds(backendOptions.ApiRateLimit);
+            })
+                .AddHttpMessageHandler(() => new RateLimitHttpMessageHandler(redis))
+                .SetHandlerLifetime(Timeout.InfiniteTimeSpan);
+
             // Services
             services.AddSingleton<StateService>();
 
@@ -98,31 +99,10 @@ namespace Wowthing.Backend
             services.AddHostedService<JobQueueService>(); 
             services.AddHostedService<SchedulerService>();
             
-            // TODO: setting for this
-            for (int i = 0; i < 4; i++)
+            for (var i = 0; i < backendOptions.WorkerCount; i++)
             {
                 services.AddSingleton<IHostedService, WorkerService>();
             }
-        }
-
-        private static void AddRateLimitedHttpClient(IServiceCollection services)
-        {
-            // NOTE Blizzard's provided numbers are complete bullshit and you'll get 429 spam if you try
-            // default limit of 100 per second
-            /*var perSecond = new CountByIntervalAwaitableConstraint(10, TimeSpan.FromSeconds(1));
-            // default limit of 36,000 per hour
-            var perHour = new CountByIntervalAwaitableConstraint(3600, TimeSpan.FromHours(1));
-
-            var rateLimiter = TimeLimiter.Compose(perSecond, perHour)
-                .AsDelegatingHandler();*/
-
-            /*var httpClient = new HttpClient()
-            {
-                // Set a more reasonable timeout, default is 100s
-                Timeout = TimeSpan.FromSeconds(10)
-            };
-
-            services.AddSingleton(httpClient);*/
         }
     }
 }
