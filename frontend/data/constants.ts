@@ -1,7 +1,7 @@
 export abstract class Constants {
     static readonly characterMaxLevel: number = 60
-    static readonly maxTorghastWing: number = 9
-    static readonly mythicPlusSeason: number = 5
+    static readonly maxTorghastWing: number = 10
+    static readonly mythicPlusSeason: number = 6
 
     static readonly icons = {
         resting: 'spell/140430', // Passed Out

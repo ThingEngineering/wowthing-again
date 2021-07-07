@@ -18,6 +18,7 @@ namespace Wowthing.Backend.Models.API.NonBlizzard
             { "season-bfa-3", 3 },
             { "season-bfa-4", 4 },
             { "season-sl-1", 5 },
+            { "season-sl-2", 6 },
         };
 
         public string Season { get; set; }
