@@ -1,4 +1,4 @@
-import {Difficulty, Dungeon, MythicPlusAffix, MythicPlusSeason} from '@/types'
+import {Dungeon, MythicPlusAffix, MythicPlusSeason} from '@/types'
 import type { Dictionary } from '@/types'
 
 export const affixMap: Dictionary<MythicPlusAffix> = {
