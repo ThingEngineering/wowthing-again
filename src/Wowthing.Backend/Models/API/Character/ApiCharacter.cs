@@ -42,7 +42,32 @@ namespace Wowthing.Backend.Models.API.Character
         public ApiObnoxiousObject Class { get; set; }
         
         [JsonProperty("covenant_progress")]
-        public ApiCharacterCovenantProgress CovenantProgress { get; set; } 
+        public ApiCharacterCovenantProgress CovenantProgress { get; set; }
+        
+        // Link sections
+        [JsonProperty("achievements")]
+        public ApiObnoxiousHref AchievementsLink { get; set; }
+        
+        [JsonProperty("collections")]
+        public ApiObnoxiousHref CollectionsLink { get; set; }
+        
+        [JsonProperty("equipment")]
+        public ApiObnoxiousHref EquipmentLink { get; set; }
+        
+        [JsonProperty("mythic_keystone_profile")]
+        public ApiObnoxiousHref MythicKeystoneProfileLink { get; set; }
+        
+        [JsonProperty("professions")]
+        public ApiObnoxiousHref ProfessionsLink { get; set; }
+
+        [JsonProperty("quests")]
+        public ApiObnoxiousHref QuestsLink { get; set; }
+
+        [JsonProperty("reputations")]
+        public ApiObnoxiousHref ReputationsLink { get; set; }
+        
+        [JsonProperty("titles")]
+        public ApiObnoxiousHref TitlesLink { get; set; }
     }
 
     public class ApiCharacterCovenantProgress
@@ -50,6 +75,7 @@ namespace Wowthing.Backend.Models.API.Character
         [JsonProperty("chosen_covenant")]
         public ApiObnoxiousObject ChosenCovenant { get; set; }
         
-        public Dictionary<string, string> Soulbinds { get; set; }
+        [JsonProperty("soulbinds")]
+        public ApiObnoxiousHref SoulbindsLink { get; set; }
     }
 }
