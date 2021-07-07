@@ -8,7 +8,7 @@ export class CharacterRace {
         this.id = id
         this.name = name
 
-        const safeName = name.toLowerCase().replace(/[' ]/g, '_')
+        const safeName = name.toLowerCase().replace(/ /g, '_').replace(/'/g, '')
         this.icons = [`race_${safeName}_female`, `race_${safeName}_male`]
     }
 }
