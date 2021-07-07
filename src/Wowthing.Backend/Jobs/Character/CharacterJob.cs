@@ -96,32 +96,48 @@ namespace Wowthing.Backend.Jobs.Character
             await Context.SaveChangesAsync();
 
             // Character changed, queue some more stuff
-            var jobs = new List<JobType>
-            {
-                JobType.CharacterAchievements,
-                JobType.CharacterEquipment,
-                JobType.CharacterMounts,
-                JobType.CharacterProfessions,
-                JobType.CharacterQuestsCompleted,
-                JobType.CharacterReputations,
-            };
+            var jobs = new List<JobType>();
 
-            // API only has M+ data from BfA onwards
-            if (character.Level >= 50)
+            if (apiCharacter.AchievementsLink?.Href != null)
+            {
+                jobs.Add(JobType.CharacterAchievements);
+            }
+
+            if (apiCharacter.CollectionsLink?.Href != null)
+            {
+                jobs.Add(JobType.CharacterMounts);
+            }
+
+            if (apiCharacter.EquipmentLink?.Href != null)
+            {
+                jobs.Add(JobType.CharacterEquipment);
+            }
+
+            if (apiCharacter.MythicKeystoneProfileLink?.Href != null)
             {
                 jobs.Add(JobType.CharacterMythicKeystoneProfile);
+                jobs.Add(JobType.CharacterRaiderIo);
+            }
+            
+            if (apiCharacter.ProfessionsLink?.Href != null)
+            {
+                jobs.Add(JobType.CharacterProfessions);
+            }
+
+            if (apiCharacter.QuestsLink?.Href != null)
+            {
+                jobs.Add(JobType.CharacterQuestsCompleted);
+            }
+
+            if (apiCharacter.ReputationsLink?.Href != null)
+            {
+                jobs.Add(JobType.CharacterReputations);
             }
 
             // Shadowlands specific
-            if (apiCharacter.CovenantProgress?.Soulbinds?.ContainsKey("href") == true)
+            if (apiCharacter.CovenantProgress?.SoulbindsLink?.Href != null)
             {
                 jobs.Add(JobType.CharacterSoulbinds);
-            }
-
-            // FIXME RaiderIO for max level people?
-            if (character.Level == 60)
-            {
-                jobs.Add(JobType.CharacterRaiderIo);
             }
 
             foreach (var jobType in jobs)
