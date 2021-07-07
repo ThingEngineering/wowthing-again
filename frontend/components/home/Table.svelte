@@ -13,6 +13,7 @@
     import RowTorghast from './table/row/Torghast.svelte'
     import RowUghQuests from './table/RowUghQuests.svelte'
     import RowVaultMythicPlus from '@/components/character-table/row/VaultMythicPlus.svelte'
+    import RowVaultRaid from '@/components/character-table/row/VaultRaid.svelte'
 </script>
 
 <CharacterTable>
@@ -49,6 +50,10 @@
 
         {#if $settings.home.showVaultMythicPlus}
             <RowVaultMythicPlus {character} />
+        {/if}
+
+        {#if $settings.home.showVaultRaid}
+            <RowVaultRaid {character} />
         {/if}
 
         {#if $settings.home.showStatuses && $userData.public === false}
