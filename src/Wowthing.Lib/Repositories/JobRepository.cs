@@ -19,12 +19,13 @@ namespace Wowthing.Lib.Repositories
 
         public async Task AddJobAsync(JobPriority priority, JobType type, params string[] data)
         {
+            var sub = _redis.GetSubscriber();
             var job = new WorkerJob
             {
                 Type = type,
                 Data = data,
             };
-            await _redis.GetSubscriber().PublishAsync("jobs", JsonConvert.SerializeObject(job));
+            await sub.PublishAsync("jobs", JsonConvert.SerializeObject(job));
         }
 
         public async Task AddJobsAsync(JobPriority priority, JobType type, IEnumerable<string[]> datas)
