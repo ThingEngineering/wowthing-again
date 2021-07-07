@@ -17,7 +17,7 @@ export interface UserData {
     allLockouts: InstanceDifficulty[]
 }
 
-interface UserDataCurrentPeriod {
+export interface UserDataCurrentPeriod {
     id: number
     region: number
     starts: string

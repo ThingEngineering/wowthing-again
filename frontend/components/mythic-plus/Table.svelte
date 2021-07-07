@@ -7,6 +7,7 @@
         CharacterMythicPlusRun,
         MythicPlusSeason,
     } from '@/types'
+    import getCurrentPeriodForCharacter from '@/utils/get-current-period-for-character'
 
     import CharacterTable from '@/components/character-table/Table.svelte'
     import Head from '@/components/character-table/Head.svelte'
@@ -39,7 +40,14 @@
         if (slug === 'thisweek') {
             isThisWeek = true
             season = firstSeason
-            runsFunc = (char, dungeonId) => char.mythicPlus?.periodRuns?.[dungeonId] || []
+            runsFunc = (char, dungeonId) => {
+                const currentPeriod = getCurrentPeriodForCharacter(char)
+                if (char.mythicPlus?.currentPeriodId === currentPeriod.id) {
+                    return char.mythicPlus?.periodRuns?.[dungeonId] || []
+                } else {
+                    return []
+                }
+            }
         }
         else {
             isThisWeek = false
