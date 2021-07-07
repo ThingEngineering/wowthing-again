@@ -22,9 +22,9 @@
     $: {
         character = getContext('character')
         scores = character.raiderIo?.[season.Id]
-        if (scores !== undefined) {
-            for (let i = 0; i < $staticData.raiderIoScoreTiers.length; i++) {
-                const tier: StaticDataRaiderIoScoreTier = $staticData.raiderIoScoreTiers[i]
+        if (scores !== undefined && $staticData.raiderIoScoreTiers[season.Id] !== undefined) {
+            for (const tier of $staticData.raiderIoScoreTiers[season.Id]) {
+                //const tier: StaticDataRaiderIoScoreTier = $staticData.raiderIoScoreTiers[i]
                 if (scores.all >= tier.score) {
                     color = tier.rgbHex
                     break
