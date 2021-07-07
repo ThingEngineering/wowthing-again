@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
+using Microsoft.Extensions.Logging;
 using Npgsql;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Player;
@@ -12,8 +15,6 @@ namespace Wowthing.Lib.Contexts
 {
     public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long>, long>
     {
-        private readonly string _connectionString;
-
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
 
         public DbSet<WowPeriod> WowPeriod { get; set; }
@@ -46,10 +47,10 @@ namespace Wowthing.Lib.Contexts
         // Garbage query types
         public DbSet<SchedulerCharacterQuery> SchedulerCharacterQuery { get; set; }
 
-        public WowDbContext(string connectionString)
+        /*public WowDbContext(string connectionString)
         {
             _connectionString = connectionString;
-        }
+        }*/
 
         public WowDbContext(DbContextOptions<WowDbContext> options)
             : base(options)
@@ -57,9 +58,14 @@ namespace Wowthing.Lib.Contexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            // Context initialized is pretty spammy
+            optionsBuilder.ConfigureWarnings(b => b.Log(
+                (CoreEventId.ContextInitialized, LogLevel.Debug)
+            ));
+        
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseNpgsql(_connectionString);
+                throw new InvalidOperationException("optionsBuilder is not configured");
             }
             optionsBuilder.UseSnakeCaseNamingConvention();
             optionsBuilder.UseBatchEF_Npgsql();
