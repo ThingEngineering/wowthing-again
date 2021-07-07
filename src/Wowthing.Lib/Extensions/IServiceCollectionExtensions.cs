@@ -17,6 +17,14 @@ namespace Wowthing.Lib.Extensions
 #if DEBUG
                 options.EnableSensitiveDataLogging();
 #endif
+            }, optionsLifetime: ServiceLifetime.Singleton);
+
+            services.AddDbContextFactory<WowDbContext>(options =>
+            {
+                options.UseNpgsql(connectionString);
+#if DEBUG
+                options.EnableSensitiveDataLogging();
+#endif
             });
 
             return services;

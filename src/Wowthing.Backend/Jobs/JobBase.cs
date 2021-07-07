@@ -82,7 +82,6 @@ namespace Wowthing.Backend.Jobs
 
             // Try from cache first
             string cacheKey = string.Format(CacheKeyLastModified, uri.ToString().Md5());
-            string contentString = null;
             DateTime lastModified = DateTime.MinValue;
             if (useLastModified)
             {
@@ -132,7 +131,7 @@ namespace Wowthing.Backend.Jobs
                 throw new HttpRequestException(((int)response.StatusCode).ToString());
             }
 
-            contentString = await response.Content.ReadAsStringAsync();
+            var contentString = await response.Content.ReadAsStringAsync();
 
             timer.AddPoint("API");
 

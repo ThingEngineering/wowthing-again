@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
@@ -112,6 +113,11 @@ LIMIT 500
                 var results = await _context.SchedulerCharacterQuery.FromSqlRaw(QueryCharacters).ToArrayAsync();
                 if (results.Length > 0)
                 {
+                    Logger.Debug("Pre-GC: {0}", GC.GetTotalMemory(false));
+                    GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
+                    var postGc = GC.GetTotalMemory(true);
+                    Logger.Debug("Post-GC: {0}", postGc);
+
                     var resultData = results.Select(r => new
                     {
                         Result = r,
