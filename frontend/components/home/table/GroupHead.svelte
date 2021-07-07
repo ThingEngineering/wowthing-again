@@ -66,12 +66,12 @@
         <td>Keystone</td>
     {/if}
 
-    <!--{#if $settings.home.showVaultRaid}
-        <td colspan="3">Raid Vault</td>
-    {/if}-->
-
     {#if $settings.home.showVaultMythicPlus}
         <td>M+ Vault</td>
+    {/if}
+
+    {#if $settings.home.showVaultRaid}
+        <td>Raid Vault</td>
     {/if}
 
     <!--{#if $settings.home.showVaultPvp}

@@ -1,4 +1,4 @@
-import { Dungeon, MythicPlusAffix, MythicPlusSeason } from '@/types'
+import {Difficulty, Dungeon, MythicPlusAffix, MythicPlusSeason} from '@/types'
 import type { Dictionary } from '@/types'
 
 export const affixMap: Dictionary<MythicPlusAffix> = {
@@ -188,3 +188,10 @@ export const keyVaultItemLevel: Array<Array<number>> = [
     [5, 229],
     [2, 226],
 ]
+
+export const raidVaultItemLevel: Dictionary<number> = {
+    17: 213, // LFR
+    14: 226, // Normal
+    15: 239, // Heroic
+    16: 252, // Mythic
+}
