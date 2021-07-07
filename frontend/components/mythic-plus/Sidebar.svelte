@@ -17,9 +17,16 @@
     <li class="separator" />
     {#each seasons as season}
         <li use:active={`/mythicplus/season${season.Id}`}>
-            <a href="/mythicplus/season{season.Id}" use:link
-                >Season {season.Id}</a
-            >
+            <a href="/mythicplus/season{season.Id}" use:link>
+                {#if season.Id >= 5}
+                    SL Season {season.Id - 4}
+                {:else}
+                    BfA Season {season.Id}
+                {/if}
+            </a>
         </li>
+        {#if season.Id === 5}
+            <li class="separator"></li>
+        {/if}
     {/each}
 </Sidebar>
