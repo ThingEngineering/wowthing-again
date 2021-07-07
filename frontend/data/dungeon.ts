@@ -25,6 +25,7 @@ export const affixMap: Dictionary<MythicPlusAffix> = {
     119: new MythicPlusAffix('Beguiling'), // BfA S3
     120: new MythicPlusAffix('Awakened'), // BfA S4
     121: new MythicPlusAffix('Prideful'), // SL S1
+    128: new MythicPlusAffix('Tormented'), // SL S2
 }
 
 export const dungeonMap: Dictionary<Dungeon> = {
@@ -164,6 +165,7 @@ export const seasonMap: Dictionary<MythicPlusSeason> = {
         orderBattleForAzeroth2,
     ]),
     5: new MythicPlusSeason(5, 60, [orderShadowlands]),
+    6: new MythicPlusSeason(6, 60, [orderShadowlands]),
 }
 
 export const badgeToClass: Dictionary<string> = {
@@ -176,13 +178,13 @@ export const badgeToClass: Dictionary<string> = {
 
 // [key level, item level] first match >= key is used
 export const keyVaultItemLevel: Array<Array<number>> = [
-    [14, 226],
-    [12, 223],
-    [10, 220],
-    [8, 216],
-    [7, 213],
-    [5, 210],
-    [4, 207],
-    [3, 203],
-    [2, 200],
+    [15, 252],
+    [14, 249],
+    [12, 246],
+    [11, 242],
+    [10, 239],
+    [8, 236],
+    [7, 233],
+    [5, 229],
+    [2, 226],
 ]
