@@ -11,7 +11,6 @@ namespace Wowthing.Backend.Jobs.NonBlizzard
 {
     public class CharacterRaiderIoJob : JobBase
     {
-        // FIXME generate this from stored season info
         private const string ApiUrl = "https://raider.io/api/v1/characters/profile?region={0}&realm={1}&name={2}&fields=mythic_plus_scores_by_season%3A{3}";
 
         public override async Task Run(params string[] data)
@@ -26,17 +25,8 @@ namespace Wowthing.Backend.Jobs.NonBlizzard
                 .OrderByDescending(s => s)
                 .ToArrayAsync();
 
-            var oof = string.Join(":", seasons.Select(s =>
-            {
-                if (s >= 5)
-                {
-                    return $"season-sl-{s - 4}";
-                }
-                else
-                {
-                    return $"season-bfa-{s}";
-                } 
-            }));
+            var oof = string.Join(":",
+                seasons.Select(s => ApiCharacterRaiderIoSeason.SeasonMap.First(kvp => kvp.Value == s).Key));
 
             // Fetch API data
             var uri = new Uri(string.Format(ApiUrl, query.Region.ToString().ToLowerInvariant(), query.RealmSlug, query.CharacterName.ToLowerInvariant(), oof));

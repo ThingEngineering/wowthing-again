@@ -38,6 +38,6 @@ namespace Wowthing.Backend.Models.Redis
         public List<List<RedisSetCategory>> ToySets { get; set; }
 
         [JsonProperty(Order = 100)]
-        public List<ApiDataRaiderIoScoreTier> RaiderIoScoreTiers { get; set; }
+        public Dictionary<int, List<ApiDataRaiderIoScoreTier>> RaiderIoScoreTiers { get; set; }
     }
 }
