@@ -1,15 +1,15 @@
 <script lang="ts">
-    import {data as staticData} from '@/stores/static'
-    import type {Character, CharacterLockout, InstanceDifficulty, StaticDataInstance} from '@/types'
+    //import {data as staticData} from '@/stores/static'
+    import type {Character, CharacterLockout, InstanceDifficulty/*, StaticDataInstance*/} from '@/types'
 
     export let character: Character
     export let instanceDifficulty: InstanceDifficulty
 
-    let instance: StaticDataInstance
+    //let instance: StaticDataInstance
     let lockout: CharacterLockout
 
     $: {
-        instance = $staticData.instances[instanceDifficulty.instanceId]
+        //instance = $staticData.instances[instanceDifficulty.instanceId]
         lockout = character.lockouts?.[instanceDifficulty.key]
     }
 </script>

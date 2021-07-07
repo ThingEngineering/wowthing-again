@@ -3,13 +3,7 @@
 
     import { raiderIoScores } from '@/data/raider-io'
     import { data as staticData } from '@/stores/static'
-    import type {
-        Character,
-        CharacterRaiderIoSeason,
-        MythicPlusSeason,
-        StaticDataRaiderIoScoreTier,
-        TippyProps,
-    } from '@/types'
+    import type { Character, CharacterRaiderIoSeason, MythicPlusSeason, TippyProps } from '@/types'
     import tippy from '@/utils/tippy'
 
     export let season: MythicPlusSeason
