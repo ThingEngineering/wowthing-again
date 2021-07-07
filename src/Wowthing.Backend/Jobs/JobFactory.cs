@@ -2,7 +2,6 @@
 using System.Net.Http;
 using System.Threading;
 using Serilog;
-using StackExchange.Redis;
 using Wowthing.Backend.Services;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Repositories;
@@ -13,18 +12,24 @@ namespace Wowthing.Backend.Jobs
     public class JobFactory
     {
         private readonly IHttpClientFactory _clientFactory;
-        private readonly JobRepository _jobRepository;
         private readonly ILogger _logger;
+        private readonly JobRepository _jobRepository;
         private readonly StateService _stateService;
         private readonly string _redisConnectionString;
 
-        public JobFactory(JobRepository jobRepository, IHttpClientFactory clientFactory, ILogger logger, StateService stateService, string redisConnectionString)
+        public JobFactory(
+            IHttpClientFactory clientFactory,
+            ILogger logger,
+            JobRepository jobRepository,
+            StateService stateService,
+            string redisConnectionString
+        )
         {
             _clientFactory = clientFactory;
             _jobRepository = jobRepository;
             _logger = logger;
-            _stateService = stateService;
             _redisConnectionString = redisConnectionString;
+            _stateService = stateService;
         }
 
         public IJob Create(Type type, WowDbContext context, CancellationToken cancellationToken)
