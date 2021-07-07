@@ -11,7 +11,7 @@ namespace Wowthing.Backend.Models.API.NonBlizzard
 
     public class ApiCharacterRaiderIoSeason
     {
-        private static readonly Dictionary<string, int> SeasonMap = new Dictionary<string, int>
+        public static readonly Dictionary<string, int> SeasonMap = new Dictionary<string, int>
         {
             { "season-bfa-1", 1 },
             { "season-bfa-2", 2 },

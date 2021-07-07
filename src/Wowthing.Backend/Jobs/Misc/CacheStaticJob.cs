@@ -34,7 +34,7 @@ namespace Wowthing.Backend.Jobs.Misc
             var timer = new JankTimer();
 
             // RaiderIO
-            var raiderIoScoreTiers = await db.JsonGetAsync<List<ApiDataRaiderIoScoreTier>>(DataRaiderIoScoreTiersJob.CACHE_KEY);
+            var raiderIoScoreTiers = await db.JsonGetAsync<Dictionary<int, List<ApiDataRaiderIoScoreTier>>>(DataRaiderIoScoreTiersJob.CACHE_KEY);
 
             // Currencies
             var currencies = await LoadCurrencies();
@@ -93,7 +93,7 @@ namespace Wowthing.Backend.Jobs.Misc
 
                 ToySets = toySets,
 
-                RaiderIoScoreTiers = raiderIoScoreTiers ?? new List<ApiDataRaiderIoScoreTier>(),
+                RaiderIoScoreTiers = raiderIoScoreTiers ?? new Dictionary<int, List<ApiDataRaiderIoScoreTier>>(),
             };
             var cacheJson = JsonConvert.SerializeObject(cacheData);
             var cacheHash = cacheJson.Md5();
