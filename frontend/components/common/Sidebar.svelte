@@ -16,7 +16,8 @@
     ul {
         margin: 0;
     }
-    ul :global(li) {
+    ul :global(li a) {
+        display: block;
         padding: 0.2rem 0.5rem;
     }
     ul :global(.active) {
@@ -24,7 +25,7 @@
     }
     ul :global(.separator) {
         border-top: 1px solid $border-color;
-        margin-top: 0.5rem;
+        margin: 0.5rem 0;
     }
 </style>
 
