@@ -17,7 +17,10 @@
         covenant = covenantMap[character.shadowlands?.covenantId]
         if (covenant) {
             tooltip = covenant.getTooltip(character.shadowlands.renownLevel)
-            maxRenown += (getCurrentPeriodForCharacter(character).id - 808) * 2
+            const currentPeriod = getCurrentPeriodForCharacter(character)
+            if (currentPeriod) {
+                maxRenown += (currentPeriod.id - 808) * 2
+            }
         }
     }
 </script>
