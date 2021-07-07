@@ -42,7 +42,7 @@
             season = firstSeason
             runsFunc = (char, dungeonId) => {
                 const currentPeriod = getCurrentPeriodForCharacter(char)
-                if (char.mythicPlus?.currentPeriodId === currentPeriod.id) {
+                if (currentPeriod && char.mythicPlus?.currentPeriodId === currentPeriod.id) {
                     return char.mythicPlus?.periodRuns?.[dungeonId] || []
                 } else {
                     return []
