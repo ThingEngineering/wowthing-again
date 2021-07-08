@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.API.Data;
 using Wowthing.Lib.Enums;
@@ -22,20 +23,23 @@ namespace Wowthing.Backend.Jobs.Data
 
         public override async Task Run(params string[] data)
         {
+            var periodMap = await Context.WowPeriod
+                .ToDictionaryAsync(period => (period.Region, period.Id));
+
             foreach (var region in EnumUtilities.GetValues<WowRegion>())
             {
                 // Fetch API data
                 var uri = GenerateUri(region, ApiNamespace.Dynamic, ApiPath);
-                var result = await GetJson<ApiDataMythicKeystonePeriodIndex>(uri);
-                if (result.NotModified)
-                {
-                    return;
-                }
+                var result = await GetJson<ApiDataMythicKeystonePeriodIndex>(uri, useLastModified: false);
 
                 foreach (var period in result.Data.Periods.TakeLast(5))
                 {
                     // Absolute garbage API design on Blizzard's part, cool
-                    await JobRepository.AddJobAsync(JobPriority.High, JobType.DataMythicKeystonePeriod, region.ToString(), period.Id.ToString());
+                    if (!periodMap.ContainsKey((region, period.Id)))
+                    {
+                        await JobRepository.AddJobAsync(JobPriority.High, JobType.DataMythicKeystonePeriod,
+                            region.ToString(), period.Id.ToString());
+                    }
                 }
             }
         }

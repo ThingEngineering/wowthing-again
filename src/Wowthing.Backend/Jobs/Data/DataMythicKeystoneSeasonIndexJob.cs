@@ -30,11 +30,7 @@ namespace Wowthing.Backend.Jobs.Data
             {
                 // Fetch API data
                 var uri = GenerateUri(region, ApiNamespace.Dynamic, ApiPath);
-                var result = await GetJson<ApiDataMythicKeystoneSeasonIndex>(uri);
-                if (result.NotModified)
-                {
-                    return;
-                }
+                var result = await GetJson<ApiDataMythicKeystoneSeasonIndex>(uri, useLastModified: false);
 
                 foreach (var apiSeason in result.Data.Seasons)
                 {

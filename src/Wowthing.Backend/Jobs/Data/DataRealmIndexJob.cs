@@ -30,11 +30,7 @@ namespace Wowthing.Backend.Jobs.Data
             {
                 // Fetch API data
                 var uri = GenerateUri(region, ApiNamespace.Dynamic, ApiPath);
-                var result = await GetJson<ApiDataRealmIndex>(uri);
-                if (result.NotModified)
-                {
-                    continue;
-                }
+                var result = await GetJson<ApiDataRealmIndex>(uri, useLastModified: false);
 
                 foreach (var apiRealm in result.Data.Realms)
                 {
