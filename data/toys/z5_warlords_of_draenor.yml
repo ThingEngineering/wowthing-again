@@ -38,6 +38,10 @@ groups:
   - 123851 # Photo B.O.M.B.
   - 122674 # S.E.L.F.I.E Camera MkII
 
+- name: Instances
+  things:
+  - 119211 # Golden Hearthstone Card: Lord Jaraxxus (Gul'dan, Nighthold)
+
 - name: Quests
   things:
   - 119145 # Firefury Totem
@@ -110,3 +114,15 @@ groups:
   - 127766 # The Perfect Blossom
   - 127709 # Throbbing Blood Orb
   - 113375 # Vindicator's Armor Polish Kit
+
+- name: Vendor
+  things:
+  - 168012 # Apexis Focusing Shard (Kronnus, Warspear / Tempra, Stormshield) vendor pvp
+  - 168014 # Banner of the Burning Blade (Kronnus, Warspear / Tempra, Stormshield) vendor pvp
+  - 140336 # Brulfist Idol (Slyhoof the Shameless Shaman, Highmountain)
+  - 115501 # Kowalski's Music Box (Crafticus Mindbender, Ashran) vendor
+  - 115505 116396 # LeBlanc's Recorder (Crafticus Mindebender, Ashran / Dazzerian, Ashran)
+  - 142452 # Lingering Wyrmtongue Essence (Treasure Master Iks'reeged, Broken Shore)
+  - 141862 # Mote of Light (Xur'ios, Dalaran)
+  - 140309 # Prismatic Bauble (The Mad Merchant, Dalaran?)
+  - 130151 # The "Devilsaur" Lunchbox (Gift Shopkeeper, Suramar)

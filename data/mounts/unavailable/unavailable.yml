@@ -42,11 +42,9 @@ groups:
 
 - name: Warlords of Draenor
   things:
-  - 171832 # Breezestrider Stallion (Vol'jin's Spear)
   - 171848 # Challenger's War Yeti (Challenge Warlord: Silver)
   - 170347 # Core Hound (Lv100 Molten Core)
   - 189999 # Grove Warden (HFC)
-  - 171833 # Pale Thorngrazer (Wrynn's Vanguard)
 
 - name: Legion
   things:
