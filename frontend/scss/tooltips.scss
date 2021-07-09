@@ -1,12 +1,12 @@
 @import "tooltips/mythic-plus";
 @import "tooltips/torghast";
-@import "tooltips/vault-mythic";
+@import "tooltips/vault";
 
 .wowthing-tooltip {
+    margin: $tooltip-padding-y*-1 $tooltip-padding-x*-1 $tooltip-padding-y*-1 $tooltip-padding-x*-1;
     text-align:center;
 
     > h4 {
-        margin: $tooltip-padding-y*-1 $tooltip-padding-x*-1 $tooltip-padding-y $tooltip-padding-x*-1;
         padding: 0.3rem 0.5rem;
         border-bottom: 1px solid $tooltip-border;
         border-top-left-radius: $border-radius;
@@ -15,6 +15,26 @@
         color: $tooltip-title-color;
         font-size: 1.05rem;
         font-weight: normal;
+    }
+
+    > table {
+        width: 100%;
+
+        tr {
+            td {
+                padding: 0.2rem 0.4rem;
+            }
+
+            &:last-child td {
+                border-bottom-width: 0 !important;
+            }
+            &:last-child td:first-child {
+                border-bottom-left-radius: $border-radius;
+            }
+            &:last-child td:last-child {
+                border-bottom-right-radius: $border-radius;
+            }
+        }
     }
 
     em {

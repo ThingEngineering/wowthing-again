@@ -44,14 +44,16 @@
     }
 </script>
 
-<tr class="{cls}">
-    {#if keyLevel}
-        <td class="key-level">{keyLevel}</td>
-        <td class="dungeon-name">{dungeonName}</td>
-        <td class="item-level">{itemLevel}</td>
-    {:else if dungeonName}
-        <td class="key-level">&nbsp;</td>
-        <td class="dungeon-name">{dungeonName}</td>
-        <td class="item-level"></td>
-    {/if}
-</tr>
+{#if dungeonName}
+    <tr class="{cls}">
+        {#if keyLevel}
+            <td class="key-level">{keyLevel}</td>
+            <td class="dungeon-name">{dungeonName}</td>
+            <td class="item-level">{itemLevel}</td>
+        {:else if dungeonName}
+            <td class="key-level">&nbsp;</td>
+            <td class="dungeon-name">{dungeonName}</td>
+            <td class="item-level"></td>
+        {/if}
+    </tr>
+{/if}
