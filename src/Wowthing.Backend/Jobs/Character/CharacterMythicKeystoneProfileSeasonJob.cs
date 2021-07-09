@@ -51,12 +51,12 @@ namespace Wowthing.Backend.Jobs.Character
                     .EmptyIfNull()
                     .Select(run => new PlayerCharacterMythicPlusRun()
                     {
-                        Affixes = run.Affixes.Select(a => a.Id).ToList(),
+                        Affixes = run.Affixes.EmptyIfNull().Select(a => a.Id).ToList(),
                         Completed = run.CompletedTimestamp.AsUtcTimestamp(),
                         DungeonId = run.Dungeon.Id,
                         Duration = run.Duration,
                         KeystoneLevel = run.KeystoneLevel,
-                        Members = run.Members.Select(member => new PlayerCharacterMythicPlusRunMember
+                        Members = run.Members.EmptyIfNull().Select(member => new PlayerCharacterMythicPlusRunMember
                         {
                             ItemLevel = member.ItemLevel,
                             Name = member.Character.Name,
