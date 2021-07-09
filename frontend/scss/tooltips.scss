@@ -28,6 +28,12 @@
             &:last-child td {
                 border-bottom-width: 0 !important;
             }
+            &:last-child td:first-child {
+                border-bottom-left-radius: $border-radius;
+            }
+            &:last-child td:last-child {
+                border-bottom-right-radius: $border-radius;
+            }
         }
     }
 
