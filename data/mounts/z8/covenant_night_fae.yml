@@ -20,11 +20,11 @@ groups:
   - 342667 # Vibrant Flutterwing (Revered, Marasmius)
   - 332248 # Enchanted Winterborn Runestag (Revered, Marasmius)
 
+- name: Conductor
+  things:
+  - 334366 # Wild Glimmerfur Prowler (Valfir the Unrelenting, Ardenweald)
+
 - name: Queen's Conservatory
   things:
   - 332244 # Wakener's Runestag (Greater Untamed Spirit + 2 Catalysts)
   - 332247 # Enchanted Wakener's Runestag (Divine Untamed Spirit + 4 Catalysts)
-
-- name: Weird
-  things:
-  - 334366 # Wild Glimmerfur Prowler (Valfir the Unrelenting, Ardenweald)

@@ -1,0 +1,28 @@
+name: The Maw / Korthia
+groups:
+
+- name: Quests
+  things:
+  - 187154 # Ancient Korthian Runes (Diviner's Rune Chits, Korthia) relic quest
+  - 187155 # Guise of the Changeling (Guise of the Changeling, Korthia) relic quest
+  - 187140 # Ring of Duplicity (Ring of Self-Reflection, Korthia) relic quest
+  - 187159 # Shadow Slicing Shortsword (Shadow Slicing Shortsword, Korthia) relic quest
+  - 187184 # Vesper of Clarity (Bastion Visitor Dailies, Korthia) quests?
+
+- name: Rare Spawns
+  things:
+  - 184292 # Ancient Elethium Coin (Morgliax, The Maw) rare
+  - 183901 # Bonestorm Top (Darklord Taraxis, The Maw) rare
+  - 184312 # Borr-Geth's Fiery Brimstone (Borr-Geth) @ The Maw:23.8:21.4
+  - 187139 # Bottled Shade Heart (Torglluun, The Maw)
+  - 187420 # Maw-Ocular Viewfinder (Observer Yorik, Korthia)
+  - 181794 # Orophea's Lyre (Orophea) @ The Maw:23.8:21.4
+  - 187176 # Vesper of Harmony (Wild Worldcracker, Korthia)
+
+- name: Treasures
+  things:
+  - 187051 # Forgotten Feather (Forgotten Feather, Korthia) treasure
+  - 187416 # Jailer's Cage (Zovaal's Vault, The Maw) treasure
+  - 187344 # Offering Kit Maker (Offering Box, Korthia) treasure
+  - 187113 # Personal Ball and Chain (Zovaal's Vault, The Maw) treasure
+  - 187339 # Silver Shardhide Whistle (Dislodged Nest, Korthia) treasure

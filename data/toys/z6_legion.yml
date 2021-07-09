@@ -9,6 +9,7 @@ groups:
   things:
   - 147537 # A Tiny Set of Warglaives (Falara Nightsong, Demon Hunter)
   - 147838 # Akazamzarak's Spare Hat (Down the Rabbit Hole, Mage)
+  - 143727 # Champion's Salute (Broken Shore Order Campaign) quest?
   - 147832 # Magical Saucer (Uhtel'nay, Hall of the Guardian?)
   - 140160 # Stormforged Vrykul Horn (?, Warrior)
   - 139587 # Suspicious Crate (?, Rogue)
@@ -35,6 +36,7 @@ groups:
   - 129113 # Faintly Glowing Flagon of Mead ()
   - 131900 # Majestic Elderhorn Hoof ()
   - 141331 # Vial of Green Goo ()
+  - 129045 # Whitewater Tsunami (Whitewater Typhoon, Stormheim) rare
   - 130214 # Worn Doll ()
 
 - name: "Rare Spawns: Argus"

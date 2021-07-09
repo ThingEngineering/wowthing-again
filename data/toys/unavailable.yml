@@ -9,5 +9,7 @@ groups:
 
 - name: Promotions
   things:
+  - 163986 # Orgrimmar Hero's War Banner (Blizzcon 2018)
+  - 163987 # Stormwind Champion's War Banner (Blizzcon 2018)
   - 142542 # Tome of Town Portal (Diablo 20th Anniversary)
   - 143543 # Twelve-String Guitar (Diablo 20th Anniversary)
