@@ -1,4 +1,6 @@
 <script lang="ts">
+    import sortBy from 'lodash/sortBy'
+
     import type {Character, CharacterWeeklyProgress} from '@/types'
 
     import Run from './Run.svelte'
@@ -9,13 +11,13 @@
     let runs: number[][]
     $: {
         progress = character.weekly?.vault?.mythicPlusProgress
-        runs = character.weekly?.vault?.mythicPlusRuns
+        runs = sortBy(character.weekly?.vault?.mythicPlusRuns || [], (run: number[]) => -run[1])
     }
 </script>
 
 <div class="wowthing-tooltip">
     <h4>{character.name} M+ Vault</h4>
-    <table class="vault-mythic-tooltip table-striped">
+    <table class="table-tooltip-vault-mythic table-striped">
         <tbody>
             {#each Array(progress[2].threshold) as _, i}
                 <Run index={i} run={runs[i]} {progress} />

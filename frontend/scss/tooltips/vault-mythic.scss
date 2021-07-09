@@ -1,7 +1,4 @@
-.vault-mythic-tooltip {
-  margin-top: 0.5rem;
-  width: 100%;
-
+.table-tooltip-vault-mythic {
   tr {
     &.vault-more {
       color: #00ccff;
@@ -12,8 +9,6 @@
   }
 
   td {
-    padding: 0.2rem 0.3rem;
-
     &.key-level {
       max-width: 2rem;
       text-align: right;

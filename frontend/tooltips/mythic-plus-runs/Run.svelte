@@ -27,7 +27,7 @@
     }
 </script>
 
-<table class="mythic-plus-tooltip table-striped">
+<table class="tooltip-mythic-plus-runs table-striped">
     <thead>
         <tr>
             <th colspan="2">
