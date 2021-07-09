@@ -2,6 +2,9 @@
     import {Constants} from '@/data/constants'
     import type {Character, CharacterWeeklyProgress} from '@/types'
     import getRaidVaultItemLevel from '@/utils/get-raid-vault-item-level';
+    import { tippyComponent } from '@/utils/tippy'
+
+    import TooltipVaultRaid from '@/tooltips/vault-raid/Tooltip.svelte'
 
     export let character: Character
 
@@ -28,7 +31,7 @@
 </style>
 
 {#if raidVault}
-    <td>
+    <td use:tippyComponent={{component: TooltipVaultRaid, props: {character}}}>
         <div class="flex-wrapper">
             {#each raidVault as progress}
                 {#if progress.progress >= progress.threshold}

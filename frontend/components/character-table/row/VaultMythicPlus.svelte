@@ -4,7 +4,7 @@
     import getMythicPlusVaultItemLevel from '@/utils/get-mythic-plus-vault-item-level'
     import {tippyComponent} from '@/utils/tippy'
 
-    import MythicPlusVaultTooltip from '@/tooltips/mythic-plus-vault/Tooltip.svelte'
+    import MythicPlusVaultTooltip from '@/tooltips/vault-mythic-plus/Tooltip.svelte'
 
     export let character: Character
 
