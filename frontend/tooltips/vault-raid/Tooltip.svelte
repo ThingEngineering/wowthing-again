@@ -1,6 +1,4 @@
 <script lang="ts">
-    import sortBy from 'lodash/sortBy'
-
     import type {Character, CharacterWeeklyProgress} from '@/types'
 
     import Progress from './Progress.svelte'
@@ -8,10 +6,8 @@
     export let character: Character
 
     let progress: CharacterWeeklyProgress[]
-    let runs: number[][]
     $: {
-        progress = character.weekly?.vault?.raidProgress
-        runs = sortBy(character.weekly?.vault?.mythicPlusRuns || [], (run: number[]) => -run[1])
+        progress = character.weekly?.vault?.raidProgress || []
     }
 </script>
 
