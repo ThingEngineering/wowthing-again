@@ -13,12 +13,12 @@ groups:
   - 353875 # Elysian Aquilon (Renown 45)
   - 353880 # Ascendant's Aquilon (Renown 70)
 
+- name: Conductor
+  things:
+  - 334386 # Phalynx of Humility
+
 - name: Path of Ascension
   things:
   - 334382 # Phalynx of Loyalty (Loyalty, Mad Mortimer)
   - 334408 # Eternal Phalynx of Loyalty (Death Foursworn achievement)
   - 334409 # Eternal Phalynx of Humility (Learning from the Masters achievement)
-
-- name: Weird
-  things:
-  - 334386 # Phalynx of Humility

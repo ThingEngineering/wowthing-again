@@ -13,13 +13,14 @@ groups:
   - 353883 # Maldraxxian Corpsefly
   - 353884 # Regal Corpsefly
 
+- name: Conductor
+  things:
+  - 332466 # Armored Bonehoof Tauralus (Sabriel the Bonecleaver, Maldraxxus)
+  - 336045 # Predatory Plagueroc (Gieger, Maldraxxus)
+
 - name: Abomination Stitching
   things:
+  - 332467 # Armored Chosen Tauralus (Things To Do When You're Dead achievement)
+  - 332457 # Bonehoof Tauralus (Tahonta rare, Level 2)
   - 336041 # Bonesewn Fleshroc (Level 5)
   - 332460 # Chosen Tauralus (The Gang's All Here achievement)
-  - 332467 # Armored Chosen Tauralus (Things To Do When You're Dead achievement)
-
-- name: Weird
-  things:
-  - 332457 # Bonehoof Tauralus (Tahonta, Maldraxxus)
-  - 336045 # Predatory Plagueroc (Gieger, Maldraxxus)

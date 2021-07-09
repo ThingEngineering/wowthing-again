@@ -18,6 +18,7 @@ groups:
 - name: Brewfest
   things:
   - 116758 # Brewfest Banner
+  - 169865 # Brewfest Chowdown Trophy
   -  71137 # Brewfest Keg Pony
   -  33927 # Brewfest Pony Key
   - 166747 # Brewfest Reveler's Hearthstone
@@ -119,8 +120,10 @@ groups:
 
 - name: Winter Veil
   things:
+  - 172223 # Crashin' Thrashin' Battleship
   - 108632 # Crashin' Thrashin' Flamer Controller
   - 104318 # Crashin' Thrashin' Flyer Controller
+  - 172222 # Crashin' Thrashin' Juggernaught
   - 108635 # Crashin' Thrashin' Killdozer Controller
   -  37710 # Crashin' Thrashin' Racer Controller
   - 116763 # Crashin' Thrashin' Shredder Controller
@@ -145,6 +148,7 @@ groups:
   - 151344 # Hearthstation (Horde)
   - 151349 # Toy Weapon Set (Alliance)
   - 151348 # Toy Weapon Set (Horde)
+  - 172219 # Wild Holly
 
 - name: Other
   things:
