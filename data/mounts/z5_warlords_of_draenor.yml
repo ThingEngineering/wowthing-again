@@ -65,6 +65,8 @@ groups:
   - 171633 # Wild Goretusk (The Sabrestalkers)
   - 171634 # Domesticated Razorback (Steamwheedle Preservation Society)
   - 190977 # Deathtusk Felboar (Vol'jin's Headhunters/Hand of the Prophets)
+  - 171832 # Breezestrider Stallion (Vol'jin's Spear)
+  - 171833 # Pale Thorngrazer (Wrynn's Vanguard)
 
 - name: Vendors
   things:

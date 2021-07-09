@@ -13,6 +13,10 @@ groups:
   - 353872 # Sinfall Gravewing (Renown 45)
   - 353866 # Obsidian Gravewing (Renown 70)
 
+- name: Conductor
+  things:
+  - 312753 # Hopecrusher Gargon (Revendreth)
+
 - name: Ember Court
   things:
   - 332949 # Desire's Battle Gargon (The Countess reward chest)
@@ -20,7 +24,3 @@ groups:
 - name: Transport
   things:
   - 333023 # Battle Gargon Silessa
-
-- name: Weird
-  things:
-  - 312753 # Hopecrusher Gargon (Revendreth)
