@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Wowthing.Backend.Models.API.NonBlizzard;
+using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
 
@@ -51,21 +52,22 @@ namespace Wowthing.Backend.Jobs.NonBlizzard
                 Context.PlayerCharacterRaiderIo.Add(raiderIo);
             }
 
-            raiderIo.Seasons = result.Data.ScoresBySeason
-                .ToDictionary(
-                    k => k.SeasonId,
-                    v => new PlayerCharacterRaiderIoSeasonScores
-                    {
-                        All = v.ScoreAll,
-                        Dps = v.ScoreDps,
-                        Healer = v.ScoreHealer,
-                        Tank = v.ScoreTank,
-                        Spec1 = v.ScoreSpec1,
-                        Spec2 = v.ScoreSpec2,
-                        Spec3 = v.ScoreSpec3,
-                        Spec4 = v.ScoreSpec4,
-                    }
-                );
+            raiderIo.Seasons ??= new();
+
+            foreach (var season in result.Data.ScoresBySeason.EmptyIfNull())
+            {
+                raiderIo.Seasons[season.SeasonId] = new PlayerCharacterRaiderIoSeasonScores
+                {
+                    All = season.ScoreAll,
+                    Dps = season.ScoreDps,
+                    Healer = season.ScoreHealer,
+                    Tank = season.ScoreTank,
+                    Spec1 = season.ScoreSpec1,
+                    Spec2 = season.ScoreSpec2,
+                    Spec3 = season.ScoreSpec3,
+                    Spec4 = season.ScoreSpec4,
+                };
+            }
 
             await Context.SaveChangesAsync();
         }
