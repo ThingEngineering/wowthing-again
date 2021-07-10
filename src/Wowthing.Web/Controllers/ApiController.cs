@@ -94,6 +94,21 @@ namespace Wowthing.Web.Controllers
             return Ok();
         }
 
+        [HttpGet("achievements.{hash:length(32)}.json")]
+        [ResponseCache(Duration = 365 * 24 * 60 * 60)]
+        public async Task<IActionResult> StaticAchievements([FromRoute] string hash)
+        {
+            var db = _redis.GetDatabase();
+
+            string jsonHash = await db.StringGetAsync("cached_achievements:hash");
+            if (hash != jsonHash)
+            {
+                return NotFound("Invalid achievement data hash");
+            }
+
+            return Content(await db.StringGetAsync("cached_achievements:data"), "application/json");
+        }
+        
         [HttpGet("static.{hash:length(32)}.json")]
         [ResponseCache(Duration = 365 * 24 * 60 * 60)]
         public async Task<IActionResult> StaticData([FromRoute] string hash)

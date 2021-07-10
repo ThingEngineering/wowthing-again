@@ -29,11 +29,12 @@ namespace Wowthing.Web.Controllers
             }
 
             var db = _redis.GetDatabase();
+            var achievementsHash = await db.StringGetAsync("cached_achievements:hash");
             var staticHash = await db.StringGetAsync("cached_static:hash");
 
             var settings = User.Identity.Name == user.UserName ? user.Settings : new ApplicationUserSettings();
 
-            return View(new UserViewModel(user, JsonConvert.SerializeObject(settings), staticHash));
+            return View(new UserViewModel(user, JsonConvert.SerializeObject(settings), achievementsHash, staticHash));
         }
     }
 }
