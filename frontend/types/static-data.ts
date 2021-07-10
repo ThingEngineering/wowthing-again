@@ -77,7 +77,7 @@ export interface StaticDataReputationSet {
     paragon: boolean
 }
 
-interface StaticDataReputationReputation {
+export interface StaticDataReputationReputation {
     id: number
     name: string
     icon: string
