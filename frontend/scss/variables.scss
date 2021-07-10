@@ -1,6 +1,6 @@
 $body-background:          #121314;
 $body-text:                #ffffff;
-$link-color:               lighten(#a5d6a7, 8%);
+$link-color:               #c1e3c2;
 
 $border-color:             #4d4e4f;
 $border-radius-large:      8px;
@@ -28,6 +28,7 @@ $horde-border-dark:        darken($horde-border, 20%);
 
 $sidebar-pill-background:  $highlight-background;
 $sidebar-pill-scale:       0.9;
+$sidebar-sub-link-color:   #c1c2e3;
 
 $table-striped-background: lighten($thing-background, 3%);
 
