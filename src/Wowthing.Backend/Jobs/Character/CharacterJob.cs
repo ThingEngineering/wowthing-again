@@ -117,7 +117,6 @@ namespace Wowthing.Backend.Jobs.Character
             if (character.Level >= 50 && apiCharacter.MythicKeystoneProfileLink?.Href != null)
             {
                 jobs.Add(JobType.CharacterMythicKeystoneProfile);
-                jobs.Add(JobType.CharacterRaiderIo);
             }
             
             if (apiCharacter.ProfessionsLink?.Href != null)

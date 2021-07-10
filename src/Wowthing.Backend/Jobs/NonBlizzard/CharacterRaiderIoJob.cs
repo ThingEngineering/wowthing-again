@@ -19,8 +19,10 @@ namespace Wowthing.Backend.Jobs.NonBlizzard
             using var shrug = CharacterLog(query);
 
             // Fetch seasons
+            var seasonIds = JsonConvert.DeserializeObject<int[]>(data[1]);
+            
             var seasons = await Context.WowMythicPlusSeason
-                .Where(s => s.Region == query.Region)
+                .Where(s => s.Region == query.Region && seasonIds.Contains(s.Id))
                 .Select(s => s.Id)
                 .OrderByDescending(s => s)
                 .ToArrayAsync();
