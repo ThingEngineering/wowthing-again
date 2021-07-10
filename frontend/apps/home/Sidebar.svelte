@@ -46,6 +46,9 @@
 
     <li class="separator"></li>
 
+    <li use:active={'/achievements/*'}>
+        <a href="#/achievements/summary">🚧 Achievements</a>
+    </li>
     <li use:active={'/pets/*'}>
         <a href="#/pets/">🚧 Pets</a>
     </li>
