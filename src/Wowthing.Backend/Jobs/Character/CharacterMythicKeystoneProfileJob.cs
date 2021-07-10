@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.API.Character;
@@ -42,36 +43,56 @@ namespace Wowthing.Backend.Jobs.Character
             }
 
             mythicPlus.CurrentPeriodId = result.Data.CurrentPeriod.Period.Id;
-            mythicPlus.PeriodRuns = new List<PlayerCharacterMythicPlusRun>();
 
-            if (result.Data.CurrentPeriod.BestRuns != null)
-            {
-                mythicPlus.PeriodRuns = result.Data.CurrentPeriod.BestRuns
-                    .Select(run => new PlayerCharacterMythicPlusRun
+            mythicPlus.PeriodRuns = result.Data.CurrentPeriod.BestRuns
+                .EmptyIfNull()
+                .Select(run => new PlayerCharacterMythicPlusRun
+                {
+                    Affixes = run.Affixes.Select(a => a.Id).ToList(),
+                    Completed = run.CompletedTimestamp.AsUtcTimestamp(),
+                    DungeonId = run.Dungeon.Id,
+                    Duration = run.Duration,
+                    KeystoneLevel = run.KeystoneLevel,
+                    Members = run.Members.Select(member => new PlayerCharacterMythicPlusRunMember
                     {
-                        Affixes = run.Affixes.Select(a => a.Id).ToList(),
-                        Completed = run.CompletedTimestamp.AsUtcTimestamp(),
-                        DungeonId = run.Dungeon.Id,
-                        Duration = run.Duration,
-                        KeystoneLevel = run.KeystoneLevel,
-                        Members = run.Members.Select(member => new PlayerCharacterMythicPlusRunMember
-                        {
-                            ItemLevel = member.ItemLevel,
-                            Name = member.Character.Name,
-                            RealmId = member.Character.Realm.Id,
-                            SpecializationId = member.Specialization.Id,
-                        }).ToList(),
-                        Timed = run.Timed,
-                    })
-                    .ToList();
-            }
+                        ItemLevel = member.ItemLevel,
+                        Name = member.Character.Name,
+                        RealmId = member.Character.Realm.Id,
+                        SpecializationId = member.Specialization.Id,
+                    }).ToList(),
+                    Timed = run.Timed,
+                })
+                .ToList();
 
             await Context.SaveChangesAsync();
 
             // Start jobs for all seasons
-            foreach (var apiSeason in result.Data?.Seasons ?? Enumerable.Empty<ApiObnoxiousObject>())
+            var apiSeasons = result.Data?.Seasons
+                .EmptyIfNull()
+                .Select(s => s.Id)
+                .OrderByDescending(id => id)
+                .ToArray();
+
+            var existingSeasonIds = await Context.PlayerCharacterMythicPlusSeason
+                .Where(mps => mps.CharacterId == query.CharacterId)
+                .OrderByDescending(mps => mps.Season)
+                .Select(mps => mps.Season)
+                .ToArrayAsync();
+
+            // If we've already visited every season for this character, just grab the latest
+            if (apiSeasons.Length > 0 && Enumerable.SequenceEqual(apiSeasons, existingSeasonIds))
+            {
+                apiSeasons = new[] { apiSeasons[0] };
+            }
+            
+            foreach (var apiSeason in apiSeasons)
             { 
-                await JobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterMythicKeystoneProfileSeason, data[0], apiSeason.Id.ToString());
+                await JobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterMythicKeystoneProfileSeason, data[0], apiSeason.ToString());
+            }
+
+            if (apiSeasons.Length > 0)
+            {
+                await JobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterRaiderIo, data[0], JsonConvert.SerializeObject(apiSeasons));
             }
         }
     }
