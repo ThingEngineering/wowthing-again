@@ -11,6 +11,10 @@ namespace Wowthing.Web.Models
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public Dictionary<int, UserApiAccount> Accounts { get; set; }
 
+        [JsonIgnore]
+        public Dictionary<ushort, int> AchievementsCompleted { get; set; }
+        public string AchievementsWhee { get; set; }
+        
         public List<UserApiCharacter> Characters { get; set; }
 
         public Dictionary<int, WowPeriod> CurrentPeriod { get; set; }

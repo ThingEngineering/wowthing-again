@@ -330,7 +330,7 @@ namespace Wowthing.Backend.Jobs.Misc
                 category.Children.Sort((a, b) => a.Order.CompareTo(b.Order));
             }
 
-            // R
+            // Return all root categories that aren't in the skip list
             return recordMap.Values
                 .Where(record => record.Parent == -1 && !_skipAchievementCategories.Contains(record.Id))
                 .OrderBy(record => record.Order)

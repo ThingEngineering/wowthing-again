@@ -15,6 +15,7 @@ using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Player;
+using Wowthing.Lib.Models.Query;
 using Wowthing.Lib.Utilities;
 using Wowthing.Web.Models;
 using Wowthing.Web.Models.Team;
@@ -223,6 +224,12 @@ namespace Wowthing.Web.Controllers
 
             timer.AddPoint("Get accounts");
 
+            var achievementsCompleted = await _context.CompletedAchievementsQuery
+                .FromSqlRaw(CompletedAchievementsQuery.USER_QUERY, user.Id)
+                .ToDictionaryAsync(k => (ushort)k.AchievementId, v => v.Timestamp);
+            
+            timer.AddPoint("achievementQuery");
+
             var characterQuery = _context.PlayerCharacter
                 .Where(c => c.Account.UserId == user.Id);
             if (pub)
@@ -260,6 +267,8 @@ namespace Wowthing.Web.Controllers
             var apiData = new UserApi
             {
                 Accounts = accounts.ToDictionary(k => k.Id, v => new UserApiAccount(v)),
+                AchievementsCompleted = achievementsCompleted,
+                AchievementsWhee = SerializationUtilities.SerializeAchievements(achievementsCompleted),
                 Characters = characters.Select(character => new UserApiCharacter(character, pub, anon)).ToList(),
                 CurrentPeriod = currentPeriods,
                 Mounts = mountMap,
