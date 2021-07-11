@@ -3,7 +3,13 @@
 
     import { raiderIoScores } from '@/data/raider-io'
     import { data as staticData } from '@/stores/static'
-    import type { Character, CharacterRaiderIoSeason, MythicPlusSeason, TippyProps } from '@/types'
+    import type {
+        Character,
+        CharacterRaiderIoSeason,
+        MythicPlusSeason,
+        StaticDataRaiderIoScoreTiers,
+        TippyProps,
+    } from '@/types'
     import tippy from '@/utils/tippy'
 
     export let season: MythicPlusSeason
@@ -16,11 +22,11 @@
     $: {
         character = getContext('character')
         scores = character.raiderIo?.[season.Id]
-        if (scores !== undefined && $staticData.raiderIoScoreTiers[season.Id] !== undefined) {
-            for (const tier of $staticData.raiderIoScoreTiers[season.Id]) {
-                //const tier: StaticDataRaiderIoScoreTier = $staticData.raiderIoScoreTiers[i]
-                if (scores.all >= tier.score) {
-                    color = tier.rgbHex
+        const tiers: StaticDataRaiderIoScoreTiers = $staticData.raiderIoScoreTiers[season.Id]
+        if (scores !== undefined && tiers !== undefined) {
+            for (let i = 0; i < tiers.score.length; i++) {
+                if (scores.all >= tiers.score[i]) {
+                    color = tiers.rgbHex[i]
                     break
                 }
             }

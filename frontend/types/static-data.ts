@@ -18,7 +18,7 @@ export interface StaticData {
 
     toySets: StaticDataSetCategory[][]
 
-    raiderIoScoreTiers: Dictionary<StaticDataRaiderIoScoreTier[]>
+    raiderIoScoreTiers: Dictionary<StaticDataRaiderIoScoreTiers[]>
 }
 
 export interface StaticDataCurrency {
@@ -97,7 +97,7 @@ export interface StaticDataSetGroup {
 }
 
 // RaiderIO
-export interface StaticDataRaiderIoScoreTier {
-    score: number
-    rgbHex: string
+export interface StaticDataRaiderIoScoreTiers {
+    score: number[]
+    rgbHex: string[]
 }
