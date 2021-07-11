@@ -45,6 +45,7 @@ namespace Wowthing.Lib.Contexts
         public DbSet<TeamCharacter> TeamCharacter { get; set; }
 
         // Garbage query types
+        public DbSet<CompletedAchievementsQuery> CompletedAchievementsQuery { get; set; }
         public DbSet<SchedulerCharacterQuery> SchedulerCharacterQuery { get; set; }
 
         /*public WowDbContext(string connectionString)
