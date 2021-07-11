@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Models.Player;
+using Wowthing.Lib.Utilities;
 
 namespace Wowthing.Web.Models
 {
@@ -33,7 +34,8 @@ namespace Wowthing.Web.Models
         public Dictionary<int, UserApiCharacterEquippedItem> EquippedItems { get; set; } = new Dictionary<int, UserApiCharacterEquippedItem>();
         public Dictionary<string, PlayerCharacterLockoutsLockout> Lockouts { get; }
         public UserApiCharacterMythicPlus MythicPlus { get; }
-        public Dictionary<int, int> Quests { get; set; } = new Dictionary<int, int>();
+        [JsonIgnore]
+        public string QuestsPacked { get; set; }
         public Dictionary<int, PlayerCharacterRaiderIoSeasonScores> RaiderIo { get; }
         public Dictionary<int, int> Reputations { get; set; } = new Dictionary<int, int>();
 
@@ -99,8 +101,7 @@ namespace Wowthing.Web.Models
 
             if (character.Quests != null)
             {
-                Quests = character.Quests.CompletedIds
-                    .ToDictionary(k => k, _ => 1);
+                QuestsPacked = SerializationUtilities.SerializeUInt16Array(character.Quests.CompletedIds.Select(c => Convert.ToUInt16(c)).ToArray());
             }
 
             if (character.RaiderIo != null)

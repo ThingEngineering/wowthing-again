@@ -26,7 +26,8 @@ export interface Character {
     equippedItems: Dictionary<CharacterEquippedItem>
     lockouts: Dictionary<CharacterLockout>
     mythicPlus: CharacterMythicPlus
-    quests: Dictionary<number>
+    quests: Map<number, boolean>
+    questsPacked: string
     raiderIo: Dictionary<CharacterRaiderIoSeason>
     reputations: Dictionary<number>
     shadowlands?: CharacterShadowlands

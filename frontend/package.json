@@ -11,6 +11,7 @@
     "prettier": "prettier --write '**/*.svelte' '**/*.ts'"
   },
   "dependencies": {
+    "base64-arraybuffer": "^0.2.0",
     "lodash": "^4.17.21",
     "tippy.js": "^6.3.1"
   },
