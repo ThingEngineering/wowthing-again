@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using Wowthing.Backend.Models.API.NonBlizzard;
+using Wowthing.Backend.Models.Data;
 using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Jobs;
 
@@ -17,6 +17,7 @@ namespace Wowthing.Backend.Jobs.NonBlizzard
             Type = JobType.DataRaiderIoScoreTiers,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
+            Version = 2,
         };
 
         private const string ApiUrl = "https://raider.io/api/v1/mythic-plus/score-tiers?season={0}";
@@ -24,7 +25,7 @@ namespace Wowthing.Backend.Jobs.NonBlizzard
 
         public override async Task Run(params string[] data)
         {
-            var seasons = new Dictionary<int, List<ApiDataRaiderIoScoreTier>>();
+            var seasons = new Dictionary<int, OutRaiderIoScoreTiers>();
         
             foreach (var (seasonSlug, seasonId) in ApiCharacterRaiderIoSeason.SeasonMap)
             {
@@ -33,7 +34,13 @@ namespace Wowthing.Backend.Jobs.NonBlizzard
                 try
                 {
                     var result = await GetJson<ApiDataRaiderIoScoreTier[]>(new Uri(url));
-                    seasons[seasonId] = result.Data.OrderByDescending(t => t.Score).ToList();
+
+                    var ordered = result.Data.OrderByDescending(t => t.Score).ToArray();
+                    seasons[seasonId] = new OutRaiderIoScoreTiers
+                    {
+                        Score = ordered.Select(t => t.Score).ToList(),
+                        RgbHex = ordered.Select(t => t.RgbHex).ToList(),
+                    };
                 }
                 catch (HttpRequestException ex)
                 {
