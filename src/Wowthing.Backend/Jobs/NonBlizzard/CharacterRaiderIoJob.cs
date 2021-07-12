@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +13,7 @@ namespace Wowthing.Backend.Jobs.NonBlizzard
 {
     public class CharacterRaiderIoJob : JobBase
     {
-        private const string ApiUrl = "https://raider.io/api/v1/characters/profile?region={0}&realm={1}&name={2}&fields=mythic_plus_scores_by_season%3A{3}";
+        private const string ApiUrl = "https://raider.io/api/v1/characters/profile?region={0}&realm={1}&name={2}&fields=mythic_plus_scores_by_season:{3}";
 
         public override async Task Run(params string[] data)
         {
@@ -21,16 +22,8 @@ namespace Wowthing.Backend.Jobs.NonBlizzard
 
             // Fetch seasons
             var seasonIds = JsonConvert.DeserializeObject<int[]>(data[1]);
+            var oof = string.Join(":", seasonIds.Select(s => ApiCharacterRaiderIoSeason.SeasonMap.First(kvp => kvp.Value == s).Key));
             
-            var seasons = await Context.WowMythicPlusSeason
-                .Where(s => s.Region == query.Region && seasonIds.Contains(s.Id))
-                .Select(s => s.Id)
-                .OrderByDescending(s => s)
-                .ToArrayAsync();
-
-            var oof = string.Join(":",
-                seasons.Select(s => ApiCharacterRaiderIoSeason.SeasonMap.First(kvp => kvp.Value == s).Key));
-
             // Fetch API data
             var uri = new Uri(string.Format(ApiUrl, query.Region.ToString().ToLowerInvariant(), query.RealmSlug, query.CharacterName.ToLowerInvariant(), oof));
 
@@ -52,11 +45,10 @@ namespace Wowthing.Backend.Jobs.NonBlizzard
                 Context.PlayerCharacterRaiderIo.Add(raiderIo);
             }
 
-            raiderIo.Seasons ??= new();
-
+            var seasons = new Dictionary<int, PlayerCharacterRaiderIoSeasonScores>(raiderIo.Seasons.EmptyIfNull());
             foreach (var season in result.Data.ScoresBySeason.EmptyIfNull())
             {
-                raiderIo.Seasons[season.SeasonId] = new PlayerCharacterRaiderIoSeasonScores
+                seasons[season.SeasonId] = new PlayerCharacterRaiderIoSeasonScores
                 {
                     All = season.ScoreAll,
                     Dps = season.ScoreDps,
@@ -68,6 +60,8 @@ namespace Wowthing.Backend.Jobs.NonBlizzard
                     Spec4 = season.ScoreSpec4,
                 };
             }
+
+            raiderIo.Seasons = seasons;
 
             await Context.SaveChangesAsync();
         }
