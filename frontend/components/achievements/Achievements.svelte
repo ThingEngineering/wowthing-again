@@ -3,9 +3,10 @@
 
     import { error, loading, fetch } from '@/stores/achievements'
 
-    import AchievementsCategory from './Category.svelte'
-    import AchievementsSidebar from './Sidebar.svelte'
-    import AchievementsSummary from './Summary.svelte'
+    import AchievementsCategory from './AchievementsCategory.svelte'
+    import AchievementsRecent from './AchievementsRecent.svelte'
+    import AchievementsSidebar from './AchievementsSidebar.svelte'
+    import AchievementsScoreSummary from './AchievementsScoreSummary.svelte'
 
     export let params: {
         slug1: string
@@ -36,7 +37,8 @@
     {:else}
         <AchievementsSidebar />
         {#if params.slug1 === 'summary'}
-            <AchievementsSummary />
+            <AchievementsScoreSummary />
+            <AchievementsRecent />
         {:else}
             <AchievementsCategory slug1={params.slug1} slug2={params.slug2} />
         {/if}
