@@ -12,10 +12,13 @@
     const actualSize = size + (border * 2)
 </script>
 
-<Icon
-    src="https://img.wowthing.org/{size}/{name}.png"
-    alt={name}
-    size={actualSize}
-    {cls}
-    {tooltip}
-/>
+<picture>
+    <source srcset="https://img.wowthing.org/{size}/{name}.webp" type="image/webp">
+    <Icon
+        src="https://img.wowthing.org/{size}/{name}.png"
+        alt={name}
+        size={actualSize}
+        {cls}
+        {tooltip}
+    />
+</picture>
