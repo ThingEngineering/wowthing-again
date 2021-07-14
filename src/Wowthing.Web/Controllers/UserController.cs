@@ -28,13 +28,23 @@ namespace Wowthing.Web.Controllers
                 return NotFound();
             }
 
+            ApplicationUserSettings settings = null;
+            if (User?.Identity?.IsAuthenticated == true)
+            {
+                var settingsUser = await _userManager.FindByNameAsync(User.Identity.Name);
+                settings = settingsUser?.Settings;
+            }
+
+            if (settings == null)
+            {
+                settings = new ApplicationUserSettings();
+            }
+
             var db = _redis.GetDatabase();
             var achievementsHash = await db.StringGetAsync("cached_achievements:hash");
             var staticHash = await db.StringGetAsync("cached_static:hash");
 
-            var settings = User.Identity.Name == user.UserName ? user.Settings : new ApplicationUserSettings();
-
-            return View(new UserViewModel(user, JsonConvert.SerializeObject(settings), achievementsHash, staticHash));
+            return View(new UserViewModel(user, settings, achievementsHash, staticHash));
         }
     }
 }
