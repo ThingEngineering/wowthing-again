@@ -24,6 +24,7 @@
 
 <style lang="scss">
     div {
+        border-radius: $border-radius;
         display: inline-block;
 
         &.thing-yes {
@@ -35,7 +36,7 @@
         }
     }
     div:not(:first-of-type) {
-        margin-left: 2px;
+        margin-left: 3px;
     }
 </style>
 
