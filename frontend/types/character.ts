@@ -26,6 +26,7 @@ export interface Character {
     equippedItems: Dictionary<CharacterEquippedItem>
     lockouts: Dictionary<CharacterLockout>
     mythicPlus: CharacterMythicPlus
+    mythicPlusAddon: CharacterMythicPlusAddon
     quests: Map<number, boolean>
     questsPacked: string
     raiderIo: Dictionary<CharacterRaiderIoSeason>
@@ -72,6 +73,24 @@ export interface CharacterMythicPlus {
     periodRuns: Dictionary<CharacterMythicPlusRun[]>
     seasons: Dictionary<Dictionary<CharacterMythicPlusRun[]>>
     seasonBadges: Dictionary<string>
+}
+
+export interface CharacterMythicPlusAddon {
+    maps: Dictionary<CharacterMythicPlusAddonMap>
+    season: number
+}
+
+export interface CharacterMythicPlusAddonMap {
+    overallScore: number
+    fortifiedScore: CharacterMythicPlusAddonMapAffix
+    tyrannicalScore: CharacterMythicPlusAddonMapAffix
+}
+
+export interface CharacterMythicPlusAddonMapAffix {
+    durationSec: number
+    level: number
+    overTime: boolean
+    score: number
 }
 
 export interface CharacterMythicPlusRun {

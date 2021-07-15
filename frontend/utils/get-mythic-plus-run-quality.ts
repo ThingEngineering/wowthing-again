@@ -1,4 +1,4 @@
-import type { CharacterMythicPlusRun } from '@/types'
+import type {CharacterMythicPlusAddonMap, CharacterMythicPlusAddonMapAffix, CharacterMythicPlusRun} from '@/types'
 
 export default function getMythicPlusRunQuality(
     run: CharacterMythicPlusRun | number,
@@ -9,10 +9,19 @@ export default function getMythicPlusRunQuality(
             return 'quality0'
         }
         level = run.keystoneLevel
-    } else {
+    }
+    else {
         level = run
     }
 
+    return getQuality(level)
+}
+
+export function getMythicPlusRunQualityAffix(run: CharacterMythicPlusAddonMapAffix): string {
+    return run.overTime ? 'quality0' : getQuality(run.level)
+}
+
+function getQuality(level: number): string {
     if (level >= 20) {
         return 'quality5'
     } else if (level >= 15) {

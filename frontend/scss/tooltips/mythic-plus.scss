@@ -23,6 +23,10 @@
         &:nth-child(n+2) {
             text-align: right;
         }
+
+        &.affixes {
+            display: flex;
+        }
     }
 
     td {

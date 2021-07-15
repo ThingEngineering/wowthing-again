@@ -242,6 +242,7 @@ namespace Wowthing.Web.Controllers
                 .Include(c => c.EquippedItems)
                 .Include(c => c.Lockouts)
                 .Include(c => c.MythicPlus)
+                .Include(c => c.MythicPlusAddon)
                 .Include(c => c.MythicPlusSeasons)
                 .Include(c => c.Quests)
                 .Include(c => c.RaiderIo)

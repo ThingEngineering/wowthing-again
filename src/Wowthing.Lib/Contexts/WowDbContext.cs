@@ -33,6 +33,7 @@ namespace Wowthing.Lib.Contexts
         public DbSet<PlayerCharacterEquippedItems> PlayerCharacterEquippedItems { get; set; }
         public DbSet<PlayerCharacterLockouts> PlayerCharacterLockouts { get; set; }
         public DbSet<PlayerCharacterMythicPlus> PlayerCharacterMythicPlus { get; set; }
+        public DbSet<PlayerCharacterMythicPlusAddon> PlayerCharacterMythicPlusAddon { get; set; }
         public DbSet<PlayerCharacterMythicPlusSeason> PlayerCharacterMythicPlusSeason { get; set; }
         public DbSet<PlayerCharacterProfessions> PlayerCharacterProfessions { get; set; }
         public DbSet<PlayerCharacterQuests> PlayerCharacterQuests { get; set; }

@@ -30,6 +30,7 @@ namespace Wowthing.Backend.Jobs.User
                 .Where(c => c.Account.UserId == userId)
                 .Include(c => c.Currencies)
                 .Include(c => c.Lockouts)
+                .Include(c => c.MythicPlusAddon)
                 .Include(c => c.Reputations)
                 .Include(c => c.Weekly)
                 .ToDictionaryAsync(k => (k.RealmId, k.Name));
@@ -78,6 +79,7 @@ namespace Wowthing.Backend.Jobs.User
 
                 HandleCurrencies(character, characterData);
                 HandleLockouts(character, characterData);
+                HandleMythicPlus(character, characterData);
                 HandleReputations(character, characterData);
                 HandleWeekly(character, characterData);
             }
@@ -158,6 +160,57 @@ namespace Wowthing.Backend.Jobs.User
                                 Name = boss.Name.Truncate(32),
                             }).ToList(),
                     });
+                }
+            }
+        }
+
+        private void HandleMythicPlus(PlayerCharacter character, UploadCharacter characterData)
+        {
+            if (characterData.MythicPlus == null)
+            {
+                return;
+            }
+            
+            if (character.MythicPlusAddon == null)
+            {
+                character.MythicPlusAddon = new PlayerCharacterMythicPlusAddon
+                {
+                    Character = character,
+                };
+                Context.PlayerCharacterMythicPlusAddon.Add(character.MythicPlusAddon);
+            }
+
+            character.MythicPlusAddon.Maps = new Dictionary<int, PlayerCharacterMythicPlusAddonMap>();
+            character.MythicPlusAddon.Season = characterData.MythicPlus.Season;
+
+            foreach ((int mapId, var map) in characterData.MythicPlus.Maps.EmptyIfNull())
+            {
+                var mapData = character.MythicPlusAddon.Maps[mapId] = new PlayerCharacterMythicPlusAddonMap();
+                mapData.OverallScore = map.OverallScore;
+
+                foreach (var mapScore in map.AffixScores.EmptyIfNull())
+                {
+                    // TODO check if ths is different in non-English clients
+                    if (mapScore.Name == "Fortified")
+                    {
+                        mapData.FortifiedScore = new PlayerCharacterMythicPlusAddonMapScore
+                        {
+                            OverTime = mapScore.OverTime,
+                            DurationSec = mapScore.DurationSec,
+                            Level = mapScore.Level,
+                            Score = mapScore.Score,
+                        };
+                    }
+                    else if (mapScore.Name == "Tyrannical")
+                    {
+                        mapData.TyrannicalScore = new PlayerCharacterMythicPlusAddonMapScore
+                        {
+                            OverTime = mapScore.OverTime,
+                            DurationSec = mapScore.DurationSec,
+                            Level = mapScore.Level,
+                            Score = mapScore.Score,
+                        };
+                    }
                 }
             }
         }
