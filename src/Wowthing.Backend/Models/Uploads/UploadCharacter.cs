@@ -20,6 +20,7 @@ namespace Wowthing.Backend.Models.Uploads
         public List<UploadCharacterCurrency> Currencies { get; set; }
         public List<UploadCharacterLockout> Lockouts { get; set; }
         public UploadCharacterMythicDungeon[] MythicDungeons { get; set; }
+        public UploadCharacterMythicPlus MythicPlus { get; set; }
         public List<UploadCharacterReputation> Reputations { get; set; }
         public Dictionary<string, int> ScanTimes { get; set; }
         public List<UploadCharacterTorghast> Torghast { get; set; }
@@ -58,6 +59,27 @@ namespace Wowthing.Backend.Models.Uploads
     {
         public int Level { get; set; }
         public int Map { get; set; }
+    }
+
+    public class UploadCharacterMythicPlus
+    {
+        public int Season { get; set; }
+        public Dictionary<int, UploadCharacterMythicPlusMap> Maps { get; set; }
+    }
+
+    public class UploadCharacterMythicPlusMap
+    {
+        public List<UploadCharacterMythicPlusMapScore> AffixScores { get; set; }
+        public int OverallScore { get; set; }
+    }
+
+    public class UploadCharacterMythicPlusMapScore
+    {
+        public bool OverTime { get; set; }
+        public int DurationSec { get; set; }
+        public int Level { get; set; }
+        public int Score { get; set; }
+        public string Name { get; set; }
     }
 
     public class UploadCharacterReputation

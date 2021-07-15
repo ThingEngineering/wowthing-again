@@ -34,6 +34,7 @@ namespace Wowthing.Web.Models
         public Dictionary<int, UserApiCharacterEquippedItem> EquippedItems { get; set; } = new Dictionary<int, UserApiCharacterEquippedItem>();
         public Dictionary<string, PlayerCharacterLockoutsLockout> Lockouts { get; }
         public UserApiCharacterMythicPlus MythicPlus { get; }
+        public PlayerCharacterMythicPlusAddon MythicPlusAddon { get; }
         public string QuestsPacked { get; set; }
         public Dictionary<int, PlayerCharacterRaiderIoSeasonScores> RaiderIo { get; }
         public Dictionary<int, int> Reputations { get; set; } = new Dictionary<int, int>();
@@ -96,6 +97,11 @@ namespace Wowthing.Web.Models
             if (character.MythicPlus != null)
             {
                 MythicPlus = new UserApiCharacterMythicPlus(character.MythicPlus, character.MythicPlusSeasons, pub && anon);
+            }
+
+            if (character.MythicPlusAddon != null)
+            {
+                MythicPlusAddon = character.MythicPlusAddon;
             }
 
             if (character.Quests != null)

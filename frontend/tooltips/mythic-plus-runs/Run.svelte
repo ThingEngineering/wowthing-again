@@ -34,7 +34,7 @@
                 {run.keystoneLevel}
                 <span>{repeat('+', result.plus)}</span>
             </th>
-            <th>
+            <th class="affixes">
                 {#each run.affixes as affixId}
                     <WowthingImage name="affix_{affixId}" size={20} border={1} />
                 {/each}

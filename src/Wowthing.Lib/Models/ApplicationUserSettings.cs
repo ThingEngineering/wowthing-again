@@ -37,6 +37,7 @@ namespace Wowthing.Lib.Models
         public bool ShowRaceIcon { get; set; } = true;
         public bool ShowSpecIcon { get; set; } = true;
         public bool ShowRealm { get; set; } = true;
+        public bool UseWowdb { get; set; } = false;
     }
 
     public class ApplicationUserSettingsHome

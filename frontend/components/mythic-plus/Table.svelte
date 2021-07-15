@@ -105,7 +105,7 @@
 
             {#each season.Orders as order}
                 {#each order as dungeonId}
-                    <RowDungeon {dungeonId} {runsFunc} />
+                    <RowDungeon {dungeonId} {runsFunc} seasonId={isThisWeek ? 0 : season.Id} />
                 {/each}
             {/each}
         {/key}
