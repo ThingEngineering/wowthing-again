@@ -1,26 +1,29 @@
 .settings-container {
     border: 1px solid $border-color;
     margin-bottom: 1rem;
+    padding: 0.5rem;
     width: $settings-column-width;
 
     h2 {
         text-align: center;
     }
 
-    ul {
-        list-style: none;
-        margin: 0;
-        padding: 0.5rem;
-        width: 100%;
+    fieldset {
+        margin: 0.5rem 0.3rem;
 
-        li {
-            padding: 0.25rem 0;
-
-            p {
-                color: #ffff88;
-                font-style: italic;
-                margin: 0 0 0 1.8rem;
-            }
+        p {
+            color: #ffff88;
+            font-style: italic;
+            margin: 0.5rem 0 0 0;
+        }
+        pre {
+            background: $highlight-background;
+            display: inline;
+            margin: 0;
+        }
+        ul {
+            margin: 0.3rem 0;
+            padding-inline-start: 1.3rem;
         }
     }
 }

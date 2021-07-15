@@ -9,4 +9,5 @@
         <input id="input-{name}" name={name} type="checkbox" bind:checked={value}>
         {label}
     </label>
+    <slot />
 </fieldset>

@@ -89,6 +89,8 @@ namespace Wowthing.Web.Controllers
                 return NotFound("User does not exist");
             }
 
+            settings.Validate();
+            
             user.Settings = settings;
             await _userManager.UpdateAsync(user);
 
