@@ -1,6 +1,7 @@
 <script lang="ts">
     import type {CharacterWeeklyUghQuest} from '@/types'
     //import tippy from '@/utils/tippy'
+    import toNiceNumber from '@/utils/to-nice-number'
 
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
@@ -19,7 +20,10 @@
             if (ughQuest.type === 'progressbar') {
                 text = `${ughQuest.have} %`
             } else {
-                text = `${ughQuest.have} / ${ughQuest.need}`
+                text = `${toNiceNumber(ughQuest.have)} / ${toNiceNumber(ughQuest.need)}`
+            }
+            if (ughQuest.have === ughQuest.need) {
+                status = `${status} shrug-cycle`
             }
         } else {
             status = 'fail'
@@ -47,6 +51,22 @@
 
         &.status-shrug {
             text-align: right;
+        }
+
+        &.shrug-cycle {
+            animation: 2s linear 0s infinite alternate shrug-success;
+        }
+    }
+
+    @keyframes shrug-success {
+        0% {
+            color: $colour-fail;
+        }
+        50% {
+            color: $colour-shrug;
+        }
+        100% {
+            color: $colour-success;
         }
     }
 </style>
