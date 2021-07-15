@@ -11,14 +11,14 @@
     import { data as userData } from '@/stores/user'
     import type {Character} from '@/types'
     import getCharacterGroupFunc from '@/utils/get-character-group-func'
-    //import getCharacterSortFunc from '@/utils/get-character-sort-func'
+    import getCharacterSortFunc from '@/utils/get-character-sort-func'
 
     import CharacterRow from './Row.svelte'
 
     export let endSpacer = true
     export let filterFunc: (char: Character) => boolean = (char) => char.level >= $settingsData.general.minimumLevel
     export let groupFunc: (char: Character) => string = getCharacterGroupFunc()
-    export let sortFunc: (char: Character) => number = undefined
+    export let sortFunc: (char: Character) => string = getCharacterSortFunc()
 
     setContext('endSpacer', endSpacer)
 

@@ -7,6 +7,8 @@ export interface Settings {
         showRealm: boolean
         showSpecIcon: boolean
         useWowdb: boolean
+        groupBy: string[]
+        sortBy: string[]
     }
 
     home: {

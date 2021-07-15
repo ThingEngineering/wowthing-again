@@ -1,4 +1,8 @@
-﻿#nullable enable
+﻿using System.Collections.Generic;
+using System.Linq;
+using Wowthing.Lib.Extensions;
+
+#nullable enable
 namespace Wowthing.Lib.Models
 {
     public class ApplicationUserSettings
@@ -27,6 +31,47 @@ namespace Wowthing.Lib.Models
                 Privacy = new ApplicationUserSettingsPrivacy();
             }
         }
+
+        private readonly HashSet<string> _validGroupBy = new()
+        {
+            "account",
+            "enabled",
+            "faction",
+            "maxLevel",
+        };
+        private readonly HashSet<string> _validSortBy = new()
+        {
+            "account",
+            "enabled",
+            "faction", "-faction",
+            "level",
+            "name",
+        };
+        public void Validate()
+        {
+            General.GroupBy = General.GroupBy
+                .EmptyIfNull()
+                .Where(gb => _validGroupBy.Contains(gb))
+                .Distinct()
+                .ToList();
+            
+            if (General.GroupBy.Count == 0)
+            {
+                General.GroupBy.Add("faction");
+            }
+
+            General.SortBy = General.SortBy
+                .EmptyIfNull()
+                .Where(sb => _validSortBy.Contains(sb))
+                .Distinct()
+                .ToList();
+            
+            if (General.SortBy.Count == 0)
+            {
+                General.SortBy.Add("level");
+                General.SortBy.Add("name");
+            }
+        }
     }
 
     public class ApplicationUserSettingsGeneral
@@ -38,6 +83,9 @@ namespace Wowthing.Lib.Models
         public bool ShowSpecIcon { get; set; } = true;
         public bool ShowRealm { get; set; } = true;
         public bool UseWowdb { get; set; } = false;
+
+        public List<string> GroupBy { get; set; }
+        public List<string> SortBy { get; set; }
     }
 
     public class ApplicationUserSettingsHome
