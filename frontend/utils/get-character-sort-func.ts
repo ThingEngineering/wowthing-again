@@ -5,6 +5,7 @@ import {data as settingsData} from '@/stores/settings'
 import { data as userData } from '@/stores/user'
 import type { Character} from '@/types'
 import {Faction} from '@/types/enums'
+import toDigits from '@/utils/to-digits'
 
 export default function getCharacterSortFunc(): (char: Character) => string {
     const sortBy = get(settingsData).general.sortBy ?? ['level', 'name']
@@ -35,8 +36,4 @@ export default function getCharacterSortFunc(): (char: Character) => string {
         console.log(out, char.name)
         return out.join('|')
     }
-}
-
-function toDigits(n: number, digits: number): string {
-    return n.toLocaleString(undefined, { minimumIntegerDigits: digits})
 }
