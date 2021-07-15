@@ -55,13 +55,9 @@
         {#if section.name}
             <h3>
                 {section.name}
-                <span
-                    ><CollectionCount
-                        counts={$userData.setCounts[route][
-                            `${slug}_${section.slug}`
-                        ]}
-                    /></span
-                >
+                <span>
+                    <CollectionCount counts={$userData.setCounts[route][`${slug}_${section.slug}`]} />
+                </span>
             </h3>
         {/if}
         <div class="container">

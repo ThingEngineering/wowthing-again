@@ -28,6 +28,9 @@
             <Checkbox name="general_showRealm" label="Show realm name" bind:value={$settingsData.general.showRealm} />
         </li>
         <li>
+            <Checkbox name="general_useWowdb" label="Use WowDB links instead of Wowhead" bind:value={$settingsData.general.useWowdb} />
+        </li>
+        <li>
             <fieldset>
                 <label for="input-minimumLevel">Minimum level</label>
                 <input id="input-minimumLevel" name="general_minimumLevel" type="number" min="1" max="{Constants.characterMaxLevel}" bind:value={$settingsData.general.minimumLevel}>
