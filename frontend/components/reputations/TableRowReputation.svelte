@@ -12,7 +12,7 @@
         TippyProps,
     } from '@/types'
     import findReputationTier from '@/utils/find-reputation-tier'
-    import tippy, {tippyComponent} from '@/utils/tippy'
+    import {tippyComponent} from '@/utils/tippy'
 
     import ReputationTooltip from '@/tooltips/reputation/Tooltip.svelte'
 

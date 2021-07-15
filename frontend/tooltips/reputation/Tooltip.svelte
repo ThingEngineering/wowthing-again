@@ -7,7 +7,13 @@
     export let characterRep: number
     export let reputation: StaticDataReputationReputation
 
-    const reps = []
+    const reps: {
+        cls: string
+        maxValue: number
+        minValue: number
+        name: string
+        thisOne: boolean
+    }[] = []
 
     $: {
         const dataRep: StaticDataReputation = $staticData.reputations[reputation.id]

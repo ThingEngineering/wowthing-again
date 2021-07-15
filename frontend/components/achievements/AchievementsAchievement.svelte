@@ -11,6 +11,5 @@
 </style>
 
 <div>
-    <img>
     <h3>{achievement}</h3>
 </div>

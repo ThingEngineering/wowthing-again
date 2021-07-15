@@ -15,7 +15,7 @@
 
     let userHasThing: number | undefined
     let origId: number
-    let component
+    let component: any
     $: {
         userHasThing = find(
             things,

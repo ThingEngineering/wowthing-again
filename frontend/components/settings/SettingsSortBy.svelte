@@ -5,7 +5,7 @@
 
     let sortBy: string = $settingsData.general.sortBy.join(',')
 
-    const inputSortBy = (e) => {
+    const inputSortBy = () => {
         $settingsData.general.sortBy = sortBy.split(',')
     }
 </script>

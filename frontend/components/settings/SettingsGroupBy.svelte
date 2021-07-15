@@ -5,7 +5,7 @@
 
     let groupBy: string = $settingsData.general.groupBy.join(',')
 
-    const inputGroupBy = (e) => {
+    const inputGroupBy = () => {
         $settingsData.general.groupBy = groupBy.split(',')
     }
 </script>

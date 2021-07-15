@@ -1,4 +1,4 @@
-import type {CharacterMythicPlusAddonMap, CharacterMythicPlusAddonMapAffix, CharacterMythicPlusRun} from '@/types'
+import type {CharacterMythicPlusAddonMapAffix, CharacterMythicPlusRun} from '@/types'
 
 export default function getMythicPlusRunQuality(
     run: CharacterMythicPlusRun | number,

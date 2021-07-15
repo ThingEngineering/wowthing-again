@@ -8,6 +8,7 @@
         MythicPlusSeason,
     } from '@/types'
     import getCurrentPeriodForCharacter from '@/utils/get-current-period-for-character'
+    import toDigits from '@/utils/to-digits'
 
     import CharacterTable from '@/components/character-table/Table.svelte'
     import Head from '@/components/character-table/Head.svelte'
@@ -32,7 +33,7 @@
     let isCurrentSeason: boolean
     let isThisWeek: boolean
     let filterFunc: (char: Character) => boolean
-    let sortFunc: (char: Character) => number
+    let sortFunc: (char: Character) => string
     let runsFunc: (char: Character, dungeonId: number) => CharacterMythicPlusRun[]
     let season: MythicPlusSeason
 
@@ -53,7 +54,7 @@
             isThisWeek = false
             season = seasonMap[slug.replace('season', '')]
             runsFunc = (char, dungeonId) => char.mythicPlus?.seasons?.[season.Id]?.[dungeonId]
-            sortFunc = (char) => -(char.raiderIo?.[season.Id]?.all ?? 0)
+            sortFunc = (char) => toDigits(1000000 - (char.raiderIo?.[season.Id]?.all ?? 0), 6)
         }
 
         isCurrentSeason = season.Id === firstSeason.Id

@@ -18,7 +18,7 @@ export interface StaticData {
 
     toySets: StaticDataSetCategory[][]
 
-    raiderIoScoreTiers: Dictionary<StaticDataRaiderIoScoreTiers[]>
+    raiderIoScoreTiers: Dictionary<StaticDataRaiderIoScoreTiers>
 }
 
 export interface StaticDataCurrency {
