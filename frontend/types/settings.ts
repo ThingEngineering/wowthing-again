@@ -6,6 +6,7 @@ export interface Settings {
         showRaceIcon: boolean
         showRealm: boolean
         showSpecIcon: boolean
+        useWowdb: boolean
     }
 
     home: {
