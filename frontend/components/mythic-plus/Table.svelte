@@ -54,7 +54,7 @@
             isThisWeek = false
             season = seasonMap[slug.replace('season', '')]
             runsFunc = (char, dungeonId) => char.mythicPlus?.seasons?.[season.Id]?.[dungeonId]
-            sortFunc = (char) => toDigits(1000000 - (char.raiderIo?.[season.Id]?.all ?? 0), 6)
+            sortFunc = (char) => toDigits(100000 - (char.raiderIo?.[season.Id]?.all ?? 0), 6)
         }
 
         isCurrentSeason = season.Id === firstSeason.Id

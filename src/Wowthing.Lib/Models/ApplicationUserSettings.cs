@@ -22,14 +22,18 @@ namespace Wowthing.Lib.Models
             {
                 General = new ApplicationUserSettingsGeneral();
             }
+            
             if (Home == null)
             {
                 Home = new ApplicationUserSettingsHome();
             }
+            
             if (Privacy == null)
             {
                 Privacy = new ApplicationUserSettingsPrivacy();
             }
+
+            Validate();
         }
 
         private readonly HashSet<string> _validGroupBy = new()
@@ -84,8 +88,8 @@ namespace Wowthing.Lib.Models
         public bool ShowRealm { get; set; } = true;
         public bool UseWowdb { get; set; } = false;
 
-        public List<string> GroupBy { get; set; }
-        public List<string> SortBy { get; set; }
+        public List<string> GroupBy { get; set; } = new();
+        public List<string> SortBy { get; set; } = new();
     }
 
     public class ApplicationUserSettingsHome
