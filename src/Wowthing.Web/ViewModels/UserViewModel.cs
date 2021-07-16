@@ -15,9 +15,11 @@ namespace Wowthing.Web.ViewModels
         {
             User = user;
             Settings = settings;
-            SettingsJson = JsonConvert.SerializeObject(settings);
             AchievementsHash = achievementsHash;
             StaticHash = staticHash;
+
+            Settings.Validate();
+            SettingsJson = JsonConvert.SerializeObject(settings);
         }
     }
 }
