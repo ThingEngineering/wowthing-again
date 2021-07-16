@@ -15,6 +15,7 @@ using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Player;
+using Wowthing.Lib.Models.Query;
 using Wowthing.Lib.Utilities;
 using Wowthing.Web.Models;
 using Wowthing.Web.Models.Team;
@@ -88,12 +89,29 @@ namespace Wowthing.Web.Controllers
                 return NotFound("User does not exist");
             }
 
+            settings.Validate();
+            
             user.Settings = settings;
             await _userManager.UpdateAsync(user);
 
             return Ok();
         }
 
+        [HttpGet("achievements.{hash:length(32)}.json")]
+        [ResponseCache(Duration = 365 * 24 * 60 * 60)]
+        public async Task<IActionResult> StaticAchievements([FromRoute] string hash)
+        {
+            var db = _redis.GetDatabase();
+
+            string jsonHash = await db.StringGetAsync("cached_achievements:hash");
+            if (hash != jsonHash)
+            {
+                return NotFound("Invalid achievement data hash");
+            }
+
+            return Content(await db.StringGetAsync("cached_achievements:data"), "application/json");
+        }
+        
         [HttpGet("static.{hash:length(32)}.json")]
         [ResponseCache(Duration = 365 * 24 * 60 * 60)]
         public async Task<IActionResult> StaticData([FromRoute] string hash)
@@ -208,6 +226,12 @@ namespace Wowthing.Web.Controllers
 
             timer.AddPoint("Get accounts");
 
+            var achievementsCompleted = await _context.CompletedAchievementsQuery
+                .FromSqlRaw(CompletedAchievementsQuery.USER_QUERY, user.Id)
+                .ToDictionaryAsync(k => (ushort)k.AchievementId, v => v.Timestamp);
+            
+            timer.AddPoint("achievementQuery");
+
             var characterQuery = _context.PlayerCharacter
                 .Where(c => c.Account.UserId == user.Id);
             if (pub)
@@ -220,6 +244,7 @@ namespace Wowthing.Web.Controllers
                 .Include(c => c.EquippedItems)
                 .Include(c => c.Lockouts)
                 .Include(c => c.MythicPlus)
+                .Include(c => c.MythicPlusAddon)
                 .Include(c => c.MythicPlusSeasons)
                 .Include(c => c.Quests)
                 .Include(c => c.RaiderIo)
@@ -245,6 +270,8 @@ namespace Wowthing.Web.Controllers
             var apiData = new UserApi
             {
                 Accounts = accounts.ToDictionary(k => k.Id, v => new UserApiAccount(v)),
+                AchievementsCompleted = achievementsCompleted,
+                AchievementsWhee = SerializationUtilities.SerializeAchievements(achievementsCompleted),
                 Characters = characters.Select(character => new UserApiCharacter(character, pub, anon)).ToList(),
                 CurrentPeriod = currentPeriods,
                 Mounts = mountMap,

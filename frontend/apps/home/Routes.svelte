@@ -1,6 +1,7 @@
 <script lang="ts">
     import Router from 'svelte-spa-router'
 
+    import Achievements from '@/components/achievements/Achievements.svelte'
     import Currencies from '@/components/currencies/Currencies.svelte'
     import Gear from '@/components/gear/Gear.svelte'
     import HomeCards from '@/components/home/Cards.svelte'
@@ -19,6 +20,7 @@
         '/cards': HomeCards,
         '/table': HomeTable,
 
+        '/achievements/:slug1?/:slug2?': Achievements,
         '/currencies/:slug?': Currencies,
         '/gear': Gear,
         '/lockouts': Lockouts,

@@ -20,22 +20,34 @@ namespace Wowthing.Backend.Jobs.Misc
 {
     public class CacheStaticJob : JobBase, IScheduledJob
     {
+        private JankTimer _timer;
+        
         public static readonly ScheduledJob Schedule = new ScheduledJob
         {
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
-            Version = 13,
+            Version = 15,
         };
 
         public override async Task Run(params string[] data)
         {
+            _timer = new JankTimer();
+
+            await BuildStaticData();
+            await BuildAchievementData();
+            
+            Logger.Information("CacheStaticJob: {0}", _timer.ToString());
+        }
+        
+        #region Static data
+        public async Task BuildStaticData()
+        {
             var db = Redis.GetDatabase();
-            var timer = new JankTimer();
 
             // RaiderIO
-            var raiderIoScoreTiers = await db.JsonGetAsync<Dictionary<int, List<ApiDataRaiderIoScoreTier>>>(DataRaiderIoScoreTiersJob.CACHE_KEY);
-
+            var raiderIoScoreTiers = await db.JsonGetAsync<Dictionary<int, OutRaiderIoScoreTiers>>(DataRaiderIoScoreTiersJob.CACHE_KEY);
+            
             // Currencies
             var currencies = await LoadCurrencies();
             var currencyCategories = await LoadCurrencyCategories();
@@ -47,31 +59,31 @@ namespace Wowthing.Backend.Jobs.Misc
             var spellToMount = await LoadMountDump();
             var mountSets = LoadSets("mounts");
             AddUncategorized("mounts", spellToMount, mountSets);
-            timer.AddPoint("Mounts");
+            _timer.AddPoint("Mounts");
 
             // Pets
             var creatureToPet = await LoadPetDump();
             var petSets = LoadSets("pets");
             AddUncategorized("pets", creatureToPet, petSets);
-            timer.AddPoint("Pets");
+            _timer.AddPoint("Pets");
 
             // Reputations
             var reputations = await LoadReputations();
 
             var reputationSets = LoadReputationSets();
-            timer.AddPoint("Reputations");
+            _timer.AddPoint("Reputations");
 
             // Toys
             var itemToToy = await LoadToyDump();
             var toySets = LoadSets("toys");
             AddUncategorized("toys", itemToToy, toySets);
-            timer.AddPoint("Toys");
+            _timer.AddPoint("Toys");
 
             // Basic database dumps
             var realms = new SortedDictionary<int, WowRealm>(await Context.WowRealm.ToDictionaryAsync(c => c.Id));
             //var reputations = new SortedDictionary<int, WowReputation>(await _context.WowReputation.ToDictionaryAsync(c => c.Id));
             var reputationTiers = new SortedDictionary<int, WowReputationTier>(await Context.WowReputationTier.ToDictionaryAsync(c => c.Id));
-            timer.AddPoint("Database");
+            _timer.AddPoint("Database");
 
             // Ok we're done
             var cacheData = new RedisStaticCache
@@ -93,17 +105,15 @@ namespace Wowthing.Backend.Jobs.Misc
 
                 ToySets = toySets,
 
-                RaiderIoScoreTiers = raiderIoScoreTiers ?? new Dictionary<int, List<ApiDataRaiderIoScoreTier>>(),
+                RaiderIoScoreTiers = raiderIoScoreTiers ?? new Dictionary<int, OutRaiderIoScoreTiers>(),
             };
             var cacheJson = JsonConvert.SerializeObject(cacheData);
             var cacheHash = cacheJson.Md5();
-            timer.AddPoint("JSON");
+            _timer.AddPoint("JSON");
 
             await db.StringSetAsync("cached_static:data", cacheJson);
             await db.StringSetAsync("cached_static:hash", cacheHash);
-            timer.AddPoint("Cache", true);
-
-            Logger.Information("CacheStaticJob: {0}", timer.ToString());
+            _timer.AddPoint("Cache", true);
         }
 
         private static List<DataReputationCategory> LoadReputationSets()
@@ -269,5 +279,63 @@ namespace Wowthing.Backend.Jobs.Misc
                 });
             }
         }
+        #endregion
+        
+        #region Achievement data
+        public async Task BuildAchievementData()
+        {
+            var db = Redis.GetDatabase();
+
+            var categories = await LoadAchievementCategories();
+            
+            // Ok we're done
+            var cacheData = new RedisStaticAchievements()
+            {
+                Categories = categories,
+            };
+            var cacheJson = JsonConvert.SerializeObject(cacheData);
+            var cacheHash = cacheJson.Md5();
+            _timer.AddPoint("JSON");
+
+            await db.StringSetAsync("cached_achievements:data", cacheJson);
+            await db.StringSetAsync("cached_achievements:hash", cacheHash);
+            _timer.AddPoint("Cache", true);
+        }
+
+        private static HashSet<int> _skipAchievementCategories = new()
+        {
+            1, // Statistics
+            15076, // Guild
+        };
+        private static async Task<List<OutAchievementCategory>> LoadAchievementCategories()
+        {
+            var records = await Utilities.Utilities.LoadDumpCsvAsync<DumpAchievementCategory>("achievement_category");
+            var recordMap = records.ToDictionary(
+                record => record.ID,
+                record => new OutAchievementCategory(record)
+            );
+
+            // Attach children
+            foreach (var record in records)
+            {
+                if (record.Parent > -1)
+                {
+                    recordMap[record.Parent].Children.Add(recordMap[record.ID]);
+                }
+            }
+            
+            // Sort everything by Order
+            foreach (var category in recordMap.Values)
+            {
+                category.Children.Sort((a, b) => a.Order.CompareTo(b.Order));
+            }
+
+            // Return all root categories that aren't in the skip list
+            return recordMap.Values
+                .Where(record => record.Parent == -1 && !_skipAchievementCategories.Contains(record.Id))
+                .OrderBy(record => record.Order)
+                .ToList();
+        }
+        #endregion
     }
 }

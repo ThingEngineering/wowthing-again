@@ -5,3 +5,11 @@
     padding-left: $paddingLeft;
     padding-right: $paddingRight;
 }
+
+@mixin text-shadow() {
+    text-shadow:
+        -2px -2px 2px #000,
+        -2px 2px 2px #000,
+        2px -2px 2px #000,
+        2px 2px 2px #000;
+}

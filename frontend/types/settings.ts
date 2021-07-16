@@ -6,6 +6,9 @@ export interface Settings {
         showRaceIcon: boolean
         showRealm: boolean
         showSpecIcon: boolean
+        useWowdb: boolean
+        groupBy: string[]
+        sortBy: string[]
     }
 
     home: {

@@ -544,6 +544,26 @@ namespace Wowthing.Lib.Migrations
                     b.ToTable("player_character_mythic_plus");
                 });
 
+            modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacterMythicPlusAddon", b =>
+                {
+                    b.Property<int>("CharacterId")
+                        .HasColumnType("integer")
+                        .HasColumnName("character_id");
+
+                    b.Property<Dictionary<int, PlayerCharacterMythicPlusAddonMap>>("Maps")
+                        .HasColumnType("jsonb")
+                        .HasColumnName("maps");
+
+                    b.Property<int>("Season")
+                        .HasColumnType("integer")
+                        .HasColumnName("season");
+
+                    b.HasKey("CharacterId")
+                        .HasName("pk_player_character_mythic_plus_addon");
+
+                    b.ToTable("player_character_mythic_plus_addon");
+                });
+
             modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacterMythicPlusSeason", b =>
                 {
                     b.Property<int>("CharacterId")
@@ -702,6 +722,19 @@ namespace Wowthing.Lib.Migrations
                         .HasName("pk_player_character_weekly");
 
                     b.ToTable("player_character_weekly");
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.Query.CompletedAchievementsQuery", b =>
+                {
+                    b.Property<int>("AchievementId")
+                        .HasColumnType("integer")
+                        .HasColumnName("achievement_id");
+
+                    b.Property<int>("Timestamp")
+                        .HasColumnType("integer")
+                        .HasColumnName("timestamp");
+
+                    b.ToTable("completed_achievements_query");
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.Query.SchedulerCharacterQuery", b =>
@@ -1098,6 +1131,18 @@ namespace Wowthing.Lib.Migrations
                         .WithOne("MythicPlus")
                         .HasForeignKey("Wowthing.Lib.Models.Player.PlayerCharacterMythicPlus", "CharacterId")
                         .HasConstraintName("fk_player_character_mythic_plus_player_character_character_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Character");
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacterMythicPlusAddon", b =>
+                {
+                    b.HasOne("Wowthing.Lib.Models.Player.PlayerCharacter", "Character")
+                        .WithMany()
+                        .HasForeignKey("CharacterId")
+                        .HasConstraintName("fk_player_character_mythic_plus_addon_player_character_charact")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

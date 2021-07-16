@@ -5,7 +5,7 @@
 
 @inject Microsoft.AspNetCore.Antiforgery.IAntiforgery _xsrf
 @functions {
-    public string GetAntiXsrfRequestToken()
+    private string GetAntiXsrfRequestToken()
     {
         return _xsrf.GetAndStoreTokens(Context).RequestToken;
     }
@@ -14,11 +14,20 @@
 @section scripts
 {
     <script type="text/javascript" asp-src-include="~/dist/home.*js"></script>
+    @if (Model.Settings.General?.UseWowdb == true)
+    {
+        <script type="text/javascript" src="https://www.wowdb.com/current/js/syndication/tt.js"></script>
+    }
+    else
+    {
+        <script type="text/javascript" src="https://wow.zamimg.com/widgets/power.js"></script>
+    }
 }
 
 <div id="app"
      data-settings="@Model.SettingsJson"
+     data-achievements="@Url.Action("StaticAchievements", "Api", new { hash = Model.AchievementsHash })"
      data-static="@Url.Action("StaticData", "Api", new { hash = Model.StaticHash })"
      data-user="@Url.Action("UserData", "Api", new { username = Model.User.UserName })"
-     data-xsrf="@(User.Identity.IsAuthenticated ? GetAntiXsrfRequestToken() : "")"
+     data-xsrf="@(User?.Identity?.IsAuthenticated == true ? GetAntiXsrfRequestToken() : "")"
 ></div>
