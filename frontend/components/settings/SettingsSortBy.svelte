@@ -20,6 +20,7 @@
             <li><pre>enabled</pre>: active accounts before inactive</li>
             <li><pre>faction</pre>: Alliance then Horde</li>
             <li><pre>-faction</pre>: Horde then Alliance</li>
+            <li><pre>itemLevel</pre>: character item level, descending</li>
             <li><pre>level</pre>: character level, descending</li>
             <li><pre>name</pre>: character name</li>
         </ul>
