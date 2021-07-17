@@ -1,5 +1,6 @@
-import { writable } from 'svelte/store'
+import { get, writable } from 'svelte/store'
 
+import { data as settingsData } from './settings'
 import type { UserData } from '@/types'
 import fetch_json from '@/utils/fetch-json'
 import initializeUser from '@/utils/initialize-user'
@@ -22,15 +23,15 @@ export const fetch = async function (): Promise<void> {
     }
 
     const userData = JSON.parse(json) as UserData
-    userData.characters.sort((a, b) => {
-        if (a.level != b.level) return b.level - a.level
-        return a.name.localeCompare(b.name)
-    })
-
     initializeUser(userData)
 
     data.set(userData)
     loading.set(false)
+
+    const refreshInterval = get(settingsData).general.refreshInterval
+    if (refreshInterval > 0) {
+        setTimeout(async () => await fetch(), refreshInterval * 1000 * 60)
+    }
 }
 
 export default {
