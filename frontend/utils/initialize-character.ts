@@ -6,6 +6,7 @@ import { seasonMap } from '@/data/dungeon'
 import { slotOrder } from '@/data/inventory-slot'
 import type { Character, CharacterMythicPlusRun } from '@/types'
 import { InventorySlot } from '@/types/enums'
+import {CharacterMythicPlusRunMember} from '@/types'
 
 export default function initializeCharacter(character: Character): void {
     // item levels
@@ -60,8 +61,12 @@ export default function initializeCharacter(character: Character): void {
                             total++
                             const dungeonId = season.Orders[i][j]
                             const runs = characterSeason[dungeonId] || []
-                            for (let k = 0; k < runs.length; k++) {
-                                const run = runs[k] as CharacterMythicPlusRun
+                            for (let runIndex = 0; runIndex < runs.length; runIndex++) {
+                                const run = runs[runIndex] as CharacterMythicPlusRun
+
+                                // Members are packed arrays, convert them to useful objects
+                                run.memberObjects = run.members.map(m => new CharacterMythicPlusRunMember(...m))
+
                                 if (run.timed) {
                                     if (run.keystoneLevel >= 15) {
                                         timed15++

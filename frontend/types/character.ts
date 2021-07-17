@@ -1,5 +1,6 @@
 import type { Dictionary } from './dictionary'
 import type {Faction} from '@/types/enums'
+import {InstanceType} from '@/types/enums'
 
 export interface Character {
     accountId?: number
@@ -99,16 +100,22 @@ export interface CharacterMythicPlusRun {
     dungeonId: number
     duration: number
     keystoneLevel: number
-    members: CharacterMythicPlusRunMember[]
+    members: CharacterMythicPlusRunMemberArray[]
+    memberObjects: CharacterMythicPlusRunMember[]
     timed: boolean
 }
 
-export interface CharacterMythicPlusRunMember {
-    itemLevel: number
-    name: string
-    realmId: number
-    specializationId: number
+export class CharacterMythicPlusRunMember {
+    constructor(
+        public realmId: number,
+        public name: string,
+        public specializationId: number,
+        public itemLevel: number
+    )
+    { }
 }
+
+type CharacterMythicPlusRunMemberArray = ConstructorParameters<typeof CharacterMythicPlusRunMember>
 
 export interface CharacterRaiderIoSeason {
     [key: string]: number

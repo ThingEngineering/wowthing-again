@@ -28,8 +28,19 @@ namespace Wowthing.Lib.Utilities
             {
                 BinaryPrimitives.WriteUInt16LittleEndian(buffer.Slice(i * 2, 2), array[i]);
             }
-
+            
             return Convert.ToBase64String(buffer);
         }
+        public static string SerializeInt32Array(int[] array)
+        {
+            Span<byte> buffer = stackalloc byte[array.Length * 4];
+            for (var i = 0; i < array.Length; i++)
+            {
+                BinaryPrimitives.WriteInt32LittleEndian(buffer.Slice(i * 4, 4), array[i]);
+            }
+            
+            return Convert.ToBase64String(buffer);
+        }
+
     }
 }

@@ -89,7 +89,9 @@ namespace Wowthing.Web.Controllers
                 return NotFound("User does not exist");
             }
 
+            _logger.LogWarning("settings 1: {0}", JsonConvert.SerializeObject(settings));
             settings.Validate();
+            _logger.LogWarning("settings 2: {0}", JsonConvert.SerializeObject(settings));
             
             user.Settings = settings;
             await _userManager.UpdateAsync(user);
@@ -205,7 +207,9 @@ namespace Wowthing.Web.Controllers
             }
 
             // Retrieve data
-            var mountIds = await db.GetSetMembersAsync(string.Format(RedisKeys.USER_MOUNTS, user.Id));
+            var mountIds = (await db.GetSetMembersAsync(string.Format(RedisKeys.USER_MOUNTS, user.Id)))
+                .Select(m => ushort.Parse(m))
+                .ToArray();
             
             timer.AddPoint("Get mounts");
 
@@ -217,7 +221,8 @@ namespace Wowthing.Web.Controllers
 
             var toyIds = tempAccounts
                 .SelectMany(a => a.Toys?.ToyIds ?? Enumerable.Empty<int>())
-                .Distinct();
+                .Distinct()
+                .ToArray();
 
             if (!pub)
             {
@@ -264,19 +269,18 @@ namespace Wowthing.Web.Controllers
             timer.AddPoint("currentPeriods");
 
             // Build response
-            var mountMap = mountIds.ToDictionary(k => int.Parse(k), _ => 1);
-            var toyMap = toyIds.ToDictionary(k => k, _ => 1);
+            //var mountMap = mountIds.ToDictionary(k => int.Parse(k), _ => 1);
+            //var toyMap = toyIds.ToDictionary(k => k, _ => 1);
 
             var apiData = new UserApi
             {
                 Accounts = accounts.ToDictionary(k => k.Id, v => new UserApiAccount(v)),
-                AchievementsCompleted = achievementsCompleted,
-                AchievementsWhee = SerializationUtilities.SerializeAchievements(achievementsCompleted),
+                AchievementsPacked = SerializationUtilities.SerializeAchievements(achievementsCompleted),
                 Characters = characters.Select(character => new UserApiCharacter(character, pub, anon)).ToList(),
                 CurrentPeriod = currentPeriods,
-                Mounts = mountMap,
+                MountsPacked = SerializationUtilities.SerializeUInt16Array(mountIds),
                 Public = pub,
-                Toys = toyMap,
+                ToysPacked = SerializationUtilities.SerializeInt32Array(toyIds),
             };
 
             timer.AddPoint("Build response", true);

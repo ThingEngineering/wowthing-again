@@ -20,7 +20,7 @@
 
         completed = run.completed.split('T')[0]
 
-        members = sortBy(run.members, (m) => [
+        members = sortBy(run.memberObjects, (m: CharacterMythicPlusRunMember) => [
             specializationMap[m.specializationId].role,
             m.name,
         ])
