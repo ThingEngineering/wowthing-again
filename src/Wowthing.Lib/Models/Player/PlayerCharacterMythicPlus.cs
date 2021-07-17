@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
+using Wowthing.Lib.Converters;
 
 namespace Wowthing.Lib.Models.Player
 {
@@ -29,6 +31,7 @@ namespace Wowthing.Lib.Models.Player
         public List<PlayerCharacterMythicPlusRunMember> Members { get; set; }
     }
 
+    [JsonConverter(typeof(PlayerCharacterMythicPlusRunMemberConverter))]
     public class PlayerCharacterMythicPlusRunMember
     {
         public int ItemLevel { get; set; }

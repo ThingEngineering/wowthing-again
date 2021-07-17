@@ -36,7 +36,7 @@ export default function initializeSets(): void {
 function sigh(
     category: string,
     sets: StaticDataSetCategory[][],
-    userHas: Dictionary<number>,
+    userHas: Dictionary<boolean>,
     map?: Dictionary<number>,
 ) {
     userData.setCounts[category] = {}

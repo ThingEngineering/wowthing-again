@@ -9,12 +9,17 @@ export interface UserData {
     accounts?: Account[]
     characters: Character[]
     currentPeriod: Dictionary<UserDataCurrentPeriod>
-    mounts: Dictionary<number>
     setCounts: Dictionary<Dictionary<UserDataSetCount>>
-    toys: Dictionary<number>
+
+    // Packed data
+    achievementsPacked: string
+    mountsPacked: string
+    toysPacked: string
 
     // Calculated
     allLockouts: InstanceDifficulty[]
+    mounts: Dictionary<boolean>
+    toys: Dictionary<boolean>
 }
 
 export interface UserDataCurrentPeriod {
