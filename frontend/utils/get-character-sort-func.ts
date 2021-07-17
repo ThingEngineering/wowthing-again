@@ -2,7 +2,7 @@ import { get } from 'svelte/store'
 
 import {Constants} from '@/data/constants'
 import {data as settingsData} from '@/stores/settings'
-import { data as userData } from '@/stores/user'
+import userStore from '@/stores/user'
 import type { Character} from '@/types'
 import {Faction} from '@/types/enums'
 import toDigits from '@/utils/to-digits'
@@ -15,10 +15,10 @@ export default function getCharacterSortFunc(): (char: Character) => string {
 
         for (const thing of sortBy) {
             if (thing === 'account') {
-                out.push(get(userData).accounts?.[char.accountId]?.name ?? `account${char.accountId}`)
+                out.push(get(userStore).data.accounts?.[char.accountId]?.name ?? `account${char.accountId}`)
             }
             else if (thing === 'enabled') {
-                const enabled = get(userData).accounts?.[char.accountId]?.enabled ?? true
+                const enabled = get(userStore).data.accounts?.[char.accountId]?.enabled ?? true
                 out.push(enabled ? 'a' : 'z')
             }
             else if (thing === 'faction' || thing === '-faction') {

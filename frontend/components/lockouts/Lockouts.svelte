@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {data as userData} from '@/stores/user'
+    import userStore from '@/stores/user'
     import type {Character} from '@/types'
 
     import CharacterTable from '@/components/character-table/Table.svelte'
@@ -13,7 +13,7 @@
     <GroupHead slot="groupHead" let:groupIndex {groupIndex} />
 
     <svelte:fragment slot="rowExtra" let:character>
-        {#each $userData.allLockouts as instanceDifficulty}
+        {#each $userStore.data.allLockouts as instanceDifficulty}
             <RowLockout {character} {instanceDifficulty} />
         {/each}
     </svelte:fragment>

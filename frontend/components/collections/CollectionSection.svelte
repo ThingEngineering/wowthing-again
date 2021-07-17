@@ -3,7 +3,7 @@
     import find from 'lodash/find'
     import { getContext } from 'svelte'
 
-    import { data as userData } from '@/stores/user'
+    import userStore from '@/stores/user'
     import type { StaticDataSetCategory } from '@/types'
 
     import CollectionCount from './CollectionCount.svelte'
@@ -56,7 +56,7 @@
             <h3>
                 {section.name}
                 <span>
-                    <CollectionCount counts={$userData.setCounts[route][`${slug}_${section.slug}`]} />
+                    <CollectionCount counts={$userStore.data.setCounts[route][`${slug}_${section.slug}`]} />
                 </span>
             </h3>
         {/if}

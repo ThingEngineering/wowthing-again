@@ -1,6 +1,6 @@
 <script lang="ts">
     import { data as staticData } from '@/stores/static'
-    import { data as userData } from '@/stores/user'
+    import userStore from '@/stores/user'
     import type { Dictionary } from '@/types'
 
     import Collection from './Collection.svelte'
@@ -8,7 +8,7 @@
     export let params: { slug: string }
 
     const thingMap: Dictionary<number> = {}
-    for (const toyId in $userData.toys) {
+    for (const toyId in $userStore.data.toys) {
         thingMap[toyId] = parseInt(toyId)
     }
 </script>
@@ -18,6 +18,6 @@
     slug={params.slug}
     thingType="item"
     {thingMap}
-    userHas={$userData.toys}
+    userHas={$userStore.data.toys}
     sets={$staticData.toySets}
 />

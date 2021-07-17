@@ -3,7 +3,7 @@
 
     import {mountSkillMap} from '@/data/mount-skill'
     import type { MountSkill } from '@/data/mount-skill'
-    import { data as userData } from '@/stores/user'
+    import userStore from '@/stores/user'
     import type { Character } from '@/types'
     import tippy from '@/utils/tippy'
 
@@ -55,7 +55,7 @@
             tooltip = 'Your mount speed is maxed out!'
         }
         else {
-            if (afford || $userData.public) {
+            if (afford || $userStore.data.public) {
                 cls = 'status-shrug'
                 tooltip = `Upgrade to ${nextSkill.speed}% ${nextSkill.speed > 100 ? 'flying' : 'ground'} for ${nextSkill.price.toLocaleString()}g!`
             }

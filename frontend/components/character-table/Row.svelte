@@ -2,7 +2,7 @@
     import { getContext, setContext } from 'svelte'
 
     import { data as settings } from '@/stores/settings'
-    import { data as userData } from '@/stores/user'
+    import userStore from '@/stores/user'
     import type { Character } from '@/types'
     import getRealmName from '@/utils/get-realm-name'
 
@@ -21,7 +21,7 @@
     $: {
         accountEnabled =
             character.accountId === undefined ||
-            $userData.accounts[character.accountId].enabled
+            $userStore.data.accounts[character.accountId].enabled
         endSpacer = getContext('endSpacer')
     }
 </script>
