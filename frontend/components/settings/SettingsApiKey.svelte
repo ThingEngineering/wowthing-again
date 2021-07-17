@@ -9,7 +9,6 @@
             },
         })
         const obj = await response.json()
-        console.log(obj)
         apiKey = obj['key']
 
         setTimeout(() => {
