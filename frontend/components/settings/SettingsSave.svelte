@@ -1,9 +1,10 @@
 <script lang="ts">
     import { data as settingsData } from '@/stores/settings'
+    import type {Settings} from '@/types'
 
     async function onClick() {
         const xsrf = document.getElementById('app').getAttribute('data-xsrf')
-        await fetch('/api/settings', {
+        const response = await fetch('/api/settings', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -11,6 +12,10 @@
             },
             body: JSON.stringify($settingsData),
         })
+        if (response.ok) {
+            const json = await response.json()
+            settingsData.set(json as Settings)
+        }
     }
 </script>
 

@@ -89,14 +89,12 @@ namespace Wowthing.Web.Controllers
                 return NotFound("User does not exist");
             }
 
-            _logger.LogWarning("settings 1: {0}", JsonConvert.SerializeObject(settings));
             settings.Validate();
-            _logger.LogWarning("settings 2: {0}", JsonConvert.SerializeObject(settings));
             
             user.Settings = settings;
             await _userManager.UpdateAsync(user);
 
-            return Ok();
+            return Json(settings);
         }
 
         [HttpGet("achievements.{hash:length(32)}.json")]
