@@ -1,7 +1,7 @@
 <script lang="ts">
     import active from 'svelte-spa-router/active'
 
-    import {data as userData, loading as userLoading} from '@/stores/user'
+    import userStore from '@/stores/user'
 
     import Sidebar from '@/components/common/Sidebar.svelte'
 </script>
@@ -56,7 +56,7 @@
         <a href="#/transmog/shadowlands">🚧 Transmog</a>
     </li>
 
-    {#if !$userLoading && !$userData.public}
+    {#if !$userStore.loading && !$userStore.data.public}
         <li class="separator"></li>
         <li use:active={'/settings/*'}>
             <a href="#/settings/">Settings</a>

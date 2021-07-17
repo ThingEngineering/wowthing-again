@@ -1,6 +1,6 @@
 <script lang="ts">
     import { data as settings } from '@/stores/settings'
-    import { data as userData } from '@/stores/user'
+    import userStore from '@/stores/user'
 
     import CharacterTable from '@/components/character-table/Table.svelte'
     import GroupHead from './table/GroupHead.svelte'
@@ -14,13 +14,18 @@
     import RowUghQuests from './table/RowUghQuests.svelte'
     import RowVaultMythicPlus from '@/components/character-table/row/VaultMythicPlus.svelte'
     import RowVaultRaid from '@/components/character-table/row/VaultRaid.svelte'
+
+    let isPublic: boolean
+    $: {
+        isPublic = $userStore.data.public
+    }
 </script>
 
 <CharacterTable>
     <GroupHead slot="groupHead" let:group let:groupIndex {group} {groupIndex} />
 
     <svelte:fragment slot="rowExtra" let:character>
-        {#if $userData.public === false}
+        {#if !isPublic}
             <RowGold gold={character.gold} />
         {/if}
 
@@ -36,7 +41,7 @@
             <RowCovenant />
         {/if}
 
-        {#if $userData.public === false}
+        {#if !isPublic}
             <RowUghQuests />
         {/if}
 
@@ -56,7 +61,7 @@
             <RowVaultRaid {character} />
         {/if}
 
-        {#if $settings.home.showStatuses && $userData.public === false}
+        {#if $settings.home.showStatuses && !isPublic}
             <RowStatuses />
         {/if}
     </svelte:fragment>

@@ -1,10 +1,10 @@
 import { data as sData } from '@/stores/static'
-import { data as uData } from '@/stores/user'
+import userStore from '@/stores/user'
 import type {
     Dictionary,
     StaticData,
     StaticDataSetCategory,
-    UserData,
+    UserDataStore,
 } from '@/types'
 
 let staticData: StaticData
@@ -12,23 +12,23 @@ sData.subscribe((value) => {
     staticData = value
 })
 
-let userData: UserData
-uData.subscribe((value) => {
+let userData: UserDataStore
+userStore.subscribe((value) => {
     userData = value
 })
 
 export default function initializeSets(): void {
     console.time('initializeSets')
-    userData.setCounts = {}
+    userData.data.setCounts = {}
 
     sigh(
         'mounts',
         staticData.mountSets,
-        userData.mounts,
+        userData.data.mounts,
         staticData.spellToMount,
     )
     sigh('pets', staticData.petSets, {})
-    sigh('toys', staticData.toySets, userData.toys)
+    sigh('toys', staticData.toySets, userData.data.toys)
 
     console.timeEnd('initializeSets')
 }
@@ -39,7 +39,7 @@ function sigh(
     userHas: Dictionary<boolean>,
     map?: Dictionary<number>,
 ) {
-    userData.setCounts[category] = {}
+    userData.data.setCounts[category] = {}
 
     for (let i = 0; i < sets.length; i++) {
         const categories = sets[i]
@@ -77,12 +77,12 @@ function sigh(
                 }
             }
 
-            userData.setCounts[category][
+            userData.data.setCounts[category][
                 `${categories[0].slug}_${section.slug}`
             ] = { have: sectionHave, total: sectionTotal }
         }
 
-        userData.setCounts[category][categories[0].slug] = {
+        userData.data.setCounts[category][categories[0].slug] = {
             have: categoryHave,
             total: categoryTotal,
         }

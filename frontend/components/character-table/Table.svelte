@@ -8,7 +8,7 @@
     import { setContext } from 'svelte'
 
     import { data as settingsData } from '@/stores/settings'
-    import { data as userData } from '@/stores/user'
+    import userStore from '@/stores/user'
     import type {Character} from '@/types'
     import getCharacterGroupFunc from '@/utils/get-character-group-func'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
@@ -26,7 +26,7 @@
     let groups: Character[][]
 
     $: {
-        characters = filter($userData.characters, filterFunc)
+        characters = filter($userStore.data.characters, filterFunc)
         const grouped = groupBy(characters, groupFunc)
         for (const key of keys(grouped)) {
             grouped[key] = sortBy(grouped[key], sortFunc)

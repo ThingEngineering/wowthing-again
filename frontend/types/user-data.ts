@@ -1,7 +1,19 @@
+import type { Writable } from 'svelte/store'
+
 import type { Account } from './account'
 import type { Character } from './character'
 import type { Dictionary } from './dictionary'
 import type { InstanceDifficulty } from './dungeon'
+
+export interface UserDataStore {
+    data?: UserData
+    error: boolean
+    loading: boolean
+}
+
+export interface WritableUserDataStore extends Writable<UserDataStore> {
+    fetch(): Promise<void>
+}
 
 export interface UserData {
     public: boolean

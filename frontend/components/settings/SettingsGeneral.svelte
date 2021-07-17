@@ -20,9 +20,9 @@
     <CheckboxInput name="general_showRealm" label="Show realm name" bind:value={$settingsData.general.showRealm} />
     <CheckboxInput name="general_useWowdb" label="Use WowDB for links" bind:value={$settingsData.general.useWowdb} />
 
-    <NumberInput name="general_minimumLevel" label="Minimum level" minValue="1" maxValue="{Constants.characterMaxLevel}" bind:value={$settingsData.general.minimumLevel} />
+    <NumberInput name="general_minimumLevel" label="Minimum level" minValue={1} maxValue={Constants.characterMaxLevel} bind:value={$settingsData.general.minimumLevel} />
 
-    <NumberInput name="general_refreshInterval" label="Auto-refresh interval" minValue="0" maxValue="1440" bind:value={$settingsData.general.refreshInterval}>
+    <NumberInput name="general_refreshInterval" label="Auto-refresh interval" minValue={0} maxValue={1440} bind:value={$settingsData.general.refreshInterval}>
         <p>Minutes between automatically reloading your data from the server, 0 to disable</p>
     </NumberInput>
 </div>

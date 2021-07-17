@@ -1,32 +1,32 @@
 import { writable } from 'svelte/store'
 import type { Writable } from 'svelte/store'
 
-import { fetch as userFetch } from './user'
+import userStore from './user'
 import type { Settings } from '@/types'
 
 
 let interval: number | null = null
 
-function createData(): Writable<Settings> {
-    const initial = JSON.parse(document.getElementById('app').getAttribute('data-settings')) as Settings
-    const { set, subscribe, update } = writable(initial)
+const { set, subscribe, update } = writable<Settings>(null)
 
-    return {
-        set: (settings) => {
-            set(settings)
+export const data = {
+    set: (settings: Settings): void => {
+        if (interval !== null) {
+            clearInterval(interval)
+            interval = null
+        }
 
-            if (interval !== null) {
-                clearInterval(interval)
-                interval = null
-            }
+        if (settings.general.refreshInterval >= 10) {
+            //console.log('setting interval')
+            //interval = setInterval(async () => await userStore.fetch(), 1000)
+            interval = setInterval(async () => await userStore.fetch(), settings.general.refreshInterval * 1000 * 60)
+        }
 
-            if (settings.general.refreshInterval >= 10) {
-                interval = setInterval(async () => await userFetch(), settings.general.refreshInterval * 1000 * 60)
-            }
-        },
-        subscribe,
-        update,
-    }
+        set(settings)
+    },
+    subscribe,
+    update,
 }
 
-export const data = createData()
+//export const data = createData()
+data.set(JSON.parse(document.getElementById('app').getAttribute('data-settings')) as Settings)

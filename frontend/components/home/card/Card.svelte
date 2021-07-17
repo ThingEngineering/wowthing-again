@@ -1,7 +1,7 @@
 <script lang="ts">
     import { specializationMap } from '@/data/character-specialization'
     import { data as settings } from '@/stores/settings'
-    import { data as userData } from '@/stores/user'
+    import userStore from '@/stores/user'
     import type { Character, CharacterSpecialization } from '@/types'
     import getRealmName from '@/utils/get-realm-name'
     import tippy from '@/utils/tippy'
@@ -20,8 +20,8 @@
     $: {
         accountEnabled =
             character.accountId === undefined ||
-            $userData.accounts[character.accountId].enabled
-        accountTag = $userData.accounts?.[character.accountId]?.tag
+            $userStore.data.accounts[character.accountId].enabled
+        accountTag = $userStore.data.accounts?.[character.accountId]?.tag
         spec = specializationMap[character.activeSpecId]
     }
 </script>

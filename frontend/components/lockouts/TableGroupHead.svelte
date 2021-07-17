@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { data as userData } from '@/stores/user'
+    import userStore from '@/stores/user'
     import getCharacterTableSpan from '@/utils/get-character-table-span'
 
     import GroupHeadInstance from './TableGroupHeadInstance.svelte'
@@ -17,7 +17,7 @@
 <tr class="table-group-head">
     <td colspan="{span}">&nbsp;</td>
 
-    {#each $userData.allLockouts as instanceDifficulty}
+    {#each $userStore.data.allLockouts as instanceDifficulty}
         <GroupHeadInstance {instanceDifficulty} />
     {/each}
 </tr>
