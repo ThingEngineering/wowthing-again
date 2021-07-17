@@ -1,6 +1,5 @@
 import type { Dictionary } from './dictionary'
 import type {Faction} from '@/types/enums'
-import {InstanceType} from '@/types/enums'
 
 export interface Character {
     accountId?: number

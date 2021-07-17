@@ -1,7 +1,7 @@
 import keys from 'lodash/keys'
 
 import initializeCharacter from './initialize-character'
-import type { Character, Dictionary, UserData } from '@/types'
+import type { Dictionary, UserData } from '@/types'
 import {difficultyMap} from '@/data/difficulty'
 import base64ToDictionary from '@/utils/base64-to-dictionary'
 import {TypedArray} from '@/types/enums'
