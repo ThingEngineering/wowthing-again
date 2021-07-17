@@ -1,6 +1,7 @@
 export interface Settings {
     general: {
         minimumLevel: number
+        refreshInterval: number
         showClassIcon: boolean
         showItemLevel: boolean
         showRaceIcon: boolean
