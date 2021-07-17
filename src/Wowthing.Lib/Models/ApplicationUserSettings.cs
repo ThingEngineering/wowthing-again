@@ -11,11 +11,6 @@ namespace Wowthing.Lib.Models
         public ApplicationUserSettingsHome? Home { get; set; } = new ApplicationUserSettingsHome();
         public ApplicationUserSettingsPrivacy? Privacy { get; set; } = new ApplicationUserSettingsPrivacy();
 
-        public ApplicationUserSettings()
-        {
-            Migrate();
-        }
-
         public void Migrate()
         {
             if (General == null)
