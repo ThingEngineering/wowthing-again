@@ -11,7 +11,7 @@
     export let route: string
     export let thingType: string
     export let thingMap: Dictionary<number> = {}
-    export let userHas: Dictionary<number> = {}
+    export let userHas: Dictionary<boolean> = {}
     export let sets: StaticDataSetCategory[][]
 
     setContext('collection', {
