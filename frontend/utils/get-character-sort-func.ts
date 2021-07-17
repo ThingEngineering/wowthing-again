@@ -33,7 +33,6 @@ export default function getCharacterSortFunc(): (char: Character) => string {
             }
         }
 
-        console.log(out, char.name)
         return out.join('|')
     }
 }
