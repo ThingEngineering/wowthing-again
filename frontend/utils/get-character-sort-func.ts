@@ -24,6 +24,9 @@ export default function getCharacterSortFunc(): (char: Character) => string {
             else if (thing === 'faction' || thing === '-faction') {
                 out.push(Faction[char.faction])
             }
+            else if (thing === 'itemLevel') {
+                out.push(toDigits(1000 - parseInt(char.calculatedItemLevel || '0'), 4))
+            }
             else if (thing === 'level') {
                 // this will sort by level in descending order
                 out.push(toDigits(Constants.characterMaxLevel - char.level, 2))
