@@ -3,6 +3,8 @@
     import {data as settingsData} from '@/stores/settings'
 
     import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
+    import NumberInput from '@/components/forms/NumberInput.svelte'
+    import TextInput from '@/components/forms/TextInput.svelte'
 </script>
 
 <style lang="scss">
@@ -18,8 +20,9 @@
     <CheckboxInput name="general_showRealm" label="Show realm name" bind:value={$settingsData.general.showRealm} />
     <CheckboxInput name="general_useWowdb" label="Use WowDB for links" bind:value={$settingsData.general.useWowdb} />
 
-    <fieldset>
-        <label for="input-minimumLevel">Minimum level</label>
-        <input id="input-minimumLevel" name="general_minimumLevel" type="number" min="1" max="{Constants.characterMaxLevel}" bind:value={$settingsData.general.minimumLevel}>
-    </fieldset>
+    <NumberInput name="general_minimumLevel" label="Minimum level" minValue={1} maxValue={Constants.characterMaxLevel} bind:value={$settingsData.general.minimumLevel} />
+
+    <NumberInput name="general_refreshInterval" label="Auto-refresh interval" minValue={0} maxValue={1440} bind:value={$settingsData.general.refreshInterval}>
+        <p>Minutes between automatically reloading your data from the server, 0 to disable</p>
+    </NumberInput>
 </div>

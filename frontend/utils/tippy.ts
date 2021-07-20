@@ -3,6 +3,11 @@ import type {Instance, Props} from 'tippy.js'
 
 import type {TippyProps} from '@/types'
 
+const defaultProps: TippyProps = {
+    duration: [0, 0],
+    ignoreAttributes: true,
+}
+
 export default function (node: SingleTarget, props: TippyProps | string): any {
     if (props === undefined) {
         return
@@ -11,12 +16,13 @@ export default function (node: SingleTarget, props: TippyProps | string): any {
     let tippyProps: TippyProps
     if (typeof props === 'string') {
         tippyProps = {
+            ...defaultProps,
             content: props,
         }
     }
     else {
         tippyProps = {
-            //placement: 'right',
+            ...defaultProps,
             ...props,
         }
     }
@@ -35,6 +41,7 @@ export function tippyComponent(node: SingleTarget, {component, props}: TippyComp
     let cmp: any
 
     const tp = tippy(node, {
+        ...defaultProps,
         allowHTML: true,
         onShow(instance: Instance<Props>) {
             cmp = new component({

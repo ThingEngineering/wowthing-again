@@ -26,11 +26,11 @@
     }
 
     tbody {
+        --icon-margin-top: -4px;
+
         tr {
             td {
                 white-space: nowrap;
-
-                --icon-margin-top: -4px;
 
                 &:first-child {
                     border-left: 1px solid $border-color;

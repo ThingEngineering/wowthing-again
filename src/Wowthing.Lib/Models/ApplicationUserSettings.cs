@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Wowthing.Lib.Extensions;
 
@@ -49,6 +50,16 @@ namespace Wowthing.Lib.Models
         };
         public void Validate()
         {
+            if (General.RefreshInterval <= 0)
+            {
+                General.RefreshInterval = 0;
+            }
+            else
+            {
+                // Clamp between 10 and 1440 minutes
+                General.RefreshInterval = Math.Max(10, Math.Min(1440, General.RefreshInterval));
+            }
+            
             General.GroupBy = General.GroupBy
                 .EmptyIfNull()
                 .Where(gb => _validGroupBy.Contains(gb))
@@ -77,6 +88,7 @@ namespace Wowthing.Lib.Models
     public class ApplicationUserSettingsGeneral
     {
         public int MinimumLevel { get; set; } = 1;
+        public int RefreshInterval { get; set; } = 0;
         public bool ShowClassIcon { get; set; } = true;
         public bool ShowItemLevel { get; set; } = true;
         public bool ShowRaceIcon { get; set; } = true;

@@ -1,6 +1,6 @@
 <script lang="ts">
     import { data as staticData } from '@/stores/static'
-    import { data as userData } from '@/stores/user'
+    import userStore from '@/stores/user'
 
     import Collection from './Collection.svelte'
 
@@ -12,6 +12,6 @@
     slug={params.slug}
     thingType="npc"
     thingMap={$staticData.creatureToPet}
-    userHas={$userData.mounts}
+    userHas={$userStore.data.mounts}
     sets={$staticData.petSets}
 />

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { data } from '@/stores/user'
+    import userStore from '@/stores/user'
 
     import CharacterCard from './card/Card.svelte'
 </script>
@@ -16,7 +16,7 @@
 </style>
 
 <section>
-    {#each $data.characters as character}
+    {#each $userStore.data.characters as character}
         <CharacterCard {character} />
     {/each}
 </section>

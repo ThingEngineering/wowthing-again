@@ -6,21 +6,17 @@
         loading as staticLoading,
         fetch as fetchStatic,
     } from '@/stores/static'
-    import {
-        error as userError,
-        loading as userLoading,
-        fetch as fetchUser,
-    } from '@/stores/user'
+    import userStore from '@/stores/user'
     import initializeSets from '@/utils/initialize-sets'
 
     import Routes from './Routes.svelte'
     import Sidebar from './Sidebar.svelte'
 
     onMount(() => fetchStatic())
-    onMount(() => fetchUser())
+    onMount(async () => await userStore.fetch())
 
     $: {
-        if (!$staticLoading && !$userLoading) {
+        if (!$staticLoading && !$userStore.loading) {
             initializeSets()
         }
     }
@@ -31,9 +27,9 @@
 </style>
 
 <Sidebar />
-{#if $staticError || $userError}
+{#if $staticError || $userStore.error}
     <p>KABOOM! Something has gone horribly wrong, try reloading the page?</p>
-{:else if $staticLoading || $userLoading}
+{:else if $staticLoading || $userStore.loading}
     <p>L O A D I N G</p>
 {:else}
     <Routes />

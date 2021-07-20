@@ -3,9 +3,9 @@
     import { link } from 'svelte-spa-router'
     import active from 'svelte-spa-router/active'
 
+    import userStore from '@/stores/user'
     import type { CollectionContext } from '@/types/contexts'
 
-    import { data as userData } from '@/stores/user'
     import CollectionCount from './CollectionCount.svelte'
     import Sidebar from '@/components/common/Sidebar.svelte'
 
@@ -47,12 +47,12 @@
                 >
                 <span>
                     <CollectionCount
-                        counts={$userData.setCounts[route][categories[0].slug]}
+                        counts={$userStore.data.setCounts[route][categories[0].slug]}
                     />
                 </span>
             </li>
         {:else}
-            <li class="separator" />
+            <li class="separator"></li>
         {/if}
     {/each}
 </Sidebar>

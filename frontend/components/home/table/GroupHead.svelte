@@ -2,7 +2,7 @@
     import sumBy from 'lodash/sumBy'
 
     import { data as settings } from '@/stores/settings'
-    import { data as userData } from '@/stores/user'
+    import userStore from '@/stores/user'
     import type {Character} from '@/types'
     import getCharacterTableSpan from '@/utils/get-character-table-span'
 
@@ -16,9 +16,11 @@
     export let groupIndex: number
 
     let gold: number
+    let isPublic: boolean
     let span: number
     $: {
         gold = sumBy(group, (c: Character) => c.gold)
+        isPublic = $userStore.data.public
         span = getCharacterTableSpan()
     }
 </script>
@@ -30,7 +32,7 @@
 <tr class="table-group-head">
     <td colspan="{span}">&nbsp;</td>
 
-    {#if !$userData.public}
+    {#if !isPublic}
         <RowGold {gold} />
     {/if}
 
@@ -46,15 +48,15 @@
         <HeadCovenant />
     {/if}
 
-    {#if $settings.home.showWeeklyAnima && $userData.public === false}
+    {#if $settings.home.showWeeklyAnima && !isPublic}
         <td>Anima</td>
     {/if}
 
-    {#if $settings.home.showWeeklyShapingFate && $userData.public === false}
+    {#if $settings.home.showWeeklyShapingFate && !isPublic}
         <td>Shaping</td>
     {/if}
 
-    {#if $settings.home.showWeeklySouls && $userData.public === false}
+    {#if $settings.home.showWeeklySouls && !isPublic}
         <td>Souls</td>
     {/if}
 
@@ -78,7 +80,7 @@
         <td colspan="3">PvP Vault</td>
     {/if}-->
 
-    {#if $settings.home.showStatuses && $userData.public === false}
+    {#if $settings.home.showStatuses && !isPublic}
         <td>&nbsp;</td>
     {/if}
 

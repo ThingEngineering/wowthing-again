@@ -7,6 +7,7 @@
         CharacterMythicPlusRun,
         MythicPlusSeason,
     } from '@/types'
+    import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import getCurrentPeriodForCharacter from '@/utils/get-current-period-for-character'
     import toDigits from '@/utils/to-digits'
 
@@ -49,6 +50,7 @@
                     return []
                 }
             }
+            sortFunc = getCharacterSortFunc()
         }
         else {
             isThisWeek = false
