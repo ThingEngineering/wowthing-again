@@ -23,8 +23,13 @@
         }
 
         if (character.mythicPlusAddon?.season === seasonId) {
-            addonMap = character.mythicPlusAddon.maps[dungeonId]
+            const tempMap: CharacterMythicPlusAddonMap = character.mythicPlusAddon.maps[dungeonId]
+            if (tempMap.fortifiedScore || tempMap.tyrannicalScore) {
+                addonMap = tempMap
+            }
         }
+
+        console.log(character.name, runs, addonMap)
     }
 </script>
 
@@ -43,7 +48,7 @@
     }
 </style>
 
-{#if runs.length > 0}
+{#if runs.length > 0 || addonMap}
     <td use:tippyComponent={{component: MythicPlusRunsTooltip, props: {addonMap, runs}}}>
         {#if addonMap}
             {#if addonMap.fortifiedScore}
