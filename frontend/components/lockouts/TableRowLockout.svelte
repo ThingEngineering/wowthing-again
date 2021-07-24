@@ -15,7 +15,7 @@
 
 <style lang="scss">
     td {
-        @include cell-width($width-lockout, $paddingRight: $width-spacer);
+        @include cell-width($width-lockout);
 
         border-left: 1px solid $border-color;
         text-align: center;
