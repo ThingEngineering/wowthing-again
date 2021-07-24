@@ -27,6 +27,8 @@
 
 <style lang="scss">
     td {
+        @include cell-width($width-lockout);
+
         text-align: center;
     }
 </style>
