@@ -3,7 +3,7 @@ import keys from 'lodash/keys'
 import initializeCharacter from './initialize-character'
 import type { Dictionary, UserData } from '@/types'
 import {difficultyMap} from '@/data/difficulty'
-import base64ToDictionary from '@/utils/base64-to-dictionary'
+import base64ToDictionary, {base64ToAchievements} from '@/utils/base64-to-dictionary'
 import {TypedArray} from '@/types/enums'
 
 export default function initializeUser(userData: UserData): void {
@@ -31,11 +31,19 @@ export default function initializeUser(userData: UserData): void {
                 key: instanceDifficulty,
             })
         }
+        else {
+            console.log({instanceId, difficultyId, difficulty})
+        }
     }
 
     // unpack packed data
+    userData.achievements = base64ToAchievements(userData.achievementsPacked)
     userData.mounts = base64ToDictionary(TypedArray.Uint16, userData.mountsPacked)
     userData.toys = base64ToDictionary(TypedArray.Int32, userData.toysPacked)
+
+    userData.achievementsPacked = null
+    userData.mountsPacked = null
+    userData.toysPacked = null
 
     console.timeEnd('initializeUser')
 }
