@@ -28,8 +28,6 @@
                 addonMap = tempMap
             }
         }
-
-        console.log(character.name, runs, addonMap)
     }
 </script>
 
