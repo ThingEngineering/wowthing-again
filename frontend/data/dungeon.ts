@@ -1,5 +1,5 @@
 import {Dungeon, MythicPlusAffix, MythicPlusSeason} from '@/types'
-import type { Dictionary } from '@/types'
+import type { Dictionary, StaticDataInstance } from '@/types'
 
 export const affixMap: Dictionary<MythicPlusAffix> = {
     1: new MythicPlusAffix('Overflowing'),
@@ -194,4 +194,19 @@ export const raidVaultItemLevel: Dictionary<number> = {
     14: 226, // Normal
     15: 239, // Heroic
     16: 252, // Mythic
+}
+
+export const extraInstanceMap: Dictionary<StaticDataInstance> = {
+    108001: {
+        expansion: 8,
+        id: 108001,
+        name: 'Shadowlands World Bosses',
+        shortName: 'SWB',
+    },
+    108002: {
+        expansion: 8,
+        id: 108002,
+        name: "Mor'geth, Tormentor of the Damned",
+        shortName: 'MTD',
+    },
 }

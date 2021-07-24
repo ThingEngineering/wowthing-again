@@ -3,6 +3,8 @@ import {Difficulty} from '@/types'
 import {InstanceType} from '@/types/enums'
 
 export const difficultyMap: Dictionary<Difficulty> = {
+    0: new Difficulty(0, 'World Boss', 'W', InstanceType.Raid, 1, 40),
+
     // Dungeons
     1: new Difficulty(1, 'Normal', 'N', InstanceType.Dungeon, 5, 5),
     2: new Difficulty(2, 'Heroic', 'H', InstanceType.Dungeon, 5, 5),
