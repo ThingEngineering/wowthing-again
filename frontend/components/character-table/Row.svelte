@@ -18,11 +18,23 @@
 
     let accountEnabled: boolean
     let endSpacer: boolean
+    let iconComponents: any[]
     $: {
         accountEnabled =
             character.accountId === undefined ||
             $userStore.data.accounts[character.accountId].enabled
         endSpacer = getContext('endSpacer')
+
+        iconComponents = []
+        if ($settings.general.showRaceIcon) {
+            iconComponents.push(RaceIcon)
+        }
+        if ($settings.general.showClassIcon) {
+            iconComponents.push(ClassIcon)
+        }
+        if ($settings.general.showSpecIcon) {
+            iconComponents.push(SpecializationIcon)
+        }
     }
 </script>
 
@@ -31,7 +43,7 @@
         opacity: $inactive-opacity;
     }
     .level {
-        @include cell-width($width-level, 0.4rem);
+        @include cell-width($width-level);
 
         text-align: right;
     }
@@ -44,23 +56,11 @@
 </style>
 
 <tr class="faction{character.faction}" class:inactive={!accountEnabled} class:last-of-group={last}>
-    {#if $settings.general.showRaceIcon}
-        <TableIcon>
-            <RaceIcon {character} />
+    {#each iconComponents as iconComponent, iconIndex}
+        <TableIcon padLeft={iconIndex === 0 ? '0.25rem' : '0px'} padRight={iconIndex === (iconComponents.length - 1) ? '0.25rem' : '0px'}>
+            <svelte:component this={iconComponent} {character} />
         </TableIcon>
-    {/if}
-
-    {#if $settings.general.showClassIcon}
-        <TableIcon padLeft="0px">
-            <ClassIcon {character} />
-        </TableIcon>
-    {/if}
-
-    {#if $settings.general.showSpecIcon}
-        <TableIcon padLeft="0px">
-            <SpecializationIcon {character} />
-        </TableIcon>
-    {/if}
+    {/each}
 
     <td class="level">{character.level}</td>
     <td class="name">{character.name}</td>

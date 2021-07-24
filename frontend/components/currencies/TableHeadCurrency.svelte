@@ -8,13 +8,15 @@
 
 <style lang="scss">
     th {
+        @include cell-width($width-currency);
+
         background: $thing-background;
         border: 1px solid $border-color;
         border-right-width: 0;
         border-top-width: 0;
-        padding: 0.3rem 0;
+        padding-bottom: $width-padding;
+        padding-top: $width-padding;
         text-align: center;
-        width: 4em;
 
         & :global(img) {
             border: 1px solid $border-color;

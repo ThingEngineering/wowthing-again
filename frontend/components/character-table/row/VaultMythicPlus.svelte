@@ -18,7 +18,7 @@
 
 <style lang="scss">
     td {
-        @include cell-width($width-vault, $paddingRight: $width-spacer);
+        @include cell-width($width-vault);
 
         border-left: 1px solid $border-color;
     }

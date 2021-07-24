@@ -1,7 +1,7 @@
 <style lang="scss">
     th {
-        min-width: calc(#{$width-icon} + #{$width-raider-io});
-        width: $width-icon;
+        @include cell-width($width-raider-io);
+
         text-align: center;
         vertical-align: bottom;
     }

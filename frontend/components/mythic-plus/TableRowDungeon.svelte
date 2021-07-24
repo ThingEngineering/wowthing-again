@@ -35,6 +35,8 @@
 
 <style lang="scss">
     td {
+        @include cell-width($width-mplus-dungeon);
+
         border-left: 1px solid $border-color;
         text-align: center;
     }
