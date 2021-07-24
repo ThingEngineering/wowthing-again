@@ -1,3 +1,4 @@
+@import "tooltips/lockout";
 @import "tooltips/mythic-plus";
 @import "tooltips/reputation";
 @import "tooltips/torghast";
@@ -7,15 +8,31 @@
     margin: $tooltip-padding-y*-1 $tooltip-padding-x*-1 $tooltip-padding-y*-1 $tooltip-padding-x*-1;
     text-align:center;
 
+    > h4,
+    > h5 {
+        background: $tooltip-title-background;
+        font-weight: normal;
+    }
+
     > h4 {
         padding: 0.3rem 0.5rem;
-        border-bottom: 1px solid $tooltip-border;
         border-top-left-radius: $border-radius;
         border-top-right-radius: $border-radius;
-        background: $tooltip-title-background;
         color: $tooltip-title-color;
         font-size: 1.05rem;
-        font-weight: normal;
+
+        &:not(.no-border) {
+            border-bottom: 1px solid $tooltip-border;
+        }
+    }
+
+    > h5 {
+        border-bottom: 1px solid $tooltip-border;
+        color: $colour-success;
+        font-size: 1.0rem;
+        margin-top: -0.2rem;
+        padding-bottom: 0.2rem;
+        text-align: center;
     }
 
     > table {
