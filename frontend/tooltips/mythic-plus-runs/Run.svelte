@@ -2,12 +2,12 @@
     import repeat from 'lodash/repeat'
     import sortBy from 'lodash/sortBy'
 
+    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import {specializationMap} from '@/data/character-specialization'
     import {dungeonMap} from '@/data/dungeon'
     import type {CharacterMythicPlusRun, CharacterMythicPlusRunMember, Dungeon, DungeonTimedResult} from '@/types'
 
     import Member from './Member.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
-    import {specializationMap} from '../../data/character-specialization'
 
     export let run: CharacterMythicPlusRun
 

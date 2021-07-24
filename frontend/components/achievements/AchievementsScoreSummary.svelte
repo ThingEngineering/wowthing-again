@@ -1,6 +1,7 @@
 <script lang="ts">
     import {data} from '@/stores/achievements'
-    import ProgressBar from '../common/ProgressBar.svelte'
+
+    import ProgressBar from '@/components/common/ProgressBar.svelte'
 </script>
 
 <style lang="scss">
