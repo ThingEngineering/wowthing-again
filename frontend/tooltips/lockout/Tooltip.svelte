@@ -12,7 +12,6 @@
     $: {
         instance = $staticData.instances[lockout.id] || extraInstanceMap[lockout.id]
         difficulty = difficultyMap[lockout.difficulty]
-        console.log(character, lockout, instance, difficulty)
     }
 </script>
 
