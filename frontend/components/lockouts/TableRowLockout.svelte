@@ -23,7 +23,9 @@
 </style>
 
 {#if lockout}
-    <td use:tippyComponent={{component: LockoutTooltip, props: {character, lockout}}}>
+    <td use:tippyComponent={{component: LockoutTooltip, props: {character, lockout}}}
+        class:status-success={lockout.defeatedBosses >= lockout.maxBosses}
+        class:status-shrug={lockout.defeatedBosses < lockout.maxBosses}>
         <span>{lockout.defeatedBosses}</span>
         <span>/</span>
         <span>{lockout.maxBosses}</span>
