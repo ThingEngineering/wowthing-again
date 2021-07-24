@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {data as settingsData} from '../../stores/settings'
+    import {data as settingsData} from '@/stores/settings'
 
     import TextInput from '@/components/forms/TextInput.svelte'
 
