@@ -6,11 +6,13 @@
     import Run from './Run.svelte'
 
     export let addonMap: CharacterMythicPlusAddonMap
+    export let dungeonId: number
     export let runs: CharacterMythicPlusRun[]
 
     let dungeon: Dungeon
     $: {
-        dungeon = dungeonMap[runs[0].dungeonId]
+        dungeon = dungeonMap[dungeonId]
+        runs = runs ?? []
     }
 </script>
 
