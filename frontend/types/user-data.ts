@@ -29,6 +29,7 @@ export interface UserData {
     toysPacked: string
 
     // Calculated
+    achievements: Dictionary<number>
     allLockouts: InstanceDifficulty[]
     mounts: Dictionary<boolean>
     toys: Dictionary<boolean>

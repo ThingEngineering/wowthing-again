@@ -1,23 +1,27 @@
 <script lang="ts">
     import { dungeonMap } from '@/data/dungeon'
+    import type {Dungeon} from '@/types'
     import tippy from '@/utils/tippy'
 
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let dungeonId = 0
 
+    let dungeon: Dungeon
     $: dungeon = dungeonMap[dungeonId]
 </script>
 
 <style lang="scss">
     th {
+        @include cell-width($width-mplus-dungeon);
+
         background: $thing-background;
         border: 1px solid $border-color;
         border-right-width: 0;
         border-top-width: 0;
-        padding: 0.3rem 0;
+        padding-bottom: 0.3rem;
+        padding-top: 0.3rem;
         text-align: center;
-        width: 4em;
 
         & :global(img) {
             border: 1px solid $border-color;

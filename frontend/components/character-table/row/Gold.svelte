@@ -4,8 +4,9 @@
 
 <style lang="scss">
     td {
+        @include cell-width($width-gold);
+
         text-align: right;
-        width: 2rem;
     }
 </style>
 

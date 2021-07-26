@@ -23,13 +23,18 @@
         }
 
         if (character.mythicPlusAddon?.season === seasonId) {
-            addonMap = character.mythicPlusAddon.maps[dungeonId]
+            const tempMap: CharacterMythicPlusAddonMap = character.mythicPlusAddon.maps[dungeonId]
+            if (tempMap.fortifiedScore || tempMap.tyrannicalScore) {
+                addonMap = tempMap
+            }
         }
     }
 </script>
 
 <style lang="scss">
     td {
+        @include cell-width($width-mplus-dungeon);
+
         border-left: 1px solid $border-color;
         text-align: center;
     }
@@ -43,8 +48,8 @@
     }
 </style>
 
-{#if runs.length > 0}
-    <td use:tippyComponent={{component: MythicPlusRunsTooltip, props: {addonMap, runs}}}>
+{#if runs.length > 0 || addonMap}
+    <td use:tippyComponent={{component: MythicPlusRunsTooltip, props: {addonMap, dungeonId, runs}}}>
         {#if addonMap}
             {#if addonMap.fortifiedScore}
                 <span class={getMythicPlusRunQualityAffix(addonMap.fortifiedScore)}>{addonMap.fortifiedScore.level}</span>
