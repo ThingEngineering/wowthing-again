@@ -41,7 +41,7 @@
 <thead>
     <tr>
         {#each iconComponents as iconComponent, iconIndex}
-            <HeadIcon padLeft={iconIndex === 0 ? null : '0px'} padRight={iconIndex === (iconComponents.length - 1) ? null : '0px'} />
+            <svelte:component this={iconComponent} padLeft={iconIndex === 0 ? null : '0px'} padRight={iconIndex === (iconComponents.length - 1) ? null : '0px'} />
         {/each}
 
         <th class="level"></th>

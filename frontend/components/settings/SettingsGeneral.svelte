@@ -4,7 +4,6 @@
 
     import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
     import NumberInput from '@/components/forms/NumberInput.svelte'
-    import TextInput from '@/components/forms/TextInput.svelte'
 </script>
 
 <style lang="scss">
