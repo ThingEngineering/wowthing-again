@@ -2,8 +2,8 @@
     import {dungeonMap} from '@/data/dungeon'
     import type {CharacterMythicPlusAddonMap, CharacterMythicPlusRun, Dungeon} from '@/types'
 
-    import AddonData from './AddonData.svelte'
-    import Run from './Run.svelte'
+    import AddonData from './TooltipMythicPlusRunsAddonData.svelte'
+    import Run from './TooltipMythicPlusRunsRun.svelte'
 
     export let addonMap: CharacterMythicPlusAddonMap
     export let dungeonId: number

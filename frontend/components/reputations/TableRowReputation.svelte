@@ -14,7 +14,7 @@
     import findReputationTier from '@/utils/find-reputation-tier'
     import {tippyComponent} from '@/utils/tippy'
 
-    import ReputationTooltip from '@/tooltips/reputation/Tooltip.svelte'
+    import TooltipReputation from '@/components/tooltips/reputation/TooltipReputation.svelte'
 
     const character: Character = getContext('character')
 
@@ -38,6 +38,7 @@
                     ? `${repTier.Value} / ${repTier.MaxValue} ${repTier.Name}`
                     : repTier.Name
 
+                // TODO use tooltip component
                 tooltip = {
                     allowHTML: true,
                     content: `
@@ -60,7 +61,7 @@
 </style>
 
 {#if characterRep !== undefined && tooltip !== undefined}
-    <td class="reputation{repTier.Tier}" use:tippyComponent={{component: ReputationTooltip, props: {characterRep, reputation: repInfo}}}
+    <td class="reputation{repTier.Tier}" use:tippyComponent={{component: TooltipReputation, props: {characterRep, reputation: repInfo}}}
         >{repTier.Percent}%</td
     >
 {:else}

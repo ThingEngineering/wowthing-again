@@ -2,7 +2,7 @@
     import type {Character, CharacterLockout, InstanceDifficulty} from '@/types'
     import { tippyComponent } from '@/utils/tippy'
 
-    import LockoutTooltip from '@/tooltips/lockout/Tooltip.svelte'
+    import TooltipLockout from '@/components/tooltips/lockout/TooltipLockout.svelte'
 
     export let character: Character
     export let instanceDifficulty: InstanceDifficulty
@@ -23,7 +23,7 @@
 </style>
 
 {#if lockout}
-    <td use:tippyComponent={{component: LockoutTooltip, props: {character, lockout}}}
+    <td use:tippyComponent={{component: TooltipLockout, props: {character, lockout}}}
         class:status-success={lockout.defeatedBosses >= lockout.maxBosses}
         class:status-shrug={lockout.defeatedBosses < lockout.maxBosses}>
         <span>{lockout.defeatedBosses}</span>

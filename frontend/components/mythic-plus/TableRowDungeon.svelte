@@ -5,7 +5,7 @@
     import getMythicPlusRunQuality, { getMythicPlusRunQualityAffix } from '@/utils/get-mythic-plus-run-quality'
     import { tippyComponent } from '@/utils/tippy'
 
-    import MythicPlusRunsTooltip from '@/tooltips/mythic-plus-runs/Tooltip.svelte'
+    import TooltipMythicPlusRuns from '@/components/tooltips/mythic-plus-runs/TooltipMythicPlusRuns.svelte'
 
     export let dungeonId: number
     export let runsFunc: (char: Character, dungeonId: number) => CharacterMythicPlusRun[]
@@ -49,7 +49,7 @@
 </style>
 
 {#if runs.length > 0 || addonMap}
-    <td use:tippyComponent={{component: MythicPlusRunsTooltip, props: {addonMap, dungeonId, runs}}}>
+    <td use:tippyComponent={{component: TooltipMythicPlusRuns, props: {addonMap, dungeonId, runs}}}>
         {#if addonMap}
             {#if addonMap.fortifiedScore}
                 <span class={getMythicPlusRunQualityAffix(addonMap.fortifiedScore)}>{addonMap.fortifiedScore.level}</span>

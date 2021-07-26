@@ -7,7 +7,7 @@
     import {dungeonMap} from '@/data/dungeon'
     import type {CharacterMythicPlusRun, CharacterMythicPlusRunMember, Dungeon, DungeonTimedResult} from '@/types'
 
-    import Member from './Member.svelte'
+    import Member from './TooltipMythicPlusRunsMember.svelte'
 
     export let run: CharacterMythicPlusRun
 
