@@ -75,8 +75,6 @@
             <HeadRaiderIo />
         {/if}
 
-        <HeadSpacer />
-
         {#key season.Id}
             {#each season.Orders as order}
                 {#each order as dungeonId}
@@ -99,8 +97,6 @@
                 <RowRaiderIo {season} />
                 <RowMythicPlusBadge {season} />
             {/if}
-
-            <RowSpacer />
 
             {#each season.Orders as order}
                 {#each order as dungeonId}
