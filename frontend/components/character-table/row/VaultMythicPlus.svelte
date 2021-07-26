@@ -4,7 +4,7 @@
     import getMythicPlusVaultItemLevel from '@/utils/get-mythic-plus-vault-item-level'
     import {tippyComponent} from '@/utils/tippy'
 
-    import MythicPlusVaultTooltip from '@/tooltips/vault-mythic-plus/Tooltip.svelte'
+    import TooltipMythicPlusVault from '@/components/tooltips/vault-mythic-plus/TooltipVaultMythicPlus.svelte'
 
     export let character: Character
 
@@ -31,7 +31,7 @@
 </style>
 
 {#if mythicPlus}
-    <td use:tippyComponent={{component: MythicPlusVaultTooltip, props: {character}}}>
+    <td use:tippyComponent={{component: TooltipMythicPlusVault, props: {character}}}>
         <div class="flex-wrapper">
             {#each mythicPlus as progress}
                 {#if progress.progress >= progress.threshold}

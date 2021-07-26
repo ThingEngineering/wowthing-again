@@ -5,7 +5,7 @@
     import type {Character} from '@/types'
     import { tippyComponent } from '@/utils/tippy'
 
-    import TorghastTooltip from '@/tooltips/torghast/Tooltip.svelte'
+    import TooltipTorghast from '@/components/tooltips/torghast/TooltipTorghast.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
@@ -38,7 +38,7 @@
 </style>
 
 {#if wings.length === 2}
-    <td use:tippyComponent={{component: TorghastTooltip, props: {character, wings}}}>
+    <td use:tippyComponent={{component: TooltipTorghast, props: {character, wings}}}>
         <div class="flex-wrapper">
             <WowthingImage name={Constants.icons.torghast} size={20} border={1} />
             <div class="flex-wrapper">

@@ -3,7 +3,7 @@
 
     import type {Character, CharacterWeeklyProgress} from '@/types'
 
-    import Run from './Run.svelte'
+    import Run from './TooltipVaultMythicPlusRun.svelte'
 
     export let character: Character
 

@@ -4,7 +4,7 @@
     import getRaidVaultItemLevel from '@/utils/get-raid-vault-item-level';
     import { tippyComponent } from '@/utils/tippy'
 
-    import TooltipVaultRaid from '@/tooltips/vault-raid/Tooltip.svelte'
+    import TooltipVaultRaid from '@/components/tooltips/vault-raid/TooltipVaultRaid.svelte'
 
     export let character: Character
 
