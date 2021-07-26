@@ -3,7 +3,7 @@
     import getCharacterTableSpan from '@/utils/get-character-table-span'
 
     import GroupHeadInstance from './TableGroupHeadInstance.svelte'
-    import SpacerRow from '@/components/character-table/SpacerRow.svelte'
+    import SpacerRow from '@/components/character-table/CharacterTableSpacerRow.svelte'
 
     export let groupIndex: number
 

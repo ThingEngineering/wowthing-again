@@ -2,24 +2,20 @@
     import sortBy from 'lodash/sortBy'
 
     import { seasonMap } from '@/data/dungeon'
-    import type {
-        Character,
-        CharacterMythicPlusRun,
-        MythicPlusSeason,
-    } from '@/types'
+    import type { Character, CharacterMythicPlusRun, MythicPlusSeason } from '@/types'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import getCurrentPeriodForCharacter from '@/utils/get-current-period-for-character'
     import toDigits from '@/utils/to-digits'
 
-    import CharacterTable from '@/components/character-table/Table.svelte'
-    import Head from '@/components/character-table/Head.svelte'
-    import HeadDungeon from './TableHeadDungeon.svelte'
+    import CharacterTable from '@/components/character-table/CharacterTable.svelte'
+    import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
+    import HeadDungeon from './MythicPlusTableHead.svelte'
     import HeadItemLevel from '@/components/character-table/head/ItemLevel.svelte'
     import HeadKeystone from '@/components/character-table/head/Keystone.svelte'
     import HeadRaiderIo from '@/components/character-table/head/RaiderIo.svelte'
     import HeadSpacer from '@/components/character-table/head/Spacer.svelte'
     import HeadVault from '@/components/character-table/head/Vault.svelte'
-    import RowDungeon from './TableRowDungeon.svelte'
+    import RowDungeon from './MythicPlusTableBody.svelte'
     import RowItemLevel from '@/components/character-table/row/ItemLevel.svelte'
     import RowKeystone from '@/components/character-table/row/Keystone.svelte'
     import RowMythicPlusBadge from '@/components/character-table/row/MythicPlusBadge.svelte'
@@ -66,7 +62,7 @@
 </script>
 
 <CharacterTable {filterFunc} {sortFunc} endSpacer={false}>
-    <Head slot="head">
+    <CharacterTableHead slot="head">
         <HeadItemLevel />
 
         {#if isCurrentSeason}
@@ -88,7 +84,7 @@
                 {/each}
             {/each}
         {/key}
-    </Head>
+    </CharacterTableHead>
 
     <svelte:fragment slot="rowExtra" let:character>
         <RowItemLevel />

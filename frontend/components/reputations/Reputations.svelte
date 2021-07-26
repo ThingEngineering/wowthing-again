@@ -1,6 +1,6 @@
 <script lang="ts">
-    import ReputationSidebar from './Sidebar.svelte'
-    import ReputationTable from './Table.svelte'
+    import ReputationsSidebar from './ReputationsSidebar.svelte'
+    import ReputationsTable from './ReputationsTable.svelte'
 
     export let params: { slug: string }
 </script>
@@ -14,6 +14,6 @@
 </style>
 
 <div>
-    <ReputationSidebar />
-    <ReputationTable slug={params.slug} />
+    <ReputationsSidebar />
+    <ReputationsTable slug={params.slug} />
 </div>

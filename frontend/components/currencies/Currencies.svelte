@@ -1,6 +1,6 @@
 <script lang="ts">
-    import CurrenciesSidebar from './Sidebar.svelte'
-    import CurrenciesTable from './Table.svelte'
+    import CurrenciesSidebar from './CurrenciesSidebar.svelte'
+    import CurrenciesTable from './CurrenciesTable.svelte'
 
     export let params: { slug: string }
 </script>

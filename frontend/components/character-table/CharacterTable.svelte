@@ -13,7 +13,7 @@
     import getCharacterGroupFunc from '@/utils/get-character-group-func'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
 
-    import CharacterRow from './Row.svelte'
+    import CharacterRow from './CharacterTableRow.svelte'
 
     export let endSpacer = true
     export let filterFunc: (char: Character) => boolean = (char) => char.level >= $settingsData.general.minimumLevel

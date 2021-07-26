@@ -7,10 +7,10 @@
     import { data as staticData } from '@/stores/static'
     import type {StaticDataCurrency} from '@/types'
 
-    import CharacterTable from '@/components/character-table/Table.svelte'
-    import Head from '@/components/character-table/Head.svelte'
-    import HeadCurrency from './TableHeadCurrency.svelte'
-    import RowCurrency from './TableRowCurrency.svelte'
+    import CharacterTable from '@/components/character-table/CharacterTable.svelte'
+    import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
+    import HeadCurrency from './CurrenciesTableHead.svelte'
+    import RowCurrency from './CurrenciesTableBody.svelte'
 
     export let slug: string
 
@@ -22,13 +22,13 @@
 </script>
 
 <CharacterTable endSpacer={false}>
-    <Head slot="head">
+    <CharacterTableHead slot="head">
         {#key slug}
             {#each currencies as currency}
                 <HeadCurrency {currency} />
             {/each}
         {/key}
-    </Head>
+    </CharacterTableHead>
 
     <svelte:fragment slot="rowExtra" let:character>
         {#key slug}
