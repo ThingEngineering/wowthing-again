@@ -12,8 +12,8 @@
         fetch as fetchTeam,
     } from '@/stores/team'
 
-    import Routes from './Routes.svelte'
-    import Sidebar from './Sidebar.svelte'
+    import Routes from './AppTeamsRoutes.svelte'
+    import Sidebar from './AppTeamsSidebar.svelte'
 
     onMount(() => fetchStatic())
     onMount(() => fetchTeam())

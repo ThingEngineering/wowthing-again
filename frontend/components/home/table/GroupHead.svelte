@@ -10,7 +10,7 @@
     import HeadMount from './head/Mount.svelte'
     import HeadTorghast from './head/Torghast.svelte'
     import RowGold from '@/components/character-table/row/Gold.svelte'
-    import SpacerRow from '@/components/character-table/SpacerRow.svelte'
+    import SpacerRow from '@/components/character-table/CharacterTableSpacerRow.svelte'
 
     export let group: Character[]
     export let groupIndex: number

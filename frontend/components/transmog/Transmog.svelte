@@ -1,7 +1,7 @@
 <script lang="ts">
     //import {data as staticData} from '@/stores/static-store'
 
-    import TransmogSidebar from './Sidebar.svelte'
+    import TransmogSidebar from './TransmogSidebar.svelte'
 
     //export let params: { slug: string }
 </script>

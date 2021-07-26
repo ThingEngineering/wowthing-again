@@ -9,8 +9,8 @@
     import userStore from '@/stores/user'
     import initializeSets from '@/utils/initialize-sets'
 
-    import Routes from './Routes.svelte'
-    import Sidebar from './Sidebar.svelte'
+    import Routes from './AppHomeRoutes.svelte'
+    import Sidebar from './AppHomeSidebar.svelte'
 
     onMount(() => fetchStatic())
     onMount(async () => await userStore.fetch())

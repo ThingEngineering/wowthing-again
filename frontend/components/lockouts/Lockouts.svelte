@@ -2,7 +2,7 @@
     import userStore from '@/stores/user'
     import type {Character} from '@/types'
 
-    import CharacterTable from '@/components/character-table/Table.svelte'
+    import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import GroupHead from './TableGroupHead.svelte'
     import RowLockout from './TableRowLockout.svelte'
 
