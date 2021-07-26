@@ -2,9 +2,8 @@
     import {difficultyMap} from '@/data/difficulty'
     import {extraInstanceMap} from '@/data/dungeon'
     import { data as staticData } from '@/stores/static'
-    import type {Character, CharacterLockout, Difficulty, StaticDataInstance} from '@/types'
+    import type {CharacterLockout, Difficulty, StaticDataInstance} from '@/types'
 
-    export let character: Character
     export let lockout: CharacterLockout
 
     let instance: StaticDataInstance

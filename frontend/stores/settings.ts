@@ -1,5 +1,4 @@
 import { writable } from 'svelte/store'
-import type { Writable } from 'svelte/store'
 
 import userStore from './user'
 import type { Settings } from '@/types'
@@ -17,8 +16,6 @@ export const data = {
         }
 
         if (settings.general.refreshInterval >= 10) {
-            //console.log('setting interval')
-            //interval = setInterval(async () => await userStore.fetch(), 1000)
             interval = setInterval(async () => await userStore.fetch(), settings.general.refreshInterval * 1000 * 60)
         }
 

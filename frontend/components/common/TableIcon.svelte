@@ -1,6 +1,6 @@
 <script lang="ts">
-    export let padLeft
-    export let padRight
+    export let padLeft = 'unset'
+    export let padRight = 'unset'
 
     $: {
         padLeft = padLeft ?? 'unset'

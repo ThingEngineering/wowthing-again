@@ -13,7 +13,7 @@
 
 <style lang="scss">
     th {
-        @include cell-width($width-mplus-dungeon)
+        @include cell-width($width-mplus-dungeon);
 
         background: $thing-background;
         border: 1px solid $border-color;
