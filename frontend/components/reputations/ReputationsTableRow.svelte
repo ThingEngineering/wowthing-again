@@ -9,7 +9,6 @@
         StaticDataReputationReputation,
         StaticDataReputationSet,
         StaticDataReputationTier,
-        TippyProps,
     } from '@/types'
     import findReputationTier from '@/utils/find-reputation-tier'
     import {tippyComponent} from '@/utils/tippy'
@@ -23,7 +22,6 @@
     let characterRep: number | undefined
     let repInfo: StaticDataReputationReputation
     let repTier: ReputationTier
-    let tooltip: TippyProps
 
     $: {
         if (character !== undefined && reputation !== undefined) {
@@ -34,20 +32,6 @@
             if (characterRep !== undefined && dataRep !== undefined) {
                 const tiers: StaticDataReputationTier = $data.reputationTiers[dataRep.tierId] || $data.reputationTiers[0]
                 repTier = findReputationTier(tiers, characterRep)
-                const valueRank = repTier.MaxValue
-                    ? `${repTier.Value} / ${repTier.MaxValue} ${repTier.Name}`
-                    : repTier.Name
-
-                // TODO use tooltip component
-                tooltip = {
-                    allowHTML: true,
-                    content: `
-<div class='wowthing-tooltip'>
-    <h4>${dataRep.name}</h4>
-    ${valueRank}
-    ${repInfo.note !== null ? '<p><em>' + repInfo.note + '</em></p>' : ''}
-</div>`,
-                }
             }
         }
     }
@@ -60,10 +44,10 @@
     }
 </style>
 
-{#if characterRep !== undefined && tooltip !== undefined}
-    <td class="reputation{repTier.Tier}" use:tippyComponent={{component: TooltipReputation, props: {characterRep, reputation: repInfo}}}
-        >{repTier.Percent}%</td
-    >
+{#if characterRep !== undefined}
+    <td class="reputation{repTier.Tier}" use:tippyComponent={{component: TooltipReputation, props: {characterRep, reputation: repInfo}}}>
+        {repTier.Percent}%
+    </td>
 {:else}
     <td>&nbsp;</td>
 {/if}
