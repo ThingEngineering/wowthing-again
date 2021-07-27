@@ -13,9 +13,6 @@
     <li use:active={'/'}>
         <a href="#/">Home</a>
     </li>
-    <li use:active={'/cards'}>
-        <a href="#/cards">🚧 Home (Cards)</a>
-    </li>
 
     <li class="separator"></li>
 
@@ -48,6 +45,9 @@
 
     <li use:active={'/achievements/*'}>
         <a href="#/achievements/summary">🚧 Achievements</a>
+    </li>
+    <li use:active={'/cards'}>
+        <a href="#/cards">🚧 Home (Cards)</a>
     </li>
     <li use:active={'/pets/*'}>
         <a href="#/pets/">🚧 Pets</a>
