@@ -1,0 +1,4 @@
+// Wowhead doesn't wrap domination shards
+.wowhead-tooltip .socket-domination a {
+    white-space: break-spaces !important;
+}
