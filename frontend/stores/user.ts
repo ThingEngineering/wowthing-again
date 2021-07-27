@@ -18,7 +18,6 @@ function getStore(): WritableUserDataStore {
             const url = document.getElementById('app')?.getAttribute('data-user')
             if (!url) {
                 store.update(state => {
-                    console.log(state)
                     state.error = true
                     return state
                 })
