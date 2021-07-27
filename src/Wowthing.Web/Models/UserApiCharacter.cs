@@ -142,6 +142,7 @@ namespace Wowthing.Web.Models
 
         public List<int> BonusIds { get; set; }
         public List<int> EnchantmentIds { get; set; }
+        public List<int> GemIds { get; set; }
 
         public UserApiCharacterEquippedItem(PlayerCharacterEquippedItem equippedItem)
         {
@@ -152,6 +153,7 @@ namespace Wowthing.Web.Models
 
             BonusIds = equippedItem.BonusIds;
             EnchantmentIds = equippedItem.EnchantmentIds;
+            GemIds = equippedItem.GemIds;
         }
     }
 

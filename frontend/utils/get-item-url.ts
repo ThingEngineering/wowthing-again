@@ -25,10 +25,13 @@ export function getItemUrl(item: CharacterEquippedItem): string {
     // Wowhead
     else {
         if (item.bonusIds?.length > 0) {
-            params.push(`bonus=${item.bonusIds.join(',')}`)
+            params.push(`bonus=${item.bonusIds.join(':')}`)
         }
         if (item.enchantmentIds?.length > 0) {
-            params.push(`ench=${item.enchantmentIds[0]}`)
+            params.push(`ench=${item.enchantmentIds.join(':')}`)
+        }
+        if (item.gemIds?.length > 0) {
+            params.push(`gems=${item.gemIds.join(':')}`)
         }
 
         url = `https://www.wowhead.com/item=${item.itemId}`
