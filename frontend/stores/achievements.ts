@@ -5,7 +5,7 @@ import type { AchievementData } from '@/types'
 
 export const error = writable(false)
 export const loading = writable(true)
-export const data = writable<AchievementData>(undefined)
+export const data = writable<AchievementData>()
 
 export const fetch = async function (): Promise<void> {
     const url = document.getElementById('app').getAttribute('data-achievements')

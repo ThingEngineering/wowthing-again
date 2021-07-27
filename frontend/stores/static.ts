@@ -5,7 +5,7 @@ import type { StaticData } from '@/types'
 
 export const error = writable(false)
 export const loading = writable(true)
-export const data = writable<StaticData>(undefined)
+export const data = writable<StaticData>()
 
 export const fetch = async function (): Promise<void> {
     const url = document.getElementById('app').getAttribute('data-static')

@@ -6,7 +6,7 @@ import initializeTeam from '@/utils/initialize-team'
 
 export const error = writable(false)
 export const loading = writable(true)
-export const data = writable<TeamData>(undefined)
+export const data = writable<TeamData>()
 
 export const fetch = async function (): Promise<void> {
     const url = document.getElementById('app').getAttribute('data-team')
