@@ -8,7 +8,7 @@
     import { setContext } from 'svelte'
 
     import { data as settingsData } from '@/stores/settings'
-    import userStore from '@/stores/user'
+    import { userStore } from '@/stores'
     import type {Character} from '@/types'
     import getCharacterGroupFunc from '@/utils/get-character-group-func'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'

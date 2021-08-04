@@ -6,13 +6,13 @@
         loading as staticLoading,
         fetch as fetchStatic,
     } from '@/stores/static'
-    import userStore from '@/stores/user'
+    import { userStore } from '@/stores'
     import initializeSets from '@/utils/initialize-sets'
 
     import Routes from './AppHomeRoutes.svelte'
     import Sidebar from './AppHomeSidebar.svelte'
 
-    onMount(() => fetchStatic())
+    onMount(async () => await fetchStatic())
     onMount(async () => await userStore.fetch())
 
     $: {

@@ -10,6 +10,7 @@
     import Mounts from '@/components/collections/Mounts.svelte'
     import MythicPlus from '@/components/mythic-plus/MythicPlus.svelte'
     import Pets from '@/components/collections/Pets.svelte'
+    import Progress from '@/components/progress/Progress.svelte'
     import Reputations from '@/components/reputations/Reputations.svelte'
     import Settings from '@/components/settings/Settings.svelte'
     import Toys from '@/components/collections/Toys.svelte'
@@ -25,6 +26,7 @@
         '/gear': Gear,
         '/lockouts': Lockouts,
         '/mythicplus/:slug?': MythicPlus,
+        '/progress/:slug?': Progress,
         '/reputations/:slug?': Reputations,
         '/transmog/:slug?': Transmog,
 

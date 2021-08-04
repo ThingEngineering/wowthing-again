@@ -2,7 +2,7 @@
     import { getContext, setContext } from 'svelte'
 
     import { data as settings } from '@/stores/settings'
-    import userStore from '@/stores/user'
+    import { userStore } from '@/stores'
     import type { Character } from '@/types'
     import getRealmName from '@/utils/get-realm-name'
 

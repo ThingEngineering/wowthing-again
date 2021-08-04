@@ -1,7 +1,7 @@
 <script lang="ts">
     import { specializationMap } from '@/data/character-specialization'
     import { data as settings } from '@/stores/settings'
-    import userStore from '@/stores/user'
+    import { userStore } from '@/stores'
     import type { Character, CharacterSpecialization } from '@/types'
     import getRealmName from '@/utils/get-realm-name'
     import tippy from '@/utils/tippy'

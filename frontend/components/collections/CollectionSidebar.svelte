@@ -3,7 +3,7 @@
     import { link } from 'svelte-spa-router'
     import active from 'svelte-spa-router/active'
 
-    import userStore from '@/stores/user'
+    import { userStore } from '@/stores'
     import type { CollectionContext } from '@/types/contexts'
 
     import CollectionCount from './CollectionCount.svelte'

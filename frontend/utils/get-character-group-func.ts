@@ -2,7 +2,7 @@ import { get } from 'svelte/store'
 
 import {Constants} from '@/data/constants'
 import { data as settingsData } from '@/stores/settings'
-import userStore from '@/stores/user'
+import { userStore } from '@/stores'
 import type { Character} from '@/types'
 import {Faction} from '@/types/enums'
 

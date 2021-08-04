@@ -1,6 +1,6 @@
 <script lang="ts">
     import { data as staticData } from '@/stores/static'
-    import userStore from '@/stores/user'
+    import { userStore } from '@/stores'
 
     import Collection from './Collection.svelte'
 

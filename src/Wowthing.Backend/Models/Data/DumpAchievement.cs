@@ -1,5 +1,7 @@
 ﻿using CsvHelper.Configuration.Attributes;
+using Wowthing.Lib.Enums;
 
+// ReSharper disable InconsistentNaming
 namespace Wowthing.Backend.Models.Data
 {
     public class DumpAchievement
@@ -7,7 +9,7 @@ namespace Wowthing.Backend.Models.Data
         public int Category { get; set; }
         public int CovenantID { get; set; }
         public int Faction { get; set; }
-        public int Flags { get; set; }
+        public WowAchievementFlags Flags { get; set; }
         public int IconFileID { get; set; }
         public int ID { get; set; }
         public int Points { get; set; }
@@ -17,7 +19,7 @@ namespace Wowthing.Backend.Models.Data
         public int CriteriaTree { get; set; }
 
         [Name("Minimum_criteria")]
-        public int MinimumCritera { get; set; }
+        public int MinimumCriteria { get; set; }
 
         [Name("Shares_criteria")]
         public int SharesCriteria { get; set; }
@@ -28,7 +30,10 @@ namespace Wowthing.Backend.Models.Data
         [Name("Description_lang")]
         public string Description { get; set; }
         
-        [Name("Name_lang")]
+        [Name("Title_lang")]
         public string Name { get; set; }
+        
+        [Name("Reward_lang")]
+        public string Reward { get; set; }
     }
 }

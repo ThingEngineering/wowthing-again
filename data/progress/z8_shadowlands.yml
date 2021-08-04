@@ -1,2 +1,88 @@
 name: Shadowlands
 groups:
+
+- name: Chains of Domination
+  icon: achievement/14961 # Chains of Domination
+  lookup: none
+  type: quest
+  data:
+    0:
+    - name: Battle of Ardenweald
+      id: 63639
+
+    - name: Focusing the Eye
+      id: 63902
+
+    - name: The Last Sigil
+      id: 63727
+      description: Requires Renown 44
+
+    - name: An Army of Bone and Steel
+      id: 63622
+      description: Requires Renown 47
+
+    - name: The Unseen Guests
+      id: 63656
+      description: Requires Renown 50
+
+    - name: The Power of Night
+      id: 64437
+      description: Requires Renown 52
+
+    - name: A New Path
+      id: 63593
+      description: Requires Renown 56
+
+    - name: What Lies Ahead
+      id: 64314
+      description: Requires Renown 58
+
+- name: Covenant Campaign
+  icon: achievement/14790 # Covenant Campaign
+  lookup: covenant
+  type: quest
+  data:
+    # Kyrian
+    1:
+    - name: Among the Kyrian
+      id: 57904 # Our Eternal Charge
+
+    - name: Torghast
+      id: 60272 # The Weak Link
+
+    - name: Trial of Ascension
+      id: 58798 # The Spires of Ascension
+      description: Requires Renown 5
+
+    - name: Phaestus, Genesis of Aeons
+      id: 58181 # Building the Base
+      description: Requires Renown 7
+
+    - name: Righteous Retribution
+      id: 61878 # Crest of Greatness
+      description: Requires Renown 10
+
+    - name: The Seal of Contrition
+      id: 58571 # The Seal of Contrition
+      description: Requires Renown 12
+
+    - name: A Vessel of Ardenweald
+      id: 61697 # A New Age
+      description: Requires Renown 16
+
+    - name: Closing In
+      id: 62555 # A Touch of Humility
+      description: Requires Renown 19
+
+    - name: The Bell Tolls
+      id: 62557 # Our Realm Reclaimed
+      description: Requires Renown 21
+
+    # Venthyr
+    #2:
+
+    # Night Fae
+    #3:
+
+    # Necrolord
+    #4:
