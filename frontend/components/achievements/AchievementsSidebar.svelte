@@ -1,11 +1,10 @@
 <script lang="ts">
     import { achievementStore, userStore } from '@/stores'
-    import type {AchievementDataCategory} from '@/types'
+    import type { SidebarItem } from '@/types'
 
     import Sidebar from '@/components/sidebar/Sidebar.svelte'
-    import SidebarEntry from '@/components/sidebar/SidebarEntry.svelte'
 
-    let categories: AchievementDataCategory[]
+    let categories: SidebarItem[]
     $: {
         categories = [
             {
@@ -19,7 +18,7 @@
         ]
     }
 
-    const percentFunc = function(entry: SidebarEntry): number {
+    const percentFunc = function(entry: SidebarItem): number {
         const cat = $userStore.data.achievementCategories[entry.id]
         return cat.have / cat.total * 100
     }

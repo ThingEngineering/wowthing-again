@@ -4,7 +4,6 @@ import type { Account } from './account'
 import type { Character } from './character'
 import type { Dictionary } from './dictionary'
 import type { InstanceDifficulty } from './dungeon'
-import {InstanceType} from '@/types/enums'
 
 export interface UserDataStore {
     data?: UserData
