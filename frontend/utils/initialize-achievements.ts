@@ -64,11 +64,7 @@ export function initializeAchievements(): void {
     all.reverse()
     userStore.update(state => {
         state.data.achievementCategories = cheevs
-        state.data.achievementRecent = all.slice(0, 5).map(([time, id]) => id)
+        state.data.achievementRecent = all.slice(0, 5).map(([, id]) => id)
         return state
     })
-}
-
-function skipCategory(): void {
-
 }

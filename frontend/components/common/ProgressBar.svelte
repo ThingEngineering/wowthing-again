@@ -1,6 +1,4 @@
 <script lang="ts">
-    import toNiceNumber from '@/utils/to-nice-number'
-
     export let title: string
     export let have = Math.floor(Math.random() * 100)
     export let total = 100

@@ -7,7 +7,7 @@
     export let items: SidebarItem[]
     export let id = ''
     export let linkColor = '';
-    export let percentFunc: (entry: SidebarItem) => number
+    export let percentFunc: (entry: SidebarItem) => number = undefined
     export let width = '10rem'
 </script>
 

@@ -9,8 +9,7 @@
 
     export let baseUrl: string
     export let item: SidebarItem
-    export let percentFunc: (entry: SidebarItem) => number = null
-
+    export let percentFunc: (entry: SidebarItem) => number = undefined
     let expanded: boolean
     let percent = -1
     let url: string
@@ -20,7 +19,7 @@
             url = `${baseUrl}/${item.slug}`
             expanded = $location.startsWith(url)
 
-            if (percentFunc !== null) {
+            if (percentFunc !== undefined) {
                 percent = percentFunc(item)
             }
         }
