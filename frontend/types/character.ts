@@ -50,6 +50,7 @@ export interface CharacterEquippedItem {
 
     bonusIds: number[]
     enchantmentIds: number[]
+    gemIds: number[]
 }
 
 export interface CharacterLockout {

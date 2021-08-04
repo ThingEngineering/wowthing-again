@@ -19,13 +19,22 @@ namespace Wowthing.Backend.Models.API.Character
 
         [JsonProperty("bonus_list")]
         public List<int> BonusList { get; set; }
-
+        
         public List<ApiCharacterEquipmentItemEnchantment> Enchantments { get; set; }
+        public List<ApiCharacterEquipmentItemSocket> Sockets { get; set; }
     }
 
     public class ApiCharacterEquipmentItemEnchantment
     {
         [JsonProperty("enchantment_id")]
         public int Id { get; set; }
+        
+        [JsonProperty("enchantment_slot")]
+        public ApiTypeId Slot { get; set; }
+    }
+
+    public class ApiCharacterEquipmentItemSocket
+    {
+        public ApiObnoxiousObject Item { get; set; }
     }
 }

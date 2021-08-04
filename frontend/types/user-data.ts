@@ -30,9 +30,20 @@ export interface UserData {
 
     // Calculated
     achievements: Dictionary<number>
+    achievementCategories?: Dictionary<UserDataAchievementCategory>
+    achievementRecent?: number[]
     allLockouts: InstanceDifficulty[]
     mounts: Dictionary<boolean>
     toys: Dictionary<boolean>
+}
+
+export class UserDataAchievementCategory {
+    constructor(
+        public have: number,
+        public points: number,
+        public total: number
+    ) {
+    }
 }
 
 export interface UserDataCurrentPeriod {

@@ -1,12 +1,12 @@
 import { writable } from 'svelte/store'
 
-import userStore from './user'
+import { userStore } from '.'
 import type { Settings } from '@/types'
 
 
 let interval: number | null = null
 
-const { set, subscribe, update } = writable<Settings>(null)
+const { set, subscribe, update } = writable<Settings>()
 
 export const data = {
     set: (settings: Settings): void => {

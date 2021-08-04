@@ -8,15 +8,19 @@
 
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
-    const character: Character = getContext('character')
+    export let character: Character = undefined
 
     let covenant: Covenant
     let maxRenown = 42
     let tooltip: string
     $: {
-        covenant = covenantMap[character.shadowlands?.covenantId]
+        if (!character) {
+            character = getContext('character')
+        }
+
+        covenant = covenantMap[character?.shadowlands?.covenantId]
         if (covenant) {
-            tooltip = covenant.getTooltip(character.shadowlands.renownLevel)
+            tooltip = covenant.getTooltip(character?.shadowlands.renownLevel)
             const currentPeriod = getCurrentPeriodForCharacter(character)
             if (currentPeriod) {
                 maxRenown += (currentPeriod.id - 809) * 3

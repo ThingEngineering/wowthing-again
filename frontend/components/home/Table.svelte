@@ -1,8 +1,8 @@
 <script lang="ts">
     import { data as settings } from '@/stores/settings'
-    import userStore from '@/stores/user'
+    import { userStore } from '@/stores'
 
-    import CharacterTable from '@/components/character-table/Table.svelte'
+    import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import GroupHead from './table/GroupHead.svelte'
     import RowCovenant from './table/RowCovenant.svelte'
     import RowGold from '@/components/character-table/row/Gold.svelte'

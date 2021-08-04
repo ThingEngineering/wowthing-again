@@ -4,6 +4,7 @@ export interface StaticData {
     currencies: Dictionary<StaticDataCurrency>
     currencyCategories: Dictionary<StaticDataCurrencyCategory>
     instances: Dictionary<StaticDataInstance>
+    progress: StaticDataProgressCategory[]
     realms: Dictionary<StaticDataRealm>
     reputations: Dictionary<StaticDataReputation>
     reputationTiers: Dictionary<StaticDataReputationTier>
@@ -48,6 +49,27 @@ interface StaticDataRealm {
     region: number
     name: string
     slug: string
+}
+
+// Progress
+export interface StaticDataProgressCategory {
+    name: string
+    slug: string
+    groups: StaticDataProgressGroup[]
+}
+
+export interface StaticDataProgressGroup {
+    icon: string
+    lookup: string
+    name: string
+    type: string
+    data: Dictionary<StaticDataProgressData[]>
+}
+
+export interface StaticDataProgressData {
+    id: number
+    description?: string
+    name: string
 }
 
 // Reputations

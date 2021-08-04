@@ -1,4 +1,4 @@
-import App from './teams/App.svelte'
+import App from './teams/AppTeams.svelte'
 
 const target = document.querySelector('#app')
 const app = target ? new App({ target }) : null

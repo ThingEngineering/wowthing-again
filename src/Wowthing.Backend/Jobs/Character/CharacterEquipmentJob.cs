@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.API.Character;
 using Wowthing.Lib.Enums;
+using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
 
@@ -42,6 +43,7 @@ namespace Wowthing.Backend.Jobs.Character
             }
 
             equipped.Items = result.Data.Items
+                .EmptyIfNull()
                 .ToDictionary(
                     item => item.Slot.EnumParse<WowInventorySlot>(),
                     item => new PlayerCharacterEquippedItem
@@ -50,8 +52,21 @@ namespace Wowthing.Backend.Jobs.Character
                         ItemId = item.Item.Id,
                         ItemLevel = item.Level.Value,
                         Quality = item.Quality.EnumParse<WowQuality>(),
-                        BonusIds = item.BonusList?.OrderBy(b => b).ToList() ?? new List<int>(),
-                        EnchantmentIds = item.Enchantments?.Select(e => e.Id).OrderBy(e => e).ToList() ?? new List<int>(),
+                        BonusIds = item.BonusList
+                            .EmptyIfNull()
+                            .OrderBy(b => b)
+                            .ToList(),
+                        EnchantmentIds = item.Enchantments
+                            .EmptyIfNull()
+                            .Where(e => e.Slot.Type == "PERMANENT")
+                            .Select(e => e.Id)
+                            .OrderBy(e => e)
+                            .ToList(),
+                        GemIds = item.Sockets
+                            .EmptyIfNull()
+                            .Select(s => s.Item.Id)
+                            .OrderBy(g => g)
+                            .ToList(),
                     }
                 );
 

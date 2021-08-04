@@ -7,6 +7,7 @@
     export let items: SidebarItem[]
     export let id = ''
     export let linkColor = '';
+    export let percentFunc: (entry: SidebarItem) => number = undefined
     export let width = '10rem'
 </script>
 
@@ -30,7 +31,7 @@
 <nav id="{id}" class="thing-container" style="--linkColor: {linkColor}; --width: {width}">
     <ul>
         {#each items as item}
-            <SidebarEntry {baseUrl} {item} />
+            <SidebarEntry {baseUrl} {item} {percentFunc} />
         {/each}
     </ul>
 </nav>

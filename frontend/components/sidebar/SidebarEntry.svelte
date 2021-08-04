@@ -5,17 +5,23 @@
     import active from 'svelte-spa-router/active'
 
     import type {SidebarItem} from '@/types'
+    import getPercentClass from '@/utils/get-percent-class'
 
     export let baseUrl: string
     export let item: SidebarItem
-
+    export let percentFunc: (entry: SidebarItem) => number = undefined
     let expanded: boolean
+    let percent = -1
     let url: string
 
     $: {
         if (item) {
             url = `${baseUrl}/${item.slug}`
             expanded = $location.startsWith(url)
+
+            if (percentFunc !== undefined) {
+                percent = percentFunc(item)
+            }
         }
     }
 </script>
@@ -29,8 +35,8 @@
             margin: 0.5rem 0;
         }
 
-        ul {
-            margin-left: 1rem;
+        ul li a {
+            padding-left: 1.5rem;
         }
 
         & :global(svg) {
@@ -47,21 +53,32 @@
             background: $active-background;
         }
     }
+
+    .percent {
+        position: absolute;
+        right: 1.8rem;
+        word-spacing: -0.2ch;
+    }
 </style>
 
 {#if item}
     <li>
         <a href="{url}" use:active use:link>
             {item.name}
-            {#if item.children.length > 0}
+
+            {#if percent >= 0}
+                <span class="percent {getPercentClass(percent)}">{percent.toFixed(0)} %</span>
+            {/if}
+
+            {#if item.children?.length > 0}
                 <Fa fw icon={expanded ? faChevronDown : faChevronRight} pull="right" size="sm" />
             {/if}
         </a>
-        {#if item.children.length > 0}
+        {#if item.children?.length > 0}
             {#if expanded}
                 <ul>
                     {#each item.children as child}
-                        <svelte:self baseUrl={url} item={child} />
+                        <svelte:self baseUrl={url} item={child} {percentFunc} />
                     {/each}
                 </ul>
             {/if}

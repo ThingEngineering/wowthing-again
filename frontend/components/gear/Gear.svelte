@@ -1,7 +1,7 @@
 <script lang="ts">
     import { afterUpdate } from 'svelte'
 
-    import CharacterTable from '@/components/character-table/Table.svelte'
+    import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import RowItemLevel from '@/components/character-table/row/ItemLevel.svelte'
     import RowItems from './TableRowItems.svelte'
 
@@ -11,8 +11,8 @@
 </script>
 
 <CharacterTable>
-    <slot slot="rowExtra">
+    <svelte:fragment slot="rowExtra">
         <RowItemLevel />
         <RowItems />
-    </slot>
+    </svelte:fragment>
 </CharacterTable>

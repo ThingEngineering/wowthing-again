@@ -3,16 +3,16 @@
     import find from 'lodash/find'
     import { getContext } from 'svelte'
 
-    import userStore from '@/stores/user'
+    import { userStore } from '@/stores'
     import type { StaticDataSetCategory } from '@/types'
+    import type { CollectionContext } from '@/types/contexts'
 
     import CollectionCount from './CollectionCount.svelte'
-    import CollectionGroup from './CollectionGroup.svelte'
+    import CollectionThing from './CollectionThing.svelte'
 
     export let slug: string
 
-    const { route, sets, thingMap, thingType, userHas } =
-        getContext('collection')
+    const { route, sets, thingMap, thingType, userHas } = getContext('collection') as CollectionContext
 
     let sections: StaticDataSetCategory[]
     $: sections = filter(
@@ -48,6 +48,13 @@
         flex-wrap: wrap;
         padding: 0.5rem 0 0 0.75rem;
     }
+    .collection-group {
+        margin: 0 0.75rem 0.75rem 0;
+
+        p {
+            margin: 0 0 0.1rem 0;
+        }
+    }
 </style>
 
 {#each sections as section}
@@ -62,7 +69,12 @@
         {/if}
         <div class="container">
             {#each section.groups as group, i (`${thingType}-${slug}-${i}`)}
-                <CollectionGroup {thingType} {thingMap} {userHas} {group} />
+                <div class="collection-group">
+                    <p>{group.name}</p>
+                    {#each group.things as things}
+                        <CollectionThing {thingType} {thingMap} {userHas} {things} />
+                    {/each}
+                </div>
             {/each}
         </div>
     </div>

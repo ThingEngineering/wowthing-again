@@ -2,7 +2,7 @@
     import sumBy from 'lodash/sumBy'
 
     import { data as settings } from '@/stores/settings'
-    import userStore from '@/stores/user'
+    import { userStore } from '@/stores'
     import type {Character} from '@/types'
     import getCharacterTableSpan from '@/utils/get-character-table-span'
 
@@ -10,7 +10,7 @@
     import HeadMount from './head/Mount.svelte'
     import HeadTorghast from './head/Torghast.svelte'
     import RowGold from '@/components/character-table/row/Gold.svelte'
-    import SpacerRow from '@/components/character-table/SpacerRow.svelte'
+    import SpacerRow from '@/components/character-table/CharacterTableSpacerRow.svelte'
 
     export let group: Character[]
     export let groupIndex: number
@@ -83,6 +83,4 @@
     {#if $settings.home.showStatuses && !isPublic}
         <td>&nbsp;</td>
     {/if}
-
-    <td>&nbsp;</td>
 </tr>

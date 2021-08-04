@@ -8,7 +8,7 @@ using CsvHelper;
 
 namespace Wowthing.Backend.Utilities
 {
-    public static class Utilities
+    public static class CsvUtilities
     {
 #if DEBUG
         public static readonly string DataPath = Path.Join("..", "..", "data");
