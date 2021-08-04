@@ -8,7 +8,7 @@
 
 <style lang="scss">
     th {
-        @include cell-width($width-currency);
+        @include cell-width($width-progress);
 
         background: $thing-background;
         border: 1px solid $border-color;

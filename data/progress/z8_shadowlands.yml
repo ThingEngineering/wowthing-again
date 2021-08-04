@@ -79,10 +79,109 @@ groups:
       description: Requires Renown 21
 
     # Venthyr
-    #2:
+    2:
+    - name: Sinfall
+      id: 59319 # Advancing Our Efforts
+
+    - name: Torghast
+      id: 60272 # The Weak Link
+
+    - name: The Court of Harvesters
+      id: 59719 # The Court
+      description: Requires Renown 5
+
+    - name: Desire
+      id: 57893 # Neither Enemy nor Ally
+      description: Requires Renown 7
+
+    - name: Avarice
+      id: 58444 # Return to Sinfall
+      description: Requires Renown 10
+
+    - name: The Crowned Prince
+      id: 59233 # The Prince's New Crown
+      description: Requires Renown 12
+
+    - name: Confronting Sin
+      id: 58395 # Enough Vengeance For One Day
+      description: Requires Renown 16
+
+    - name: Envy
+      id: 57646 # The Tithelord
+      description: Requires Renown 19
+
+    - name: Dominion
+      id: 58407 # The Medallion of Dominion
+      description: Requires Renown 21
 
     # Night Fae
-    #3:
+    3:
+    - name: For Queen and Grove!
+      id: 62899 # The Endless Forest
+
+    - name: Torghast
+      id: 60272 # The Weak Link
+
+    - name: Daughter of the Night Warrior
+      id: 59242 # Their New Home
+      description: Requires Renown 5
+
+    - name: Da Boss
+      id: 59821 # Report to the Queen
+      description: Requires Renown 7
+
+    - name: Night Warrior's Curse
+      id: 59071 # Mending a Broken Hart
+      description: Requires Renown 10
+
+    - name: Drust to Drust
+      id: 61171 # Unbroken Bonds
+      description: Requires Renown 12
+
+    - name: The Horned Hunter
+      id: 58452 # Tracking the Shadows
+      description: Requires Renown 16
+
+    - name: Deal for a Loa
+      id: 59866 # Parting Ways
+      description: Requires Renown 19
+
+    - name: Drust and Ashes
+      id: 60108 # Drust and Ashes
+      description: Requires Renown 21
 
     # Necrolord
-    #4:
+    4:
+    - name: Loyal to the Primus
+      id: 59609 # No Rest for the Dead
+
+    - name: Torghast
+      id: 60272 # The Weak Link
+
+    - name: The House of Eyes
+      id: 57648 # The Impossible Plan
+      description: Requires Renown 5
+
+    - name: Grand Theft Necropolis
+      id: 58820 # Bindings of Fleshcrafting
+      description: Requires Renown 7
+
+    - name: Do Not Forget
+      id: 59894 # The Golden Dawn
+      description: Requires Renown 10
+
+    - name: A Golden Dawn
+      id: 57636 # Pride of Place
+      description: Requires Renown 12
+
+    - name: The Wages of Sin
+      id: 58624 # Pauldrons of Imperium
+      description: Requires Renown 16
+
+    - name: The House of Rituals
+      id: 61761 # The Better Part of Valor
+      description: Requires Renown 19
+
+    - name: Assault on the House of Rituals
+      id: 62406 # Staff of the Primus
+      description: Requires Renown 21

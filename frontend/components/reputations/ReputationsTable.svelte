@@ -14,7 +14,7 @@
     $: category = find($staticData.reputationSets, (r) => r.slug === slug)
 </script>
 
-<CharacterTable endSpacer={false}>
+<CharacterTable>
     <CharacterTableHead slot="head">
         {#key category.name}
             {#each flatten(category.reputations) as reputation}

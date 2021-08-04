@@ -1,16 +1,10 @@
 <script lang="ts">
-    import { getContext } from 'svelte'
-
     import { data as settings } from '@/stores/settings'
 
     import HeadIcon from './head/Icon.svelte'
-    import HeadSpacer from './head/Spacer.svelte'
 
-    let endSpacer: boolean
     let iconComponents: any[]
     $: {
-        endSpacer = getContext('endSpacer')
-
         iconComponents = []
         if ($settings.general.showRaceIcon) {
             iconComponents.push(HeadIcon)
@@ -52,9 +46,5 @@
         {/if}
 
         <slot />
-
-        {#if endSpacer === true}
-            <HeadSpacer />
-        {/if}
     </tr>
 </thead>

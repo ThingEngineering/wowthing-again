@@ -5,27 +5,33 @@
     import map from 'lodash/map'
     import sortBy from 'lodash/sortBy'
     import toPairs from 'lodash/toPairs'
-    import { setContext } from 'svelte'
 
     import { data as settingsData } from '@/stores/settings'
     import { userStore } from '@/stores'
-    import type {Character} from '@/types'
+    import type { Character } from '@/types'
     import getCharacterGroupFunc from '@/utils/get-character-group-func'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
 
     import CharacterRow from './CharacterTableRow.svelte'
 
-    export let endSpacer = true
-    export let filterFunc: (char: Character) => boolean = (char) => char.level >= $settingsData.general.minimumLevel
-    export let groupFunc: (char: Character) => string = getCharacterGroupFunc()
-    export let sortFunc: (char: Character) => string = getCharacterSortFunc()
-
-    setContext('endSpacer', endSpacer)
+    export let filterFunc: (char: Character) => boolean = undefined
+    export let groupFunc: (char: Character) => string = undefined
+    export let sortFunc: (char: Character) => string = undefined
 
     let characters: Character[]
     let groups: Character[][]
 
     $: {
+        if (!filterFunc) {
+            filterFunc = (char) => char.level >= $settingsData.general.minimumLevel
+        }
+        if (!groupFunc) {
+            groupFunc = getCharacterGroupFunc()
+        }
+        if (!sortFunc) {
+            sortFunc = getCharacterSortFunc()
+        }
+
         characters = filter($userStore.data.characters, filterFunc)
         const grouped = groupBy(characters, groupFunc)
         for (const key of keys(grouped)) {
