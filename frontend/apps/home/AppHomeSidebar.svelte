@@ -28,6 +28,9 @@
     <li use:active={'/mythicplus/*'}>
         <a href="#/mythicplus/thisweek">Mythic+</a>
     </li>
+    <li use:active={'/progress/*'}>
+        <a href="#/progress/shadowlands">Progress</a>
+    </li>
     <li use:active={'/reputations/*'}>
         <a href="#/reputations/shadowlands">Reputations</a>
     </li>
@@ -51,9 +54,6 @@
     </li>
     <li use:active={'/pets/*'}>
         <a href="#/pets/">🚧 Pets</a>
-    </li>
-    <li use:active={'/progress/*'}>
-        <a href="#/progress/">🚧 Progress</a>
     </li>
     <li use:active={'/transmog/*'}>
         <a href="#/transmog/shadowlands">🚧 Transmog</a>
