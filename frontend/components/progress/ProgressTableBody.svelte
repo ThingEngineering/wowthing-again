@@ -19,19 +19,20 @@
 
 <style lang="scss">
     td {
-        @include cell-width($width-currency);
+        @include cell-width($width-progress);
 
         border-left: 1px solid $border-color;
         text-align: center;
     }
+    span {
+        flex: 1;
+    }
 </style>
 
 {#if total > 0}
-    <td class="{getPercentClass(have / total * 100)}"
-        class:status-shrug={have < total}
-        class:status-success={have >= total}
-        use:tippyComponent={{component: TooltipProgress, props: {datas, group, have}}}
-    >{have} / {total}</td>
+    <td use:tippyComponent={{component: TooltipProgress, props: {datas, group, have}}}>
+        <span class="{getPercentClass(have / total * 100)}">{have} / {total}</span>
+    </td>
 {:else}
     <td>&nbsp;</td>
 {/if}

@@ -15,7 +15,7 @@
                     <td class="progress-progress">{have > dataIndex ? '✔' : '❌'}</td>
                     <td class="progress-name">
                         {data.name}
-                        {#if data.description}
+                        {#if data.description && have <= dataIndex}
                             <span>{data.description}</span>
                         {/if}
                     </td>

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { getContext, setContext } from 'svelte'
+    import { setContext } from 'svelte'
 
     import { data as settings } from '@/stores/settings'
     import { userStore } from '@/stores'
@@ -17,13 +17,11 @@
     setContext('character', character)
 
     let accountEnabled: boolean
-    let endSpacer: boolean
     let iconComponents: any[]
     $: {
         accountEnabled =
             character.accountId === undefined ||
             $userStore.data.accounts[character.accountId].enabled
-        endSpacer = getContext('endSpacer')
 
         iconComponents = []
         if ($settings.general.showRaceIcon) {
@@ -70,8 +68,4 @@
     {/if}
 
     <slot name="rowExtra" />
-
-    {#if endSpacer === true}
-        <td class="spacer">&nbsp;</td>
-    {/if}
 </tr>

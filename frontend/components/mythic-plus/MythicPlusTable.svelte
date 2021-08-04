@@ -61,7 +61,7 @@
     }
 </script>
 
-<CharacterTable {filterFunc} {sortFunc} endSpacer={false}>
+<CharacterTable {filterFunc} {sortFunc}>
     <CharacterTableHead slot="head">
         <HeadItemLevel />
 

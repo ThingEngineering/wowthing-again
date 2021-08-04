@@ -83,6 +83,4 @@
     {#if $settings.home.showStatuses && !isPublic}
         <td>&nbsp;</td>
     {/if}
-
-    <td>&nbsp;</td>
 </tr>

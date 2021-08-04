@@ -9,7 +9,7 @@
     const filterFunc: (char: Character) => boolean = (char) => char.level > 10
 </script>
 
-<CharacterTable {filterFunc} endSpacer={false}>
+<CharacterTable {filterFunc}>
     <GroupHead slot="groupHead" let:groupIndex {groupIndex} />
 
     <svelte:fragment slot="rowExtra" let:character>

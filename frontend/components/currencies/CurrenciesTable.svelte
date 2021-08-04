@@ -21,7 +21,7 @@
     }
 </script>
 
-<CharacterTable endSpacer={false}>
+<CharacterTable>
     <CharacterTableHead slot="head">
         {#key slug}
             {#each currencies as currency}
