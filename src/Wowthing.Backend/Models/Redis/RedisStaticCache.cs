@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Wowthing.Backend.Models.API.NonBlizzard;
 using Wowthing.Backend.Models.Data;
+using Wowthing.Backend.Models.Data.Progress;
 using Wowthing.Lib.Models.Wow;
 
 namespace Wowthing.Backend.Models.Redis
@@ -15,10 +16,12 @@ namespace Wowthing.Backend.Models.Redis
         [JsonProperty(Order = 2)]
         public SortedDictionary<int, OutInstance> Instances { get; set; }
         [JsonProperty(Order = 3)]
-        public SortedDictionary<int, WowRealm> Realms { get; set; }
+        public List<DataProgress> Progress { get; set; }
         [JsonProperty(Order = 4)]
-        public SortedDictionary<int, OutReputation> Reputations { get; set; }
+        public SortedDictionary<int, WowRealm> Realms { get; set; }
         [JsonProperty(Order = 5)]
+        public SortedDictionary<int, OutReputation> Reputations { get; set; }
+        [JsonProperty(Order = 6)]
         public SortedDictionary<int, WowReputationTier> ReputationTiers { get; set; }
 
         [JsonProperty(Order = 10)]

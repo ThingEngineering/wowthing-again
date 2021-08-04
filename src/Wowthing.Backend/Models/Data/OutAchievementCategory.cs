@@ -8,6 +8,7 @@ namespace Wowthing.Backend.Models.Data
     {
         public int Id { get; }
         public string Name { get; }
+        public List<int> AchievementIds { get; set; } = new();
         public List<OutAchievementCategory> Children { get; } = new();
 
         [JsonIgnore]

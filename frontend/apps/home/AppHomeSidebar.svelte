@@ -1,7 +1,7 @@
 <script lang="ts">
     import active from 'svelte-spa-router/active'
 
-    import userStore from '@/stores/user'
+    import { userStore } from '@/stores'
 
     import Sidebar from '@/components/common/Sidebar.svelte'
 </script>
@@ -51,6 +51,9 @@
     </li>
     <li use:active={'/pets/*'}>
         <a href="#/pets/">🚧 Pets</a>
+    </li>
+    <li use:active={'/progress/*'}>
+        <a href="#/progress/">🚧 Progress</a>
     </li>
     <li use:active={'/transmog/*'}>
         <a href="#/transmog/shadowlands">🚧 Transmog</a>

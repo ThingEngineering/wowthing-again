@@ -45,5 +45,5 @@ function getStore(): WritableUserDataStore {
     }
 }
 
-const userStore = getStore()
-export default userStore
+export const userStore = getStore()
+//export default userStore

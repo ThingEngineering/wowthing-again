@@ -1,27 +1,47 @@
 import { writable } from 'svelte/store'
 
+import type {AchievementData, AchievementDataStore, WritableAchievementDataStore} from '@/types'
 import fetch_json from '@/utils/fetch-json'
-import type { AchievementData } from '@/types'
 
-export const error = writable(false)
-export const loading = writable(true)
-export const data = writable<AchievementData>()
 
-export const fetch = async function (): Promise<void> {
-    const url = document.getElementById('app').getAttribute('data-achievements')
-    const json = await fetch_json(url)
-    if (json === null) {
-        error.set(true)
-        return
+function getStore(): WritableAchievementDataStore {
+    const store = writable<AchievementDataStore>({
+        data: null,
+        error: false,
+        loading: true,
+    })
+
+    return {
+        ...store,
+        fetch: async function(): Promise<void> {
+            const url = document.getElementById('app')?.getAttribute('data-achievements')
+            if (!url) {
+                store.update(state => {
+                    state.error = true
+                    return state
+                })
+                return
+            }
+
+            const json = await fetch_json(url)
+            if (json === null) {
+                store.update(state => {
+                    state.error = true
+                    return state
+                })
+                return
+            }
+
+            const achievementData = JSON.parse(json) as AchievementData
+
+            store.update(state => {
+                state.data = achievementData
+                state.loading = false
+                return state
+            })
+        },
     }
-
-    data.set(JSON.parse(json))
-    loading.set(false)
 }
 
-export default {
-    error,
-    loading,
-    data,
-    fetch,
-}
+export const achievementStore = getStore()
+//export achievementStore

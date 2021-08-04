@@ -1,5 +1,5 @@
 <script lang="ts">
-    import userStore from '@/stores/user'
+    import { userStore } from '@/stores'
 
     import CharacterCard from './card/Card.svelte'
 </script>

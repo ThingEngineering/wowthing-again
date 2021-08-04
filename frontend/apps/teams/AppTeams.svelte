@@ -15,8 +15,8 @@
     import Routes from './AppTeamsRoutes.svelte'
     import Sidebar from './AppTeamsSidebar.svelte'
 
-    onMount(() => fetchStatic())
-    onMount(() => fetchTeam())
+    onMount(async () => await fetchStatic())
+    onMount(async () => await fetchTeam())
 </script>
 
 <style lang="scss" global>

@@ -4,6 +4,7 @@ import type { Account } from './account'
 import type { Character } from './character'
 import type { Dictionary } from './dictionary'
 import type { InstanceDifficulty } from './dungeon'
+import {InstanceType} from '@/types/enums'
 
 export interface UserDataStore {
     data?: UserData
@@ -30,9 +31,20 @@ export interface UserData {
 
     // Calculated
     achievements: Dictionary<number>
+    achievementCategories?: Dictionary<UserDataAchievementCategory>
+    achievementRecent?: number[]
     allLockouts: InstanceDifficulty[]
     mounts: Dictionary<boolean>
     toys: Dictionary<boolean>
+}
+
+export class UserDataAchievementCategory {
+    constructor(
+        public have: number,
+        public points: number,
+        public total: number
+    ) {
+    }
 }
 
 export interface UserDataCurrentPeriod {

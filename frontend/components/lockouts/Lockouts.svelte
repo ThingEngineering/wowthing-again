@@ -1,5 +1,5 @@
 <script lang="ts">
-    import userStore from '@/stores/user'
+    import { userStore } from '@/stores'
     import type {Character} from '@/types'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'

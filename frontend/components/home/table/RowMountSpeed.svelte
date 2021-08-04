@@ -3,7 +3,7 @@
 
     import {mountSkillMap} from '@/data/mount-skill'
     import type { MountSkill } from '@/data/mount-skill'
-    import userStore from '@/stores/user'
+    import { userStore } from '@/stores'
     import type { Character } from '@/types'
     import tippy from '@/utils/tippy'
 

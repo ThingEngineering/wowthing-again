@@ -1,10 +1,10 @@
 <script lang="ts">
     import { onMount } from 'svelte'
 
-    import { error, loading, fetch } from '@/stores/achievements'
+    import { achievementStore, userStore } from '@/stores'
+    import { initializeAchievements } from '@/utils/initialize-achievements'
 
     import AchievementsCategory from './AchievementsCategory.svelte'
-    import AchievementsRecent from './AchievementsRecent.svelte'
     import AchievementsSidebar from './AchievementsSidebar.svelte'
     import AchievementsScoreSummary from './AchievementsScoreSummary.svelte'
 
@@ -14,11 +14,19 @@
     }
 
     // Fetch achievement data once when this component is mounted
-    onMount(() => {
-        if ($loading) {
-            fetch()
+    onMount(async () => {
+        if ($achievementStore.loading) {
+            await achievementStore.fetch()
         }
     })
+
+    let ready: boolean
+    $: {
+        ready = !($achievementStore.loading || $userStore.loading || $userStore.data.achievementCategories === null)
+        if (!($achievementStore.loading || $userStore.loading)) {
+            initializeAchievements()
+        }
+    }
 </script>
 
 <style lang="scss">
@@ -30,15 +38,14 @@
 </style>
 
 <div>
-    {#if $error}
+    {#if $achievementStore.error}
         <p>KABOOM! Something has gone horribly wrong, try reloading the page?</p>
-    {:else if $loading}
+    {:else if !ready}
         <p>L O A D I N G</p>
     {:else}
         <AchievementsSidebar />
         {#if params.slug1 === 'summary'}
             <AchievementsScoreSummary />
-            <AchievementsRecent />
         {:else}
             <AchievementsCategory slug1={params.slug1} slug2={params.slug2} />
         {/if}

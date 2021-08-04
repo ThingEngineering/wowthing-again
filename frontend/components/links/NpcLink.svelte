@@ -9,7 +9,7 @@
             url = `https://www.wowdb.com/npcs/${id}`
         }
         else {
-            url = `https://www.wowhead.com/npc=${id}}`
+            url = `https://www.wowhead.com/npc=${id}`
         }
     }
 </script>

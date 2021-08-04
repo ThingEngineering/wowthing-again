@@ -1,6 +1,6 @@
 <script lang="ts">
     import { data as staticData } from '@/stores/static'
-    import userStore from '@/stores/user'
+    import { userStore } from '@/stores'
     import type { Dictionary } from '@/types'
 
     import Collection from './Collection.svelte'

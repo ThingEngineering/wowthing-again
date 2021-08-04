@@ -1,5 +1,5 @@
 <script lang="ts">
-    import userStore from '@/stores/user'
+    import { userStore } from '@/stores'
     import getCharacterTableSpan from '@/utils/get-character-table-span'
 
     import GroupHeadInstance from './TableGroupHeadInstance.svelte'
