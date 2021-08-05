@@ -64,6 +64,7 @@ namespace Wowthing.Backend.Jobs.Character
                             .ToList(),
                         GemIds = item.Sockets
                             .EmptyIfNull()
+                            .Where(s => s.Item != null)
                             .Select(s => s.Item.Id)
                             .OrderBy(g => g)
                             .ToList(),
