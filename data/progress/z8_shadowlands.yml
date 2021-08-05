@@ -10,6 +10,9 @@ groups:
     - name: Battle of Ardenweald
       id: 63639
 
+    - name: Maw Walkers
+      id: 64556
+
     - name: Focusing the Eye
       id: 63902
 
