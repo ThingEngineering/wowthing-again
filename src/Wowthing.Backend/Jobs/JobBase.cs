@@ -55,7 +55,7 @@ namespace Wowthing.Backend.Jobs
         protected IDisposable CharacterLog(SchedulerCharacterQuery query)
         {
             var jobName = this.GetType().Name[0..^3];
-            return LogContext.PushProperty("Task", $"{query.RealmSlug}/{query.CharacterName.ToLowerInvariant()} {jobName}: ");
+            return LogContext.PushProperty("Task", $"{query.RealmSlug}/{query.CharacterName.ToLower()} {jobName}: ");
         }
 
         protected IDisposable UserLog(string userId)
@@ -73,6 +73,9 @@ namespace Wowthing.Backend.Jobs
             builder.Query = query.ToString();
             return builder.Uri;
         }
+
+        protected static Uri GenerateUri(SchedulerCharacterQuery query, string path) =>
+            GenerateUri(query.Region, ApiNamespace.Profile, string.Format(path, query.RealmSlug, query.CharacterName.ToLower()));
 
         protected async Task<JsonResult<T>> GetJson<T>(Uri uri, bool useAuthorization = true, bool useLastModified = true)
             //where T : class

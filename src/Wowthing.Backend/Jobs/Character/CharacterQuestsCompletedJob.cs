@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.API.Character;
+using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
 
@@ -18,9 +19,7 @@ namespace Wowthing.Backend.Jobs.Character
             using var shrug = CharacterLog(query);
 
             // Fetch API data
-            var path = string.Format(ApiPath, query.RealmSlug, query.CharacterName.ToLowerInvariant());
-            var uri = GenerateUri(query.Region, ApiNamespace.Profile, path);
-
+            var uri = GenerateUri(query, ApiPath);
             var result = await GetJson<ApiCharacterQuestsCompleted>(uri);
             if (result.NotModified)
             {

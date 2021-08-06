@@ -20,9 +20,7 @@ namespace Wowthing.Backend.Jobs.Character
             using var shrug = CharacterLog(query);
 
             // Fetch API data
-            var path = string.Format(ApiPath, query.RealmSlug, query.CharacterName.ToLowerInvariant());
-            var uri = GenerateUri(query.Region, ApiNamespace.Profile, path);
-
+            var uri = GenerateUri(query, ApiPath);
             var result = await GetJson<ApiCharacterProfessions>(uri);
             if (result.NotModified)
             {

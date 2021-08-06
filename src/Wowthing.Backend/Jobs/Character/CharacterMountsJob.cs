@@ -18,9 +18,7 @@ namespace Wowthing.Backend.Jobs.Character
             var query = JsonConvert.DeserializeObject<SchedulerCharacterQuery>(data[0]);
             using var shrug = CharacterLog(query);
 
-            var path = string.Format(ApiPath, query.RealmSlug, query.CharacterName.ToLowerInvariant());
-            var uri = GenerateUri(query.Region, ApiNamespace.Profile, path);
-
+            var uri = GenerateUri(query, ApiPath);
             var result = await GetJson<ApiCharacterMounts>(uri);
             if (result.NotModified)
             {
