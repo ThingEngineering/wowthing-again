@@ -21,7 +21,7 @@ namespace Wowthing.Backend.Services
         private const int TimerInterval = 10;
         
         private readonly JobRepository _jobRepository;
-        private readonly WowDbContext _context;
+        private readonly IServiceScopeFactory _serviceScopeFactory;
         
         private readonly List<ScheduledJob> _scheduledJobs = new();
 
@@ -32,8 +32,8 @@ SELECT  c.id AS character_id,
         r.slug AS realm_slug,
         a.user_id
 FROM    player_character c
-INNER JOIN wow_realm r ON c.realm_id = r.id
 INNER JOIN player_account a ON c.account_id = a.id
+INNER JOIN wow_realm r ON c.realm_id = r.id
 LEFT OUTER JOIN asp_net_users u ON a.user_id = u.id
 WHERE (
     (current_timestamp - c.last_api_check) > (
@@ -47,14 +47,11 @@ ORDER BY c.last_api_check
 LIMIT 500
 ";
 
-        public SchedulerService(IServiceProvider services, JobRepository jobRepository)
+        public SchedulerService(IServiceScopeFactory serviceScopeFactory, JobRepository jobRepository)
             : base("Scheduler", TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(TimerInterval))
         {
             _jobRepository = jobRepository;
-
-            // Get a scope and context
-            var scope = services.CreateScope();
-            _context = scope.ServiceProvider.GetService<WowDbContext>();
+            _serviceScopeFactory = serviceScopeFactory;
 
             // Schedule jobs for all IScheduledJob implementers
             var jobTypes = AppDomain.CurrentDomain.GetAssemblies()
@@ -109,8 +106,18 @@ LIMIT 500
 
             try
             {
+                using var scope = _serviceScopeFactory.CreateScope();
+                var contextFactory = scope.ServiceProvider.GetService<IDbContextFactory<WowDbContext>>();
+                if (contextFactory == null)
+                {
+                    Logger.Error("contextFactory is null??");
+                    return;
+                }
+                    
+                await using var context = contextFactory.CreateDbContext();
+                
                 // Execute some sort of nasty database query to get characters that need an API check
-                var results = await _context.SchedulerCharacterQuery.FromSqlRaw(QueryCharacters).ToArrayAsync();
+                var results = await context.SchedulerCharacterQuery.FromSqlRaw(QueryCharacters).ToArrayAsync();
                 if (results.Length > 0)
                 {
                     Logger.Debug("Pre-GC: {0}", GC.GetTotalMemory(false));
@@ -131,8 +138,12 @@ LIMIT 500
 
                     // Update ApiCheckTime
                     var ids = results.Select(s => s.CharacterId);
-                    await _context.PlayerCharacter.Where(c => ids.Contains(c.Id))
-                        .UpdateAsync(c => new PlayerCharacter {LastApiCheck = DateTime.UtcNow});
+                    //await _context.PlayerCharacter.Where(c => ids.Contains(c.Id))
+                    //    .UpdateAsync(c => new PlayerCharacter {LastApiCheck = DateTime.UtcNow});
+                    await context.BatchUpdate<PlayerCharacter>()
+                        .Set(c => c.LastApiCheck, c => DateTime.UtcNow)
+                        .Where(c => ids.Contains(c.Id))
+                        .ExecuteAsync();
                 }
             }
             catch (Exception ex)
