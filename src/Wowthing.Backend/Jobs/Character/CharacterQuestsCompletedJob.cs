@@ -39,7 +39,10 @@ namespace Wowthing.Backend.Jobs.Character
                 Context.PlayerCharacterQuests.Add(quests);
             }
 
-            quests.CompletedIds = result.Data.Quests.Select(q => q.Id).ToList();
+            quests.CompletedIds = result.Data.Quests
+                .EmptyIfNull()
+                .Select(q => q.Id)
+                .ToList();
 
             await Context.SaveChangesAsync();
         }
