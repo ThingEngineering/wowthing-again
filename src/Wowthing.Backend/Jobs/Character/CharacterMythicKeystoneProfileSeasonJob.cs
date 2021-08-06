@@ -20,7 +20,7 @@ namespace Wowthing.Backend.Jobs.Character
             var seasonId = int.Parse(data[1]);
             using var shrug = CharacterLog(query);
 
-            var uri = GenerateUri(query, ApiPath);
+            var uri = GenerateUri(query, ApiPath, data[1]);
             var result = await GetJson<ApiCharacterMythicKeystoneProfileSeason>(uri);
             if (result.NotModified)
             {

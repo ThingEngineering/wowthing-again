@@ -74,8 +74,12 @@ namespace Wowthing.Backend.Jobs
             return builder.Uri;
         }
 
-        protected static Uri GenerateUri(SchedulerCharacterQuery query, string path) =>
-            GenerateUri(query.Region, ApiNamespace.Profile, string.Format(path, query.RealmSlug, query.CharacterName.ToLower()));
+        protected static Uri GenerateUri(SchedulerCharacterQuery query, string path, params string[] formatExtra)
+        {
+            var formatParams = new[] {query.RealmSlug, query.CharacterName.ToLower()}.Concat(formatExtra).ToArray();
+            var filledPath = string.Format(path, formatParams);
+            return GenerateUri(query.Region, ApiNamespace.Profile, filledPath);
+        }
 
         protected async Task<JsonResult<T>> GetJson<T>(Uri uri, bool useAuthorization = true, bool useLastModified = true)
             //where T : class
