@@ -21,8 +21,11 @@ export default function getCharacterSortFunc(): (char: Character) => string {
                 const enabled = get(userStore).data.accounts?.[char.accountId]?.enabled ?? true
                 out.push(enabled ? 'a' : 'z')
             }
-            else if (thing === 'faction' || thing === '-faction') {
-                out.push(Faction[char.faction])
+            else if (thing === 'faction') {
+                out.push(char.faction.toString())
+            }
+            else if (thing === '-faction') {
+                out.push((5 - char.faction).toString())
             }
             else if (thing === 'itemLevel') {
                 out.push(toDigits(1000 - parseInt(char.calculatedItemLevel || '0'), 4))
@@ -35,6 +38,8 @@ export default function getCharacterSortFunc(): (char: Character) => string {
                 out.push(char.name)
             }
         }
+
+        console.log(char.name, out)
 
         return out.join('|')
     }
