@@ -4,7 +4,6 @@ import {Constants} from '@/data/constants'
 import {data as settingsData} from '@/stores/settings'
 import { userStore } from '@/stores'
 import type { Character} from '@/types'
-import {Faction} from '@/types/enums'
 import toDigits from '@/utils/to-digits'
 
 export default function getCharacterSortFunc(): (char: Character) => string {
@@ -27,7 +26,7 @@ export default function getCharacterSortFunc(): (char: Character) => string {
             else if (thing === '-faction') {
                 out.push((5 - char.faction).toString())
             }
-            else if (thing === 'itemLevel') {
+            else if (thing === 'itemlevel' || thing == 'itemLevel') { // TODO remove me once users are fixed
                 out.push(toDigits(1000 - parseInt(char.calculatedItemLevel || '0'), 4))
             }
             else if (thing === 'level') {
