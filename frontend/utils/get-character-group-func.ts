@@ -8,6 +8,7 @@ import {Faction} from '@/types/enums'
 
 export default function getCharacterGroupFunc(): (char: Character) => string {
     const groupBy = get(settingsData).general.groupBy
+    const minusFaction = get(settingsData).general.sortBy.indexOf('-faction') >= 0
 
     return (char: Character) => {
         const out: string[] = []
@@ -21,7 +22,12 @@ export default function getCharacterGroupFunc(): (char: Character) => string {
                 out.push(enabled ? 'a' : 'z')
             }
             else if (thing === 'faction') {
-                out.push(Faction[char.faction])
+                if (minusFaction) {
+                    out.push((5 - char.faction).toString())
+                }
+                else {
+                    out.push(char.faction.toString())
+                }
             }
             else if (thing === 'maxLevel') {
                 out.push(char.level === Constants.characterMaxLevel ? 'a' : 'z')
