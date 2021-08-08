@@ -9,11 +9,10 @@ namespace Wowthing.Lib.Models.Player
         [Key, ForeignKey("Character")]
         public int CharacterId { get; set; }
         public PlayerCharacter Character { get; set; }
-
-        [Column(TypeName = "jsonb")]
-        public Dictionary<int, int> AchievementTimestamps { get; set; }
-
-        [Column(TypeName = "jsonb")]
-        public Dictionary<int, long> CriteriaAmounts { get; set; }
+        
+        public List<int> AchievementIds { get; set; }
+        public List<int> AchievementTimestamps { get; set; }
+        public List<int> CriteriaIds { get; set; }
+        public List<long> CriteriaAmounts { get; set; }
     }
 }

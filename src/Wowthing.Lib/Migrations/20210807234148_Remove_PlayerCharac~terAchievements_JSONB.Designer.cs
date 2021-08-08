@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
@@ -13,9 +14,10 @@ using Wowthing.Lib.Models.Player;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    partial class WowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210807234148_Remove_PlayerCharac~terAchievements_JSONB")]
+    partial class Remove_PlayerCharacterAchievements_JSONB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -453,22 +455,6 @@ namespace Wowthing.Lib.Migrations
                     b.Property<int>("CharacterId")
                         .HasColumnType("integer")
                         .HasColumnName("character_id");
-
-                    b.Property<List<int>>("AchievementIds")
-                        .HasColumnType("integer[]")
-                        .HasColumnName("achievement_ids");
-
-                    b.Property<List<int>>("AchievementTimestamps")
-                        .HasColumnType("integer[]")
-                        .HasColumnName("achievement_timestamps");
-
-                    b.Property<List<long>>("CriteriaAmounts")
-                        .HasColumnType("bigint[]")
-                        .HasColumnName("criteria_amounts");
-
-                    b.Property<List<int>>("CriteriaIds")
-                        .HasColumnType("integer[]")
-                        .HasColumnName("criteria_ids");
 
                     b.HasKey("CharacterId")
                         .HasName("pk_player_character_achievements");

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Wowthing.Backend.Models.API;
@@ -38,25 +39,33 @@ namespace Wowthing.Backend.Jobs.Character
                 Context.PlayerCharacterAchievements.Add(achievements);
             }
 
-            achievements.AchievementTimestamps = new Dictionary<int, int>();
-            achievements.CriteriaAmounts = new Dictionary<int, long>();
+            achievements.AchievementIds = new List<int>();
+            achievements.AchievementTimestamps = new List<int>();
 
             // Parse API data
+            var criteria = new Dictionary<int, long>();
             foreach (var dataAchievement in result.Data.Achievements.EmptyIfNull())
             {
                 if (dataAchievement.CompletedTimestamp.HasValue)
                 {
                     // Blizzard provides timestamps with 000 milliseconds for some reason
-                    achievements.AchievementTimestamps[dataAchievement.Id] = (int)(dataAchievement.CompletedTimestamp / 1000);
+                    achievements.AchievementIds.Add(dataAchievement.Id);
+                    achievements.AchievementTimestamps.Add((int)(dataAchievement.CompletedTimestamp / 1000));
                 }
 
                 if (dataAchievement.Criteria?.Amount.HasValue ?? false)
                 {
-                    achievements.CriteriaAmounts[dataAchievement.Criteria.Id] = (long)dataAchievement.Criteria.Amount.Value;
+                    criteria[dataAchievement.Criteria.Id] = (long)dataAchievement.Criteria.Amount.Value;
                 }
 
-                RecurseCriteria(achievements.CriteriaAmounts, dataAchievement.Criteria?.ChildCriteria);
+                RecurseCriteria(criteria, dataAchievement.Criteria?.ChildCriteria);
             }
+
+            var sortedCriteria = criteria
+                .OrderBy(kvp => kvp.Key)
+                .ToArray();
+            achievements.CriteriaIds = sortedCriteria.Select(kvp => kvp.Key).ToList();
+            achievements.CriteriaAmounts = sortedCriteria.Select(kvp => kvp.Value).ToList();
 
             await Context.SaveChangesAsync();
         }

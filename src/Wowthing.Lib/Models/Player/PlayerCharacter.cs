@@ -47,6 +47,7 @@ namespace Wowthing.Lib.Models.Player
         public DateTime LastApiCheck { get; set; } = DateTime.MinValue;
 
         // Navigation properties
+        public PlayerCharacterAchievements Achievements { get; set; }
         public PlayerCharacterCurrencies Currencies { get; set; }
         public PlayerCharacterEquippedItems EquippedItems { get; set; }
         public PlayerCharacterLockouts Lockouts { get; set; }
