@@ -29,7 +29,7 @@ export default function getCharacterGroupFunc(): (char: Character) => string {
                     out.push(char.faction.toString())
                 }
             }
-            else if (thing === 'maxLevel') {
+            else if (thing === 'maxlevel') {
                 out.push(char.level === Constants.characterMaxLevel ? 'a' : 'z')
             }
         }

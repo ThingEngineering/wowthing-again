@@ -37,7 +37,7 @@ namespace Wowthing.Lib.Models
             "account",
             "enabled",
             "faction",
-            "maxLevel",
+            "maxlevel",
         };
         private readonly HashSet<string> _validSortBy = new()
         {
