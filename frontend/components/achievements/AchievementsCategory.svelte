@@ -4,6 +4,7 @@
 
     import { achievementStore, userStore } from '@/stores'
     import type { AchievementDataCategory } from '@/types'
+    import toDigits from '@/utils/to-digits'
 
     import AchievementsAchievement from './AchievementsAchievement.svelte'
 
@@ -13,14 +14,16 @@
     let achievementIds: number[]
     let category: AchievementDataCategory
     $: {
+        console.time('AchievementsCategory computed')
         category = find($achievementStore.data.categories, (c) => c.slug === slug1)
         if (slug2) {
             category = find(category.children, (c) => c.slug === slug2)
         }
 
         achievementIds = sortBy(category.achievementIds, id =>
-            [$userStore.data.achievements[id] === undefined, $achievementStore.data.achievements[id].order]
+            [$userStore.data.achievements[id] === undefined ? '1' : '0', toDigits($achievementStore.data.achievements[id].order, 4), toDigits(100000 - id, 6)].join('|')
         )
+        console.timeEnd('AchievementsCategory computed')
     }
 </script>
 
