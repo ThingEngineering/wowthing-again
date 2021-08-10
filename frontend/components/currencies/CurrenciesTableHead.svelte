@@ -2,6 +2,7 @@
     import type {StaticDataCurrency} from '@/types'
 
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import CurrencyLink from '@/components/links/CurrencyLink.svelte'
 
     export let currency: StaticDataCurrency
 </script>
@@ -26,7 +27,7 @@
 </style>
 
 <th>
-    <a href="currencies/{currency.id}">
+    <CurrencyLink id={currency.id}>
         <WowthingImage name="currency/{currency.id}" size={48} border={1} tooltip={currency.name} />
-    </a>
+    </CurrencyLink>
 </th>
