@@ -10,12 +10,9 @@ groups:
   things:
   - 164375 # Bad Mojo Banana
   - 164373 # Enchanted Soup Stone
-  - 164372 # Jinyu Light Globe
   - 164374 # Magic Monkey Banana
   - 163795 # Oomgut Ritual Drum
-  - 164377 # Regenerating Banana Bunch
   - 163924 # Whiskerwax Candle
-  - 164371 # Yaungol Oil Stove
 
 - name: "Instances: Visions"
   things:
