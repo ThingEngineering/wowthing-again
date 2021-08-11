@@ -37,14 +37,14 @@ namespace Wowthing.Lib.Models
             "account",
             "enabled",
             "faction",
-            "maxLevel",
+            "maxlevel",
         };
         private readonly HashSet<string> _validSortBy = new()
         {
             "account",
             "enabled",
             "faction", "-faction",
-            "itemLevel",
+            "itemlevel",
             "level",
             "name",
         };
@@ -62,6 +62,7 @@ namespace Wowthing.Lib.Models
             
             General.GroupBy = General.GroupBy
                 .EmptyIfNull()
+                .Select(gb => gb.ToLower())
                 .Where(gb => _validGroupBy.Contains(gb))
                 .Distinct()
                 .ToList();
@@ -73,6 +74,7 @@ namespace Wowthing.Lib.Models
 
             General.SortBy = General.SortBy
                 .EmptyIfNull()
+                .Select(sb => sb.ToLower())
                 .Where(sb => _validSortBy.Contains(sb))
                 .Distinct()
                 .ToList();

@@ -11,31 +11,59 @@
     let earned: number
     let earnedDate: Date
     let show = true
-    let supersedes: number[]
+    let chain: number[]
+    let faction: number
     $: {
         achievement = $achievementStore.data.achievements[achievementId]
         earned = $userStore.data.achievements[achievementId]
         earnedDate = new Date(earned * 1000)
-        supersedes = []
+        chain = []
 
-        if (achievement.supersededBy) {
-            console.log(achievement.id, achievement.supersededBy, $userStore.data.achievements[achievement.supersededBy])
+        // Why are achievement factions reversed? Who knows :|
+        if (achievement.faction === 0) {
+            faction = 1
+        }
+        else if (achievement.faction === 1) {
+            faction = 0
+        }
+        else {
+            faction = achievement.faction
         }
 
+        // Chain : A B C D
+        // Earned: A B
+        // Check :
+        //   A = earned + supersededBy earned, don't show
+        //   B = earned + supersededBy not earned, show
+        //   C = not earned + supersedes earned, show
+        //   D = not earned + supersedes not earned, don't show
+
+        // Hack for some weird achievements that don't reference future ones properly
         if (achievement.supersededBy && (
             $userStore.data.achievements[achievement.supersededBy] ||
             $userStore.data.achievements[$achievementStore.data.achievements[achievement.supersededBy].supersededBy]
         )) {
             show = false
         }
-        else if (earned && achievement.supersedes) {
-            let sigh = achievement
-            while (sigh?.supersedes) {
-                supersedes.push(sigh.supersedes)
-                sigh = $achievementStore.data.achievements[sigh.supersedes]
+        else if (achievement.supersedes && $userStore.data.achievements[achievement.supersedes] === undefined) {
+            show = false
+        }
+        else {
+            if (earned && achievement.supersedes) {
+                let sigh = achievement
+                while (sigh?.supersedes) {
+                    chain.push(sigh.supersedes)
+                    sigh = $achievementStore.data.achievements[sigh.supersedes]
+                }
+                chain.reverse()
             }
-            supersedes.reverse()
-            console.log(supersedes)
+            else if (!earned && achievement.supersededBy) {
+                let sigh = achievement
+                while (sigh?.supersededBy) {
+                    chain.push(sigh.supersededBy)
+                    sigh = $achievementStore.data.achievements[sigh.supersededBy]
+                }
+            }
         }
     }
 </script>
@@ -92,7 +120,7 @@
         grid-area: desc;
         margin: 0;
     }
-    .supersedes {
+    .chain {
         grid-area: super;
         margin-top: 0.5rem;
 
@@ -119,8 +147,10 @@
 </style>
 
 {#if show}
-    <div class="thing-container faction{achievement.faction}" class:completed={earned}>
-        <WowthingImage name="achievement/{achievementId}" size={48} border={1} />
+    <div class="thing-container faction{faction}" class:completed={earned}>
+        <AchievementLink id={achievementId}>
+            <WowthingImage name="achievement/{achievementId}" size={48} border={1} />
+        </AchievementLink>
 
         <div class="info">
             <h3>{achievement.name}</h3>
@@ -136,9 +166,9 @@
             {/if}
         </div>
 
-        {#if supersedes.length > 0}
-            <div class="supersedes">
-                {#each supersedes as previousId}
+        {#if chain.length > 0}
+            <div class="chain">
+                {#each chain as previousId}
                     <div>
                         <AchievementLink id={previousId}>
                             <WowthingImage name="achievement/{previousId}" size={40} border={1} />

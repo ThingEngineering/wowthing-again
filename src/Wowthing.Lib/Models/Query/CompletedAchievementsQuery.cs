@@ -9,9 +9,10 @@ namespace Wowthing.Lib.Models.Query
         public int Timestamp { get; set; }
         
         public static string USER_QUERY = @"
-SELECT key::integer AS achievement_id, MIN(value::integer) AS timestamp
+SELECT achievement_id, MIN(timestamp) AS timestamp
 FROM (
-    SELECT  (jsonb_each(pca.achievement_timestamps)).*
+    SELECT  UNNEST(pca.achievement_ids) AS achievement_id,
+            UNNEST(pca.achievement_timestamps) AS timestamp
     FROM    player_character_achievements pca
     LEFT JOIN player_character pc ON pc.id = pca.character_id
     LEFT JOIN player_account pa ON pa.id = pc.account_id
