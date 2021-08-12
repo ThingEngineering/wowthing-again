@@ -21,7 +21,7 @@
         }
 
         achievementIds = sortBy(category.achievementIds, id =>
-            [$userStore.data.achievements[id] === undefined ? '1' : '0', toDigits($achievementStore.data.achievements[id].order, 4), toDigits(100000 - id, 6)].join('|')
+            [$userStore.data.achievements[id] === undefined ? '1' : '0', toDigits($achievementStore.data.achievement[id].order, 4), toDigits(100000 - id, 6)].join('|')
         )
         console.timeEnd('AchievementsCategory computed')
     }

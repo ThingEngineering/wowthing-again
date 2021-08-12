@@ -2,6 +2,7 @@
     import { achievementStore, userStore } from '@/stores'
     import type { AchievementDataAchievement } from '@/types'
 
+    import AchievementCriteria from './AchievementsAchievementCriteria.svelte'
     import AchievementLink from '@/components/links/AchievementLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
@@ -14,7 +15,7 @@
     let chain: number[]
     let faction: number
     $: {
-        achievement = $achievementStore.data.achievements[achievementId]
+        achievement = $achievementStore.data.achievement[achievementId]
         earned = $userStore.data.achievements[achievementId]
         earnedDate = new Date(earned * 1000)
         chain = []
@@ -41,7 +42,7 @@
         // Hack for some weird achievements that don't reference future ones properly
         if (achievement.supersededBy && (
             $userStore.data.achievements[achievement.supersededBy] ||
-            $userStore.data.achievements[$achievementStore.data.achievements[achievement.supersededBy].supersededBy]
+            $userStore.data.achievements[$achievementStore.data.achievement[achievement.supersededBy].supersededBy]
         )) {
             show = false
         }
@@ -53,7 +54,7 @@
                 let sigh = achievement
                 while (sigh?.supersedes) {
                     chain.push(sigh.supersedes)
-                    sigh = $achievementStore.data.achievements[sigh.supersedes]
+                    sigh = $achievementStore.data.achievement[sigh.supersedes]
                 }
                 chain.reverse()
             }
@@ -61,7 +62,7 @@
                 let sigh = achievement
                 while (sigh?.supersededBy) {
                     chain.push(sigh.supersededBy)
-                    sigh = $achievementStore.data.achievements[sigh.supersededBy]
+                    sigh = $achievementStore.data.achievement[sigh.supersededBy]
                 }
             }
         }
@@ -76,7 +77,7 @@
         display: grid;
         grid-template-areas:
             "icon     info"
-            ".        super"
+            ".        chain"
             "criteria criteria";
         grid-template-columns: calc(50px + 0.5rem) auto;
         margin-bottom: 0.5rem;
@@ -121,7 +122,7 @@
         margin: 0;
     }
     .chain {
-        grid-area: super;
+        grid-area: chain;
         margin-top: 0.5rem;
 
         div {
@@ -146,7 +147,7 @@
     }
 </style>
 
-{#if show}
+{#if show && !earned}
     <div class="thing-container faction{faction}" class:completed={earned}>
         <AchievementLink id={achievementId}>
             <WowthingImage name="achievement/{achievementId}" size={48} border={1} />
@@ -173,12 +174,16 @@
                         <AchievementLink id={previousId}>
                             <WowthingImage name="achievement/{previousId}" size={40} border={1} />
                         </AchievementLink>
-                        {#if $achievementStore.data.achievements[previousId]}
-                            <span>{$achievementStore.data.achievements[previousId].points}</span>
+                        {#if $achievementStore.data.achievement[previousId]}
+                            <span>{$achievementStore.data.achievement[previousId].points}</span>
                         {/if}
                     </div>
                 {/each}
             </div>
+        {/if}
+
+        {#if !earned}
+            <AchievementCriteria {achievement} />
         {/if}
     </div>
 {/if}

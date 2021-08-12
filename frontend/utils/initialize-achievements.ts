@@ -3,13 +3,54 @@ import { get } from 'svelte/store'
 
 import { achievementStore, userStore } from '@/stores'
 import type {Dictionary} from '@/types'
-import {UserDataAchievementCategory} from '@/types'
+import {
+    AchievementDataAchievement,
+    AchievementDataCriteria,
+    AchievementDataCriteriaTree,
+    UserDataAchievementCategory,
+} from '@/types'
 
 
 export function initializeAchievements(): void {
+    console.time('initializeAchievements')
+
+    const achievementData = get(achievementStore).data
+    if (achievementData.achievementRaw) {
+        const achievementDict: Dictionary<AchievementDataAchievement> = {}
+        for (const rawAchievement of achievementData.achievementRaw) {
+            const obj = new AchievementDataAchievement(...rawAchievement)
+            achievementDict[obj.id] = obj
+        }
+
+        const criteriaDict: Dictionary<AchievementDataCriteria> = {}
+        /*for (const rawCriteria of achievementData.criteriaRaw) {
+            const obj = new AchievementDataCriteria(...rawCriteria)
+            criteriaDict[obj.id] = obj
+        }*/
+
+        const criteriaTreeDict: Dictionary<AchievementDataCriteriaTree> = {}
+        for (const rawCriteriaTree of achievementData.criteriaTreeRaw) {
+            const obj = new AchievementDataCriteriaTree(...rawCriteriaTree)
+            criteriaTreeDict[obj.id] = obj
+            //console.log(obj.id, rawCriteriaTree, obj)
+        }
+
+        achievementStore.update(state => {
+            state.data.achievementRaw = null
+            state.data.criteriaRaw = null
+            state.data.criteriaTreeRaw = null
+
+            state.data.achievement = achievementDict
+            state.data.criteria = criteriaDict
+            state.data.criteriaTree = criteriaTreeDict
+
+            return state
+        })
+    }
+
     const userAchievements = get(userStore).data.achievements
 
-    const categories = get(achievementStore).data.categories
+    const categories = achievementData.categories
     const keepIds: Dictionary<boolean> = {}
     for (const category of categories) {
         if (category.name !== 'Feats of Strength' && category.name !== 'Legacy') {
@@ -24,7 +65,7 @@ export function initializeAchievements(): void {
     cheevs[0] = new UserDataAchievementCategory(0, 0, 0)
 
     const all: [number, number][] = []
-    for (const achievement of values(get(achievementStore).data.achievements)) {
+    for (const achievement of values(get(achievementStore).data.achievement)) {
         if (!cheevs[achievement.categoryId]) {
             cheevs[achievement.categoryId] = new UserDataAchievementCategory(0, 0, 0)
         }
@@ -67,4 +108,6 @@ export function initializeAchievements(): void {
         state.data.achievementRecent = all.slice(0, 5).map(([, id]) => id)
         return state
     })
+
+    console.timeEnd('initializeAchievements')
 }
