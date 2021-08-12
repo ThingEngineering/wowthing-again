@@ -4,9 +4,12 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using MoreLinq;
+using MoreLinq.Extensions;
 using Newtonsoft.Json;
 using Wowthing.Backend.Jobs.NonBlizzard;
 using Wowthing.Backend.Models.Data;
+using Wowthing.Backend.Models.Data.Achievements;
 using Wowthing.Backend.Models.Data.Progress;
 using Wowthing.Backend.Models.Redis;
 using Wowthing.Backend.Utilities;
@@ -32,7 +35,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
-            Version = 16,
+            Version = 17,
         };
 
         public override async Task Run(params string[] data)
@@ -303,13 +306,16 @@ namespace Wowthing.Backend.Jobs.Misc
             var db = Redis.GetDatabase();
 
             var achievements = await LoadAchievements();
-            var categories = await LoadAchievementCategories(achievements);
+            var achievementCategories = await LoadAchievementCategories(achievements);
+            var achievementCriteria = await LoadAchievementCriteria(achievements);
             
             // Ok we're done
             var cacheData = new RedisStaticAchievements
             {
-                Achievements = achievements,
-                Categories = categories,
+                Categories = achievementCategories,
+                AchievementRaw = achievements.Values.ToList(),
+                CriteriaRaw = achievementCriteria.Criteria.Values.ToList(),
+                CriteriaTreeRaw = achievementCriteria.CriteriaTree.Values.ToList(),
             };
             var cacheJson = JsonConvert.SerializeObject(cacheData);
             var cacheHash = cacheJson.Md5();
@@ -384,6 +390,52 @@ namespace Wowthing.Backend.Jobs.Misc
 
             return achievementMap;
         }
+
+        private static async Task<AchievementCriteria> LoadAchievementCriteria(Dictionary<int, OutAchievement> achievements)
+        {
+            var criteria = await CsvUtilities.LoadDumpCsvAsync<DumpCriteria>("criteria");
+            //var criteriaMap = criteria.ToDictionary(c => c.ID);
+            
+            var criteriaTrees = await CsvUtilities.LoadDumpCsvAsync<DumpCriteriaTree>("criteriatree");
+            var criteriaTreeMap = criteriaTrees.ToDictionary(ct => ct.ID);
+            
+            //var modifierTrees = await CsvUtilities.LoadDumpCsvAsync<DumpModifierTree>("modifiertree");
+            //var modifierTreeMap = modifierTrees.ToDictionary(mt => mt.ID);
+
+            // Keep track of CriteriaTree tree 
+            foreach (var criteriaTree in criteriaTrees.Where(ct => ct.Parent > 0))
+            {
+                if (criteriaTreeMap.TryGetValue(criteriaTree.Parent, out var parent))
+                {
+                    parent.Children.Add(criteriaTree);
+                }
+            }
+            
+            // Filter things
+            var achievementCriteriaTrees = new HashSet<int>(achievements.Values.Select(a => a.CriteriaTreeId));
+            var filtered = criteriaTrees
+                .Where(ct => achievementCriteriaTrees.Contains(ct.ID));
+            var final = filtered
+                .Concat(
+                    filtered
+                        .SelectManyRecursive(ct => ct.Children)
+                )
+                .OrderBy(ct => ct.ID);
+            
+            // Outputs
+            return new AchievementCriteria
+            {
+                Criteria = criteria.Select(c => new OutCriteria(c)).ToDictionary(c => c.Id),
+                //CriteriaTree = criteriaTrees.Select(ct => new OutCriteriaTree(ct, criteriaTreeChildren)).ToDictionary(ct => ct.Id),
+                CriteriaTree = final.Select(ct => new OutCriteriaTree(ct)).ToDictionary(ct => ct.Id)
+            };
+        }
         #endregion
+    }
+
+    internal struct AchievementCriteria
+    {
+        public Dictionary<int, OutCriteria> Criteria;
+        public Dictionary<int, OutCriteriaTree> CriteriaTree;
     }
 }

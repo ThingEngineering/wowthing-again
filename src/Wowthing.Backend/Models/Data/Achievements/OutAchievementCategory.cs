@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 using Wowthing.Lib.Extensions;
 
-namespace Wowthing.Backend.Models.Data
+namespace Wowthing.Backend.Models.Data.Achievements
 {
     public class OutAchievementCategory
     {

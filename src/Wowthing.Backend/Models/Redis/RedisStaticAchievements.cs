@@ -1,11 +1,16 @@
 ﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 using Wowthing.Backend.Models.Data;
+using Wowthing.Backend.Models.Data.Achievements;
 
 namespace Wowthing.Backend.Models.Redis
 {
     public class RedisStaticAchievements
     {
-        public Dictionary<int, OutAchievement> Achievements { get; set; }
         public List<OutAchievementCategory> Categories { get; set; }
+        
+        public List<OutAchievement> AchievementRaw { get; set; }
+        public List<OutCriteria> CriteriaRaw { get; set; }
+        public List<OutCriteriaTree> CriteriaTreeRaw { get; set; }
     }
 }
