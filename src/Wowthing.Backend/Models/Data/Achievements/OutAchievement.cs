@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using Wowthing.Backend.Converters;
 using Wowthing.Lib.Enums;
 
-namespace Wowthing.Backend.Models.Data
+namespace Wowthing.Backend.Models.Data.Achievements
 {
+    [JsonConverter(typeof(OutAchievementConverter))]
     public class OutAchievement
     {
         public int CategoryId { get; }
