@@ -2,7 +2,7 @@
     import find from 'lodash/find'
     import sortBy from 'lodash/sortBy'
 
-    import { achievementStore, userStore } from '@/stores'
+    import { achievementStore, userAchievementStore } from '@/stores'
     import type { AchievementDataCategory } from '@/types'
     import toDigits from '@/utils/to-digits'
 
@@ -20,9 +20,11 @@
             category = find(category.children, (c) => c.slug === slug2)
         }
 
-        achievementIds = sortBy(category.achievementIds, id =>
-            [$userStore.data.achievements[id] === undefined ? '1' : '0', toDigits($achievementStore.data.achievement[id].order, 4), toDigits(100000 - id, 6)].join('|')
-        )
+        achievementIds = sortBy(category.achievementIds, id => [
+            $userAchievementStore.data.achievements[id] === undefined ? '1' : '0',
+            toDigits($achievementStore.data.achievement[id].order, 4),
+            toDigits(100000 - id, 6)
+        ].join('|'))
         console.timeEnd('AchievementsCategory computed')
     }
 </script>

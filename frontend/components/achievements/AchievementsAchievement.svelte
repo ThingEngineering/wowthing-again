@@ -1,8 +1,9 @@
 <script lang="ts">
-    import { achievementStore, userStore } from '@/stores'
+    import { achievementStore, userAchievementStore } from '@/stores'
     import type { AchievementDataAchievement } from '@/types'
 
-    import AchievementCriteria from './AchievementsAchievementCriteria.svelte'
+    import AchievementCriteriaAccount from './AchievementsAchievementCriteriaAccount.svelte'
+    import AchievementCriteriaCharacter from './AchievementsAchievementCriteriaCharacter.svelte'
     import AchievementLink from '@/components/links/AchievementLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
@@ -16,7 +17,7 @@
     let faction: number
     $: {
         achievement = $achievementStore.data.achievement[achievementId]
-        earned = $userStore.data.achievements[achievementId]
+        earned = $userAchievementStore.data.achievements[achievementId]
         earnedDate = new Date(earned * 1000)
         chain = []
 
@@ -41,12 +42,12 @@
 
         // Hack for some weird achievements that don't reference future ones properly
         if (achievement.supersededBy && (
-            $userStore.data.achievements[achievement.supersededBy] ||
-            $userStore.data.achievements[$achievementStore.data.achievement[achievement.supersededBy].supersededBy]
+            $userAchievementStore.data.achievements[achievement.supersededBy] ||
+            $userAchievementStore.data.achievements[$achievementStore.data.achievement[achievement.supersededBy].supersededBy]
         )) {
             show = false
         }
-        else if (achievement.supersedes && $userStore.data.achievements[achievement.supersedes] === undefined) {
+        else if (achievement.supersedes && $userAchievementStore.data.achievements[achievement.supersedes] === undefined) {
             show = false
         }
         else {
@@ -183,7 +184,11 @@
         {/if}
 
         {#if !earned}
-            <AchievementCriteria {achievement} />
+            {#if achievement.isAccountWide}
+                <AchievementCriteriaAccount {achievement} />
+            {:else}
+                <AchievementCriteriaCharacter {achievement} />
+            {/if}
         {/if}
     </div>
 {/if}

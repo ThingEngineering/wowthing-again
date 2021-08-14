@@ -59,7 +59,7 @@
         <a href="#/transmog/shadowlands">🚧 Transmog</a>
     </li>
 
-    {#if !$userStore.loading && !$userStore.data.public}
+    {#if $userStore.loaded && !$userStore.data.public}
         <li class="separator"></li>
         <li use:active={'/settings/*'}>
             <a href="#/settings/">Settings</a>
