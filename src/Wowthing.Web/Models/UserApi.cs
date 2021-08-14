@@ -6,20 +6,15 @@ namespace Wowthing.Web.Models
 {
     public class UserApi
     {
-        public bool Public { get; internal set; }
+        public bool Public { get; init; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public Dictionary<int, UserApiAccount> Accounts { get; set; }
-
-        public string AchievementsPacked { get; set; }
-        public string MountsPacked { get; set; }
-        public string ToysPacked { get; set; }
+        public Dictionary<int, UserApiAccount> Accounts { get; init; }
         
-        public List<UserApiCharacter> Characters { get; set; }
+        public List<UserApiCharacter> Characters { get; init; }
+        public Dictionary<int, WowPeriod> CurrentPeriod { get; init; }
 
-        public Dictionary<int, WowPeriod> CurrentPeriod { get; set; }
-
-        public Dictionary<int, int> Mounts { get; set; }
-        //public Dictionary<int, int> Toys { get; set; }
+        public string MountsPacked { get; init; }
+        public string ToysPacked { get; init; }
     }
 }

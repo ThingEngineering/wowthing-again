@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { achievementStore, userStore } from '@/stores'
+    import { achievementStore, userAchievementStore } from '@/stores'
     import type { SidebarItem } from '@/types'
 
     import Sidebar from '@/components/sidebar/Sidebar.svelte'
@@ -19,7 +19,7 @@
     }
 
     const percentFunc = function(entry: SidebarItem): number {
-        const cat = $userStore.data.achievementCategories[entry.id]
+        const cat = $userAchievementStore.data.achievementCategories[entry.id]
         return cat.have / cat.total * 100
     }
 </script>

@@ -86,7 +86,7 @@ export interface StaticDataReputationTier {
     names: string[]
 }
 
-interface StaticDataReputationCategory {
+export interface StaticDataReputationCategory {
     name: string
     reputations: StaticDataReputationSet[][]
     slug: string

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { data as staticData } from '@/stores/static'
+    import { staticStore } from '@/stores/static'
     import { userStore } from '@/stores'
 
     import Collection from './Collection.svelte'
@@ -11,7 +11,7 @@
     route="mounts"
     slug={params.slug}
     thingType="spell"
-    thingMap={$staticData.spellToMount}
+    thingMap={$staticStore.data.spellToMount}
     userHas={$userStore.data.mounts}
-    sets={$staticData.mountSets}
+    sets={$staticStore.data.mountSets}
 />

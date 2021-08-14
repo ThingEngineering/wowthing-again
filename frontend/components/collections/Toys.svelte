@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { data as staticData } from '@/stores/static'
+    import { staticStore } from '@/stores/static'
     import { userStore } from '@/stores'
     import type { Dictionary } from '@/types'
 
@@ -19,5 +19,5 @@
     thingType="item"
     {thingMap}
     userHas={$userStore.data.toys}
-    sets={$staticData.toySets}
+    sets={$staticStore.data.toySets}
 />

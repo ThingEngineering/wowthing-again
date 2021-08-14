@@ -1,48 +1,40 @@
-import { data as sData } from '@/stores/static'
-import { userStore } from '@/stores'
-import type {
-    Dictionary,
-    StaticData,
-    StaticDataSetCategory,
-    UserDataStore,
-} from '@/types'
+import { get } from 'svelte/store'
 
-let staticData: StaticData
-sData.subscribe((value) => {
-    staticData = value
-})
-
-let userData: UserDataStore
-userStore.subscribe((value) => {
-    userData = value
-})
+import { staticStore, userStore } from '@/stores'
+import type { Dictionary, StaticDataSetCategory, UserDataSetCount } from '@/types'
 
 export default function initializeSets(): void {
     console.time('initializeSets')
-    userData.data.setCounts = {}
 
-    sigh(
-        'mounts',
-        staticData.mountSets,
-        userData.data.mounts,
-        staticData.spellToMount,
-    )
-    sigh('pets', staticData.petSets, {})
-    sigh('toys', staticData.toySets, userData.data.toys)
+    const staticData = get(staticStore).data
+    const userData = get(userStore).data
+
+    const setCounts: Dictionary<Dictionary<UserDataSetCount>> = {
+        mounts: {},
+        pets: {},
+        toys: {},
+    }
+
+    sigh(setCounts['mounts'], staticData.mountSets, userData.mounts, staticData.spellToMount)
+    sigh(setCounts['pets'], staticData.petSets, {})
+    sigh(setCounts['toys'], staticData.toySets, userData.toys)
+
+    userStore.update(state => {
+        state.data.setCounts = setCounts
+        return state
+    })
 
     console.timeEnd('initializeSets')
 }
 
 function sigh(
-    category: string,
+    setCounts: Dictionary<UserDataSetCount>,
     sets: StaticDataSetCategory[][],
     userHas: Dictionary<boolean>,
     map?: Dictionary<number>,
 ) {
-    userData.data.setCounts[category] = {}
-
-    for (let i = 0; i < sets.length; i++) {
-        const categories = sets[i]
+    for (let setIndex = 0; setIndex < sets.length; setIndex++) {
+        const categories = sets[setIndex]
         if (categories === null) {
             continue
         }
@@ -50,21 +42,21 @@ function sigh(
         let categoryHave = 0,
             categoryTotal = 0
 
-        for (let j = 0; j < categories.length; j++) {
-            const section = categories[j]
+        for (let catIndex = 0; catIndex < categories.length; catIndex++) {
+            const section = categories[catIndex]
             let sectionHave = 0,
                 sectionTotal = 0
 
-            for (let k = 0; k < section.groups.length; k++) {
-                const group = section.groups[k]
+            for (let sectionIndex = 0; sectionIndex < section.groups.length; sectionIndex++) {
+                const group = section.groups[sectionIndex]
 
-                for (let l = 0; l < group.things.length; l++) {
-                    const things = group.things[l]
+                for (let groupThingIndex = 0; groupThingIndex < group.things.length; groupThingIndex++) {
+                    const things = group.things[groupThingIndex]
                     categoryTotal++
                     sectionTotal++
 
-                    for (let m = 0; m < things.length; m++) {
-                        const thing = things[m]
+                    for (let thingIndex = 0; thingIndex < things.length; thingIndex++) {
+                        const thing = things[thingIndex]
                         if (
                             (map && userHas[map[thing]]) ||
                             (!map && userHas[thing])
@@ -77,12 +69,10 @@ function sigh(
                 }
             }
 
-            userData.data.setCounts[category][
-                `${categories[0].slug}_${section.slug}`
-            ] = { have: sectionHave, total: sectionTotal }
+            setCounts[`${categories[0].slug}_${section.slug}`] = { have: sectionHave, total: sectionTotal }
         }
 
-        userData.data.setCounts[category][categories[0].slug] = {
+        setCounts[categories[0].slug] = {
             have: categoryHave,
             total: categoryTotal,
         }

@@ -1,12 +1,9 @@
-import { data } from '@/stores/static'
-import type { StaticData } from '@/types'
+import { get } from 'svelte/store'
 
-let staticData: StaticData
-data.subscribe((value) => {
-    staticData = value
-})
+import { staticStore } from '@/stores/static'
+
 
 export default function getRealmName(realmId: number): string {
-    const realm = staticData.realms[realmId]
+    const realm = get(staticStore).data.realms[realmId]
     return realm?.name ?? 'Honkstrasza'
 }

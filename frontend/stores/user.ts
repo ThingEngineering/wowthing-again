@@ -1,49 +1,60 @@
-import { writable } from 'svelte/store'
+import keys from 'lodash/keys'
 
-import type { UserData, UserDataStore, WritableUserDataStore } from '@/types'
-import fetch_json from '@/utils/fetch-json'
-import initializeUser from '@/utils/initialize-user'
+import { difficultyMap } from '@/data/difficulty'
+import { Dictionary, UserData, WritableFancyStore } from '@/types'
+import { TypedArray } from '@/types/enums'
+import base64ToDictionary from '@/utils/base64-to-dictionary'
+import initializeCharacter from '@/utils/initialize-character'
 
 
-function getStore(): WritableUserDataStore {
-    const store = writable<UserDataStore>({
-        data: null,
-        error: false,
-        loading: true,
-    })
+export class UserDataStore extends WritableFancyStore<UserData> {
+    get dataUrl(): string {
+        return document.getElementById('app')?.getAttribute('data-user')
+    }
 
-    return {
-        ...store,
-        fetch: async function (): Promise<void> {
-            const url = document.getElementById('app')?.getAttribute('data-user')
-            if (!url) {
-                store.update(state => {
-                    state.error = true
-                    return state
-                })
-                return
+    initialize(userData: UserData): void {
+        console.time('initialize UserDataStore')
+
+        userData.characterMap = {}
+        const allLockouts: Dictionary<boolean> = {}
+        for (let i = 0; i < userData.characters.length; i++) {
+            const character = userData.characters[i]
+            initializeCharacter(character)
+
+            userData.characterMap[character.id] = character
+
+            for (const key of keys(character.lockouts)) {
+                allLockouts[key] = true
             }
+        }
 
-            const json = await fetch_json(url)
-            if (json === null) {
-                store.update(state => {
-                    state.error = true
-                    return state
+        userData.allLockouts = []
+        for (const instanceDifficulty of keys(allLockouts)) {
+            const [instanceId, difficultyId] = instanceDifficulty.split('-')
+            const difficulty = difficultyMap[difficultyId]
+
+            if (difficulty && instanceId) {
+                userData.allLockouts.push({
+                    difficulty,
+                    instanceId: parseInt(instanceId),
+                    key: instanceDifficulty,
                 })
-                return
             }
+            else {
+                console.log({instanceId, difficultyId, difficulty})
+            }
+        }
 
-            const userData = JSON.parse(json) as UserData
-            initializeUser(userData)
+        // unpack packed data
+        userData.mounts = base64ToDictionary(TypedArray.Uint16, userData.mountsPacked)
+        userData.toys = base64ToDictionary(TypedArray.Int32, userData.toysPacked)
 
-            store.update(state => {
-                state.data = userData
-                state.loading = false
-                return state
-            })
-        },
+        userData.mountsPacked = null
+        userData.toysPacked = null
+
+        console.timeEnd('initialize UserDataStore')
+
     }
 }
 
-export const userStore = getStore()
-//export default userStore
+export const userStore = new UserDataStore()

@@ -2,7 +2,8 @@
     import find from 'lodash/find'
     import flatten from 'lodash/flatten'
 
-    import { data as staticData } from '@/stores/static'
+    import { staticStore } from '@/stores/static'
+    import type { StaticDataReputationCategory } from '@/types'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
@@ -11,7 +12,10 @@
 
     export let slug: string
 
-    $: category = find($staticData.reputationSets, (r) => r.slug === slug)
+    let category: StaticDataReputationCategory
+    $: {
+        category = find($staticStore.data.reputationSets, (r) => r.slug === slug)
+    }
 </script>
 
 <CharacterTable>

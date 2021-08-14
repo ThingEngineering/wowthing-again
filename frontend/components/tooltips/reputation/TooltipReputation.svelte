@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { data as staticData } from '@/stores/static'
+    import { staticStore } from '@/stores/static'
     import toNiceNumber from '@/utils/to-nice-number'
 
     import type {StaticDataReputation, StaticDataReputationReputation, StaticDataReputationTier} from '@/types'
@@ -16,8 +16,8 @@
     }[] = []
 
     $: {
-        const dataRep: StaticDataReputation = $staticData.reputations[reputation.id]
-        const tiers: StaticDataReputationTier = $staticData.reputationTiers[dataRep.tierId] || $staticData.reputationTiers[0]
+        const dataRep: StaticDataReputation = $staticStore.data.reputations[reputation.id]
+        const tiers: StaticDataReputationTier = $staticStore.data.reputationTiers[dataRep.tierId] || $staticStore.data.reputationTiers[0]
 
         for (let i = 0; i < tiers.names.length; i++) {
             const thisOne = (characterRep >= tiers.minValues[i] && characterRep < tiers.maxValues[i])

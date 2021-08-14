@@ -1,7 +1,7 @@
 <script lang="ts">
     import find from 'lodash/find'
 
-    import { data as staticData } from '@/stores/static'
+    import { staticStore } from '@/stores/static'
     import type { Character, StaticDataProgressCategory } from '@/types'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
@@ -16,7 +16,7 @@
     let filterFunc: (char: Character) => boolean = null
 
     $: {
-        category = find($staticData.progress, (c: StaticDataProgressCategory) => c.slug === slug)
+        category = find($staticStore.data.progress, (c: StaticDataProgressCategory) => c.slug === slug)
         if (category && slug === 'shadowlands') {
             filterFunc = (c) => c.shadowlands?.covenantId > 0
         }

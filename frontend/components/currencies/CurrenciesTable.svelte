@@ -4,7 +4,7 @@
     import sortBy from 'lodash/sortBy'
 
     import {skipCurrencies} from '@/data/currencies'
-    import { data as staticData } from '@/stores/static'
+    import { staticStore } from '@/stores/static'
     import type {StaticDataCurrency} from '@/types'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
@@ -16,8 +16,8 @@
 
     let currencies: StaticDataCurrency[]
     $: {
-        const categoryId = parseInt(findKey($staticData.currencyCategories, (c) => c.slug === slug))
-        currencies = sortBy(filter($staticData.currencies, (c) => !skipCurrencies[c.id] && c.categoryId === categoryId), (c) => c.name)
+        const categoryId = parseInt(findKey($staticStore.data.currencyCategories, (c) => c.slug === slug))
+        currencies = sortBy(filter($staticStore.data.currencies, (c) => !skipCurrencies[c.id] && c.categoryId === categoryId), (c) => c.name)
     }
 </script>
 

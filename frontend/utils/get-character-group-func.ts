@@ -4,7 +4,6 @@ import {Constants} from '@/data/constants'
 import { data as settingsData } from '@/stores/settings'
 import { userStore } from '@/stores'
 import type { Character} from '@/types'
-import {Faction} from '@/types/enums'
 
 export default function getCharacterGroupFunc(): (char: Character) => string {
     const groupBy = get(settingsData).general.groupBy

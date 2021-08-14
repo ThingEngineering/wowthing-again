@@ -1,17 +1,6 @@
-import type { Writable } from 'svelte/store'
-
 import type { Dictionary } from '@/types'
-import { AchievementFlags } from '@/types/enums'
+import { AchievementFlags, CriteriaTreeFlags } from '@/types/enums'
 
-export interface AchievementDataStore {
-    data?: AchievementData
-    error: boolean
-    loading: boolean
-}
-
-export interface WritableAchievementDataStore extends Writable<AchievementDataStore> {
-    fetch(): Promise<void>
-}
 
 export interface AchievementData {
     categories: AchievementDataCategory[]
@@ -54,6 +43,10 @@ export class AchievementDataAchievement {
     get isAccountWide(): boolean {
         return (this.flags & AchievementFlags.AccountWide) > 0
     }
+
+    get isProgressBar(): boolean {
+        return (this.flags & AchievementFlags.Counter) > 0 || (this.flags & AchievementFlags.ProgressBar) > 0
+    }
 }
 
 type AchievementDataAchievementArray = ConstructorParameters<typeof AchievementDataAchievement>
@@ -81,6 +74,10 @@ export class AchievementDataCriteriaTree {
         public children: number[],
     )
     { }
+
+    get isProgressBar() : boolean {
+        return (this.flags & CriteriaTreeFlags.ProgressBar) > 0
+    }
 }
 
 type AchievementDataCriteriaTreeArray = ConstructorParameters<typeof AchievementDataCriteriaTree>

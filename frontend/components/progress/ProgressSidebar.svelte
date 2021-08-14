@@ -1,12 +1,12 @@
 <script lang="ts">
-    import { data as staticData } from '@/stores/static'
+    import { staticStore } from '@/stores/static'
 
     import Sidebar from '@/components/sidebar/Sidebar.svelte'
 </script>
 
 <Sidebar
     baseUrl="/progress"
-    items={$staticData.progress}
+    items={$staticStore.data.progress}
     width="14rem"
     linkColor="#64e1ff"
 />
