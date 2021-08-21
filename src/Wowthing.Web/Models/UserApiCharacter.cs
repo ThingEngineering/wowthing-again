@@ -167,10 +167,13 @@ namespace Wowthing.Web.Models
         {
             CurrentPeriodId = mythicPlus.CurrentPeriodId;
             PeriodRuns = mythicPlus.PeriodRuns
+                .EmptyIfNull()
                 .GroupBy(k => k.DungeonId)
                 .ToDictionary(k => k.Key, v => v.ToList());
             Seasons = seasons
+                .EmptyIfNull()
                 .ToDictionary(season => season.Season, season => season.Runs
+                    .EmptyIfNull()
                     .GroupBy(run => run.DungeonId)
                     .ToDictionary(group => group.Key, group => group.OrderByDescending(r => r.Timed).ToList())
                 );
@@ -187,6 +190,7 @@ namespace Wowthing.Web.Models
                 foreach (var run in allRuns)
                 {
                     run.Members = run.Members
+                        .EmptyIfNull()
                         .Select(orig => new PlayerCharacterMythicPlusRunMember()
                         {
                             ItemLevel = orig.ItemLevel,
