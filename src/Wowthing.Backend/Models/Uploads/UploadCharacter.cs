@@ -64,12 +64,13 @@ namespace Wowthing.Backend.Models.Uploads
     public class UploadCharacterMythicPlus
     {
         public int Season { get; set; }
-        public Dictionary<int, UploadCharacterMythicPlusMap> Maps { get; set; }
+        public List<UploadCharacterMythicPlusMap> Maps { get; set; }
     }
 
     public class UploadCharacterMythicPlusMap
     {
         public List<UploadCharacterMythicPlusMapScore> AffixScores { get; set; }
+        public int MapId { get; set; }
         public int OverallScore { get; set; }
     }
 
