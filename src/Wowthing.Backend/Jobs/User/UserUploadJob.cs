@@ -183,9 +183,9 @@ namespace Wowthing.Backend.Jobs.User
             character.MythicPlusAddon.Maps = new Dictionary<int, PlayerCharacterMythicPlusAddonMap>();
             character.MythicPlusAddon.Season = characterData.MythicPlus.Season;
 
-            foreach ((int mapId, var map) in characterData.MythicPlus.Maps.EmptyIfNull())
+            foreach (var map in characterData.MythicPlus.Maps.EmptyIfNull())
             {
-                var mapData = character.MythicPlusAddon.Maps[mapId] = new PlayerCharacterMythicPlusAddonMap();
+                var mapData = character.MythicPlusAddon.Maps[map.MapId] = new PlayerCharacterMythicPlusAddonMap();
                 mapData.OverallScore = map.OverallScore;
 
                 foreach (var mapScore in map.AffixScores.EmptyIfNull())
