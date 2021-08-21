@@ -1,7 +1,7 @@
 <script lang="ts">
     import { onMount } from 'svelte'
 
-    import { achievementStore, userAchievementStore, userStore } from '@/stores'
+    import { achievementStore, userAchievementStore } from '@/stores'
 
     import AchievementsCategory from './AchievementsCategory.svelte'
     import AchievementsSidebar from './AchievementsSidebar.svelte'
@@ -17,12 +17,13 @@
     onMount(async () => await userAchievementStore.fetch())
 
     let error: boolean
+    let loaded: boolean
     let ready: boolean
     $: {
-        const loaded = $achievementStore.loaded && $userAchievementStore.loaded && $userStore.loaded
-        error = $achievementStore.error || $userAchievementStore.error || $userStore.error
-        ready = (loaded && $userAchievementStore.data.achievementCategories !== null)
-        if (loaded) {
+        error = $achievementStore.error || $userAchievementStore.error
+        loaded = $achievementStore.loaded && $userAchievementStore.loaded
+        ready = (!error && loaded && $userAchievementStore.data.achievementCategories !== null)
+        if (!error && loaded) {
             userAchievementStore.setup()
         }
     }
