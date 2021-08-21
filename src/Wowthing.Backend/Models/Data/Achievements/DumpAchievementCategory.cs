@@ -1,6 +1,6 @@
 ﻿using CsvHelper.Configuration.Attributes;
 
-namespace Wowthing.Backend.Models.Data
+namespace Wowthing.Backend.Models.Data.Achievements
 {
     public class DumpAchievementCategory
     {

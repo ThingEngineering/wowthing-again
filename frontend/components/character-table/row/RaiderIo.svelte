@@ -2,7 +2,7 @@
     import { getContext } from 'svelte'
 
     import { raiderIoScores } from '@/data/raider-io'
-    import { data as staticData } from '@/stores/static'
+    import { staticStore } from '@/stores/static'
     import type {
         Character,
         CharacterRaiderIoSeason,
@@ -22,7 +22,7 @@
     $: {
         character = getContext('character')
         scores = character.raiderIo?.[season.Id]
-        const tiers: StaticDataRaiderIoScoreTiers = $staticData.raiderIoScoreTiers[season.Id]
+        const tiers: StaticDataRaiderIoScoreTiers = $staticStore.data.raiderIoScoreTiers[season.Id]
         if (scores !== undefined && tiers !== undefined) {
             for (let i = 0; i < tiers.score.length; i++) {
                 if (scores.all >= tiers.score[i]) {

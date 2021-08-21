@@ -8,7 +8,13 @@ const defaultProps: TippyProps = {
     ignoreAttributes: true,
 }
 
-export default function (node: SingleTarget, props: TippyProps | string): any {
+// why is this shit not in svelte types? WHO KNOWS
+interface SvelteActionResult {
+    destroy?: () => void
+    update?: (params: any) => void
+}
+
+export default function (node: SingleTarget, props: TippyProps | string): SvelteActionResult {
     if (props === undefined) {
         return
     }
@@ -37,7 +43,7 @@ export default function (node: SingleTarget, props: TippyProps | string): any {
 }
 
 // TODO: fix typing of this mess
-export function tippyComponent(node: SingleTarget, {component, props}: TippyComponentProps): any {
+export function tippyComponent(node: SingleTarget, {component, props}: TippyComponentProps): SvelteActionResult {
     let cmp: any
 
     const tp = tippy(node, {

@@ -1,8 +1,7 @@
 <script lang="ts">
     import { onMount } from 'svelte'
 
-    import { achievementStore, userStore } from '@/stores'
-    import { initializeAchievements } from '@/utils/initialize-achievements'
+    import { achievementStore, userAchievementStore } from '@/stores'
 
     import AchievementsCategory from './AchievementsCategory.svelte'
     import AchievementsSidebar from './AchievementsSidebar.svelte'
@@ -14,17 +13,18 @@
     }
 
     // Fetch achievement data once when this component is mounted
-    onMount(async () => {
-        if ($achievementStore.loading) {
-            await achievementStore.fetch()
-        }
-    })
+    onMount(async () => await achievementStore.fetch())
+    onMount(async () => await userAchievementStore.fetch())
 
+    let error: boolean
+    let loaded: boolean
     let ready: boolean
     $: {
-        ready = !($achievementStore.loading || $userStore.loading || $userStore.data.achievementCategories === null)
-        if (!($achievementStore.loading || $userStore.loading)) {
-            initializeAchievements()
+        error = $achievementStore.error || $userAchievementStore.error
+        loaded = $achievementStore.loaded && $userAchievementStore.loaded
+        ready = (!error && loaded && $userAchievementStore.data.achievementCategories !== null)
+        if (!error && loaded) {
+            userAchievementStore.setup()
         }
     }
 </script>
@@ -38,7 +38,7 @@
 </style>
 
 <div>
-    {#if $achievementStore.error}
+    {#if error}
         <p>KABOOM! Something has gone horribly wrong, try reloading the page?</p>
     {:else if !ready}
         <p>L O A D I N G</p>

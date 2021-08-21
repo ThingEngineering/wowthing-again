@@ -732,6 +732,19 @@ namespace Wowthing.Lib.Migrations
                     b.ToTable("player_character_weekly");
                 });
 
+            modelBuilder.Entity("Wowthing.Lib.Models.Query.AchievementCriteriaQuery", b =>
+                {
+                    b.Property<long>("Amount")
+                        .HasColumnType("bigint")
+                        .HasColumnName("amount");
+
+                    b.Property<int>("CriteriaId")
+                        .HasColumnType("integer")
+                        .HasColumnName("criteria_id");
+
+                    b.ToTable("achievement_criteria_query");
+                });
+
             modelBuilder.Entity("Wowthing.Lib.Models.Query.CompletedAchievementsQuery", b =>
                 {
                     b.Property<int>("AchievementId")
@@ -1088,8 +1101,8 @@ namespace Wowthing.Lib.Migrations
             modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacterAchievements", b =>
                 {
                     b.HasOne("Wowthing.Lib.Models.Player.PlayerCharacter", "Character")
-                        .WithMany()
-                        .HasForeignKey("CharacterId")
+                        .WithOne("Achievements")
+                        .HasForeignKey("Wowthing.Lib.Models.Player.PlayerCharacterAchievements", "CharacterId")
                         .HasConstraintName("fk_player_character_achievements_player_character_character_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1283,6 +1296,8 @@ namespace Wowthing.Lib.Migrations
 
             modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacter", b =>
                 {
+                    b.Navigation("Achievements");
+
                     b.Navigation("Currencies");
 
                     b.Navigation("EquippedItems");

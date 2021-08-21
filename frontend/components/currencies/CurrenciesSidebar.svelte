@@ -2,12 +2,12 @@
     import { link } from 'svelte-spa-router'
     import active from 'svelte-spa-router/active'
 
-    import { data as staticData } from '@/stores/static'
     import { categoryOrder } from '@/data/currencies'
+    import { staticStore } from '@/stores/static'
 
     import Sidebar from '@/components/common/Sidebar.svelte'
 
-    const categories = categoryOrder.map((id) => $staticData.currencyCategories[id])
+    const categories = categoryOrder.map((id) => $staticStore.data.currencyCategories[id])
 </script>
 
 <Sidebar width="12rem">

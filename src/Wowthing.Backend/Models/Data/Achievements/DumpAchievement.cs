@@ -2,7 +2,7 @@
 using Wowthing.Lib.Enums;
 
 // ReSharper disable InconsistentNaming
-namespace Wowthing.Backend.Models.Data
+namespace Wowthing.Backend.Models.Data.Achievements
 {
     public class DumpAchievement
     {

@@ -1,22 +1,17 @@
 <script lang="ts">
     import { onMount } from 'svelte'
 
-    import {
-        error as staticError,
-        loading as staticLoading,
-        fetch as fetchStatic,
-    } from '@/stores/static'
-    import { userStore } from '@/stores'
+    import { staticStore, userStore } from '@/stores'
     import initializeSets from '@/utils/initialize-sets'
 
     import Routes from './AppHomeRoutes.svelte'
     import Sidebar from './AppHomeSidebar.svelte'
 
-    onMount(async () => await fetchStatic())
+    onMount(async () => await staticStore.fetch())
     onMount(async () => await userStore.fetch())
 
     $: {
-        if (!$staticLoading && !$userStore.loading) {
+        if ($staticStore.loaded && $userStore.loaded) {
             initializeSets()
         }
     }
@@ -27,9 +22,9 @@
 </style>
 
 <Sidebar />
-{#if $staticError || $userStore.error}
+{#if $staticStore.error || $userStore.error}
     <p>KABOOM! Something has gone horribly wrong, try reloading the page?</p>
-{:else if $staticLoading || $userStore.loading}
+{:else if !$staticStore.loaded || !$userStore.loaded}
     <p>L O A D I N G</p>
 {:else}
     <Routes />

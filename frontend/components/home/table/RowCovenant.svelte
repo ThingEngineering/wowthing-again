@@ -11,20 +11,21 @@
     export let character: Character = undefined
 
     let covenant: Covenant
-    let maxRenown = 42
+    let maxRenown = 60
     let tooltip: string
     $: {
         if (!character) {
             character = getContext('character')
         }
 
+        const currentPeriod = getCurrentPeriodForCharacter(character)
+        if (currentPeriod) {
+            maxRenown = Math.min(80, maxRenown + (currentPeriod.id - 815) * 2)
+        }
+
         covenant = covenantMap[character?.shadowlands?.covenantId]
         if (covenant) {
             tooltip = covenant.getTooltip(character?.shadowlands.renownLevel)
-            const currentPeriod = getCurrentPeriodForCharacter(character)
-            if (currentPeriod) {
-                maxRenown += (currentPeriod.id - 809) * 3
-            }
         }
     }
 </script>

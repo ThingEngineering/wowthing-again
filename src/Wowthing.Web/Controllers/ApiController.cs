@@ -172,7 +172,7 @@ namespace Wowthing.Web.Controllers
 
             return Ok("Upload accepted");
         }
-        
+
         [HttpGet("user/{username:username}")]
         public async Task<IActionResult> UserData([FromRoute] string username)
         {
@@ -229,12 +229,6 @@ namespace Wowthing.Web.Controllers
 
             timer.AddPoint("Get accounts");
 
-            var achievementsCompleted = await _context.CompletedAchievementsQuery
-                .FromSqlRaw(CompletedAchievementsQuery.USER_QUERY, user.Id)
-                .ToDictionaryAsync(k => (ushort)k.AchievementId, v => v.Timestamp);
-            
-            timer.AddPoint("achievementQuery");
-
             var characterQuery = _context.PlayerCharacter
                 .Where(c => c.Account.UserId == user.Id);
             if (pub)
@@ -267,17 +261,13 @@ namespace Wowthing.Web.Controllers
             timer.AddPoint("currentPeriods");
 
             // Build response
-            //var mountMap = mountIds.ToDictionary(k => int.Parse(k), _ => 1);
-            //var toyMap = toyIds.ToDictionary(k => k, _ => 1);
-
             var apiData = new UserApi
             {
                 Accounts = accounts.ToDictionary(k => k.Id, v => new UserApiAccount(v)),
-                AchievementsPacked = SerializationUtilities.SerializeAchievements(achievementsCompleted),
                 Characters = characters.Select(character => new UserApiCharacter(character, pub, anon)).ToList(),
                 CurrentPeriod = currentPeriods,
-                MountsPacked = SerializationUtilities.SerializeUInt16Array(mountIds),
                 Public = pub,
+                MountsPacked = SerializationUtilities.SerializeUInt16Array(mountIds),
                 ToysPacked = SerializationUtilities.SerializeInt32Array(toyIds),
             };
 
@@ -285,6 +275,61 @@ namespace Wowthing.Web.Controllers
             _logger.LogDebug($"{timer}");
 
             return Ok(apiData);
+        }
+
+        [HttpGet("user/{username:username}/achievements")]
+        public async Task<IActionResult> UserAchievementData([FromRoute] string username)
+        {
+            var timer = new JankTimer();
+
+            var user = await _userManager.FindByNameAsync(username);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            timer.AddPoint("Find user");
+
+            if (User?.Identity?.Name != user.UserName && user.Settings?.Privacy?.Public != true)
+            {
+                return NotFound();
+            }
+
+            timer.AddPoint("Privacy");
+
+            var achievementsCompleted = await _context.CompletedAchievementsQuery
+                .FromSqlRaw(CompletedAchievementsQuery.USER_QUERY, user.Id)
+                .ToDictionaryAsync(k => k.AchievementId, v => v.Timestamp);
+            
+            timer.AddPoint("Get Achievements");
+
+            var criteria = await _context.AchievementCriteriaQuery
+                .FromSqlRaw(AchievementCriteriaQuery.USER_QUERY, user.Id)
+                .ToArrayAsync();
+            var groupedCriteria = criteria
+                .GroupBy(c => c.CriteriaId)
+                .ToDictionary(
+                    g => g.Key,
+                    g => g
+                        .OrderByDescending(c => c.Amount)
+                        .ThenBy(c => c.CharacterId)
+                        .Select(c => new int[] { c.CharacterId, (int)c.Amount })
+                        .ToList()
+                );
+            
+            timer.AddPoint("Get Criteria");
+
+            // Build response
+            var data = new UserAchievementData
+            {
+                Achievements = achievementsCompleted,
+                Criteria = groupedCriteria,
+            };
+            
+            timer.AddPoint("Build response", true);
+            _logger.LogDebug($"{timer}");
+
+            return Ok(data);
         }
     }
 }

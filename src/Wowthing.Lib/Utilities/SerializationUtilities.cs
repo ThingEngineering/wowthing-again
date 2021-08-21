@@ -20,7 +20,7 @@ namespace Wowthing.Lib.Utilities
             
             return Convert.ToBase64String(buffer);
         }
-
+        
         public static string SerializeUInt16Array(ushort[] array)
         {
             Span<byte> buffer = stackalloc byte[array.Length * 2];
@@ -41,6 +41,5 @@ namespace Wowthing.Lib.Utilities
             
             return Convert.ToBase64String(buffer);
         }
-
     }
 }

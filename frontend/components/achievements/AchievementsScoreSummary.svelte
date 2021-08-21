@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { achievementStore, userStore } from '@/stores'
+    import { achievementStore, userAchievementStore } from '@/stores'
 
     import AchievementsAchievement from './AchievementsAchievement.svelte'
     import ProgressBar from '@/components/common/ProgressBar.svelte'
@@ -39,8 +39,8 @@
     <div class="summary-points thing-container">
         <ProgressBar
             title="Overall"
-            have={$userStore.data.achievementCategories[0].have}
-            total={$userStore.data.achievementCategories[0].total}
+            have={$userAchievementStore.data.achievementCategories[0].have}
+            total={$userAchievementStore.data.achievementCategories[0].total}
             --bar-height="2.5rem"
         />
 
@@ -48,15 +48,15 @@
             {#each $achievementStore.data.categories as category}
                 <ProgressBar
                     title={category.name}
-                    have={$userStore.data.achievementCategories[category.id].have}
-                    total={$userStore.data.achievementCategories[category.id].total}
+                    have={$userAchievementStore.data.achievementCategories[category.id].have}
+                    total={$userAchievementStore.data.achievementCategories[category.id].total}
                 />
             {/each}
         </div>
     </div>
 
     <div class="summary-recent">
-        {#each $userStore.data.achievementRecent as recent}
+        {#each $userAchievementStore.data.achievementRecent as recent}
             <AchievementsAchievement achievementId={recent} />
         {/each}
     </div>
