@@ -261,7 +261,7 @@ Leaving Torghast will destroy all Phantasma.",142,3743737,0,0,0,0,4,0,0,0,0,0,10
 1924,Torghast - Scoreboard - Toast Display - Bonus - Urns Broken,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
 1925,Torghast - Scoreboard - Toast Display - Deaths Zero,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
 1926,Torghast - Scoreboard - Toast Display - Stars,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
-1931,Cataloged Research,As you bring the Archivist relics he will catalog it which will allow you to start Field Studies to learn more about them or identify relics in his care that you can use in the field.,245,1506458,0,0,12000,0,2,0,20,0,0,0,2,0
+1931,Cataloged Research,As you bring the Archivist relics he will catalog it which will allow you to start Field Studies to learn more about them or identify relics in his care that you can use in the field.,245,1506458,0,0,0,0,2,0,20,0,0,0,2,0
 1932,Torghast - Scoreboard - Toast Display - Boss Killed,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
 1933,Torghast - Scoreboard - Toast Display - Bonus - Chests Opened,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
 1934,Torghast - Scoreboard - Toast Display - Bonus - Escorts Complete,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
@@ -307,3 +307,5 @@ Leaving Torghast will destroy all Phantasma.",142,3743737,0,0,0,0,4,0,0,0,0,0,10
 1977,Stygian Ember,"Once a brave warrior, now reduced to a sliver of undeath.
 
 Bonesmith Heirmir in Korthia can use these to improve Shards of Domination.",245,636333,0,0,0,0,4,0,0,0,0,0,2,0
+1980,Torghast - Scoreboard - Run Layer,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1981,Torghast - Scoreboard - Run ID,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
