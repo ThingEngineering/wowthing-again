@@ -48,3 +48,29 @@ export enum CriteriaTreeOperator {
     CompleteAtLeast             = 8,
     ProgressBar                 = 9,
 }
+
+export enum TransmogSetFlags {
+    NotInTransmogSetUi          = 0x01, // 1
+    HiddenUntilCollected        = 0x02, // 2
+    AllianceOnly                = 0x04, // 4
+    HordeOnly                   = 0x08, // 8
+    PvpSet                      = 0x10, // 16
+}
+
+export enum TransmogSetItemFlags {
+    PrimaryInSlot               = 0x1, // 1
+    AutoFillSource              = 0x2, // 2
+}
+
+export enum TransmogSource {
+    Unknown                     = 0,
+    DungeonJournalEncounter     = 1,
+    Quest                       = 2,
+    Vendor                      = 3,
+    WorldDrop                   = 4,
+    HiddenUntilCollected        = 5,
+    CantCollect                 = 6,
+    Achievement                 = 7,
+    Profession                  = 8,
+    NotValidForTransmog         = 9,
+}

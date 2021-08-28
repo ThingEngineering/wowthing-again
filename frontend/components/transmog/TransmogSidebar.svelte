@@ -1,12 +1,23 @@
 <script lang="ts">
-    import { link } from 'svelte-spa-router'
-    import active from 'svelte-spa-router/active'
+    import {transmogStore} from '@/stores/transmog'
+    import type {SidebarItem} from '@/types'
 
-    import Sidebar from '@/components/common/Sidebar.svelte'
+    import Sidebar from '@/components/sidebar/Sidebar.svelte'
+
+    let categories: SidebarItem[]
+    $: {
+        categories = $transmogStore.data.sets.map((set) => ({
+            children: [],
+            ...set[0],
+        }))
+        console.log('categories', categories)
+    }
+
 </script>
 
-<Sidebar width="12rem">
-    <li use:active={'/transmog/adhf'}>
-        <a href="/transmog/adhf" use:link>Adhf</a>
-    </li>
-</Sidebar>
+<Sidebar
+    baseUrl="/transmog"
+    items={categories}
+    width="12rem"
+    linkColor="#64e1ff"
+/>
