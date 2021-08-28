@@ -17,6 +17,7 @@ export * from './sidebar'
 export * from './static-data'
 export * from './team-data'
 export * from './tippy'
+export * from './transmog'
 export * from './user-achievement-data'
 export * from './user-data'
 

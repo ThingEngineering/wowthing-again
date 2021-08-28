@@ -28,7 +28,7 @@
         '/mythicplus/:slug?': MythicPlus,
         '/progress/:slug?': Progress,
         '/reputations/:slug?': Reputations,
-        '/transmog/:slug?': Transmog,
+        '/transmog/:slug1?/:slug2?': Transmog,
 
         '/mounts/:slug?': Mounts,
         '/pets/:slug?': Pets,

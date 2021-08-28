@@ -346,5 +346,49 @@ namespace Wowthing.Web.Controllers
 
             return Ok(data);
         }
+        
+        [HttpGet("user/{username:username}/transmog")]
+        public async Task<IActionResult> UserTransmogData([FromRoute] string username)
+        {
+            var timer = new JankTimer();
+
+            var user = await _userManager.FindByNameAsync(username);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            timer.AddPoint("Find user");
+
+            if (User?.Identity?.Name != user.UserName && user.Settings?.Privacy?.Public != true)
+            {
+                return NotFound();
+            }
+
+            timer.AddPoint("Privacy");
+
+            var accountTransmogs = await _context.PlayerAccountTransmog
+                .Where(pat => pat.Account.UserId == user.Id)
+                .ToArrayAsync();
+
+            var allTransmog = new HashSet<int>();
+            foreach (var accountTransmog in accountTransmogs)
+            {
+                allTransmog.UnionWith(accountTransmog.TransmogIds);
+            }
+            
+            timer.AddPoint("Get Transmog");
+
+            // Build response
+            var data = new UserTransmogData
+            {
+                Transmog = allTransmog.ToDictionary(t => t),
+            };
+            
+            timer.AddPoint("Build response", true);
+            _logger.LogDebug($"{timer}");
+
+            return Ok(data);
+        }
     }
 }

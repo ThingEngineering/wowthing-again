@@ -1,0 +1,435 @@
+name: Shadowlands
+groups:
+
+- name: Sanctum of Domination
+  type: armor
+  sets:
+  - Mythic
+  - Heroic
+  - Normal
+  - Raid Finder
+  data:
+    cloth:
+    # Mythic set=2265
+    - name: Dark Supplicant's Garb
+      items:
+        1:  43819 # Head
+        3:  43817 # Shoulders
+        5:  43818 # Chest
+        6:  43816 # Waist
+        7:  43064 # Legs
+        8:  43061 # Feet
+        9:  43067 # Wrists
+        10: 43062 # Hands
+        16: 44071 # Back
+
+    # Heroic set=2264
+    - name: Dark Supplicant's Garb
+      items:
+        1:  43053 # Head
+        3:  43055 # Shoulders
+        5:  43048 # Chest
+        6:  43056 # Waist
+        7:  43054 # Legs
+        8:  43051 # Feet
+        9:  43057 # Wrists
+        10: 43052 # Hands
+        16: 44109 # Back
+
+    # Normal set=2262
+    - name: Dark Supplicant's Garb
+      items:
+        1:  43035 # Head
+        3:  43037 # Shoulders
+        5:  42995 # Chest
+        6:  43038 # Waist
+        7:  43036 # Legs
+        8:  43033 # Feet
+        9:  43039 # Wrists
+        10: 43034 # Hands
+        16: 44082 # Back
+
+    # Raid Finder set=2263
+    - name: Dark Supplicant's Garb
+      items:
+        1:  42990 # Head
+        3:  42992 # Shoulders
+        5:  42985 # Chest
+        6:  42993 # Waist
+        7:  42991 # Legs
+        8:  42988 # Feet
+        9:  42994 # Wrists
+        10: 42989 # Hands
+        16: 44100 # Back
+
+    leather:
+    # Mythic set=2261
+    - name: Sanctum Assailant's Trappings
+      items:
+        1:  44159 # Head
+        3:  44160 # Shoulders
+        5:  44150 # Chest
+        6:  44156 # Waist
+        7:  44154 # Legs
+        8:  44151 # Feet
+        9:  44157 # Wrists
+        10: 44152 # Hands
+        16: 44071 # Back
+
+    # Heroic set=2260
+    - name: Sanctum Assailant's Trappings
+      items:
+        1:  44174 # Head
+        3:  44176 # Shoulders
+        5:  44171 # Chest
+        6:  44177 # Waist
+        7:  44175 44182 # Legs
+        8:  44172 # Feet
+        9:  44178 # Wrists
+        10: 44173 # Hands
+        16: 44109 # Back
+
+    # Normal set=2258
+    - name: Sanctum Assailant's Trappings
+      items:
+        1:  43849 # Head
+        3:  43851 # Shoulders
+        5:  43793 # Chest
+        6:  43852 44134 # Waist
+        7:  43850 # Legs
+        8:  43794 # Feet
+        9:  43792 # Wrists
+        10: 43848 44130 # Hands
+        16: 44082 # Back
+
+    # Raid Finder set=2259
+    - name: Sanctum Assailant's Trappings
+      items:
+        1:  44131 # Head
+        3:  44133 # Shoulders
+        5:  44128 # Chest
+        6:  44134 # Waist
+        7:  44132 # Legs
+        8:  44129 # Feet
+        9:  44135 # Wrists
+        10: 44130 # Hands
+        16: 44100 # Back
+
+    mail:
+    # Mythic set=2257
+    - name: Tower Ascendant's Battlegear
+      items:
+        1:  43090 # Head
+        3:  43089 # Shoulders
+        5:  43080 # Chest
+        6:  43087 # Waist
+        7:  43085 # Legs
+        8:  43082 # Feet
+        9:  43088 # Wrists
+        10: 43083 # Hands
+
+    # Heroic set=2256
+    - name: Tower Ascendant's Battlegear
+      items:
+        1:  43119 # Head
+        3:  43122 # Shoulders
+        5:  43114 # Chest
+        6:  43123 # Waist
+        7:  43120 # Legs
+        8:  43116 # Feet
+        9:  43124 # Wrists
+        10: 43117 # Hands
+
+    # Normal set=2254
+    - name: Tower Ascendant's Battlegear
+      items:
+        1:  43141 # Head
+        3:  43144 # Shoulders
+        5:  43136 # Chest
+        6:  43145 # Waist
+        7:  43142 # Legs
+        8:  43138 # Feet
+        9:  43146 # Wrists
+        10: 43139 # Hands
+
+    # Raid Finder set=2255
+    - name: Tower Ascendant's Battlegear
+      items:
+        1:  43108 # Head
+        3:  43111 # Shoulders
+        5:  43103 # Chest
+        6:  43112 # Waist
+        7:  43109 # Legs
+        8:  43105 # Feet
+        9:  43113 # Wrists
+        10: 43106 # Hands
+
+    # Soulforged Dreadplate
+    plate:
+    # Mythic set=2253
+    - name: Soulforged Dreadplate
+      items:
+        1:  42829 # Head
+        3:  42823 # Shoulders
+        5:  42760 # Chest
+        6:  42818 # Waist
+        7:  42790 # Legs
+        8:  42841 # Feet
+        9:  42808 # Wrists
+        10: 42835 # Hands
+
+    # Heroic set=2252
+    - name: Soulforged Dreadplate
+      items:
+        1:  42787 # Head
+        3:  42799 # Shoulders
+        5:  42763 # Chest
+        6:  42804 # Waist
+        7:  42793 # Legs
+        8:  42775 # Feet
+        9:  42811 # Wrists
+        10: 42781 # Hands
+
+    # Normal set=2250
+    - name: Soulforged Dreadplate
+      items:
+        1: 42783 # Head
+        3: 42795 # Shoulders
+        5: 42759 # Chest
+        6: 42806 # Waist
+        7: 42789 # Legs
+        8: 42771 # Feet
+        9: 42807 # Wrists
+        10: 42777 # Hands
+
+    # Raid Finder set=2251
+    - name: Soulforged Dreadplate
+      items:
+        1:  42786 # Head
+        3:  42798 # Shoulders
+        5:  42762 # Chest
+        6:  42803 # Waist
+        7:  42792 # Legs
+        8:  42774 # Feet
+        9:  42810 # Wrists
+        10: 42780 # Hands
+
+- name: Castle Nathria
+  type: armor
+  sets:
+  - Mythic
+  - Heroic
+  - Normal
+  - Raid Finder
+  data:
+    cloth:
+    # Mythic set=2161
+    - name: Depraved Beguiler's Visage
+      items:
+        1:  43845 # Head
+        3:  43846 # Shoulders
+        5:  43836 43847 # Chest
+        6:  43843 # Waist
+        7:  43840 # Legs
+        8:  43837 # Feet
+        9:  43844 # Wrists
+        10: 43838 # Hands
+        16: 44053 # Back
+
+    # Heroic set=2160
+    - name: Depraved Beguiler's Visage
+      items:
+        1:  44002 # Head
+        3:  44004 # Shoulders
+        5:  43998 43999 # Chest
+        6:  44005 # Waist
+        7:  44003 # Legs
+        8:  44000 # Feet
+        9:  44006 # Wrists
+        10: 44001 # Hands
+        16: 44054 # Back
+
+    # Normal set=2158
+    - name: Depraved Beguiler's Visage
+      items:
+        1:  44024 # Head
+        3:  44026 # Shoulders
+        5:  44020 44021 # Chest
+        6:  44027 # Waist
+        7:  44025 # Legs
+        8:  44022 # Feet
+        9:  44028 # Wrists
+        10: 44023 # Hands
+        16: 44056 # Back
+
+    # Raid Finder set=2159
+    - name: Depraved Beguiler's Visage
+      items:
+        1:  44035 # Head
+        3:  44037 # Shoulders
+        5:  44031 44032 # Chest
+        6:  44038 # Waist
+        7:  44036 # Legs
+        8:  44033 # Feet
+        9:  44039 # Wrists
+        10: 44034 # Hands
+        16: 44057 # Back
+
+    leather:
+    # Mythic set=2165
+    - name: Sin Slayer's Leathers
+      items:
+        1:  43884 # Head
+        3:  43883 # Shoulders
+        5:  43853 # Chest
+        6:  43859 # Waist
+        7:  43857 # Legs
+        8:  43854 # Feet
+        9:  43860 # Wrists
+        10: 43855 # Hands
+        16: 44071 # Back
+
+    # Heroic set=2164
+    - name: Sin Slayer's Leathers
+      items:
+        1:  44105 # Head
+        3:  44122 # Shoulders
+        5:  44103 # Chest
+        6:  44107 # Waist
+        7:  44106 # Legs
+        8:  44104 # Feet
+        9:  44108 # Wrists
+        10: 44125 # Hands
+        16: 44109 # Back
+
+    # Normal set=2162
+    - name: Sin Slayer's Leathers
+      items:
+        1:  44075 # Head
+        3:  44077 # Shoulders
+        5:  44072 # Chest
+        6:  44078 # Waist
+        7:  44076 # Legs
+        8:  44073 # Feet
+        9:  44079 # Wrists
+        10: 44074 # Hands
+        16: 44082 # Back
+
+    # Raid Finder set=2163
+    - name: Sin Slayer's Leathers
+      items:
+        1:  44096 # Head
+        3:  44121 # Shoulders
+        5:  44094 # Chest
+        6:  44098 # Waist
+        7:  44097 # Legs
+        8:  44095 # Feet
+        9:  44099 # Wrists
+        10: 44124 # Hands
+        16: 44100 # Back
+
+    mail:
+    # Mythic set=2157
+    - name: Inexorable Castigator's Guise
+      items:
+        1:  43948 # Head
+        3:  43947 # Shoulders
+        5:  43937 # Chest
+        6:  43943 # Waist
+        7:  43946 # Legs
+        8:  43939 # Feet
+        9:  43945 # Wrists
+        10: 43940 # Hands
+        16: 44060 # Back
+
+    # Heroic set=2156
+    - name: Inexorable Castigator's Guise
+      items:
+        1:  43965 # Head
+        3:  43966 # Shoulders
+        5:  43961 # Chest
+        6:  43967 # Waist
+        7:  43970 # Legs
+        8:  43963 # Feet
+        9:  43969 # Wrists
+        10: 43964 # Hands
+        16: 44062 # Back
+
+    # Normal set=2154
+    - name: Inexorable Castigator's Guise
+      items:
+        1:  43989 # Head
+        3:  43990 # Shoulders
+        5:  43985 # Chest
+        6:  43991 # Waist
+        7:  43994 # Legs
+        8:  43987 # Feet
+        9:  43993 # Wrists
+        10: 43988 # Hands
+        16: 44064 # Back
+
+    # Raid Finder set=2155
+    - name: Inexorable Castigator's Guise
+      items:
+        1:  43977 # Head
+        3:  43978 # Shoulders
+        5:  43973 # Chest
+        6:  43979 # Waist
+        7:  43982 # Legs
+        8:  43975 # Feet
+        9:  43981 # Wrists
+        10: 43976 # Hands
+        16: 44063 # Back
+
+    plate:
+    # Mythic set=2153
+    - name: Grand Sentinel's Greatplate
+      items:
+        1:  43880 # Head
+        3:  43879 # Shoulders
+        5:  43871 # Chest
+        6:  43877 # Waist
+        7:  43875 # Legs
+        8:  43872 # Feet
+        9:  43878 # Wrists
+        10: 43873 # Hands
+        16: 44065 # Back
+
+    # Heroic set=2152
+    - name: Grand Sentinel's Greatplate
+      items:
+        1:  43890 # Head
+        3:  43892 # Shoulders
+        5:  43887 # Chest
+        6:  43893 # Waist
+        7:  43891 # Legs
+        8:  43888 # Feet
+        9:  43894 # Wrists
+        10: 43889 # Hands
+        16: 44066 # Back
+
+    # Normal set=2150
+    - name: Grand Sentinel's Greatplate
+      items:
+        1:  43920 # Head
+        3:  43922 # Shoulders
+        5:  43917 # Chest
+        6:  43923 # Waist
+        7:  43921 # Legs
+        8:  43918 # Feet
+        9:  43924 # Wrists
+        10: 43919 # Hands
+        16: 44069 # Back
+
+    # Raid Finder set=2151
+    - name: Grand Sentinel's Greatplate
+      items:
+        1:  43910 # Head
+        3:  43912 # Shoulders
+        5:  43907 # Chest
+        6:  43913 # Waist
+        7:  43911 # Legs
+        8:  43908 # Feet
+        9:  43914 # Wrists
+        10: 43909 # Hands
+        16: 44068 # Back
