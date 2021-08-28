@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using MoreLinq;
 using Newtonsoft.Json;
 using Wowthing.Backend.Models.Uploads;
 using Wowthing.Lib.Enums;
@@ -44,6 +45,7 @@ namespace Wowthing.Backend.Jobs.User
                 .ToDictionaryAsync(k => (k.Region, k.Name));
 
             int accountId = 0;
+            var transmog = new HashSet<int>();
 
             // ?
             foreach (var (addonId, characterData) in parsed.Characters)
@@ -77,6 +79,8 @@ namespace Wowthing.Backend.Jobs.User
                 character.IsWarMode = characterData.IsWarMode;
                 character.MountSkill = Enum.IsDefined(typeof(WowMountSkill), characterData.MountSkill) ? (WowMountSkill)characterData.MountSkill : 0;
 
+                transmog.UnionWith(characterData.Transmog.EmptyIfNull().Keys);
+
                 HandleCurrencies(character, characterData);
                 HandleLockouts(character, characterData);
                 HandleMythicPlus(character, characterData);
@@ -84,18 +88,36 @@ namespace Wowthing.Backend.Jobs.User
                 HandleWeekly(character, characterData);
             }
 
-            if (accountId > 0 && parsed.Toys != null)
+            if (accountId > 0)
             {
-                var accountToys = Context.PlayerAccountToys.Find(accountId);
-                if (accountToys == null)
+                if (parsed.Toys != null)
                 {
-                    accountToys = new PlayerAccountToys
+                    var accountToys = Context.PlayerAccountToys.Find(accountId);
+                    if (accountToys == null)
+                    {
+                        accountToys = new PlayerAccountToys
+                        {
+                            AccountId = accountId,
+                        };
+                        Context.PlayerAccountToys.Add(accountToys);
+                    }
+
+                    accountToys.ToyIds = parsed.Toys.OrderBy(t => t).ToList();
+                }
+
+                var accountTransmog = Context.PlayerAccountTransmog.Find(accountId);
+                if (accountTransmog == null)
+                {
+                    accountTransmog = new PlayerAccountTransmog
                     {
                         AccountId = accountId,
                     };
-                    Context.PlayerAccountToys.Add(accountToys);
-                } 
-                accountToys.ToyIds = parsed.Toys.OrderBy(t => t).ToList();
+                    Context.PlayerAccountTransmog.Add(accountTransmog);
+                }
+
+                accountTransmog.TransmogIds = transmog
+                    .OrderBy(t => t)
+                    .ToList();
             }
 
             await Context.SaveChangesAsync();

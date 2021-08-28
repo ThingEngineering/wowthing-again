@@ -1,20 +1,39 @@
 <script lang="ts">
     import keys from 'lodash/keys'
+    import toPairs from 'lodash/toPairs'
 
+    import {userTransmogStore} from '@/stores'
+    import type {Dictionary} from '@/types'
     import type {TransmogDataGroupData} from '@/types/data'
     import getPercentClass from '@/utils/get-percent-class'
+    import {tippyComponent} from '@/utils/tippy'
+
+    import TooltipTransmog from '@/components/tooltips/transmog/TooltipTransmog.svelte'
 
     export let set: TransmogDataGroupData
     export let span = 1
+    export let subType: string
 
-    let have: number
-    let total: number
-    let percent: number
-
+    let have = 0
+    let total = 0
+    let percent = 0
+    let slotHave: Dictionary<boolean>
     $: {
-        total = keys(set.items).length
-        have = Math.round(Math.random() * total)
-        percent = have / total * 100
+        slotHave = {}
+        if (set?.items) {
+            for (const [slot, items]: [number, number[]] of toPairs(set.items)) {
+                slotHave[slot] = false
+                for (const itemId of items) {
+                    if ($userTransmogStore.data.transmog[itemId]) {
+                        have++
+                        slotHave[slot] = true
+                        break
+                    }
+                }
+            }
+            total = keys(set.items).length
+            percent = have / total * 100
+        }
     }
 </script>
 
@@ -26,4 +45,12 @@
     }
 </style>
 
-<td class="{getPercentClass(percent)}" colspan="{span}">{have} / {total}</td>
+{#if total > 0}
+    <td
+        class="{getPercentClass(percent)}"
+        colspan="{span}"
+        use:tippyComponent={{component: TooltipTransmog, props: {set, slotHave, subType}}}
+    >{have} / {total}</td>
+{:else}
+    <td class="quality0">---</td>
+{/if}

@@ -2,21 +2,27 @@
     import filter from 'lodash/filter'
     import find from 'lodash/find'
 
-    import {transmogStore} from '@/stores'
+    import {transmogStore, userTransmogStore} from '@/stores'
     import type {TransmogDataCategory} from '@/types/data'
 
     import ClassIcon from '@/components/images/ClassIcon.svelte'
     import TransmogTableCategory from './TransmogTableCategory.svelte'
 
-    export let slug: string
+    export let slug1: string
+    export let slug2: string
 
     let categories: TransmogDataCategory[]
+    let setKey: string
     $: {
         categories = filter(
-            find($transmogStore.data.sets, (s) => s[0].slug === slug),
+            find($transmogStore.data.sets, (s) => s[0].slug === slug1),
             (s) => s.groups.length > 0 && s.groups[0].type !== null
         )
-        console.log(slug, categories)
+        if (slug2) {
+            categories = filter(categories, (s) => s.slug === slug2)
+        }
+
+        setKey = slug2 ? `${slug1}--${slug2}` : slug1
     }
 </script>
 
@@ -84,7 +90,7 @@
         </thead>
         <tbody>
             {#each categories as category}
-                <TransmogTableCategory {category} />
+                <TransmogTableCategory {category} {setKey} />
             {/each}
         </tbody>
     </table>

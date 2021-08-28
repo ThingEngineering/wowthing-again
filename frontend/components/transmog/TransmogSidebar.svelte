@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {transmogStore} from '@/stores/transmog'
+    import {transmogStore, userTransmogStore} from '@/stores'
     import type {SidebarItem} from '@/types'
 
     import Sidebar from '@/components/sidebar/Sidebar.svelte'
@@ -7,12 +7,16 @@
     let categories: SidebarItem[]
     $: {
         categories = $transmogStore.data.sets.map((set) => ({
-            children: [],
+            children: set.slice(1),
             ...set[0],
         }))
-        console.log('categories', categories)
     }
 
+    const percentFunc = function(entry: SidebarItem, parentEntry?: SidebarItem) {
+        const slug = parentEntry ? `${parentEntry.slug}--${entry.slug}` : entry.slug
+        const hasData = $userTransmogStore.data.has[slug]
+        return hasData.have / hasData.total * 100
+    }
 </script>
 
 <Sidebar
@@ -20,4 +24,5 @@
     items={categories}
     width="12rem"
     linkColor="#64e1ff"
+    {percentFunc}
 />

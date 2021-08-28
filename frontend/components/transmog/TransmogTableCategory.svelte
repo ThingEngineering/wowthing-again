@@ -1,23 +1,39 @@
 <script lang="ts">
+    import {transmogSets} from '@/data/transmog-sets'
     import type {TransmogDataCategory} from '@/types/data'
 
-    import TransmogTableGroup from './TransmogTableGroup.svelte'
+    import TransmogTableSet from './TransmogTableSet.svelte'
 
     export let category: TransmogDataCategory
-
-    console.log('category', category)
+    export let setKey: string
 </script>
 
 <style lang="scss">
     .name {
-        border-right: 1px solid $border-color;
-        padding: 0.25rem 0.5rem 0 0.5rem;
+        padding: 0 1.5rem 0 0.5rem;
+    }
+    .highlight {
+        background-color: $highlight-background;
+        padding-bottom: 0.2rem;
+        padding-top: 0.2rem;
     }
 </style>
 
-<tr>
-    <td class="name" colspan="13">{category.name}</td>
-</tr>
 {#each category.groups as group}
-    <TransmogTableGroup {group} />
+    <tr>
+        <td class="name highlight" colspan="13">{group.name}</td>
+    </tr>
+    {#each group.sets as setName, setIndex}
+        <tr>
+            <td class="name">&ndash {setName}</td>
+
+            {#each transmogSets[group.type] as transmogSet (`set--${setKey}--${setName}--${transmogSet.type}`)}
+                <TransmogTableSet
+                    set={group.data[transmogSet.type][setIndex]}
+                    span={transmogSet.span}
+                    subType={transmogSet.subType}
+                />
+            {/each}
+        </tr>
+    {/each}
 {/each}
