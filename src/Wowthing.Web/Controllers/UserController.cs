@@ -41,10 +41,12 @@ namespace Wowthing.Web.Controllers
             }
 
             var db = _redis.GetDatabase();
-            var achievementsHash = await db.StringGetAsync("cached_achievements:hash");
-            var staticHash = await db.StringGetAsync("cached_static:hash");
+            var achievementsHash = db.StringGetAsync("cached_achievements:hash");
+            var staticHash = db.StringGetAsync("cached_static:hash");
+            var transmogHash = db.StringGetAsync("cache:transmog:hash");
+            Task.WaitAll(achievementsHash, staticHash, transmogHash);
 
-            return View(new UserViewModel(user, settings, achievementsHash, staticHash));
+            return View(new UserViewModel(user, settings, achievementsHash.Result, staticHash.Result, transmogHash.Result));
         }
     }
 }

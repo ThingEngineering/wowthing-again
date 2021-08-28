@@ -127,6 +127,21 @@ namespace Wowthing.Web.Controllers
             return Content(await db.StringGetAsync("cached_static:data"), "application/json");
         }
 
+        [HttpGet("transmog.{hash:length(32)}.json")]
+        [ResponseCache(Duration = 365 * 24 * 60 * 60)]
+        public async Task<IActionResult> StaticTransmog([FromRoute] string hash)
+        {
+            var db = _redis.GetDatabase();
+
+            string jsonHash = await db.StringGetAsync("cache:transmog:hash");
+            if (hash != jsonHash)
+            {
+                return NotFound("Invalid transmog data hash");
+            }
+
+            return Content(await db.StringGetAsync("cache:transmog:data"), "application/json");
+        }
+
         [HttpGet("team/{guid:guid}")]
         public async Task<IActionResult> TeamData([FromRoute] Guid guid)
         {

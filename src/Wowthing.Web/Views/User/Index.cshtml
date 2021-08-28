@@ -28,6 +28,7 @@
      data-settings="@Model.SettingsJson"
      data-achievements="@Url.Action("StaticAchievements", "Api", new { hash = Model.AchievementsHash })"
      data-static="@Url.Action("StaticData", "Api", new { hash = Model.StaticHash })"
+     data-transmog="@Url.Action("StaticTransmog", "Api", new { hash = Model.TransmogHash })"
      data-user="@Url.Action("UserData", "Api", new { username = Model.User.UserName })"
      data-xsrf="@(User?.Identity?.IsAuthenticated == true ? GetAntiXsrfRequestToken() : "")"
 ></div>
