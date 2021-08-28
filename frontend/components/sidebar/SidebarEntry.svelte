@@ -9,7 +9,8 @@
 
     export let baseUrl: string
     export let item: SidebarItem
-    export let percentFunc: (entry: SidebarItem) => number = undefined
+    export let parentItem: SidebarItem = undefined
+    export let percentFunc: (entry: SidebarItem, parentEntry?: SidebarItem) => number = undefined
     let expanded: boolean
     let percent = -1
     let url: string
@@ -20,7 +21,7 @@
             expanded = $location.startsWith(url)
 
             if (percentFunc !== undefined) {
-                percent = percentFunc(item)
+                percent = percentFunc(item, parentItem)
             }
         }
     }
@@ -78,7 +79,7 @@
             {#if expanded}
                 <ul>
                     {#each item.children as child}
-                        <svelte:self baseUrl={url} item={child} {percentFunc} />
+                        <svelte:self baseUrl={url} item={child} parentItem={item} {percentFunc} />
                     {/each}
                 </ul>
             {/if}

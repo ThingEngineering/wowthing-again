@@ -127,6 +127,21 @@ namespace Wowthing.Web.Controllers
             return Content(await db.StringGetAsync("cached_static:data"), "application/json");
         }
 
+        [HttpGet("transmog.{hash:length(32)}.json")]
+        [ResponseCache(Duration = 365 * 24 * 60 * 60)]
+        public async Task<IActionResult> StaticTransmog([FromRoute] string hash)
+        {
+            var db = _redis.GetDatabase();
+
+            string jsonHash = await db.StringGetAsync("cache:transmog:hash");
+            if (hash != jsonHash)
+            {
+                return NotFound("Invalid transmog data hash");
+            }
+
+            return Content(await db.StringGetAsync("cache:transmog:data"), "application/json");
+        }
+
         [HttpGet("team/{guid:guid}")]
         public async Task<IActionResult> TeamData([FromRoute] Guid guid)
         {
@@ -324,6 +339,50 @@ namespace Wowthing.Web.Controllers
             {
                 Achievements = achievementsCompleted,
                 Criteria = groupedCriteria,
+            };
+            
+            timer.AddPoint("Build response", true);
+            _logger.LogDebug($"{timer}");
+
+            return Ok(data);
+        }
+        
+        [HttpGet("user/{username:username}/transmog")]
+        public async Task<IActionResult> UserTransmogData([FromRoute] string username)
+        {
+            var timer = new JankTimer();
+
+            var user = await _userManager.FindByNameAsync(username);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            timer.AddPoint("Find user");
+
+            if (User?.Identity?.Name != user.UserName && user.Settings?.Privacy?.Public != true)
+            {
+                return NotFound();
+            }
+
+            timer.AddPoint("Privacy");
+
+            var accountTransmogs = await _context.PlayerAccountTransmog
+                .Where(pat => pat.Account.UserId == user.Id)
+                .ToArrayAsync();
+
+            var allTransmog = new HashSet<int>();
+            foreach (var accountTransmog in accountTransmogs)
+            {
+                allTransmog.UnionWith(accountTransmog.TransmogIds);
+            }
+            
+            timer.AddPoint("Get Transmog");
+
+            // Build response
+            var data = new UserTransmogData
+            {
+                Transmog = allTransmog.ToDictionary(t => t),
             };
             
             timer.AddPoint("Build response", true);

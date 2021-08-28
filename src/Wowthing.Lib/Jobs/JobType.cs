@@ -38,5 +38,6 @@
         DataReputationFactionIndex,
         DataReputationTiersIndex,
         DataTitleIndex,
+        CacheTransmog,
     }
 }

@@ -1,12 +1,28 @@
 <script lang="ts">
-    import { link } from 'svelte-spa-router'
-    import active from 'svelte-spa-router/active'
+    import {transmogStore, userTransmogStore} from '@/stores'
+    import type {SidebarItem} from '@/types'
 
-    import Sidebar from '@/components/common/Sidebar.svelte'
+    import Sidebar from '@/components/sidebar/Sidebar.svelte'
+
+    let categories: SidebarItem[]
+    $: {
+        categories = $transmogStore.data.sets.map((set) => ({
+            children: set.slice(1),
+            ...set[0],
+        }))
+    }
+
+    const percentFunc = function(entry: SidebarItem, parentEntry?: SidebarItem) {
+        const slug = parentEntry ? `${parentEntry.slug}--${entry.slug}` : entry.slug
+        const hasData = $userTransmogStore.data.has[slug]
+        return hasData.have / hasData.total * 100
+    }
 </script>
 
-<Sidebar width="12rem">
-    <li use:active={'/transmog/adhf'}>
-        <a href="/transmog/adhf" use:link>Adhf</a>
-    </li>
-</Sidebar>
+<Sidebar
+    baseUrl="/transmog"
+    items={categories}
+    width="12rem"
+    linkColor="#64e1ff"
+    {percentFunc}
+/>

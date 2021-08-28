@@ -1,0 +1,2002 @@
+name: Legion
+groups:
+
+- name: Antorus, the Burning Throne
+  type: class
+  sets:
+  - Mythic
+  - Heroic
+  - Normal
+  - Raid Finder
+  data:
+    death-knight:
+    # Mythic set=1474
+    - name: Dreadwake Armor
+      items:
+        1:  34479 # Head
+        3:  34481 # Shoulders
+        5:  34473 # Chest
+        6:  34471 # Waist
+        7:  34480 # Legs
+        8:  34472 # Feet
+        9:  34482 # Wrists
+        10: 34478 # Hands
+        16: 34517 # Back
+
+    # Heroic set=1473
+    - name: Dreadwake Armor
+      items:
+        1:  34513 # Head
+        3:  34515 # Shoulders
+        5:  34511 # Chest
+        6:  34509 # Waist
+        7:  34514 # Legs
+        8:  34510 # Feet
+        9:  34516 # Wrists
+        10: 34512 # Hands
+        16: 35888 # Back
+
+    # Normal set=1472
+    - name: Dreadwake Armor
+      items:
+        1:  35239 # Head
+        3:  35241 # Shoulders
+        5:  35237 # Chest
+        6:  35235 # Waist
+        7:  35240 # Legs
+        8:  35236 # Feet
+        9:  35242 # Wrists
+        10: 35238 # Hands
+        16: 35884 # Back
+
+    # Raid Finder set=1475
+    - name: Dreadwake Armor
+      items:
+        1:  35231 # Head
+        3:  35233 # Shoulders
+        5:  35229 # Chest
+        6:  35227 # Waist
+        7:  35232 # Legs
+        8:  35228 # Feet
+        9:  35234 # Wrists
+        10: 35230 # Hands
+        16: 35880 # Back
+
+    demon-hunter:
+    # Mythic set=1478
+    - name: Felreaper Vestments
+      items:
+        1:  29585 # Head
+        3:  29587 # Shoulders
+        5:  29583 # Chest
+        6:  29581 # Waist
+        7:  29586 # Legs
+        8:  29582 # Feet
+        9:  29588 # Wrists
+        10: 29584 # Hands
+        16: 29597 # Back
+
+    # Heroic set=1477
+    - name: Felreaper Vestments
+      items:
+        1:  29862 # Head
+        3:  29864 # Shoulders
+        5:  29860 # Chest
+        6:  29858 # Waist
+        7:  29863 # Legs
+        8:  29859 # Feet
+        9:  29865 # Wrists
+        10: 29861 # Hands
+        16: 29785 # Back
+
+    # Normal set=1476
+    - name: Felreaper Vestments
+      items:
+        1:  35268 # Head
+        3:  35270 # Shoulders
+        5:  35266 # Chest
+        6:  35264 # Waist
+        7:  35269 # Legs
+        8:  35265 # Feet
+        9:  35271 # Wrists
+        10: 35267 # Hands
+        16: 35372 # Back
+
+    # Raid Finder set=1479
+    - name: Felreaper Vestments
+      items:
+        1:  29854 # Head
+        3:  29856 # Shoulders
+        5:  29852 # Chest
+        6:  29850 # Waist
+        7:  29855 # Legs
+        8:  29851 # Feet
+        9:  29857 # Wrists
+        10: 29853 # Hands
+        16: 29780 # Back
+
+    druid:
+    # Mythic set=1482
+    - name: Bearmantle Battlegear
+      items:
+        1:  35075 # Head
+        3:  35077 # Shoulders
+        5:  35073 # Chest
+        7:  35076 # Legs
+        8:  35072 # Feet
+        9:  35078 # Wrists
+        10: 35074 # Hands
+        16: 35384 # Back
+
+    # Heroic set=1481
+    - name: Bearmantle Battlegear
+      items:
+        1:  35043 # Head
+        3:  35045 # Shoulders
+        5:  35041 # Chest
+        7:  35044 # Legs
+        8:  35040 # Feet
+        9:  35046 # Wrists
+        10: 35042 # Hands
+        16: 35634 # Back
+
+    # Normal set=1480
+    - name: Bearmantle Battlegear
+      items:
+        1:  35051 # Head
+        3:  35053 # Shoulders
+        5:  35049 # Chest
+        6:  35047 # Waist
+        7:  35052 # Legs
+        8:  35048 # Feet
+        9:  35054 # Wrists
+        10: 35050 # Hands
+        16: 35673 # Back
+
+    # Raid Finder set=1483
+    - name: Bearmantle Battlegear
+      items:
+        1:  34938 # Head
+        3:  34940 # Shoulders
+        5:  34936 # Chest
+        7:  34939 # Legs
+        8:  34935 # Feet
+        9:  34941 # Wrists
+        10: 34937 # Hands
+        16: 35389 # Back
+
+    hunter:
+    # Mythic set=1486
+    - name: Serpentstalker Guise
+      items:
+        1:  34629 # Head
+        3:  34631 # Shoulders
+        5:  34627 # Chest
+        6:  34625 # Waist
+        7:  34630 # Legs
+        8:  34626 # Feet
+        9:  34632 # Wrists
+        10: 34628 # Hands
+        16: 35756 # Back
+
+    # Heroic set=1485
+    - name: Serpentstalker Guise
+      items:
+        1:  34621 # Head
+        3:  34623 # Shoulders
+        5:  34619 # Chest
+        6:  34617 # Waist
+        7:  34622 # Legs
+        8:  34618 # Feet
+        9:  34624 # Wrists
+        10: 34620 # Hands
+        16: 35740 # Back
+
+    # Normal set=1484
+    - name: Serpentstalker Guise
+      items:
+        1:  34613 # Head
+        3:  34615 # Shoulders
+        5:  34611 # Chest
+        6:  34609 # Waist
+        7:  34614 # Legs
+        8:  34610 # Feet
+        9:  34616 # Wrists
+        10: 34612 # Hands
+        16: 35748 # Back
+
+    # Raid Finder set=1487
+    - name: Serpentstalker Guise
+      items:
+        1:  34605 # Head
+        3:  34607 # Shoulders
+        5:  34603 # Chest
+        6:  34601 # Waist
+        7:  34606 # Legs
+        8:  34602 # Feet
+        9:  34608 # Wrists
+        10: 34604 # Hands
+        16: 35744 # Back
+
+    mage:
+    # Mythic set=1490
+    - name: Runebound Regalia
+      items:
+        1:  34578 # Head
+        3:  34581 # Shoulders
+        5:  34579 # Chest
+        6:  34575 # Waist
+        7:  34580 # Legs
+        8:  34576 # Feet
+        9:  34582 # Wrists
+        10: 34577 # Hands
+        16: 35284 # Back
+
+    # Heroic set=1489
+    - name: Runebound Regalia
+      items:
+        1:  34554 # Head
+        3:  34557 # Shoulders
+        5:  34555 # Chest
+        6:  34551 # Waist
+        7:  34556 # Legs
+        8:  34552 # Feet
+        9:  34558 # Wrists
+        10: 34553 # Hands
+        16: 35300 # Back
+
+    # Normal set=1488
+    - name: Runebound Regalia
+      items:
+        1:  34546 # Head
+        3:  34549 # Shoulders
+        5:  34547 # Chest
+        6:  34543 # Waist
+        7:  34548 # Legs
+        8:  34544 # Feet
+        9:  34550 # Wrists
+        10: 34545 # Hands
+        16: 35296 # Back
+
+    # Raid Finder set=1491
+    - name: Runebound Regalia
+      items:
+        1:  34562 # Head
+        3:  34565 # Shoulders
+        5:  34563 # Chest
+        6:  34559 # Waist
+        7:  34564 # Legs
+        8:  34560 # Feet
+        9:  34566 # Wrists
+        10: 34561 # Hands
+        16: 35304 # Back
+
+    monk:
+    # Mythic set=1494
+    - name: Chi'Ji's Battlegear
+      items:
+        1:  34986 # Head
+        3:  34988 # Shoulders
+        5:  34984 # Chest
+        6:  34982 # Waist
+        7:  34987 # Legs
+        8:  34983 # Feet
+        10: 34985 # Hands
+        16: 35724 # Back
+
+    # Heroic set=1493
+    - name: Chi'Ji's Battlegear
+      items:
+        1:  34978 # Head
+        3:  34980 # Shoulders
+        5:  34976 # Chest
+        6:  34974 # Waist
+        7:  34979 # Legs
+        8:  34975 # Feet
+        10: 34977 # Hands
+        16: 35720 # Back
+
+    # Normal set=1492
+    - name: Chi'Ji's Battlegear
+      items:
+        1:  34970 # Head
+        3:  34972 # Shoulders
+        5:  34968 # Chest
+        6:  34966 # Waist
+        7:  34971 # Legs
+        8:  34967 # Feet
+        9:  34973 # Wrists
+        10: 34969 # Hands
+        16: 35716 # Back
+
+    # Raid Finder set=1495
+    - name: Chi'Ji's Battlegear
+      items:
+        1:  34962 # Head
+        3:  34964 # Shoulders
+        5:  34960 # Chest
+        6:  34958 # Waist
+        7:  34963 # Legs
+        8:  34959 # Feet
+        10: 34961 # Hands
+        16: 35712 # Back
+
+    paladin:
+    # Mythic set=1498
+    - name: Light's Vanguard Battleplate
+      items:
+        1:  34754 # Head
+        3:  34756 # Shoulders
+        5:  34752 # Chest
+        6:  34750 # Waist
+        7:  34755 # Legs
+        8:  34751 # Feet
+        9:  34757 # Wrists
+        10: 34753 # Hands
+        16: 35870 # Back
+
+    # Heroic set=1497
+    - name: Light's Vanguard Battleplate
+      items:
+        1:  34730 # Head
+        3:  34732 # Shoulders
+        5:  34728 # Chest
+        6:  34726 # Waist
+        7:  34731 # Legs
+        8:  34727 # Feet
+        9:  34733 # Wrists
+        10: 34729 # Hands
+        16: 35858 # Back
+
+    # Normal set=1496
+    - name: Light's Vanguard Battleplate
+      items:
+        1:  34722 # Head
+        3:  34724 # Shoulders
+        5:  34720 # Chest
+        6:  34718 # Waist
+        7:  34723 # Legs
+        8:  34719 # Feet
+        9:  34725 # Wrists
+        10: 34721 # Hands
+        16: 35866 # Back
+
+    # Raid Finder set=1499
+    - name: Light's Vanguard Battleplate
+      items:
+        1:  34714 # Head
+        3:  34716 # Shoulders
+        5:  34712 # Chest
+        6:  34710 # Waist
+        7:  34715 # Legs
+        8:  34711 # Feet
+        9:  34717 # Wrists
+        10: 34713 # Hands
+        16: 35854 # Back
+
+    priest:
+    # Mythic set=1502
+    - name: Gilded Seraph's Raiment
+      items:
+        1:  34911 # Head
+        3:  34913 # Shoulders
+        5:  34914 # Chest
+        6:  34908 # Waist
+        7:  34912 # Legs
+        8:  34909 # Feet
+        10: 34910 # Hands
+        16: 35315 # Back
+
+    # Heroic set=1501
+    - name: Gilded Seraph's Raiment
+      items:
+        1:  34871 # Head
+        3:  34873 # Shoulders
+        5:  34874 # Chest
+        6:  34868 # Waist
+        7:  34872 # Legs
+        8:  34869 # Feet
+        10: 34870 # Hands
+        16: 35320 # Back
+
+    # Normal set=1500
+    - name: Gilded Seraph's Raiment
+      items:
+        1:  34895 # Head
+        3:  34897 # Shoulders
+        5:  34898 # Chest
+        6:  34892 # Waist
+        7:  34896 # Legs
+        8:  34893 # Feet
+        9:  34899 # Wrists
+        10: 34894 # Hands
+        16: 35324 # Back
+
+    # Raid Finder set=1503
+    - name: Gilded Seraph's Raiment
+      items:
+        1:  34887 # Head
+        3:  34889 # Shoulders
+        5:  34890 # Chest
+        6:  34884 # Waist
+        7:  34888 # Legs
+        8:  34885 # Feet
+        10: 34886 # Hands
+        16: 35329 # Back
+
+    rogue:
+    # Mythic set=1506
+    - name: Regalia of the Dashing Scoundrel
+      items:
+        1:  35205 # Head
+        3:  35207 # Shoulders
+        5:  35203 # Chest
+        6:  35201 # Waist
+        7:  35206 # Legs
+        9:  35208 # Wrists
+        10: 35204 # Hands
+        16: 35833 # Back
+
+    # Heroic set=1505
+    - name: Regalia of the Dashing Scoundrel
+      items:
+        1:  35276 # Head
+        3:  35278 # Shoulders
+        5:  35274 # Chest
+        6:  35272 # Waist
+        7:  35277 # Legs
+        9:  35279 # Wrists
+        10: 35275 # Hands
+        16: 35701 # Back
+
+    # Normal set=1504
+    - name: Regalia of the Dashing Scoundrel
+      items:
+        1:  35181 # Head
+        3:  35183 # Shoulders
+        5:  35179 # Chest
+        6:  35177 # Waist
+        7:  35182 # Legs
+        8:  35178 # Feet
+        9:  35184 # Wrists
+        10: 35180 # Hands
+        16: 35823 # Back
+
+    # Raid Finder set=1507
+    - name: Regalia of the Dashing Scoundrel
+      items:
+        1:  35196 # Head
+        3:  35198 # Shoulders
+        5:  35194 # Chest
+        6:  35192 # Waist
+        7:  35197 # Legs
+        9:  35199 # Wrists
+        10: 35195 # Hands
+        16: 35828 # Back
+
+    shaman:
+    # Mythic set=1510
+    - name: Garb of Venerated Spirits
+      items:
+        1:  35122 # Head
+        3:  35124 # Shoulders
+        5:  35120 # Chest
+        6:  35118 # Waist
+        7:  35123 # Legs
+        8:  35119 # Feet
+        9:  35125 # Wrists
+        10: 35121 # Hands
+        16: 35780 # Back
+
+    # Heroic set=1509
+    - name: Garb of Venerated Spirits
+      items:
+        1:  35106 # Head
+        3:  35108 # Shoulders
+        5:  35104 # Chest
+        6:  35102 # Waist
+        7:  35107 # Legs
+        8:  35103 # Feet
+        9:  35109 # Wrists
+        10: 35105 # Hands
+        16: 35768 # Back
+
+    # Normal set=1508
+    - name: Garb of Venerated Spirits
+      items:
+        1:  35089 # Head
+        3:  35091 # Shoulders
+        5:  35087 # Chest
+        6:  35085 # Waist
+        7:  35090 # Legs
+        8:  35086 # Feet
+        9:  35092 # Wrists
+        10: 35088 # Hands
+        16: 35764 # Back
+
+    # Raid Finder set=1511
+    - name: Garb of Venerated Spirits
+      items:
+        1:  35098 # Head
+        3:  35100 # Shoulders
+        5:  35096 # Chest
+        6:  35094 # Waist
+        7:  35099 # Legs
+        8:  35095 # Feet
+        9:  35101 # Wrists
+        10: 35097 # Hands
+        16: 35772 # Back
+
+    warlock:
+    # Mythic set=1514
+    - name: Grim Inquisitor's Regalia
+      items:
+        1:  34839 # Head
+        3:  34841 # Shoulders
+        5:  34843 # Chest
+        6:  34836 # Waist
+        7:  34840 # Legs
+        8:  34837 # Feet
+        9:  34842 # Wrists
+        10: 34838 # Hands
+        16: 35342 # Back
+
+    # Heroic set=1513
+    - name: Grim Inquisitor's Regalia
+      items:
+        1:  34789 # Head
+        3:  34791 # Shoulders
+        5:  34793 # Chest
+        6:  34786 # Waist
+        7:  34790 # Legs
+        8:  34787 # Feet
+        9:  34792 # Wrists
+        10: 34788 # Hands
+        16: 35352 # Back
+
+    # Normal set=1512
+    - name: Grim Inquisitor's Regalia
+      items:
+        1:  34797 # Head
+        3:  34799 # Shoulders
+        5:  34801 # Chest
+        6:  34794 # Waist
+        7:  34798 # Legs
+        8:  34795 # Feet
+        9:  34800 # Wrists
+        10: 34796 # Hands
+        16: 35357 # Back
+
+    # Raid Finder set=1515
+    - name: Grim Inquisitor's Regalia
+      items:
+        1:  34814 # Head
+        3:  34816 # Shoulders
+        5:  34818 # Chest
+        6:  34810 # Waist
+        7:  34815 # Legs
+        8:  34811 # Feet
+        9:  34817 # Wrists
+        10: 34812 # Hands
+        16: 35367 # Back
+
+    warrior:
+    # Mythic set=1518
+    - name: Juggernaut Battlegear
+      items:
+        1:  34698 # Head
+        3:  34700 # Shoulders
+        5:  34696 # Chest
+        6:  34694 # Waist
+        7:  34699 # Legs
+        8:  34695 # Feet
+        9:  34701 # Wrists
+        10: 34697 # Hands
+        16: 35808 # Back
+
+    # Heroic set=1517
+    - name: Juggernaut Battlegear
+      items:
+        1:  34680 # Head
+        3:  34682 # Shoulders
+        5:  34678 # Chest
+        6:  34676 # Waist
+        7:  34681 # Legs
+        8:  34677 # Feet
+        9:  34683 # Wrists
+        10: 34679 # Hands
+        16: 35801 # Back
+
+    # Normal set=1516
+    - name: Juggernaut Battlegear
+      items:
+        1:  34661 # Head
+        3:  34663 # Shoulders
+        5:  34659 # Chest
+        6:  34657 # Waist
+        7:  34662 # Legs
+        8:  34658 # Feet
+        9:  34664 # Wrists
+        10: 34660 # Hands
+        16: 35795 # Back
+
+    # Raid Finder set=1519
+    - name: Juggernaut Battlegear
+      items:
+        1:  34672 # Head
+        3:  34674 # Shoulders
+        5:  34670 # Chest
+        6:  34668 # Waist
+        7:  34673 # Legs
+        8:  34669 # Feet
+        9:  34675 # Wrists
+        10: 34671 # Hands
+        16: 35798 # Back
+
+- name: Tomb of Sargeras
+  type: class
+  sets:
+  - Mythic
+  - Heroic
+  - Normal
+  - Raid Finder
+  data:
+    death-knight:
+    # Mythic set=1474
+    # Mythic set=1338
+    - name: Gravewarden Armaments
+      items:
+        1:  33783 # Head
+        3:  33785 # Shoulders
+        5:  33781 # Chest
+        6:  33779 # Waist
+        7:  33784 # Legs
+        8:  33780 # Feet
+        9:  33786 # Wrists
+        10: 33782 # Hands
+        16: 34227 # Back
+
+    # Heroic set=1340
+    - name: Gravewarden Armaments
+      items:
+        1:  33767 # Head
+        3:  33769 # Shoulders
+        5:  33765 # Chest
+        6:  33763 # Waist
+        7:  33768 # Legs
+        8:  33764 # Feet
+        9:  33770 # Wrists
+        10: 33766 # Hands
+        16: 34214 # Back
+
+    # Normal set=1337
+    - name: Gravewarden Armaments
+      items:
+        1:  33751 # Head
+        3:  33753 # Shoulders
+        5:  33749 # Chest
+        6:  33747 # Waist
+        7:  33752 # Legs
+        8:  33748 # Feet
+        9:  33754 # Wrists
+        10: 33750 # Hands
+        16: 34204 # Back
+
+    # Raid Finder set=1339
+    - name: Gravewarden Armaments
+      items:
+        1:  33759 # Head
+        3:  33761 # Shoulders
+        5:  33757 # Chest
+        6:  33755 # Waist
+        7:  33760 # Legs
+        8:  33756 # Feet
+        9:  33762 # Wrists
+        10: 33758 # Hands
+        16: 34209 # Back
+
+    demon-hunter:
+    # Mythic set=1334
+    - name: Demonbane Armor
+      items:
+        1:  33312 # Head
+        3:  33314 # Shoulders
+        5:  33316 # Chest
+        6:  33309 # Waist
+        7:  33313 # Legs
+        8:  33310 # Feet
+        10: 33311 # Hands
+        16: 34249 # Back
+
+    # Heroic set=1336
+    - name: Demonbane Armor
+      items:
+        1:  33257 # Head
+        3:  33259 # Shoulders
+        5:  33261 # Chest
+        6:  33253 # Waist
+        7:  33258 # Legs
+        8:  33254 # Feet
+        10: 33256 # Hands
+        16: 33317 # Back
+
+    # Normal set=1333
+    - name: Demonbane Armor
+      items:
+        1:  33283 # Head
+        3:  33285 # Shoulders
+        5:  33287 # Chest
+        6:  33280 # Waist
+        7:  33284 # Legs
+        8:  33281 # Feet
+        10: 33282 # Hands
+        16: 33840 # Back
+
+    # Raid Finder set=1335
+    - name: Demonbane Armor
+      items:
+        1:  33274 # Head
+        3:  33276 # Shoulders
+        5:  33278 # Chest
+        6:  33271 # Waist
+        7:  33275 # Legs
+        8:  33272 # Feet
+        10: 33273 # Hands
+        16: 33824 # Back
+
+    druid:
+    # Mythic set=1330
+    - name: Stormheart Raiment
+      items:
+        1:  33588 # Head
+        3:  33590 # Shoulders
+        5:  33592 # Chest
+        6:  33585 # Waist
+        7:  33589 # Legs
+        9:  33591 # Wrists
+        10: 33587 # Hands
+        16: 34123 # Back
+
+    # Heroic set=1332
+    - name: Stormheart Raiment
+      items:
+        1:  33604 # Head
+        3:  33606 # Shoulders
+        5:  33608 # Chest
+        6:  33601 # Waist
+        7:  33605 # Legs
+        9:  33607 # Wrists
+        10: 33603 # Hands
+        16: 34101 # Back
+
+    # Normal set=1329
+    - name: Stormheart Raiment
+      items:
+        1:  33628 # Head
+        3:  33630 # Shoulders
+        5:  33632 # Chest
+        6:  33625 # Waist
+        7:  33629 # Legs
+        8:  33626 # Feet
+        9:  33631 # Wrists
+        10: 33627 # Hands
+        16: 34116 # Back
+
+    # Raid Finder set=1331
+    - name: Stormheart Raiment
+      items:
+        1:  33620 # Head
+        3:  33622 # Shoulders
+        5:  33624 # Chest
+        6:  33617 # Waist
+        7:  33621 # Legs
+        9:  33623 # Wrists
+        10: 33619 # Hands
+        16: 34109 # Back
+
+    hunter:
+    # Mythic set=1326
+    - name: Wildstalker Armor
+      items:
+        1:  33458 # Head
+        3:  33460 # Shoulders
+        5:  33456 # Chest
+        6:  33454 # Waist
+        7:  33459 # Legs
+        8:  33455 # Feet
+        9:  33461 # Wrists
+        10: 33457 # Hands
+        16: 33939 # Back
+
+    # Heroic set=1328
+    - name: Wildstalker Armor
+      items:
+        1:  33426 # Head
+        3:  33428 # Shoulders
+        5:  33424 # Chest
+        6:  33422 # Waist
+        7:  33427 # Legs
+        8:  33423 # Feet
+        9:  33429 # Wrists
+        10: 33425 # Hands
+        16: 33860 # Back
+
+    # Normal set=1325
+    - name: Wildstalker Armor
+      items:
+        1:  33434 # Head
+        3:  33436 # Shoulders
+        5:  33432 # Chest
+        6:  33430 # Waist
+        7:  33435 # Legs
+        8:  33431 # Feet
+        9:  33437 # Wrists
+        10: 33433 # Hands
+        16: 33923 # Back
+
+    # Raid Finder set=1327
+    - name: Wildstalker Armor
+      items:
+        1:  33442 # Head
+        3:  33444 # Shoulders
+        5:  33440 # Chest
+        6:  33438 # Waist
+        7:  33443 # Legs
+        8:  33439 # Feet
+        9:  33445 # Wrists
+        10: 33441 # Hands
+        16: 33928 # Back
+
+    mage:
+    # Mythic set=1322
+    - name: Regalia of the Arcane Tempest
+      items:
+        1:  33556 # Head
+        3:  33558 # Shoulders
+        5:  33560 # Chest
+        6:  33553 # Waist
+        7:  33557 # Legs
+        8:  33554 # Feet
+        10: 33555 # Hands
+        16: 34152 # Back
+
+    # Heroic set=1324
+    - name: Regalia of the Arcane Tempest
+      items:
+        1:  33540 # Head
+        3:  33542 # Shoulders
+        5:  33544 # Chest
+        6:  33537 # Waist
+        7:  33541 # Legs
+        8:  33538 # Feet
+        10: 33539 # Hands
+        16: 34148 # Back
+
+    # Normal set=1321
+    - name: Regalia of the Arcane Tempest
+      items:
+        1:  33532 # Head
+        3:  33534 # Shoulders
+        5:  36833 # Chest
+        6:  33529 # Waist
+        7:  33533 # Legs
+        8:  33530 # Feet
+        9:  33535 # Wrists
+        10: 33531 # Hands
+        16: 34145 # Back
+
+    # Raid Finder set=1323
+    - name: Regalia of the Arcane Tempest
+      items:
+        1:  33524 # Head
+        3:  33526 # Shoulders
+        5:  33528 # Chest
+        6:  33521 # Waist
+        7:  33525 # Legs
+        8:  33522 # Feet
+        10: 33523 # Hands
+        16: 34134 # Back
+
+    monk:
+    # Mythic set=1318
+    - name: Xuen's Battlegear
+      items:
+        1:  33565 # Head
+        3:  33567 # Shoulders
+        5:  33563 # Chest
+        6:  33561 # Waist
+        7:  33566 # Legs
+        8:  33562 # Feet
+        10: 33564 # Hands
+        16: 34194 # Back
+
+    # Heroic set=1320
+    - name: Xuen's Battlegear
+      items:
+        1:  33492 # Head
+        3:  33494 # Shoulders
+        5:  33490 # Chest
+        6:  33488 # Waist
+        7:  33493 # Legs
+        8:  33489 # Feet
+        10: 33491 # Hands
+        16: 34174 # Back
+
+    # Normal set=1317
+    - name: Xuen's Battlegear
+      items:
+        1:  33484 # Head
+        3:  33486 # Shoulders
+        5:  33482 # Chest
+        6:  33480 # Waist
+        7:  33485 # Legs
+        8:  33481 # Feet
+        10: 33483 # Hands
+        16: 34169 # Back
+
+    # Raid Finder set=1319
+    - name: Xuen's Battlegear
+      items:
+        1:  33500 # Head
+        3:  33502 # Shoulders
+        5:  33498 # Chest
+        6:  33496 # Waist
+        7:  33501 # Legs
+        8:  33497 # Feet
+        10: 33499 # Hands
+        16: 34189 # Back
+
+    paladin:
+    # Mythic set=1498
+    # Mythic set=1314
+    - name: Radiant Lightbringer Armor
+      items:
+        1:  32917 # Head
+        3:  32919 # Shoulders
+        5:  32915 # Chest
+        6:  32913 # Waist
+        7:  32918 # Legs
+        8:  32914 # Feet
+        10: 32916 # Hands
+        16: 32985 # Back
+
+    # Heroic set=1316
+    - name: Radiant Lightbringer Armor
+      items:
+        1:  32901 # Head
+        3:  32903 # Shoulders
+        5:  32899 # Chest
+        6:  32897 # Waist
+        7:  32902 # Legs
+        8:  32898 # Feet
+        10: 32900 # Hands
+        16: 32962 # Back
+
+    # Normal set=1313
+    - name: Radiant Lightbringer Armor
+      items:
+        1:  32946 # Head
+        3:  32948 # Shoulders
+        5:  32944 # Chest
+        6:  32942 # Waist
+        7:  32947 # Legs
+        8:  32943 # Feet
+        10: 32945 # Hands
+        16: 32979 # Back
+
+    # Raid Finder set=1315
+    - name: Radiant Lightbringer Armor
+      items:
+        1:  32925 # Head
+        3:  32927 # Shoulders
+        5:  32923 # Chest
+        6:  32921 # Waist
+        7:  32926 # Legs
+        8:  32922 # Feet
+        10: 32924 # Hands
+        16: 32999 # Back
+
+    priest:
+    # Mythic set=1310
+    - name: Vestments of Blind Absolution
+      items:
+        1:  33384 # Head
+        3:  33386 # Shoulders
+        5:  33388 # Chest
+        6:  33381 # Waist
+        7:  33385 # Legs
+        8:  33382 # Feet
+        9:  33387 # Wrists
+        10: 33383 # Hands
+        16: 34091 # Back
+
+    # Heroic set=1312
+    - name: Vestments of Blind Absolution
+      items:
+        1:  33368 # Head
+        3:  33370 # Shoulders
+        5:  33372 # Chest
+        6:  33365 # Waist
+        7:  33369 # Legs
+        8:  33366 # Feet
+        9:  33371 # Wrists
+        10: 33367 # Hands
+        16: 34085 # Back
+
+    # Normal set=1309
+    - name: Vestments of Blind Absolution
+      items:
+        1:  33352 # Head
+        3:  33354 # Shoulders
+        5:  33356 # Chest
+        6:  33349 # Waist
+        7:  33353 # Legs
+        8:  33350 # Feet
+        9:  33355 # Wrists
+        10: 33351 # Hands
+        16: 34077 # Back
+
+    # Raid Finder set=1342
+    - name: Vestments of Blind Absolution
+      items:
+        1:  33360 # Head
+        3:  33362 # Shoulders
+        5:  33364 33372 # Chest
+        6:  33357 # Waist
+        7:  33361 # Legs
+        8:  33358 # Feet
+        9:  33363 # Wrists
+        10: 33359 # Hands
+        16: 34083 # Back
+
+    rogue:
+    # Mythic set=1308
+    - name: Fanged Slayer's Armor
+      items:
+        1:  33685 # Head
+        3:  33687 # Shoulders
+        5:  33683 # Chest
+        6:  33681 # Waist
+        7:  33686 # Legs
+        8:  33682 # Feet
+        9:  33688 # Wrists
+        10: 33684 # Hands
+        16: 34343 # Back
+
+    # Heroic set=1307
+    - name: Fanged Slayer's Armor
+      items:
+        1:  33637 # Head
+        3:  33639 # Shoulders
+        5:  33635 # Chest
+        6:  33633 # Waist
+        7:  33638 # Legs
+        8:  33634 # Feet
+        9:  33640 # Wrists
+        10: 33636 # Hands
+        16: 34325 # Back
+
+    # Normal set=1305
+    - name: Fanged Slayer's Armor
+      items:
+        1:  33669 # Head
+        3:  33671 # Shoulders
+        5:  33667 # Chest
+        6:  33665 # Waist
+        7:  33670 # Legs
+        8:  33666 # Feet
+        9:  33672 # Wrists
+        10: 33668 # Hands
+        16: 34337 # Back
+
+    # Raid Finder set=1306
+    - name: Fanged Slayer's Armor
+      items:
+        1:  33661 # Head
+        3:  33663 # Shoulders
+        5:  33659 # Chest
+        6:  33657 # Waist
+        7:  33662 # Legs
+        8:  33658 # Feet
+        9:  33664 # Wrists
+        10: 33660 # Hands
+        16: 34334 # Back
+
+    shaman:
+    # Mythic set=1304
+    - name: Regalia of the Skybreaker
+      items:
+        1:  33868 # Head
+        3:  33870 # Shoulders
+        5:  33872 # Chest
+        6:  33865 # Waist
+        7:  33869 # Legs
+        8:  33866 # Feet
+        10: 33867 # Hands
+        16: 34311 # Back
+
+    # Heroic set=1303
+    - name: Regalia of the Skybreaker
+      items:
+        1:  33720 # Head
+        3:  33722 # Shoulders
+        5:  33724 # Chest
+        6:  33716 # Waist
+        7:  33721 # Legs
+        8:  33717 # Feet
+        10: 33719 # Hands
+        16: 34310 # Back
+
+    # Normal set=1301
+    - name: Regalia of the Skybreaker
+      items:
+        1:  33702 # Head
+        3:  33704 # Shoulders
+        5:  33706 # Chest
+        6:  33698 # Waist
+        7:  33703 # Legs
+        8:  33699 # Feet
+        10: 33701 # Hands
+        16: 34299 # Back
+
+    # Raid Finder set=1302
+    - name: Regalia of the Skybreaker
+      items:
+        1:  34317 # Head
+        3:  34319 # Shoulders
+        5:  34321 # Chest
+        6:  34314 # Waist
+        7:  34318 # Legs
+        8:  34315 # Feet
+        10: 34316 # Hands
+        16: 34302 # Back
+
+    warlock:
+    # Mythic set=1299
+    - name: Diabolic Raiment
+      items:
+        1:  33194 # Head
+        3:  33196 # Shoulders
+        5:  33198 # Chest
+        6:  33190 # Waist
+        7:  33195 # Legs
+        8:  33191 # Feet
+        9:  33197 # Wrists
+        10: 33193 # Hands
+        16: 33238 # Back
+
+    # Heroic set=1298
+    - name: Diabolic Raiment
+      items:
+        1:  33096 # Head
+        3:  33098 # Shoulders
+        5:  33100 # Chest
+        6:  33092 # Waist
+        7:  33097 # Legs
+        8:  33093 # Feet
+        9:  33099 # Wrists
+        10: 33095 # Hands
+        16: 33214 # Back
+
+    # Normal set=1297
+    - name: Diabolic Raiment
+      items:
+        1:  33149 # Head
+        3:  33151 # Shoulders
+        5:  33153 # Chest
+        6:  33145 # Waist
+        7:  33150 # Legs
+        8:  33146 # Feet
+        9:  33152 # Wrists
+        10: 33148 # Hands
+        16: 33226 # Back
+
+    # Raid Finder set=1300
+    - name: Diabolic Raiment
+      items:
+        1:  33203 # Head
+        3:  33205 # Shoulders
+        5:  33207 # Chest
+        6:  33199 # Waist
+        7:  33204 # Legs
+        8:  33200 # Feet
+        9:  33206 # Wrists
+        10: 33202 # Hands
+        16: 33232 # Back
+
+    warrior:
+    # Mythic set=1295
+    - name: Titanic Onslaught Armor
+      items:
+        1:  33069 # Head
+        3:  33071 # Shoulders
+        5:  33067 # Chest
+        6:  33065 # Waist
+        7:  33070 # Legs
+        8:  33066 # Feet
+        10: 33068 # Hands
+        16: 33135 # Back
+
+    # Heroic set=1294
+    - name: Titanic Onslaught Armor
+      items:
+        1:  33035 # Head
+        3:  33037 # Shoulders
+        5:  33033 # Chest
+        6:  33031 # Waist
+        7:  33036 # Legs
+        8:  33032 # Feet
+        10: 33034 # Hands
+        16: 33120 # Back
+
+    # Normal set=1293
+    - name: Titanic Onslaught Armor
+      items:
+        1:  33015 # Head
+        3:  33017 # Shoulders
+        5:  33013 # Chest
+        6:  33011 # Waist
+        7:  33016 # Legs
+        8:  33012 # Feet
+        10: 33014 # Hands
+        16: 33110 # Back
+
+    # Raid Finder set=1296
+    - name: Titanic Onslaught Armor
+      items:
+        1:  33051 # Head
+        3:  33053 # Shoulders
+        5:  33049 # Chest
+        6:  33047 # Waist
+        7:  33052 # Legs
+        8:  33048 # Feet
+        10: 33050 # Hands
+        16: 33130 # Back
+
+- name: The Nighthold / Emerald Nightmare
+  type: class
+  sets:
+  - Mythic
+  - Heroic
+  - Normal
+  - Raid Finder
+  data:
+    death-knight:
+    # Mythic set=1004
+    - name: Dreadwyrm Battleplate
+      # Missing appearance 82456
+      # Missing appearance 82662
+      # Missing appearance 82460
+      # Missing appearance 82520
+      items:
+        1:  29829 # Head
+        3:  29831 # Shoulders
+        5:  29827 # Chest
+        6:  29825 # Waist
+        7:  29830 # Legs
+        8:  29826 # Feet
+        9:  29832 # Wrists
+        10: 29828 # Hands
+        16: 29939 # Back
+
+    # Heroic set=1003
+    - name: Dreadwyrm Battleplate
+      # Missing appearance 82455
+      # Missing appearance 82661
+      # Missing appearance 82459
+      # Missing appearance 82519
+      items:
+        1:  29813 # Head
+        3:  29815 # Shoulders
+        5:  29811 # Chest
+        6:  29809 # Waist
+        7:  29814 # Legs
+        8:  29810 # Feet
+        9:  29816 # Wrists
+        10: 29812 # Hands
+        16: 29961 # Back
+
+    # Normal set=1002
+    - name: Dreadwyrm Battleplate
+      items:
+        1:  29805 # Head
+        3:  29807 # Shoulders
+        5:  29800 # Chest
+        6:  29798 # Waist
+        7:  29806 # Legs
+        8:  29799 # Feet
+        9:  29808 # Wrists
+        10: 29804 # Hands
+        16: 29974 # Back
+
+    # Raid Finder set=1005
+    - name: Dreadwyrm Battleplate
+      # Missing appearance 82457
+      # Missing appearance 82663
+      # Missing appearance 82461
+      # Missing appearance 82521
+      items:
+        1:  32139 # Head
+        3:  32141 # Shoulders
+        5:  32137 # Chest
+        6:  32135 # Waist
+        7:  32140 # Legs
+        8:  32136 # Feet
+        9:  32142 # Wrists
+        10: 32138 # Hands
+        16: 31975 # Back
+
+    demon-hunter:
+    # Mythic set=1000
+    - name: Vestment of Second Sight
+      # Missing appearance 82432
+      # Missing appearance 82436
+      items:
+        1:  31913 # Head
+        3:  31915 # Shoulders
+        5:  31911 # Chest
+        6:  31909 # Waist
+        7:  31914 # Legs
+        8:  31910 # Feet
+        9:  31916 # Wrists
+        10: 31912 # Hands
+        16: 32166 # Back
+
+    # Heroic set=999
+    - name: Vestment of Second Sight
+      # Missing appearance 82431
+      # Missing appearance 82435
+      items:
+        1:  32012 # Head
+        3:  32014 # Shoulders
+        5:  32010 # Chest
+        6:  32008 # Waist
+        7:  32013 # Legs
+        8:  32009 34045 # Feet
+        9:  32015 # Wrists
+        10: 32011 # Hands
+        16: 32212 32214 32216 32217 32218 32220 # Back
+
+    # Normal set=998
+    - name: Vestment of Second Sight
+      items:
+        1:  32004 # Head
+        3:  32006 # Shoulders
+        5:  32002 # Chest
+        6:  32000 # Waist
+        7:  32005 # Legs
+        8:  32001 # Feet
+        9:  32007 # Wrists
+        10: 32003 # Hands
+        16: 32208 # Back
+
+    # Raid Finder set=1001
+    - name: Vestment of Second Sight
+      # Missing appearance 82433
+      # Missing appearance 82437
+      items:
+        1:  32020 # Head
+        3:  32022 # Shoulders
+        5:  32018 # Chest
+        6:  32016 # Waist
+        7:  32021 # Legs
+        8:  32017 # Feet
+        9:  32023 # Wrists
+        10: 32019 # Hands
+        16: 32100 32181 # Back
+
+    druid:
+    # Mythic set=996
+    - name: Garb of the Astral Warden
+      # Missing appearance 82557
+      # Missing appearance 82686
+      items:
+        1:  30696 # Head
+        3:  30698 # Shoulders
+        5:  30700 # Chest
+        6:  30692 # Waist
+        7:  30697 # Legs
+        8:  30693 # Feet
+        9:  30699 # Wrists
+        10: 30695 # Hands
+        16: 30815 30819 # Back
+
+    # Heroic set=995
+    - name: Garb of the Astral Warden
+      # Missing appearance 82556
+      # Missing appearance 82685
+      items:
+        1:  30731 # Head
+        3:  30733 # Shoulders
+        5:  30735 # Chest
+        6:  30727 # Waist
+        7:  30732 # Legs
+        8:  30728 # Feet
+        9:  30734 # Wrists
+        10: 30730 # Hands
+        16: 31024 # Back
+
+    # Normal set=994
+    - name: Garb of the Astral Warden
+      items:
+        1:  30740 # Head
+        3:  30742 # Shoulders
+        5:  30744 # Chest
+        6:  30736 # Waist
+        7:  30741 # Legs
+        8:  30737 # Feet
+        9:  30743 # Wrists
+        10: 30739 # Hands
+        16: 31032 31033 31035 # Back
+
+    # Raid Finder set=997
+    - name: Garb of the Astral Warden
+      # Missing appearance 82558
+      # Missing appearance 82687
+      items:
+        1:  32072 # Head
+        3:  32074 # Shoulders
+        5:  32076 # Chest
+        6:  32068 # Waist
+        7:  32073 # Legs
+        8:  32069 # Feet
+        9:  32075 # Wrists
+        10: 32071 # Hands
+        16: 32221 # Back
+
+    hunter:
+    # Mythic set=992
+    - name: Eagletalon Battlegear
+      # Missing appearance 82565
+      # Missing appearance 82702
+      # Missing appearance 82504
+      # Missing appearance 82444
+      # Missing appearance 82484
+      items:
+        1:  29904 # Head
+        3:  29905 # Shoulders
+        5:  29902 # Chest
+        6:  29900 # Waist
+        7:  29906 # Legs
+        8:  29901 # Feet
+        9:  29907 # Wrists
+        10: 29903 # Hands
+        16: 30129 # Back
+
+    # Heroic set=991
+    - name: Eagletalon Battlegear
+      # Missing appearance 82564
+      # Missing appearance 82701
+      # Missing appearance 82503
+      # Missing appearance 82443
+      # Missing appearance 82483
+      items:
+        1:  29766 # Head
+        3:  29768 # Shoulders
+        5:  29764 # Chest
+        6:  29762 # Waist
+        7:  29767 # Legs
+        8:  29763 # Feet
+        9:  29769 # Wrists
+        10: 29765 # Hands
+        16: 30075 # Back
+
+    # Normal set=990
+    - name: Eagletalon Battlegear
+      items:
+        1:  29758 # Head
+        3:  29760 # Shoulders
+        5:  29755 # Chest
+        6:  29753 # Waist
+        7:  29759 # Legs
+        8:  29754 # Feet
+        9:  29761 # Wrists
+        10: 29757 # Hands
+        16: 30050 30056 # Back
+
+    # Raid Finder set=993
+    - name: Eagletalon Battlegear
+      # Missing appearance 82566
+      # Missing appearance 82703
+      # Missing appearance 82505
+      # Missing appearance 82445
+      # Missing appearance 82485
+      items:
+        1:  31867 # Head
+        3:  31869 # Shoulders
+        5:  31865 # Chest
+        6:  31863 # Waist
+        7:  31868 # Legs
+        8:  31864 # Feet
+        9:  31870 # Wrists
+        10: 31866 # Hands
+        16: 32112 # Back
+
+    mage:
+    # Mythic set=988
+    - name: Regalia of Everburning Knowledge
+      # Missing appearance 82541
+      # Missing appearance 82424
+      # Missing appearance 82528
+      # Missing appearance 82625
+      items:
+        1:  31083 # Head
+        3:  31085 # Shoulders
+        5:  31087 # Chest
+        6:  31079 # Waist
+        7:  31084 # Legs
+        8:  31080 # Feet
+        9:  31086 # Wrists
+        10: 31082 # Hands
+        16: 31115 # Back
+
+    # Heroic set=987
+    - name: Regalia of Everburning Knowledge
+      # Missing appearance 82540
+      # Missing appearance 82423
+      # Missing appearance 82527
+      # Missing appearance 82624
+      items:
+        1:  30776 # Head
+        3:  30778 # Shoulders
+        5:  30780 # Chest
+        6:  30772 # Waist
+        7:  30777 # Legs
+        8:  30773 # Feet
+        9:  30779 # Wrists
+        10: 30775 # Hands
+        16: 31171 # Back
+
+    # Normal set=986
+    - name: Regalia of Everburning Knowledge
+      items:
+        1:  30785 # Head
+        3:  30787 # Shoulders
+        5:  30789 # Chest
+        6:  30781 # Waist
+        7:  30786 # Legs
+        8:  30782 # Feet
+        9:  30788 # Wrists
+        10: 30784 # Hands
+        16: 31174 31175 # Back
+
+    # Raid Finder set=989
+    - name: Regalia of Everburning Knowledge
+      # Missing appearance 82542
+      # Missing appearance 82425
+      # Missing appearance 82529
+      # Missing appearance 82626
+      items:
+        1:  31938 # Head
+        3:  31940 # Shoulders
+        5:  31942 # Chest
+        6:  31934 # Waist
+        7:  31939 # Legs
+        8:  31935 # Feet
+        9:  31941 # Wrists
+        10: 31937 # Hands
+        16: 32048 # Back
+
+    monk:
+    # Mythic set=984
+    - name: Vestments of Enveloped Dissonance
+      # Missing appearance 82840
+      # Missing appearance 82516
+      items:
+        1:  30670 # Head
+        3:  30671 # Shoulders
+        5:  30669 # Chest
+        6:  30667 30675 # Waist
+        7:  30673 # Legs
+        8:  30668 # Feet
+        9:  30674 # Wrists
+        10: 30672 # Hands
+        16: 30491 # Back
+
+    # Heroic set=983
+    - name: Vestments of Enveloped Dissonance
+      # Missing appearance 82839
+      # Missing appearance 82515
+      items:
+        1:  30617 # Head
+        3:  30619 # Shoulders
+        5:  30615 # Chest
+        6:  30613 # Waist
+        7:  30618 # Legs
+        8:  30614 # Feet
+        9:  30620 # Wrists
+        10: 30616 # Hands
+        16: 30504 30506 30508 30510 30511 # Back
+
+    # Normal set=982
+    - name: Vestments of Enveloped Dissonance
+      items:
+        1:  32043 # Head
+        3:  32046 # Shoulders
+        5:  32042 # Chest
+        6:  32040 # Waist
+        7:  32045 # Legs
+        8:  32041 # Feet
+        9:  32047 # Wrists
+        10: 32044 # Hands
+        16: 31917 # Back
+
+    # Raid Finder set=985
+    - name: Vestments of Enveloped Dissonance
+      # Missing appearance 82841
+      # Missing appearance 82517
+      items:
+        1:  30634 # Head
+        3:  30645 # Shoulders
+        5:  30633 # Chest
+        6:  30628 # Waist
+        7:  30644 # Legs
+        8:  30632 # Feet
+        9:  30646 # Wrists
+        10: 30643 # Hands
+        16: 30535 # Back
+
+    paladin:
+    # Mythic set=980
+    - name: Battleplate of the Highlord
+      # Missing appearance 82581
+      # Missing appearance 82464
+      # Missing appearance 82508
+      items:
+        1:  29452 # Head
+        3:  29454 # Shoulders
+        5:  29456 # Chest
+        6:  29448 # Waist
+        7:  29453 # Legs
+        8:  29449 # Feet
+        9:  29455 # Wrists
+        10: 29451 # Hands
+        16: 29676 29677 # Back
+
+    # Heroic set=979
+    - name: Battleplate of the Highlord
+      # Missing appearance 82580
+      # Missing appearance 82463
+      # Missing appearance 82507
+      items:
+        1:  29653 # Head
+        3:  29655 # Shoulders
+        5:  29657 # Chest
+        6:  29649 # Waist
+        7:  29654 # Legs
+        8:  29650 # Feet
+        9:  29656 # Wrists
+        10: 29652 # Hands
+        16: 29717 # Back
+
+    # Normal set=978
+    - name: Battleplate of the Highlord
+      items:
+        1:  29644 # Head
+        3:  29647 # Shoulders
+        5:  29646 # Chest
+        6:  29640 # Waist
+        7:  29645 # Legs
+        8:  29641 # Feet
+        9:  29648 # Wrists
+        10: 29643 # Hands
+        16: 29707 29715 # Back
+
+    # Raid Finder set=981
+    - name: Battleplate of the Highlord
+      # Missing appearance 82582
+      # Missing appearance 82465
+      # Missing appearance 82509
+      items:
+        1:  32147 # Head
+        3:  32149 # Shoulders
+        5:  32151 # Chest
+        6:  32143 # Waist
+        7:  32148 # Legs
+        8:  32144 # Feet
+        9:  32150 # Wrists
+        10: 32146 # Hands
+        16: 32105 # Back
+
+    priest:
+    # Mythic set=311
+    - name: Vestments of the Purifier
+      # Missing appearance 82472
+      # Missing appearance 82500
+      # Missing appearance 82718
+      items:
+        1:  30280 # Head
+        3:  30282 # Shoulders
+        5:  30283 # Chest
+        6:  30276 # Waist
+        7:  30281 # Legs
+        8:  30277 # Feet
+        9:  30284 # Wrists
+        10: 30279 # Hands
+        16: 30231 # Back
+
+    # Heroic set=309
+    - name: Vestments of the Purifier
+      # Missing appearance 82836
+      # Missing appearance 82828
+      # Missing appearance 82471
+      # Missing appearance 82499
+      # Missing appearance 82717
+      items:
+        1:  30271 # Head
+        3:  30273 # Shoulders
+        5:  30275 # Chest
+        6:  30267 # Waist
+        7:  30272 # Legs
+        8:  30268 # Feet
+        9:  30274 # Wrists
+        10: 30270 # Hands
+        16: 30189 # Back
+
+    # Normal set=308
+    - name: Vestments of the Purifier
+      items:
+        1:  30262 # Head
+        3:  30264 # Shoulders
+        5:  30266 # Chest
+        6:  30258 # Waist
+        7:  30263 # Legs
+        8:  30259 # Feet
+        9:  30265 # Wrists
+        10: 30261 # Hands
+        16: 30177 # Back
+
+    # Raid Finder set=322
+    - name: Vestments of the Purifier
+      # Missing appearance 82473
+      # Missing appearance 82501
+      # Missing appearance 82719
+      items:
+        1:  31947 # Head
+        3:  31949 # Shoulders
+        5:  31950 # Chest
+        6:  31943 # Waist
+        7:  31948 # Legs
+        8:  31944 # Feet
+        9:  31951 # Wrists
+        10: 31946 # Hands
+        16: 32060 # Back
+
+    rogue:
+    # Mythic set=944
+    - name: Doomblade Battlegear
+      # Missing appearance 82428
+      # Missing appearance 82641
+      items:
+        1:  28986 # Head
+        3:  28988 # Shoulders
+        5:  28984 # Chest
+        6:  28981 # Waist
+        7:  28987 # Legs
+        8:  28982 # Feet
+        9:  28989 # Wrists
+        10: 28985 # Hands
+        16: 32317 # Back
+
+    # Heroic set=943
+    - name: Doomblade Battlegear
+      # Missing appearance 82427
+      # Missing appearance 82640
+      items:
+        1:  29197 # Head
+        3:  29218 # Shoulders
+        5:  29195 # Chest
+        6:  29193 # Waist
+        7:  29217 # Legs
+        8:  29194 # Feet
+        9:  29219 # Wrists
+        10: 29196 # Hands
+        16: 32282 # Back
+
+    # Normal set=942
+    - name: Doomblade Battlegear
+      items:
+        1:  29870 # Head
+        3:  29872 # Shoulders
+        5:  29868 # Chest
+        6:  29866 # Waist
+        7:  29871 # Legs
+        8:  29867 # Feet
+        9:  29873 # Wrists
+        10: 29869 # Hands
+        16: 32291 32292 32295 32297 # Back
+
+    # Raid Finder set=945
+    - name: Doomblade Battlegear
+      # Missing appearance 82429
+      # Missing appearance 82642
+      items:
+        1:  32083 # Head
+        3:  32084 # Shoulders
+        5:  32079 # Chest
+        6:  32077 # Waist
+        7:  32081 # Legs
+        8:  32078 # Feet
+        9:  32085 # Wrists
+        10: 32080 # Hands
+        16: 32298 # Back
+
+    shaman:
+    # Mythic set=935
+    - name: Regalia of Shackled Elements
+      # Missing appearance 82440
+      # Missing appearance 82448
+      # Missing appearance 82609
+      items:
+        1:  31039 # Head
+        3:  31041 # Shoulders
+        5:  31037 31043 # Chest
+        6:  30964 # Waist
+        7:  31040 # Legs
+        8:  31036 # Feet
+        9:  31042 # Wrists
+        10: 31038 # Hands
+        16: 31348 # Back
+
+    # Heroic set=934
+    - name: Regalia of Shackled Elements
+      items:
+        1:  30909 # Head
+        3:  30912 # Shoulders
+        5:  30907 30914 # Chest
+        6:  30906 # Waist
+        7:  30910 # Legs
+        8:  30911 # Feet
+        10: 30908 # Hands
+        16: 31338 # Back
+
+    # Normal set=933
+    - name: Regalia of Shackled Elements
+      items:
+        1:  30937 # Head
+        3:  30938 # Shoulders
+        5:  30935 30942 # Chest
+        6:  30933 # Waist
+        7:  30939 # Legs
+        8:  30934 # Feet
+        9:  30940 # Wrists
+        10: 30936 # Hands
+        16: 31364 # Back
+
+    # Raid Finder set=936
+    - name: Regalia of Shackled Elements
+      # Missing appearance 82441
+      # Missing appearance 82449
+      # Missing appearance 82610
+      items:
+        1:  32095 # Head
+        3:  32096 # Shoulders
+        5:  32093 32099 # Chest
+        6:  32091 # Waist
+        7:  32097 # Legs
+        8:  32092 # Feet
+        9:  32098 # Wrists
+        10: 32094 # Hands
+        16: 32086 32087 32088 32089 32090 # Back
+
+    warlock:
+    # Mythic set=321
+    - name: Legacy of Azj'Aqir
+      # Missing appearance 82416
+      # Missing appearance 82420
+      # Missing appearance 82805
+      # Missing appearance 82468
+      items:
+        1:  29083 # Head
+        3:  29085 # Shoulders
+        5:  29087 # Chest
+        6:  29079 # Waist
+        7:  29084 # Legs
+        8:  29080 # Feet
+        9:  29086 # Wrists
+        10: 29082 # Hands
+        16: 29048 29049 # Back
+
+    # Heroic set=316
+    - name: Legacy of Azj'Aqir
+      # Missing appearance 82415
+      # Missing appearance 82419
+      # Missing appearance 82804
+      # Missing appearance 82467
+      items:
+        1:  29161 # Head
+        3:  29163 # Shoulders
+        5:  29165 # Chest
+        6:  29157 # Waist
+        7:  29162 # Legs
+        8:  29158 # Feet
+        9:  29164 # Wrists
+        10: 29160 # Hands
+        16: 29028 # Back
+
+    # Normal set=315
+    - name: Legacy of Azj'Aqir
+      items:
+        1:  29171 # Head
+        3:  29173 # Shoulders
+        5:  29175 # Chest
+        6:  29167 # Waist
+        7:  29172 # Legs
+        8:  29168 # Feet
+        9:  29174 # Wrists
+        10: 29170 # Hands
+        16: 29040 # Back
+
+    # Raid Finder set=941
+    - name: Legacy of Azj'aqir
+      items:
+        1:  31884 # Head
+        3:  31886 # Shoulders
+        5:  31888 # Chest
+        6:  31880 # Waist
+        7:  31885 # Legs
+        8:  31881 # Feet
+        9:  31887 # Wrists
+        10: 31883 # Hands
+
+    warrior:
+    # Mythic set=939
+    - name: Warplate of the Obsidian Aspect
+      # Missing appearance 82412
+      # Missing appearance 82524
+      # Missing appearance 82645
+      items:
+        1:  31449 # Head
+        3:  31455 # Shoulders
+        5:  31452 # Chest
+        6:  31450 # Waist
+        7:  31454 # Legs
+        8:  31451 # Feet
+        9:  31456 # Wrists
+        10: 31453 # Hands
+        16: 32229 # Back
+
+    # Heroic set=938
+    - name: Warplate of the Obsidian Aspect
+      # Missing appearance 82411
+      # Missing appearance 82523
+      # Missing appearance 82644
+      items:
+        1:  31410 # Head
+        3:  31413 # Shoulders
+        5:  31409 # Chest
+        6:  31407 # Waist
+        7:  31412 # Legs
+        8:  31408 # Feet
+        9:  31414 # Wrists
+        10: 31411 # Hands
+        16: 31545 # Back
+
+    # Normal set=937
+    - name: Warplate of the Obsidian Aspect
+      items:
+        1:  31444 # Head
+        3:  31447 # Shoulders
+        5:  31443 # Chest
+        6:  31441 # Waist
+        7:  31446 # Legs
+        8:  31442 # Feet
+        9:  31448 # Wrists
+        10: 31445 # Hands
+        16: 32242 # Back
+
+    # Raid Finder set=940
+    - name: Warplate of the Obsidian Aspect
+      # Missing appearance 82413
+      # Missing appearance 82525
+      # Missing appearance 82646
+      items:
+        1:  32157 # Head
+        3:  32160 # Shoulders
+        5:  32156 # Chest
+        6:  32154 # Waist
+        7:  32159 # Legs
+        8:  32155 # Feet
+        9:  32161 # Wrists
+        10: 32158 # Hands
+        16: 32127 # Back
