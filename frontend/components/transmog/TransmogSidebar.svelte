@@ -22,7 +22,7 @@
 <Sidebar
     baseUrl="/transmog"
     items={categories}
-    width="15rem"
+    width="16rem"
     linkColor="#64e1ff"
     {percentFunc}
 />
