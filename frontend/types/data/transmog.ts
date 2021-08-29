@@ -9,6 +9,7 @@ export interface TransmogDataCategory {
     name: string
     slug: string
     groups: TransmogDataGroup[]
+    skipClasses: string[]
 }
 
 export interface TransmogDataGroup {
