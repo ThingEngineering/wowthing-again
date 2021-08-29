@@ -29,7 +29,7 @@
 
             {#each transmogSets[group.type] as transmogSet (`set--${setKey}--${setName}--${transmogSet.type}`)}
                 <TransmogTableSet
-                    set={group.data[transmogSet.type][setIndex]}
+                    set={group.data?.[transmogSet.type]?.[setIndex]}
                     span={transmogSet.span}
                     subType={transmogSet.subType}
                 />
