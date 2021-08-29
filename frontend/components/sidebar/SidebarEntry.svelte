@@ -68,7 +68,7 @@
             {item.name}
 
             {#if percent >= 0}
-                <span class="percent {getPercentClass(percent)}">{percent.toFixed(0)} %</span>
+                <span class="percent {getPercentClass(percent)}">{Math.floor(percent).toFixed(0)} %</span>
             {/if}
 
             {#if item.children?.length > 0}

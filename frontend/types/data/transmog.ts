@@ -9,10 +9,12 @@ export interface TransmogDataCategory {
     name: string
     slug: string
     groups: TransmogDataGroup[]
+    skipClasses: string[]
 }
 
 export interface TransmogDataGroup {
     name: string
+    tag: string
     type: string
     data: Dictionary<TransmogDataGroupData[]>
     sets: string[]

@@ -20,7 +20,8 @@ namespace Wowthing.Backend.Jobs.Misc
     {
         private JankTimer _timer;
         private IDeserializer _yaml = new DeserializerBuilder()
-            .WithNamingConvention(LowerCaseNamingConvention.Instance)
+            .WithNamingConvention(CamelCaseNamingConvention.Instance)
+            .IgnoreUnmatchedProperties()
             .Build();
 
         public static readonly ScheduledJob Schedule = new ScheduledJob
@@ -69,6 +70,7 @@ namespace Wowthing.Backend.Jobs.Misc
                 var things = new List<OutTransmogCategory>(); 
                 foreach (string fileName in line.Split(' '))
                 {
+                    Logger.Debug("Loading {0}", fileName);
                     var filePath = Path.Join(basePath, fileName);
                     things.Add(new OutTransmogCategory(_yaml.Deserialize<DataTransmogCategory>(File.OpenText(filePath))));
                 }
