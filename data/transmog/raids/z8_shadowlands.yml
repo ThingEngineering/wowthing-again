@@ -21,7 +21,7 @@ groups:
         8:  43061 # Feet
         9:  43067 # Wrists
         10: 43062 # Hands
-        16: 44071 # Back
+        16: 43060 # Back
 
     # Heroic set=2264
     - name: Dark Supplicant's Garb
@@ -34,7 +34,7 @@ groups:
         8:  43051 # Feet
         9:  43057 # Wrists
         10: 43052 # Hands
-        16: 44109 # Back
+        16: 43050 # Back
 
     # Normal set=2262
     - name: Dark Supplicant's Garb
@@ -47,7 +47,7 @@ groups:
         8:  43033 # Feet
         9:  43039 # Wrists
         10: 43034 # Hands
-        16: 44082 # Back
+        16: 43032 # Back
 
     # Raid Finder set=2263
     - name: Dark Supplicant's Garb
@@ -60,11 +60,13 @@ groups:
         8:  42988 # Feet
         9:  42994 # Wrists
         10: 42989 # Hands
-        16: 44100 # Back
+        16: 42987 # Back
 
     leather:
     # Mythic set=2261
     - name: Sanctum Assailant's Trappings
+      # Missing appearance 145887
+      # Missing appearance 145891
       items:
         1:  44159 # Head
         3:  44160 # Shoulders
@@ -74,10 +76,12 @@ groups:
         8:  44151 # Feet
         9:  44157 # Wrists
         10: 44152 # Hands
-        16: 44071 # Back
+        16: 44158 # Back
 
     # Heroic set=2260
     - name: Sanctum Assailant's Trappings
+      # Missing appearance 145886
+      # Missing appearance 145890
       items:
         1:  44174 # Head
         3:  44176 # Shoulders
@@ -87,7 +91,7 @@ groups:
         8:  44172 # Feet
         9:  44178 # Wrists
         10: 44173 # Hands
-        16: 44109 # Back
+        16: 44179 # Back
 
     # Normal set=2258
     - name: Sanctum Assailant's Trappings
@@ -95,15 +99,17 @@ groups:
         1:  43849 # Head
         3:  43851 # Shoulders
         5:  43793 # Chest
-        6:  43852 44134 # Waist
+        6:  43852 # Waist
         7:  43850 # Legs
         8:  43794 # Feet
         9:  43792 # Wrists
-        10: 43848 44130 # Hands
-        16: 44082 # Back
+        10: 43848 # Hands
+        16: 44127 # Back
 
     # Raid Finder set=2259
     - name: Sanctum Assailant's Trappings
+      # Missing appearance 145885
+      # Missing appearance 145889
       items:
         1:  44131 # Head
         3:  44133 # Shoulders
@@ -113,11 +119,13 @@ groups:
         8:  44129 # Feet
         9:  44135 # Wrists
         10: 44130 # Hands
-        16: 44100 # Back
+        16: 44136 # Back
 
     mail:
     # Mythic set=2257
     - name: Tower Ascendant's Battlegear
+      # Missing appearance 145911
+      # Missing appearance 145919
       items:
         1:  43090 # Head
         3:  43089 # Shoulders
@@ -130,6 +138,7 @@ groups:
 
     # Heroic set=2256
     - name: Tower Ascendant's Battlegear
+      # Missing appearance 145910
       items:
         1:  43119 # Head
         3:  43122 # Shoulders
@@ -154,6 +163,7 @@ groups:
 
     # Raid Finder set=2255
     - name: Tower Ascendant's Battlegear
+      # Missing appearance 145909
       items:
         1:  43108 # Head
         3:  43111 # Shoulders
@@ -168,6 +178,8 @@ groups:
     plate:
     # Mythic set=2253
     - name: Soulforged Dreadplate
+      # Missing appearance 145935
+      # Missing appearance 145927
       items:
         1:  42829 # Head
         3:  42823 # Shoulders
@@ -180,6 +192,8 @@ groups:
 
     # Heroic set=2252
     - name: Soulforged Dreadplate
+      # Missing appearance 145934
+      # Missing appearance 145926
       items:
         1:  42787 # Head
         3:  42799 # Shoulders
@@ -193,17 +207,18 @@ groups:
     # Normal set=2250
     - name: Soulforged Dreadplate
       items:
-        1: 42783 # Head
-        3: 42795 # Shoulders
-        5: 42759 # Chest
-        6: 42806 # Waist
-        7: 42789 # Legs
-        8: 42771 # Feet
-        9: 42807 # Wrists
+        1:  42783 # Head
+        3:  42795 # Shoulders
+        5:  42759 # Chest
+        6:  42806 # Waist
+        7:  42789 # Legs
+        8:  42771 # Feet
+        9:  42807 # Wrists
         10: 42777 # Hands
 
     # Raid Finder set=2251
     - name: Soulforged Dreadplate
+      # Missing appearance 145933
       items:
         1:  42786 # Head
         3:  42798 # Shoulders
@@ -213,7 +228,7 @@ groups:
         8:  42774 # Feet
         9:  42810 # Wrists
         10: 42780 # Hands
-
+ah
 - name: Castle Nathria
   type: armor
   sets:
