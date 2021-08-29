@@ -29,11 +29,12 @@
                 thisOne,
             })
         }
-        reps.reverse()
+        //reps.reverse()
 
-        // Apply quality colours to the top 5 tiers
-        for (let i = 0; i < Math.min(5, reps.length); i++) {
-            reps[i].cls = `quality${Math.abs(i - 5)}`
+        // Apply quality colours to the bottom 5 tiers
+        const start = Math.max(0, reps.length - 1)
+        for (let i = start; i > Math.max(0, start - 5); i--) {
+            reps[i].cls = `reputation${start - i + 1}`
             if (reps[i].thisOne && reps[i + 1]) {
                 reps[i + 1].thisOne = false
             }
