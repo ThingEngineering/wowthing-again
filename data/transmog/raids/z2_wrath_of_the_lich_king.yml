@@ -1,0 +1,830 @@
+name: Wrath of the Lich King
+skipClasses:
+- demon-hunter
+- monk
+groups:
+
+- name: Icecrown Citadel
+  tag: T10
+  type: class
+  sets:
+  - 25 Heroic
+  - 25 Normal
+  - 10 Normal
+  data:
+    death-knight:
+    # 25 Heroic set=840
+    - name: Sanctified Scourgelord's Plate
+      items:
+        1: 12463 # Head
+        3: 12474 # Shoulders
+        5: 12444 # Chest
+        6: 12454 # Waist
+        7: 12448 # Legs
+        8: 12457 # Feet
+        9: 12447 # Wrists
+        10: 12491 # Hands
+
+    # 25 Normal set=839
+    - name: Sanctified Scourgelord's Plate
+      items:
+        1: 12569 # Head
+        3: 12567 # Shoulders
+        5: 12571 # Chest
+        7: 12568 # Legs
+        10: 12570 # Hands
+
+    # 10 Normal set=838
+    - name: Scourgelord's Plate
+      items:
+        1: 12300 # Head
+        3: 12302 # Shoulders
+        5: 12298 12787 # Chest
+        6: 12759 # Waist
+        7: 12301 # Legs
+        8: 12758 # Feet
+        9: 12763 # Wrists
+        10: 12299 # Hands
+
+    druid:
+    # 25 Heroic set=824
+    - name: Sanctified Lasherweave Battlegear
+      items:
+        1:  12484 # Head
+        3:  12506 # Shoulders
+        5:  12468 12598 # Chest
+        6:  12501 15565 # Waist
+        7:  12494 # Legs
+        9:  12460 # Wrists
+        10: 12450 # Hands
+
+    # 25 Normal set=823
+    - name: Sanctified Lasherweave Battlegear
+      items:
+        1:  12262 # Head
+        3:  12340 # Shoulders
+        5:  12249 12572 # Chest
+        6:  12286 # Waist
+        7:  12221 # Legs
+        8:  12217 # Feet
+        9:  12425 # Wrists
+        10: 12239 # Hands
+
+    # 10 Normal set=822
+    - name: Lasherweave Battlegear
+      items:
+        1:  12306 # Head
+        3:  12308 # Shoulders
+        5:  12304 12546 12561 12740 # Chest
+        6:  12536 # Waist
+        7:  12307 # Legs
+        8:  12528 # Feet
+        9:  12554 # Wrists
+        10: 12305 # Hands
+
+    hunter:
+    # 25 Heroic set=737
+    - name: Sanctified Ahn'Kahar Blood Hunter's Battlegear
+      items:
+        1:  12443 12596 # Head
+        3:  12481 # Shoulders
+        5:  12490 12597 # Chest
+        6:  12489 # Waist
+        7:  12466 # Legs
+        8:  12504 # Feet
+        9:  12472 # Wrists
+        10: 12453 # Hands
+
+    # 25 Normal set=736
+    - name: Sanctified Ahn'Kahar Blood Hunter's Battlegear
+      items:
+        1:  12234 # Head
+        3:  12261 # Shoulders
+        5:  12272 # Chest
+        6:  12422 # Waist
+        7:  12224 # Legs
+        8:  12220 # Feet
+        9:  12251 # Wrists
+        10: 12350 # Hands
+
+    # 10 Normal set=735
+    - name: Ahn'Kahar Blood Hunter's Battlegear
+      items:
+        1:  12310 # Head
+        3:  12312 # Shoulders
+        5:  12313 # Chest
+        6:  12521 # Waist
+        7:  12311 # Legs
+        8:  12544 # Feet
+        9:  12533 # Wrists
+        10: 12309 # Hands
+
+    mage:
+    # 25 Heroic set=721
+    - name: Sanctified Bloodmage's Regalia
+      items:
+        1:  12592 # Head
+        3:  12595 # Shoulders
+        5:  12594 # Chest
+        6:  31908 # Waist
+        7:  12593 # Legs
+        10: 12591 # Hands
+
+    # 25 Normal set=720
+    - name: Sanctified Bloodmage's Regalia
+      items:
+        1:  12574 # Head
+        3:  12245 12573 # Shoulders
+        5:  12426 12553 # Chest
+        6:  12238 # Waist
+        7:  12215 # Legs
+        8:  12214 # Feet
+        9:  12247 # Wrists
+        10: 12256 # Hands
+
+    # 10 Normal set=719
+    - name: Bloodmage's Regalia
+      items:
+        1:  12388 12743 # Head
+        3:  12391 12741 # Shoulders
+        5:  12390 12742 # Chest
+        6:  12563 # Waist
+        7:  12389 # Legs
+        8:  12541 # Feet
+        9:  12560 # Wrists
+        10: 12387 # Hands
+
+    paladin:
+    # 25 Heroic set=705
+    - name: Sanctified Lightsworn Plate
+      items:
+        1:  12498 # Head
+        3:  12452 # Shoulders
+        5:  12485 # Chest
+        6:  12477 # Waist
+        7:  12456 12590 # Legs
+        8:  12461 # Feet
+        9:  12508 # Wrists
+        10: 12469 # Hands
+
+    # 25 Normal set=704
+    - name: Sanctified Lightsworn Plate
+      items:
+        1:  12280 # Head
+        3:  12240 # Shoulders
+        5:  12263 # Chest
+        6:  12255 # Waist
+        7:  12225 # Legs
+        8:  12227 12424 # Feet
+        9:  12343 # Wrists
+        10: 12248 # Hands
+
+    # 10 Normal set=703
+    - name: Lightsworn Plate
+      items:
+        1:  12411 # Head
+        3:  12409 # Shoulders
+        5:  12413 # Chest
+        6:  12736 # Waist
+        7:  12410 # Legs
+        8:  12522 # Feet
+        9:  12537 # Wrists
+        10: 12412 # Hands
+
+    priest:
+    # 25 Heroic set=348
+    - name: Sanctified Crimson Acolyte Regalia
+      items:
+        1:  12475 # Head
+        3:  12588 # Shoulders
+        5:  12507 # Chest
+        6:  12499 # Waist
+        7:  12589 # Legs
+        9:  12487 # Wrists
+        10: 12509 # Hands
+
+    # 25 Normal set=347
+    - name: Sanctified Crimson Acolyte Regalia
+      items:
+        1:  12254 # Head
+        3:  12438 # Shoulders
+        5:  12341 # Chest
+        6:  12281 # Waist
+        7:  12575 # Legs
+        8:  12216 # Feet
+        9:  12266 # Wrists
+        10: 12344 # Hands
+
+    # 10 Normal set=346
+    - name: Crimson Acolyte Regalia
+      items:
+        1:  12416 # Head
+        3:  12419 # Shoulders
+        5:  12418 12744 # Chest
+        6:  12523 # Waist
+        7:  12417 # Legs
+        8:  12625 # Feet
+        9:  12530 # Wrists
+        10: 12415 # Hands
+
+    rogue:
+    # 25 Heroic set=689
+    - name: Sanctified Shadowblade's Battlegear
+      items:
+        1:  12505 # Head
+        3:  12467 # Shoulders
+        5:  12473 # Chest
+        6:  12502 # Waist
+        7:  12495 # Legs
+        8:  12445 # Feet
+        9:  12478 # Wrists
+        10: 12482 # Hands
+
+    # 25 Normal set=688
+    - name: Sanctified Shadowblade's Battlegear
+      items:
+        1:  12288 # Head
+        3:  12244 12762 # Shoulders
+        5:  12252 12791 # Chest
+        6:  12284 # Waist
+        7:  12222 # Legs
+        8:  12218 # Feet
+        9:  12414 # Wrists
+        10: 12260 # Hands
+
+    # 10 Normal set=687
+    - name: Shadowblade's Battlegear
+      items:
+        1:  12296 # Head
+        3:  12303 # Shoulders
+        5:  12294 12527 # Chest
+        6:  12526 # Waist
+        7:  12297 # Legs
+        8:  12566 # Feet
+        9:  12745 # Wrists
+        10: 12295 # Hands
+
+    shaman:
+    # 25 Heroic set=639
+    - name: Frost Witch's Regalia
+      items:
+        1:  12458 # Head
+        3:  12496 26844 # Shoulders
+        5:  12510 # Chest
+        6:  12479 # Waist
+        7:  12587 # Legs
+        8:  12471 # Feet
+        9:  12488 # Wrists
+        10: 12500 # Hands
+
+    # 25 Normal set=638
+    - name: Frost Witch's Regalia
+      items:
+        1:  12355 # Head
+        3:  12279 # Shoulders
+        5:  12345 # Chest
+        6:  12258 # Waist
+        7:  12223 12439 # Legs
+        8:  12219 # Feet
+        9:  12265 # Wrists
+        10: 12282 # Hands
+
+    # 10 Normal set=637
+    - name: Frost Witch's Regalia
+      items:
+        1:  12538 # Head
+        3:  12550 # Shoulders
+        5:  12547 # Chest
+        6:  12529 # Waist
+        7:  12549 # Legs
+        8:  12559 # Feet
+        9:  12524 # Wrists
+        10: 12548 # Hands
+
+    warlock:
+    # 25 Heroic set=673
+    - name: Sanctified Dark Coven's Regalia
+      items:
+        1:  12586 # Head
+        3:  12465 # Shoulders
+        5:  12459 # Chest
+        6:  12449 # Waist
+        7:  12493 # Legs
+        8:  12497 # Feet
+        9:  12470 # Wrists
+        10: 12476 # Hands
+
+    # 25 Normal set=672
+    - name: Sanctified Dark Coven's Regalia
+      items:
+        1:  12579 # Head
+        3:  12576 # Shoulders
+        5:  12577 # Chest
+        7:  12578 # Legs
+        10: 12580 # Hands
+
+    # 10 Normal set=671
+    - name: Dark Coven's Regalia
+      items:
+        1:  12371 # Head
+        3:  12374 # Shoulders
+        5:  12373 # Chest
+        7:  12372 # Legs
+        10: 12370 # Hands
+
+    warrior:
+    # 25 Heroic set=298
+    - name: Sanctified Ymirjar Lord's Battlegear
+      items:
+        1:  12582 # Head
+        3:  12585 # Shoulders
+        5:  12581 # Chest
+        7:  12584 # Legs
+        8:  31890 # Feet
+        10: 12583 # Hands
+
+    # 25 Normal set=656
+    - name: Sanctified Ymirjar Lord's Battlegear
+      items:
+        1:  12243 # Head
+        3:  12253 # Shoulders
+        5:  12233 # Chest
+        6:  12270 # Waist
+        7:  12226 # Legs
+        8:  12228 # Feet
+        9:  12235 # Wrists
+        10: 12271 # Hands
+
+    # 10 Normal set=655
+    - name: Ymirjar Lord's Battlegear
+      items:
+        1:  12291 # Head
+        3:  12293 # Shoulders
+        5:  12289 12531 # Chest
+        6:  12556 # Waist
+        7:  12292 # Legs
+        8:  12532 # Feet
+        9:  12540 # Wrists
+        10: 12290 # Hands
+
+- name: Trial of the Crusader
+  tag: T9
+  type: class
+  sets:
+  - 25 Normal
+  - 10 Normal
+  data:
+
+- name: Ulduar
+  tag: T8
+  type: class
+  sets:
+  - 25 Normal
+  - 10 Normal
+  data:
+    death-knight:
+    # 25 Normal set=844
+    - name: Conqueror's Darkruned Plate
+      items:
+        1:  10325 # Head
+        3:  10328 # Shoulders
+        5:  10326 # Chest
+        7:  10327 11644 # Legs
+        8:  10330 # Feet
+        10: 10329 # Hands
+
+    # 10 Normal set=843
+    - name: Valorous Darkruned Plate
+      items:
+        1:  11400 # Head
+        3:  11403 # Shoulders
+        5:  11399 # Chest
+        7:  11402 # Legs
+        10: 11401 # Hands
+
+    druid:
+    # 25 Normal set=828
+    - name: Conqueror's Nightsong Battlegear
+      items:
+        1:  11673 # Head
+        3:  11669 # Shoulders
+        5:  11671 # Chest
+        7:  11672 # Legs
+        10: 11670 # Hands
+
+    # 10 Normal set=827
+    - name: Valorous Nightsong Battlegear
+      items:
+        1:  11405 # Head
+        3:  11408 # Shoulders
+        5:  11407 11409 # Chest
+        6:  11498 11557 # Waist
+        7:  11406 # Legs
+        10: 11404 # Hands
+
+    hunter:
+    # 25 Normal set=741
+    - name: Conqueror's Scourgestalker Battlegear
+      items:
+        1:  11659 # Head
+        3:  11660 # Shoulders
+        5:  11658 # Chest
+        6:  11556 # Waist
+        7:  11565 # Legs
+        10: 11561 # Hands
+
+    # 10 Normal set=740
+    - name: Valorous Scourgestalker Battlegear
+      items:
+        1:  11411 # Head
+        3:  11413 # Shoulders
+        5:  11414 # Chest
+        7:  11412 # Legs
+        10: 11410 # Hands
+
+    mage:
+    # 25 Normal set=725
+    - name: Conqueror's Kirin Tor Garb
+      items:
+        1:  11650 # Head
+        3:  10463 # Shoulders
+        5:  11651 # Chest
+        7:  11653 # Legs
+        10: 10461 # Hands
+
+    # 10 Normal set=724
+    - name: Valorous Kirin Tor Garb
+      items:
+        1:  11415 # Head
+        3:  11418 # Shoulders
+        5:  11417 11687 # Chest
+        7:  11416 # Legs
+        10: 11652 # Hands
+
+    paladin:
+    # 25 Normal set=709
+    - name: Conqueror's Aegis Plate
+      items:
+        1:  11668 # Head
+        3:  11664 # Shoulders
+        5:  11666 # Chest
+        6:  15570 # Waist
+        7:  11665 # Legs
+        9:  15571 # Wrists
+        10: 11667 # Hands
+
+    # 10 Normal set=708
+    - name: Valorous Aegis Plate
+      items:
+        1:  11421 # Head
+        3:  11422 # Shoulders
+        5:  11423 11424 # Chest
+        6:  25084 # Waist
+        7:  11420 11564 11685 # Legs
+        10: 11419 11426 # Hands
+
+    priest:
+    # 25 Normal set=364
+    - name: Conqueror's Sanctification Regalia
+      items:
+        1:  11678 # Head
+        3:  11675 # Shoulders
+        5:  11676 # Chest
+        7:  11677 # Legs
+        10: 11674 # Hands
+
+    # 10 Normal set=363
+    - name: Valorous Sanctification Regalia
+      items:
+        1:  11427 # Head
+        3:  11431 # Shoulders
+        5:  11430 # Chest
+        7:  11429 # Legs
+        10: 11428 # Hands
+
+    rogue:
+    # 25 Normal set=693
+    - name: Conqueror's Terrorblade Battlegear
+      items:
+        1:  11647 # Head
+        3:  11649 # Shoulders
+        5:  11645 # Chest
+        7:  11648 # Legs
+        10: 11646 # Hands
+
+    # 10 Normal set=692
+    - name: Valorous Terrorblade Battlegear
+      items:
+        1:  11434 # Head
+        3:  11436 # Shoulders
+        5:  11432 # Chest
+        7:  11435 # Legs
+        10: 11433 # Hands
+
+    shaman:
+    # 25 Normal set=643
+    - name: Conqueror's Worldbreaker Regalia
+      items:
+        1:  11681 # Head
+        3:  11683 # Shoulders
+        5:  11679 # Chest
+        7:  11439 11682 11684 # Legs
+        10: 11680 # Hands
+
+    # 10 Normal set=642
+    - name: Valorous Worldbreaker Regalia
+      items:
+        1:  11438 # Head
+        3:  11440 # Shoulders
+        5:  11441 11442 # Chest
+        7:  11439 # Legs
+        10: 11437 # Hands
+
+    warlock:
+    # 25 Normal set=677
+    - name: Conqueror's Deathbringer Garb
+      items:
+        1:  11657 # Head
+        3:  11655 # Shoulders
+        5:  11656 # Chest
+        6:  11558 # Waist
+        7:  11566 # Legs
+        10: 11654 # Hands
+
+    # 10 Normal set=676
+    - name: Valorous Deathbringer Garb
+      items:
+        1:  11443 # Head
+        3:  11447 # Shoulders
+        5:  11446 # Chest
+        7:  11445 # Legs
+        10: 11444 # Hands
+
+    warrior:
+    # 25 Normal set=660
+    - name: Conqueror's Siegebreaker Battlegear
+      items:
+        1:  11663 # Head
+        3:  11662 # Shoulders
+        5:  11661 # Chest
+        6:  11555 # Waist
+        7:  11563 # Legs
+        10: 11560 # Hands
+
+    # 10 Normal set=659
+    - name: Valorous Siegebreaker Battlegear
+      items:
+        1:  11450 # Head
+        3:  11453 # Shoulders
+        5:  11449 # Chest
+        7:  11452 # Legs
+        10: 11451 # Hands
+
+- name: Naxxramas / Sartharion
+  tag: T7
+  type: class
+  sets:
+  - 25 Normal
+  - 10 Normal
+  data:
+    death-knight:
+    # 25 Normal set=846
+    - name: Valorous Scourgeborne Plate
+      items:
+        1:  10418 # Head
+        3:  10420 # Shoulders
+        5:  10415 # Chest
+        7:  10419 # Legs
+        8:  10454 # Feet
+        10: 10416 # Hands
+
+    # 10 Normal set=845
+    - name: Heroes' Scourgeborne Plate
+      items:
+        1:  10191 # Head
+        3:  10193 # Shoulders
+        5:  10189 # Chest
+        7:  10192 # Legs
+        10: 10190 # Hands
+
+    druid:
+    # 25 Normal set=830
+    - name: Valorous Dreamwalker Battlegear
+      items:
+        1:  10378 # Head
+        3:  10382 # Shoulders
+        5:  10380 # Chest
+        6:  10287 # Waist
+        7:  10379 # Legs
+        8:  10315 # Feet
+        9:  10218 # Wrists
+        10: 10377 # Hands
+
+    # 10 Normal set=829
+    - name: Heroes' Dreamwalker Battlegear
+      items:
+        1:  10162 # Head
+        3:  10165 # Shoulders
+        5:  10163 10167 # Chest
+        6:  10115 # Waist
+        7:  10164 # Legs
+        8:  10076 # Feet
+        9:  10104 # Wrists
+        10: 10166 # Hands
+
+    hunter:
+    # 25 Normal set=743
+    - name: Valorous Cryptstalker Battlegear
+      items:
+        1:  10397 # Head
+        3:  10399 # Shoulders
+        5:  10395 # Chest
+        6:  10246 # Waist
+        7:  10398 # Legs
+        8:  10280 # Feet
+        9:  10206 # Wrists
+        10: 10396 # Hands
+
+    # 10 Normal set=742
+    - name: Heroes' Cryptstalker Battlegear
+      items:
+        1:  10173 # Head
+        3:  10176 # Shoulders
+        5:  10174 # Chest
+        6:  10120 # Waist
+        7:  10175 # Legs
+        8:  10081 # Feet
+        9:  10102 # Wrists
+        10: 10177 # Hands
+
+    mage:
+    # 25 Normal set=727
+    - name: Valorous Frostfire Garb
+      items:
+        1:  10358 # Head
+        3:  10361 # Shoulders
+        5:  10360 # Chest
+        6:  10229 # Waist
+        7:  10359 # Legs
+        8:  10456 # Feet
+        9:  10286 # Wrists
+        10: 10357 # Hands
+
+    # 10 Normal set=726
+    - name: Heroes' Frostfire Garb
+      items:
+        1:  10146 # Head
+        3:  10149 # Shoulders
+        5:  10147 # Chest
+        6:  10077 # Waist
+        7:  10148 # Legs
+        8:  10098 # Feet
+        9:  10090 # Wrists
+        10: 10150 # Hands
+
+    paladin:
+    # 25 Normal set=711
+    - name: Valorous Redemption Plate
+      items:
+        1:  10427 # Head
+        3:  10429 # Shoulders
+        5:  10425 # Chest
+        6:  10305 # Waist
+        7:  10428 # Legs
+        8:  10281 # Feet
+        9:  10317 # Wrists
+        10: 10426 # Hands
+
+    # 10 Normal set=710
+    - name: Heroes' Redemption Plate
+      items:
+        1:  10194 # Head
+        3:  10197 # Shoulders
+        5:  10195 # Chest
+        6:  10095 # Waist
+        7:  10196 # Legs
+        8:  10118 # Feet
+        9:  10080 # Wrists
+        10: 10198 # Hands
+
+    priest:
+    # 25 Normal set=362
+    - name: Valorous Regalia of Faith
+      items:
+        1:  10157 # Head
+        3:  10374 # Shoulders
+        5:  10373 # Chest
+        6:  10217 # Waist
+        7:  10372 # Legs
+        8:  10301 # Feet
+        9:  10225 # Wrists
+        10: 10371 # Hands
+
+    # 10 Normal set=361
+    - name: Heroes' Regalia of Faith
+      items:
+        1:  10157 # Head
+        3:  10160 # Shoulders
+        5:  10158 # Chest
+        6:  10068 # Waist
+        7:  10159 # Legs
+        8:  10091 # Feet
+        9:  10124 # Wrists
+        10: 10161 # Hands
+
+    rogue:
+    # 25 Normal set=695
+    - name: Valorous Bonescythe Battlegear
+      items:
+        1:  10392 # Head
+        3:  10394 # Shoulders
+        5:  10389 # Chest
+        6:  10290 # Waist
+        7:  10393 # Legs
+        8:  10205 # Feet
+        9:  10248 # Wrists
+        10: 10390 # Hands
+
+    # 10 Normal set=694
+    - name: Heroes' Bonescythe Battlegear
+      items:
+        1:  10170 # Head
+        3:  10172 # Shoulders
+        5:  10168 # Chest
+        6:  10103 # Waist
+        7:  10171 # Legs
+        8:  10072 # Feet
+        9:  10087 # Wrists
+        10: 10169 # Hands
+
+    shaman:
+    # 25 Normal set=645
+    - name: Valorous Earthshatter Regalia
+      items:
+        1:  10402 # Head
+        3:  10404 # Shoulders
+        5:  10400 # Chest
+        6:  10316 # Waist
+        7:  10403 # Legs
+        8:  10228 # Feet
+        9:  10292 # Wrists
+        10: 10401 # Hands
+
+    # 10 Normal set=644
+    - name: Heroes' Earthshatter Regalia
+      items:
+        1:  10178 # Head
+        3:  10181 # Shoulders
+        5:  10179 # Chest
+        6:  10089 # Waist
+        7:  10180 # Legs
+        8:  10067 # Feet
+        9:  10114 # Wrists
+        10: 10182 # Hands
+
+    warlock:
+    # 25 Normal set=679
+    - name: Valorous Plagueheart Garb
+      items:
+        1:  10363 # Head
+        3:  10366 # Shoulders
+        5:  10365 # Chest
+        6:  10324 # Waist
+        7:  10364 # Legs
+        8:  10314 # Feet
+        9:  10332 # Wrists
+        10: 10362 # Hands
+
+    # 10 Normal set=678
+    - name: Heroes' Plagueheart Garb
+      items:
+        1:  10151 # Head
+        3:  10154 # Shoulders
+        5:  10152 # Chest
+        7:  10153 # Legs
+        10: 10155 # Hands
+
+    warrior:
+    # 25 Normal set=662
+    - name: Valorous Dreadnaught Battlegear
+      items:
+        1:  10408 # Head
+        3:  10410 # Shoulders
+        5:  10406 # Chest
+        6:  10243 # Waist
+        7:  10409 # Legs
+        8:  10209 # Feet
+        9:  10223 # Wrists
+        10: 10407 # Hands
+
+    # 10 Normal set=661
+    - name: Heroes' Dreadnaught Battlegear
+      items:
+        1:  10184 # Head
+        3:  10187 # Shoulders
+        5:  10185 # Chest
+        6:  10112 # Waist
+        7:  10186 # Legs
+        8:  10057 # Feet
+        9:  10071 # Wrists
+        10: 10188 # Hands

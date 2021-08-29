@@ -2,6 +2,7 @@ name: Legion
 groups:
 
 - name: Antorus, the Burning Throne
+  tag: T21
   type: class
   sets:
   - Mythic
@@ -634,6 +635,7 @@ groups:
         16: 35798 # Back
 
 - name: Tomb of Sargeras
+  tag: T20
   type: class
   sets:
   - Mythic
@@ -1254,6 +1256,7 @@ groups:
         16: 33130 # Back
 
 - name: The Nighthold / Emerald Nightmare
+  tag: T19
   type: class
   sets:
   - Mythic
