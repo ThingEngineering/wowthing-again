@@ -21,7 +21,7 @@
     $: {
         slotHave = {}
         if (set?.items) {
-            for (const [slot, items]: [number, number[]] of toPairs(set.items)) {
+            for (const [slot, items] of toPairs(set.items)) {
                 slotHave[slot] = false
                 for (const itemId of items) {
                     if ($userTransmogStore.data.transmog[itemId]) {
