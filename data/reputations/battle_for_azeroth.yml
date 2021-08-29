@@ -1,5 +1,19 @@
 name: Battle for Azeroth
 reputations:
+# 8.3
+-
+  - both:
+      id: 2415
+      name: Rajani
+      icon: inv_tabard_rajani
+    paragon: true
+
+  - both:
+      id: 2417
+      name: Uldum Accord
+      icon: inv_tabard_uldumaccord
+    paragon: true
+
 # 8.2
 -
   - both:
