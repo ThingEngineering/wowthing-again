@@ -1,9 +1,8 @@
 <script lang="ts">
     import { achievementStore } from '@/stores'
-    import type {AchievementDataAchievement, AchievementDataCriteriaTree, Dictionary} from '@/types'
+    import type {AchievementDataAchievement, AchievementDataCriteriaTree} from '@/types'
     import { AchievementDataAccount, getAchievementDataAccount } from '@/utils/get-achievement-data-account'
 
-    import AchievementCriteriaBar from './AchievementsAchievementCriteriaBar.svelte'
     import AchievementCriteriaTree from './AchievementsAchievementCriteriaTree.svelte'
     import ProgressBar from '@/components/common/ProgressBar.svelte'
 

@@ -1,7 +1,7 @@
 <script lang="ts">
     import { achievementStore } from '@/stores'
-    import type {AchievementDataAchievement, AchievementDataCriteriaTree, Dictionary} from '@/types'
-    import {AchievementDataAccount, getAchievementDataAccount} from '@/utils/get-achievement-data-account'
+    import type {AchievementDataAchievement, AchievementDataCriteriaTree} from '@/types'
+    //import {AchievementDataAccount, getAchievementDataAccount} from '@/utils/get-achievement-data-account'
 
     import AchievementCriteriaBar from './AchievementsAchievementCriteriaBar.svelte'
     import AchievementCriteriaTree from './AchievementsAchievementCriteriaTree.svelte'
@@ -9,10 +9,10 @@
     export let achievement: AchievementDataAchievement
 
     let criteriaTree: AchievementDataCriteriaTree
-    let data: AchievementDataAccount
+    //let data: AchievementDataAccount
     $: {
         criteriaTree = $achievementStore.data.criteriaTree[achievement.criteriaTreeId]
-        data = getAchievementDataAccount(criteriaTree)
+        //data = getAchievementDataAccount(criteriaTree)
 
         if (achievement.id === 5363) {
             console.log('-- CHARACTER --')

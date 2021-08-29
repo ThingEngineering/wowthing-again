@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { achievementStore, userStore } from '@/stores'
+    import { achievementStore } from '@/stores'
     import type { AchievementDataAchievement, AchievementDataCriteriaTree } from '@/types'
 
     export let achievement: AchievementDataAchievement
