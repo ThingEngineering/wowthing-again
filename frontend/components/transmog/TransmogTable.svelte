@@ -2,7 +2,7 @@
     import filter from 'lodash/filter'
     import find from 'lodash/find'
 
-    import {transmogStore, userTransmogStore} from '@/stores'
+    import {transmogStore} from '@/stores'
     import type {TransmogDataCategory} from '@/types/data'
 
     import ClassIcon from '@/components/images/ClassIcon.svelte'
