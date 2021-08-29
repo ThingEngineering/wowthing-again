@@ -20,7 +20,8 @@ namespace Wowthing.Backend.Jobs.Misc
     {
         private JankTimer _timer;
         private IDeserializer _yaml = new DeserializerBuilder()
-            .WithNamingConvention(LowerCaseNamingConvention.Instance)
+            .WithNamingConvention(CamelCaseNamingConvention.Instance)
+            .IgnoreUnmatchedProperties()
             .Build();
 
         public static readonly ScheduledJob Schedule = new ScheduledJob
