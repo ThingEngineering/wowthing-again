@@ -228,7 +228,7 @@ groups:
         8:  42774 # Feet
         9:  42810 # Wrists
         10: 42780 # Hands
-ah
+
 - name: Castle Nathria
   type: armor
   sets:
