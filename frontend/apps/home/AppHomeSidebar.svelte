@@ -34,6 +34,9 @@
     <li use:active={'/reputations/*'}>
         <a href="#/reputations/shadowlands">Reputations</a>
     </li>
+    <li use:active={'/transmog/*'}>
+        <a href="#/transmog/raids/shadowlands">Transmog</a>
+    </li>
 
     <li class="separator"></li>
 
@@ -54,9 +57,6 @@
     </li>
     <li use:active={'/pets/*'}>
         <a href="#/pets/">🚧 Pets</a>
-    </li>
-    <li use:active={'/transmog/*'}>
-        <a href="#/transmog/shadowlands">🚧 Transmog</a>
     </li>
 
     {#if $userStore.loaded && !$userStore.data.public}
