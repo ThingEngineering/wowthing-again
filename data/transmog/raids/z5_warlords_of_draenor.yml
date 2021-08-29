@@ -1,7 +1,10 @@
 name: Warlords of Draenor
+skipClasses:
+- demon-hunter
 groups:
 
 - name: Hellfire Citadel
+  tag: T18
   type: class
   sets:
   - Mythic
@@ -416,6 +419,7 @@ groups:
         10: 25499 # Hands
 
 - name: Highmaul / Blackrock Foundry
+  tag: T17
   type: class
   sets:
   - Mythic
