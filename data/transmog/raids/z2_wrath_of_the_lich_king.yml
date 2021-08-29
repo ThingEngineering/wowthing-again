@@ -371,9 +371,137 @@ groups:
   tag: T9
   type: class
   sets:
-  - 25 Normal
   - 10 Normal
   data:
+    death-knight:
+    # 10 Normal set=841,842
+    - name: Koltira's Battlegear / Thassarian's Battlegear
+      items:
+        1:  11904 11905 19498 # Head
+        3:  11921 11923 # Shoulders
+        5:  11746 11827 # Chest
+        6:  11741 11811 11897 # Waist
+        7:  11757 11838 # Legs
+        8:  11765 11812 # Feet
+        9:  11711 11891 # Wrists
+        10: 11791 11960 # Hands
+
+    druid:
+    # 10 Normal set=825,826
+    - name: Malfurion's Battlegear / Runetotem's Battlegear
+      items:
+        1:  11915 11916 19492 # Head
+        3:  11896 11931 # Shoulders
+        5:  11751 11829 12561 12773 # Chest
+        6:  11761 11840 # Waist
+        7:  11777 11858 12017 # Legs
+        8:  11721 11805 # Feet
+        9:  11736 11818 # Wrists
+        10: 11984 11985 # Hands
+
+    hunter:
+    # 10 Normal set=738,739
+    - name: Windrunner's Pursuit / Windrunner's Battlegear
+      items:
+        1:  11909 11910 19495 # Head
+        3:  11926 11927 # Shoulders
+        5:  11710 11796 11988 # Chest
+        6:  11767 11843 # Waist
+        7:  11775 11848 # Legs
+        8:  11748 11833 # Feet
+        9:  11742 11821 # Wrists
+        10: 11986 11987 # Hands
+
+    mage:
+    # 10 Normal set=722,723
+    - name: Khadgar's Regalia / Sunstrider's Regalia
+      items:
+        1:  11918 11945 19494 # Head
+        3:  11932 11947 # Shoulders
+        5:  11758 11836 12016 # Chest
+        6:  11745 11961 # Waist
+        7:  11944 11946 # Legs
+        8:  11849 41095 # Feet
+        9:  11762 11839 # Wrists
+        10: 11792 11854 # Hands
+
+    paladin:
+    # 10 Normal set=706,707
+    - name: Turalyon's Plate / Liadrin's Plate
+      items:
+        1:  11907 11908 19496 # Head
+        3:  11924 11925 # Shoulders
+        5:  11763 11842 # Chest
+        6:  11781 11851 11979 # Waist
+        7:  11738 11819 # Legs
+        8:  11720 11806 # Feet
+        9:  11750 11831 # Wrists
+        10: 12005 12006 # Hands
+
+    priest:
+    # 10 Normal set=349,350
+    - name: Velen's Regalia / Zabra's Regalia
+      items:
+        1:  11919 11920 19493 # Head
+        3:  11934 11935 # Shoulders
+        5:  11723 11807 19499 # Chest
+        6:  11715 11801 # Waist
+        7:  11733 11815 # Legs
+        8:  11749 11830 # Feet
+        9:  11784 11852 # Wrists
+        10: 11980 11982 # Hands
+
+    rogue:
+    # 10 Normal set=690,691
+    - name: VanCleef's Battlegear / Garona's Battlegear
+      items:
+        1:  11913 11914 19490 # Head
+        3:  11929 11930 # Shoulders
+        5:  11730 11813 12527 12791 # Chest
+        6:  11754 11834 # Waist
+        7:  11716 11802 # Legs
+        8:  11740 11823 # Feet
+        9:  11766 11845 # Wrists
+        10: 11936 11966 # Hands
+
+    shaman:
+    # 10 Normal set=640,641
+    - name: Nobundo's Garb / Thrall's Garb
+      items:
+        1:  11911 11912 19491 # Head
+        3:  11898 11928 # Shoulders
+        5:  11785 11853 11989 # Chest
+        6:  11722 11808 11857 # Waist
+        7:  11747 11828 # Legs
+        8:  11832 # Feet
+        9:  11737 11820 # Wrists
+        10: 11943 11970 # Hands
+
+    warlock:
+    # 10 Normal set=674,675
+    - name: Kel'Thuzad's Regalia / Gul'dan's Regalia
+      items:
+        1:  11917 11948 # Head
+        3:  11933 11949 # Shoulders
+        5:  11893 11951 # Chest
+        6:  11825 11899 # Waist
+        7:  11778 11847 # Legs
+        8:  11780 11937 11964 # Feet
+        9:  11892 # Wrists
+        10: 11950 11952 # Hands
+
+    warrior:
+    # 10 Normal set=657,658
+    - name: Hellscream's Battlegear / Wrynn's Battlegear
+      items:
+        1:  11903 11906 19497 # Head
+        3:  11922 11965 # Shoulders
+        5:  11712 11798 # Chest
+        6:  11729 11822 # Waist
+        7:  11734 11814 # Legs
+        8:  11727 11844 # Feet
+        9:  11755 11797 # Wrists
+        10: 11856 11894 # Hands
 
 - name: Ulduar
   tag: T8
