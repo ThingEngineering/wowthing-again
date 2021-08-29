@@ -31,8 +31,8 @@
 
         setKey = slug2 ? `${slug1}--${slug2}` : slug1
 
+        skipClasses = {}
         if (categories.length > 0) {
-            skipClasses = {}
             for (const skipClass of categories[0].skipClasses) {
                 skipClasses[skipClass] = true
             }

@@ -17,6 +17,7 @@ namespace Wowthing.Backend.Models.Data.Transmog
             Name = category.Name;
             SkipClasses = category.SkipClasses.EmptyIfNull();
             Groups = category.Groups
+                .EmptyIfNull()
                 .Select(group => new OutTransmogGroup(group))
                 .ToList();
         }

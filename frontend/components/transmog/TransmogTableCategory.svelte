@@ -19,11 +19,17 @@
         padding-bottom: 0.2rem;
         padding-top: 0.2rem;
     }
+    .tag {
+        color: $colour-success;
+    }
 </style>
 
 {#each category.groups as group}
     <tr>
-        <td class="name highlight" colspan="13">{group.name}</td>
+        <td class="name highlight" colspan="13">
+            {#if group.tag}<span class="tag">[{group.tag}]</span>{/if}
+            {group.name}
+        </td>
     </tr>
     {#each group.sets as setName, setIndex}
         <tr>
