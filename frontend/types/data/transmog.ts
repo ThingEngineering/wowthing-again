@@ -14,6 +14,7 @@ export interface TransmogDataCategory {
 
 export interface TransmogDataGroup {
     name: string
+    tag: string
     type: string
     data: Dictionary<TransmogDataGroupData[]>
     sets: string[]
