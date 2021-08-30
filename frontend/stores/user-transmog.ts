@@ -32,7 +32,12 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
 
                 for (const group of set.groups) {
                     for (const groupData of values(group.data)) {
-                        for (const groupSigh of groupData) {
+                        for (let groupIndex = 0; groupIndex < groupData.length; groupIndex++) {
+                            if (group.sets[groupIndex] === 'Elite') {
+                                continue
+                            }
+
+                            const groupSigh = groupData[groupIndex]
                             const slotKeys = keys(groupSigh.items)
 
                             baseData.total += slotKeys.length
