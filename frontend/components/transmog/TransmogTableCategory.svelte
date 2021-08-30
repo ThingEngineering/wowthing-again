@@ -11,6 +11,9 @@
 </script>
 
 <style lang="scss">
+    .faded {
+        opacity: 0.4;
+    }
     .name {
         padding: 0 1.5rem 0 0.5rem;
     }
@@ -32,7 +35,7 @@
         </td>
     </tr>
     {#each group.sets as setName, setIndex}
-        <tr>
+        <tr class:faded={setName.endsWith('Elite')}>
             <td class="name">&ndash {setName}</td>
 
             {#each transmogSets[group.type] as transmogSet (`set--${setKey}--${setName}--${transmogSet.type}`)}
