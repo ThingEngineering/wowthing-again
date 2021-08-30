@@ -1,2 +1,55 @@
-raids/raids.yml raids/z8_shadowlands.yml raids/z7_battle_for_azeroth.yml raids/z6_legion.yml raids/z5_warlords_of_draenor.yml raids/z4_mists_of_pandaria.yml raids/z3_cataclysm.yml raids/z2_wrath_of_the_lich_king.yml raids/z1_the_burning_crusade.yml raids/z0_vanilla.yml
-pvp/pvp.yml pvp/z4_mists_of_pandaria.yml pvp/z3_cataclysm.yml pvp/z2_wrath_of_the_lich_king.yml pvp/z1_the_burning_crusade.yml
+raids.yml
+    z8/raids.yml Shadowlands
+    z7/raids.yml Battle for Azeroth
+    z6/raids.yml Legion
+    z5/raids.yml Warlords of Draenor
+    z4/raids.yml Mists of Pandaria
+    z3/raids.yml Cataclysm
+    z2/raids.yml Wrath of the Lich King
+    z1/raids.yml The Burning Crusade
+    z0/raids.yml Vanilla
+
+dungeons/dungeons.yml
+    dungeons/z4_mists_of_pandaria.yml
+    dungeons/z1_the_burning_crusade.yml
+    dungeons/z0_vanilla.yml
+
+pvp.yml
+    z4/pvp.yml Mists of Pandaria
+    z3/pvp.yml Cataclysm
+    z2/pvp.yml Wrath of the Lich King
+    z1/pvp.yml The Burning Crusade
+
+-
+
+z8/_.yml
+    z8/raids.yml
+
+z7/_.yml
+    z7/raids.yml
+
+z6/_.yml
+    z6/raids.yml
+
+z5/_.yml
+    z5/raids.yml
+
+z4/_.yml
+    z4/raids.yml
+    z4/pvp.yml
+
+z3/_.yml
+    z3/raids.yml
+    z3/pvp.yml
+
+z2/_.yml
+    z2/raids.yml
+    z2/pvp.yml
+
+z1/_.yml
+    z1/raids.yml
+    z1/pvp.yml
+    z1/recolors.yml
+
+z0/_.yml
+    z0/raids.yml

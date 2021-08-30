@@ -43,11 +43,16 @@ export default function (node: SingleTarget, props: TippyProps | string): Svelte
 }
 
 // TODO: fix typing of this mess
-export function tippyComponent(node: SingleTarget, {component, props}: TippyComponentProps): SvelteActionResult {
+export function tippyComponent(node: SingleTarget, {component, props, tippyProps}: TippyComponentProps): SvelteActionResult {
     let cmp: any
 
-    const tp = tippy(node, {
+    const finalProps = {
         ...defaultProps,
+        ...tippyProps || {},
+    }
+
+    const tp = tippy(node, {
+        ...finalProps,
         allowHTML: true,
         onShow(instance: Instance<Props>) {
             cmp = new component({
@@ -80,4 +85,5 @@ export function tippyComponent(node: SingleTarget, {component, props}: TippyComp
 interface TippyComponentProps {
     component: any
     props: any
+    tippyProps?: TippyProps
 }
