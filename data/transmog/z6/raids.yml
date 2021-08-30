@@ -1,4 +1,4 @@
-name: Legion
+name: Raids
 groups:
 
 - name: Antorus, the Burning Throne
@@ -2003,3 +2003,223 @@ groups:
         9:  32161 # Wrists
         10: 32158 # Hands
         16: 32127 # Back
+
+- name: Trial of Valor - Chosen Dead
+  type: armor
+  sets:
+  - Mythic*
+  - Heroic
+  - Normal
+  - Raid Finder
+  data:
+    cloth:
+    # Mythic set=173
+    - name: Regalia of the Chosen Dead
+      items:
+        1:  32823 # Head
+        3:  32825 # Shoulders
+        5:  32827 # Chest
+        6:  32819 # Waist
+        7:  32824 # Legs
+        8:  32820 # Feet
+        9:  32826 # Wrists
+        10: 32822 # Hands
+        16: 32847 # Back
+
+    # Heroic set=172
+    - name: Regalia of the Chosen Dead
+      items:
+        1:  32805 # Head
+        3:  32807 # Shoulders
+        5:  32809 # Chest
+        6:  32801 # Waist
+        7:  32806 # Legs
+        8:  32802 # Feet
+        9:  32808 # Wrists
+        10: 32804 # Hands
+        16: 32837 # Back
+
+    # Normal set=171
+    - name: Regalia of the Chosen Dead
+      items:
+        1:  32814 # Head
+        3:  32816 # Shoulders
+        5:  32818 # Chest
+        6:  32810 # Waist
+        7:  32815 # Legs
+        8:  32811 # Feet
+        9:  32817 # Wrists
+        10: 32813 # Hands
+        16: 32842 # Back
+
+    # Raid Finder set=174
+    - name: Regalia of the Chosen Dead
+      items:
+        1:  32832 # Head
+        3:  32834 # Shoulders
+        5:  32836 # Chest
+        6:  32828 # Waist
+        7:  32833 # Legs
+        8:  32829 # Feet
+        9:  32835 # Wrists
+        10: 32831 # Hands
+        16: 32852 # Back
+
+    leather:
+    # Mythic set=177
+    - name: Garb of the Chosen Dead
+      items:
+        1:  32869 # Head
+        3:  32871 # Shoulders
+        5:  32867 # Chest
+        6:  32865 # Waist
+        7:  32870 # Legs
+        8:  32866 # Feet
+        9:  32872 # Wrists
+        10: 32868 # Hands
+        16: 33175 # Back
+
+    # Heroic set=176
+    - name: Garb of the Chosen Dead
+      items:
+        1:  32877 # Head
+        3:  32879 # Shoulders
+        5:  32875 # Chest
+        6:  32873 # Waist
+        7:  32878 # Legs
+        8:  32874 # Feet
+        9:  32880 # Wrists
+        10: 32876 # Hands
+        16: 33163 # Back
+
+    # Normal set=175
+    - name: Garb of the Chosen Dead
+      items:
+        1:  32861 # Head
+        3:  32863 # Shoulders
+        5:  32859 # Chest
+        6:  32857 # Waist
+        7:  32862 # Legs
+        8:  32858 # Feet
+        9:  32864 # Wrists
+        10: 32860 # Hands
+        16: 33157 # Back
+
+    # Raid Finder set=178
+    - name: Garb of the Chosen Dead
+      items:
+        1:  32885 # Head
+        3:  32887 # Shoulders
+        5:  32883 # Chest
+        6:  32881 # Waist
+        7:  32886 # Legs
+        8:  32882 # Feet
+        9:  32888 # Wrists
+        10: 32884 # Hands
+        16: 33169 # Back
+
+    mail:
+    # Mythic set=181
+    - name: Chains of the Chosen Dead
+      items:
+        1:  32703 # Head
+        3:  32705 # Shoulders
+        5:  32701 # Chest
+        6:  32699 # Waist
+        7:  32704 # Legs
+        8:  32700 # Feet
+        9:  32706 # Wrists
+        10: 32702 # Hands
+        16: 32726 # Back
+
+    # Heroic set=180
+    - name: Chains of the Chosen Dead
+      items:
+        1:  32679 # Head
+        3:  32681 # Shoulders
+        5:  32677 # Chest
+        6:  32675 # Waist
+        7:  32680 # Legs
+        8:  32676 # Feet
+        9:  32682 # Wrists
+        10: 32678 # Hands
+        16: 32707 # Back
+
+    # Normal set=179
+    - name: Chains of the Chosen Dead
+      items:
+        1:  32695 # Head
+        3:  32697 # Shoulders
+        5:  32693 # Chest
+        6:  32691 # Waist
+        7:  32696 # Legs
+        8:  32692 # Feet
+        9:  32698 # Wrists
+        10: 32694 # Hands
+        16: 32720 # Back
+
+    # Raid Finder set=182
+    - name: Chains of the Chosen Dead
+      items:
+        1:  32687 # Head
+        3:  32689 # Shoulders
+        5:  32685 # Chest
+        6:  32683 # Waist
+        7:  32688 # Legs
+        8:  32684 # Feet
+        9:  32690 # Wrists
+        10: 32686 # Hands
+        16: 32714 # Back
+
+    plate:
+    # Mythic set=185
+    - name: Funerary Plate of the Chosen Dead
+      items:
+        1:  32751 # Head
+        3:  32753 # Shoulders
+        5:  32749 # Chest
+        6:  32747 # Waist
+        7:  32752 # Legs
+        8:  32748 # Feet
+        9:  32754 # Wrists
+        10: 32750 # Hands
+        16: 32777 # Back
+
+    # Heroic set=184
+    - name: Funerary Plate of the Chosen Dead
+      items:
+        1:  32743 # Head
+        3:  32745 # Shoulders
+        5:  32741 # Chest
+        6:  32739 # Waist
+        7:  32744 # Legs
+        8:  32740 # Feet
+        9:  32746 # Wrists
+        10: 32742 # Hands
+        16: 32763 # Back
+
+    # Normal set=183
+    - name: Funerary Plate of the Chosen Dead
+      items:
+        1:  32759 # Head
+        3:  32761 # Shoulders
+        5:  32757 # Chest
+        6:  32755 # Waist
+        7:  32760 # Legs
+        8:  32756 # Feet
+        9:  32762 # Wrists
+        10: 32758 # Hands
+        16: 32789 # Back
+
+    # Raid Finder set=186
+    - name: Funerary Plate of the Chosen Dead
+      items:
+        1:  32797 # Head
+        3:  32799 # Shoulders
+        5:  32795 # Chest
+        6:  32793 # Waist
+        7:  32798 # Legs
+        8:  32794 # Feet
+        9:  32800 # Wrists
+        10: 32796 # Hands
+        16: 32770 # Back

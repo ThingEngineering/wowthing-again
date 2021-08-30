@@ -1,4 +1,4 @@
-name: Cataclysm
+name: PvP
 skipClasses:
 - demon-hunter
 - monk
@@ -7,7 +7,7 @@ groups:
 - name: Season 11
   type: class
   sets:
-  - Elite
+  - Elite*
   - Gladiator
   data:
     death-knight:
@@ -243,7 +243,7 @@ groups:
 - name: Season 10
   type: class
   sets:
-  - Elite
+  - Elite*
   - Gladiator
   data:
     death-knight:
@@ -479,7 +479,7 @@ groups:
 - name: Season 9
   type: class
   sets:
-  - Elite
+  - Elite*
   - Gladiator
   data:
     death-knight:

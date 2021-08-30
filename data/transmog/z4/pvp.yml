@@ -1,4 +1,4 @@
-name: Mists of Pandaria
+name: PvP
 skipClasses:
 - demon-hunter
 groups:
@@ -155,7 +155,7 @@ groups:
 - name: Season 14
   type: class
   sets:
-  - Elite
+  - Elite*
   - Gladiator
   data:
     death-knight:
@@ -425,7 +425,7 @@ groups:
 - name: Season 13
   type: class
   sets:
-  - Elite
+  - Elite*
   - Gladiator
   data:
     death-knight:
@@ -695,7 +695,7 @@ groups:
 - name: Season 12
   type: class
   sets:
-  - Elite
+  - Elite*
   - Gladiator
   - Honor
   data:

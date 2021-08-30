@@ -1,0 +1,11 @@
+name: PvP
+skipClasses:
+- demon-hunter
+groups:
+
+- name: Season 12
+  type: class
+  sets:
+  - Elite*
+  - Gladiator
+  data:

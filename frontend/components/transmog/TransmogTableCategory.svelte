@@ -35,8 +35,8 @@
         </td>
     </tr>
     {#each group.sets as setName, setIndex}
-        <tr class:faded={setName.endsWith('Elite')}>
-            <td class="name">&ndash {setName}</td>
+        <tr class:faded={setName.endsWith('*')}>
+            <td class="name">&ndash {setName.replace('*', '')}</td>
 
             {#each transmogSets[group.type] as transmogSet (`set--${setKey}--${setName}--${transmogSet.type}`)}
                 {#if !skipClasses[transmogSet.type]}

@@ -1,4 +1,4 @@
-name: The Burning Crusade
+name: PvP
 skipClasses:
 - death-knight
 - demon-hunter
@@ -13,6 +13,7 @@ groups:
     druid:
     # Gladiator set=953
     - name: Brutal Gladiator's Dragonhide Armor
+      wowheadSetId: 956
       items:
         1:  9103 # Head
         3:  9105 # Shoulders
@@ -26,6 +27,7 @@ groups:
     hunter:
     # Gladiator set=952
     - name: Brutal Gladiator's Chain Armor
+      wowheadSetId: 717
       items:
         1:  9098 # Head
         3:  8950 # Shoulders
@@ -39,6 +41,7 @@ groups:
     mage:
     # Gladiator set=951
     - name: Brutal Gladiator's Silk Armor
+      wowheadSetId: 737
       items:
         1:  9150 # Head
         3:  9149 # Shoulders
@@ -52,6 +55,7 @@ groups:
     paladin:
     # Gladiator set=950
     - name: Brutal Gladiator's Scaled Armor
+      wowheadSetId: 755
       items:
         1:  9118 # Head
         3:  9120 # Shoulders
@@ -65,6 +69,7 @@ groups:
     priest:
     # Gladiator set=378
     - name: Brutal Gladiator's Satin Armor
+      wowheadSetId: 775
       items:
         1:  9133 # Head
         3:  9135 # Shoulders
@@ -78,6 +83,7 @@ groups:
     rogue:
     # Gladiator set=949
     - name: Brutal Gladiator's Leather Armor
+      wowheadSetId: 795
       items:
         1:  9122 # Head
         3:  9124 # Shoulders
@@ -91,6 +97,7 @@ groups:
     shaman:
     # Gladiator set=948
     - name: Brutal Gladiator's Ringmail Armor
+      wowheadSetId: 813
       items:
         1:  9128 # Head
         3:  9130 # Shoulders
@@ -104,6 +111,7 @@ groups:
     warlock:
     # Gladiator set=947
     - name: Brutal Gladiator's Felweave Armor
+      wowheadSetId: 836
       items:
         1:  9108 # Head
         3:  9110 # Shoulders
@@ -117,6 +125,7 @@ groups:
     warrior:
     # Gladiator set=946
     - name: Brutal Gladiator's Plate Armor
+      wowheadSetId: 857
       items:
         1:  9141 # Head
         3:  9143 # Shoulders
@@ -135,6 +144,7 @@ groups:
     druid:
     # Gladiator set=961
     - name: Vengeful Gladiator's Dragonhide Armor
+      wowheadSetId: 954
       items:
         1:  8737 # Head
         3:  8739 # Shoulders
@@ -148,6 +158,7 @@ groups:
     hunter:
     # Gladiator set=960
     - name: Vengeful Gladiator's Chain Armor
+      wowheadSetId: 716
       items:
         1:  8731 # Head
         3:  8733 # Shoulders
@@ -160,6 +171,7 @@ groups:
     mage:
     # Gladiator set=959
     - name: Vengeful Gladiator's Silk Armor
+      wowheadSetId: 736
       items:
         1:  8774 # Head
         3:  8773 # Shoulders
@@ -173,6 +185,7 @@ groups:
     paladin:
     # Gladiator set=958
     - name: Vengeful Gladiator's Scaled Armor
+      wowheadSetId: 754
       items:
         1:  8391 8750 # Head
         3:  8752 # Shoulders
@@ -186,6 +199,7 @@ groups:
     priest:
     # Gladiator set=379
     - name: Vengeful Gladiator's Satin Armor
+      wowheadSetId: 774
       items:
         1:  8764 # Head
         3:  8766 # Shoulders
@@ -199,6 +213,7 @@ groups:
     rogue:
     # Gladiator set=957
     - name: Vengeful Gladiator's Leather Armor
+      wowheadSetId: 794
       items:
         1:  8753 # Head
         3:  8400 # Shoulders
@@ -212,6 +227,7 @@ groups:
     shaman:
     # Gladiator set=956
     - name: Vengeful Gladiator's Ringmail Armor
+      wowheadSetId: 812
       items:
         1:  8759 # Head
         3:  8761 # Shoulders
@@ -225,6 +241,7 @@ groups:
     warlock:
     # Gladiator set=955
     - name: Vengeful Gladiator's Felweave Armor
+      wowheadSetId: 834
       items:
         1:  8742 # Head
         3:  8380 # Shoulders
@@ -238,6 +255,7 @@ groups:
     warrior:
     # Gladiator set=954
     - name: Vengeful Gladiator's Plate Armor
+      wowheadSetId: 856
       items:
         1:  8396 # Head
         3:  8770 # Shoulders
@@ -256,6 +274,7 @@ groups:
     druid:
     # Gladiator set=969
     - name: Merciless Gladiator's Dragonhide Armor
+      wowheadSetId: 953
       items:
         1: 8300 # Head
         3: 8302 # Shoulders
@@ -269,6 +288,7 @@ groups:
     hunter:
     # Gladiator set=968
     - name: Merciless Gladiator's Chain Armor
+      wowheadSetId: 715
       items:
         1:  8296 # Head
         3:  8298 # Shoulders
@@ -282,6 +302,7 @@ groups:
     mage:
     # Gladiator set=967
     - name: Merciless Gladiator's Silk Armor
+      wowheadSetId: 735
       items:
         1:  8328 # Head
         3:  8327 # Shoulders
@@ -295,6 +316,7 @@ groups:
     paladin:
     # Gladiator set=966
     - name: Merciless Gladiator's Scaled Armor
+      wowheadSetId: 753
       items:
         1:  8313 # Head
         3:  8312 # Shoulders
@@ -308,6 +330,7 @@ groups:
     priest:
     # Gladiator set=380
     - name: Merciless Gladiator's Satin Armor
+      wowheadSetId: 773
       items:
         1:  8323 # Head
         3:  8325 # Shoulders
@@ -321,6 +344,7 @@ groups:
     rogue:
     # Gladiator set=965
     - name: Merciless Gladiator's Leather Armor
+      wowheadSetId: 793
       items:
         1:  8315 # Head
         3:  7778 # Shoulders
@@ -334,6 +358,7 @@ groups:
     shaman:
     # Gladiator set=964
     - name: Merciless Gladiator's Ringmail Armor
+      wowheadSetId: 811
       items:
         1:  8319 # Head
         3:  8321 # Shoulders
@@ -347,6 +372,7 @@ groups:
     warlock:
     # Gladiator set=963
     - name: Merciless Gladiator's Felweave Armor
+      wowheadSetId: 832
       items:
         1:  8305 # Head
         3:  8307 # Shoulders
@@ -360,6 +386,7 @@ groups:
     warrior:
     # Gladiator set=962
     - name: Merciless Gladiator's Plate Armor
+      wowheadSetId: 855
       items:
         1: 7915 # Head
         3: 7917 # Shoulders
@@ -378,6 +405,7 @@ groups:
     druid:
     # Gladiator set=977
     - name: Gladiator's Dragonhide Armor
+      wowheadSetId: 952
       items:
         1:  7054 # Head
         3:  7056 # Shoulders
@@ -390,6 +418,7 @@ groups:
     hunter:
     # Gladiator set=974
     - name: Gladiator's Scaled Armor
+      wowheadSetId: 752
       items:
         1: 6912 # Head
         3: 6914 # Shoulders
@@ -402,6 +431,7 @@ groups:
     mage:
     # Gladiator set=975
     - name: Gladiator's Silk Armor
+      wowheadSetId: 734
       items:
         1:  6773 # Head
         3:  6772 # Shoulders
@@ -414,6 +444,7 @@ groups:
     paladin:
     # Gladiator set=974
     - name: Gladiator's Scaled Armor
+      wowheadSetId: 752
       items:
         1:  6912 # Head
         3:  6914 # Shoulders
@@ -426,6 +457,7 @@ groups:
     priest:
     # Gladiator set=973
     - name: Gladiator's Satin Armor
+      wowheadSetId: 772
       items:
         1:  6916 # Head
         3:  6918 # Shoulders
@@ -439,6 +471,7 @@ groups:
     rogue:
     # Gladiator set=972
     - name: Gladiator's Leather Armor
+      wowheadSetId: 792
       items:
         1:  6767 # Head
         3:  6769 # Shoulders
@@ -451,6 +484,7 @@ groups:
     shaman:
     # Gladiator set=971
     - name: Gladiator's Ringmail Armor
+      wowheadSetId: 810
       items:
         1: 6803 # Head
         3: 6804 # Shoulders
@@ -463,6 +497,7 @@ groups:
     warlock:
     # Gladiator set=970
     - name: Gladiator's Felweave Armor
+      wowheadSetId: 830
       items:
         1: 6403 # Head
         3: 6404 # Shoulders
@@ -476,6 +511,7 @@ groups:
     warrior:
     # Gladiator set=381
     - name: Gladiator's Plate Armor
+      wowheadSetId: 854
       items:
         1:  6397 # Head
         3:  6398 # Shoulders

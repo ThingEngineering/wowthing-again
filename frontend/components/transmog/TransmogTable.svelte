@@ -22,7 +22,7 @@
     let plateSpan: number
     $: {
         categories = filter(
-            find($transmogStore.data.sets, (s) => s[0].slug === slug1),
+            find($transmogStore.data.sets, (s) => s !== null && s[0].slug === slug1),
             (s) => s.groups.length > 0 && s.groups[0].type !== null
         )
         if (slug2) {

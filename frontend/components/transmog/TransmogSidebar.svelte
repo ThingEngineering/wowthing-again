@@ -6,7 +6,7 @@
 
     let categories: SidebarItem[]
     $: {
-        categories = $transmogStore.data.sets.map((set) => ({
+        categories = $transmogStore.data.sets.map((set) => set === null ? null : ({
             children: set.slice(1),
             ...set[0],
         }))

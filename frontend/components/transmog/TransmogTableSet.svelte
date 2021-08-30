@@ -9,6 +9,7 @@
     import {tippyComponent} from '@/utils/tippy'
 
     import TooltipTransmog from '@/components/tooltips/transmog/TooltipTransmog.svelte'
+    import WowheadTransmogSetLink from '@/components/links/WowheadTransmogSetLink.svelte'
 
     export let set: TransmogDataGroupData
     export let span = 1
@@ -49,8 +50,23 @@
     <td
         class="{getPercentClass(percent)}"
         colspan="{span}"
-        use:tippyComponent={{component: TooltipTransmog, props: {set, slotHave, subType}}}
-    >{have} / {total}</td>
+        use:tippyComponent={{
+            component: TooltipTransmog,
+            props: {set, slotHave, subType},
+            tippyProps: {placement: 'top-end'},
+        }}
+    >
+        {#if set.wowheadSetId}
+            <WowheadTransmogSetLink
+                id={set.wowheadSetId}
+                cls="{getPercentClass(percent)}"
+            >
+                {have} / {total}
+            </WowheadTransmogSetLink>
+        {:else}
+            {have} / {total}
+        {/if}
+    </td>
 {:else}
     <td class="quality0">---</td>
 {/if}

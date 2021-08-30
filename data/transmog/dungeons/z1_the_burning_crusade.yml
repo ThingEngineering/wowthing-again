@@ -1,0 +1,143 @@
+name: The Burning Crusade
+skipClasses:
+- death-knight
+- demon-hunter
+- monk
+groups:
+
+- name: TBC Dungeons
+  type: class
+  sets:
+  - Tier 2 Recolor
+  - Tier 1 Recolor
+  - Dungeon Set 1 Recolor
+  data:
+    druid:
+    - name: Stormrage Raiment (Recolor)
+      items:
+        1:  7095 # Head
+        3:  7110 # Shoulders
+        5:  6969 # Chest
+        6:  6948 # Waist
+        7:  6867 # Legs
+        8:  7025 # Feet
+        9:  6861 # Wrists
+        10: 7090 # Hands
+
+    - name: Cenarion Raiment (Recolor)
+      items:
+        1:  7467 # Head
+        3:  7156 # Shoulders
+        5:  6846 # Chest
+        6:  7182 # Waist
+        7:  6960 # Legs
+        8:  7107 # Feet
+        9:  6975 # Wrists
+        10: 7119 # Hands
+
+    - name: Wildheart Raiment (Recolor)
+      items:
+        1:  6822 # Head
+        3:  6828 # Shoulders
+        5:  6385 # Chest
+        7:  6357 # Legs
+        10: 6384 # Hands
+
+    #hunter:
+
+    mage:
+    - name: Netherwind Regalia (Recolor)
+      items:
+        1:  6853 # Head
+        3:  7169 # Shoulders
+        5:  6972 # Chest
+        6:  6939 # Waist
+        7:  7064 # Legs
+        8:  7014 # Feet
+        9:  6879 # Wrists
+        10: 7141 # Hands
+
+    - name: Arcanist Regalia (Recolor)
+      items:
+        1:  6864 # Head
+        3:  6967 # Shoulders
+        5:  7108 # Chest
+        6:  6926 # Waist
+        7:  7088 # Legs
+        8:  6990 # Feet
+        9:  6928 # Wrists
+        10: 6936 # Hands
+
+    - name: Magister's Regalia (Recolor)
+      items:
+        3: 6287 # Shoulders
+        5: 6393 # Chest
+        6: 6360 # Waist
+        7: 6345 # Legs
+        8: 6799 # Feet
+        9: 6358 # Wrists
+        10: 6382 # Hands
+
+    #paladin:
+
+    priest:
+    - name: Vestments of Transcendence (Recolor)
+      items:
+        1:  6993 # Head
+        3:  7106 # Shoulders
+        5:  6872 # Chest
+        6:  6897 # Waist
+        7:  7093 # Legs
+        8:  7028 # Feet
+        9:  6843 # Wrists
+        10: 7133 # Hands
+
+    - name: Vestments of Prophecy (Recolor)
+      items:
+
+    - name: Vestments of the Devout (Recolor)
+      items:
+        1:  6823 # Head
+        3:  6838 # Shoulders
+        5:  6362 # Chest
+        7:  8165 # Legs
+        8:  6824 # Feet
+
+    rogue:
+    - name: Bloodfang Armor (Recolor)
+      items:
+        1:  7084 # Head
+        3:  6977 # Shoulders
+        5:  6949 # Chest
+        6:  7051 # Waist
+        7:  6878 # Legs
+        8:  6994 # Feet
+        9:  6937 # Wrists
+        10: 7180 # Hands
+
+    - name: Nightslayer Armor (Recolor)
+      items:
+        1:  7032 # Head
+        3:  7043 # Shoulders
+        5:  6850 # Chest
+        6:  7022 # Waist
+        7:  6899 # Legs
+        8:  8044 # Feet
+        10: 6973 # Hands
+
+    - name: Shadowcraft Armor (Recolor)
+      items:
+        1: 6827 # Head
+        3: 6363 # Shoulders
+        5: 6361 # Chest
+        6: 6291 # Waist
+        7: 6392 # Legs
+        8: 8401 # Feet
+        9: 6286 # Wrists
+        10: 6349 # Hands
+
+    #shaman:
+
+    #warlock:
+
+    #warrior:
