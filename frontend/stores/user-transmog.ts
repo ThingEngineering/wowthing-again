@@ -33,7 +33,7 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
                 for (const group of set.groups) {
                     for (const groupData of values(group.data)) {
                         for (let groupIndex = 0; groupIndex < groupData.length; groupIndex++) {
-                            if (group.sets[groupIndex] === 'Elite') {
+                            if (group.sets[groupIndex].endsWith('Elite')) {
                                 continue
                             }
 
