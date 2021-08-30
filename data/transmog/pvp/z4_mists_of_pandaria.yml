@@ -155,9 +155,21 @@ groups:
 - name: Season 14
   type: class
   sets:
+  - Elite
   - Gladiator
   data:
     death-knight:
+    # Elite set=1030,1031
+    - name: Grievous Gladiator's Dreadplate Armor
+      items:
+        1:  20704 # Head
+        3:  20706 # Shoulders
+        5:  20702 # Chest
+        6:  20700 # Waist
+        7:  20705 # Legs
+        8:  20701 # Feet
+        10: 20703 # Hands
+
     # Gladiator set=201,211
     - name: Grievous Gladiator's Dreadplate Armor
       items:
@@ -171,6 +183,17 @@ groups:
         10: 20711 20719 # Hands
 
     druid:
+    # Elite set=1032,1033
+    - name: Grievous Gladiator's Dragonhide Armor
+      items:
+        1:  20831 # Head
+        3:  20836 # Shoulders
+        5:  20838 # Chest
+        6:  20830 # Waist
+        7:  20835 # Legs
+        8:  20832 # Feet
+        10: 20834 # Hands
+
     # Gladiator set=200,210
     - name: Grievous Gladiator's Dragonhide Armor
       items:
@@ -184,6 +207,17 @@ groups:
         10: 20843 20852 # Hands
 
     hunter:
+    # Elite set=1034,1035
+    - name: Grievous Gladiator's Chain Armor
+      items:
+        1:  20745 # Head
+        3:  20747 # Shoulders
+        5:  20743 # Chest
+        6:  20741 # Waist
+        7:  20746 # Legs
+        8:  20742 # Feet
+        10: 20744 # Hands
+
     # Gladiator set=198,199
     - name: Grievous Gladiator's Chain Armor
       items:
@@ -197,6 +231,17 @@ groups:
         10: 20728 20736 # Hands
 
     mage:
+    # Elite set=1036,1037
+    - name: Grievous Gladiator's Silk Armor
+      items:
+        1:  21106 # Head
+        3:  21112 # Shoulders
+        5:  21110 # Chest
+        6:  21092 # Waist
+        7:  21108 # Legs
+        8:  21096 # Feet
+        10: 21104 # Hands
+
     # Gladiator set=209,219
     - name: Grievous Gladiator's Silk Armor
       items:
@@ -210,6 +255,17 @@ groups:
         10: 21103 21140 # Hands
 
     monk:
+    # Elite set=1038,1039
+    - name: Grievous Gladiator's Ironskin Armor
+      items:
+        1:  21083 # Head
+        3:  21088 # Shoulders
+        5:  21085 # Chest
+        6:  21082 # Waist
+        7:  21087 # Legs
+        8:  21084 # Feet
+        10: 21086 # Hands
+
     # Gladiator set=203,213
     - name: Grievous Gladiator's Ironskin Armor
       items:
@@ -223,6 +279,17 @@ groups:
         10: 21068 21077 # Hands
 
     paladin:
+    # Elite set=1040,1041
+    - name: Grievous Gladiator's Scaled Armor
+      items:
+        1:  20684 # Head
+        3:  20686 # Shoulders
+        5:  20682 # Chest
+        6:  20680 # Waist
+        7:  20685 # Legs
+        8:  20681 # Feet
+        10: 20683 # Hands
+
     # Gladiator set=208,218
     - name: Grievous Gladiator's Scaled Armor
       items:
@@ -236,6 +303,17 @@ groups:
         10: 20675 20691 # Hands
 
     priest:
+    # Elite set=401,402
+    - name: Grievous Gladiator's Satin Armor
+      items:
+        1:  20874 # Head
+        3:  20870 # Shoulders
+        5:  20872 # Chest
+        6:  20868 # Waist
+        7:  20875 # Legs
+        8:  20869 # Feet
+        10: 20873 # Hands
+
     # Gladiator set=207,217
     - name: Grievous Gladiator's Satin Armor
       items:
@@ -249,6 +327,17 @@ groups:
         10: 20863 20883 # Hands
 
     rogue:
+    # Elite set=1042,1043
+    - name: Grievous Gladiator's Leather Armor
+      items:
+        1:  20762 # Head
+        3:  20764 # Shoulders
+        5:  20760 # Chest
+        6:  20758 # Waist
+        7:  20763 # Legs
+        8:  20759 # Feet
+        10: 20761 # Hands
+
     # Gladiator set=204,214
     - name: Grievous Gladiator's Leather Armor
       items:
@@ -262,6 +351,17 @@ groups:
         10: 20753 20769 # Hands
 
     shaman:
+    # Elite set=1044,1045
+    - name: Grievous Gladiator's Ringmail Armor
+      items:
+        1:  20628 # Head
+        3:  20630 # Shoulders
+        5:  20626 # Chest
+        6:  20624 # Waist
+        7:  20629 # Legs
+        8:  20625 # Feet
+        10: 20627 # Hands
+
     # Gladiator set=206,216
     - name: Grievous Gladiator's Ringmail Armor
       items:
@@ -275,6 +375,17 @@ groups:
         10: 20643 20651 # Hands
 
     warlock:
+    # Elite set=1046,1047
+    - name: Grievous Gladiator's Felweave Armor
+      items:
+        1:  21117 # Head
+        3:  21123 # Shoulders
+        5:  21121 # Chest
+        6:  21094 # Waist
+        7:  21119 # Legs
+        8:  21098 # Feet
+        10: 21115 # Hands
+
     # Gladiator set=202,212
     - name: Grievous Gladiator's Felweave Armor
       items:
@@ -288,6 +399,17 @@ groups:
         10: 21114 21137 # Hands
 
     warrior:
+    # Elite set=1048,1049
+    - name: Grievous Gladiator's Plate Armor
+      items:
+        1:  20635 # Head
+        3:  20637 # Shoulders
+        5:  20633 # Chest
+        6:  20631 # Waist
+        7:  20636 # Legs
+        8:  20632 # Feet
+        10: 20634 # Hands
+
     # Gladiator set=205,215
     - name: Grievous Gladiator's Plate Armor
       items:
@@ -303,9 +425,21 @@ groups:
 - name: Season 13
   type: class
   sets:
+  - Elite
   - Gladiator
   data:
     death-knight:
+    # Elite set=1010,1011
+    - name: Tyrannical Gladiator's Dreadplate Armor
+      items:
+        1:  19643 # Head
+        3:  19645 # Shoulders
+        5:  19641 # Chest
+        6:  19639 # Waist
+        7:  19644 # Legs
+        8:  19640 # Feet
+        10: 19642 # Hands
+
     # Gladiator set=256,267
     - name: Tyrannical Gladiator's Dreadplate Armor
       items:
@@ -319,6 +453,17 @@ groups:
         10: 19634 19650 # Hands
 
     druid:
+    # Elite set=1012,1013
+    - name: Tyrannical Gladiator's Dragonhide Armor
+      items:
+        1:  19721 # Head
+        3:  19727 # Shoulders
+        5:  19725 # Chest
+        6:  19729 # Waist
+        7:  19723 # Legs
+        8:  19731 # Feet
+        10: 19719 # Hands
+
     # Gladiator set=255,266
     - name: Tyrannical Gladiator's Dragonhide Armor
       items:
@@ -332,6 +477,17 @@ groups:
         10: 19718 19903 # Hands
 
     hunter:
+    # Elite set=1014,1015
+    - name: Tyrannical Gladiator's Chain Armor
+      items:
+        1:  19611 # Head
+        3:  19613 # Shoulders
+        5:  19609 # Chest
+        6:  19607 # Waist
+        7:  19612 # Legs
+        8:  19608 # Feet
+        10: 19610 # Hands
+
     # Gladiator set=254,265
     - name: Tyrannical Gladiator's Chain Armor
       items:
@@ -345,6 +501,17 @@ groups:
         10: 19602 19618 # Hands
 
     mage:
+    # Elite set=1016,1017
+    - name: Tyrannical Gladiator's Silk Armor
+      items:
+        1:  19739 # Head
+        3:  19745 # Shoulders
+        5:  19743 # Chest
+        6:  19699 # Waist
+        7:  19741 # Legs
+        8:  19705 # Feet
+        10: 19737 # Hands
+
     # Gladiator set=264,275
     - name: Tyrannical Gladiator's Silk Armor
       items:
@@ -358,6 +525,17 @@ groups:
         10: 19736 19886 # Hands
 
     monk:
+    # Elite set=1018,1019
+    - name: Tyrannical Gladiator's Ironskin Armor
+      items:
+        1:  19583 # Head
+        3:  19588 # Shoulders
+        5:  19585 # Chest
+        6:  19746 # Waist
+        7:  19587 # Legs
+        8:  19747 # Feet
+        10: 19586 # Hands
+
     # Gladiator set=259,269
     - name: Tyrannical Gladiator's Ironskin Armor
       items:
@@ -371,6 +549,17 @@ groups:
         10: 19578 19594 # Hands
 
     paladin:
+    # Elite set=1020,1021
+    - name: Tyrannical Gladiator's Scaled Armor
+      items:
+        1:  19659 # Head
+        3:  19661 # Shoulders
+        5:  19657 # Chest
+        6:  19655 # Waist
+        7:  19660 # Legs
+        8:  19656 # Feet
+        10: 19658 # Hands
+
     # Gladiator set=263,274
     - name: Tyrannical Gladiator's Scaled Armor
       items:
@@ -384,6 +573,17 @@ groups:
         10: 19749 20010 # Hands
 
     priest:
+    # Elite set=397,398
+    - name: Tyrannical Gladiator's Satin Armor
+      items:
+        1:  19764 # Head
+        3:  19770 # Shoulders
+        5:  19768 # Chest
+        6:  19703 # Waist
+        7:  19766 # Legs
+        8:  19709 # Feet
+        10: 19762 # Hands
+
     # Gladiator set=258,273
     - name: Tyrannical Gladiator's Satin Armor
       items:
@@ -397,6 +597,17 @@ groups:
         10: 19761 19870 # Hands
 
     rogue:
+    # Elite set=1022,1023
+    - name: Tyrannical Gladiator's Leather Armor
+      items:
+        1:  19781 # Head
+        3:  19785 # Shoulders
+        5:  19777 # Chest
+        6:  19772 # Waist
+        7:  19783 # Legs
+        8:  19774 # Feet
+        10: 19779 # Hands
+
     # Gladiator set=260,270
     - name: Tyrannical Gladiator's Leather Armor
       items:
@@ -410,6 +621,17 @@ groups:
         10: 19778 20287 # Hands
 
     shaman:
+    # Elite set=1024,1025
+    - name: Tyrannical Gladiator's Ringmail Armor
+      items:
+        1:  19790 # Head
+        3:  19793 # Shoulders
+        5:  19788 # Chest
+        6:  19786 # Waist
+        7:  19792 # Legs
+        8:  19787 # Feet
+        10: 19789 # Hands
+
     # Gladiator set=262,272
     - name: Tyrannical Gladiator's Ringmail Shaman
       items:
@@ -423,6 +645,17 @@ groups:
         10: 19666 19826 # Hands
 
     warlock:
+    # Elite set=1026,1027
+    - name: Tyrannical Gladiator's Felweave Armor
+      items:
+        1:  19801 # Head
+        3:  19807 # Shoulders
+        5:  19805 # Chest
+        6:  19701 # Waist
+        7:  19803 # Legs
+        8:  19707 # Feet
+        10: 19799 # Hands
+
     # Gladiator set=257,268
     - name: Tyrannical Gladiator's Felweave Armor
       items:
@@ -436,6 +669,17 @@ groups:
         10: 19798 19998 # Hands
 
     warrior:
+    # Elite set=1028,1029
+    - name: Tyrannical Gladiator's Plate Armor
+      items:
+        1:  19813 # Head
+        3:  19817 # Shoulders
+        5:  19809 # Chest
+        6:  19757 # Waist
+        7:  19815 # Legs
+        8:  19759 # Feet
+        10: 19811 # Hands
+
     # Gladiator set=261,271
     - name: Tyrannical Gladiator's Plate Armor
       items:
@@ -451,10 +695,22 @@ groups:
 - name: Season 12
   type: class
   sets:
+  - Elite
   - Gladiator
   - Honor
   data:
     death-knight:
+    # Elite set=1054
+    - name: Malevolent Gladiator's Dreadplate Armor
+      items:
+        1:  18333 # Head
+        3:  18335 # Shoulders
+        5:  18331 # Chest
+        6:  18329 # Waist
+        7:  18334 # Legs
+        8:  18330 # Feet
+        10: 18332 # Hands
+
     # Gladiator set=285
     - name: Malevolent Gladiator's Dreadplate Armor
       items:
@@ -480,6 +736,17 @@ groups:
         10: 18226 # Hands
 
     druid:
+    # Elite set=1055
+    - name: Malevolent Gladiator's Dragonhide Armor
+      items:
+        1:  18469 # Head
+        3:  18487 # Shoulders
+        5:  18480 # Chest
+        6:  18495 # Waist
+        7:  18474 # Legs
+        8:  18448 # Feet
+        10: 18461 # Hands
+
     # Gladiator set=281
     - name: Malevolent Gladiator's Dragonhide Armor
       items:
@@ -505,6 +772,17 @@ groups:
         10: 18230 # Hands
 
     hunter:
+    # Elite set=1056
+    - name: Malevolent Gladiator's Chain Armor
+      items:
+        1:  17243 # Head
+        3:  17245 # Shoulders
+        5:  17241 # Chest
+        6:  17239 # Waist
+        7:  17244 # Legs
+        8:  17240 # Feet
+        10: 17242 # Hands
+
     # Gladiator set=286
     - name: Malevolent Gladiator's Chain Armor
       items:
@@ -530,6 +808,17 @@ groups:
         10: 17250 # Hands
 
     mage:
+    # Elite set=1057
+    - name: Malevolent Gladiator's Silk Armor
+      items:
+        1:  18466 # Head
+        3:  18488 # Shoulders
+        5:  18482 # Chest
+        6:  18492 # Waist
+        7:  18478 # Legs
+        8:  18452 # Feet
+        10: 18458 # Hands
+
     # Gladiator set=276
     - name: Malevolent Gladiator's Silk Armor
       items:
@@ -555,6 +844,17 @@ groups:
         10: 18238 # Hands
 
     monk:
+    # Elite set=279
+    - name: Malevolent Gladiator's Ironskin Armor
+      items:
+        1:  18465 # Head
+        3:  18489 # Shoulders
+        5:  18481 # Chest
+        6:  18496 # Waist
+        7:  18477 # Legs
+        8:  18455 # Feet
+        10: 18457 # Hands
+
     # Gladiator set=1059
     - name: Malevolent Gladiator's Ironskin Armor
       items:
@@ -579,6 +879,17 @@ groups:
         10: 18294 # Hands
 
     paladin:
+    # Elite set=1060
+    - name: Malevolent Gladiator's Scaled Armor
+      items:
+        1:  18471 # Head
+        3:  18491 # Shoulders
+        5:  18445 18446 # Chest
+        6:  18499 # Waist
+        7:  18476 # Legs
+        8:  18451 # Feet
+        10: 18463 # Hands
+
     # Gladiator set=277
     - name: Malevolent Gladiator's Scaled Armor
       items:
@@ -604,6 +915,17 @@ groups:
         10: 18244 # Hands
 
     priest:
+    # Elite set=396
+    - name: Malevolent Gladiator's Satin Armor
+      items:
+        1:  17997 # Head
+        3:  17993 # Shoulders
+        5:  17995 # Chest
+        6:  17991 # Waist
+        7:  17998 # Legs
+        8:  17992 # Feet
+        10: 17996 # Hands
+
     # Gladiator set=282
     - name: Malevolent Gladiator's Satin Armor
       items:
@@ -629,6 +951,17 @@ groups:
         10: 18005 # Hands
 
     rogue:
+    # Elite set=1061
+    - name: Malevolent Gladiator's Leather Armor
+      items:
+        1:  18470 # Head
+        3:  18490 # Shoulders
+        5:  18447 # Chest
+        6:  18497 # Waist
+        7:  18475 # Legs
+        8:  18454 # Feet
+        10: 18462 # Hands
+
     # Gladiator set=280
     - name: Malevolent Gladiator's Leather Armor
       items:
@@ -654,6 +987,17 @@ groups:
         10: 18265 # Hands
 
     shaman:
+    # Elite set=1062
+    - name: Malevolent Gladiator's Ringmail Armor
+      items:
+        1:  18464 # Head
+        3:  18484 # Shoulders
+        5:  18444 # Chest
+        6:  18494 # Waist
+        7:  18473 # Legs
+        8:  18449 # Feet
+        10: 18456 # Hands
+
     # Gladiator set=284
     - name: Malevolent Gladiator's Ringmail Armor
       items:
@@ -679,6 +1023,17 @@ groups:
         10: 18273 # Hands
 
     warlock:
+    # Elite set=1063
+    - name: Malevolent Gladiator's Felweave Armor
+      items:
+        1:  18468 # Head
+        3:  18486 # Shoulders
+        5:  18483 # Chest
+        6:  18493 # Waist
+        7:  18472 # Legs
+        8:  18453 # Feet
+        10: 18460 # Hands
+
     # Gladiator set=283
     - name: Malevolent Gladiator's Felweave Armor
       items:
@@ -704,6 +1059,17 @@ groups:
         10: 18278 # Hands
 
     warrior:
+    # Elite set=1064
+    - name: Malevolent Gladiator's Plate Armor
+      items:
+        1:  18467 # Head
+        3:  18485 # Shoulders
+        5:  18443 # Chest
+        6:  18498 # Waist
+        7:  18479 # Legs
+        8:  18450 # Feet
+        10: 18459 # Hands
+
     # Gladiator set=278
     - name: Malevolent Gladiator's Plate Armor
       items:
