@@ -58,6 +58,7 @@
             }
 
             // Last row in a character grouping
+            &:last-child,
             &.last-of-group {
                 td {
                     &:first-child {
