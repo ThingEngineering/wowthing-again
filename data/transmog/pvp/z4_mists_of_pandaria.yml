@@ -555,16 +555,17 @@ groups:
         10: 18238 # Hands
 
     monk:
-    # Elite set=279
+    # Gladiator set=1059
     - name: Malevolent Gladiator's Ironskin Armor
       items:
-        1:  18465 # Head
-        3:  18489 # Shoulders
-        5:  18481 # Chest
-        6:  18496 # Waist
-        7:  18477 # Legs
-        8:  18455 # Feet
-        10: 18457 # Hands
+        1:  18386 # Head
+        3:  18414 # Shoulders
+        5:  18405 # Chest
+        6:  18419 # Waist
+        7:  18396 # Legs
+        8:  18368 # Feet
+        9:  18436 # Wrists
+        10: 18378 # Hands
 
     # Honor set=191
     - name: Dreadful Gladiator's Ironskin Armor
