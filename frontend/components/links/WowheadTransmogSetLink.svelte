@@ -8,6 +8,12 @@
     }
 </script>
 
+<style lang="scss">
+    a {
+        display: block;
+    }
+</style>
+
 <a href="{url}" class="{cls}">
     <slot />
 </a>
