@@ -15,6 +15,10 @@ dungeons/dungeons.yml
     dungeons/z0_vanilla.yml
 
 pvp.yml
+    z8/pvp.yml Shadowlands
+    z7/pvp.yml Battle for Azeroth
+    z6/pvp.yml Legion
+    z5/pvp.yml Warlords of Draenor
     z4/pvp.yml Mists of Pandaria
     z3/pvp.yml Cataclysm
     z2/pvp.yml Wrath of the Lich King

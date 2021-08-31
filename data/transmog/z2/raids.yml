@@ -15,6 +15,7 @@ groups:
     death-knight:
     # 25 Heroic set=840
     - name: Sanctified Scourgelord's Plate
+      wowheadSetId: 504
       items:
         1: 12463 # Head
         3: 12474 # Shoulders
@@ -27,6 +28,7 @@ groups:
 
     # 25 Normal set=839
     - name: Sanctified Scourgelord's Plate
+      wowheadSetId: 503
       items:
         1: 12569 # Head
         3: 12567 # Shoulders
@@ -36,6 +38,7 @@ groups:
 
     # 10 Normal set=838
     - name: Scourgelord's Plate
+      wowheadSetId: 502
       items:
         1: 12300 # Head
         3: 12302 # Shoulders
@@ -49,6 +52,7 @@ groups:
     druid:
     # 25 Heroic set=824
     - name: Sanctified Lasherweave Battlegear
+      wowheadSetId: 524
       items:
         1:  12484 # Head
         3:  12506 # Shoulders
@@ -60,6 +64,7 @@ groups:
 
     # 25 Normal set=823
     - name: Sanctified Lasherweave Battlegear
+      wowheadSetId: 523
       items:
         1:  12262 # Head
         3:  12340 # Shoulders
@@ -72,6 +77,7 @@ groups:
 
     # 10 Normal set=822
     - name: Lasherweave Battlegear
+      wowheadSetId: 522
       items:
         1:  12306 # Head
         3:  12308 # Shoulders
@@ -85,6 +91,7 @@ groups:
     hunter:
     # 25 Heroic set=737
     - name: Sanctified Ahn'Kahar Blood Hunter's Battlegear
+      wowheadSetId: 546
       items:
         1:  12443 12596 # Head
         3:  12481 # Shoulders
@@ -97,6 +104,7 @@ groups:
 
     # 25 Normal set=736
     - name: Sanctified Ahn'Kahar Blood Hunter's Battlegear
+      wowheadSetId: 545
       items:
         1:  12234 # Head
         3:  12261 # Shoulders
@@ -109,6 +117,7 @@ groups:
 
     # 10 Normal set=735
     - name: Ahn'Kahar Blood Hunter's Battlegear
+      wowheadSetId: 544
       items:
         1:  12310 # Head
         3:  12312 # Shoulders
@@ -122,6 +131,7 @@ groups:
     mage:
     # 25 Heroic set=721
     - name: Sanctified Bloodmage's Regalia
+      wowheadSetId: 568
       items:
         1:  12592 # Head
         3:  12595 # Shoulders
@@ -132,6 +142,7 @@ groups:
 
     # 25 Normal set=720
     - name: Sanctified Bloodmage's Regalia
+      wowheadSetId: 567
       items:
         1:  12574 # Head
         3:  12245 12573 # Shoulders
@@ -144,6 +155,7 @@ groups:
 
     # 10 Normal set=719
     - name: Bloodmage's Regalia
+      wowheadSetId: 566
       items:
         1:  12388 12743 # Head
         3:  12391 12741 # Shoulders
@@ -157,6 +169,7 @@ groups:
     paladin:
     # 25 Heroic set=705
     - name: Sanctified Lightsworn Plate
+      wowheadSetId: 590
       items:
         1:  12498 # Head
         3:  12452 # Shoulders
@@ -169,6 +182,7 @@ groups:
 
     # 25 Normal set=704
     - name: Sanctified Lightsworn Plate
+      wowheadSetId: 589
       items:
         1:  12280 # Head
         3:  12240 # Shoulders
@@ -181,6 +195,7 @@ groups:
 
     # 10 Normal set=703
     - name: Lightsworn Plate
+      wowheadSetId: 588
       items:
         1:  12411 # Head
         3:  12409 # Shoulders
@@ -194,6 +209,7 @@ groups:
     priest:
     # 25 Heroic set=348
     - name: Sanctified Crimson Acolyte Regalia
+      wowheadSetId: 612
       items:
         1:  12475 # Head
         3:  12588 # Shoulders
@@ -205,6 +221,7 @@ groups:
 
     # 25 Normal set=347
     - name: Sanctified Crimson Acolyte Regalia
+      wowheadSetId: 611
       items:
         1:  12254 # Head
         3:  12438 # Shoulders
@@ -217,6 +234,7 @@ groups:
 
     # 10 Normal set=346
     - name: Crimson Acolyte Regalia
+      wowheadSetId: 610
       items:
         1:  12416 # Head
         3:  12419 # Shoulders
@@ -230,6 +248,7 @@ groups:
     rogue:
     # 25 Heroic set=689
     - name: Sanctified Shadowblade's Battlegear
+      wowheadSetId: 634
       items:
         1:  12505 # Head
         3:  12467 # Shoulders
@@ -242,6 +261,7 @@ groups:
 
     # 25 Normal set=688
     - name: Sanctified Shadowblade's Battlegear
+      wowheadSetId: 633
       items:
         1:  12288 # Head
         3:  12244 12762 # Shoulders
@@ -254,6 +274,7 @@ groups:
 
     # 10 Normal set=687
     - name: Shadowblade's Battlegear
+      wowheadSetId: 632
       items:
         1:  12296 # Head
         3:  12303 # Shoulders
@@ -267,6 +288,7 @@ groups:
     shaman:
     # 25 Heroic set=639
     - name: Frost Witch's Regalia
+      wowheadSetId: 656
       items:
         1:  12458 # Head
         3:  12496 26844 # Shoulders
@@ -279,6 +301,7 @@ groups:
 
     # 25 Normal set=638
     - name: Frost Witch's Regalia
+      wowheadSetId: 655
       items:
         1:  12355 # Head
         3:  12279 # Shoulders
@@ -291,6 +314,7 @@ groups:
 
     # 10 Normal set=637
     - name: Frost Witch's Regalia
+      wowheadSetId: 654
       items:
         1:  12538 # Head
         3:  12550 # Shoulders
@@ -304,6 +328,7 @@ groups:
     warlock:
     # 25 Heroic set=673
     - name: Sanctified Dark Coven's Regalia
+      wowheadSetId: 678
       items:
         1:  12586 # Head
         3:  12465 # Shoulders
@@ -316,6 +341,7 @@ groups:
 
     # 25 Normal set=672
     - name: Sanctified Dark Coven's Regalia
+      wowheadSetId: 677
       items:
         1:  12579 # Head
         3:  12576 # Shoulders
@@ -325,6 +351,7 @@ groups:
 
     # 10 Normal set=671
     - name: Dark Coven's Regalia
+      wowheadSetId: 676
       items:
         1:  12371 # Head
         3:  12374 # Shoulders
@@ -335,6 +362,7 @@ groups:
     warrior:
     # 25 Heroic set=298
     - name: Sanctified Ymirjar Lord's Battlegear
+      wowheadSetId: 929
       items:
         1:  12582 # Head
         3:  12585 # Shoulders
@@ -345,6 +373,7 @@ groups:
 
     # 25 Normal set=656
     - name: Sanctified Ymirjar Lord's Battlegear
+      wowheadSetId: 699
       items:
         1:  12243 # Head
         3:  12253 # Shoulders
@@ -357,6 +386,7 @@ groups:
 
     # 10 Normal set=655
     - name: Ymirjar Lord's Battlegear
+      wowheadSetId: 698
       items:
         1:  12291 # Head
         3:  12293 # Shoulders
@@ -371,137 +401,276 @@ groups:
   tag: T9
   type: class
   sets:
-  - 10 Normal
+  - Alliance
+  - Horde
   data:
     death-knight:
-    # 10 Normal set=841,842
-    - name: Koltira's Battlegear / Thassarian's Battlegear
+    # 10 Normal (Alliance) set=842
+    - name: Thassarian's Battlegear
+      wowheadSetId: 500
       items:
-        1:  11904 11905 19498 # Head
-        3:  11921 11923 # Shoulders
-        5:  11746 11827 # Chest
-        6:  11741 11811 11897 # Waist
-        7:  11757 11838 # Legs
-        8:  11765 11812 # Feet
-        9:  11711 11891 # Wrists
-        10: 11791 11960 # Hands
+        1:  11905 # Head
+        3:  11923 # Shoulders
+        5:  11746 # Chest
+        6:  11741 11897 # Waist
+        7:  11757 # Legs
+        8:  11765 # Feet
+        9:  11711 # Wrists
+        10: 11791 # Hands
+
+    # 10 Normal (Horde) set=841
+    - name: Koltira's Battlegear
+      wowheadSetId: 501
+      items:
+        1:  11904 19498 # Head
+        3:  11921 # Shoulders
+        5:  11827 # Chest
+        6:  11811 # Waist
+        7:  11838 # Legs
+        8:  11812 # Feet
+        9:  11891 # Wrists
+        10: 11960 # Hands
 
     druid:
-    # 10 Normal set=825,826
-    - name: Malfurion's Battlegear / Runetotem's Battlegear
+    # 10 Normal (Alliance) set=825
+    - name: Malfurion's Battlegear
+      wowheadSetId: 520
       items:
-        1:  11915 11916 19492 # Head
-        3:  11896 11931 # Shoulders
-        5:  11751 11829 12561 12773 # Chest
-        6:  11761 11840 # Waist
-        7:  11777 11858 12017 # Legs
-        8:  11721 11805 # Feet
-        9:  11736 11818 # Wrists
-        10: 11984 11985 # Hands
+        1:  11915 # Head
+        3:  11896 # Shoulders
+        5:  11751 12561 12773 # Chest
+        6:  11761 # Waist
+        7:  11777 # Legs
+        8:  11721 # Feet
+        9:  11736 # Wrists
+        10: 11984 # Hands
+
+    # 10 Normal (Horde) set=826
+    - name: Runetotem's Battlegear
+      wowheadSetId: 521
+      items:
+        1:  11916 19492 # Head
+        3:  11931 # Shoulders
+        5:  11829 # Chest
+        6:  11840 # Waist
+        7:  11858 12017 # Legs
+        8:  11805 # Feet
+        9:  11818 # Wrists
+        10: 11985 # Hands
 
     hunter:
-    # 10 Normal set=738,739
-    - name: Windrunner's Pursuit / Windrunner's Battlegear
+    # 10 Normal (Alliance) set=739
+    - name: Windrunner's Battlegear
+      wowheadSetId: 542
       items:
-        1:  11909 11910 19495 # Head
-        3:  11926 11927 # Shoulders
-        5:  11710 11796 11988 # Chest
-        6:  11767 11843 # Waist
-        7:  11775 11848 # Legs
-        8:  11748 11833 # Feet
-        9:  11742 11821 # Wrists
-        10: 11986 11987 # Hands
+        1:  11910 # Head
+        3:  11926 # Shoulders
+        5:  11710 # Chest
+        6:  11767 # Waist
+        7:  11775 # Legs
+        8:  11748 # Feet
+        9:  11742 # Wrists
+        10: 11986 # Hands
+
+    # 10 Normal (Horde) set=738
+    - name: Windrunner's Pursuit
+      wowheadSetId: 543
+      items:
+        1:  11909 19495 # Head
+        3:  11927 # Shoulders
+        5:  11796 11988 # Chest
+        6:  11843 # Waist
+        7:  11848 # Legs
+        8:  11833 # Feet
+        9:  11821 # Wrists
+        10: 11987 # Hands
 
     mage:
-    # 10 Normal set=722,723
-    - name: Khadgar's Regalia / Sunstrider's Regalia
+    # 10 Normal (Alliance) set=722
+    - name: Khadgar's Regalia
+      wowheadSetId: 564
       items:
-        1:  11918 11945 19494 # Head
-        3:  11932 11947 # Shoulders
-        5:  11758 11836 12016 # Chest
-        6:  11745 11961 # Waist
-        7:  11944 11946 # Legs
-        8:  11849 41095 # Feet
-        9:  11762 11839 # Wrists
-        10: 11792 11854 # Hands
+        1:  11918 # Head
+        3:  11932 # Shoulders
+        5:  11758 # Chest
+        6:  11745 # Waist
+        7:  11944 # Legs
+        8:  41095 # Feet
+        9:  11762 # Wrists
+        10: 11792 # Hands
+
+    # 10 Normal (Horde) set=723
+    - name: Sunstrider's Regalia
+      wowheadSetId: 565
+      items:
+        1:  11945 19494 # Head
+        3:  11947 # Shoulders
+        5:  11836 12016 # Chest
+        6:  11961 # Waist
+        7:  11946 # Legs
+        8:  11849 # Feet
+        9:  11839 # Wrists
+        10: 11854 # Hands
 
     paladin:
-    # 10 Normal set=706,707
-    - name: Turalyon's Plate / Liadrin's Plate
+    # 10 Normal (Alliance) set=706
+    - name: Turalyon's Plate
+      wowheadSetId: 586
       items:
-        1:  11907 11908 19496 # Head
-        3:  11924 11925 # Shoulders
-        5:  11763 11842 # Chest
-        6:  11781 11851 11979 # Waist
-        7:  11738 11819 # Legs
-        8:  11720 11806 # Feet
-        9:  11750 11831 # Wrists
-        10: 12005 12006 # Hands
+        1:  11907 # Head
+        3:  11925 # Shoulders
+        5:  11763 # Chest
+        6:  11781 11979 # Waist
+        7:  11738 # Legs
+        8:  11720 # Feet
+        9:  11750 # Wrists
+        10: 12005 # Hands
+
+    # 10 Normal (Horde) set=707
+    - name: Liadrin's Plate
+      wowheadSetId: 587
+      items:
+        1:  11908 19496 # Head
+        3:  11924 # Shoulders
+        5:  11842 # Chest
+        6:  11851 # Waist
+        7:  11819 # Legs
+        8:  11806 # Feet
+        9:  11831 # Wrists
+        10: 12006 # Hands
 
     priest:
-    # 10 Normal set=349,350
-    - name: Velen's Regalia / Zabra's Regalia
+    # 10 Normal (Alliance) set=349
+    - name: Velen's Regalia
+      wowheadSetId: 608
       items:
-        1:  11919 11920 19493 # Head
-        3:  11934 11935 # Shoulders
-        5:  11723 11807 19499 # Chest
-        6:  11715 11801 # Waist
-        7:  11733 11815 # Legs
-        8:  11749 11830 # Feet
-        9:  11784 11852 # Wrists
-        10: 11980 11982 # Hands
+        1:  11919 # Head
+        3:  11934 # Shoulders
+        5:  11723 # Chest
+        6:  11715 # Waist
+        7:  11733 # Legs
+        8:  11749 # Feet
+        9:  11784 # Wrists
+        10: 11980 # Hands
+
+    # 10 Normal (Horde) set=350
+    - name: Zabra's Regalia
+      wowheadSetId: 609
+      items:
+        1:  11920 19493 # Head
+        3:  11935 # Shoulders
+        5:  11807 19499 # Chest
+        6:  11801 # Waist
+        7:  11815 # Legs
+        8:  11830 # Feet
+        9:  11852 # Wrists
+        10: 11982 # Hands
 
     rogue:
-    # 10 Normal set=690,691
-    - name: VanCleef's Battlegear / Garona's Battlegear
+    # 10 Normal (Alliance) set=690
+    - name: VanCleef's Battlegear
+      wowheadSetId: 630
       items:
-        1:  11913 11914 19490 # Head
-        3:  11929 11930 # Shoulders
-        5:  11730 11813 12527 12791 # Chest
-        6:  11754 11834 # Waist
-        7:  11716 11802 # Legs
-        8:  11740 11823 # Feet
-        9:  11766 11845 # Wrists
-        10: 11936 11966 # Hands
+        1:  11914 # Head
+        3:  11929 # Shoulders
+        5:  11730 12527 12791 # Chest
+        6:  11754 # Waist
+        7:  11716 # Legs
+        8:  11740 # Feet
+        9:  11766 # Wrists
+        10: 11936 # Hands
+
+    # 10 Normal (Horde) set=691
+    - name: Garona's Battlegear
+      wowheadSetId: 631
+      items:
+        1:  11913 19490 # Head
+        3:  11930 # Shoulders
+        5:  11813 # Chest
+        6:  11834 # Waist
+        7:  11802 # Legs
+        8:  11823 # Feet
+        9:  11845 # Wrists
+        10: 11966 # Hands
 
     shaman:
-    # 10 Normal set=640,641
-    - name: Nobundo's Garb / Thrall's Garb
+    # 10 Normal (Alliance) set=640
+    - name: Nobundo's Garb
+      wowheadSetId: 652
       items:
-        1:  11911 11912 19491 # Head
-        3:  11898 11928 # Shoulders
-        5:  11785 11853 11989 # Chest
-        6:  11722 11808 11857 # Waist
-        7:  11747 11828 # Legs
+        1:  11911 # Head
+        3:  11898 # Shoulders
+        5:  11785 # Chest
+        6:  11722 # Waist
+        7:  11747 # Legs
+        9:  11737 # Wrists
+        10: 11943 # Hands
+
+    # 10 Normal (Horde) set=641
+    - name: Thrall's Garb
+      wowheadSetId: 653
+      items:
+        1:  11912 19491 # Head
+        3:  11928 # Shoulders
+        5:  11853 11989 # Chest
+        6:  11808 11857 # Waist
+        7:  11828 # Legs
         8:  11832 # Feet
-        9:  11737 11820 # Wrists
-        10: 11943 11970 # Hands
+        9:  11820 # Wrists
+        10: 11970 # Hands
 
     warlock:
-    # 10 Normal set=674,675
-    - name: Kel'Thuzad's Regalia / Gul'dan's Regalia
+    # 10 Normal (Alliance) set=674
+    - name: Kel'Thuzad's Regalia
+      wowheadSetId: 674
       items:
-        1:  11917 11948 # Head
-        3:  11933 11949 # Shoulders
-        5:  11893 11951 # Chest
-        6:  11825 11899 # Waist
-        7:  11778 11847 # Legs
-        8:  11780 11937 11964 # Feet
+        1:  11948 # Head
+        3:  11949 # Shoulders
+        5:  11893 # Chest
+        6:  11899 # Waist
+        7:  11778 # Legs
+        8:  11780 11937 # Feet
         9:  11892 # Wrists
-        10: 11950 11952 # Hands
+        10: 11950 # Hands
+
+    # 10 Normal (Horde) set=675
+    - name: Gul'dan's Regalia
+      wowheadSetId: 675
+      items:
+        1:  11917 # Head
+        3:  11933 # Shoulders
+        5:  11951 # Chest
+        6:  11825 # Waist
+        7:  11847 # Legs
+        8:  11964 # Feet
+        10: 11952 # Hands
 
     warrior:
-    # 10 Normal set=657,658
-    - name: Hellscream's Battlegear / Wrynn's Battlegear
+    # 10 Normal (Alliance) set=658
+    - name: Wrynn's Battlegear
+      wowheadSetId: 696
       items:
-        1:  11903 11906 19497 # Head
-        3:  11922 11965 # Shoulders
-        5:  11712 11798 # Chest
-        6:  11729 11822 # Waist
-        7:  11734 11814 # Legs
-        8:  11727 11844 # Feet
-        9:  11755 11797 # Wrists
-        10: 11856 11894 # Hands
+        1:  11903 # Head
+        3:  11922 # Shoulders
+        5:  11712 # Chest
+        6:  11729 # Waist
+        7:  11734 # Legs
+        8:  11727 # Feet
+        9:  11755 # Wrists
+        10: 11894 # Hands
+
+    # 10 Normal (Horde) set=657
+    - name: Hellscream's Battlegear
+      wowheadSetId: 697
+      items:
+        1:  11906 19497 # Head
+        3:  11965 # Shoulders
+        5:  11798 # Chest
+        6:  11822 # Waist
+        7:  11814 # Legs
+        8:  11844 # Feet
+        9:  11797 # Wrists
+        10: 11856 # Hands
 
 - name: Ulduar
   tag: T8
@@ -513,6 +682,7 @@ groups:
     death-knight:
     # 25 Normal set=844
     - name: Conqueror's Darkruned Plate
+      wowheadSetId: 499
       items:
         1:  10325 # Head
         3:  10328 # Shoulders
@@ -523,6 +693,7 @@ groups:
 
     # 10 Normal set=843
     - name: Valorous Darkruned Plate
+      wowheadSetId: 498
       items:
         1:  11400 # Head
         3:  11403 # Shoulders
@@ -533,6 +704,7 @@ groups:
     druid:
     # 25 Normal set=828
     - name: Conqueror's Nightsong Battlegear
+      wowheadSetId: 519
       items:
         1:  11673 # Head
         3:  11669 # Shoulders
@@ -542,6 +714,7 @@ groups:
 
     # 10 Normal set=827
     - name: Valorous Nightsong Battlegear
+      wowheadSetId: 518
       items:
         1:  11405 # Head
         3:  11408 # Shoulders
@@ -553,6 +726,7 @@ groups:
     hunter:
     # 25 Normal set=741
     - name: Conqueror's Scourgestalker Battlegear
+      wowheadSetId: 541
       items:
         1:  11659 # Head
         3:  11660 # Shoulders
@@ -563,6 +737,7 @@ groups:
 
     # 10 Normal set=740
     - name: Valorous Scourgestalker Battlegear
+      wowheadSetId: 540
       items:
         1:  11411 # Head
         3:  11413 # Shoulders
@@ -573,6 +748,7 @@ groups:
     mage:
     # 25 Normal set=725
     - name: Conqueror's Kirin Tor Garb
+      wowheadSetId: 563
       items:
         1:  11650 # Head
         3:  10463 # Shoulders
@@ -582,6 +758,7 @@ groups:
 
     # 10 Normal set=724
     - name: Valorous Kirin Tor Garb
+      wowheadSetId: 562
       items:
         1:  11415 # Head
         3:  11418 # Shoulders
@@ -592,6 +769,7 @@ groups:
     paladin:
     # 25 Normal set=709
     - name: Conqueror's Aegis Plate
+      wowheadSetId: 585
       items:
         1:  11668 # Head
         3:  11664 # Shoulders
@@ -603,6 +781,7 @@ groups:
 
     # 10 Normal set=708
     - name: Valorous Aegis Plate
+      wowheadSetId: 584
       items:
         1:  11421 # Head
         3:  11422 # Shoulders
@@ -614,6 +793,7 @@ groups:
     priest:
     # 25 Normal set=364
     - name: Conqueror's Sanctification Regalia
+      wowheadSetId: 607
       items:
         1:  11678 # Head
         3:  11675 # Shoulders
@@ -623,6 +803,7 @@ groups:
 
     # 10 Normal set=363
     - name: Valorous Sanctification Regalia
+      wowheadSetId: 606
       items:
         1:  11427 # Head
         3:  11431 # Shoulders
@@ -633,6 +814,7 @@ groups:
     rogue:
     # 25 Normal set=693
     - name: Conqueror's Terrorblade Battlegear
+      wowheadSetId: 629
       items:
         1:  11647 # Head
         3:  11649 # Shoulders
@@ -642,6 +824,7 @@ groups:
 
     # 10 Normal set=692
     - name: Valorous Terrorblade Battlegear
+      wowheadSetId: 628
       items:
         1:  11434 # Head
         3:  11436 # Shoulders
@@ -652,6 +835,7 @@ groups:
     shaman:
     # 25 Normal set=643
     - name: Conqueror's Worldbreaker Regalia
+      wowheadSetId: 651
       items:
         1:  11681 # Head
         3:  11683 # Shoulders
@@ -661,6 +845,7 @@ groups:
 
     # 10 Normal set=642
     - name: Valorous Worldbreaker Regalia
+      wowheadSetId: 650
       items:
         1:  11438 # Head
         3:  11440 # Shoulders
@@ -671,6 +856,7 @@ groups:
     warlock:
     # 25 Normal set=677
     - name: Conqueror's Deathbringer Garb
+      wowheadSetId: 673
       items:
         1:  11657 # Head
         3:  11655 # Shoulders
@@ -681,6 +867,7 @@ groups:
 
     # 10 Normal set=676
     - name: Valorous Deathbringer Garb
+      wowheadSetId: 672
       items:
         1:  11443 # Head
         3:  11447 # Shoulders
@@ -691,6 +878,7 @@ groups:
     warrior:
     # 25 Normal set=660
     - name: Conqueror's Siegebreaker Battlegear
+      wowheadSetId: 695
       items:
         1:  11663 # Head
         3:  11662 # Shoulders
@@ -701,6 +889,7 @@ groups:
 
     # 10 Normal set=659
     - name: Valorous Siegebreaker Battlegear
+      wowheadSetId: 694
       items:
         1:  11450 # Head
         3:  11453 # Shoulders
@@ -718,6 +907,7 @@ groups:
     death-knight:
     # 25 Normal set=846
     - name: Valorous Scourgeborne Plate
+      wowheadSetId: 497
       items:
         1:  10418 # Head
         3:  10420 # Shoulders
@@ -728,6 +918,7 @@ groups:
 
     # 10 Normal set=845
     - name: Heroes' Scourgeborne Plate
+      wowheadSetId: 496
       items:
         1:  10191 # Head
         3:  10193 # Shoulders
@@ -738,6 +929,7 @@ groups:
     druid:
     # 25 Normal set=830
     - name: Valorous Dreamwalker Battlegear
+      wowheadSetId: 517
       items:
         1:  10378 # Head
         3:  10382 # Shoulders
@@ -750,6 +942,7 @@ groups:
 
     # 10 Normal set=829
     - name: Heroes' Dreamwalker Battlegear
+      wowheadSetId: 516
       items:
         1:  10162 # Head
         3:  10165 # Shoulders
@@ -763,6 +956,7 @@ groups:
     hunter:
     # 25 Normal set=743
     - name: Valorous Cryptstalker Battlegear
+      wowheadSetId: 539
       items:
         1:  10397 # Head
         3:  10399 # Shoulders
@@ -775,6 +969,7 @@ groups:
 
     # 10 Normal set=742
     - name: Heroes' Cryptstalker Battlegear
+      wowheadSetId: 538
       items:
         1:  10173 # Head
         3:  10176 # Shoulders
@@ -788,6 +983,7 @@ groups:
     mage:
     # 25 Normal set=727
     - name: Valorous Frostfire Garb
+      wowheadSetId: 561
       items:
         1:  10358 # Head
         3:  10361 # Shoulders
@@ -800,6 +996,7 @@ groups:
 
     # 10 Normal set=726
     - name: Heroes' Frostfire Garb
+      wowheadSetId: 560
       items:
         1:  10146 # Head
         3:  10149 # Shoulders
@@ -813,6 +1010,7 @@ groups:
     paladin:
     # 25 Normal set=711
     - name: Valorous Redemption Plate
+      wowheadSetId: 583
       items:
         1:  10427 # Head
         3:  10429 # Shoulders
@@ -825,6 +1023,7 @@ groups:
 
     # 10 Normal set=710
     - name: Heroes' Redemption Plate
+      wowheadSetId: 582
       items:
         1:  10194 # Head
         3:  10197 # Shoulders
@@ -838,6 +1037,7 @@ groups:
     priest:
     # 25 Normal set=362
     - name: Valorous Regalia of Faith
+      wowheadSetId: 605
       items:
         1:  10157 # Head
         3:  10374 # Shoulders
@@ -850,6 +1050,7 @@ groups:
 
     # 10 Normal set=361
     - name: Heroes' Regalia of Faith
+      wowheadSetId: 604
       items:
         1:  10157 # Head
         3:  10160 # Shoulders
@@ -863,6 +1064,7 @@ groups:
     rogue:
     # 25 Normal set=695
     - name: Valorous Bonescythe Battlegear
+      wowheadSetId: 627
       items:
         1:  10392 # Head
         3:  10394 # Shoulders
@@ -875,6 +1077,7 @@ groups:
 
     # 10 Normal set=694
     - name: Heroes' Bonescythe Battlegear
+      wowheadSetId: 626
       items:
         1:  10170 # Head
         3:  10172 # Shoulders
@@ -888,6 +1091,7 @@ groups:
     shaman:
     # 25 Normal set=645
     - name: Valorous Earthshatter Regalia
+      wowheadSetId: 649
       items:
         1:  10402 # Head
         3:  10404 # Shoulders
@@ -900,6 +1104,7 @@ groups:
 
     # 10 Normal set=644
     - name: Heroes' Earthshatter Regalia
+      wowheadSetId: 648
       items:
         1:  10178 # Head
         3:  10181 # Shoulders
@@ -913,6 +1118,7 @@ groups:
     warlock:
     # 25 Normal set=679
     - name: Valorous Plagueheart Garb
+      wowheadSetId: 671
       items:
         1:  10363 # Head
         3:  10366 # Shoulders
@@ -925,6 +1131,7 @@ groups:
 
     # 10 Normal set=678
     - name: Heroes' Plagueheart Garb
+      wowheadSetId: 670
       items:
         1:  10151 # Head
         3:  10154 # Shoulders
@@ -935,6 +1142,7 @@ groups:
     warrior:
     # 25 Normal set=662
     - name: Valorous Dreadnaught Battlegear
+      wowheadSetId: 693
       items:
         1:  10408 # Head
         3:  10410 # Shoulders
@@ -947,6 +1155,7 @@ groups:
 
     # 10 Normal set=661
     - name: Heroes' Dreadnaught Battlegear
+      wowheadSetId: 692
       items:
         1:  10184 # Head
         3:  10187 # Shoulders
