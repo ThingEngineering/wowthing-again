@@ -27,13 +27,15 @@
     }
 </style>
 
-{#each category.groups as group}
-    <tr>
-        <td class="name highlight" colspan="13">
-            {#if group.tag}<span class="tag">[{group.tag}]</span>{/if}
-            {group.name}
-        </td>
-    </tr>
+{#each category.groups as group, groupIndex}
+    {#if groupIndex === 0 || category.groups[groupIndex-1].name !== group.name}
+        <tr>
+            <td class="name highlight" colspan="13">
+                {#if group.tag}<span class="tag">[{group.tag}]</span>{/if}
+                {group.name}
+            </td>
+        </tr>
+    {/if}
     {#each group.sets as setName, setIndex}
         <tr class:faded={setName.endsWith('*')}>
             <td class="name">&ndash {setName.replace('*', '')}</td>
