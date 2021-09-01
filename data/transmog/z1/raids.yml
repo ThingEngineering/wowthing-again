@@ -1,4 +1,4 @@
-name: The Burning Crusade
+name: Raids
 skipClasses:
 - death-knight
 - demon-hunter
@@ -14,6 +14,7 @@ groups:
     druid:
     # Normal set=919
     - name: Thunderheart Regalia
+      wowheadSetId: 417
       items:
         1:  8882 # Head
         3:  8864 # Shoulders
@@ -27,6 +28,7 @@ groups:
     hunter:
     # Normal set=911
     - name: Gronnstalker's Battlegear
+      wowheadSetId: 418
       items:
         1:  8924 # Head
         3:  8853 # Shoulders
@@ -40,6 +42,7 @@ groups:
     mage:
     # Normal set=903
     - name: Tempest Garb
+      wowheadSetId: 415
       items:
         1:  8953 # Head
         3:  8951 # Shoulders
@@ -53,6 +56,7 @@ groups:
     paladin:
     # Normal set=895
     - name: Lightbringer Battlegear
+      wowheadSetId: 420
       items:
         1:  8880 # Head
         3:  8852 # Shoulders
@@ -66,6 +70,7 @@ groups:
     priest:
     # Normal set=352
     - name: Vestments of Absolution
+      wowheadSetId: 414
       items:
         1:  8929 # Head
         3:  8859 # Shoulders
@@ -79,6 +84,7 @@ groups:
     rogue:
     # Normal set=887
     - name: Slayer's Battlegear
+      wowheadSetId: 416
       items:
         1:  8881 # Head
         3:  8854 # Shoulders
@@ -92,6 +98,7 @@ groups:
     shaman:
     # Normal set=869
     - name: Skyshatter Raiment
+      wowheadSetId: 419
       items:
         1:  8923 # Head
         3:  8863 # Shoulders
@@ -105,6 +112,7 @@ groups:
     warlock:
     # Normal set=932
     - name: Malefic Regalia
+      wowheadSetId: 413
       items:
         1:  8930 # Head
         3:  8865 # Shoulders
@@ -118,6 +126,7 @@ groups:
     warrior:
     # Normal set=931
     - name: Onslaught Battlegear
+      wowheadSetId: 421
       items:
         1:  8935 # Head
         3:  8851 # Shoulders
@@ -137,6 +146,7 @@ groups:
     druid:
     # Normal set=920
     - name: Thunderheart Raiment
+      wowheadSetId: 515
       items:
         1:  8087 # Head
         3:  8091 # Shoulders
@@ -150,6 +160,7 @@ groups:
     hunter:
     # Normal set=912
     - name: Gronnstalker's Armor
+      wowheadSetId: 537
       items:
         1:  8070 # Head
         3:  8073 # Shoulders
@@ -160,6 +171,7 @@ groups:
     mage:
     # Normal set=904
     - name: Tempest Regalia
+      wowheadSetId: 559
       items:
         1:  8098 # Head
         3:  8101 # Shoulders
@@ -172,6 +184,7 @@ groups:
     paladin:
     # Normal set=896
     - name: Lightbringer Armor
+      wowheadSetId: 581
       items:
         1:  8064 # Head
         3:  8067 # Shoulders
@@ -185,6 +198,7 @@ groups:
     priest:
     # Normal set=351
     - name: Absolution Regalia
+      wowheadSetId: 603
       items:
         1:  8104 # Head
         3:  8107 # Shoulders
@@ -198,6 +212,7 @@ groups:
     rogue:
     # Normal set=888
     - name: Slayer's Armor
+      wowheadSetId: 625
       items:
         1:  8082 # Head
         3:  8085 # Shoulders
@@ -209,6 +224,7 @@ groups:
     shaman:
     # Normal set=870
     - name: Skyshatter Regalia
+      wowheadSetId: 647
       items:
         1:  8076 # Head
         3:  8080 # Shoulders
@@ -221,6 +237,7 @@ groups:
     warlock:
     # Normal set=862
     - name: Malefic Raiment
+      wowheadSetId: 669
       items:
         1:  8093 # Head
         3:  8096 # Shoulders
@@ -232,6 +249,7 @@ groups:
     warrior:
     # Normal set=847
     - name: Onslaught Armor
+      wowheadSetId: 691
       items:
         1:  8059 # Head
         3:  8062 # Shoulders
@@ -251,6 +269,7 @@ groups:
     druid:
     # Normal set=921
     - name: Nordrassil Raiment
+      wowheadSetId: 514
       items:
         1:  7858 # Head
         3:  7860 # Shoulders
@@ -263,6 +282,7 @@ groups:
     hunter:
     # Normal set=918
     - name: Rift Stalker Armor
+      wowheadSetId: 536
       items:
         1:  7821 # Head
         3:  7823 # Shoulders
@@ -276,6 +296,7 @@ groups:
     mage:
     # Normal set=905
     - name: Tirisfal Regalia
+      wowheadSetId: 558
       items:
         1:  7848 # Head
         3:  7850 # Shoulders
@@ -288,6 +309,7 @@ groups:
     paladin:
     # Normal set=897
     - name: Crystalforge Armor
+      wowheadSetId: 580
       items:
         1:  7816 # Head
         3:  7818 # Shoulders
@@ -300,6 +322,7 @@ groups:
     priest:
     # Normal set=353
     - name: Avatar Regalia
+      wowheadSetId: 602
       items:
         1:  7832 # Head
         3:  7834 # Shoulders
@@ -312,6 +335,7 @@ groups:
     rogue:
     # Normal set=889
     - name: Deathmantle
+      wowheadSetId: 624
       items:
         1:  7826 # Head
         3:  7829 # Shoulders
@@ -325,6 +349,7 @@ groups:
     shaman:
     # Normal set=871
     - name: Cataclysm Regalia
+      wowheadSetId: 646
       items:
         1:  7838 # Head
         3:  7840 # Shoulders
@@ -337,6 +362,7 @@ groups:
     warlock:
     # Normal set=863
     - name: Corruptor Raiment
+      wowheadSetId: 668
       items:
         1:  7852 # Head
         3:  7855 # Shoulders
@@ -349,6 +375,7 @@ groups:
     warrior:
     # Normal set=848
     - name: Destroyer Armor
+      wowheadSetId: 690
       items:
         1:  7811 # Head
         3:  7813 # Shoulders
@@ -368,6 +395,7 @@ groups:
     druid:
     # Normal set=922
     - name: Malorne Raiment
+      wowheadSetId: 513
       items:
         1:  7467 # Head
         3:  7470 # Shoulders
@@ -381,6 +409,7 @@ groups:
     hunter:
     # Normal set=913
     - name: Demon Stalker Armor
+      wowheadSetId: 535
       items:
         1:  7462 # Head
         3:  7465 # Shoulders
@@ -394,6 +423,7 @@ groups:
     mage:
     # Normal set=898
     - name: Aldor Regalia
+      wowheadSetId: 557
       items:
         1:  7457 # Head
         3:  7460 # Shoulders
@@ -407,6 +437,7 @@ groups:
     paladin:
     # Normal set=906
     - name: Justicar Armor
+      wowheadSetId: 579
       items:
         1:  7452 # Head
         3:  7455 # Shoulders
@@ -420,6 +451,7 @@ groups:
     priest:
     # Normal set=354
     - name: Incarnate Regalia
+      wowheadSetId: 601
       items:
         1:  7446 # Head
         3:  7449 # Shoulders
@@ -433,6 +465,7 @@ groups:
     rogue:
     # Normal set=890
     - name: Netherblade
+      wowheadSetId: 623
       items:
         1:  7441 # Head
         3:  7444 # Shoulders
@@ -446,6 +479,7 @@ groups:
     shaman:
     # Normal set=872
     - name: Cyclone Regalia
+      wowheadSetId: 645
       items:
         1:  7436 # Head
         3:  7439 # Shoulders
@@ -459,6 +493,7 @@ groups:
     warlock:
     # Normal set=864
     - name: Voidheart Raiment
+      wowheadSetId: 667
       items:
         1:  7414 # Head
         3:  7418 # Shoulders
@@ -472,6 +507,7 @@ groups:
     warrior:
     # Normal set=849
     - name: Warbringer Armor
+      wowheadSetId: 689
       items:
         1:  7431 # Head
         3:  7434 # Shoulders

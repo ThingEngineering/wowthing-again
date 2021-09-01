@@ -2,12 +2,15 @@
     import {transmogSets} from '@/data/transmog-sets'
     import type {Dictionary} from '@/types'
     import type {TransmogDataCategory} from '@/types/data'
+    import getTransmogSpan from '@/utils/get-transmog-span'
 
     import TransmogTableSet from './TransmogTableSet.svelte'
 
     export let category: TransmogDataCategory
     export let setKey: string
     export let skipClasses: Dictionary<boolean>
+
+    console.log(category)
 </script>
 
 <style lang="scss">
@@ -27,22 +30,24 @@
     }
 </style>
 
-{#each category.groups as group}
-    <tr>
-        <td class="name highlight" colspan="13">
-            {#if group.tag}<span class="tag">[{group.tag}]</span>{/if}
-            {group.name}
-        </td>
-    </tr>
+{#each category.groups as group, groupIndex}
+    {#if groupIndex === 0 || category.groups[groupIndex-1].name !== group.name}
+        <tr>
+            <td class="name highlight" colspan="13">
+                {#if group.tag}<span class="tag">[{group.tag}]</span>{/if}
+                {group.name}
+            </td>
+        </tr>
+    {/if}
     {#each group.sets as setName, setIndex}
-        <tr class:faded={setName.endsWith('Elite')}>
-            <td class="name">&ndash {setName}</td>
+        <tr class:faded={setName.endsWith('*')}>
+            <td class="name">&ndash {setName.replace('*', '')}</td>
 
             {#each transmogSets[group.type] as transmogSet (`set--${setKey}--${setName}--${transmogSet.type}`)}
                 {#if !skipClasses[transmogSet.type]}
                     <TransmogTableSet
                         set={group.data?.[transmogSet.type]?.[setIndex]}
-                        span={transmogSet.span}
+                        span={getTransmogSpan(group, transmogSet, skipClasses)}
                         subType={transmogSet.subType}
                     />
                 {/if}

@@ -21,6 +21,7 @@ export interface TransmogDataGroup {
 }
 
 export interface TransmogDataGroupData {
+    wowheadSetId: number
     name: string
     items: Dictionary<number[]>
 }

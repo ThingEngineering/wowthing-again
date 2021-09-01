@@ -25,6 +25,10 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
         const userTransmogData = get(userTransmogStore).data
 
         for (const baseSet of transmogData.sets) {
+            if (baseSet === null) {
+                continue
+            }
+
             const baseData = has[baseSet[0].slug] = new UserTransmogDataHas(0, 0)
 
             for (const set of baseSet.slice(1)) {
@@ -33,7 +37,7 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
                 for (const group of set.groups) {
                     for (const groupData of values(group.data)) {
                         for (let groupIndex = 0; groupIndex < groupData.length; groupIndex++) {
-                            if (group.sets[groupIndex].endsWith('Elite')) {
+                            if (group.sets[groupIndex].endsWith('*')) {
                                 continue
                             }
 

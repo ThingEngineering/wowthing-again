@@ -5,11 +5,11 @@ groups:
   things:
   - 339632 # Arboreal Gulper (Humon'gozz, Ardenweald)
   - 334364 # Spinemaw Gladechewer (Gormtamer Tizo, Ardenweald)
-  - 312765 # Sundancer (Sundancer, Ardenweald)
   - 312767 # Swift Gloomhoof (Night Mare, Adrenweald)
 
-#- name: Bastion
-#  things:
+- name: Bastion
+  things:
+  - 312765 # Sundancer (Sundancer, Ardenweald)
 
 - name: Maldraxxus
   things:
