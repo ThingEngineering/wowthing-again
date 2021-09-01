@@ -14,6 +14,7 @@ groups:
     death-knight:
     # Mythic set=568
     - name: Demongaze Armor
+      wowheadSetId: 2040
       items:
         1:  26061 # Head
         3:  26062 # Shoulders
@@ -26,6 +27,7 @@ groups:
 
     # Heroic set=567
     - name: Demongaze Armor
+      wowheadSetId: 2039
       items:
         1:  26460 # Head
         3:  26462 # Shoulders
@@ -38,6 +40,7 @@ groups:
 
     # Normal set=566
     - name: Demongaze Armor
+      wowheadSetId: 2038
       items:
         1:  26468 # Head
         3:  26470 # Shoulders
@@ -51,6 +54,7 @@ groups:
     druid:
     # Mythic set=553
     - name: Oathclaw Wargarb
+      wowheadSetId: 2016
       items:
         1:  25619 # Head
         3:  25621 # Shoulders
@@ -63,6 +67,7 @@ groups:
 
     # Heroic set=552
     - name: Oathclaw Wargarb
+      wowheadSetId: 2015
       items:
         1:  25579 # Head
         3:  25581 # Shoulders
@@ -75,6 +80,7 @@ groups:
 
     # Normal set=551
     - name: Oathclaw Wargarb
+      wowheadSetId: 2014
       items:
         1:  25588 # Head
         3:  25590 # Shoulders
@@ -88,6 +94,7 @@ groups:
     hunter:
     # Mythic set=535
     - name: Battlegear of the Savage Hunt
+      wowheadSetId: 2022
       items:
         1: 25716 # Head
         3: 25719 # Shoulders
@@ -100,6 +107,7 @@ groups:
 
     # Heroic set=534
     - name: Battlegear of the Savage Hunt
+      wowheadSetId: 2021
       items:
         1: 25741 # Head
         3: 25743 # Shoulders
@@ -112,6 +120,7 @@ groups:
 
     # Normal set=533
     - name: Battlegear of the Savage Hunt
+      wowheadSetId: 2020
       items:
         1: 25749 # Head
         3: 25751 # Shoulders
@@ -125,6 +134,7 @@ groups:
     mage:
     # Mythic set=518
     - name: Raiment of the Arcanic Conclave
+      wowheadSetId: 1986
       items:
         1:  25530 # Head
         3:  25532 # Shoulders
@@ -137,6 +147,7 @@ groups:
 
     # Heroic set=519
     - name: Raiment of the Arcanic Conclave
+      wowheadSetId: 1985
       items:
         1:  25423 # Head
         3:  25425 # Shoulders
@@ -149,6 +160,7 @@ groups:
 
     # Normal set=517
     - name: Raiment of the Arcanic Conclave
+      wowheadSetId: 1984
       items:
         1:  25451 # Head
         3:  25453 # Shoulders
@@ -162,6 +174,7 @@ groups:
     monk:
     # Mythic set=505
     - name: Battlewrap of the Hurricane's Eye
+      wowheadSetId: 2004
       items:
         1: 26141 # Head
         3: 26144 # Shoulders
@@ -174,6 +187,7 @@ groups:
 
     # Heroic set=503
     - name: Battlewrap of the Hurricane's Eye
+      wowheadSetId: 2003
       items:
         1: 26113 # Head
         3: 26115 # Shoulders
@@ -186,6 +200,7 @@ groups:
 
     # Normal set=502
     - name: Battlewrap of the Hurricane's Eye
+      wowheadSetId: 2002
       items:
         1: 26104 # Head
         3: 26105 # Shoulders
@@ -199,6 +214,7 @@ groups:
     paladin:
     # Mythic set=482
     - name: Watch of the Ceaseless Vigil
+      wowheadSetId: 2046
       items:
         1: 25778 # Head
         3: 25779 # Shoulders
@@ -211,6 +227,7 @@ groups:
 
     # Heroic set=481
     - name: Watch of the Ceaseless Vigil
+      wowheadSetId: 2045
       items:
         1: 25708 # Head
         3: 25709 # Shoulders
@@ -223,6 +240,7 @@ groups:
 
     # Normal set=480
     - name: Watch of the Ceaseless Vigil
+      wowheadSetId: 2044
       items:
         1: 25700 # Head
         3: 25701 # Shoulders
@@ -236,6 +254,7 @@ groups:
     priest:
     # Mythic set=325
     - name: Attire of Piety
+      wowheadSetId: 1992
       items:
         1:  25872 # Head
         3:  25874 # Shoulders
@@ -248,6 +267,7 @@ groups:
 
     # Heroic set=324
     - name: Attire of Piety
+      wowheadSetId: 1991
       items:
         1:  25890 # Head
         3:  25893 # Shoulders
@@ -260,6 +280,7 @@ groups:
 
     # Normal set=323
     - name: Attire of Piety
+      wowheadSetId: 1990
       items:
         1:  25908 # Head
         3:  25911 # Shoulders
@@ -273,6 +294,7 @@ groups:
     rogue:
     # Mythic set=467
     - name: Felblade Armor
+      wowheadSetId: 2010
       items:
         1:  25819 # Head
         3:  25821 # Shoulders
@@ -285,6 +307,7 @@ groups:
 
     # Heroic set=466
     - name: Felblade Armor
+      wowheadSetId: 2009
       items:
         1:  25810 # Head
         3:  25813 # Shoulders
@@ -297,6 +320,7 @@ groups:
 
     # Normal set=465
     - name: Felblade Armor
+      wowheadSetId: 2008
       items:
         1:  25802 # Head
         3:  25805 # Shoulders
@@ -310,6 +334,7 @@ groups:
     shaman:
     # Mythic set=417
     - name: Embrace of the Living Mountain
+      wowheadSetId: 2028
       items:
         1:  26000 # Head
         3:  26002 # Shoulders
@@ -322,6 +347,7 @@ groups:
 
     # Heroic set=416
     - name: Embrace of the Living Mountain
+      wowheadSetId: 2027
       items:
         1:  26036 # Head
         3:  26038 # Shoulders
@@ -334,6 +360,7 @@ groups:
 
     # Normal set=415
     - name: Embrace of the Living Mountain
+      wowheadSetId: 2026
       items:
         1:  26019 # Head
         3:  26021 # Shoulders
@@ -347,6 +374,7 @@ groups:
     warlock:
     # Mythic set=450
     - name: Deathrattle Regalia
+      wowheadSetId: 1998
       items:
         1:  26214 # Head
         3:  26216 # Shoulders
@@ -359,6 +387,7 @@ groups:
 
     # Heroic set=451
     - name: Deathrattle Regalia
+      wowheadSetId: 1997
       items:
         1:  26160 # Head
         3:  26162 # Shoulders
@@ -371,6 +400,7 @@ groups:
 
     # Normal set=449
     - name: Deathrattle Regalia
+      wowheadSetId: 1996
       items:
         1:  26169 # Head
         3:  26171 # Shoulders
@@ -384,6 +414,7 @@ groups:
     warrior:
     # Mythic set=434
     - name: Battlegear of Iron Wrath
+      wowheadSetId: 2034
       items:
         1:  25649 # Head
         3:  25650 # Shoulders
@@ -396,6 +427,7 @@ groups:
 
     # Heroic set=433
     - name: Battlegear of Iron Wrath
+      wowheadSetId: 2033
       items:
         1:  25492 # Head
         3:  25493 # Shoulders
@@ -408,6 +440,7 @@ groups:
 
     # Normal set=432
     - name: Battlegear of Iron Wrath
+      wowheadSetId: 2032
       items:
         1:  25500 # Head
         3:  25501 # Shoulders
@@ -429,6 +462,7 @@ groups:
     death-knight:
     # Mythic set=571
     - name: Ogreskull Boneplate Battlegear
+      wowheadSetId: 1885
       items:
         1:  24087 # Head
         3:  24089 # Shoulders
@@ -441,6 +475,7 @@ groups:
 
     # Heroic set=570
     - name: Ogreskull Boneplate Battlegear
+      wowheadSetId: 1884
       items:
         1:  23898 # Head
         3:  23899 # Shoulders
@@ -453,6 +488,7 @@ groups:
 
     # Normal set=569
     - name: Ogreskull Boneplate Battlegear
+      wowheadSetId: 1883
       items:
         1:  23890 # Head
         3:  23891 # Shoulders
@@ -466,6 +502,7 @@ groups:
     druid:
     # Mythic set=556
     - name: Living Wood Battlegear
+      wowheadSetId: 1855
       items:
         1:  23658 # Head
         3:  23661 # Shoulders
@@ -478,6 +515,7 @@ groups:
 
     # Heroic set=555
     - name: Living Wood Battlegear
+      wowheadSetId: 1854
       items:
         1:  23668 # Head
         3:  23670 # Shoulders
@@ -490,6 +528,7 @@ groups:
 
     # Normal set=554
     - name: Living Wood Battlegear
+      wowheadSetId: 1853
       items:
         1:  23649 # Head
         3:  23651 # Shoulders
@@ -503,6 +542,7 @@ groups:
     hunter:
     # Mythic set=538
     - name: Rylakstalker's Battlegear
+      wowheadSetId: 1873
       items:
         1: 23914 # Head
         3: 23920 # Shoulders
@@ -515,6 +555,7 @@ groups:
 
     # Heroic set=537
     - name: Rylakstalker's Battlegear
+      wowheadSetId: 1872
       items:
         1: 23769 # Head
         3: 23771 # Shoulders
@@ -527,6 +568,7 @@ groups:
 
     # Normal set=536
     - name: Rylakstalker's Battlegear
+      wowheadSetId: 1871
       items:
         1: 23777 # Head
         3: 23779 # Shoulders
@@ -540,6 +582,7 @@ groups:
     mage:
     # Mythic set=522
     - name: Arcanoshatter Regalia
+      wowheadSetId: 1837
       items:
         1:  23604 # Head
         3:  23607 # Shoulders
@@ -552,6 +595,7 @@ groups:
 
     # Heroic set=521
     - name: Arcanoshatter Regalia
+      wowheadSetId: 1836
       items:
         1:  23422 # Head
         3:  23425 # Shoulders
@@ -564,6 +608,7 @@ groups:
 
     # Normal set=520
     - name: Arcanoshatter Regalia
+      wowheadSetId: 1835
       items:
         1:  23413 # Head
         3:  23416 # Shoulders
@@ -577,6 +622,7 @@ groups:
     monk:
     # Mythic set=501
     - name: Battlegear of the Somber Gaze
+      wowheadSetId: 1861
       items:
         1:  23640 # Head
         3:  23642 # Shoulders
@@ -589,6 +635,7 @@ groups:
 
     # Heroic set=500
     - name: Battlegear of the Somber Gaze
+      wowheadSetId: 1860
       items:
         1:  23471 # Head
         3:  23473 # Shoulders
@@ -601,6 +648,7 @@ groups:
 
     # Normal set=498
     - name: Battlegear of the Somber Gaze
+      wowheadSetId: 1859
       items:
         1:  23479 # Head
         3:  23481 # Shoulders
@@ -614,6 +662,7 @@ groups:
     paladin:
     # Mythic set=485
     - name: Battlegear of Guiding Light
+      wowheadSetId: 1891
       items:
         1:  23221 # Head
         3:  23223 # Shoulders
@@ -626,6 +675,7 @@ groups:
 
     # Heroic set=484
     - name: Battlegear of Guiding Light
+      wowheadSetId: 1890
       items:
         1:  23001 # Head
         3:  23003 # Shoulders
@@ -638,6 +688,7 @@ groups:
 
     # Normal set=483
     - name: Battlegear of Guiding Light
+      wowheadSetId: 1889
       items:
         1:  23009 # Head
         3:  23011 # Shoulders
@@ -651,6 +702,7 @@ groups:
     priest:
     # Mythic set=329
     - name: Soul Priest's Raiment
+      wowheadSetId: 1843
       items:
         1:  24029 # Head
         3:  24031 # Shoulders
@@ -663,6 +715,7 @@ groups:
 
     # Heroic set=419
     - name: Soul Priest's Raiment
+      wowheadSetId: 1842
       items:
         1:  23832 # Head
         3:  23835 # Shoulders
@@ -675,6 +728,7 @@ groups:
 
     # Normal set=327
     - name: Soul Priest's Raiment
+      wowheadSetId: 1841
       items:
         1:  23821 # Head
         3:  23819 # Shoulders
@@ -688,6 +742,7 @@ groups:
     rogue:
     # Mythic set=470
     - name: Poisoner's Battlegear
+      wowheadSetId: 1867
       items:
         1:  23489 # Head
         3:  23491 # Shoulders
@@ -700,6 +755,7 @@ groups:
 
     # Heroic set=469
     - name: Poisoner's Battlegear
+      wowheadSetId: 1866
       items:
         1:  23140 # Head
         3:  23135 # Shoulders
@@ -712,6 +768,7 @@ groups:
 
     # Normal set=468
     - name: Poisoner's Battlegear
+      wowheadSetId: 1865
       items:
         1:  23127 # Head
         3:  23132 # Shoulders
@@ -725,6 +782,7 @@ groups:
     shaman:
     # Mythic set=420
     - name: Windspeaker's Regalia
+      wowheadSetId: 1879
       items:
         1:  23678 # Head
         3:  23679 # Shoulders
@@ -737,6 +795,7 @@ groups:
 
     # Heroic set=328
     - name: Windspeaker's Regalia
+      wowheadSetId: 1878
       items:
         1:  23370 # Head
         3:  23371 # Shoulders
@@ -749,6 +808,7 @@ groups:
 
     # Normal set=418
     - name: Windspeaker's Regalia
+      wowheadSetId: 1877
       items:
         1:  23360 # Head
         3:  23361 # Shoulders
@@ -762,6 +822,7 @@ groups:
     warlock:
     # Mythic set=453
     - name: Shadow Council's Garb
+      wowheadSetId: 1849
       items:
         1:  23866 # Head
         3:  23869 # Shoulders
@@ -774,6 +835,7 @@ groups:
 
     # Heroic set=454
     - name: Shadow Council's Garb
+      wowheadSetId: 1848
       items:
         1:  23841 # Head
         3:  23844 # Shoulders
@@ -786,6 +848,7 @@ groups:
 
     # Normal set=452
     - name: Shadow Council's Garb
+      wowheadSetId: 1847
       items:
         1:  23850 # Head
         3:  23853 # Shoulders
@@ -799,6 +862,7 @@ groups:
     warrior:
     # Mythic set=437
     - name: Blackhand's Battlegear
+      wowheadSetId: 1897
       items:
         1:  23151 # Head
         3:  23152 # Shoulders
@@ -811,6 +875,7 @@ groups:
 
     # Heroic set=436
     - name: Blackhand's Battlegear
+      wowheadSetId: 1896
       items:
         1:  23113 # Head
         3:  23115 # Shoulders
@@ -823,6 +888,7 @@ groups:
 
     # Normal set=435
     - name: Blackhand's Battlegear
+      wowheadSetId: 1895
       items:
         1:  23069 # Head
         3:  23071 # Shoulders
