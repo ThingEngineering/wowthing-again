@@ -3,6 +3,561 @@ skipClasses:
 - demon-hunter
 groups:
 
+# S17 class sets
+- name: Warlords Season 2 & 3
+  tag: S17-18
+  type: class
+  sets:
+  - Elite*
+  - Gladiator [1]
+  - Gladiator [2]
+  data:
+    death-knight:
+    # Elite set=1173,1174
+    - name: Wild Gladiator's Dreadplate Armor
+      wowheadSetId: 2079
+      items:
+        1:  26069 # Head
+        3:  26070 # Shoulders
+        5:  26067 # Chest
+        6:  26065 # Waist
+        7:  26071 # Legs
+        8:  26066 # Feet
+        10: 26068 # Hands
+
+    # Gladiator (Alliance) set=90
+    - name: Wild Gladiator's Dreadplate Armor
+      wowheadSetId: 2077
+      items:
+        1:  26096 # Head
+        3:  26098 # Shoulders
+        5:  26094 # Chest
+        6:  26092 # Waist
+        7:  26097 # Legs
+        8:  26093 # Feet
+        9:  26099 # Wrists
+        10: 26095 # Hands
+
+    # Gladiator (Horde) set=89
+    - name: Wild Gladiator's Dreadplate Armor
+      wowheadSetId: 2078
+      items:
+        1:  26452 # Head
+        3:  26454 # Shoulders
+        5:  26450 # Chest
+        6:  26448 # Waist
+        7:  26453 # Legs
+        8:  26449 # Feet
+        9:  26455 # Wrists
+        10: 26451 # Hands
+
+    druid:
+    # Elite set=1175,1176
+    - name: Wild Gladiator's Dragonhide Armor
+      wowheadSetId: 2067
+      items:
+        1:  25628 # Head
+        3:  25630 # Shoulders
+        5:  25631 # Chest
+        6:  25624 # Waist
+        7:  25629 # Legs
+        8:  25625 # Feet
+        10: 25627 # Hands
+
+    # Gladiator (Alliance) set=84
+    - name: Wild Gladiator's Dragonhide Armor
+      wowheadSetId: 2065
+      items:
+        1:  25561 # Head
+        3:  25563 # Shoulders
+        5:  25559 25565 # Chest
+        6:  25557 # Waist
+        7:  25562 # Legs
+        8:  25558 # Feet
+        9:  25564 # Wrists
+        10: 25560 # Hands
+
+    # Gladiator (Horde) set=83
+    - name: Wild Gladiator's Dragonhide Armor
+      wowheadSetId: 2066
+      items:
+        1:  25570 # Head
+        3:  25572 # Shoulders
+        5:  25568 25574 # Chest
+        6:  25566 # Waist
+        7:  25571 # Legs
+        8:  25567 # Feet
+        9:  25573 # Wrists
+        10: 25569 # Hands
+
+    hunter:
+    # Elite set=1177,1178
+    - name: Wild Gladiator's Chain Armor
+      wowheadSetId: 2070
+      items:
+        1:  25724 # Head
+        3:  25726 # Shoulders
+        5:  25722 # Chest
+        6:  25720 # Waist
+        7:  25725 # Legs
+        8:  25721 # Feet
+        10: 25723 # Hands
+
+    # Gladiator (Alliance) set=80
+    - name: Wild Gladiator's Chain Armor
+      wowheadSetId: 2068
+      items:
+        1:  25733 # Head
+        3:  25735 # Shoulders
+        5:  25731 # Chest
+        6:  25728 # Waist
+        7:  25734 # Legs
+        8:  25730 # Feet
+        9:  25736 # Wrists
+        10: 25732 # Hands
+
+    # Gladiator (Horde) set=79
+    - name: Wild Gladiator's Chain Armor
+      wowheadSetId: 2069
+      items:
+        1:  25757 # Head
+        3:  25759 # Shoulders
+        5:  25755 # Chest
+        6:  25753 # Waist
+        7:  25758 # Legs
+        8:  25754 # Feet
+        9:  25760 # Wrists
+        10: 25756 # Hands
+
+    mage:
+    # Elite set=1179,1180
+    - name: Wild Gladiator's Silk Armor
+      wowheadSetId: 2052
+      items:
+        1:  25552 # Head
+        3:  25554 # Shoulders
+        5:  25556 # Chest
+        6:  25543 # Waist
+        7:  25553 # Legs
+        8:  25549 # Feet
+        10: 25551 # Hands
+
+    # Gladiator (Alliance) set=100
+    - name: Wild Gladiator's Silk Armor
+      wowheadSetId: 2050
+      items:
+        1:  25433 # Head
+        3:  25435 # Shoulders
+        5:  25437 # Chest
+        6:  25429 # Waist
+        7:  25434 # Legs
+        8:  25430 # Feet
+        9:  25436 # Wrists
+        10: 25432 # Hands
+
+    # Gladiator (Horde) set=99
+    - name: Wild Gladiator's Silk Armor
+      wowheadSetId: 2051
+      items:
+        1:  25442 # Head
+        3:  25444 # Shoulders
+        5:  25446 # Chest
+        6:  25438 # Waist
+        7:  25443 # Legs
+        8:  25439 # Feet
+        9:  25445 # Wrists
+        10: 25441 # Hands
+
+    monk:
+    # Elite set=1181,1182
+    - name: Wild Gladiator's Ironskin Armor
+      wowheadSetId: 2064
+      items:
+        1:  26151 # Head
+        3:  26153 # Shoulders
+        5:  26149 # Chest
+        6:  26147 # Waist
+        7:  26152 # Legs
+        8:  26148 # Feet
+        10: 26150 # Hands
+
+    # Gladiator (Alliance) set=88
+    - name: Wild Gladiator's Ironskin Armor
+      wowheadSetId: 2062
+      items:
+        1:  26122 # Head
+        3:  26123 # Shoulders
+        5:  26120 26126 # Chest
+        6:  26118 # Waist
+        7:  26124 # Legs
+        8:  26119 # Feet
+        9:  26125 # Wrists
+        10: 26121 # Hands
+
+    # Gladiator (Horde) set=87
+    - name: Wild Gladiator's Ironskin Armor
+      wowheadSetId: 2063
+      items:
+        1:  26132 # Head
+        3:  26133 # Shoulders
+        5:  26130 26136 # Chest
+        6:  26128 # Waist
+        7:  26134 # Legs
+        8:  26129 # Feet
+        9:  26135 # Wrists
+        10: 26131 # Hands
+
+    paladin:
+    # Elite set=1183,1184
+    - name: Wild Gladiator's Scaled Armor
+      wowheadSetId: 2076
+      items:
+        1:  25770 # Head
+        3:  25771 # Shoulders
+        5:  25768 # Chest
+        6:  25766 # Waist
+        7:  25772 # Legs
+        8:  25767 # Feet
+        10: 25769 # Hands
+
+    # Gladiator (Alliance) set=94
+    - name: Wild Gladiator's Scaled Armor
+      wowheadSetId: 2074
+      items:
+        1:  25684 # Head
+        3:  25685 # Shoulders
+        5:  25682 # Chest
+        6:  25680 # Waist
+        7:  25686 # Legs
+        8:  25681 # Feet
+        9:  25687 # Wrists
+        10: 25683 # Hands
+
+    # Gladiator (Horde) set=93
+    - name: Wild Gladiator's Scaled Armor
+      wowheadSetId: 2075
+      items:
+        1:  25692 # Head
+        3:  25693 # Shoulders
+        5:  25690 # Chest
+        6:  25688 # Waist
+        7:  25694 # Legs
+        8:  25689 # Feet
+        9:  25695 # Wrists
+        10: 25691 # Hands
+
+    priest:
+    # Elite set=405,406
+    - name: Wild Gladiator's Satin Armor
+      wowheadSetId: 2055
+      items:
+        1:  25863 # Head
+        3:  25865 # Shoulders
+        5:  25867 # Chest
+        6:  25859 # Waist
+        7:  25864 # Legs
+        8:  25860 # Feet
+        10: 25862 # Hands
+
+    # Gladiator (Alliance) set=98
+    - name: Wild Gladiator's Satin Armor
+      wowheadSetId: 2053
+      items:
+        1:  25881 # Head
+        3:  25884 # Shoulders
+        5:  25882 # Chest
+        6:  25877 # Waist
+        7:  25883 # Legs
+        8:  25878 # Feet
+        9:  25885 # Wrists
+        10: 25880 # Hands
+
+    # Gladiator (Horde) set=97
+    - name: Wild Gladiator's Satin Armor
+      wowheadSetId: 2054
+      items:
+        1:  25899 # Head
+        3:  25902 # Shoulders
+        5:  25900 # Chest
+        6:  25895 # Waist
+        7:  25901 # Legs
+        8:  25896 # Feet
+        9:  25903 # Wrists
+        10: 25898 # Hands
+
+    rogue:
+    # Elite set=1185,1186
+    - name: Wild Gladiator's Leather Armor
+      wowheadSetId: 2061
+      items:
+        1:  25827 # Head
+        3:  25829 # Shoulders
+        5:  25825 # Chest
+        6:  25823 # Waist
+        7:  25828 # Legs
+        8:  25824 # Feet
+        10: 25826 # Hands
+
+    # Gladiator (Alliance) set=85
+    - name: Wild Gladiator's Leather Armor
+      wowheadSetId: 2059
+      items:
+        1:  25786 # Head
+        3:  25789 # Shoulders
+        5:  25784 # Chest
+        6:  25782 # Waist
+        7:  25787 # Legs
+        8:  25783 # Feet
+        9:  25788 # Wrists
+        10: 25785 # Hands
+
+    # Gladiator (Horde) set=86
+    - name: Wild Gladiator's Leather Armor
+      wowheadSetId: 2060
+      items:
+        1:  25794 # Head
+        3:  25797 # Shoulders
+        5:  25792 # Chest
+        6:  25790 # Waist
+        7:  25795 # Legs
+        8:  25791 # Feet
+        9:  25796 # Wrists
+        10: 25793 # Hands
+
+    shaman:
+    # Elite set=1187,1188
+    - name: Wild Gladiator's Ringmail Armor
+      wowheadSetId: 2073
+      items:
+        1:  25991 # Head
+        3:  25993 # Shoulders
+        5:  25995 # Chest
+        6:  25987 # Waist
+        7:  25992 # Legs
+        8:  25988 # Feet
+        10: 25990 # Hands
+
+    # Gladiator (Alliance) set=81
+    - name: Wild Gladiator's Ringmail Armor
+      wowheadSetId: 2071
+      items:
+        1:  26009 # Head
+        3:  26011 # Shoulders
+        5:  26007 26015 # Chest
+        6:  26016 # Waist
+        7:  26574 # Legs
+        8:  26006 # Feet
+        9:  26012 # Wrists
+        10: 26008 # Hands
+
+    # Gladiator (Horde) set=82
+    - name: Wild Gladiator's Ringmail Armor
+      wowheadSetId: 2072
+      items:
+        1:  26027 # Head
+        3:  26030 # Shoulders
+        5:  26025 26031 # Chest
+        6:  26024 # Waist
+        7:  26572 # Legs
+        8:  26473 # Feet
+        9:  26029 # Wrists
+        10: 26026 # Hands
+
+    warlock:
+    # Elite set=1189,1190
+    - name: Wild Gladiator's Felweave Armor
+      wowheadSetId: 2058
+      items:
+        1:  26205 # Head
+        3:  26207 # Shoulders
+        5:  26209 # Chest
+        6:  26201 # Waist
+        7:  26206 # Legs
+        8:  26202 # Feet
+        10: 26204 # Hands
+
+    # Gladiator (Alliance) set=96
+    - name: Wild Gladiator's Felweave Armor
+      wowheadSetId: 2056
+      items:
+        1:  26178 # Head
+        3:  26180 # Shoulders
+        5:  26182 # Chest
+        6:  26174 # Waist
+        7:  26179 # Legs
+        8:  26175 # Feet
+        9:  26181 # Wrists
+        10: 26177 # Hands
+
+    # Gladiator (Horde) set=95
+    - name: Wild Gladiator's Felweave Armor
+      wowheadSetId: 2057
+      items:
+        1:  26187 # Head
+        3:  26189 # Shoulders
+        5:  26191 # Chest
+        6:  26183 # Waist
+        7:  26188 # Legs
+        8:  26184 # Feet
+        9:  26190 # Wrists
+        10: 26186 # Hands
+
+    warrior:
+    # Elite set=1191,1192
+    - name: Wild Gladiator's Plate Armor
+      wowheadSetId: 2082
+      items:
+        1:  25641 # Head
+        3:  25642 # Shoulders
+        5:  25639 # Chest
+        6:  25637 # Waist
+        7:  25644 # Legs
+        8:  25638 # Feet
+        10: 25640 # Hands
+
+    # Gladiator (Alliance) set=92
+    - name: Wild Gladiator's Plate Armor
+      wowheadSetId: 2080
+      items:
+        1:  25508 # Head
+        3:  25509 # Shoulders
+        5:  25506 # Chest
+        6:  25504 # Waist
+        7:  25511 # Legs
+        8:  25505 # Feet
+        9:  25510 # Wrists
+        10: 25507 # Hands
+
+    # Gladiator (Horde) set=91
+    - name: Wild Gladiator's Plate Armor
+      wowheadSetId: 2081
+      items:
+        1:  25518 # Head
+        3:  25519 # Shoulders
+        5:  25516 # Chest
+        6:  25514 # Waist
+        7:  25521 # Legs
+        8:  25515 # Feet
+        9:  25520 # Wrists
+        10: 25517 # Hands
+
+# S17 armor sets
+- name: Warlords Season 2 & 3
+  tag: S17-18
+  type: armor
+  sets:
+  - Combatant [1]
+  - Combatant [2]
+  data:
+    cloth:
+    # Combatant (Alliance) set=29,31,34
+    - name: Wild Combatant's Cloth Armor
+      wowheadSetId: 2092
+      items:
+        1:  25835 # Head
+        3:  25837 # Shoulders
+        5:  25839 # Chest
+        6:  25831 # Waist
+        7:  25836 # Legs
+        8:  25832 # Feet
+        9:  25838 # Wrists
+        10: 25834 # Hands
+
+    # Combatant (Horde) set=30,32,33
+    - name: Wild Combatant's Cloth Armor
+      wowheadSetId: 2093
+      items:
+        1:  25854 # Head
+        3:  25856 # Shoulders
+        5:  25858 # Chest
+        6:  25850 # Waist
+        7:  25855 # Legs
+        8:  25851 # Feet
+        9:  25857 # Wrists
+        10: 25853 # Hands
+
+    leather:
+    # Combatant (Alliance) set=23,26,28
+    - name: Wild Combatant's Leather Armor
+      wowheadSetId: 2095
+      items:
+        1:  25965 # Head
+        3:  25967 # Shoulders
+        5:  25963 # Chest
+        6:  25961 # Waist
+        7:  25966 # Legs
+        8:  25962 # Feet
+        9:  25968 # Wrists
+        10: 25964 # Hands
+
+    # Combatant (Horde) set=24,25,27
+    - name: Wild Combatant's Leather Armor
+      wowheadSetId: 2096
+      items:
+        1:  25974 # Head
+        3:  25976 # Shoulders
+        5:  25972 # Chest
+        6:  25970 # Waist
+        7:  25975 # Legs
+        8:  25971 # Feet
+        9:  25977 # Wrists
+        10: 25973 # Hands
+
+    mail:
+    # Combatant (Alliance) set=13,15
+    - name: Wild Combatant's Mail Armor
+      wowheadSetId: 2098
+      items:
+        1:  25941 # Head
+        3:  25942 # Shoulders
+        5:  25939 # Chest
+        6:  25937 # Waist
+        7:  25943 # Legs
+        8:  25938 # Feet
+        9:  25944 # Wrists
+        10: 25940 # Hands
+
+    # Combatant (Horde) set=14,16
+    - name: Wild Combatant's Mail Armor
+      wowheadSetId: 2099
+      items:
+        1:  25957 # Head
+        3:  25958 # Shoulders
+        5:  25955 # Chest
+        6:  25953 # Waist
+        7:  25959 # Legs
+        8:  25954 # Feet
+        9:  25960 # Wrists
+        10: 25956 # Hands
+
+    plate:
+    # Combatant (Alliance) set=17,19,22
+    - name: Wild Combatant's Plate Armor
+      wowheadSetId: 2101
+      items:
+        1:  25925 # Head
+        3:  25927 # Shoulders
+        5:  25923 # Chest
+        6:  25921 # Waist
+        7:  25926 # Legs
+        8:  25922 # Feet
+        9:  25928 # Wrists
+        10: 25924 # Hands
+
+    # Combatant (Horde) set=18,20,21
+    - name: Wild Combatant's Plate Armor
+      wowheadSetId: 2102
+      items:
+        1:  25917 # Head
+        3:  25919 # Shoulders
+        5:  25915 # Chest
+        6:  25913 # Waist
+        7:  25918 # Legs
+        8:  25914 # Feet
+        9:  25920 # Wrists
+        10: 25916 # Hands
+
+# S16 class sets
 - name: Warlords Season 1
   tag: S16
   type: class
@@ -440,6 +995,7 @@ groups:
         9:  23764 # Wrists
         10: 23760 # Hands
 
+# S16 armor sets
 - name: Warlords Season 1
   tag: S16
   type: armor

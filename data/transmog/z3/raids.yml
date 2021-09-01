@@ -15,6 +15,7 @@ groups:
     death-knight:
     # Heroic set=833
     - name: Necrotic Boneplate Armor
+      wowheadSetId: 1201
       items:
         1: 16831 # Head
         3: 16829 # Shoulders
@@ -27,6 +28,7 @@ groups:
 
     # Normal set=831
     - name: Necrotic Boneplate Armor
+      wowheadSetId: 1200
       items:
         1: 16823 # Head
         3: 16822 # Shoulders
@@ -39,6 +41,7 @@ groups:
 
     # Raid Finder set=832
     - name: Necrotic Boneplate Armor
+      wowheadSetId: 1202
       items:
         1: 16839 # Head
         3: 16837 # Shoulders
@@ -52,6 +55,7 @@ groups:
     druid:
     # Heroic set=817
     - name: Deep Earth Vestments
+      wowheadSetId: 1213
       items:
         1:  16618 # Head
         3:  16613 # Shoulders
@@ -64,6 +68,7 @@ groups:
 
     # Normal set=815
     - name: Deep Earth Vestments
+      wowheadSetId: 1212
       items:
         1:  16635 # Head
         3:  16633 # Shoulders
@@ -76,6 +81,7 @@ groups:
 
     # Raid Finder set=816
     - name: Deep Earth Vestments
+      wowheadSetId: 1214
       items:
         1:  16628 # Head
         3:  16631 # Shoulders
@@ -89,6 +95,7 @@ groups:
     hunter:
     # Heroic set=730
     - name: Wyrmstalker Battlegear
+      wowheadSetId: 1207
       items:
         1:  16816 # Head
         3:  16819 # Shoulders
@@ -101,6 +108,7 @@ groups:
 
     # Normal set=728
     - name: Wyrmstalker Battlegear
+      wowheadSetId: 1206
       items:
         1:  16845 # Head
         3:  16847 # Shoulders
@@ -113,6 +121,7 @@ groups:
 
     # Raid Finder set=729
     - name: Wyrmstalker Battlegear
+      wowheadSetId: 1208
       items:
         1:  16852 # Head
         3:  16855 # Shoulders
@@ -126,6 +135,7 @@ groups:
     mage:
     # Heroic set=714
     - name: Time Lord's Regalia
+      wowheadSetId: 1222
       items:
         1: 16658 # Head
         3: 16661 # Shoulders
@@ -136,6 +146,7 @@ groups:
 
     # Normal set=712
     - name: Time Lord's Regalia
+      wowheadSetId: 1221
       items:
         1: 16667 # Head
         3: 16669 # Shoulders
@@ -148,6 +159,7 @@ groups:
 
     # Raid Finder set=713
     - name: Time Lord's Regalia
+      wowheadSetId: 1223
       items:
         1: 16649 # Head
         3: 16652 # Shoulders
@@ -159,6 +171,7 @@ groups:
     paladin:
     # Heroic set=698
     - name: Battleplate of Radiant Glory
+      wowheadSetId: 1195
       items:
         1: 16876 # Head
         3: 16878 # Shoulders
@@ -171,6 +184,7 @@ groups:
 
     # Normal set=696
     - name: Battleplate of Radiant Glory
+      wowheadSetId: 1194
       items:
         1: 16870 # Head
         3: 16871 # Shoulders
@@ -183,6 +197,7 @@ groups:
 
     # Raid Finder set=697
     - name: Battleplate of Radiant Glory
+      wowheadSetId: 1196
       items:
         1: 16862 # Head
         3: 16864 # Shoulders
@@ -196,6 +211,7 @@ groups:
     priest:
     # Heroic set=341
     - name: Regalia of Dying Light
+      wowheadSetId: 1216
       items:
         1:  17049 # Head
         3:  17045 # Shoulders
@@ -205,6 +221,7 @@ groups:
 
     # Normal set=339
     - name: Regalia of Dying Light
+      wowheadSetId: 1215
       items:
         1:  16918 # Head
         3:  16916 # Shoulders
@@ -217,6 +234,7 @@ groups:
 
     # Raid Finder set=340
     - name: Regalia of Dying Light
+      wowheadSetId: 1217
       items:
         1:  17037 # Head
         3:  17033 # Shoulders
@@ -227,6 +245,7 @@ groups:
     rogue:
     # Heroic set=682
     - name: Blackfang Battleweave
+      wowheadSetId: 1210
       items:
         1: 16714 # Head
         3: 16716 # Shoulders
@@ -239,6 +258,7 @@ groups:
 
     # Normal set=680
     - name: Blackfang Battleweave
+      wowheadSetId: 1209
       items:
         1: 16730 # Head
         3: 16731 # Shoulders
@@ -251,6 +271,7 @@ groups:
 
     # Raid Finder set=681
     - name: Blackfang Battleweave
+      wowheadSetId: 1211
       items:
         1: 16722 # Head
         3: 16724 # Shoulders
@@ -264,6 +285,7 @@ groups:
     shaman:
     # Heroic set=663
     - name: Spiritwalker's Regalia
+      wowheadSetId: 1204
       items:
         1:  16745 # Head
         3:  17149 # Shoulders
@@ -276,6 +298,7 @@ groups:
 
     # Normal set=630
     - name: Spiritwalker's Regalia
+      wowheadSetId: 1203
       items:
         1:  16752 # Head
         3:  16984 # Shoulders
@@ -288,6 +311,7 @@ groups:
 
     # Raid Finder set=632
     - name: Spiritwalker's Regalia
+      wowheadSetId: 1205
       items:
         1:  16736 # Head
         3:  17150 # Shoulders
@@ -301,6 +325,7 @@ groups:
     warlock:
     # Heroic set=666
     - name: Vestments of the Faceless Shroud
+      wowheadSetId: 1219
       items:
         1:  16540 # Head
         3:  16536 # Shoulders
@@ -312,6 +337,7 @@ groups:
 
     # Normal set=664
     - name: Vestments of the Faceless Shroud
+      wowheadSetId: 1218
       items:
         1:  16558 # Head
         3:  16554 # Shoulders
@@ -324,6 +350,7 @@ groups:
 
     # Raid Finder set=665
     - name: Vestments of the Faceless Shroud
+      wowheadSetId: 1220
       items:
         1:  16549 # Head
         3:  16545 # Shoulders
@@ -337,6 +364,7 @@ groups:
     warrior:
     # Heroic set=631
     - name: Colossal Dragonplate Battlegear
+      wowheadSetId: 1198
       items:
         1:  16686 # Head
         3:  16688 # Shoulders
@@ -349,6 +377,7 @@ groups:
 
     # Normal set=649
     - name: Colossal Dragonplate Battlegear
+      wowheadSetId: 1197
       items:
         1:  16694 # Head
         3:  16695 # Shoulders
@@ -361,6 +390,7 @@ groups:
 
     # Raid Finder set=650
     - name: Colossal Dragonplate Battlegear
+      wowheadSetId: 1199
       items:
         1:  16699 # Head
         3:  16697 # Shoulders
@@ -381,6 +411,7 @@ groups:
     death-knight:
     # Heroic set=835
     - name: Elementium Deathplate Battlearmor
+      wowheadSetId: 508
       items:
         1: 15801 # Head
         3: 15803 # Shoulders
@@ -392,6 +423,7 @@ groups:
 
     # Normal set=834
     - name: Elementium Deathplate Battlearmor
+      wowheadSetId: 507
       items:
         1: 15635 # Head
         3: 15795 # Shoulders
@@ -405,6 +437,7 @@ groups:
     druid:
     # Heroic set=819
     - name: Obsidian Arborweave Vestments
+      wowheadSetId: 528
       items:
         1:  15856 # Head
         3:  15860 # Shoulders
@@ -416,6 +449,7 @@ groups:
 
     # Normal set=818
     - name: Obsidian Arborweave Vestments
+      wowheadSetId: 527
       items:
         1:  15829 # Head
         3:  15826 15837 # Shoulders
@@ -429,6 +463,7 @@ groups:
     hunter:
     # Heroic set=732
     - name: Flamewaker's Battlegear
+      wowheadSetId: 550
       items:
         1: 15729 # Head
         3: 15731 # Shoulders
@@ -440,6 +475,7 @@ groups:
 
     # Normal set=731
     - name: Flamewaker's Battlegear
+      wowheadSetId: 549
       items:
         1: 15722 # Head
         3: 15723 # Shoulders
@@ -453,6 +489,7 @@ groups:
     mage:
     # Heroic set=716
     - name: Firehawk Robes of Conflagration
+      wowheadSetId: 572
       items:
         1:  15690 # Head
         3:  15693 # Shoulders
@@ -463,6 +500,7 @@ groups:
 
     # Normal set=715
     - name: Firehawk Robes of Conflagration
+      wowheadSetId: 571
       items:
         1:  15707 # Head
         3:  15710 # Shoulders
@@ -476,6 +514,7 @@ groups:
     paladin:
     # Heroic set=700
     - name: Battleplate of Immolation
+      wowheadSetId: 594
       items:
         1:  15674 # Head
         3:  15676 15932 # Shoulders
@@ -487,6 +526,7 @@ groups:
 
     # Normal set=699
     - name: Battleplate of Immolation
+      wowheadSetId: 593
       items:
         1:  15681 # Head
         3:  15683 # Shoulders
@@ -500,6 +540,7 @@ groups:
     priest:
     # Heroic set=343
     - name: Regalia of the Cleansing Flame
+      wowheadSetId: 616
       items:
         1:  15754 # Head
         3:  15757 # Shoulders
@@ -510,6 +551,7 @@ groups:
 
     # Normal set=342
     - name: Regalia of the Cleansing Flame
+      wowheadSetId: 615
       items:
         1:  15761 # Head
         3:  15764 # Shoulders
@@ -523,6 +565,7 @@ groups:
     rogue:
     # Heroic set=684
     - name: Vestments of the Dark Phoenix
+      wowheadSetId: 638
       items:
         1:  15649 # Head
         3:  15651 # Shoulders
@@ -535,6 +578,7 @@ groups:
 
     # Normal set=683
     - name: Vestments of the Dark Phoenix
+      wowheadSetId: 637
       items:
         1:  15642 # Head
         3:  15644 # Shoulders
@@ -548,6 +592,7 @@ groups:
     shaman:
     # Heroic set=634
     - name: Volcanic Regalia
+      wowheadSetId: 660
       items:
         1:  15933 # Head
         3:  15922 # Shoulders
@@ -559,6 +604,7 @@ groups:
 
     # Normal set=633
     - name: Volcanic Regalia
+      wowheadSetId: 659
       items:
         1:  15892 # Head
         3:  15814 # Shoulders
@@ -572,6 +618,7 @@ groups:
     warlock:
     # Heroic set=668
     - name: Balespider's Burning Vestments
+      wowheadSetId: 682
       items:
         1:  15918 # Head
         3:  15945 # Shoulders
@@ -582,6 +629,7 @@ groups:
 
     # Normal set=667
     - name: Balespider's Burning Vestments
+      wowheadSetId: 681
       items:
         1:  15821 # Head
         3:  15879 # Shoulders
@@ -594,6 +642,7 @@ groups:
     warrior:
     # Heroic set=652
     - name: Molten Giant Battleplate
+      wowheadSetId: 933
       items:
         1:  15783 # Head
         3:  15785 # Shoulders
@@ -606,6 +655,7 @@ groups:
 
     # Normal set=651
     - name: Molten Giant Battleplate
+      wowheadSetId: 932
       items:
         1:  15768 # Head
         3:  15638 # Shoulders
@@ -626,6 +676,7 @@ groups:
     death-knight:
     # Heroic set=837
     - name: Magma Plated Battlearmor
+      wowheadSetId: 506
       items:
         1:  14749 # Head
         3:  14752 # Shoulders
@@ -638,6 +689,7 @@ groups:
 
     # Normal set=836
     - name: Magma Plated Battlearmor
+      wowheadSetId: 505
       items:
         1:  14040 14106 # Head
         3:  14082 # Shoulders
@@ -651,6 +703,7 @@ groups:
     druid:
     # Heroic set=821
     - name: Stormrider's Vestments
+      wowheadSetId: 526
       items:
         1: 14737 # Head
         3: 14706 # Shoulders
@@ -663,6 +716,7 @@ groups:
 
     # Normal set=820
     - name: Stormrider's Vestments
+      wowheadSetId: 525
       items:
         1: 13975 # Head
         3: 13962 # Shoulders
@@ -676,6 +730,7 @@ groups:
     hunter:
     # Heroic set=734
     - name: Lightning-Charged Battlegear
+      wowheadSetId: 548
       items:
         1: 14757 # Head
         3: 14743 # Shoulders
@@ -688,6 +743,7 @@ groups:
 
     # Normal set=733
     - name: Lightning-Charged Battlegear
+      wowheadSetId: 547
       items:
         1: 14048 # Head
         3: 13964 # Shoulders
@@ -701,6 +757,7 @@ groups:
     mage:
     # Heroic set=718
     - name: Firelord's Vestments
+      wowheadSetId: 570
       items:
         1: 14095 # Head
         3: 14729 # Shoulders
@@ -712,6 +769,7 @@ groups:
 
     # Normal set=717
     - name: Firelord's Vestments
+      wowheadSetId: 569
       items:
         1: 13963 # Head
         3: 13984 # Shoulders
@@ -725,6 +783,7 @@ groups:
     paladin:
     # Heroic set=702
     - name: Reinforced Sapphirium Battleplate
+      wowheadSetId: 592
       items:
         1:  14755 # Head
         3:  14738 # Shoulders
@@ -737,6 +796,7 @@ groups:
 
     # Normal set=701
     - name: Reinforced Sapphirium Battleplate
+      wowheadSetId: 591
       items:
         1:  14049 # Head
         3:  13974 # Shoulders
@@ -750,6 +810,7 @@ groups:
     priest:
     # Heroic set=345
     - name: Mercurial Regalia
+      wowheadSetId: 614
       items:
         1:  14710 # Head
         3:  14723 # Shoulders
@@ -762,6 +823,7 @@ groups:
 
     # Normal set=344
     - name: Mercurial Regalia
+      wowheadSetId: 613
       items:
         1:  14024 14100 # Head
         3:  13993 # Shoulders
@@ -775,6 +837,7 @@ groups:
     rogue:
     # Heroic set=686
     - name: Wind Dancer's Regalia
+      wowheadSetId: 636
       items:
         1:  14760 # Head
         3:  14746 # Shoulders
@@ -787,6 +850,7 @@ groups:
 
     # Normal set=685
     - name: Wind Dancer's Regalia
+      wowheadSetId: 635
       items:
         1:  14041 # Head
         3:  13950 # Shoulders
@@ -800,6 +864,7 @@ groups:
     shaman:
     # Heroic set=636
     - name: Regalia of the Raging Elements
+      wowheadSetId: 658
       items:
         1:  14764 # Head
         3:  14754 # Shoulders
@@ -812,6 +877,7 @@ groups:
 
     # Normal set=635
     - name: Regalia of the Raging Elements
+      wowheadSetId: 657
       items:
         1:  14036 # Head
         3:  14050 # Shoulders
@@ -825,6 +891,7 @@ groups:
     warlock:
     # Heroic set=670
     - name: Shadowflame Regalia
+      wowheadSetId: 680
       items:
         1:  14775 # Head
         3:  14776 # Shoulders
@@ -835,6 +902,7 @@ groups:
 
     # Normal set=669
     - name: Shadowflame Regalia
+      wowheadSetId: 679
       items:
         1:  14098 # Head
         3:  14099 # Shoulders
@@ -848,6 +916,7 @@ groups:
     warrior:
     # Heroic set=654
     - name: Earthen Battleplate
+      wowheadSetId: 931
       items:
         1:  14719 # Head
         3:  14712 # Shoulders
@@ -860,6 +929,7 @@ groups:
 
     # Normal set=653
     - name: Earthen Battleplate
+      wowheadSetId: 930
       items:
         1:  13997 # Head
         3:  14004 # Shoulders

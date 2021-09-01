@@ -7,13 +7,14 @@ groups:
   tag: T16
   type: class
   sets:
-  - Heroic
-  - Normal
+  - Mythic
+  - Normal/Heroic
   - Raid Finder
   data:
     death-knight:
     # Mythic set=573
     - name: Battleplate of Cyclopean Dread
+      wowheadSetId: 1779
       items:
         1: 21001 # Head
         3: 21003 # Shoulders
@@ -26,6 +27,7 @@ groups:
 
     # Normal set=572
     - name: Battleplate of Cyclopean Dread
+      wowheadSetId: 1771
       items:
         1: 20989 21058 # Head
         3: 20985 21063 # Shoulders
@@ -38,6 +40,7 @@ groups:
 
     # Raid Finder set=574
     - name: Battleplate of Cyclopean Dread
+      wowheadSetId: 1775
       items:
         1: 20921 # Head
         3: 20918 # Shoulders
@@ -51,6 +54,7 @@ groups:
     druid:
     # Mythic set=558
     - name: Vestments of the Shattered Vale
+      wowheadSetId: 1743
       items:
         1: 21006 # Head
         3: 21000 # Shoulders
@@ -63,6 +67,7 @@ groups:
 
     # Normal set=557
     - name: Vestments of the Shattered Vale
+      wowheadSetId: 1741
       items:
         1: 20979 # Head
         3: 20981 # Shoulders
@@ -75,6 +80,7 @@ groups:
 
     # Raid Finder set=559
     - name: Vestments of the Shattered Vale
+      wowheadSetId: 1745
       items:
         1: 20899 # Head
         3: 20888 # Shoulders
@@ -88,6 +94,7 @@ groups:
     hunter:
     # Mythic set=540
     - name: Battlegear of the Unblinking Vigil
+      wowheadSetId: 1761
       items:
         1: 21040 # Head
         3: 21042 # Shoulders
@@ -100,6 +107,7 @@ groups:
 
     # Normal set=539
     - name: Battlegear of the Unblinking Vigil
+      wowheadSetId: 1759
       items:
         1: 20972 # Head
         3: 20974 # Shoulders
@@ -112,6 +120,7 @@ groups:
 
     # Raid Finder set=541
     - name: Battlegear of the Unblinking Vigil
+      wowheadSetId: 1763
       items:
         1: 20935 # Head
         3: 20937 # Shoulders
@@ -125,6 +134,7 @@ groups:
     mage:
     # Mythic set=524
     - name: Chronomancer Regalia
+      wowheadSetId: 1725
       items:
         1: 21036 # Head
         3: 21039 # Shoulders
@@ -137,6 +147,7 @@ groups:
 
     # Normal set=523
     - name: Chronomancer Regalia
+      wowheadSetId: 1723
       items:
         1: 20976 # Head
         3: 20971 # Shoulders
@@ -149,6 +160,7 @@ groups:
 
     # Raid Finder set=525
     - name: Chronomancer Regalia
+      wowheadSetId: 1727
       items:
         1: 20939 # Head
         3: 20934 # Shoulders
@@ -162,6 +174,7 @@ groups:
     monk:
     # Mythic set=507
     - name: Vestments of the Seven Sacred Seals
+      wowheadSetId: 1749
       items:
         1:  21033 # Head
         3:  21030 # Shoulders
@@ -174,6 +187,7 @@ groups:
 
     # Normal set=506
     - name: Vestments of the Seven Sacred Seals
+      wowheadSetId: 1747
       items:
         1:  20967 # Head
         3:  20969 # Shoulders
@@ -186,6 +200,7 @@ groups:
 
     # Raid Finder set=508
     - name: Vestments of the Seven Sacred Seals
+      wowheadSetId: 1751
       items:
         1:  20931 # Head
         3:  20923 # Shoulders
@@ -199,6 +214,7 @@ groups:
     paladin:
     # Mythic set=488
     - name: Vestments of Winged Triumph
+      wowheadSetId: 1767
       items:
         1:  21028 # Head
         3:  21025 # Shoulders
@@ -211,6 +227,7 @@ groups:
 
     # Normal set=487
     - name: Vestments of Winged Triumph
+      wowheadSetId: 1765
       items:
         1:  20964 # Head
         3:  20961 # Shoulders
@@ -223,6 +240,7 @@ groups:
 
     # Raid Finder set=489
     - name: Vestments of Winged Triumph
+      wowheadSetId: 1769
       items:
         1:  20889 # Head
         3:  20895 # Shoulders
@@ -236,6 +254,7 @@ groups:
     priest:
     # Mythic set=332
     - name: Regalia of Ternion Glory
+      wowheadSetId: 1719
       items:
         1: 21023 # Head
         3: 21021 # Shoulders
@@ -248,6 +267,7 @@ groups:
 
     # Normal set=331
     - name: Regalia of Ternion Glory
+      wowheadSetId: 1717
       items:
         1: 20957 21060 # Head
         3: 20951 21059 # Shoulders
@@ -260,6 +280,7 @@ groups:
 
     # Raid Finder set=333
     - name: Regalia of Ternion Glory
+      wowheadSetId: 1721
       items:
         1: 20910 # Head
         3: 20903 # Shoulders
@@ -273,6 +294,7 @@ groups:
     rogue:
     # Mythic set=472
     - name: Barbed Assassin Battlegear
+      wowheadSetId: 1737
       items:
         1:  21015 # Head
         3:  21017 # Shoulders
@@ -285,6 +307,7 @@ groups:
 
     # Normal set=471
     - name: Barbed Assassin Battlegear
+      wowheadSetId: 1735
       items:
         1:  20954 21061 # Head
         3:  20956 21062 # Shoulders
@@ -297,6 +320,7 @@ groups:
 
     # Raid Finder set=473
     - name: Barbed Assassin Battlegear
+      wowheadSetId: 1739
       items:
         1:  20906 # Head
         3:  20908 # Shoulders
@@ -310,6 +334,7 @@ groups:
     shaman:
     # Mythic set=422
     - name: Regalia of Celestial Harmony
+      wowheadSetId: 1755
       items:
         1:  21010 # Head
         3:  21012 21489 # Shoulders
@@ -322,6 +347,7 @@ groups:
 
     # Normal set=421
     - name: Regalia of Celestial Harmony
+      wowheadSetId: 1753
       items:
         1:  20943 # Head
         3:  20945 21484 # Shoulders
@@ -334,6 +360,7 @@ groups:
 
     # Raid Finder set=423
     - name: Regalia of Celestial Harmony
+      wowheadSetId: 1757
       items:
         1:  20893 # Head
         3:  20887 21494 # Shoulders
@@ -347,6 +374,7 @@ groups:
     warlock:
     # Mythic set=456
     - name: Regalia of the Horned Nightmare
+      wowheadSetId: 1731
       items:
         1:  21053 # Head
         3:  21051 # Shoulders
@@ -359,6 +387,7 @@ groups:
 
     # Normal set=455
     - name: Regalia of the Horned Nightmare
+      wowheadSetId: 1729
       items:
         1:  20947 # Head
         3:  20996 # Shoulders
@@ -371,6 +400,7 @@ groups:
 
     # Raid Finder set=457
     - name: Regalia of the Horned Nightmare
+      wowheadSetId: 1733
       items:
         1:  20925 # Head
         3:  20919 # Shoulders
@@ -384,6 +414,7 @@ groups:
     warrior:
     # Mythic set=439
     - name: Battleplate of the Prehistoric Marauder
+      wowheadSetId: 1773
       items:
         1:  21047 # Head
         3:  21045 # Shoulders
@@ -396,6 +427,7 @@ groups:
 
     # Normal set=438
     - name: Battleplate of the Prehistoric Marauder
+      wowheadSetId: 1771
       items:
         1:  20994 # Head
         3:  20991 # Shoulders
@@ -408,6 +440,7 @@ groups:
 
     # Raid Finder set=440
     - name: Battleplate of the Prehistoric Marauder
+      wowheadSetId: 1775
       items:
         1:  20913 # Head
         3:  20912 # Shoulders
@@ -429,6 +462,7 @@ groups:
     death-knight:
     # Heroic set=577
     - name: Battleplate of the All-Consuming Maw
+      wowheadSetId: 1629
       items:
         1: 20126 # Head
         3: 20128 # Shoulders
@@ -441,6 +475,7 @@ groups:
 
     # Normal set=575
     - name: Battleplate of the All-Consuming Maw
+      wowheadSetId: 1631
       items:
         1: 20311 # Head
         3: 20431 # Shoulders
@@ -453,6 +488,7 @@ groups:
 
     # Raid Finder set=576
     - name: Battleplate of the All-Consuming Maw
+      wowheadSetId: 1633
       items:
         1: 20476 # Head
         3: 20478 # Shoulders
@@ -466,6 +502,7 @@ groups:
     druid:
     # Heroic set=561
     - name: Vestments of the Haunted Forest
+      wowheadSetId: 1605
       items:
         1:  19840 # Head
         3:  19842 # Shoulders
@@ -478,6 +515,7 @@ groups:
 
     # Normal set=560
     - name: Vestments of the Haunted Forest
+      wowheadSetId: 1607
       items:
         1:  19858 # Head
         3:  19861 # Shoulders
@@ -490,6 +528,7 @@ groups:
 
     # Raid Finder set=562
     - name: Vestments of the Haunted Forest
+      wowheadSetId: 1609
       items:
         1:  19849 # Head
         3:  19852 # Shoulders
@@ -503,6 +542,7 @@ groups:
     hunter:
     # Heroic set=544
     - name: Battlegear of the Saurok Stalker
+      wowheadSetId: 1623
       items:
         1: 19928 # Head
         3: 19930 # Shoulders
@@ -515,6 +555,7 @@ groups:
 
     # Normal set=542
     - name: Battlegear of the Saurok Stalker
+      wowheadSetId: 1625
       items:
         1: 19920 # Head
         3: 19922 # Shoulders
@@ -527,6 +568,7 @@ groups:
 
     # Raid Finder set=543
     - name: Battlegear of the Saurok Stalker
+      wowheadSetId: 1627
       items:
         1: 19912 # Head
         3: 19914 # Shoulders
@@ -540,6 +582,7 @@ groups:
     mage:
     # Heroic set=527
     - name: Regalia of the Chromatic Hydra
+      wowheadSetId: 1583
       items:
         1:  20221 # Head
         3:  20217 # Shoulders
@@ -552,6 +595,7 @@ groups:
 
     # Normal set=526
     - name: Regalia of the Chromatic Hydra
+      wowheadSetId: 1581
       items:
         1:  20212 # Head
         3:  20208 # Shoulders
@@ -564,6 +608,7 @@ groups:
 
     # Raid Finder set=528
     - name: Regalia of the Chromatic Hydra
+      wowheadSetId: 1585
       items:
         1:  20203 # Head
         3:  20199 # Shoulders
@@ -577,6 +622,7 @@ groups:
     monk:
     # Heroic set=511
     - name: Fire-Charm Vestments
+      wowheadSetId: 1599
       items:
         1:  20249 # Head
         3:  20254 # Shoulders
@@ -589,6 +635,7 @@ groups:
 
     # Normal set=510
     - name: Fire-Charm Vestments
+      wowheadSetId: 1601
       items:
         1:  20241 # Head
         3:  20246 # Shoulders
@@ -601,6 +648,7 @@ groups:
 
     # Raid Finder set=512
     - name: Fire-Charm Vestments
+      wowheadSetId: 1603
       items:
         1:  20257 # Head
         3:  20262 # Shoulders
@@ -614,6 +662,7 @@ groups:
     paladin:
     # Heroic set=491
     - name: Battlegear of the Lightning Emperor
+      wowheadSetId: 1641
       items:
         1:  19943 # Head
         3:  19945 # Shoulders
@@ -626,6 +675,7 @@ groups:
 
     # Normal set=490
     - name: Battlegear of the Lightning Emperor
+      wowheadSetId: 1643
       items:
         1:  19935 # Head
         3:  19937 # Shoulders
@@ -638,6 +688,7 @@ groups:
 
     # Raid Finder set=492
     - name: Battlegear of the Lightning Emperor
+      wowheadSetId: 1645
       items:
         1:  19952 # Head
         3:  19954 # Shoulders
@@ -651,6 +702,7 @@ groups:
     priest:
     # Heroic set=334
     - name: Regalia of the Exorcist
+      wowheadSetId: 1591
       items:
         1:  20040 # Head
         3:  20036 # Shoulders
@@ -663,6 +715,7 @@ groups:
 
     # Normal set=310
     - name: Regalia of the Exorcist
+      wowheadSetId: 1587
       items:
         1:  20058 # Head
         3:  20054 # Shoulders
@@ -675,6 +728,7 @@ groups:
 
     # Raid Finder set=335
     - name: Regalia of the Exorcist
+      wowheadSetId: 1589
       items:
         1:  20049 # Head
         3:  20045 # Shoulders
@@ -688,6 +742,7 @@ groups:
     rogue:
     # Heroic set=475
     - name: Nine-Tail Battlegear
+      wowheadSetId: 1611
       items:
         1:  20090 # Head
         3:  20095 # Shoulders
@@ -700,6 +755,7 @@ groups:
 
     # Normal set=474
     - name: Nine-Tail Battlegear
+      wowheadSetId: 1613
       items:
         1:  20082 # Head
         3:  20087 # Shoulders
@@ -712,6 +768,7 @@ groups:
 
     # Raid Finder set=476
     - name: Nine-Tail Battlegear
+      wowheadSetId: 1615
       items:
         1:  20098 # Head
         3:  20103 # Shoulders
@@ -725,6 +782,7 @@ groups:
     shaman:
     # Heroic set=425
     - name: Regalia of the Witch Doctor
+      wowheadSetId: 1617
       items:
         1:  20350 # Head
         3:  20352 20573 # Shoulders
@@ -737,6 +795,7 @@ groups:
 
     # Normal set=424
     - name: Regalia of the Witch Doctor
+      wowheadSetId: 1619
       items:
         1:  20313 # Head
         3:  20343 20509 # Shoulders
@@ -749,6 +808,7 @@ groups:
 
     # Raid Finder set=426
     - name: Regalia of the Witch Doctor
+      wowheadSetId: 1621
       items:
         1:  20359 # Head
         3:  20361 20562 # Shoulders
@@ -762,6 +822,7 @@ groups:
     warlock:
     # Heroic set=460
     - name: Regalia of the Thousandfold Hells
+      wowheadSetId: 1597
       items:
         1:  19972 # Head
         3:  19975 # Shoulders
@@ -774,6 +835,7 @@ groups:
 
     # Normal set=458
     - name: Regalia of the Thousandfold Hells
+      wowheadSetId: 1593
       items:
         1:  20156 # Head
         3:  20159 # Shoulders
@@ -786,6 +848,7 @@ groups:
 
     # Raid Finder set=459
     - name: Regalia of the Thousandfold Hells
+      wowheadSetId: 1595
       items:
         1:  19964 # Head
         3:  19960 # Shoulders
@@ -799,6 +862,7 @@ groups:
     warrior:
     # Heroic set=443
     - name: Battleplate of the Last Mogu
+      wowheadSetId: 1635
       items:
         1:  20176 20570 # Head
         3:  20178 # Shoulders
@@ -811,6 +875,7 @@ groups:
 
     # Normal set=441
     - name: Battleplate of the Last Mogu
+      wowheadSetId: 1637
       items:
         1:  20168 20497 # Head
         3:  20170 # Shoulders
@@ -823,6 +888,7 @@ groups:
 
     # Raid Finder set=442
     - name: Battleplate of the Last Mogu
+      wowheadSetId: 1639
       items:
         1:  20077 20558 # Head
         3:  20079 # Shoulders
@@ -844,6 +910,7 @@ groups:
     death-knight:
     # Heroic set=580
     - name: Plate of the Lost Catacomb
+      wowheadSetId: 1460
       items:
         1: 19036 # Head
         3: 19038 # Shoulders
@@ -856,6 +923,7 @@ groups:
 
     # Normal set=578
     - name: Plate of the Lost Catacomb
+      wowheadSetId: 1467
       items:
         1: 18581 # Head
         3: 18579 # Shoulders
@@ -868,6 +936,7 @@ groups:
 
     # Raid Finder set=579
     - name: Plate of the Lost Catacomb
+      wowheadSetId: 1464
       items:
         1: 18977 # Head
         3: 18975 # Shoulders
@@ -881,6 +950,7 @@ groups:
     druid:
     # Heroic set=564
     - name: Vestments of the Eternal Blossom
+      wowheadSetId: 1436
       items:
         1:  19041 # Head
         3:  19043 # Shoulders
@@ -888,10 +958,12 @@ groups:
         6:  19070 # Waist
         7:  19042 # Legs
         8:  19098 # Feet
+        9:  19060 # Wrists
         10: 19040 19044 # Hands
 
     # Normal set=563
     - name: Vestments of the Eternal Blossom
+      wowheadSetId: 1445
       items:
         1:  18577 # Head
         3:  18574 # Shoulders
@@ -904,6 +976,7 @@ groups:
 
     # Raid Finder set=565
     - name: Vestments of the Eternal Blossom
+      wowheadSetId: 1441
       items:
         1:  18973 # Head
         3:  18970 # Shoulders
@@ -917,10 +990,12 @@ groups:
     hunter:
     # Heroic set=547
     - name: Yaungol Slayer Battlegear
+      wowheadSetId: 1448
       items:
         1:  19063 # Head
         3:  19065 # Shoulders
         5:  19061 # Chest
+        6:  19029 # Waist
         7:  19064 # Legs
         8:  19071 # Feet
         9:  19067 # Wrists
@@ -928,6 +1003,7 @@ groups:
 
     # Normal set=545
     - name: Yaungol Slayer Battlegear
+      wowheadSetId: 1455
       items:
         1:  18566 # Head
         3:  18564 # Shoulders
@@ -940,6 +1016,7 @@ groups:
 
     # Raid Finder set=546
     - name: Yaungol Slayer Battlegear
+      wowheadSetId: 1454
       items:
         1:  18964 # Head
         3:  18962 # Shoulders
@@ -953,6 +1030,7 @@ groups:
     mage:
     # Heroic set=530
     - name: Regalia of the Burning Scroll
+      wowheadSetId: 1429
       items:
         1:  18668 # Head
         3:  18664 # Shoulders
@@ -965,6 +1043,7 @@ groups:
 
     # Normal set=529
     - name: Regalia of the Burning Scroll
+      wowheadSetId: 1431
       items:
         1:  18589 # Head
         3:  18586 # Shoulders
@@ -977,6 +1056,7 @@ groups:
 
     # Raid Finder set=531
     - name: Regalia of the Burning Scroll
+      wowheadSetId: 1433
       items:
         1:  18659 # Head
         3:  18657 # Shoulders
@@ -990,6 +1070,7 @@ groups:
     monk:
     # Heroic set=514
     - name: Vestments of the Red Crane
+      wowheadSetId: 1438
       items:
         1:  18806 # Head
         3:  18811 # Shoulders
@@ -1002,6 +1083,7 @@ groups:
 
     # Normal set=513
     - name: Vestments of the Red Crane
+      wowheadSetId: 1447
       items:
         1:  18593 # Head
         3:  18591 # Shoulders
@@ -1014,6 +1096,7 @@ groups:
 
     # Raid Finder set=515
     - name: Vestments of the Red Crane
+      wowheadSetId: 1443
       items:
         1:  18799 # Head
         3:  18803 # Shoulders
@@ -1027,6 +1110,7 @@ groups:
     paladin:
     # Heroic set=494
     - name: White Tiger Battlegear
+      wowheadSetId: 1462
       items:
         1:  18044 # Head
         3:  18046 # Shoulders
@@ -1039,6 +1123,7 @@ groups:
 
     # Normal set=493
     - name: White Tiger Battlegear
+      wowheadSetId: 1469
       items:
         1:  18021 # Head
         3:  18023 # Shoulders
@@ -1051,6 +1136,7 @@ groups:
 
     # Raid Finder set=495
     - name: White Tiger Battlegear
+      wowheadSetId: 1465
       items:
         1:  18036 # Head
         3:  18038 # Shoulders
@@ -1064,6 +1150,7 @@ groups:
     priest:
     # Heroic set=429
     - name: Guardian Serpent Regalia
+      wowheadSetId: 1419
       items:
         1:  19087 # Head
         3:  19088 # Shoulders
@@ -1076,6 +1163,7 @@ groups:
 
     # Normal set=336
     - name: Guardian Serpent Regalia
+      wowheadSetId: 1423
       items:
         1:  18585 # Head
         3:  18584 # Shoulders
@@ -1088,6 +1176,7 @@ groups:
 
     # Raid Finder set=337
     - name: Guardian Serpent Regalia
+      wowheadSetId: 1421
       items:
         1:  18981 # Head
         3:  18980 # Shoulders
@@ -1101,6 +1190,7 @@ groups:
     rogue:
     # Heroic set=477
     - name: Battlegear of the Thousandfold Blades
+      wowheadSetId: 1435
       items:
         1:  19085 # Head
         3:  19092 # Shoulders
@@ -1113,6 +1203,7 @@ groups:
 
     # Normal set=478
     - name: Battlegear of the Thousandfold Blades
+      wowheadSetId: 1444
       items:
         1:  18571 # Head
         3:  18569 # Shoulders
@@ -1125,6 +1216,7 @@ groups:
 
     # Raid Finder set=479
     - name: Battlegear of the Thousandfold Blades
+      wowheadSetId: 1440
       items:
         1:  18968 # Head
         3:  18966 # Shoulders
@@ -1138,6 +1230,7 @@ groups:
     shaman:
     # Heroic set=338
     - name: Regalia of the Firebird
+      wowheadSetId: 1450
       items:
         1:  19069 # Head
         3:  19083 19095 # Shoulders
@@ -1150,6 +1243,7 @@ groups:
 
     # Normal set=427
     - name: Regalia of the Firebird
+      wowheadSetId: 1456
       items:
         1:  18560 # Head
         3:  18558 19211 # Shoulders
@@ -1162,6 +1256,7 @@ groups:
 
     # Raid Finder set=428
     - name: Regalia of the Firebird
+      wowheadSetId: 1452
       items:
         1:  18960 # Head
         3:  18958 19212 # Shoulders
@@ -1175,6 +1270,7 @@ groups:
     warlock:
     # Heroic set=463
     - name: Sha Skin Regalia
+      wowheadSetId: 1425
       items:
         1:  18075 # Head
         3:  18071 # Shoulders
@@ -1187,6 +1283,7 @@ groups:
 
     # Normal set=461
     - name: Sha Skin Regalia
+      wowheadSetId: 1428
       items:
         1:  18093 # Head
         3:  18089 # Shoulders
@@ -1199,6 +1296,7 @@ groups:
 
     # Raid Finder set=462
     - name: Sha Skin Regalia
+      wowheadSetId: 1426
       items:
         1:  18084 19005 19078 # Head
         3:  18080 # Shoulders
@@ -1212,6 +1310,7 @@ groups:
     warrior:
     # Heroic set=445
     - name: Battleplate of Resounding Rings
+      wowheadSetId: 1458
       items:
         1: 18172 # Head
         3: 18174 # Shoulders
@@ -1224,6 +1323,7 @@ groups:
 
     # Normal set=444
     - name: Battleplate of Resounding Rings
+      wowheadSetId: 1466
       items:
         1: 18158 # Head
         3: 18160 # Shoulders
@@ -1236,6 +1336,7 @@ groups:
 
     # Raid Finder set=446
     - name: Battleplate of Resounding Rings
+      wowheadSetId: 1470
       items:
         1: 18164 # Head
         3: 18166 # Shoulders
