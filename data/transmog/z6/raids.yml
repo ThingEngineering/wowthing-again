@@ -13,6 +13,7 @@ groups:
     death-knight:
     # Mythic set=1474
     - name: Dreadwake Armor
+      wowheadSetId: 2718
       items:
         1:  34479 # Head
         3:  34481 # Shoulders
@@ -26,6 +27,7 @@ groups:
 
     # Heroic set=1473
     - name: Dreadwake Armor
+      wowheadSetId: 2717
       items:
         1:  34513 # Head
         3:  34515 # Shoulders
@@ -39,6 +41,7 @@ groups:
 
     # Normal set=1472
     - name: Dreadwake Armor
+      wowheadSetId: 2716
       items:
         1:  35239 # Head
         3:  35241 # Shoulders
@@ -52,6 +55,7 @@ groups:
 
     # Raid Finder set=1475
     - name: Dreadwake Armor
+      wowheadSetId: 2715
       items:
         1:  35231 # Head
         3:  35233 # Shoulders
@@ -66,6 +70,7 @@ groups:
     demon-hunter:
     # Mythic set=1478
     - name: Felreaper Vestments
+      wowheadSetId: 2670
       items:
         1:  29585 # Head
         3:  29587 # Shoulders
@@ -79,6 +84,7 @@ groups:
 
     # Heroic set=1477
     - name: Felreaper Vestments
+      wowheadSetId: 2669
       items:
         1:  29862 # Head
         3:  29864 # Shoulders
@@ -92,6 +98,7 @@ groups:
 
     # Normal set=1476
     - name: Felreaper Vestments
+      wowheadSetId: 2668
       items:
         1:  35268 # Head
         3:  35270 # Shoulders
@@ -105,6 +112,7 @@ groups:
 
     # Raid Finder set=1479
     - name: Felreaper Vestments
+      wowheadSetId: 2667
       items:
         1:  29854 # Head
         3:  29856 # Shoulders
@@ -119,6 +127,7 @@ groups:
     druid:
     # Mythic set=1482
     - name: Bearmantle Battlegear
+      wowheadSetId: 2678
       items:
         1:  35075 # Head
         3:  35077 # Shoulders
@@ -131,6 +140,7 @@ groups:
 
     # Heroic set=1481
     - name: Bearmantle Battlegear
+      wowheadSetId: 2677
       items:
         1:  35043 # Head
         3:  35045 # Shoulders
@@ -143,6 +153,7 @@ groups:
 
     # Normal set=1480
     - name: Bearmantle Battlegear
+      wowheadSetId: 2676
       items:
         1:  35051 # Head
         3:  35053 # Shoulders
@@ -156,6 +167,7 @@ groups:
 
     # Raid Finder set=1483
     - name: Bearmantle Battlegear
+      wowheadSetId: 2679
       items:
         1:  34938 # Head
         3:  34940 # Shoulders
@@ -169,6 +181,7 @@ groups:
     hunter:
     # Mythic set=1486
     - name: Serpentstalker Guise
+      wowheadSetId: 2702
       items:
         1:  34629 # Head
         3:  34631 # Shoulders
@@ -182,6 +195,7 @@ groups:
 
     # Heroic set=1485
     - name: Serpentstalker Guise
+      wowheadSetId: 2701
       items:
         1:  34621 # Head
         3:  34623 # Shoulders
@@ -195,6 +209,7 @@ groups:
 
     # Normal set=1484
     - name: Serpentstalker Guise
+      wowheadSetId: 2700
       items:
         1:  34613 # Head
         3:  34615 # Shoulders
@@ -208,6 +223,7 @@ groups:
 
     # Raid Finder set=1487
     - name: Serpentstalker Guise
+      wowheadSetId: 2703
       items:
         1:  34605 # Head
         3:  34607 # Shoulders
@@ -222,6 +238,7 @@ groups:
     mage:
     # Mythic set=1490
     - name: Runebound Regalia
+      wowheadSetId: 2646
       items:
         1:  34578 # Head
         3:  34581 # Shoulders
@@ -235,6 +252,7 @@ groups:
 
     # Heroic set=1489
     - name: Runebound Regalia
+      wowheadSetId: 2645
       items:
         1:  34554 # Head
         3:  34557 # Shoulders
@@ -248,6 +266,7 @@ groups:
 
     # Normal set=1488
     - name: Runebound Regalia
+      wowheadSetId: 2644
       items:
         1:  34546 # Head
         3:  34549 # Shoulders
@@ -261,6 +280,7 @@ groups:
 
     # Raid Finder set=1491
     - name: Runebound Regalia
+      wowheadSetId: 2647
       items:
         1:  34562 # Head
         3:  34565 # Shoulders
@@ -275,6 +295,7 @@ groups:
     monk:
     # Mythic set=1494
     - name: Chi'Ji's Battlegear
+      wowheadSetId: 2686
       items:
         1:  34986 # Head
         3:  34988 # Shoulders
@@ -287,6 +308,7 @@ groups:
 
     # Heroic set=1493
     - name: Chi'Ji's Battlegear
+      wowheadSetId: 2685
       items:
         1:  34978 # Head
         3:  34980 # Shoulders
@@ -299,6 +321,7 @@ groups:
 
     # Normal set=1492
     - name: Chi'Ji's Battlegear
+      wowheadSetId: 2684
       items:
         1:  34970 # Head
         3:  34972 # Shoulders
@@ -312,6 +335,7 @@ groups:
 
     # Raid Finder set=1495
     - name: Chi'Ji's Battlegear
+      wowheadSetId: 2687
       items:
         1:  34962 # Head
         3:  34964 # Shoulders
@@ -325,6 +349,7 @@ groups:
     paladin:
     # Mythic set=1498
     - name: Light's Vanguard Battleplate
+      wowheadSetId: 2726
       items:
         1:  34754 # Head
         3:  34756 # Shoulders
@@ -338,6 +363,7 @@ groups:
 
     # Heroic set=1497
     - name: Light's Vanguard Battleplate
+      wowheadSetId: 2725
       items:
         1:  34730 # Head
         3:  34732 # Shoulders
@@ -351,6 +377,7 @@ groups:
 
     # Normal set=1496
     - name: Light's Vanguard Battleplate
+      wowheadSetId: 2724
       items:
         1:  34722 # Head
         3:  34724 # Shoulders
@@ -364,6 +391,7 @@ groups:
 
     # Raid Finder set=1499
     - name: Light's Vanguard Battleplate
+      wowheadSetId: 2727
       items:
         1:  34714 # Head
         3:  34716 # Shoulders
@@ -378,6 +406,7 @@ groups:
     priest:
     # Mythic set=1502
     - name: Gilded Seraph's Raiment
+      wowheadSetId: 2662
       items:
         1:  34911 # Head
         3:  34913 # Shoulders
@@ -390,6 +419,7 @@ groups:
 
     # Heroic set=1501
     - name: Gilded Seraph's Raiment
+      wowheadSetId: 2661
       items:
         1:  34871 # Head
         3:  34873 # Shoulders
@@ -402,6 +432,7 @@ groups:
 
     # Normal set=1500
     - name: Gilded Seraph's Raiment
+      wowheadSetId: 2660
       items:
         1:  34895 # Head
         3:  34897 # Shoulders
@@ -415,6 +446,7 @@ groups:
 
     # Raid Finder set=1503
     - name: Gilded Seraph's Raiment
+      wowheadSetId: 2663
       items:
         1:  34887 # Head
         3:  34889 # Shoulders
@@ -428,6 +460,7 @@ groups:
     rogue:
     # Mythic set=1506
     - name: Regalia of the Dashing Scoundrel
+      wowheadSetId: 2694
       items:
         1:  35205 # Head
         3:  35207 # Shoulders
@@ -440,6 +473,7 @@ groups:
 
     # Heroic set=1505
     - name: Regalia of the Dashing Scoundrel
+      wowheadSetId: 2693
       items:
         1:  35276 # Head
         3:  35278 # Shoulders
@@ -452,6 +486,7 @@ groups:
 
     # Normal set=1504
     - name: Regalia of the Dashing Scoundrel
+      wowheadSetId: 2692
       items:
         1:  35181 # Head
         3:  35183 # Shoulders
@@ -465,6 +500,7 @@ groups:
 
     # Raid Finder set=1507
     - name: Regalia of the Dashing Scoundrel
+      wowheadSetId: 2695
       items:
         1:  35196 # Head
         3:  35198 # Shoulders
@@ -478,6 +514,7 @@ groups:
     shaman:
     # Mythic set=1510
     - name: Garb of Venerated Spirits
+      wowheadSetId: 2710
       items:
         1:  35122 # Head
         3:  35124 # Shoulders
@@ -491,6 +528,7 @@ groups:
 
     # Heroic set=1509
     - name: Garb of Venerated Spirits
+      wowheadSetId: 2709
       items:
         1:  35106 # Head
         3:  35108 # Shoulders
@@ -504,6 +542,7 @@ groups:
 
     # Normal set=1508
     - name: Garb of Venerated Spirits
+      wowheadSetId: 2708
       items:
         1:  35089 # Head
         3:  35091 # Shoulders
@@ -517,6 +556,7 @@ groups:
 
     # Raid Finder set=1511
     - name: Garb of Venerated Spirits
+      wowheadSetId: 2711
       items:
         1:  35098 # Head
         3:  35100 # Shoulders
@@ -531,6 +571,7 @@ groups:
     warlock:
     # Mythic set=1514
     - name: Grim Inquisitor's Regalia
+      wowheadSetId: 2654
       items:
         1:  34839 # Head
         3:  34841 # Shoulders
@@ -544,6 +585,7 @@ groups:
 
     # Heroic set=1513
     - name: Grim Inquisitor's Regalia
+      wowheadSetId: 2653
       items:
         1:  34789 # Head
         3:  34791 # Shoulders
@@ -557,6 +599,7 @@ groups:
 
     # Normal set=1512
     - name: Grim Inquisitor's Regalia
+      wowheadSetId: 2652
       items:
         1:  34797 # Head
         3:  34799 # Shoulders
@@ -570,6 +613,7 @@ groups:
 
     # Raid Finder set=1515
     - name: Grim Inquisitor's Regalia
+      wowheadSetId: 2655
       items:
         1:  34814 # Head
         3:  34816 # Shoulders
@@ -584,6 +628,7 @@ groups:
     warrior:
     # Mythic set=1518
     - name: Juggernaut Battlegear
+      wowheadSetId: 2734
       items:
         1:  34698 # Head
         3:  34700 # Shoulders
@@ -597,6 +642,7 @@ groups:
 
     # Heroic set=1517
     - name: Juggernaut Battlegear
+      wowheadSetId: 2733
       items:
         1:  34680 # Head
         3:  34682 # Shoulders
@@ -610,6 +656,7 @@ groups:
 
     # Normal set=1516
     - name: Juggernaut Battlegear
+      wowheadSetId: 2732
       items:
         1:  34661 # Head
         3:  34663 # Shoulders
@@ -623,6 +670,7 @@ groups:
 
     # Raid Finder set=1519
     - name: Juggernaut Battlegear
+      wowheadSetId: 2735
       items:
         1:  34672 # Head
         3:  34674 # Shoulders
@@ -647,6 +695,7 @@ groups:
     # Mythic set=1474
     # Mythic set=1338
     - name: Gravewarden Armaments
+      wowheadSetId: 2449
       items:
         1:  33783 # Head
         3:  33785 # Shoulders
@@ -660,6 +709,7 @@ groups:
 
     # Heroic set=1340
     - name: Gravewarden Armaments
+      wowheadSetId: 2448
       items:
         1:  33767 # Head
         3:  33769 # Shoulders
@@ -673,6 +723,7 @@ groups:
 
     # Normal set=1337
     - name: Gravewarden Armaments
+      wowheadSetId: 2447
       items:
         1:  33751 # Head
         3:  33753 # Shoulders
@@ -686,6 +737,7 @@ groups:
 
     # Raid Finder set=1339
     - name: Gravewarden Armaments
+      wowheadSetId: 2450
       items:
         1:  33759 # Head
         3:  33761 # Shoulders
@@ -700,6 +752,7 @@ groups:
     demon-hunter:
     # Mythic set=1334
     - name: Demonbane Armor
+      wowheadSetId: 2401
       items:
         1:  33312 # Head
         3:  33314 # Shoulders
@@ -712,6 +765,7 @@ groups:
 
     # Heroic set=1336
     - name: Demonbane Armor
+      wowheadSetId: 2400
       items:
         1:  33257 # Head
         3:  33259 # Shoulders
@@ -724,6 +778,7 @@ groups:
 
     # Normal set=1333
     - name: Demonbane Armor
+      wowheadSetId: 2399
       items:
         1:  33283 # Head
         3:  33285 # Shoulders
@@ -736,6 +791,7 @@ groups:
 
     # Raid Finder set=1335
     - name: Demonbane Armor
+      wowheadSetId: 2402
       items:
         1:  33274 # Head
         3:  33276 # Shoulders
@@ -749,6 +805,7 @@ groups:
     druid:
     # Mythic set=1330
     - name: Stormheart Raiment
+      wowheadSetId: 2409
       items:
         1:  33588 # Head
         3:  33590 # Shoulders
@@ -761,6 +818,7 @@ groups:
 
     # Heroic set=1332
     - name: Stormheart Raiment
+      wowheadSetId: 2408
       items:
         1:  33604 # Head
         3:  33606 # Shoulders
@@ -773,6 +831,7 @@ groups:
 
     # Normal set=1329
     - name: Stormheart Raiment
+      wowheadSetId: 2407
       items:
         1:  33628 # Head
         3:  33630 # Shoulders
@@ -786,6 +845,7 @@ groups:
 
     # Raid Finder set=1331
     - name: Stormheart Raiment
+      wowheadSetId: 2410
       items:
         1:  33620 # Head
         3:  33622 # Shoulders
@@ -799,6 +859,7 @@ groups:
     hunter:
     # Mythic set=1326
     - name: Wildstalker Armor
+      wowheadSetId: 2433
       items:
         1:  33458 # Head
         3:  33460 # Shoulders
@@ -812,6 +873,7 @@ groups:
 
     # Heroic set=1328
     - name: Wildstalker Armor
+      wowheadSetId: 2432
       items:
         1:  33426 # Head
         3:  33428 # Shoulders
@@ -825,6 +887,7 @@ groups:
 
     # Normal set=1325
     - name: Wildstalker Armor
+      wowheadSetId: 2431
       items:
         1:  33434 # Head
         3:  33436 # Shoulders
@@ -838,6 +901,7 @@ groups:
 
     # Raid Finder set=1327
     - name: Wildstalker Armor
+      wowheadSetId: 2434
       items:
         1:  33442 # Head
         3:  33444 # Shoulders
@@ -852,6 +916,7 @@ groups:
     mage:
     # Mythic set=1322
     - name: Regalia of the Arcane Tempest
+      wowheadSetId: 2377
       items:
         1:  33556 # Head
         3:  33558 # Shoulders
@@ -864,6 +929,7 @@ groups:
 
     # Heroic set=1324
     - name: Regalia of the Arcane Tempest
+      wowheadSetId: 2376
       items:
         1:  33540 # Head
         3:  33542 # Shoulders
@@ -876,6 +942,7 @@ groups:
 
     # Normal set=1321
     - name: Regalia of the Arcane Tempest
+      wowheadSetId: 2375
       items:
         1:  33532 # Head
         3:  33534 # Shoulders
@@ -889,6 +956,7 @@ groups:
 
     # Raid Finder set=1323
     - name: Regalia of the Arcane Tempest
+      wowheadSetId: 2378
       items:
         1:  33524 # Head
         3:  33526 # Shoulders
@@ -902,6 +970,7 @@ groups:
     monk:
     # Mythic set=1318
     - name: Xuen's Battlegear
+      wowheadSetId: 2417
       items:
         1:  33565 # Head
         3:  33567 # Shoulders
@@ -914,6 +983,7 @@ groups:
 
     # Heroic set=1320
     - name: Xuen's Battlegear
+      wowheadSetId: 2416
       items:
         1:  33492 # Head
         3:  33494 # Shoulders
@@ -926,6 +996,7 @@ groups:
 
     # Normal set=1317
     - name: Xuen's Battlegear
+      wowheadSetId: 2415
       items:
         1:  33484 # Head
         3:  33486 # Shoulders
@@ -938,6 +1009,7 @@ groups:
 
     # Raid Finder set=1319
     - name: Xuen's Battlegear
+      wowheadSetId: 2418
       items:
         1:  33500 # Head
         3:  33502 # Shoulders
@@ -952,6 +1024,7 @@ groups:
     # Mythic set=1498
     # Mythic set=1314
     - name: Radiant Lightbringer Armor
+      wowheadSetId: 2457
       items:
         1:  32917 # Head
         3:  32919 # Shoulders
@@ -964,6 +1037,7 @@ groups:
 
     # Heroic set=1316
     - name: Radiant Lightbringer Armor
+      wowheadSetId: 2456
       items:
         1:  32901 # Head
         3:  32903 # Shoulders
@@ -976,6 +1050,7 @@ groups:
 
     # Normal set=1313
     - name: Radiant Lightbringer Armor
+      wowheadSetId: 2455
       items:
         1:  32946 # Head
         3:  32948 # Shoulders
@@ -988,6 +1063,7 @@ groups:
 
     # Raid Finder set=1315
     - name: Radiant Lightbringer Armor
+      wowheadSetId: 2458
       items:
         1:  32925 # Head
         3:  32927 # Shoulders
@@ -1001,6 +1077,7 @@ groups:
     priest:
     # Mythic set=1310
     - name: Vestments of Blind Absolution
+      wowheadSetId: 2393
       items:
         1:  33384 # Head
         3:  33386 # Shoulders
@@ -1014,6 +1091,7 @@ groups:
 
     # Heroic set=1312
     - name: Vestments of Blind Absolution
+      wowheadSetId: 2392
       items:
         1:  33368 # Head
         3:  33370 # Shoulders
@@ -1027,6 +1105,7 @@ groups:
 
     # Normal set=1309
     - name: Vestments of Blind Absolution
+      wowheadSetId: 2391
       items:
         1:  33352 # Head
         3:  33354 # Shoulders
@@ -1040,6 +1119,7 @@ groups:
 
     # Raid Finder set=1342
     - name: Vestments of Blind Absolution
+      wowheadSetId: 2394
       items:
         1:  33360 # Head
         3:  33362 # Shoulders
@@ -1054,6 +1134,7 @@ groups:
     rogue:
     # Mythic set=1308
     - name: Fanged Slayer's Armor
+      wowheadSetId: 2425
       items:
         1:  33685 # Head
         3:  33687 # Shoulders
@@ -1067,6 +1148,7 @@ groups:
 
     # Heroic set=1307
     - name: Fanged Slayer's Armor
+      wowheadSetId: 2424
       items:
         1:  33637 # Head
         3:  33639 # Shoulders
@@ -1080,6 +1162,7 @@ groups:
 
     # Normal set=1305
     - name: Fanged Slayer's Armor
+      wowheadSetId: 2423
       items:
         1:  33669 # Head
         3:  33671 # Shoulders
@@ -1093,6 +1176,7 @@ groups:
 
     # Raid Finder set=1306
     - name: Fanged Slayer's Armor
+      wowheadSetId: 2426
       items:
         1:  33661 # Head
         3:  33663 # Shoulders
@@ -1107,6 +1191,7 @@ groups:
     shaman:
     # Mythic set=1304
     - name: Regalia of the Skybreaker
+      wowheadSetId: 2441
       items:
         1:  33868 # Head
         3:  33870 # Shoulders
@@ -1119,6 +1204,7 @@ groups:
 
     # Heroic set=1303
     - name: Regalia of the Skybreaker
+      wowheadSetId: 2440
       items:
         1:  33720 # Head
         3:  33722 # Shoulders
@@ -1131,6 +1217,7 @@ groups:
 
     # Normal set=1301
     - name: Regalia of the Skybreaker
+      wowheadSetId: 2439
       items:
         1:  33702 # Head
         3:  33704 # Shoulders
@@ -1143,6 +1230,7 @@ groups:
 
     # Raid Finder set=1302
     - name: Regalia of the Skybreaker
+      wowheadSetId: 2442
       items:
         1:  34317 # Head
         3:  34319 # Shoulders
@@ -1156,6 +1244,7 @@ groups:
     warlock:
     # Mythic set=1299
     - name: Diabolic Raiment
+      wowheadSetId: 2385
       items:
         1:  33194 # Head
         3:  33196 # Shoulders
@@ -1169,6 +1258,7 @@ groups:
 
     # Heroic set=1298
     - name: Diabolic Raiment
+      wowheadSetId: 2384
       items:
         1:  33096 # Head
         3:  33098 # Shoulders
@@ -1182,6 +1272,7 @@ groups:
 
     # Normal set=1297
     - name: Diabolic Raiment
+      wowheadSetId: 2383
       items:
         1:  33149 # Head
         3:  33151 # Shoulders
@@ -1195,6 +1286,7 @@ groups:
 
     # Raid Finder set=1300
     - name: Diabolic Raiment
+      wowheadSetId: 2386
       items:
         1:  33203 # Head
         3:  33205 # Shoulders
@@ -1209,6 +1301,7 @@ groups:
     warrior:
     # Mythic set=1295
     - name: Titanic Onslaught Armor
+      wowheadSetId: 2465
       items:
         1:  33069 # Head
         3:  33071 # Shoulders
@@ -1221,6 +1314,7 @@ groups:
 
     # Heroic set=1294
     - name: Titanic Onslaught Armor
+      wowheadSetId: 2464
       items:
         1:  33035 # Head
         3:  33037 # Shoulders
@@ -1233,6 +1327,7 @@ groups:
 
     # Normal set=1293
     - name: Titanic Onslaught Armor
+      wowheadSetId: 2463
       items:
         1:  33015 # Head
         3:  33017 # Shoulders
@@ -1245,6 +1340,7 @@ groups:
 
     # Raid Finder set=1296
     - name: Titanic Onslaught Armor
+      wowheadSetId: 2466
       items:
         1:  33051 # Head
         3:  33053 # Shoulders
@@ -1255,7 +1351,7 @@ groups:
         10: 33050 # Hands
         16: 33130 # Back
 
-- name: The Nighthold / Emerald Nightmare
+- name: Emerald Nightmare / The Nighthold
   tag: T19
   type: class
   sets:
@@ -1271,6 +1367,7 @@ groups:
       # Missing appearance 82662
       # Missing appearance 82460
       # Missing appearance 82520
+      wowheadSetId: 2249
       items:
         1:  29829 # Head
         3:  29831 # Shoulders
@@ -1288,6 +1385,7 @@ groups:
       # Missing appearance 82661
       # Missing appearance 82459
       # Missing appearance 82519
+      wowheadSetId: 2248
       items:
         1:  29813 # Head
         3:  29815 # Shoulders
@@ -1301,6 +1399,7 @@ groups:
 
     # Normal set=1002
     - name: Dreadwyrm Battleplate
+      wowheadSetId: 2247
       items:
         1:  29805 # Head
         3:  29807 # Shoulders
@@ -1318,6 +1417,7 @@ groups:
       # Missing appearance 82663
       # Missing appearance 82461
       # Missing appearance 82521
+      wowheadSetId: 2250
       items:
         1:  32139 # Head
         3:  32141 # Shoulders
@@ -1334,6 +1434,7 @@ groups:
     - name: Vestment of Second Sight
       # Missing appearance 82432
       # Missing appearance 82436
+      wowheadSetId: 2200
       items:
         1:  31913 # Head
         3:  31915 # Shoulders
@@ -1349,6 +1450,7 @@ groups:
     - name: Vestment of Second Sight
       # Missing appearance 82431
       # Missing appearance 82435
+      wowheadSetId: 2199
       items:
         1:  32012 # Head
         3:  32014 # Shoulders
@@ -1362,6 +1464,7 @@ groups:
 
     # Normal set=998
     - name: Vestment of Second Sight
+      wowheadSetId: 2198
       items:
         1:  32004 # Head
         3:  32006 # Shoulders
@@ -1377,6 +1480,7 @@ groups:
     - name: Vestment of Second Sight
       # Missing appearance 82433
       # Missing appearance 82437
+      wowheadSetId: 2201
       items:
         1:  32020 # Head
         3:  32022 # Shoulders
@@ -1393,6 +1497,7 @@ groups:
     - name: Garb of the Astral Warden
       # Missing appearance 82557
       # Missing appearance 82686
+      wowheadSetId: 2208
       items:
         1:  30696 # Head
         3:  30698 # Shoulders
@@ -1408,6 +1513,7 @@ groups:
     - name: Garb of the Astral Warden
       # Missing appearance 82556
       # Missing appearance 82685
+      wowheadSetId: 2207
       items:
         1:  30731 # Head
         3:  30733 # Shoulders
@@ -1421,6 +1527,7 @@ groups:
 
     # Normal set=994
     - name: Garb of the Astral Warden
+      wowheadSetId: 2206
       items:
         1:  30740 # Head
         3:  30742 # Shoulders
@@ -1436,6 +1543,7 @@ groups:
     - name: Garb of the Astral Warden
       # Missing appearance 82558
       # Missing appearance 82687
+      wowheadSetId: 2209
       items:
         1:  32072 # Head
         3:  32074 # Shoulders
@@ -1455,6 +1563,7 @@ groups:
       # Missing appearance 82504
       # Missing appearance 82444
       # Missing appearance 82484
+      wowheadSetId: 2232
       items:
         1:  29904 # Head
         3:  29905 # Shoulders
@@ -1473,6 +1582,7 @@ groups:
       # Missing appearance 82503
       # Missing appearance 82443
       # Missing appearance 82483
+      wowheadSetId: 2231
       items:
         1:  29766 # Head
         3:  29768 # Shoulders
@@ -1486,6 +1596,7 @@ groups:
 
     # Normal set=990
     - name: Eagletalon Battlegear
+      wowheadSetId: 2230
       items:
         1:  29758 # Head
         3:  29760 # Shoulders
@@ -1504,6 +1615,7 @@ groups:
       # Missing appearance 82505
       # Missing appearance 82445
       # Missing appearance 82485
+      wowheadSetId: 2233
       items:
         1:  31867 # Head
         3:  31869 # Shoulders
@@ -1522,6 +1634,7 @@ groups:
       # Missing appearance 82424
       # Missing appearance 82528
       # Missing appearance 82625
+      wowheadSetId: 2176
       items:
         1:  31083 # Head
         3:  31085 # Shoulders
@@ -1539,6 +1652,7 @@ groups:
       # Missing appearance 82423
       # Missing appearance 82527
       # Missing appearance 82624
+      wowheadSetId: 2175
       items:
         1:  30776 # Head
         3:  30778 # Shoulders
@@ -1552,6 +1666,7 @@ groups:
 
     # Normal set=986
     - name: Regalia of Everburning Knowledge
+      wowheadSetId: 2174
       items:
         1:  30785 # Head
         3:  30787 # Shoulders
@@ -1569,6 +1684,7 @@ groups:
       # Missing appearance 82425
       # Missing appearance 82529
       # Missing appearance 82626
+      wowheadSetId: 2177
       items:
         1:  31938 # Head
         3:  31940 # Shoulders
@@ -1585,6 +1701,7 @@ groups:
     - name: Vestments of Enveloped Dissonance
       # Missing appearance 82840
       # Missing appearance 82516
+      wowheadSetId: 2216
       items:
         1:  30670 # Head
         3:  30671 # Shoulders
@@ -1600,6 +1717,7 @@ groups:
     - name: Vestments of Enveloped Dissonance
       # Missing appearance 82839
       # Missing appearance 82515
+      wowheadSetId: 2215
       items:
         1:  30617 # Head
         3:  30619 # Shoulders
@@ -1613,6 +1731,7 @@ groups:
 
     # Normal set=982
     - name: Vestments of Enveloped Dissonance
+      wowheadSetId: 2214
       items:
         1:  32043 # Head
         3:  32046 # Shoulders
@@ -1628,6 +1747,7 @@ groups:
     - name: Vestments of Enveloped Dissonance
       # Missing appearance 82841
       # Missing appearance 82517
+      wowheadSetId: 2217
       items:
         1:  30634 # Head
         3:  30645 # Shoulders
@@ -1645,6 +1765,7 @@ groups:
       # Missing appearance 82581
       # Missing appearance 82464
       # Missing appearance 82508
+      wowheadSetId: 2257
       items:
         1:  29452 # Head
         3:  29454 # Shoulders
@@ -1661,6 +1782,7 @@ groups:
       # Missing appearance 82580
       # Missing appearance 82463
       # Missing appearance 82507
+      wowheadSetId: 2256
       items:
         1:  29653 # Head
         3:  29655 # Shoulders
@@ -1674,6 +1796,7 @@ groups:
 
     # Normal set=978
     - name: Battleplate of the Highlord
+      wowheadSetId: 2255
       items:
         1:  29644 # Head
         3:  29647 # Shoulders
@@ -1690,6 +1813,7 @@ groups:
       # Missing appearance 82582
       # Missing appearance 82465
       # Missing appearance 82509
+      wowheadSetId: 2258
       items:
         1:  32147 # Head
         3:  32149 # Shoulders
@@ -1707,6 +1831,7 @@ groups:
       # Missing appearance 82472
       # Missing appearance 82500
       # Missing appearance 82718
+      wowheadSetId: 2192
       items:
         1:  30280 # Head
         3:  30282 # Shoulders
@@ -1725,6 +1850,7 @@ groups:
       # Missing appearance 82471
       # Missing appearance 82499
       # Missing appearance 82717
+      wowheadSetId: 2191
       items:
         1:  30271 # Head
         3:  30273 # Shoulders
@@ -1738,6 +1864,7 @@ groups:
 
     # Normal set=308
     - name: Vestments of the Purifier
+      wowheadSetId: 2190
       items:
         1:  30262 # Head
         3:  30264 # Shoulders
@@ -1754,6 +1881,7 @@ groups:
       # Missing appearance 82473
       # Missing appearance 82501
       # Missing appearance 82719
+      wowheadSetId: 2193
       items:
         1:  31947 # Head
         3:  31949 # Shoulders
@@ -1770,6 +1898,7 @@ groups:
     - name: Doomblade Battlegear
       # Missing appearance 82428
       # Missing appearance 82641
+      wowheadSetId: 2224
       items:
         1:  28986 # Head
         3:  28988 # Shoulders
@@ -1785,6 +1914,7 @@ groups:
     - name: Doomblade Battlegear
       # Missing appearance 82427
       # Missing appearance 82640
+      wowheadSetId: 2223
       items:
         1:  29197 # Head
         3:  29218 # Shoulders
@@ -1798,6 +1928,7 @@ groups:
 
     # Normal set=942
     - name: Doomblade Battlegear
+      wowheadSetId: 2222
       items:
         1:  29870 # Head
         3:  29872 # Shoulders
@@ -1813,6 +1944,7 @@ groups:
     - name: Doomblade Battlegear
       # Missing appearance 82429
       # Missing appearance 82642
+      wowheadSetId: 2225
       items:
         1:  32083 # Head
         3:  32084 # Shoulders
@@ -1830,6 +1962,7 @@ groups:
       # Missing appearance 82440
       # Missing appearance 82448
       # Missing appearance 82609
+      wowheadSetId: 2240
       items:
         1:  31039 # Head
         3:  31041 # Shoulders
@@ -1843,6 +1976,7 @@ groups:
 
     # Heroic set=934
     - name: Regalia of Shackled Elements
+      wowheadSetId: 2239
       items:
         1:  30909 # Head
         3:  30912 # Shoulders
@@ -1855,6 +1989,7 @@ groups:
 
     # Normal set=933
     - name: Regalia of Shackled Elements
+      wowheadSetId: 2238
       items:
         1:  30937 # Head
         3:  30938 # Shoulders
@@ -1871,6 +2006,7 @@ groups:
       # Missing appearance 82441
       # Missing appearance 82449
       # Missing appearance 82610
+      wowheadSetId: 2241
       items:
         1:  32095 # Head
         3:  32096 # Shoulders
@@ -1889,6 +2025,7 @@ groups:
       # Missing appearance 82420
       # Missing appearance 82805
       # Missing appearance 82468
+      wowheadSetId: 2184
       items:
         1:  29083 # Head
         3:  29085 # Shoulders
@@ -1906,6 +2043,7 @@ groups:
       # Missing appearance 82419
       # Missing appearance 82804
       # Missing appearance 82467
+      wowheadSetId: 2183
       items:
         1:  29161 # Head
         3:  29163 # Shoulders
@@ -1919,6 +2057,7 @@ groups:
 
     # Normal set=315
     - name: Legacy of Azj'Aqir
+      wowheadSetId: 2182
       items:
         1:  29171 # Head
         3:  29173 # Shoulders
@@ -1932,6 +2071,7 @@ groups:
 
     # Raid Finder set=941
     - name: Legacy of Azj'aqir
+      wowheadSetId: 2185
       items:
         1:  31884 # Head
         3:  31886 # Shoulders
@@ -1948,6 +2088,7 @@ groups:
       # Missing appearance 82412
       # Missing appearance 82524
       # Missing appearance 82645
+      wowheadSetId: 2265
       items:
         1:  31449 # Head
         3:  31455 # Shoulders
@@ -1964,6 +2105,7 @@ groups:
       # Missing appearance 82411
       # Missing appearance 82523
       # Missing appearance 82644
+      wowheadSetId: 2264
       items:
         1:  31410 # Head
         3:  31413 # Shoulders
@@ -1977,6 +2119,7 @@ groups:
 
     # Normal set=937
     - name: Warplate of the Obsidian Aspect
+      wowheadSetId: 2263
       items:
         1:  31444 # Head
         3:  31447 # Shoulders
@@ -1993,6 +2136,7 @@ groups:
       # Missing appearance 82413
       # Missing appearance 82525
       # Missing appearance 82646
+      wowheadSetId: 2266
       items:
         1:  32157 # Head
         3:  32160 # Shoulders
@@ -2015,6 +2159,7 @@ groups:
     cloth:
     # Mythic set=173
     - name: Regalia of the Chosen Dead
+      wowheadSetId: 2309
       items:
         1:  32823 # Head
         3:  32825 # Shoulders
@@ -2028,6 +2173,7 @@ groups:
 
     # Heroic set=172
     - name: Regalia of the Chosen Dead
+      wowheadSetId: 2308
       items:
         1:  32805 # Head
         3:  32807 # Shoulders
@@ -2041,6 +2187,7 @@ groups:
 
     # Normal set=171
     - name: Regalia of the Chosen Dead
+      wowheadSetId: 2307
       items:
         1:  32814 # Head
         3:  32816 # Shoulders
@@ -2054,6 +2201,7 @@ groups:
 
     # Raid Finder set=174
     - name: Regalia of the Chosen Dead
+      wowheadSetId: 2310
       items:
         1:  32832 # Head
         3:  32834 # Shoulders
@@ -2068,6 +2216,7 @@ groups:
     leather:
     # Mythic set=177
     - name: Garb of the Chosen Dead
+      wowheadSetId: 2313
       items:
         1:  32869 # Head
         3:  32871 # Shoulders
@@ -2081,6 +2230,7 @@ groups:
 
     # Heroic set=176
     - name: Garb of the Chosen Dead
+      wowheadSetId: 2312
       items:
         1:  32877 # Head
         3:  32879 # Shoulders
@@ -2094,6 +2244,7 @@ groups:
 
     # Normal set=175
     - name: Garb of the Chosen Dead
+      wowheadSetId: 2311
       items:
         1:  32861 # Head
         3:  32863 # Shoulders
@@ -2107,6 +2258,7 @@ groups:
 
     # Raid Finder set=178
     - name: Garb of the Chosen Dead
+      wowheadSetId: 2314
       items:
         1:  32885 # Head
         3:  32887 # Shoulders
@@ -2121,6 +2273,7 @@ groups:
     mail:
     # Mythic set=181
     - name: Chains of the Chosen Dead
+      wowheadSetId: 2317
       items:
         1:  32703 # Head
         3:  32705 # Shoulders
@@ -2134,6 +2287,7 @@ groups:
 
     # Heroic set=180
     - name: Chains of the Chosen Dead
+      wowheadSetId: 2316
       items:
         1:  32679 # Head
         3:  32681 # Shoulders
@@ -2147,6 +2301,7 @@ groups:
 
     # Normal set=179
     - name: Chains of the Chosen Dead
+      wowheadSetId: 2315
       items:
         1:  32695 # Head
         3:  32697 # Shoulders
@@ -2160,6 +2315,7 @@ groups:
 
     # Raid Finder set=182
     - name: Chains of the Chosen Dead
+      wowheadSetId: 2318
       items:
         1:  32687 # Head
         3:  32689 # Shoulders
@@ -2174,6 +2330,7 @@ groups:
     plate:
     # Mythic set=185
     - name: Funerary Plate of the Chosen Dead
+      wowheadSetId: 2321
       items:
         1:  32751 # Head
         3:  32753 # Shoulders
@@ -2187,6 +2344,7 @@ groups:
 
     # Heroic set=184
     - name: Funerary Plate of the Chosen Dead
+      wowheadSetId: 2320
       items:
         1:  32743 # Head
         3:  32745 # Shoulders
@@ -2200,6 +2358,7 @@ groups:
 
     # Normal set=183
     - name: Funerary Plate of the Chosen Dead
+      wowheadSetId: 2319
       items:
         1:  32759 # Head
         3:  32761 # Shoulders
@@ -2213,6 +2372,7 @@ groups:
 
     # Raid Finder set=186
     - name: Funerary Plate of the Chosen Dead
+      wowheadSetId: 2322
       items:
         1:  32797 # Head
         3:  32799 # Shoulders

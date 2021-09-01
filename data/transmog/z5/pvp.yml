@@ -4,7 +4,7 @@ skipClasses:
 groups:
 
 # S17 class sets
-- name: Warlords Season 2 & 3
+- name: Warlords Season 2 / 3
   tag: S17-18
   type: class
   sets:
@@ -442,7 +442,7 @@ groups:
         10: 25517 # Hands
 
 # S17 armor sets
-- name: Warlords Season 2 & 3
+- name: Warlords Season 2 / 3
   tag: S17-18
   type: armor
   sets:
