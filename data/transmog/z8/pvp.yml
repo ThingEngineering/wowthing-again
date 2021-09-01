@@ -1,6 +1,4 @@
 name: PvP
-skipClasses:
-- demon-hunter
 groups:
 
 - name: Shadowlands Season 2

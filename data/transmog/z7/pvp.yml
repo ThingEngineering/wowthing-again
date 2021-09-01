@@ -1,6 +1,4 @@
 name: PvP
-skipClasses:
-- demon-hunter
 groups:
 
 - name: Battle Season 4
