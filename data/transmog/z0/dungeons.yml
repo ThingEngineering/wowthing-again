@@ -14,6 +14,7 @@ groups:
     druid:
     # Dungeon Set 2 set=858
     - name: Feralheart Raiment
+      wowheadSetId: 530
       items:
         1:  5929 # Head
         3:  5932 # Shoulders
@@ -26,6 +27,7 @@ groups:
 
     # Dungeon Set 1 set=1912
     - name: Wildheart Raiment
+      wowheadSetId: 529
       items:
         1:  4920 # Head
         3:  4918 # Shoulders
@@ -39,6 +41,7 @@ groups:
     hunter:
     # Dungeon Set 2 set=856
     - name: Beastmaster Armor
+      wowheadSetId: 552
       items:
         1:  5880 7484 # Head
         3:  5882 # Shoulders
@@ -51,6 +54,7 @@ groups:
 
     # Dungeon Set 1 set=1911
     - name: Beaststalker Armor
+      wowheadSetId: 551
       items:
         1:  4880 # Head
         3:  4882 # Shoulders
@@ -64,6 +68,7 @@ groups:
     mage:
     # Dungeon Set 2 set=855
     - name: Sorcerer's Regalia
+      wowheadSetId: 574
       items:
         1:  5889 # Head
         3:  5892 # Shoulders
@@ -76,6 +81,7 @@ groups:
 
     # Dungeon Set 1 set=1910
     - name: Magister's Regalia
+      wowheadSetId: 573
       items:
         1:  4889 # Head
         3:  4891 # Shoulders
@@ -89,6 +95,7 @@ groups:
     paladin:
     # Dungeon Set 2 set=859
     - name: Soulforge Armor
+      wowheadSetId: 596
       items:
         1:  5915 # Head
         3:  5917 # Shoulders
@@ -101,6 +108,7 @@ groups:
 
     # Dungeon Set 1 set=1909
     - name: Lightforge Armor
+      wowheadSetId: 595
       items:
         1:  4926 # Head
         3:  4928 # Shoulders
@@ -114,6 +122,7 @@ groups:
     priest:
     # Dungeon Set 2 set=360
     - name: Vestments of the Virtuous
+      wowheadSetId: 618
       items:
         1:  5904 # Head
         3:  5906 # Shoulders
@@ -126,6 +135,7 @@ groups:
 
     # Dungeon Set 1 set=1908
     - name: Vestments of the Devout
+      wowheadSetId: 617
       items:
         1:  4895 # Head
         3:  4897 # Shoulders
@@ -139,6 +149,7 @@ groups:
     rogue:
     # Dungeon Set 2 set=857
     - name: Darkmantle Armor
+      wowheadSetId: 640
       items:
         1:  5873 # Head
         3:  5876 8284 # Shoulders
@@ -151,6 +162,7 @@ groups:
 
     # Dungeon Set 1 set=1907
     - name: Shadowcraft Armor
+      wowheadSetId: 639
       items:
         1:  4909 # Head
         3:  4910 # Shoulders
@@ -164,6 +176,7 @@ groups:
     shaman:
     # Dungeon Set 2 set=860
     - name: The Five Thunders
+      wowheadSetId: 662
       items:
         1:  5920 14606 # Head
         3:  5924 # Shoulders
@@ -176,6 +189,7 @@ groups:
 
     # Dungeon Set 1 set=1906
     - name: The Elements
+      wowheadSetId: 661
       items:
         1:  4870 # Head
         3:  4872 # Shoulders
@@ -189,6 +203,7 @@ groups:
     warlock:
     # Dungeon Set 2 set=854
     - name: Deathmist Raiment
+      wowheadSetId: 684
       items:
         1:  5898 # Head
         3:  5897 # Shoulders
@@ -201,6 +216,7 @@ groups:
 
     # Dungeon Set 1 set=1905
     - name: Dreadmist Raiment
+      wowheadSetId: 683
       items:
         1:  4900 # Head
         3:  4903 # Shoulders
@@ -214,6 +230,7 @@ groups:
     warrior:
     # Dungeon Set 2 set=861
     - name: Battlegear of Heroism
+      wowheadSetId: 935
       items:
         1:  5867 # Head
         3:  5869 # Shoulders
@@ -226,6 +243,7 @@ groups:
 
     # Dungeon Set 1 set=1904
     - name: Battlegear of Valor
+      wowheadSetId: 934
       items:
         1:  4930 # Head
         3:  4932 # Shoulders
