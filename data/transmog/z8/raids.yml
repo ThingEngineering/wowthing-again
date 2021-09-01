@@ -12,6 +12,7 @@ groups:
     cloth:
     # Mythic set=2265
     - name: Dark Supplicant's Garb
+      wowheadSetId:
       items:
         1:  43819 # Head
         3:  43817 # Shoulders
@@ -25,6 +26,7 @@ groups:
 
     # Heroic set=2264
     - name: Dark Supplicant's Garb
+      wowheadSetId:
       items:
         1:  43053 # Head
         3:  43055 # Shoulders
@@ -38,6 +40,7 @@ groups:
 
     # Normal set=2262
     - name: Dark Supplicant's Garb
+      wowheadSetId:
       items:
         1:  43035 # Head
         3:  43037 # Shoulders
@@ -51,6 +54,7 @@ groups:
 
     # Raid Finder set=2263
     - name: Dark Supplicant's Garb
+      wowheadSetId:
       items:
         1:  42990 # Head
         3:  42992 # Shoulders
@@ -67,6 +71,7 @@ groups:
     - name: Sanctum Assailant's Trappings
       # Missing appearance 145887
       # Missing appearance 145891
+      wowheadSetId:
       items:
         1:  44159 # Head
         3:  44160 # Shoulders
@@ -82,6 +87,7 @@ groups:
     - name: Sanctum Assailant's Trappings
       # Missing appearance 145886
       # Missing appearance 145890
+      wowheadSetId:
       items:
         1:  44174 # Head
         3:  44176 # Shoulders
@@ -95,6 +101,7 @@ groups:
 
     # Normal set=2258
     - name: Sanctum Assailant's Trappings
+      wowheadSetId:
       items:
         1:  43849 # Head
         3:  43851 # Shoulders
@@ -110,6 +117,7 @@ groups:
     - name: Sanctum Assailant's Trappings
       # Missing appearance 145885
       # Missing appearance 145889
+      wowheadSetId:
       items:
         1:  44131 # Head
         3:  44133 # Shoulders
@@ -126,6 +134,7 @@ groups:
     - name: Tower Ascendant's Battlegear
       # Missing appearance 145911
       # Missing appearance 145919
+      wowheadSetId:
       items:
         1:  43090 # Head
         3:  43089 # Shoulders
@@ -139,6 +148,7 @@ groups:
     # Heroic set=2256
     - name: Tower Ascendant's Battlegear
       # Missing appearance 145910
+      wowheadSetId:
       items:
         1:  43119 # Head
         3:  43122 # Shoulders
@@ -151,6 +161,7 @@ groups:
 
     # Normal set=2254
     - name: Tower Ascendant's Battlegear
+      wowheadSetId:
       items:
         1:  43141 # Head
         3:  43144 # Shoulders
@@ -164,6 +175,7 @@ groups:
     # Raid Finder set=2255
     - name: Tower Ascendant's Battlegear
       # Missing appearance 145909
+      wowheadSetId:
       items:
         1:  43108 # Head
         3:  43111 # Shoulders
@@ -180,6 +192,7 @@ groups:
     - name: Soulforged Dreadplate
       # Missing appearance 145935
       # Missing appearance 145927
+      wowheadSetId:
       items:
         1:  42829 # Head
         3:  42823 # Shoulders
@@ -194,6 +207,7 @@ groups:
     - name: Soulforged Dreadplate
       # Missing appearance 145934
       # Missing appearance 145926
+      wowheadSetId:
       items:
         1:  42787 # Head
         3:  42799 # Shoulders
@@ -206,6 +220,7 @@ groups:
 
     # Normal set=2250
     - name: Soulforged Dreadplate
+      wowheadSetId:
       items:
         1:  42783 # Head
         3:  42795 # Shoulders
@@ -219,6 +234,7 @@ groups:
     # Raid Finder set=2251
     - name: Soulforged Dreadplate
       # Missing appearance 145933
+      wowheadSetId:
       items:
         1:  42786 # Head
         3:  42798 # Shoulders
@@ -240,6 +256,7 @@ groups:
     cloth:
     # Mythic set=2161
     - name: Depraved Beguiler's Visage
+      wowheadSetId: 11931
       items:
         1:  43845 # Head
         3:  43846 # Shoulders
@@ -253,6 +270,7 @@ groups:
 
     # Heroic set=2160
     - name: Depraved Beguiler's Visage
+      wowheadSetId: 11933
       items:
         1:  44002 # Head
         3:  44004 # Shoulders
@@ -266,6 +284,7 @@ groups:
 
     # Normal set=2158
     - name: Depraved Beguiler's Visage
+      wowheadSetId: 11935
       items:
         1:  44024 # Head
         3:  44026 # Shoulders
@@ -279,6 +298,7 @@ groups:
 
     # Raid Finder set=2159
     - name: Depraved Beguiler's Visage
+      wowheadSetId: 11937
       items:
         1:  44035 # Head
         3:  44037 # Shoulders
@@ -293,6 +313,7 @@ groups:
     leather:
     # Mythic set=2165
     - name: Sin Slayer's Leathers
+      wowheadSetId: 11927
       items:
         1:  43884 # Head
         3:  43883 # Shoulders
@@ -306,6 +327,7 @@ groups:
 
     # Heroic set=2164
     - name: Sin Slayer's Leathers
+      wowheadSetId: 11928
       items:
         1:  44105 # Head
         3:  44122 # Shoulders
@@ -319,6 +341,7 @@ groups:
 
     # Normal set=2162
     - name: Sin Slayer's Leathers
+      wowheadSetId: 11929
       items:
         1:  44075 # Head
         3:  44077 # Shoulders
@@ -332,6 +355,7 @@ groups:
 
     # Raid Finder set=2163
     - name: Sin Slayer's Leathers
+      wowheadSetId: 11930
       items:
         1:  44096 # Head
         3:  44121 # Shoulders
@@ -346,6 +370,7 @@ groups:
     mail:
     # Mythic set=2157
     - name: Inexorable Castigator's Guise
+      wowheadSetId: 11923
       items:
         1:  43948 # Head
         3:  43947 # Shoulders
@@ -359,6 +384,7 @@ groups:
 
     # Heroic set=2156
     - name: Inexorable Castigator's Guise
+      wowheadSetId: 11924
       items:
         1:  43965 # Head
         3:  43966 # Shoulders
@@ -372,6 +398,7 @@ groups:
 
     # Normal set=2154
     - name: Inexorable Castigator's Guise
+      wowheadSetId: 11925
       items:
         1:  43989 # Head
         3:  43990 # Shoulders
@@ -385,6 +412,7 @@ groups:
 
     # Raid Finder set=2155
     - name: Inexorable Castigator's Guise
+      wowheadSetId: 11926
       items:
         1:  43977 # Head
         3:  43978 # Shoulders
@@ -399,6 +427,7 @@ groups:
     plate:
     # Mythic set=2153
     - name: Grand Sentinel's Greatplate
+      wowheadSetId: 11919
       items:
         1:  43880 # Head
         3:  43879 # Shoulders
@@ -412,6 +441,7 @@ groups:
 
     # Heroic set=2152
     - name: Grand Sentinel's Greatplate
+      wowheadSetId: 11920
       items:
         1:  43890 # Head
         3:  43892 # Shoulders
@@ -425,6 +455,7 @@ groups:
 
     # Normal set=2150
     - name: Grand Sentinel's Greatplate
+      wowheadSetId: 11921
       items:
         1:  43920 # Head
         3:  43922 # Shoulders
@@ -438,6 +469,7 @@ groups:
 
     # Raid Finder set=2151
     - name: Grand Sentinel's Greatplate
+      wowheadSetId: 11922
       items:
         1:  43910 # Head
         3:  43912 # Shoulders

@@ -3,9 +3,301 @@ skipClasses:
 - demon-hunter
 groups:
 
-- name: Season 12
-  type: class
+- name: Shadowlands Season 2
+  tag: S29
+  type: armor
   sets:
   - Elite*
   - Gladiator
   data:
+    cloth:
+    # Elite set=2228
+    - name: Unchained Gladiator's Vestment
+      wowheadSetId:
+      items:
+        1:  43820 # Head
+        3:  43822 # Shoulders
+        5:  43821 # Chest
+        6:  43823 # Waist
+        7:  43074 # Legs
+        8:  43071 # Feet
+        9:  43077 # Wrists
+        10: 43072 # Hands
+        16: 43070 43156 # Back
+
+    # Gladiator set=2224
+    - name: Unchained Gladiator's Vestment
+      wowheadSetId:
+      items:
+        1:  42980 # Head
+        3:  42982 # Shoulders
+        5:  42757 # Chest
+        6:  42983 # Waist
+        7:  42981 # Legs
+        8:  42978 # Feet
+        9:  42984 # Wrists
+        10: 42979 # Hands
+        16: 43050 # Back
+
+    leather:
+    # Elite set=2229
+    - name: Unchained Gladiator's Leathers
+      wowheadSetId:
+      items:
+        1:  44169 # Head
+        3:  44170 # Shoulders
+        5:  44161 # Chest
+        6:  44166 # Waist
+        7:  44182 # Legs
+        8:  44162 # Feet
+        9:  44167 # Wrists
+        10: 44163 # Hands
+        16: 43156 44168 # Back
+
+    # Gladiator set=2225
+    - name: Unchained Gladiator's Leathers
+      wowheadSetId:
+      items:
+        1:  44142 # Head
+        3:  44144 # Shoulders
+        5:  44139 # Chest
+        6:  44145 # Waist
+        7:  44143 # Legs
+        8:  44140 # Feet
+        9:  44146 # Wrists
+        10: 44141 # Hands
+        16: 44147 # Back
+
+    mail:
+    # Elite set=2230
+    - name: Unchained Gladiator's Chain
+      wowheadSetId:
+      items:
+        1:  43129 # Head
+        3:  43132 # Shoulders
+        5:  43125 # Chest
+        6:  43134 # Waist
+        7:  43131 # Legs
+        8:  43127 # Feet
+        9:  43135 # Wrists
+        10: 43128 # Hands
+        16: 43126 43156 # Back
+
+    # Gladiator set=2226
+    - name: Unchained Gladiator's Chain
+      wowheadSetId:
+      items:
+        1:  43097 # Head
+        3:  43094 # Shoulders
+        5:  43102 # Chest
+        6:  43093 # Waist
+        7:  43096 # Legs
+        8:  43100 # Feet
+        9:  43092 # Wrists
+        10: 43099 # Hands
+        16: 43101 # Back
+
+    plate:
+    # Elite set=2231
+    - name: Unchained Gladiator's Plate
+      wowheadSetId:
+      items:
+        1:  42825 # Head
+        3:  42819 # Shoulders
+        5:  42764 # Chest
+        6:  42814 # Waist
+        7:  42794 # Legs
+        8:  42837 # Feet
+        9:  42812 # Wrists
+        10: 42831 # Hands
+        16: 42770 43156 # Back
+
+    # Gladiator set=2227
+    - name: Unchained Gladiator's Plate
+      wowheadSetId:
+      items:
+        1:  42785 # Head
+        3:  42797 # Shoulders
+        5:  42761 # Chest
+        6:  42802 # Waist
+        7:  42791 # Legs
+        8:  42773 # Feet
+        9:  42809 # Wrists
+        10: 42779 # Hands
+        16: 42767 # Back
+
+- name: Shadowlands Season 1
+  tag: S28
+  type: armor
+  sets:
+  - Elite*
+  - Gladiator
+  - Aspirant
+  data:
+    cloth:
+    # Elite set=2166
+    - name: Sinful Gladiator's Vestment
+      wowheadSetId: 11912
+      items:
+        1:  44050 # Head
+        3:  44051 # Shoulders
+        5:  44042 # Chest
+        6:  44049 # Waist
+        7:  44047 # Legs
+        8:  44044 # Feet
+        9:  44052 # Wrists
+        10: 44045 # Hands
+        16: 43155 44058 # Back
+
+    # Gladiator set=2170
+    - name: Sinful Gladiator's Vestment
+      wowheadSetId: 11911
+      items:
+        1:  44013 # Head
+        3:  44015 # Shoulders
+        5:  44009 # Chest
+        6:  44016 # Waist
+        7:  44014 # Legs
+        8:  44011 # Feet
+        9:  44017 # Wrists
+        10: 44012 # Hands
+        16: 44055 # Back
+
+    # Aspirant set=2174
+    - name: Sinful Aspirant's Vestment
+      wowheadSetId: 11907
+      items:
+        1:  42592 # Head
+        3:  42594 # Shoulders
+        5:  42588 # Chest
+        6:  42595 # Waist
+        7:  42593 # Legs
+        8:  42590 # Feet
+        9:  42596 # Wrists
+        10: 42591 # Hands
+
+    leather:
+    # Elite set=2167
+    - name: Sinful Gladiator's Leathers
+      wowheadSetId: 11914
+      items:
+        1:  44093 # Head
+        3:  44092 # Shoulders
+        5:  44083 # Chest
+        6:  44089 # Waist
+        7:  44087 # Legs
+        8:  44084 # Feet
+        9:  44090 # Wrists
+        10: 44085 # Hands
+        16: 43155 44091 # Back
+
+    # Gladiator set=2171
+    - name: Sinful Gladiator's Leathers
+      wowheadSetId: 11913
+      items:
+        1:  44114 # Head
+        3:  44123 # Shoulders
+        5:  44112 # Chest
+        6:  44116 # Waist
+        7:  44115 # Legs
+        8:  44113 # Feet
+        9:  44117 # Wrists
+        10: 44126 # Hands
+        16: 44118 # Back
+
+    # Aspirant set=2175
+    - name: Sinful Aspirant's Leathers
+      wowheadSetId: 11908
+      items:
+        1:  42702 # Head
+        3:  42704 # Shoulders
+        5:  42698 # Chest
+        6:  42705 # Waist
+        7:  42703 # Legs
+        8:  42700 # Feet
+        9:  42706 # Wrists
+        10: 42701 # Hands
+
+    mail:
+    # Elite set=2168
+    - name: Sinful Gladiator's Chain
+      wowheadSetId: 11916
+      items:
+        1:  43882 # Head
+        3:  43881 # Shoulders
+        5:  43861 # Chest
+        6:  43867 # Waist
+        7:  43870 # Legs
+        8:  43863 # Feet
+        9:  43869 # Wrists
+        10: 43864 # Hands
+        16: 43155 44059 # Back
+
+    # Gladiator set=2172
+    - name: Sinful Gladiator's Chain
+      wowheadSetId: 11915
+      items:
+        1:  43953 # Head
+        3:  43954 # Shoulders
+        5:  43949 # Chest
+        6:  43955 # Waist
+        7:  43958 # Legs
+        8:  43951 # Feet
+        9:  43957 # Wrists
+        10: 43952 # Hands
+        16: 44061 # Back
+
+    # Aspirant set=2176
+    - name: Sinful Aspirant's Chain
+      wowheadSetId: 11909
+      items:
+        1:  41921 # Head
+        3:  41923 # Shoulders
+        5:  41917 # Chest
+        6:  41924 # Waist
+        7:  41922 # Legs
+        8:  41919 # Feet
+        9:  41925 # Wrists
+        10: 41920 # Hands
+
+    plate:
+    # Elite set=2169
+    - name: Sinful Gladiator's Plate
+      wowheadSetId: 11918
+      items:
+        1:  43936 # Head
+        3:  43935 # Shoulders
+        5:  43927 # Chest
+        6:  43933 # Waist
+        7:  43931 # Legs
+        8:  43928 # Feet
+        9:  43934 # Wrists
+        10: 43929 # Hands
+        16: 43155 44070 # Back
+
+    # Gladiator set=2173
+    - name: Sinful Gladiator's Plate
+      wowheadSetId: 11917
+      items:
+        1:  43900 # Head
+        3:  43902 # Shoulders
+        5:  43897 # Chest
+        6:  43903 # Waist
+        7:  43901 # Legs
+        8:  43898 # Feet
+        9:  43904 # Wrists
+        10: 43899 # Hands
+        16: 44067 # Back
+
+    # Aspirant set=2177
+    - name: Sinful Aspirant's Plate
+      wowheadSetId: 11910
+      items:
+        1:  42226 # Head
+        3:  42227 # Shoulders
+        5:  42229 # Chest
+        6:  42231 # Waist
+        7:  42232 # Legs
+        8:  42228 # Feet
+        9:  42233 # Wrists
+        10: 42230 # Hands

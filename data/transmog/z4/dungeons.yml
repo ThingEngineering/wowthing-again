@@ -1,9 +1,9 @@
-name: Mists of Pandaria
+name: Dungeons
 skipClasses:
 - demon-hunter
 groups:
 
-- name: Pandaria Dungeons
+- name: MoP Dungeons
   type: class
   sets:
   - Challenge Mode*

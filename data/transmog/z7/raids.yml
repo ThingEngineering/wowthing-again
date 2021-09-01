@@ -12,6 +12,7 @@ groups:
     cloth:
     # Mythic set=1997
     - name: Oblivion Cultist's Robes
+      wowheadSetId: 11959
       items:
         1: 41069 # Head
         3: 41073 # Shoulders
@@ -24,6 +25,7 @@ groups:
 
     # Heroic set=1996
     - name: Oblivion Cultist's Robes
+      wowheadSetId: 11958
       items:
         1: 41040 # Head
         3: 41048 # Shoulders
@@ -36,6 +38,7 @@ groups:
 
     # Normal set=1994
     - name: Oblivion Cultist's Robes
+      wowheadSetId: 11957
       items:
         1: 41041 # Head
         3: 41049 # Shoulders
@@ -48,6 +51,7 @@ groups:
 
     # Raid Finder set=1995
     - name: Oblivion Cultist's Robes
+      wowheadSetId: 11956
       items:
         1: 41042 # Head
         3: 41050 # Shoulders
@@ -61,6 +65,7 @@ groups:
     leather:
     # Mythic set=1993
     - name: Treacherous Schemer's Leathers
+      wowheadSetId: 11963
       items:
         1: 40909 # Head
         3: 40931 # Shoulders
@@ -73,6 +78,7 @@ groups:
 
     # Heroic set=1992
     - name: Treacherous Schemer's Leathers
+      wowheadSetId: 19962
       items:
         1: 40906 # Head
         3: 40928 # Shoulders
@@ -85,6 +91,7 @@ groups:
 
     # Normal set=1990
     - name: Treacherous Schemer's Leathers
+      wowheadSetId: 11961
       items:
         1: 40905 # Head
         3: 40927 # Shoulders
@@ -97,6 +104,7 @@ groups:
 
     # Raid Finder set=1991
     - name: Treacherous Schemer's Leathers
+      wowheadSetId: 11960
       items:
         1: 40908 # Head
         3: 40930 # Shoulders
@@ -110,6 +118,7 @@ groups:
     mail:
     # Mythic set=1989
     - name: Lurking Defiler's Scalemail
+      wowheadSetId: 11967
       items:
         1: 40833 # Head
         3: 40839 # Shoulders
@@ -122,6 +131,7 @@ groups:
 
     # Heroic set=1988
     - name: Lurking Defiler's Scalemail
+      wowheadSetId: 11966
       items:
         1: 40798 # Head
         3: 40810 # Shoulders
@@ -134,6 +144,7 @@ groups:
 
     # Normal set=1986
     - name: Lurking Defiler's Scalemail
+      wowheadSetId: 11965
       items:
         1: 40797 # Head
         3: 40809 # Shoulders
@@ -146,6 +157,7 @@ groups:
 
     # Raid Finder set=1987
     - name: Lurking Defiler's Scalemail
+      wowheadSetId: 11965
       items:
         1: 40795 # Head
         3: 40807 # Shoulders
@@ -159,6 +171,7 @@ groups:
     plate:
     # Mythic set=1985
     - name: Cosmic Aberration's Plate
+      wowheadSetId: 11971
       items:
         1: 41005 # Head
         3: 41011 # Shoulders
@@ -171,6 +184,7 @@ groups:
 
     # Heroic set=1984
     - name: Cosmic Aberration's Plate
+      wowheadSetId: 11970
       items:
         1: 40974 # Head
         3: 40982 # Shoulders
@@ -183,6 +197,7 @@ groups:
 
     # Normal set=1982
     - name: Cosmic Aberration's Plate
+      wowheadSetId: 11969
       items:
         1: 40973 # Head
         3: 40981 # Shoulders
@@ -195,6 +210,7 @@ groups:
 
     # Raid Finder set=1983
     - name: Cosmic Aberration's Plate
+      wowheadSetId: 11968
       items:
         1: 40971 # Head
         3: 40979 # Shoulders
@@ -216,6 +232,7 @@ groups:
     cloth:
     # Mythic set=1841
     - name: Frilled Harbinger's Vestments
+      wowheadSetId: 11940
       items:
         1: 40132 # Head
         3: 40126 # Shoulders
@@ -229,6 +246,7 @@ groups:
 
     # Heroic set=1837
     - name: Frilled Harbinger's Vestments
+      wowheadSetId: 11941
       items:
         1: 40149 # Head
         3: 40143 # Shoulders
@@ -242,6 +260,7 @@ groups:
 
     # Normal set=1833
     - name: Frilled Harbinger's Vestments
+      wowheadSetId: 11942
       items:
         1: 40075 # Head
         3: 40081 # Shoulders
@@ -255,6 +274,7 @@ groups:
 
     # Raid Finder set=1845
     - name: Frilled Harbinger's Vestments
+      wowheadSetId: 11943
       items:
         1: 40092 # Head
         3: 40098 # Shoulders
@@ -269,6 +289,7 @@ groups:
     leather:
     # Mythic set=1840
     - name: Razorfin Regalia
+      wowheadSetId: 11944
       items:
         1: 40235 # Head
         3: 40238 # Shoulders
@@ -282,6 +303,7 @@ groups:
 
     # Heroic set=1836
     - name: Razorfin Regalia
+      wowheadSetId: 11945
       items:
         1: 40205 # Head
         3: 40208 # Shoulders
@@ -295,6 +317,7 @@ groups:
 
     # Normal set=1832
     - name: Razorfin Regalia
+      wowheadSetId: 11946
       items:
         1: 40195 # Head
         3: 40198 # Shoulders
@@ -308,6 +331,7 @@ groups:
 
     # Raid Finder set=1844
     - name: Razorfin Regalia
+      wowheadSetId: 11947
       items:
         1: 40176 # Head
         3: 40178 # Shoulders
@@ -322,6 +346,7 @@ groups:
     mail:
     # Mythic set=1839
     - name: Queen's Guard Scalemail
+      wowheadSetId: 11948
       items:
         1:  40008 # Head
         3:  40010 # Shoulders
@@ -335,6 +360,7 @@ groups:
 
     # Heroic set=1835
     - name: Queen's Guard Scalemail
+      wowheadSetId: 11949
       items:
         1:  40371 # Head
         3:  40368 # Shoulders
@@ -348,6 +374,7 @@ groups:
 
     # Normal set=1831
     - name: Queen's Guard Scalemail
+      wowheadSetId: 11950
       items:
         1:  40322 # Head
         3:  40319 # Shoulders
@@ -361,6 +388,7 @@ groups:
 
     # Raid Finder set=1843
     - name: Queen's Guard Scalemail
+      wowheadSetId: 11951
       items:
         1:  40353 # Head
         3:  40350 # Shoulders
@@ -375,6 +403,7 @@ groups:
     plate:
     # Mythic set=1838
     - name: Naga Lord's Warplate
+      wowheadSetId: 11952
       items:
         1:  39959 # Head
         3:  39961 # Shoulders
@@ -388,6 +417,7 @@ groups:
 
     # Heroic set=1834
     - name: Naga Lord's Warplate
+      wowheadSetId: 11953
       items:
         1:  39977 # Head
         3:  39979 # Shoulders
@@ -401,6 +431,7 @@ groups:
 
     # Normal set=1830
     - name: Naga Lord's Warplate
+      wowheadSetId: 11954
       items:
         1:  39968 # Head
         3:  39966 # Shoulders
@@ -414,6 +445,7 @@ groups:
 
     # Raid Finder set=1842
     - name: Naga Lord's Warplate
+      wowheadSetId: 11955
       items:
         1:  39986 # Head
         3:  39984 # Shoulders
@@ -436,6 +468,7 @@ groups:
     cloth:
     # Mythic set=1809
     - name: Soul Reaper's Raiment
+      wowheadSetId: 2936
       items:
         1:  38782 # Head
         3:  38814 # Shoulders
@@ -449,6 +482,7 @@ groups:
 
     # Heroic set=1808
     - name: Soul Reaper's Raiment
+      wowheadSetId: 2935
       items:
         1:  38845 # Head
         3:  38848 # Shoulders
@@ -462,6 +496,7 @@ groups:
 
     # Normal set=1806
     - name: Soul Reaper's Raiment
+      wowheadSetId: 2934
       items:
         1:  38855 # Head
         3:  38858 # Shoulders
@@ -475,6 +510,7 @@ groups:
 
     # Raid Finder set=1807
     - name: Soul Reaper's Raiment
+      wowheadSetId: 2937
       items:
         1:  38835 # Head
         3:  38838 # Shoulders
@@ -489,6 +525,7 @@ groups:
     leather:
     # Mythic set=1813
     - name: Boneblade Battlegear
+      wowheadSetId: 2940
       items:
         1:  39471 # Head
         3:  39473 # Shoulders
@@ -502,6 +539,7 @@ groups:
 
     # Heroic set=1812
     - name: Boneblade Battlegear
+      wowheadSetId: 2939
       items:
         1:  39435 # Head
         3:  39437 # Shoulders
@@ -515,6 +553,7 @@ groups:
 
     # Normal set=1810
     - name: Boneblade Battlegear
+      wowheadSetId: 2938
       items:
         1:  39266 # Head
         3:  39268 # Shoulders
@@ -528,6 +567,7 @@ groups:
 
     # Raid Finder set=1811
     - name: Boneblade Battlegear
+      wowheadSetId: 2941
       items:
         1:  39426 # Head
         3:  39428 # Shoulders
@@ -542,6 +582,7 @@ groups:
     mail:
     # Mythic set=1817
     - name: Death-Devourer Vestments
+      wowheadSetId: 2944
       items:
         1:  39556 # Head
         3:  39558 # Shoulders
@@ -555,6 +596,7 @@ groups:
 
     # Heroic set=1816
     - name: Death-Devourer Vestments
+      wowheadSetId: 2943
       items:
         1:  39605 # Head
         3:  39607 # Shoulders
@@ -568,6 +610,7 @@ groups:
 
     # Normal set=1814
     - name: Death-Devourer Vestments
+      wowheadSetId: 2942
       items:
         1:  39621 # Head
         3:  39623 # Shoulders
@@ -581,6 +624,7 @@ groups:
 
     # Raid Finder set=1815
     - name: Death-Devourer Vestments
+      wowheadSetId: 2945
       items:
         1:  39589 # Head
         3:  39591 # Shoulders
@@ -595,6 +639,7 @@ groups:
     plate:
     # Mythic set=1821
     - name: Gravelord's Direplate
+      wowheadSetId: 2948
       items:
         1:  39507 # Head
         3:  39509 # Shoulders
@@ -608,6 +653,7 @@ groups:
 
     # Heroic set=1820
     - name: Gravelord's Direplate
+      wowheadSetId: 2947
       items:
         1:  39531 # Head
         3:  39533 # Shoulders
@@ -621,6 +667,7 @@ groups:
 
     # Normal set=1818
     - name: Gravelord's Direplate
+      wowheadSetId: 2946
       items:
         1:  39482 # Head
         3:  39484 # Shoulders
@@ -634,6 +681,7 @@ groups:
 
     # Raid Finder set=1819
     - name: Gravelord's Direplate
+      wowheadSetId: 2949
       items:
         1:  39515 # Head
         3:  39517 # Shoulders
@@ -656,6 +704,7 @@ groups:
     cloth:
     # Mythic set=1640
     - name: Eternal Curator's Vestment
+      wowheadSetId: 2757
       items:
         1:  38380 # Head
         3:  38382 # Shoulders
@@ -669,6 +718,7 @@ groups:
 
     # Heroic set=1639
     - name: Eternal Curator's Vestment
+      wowheadSetId: 2756
       items:
         1:  38344 # Head
         3:  38346 # Shoulders
@@ -682,6 +732,7 @@ groups:
 
     # Normal set=1638
     - name: Eternal Curator's Vestment
+      wowheadSetId: 2755
       items:
         1:  38368 # Head
         3:  38370 # Shoulders
@@ -695,6 +746,7 @@ groups:
 
     # Raid Finder set=1641
     - name: Eternal Curator's Vestment
+      wowheadSetId: 2758
       items:
         1:  38356 # Head
         3:  38358 # Shoulders
@@ -709,6 +761,7 @@ groups:
     leather:
     # Mythic set=1644
     - name: Eternal Curator's Garb
+      wowheadSetId: 2799
       items:
         1:  38472 # Head
         3:  38474 # Shoulders
@@ -722,6 +775,7 @@ groups:
 
     # Heroic set=1643
     - name: Eternal Curator's Garb
+      wowheadSetId: 2798
       items:
         1:  38326 # Head
         3:  38328 # Shoulders
@@ -735,6 +789,7 @@ groups:
 
     # Normal set=1642
     - name: Eternal Curator's Garb
+      wowheadSetId: 2797
       items:
         1:  38464 # Head
         3:  38466 # Shoulders
@@ -748,6 +803,7 @@ groups:
 
     # Raid Finder set=1645
     - name: Eternal Curator's Garb
+      wowheadSetId: 2800
       items:
         1:  38456 # Head
         3:  38458 # Shoulders
@@ -762,6 +818,7 @@ groups:
     mail:
     # Mythic set=1648
     - name: Eternal Curator's Chains
+      wowheadSetId: 2823
       items:
         1:  38296 # Head
         3:  38298 # Shoulders
@@ -775,6 +832,7 @@ groups:
 
     # Heroic set=1647
     - name: Eternal Curator's Chains
+      wowheadSetId: 2822
       items:
         1:  38272 # Head
         3:  38274 # Shoulders
@@ -788,6 +846,7 @@ groups:
 
     # Normal set=1646
     - name: Eternal Curator's Chains
+      wowheadSetId: 2821
       items:
         1:  38280 # Head
         3:  38282 # Shoulders
@@ -801,6 +860,7 @@ groups:
 
     # Raid Finder set=1649
     - name: Eternal Curator's Chains
+      wowheadSetId: 2824
       items:
         1:  38288 # Head
         3:  38290 # Shoulders
@@ -815,6 +875,7 @@ groups:
     plate:
     # Mythic set=1652
     - name: Eternal Curator's Protectorate
+      wowheadSetId: 2847
       items:
         1:  38428 # Head
         3:  38430 # Shoulders
@@ -827,6 +888,7 @@ groups:
 
     # Heroic set=1651
     - name: Eternal Curator's Protectorate
+      wowheadSetId: 2846
       items:
         1:  38395 # Head
         3:  38397 # Shoulders
@@ -839,6 +901,7 @@ groups:
 
     # Normal set=1650
     - name: Eternal Curator's Protectorate
+      wowheadSetId: 2845
       items:
         1:  38417 # Head
         3:  38419 # Shoulders
@@ -852,6 +915,7 @@ groups:
 
     # Raid Finder set=1653
     - name: Eternal Curator's Protectorate
+      wowheadSetId: 2848
       items:
         1:  38406 # Head
         3:  38408 # Shoulders
