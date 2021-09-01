@@ -28,7 +28,6 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
             if (baseSet === null) {
                 continue
             }
-            console.log(baseSet)
 
             const baseData = has[baseSet[0].slug] = new UserTransmogDataHas(0, 0)
 
