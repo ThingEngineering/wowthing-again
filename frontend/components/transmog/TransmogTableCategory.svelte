@@ -2,12 +2,15 @@
     import {transmogSets} from '@/data/transmog-sets'
     import type {Dictionary} from '@/types'
     import type {TransmogDataCategory} from '@/types/data'
+    import getTransmogSpan from '@/utils/get-transmog-span'
 
     import TransmogTableSet from './TransmogTableSet.svelte'
 
     export let category: TransmogDataCategory
     export let setKey: string
     export let skipClasses: Dictionary<boolean>
+
+    console.log(category)
 </script>
 
 <style lang="scss">
@@ -44,7 +47,7 @@
                 {#if !skipClasses[transmogSet.type]}
                     <TransmogTableSet
                         set={group.data?.[transmogSet.type]?.[setIndex]}
-                        span={transmogSet.span}
+                        span={getTransmogSpan(group, transmogSet, skipClasses)}
                         subType={transmogSet.subType}
                     />
                 {/if}
