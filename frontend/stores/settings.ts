@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store'
 
-import { userStore } from '.'
+import { userStore } from './user'
 import type { Settings } from '@/types'
 
 

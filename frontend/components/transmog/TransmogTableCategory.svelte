@@ -9,8 +9,6 @@
     export let category: TransmogDataCategory
     export let setKey: string
     export let skipClasses: Dictionary<boolean>
-
-    console.log(category)
 </script>
 
 <style lang="scss">
