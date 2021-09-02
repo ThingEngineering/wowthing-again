@@ -1,0 +1,10 @@
+.wowhead-tooltip {
+    max-width: 400px !important;
+
+    table > tbody > tr > td:first-child {
+        max-width: 400px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
