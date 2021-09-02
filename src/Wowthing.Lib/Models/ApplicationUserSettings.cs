@@ -8,10 +8,11 @@ namespace Wowthing.Lib.Models
 {
     public class ApplicationUserSettings
     {
-        public ApplicationUserSettingsGeneral? General { get; set; } = new ApplicationUserSettingsGeneral();
-        public ApplicationUserSettingsHome? Home { get; set; } = new ApplicationUserSettingsHome();
-        public ApplicationUserSettingsPrivacy? Privacy { get; set; } = new ApplicationUserSettingsPrivacy();
-
+        public ApplicationUserSettingsGeneral? General { get; set; } = new();
+        public ApplicationUserSettingsHome? Home { get; set; } = new();
+        public ApplicationUserSettingsPrivacy? Privacy { get; set; } = new();
+        public ApplicationUserSettingsTransmog? Transmog { get; set; } = new();
+        
         public void Migrate()
         {
             if (General == null)
@@ -122,6 +123,22 @@ namespace Wowthing.Lib.Models
         public bool Anonymized { get; set; } = true;
         public bool Public { get; set; } = true;
         public bool ShowInLeaderboards { get; set; } = true;
+    }
+
+    public class ApplicationUserSettingsTransmog
+    {
+        public bool ShowDeathKnight { get; set; } = true;
+        public bool ShowDemonHunter { get; set; } = true;
+        public bool ShowDruid { get; set; } = true;
+        public bool ShowHunter { get; set; } = true;
+        public bool ShowMage { get; set; } = true;
+        public bool ShowMonk { get; set; } = true;
+        public bool ShowPaladin { get; set; } = true;
+        public bool ShowPriest { get; set; } = true;
+        public bool ShowRogue { get; set; } = true;
+        public bool ShowShaman { get; set; } = true;
+        public bool ShowWarlock { get; set; } = true;
+        public bool ShowWarrior { get; set; } = true;
     }
 }
 #nullable restore

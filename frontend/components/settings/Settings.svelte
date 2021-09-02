@@ -6,6 +6,7 @@
     import SettingsPrivacy from './SettingsPrivacy.svelte'
     import SettingsSave from './SettingsSave.svelte'
     import SettingsSortBy from './SettingsSortBy.svelte'
+    import SettingsTransmog from './SettingsTransmog.svelte'
 </script>
 
 <style lang="scss">
@@ -33,5 +34,6 @@
     </div>
     <div>
         <SettingsSortBy />
+        <SettingsTransmog />
     </div>
 </form>

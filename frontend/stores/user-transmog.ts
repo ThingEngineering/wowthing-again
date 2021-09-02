@@ -1,11 +1,13 @@
 import keys from 'lodash/keys'
-import values from 'lodash/values'
+import toPairs from 'lodash/toPairs'
 import {get} from 'svelte/store'
 
 import {Dictionary, WritableFancyStore} from '@/types'
 import type { UserTransmogData } from '@/types/data'
 import {UserTransmogDataHas} from '@/types/data'
+import {data as settingsStore} from '@/stores/settings'
 import {transmogStore} from '@/stores/transmog'
+import getSkipClasses from '@/utils/get-skip-classes'
 
 
 export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> {
@@ -24,6 +26,8 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
         const transmogData = get(transmogStore).data
         const userTransmogData = get(userTransmogStore).data
 
+        const skipClasses = getSkipClasses(get(settingsStore))
+
         for (const baseSet of transmogData.sets) {
             if (baseSet === null) {
                 continue
@@ -35,13 +39,17 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
                 const setData = has[`${baseSet[0].slug}--${set.slug}`] = new UserTransmogDataHas(0, 0)
 
                 for (const group of set.groups) {
-                    for (const groupData of values(group.data)) {
-                        for (let groupIndex = 0; groupIndex < groupData.length; groupIndex++) {
+                    for (const [dataKey, dataValue] of toPairs(group.data)) {
+                        if (skipClasses[dataKey]) {
+                            continue
+                        }
+
+                        for (let groupIndex = 0; groupIndex < dataValue.length; groupIndex++) {
                             if (group.sets[groupIndex].endsWith('*')) {
                                 continue
                             }
 
-                            const groupSigh = groupData[groupIndex]
+                            const groupSigh = dataValue[groupIndex]
                             const slotKeys = keys(groupSigh.items)
 
                             baseData.total += slotKeys.length

@@ -9,8 +9,6 @@
     export let category: TransmogDataCategory
     export let setKey: string
     export let skipClasses: Dictionary<boolean>
-
-    console.log(category)
 </script>
 
 <style lang="scss">
@@ -18,6 +16,7 @@
         opacity: 0.4;
     }
     .name {
+        min-width: 10.5rem;
         padding: 0 1.5rem 0 0.5rem;
     }
     .highlight {
