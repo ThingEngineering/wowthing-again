@@ -223,6 +223,16 @@ groups:
 
     shaman:
     - name: The Ten Storms (Recolor)
+      wowheadSetId:
+      items:
+        1:  6933 # Head
+        3:  6974 # Shoulders
+        5:  7023 # Chest
+        6:  6978 # Waist
+        7:  6848 # Legs
+        8:  6902 # Feet
+        9:  7072 # Wrists
+        10: 6964 # Hands
 
     - name: The Earthfury (Recolor)
       wowheadSetId: 390
