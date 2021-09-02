@@ -78,7 +78,7 @@ groups:
 
     # Heroic set=1992
     - name: Treacherous Schemer's Leathers
-      wowheadSetId: 19962
+      wowheadSetId: 11962
       items:
         1: 40906 # Head
         3: 40928 # Shoulders
