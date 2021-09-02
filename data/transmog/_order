@@ -8,6 +8,7 @@ z7/_battle_for_azeroth.yml
 
 z6/_legion.yml
     z6/raids.yml
+    z6/misc.yml
     z6/pvp.yml
 
 z5/_warlords_of_draenor.yml
@@ -31,7 +32,6 @@ z1/_the_burning_crusade.yml
     z1/raids.yml
     z1/dungeons.yml
     z1/pvp.yml
-    z1/recolors.yml
 
 z0/_vanilla.yml
     z0/raids.yml
