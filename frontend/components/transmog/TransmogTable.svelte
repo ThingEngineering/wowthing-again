@@ -1,11 +1,12 @@
 <script lang="ts">
     import filter from 'lodash/filter'
     import find from 'lodash/find'
-    import sumBy from 'lodash/sumBy'
 
     import {transmogStore} from '@/stores'
+    import {data as settingsData} from '@/stores/settings'
     import type {Dictionary} from '@/types'
     import type {TransmogDataCategory} from '@/types/data'
+    import getSkipClasses from '@/utils/get-skip-classes'
 
     import ClassIcon from '@/components/images/ClassIcon.svelte'
     import TransmogTableCategory from './TransmogTableCategory.svelte'
@@ -16,10 +17,6 @@
     let categories: TransmogDataCategory[]
     let setKey: string
     let skipClasses: Dictionary<boolean>
-    let clothSpan: number
-    let leatherSpan: number
-    let mailSpan: number
-    let plateSpan: number
     $: {
         categories = filter(
             find($transmogStore.data.sets, (s) => s !== null && s[0].slug === slug1),
@@ -30,39 +27,7 @@
         }
 
         setKey = slug2 ? `${slug1}--${slug2}` : slug1
-
-        skipClasses = {}
-        if (categories.length > 0) {
-            for (const skipClass of categories[0].skipClasses) {
-                skipClasses[skipClass] = true
-            }
-
-            clothSpan = sumBy([
-                !skipClasses['mage'],
-                !skipClasses['priest'],
-                !skipClasses['warlock'],
-            ], (s) => Number(s))
-            leatherSpan = sumBy([
-                !skipClasses['demon-hunter'],
-                !skipClasses['druid'],
-                !skipClasses['monk'],
-                !skipClasses['rogue'],
-            ], (s) => Number(s))
-            mailSpan = sumBy([
-                !skipClasses['hunter'],
-                !skipClasses['shaman'],
-            ], (s) => Number(s))
-            plateSpan = sumBy([
-                !skipClasses['death-knight'],
-                !skipClasses['paladin'],
-                !skipClasses['warrior'],
-            ], (s) => Number(s))
-        }
-
-        clothSpan = clothSpan || 3
-        leatherSpan = leatherSpan || 4
-        mailSpan = mailSpan || 2
-        plateSpan = plateSpan || 3
+        skipClasses = getSkipClasses($settingsData, categories?.[0])
     }
 </script>
 
@@ -81,13 +46,6 @@
 <div class="thing-container">
     <table class="table table-striped character-table">
         <thead>
-            <tr>
-                <th></th>
-                <th colspan="{clothSpan}">Cloth</th>
-                <th colspan="{leatherSpan}">Leather</th>
-                <th colspan="{mailSpan}">Mail</th>
-                <th colspan="{plateSpan}">Plate</th>
-            </tr>
             <tr>
                 <th></th>
                 {#if !skipClasses['mage']}
