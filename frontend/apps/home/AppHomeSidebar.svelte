@@ -35,7 +35,7 @@
         <a href="#/reputations/shadowlands">Reputations</a>
     </li>
     <li use:active={'/transmog/*'}>
-        <a href="#/transmog/raids/shadowlands">Transmog</a>
+        <a href="#/transmog/shadowlands">Transmog</a>
     </li>
 
     <li class="separator"></li>
