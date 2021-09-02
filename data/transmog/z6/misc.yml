@@ -1,0 +1,175 @@
+name: Misc
+groups:
+
+- name: Order Hall
+  type: class
+  sets:
+  - Order Hall
+  data:
+    death-knight:
+    # description=0 set=550
+    - name: Deathlord's Battleplate
+      wowheadSetId: 2114
+      items:
+        1:  32543 # Head
+        3:  32545 # Shoulders
+        5:  32541 # Chest
+        6:  32539 # Waist
+        7:  32544 # Legs
+        8:  32540 # Feet
+        9:  32546 # Wrists
+        10: 32542 # Hands
+
+    demon-hunter:
+    # description=0 set=548
+    - name: Battlegear of the Shattered Abyss
+      wowheadSetId: 2115
+      items:
+        1:  32573 # Head
+        3:  32575 # Shoulders
+        5:  32570 # Chest
+        6:  32568 # Waist
+        7:  32574 # Legs
+        8:  32569 # Feet
+        9:  32576 # Wrists
+        10: 32571 # Hands
+
+    druid:
+    # description=0 set=549
+    - name: Dreamgrove Raiment
+      wowheadSetId: 2116
+      items:
+        1:  32481 # Head
+        3:  32483 # Shoulders
+        5:  32485 # Chest
+        6:  32477 # Waist
+        7:  32482 # Legs
+        8:  32478 # Feet
+        9:  32484 # Wrists
+        10: 32480 # Hands
+
+    hunter:
+    # description=0 set=532
+    - name: Guise of the Unseen Path
+      wowheadSetId: 2117
+      items:
+        1:  32491 # Head
+        3:  32493 # Shoulders
+        5:  32489 # Chest
+        6:  32487 # Waist
+        7:  32492 # Legs
+        8:  32488 # Feet
+        9:  32494 # Wrists
+        10: 32490 # Hands
+
+    mage:
+    # description=0 set=516
+    - name: Vesture of Tirisgarde
+      wowheadSetId: 2118
+      items:
+        1:  32507 # Head
+        3:  32509 # Shoulders
+        5:  32512 # Chest
+        6:  32504 # Waist
+        7:  32510 # Legs
+        8:  32505 # Feet
+        9:  32511 # Wrists
+        10: 32506 # Hands
+
+    monk:
+    # description=0 set=497
+    - name: Grandmaster's Finery
+      wowheadSetId: 2119
+      items:
+        1:  32527 # Head
+        3:  32529 # Shoulders
+        5:  32525 # Chest
+        6:  32523 # Waist
+        7:  32528 # Legs
+        8:  32524 # Feet
+        9:  32530 # Wrists
+        10: 32526 # Hands
+
+    paladin:
+    # description=0 set=496
+    - name: Battleplate of the Silver Hand
+      wowheadSetId: 2120
+      items:
+        1:  32553 # Head
+        3:  32555 # Shoulders
+        5:  32551 # Chest
+        6:  32549 # Waist
+        7:  32554 # Legs
+        8:  32550 # Feet
+        9:  32556 # Wrists
+        10: 32552 # Hands
+
+    priest:
+    # description=0 set=330
+    - name: Regalia of the High Priest
+      wowheadSetId: 2121
+      items:
+        1:  32472 # Head
+        3:  32474 # Shoulders
+        5:  32476 # Chest
+        6:  32468 # Waist
+        7:  32473 # Legs
+        8:  32469 # Feet
+        9:  32475 # Wrists
+        10: 32471 # Hands
+
+    rogue:
+    # description=0 set=464
+    - name: Battlegear of the Uncrowned
+      wowheadSetId: 2122
+      items:
+        1:  32535 # Head
+        3:  32537 # Shoulders
+        5:  32533 # Chest
+        6:  32531 # Waist
+        7:  32536 # Legs
+        8:  32532 # Feet
+        9:  32538 # Wrists
+        10: 32534 # Hands
+
+    shaman:
+    # description=0 set=430
+    - name: Raiment of the Farseer
+      wowheadSetId: 2123
+      items:
+        1:  32499 # Head
+        3:  32501 # Shoulders
+        5:  32497 # Chest
+        6:  32495 # Waist
+        7:  32500 # Legs
+        8:  32496 # Feet
+        9:  32502 # Wrists
+        10: 32498 # Hands
+
+    warlock:
+    # description=0 set=448
+    - name: Vestments of the Black Harvest
+      wowheadSetId: 2124
+      items:
+        1:  32517 # Head
+        3:  32519 # Shoulders
+        5:  32521 # Chest
+        6:  32513 # Waist
+        7:  32518 # Legs
+        8:  32514 # Feet
+        9:  32520 # Wrists
+        10: 32516 # Hands
+
+    warrior:
+    # description=0 set=447
+    - name: Battlelord's Plate
+      wowheadSetId: 2125
+      items:
+        1:  32561 # Head
+        3:  32563 # Shoulders
+        5:  32559 # Chest
+        6:  32557 # Waist
+        7:  32562 # Legs
+        8:  32558 # Feet
+        9:  32564 # Wrists
+        10: 32560 # Hands
