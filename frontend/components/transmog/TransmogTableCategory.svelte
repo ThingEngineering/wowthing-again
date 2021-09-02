@@ -18,7 +18,7 @@
         opacity: 0.4;
     }
     .name {
-        min-width: 10rem;
+        min-width: 10.5rem;
         padding: 0 1.5rem 0 0.5rem;
     }
     .highlight {
