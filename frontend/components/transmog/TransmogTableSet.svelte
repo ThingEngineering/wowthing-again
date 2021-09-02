@@ -68,5 +68,5 @@
         {/if}
     </td>
 {:else}
-    <td class="quality0">---</td>
+    <td class="quality0" colspan="{span}">---</td>
 {/if}
