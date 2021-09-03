@@ -11,6 +11,7 @@ groups:
     death-knight:
     # description=0 set=1446
     - name: Lich Lord Plate
+      wowheadSetId: 1529
       items:
         1:  17954 # Head
         3:  17956 # Shoulders
@@ -24,6 +25,7 @@ groups:
     druid:
     # description=0 set=1445
     - name: Cycle Armor
+      wowheadSetId: 1526
       items:
         1:  17870 # Head
         3:  17875 # Shoulders
@@ -37,6 +39,7 @@ groups:
     hunter:
     # description=0 set=1444
     - name: Howling Beast Armor
+      wowheadSetId: 1528
       items:
         1:  17679 # Head
         3:  17681 # Shoulders
@@ -50,6 +53,7 @@ groups:
     mage:
     # description=0 set=1443
     - name: Elemental Triad Regalia
+      wowheadSetId: 1522
       items:
         1:  19473 # Head
         3:  19474 # Shoulders
@@ -63,6 +67,7 @@ groups:
     monk:
     # description=0 set=1442
     - name: Regal Lord Armor
+      wowheadSetId: 1525
       items:
         1:  19477 # Head
         3:  19478 # Shoulders
@@ -76,6 +81,7 @@ groups:
     paladin:
     # description=0 set=1441
     - name: Holy Warrior Plate
+      wowheadSetId: 1530
       items:
         1:  17548 # Head
         3:  17550 # Shoulders
@@ -89,6 +95,7 @@ groups:
     priest:
     # description=0 set=1440
     - name: Light Regalia
+      wowheadSetId: 1521
       items:
         1:  19482 # Head
         3:  19481 # Shoulders
@@ -102,6 +109,7 @@ groups:
     rogue:
     # description=0 set=1439
     - name: Silent Assassin Armor
+      wowheadSetId: 1524
       items:
         1:  17620 # Head
         3:  17625 # Shoulders
@@ -115,6 +123,7 @@ groups:
     shaman:
     # description=0 set=1438
     - name: Windfury Armor
+      wowheadSetId: 1527
       items:
         1:  17856 # Head
         3:  17858 # Shoulders
@@ -128,6 +137,7 @@ groups:
     warlock:
     # description=0 set=1437
     - name: Betrayer Regalia
+      wowheadSetId: 1523
       items:
         1:  19485 # Head
         3:  19484 # Shoulders
@@ -141,6 +151,7 @@ groups:
     warrior:
     # description=0 set=1436
     - name: Golden King Plate
+      wowheadSetId: 1531
       items:
         1:  19487 # Head
         3:  19488 # Shoulders

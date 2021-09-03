@@ -21,6 +21,7 @@
     }
     .highlight {
         background-color: $highlight-background;
+        color: #8ff1eb;
         padding-bottom: 0.2rem;
         padding-top: 0.2rem;
     }

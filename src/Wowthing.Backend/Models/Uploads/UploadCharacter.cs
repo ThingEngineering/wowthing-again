@@ -24,7 +24,7 @@ namespace Wowthing.Backend.Models.Uploads
         public List<UploadCharacterReputation> Reputations { get; set; }
         public Dictionary<string, int> ScanTimes { get; set; }
         public List<UploadCharacterTorghast> Torghast { get; set; }
-        public Dictionary<int, bool> Transmog { get; set; }
+        public List<int> Transmog { get; set; }
         public UploadCharacterVault[][] Vault { get; set; }
         public Dictionary<string, UploadWeeklyUghQuest> WeeklyUghQuests { get; set; }
     }
