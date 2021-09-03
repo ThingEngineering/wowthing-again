@@ -2,7 +2,7 @@
     export let cls = ''
     export let id: number
 
-    let url
+    let url: string
     $: {
         url = `https://www.wowhead.com/transmog-set=${id}`
     }
