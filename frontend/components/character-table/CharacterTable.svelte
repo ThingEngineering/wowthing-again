@@ -3,12 +3,13 @@
     import groupBy from 'lodash/groupBy'
     import keys from 'lodash/keys'
     import map from 'lodash/map'
+    import some from 'lodash/some'
     import sortBy from 'lodash/sortBy'
     import toPairs from 'lodash/toPairs'
 
     import { data as settingsData } from '@/stores/settings'
     import { userStore } from '@/stores'
-    import type { Character } from '@/types'
+    import type {Account, Character} from '@/types'
     import getCharacterGroupFunc from '@/utils/get-character-group-func'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
 

@@ -40,6 +40,12 @@
     .inactive {
         opacity: $inactive-opacity;
     }
+    .tag {
+        background: $highlight-background;
+        border-right: 1px solid $border-color;
+        padding-left: $width-padding;
+        padding-right: $width-padding;
+    }
     .level {
         @include cell-width($width-level);
 
@@ -54,6 +60,10 @@
 </style>
 
 <tr class="faction{character.faction}" class:inactive={!accountEnabled} class:last-of-group={last}>
+    {#if userStore.useAccountTags}
+        <td class="tag">{$userStore.data.accounts[character.accountId].tag || ''}</td>
+    {/if}
+
     {#each iconComponents as iconComponent, iconIndex}
         <TableIcon padLeft={iconIndex === 0 ? '0.25rem' : '0px'} padRight={iconIndex === (iconComponents.length - 1) ? '0.25rem' : '0px'}>
             <svelte:component this={iconComponent} {character} />

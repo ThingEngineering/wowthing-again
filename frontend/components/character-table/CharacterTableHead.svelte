@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { userStore } from '@/stores'
     import { data as settings } from '@/stores/settings'
 
     import HeadIcon from './head/Icon.svelte'
@@ -34,6 +35,10 @@
 
 <thead>
     <tr>
+        {#if userStore.useAccountTags}
+            <td></td>
+        {/if}
+
         {#each iconComponents as iconComponent, iconIndex}
             <svelte:component this={iconComponent} padLeft={iconIndex === 0 ? null : '0px'} padRight={iconIndex === (iconComponents.length - 1) ? null : '0px'} />
         {/each}

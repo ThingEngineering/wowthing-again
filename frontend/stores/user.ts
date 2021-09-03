@@ -1,7 +1,9 @@
 import keys from 'lodash/keys'
+import some from 'lodash/some'
+import {get} from 'svelte/store'
 
 import { difficultyMap } from '@/data/difficulty'
-import { Dictionary, UserData, WritableFancyStore } from '@/types'
+import {Account, Dictionary, UserData, WritableFancyStore} from '@/types'
 import { TypedArray } from '@/types/enums'
 import base64ToDictionary from '@/utils/base64-to-dictionary'
 import initializeCharacter from '@/utils/initialize-character'
@@ -10,6 +12,10 @@ import initializeCharacter from '@/utils/initialize-character'
 export class UserDataStore extends WritableFancyStore<UserData> {
     get dataUrl(): string {
         return document.getElementById('app')?.getAttribute('data-user')
+    }
+
+    get useAccountTags(): boolean {
+        return some(get(this).data.accounts, (a: Account) => !!a.tag)
     }
 
     initialize(userData: UserData): void {
