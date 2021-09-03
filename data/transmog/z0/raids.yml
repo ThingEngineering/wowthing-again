@@ -9,7 +9,7 @@ groups:
   tag: T3
   type: class
   sets:
-  - Normal
+  - Normal*
   data:
     druid:
     # Normal set=924

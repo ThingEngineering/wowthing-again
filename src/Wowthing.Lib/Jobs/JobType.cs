@@ -10,6 +10,7 @@
         CharacterMounts,
         CharacterMythicKeystoneProfile,
         CharacterMythicKeystoneProfileSeason,
+        CharacterPets,
         CharacterProfessions,
         CharacterQuestsCompleted,
         CharacterReputations,

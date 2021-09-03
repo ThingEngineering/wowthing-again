@@ -1,7 +1,10 @@
 <script lang="ts">
     export let counts: { have: number; total: number }
 
-    $: per = (counts.have / counts.total) * 100
+    let per: number
+    $: {
+        per = (counts.have / counts.total) * 100
+    }
 </script>
 
 <style type="scss">

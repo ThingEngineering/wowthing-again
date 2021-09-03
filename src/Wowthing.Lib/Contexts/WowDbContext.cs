@@ -25,6 +25,7 @@ namespace Wowthing.Lib.Contexts
         public DbSet<WowTitle> WowTitle { get; set; }
 
         public DbSet<PlayerAccount> PlayerAccount { get; set; }
+        public DbSet<PlayerAccountPets> PlayerAccountPets { get; set; }
         public DbSet<PlayerAccountToys> PlayerAccountToys { get; set; }
         public DbSet<PlayerAccountTransmog> PlayerAccountTransmog { get; set; }
 

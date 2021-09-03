@@ -193,34 +193,27 @@ namespace Wowthing.Web.Controllers
         {
             var timer = new JankTimer();
 
-            var user = await _userManager.FindByNameAsync(username);
-            if (user == null)
+            var apiResult = await CheckUser(username);
+            if (apiResult.NotFound)
             {
                 return NotFound();
             }
 
-            timer.AddPoint("Find user");
-
-            if (User?.Identity?.Name != user.UserName && user.Settings?.Privacy?.Public != true)
-            {
-                return NotFound();
-            }
-
-            timer.AddPoint("Privacy");
+            timer.AddPoint("CheckUser");
 
             var db = _redis.GetDatabase();
-            var pub = User?.Identity?.Name != user.UserName;
-            var anon = user.Settings?.Privacy?.Anonymized == true;
+            var pub = User?.Identity?.Name != apiResult.User.UserName;
+            var anon = apiResult.User.Settings?.Privacy?.Anonymized == true;
 
             // Update user last visit
             if (!pub)
             {
-                user.LastVisit = DateTime.Now;
-                await _userManager.UpdateAsync(user);
+                apiResult.User.LastVisit = DateTime.Now;
+                await _userManager.UpdateAsync(apiResult.User);
             }
 
             // Retrieve data
-            var mountIds = (await db.GetSetMembersAsync(string.Format(RedisKeys.USER_MOUNTS, user.Id)))
+            var mountIds = (await db.GetSetMembersAsync(string.Format(RedisKeys.USER_MOUNTS, apiResult.User.Id)))
                 .Select(m => ushort.Parse(m))
                 .ToArray();
             
@@ -228,7 +221,7 @@ namespace Wowthing.Web.Controllers
 
             List<PlayerAccount> accounts = new List<PlayerAccount>();
             var tempAccounts = await _context.PlayerAccount
-                .Where(a => a.UserId == user.Id)
+                .Where(a => a.UserId == apiResult.User.Id)
                 .Include(a => a.Toys)
                 .ToListAsync();
 
@@ -245,7 +238,7 @@ namespace Wowthing.Web.Controllers
             timer.AddPoint("Get accounts");
 
             var characterQuery = _context.PlayerCharacter
-                .Where(c => c.Account.UserId == user.Id);
+                .Where(c => c.Account.UserId == apiResult.User.Id);
             if (pub)
             {
                 characterQuery = characterQuery.Where(c => c.Level >= 11);
@@ -297,29 +290,22 @@ namespace Wowthing.Web.Controllers
         {
             var timer = new JankTimer();
 
-            var user = await _userManager.FindByNameAsync(username);
-            if (user == null)
+            var apiResult = await CheckUser(username);
+            if (apiResult.NotFound)
             {
                 return NotFound();
             }
 
-            timer.AddPoint("Find user");
-
-            if (User?.Identity?.Name != user.UserName && user.Settings?.Privacy?.Public != true)
-            {
-                return NotFound();
-            }
-
-            timer.AddPoint("Privacy");
+            timer.AddPoint("CheckUser");
 
             var achievementsCompleted = await _context.CompletedAchievementsQuery
-                .FromSqlRaw(CompletedAchievementsQuery.USER_QUERY, user.Id)
+                .FromSqlRaw(CompletedAchievementsQuery.USER_QUERY, apiResult.User.Id)
                 .ToDictionaryAsync(k => k.AchievementId, v => v.Timestamp);
             
             timer.AddPoint("Get Achievements");
 
             var criteria = await _context.AchievementCriteriaQuery
-                .FromSqlRaw(AchievementCriteriaQuery.USER_QUERY, user.Id)
+                .FromSqlRaw(AchievementCriteriaQuery.USER_QUERY, apiResult.User.Id)
                 .ToArrayAsync();
             var groupedCriteria = criteria
                 .GroupBy(c => c.CriteriaId)
@@ -347,28 +333,72 @@ namespace Wowthing.Web.Controllers
             return Ok(data);
         }
         
+        [HttpGet("user/{username:username}/pets")]
+        public async Task<IActionResult> UserPetData([FromRoute] string username)
+        {
+            var timer = new JankTimer();
+
+            var apiResult = await CheckUser(username);
+            if (apiResult.NotFound)
+            {
+                return NotFound();
+            }
+
+            timer.AddPoint("CheckUser");
+
+            var accountPets = await _context.PlayerAccountPets
+                .Where(pap => pap.Account.UserId == apiResult.User.Id)
+                .OrderByDescending(pap => pap.UpdatedAt)
+                .ToArrayAsync();
+            
+            timer.AddPoint("Get pets");
+
+            // Build response
+            var allPets = new Dictionary<long, PlayerAccountPetsPet>();
+            foreach (var pets in accountPets)
+            {
+                foreach (var (petId, pet) in pets.Pets)
+                {
+                    allPets.TryAdd(petId, pet);
+                }
+            }
+
+            var data = new UserPetData
+            {
+                Pets = allPets
+                    .Values
+                    .GroupBy(pet => pet.SpeciesId)
+                    .ToDictionary(
+                        group => group.Key,
+                        group => group
+                            .OrderByDescending(pet => pet.Level)
+                            .ThenByDescending(pet => (int)pet.Quality)
+                            .Select(pet => new UserPetDataPet(pet))
+                            .ToList()
+                    ),
+            };
+            
+            timer.AddPoint("Build response", true);
+            _logger.LogDebug($"{timer}");
+
+            return Ok(data);
+        }
+        
         [HttpGet("user/{username:username}/transmog")]
         public async Task<IActionResult> UserTransmogData([FromRoute] string username)
         {
             var timer = new JankTimer();
 
-            var user = await _userManager.FindByNameAsync(username);
-            if (user == null)
+            var apiResult = await CheckUser(username);
+            if (apiResult.NotFound)
             {
                 return NotFound();
             }
 
-            timer.AddPoint("Find user");
-
-            if (User?.Identity?.Name != user.UserName && user.Settings?.Privacy?.Public != true)
-            {
-                return NotFound();
-            }
-
-            timer.AddPoint("Privacy");
+            timer.AddPoint("CheckUser");
 
             var accountTransmogs = await _context.PlayerAccountTransmog
-                .Where(pat => pat.Account.UserId == user.Id)
+                .Where(pat => pat.Account.UserId == apiResult.User.Id)
                 .ToArrayAsync();
 
             var allTransmog = new HashSet<int>();
@@ -389,6 +419,33 @@ namespace Wowthing.Web.Controllers
             _logger.LogDebug($"{timer}");
 
             return Ok(data);
+        }
+
+        private async Task<ApiUserResult> CheckUser(string username)
+        {
+            var ret = new ApiUserResult();
+            
+            var user = await _userManager.FindByNameAsync(username);
+            if (user == null)
+            {
+                ret.NotFound = true;
+                return ret;
+            }
+
+            if (User?.Identity?.Name != user.UserName && user.Settings?.Privacy?.Public != true)
+            {
+                ret.NotFound = true;
+                return ret;
+            }
+
+            ret.User = user;
+            return ret;
+        }
+        
+        private class ApiUserResult
+        {
+            public bool NotFound { get; set; }
+            public ApplicationUser User { get; set; }
         }
     }
 }

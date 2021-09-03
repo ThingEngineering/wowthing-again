@@ -9,6 +9,7 @@
 
     import CollectionCount from './CollectionCount.svelte'
     import CollectionThing from './CollectionThing.svelte'
+    import CollectionThingPet from './CollectionThingPet.svelte'
 
     export let slug: string
 
@@ -55,6 +56,9 @@
             margin: 0 0 0.1rem 0;
         }
     }
+    .flex-wrapper {
+        align-items: flex-start;
+    }
 </style>
 
 {#each sections as section}
@@ -71,9 +75,15 @@
             {#each section.groups as group, i (`${thingType}-${slug}-${i}`)}
                 <div class="collection-group">
                     <p>{group.name}</p>
-                    {#each group.things as things}
-                        <CollectionThing {thingType} {thingMap} {userHas} {things} />
-                    {/each}
+                    <div class="flex-wrapper">
+                        {#each group.things as things}
+                            {#if thingType === 'npc'}
+                                <CollectionThingPet {thingMap} {things} />
+                            {:else}
+                                <CollectionThing {thingType} {thingMap} {userHas} {things} />
+                            {/if}
+                        {/each}
+                    </div>
                 </div>
             {/each}
         </div>
