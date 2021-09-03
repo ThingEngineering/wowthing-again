@@ -734,7 +734,7 @@ groups:
     plate:
     # Campaign set=2043
     - name: Might of Maldraxxus
-      wowheadSetId: 11854
+      wowheadSetId: 11850
       items:
         1:  41416 # Head
         3:  41418 # Shoulders
@@ -748,7 +748,7 @@ groups:
 
     # Renown set=2044
     - name: Authority of Maldraxxus
-      wowheadSetId: 11858
+      wowheadSetId: 11854
       items:
         1:  41431 # Head
         3:  41437 # Shoulders
@@ -762,7 +762,7 @@ groups:
 
     # Abominable Stitching set=2045
     - name: Abomination of Maldraxxus
-      wowheadSetId: 11862
+      wowheadSetId: 11858
       items:
         1:  41432 # Head
         3:  41438 # Shoulders
@@ -776,7 +776,7 @@ groups:
 
     # Unity set=2046
     - name: Mettle of Maldraxxus
-      wowheadSetId: 11866
+      wowheadSetId: 11862
       items:
         1:  41433 # Head
         3:  41439 # Shoulders
