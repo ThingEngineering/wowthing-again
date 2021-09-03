@@ -56,8 +56,10 @@
             margin: 0 0 0.1rem 0;
         }
     }
-    .flex-wrapper {
+    .wrapper {
         align-items: flex-start;
+        display: flex;
+        justify-items: flex-start;
     }
 </style>
 
@@ -75,7 +77,7 @@
             {#each section.groups as group, i (`${thingType}-${slug}-${i}`)}
                 <div class="collection-group">
                     <p>{group.name}</p>
-                    <div class="flex-wrapper">
+                    <div class="wrapper">
                         {#each group.things as things}
                             {#if thingType === 'npc'}
                                 <CollectionThingPet {thingMap} {things} />
