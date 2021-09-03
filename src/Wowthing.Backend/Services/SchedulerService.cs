@@ -27,6 +27,7 @@ namespace Wowthing.Backend.Services
 
         private const string QueryCharacters = @"
 SELECT  c.id AS character_id,
+        c.account_id AS account_id,
         c.name AS character_name,
         r.region,
         r.slug AS realm_slug,

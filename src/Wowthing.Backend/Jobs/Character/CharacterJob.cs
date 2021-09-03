@@ -137,6 +137,12 @@ namespace Wowthing.Backend.Jobs.Character
             {
                 jobs.Add(JobType.CharacterSoulbinds);
             }
+            
+            // Pets
+            if (query.AccountId.HasValue)
+            {
+                jobs.Add(JobType.CharacterPets);
+            }
 
             foreach (var jobType in jobs)
             {
