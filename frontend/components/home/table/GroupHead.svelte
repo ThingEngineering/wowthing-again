@@ -30,6 +30,10 @@
 {/if}
 
 <tr class="table-group-head">
+    {#if userStore.useAccountTags}
+        <td></td>
+    {/if}
+
     <td colspan="{span}">&nbsp;</td>
 
     {#if !isPublic}
