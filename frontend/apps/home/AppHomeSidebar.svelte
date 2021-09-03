@@ -43,6 +43,9 @@
     <li use:active={'/mounts/*'}>
         <a href="#/mounts/">Mounts</a>
     </li>
+    <li use:active={'/pets/*'}>
+        <a href="#/pets/">Pets</a>
+    </li>
     <li use:active={'/toys/*'}>
         <a href="#/toys/">Toys</a>
     </li>
@@ -54,9 +57,6 @@
     </li>
     <li use:active={'/cards'}>
         <a href="#/cards">🚧 Home (Cards)</a>
-    </li>
-    <li use:active={'/pets/*'}>
-        <a href="#/pets/">🚧 Pets</a>
     </li>
 
     {#if $userStore.loaded && !$userStore.data.public}
