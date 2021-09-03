@@ -67,7 +67,7 @@ LIMIT 500
 
         protected override async void TimerCallback(object state)
         {
-            var lockValue = new Guid().ToString("N");
+            var lockValue = Guid.NewGuid().ToString("N");
             
             try
             {
