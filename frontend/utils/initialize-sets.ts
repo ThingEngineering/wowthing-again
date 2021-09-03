@@ -1,6 +1,7 @@
+import keys from 'lodash/keys'
 import { get } from 'svelte/store'
 
-import { staticStore, userStore } from '@/stores'
+import { staticStore, userStore, userPetStore } from '@/stores'
 import type { Dictionary, StaticDataSetCategory, UserDataSetCount } from '@/types'
 
 export default function initializeSets(): void {
@@ -8,6 +9,7 @@ export default function initializeSets(): void {
 
     const staticData = get(staticStore).data
     const userData = get(userStore).data
+    const userPetData = get(userPetStore).data
 
     const setCounts: Dictionary<Dictionary<UserDataSetCount>> = {
         mounts: {},
@@ -15,9 +17,17 @@ export default function initializeSets(): void {
         toys: {},
     }
 
-    sigh(setCounts['mounts'], staticData.mountSets, userData.mounts, staticData.spellToMount)
-    sigh(setCounts['pets'], staticData.petSets, {})
-    sigh(setCounts['toys'], staticData.toySets, userData.toys)
+    doSetCounts(setCounts['mounts'], staticData.mountSets, userData.mounts, staticData.spellToMount)
+    doSetCounts(setCounts['toys'], staticData.toySets, userData.toys)
+
+    if (userPetData?.pets) {
+        const petHas: Dictionary<boolean> = {}
+        for (const key of keys(userPetData.pets)) {
+            petHas[key] = true
+        }
+
+        doSetCounts(setCounts['pets'], staticData.petSets, petHas, staticData.creatureToPet)
+    }
 
     userStore.update(state => {
         state.data.setCounts = setCounts
@@ -27,12 +37,12 @@ export default function initializeSets(): void {
     console.timeEnd('initializeSets')
 }
 
-function sigh(
+function doSetCounts(
     setCounts: Dictionary<UserDataSetCount>,
     sets: StaticDataSetCategory[][],
     userHas: Dictionary<boolean>,
     map?: Dictionary<number>,
-) {
+): void {
     for (let setIndex = 0; setIndex < sets.length; setIndex++) {
         const categories = sets[setIndex]
         if (categories === null) {
