@@ -79,7 +79,7 @@ namespace Wowthing.Backend.Jobs.User
                 character.IsWarMode = characterData.IsWarMode;
                 character.MountSkill = Enum.IsDefined(typeof(WowMountSkill), characterData.MountSkill) ? (WowMountSkill)characterData.MountSkill : 0;
 
-                transmog.UnionWith(characterData.Transmog.EmptyIfNull().Keys);
+                transmog.UnionWith(characterData.Transmog.EmptyIfNull());
 
                 HandleCurrencies(character, characterData);
                 HandleLockouts(character, characterData);
