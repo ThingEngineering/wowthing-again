@@ -8,5 +8,4 @@
     baseUrl="/progress"
     items={$staticStore.data.progress}
     width="14rem"
-    linkColor="#64e1ff"
 />

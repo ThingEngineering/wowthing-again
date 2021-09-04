@@ -23,6 +23,5 @@
     baseUrl="/transmog"
     items={categories}
     width="16rem"
-    linkColor="#64e1ff"
     {percentFunc}
 />
