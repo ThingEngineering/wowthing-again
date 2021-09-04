@@ -7,10 +7,12 @@
     import type {SidebarItem} from '@/types'
     import getPercentClass from '@/utils/get-percent-class'
 
+    export let anyChildren: boolean
     export let baseUrl: string
     export let item: SidebarItem
     export let parentItem: SidebarItem = undefined
     export let percentFunc: (entry: SidebarItem, parentEntry?: SidebarItem) => number = undefined
+
     let expanded: boolean
     let percent = -1
     let url: string
@@ -61,8 +63,11 @@
 
     .percent {
         position: absolute;
-        right: 1.8rem;
+        right: 0.5rem;
         word-spacing: -0.2ch;
+    }
+    .percent-children {
+        right: 1.8rem;
     }
 </style>
 
@@ -72,7 +77,7 @@
             {item.name}
 
             {#if percent >= 0}
-                <span class="percent {getPercentClass(percent)}">{Math.floor(percent).toFixed(0)} %</span>
+                <span class="percent {anyChildren ? 'percent-children' : ''} {getPercentClass(percent)}">{Math.floor(percent).toFixed(0)} %</span>
             {/if}
 
             {#if item.children?.length > 0}
@@ -83,7 +88,7 @@
             {#if expanded}
                 <ul>
                     {#each item.children as child}
-                        <svelte:self baseUrl={url} item={child} parentItem={item} {percentFunc} />
+                        <svelte:self {anyChildren} baseUrl={url} item={child} parentItem={item} {percentFunc} />
                     {/each}
                 </ul>
             {/if}
