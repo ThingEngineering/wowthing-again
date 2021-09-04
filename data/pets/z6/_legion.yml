@@ -20,6 +20,7 @@ groups:
   - 112798 # Nightmare Lasher (Order Hall, Druid)
   - 120830 # Ban-Fu, Cub of Ban-Lu (Order Hall, Monk)
   - 116871 # Crackers (Order Hall, Rogue?)
+  - 114063 # Snowfang (Order Hall, Shaman)
 
 - name: Quests
   things:

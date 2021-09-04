@@ -1,0 +1,47 @@
+name: Money 💸
+groups:
+
+- name: "Collector's Editions"
+  things:
+  -  11326 # Mini Diablo - Vanilla
+  -  11325 # Panda Cub - Vanilla
+  -  11327 # Zergling - Vanilla
+  -  15358 # Lurky - TBC (EU)
+  -  18381 # Netherwhelp - TBC
+  -  28883 # Frosty - WotLK
+  -  46896 # Lil' Deathwing - Cata
+  -  63832 # Lucky Quilen Cub - MoP
+  -  77137 # Dread Hatchling - WoD
+  -  95841 # Nibbles - Legion
+  - 129049 # Tottle (BfA Collector's Edition)
+  -  56266 # Fetish Shaman - D3
+  -  74413 # Treasure Goblin - D3:RoS
+  -  42078 # Mini Thor - SC2:WoL
+  -  66984 # Baneling - SC2:HotS
+  -  71655 # Zeradar - SC2:LotV
+
+- name: Store
+  things:
+  -  74402 # Alterac Brew-Pup
+  -  88807 # Argi
+  -  71488 # Blossoming Ancient
+  -  85283 # Brightpaw
+  - 138741 # Cap'n Crackers
+  -  53623 # Cenarion Hatchling
+  -  68267 # Cinder Kitten
+  - 158142 # Daisy
+  - 151788 # Dottie
+  -  36908 # Gryphon Hatchling
+  -  53283 # Guardian Cub
+  -  36979 # Lil' K.T.
+  -  51600 # Lil' Ragnaros
+  -  40703 # Lil' XT
+  - 113527 # Mischief
+  -  51601 # Moonkin Hatchling (Alliance)
+  -  51649 # Moonkin Hatchling (Horde)
+  -  36911 # Pandaren Monk
+  - 123650 # Shadow
+  -  58163 # Soul of the Aspects
+  - 122033 # Twilight
+  - 138742 # Whomper
+  -  36909 # Wind Rider Cub
