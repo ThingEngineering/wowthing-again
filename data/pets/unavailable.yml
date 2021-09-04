@@ -2,6 +2,7 @@ name: Unavailable
 groups:
 
 - name: Anniversaries
+  things:
   -  32841 # Baby Blizzard Bear (4th Anniversary)
   -  36607 # Onyxian Whelpling (5th Anniversary)
   -  87669 # Hatespark the Tiny (10th Anniversary Molten Core)
@@ -19,6 +20,8 @@ groups:
   -  85009 # Murkidan (Blizzcon 2015)
   - 113983 # Knight-Captain Murky (Blizzcon 2016)
   - 113984 # Legionnaire Murky (Blizzcon 2016)
+  - 157715 # Gillvanas (Blizzcon 2019)
+  - 157716 # Finduin (Blizzcon 2019)
 
 - name: Promotions
   things:

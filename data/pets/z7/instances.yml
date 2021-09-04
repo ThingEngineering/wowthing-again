@@ -1,12 +1,25 @@
 name: Instances
 groups:
 
+- name: Raids
+  things:
+  - 154831 # Lightless Ambusher (Lady Ashvane, The Eternal Palace)
+  - 154833 # Mindlost Bloodfrenzy (Blackwater Behemoth, The Eternal Palace)
+  - 154835 # Nameless Octopode (Za'qul, The Eternal Palace)
+  - 161923 # Aqir Hivespawn (Tek'ris, Ny'alotha)
+  - 161946 # Eye of Corruption (N'Zoth the Corruptor, Ny'alotha)
+  - 161919 # Muar (Maut, Ny'alotha)
+  - 161924 # Ra'kim (Tek'ris, Ny'alotha)
+  - 161921 # Void-Scarred Anubisath (Ra-den, Ny'alotha)
+
 - name: "Operation: Mechagon"
   things:
   - 154789 # Alloyed Alleyrat
   - 154796 # Clanking Scrapsorter
   - 154781 # Copper Hopper
+  - 154850 # Golden Snorf (King Mechagon)
   - 154794 # H4ND-EE
+  - 154857 # Microbot 8D (HK-8 Aerial Oppression Unit)
 
 - name: "Warfront: Arathi"
   things:
