@@ -9,14 +9,7 @@ groups:
   - 160703 # Plagueborn Slime (Plague Deviser Marileth, Maldraxxus)
   - 163897 # Renny (Ardenweald, Glitterfall Basin)
 
-- name: Rare Spawns - Ardenweald
-  things:
-  #- 175563 # Courage
-  - 171714 # Devoured Wader
-  - 171565 # Golden Cloudfeather
-  - 175562 # Larion Pouncer
-
-- name: Rare Spawns - Bastion
+- name: Rares - Ardenweald
   things:
   - 171239 # Chirpy Valeshrieker
   - 171247 # Dodger
@@ -24,7 +17,14 @@ groups:
   - 173993 # Lavender Nibbler
   - 171246 # Rocky
 
-- name: Rare Spawns - Maldraxxus
+- name: Rares - Bastion
+  things:
+  #- 175563 # Courage
+  - 171714 # Devoured Wader
+  - 171565 # Golden Cloudfeather
+  - 175562 # Larion Pouncer
+
+- name: Rares - Maldraxxus
   things:
   - 171986 # Boneweave Hatchling
   - 172136 # Corpselouse Larva
@@ -34,7 +34,7 @@ groups:
   - 172134 # Shy Melvin
   - 172139 # Writhing Spine
 
-- name: Rare Spawns - Revendreth
+- name: Rares - Revendreth
   things:
   - 171120 # Animated Tome
   - 171117 # Blushing Spiderling
@@ -43,3 +43,12 @@ groups:
   - 175715 # Lucy
   - 171121 # Primordial Bogling
   - 171118 # Wrathling
+
+- name: Treasures
+  things:
+  - 171122 # Burdened Soul (Revendreth)
+  - 173508 # Lost Quill (Revendreth)
+  - 171234 # Amber Glitterwing (Ardenweald)
+  - 171230 # Gorm Harrier (Ardenweald)
+  - 171225 # Starry Dreamfoal (Ardenweald)
+  - 171125 # Trapped Stonefiend (Revendreth)

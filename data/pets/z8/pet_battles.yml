@@ -33,6 +33,7 @@ groups:
 - name: Revendreth
   things:
   - 171149 # Dusky Dredwing Pup
+  - 171123 # Lost Soul
   - 173555 # Mire Creeper
   - 173506 # Rosetipped Spiderling
   - 173556 # Withering Creeper

@@ -17,6 +17,7 @@ groups:
   - 157969 # Anima Wyrmling (Shadowlands)
   -  56266 # Fetish Shaman - D3
   -  74413 # Treasure Goblin - D3:RoS
+  - 103159 # Baby Winston (Overwatch)
   -  42078 # Mini Thor - SC2:WoL
   -  66984 # Baneling - SC2:HotS
   -  71655 # Zeradar - SC2:LotV
@@ -46,3 +47,21 @@ groups:
   - 122033 # Twilight
   - 138742 # Whomper
   -  36909 # Wind Rider Cub
+
+- name: TCG
+  things:
+  -  23234 # Bananas
+  -  25110 # Dragon Kite
+  -  27914 # Ethereal Soul-Trader
+  -  59020 # Eye of the Legion
+  -  54730 # Gregarious Grell
+  -  69208 # Gusting Grimoire
+  -  17255 # Hippogryph Hatchling
+  -  52343 # Landro's Lichling
+  -  50468 # Landro's Lil' XT
+  -  52344 # Nightsaber Cub
+  -  54383 # Purple Puffer
+  -  25109 # Rocket Chicken
+  -  54745 # Sand Scarab
+  -  36511 # Spectral Tiger Cub
+  -  36482 # Tuskarr Kite

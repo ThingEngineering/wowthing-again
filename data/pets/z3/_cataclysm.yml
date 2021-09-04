@@ -1,6 +1,10 @@
 name: Cataclysm
 groups:
 
+- name: Rare Spawns
+  things:
+  -  48982 # Tiny Shale Spider - Jadefang
+
 - name: Reputation
   things:
   - 48107 # Rustberg Gull

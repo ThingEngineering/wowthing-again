@@ -27,3 +27,8 @@ groups:
   -  90214 # Wretched Servant (Sunwell
   -  26119 # Phoenix Hatchling - Magisters' Terrace
   -  24480 # Mojo - Zul'Aman
+
+- name: Reputations
+  things:
+  -  28470 # Nether Ray Fry (Exalted, Sha'tari Skyguard)
+  -  25062 # Tiny Sporebat (Exalted, Sporeggar)
