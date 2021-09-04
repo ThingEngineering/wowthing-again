@@ -1,14 +1,10 @@
 name: Professions
 groups:
 
-- name: Other
+- name: Herbalism
   things:
-  - 78895 # Lil' Leftovers - Cooking
   - 128137 # Fel Lasher (Herbalism)
   - 83594 # Nightshade Sproutling - Herbalism (Garrison?)
-  - 50722 # Elementium Geode - Mining
-  - 85667 # Ore Eater - Mining (Garrison?)
-  - 128160 # Fossorial Bile Larva (Skinning)
 
 - name: Alchemy
   things:
@@ -37,6 +33,10 @@ groups:
   things:
   -  84853 # Soul of the Forge - Blacksmithing
 
+- name: Cooking
+  things:
+  - 78895 # Lil' Leftovers - Cooking
+
 - name: Enchanting
   things:
   -  96403 # Enchanted Cauldron
@@ -55,7 +55,7 @@ groups:
   -  79410 # Mechanical Axebeak
   -  64899 # Mechanical Pandaren Dragonling
   -  88134 # Mechanical Scorpid
-  - 154787 # Mechanical Squirrel
+  -   2671 # Mechanical Squirrel
   - 147619 # Mechantula
   -  43800 # Personal World Destroyer
   -   9656 # Pet Bombling
@@ -92,6 +92,15 @@ groups:
   things:
   - 61877 # Jade Owl
   - 61883 # Sapphire Cub
+
+- name: Mining
+  things:
+  - 50722 # Elementium Geode - Mining
+  - 85667 # Ore Eater - Mining (Garrison?)
+
+- name: Skinning
+  things:
+  - 128160 # Fossorial Bile Larva (Skinning)
 
 - name: Tailoring
   things:

@@ -1,0 +1,50 @@
+name: Achievements
+groups:
+
+- name: Achievements
+  things:
+  - 143160 # Brutus (Toyboy Tycoon)
+  -  63724 # Elayna (Glory of the Tomb Raider)
+  -  64632 # Hopling (Ling-Ting's Herbal Journey)
+  -  32643 # Kirin Tor Familiar (Higher Learning)
+  - 112167 # Lagan (Poor Unfortunate Souls, Maw of Souls)
+  - 132366 # Mailemental (Priority Mail)
+  - 140125 # Miimii (How to Keep a Mummy)
+  -  45247 # Pebble (Rock Lover)
+  - 107206 # Zoom (Zoom!, Stonedark Grotto)
+
+- name: Achievements - Pets
+  things:
+  -  66450 # Jade Tentacle (? - 400 pet achievement points)
+  -  64232 # Singing Cricket (Pro Pet Mob - 75 pets to level 25)
+  - 112945 # Nightmare Treant (Legion meta)
+
+- name: Battling
+  things:
+  - 143464 # Dreadtick Leecher (Battle Safari)
+  - 128146 # Felclaw Marsuul (Family Fighter)
+  -  80101 # Royal Peachick (Draenor Safari)
+  - 113855 # Rescued Fawn (Legion Safari)
+  -  69849 # Stunted Direhorn (Brutal Pet Brawler)
+  -  88830 # Trunks (An Awfully Big Adventure)
+
+- name: Collecting
+  things:
+  -  23274 # Stinker (Shop Smart, Shop Pet...Smart - 50 pets)
+  -  32939 # Little Fawn (Lil' Game Hunter - 75 pets)
+  -  54227 # Nuts (Petting Zoo - 100 pets)
+  -  54374 # Brilliant Kaliri (Menagerie - 125 pets)
+  -  40624 # Celestial Dragon (Littlest Pet Shop - 150 pets)
+  -  63621 # Feral Vermling (Going to Need More Leashes - 250 pets)
+  -  66491 # Venus (That's a Lot of Pet Food - 400 pets)
+  -  87705 # Stormwing (So. Many. Pets. - 600 pets)
+  - 143142 # Rooter (Pet Emporium - 800 pets)
+
+- name: Instances
+  things:
+  -  37865 # Perky Pug (Looking For Multitudes)
+  -  68655 # Mr. Bigglesworth (Raiding With Leashes)
+  -  71023 # Tito (Raiding With Leashes II)
+  -  90215 # K'ute (Raiding With Leashes III)
+  - 127956 # Amalgam of Destruction (Raiding with Leashes V: Cataclysm)
+  - 150385 # Happiness (Raiding with Leashes VI: Pets of Pandaria)

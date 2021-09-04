@@ -6,6 +6,33 @@ groups:
   - 143045 # Coastal Scuttler (Drustvar)
   - 143037 # River Otter (Drustvar, Stormsong Valley)
 
+- name: Mechagon
+  things:
+  - 154769 # Duskytooth Snooter
+  - 154773 # Experimental Roach
+  - 154775 # Fleeting Frog
+  - 154771 # Junkheap Roach
+  - 154785 # Mechagon Marmot
+  - 154779 # Motorized Croaker
+  - 154783 # Rustbolt Clucker
+  - 154767 # Rustyroot Snooter
+  - 154791 # Scrapyard Tunneler
+  - 154787 # Specimen 97
+  - 154777 # Yellow Junkhopper
+
+- name: Nazjatar
+  things:
+  - 154714 # Bloodseeker
+  - 154706 # Chitterspine Skitterling
+  - 154712 # Deeptide Fingerling
+  - 154704 # Glimmershell Scuttler
+  - 154710 # Great Sea Albatross
+  - 154708 # Hissing Chitterspine
+  - 154724 # Muck Slug
+  - 154697 # Sandclaw Pincher
+  - 154702 # Sandclaw Sunshell
+  - 154716 # Spireshell Snail
+
 - name: Nazmir
   things:
   - 143047 # Bloodfever Tarantula (Nazmir)
@@ -43,6 +70,7 @@ groups:
 
 - name: Zuldazar
   things:
+  - 148517 # Baby Zandalari Raptor (Zuldazar)
   - 143044 # Barrier Hermit (Zuldazar)
   - 143046 # Golden Beetle (Zuldazar)
   - 143049 # Leafy Flutterwing (Zuldazar)

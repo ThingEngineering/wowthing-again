@@ -1,0 +1,248 @@
+name: Pet Battles - Kalimdor
+groups:
+
+- name: "Ahn'Qiraj: The Fallen Kingdom"
+  things:
+  -  62524 # Scarab Hatchling
+  -  62523 # Sidewinder
+
+- name: Ammen Vale
+  things:
+  -  62050 # Grey Moth
+
+- name: Ashenvale
+  things:
+  -  61319 # Beetle
+  -  62177 # Forest Moth
+  -  62312 # Frog
+  -  61753 # Maggot
+  -  61080 # Rabbit
+  -  61366 # Rat
+  -  61169 # Roach
+  -  62313 # Rusty Snail
+  -  61081 # Squirrel
+  -  61369 # Toad
+
+- name: Azshara
+  things:
+  -  61080 # Rabbit
+  -  62120 # Rabid Nut Varmint 5000
+  -  61366 # Rat
+  -  61169 # Roach
+  -  62119 # Robo-Chick
+  -  61158 # Shore Crab
+  -  61255 # Skunk
+  -  61327 # Spider
+  -  61081 # Squirrel
+  -  62121 # Turquoise Turtle
+  -  62118 # Twilight Beetle
+  -  62117 # Twilight Spider
+
+- name: Azuremyst Isle
+  things:
+  -  62050 # Grey Moth
+  -  61080 # Rabbit
+  -  61255 # Skunk
+  -  61081 # Squirrel
+
+- name: Bloodmyst Isle
+  things:
+  -  62664 # Chicken
+  -  61827 # Infected Fawn
+  -  61828 # Infected Squirrel
+  -  61366 # Rat
+  -  62051 # Ravager Hatchling
+  -  61255 # Skunk
+
+- name: Darkshore
+  things:
+  -  62250 # Darkshore Cub
+  -  61080 # Rabbit
+  -  61366 # Rat
+  -  62246 # Shimmershell Snail
+  -  61081 # Squirrel
+
+- name: Darnassus
+  things:
+  -  62178 # Elfin Rabbit
+  -  62177 # Forest Moth
+  -  61757 # Red-Tailed Chipmunk
+  -  61071 # Small Frog
+
+- name: Desolace
+  things:
+  -  62182 # Amethyst Shale Hatchling
+  -  62186 # Desert Spider
+  -  62178 # Elfin Rabbit
+  -  62177 # Forest Moth
+  -  62185 # Horny Toad
+  -  61366 # Rat
+  -  61757 # Red-Tailed Chipmunk
+  -  61169 # Roach
+  -  62184 # Rock Viper
+  -  62187 # Stone Armadillo
+  -  62181 # Topaz Shale Hatchling
+
+- name: Durotar
+  things:
+  -  61325 # Adder
+  -  61384 # Cockroach
+  -  62116 # Creepy Crawly
+  -  62115 # Dung Beetle
+  -  61751 # Hare
+  -  62114 # Spiny Lizard
+  -  61369 # Toad
+  -  61367 # Water Snake
+
+- name: Dustwallow Marsh
+  things:
+  -  61257 # Black Rat
+  -  61143 # Mouse
+  -  61142 # Snake
+  -  62201 # Spawn of Onyxia
+  -  61327 # Spider
+  -  61369 # Toad
+
+- name: Felwood
+  things:
+  -  62317 # Minfernal
+  -  62314 # Tainted Cockroach
+  -  62315 # Tainted Moth
+  -  62316 # Tainted Rat
+  -  61369 # Toad
+
+- name: Feralas
+  things:
+  -  62395 # Nether Faerie Dragon
+  -  61080 # Rabbit
+  -  61142 # Snake
+  -  61081 # Squirrel
+  -  68805 # Stunted Yeti
+
+- name: Moonglade
+  things:
+  -  62177 # Forest Moth
+  -  61080 # Rabbit
+  -  62373 # Silky Moth
+  -  61081 # Squirrel
+
+- name: Mulgore
+  things:
+  -  62176 # Gazelle Fawn
+  -  61143 # Mouse
+  -  61141 # Prairie Dog
+  -  61080 # Rabbit
+
+- name: Northern Barrens
+  things:
+  -  61325 # Adder
+  -  62129 # Cheetah Cub
+  -  62127 # Emerald Boa
+  -  68804 # Harpy Youngling
+  -  61141 # Prairie Dog
+  -  61071 # Small Frog
+
+- name: Orgrimmar
+  things:
+  -  62115 # Dung Beetle
+  -  62119 # Robo-Chick
+  -  61327 # Spider
+  -  62114 # Spiny Lizard
+  -  61369 # Toad
+  -  61367 # Water Snake
+
+- name: Silithus
+  things:
+  -  61319 # Beetle
+  -  62186 # Desert Spider
+  -  62526 # Qiraji Guardling
+  -  62184 # Rock Viper
+  -  62524 # Scarab Hatchling
+  -  61326 # Scorpid
+  -  62523 # Sidewinder
+  -  61441 # Spiky Lizard
+
+- name: Southern Barrens
+  things:
+  -  61325 # Adder
+  -  62129 # Cheetah Cub
+  -  62127 # Emerald Boa
+  -  62130 # Giraffe Calf
+  -  61141 # Prairie Dog
+  -  61071 # Small Frog
+
+- name: Stonetalon Mountains
+  things:
+  -  62189 # Alpine Chipmunk
+  -  62190 # Coral Snake
+  -  61677 # Mountain Skunk
+  -  61080 # Rabbit
+  -  62120 # Rabid Nut Varmint 5000
+  -  61366 # Rat
+  -  61169 # Roach
+  -  61327 # Spider
+  -  62191 # Venomspitter Hatchling
+
+- name: Tanaris
+  things:
+  -  62186 # Desert Spider
+  -  61438 # Gold Beetle
+  -  68820 # Infinite Whelpling
+  -  61439 # Rattlesnake
+  -  62257 # Sand Kitten
+  -  62953 # Sea Gull
+  -  62258 # Silithid Hatchling
+  -  62256 # Stinkbug
+  -  61440 # Stripe-Tailed Scorpid
+
+- name: Teldrassil
+  things:
+  -  62242 # Crested Owl
+  -  62178 # Elfin Rabbit
+  -  61165 # Fawn
+  -  62177 # Forest Moth
+  -  61080 # Rabbit
+  -  61757 # Red-Tailed Chipmunk
+  -  61071 # Small Frog
+  -  61327 # Spider
+  -  61369 # Toad
+
+- name: The Exodar
+  things:
+  -  62050 # Grey Moth
+  -  61143 # Mouse
+
+- name: Thousand Needles
+  things:
+  -  61169 # Roach
+  -  61326 # Scorpid
+  -  62255 # Twilight Iguana
+
+- name: Thunder Bluff
+  things:
+  -  61141 # Prairie Dog
+
+- name: "Un'Goro Crater"
+  things:
+  -  62364 # Ash Lizard
+  -  61319 # Beetle
+  -  61384 # Cockroach
+  -  62375 # Diemetradon Hatchling
+  -  62127 # Emerald Boa
+  -  61328 # Fire Beetle
+  -  61317 # Long-tailed Mole
+  -  61313 # Parrot
+  -  62373 # Silky Moth
+  -  62370 # Spotted Bell Frog
+  -  61318 # Tree Python
+
+- name: Winterspring
+  things:
+  -  62189 # Alpine Chipmunk
+  -  61690 # Alpine Hare
+  -  68839 # Anodized Robo Cub
+  -  62435 # Crystal Spider
+  -  62120 # Rabid Nut Varmint 5000
+  -  62119 # Robo-Chick
+  -   7554 # Snowy Owl
+  -  61327 # Spider

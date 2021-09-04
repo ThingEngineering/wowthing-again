@@ -1,0 +1,67 @@
+name: Pet Battles
+groups:
+
+- name: Deepholm
+  things:
+  -  62182 # Amethyst Shale Hatchling
+  -  62927 # Crimson Geode
+  -  62922 # Crimson Shale Hatchling
+  -  62925 # Crystal Beetle
+  -  62924 # Deepholm Cockroach
+  -  62915 # Emerald Shale Hatchling
+  -  62916 # Fungal Moth
+  -  62921 # Stowaway Rat
+  -  62181 # Topaz Shale Hatchling
+  -  62118 # Twilight Beetle
+  -  62117 # Twilight Spider
+
+- name: Mount Hyjal
+  things:
+  - 62189 # Alpine Chipmunk
+  - 62364 # Ash Lizard
+  - 61829 # Bat
+  - 62885 # Carrion Rat
+  - 62887 # Death's Head Cockroach
+  - 62178 # Elfin Rabbit
+  - 61328 # Fire Beetle
+  - 62886 # Fire-Proof Roach
+  - 62177 # Forest Moth
+  - 62884 # Grotto Vole
+  - 62888 # Nordrassil Wisp
+  - 61080 # Rabbit
+  - 62184 # Rock Viper
+  - 62373 # Silky Moth
+  - 61081 # Squirrel
+  - 62118 # Twilight Beetle
+
+- name: Twilight Highlands
+  things:
+  -  61257 # Black Rat
+  -  61384 # Cockroach
+  -  62818 # Grizzly Squirrel
+  -  62905 # Highlands Mouse
+  -  62907 # Highlands Skunk
+  -  62906 # Highlands Turkey
+  -  61368 # Huge Toad
+  -  61439 # Rattlesnake
+  -  61326 # Scorpid
+  -  61158 # Shore Crab
+  -  61369 # Toad
+  -  62914 # Twilight Fiendling
+  -  62117 # Twilight Spider
+  -  61367 # Water Snake
+  -  62904 # Yellow-Bellied Marmot
+  -  62900 # Wildhammer Gryphon Hatchling
+
+- name: Uldum
+  things:
+  -  62186 # Desert Spider
+  -  62115 # Dung Beetle
+  -  62127 # Emerald Boa
+  -  62894 # Horned Lizard
+  -  62896 # Leopard Scorpid
+  -  62893 # Locust
+  -  62892 # Mac Frog
+  -  62895 # Oasis Moth
+  -  62523 # Sidewinder
+  -  62899 # Tol'vir Scarab

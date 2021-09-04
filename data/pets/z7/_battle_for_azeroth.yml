@@ -17,31 +17,9 @@ groups:
   - 138964 # Spawn of Merektha (Merektha, Temple of Sethraliss)
   - 147587 # Thunder Lizard Runt (Conclave of the Chosen, Battle of Dazar'alor Normal+)
 
-#- name: "Instances: Arathi Warfront"
-#  things:
-#  - 143503 # Aldrusian Sproutling (Branchlord Aldrus)
-#  - 143564 # Foulfeather (Plaguefeather)
-#  - 143627 # Fozling (Fozruk)
-#  - 143499 # Fuzzy Creepling (Venomarus)
-#  - 143563 # Ragepeep (Ragebeak)
-#  - 143533 # Scabby (Yogursa)
-#  - 143628 # Squawkling (Man-Hunter Rog)
-#  - 143515 # Teeny Titan Orb (Echo of Myzrael)
-#  - 143507 # Voidwiggler (Darbel Montrose)
-#
-#- name: "Instances: Darkshore Warfront"
-#  things:
-#  - # Detective Ray (Conflagros)
-#  - # Gust of Cyclarus (Cyclarus)
-#  - # Hydrath Droplet (Hydrath)
-#  - # Void Jelly (Soggoth the Slitherer)
-#  - # Zur'aj the Depleted (Twilight Prophet Graeme)
-#  - # Everburning Treant (A: Zim'kaga/H: Onu)
-#  - # Nightwreathed Watcher (A: Orwell Stevenson/H: Grimhorn)
-#  - # Darkshore Sentinel - Athil Dewfire / Burninator Mark V
-
 - name: Island Expeditions
   things:
+  - 154693 # Adventurous Hopling
   - 148976 # Baby Stonehide
   - 143796 # Barnaby
   - 143816 # Bloodstone Tunneler
@@ -51,6 +29,7 @@ groups:
   - 143807 # Deathsting Scorpid
   - 143804 # False Knucklebump
   - 148988 # Firesting Buzzer
+  - 154165 # Ghostly Whelpling
   - 143809 # Giggling Flame
   - 143799 # Inky
   - 143819 # Juvenile Brineshell
@@ -93,6 +72,10 @@ groups:
   - 139770 # Taptaf (Taptaf the Pig!, Drustvar)
   - 139372 # Vengeful Chicken (Cutting Edge Poultry Science, ??)
 
+- name: Rare Spawns
+  things:
+  - 148520 # Dasher (N'chala the Egg Thief, Zuldazar)
+
 - name: Rare Spawns - Arathi
   things:
   - 143503 # Aldrusian Sproutling (Drop - Branchlord Aldrus, Arathi Highlands)
@@ -104,6 +87,35 @@ groups:
   - 143628 # Squawkling (Drop - Man-Hunter Rog, Arathi Highlands)
   - 143515 # Teeny Titan Orb (Drop - Echo of Myzrael, Arathi Highlands)
   - 143507 # Voidwiggler (Drop - Darbel Montrose, Arathi Highlands)
+
+- name: Rare Spawns - Mechagon
+  things:
+  - 154894 # Arachnoid Skitterbot
+  - 155829 # Armored Vaultbot
+  - 154893 # Bonebiter
+  - 154904 # Echoing Oozeling
+  - 155579 # Irradiated Elementaling
+  - 154854 # Lost Robogrip
+  - 154851 # Snowsoft Nibbler
+  - 155600 # Spraybot 0D
+
+- name: Rare Spawns - Nazjatar
+  things:
+  - 154836 # Amethyst Softshell
+  - 154845 # Brinestone Algan
+  - 154846 # Budding Algan
+  - 154847 # Coral Lashling
+  - 154834 # Daggertooth Frenzy
+  - 154823 # Glittering Diamondshell
+  - 154820 # Murgle
+  - 154821 # Necrofin Tadpole
+  - 154842 # Sandkeep
+  - 154843 # Scalebrood Hydra
+  - 154840 # Seafury
+  - 154848 # Skittering Eel
+  - 154832 # Spawn of Nalaada
+  - 154841 # Stormwrath
+  - 154839 # Wriggler
 
 - name: Reputations
   things:
@@ -123,6 +135,7 @@ groups:
 - name: Treasures
   things:
   - 134406 # Francois (?, Tiragarde Sound)
+  - 143189 # Wicker Pup (Drustvar)
 
 - name: Vendors
   things:

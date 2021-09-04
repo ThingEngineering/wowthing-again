@@ -5,20 +5,6 @@ groups:
   things:
   - 150385 # Happiness (Raiding with Leashes VI: Pets of Pandaria)
 
-- name: Instances
-  things:
-  -  70144 # Ji-Kun Hatchling (Throne of Thunder)
-  -  71199 # Living Fluid (Throne of Thunder)
-  -  69748 # Living Sandling (Throne of Thunder)
-  -  70083 # Pygmy Direhorn (Throne of Thunder)
-  -  69820 # Son of Animus (Throne of Thunder)
-  -  71200 # Viscous Horror (Throne of Thunder)
-  -  73352 # Blackfuse Bombling (Siege of Orgrimmar)
-  -  73350 # Droplet of Y'Shaarj (Siege of Orgrimmar)
-  -  73351 # Gooey Sha-ling (Siege of Orgrimmar)
-  -  73354 # Kovok (Siege of Orgrimmar)
-  #- 150354 # Stoneclaw (Stone Guard, Mogu'shan Vaults)
-
 - name: Rare Spawns
   things:
   -  64633 # Aqua Strider

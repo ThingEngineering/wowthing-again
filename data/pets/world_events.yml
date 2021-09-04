@@ -29,13 +29,16 @@ groups:
 
 - name: Children's Week
   things:
+  - 150119 # Beakbert
   -  33530 # Curious Oracle Hatchling
   -  33529 # Curious Wolvar Pup
   -  23258 # Egbert
+  - 150120 # Froglet
   -  53048 # Legs
   - 150098 # Mr. Crabs
   -  16548 # Mr. Wiggles
   -  23266 # Peanut
+  - 150126 # Scaley
   -  51635 # Scooter the Snail
   -  16547 # Speedy
   -  16549 # Whiskers the Rat
@@ -118,6 +121,7 @@ groups:
   -  15698 # Father Winter's Helper
   - 128156 # Globe Yeti (Feast of Winter Veil)
   -  97229 # Grumpling
+  - 151780 # Jingles
   -  55215 # Lumpy
   -  73741 # Rotten Little Helper
   -  15710 # Tiny Snowman
