@@ -3,7 +3,7 @@
     import flatten from 'lodash/flatten'
 
     import { staticStore } from '@/stores/static'
-    import type { StaticDataReputationCategory } from '@/types'
+    import type {StaticDataReputationCategory, StaticDataReputationSet} from '@/types'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
@@ -13,24 +13,26 @@
     export let slug: string
 
     let category: StaticDataReputationCategory
+    let reputations: StaticDataReputationSet[]
     $: {
         category = find($staticStore.data.reputationSets, (r) => r.slug === slug)
+        reputations = flatten(category.reputations)
     }
 </script>
 
 <CharacterTable>
     <CharacterTableHead slot="head">
         {#key category.name}
-            {#each flatten(category.reputations) as reputation}
+            {#each reputations as reputation}
                 <TableHead {reputation} />
             {/each}
         {/key}
     </CharacterTableHead>
 
-    <svelte:fragment slot="rowExtra">
+    <svelte:fragment slot="rowExtra" let:character>
         {#key category.name}
-            {#each flatten(category.reputations) as reputation}
-                <TableRow {reputation} />
+            {#each reputations as reputation}
+                <TableRow {character} {reputation} />
             {/each}
         {/key}
     </svelte:fragment>
