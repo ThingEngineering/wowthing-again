@@ -48,10 +48,14 @@
     a {
         color: var(--linkColor, $link-color);
         display: block;
-        padding: 0.2rem 0.5rem;
+        padding: 0.15rem 0.5rem;
 
         &:global(.active) {
             background: $active-background;
+        }
+
+        &:hover {
+            background: $highlight-background;
         }
     }
 
