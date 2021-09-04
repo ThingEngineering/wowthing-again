@@ -1,0 +1,27 @@
+name: Instances
+groups:
+
+- name: Dungeons
+  things:
+  - 171124 # Raw Emotion
+  - 172150 # Sludge Feeler
+  - 174089 # Spinemaw Gormling
+
+- name: Raids
+  things:
+  - 173994 # Will of Remornia (Sire Denathrius, Castle Nathria)
+  - 179232 # Eye of Allseeing (Eye of the Jailer, Sanctum of Domination)
+  - 179233 # Eye of Extermination (Mythic Eye of the Jailer, Sanctum of Domination)
+  - 179222 # Irongrasp (Soulrender Dormazain, Sanctum of Domination)
+
+- name: Torghast
+  things:
+  - 173989 # Ashen Chomper
+  - 173990 # Frenzied Mawrat
+  - 173850 # Hissing Deathroach
+  - 173988 # Maw Crawler
+  - 173991 # Maw Stalker
+  - 173851 # Severs
+  - 173992 # Torghast Lurker
+  - 173849 # Tower Deathroach
+  - 179239 # Gilded Darknight

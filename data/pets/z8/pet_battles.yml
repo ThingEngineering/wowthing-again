@@ -1,0 +1,45 @@
+name: Pet Battles
+groups:
+
+- name: Ardenweald
+  things:
+  - 176020 # Decay Grub
+  - 173590 # Deepwood Leaper
+  - 171229 # Gorm Rootstinger
+  - 176021 # Starmoth
+  - 171228 # Tranquil Wader
+  - 176019 # Verdant Kit
+
+- name: Bastion
+  things:
+  - 171702 # Copperfur Kit
+  - 171567 # Fledgling Teroclaw
+  - 171664 # Fluttering Glimmerfly
+  - 171670 # Glimmerpool Hatchling
+  - 171703 # Rustfur Kit
+  - 171668 # Vibrant Glimmerfly
+  - 171712 # Wader Chick
+  - 171666 # Wild Etherwyrm
+
+- name: Maldraxxus
+  things:
+  - 175023 # Animated Cruor
+  - 175022 # Bleak Skitterer
+  - 172130 # Clutch
+  - 176024 # Crawbat
+  - 175024 # Necroray Spawnling
+  - 175021 # Pulsating Maggot
+
+- name: Revendreth
+  things:
+  - 171149 # Dusky Dredwing Pup
+  - 173555 # Mire Creeper
+  - 173506 # Rosetipped Spiderling
+  - 173556 # Withering Creeper
+
+- name: Korthia
+  things:
+  - 179248 # Anxious Nibbler
+  - 179256 # Devourling
+  - 179329 # Wild Corpsefly
+  - 179250 # Young Garnetgullet

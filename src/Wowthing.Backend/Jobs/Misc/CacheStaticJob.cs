@@ -107,9 +107,9 @@ namespace Wowthing.Backend.Jobs.Misc
                 ReputationTiers = reputationTiers,
 
                 MountSets = mountSets,
-                SpellToMount = spellToMount,
+                SpellToMount = new SortedDictionary<int, int>(spellToMount.ToDictionary(k => k.Key, v => v.Value.Item1)),
 
-                CreatureToPet = creatureToPet,
+                CreatureToPet = new SortedDictionary<int, int>(creatureToPet.ToDictionary(k => k.Key, v => v.Value.Item1)),
                 PetSets = petSets,
 
                 Progress = progress,
@@ -211,22 +211,35 @@ namespace Wowthing.Backend.Jobs.Misc
             return categories;
         }
 
-        private static async Task<SortedDictionary<int, int>> LoadMountDump()
+        private static async Task<SortedDictionary<int, (int, string)>> LoadMountDump()
         {
             var records = await CsvUtilities.LoadDumpCsvAsync<DumpMount>("mount");
-            return new SortedDictionary<int, int>(records.ToDictionary(k => k.SourceSpellID, v => v.ID));
+            return new SortedDictionary<int, (int, string)>(
+                records.ToDictionary(
+                    mount => mount.SourceSpellID,
+                    mount => (mount.ID, mount.Name)
+                )
+            );
         }
 
-        private static async Task<SortedDictionary<int, int>> LoadPetDump()
+        private static async Task<SortedDictionary<int, (int, string)>> LoadPetDump()
         {
             var records = await CsvUtilities.LoadDumpCsvAsync<DumpBattlePetSpecies>("battlepetspecies", p => (p.Flags & 32) == 0);
-            return new SortedDictionary<int, int>(records.ToDictionary(k => k.CreatureID, v => v.ID));
+            var creatureIdToName = (await CsvUtilities.LoadDumpCsvAsync<DumpCreature>("creature"))
+                .ToDictionary(creature => creature.ID, creature => creature.Name);
+            
+            return new SortedDictionary<int, (int, string)>(
+                records.ToDictionary(
+                    k => k.CreatureID,
+                    v => (v.ID, creatureIdToName.GetValueOrDefault(v.CreatureID, "?"))
+                )
+            );
         }
 
-        private static async Task<SortedDictionary<int, int>> LoadToyDump()
+        private static async Task<SortedDictionary<int, (int, string)>> LoadToyDump()
         {
             var records = await CsvUtilities.LoadDumpCsvAsync<DumpToy>("toy");
-            return new SortedDictionary<int, int>(records.ToDictionary(k => k.ItemID, v => v.ID));
+            return new SortedDictionary<int, (int, string)>(records.ToDictionary(k => k.ItemID, v => (v.ID, "?")));
         }
 
         private List<List<RedisSetCategory>> LoadSets(string dirName)
@@ -255,7 +268,7 @@ namespace Wowthing.Backend.Jobs.Misc
             return categories;
         }
 
-        private void AddUncategorized(string dirName, SortedDictionary<int, int> spellToThing, List<List<RedisSetCategory>> thingSets)
+        private void AddUncategorized(string dirName, SortedDictionary<int, (int, string)> spellToThing, List<List<RedisSetCategory>> thingSets)
         {
             var skip = Array.Empty<int>();
             var skipPath = Path.Join(CsvUtilities.DataPath, dirName, "_skip.yml");
@@ -298,6 +311,16 @@ namespace Wowthing.Backend.Jobs.Misc
                 thingSets.Add(new List<RedisSetCategory>{
                     new(cat),
                 });
+                
+                #if DEBUG
+                using (var file = File.CreateText(Path.Join("..", "..", "data", dirName, "zzz_uncategorized.yml")))
+                {
+                    foreach (int thing in missing)
+                    {
+                        file.WriteLine($"  - {thing} # {spellToThing[thing].Item2}");
+                    }
+                }
+                #endif
             }
         }
         #endregion
