@@ -1,6 +1,4 @@
 <script lang="ts">
-    import { getContext } from 'svelte'
-
     import { staticStore } from '@/stores/static'
     import type {
         Character,
@@ -15,8 +13,7 @@
 
     import TooltipReputation from '@/components/tooltips/reputation/TooltipReputation.svelte'
 
-    const character: Character = getContext('character')
-
+    export let character: Character
     export let reputation: StaticDataReputationSet
 
     let characterRep: number | undefined
