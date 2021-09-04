@@ -41,19 +41,19 @@ reputations:
     paragon: true
 
   - both:
-      id: 1828
+      id: 1859
       name: The Nightfallen
       icon: inv_legion_faction_nightfallen
     paragon: true
 
   - both:
-      id: 1828
+      id: 1948
       name: Valarjar
       icon: inv_legion_faction_valarjar
     paragon: true
 
   - both:
-      id: 1828
+      id: 1894
       name: The Wardens
       icon: inv_legion_faction_warden
     paragon: true
