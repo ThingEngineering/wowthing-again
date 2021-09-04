@@ -26,13 +26,14 @@
 </script>
 
 <style lang="scss">
-    td {
+    th {
         @include cell-width($width-lockout);
 
+        border-left: 1px solid $border-color;
         text-align: center;
     }
 </style>
 
-<td use:tippy={{content: tooltip, allowHTML: true}}>
+<th use:tippy={{content: tooltip, allowHTML: true}}>
     {instanceDifficulty.difficulty.shortName}-{instanceName}
-</td>
+</th>
