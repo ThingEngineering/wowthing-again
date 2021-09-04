@@ -13,6 +13,16 @@ groups:
   - 179232 # Eye of Allseeing (Eye of the Jailer, Sanctum of Domination)
   - 179233 # Eye of Extermination (Mythic Eye of the Jailer, Sanctum of Domination)
   - 179222 # Irongrasp (Soulrender Dormazain, Sanctum of Domination)
+  - 179240 # Mawsworn Minion (Kel'Thuzad, Sanctum of Domination)
+
+- name: Tazavesh
+  things:
+  - 179164 # Curious Purrkin (Battle)
+  - 179167 # Damp Skrat (Battle)
+  - 179169 # Rarity (Battle)
+  - 179168 # Scavenging Skrat (Battle)
+  - 179165 # Silver Purrkin (Battle)
+  - 179166 # Gizmo (P.O.S.T. Master)
 
 - name: Torghast
   things:

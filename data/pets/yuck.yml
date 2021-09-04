@@ -3,9 +3,7 @@ groups:
 
 - name: Promotion
   things:
-  - 103159 # Baby Winston (Overwatch)
   -  36871 # Core Hound Pup (Authenticator)
-  - 106283 # Corgi Pup (12th Anniversary)
   -  33578 # Murkimus the Gladiator (Arena Tournament)
   -  91226 # Graves (Heroes of the Storm)
   -  25146 # Golden Pig (RAF)
@@ -163,18 +161,7 @@ groups:
 
 - name: Daily
   things:
-  -  69892 # Mountain Panda - MoP Trainer Daily
-  -  69893 # Snowy Panda - MoP Trainer Daily
-  -  69891 # Sunfur Panda - MoP Trainer Daily
-  -  68467 # Pandaren Air Spirit - MoP Spirit Daily
-  -  68468 # Pandaren Earth Spirit - MoP Spirit Daily
-  -  68466 # Pandaren Fire Spirit - MoP Spirit Daily
-  -  66950 # Pandaren Water Spirit - MoP Spirit Daily
   -  61086 # Porcupette
-  -  93483 # Nightmare Bell
-  -  93352 # Periwinkle Calf
-  -  86718 # Seaborne Spore
-  -  86715 # Zangar Spore
   -  73011 # Lil' Bling - Blingtron
   -  85284 # Sky-Bo - Blingtron 5000
   -  99505 # Knockoff Blingtron (Blingtron 6000)
@@ -185,16 +172,10 @@ groups:
 - name: Other
   things:
   - 133064 # Silithid Mini-Tank (Drop - Silithus: The Wound)
-  -  48982 # Tiny Shale Spider - Jadefang
 
 
 
 # Reputation
-- name: TBC
-  things:
-  -  28470 # Nether Ray Fry - Sha'tari Skyguard
-  -  25062 # Tiny Sporebat - Sporeggar
-
 - name: WotLK
   things:
   -  32591 # Cobra Hatchling - The Oracles
@@ -202,28 +183,6 @@ groups:
   -  32592 # Proto-Drake Whelp - The Oracles
   -  32589 # Tickbird Hatchling - The Oracles
   -  32590 # White Tickbird hatchling - The Oracles
-
-# $$$$$
-
-- name: TCG
-  things:
-  -  23234 # Bananas
-  -  25110 # Dragon Kite
-  -  27914 # Ethereal Soul-Trader
-  -  59020 # Eye of the Legion
-  -  54730 # Gregarious Grell
-  -  69208 # Gusting Grimoire
-  -  17255 # Hippogryph Hatchling
-  -  52343 # Landro's Lichling
-  -  50468 # Landro's Lil' XT
-  -  52344 # Nightsaber Cub
-  -  54383 # Purple Puffer
-  -  25109 # Rocket Chicken
-  -  54745 # Sand Scarab
-  -  36511 # Spectral Tiger Cub
-  -  36482 # Tuskarr Kite
-
-# End $$$$$
 
 - name: Darkmoon Island
   things:

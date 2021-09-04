@@ -1,0 +1,29 @@
+name: Instances
+groups:
+
+- name: Blackwing Lair
+  things:
+  -  68662 # Chrominius - BWL
+  -  68663 # Death Talon - BWL
+  -  68661 # Untamed Hatchling - BWL
+
+- name: Deadmines
+  things:
+  -   7387 # Green Wing Macaw - Deadmines
+
+- name: Lower Blackrock Spire
+  things:
+  -  10598 # Smolderdweb Hatchling - LBRS
+  -  10259 # Worg Pup - LBRS
+
+- name: Molten Core
+  things:
+  -  68666 # Ashstone Core - MC
+  -  68664 # Corefire Imp - MC
+  -  68665 # Harbinger of Flame - MC
+
+- name: "Temple of Ahn'Qiraj"
+  things:
+  -  68659 # Anubisath Idol (Emperor Vek'lor, AQ40)
+  -  68658 # Mini Mindslayer (The Prophet Skeram, AQ40)
+  -  68660 # Viscidus Globule (Viscidus, AQ40)

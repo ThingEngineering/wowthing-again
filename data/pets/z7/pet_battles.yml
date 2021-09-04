@@ -64,6 +64,17 @@ groups:
   - 143036 # Sandyback Crawler (Stormsong Valley, Tiragarde Sound)
   - 143040 # Shack Crab (Tiragarde Sound)
 
+- name: Uldum
+  things:
+  - 162499 # Oasis Void-Duster
+  - 162502 # Void-Scarred Locust
+
+- name: Vale of Eternal Blossoms
+  things:
+  - 162506 # Voidglower
+  - 162518 # Voidskimmer
+  - 162525 # Golden Chirper
+
 - name: "Vol'dun"
   things:
   - 143056 # Hermit Crab (Vol'dun)

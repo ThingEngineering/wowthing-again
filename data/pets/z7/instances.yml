@@ -1,11 +1,17 @@
 name: Instances
 groups:
 
-- name: Raids
+- name: The Eternal Palace
   things:
+  - 154718 # Blackchasm Crawler
+  - 154720 # Chitterspine Deepstalker
+  - 154722 # Trench Slug
   - 154831 # Lightless Ambusher (Lady Ashvane, The Eternal Palace)
   - 154833 # Mindlost Bloodfrenzy (Blackwater Behemoth, The Eternal Palace)
   - 154835 # Nameless Octopode (Za'qul, The Eternal Palace)
+
+- name: "Ny'alotha"
+  things:
   - 161923 # Aqir Hivespawn (Tek'ris, Ny'alotha)
   - 161946 # Eye of Corruption (N'Zoth the Corruptor, Ny'alotha)
   - 161919 # Muar (Maut, Ny'alotha)
@@ -17,9 +23,21 @@ groups:
   - 154789 # Alloyed Alleyrat
   - 154796 # Clanking Scrapsorter
   - 154781 # Copper Hopper
-  - 154850 # Golden Snorf (King Mechagon)
   - 154794 # H4ND-EE
+  - 154798 # Malfunctioning Microbot
+  - 154850 # Golden Snorf (King Mechagon)
   - 154857 # Microbot 8D (HK-8 Aerial Oppression Unit)
+
+- name: Visions
+  things:
+  - 161964 # Anomalus
+  - 161959 # C'Thuffer
+  - 161966 # Void-Scarred Beetle
+  - 161962 # Void-Scarred Cat
+  - 161961 # Void-Scarred Hare
+  - 160196 # Void-Scarred Pup
+  - 161963 # Void-Scarred Rat
+  - 160187 # Void-Scarred Toad
 
 - name: "Warfront: Arathi"
   things:

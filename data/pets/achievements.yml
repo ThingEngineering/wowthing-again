@@ -21,8 +21,10 @@ groups:
 
 - name: Battling
   things:
+  - 155865 # Burnout (Malowned)
   - 143464 # Dreadtick Leecher (Battle Safari)
   - 128146 # Felclaw Marsuul (Family Fighter)
+  - 154822 # Kelpfin (Team Aquashock)
   -  80101 # Royal Peachick (Draenor Safari)
   - 113855 # Rescued Fawn (Legion Safari)
   - 175756 # Spriggan Trickster (Family Exorcist)
@@ -41,6 +43,7 @@ groups:
   -  66491 # Venus (That's a Lot of Pet Food - 400 pets)
   -  87705 # Stormwing (So. Many. Pets. - 600 pets)
   - 143142 # Rooter (Pet Emporium - 800 pets)
+  - 117343 # Hearthy (Master of Minions - 1000 unique pets)
 
 - name: Instances
   things:
