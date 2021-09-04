@@ -1,6 +1,45 @@
 name: Shadowlands
 groups:
 
-- name: Empty
+- name: Quests
   things:
-  - 0
+  - 171136 # Dal (A Stolen Stone Fiend WQ, Revendreth)
+  - 171241 # Grubby (Ardenweald)
+  - 171667 # Helpful Glimmerfly (Broken Wings, Bastion)
+  - 160703 # Plagueborn Slime (Plague Deviser Marileth, Maldraxxus)
+  - 163897 # Renny (Ardenweald, Glitterfall Basin)
+
+- name: Rare Spawns - Ardenweald
+  things:
+  #- 175563 # Courage
+  - 171714 # Devoured Wader
+  - 171565 # Golden Cloudfeather
+  - 175562 # Larion Pouncer
+
+- name: Rare Spawns - Bastion
+  things:
+  - 171239 # Chirpy Valeshrieker
+  - 171247 # Dodger
+  - 171231 # Gorm Needler
+  - 173993 # Lavender Nibbler
+  - 171246 # Rocky
+
+- name: Rare Spawns - Maldraxxus
+  things:
+  - 171986 # Boneweave Hatchling
+  - 172136 # Corpselouse Larva
+  - 172137 # Feasting Larva
+  - 172155 # Foulwing Buzzer
+  - 172149 # Invertebrate Oil
+  - 172134 # Shy Melvin
+  - 172139 # Writhing Spine
+
+- name: Rare Spawns - Revendreth
+  things:
+  - 171120 # Animated Tome
+  - 171117 # Blushing Spiderling
+  - 171119 # Bound Lightspawn
+  - 171150 # Crimson Dredwing Pup
+  - 175715 # Lucy
+  - 171121 # Primordial Bogling
+  - 171118 # Wrathling
