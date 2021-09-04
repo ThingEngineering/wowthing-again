@@ -279,22 +279,24 @@ namespace Wowthing.Backend.Jobs.Misc
                 )
                 .Except(skip)
                 .ToArray();
+
+            var cat = new DataSetCategory
+            {
+                Name = "UNCATEGORIZED",
+                Groups = new List<DataSetGroup>
+                {
+                    new DataSetGroup
+                    {
+                        Name = "UNCATEGORIZED",
+                        Things = missing.Select(m => m.ToString()).ToList(),
+                    },
+                },
+            };
             
             if (missing.Length > 0)
             {
                 thingSets.Add(new List<RedisSetCategory>{
-                    new RedisSetCategory
-                    {
-                        Name = "UNCATEGORIZED",
-                        Groups = new List<RedisSetGroup>
-                        {
-                            new RedisSetGroup
-                            {
-                                Name = "UNCATEGORIZED",
-                                Things = missing.Select(m => new[]{ m }).ToList(),
-                            }
-                        }
-                    }
+                    new(cat),
                 });
             }
         }
