@@ -249,9 +249,24 @@ namespace Wowthing.Web.Controllers
 
             timer.AddPoint("characterQuery");
 
-            var currentPeriods = await _context.WowPeriod
-                    .Where(p => p.Starts <= DateTime.UtcNow && p.Ends > DateTime.UtcNow)
-                    .ToDictionaryAsync(k => (int)k.Region);
+            var currentPeriods = _context.WowPeriod
+                .AsEnumerable()
+                .GroupBy(p => p.Region)
+                .ToDictionary(
+                    grp => (int)grp.Key,
+                    grp => grp.OrderByDescending(p => p.Starts).First()
+                );
+
+            var now = DateTime.UtcNow;
+            foreach (var region in currentPeriods.Keys)
+            {
+                while (currentPeriods[region].Ends < now)
+                {
+                    currentPeriods[region].Id++;
+                    currentPeriods[region].Starts = currentPeriods[region].Starts.AddDays(7);
+                    currentPeriods[region].Ends = currentPeriods[region].Ends.AddDays(7);
+                }
+            }
 
             timer.AddPoint("currentPeriods");
 
