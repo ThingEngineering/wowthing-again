@@ -7,8 +7,7 @@
     "build": "rollup -c",
     "watch": "rollup -c -w",
     "check": "svelte-check",
-    "lint": "eslint --cache .",
-    "prettier": "prettier --write '**/*.svelte' '**/*.ts'"
+    "lint": "eslint --cache ."
   },
   "dependencies": {
     "base64-arraybuffer": "^0.2.0",
@@ -33,8 +32,6 @@
     "node-sass": "^6.0.0",
     "postcss": "^8.2.1",
     "postcss-load-config": "^3.0.0",
-    "prettier": "^2.3.1",
-    "prettier-plugin-svelte": "^2.3.0",
     "rimraf": "^3.0.2",
     "rollup": "^2.48.0",
     "rollup-plugin-css-only": "^3.1.0",
