@@ -1,0 +1,121 @@
+name: Wrath of the Lich King
+reputations:
+
+# 8.2
+#- - both:
+#      id: 2391
+#      name: Rustbolt Resistance
+#      icon: inv_tabard_rustboltresistance
+#    paragon: true
+#
+#  - alliance:
+#      id: 2400
+#      name: Waveblade Ankoan
+#      icon: inv_tabard_ankoan
+#    horde:
+#      id: 2373
+#      name: The Unshackled
+#      icon: inv_tabard_unshackled
+#    paragon: true
+
+# x.1?
+- - both:
+      id: 1156
+      name: The Ashen Verdict
+      icon: inv_jewelry_talisman_08
+
+# Sholazar
+- - both:
+      id: 1104
+      name: Frenzyheart Tribe
+      icon: achievement_zone_sholazar_08
+
+  - both:
+      id: 1105
+      name: The Oracles
+      icon: achievement_zone_sholazar_11
+
+# x.0
+- - alliance:
+      id: 1106
+      name: Argent Crusade
+      icon: inv_misc_tournaments_banner_human
+    horde:
+      id: 1106
+      name: Argent Crusade
+      icon: inv_misc_tournaments_banner_orc
+
+  - both:
+      id: 1073
+      name: The Kalu'ak
+      icon: achievement_reputation_tuskarr
+
+  - both:
+      id: 1090
+      name: Kirin Tor
+      icon: achievement_reputation_kirintor
+
+  - both:
+      id: 1098
+      name: Knights of the Ebon Blade
+      icon: achievement_reputation_knightsoftheebonblade
+
+  - both:
+      id: 1119
+      name: The Sons of Hodir
+      icon: spell_frost_wizardmark
+
+  - both:
+      id: 1091
+      name: The Wyrmrest Accord
+      icon: achievement_reputation_wyrmresttemple
+
+# x.0 faction?
+- - alliance:
+      id: 1037
+      name: Alliance Vanguard
+      icon: spell_misc_hellifrepvphonorholdfavor
+    horde:
+      id: 1052
+      name: Horde Expedition
+      icon: spell_misc_hellifrepvpthrallmarfavor
+
+  # Main armies?
+  - alliance:
+      id: 1050
+      name: Valliance Expedition
+      icon: a
+    horde:
+      id: 1085
+      name: Warsong Offensive
+      icon: b
+
+  # Dalaran
+  - alliance:
+      id: 1094
+      name: The Silver Covenant
+      icon: inv_elemental_primal_mana
+    horde:
+      id: 1124
+      name: The Sunreavers
+      icon: inv_elemental_primal_nether
+
+  # ?
+  - alliance:
+      id: 1068
+      name: Explorer's League
+      icon: a
+    horde:
+      id: 1067
+      name: The Hand of Vengeance
+      icon: b
+
+  # New friends
+  - alliance:
+      id: 1126
+      name: The Frostborn
+      icon: a
+    horde:
+      id: 1064
+      name: The Taunka
+      icon: b
