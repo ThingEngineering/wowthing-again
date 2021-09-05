@@ -33,7 +33,10 @@ $sidebar-pill-background:  $highlight-background;
 $sidebar-pill-scale:       0.9;
 $sidebar-sub-link-color:   #c1c2e3;
 
-$table-striped-background:  lighten($thing-background, 3%);
+$table-bg:                  $thing-background;
+$table-striped-bg:          lighten($table-bg, 3%);
+$table-alt-bg:              #0018209f;
+$table-striped-alt-bg:      lighten($table-alt-bg, 3%);
 
 $width-covenant:            2.9rem;
 $width-currency:            3.4rem;
