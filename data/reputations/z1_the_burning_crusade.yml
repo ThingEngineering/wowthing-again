@@ -1,0 +1,19 @@
+name: The Burning Crusade
+reputations:
+
+# 8.2
+#- - both:
+#      id: 2391
+#      name: Rustbolt Resistance
+#      icon: inv_tabard_rustboltresistance
+#    paragon: true
+#
+#  - alliance:
+#      id: 2400
+#      name: Waveblade Ankoan
+#      icon: inv_tabard_ankoan
+#    horde:
+#      id: 2373
+#      name: The Unshackled
+#      icon: inv_tabard_unshackled
+#    paragon: true
