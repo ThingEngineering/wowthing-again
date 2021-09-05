@@ -36,7 +36,7 @@
 <thead>
     <tr>
         {#if userStore.useAccountTags}
-            <td></td>
+            <th></th>
         {/if}
 
         {#each iconComponents as iconComponent, iconIndex}
