@@ -1,18 +1,20 @@
 <script lang="ts">
-    import { link } from 'svelte-spa-router'
-    import active from 'svelte-spa-router/active'
-
     import { staticStore } from '@/stores/static'
+    import type { SidebarItem } from '@/types'
 
-    import Sidebar from '@/components/common/Sidebar.svelte'
+    import Sidebar from '@/components/sidebar/Sidebar.svelte'
+
+    let categories: SidebarItem[] = []
+    $: {
+        categories = $staticStore.data.reputationSets.map((set) => set === null ? null : ({
+            children: [],
+            ...set,
+        }))
+    }
 </script>
 
-<Sidebar width="12rem">
-    {#each $staticStore.data.reputationSets as reputation}
-        <li use:active={'/reputations/' + reputation.slug}>
-            <a href="/reputations/{reputation.slug}" use:link
-                >{reputation.name}</a
-            >
-        </li>
-    {/each}
-</Sidebar>
+<Sidebar
+    baseUrl="/reputations"
+    items={categories}
+    width="12rem"
+/>
