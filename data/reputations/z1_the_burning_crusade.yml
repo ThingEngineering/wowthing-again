@@ -1,19 +1,100 @@
 name: The Burning Crusade
 reputations:
 
-# 8.2
-#- - both:
-#      id: 2391
-#      name: Rustbolt Resistance
-#      icon: inv_tabard_rustboltresistance
-#    paragon: true
-#
-#  - alliance:
-#      id: 2400
-#      name: Waveblade Ankoan
-#      icon: inv_tabard_ankoan
-#    horde:
-#      id: 2373
-#      name: The Unshackled
-#      icon: inv_tabard_unshackled
-#    paragon: true
+# 2.4
+- - both:
+      id: 1077
+      name: Shattered Sun Offensive
+      icon: inv_shield_48
+
+# 2.1
+- - both:
+      id: 1015
+      name: Netherwing
+      icon: ability_mount_netherdrakepurple
+
+  - both:
+      id: 1038
+      name: "Ogri'la"
+      icon: inv_misc_apexis_crystal
+
+  - both:
+      id: 1031
+      name: "Sha'tari Skyguard"
+      icon: ability_hunter_pet_netherray
+
+# Aldor/Scryers
+- - both:
+      id: 932
+      name: The Aldor
+      icon: inv_misc_desecrated_plategloves
+
+  - both:
+      id: 934
+      name: The Scryers
+      icon: inv_misc_book_07
+
+# 9.0
+- - both:
+      id: 1012
+      name: Ashtongue Deathsworn
+      icon: achievement_reputation_ashtonguedeathsworn
+
+  - both:
+      id: 933
+      name: The Consortium
+      icon: inv_enchant_shardprismaticlarge
+
+  - alliance:
+      id: 978
+      name: Kurenai
+      icon: inv_misc_foot_centaur
+    horde:
+      id: 941
+      name: The Mag'har
+      icon: inv_misc_foot_centaur
+
+  - both:
+      id: 990
+      name: The Scale of the Sands
+      icon: inv_enchant_dustillusion
+
+  - both:
+      id: 970
+      name: Sporeggar
+      icon: inv_mushroom_11
+
+  - both:
+      id: 967
+      name: The Violet Eye
+      icon: spell_holy_mindsooth
+
+# 9.0 dungeons?
+- - both:
+      id: 942
+      name: Cenarion Expedition
+      icon: achievement_zone_boreantundra_11
+
+  - both:
+      id: 989
+      name: Keepers of Time
+      icon: inv_datacrystal02
+
+  - both:
+      id: 1011
+      name: Lower City
+      icon: inv_feather_06
+
+  - both:
+      id: 935
+      name: "The Sha'tar"
+      icon: inv_shield_30
+
+  - alliance:
+      id: 946
+      name: Honor Hold
+      icon:
+    horde:
+      id: 947
+      name: Thrallmar
+      icon:
