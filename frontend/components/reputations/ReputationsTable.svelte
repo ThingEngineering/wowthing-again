@@ -13,7 +13,7 @@
 
     let category: StaticDataReputationCategory
     $: {
-        category = find($staticStore.data.reputationSets, (r) => r.slug === slug)
+        category = find($staticStore.data.reputationSets, (r) => r?.slug === slug)
     }
 </script>
 
