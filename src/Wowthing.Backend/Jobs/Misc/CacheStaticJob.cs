@@ -136,8 +136,15 @@ namespace Wowthing.Backend.Jobs.Misc
             var basePath = Path.Join(CsvUtilities.DataPath, "reputations");
             foreach (var line in File.ReadLines(Path.Join(basePath, "_order")))
             {
-                var filePath = Path.Join(basePath, line);
-                categories.Add(_yaml.Deserialize<DataReputationCategory>(File.OpenText(filePath)));
+                if (line == "-")
+                {
+                    categories.Add(null);
+                }
+                else
+                {
+                    var filePath = Path.Join(basePath, line);
+                    categories.Add(_yaml.Deserialize<DataReputationCategory>(File.OpenText(filePath)));
+                }
             }
 
             return categories;
