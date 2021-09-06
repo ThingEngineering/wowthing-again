@@ -1,117 +1,107 @@
-import {Dungeon, MythicPlusAffix, MythicPlusSeason} from '@/types'
+import { Dungeon, MythicPlusAffix, MythicPlusSeason } from '@/types'
 import type { Dictionary, StaticDataInstance } from '@/types'
 
-export const affixMap: Dictionary<MythicPlusAffix> = {
-    1: new MythicPlusAffix('Overflowing'),
-    2: new MythicPlusAffix('Skittish'),
-    3: new MythicPlusAffix('Volcanic'),
-    4: new MythicPlusAffix('Necrotic'),
-    5: new MythicPlusAffix('Teeming'),
-    6: new MythicPlusAffix('Raging'),
-    7: new MythicPlusAffix('Bolstering'),
-    8: new MythicPlusAffix('Sanguine'),
-    9: new MythicPlusAffix('Tyrannical'),
-    10: new MythicPlusAffix('Fortified'),
-    11: new MythicPlusAffix('Bursting'),
-    12: new MythicPlusAffix('Grievous'),
-    13: new MythicPlusAffix('Explosive'),
-    14: new MythicPlusAffix('Quaking'),
-    122: new MythicPlusAffix('Inspiring'),
-    123: new MythicPlusAffix('Spiteful'),
-    124: new MythicPlusAffix('Storming'),
-    // Seasonal
-    16: new MythicPlusAffix('Infested'), // BfA S1
-    117: new MythicPlusAffix('Reaping'), // BfA S2
-    119: new MythicPlusAffix('Beguiling'), // BfA S3
-    120: new MythicPlusAffix('Awakened'), // BfA S4
-    121: new MythicPlusAffix('Prideful'), // SL S1
-    128: new MythicPlusAffix('Tormented'), // SL S2
-}
+export const affixMap: Record<number, MythicPlusAffix> = Object.fromEntries(
+    [
+        // Always
+        new MythicPlusAffix(9, 'Tyrannical'),
+        new MythicPlusAffix(10, 'Fortified'),
+        // Set A
+        new MythicPlusAffix(6, 'Raging'),
+        new MythicPlusAffix(11, 'Bursting'),
+        new MythicPlusAffix(122, 'Inspiring'),
+        new MythicPlusAffix(123, 'Spiteful'),
+        new MythicPlusAffix(7, 'Bolstering'),
+        new MythicPlusAffix(8, 'Sanguine'),
+        // Set B
+        new MythicPlusAffix(3, 'Volcanic'),
+        new MythicPlusAffix(4, 'Necrotic'),
+        new MythicPlusAffix(12, 'Grievous'),
+        new MythicPlusAffix(13, 'Explosive'),
+        new MythicPlusAffix(14, 'Quaking'),
+        new MythicPlusAffix(124, 'Storming'),
+        // Retired
+        new MythicPlusAffix(1, 'Overflowing'),
+        new MythicPlusAffix(2, 'Skittish'),
+        new MythicPlusAffix(5, 'Teeming'),
+        // Seasonal
+        new MythicPlusAffix(16, 'Infested'), // BfA S1
+        new MythicPlusAffix(117, 'Reaping'), // BfA S2
+        new MythicPlusAffix(119, 'Beguiling'), // BfA S3
+        new MythicPlusAffix(120, 'Awakened'), // BfA S4
+        new MythicPlusAffix(121, 'Prideful'), // SL S1
+        new MythicPlusAffix(128, 'Tormented'), // SL S2
+    ].map((affix) => [affix.id, affix])
+)
+
+const affixNameMap = Object.fromEntries(
+    Object.entries(affixMap).map(([, affix]) => [affix.name, affix])
+)
+
+export const weeklyAffixes: MythicPlusAffix[][] = [
+    ['Fortified', 'Bursting', 'Storming'],
+    ['Tyrannical', 'Raging', 'Volcanic'],
+    ['Fortified', 'Inspiring', 'Grievous'],
+    ['Tyrannical', 'Spiteful', 'Necrotic'],
+    ['Fortified', 'Bolstering', 'Quaking'],
+    ['Tyrannical', 'Sanguine', 'Storming'],
+    ['Fortified', 'Raging', 'Explosive'],
+    ['Tyrannical', 'Bursting', 'Volcanic'],
+    ['Fortified', 'Spiteful', 'Grievous'],
+    ['Tyrannical', 'Inspiring', 'Quaking'],
+    ['Fortified', 'Sanguine', 'Necrotic'],
+    ['Tyrannical', 'Bolstering', 'Explosive'],
+].map((arr) => arr.map((affix) => affixNameMap[affix]))
 
 export const dungeonMap: Dictionary<Dungeon> = {
     // Battle for Azeroth
-    244: new Dungeon(
-        244,
-        "Atal'Dazar",
-        'AD',
-        'dungeon_atal_dazar',
-        0
-    ),
-    245: new Dungeon(
-        245,
-        'Freehold',
-        'FH',
-        'dungeon_freehold',
-        0
-    ),
-    246: new Dungeon(
-        246,
-        'Tol Dagor',
-        'TD',
-        'dungeon_tol_dagor',
-        0
-    ),
+    244: new Dungeon(244, "Atal'Dazar", 'AD', 'dungeon_atal_dazar', 0),
+    245: new Dungeon(245, 'Freehold', 'FH', 'dungeon_freehold', 0),
+    246: new Dungeon(246, 'Tol Dagor', 'TD', 'dungeon_tol_dagor', 0),
     247: new Dungeon(
         247,
         'The MOTHERLODE!!',
         'ML',
         'dungeon_the_motherlode',
-        0,
-    ),
-    248: new Dungeon(
-        248,
-        'Waycrest Manor',
-        'WM',
-        'dungeon_waycrest_manor',
         0
     ),
-    249: new Dungeon(249,
-        "King's Rest",
-        'KR',
-        'dungeon_kings_rest',
-        0
-    ),
+    248: new Dungeon(248, 'Waycrest Manor', 'WM', 'dungeon_waycrest_manor', 0),
+    249: new Dungeon(249, "King's Rest", 'KR', 'dungeon_kings_rest', 0),
     250: new Dungeon(
         250,
         'Temple of Sethraliss',
         'ToS',
         'dungeon_temple_of_sethraliss',
-        0,
-    ),
-    251: new Dungeon(
-        251,
-        'The Underrot',
-        'UR',
-        'dungeon_the_underrot',
         0
     ),
+    251: new Dungeon(251, 'The Underrot', 'UR', 'dungeon_the_underrot', 0),
     252: new Dungeon(
         252,
         'Shrine of the Storm',
         'SoS',
         'dungeon_shrine_of_the_storm',
-        0,
+        0
     ),
     353: new Dungeon(
         353,
         'Siege of Boralus',
         'SoB',
         'dungeon_siege_of_boralus',
-        0,
+        0
     ),
     369: new Dungeon(
         369,
         'Operation: Mechagon - Junkyard',
         'OMJ',
         'dungeon_operation_mechagon_junkyard',
-        0,
+        0
     ),
     370: new Dungeon(
         370,
         'Operation: Mechagon - Workshop',
         'OMW',
         'dungeon_operation_mechagon_workshop',
-        0,
+        0
     ),
 
     // Shadowlands
@@ -120,56 +110,44 @@ export const dungeonMap: Dictionary<Dungeon> = {
         'Mists of Tirna Scithe',
         'MoTS',
         'dungeon_mists_of_tirna_scithe',
-        30,
+        30
     ),
     376: new Dungeon(
         376,
         'The Necrotic Wake',
         'NW',
         'dungeon_the_necrotic_wake',
-        36,
+        36
     ),
-    377: new Dungeon(
-        377,
-        'De Other Side',
-        'DOS',
-        'dungeon_de_other_side',
-        43
-    ),
+    377: new Dungeon(377, 'De Other Side', 'DOS', 'dungeon_de_other_side', 43),
     378: new Dungeon(
         378,
         'Halls of Atonement',
         'HoA',
         'dungeon_halls_of_atonement',
-        31,
+        31
     ),
-    379: new Dungeon(
-        379,
-        'Plaguefall',
-        'PF',
-        'dungeon_plaguefall',
-        38
-    ),
+    379: new Dungeon(379, 'Plaguefall', 'PF', 'dungeon_plaguefall', 38),
     380: new Dungeon(
         380,
         'Sanguine Depths',
         'SD',
         'dungeon_sanguine_depths',
-        41,
+        41
     ),
     381: new Dungeon(
         381,
         'Spires of Ascension',
         'SoA',
         'dungeon_spires_of_ascension',
-        39,
+        39
     ),
     382: new Dungeon(
         382,
         'Theater of Pain',
         'ToP',
         'dungeon_theater_of_pain',
-        37,
+        37
     ),
 }
 
@@ -207,12 +185,18 @@ export const seasonMap: Dictionary<MythicPlusSeason> = {
     6: new MythicPlusSeason(6, 'SL Season 2', 'sl-2', 60, [orderShadowlands]),
     5: new MythicPlusSeason(5, 'SL Season 1', 'sl-1', 60, [orderShadowlands]),
     4: new MythicPlusSeason(4, 'BfA Season 4', 'bfa-4', 50, [
-        orderBattleForAzeroth,
         orderBattleForAzeroth2,
+        orderBattleForAzeroth,
     ]),
-    3: new MythicPlusSeason(3, 'BfA Season 3', 'bfa-3', 50, [orderBattleForAzeroth]),
-    2: new MythicPlusSeason(2, 'BfA Season 2', 'bfa-2', 50, [orderBattleForAzeroth]),
-    1: new MythicPlusSeason(1, 'BfA Season 1', 'bfa-1', 50, [orderBattleForAzeroth]),
+    3: new MythicPlusSeason(3, 'BfA Season 3', 'bfa-3', 50, [
+        orderBattleForAzeroth,
+    ]),
+    2: new MythicPlusSeason(2, 'BfA Season 2', 'bfa-2', 50, [
+        orderBattleForAzeroth,
+    ]),
+    1: new MythicPlusSeason(1, 'BfA Season 1', 'bfa-1', 50, [
+        orderBattleForAzeroth,
+    ]),
 }
 
 export const badgeToClass: Dictionary<string> = {
