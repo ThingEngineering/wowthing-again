@@ -33,41 +33,64 @@
 
 <style lang="scss">
     td {
-        @include cell-width($width-mplus-dungeon);
+        @include cell-width($width-mplus-dungeon, 0px, 0px);
 
         border-left: 1px solid $border-color;
         text-align: center;
+
+        --padding: 0.4rem;
     }
     span {
+        width: 50%;
+
         &.failed {
             color: #888;
         }
-        &:nth-child(2) {
-            padding-left: 0.4rem;
+        &:first-child {
+            padding-left: var(--padding);
         }
+        &:last-child {
+            padding-right: var(--padding);
+        }
+    }
+    .flex-wrapper {
+        justify-content: space-around;
     }
 </style>
 
-{#if runs.length > 0 || addonMap}
-    <td use:tippyComponent={{component: TooltipMythicPlusRuns, props: {addonMap, dungeonId, runs}}}>
-        {#if addonMap}
-            {#if addonMap.fortifiedScore}
-                <span class={getMythicPlusRunQualityAffix(addonMap.fortifiedScore)}>{addonMap.fortifiedScore.level}</span>
+<td
+    use:tippyComponent={{
+        component: TooltipMythicPlusRuns,
+        props: { addonMap, dungeonId, runs },
+    }}
+>
+    <div class="flex-wrapper">
+        {#if seasonId >= 6}
+            {#if addonMap?.fortifiedScore}
+                <span
+                    class={getMythicPlusRunQualityAffix(
+                        addonMap.fortifiedScore
+                    )}>{addonMap.fortifiedScore.level}</span
+                >
             {:else}
                 <span class="quality0">--</span>
             {/if}
 
-            {#if addonMap.tyrannicalScore}
-                <span class={getMythicPlusRunQualityAffix(addonMap.tyrannicalScore)}>{addonMap.tyrannicalScore.level}</span>
+            {#if addonMap?.tyrannicalScore}
+                <span
+                    class={getMythicPlusRunQualityAffix(
+                        addonMap.tyrannicalScore
+                    )}>{addonMap.tyrannicalScore.level}</span
+                >
             {:else}
                 <span class="quality0">--</span>
             {/if}
         {:else}
             {#each runs as run}
-                <span class={getMythicPlusRunQuality(run)}>{run.keystoneLevel}</span>
+                <span class={getMythicPlusRunQuality(run)}
+                    >{run.keystoneLevel}</span
+                >
             {/each}
         {/if}
-    </td>
-{:else}
-    <td>&nbsp;</td>
-{/if}
+    </div>
+</td>

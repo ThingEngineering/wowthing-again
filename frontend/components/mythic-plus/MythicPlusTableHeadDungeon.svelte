@@ -1,6 +1,6 @@
 <script lang="ts">
     import { dungeonMap } from '@/data/dungeon'
-    import type {Dungeon} from '@/types'
+    import type { Dungeon } from '@/types'
     import tippy from '@/utils/tippy'
 
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
