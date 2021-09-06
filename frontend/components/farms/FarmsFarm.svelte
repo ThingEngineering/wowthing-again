@@ -21,19 +21,20 @@
         transform: translate(-50%, -50%);
         text-align: center;
         width: 22px;
+
+        &:hover .icon {
+            color: #00ccff;
+        }
+
     }
     .icon {
-        //pointer-events: none;
+        pointer-events: none;
 
         &.active {
             color: #fff;
         }
         &.inactive {
             color: #009f00;
-        }
-
-        &:hover {
-            color: #00ccff !important;
         }
     }
     span {
