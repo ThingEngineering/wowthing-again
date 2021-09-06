@@ -603,6 +603,7 @@ groups:
         5:  11785 # Chest
         6:  11722 # Waist
         7:  11747 # Legs
+        8:  11748 # Feet
         9:  11737 # Wrists
         10: 11943 # Hands
 

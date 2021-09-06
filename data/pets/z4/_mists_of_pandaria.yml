@@ -5,6 +5,16 @@ groups:
   things:
   - 150385 # Happiness (Raiding with Leashes VI: Pets of Pandaria)
 
+- name: Quests - Daily
+  things:
+  -  69892 # Mountain Panda - MoP Trainer Daily
+  -  69893 # Snowy Panda - MoP Trainer Daily
+  -  69891 # Sunfur Panda - MoP Trainer Daily
+  -  68467 # Pandaren Air Spirit - MoP Spirit Daily
+  -  68468 # Pandaren Earth Spirit - MoP Spirit Daily
+  -  68466 # Pandaren Fire Spirit - MoP Spirit Daily
+  -  66950 # Pandaren Water Spirit - MoP Spirit Daily
+
 - name: Rare Spawns
   things:
   -  64633 # Aqua Strider

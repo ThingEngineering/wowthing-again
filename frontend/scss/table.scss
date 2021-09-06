@@ -3,12 +3,24 @@
     //border-collapse: collapse;
     border-radius: $border-radius;
     table-layout: fixed;
+
+    tbody {
+        tr {
+            td.alt {
+                background: $table-alt-bg;
+            }
+        }
+    }
 }
 
 .table-striped {
     tbody {
         tr:nth-child(odd) {
-            background: $table-striped-background;
+            background: $table-striped-bg;
+
+            td.alt {
+                background: $table-striped-alt-bg;
+            }
         }
     }
 }
@@ -17,7 +29,7 @@
     tbody {
         tr:nth-child(4n+1),
         tr:nth-child(4n+2) {
-            background: $table-striped-background;
+            background: $table-striped-bg;
         }
         tr:nth-child(2n):not(:last-child) {
             td {

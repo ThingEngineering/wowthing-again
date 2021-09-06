@@ -28,6 +28,5 @@
     baseUrl="/achievements"
     items={categories}
     width="17rem"
-    linkColor="#64e1ff"
     percentFunc={percentFunc}
 />

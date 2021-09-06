@@ -3,14 +3,21 @@
     import type {Character} from '@/types'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
-    import GroupHead from './TableGroupHead.svelte'
-    import RowLockout from './TableRowLockout.svelte'
+    import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
+    import HeadInstance from './LockoutsTableHeadInstance.svelte'
+    import RowLockout from './LockoutsTableRowLockout.svelte'
 
-    const filterFunc: (char: Character) => boolean = (char) => char.level > 10
+    const filterFunc = function(char: Character): boolean {
+        return char.level > 10
+    }
 </script>
 
 <CharacterTable {filterFunc}>
-    <GroupHead slot="groupHead" let:groupIndex {groupIndex} />
+    <CharacterTableHead slot="head">
+        {#each $userStore.data.allLockouts as instanceDifficulty}
+            <HeadInstance {instanceDifficulty} />
+        {/each}
+    </CharacterTableHead>
 
     <svelte:fragment slot="rowExtra" let:character>
         {#each $userStore.data.allLockouts as instanceDifficulty}

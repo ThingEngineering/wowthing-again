@@ -7,6 +7,7 @@ groups:
   -  98185 # Fel Piglet
   -  97127 # Nightwatch Swooper
   -  98132 # Plump Jelly
+  -  79730 # River Calf
 
 - name: Guild Vendor
   things:

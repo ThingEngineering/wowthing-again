@@ -36,6 +36,13 @@ groups:
   - 115786 # Sharptalon Hatchling ()
   - 115784 # Snowfeather Hatchling ()
 
+- name: Quests - Daily
+  things:
+  - 93483 # Nightmare Bell
+  - 93352 # Periwinkle Calf
+  - 86718 # Seaborne Spore
+  - 86715 # Zangar Spore
+
 - name: Rare Spawns
   things:
   - 113136 # Benax (drop Suramar)
