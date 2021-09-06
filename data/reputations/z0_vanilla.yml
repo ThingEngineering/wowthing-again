@@ -17,3 +17,91 @@ reputations:
 #      name: The Unshackled
 #      icon: inv_tabard_unshackled
 #    paragon: true
+
+# Centaurs ugh
+- - both:
+      id: 92
+      name: Gelkis Clan Centaur
+      icon: a
+
+  - both:
+      id: 93
+      name: Magram Clan Centaur
+      icon:
+
+# a
+- - both:
+      id: 529
+      name: Argent Dawn
+      icon: spell_holy_holyguidance
+
+  - both:
+      id: 87
+      name: Bloodsail Buccaneers
+      icon: inv_helmet_66
+
+  - both:
+      id: 910
+      name: Brood of Nozdormu
+      icon: inv_jewelry_ring_40
+
+  - both:
+      id: 609
+      name: Cenarion Circle
+      icon: ability_racial_ultravision
+
+  - both:
+      id: 749
+      name: Hydraxian Waterlods
+      icon: spell_frost_summonwaterelemental_2
+
+  - both:
+      id: 349
+      name: Ravenholdt
+      icon:
+
+  - both:
+      id: 70
+      name: Syndicate
+      icon:
+
+  - both:
+      id: 59
+      name: Thorium Brotherhood
+      icon: inv_ore_mithril_01
+
+  - both:
+      id: 576
+      name: Timbermaw Hold
+      icon: inv_misc_horn_01
+
+  - both:
+      id: 589
+      name: Wintersaber Trainers
+      icon: ability_mount_pinktiger
+
+  - both:
+      id: 270
+      name: Zandalar Tribe
+      icon:
+
+# Goblins
+- - both:
+      id: 21
+      name: Booty Bay
+      icon:
+
+  - both:
+      id: 577
+      name: Everlook
+      icon:
+
+  - both:
+      id: 369
+      name: Gadgetzan
+      icon:
+
+  - both:
+      id: 470
+      name: Ratchet
+      icon:
