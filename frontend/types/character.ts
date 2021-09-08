@@ -53,6 +53,13 @@ export interface CharacterEquippedItem {
     gemIds: number[]
 }
 
+export interface CharacterGear {
+    equipped: CharacterEquippedItem
+    missingEnchant: boolean
+    missingGem: boolean
+    upgradeable: boolean
+}
+
 export interface CharacterLockout {
     bosses: CharacterLockoutBoss[]
     defeatedBosses: number
