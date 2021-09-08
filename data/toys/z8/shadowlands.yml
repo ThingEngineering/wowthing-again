@@ -17,13 +17,11 @@ groups:
 - name: Quests
   things:
   - 183847 # Acolyte's Guise (Maldraxxus, The Better Part of Valor)
-  - 177665 # Spectral Handkerchief (Revendreth, Words Have Power)
   - 180947 # Tithe Collector's Vessel (Revendreth, An Unwelcome Incursion)
 
 - name: Rare Spawns
   things:
   - 174445 # Glimmerfly Cocoon (Sigilback) @ Bastion:55.1:80.7
-  - 182655 # Hill King's Roarbox (Basilofos, King of the Hill) @ Bastion:48.6:51.9
   - 184476 # Regenerating Slime Vial (Bubbleblood) @ Maldraxxus:?
   - 180873 # Smolderheart (Sire Ladinas) @ Revendreth:33.6:55.4
 
