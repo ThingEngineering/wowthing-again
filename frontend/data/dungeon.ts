@@ -176,6 +176,16 @@ export const badgeToClass: Dictionary<string> = {
     20: 'quality5',
 }
 
+// [rating, max item level] first match >= rating is used
+export const ratingItemLevelUpgrade: Array<Array<number>> = [
+    [2000, 246],
+    [1700, 242],
+    [1400, 239],
+    [1000, 236],
+    [600, 229],
+    [0, 226],
+]
+
 // [key level, item level] first match >= key is used
 export const keyVaultItemLevel: Array<Array<number>> = [
     [15, 252],
