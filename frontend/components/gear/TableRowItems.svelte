@@ -1,21 +1,24 @@
 <script lang="ts">
     import { getContext } from 'svelte'
 
-    import { slotOrder } from '@/data/inventory-slot'
-    import type { Character } from '@/types'
+    import type {Character, CharacterGear} from '@/types'
+    import getCharacterGear from '@/utils/get-character-gear'
 
     import RowItem from './TableRowItem.svelte'
 
     export let character: Character = undefined
+    export let highlightMissingEnchants: boolean
+    export let highlightMissingGems: boolean
     export let rowspan = 1
 
-    $: character = character || getContext('character')
+    let characterGear: CharacterGear[]
+    $: {
+        character = character || getContext('character')
+        characterGear = getCharacterGear(character)
+    }
 </script>
 
 <style lang="scss">
-    .spacer {
-        width: 0.5rem;
-    }
     .gear {
         padding: 2px;
         text-align: center;
@@ -25,9 +28,8 @@
     }
 </style>
 
-<td class="spacer" {rowspan}>&nbsp;</td>
-{#each slotOrder as inventorySlot}
-    <td class="gear" {rowspan}>
-        <RowItem {character} {inventorySlot} />
+{#each characterGear as gear}
+    <td class="gear" rowspan="{rowspan}">
+        <RowItem {gear} bind:highlightMissingEnchants bind:highlightMissingGems />
     </td>
 {/each}

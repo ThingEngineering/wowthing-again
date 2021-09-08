@@ -1,4 +1,6 @@
-import {InventorySlot} from '@/types/enums'
+import type {Character, Dictionary} from '@/types'
+import {InventorySlot, MainStat} from '@/types/enums'
+import {specializationMap} from '@/data/character-specialization'
 
 export const slotOrder: InventorySlot[] = [
     InventorySlot.MainHand,
@@ -17,4 +19,79 @@ export const slotOrder: InventorySlot[] = [
     InventorySlot.Ring2,
     InventorySlot.Trinket1,
     InventorySlot.Trinket2,
+]
+
+export const validEnchants: Dictionary<number[]> = {
+    [InventorySlot.MainHand]: [
+        3368, // Rune of the Fallen Crusader
+        6196, // Optical Target Embiggener
+        6223, // Lightless Force
+        6228, // Sinful Revelation
+        6229, // Celestial Guidance
+    ],
+
+    // TODO differentiate between off-hand items and weapons
+
+    [InventorySlot.Back]: [
+        6202, // Fortified Speed
+        6203, // Fortified Avoidance
+        6204, // Fortified Leech
+        6208, // Soul Vitality
+    ],
+
+    [InventorySlot.Chest]: [
+        6214, // Eternal Skirmish
+        6217, // Eternal Bounds
+        6230, // Eternal Stats
+        6265, // Eternal Insight
+    ],
+
+    [InventorySlot.Ring1]: [
+        6164, // Tenet of Critical Strike
+        6166, // Tenet of Haste
+        6168, // Tenet of Mastery
+        6170, // Tenet of Versatility
+    ],
+
+    [InventorySlot.Ring2]: [
+        6164, // Tenet of Critical Strike
+        6166, // Tenet of Haste
+        6168, // Tenet of Mastery
+        6170, // Tenet of Versatility
+    ],
+}
+
+export const specialValidEnchants: Dictionary<SpecialValidEnchant> = {
+    [InventorySlot.Hands]: {
+        enchants: [
+            6210, // Eternal Strength
+        ],
+        checkFunc: (character: Character) =>
+            specializationMap[character.activeSpecId]?.mainStat === MainStat.Strength
+    },
+
+    [InventorySlot.Wrist]: {
+        enchants: [
+            6220, // Eternal Intellect
+        ],
+        checkFunc: (character: Character) =>
+            specializationMap[character.activeSpecId]?.mainStat === MainStat.Intellect
+    },
+
+    [InventorySlot.Feet]: {
+        enchants: [
+            6211, // Eternal Agility
+        ],
+        checkFunc: (character: Character) =>
+            specializationMap[character.activeSpecId]?.mainStat === MainStat.Agility
+    },
+}
+
+interface SpecialValidEnchant {
+    enchants: number[]
+    checkFunc: (character: Character) => boolean
+}
+
+export const gemBonusIds: number[] = [
+    7576, // ??
 ]

@@ -1,15 +1,23 @@
 <script lang="ts">
-    import type { Character, CharacterEquippedItem } from '@/types'
-    import type { InventorySlot } from '@/types/enums'
-    import { getItemUrl } from '@/utils/get-item-url'
+    import type {CharacterGear} from '@/types'
+    import {Constants} from '@/data/constants'
+    import {getItemUrl} from '@/utils/get-item-url'
 
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
-    export let character: Character
-    export let inventorySlot: InventorySlot
+    export let gear: CharacterGear
+    export let highlightMissingEnchants: boolean
+    export let highlightMissingGems: boolean
 
-    let equipped: CharacterEquippedItem
-    $: equipped = character.equippedItems[inventorySlot]
+    let hasProblem: boolean
+    let highlightItem: boolean
+    let useHighlighting: boolean
+    $: {
+        hasProblem = (gear.missingEnchant || gear.missingGem)
+        highlightItem = (highlightMissingEnchants && gear.missingEnchant) ||
+            (highlightMissingGems && gear.missingGem)
+        useHighlighting = highlightMissingEnchants || highlightMissingGems
+    }
 </script>
 
 <style lang="scss">
@@ -22,7 +30,7 @@
         border-radius: $border-radius;
         border-width: 2px;
     }
-    span {
+    .item-level {
         background-color: $highlight-background;
         border: 1px solid $border-color;
         border-radius: $border-radius-small;
@@ -37,14 +45,43 @@
         transform: translateX(-50%);
         white-space: nowrap;
     }
+    .no-problem {
+        opacity: $inactive-opacity;
+    }
+
+    .problems {
+        --icon-border-color: #ffff00;
+
+        display: flex;
+        height: 44px;
+        justify-content: flex-end;
+        opacity: 1;
+        pointer-events: none;
+        position: absolute;
+        right: 0;
+        top: -2px;
+        z-index: 1;
+    }
 </style>
 
-{#if equipped !== undefined}
-    <div>
-        <a class="quality{equipped.quality}" href={getItemUrl(equipped)}>
-            <WowthingImage name="item/{equipped.itemId}" size={40} border={2} />
-            <span>{equipped.itemLevel}</span>
+{#if gear.equipped !== undefined}
+    <div class:no-problem={useHighlighting && !highlightItem}>
+        <a class="quality{gear.equipped.quality}" href={getItemUrl(gear.equipped)}>
+            <WowthingImage name="item/{gear.equipped.itemId}" size={40} border={2} />
+            <span class="item-level">{gear.equipped.itemLevel}</span>
         </a>
+
+        {#if hasProblem}
+            <div class="problems">
+                {#if gear.missingEnchant}
+                    <WowthingImage name="{Constants.icons.enchant}" size={20} border={2} />
+                {/if}
+
+                {#if gear.missingGem}
+                    <WowthingImage name="{Constants.icons.gem}" size={20} border={2} />
+                {/if}
+            </div>
+        {/if}
     </div>
 {:else}
     &nbsp;
