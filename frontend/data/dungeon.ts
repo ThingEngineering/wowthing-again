@@ -30,9 +30,27 @@ export const affixMap: Dictionary<MythicPlusAffix> = {
 
 export const dungeonMap: Dictionary<Dungeon> = {
     // Battle for Azeroth
-    244: new Dungeon(244, "Atal'Dazar", 'AD', 'dungeon_atal_dazar', 0),
-    245: new Dungeon(245, 'Freehold', 'FH', 'dungeon_freehold', 0),
-    246: new Dungeon(246, 'Tol Dagor', 'TD', 'dungeon_tol_dagor', 0),
+    244: new Dungeon(
+        244,
+        "Atal'Dazar",
+        'AD',
+        'dungeon_atal_dazar',
+        0
+    ),
+    245: new Dungeon(
+        245,
+        'Freehold',
+        'FH',
+        'dungeon_freehold',
+        0
+    ),
+    246: new Dungeon(
+        246,
+        'Tol Dagor',
+        'TD',
+        'dungeon_tol_dagor',
+        0
+    ),
     247: new Dungeon(
         247,
         'The MOTHERLODE!!',
@@ -40,8 +58,19 @@ export const dungeonMap: Dictionary<Dungeon> = {
         'dungeon_the_motherlode',
         0,
     ),
-    248: new Dungeon(248, 'Waycrest Manor', 'WM', 'dungeon_waycrest_manor', 0),
-    249: new Dungeon(249, "King's Rest", 'KR', 'dungeon_kings_rest', 0),
+    248: new Dungeon(
+        248,
+        'Waycrest Manor',
+        'WM',
+        'dungeon_waycrest_manor',
+        0
+    ),
+    249: new Dungeon(249,
+        "King's Rest",
+        'KR',
+        'dungeon_kings_rest',
+        0
+    ),
     250: new Dungeon(
         250,
         'Temple of Sethraliss',
@@ -49,7 +78,13 @@ export const dungeonMap: Dictionary<Dungeon> = {
         'dungeon_temple_of_sethraliss',
         0,
     ),
-    251: new Dungeon(251, 'The Underrot', 'UR', 'dungeon_the_underrot', 0),
+    251: new Dungeon(
+        251,
+        'The Underrot',
+        'UR',
+        'dungeon_the_underrot',
+        0
+    ),
     252: new Dungeon(
         252,
         'Shrine of the Storm',
@@ -94,7 +129,13 @@ export const dungeonMap: Dictionary<Dungeon> = {
         'dungeon_the_necrotic_wake',
         36,
     ),
-    377: new Dungeon(377, 'De Other Side', 'DOS', 'dungeon_de_other_side', 43),
+    377: new Dungeon(
+        377,
+        'De Other Side',
+        'DOS',
+        'dungeon_de_other_side',
+        43
+    ),
     378: new Dungeon(
         378,
         'Halls of Atonement',
@@ -102,7 +143,13 @@ export const dungeonMap: Dictionary<Dungeon> = {
         'dungeon_halls_of_atonement',
         31,
     ),
-    379: new Dungeon(379, 'Plaguefall', 'PF', 'dungeon_plaguefall', 38),
+    379: new Dungeon(
+        379,
+        'Plaguefall',
+        'PF',
+        'dungeon_plaguefall',
+        38
+    ),
     380: new Dungeon(
         380,
         'Sanguine Depths',
@@ -176,6 +223,16 @@ export const badgeToClass: Dictionary<string> = {
     20: 'quality5',
 }
 
+// [rating, max item level] first match >= rating is used
+export const ratingItemLevelUpgrade: Array<Array<number>> = [
+    [2000, 246],
+    [1700, 242],
+    [1400, 239],
+    [1000, 236],
+    [600, 229],
+    [0, 226],
+]
+
 // [key level, item level] first match >= key is used
 export const keyVaultItemLevel: Array<Array<number>> = [
     [15, 252],
@@ -196,6 +253,7 @@ export const raidVaultItemLevel: Dictionary<number> = {
     16: 252, // Mythic
 }
 
+// Fake "instances" for tracking world bosses
 export const extraInstanceMap: Dictionary<StaticDataInstance> = {
     108001: {
         expansion: 8,

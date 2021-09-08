@@ -49,6 +49,8 @@
 </style>
 
 <div class="thing-container">
+    <slot name="preTable" />
+
     <table class="table table-striped character-table">
         <slot name="head" />
         <tbody>
