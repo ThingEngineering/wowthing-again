@@ -48,7 +48,7 @@ export default function initializeCharacter(character: Character): void {
         character.mythicPlus.seasonBadges = {}
         for (const seasonId in seasonMap) {
             const season = seasonMap[seasonId]
-            if (character.level >= season.MinLevel) {
+            if (character.level >= season.minLevel) {
                 const characterSeason = character.mythicPlus.seasons[seasonId]
                 if (characterSeason !== undefined) {
                     let total = 0,
@@ -56,10 +56,10 @@ export default function initializeCharacter(character: Character): void {
                         timed5 = 0,
                         timed10 = 0,
                         timed15 = 0
-                    for (let i = 0; i < season.Orders.length; i++) {
-                        for (let j = 0; j < season.Orders[i].length; j++) {
+                    for (let i = 0; i < season.orders.length; i++) {
+                        for (let j = 0; j < season.orders[i].length; j++) {
                             total++
-                            const dungeonId = season.Orders[i][j]
+                            const dungeonId = season.orders[i][j]
                             const runs = characterSeason[dungeonId] || []
                             for (let runIndex = 0; runIndex < runs.length; runIndex++) {
                                 const run = runs[runIndex] as CharacterMythicPlusRun
@@ -85,13 +85,13 @@ export default function initializeCharacter(character: Character): void {
                     }
 
                     if (timed15 === total) {
-                        character.mythicPlus.seasonBadges[season.Id] = '15'
+                        character.mythicPlus.seasonBadges[season.id] = '15'
                     } else if (timed10 === total) {
-                        character.mythicPlus.seasonBadges[season.Id] = '10'
+                        character.mythicPlus.seasonBadges[season.id] = '10'
                     } else if (timed5 === total) {
-                        character.mythicPlus.seasonBadges[season.Id] = '5'
+                        character.mythicPlus.seasonBadges[season.id] = '5'
                     } else if (timed2 === total) {
-                        character.mythicPlus.seasonBadges[season.Id] = '2'
+                        character.mythicPlus.seasonBadges[season.id] = '2'
                     }
                 }
             }

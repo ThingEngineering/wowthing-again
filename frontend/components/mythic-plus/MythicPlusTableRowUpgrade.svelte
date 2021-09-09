@@ -8,7 +8,7 @@
 
     let upgrade: number
     $: {
-        const rating = character.raiderIo?.[season.Id]?.all ?? 0
+        const rating = character.raiderIo?.[season.id]?.all ?? 0
         upgrade = getFirstMatch(ratingItemLevelUpgrade, rating)
     }
 </script>

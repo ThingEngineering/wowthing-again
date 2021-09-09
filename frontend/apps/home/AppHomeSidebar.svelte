@@ -26,7 +26,7 @@
         <a href="#/lockouts">Lockouts</a>
     </li>
     <li use:active={'/mythicplus/*'}>
-        <a href="#/mythicplus/thisweek">Mythic+</a>
+        <a href="#/mythicplus/this-week">Mythic+</a>
     </li>
     <li use:active={'/progress/*'}>
         <a href="#/progress/shadowlands">Progress</a>
