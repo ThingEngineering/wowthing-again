@@ -3,6 +3,7 @@
     public class WowthingBackendOptions
     {
         public int ApiRateLimit { get; set; }
-        public int WorkerCount { get; set; }
+        public int WorkerCountLow { get; set; }
+        public int WorkerCountHigh { get; set; }
     }
 }

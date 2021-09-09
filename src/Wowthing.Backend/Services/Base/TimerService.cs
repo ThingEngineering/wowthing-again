@@ -16,7 +16,7 @@ namespace Wowthing.Backend.Services.Base
 
         protected TimerService(string name, TimeSpan initial, TimeSpan interval)
         {
-            Logger = Log.ForContext("Service", $"{name,-9} | ");
+            Logger = Log.ForContext("Service", $"{name,-10} | ");
             _initial = initial;
             _interval = interval;
         }

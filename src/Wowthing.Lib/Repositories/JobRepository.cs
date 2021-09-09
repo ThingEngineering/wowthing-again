@@ -22,6 +22,7 @@ namespace Wowthing.Lib.Repositories
             var sub = _redis.GetSubscriber();
             var job = new WorkerJob
             {
+                Priority = priority,
                 Type = type,
                 Data = data,
             };
@@ -35,6 +36,7 @@ namespace Wowthing.Lib.Repositories
             {
                 var job = new WorkerJob
                 {
+                    Priority = priority,
                     Type = type,
                     Data = data,
                 };
