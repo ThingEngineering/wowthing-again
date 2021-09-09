@@ -13,6 +13,7 @@ using Wowthing.Backend.Models;
 using Wowthing.Backend.Services;
 using Wowthing.Backend.Utilities;
 using Wowthing.Lib.Extensions;
+using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Utilities;
 
 namespace Wowthing.Backend
@@ -100,9 +101,16 @@ namespace Wowthing.Backend
             services.AddHostedService<JobQueueService>(); 
             services.AddHostedService<SchedulerService>();
             
-            for (var i = 0; i < backendOptions.WorkerCount; i++)
+            for (var i = 0; i < backendOptions.WorkerCountHigh; i++)
             {
-                services.AddSingleton<IHostedService, WorkerService>();
+                services.AddSingleton<IHostedService>(sp =>
+                    ActivatorUtilities.CreateInstance<WorkerService>(sp, JobPriority.High));
+            }
+            
+            for (var i = 0; i < backendOptions.WorkerCountLow; i++)
+            {
+                services.AddSingleton<IHostedService>(sp =>
+                    ActivatorUtilities.CreateInstance<WorkerService>(sp, JobPriority.Low));
             }
         }
     }

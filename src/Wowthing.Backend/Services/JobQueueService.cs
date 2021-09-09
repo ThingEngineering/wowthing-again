@@ -1,30 +1,38 @@
-﻿using System.Threading;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Channels;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using StackExchange.Redis;
+using Wowthing.Lib.Enums;
 using Wowthing.Lib.Jobs;
+using Wowthing.Lib.Utilities;
 
 namespace Wowthing.Backend.Services
 {
     public class JobQueueService : BackgroundService
     {
+        private Dictionary<JobPriority, Channel<WorkerJob>> _channels = new();
+        
         public JobQueueService(StateService stateService, IConnectionMultiplexer redis)
         {
-            var channel = Channel.CreateUnbounded<WorkerJob>(new UnboundedChannelOptions
+            foreach (var priority in EnumUtilities.GetValues<JobPriority>())
             {
-                SingleReader = false,
-                SingleWriter = false,
-            });
-            
+                _channels[priority] = Channel.CreateUnbounded<WorkerJob>(new UnboundedChannelOptions
+                {
+                    SingleReader = false,
+                    SingleWriter = false,
+                });
+                stateService.JobQueueReaders[priority] = _channels[priority].Reader;
+            }
+
             redis.GetSubscriber().Subscribe("jobs").OnMessage(async msg =>
             {
                 var job = JsonConvert.DeserializeObject<WorkerJob>(msg.Message);
-                await channel.Writer.WriteAsync(job);
+                await _channels[job.Priority].Writer.WriteAsync(job);
             });
-            
-            stateService.JobQueueReader = channel.Reader;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)

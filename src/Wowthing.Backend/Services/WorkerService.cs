@@ -19,14 +19,16 @@ namespace Wowthing.Backend.Services
     public class WorkerService : BackgroundService
     {
         private static int _instanceCount;
-        private static readonly Dictionary<JobType, Type> JobTypeToClass = new Dictionary<JobType, Type>();
+        private static readonly Dictionary<JobType, Type> JobTypeToClass = new();
 
         private readonly ILogger _logger;
         private readonly IServiceScopeFactory _serviceScopeFactory;
         private readonly JobFactory _jobFactory;
+        private readonly JobPriority _priority;
         private readonly StateService _stateService;
 
         public WorkerService(
+            JobPriority priority,
             IConfiguration config, 
             IHttpClientFactory clientFactory, 
             IServiceScopeFactory serviceScopeFactory,
@@ -34,11 +36,12 @@ namespace Wowthing.Backend.Services
             StateService stateService
         )
         {
+            _priority = priority;
             _serviceScopeFactory = serviceScopeFactory;
             _stateService = stateService;
 
             var instanceId = Interlocked.Increment(ref _instanceCount);
-            _logger = Log.ForContext("Service", $"Worker {instanceId,2} | ");
+            _logger = Log.ForContext("Service", $"Worker {instanceId,2}{_priority.ToString()[0]} | ");
 
             var redisConnectionString = config.GetConnectionString("Redis");
             _jobFactory = new JobFactory(clientFactory, _logger, jobRepository, stateService, redisConnectionString);
@@ -60,10 +63,12 @@ namespace Wowthing.Backend.Services
 
         protected override async Task ExecuteAsync(CancellationToken cancellationToken)
         {
+            _logger.Information("Service starting");
+            
             // Give things a chance to get organized
-            await Task.Delay(5000, cancellationToken);
+            await Task.Delay(2000, cancellationToken);
 
-            await foreach (var result in _stateService.JobQueueReader.ReadAllAsync(cancellationToken))
+            await foreach (var result in _stateService.JobQueueReaders[_priority].ReadAllAsync(cancellationToken))
             {
                 while (_stateService.AccessToken?.Valid != true)
                 {
