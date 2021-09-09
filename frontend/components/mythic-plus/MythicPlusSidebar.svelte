@@ -3,30 +3,28 @@
     import { link } from 'svelte-spa-router'
     import active from 'svelte-spa-router/active'
 
+    import type {MythicPlusSeason, SidebarItem} from '@/types'
     import { seasonMap } from '@/data/dungeon'
 
-    import Sidebar from '@/components/common/Sidebar.svelte'
+    import Sidebar from '@/components/sidebar/Sidebar.svelte'
 
-    const seasons = sortBy(seasonMap, (s) => -s.Id)
+    const seasons: MythicPlusSeason[] = sortBy(seasonMap, (s) => 1000 - s.id)
+    let categories: SidebarItem[]
+    $: {
+        categories = [
+            {
+                name: 'This Week',
+                slug: 'this-week',
+            },
+            null,
+        ].concat(seasons)
+    }
+
 </script>
 
-<Sidebar width="8rem">
-    <li use:active={'/mythicplus/thisweek'}>
-        <a href="/mythicplus/thisweek" use:link>This Week</a>
-    </li>
-    <li class="separator" />
-    {#each seasons as season}
-        <li use:active={`/mythicplus/season${season.Id}`}>
-            <a href="/mythicplus/season{season.Id}" use:link>
-                {#if season.Id >= 5}
-                    SL Season {season.Id - 4}
-                {:else}
-                    BfA Season {season.Id}
-                {/if}
-            </a>
-        </li>
-        {#if season.Id === 5}
-            <li class="separator"></li>
-        {/if}
-    {/each}
-</Sidebar>
+
+<Sidebar
+    baseUrl="/mythicplus"
+    items={categories}
+    width="8rem"
+/>

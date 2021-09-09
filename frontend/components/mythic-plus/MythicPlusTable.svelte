@@ -1,4 +1,5 @@
 <script lang="ts">
+    import find from 'lodash/find'
     import sortBy from 'lodash/sortBy'
 
     import { seasonMap } from '@/data/dungeon'
@@ -25,7 +26,7 @@
 
     export let slug: string
 
-    const firstSeason: MythicPlusSeason = sortBy(seasonMap, (s: MythicPlusSeason) => -s.Id)[0]
+    const firstSeason: MythicPlusSeason = sortBy(seasonMap, (s: MythicPlusSeason) => -s.id)[0]
 
     let isCurrentSeason: boolean
     let isThisWeek: boolean
@@ -35,7 +36,7 @@
     let season: MythicPlusSeason
 
     $: {
-        if (slug === 'thisweek') {
+        if (slug === 'this-week') {
             isThisWeek = true
             season = firstSeason
             runsFunc = (char, dungeonId) => {
@@ -50,14 +51,14 @@
         }
         else {
             isThisWeek = false
-            season = seasonMap[slug.replace('season', '')]
-            runsFunc = (char, dungeonId) => char.mythicPlus?.seasons?.[season.Id]?.[dungeonId]
-            sortFunc = (char) => toDigits(100000 - (char.raiderIo?.[season.Id]?.all ?? 0), 6)
+            season = find(seasonMap, (season) => season.slug === slug)
+            runsFunc = (char, dungeonId) => char.mythicPlus?.seasons?.[season.id]?.[dungeonId]
+            sortFunc = (char) => toDigits(100000 - (char.raiderIo?.[season.id]?.all ?? 0), 6)
         }
 
-        isCurrentSeason = season.Id === firstSeason.Id
+        isCurrentSeason = season.id === firstSeason.id
 
-        filterFunc = (char: Character) => char.level >= season.MinLevel
+        filterFunc = (char: Character) => char.level >= season.minLevel
     }
 </script>
 
@@ -79,8 +80,8 @@
             <HeadUpgrade />
         {/if}
 
-        {#key season.Id}
-            {#each season.Orders as order}
+        {#key season.id}
+            {#each season.orders as order}
                 {#each order as dungeonId}
                     <HeadDungeon {dungeonId} />
                 {/each}
@@ -106,9 +107,9 @@
                 <RowUpgrade {character} {season} />
             {/if}
 
-            {#each season.Orders as order}
+            {#each season.orders as order}
                 {#each order as dungeonId}
-                    <RowDungeon {dungeonId} {runsFunc} seasonId={isThisWeek ? 0 : season.Id} />
+                    <RowDungeon {dungeonId} {runsFunc} seasonId={isThisWeek ? 0 : season.id} />
                 {/each}
             {/each}
         {/key}
