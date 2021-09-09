@@ -23,7 +23,7 @@
 
         '/achievements/:slug1?/:slug2?': Achievements,
         '/currencies/:slug?': Currencies,
-        '/gear': Gear,
+        '/gear/*': Gear,
         '/lockouts': Lockouts,
         '/mythicplus/:slug?': MythicPlus,
         '/progress/:slug?': Progress,
