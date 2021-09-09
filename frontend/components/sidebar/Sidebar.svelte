@@ -14,7 +14,6 @@
     let anyChildren = false
     $: {
         anyChildren = some(items, (item) => (item?.children?.length ?? 0) > 0)
-        console.log(items, anyChildren)
     }
 </script>
 
