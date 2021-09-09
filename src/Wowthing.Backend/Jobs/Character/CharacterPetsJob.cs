@@ -35,7 +35,7 @@ namespace Wowthing.Backend.Jobs.Character
                 var lockSuccess = await JobRepository.AcquireLockAsync(lockKey, lockValue, TimeSpan.FromMinutes(5));
                 if (!lockSuccess)
                 {
-                    Logger.Warning("Skipping pets, lock failed");
+                    Logger.Debug("Skipping pets, lock failed");
                     return;
                 }
             }
