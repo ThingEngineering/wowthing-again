@@ -62,7 +62,7 @@ namespace Wowthing.Backend.Jobs.User
                             };
                             Context.PlayerAccount.Add(newAccount);
                             accountMap[(region, account.Id)] = newAccount;
-                            Logger.Debug("{0} new account {1}", region, account.Id);
+                            Logger.Information("Added new account {0}/{1}", region, account.Id);
                         }
                     }
                 }
@@ -94,6 +94,7 @@ namespace Wowthing.Backend.Jobs.User
             var seenCharacters = new HashSet<(int, string)>();
             foreach ((var region, var apiAccount) in apiAccounts)
             {
+                int added = 0;
                 var accountId = accountMap[(region, apiAccount.Id)].Id;
                 foreach (ApiAccountProfileCharacter apiCharacter in apiAccount.Characters)
                 {
@@ -107,6 +108,7 @@ namespace Wowthing.Backend.Jobs.User
                             CharacterId = apiCharacter.Id,
                         };
                         Context.PlayerCharacter.Add(character);
+                        added++;
                     }
 
                     character.AccountId = accountId;
@@ -118,6 +120,11 @@ namespace Wowthing.Backend.Jobs.User
                     character.Gender = apiCharacter.Gender.EnumParse<WowGender>();
                     character.Name = apiCharacter.Name;
                 }
+
+                if (added > 0)
+                {
+                    Logger.Information("Added {0} character(s) to account {1}/{2}", added, region, accountId);
+                }
             }
 
             await Context.SaveChangesAsync();
@@ -128,13 +135,12 @@ namespace Wowthing.Backend.Jobs.User
                 var characterIds = apiAccount.Characters
                     .Select(c => characterMap[(c.Realm.Id, c.Name)].Id)
                     .ToArray();
-                
-                int deleted = await Context.PlayerCharacter
-                    .Where(c => c.AccountId == accountId && !characterIds.Contains(c.Id))
-                    .DeleteFromQueryAsync();
+
+                int deleted = await Context
+                    .DeleteRangeAsync<PlayerCharacter>(c => c.AccountId == accountId && !characterIds.Contains(c.Id));
                 if (deleted > 0)
                 {
-                    Logger.Information("Deleted {0} character(s) from account {1}", deleted, accountId);
+                    Logger.Information("Deleted {0} character(s) from account {1}/{2}", deleted, region, accountId);
                 }
             }
         }
