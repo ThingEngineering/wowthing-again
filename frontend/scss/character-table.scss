@@ -55,6 +55,10 @@
                 &:last-child {
                     border-right: 1px solid $border-color;
                 }
+
+                .flex-wrapper {
+                    --icon-margin-top: 0;
+                }
             }
 
             // Last row in a character grouping
