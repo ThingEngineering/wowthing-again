@@ -70,7 +70,7 @@ namespace Wowthing.Backend.Jobs.User
                     continue;
                 }
 
-                Logger.Information("Found character: {0} => {1}", addonId, character.Id);
+                //Logger.Debug("Found character: {0} => {1}", addonId, character.Id);
                 accountId = character.AccountId.Value;
 
                 character.ChromieTime = characterData.ChromieTime;
