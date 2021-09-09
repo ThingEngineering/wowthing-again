@@ -5,7 +5,7 @@
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
     import RowItemLevel from '@/components/character-table/row/ItemLevel.svelte'
-    import RowItems from './TableRowItems.svelte'
+    import RowItems from './GearTableRowItems.svelte'
 
     afterUpdate(() => {
         window.__tip?.watchElligibleElements()
