@@ -97,15 +97,4 @@ export default function initializeCharacter(character: Character): void {
             }
         }
     }
-
-    // quests are sent as a packed uint16 array
-    character.quests = new Map<number, boolean>()
-    if (character.questsPacked !== null) {
-        const decoded = new Uint16Array(Base64ArrayBuffer.decode(character.questsPacked))
-        for (let i = 0; i < decoded.length; i++) {
-            character.quests.set(decoded[i], true)
-            //character.quests[decoded[i]] = 1
-        }
-    }
-    character.questsPacked = null
 }

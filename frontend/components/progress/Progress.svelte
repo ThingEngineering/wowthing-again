@@ -1,4 +1,6 @@
 <script lang="ts">
+    import { userQuestStore } from '@/stores/user-quests'
+
     import ProgressSidebar from './ProgressSidebar.svelte'
     import ProgressTable from './ProgressTable.svelte'
 
@@ -13,9 +15,13 @@
     }
 </style>
 
-<div>
-    <ProgressSidebar />
-    {#if params.slug}
-        <ProgressTable slug={params.slug} />
-    {/if}
-</div>
+{#await userQuestStore.fetch()}
+    L O A D I N G
+{:then _}
+    <div>
+        <ProgressSidebar />
+        {#if params.slug}
+            <ProgressTable slug={params.slug} />
+        {/if}
+    </div>
+{/await}

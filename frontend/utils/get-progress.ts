@@ -1,7 +1,11 @@
+import {get} from 'svelte/store'
+
 import type {Character, StaticDataProgressData, StaticDataProgressGroup} from '@/types'
 import {covenantMap} from '@/data/covenant'
+import {userQuestStore} from '@/stores/user-quests'
 
-export function getProgress(character: Character, group: StaticDataProgressGroup): ProgressInfo {
+export default function getProgress(character: Character, group: StaticDataProgressGroup): ProgressInfo {
+    const userQuestData = get(userQuestStore).data
     let have = 0
     let total = 0
     let icon = ''
@@ -23,7 +27,7 @@ export function getProgress(character: Character, group: StaticDataProgressGroup
     if (datas) {
         total = datas.length
         for (const data of datas) {
-            if (group.type === 'quest' && character.quests.has(data.id)) {
+            if (group.type === 'quest' && userQuestData.quests[character.id].has(data.id)) {
                 have++
             }
         }

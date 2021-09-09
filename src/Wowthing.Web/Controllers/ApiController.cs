@@ -251,7 +251,6 @@ namespace Wowthing.Web.Controllers
                 .Include(c => c.MythicPlus)
                 .Include(c => c.MythicPlusAddon)
                 .Include(c => c.MythicPlusSeasons)
-                .Include(c => c.Quests)
                 .Include(c => c.RaiderIo)
                 .Include(c => c.Reputations)
                 .Include(c => c.Shadowlands)
@@ -384,6 +383,41 @@ namespace Wowthing.Web.Controllers
             return Ok(data);
         }
         
+        [HttpGet("user/{username:username}/quests")]
+        public async Task<IActionResult> UserQuestData([FromRoute] string username)
+        {
+            var timer = new JankTimer();
+
+            var apiResult = await CheckUser(username);
+            if (apiResult.NotFound)
+            {
+                return NotFound();
+            }
+
+            timer.AddPoint("CheckUser");
+
+            var userQuests = await _context.PlayerCharacterQuests
+                .Where(pcq => pcq.Character.Account.UserId == apiResult.User.Id)
+                .ToArrayAsync();
+            
+            timer.AddPoint("Get quests");
+
+            // Build response
+            var data = new UserQuestData
+            {
+                QuestsPacked = userQuests.ToDictionary(
+                    pcq => pcq.CharacterId,
+                    pcq => SerializationUtilities.SerializeUInt16Array(pcq.CompletedIds.Select(id => Convert.ToUInt16(id)).ToArray())
+                ),
+            };
+            
+            timer.AddPoint("Build response", true);
+            _logger.LogDebug($"{timer}");
+
+            return Ok(data);
+        }
+
+        
         [HttpGet("user/{username:username}/transmog")]
         public async Task<IActionResult> UserTransmogData([FromRoute] string username)
         {
@@ -412,7 +446,7 @@ namespace Wowthing.Web.Controllers
             // Build response
             var data = new UserTransmogData
             {
-                Transmog = allTransmog.ToDictionary(t => t),
+                Transmog = allTransmog.ToDictionary(t => t, t => 1),
             };
             
             timer.AddPoint("Build response", true);
