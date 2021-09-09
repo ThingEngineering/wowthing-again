@@ -19,8 +19,8 @@
     <li use:active={'/currencies/*'}>
         <a href="#/currencies/shadowlands">Currencies</a>
     </li>
-    <li use:active={'/gear'}>
-        <a href="#/gear">Gear</a>
+    <li use:active={'/gear/*'}>
+        <a href="#/gear/">Gear</a>
     </li>
     <li use:active={'/lockouts'}>
         <a href="#/lockouts">Lockouts</a>
