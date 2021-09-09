@@ -55,13 +55,13 @@ namespace Wowthing.Backend.Jobs
         protected IDisposable CharacterLog(SchedulerCharacterQuery query)
         {
             var jobName = this.GetType().Name[0..^3];
-            return LogContext.PushProperty("Task", $"{query.RealmSlug}/{query.CharacterName.ToLower()} {jobName}: ");
+            return LogContext.PushProperty("Task", $"{query.RealmSlug}/{query.CharacterName.ToLower()} {jobName}");
         }
 
         protected IDisposable UserLog(string userId)
         {
             var jobName = this.GetType().Name[0..^3];
-            return LogContext.PushProperty("Task", $"{userId} {jobName}: ");
+            return LogContext.PushProperty("Task", $"{userId} {jobName}");
         }
 
         protected static Uri GenerateUri(WowRegion region, ApiNamespace lamespace, string path)

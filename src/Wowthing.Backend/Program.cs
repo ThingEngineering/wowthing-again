@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Serilog;
+using Serilog.Templates;
 using Wowthing.Backend.Extensions;
 using Wowthing.Backend.Models;
 using Wowthing.Backend.Services;
@@ -34,7 +35,11 @@ namespace Wowthing.Backend
             Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(Configuration)
                 .Enrich.FromLogContext()
-                .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss.fff} {Level:u3}] {Service}{Task}{Message:lj}{NewLine}{Exception}")
+                //.WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss.fff} {Level:u3}] {Service}{Task} - {Message:lj}{NewLine}{Exception}")
+                .WriteTo.Console(new ExpressionTemplate(
+                        "[{@t:HH:mm:ss.fff} {@l:u3} {Coalesce(Service, '<unknown>'),-10}]" +
+                        "{#if Task is not null} {Task} -{#end}" +
+                        " {@m:lj}\n{@x}"))
                 .CreateLogger();
 
             JsonConvert.DefaultSettings = () => new JsonSerializerSettings
@@ -42,7 +47,7 @@ namespace Wowthing.Backend
                 ContractResolver = new DefaultContractResolver
                 {
                     NamingStrategy = new CamelCaseNamingStrategy(),
-                }
+                },
             };
 
             try

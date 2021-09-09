@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
+using Serilog.Context;
 using Wowthing.Backend.Jobs;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Jobs;
@@ -41,7 +42,7 @@ namespace Wowthing.Backend.Services
             _stateService = stateService;
 
             var instanceId = Interlocked.Increment(ref _instanceCount);
-            _logger = Log.ForContext("Service", $"Worker {instanceId,2}{_priority.ToString()[0]} | ");
+            _logger = Log.ForContext("Service", $"Worker {instanceId,2}{_priority.ToString()[0]}");
 
             var redisConnectionString = config.GetConnectionString("Redis");
             _jobFactory = new JobFactory(clientFactory, _logger, jobRepository, stateService, redisConnectionString);
@@ -76,23 +77,28 @@ namespace Wowthing.Backend.Services
                     await Task.Delay(1000, cancellationToken);
                 }
 
-                try
+                var classType = JobTypeToClass[result.Type];
+                using (LogContext.PushProperty("Task", classType.Name[0..^3]))
                 {
-                    using var scope = _serviceScopeFactory.CreateScope();
-                    var contextFactory = scope.ServiceProvider.GetService<IDbContextFactory<WowDbContext>>();
-                    if (contextFactory == null)
+                    try
                     {
-                        _logger.Error("contextFactory is null??");
-                        continue;
+                        using var scope = _serviceScopeFactory.CreateScope();
+                        var contextFactory = scope.ServiceProvider.GetService<IDbContextFactory<WowDbContext>>();
+                        if (contextFactory == null)
+                        {
+                            _logger.Error("contextFactory is null??");
+                            continue;
+                        }
+
+                        await using var context = contextFactory.CreateDbContext();
+
+                        var job = _jobFactory.Create(classType, context, cancellationToken);
+                        await job.Run(result.Data);
                     }
-                    
-                    await using var context = contextFactory.CreateDbContext();
-                    var job = _jobFactory.Create(JobTypeToClass[result.Type], context, cancellationToken);
-                    await job.Run(result.Data);
-                }
-                catch (Exception ex)
-                {
-                    _logger.Error(ex, "Job failed");
+                    catch (Exception ex)
+                    {
+                        _logger.Error(ex, "Job failed");
+                    }
                 }
             }
         }
