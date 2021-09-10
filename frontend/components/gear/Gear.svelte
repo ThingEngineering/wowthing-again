@@ -1,17 +1,41 @@
 <script lang="ts">
     import { afterUpdate } from 'svelte'
+    import {location, querystring, replace} from 'svelte-spa-router'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
     import RowItemLevel from '@/components/character-table/row/ItemLevel.svelte'
-    import RowItems from './TableRowItems.svelte'
+    import RowItems from './GearTableRowItems.svelte'
 
     afterUpdate(() => {
         window.__tip?.watchElligibleElements()
     })
 
-    let highlightMissingEnchants = false
-    let highlightMissingGems = false
+    let highlightMissingEnchants: boolean
+    let highlightMissingGems: boolean
+
+    $: {
+        // Parse query string
+        const parsed = new URLSearchParams($querystring)
+        highlightMissingEnchants = parsed.get('missingEnchants') === 'true'
+        highlightMissingGems = parsed.get('missingGems') === 'true'
+    }
+
+    $: {
+        // Update query string
+        const queryParts = []
+        if (highlightMissingEnchants) {
+            queryParts.push('missingEnchants=true')
+        }
+        if (highlightMissingGems) {
+            queryParts.push('missingGems=true')
+        }
+
+        const qs = queryParts.join('&')
+        if (qs !== $querystring) {
+            replace($location + (qs ? '?' + qs : ''))
+        }
+    }
 </script>
 
 <style lang="scss">

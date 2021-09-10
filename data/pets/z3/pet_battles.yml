@@ -50,8 +50,9 @@ groups:
   -  62914 # Twilight Fiendling
   -  62117 # Twilight Spider
   -  61367 # Water Snake
-  -  62904 # Yellow-Bellied Marmot
   -  62900 # Wildhammer Gryphon Hatchling
+  -  62904 # Yellow-Bellied Marmot
+  - 154803 # Twilight Whelpling
 
 - name: Uldum
   things:

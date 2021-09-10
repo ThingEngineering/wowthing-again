@@ -27,8 +27,6 @@ export interface Character {
     lockouts: Dictionary<CharacterLockout>
     mythicPlus: CharacterMythicPlus
     mythicPlusAddon: CharacterMythicPlusAddon
-    quests: Map<number, boolean>
-    questsPacked: string
     raiderIo: Dictionary<CharacterRaiderIoSeason>
     reputations: Dictionary<number>
     shadowlands?: CharacterShadowlands
@@ -55,9 +53,9 @@ export interface CharacterEquippedItem {
 
 export interface CharacterGear {
     equipped: CharacterEquippedItem
+    highlight: boolean
     missingEnchant: boolean
     missingGem: boolean
-    upgradeable: boolean
 }
 
 export interface CharacterLockout {

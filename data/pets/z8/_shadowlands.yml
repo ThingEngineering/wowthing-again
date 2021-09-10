@@ -1,6 +1,21 @@
 name: Shadowlands
 groups:
 
+- name: Adventures
+  things:
+  - 171240 # Devouring Animite
+  - 171984 # Pernicious Bonetusk
+  - 173589 # Runelight Leaper
+  - 171719 # Spirited Skyfoal
+
+- name: Maw Assaults
+  things:
+  - 179132 # Copperback Etherwyrm
+  - 179171 # Fodder
+  - 179025 # Infused Etherwyrm
+  - 179180 # Invasive Buzzer
+  - 179008 # Lil'Abom
+
 - name: Quests
   things:
   - 171136 # Dal (A Stolen Stone Fiend WQ, Revendreth)
@@ -8,47 +23,3 @@ groups:
   - 171667 # Helpful Glimmerfly (Broken Wings, Bastion)
   - 160703 # Plagueborn Slime (Plague Deviser Marileth, Maldraxxus)
   - 163897 # Renny (Ardenweald, Glitterfall Basin)
-
-- name: Rares - Ardenweald
-  things:
-  - 171239 # Chirpy Valeshrieker
-  - 171247 # Dodger
-  - 171231 # Gorm Needler
-  - 173993 # Lavender Nibbler
-  - 171246 # Rocky
-
-- name: Rares - Bastion
-  things:
-  #- 175563 # Courage
-  - 171714 # Devoured Wader
-  - 171565 # Golden Cloudfeather
-  - 175562 # Larion Pouncer
-
-- name: Rares - Maldraxxus
-  things:
-  - 171986 # Boneweave Hatchling
-  - 172136 # Corpselouse Larva
-  - 172137 # Feasting Larva
-  - 172155 # Foulwing Buzzer
-  - 172149 # Invertebrate Oil
-  - 172134 # Shy Melvin
-  - 172139 # Writhing Spine
-
-- name: Rares - Revendreth
-  things:
-  - 171120 # Animated Tome
-  - 171117 # Blushing Spiderling
-  - 171119 # Bound Lightspawn
-  - 171150 # Crimson Dredwing Pup
-  - 175715 # Lucy
-  - 171121 # Primordial Bogling
-  - 171118 # Wrathling
-
-- name: Treasures
-  things:
-  - 171122 # Burdened Soul (Revendreth)
-  - 173508 # Lost Quill (Revendreth)
-  - 171234 # Amber Glitterwing (Ardenweald)
-  - 171230 # Gorm Harrier (Ardenweald)
-  - 171225 # Starry Dreamfoal (Ardenweald)
-  - 171125 # Trapped Stonefiend (Revendreth)

@@ -204,15 +204,15 @@ const orderShadowlands: number[] = [
 ]
 
 export const seasonMap: Dictionary<MythicPlusSeason> = {
-    1: new MythicPlusSeason(1, 50, [orderBattleForAzeroth]),
-    2: new MythicPlusSeason(2, 50, [orderBattleForAzeroth]),
-    3: new MythicPlusSeason(3, 50, [orderBattleForAzeroth]),
-    4: new MythicPlusSeason(4, 50, [
+    6: new MythicPlusSeason(6, 'SL Season 2', 'sl-2', 60, [orderShadowlands]),
+    5: new MythicPlusSeason(5, 'SL Season 1', 'sl-1', 60, [orderShadowlands]),
+    4: new MythicPlusSeason(4, 'BfA Season 4', 'bfa-4', 50, [
         orderBattleForAzeroth,
         orderBattleForAzeroth2,
     ]),
-    5: new MythicPlusSeason(5, 60, [orderShadowlands]),
-    6: new MythicPlusSeason(6, 60, [orderShadowlands]),
+    3: new MythicPlusSeason(3, 'BfA Season 3', 'bfa-3', 50, [orderBattleForAzeroth]),
+    2: new MythicPlusSeason(2, 'BfA Season 2', 'bfa-2', 50, [orderBattleForAzeroth]),
+    1: new MythicPlusSeason(1, 'BfA Season 1', 'bfa-1', 50, [orderBattleForAzeroth]),
 }
 
 export const badgeToClass: Dictionary<string> = {

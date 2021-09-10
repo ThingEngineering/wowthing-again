@@ -23,16 +23,16 @@
 
         '/achievements/:slug1?/:slug2?': Achievements,
         '/currencies/:slug?': Currencies,
-        '/gear': Gear,
+        '/gear/*': Gear,
         '/lockouts': Lockouts,
         '/mythicplus/:slug?': MythicPlus,
         '/progress/:slug?': Progress,
         '/reputations/:slug?': Reputations,
         '/transmog/:slug1?/:slug2?': Transmog,
 
-        '/mounts/:slug?': Mounts,
-        '/pets/:slug?': Pets,
-        '/toys/:slug?': Toys,
+        '/mounts/:slug1?/:slug2?': Mounts,
+        '/pets/:slug1?/:slug2?': Pets,
+        '/toys/:slug1?/:slug2?': Toys,
 
         '/settings': Settings,
     }

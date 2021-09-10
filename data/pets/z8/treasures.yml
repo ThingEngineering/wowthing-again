@@ -1,0 +1,33 @@
+name: Treasures
+groups:
+
+- name: Ardenweald
+  things:
+  - 171234 # Amber Glitterwing (Ardenweald)
+  - 171230 # Gorm Harrier (Ardenweald)
+  - 173591 # Shimmerbough Hoarder
+  - 173533 # Sinfall Screecher
+  - 171225 # Starry Dreamfoal (Ardenweald)
+
+- name: Bastion
+  things:
+  - 171238 # Cloudfeather Fledgling (Bastion)
+  - 171697 # Purity (Bastion)
+  - 171693 # Silvershell Snapper (Bastion)
+
+- name: Maldraxxus
+  things:
+  - 173534 # Bloodlouse Larva (Maldraxxus)
+  - 172132 # Bubbling Pustule (Maldraxxus)
+  - 173847 # Carpal
+  - 174125 # Iridescent Ooze
+  - 171985 # Luminous Webspinner (Maldraxxus)
+  - 171987 # Skittering Venomspitter (Maldraxxus)
+  - 174677 # Spinebug
+
+- name: Revendreth
+  things:
+  - 171122 # Burdened Soul (Revendreth)
+  - 173531 # The Count
+  - 173508 # Lost Quill (Revendreth)
+  - 171125 # Trapped Stonefiend (Revendreth)

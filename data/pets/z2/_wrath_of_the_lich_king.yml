@@ -24,3 +24,15 @@ groups:
   - 115149 # Soulbroken Whelpling (Icecrown Citadel)
   - 115152 # Wicked Soul (Icecrown Citadel)
   - 115158 # Stardust (??)
+
+- name: Reputations
+  things:
+  -  32595 # Pengu (Exalted, The Kalu'ak)
+  -  32591 # Cobra Hatchling (The Oracles)
+  -  32592 # Proto-Drake Whelp (The Oracles)
+  -  32589 # Tickbird Hatchling (The Oracles)
+  -  32590 # White Tickbird hatchling (The Oracles)
+
+- name: World Drops
+  things:
+  -  35400 # Gundrak Hatchling (Zul'Drak)

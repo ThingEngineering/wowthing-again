@@ -8,11 +8,13 @@ using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Serilog;
+using Serilog.Templates;
 using Wowthing.Backend.Extensions;
 using Wowthing.Backend.Models;
 using Wowthing.Backend.Services;
 using Wowthing.Backend.Utilities;
 using Wowthing.Lib.Extensions;
+using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Utilities;
 
 namespace Wowthing.Backend
@@ -33,7 +35,11 @@ namespace Wowthing.Backend
             Log.Logger = new LoggerConfiguration()
                 .ReadFrom.Configuration(Configuration)
                 .Enrich.FromLogContext()
-                .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss.fff} {Level:u3}] {Service}{Task}{Message:lj}{NewLine}{Exception}")
+                //.WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss.fff} {Level:u3}] {Service}{Task} - {Message:lj}{NewLine}{Exception}")
+                .WriteTo.Console(new ExpressionTemplate(
+                        "[{@t:HH:mm:ss.fff} {@l:u3} {Coalesce(Service, '<unknown>'),-10}]" +
+                        "{#if Task is not null} {Task} -{#end}" +
+                        " {@m:lj}\n{@x}"))
                 .CreateLogger();
 
             JsonConvert.DefaultSettings = () => new JsonSerializerSettings
@@ -41,7 +47,7 @@ namespace Wowthing.Backend
                 ContractResolver = new DefaultContractResolver
                 {
                     NamingStrategy = new CamelCaseNamingStrategy(),
-                }
+                },
             };
 
             try
@@ -100,9 +106,16 @@ namespace Wowthing.Backend
             services.AddHostedService<JobQueueService>(); 
             services.AddHostedService<SchedulerService>();
             
-            for (var i = 0; i < backendOptions.WorkerCount; i++)
+            for (var i = 0; i < backendOptions.WorkerCountHigh; i++)
             {
-                services.AddSingleton<IHostedService, WorkerService>();
+                services.AddSingleton<IHostedService>(sp =>
+                    ActivatorUtilities.CreateInstance<WorkerService>(sp, JobPriority.High));
+            }
+            
+            for (var i = 0; i < backendOptions.WorkerCountLow; i++)
+            {
+                services.AddSingleton<IHostedService>(sp =>
+                    ActivatorUtilities.CreateInstance<WorkerService>(sp, JobPriority.Low));
             }
         }
     }

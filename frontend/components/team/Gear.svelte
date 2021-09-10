@@ -3,7 +3,7 @@
 
     //import TableCharacterName from '@/components/common/TableCharacterName.svelte'
     //import TableItemLevel from '@/components/common/TableItemLevel.svelte'
-    import GearItems from '@/components/gear/TableRowItems.svelte'
+    import GearItems from '@/components/gear/GearTableRowItems.svelte'
 </script>
 
 <style lang="scss">
@@ -11,6 +11,10 @@
 
 {#each $teamData.characters as teamCharacter}
     <tr class="faction{teamCharacter.character.faction}">
-        <GearItems character={teamCharacter.character} />
+        <GearItems
+            character={teamCharacter.character}
+            highlightMissingEnchants={false}
+            highlightMissingGems={false}
+        />
     </tr>
 {/each}

@@ -1,21 +1,18 @@
-class MythicPlusAffix {
-    Name: string
+export class MythicPlusAffix {
+    name: string
 
     constructor(name: string) {
-        this.Name = name
+        this.name = name
     }
 }
 
-class MythicPlusSeason {
-    Id: number
-    MinLevel: number
-    Orders: number[][]
-
-    constructor(id: number, minLevel: number, orders: number[][]) {
-        this.Id = id
-        this.MinLevel = minLevel
-        this.Orders = orders
-    }
+export class MythicPlusSeason {
+    constructor(
+        public id: number,
+        public name: string,
+        public slug: string,
+        public minLevel: number,
+        public orders: number[][],
+    )
+    {}
 }
-
-export { MythicPlusAffix, MythicPlusSeason }

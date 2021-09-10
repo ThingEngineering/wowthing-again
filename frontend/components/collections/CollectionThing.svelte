@@ -1,17 +1,17 @@
 <script lang="ts">
     import find from 'lodash/find'
+    import { getContext } from 'svelte'
 
-    import type { Dictionary } from '@/types'
+    import type {CollectionContext} from '@/types/contexts'
 
     import ItemLink from '@/components/links/ItemLink.svelte'
     import NpcLink from '@/components/links/NpcLink.svelte'
     import SpellLink from '@/components/links/SpellLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
-    export let thingType: string
-    export let thingMap: Dictionary<number>
-    export let userHas: Dictionary<number>
     export let things: number[] = []
+
+    const { thingMap, thingType, userHas } = getContext('collection') as CollectionContext
 
     let userHasThing: number | undefined
     let origId: number

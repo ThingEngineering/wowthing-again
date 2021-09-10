@@ -1,17 +1,19 @@
 <script lang="ts">
     import find from 'lodash/find'
     import maxBy from 'lodash/maxBy'
+    import { getContext } from 'svelte'
 
     import {petBreedMap} from '@/data/pet-breed'
     import {userPetStore} from '@/stores'
-    import type { Dictionary } from '@/types'
+    import type {CollectionContext} from '@/types/contexts'
     import type {UserPetDataPet} from '@/types/data'
 
     import NpcLink from '@/components/links/NpcLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let things: number[] = []
-    export let thingMap: Dictionary<number>
+
+    const { thingMap } = getContext('collection') as CollectionContext
 
     let origId: number
     let pets: UserPetDataPet[]
@@ -36,9 +38,6 @@
         display: inline-block;
         width: 44px;
 
-        &.thing-yes {
-            //border: 2px solid #44aa44;
-        }
         &.thing-no {
             opacity: 0.4;
         }

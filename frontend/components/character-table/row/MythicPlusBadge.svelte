@@ -12,7 +12,7 @@
     const character: Character = getContext('character')
 
     let badge: string
-    $: badge = character.mythicPlus?.seasonBadges?.[season.Id]
+    $: badge = character.mythicPlus?.seasonBadges?.[season.id]
 </script>
 
 <TableIcon>

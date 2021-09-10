@@ -38,9 +38,21 @@ groups:
   - 173506 # Rosetipped Spiderling
   - 173556 # Withering Creeper
 
+- name: The Maw
+  things:
+  - 179179 # Clinging Remains
+  - 179226 # Deathroach
+  - 179229 # Eye of Affliction
+  - 179219 # Grip of Terror
+  - 179183 # Lost Limb
+  - 179182 # Scurrying Mawrat
+  - 179227 # Vile Deathroach
+
 - name: Korthia
   things:
+  - 179131 # Animite Broodling
   - 179248 # Anxious Nibbler
   - 179256 # Devourling
+  - 179229 # Eye of Affliction
   - 179329 # Wild Corpsefly
   - 179250 # Young Garnetgullet

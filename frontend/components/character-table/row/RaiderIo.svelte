@@ -21,8 +21,8 @@
 
     $: {
         character = getContext('character')
-        scores = character.raiderIo?.[season.Id]
-        const tiers: StaticDataRaiderIoScoreTiers = $staticStore.data.raiderIoScoreTiers[season.Id]
+        scores = character.raiderIo?.[season.id]
+        const tiers: StaticDataRaiderIoScoreTiers = $staticStore.data.raiderIoScoreTiers[season.id]
         if (scores !== undefined && tiers !== undefined) {
             for (let i = 0; i < tiers.score.length; i++) {
                 if (scores.all >= tiers.score[i]) {
