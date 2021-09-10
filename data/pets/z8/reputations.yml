@@ -1,0 +1,33 @@
+name: Reputations
+groups:
+
+- name: Ardenweald
+  things:
+  - 171248 # Floofa (Friendly, The Wild Hunt)
+  - 171242 # Hungry Burrower (Paragon, The Wild Hunt)
+
+- name: Bastion
+  things:
+  - 171694 # Goldenpaw Kit (Revered, The Ascended)
+  - 175564 # Larion Cub (Paragon, The Ascended)
+
+- name: Maldraxxus
+  things:
+  - 172151 # Toenail (Revered, The Undying Army
+  - 172148 # Micromancer (Paragon, The Undying Army)
+
+- name: Revendreth
+  things:
+  - 171127 # Court Messenger (Revered, Court of Harvesters)
+  - 173502 # Stoneskin Dredwing Pup (Paragon, Court of Harvesters)
+  - 175220 # Archivist's Quill (Exalted, The Avowed)
+
+- name: The Maw
+  things:
+  - 179242 # Rook (Paragon, Ve'nari)
+
+- name: Korthia
+  things:
+  - 179255 # Gnashtooth (Paragon, Archivists' Codex)
+  - 179253 # Domestic Aunian (Honored, Death's Advance)
+  - 179252 # Mosscoated Gromit (Paragon, Death's Advance)

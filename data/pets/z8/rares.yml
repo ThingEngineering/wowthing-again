@@ -1,0 +1,47 @@
+name: Rares
+groups:
+
+- name: Ardenweald
+  things:
+  - 171239 # Chirpy Valeshrieker
+  - 171247 # Dodger
+  - 171231 # Gorm Needler
+  - 173993 # Lavender Nibbler
+  - 171246 # Rocky
+
+- name: Bastion
+  things:
+  - 171714 # Devoured Wader
+  - 171565 # Golden Cloudfeather
+  - 175562 # Larion Pouncer
+
+- name: Maldraxxus
+  things:
+  - 171986 # Boneweave Hatchling
+  - 172136 # Corpselouse Larva
+  - 172137 # Feasting Larva
+  - 172155 # Foulwing Buzzer
+  - 172149 # Invertebrate Oil
+  - 172134 # Shy Melvin
+  - 172139 # Writhing Spine
+
+- name: Revendreth
+  things:
+  - 171120 # Animated Tome
+  - 171117 # Blushing Spiderling
+  - 171119 # Bound Lightspawn
+  - 171150 # Crimson Dredwing Pup
+  - 175715 # Lucy
+  - 171121 # Primordial Bogling
+  - 171118 # Wrathling
+
+- name: The Maw
+  things:
+  - 179181 # Amaranthine Stinger
+  - 174081 # Dread
+  - 179228 # Golden Eye
+  - 174084 # Sharpclaw
+
+- name: Korthia
+  things:
+  - 179251 # Korthian Specimen
