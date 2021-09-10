@@ -2,43 +2,46 @@
     import { afterUpdate, setContext } from 'svelte'
     import { replace } from 'svelte-spa-router'
 
-    import type { Dictionary, StaticDataSetCategory } from '@/types'
+    import type { Dictionary, MultiSlugParams, StaticDataSetCategory } from '@/types'
 
     import CollectionSection from './CollectionSection.svelte'
     import CollectionSidebar from './CollectionSidebar.svelte'
+    import type {CollectionContext} from '@/types/contexts'
 
-    export let slug: string
+    export let params: MultiSlugParams
     export let route: string
     export let thingType: string
     export let thingMap: Dictionary<number> = {}
     export let userHas: Dictionary<boolean> = {}
     export let sets: StaticDataSetCategory[][]
 
-    setContext('collection', {
-        slug,
+    const context: CollectionContext = {
         route,
         thingType,
         thingMap,
         userHas,
         sets,
-    })
+    } as CollectionContext
+    setContext('collection', context)
 
     afterUpdate(() => {
         window.__tip?.watchElligibleElements()
 
         const key = `route-${route}`
-        if (slug === null) {
+        if (params.slug1 === null) {
             const saved = localStorage.getItem(key)
             if (saved !== null) {
                 replace(`/${route}/${saved}`)
-            } else {
+            }
+            else {
                 const first = document
                     .getElementById('sub-sidebar')
                     .querySelector('li a')
                 replace(first.getAttribute('href').replace('#', ''))
             }
-        } else {
-            localStorage.setItem(key, slug)
+        }
+        else {
+            localStorage.setItem(key, params.slug2 ? `${params.slug1}/${params.slug2}` : params.slug1)
         }
     })
 </script>
@@ -58,9 +61,7 @@
 
 <div class="collections">
     <CollectionSidebar />
-    {#if slug}
-        <div class="sections">
-            <CollectionSection {slug} />
-        </div>
-    {/if}
+    <div class="sections">
+        <CollectionSection slug1={params.slug1} slug2={params.slug2} />
+    </div>
 </div>

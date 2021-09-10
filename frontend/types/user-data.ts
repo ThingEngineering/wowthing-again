@@ -30,7 +30,10 @@ export interface UserDataCurrentPeriod {
     ends: string
 }
 
-export interface UserDataSetCount {
-    have: number
-    total: number
+export class UserDataSetCount {
+    constructor(
+        public have: number,
+        public total: number,
+    )
+    {}
 }

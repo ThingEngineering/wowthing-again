@@ -4,12 +4,12 @@
 
     import { staticStore } from '@/stores/static'
     import { userStore, userPetStore } from '@/stores'
-    import type {Dictionary} from '@/types'
+    import type {Dictionary, MultiSlugParams} from '@/types'
     import initializeSets from '@/utils/initialize-sets'
 
     import Collection from './Collection.svelte'
 
-    export let params: { slug: string }
+    export let params: MultiSlugParams
 
     onMount(async () => await userPetStore.fetch())
 
@@ -29,7 +29,7 @@
 {#if $userPetStore.loaded}
     <Collection
         route="pets"
-        slug={params.slug}
+        {params}
         thingType="npc"
         thingMap={$staticStore.data.creatureToPet}
         {userHas}
