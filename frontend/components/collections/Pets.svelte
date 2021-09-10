@@ -3,7 +3,7 @@
     import { onMount } from 'svelte'
 
     import { staticStore } from '@/stores/static'
-    import { userStore, userPetStore } from '@/stores'
+    import { userPetStore } from '@/stores'
     import type {Dictionary, MultiSlugParams} from '@/types'
     import initializeSets from '@/utils/initialize-sets'
 

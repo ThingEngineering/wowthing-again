@@ -1,7 +1,5 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy'
-    import { link } from 'svelte-spa-router'
-    import active from 'svelte-spa-router/active'
 
     import type {MythicPlusSeason, SidebarItem} from '@/types'
     import { seasonMap } from '@/data/dungeon'

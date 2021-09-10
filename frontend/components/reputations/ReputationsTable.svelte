@@ -20,7 +20,7 @@
 <CharacterTable>
     <CharacterTableHead slot="head">
         {#key category.name}
-            {#each category.reputations as reputationSet, reputationSetIndex}
+            {#each category.reputations as reputationSet}
                 {#each reputationSet as reputation}
                     <TableHead {reputation} />
                 {/each}
