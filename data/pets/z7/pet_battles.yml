@@ -22,6 +22,7 @@ groups:
 
 - name: Nazjatar
   things:
+  - 154814 # Abyssal Slitherling
   - 154714 # Bloodseeker
   - 154706 # Chitterspine Skitterling
   - 154712 # Deeptide Fingerling

@@ -32,3 +32,7 @@ groups:
   things:
   -  28470 # Nether Ray Fry (Exalted, Sha'tari Skyguard)
   -  25062 # Tiny Sporebat (Exalted, Sporeggar)
+
+- name: World Drops
+  things:
+  -  21076 # Firefly (Zangarmarsh)

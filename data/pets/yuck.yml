@@ -1,25 +1,6 @@
 name: Yuck
 groups:
 
-- name: Promotion
-  things:
-  -  36871 # Core Hound Pup (Authenticator)
-  -  33578 # Murkimus the Gladiator (Arena Tournament)
-  -  91226 # Graves (Heroes of the Storm)
-  -  25146 # Golden Pig (RAF)
-  -  34930 # Jade Tiger (RAF)
-  -  25147 # Silver Pig (RAF)
-  -  36910 # Zipao Tiger (RAF)
-
-- name: PvP
-  things:
-  - 111202 # Alliance Enthusiast (Prestige)
-  - 111296 # Horde Fanatic (Prestige)
-  - 115919 # Dutiful Gruntling (Prestige)
-  - 115918 # Dutiful Squire (Prestige)
-  - 144004 # Bucketshell (Honor 400, Horde)
-  - 144005 # Sir Snips (Honor 400, Alliance)
-
 - name: Trainer
   things:
   -  63098 # Gilnean Raven - Worgen
@@ -102,33 +83,12 @@ groups:
   -   7380 # Siamese Cat - Netherstorm
   -   7395 # Undercity Cockroach - Netherstorm
 
-- name: Vendor - Timeless Isle
-  things:
-  -  72462 # Chi-Chi, Hatchling of Chi-Ji
-  -  71942 # Xu-Fu, Cub of Xuen
-  -  72463 # Yu'la, Broodling of Yu'lon
-  -  72464 # Zao, Calfling of Niuzao
-  -  73809 # Sky Lantern - Timeless Isle
-  -  73688 # Vengeful Porcupette - Timeless Isle
-
 - name: World Drops
   things:
-  -   7547 # Azure Whelpling
-  -   7546 # Bronze Whelpling
-  -   7544 # Crimson Whelpling
-  -   7543 # Dark Whelpling
-  -   7545 # Emerald Whelpling
-  -   7383 # Black Tabby Cat - Hillsbrad Foothills
   -  35395 # Deviate Hatchling
   -  15429 # Disgusting Oozeling
   -  71201 # Filthling - Isle of Thunder
-  -  21076 # Firefly
   -  48641 # Fox Kit - Tol Barad
-  -  71159 # Gahz'rooki - Northern Barrens
-  -  35400 # Gundrak Hatchling
-  -   7391 # Hyacinth Macaw - Stranglethorn
-  -  35394 # Razzashi Hatchling
-  -   9662 # Sprite Darter
   -  83562 # Zomstrok - Shadowmoon Valley (WoD)
 
 - name: Misc
@@ -173,16 +133,6 @@ groups:
   things:
   - 133064 # Silithid Mini-Tank (Drop - Silithus: The Wound)
 
-
-
-# Reputation
-- name: WotLK
-  things:
-  -  32591 # Cobra Hatchling - The Oracles
-  -  32595 # Pengu - The Kalu'ak
-  -  32592 # Proto-Drake Whelp - The Oracles
-  -  32589 # Tickbird Hatchling - The Oracles
-  -  32590 # White Tickbird hatchling - The Oracles
 
 - name: Darkmoon Island
   things:

@@ -32,6 +32,7 @@ groups:
   -  29089 # Mini Tyrael - World Wide Invitational 2008
   -  29726 # Mr. Chilly - Battle.net Account Merger
   -  15361 # Murki - Korea something
+  -  33578 # Murkimus the Gladiator (Arena Tournament 2011/2012)
   -  35468 # Onyx Panther - Korea something
   -  16456 # Poley - iCoke
   -  68502 # Spectral Cub - Battle.net World Championship Shanghai 2012
@@ -41,3 +42,10 @@ groups:
   -  14756 # Tiny Red Dragon - iCoke
   -  28513 # Vampiric Batling - Karazhan event thing
   -  34587 # Warbot - Mountain Dew
+
+- name: Recruit-A-Friend
+  things:
+  -  25146 # Golden Pig (RAF)
+  -  34930 # Jade Tiger (RAF)
+  -  25147 # Silver Pig (RAF)
+  -  36910 # Zipao Tiger (RAF)
