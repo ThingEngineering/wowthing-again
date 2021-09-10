@@ -1,3 +1,23 @@
 name: Vanilla
 groups:
 
+- name: Daily Quests
+  things:
+  - 116080 # Albino Buzzard (Crysa, Northern Barrens)
+  - 117340 # Dibbler (Bert, Gnomeregan)
+
+- name: Rares
+  things:
+  - 147221 # Redridge Tarantula (Gnollfeaster, Redridge Mountains)
+
+- name: World Drops
+  things:
+  -   7547 # Azure Whelpling (Winterspring)
+  -   7546 # Bronze Whelpling (Blasted Lands)
+  -   7544 # Crimson Whelpling (Wetlands)
+  -   7543 # Dark Whelpling (Badlands, Burning Steppes, Dustwallow Marsh, Wetlands)
+  -   7545 # Emerald Whelpling (Feralas)
+  -   7383 # Black Tabby Cat (Hillsbrad Foothills)
+  -   7391 # Hyacinth Macaw (Stranglethorn)
+  -  35394 # Razzashi Hatchling (Stranglethorn)
+  -   9662 # Sprite Darter (Feralas)

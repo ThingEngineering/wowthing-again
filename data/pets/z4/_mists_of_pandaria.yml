@@ -50,3 +50,16 @@ groups:
   -  73534 # Azure Crane Chick (Timeless Isle)
   -  73668 # Bonkers (Timeless Isle)
   -  63365 # Terrible Turnip (Farm)
+
+- name: Vendor
+  things:
+  - 72462 # Chi-Chi, Hatchling of Chi-Ji
+  - 71942 # Xu-Fu, Cub of Xuen
+  - 72463 # Yu'la, Broodling of Yu'lon
+  - 72464 # Zao, Calfling of Niuzao
+  - 73809 # Sky Lantern - Timeless Isle
+  - 73688 # Vengeful Porcupette - Timeless Isle
+
+- name: World Drops
+  things:
+  -  71159 # Gahz'rooki (Northern Barrens) TODO does this go here?

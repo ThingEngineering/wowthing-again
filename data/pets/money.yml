@@ -22,6 +22,10 @@ groups:
   -  66984 # Baneling - SC2:HotS
   -  71655 # Zeradar - SC2:LotV
 
+- name: Promotions
+  things:
+  - 175203 # Moon-Touched Netherwhelp (The Celebration Collection)
+
 - name: Store
   things:
   -  74402 # Alterac Brew-Pup

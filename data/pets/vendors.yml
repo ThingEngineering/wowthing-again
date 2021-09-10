@@ -11,10 +11,8 @@ groups:
 
 - name: Guild Vendor
   things:
-  -  49587 # Guild Herald
-  -  49590 # Guild Herald
-  -  49586 # Guild Page
-  -  49588 # Guild Page
+  -  49587  49590 # Guild Herald
+  -  49586  49588 # Guild Page
   -  48242 # Armadillo Pup - Critter Kill Squad
   -  47944 # Dark Phoenix Hatchling - United Nations
   -  84521 # Deathwatch Hatchling - Challenge Warlords: Gold - Guild Edition

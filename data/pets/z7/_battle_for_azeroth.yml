@@ -8,6 +8,11 @@ groups:
   - 140125 # Miimii (How to Keep a Mummy)
   - 147884 # Wicker Wraith (Family Battler)
 
+- name: Followers
+  things:
+  - 154827 # Brilliant Glimmershell (Bladesman Inowari, level 20)
+  - 154826 # Lustrous Glimmershell (Poen Gillbrack, level 20)
+
 - name: Instances
   things:
   - 147586 # Child of Pa'ku (Conclave of the Chosen, Battle of Dazar'alor Normal+)
@@ -62,11 +67,21 @@ groups:
 - name: Puzzles
   things:
   - 141941 # Baa'l (?)
+  - 159783 # Jenafur (Karazhan weirdness)
+  - 151651 # Slimy Darkhunter
+  - 151697 # Slimy Eel
+  - 151696 # Slimy Fangtooth
+  - 151632 # Slimy Hermit Crab
+  - 151673 # Slimy Octopode
+  - 151700 # Slimy Otter
+  - 151631 # Slimy Sea Slug
 
 - name: Quests
   things:
   - 131644 # Dart (It Seems You've Made a Friend, Nazmir)
+  - 147583 # Feathers (She's in a Happier Place/He's Dead, Jastor, War Campaign pre-reqs??)
   - 139252 # Guardian Cobra Hatchling (My Hungry Neighbor, Vol'dun)
+  - 154853 # OOX-35/MG (My Chickens are Not for Eating!, Mechagon)
   - 139073 # Poda (Missing Business, Vol'dun)
   - 139770 # Taptaf (Taptaf the Pig!, Drustvar)
   - 139372 # Vengeful Chicken (Cutting Edge Poultry Science, ??)
@@ -86,35 +101,16 @@ groups:
   - 143176 # Seabreeze Bumblebee (Storm's Wake, Revered)
   - 143195 # Tragg the Curious (Talanji's Expedition, Revered)
   - 149376 # Violet Abyssal Eel (Storm's Wake, Paragon)
+  - 154838 # Damplight Slug (Friendly, The Unshackled - Horde only)
+  - 154837 # Prismatic Softshell (Friendly, Waveblade Ankoan - Alliance only)
+
+- name: Tinkering
+  things:
+  - 154855 # Utility Mechanoclaw
+  - 154856 # Microbot XD
 
 - name: Treasures
   things:
   - 134406 # Francois (?, Tiragarde Sound)
+  - 154824 # Sandclaw Nestseeker (Nazjatar)
   - 143189 # Wicker Pup (Drustvar)
-
-- name: Vendors
-  things:
-  - 143175 # Abyssal Eel (Madeline Netley, Stormsong Valley)
-  - 143200 # Accursed Hexxer (Shoak, Nazmir)
-  - 143206 # Barnacled Hermit Crab (Madeline Netley, Stormsang Valley/Jenoh, Vol'dun)
-  - 143181 # Bilefang Skitterer (Nigel Rifthold, Drustvar)
-  - 143194 # Bloodfeaster Larvae (Shoak, Nazmir)
-  - 143203 # Blue Flitter (Madeline Netley, Stormsang Valley/Happy Holaua, Zuldazar)
-  - 143211 # Carnivorous Lasher (Madeline Netley, Stormsang Valley/Jenoh, Vol'dun)
-  - 143198 # Child of Jani (Happy Holaua, Zuldazar)
-  - 143205 # Crimson Frog (Nigel Rifthold, Drustvar/Shoak, Nazmir)
-  - 143178 # Drustvar Piglet (Nigel Rifthold, Drustvar)
-  - 143179 # Frenzied Cottontail (Nigel Rifthold, Drustvar)
-  - 143204 # Freshwater Pincher (Madeline Netley, Stormsong Valley/Jenoh, Vol'dun)
-  - 143184 # Greating Macaw (Dana Pull, Tiaragarde Sound)
-  - 143196 # Lil' Ben'fon (Happy Holaua, Zuldazar)
-  - 139622 # Lil' Tika (Happy Holaua, Zuldazar)
-  - 143360 # Lost Platysaur (Talutu, Zuldazar/Tricky Nick, Tiragarde Sound)
-  - 143188 # Mechanical Prairie Dog (Dana Pull, Tiragarde Sounde)
-  - 143197 # Ranishu Runt (Jenoh, Vol'dun)
-  - 143207 # Sandstinger Wasp (Madeline Netley, Stormsang Valley/Jenoh, Vol'dun)
-  - 143202 # Saurolisk Hatchling (Madeline Netley, Stormsang Valley/Happy Holaua, Zuldazar)
-  - 139081 # Smoochums (Nigel Rifthold, Drustvar)
-  - 143199 # Swamp Toad (Shoak, Nazmir)
-  - 143191 # Tiny Direhorn (Happy Holaua, Zuldazar)
-  - 143193 # Zandalari Shinchomper (Happy Holaua, Zuldazar)
