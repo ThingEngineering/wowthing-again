@@ -2,7 +2,9 @@ import keys from 'lodash/keys'
 import { get } from 'svelte/store'
 
 import { staticStore, userStore, userPetStore } from '@/stores'
-import type { Dictionary, StaticDataSetCategory, UserDataSetCount } from '@/types'
+import type { Dictionary, StaticDataSetCategory } from '@/types'
+import { UserDataSetCount } from '@/types'
+import {UserTransmogDataHas} from '@/types/data'
 
 export default function initializeSets(): void {
     console.time('initializeSets')
@@ -39,52 +41,37 @@ export default function initializeSets(): void {
 
 function doSetCounts(
     setCounts: Dictionary<UserDataSetCount>,
-    sets: StaticDataSetCategory[][],
+    categories: StaticDataSetCategory[][],
     userHas: Dictionary<boolean>,
     map?: Dictionary<number>,
 ): void {
-    for (let setIndex = 0; setIndex < sets.length; setIndex++) {
-        const categories = sets[setIndex]
-        if (categories === null) {
+    for (const category of categories) {
+        if (category === null) {
             continue
         }
 
-        let categoryHave = 0,
-            categoryTotal = 0
+        const categoryData = setCounts[category[0].slug] = new UserDataSetCount(0, 0)
 
-        for (let catIndex = 0; catIndex < categories.length; catIndex++) {
-            const section = categories[catIndex]
-            let sectionHave = 0,
-                sectionTotal = 0
+        for (const set of category) {
+            const setData = setCounts[`${category[0].slug}--${set.slug}`] = new UserDataSetCount(0, 0)
 
-            for (let sectionIndex = 0; sectionIndex < section.groups.length; sectionIndex++) {
-                const group = section.groups[sectionIndex]
+            for (const group of set.groups) {
+                for (const things of group.things) {
+                    categoryData.total++
+                    setData.total++
 
-                for (let groupThingIndex = 0; groupThingIndex < group.things.length; groupThingIndex++) {
-                    const things = group.things[groupThingIndex]
-                    categoryTotal++
-                    sectionTotal++
-
-                    for (let thingIndex = 0; thingIndex < things.length; thingIndex++) {
-                        const thing = things[thingIndex]
+                    for (const thing of things) {
                         if (
                             (map && userHas[map[thing]]) ||
                             (!map && userHas[thing])
                         ) {
-                            categoryHave++
-                            sectionHave++
+                            categoryData.have++
+                            setData.have++
                             break
                         }
                     }
                 }
             }
-
-            setCounts[`${categories[0].slug}_${section.slug}`] = { have: sectionHave, total: sectionTotal }
-        }
-
-        setCounts[categories[0].slug] = {
-            have: categoryHave,
-            total: categoryTotal,
         }
     }
 }

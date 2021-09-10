@@ -1,11 +1,11 @@
 <script lang="ts">
     import { staticStore } from '@/stores/static'
     import { userStore } from '@/stores'
-    import type { Dictionary } from '@/types'
+    import type {Dictionary, MultiSlugParams} from '@/types'
 
     import Collection from './Collection.svelte'
 
-    export let params: { slug: string }
+    export let params: MultiSlugParams
 
     const thingMap: Dictionary<number> = {}
     for (const toyId in $userStore.data.toys) {
@@ -15,7 +15,7 @@
 
 <Collection
     route="toys"
-    slug={params.slug}
+    {params}
     thingType="item"
     {thingMap}
     userHas={$userStore.data.toys}
