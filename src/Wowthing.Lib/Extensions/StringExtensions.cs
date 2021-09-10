@@ -24,6 +24,7 @@ namespace Wowthing.Lib.Extensions
                 .Select(b => b.ToString("x2")));
         }
 
+        private static readonly Regex Hyphens = new Regex(@"\-+", RegexOptions.Compiled);
         private static readonly Regex InvalidCharacters = new Regex(@"[^a-z0-9\s-]", RegexOptions.Compiled);
         private static readonly Regex Whitespace = new Regex(@"\s", RegexOptions.Compiled);
         public static string Slugify(this string s)
@@ -31,6 +32,8 @@ namespace Wowthing.Lib.Extensions
             s = s.ToLower();
             s = InvalidCharacters.Replace(s, "");
             s = Whitespace.Replace(s, "-");
+            s = Hyphens.Replace(s, "-");
+            s = s.Trim('-');
             return s;
         }
 
