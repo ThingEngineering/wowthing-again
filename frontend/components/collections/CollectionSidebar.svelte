@@ -1,7 +1,7 @@
 <script lang="ts">
     import { getContext } from 'svelte'
 
-    import {userStore, userTransmogStore} from '@/stores'
+    import {userStore} from '@/stores'
     import type { SidebarItem } from '@/types'
     import type { CollectionContext } from '@/types/contexts'
 

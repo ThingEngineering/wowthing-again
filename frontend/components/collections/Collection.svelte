@@ -21,7 +21,7 @@
         thingMap,
         userHas,
         sets,
-    } as CollectionContext
+    }
     setContext('collection', context)
 
     afterUpdate(() => {

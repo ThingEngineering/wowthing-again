@@ -38,9 +38,6 @@
         display: inline-block;
         width: 44px;
 
-        &.thing-yes {
-            //border: 2px solid #44aa44;
-        }
         &.thing-no {
             opacity: 0.4;
         }
