@@ -21,7 +21,6 @@ groups:
 
 - name: Battling
   things:
-  - 155865 # Burnout (Malowned)
   - 143464 # Dreadtick Leecher (Battle Safari)
   - 128146 # Felclaw Marsuul (Family Fighter)
   - 154822 # Kelpfin (Team Aquashock)

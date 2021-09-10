@@ -1,0 +1,42 @@
+name: Covenants
+groups:
+
+- name: Shared
+  things:
+  - 172284 # Bloodfeaster Spiderling
+  - 171569 # Brightscale Hatchling
+  - 171982 # Corpulent Bonetusk
+  - 171233 # Dusty Sporeflutterer
+  - 171227 # Pearlwing Heron
+  - 172135 # Plaguelouse Larva
+  - 171568 # Sable
+  - 171151 # Violet Dredwing Pup
+
+- name: Kyrian
+  things:
+  - 171716 # Indigo
+  - 174087 # Ruffle
+
+- name: Necrolord
+  things:
+  - 172140 # Backbone
+  - 174088 # Jiggles
+  - 172153 # Mu'dud
+
+- name: Night Fae
+  things:
+  - 173585 # Fun Guss
+  - 171235 # Fuzzy Shimmermoth
+  - 173586 # Leafadore
+  - 173593 # Sir Reginald
+  - 173588 # Stemmins
+  - 173587 # Trootie
+  - 171224 # Willowbreeze
+
+- name: Venthyr
+  things:
+  - 173535 # Battie
+  - 173842 # Char
+  - 172854 # Dredger Butler
+  - 172570 # Sinheart
+  - 173536 # Stony
