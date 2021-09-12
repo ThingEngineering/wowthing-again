@@ -30,8 +30,8 @@
         text-align: center;
         width: 46px;
 
-        --icon-border-width: 2px;
-        --icon-margin-top: 0;
+        --image-border-width: 2px;
+        --image-margin-top: 0;
     }
     .item-level {
         background-color: $highlight-background;
@@ -52,7 +52,7 @@
         opacity: $inactive-opacity;
     }
     .problems {
-        --icon-border-color: #ffff00;
+        --image-border-color: #ffff00;
 
         display: flex;
         height: 44px;
