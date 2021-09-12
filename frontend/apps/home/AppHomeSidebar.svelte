@@ -55,6 +55,9 @@
     <li use:active={'/achievements/*'}>
         <a href="#/achievements/summary">🚧 Achievements</a>
     </li>
+    <li use:active={'/farms/*'}>
+        <a href="#/farms/">🐮 Farms</a>
+    </li>
     <li use:active={'/cards'}>
         <a href="#/cards">🚧 Home (Cards)</a>
     </li>

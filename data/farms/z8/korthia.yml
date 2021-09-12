@@ -1,0 +1,62 @@
+name: Korthia
+farms:
+
+- name: Escaped Wilderling
+  location: 33.1 39.5
+  questId: 64320
+  drops:
+  - type: mount
+    id: 353859
+    name: Summer Wilderling
+    limit: covenant night-fae
+
+  - type: transmog
+    id: 187395 # TODO appearance id
+    name: Reinforced Stygian Spaulders
+    limit: armor plate
+
+- name: Fleshwing
+  location: 59.8 43.6
+  questId: 64349
+  drops:
+  - type: mount
+    id: 347250
+    name: Lord of the Corpseflies
+    limit: covenant necrolord
+
+  - type: transmog
+    id: 187372 # TODO appearance id
+    name: Miasma Filtering Headpiece
+    limit: armor cloth
+
+- name: Stygian Stonecrusher
+  location: 46.4 79.6
+  questId: 64313
+  drops:
+  - type: mount
+    id: 215545
+    name: Mastercraft Gravewing
+    limit: covenant venthyr
+
+  - type: transmog
+    id: 187386 # TODO appearance id
+    name: Stygian Crystal Studded Legguards
+    limit: armor mail
+
+- name: Wild Worldcracker
+  location: 56.8 32.2
+  questId: 64338
+  drops:
+  - type: mount
+    id: 353877
+    name: Foresworn Aquilon
+    limit: covenant kyrian
+
+  - type: toy
+    id: 187176
+    name: Vesper of Harmony
+
+  - type: transmog
+    name: Devourer Hide Belt
+    id: 187380
+    limit: armor leather

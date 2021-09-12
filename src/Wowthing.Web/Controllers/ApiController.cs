@@ -127,19 +127,19 @@ namespace Wowthing.Web.Controllers
             return Content(await db.StringGetAsync("cached_static:data"), "application/json");
         }
 
-        [HttpGet("transmog.{hash:length(32)}.json")]
+        [HttpGet("{type:regex(^(farm|transmog)$)}.{hash:length(32)}.json")]
         [ResponseCache(Duration = 365 * 24 * 60 * 60)]
-        public async Task<IActionResult> StaticTransmog([FromRoute] string hash)
+        public async Task<IActionResult> StaticMisc([FromRoute] string type, [FromRoute] string hash)
         {
             var db = _redis.GetDatabase();
 
-            string jsonHash = await db.StringGetAsync("cache:transmog:hash");
+            string jsonHash = await db.StringGetAsync($"cache:{type}:hash");
             if (hash != jsonHash)
             {
-                return NotFound("Invalid transmog data hash");
+                return NotFound($"Invalid {type} data hash");
             }
 
-            return Content(await db.StringGetAsync("cache:transmog:data"), "application/json");
+            return Content(await db.StringGetAsync($"cache:{type}:data"), "application/json");
         }
 
         [HttpGet("team/{guid:guid}")]
@@ -331,7 +331,7 @@ namespace Wowthing.Web.Controllers
 
             return Ok(data);
         }
-        
+
         [HttpGet("user/{username:username}/pets")]
         public async Task<IActionResult> UserPetData([FromRoute] string username)
         {
@@ -416,7 +416,6 @@ namespace Wowthing.Web.Controllers
 
             return Ok(data);
         }
-
         
         [HttpGet("user/{username:username}/transmog")]
         public async Task<IActionResult> UserTransmogData([FromRoute] string username)

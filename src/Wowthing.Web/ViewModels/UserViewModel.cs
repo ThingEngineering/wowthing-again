@@ -9,14 +9,16 @@ namespace Wowthing.Web.ViewModels
         public readonly ApplicationUserSettings Settings;
         public readonly string SettingsJson;
         public readonly string AchievementsHash;
+        public readonly string FarmHash;
         public readonly string StaticHash;
         public readonly string TransmogHash;
 
-        public UserViewModel(ApplicationUser user, ApplicationUserSettings settings, string achievementsHash, string staticHash, string transmogHash)
+        public UserViewModel(ApplicationUser user, ApplicationUserSettings settings, string achievementsHash, string farmHash, string staticHash, string transmogHash)
         {
             User = user;
             Settings = settings;
             AchievementsHash = achievementsHash;
+            FarmHash = farmHash;
             StaticHash = staticHash;
             TransmogHash = transmogHash;
 
