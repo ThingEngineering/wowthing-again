@@ -38,7 +38,7 @@ namespace Wowthing.Backend.Jobs.Misc
         {
             _timer = new JankTimer();
 
-            _basePath = Path.Join(CsvUtilities.DataPath, "transmog");
+            _basePath = Path.Join(DataUtilities.DataPath, "transmog");
             _categoryCache = new();
             
             await BuildTransmogData();
