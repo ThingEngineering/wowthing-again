@@ -32,7 +32,7 @@
 
 <style lang="scss">
     .thing {
-        --icon-border-width: 2px;
+        --image-border-width: 2px;
 
         border-radius: $border-radius;
         display: inline-block;

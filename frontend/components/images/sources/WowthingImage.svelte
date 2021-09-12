@@ -1,7 +1,7 @@
 <script lang="ts">
     import type {TippyProps} from '@/types'
 
-    import Icon from '../Icon.svelte'
+    import Image from '../Image.svelte'
 
     export let name: string
     export let size: number
@@ -12,7 +12,7 @@
     const actualSize = size + (border * 2)
 </script>
 
-<Icon
+<Image
     src="https://img.wowthing.org/{size}/{name}.webp"
     alt={name}
     size={actualSize}

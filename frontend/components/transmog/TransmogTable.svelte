@@ -33,7 +33,7 @@
 
 <style lang="scss">
     table {
-        --icon-border-width: 1px;
+        --image-border-width: 1px;
     }
     .icon {
         @include cell-width($width-transmog, $paddingLeft: 0.1rem, $paddingRight: 0.1rem);

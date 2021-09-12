@@ -1,7 +1,7 @@
 <script lang="ts">
     import type {TippyProps} from '@/types'
 
-    import Icon from '../Icon.svelte'
+    import Image from '../Image.svelte'
 
     export let name: string
     export let size: string
@@ -12,7 +12,7 @@
     const actualSize = (size === 'large' ? 56 : size === 'medium' ? 36 : 16) + (border * 2)
 </script>
 
-<Icon
+<Image
     src="https://icons.wowdb.com/retail/{size}/{name}.jpg"
     alt={name}
     size={actualSize}

@@ -72,7 +72,7 @@
 
 <style lang="scss">
     .thing-container {
-        --icon-border-width: 1px;
+        --image-border-width: 1px;
 
         border: 1px solid $border-color;
         display: grid;
@@ -91,7 +91,7 @@
         }
 
         &.faction-1 {
-            --icon-border-color: #{$neutral-border};
+            --image-border-color: #{$neutral-border};
         }
     }
     .info {
