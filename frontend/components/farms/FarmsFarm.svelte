@@ -2,9 +2,9 @@
     import { faSkull } from '@fortawesome/free-solid-svg-icons'
     import Fa from 'svelte-fa'
 
-    import type {FarmDataFarm} from '@/types/data'
-    import type {CharacterStatus, FarmStatus} from '@/utils/get-farm-status'
     import {tippyComponent} from '@/utils/tippy'
+    import type {FarmDataFarm} from '@/types/data'
+    import type {FarmStatus} from '@/utils/get-farm-status'
 
     import Tooltip from '@/components/tooltips/farm/TooltipFarm.svelte'
 
