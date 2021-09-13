@@ -16,19 +16,25 @@ namespace Wowthing.Backend.Jobs.User
 {
     public class UserUploadJob : JobBase
     {
+        private JankTimer _timer;
+
         public override async Task Run(params string[] data)
         {
+            _timer = new JankTimer();
+
             int userId = int.Parse(data[0]);
-            using var shrug = UserLog(userId.ToString());
+            using var shrug = UserLog(userId);
 
             Logger.Information("Processing upload...");
 
             var json = LuaToJsonConverter.Convert(data[1].Replace("WWTCSaved = ", ""));
             var parsed = JsonConvert.DeserializeObject<Upload[]>(json)[0]; // TODO work out why this is an array of objects
-
+            _timer.AddPoint("Parse");
+            
             // Fetch character data for this account
             var characterMap = await Context.PlayerCharacter
                 .Where(c => c.Account.UserId == userId)
+                .Include(c => c.AddonQuests)
                 .Include(c => c.Currencies)
                 .Include(c => c.Lockouts)
                 .Include(c => c.MythicPlusAddon)
@@ -43,11 +49,12 @@ namespace Wowthing.Backend.Jobs.User
             var realmMap = await Context.WowRealm
                 .Where(r => realmIds.Contains(r.Id))
                 .ToDictionaryAsync(k => (k.Region, k.Name));
+            
+            _timer.AddPoint("Load");
 
+            // Deal with character data
             int accountId = 0;
             var transmog = new HashSet<int>();
-
-            // ?
             foreach (var (addonId, characterData) in parsed.Characters)
             {
                 // US/Mal'Ganis/Fakenamehere
@@ -84,10 +91,13 @@ namespace Wowthing.Backend.Jobs.User
                 HandleCurrencies(character, characterData);
                 HandleLockouts(character, characterData);
                 HandleMythicPlus(character, characterData);
+                HandleQuests(character, characterData);
                 HandleReputations(character, characterData);
                 HandleWeekly(character, characterData);
             }
+            _timer.AddPoint("Characters");
 
+            // Deal with account data
             if (accountId > 0)
             {
                 if (parsed.Toys != null)
@@ -119,8 +129,12 @@ namespace Wowthing.Backend.Jobs.User
                     .OrderBy(t => t)
                     .ToList();
             }
+            _timer.AddPoint("Account");
 
             await Context.SaveChangesAsync();
+            _timer.AddPoint("Save");
+            
+            Logger.Information("{0}", _timer.ToString());
         }
 
         private void HandleCurrencies(PlayerCharacter character, UploadCharacter characterData)
@@ -234,6 +248,30 @@ namespace Wowthing.Backend.Jobs.User
                         };
                     }
                 }
+            }
+        }
+
+        private void HandleQuests(PlayerCharacter character, UploadCharacter characterData)
+        {
+            if (!characterData.ScanTimes.TryGetValue("quests", out int scanTimestamp))
+            {
+                return;
+            }
+            var scanTime = scanTimestamp.AsUtcDateTime();
+            
+            if (character.AddonQuests == null)
+            {
+                character.AddonQuests = new PlayerCharacterAddonQuests
+                {
+                    CharacterId = character.Id,
+                };
+                Context.PlayerCharacterAddonQuests.Add(character.AddonQuests);
+            }
+
+            if (scanTime > character.AddonQuests.ScannedAt)
+            {
+                character.AddonQuests.ScannedAt = scanTime;
+                character.AddonQuests.DailyQuests = characterData.DailyQuests.EmptyIfNull();
             }
         }
 

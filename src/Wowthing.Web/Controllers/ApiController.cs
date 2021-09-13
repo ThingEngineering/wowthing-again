@@ -396,18 +396,35 @@ namespace Wowthing.Web.Controllers
 
             timer.AddPoint("CheckUser");
 
-            var userQuests = await _context.PlayerCharacterQuests
-                .Where(pcq => pcq.Character.Account.UserId == apiResult.User.Id)
+            var characters = await _context.PlayerCharacter
+                .Where(pc => pc.Account.UserId == apiResult.User.Id)
+                .Include(pc => pc.AddonQuests)
+                .Include(pc => pc.Quests)
+                .Select(pc => new
+                {
+                    pc.Id,
+                    pc.AddonQuests,
+                    pc.Quests,
+                })
                 .ToArrayAsync();
+            
+            /*var userQuests = await _context.PlayerCharacterQuests
+                .Where(pcq => pcq.Character.Account.UserId == apiResult.User.Id)
+                .ToArrayAsync();*/
             
             timer.AddPoint("Get quests");
 
             // Build response
             var data = new UserQuestData
             {
-                QuestsPacked = userQuests.ToDictionary(
-                    pcq => pcq.CharacterId,
-                    pcq => SerializationUtilities.SerializeUInt16Array(pcq.CompletedIds.Select(id => Convert.ToUInt16(id)).ToArray())
+                Characters = characters.ToDictionary(
+                    c => c.Id,
+                    c => new UserQuestDataCharacter
+                    {
+                        ScannedAt = c.AddonQuests?.ScannedAt ?? DateTime.MinValue,
+                        DailyQuestsPacked = c.AddonQuests?.DailyQuests.EmptyIfNull().ToPackedUInt16Array(),
+                        QuestsPacked = c.Quests?.CompletedIds.EmptyIfNull().ToPackedUInt16Array(),
+                    }
                 ),
             };
             

@@ -1,4 +1,5 @@
 import Base64ArrayBuffer from 'base64-arraybuffer'
+import toPairs from 'lodash/toPairs'
 
 import {WritableFancyStore} from '@/types'
 import type {UserQuestData} from '@/types/data'
@@ -15,21 +16,32 @@ export class UserQuestDataStore extends WritableFancyStore<UserQuestData> {
 
     initialize(userQuestData: UserQuestData): void {
         console.time('setup UserQuestDataStore')
+        for (const [characterId, characterData] of toPairs(userQuestData.characters)) {
+            characterData.dailyQuests = new Map<number, boolean>()
+            characterData.quests = new Map<number, boolean>()
+            characterData.weeklyQuests = new Map<number, boolean>()
 
-        userQuestData.quests = {}
+            this.unpack(characterData.dailyQuests, characterData.dailyQuestsPacked)
+            this.unpack(characterData.quests, characterData.questsPacked)
+            this.unpack(characterData.weeklyQuests, characterData.weeklyQuestsPacked)
 
-        for (const characterId in userQuestData.questsPacked) {
-            userQuestData.quests[characterId] = new Map<number, boolean>()
-
-            const decoded = new Uint16Array(Base64ArrayBuffer.decode(userQuestData.questsPacked[characterId]))
-            for (let i = 0; i < decoded.length; i++) {
-                userQuestData.quests[characterId].set(decoded[i], true)
-            }
+            characterData.dailyQuestsPacked = null
+            characterData.questsPacked = null
+            characterData.weeklyQuestsPacked = null
         }
 
-        userQuestData.questsPacked = null
-
         console.timeEnd('setup UserQuestDataStore')
+    }
+
+    private unpack(map: Map<number, boolean>, data: string): void {
+        if (data === null) {
+            return
+        }
+
+        const decoded = new Uint16Array(Base64ArrayBuffer.decode(data))
+        for (let i = 0; i < decoded.length; i++) {
+            map.set(decoded[i], true)
+        }
     }
 }
 
