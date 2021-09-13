@@ -6,6 +6,7 @@ import type {TippyProps} from '@/types'
 const defaultProps: TippyProps = {
     duration: [0, 0],
     ignoreAttributes: true,
+    maxWidth: 400,
 }
 
 // why is this shit not in svelte types? WHO KNOWS

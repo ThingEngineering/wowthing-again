@@ -20,7 +20,7 @@ namespace Wowthing.Lib.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
-                .HasAnnotation("ProductVersion", "5.0.8")
+                .HasAnnotation("ProductVersion", "5.0.9")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<long>", b =>
@@ -510,6 +510,30 @@ namespace Wowthing.Lib.Migrations
                         .HasName("pk_player_character_achievements");
 
                     b.ToTable("player_character_achievements");
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacterAddonQuests", b =>
+                {
+                    b.Property<int>("CharacterId")
+                        .HasColumnType("integer")
+                        .HasColumnName("character_id");
+
+                    b.Property<List<int>>("DailyQuests")
+                        .HasColumnType("integer[]")
+                        .HasColumnName("daily_quests");
+
+                    b.Property<DateTime>("ScannedAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("scanned_at");
+
+                    b.Property<List<int>>("WeeklyQuests")
+                        .HasColumnType("integer[]")
+                        .HasColumnName("weekly_quests");
+
+                    b.HasKey("CharacterId")
+                        .HasName("pk_player_character_addon_quests");
+
+                    b.ToTable("player_character_addon_quests");
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacterCurrencies", b =>
@@ -1178,6 +1202,18 @@ namespace Wowthing.Lib.Migrations
                     b.Navigation("Character");
                 });
 
+            modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacterAddonQuests", b =>
+                {
+                    b.HasOne("Wowthing.Lib.Models.Player.PlayerCharacter", "Character")
+                        .WithOne("AddonQuests")
+                        .HasForeignKey("Wowthing.Lib.Models.Player.PlayerCharacterAddonQuests", "CharacterId")
+                        .HasConstraintName("fk_player_character_addon_quests_player_character_character_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Character");
+                });
+
             modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacterCurrencies", b =>
                 {
                     b.HasOne("Wowthing.Lib.Models.Player.PlayerCharacter", "Character")
@@ -1365,6 +1401,8 @@ namespace Wowthing.Lib.Migrations
             modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacter", b =>
                 {
                     b.Navigation("Achievements");
+
+                    b.Navigation("AddonQuests");
 
                     b.Navigation("Currencies");
 

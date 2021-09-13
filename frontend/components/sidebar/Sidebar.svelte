@@ -7,7 +7,7 @@
 
     export let baseUrl: string
     export let items: SidebarItem[]
-    export let id = ''
+    export let id = 'sub-sidebar'
     export let percentFunc: (entry: SidebarItem) => number = undefined
     export let width = '10rem'
 

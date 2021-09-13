@@ -1,12 +1,12 @@
 <script lang="ts">
     import { afterUpdate, setContext } from 'svelte'
-    import { replace } from 'svelte-spa-router'
 
+    import getSavedRoute from '@/utils/get-saved-route'
     import type { Dictionary, MultiSlugParams, StaticDataSetCategory } from '@/types'
+    import type {CollectionContext} from '@/types/contexts'
 
     import CollectionSection from './CollectionSection.svelte'
     import CollectionSidebar from './CollectionSidebar.svelte'
-    import type {CollectionContext} from '@/types/contexts'
 
     export let params: MultiSlugParams
     export let route: string
@@ -27,22 +27,7 @@
     afterUpdate(() => {
         window.__tip?.watchElligibleElements()
 
-        const key = `route-${route}`
-        if (params.slug1 === null) {
-            const saved = localStorage.getItem(key)
-            if (saved !== null) {
-                replace(`/${route}/${saved}`)
-            }
-            else {
-                const first = document
-                    .getElementById('sub-sidebar')
-                    .querySelector('li a')
-                replace(first.getAttribute('href').replace('#', ''))
-            }
-        }
-        else {
-            localStorage.setItem(key, params.slug2 ? `${params.slug1}/${params.slug2}` : params.slug1)
-        }
+        getSavedRoute(route, params.slug1, params.slug2)
     })
 </script>
 

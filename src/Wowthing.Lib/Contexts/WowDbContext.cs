@@ -31,6 +31,7 @@ namespace Wowthing.Lib.Contexts
 
         public DbSet<PlayerCharacter> PlayerCharacter { get; set; }
         public DbSet<PlayerCharacterAchievements> PlayerCharacterAchievements { get; set; }
+        public DbSet<PlayerCharacterAddonQuests> PlayerCharacterAddonQuests { get; set; }
         public DbSet<PlayerCharacterCurrencies> PlayerCharacterCurrencies { get; set; }
         public DbSet<PlayerCharacterEquippedItems> PlayerCharacterEquippedItems { get; set; }
         public DbSet<PlayerCharacterLockouts> PlayerCharacterLockouts { get; set; }

@@ -18,6 +18,7 @@ namespace Wowthing.Backend.Models.Uploads
         public long Copper { get; set; }
 
         public List<UploadCharacterCurrency> Currencies { get; set; }
+        public List<int> DailyQuests { get; set; }
         public List<UploadCharacterLockout> Lockouts { get; set; }
         public UploadCharacterMythicDungeon[] MythicDungeons { get; set; }
         public UploadCharacterMythicPlus MythicPlus { get; set; }

@@ -127,19 +127,19 @@ namespace Wowthing.Web.Controllers
             return Content(await db.StringGetAsync("cached_static:data"), "application/json");
         }
 
-        [HttpGet("transmog.{hash:length(32)}.json")]
+        [HttpGet("{type:regex(^(farm|transmog)$)}.{hash:length(32)}.json")]
         [ResponseCache(Duration = 365 * 24 * 60 * 60)]
-        public async Task<IActionResult> StaticTransmog([FromRoute] string hash)
+        public async Task<IActionResult> StaticMisc([FromRoute] string type, [FromRoute] string hash)
         {
             var db = _redis.GetDatabase();
 
-            string jsonHash = await db.StringGetAsync("cache:transmog:hash");
+            string jsonHash = await db.StringGetAsync($"cache:{type}:hash");
             if (hash != jsonHash)
             {
-                return NotFound("Invalid transmog data hash");
+                return NotFound($"Invalid {type} data hash");
             }
 
-            return Content(await db.StringGetAsync("cache:transmog:data"), "application/json");
+            return Content(await db.StringGetAsync($"cache:{type}:data"), "application/json");
         }
 
         [HttpGet("team/{guid:guid}")]
@@ -331,7 +331,7 @@ namespace Wowthing.Web.Controllers
 
             return Ok(data);
         }
-        
+
         [HttpGet("user/{username:username}/pets")]
         public async Task<IActionResult> UserPetData([FromRoute] string username)
         {
@@ -396,18 +396,35 @@ namespace Wowthing.Web.Controllers
 
             timer.AddPoint("CheckUser");
 
-            var userQuests = await _context.PlayerCharacterQuests
-                .Where(pcq => pcq.Character.Account.UserId == apiResult.User.Id)
+            var characters = await _context.PlayerCharacter
+                .Where(pc => pc.Account.UserId == apiResult.User.Id)
+                .Include(pc => pc.AddonQuests)
+                .Include(pc => pc.Quests)
+                .Select(pc => new
+                {
+                    pc.Id,
+                    pc.AddonQuests,
+                    pc.Quests,
+                })
                 .ToArrayAsync();
+            
+            /*var userQuests = await _context.PlayerCharacterQuests
+                .Where(pcq => pcq.Character.Account.UserId == apiResult.User.Id)
+                .ToArrayAsync();*/
             
             timer.AddPoint("Get quests");
 
             // Build response
             var data = new UserQuestData
             {
-                QuestsPacked = userQuests.ToDictionary(
-                    pcq => pcq.CharacterId,
-                    pcq => SerializationUtilities.SerializeUInt16Array(pcq.CompletedIds.Select(id => Convert.ToUInt16(id)).ToArray())
+                Characters = characters.ToDictionary(
+                    c => c.Id,
+                    c => new UserQuestDataCharacter
+                    {
+                        ScannedAt = c.AddonQuests?.ScannedAt ?? DateTime.MinValue,
+                        DailyQuestsPacked = c.AddonQuests?.DailyQuests.EmptyIfNull().ToPackedUInt16Array(),
+                        QuestsPacked = c.Quests?.CompletedIds.EmptyIfNull().ToPackedUInt16Array(),
+                    }
                 ),
             };
             
@@ -416,7 +433,6 @@ namespace Wowthing.Web.Controllers
 
             return Ok(data);
         }
-
         
         [HttpGet("user/{username:username}/transmog")]
         public async Task<IActionResult> UserTransmogData([FromRoute] string username)

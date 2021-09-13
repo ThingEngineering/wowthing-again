@@ -1,3 +1,17 @@
+// Class colours
+.class-1 { color: $colour-class-1; }
+.class-2 { color: $colour-class-2; }
+.class-3 { color: $colour-class-3; }
+.class-4 { color: $colour-class-4; }
+.class-5 { color: $colour-class-5; }
+.class-6 { color: $colour-class-6; }
+.class-7 { color: $colour-class-7; }
+.class-8 { color: $colour-class-8; }
+.class-9 { color: $colour-class-9; }
+.class-10 { color: $colour-class-10; }
+.class-11 { color: $colour-class-11; }
+.class-12 { color: $colour-class-12; }
+
 // Junk
 .quality0 {
     color: $quality0-color !important;
@@ -11,7 +25,7 @@ img.quality0 {
 
 // Common
 .quality1 {
-    --icon-border-color: $quality1-border;
+    --image-border-color: $quality1-border;
     color: $quality1-color !important;
 
     div, img {
@@ -24,7 +38,7 @@ img.quality1 {
 
 // Uncommon
 .quality2 {
-    --icon-border-color: $quality2-border;
+    --image-border-color: $quality2-border;
     color: $quality2-color !important;
 
     div, img {
@@ -37,7 +51,7 @@ img.quality2 {
 
 // Rare
 .quality3 {
-    --icon-border-color: $quality3-border;
+    --image-border-color: $quality3-border;
     color: $quality3-color !important;
 
     div, img {
@@ -50,7 +64,7 @@ img.quality3 {
 
 // Epic
 .quality4 {
-    --icon-border-color: $quality4-border;
+    --image-border-color: $quality4-border;
     color: $quality4-color !important;
 
     div, img {

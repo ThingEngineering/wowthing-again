@@ -9,7 +9,7 @@
 
     const { route, sets } = getContext('collection') as CollectionContext
 
-    let categories: SidebarItem[] = []
+    let categories: SidebarItem[]
     $: {
         categories = sets.map((set) => set === null ? null : ({
             children: set.length > 1 ? set.slice(1) : [],
