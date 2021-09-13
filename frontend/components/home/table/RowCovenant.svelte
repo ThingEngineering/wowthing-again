@@ -41,7 +41,7 @@
 <td use:tippy={tooltip}>
     {#if covenant !== undefined}
         <div class="flex-wrapper">
-            <WowthingImage name={covenant.Icon} size={20} border={1} />
+            <WowthingImage name={covenant.icon} size={20} border={1} />
             <span class:status-success={character.shadowlands.renownLevel >= maxRenown}>{character.shadowlands.renownLevel}</span>
         </div>
     {:else}

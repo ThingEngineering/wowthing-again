@@ -25,7 +25,7 @@
         use:tippy={covenant.getTooltip(character.shadowlands.renownLevel)}
     >
         <WowthingImage
-            name={covenant.Icon}
+            name={covenant.icon}
             size={24}
             border={1}
         />{character.shadowlands.renownLevel}
