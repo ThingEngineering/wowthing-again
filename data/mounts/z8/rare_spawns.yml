@@ -31,9 +31,9 @@ groups:
 - name: Korthia
   things:
   - 354357 # Crimson Shardhide (Malbog)
-  - 353877 # Foresworn Aquilon
   - 354360 # Garnet Razorwing (Reliwik the Defiant)
-  - 347250 # Lord of the Corpseflies
-  - 215545 # Mastercraft Gravewing
   - 356501 # Rampaging Mauler (Konthrogz the Obliterator)
-  - 353859 # Summer Wilderling
+  - 353877 # Foresworn Aquilon (Wild Worldcracker, Kyrian only)
+  - 347250 # Lord of the Corpseflies (Fleshwing, Necrolord only)
+  - 215545 # Mastercraft Gravewing (Stygian Stonecrusher, Venthyr only)
+  - 353859 # Summer Wilderling (Escaped Wilderling, Night Fae only)
