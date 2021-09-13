@@ -3,6 +3,7 @@ export interface FarmData {
 }
 
 export interface FarmDataCategory {
+    minimumLevel: number
     name: string
     slug: string
     farms: FarmDataFarm[]

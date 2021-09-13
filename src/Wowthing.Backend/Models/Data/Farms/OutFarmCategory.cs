@@ -6,6 +6,7 @@ namespace Wowthing.Backend.Models.Data.Farms
 {
     public class OutFarmCategory
     {
+        public int MinimumLevel { get; set; }
         public string Name { get; set; }
         public List<OutFarmFarm> Farms { get; set; }
 
@@ -13,6 +14,7 @@ namespace Wowthing.Backend.Models.Data.Farms
         
         public OutFarmCategory(DataFarmCategory cat)
         {
+            MinimumLevel = cat.MinimumLevel;
             Name = cat.Name;
             Farms = cat.Farms
                 .EmptyIfNull()

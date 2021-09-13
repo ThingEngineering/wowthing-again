@@ -1,5 +1,45 @@
 name: Korthia
+minimumLevel: 60
 farms:
+
+- name: Carriage Crusher
+  location: 58.3 17.7
+  questId: 64258
+  drops:
+  - type: armor
+    name: Carriage Crusher's Padded Slippers
+    id: 55596
+    limit: armor cloth
+
+  - type: armor
+    name: Maw Construct's Shoulderguards
+    id: 55664
+    limit: armor leather
+
+- name: Consumption
+  location: 51.6 41.6
+  questId: 64243
+  drops:
+  - type: armor
+    id: 55618
+    name: Death-Enveloped Pauldrons
+
+  - type: armor
+    id: 55622
+    name: Death-Enveloped Shoulder Spikes
+
+  - type: armor
+    id: 55614
+    name: Death-Enveloped Spires
+
+- name: Dominated Protector
+  location: 52.4 21.4
+  questId: 63830
+  drops:
+  - type: armor
+    id: 55565
+    name: Dominated Protector's Helm
+    limit: armor plate
 
 - name: Escaped Wilderling
   location: 33.1 39.5
@@ -10,8 +50,8 @@ farms:
     name: Summer Wilderling
     limit: covenant night-fae
 
-  - type: transmog
-    id: 187395 # TODO appearance id
+  - type: armor
+    id: 55566
     name: Reinforced Stygian Spaulders
     limit: armor plate
 
@@ -24,10 +64,61 @@ farms:
     name: Lord of the Corpseflies
     limit: covenant necrolord
 
-  - type: transmog
-    id: 187372 # TODO appearance id
+  - type: armor
+    id: 55591
     name: Miasma Filtering Headpiece
     limit: armor cloth
+
+- name: Kroke the Tormented
+  location: 61.6 34.8
+  questId: 64428
+  drops:
+  - type: armor
+    id: 55630
+    name: Kroke's Gleaming Spaulders
+
+  - type: armor
+    id: 55634
+    name: Kroke's Wingspiked Pauldrons
+
+  - type: armor
+    id: 55569
+    name: Tormented Giant's Legplates
+    limit: armor plate
+
+- name: Malbog
+  location: 44.6 29.6
+  questId: 64233
+  drops:
+  - type: mount
+    id: 354357
+    name: Crimson Shardhide
+
+  - type: armor
+    id: 55589
+    name: Malbog's Paws
+    limit: armor leather
+
+- name: Relic Breaker Krelva
+  location: 23.0 42.3
+  questId: 64291
+  drops:
+  - type: armor
+    id: 41909
+    name: Relic Breaker's Drape
+
+- name: Reliwik the Defiant
+  location: 56.3 66.1
+  questId: 64455
+  drops:
+  - type: mount
+    id: 354360
+    name: Garnet Razorwing
+
+  - type: armor
+    id: 55577
+    name: Barbed Scale Cinch
+    limit: armor mail
 
 - name: Stygian Stonecrusher
   location: 46.4 79.6
@@ -38,8 +129,8 @@ farms:
     name: Mastercraft Gravewing
     limit: covenant venthyr
 
-  - type: transmog
-    id: 187386 # TODO appearance id
+  - type: armor
+    id: 55578
     name: Stygian Crystal Studded Legguards
     limit: armor mail
 
@@ -56,7 +147,99 @@ farms:
     id: 187176
     name: Vesper of Harmony
 
-  - type: transmog
+  - type: armor
     name: Devourer Hide Belt
-    id: 187380
+    id: 55585
     limit: armor leather
+
+- name: Xyraxz the Unknowable
+  location: 45.1 35.7
+  questId: 64278
+  drops:
+  - type: armor
+    name: Pauldrons of the Unknown Beyond
+    id: 55575
+    limit: armor mail
+
+  - type: weapon
+    name: Xyraxz's Controlling Rod
+    id: 42510
+    limit: weapon stave
+
+- name: Yarxhov the Pillager
+  location: 39.4 52.3
+  questId: 64257
+  drops:
+  - type: weapon
+    name: Fallen Vault Guardian's Spire
+    id: 42552
+    limit: weapon polearm
+
+  - type: armor
+    name: Yarxhov's Rib-Cage
+    id: 55567
+    limit: armor leather
+
+- name: Zelnithop
+  location: 30.3 54.9
+  questId: 64442
+  drops:
+  - type: pet
+    name: Korthian Specimen
+    id: 179251
+
+  - type: armor
+    name: Velvet Gromit Handwraps
+    id: 55598
+    limit: armor cloth
+
+# Rift lurkers
+- name: Deadsoul Hatcher
+  location: 60.0 53.2
+  questId: 64285
+  drops:
+  - type: armor
+    name: Girdle of the Deadsoul
+    id: 55568
+    limit: armor plate
+
+- name: Observer Yorik
+  location: 50.2 75.4
+  questId: 64440
+  drops:
+  - type: toy
+    name: Maw-Ocular Viewfinder
+    id: 187420
+
+  - type: weapon
+    name: Rift Splitter
+    id: 42530
+    limit: weapon 1h-axe
+
+- name: Screaming Shade
+  location: 44.6 42.9
+  questId: 64263
+  drops:
+  - type: armor
+    name: Mantle of Screaming Shadows
+    id: 55592
+    limit: armor cloth
+
+  - type: weapon
+    name: Stinging Shadow Screamer
+    id: 42569
+    limit: weapon dagger
+
+- name: Silent Soulstalker
+  location: 57.5 70.2
+  questId: 64284
+  drops:
+  - type: armor
+    name: Rift-Touched Bindings
+    id: 55588
+    limit: armor leather
+
+  - type: armor
+    name: Silent Soulstalker Sabatons
+    id: 55579
+    limit: armor mail

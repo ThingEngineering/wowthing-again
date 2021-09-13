@@ -1,11 +1,15 @@
 <script lang="ts">
     import filter from 'lodash/filter'
     import find from 'lodash/find'
+    import Fa from 'svelte-fa'
 
+    import {farmType} from '@/data/farm'
     import {FarmDataCategory} from '@/types/data'
-    import {farmStore} from '@/stores'
+    import {farmStore, userStore} from '@/stores'
+    import getFarmStatus from '@/utils/get-farm-status'
+    import type {CharacterStatus, FarmStatus} from '@/utils/get-farm-status'
 
-    import Farms from './FarmsFarms.svelte'
+    import Farm from './FarmsFarm.svelte'
     import Map from '@/components/images/Map.svelte'
 
     export let slug1: string
@@ -16,8 +20,8 @@
     const height = 800
 
     let categories: FarmDataCategory[]
+    let farmStatuses: FarmStatus[]
     $: {
-        console.log(slug1, slug2)
         categories = filter(
             find($farmStore.data.sets, (s) => s !== null && s[0].slug === slug1),
             (s) => s.farms.length > 0
@@ -26,12 +30,12 @@
             categories = filter(categories, (s) => s.slug === slug2)
         }
 
-        console.log(categories)
+        farmStatuses = getFarmStatus(categories[0])
     }
 </script>
 
 <style lang="scss">
-    div {
+    .farm {
         --image-border-radius: #{$border-radius-large};
         --image-border-width: 2px;
 
@@ -39,15 +43,16 @@
     }
 </style>
 
-{#each categories as category}
-    <div>
-        <Map
-            name={category.slug}
-            width={width}
-            height={height}
-            alt="Map of {category.name}"
-            border={2}
-        />
-        <Farms farms={category.farms} />
-    </div>
-{/each}
+<div class="farm">
+    <Map
+        name={categories[0].slug}
+        width={width}
+        height={height}
+        alt="Map of {categories[0].name}"
+        border={2}
+    />
+
+    {#each categories[0].farms as farm, farmIndex}
+        <Farm {farm} status={farmStatuses[farmIndex]} />
+    {/each}
+</div>
