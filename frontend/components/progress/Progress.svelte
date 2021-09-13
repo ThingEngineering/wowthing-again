@@ -1,10 +1,22 @@
 <script lang="ts">
+    import { afterUpdate, onMount } from 'svelte'
+
     import { userQuestStore } from '@/stores'
+    import getSavedRoute from '@/utils/get-saved-route'
 
     import ProgressSidebar from './ProgressSidebar.svelte'
     import ProgressTable from './ProgressTable.svelte'
 
     export let params: { slug: string }
+
+    let loaded: boolean
+    $: {
+        loaded = $userQuestStore.loaded
+    }
+
+    onMount(async () => await userQuestStore.fetch())
+
+    afterUpdate(() => getSavedRoute('progress', params.slug))
 </script>
 
 <style lang="scss">
@@ -15,13 +27,13 @@
     }
 </style>
 
-{#await userQuestStore.fetch()}
+{#if !loaded}
     L O A D I N G
-{:then _}
+{:else}
     <div>
         <ProgressSidebar />
         {#if params.slug}
             <ProgressTable slug={params.slug} />
         {/if}
     </div>
-{/await}
+{/if}

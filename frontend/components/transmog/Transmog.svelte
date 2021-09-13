@@ -1,7 +1,8 @@
 <script lang="ts">
-    import { onMount } from 'svelte'
+    import { afterUpdate, onMount } from 'svelte'
 
     import {transmogStore, userTransmogStore} from '@/stores'
+    import getSavedRoute from '@/utils/get-saved-route'
 
     import TransmogSidebar from './TransmogSidebar.svelte'
     import TransmogTable from './TransmogTable.svelte'
@@ -10,9 +11,6 @@
         slug1: string
         slug2: string
     }
-
-    onMount(async () => await transmogStore.fetch())
-    onMount(async () => await userTransmogStore.fetch())
 
     let error: boolean
     let loaded: boolean
@@ -26,6 +24,13 @@
             userTransmogStore.setup()
         }
     }
+
+    onMount(async () => await Promise.all([
+        transmogStore.fetch(),
+        userTransmogStore.fetch(),
+    ]))
+
+    afterUpdate(() => getSavedRoute('transmog', params.slug1, params.slug2))
 </script>
 
 <style lang="scss">

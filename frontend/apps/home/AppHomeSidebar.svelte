@@ -17,7 +17,7 @@
     <li class="separator"></li>
 
     <li use:active={'/currencies/*'}>
-        <a href="#/currencies/shadowlands">Currencies</a>
+        <a href="#/currencies/">Currencies</a>
     </li>
     <li use:active={'/gear/*'}>
         <a href="#/gear/">Gear</a>
@@ -26,16 +26,16 @@
         <a href="#/lockouts">Lockouts</a>
     </li>
     <li use:active={'/mythicplus/*'}>
-        <a href="#/mythicplus/this-week">Mythic+</a>
+        <a href="#/mythicplus/">Mythic+</a>
     </li>
     <li use:active={'/progress/*'}>
-        <a href="#/progress/shadowlands">Progress</a>
+        <a href="#/progress/">Progress</a>
     </li>
     <li use:active={'/reputations/*'}>
-        <a href="#/reputations/shadowlands">Reputations</a>
+        <a href="#/reputations/">Reputations</a>
     </li>
     <li use:active={'/transmog/*'}>
-        <a href="#/transmog/shadowlands">Transmog</a>
+        <a href="#/transmog/">Transmog</a>
     </li>
 
     <li class="separator"></li>
@@ -56,7 +56,7 @@
         <a href="#/achievements/summary">🚧 Achievements</a>
     </li>
     <li use:active={'/farms/*'}>
-        <a href="#/farms/">🐮 Farms</a>
+        <a href="#/farms/">🚧 Farms</a>
     </li>
     <li use:active={'/cards'}>
         <a href="#/cards">🚧 Home (Cards)</a>

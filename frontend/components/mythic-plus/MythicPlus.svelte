@@ -1,8 +1,14 @@
 <script lang="ts">
+    import {afterUpdate} from 'svelte'
+
+    import getSavedRoute from '@/utils/get-saved-route'
+
     import MythicPlusSidebar from './MythicPlusSidebar.svelte'
     import MythicPlusTable from './MythicPlusTable.svelte'
 
     export let params: { slug: string }
+
+    afterUpdate(() => getSavedRoute('mythicplus', params.slug))
 </script>
 
 <style lang="scss">
@@ -15,5 +21,7 @@
 
 <div>
     <MythicPlusSidebar />
-    <MythicPlusTable slug={params.slug} />
+    {#if params.slug}
+        <MythicPlusTable slug={params.slug} />
+    {/if}
 </div>
