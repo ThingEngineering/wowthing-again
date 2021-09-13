@@ -4,18 +4,22 @@
 
     import { categoryOrder } from '@/data/currencies'
     import { staticStore } from '@/stores/static'
+    import type {SidebarItem} from '@/types'
 
-    import Sidebar from '@/components/common/Sidebar.svelte'
+    import Sidebar from '@/components/sidebar/Sidebar.svelte'
 
-    const categories = categoryOrder.map((id) => $staticStore.data.currencyCategories[id])
+    let categories: SidebarItem[]
+    $: {
+        categories = categoryOrder.map((id) => ({
+           children: [],
+           ...$staticStore.data.currencyCategories[id],
+        }))
+    }
 </script>
 
-<Sidebar width="12rem">
-    {#each categories as category}
-        <li use:active={'/currencies/' + category.slug}>
-            <a href="/currencies/{category.slug}" use:link
-            >{category.name}</a
-            >
-        </li>
-    {/each}
-</Sidebar>
+
+<Sidebar
+    baseUrl="/currencies"
+    items={categories}
+    width="12rem"
+/>
