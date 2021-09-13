@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { userQuestStore } from '@/stores/user-quests'
+    import { userQuestStore } from '@/stores'
 
     import ProgressSidebar from './ProgressSidebar.svelte'
     import ProgressTable from './ProgressTable.svelte'

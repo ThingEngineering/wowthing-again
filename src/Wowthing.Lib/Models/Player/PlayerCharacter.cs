@@ -48,6 +48,7 @@ namespace Wowthing.Lib.Models.Player
 
         // Navigation properties
         public PlayerCharacterAchievements Achievements { get; set; }
+        public PlayerCharacterAddonQuests AddonQuests { get; set; }
         public PlayerCharacterCurrencies Currencies { get; set; }
         public PlayerCharacterEquippedItems EquippedItems { get; set; }
         public PlayerCharacterLockouts Lockouts { get; set; }
