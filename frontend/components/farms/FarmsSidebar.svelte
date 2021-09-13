@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {farmStore, userStore} from '@/stores'
+    import {farmStore} from '@/stores'
     import type {SidebarItem} from '@/types'
 
     import Sidebar from '@/components/sidebar/Sidebar.svelte'

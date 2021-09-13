@@ -1,5 +1,5 @@
 <script lang="ts">
-    import {onMount} from 'svelte'
+    import {afterUpdate, onMount} from 'svelte'
 
     import {
         farmStore,
@@ -9,6 +9,7 @@
         userStore,
         userTransmogStore
     } from '@/stores'
+    import getSavedRoute from '@/utils/get-saved-route'
     import type {MultiSlugParams} from '@/types'
 
     import Map from './FarmsMap.svelte'
@@ -38,6 +39,12 @@
         userStore.fetch(),
         userTransmogStore.fetch(),
     ]))
+
+    afterUpdate(() => {
+        if (loaded) {
+            getSavedRoute('farms', params.slug1, params.slug2)
+        }
+    })
 </script>
 
 {#if !loaded}

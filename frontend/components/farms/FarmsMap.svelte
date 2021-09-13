@@ -1,13 +1,11 @@
 <script lang="ts">
     import filter from 'lodash/filter'
     import find from 'lodash/find'
-    import Fa from 'svelte-fa'
 
-    import {farmType} from '@/data/farm'
-    import {FarmDataCategory} from '@/types/data'
-    import {farmStore, userStore} from '@/stores'
+    import {farmStore} from '@/stores'
     import getFarmStatus from '@/utils/get-farm-status'
-    import type {CharacterStatus, FarmStatus} from '@/utils/get-farm-status'
+    import type {FarmDataCategory} from '@/types/data'
+    import type {FarmStatus} from '@/utils/get-farm-status'
 
     import Farm from './FarmsFarm.svelte'
     import Map from '@/components/images/Map.svelte'
@@ -30,7 +28,9 @@
             categories = filter(categories, (s) => s.slug === slug2)
         }
 
-        farmStatuses = getFarmStatus(categories[0])
+        if (categories.length > 0) {
+            farmStatuses = getFarmStatus(categories[0])
+        }
     }
 </script>
 
@@ -43,16 +43,18 @@
     }
 </style>
 
-<div class="farm">
-    <Map
-        name={categories[0].slug}
-        width={width}
-        height={height}
-        alt="Map of {categories[0].name}"
-        border={2}
-    />
+{#if categories.length > 0}
+    <div class="farm">
+        <Map
+            name={categories[0].slug}
+            width={width}
+            height={height}
+            alt="Map of {categories[0].name}"
+            border={2}
+        />
 
-    {#each categories[0].farms as farm, farmIndex}
-        <Farm {farm} status={farmStatuses[farmIndex]} />
-    {/each}
-</div>
+        {#each categories[0].farms as farm, farmIndex}
+            <Farm {farm} status={farmStatuses[farmIndex]} />
+        {/each}
+    </div>
+{/if}
