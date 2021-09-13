@@ -22,6 +22,7 @@ namespace Wowthing.Backend.Models.Data.Farms
                 .ToList();
             Location = (farm.Location ?? "").Split();
             Name = farm.Name;
+            QuestId = farm.QuestId;
             Reset = farm.Reset ?? "daily";
         }
     }
