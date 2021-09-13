@@ -15,7 +15,7 @@ export default function getProgress(character: Character, group: StaticDataProgr
         case 'covenant':
             datas = group.data[character.shadowlands?.covenantId]
             if (datas) {
-                icon = covenantMap[character.shadowlands.covenantId].Icon
+                icon = covenantMap[character.shadowlands.covenantId].icon
             }
             break
 
