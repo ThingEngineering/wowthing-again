@@ -1,7 +1,7 @@
 import { replace } from 'svelte-spa-router'
 
 
-export default function getSavedRoute(route: string, slug1: string, slug2: string): void {
+export default function getSavedRoute(route: string, slug1?: string, slug2?: string): void {
     const key = `route-${route}`
     if (slug1 === null) {
         const saved = localStorage.getItem(key)
@@ -9,10 +9,11 @@ export default function getSavedRoute(route: string, slug1: string, slug2: strin
             replace(`/${route}/${saved}`)
         }
         else {
-            const first = document
-                .getElementById('sub-sidebar')
-                .querySelector('li a')
-            replace(first.getAttribute('href').replace('#', ''))
+            const subSidebar = document.getElementById('sub-sidebar')
+            if (subSidebar !== null) {
+                const first = subSidebar.querySelector('li a')
+                replace(first.getAttribute('href').replace('#', ''))
+            }
         }
     }
     else {
