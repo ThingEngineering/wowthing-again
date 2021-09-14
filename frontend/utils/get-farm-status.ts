@@ -1,19 +1,22 @@
 import filter from 'lodash/filter'
+import fromPairs from 'lodash/fromPairs'
 import toPairs from 'lodash/toPairs'
 import some from 'lodash/some'
 import uniq from 'lodash/uniq'
+import {DateTime} from 'luxon'
 import {get} from 'svelte/store'
 
 import {classMap} from '@/data/character-class'
 import {covenantSlugMap} from '@/data/covenant'
-import {userQuestStore, userPetStore, staticStore, userStore, userTransmogStore} from '@/stores'
-import type {Character} from '@/types'
+import {staticStore, userPetStore, userQuestStore, userStore, userTransmogStore} from '@/stores'
 import {ArmorType, WeaponType} from '@/types/enums'
+import getNextDailyReset from '@/utils/get-next-daily-reset'
+import type {Character} from '@/types'
 import type {FarmDataCategory} from '@/types/data'
 
 
-export default function getFarmStatus(category: FarmDataCategory): FarmStatus[] {
-    console.time('getFarmStatus')
+export default function getFarmStatus(category: FarmDataCategory, timeStore: DateTime): FarmStatus[] {
+    //console.time('getFarmStatus')
 
     const staticData = get(staticStore).data
     const userData = get(userStore).data
@@ -26,8 +29,18 @@ export default function getFarmStatus(category: FarmDataCategory): FarmStatus[] 
         (c) => c.level >= category.minimumLevel
     )
 
-    const farms: FarmStatus[] = []
+    const now = DateTime.utc()
+    const resetMap = fromPairs(toPairs(userQuestData.characters)
+        .map(c => [
+            c[0],
+            getNextDailyReset(
+                c[1].scanTime,
+                staticData.realms[userData.characterMap[c[0]].realmId].region,
+            )
+        ])
+    )
 
+    const farms: FarmStatus[] = []
     for (const farm of category.farms) {
         const farmStatus: FarmStatus = {
             characters: [],
@@ -101,11 +114,9 @@ export default function getFarmStatus(category: FarmDataCategory): FarmStatus[] 
 
                 dropStatus.characterIds = filter(
                     characters,
-                    (c) => userQuestData.characters[c.id].dailyQuests.get(farm.questId) === undefined,
+                    (c) => resetMap[c.id] < now ||
+                        userQuestData.characters[c.id].dailyQuests.get(farm.questId) === undefined,
                 ).map(c => c.id)
-
-                //status.countDone = characters.length - status.characterIds.length
-                //status.countTotal = characters.length
             }
 
             farmStatus.drops.push(dropStatus)
@@ -134,7 +145,7 @@ export default function getFarmStatus(category: FarmDataCategory): FarmStatus[] 
         farms.push(farmStatus)
     }
 
-    console.timeEnd('getFarmStatus')
+    //console.timeEnd('getFarmStatus')
 
     return farms
 }
