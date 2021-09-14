@@ -20,7 +20,7 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
     }
 
     setup(): void {
-        console.time('setup UserTransmogDataStore')
+        console.time('UserTransmogDataStore.initialize')
 
         const has: Dictionary<UserTransmogDataHas> = {}
         const transmogData = get(transmogStore).data
@@ -75,7 +75,7 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
             return state
         })
 
-        console.timeEnd('setup UserTransmogDataStore')
+        console.timeEnd('UserTransmogDataStore.initialize')
     }
 }
 

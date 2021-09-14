@@ -3,7 +3,6 @@ import toPairs from 'lodash/toPairs'
 
 import {WritableFancyStore} from '@/types'
 import type {UserQuestData} from '@/types/data'
-import parseApiTime from '@/utils/parse-api-time'
 
 
 export class UserQuestDataStore extends WritableFancyStore<UserQuestData> {
@@ -16,10 +15,8 @@ export class UserQuestDataStore extends WritableFancyStore<UserQuestData> {
     }
 
     initialize(userQuestData: UserQuestData): void {
-        console.time('setup UserQuestDataStore')
-        for (const [characterId, characterData] of toPairs(userQuestData.characters)) {
-            characterData.scanTime = parseApiTime(characterData.scannedAt)
-
+        console.time('UserQuestDataStore.initialize')
+        for (const [, characterData] of toPairs(userQuestData.characters)) {
             characterData.dailyQuests = new Map<number, boolean>()
             characterData.quests = new Map<number, boolean>()
             characterData.weeklyQuests = new Map<number, boolean>()
@@ -33,7 +30,7 @@ export class UserQuestDataStore extends WritableFancyStore<UserQuestData> {
             characterData.weeklyQuestsPacked = null
         }
 
-        console.timeEnd('setup UserQuestDataStore')
+        console.timeEnd('UserQuestDataStore.initialize')
     }
 
     private unpack(map: Map<number, boolean>, data: string): void {

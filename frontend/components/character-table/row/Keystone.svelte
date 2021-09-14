@@ -1,8 +1,10 @@
 <script lang="ts">
-    import { Constants } from '@/data/constants'
-    import { dungeonMap } from '@/data/dungeon'
-    import type { Character, CharacterMythicPlusRun, Dungeon } from '@/types'
+    import type {Character, CharacterMythicPlusRun, Dungeon} from '@/types'
+    import {Constants} from '@/data/constants'
+    import {dungeonMap} from '@/data/dungeon'
+    import {timeStore} from '@/stores'
     import getMythicPlusRunQuality from '@/utils/get-mythic-plus-run-quality'
+    import {getNextWeeklyReset} from '@/utils/get-next-reset'
     import tippy from '@/utils/tippy'
 
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
@@ -14,21 +16,23 @@
     let upgrade = false
     $: {
         if (character.weekly?.keystoneDungeon) {
-            dungeon = dungeonMap[character.weekly.keystoneDungeon]
-            // FIXME set active season somewhere
-            const run: CharacterMythicPlusRun | undefined =
-                character.mythicPlus?.seasons[Constants.mythicPlusSeason]?.[dungeon.id]?.[0]
-            if (
-                run?.timed !== true ||
-                (run?.timed === true &&
-                    character.weekly.keystoneLevel > run.keystoneLevel)
-            ) {
-                upgrade = true
-            }
+            const reset = getNextWeeklyReset(character.weekly.keystoneScannedAt, character.realm.region)
+            if (reset > $timeStore) {
+                dungeon = dungeonMap[character.weekly.keystoneDungeon]
+                const run: CharacterMythicPlusRun | undefined =
+                    character.mythicPlus?.seasons[Constants.mythicPlusSeason]?.[dungeon.id]?.[0]
+                if (
+                    run?.timed !== true ||
+                    (run?.timed === true &&
+                        character.weekly.keystoneLevel > run.keystoneLevel)
+                ) {
+                    upgrade = true
+                }
 
-            tooltip = `${character.name} has a ${dungeon.name} +${character.weekly.keystoneLevel} key`
-            if (upgrade) {
-                tooltip += "<br><br>It's a Raider.IO score upgrade!"
+                tooltip = `${character.name} has a ${dungeon.name} +${character.weekly.keystoneLevel} key`
+                if (upgrade) {
+                    tooltip += "<br><br>It's a Raider.IO score upgrade!"
+                }
             }
         }
     }

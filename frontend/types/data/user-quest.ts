@@ -1,6 +1,3 @@
-import type {DateTime} from 'luxon'
-
-
 export interface UserQuestData {
     characters: Record<number, UserQuestDataCharacter>
 }
@@ -15,5 +12,4 @@ export interface UserQuestDataCharacter {
     weeklyQuestsPacked: string
 
     scannedAt: string
-    scanTime: DateTime
 }

@@ -4,7 +4,6 @@ import { get } from 'svelte/store'
 import { staticStore, userStore, userPetStore } from '@/stores'
 import type { Dictionary, StaticDataSetCategory } from '@/types'
 import { UserDataSetCount } from '@/types'
-import {UserTransmogDataHas} from '@/types/data'
 
 export default function initializeSets(): void {
     console.time('initializeSets')
