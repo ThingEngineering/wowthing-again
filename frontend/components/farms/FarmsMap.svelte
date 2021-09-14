@@ -2,7 +2,15 @@
     import filter from 'lodash/filter'
     import find from 'lodash/find'
 
-    import {farmStore, timeStore} from '@/stores'
+    import {
+        farmStore,
+        staticStore,
+        timeStore,
+        userPetStore,
+        userQuestStore,
+        userStore,
+        userTransmogStore,
+    } from '@/stores'
     import getFarmStatus from '@/utils/get-farm-status'
     import type {FarmDataCategory} from '@/types/data'
     import type {FarmStatus} from '@/utils/get-farm-status'
@@ -29,7 +37,15 @@
         }
 
         if (categories.length > 0) {
-            farmStatuses = getFarmStatus(categories[0], $timeStore)
+            farmStatuses = getFarmStatus(
+                $staticStore.data,
+                $userStore.data,
+                $userPetStore.data,
+                $userQuestStore.data,
+                $userTransmogStore.data,
+                $timeStore,
+                categories[0]
+            )
         }
     }
 </script>
