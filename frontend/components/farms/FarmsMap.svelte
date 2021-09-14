@@ -2,7 +2,7 @@
     import filter from 'lodash/filter'
     import find from 'lodash/find'
 
-    import {farmStore} from '@/stores'
+    import {farmStore, timeStore} from '@/stores'
     import getFarmStatus from '@/utils/get-farm-status'
     import type {FarmDataCategory} from '@/types/data'
     import type {FarmStatus} from '@/utils/get-farm-status'
@@ -29,7 +29,7 @@
         }
 
         if (categories.length > 0) {
-            farmStatuses = getFarmStatus(categories[0])
+            farmStatuses = getFarmStatus(categories[0], $timeStore)
         }
     }
 </script>
