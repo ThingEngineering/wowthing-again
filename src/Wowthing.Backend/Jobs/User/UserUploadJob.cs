@@ -304,12 +304,19 @@ namespace Wowthing.Backend.Jobs.User
                 Context.PlayerCharacterWeekly.Add(character.Weekly);
             }
 
+            // Keystone
+            if (characterData.ScanTimes.TryGetValue("bags", out int bagsScanned))
+            {
+                character.Weekly.KeystoneScannedAt = bagsScanned.AsUtcDateTime();
+            }
+
             character.Weekly.KeystoneDungeon = characterData.KeystoneInstance;
             character.Weekly.KeystoneLevel = characterData.KeystoneLevel;
 
             // Torghast
-            if (characterData.Torghast?.Count == 2)
+            if (characterData.ScanTimes.TryGetValue("torghast", out int torghastScanned) && characterData.Torghast?.Count == 2)
             {
+                character.Weekly.TorghastScannedAt = torghastScanned.AsUtcDateTime();
                 character.Weekly.Torghast = new();
                 foreach (var wing in characterData.Torghast)
                 {
@@ -335,8 +342,10 @@ namespace Wowthing.Backend.Jobs.User
             }
 
             // Ugh, quests
-            if (characterData.WeeklyUghQuests != null)
+            if (characterData.ScanTimes.TryGetValue("quests", out int questsScanned) && characterData.WeeklyUghQuests != null)
             {
+                character.Weekly.UghQuestsScannedAt = questsScanned.AsUtcDateTime();
+                
                 character.Weekly.UghQuests = new Dictionary<string, PlayerCharacterWeeklyUghQuest>();
 
                 foreach (var (questKey, questData) in characterData.WeeklyUghQuests)
