@@ -1,14 +1,18 @@
-import Base64ArrayBuffer from 'base64-arraybuffer'
 import keys from 'lodash/keys'
+import {get} from 'svelte/store'
 
 import getItemLevelQuality from './get-item-level-quality'
 import { seasonMap } from '@/data/dungeon'
 import { slotOrder } from '@/data/inventory-slot'
+import {staticStore} from '@/stores/static'
 import type { Character, CharacterMythicPlusRun } from '@/types'
 import { InventorySlot } from '@/types/enums'
 import {CharacterMythicPlusRunMember} from '@/types'
 
 export default function initializeCharacter(character: Character): void {
+    // realm
+    character.realm = get(staticStore).data.realms[character.realmId]
+
     // item levels
     if (keys(character.equippedItems).length > 0) {
         let count = 0,

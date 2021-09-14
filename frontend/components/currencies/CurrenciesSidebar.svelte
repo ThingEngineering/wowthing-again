@@ -1,7 +1,4 @@
 <script lang="ts">
-    import { link } from 'svelte-spa-router'
-    import active from 'svelte-spa-router/active'
-
     import { categoryOrder } from '@/data/currencies'
     import { staticStore } from '@/stores/static'
     import type {SidebarItem} from '@/types'
@@ -16,7 +13,6 @@
         }))
     }
 </script>
-
 
 <Sidebar
     baseUrl="/currencies"

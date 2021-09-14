@@ -1,6 +1,6 @@
 <script lang="ts">
     import { staticStore } from '@/stores/static'
-    import toNiceNumber from '@/utils/to-nice-number'
+    import {toNiceNumber} from '@/utils/to-nice'
 
     import type {StaticDataReputation, StaticDataReputationReputation, StaticDataReputationTier} from '@/types'
 

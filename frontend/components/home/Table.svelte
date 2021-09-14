@@ -42,7 +42,7 @@
         {/if}
 
         {#if !isPublic}
-            <RowUghQuests />
+            <RowUghQuests {character} />
         {/if}
 
         {#if $settings.home.showTorghast}

@@ -8,7 +8,7 @@ import {DateTime} from 'luxon'
 import {classMap} from '@/data/character-class'
 import {covenantSlugMap} from '@/data/covenant'
 import {ArmorType, WeaponType} from '@/types/enums'
-import getNextDailyReset from '@/utils/get-next-daily-reset'
+import {getNextDailyReset} from '@/utils/get-next-reset'
 import type {Character, StaticData, UserData} from '@/types'
 import type {FarmDataCategory, UserPetData, UserQuestData, UserTransmogData} from '@/types/data'
 
@@ -34,9 +34,9 @@ export default (
         .map(c => [
             c[0],
             getNextDailyReset(
-                c[1].scanTime,
-                staticData.realms[userData.characterMap[c[0]].realmId].region,
-            )
+                c[1].scannedAt,
+                userData.characterMap[c[0]].realm.region,
+            ),
         ])
     )
 

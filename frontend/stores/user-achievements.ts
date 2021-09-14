@@ -23,7 +23,7 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
     }
 
     setup(): void {
-        console.time('setup UserAchievementDataStore')
+        console.time('UserAchievementDataStore.initialize')
 
         const achievementData = get(achievementStore).data
         if (achievementData.achievementRaw) {
@@ -121,7 +121,7 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
             return state
         })
 
-        console.timeEnd('setup UserAchievementDataStore')
+        console.timeEnd('UserAchievementDataStore.initialize')
     }
 }
 
