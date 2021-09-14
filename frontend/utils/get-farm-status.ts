@@ -4,25 +4,25 @@ import toPairs from 'lodash/toPairs'
 import some from 'lodash/some'
 import uniq from 'lodash/uniq'
 import {DateTime} from 'luxon'
-import {get} from 'svelte/store'
 
 import {classMap} from '@/data/character-class'
 import {covenantSlugMap} from '@/data/covenant'
-import {staticStore, userPetStore, userQuestStore, userStore, userTransmogStore} from '@/stores'
 import {ArmorType, WeaponType} from '@/types/enums'
 import getNextDailyReset from '@/utils/get-next-daily-reset'
-import type {Character} from '@/types'
-import type {FarmDataCategory} from '@/types/data'
+import type {Character, StaticData, UserData} from '@/types'
+import type {FarmDataCategory, UserPetData, UserQuestData, UserTransmogData} from '@/types/data'
 
 
-export default function getFarmStatus(category: FarmDataCategory, timeStore: DateTime): FarmStatus[] {
+export default (
+    staticData: StaticData,
+    userData: UserData,
+    userPetData: UserPetData,
+    userQuestData: UserQuestData,
+    userTransmogData: UserTransmogData,
+    timeStore: DateTime,
+    category: FarmDataCategory,
+): FarmStatus[] => {
     //console.time('getFarmStatus')
-
-    const staticData = get(staticStore).data
-    const userData = get(userStore).data
-    const userPetData = get(userPetStore).data
-    const userQuestData = get(userQuestStore).data
-    const userTransmogData = get(userTransmogStore).data
 
     const minLevelCharacters = filter(
         userData.characters,
