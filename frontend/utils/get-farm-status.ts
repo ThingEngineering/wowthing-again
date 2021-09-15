@@ -10,10 +10,16 @@ import {covenantSlugMap} from '@/data/covenant'
 import {ArmorType, WeaponType} from '@/types/enums'
 import {getNextDailyReset} from '@/utils/get-next-reset'
 import type {Character, StaticData, UserData} from '@/types'
-import type {FarmDataCategory, UserCollectionData, UserQuestData, UserTransmogData} from '@/types/data'
+import type {
+    FarmDataCategory,
+    FarmDataDrop,
+    UserCollectionData,
+    UserQuestData,
+    UserTransmogData
+} from '@/types/data'
 
 
-export default (
+export default function getFarmStatus(
     staticData: StaticData,
     userData: UserData,
     userCollectionData: UserCollectionData,
@@ -21,7 +27,8 @@ export default (
     userTransmogData: UserTransmogData,
     timeStore: DateTime,
     category: FarmDataCategory,
-): FarmStatus[] => {
+    options: GetFarmStatusOptions,
+): FarmStatus[] {
     //console.time('getFarmStatus')
 
     const minLevelCharacters = filter(
@@ -82,7 +89,14 @@ export default (
                     break
             }
 
-            if (dropStatus.need) {
+            const skip = (
+                (drop.type === 'mount' && !options.trackMounts) ||
+                (drop.type === 'pet' && !options.trackPets) ||
+                (drop.type === 'toy' && !options.trackToys) ||
+                ((drop.type === 'armor' || drop.type === 'weapon') && !options.trackTransmog)
+            )
+
+            if (dropStatus.need && !skip) {
                 let characters: Character[]
 
                 if (drop.limit?.length > 0) {
@@ -123,7 +137,7 @@ export default (
             farmStatus.drops.push(dropStatus)
         }
 
-        farmStatus.need = some(farmStatus.drops, (d) => d.need)
+        farmStatus.need = some(farmStatus.drops, (d) => d.need && d.characterIds.length > 0)
 
         const characterIds: Record<number, string[]> = {}
 
@@ -151,6 +165,13 @@ export default (
     return farms
 }
 
+
+interface GetFarmStatusOptions {
+    trackMounts: boolean
+    trackPets: boolean
+    trackToys: boolean
+    trackTransmog: boolean
+}
 
 export interface FarmStatus {
     characters: CharacterStatus[]
