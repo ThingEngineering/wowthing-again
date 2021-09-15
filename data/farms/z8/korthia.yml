@@ -170,15 +170,15 @@ farms:
   location: 39.4 52.4
   questId: 64257
   drops:
-  - type: weapon
-    name: Fallen Vault Guardian's Spire
-    id: 42552
-    limit: weapon polearm
-
   - type: armor
     name: Yarxhov's Rib-Cage
     id: 55567
     limit: armor leather
+
+  - type: weapon
+    name: Fallen Vault Guardian's Spire
+    id: 42552
+    limit: weapon polearm
 
 - name: Zelnithop
   location: 27.7 58.9
@@ -243,3 +243,77 @@ farms:
     name: Silent Soulstalker Sabatons
     id: 55579
     limit: armor mail
+
+# Random spawns
+- name: Konthrogz the Obliterator
+  location: 20.0 68.0
+  questId: 64246
+  drops:
+  - type: mount
+    name: Rampaging Mauler
+    id: 356501
+
+  - type: armor
+    name: Bound Worldeater Tendrils
+    id: 55597
+    limit: armor cloth
+
+  - type: armor
+    name: Visage of the Obliterator
+    id: 55583
+    limit: armor leather
+
+  - type: armor
+    name: "Knothrogz's Scaled Handguards"
+    id: 55581
+    limit: armor mail
+
+  - type: armor
+    name: Vambraces of the In-Between
+    id: 55571
+    limit: armor plate
+
+- name: Towering Exterminator
+  location: 23.0 68.0
+  questId: 64245
+  drops:
+  - type: armor
+    name: Cold Burden of the Damned
+    id: 55681
+
+  - type: armor
+    name: "Exterminator's Crest of the Damned"
+    id: 55669
+
+  - type: armor
+    name: Watchful Eye of the Damned
+    id: 55675
+
+  - type: armor
+    name: Soul-Enveloping Leggings
+    id: 55595
+    limit: armor cloth
+
+  - type: armor
+    name: "Mawsworn Lieutenant's Treads"
+    id: 55587
+    limit: armor leather
+
+  - type: armor
+    name: "Mawsworn Exterminator's Hauberk"
+    id: 55576
+    limit: armor mail
+
+  - type: armor
+    name: Sabatons of the Towering Construct
+    id: 55570
+    limit: armor plate
+
+- name: "Ve'rayn"
+  location: 26.0 68.0
+  questId: 64457
+  drops:
+  - type: armor
+    name: "Ve'rayn's Formal Robes"
+    id: 55593
+    limit: armor cloth
