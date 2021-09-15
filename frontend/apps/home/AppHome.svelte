@@ -2,19 +2,12 @@
     import { onMount } from 'svelte'
 
     import { staticStore, userStore } from '@/stores'
-    import initializeSets from '@/utils/initialize-sets'
 
     import Routes from './AppHomeRoutes.svelte'
     import Sidebar from './AppHomeSidebar.svelte'
 
     onMount(async () => await staticStore.fetch())
     onMount(async () => await userStore.fetch())
-
-    $: {
-        if ($staticStore.loaded && $userStore.loaded) {
-            initializeSets()
-        }
-    }
 </script>
 
 <style lang="scss" global>

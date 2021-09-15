@@ -1,38 +1,23 @@
 <script lang="ts">
-    import keys from 'lodash/keys'
     import { onMount } from 'svelte'
 
-    import { staticStore } from '@/stores/static'
-    import { userPetStore } from '@/stores'
-    import type {Dictionary, MultiSlugParams} from '@/types'
-    import initializeSets from '@/utils/initialize-sets'
+    import { staticStore, userCollectionStore } from '@/stores'
+    import type { MultiSlugParams } from '@/types'
 
     import Collection from './Collection.svelte'
 
     export let params: MultiSlugParams
 
-    onMount(async () => await userPetStore.fetch())
-
-    let userHas: Dictionary<boolean>
-    $: {
-        if ($userPetStore.loaded) {
-            userHas = {}
-            for (const key of keys($userPetStore.data.pets)) {
-                userHas[key] = true
-            }
-
-            initializeSets()
-        }
-    }
+    onMount(async () => await userCollectionStore.fetch())
 </script>
 
-{#if $userPetStore.loaded}
+{#if $userCollectionStore.loaded}
     <Collection
         route="pets"
         {params}
         thingType="npc"
         thingMap={$staticStore.data.creatureToPet}
-        {userHas}
+        userHas={$userCollectionStore.petsHas}
         sets={$staticStore.data.petSets}
     />
 {/if}

@@ -4,9 +4,9 @@
     import { getContext } from 'svelte'
 
     import {petBreedMap} from '@/data/pet-breed'
-    import {userPetStore} from '@/stores'
+    import {userCollectionStore} from '@/stores'
     import type {CollectionContext} from '@/types/contexts'
-    import type {UserPetDataPet} from '@/types/data'
+    import type {UserCollectionDataPet} from '@/types/data'
 
     import NpcLink from '@/components/links/NpcLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
@@ -16,16 +16,16 @@
     const { thingMap } = getContext('collection') as CollectionContext
 
     let origId: number
-    let pets: UserPetDataPet[]
+    let pets: UserCollectionDataPet[]
     let quality: number
     let userHasThing: number | undefined
     $: {
-        userHasThing = find(things, (value: number): boolean => $userPetStore.data.pets[thingMap[value] || -1] !== undefined)
+        userHasThing = find(things, (value: number): boolean => $userCollectionStore.data.pets[thingMap[value] || -1] !== undefined)
         origId = userHasThing ?? things[0]
 
         if (userHasThing) {
-            pets = $userPetStore.data.pets[thingMap[origId]]
-            quality = maxBy(pets, (pet: UserPetDataPet) => pet.quality).quality
+            pets = $userCollectionStore.data.pets[thingMap[origId]]
+            quality = maxBy(pets, (pet: UserCollectionDataPet) => pet.quality).quality
         }
     }
 </script>

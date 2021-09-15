@@ -50,13 +50,6 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             }
         }
 
-        // unpack packed data
-        userData.mounts = base64ToDictionary(TypedArray.Uint16, userData.mountsPacked)
-        userData.toys = base64ToDictionary(TypedArray.Int32, userData.toysPacked)
-
-        userData.mountsPacked = null
-        userData.toysPacked = null
-
         console.timeEnd('UserDataStore.initialize')
 
     }
