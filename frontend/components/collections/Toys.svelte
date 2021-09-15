@@ -1,23 +1,31 @@
 <script lang="ts">
-    import { staticStore } from '@/stores/static'
-    import {userCollectionStore, userStore} from '@/stores'
+    import { onMount } from 'svelte'
+
+    import { staticStore, userCollectionStore } from '@/stores'
     import type {Dictionary, MultiSlugParams} from '@/types'
 
     import Collection from './Collection.svelte'
 
     export let params: MultiSlugParams
 
-    const thingMap: Dictionary<number> = {}
-    for (const toyId in $userStore.data.toys) {
-        thingMap[toyId] = parseInt(toyId)
+    let thingMap: Dictionary<number>
+    $: {
+        thingMap = {}
+        for (const toyId in $userCollectionStore.data.toys) {
+            thingMap[toyId] = parseInt(toyId)
+        }
     }
+
+    onMount(async () => await userCollectionStore.fetch())
 </script>
 
-<Collection
-    route="toys"
-    {params}
-    thingType="item"
-    {thingMap}
-    userHas={$userStore.data.toys}
-    sets={$staticStore.data.toySets}
-/>
+{#if $userCollectionStore.loaded}
+    <Collection
+        route="toys"
+        {params}
+        thingType="item"
+        {thingMap}
+        userHas={$userCollectionStore.data.toys}
+        sets={$staticStore.data.toySets}
+    />
+{/if}
