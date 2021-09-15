@@ -73,7 +73,10 @@
 
 {#if item}
     <li>
-        <a href="{url}" use:active use:link>
+        <a href="{url}"
+           use:link
+           use:active={new RegExp('^' + url.replace(/\//g, '\\/') + '(?:\\?.*?)?$')}
+        >
             {item.name}
 
             {#if percent >= 0}
@@ -88,7 +91,13 @@
             {#if expanded}
                 <ul>
                     {#each item.children as child}
-                        <svelte:self {anyChildren} baseUrl={url} item={child} parentItem={item} {percentFunc} />
+                        <svelte:self
+                            {anyChildren}
+                            baseUrl={url}
+                            item={child}
+                            parentItem={item}
+                            {percentFunc}
+                        />
                     {/each}
                 </ul>
             {/if}
