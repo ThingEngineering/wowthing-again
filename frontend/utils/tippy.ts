@@ -46,6 +46,7 @@ export default function (node: SingleTarget, props: TippyProps | string): Svelte
 // TODO: fix typing of this mess
 export function tippyComponent(node: SingleTarget, {component, props, tippyProps}: TippyComponentProps): SvelteActionResult {
     let cmp: any
+    let elementProps: any = props
 
     const finalProps = {
         ...defaultProps,
@@ -58,7 +59,7 @@ export function tippyComponent(node: SingleTarget, {component, props, tippyProps
         onShow(instance: Instance<Props>) {
             cmp = new component({
                 target: instance.popper.querySelector('.tippy-content'),
-                props
+                props: elementProps,
             })
         },
         onHide() {
@@ -70,6 +71,7 @@ export function tippyComponent(node: SingleTarget, {component, props, tippyProps
 
     return {
         update(params: {props: any}) {
+            Object.assign(elementProps, params.props)
             if (cmp) {
                 cmp.$set(params.props)
             }
