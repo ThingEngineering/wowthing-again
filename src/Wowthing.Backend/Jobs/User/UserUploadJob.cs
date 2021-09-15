@@ -34,6 +34,7 @@ namespace Wowthing.Backend.Jobs.User
             // Fetch character data for this account
             var characterMap = await Context.PlayerCharacter
                 .Where(c => c.Account.UserId == userId)
+                .Include(c => c.AddonMounts)
                 .Include(c => c.AddonQuests)
                 .Include(c => c.Currencies)
                 .Include(c => c.Lockouts)
@@ -90,6 +91,7 @@ namespace Wowthing.Backend.Jobs.User
 
                 HandleCurrencies(character, characterData);
                 HandleLockouts(character, characterData);
+                HandleMounts(character, characterData);
                 HandleMythicPlus(character, characterData);
                 HandleQuests(character, characterData);
                 HandleReputations(character, characterData);
@@ -197,6 +199,30 @@ namespace Wowthing.Backend.Jobs.User
                             }).ToList(),
                     });
                 }
+            }
+        }
+
+        private void HandleMounts(PlayerCharacter character, UploadCharacter characterData)
+        {
+            if (!characterData.ScanTimes.TryGetValue("mounts", out int scanTimestamp))
+            {
+                return;
+            }
+            var scanTime = scanTimestamp.AsUtcDateTime();
+            
+            if (character.AddonMounts == null)
+            {
+                character.AddonMounts = new PlayerCharacterAddonMounts
+                {
+                    CharacterId = character.Id,
+                };
+                Context.PlayerCharacterAddonMounts.Add(character.AddonMounts);
+            }
+
+            if (scanTime > character.AddonMounts.ScannedAt)
+            {
+                character.AddonMounts.ScannedAt = scanTime;
+                character.AddonMounts.Mounts = characterData.Mounts.EmptyIfNull();
             }
         }
 

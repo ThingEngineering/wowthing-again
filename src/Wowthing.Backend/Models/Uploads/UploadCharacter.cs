@@ -20,6 +20,7 @@ namespace Wowthing.Backend.Models.Uploads
         public List<UploadCharacterCurrency> Currencies { get; set; }
         public List<int> DailyQuests { get; set; }
         public List<UploadCharacterLockout> Lockouts { get; set; }
+        public List<int> Mounts { get; set; }
         public UploadCharacterMythicDungeon[] MythicDungeons { get; set; }
         public UploadCharacterMythicPlus MythicPlus { get; set; }
         public List<UploadCharacterReputation> Reputations { get; set; }

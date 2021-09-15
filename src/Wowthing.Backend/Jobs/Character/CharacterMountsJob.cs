@@ -1,10 +1,8 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using StackExchange.Redis;
-using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.API.Character;
-using Wowthing.Lib.Constants;
+using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
 
 namespace Wowthing.Backend.Jobs.Character
@@ -18,6 +16,7 @@ namespace Wowthing.Backend.Jobs.Character
             var query = JsonConvert.DeserializeObject<SchedulerCharacterQuery>(data[0]);
             using var shrug = CharacterLog(query);
 
+            // Fetch API data
             var uri = GenerateUri(query, ApiPath);
             var result = await GetJson<ApiCharacterMounts>(uri);
             if (result.NotModified)
@@ -26,10 +25,22 @@ namespace Wowthing.Backend.Jobs.Character
                 return;
             }
 
-            var db = Redis.GetDatabase();
-            var key = string.Format(RedisKeys.USER_MOUNTS, query.UserId);
-            var values = result.Data.Mounts.Select(m => new RedisValue(m.Mount.Id.ToString())).ToArray();
-            await db.SetAddAsync(key, values);
+            // Fetch character data
+            var mounts = await Context.PlayerCharacterMounts.FindAsync(query.CharacterId);
+            if (mounts == null)
+            {
+                mounts = new PlayerCharacterMounts
+                {
+                    CharacterId = query.CharacterId,
+                };
+                Context.PlayerCharacterMounts.Add(mounts);
+            }
+
+            mounts.Mounts = result.Data.Mounts
+                .Select(m => m.Mount.Id)
+                .ToList();
+            
+            await Context.SaveChangesAsync();
         }
     }
 }
