@@ -23,6 +23,7 @@ namespace Wowthing.Lib.Models.Player
 
         // Navigation properties
         public List<PlayerCharacter> Characters { get; set; }
+        public PlayerAccountPets Pets { get; set; }
         public PlayerAccountToys Toys { get; set; }
     }
 }

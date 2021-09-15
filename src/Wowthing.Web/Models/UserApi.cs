@@ -13,8 +13,5 @@ namespace Wowthing.Web.Models
         
         public List<UserApiCharacter> Characters { get; init; }
         public Dictionary<int, WowPeriod> CurrentPeriod { get; init; }
-
-        public string MountsPacked { get; init; }
-        public string ToysPacked { get; init; }
     }
 }

@@ -10,13 +10,13 @@ import {covenantSlugMap} from '@/data/covenant'
 import {ArmorType, WeaponType} from '@/types/enums'
 import {getNextDailyReset} from '@/utils/get-next-reset'
 import type {Character, StaticData, UserData} from '@/types'
-import type {FarmDataCategory, UserPetData, UserQuestData, UserTransmogData} from '@/types/data'
+import type {FarmDataCategory, UserCollectionData, UserQuestData, UserTransmogData} from '@/types/data'
 
 
 export default (
     staticData: StaticData,
     userData: UserData,
-    userPetData: UserPetData,
+    userCollectionData: UserCollectionData,
     userQuestData: UserQuestData,
     userTransmogData: UserTransmogData,
     timeStore: DateTime,
@@ -56,19 +56,19 @@ export default (
 
             switch (drop.type) {
                 case 'mount':
-                    if (!userData.mounts[staticData.spellToMount[drop.id]]) {
+                    if (!userCollectionData.mounts[staticData.spellToMount[drop.id]]) {
                         dropStatus.need = true
                     }
                     break
 
                 case 'pet':
-                    if (!userPetData.pets[drop.id]) {
+                    if (!userCollectionData.pets[drop.id]) {
                         dropStatus.need = true
                     }
                     break
 
                 case 'toy':
-                    if (!userData.toys[drop.id]) {
+                    if (!userCollectionData.toys[drop.id]) {
                         dropStatus.need = true
                     }
                     break

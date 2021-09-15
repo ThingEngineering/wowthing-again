@@ -6,7 +6,7 @@
         farmStore,
         staticStore,
         timeStore,
-        userPetStore,
+        userCollectionStore,
         userQuestStore,
         userStore,
         userTransmogStore,
@@ -40,7 +40,7 @@
             farmStatuses = getFarmStatus(
                 $staticStore.data,
                 $userStore.data,
-                $userPetStore.data,
+                $userCollectionStore.data,
                 $userQuestStore.data,
                 $userTransmogStore.data,
                 $timeStore,

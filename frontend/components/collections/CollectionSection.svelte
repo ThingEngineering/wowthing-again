@@ -5,7 +5,7 @@
 
     import type { StaticDataSetCategory } from '@/types'
     import type { CollectionContext } from '@/types/contexts'
-    import { userStore } from '@/stores'
+    import { userCollectionStore } from '@/stores'
 
     import CollectionCount from './CollectionCount.svelte'
     import CollectionThing from './CollectionThing.svelte'
@@ -75,7 +75,7 @@
             <h3>
                 {section.name}
                 <span>
-                    <CollectionCount counts={$userStore.data.setCounts[route][`${slug1}--${section.slug}`]} />
+                    <CollectionCount counts={$userCollectionStore.data.setCounts[route][`${slug1}--${section.slug}`]} />
                 </span>
             </h3>
         {/if}

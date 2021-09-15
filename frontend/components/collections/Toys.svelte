@@ -1,6 +1,6 @@
 <script lang="ts">
     import { staticStore } from '@/stores/static'
-    import { userStore } from '@/stores'
+    import {userCollectionStore, userStore} from '@/stores'
     import type {Dictionary, MultiSlugParams} from '@/types'
 
     import Collection from './Collection.svelte'

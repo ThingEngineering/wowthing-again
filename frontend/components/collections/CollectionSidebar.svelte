@@ -1,7 +1,7 @@
 <script lang="ts">
     import { getContext } from 'svelte'
 
-    import {userStore} from '@/stores'
+    import {userCollectionStore, userStore} from '@/stores'
     import type { SidebarItem } from '@/types'
     import type { CollectionContext } from '@/types/contexts'
 
@@ -19,7 +19,7 @@
 
     const percentFunc = function(entry: SidebarItem, parentEntry?: SidebarItem) {
         const slug = parentEntry ? `${parentEntry.slug}--${entry.slug}` : entry.slug
-        const hasData = $userStore.data.setCounts[route][slug]
+        const hasData = $userCollectionStore.data.setCounts[route][slug]
         return hasData.have / hasData.total * 100
     }
 </script>

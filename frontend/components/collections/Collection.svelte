@@ -1,9 +1,10 @@
 <script lang="ts">
-    import { afterUpdate, setContext } from 'svelte'
+    import { afterUpdate, onMount, setContext } from 'svelte'
 
-    import getSavedRoute from '@/utils/get-saved-route'
     import type { Dictionary, MultiSlugParams, StaticDataSetCategory } from '@/types'
     import type {CollectionContext} from '@/types/contexts'
+    import {userCollectionStore} from '@/stores'
+    import getSavedRoute from '@/utils/get-saved-route'
 
     import CollectionSection from './CollectionSection.svelte'
     import CollectionSidebar from './CollectionSidebar.svelte'
@@ -23,6 +24,8 @@
         sets,
     }
     setContext('collection', context)
+
+    onMount(async () => await userCollectionStore.fetch())
 
     afterUpdate(() => {
         window.__tip?.watchElligibleElements()
@@ -44,9 +47,13 @@
     }
 </style>
 
-<div class="collections">
-    <CollectionSidebar />
-    <div class="sections">
-        <CollectionSection slug1={params.slug1} slug2={params.slug2} />
+{#if !$userCollectionStore.loaded}
+    L O A D I N G
+{:else}
+    <div class="collections">
+        <CollectionSidebar />
+        <div class="sections">
+            <CollectionSection slug1={params.slug1} slug2={params.slug2} />
+        </div>
     </div>
-</div>
+{/if}

@@ -54,6 +54,7 @@ namespace Wowthing.Lib.Contexts
         // Garbage query types
         public DbSet<AchievementCriteriaQuery> AchievementCriteriaQuery { get; set; } 
         public DbSet<CompletedAchievementsQuery> CompletedAchievementsQuery { get; set; }
+        public DbSet<MountQuery> MountQuery { get; set; }
         public DbSet<SchedulerCharacterQuery> SchedulerCharacterQuery { get; set; }
 
         /*public WowDbContext(string connectionString)
@@ -129,6 +130,10 @@ namespace Wowthing.Lib.Contexts
             // Query types have no keys
             builder.Entity<SchedulerCharacterQuery>()
                 .HasNoKey();
+            
+            // Query types have no tables either
+            builder.Entity<MountQuery>()
+                .ToView(null);
         }
 
         public NpgsqlConnection GetConnection() => (NpgsqlConnection)Database.GetDbConnection();
