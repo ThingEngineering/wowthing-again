@@ -126,13 +126,18 @@ namespace Wowthing.Lib.Contexts
                 .HasOne(c => c.Account)
                 .WithMany(a => a.Characters)
                 .OnDelete(DeleteBehavior.SetNull);
-
-            // Query types have no keys
-            builder.Entity<SchedulerCharacterQuery>()
-                .HasNoKey();
             
             // Query types have no tables either
+            builder.Entity<AchievementCriteriaQuery>()
+                .ToView(null);
+
+            builder.Entity<CompletedAchievementsQuery>()
+                .ToView(null);
+            
             builder.Entity<MountQuery>()
+                .ToView(null);
+
+            builder.Entity<SchedulerCharacterQuery>()
                 .ToView(null);
         }
 
