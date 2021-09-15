@@ -3,6 +3,7 @@ import type { Dictionary } from '@/types/dictionary'
 
 
 export interface UserCollectionData {
+    addonMounts: Record<number, boolean>
     pets: Record<number, UserCollectionDataPet[]>
 
     // Packed data
