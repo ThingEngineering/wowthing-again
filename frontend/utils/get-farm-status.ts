@@ -58,6 +58,7 @@ export default function getFarmStatus(
         for (const drop of farm.drops) {
             const dropStatus: DropStatus = {
                 need: false,
+                skip: false,
                 characterIds: [],
             }
 
@@ -89,14 +90,14 @@ export default function getFarmStatus(
                     break
             }
 
-            const skip = (
+            dropStatus.skip = (
                 (drop.type === 'mount' && !options.trackMounts) ||
                 (drop.type === 'pet' && !options.trackPets) ||
                 (drop.type === 'toy' && !options.trackToys) ||
                 ((drop.type === 'armor' || drop.type === 'weapon') && !options.trackTransmog)
             )
 
-            if (dropStatus.need && !skip) {
+            if (dropStatus.need && !dropStatus.skip) {
                 let characters: Character[]
 
                 if (drop.limit?.length > 0) {
@@ -137,7 +138,7 @@ export default function getFarmStatus(
             farmStatus.drops.push(dropStatus)
         }
 
-        farmStatus.need = some(farmStatus.drops, (d) => d.need && d.characterIds.length > 0)
+        farmStatus.need = some(farmStatus.drops, (d) => d.need && !d.skip)
 
         const characterIds: Record<number, string[]> = {}
 
@@ -181,6 +182,7 @@ export interface FarmStatus {
 
 interface DropStatus {
     need: boolean
+    skip: boolean
     characterIds: number[]
 }
 
