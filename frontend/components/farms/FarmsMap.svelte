@@ -102,9 +102,12 @@
         position: relative;
     }
     .toggles {
-        position: absolute;
-        top: 0;
+        display: flex;
+        justify-content: center;
         left: 0;
+        position: absolute;
+        top: 1px;
+        width: 100%;
         z-index: 1;
     }
     button {
