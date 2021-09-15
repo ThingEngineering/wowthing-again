@@ -40,8 +40,6 @@
         width: calc(100% - var(--width, 0%));
     }
     span {
-        @include text-shadow();
-
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
@@ -59,6 +57,6 @@
 <div class="progress-container">
     <div class="progress-bar"></div>
     <div class="progress-bar-hider" style="--width: {have / total * 100}%"></div>
-    <span class="left">{title}</span>
-    <span class="right">{have.toLocaleString()} / {total.toLocaleString()}</span>
+    <span class="left drop-shadow">{title}</span>
+    <span class="right drop-shadow">{have.toLocaleString()} / {total.toLocaleString()}</span>
 </div>

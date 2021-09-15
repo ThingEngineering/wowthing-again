@@ -32,9 +32,6 @@
         padding: 0 2px 1px 2px;
         word-spacing: -0.2ch;
     }
-    .icon {
-        filter: drop-shadow(0 0 3px #000);
-    }
     .inactive {
         color: #009f00;
     }
@@ -49,7 +46,7 @@
         tippyProps: {placement: 'right'},
     }}
 >
-    <div class="icon" class:inactive={!status.need}>
+    <div class="drop-shadow" class:inactive={!status.need}>
         <Fa fw icon={faSkull} />
     </div>
 

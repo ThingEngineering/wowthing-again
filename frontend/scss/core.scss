@@ -1,95 +1,95 @@
 body {
-  background: $body-background;
-  color: $body-text;
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
+    background: $body-background;
+    color: $body-text;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
 }
 
 header {
-  border-bottom: 1px solid $border-color;
-  position: sticky;
-  top: 0;
+    border-bottom: 1px solid $border-color;
+    position: sticky;
+    top: 0;
 }
 
 header,
 footer {
-  background: $header-footer-background;
-  padding: 0.5rem 1rem;
+    background: $header-footer-background;
+    padding: 0.5rem 1rem;
 }
 
 .nav {
-  display: flex;
-  justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
 
-  ul {
-    margin: 0;
+    ul {
+        margin: 0;
 
-    li {
-      display: inline-block;
+        li {
+            display: inline-block;
 
-      & + li {
-        border-left: 1px solid #888;
-        margin-left: 0.4rem;
-        padding-left: 0.6rem;
-      }
+            & + li {
+                border-left: 1px solid #888;
+                margin-left: 0.4rem;
+                padding-left: 0.6rem;
+            }
+        }
     }
-  }
 }
 
 main {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  height: 100%;
-  margin: 1rem 0 0 0;
-  overflow: auto;
-  padding: 0 1rem;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    height: 100%;
+    margin: 1rem 0 0 0;
+    overflow: auto;
+    padding: 0 1rem;
 }
 
 footer {
-  border-top: 1px solid $border-color;
-  display: flex;
-  flex: none;
-  justify-content: space-between;
-  margin: 1rem -1rem 0 -1rem;
+    border-top: 1px solid $border-color;
+    display: flex;
+    flex: none;
+    justify-content: space-between;
+    margin: 1rem -1rem 0 -1rem;
 
-  ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
 
-    li {
-      display: inline-block;
+        li {
+            display: inline-block;
 
-      & + li {
-        border-left: 1px solid #888;
-        margin-left: 0.4rem;
-        padding-left: 0.6rem;
-      }
+            & + li {
+                border-left: 1px solid #888;
+                margin-left: 0.4rem;
+                padding-left: 0.6rem;
+            }
+        }
     }
-  }
 }
 
 table {
-  border-collapse: separate;
-  border-spacing: 0;
+    border-collapse: separate;
+    border-spacing: 0;
 }
 
 a,
 a:visited
 {
-  color: $link-color;
-  text-decoration: none;
+    color: $link-color;
+    text-decoration: none;
 }
 
 a:hover {
-  color: #4caf50;
+    color: #4caf50;
 }
 
 .primary {
-  background: #4fc3f7;
-  color: #000;
+    background: #4fc3f7;
+    color: #000;
 }
 
 h1,
@@ -98,19 +98,19 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: 600;
-  line-height: 1.2;
-  margin: 0;
+    font-weight: 600;
+    line-height: 1.2;
+    margin: 0;
 }
 
 #app {
-  align-items: flex-start;
-  display: flex;
-  flex: 1 0 auto;
+    align-items: flex-start;
+    display: flex;
+    flex: 1 0 auto;
 }
 
 div.content {
-  flex: 1 0 auto;
+    flex: 1 0 auto;
 }
 
 .faction0 {
@@ -122,7 +122,16 @@ div.content {
 }
 
 .flex-wrapper {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.drop-shadow {
+    filter:
+        drop-shadow(-1px -1px 1px var(--shadow-color, rgba(0, 0, 0, 0.5)))
+        drop-shadow(-1px  1px 1px var(--shadow-color, rgba(0, 0, 0, 0.5)))
+        drop-shadow( 1px -1px 1px var(--shadow-color, rgba(0, 0, 0, 0.5)))
+        drop-shadow( 1px  1px 1px var(--shadow-color, rgba(0, 0, 0, 0.5)));
 }
