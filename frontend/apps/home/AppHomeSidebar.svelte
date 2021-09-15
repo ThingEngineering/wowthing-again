@@ -34,12 +34,12 @@
     <li use:active={'/reputations/*'}>
         <a href="#/reputations/">Reputations</a>
     </li>
-    <li use:active={'/transmog/*'}>
-        <a href="#/transmog/">Transmog</a>
-    </li>
 
     <li class="separator"></li>
 
+    <li use:active={'/farms/*'}>
+        <a href="#/farms/">Farms</a>
+    </li>
     <li use:active={'/mounts/*'}>
         <a href="#/mounts/">Mounts</a>
     </li>
@@ -49,14 +49,14 @@
     <li use:active={'/toys/*'}>
         <a href="#/toys/">Toys</a>
     </li>
+    <li use:active={'/transmog/*'}>
+        <a href="#/transmog/">Transmog</a>
+    </li>
 
     <li class="separator"></li>
 
     <li use:active={'/achievements/*'}>
         <a href="#/achievements/summary">🚧 Achievements</a>
-    </li>
-    <li use:active={'/farms/*'}>
-        <a href="#/farms/">🚧 Farms</a>
     </li>
     <li use:active={'/cards'}>
         <a href="#/cards">🚧 Home (Cards)</a>
