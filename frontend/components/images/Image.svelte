@@ -11,8 +11,12 @@
     export let cls: string = undefined
     export let tooltip: TippyProps | string = undefined
 
-    const actualHeight = (height || size) + (border * 2)
-    const actualWidth = (width || size) + (border * 2)
+    let actualHeight: number
+    let actualWidth: number
+    $: {
+        actualHeight = (height || size) + (border * 2)
+        actualWidth = (width || size) + (border * 2)
+    }
 </script>
 
 <style lang="scss">

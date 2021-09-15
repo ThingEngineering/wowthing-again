@@ -12,20 +12,17 @@
         userStore,
         userTransmogStore,
     } from '@/stores'
+    import {farmMapMedia} from '@/stores/media-queries/farm-map'
     import getFarmStatus from '@/utils/get-farm-status'
     import type {FarmDataCategory} from '@/types/data'
     import type {FarmStatus} from '@/utils/get-farm-status'
 
     import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
     import Farm from './FarmsFarm.svelte'
-    import Map from '@/components/images/Map.svelte'
+    import Image from '@/components/images/Image.svelte'
 
     export let slug1: string
     export let slug2: string
-
-    // TODO calculate this based on width
-    const width = 1200
-    const height = 800
 
     let categories: FarmDataCategory[]
     let farmStatuses: FarmStatus[]
@@ -33,6 +30,8 @@
     let trackPets: boolean
     let trackToys: boolean
     let trackTransmog: boolean
+    let height: number
+    let width: number
 
     $: {
         // Parse query string
@@ -91,6 +90,10 @@
                 }
             )
         }
+    }
+
+    $: {
+        [width, height] = $farmMapMedia
     }
 </script>
 
@@ -153,12 +156,12 @@
             </button>
         </div>
 
-        <Map
-            name={categories[0].slug}
-            width={width}
-            height={height}
+        <Image
+            src="https://img.wowthing.org/maps/{categories[0].slug}_{width}_{height}.webp"
             alt="Map of {categories[0].name}"
             border={2}
+            {width}
+            {height}
         />
 
         {#each categories[0].farms as farm, farmIndex}
