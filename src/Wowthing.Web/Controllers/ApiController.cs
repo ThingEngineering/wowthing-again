@@ -339,9 +339,9 @@ namespace Wowthing.Web.Controllers
 
             timer.AddPoint("Accounts");
             
-            var mountIds = await _context.MountQuery
+            var mounts = await _context.MountQuery
                 .FromSqlRaw(MountQuery.USER_QUERY, apiResult.User.Id)
-                .ToArrayAsync();
+                .FirstAsync();
             
             timer.AddPoint("Mounts");
             
@@ -372,9 +372,11 @@ namespace Wowthing.Web.Controllers
 
             var data = new UserCollectionData
             {
-                MountsPacked = SerializationUtilities.SerializeUInt16Array(mountIds.Select(m => (ushort)m.MountId).ToArray()),
+                MountsPacked = SerializationUtilities.SerializeUInt16Array(mounts.Mounts.Select(m => (ushort)m).ToArray()),
                 ToysPacked = SerializationUtilities.SerializeInt32Array(toyIds),
-
+                
+                AddonMounts = mounts.AddonMounts
+                    .ToDictionary(m => m, m => true),
                 Pets = allPets
                     .Values
                     .GroupBy(pet => pet.SpeciesId)

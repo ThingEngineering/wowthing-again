@@ -56,7 +56,8 @@ export default (
 
             switch (drop.type) {
                 case 'mount':
-                    if (!userCollectionData.mounts[staticData.spellToMount[drop.id]]) {
+                    if (!userCollectionData.mounts[staticData.spellToMount[drop.id]] &&
+                        !userCollectionData.addonMounts[drop.id]) {
                         dropStatus.need = true
                     }
                     break
