@@ -2,7 +2,6 @@ import {get} from 'svelte/store'
 
 import type {UserCollectionData} from '@/types/data'
 import {staticStore} from '@/stores/static'
-import {userStore} from '@/stores/user'
 import {Dictionary, StaticDataSetCategory, UserDataSetCount, WritableFancyStore} from '@/types'
 import {TypedArray} from '@/types/enums'
 import base64ToDictionary from '@/utils/base64-to-dictionary'

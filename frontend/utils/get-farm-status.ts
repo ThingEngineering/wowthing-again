@@ -12,7 +12,6 @@ import {getNextDailyReset} from '@/utils/get-next-reset'
 import type {Character, StaticData, UserData} from '@/types'
 import type {
     FarmDataCategory,
-    FarmDataDrop,
     UserCollectionData,
     UserQuestData,
     UserTransmogData
