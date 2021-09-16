@@ -17,7 +17,7 @@
         {params}
         thingType="npc"
         thingMap={$staticStore.data.creatureToPet}
-        userHas={$userCollectionStore.petsHas}
+        userHas={$userCollectionStore.data.petsHas}
         sets={$staticStore.data.petSets}
     />
 {/if}

@@ -372,10 +372,13 @@ namespace Wowthing.Web.Controllers
 
             var data = new UserCollectionData
             {
-                MountsPacked = SerializationUtilities.SerializeUInt16Array(mounts.Mounts.Select(m => (ushort)m).ToArray()),
+                MountsPacked = SerializationUtilities.SerializeUInt16Array(mounts.Mounts
+                    .EmptyIfNull()
+                    .Select(m => (ushort)m).ToArray()),
                 ToysPacked = SerializationUtilities.SerializeInt32Array(toyIds),
                 
                 AddonMounts = mounts.AddonMounts
+                    .EmptyIfNull()
                     .ToDictionary(m => m, m => true),
                 Pets = allPets
                     .Values
