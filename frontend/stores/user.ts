@@ -4,8 +4,6 @@ import {get} from 'svelte/store'
 
 import { difficultyMap } from '@/data/difficulty'
 import {Account, Dictionary, UserData, WritableFancyStore} from '@/types'
-import { TypedArray } from '@/types/enums'
-import base64ToDictionary from '@/utils/base64-to-dictionary'
 import initializeCharacter from '@/utils/initialize-character'
 
 

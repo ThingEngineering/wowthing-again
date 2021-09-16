@@ -46,7 +46,7 @@ export default function (node: SingleTarget, props: TippyProps | string): Svelte
 // TODO: fix typing of this mess
 export function tippyComponent(node: SingleTarget, {component, props, tippyProps}: TippyComponentProps): SvelteActionResult {
     let cmp: any
-    let elementProps: any = props
+    const elementProps: any = props
 
     const finalProps = {
         ...defaultProps,
