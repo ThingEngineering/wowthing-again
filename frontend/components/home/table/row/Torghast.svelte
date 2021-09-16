@@ -2,7 +2,9 @@
     import toPairs from 'lodash/toPairs'
 
     import { Constants } from '@/data/constants'
+    import {timeStore} from '@/stores'
     import type {Character} from '@/types'
+    import {getNextWeeklyReset} from '@/utils/get-next-reset'
     import { tippyComponent } from '@/utils/tippy'
 
     import TooltipTorghast from '@/components/tooltips/torghast/TooltipTorghast.svelte'
@@ -10,12 +12,22 @@
 
     export let character: Character
 
-    // wing1, wing2?
-    let wings: [string, number][] = []
+    // [name, floorCompleted][]
+    let wings: [string, number][]
     $: {
+        wings = []
         if (character.weekly?.torghast) {
             wings = toPairs(character.weekly.torghast)
             wings.sort()
+
+            // Reset wings to 0 if expired
+            const resetTime = getNextWeeklyReset(character.weekly.torghastScannedAt, character.realm.region)
+            if (resetTime > $timeStore) {
+                for (const wing of wings) {
+                    wing[0] = 'Unknown'
+                    wing[1] = 0
+                }
+            }
         }
     }
 </script>

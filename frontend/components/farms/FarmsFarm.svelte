@@ -16,9 +16,8 @@
     .wrapper {
         position: absolute;
         left: var(--left);
-        top: calc(var(--top) - 18px);
-        filter: drop-shadow(0 0 3px #000);
-        transform: translateX(-50%);
+        top: calc(var(--top) + var(--top-offset, 0px));
+        transform: translate(-50%, -50%);
         text-align: center;
         width: 22px;
     }
@@ -40,14 +39,14 @@
 
 <div
     class="wrapper"
-    style="--left: {farm.location[0]}%; --top: {farm.location[1]}%;"
+    style="--left: {farm.location[0]}%; --top: {farm.location[1]}%; --top-offset: {status.need ? '7px' : '0px'};"
     use:tippyComponent={{
         component: Tooltip,
         props: {farm, status},
         tippyProps: {placement: 'right'},
     }}
 >
-    <div class:inactive={!status.need}>
+    <div class="drop-shadow" class:inactive={!status.need}>
         <Fa fw icon={faSkull} />
     </div>
 

@@ -512,6 +512,26 @@ namespace Wowthing.Lib.Migrations
                     b.ToTable("player_character_achievements");
                 });
 
+            modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacterAddonMounts", b =>
+                {
+                    b.Property<int>("CharacterId")
+                        .HasColumnType("integer")
+                        .HasColumnName("character_id");
+
+                    b.Property<List<int>>("Mounts")
+                        .HasColumnType("integer[]")
+                        .HasColumnName("mounts");
+
+                    b.Property<DateTime>("ScannedAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("scanned_at");
+
+                    b.HasKey("CharacterId")
+                        .HasName("pk_player_character_addon_mounts");
+
+                    b.ToTable("player_character_addon_mounts");
+                });
+
             modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacterAddonQuests", b =>
                 {
                     b.Property<int>("CharacterId")
@@ -590,6 +610,22 @@ namespace Wowthing.Lib.Migrations
                         .HasName("pk_player_character_lockouts");
 
                     b.ToTable("player_character_lockouts");
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacterMounts", b =>
+                {
+                    b.Property<int>("CharacterId")
+                        .HasColumnType("integer")
+                        .HasColumnName("character_id");
+
+                    b.Property<List<int>>("Mounts")
+                        .HasColumnType("integer[]")
+                        .HasColumnName("mounts");
+
+                    b.HasKey("CharacterId")
+                        .HasName("pk_player_character_mounts");
+
+                    b.ToTable("player_character_mounts");
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacterMythicPlus", b =>
@@ -774,13 +810,25 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("keystone_level");
 
+                    b.Property<DateTime>("KeystoneScannedAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("keystone_scanned_at");
+
                     b.Property<Dictionary<string, int>>("Torghast")
                         .HasColumnType("jsonb")
                         .HasColumnName("torghast");
 
+                    b.Property<DateTime>("TorghastScannedAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("torghast_scanned_at");
+
                     b.Property<Dictionary<string, PlayerCharacterWeeklyUghQuest>>("UghQuests")
                         .HasColumnType("jsonb")
                         .HasColumnName("ugh_quests");
+
+                    b.Property<DateTime>("UghQuestsScannedAt")
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("ugh_quests_scanned_at");
 
                     b.Property<PlayerCharacterWeeklyVault>("Vault")
                         .HasColumnType("jsonb")
@@ -792,63 +840,11 @@ namespace Wowthing.Lib.Migrations
                     b.ToTable("player_character_weekly");
                 });
 
-            modelBuilder.Entity("Wowthing.Lib.Models.Query.AchievementCriteriaQuery", b =>
+            modelBuilder.Entity("Wowthing.Lib.Models.Query.MountQuery", b =>
                 {
-                    b.Property<long>("Amount")
-                        .HasColumnType("bigint")
-                        .HasColumnName("amount");
-
-                    b.Property<int>("CharacterId")
+                    b.Property<int>("MountId")
                         .HasColumnType("integer")
-                        .HasColumnName("character_id");
-
-                    b.Property<int>("CriteriaId")
-                        .HasColumnType("integer")
-                        .HasColumnName("criteria_id");
-
-                    b.ToTable("achievement_criteria_query");
-                });
-
-            modelBuilder.Entity("Wowthing.Lib.Models.Query.CompletedAchievementsQuery", b =>
-                {
-                    b.Property<int>("AchievementId")
-                        .HasColumnType("integer")
-                        .HasColumnName("achievement_id");
-
-                    b.Property<int>("Timestamp")
-                        .HasColumnType("integer")
-                        .HasColumnName("timestamp");
-
-                    b.ToTable("completed_achievements_query");
-                });
-
-            modelBuilder.Entity("Wowthing.Lib.Models.Query.SchedulerCharacterQuery", b =>
-                {
-                    b.Property<int?>("AccountId")
-                        .HasColumnType("integer")
-                        .HasColumnName("account_id");
-
-                    b.Property<int>("CharacterId")
-                        .HasColumnType("integer")
-                        .HasColumnName("character_id");
-
-                    b.Property<string>("CharacterName")
-                        .HasColumnType("text")
-                        .HasColumnName("character_name");
-
-                    b.Property<string>("RealmSlug")
-                        .HasColumnType("text")
-                        .HasColumnName("realm_slug");
-
-                    b.Property<int>("Region")
-                        .HasColumnType("integer")
-                        .HasColumnName("region");
-
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("user_id");
-
-                    b.ToTable("scheduler_character_query");
+                        .HasColumnName("mount_id");
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.Team.Team", b =>
@@ -1146,8 +1142,8 @@ namespace Wowthing.Lib.Migrations
             modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerAccountPets", b =>
                 {
                     b.HasOne("Wowthing.Lib.Models.Player.PlayerAccount", "Account")
-                        .WithMany()
-                        .HasForeignKey("AccountId")
+                        .WithOne("Pets")
+                        .HasForeignKey("Wowthing.Lib.Models.Player.PlayerAccountPets", "AccountId")
                         .HasConstraintName("fk_player_account_pets_player_account_account_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -1202,6 +1198,18 @@ namespace Wowthing.Lib.Migrations
                     b.Navigation("Character");
                 });
 
+            modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacterAddonMounts", b =>
+                {
+                    b.HasOne("Wowthing.Lib.Models.Player.PlayerCharacter", "Character")
+                        .WithOne("AddonMounts")
+                        .HasForeignKey("Wowthing.Lib.Models.Player.PlayerCharacterAddonMounts", "CharacterId")
+                        .HasConstraintName("fk_player_character_addon_mounts_player_character_character_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Character");
+                });
+
             modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacterAddonQuests", b =>
                 {
                     b.HasOne("Wowthing.Lib.Models.Player.PlayerCharacter", "Character")
@@ -1244,6 +1252,18 @@ namespace Wowthing.Lib.Migrations
                         .WithOne("Lockouts")
                         .HasForeignKey("Wowthing.Lib.Models.Player.PlayerCharacterLockouts", "CharacterId")
                         .HasConstraintName("fk_player_character_lockouts_player_character_character_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Character");
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacterMounts", b =>
+                {
+                    b.HasOne("Wowthing.Lib.Models.Player.PlayerCharacter", "Character")
+                        .WithOne("Mounts")
+                        .HasForeignKey("Wowthing.Lib.Models.Player.PlayerCharacterMounts", "CharacterId")
+                        .HasConstraintName("fk_player_character_mounts_player_character_character_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1395,12 +1415,16 @@ namespace Wowthing.Lib.Migrations
                 {
                     b.Navigation("Characters");
 
+                    b.Navigation("Pets");
+
                     b.Navigation("Toys");
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacter", b =>
                 {
                     b.Navigation("Achievements");
+
+                    b.Navigation("AddonMounts");
 
                     b.Navigation("AddonQuests");
 
@@ -1409,6 +1433,8 @@ namespace Wowthing.Lib.Migrations
                     b.Navigation("EquippedItems");
 
                     b.Navigation("Lockouts");
+
+                    b.Navigation("Mounts");
 
                     b.Navigation("MythicPlus");
 

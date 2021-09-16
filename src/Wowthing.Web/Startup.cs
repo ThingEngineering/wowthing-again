@@ -112,7 +112,8 @@ namespace Wowthing.Web
                 ContractResolver = new DefaultContractResolver
                 {
                     NamingStrategy = new CamelCaseNamingStrategy(),
-                }
+                },
+                DateTimeZoneHandling = DateTimeZoneHandling.RoundtripKind,
             };
 
             dbContext.Database.Migrate();

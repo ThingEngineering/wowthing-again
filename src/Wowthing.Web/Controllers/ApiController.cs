@@ -213,22 +213,10 @@ namespace Wowthing.Web.Controllers
             }
 
             // Retrieve data
-            var mountIds = (await db.GetSetMembersAsync(string.Format(RedisKeys.USER_MOUNTS, apiResult.User.Id)))
-                .Select(m => ushort.Parse(m))
-                .ToArray();
-            
-            timer.AddPoint("Get mounts");
-
             List<PlayerAccount> accounts = new List<PlayerAccount>();
             var tempAccounts = await _context.PlayerAccount
                 .Where(a => a.UserId == apiResult.User.Id)
-                .Include(a => a.Toys)
                 .ToListAsync();
-
-            var toyIds = tempAccounts
-                .SelectMany(a => a.Toys?.ToyIds ?? Enumerable.Empty<int>())
-                .Distinct()
-                .ToArray();
 
             if (!pub)
             {
@@ -274,8 +262,6 @@ namespace Wowthing.Web.Controllers
                 Characters = characters.Select(character => new UserApiCharacter(character, pub, anon)).ToList(),
                 CurrentPeriod = currentPeriods,
                 Public = pub,
-                MountsPacked = SerializationUtilities.SerializeUInt16Array(mountIds),
-                ToysPacked = SerializationUtilities.SerializeInt32Array(toyIds),
             };
 
             timer.AddPoint("Build response", true);
@@ -332,8 +318,8 @@ namespace Wowthing.Web.Controllers
             return Ok(data);
         }
 
-        [HttpGet("user/{username:username}/pets")]
-        public async Task<IActionResult> UserPetData([FromRoute] string username)
+        [HttpGet("user/{username:username}/collections")]
+        public async Task<IActionResult> UserCollectionData([FromRoute] string username)
         {
             var timer = new JankTimer();
 
@@ -345,12 +331,34 @@ namespace Wowthing.Web.Controllers
 
             timer.AddPoint("CheckUser");
 
-            var accountPets = await _context.PlayerAccountPets
-                .Where(pap => pap.Account.UserId == apiResult.User.Id)
-                .OrderByDescending(pap => pap.UpdatedAt)
+            var accounts = await _context.PlayerAccount
+                .Where(pa => pa.UserId == apiResult.User.Id)
+                .Include(pa => pa.Pets)
+                .Include(pa => pa.Toys)
                 .ToArrayAsync();
+
+            timer.AddPoint("Accounts");
             
-            timer.AddPoint("Get pets");
+            var mounts = await _context.MountQuery
+                .FromSqlRaw(MountQuery.USER_QUERY, apiResult.User.Id)
+                .FirstAsync();
+            
+            timer.AddPoint("Mounts");
+            
+            var accountPets = accounts
+                .Where(pa => pa.Pets != null)
+                .Select(pa => pa.Pets)
+                .OrderByDescending(pap => pap.UpdatedAt)
+                .ToArray();
+            
+            timer.AddPoint("Pets");
+
+            var toyIds = accounts
+                .SelectMany(a => a.Toys?.ToyIds ?? Enumerable.Empty<int>())
+                .Distinct()
+                .ToArray();
+            
+            timer.AddPoint("Toys");
 
             // Build response
             var allPets = new Dictionary<long, PlayerAccountPetsPet>();
@@ -362,8 +370,13 @@ namespace Wowthing.Web.Controllers
                 }
             }
 
-            var data = new UserPetData
+            var data = new UserCollectionData
             {
+                MountsPacked = SerializationUtilities.SerializeUInt16Array(mounts.Mounts.Select(m => (ushort)m).ToArray()),
+                ToysPacked = SerializationUtilities.SerializeInt32Array(toyIds),
+                
+                AddonMounts = mounts.AddonMounts
+                    .ToDictionary(m => m, m => true),
                 Pets = allPets
                     .Values
                     .GroupBy(pet => pet.SpeciesId)

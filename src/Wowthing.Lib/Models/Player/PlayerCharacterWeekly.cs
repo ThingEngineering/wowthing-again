@@ -14,12 +14,15 @@ namespace Wowthing.Lib.Models.Player
         [JsonIgnore]
         public PlayerCharacter Character { get; set; }
 
+        public DateTime KeystoneScannedAt { get; set; } = DateTime.MinValue;
         public int KeystoneDungeon { get; set; }
         public int KeystoneLevel { get; set; }
 
+        public DateTime TorghastScannedAt { get; set; } = DateTime.MinValue;
         [Column(TypeName = "jsonb")]
         public Dictionary<string, int> Torghast { get; set; }
 
+        public DateTime UghQuestsScannedAt { get; set; } = DateTime.MinValue;
         [Column(TypeName = "jsonb")]
         public Dictionary<string, PlayerCharacterWeeklyUghQuest> UghQuests { get; set; }
 

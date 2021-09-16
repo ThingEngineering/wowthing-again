@@ -10,17 +10,10 @@ export interface UserData {
     accounts?: Account[]
     characters: Character[]
     currentPeriod: Dictionary<UserDataCurrentPeriod>
-    setCounts: Dictionary<Dictionary<UserDataSetCount>>
-
-    // Packed data
-    mountsPacked: string
-    toysPacked: string
 
     // Calculated
     allLockouts: InstanceDifficulty[]
     characterMap: Dictionary<Character>
-    mounts: Dictionary<boolean>
-    toys: Dictionary<boolean>
 }
 
 export interface UserDataCurrentPeriod {

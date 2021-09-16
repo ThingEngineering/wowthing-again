@@ -31,10 +31,10 @@ namespace Wowthing.Lib.Contexts
 
         public DbSet<PlayerCharacter> PlayerCharacter { get; set; }
         public DbSet<PlayerCharacterAchievements> PlayerCharacterAchievements { get; set; }
-        public DbSet<PlayerCharacterAddonQuests> PlayerCharacterAddonQuests { get; set; }
         public DbSet<PlayerCharacterCurrencies> PlayerCharacterCurrencies { get; set; }
         public DbSet<PlayerCharacterEquippedItems> PlayerCharacterEquippedItems { get; set; }
         public DbSet<PlayerCharacterLockouts> PlayerCharacterLockouts { get; set; }
+        public DbSet<PlayerCharacterMounts> PlayerCharacterMounts { get; set; }
         public DbSet<PlayerCharacterMythicPlus> PlayerCharacterMythicPlus { get; set; }
         public DbSet<PlayerCharacterMythicPlusAddon> PlayerCharacterMythicPlusAddon { get; set; }
         public DbSet<PlayerCharacterMythicPlusSeason> PlayerCharacterMythicPlusSeason { get; set; }
@@ -45,12 +45,16 @@ namespace Wowthing.Lib.Contexts
         public DbSet<PlayerCharacterShadowlands> PlayerCharacterShadowlands { get; set; }
         public DbSet<PlayerCharacterWeekly> PlayerCharacterWeekly { get; set; }
 
+        public DbSet<PlayerCharacterAddonMounts> PlayerCharacterAddonMounts { get; set; }
+        public DbSet<PlayerCharacterAddonQuests> PlayerCharacterAddonQuests { get; set; }
+
         public DbSet<Team> Team { get; set; }
         public DbSet<TeamCharacter> TeamCharacter { get; set; }
 
         // Garbage query types
         public DbSet<AchievementCriteriaQuery> AchievementCriteriaQuery { get; set; } 
         public DbSet<CompletedAchievementsQuery> CompletedAchievementsQuery { get; set; }
+        public DbSet<MountQuery> MountQuery { get; set; }
         public DbSet<SchedulerCharacterQuery> SchedulerCharacterQuery { get; set; }
 
         /*public WowDbContext(string connectionString)
@@ -122,10 +126,19 @@ namespace Wowthing.Lib.Contexts
                 .HasOne(c => c.Account)
                 .WithMany(a => a.Characters)
                 .OnDelete(DeleteBehavior.SetNull);
+            
+            // Query types have no tables either
+            builder.Entity<AchievementCriteriaQuery>()
+                .ToView(null);
 
-            // Query types have no keys
+            builder.Entity<CompletedAchievementsQuery>()
+                .ToView(null);
+            
+            builder.Entity<MountQuery>()
+                .ToView(null);
+
             builder.Entity<SchedulerCharacterQuery>()
-                .HasNoKey();
+                .ToView(null);
         }
 
         public NpgsqlConnection GetConnection() => (NpgsqlConnection)Database.GetDbConnection();

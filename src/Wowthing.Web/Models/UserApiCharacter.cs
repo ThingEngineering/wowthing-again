@@ -217,10 +217,14 @@ namespace Wowthing.Web.Models
 
     public class UserApiCharacterWeekly
     {
+        public DateTime KeystoneScannedAt { get; set; }
+        public DateTime TorghastScannedAt { get; set; }
+        public DateTime UghQuestsScannedAt { get; set; }
+
         public int KeystoneDungeon { get; set; }
         public int KeystoneLevel { get; set; }
         public Dictionary<string, int> Torghast { get; set; }
-        public PlayerCharacterWeeklyVault Vault { get; set; } = new PlayerCharacterWeeklyVault();
+        public PlayerCharacterWeeklyVault Vault { get; set; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public Dictionary<string, PlayerCharacterWeeklyUghQuest> UghQuests { get; set; }
@@ -229,12 +233,15 @@ namespace Wowthing.Web.Models
         {
             KeystoneDungeon = weekly.KeystoneDungeon;
             KeystoneLevel = weekly.KeystoneLevel;
+            KeystoneScannedAt = weekly.KeystoneScannedAt;
             Torghast = weekly.Torghast;
+            TorghastScannedAt = weekly.TorghastScannedAt;
             Vault = weekly.Vault;
 
             if (!pub)
             {
                 UghQuests = weekly.UghQuests;
+                UghQuestsScannedAt = weekly.UghQuestsScannedAt;
             }
         }
     }

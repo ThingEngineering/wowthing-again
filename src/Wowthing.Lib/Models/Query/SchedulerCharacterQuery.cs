@@ -1,7 +1,9 @@
-﻿using Wowthing.Lib.Enums;
+﻿using Microsoft.EntityFrameworkCore;
+using Wowthing.Lib.Enums;
 
 namespace Wowthing.Lib.Models.Query
 {
+    [Keyless]
     public class SchedulerCharacterQuery
     {
         public long UserId { get; set; }

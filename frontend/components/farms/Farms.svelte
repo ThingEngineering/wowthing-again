@@ -4,7 +4,7 @@
     import {
         farmStore,
         transmogStore,
-        userPetStore,
+        userCollectionStore,
         userQuestStore,
         userStore,
         userTransmogStore
@@ -21,7 +21,7 @@
     $: {
         loaded = $farmStore.loaded &&
             $transmogStore.loaded &&
-            $userPetStore.loaded &&
+            $userCollectionStore.loaded &&
             $userQuestStore.loaded &&
             $userStore.loaded &&
             $userTransmogStore.loaded
@@ -34,7 +34,7 @@
     onMount(async () => await Promise.all([
         farmStore.fetch(),
         transmogStore.fetch(),
-        userPetStore.fetch(),
+        userCollectionStore.fetch(),
         userQuestStore.fetch(),
         userStore.fetch(),
         userTransmogStore.fetch(),

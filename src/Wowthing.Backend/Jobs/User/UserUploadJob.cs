@@ -34,6 +34,7 @@ namespace Wowthing.Backend.Jobs.User
             // Fetch character data for this account
             var characterMap = await Context.PlayerCharacter
                 .Where(c => c.Account.UserId == userId)
+                .Include(c => c.AddonMounts)
                 .Include(c => c.AddonQuests)
                 .Include(c => c.Currencies)
                 .Include(c => c.Lockouts)
@@ -90,6 +91,7 @@ namespace Wowthing.Backend.Jobs.User
 
                 HandleCurrencies(character, characterData);
                 HandleLockouts(character, characterData);
+                HandleMounts(character, characterData);
                 HandleMythicPlus(character, characterData);
                 HandleQuests(character, characterData);
                 HandleReputations(character, characterData);
@@ -200,6 +202,30 @@ namespace Wowthing.Backend.Jobs.User
             }
         }
 
+        private void HandleMounts(PlayerCharacter character, UploadCharacter characterData)
+        {
+            if (!characterData.ScanTimes.TryGetValue("mounts", out int scanTimestamp))
+            {
+                return;
+            }
+            var scanTime = scanTimestamp.AsUtcDateTime();
+            
+            if (character.AddonMounts == null)
+            {
+                character.AddonMounts = new PlayerCharacterAddonMounts
+                {
+                    CharacterId = character.Id,
+                };
+                Context.PlayerCharacterAddonMounts.Add(character.AddonMounts);
+            }
+
+            if (scanTime > character.AddonMounts.ScannedAt)
+            {
+                character.AddonMounts.ScannedAt = scanTime;
+                character.AddonMounts.Mounts = characterData.Mounts.EmptyIfNull();
+            }
+        }
+
         private void HandleMythicPlus(PlayerCharacter character, UploadCharacter characterData)
         {
             if (characterData.MythicPlus == null)
@@ -304,12 +330,19 @@ namespace Wowthing.Backend.Jobs.User
                 Context.PlayerCharacterWeekly.Add(character.Weekly);
             }
 
+            // Keystone
+            if (characterData.ScanTimes.TryGetValue("bags", out int bagsScanned))
+            {
+                character.Weekly.KeystoneScannedAt = bagsScanned.AsUtcDateTime();
+            }
+
             character.Weekly.KeystoneDungeon = characterData.KeystoneInstance;
             character.Weekly.KeystoneLevel = characterData.KeystoneLevel;
 
             // Torghast
-            if (characterData.Torghast?.Count == 2)
+            if (characterData.ScanTimes.TryGetValue("torghast", out int torghastScanned) && characterData.Torghast?.Count == 2)
             {
+                character.Weekly.TorghastScannedAt = torghastScanned.AsUtcDateTime();
                 character.Weekly.Torghast = new();
                 foreach (var wing in characterData.Torghast)
                 {
@@ -335,8 +368,10 @@ namespace Wowthing.Backend.Jobs.User
             }
 
             // Ugh, quests
-            if (characterData.WeeklyUghQuests != null)
+            if (characterData.ScanTimes.TryGetValue("quests", out int questsScanned) && characterData.WeeklyUghQuests != null)
             {
+                character.Weekly.UghQuestsScannedAt = questsScanned.AsUtcDateTime();
+                
                 character.Weekly.UghQuests = new Dictionary<string, PlayerCharacterWeeklyUghQuest>();
 
                 foreach (var (questKey, questData) in characterData.WeeklyUghQuests)

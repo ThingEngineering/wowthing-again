@@ -4,8 +4,12 @@ using Wowthing.Lib.Models.Player;
 
 namespace Wowthing.Web.Models
 {
-    public class UserPetData
+    public class UserCollectionData
     {
+        public string MountsPacked { get; init; }
+        public string ToysPacked { get; init; }
+
+        public Dictionary<int, bool> AddonMounts { get; set; }
         public Dictionary<int, List<UserPetDataPet>> Pets { get; set; }
     }
 

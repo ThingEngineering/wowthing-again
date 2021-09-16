@@ -44,7 +44,7 @@ export interface StaticDataInstance {
     shortName: string
 }
 
-interface StaticDataRealm {
+export interface StaticDataRealm {
     id: number
     region: number
     name: string

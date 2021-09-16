@@ -15,8 +15,8 @@ export class UserQuestDataStore extends WritableFancyStore<UserQuestData> {
     }
 
     initialize(userQuestData: UserQuestData): void {
-        console.time('setup UserQuestDataStore')
-        for (const [characterId, characterData] of toPairs(userQuestData.characters)) {
+        console.time('UserQuestDataStore.initialize')
+        for (const [, characterData] of toPairs(userQuestData.characters)) {
             characterData.dailyQuests = new Map<number, boolean>()
             characterData.quests = new Map<number, boolean>()
             characterData.weeklyQuests = new Map<number, boolean>()
@@ -30,7 +30,7 @@ export class UserQuestDataStore extends WritableFancyStore<UserQuestData> {
             characterData.weeklyQuestsPacked = null
         }
 
-        console.timeEnd('setup UserQuestDataStore')
+        console.timeEnd('UserQuestDataStore.initialize')
     }
 
     private unpack(map: Map<number, boolean>, data: string): void {

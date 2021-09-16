@@ -19,12 +19,11 @@ export class UserDataStore extends WritableFancyStore<UserData> {
     }
 
     initialize(userData: UserData): void {
-        console.time('initialize UserDataStore')
+        console.time('UserDataStore.initialize')
 
         userData.characterMap = {}
         const allLockouts: Dictionary<boolean> = {}
-        for (let i = 0; i < userData.characters.length; i++) {
-            const character = userData.characters[i]
+        for (const character of userData.characters) {
             initializeCharacter(character)
 
             userData.characterMap[character.id] = character
@@ -51,14 +50,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             }
         }
 
-        // unpack packed data
-        userData.mounts = base64ToDictionary(TypedArray.Uint16, userData.mountsPacked)
-        userData.toys = base64ToDictionary(TypedArray.Int32, userData.toysPacked)
-
-        userData.mountsPacked = null
-        userData.toysPacked = null
-
-        console.timeEnd('initialize UserDataStore')
+        console.timeEnd('UserDataStore.initialize')
 
     }
 }

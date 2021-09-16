@@ -1,33 +1,52 @@
 <script lang="ts">
-    import type {CharacterWeeklyUghQuest} from '@/types'
-    //import tippy from '@/utils/tippy'
-    import toNiceNumber from '@/utils/to-nice-number'
+    import { Constants } from '@/data/constants'
+    import {timeStore} from '@/stores'
+    import type {Character, CharacterWeeklyUghQuest} from '@/types'
+    import {getNextWeeklyReset} from '@/utils/get-next-reset'
+    import {toNiceNumber} from '@/utils/to-nice'
 
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
+    export let character: Character
     export let cls: string = undefined
     export let icon: string
     export let ughQuest: CharacterWeeklyUghQuest
+    export let weeklyReset = false
 
     let status = ''
     let text = ''
+    let valid = true
     $: {
-        if (ughQuest.status === 2) {
-            status = 'success'
-            text = 'Done'
-        } else if (ughQuest.status === 1) {
-            status = 'shrug'
-            if (ughQuest.type === 'progressbar') {
-                text = `${ughQuest.have} %`
-            } else {
-                text = `${toNiceNumber(ughQuest.have)} / ${toNiceNumber(ughQuest.need)}`
+        if (character.level < Constants.characterMaxLevel || !ughQuest) {
+            valid = false
+        }
+        else {
+            if (ughQuest && weeklyReset) {
+                const resetTime = getNextWeeklyReset(character.weekly.ughQuestsScannedAt, character.realm.region)
+                if (resetTime < $timeStore) {
+                    ughQuest.status = 0
+                }
             }
-            if (ughQuest.have === ughQuest.need) {
-                status = `${status} shrug-cycle`
+
+            if (ughQuest.status === 2) {
+                status = 'success'
+                text = 'Done'
             }
-        } else {
-            status = 'fail'
-            text = 'Get!'
+            else if (ughQuest.status === 1) {
+                status = 'shrug'
+                if (ughQuest.type === 'progressbar') {
+                    text = `${ughQuest.have} %`
+                } else {
+                    text = `${toNiceNumber(ughQuest.have)} / ${toNiceNumber(ughQuest.need)}`
+                }
+                if (ughQuest.have === ughQuest.need) {
+                    status = `${status} shrug-cycle`
+                }
+            }
+            else {
+                status = 'fail'
+                text = 'Get!'
+            }
         }
     }
 </script>
@@ -62,18 +81,19 @@
         0% {
             color: $colour-fail;
         }
-        50% {
-            color: $colour-shrug;
-        }
         100% {
-            color: $colour-success;
+            color: $colour-shrug;
         }
     }
 </style>
 
-<td class="{cls}">
-    <div class="flex-wrapper">
-        <WowthingImage name={icon} size={20} border={1} />
-        <span class="status-{status}">{text}</span>
-    </div>
-</td>
+{#if valid}
+    <td class="{cls}">
+        <div class="flex-wrapper">
+            <WowthingImage name={icon} size={20} border={1} />
+            <span class="status-{status}">{text}</span>
+        </div>
+    </td>
+{:else}
+    <td></td>
+{/if}

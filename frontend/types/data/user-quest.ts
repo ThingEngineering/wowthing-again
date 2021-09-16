@@ -10,4 +10,6 @@ export interface UserQuestDataCharacter {
     dailyQuestsPacked: string
     questsPacked: string
     weeklyQuestsPacked: string
+
+    scannedAt: string
 }

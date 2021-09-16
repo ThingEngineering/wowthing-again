@@ -1,5 +1,5 @@
 export * from './farm'
 export * from './transmog'
-export * from './user-pet'
+export * from './user-collection'
 export * from './user-quest'
 export * from './user-transmog'

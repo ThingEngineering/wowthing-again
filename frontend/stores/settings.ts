@@ -16,7 +16,7 @@ export const data = {
         }
 
         if (settings.general.refreshInterval >= 10) {
-            interval = setInterval(async () => await userStore.fetch(), settings.general.refreshInterval * 1000 * 60)
+            interval = setInterval(async () => await userStore.fetch(false), settings.general.refreshInterval * 1000 * 60)
         }
 
         set(settings)

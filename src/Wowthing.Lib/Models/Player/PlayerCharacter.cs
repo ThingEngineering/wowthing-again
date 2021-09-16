@@ -48,10 +48,10 @@ namespace Wowthing.Lib.Models.Player
 
         // Navigation properties
         public PlayerCharacterAchievements Achievements { get; set; }
-        public PlayerCharacterAddonQuests AddonQuests { get; set; }
         public PlayerCharacterCurrencies Currencies { get; set; }
         public PlayerCharacterEquippedItems EquippedItems { get; set; }
         public PlayerCharacterLockouts Lockouts { get; set; }
+        public PlayerCharacterMounts Mounts { get; set; }
         public PlayerCharacterMythicPlus MythicPlus { get; set; }
         public PlayerCharacterMythicPlusAddon MythicPlusAddon { get; set; }
         public List<PlayerCharacterMythicPlusSeason> MythicPlusSeasons { get; set; }
@@ -60,5 +60,8 @@ namespace Wowthing.Lib.Models.Player
         public PlayerCharacterReputations Reputations { get; set; }
         public PlayerCharacterShadowlands Shadowlands { get; set; }
         public PlayerCharacterWeekly Weekly { get; set; }
+
+        public PlayerCharacterAddonMounts AddonMounts { get; set; }
+        public PlayerCharacterAddonQuests AddonQuests { get; set; }
     }
 }

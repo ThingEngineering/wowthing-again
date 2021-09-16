@@ -1,5 +1,6 @@
 import type { Dictionary } from './dictionary'
 import type {Faction} from '@/types/enums'
+import type {StaticDataRealm} from '@/types/static-data'
 
 export interface Character {
     accountId?: number
@@ -16,11 +17,12 @@ export interface Character {
     level: number
     mountSkill: number
     name: string
-    realmId: number
     raceId: number
+    realmId: number
 
     calculatedItemLevel: string
     calculatedItemLevelQuality: number
+    realm: StaticDataRealm
 
     currencies: Dictionary<CharacterCurrency>
     equippedItems: Dictionary<CharacterEquippedItem>
@@ -143,6 +145,10 @@ interface CharacterShadowlands {
 }
 
 interface CharacterWeekly {
+    keystoneScannedAt: string
+    torghastScannedAt: string
+    ughQuestsScannedAt: string
+
     keystoneDungeon: number
     keystoneLevel: number
 

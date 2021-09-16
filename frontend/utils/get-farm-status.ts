@@ -1,33 +1,53 @@
 import filter from 'lodash/filter'
+import fromPairs from 'lodash/fromPairs'
 import toPairs from 'lodash/toPairs'
 import some from 'lodash/some'
 import uniq from 'lodash/uniq'
-import {get} from 'svelte/store'
+import {DateTime} from 'luxon'
 
 import {classMap} from '@/data/character-class'
 import {covenantSlugMap} from '@/data/covenant'
-import {userQuestStore, userPetStore, staticStore, userStore, userTransmogStore} from '@/stores'
-import type {Character} from '@/types'
 import {ArmorType, WeaponType} from '@/types/enums'
-import type {FarmDataCategory} from '@/types/data'
+import {getNextDailyReset} from '@/utils/get-next-reset'
+import type {Character, StaticData, UserData} from '@/types'
+import type {
+    FarmDataCategory,
+    FarmDataDrop,
+    UserCollectionData,
+    UserQuestData,
+    UserTransmogData
+} from '@/types/data'
 
 
-export default function getFarmStatus(category: FarmDataCategory): FarmStatus[] {
-    console.time('getFarmStatus')
-
-    const staticData = get(staticStore).data
-    const userData = get(userStore).data
-    const userPetData = get(userPetStore).data
-    const userQuestData = get(userQuestStore).data
-    const userTransmogData = get(userTransmogStore).data
+export default function getFarmStatus(
+    staticData: StaticData,
+    userData: UserData,
+    userCollectionData: UserCollectionData,
+    userQuestData: UserQuestData,
+    userTransmogData: UserTransmogData,
+    timeStore: DateTime,
+    category: FarmDataCategory,
+    options: GetFarmStatusOptions,
+): FarmStatus[] {
+    //console.time('getFarmStatus')
 
     const minLevelCharacters = filter(
         userData.characters,
         (c) => c.level >= category.minimumLevel
     )
 
-    const farms: FarmStatus[] = []
+    const now = DateTime.utc()
+    const resetMap = fromPairs(toPairs(userQuestData.characters)
+        .map(c => [
+            c[0],
+            getNextDailyReset(
+                c[1].scannedAt,
+                userData.characterMap[c[0]].realm.region,
+            ),
+        ])
+    )
 
+    const farms: FarmStatus[] = []
     for (const farm of category.farms) {
         const farmStatus: FarmStatus = {
             characters: [],
@@ -38,24 +58,26 @@ export default function getFarmStatus(category: FarmDataCategory): FarmStatus[] 
         for (const drop of farm.drops) {
             const dropStatus: DropStatus = {
                 need: false,
+                skip: false,
                 characterIds: [],
             }
 
             switch (drop.type) {
                 case 'mount':
-                    if (!userData.mounts[staticData.spellToMount[drop.id]]) {
+                    if (!userCollectionData.mounts[staticData.spellToMount[drop.id]] &&
+                        !userCollectionData.addonMounts[drop.id]) {
                         dropStatus.need = true
                     }
                     break
 
                 case 'pet':
-                    if (!userPetData.pets[drop.id]) {
+                    if (!userCollectionData.pets[drop.id]) {
                         dropStatus.need = true
                     }
                     break
 
                 case 'toy':
-                    if (!userData.toys[drop.id]) {
+                    if (!userCollectionData.toys[drop.id]) {
                         dropStatus.need = true
                     }
                     break
@@ -68,7 +90,14 @@ export default function getFarmStatus(category: FarmDataCategory): FarmStatus[] 
                     break
             }
 
-            if (dropStatus.need) {
+            dropStatus.skip = (
+                (drop.type === 'mount' && !options.trackMounts) ||
+                (drop.type === 'pet' && !options.trackPets) ||
+                (drop.type === 'toy' && !options.trackToys) ||
+                ((drop.type === 'armor' || drop.type === 'weapon') && !options.trackTransmog)
+            )
+
+            if (dropStatus.need && !dropStatus.skip) {
                 let characters: Character[]
 
                 if (drop.limit?.length > 0) {
@@ -101,17 +130,15 @@ export default function getFarmStatus(category: FarmDataCategory): FarmStatus[] 
 
                 dropStatus.characterIds = filter(
                     characters,
-                    (c) => userQuestData.characters[c.id].dailyQuests.get(farm.questId) === undefined,
+                    (c) => resetMap[c.id] < now ||
+                        userQuestData.characters[c.id].dailyQuests.get(farm.questId) === undefined,
                 ).map(c => c.id)
-
-                //status.countDone = characters.length - status.characterIds.length
-                //status.countTotal = characters.length
             }
 
             farmStatus.drops.push(dropStatus)
         }
 
-        farmStatus.need = some(farmStatus.drops, (d) => d.need)
+        farmStatus.need = some(farmStatus.drops, (d) => d.need && !d.skip)
 
         const characterIds: Record<number, string[]> = {}
 
@@ -134,11 +161,18 @@ export default function getFarmStatus(category: FarmDataCategory): FarmStatus[] 
         farms.push(farmStatus)
     }
 
-    console.timeEnd('getFarmStatus')
+    //console.timeEnd('getFarmStatus')
 
     return farms
 }
 
+
+interface GetFarmStatusOptions {
+    trackMounts: boolean
+    trackPets: boolean
+    trackToys: boolean
+    trackTransmog: boolean
+}
 
 export interface FarmStatus {
     characters: CharacterStatus[]
@@ -148,6 +182,7 @@ export interface FarmStatus {
 
 interface DropStatus {
     need: boolean
+    skip: boolean
     characterIds: number[]
 }
 
