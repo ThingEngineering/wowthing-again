@@ -5,7 +5,7 @@ using Wowthing.Lib.Extensions;
 
 namespace Wowthing.Backend.Models.Data.Transmog
 {
-    public class OutTransmogCategory : ICloneable
+    public class OutTransmogCategory
     {
         public string Name { get; set; }
         public List<string> SkipClasses { get; set; }
@@ -24,17 +24,6 @@ namespace Wowthing.Backend.Models.Data.Transmog
                 .EmptyIfNull()
                 .Select(group => new OutTransmogGroup(group))
                 .ToList();
-        }
-
-        public object Clone()
-        {
-            return new OutTransmogCategory
-            {
-                Name = (string)Name.Clone(),
-                // We don't have to change these, reference is fine
-                SkipClasses = SkipClasses,
-                Groups = Groups,
-            };
         }
     }
 }
