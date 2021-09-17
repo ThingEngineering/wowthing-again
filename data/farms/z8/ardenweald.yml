@@ -1,0 +1,243 @@
+name: Ardenweald
+mapName: z8_ardenweald
+minimumLevel: 48
+wowheadGuide: https://www.wowhead.com/guides/shadowlands-ardenweald-rares-treasures
+farms:
+
+- name: Deathbinder Hroth
+  location: 34.6 68.0
+  npcId: 164477
+  questId: 59226
+  drops:
+  - type: transmog
+    id: 43031
+    name: Deathbinder's Staff
+    limit: weapon stave
+
+- name: Deifir the Untamed
+  location: 47.5 28.5
+  npcId: 164238
+  questId: 59201 62271
+  drops:
+  - type: pet
+    id: 171231
+    name: Gorm Needler
+
+- name: Dustbrawl
+  location: 48.3 77.2
+  npcId: 163229
+  questId: 58987
+  drops:
+  - type: transmog
+    id: 41721
+    name: Dustbreak Maul
+    limit: weapon 2h-mace
+
+- name: "Egg-Tender Leh'go"
+  location: 57.8 29.6
+  npcId: 167851
+  questId: 60266
+  drops:
+  - type: transmog
+    id: 41725
+    name: "Kelox's Eggbeater"
+    limit: weapon 2h-mace
+
+- name: Faeflayer
+  location: 68.6 27.7
+  npcId: 171688
+  questId: 61184
+  drops:
+  - type: transmog
+    id: 43019
+    name: "Faeflayer's Hatchet"
+    limit: weapon 1h-axe
+
+- name: Gormbore
+  location: 54.0 76.0
+  npcId: 163370
+  questId: 59006
+  drops:
+  - type: pet
+    id: 173993
+    name: Lavender Nibbler
+
+- name: Gormtamer Tizo
+  location: 27.8 52.5
+  npcId: 164107
+  questId: 59145
+  drops:
+  - type: mount
+    id: 334364
+    name: Spinemaw Gladechewer
+
+- name: "Humon'gozz"
+  location: 32.4 30.3
+  npcId: 164112
+  questId: 59157
+  drops:
+  - type: mount
+    id: 339632
+    name: Arboreal Gulper
+
+- name: Hunter Vivanna
+  location: 67.4 51.5
+  npcId: 160448
+  questId: 59221
+  drops:
+  - type: transmog
+    id: 42654
+    name: Drust Mask of Dominance
+
+  - type: transmog
+    id: 42651
+    name: Darkreach Mask
+    limit: armor cloth
+
+  - type: transmog
+    id: 42652
+    name: Witherscorn Guise
+    limit: armor leather
+
+- name: Mymaen
+  location: 62.1 24.7
+  npcId: 165053
+  questId: 59431
+  drops:
+  - type: transmog
+    id: 42649
+    name: Ripvine Barb
+    limit: weapon dagger
+
+- name: Mystic Rainbowhorn
+  location: 65.6 28.1
+  note: Spawns here but paths far
+  npcId: 164547
+  questId: 59235
+  drops:
+  - type: quest
+    id: 62434
+    name: Runestag Soul
+    limit: covenant night-fae
+
+  - type: transmog
+    id: 41716
+    name: Elderwood Piercer
+    limit: weapon bow
+
+- name: Night Mare
+  location: 57.8 49.8
+  note: Need Dream Catcher buff to see
+  npcId: 168135
+  questId: 60306
+  drops:
+  - type: mount
+    id: 312767
+    name: Swift Gloomhoof
+
+- name: Old Ardeite
+  location: 51.1 57.4
+  npcId: 164391
+  questId: 59208 62270
+  drops:
+  - type: pet
+    id: 171239
+    name: Chirpy Valeshrieker
+
+- name: Rootwrithe
+  location: 65.1 44.3
+  npcId: 167726
+  questId: 60273
+  drops:
+  - type: transmog
+    id: 41707
+    name: Nettlehusk Barrier
+    limit: weapon shield
+
+- name: Skuld Vit
+  location: 37.7 59.2
+  npcId: 164415
+  questId: 59220
+  drops:
+  - type: quest
+    id: 62439
+    name: Wolfhawk Soul
+    limit: covenant night-fae
+
+  - type: transmog
+    id: 43021
+    name: Axe of Broken Wills
+    limit: weapon 1h-axe
+
+- name: Soultwister Cero
+  location: 72.4 51.8
+  npcId: 171451
+  questId: 61177
+  drops:
+  - type: transmog
+    id: 43029
+    name: "Soultwister's Scythe"
+    limit: weapon stave
+
+- name: Valfir the Unrelenting
+  location: 30.1 55.4
+  npcId: 168647
+  questId: 61632
+  drops:
+  - type: quest
+    id: 62431
+    name: Shadowstalker Soul
+    limit: covenant night-fae
+
+  - type: mount
+    id: 334366
+    name: Wild Glimmerfur Prowler
+    limit: covenant night-fae
+
+  - type: transmog
+    id: 43024
+    name: Greataxe of Unrelenting Pursuit
+    limit: weapon 2h-axe
+
+- name: Wrigglemortis
+  location: 58.3 61.8
+  npcId: 164147
+  questId: 59170
+  drops:
+  - type: transmog
+    id: 41711
+    name: Thornsweeper Scythe
+    limit: weapon polearm
+
+# Weird ones
+- name: Macabre
+  location: 31.0 80.0
+  note: Can spawn in multiple locations
+  npcId: 164093
+  questId: 59140
+  drops:
+  - type: pet
+    id: 171246
+    name: Rocky
+
+- name: "Star Lake: Argus"
+  location: 41.2 44.5
+  note: Must be Night Fae with anima channeled to start event
+  npcId: 166138
+  questId: 61633
+  drops:
+  - type: transmog
+    id: 41715
+    name: "Mi'kai's Deathscythe"
+    limit: weapon polarm
+
+- name: "Star Lake: Azshara"
+  location: 43.2 44.5
+  note: Must be Night Fae with anima channeled to start event
+  npcId: 166135
+  questId: 61633
+  drops:
+  - type: transmog
+    id: 42026
+    name: Glimmerlight Staff
+    limit: weapon stave

@@ -1,5 +1,7 @@
 name: Korthia
+mapName: z8_korthia
 minimumLevel: 60
+wowheadGuide: https://www.wowhead.com/guides/shadowlands-korthia-desmotaeron-rares-treasures
 farms:
 
 - name: Carriage Crusher
@@ -7,14 +9,14 @@ farms:
   npcId: 180246
   questId: 64258
   drops:
-  - type: armor
-    name: Carriage Crusher's Padded Slippers
+  - type: transmog
     id: 55596
+    name: Carriage Crusher's Padded Slippers
     limit: armor cloth
 
-  - type: armor
-    name: Maw Construct's Shoulderguards
+  - type: transmog
     id: 55664
+    name: Maw Construct's Shoulderguards
     limit: armor leather
 
 - name: Consumption
@@ -23,15 +25,15 @@ farms:
   npcId: 179768
   questId: 64243
   drops:
-  - type: armor
+  - type: transmog
     id: 55618
     name: Death-Enveloped Pauldrons
 
-  - type: armor
+  - type: transmog
     id: 55622
     name: Death-Enveloped Shoulder Spikes
 
-  - type: armor
+  - type: transmog
     id: 55614
     name: Death-Enveloped Spires
 
@@ -40,7 +42,7 @@ farms:
   npcId: 177903
   questId: 63830
   drops:
-  - type: armor
+  - type: transmog
     id: 55565
     name: Dominated Protector's Helm
     limit: armor plate
@@ -56,7 +58,7 @@ farms:
     name: Summer Wilderling
     limit: covenant night-fae
 
-  - type: armor
+  - type: transmog
     id: 55566
     name: Reinforced Stygian Spaulders
     limit: armor plate
@@ -72,7 +74,7 @@ farms:
     name: Lord of the Corpseflies
     limit: covenant necrolord
 
-  - type: armor
+  - type: transmog
     id: 55591
     name: Miasma Filtering Headpiece
     limit: armor cloth
@@ -83,15 +85,15 @@ farms:
   npcId: 179108
   questId: 64428
   drops:
-  - type: armor
+  - type: transmog
     id: 55630
     name: Kroke's Gleaming Spaulders
 
-  - type: armor
+  - type: transmog
     id: 55634
     name: Kroke's Wingspiked Pauldrons
 
-  - type: armor
+  - type: transmog
     id: 55569
     name: Tormented Giant's Legplates
     limit: armor plate
@@ -106,7 +108,7 @@ farms:
     id: 354357
     name: Crimson Shardhide
 
-  - type: armor
+  - type: transmog
     id: 55589
     name: Malbog's Paws
     limit: armor leather
@@ -116,7 +118,7 @@ farms:
   npcId: 179931
   questId: 64291
   drops:
-  - type: armor
+  - type: transmog
     id: 41909
     name: Relic Breaker's Drape
 
@@ -130,7 +132,7 @@ farms:
     id: 354360
     name: Garnet Razorwing
 
-  - type: armor
+  - type: transmog
     id: 55577
     name: Barbed Scale Cinch
     limit: armor mail
@@ -146,7 +148,7 @@ farms:
     name: Mastercraft Gravewing
     limit: covenant venthyr
 
-  - type: armor
+  - type: transmog
     id: 55578
     name: Stygian Crystal Studded Legguards
     limit: armor mail
@@ -166,9 +168,9 @@ farms:
     id: 187176
     name: Vesper of Harmony
 
-  - type: armor
-    name: Devourer Hide Belt
+  - type: transmog
     id: 55585
+    name: Devourer Hide Belt
     limit: armor leather
 
 - name: Xyraxz the Unknowable
@@ -176,14 +178,14 @@ farms:
   npcId: 179859
   questId: 64278
   drops:
-  - type: armor
-    name: Pauldrons of the Unknown Beyond
+  - type: transmog
     id: 55575
+    name: Pauldrons of the Unknown Beyond
     limit: armor mail
 
-  - type: weapon
-    name: Xyraxz's Controlling Rod
+  - type: transmog
     id: 42510
+    name: Xyraxz's Controlling Rod
     limit: weapon stave
 
 - name: Yarxhov the Pillager
@@ -191,14 +193,14 @@ farms:
   npcId: 179802
   questId: 64257
   drops:
-  - type: armor
-    name: Yarxhov's Rib-Cage
+  - type: transmog
     id: 55567
+    name: Yarxhov's Rib-Cage
     limit: armor leather
 
-  - type: weapon
-    name: Fallen Vault Guardian's Spire
+  - type: transmog
     id: 42552
+    name: Fallen Vault Guardian's Spire
     limit: weapon polearm
 
 - name: Zelnithop
@@ -208,12 +210,12 @@ farms:
   note: Does not spawn every day
   drops:
   - type: pet
-    name: Korthian Specimen
     id: 179251
+    name: Korthian Specimen
 
-  - type: armor
-    name: Velvet Gromit Handwraps
+  - type: transmog
     id: 55598
+    name: Velvet Gromit Handwraps
     limit: armor cloth
 
 # Rift lurkers
@@ -223,9 +225,9 @@ farms:
   npcId: 179913
   questId: 64285
   drops:
-  - type: armor
-    name: Girdle of the Deadsoul
+  - type: transmog
     id: 55568
+    name: Girdle of the Deadsoul
     limit: armor plate
 
 - name: Observer Yorik
@@ -235,12 +237,12 @@ farms:
   questId: 64440
   drops:
   - type: toy
-    name: Maw-Ocular Viewfinder
     id: 187420
+    name: Maw-Ocular Viewfinder
 
-  - type: weapon
-    name: Rift Splitter
+  - type: transmog
     id: 42530
+    name: Rift Splitter
     limit: weapon 1h-axe
 
 - name: Screaming Shade
@@ -249,14 +251,14 @@ farms:
   npcId: 179608
   questId: 64263
   drops:
-  - type: armor
-    name: Mantle of Screaming Shadows
+  - type: transmog
     id: 55592
+    name: Mantle of Screaming Shadows
     limit: armor cloth
 
-  - type: weapon
-    name: Stinging Shadow Screamer
+  - type: transmog
     id: 42569
+    name: Stinging Shadow Screamer
     limit: weapon dagger
 
 - name: Silent Soulstalker
@@ -265,14 +267,14 @@ farms:
   npcId: 179911
   questId: 64284
   drops:
-  - type: armor
-    name: Rift-Touched Bindings
+  - type: transmog
     id: 55588
+    name: Rift-Touched Bindings
     limit: armor leather
 
-  - type: armor
-    name: Silent Soulstalker Sabatons
+  - type: transmog
     id: 55579
+    name: Silent Soulstalker Sabatons
     limit: armor mail
 
 # Random spawns
@@ -283,27 +285,27 @@ farms:
   questId: 64246
   drops:
   - type: mount
-    name: Rampaging Mauler
     id: 356501
+    name: Rampaging Mauler
 
-  - type: armor
-    name: Bound Worldeater Tendrils
+  - type: transmog
     id: 55597
+    name: Bound Worldeater Tendrils
     limit: armor cloth
 
-  - type: armor
-    name: Visage of the Obliterator
+  - type: transmog
     id: 55583
+    name: Visage of the Obliterator
     limit: armor leather
 
-  - type: armor
-    name: "Knothrogz's Scaled Handguards"
+  - type: transmog
     id: 55581
+    name: "Knothrogz's Scaled Handguards"
     limit: armor mail
 
-  - type: armor
-    name: Vambraces of the In-Between
+  - type: transmog
     id: 55571
+    name: Vambraces of the In-Between
     limit: armor plate
 
 - name: Towering Exterminator
@@ -312,36 +314,36 @@ farms:
   npcId: 179760
   questId: 64245
   drops:
-  - type: armor
-    name: Cold Burden of the Damned
+  - type: transmog
     id: 55681
+    name: Cold Burden of the Damned
 
-  - type: armor
-    name: "Exterminator's Crest of the Damned"
+  - type: transmog
     id: 55669
+    name: "Exterminator's Crest of the Damned"
 
-  - type: armor
-    name: Watchful Eye of the Damned
+  - type: transmog
     id: 55675
+    name: Watchful Eye of the Damned
 
-  - type: armor
-    name: Soul-Enveloping Leggings
+  - type: transmog
     id: 55595
+    name: Soul-Enveloping Leggings
     limit: armor cloth
 
-  - type: armor
-    name: "Mawsworn Lieutenant's Treads"
+  - type: transmog
     id: 55587
+    name: "Mawsworn Lieutenant's Treads"
     limit: armor leather
 
-  - type: armor
-    name: "Mawsworn Exterminator's Hauberk"
+  - type: transmog
     id: 55576
+    name: "Mawsworn Exterminator's Hauberk"
     limit: armor mail
 
-  - type: armor
-    name: Sabatons of the Towering Construct
+  - type: transmog
     id: 55570
+    name: Sabatons of the Towering Construct
     limit: armor plate
 
 - name: "Ve'rayn"
@@ -349,7 +351,7 @@ farms:
   note: Can spawn inside several different caves
   questId: 64457
   drops:
-  - type: armor
-    name: "Ve'rayn's Formal Robes"
+  - type: transmog
     id: 55593
+    name: "Ve'rayn's Formal Robes"
     limit: armor cloth
