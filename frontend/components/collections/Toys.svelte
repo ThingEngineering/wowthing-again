@@ -10,9 +10,11 @@
 
     let thingMap: Dictionary<number>
     $: {
-        thingMap = {}
-        for (const toyId in $userCollectionStore.data.toys) {
-            thingMap[toyId] = parseInt(toyId)
+        if ($userCollectionStore.loaded) {
+            thingMap = {}
+            for (const toyId in $userCollectionStore.data.toys) {
+                thingMap[toyId] = parseInt(toyId)
+            }
         }
     }
 
