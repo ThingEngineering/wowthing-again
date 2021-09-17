@@ -28,6 +28,6 @@
 
 <th>
     <CurrencyLink id={currency.id}>
-        <WowthingImage name="currency/{currency.id}" size={48} border={1} tooltip={currency.name} />
+        <WowthingImage name="currency/{currency.id}" size={48} border={1} />
     </CurrencyLink>
 </th>
