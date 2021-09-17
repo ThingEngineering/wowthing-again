@@ -23,7 +23,7 @@
         padding: 0.1rem 0.5rem 0.2rem 0.5rem;
     }
     .type {
-        width: 1.5rem;
+        width: 1.6rem;
     }
     .name {
         padding-left: 0;
@@ -37,7 +37,7 @@
         white-space: nowrap;
     }
     .success {
-        opacity: $inactive-opacity;
+        opacity: 0.7;
     }
     .characters {
         padding-left: 0;
@@ -58,20 +58,18 @@
             {#each farm.drops as drop, dropIndex}
                 <tr class:success={!status.drops[dropIndex].need}>
                     <td class="type status-{status.drops[dropIndex].need ? 'fail' : 'success'}">
-                        <Fa fw icon={farmType[drop.type]} />
+                        {#if drop.type === 'transmog' && drop.limit?.[0] && drop.limit?.[0] !== 'covenant'}
+                            <Fa fw icon={farmType[drop.limit[0]]} />
+                        {:else}
+                            <Fa fw icon={farmType[drop.type]} />
+                        {/if}
                     </td>
-                    <td class="name">{drop.name}</td>
+                    <td class="name" class:status-success={!status.drops[dropIndex].need}>{drop.name}</td>
                     <td class="limit">
                         {#if drop.limit?.length > 0}
-                            {#if drop.limit[0] === 'covenant'}
-                                <WowthingImage
-                                    name={covenantSlugMap[drop.limit[1]].icon}
-                                    size={24}
-                                    border={1}
-                                />{covenantSlugMap[drop.limit[1]].name}
-                            {:else if drop.limit[0] === 'armor' || drop.limit[0] === 'weapon'}
-                                {drop.limit[1]}
-                            {/if}
+                            {drop.limit[1]}
+                        {:else if drop.type === 'transmog'}
+                            cosmetic
                         {/if}
                     </td>
                 </tr>

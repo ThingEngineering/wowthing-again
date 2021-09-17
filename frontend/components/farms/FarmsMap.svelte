@@ -118,6 +118,20 @@
         border: 1px solid $border-color;
         border-radius: $border-radius;
     }
+    .credits {
+        bottom: 1px;
+        display: flex;
+        position: absolute;
+        right: 1px;
+        z-index: 1;
+
+        div {
+            background: $highlight-background;
+            border: 1px solid $border-color;
+            border-radius: $border-radius;
+            padding: 0.1rem 0.4rem 0.2rem;
+        }
+    }
 </style>
 
 {#if categories.length > 0}
@@ -157,7 +171,7 @@
         </div>
 
         <Image
-            src="https://img.wowthing.org/maps/{categories[0].slug}_{width}_{height}.webp"
+            src="https://img.wowthing.org/maps/{categories[0].mapName}_{width}_{height}.webp"
             alt="Map of {categories[0].name}"
             border={2}
             {width}
@@ -170,5 +184,21 @@
                 status={farmStatuses[farmIndex]}
             />
         {/each}
+
+        <div class="credits">
+            {#if categories[0].wowheadGuide}
+                <div>
+                    <a href="{categories[0].wowheadGuide}">Wowhead guide</a>
+                </div>
+            {/if}
+
+            <div>
+                Data sources:
+                <a href="https://github.com/zarillion/handynotes-plugins">HandyNotes Plugins</a> /
+                <a href="https://www.wowdb.com">WoWDB</a> /
+                <a href="https://www.wowhead.com">Wowhead</a> /
+                <a href="https://wow.tools">WoW.tools</a>
+            </div>
+        </div>
     </div>
 {/if}

@@ -8,11 +8,11 @@ namespace Wowthing.Backend.Models.Data.Farms
     public class OutFarmFarm
     {
         public int NpcId { get; set; }
-        public int QuestId { get; set; }
         public string[] Location { get; set; }
         public string Name { get; set; }
         public string Note { get; set; }
         public string Reset { get; set; }
+        public List<int> QuestIds { get; set; }
         
         public List<OutFarmDrop> Drops { get; set; }
 
@@ -26,7 +26,7 @@ namespace Wowthing.Backend.Models.Data.Farms
             Name = farm.Name;
             NpcId = farm.NpcId;
             Note = farm.Note;
-            QuestId = farm.QuestId;
+            QuestIds = farm.QuestId.Split().Select(q => int.Parse(q)).ToList();
             Reset = farm.Reset ?? "daily";
         }
     }

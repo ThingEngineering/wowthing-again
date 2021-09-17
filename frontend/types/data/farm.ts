@@ -4,17 +4,19 @@ export interface FarmData {
 
 export interface FarmDataCategory {
     minimumLevel: number
+    mapName: string
     name: string
     slug: string
+    wowheadGuide: string
     farms: FarmDataFarm[]
 }
 
 export interface FarmDataFarm {
     npcId: number
-    questId: number
     name: string
     note: string
     reset: string
+    questIds: number[]
     location: string[]
     drops: FarmDataDrop[]
 }
