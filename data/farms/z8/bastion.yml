@@ -1,0 +1,227 @@
+name: Bastion
+mapName: z8_bastion
+minimumLevel: 48
+wowheadGuide: https://www.wowhead.com/guides/shadowlands-bastion-rares-treasures
+farms:
+
+- name: The Ascended Council
+  location: 53.5 88.8
+  npcId: 170899
+  questId: 60977
+  drops:
+  - type: mount
+    id: 342335
+    name: Ascended Skymane
+
+- name: Aspirant Eolis
+  location: 32.6 23.3
+  npcId: 171211
+  questId: 61083
+  drops:
+  - type: transmog
+    id: 41506
+    name: Uncertain Aspirant's Spear
+    limit: weapon polearm
+
+- name: Cloudfeather Guardian
+  location: 50.4 58.0
+  npcId: 170932
+  questId: 60978 62191
+  drops:
+  - type: pet
+    id: 171565
+    name: Golden Cloudfeather
+
+- name: Collector Astorestes
+  location: 66.0 43.7
+  npcId: 171014
+  questId: 61002
+  drops:
+  - type: transmog
+    id: 41563
+    name: Evernote Vesper
+    limit: weapon offhand
+
+- name: Dark Watcher
+  location: 27.8 30.2
+  npcId: 170623
+  questId: 60883
+  drops:
+  - type: transmog
+    id: 33390
+    name: Death Warden's Greatblade
+    limit: weapon 2h-sword
+
+- name: Demi the Relic Hoarder
+  location: 37.0 41.8
+  npcId: 171011
+  questId: 61069 61000
+  drops:
+  - type: transmog
+    id: 41907
+    name: Bulwark of Echoing Courage
+    limit: weapon shield
+
+  - type: transmog
+    id: 41563
+    name: Evernote Vesper
+    limit: weapon offhand
+
+  - type: transmog
+    id: 41546
+    name: Glinting Daybreak Dagger
+    limit: weapon dagger
+
+  - type: transmog
+    id: 41575
+    name: Humble Ophelia's Greatblade
+    limit: weapon 2h-sword
+
+  - type: transmog
+    id: 41541
+    name: Re-Powered Goliath Fists
+    limit: weapon fist
+
+  - type: transmog
+    id: 41506
+    name: Uncertain Aspirant's Spear
+    limit: weapon polearm
+
+- name: Dionae
+  location: 41.4 49.0
+  npcId: 163460
+  questId: 62650
+  drops:
+  - type: pet
+    id: 180856
+    name: Silvershell Snapper
+
+- name: Enforcer Aegeon
+  location: 51.1 19.5
+  npcId: 171009
+  questId: 60998
+  drops:
+  - type: toy
+    id: 184404
+    name: Ever-Abundant Hearth
+
+- name: Fallen Acolyte Erisne
+  location: 61.2 50.9
+  npcId: 160721
+  questId: 58222
+  drops:
+  - type: transmog
+    id: 42167
+    name: Harmonia's Chosen Belt
+    limit: armor leather
+
+- name: Nikara Blackheart
+  location: 51.4 68.6
+  npcId: 160882
+  questId: 58319
+  drops:
+  - type: transmog
+    id: 41563
+    name: Evernote Vesper
+    limit: weapon offhand
+
+- name: Orstus and Sotiros
+  location: 22.4 22.8
+  note: Must be Kyrian with anima channeled to start event
+  npcId: 156339
+  questId: 61634
+  drops:
+  - type: pet
+    id: 184401
+    name: Larion Pouncer
+
+  - type: transmog
+    id: 33154
+    name: Aegis of Salvation
+    limit: weapon shield
+
+- name: Selena the Reborn
+  location: 61.2 50.9
+  npcId: 160985
+  questId: 58320
+  drops:
+  - type: transmog
+    id: 41563
+    name: Evernote Vesper
+    limit: weapon offhand
+
+- name: Sundancer
+  location: 61.4 90.6
+  npcId: 0
+  questId: 0
+  drops:
+  - type: mount
+    id: 312765
+    name: Sundancer
+
+- name: Unstable Memory
+  location: 43.4 25.2
+  npcId: 171008
+  questId: 60997
+  drops:
+  - type: toy
+    id: 184413
+    name: Mnemonic Attunement Pane
+
+# Orator Kloe
+- name: Aethon
+  location: 55.1 80.6
+  npcId: 161528
+  questId: 58526
+  drops:
+  - type: transmog
+    id: 41696
+    name: Aethon's Horn
+    limit: weapon warglaive
+
+- name: Cloudtail
+  location: 57.1 80.6
+  npcId: 161530
+  questId: 60571
+  drops:
+  - type: transmog
+    id: 41537
+    name: Cloudtail's Paw
+    limit: weapon warglaive
+
+- name: Nemaeus
+  location: 59.1 80.6
+  npcId: 161529
+  questId: 60569
+  drops:
+  - type: transmog
+    id: 41544
+    name: Fang of Nemaeus
+    limit: weapon dagger
+
+- name: Sigilback
+  location: 61.1 80.6
+  npcId: 161527
+  questId: 60570
+  drops:
+  - type: transmog
+    id: 41556
+    name: Sigilback's Smashshell
+    limit: weapon 1h-mace
+
+# Weird ones
+
+- name: Swelling Tear
+  location: 23.0 68.0
+  note: Can spawn in multiple locations
+  npcId: 171012
+  questId: 61001 61046 61047
+  drops:
+  - type: pet
+    id: 180869
+    name: Devoured Wader
+
+  - type: transmog
+    id: 41696
+    name: Devourer Wrought Warglaive
+    limit: weapon warglaive

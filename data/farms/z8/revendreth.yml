@@ -1,0 +1,259 @@
+name: Revendreth
+mapName: z8_revendreth
+minimumLevel: 48
+wowheadGuide: https://www.wowhead.com/guides/shadowlands-revendreth-rares-treasures
+farms:
+
+- name: Amalgamation of Filth
+  location: 53.2 73.0
+  npcId: 166393
+  questId: 59854
+  drops:
+  - type: transmog
+    id: 41964
+    name: Filth-Splattered Headcover
+    limit: armor leather
+
+- name: Amalgamation of Light
+  location: 25.2 48.5
+  npcId: 164388
+  questId: 59584
+  drops:
+  - type: transmog
+    id: 41991
+    name: Light-Infused Tunic
+    limit: armor cloth
+
+  - type: transmog
+    id: 41950
+    name: Light-Infused Jacket
+    limit: armor leather
+
+  - type: transmog
+    id: 42418
+    name: Light-Infused Hauberk
+    limit: armor mail
+
+  - type: transmog
+    id: 42049
+    name: Light-Infused Breastplate
+    limit: armor plate
+
+- name: Amalgamation of Sin
+  location: 65.7 29.2
+  npcId: 170434
+  questId: 60836
+  drops:
+  - type: transmog
+    id: 42053
+    name: Sinstone-Studded Greathelm
+    limit: armor plate
+
+- name: Azgar
+  location: 35.8 70.5
+  npcId: 166576
+  questId: 59893
+  drops:
+  - type: transmog
+    id: 42054
+    name: Smolder-Tempered Legplates
+    limit: armor plate
+
+- name: Bog Beast
+  location: 35.0 32.2
+  npcId: 166292
+  questId: 59582
+  drops:
+  - type: pet
+    id: 171121
+    name: Primordial Bogling
+
+- name: Executioner Aatron
+  location: 37.1 47.5
+  npcId: 166710
+  questId: 59913
+  drops:
+  - type: transmog
+    id: 42056
+    name: "Aatron's Stone Girdle"
+    limit: armor plate
+
+- name: Executioner Adrastia
+  location: 43.0 51.7
+  npcId: 161310
+  questId: 58441
+  drops:
+  - type: transmog
+    id: 41953
+    name: "Adrastia's Executioner Gloves"
+    limit: armor leather
+
+- name: Famu the Infinite
+  location: 62.4 47.2
+  npcId: 166521
+  questId: 59869
+  drops:
+  - type: mount
+    id: 332905
+    name: Endmire Flyer
+
+  - type: transmog
+    id: 41999
+    name: Endmire Wristwarmers
+    limit: armor cloth
+
+- name: Forgemaster Madalav
+  location: 32.6 15.5
+  note: Must be Venthyr with anima channeled to start event
+  npcId: 159496
+  questId: 61618
+  drops:
+  - type: transmog
+    id: 43273
+    name: "Mantle of the Forgemaster's Dark Blades"
+    limit: covenant venthyr
+
+- name: Grand Arcanist Dimitri
+  location: 20.4 52.9
+  npcId: 167464
+  questId: 60173
+  drops:
+  - type: transmog
+    id:
+    name: "Grand Arcanist's Soulblade"
+    limit: weapon dagger
+
+- name: Harika the Horrid
+  location: 45.8 79.1
+  note: Must be Venthyr with anima channeled to start event
+  npcId: 165290
+  questId: 59612
+  drops:
+  - type: mount
+    id: 332882
+    name: Horrid Dredwing
+
+  - type: transmog
+    id: 41950
+    name: Dredbatskin Jerkin
+    limit: armor leather
+
+- name: Hopecrusher
+  location: 52.0 51.9
+  npcId: 166679
+  questId: 59900
+  drops:
+  - type: mount
+    id: 312753
+    name: Hopecrusher Gargon
+    limit: covenant venthyr
+
+- name: Innervus
+  location: 21.8 35.9
+  npcId: 160640
+  questId: 58210
+  drops:
+  - type: transmog
+    id: 41997
+    name: "Rogue Sinstealer's Mantle"
+    limit: armor cloth
+
+- name: Leeched Soul
+  location: 67.9 81.8
+  npcId: 165152
+  questId: 59580
+  drops:
+  - type: pet
+    id: 171118
+    name: Wrathling
+
+  - type: transmog
+    id: 41994
+    name: Pride Resistant Handwraps
+    limit: armor cloth
+
+- name: Lord Mortegore
+  location: 75.9 61.6
+  npcId: 161891
+  questId: 58633
+  drops:
+  - type: transmog
+    id: 42438
+    name: Skull-Formed Headcage
+    limit: Armor mail
+
+- name: Manifestation of Wrath
+  location: 48.9 34.9
+  npcId: 170048
+  questId: 60729
+  drops:
+  - type: pet
+    id: 171118
+    name: Wrathling
+
+- name: Scrivener Lenua
+  location: 78.8 49.8
+  npcId: 160675
+  questId: 58213
+  drops:
+  - type: pet
+    id: 171120
+    name: Animated Tome
+
+- name: Sinstone Hoarder
+  location: 67.4 30.5
+  npcId: 162481
+  questId: 62252
+  drops:
+  - type: transmog
+    id: 42443
+    name: Sinstone-Linked Greaves
+    limit: armor mail
+
+- name: Sire Ladinas
+  location: 34.0 55.6
+  npcId: 160857
+  questId: 58263
+  drops:
+  - type: toy
+    id: 180873
+    name: Smolderheart
+
+- name: Stonefist
+  location: 31.2 23.3
+  npcId: 159503
+  questId: 62220
+  drops:
+  - type: transmog
+    id: 42049
+    name: Fist-FOrged Breastplate
+    limit: armor plate
+
+- name: Tomb Burster
+  location: 42.9 79.1
+  npcId: 155779
+  questId: 56877
+  drops:
+  - type: pet
+    id: 171117
+    name: Blushing Spiderling
+
+- name: Worldedge Gorger
+  location: 38.6 72.0
+  npcId: 160821
+  questId: 59259
+  drops:
+  - type: mount
+    id: 333027
+    name: Loyal Gorger
+
+# Weird ones
+#
+#- name: Amalgamation of Filth
+#  location:
+#  npcId:
+#  questId:
+#  drops:
+#  - type:
+#    id:
+#    name:
