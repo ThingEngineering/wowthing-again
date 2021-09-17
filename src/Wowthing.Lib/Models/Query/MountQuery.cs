@@ -16,19 +16,25 @@ WITH character_ids AS (
     LEFT JOIN player_account pa ON pa.id = pc.account_id
     WHERE pa.user_id = {0}
 )
-SELECT  ARRAY_AGG(DISTINCT sigh_pcm.mount_id) AS mounts,
-        ARRAY_AGG(DISTINCT sigh_pcam.mount_id) AS addon_mounts
+SELECT  mounts.mounts,
+        addon_mounts.mounts
 FROM
     (
-        SELECT  UNNEST(mounts) AS mount_id
-        FROM    player_character_mounts pcm
-        WHERE   pcm.character_id IN (SELECT id FROM character_ids)
-    ) sigh_pcm,
+        SELECT  COALESCE(ARRAY_AGG(DISTINCT mount_id), '{}') AS mounts
+        FROM (
+            SELECT  UNNEST(mounts) AS mount_id
+            FROM    player_character_mounts
+            WHERE   character_id IN (SELECT id FROM character_ids)
+        ) temp1
+    ) mounts,
     (
-        SELECT  UNNEST(pcam.mounts) AS mount_id
-        FROM    player_character_addon_mounts pcam
-        WHERE   pcam.character_id IN (SELECT id FROM character_ids)
-    ) sigh_pcam
+        SELECT  COALESCE(ARRAY_AGG(DISTINCT mount_id), '{}') AS mounts
+        FROM (
+            SELECT  UNNEST(mounts) AS mount_id
+            FROM    player_character_addon_mounts
+            WHERE   character_id IN (SELECT id FROM character_ids)
+        ) temp2
+    ) addon_mounts
 ";
     }
 }
