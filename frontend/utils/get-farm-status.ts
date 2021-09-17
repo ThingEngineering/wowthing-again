@@ -1,3 +1,4 @@
+import every from 'lodash/every'
 import filter from 'lodash/filter'
 import fromPairs from 'lodash/fromPairs'
 import toPairs from 'lodash/toPairs'
@@ -10,12 +11,7 @@ import {covenantSlugMap} from '@/data/covenant'
 import {ArmorType, WeaponType} from '@/types/enums'
 import {getNextDailyReset} from '@/utils/get-next-reset'
 import type {Character, StaticData, UserData} from '@/types'
-import type {
-    FarmDataCategory,
-    UserCollectionData,
-    UserQuestData,
-    UserTransmogData
-} from '@/types/data'
+import type {FarmDataCategory, UserCollectionData, UserQuestData, UserTransmogData} from '@/types/data'
 
 
 export default function getFarmStatus(
@@ -41,7 +37,7 @@ export default function getFarmStatus(
             c[0],
             getNextDailyReset(
                 c[1].scannedAt,
-                userData.characterMap[c[0]].realm.region,
+                userData.characterMap[c[0]]?.realm?.region ?? 1,
             ),
         ])
     )
@@ -70,7 +66,14 @@ export default function getFarmStatus(
                     break
 
                 case 'pet':
-                    if (!userCollectionData.pets[drop.id]) {
+                    if (!userCollectionData.pets[staticData.creatureToPet[drop.id]]) {
+                        dropStatus.need = true
+                    }
+                    break
+
+                case 'quest':
+                    if (!every(userQuestData.characters, (c) => c.quests.get(drop.id) !== undefined)) {
+                        console.log('quest', drop.id)
                         dropStatus.need = true
                     }
                     break
@@ -81,8 +84,7 @@ export default function getFarmStatus(
                     }
                     break
 
-                case 'armor':
-                case 'weapon':
+                case 'transmog':
                     if (!userTransmogData.transmog[drop.id]) {
                         dropStatus.need = true
                     }
@@ -93,7 +95,7 @@ export default function getFarmStatus(
                 (drop.type === 'mount' && !options.trackMounts) ||
                 (drop.type === 'pet' && !options.trackPets) ||
                 (drop.type === 'toy' && !options.trackToys) ||
-                ((drop.type === 'armor' || drop.type === 'weapon') && !options.trackTransmog)
+                (drop.type === 'transmog' && !options.trackTransmog)
             )
 
             if (dropStatus.need && !dropStatus.skip) {
@@ -118,7 +120,8 @@ export default function getFarmStatus(
                         case 'weapon':
                             characters = filter(
                                 minLevelCharacters,
-                                (c) => classMap[c.classId].weaponTypes.indexOf(weaponMap[drop.limit[1]]) >= 0
+                                (c) => classMap[c.classId].weaponTypes.indexOf(weaponMap[drop.limit[1]]) >= 0 ||
+                                    weaponMap[drop.limit[1]] === undefined
                             )
                             break
                     }
@@ -127,10 +130,18 @@ export default function getFarmStatus(
                     characters = minLevelCharacters
                 }
 
+                // Filter again for characters that haven't completed the quest
+                if (drop.type === 'quest') {
+                    characters = filter(
+                        characters,
+                        (c) => userQuestData.characters[c.id].quests.get(drop.id) === undefined,
+                    )
+                }
+
                 dropStatus.characterIds = filter(
                     characters,
                     (c) => resetMap[c.id] < now ||
-                        userQuestData.characters[c.id].dailyQuests.get(farm.questId) === undefined,
+                        every(farm.questIds, (q) => userQuestData.characters[c.id].dailyQuests.get(q) === undefined)
                 ).map(c => c.id)
             }
 
@@ -199,7 +210,19 @@ const armorMap: Record<string, ArmorType> = {
 
 const weaponMap: Record<string, WeaponType> = {
     '1h-axe': WeaponType.OneHandedAxe,
+    '1h-mace': WeaponType.OneHandedMace,
+    '1h-sword': WeaponType.OneHandedSword,
+    '2h-axe': WeaponType.TwoHandedAxe,
+    '2h-mace': WeaponType.TwoHandedMace,
+    '2h-sword': WeaponType.TwoHandedSword,
+    bow: WeaponType.Bow,
+    crossbow: WeaponType.Crossbow,
     dagger: WeaponType.Dagger,
+    fist: WeaponType.Fist,
+    gun: WeaponType.Gun,
     polearm: WeaponType.Polearm,
+    shield: WeaponType.Shield,
     stave: WeaponType.Stave,
+    wand: WeaponType.Wand,
+    warglaive: WeaponType.Warglaive,
 }
