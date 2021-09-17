@@ -17,10 +17,10 @@ WITH character_ids AS (
     WHERE pa.user_id = {0}
 )
 SELECT  mounts.mounts,
-        addon_mounts.mounts
+        addon_mounts.addon_mounts
 FROM
     (
-        SELECT  COALESCE(ARRAY_AGG(DISTINCT mount_id), '{}') AS mounts
+        SELECT  COALESCE(ARRAY_AGG(DISTINCT mount_id), '{{}}') AS mounts
         FROM (
             SELECT  UNNEST(mounts) AS mount_id
             FROM    player_character_mounts
@@ -28,7 +28,7 @@ FROM
         ) temp1
     ) mounts,
     (
-        SELECT  COALESCE(ARRAY_AGG(DISTINCT mount_id), '{}') AS mounts
+        SELECT  COALESCE(ARRAY_AGG(DISTINCT mount_id), '{{}}') AS addon_mounts
         FROM (
             SELECT  UNNEST(mounts) AS mount_id
             FROM    player_character_addon_mounts
