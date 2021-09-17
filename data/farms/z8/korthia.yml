@@ -4,6 +4,7 @@ farms:
 
 - name: Carriage Crusher
   location: 58.2 17.7
+  npcId: 180246
   questId: 64258
   drops:
   - type: armor
@@ -18,6 +19,8 @@ farms:
 
 - name: Consumption
   location: 51.2 41.6
+  note: Does not spawn every day
+  npcId: 179768
   questId: 64243
   drops:
   - type: armor
@@ -34,6 +37,7 @@ farms:
 
 - name: Dominated Protector
   location: 51.8 20.8
+  npcId: 177903
   questId: 63830
   drops:
   - type: armor
@@ -43,6 +47,8 @@ farms:
 
 - name: Escaped Wilderling
   location: 33.1 39.5
+  note: Must be Night Fae to start the event
+  npcId: 180014
   questId: 64320
   drops:
   - type: mount
@@ -57,6 +63,8 @@ farms:
 
 - name: Fleshwing
   location: 60.0 43.8
+  note: Must be Necrolord to start the event
+  npcId: 180042
   questId: 64349
   drops:
   - type: mount
@@ -71,6 +79,8 @@ farms:
 
 - name: Kroke the Tormented
   location: 59.2 35.8
+  note: Does not spawn every day
+  npcId: 179108
   questId: 64428
   drops:
   - type: armor
@@ -88,6 +98,8 @@ farms:
 
 - name: Malbog
   location: 44.2 29.5
+  note: Can be spawned by just following the path, even without Caretaker Kah-Kay
+  npcId: 179684
   questId: 64233
   drops:
   - type: mount
@@ -101,6 +113,7 @@ farms:
 
 - name: Relic Breaker Krelva
   location: 22.6 41.4
+  npcId: 179931
   questId: 64291
   drops:
   - type: armor
@@ -109,6 +122,8 @@ farms:
 
 - name: Reliwik the Defiant
   location: 56.3 66.2
+  note: Does not spawn every day
+  npcId: 180160
   questId: 64455
   drops:
   - type: mount
@@ -122,6 +137,8 @@ farms:
 
 - name: Stygian Stonecrusher
   location: 46.4 79.6
+  note: Must be Venthyr to start event
+  npcId: 179985
   questId: 64313
   drops:
   - type: mount
@@ -136,6 +153,8 @@ farms:
 
 - name: Wild Worldcracker
   location: 56.9 32.4
+  note: Must be Kyrian to start event
+  npcId: 180032
   questId: 64338
   drops:
   - type: mount
@@ -154,6 +173,7 @@ farms:
 
 - name: Xyraxz the Unknowable
   location: 45.0 35.5
+  npcId: 179859
   questId: 64278
   drops:
   - type: armor
@@ -168,6 +188,7 @@ farms:
 
 - name: Yarxhov the Pillager
   location: 39.4 52.4
+  npcId: 179802
   questId: 64257
   drops:
   - type: armor
@@ -182,7 +203,9 @@ farms:
 
 - name: Zelnithop
   location: 27.7 58.9
+  npcId: 177336
   questId: 64442
+  note: Does not spawn every day
   drops:
   - type: pet
     name: Korthian Specimen
@@ -196,6 +219,8 @@ farms:
 # Rift lurkers
 - name: Deadsoul Hatcher
   location: 59.3 52.2
+  note: Spawns inside the rift
+  npcId: 179913
   questId: 64285
   drops:
   - type: armor
@@ -205,6 +230,8 @@ farms:
 
 - name: Observer Yorik
   location: 50.3 75.9
+  note: Spawns inside the rift
+  npcId: 179914
   questId: 64440
   drops:
   - type: toy
@@ -218,6 +245,8 @@ farms:
 
 - name: Screaming Shade
   location: 44.6 42.4
+  note: Spawns inside the rift
+  npcId: 179608
   questId: 64263
   drops:
   - type: armor
@@ -232,6 +261,8 @@ farms:
 
 - name: Silent Soulstalker
   location: 57.5 70.4
+  note: Spawns inside the rift
+  npcId: 179911
   questId: 64284
   drops:
   - type: armor
@@ -247,6 +278,8 @@ farms:
 # Random spawns
 - name: Konthrogz the Obliterator
   location: 20.0 68.0
+  note: 'Can spawn randomly after another rare dies - "A massive devourer tears an opening into Korthia"'
+  npcId: 179472
   questId: 64246
   drops:
   - type: mount
@@ -275,6 +308,8 @@ farms:
 
 - name: Towering Exterminator
   location: 23.0 68.0
+  note: 'Can spawn randomly after another rare dies - "A powerful Mawsworn opens a portal into Korthia"'
+  npcId: 179760
   questId: 64245
   drops:
   - type: armor
@@ -311,6 +346,7 @@ farms:
 
 - name: "Ve'rayn"
   location: 26.0 68.0
+  note: Can spawn inside several different caves
   questId: 64457
   drops:
   - type: armor

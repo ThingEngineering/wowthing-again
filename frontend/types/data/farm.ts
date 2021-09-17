@@ -10,8 +10,10 @@ export interface FarmDataCategory {
 }
 
 export interface FarmDataFarm {
+    npcId: number
     questId: number
     name: string
+    note: string
     reset: string
     location: string[]
     drops: FarmDataDrop[]

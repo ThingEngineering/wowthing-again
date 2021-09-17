@@ -15,6 +15,13 @@
 </script>
 
 <style lang="scss">
+    .note {
+        border-bottom: 1px solid $border-color;
+        color: #00ccff;
+        font-size: 0.95rem;
+        margin: 0;
+        padding: 0.1rem 0.5rem 0.2rem 0.5rem;
+    }
     .type {
         width: 1.5rem;
     }
@@ -41,6 +48,11 @@
 <div class="wowthing-tooltip">
     <h4>{farm.name}</h4>
     <h5>{farm.reset} reset</h5>
+
+    {#if farm.note}
+        <p class="note">{farm.note}</p>
+    {/if}
+
     <table class="table-tooltip-farm table-striped">
         <tbody>
             {#each farm.drops as drop, dropIndex}
