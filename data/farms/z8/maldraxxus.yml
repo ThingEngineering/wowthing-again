@@ -1,0 +1,351 @@
+name: Maldraxxus
+mapName: z8_maldraxxus
+minimumLevel: 48
+wowheadGuide: https://www.wowhead.com/guides/shadowlands-maldraxxus-rares-treasures
+farms:
+
+- name: Bubbleblood
+  location: 52.6 35.4
+  npcId: 162727
+  questId: 58870
+  drops:
+  - type: toy
+    id: 184476
+    name: Regenerating Slime Vial
+
+  - type: transmog
+    id: 43031
+    name: Grungy Containment Pack
+
+  - type: transmog
+    id: 43248
+    name: Blood-Dyed Bonesaw
+    limit: weapon dagger
+
+- name: Collector Kash
+  location: 48.9 23.5
+  npcId: 159105
+  questId: 58005
+  drops:
+  - type: quest
+    id: 62408
+    name: Jagged Bonesaw
+    limit: covenant necrolord
+
+  - type: transmog
+    id: 42675
+    name: "Collector's Corpse Gambrel"
+    limit: weapon 1h-axe
+
+  - type: transmog
+    id: 42675
+    name: "Kash's Favored Hook"
+    limit: weapon 1h-axe
+
+  - type: transmog
+    id: 42672
+    name: Stained Fleshgorer
+    limit: weapon 1h-axe
+
+  - type: transmog
+    id: 42672
+    name: Strengthened Abomination Hook
+    limit: weapon 1h-axe
+
+- name: Corpsecutter Moroc
+  location: 26.4 26.3
+  npcId: 157058
+  questId: 58335
+  drops:
+  - type: transmog
+    id: 42679
+    name: Grotesque Goring Pick
+    limit: weapon 1h-axe
+
+  - type: transmog
+    id: 41676
+    name: "Moroc's Boneslicing Warglaive"
+    limit: weapon warglaive
+
+- name: Deadly Dapperling
+  location: 76.8 57.1
+  npcId: 162711
+  questId: 58868
+  drops:
+  - type: pet
+    id: 172134
+    name: Shy Melvin
+
+  - type: transmog
+    id: 41959
+    name: Dapper Threads
+    limit: armor cloth
+
+- name: Deepscar
+  location: 48.2 51.8
+  note: Can appear in multiple entrances
+  npcId: 162711
+  questId: 58868
+  drops:
+  - type: transmog
+    id: 41959
+    name: Slobber-Soaked Chew Toy
+    limit: weapon 1h-mace
+
+- name: "Devour'us"
+  location: 45.0 28.4
+  npcId: 162669
+  questId: 58835
+  drops:
+  - type: transmog
+    id: 41615
+    name: Worldrending Claymore
+    limit: weapon 2h-sword
+
+- name: Gieger
+  location: 31.6 35.3
+  note: Must be Necrolord with anima channeled to start event
+  npcId: 162741
+  questId: 58872
+  drops:
+  - type: mount
+    id: 336045
+    name: Predatory Plagueroc
+    limit: covenant necrolord
+
+  - type: transmog
+    id: 41294
+    name: "Amalgamated Forsworn's Journal"
+    limit: weapon offhand
+
+- name: Gristlebeak
+  location: 57.8 51.5
+  npcId: 162588
+  questId: 58837
+  drops:
+  - type: transmog
+    id: 41622
+    name: Arbalest of the Colossal Predator
+    limit: weapon crossbow
+
+- name: Indomitable Schmitd
+  location: 38.7 43.4
+  npcId: 162588
+  questId: 58837
+  drops:
+  - type: transmog
+    id: 42028
+    name: Knee-Obstructing Legguards
+    limit: armor plate
+
+- name: Necromantic Anomaly
+  location: 72.8 28.9
+  npcId: 174108
+  questId: 62369
+  drops:
+  - type: transmog
+    id: 43176
+    name: Phylactery of the Dead Conniver
+    limit: covenant necrolord
+
+- name: Nerissa Heartless
+  location: 66.0 35.4
+  npcId: 162690
+  questId: 58851
+  drops:
+  - type: mount
+    id: 332480
+    name: Gorespine
+
+  - type: transmog
+    id: 41613
+    name: "Lichsworn Commander's Boneblade"
+    limit: weapon 2h-sword
+
+- name: Nirvaska the Summoner
+  location: 50.3 63.3
+  note: Only when Deadly Reminder world quest is active
+  npcId: 161857
+  questId: 58629
+  drops:
+  - type: transmog
+    id: 43175
+    name: "Beckoner's Shadowy Crystal"
+    limit: covenant necrolord
+
+  - type: transmog
+    id: 41293
+    name: "Forgotten Summoner's Shoulderpads"
+    limit: armor cloth
+
+- name: Pesticide
+  location: 53.7 61.4
+  npcId: 162767
+  questId: 58875
+  drops:
+  - type: transmog
+    id: 42437
+    name: Scarab-Shell Faceguard
+    limit: armor mail
+
+- name: Ravenomous
+  location: 53.8 18.7
+  npcId: 159753
+  questId: 58004
+  drops:
+  - type: pet
+    id: 172155
+    name: Foulwing Buzzer
+
+  - type: transmog
+    id: 41627
+    name: "Ravenemous's Acid-Tipped Stinger"
+    limit: weapon dagger
+
+- name: Sabriel the Bonecleaver
+  location: 52.4 47.3 #50.3
+  note: Must be Necrolord with anima channeled?
+  npcId: 168147
+  questId: 58784
+  drops:
+  - type: mount
+    id: 332466
+    name: Armored Bonehoof Tauralus
+    limit: covenant necrolord
+
+- name: Scunner
+  location: 62.0 75.8
+  npcId: 158406
+  questId: 58006
+  drops:
+  - type: pet
+    id: 172139
+    name: Writhing Spine
+
+  - type: transmog
+    id: 42447
+    name: Scum-Caked Epaulettes
+    limit: armor mail
+
+- name: Sister Chelicerae
+  location: 55.4 23.6
+  npcId: 159886
+  questId: 58003
+  drops:
+  - type: pet
+    id: 171986
+    name: Boneweave Hatchling
+
+  - type: transmog
+    id: 41810
+    name: Spindlefang Spellblade
+    limit: weapon 1h-sword
+
+- name: Smorgas the Feaster
+  location: 42.4 53.4
+  npcId: 162528
+  questId: 58768
+  drops:
+  - type: pet
+    id: 172136
+    name: Corpselouse Larva
+
+  - type: pet
+    id: 172137
+    name: Feasting Larva
+
+  - type: transmog
+    id: 42010
+    name: Goresoaked Carapace
+    limit: armor leather
+
+- name: Tahonta
+  location: 44.2 51.3
+  note: Mount will only drop for Necrolords with Nessa active!
+  npcId: 162586
+  questId: 58783
+  drops:
+  - type: mount
+    id: 332457
+    name: Bonehoof Tauralus
+    limit: covenant necrolord
+
+  - type: transmog
+    id: 42259
+    name: Tauralus Hide Collar
+    limit: armor leather
+
+- name: Taskmaster Xox
+  location: 50.5 20.1
+  npcId: 160059
+  questId: 58091
+  drops:
+  - type: transmog
+    id: 42674
+    name: Flesh-Fishing Hook
+    limit: weapon 1h-axe
+
+  - type: transmog
+    id: 42678
+    name: Pristine Alabaster Gorer
+    limit: weapon 1h-axe
+
+  - type: transmog
+    id: 42678
+    name: "Taskmaster's Tenderizer"
+    limit: weapon 1h-axe
+
+- name: Thread Mistress Leeda
+  location: 24.2 42.9
+  npcId: 162180
+  questId: 58678
+  drops:
+  - type: transmog
+    id: 41965
+    name: "Leeda's Unrefined Mask"
+    limit: armor cloth
+
+- name: "Warbringer Mal'Korak"
+  location: 33.7 80.2
+  npcId: 162819
+  questId: 58889
+  drops:
+  - type: mount
+    id: 332478
+    name: Blisterback Bloodtusk
+
+  - type: transmog
+    id: 41333
+    name: "Ruthless Warlord's Barrier"
+    limit: weapon shield
+
+- name: Zargox the Reborn
+  location: 28.9 51.4
+  npcId: 157125
+  questId: 59290
+  drops:
+  - type: quest
+    id: 62404
+    name: Ashen Ink
+    limit: covenant necrolord
+
+  - type: transmog
+    id: 43171
+    name: Trophy of the Reborn Bonelord
+    limit: covenant necrolord
+
+  - type: transmog
+    id: 171986
+    name: Boneclutched Shackles
+    limit: armor plate
+
+# Weird ones
+- name: Theater of Pain
+  location: 50.4 47.3
+  note: Can only drop from first kill per day?
+  #npcId: ?
+  questId: 62786
+  drops:
+  - type: mount
+    id: 344228
+    name: Battle-Bound Warhound

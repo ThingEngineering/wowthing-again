@@ -19,4 +19,8 @@ export enum WeaponType {
     Wand,
 
     FishingPole,
+
+    // For filtering purposes
+    OffHand = 100,
+    Shield,
 }

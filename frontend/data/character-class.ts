@@ -25,6 +25,7 @@ export const classMap: Dictionary<CharacterClass> = {
             WeaponType.Crossbow,
             WeaponType.Gun,
             WeaponType.Thrown,
+            WeaponType.Shield,
         ],
     ),
     2: new CharacterClass(
@@ -41,6 +42,7 @@ export const classMap: Dictionary<CharacterClass> = {
             WeaponType.OneHandedSword,
             WeaponType.TwoHandedSword,
             WeaponType.Polearm,
+            WeaponType.Shield,
         ],
     ),
     3: new CharacterClass(
@@ -122,6 +124,7 @@ export const classMap: Dictionary<CharacterClass> = {
             WeaponType.Dagger,
             WeaponType.Fist,
             WeaponType.Stave,
+            WeaponType.Shield,
         ],
     ),
     8: new CharacterClass(
