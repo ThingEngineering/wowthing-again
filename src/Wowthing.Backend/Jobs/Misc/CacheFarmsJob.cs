@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Wowthing.Backend.Models.Data;
 using Wowthing.Backend.Models.Data.Farms;
 using Wowthing.Backend.Models.Redis;
 using Wowthing.Backend.Utilities;
@@ -51,6 +52,30 @@ namespace Wowthing.Backend.Jobs.Misc
             };
             
             _timer.AddPoint("Load");
+            
+            // ItemID vs AppearanceID hack
+            var itemModifiedAppearances = await DataUtilities.LoadDumpCsvAsync<DumpItemModifiedAppearance>("itemmodifiedappearance");
+            var itemToAppearance = itemModifiedAppearances
+                .GroupBy(r => r.ItemID)
+                .ToDictionary(r => r.Key, r => r.First().ItemAppearanceID);
+            
+            foreach (var categories in cacheData.Sets)
+            {
+                foreach (var category in categories)
+                {
+                    foreach (var farm in category.Farms)
+                    {
+                        foreach (var drop in farm.Drops)
+                        {
+                            if (drop.Type == "transmog" && drop.Id > 100000)
+                            {
+                                drop.Id = itemToAppearance[drop.Id];
+                            }
+                        }
+                    }
+                }
+            }
+
             
             var cacheJson = JsonConvert.SerializeObject(cacheData);
             var cacheHash = cacheJson.Md5();
