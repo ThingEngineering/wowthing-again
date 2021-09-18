@@ -74,6 +74,7 @@ export const classMap: Dictionary<CharacterClass> = {
             WeaponType.OneHandedMace,
             WeaponType.OneHandedSword,
             WeaponType.Dagger,
+            WeaponType.DaggerAgility,
             WeaponType.Fist,
             WeaponType.Bow,
             WeaponType.Crossbow,

@@ -21,6 +21,8 @@ export enum WeaponType {
     FishingPole,
 
     // For filtering purposes
-    OffHand = 100,
+    DaggerAgility = 100,
+    DaggerIntellect,
+    OffHand,
     Shield,
 }

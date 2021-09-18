@@ -218,6 +218,7 @@ const weaponMap: Record<string, WeaponType> = {
     bow: WeaponType.Bow,
     crossbow: WeaponType.Crossbow,
     dagger: WeaponType.Dagger,
+    'dagger-agi': WeaponType.DaggerAgility,
     fist: WeaponType.Fist,
     gun: WeaponType.Gun,
     polearm: WeaponType.Polearm,
