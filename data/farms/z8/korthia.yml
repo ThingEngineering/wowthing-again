@@ -259,7 +259,7 @@ farms:
   - type: transmog
     id: 42569
     name: Stinging Shadow Screamer
-    limit: weapon dagger
+    limit: weapon dagger-agi
 
 - name: Silent Soulstalker
   location: 57.5 70.4
