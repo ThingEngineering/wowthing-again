@@ -103,6 +103,12 @@ h6 {
     margin: 0;
 }
 
+code {
+    background: $thing-background;
+    color: #ffffaa;
+    padding: 0 0.2rem;
+}
+
 #app {
     align-items: flex-start;
     display: flex;

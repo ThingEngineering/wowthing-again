@@ -2,24 +2,54 @@
     ViewData["Title"] = "Upload Addon Data";
 }
 
-<div class="content">
+<div class="content fancy-page">
+    <h1>Upload addon data</h1>
+
     <form method="post" enctype="multipart/form-data" asp-controller="Upload" asp-action="FromWeb">
+            <p>
+                Upload data from your <code>WoWthing_Collector.lua</code> file, you can find this in your
+                <code>World of Warcraft > _retail_ > WTF > Account > <b>[Account Name]</b> > SavedVariables</code> directory.
+            </p>
+            <p>
+                The <a href="https://curseforge.com/wow/addons/wowthing-collector">WoWthing_Collector</a> addon is required to create this file.
+            </p>
+        
         <div class="form-group">
-            <div class="col-md-10">
-                <p>
-                    Upload your "WoWthing_Collector.lua" file, you can find this in your
-                    "World of Warcraft\_retail_\WTF\Account\$AccountName$\SavedVariables\" directory.
-                </p>
-                <p>
-                    The <a href="https://curseforge.com/wow/addons/wowthing-collector">WoWthing_Collector</a> addon is required to create this file.
-                </p>
-                <input type="file" name="luaFile" />
-            </div>
+            <input type="file" name="luaFile"/>
         </div>
+        
         <div class="form-group">
-            <div class="col-md-10">
-                <input type="submit" value="Upload" />
-            </div>
+            <input type="submit" value="Upload"/>
         </div>
+        
+        <p>
+            If you're tired of uploading this file, especially if you have multiple accounts, why not give
+            <a href="https://github.com/ThingEngineering/wowthing-sync">WoWthing Sync</a> a try? It's a simple
+            Windows application to automate the process of uploading addon data every time you log out or reload UI.
+        </p>
+        
+        <ol>
+            <li>
+                Visit <a href="https://github.com/ThingEngineering/wowthing-sync/releases">WoWthing Sync Releases</a>
+                and download the latest <code>WoWthing_Sync_v#.#.#.zip</code> file (v0.5.0 currently).
+            </li>
+            <li>
+                Extract that zip file somewhere and run <code>WoWthing Sync.exe</code>. Windows will almost certainly
+                complain and tell you it's suspicious, some day I'll spend the 💸 on a fancy signing certificate. You
+                can skip the warning if you think it's safe, the app is pretty simplistic.
+            </li>
+            <li>
+                Visit <code>Home > Settings</code> on this site and click the <code>Reveal API Key</code> button.
+            </li>
+            <li>
+                Paste the API key into WoWthing Sync.
+            </li>
+            <li>
+                Click <code>Select Folder...</code> and navigate to your <code>World of Warcraft > _retail_</code> directory.
+            </li>
+            <li>
+                Click <code>Start</code>.
+            </li>
+        </ol>
     </form>
 </div>
