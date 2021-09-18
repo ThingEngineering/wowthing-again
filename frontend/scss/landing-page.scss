@@ -1,4 +1,4 @@
-.landing-page {
+.fancy-page {
     @media screen and (max-width: 1239px) {
         min-width: 100%;
         width: 100%;
@@ -16,6 +16,10 @@
 
     p {
         font-size: 1.1rem;
+    }
+
+    li {
+        font-size: 1.05rem;
     }
 
     .thing-container {
