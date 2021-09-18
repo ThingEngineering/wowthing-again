@@ -8,6 +8,7 @@ import {DateTime} from 'luxon'
 
 import {classMap} from '@/data/character-class'
 import {covenantSlugMap} from '@/data/covenant'
+import type {FarmState} from '@/stores/local-storage/farm'
 import {ArmorType, WeaponType} from '@/types/enums'
 import {getNextDailyReset} from '@/utils/get-next-reset'
 import type {Character, StaticData, UserData} from '@/types'
@@ -22,7 +23,7 @@ export default function getFarmStatus(
     userTransmogData: UserTransmogData,
     timeStore: DateTime,
     category: FarmDataCategory,
-    options: GetFarmStatusOptions,
+    options: FarmState,
 ): FarmStatus[] {
     //console.time('getFarmStatus')
 
@@ -73,7 +74,6 @@ export default function getFarmStatus(
 
                 case 'quest':
                     if (!every(userQuestData.characters, (c) => c.quests.get(drop.id) !== undefined)) {
-                        console.log('quest', drop.id)
                         dropStatus.need = true
                     }
                     break
@@ -176,13 +176,6 @@ export default function getFarmStatus(
     return farms
 }
 
-
-interface GetFarmStatusOptions {
-    trackMounts: boolean
-    trackPets: boolean
-    trackToys: boolean
-    trackTransmog: boolean
-}
 
 export interface FarmStatus {
     characters: CharacterStatus[]

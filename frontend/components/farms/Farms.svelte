@@ -51,5 +51,8 @@
     L O A D I N G
 {:else}
     <Sidebar />
-    <Map slug1={params.slug1} slug2={params.slug2} />
+    <Map
+        slug1={params.slug1}
+        slug2={params.slug2}
+    />
 {/if}
