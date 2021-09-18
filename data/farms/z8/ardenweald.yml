@@ -10,7 +10,7 @@ farms:
   questId: 59226
   drops:
   - type: transmog
-    id: 43031
+    id: 180166
     name: Deathbinder's Staff
     limit: weapon stave
 
@@ -29,7 +29,7 @@ farms:
   questId: 58987
   drops:
   - type: transmog
-    id: 41721
+    id: 181395
     name: Dustbreak Maul
     limit: weapon 2h-mace
 
@@ -39,7 +39,7 @@ farms:
   questId: 60266
   drops:
   - type: transmog
-    id: 41725
+    id: 179539
     name: "Kelox's Eggbeater"
     limit: weapon 2h-mace
 
@@ -49,7 +49,7 @@ farms:
   questId: 61184
   drops:
   - type: transmog
-    id: 43019
+    id: 180144
     name: "Faeflayer's Hatchet"
     limit: weapon 1h-axe
 
@@ -86,16 +86,16 @@ farms:
   questId: 59221
   drops:
   - type: transmog
-    id: 42654
+    id: 179596
     name: Drust Mask of Dominance
 
   - type: transmog
-    id: 42651
+    id: 179593
     name: Darkreach Mask
     limit: armor cloth
 
   - type: transmog
-    id: 42652
+    id: 179594
     name: Witherscorn Guise
     limit: armor leather
 
@@ -105,7 +105,7 @@ farms:
   questId: 59431
   drops:
   - type: transmog
-    id: 42649
+    id: 179502
     name: Ripvine Barb
     limit: weapon dagger
 
@@ -121,7 +121,7 @@ farms:
     limit: covenant night-fae
 
   - type: transmog
-    id: 41716
+    id: 179586
     name: Elderwood Piercer
     limit: weapon bow
 
@@ -150,7 +150,7 @@ farms:
   questId: 60273
   drops:
   - type: transmog
-    id: 41707
+    id: 179603
     name: Nettlehusk Barrier
     limit: weapon shield
 
@@ -165,7 +165,7 @@ farms:
     limit: covenant night-fae
 
   - type: transmog
-    id: 43021
+    id: 180146
     name: Axe of Broken Wills
     limit: weapon 1h-axe
 
@@ -175,7 +175,7 @@ farms:
   questId: 61177
   drops:
   - type: transmog
-    id: 43029
+    id: 180164
     name: "Soultwister's Scythe"
     limit: weapon stave
 
@@ -195,7 +195,7 @@ farms:
     limit: covenant night-fae
 
   - type: transmog
-    id: 43024
+    id: 180154
     name: Greataxe of Unrelenting Pursuit
     limit: weapon 2h-axe
 
@@ -205,7 +205,7 @@ farms:
   questId: 59170
   drops:
   - type: transmog
-    id: 41711
+    id: 181396
     name: Thornsweeper Scythe
     limit: weapon polearm
 
@@ -227,7 +227,7 @@ farms:
   questId: 61633
   drops:
   - type: transmog
-    id: 41715
+    id: 179534
     name: "Mi'kai's Deathscythe"
     limit: weapon polarm
 
@@ -238,6 +238,6 @@ farms:
   questId: 61633
   drops:
   - type: transmog
-    id: 42026
+    id: 179518
     name: Glimmerlight Staff
     limit: weapon stave
