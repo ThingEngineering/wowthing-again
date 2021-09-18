@@ -10,7 +10,7 @@ farms:
   questId: 59854
   drops:
   - type: transmog
-    id: 41964
+    id: 183729
     name: Filth-Splattered Headcover
     limit: armor leather
 
@@ -20,22 +20,22 @@ farms:
   questId: 59584
   drops:
   - type: transmog
-    id: 41991
+    id: 179926
     name: Light-Infused Tunic
     limit: armor cloth
 
   - type: transmog
-    id: 41950
+    id: 179924
     name: Light-Infused Jacket
     limit: armor leather
 
   - type: transmog
-    id: 42418
+    id: 179653
     name: Light-Infused Hauberk
     limit: armor mail
 
   - type: transmog
-    id: 42049
+    id: 179925
     name: Light-Infused Breastplate
     limit: armor plate
 
@@ -45,7 +45,7 @@ farms:
   questId: 60836
   drops:
   - type: transmog
-    id: 42053
+    id: 183730
     name: Sinstone-Studded Greathelm
     limit: armor plate
 
@@ -55,7 +55,7 @@ farms:
   questId: 59893
   drops:
   - type: transmog
-    id: 42054
+    id: 183731
     name: Smolder-Tempered Legplates
     limit: armor plate
 
@@ -74,7 +74,7 @@ farms:
   questId: 59913
   drops:
   - type: transmog
-    id: 42056
+    id: 183737
     name: "Aatron's Stone Girdle"
     limit: armor plate
 
@@ -84,7 +84,7 @@ farms:
   questId: 58441
   drops:
   - type: transmog
-    id: 41953
+    id: 180502
     name: "Adrastia's Executioner Gloves"
     limit: armor leather
 
@@ -98,7 +98,7 @@ farms:
     name: Endmire Flyer
 
   - type: transmog
-    id: 41999
+    id: 183739
     name: Endmire Wristwarmers
     limit: armor cloth
 
@@ -109,7 +109,7 @@ farms:
   questId: 61618
   drops:
   - type: transmog
-    id: 43273
+    id: 180939
     name: "Mantle of the Forgemaster's Dark Blades"
     limit: covenant venthyr
 
@@ -119,7 +119,7 @@ farms:
   questId: 60173
   drops:
   - type: transmog
-    id:
+    id: 180503
     name: "Grand Arcanist's Soulblade"
     limit: weapon dagger
 
@@ -134,7 +134,7 @@ farms:
     name: Horrid Dredwing
 
   - type: transmog
-    id: 41950
+    id: 183720
     name: Dredbatskin Jerkin
     limit: armor leather
 
@@ -154,7 +154,7 @@ farms:
   questId: 58210
   drops:
   - type: transmog
-    id: 41997
+    id: 183735
     name: "Rogue Sinstealer's Mantle"
     limit: armor cloth
 
@@ -168,7 +168,7 @@ farms:
     name: Wrathling
 
   - type: transmog
-    id: 41994
+    id: 183736
     name: Pride Resistant Handwraps
     limit: armor cloth
 
@@ -178,7 +178,7 @@ farms:
   questId: 58633
   drops:
   - type: transmog
-    id: 42438
+    id: 180501
     name: Skull-Formed Headcage
     limit: Armor mail
 
@@ -206,7 +206,7 @@ farms:
   questId: 62252
   drops:
   - type: transmog
-    id: 42443
+    id: 183732
     name: Sinstone-Linked Greaves
     limit: armor mail
 
@@ -225,8 +225,8 @@ farms:
   questId: 62220
   drops:
   - type: transmog
-    id: 42049
-    name: Fist-FOrged Breastplate
+    id: 180488
+    name: Fist-Forged Breastplate
     limit: armor plate
 
 - name: Tomb Burster
@@ -246,14 +246,3 @@ farms:
   - type: mount
     id: 333027
     name: Loyal Gorger
-
-# Weird ones
-#
-#- name: Amalgamation of Filth
-#  location:
-#  npcId:
-#  questId:
-#  drops:
-#  - type:
-#    id:
-#    name:

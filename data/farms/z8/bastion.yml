@@ -19,7 +19,7 @@ farms:
   questId: 61083
   drops:
   - type: transmog
-    id: 41506
+    id: 183607
     name: Uncertain Aspirant's Spear
     limit: weapon polearm
 
@@ -38,7 +38,7 @@ farms:
   questId: 61002
   drops:
   - type: transmog
-    id: 41563
+    id: 183608
     name: Evernote Vesper
     limit: weapon offhand
 
@@ -48,7 +48,7 @@ farms:
   questId: 60883
   drops:
   - type: transmog
-    id: 33390
+    id: 184297
     name: Death Warden's Greatblade
     limit: weapon 2h-sword
 
@@ -58,32 +58,32 @@ farms:
   questId: 61069 61000
   drops:
   - type: transmog
-    id: 41907
+    id: 183606
     name: Bulwark of Echoing Courage
     limit: weapon shield
 
   - type: transmog
-    id: 41563
+    id: 183608
     name: Evernote Vesper
     limit: weapon offhand
 
   - type: transmog
-    id: 41546
+    id: 183613
     name: Glinting Daybreak Dagger
     limit: weapon dagger
 
   - type: transmog
-    id: 41575
+    id: 183611
     name: Humble Ophelia's Greatblade
     limit: weapon 2h-sword
 
   - type: transmog
-    id: 41541
+    id: 183609
     name: Re-Powered Goliath Fists
     limit: weapon fist
 
   - type: transmog
-    id: 41506
+    id: 183607
     name: Uncertain Aspirant's Spear
     limit: weapon polearm
 
@@ -111,7 +111,7 @@ farms:
   questId: 58222
   drops:
   - type: transmog
-    id: 42167
+    id: 180444
     name: Harmonia's Chosen Belt
     limit: armor leather
 
@@ -121,7 +121,7 @@ farms:
   questId: 58319
   drops:
   - type: transmog
-    id: 41563
+    id: 183608
     name: Evernote Vesper
     limit: weapon offhand
 
@@ -136,7 +136,7 @@ farms:
     name: Larion Pouncer
 
   - type: transmog
-    id: 33154
+    id: 184365
     name: Aegis of Salvation
     limit: weapon shield
 
@@ -146,14 +146,14 @@ farms:
   questId: 58320
   drops:
   - type: transmog
-    id: 41563
+    id: 183608
     name: Evernote Vesper
     limit: weapon offhand
 
 - name: Sundancer
   location: 61.4 90.6
-  npcId: 0
-  questId: 0
+  npcId: 170548
+  questId: 60862
   drops:
   - type: mount
     id: 312765
@@ -175,7 +175,7 @@ farms:
   questId: 58526
   drops:
   - type: transmog
-    id: 41696
+    id: 179487
     name: Aethon's Horn
     limit: weapon warglaive
 
@@ -185,7 +185,7 @@ farms:
   questId: 60571
   drops:
   - type: transmog
-    id: 41537
+    id: 179488
     name: Cloudtail's Paw
     limit: weapon warglaive
 
@@ -195,7 +195,7 @@ farms:
   questId: 60569
   drops:
   - type: transmog
-    id: 41544
+    id: 179485
     name: Fang of Nemaeus
     limit: weapon dagger
 
@@ -205,7 +205,7 @@ farms:
   questId: 60570
   drops:
   - type: transmog
-    id: 41556
+    id: 179486
     name: Sigilback's Smashshell
     limit: weapon 1h-mace
 
@@ -222,6 +222,6 @@ farms:
     name: Devoured Wader
 
   - type: transmog
-    id: 41696
+    id: 183605
     name: Devourer Wrought Warglaive
     limit: weapon warglaive
