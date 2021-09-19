@@ -207,7 +207,7 @@ farms:
   - type: transmog
     id: 179488
     name: Cloudtail's Paw
-    limit: weapon warglaive
+    limit: weapon fist
 
 - name: Nemaeus
   location: 59.1 80.6
