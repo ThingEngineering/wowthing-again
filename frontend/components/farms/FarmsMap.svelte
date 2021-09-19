@@ -1,7 +1,6 @@
 <script lang="ts">
     import filter from 'lodash/filter'
     import find from 'lodash/find'
-    import {location, querystring, replace} from 'svelte-spa-router'
 
     import {
         farmStore,
@@ -12,6 +11,7 @@
         userStore,
         userTransmogStore,
     } from '@/stores'
+    import {farmState} from '@/stores/local-storage/farm'
     import {farmMapMedia} from '@/stores/media-queries/farm-map'
     import getFarmStatus from '@/utils/get-farm-status'
     import type {FarmDataCategory} from '@/types/data'
@@ -26,43 +26,8 @@
 
     let categories: FarmDataCategory[]
     let farmStatuses: FarmStatus[]
-    let trackMounts: boolean
-    let trackPets: boolean
-    let trackToys: boolean
-    let trackTransmog: boolean
     let height: number
     let width: number
-
-    $: {
-        // Parse query string
-        const parsed = new URLSearchParams($querystring)
-        trackMounts = parsed.get('trackMounts') !== 'false'
-        trackPets = parsed.get('trackPets') !== 'false'
-        trackToys = parsed.get('trackToys') !== 'false'
-        trackTransmog = parsed.get('trackTransmog') !== 'false'
-    }
-
-    $: {
-        // Update query string
-        const queryParts = []
-        if (!trackMounts) {
-            queryParts.push('trackMounts=false')
-        }
-        if (!trackPets) {
-            queryParts.push('trackPets=false')
-        }
-        if (!trackToys) {
-            queryParts.push('trackToys=false')
-        }
-        if (!trackTransmog) {
-            queryParts.push('trackTransmog=false')
-        }
-
-        const qs = queryParts.join('&')
-        if (qs !== $querystring) {
-            replace($location + (qs ? '?' + qs : ''))
-        }
-    }
 
     $: {
         categories = filter(
@@ -82,12 +47,7 @@
                 $userTransmogStore.data,
                 $timeStore,
                 categories[0],
-                {
-                    trackMounts,
-                    trackPets,
-                    trackToys,
-                    trackTransmog,
-                }
+                $farmState,
             )
         }
     }
@@ -141,7 +101,7 @@
                 <CheckboxInput
                     name="track_mounts"
                     label="Track mounts"
-                    bind:value={trackMounts}
+                    bind:value={$farmState.trackMounts}
                 />
             </button>
 
@@ -149,7 +109,7 @@
                 <CheckboxInput
                     name="track_pets"
                     label="Track pets"
-                    bind:value={trackPets}
+                    bind:value={$farmState.trackPets}
                 />
             </button>
 
@@ -157,7 +117,7 @@
                 <CheckboxInput
                     name="track_toys"
                     label="Track toys"
-                    bind:value={trackToys}
+                    bind:value={$farmState.trackToys}
                 />
             </button>
 
@@ -165,7 +125,7 @@
                 <CheckboxInput
                     name="track_transmog"
                     label="Track transmog"
-                    bind:value={trackTransmog}
+                    bind:value={$farmState.trackTransmog}
                 />
             </button>
         </div>

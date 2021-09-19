@@ -10,9 +10,9 @@ farms:
   questId: 59226
   drops:
   - type: transmog
-    id: 43031
+    id: 180166
     name: Deathbinder's Staff
-    limit: weapon stave
+    limit: weapon stave-int
 
 - name: Deifir the Untamed
   location: 47.5 28.5
@@ -29,9 +29,9 @@ farms:
   questId: 58987
   drops:
   - type: transmog
-    id: 41721
+    id: 181395
     name: Dustbreak Maul
-    limit: weapon 2h-mace
+    limit: weapon 2h-mace-str
 
 - name: "Egg-Tender Leh'go"
   location: 57.8 29.6
@@ -39,9 +39,9 @@ farms:
   questId: 60266
   drops:
   - type: transmog
-    id: 41725
+    id: 179539
     name: "Kelox's Eggbeater"
-    limit: weapon 2h-mace
+    limit: weapon 2h-mace-str
 
 - name: Faeflayer
   location: 68.6 27.7
@@ -49,9 +49,9 @@ farms:
   questId: 61184
   drops:
   - type: transmog
-    id: 43019
+    id: 180144
     name: "Faeflayer's Hatchet"
-    limit: weapon 1h-axe
+    limit: weapon 1h-axe-str
 
 - name: Gormbore
   location: 54.0 76.0
@@ -86,16 +86,16 @@ farms:
   questId: 59221
   drops:
   - type: transmog
-    id: 42654
+    id: 179596
     name: Drust Mask of Dominance
 
   - type: transmog
-    id: 42651
+    id: 179593
     name: Darkreach Mask
     limit: armor cloth
 
   - type: transmog
-    id: 42652
+    id: 179594
     name: Witherscorn Guise
     limit: armor leather
 
@@ -105,9 +105,9 @@ farms:
   questId: 59431
   drops:
   - type: transmog
-    id: 42649
+    id: 179502
     name: Ripvine Barb
-    limit: weapon dagger
+    limit: weapon dagger-agi
 
 - name: Mystic Rainbowhorn
   location: 65.6 28.1
@@ -121,7 +121,7 @@ farms:
     limit: covenant night-fae
 
   - type: transmog
-    id: 41716
+    id: 179586
     name: Elderwood Piercer
     limit: weapon bow
 
@@ -150,7 +150,7 @@ farms:
   questId: 60273
   drops:
   - type: transmog
-    id: 41707
+    id: 179603
     name: Nettlehusk Barrier
     limit: weapon shield
 
@@ -165,9 +165,9 @@ farms:
     limit: covenant night-fae
 
   - type: transmog
-    id: 43021
+    id: 180146
     name: Axe of Broken Wills
-    limit: weapon 1h-axe
+    limit: weapon 1h-axe-agi
 
 - name: Soultwister Cero
   location: 72.4 51.8
@@ -175,9 +175,9 @@ farms:
   questId: 61177
   drops:
   - type: transmog
-    id: 43029
+    id: 180164
     name: "Soultwister's Scythe"
-    limit: weapon stave
+    limit: weapon stave-int
 
 - name: Valfir the Unrelenting
   location: 30.1 55.4
@@ -195,9 +195,9 @@ farms:
     limit: covenant night-fae
 
   - type: transmog
-    id: 43024
+    id: 180154
     name: Greataxe of Unrelenting Pursuit
-    limit: weapon 2h-axe
+    limit: weapon 2h-axe-str
 
 - name: Wrigglemortis
   location: 58.3 61.8
@@ -205,9 +205,9 @@ farms:
   questId: 59170
   drops:
   - type: transmog
-    id: 41711
+    id: 181396
     name: Thornsweeper Scythe
-    limit: weapon polearm
+    limit: weapon polearm-agi
 
 # Weird ones
 - name: Macabre
@@ -227,9 +227,9 @@ farms:
   questId: 61633
   drops:
   - type: transmog
-    id: 41715
+    id: 179534
     name: "Mi'kai's Deathscythe"
-    limit: weapon polarm
+    limit: weapon polearm-agi
 
 - name: "Star Lake: Azshara"
   location: 43.2 44.5
@@ -238,6 +238,6 @@ farms:
   questId: 61633
   drops:
   - type: transmog
-    id: 42026
+    id: 179518
     name: Glimmerlight Staff
-    limit: weapon stave
+    limit: weapon stave-int

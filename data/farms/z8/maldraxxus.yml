@@ -14,13 +14,13 @@ farms:
     name: Regenerating Slime Vial
 
   - type: transmog
-    id: 43031
+    id: 184154
     name: Grungy Containment Pack
 
   - type: transmog
-    id: 43248
+    id: 184290
     name: Blood-Dyed Bonesaw
-    limit: weapon dagger
+    limit: weapon dagger-int
 
 - name: Collector Kash
   location: 48.9 23.5
@@ -33,24 +33,24 @@ farms:
     limit: covenant necrolord
 
   - type: transmog
-    id: 42675
+    id: 184188
     name: "Collector's Corpse Gambrel"
-    limit: weapon 1h-axe
+    limit: weapon 1h-axe-agi
 
   - type: transmog
-    id: 42675
-    name: "Kash's Favored Hook"
-    limit: weapon 1h-axe
-
-  - type: transmog
-    id: 42672
+    id: 184189
     name: Stained Fleshgorer
-    limit: weapon 1h-axe
+    limit: weapon 1h-axe-agi
 
   - type: transmog
-    id: 42672
+    id: 184181
+    name: "Kash's Favored Hook"
+    limit: weapon 1h-axe-str
+
+  - type: transmog
+    id: 184182
     name: Strengthened Abomination Hook
-    limit: weapon 1h-axe
+    limit: weapon 1h-axe-str
 
 - name: Corpsecutter Moroc
   location: 26.4 26.3
@@ -58,12 +58,12 @@ farms:
   questId: 58335
   drops:
   - type: transmog
-    id: 42679
+    id: 184177
     name: Grotesque Goring Pick
-    limit: weapon 1h-axe
+    limit: weapon 1h-axe-str
 
   - type: transmog
-    id: 41676
+    id: 184176
     name: "Moroc's Boneslicing Warglaive"
     limit: weapon warglaive
 
@@ -77,20 +77,20 @@ farms:
     name: Shy Melvin
 
   - type: transmog
-    id: 41959
+    id: 184280
     name: Dapper Threads
     limit: armor cloth
 
 - name: Deepscar
   location: 48.2 51.8
   note: Can appear in multiple entrances
-  npcId: 162711
-  questId: 58868
+  npcId: 162797
+  questId: 58878
   drops:
   - type: transmog
-    id: 41959
+    id: 182191
     name: Slobber-Soaked Chew Toy
-    limit: weapon 1h-mace
+    limit: weapon 1h-mace-agi
 
 - name: "Devour'us"
   location: 45.0 28.4
@@ -98,9 +98,9 @@ farms:
   questId: 58835
   drops:
   - type: transmog
-    id: 41615
+    id: 184178
     name: Worldrending Claymore
-    limit: weapon 2h-sword
+    limit: weapon 2h-sword-str
 
 - name: Gieger
   location: 31.6 35.3
@@ -114,9 +114,9 @@ farms:
     limit: covenant necrolord
 
   - type: transmog
-    id: 41294
+    id: 184298
     name: "Amalgamated Forsworn's Journal"
-    limit: weapon offhand
+    limit: weapon offhand-int
 
 - name: Gristlebeak
   location: 57.8 51.5
@@ -124,7 +124,7 @@ farms:
   questId: 58837
   drops:
   - type: transmog
-    id: 41622
+    id: 182196
     name: Arbalest of the Colossal Predator
     limit: weapon crossbow
 
@@ -134,7 +134,7 @@ farms:
   questId: 58837
   drops:
   - type: transmog
-    id: 42028
+    id: 182192
     name: Knee-Obstructing Legguards
     limit: armor plate
 
@@ -144,7 +144,7 @@ farms:
   questId: 62369
   drops:
   - type: transmog
-    id: 43176
+    id: 181810
     name: Phylactery of the Dead Conniver
     limit: covenant necrolord
 
@@ -158,9 +158,9 @@ farms:
     name: Gorespine
 
   - type: transmog
-    id: 41613
+    id: 184179
     name: "Lichsworn Commander's Boneblade"
-    limit: weapon 2h-sword
+    limit: weapon 2h-sword-str
 
 - name: Nirvaska the Summoner
   location: 50.3 63.3
@@ -169,12 +169,12 @@ farms:
   questId: 58629
   drops:
   - type: transmog
-    id: 43175
+    id: 181811
     name: "Beckoner's Shadowy Crystal"
     limit: covenant necrolord
 
   - type: transmog
-    id: 41293
+    id: 183700
     name: "Forgotten Summoner's Shoulderpads"
     limit: armor cloth
 
@@ -184,7 +184,7 @@ farms:
   questId: 58875
   drops:
   - type: transmog
-    id: 42437
+    id: 182205
     name: Scarab-Shell Faceguard
     limit: armor mail
 
@@ -198,9 +198,9 @@ farms:
     name: Foulwing Buzzer
 
   - type: transmog
-    id: 41627
+    id: 184184
     name: "Ravenemous's Acid-Tipped Stinger"
-    limit: weapon dagger
+    limit: weapon dagger-agi
 
 - name: Sabriel the Bonecleaver
   location: 52.4 47.3 #50.3
@@ -223,7 +223,7 @@ farms:
     name: Writhing Spine
 
   - type: transmog
-    id: 42447
+    id: 184287
     name: Scum-Caked Epaulettes
     limit: armor mail
 
@@ -237,9 +237,9 @@ farms:
     name: Boneweave Hatchling
 
   - type: transmog
-    id: 41810
+    id: 184289
     name: Spindlefang Spellblade
-    limit: weapon 1h-sword
+    limit: weapon 1h-sword-int
 
 - name: Smorgas the Feaster
   location: 42.4 53.4
@@ -255,7 +255,7 @@ farms:
     name: Feasting Larva
 
   - type: transmog
-    id: 42010
+    id: 184299
     name: Goresoaked Carapace
     limit: armor leather
 
@@ -281,19 +281,24 @@ farms:
   questId: 58091
   drops:
   - type: transmog
-    id: 42674
-    name: Flesh-Fishing Hook
-    limit: weapon 1h-axe
+    id: 184193
+    name: Callus-Forged Hook
+    limit: weapon 1h-axe-agi
 
   - type: transmog
-    id: 42678
+    id: 184192
     name: Pristine Alabaster Gorer
-    limit: weapon 1h-axe
+    limit: weapon 1h-axe-agi
 
   - type: transmog
-    id: 42678
+    id: 184186
+    name: Flesh-Fishing Hook
+    limit: weapon 1h-axe-str
+
+  - type: transmog
+    id: 184187
     name: "Taskmaster's Tenderizer"
-    limit: weapon 1h-axe
+    limit: weapon 1h-axe-str
 
 - name: Thread Mistress Leeda
   location: 24.2 42.9
@@ -301,7 +306,7 @@ farms:
   questId: 58678
   drops:
   - type: transmog
-    id: 41965
+    id: 184180
     name: "Leeda's Unrefined Mask"
     limit: armor cloth
 
@@ -315,7 +320,7 @@ farms:
     name: Blisterback Bloodtusk
 
   - type: transmog
-    id: 41333
+    id: 184288
     name: "Ruthless Warlord's Barrier"
     limit: weapon shield
 
@@ -330,12 +335,12 @@ farms:
     limit: covenant necrolord
 
   - type: transmog
-    id: 43171
+    id: 181804
     name: Trophy of the Reborn Bonelord
     limit: covenant necrolord
 
   - type: transmog
-    id: 171986
+    id: 184285
     name: Boneclutched Shackles
     limit: armor plate
 

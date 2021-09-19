@@ -8,6 +8,7 @@ import {DateTime} from 'luxon'
 
 import {classMap} from '@/data/character-class'
 import {covenantSlugMap} from '@/data/covenant'
+import type {FarmState} from '@/stores/local-storage/farm'
 import {ArmorType, WeaponType} from '@/types/enums'
 import {getNextDailyReset} from '@/utils/get-next-reset'
 import type {Character, StaticData, UserData} from '@/types'
@@ -22,7 +23,7 @@ export default function getFarmStatus(
     userTransmogData: UserTransmogData,
     timeStore: DateTime,
     category: FarmDataCategory,
-    options: GetFarmStatusOptions,
+    options: FarmState,
 ): FarmStatus[] {
     //console.time('getFarmStatus')
 
@@ -73,7 +74,6 @@ export default function getFarmStatus(
 
                 case 'quest':
                     if (!every(userQuestData.characters, (c) => c.quests.get(drop.id) !== undefined)) {
-                        console.log('quest', drop.id)
                         dropStatus.need = true
                     }
                     break
@@ -177,20 +177,13 @@ export default function getFarmStatus(
 }
 
 
-interface GetFarmStatusOptions {
-    trackMounts: boolean
-    trackPets: boolean
-    trackToys: boolean
-    trackTransmog: boolean
-}
-
 export interface FarmStatus {
     characters: CharacterStatus[]
     need: boolean
     drops: DropStatus[]
 }
 
-interface DropStatus {
+export interface DropStatus {
     need: boolean
     skip: boolean
     characterIds: number[]
@@ -210,19 +203,34 @@ const armorMap: Record<string, ArmorType> = {
 
 const weaponMap: Record<string, WeaponType> = {
     '1h-axe': WeaponType.OneHandedAxe,
+    '1h-axe-agi': WeaponType.OneHandedAxeAgility,
+    '1h-axe-str': WeaponType.OneHandedAxeStrength,
     '1h-mace': WeaponType.OneHandedMace,
+    '1h-mace-agi': WeaponType.OneHandedMaceAgility,
+    '1h-mace-str': WeaponType.OneHandedMaceStrength,
     '1h-sword': WeaponType.OneHandedSword,
+    '1h-sword-agi': WeaponType.OneHandedSwordAgility,
+    '1h-sword-int': WeaponType.OneHandedSwordIntellect,
+    '1h-sword-str': WeaponType.OneHandedSwordStrength,
     '2h-axe': WeaponType.TwoHandedAxe,
+    '2h-axe-str': WeaponType.TwoHandedAxe,
     '2h-mace': WeaponType.TwoHandedMace,
+    '2h-mace-str': WeaponType.TwoHandedMace,
     '2h-sword': WeaponType.TwoHandedSword,
+    '2h-sword-str': WeaponType.TwoHandedSwordStrength,
     bow: WeaponType.Bow,
     crossbow: WeaponType.Crossbow,
     dagger: WeaponType.Dagger,
+    'dagger-agi': WeaponType.DaggerAgility,
+    'dagger-int': WeaponType.DaggerIntellect,
     fist: WeaponType.Fist,
     gun: WeaponType.Gun,
+    'offhand-int': WeaponType.OffHandIntellect,
     polearm: WeaponType.Polearm,
+    'polearm-agi': WeaponType.PolearmAgility,
     shield: WeaponType.Shield,
     stave: WeaponType.Stave,
+    'stave-int': WeaponType.StaveIntellect,
     wand: WeaponType.Wand,
     warglaive: WeaponType.Warglaive,
 }
