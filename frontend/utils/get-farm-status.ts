@@ -217,7 +217,7 @@ const weaponMap: Record<string, WeaponType> = {
     '2h-mace': WeaponType.TwoHandedMace,
     '2h-mace-str': WeaponType.TwoHandedMace,
     '2h-sword': WeaponType.TwoHandedSword,
-    '2h-sword-str': WeaponType.TwoHandedSword,
+    '2h-sword-str': WeaponType.TwoHandedSwordStrength,
     bow: WeaponType.Bow,
     crossbow: WeaponType.Crossbow,
     dagger: WeaponType.Dagger,
