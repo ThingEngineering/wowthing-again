@@ -5,14 +5,14 @@
     import {farmType} from '@/data/farm'
     import {userStore} from '@/stores'
     import type {FarmDataDrop, FarmDataFarm} from '@/types/data'
-    import type {FarmStatus} from '@/utils/get-farm-status'
+    import type {DropStatus, FarmStatus} from '@/utils/get-farm-status'
 
     export let farm: FarmDataFarm
     export let status: FarmStatus
 
-    let sortedDrops: FarmDataDrop[]
+    let sortedDrops: [FarmDataDrop, DropStatus][]
     $: {
-        const sigh = []
+        const sigh: [FarmDataDrop, DropStatus][] = []
         for (let dropIndex = 0; dropIndex < farm.drops.length; dropIndex++) {
             sigh.push([farm.drops[dropIndex], status.drops[dropIndex]])
         }
