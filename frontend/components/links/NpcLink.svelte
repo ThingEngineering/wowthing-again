@@ -2,8 +2,8 @@
     import { data as settingsData } from '@/stores/settings'
 
     export let id: number
-    export let noTooltip: boolean
-    export let toComments: boolean
+    export let noTooltip = false
+    export let toComments = false
 
     let url = ''
     $: {

@@ -183,7 +183,7 @@ export interface FarmStatus {
     drops: DropStatus[]
 }
 
-interface DropStatus {
+export interface DropStatus {
     need: boolean
     skip: boolean
     characterIds: number[]
