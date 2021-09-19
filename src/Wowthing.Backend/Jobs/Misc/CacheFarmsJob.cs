@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -59,24 +60,33 @@ namespace Wowthing.Backend.Jobs.Misc
                 .GroupBy(r => r.ItemID)
                 .ToDictionary(r => r.Key, r => r.First().ItemAppearanceID);
             
-            foreach (var categories in cacheData.Sets)
+            using (var outFile = File.CreateText(Path.Join(DataUtilities.DataPath, "farms", "addon.txt")))
             {
-                foreach (var category in categories)
+                foreach (var categories in cacheData.Sets)
                 {
-                    foreach (var farm in category.Farms)
+                    foreach (var category in categories)
                     {
-                        foreach (var drop in farm.Drops)
+                        outFile.WriteLine("    -- Farms: {0}", category.Name);
+                        foreach (var farm in category.Farms)
                         {
-                            if (drop.Type == "transmog" && drop.Id > 100000)
+                            foreach (var questId in farm.QuestIds)
                             {
-                                drop.Id = itemToAppearance[drop.Id];
+                                outFile.WriteLine("    {0}, -- {1}", questId, farm.Name);
+                            }
+                            
+                            foreach (var drop in farm.Drops)
+                            {
+                                if (drop.Type == "transmog" && drop.Id > 100000)
+                                {
+                                    drop.Id = itemToAppearance[drop.Id];
+                                }
                             }
                         }
                     }
                 }
             }
 
-            
+
             var cacheJson = JsonConvert.SerializeObject(cacheData);
             var cacheHash = cacheJson.Md5();
 
