@@ -121,7 +121,7 @@ farms:
   - type: transmog
     id: 180503
     name: "Grand Arcanist's Soulblade"
-    limit: weapon dagger
+    limit: weapon dagger-int
 
 - name: Harika the Horrid
   location: 45.8 79.1
@@ -180,7 +180,7 @@ farms:
   - type: transmog
     id: 180501
     name: Skull-Formed Headcage
-    limit: Armor mail
+    limit: armor mail
 
 - name: Manifestation of Wrath
   location: 48.9 34.9

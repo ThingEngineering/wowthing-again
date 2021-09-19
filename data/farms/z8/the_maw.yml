@@ -1,0 +1,281 @@
+name: The Maw
+mapName: z8_the_maw
+minimumLevel: 60
+wowheadGuide: https://www.wowhead.com/guides/shadowlands-korthia-desmotaeron-rares-treasures
+farms:
+
+- name: Adjutant Dekaris
+  location: 25.9 31.2
+  npcId: 157964
+  questId: 57482
+  drops:
+  - type: transmog
+    id: 186222
+    name: Grips of the Coldheart Adjunct
+    limit: armor mail
+
+- name: Borr-Geth
+  location: 39.0 41.2
+  npcId: 157833
+  questId: 57469
+  drops:
+  - type: toy
+    id: 184312
+    name: "Borr-Geth's Fiery Brimstone"
+
+  - type: transmog
+    id: 186223
+    name: Coif of the Molten Horror
+    limit: armor mail
+
+- name: Conjured Death
+  location: 27.7 13.0
+  npcId: 171317
+  questId: 61106
+  drops:
+  - type: transmog
+    id: 183887
+    name: Suirhtaned, Blade of the Heir
+    limit: weapon 1h-sword-agi
+
+- name: Darithis the Bleak
+  location: 60.9 48.0
+  npcId: 160770
+  questId: 62282
+  drops:
+  - type: transmog
+    id: 186220
+    name: Stygian Chestcage
+    limit: armor mail
+
+- name: Darklord Taraxis
+  location: 49.1 81.8
+  npcId: 158025
+  questId: 62282
+  drops:
+  - type: toy
+    id: 183901
+    name: Bonestorm Top
+
+  - type: transmog
+    id: 186220
+    name: Taraxis Treads
+    limit: armor leather
+
+- name: Deomen the Vortex
+  location: 61.2 41.3
+  npcId: 179779
+  questId: 64251
+  drops:
+  - type: transmog
+    id: 187385
+    name: Vortex Piercing Headgear
+    limit: armor mail
+
+  - type: transmog
+    id: 187367
+    name: "Deomen's Vortex Blade"
+    limit: weapon 1h-sword-int
+
+- name: Dolos
+  location: 28.0 60.6
+  npcId: 170711
+  questId: 60909
+  drops:
+  - type: transmog
+    id: 186209
+    name: Blood-Spattered Gloves of Death
+    limit: armor cloth
+
+- name: Eketra
+  location: 23.8 53.4
+  npcId: 170774
+  questId: 60915
+  drops:
+  - type: transmog
+    id: 186563
+    name: Spear of the Impaler
+    limit: weapon polearm-agi
+
+- name: Eternas the Tormentor
+  location: 19.1 46.1
+  npcId: 154330
+  questId: 57509
+  drops:
+  - type: pet
+    id: 174081
+    name: Dread
+
+  - type: transmog
+    id: 186212
+    name: "Eternas' Braided Waistcord"
+    limit: armor cloth
+
+- name: Fallen Charger
+  location: 17.6 49.4
+  note: Rides off to Korthia via one of two paths
+  npcId: 179460
+  questId: 64164
+  drops:
+  - type: mount
+    id: 354353
+    name: Fallen Charger
+
+- name: Ikras the Devourer
+  location: 30.8 50.0
+  note: Flies around all over the place
+  npcId: 175012
+  questId: 62788
+  drops:
+  - type: transmog
+    id: 186214
+    name: Maw Snakeskin Boots
+    limit: armor leather
+
+- name: Morguliax
+  location: 16.9 51.1
+  npcId: 162849
+  questId: 60987
+  drops:
+  - type: toy
+    id: 184292
+    name: Ancient Elethium Coin
+
+  - type: transmog
+    id: 185892
+    name: Stygia-Etched Decapitator
+    limit: weapon 2h-sword-str
+
+- name: Nascent Devourer
+  location: 45.5 73.8
+  npcId: 158278
+  questId: 57573
+  drops:
+  - type: transmog
+    id: 186236
+    name: "Devourer's Shadehide Jerkin"
+    limit: armor leather
+
+- name: Obolos
+  location: 48.8 18.3
+  npcId: 164064
+  questId: 60667
+  drops:
+  - type: transmog
+    id: 186238
+    name: Mantle of the Prime Collector
+    limit: armor cloth
+
+- name: Orophea
+  location: 23.7 21.4
+  npcId: 172577
+  questId: 61519
+  drops:
+  - type: toy
+    id: 181794
+    name: "Orophea's Lyre"
+
+  - type: transmog
+    id: 186211
+    name: Pantaloons of the Condemned Bard
+    limit: armor cloth
+
+- name: Shadeweaver Zeris
+  location: 32.9 66.5
+  npcId: 170634
+  questId: 60884
+  drops:
+  - type: toy
+    id: 181794
+    name: "Orophea's Lyre"
+
+  - type: transmog
+    id: 185945
+    name: "Shadeweaver's Spire"
+    limit: weapon stave-int
+
+- name: Soulforger Rhovus
+  location: 35.9 41.5
+  npcId: 166398
+  questId: 60834
+  drops:
+  - type: transmog
+    id: 186613
+    name: "Rhovus' Linked Greaves"
+    limit: armor mail
+
+- name: Talaporas, Herald of Pain
+  location: 28.6 12.0
+  npcId: 170302
+  questId: 60789
+  drops:
+  - type: transmog
+    id: 184107
+    name: Borogove Cloak
+
+- name: Thanassos
+  location: 27.3 71.4
+  npcId: 170731
+  questId: 60914
+  drops:
+  - type: transmog
+    id: 186234
+    name: Girdle of the Death Speaker
+    limit: armor plate
+
+- name: Traitor Balthier
+  location: 69.0 49.0
+  npcId: 179805
+  questId: 64258
+  drops:
+  - type: transmog
+    id: 187374
+    name: "Balthier's Waistcord"
+    limit: armor cloth
+
+  - type: transmog
+    id: 187364
+    name: "Maldraxxi Traitor's Blade"
+    limit: weapon 1h-sword-str
+
+- name: Yero the Skittish
+  location: 37.4 62.2
+  npcId: 172862
+  questId: 61568
+  drops:
+  - type: transmog
+    id: 186228
+    name: Helm of the Skittish Hero
+    limit: armor plate
+
+- name: Ylva, Mate of Guarm
+  location: 66.3 44.0
+  npcId: 177444
+  questId: 64152
+  drops:
+  - type: transmog
+    id: 186217
+    name: Supple Helhound Leather Pants
+    limit: armor leather
+
+  - type: transmog
+    id: 187393
+    name: "Sterling Hound-Handler's Gauntlets"
+    limit: armor plate
+
+  - type: transmog
+    id: 187359
+    name: "Ylva's Water Dish"
+    limit: weapon shield
+
+#
+#
+#- name:
+#  location:
+#  npcId:
+#  questId:
+#  drops:
+#  - type:
+#    id:
+#    name:
+#    limit:

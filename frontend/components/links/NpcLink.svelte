@@ -2,6 +2,8 @@
     import { data as settingsData } from '@/stores/settings'
 
     export let id: number
+    export let noTooltip: boolean
+    export let toComments: boolean
 
     let url = ''
     $: {
@@ -10,10 +12,19 @@
         }
         else {
             url = `https://www.wowhead.com/npc=${id}`
+            if (toComments) {
+                url += '#comments'
+            }
         }
     }
 </script>
 
-<a href="{url}">
+{#if id > 0}
+    <a
+        href="{url}"
+        data-disable-wowhead-tooltip="{noTooltip ? 'true' : undefined}">
+        <slot />
+    </a>
+{:else}
     <slot />
-</a>
+{/if}

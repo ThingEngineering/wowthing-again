@@ -21,7 +21,7 @@ farms:
   - type: transmog
     id: 183607
     name: Uncertain Aspirant's Spear
-    limit: weapon polearm
+    limit: weapon polearm-agi
 
 - name: Cloudfeather Guardian
   location: 50.4 58.0
@@ -40,7 +40,7 @@ farms:
   - type: transmog
     id: 183608
     name: Evernote Vesper
-    limit: weapon offhand
+    limit: weapon offhand-int
 
 - name: Dark Watcher
   location: 27.8 30.2
@@ -50,7 +50,7 @@ farms:
   - type: transmog
     id: 184297
     name: Death Warden's Greatblade
-    limit: weapon 2h-sword
+    limit: weapon 2h-sword-str
 
 - name: Demi the Relic Hoarder
   location: 37.0 41.8
@@ -65,27 +65,47 @@ farms:
   - type: transmog
     id: 183608
     name: Evernote Vesper
-    limit: weapon offhand
+    limit: weapon offhand-int
+
+  - type: transmog
+    id: 183614
+    name: Gavel of Harmonious Wisdom
+    limit: weapon 1h-mace-int
 
   - type: transmog
     id: 183613
     name: Glinting Daybreak Dagger
-    limit: weapon dagger
+    limit: weapon dagger-int
 
   - type: transmog
     id: 183611
     name: Humble Ophelia's Greatblade
-    limit: weapon 2h-sword
+    limit: weapon 2h-sword-str
+
+  - type: transmog
+    id: 183612
+    name: Loyal Champion's Hammer
+    limit: weapon 1h-mace-str
+
+  - type: transmog
+    id: 183604
+    name: Piercing Timbre Crossbow
+    limit: weapon crossbow
 
   - type: transmog
     id: 183609
     name: Re-Powered Goliath Fists
-    limit: weapon fist
+    limit: weapon fist-agi
 
   - type: transmog
     id: 183607
     name: Uncertain Aspirant's Spear
-    limit: weapon polearm
+    limit: weapon polearm-agi
+
+  - type: transmog
+    id: 183610
+    name: Warrior Poet's Poniard
+    limit: weapon dagger-agi
 
 - name: Dionae
   location: 41.4 49.0
@@ -123,7 +143,7 @@ farms:
   - type: transmog
     id: 183608
     name: Evernote Vesper
-    limit: weapon offhand
+    limit: weapon offhand-int
 
 - name: Orstus and Sotiros
   location: 22.4 22.8
@@ -148,7 +168,7 @@ farms:
   - type: transmog
     id: 183608
     name: Evernote Vesper
-    limit: weapon offhand
+    limit: weapon offhand-int
 
 - name: Sundancer
   location: 61.4 90.6
@@ -197,7 +217,7 @@ farms:
   - type: transmog
     id: 179485
     name: Fang of Nemaeus
-    limit: weapon dagger
+    limit: weapon dagger-agi
 
 - name: Sigilback
   location: 61.1 80.6
@@ -207,7 +227,7 @@ farms:
   - type: transmog
     id: 179486
     name: Sigilback's Smashshell
-    limit: weapon 1h-mace
+    limit: weapon 1h-mace-agi
 
 # Weird ones
 
