@@ -21,18 +21,26 @@
         transform: translate(-50%, -50%);
         text-align: center;
         width: 22px;
-
-        :global(a:hover) {
-            color: #00ccff !important;
-        }
     }
     .icon {
-        pointer-events: none;
+        //pointer-events: none;
+
+        &.active {
+            color: #fff;
+        }
+        &.inactive {
+            color: #009f00;
+        }
+
+        &:hover {
+            color: #00ccff !important;
+        }
     }
     span {
         background-color: $highlight-background;
         border: 1px solid $border-color;
         border-radius: $border-radius-small;
+        color: #fff;
         display: block;
         font-size: 0.9rem;
         line-height: 1;
@@ -41,13 +49,11 @@
         pointer-events: none;
         word-spacing: -0.2ch;
     }
-    .inactive {
-        color: #009f00;
-    }
 </style>
 
 <div
     class="wrapper"
+    class:active={status.need}
     style="--left: {farm.location[0]}%; --top: {farm.location[1]}%; --top-offset: {status.need ? '7px' : '0px'};"
     use:tippyComponent={{
         component: Tooltip,
@@ -56,7 +62,7 @@
     }}
 >
     <NpcLink id={farm.npcId} noTooltip={true} toComments={true}>
-        <div class="icon drop-shadow" class:inactive={!status.need}>
+        <div class="icon drop-shadow" class:active={status.need} class:inactive={!status.need}>
             <Fa fw icon={faSkull} />
         </div>
 
