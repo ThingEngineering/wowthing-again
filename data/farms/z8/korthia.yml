@@ -186,7 +186,7 @@ farms:
   - type: transmog
     id: 187368
     name: Xyraxz's Controlling Rod
-    limit: weapon stave
+    limit: weapon stave-int
 
 - name: Yarxhov the Pillager
   location: 39.4 52.4

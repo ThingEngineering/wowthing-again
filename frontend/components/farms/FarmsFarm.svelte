@@ -6,6 +6,7 @@
     import type {FarmDataFarm} from '@/types/data'
     import type {FarmStatus} from '@/utils/get-farm-status'
 
+    import NpcLink from '@/components/links/NpcLink.svelte'
     import Tooltip from '@/components/tooltips/farm/TooltipFarm.svelte'
 
     export let farm: FarmDataFarm
@@ -20,6 +21,13 @@
         transform: translate(-50%, -50%);
         text-align: center;
         width: 22px;
+
+        :global(a:hover) {
+            color: #00ccff !important;
+        }
+    }
+    .icon {
+        pointer-events: none;
     }
     span {
         background-color: $highlight-background;
@@ -30,6 +38,7 @@
         line-height: 1;
         margin-top: -4px;
         padding: 0 2px 1px 2px;
+        pointer-events: none;
         word-spacing: -0.2ch;
     }
     .inactive {
@@ -46,11 +55,13 @@
         tippyProps: {placement: 'right'},
     }}
 >
-    <div class="drop-shadow" class:inactive={!status.need}>
-        <Fa fw icon={faSkull} />
-    </div>
+    <NpcLink id={farm.npcId} noTooltip={true} toComments={true}>
+        <div class="icon drop-shadow" class:inactive={!status.need}>
+            <Fa fw icon={faSkull} />
+        </div>
 
-    {#if status.need}
-        <span class:status-success={status.characters.length === 0}>{status.characters.length}</span>
-    {/if}
+        {#if status.need}
+            <span class:status-success={status.characters.length === 0}>{status.characters.length}</span>
+        {/if}
+    </NpcLink>
 </div>
