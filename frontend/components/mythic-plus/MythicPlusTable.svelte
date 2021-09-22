@@ -2,21 +2,22 @@
     import find from 'lodash/find'
     import sortBy from 'lodash/sortBy'
 
-    import { seasonMap } from '@/data/dungeon'
-    import type { Character, CharacterMythicPlusRun, MythicPlusSeason } from '@/types'
+    import { seasonMap, weeklyAffixes } from '@/data/dungeon'
+    import { userStore } from '@/stores'
+    import type { Character, CharacterMythicPlusRun, MythicPlusAffix, MythicPlusSeason } from '@/types'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import getCurrentPeriodForCharacter from '@/utils/get-current-period-for-character'
     import toDigits from '@/utils/to-digits'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
-    import HeadDungeon from './MythicPlusTableHead.svelte'
+    import HeadDungeon from './MythicPlusTableHeadDungeon.svelte'
     import HeadItemLevel from '@/components/character-table/head/ItemLevel.svelte'
     import HeadKeystone from '@/components/character-table/head/Keystone.svelte'
     import HeadRaiderIo from '@/components/character-table/head/RaiderIo.svelte'
     import HeadUpgrade from './MythicPlusTableHeadUpgrade.svelte'
     import HeadVault from '@/components/character-table/head/Vault.svelte'
-    import RowDungeon from './MythicPlusTableBody.svelte'
+    import RowDungeon from './MythicPlusTableRowDungeon.svelte'
     import RowItemLevel from '@/components/character-table/row/ItemLevel.svelte'
     import RowKeystone from '@/components/character-table/row/Keystone.svelte'
     import RowMythicPlusBadge from '@/components/character-table/row/MythicPlusBadge.svelte'
@@ -28,6 +29,7 @@
 
     const firstSeason: MythicPlusSeason = sortBy(seasonMap, (s: MythicPlusSeason) => -s.id)[0]
 
+    let affixes: MythicPlusAffix[]
     let isCurrentSeason: boolean
     let isThisWeek: boolean
     let filterFunc: (char: Character) => boolean
@@ -57,6 +59,10 @@
         }
 
         isCurrentSeason = season.id === firstSeason.id
+        if (isCurrentSeason) {
+            const week = ($userStore.data.currentPeriod[1].id - 809) % weeklyAffixes.length
+            affixes = weeklyAffixes[week]
+        }
 
         filterFunc = (char: Character) => char.level >= season.minLevel
     }
@@ -67,7 +73,7 @@
         <HeadItemLevel />
 
         {#if isCurrentSeason}
-            <HeadKeystone />
+            <HeadKeystone {affixes} />
         {/if}
 
         {#if isThisWeek}

@@ -1,9 +1,9 @@
 export class MythicPlusAffix {
-    name: string
-
-    constructor(name: string) {
-        this.name = name
-    }
+    constructor(
+        public id: number,
+        public name: string,
+    )
+    {}
 }
 
 export class MythicPlusSeason {
