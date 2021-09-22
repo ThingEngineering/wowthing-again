@@ -6,6 +6,7 @@
     import { tippyComponent } from '@/utils/tippy'
 
     import TooltipMythicPlusRuns from '@/components/tooltips/mythic-plus-runs/TooltipMythicPlusRuns.svelte'
+    import { getWeeklyAffixes } from '../../utils/mythic-plus'
 
     export let dungeonId: number
     export let runsFunc: (char: Character, dungeonId: number) => CharacterMythicPlusRun[]
@@ -14,8 +15,12 @@
     const character: Character = getContext('character')
 
     let addonMap: CharacterMythicPlusAddonMap
+    let isTyrannical: boolean
     let runs: CharacterMythicPlusRun[]
     $: {
+        const affixes = getWeeklyAffixes(character)
+        isTyrannical = affixes[0].name === 'Tyrannical'
+
         runs = runsFunc(character, dungeonId) ?? []
         // If there are 2 runs and the second run isn't higher than the first, discard it
         if (runs.length === 2 && runs[1].keystoneLevel <= runs[0].keystoneLevel) {
@@ -38,19 +43,31 @@
         border-left: 1px solid $border-color;
         text-align: center;
 
-        --padding: 0.4rem;
+        --active-background: rgba(0, 0, 0, 0.5);
+        --inactive-opacity: 0.8;
+
+        &.fortified {
+            span:first-child {
+                background: var(--active-background);
+            }
+            span:last-child {
+                opacity: var(--inactive-opacity);
+            }
+        }
+        &.tyrannical {
+            span:first-child {
+                opacity: var(--inactive-opacity);
+            }
+            span:last-child {
+                background: var(--active-background);
+            }
+        }
     }
     span {
         width: 50%;
 
         &.failed {
             color: #888;
-        }
-        &:first-child {
-            padding-left: var(--padding);
-        }
-        &:last-child {
-            padding-right: var(--padding);
         }
     }
     .flex-wrapper {
@@ -59,6 +76,8 @@
 </style>
 
 <td
+    class:fortified={!isTyrannical}
+    class:tyrannical={isTyrannical}
     use:tippyComponent={{
         component: TooltipMythicPlusRuns,
         props: { addonMap, dungeonId, runs },
@@ -68,28 +87,23 @@
         {#if seasonId >= 6}
             {#if addonMap?.fortifiedScore}
                 <span
-                    class={getMythicPlusRunQualityAffix(
-                        addonMap.fortifiedScore
-                    )}>{addonMap.fortifiedScore.level}</span
-                >
+                    class="{getMythicPlusRunQualityAffix(addonMap.fortifiedScore)}"
+                >{addonMap.fortifiedScore.level}</span>
             {:else}
                 <span class="quality0">--</span>
             {/if}
 
             {#if addonMap?.tyrannicalScore}
                 <span
-                    class={getMythicPlusRunQualityAffix(
-                        addonMap.tyrannicalScore
-                    )}>{addonMap.tyrannicalScore.level}</span
-                >
+                    class={getMythicPlusRunQualityAffix(addonMap.tyrannicalScore)}
+                >{addonMap.tyrannicalScore.level}</span>
             {:else}
                 <span class="quality0">--</span>
             {/if}
         {:else}
             {#each runs as run}
                 <span class={getMythicPlusRunQuality(run)}
-                    >{run.keystoneLevel}</span
-                >
+                    >{run.keystoneLevel}</span>
             {/each}
         {/if}
     </div>
