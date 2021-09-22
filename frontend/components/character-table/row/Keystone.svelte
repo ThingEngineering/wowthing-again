@@ -1,38 +1,26 @@
 <script lang="ts">
-    import type {Character, CharacterMythicPlusRun, Dungeon} from '@/types'
+    import type {Character, Dungeon} from '@/types'
     import {Constants} from '@/data/constants'
     import {dungeonMap} from '@/data/dungeon'
-    import {timeStore} from '@/stores'
+    import { timeStore } from '@/stores'
     import getMythicPlusRunQuality from '@/utils/get-mythic-plus-run-quality'
     import {getNextWeeklyReset} from '@/utils/get-next-reset'
-    import tippy from '@/utils/tippy'
+    import { isKeystoneUpgrade } from '@/utils/mythic-plus'
+    import { tippyComponent } from '@/utils/tippy'
 
+    import Tooltip from '@/components/tooltips/mythic-plus-keystone/TooltipMythicPlusKeystone.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
 
     let dungeon: Dungeon = undefined
-    let tooltip: string
-    let upgrade = false
+    let isUpgrade = false
     $: {
         if (character.weekly?.keystoneDungeon) {
             const reset = getNextWeeklyReset(character.weekly.keystoneScannedAt, character.realm.region)
             if (reset > $timeStore) {
                 dungeon = dungeonMap[character.weekly.keystoneDungeon]
-                const run: CharacterMythicPlusRun | undefined =
-                    character.mythicPlus?.seasons[Constants.mythicPlusSeason]?.[dungeon.id]?.[0]
-                if (
-                    run?.timed !== true ||
-                    (run?.timed === true &&
-                        character.weekly.keystoneLevel > run.keystoneLevel)
-                ) {
-                    upgrade = true
-                }
-
-                tooltip = `${character.name} has a ${dungeon.name} +${character.weekly.keystoneLevel} key`
-                if (upgrade) {
-                    tooltip += "<br><br>It's a Raider.IO score upgrade!"
-                }
+                ;({isUpgrade} = isKeystoneUpgrade(character, dungeon.id))
             }
         }
     }
@@ -58,17 +46,23 @@
     }
     .upgrade {
         color: #ff88ff;
-        //filter: drop-shadow(0 0 2px darken(#ff88ff, 30%));
     }
 </style>
 
-{#if character.level === Constants.characterMaxLevel && dungeon}
-    <td use:tippy={{allowHTML: true, content: tooltip}}>
-        <div class="flex-wrapper">
-            <WowthingImage name={dungeon.icon} size={20} border={1} />
-            <span class="level {getMythicPlusRunQuality(character.weekly.keystoneLevel)}">{character.weekly.keystoneLevel}</span>
-            <span class="dungeon" class:upgrade>{dungeon.abbreviation}</span>
-        </div>
+{#if character.level === Constants.characterMaxLevel}
+    <td
+        use:tippyComponent={{
+            component: Tooltip,
+            props: {character, dungeon}
+        }}
+    >
+        {#if dungeon}
+            <div class="flex-wrapper">
+                <WowthingImage name={dungeon.icon} size={20} border={1} />
+                <span class="level {getMythicPlusRunQuality(character.weekly.keystoneLevel)}">{character.weekly.keystoneLevel}</span>
+                <span class="dungeon" class:upgrade={isUpgrade}>{dungeon.abbreviation}</span>
+            </div>
+        {/if}
     </td>
 {:else}
     <td>&nbsp;</td>

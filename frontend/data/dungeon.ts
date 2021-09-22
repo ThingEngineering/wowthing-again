@@ -3,6 +3,7 @@ import type { Dictionary, StaticDataInstance } from '@/types'
 
 export const affixMap: Record<number, MythicPlusAffix> = Object.fromEntries(
     [
+        new MythicPlusAffix(0, 'Unknown'),
         // Always
         new MythicPlusAffix(9, 'Tyrannical'),
         new MythicPlusAffix(10, 'Fortified'),
