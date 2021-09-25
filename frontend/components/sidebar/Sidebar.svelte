@@ -11,7 +11,7 @@
     export let percentFunc: (entry: SidebarItem) => number = undefined
     export let width = '10rem'
 
-    let anyChildren = false
+    let anyChildren: boolean
     $: {
         anyChildren = some(items, (item) => (item?.children?.length ?? 0) > 0)
     }
