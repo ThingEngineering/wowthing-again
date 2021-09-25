@@ -6,13 +6,17 @@
 
     export const categories: SidebarItem[] = [
         {
+            name: 'Layout',
+            slug: 'layout',
+        },
+        {
             name: 'Privacy',
             slug: 'privacy',
         },
         null,
         {
-            name: 'Layout',
-            slug: 'layout',
+            name: 'Characters',
+            slug: 'characters',
         },
         {
             name: 'Transmog',

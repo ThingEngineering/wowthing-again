@@ -3,20 +3,6 @@
     import { data as settings } from '@/stores/settings'
 
     import HeadIcon from './head/Icon.svelte'
-
-    let iconComponents: any[]
-    $: {
-        iconComponents = []
-        if ($settings.general.showRaceIcon) {
-            iconComponents.push(HeadIcon)
-        }
-        if ($settings.general.showClassIcon) {
-            iconComponents.push(HeadIcon)
-        }
-        if ($settings.general.showSpecIcon) {
-            iconComponents.push(HeadIcon)
-        }
-    }
 </script>
 
 <style lang="scss">
