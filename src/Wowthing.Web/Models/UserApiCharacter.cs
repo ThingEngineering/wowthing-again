@@ -128,7 +128,7 @@ namespace Wowthing.Web.Models
 
             if (character.Weekly != null)
             {
-                Weekly = new UserApiCharacterWeekly(character.Weekly, pub, !pub || privacy?.PublicMythicPlus == true);
+                Weekly = new UserApiCharacterWeekly(character.Weekly, pub, privacy);
             }
         }
     }
@@ -236,19 +236,19 @@ namespace Wowthing.Web.Models
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public Dictionary<string, PlayerCharacterWeeklyUghQuest> UghQuests { get; set; }
 
-        public UserApiCharacterWeekly(PlayerCharacterWeekly weekly, bool pub, bool includeKeystone)
+        public UserApiCharacterWeekly(PlayerCharacterWeekly weekly, bool pub, ApplicationUserSettingsPrivacy? privacy)
         {
             Torghast = weekly.Torghast;
             TorghastScannedAt = weekly.TorghastScannedAt;
             Vault = weekly.Vault;
 
-            if (!pub)
+            if (!pub || privacy?.PublicQuests == true)
             {
                 UghQuests = weekly.UghQuests;
                 UghQuestsScannedAt = weekly.UghQuestsScannedAt;
             }
 
-            if (includeKeystone)
+            if (!pub || privacy?.PublicMythicPlus == true)
             {
                 KeystoneDungeon = weekly.KeystoneDungeon;
                 KeystoneLevel = weekly.KeystoneLevel;

@@ -22,6 +22,7 @@ export interface Settings {
         publicCurrencies: boolean
         publicLockouts: boolean
         publicMythicPlus: boolean
+        publicQuests: boolean
         publicTransmog: boolean
         showInLeaderboards: boolean
     }

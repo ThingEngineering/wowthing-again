@@ -1,6 +1,4 @@
 <script lang="ts">
-    import { getContext } from 'svelte'
-
     import { covenantMap } from '@/data/covenant'
     import type { Character, Covenant } from '@/types'
     import getCurrentPeriodForCharacter from '@/utils/get-current-period-for-character'
@@ -14,10 +12,6 @@
     let maxRenown = 60
     let tooltip: string
     $: {
-        if (!character) {
-            character = getContext('character')
-        }
-
         const currentPeriod = getCurrentPeriodForCharacter(character)
         if (currentPeriod) {
             maxRenown = Math.min(80, maxRenown + (currentPeriod.id - 815) * 2)

@@ -31,10 +31,12 @@
     <svelte:fragment slot="rowExtra" let:character>
         {#each $settings.layout.homeFields as field}
             {#if field === 'covenant'}
-                <RowCovenant />
+                <RowCovenant {character} />
 
-            {:else if field === 'gold' && !isPublic}
-                <RowGold gold={character.gold} />
+            {:else if field === 'gold'}
+                {#if !isPublic}
+                    <RowGold gold={character.gold} />
+                {/if}
 
             {:else if field === 'itemLevel'}
                 <RowItemLevel />
@@ -43,10 +45,14 @@
                 <RowMountSpeed />
 
             {:else if field === 'keystone'}
-                <RowKeystone {character} />
+                {#if !isPublic || $settings.privacy.publicMythicPlus}
+                    <RowKeystone {character} />
+                {/if}
 
             {:else if field === 'playedTime'}
-                <RowPlayedTime playedTotal={character.playedTotal} />
+                {#if !isPublic}
+                    <RowPlayedTime playedTotal={character.playedTotal} />
+                {/if}
 
             {:else if field === 'statusIcons'}
                 <RowStatuses />
@@ -84,6 +90,10 @@
                     icon={Constants.icons.weeklyAnima}
                     ughQuest={character.weekly?.ughQuests?.['souls']}
                 />
+
+            {:else}
+                <td>&nbsp;</td>
+
             {/if}
         {/each}
     </svelte:fragment>

@@ -141,7 +141,7 @@ export default function getFarmStatus(
                 dropStatus.characterIds = filter(
                     characters,
                     (c) => resetMap[c.id] < now ||
-                        every(farm.questIds, (q) => userQuestData.characters[c.id].dailyQuests.get(q) === undefined)
+                        every(farm.questIds, (q) => userQuestData.characters[c.id]?.dailyQuests?.get(q) === undefined)
                 ).map(c => c.id)
             }
 
