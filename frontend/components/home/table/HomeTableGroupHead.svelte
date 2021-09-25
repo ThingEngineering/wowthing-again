@@ -35,8 +35,10 @@
         {#if field === 'covenant'}
             <HeadCovenant />
 
-        {:else if field === 'gold' && !isPublic}
-            <RowGold {gold} />
+        {:else if field === 'gold'}
+            {#if !isPublic}
+                <RowGold {gold} />
+            {/if}
 
         {:else if field === 'keystone'}
             <td>Keystone</td>
