@@ -5,8 +5,8 @@
     import Currencies from '@/components/currencies/Currencies.svelte'
     import Farms from '@/components/farms/Farms.svelte'
     import Gear from '@/components/gear/Gear.svelte'
-    import HomeCards from '@/components/home/Cards.svelte'
-    import HomeTable from '@/components/home/Table.svelte'
+    import HomeCards from '@/components/home/HomeCards.svelte'
+    import HomeTable from '@/components/home/HomeTable.svelte'
     import Lockouts from '@/components/lockouts/Lockouts.svelte'
     import Mounts from '@/components/collections/Mounts.svelte'
     import MythicPlus from '@/components/mythic-plus/MythicPlus.svelte'
@@ -36,7 +36,7 @@
         '/toys/:slug1?/:slug2?': Toys,
         '/transmog/:slug1?/:slug2?': Transmog,
 
-        '/settings': Settings,
+        '/settings/:slug?': Settings,
     }
 </script>
 

@@ -11,23 +11,27 @@
     export let percentFunc: (entry: SidebarItem) => number = undefined
     export let width = '10rem'
 
-    let anyChildren = false
+    let anyChildren: boolean
     $: {
         anyChildren = some(items, (item) => (item?.children?.length ?? 0) > 0)
     }
 </script>
 
 <style lang="scss">
+    div {
+        margin-right: 1rem;
+        min-width: var(--width);
+        position: sticky;
+        top: 0;
+        width: var(--width);
+    }
+
     nav {
         --linkColor: #64e1ff;
 
         border: 1px solid $border-color;
-        margin-right: 1rem;
-        min-width: var(--width);
         padding: 0.5rem 0;
-        position: sticky;
-        top: 0;
-        width: var(--width);
+        width: 100%;
 
         ul {
             margin: 0;
@@ -35,10 +39,16 @@
     }
 </style>
 
-<nav id="{id}" class="thing-container" style="--width: {width}">
-    <ul>
-        {#each items as item}
-            <SidebarEntry {anyChildren} {baseUrl} {item} {percentFunc} />
-        {/each}
-    </ul>
-</nav>
+<div style="--width: {width}">
+    <slot name="before" />
+
+    <nav id="{id}" class="thing-container">
+        <ul>
+            {#each items as item}
+                <SidebarEntry {anyChildren} {baseUrl} {item} {percentFunc} />
+            {/each}
+        </ul>
+    </nav>
+
+    <slot name="after" />
+</div>

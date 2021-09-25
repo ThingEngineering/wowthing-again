@@ -54,17 +54,15 @@
         <button>
             <CheckboxInput
                 name="highlight_enchants"
-                label="Highlight missing enchants"
                 bind:value={highlightMissingEnchants}
-            />
+            >Highlight missing enchants</CheckboxInput>
         </button>
 
         <button>
             <CheckboxInput
                 name="highlight_gems"
-                label="Highlight missing gems"
                 bind:value={highlightMissingGems}
-            />
+            >Highlight missing gems</CheckboxInput>
         </button>
     </div>
 

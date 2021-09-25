@@ -7,7 +7,7 @@
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
     import HeadProgress from './ProgressTableHead.svelte'
-    import RowCovenant from '@/components/home/table/RowCovenant.svelte'
+    import RowCovenant from '@/components/home/table/row/HomeTableRowCovenant.svelte'
     import RowProgress from './ProgressTableBody.svelte'
 
     export let slug: string

@@ -1,6 +1,5 @@
 <script lang="ts">
     import { specializationMap } from '@/data/character-specialization'
-    import { data as settings } from '@/stores/settings'
     import { userStore } from '@/stores'
     import type { Character, CharacterSpecialization } from '@/types'
     import getRealmName from '@/utils/get-realm-name'
@@ -144,9 +143,7 @@
         </div>
     </div>
     <div class="name">{character.name}</div>
-    {#if $settings.general.showRealm}
-        <div class="realm">{getRealmName(character.realmId)}</div>
-    {/if}
+    <div class="realm">{getRealmName(character.realmId)}</div>
     {#if character.shadowlands}
         <CharacterCovenant {character} />
     {/if}

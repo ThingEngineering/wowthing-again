@@ -1,34 +1,28 @@
 export interface Settings {
+    characters: {
+        hiddenCharacters: number[]
+    }
+
     general: {
         minimumLevel: number
         refreshInterval: number
-        showClassIcon: boolean
-        showItemLevel: boolean
-        showRaceIcon: boolean
-        showRealm: boolean
-        showSpecIcon: boolean
         useWowdb: boolean
         groupBy: string[]
         sortBy: string[]
     }
 
-    home: {
-        showCovenant: boolean
-        showKeystone: boolean
-        showMountSpeed: boolean
-        showStatuses: boolean
-        showTorghast: boolean
-        showVaultMythicPlus: boolean
-        showVaultPvp: boolean
-        showVaultRaid: boolean
-        showWeeklyAnima: boolean
-        showWeeklyShapingFate: boolean
-        showWeeklySouls: boolean
+    layout: {
+        commonFields: string[]
+        homeFields: string[]
     }
 
     privacy: {
         anonymized: boolean
         public: boolean
+        publicCurrencies: boolean
+        publicLockouts: boolean
+        publicMythicPlus: boolean
+        publicTransmog: boolean
         showInLeaderboards: boolean
     }
 

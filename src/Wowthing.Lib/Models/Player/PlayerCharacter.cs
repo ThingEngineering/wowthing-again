@@ -39,6 +39,7 @@ namespace Wowthing.Lib.Models.Player
         public bool IsResting { get; set; } = false;
         public bool IsWarMode { get; set; } = false;
         public int ChromieTime { get; set; } = 0;
+        public int PlayedTotal { get; set; } = 0;
         public long Copper { get; set; } = 0;
         public WowMountSkill MountSkill { get; set; } = 0;
 
