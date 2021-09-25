@@ -6,7 +6,7 @@
     import { tippyComponent } from '@/utils/tippy'
 
     import TooltipMythicPlusRuns from '@/components/tooltips/mythic-plus-runs/TooltipMythicPlusRuns.svelte'
-    import { getWeeklyAffixes } from '../../utils/mythic-plus'
+    import { getWeeklyAffixes } from '@/utils/mythic-plus'
 
     export let dungeonId: number
     export let runsFunc: (char: Character, dungeonId: number) => CharacterMythicPlusRun[]

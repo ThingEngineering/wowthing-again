@@ -6,9 +6,9 @@
     import type {Character} from '@/types'
     import getCharacterTableSpan from '@/utils/get-character-table-span'
 
-    import HeadCovenant from './head/Covenant.svelte'
-    import HeadMount from './head/Mount.svelte'
-    import HeadTorghast from './head/Torghast.svelte'
+    import HeadCovenant from './head/HomeTableHeadCovenant.svelte'
+    import HeadMount from './head/HomeTableHeadMount.svelte'
+    import HeadTorghast from './head/HomeTableHeadTorghast.svelte'
     import RowGold from '@/components/character-table/row/Gold.svelte'
     import SpacerRow from '@/components/character-table/CharacterTableSpacerRow.svelte'
 
