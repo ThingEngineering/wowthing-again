@@ -22,12 +22,12 @@
 </style>
 
 <td>
-    {#if false && character.isResting && character.level < Constants.characterMaxLevel}
+    {#if character.isResting && character.level < Constants.characterMaxLevel}
         <WowthingImage
             name={Constants.icons.resting}
             size={20}
             border={1}
-            tooltip="Rested"
+            tooltip="Resting"
         />
     {/if}
     {#if character.isWarMode}

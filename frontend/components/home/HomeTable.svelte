@@ -6,10 +6,11 @@
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import GroupHead from './table/HomeTableGroupHead.svelte'
     import RowCovenant from './table/row/HomeTableRowCovenant.svelte'
-    import RowGold from '@/components/character-table/row/Gold.svelte'
+    import RowGold from './table/row/HomeTableRowGold.svelte'
     import RowItemLevel from '@/components/character-table/row/ItemLevel.svelte'
     import RowKeystone from '@/components/character-table/row/Keystone.svelte'
     import RowMountSpeed from './table/row/HomeTableRowMountSpeed.svelte'
+    import RowPlayedTime from './table/row/HomeTableRowPlayedTime.svelte'
     import RowStatuses from './table/row/HomeTableRowStatuses.svelte'
     import RowTorghast from './table/row/HomeTableRowTorghast.svelte'
     import RowUghQuest from './table/row/HomeTableRowUghQuest.svelte'
@@ -44,7 +45,10 @@
             {:else if field === 'keystone'}
                 <RowKeystone {character} />
 
-            {:else if field === 'status'}
+            {:else if field === 'playedTime'}
+                <RowPlayedTime playedTotal={character.playedTotal} />
+
+            {:else if field === 'statusIcons'}
                 <RowStatuses />
 
             {:else if field === 'torghast'}

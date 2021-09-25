@@ -22,6 +22,7 @@ namespace Wowthing.Web.Models
         public int EquippedItemLevel { get; set; }
         public int Id { get; }
         public int Level { get; set; }
+        public int PlayedTotal { get; set; }
         public int RaceId { get; set; }
         public int RealmId { get; set; }
         public long Gold { get; }
@@ -74,6 +75,7 @@ namespace Wowthing.Web.Models
                 Gold = character.Copper / 10000;
                 IsResting = character.IsResting;
                 IsWarMode = character.IsWarMode;
+                PlayedTotal = character.PlayedTotal;
             }
 
             if (character.EquippedItems?.Items != null)

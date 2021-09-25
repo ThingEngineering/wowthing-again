@@ -17,6 +17,7 @@ export interface Character {
     level: number
     mountSkill: number
     name: string
+    playedTotal: number
     raceId: number
     realmId: number
 
