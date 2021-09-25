@@ -86,6 +86,7 @@ namespace Wowthing.Backend.Jobs.User
                 character.IsResting = characterData.IsResting;
                 character.IsWarMode = characterData.IsWarMode;
                 character.MountSkill = Enum.IsDefined(typeof(WowMountSkill), characterData.MountSkill) ? (WowMountSkill)characterData.MountSkill : 0;
+                character.PlayedTotal = characterData.PlayedTotal;
 
                 transmog.UnionWith(characterData.Transmog.EmptyIfNull());
 
