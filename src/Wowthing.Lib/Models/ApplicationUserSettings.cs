@@ -142,6 +142,8 @@ namespace Wowthing.Lib.Models
             if (Layout.HomeFields.Count == 0)
             {
                 Layout.HomeFields.Add("gold");
+                Layout.HomeFields.Add("itemLevel");
+                Layout.HomeFields.Add("covenant");
             }
         }
     }
