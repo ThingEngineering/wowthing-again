@@ -3,8 +3,8 @@
     export let padRight: string
 
     $: {
-        padLeft = padLeft ?? 'unset'
-        padRight = padRight ?? 'unset'
+        padLeft = padLeft ?? '0.1rem'
+        padRight = padRight ?? '0px'
     }
 </script>
 

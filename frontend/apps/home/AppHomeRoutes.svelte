@@ -36,7 +36,7 @@
         '/toys/:slug1?/:slug2?': Toys,
         '/transmog/:slug1?/:slug2?': Transmog,
 
-        '/settings': Settings,
+        '/settings/:slug?': Settings,
     }
 </script>
 

@@ -18,11 +18,14 @@
 </script>
 
 <style lang="scss">
+    div {
+        margin-right: 1rem;
+    }
+
     nav {
         --linkColor: #64e1ff;
 
         border: 1px solid $border-color;
-        margin-right: 1rem;
         min-width: var(--width);
         padding: 0.5rem 0;
         position: sticky;
@@ -35,10 +38,18 @@
     }
 </style>
 
-<nav id="{id}" class="thing-container" style="--width: {width}">
-    <ul>
-        {#each items as item}
-            <SidebarEntry {anyChildren} {baseUrl} {item} {percentFunc} />
-        {/each}
-    </ul>
-</nav>
+<div>
+    <slot name="before" />
+
+    <nav id="{id}" class="thing-container" style="--width: {width}">
+
+        <ul>
+            {#each items as item}
+                <SidebarEntry {anyChildren} {baseUrl} {item} {percentFunc} />
+            {/each}
+        </ul>
+
+    </nav>
+
+    <slot name="after" />
+</div>

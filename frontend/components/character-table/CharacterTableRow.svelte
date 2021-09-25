@@ -17,22 +17,10 @@
     setContext('character', character)
 
     let accountEnabled: boolean
-    let iconComponents: any[]
     $: {
         accountEnabled =
             character.accountId === undefined ||
             $userStore.data.accounts[character.accountId].enabled
-
-        iconComponents = []
-        if ($settings.general.showRaceIcon) {
-            iconComponents.push(RaceIcon)
-        }
-        if ($settings.general.showClassIcon) {
-            iconComponents.push(ClassIcon)
-        }
-        if ($settings.general.showSpecIcon) {
-            iconComponents.push(SpecializationIcon)
-        }
     }
 </script>
 
@@ -60,22 +48,35 @@
 </style>
 
 <tr class="faction{character.faction}" class:inactive={!accountEnabled} class:last-of-group={last}>
-    {#if userStore.useAccountTags}
-        <td class="tag">{$userStore.data.accounts[character.accountId].tag || ''}</td>
-    {/if}
+    {#each $settings.layout.commonFields as field}
+        {#if field === 'accountTag' && userStore.useAccountTags}
+            <td class="tag">{$userStore.data.accounts[character.accountId].tag || ''}</td>
 
-    {#each iconComponents as iconComponent, iconIndex}
-        <TableIcon padLeft={iconIndex === 0 ? '0.25rem' : '0px'} padRight={iconIndex === (iconComponents.length - 1) ? '0.25rem' : '0px'}>
-            <svelte:component this={iconComponent} {character} />
-        </TableIcon>
+        {:else if field === 'characterIconClass'}
+            <TableIcon padLeft="0.1rem" padRight="0px">
+                <ClassIcon {character} />
+            </TableIcon>
+
+        {:else if field === 'characterIconRace'}
+            <TableIcon padLeft="0.1rem" padRight="0px">
+                <RaceIcon {character} />
+            </TableIcon>
+
+        {:else if field === 'characterIconSpec'}
+            <TableIcon padLeft="0.1rem" padRight="0px">
+                <SpecializationIcon {character} />
+            </TableIcon>
+
+        {:else if field === 'characterLevel'}
+            <td class="level">{character.level}</td>
+
+        {:else if field === 'characterName'}
+            <td class="name">{character.name}</td>
+
+        {:else if field === 'realmName'}
+            <td class="realm">&ndash; {getRealmName(character.realmId)}</td>
+        {/if}
     {/each}
-
-    <td class="level">{character.level}</td>
-    <td class="name">{character.name}</td>
-
-    {#if $settings.general.showRealm}
-        <td class="realm">&ndash; {getRealmName(character.realmId)}</td>
-    {/if}
 
     <slot name="rowExtra" />
 </tr>

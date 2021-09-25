@@ -30,61 +30,44 @@
 {/if}
 
 <tr class="table-group-head">
-    {#if userStore.useAccountTags}
+    {#each $settings.layout.commonFields as field}
         <td></td>
-    {/if}
+    {/each}
 
-    <td colspan="{span}">&nbsp;</td>
+    {#each $settings.layout.homeFields as field}
+        {#if field === 'covenant'}
+            <HeadCovenant />
 
-    {#if !isPublic}
-        <RowGold {gold} />
-    {/if}
+        {:else if field === 'gold'}
+            <RowGold {gold} />
 
-    {#if $settings.general.showItemLevel}
-        <td>&nbsp;</td>
-    {/if}
+        {:else if field === 'keystone'}
+            <td>Keystone</td>
 
-    {#if $settings.home.showMountSpeed}
-        <HeadMount />
-    {/if}
+        {:else if field === 'mountSpeed'}
+            <HeadMount />
 
-    {#if $settings.home.showCovenant}
-        <HeadCovenant />
-    {/if}
+        {:else if field === 'torghast'}
+            <HeadTorghast />
 
-    {#if $settings.home.showWeeklyAnima && !isPublic}
-        <td>Anima</td>
-    {/if}
+        {:else if field === 'vaultMythicPlus'}
+            <td>M+ Vault</td>
 
-    {#if $settings.home.showWeeklyShapingFate && !isPublic}
-        <td>Shaping</td>
-    {/if}
+        {:else if field === 'vaultRaid'}
+            <td>Raid Vault</td>
 
-    {#if $settings.home.showWeeklySouls && !isPublic}
-        <td>Souls</td>
-    {/if}
+        {:else if field === 'weeklyAnima'}
+            <td>Anima</td>
 
-    {#if $settings.home.showTorghast}
-        <HeadTorghast />
-    {/if}
+        {:else if field === 'weeklyKorthia'}
+            <td>Korthia</td>
 
-    {#if $settings.home.showKeystone}
-        <td>Keystone</td>
-    {/if}
+        {:else if field === 'weeklySouls'}
+            <td>Souls</td>
 
-    {#if $settings.home.showVaultMythicPlus}
-        <td>M+ Vault</td>
-    {/if}
+        {:else}
+            <td>&nbsp;</td>
 
-    {#if $settings.home.showVaultRaid}
-        <td>Raid Vault</td>
-    {/if}
-
-    <!--{#if $settings.home.showVaultPvp}
-        <td colspan="3">PvP Vault</td>
-    {/if}-->
-
-    {#if $settings.home.showStatuses && !isPublic}
-        <td>&nbsp;</td>
-    {/if}
+        {/if}
+    {/each}
 </tr>

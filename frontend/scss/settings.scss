@@ -1,29 +1,51 @@
 .settings-container {
     border: 1px solid $border-color;
     margin-bottom: 1rem;
-    padding: 0.5rem;
+    padding: 0.5rem 1.0rem;
     width: $settings-column-width;
+
+    h2,
+    h3 {
+        border-bottom: 1px solid $border-color;
+        margin-bottom: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
 
     h2 {
         text-align: center;
     }
 
     fieldset {
-        margin: 0.5rem 0.3rem;
+        margin: 0.3rem;
 
-        p {
-            color: #ffff88;
-            font-style: italic;
-            margin: 0.5rem 0 0 0;
+        label {
+            display: block;
+            width: 100%;
         }
+
         pre {
             background: $highlight-background;
             display: inline;
             margin: 0;
         }
+
         ul {
             margin: 0.3rem 0;
             padding-inline-start: 1.3rem;
+        }
+    }
+
+    .setting {
+        display: flex;
+
+        fieldset {
+            flex: 0 0 20rem;
+        }
+
+        p {
+            color: #ddddff;
+            flex: 1;
+            margin: 0.3rem;
         }
     }
 }

@@ -35,20 +35,23 @@
 
 <thead>
     <tr>
-        {#if userStore.useAccountTags}
-            <th></th>
-        {/if}
+        {#each $settings.layout.commonFields as field}
+            {#if field === 'accountTag' && userStore.useAccountTags}
+                <th></th>
 
-        {#each iconComponents as iconComponent, iconIndex}
-            <svelte:component this={iconComponent} padLeft={iconIndex === 0 ? null : '0px'} padRight={iconIndex === (iconComponents.length - 1) ? null : '0px'} />
+            {:else if field.startsWith('characterIcon')}
+                <HeadIcon />
+
+            {:else if field === 'characterLevel'}
+                <th class="level"></th>
+
+            {:else if field === 'characterName'}
+                <th class="name"></th>
+
+            {:else if field === 'realmName'}
+                <th class="realm"></th>
+            {/if}
         {/each}
-
-        <th class="level"></th>
-        <th class="name"></th>
-
-        {#if $settings.general.showRealm}
-            <th class="realm"></th>
-        {/if}
 
         <slot />
     </tr>
