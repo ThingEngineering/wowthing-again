@@ -4,6 +4,7 @@ using System.Linq;
 using Newtonsoft.Json;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Extensions;
+using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Player;
 
 namespace Wowthing.Web.Models
@@ -43,7 +44,7 @@ namespace Wowthing.Web.Models
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public UserApiCharacterWeekly Weekly { get; }
 
-        public UserApiCharacter(PlayerCharacter character, bool pub = false, bool anon = false)
+        public UserApiCharacter(PlayerCharacter character, bool pub = false, ApplicationUserSettingsPrivacy? privacy = null)
         {
             ActiveSpecId = character.ActiveSpecId;
             ClassId = character.ClassId;
@@ -55,7 +56,7 @@ namespace Wowthing.Web.Models
             MountSkill = character.MountSkill;
             RaceId = character.RaceId;
 
-            if (pub && anon)
+            if (pub && privacy?.Anonymized == true)
             {
                 Name = "SecretGoose";
             }
@@ -81,7 +82,7 @@ namespace Wowthing.Web.Models
                     .ToDictionary(k => (int)k.Key, v => new UserApiCharacterEquippedItem(v.Value));
             }
 
-            if (character.Lockouts?.Lockouts != null)
+            if ((!pub || privacy?.PublicLockouts == true) && character.Lockouts?.Lockouts != null)
             {
                 Lockouts = character.Lockouts.Lockouts
                     .Where(l => l.ResetTime >= DateTime.UtcNow)
@@ -92,19 +93,23 @@ namespace Wowthing.Web.Models
                     );
             }
 
-            if (character.MythicPlus != null)
+            if (!pub || privacy?.PublicMythicPlus == true)
             {
-                MythicPlus = new UserApiCharacterMythicPlus(character.MythicPlus, character.MythicPlusSeasons, pub && anon);
-            }
+                if (character.MythicPlus != null)
+                {
+                    MythicPlus = new UserApiCharacterMythicPlus(character.MythicPlus, character.MythicPlusSeasons,
+                        pub && privacy?.Anonymized == true);
+                }
 
-            if (character.MythicPlusAddon != null)
-            {
-                MythicPlusAddon = character.MythicPlusAddon;
-            }
+                if (character.MythicPlusAddon != null)
+                {
+                    MythicPlusAddon = character.MythicPlusAddon;
+                }
 
-            if (character.RaiderIo != null)
-            {
-                RaiderIo = character.RaiderIo.Seasons;
+                if (character.RaiderIo != null)
+                {
+                    RaiderIo = character.RaiderIo.Seasons;
+                }
             }
 
             if (character.Reputations?.ReputationIds != null && character.Reputations?.ReputationValues != null)
@@ -121,7 +126,7 @@ namespace Wowthing.Web.Models
 
             if (character.Weekly != null)
             {
-                Weekly = new UserApiCharacterWeekly(character.Weekly, pub);
+                Weekly = new UserApiCharacterWeekly(character.Weekly, pub, !pub || privacy?.PublicMythicPlus == true);
             }
         }
     }
@@ -229,11 +234,8 @@ namespace Wowthing.Web.Models
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public Dictionary<string, PlayerCharacterWeeklyUghQuest> UghQuests { get; set; }
 
-        public UserApiCharacterWeekly(PlayerCharacterWeekly weekly, bool pub)
+        public UserApiCharacterWeekly(PlayerCharacterWeekly weekly, bool pub, bool includeKeystone)
         {
-            KeystoneDungeon = weekly.KeystoneDungeon;
-            KeystoneLevel = weekly.KeystoneLevel;
-            KeystoneScannedAt = weekly.KeystoneScannedAt;
             Torghast = weekly.Torghast;
             TorghastScannedAt = weekly.TorghastScannedAt;
             Vault = weekly.Vault;
@@ -242,6 +244,13 @@ namespace Wowthing.Web.Models
             {
                 UghQuests = weekly.UghQuests;
                 UghQuestsScannedAt = weekly.UghQuestsScannedAt;
+            }
+
+            if (includeKeystone)
+            {
+                KeystoneDungeon = weekly.KeystoneDungeon;
+                KeystoneLevel = weekly.KeystoneLevel;
+                KeystoneScannedAt = weekly.KeystoneScannedAt;
             }
         }
     }
