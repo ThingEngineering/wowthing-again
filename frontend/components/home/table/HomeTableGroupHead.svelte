@@ -8,7 +8,8 @@
     import HeadCovenant from './head/HomeTableHeadCovenant.svelte'
     import HeadMount from './head/HomeTableHeadMount.svelte'
     import HeadTorghast from './head/HomeTableHeadTorghast.svelte'
-    import RowGold from '@/components/character-table/row/Gold.svelte'
+    import RowGold from './row/HomeTableRowGold.svelte'
+    import RowPlayedTime from './row/HomeTableRowPlayedTime.svelte'
     import SpacerRow from '@/components/character-table/CharacterTableSpacerRow.svelte'
 
     export let group: Character[]
@@ -16,9 +17,12 @@
 
     let gold: number
     let isPublic: boolean
+    let playedTotal: number
     $: {
-        gold = sumBy(group, (c: Character) => c.gold)
         isPublic = $userStore.data.public
+
+        gold = sumBy(group, (c: Character) => c.gold)
+        playedTotal = sumBy(group, (c: Character) => c.playedTotal)
     }
 </script>
 
@@ -45,6 +49,9 @@
 
         {:else if field === 'mountSpeed'}
             <HeadMount />
+
+        {:else if field === 'playedTime'}
+            <RowPlayedTime {playedTotal} />
 
         {:else if field === 'torghast'}
             <HeadTorghast />

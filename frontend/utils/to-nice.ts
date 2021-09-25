@@ -1,4 +1,4 @@
-import {DateTime} from 'luxon'
+import { DateTime, Duration } from 'luxon'
 
 
 export function toNiceNumber(n: number): string {
@@ -13,4 +13,24 @@ export function toNiceNumber(n: number): string {
 
 export function toNiceTime(time: DateTime): string {
     return time.toLocaleString(DateTime.DATETIME_MED_WITH_SECONDS)
+}
+
+export function toNiceDuration(milliseconds: number): string {
+    const duration = Duration.fromObject({
+        days: 0,
+        hours: 0,
+        milliseconds,
+    }).normalize()
+    console.log('b', duration)
+
+    const parts = []
+
+    if (duration.days > 0) {
+        parts.push(`${duration.days}d`)
+    }
+    if (duration.hours > 0) {
+        parts.push(`${duration.hours < 10 ? '&nbsp;' : ''}${duration.hours}h`)
+    }
+
+    return parts.slice(0, 2).join(' ')
 }
