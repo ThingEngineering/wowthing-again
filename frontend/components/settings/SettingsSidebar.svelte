@@ -2,7 +2,7 @@
     import type { SidebarItem } from '@/types'
 
     import Sidebar from '@/components/sidebar/Sidebar.svelte'
-    import { data as settingsData } from '../../stores/settings'
+    import { data as settingsData } from '@/stores/settings'
     import { Settings } from '@/types'
 
     export const categories: SidebarItem[] = [

@@ -7,7 +7,7 @@
 
     import {data as settingsData} from '@/stores/settings'
 
-    import HomeTable from '@/components/home/Table.svelte'
+    import HomeTable from '@/components/home/HomeTable.svelte'
 
     const commonChoices = [
         {key: 'accountTag', name: 'Account tag', first: true},
