@@ -20,17 +20,18 @@
 <style lang="scss">
     div {
         margin-right: 1rem;
+        min-width: var(--width);
+        position: sticky;
+        top: 0;
+        width: var(--width);
     }
 
     nav {
         --linkColor: #64e1ff;
 
         border: 1px solid $border-color;
-        min-width: var(--width);
         padding: 0.5rem 0;
-        position: sticky;
-        top: 0;
-        width: var(--width);
+        width: 100%;
 
         ul {
             margin: 0;
@@ -38,17 +39,15 @@
     }
 </style>
 
-<div>
+<div style="--width: {width}">
     <slot name="before" />
 
-    <nav id="{id}" class="thing-container" style="--width: {width}">
-
+    <nav id="{id}" class="thing-container">
         <ul>
             {#each items as item}
                 <SidebarEntry {anyChildren} {baseUrl} {item} {percentFunc} />
             {/each}
         </ul>
-
     </nav>
 
     <slot name="after" />

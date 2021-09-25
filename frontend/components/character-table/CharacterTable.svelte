@@ -33,7 +33,11 @@
             sortFunc = getCharacterSortFunc()
         }
 
-        characters = filter($userStore.data.characters, filterFunc)
+        characters = filter(
+            $userStore.data.characters,
+            (c) => $settingsData.characters.hiddenCharacters.indexOf(c.id) === -1
+        )
+        characters = filter(characters, filterFunc)
 
         if (characterLimit > 0) {
             characters = characters.slice(0, characterLimit)

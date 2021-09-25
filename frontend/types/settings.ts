@@ -1,12 +1,11 @@
 export interface Settings {
+    characters: {
+        hiddenCharacters: number[]
+    }
+
     general: {
         minimumLevel: number
         refreshInterval: number
-        showClassIcon: boolean
-        showItemLevel: boolean
-        showRaceIcon: boolean
-        showRealm: boolean
-        showSpecIcon: boolean
         useWowdb: boolean
         groupBy: string[]
         sortBy: string[]
