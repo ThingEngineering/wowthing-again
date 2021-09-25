@@ -10,11 +10,11 @@ reputations:
 # 4.0
 - - alliance:
       id: 1174
-      name: Kirin Tor Offensive
+      name: Wildhammer Clan
       icon: inv_misc_tabard_wildhammerclan
     horde:
       id: 1172
-      name: Sunreaver Onslaught
+      name: Dragonmaw Clan
       icon: inv_misc_tabard_dragonmawclan
 
   - both:
