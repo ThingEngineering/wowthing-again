@@ -203,7 +203,7 @@ namespace Wowthing.Web.Controllers
 
             var db = _redis.GetDatabase();
             var pub = User?.Identity?.Name != apiResult.User.UserName;
-            var anon = apiResult.User.Settings?.Privacy?.Anonymized == true;
+            var privacy = apiResult.User.Settings?.Privacy ?? new ApplicationUserSettingsPrivacy();
 
             // Update user last visit
             if (!pub)
@@ -232,17 +232,40 @@ namespace Wowthing.Web.Controllers
                 characterQuery = characterQuery.Where(c => c.Level >= 11);
             }
 
-            var characters = await characterQuery
-                .Include(c => c.Currencies)
+            // Privacy checks
+            characterQuery = characterQuery
                 .Include(c => c.EquippedItems)
-                .Include(c => c.Lockouts)
-                .Include(c => c.MythicPlus)
-                .Include(c => c.MythicPlusAddon)
-                .Include(c => c.MythicPlusSeasons)
-                .Include(c => c.RaiderIo)
                 .Include(c => c.Reputations)
                 .Include(c => c.Shadowlands)
-                .Include(c => c.Weekly)
+                .Include(c => c.Weekly);
+
+            if (privacy.PublicCurrencies)
+            {
+                characterQuery = characterQuery
+                    .Include(c => c.Currencies);
+            }
+
+            if (privacy.PublicLockouts)
+            {
+                characterQuery = characterQuery
+                    .Include(c => c.Lockouts);
+            }
+            
+            if (privacy.PublicMythicPlus)
+            {
+                characterQuery = characterQuery
+                    .Include(c => c.MythicPlus)
+                    .Include(c => c.MythicPlusAddon)
+                    .Include(c => c.MythicPlusSeasons)
+                    .Include(c => c.RaiderIo);
+            }
+
+            /*if (apiResult.User.Settings?.Privacy?.PublicTransmog == true)
+            {
+                characterQuery = characterQuery.Include(c => c.Currencies);
+            }*/
+
+            var characters = await characterQuery
                 .AsNoTracking()
                 .AsSplitQuery()
                 .ToArrayAsync();
@@ -274,7 +297,7 @@ namespace Wowthing.Web.Controllers
             var apiData = new UserApi
             {
                 Accounts = accounts.ToDictionary(k => k.Id, v => new UserApiAccount(v)),
-                Characters = characters.Select(character => new UserApiCharacter(character, pub, anon)).ToList(),
+                Characters = characters.Select(character => new UserApiCharacter(character, pub, privacy)).ToList(),
                 CurrentPeriod = currentPeriods,
                 Public = pub,
             };
