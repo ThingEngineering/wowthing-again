@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { Constants } from '@/data/constants'
     import { data as settings } from '@/stores/settings'
     import { userStore } from '@/stores'
 
@@ -11,9 +12,11 @@
     import RowMountSpeed from './table/RowMountSpeed.svelte'
     import RowStatuses from './table/RowStatuses.svelte'
     import RowTorghast from './table/row/Torghast.svelte'
-    import RowUghQuests from './table/RowUghQuests.svelte'
+    import RowUghQuest from './table/RowUghQuest.svelte'
     import RowVaultMythicPlus from '@/components/character-table/row/VaultMythicPlus.svelte'
     import RowVaultRaid from '@/components/character-table/row/VaultRaid.svelte'
+
+    export let characterLimit = 0
 
     let isPublic: boolean
     $: {
@@ -21,48 +24,63 @@
     }
 </script>
 
-<CharacterTable>
+<CharacterTable {characterLimit}>
     <GroupHead slot="groupHead" let:group let:groupIndex {group} {groupIndex} />
 
     <svelte:fragment slot="rowExtra" let:character>
-        {#if !isPublic}
-            <RowGold gold={character.gold} />
-        {/if}
+        {#each $settings.layout.homeFields as field}
+            {#if field === 'covenant'}
+                <RowCovenant />
 
-        {#if $settings.general.showItemLevel}
-            <RowItemLevel />
-        {/if}
+            {:else if field === 'gold' && !isPublic}
+                <RowGold gold={character.gold} />
 
-        {#if $settings.home.showMountSpeed}
-            <RowMountSpeed />
-        {/if}
+            {:else if field === 'itemLevel'}
+                <RowItemLevel />
 
-        {#if $settings.home.showCovenant}
-            <RowCovenant />
-        {/if}
+            {:else if field === 'mountSpeed'}
+                <RowMountSpeed />
 
-        {#if !isPublic}
-            <RowUghQuests {character} />
-        {/if}
+            {:else if field === 'keystone'}
+                <RowKeystone {character} />
 
-        {#if $settings.home.showTorghast}
-            <RowTorghast {character} />
-        {/if}
+            {:else if field === 'status'}
+                <RowStatuses />
 
-        {#if $settings.home.showKeystone}
-            <RowKeystone {character} />
-        {/if}
+            {:else if field === 'torghast'}
+                <RowTorghast {character} />
 
-        {#if $settings.home.showVaultMythicPlus}
-            <RowVaultMythicPlus {character} />
-        {/if}
+            {:else if field === 'vaultMythicPlus'}
+                <RowVaultMythicPlus {character} />
 
-        {#if $settings.home.showVaultRaid}
-            <RowVaultRaid {character} />
-        {/if}
+            <!--{:else if field === 'vaultPvp'}
+                <RowVaultPvp {character} />-->
 
-        {#if $settings.home.showStatuses && !isPublic}
-            <RowStatuses />
-        {/if}
+            {:else if field === 'vaultRaid'}
+                <RowVaultRaid {character} />
+
+            {:else if field === 'weeklyAnima'}
+                <RowUghQuest
+                    {character}
+                    icon={Constants.icons.weeklyAnima}
+                    ughQuest={character.weekly?.ughQuests?.['anima']}
+                    cls="anima"
+                />
+
+            {:else if field === 'weeklyKorthia'}
+                <RowUghQuest
+                    {character}
+                    icon={Constants.icons.weeklyAnima}
+                    ughQuest={character.weekly?.ughQuests?.['shapingFate']}
+                />
+
+            {:else if field === 'weeklySouls'}
+                <RowUghQuest
+                    {character}
+                    icon={Constants.icons.weeklyAnima}
+                    ughQuest={character.weekly?.ughQuests?.['souls']}
+                />
+            {/if}
+        {/each}
     </svelte:fragment>
 </CharacterTable>

@@ -1439,6 +1439,11 @@ isstream@~0.1.2:
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
   integrity sha1-R+Y/evVa+m+S4VAOaQ64uFKcCZo=
 
+javascript-interface-library@^0.1.14, javascript-interface-library@^0.1.5:
+  version "0.1.14"
+  resolved "https://registry.yarnpkg.com/javascript-interface-library/-/javascript-interface-library-0.1.14.tgz#ed8f2a522e2655ecb5b2f05ad0b5b5b7650f6ecd"
+  integrity sha512-TSdQbLKqq6PcFk9M9Qk+l45rjqWfTMhSkvZVcByy1tKsDYDH+kblKu/FcVk4lWkeYXvcczX8NtPGdeyrZYEBrw==
+
 jest-worker@^26.2.1:
   version "26.6.2"
   resolved "https://registry.yarnpkg.com/jest-worker/-/jest-worker-26.6.2.tgz#7f72cbc4d643c365e27b9fd775f9d0eaa9c7a8ed"
@@ -1540,6 +1545,11 @@ lines-and-columns@^1.1.6:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/lines-and-columns/-/lines-and-columns-1.1.6.tgz#1c00c743b433cd0a4e80758f7b64a57440d9ff00"
   integrity sha1-HADHQ7QzzQpOgHWPe2SldEDZ/wA=
+
+locally-unique-id-generator@^0.1.3:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/locally-unique-id-generator/-/locally-unique-id-generator-0.1.5.tgz#762f41a5654ce78bdcdb9513b3f437f09d9979ac"
+  integrity sha512-cdISIqzCk2IiO9GIfL0oPyvOhz0tOetKOOasYWLfKHD7W/23EpWb12GymG0xCy8nhG+TMon5x+SS9PLaDd+avg==
 
 locate-path@^3.0.0:
   version "3.0.0"
@@ -2532,6 +2542,34 @@ svelte-check@^2.1.0:
     svelte-preprocess "^4.0.0"
     typescript "*"
 
+svelte-coordinate-conversion@^0.1.6, svelte-coordinate-conversion@^0.1.9:
+  version "0.1.9"
+  resolved "https://registry.yarnpkg.com/svelte-coordinate-conversion/-/svelte-coordinate-conversion-0.1.9.tgz#d7904408eac3e2f78fa078fa423b6adce889f086"
+  integrity sha512-9BBAoZ7U5psGxgYKd61DEFxou3MmWrW9xIGvgG1n+Jtg47ll/jpNYsiS8iy6fVu1Sfbq3TQF/cljqRKHwaOeeg==
+
+svelte-device-info@^0.1.14:
+  version "0.1.14"
+  resolved "https://registry.yarnpkg.com/svelte-device-info/-/svelte-device-info-0.1.14.tgz#6651ee432262e2b80920c9d4410f77adfc5e7206"
+  integrity sha512-FhzLs8V+QSG0AXzMnpn10E8xgOTgy/kHRRDU5SD5qz2+wvSINrvqKtKRZsUHMmjOXcmHhfRK32GqKEfa0Cchug==
+
+svelte-drag-and-drop-actions@^0.1.28, svelte-drag-and-drop-actions@^0.1.35:
+  version "0.1.35"
+  resolved "https://registry.yarnpkg.com/svelte-drag-and-drop-actions/-/svelte-drag-and-drop-actions-0.1.35.tgz#65f2d41d29f67c605f0b64f33ce82bcdd6e1707b"
+  integrity sha512-v2XtENssLfX5BE41E5653emXSTHd1hHtEXtB2k8PbTQ0jC0iB/WdEx9SwWesoKXRLcvLN7WLDVnmuSB3g3BIeg==
+  dependencies:
+    javascript-interface-library "^0.1.5"
+    svelte-coordinate-conversion "^0.1.6"
+    svelte-drag-and-drop-actions "^0.1.28"
+
+svelte-drag-and-drop-actions@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/svelte-drag-and-drop-actions/-/svelte-drag-and-drop-actions-1.0.0.tgz#530aecd74ca24b4d16968b9a82209e8592cc4ac0"
+  integrity sha512-L9KERCXLWKZGpmKoTEKFsXasfaKGFNC5ftV2Fjsbbndv8pmzGoR+JMnlbSXpOpFUAyOILAo6iT8RTaQW2KKh2g==
+  dependencies:
+    javascript-interface-library "^0.1.5"
+    svelte-coordinate-conversion "^0.1.6"
+    svelte-drag-and-drop-actions "^0.1.28"
+
 svelte-fa@^2.2.1:
   version "2.3.3"
   resolved "https://registry.yarnpkg.com/svelte-fa/-/svelte-fa-2.3.3.tgz#b136b32f397ec64fb708b8a6ff5578bdd65f5be7"
@@ -2561,6 +2599,17 @@ svelte-preprocess@^4.0.0, svelte-preprocess@^4.7.3:
     magic-string "^0.25.7"
     sorcery "^0.10.0"
     strip-indent "^3.0.0"
+
+svelte-sortable-flat-list-view@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/svelte-sortable-flat-list-view/-/svelte-sortable-flat-list-view-1.0.0.tgz#ddd441dc8ec42cbdb1ae2d9e32274738fbf5a278"
+  integrity sha512-UMDJA3hYf0ucqu6KSr2sS2OIyG6qObvrWwkKw6lSHMu7o5/eY9dA1jsbxAh8JqbzH/KDC1MwboJ2CRrcxiqI2Q==
+  dependencies:
+    javascript-interface-library "^0.1.14"
+    locally-unique-id-generator "^0.1.3"
+    svelte-coordinate-conversion "^0.1.9"
+    svelte-device-info "^0.1.14"
+    svelte-drag-and-drop-actions "^0.1.35"
 
 svelte-spa-router@^3.1.0:
   version "3.2.0"

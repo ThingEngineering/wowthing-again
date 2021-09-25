@@ -9,7 +9,7 @@ namespace Wowthing.Lib.Models
     public class ApplicationUserSettings
     {
         public ApplicationUserSettingsGeneral? General { get; set; } = new();
-        public ApplicationUserSettingsHome? Home { get; set; } = new();
+        public ApplicationUserSettingsLayout? Layout { get; set; } = new();
         public ApplicationUserSettingsPrivacy? Privacy { get; set; } = new();
         public ApplicationUserSettingsTransmog? Transmog { get; set; } = new();
         
@@ -17,17 +17,17 @@ namespace Wowthing.Lib.Models
         {
             if (General == null)
             {
-                General = new ApplicationUserSettingsGeneral();
+                General = new();
             }
             
-            if (Home == null)
+            if (Layout == null)
             {
-                Home = new ApplicationUserSettingsHome();
+                Layout = new();
             }
             
             if (Privacy == null)
             {
-                Privacy = new ApplicationUserSettingsPrivacy();
+                Privacy = new();
             }
 
             Validate();
@@ -48,6 +48,35 @@ namespace Wowthing.Lib.Models
             "itemlevel",
             "level",
             "name",
+        };
+
+        private readonly HashSet<string> _validCommonFields = new()
+        {
+            "accountTag",
+            "characterIconClass",
+            "characterIconRace",
+            "characterIconSpec",
+            "characterLevel",
+            "characterName",
+            "realmName",
+        };
+
+        private readonly HashSet<string> _validHomeFields = new()
+        {
+            "covenant",
+            "gold",
+            "itemLevel",
+            "keystone",
+            "mountSpeed",
+            "playedTime",
+            "statusIcons",
+            "torghast",
+            "vaultMythicPlus",
+            "vaultPvp",
+            "vaultRaid",
+            "weeklyAnima",
+            "weeklyKorthia",
+            "weeklySouls",
         };
         public void Validate()
         {
@@ -85,6 +114,32 @@ namespace Wowthing.Lib.Models
                 General.SortBy.Add("level");
                 General.SortBy.Add("name");
             }
+
+            Layout.CommonFields = Layout.CommonFields
+                .EmptyIfNull()
+                .Where(field => _validCommonFields.Contains(field))
+                .Distinct()
+                .ToList();
+
+            if (Layout.CommonFields.Count == 0)
+            {
+                Layout.CommonFields.Add("characterIconRace");
+                Layout.CommonFields.Add("characterIconClass");
+                Layout.CommonFields.Add("characterIconSpec");
+                Layout.CommonFields.Add("characterName");
+                Layout.CommonFields.Add("realmName");
+            }
+            
+            Layout.HomeFields = Layout.HomeFields
+                .EmptyIfNull()
+                .Where(field => _validHomeFields.Contains(field))
+                .Distinct()
+                .ToList();
+
+            if (Layout.HomeFields.Count == 0)
+            {
+                Layout.HomeFields.Add("gold");
+            }
         }
     }
 
@@ -92,36 +147,26 @@ namespace Wowthing.Lib.Models
     {
         public int MinimumLevel { get; set; } = 1;
         public int RefreshInterval { get; set; } = 0;
-        public bool ShowClassIcon { get; set; } = true;
-        public bool ShowItemLevel { get; set; } = true;
-        public bool ShowRaceIcon { get; set; } = true;
-        public bool ShowSpecIcon { get; set; } = true;
-        public bool ShowRealm { get; set; } = true;
         public bool UseWowdb { get; set; } = false;
 
         public List<string> GroupBy { get; set; } = new();
         public List<string> SortBy { get; set; } = new();
     }
 
-    public class ApplicationUserSettingsHome
+    public class ApplicationUserSettingsLayout
     {
-        public bool ShowCovenant { get; set; } = true;
-        public bool ShowKeystone { get; set; } = true;
-        public bool ShowMountSpeed { get; set; } = true;
-        public bool ShowStatuses { get; set; } = true;
-        public bool ShowTorghast { get; set; } = true;
-        public bool ShowVaultMythicPlus { get; set; } = true;
-        public bool ShowVaultPvp { get; set; } = true;
-        public bool ShowVaultRaid { get; set; } = true;
-        public bool ShowWeeklyAnima { get; set; } = true;
-        public bool ShowWeeklyShapingFate { get; set; } = true;
-        public bool ShowWeeklySouls { get; set; } = true;
+        public List<string> CommonFields { get; set; } = new();
+        public List<string> HomeFields { get; set; } = new();
     }
 
     public class ApplicationUserSettingsPrivacy
     {
         public bool Anonymized { get; set; } = true;
         public bool Public { get; set; } = true;
+        public bool PublicCurrencies { get; set; } = true;
+        public bool PublicLockouts { get; set; } = true;
+        public bool PublicMythicPlus { get; set; } = true;
+        public bool PublicTransmog { get; set; } = true;
         public bool ShowInLeaderboards { get; set; } = true;
     }
 

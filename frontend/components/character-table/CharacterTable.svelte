@@ -14,6 +14,7 @@
 
     import CharacterRow from './CharacterTableRow.svelte'
 
+    export let characterLimit = 0
     export let filterFunc: (char: Character) => boolean = undefined
     export let groupFunc: (char: Character) => string = undefined
     export let sortFunc: (char: Character) => string = undefined
@@ -33,6 +34,11 @@
         }
 
         characters = filter($userStore.data.characters, filterFunc)
+
+        if (characterLimit > 0) {
+            characters = characters.slice(0, characterLimit)
+        }
+
         const grouped = groupBy(characters, groupFunc)
         for (const key of keys(grouped)) {
             grouped[key] = sortBy(grouped[key], sortFunc)

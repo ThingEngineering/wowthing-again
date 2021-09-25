@@ -12,23 +12,17 @@ export interface Settings {
         sortBy: string[]
     }
 
-    home: {
-        showCovenant: boolean
-        showKeystone: boolean
-        showMountSpeed: boolean
-        showStatuses: boolean
-        showTorghast: boolean
-        showVaultMythicPlus: boolean
-        showVaultPvp: boolean
-        showVaultRaid: boolean
-        showWeeklyAnima: boolean
-        showWeeklyShapingFate: boolean
-        showWeeklySouls: boolean
+    layout: {
+        commonFields: string[]
+        homeFields: string[]
     }
 
     privacy: {
         anonymized: boolean
         public: boolean
+        shareLockouts: boolean
+        shareMythicPlus: boolean
+        shareTransmog: boolean
         showInLeaderboards: boolean
     }
 

@@ -1,39 +1,19 @@
 <script lang="ts">
-    import SettingsApiKey from './SettingsApiKey.svelte'
-    import SettingsGeneral from './SettingsGeneral.svelte'
-    import SettingsGroupBy from './SettingsGroupBy.svelte'
-    import SettingsHome from './SettingsHome.svelte'
-    import SettingsPrivacy from './SettingsPrivacy.svelte'
-    import SettingsSave from './SettingsSave.svelte'
-    import SettingsSortBy from './SettingsSortBy.svelte'
-    import SettingsTransmog from './SettingsTransmog.svelte'
+    import { afterUpdate } from 'svelte'
+
+    import getSavedRoute from '@/utils/get-saved-route'
+
+    import Sidebar from './SettingsSidebar.svelte'
+    import View from './SettingsView.svelte'
+
+    export let params: { slug: string }
+
+    afterUpdate(() => getSavedRoute('settings', params.slug))
 </script>
 
 <style lang="scss">
-    form {
-        display: flex;
-        width: 100%;
-    }
-    div {
-        & + div {
-            margin-left: 1rem;
-        }
-    }
+
 </style>
 
-<form>
-    <div>
-        <SettingsSave />
-        <SettingsGeneral />
-        <SettingsPrivacy />
-        <SettingsApiKey />
-    </div>
-    <div>
-        <SettingsHome />
-        <SettingsGroupBy />
-    </div>
-    <div>
-        <SettingsSortBy />
-        <SettingsTransmog />
-    </div>
-</form>
+<Sidebar />
+<View slug={params.slug} />

@@ -291,3 +291,7 @@ export const classMap: Dictionary<CharacterClass> = {
         ],
     ),
 }
+
+export const classNameMap: Record<string, CharacterClass> = Object.fromEntries(
+    Object.entries(classMap).map(([, cls]) => [cls.name, cls])
+)
