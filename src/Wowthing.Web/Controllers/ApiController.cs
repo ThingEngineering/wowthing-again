@@ -213,7 +213,7 @@ namespace Wowthing.Web.Controllers
             }
 
             // Retrieve data
-            List<PlayerAccount> accounts = new List<PlayerAccount>();
+            var accounts = new List<PlayerAccount>();
             var tempAccounts = await _context.PlayerAccount
                 .Where(a => a.UserId == apiResult.User.Id)
                 .ToListAsync();
@@ -239,19 +239,19 @@ namespace Wowthing.Web.Controllers
                 .Include(c => c.Shadowlands)
                 .Include(c => c.Weekly);
 
-            if (privacy.PublicCurrencies)
+            if (!pub || privacy.PublicCurrencies)
             {
                 characterQuery = characterQuery
                     .Include(c => c.Currencies);
             }
 
-            if (privacy.PublicLockouts)
+            if (!pub || privacy.PublicLockouts)
             {
                 characterQuery = characterQuery
                     .Include(c => c.Lockouts);
             }
             
-            if (privacy.PublicMythicPlus)
+            if (!pub || privacy.PublicMythicPlus)
             {
                 characterQuery = characterQuery
                     .Include(c => c.MythicPlus)
