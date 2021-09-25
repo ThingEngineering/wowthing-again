@@ -9,7 +9,7 @@
 
     let checked = bindGroup.indexOf(value) >= 0
 
-    function onChange({ target }) {
+    function onChange({ target }: any) {
         if (target.checked) {
             bindGroup = [...bindGroup, target.value]
         }
