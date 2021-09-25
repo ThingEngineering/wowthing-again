@@ -1,6 +1,6 @@
 <script lang="ts">
-    export let padLeft: string
-    export let padRight: string
+    export let padLeft = '0.1rem'
+    export let padRight = '0px'
 
     $: {
         padLeft = padLeft ?? '0.1rem'

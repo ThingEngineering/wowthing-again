@@ -1,9 +1,8 @@
 <script lang="ts">
-    import type { SidebarItem } from '@/types'
+    import type { Settings, SidebarItem } from '@/types'
 
     import Sidebar from '@/components/sidebar/Sidebar.svelte'
     import { data as settingsData } from '@/stores/settings'
-    import { Settings } from '@/types'
 
     export const categories: SidebarItem[] = [
         {

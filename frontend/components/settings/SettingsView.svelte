@@ -5,7 +5,7 @@
 
     export let slug: string
 
-    const components = {
+    const components: Record<string, any> = {
         layout: SettingsLayout,
         privacy: SettingsPrivacy,
         transmog: SettingsTransmog,

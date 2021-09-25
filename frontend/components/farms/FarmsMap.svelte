@@ -100,33 +100,29 @@
             <button>
                 <CheckboxInput
                     name="track_mounts"
-                    label="Track mounts"
                     bind:value={$farmState.trackMounts}
-                />
+                >Track mounts</CheckboxInput>
             </button>
 
             <button>
                 <CheckboxInput
                     name="track_pets"
-                    label="Track pets"
                     bind:value={$farmState.trackPets}
-                />
+                >Track pets</CheckboxInput>
             </button>
 
             <button>
                 <CheckboxInput
                     name="track_toys"
-                    label="Track toys"
                     bind:value={$farmState.trackToys}
-                />
+                >Track toys</CheckboxInput>
             </button>
 
             <button>
                 <CheckboxInput
                     name="track_transmog"
-                    label="Track transmog"
                     bind:value={$farmState.trackTransmog}
-                />
+                >Track transmog</CheckboxInput>
             </button>
         </div>
 

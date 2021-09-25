@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { faArrowsAlt, faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
+    import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
     import debounce from 'lodash/debounce'
     import filter from 'lodash/filter'
     import Fa from 'svelte-fa'
@@ -9,7 +9,9 @@
 
     import HomeTable from '@/components/home/HomeTable.svelte'
 
-    const commonChoices = [
+    interface LayoutChoice { key: string, name: string, first?: boolean }
+
+    const commonChoices: LayoutChoice[] = [
         {key: 'accountTag', name: 'Account tag', first: true},
         {key: 'characterLevel', name: 'Character level', first: true},
         {key: 'characterName', name: 'Character name', first: true},
@@ -18,7 +20,7 @@
         {key: 'characterIconSpec', name: 'Icon - Specialization', first: true},
         {key: 'realmName', name: 'Realm name', first: true},
     ]
-    const homeChoices = [
+    const homeChoices: LayoutChoice[] = [
         {key: 'gold', name: 'Gold'},
         {key: 'covenant', name: 'Covenant'},
         {key: 'itemLevel', name: 'Item level'},
@@ -45,7 +47,7 @@
     )
     const homeAvailable = filter(homeChoices, (c) => homeActive.indexOf(c) < 0)
 
-    const keyFunc = (item) => item.key
+    const keyFunc = (item: LayoutChoice) => item.key
 
     const onCommonChange = debounce(() => {
         settingsData.update(state => {
