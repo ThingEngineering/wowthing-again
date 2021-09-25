@@ -176,6 +176,7 @@ namespace Wowthing.Lib.Models
         public bool PublicCurrencies { get; set; } = true;
         public bool PublicLockouts { get; set; } = true;
         public bool PublicMythicPlus { get; set; } = true;
+        public bool PublicQuests { get; set; } = true;
         public bool PublicTransmog { get; set; } = true;
         public bool ShowInLeaderboards { get; set; } = true;
     }

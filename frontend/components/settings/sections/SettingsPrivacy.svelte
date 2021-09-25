@@ -60,6 +60,17 @@
         </p>
     </div>
 
+
+    <div class="setting">
+        <Checkbox
+            name="privacy_share_quests"
+            bind:value={$settingsData.privacy.publicQuests}
+        >Public Quests</Checkbox>
+        <p>
+            Allow visitors to see your Quest data (Farms, Progress, weekly quests, etc)
+        </p>
+    </div>
+
     <div class="setting">
         <Checkbox
             name="privacy_share_transmog"

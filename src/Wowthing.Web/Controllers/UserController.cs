@@ -28,17 +28,7 @@ namespace Wowthing.Web.Controllers
                 return NotFound();
             }
 
-            ApplicationUserSettings settings = null;
-            if (User?.Identity?.IsAuthenticated == true)
-            {
-                var settingsUser = await _userManager.FindByNameAsync(User.Identity.Name);
-                settings = settingsUser?.Settings;
-            }
-
-            if (settings == null)
-            {
-                settings = new ApplicationUserSettings();
-            }
+            var settings = user.Settings ?? new ApplicationUserSettings();
 
             var db = _redis.GetDatabase();
             var achievementsHash = db.StringGetAsync("cached_achievements:hash");

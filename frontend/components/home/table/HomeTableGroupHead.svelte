@@ -31,8 +31,10 @@
 {/if}
 
 <tr class="table-group-head">
-    {#each $settings.layout.commonFields as _}
-        <td></td>
+    {#each $settings.layout.commonFields as field}
+        {#if !(field === 'accountTag' && isPublic)}
+            <td></td>
+        {/if}
     {/each}
 
     {#each $settings.layout.homeFields as field}
@@ -45,13 +47,17 @@
             {/if}
 
         {:else if field === 'keystone'}
-            <td>Keystone</td>
+            {#if !isPublic || $settings.privacy.publicMythicPlus}
+                <td>Keystone</td>
+            {/if}
 
         {:else if field === 'mountSpeed'}
             <HeadMount />
 
         {:else if field === 'playedTime'}
-            <RowPlayedTime {playedTotal} />
+            {#if !isPublic}
+                <RowPlayedTime {playedTotal} />
+            {/if}
 
         {:else if field === 'torghast'}
             <HeadTorghast />
@@ -59,17 +65,26 @@
         {:else if field === 'vaultMythicPlus'}
             <td>M+ Vault</td>
 
+        {:else if field === 'vaultPvp'}
+            <td>PvP Vault</td>
+
         {:else if field === 'vaultRaid'}
             <td>Raid Vault</td>
 
         {:else if field === 'weeklyAnima'}
-            <td>Anima</td>
+            {#if !isPublic || $settings.privacy.publicQuests}
+                <td>Anima</td>
+            {/if}
 
         {:else if field === 'weeklyKorthia'}
-            <td>Korthia</td>
+            {#if !isPublic || $settings.privacy.publicQuests}
+                <td>Korthia</td>
+            {/if}
 
         {:else if field === 'weeklySouls'}
-            <td>Souls</td>
+            {#if !isPublic || $settings.privacy.publicQuests}
+                <td>Souls</td>
+            {/if}
 
         {:else}
             <td>&nbsp;</td>
