@@ -27,7 +27,7 @@ export default function getProgress(character: Character, group: StaticDataProgr
     if (datas) {
         total = datas.length
         for (const data of datas) {
-            if (group.type === 'quest' && userQuestData.characters[character.id].quests.has(data.id)) {
+            if (group.type === 'quest' && userQuestData.characters[character.id]?.quests?.has(data.id)) {
                 have++
             }
         }

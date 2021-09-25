@@ -202,11 +202,9 @@ namespace Wowthing.Web.Controllers
             timer.AddPoint("CheckUser");
 
             var db = _redis.GetDatabase();
-            var pub = User?.Identity?.Name != apiResult.User.UserName;
-            var privacy = apiResult.User.Settings?.Privacy ?? new ApplicationUserSettingsPrivacy();
 
             // Update user last visit
-            if (!pub)
+            if (!apiResult.Public)
             {
                 apiResult.User.LastVisit = DateTime.Now;
                 await _userManager.UpdateAsync(apiResult.User);
@@ -218,7 +216,7 @@ namespace Wowthing.Web.Controllers
                 .Where(a => a.UserId == apiResult.User.Id)
                 .ToListAsync();
 
-            if (!pub)
+            if (!apiResult.Public)
             {
                 accounts = tempAccounts;
             }
@@ -227,7 +225,7 @@ namespace Wowthing.Web.Controllers
 
             var characterQuery = _context.PlayerCharacter
                 .Where(c => c.Account.UserId == apiResult.User.Id);
-            if (pub)
+            if (apiResult.Public)
             {
                 characterQuery = characterQuery.Where(c => c.Level >= 11);
             }
@@ -239,19 +237,19 @@ namespace Wowthing.Web.Controllers
                 .Include(c => c.Shadowlands)
                 .Include(c => c.Weekly);
 
-            if (!pub || privacy.PublicCurrencies)
+            if (!apiResult.Public || apiResult.Privacy.PublicCurrencies)
             {
                 characterQuery = characterQuery
                     .Include(c => c.Currencies);
             }
 
-            if (!pub || privacy.PublicLockouts)
+            if (!apiResult.Public || apiResult.Privacy.PublicLockouts)
             {
                 characterQuery = characterQuery
                     .Include(c => c.Lockouts);
             }
             
-            if (!pub || privacy.PublicMythicPlus)
+            if (!apiResult.Public || apiResult.Privacy.PublicMythicPlus)
             {
                 characterQuery = characterQuery
                     .Include(c => c.MythicPlus)
@@ -297,9 +295,9 @@ namespace Wowthing.Web.Controllers
             var apiData = new UserApi
             {
                 Accounts = accounts.ToDictionary(k => k.Id, v => new UserApiAccount(v)),
-                Characters = characters.Select(character => new UserApiCharacter(character, pub, privacy)).ToList(),
+                Characters = characters.Select(character => new UserApiCharacter(character, apiResult.Public, apiResult.Privacy)).ToList(),
                 CurrentPeriod = currentPeriods,
-                Public = pub,
+                Public = apiResult.Public,
             };
 
             timer.AddPoint("Build response", true);
@@ -450,28 +448,24 @@ namespace Wowthing.Web.Controllers
 
             timer.AddPoint("CheckUser");
 
-            var characters = await _context.PlayerCharacter
-                .Where(pc => pc.Account.UserId == apiResult.User.Id)
-                .Include(pc => pc.AddonQuests)
-                .Include(pc => pc.Quests)
-                .Select(pc => new
-                {
-                    pc.Id,
-                    pc.AddonQuests,
-                    pc.Quests,
-                })
-                .ToArrayAsync();
-            
-            /*var userQuests = await _context.PlayerCharacterQuests
-                .Where(pcq => pcq.Character.Account.UserId == apiResult.User.Id)
-                .ToArrayAsync();*/
-            
-            timer.AddPoint("Get quests");
 
-            // Build response
-            var data = new UserQuestData
+            Dictionary<int, UserQuestDataCharacter> characterData = new();
+            
+            if (!apiResult.Public || apiResult.Privacy.PublicQuests)
             {
-                Characters = characters.ToDictionary(
+                var characters = await _context.PlayerCharacter
+                    .Where(pc => pc.Account.UserId == apiResult.User.Id)
+                    .Include(pc => pc.AddonQuests)
+                    .Include(pc => pc.Quests)
+                    .Select(pc => new
+                    {
+                        pc.Id,
+                        pc.AddonQuests,
+                        pc.Quests,
+                    })
+                    .ToArrayAsync();
+                
+                characterData = characters.ToDictionary(
                     c => c.Id,
                     c => new UserQuestDataCharacter
                     {
@@ -479,7 +473,15 @@ namespace Wowthing.Web.Controllers
                         DailyQuestsPacked = c.AddonQuests?.DailyQuests.EmptyIfNull().ToPackedUInt16Array(),
                         QuestsPacked = c.Quests?.CompletedIds.EmptyIfNull().ToPackedUInt16Array(),
                     }
-                ),
+                );
+            }
+
+            timer.AddPoint("Get quests");
+
+            // Build response
+            var data = new UserQuestData
+            {
+                Characters = characterData,
             };
             
             timer.AddPoint("Build response", true);
@@ -536,12 +538,15 @@ namespace Wowthing.Web.Controllers
                 return ret;
             }
 
-            if (User?.Identity?.Name != user.UserName && user.Settings?.Privacy?.Public != true)
+            ret.Public = User?.Identity?.Name != user.UserName;
+            ret.Privacy = user.Settings?.Privacy ?? new ApplicationUserSettingsPrivacy();
+
+            if (ret.Public && ret.Privacy.Public != true)
             {
                 ret.NotFound = true;
                 return ret;
             }
-
+            
             ret.User = user;
             return ret;
         }
@@ -549,7 +554,14 @@ namespace Wowthing.Web.Controllers
         private class ApiUserResult
         {
             public bool NotFound { get; set; }
+            public bool Public { get; set; }
             public ApplicationUser User { get; set; }
+            public ApplicationUserSettingsPrivacy Privacy { get; set; }
+        }
+
+        private class ApiUserQuestResult
+        {
+            
         }
     }
 }
