@@ -3,7 +3,7 @@
     import Fa from 'svelte-fa'
 
     export let name: string
-    export let textClass: string
+    export let textClass = ''
     export let value: boolean
 </script>
 

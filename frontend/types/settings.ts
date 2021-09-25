@@ -20,9 +20,10 @@ export interface Settings {
     privacy: {
         anonymized: boolean
         public: boolean
-        shareLockouts: boolean
-        shareMythicPlus: boolean
-        shareTransmog: boolean
+        publicCurrencies: boolean
+        publicLockouts: boolean
+        publicMythicPlus: boolean
+        publicTransmog: boolean
         showInLeaderboards: boolean
     }
 

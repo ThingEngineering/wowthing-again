@@ -4,7 +4,6 @@
     import { data as settings } from '@/stores/settings'
     import { userStore } from '@/stores'
     import type {Character} from '@/types'
-    import getCharacterTableSpan from '@/utils/get-character-table-span'
 
     import HeadCovenant from './head/HomeTableHeadCovenant.svelte'
     import HeadMount from './head/HomeTableHeadMount.svelte'
@@ -17,11 +16,9 @@
 
     let gold: number
     let isPublic: boolean
-    let span: number
     $: {
         gold = sumBy(group, (c: Character) => c.gold)
         isPublic = $userStore.data.public
-        span = getCharacterTableSpan()
     }
 </script>
 
@@ -30,7 +27,7 @@
 {/if}
 
 <tr class="table-group-head">
-    {#each $settings.layout.commonFields as field}
+    {#each $settings.layout.commonFields as _}
         <td></td>
     {/each}
 
@@ -38,7 +35,7 @@
         {#if field === 'covenant'}
             <HeadCovenant />
 
-        {:else if field === 'gold'}
+        {:else if field === 'gold' && !isPublic}
             <RowGold {gold} />
 
         {:else if field === 'keystone'}
