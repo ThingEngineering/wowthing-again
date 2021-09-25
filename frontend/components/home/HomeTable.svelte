@@ -48,7 +48,7 @@
             {:else if field === 'playedTime'}
                 <RowPlayedTime playedTotal={character.playedTotal} />
 
-            {:else if field === 'status'}
+            {:else if field === 'statusIcons'}
                 <RowStatuses />
 
             {:else if field === 'torghast'}
