@@ -15,24 +15,27 @@
     import CharacterRow from './CharacterTableRow.svelte'
 
     export let characterLimit = 0
-    export let filterFunc: (char: Character) => boolean = undefined
-    export let groupFunc: (char: Character) => string = undefined
-    export let sortFunc: (char: Character) => string = undefined
+    export let filterFunc: (char: Character) => boolean
+    export let sortFunc: (char: Character) => string
+
+    const noSortFunc = !sortFunc
 
     let characters: Character[]
     let groups: Character[][]
+    let groupFunc: (char: Character) => string
 
     $: {
         if (!filterFunc) {
             filterFunc = (char) => char.level >= $settingsData.general.minimumLevel
         }
-        if (!groupFunc) {
-            groupFunc = getCharacterGroupFunc()
-        }
-        if (!sortFunc) {
+        if (noSortFunc) {
             sortFunc = getCharacterSortFunc()
         }
 
+        groupFunc = getCharacterGroupFunc()
+    }
+
+    $: {
         characters = filter(
             $userStore.data.characters,
             (c) => $settingsData.characters.hiddenCharacters.indexOf(c.id) === -1
