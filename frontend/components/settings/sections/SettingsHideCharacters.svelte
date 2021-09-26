@@ -31,11 +31,8 @@
 
 <style lang="scss">
     .realm {
-        h4 {
-            border-bottom: 1px dashed $border-color;
+        h3 {
             font-size: 1.1rem;
-            margin-bottom: 0.4rem;
-            padding-bottom: 0.4rem;
         }
 
         :global(fieldset) {
@@ -56,13 +53,11 @@
 </style>
 
 <div class="thing-container settings-container">
-    <h2>Characters</h2>
-
-    <h3>Hide characters</h3>
+    <h2>Hide Characters</h2>
 
     {#each realms as [realm, characters]}
         <div class="realm">
-            <h4>{realm}</h4>
+            <h3>{realm}</h3>
 
             {#each characters as character}
                 <GroupedCheckbox

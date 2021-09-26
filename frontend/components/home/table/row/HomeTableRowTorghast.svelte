@@ -22,7 +22,7 @@
 
             // Reset wings to 0 if expired
             const resetTime = getNextWeeklyReset(character.weekly.torghastScannedAt, character.realm.region)
-            if (resetTime > $timeStore) {
+            if (resetTime < $timeStore) {
                 for (const wing of wings) {
                     wing[0] = 'Unknown'
                     wing[1] = 0

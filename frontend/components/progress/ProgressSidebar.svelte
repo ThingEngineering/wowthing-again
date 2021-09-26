@@ -7,5 +7,5 @@
 <Sidebar
     baseUrl="/progress"
     items={$staticStore.data.progress}
-    width="14rem"
+    width="12rem"
 />

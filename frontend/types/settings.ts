@@ -42,3 +42,8 @@ export interface Settings {
         showWarrior: boolean
     }
 }
+
+export interface SettingsChoice {
+    key: string
+    name: string
+}
