@@ -15,8 +15,8 @@
         },
         null,
         {
-            name: 'Characters',
-            slug: 'characters',
+            name: 'Hide Characters',
+            slug: 'hide-characters',
         },
         {
             name: 'Transmog',
