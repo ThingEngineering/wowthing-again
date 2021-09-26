@@ -19,6 +19,10 @@
             slug: 'hide-characters',
         },
         {
+            name: 'Sort Characters',
+            slug: 'sort-characters',
+        },
+        {
             name: 'Layout',
             slug: 'layout',
         },
