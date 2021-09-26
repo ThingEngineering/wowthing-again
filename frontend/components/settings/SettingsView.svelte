@@ -1,6 +1,7 @@
 <script lang="ts">
     import type { SvelteComponent } from 'svelte'
 
+    import SettingsAccount from './sections/SettingsAccount.svelte'
     import SettingsCharacters from './sections/SettingsCharacters.svelte'
     import SettingsLayout from './sections/SettingsLayout.svelte'
     import SettingsPrivacy from './sections/SettingsPrivacy.svelte'
@@ -9,6 +10,7 @@
     export let slug: string
 
     const components: Record<string, typeof SvelteComponent> = {
+        account: SettingsAccount,
         'hide-characters': SettingsCharacters,
         layout: SettingsLayout,
         privacy: SettingsPrivacy,
