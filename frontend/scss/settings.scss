@@ -6,13 +6,17 @@
 
     h2,
     h3 {
-        border-bottom: 1px solid $border-color;
         margin-bottom: 0.5rem;
         padding-bottom: 0.5rem;
     }
 
     h2 {
+        border-bottom: 1px solid $border-color;
         text-align: center;
+    }
+
+    h3 {
+        border-bottom: 1px dashed $border-color;
     }
 
     fieldset {
