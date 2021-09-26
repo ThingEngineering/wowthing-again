@@ -18,7 +18,6 @@
 </script>
 
 <style lang="scss">
-
     .api-key {
         align-items: center;
         display: flex;
