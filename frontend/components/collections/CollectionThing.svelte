@@ -1,6 +1,7 @@
 <script lang="ts">
     import find from 'lodash/find'
     import { getContext } from 'svelte'
+    import type { SvelteComponent } from 'svelte'
 
     import type {CollectionContext} from '@/types/contexts'
 
@@ -15,7 +16,7 @@
 
     let userHasThing: number | undefined
     let origId: number
-    let component: any
+    let component: typeof SvelteComponent
     $: {
         userHasThing = find(
             things,
