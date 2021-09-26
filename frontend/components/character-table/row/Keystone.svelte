@@ -17,8 +17,8 @@
     let isUpgrade = false
     $: {
         if (character.weekly?.keystoneDungeon) {
-            const reset = getNextWeeklyReset(character.weekly.keystoneScannedAt, character.realm.region)
-            if (reset > $timeStore) {
+            const resetTime = getNextWeeklyReset(character.weekly.keystoneScannedAt, character.realm.region)
+            if (resetTime > $timeStore) {
                 dungeon = dungeonMap[character.weekly.keystoneDungeon]
                 ;({isUpgrade} = isKeystoneUpgrade(character, dungeon.id))
             }
