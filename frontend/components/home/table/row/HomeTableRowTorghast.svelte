@@ -9,7 +9,6 @@
 
     import TooltipTorghast from '@/components/tooltips/torghast/TooltipTorghast.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
-    import { toNiceTime } from '../../../../utils/to-nice'
 
     export let character: Character
 
