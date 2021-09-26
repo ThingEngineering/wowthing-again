@@ -9,6 +9,7 @@
 
     import TooltipTorghast from '@/components/tooltips/torghast/TooltipTorghast.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import { toNiceTime } from '../../../../utils/to-nice'
 
     export let character: Character
 
@@ -22,7 +23,7 @@
 
             // Reset wings to 0 if expired
             const resetTime = getNextWeeklyReset(character.weekly.torghastScannedAt, character.realm.region)
-            if (resetTime > $timeStore) {
+            if (resetTime < $timeStore) {
                 for (const wing of wings) {
                     wing[0] = 'Unknown'
                     wing[1] = 0
