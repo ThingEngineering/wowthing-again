@@ -1,4 +1,6 @@
 <script lang="ts">
+    import type { SvelteComponent } from 'svelte'
+
     import SettingsCharacters from './sections/SettingsCharacters.svelte'
     import SettingsLayout from './sections/SettingsLayout.svelte'
     import SettingsPrivacy from './sections/SettingsPrivacy.svelte'
@@ -6,8 +8,8 @@
 
     export let slug: string
 
-    const components: Record<string, any> = {
-        characters: SettingsCharacters,
+    const components: Record<string, typeof SvelteComponent> = {
+        'hide-characters': SettingsCharacters,
         layout: SettingsLayout,
         privacy: SettingsPrivacy,
         transmog: SettingsTransmog,

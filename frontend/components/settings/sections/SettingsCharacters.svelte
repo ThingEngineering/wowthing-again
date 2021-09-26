@@ -56,9 +56,7 @@
 </style>
 
 <div class="thing-container settings-container">
-    <h2>Characters</h2>
-
-    <h3>Hide characters</h3>
+    <h2>Hide Characters</h2>
 
     {#each realms as [realm, characters]}
         <div class="realm">
