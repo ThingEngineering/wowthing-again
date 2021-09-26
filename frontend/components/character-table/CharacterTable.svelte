@@ -15,8 +15,8 @@
     import CharacterRow from './CharacterTableRow.svelte'
 
     export let characterLimit = 0
-    export let filterFunc: (char: Character) => boolean
-    export let sortFunc: (char: Character) => string
+    export let filterFunc: (char: Character) => boolean = undefined
+    export let sortFunc: (char: Character) => string = undefined
 
     const noSortFunc = !sortFunc
 
