@@ -155,7 +155,6 @@ namespace Wowthing.Lib.Models
     
     public class ApplicationUserSettingsGeneral
     {
-        public int MinimumLevel { get; set; } = 1;
         public int RefreshInterval { get; set; } = 0;
         public bool UseWowdb { get; set; } = false;
 

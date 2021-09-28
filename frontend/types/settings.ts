@@ -4,7 +4,6 @@ export interface Settings {
     }
 
     general: {
-        minimumLevel: number
         refreshInterval: number
         useWowdb: boolean
         groupBy: string[]
