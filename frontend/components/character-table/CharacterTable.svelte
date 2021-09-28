@@ -26,7 +26,7 @@
 
     $: {
         if (!filterFunc) {
-            filterFunc = (char) => char.level >= $settingsData.general.minimumLevel
+            filterFunc = () => true
         }
         if (noSortFunc) {
             sortFunc = getCharacterSortFunc()
