@@ -1,13 +1,12 @@
 import { get } from 'svelte/store'
 
 import {Constants} from '@/data/constants'
-import {data as settingsData} from '@/stores/settings'
 import { userStore } from '@/stores'
-import type { Character} from '@/types'
+import type { Character, Settings } from '@/types'
 import toDigits from '@/utils/to-digits'
 
-export default function getCharacterSortFunc(): (char: Character) => string {
-    const sortBy = get(settingsData).general.sortBy ?? ['level', 'name']
+export default function getCharacterSortFunc(settingsData: Settings): (char: Character) => string {
+    const sortBy = settingsData.general.sortBy ?? ['level', 'name']
 
     return (char: Character) => {
         const out: string[] = []
@@ -25,6 +24,9 @@ export default function getCharacterSortFunc(): (char: Character) => string {
             }
             else if (thing === '-faction') {
                 out.push((5 - char.faction).toString())
+            }
+            else if (thing === 'gold') {
+                out.push((1000000000 - char.gold).toString())
             }
             else if (thing === 'itemlevel' || thing == 'itemLevel') { // TODO remove me once users are fixed
                 out.push(toDigits(1000 - parseInt(char.calculatedItemLevel || '0'), 4))

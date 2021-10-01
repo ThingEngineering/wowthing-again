@@ -29,10 +29,10 @@
             filterFunc = () => true
         }
         if (noSortFunc) {
-            sortFunc = getCharacterSortFunc()
+            sortFunc = getCharacterSortFunc($settingsData)
         }
 
-        groupFunc = getCharacterGroupFunc()
+        groupFunc = getCharacterGroupFunc($settingsData)
     }
 
     $: {
