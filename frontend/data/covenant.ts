@@ -10,5 +10,9 @@ export const covenantMap: Dictionary<Covenant> = {
     4: new Covenant(4, 'Necrolord', 'necrolord', 'covenant_necrolord'),
 }
 
+export const covenantNameMap = Object.fromEntries(
+    Object.entries(covenantMap).map(([, covenant]) => [covenant.name, covenant])
+)
+
 export const covenantSlugMap: Record<string, Covenant> =
     fromPairs(Object.values(covenantMap).map(c => [c.slug, c]))

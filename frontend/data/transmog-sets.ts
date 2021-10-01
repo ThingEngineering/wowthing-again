@@ -1,17 +1,17 @@
-import {TransmogSetData} from '@/types'
+import {TransmogSet, TransmogSetData} from '@/types'
 import type {Dictionary} from '@/types'
 
-const transmogSets: Dictionary<TransmogSetData[]> = {
-    'all': [
+const transmogSets: Dictionary<TransmogSet> = {
+    'all': new TransmogSet('class', [
         new TransmogSetData('all', 12),
-    ],
-    'armor': [
+    ]),
+    'armor': new TransmogSet('class', [
         new TransmogSetData('cloth', 3, 'Cloth'),
         new TransmogSetData('leather', 4, 'Leather'),
         new TransmogSetData('mail', 2, 'Mail'),
         new TransmogSetData('plate', 3, 'Plate'),
-    ],
-    'class': [
+    ]),
+    'class': new TransmogSet('class', [
         new TransmogSetData('mage', 1, 'Mage'),
         new TransmogSetData('priest', 1, 'Priest'),
         new TransmogSetData('warlock', 1, 'Warlock'),
@@ -24,8 +24,14 @@ const transmogSets: Dictionary<TransmogSetData[]> = {
         new TransmogSetData('death-knight', 1, 'Death Knight'),
         new TransmogSetData('paladin', 1, 'Paladin'),
         new TransmogSetData('warrior', 1, 'Warrior'),
-    ],
-
+    ]),
+    'covenant-korthia': new TransmogSet('covenant', [
+        new TransmogSetData('kyrian', 1, 'Kyrian'),
+        new TransmogSetData('necrolord', 1, 'Necrolord'),
+        new TransmogSetData('night-fae', 1, 'Night Fae'),
+        new TransmogSetData('venthyr', 1, 'Venthyr'),
+        new TransmogSetData('venthyr2', 1, 'Venthyr'),
+    ]),
 }
 
 export { transmogSets }

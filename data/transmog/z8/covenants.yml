@@ -2,15 +2,15 @@ name: Covenants
 groups:
 
 # 9.1
-- name: 'Korthia: Kyrian'
-  type: all
+- name: 'Korthia Gear'
+  type: covenant-korthia
   sets:
   - Death's Advance
   - Korthia
   - Renown
   - Renown Quartermaster
   data:
-    all:
+    kyrian:
     # Death's Advance set=2206
     - name: Battlefield Messenger's Regalia
       wowheadSetId: 11989
@@ -63,15 +63,7 @@ groups:
         10: 44270 # Hands
         16: 44279 # Back
 
-- name: 'Korthia: Necrolord'
-  type: all
-  sets:
-  - Death's Advance
-  - Korthia
-  - Renown
-  - Renown Quartermaster
-  data:
-    all:
+    necrolord:
     # Death's Advance set=2210
     - name: Frontline Necromancer's Vestments
       wowheadSetId: 11981
@@ -128,15 +120,7 @@ groups:
         10: 44314 # Hands
         16: 44320 # Back
 
-- name: 'Korthia: Night Fae'
-  type: all
-  sets:
-  - Death's Advance
-  - Korthia
-  - Renown
-  - Renown Quartermaster
-  data:
-    all:
+    night-fae:
     # Death's Advance set=2204
     - name: Garb of Fall's Promise
       wowheadSetId: 11991
@@ -193,19 +177,7 @@ groups:
         10: 44282 # Hands
         16: 44280 # Back
 
-- name: 'Korthia: Venthyr'
-  type: all
-  sets:
-  - Death's Advance [1]
-  - Death's Advance [2]
-  - Korthia [1]
-  - Korthia [2]
-  - Renown [1]
-  - Renown [2]
-  - Renown Quartermaster [1]
-  - Renown Quartermaster [2]
-  data:
-    all:
+    venthyr:
     # Death's Advance set=2215
     - name: Renathal's Battlefield Attire
       wowheadSetId: 11997
@@ -219,6 +191,46 @@ groups:
         10: 44360 # Hands
         16: 44358 # Back
 
+    # Korthia set=2216
+    - name: Radiant Court Attire
+      wowheadSetId: 11994
+      items:
+        1:  44380 # Head
+        5:  44364 # Chest
+        6:  44369 # Waist
+        7:  44368 # Legs
+        8:  44366 # Feet
+        9:  44370 # Wrists
+        10: 44367 # Hands
+        16: 44365 # Back
+
+    # Renown set=2214
+    - name: Harvester's Court Attire
+      wowheadSetId: 11995
+      items:
+        1:  44378 # Head
+        5:  44344 # Chest
+        6:  44355 # Waist
+        7:  44354 # Legs
+        8:  44346 # Feet
+        9:  44356 # Wrists
+        10: 44347 # Hands
+        16: 44345 # Back
+
+    # Renown Quartermaster set=2217
+    - name: Sinful Venthyr Attire
+      wowheadSetId: 11996
+      items:
+        1:  44381 # Head
+        5:  44371 # Chest
+        6:  44376 # Waist
+        7:  44375 # Legs
+        8:  44373 # Feet
+        9:  44377 # Wrists
+        10: 44374 # Hands
+        16: 44372 # Back
+
+    venthyr2:
     # Death's Advance set=2219
     - name: Renathal's Field Inquisitor's Vestments
       wowheadSetId: 11999
@@ -232,19 +244,6 @@ groups:
         9:  44399 # Wrists
         10: 44394 # Hands
         16: 44392 # Back
-
-    # Korthia set=2216
-    - name: Radiant Court Attire
-      wowheadSetId: 11994
-      items:
-        1:  44380 # Head
-        5:  44364 # Chest
-        6:  44369 # Waist
-        7:  44368 # Legs
-        8:  44366 # Feet
-        9:  44370 # Wrists
-        10: 44367 # Hands
-        16: 44365 # Back
 
     # Korthia set=2220
     - name: Redeemed Inquisitor's Vestments
@@ -260,19 +259,6 @@ groups:
         10: 44403 # Hands
         16: 44401 # Back
 
-    # Renown set=2214
-    - name: Harvester's Court Attire
-      wowheadSetId: 11995
-      items:
-        1:  44378 # Head
-        5:  44344 # Chest
-        6:  44355 # Waist
-        7:  44354 # Legs
-        8:  44346 # Feet
-        9:  44356 # Wrists
-        10: 44347 # Hands
-        16: 44345 # Back
-
     # Renown set=2218
     - name: Court Inquisitor's Vestments
       wowheadSetId: 12000
@@ -286,19 +272,6 @@ groups:
         9:  44390 # Wrists
         10: 44385 # Hands
         16: 44383 # Back
-
-    # Renown Quartermaster set=2217
-    - name: Sinful Venthyr Attire
-      wowheadSetId: 11996
-      items:
-        1:  44381 # Head
-        5:  44371 # Chest
-        6:  44376 # Waist
-        7:  44375 # Legs
-        8:  44373 # Feet
-        9:  44377 # Wrists
-        10: 44374 # Hands
-        16: 44372 # Back
 
     # Renown Quartermaster set=2221
     - name: Sinful Inquisitor's Vestments

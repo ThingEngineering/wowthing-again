@@ -4,20 +4,45 @@
     import type {TransmogDataCategory} from '@/types/data'
     import getTransmogSpan from '@/utils/get-transmog-span'
 
+    import ClassIcon from '@/components/images/ClassIcon.svelte'
+    import CovenantIcon from '@/components/images/CovenantIcon.svelte'
     import TransmogTableSet from './TransmogTableSet.svelte'
 
     export let category: TransmogDataCategory
     export let setKey: string
     export let skipClasses: Dictionary<boolean>
+    export let startSpacer = false
 </script>
 
 <style lang="scss">
+    .spacer {
+        td {
+            background: $body-background !important;
+            border-left-width: 0 !important;
+            border-right-width: 0 !important;
+        }
+    }
+
+    .sticky {
+        --image-border-width: 0;
+        --image-margin-top: 0;
+
+        td {
+            background: $thing-background;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+        .icon {
+            border-left: 1px solid $border-color;
+            padding: 0.1rem;
+        }
+    }
     .faded {
         opacity: 0.4;
     }
     .name {
-        min-width: 10.5rem;
-        padding: 0 1.5rem 0 0.5rem;
+        @include cell-width(14rem);
     }
     .highlight {
         background-color: $highlight-background;
@@ -30,7 +55,95 @@
     }
 </style>
 
+{#if startSpacer}
+    <tr class="spacer">
+        <td colspan="100">&nbsp;</td>
+    </tr>
+{/if}
+
 {#each category.groups as group, groupIndex}
+    {#if groupIndex === 0 || transmogSets[category.groups[groupIndex-1].type].type !== transmogSets[group.type].type }
+        {#if groupIndex > 0}
+            <tr class="spacer">
+                <td colspan="100">&nbsp;</td>
+            </tr>
+        {/if}
+
+        <tr class="sticky">
+            <td></td>
+            {#if transmogSets[group.type].type === 'covenant'}
+                {#each transmogSets[group.type].sets as tsd}
+                    <td class="icon">
+                        <CovenantIcon size={40} covenantName={tsd.subType} />
+                    </td>
+                {/each}
+                <td class="icon" colspan="7"></td>
+
+            {:else}
+                {#if !skipClasses['mage']}
+                    <td class="icon">
+                        <ClassIcon size={40} classId={8} />
+                    </td>
+                {/if}
+                {#if !skipClasses['priest']}
+                    <td class="icon">
+                        <ClassIcon size={40} classId={5} />
+                    </td>
+                {/if}
+                {#if !skipClasses['warlock']}
+                    <td class="icon">
+                        <ClassIcon size={40} classId={9} />
+                    </td>
+                {/if}
+                {#if !skipClasses['demon-hunter']}
+                    <td class="icon">
+                        <ClassIcon size={40} classId={12} />
+                    </td>
+                {/if}
+                {#if !skipClasses['druid']}
+                    <td class="icon">
+                        <ClassIcon size={40} classId={11} />
+                    </td>
+                {/if}
+                {#if !skipClasses['monk']}
+                    <td class="icon">
+                        <ClassIcon size={40} classId={10} />
+                    </td>
+                {/if}
+                {#if !skipClasses['rogue']}
+                    <td class="icon">
+                        <ClassIcon size={40} classId={4} />
+                    </td>
+                {/if}
+                {#if !skipClasses['hunter']}
+                    <td class="icon">
+                        <ClassIcon size={40} classId={3} />
+                    </td>
+                {/if}
+                {#if !skipClasses['shaman']}
+                    <td class="icon">
+                        <ClassIcon size={40} classId={7} />
+                    </td>
+                {/if}
+                {#if !skipClasses['death-knight']}
+                    <td class="icon">
+                        <ClassIcon size={40} classId={6} />
+                    </td>
+                {/if}
+                {#if !skipClasses['paladin']}
+                    <td class="icon">
+                        <ClassIcon size={40} classId={2} />
+                    </td>
+                {/if}
+                {#if !skipClasses['warrior']}
+                    <td class="icon">
+                        <ClassIcon size={40} classId={1} />
+                    </td>
+                {/if}
+            {/if}
+        </tr>
+    {/if}
+
     {#if groupIndex === 0 || category.groups[groupIndex-1].name !== group.name}
         <tr>
             <td class="name highlight" colspan="13">
@@ -39,11 +152,12 @@
             </td>
         </tr>
     {/if}
+
     {#each group.sets as setName, setIndex}
         <tr class:faded={setName.endsWith('*')}>
             <td class="name">&ndash {setName.replace('*', '')}</td>
 
-            {#each transmogSets[group.type] as transmogSet (`set--${setKey}--${setName}--${transmogSet.type}`)}
+            {#each transmogSets[group.type].sets as transmogSet (`set--${setKey}--${setName}--${transmogSet.type}`)}
                 {#if !skipClasses[transmogSet.type]}
                     <TransmogTableSet
                         set={group.data?.[transmogSet.type]?.[setIndex]}
