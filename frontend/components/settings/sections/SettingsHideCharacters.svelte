@@ -13,7 +13,7 @@
 
     let realms: [string, Character[]][]
     $: {
-        const sortFunc = getCharacterSortFunc()
+        const sortFunc = getCharacterSortFunc($settingsData)
 
         const grouped: Record<string, Character[]> = groupBy($userStore.data.characters, (c) => c.realm.name)
         for (const realmName in grouped) {
