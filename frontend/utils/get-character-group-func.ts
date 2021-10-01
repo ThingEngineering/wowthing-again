@@ -1,13 +1,12 @@
 import { get } from 'svelte/store'
 
 import {Constants} from '@/data/constants'
-import { data as settingsData } from '@/stores/settings'
 import { userStore } from '@/stores'
-import type { Character} from '@/types'
+import type { Character, Settings } from '@/types'
 
-export default function getCharacterGroupFunc(): (char: Character) => string {
-    const groupBy = get(settingsData).general.groupBy
-    const minusFaction = get(settingsData).general.sortBy.indexOf('-faction') >= 0
+export default function getCharacterGroupFunc(settingsData: Settings): (char: Character) => string {
+    const groupBy = settingsData.general.groupBy
+    const minusFaction = settingsData.general.sortBy.indexOf('-faction') >= 0
 
     return (char: Character) => {
         const out: string[] = []
