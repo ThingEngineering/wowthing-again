@@ -48,6 +48,7 @@ namespace Wowthing.Lib.Models
             "account",
             "enabled",
             "faction", "-faction",
+            "gold",
             "itemlevel",
             "level",
             "name",
