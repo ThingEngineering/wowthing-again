@@ -2,13 +2,15 @@
     "extends": "@tsconfig/svelte/tsconfig.json",
 
     "include": ["**/*.ts"],
-    "exclude": ["node_modules/*"],
+    "exclude": ["**/node_modules", "**/.*/"],
     "compilerOptions": {
         "baseUrl": ".",
         "incremental": true,
+        "isolatedModules": true,
         "paths": {
             "@/*": ["*"]
         },
+        "skipDefaultLibCheck": true,
         "strict": true,
         "strictNullChecks": false,
         "target": "ES2019",
