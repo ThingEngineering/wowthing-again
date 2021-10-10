@@ -56,9 +56,10 @@
 
 <style lang="scss">
     .score {
+        @include cell-width($width-raider-io);
+
         color: var(--color);
         text-align: right;
-        width: $width-raider-io;
     }
 </style>
 
