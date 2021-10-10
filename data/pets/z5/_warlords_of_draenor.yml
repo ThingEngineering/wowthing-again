@@ -31,6 +31,13 @@ groups:
   -  94623 # Corrupted Nest Guardian - Hellfire Citadel
   -  86532 # Lanticore Spawnling - UBRS
 
+- name: Quests - Daily
+  things:
+  - 93483 # Nightmare Bell
+  - 93352 # Periwinkle Calf
+  - 86718 # Seaborne Spore
+  - 86715 # Zangar Spore
+
 - name: Rare Spawns
   things:
   -  86719 # Brilliant Spore (?, Spires of Arak)
