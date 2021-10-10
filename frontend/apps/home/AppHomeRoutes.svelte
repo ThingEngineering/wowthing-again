@@ -14,6 +14,7 @@
     import Progress from '@/components/progress/Progress.svelte'
     import Reputations from '@/components/reputations/Reputations.svelte'
     import Settings from '@/components/settings/Settings.svelte'
+    import Teams from '@/components/teams/Teams.svelte'
     import Toys from '@/components/collections/Toys.svelte'
     import Transmog from '@/components/transmog/Transmog.svelte'
 
@@ -35,6 +36,8 @@
         '/pets/:slug1?/:slug2?': Pets,
         '/toys/:slug1?/:slug2?': Toys,
         '/transmog/:slug1?/:slug2?': Transmog,
+
+        '/teams/:slug?': Teams,
 
         '/settings/:slug?': Settings,
     }

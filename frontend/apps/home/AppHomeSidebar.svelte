@@ -61,6 +61,9 @@
     <li use:active={'/cards'}>
         <a href="#/cards">🚧 Home (Cards)</a>
     </li>
+    <li use:active={'/teams'}>
+        <a href="#/teams">🚧 Teams</a>
+    </li>
 
     {#if $userStore.loaded && !$userStore.data.public}
         <li class="separator"></li>
