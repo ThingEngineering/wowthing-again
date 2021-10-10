@@ -107,7 +107,6 @@
                 <RowVaultMythicPlus {character} />
             {:else}
                 <RowRaiderIo {season} />
-                <RowMythicPlusBadge {season} />
             {/if}
 
             {#if isCurrentSeason && !isThisWeek}
