@@ -20,6 +20,7 @@
         {key: 'enabled', name: 'Active accounts first'},
         {key: 'faction', name: 'Alliance > Horde'},
         {key: '-faction', name: 'Horde > Alliance'},
+        {key: 'gold', name: 'Gold'},
         {key: 'itemlevel', name: 'Item level'},
         {key: 'level', name: 'Level'},
         {key: 'name', name: 'Character name'},
@@ -34,9 +35,6 @@
         (f) => filter(sortByChoices, (c) => c.key === f)[0]
     )
     const sortByInactive = filter(sortByChoices, (c) => sortByActive.indexOf(c) < 0)
-
-    console.log($settingsData.general.groupBy, groupByActive, groupByInactive)
-    console.log($settingsData.general.sortBy, sortByActive, sortByInactive)
 
     const onGroupByChange = debounce(() => {
         settingsData.update(state => {

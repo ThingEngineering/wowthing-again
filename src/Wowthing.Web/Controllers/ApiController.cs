@@ -81,7 +81,7 @@ namespace Wowthing.Web.Controllers
         [HttpPost("settings")]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Settings([FromBody] ApplicationUserSettings settings)
+        public async Task<IActionResult> Settings([FromBody] ApiSettingsForm form)
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
             if (user == null)
@@ -89,12 +89,31 @@ namespace Wowthing.Web.Controllers
                 return NotFound("User does not exist");
             }
 
-            settings.Validate();
+            form.Settings.Validate();
+            user.Settings = form.Settings;
             
-            user.Settings = settings;
             await _userManager.UpdateAsync(user);
 
-            return Json(settings);
+            var accountMap = await _context.PlayerAccount
+                .Where(pa => pa.UserId == user.Id)
+                .ToDictionaryAsync(pa => pa.Id);
+
+            foreach (var (accountId, accountData) in form.Accounts)
+            {
+                if (accountMap.TryGetValue(accountId, out var account))
+                {
+                    account.Enabled = accountData.Enabled;
+                    account.Tag = accountData.Tag.Truncate(4);
+                }
+            }
+
+            await _context.SaveChangesAsync();
+            
+            return Json(new
+            {
+                Accounts = accountMap.Values.ToList(),
+                Settings = form.Settings,
+            });
         }
 
         [HttpGet("achievements.{hash:length(32)}.json")]
@@ -559,9 +578,10 @@ namespace Wowthing.Web.Controllers
             public ApplicationUserSettingsPrivacy Privacy { get; set; }
         }
 
-        private class ApiUserQuestResult
+        public class ApiSettingsForm
         {
-            
+            public Dictionary<int, PlayerAccount> Accounts { get; set; }
+            public ApplicationUserSettings Settings { get; set; }
         }
     }
 }

@@ -29,10 +29,10 @@
             filterFunc = () => true
         }
         if (noSortFunc) {
-            sortFunc = getCharacterSortFunc()
+            sortFunc = getCharacterSortFunc($settingsData)
         }
 
-        groupFunc = getCharacterGroupFunc()
+        groupFunc = getCharacterGroupFunc($settingsData)
     }
 
     $: {
@@ -46,8 +46,9 @@
             characters = characters.slice(0, characterLimit)
         }
 
-        const grouped = groupBy(characters, groupFunc)
-        for (const key of keys(grouped)) {
+        const initialGrouped = groupBy(characters, groupFunc)
+        const grouped: Record<string, Character[]> = {}
+        for (const key of keys(initialGrouped)) {
             grouped[key] = sortBy(grouped[key], sortFunc)
         }
 

@@ -25,7 +25,7 @@ groups:
 
     # Gladiator set=2224
     - name: Unchained Gladiator's Vestment
-      wowheadSetId:
+      wowheadSetId: 12038
       items:
         1:  42980 # Head
         3:  42982 # Shoulders
@@ -54,7 +54,7 @@ groups:
 
     # Gladiator set=2225
     - name: Unchained Gladiator's Leathers
-      wowheadSetId:
+      wowheadSetId: 12041
       items:
         1:  44142 # Head
         3:  44144 # Shoulders
@@ -83,7 +83,7 @@ groups:
 
     # Gladiator set=2226
     - name: Unchained Gladiator's Chain
-      wowheadSetId:
+      wowheadSetId: 12040
       items:
         1:  43097 # Head
         3:  43094 # Shoulders
@@ -112,7 +112,7 @@ groups:
 
     # Gladiator set=2227
     - name: Unchained Gladiator's Plate
-      wowheadSetId:
+      wowheadSetId: 12039
       items:
         1:  42785 # Head
         3:  42797 # Shoulders

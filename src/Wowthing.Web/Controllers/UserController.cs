@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using StackExchange.Redis;
 using Wowthing.Lib.Models;
 using Wowthing.Web.ViewModels;

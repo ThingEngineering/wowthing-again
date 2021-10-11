@@ -55,7 +55,7 @@
         --image-border-color: #ffff00;
 
         display: flex;
-        height: 44px;
+        height: 24px;
         justify-content: flex-end;
         opacity: 1;
         pointer-events: none;
