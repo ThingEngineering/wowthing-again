@@ -1,8 +1,9 @@
 <script lang="ts">
-    import type { Settings, SidebarItem } from '@/types'
+    import { userStore } from '@/stores'
+    import { data as settingsData } from '@/stores/settings'
+    import type { Account, Settings, SidebarItem } from '@/types'
 
     import Sidebar from '@/components/sidebar/Sidebar.svelte'
-    import { data as settingsData } from '@/stores/settings'
 
     export const categories: SidebarItem[] = [
         {
@@ -35,18 +36,31 @@
     let buttonText = 'Save changes'
     async function saveOnClick() {
         buttonText = 'Saving...'
+
         const xsrf = document.getElementById('app').getAttribute('data-xsrf')
+        const data = {
+            accounts: $userStore.data.accounts,
+            settings: $settingsData,
+        }
+
         const response = await fetch('/api/settings', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'RequestVerificationToken': xsrf,
             },
-            body: JSON.stringify($settingsData),
+            body: JSON.stringify(data),
         })
+
         if (response.ok) {
             const json = await response.json()
-            settingsData.set(json as Settings)
+            settingsData.set(json.settings as Settings)
+            userStore.update(state => {
+                for (const account of json.accounts as Account[]) {
+                    state.data.accounts[account.id] = account
+                }
+                return state
+            })
             buttonText = 'Saved!'
             setTimeout(() => { buttonText = 'Save changes'}, 1000)
         }

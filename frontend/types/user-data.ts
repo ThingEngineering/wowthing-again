@@ -7,7 +7,7 @@ import type { InstanceDifficulty } from './dungeon'
 export interface UserData {
     public: boolean
 
-    accounts?: Account[]
+    accounts: Account[]
     characters: Character[]
     currentPeriod: Dictionary<UserDataCurrentPeriod>
 
