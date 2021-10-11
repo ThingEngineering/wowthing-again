@@ -21,7 +21,6 @@
     import RowDungeon from './MythicPlusTableRowDungeon.svelte'
     import RowItemLevel from '@/components/character-table/row/ItemLevel.svelte'
     import RowKeystone from '@/components/character-table/row/Keystone.svelte'
-    import RowMythicPlusBadge from '@/components/character-table/row/MythicPlusBadge.svelte'
     import RowRaiderIo from '@/components/character-table/row/RaiderIo.svelte'
     import RowUpgrade from './MythicPlusTableRowUpgrade.svelte'
     import RowVaultMythicPlus from '@/components/character-table/row/VaultMythicPlus.svelte'
