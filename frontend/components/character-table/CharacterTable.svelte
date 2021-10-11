@@ -46,14 +46,11 @@
             characters = characters.slice(0, characterLimit)
         }
 
-        const initialGrouped = groupBy(characters, groupFunc)
-        const grouped: Record<string, Character[]> = {}
-        for (const key of keys(initialGrouped)) {
-            grouped[key] = sortBy(grouped[key], sortFunc)
+        const grouped = groupBy(characters, groupFunc)
+        const pairs: [string, Character[]][] = []
+        for (const key of Object.keys(grouped)) {
+            pairs.push([key, sortBy(grouped[key], sortFunc)])
         }
-
-        const pairs = toPairs(grouped)
-        pairs.sort()
 
         groups = map(pairs, (pair) => pair[1])
     }
