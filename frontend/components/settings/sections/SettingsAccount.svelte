@@ -1,4 +1,13 @@
 <script lang="ts">
+    import sortBy from 'lodash/sortBy'
+
+    import getAccountCharacters from '@/utils/get-account-characters'
+    import { userStore } from '@/stores'
+    import { Region } from '@/types/enums'
+
+    import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
+    import TextInput from '@/components/forms/TextInput.svelte'
+
     let apiKey = ''
 
     async function onClick() {
@@ -8,6 +17,7 @@
                 'RequestVerificationToken': xsrf,
             },
         })
+
         const obj = await response.json()
         apiKey = obj['key']
 
@@ -18,6 +28,31 @@
 </script>
 
 <style lang="scss">
+    table {
+        width: 100%;
+    }
+    th {
+        background: $highlight-background;
+        padding: 0.2rem 0.3rem;
+    }
+
+    .account-id {
+        @include cell-width(7.0rem);
+    }
+    .account-tag {
+        @include cell-width(4.0rem);
+
+        text-align: center;
+    }
+    .account-enabled {
+        @include cell-width(4.0rem);
+
+        text-align: center;
+    }
+    .account-characters {
+        @include cell-width(100%);
+    }
+
     .api-key {
         align-items: center;
         display: flex;
@@ -56,7 +91,54 @@
 <div class="thing-container settings-container">
     <h2>Account</h2>
 
-    <h3>API Key</h3>
+    <h3>WoW Accounts</h3>
+
+    <p>
+        Tag is some short text that will display on the far left of character tables if
+        "Account tag" is in your Common columns layout.
+    </p>
+
+    <table class="table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tag</th>
+                <th>Enabled</th>
+                <th>Characters</th>
+            </tr>
+        </thead>
+        <tbody>
+            {#each sortBy(Object.values($userStore.data.accounts), (a) => a.accountId) as account}
+                <tr>
+                    <td class="account-id">
+                        <code>{Region[account.region]}</code>
+                        {account.accountId}
+                    </td>
+                    <td class="account-tag">
+                        <TextInput
+                            name="account_tag_${account.id}"
+                            maxlength={4}
+                            bind:value={account.tag}
+                        />
+                    </td>
+                    <td class="account-enabled">
+                        <CheckboxInput
+                            name="account_enabled_${account.id}"
+                            bind:value={account.enabled}
+                        />
+                    </td>
+                    <td class="account-characters">
+                        {#each getAccountCharacters($userStore.data, account.id) as character, characterIndex}
+                            {characterIndex > 0 ? ', ' : ''}
+                            <span class="class-{character.classId}">{character.name}</span>
+                        {/each}
+                    </td>
+                </tr>
+            {/each}
+        </tbody>
+    </table>
+
+    <h3 class="space-me">API Key</h3>
 
     <div class="api-key">
         {#if apiKey}
