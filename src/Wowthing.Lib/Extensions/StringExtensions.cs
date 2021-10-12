@@ -45,7 +45,7 @@ namespace Wowthing.Lib.Extensions
 
         public static string Truncate(this string s, int maxLength)
         {
-            return s.Substring(0, Math.Min(s.Length, maxLength));
+            return string.IsNullOrWhiteSpace(s) ? "" : s[..Math.Min(s.Length, maxLength)];
         }
     }
 }
