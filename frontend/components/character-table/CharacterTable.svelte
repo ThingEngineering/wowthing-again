@@ -52,6 +52,7 @@
             pairs.push([key, sortBy(grouped[key], sortFunc)])
         }
 
+        pairs.sort()
         groups = map(pairs, (pair) => pair[1])
     }
 </script>
