@@ -67,6 +67,8 @@ export class UserCollectionDataStore extends WritableFancyStore<UserCollectionDa
         userHas: Dictionary<boolean>,
         map?: Dictionary<number>,
     ): void {
+        const overallData = setCounts['OVERALL'] = new UserDataSetCount(0, 0)
+
         for (const category of categories) {
             if (category === null) {
                 continue
@@ -79,6 +81,12 @@ export class UserCollectionDataStore extends WritableFancyStore<UserCollectionDa
 
                 for (const group of set.groups) {
                     for (const things of group.things) {
+                        // We only want to increase overall counts if the set is not
+                        // 'unavailable'
+                        if (set.slug !== 'unavailable') {
+                            overallData.total++
+                        }
+
                         categoryData.total++
                         setData.total++
 
@@ -87,8 +95,13 @@ export class UserCollectionDataStore extends WritableFancyStore<UserCollectionDa
                                 (map && userHas[map[thing]]) ||
                                 (!map && userHas[thing])
                             ) {
+                                if (set.slug !== 'unavailable') {
+                                    overallData.have++
+                                }
+
                                 categoryData.have++
                                 setData.have++
+
                                 break
                             }
                         }

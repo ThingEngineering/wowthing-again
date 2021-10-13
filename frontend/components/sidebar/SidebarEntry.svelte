@@ -80,7 +80,7 @@
             {item.name}
 
             {#if percent >= 0}
-                <span class="percent {anyChildren ? 'percent-children' : ''} {getPercentClass(percent)}">{Math.floor(percent).toFixed(0)} %</span>
+                <span class="drop-shadow percent {anyChildren ? 'percent-children' : ''} {getPercentClass(percent)}">{Math.floor(percent).toFixed(0)} %</span>
             {/if}
 
             {#if item.children?.length > 0}
