@@ -20,7 +20,6 @@ groups:
 - name: Revendreth
   things:
   - 332905 # Endmire Flyer (Famu the Infinite, Revendreth)
-  - 332882 # Horrid Dredwing (Harika the Horrid, Revendreth)
   - 333027 # Loyal Gorger (Worldedge Gorger, Revendreth)
 
 - name: The Maw
