@@ -241,7 +241,7 @@ farms:
 - name: Worldedge Gorger
   location: 38.6 72.0
   npcId: 160821
-  questId: 59259
+  questId: 58259
   drops:
   - type: mount
     id: 333027
