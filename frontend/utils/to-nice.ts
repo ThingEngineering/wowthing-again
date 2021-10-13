@@ -21,7 +21,6 @@ export function toNiceDuration(milliseconds: number): string {
         hours: 0,
         milliseconds,
     }).normalize()
-    console.log('b', duration)
 
     const parts = []
 
