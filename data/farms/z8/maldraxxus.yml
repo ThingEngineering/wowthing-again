@@ -20,7 +20,7 @@ farms:
   - type: transmog
     id: 184290
     name: Blood-Dyed Bonesaw
-    limit: weapon dagger-int
+    limit: weapon dagger int
 
 - name: Collector Kash
   location: 48.9 23.5
@@ -35,22 +35,22 @@ farms:
   - type: transmog
     id: 184188
     name: "Collector's Corpse Gambrel"
-    limit: weapon 1h-axe-agi
+    limit: weapon 1h-axe agi
 
   - type: transmog
     id: 184189
     name: Stained Fleshgorer
-    limit: weapon 1h-axe-agi
+    limit: weapon 1h-axe agi
 
   - type: transmog
     id: 184181
     name: "Kash's Favored Hook"
-    limit: weapon 1h-axe-str
+    limit: weapon 1h-axe str
 
   - type: transmog
     id: 184182
     name: Strengthened Abomination Hook
-    limit: weapon 1h-axe-str
+    limit: weapon 1h-axe str
 
 - name: Corpsecutter Moroc
   location: 26.4 26.3
@@ -60,7 +60,7 @@ farms:
   - type: transmog
     id: 184177
     name: Grotesque Goring Pick
-    limit: weapon 1h-axe-str
+    limit: weapon 1h-axe str
 
   - type: transmog
     id: 184176
@@ -90,7 +90,7 @@ farms:
   - type: transmog
     id: 182191
     name: Slobber-Soaked Chew Toy
-    limit: weapon 1h-mace-agi
+    limit: weapon 1h-mace agi
 
 - name: "Devour'us"
   location: 45.0 28.4
@@ -100,7 +100,7 @@ farms:
   - type: transmog
     id: 184178
     name: Worldrending Claymore
-    limit: weapon 2h-sword-str
+    limit: weapon 2h-sword str
 
 - name: Gieger
   location: 31.6 35.3
@@ -116,7 +116,7 @@ farms:
   - type: transmog
     id: 184298
     name: "Amalgamated Forsworn's Journal"
-    limit: weapon offhand-int
+    limit: weapon offhand int
 
 - name: Gristlebeak
   location: 57.8 51.5
@@ -160,7 +160,7 @@ farms:
   - type: transmog
     id: 184179
     name: "Lichsworn Commander's Boneblade"
-    limit: weapon 2h-sword-str
+    limit: weapon 2h-sword str
 
 - name: Nirvaska the Summoner
   location: 50.3 63.3
@@ -200,7 +200,7 @@ farms:
   - type: transmog
     id: 184184
     name: "Ravenemous's Acid-Tipped Stinger"
-    limit: weapon dagger-agi
+    limit: weapon dagger agi
 
 - name: Sabriel the Bonecleaver
   location: 52.4 47.3 #50.3
@@ -239,7 +239,7 @@ farms:
   - type: transmog
     id: 184289
     name: Spindlefang Spellblade
-    limit: weapon 1h-sword-int
+    limit: weapon 1h-sword int
 
 - name: Smorgas the Feaster
   location: 42.4 53.4
@@ -283,22 +283,22 @@ farms:
   - type: transmog
     id: 184193
     name: Callus-Forged Hook
-    limit: weapon 1h-axe-agi
+    limit: weapon 1h-axe agi
 
   - type: transmog
     id: 184192
     name: Pristine Alabaster Gorer
-    limit: weapon 1h-axe-agi
+    limit: weapon 1h-axe agi
 
   - type: transmog
     id: 184186
     name: Flesh-Fishing Hook
-    limit: weapon 1h-axe-str
+    limit: weapon 1h-axe str
 
   - type: transmog
     id: 184187
     name: "Taskmaster's Tenderizer"
-    limit: weapon 1h-axe-str
+    limit: weapon 1h-axe str
 
 - name: Thread Mistress Leeda
   location: 24.2 42.9

@@ -9,11 +9,34 @@ import {DateTime} from 'luxon'
 import {classMap} from '@/data/character-class'
 import {covenantSlugMap} from '@/data/covenant'
 import type {FarmState} from '@/stores/local-storage/farm'
-import {ArmorType, WeaponType} from '@/types/enums'
+import { ArmorType, PrimaryStat, WeaponType } from '@/types/enums'
 import {getNextDailyReset} from '@/utils/get-next-reset'
 import type {Character, StaticData, UserData} from '@/types'
 import type {FarmDataCategory, UserCollectionData, UserQuestData, UserTransmogData} from '@/types/data'
 
+
+function weaponValidForClass(classId: number, limit: string[]): boolean {
+    const weaponType = weaponMap[limit[0]]
+    if (!weaponType) {
+        return true
+    }
+
+    const cls = classMap[classId]
+    if (cls.weaponTypes.indexOf(weaponType) >= 0) {
+        if (limit.length > 1) {
+            for (const mainStat of limit.slice(1)) {
+                if (cls.primaryStats.indexOf(statMap[mainStat]) >= 0) {
+                    return true
+                }
+            }
+        }
+        else {
+            return true
+        }
+    }
+
+    return false
+}
 
 export default function getFarmStatus(
     staticData: StaticData,
@@ -121,8 +144,7 @@ export default function getFarmStatus(
                         case 'weapon':
                             characters = filter(
                                 minLevelCharacters,
-                                (c) => classMap[c.classId].weaponTypes.indexOf(weaponMap[drop.limit[1]]) >= 0 ||
-                                    weaponMap[drop.limit[1]] === undefined
+                                (c) => weaponValidForClass(c.classId, drop.limit.slice(1))
                             )
                             break
                     }
@@ -202,51 +224,27 @@ const armorMap: Record<string, ArmorType> = {
     plate: ArmorType.Plate,
 }
 
+const statMap: Record<string, PrimaryStat> = {
+    'agi': PrimaryStat.Agility,
+    'int': PrimaryStat.Intellect,
+    'str': PrimaryStat.Strength,
+}
+
 const weaponMap: Record<string, WeaponType> = {
     '1h-axe': WeaponType.OneHandedAxe,
-    '1h-axe-agi': WeaponType.OneHandedAxeAgility,
-    '1h-axe-int': WeaponType.OneHandedAxeIntellect,
-    '1h-axe-str': WeaponType.OneHandedAxeStrength,
     '1h-mace': WeaponType.OneHandedMace,
-    '1h-mace-agi': WeaponType.OneHandedMaceAgility,
-    '1h-mace-int': WeaponType.OneHandedMaceIntellect,
-    '1h-mace-str': WeaponType.OneHandedMaceStrength,
     '1h-sword': WeaponType.OneHandedSword,
-    '1h-sword-agi': WeaponType.OneHandedSwordAgility,
-    '1h-sword-int': WeaponType.OneHandedSwordIntellect,
-    '1h-sword-str': WeaponType.OneHandedSwordStrength,
     '2h-axe': WeaponType.TwoHandedAxe,
-    '2h-axe-agi': WeaponType.TwoHandedAxeAgility,
-    '2h-axe-int': WeaponType.TwoHandedAxeIntellect,
-    '2h-axe-str': WeaponType.TwoHandedAxe,
     '2h-mace': WeaponType.TwoHandedMace,
-    '2h-mace-agi': WeaponType.TwoHandedMaceAgility,
-    '2h-mace-int': WeaponType.TwoHandedMaceIntellect,
-    '2h-mace-str': WeaponType.TwoHandedMace,
     '2h-sword': WeaponType.TwoHandedSword,
-    '2h-sword-agi': WeaponType.TwoHandedSwordAgility,
-    '2h-sword-int': WeaponType.TwoHandedSwordIntellect,
-    '2h-sword-str': WeaponType.TwoHandedSwordStrength,
     'bow': WeaponType.Bow,
     'crossbow': WeaponType.Crossbow,
     'dagger': WeaponType.Dagger,
-    'dagger-agi': WeaponType.DaggerAgility,
-    'dagger-int': WeaponType.DaggerIntellect,
     'fist': WeaponType.Fist,
-    'fist-agi': WeaponType.FistAgility,
-    'fist-int': WeaponType.FistIntellect,
     'gun': WeaponType.Gun,
-    'offhand-int': WeaponType.OffHandIntellect,
     'polearm': WeaponType.Polearm,
-    'polearm-agi': WeaponType.PolearmAgility,
-    'polearm-int': WeaponType.PolearmIntellect,
-    'polearm-str': WeaponType.PolearmStrength,
     'shield': WeaponType.Shield,
-    'shield-int': WeaponType.ShieldIntellect,
-    'shield-str': WeaponType.ShieldStrength,
     'stave': WeaponType.Stave,
-    'stave-agi': WeaponType.StaveAgility,
-    'stave-int': WeaponType.StaveIntellect,
     'wand': WeaponType.Wand,
     'warglaive': WeaponType.Warglaive,
 }

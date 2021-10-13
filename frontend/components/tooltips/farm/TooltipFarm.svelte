@@ -42,6 +42,7 @@
     .limit {
         text-align: left;
         white-space: nowrap;
+        word-spacing: -0.2ch;
     }
     .success {
         opacity: 0.7;
@@ -75,6 +76,9 @@
                     <td class="limit">
                         {#if drop.limit?.length > 0}
                             {drop.limit[1]}
+                            {#if drop.limit.length > 2}
+                                [ {drop.limit.slice(2).join(', ')} ]
+                            {/if}
                         {:else if drop.type === 'transmog'}
                             cosmetic
                         {/if}

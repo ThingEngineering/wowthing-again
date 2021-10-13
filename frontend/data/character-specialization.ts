@@ -1,4 +1,4 @@
-import {MainStat, PlayableClass, Role} from '@/types/enums'
+import {PrimaryStat, PlayableClass, Role} from '@/types/enums'
 import type { CharacterSpecialization, Dictionary } from '@/types'
 
 export const specializationMap: Dictionary<CharacterSpecialization> = {
@@ -8,21 +8,21 @@ export const specializationMap: Dictionary<CharacterSpecialization> = {
         role: Role.Tank,
         name: 'Blood',
         icon: 'spec_death_knight_blood',
-        mainStat: MainStat.Strength,
+        mainStat: PrimaryStat.Strength,
     },
     251: {
         classId: PlayableClass.DeathKnight,
         role: Role.MeleeDps,
         name: 'Frost',
         icon: 'spec_death_knight_frost',
-        mainStat: MainStat.Strength,
+        mainStat: PrimaryStat.Strength,
     },
     252: {
         classId: PlayableClass.DeathKnight,
         role: Role.MeleeDps,
         name: 'Unholy',
         icon: 'spec_death_knight_unholy',
-        mainStat: MainStat.Strength,
+        mainStat: PrimaryStat.Strength,
     },
 
     // Demon Hunter
@@ -31,14 +31,14 @@ export const specializationMap: Dictionary<CharacterSpecialization> = {
         role: Role.MeleeDps,
         name: 'Havoc',
         icon: 'spec_demon_hunter_havoc',
-        mainStat: MainStat.Agility,
+        mainStat: PrimaryStat.Agility,
     },
     581: {
         classId: PlayableClass.DemonHunter,
         role: Role.Tank,
         name: 'Vengeance',
         icon: 'spec_demon_hunter_vengeance',
-        mainStat: MainStat.Agility,
+        mainStat: PrimaryStat.Agility,
     },
 
     // Druid
@@ -47,28 +47,28 @@ export const specializationMap: Dictionary<CharacterSpecialization> = {
         role: Role.RangedDps,
         name: 'Balance',
         icon: 'spec_druid_balance',
-        mainStat: MainStat.Intellect,
+        mainStat: PrimaryStat.Intellect,
     },
     103: {
         classId: PlayableClass.Druid,
         role: Role.MeleeDps,
         name: 'Feral',
         icon: 'spec_druid_feral',
-        mainStat: MainStat.Agility,
+        mainStat: PrimaryStat.Agility,
     },
     104: {
         classId: PlayableClass.Druid,
         role: Role.Tank,
         name: 'Guardian',
         icon: 'spec_druid_guardian',
-        mainStat: MainStat.Agility,
+        mainStat: PrimaryStat.Agility,
     },
     105: {
         classId: PlayableClass.Druid,
         role: Role.Healer,
         name: 'Restoration',
         icon: 'spec_druid_restoration',
-        mainStat: MainStat.Intellect,
+        mainStat: PrimaryStat.Intellect,
     },
 
     // Hunter
@@ -77,21 +77,21 @@ export const specializationMap: Dictionary<CharacterSpecialization> = {
         role: Role.RangedDps,
         name: 'Beast Mastery',
         icon: 'spec_hunter_beast_mastery',
-        mainStat: MainStat.Agility,
+        mainStat: PrimaryStat.Agility,
     },
     254: {
         classId: PlayableClass.Hunter,
         role: Role.RangedDps,
         name: 'Marksmanship',
         icon: 'spec_hunter_marksmanship',
-        mainStat: MainStat.Agility,
+        mainStat: PrimaryStat.Agility,
     },
     255: {
         classId: PlayableClass.Hunter,
         role: Role.MeleeDps,
         name: 'Survival',
         icon: 'spec_hunter_survival',
-        mainStat: MainStat.Agility,
+        mainStat: PrimaryStat.Agility,
     },
 
     // Mage
@@ -100,21 +100,21 @@ export const specializationMap: Dictionary<CharacterSpecialization> = {
         role: Role.RangedDps,
         name: 'Arcane',
         icon: 'spec_mage_arcane',
-        mainStat: MainStat.Intellect,
+        mainStat: PrimaryStat.Intellect,
     },
     63: {
         classId: PlayableClass.Mage,
         role: Role.RangedDps,
         name: 'Fire',
         icon: 'spec_mage_fire',
-        mainStat: MainStat.Intellect,
+        mainStat: PrimaryStat.Intellect,
     },
     64: {
         classId: PlayableClass.Mage,
         role: Role.RangedDps,
         name: 'Frost',
         icon: 'spec_mage_frost',
-        mainStat: MainStat.Intellect,
+        mainStat: PrimaryStat.Intellect,
     },
 
     // Monk
@@ -123,21 +123,21 @@ export const specializationMap: Dictionary<CharacterSpecialization> = {
         role: Role.Tank,
         name: 'Brewmaster',
         icon: 'spec_monk_brewmaster',
-        mainStat: MainStat.Agility,
+        mainStat: PrimaryStat.Agility,
     },
     269: {
         classId: PlayableClass.Monk,
         role: Role.MeleeDps,
         name: 'Windwalker',
         icon: 'spec_monk_windwalker',
-        mainStat: MainStat.Agility,
+        mainStat: PrimaryStat.Agility,
     },
     270: {
         classId: PlayableClass.Monk,
         role: Role.Healer,
         name: 'Mistweaver',
         icon: 'spec_monk_mistweaver',
-        mainStat: MainStat.Intellect,
+        mainStat: PrimaryStat.Intellect,
     },
 
     // Paladin
@@ -146,21 +146,21 @@ export const specializationMap: Dictionary<CharacterSpecialization> = {
         role: Role.Healer,
         name: 'Holy',
         icon: 'spec_paladin_holy',
-        mainStat: MainStat.Intellect,
+        mainStat: PrimaryStat.Intellect,
     },
     66: {
         classId: PlayableClass.Paladin,
         role: Role.Tank,
         name: 'Protection',
         icon: 'spec_paladin_protection',
-        mainStat: MainStat.Strength,
+        mainStat: PrimaryStat.Strength,
     },
     70: {
         classId: PlayableClass.Paladin,
         role: Role.MeleeDps,
         name: 'Retribution',
         icon: 'spec_paladin_retribution',
-        mainStat: MainStat.Strength,
+        mainStat: PrimaryStat.Strength,
     },
 
     // Priest
@@ -169,21 +169,21 @@ export const specializationMap: Dictionary<CharacterSpecialization> = {
         role: Role.Healer,
         name: 'Discipline',
         icon: 'spec_priest_discipline',
-        mainStat: MainStat.Intellect,
+        mainStat: PrimaryStat.Intellect,
     },
     257: {
         classId: PlayableClass.Priest,
         role: Role.Healer,
         name: 'Holy',
         icon: 'spec_priest_holy',
-        mainStat: MainStat.Intellect,
+        mainStat: PrimaryStat.Intellect,
     },
     258: {
         classId: PlayableClass.Priest,
         role: Role.RangedDps,
         name: 'Shadow',
         icon: 'spec_priest_shadow',
-        mainStat: MainStat.Intellect,
+        mainStat: PrimaryStat.Intellect,
     },
 
     // Rogue
@@ -192,21 +192,21 @@ export const specializationMap: Dictionary<CharacterSpecialization> = {
         role: Role.MeleeDps,
         name: 'Assassination',
         icon: 'spec_rogue_assassination',
-        mainStat: MainStat.Agility,
+        mainStat: PrimaryStat.Agility,
     },
     260: {
         classId: PlayableClass.Rogue,
         role: Role.MeleeDps,
         name: 'Outlaw',
         icon: 'spec_rogue_outlaw',
-        mainStat: MainStat.Agility,
+        mainStat: PrimaryStat.Agility,
     },
     261: {
         classId: PlayableClass.Rogue,
         role: Role.MeleeDps,
         name: 'Subtlety',
         icon: 'spec_rogue_subtlety',
-        mainStat: MainStat.Agility,
+        mainStat: PrimaryStat.Agility,
     },
 
     // Shaman
@@ -215,21 +215,21 @@ export const specializationMap: Dictionary<CharacterSpecialization> = {
         role: Role.RangedDps,
         name: 'Elemental',
         icon: 'spec_shaman_elemental',
-        mainStat: MainStat.Intellect,
+        mainStat: PrimaryStat.Intellect,
     },
     263: {
         classId: PlayableClass.Shaman,
         role: Role.MeleeDps,
         name: 'Enhancement',
         icon: 'spec_shaman_enhancement',
-        mainStat: MainStat.Agility,
+        mainStat: PrimaryStat.Agility,
     },
     264: {
         classId: PlayableClass.Shaman,
         role: Role.Healer,
         name: 'Restoration',
         icon: 'spec_shaman_restoration',
-        mainStat: MainStat.Intellect,
+        mainStat: PrimaryStat.Intellect,
     },
 
     // Warlock
@@ -238,21 +238,21 @@ export const specializationMap: Dictionary<CharacterSpecialization> = {
         role: Role.RangedDps,
         name: 'Affliction',
         icon: 'spec_warlock_affliction',
-        mainStat: MainStat.Intellect,
+        mainStat: PrimaryStat.Intellect,
     },
     266: {
         classId: PlayableClass.Warlock,
         role: Role.RangedDps,
         name: 'Demonology',
         icon: 'spec_warlock_demonology',
-        mainStat: MainStat.Intellect,
+        mainStat: PrimaryStat.Intellect,
     },
     267: {
         classId: PlayableClass.Warlock,
         role: Role.RangedDps,
         name: 'Destruction',
         icon: 'spec_warlock_destruction',
-        mainStat: MainStat.Intellect,
+        mainStat: PrimaryStat.Intellect,
     },
 
     // Warrior
@@ -261,20 +261,20 @@ export const specializationMap: Dictionary<CharacterSpecialization> = {
         role: Role.MeleeDps,
         name: 'Arms',
         icon: 'spec_warrior_arms',
-        mainStat: MainStat.Strength,
+        mainStat: PrimaryStat.Strength,
     },
     72: {
         classId: PlayableClass.Warrior,
         role: Role.MeleeDps,
         name: 'Fury',
         icon: 'spec_warrior_fury',
-        mainStat: MainStat.Strength,
+        mainStat: PrimaryStat.Strength,
     },
     73: {
         classId: PlayableClass.Warrior,
         role: Role.Tank,
         name: 'Protection',
         icon: 'spec_warrior_protection',
-        mainStat: MainStat.Strength,
+        mainStat: PrimaryStat.Strength,
     },
 }

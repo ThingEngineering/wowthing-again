@@ -121,7 +121,7 @@ farms:
   - type: transmog
     id: 180503
     name: "Grand Arcanist's Soulblade"
-    limit: weapon dagger-int
+    limit: weapon dagger int
 
 - name: Harika the Horrid
   location: 45.8 79.1
@@ -226,7 +226,7 @@ farms:
   drops:
   - type: transmog
     id: 180488
-    name: Fist-Forged Breastplate
+    name: Fist Forged Breastplate
     limit: armor plate
 
 - name: Tomb Burster
