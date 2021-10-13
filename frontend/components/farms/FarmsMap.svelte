@@ -113,6 +113,13 @@
 
             <button>
                 <CheckboxInput
+                        name="track_quests"
+                        bind:value={$farmState.trackQuests}
+                >Track quests</CheckboxInput>
+            </button>
+
+            <button>
+                <CheckboxInput
                     name="track_toys"
                     bind:value={$farmState.trackToys}
                 >Track toys</CheckboxInput>
