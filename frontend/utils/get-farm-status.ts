@@ -94,6 +94,7 @@ export default function getFarmStatus(
             dropStatus.skip = (
                 (drop.type === 'mount' && !options.trackMounts) ||
                 (drop.type === 'pet' && !options.trackPets) ||
+                (drop.type === 'quest' && !options.trackQuests) ||
                 (drop.type === 'toy' && !options.trackToys) ||
                 (drop.type === 'transmog' && !options.trackTransmog)
             )
