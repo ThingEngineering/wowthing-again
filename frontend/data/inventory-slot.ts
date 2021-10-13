@@ -1,5 +1,5 @@
 import type {Character, Dictionary} from '@/types'
-import {InventorySlot, MainStat} from '@/types/enums'
+import {InventorySlot, PrimaryStat} from '@/types/enums'
 import {specializationMap} from '@/data/character-specialization'
 
 export const slotOrder: InventorySlot[] = [
@@ -67,7 +67,7 @@ export const specialValidEnchants: Dictionary<SpecialValidEnchant> = {
             6210, // Eternal Strength
         ],
         checkFunc: (character: Character) =>
-            specializationMap[character.activeSpecId]?.mainStat === MainStat.Strength
+            specializationMap[character.activeSpecId]?.mainStat === PrimaryStat.Strength
     },
 
     [InventorySlot.Wrist]: {
@@ -75,7 +75,7 @@ export const specialValidEnchants: Dictionary<SpecialValidEnchant> = {
             6220, // Eternal Intellect
         ],
         checkFunc: (character: Character) =>
-            specializationMap[character.activeSpecId]?.mainStat === MainStat.Intellect
+            specializationMap[character.activeSpecId]?.mainStat === PrimaryStat.Intellect
     },
 
     [InventorySlot.Feet]: {
@@ -83,7 +83,7 @@ export const specialValidEnchants: Dictionary<SpecialValidEnchant> = {
             6211, // Eternal Agility
         ],
         checkFunc: (character: Character) =>
-            specializationMap[character.activeSpecId]?.mainStat === MainStat.Agility
+            specializationMap[character.activeSpecId]?.mainStat === PrimaryStat.Agility
     },
 }
 

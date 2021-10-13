@@ -1,4 +1,4 @@
-export enum MainStat {
+export enum PrimaryStat {
     Agility,
     Intellect,
     Strength,

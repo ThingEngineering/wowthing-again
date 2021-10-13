@@ -36,7 +36,7 @@ farms:
   - type: transmog
     id: 183887
     name: Suirhtaned, Blade of the Heir
-    limit: weapon 1h-sword-agi
+    limit: weapon 1h-sword agi
 
 - name: Darithis the Bleak
   location: 60.9 48.0
@@ -75,7 +75,7 @@ farms:
   - type: transmog
     id: 187367
     name: "Deomen's Vortex Blade"
-    limit: weapon 1h-sword-int
+    limit: weapon 1h-sword int
 
 - name: Dolos
   location: 28.0 60.6
@@ -95,7 +95,7 @@ farms:
   - type: transmog
     id: 186563
     name: Spear of the Impaler
-    limit: weapon polearm-agi
+    limit: weapon polearm agi
 
 - name: Eternas the Tormentor
   location: 19.1 46.1
@@ -144,7 +144,7 @@ farms:
   - type: transmog
     id: 185892
     name: Stygia-Etched Decapitator
-    limit: weapon 2h-sword-str
+    limit: weapon 2h-sword str
 
 - name: Nascent Devourer
   location: 45.5 73.8
@@ -192,7 +192,7 @@ farms:
   - type: transmog
     id: 185945
     name: "Shadeweaver's Spire"
-    limit: weapon stave-int
+    limit: weapon stave int
 
 - name: Soulforger Rhovus
   location: 35.9 41.5
@@ -236,7 +236,7 @@ farms:
   - type: transmog
     id: 187364
     name: "Maldraxxi Traitor's Blade"
-    limit: weapon 1h-sword-str
+    limit: weapon 1h-sword str
 
 - name: Yero the Skittish
   location: 37.4 62.2
