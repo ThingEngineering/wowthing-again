@@ -25,8 +25,6 @@
             categories = filter(categories, (s) => s.slug === slug2)
         }
 
-        console.log(categories)
-
         setKey = slug2 ? `${slug1}--${slug2}` : slug1
         skipClasses = getSkipClasses($settingsData, categories?.[0])
     }
