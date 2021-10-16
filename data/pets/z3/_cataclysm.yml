@@ -1,10 +1,20 @@
 name: Cataclysm
 groups:
 
-- name: Rare Spawns
+- name: Quests
+  things:
+  -  42177 # Blue Mini Jouster
+  -  42183 # Gold Mini Jouster
+
+- name: Rares
   things:
   -  48982 # Tiny Shale Spider - Jadefang
 
-- name: Reputation
+- name: Reputations
   things:
-  - 48107 # Rustberg Gull
+  -  48107 # Rustberg Gull
+
+- name: Vendors
+  things:
+  -  53661 # Crimson Lasher - Molten Front
+  -  53658 # Hyjal Bear Cub - Molten Front

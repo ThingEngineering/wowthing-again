@@ -1,0 +1,34 @@
+name: Rares
+groups:
+
+- name: Helheim
+  things:
+  -  98116 # Bleakwater Jelly (Soulthirster, Helheim)
+
+- name: Highmountain
+  things:
+  -  98077 # Crispin (Tenpak Flametotem, Highmountain)
+
+- name: Stormheim
+  things:
+  -  97205 # Stormborne Whelpling (Stormwing Matriarch, Stormheim)
+
+- name: Suramar
+  things:
+  - 113136 # Benax (Anax, Suramar)
+  -  97179 # Eye of Inquisition (Felsoul Inquisitor, Suramar)
+
+- name: "Val'sharah"
+  things:
+  -  99394 # Fetid Waveling (Pollous the Fetid, Val'sharah)
+  - 108568 # Pygmy Owl (Gorebeak, Val'sharah)
+  -  99403 # Risen Saber Kitten (Darkshade, Val'sharah)
+  - 111984 # Hungering Claw (Kosumoth, ?)
+
+- name: Argus
+  things:
+  - 128157 # Docile Skyfin (Fel-Spotted Egg, Argus rare drop)
+  - 128158 # Fel-Afflicted Skyfin (Fel-Spotted Egg, Argus rare drop)
+  - 128159 # Grasping Manifestation (Ataxon, Mac'Aree)
+  - 128388 # Rebellious Imp (Mother Rosula, ?)
+  - 128396 # Uuna (The Many-Faced Devourer, ?)

@@ -1,50 +1,59 @@
+*
+    instances.yml
+    rares.yml
+    reputations.yml
+    treasures.yml
+    vendors.yml
+
 z8/_shadowlands.yml
     z8/covenants.yml
-    z8/instances.yml
-    z8/rares.yml
-    z8/reputations.yml
-    z8/treasures.yml
     z8/pet_battles.yml
 
 z7/_battle_for_azeroth.yml
-    z7/instances.yml
-    z7/rare_spawns.yml
-    z7/vendors.yml
     z7/pet_battles.yml
 
 z6/_legion.yml
     z6/pet_battles.yml
 
 z5/_warlords_of_draenor.yml
+    z5/garrisons.yml
     z5/pet_battles.yml
 
 z4/_mists_of_pandaria.yml
-    z4/instances.yml
     z4/pet_battles.yml
 
 z3/_cataclysm.yml
-    z3/instances.yml
     z3/pet_battles.yml
 
 z2/_wrath_of_the_lich_king.yml
+    world_events/argent_tournament.yml
     z2/pet_battles.yml
 
 z1/_the_burning_crusade.yml
     z1/pet_battles.yml
 
 z0/_vanilla.yml
-    z0/instances.yml
     z0/pet_battles_eastern_kingdoms.yml
     z0/pet_battles_kalimdor.yml
+
 -
+
 achievements.yml
 challenge_dungeons.yml
 misc.yml
 professions.yml
 vendors.yml
-world_events.yml
+
+world_events/_world_events.yml
+    world_events/argent_tournament.yml
+    world_events/childrens_week.yml
+    world_events/darkmoon_faire.yml
+
 -
+
 money.yml
 unavailable.yml
+
 -
+
 yuck.yml
