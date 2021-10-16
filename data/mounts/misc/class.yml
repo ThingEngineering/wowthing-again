@@ -1,0 +1,48 @@
+name: Class
+groups:
+
+- name: Death Knight
+  things:
+  - 48778 # Acherus Deathcharger (Death Knight)
+  - 54729 # Winged Steed of the Ebon Blade (Death Knight)
+
+- name: Demon Hunter
+  things:
+  - 200175 # Felsaber (Demon Hunter Class Mount)
+
+- name: Warlock
+  things:
+  - 5784 # Felsteed (Warlock)
+  - 23161 # Dreadsteed (Warlock)
+
+- name: Alliance Paladin
+  things:
+  - 13819 # Warhorse (Paladin)
+  - 23214 # Charger (Paladin)
+
+- name: Blood Elf Paladin
+  things:
+  - 34769 # Thalassian Warhorse (BE Paladin)
+  - 34767 # Thalassian Charger (BE Paladin)
+
+- name: Dark Iron Dwarf Paladin
+  things:
+  - 270562 # Darkforge Ram
+
+- name: Draenei Paladin
+  things:
+  - 73629 # Exarch's Elekk (Draenei Paladin)
+  - 73630 # Great Exarch's Elekk (Draenei Paladin)
+
+- name: Dwarf Paladin
+  things:
+  - 270564 # Dawnforge Ram
+
+- name: Tauren Paladin
+  things:
+  - 69820 # Sunwalker Kodo (Tauren Paladin)
+  - 69826 # Great Sunwalker Kodo (Tauren Paladin)
+
+- name: Zandalari Troll Paladin
+  things:
+  - 290608 # Crusader's Direhorn (Zandalari Paladin)

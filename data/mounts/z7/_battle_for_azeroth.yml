@@ -1,0 +1,46 @@
+name: Battle for Azeroth
+groups:
+
+- name: Achievements
+  things:
+  - 316637 # Awakened Mindborer (Battle for Azeroth Keystone Master: Season Four)
+  - 292419 # Azshari Bloatray (Glory of the Palace Raider)
+  - 305182 # Black Serpent of N'Zoth (Through the Depths of Visions)
+  - 250735 # Bloodgorged Crawg (Glory of the Uldir Raider)
+  - 279454 # Conqueror's Scythemaw (Conqueror of Azeroth)
+  - 289101 # Dazar'alor Windreaver (Glory of the Dazar'alor Raider)
+  - 295386 295387 # Ironclad Frostclaw/Bloodflank Charger (Two Sides to Every Tale)
+  - 296788 # Mechacycle Model W (Mecha-Done)
+  - 239049 # Obsidian Krolusk (Glory of the Wartorn Hero)
+  - 294039 # Snapback Scuttler (Undersea Usurper)
+  - 290328 # Wonderwing 2.0 (Battle for Azeroth Pathfinder, Part Two)
+  - 316343 # Wriggling Parasite (Glory of the Ny'alotha Raider)
+
+- name: Quests
+  things:
+  - 297560 # Child of Torcali (Wander Not Alone, Zuldazar)
+  - 300147 300146 # Deepcoral Snapdragon/Snapdragon Kelpstalker (Wild Tame/Good Girl, Nazjatar)
+  - 267270 # Kua'fon (Down, But Not Out, Zuldazar)
+  - 299159 # Scrapforged Mechaspider (Drive It Away Today, Mechagon)
+  - 316339 # Shadowbarb Drone (My Own Drone, Uldum)
+  - 316802 # Springfur Alpaca (Alpaca It In, Uldum)
+  - 302143 # Uncorrupted Voidwing (Lost Flight, Ny'alotha)
+
+- name: Vendor
+  things:
+  - 288736 # Azureshell Krolusk (Service Medal)
+  - 288714 # Bloodthirsty Dreadwing (Service Medal)
+  - 288587 # Blue Marsh Hopper (Gottum, Nazmir)
+  - 300153 # Crimson Tidestallion (Mrrl, Nazjatar)
+  - 259740 # Green Marsh Hopper (Gottum, Nazmir)
+  - 300151 # Inkscale Deepseeker (Nazjatar Battle Commendation)
+  - 264058 # Mighty Caravan Brutosaur (? unavailable)
+  - 279474 # Palehide Direhorn (?)
+  - 288740 # Priestess' Moonsaber (Service Medal)
+  - 315427 # Rajani Warserpent (Pristine Cloud Serpent Scale)
+  - 288735 # Rubyshell Krolusk (Service Medal)
+  - 288711 # Saltwater Seahorse (Seafarer's Dubloon)
+  - 288506 # Sandy Nightsaber (Service Medal)
+  - 266925 # Siltwing Albatross (Seafarer's Dubloon)
+  - 316340 # Wicked Swarmer (Corrupted Mementos)
+  - 288589 # Yellow Marsh Hopper (Gottum, Nazmir)

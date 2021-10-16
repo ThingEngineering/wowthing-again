@@ -1,0 +1,47 @@
+name: Vendors
+groups:
+
+- name: Alterac Valley
+  things:
+  - 23510 23509 # Stormpike Battle Charger/Frostwolf Howler
+  - 23509 23510 # ^ reversed
+
+- name: "Alliance: Marks of Honor"
+  things:
+  - 22719 # Black Battlestrider
+  - 48027 # Black War Elekk
+  - 22720 # Black War Ram
+  - 22717 # Black War Steed
+  - 22723 # Black War Tiger
+
+- name: "Alliance: Vicious Saddle"
+  things:
+  - 223341 # Vicious Gilnean Warhorse
+  - 229487 # Vicious War Bear
+  - 223578 # Vicious War Elekk
+  - 242896 # Vicious War Fox
+  - 229512 # Vicious War Lion
+  - 183889 # Vicious War Mechanostrider
+  - 171834 # Vicious War Ram
+  - 232523 # Vicious War Turtle
+  - 146615 # Vicious Warsaber
+
+- name: "Horde: Marks of Honor"
+  things:
+  - 22718 # Black War Kodo
+  - 22721 # Black War Raptor
+  - 22724 # Black War Wolf
+  - 22722 # Red Skeletal Warhorse
+  - 35028 # Swift Warstrider
+
+- name: "Horde: Vicious Saddle"
+  things:
+  - 146622 # Vicious Skeletal Warhorse
+  - 229486 # Vicious War Bear
+  - 242897 # Vicious War Fox
+  - 185052 # Vicious War Kodo
+  - 171835 # Vicious War Raptor
+  - 230988 # Vicious War Scorpion
+  - 223354 # Vicious War Trike
+  - 232525 # Vicious War Turtle
+  - 223363 # Vicious Warstrider

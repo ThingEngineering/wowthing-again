@@ -1,0 +1,212 @@
+name: Arathi Highlands
+mapName: z8_arathi_highlands
+minimumLevel: 45
+wowheadGuide: https://www.wowhead.com/guides/shadowlands-ardenweald-rares-treasures
+farms:
+
+- name: Beastrider Kama
+  location: 1
+  npcId: 142709
+  questId: 53083 53504
+  drops:
+  - type: mount
+    id: 279569
+    name: Swift Albino Raptor
+
+- name: Branchlord Aldrus
+  location: 1
+  npcId: 142508
+  questId: 53013 53505
+  drops:
+  - type: pet
+    id: 163650
+    name: a
+
+- name: Darbel Montrose
+  location: 1
+  npcId: 142688
+  questId: 53084 53507
+  drops:
+  - type: pet
+    id: 163652
+    name: a
+
+- name: Foulbelly
+  location: 1
+  npcId: 142686
+  questId: 53086 53509
+  drops:
+  - type: toy
+    id: 163735
+    name: Foul Belly
+
+- name: Fozruk
+  location: 1
+  npcId: 142433
+  questId: 53019 53510
+  drops:
+  - type: pet
+    id: 163711
+    name: a
+
+- name: Geomancer Flintdagger
+  location: 1
+  npcId: 152662
+  questId: 53060 53511
+  drops:
+  - type: toy
+    id: 163713
+    name: Brazier Cap
+
+- name: Horrific Apparition
+  location: 1
+  npcId: 142725
+  questId: 53087 53512
+  drops:
+  - type: toy
+    id: 163736
+    name: Spectral Visage
+
+- name: "Kor'gresh Coldrage"
+  location: 1
+  npcId: 142112
+  questId: 53058 53513
+  drops:
+  - type: toy
+    id: 163744
+    name: Coldrage's Cooler
+
+- name: Kovork
+  location: 1
+  npcId: 142684
+  questId: 53089 53514
+  drops:
+  - type: toy
+    id: 163750
+    name: Kovork Kostume
+
+- name: Man-Hunter Rog
+  location: 1
+  npcId: 142716
+  questId: 53090 53515
+  drops:
+  - type: pet
+    id: 163689
+    name: a
+
+- name: Molok the Crusher
+  location: 1
+  npcId: 141942
+  questId: 53057 53516
+  drops:
+  - type: toy
+    id: 163775
+    name: Molok Morion
+
+- name: Nimar the Slayer
+  location: 1
+  npcId: 142692
+  questId: 53091 53517
+  drops:
+  - type: mount
+    id: 163706
+    name: a
+
+- name: Overseer Krix
+  location: 1
+  npcId: 142423
+  questId: 53014 53518
+  drops:
+  - type: mount
+    id: 163646
+    name: a
+
+- name: Plaguefeather
+  location: 1
+  npcId: 142435
+  questId: 53020 53519
+  drops:
+  - type: pet
+    id: 163690
+    name: a
+
+- name: Ragebeak
+  location: 1
+  npcId: 142436
+  questId: 53016 53522
+  drops:
+  - type: pet
+    id: 163689
+    name: a
+
+- name: Ruul Onestone
+  location: 1
+  npcId: 142683
+  questId: 53092 53524
+  drops:
+  - type: toy
+    id: 163741
+    name: Magic Fun Rock
+
+- name: a
+  location: 1
+  npcId: 1
+  questId: 1
+  drops:
+  - type: toy
+    id: 163713
+    name: Brazier Cap
+
+- name: a
+  location: 1
+  npcId: 1
+  questId: 1
+  drops:
+  - type: toy
+    id: 163713
+    name: Brazier Cap
+
+- name: a
+  location: 1
+  npcId: 1
+  questId: 1
+  drops:
+  - type: toy
+    id: 163713
+    name: Brazier Cap
+
+- name: a
+  location: 1
+  npcId: 1
+  questId: 1
+  drops:
+  - type: toy
+    id: 163713
+    name: Brazier Cap
+
+- name: a
+  location: 1
+  npcId: 1
+  questId: 1
+  drops:
+  - type: toy
+    id: 163713
+    name: Brazier Cap
+
+- name: a
+  location: 1
+  npcId: 1
+  questId: 1
+  drops:
+  - type: toy
+    id: 163713
+    name: Brazier Cap
+
+- name: a
+  location: 1
+  npcId: 1
+  questId: 1
+  drops:
+  - type: toy
+    id: 163713
+    name: Brazier Cap

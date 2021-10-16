@@ -1,0 +1,13 @@
+name: Instances
+groups:
+
+- name: Dungeons
+  things:
+  - 17481 # Rivendare's Deathcharger (Stratholme)
+
+- name: Raids
+  things:
+  - 25953 # Blue Qiraji Battle Tank (AQ40)
+  - 26056 # Green Qiraji Battle Tank (AQ40)
+  - 26054 # Red Qiraji Battle Tank (AQ40)
+  - 26055 # Yellow Qiraji Battle Tank (AQ40)

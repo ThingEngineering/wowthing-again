@@ -1,0 +1,20 @@
+name: Rares
+groups:
+
+- name: Argus Eggs
+  things:
+  - 235764 # Darkspore Mana Ray (Fel-Spotted Egg - Naroua/Sabuul/Varga)
+  - 253108 # Felglow Mana Ray (Fel-Spotted Egg - Naroua/Sabuul/Varga)
+  - 253109 # Scintillating Mana Ray (Fel-Spotted Egg - Naroua/Sabuul/Varga)
+  - 253106 # Vibrant Mana Ray (Fel-Spotted Egg - Naroua/Sabuul/Varga)
+
+- name: Antoran Wastes
+  things:
+  - 253661 # Crimson Slavermaw (Blistermaw, Antoran Wastes)
+  - 243652 # Vile Fiend (Houndmaster Kerrax, Antoran Wastes)
+
+- name: "Mac'Aree"
+  things:
+  - 253662 # Acid Belcher (Skreeg the Devourer, Mac'Aree)
+  - 253107 # Lambent Mana Ray (Venomtail Skyfin, Mac'Aree)
+  - 253058 # Maddened Chaosrunner (Wrangler Kravos, Mac'Aree)

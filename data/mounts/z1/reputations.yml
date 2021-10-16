@@ -1,0 +1,30 @@
+name: Reputations
+groups:
+
+- name: "Kurenai/Mag'har"
+  things:
+  - 39315 # Cobalt Riding Talbuk
+  - 39317 # Silver Riding Talbuk
+  - 39318 # Tan Riding Talbuk
+  - 39319 # White Riding Talbuk
+  - 34896 # Cobalt War Talbuk
+  - 34898 # Silver War Talbuk
+  - 34899 # Tan War Talbuk
+  - 34897 # White War Talbuk
+
+- name: "Netherwing"
+  things:
+  - 41514 # Azure Netherwing Drake
+  - 41515 # Cobalt Netherwing Drake
+  - 41513 # Onyx Netherwing Drake
+  - 41516 # Purple Netherwing Drake
+  - 41517 # Veridian Netherwing Drake
+  - 41518 # Violet Netherwing Drake
+
+- name: "Sha'tari Skyguard"
+  things:
+  - 39803 # Blue Riding Nether Ray
+  - 39798 # Green Riding Nether Ray
+  - 39801 # Purple Riding Nether Ray
+  - 39800 # Red Riding Nether Ray
+  - 39802 # Silver Riding Nether Ray

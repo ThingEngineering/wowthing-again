@@ -1,0 +1,20 @@
+name: Reputations
+groups:
+
+- name: Oracles
+  things:
+  - 61294 # Green Proto-Drake (Oracles)
+
+- name: Sons of Hodir
+  things:
+  - 61469 61470 # Grand Ice Mammoth (Sons of Hodir)
+  - 59797 59799 # Ice Mammoth (Sons of Hodir)
+
+- name: Silver Covenant
+  things:
+  - 66090 66091 # Quel'dorei Steed/Sunreaver Hawkstrider (Silver Covenant)
+  - 66087 66088 # Silver Covenant Hippogryph/Sunreaver Dragonhawk (Silver Covenant)
+
+- name: Wyrmrest Accord
+  things:
+  - 59570 # Red Drake (Wyrmrest Accord)

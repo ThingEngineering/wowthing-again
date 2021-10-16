@@ -1,0 +1,12 @@
+name: Instances
+groups:
+
+- name: Dungeons
+  things:
+  - 41252 # Raven Lord (Sethekk Halls)
+  - 46628 # Swift White Hawkstrider (Magister's Terrace)
+
+- name: Raids
+  things:
+  - 40192 # Ashes of Al'ar (TK)
+  - 36702 # Fiery Warhorse (Kara)

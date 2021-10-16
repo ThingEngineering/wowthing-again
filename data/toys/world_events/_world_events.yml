@@ -1,0 +1,73 @@
+name: World Events
+groups:
+
+- name: Brewfest
+  things:
+  - 116758 # Brewfest Banner
+  - 169865 # Brewfest Chowdown Trophy
+  -  71137 # Brewfest Keg Pony
+  -  33927 # Brewfest Pony Key
+  - 166747 # Brewfest Reveler's Hearthstone
+  - 138900 # Gravil Goldbraid's Famous Sausage Hat
+  -  90427 # Pandaren Brewpack
+  - 116757 # Steamworks Sausage Grill
+
+- name: Day of the Dead
+  things:
+  - 116856 # "Blooming Rose" Contender's Costume
+  - 116888 # "Night Demon" Contender's Costume
+  - 116889 # "Purple Phantom" Contender's Costume
+  - 116890 # "Santo's Sun" Contender's Costume
+  - 116891 # "Snowy Owl" Contender's Costume
+
+- name: Hallow's End
+  things:
+  - 128807 # Coin of Many Faces
+  - 163045 # Headless Horseman's Hearthstone
+  - 151271 # Horse Head Costume
+  - 151270 # Horse Tail Costume
+  -  70722 # Little Wickerman
+  - 128794 # Sack of Spectral Spiders
+
+- name: Love is in the Air
+  things:
+  -  50471 # The Heartbreaker
+  - 142341 # Love Boat
+  - 165670 # Peddlefeet's Lovely Hearthstone
+  -  34480 # Romantic Picnic Basket
+  - 144339 # Sturdy Love Fool
+  - 116651 # True Love Prism
+
+- name: Midsummer Fire Festival
+  things:
+  -  34686 # Brazier of Dancing Flames
+  - 116440 # Burning Defender's Medallion
+  - 116435 # Cozy Bonfire
+  - 166746 # Fire Eater's Hearthstone
+  - 141649 # Set of Matches
+
+- name: Noblegarden
+  things:
+  - 165802 # Noble Gardener's Hearthstone
+
+- name: Timewalking
+  things:
+  - 144072 # Adopted Puppy Crate (Mistweaver Xia, Timeless Isle)
+  - 129929 # Ever-Shifting Mirror
+  - 151016 # Fractured Necrolyte Skull (Cupri, Shattrath)
+  - 129965 # Grizzlesnout's Fang (Wrath?)
+  - 129952 # Hourglass of Eternity
+  - 129926 # Mark of the Ashtongue
+  - 144393 # Portable Yak Wash (MoP?)
+  - 133542 # Tosselwrench's Mega-Accurate Simulation Viewfinder
+  - 151184 # Verdant Throwing Sphere (Cupri, Shattrah)
+  - 129938 # Will of Northrend
+
+- name: Other
+  things:
+  -  69895 # Green Balloon (Children's Week)
+  - 150547 # Jolly Roger (Pirates' Day)
+  - 140363 # Pocket Fel Spreader (drop?)
+  - 116400 # Silver-Plated Turkey Shooter (Pilgrim's Bounty)
+  - 138415 # Slightly-Chewed Insult Book (Pirates' Day)
+  -  69896 # Yellow Balloon (Children's Week)

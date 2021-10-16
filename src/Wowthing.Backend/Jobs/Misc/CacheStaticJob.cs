@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using Wowthing.Backend.Jobs.NonBlizzard;
 using Wowthing.Backend.Models.Data;
 using Wowthing.Backend.Models.Data.Achievements;
+using Wowthing.Backend.Models.Data.Collections;
 using Wowthing.Backend.Models.Data.Progress;
 using Wowthing.Backend.Models.Redis;
 using Wowthing.Backend.Utilities;
@@ -35,7 +36,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
-            Version = 17,
+            Version = 18,
         };
 
         public override async Task Run(params string[] data)
@@ -106,17 +107,17 @@ namespace Wowthing.Backend.Jobs.Misc
                 Reputations = reputations,
                 ReputationTiers = reputationTiers,
 
-                MountSets = mountSets,
+                MountSets = FinalizeCollections(mountSets),
                 SpellToMount = new SortedDictionary<int, int>(spellToMount.ToDictionary(k => k.Key, v => v.Value.Item1)),
 
                 CreatureToPet = new SortedDictionary<int, int>(creatureToPet.ToDictionary(k => k.Key, v => v.Value.Item1)),
-                PetSets = petSets,
+                PetSets = FinalizeCollections(petSets),
 
                 Progress = progress,
                 
                 ReputationSets = reputationSets,
 
-                ToySets = toySets,
+                ToySets = FinalizeCollections(toySets),
 
                 RaiderIoScoreTiers = raiderIoScoreTiers ?? new Dictionary<int, OutRaiderIoScoreTiers>(),
             };
@@ -249,33 +250,12 @@ namespace Wowthing.Backend.Jobs.Misc
             return new SortedDictionary<int, (int, string)>(records.ToDictionary(k => k.ItemID, v => (v.ID, "?")));
         }
 
-        private List<List<RedisSetCategory>> LoadSets(string dirName)
+        private List<List<DataCollectionCategory>> LoadSets(string dirName)
         {
-            var categories = new List<List<RedisSetCategory>>();
-
-            var basePath = Path.Join(DataUtilities.DataPath, dirName);
-            foreach (var line in File.ReadLines(Path.Join(basePath, "_order")))
-            {
-                if (line == "-")
-                {
-                    categories.Add(null);
-                }
-                else
-                {
-                    var things = new List<RedisSetCategory>();
-                    foreach (string fileName in line.Split(' '))
-                    {
-                        var filePath = Path.Join(basePath, fileName);
-                        things.Add(new RedisSetCategory(_yaml.Deserialize<DataSetCategory>(File.OpenText(filePath))));
-                    }
-                    categories.Add(things);
-                }
-            }
-
-            return categories;
+            return DataUtilities.LoadData<DataCollectionCategory>(dirName, Logger);
         }
 
-        private void AddUncategorized(string dirName, SortedDictionary<int, (int, string)> spellToThing, List<List<RedisSetCategory>> thingSets)
+        private void AddUncategorized(string dirName, SortedDictionary<int, (int, string)> spellToThing, List<List<DataCollectionCategory>> thingSets)
         {
             var skip = Array.Empty<int>();
             var skipPath = Path.Join(DataUtilities.DataPath, dirName, "_skip.yml");
@@ -293,33 +273,36 @@ namespace Wowthing.Backend.Jobs.Misc
                 .Except(thingSets
                     .Where(s => s != null)
                     .SelectMany(s => s)
+                    .Where(c => c.Groups != null)
                     .SelectMany(s => s.Groups)
+                    .Where(g => g.Things != null)
                     .SelectMany(g => g.Things)
-                    .SelectMany(t => t)
+                    .SelectMany(t => t
+                        .Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                        .Select(z => int.Parse(z))
+                    )
                 )
                 .Except(skip)
                 .ToArray();
 
-            var cat = new DataSetCategory
-            {
-                Name = "UNCATEGORIZED",
-                Groups = new List<DataSetGroup>
-                {
-                    new DataSetGroup
-                    {
-                        Name = "UNCATEGORIZED",
-                        Things = missing.Select(m => m.ToString()).ToList(),
-                    },
-                },
-            };
-            
             if (missing.Length > 0)
             {
-                thingSets.Add(new List<RedisSetCategory>{
-                    new(cat),
+                thingSets.Add(new List<DataCollectionCategory>{
+                    new DataCollectionCategory
+                    {
+                        Name = "UNCATEGORIZED",
+                        Groups = new List<DataCollectionGroup>
+                        {
+                            new DataCollectionGroup
+                            {
+                                Name = "UNCATEGORIZED",
+                                Things = missing.Select(m => m.ToString()).ToList(),
+                            },
+                        },
+                    },
                 });
                 
-                #if DEBUG
+#if DEBUG
                 using (var file = File.CreateText(Path.Join("..", "..", "data", dirName, "zzz_uncategorized.yml")))
                 {
                     foreach (int thing in missing)
@@ -327,8 +310,29 @@ namespace Wowthing.Backend.Jobs.Misc
                         file.WriteLine($"  - {thing} # {spellToThing[thing].Item2}");
                     }
                 }
-                #endif
+#endif
             }
+        }
+
+        private List<List<OutCollectionCategory>> FinalizeCollections(List<List<DataCollectionCategory>> categorySets)
+        {
+            var ret = new List<List<OutCollectionCategory>>();
+            
+            foreach (var categorySet in categorySets)
+            {
+                if (categorySet == null)
+                {
+                    ret.Add(null);
+                    continue;
+                }
+                
+                ret.Add(categorySet
+                    .Select(category => new OutCollectionCategory(category))
+                    .ToList()
+                );
+            }
+
+            return ret;
         }
         #endregion
         

@@ -1,0 +1,39 @@
+name: Reputations
+groups:
+
+- name: Ascended
+  things:
+  - 342334 # Gilded Prowler (The Ascended, Exalted)
+
+- name: Avowed
+  things:
+  - 332923 # Inquisition Gargon (The Avowed, Exalted) Vampire bonus faction?
+
+- name: Court of Harvesters
+  things:
+  - 341639 # Court Sinrunner (Court of Harvesters, Exalted)
+
+- name: Undying Army
+  things:
+  - 332484 # Lurid Bloodtusk (The Undying Army, Exalted)
+  - 327405 # Colossal Slaughterclaw (The Undying Army, Paragon)
+
+- name: Wild Hunt
+  things:
+  - 332256 # Duskflutter Ardenmoth (The Wild Hunt, Exalted)
+  - 342666 # Amber Ardenmoth (The Wild Hunt, Paragon)
+
+- name: "Ve'nari"
+  things:
+  - 354352 # Soulbound Gloomcharger (Ve'nari, Paragon)
+
+- name: "Archivist's Codex"
+  things:
+  - 347251 # Soaring Razorwing (The Archivist's Codex, Tier 6)
+  - 347536 # Tamed Mauler (The Archivist's Codex, Paragon)
+
+- name: "Death's Advance"
+  things:
+  - 354356 # Amber Shardhide (Death's Advance, Revered)
+  - 347810 # Beryl Shardhide (Death's Advance, Paragon)
+  - 354359 # Fierce Razorwing (Death's Advance, Paragon)
