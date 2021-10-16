@@ -1,0 +1,32 @@
+name: Argent Tournament
+groups:
+
+- name: Alliance
+  things:
+  - 63637 # Darnassian Nightsaber
+  - 65638 # Swift Moonsaber
+  - 63639 # Exodar Elekk
+  - 65637 # Great Red Elekk
+  - 63638 # Gnomeregan Mechanostrider
+  - 65642 # Turbostrider
+  - 63636 # Ironforge Ram
+  - 65643 # Swift Violet Ram
+  - 63232 # Stormwind Steed
+  - 65640 # Swift Gray Steed
+
+- name: Horde
+  things:
+  - 63635 # Darkspear Raptor
+  - 65644 # Swift Purple Raptor
+  - 63640 # Orgrimmar Wolf
+  - 65646 # Swift Burgundy Wolf
+  - 63642 # Silvermoon Hawkstrider
+  - 65639 # Swift Red Hawkstrider
+  - 63641 # Thunder Bluff Kodo
+  - 65641 # Great Golden Kodo
+  - 63643 # Forsaken Warhorse
+  - 65645 # White Skeletal Warhorse
+
+- name: Misc
+  things:
+  - 66906 # Argent Charger (Paladin)

@@ -1,0 +1,35 @@
+name: Reputations
+groups:
+
+- name: Arakkoa Outcasts
+  things:
+  - 171829 # Shadowmane Charger (Arakkoa Outcasts)
+
+- name: Council of Exarchs
+  things:
+  - 171625 # Dusty Rockhide (Council of Exarchs)
+
+- name: Frostwolf Orcs
+  things:
+  - 171842 # Swift Frostwolf (Frostwolf Orcs)
+
+- name: Sabrestalkers
+  things:
+  - 190690 # Bristling Hellboar (The Sabrestalkers)
+  - 171633 # Wild Goretusk (The Sabrestalkers)
+
+- name: Steamwheedle Preservation Society
+  things:
+  - 171634 # Domesticated Razorback (Steamwheedle Preservation Society)
+
+- name: Town People
+  things:
+  - 190977 # Deathtusk Felboar (Vol'jin's Headhunters/Hand of the Prophets)
+
+- name: "Vol'jin's Spear"
+  things:
+  - 171832 # Breezestrider Stallion (Vol'jin's Spear)
+
+- name: "Wrynn's Vanguard"
+  things:
+  - 171833 # Pale Thorngrazer (Wrynn's Vanguard)

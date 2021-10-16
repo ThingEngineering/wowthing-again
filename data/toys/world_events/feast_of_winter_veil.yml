@@ -1,0 +1,37 @@
+name: Feast of Winter Veil
+groups:
+
+- name: Quests
+  things:
+  -  17712 # Winter Veil Disguise Kit
+
+- name: Stolen Presents
+  things:
+  - 108632 # Crashin' Thrashin' Flamer Controller
+  - 104318 # Crashin' Thrashin' Flyer Controller
+  - 108635 # Crashin' Thrashin' Killdozer Controller
+  -  37710 # Crashin' Thrashin' Racer Controller
+  - 116763 # Crashin' Thrashin' Shredder Controller
+  - 172222 # Crashin' Thrashin' Juggernaught (Alliance)
+  - 172223 # Crashin' Thrashin' Battleship (Horde)
+  - 162973 # Greatfather Winter's Hearthstone
+  - 162643 # Toy Armor Set (Alliance)
+  - 162642 # Toy Armor Set (Horde)
+  -  46709 # MiniZep Controller
+  -  90888 # Foot Ball
+  - 104324 # Foot Ball
+  -  90883 # The Pigskin
+  - 104323 # The Pigskin
+  - 116692 # Fuzzy Green Lounge Cushion
+  - 116689 # Pineapple Lounge Cushion
+  - 116690 # Safari Lounge Cushion
+  - 116691 # Zhevra Lounge Cushion
+  - 116456 # Scroll of Storytelling
+  - 139337 # Disposable Winter Veil Suits
+  - 128636 # Endothermic Blaster
+  - 128776 # Red Wooden Sled
+  - 151343 # Hearthstation (Alliance)
+  - 151344 # Hearthstation (Horde)
+  - 151349 # Toy Weapon Set (Alliance)
+  - 151348 # Toy Weapon Set (Horde)
+  - 172219 # Wild Holly

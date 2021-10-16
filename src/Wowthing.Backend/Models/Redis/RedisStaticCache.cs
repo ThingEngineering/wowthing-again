@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Wowthing.Backend.Models.API.NonBlizzard;
 using Wowthing.Backend.Models.Data;
+using Wowthing.Backend.Models.Data.Collections;
 using Wowthing.Backend.Models.Data.Progress;
 using Wowthing.Lib.Models.Wow;
 
@@ -25,12 +26,12 @@ namespace Wowthing.Backend.Models.Redis
         public SortedDictionary<int, WowReputationTier> ReputationTiers { get; set; }
 
         [JsonProperty(Order = 10)]
-        public List<List<RedisSetCategory>> MountSets { get; set; }
+        public List<List<OutCollectionCategory>> MountSets { get; set; }
         [JsonProperty(Order = 11)]
         public SortedDictionary<int, int> SpellToMount { get; set; }
         
         [JsonProperty(Order = 20)]
-        public List<List<RedisSetCategory>> PetSets { get; set; }
+        public List<List<OutCollectionCategory>> PetSets { get; set; }
         [JsonProperty(Order = 21)]
         public SortedDictionary<int, int> CreatureToPet { get; set; }
 
@@ -38,7 +39,7 @@ namespace Wowthing.Backend.Models.Redis
         public List<DataReputationCategory> ReputationSets { get; set; }
 
         [JsonProperty(Order = 40)]
-        public List<List<RedisSetCategory>> ToySets { get; set; }
+        public List<List<OutCollectionCategory>> ToySets { get; set; }
 
         [JsonProperty(Order = 100)]
         public Dictionary<int, OutRaiderIoScoreTiers> RaiderIoScoreTiers { get; set; }

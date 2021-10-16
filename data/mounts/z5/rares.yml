@@ -1,0 +1,32 @@
+name: Rares
+groups:
+
+- name: Multiple Zones
+  things:
+  - 179478 # Voidtalon of the Dark Star
+
+- name: Gorgrond
+  things:
+  - 171849 # Sunhide Gronnling
+
+- name: Frostfire Ridge
+  things:
+  - 171851 # Garn Nighthowl (Nok-Karosh)
+  - 171636 # Great Greytusk (Gorok)
+
+- name: Nagrand
+  things:
+  - 171620 # Bloodhoof Bull (Nakk the Thunderer)
+  - 171622 # Mottled Meadowstomper (Luk'hok)
+
+- name: Shadowmoon Valley
+  things:
+  - 171830 # Swift Breezestrider
+
+- name: Spires of Arak
+  things:
+  - 171828 # Solar Spirehawk (World Boss - WoD)
+
+- name: Talador
+  things:
+  - 171824 # Sapphire Riverbeast (Silthide)

@@ -1,0 +1,28 @@
+name: Wrath of the Lich King
+groups:
+
+- name: Achievements
+  things:
+  - 72808 # Bloodbathed Frostbrood Vanquisher
+  - 72807 # Icebound Frostbrood Vanquisher
+  - 63956 # Ironbound Proto-Drake
+  - 59961 # Red Proto-Drake
+  - 63963 # Rusted Proto-Drake
+
+- name: Quests
+  things:
+  - 54753 # White Polar Bear (The Storm Peaks, Brunnhildar Village daily, random Hyldnir Spoils reward)
+
+- name: Rare Spawns
+  things:
+  - 60002 # Time-Lost Proto-Drake
+
+- name: Vendors
+  things:
+  - 63844 # Argent Hippogryph
+  - 67466 # Argent Warhorse
+  - 60114 60116 # Armored Brown Bear (Dalaran)
+  - 61229 61230 # Armored Snowy Gryphon/Armored Blue Wind Rider (Dalaran)
+  - 59785 59788 # Black War Mammoth
+  - 61425 61447 # Traveler's Tundra Mammoth (Dalaran)
+  - 59791 59793 # Wooly Mammoth (Dalaran)

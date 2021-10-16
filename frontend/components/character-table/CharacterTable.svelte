@@ -1,10 +1,8 @@
 <script lang="ts">
     import filter from 'lodash/filter'
     import groupBy from 'lodash/groupBy'
-    import keys from 'lodash/keys'
     import map from 'lodash/map'
     import sortBy from 'lodash/sortBy'
-    import toPairs from 'lodash/toPairs'
 
     import { data as settingsData } from '@/stores/settings'
     import { userStore } from '@/stores'

@@ -1,3 +1,4 @@
+import some from 'lodash/some'
 import {get} from 'svelte/store'
 
 import type {UserCollectionData} from '@/types/data'
@@ -67,6 +68,9 @@ export class UserCollectionDataStore extends WritableFancyStore<UserCollectionDa
         userHas: Dictionary<boolean>,
         map?: Dictionary<number>,
     ): void {
+        const overallData = setCounts['OVERALL'] = new UserDataSetCount(0, 0)
+        const seen: Record<number, boolean> = {}
+
         for (const category of categories) {
             if (category === null) {
                 continue
@@ -79,6 +83,14 @@ export class UserCollectionDataStore extends WritableFancyStore<UserCollectionDa
 
                 for (const group of set.groups) {
                     for (const things of group.things) {
+                        const seenThing = some(things, (t) => seen[t])
+
+                        // We only want to increase overall counts if the set is not
+                        // 'unavailable'
+                        if (set.slug !== 'unavailable' && !seenThing) {
+                            overallData.total++
+                        }
+
                         categoryData.total++
                         setData.total++
 
@@ -87,10 +99,19 @@ export class UserCollectionDataStore extends WritableFancyStore<UserCollectionDa
                                 (map && userHas[map[thing]]) ||
                                 (!map && userHas[thing])
                             ) {
+                                if (set.slug !== 'unavailable' && !seenThing) {
+                                    overallData.have++
+                                }
+
                                 categoryData.have++
                                 setData.have++
+
                                 break
                             }
+                        }
+
+                        for (const thing of things) {
+                            seen[thing] = true
                         }
                     }
                 }

@@ -1,0 +1,38 @@
+name: Misc
+groups:
+- name: BfA
+  things:
+  - 294143 # X-995 Mechanocat (Mechagon craftable)
+  - 256123 # Xiwyllag ATV (BS & eng crafted items from Operation: Mechagon)
+
+- name: Guild
+  things:
+  - 90621 93644 # Golden King/Kor'kron Annihilator
+  - 124408 # Thundering Jade Cloud Serpent
+  - 171627 # Blacksteel Battleboar (Guild Glory of the Draenor Raider)
+
+- name: Misc
+  things:
+  - 316493 # Elusive Quickhoof (Vol'dun)
+  - 300150 # Fabious (Take S.E.L.F.I.E. with the mob in Nazjatar)
+
+- name: Puzzles
+  things:
+  - 223018 # Fathom Dweller (Kosumoth)
+  - 247402 # Lucid Nightmare (weird puzzle?)
+  - 243025 # Riddler's Mind-Worm (Gift of the Mind-Seekers)
+  - 261395 # The Hivemind (??)
+
+- name: World Drops?
+  things:
+  - 315987 # Mail Muncher (Mail Muncher, Horrific Visions)
+
+- name: Recruit-A-Friend
+  things:
+  - 171847 # Cindermane Charger
+  - 149801 # Emerald Hippogryph
+  - 307263 # Explorer's Dunetrekker
+  - 307256 # Explorer's Jungle Hopper
+  - 121820 # Obsidian Nightwing
+  - 49322 # Swift Zhevra
+  - 75973 # X-16083 Touring Rocket

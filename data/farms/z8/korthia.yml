@@ -186,7 +186,7 @@ farms:
   - type: transmog
     id: 187368
     name: Xyraxz's Controlling Rod
-    limit: weapon stave-int
+    limit: weapon stave int
 
 - name: Yarxhov the Pillager
   location: 39.4 52.4
@@ -259,7 +259,7 @@ farms:
   - type: transmog
     id: 187362
     name: Stinging Shadow Screamer
-    limit: weapon dagger-agi
+    limit: weapon dagger agi
 
 - name: Silent Soulstalker
   location: 57.5 70.4

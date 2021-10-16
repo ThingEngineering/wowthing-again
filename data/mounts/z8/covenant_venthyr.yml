@@ -15,7 +15,7 @@ groups:
 
 - name: Conductor
   things:
-  - 312753 # Hopecrusher Gargon (Revendreth)
+  - 332882 # Horrid Dredwing (Harika the Horrid)
 
 - name: Ember Court
   things:
@@ -24,3 +24,7 @@ groups:
 - name: Transport
   things:
   - 333023 # Battle Gargon Silessa
+
+- name: Misc
+  things:
+  - 312753 # Hopecrusher Gargon (Revendreth)

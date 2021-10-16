@@ -1,0 +1,33 @@
+name: Garrisons
+groups:
+
+- name: Fishing Shack
+  things:
+  - 127271 # Crimson Water Strider (Fishing Shack)
+
+- name: Invasions
+  things:
+  - 171836 # Garn Steelmaw
+  - 171635 # Giant Coldsnout
+  - 171624 # Shadowhide Pearltusk
+  - 171843 # Smoky Direwolf
+
+- name: Missions
+  things:
+  - 189364 # Coalfist Gronnling (Mission)
+  - 171826 # Mudback Riverbeast (Mission)
+
+- name: Stables
+  things:
+  - 171629 # Armored Frostboar
+  - 171838 # Armored Frostwolf
+  - 171617 # Trained Icehoof
+  - 171623 # Trained Meadowstomper
+  - 171638 # Trained Riverwallow
+  - 171637 # Trained Rocktusk
+  - 171831 # Trained Silverpelt
+  - 171841 # Trained Snarler
+
+- name: Trading Post
+  things:
+  - 171626 171839 # Armored Irontusk/Ironside Warwolf (Trading Post)

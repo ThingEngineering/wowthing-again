@@ -1,0 +1,14 @@
+name: The Burning Crusade
+groups:
+
+- name: Vendors
+  things:
+  - 39316 # Dark Riding Talbuk (Halaa)
+  - 34790 # Dark War Talbuk (Halaa)
+  - 32235 32245 # Golden Gryphon/Green Wind Rider
+  - 32239 32243 # Ebon Gryphon/Tawny Wind Rider
+  - 32240 32244 # Snowy Gryphon/Blue Wind Rider
+  - 32242 32296 # Swift Blue Gryphon/Swift Yellow Wind Rider
+  - 32290 32295 # Swift Green Gryphon/Swift Green Wind Rider
+  - 32292 32297 # Swift Purple Gryphon/Swift Purple Wind Rider
+  - 32289 32246 # Swift Red Gryphon/Swift Red Wind Rider
