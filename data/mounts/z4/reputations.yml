@@ -1,0 +1,57 @@
+name: Reputations
+groups:
+
+- name: Anglers
+  things:
+  - 118089 # Azure Water Strider (Anglers)
+
+- name: August Celestials
+  things:
+  - 129918 # Thundering August Cloud Serpent (August Celestials)
+  - 132036 # Thundering Ruby Cloud Serpent (August Celestials)
+
+- name: Golden Lotus
+  things:
+  - 127174 # Azure Riding Crane (Golden Lotus)
+  - 127176 # Golden Riding Crane (Golden Lotus)
+  - 127177 # Regal Riding Crane (Golden Lotus)
+
+- name: Klaxxi
+  things:
+  - 123886 # Amber Scorpion (Klaxxi)
+
+- name: Lorewalkers
+  things:
+  - 130092 # Red Flying Cloud (Lorewalkers)
+
+- name: Order of the Cloud Serpent
+  things:
+  - 123992 # Azure Cloud Serpent (Order of the Cloud Serpent)
+  - 123993 # Golden Cloud Serpent (Order of the Cloud Serpent)
+  - 113199 # Jade Cloud Serpent (Order of the Cloud Serpent)
+
+- name: Shado-Pan
+  things:
+  - 129934 # Blue Shado-Pan Riding Tiger (Shado-Pan)
+  - 129932 # Green Shado-Pan Riding Tiger (Shado-Pan)
+  - 129935 # Red Shado-Pan Riding Tiger (Shado-Pan)
+  - 127154 # Onyx Cloud Serpent (Shado-Pan)
+
+- name: Tillers
+  things:
+  - 130138 # Black Riding Goat (Tillers)
+  - 130086 # Brown Riding Goat (Tillers)
+  - 130137 # White Riding Goat (Tillers)
+
+- name: Emperor Shaohao
+  things:
+  - 127164 # Heavenly Golden Cloud Serpent (Emperor Shaohao)
+
+- name: War Factions
+  things:
+  - 136163 136164 # Grand Gryphon/Grand Wyvern (Operation: Shieldwall/Dominance Offensive)
+  - 135416 135418 # Grand Armored Gryphon/Grand Armored Wyvern (Operation: Shieldwall/Dominance Offensive)
+
+- name: Isle of Thunder
+  things:
+  - 140249 140250 # Golden/Crimson Primal Direhorn (Kirin Tor Offensive/Sunreaver Onslaught)

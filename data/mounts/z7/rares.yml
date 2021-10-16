@@ -1,0 +1,58 @@
+name: Rares
+groups:
+
+- name: Drustvar
+  things:
+  - 260174 # Terrified Pack Mule (??, Drustvar)
+
+- name: Nazmir
+  things:
+  - 243795 # Leaping Veinseeker (??, Nazmir)
+
+- name: Stormsong Valley
+  things:
+  - 260175 # Goldenmane (??, Stormsong)
+  - 275623 # Nazjatar Blood Serpent (Adherent of the Abyss, Stormsong Valley) ?
+
+- name: "Vol'dun"
+  things:
+  - 237286 # Dune Scavenger (??, Vol'dun)
+  - 298367 # Mollie (Dunegorger Kraulok, Vol'dun)
+
+- name: "Arathi Highlands"
+  things:
+  - 279457 # Broken Highland Mustang (Knight-Captain Aldrin)
+  - 279456 # Highland Mustang (Doomrider Helgrim)
+  - 279608 # Lil' Donkey (Overseer Krix)
+  - 279611 # Skullripper (Skullripper)
+  - 279569 # Swift Albino Raptor (Beastrider Kama)
+  - 279868 # Witherbark Direwing (Nimar the Slayer)
+
+- name: "Darkshore"
+  things:
+  - 288495 # Ashenvale Chimaera (Alash'anir)
+  - 288438 # Blackpaw (Blackpaw)
+  - 288499 # Frightened Kodo (Frightened Kodo)
+  - 288505 # Kaldorei Nightsaber (Crox Bloodrage / Shadowclaw)
+  - 288503 # Umber Nightsaber (Athil Dewfire / Moxo the Beheader)
+
+- name: Mechagon
+  things:
+  - 297157 # Junkheap Drifter (Rustfeather, Mechagon)
+
+- name: Nazjatar
+  things:
+  - 300149 # Silent Glider (Soundless, Nazjatar)
+
+- name: "Uldum"
+  things:
+  - 315847 # Drake of the Four Winds (Ishak of the Four Winds)
+  - 316337 # Malevolent Drone (Corpse Eater)
+  - 316275 # Waste Marauder (Rotfeaster)
+
+- name: "Vale of Eternal Blossoms"
+  things:
+  - 312751 # Clutch of Ha-Li (Ha-Li)
+  - 315014 # Ivory Cloud Serpent (Vale of Eternal Blossoms)
+  - 316722 # Ren's Stalwart Hound (Houndlord Ren)
+  - 316723 # Xinlao (Anh-De the Loyal)

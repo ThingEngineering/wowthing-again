@@ -6,6 +6,7 @@
     import type { StaticDataSetCategory } from '@/types'
     import type { CollectionContext } from '@/types/contexts'
     import { userCollectionStore } from '@/stores'
+    import tippy from '@/utils/tippy'
 
     import CollectionCount from './CollectionCount.svelte'
     import CollectionThing from './CollectionThing.svelte'
@@ -60,6 +61,9 @@
 
         p {
             margin: 0 0 0.1rem 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
     }
     .wrapper {
@@ -81,8 +85,10 @@
         {/if}
         <div class="container">
             {#each section.groups as group, i (`${thingType}--${slug1}--${section.slug}--${i}`)}
-                <div class="collection-group">
-                    <p>{group.name}</p>
+                <div class="collection-group" style="width: {(44 * group.things.length) + (3 * (group.things.length - 1))}px;">
+                    <p
+                        use:tippy={group.name}
+                    >{group.name}</p>
                     <div class="wrapper">
                         {#each group.things as things}
                             {#if thingType === 'npc'}
