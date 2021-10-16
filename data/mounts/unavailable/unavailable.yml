@@ -55,7 +55,12 @@ groups:
 
 - name: Battle for Azeroth
   things:
+  - 316637 # Awakened Mindborer (Battle for Azeroth Keystone Master: Season Four)
   - 289639 # Bruce (Brawler's Guild questline)
+
+- name: Shadowlands
+  things:
+  - 340068 # Sintouched Deathwalker (Shadowlands Keystone Master: Season One)
 
 - name: Rated PvP
   things:
