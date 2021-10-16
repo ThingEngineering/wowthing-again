@@ -1,22 +1,6 @@
 name: World Events
 groups:
 
-- name: Argent Tournament
-  things:
-  -  33239 # Argent Gruntling
-  -  33238 # Argent Squire
-  -  33205 # Ammen Vale Lashling
-  -  33194 # Dun Morogh Cub
-  -  33198 # Durotar Scorpion
-  -  33200 # Elwynn Lamb
-  -  33227 # Enchanted Broom
-  -  33274 # Mechanopeep
-  -  33219 # Mulgore Hatchling
-  -  33810 # Sen'jin Fetish
-  -  34724 # Shimmering Wyrmling
-  -  33188 # Teldrassil Sproutling
-  -  33197 # Tirisfal Batling
-
 - name: Brawler's Guild
   things:
   -  68601 # Clock'em - Brawler's Guild
@@ -26,50 +10,6 @@ groups:
   -  24753 # Pint-Sized Pink Pachyderm
   -  85994 # Stout Alemental
   -  22943 # Wolpertinger
-
-- name: Children's Week
-  things:
-  - 150119 # Beakbert
-  -  33530 # Curious Oracle Hatchling
-  -  33529 # Curious Wolvar Pup
-  -  23258 # Egbert
-  - 150120 # Froglet
-  -  53048 # Legs
-  - 150098 # Mr. Crabs
-  -  16548 # Mr. Wiggles
-  -  23266 # Peanut
-  - 150126 # Scaley
-  -  51635 # Scooter the Snail
-  -  16547 # Speedy
-  -  16549 # Whiskers the Rat
-  -  23231 # Willy
-
-- name: Darkmoon Faire
-  things:
-  -  93814 # Blorp
-  -  67443 # Crow
-  -  55187 # Darkmoon Balloon
-  -  56031 # Darkmoon Cub
-  -  67332 # Darkmoon Eye
-  -  67329 # Darkmoon Glowfly
-  -  67319 # Darkmoon Hatchling
-  -  54491 # Darkmoon Monkey
-  -  59358 # Darkmoon Rabbit
-  -  55356 # Darkmoon Tonk
-  -  54487 # Darkmoon Turtle
-  -  55367 # Darkmoon Zeppelin
-  -  93808 # Ghostshell Crab
-  -  76873 # Hogs (That's Whack! achievement)
-  - 145946 # Horse Balloon
-  -  14878 # Jubling
-  -  72160 # Moon Moon
-  - 145947 # Murloc Balloon
-  -  90345 # Race MiniZep (Big Rocketeer: Gold achievement)
-  -  55386 # Sea Pony
-  -  85527 # Syd the Squid
-  -   7549 # Tree Frog
-  - 145948 # Wolf Balloon
-  -   7550 # Wood Frog
 
 - name: Day of the Dead
   things:

@@ -1,6 +1,12 @@
 name: Shadowlands
 groups:
 
+- name: Achievements
+  things:
+  - 174085 # Death Seeker
+  - 179241 # Mord'al Eveningstar
+  - 179083 # Sly
+
 - name: Adventures
   things:
   - 171240 # Devouring Animite
@@ -16,10 +22,32 @@ groups:
   - 179180 # Invasive Buzzer
   - 179008 # Lil'Abom
 
+- name: Puzzles
+  things:
+  - 175563 # Courage
+  - 171954 # Oonar's Arm
+
 - name: Quests
   things:
+  - 179230 # Chompy (Oozing with Character WQ, Korthia)
   - 171136 # Dal (A Stolen Stone Fiend WQ, Revendreth)
   - 171241 # Grubby (Ardenweald)
   - 171667 # Helpful Glimmerfly (Broken Wings, Bastion)
   - 160703 # Plagueborn Slime (Plague Deviser Marileth, Maldraxxus)
   - 163897 # Renny (Ardenweald, Glitterfall Basin)
+
+- name: Treasures
+  things:
+  - 171710 # Gilded Wader
+
+- name: Vendors
+  things:
+  - 171243 # Gloober, as G'huun
+  - 179137 # Ruby Baubleworm
+  - 179138 # Turquoise Baubleworm
+  - 179139 # Topaz Baubleworm
+  - 178216 # Flawless Amethyst Baubleworm
+
+- name: World Drops
+  things:
+  - 179220 # Grappling Gauntlet

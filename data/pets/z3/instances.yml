@@ -13,11 +13,10 @@ groups:
   - 127853 # Rattlejaw (Nefarian, Blackwing Descent)
   - 127850 # Tinytron (Magmatron, Blackwing Descent)
 
-- name: Dragon Soul
+- name: Throne of the Four Winds
   things:
-  - 127953 # Corrupted Blood (Spine of Deathwing, Dragon Soul)
-  - 127952 # Faceless Mindlasher (Yor'sahj the Unsleeping, Dragon Soul)
-  - 127954 # Unstable Tendril (Deathwing, Dragon Soul)
+  - 127863 # Drafty (Nezir, Throne of the Four Winds)
+  - 127862 # Zephyrian Prince (Al'Akir, Throne of the Four Winds)
 
 - name: Firelands
   things:
@@ -26,7 +25,8 @@ groups:
   - 127951 # Infernal Pyreclaw (Majordomo Staghelm, Firelands)
   - 127950 # Surger (Baleroc, Firelands)
 
-- name: Throne of the Four Winds
+- name: Dragon Soul
   things:
-  - 127863 # Drafty (Nezir, Throne of the Four Winds)
-  - 127862 # Zephyrian Prince (Al'Akir, Throne of the Four Winds)
+  - 127953 # Corrupted Blood (Spine of Deathwing, Dragon Soul)
+  - 127952 # Faceless Mindlasher (Yor'sahj the Unsleeping, Dragon Soul)
+  - 127954 # Unstable Tendril (Deathwing, Dragon Soul)

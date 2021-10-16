@@ -1,0 +1,38 @@
+name: Rares
+groups:
+
+- name: Dread Wastes
+  things:
+  - 64633 # Aqua Strider (Nalash Verdantis, Dread Wastes)
+  - 64634 # Grinder (Karr the Darkener, Dread Wastes)
+
+- name: Isle of Giants
+  things:
+  - 70154 # Direhorn Runt (Direhorns, Isle of Giants)
+  - 70451 # Zandalari Anklerender (Zandalari Dinomancer, Isle of Giants)
+  - 70452 # Zandalari Footslasher (Zandalari Dinomancer, Isle of Giants)
+  - 69796 # Zandalari Kneebiter (Zandalari Dinomancer, Isle of Giants)
+  - 70453 # Zandalari Toenibbler (Zandalari Dinomancer, Isle of Giants)
+
+- name: Isle of Thunder
+  things:
+  - 69778 # Sunreaver Micro-Sentry (Haywire Sunreaver Construct, Isle of Thunder)
+
+- name: Timeless Isle
+  things:
+  - 73533 # Ashleaf Spriteling (Leafmender, Timeless Isle)
+  - 73532 # Dandelion Frolicker (Scary Sprite, Timeless Isle)
+  - 73364 # Death Adder Hatchling (Imperial Python, Timeless Isle)
+  - 73730 # Gu'chi Swarmling (Gu'chi the Swarmbringer, Timeless Isle)
+  - 73359 # Gulp Froglet (Bufo, Timeless Isle)
+  - 73738 # Jadefire Spirit (Spirit of Jadefire, Timeless Isle)
+  - 73355 # Jademist Dancer (Jademist Dancer, Timeless Isle)
+  - 50586 # Mr. Grubbs (Eastern Plaguelands??)
+  - 73357 # Ominous Flame (Foreboding Flame, Timeless Isle)
+  - 73356 # Ruby Droplet (Garnia, Timeless Isle)
+  - 73367 # Skunky Alemental (Zhu-Gon the Sour, Timeless Isle)
+  - 73366 # Spineclaw Crab (Monstrous Spineclaw, Timeless Isle)
+
+- name: Townlong Steppes
+  things:
+  - 70098 # Spawn of G'nathus (G'nathus, Townlong Steppes)

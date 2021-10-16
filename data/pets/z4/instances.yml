@@ -16,13 +16,6 @@ groups:
   - 150354 # Stoneclaw (Stone Guard, Mogu'shan Vaults)
   - 150356 # Wayward Spirit
 
-- name: Siege of Orgrimmar
-  things:
-  - 73352 # Blackfuse Bombling (Siege of Orgrimmar)
-  - 73350 # Droplet of Y'Shaarj (Siege of Orgrimmar)
-  - 73351 # Gooey Sha-ling (Siege of Orgrimmar)
-  - 73354 # Kovok (Siege of Orgrimmar)
-
 - name: Terrace of Endless Spring
   things:
   - 150365 # Azure Windseeker
@@ -36,3 +29,10 @@ groups:
   - 70083 # Pygmy Direhorn (Throne of Thunder)
   - 69820 # Son of Animus (Throne of Thunder)
   - 71200 # Viscous Horror (Throne of Thunder)
+
+- name: Siege of Orgrimmar
+  things:
+  - 73352 # Blackfuse Bombling (Siege of Orgrimmar)
+  - 73350 # Droplet of Y'Shaarj (Siege of Orgrimmar)
+  - 73351 # Gooey Sha-ling (Siege of Orgrimmar)
+  - 73354 # Kovok (Siege of Orgrimmar)
