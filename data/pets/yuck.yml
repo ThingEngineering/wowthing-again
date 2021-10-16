@@ -24,11 +24,8 @@ groups:
   -   7394 # Ancona Chicken - Thousand Needles
   - 106270 # Celestial Calf ()
   -   7390 # Cockatiel - Cape of Stranglethorn
-  -  53661 # Crimson Lasher - Molten Front
   - 128118 # Cross Gazer (Quest, A Pile of Intact Demon Eyes, Antoran Wastes - eye vendor?)
-  -  94927 # Crusher - Garrison
   - 106278 # Felbat Pup (Nethershard)
-  -  53658 # Hyjal Bear Cub - Molten Front
   - 118060 # Infinite Hatchling (Timeless Isle - Mistweaver Xia)
   - 118063 # Paradox Spirit (Timeless Isle - Mistweaver Xia)
   - 119040 # Tylarr Gronnden (Deeprun Tram/Brawl'gar Arena)
@@ -73,16 +70,6 @@ groups:
   -  14421 # Brown Prairie Dog - Mulgore
   -   7395 # Undercity Cockroach - Undercity
 
-- name: Vendor - Netherstorm
-  things:
-  -  20472 # Brown Rabbit - Netherstorm
-  -   7567 # Crimson Snake - Netherstorm
-  -  20408 # Mana Wyrmling - Netherstorm
-  -  21009 # Red Moth - Netherstorm
-  -   7389 # Senegal - Cape of Stranglethorn/Netherstorm
-  -   7380 # Siamese Cat - Netherstorm
-  -   7395 # Undercity Cockroach - Netherstorm
-
 - name: World Drops
   things:
   -  35395 # Deviate Hatchling
@@ -100,11 +87,8 @@ groups:
 - name: Quests
   things:
   -  54539 # Alliance Balloon
-  -  42177 # Blue Mini Jouster
   -  62829 # Fishy
-  -  42183 # Gold Mini Jouster
   -  54541 # Horde Balloon
-  -  86447 # Ikky
   -  77221 # Iron Starlette
   -  52894 # Lashtail Hatchling
   -  84330 # Meadowstomper Calf - Nagrand (WoD)
@@ -112,7 +96,6 @@ groups:
   -  22445 # Miniwing
   -  52226 # Panther Cub
   -  69649 # Red Panda
-  -  88225 # Sentinel's Companion
   -  51090 # Singing Sunflower
   -  69848 # Spectral Porcupette
   -  51632 # Tiny Flamefly
@@ -132,10 +115,3 @@ groups:
 - name: Other
   things:
   - 133064 # Silithid Mini-Tank (Drop - Silithus: The Wound)
-
-
-- name: Darkmoon Island
-  things:
-  -  67443 # Crow
-  -  67329 # Darkmoon Glowfly
-  -  62953 # Sea Gull

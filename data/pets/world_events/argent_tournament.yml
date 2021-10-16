@@ -1,0 +1,24 @@
+name: Argent Tournament
+groups:
+
+- name: Alliance
+  things:
+  - 33238 # Argent Squire
+  - 33205 # Ammen Vale Lashling
+  - 33194 # Dun Morogh Cub
+  - 33200 # Elwynn Lamb
+  - 33274 # Mechanopeep
+  - 33188 # Teldrassil Sproutling
+
+- name: Horde
+  things:
+  - 33239 # Argent Gruntling
+  - 33198 # Durotar Scorpion
+  - 33227 # Enchanted Broom
+  - 33219 # Mulgore Hatchling
+  - 33810 # Sen'jin Fetish
+  - 33197 # Tirisfal Batling
+
+- name: Shared
+  things:
+  - 34724 # Shimmering Wyrmling

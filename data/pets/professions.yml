@@ -4,7 +4,6 @@ groups:
 - name: Herbalism
   things:
   - 128137 # Fel Lasher (Herbalism)
-  - 83594 # Nightshade Sproutling - Herbalism (Garrison?)
 
 - name: Alchemy
   things:
@@ -71,10 +70,8 @@ groups:
   - 126579 # Ghost Shark (fishing vendor)
   -  31575 # Giant Sewer Rat
   - 161951 # Gloop (Black Empire Assault, Uldum)
-  -  86445 # Land Shark
   -  18839 # Magical Crawdad
   -  24389 # Muckbreath
-  -  84441 # Sea Calf
   -  55386 # Sea Pony
   -  26050 # Snarly
   - 109216 # Sting Ray Pup (fishing vendor)
@@ -98,7 +95,6 @@ groups:
 - name: Mining
   things:
   - 50722 # Elementium Geode - Mining
-  - 85667 # Ore Eater - Mining (Garrison?)
 
 - name: Skinning
   things:

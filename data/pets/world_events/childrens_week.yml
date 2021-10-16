@@ -1,0 +1,28 @@
+name: "Children's Week"
+groups:
+
+- name: Vanilla
+  things:
+  -  16548 # Mr. Wiggles
+  -  51635 # Scooter the Snail
+  -  16547 # Speedy
+  -  16549 # Whiskers the Rat
+
+- name: Burning Crusade
+  things:
+  -  23258 # Egbert
+  -  53048 # Legs
+  -  23266 # Peanut
+  -  23231 # Willy
+
+- name: Wrath of the Lich King
+  things:
+  -  33530 # Curious Oracle Hatchling
+  -  33529 # Curious Wolvar Pup
+
+- name: Battle for Azeroth
+  things:
+  - 150119 # Beakbert
+  - 150120 # Froglet
+  - 150098 # Mr. Crabs
+  - 150126 # Scaley

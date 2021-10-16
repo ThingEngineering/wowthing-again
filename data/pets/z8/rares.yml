@@ -35,13 +35,12 @@ groups:
   - 171121 # Primordial Bogling
   - 171118 # Wrathling
 
-- name: The Maw
+- name: The Maw / Korthia
   things:
   - 179181 # Amaranthine Stinger
+  - 174083 # Decaying Mawrat
   - 174081 # Dread
   - 179228 # Golden Eye
-  - 174084 # Sharpclaw
-
-- name: Korthia
-  things:
   - 179251 # Korthian Specimen
+  - 174084 # Sharpclaw
+  - 174082 # Undying Deathroach

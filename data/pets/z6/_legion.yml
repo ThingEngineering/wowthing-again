@@ -36,26 +36,6 @@ groups:
   - 115786 # Sharptalon Hatchling ()
   - 115784 # Snowfeather Hatchling ()
 
-- name: Rare Spawns
-  things:
-  - 113136 # Benax (drop Suramar)
-  -  98116 # Bleakwater Jelly (drop Helheim)
-  -  98077 # Crispin (drop Highmountain)
-  -  97179 # Eye of Inquisition (drop Suramar)
-  -  99394 # Fetid Waveling (drop Val'sharah)
-  - 111984 # Hungering Claw (drop? Kosumoth)
-  - 108568 # Pygmy Owl (drop Val'sharah)
-  -  99403 # Risen Saber Kitten (drop Val'sharah)
-  -  97205 # Stormborne Whelpling (drop Stormheim)
-
-- name: "Rare Spawns: Argus"
-  things:
-  - 128157 # Docile Skyfin (Fel-Spotted Egg, Argus rare drop)
-  - 128158 # Fel-Afflicted Skyfin (Fel-Spotted Egg, Argus rare drop)
-  - 128159 # Grasping Manifestation (Ataxon, Mac'Aree)
-  - 128388 # Rebellious Imp (Mother Rosula, ?)
-  - 128396 # Uuna (The Many-Faced Devourer, ?)
-
 - name: Reputations
   things:
   -  17254 # Ash'ana (?)

@@ -1,0 +1,54 @@
+name: Darkmoon Faire
+groups:
+
+- name: Achievements
+  things:
+  -  76873 # Hogs (That's Whack! achievement)
+  -  90345 # Race MiniZep (Big Rocketeer: Gold achievement)
+
+- name: Drops
+  things:
+  -  59358 # Darkmoon Rabbit
+  -  72160 # Moon Moon
+
+- name: Fishing
+  things:
+  -  93814 # Blorp
+  -  93808 # Ghostshell Crab
+  -  55386 # Sea Pony
+
+- name: Quests
+  things:
+  -  14878 # Jubling
+
+- name: "Quests: Daily"
+  things:
+  -  67332 # Darkmoon Eye
+  -  85527 # Syd the Squid
+
+- name: "Vendor: Carl Goodup"
+  things:
+  - 145946 # Horse Balloon
+  - 145947 # Murloc Balloon
+  - 145948 # Wolf Balloon
+
+- name: "Vendor: Flik"
+  things:
+  -   7549 # Tree Frog
+  -   7550 # Wood Frog
+
+- name: "Vendor: Lhara"
+  things:
+  -  55187 # Darkmoon Balloon
+  -  56031 # Darkmoon Cub
+  -  67319 # Darkmoon Hatchling
+  -  54491 # Darkmoon Monkey
+  -  55356 # Darkmoon Tonk
+  -  54487 # Darkmoon Turtle
+  -  55367 # Darkmoon Zeppelin
+
+- name: Pet Battles
+  things:
+  -  67443 # Crow
+  -  67329 # Darkmoon Glowfly
+  -  62953 # Sea Gull

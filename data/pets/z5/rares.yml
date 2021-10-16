@@ -1,0 +1,25 @@
+name: Rares
+groups:
+
+- name: Spires of Arak
+  things:
+  -  86719 # Brilliant Spore (Rotcap, Spires of Arak)
+
+- name: Gorgrond
+  things:
+  -  88103 # Doom Bloom (Mandrakor, Gorgrond)
+
+- name: Nagrand
+  things:
+  -  98237 # Empowered Manafiend (Pugg, Nagrand)
+  -  98238 # Empyreal Manafiend (Guk, Nagrand)
+  -  98236 # Energized Manafiend (Rukdug, Nagrand)
+  -  86081 # Netherspawn, Spawn of Netherspawn (Netherspawn, Nagrand)
+
+- name: Shadowmoon Valley
+  things:
+  -  88692 # Servant of Demidos (Demidos, Shadowmoon Valley)
+
+- name: Talador
+  things:
+  -  88490 # Eye of Observation (Oromo the Observer, Talador)

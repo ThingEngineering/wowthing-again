@@ -1,0 +1,35 @@
+name: Instances
+groups:
+
+- name: Naxxramas
+  things:
+  - 68657 # Fungal Abomination (Naxxramas)
+  - 68656 # Giant Bone Spider (Naxxramas)
+  - 68654 # Stitched Pup (Naxxramas)
+
+- name: Ulduar
+  things:
+  - 115145 # Creeping Tentacle (Ulduar)
+  - 115144 # G0-R41-0N Ultratonk (Ulduar)
+  - 115139 # Ironbound Proto-Whelp (Ulduar)
+  - 115138 # Magma Rageling (Ulduar)
+  - 115140 # Runeforged Servitor (Ulduar)
+  - 115141 # Sanctum Cub (Ulduar)
+  - 115143 # Snaplasher (Ulduar)
+  - 115142 # Winter Rageling (Ulduar)
+  - 115158 # Stardust (??)
+
+- name: Trial of the Crusader
+  things:
+  - 115135 # Dreadmaw (Trial of the Crusader)
+  - 115137 # Nerubian Swarmer (Trial of the Crusader)
+  - 115136 # Snobold Runt (Trial of the Crusader)
+
+- name: Icecrown Citadel
+  things:
+  - 115146 # Boneshard (Icecrown Citadel)
+  - 115148 # Blightbreath (Icecrown Citadel)
+  - 115147 # Blood Boil (Icecrown Citadel)
+  - 115150 # Drudge Ghoul (Icecrown Citadel)
+  - 115149 # Soulbroken Whelpling (Icecrown Citadel)
+  - 115152 # Wicked Soul (Icecrown Citadel)
