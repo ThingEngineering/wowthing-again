@@ -1,0 +1,10 @@
+name: The Burning Crusade
+groups:
+
+- name: Quests
+  things:
+  -  30690 # Power Converter
+
+- name: Rares
+  things:
+  -  32782 # Time-Lost Figurine

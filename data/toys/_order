@@ -1,21 +1,29 @@
-z8/shadowlands.yml
+*
+    instances.yml
+    rares.yml
+    reputations.yml
+    vendors.yml
+
+z8/_shadowlands.yml
     z8/maw_korthia.yml
 
-z7/battle_for_azeroth.yml
+z7/_battle_for_azeroth.yml
     z7/mechagon_nazjatar.yml
 
-z6_legion.yml
+z6/_legion.yml
 
-z5_warlords_of_draenor.yml
+z5/_warlords_of_draenor.yml
+    z5/garrisons.yml
 
-z4_mists_of_pandaria.yml
+z4/_mists_of_pandaria.yml
 
-z3_cataclysm.yml
+z3/_cataclysm.yml
 
 z2/_wrath_of_the_lich_king.yml
-    z2/vendors.yml
 
-z0_vanilla.yml
+z1/_the_burning_crusade.yml
+
+z0/_vanilla.yml
 
 -
 

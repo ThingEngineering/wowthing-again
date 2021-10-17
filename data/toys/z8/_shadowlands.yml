@@ -19,7 +19,7 @@ groups:
   - 183847 # Acolyte's Guise (Maldraxxus, The Better Part of Valor)
   - 180947 # Tithe Collector's Vessel (Revendreth, An Unwelcome Incursion)
 
-- name: Rare Spawns
+- name: Rares
   things:
   - 174445 # Glimmerfly Cocoon (Sigilback) @ Bastion:55.1:80.7
   - 184476 # Regenerating Slime Vial (Bubbleblood) @ Maldraxxus:?
