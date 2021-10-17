@@ -1,0 +1,20 @@
+name: Cataclysm
+groups:
+
+- name: Instances
+  things:
+  - 122304 # Fandral's Seed Pouch (Firelands)
+
+- name: Quests
+  things:
+  -  71259 # Leyara's Locket (Molten Front)
+  -  70161 # Mushroom Chair (Molten Front)
+  -  70159 # Mylune's Call (Molten Front)
+
+- name: Rares
+  things:
+  - 134022 # Burgy Blackheart's Handsome Hat (Burgy Blackheart, Vashj'ir)
+
+- name: Reputations
+  things:
+  -  63141 64997 # Tol Barad Searchlight

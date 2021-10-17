@@ -42,7 +42,6 @@ groups:
 
 - name: Raids
   things:
-  - 122304 # Fandral's Seed Pouch (Firelands)
   - 142536 # Memory Cube (The Nighthold -> Karazhan)
 
 # Quests
@@ -50,8 +49,6 @@ groups:
 - name: Quests
   things:
   -  53057 # Faded Wizard Hat
-  -  30690 # Power Converter
-  -  32782 # Time-Lost Figurine
 
 - name: BfA
   things:
@@ -62,7 +59,6 @@ groups:
 # Rare Mobs
 - name: Other
   things:
-  - 134022 # Burgy Blackheart's Handsome Hat (drop Cata)
   - 142265 # Big Red Raygun (drop Doctor Weavil, Dustwallow Marsh)
 
 
@@ -110,9 +106,6 @@ groups:
   things:
   - 102467 # Censer of Eternal Agony
   - 134020 # Chef's Hat
-  -  88801 # Flippable Table
-  -  88802 # Foxicopter Controller
-  -  91904 # Stackable Stag
 
 - name: More
   things:

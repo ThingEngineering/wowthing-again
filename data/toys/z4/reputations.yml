@@ -1,0 +1,24 @@
+name: Reputations
+groups:
+
+- name: Anglers
+  things:
+  -  85500 # Anglers Fishing Raft (The Anglers, Revered)
+
+- name: Order of the Cloud Serpent
+  things:
+  -  89222 # Cloud Ring (Order of the Cloud Serpent, Revered)
+
+- name: Tillers
+  things:
+  -  89869 # Pandaren Scarecrow (The Tillers, Revered)
+  -  90175 # Gin-Ji Knife Set (The Tillers, Exalted)
+
+- name: Isle of Thunder
+  things:
+  -  95589 # Glorious Standard of the Kirin Tor Offensive (Kirin Tor Offensive, ??)
+  -  95590 # Glorious Standard of the Sunreaver Onslaught (Sunreaver Onslaught, ??)
+
+- name: Emperor Shaohao
+  things:
+  - 103685 # Celestial Defender's Medallion (Emperor Shaohao, Revered)
