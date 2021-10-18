@@ -66,10 +66,6 @@
     </li>
 
     <li class="separator"></li>
-
-    <li use:active={'/farms/*'}>
-        <a href="#/farms/">Farms</a>
-    </li>
     <li use:active={'/mounts/*'}>
         <a href="#/mounts/">Mounts</a>
         <span class="drop-shadow percent {getPercentClass(mountsPercent)}">{fancyPercent(mountsPercent)} %</span>
@@ -81,6 +77,12 @@
     <li use:active={'/toys/*'}>
         <a href="#/toys/">Toys</a>
         <span class="drop-shadow percent {getPercentClass(toysPercent)}">{fancyPercent(toysPercent)} %</span>
+    </li>
+
+    <li class="separator"></li>
+
+    <li use:active={'/farms/*'}>
+        <a href="#/farms/">Farms</a>
     </li>
     <li use:active={'/transmog/*'}>
         <a href="#/transmog/">Transmog</a>
