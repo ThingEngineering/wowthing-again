@@ -28,7 +28,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheFarms,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(24),
-            Version = 1,
+            Version = 2,
         };
 
         public override async Task Run(params string[] data)
