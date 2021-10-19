@@ -17,6 +17,7 @@ namespace Wowthing.Backend.Models.Data.Farms
         public string Name { get; set; }
         public string Note { get; set; }
         public string Reset { get; set; }
+        public string Type { get; set; }
         public List<int> QuestIds { get; set; }
         
         public List<OutFarmDrop> Drops { get; set; }
@@ -33,7 +34,9 @@ namespace Wowthing.Backend.Models.Data.Farms
             NpcId = farm.NpcId;
             Note = farm.Note;
             QuestIds = farm.QuestId.Split().Select(q => int.Parse(q)).ToList();
+            
             Reset = farm.Reset ?? "daily";
+            Type = farm.Type ?? "kill";
         }
     }
 }

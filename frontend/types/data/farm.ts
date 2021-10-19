@@ -17,6 +17,7 @@ export interface FarmDataFarm {
     name: string
     note: string
     reset: string
+    type: string
     questIds: number[]
     location: string[]
     drops: FarmDataDrop[]
