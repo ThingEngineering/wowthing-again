@@ -2,7 +2,7 @@
     import sortBy from 'lodash/sortBy'
     import Fa from 'svelte-fa'
 
-    import {farmType} from '@/data/farm'
+    import {dropType} from '@/data/farm'
     import {userStore} from '@/stores'
     import type {FarmDataDrop, FarmDataFarm} from '@/types/data'
     import type {DropStatus, FarmStatus} from '@/utils/get-farm-status'
@@ -67,9 +67,9 @@
                 <tr class:success={!dropStatus.need}>
                     <td class="type status-{dropStatus.need ? 'fail' : 'success'}">
                         {#if drop.type === 'transmog' && drop.limit?.[0] && drop.limit?.[0] !== 'covenant'}
-                            <Fa fw icon={farmType[drop.limit[0]]} />
+                            <Fa fw icon={dropType[drop.limit[0]]} />
                         {:else}
-                            <Fa fw icon={farmType[drop.type]} />
+                            <Fa fw icon={dropType[drop.type]} />
                         {/if}
                     </td>
                     <td class="name" class:status-success={!dropStatus.need}>{drop.name}</td>

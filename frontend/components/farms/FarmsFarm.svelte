@@ -1,10 +1,10 @@
 <script lang="ts">
-    import { faSkull } from '@fortawesome/free-solid-svg-icons'
     import Fa from 'svelte-fa'
 
-    import {tippyComponent} from '@/utils/tippy'
-    import type {FarmDataFarm} from '@/types/data'
-    import type {FarmStatus} from '@/utils/get-farm-status'
+    import type { FarmDataFarm } from '@/types/data'
+    import type { FarmStatus } from '@/utils/get-farm-status'
+    import { farmType } from '@/data/farm'
+    import { tippyComponent } from '@/utils/tippy'
 
     import NpcLink from '@/components/links/NpcLink.svelte'
     import Tooltip from '@/components/tooltips/farm/TooltipFarm.svelte'
@@ -76,7 +76,7 @@
             class:alliance={farm.faction === 'alliance'}
             class:horde={farm.faction === 'horde'}
         >
-            <Fa fw icon={faSkull} />
+            <Fa fw icon={farmType[farm.type]} />
         </div>
 
         {#if status.need}
