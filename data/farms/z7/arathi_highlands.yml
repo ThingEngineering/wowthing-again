@@ -1,11 +1,11 @@
 name: Arathi Highlands
-mapName: z8_arathi_highlands
+mapName: z7_arathi_highlands
 minimumLevel: 45
-wowheadGuide: https://www.wowhead.com/guides/shadowlands-ardenweald-rares-treasures
+wowheadGuide: https://www.wowhead.com/arathi-highlights-outdoor-warfronts-rewards
 farms:
 
 - name: Beastrider Kama
-  location: 1
+  location: 65.3 71.2
   npcId: 142709
   questId: 53083 53504
   drops:
@@ -14,25 +14,44 @@ farms:
     name: Swift Albino Raptor
 
 - name: Branchlord Aldrus
-  location: 1
+  location: 21.8 22.2
   npcId: 142508
   questId: 53013 53505
   drops:
   - type: pet
-    id: 163650
-    name: a
+    id: 279638
+    name: Aldrusian Sproutling
 
 - name: Darbel Montrose
-  location: 1
+  location: 50.8 61.2
   npcId: 142688
   questId: 53084 53507
   drops:
   - type: pet
-    id: 163652
-    name: a
+    id: 279643
+    name: Voidwiggler
+
+- name: Doomrider Helgrim
+  faction: alliance
+  location: 53.6 57.6
+  npcId: 142741
+  questId: 53085
+  drops:
+  - type: mount
+    id: 279456
+    name: Highland Mustang
+
+- name: Echo of Myzrael
+  location: 57.1 34.7
+  npcId: 141668
+  questId: 53059 53508
+  drops:
+  - type: pet
+    id: 279657
+    name: Teeny Titan Orb
 
 - name: Foulbelly
-  location: 1
+  location: 22.3 51.1
   npcId: 142686
   questId: 53086 53509
   drops:
@@ -41,17 +60,17 @@ farms:
     name: Foul Belly
 
 - name: Fozruk
-  location: 1
+  location: 59.8 28.1
   npcId: 142433
   questId: 53019 53510
   drops:
   - type: pet
-    id: 163711
-    name: a
+    id: 279929
+    name: Fozling
 
 - name: Geomancer Flintdagger
-  location: 1
-  npcId: 152662
+  location: 79.5 29.4
+  npcId: 142662
   questId: 53060 53511
   drops:
   - type: toy
@@ -59,7 +78,7 @@ farms:
     name: Brazier Cap
 
 - name: Horrific Apparition
-  location: 1
+  location: 19.4 61.2
   npcId: 142725
   questId: 53087 53512
   drops:
@@ -67,8 +86,18 @@ farms:
     id: 163736
     name: Spectral Visage
 
-- name: "Kor'gresh Coldrage"
-  location: 1
+- name: Knight-Captain Aldrin
+  faction: horde
+  location: 48.9 40.0
+  npcId: 142739
+  questId: 53088
+  drops:
+  - type: mount
+    id: 279457
+    name: Broken Highland Mustang
+
+- name: Kor'gresh Coldrage
+  location: 49.3 84.3
   npcId: 142112
   questId: 53058 53513
   drops:
@@ -77,7 +106,7 @@ farms:
     name: Coldrage's Cooler
 
 - name: Kovork
-  location: 1
+  location: 25.3 48.6
   npcId: 142684
   questId: 53089 53514
   drops:
@@ -86,16 +115,16 @@ farms:
     name: Kovork Kostume
 
 - name: Man-Hunter Rog
-  location: 1
+  location: 52.2 74.9
   npcId: 142716
   questId: 53090 53515
   drops:
   - type: pet
-    id: 163689
-    name: a
+    id: 279930
+    name: Squawkling
 
 - name: Molok the Crusher
-  location: 1
+  location: 47.7 78.0
   npcId: 141942
   questId: 53057 53516
   drops:
@@ -104,43 +133,43 @@ farms:
     name: Molok Morion
 
 - name: Nimar the Slayer
-  location: 1
+  location: 67.5 60.6
   npcId: 142692
   questId: 53091 53517
   drops:
   - type: mount
-    id: 163706
-    name: a
+    id: 279868
+    name: Witherbark Direwing
 
 - name: Overseer Krix
-  location: 1
+  location: 27.3 57.1
   npcId: 142423
   questId: 53014 53518
   drops:
   - type: mount
-    id: 163646
-    name: a
+    id: 279608
+    name: Lil' Donkey
 
 - name: Plaguefeather
-  location: 1
+  location: 35.6 64.4
   npcId: 142435
   questId: 53020 53519
   drops:
   - type: pet
-    id: 163690
-    name: a
+    id: 279724
+    name: Foulfeather
 
 - name: Ragebeak
-  location: 1
+  location: 11.9 52.2
   npcId: 142436
   questId: 53016 53522
   drops:
   - type: pet
-    id: 163689
-    name: a
+    id: 279723
+    name: Ragepeep
 
 - name: Ruul Onestone
-  location: 1
+  location: 42.9 56.6
   npcId: 142683
   questId: 53092 53524
   drops:
@@ -148,65 +177,68 @@ farms:
     id: 163741
     name: Magic Fun Rock
 
-- name: a
-  location: 1
-  npcId: 1
-  questId: 1
+- name: Singer
+  location: 50.7 57.5
+  npcId: 142690
+  questId: 53093 53525
   drops:
   - type: toy
-    id: 163713
-    name: Brazier Cap
+    id: 163738
+    name: Syndicate Mask
 
-- name: a
-  location: 1
-  npcId: 1
-  questId: 1
+- name: Skullripper
+  location: 57.2 45.8
+  npcId: 142437
+  questId: 53022 53526
   drops:
-  - type: toy
-    id: 163713
-    name: Brazier Cap
+  - type: mount
+    id: 279611
+    name: Skullripper
 
-- name: a
-  location: 1
-  npcId: 1
-  questId: 1
+- name: Venomarus
+  location: 56.9 53.3
+  npcId: 142438
+  questId: 53024 53528
   drops:
-  - type: toy
-    id: 163713
-    name: Brazier Cap
+  - type: pet
+    id: 279631
+    name: Fuzzy Creepling
 
-- name: a
-  location: 1
-  npcId: 1
-  questId: 1
+- name: Yogursa
+  location: 13.3 35.3
+  npcId: 142440
+  questId: 53015 53529
   drops:
-  - type: toy
-    id: 163713
-    name: Brazier Cap
+  - type: pet
+    id: 279686
+    name: Scabby
 
-- name: a
-  location: 1
-  npcId: 1
-  questId: 1
+- name: Zalas Witherbark
+  location: 62.9 81.2
+  npcId: 142682
+  questId: 53094 53530
   drops:
   - type: toy
-    id: 163713
-    name: Brazier Cap
+    id: 163745
+    name: Witherbark Gong
 
-- name: a
-  location: 1
-  npcId: 1
-  questId: 1
+# World bosses
+- name: Doom's Howl
+  faction: alliance
+  location: 37.1 39.2
+  npcId: 138122
+  questId: 53002
   drops:
   - type: toy
-    id: 163713
-    name: Brazier Cap
+    id: 163828
+    name: Toy Siege Tower
 
-- name: a
-  location: 1
-  npcId: 1
-  questId: 1
+- name: The Lion's Roar
+  faction: horde
+  location: 39.1 39.2
+  npcId: 137374
+  questId: 53001
   drops:
   - type: toy
-    id: 163713
-    name: Brazier Cap
+    id: 163829
+    name: Toy War Machine

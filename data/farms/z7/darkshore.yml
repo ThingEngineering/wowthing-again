@@ -1,0 +1,239 @@
+name: Darkshore
+mapName: z7_darkshore
+minimumLevel: 45
+wowheadGuide: https://www.wowhead.com/guides/rewards-from-the-darkshore-warfront
+farms:
+
+- name: Alash'anir
+  location: 56.5 30.8
+  npcId: 148787
+  questId: 54695 54696
+  drops:
+  - type: mount
+    id: 288495
+    name: Ashenvale Chimaera
+
+- name: Athrikus Narassin
+  location: 58.5 24.2
+  npcId: 147708
+  questId: 54278 54279
+  drops:
+  - type: toy
+    id: 166784
+    name: Narassin's Soul Gem
+
+- name: Commander Drald
+  faction: alliance
+  location: 46.5 85.8
+  npcId: 147845
+  questId: 54309
+  drops:
+  - type: toy
+    id: 166790
+    name: Highborne Memento
+
+- name: Commander Ral'esh
+  location: 38.0 75.8
+  npcId: 148025
+  questId: 54426 54427
+  drops:
+  - type: toy
+    id: 166787
+    name: "Twiddle Twirler: Sentinel's Glaive"
+
+- name: Conflagros
+  location: 39.3 62.1
+  npcId: 147260
+  questId: 54232 54233
+  drops:
+  - type: pet
+    id: 288592
+    name: Detective Ray
+
+- name: Croz Bloodrage
+  faction: alliance
+  location: 50.7 32.3
+  npcId: 149661
+  questId: 54886
+  drops:
+  - type: mount
+    id: 288505
+    name: Kaldorei Nightsaber
+
+- name: Cyclarus
+  location: 43.8 53.5
+  npcId: 147241
+  questId: 54229 54230
+  drops:
+  - type: pet
+    id: 288582
+    name: Gust of Cyclarus
+
+- name: Gren Tornfur
+  location: 40.9 56.4
+  npcId: 148031
+  questId: 54428 54429
+  drops:
+  - type: toy
+    id: 166785
+    name: Detoxified Blight Grenade
+
+- name: Grimhorn
+  faction: horde
+  location: 50.7 32.3
+  npcId: 149656
+  questId: 54891
+  drops:
+  - type: pet
+    id: 289359
+    name: Nightwreathed Watcher
+
+- name: Hydrath
+  location: 52.4 32.2
+  npcId: 147240
+  questId: 54227 54228
+  drops:
+  - type: pet
+    id: 288595
+    name: Hydrath Droplet
+
+- name: Moxo the Beheader
+  faction: alliance
+  location: 67.2 18.8
+  npcId: 147701
+  questId: 54277
+  drops:
+  - type: mount
+    id: 288503
+    name: Umber Nightsaber
+
+- name: Onu
+  faction: horde
+  location: 45.2 74.9
+  npcId: 147758
+  questId: 54291
+  drops:
+  - type: pet
+    id: 288597
+    name: Everburning Treant
+
+- name: Sapper Odette
+  faction: horde
+  location: 32.8 84.1
+  npcId: 148103
+  questId: 54452
+  drops:
+  - type: toy
+    id: 166788
+    name: "Twiddle Twirler: Shredder Blade"
+
+- name: Soggoth the SLitherer
+  location: 40.5 85.3
+  npcId: 147897
+  questId: 54320 54321
+  drops:
+  - type: pet
+    id: 288598
+    name: Void Jelly
+
+- name: Thelar Moonstrike
+  faction: horde
+  location: 62.1 16.5
+  npcId: 147435
+  questId: 54252
+  drops:
+  - type: toy
+    id: 166790
+    name: Highborne Memento
+
+- name: Twilight Prophet Graeme
+  location: 40.6 82.7
+  npcId: 147942
+  questId: 54397 54398
+  drops:
+  - type: pet
+    id: 288600
+    name: Zur'aj the Depleted
+
+- name: Zim'kaga
+  faction: alliance
+  location: 62.4 9.9
+  npcId: 147664
+  questId: 54274
+  drops:
+  - type: pet
+    id: 288597
+    name: Everburning Treant
+
+# Faction splits
+
+# 49.6 25.0
+- name: Agathe Wyrmwood
+  faction: alliance
+  location: 48.9 25.0
+  npcId: 149652
+  questId: 54883
+  drops:
+  - type: mount
+    id: 288438
+    name: Blackpaw
+
+- name: Blackpaw
+  faction: horde
+  location: 50.5 25.0
+  npcId: 149651
+  questId: 54890
+  drops:
+  - type: mount
+    id: 288438
+    name: Blackpaw
+
+# 41.6 76.4
+- name: Athil Dewfire
+  faction: horde
+  location: 40.7 76.4
+  npcId: 148037
+  questId: 54431
+  drops:
+  - type: mount
+    id: 288503
+    name: Umber Nightsaber
+
+  - type: pet
+    id: 288486
+    name: Darkshore Sentinel
+
+- name: Burninator Mark V
+  faction: alliance
+  location: 42.5 76.4
+  npcId: 149141
+  questId: 54768
+  drops:
+  - type: pet
+    id: 288486
+    name: Darkshore Sentinel
+
+  - type: toy
+    id: 166788
+    name: "Twiddle Twirler: Shredder Blade"
+
+# 39.7 33.0
+- name: Orwell Stevenson
+  faction: alliance
+  location: 38.8 33.0
+  npcId: 149664
+  questId: 54889
+  drops:
+  - type: pet
+    id: 289359
+    name: Nightwreathed Watcher
+
+- name: Shadowclaw
+  faction: horde
+  location: 40.6 33.0
+  npcId: 149658
+  questId: 54892
+  drops:
+  - type: mount
+    id: 288505
+    name: Kaldorei Nightsaber
