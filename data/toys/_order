@@ -2,10 +2,10 @@
     instances.yml
     rares.yml
     reputations.yml
+    treasures.yml
     vendors.yml
 
 z8/_shadowlands.yml
-    z8/maw_korthia.yml
 
 z7/_battle_for_azeroth.yml
     z7/mechagon_nazjatar.yml
