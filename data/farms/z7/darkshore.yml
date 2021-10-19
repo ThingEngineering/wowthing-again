@@ -47,7 +47,7 @@ farms:
   questId: 54232 54233
   drops:
   - type: pet
-    id: 288592
+    id: 148825
     name: Detective Ray
 
 - name: Croz Bloodrage
@@ -66,7 +66,7 @@ farms:
   questId: 54229 54230
   drops:
   - type: pet
-    id: 288582
+    id: 148784
     name: Gust of Cyclarus
 
 - name: Gren Tornfur
@@ -85,7 +85,7 @@ farms:
   questId: 54891
   drops:
   - type: pet
-    id: 289359
+    id: 149205
     name: Nightwreathed Watcher
 
 - name: Hydrath
@@ -94,7 +94,7 @@ farms:
   questId: 54227 54228
   drops:
   - type: pet
-    id: 288595
+    id: 148841
     name: Hydrath Droplet
 
 - name: Moxo the Beheader
@@ -114,7 +114,7 @@ farms:
   questId: 54291
   drops:
   - type: pet
-    id: 288597
+    id: 148843
     name: Everburning Treant
 
 - name: Sapper Odette
@@ -133,7 +133,7 @@ farms:
   questId: 54320 54321
   drops:
   - type: pet
-    id: 288598
+    id: 148844
     name: Void Jelly
 
 - name: Thelar Moonstrike
@@ -152,7 +152,7 @@ farms:
   questId: 54397 54398
   drops:
   - type: pet
-    id: 288600
+    id: 148846
     name: Zur'aj the Depleted
 
 - name: Zim'kaga
@@ -162,7 +162,7 @@ farms:
   questId: 54274
   drops:
   - type: pet
-    id: 288597
+    id: 148843
     name: Everburning Treant
 
 # Faction splits
@@ -200,7 +200,7 @@ farms:
     name: Umber Nightsaber
 
   - type: pet
-    id: 288486
+    id: 148781
     name: Darkshore Sentinel
 
 - name: Burninator Mark V
@@ -210,7 +210,7 @@ farms:
   questId: 54768
   drops:
   - type: pet
-    id: 288486
+    id: 148781
     name: Darkshore Sentinel
 
   - type: toy
@@ -225,7 +225,7 @@ farms:
   questId: 54889
   drops:
   - type: pet
-    id: 289359
+    id: 149205
     name: Nightwreathed Watcher
 
 - name: Shadowclaw

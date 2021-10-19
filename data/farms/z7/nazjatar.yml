@@ -10,7 +10,7 @@ farms:
   questId: 55584
   drops:
   - type: pet
-    id: 301044
+    id: 154845
     name: "Brinestone Algan"
 
 - name: "Blindlight"
@@ -19,7 +19,7 @@ farms:
   questId: 56269
   drops:
   - type: pet
-    id: 301043
+    id: 154821
     name: "Necrofin Tadpole"
 
 - name: "Carnivorous Lasher"
@@ -28,7 +28,7 @@ farms:
   questId: 55366
   drops:
   - type: pet
-    id: 301046
+    id: 154847
     name: "Coral Lashling"
 
 - name: "Caverndark Terror"
@@ -37,7 +37,7 @@ farms:
   questId: 56283
   drops:
   - type: pet
-    id: 301027
+    id: 154829
     name: "Caverndark Nightmare"
 
 - name: "Elderspawn Nalaada"
@@ -46,7 +46,7 @@ farms:
   questId: 56285
   drops:
   - type: pet
-    id: 301030
+    id: 154832
     name: "Spawn of Nalaada"
 
 - name: "Iridescent Glimmershell"
@@ -55,7 +55,7 @@ farms:
   questId: 56286
   drops:
   - type: pet
-    id: 301023
+    id: 154825
     name: "Pearlescent Glimmershell"
 
 - name: "King Gakula"
@@ -64,7 +64,7 @@ farms:
   questId: 55671
   drops:
   - type: pet
-    id: 301042
+    id: 154820
     name: "Murgle"
 
 - name: "Needlespine"
@@ -73,7 +73,7 @@ farms:
   questId: 56275
   drops:
   - type: pet
-    id: 301026
+    id: 154828
     name: "Chitterspine Needler"
 
 - name: "Prince Typhonus"
@@ -82,7 +82,7 @@ farms:
   questId: 56289
   drops:
   - type: pet
-    id: 301038
+    id: 154840
     name: "Seafury"
 
 - name: "Prince Vortran"
@@ -91,7 +91,7 @@ farms:
   questId: 56290
   drops:
   - type: pet
-    id: 301039
+    id: 154841
     name: "Stormwrath"
 
 - name: "Scale Matriarch Gratinax"
@@ -100,7 +100,7 @@ farms:
   questId: 56292
   drops:
   - type: pet
-    id: 301041
+    id: 154843
     name: "Scalebrood Hydra"
 
 - name: "Scale Matriarch Vynara"
@@ -109,7 +109,7 @@ farms:
   questId: 56293
   drops:
   - type: pet
-    id: 301041
+    id: 154843
     name: "Scalebrood Hydra"
 
 - name: "Scale Matriarch Zodia"
@@ -118,7 +118,7 @@ farms:
   questId: 56294
   drops:
   - type: pet
-    id: 301041
+    id: 154843
     name: "Scalebrood Hydra"
 
 - name: "Shassera"
@@ -154,5 +154,5 @@ farms:
   questId: 55603
   drops:
   - type: pet
-    id: 301047
+    id: 154848
     name: "Skittering Eel"

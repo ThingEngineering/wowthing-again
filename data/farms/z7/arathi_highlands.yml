@@ -19,7 +19,7 @@ farms:
   questId: 53013 53505
   drops:
   - type: pet
-    id: 279638
+    id: 143503
     name: Aldrusian Sproutling
 
 - name: Darbel Montrose
@@ -28,7 +28,7 @@ farms:
   questId: 53084 53507
   drops:
   - type: pet
-    id: 279643
+    id: 143507
     name: Voidwiggler
 
 - name: Doomrider Helgrim
@@ -47,7 +47,7 @@ farms:
   questId: 53059 53508
   drops:
   - type: pet
-    id: 279657
+    id: 143515
     name: Teeny Titan Orb
 
 - name: Foulbelly
@@ -65,7 +65,7 @@ farms:
   questId: 53019 53510
   drops:
   - type: pet
-    id: 279929
+    id: 143627
     name: Fozling
 
 - name: Geomancer Flintdagger
@@ -120,7 +120,7 @@ farms:
   questId: 53090 53515
   drops:
   - type: pet
-    id: 279930
+    id: 143628
     name: Squawkling
 
 - name: Molok the Crusher
@@ -156,7 +156,7 @@ farms:
   questId: 53020 53519
   drops:
   - type: pet
-    id: 279724
+    id: 143564
     name: Foulfeather
 
 - name: Ragebeak
@@ -165,7 +165,7 @@ farms:
   questId: 53016 53522
   drops:
   - type: pet
-    id: 279723
+    id: 143563
     name: Ragepeep
 
 - name: Ruul Onestone
@@ -201,7 +201,7 @@ farms:
   questId: 53024 53528
   drops:
   - type: pet
-    id: 279631
+    id: 143499
     name: Fuzzy Creepling
 
 - name: Yogursa
@@ -210,7 +210,7 @@ farms:
   questId: 53015 53529
   drops:
   - type: pet
-    id: 279686
+    id: 143533
     name: Scabby
 
 - name: Zalas Witherbark
@@ -228,6 +228,7 @@ farms:
   location: 37.1 39.2
   npcId: 138122
   questId: 53002
+  reset: weekly
   drops:
   - type: toy
     id: 163828
@@ -238,6 +239,7 @@ farms:
   location: 39.1 39.2
   npcId: 137374
   questId: 53001
+  reset: weekly
   drops:
   - type: toy
     id: 163829

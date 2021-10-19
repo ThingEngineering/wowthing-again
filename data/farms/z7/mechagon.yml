@@ -27,7 +27,7 @@ farms:
     name: "Paint Vial: Mechagon Gold"
 
   - type: pet
-    id: 303784
+    id: 155829
     name: "Armored Vaultbot"
 
 - name: "Boggac Skullbash"
@@ -62,7 +62,7 @@ farms:
     name: "Blueprint: Mechano-Treat"
 
   - type: pet
-    id: 301136
+    id: 154893
     name: "Bonebiter"
 
 - name: "Caustic Mechaslime"
@@ -169,7 +169,7 @@ farms:
     name: "Paint Vial: Overload Orange"
 
   - type: pet
-    id: 301050
+    id: 154851
     name: "Snowsoft Nibbler"
 
 - name: "Gear Checker Cogstar"
@@ -223,7 +223,7 @@ farms:
     name: "Blueprint: Anti-Gravity Pack"
 
   - type: pet
-    id: 301053
+    id: 154854
     name: "Lost Robogrip"
 
 - name: "Mechagonian Nullifier"
@@ -245,7 +245,7 @@ farms:
   questId: 55386
   drops:
   - type: pet
-    id: 301137
+    id: 154894
     name: "Arachnoid Skitterbot"
 
 - name: "Mr. Fixthis"
@@ -380,7 +380,7 @@ farms:
     name: "Vinyl: Depths of Ulduar"
 
   - type: pet
-    id: 303023
+    id: 155600
     name: "Spraybot 0D"
 
 - name: "The Rusty Prince"
