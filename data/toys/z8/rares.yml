@@ -1,0 +1,29 @@
+name: Rares
+groups:
+
+- name: Bastion
+  things:
+  - 184404 # Ever-Abundant Hearth (Enforcer Aegeon, Bastion)
+  - 174445 # Glimmerfly Cocoon (Sigilback, Bastion)
+  - 184413 # Mnemonic Attunment Pane (Unstable Memory, Bastion)
+
+- name: Maldraxxus
+  things:
+  - 184476 # Regenerating Slime Vial (Bubbleblood, Maldraxxus)
+
+- name: Revendreth
+  things:
+  - 180873 # Smolderheart (Sire Ladinas, Revendreth)
+
+- name: The Maw
+  things:
+  - 184292 # Ancient Elethium Coin (Morgliax, The Maw)
+  - 183901 # Bonestorm Top (Darklord Taraxis, The Maw)
+  - 184312 # Borr-Geth's Fiery Brimstone (Borr-Geth, The Maw)
+  - 187139 # Bottled Shade Heart (Torglluun, The Maw)
+  - 181794 # Orophea's Lyre (Orophea, The Maw)
+
+- name: Korthia
+  things:
+  - 187420 # Maw-Ocular Viewfinder (Observer Yorik, Korthia)
+  - 187176 # Vesper of Harmony (Wild Worldcracker, Korthia)

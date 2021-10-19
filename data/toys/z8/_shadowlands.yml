@@ -4,36 +4,41 @@ groups:
 - name: Achievements
   things:
   - 184449 # Jiggle's Favorite Toy (Nine Afterlives)
+  - 184508 # Mawsworn Pet Leash (Battle in the Shadowlands)
   - 183903 # Smelly Jelly (It's In The Mix)
   - 182695 # Weathered Purple Parasol (Parasoling)
 
+- name: Covenant Assaults
+  things:
+  - 187185 # Vesper of Faith (Ascended War Chest, Maw) assault?
+
 - name: Covenants
   things:
+  - 184487 # Gormling in a Bag (??)
   - 184353 # Kyrian Hearthstone (Kyrian)
   - 182773 # Necrolord Hearthstone (Necrolord)
   - 180290 # Night Fae Hearthstone (Night Fae)
   - 183716 # Venthyr Sinstone (Venthyr)
 
+- name: Professions
+  things:
+  - 186973 # Anima-ted Leash (Enchanting)
+  - 186985 # Elusive Pet Treat (Leatherworking)
+
 - name: Quests
   things:
   - 183847 # Acolyte's Guise (Maldraxxus, The Better Part of Valor)
+  - 177951 # Glimmerflies on Strings (Glimmerflight, Bastion) quest
   - 180947 # Tithe Collector's Vessel (Revendreth, An Unwelcome Incursion)
-
-- name: Rares
-  things:
-  - 174445 # Glimmerfly Cocoon (Sigilback) @ Bastion:55.1:80.7
-  - 184476 # Regenerating Slime Vial (Bubbleblood) @ Maldraxxus:?
-  - 180873 # Smolderheart (Sire Ladinas) @ Revendreth:33.6:55.4
+  - 187154 # Ancient Korthian Runes (Diviner's Rune Chits, Korthia) relic quest
+  - 187155 # Guise of the Changeling (Guise of the Changeling, Korthia) relic quest
+  - 187140 # Ring of Duplicity (Ring of Self-Reflection, Korthia) relic quest
+  - 187159 # Shadow Slicing Shortsword (Shadow Slicing Shortsword, Korthia) relic quest
+  - 187184 # Vesper of Clarity (Bastion Visitor Dailies, Korthia) quests?
 
 - name: Reputations
   things:
-  - 184410 # Aspirant's Stretcher (The Ascended, Revered)
-  - 184495 # Infested Arachnid Casing (Undying Army, Paragon)
   - 184447 # Kevin's Party Supplies (Slime-Coated Crate, Maldraxxus) treasure
-  - 184396 # Malfunctioning Goliath Gauntlet (The Ascended, Paragon)
-  - 182890 # Rapid Recitation Quill (The Avowed, Revered)
-  - 183900 # Sinvyr Tea Set (Court of Harvesters, Honored)
-  - 184218 # Vulgarity Arbiter (The Avowed, Exalted)
 
 - name: Torghast
   things:
@@ -42,41 +47,16 @@ groups:
   - 186974 # Experimental Anima Cell (Layer 9-12 broker)
   - 184223 # Helm of the Dominated (Twisting Corridors: Layer 4)
 
-- name: Treasures
+- name: World Drops
   things:
-  - 180993 # Bat Visage Bobber (Ardenweald)
-  - 184490 # Fae Pipes (Ardenweald)
-  - 182729 # Hearty Dragon Plume (Ardenweald)
-  - 179393 # Mirror of Envious Dreams (Revendreth)
-  - 182780 # Muckpool Cookpot (Revendreth)
-  - 182732 # The Necronom-i-nom (Maldraxxus)
-  - 181825 # Phial of Ravenous Slime (Maldraxxus)
-  - 173984 # Scroll of Aeons (Bastion)
-  - 182694 # Stylish Black Parasol (Revendreth)
+  - 187174 # Shaded Judgment Stone (The Rift)
 
 - name: FIXME
   things:
-  - 187185 # Vesper of Faith (Ascended War Chest, Maw) assault?
-  - 187174 # Shaded Judgment Stone (The Rift) ??
-  - 186985 # Elusive Pet Treat (??)
-  - 186973 # Anima-ted Leash (??)
   - 186501 # Doomwalker Trophy Stand (Doomwalker, Tanaris) 17th Anniversary
-  - 184508 # Mawsworn Pet Leash (Battle in the Shadowlands) achievement
-  - 184489 # Fae Harp (??)
-  - 184487 # Gormling in a Bag (??)
-  - 184435 # Mark of Purity (??)
-  - 184418 # Acrobatic Steward (??)
-  - 184415 # Soothing Vesper (??)
-  - 184413 # Mnemonic Attunment Pane (??)
-  - 184404 # Ever-Abundant Hearth (??)
-  - 184318 # Battlecry of Krexus (Blackhound Cache, Maldraxxus)
-  - 184075 # Stonewrought Sentry (Forbidden Chamber Lockbox, Revendreth) treasure
   - 183989 # Dredger Barrow Racer (Grand Marshal Mudrag, Revendreth) achievement/vendor?
-  - 183988 # Bondable Val'kyr Diadem (Gift of Chyrus, Bastion) treasure
-  - 183986 # Bondable Sinstone (Taskmaster's Trove, Revendreth) treasure
   - 183876 # Quill of Correspondence (Lady Ilinca, Ember Court) rep? covenant?
   - 183856 # Mystical Orb of Meditation (Master of Inner Calm, Queen's Conservatory)
   - 183810 # Shadowlands Mini: Grandmaster Vole (Prize Bag, Maldraxxus) treasure?
   - 182696 # The Countess's Parasol (The Countess' Tribute, Ember Court Friends) ??
   - 178530 # Wreath-A-Rang (??)
-  - 177951 # Glimmerflies on Strings (Glimmerflight, Bastion) quest
