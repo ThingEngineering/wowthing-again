@@ -268,14 +268,49 @@ farms:
     name: "Ylva's Water Dish"
     limit: weapon shield
 
-#
-#
-#- name:
-#  location:
-#  npcId:
-#  questId:
-#  drops:
-#  - type:
-#    id:
-#    name:
-#    limit:
+# World boss
+- name: "Mor'geth"
+  location: 68.9 44.0
+  npcId: 178958
+  questId: 64531
+  reset: weekly
+  drops:
+  - type: transmog
+    id: 186357
+    name: "Sorrowful Trousers"
+    limit: armor cloth
+
+  - type: transmog
+    id: 186355
+    name: "Wristwraps of Anguish"
+    limit: armor cloth
+
+  - type: transmog
+    id: 186361
+    name: "Grips of Unleashed Suffering"
+    limit: armor leather
+
+  - type: transmog
+    id: 186360
+    name: "Tormented Soul Harness"
+    limit: armor leather
+
+  - type: transmog
+    id: 186368
+    name: "Mor'geth's Gauntlets of Damnation"
+    limit: armor mail
+
+  - type: transmog
+    id: 186366
+    name: "Stygian Chain Greaves"
+    limit: armor mail
+
+  - type: transmog
+    id: 186370
+    name: "Caged Legplates"
+    limit: armor plate
+
+  - type: transmog
+    id: 186372
+    name: "Tormentor's Greatbelt"
+    limit: armor plate
