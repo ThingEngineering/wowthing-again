@@ -1,7 +1,8 @@
 <script lang="ts">
     import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons'
+    import { onMount } from 'svelte'
     import Fa from 'svelte-fa'
-    import { link, location } from 'svelte-spa-router'
+    import { link, location, replace } from 'svelte-spa-router'
     import active from 'svelte-spa-router/active'
 
     import type {SidebarItem} from '@/types'
@@ -10,6 +11,7 @@
     export let anyChildren: boolean
     export let baseUrl: string
     export let item: SidebarItem
+    export let noVisitRoot = false
     export let parentItem: SidebarItem = undefined
     export let percentFunc: (entry: SidebarItem, parentEntry?: SidebarItem) => number = undefined
 
@@ -20,10 +22,14 @@
     $: {
         if (item) {
             url = `${baseUrl}/${item.slug}`
-            expanded = $location.startsWith(url)
+            expanded = $location.startsWith(url) && item.children?.length > 0
 
             if (percentFunc !== undefined) {
                 percent = percentFunc(item, parentItem)
+            }
+
+            if (noVisitRoot && expanded && $location === url ) {
+                replace(`${url}/${item.children[0].slug}`)
             }
         }
     }
@@ -73,9 +79,11 @@
 
 {#if item}
     <li>
-        <a href="{url}"
-           use:link
-           use:active={new RegExp('^' + url.replace(/\//g, '\\/') + '(?:\\?.*?)?$')}
+        <a
+            href="{url}"
+            style="{noVisitRoot ? '--linkColor: #ffffff' : null}"
+            use:link
+            use:active={new RegExp('^' + url.replace(/\//g, '\\/') + '(?:\\?.*?)?$')}
         >
             {item.name}
 
@@ -87,20 +95,19 @@
                 <Fa fw icon={expanded ? faChevronDown : faChevronRight} pull="right" size="sm" />
             {/if}
         </a>
-        {#if item.children?.length > 0}
-            {#if expanded}
-                <ul>
-                    {#each item.children as child}
-                        <svelte:self
-                            {anyChildren}
-                            baseUrl={url}
-                            item={child}
-                            parentItem={item}
-                            {percentFunc}
-                        />
-                    {/each}
-                </ul>
-            {/if}
+
+        {#if expanded}
+            <ul>
+                {#each item.children as child}
+                    <svelte:self
+                        {anyChildren}
+                        baseUrl={url}
+                        item={child}
+                        parentItem={item}
+                        {percentFunc}
+                    />
+                {/each}
+            </ul>
         {/if}
     </li>
 {:else}

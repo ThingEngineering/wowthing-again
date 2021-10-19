@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 using Wowthing.Lib.Extensions;
 
 namespace Wowthing.Backend.Models.Data.Farms
@@ -9,6 +10,10 @@ namespace Wowthing.Backend.Models.Data.Farms
     {
         public int NpcId { get; set; }
         public string[] Location { get; set; }
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public string Faction { get; set; }
+        
         public string Name { get; set; }
         public string Note { get; set; }
         public string Reset { get; set; }
@@ -22,6 +27,7 @@ namespace Wowthing.Backend.Models.Data.Farms
                 .EmptyIfNull()
                 .Select(drop => new OutFarmDrop(drop))
                 .ToList();
+            Faction = farm.Faction;
             Location = (farm.Location ?? "").Split();
             Name = farm.Name;
             NpcId = farm.NpcId;

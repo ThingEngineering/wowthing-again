@@ -23,4 +23,5 @@
     baseUrl="/farms"
     items={categories}
     width="12rem"
+    noVisitRoot={true}
 />
