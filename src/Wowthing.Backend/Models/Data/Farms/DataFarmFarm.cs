@@ -5,6 +5,7 @@ namespace Wowthing.Backend.Models.Data.Farms
     public class DataFarmFarm
     {
         public int NpcId { get; set; }
+        public string Faction { get; set; }
         public string Location { get; set; }
         public string Name { get; set; }
         public string Note { get; set; }

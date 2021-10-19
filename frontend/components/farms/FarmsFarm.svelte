@@ -36,6 +36,12 @@
         &.inactive {
             color: #009f00;
         }
+        &.alliance {
+            color: #4499ff;
+        }
+        &.horde {
+            color: #ff8888;
+        }
     }
     span {
         background-color: $highlight-background;
@@ -63,7 +69,13 @@
     }}
 >
     <NpcLink id={farm.npcId} noTooltip={true} toComments={true}>
-        <div class="icon drop-shadow" class:active={status.need} class:inactive={!status.need}>
+        <div
+            class="icon drop-shadow"
+            class:active={status.need}
+            class:inactive={!status.need}
+            class:alliance={farm.faction === 'alliance'}
+            class:horde={farm.faction === 'horde'}
+        >
             <Fa fw icon={faSkull} />
         </div>
 

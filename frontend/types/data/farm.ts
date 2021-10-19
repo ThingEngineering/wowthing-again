@@ -12,6 +12,7 @@ export interface FarmDataCategory {
 }
 
 export interface FarmDataFarm {
+    faction?: string
     npcId: number
     name: string
     note: string

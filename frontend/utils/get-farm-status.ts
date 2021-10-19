@@ -141,6 +141,13 @@ export default function getFarmStatus(
                             )
                             break
 
+                        case 'faction':
+                            characters = filter(
+                                minLevelCharacters,
+                                (c) => c.faction === (drop.limit[1] === 'alliance' ? 0 : 1)
+                            )
+                            break
+
                         case 'weapon':
                             characters = filter(
                                 minLevelCharacters,
@@ -151,6 +158,14 @@ export default function getFarmStatus(
                 }
                 else {
                     characters = minLevelCharacters
+                }
+
+                // Filter for farm faction
+                if (farm.faction) {
+                    characters = filter(
+                        characters,
+                        (c) => c.faction === (farm.faction === 'alliance' ? 0 : 1)
+                    )
                 }
 
                 // Filter again for characters that haven't completed the quest
