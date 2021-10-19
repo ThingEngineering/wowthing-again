@@ -81,6 +81,8 @@
                             {/if}
                         {:else if drop.type === 'transmog'}
                             cosmetic
+                        {:else}
+                            {drop.type}
                         {/if}
                     </td>
                 </tr>
