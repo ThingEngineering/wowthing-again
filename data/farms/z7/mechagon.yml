@@ -1,0 +1,412 @@
+name: Mechagon
+mapName: z7_mechagon
+minimumLevel: 45
+wowheadGuide: https://www.wowhead.com/guides/rewards-from-the-darkshore-warfront
+farms:
+
+- name: "Arachnoid Harvester"
+  location: 52.9 40.9
+  npcId: 151934
+  questId: 55512
+  drops:
+  - type: mount
+    id: 291492
+    name: "Rusty Mechanocrawler"
+
+- name: "Armored Vaultbot"
+  location: 53.8 49.3
+  npcId: 150394
+  questId: 55546
+  drops:
+  - type: quest
+    id: 55058
+    name: "Blueprint: Vaultbot Key"
+
+  - type: quest
+    id: 55455
+    name: "Paint Vial: Mechagon Gold"
+
+  - type: pet
+    id: 303784
+    name: "Armored Vaultbot"
+
+- name: "Boggac Skullbash"
+  location: 55.6 25.7
+  npcId: 151308
+  questId: 55539
+  drops:
+  - type: quest
+    id: 56515
+    name: "Vinyl: Gnomeregan Forever"
+
+- name: "Boilburn"
+  location: 51.3 50.1
+  npcId: 153200
+  questId: 55857
+  drops:
+  - type: quest
+    id: 55030
+    name: "Blueprint: Scrap Trap"
+
+  - type: quest
+    id: 56518
+    name: "Vinyl: Depths of Ulduar"
+
+- name: "Bonepicker"
+  location: 65.8 22.9
+  npcId: 152001
+  questId: 55537
+  drops:
+  - type: quest
+    id: 55061
+    name: "Blueprint: Mechano-Treat"
+
+  - type: pet
+    id: 301136
+    name: "Bonebiter"
+
+- name: "Caustic Mechaslime"
+  location: 66.5 58.9
+  npcId: 154739
+  questId: 56368
+  drops:
+  - type: quest
+    id: 55078
+    name: "Blueprint: Utility Mechanoclaw"
+
+- name: "Crazed Trogg"
+  location: 82.5 20.7
+  npcId: 149847
+  questId: 55812
+  drops:
+  - type: quest
+    id: 55077
+    name: "Blueprint: Blue Spraybot"
+
+  - type: quest
+    id: 55076
+    name: "Blueprint: Green Spraybot"
+
+  - type: quest
+    id: 55075
+    name: "Blueprint: Orange Spraybot"
+
+  - type: quest
+    id: 55452
+    name: "Paint Vial: Fel Mint Green"
+
+  - type: quest
+    id: 55457
+    name: "Paint Vial: Overload Orange"
+
+- name: "Deepwater Maw"
+  location: 35.5 42.3
+  npcId: 151569
+  questId: 55514
+  drops:
+  - type: quest
+    id: 55057
+    name: "Blueprint: Canned Minnows"
+
+- name: "Earthbreaker Gulroc"
+  location: 63.1 25.6
+  npcId: 150342
+  questId: 55814
+  drops:
+  - type: quest
+    id: 55030
+    name: "Blueprint: Scrap Trap"
+
+  - type: quest
+    id: 56518
+    name: "Vinyl: Depths of Ulduar"
+
+- name: "Enforcer KX-T57"
+  location: 55.1 56.8
+  npcId: 154153
+  questId: 56207
+  drops:
+  - type: quest
+    id: 55082
+    name: "Blueprint: Rustbolt Pocket Turret"
+
+  - type: transmog
+    id: 170466
+    name: "Junkyard Motivator"
+    limit: weapon staff
+
+  - type: transmog
+    id: 170468
+    name: "Supervolt Zapper"
+    limit: weapon gun
+
+  - type: transmog
+    id: 170467
+    name: "Whirring Chainblade"
+    limit: weapon 1h-sword str
+
+  - type: transmog
+    id: 170470
+    name: "Reinforced Grease Deflector"
+    limit: weapon shield
+
+- name: "Foul Manifestation"
+  location: 65.5 51.7
+  npcId: 151202
+  questId: 55513
+  drops:
+  - type: quest
+    id: 55063
+    name: "Blueprint: G99.99 Landshark"
+
+- name: "Fungarian Furor"
+  location: 44.6 39.6
+  npcId: 151884
+  questId: 55367
+  drops:
+  - type: quest
+    id: 55457
+    name: "Paint Vial: Overload Orange"
+
+  - type: pet
+    id: 301050
+    name: "Snowsoft Nibbler"
+
+- name: "Gear Checker Cogstar"
+  location: 61.4 51.2
+  npcId: 153228
+  questId: 55852
+  drops:
+  - type: quest
+    id: 55062
+    name: "Blueprint: Ultrasafe Transporter: Mechagon"
+
+  - type: transmog
+    id: 170467
+    name: "Whirring Chainblade"
+    limit: weapon 1h-sword str
+
+- name: "Gemicide"
+  location: 59.8 67.0
+  npcId: 153205
+  questId: 55855
+  drops:
+  - type: quest
+    id: 56518
+    name: "Vinyl: Depths of Ulduar"
+
+- name: "Gorged Gear-Cruncher"
+  location: 73.1 54.1
+  npcId: 154701
+  questId: 56367
+  drops:
+  - type: quest
+    id: 55061
+    name: "Blueprint: Mechano-Treat"
+
+- name: "Killsaw"
+  location: 44.8 46.4
+  npcId: 152007
+  questId: 55369
+  drops:
+  - type: toy
+    id: 167931
+    name: "Mechagonian Sawblades"
+
+- name: "Malfunctioning Beastbot (55926 56506)"
+  location: 60.7 42.2
+  npcId: 151933
+  questId: 55544
+  drops:
+  - type: quest
+    id: 55081
+    name: "Blueprint: Anti-Gravity Pack"
+
+  - type: pet
+    id: 301053
+    name: "Lost Robogrip"
+
+- name: "Mechagonian Nullifier"
+  location: 57.2 52.6
+  npcId: 151124
+  questId: 55207
+  drops:
+  - type: quest
+    id: 55069
+    name: "Blueprint: Protocol Transference Device"
+
+  - type: quest
+    id: 56515
+    name: "Vinyl: Gnomeregan Forever"
+
+- name: "Mecharantula"
+  location: 88.1 20.8
+  npcId: 151672
+  questId: 55386
+  drops:
+  - type: pet
+    id: 301137
+    name: "Arachnoid Skitterbot"
+
+- name: "Mr. Fixthis"
+  location: 61.0 61.0
+  npcId: 151627
+  questId: 55859
+  drops:
+  - type: quest
+    id: 55068
+    name: "Blueprint: BAWLD-371"
+
+  - type: transmog
+    id: 170467
+    name: "Whirring Chainblade"
+    limit: weapon 1h-sword str
+
+- name: "OOX-Avenger/MG"
+  location: 57.1 39.4
+  npcId: 151296
+  questId: 55515
+  drops:
+  - type: quest
+    id: 55071
+    name: "Blueprint: Emergency Rocket Chicken"
+
+- name: "Ol' Big Tusk"
+  location: 56.2 36.0
+  npcId: 153206
+  questId: 55853
+  drops:
+  - type: quest
+    id: 55061
+    name: "Blueprint: Mechano-Treat"
+
+  - type: quest
+    id: 56518
+    name: "Vinyl: Depths of Ulduar"
+
+  - type: transmog
+    id: 170466
+    name: "Junkyard Motivator"
+    limit: weapon staff agi
+
+- name: "Oxidized Leachbeast"
+  location: 56.6 62.9
+  npcId: 152764
+  questId: 55856
+  drops:
+  - type: quest
+    id: 55454
+    name: "Paint Vial: Lemonade Steel"
+
+- name: "Paol Pondwader"
+  location: 22.5 68.7
+  npcId: 151702
+  questId: 55405
+  drops:
+  - type: transmog
+    id: 170468
+    name: "Supervolt Zapper"
+    limit: weapon gun
+
+- name: "Rumblerocks"
+  location: 40.2 53.2
+  npcId: 150575
+  questId: 55368
+  drops:
+  - type: quest
+    id: 55517
+    name: "Paint Vial: Big-ol Bronze"
+
+- name: "Rustfeather"
+  location: 65.6 78.5
+  npcId: 152182
+  questId: 55811
+  drops:
+  - type: quest
+    id: 55081
+    name: "Blueprint: Anti-Gravity Pack"
+
+  - type: mount
+    id: 297157
+    name: "Junkheap Drifter"
+
+- name: "Scrapclaw"
+  location: 82.3 73.0
+  npcId: 155583
+  questId: 56737
+  drops:
+  - type: transmog
+    id: 170470
+    name: "Reinforced Grease Deflector"
+    limit: weapon shield
+
+- name: "Seaspit"
+  location: 19.1 79.8
+  npcId: 150937
+  questId: 55545
+  drops:
+  - type: quest
+    id: 55065
+    name: "Blueprint: Rustbolt Kegerator"
+
+- name: "Steel Singer Freza"
+  location: 26.3 78.1
+  npcId: 153226
+  questId: 55854
+  drops:
+  - type: quest
+    id: 55064
+    name: "Blueprint: Rustbolt Gramophone"
+
+  - type: quest
+    id: 56517
+    name: "Vinyl: Battle of Gnomeregan"
+
+  - type: quest
+    id: 56516
+    name: "Vinyl: Mimiron's Brainstorm"
+
+  - type: quest
+    id: 56519
+    name: "Vinyl: Triumph of Gnomeregan"
+
+- name: "The Kleptoboss"
+  location: 68.4 47.8
+  npcId: 152113
+  questId: 55858
+  drops:
+  - type: quest
+    id: 56518
+    name: "Vinyl: Depths of Ulduar"
+
+  - type: pet
+    id: 303023
+    name: "Spraybot 0D"
+
+- name: "The Rusty Prince"
+  location: 57.3 58.3
+  npcId: 154225
+  questId: 56182
+  drops:
+  - type: toy
+    id: 169347
+    name: "Judgment of Mechagon"
+
+  - type: transmog
+    id: 170467
+    name: "Whirring Chainblade"
+    limit: weapon 1h-sword str
+
+- name: "The Scrap King"
+  location: 72.3 49.9
+  npcId: 151625
+  questId: 55364
+  drops:
+  - type: quest
+    id: 55061
+    name: "Blueprint: Mechano-Treat"
+
+  - type: transmog
+    id: 170467
+    name: "Whirring Chainblade"
+    limit: weapon 1h-sword str

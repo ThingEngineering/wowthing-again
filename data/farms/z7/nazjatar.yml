@@ -1,0 +1,158 @@
+name: Nazjatar
+mapName: z7_nazjatar
+minimumLevel: 45
+wowheadGuide: https://www.wowhead.com/guides/rewards-from-the-darkshore-warfront
+farms:
+
+- name: "Avarius"
+  location: 36.9 11.2
+  npcId: 150191
+  questId: 55584
+  drops:
+  - type: pet
+    id: 301044
+    name: "Brinestone Algan"
+
+- name: "Blindlight"
+  location: 37.4 82.6
+  npcId: 152712
+  questId: 56269
+  drops:
+  - type: pet
+    id: 301043
+    name: "Necrofin Tadpole"
+
+- name: "Carnivorous Lasher"
+  location: 54.7 41.8
+  npcId: 149653
+  questId: 55366
+  drops:
+  - type: pet
+    id: 301046
+    name: "Coral Lashling"
+
+- name: "Caverndark Terror"
+  location: 40.8 7.4
+  npcId: 152464
+  questId: 56283
+  drops:
+  - type: pet
+    id: 301027
+    name: "Caverndark Nightmare"
+
+- name: "Elderspawn Nalaada"
+  location: 51.8 74.9
+  npcId: 152555
+  questId: 56285
+  drops:
+  - type: pet
+    id: 301030
+    name: "Spawn of Nalaada"
+
+- name: "Iridescent Glimmershell"
+  location: 43.4 55.1
+  npcId: 152448
+  questId: 56286
+  drops:
+  - type: pet
+    id: 301023
+    name: "Pearlescent Glimmershell"
+
+- name: "King Gakula"
+  location: 29.4 29.0
+  npcId: 152323
+  questId: 55671
+  drops:
+  - type: pet
+    id: 301042
+    name: "Murgle"
+
+- name: "Needlespine"
+  location: 48.6 17.6
+  npcId: 152465
+  questId: 56275
+  drops:
+  - type: pet
+    id: 301026
+    name: "Chitterspine Needler"
+
+- name: "Prince Typhonus"
+  location: 42.7 87.4
+  npcId: 152681
+  questId: 56289
+  drops:
+  - type: pet
+    id: 301038
+    name: "Seafury"
+
+- name: "Prince Vortran"
+  location: 43.0 75.5
+  npcId: 152682
+  questId: 56290
+  drops:
+  - type: pet
+    id: 301039
+    name: "Stormwrath"
+
+- name: "Scale Matriarch Gratinax"
+  location: 35.6 41.4
+  npcId: 152548
+  questId: 56292
+  drops:
+  - type: pet
+    id: 301041
+    name: "Scalebrood Hydra"
+
+- name: "Scale Matriarch Vynara"
+  location: 27.2 37.1
+  npcId: 152545
+  questId: 56293
+  drops:
+  - type: pet
+    id: 301041
+    name: "Scalebrood Hydra"
+
+- name: "Scale Matriarch Zodia"
+  location: 28.6 46.6
+  npcId: 152542
+  questId: 56294
+  drops:
+  - type: pet
+    id: 301041
+    name: "Scalebrood Hydra"
+
+- name: "Shassera"
+  location: 62.7 8.1
+  npcId: 152552
+  questId: 56295
+  drops:
+  - type: toy
+    id: 170187
+    name: "Shadescale"
+
+- name: "Soundless"
+  location: 60.2 47.4
+  npcId: 152290
+  questId: 56298
+  drops:
+  - type: mount
+    id: 300149
+    name: "Silent Glider"
+
+- name: "Tidemistress Leth'sindra"
+  location: 65.9 22.4
+  npcId: 154148
+  questId: 56106
+  drops:
+  - type: toy
+    id: 170196
+    name: "Shirakess Warning Sign"
+
+- name: "Vor'koth"
+  location: 48.0 24.3
+  npcId: 150468
+  questId: 55603
+  drops:
+  - type: pet
+    id: 301047
+    name: "Skittering Eel"
