@@ -1,9 +1,11 @@
 <script lang="ts">
-    import { faCheck, faTimes } from '@fortawesome/free-solid-svg-icons'
-    import Fa from 'svelte-fa'
+    import mdiCheck from '@iconify/icons-mdi/check'
+    import mdiClose from '@iconify/icons-mdi/close'
     import ListView from 'svelte-sortable-flat-list-view'
 
     import type { SettingsChoice } from '@/types'
+
+    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
 
     export let active: SettingsChoice[]
     export let inactive: SettingsChoice[]
@@ -21,9 +23,6 @@
         display: flex;
         gap: 0.5rem;
 
-        & :global(svg) {
-            margin-right: -4px;
-        }
         & :global(.column:first-child svg) {
             color: $colour-success;
         }
@@ -62,7 +61,9 @@
 
             & :global(svg) {
                 color: #8cf;
-                margin-top: 7px;
+                margin-top: 0.2rem;
+                position: absolute;
+                right: 0.1rem;
             }
         }
     }
@@ -88,7 +89,7 @@
                 let:Item
             >
                 {Item.name}
-                <Fa fw icon={faCheck} pull="right" />
+                <IconifyIcon icon={mdiCheck} />
             </ListView>
         </div>
 
@@ -106,7 +107,7 @@
                 let:Item
             >
                 {Item.name}
-                <Fa fw icon={faTimes} pull="right" />
+                <IconifyIcon icon={mdiClose} />
             </ListView>
         </div>
     </div>

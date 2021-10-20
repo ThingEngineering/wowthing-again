@@ -1,9 +1,10 @@
 <script lang="ts">
-    import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons'
-    import { onMount } from 'svelte'
-    import Fa from 'svelte-fa'
+    import mdiChevronDown from '@iconify/icons-mdi/chevron-down'
+    import mdiChevronRight from '@iconify/icons-mdi/chevron-right'
     import { link, location, replace } from 'svelte-spa-router'
     import active from 'svelte-spa-router/active'
+
+    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
 
     import type {SidebarItem} from '@/types'
     import getPercentClass from '@/utils/get-percent-class'
@@ -47,10 +48,6 @@
         ul li a {
             padding-left: 1.5rem;
         }
-
-        & :global(svg) {
-            margin-top: 0.35rem;
-        }
     }
 
     a {
@@ -64,6 +61,12 @@
 
         &:hover {
             background: $highlight-background;
+        }
+
+        & :global(svg) {
+            margin-top: 0.1rem;
+            position: absolute;
+            right: 0.1rem;
         }
     }
 
@@ -92,7 +95,9 @@
             {/if}
 
             {#if item.children?.length > 0}
-                <Fa fw icon={expanded ? faChevronDown : faChevronRight} pull="right" size="sm" />
+                <IconifyIcon
+                    icon={expanded ? mdiChevronDown : mdiChevronRight}
+                />
             {/if}
         </a>
 
