@@ -1,6 +1,6 @@
 *
+    drops.yml
     instances.yml
-    rares.yml
     reputations.yml
 
 z8/_shadowlands.yml
@@ -52,6 +52,13 @@ world_events/_blank.yml
 
 -
 
+drops.yml
+    z8/drops.yml Shadowlands
+    z7/drops.yml Battle for Azeroth
+    z6/drops.yml Legion
+    z5/drops.yml Warlords of Draenor
+    z4/drops.yml Mists of Pandaria
+
 instances.yml
     z8/instances.yml Shadowlands
     z7/instances.yml Battle for Azeroth
@@ -62,12 +69,6 @@ instances.yml
     z2/instances.yml Wrath of the Lich King
     z1/instances.yml The Burning Crusade
     z0/instances.yml Vanilla
-
-rares.yml
-    z8/rares.yml Shadowlands
-    z7/rares.yml Battle for Azeroth
-    z6/rares.yml Legion
-    z5/rares.yml Warlords of Draenor
 
 reputations.yml
     z8/reputations.yml Shadowlands

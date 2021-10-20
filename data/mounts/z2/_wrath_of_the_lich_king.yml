@@ -13,7 +13,7 @@ groups:
   things:
   - 54753 # White Polar Bear (The Storm Peaks, Brunnhildar Village daily, random Hyldnir Spoils reward)
 
-- name: Rare Spawns
+- name: Drops
   things:
   - 60002 # Time-Lost Proto-Drake
 

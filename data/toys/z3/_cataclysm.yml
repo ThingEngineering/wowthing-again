@@ -11,7 +11,7 @@ groups:
   -  70161 # Mushroom Chair (Molten Front)
   -  70159 # Mylune's Call (Molten Front)
 
-- name: Rares
+- name: Drops
   things:
   - 134022 # Burgy Blackheart's Handsome Hat (Burgy Blackheart, Vashj'ir)
 

@@ -31,3 +31,8 @@ groups:
 - name: Trading Post
   things:
   - 171626 171839 # Armored Irontusk/Ironside Warwolf (Trading Post)
+
+- name: Vendors
+  things:
+  - 171628 # Rocktusk Battleboar (Gold - Garrison)
+  - 171616 # Witherhide Cliffstomper (Gold - Garrison)

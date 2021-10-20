@@ -15,7 +15,7 @@ groups:
   things:
   -  75207 # Vashj'ir Seahorse (Kelp'thar Forest, The Abyssal Ride quest)
 
-- name: Rare Spawns
+- name: Drops
   things:
   - 88750 # Grey Riding Camel (Uldum)
   - 88718 # Phosporescent Stone Drake (Deepholm)
