@@ -4,72 +4,76 @@ minimumLevel: 48
 wowheadGuide: https://www.wowhead.com/guides/shadowlands-revendreth-rares-treasures
 farms:
 
-- name: Amalgamation of Filth
+- name: "Amalgamation of Filth"
   location: 53.2 73.0
   npcId: 166393
   questId: 59854
   drops:
   - type: transmog
     id: 183729
-    name: Filth-Splattered Headcover
+    name: "Filth-Splattered Headcover"
     limit: armor leather
 
-- name: Amalgamation of Light
-  location: 25.2 48.5
+- name: "Amalgamation of Light"
+  location: 25.3 48.5
   npcId: 164388
   questId: 59584
   drops:
+  - type: pet
+    id: 333796
+    name: "Bound Lightspawn"
+
   - type: transmog
     id: 179926
-    name: Light-Infused Tunic
+    name: "Light-Infused Tunic"
     limit: armor cloth
 
   - type: transmog
     id: 179924
-    name: Light-Infused Jacket
+    name: "Light-Infused Jacket"
     limit: armor leather
 
   - type: transmog
     id: 179653
-    name: Light-Infused Hauberk
+    name: "Light-Infused Hauberk"
     limit: armor mail
 
   - type: transmog
     id: 179925
-    name: Light-Infused Breastplate
+    name: "Light-Infused Breastplate"
     limit: armor plate
 
-- name: Amalgamation of Sin
-  location: 65.7 29.2
+- name: "Amalgamation of Sin"
+  location: 65.8 29.1
   npcId: 170434
   questId: 60836
   drops:
   - type: transmog
     id: 183730
-    name: Sinstone-Studded Greathelm
+    name: "Sinstone-Studded Greathelm"
     limit: armor plate
 
-- name: Azgar
+- name: "Azgar"
   location: 35.8 70.5
   npcId: 166576
   questId: 59893
   drops:
   - type: transmog
     id: 183731
-    name: Smolder-Tempered Legplates
+    name: "Smolder-Tempered Legplates"
     limit: armor plate
 
-- name: Bog Beast
-  location: 35.0 32.2
+- name: "Bog Beast"
+  location: 35.0 32.3
   npcId: 166292
   questId: 59582
   drops:
   - type: pet
     id: 171121
-    name: Primordial Bogling
+    name: "Primordial Bogling"
 
-- name: Executioner Aatron
-  location: 37.1 47.5
+- name: "Executioner Aatron"
+  location: 37.1 47.4
   npcId: 166710
   questId: 59913
   drops:
@@ -78,8 +82,8 @@ farms:
     name: "Aatron's Stone Girdle"
     limit: armor plate
 
-- name: Executioner Adrastia
-  location: 43.0 51.7
+- name: "Executioner Adrastia"
+  location: 43.1 51.8
   npcId: 161310
   questId: 58441
   drops:
@@ -88,22 +92,22 @@ farms:
     name: "Adrastia's Executioner Gloves"
     limit: armor leather
 
-- name: Famu the Infinite
-  location: 62.4 47.2
+- name: "Famu the Infinite"
+  location: 62.5 47.2
   npcId: 166521
   questId: 59869
   drops:
   - type: mount
     id: 332905
-    name: Endmire Flyer
+    name: "Endmire Flyer"
 
   - type: transmog
     id: 183739
-    name: Endmire Wristwarmers
+    name: "Endmire Wristwarmers"
     limit: armor cloth
 
-- name: Forgemaster Madalav
-  location: 32.6 15.5
+- name: "Forgemaster Madalav"
+  location: 32.6 15.4
   note: Must be Venthyr with anima channeled to start event
   npcId: 159496
   questId: 61618
@@ -113,8 +117,8 @@ farms:
     name: "Mantle of the Forgemaster's Dark Blades"
     limit: covenant venthyr
 
-- name: Grand Arcanist Dimitri
-  location: 20.4 52.9
+- name: "Grand Arcanist Dimitri"
+  location: 20.5 53.0
   npcId: 167464
   questId: 60173
   drops:
@@ -123,32 +127,32 @@ farms:
     name: "Grand Arcanist's Soulblade"
     limit: weapon dagger int
 
-- name: Harika the Horrid
+- name: "Harika the Horrid"
   location: 45.8 79.1
-  note: Must be Venthyr with anima channeled to start event
+  note: "Must be Venthyr with anima channeled to start event"
   npcId: 165290
   questId: 59612
   drops:
   - type: mount
     id: 332882
-    name: Horrid Dredwing
+    name: "Horrid Dredwing"
 
   - type: transmog
     id: 183720
-    name: Dredbatskin Jerkin
+    name: "Dredbatskin Jerkin"
     limit: armor leather
 
-- name: Hopecrusher
-  location: 52.0 51.9
+- name: "Hopecrusher"
+  location: 52.0 51.8
   npcId: 166679
   questId: 59900
   drops:
   - type: mount
     id: 312753
-    name: Hopecrusher Gargon
+    name: "Hopecrusher Gargon"
     limit: covenant venthyr
 
-- name: Innervus
+- name: "Innervus"
   location: 21.8 35.9
   npcId: 160640
   questId: 58210
@@ -158,97 +162,99 @@ farms:
     name: "Rogue Sinstealer's Mantle"
     limit: armor cloth
 
-- name: Leeched Soul
-  location: 67.9 81.8
+- name: "Leeched Soul"
+  location: 68.0 81.8
   npcId: 165152
   questId: 59580
   drops:
   - type: pet
     id: 171118
-    name: Wrathling
+    name: "Wrathling"
 
   - type: transmog
     id: 183736
-    name: Pride Resistant Handwraps
+    name: "Pride Resistant Handwraps"
     limit: armor cloth
 
-- name: Lord Mortegore
-  location: 75.9 61.6
+- name: "Lord Mortegore"
+  location: 76.0 61.6
   npcId: 161891
   questId: 58633
   drops:
   - type: transmog
     id: 180501
-    name: Skull-Formed Headcage
+    name: "Skull-Formed Headcage"
     limit: armor mail
 
-- name: Manifestation of Wrath
-  location: 48.9 34.9
+- name: "Manifestation of Wrath"
+  location: 49.0 34.9
+  note: "Can spawn during the Swarming Souls world quest"
   npcId: 170048
   questId: 60729
   drops:
   - type: pet
     id: 171118
-    name: Wrathling
+    name: "Wrathling"
 
-- name: Scrivener Lenua
-  location: 78.8 49.8
+- name: "Scrivener Lenua"
+  location: 38.3 69.1
   npcId: 160675
   questId: 58213
   drops:
   - type: pet
     id: 171120
-    name: Animated Tome
+    name: "Animated Tome"
 
-- name: Sinstone Hoarder
+- name: "Sinstone Hoarder"
   location: 67.4 30.5
   npcId: 162481
   questId: 62252
   drops:
   - type: transmog
     id: 183732
-    name: Sinstone-Linked Greaves
+    name: "Sinstone-Linked Greaves"
     limit: armor mail
 
-- name: Sire Ladinas
+- name: "Sire Ladinas"
   location: 34.0 55.6
+  note: "Pick up the yellow crystals nearby and throw them at ghouls, rare will spawn after one yells"
   npcId: 160857
   questId: 58263
   drops:
   - type: toy
     id: 180873
-    name: Smolderheart
+    name: "Smolderheart"
 
-- name: Stonefist
-  location: 31.2 23.3
+- name: "Stonefist"
+  location: 31.3 23.2
   npcId: 159503
   questId: 62220
   drops:
   - type: transmog
     id: 180488
-    name: Fist Forged Breastplate
+    name: "Fist Forged Breastplate"
     limit: armor plate
 
-- name: Tomb Burster
-  location: 42.9 79.1
+- name: "Tomb Burster"
+  location: 43.0 79.1
   npcId: 155779
   questId: 56877
   drops:
   - type: pet
     id: 171117
-    name: Blushing Spiderling
+    name: "Blushing Spiderling"
 
-- name: Worldedge Gorger
+- name: "Worldedge Gorger"
   location: 38.6 72.0
   npcId: 160821
   questId: 58259
   drops:
   - type: mount
     id: 333027
-    name: Loyal Gorger
+    name: "Loyal Gorger"
 
 # World boss
-- name: Nurgash Muckformed
+- name: "Nurgash Muckformed"
   location: 27.2 14.6
   npcId: 1
   questId: 61814
@@ -257,25 +263,128 @@ farms:
   drops:
   - type: transmog
     id: 184131
-    name: Comfortable Slumberwraps
+    name: "Comfortable Slumberwraps"
     limit: armor cloth
 
   - type: transmog
     id: 184137
-    name: Sinstone Shoulderpadding
+    name: "Sinstone Shoulderpadding"
     limit: armor cloth
 
   - type: transmog
     id: 184130
-    name: Nurgash's Belt of Many Sinstones
+    name: "Nurgash's Belt of Many Sinstones"
     limit: armor leather
 
   - type: transmog
     id: 184134
-    name: Jingling Stone Stompers
+    name: "Jingling Stone Stompers"
     limit: armor mail
 
   - type: transmog
     id: 184171
-    name: Hardened Castle Crushers
+    name: "Hardened Castle Crushers"
     limit: armor plate
+
+# Treasures
+
+- name: "Chest of Envious Dreams"
+  location: 69.3 78.0
+  questId: 59833
+  reset: never
+  type: treasure
+  drops:
+  - type: toy
+    id: 179393
+    name: "Mirror of Envious Dreams"
+
+- name: "Forbidden Chamber"
+  location: 47.3 55.4
+  questId: 62243
+  reset: never
+  type: treasure
+  drops:
+  - type: toy
+    id: 184075
+    name: "Stonewrought Sentry"
+
+- name: "Forgotten Angler's Rod"
+  location: 73.6 75.4
+  questId: 62196
+  reset: never
+  type: treasure
+  drops:
+  - type: toy
+    id: 180993
+    name: "Bat Visage Bobber"
+
+- name: "Lost Quill"
+  location: 37.7 69.2
+  questId: 61990
+  reset: never
+  type: treasure
+  drops:
+  - type: pet
+    id: 173508
+    name: "Lost Quill"
+
+- name: "Makeshift Muckpool"
+  location: 29.7 37.2
+  questId: 62198
+  reset: never
+  type: treasure
+  drops:
+  - type: toy
+    id: 182780
+    name: "Muckpool Cookpot"
+
+- name: "Smuggled Cache"
+  location: 31.1 55.1
+  questId: 59889
+  reset: never
+  type: treasure
+  drops:
+  - type: quest
+    id: 62189
+    name: "Bundle of Smuggled Parasol Components"
+
+- name: "Stylish Parasol"
+  location: 38.4 44.2
+  questId: 61999
+  reset: never
+  type: treasure
+  drops:
+  - type: toy
+    id: 182694
+    name: "Stylish Black Parasol"
+
+- name: "Taskmaster's Trove"
+  location: 63.4 74.0
+  questId: 62199
+  reset: never
+  type: treasure
+  drops:
+  - type: toy
+    id: 183986
+    name: "Bondable Sinstone"
+
+- name: "The Count"
+  location: 57.4 43.4
+  questId: 62063
+  reset: never
+  type: treasure
+  drops:
+  - type: pet
+    id: 173531
+    name: "The Count"
+
+- name: "Vrytha's Dredglaive"
+  location: 70.2 60.0
+  questId: 62164
+  reset: never
+  type: treasure
+  drops:
+  - type: transmog
+    id: 177807
+    name: "Vyrtha's Dredglaive"
+    limit: weapon warglaive

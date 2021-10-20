@@ -4,148 +4,149 @@ minimumLevel: 48
 wowheadGuide: https://www.wowhead.com/guides/shadowlands-bastion-rares-treasures
 farms:
 
-- name: The Ascended Council
-  location: 53.5 88.8
+- name: "The Ascended Council"
+  location: 53.5 88.7
   npcId: 170899
   questId: 60977
   drops:
   - type: mount
     id: 342335
-    name: Ascended Skymane
+    name: "Ascended Skymane"
 
-- name: Aspirant Eolis
-  location: 32.6 23.3
+- name: "Aspirant Eolis"
+  location: 32.6 23.4
   npcId: 171211
   questId: 61083
   drops:
   - type: transmog
     id: 183607
-    name: Uncertain Aspirant's Spear
+    name: "Uncertain Aspirant's Spear"
     limit: weapon polearm agi
 
-- name: Cloudfeather Guardian
+- name: "Cloudfeather Guardian"
   location: 50.4 58.0
   npcId: 170932
   questId: 60978 62191
   drops:
   - type: pet
     id: 171565
-    name: Golden Cloudfeather
+    name: "Golden Cloudfeather"
 
-- name: Collector Astorestes
+- name: "Collector Astorestes"
   location: 66.0 43.7
   npcId: 171014
   questId: 61002
+  type: kill
   drops:
   - type: transmog
     id: 183608
-    name: Evernote Vesper
+    name: "Evernote Vesper"
     limit: weapon offhand int
 
-- name: Dark Watcher
-  location: 27.8 30.2
+- name: "Dark Watcher"
+  location: 27.8 30.1
   npcId: 170623
   questId: 60883
   drops:
   - type: transmog
     id: 184297
-    name: Death Warden's Greatblade
+    name: "Death Warden's Greatblade"
     limit: weapon 2h-sword str
 
-- name: Demi the Relic Hoarder
+- name: "Demi the Relic Hoarder"
   location: 37.0 41.8
   npcId: 171011
   questId: 61069 61000
   drops:
   - type: transmog
     id: 183606
-    name: Bulwark of Echoing Courage
+    name: "Bulwark of Echoing Courage"
     limit: weapon shield
 
   - type: transmog
     id: 183608
-    name: Evernote Vesper
+    name: "Evernote Vesper"
     limit: weapon offhand int
 
   - type: transmog
     id: 183614
-    name: Gavel of Harmonious Wisdom
+    name: "Gavel of Harmonious Wisdom"
     limit: weapon 1h-mace int
 
   - type: transmog
     id: 183613
-    name: Glinting Daybreak Dagger
+    name: "Glinting Daybreak Dagger"
     limit: weapon dagger int
 
   - type: transmog
     id: 183611
-    name: Humble Ophelia's Greatblade
+    name: "Humble Ophelia's Greatblade"
     limit: weapon 2h-sword str
 
   - type: transmog
     id: 183612
-    name: Loyal Champion's Hammer
+    name: "Loyal Champion's Hammer"
     limit: weapon 1h-mace str
 
   - type: transmog
     id: 183604
-    name: Piercing Timbre Crossbow
+    name: "Piercing Timbre Crossbow"
     limit: weapon crossbow
 
   - type: transmog
     id: 183609
-    name: Re-Powered Goliath Fists
+    name: "Re-Powered Golliath Fists"
     limit: weapon fist agi
 
   - type: transmog
     id: 183607
-    name: Uncertain Aspirant's Spear
+    name: "Uncertain Aspirant's Spear"
     limit: weapon polearm agi
 
   - type: transmog
     id: 183610
-    name: Warrior Poet's Poniard
+    name: "Warrior Poet's Poniard"
     limit: weapon dagger agi
 
-- name: Dionae
-  location: 41.4 49.0
+- name: "Dionae"
+  location: 41.4 48.9
   npcId: 163460
   questId: 62650
   drops:
   - type: pet
     id: 180856
-    name: Silvershell Snapper
+    name: "Silvershell Snapper"
 
-- name: Enforcer Aegeon
-  location: 51.1 19.5
+- name: "Enforcer Aegeon"
+  location: 51.2 19.5
   npcId: 171009
   questId: 60998
   drops:
   - type: toy
     id: 184404
-    name: Ever-Abundant Hearth
+    name: "Ever-Abundant Hearth"
 
-- name: Fallen Acolyte Erisne
-  location: 61.2 50.9
+- name: "Fallen Acolyte Erisne"
+  location: 60.4 73.0
   npcId: 160721
   questId: 58222
   drops:
   - type: transmog
     id: 180444
-    name: Harmonia's Chosen Belt
+    name: "Harmonia's Chosen Belt"
     limit: armor leather
 
-- name: Nikara Blackheart
-  location: 51.4 68.6
+- name: "Nikara Blackheart"
+  location: 51.5 68.6
   npcId: 160882
   questId: 58319
   drops:
   - type: transmog
     id: 183608
-    name: Evernote Vesper
+    name: "Evernote Vesper"
     limit: weapon offhand int
 
-- name: Orstus and Sotiros
+- name: "Orstus and Sotiros"
   location: 22.4 22.8
   note: Must be Kyrian with anima channeled to start event
   npcId: 156339
@@ -153,97 +154,97 @@ farms:
   drops:
   - type: pet
     id: 184401
-    name: Larion Pouncer
+    name: "Larion Pouncer"
 
   - type: transmog
     id: 184365
-    name: Aegis of Salvation
+    name: "Aegis of Salvation"
     limit: weapon shield
 
-- name: Selena the Reborn
-  location: 61.2 50.9
+- name: "Selena the Reborn"
+  location: 61.3 50.9
   npcId: 160985
   questId: 58320
   drops:
   - type: transmog
     id: 183608
-    name: Evernote Vesper
+    name: "Evernote Vesper"
     limit: weapon offhand int
 
-- name: Sundancer
-  location: 61.4 90.6
+- name: "Sundancer"
+  location: 61.4 90.5
   npcId: 170548
   questId: 60862
   drops:
   - type: mount
     id: 312765
-    name: Sundancer
+    name: "Sundancer"
 
-- name: Unstable Memory
-  location: 43.4 25.2
+- name: "Unstable Memory"
+  location: 43.5 25.2
   npcId: 171008
   questId: 60997
   drops:
   - type: toy
     id: 184413
-    name: Mnemonic Attunement Pane
+    name: "Mnemonic Attunement Pane"
 
 # Orator Kloe
-- name: Aethon
+- name: "Aethon"
   location: 55.1 80.6
   npcId: 161528
   questId: 58526
   drops:
   - type: transmog
     id: 179487
-    name: Aethon's Horn
+    name: "Aethon's Horn"
     limit: weapon warglaive
 
-- name: Cloudtail
+- name: "Cloudtail"
   location: 57.1 80.6
   npcId: 161530
   questId: 60571
   drops:
   - type: transmog
     id: 179488
-    name: Cloudtail's Paw
+    name: "Cloudtail's Paw"
     limit: weapon fist
 
-- name: Nemaeus
+- name: "Nemaeus"
   location: 59.1 80.6
   npcId: 161529
   questId: 60569
   drops:
   - type: transmog
     id: 179485
-    name: Fang of Nemaeus
+    name: "Fang of Nemaeus"
     limit: weapon dagger agi
 
-- name: Sigilback
+- name: "Sigilback"
   location: 61.1 80.6
   npcId: 161527
   questId: 60570
   drops:
   - type: transmog
     id: 179486
-    name: Sigilback's Smashshell
+    name: "Sigilback's Smashshell"
     limit: weapon 1h-mace agi
 
 # Weird ones
 
-- name: Swelling Tear
+- name: "Swelling Tear"
   location: 23.0 68.0
-  note: Can spawn in multiple locations
+  note: "Can spawn in multiple locations"
   npcId: 171012
   questId: 61001 61046 61047
   drops:
   - type: pet
     id: 180869
-    name: Devoured Wader
+    name: "Devoured Wader"
 
   - type: transmog
     id: 183605
-    name: Devourer Wrought Warglaive
+    name: "Devourer Wrought Warglaive"
     limit: weapon warglaive
 
 # World boss
@@ -282,3 +283,68 @@ farms:
   - type: transmog
     id: 184141
     name: Shroud of the Penitent
+
+# Treasures
+
+- name: "Experimental Construct Part"
+  location: 51.5 18.0
+  questId: 61052
+  reset: never
+  type: treasure
+  drops:
+  - type: transmog
+    id: 183609
+    name: "Re-Powered Golliath Fists"
+    limit: weapon fist agi
+
+- name: "Gift of Chyrus"
+  location: 70.5 36.4
+  questId: 60892
+  reset: never
+  type: treasure
+  drops:
+  - type: toy
+    id: 183988
+    name: "Bondable Val'kyr Diadem"
+
+- name: "Lost Disciple's Notes"
+  location: 59.3 60.9
+  questId: 61048
+  reset: never
+  type: treasure
+  drops:
+  - type: quest
+    id: 62170
+    name: "You'll Never Walk Alone"
+
+- name: "Scroll of Aeons"
+  location: 53.5 80.4
+  questId: 58298
+  reset: never
+  type: treasure
+  drops:
+  - type: toy
+    id: 173984
+    name: "Scroll of Aeons"
+
+- name: "Stolen Equipment"
+  location: 40.5 49.8
+  questId: 61044
+  reset: never
+  type: treasure
+  drops:
+  - type: transmog
+    id: 182561
+    name: "Fallen Disciple's Cloak"
+    limit: weapon cloak
+
+- name: "Vesper of the Silver Wind"
+  location: 36.0 26.5
+  note: "Complete the [Shard Labor] achievement to get the hammer"
+  questId: 61183
+  reset: never
+  type: treasure
+  drops:
+  - type: mount
+    id: 334433
+    name: "Silverwind Larion"
