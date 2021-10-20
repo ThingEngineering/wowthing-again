@@ -354,3 +354,36 @@ farms:
   - type: mount
     id: 344228
     name: Battle-Bound Warhound
+
+# World boss
+- name: Mortanis
+  location: 31.7 66.5
+  npcId: 1
+  questId: 61816
+  reset: weekly
+  type: killBig
+  drops:
+  - type: transmog
+    id: 184133
+    name: Spine Crawler Waistcord
+    limit: armor cloth
+
+  - type: transmog
+    id: 184140
+    name: Bone-Cleated Footpads
+    limit: armor leather
+
+  - type: transmog
+    id: 184173
+    name: Bone Crushing Vicegrips
+    limit: armor mail
+
+  - type: transmog
+    id: 184128
+    name: Mortanis's Ribcage
+    limit: armor mail
+
+  - type: transmog
+    id: 184135
+    name: Shoulderblade Vambraces
+    limit: armor plate

@@ -246,3 +246,36 @@ farms:
   - type: mount
     id: 333027
     name: Loyal Gorger
+
+# World boss
+- name: Nurgash Muckformed
+  location: 27.2 14.6
+  npcId: 1
+  questId: 61814
+  reset: weekly
+  type: killBig
+  drops:
+  - type: transmog
+    id: 184131
+    name: Comfortable Slumberwraps
+    limit: armor cloth
+
+  - type: transmog
+    id: 184137
+    name: Sinstone Shoulderpadding
+    limit: armor cloth
+
+  - type: transmog
+    id: 184130
+    name: Nurgash's Belt of Many Sinstones
+    limit: armor leather
+
+  - type: transmog
+    id: 184134
+    name: Jingling Stone Stompers
+    limit: armor mail
+
+  - type: transmog
+    id: 184171
+    name: Hardened Castle Crushers
+    limit: armor plate

@@ -241,3 +241,36 @@ farms:
     id: 179518
     name: Glimmerlight Staff
     limit: weapon stave int
+
+# World boss
+- name: Oranomonos the Everbranching
+  location: 20.0 63.4
+  npcId: 167527
+  questId: 61815
+  reset: weekly
+  type: killBig
+  drops:
+  - type: transmog
+    id: 184127
+    name: Slippers of the Leafy Undergrowth
+    limit: armor cloth
+
+  - type: transmog
+    id: 184129
+    name: Oranomonos's Diaphanous Leggings
+    limit: armor leather
+
+  - type: transmog
+    id: 184172
+    name: Seed-Tender's Handwraps
+    limit: armor leather
+
+  - type: transmog
+    id: 184126
+    name: Ironroot Bindings
+    limit: armor mail
+
+  - type: transmog
+    id: 184138
+    name: Stonebark Girdle
+    limit: armor plate

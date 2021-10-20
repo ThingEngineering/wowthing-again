@@ -245,3 +245,40 @@ farms:
     id: 183605
     name: Devourer Wrought Warglaive
     limit: weapon warglaive
+
+# World boss
+- name: Valinor, the Light of Eons
+  location: 25.2 23.2
+  npcId: 167524
+  questId: 61813
+  reset: weekly
+  type: killBig
+  drops:
+  - type: transmog
+    id: 184170
+    name: Doubtweaver's Handwraps
+    limit: armor cloth
+
+  - type: transmog
+    id: 184136
+    name: Anima-Charged Wristbanding
+    limit: armor leather
+
+  - type: transmog
+    id: 184125
+    name: Servo-Chain Waistguard
+    limit: armor mail
+
+  - type: transmog
+    id: 184132
+    name: Oversized Centurion Helm
+    limit: armor plate
+
+  - type: transmog
+    id: 184139
+    name: Valinor's Ground Pounders
+    limit: armor plate
+
+  - type: transmog
+    id: 184141
+    name: Shroud of the Penitent
