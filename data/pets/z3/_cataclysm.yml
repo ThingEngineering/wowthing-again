@@ -6,7 +6,7 @@ groups:
   -  42177 # Blue Mini Jouster
   -  42183 # Gold Mini Jouster
 
-- name: Rares
+- name: Drops
   things:
   -  48982 # Tiny Shale Spider - Jadefang
 

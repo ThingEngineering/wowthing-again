@@ -1,8 +1,45 @@
-name: Ardenweald
-mapName: z8_ardenweald
-minimumLevel: 48
-wowheadGuide: https://www.wowhead.com/guides/shadowlands-ardenweald-rares-treasures
-farms:
+?? glow=RainbowGlow({ icon=ns.GetGlowPath('skull_w') }),
+reward? Item({item=182179, quest=62434, covenant=NIGHTFAE}) -- Runestag Soul
+reward? Item({item=175729, note=L["trinket"]}) -- Rotbriar Sprout
+?? covenant=NIGHTFAE,
+reward? Item({item=182183, quest=62439, covenant=NIGHTFAE}) -- Wolfhawk Soul
+reward? Item({item=175711, note=L["ring"]}) -- Slumberwood Band
+?? covenant=NIGHTFAE,
+reward? Item({item=182176, quest=62431, covenant=NIGHTFAE}) -- Shadowstalker Soul
+?? covenant=NIGHTFAE,
+?? rewards = {
+?? Achievement({id=14353, criteria={
+?? 48708, -- Argus
+?? 48709, -- Azshara
+?? 48706, -- Gul'dan
+?? 48704, -- Jaina
+?? 48707, -- Kil'jaeden
+?? 48710, -- N'Zoth
+?? 48705  -- Xavius
+?? }}),
+?? Transmog({item=179518, type=L["staff"], note='{npc:166135}'}), -- Glimmerlight Staff
+?? Transmog({item=179534, type=L["polearm"], note='{npc:166138}'}), -- Mi'kai's Deathscythe
+?? -- Item({item=182455, type=L["trinket"], note='{npc:166146}'}), -- Dreamer's Mending
+?? -- Item({item=182452, type=L["trinket"], note='{npc:166142}'}), -- Everchill Brambles
+?? -- Item({item=182451, type=L["trinket"], note='{npc:166139}'}), -- Glimmerdust's Grand Design
+?? -- Item({item=182454, type=L["trinket"], note='{npc:166140}'}), -- Murmurs in the Dark
+?? }
+?? })
+?? 
+?? -------------------------------------------------------------------------------
+?? ---------------------------------- TREASURES ----------------------------------
+?? -------------------------------------------------------------------------------
+?? 
+?? map.nodes[56002101] = Treasure({
+
+- name: "Aerto's Body"
+  location: 41.3 44.4
+  npcId: 171743
+  questId: 61072
+  drops:
+  - type: pet
+    id: 334142
+    name: "Gorm Harrier"
 
 - name: "Deathbinder Hroth"
   location: 34.6 68.0
@@ -12,15 +49,15 @@ farms:
   - type: transmog
     id: 180166
     name: "Deathbinder's Staff"
-    limit: weapon stave int
+    limit: FIXME staff
 
 - name: "Deifir the Untamed"
   location: 47.5 28.4
   npcId: 164238
-  questId: 59201 62271
+  questId: 59201,62271
   drops:
   - type: pet
-    id: 171231
+    id: 334143
     name: "Gorm Needler"
 
 - name: "Dustbrawl"
@@ -31,7 +68,7 @@ farms:
   - type: transmog
     id: 181395
     name: "Dustbreak Maul"
-    limit: weapon 2h-mace str
+    limit: FIXME 2h_mace
 
 - name: "Egg-Tender Leh'go"
   location: 57.9 29.6
@@ -41,7 +78,7 @@ farms:
   - type: transmog
     id: 179539
     name: "Kelox's Eggbeater"
-    limit: weapon 2h-mace str
+    limit: FIXME 2h_mace
 
 - name: "Faeflayer"
   location: 68.6 27.6
@@ -51,7 +88,7 @@ farms:
   - type: transmog
     id: 180144
     name: "Faeflayer's Hatchet"
-    limit: weapon 1h-axe str
+    limit: FIXME 1h_axe
 
 - name: "Gormbore"
   location: 54.1 76.0
@@ -59,7 +96,7 @@ farms:
   questId: 59006
   drops:
   - type: pet
-    id: 173993
+    id: 341301
     name: "Lavender Nibbler"
 
 - name: "Gormtamer Tizo"
@@ -81,23 +118,28 @@ farms:
     name: "Arboreal Gulper"
 
 - name: "Hunter Vivanna"
-  location: 67.4 51.5
+  location: 67.5 51.5
   npcId: 160448
   questId: 59221
   drops:
   - type: transmog
-    id: 179596
-    name: "Drust Mask of Dominance"
-
-  - type: transmog
     id: 179593
     name: "Darkreach Mask"
-    limit: armor cloth
+    limit: FIXME cloth
 
   - type: transmog
     id: 179594
     name: "Witherscorn Guise"
-    limit: armor leather
+    limit: FIXME leather
+
+  - type: transmog
+    id: 179596
+    name: "Drust Mask of Dominance"
+    limit: FIXME cosmetic
+
+  - type: quest
+    id: 62246
+    name: "Lifewoven Bracelet"
 
 - name: "Mymaen"
   location: 62.1 24.7
@@ -107,26 +149,20 @@ farms:
   - type: transmog
     id: 179502
     name: "Ripvine Barb"
-    limit: weapon dagger agi
+    limit: FIXME dagger
 
 - name: "Mystic Rainbowhorn"
   location: 65.7 28.1
   npcId: 164547
   questId: 59235
   drops:
-  - type: quest
-    id: 62434
-    name: "Runestag Soul"
-    limit: covenant night-fae
-
   - type: transmog
     id: 179586
     name: "Elderwood Piercer"
-    limit: weapon bow
+    limit: FIXME bow
 
 - name: "Night Mare"
   location: 57.9 49.8
-  note: Need Dream Catcher buff to see
   npcId: 168135
   questId: 60306
   drops:
@@ -137,10 +173,10 @@ farms:
 - name: "Old Ardeite"
   location: 51.1 57.4
   npcId: 164391
-  questId: 59208 62270
+  questId: 59208,62270
   drops:
   - type: pet
-    id: 171239
+    id: 334158
     name: "Chirpy Valeshrieker"
 
 - name: "Rootwrithe"
@@ -151,22 +187,17 @@ farms:
   - type: transmog
     id: 179603
     name: "Nettlehusk Barrier"
-    limit: weapon shield
+    limit: FIXME shield
 
 - name: "Skuld Vit"
   location: 37.7 59.2
   npcId: 164415
   questId: 59220
   drops:
-  - type: quest
-    id: 62439
-    name: "Wolfhawk Soul"
-    limit: covenant night-fae
-
   - type: transmog
     id: 180146
     name: "Axe of Broken Wills"
-    limit: weapon 1h-axe agi
+    limit: FIXME 1h_axe
 
 - name: "Soultwister Cero"
   location: 72.4 51.8
@@ -176,27 +207,21 @@ farms:
   - type: transmog
     id: 180164
     name: "Soultwister's Scythe"
-    limit: weapon stave int
+    limit: FIXME staff
 
 - name: "Valfir the Unrelenting"
   location: 30.1 55.4
   npcId: 168647
   questId: 61632
   drops:
-  - type: quest
-    id: 62431
-    name: "Shadowstalker Soul"
-    limit: covenant night-fae
+  - type: transmog
+    id: 180154
+    name: "Greataxe of Unrelenting Pursuit"
+    limit: FIXME 2h_axe
 
   - type: mount
     id: 334366
     name: "Wild Glimmerfur Prowler"
-    limit: covenant night-fae
-
-  - type: transmog
-    id: 180154
-    name: "Greataxe of Unrelenting Pursuit"
-    limit: weapon 2h-axe str
 
 - name: "Wrigglemortis"
   location: 58.3 61.8
@@ -206,70 +231,4 @@ farms:
   - type: transmog
     id: 181396
     name: "Thornsweeper Scythe"
-    limit: weapon polearm agi
-
-# Weird ones
-- name: Macabre
-  location: 31.0 80.0
-  note: Can spawn in multiple locations
-  npcId: 164093
-  questId: 59140
-  drops:
-  - type: pet
-    id: 171246
-    name: Rocky
-
-- name: "Star Lake: Argus"
-  location: 41.2 44.5
-  note: Must be Night Fae with anima channeled to start event
-  npcId: 166138
-  questId: 61633
-  drops:
-  - type: transmog
-    id: 179534
-    name: "Mi'kai's Deathscythe"
-    limit: weapon polearm agi
-
-- name: "Star Lake: Azshara"
-  location: 43.2 44.5
-  note: Must be Night Fae with anima channeled to start event
-  npcId: 166135
-  questId: 61633
-  drops:
-  - type: transmog
-    id: 179518
-    name: Glimmerlight Staff
-    limit: weapon stave int
-
-# World boss
-- name: Oranomonos the Everbranching
-  location: 20.0 63.4
-  npcId: 167527
-  questId: 61815
-  reset: weekly
-  type: killBig
-  drops:
-  - type: transmog
-    id: 184127
-    name: Slippers of the Leafy Undergrowth
-    limit: armor cloth
-
-  - type: transmog
-    id: 184129
-    name: Oranomonos's Diaphanous Leggings
-    limit: armor leather
-
-  - type: transmog
-    id: 184172
-    name: Seed-Tender's Handwraps
-    limit: armor leather
-
-  - type: transmog
-    id: 184126
-    name: Ironroot Bindings
-    limit: armor mail
-
-  - type: transmog
-    id: 184138
-    name: Stonebark Girdle
-    limit: armor plate
+    limit: FIXME polearm

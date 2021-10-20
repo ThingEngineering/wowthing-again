@@ -5,6 +5,6 @@ groups:
   things:
   -  30690 # Power Converter
 
-- name: Rares
+- name: Drops
   things:
   -  32782 # Time-Lost Figurine

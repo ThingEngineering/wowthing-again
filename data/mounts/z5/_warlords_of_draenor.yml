@@ -8,16 +8,8 @@ groups:
   - 171436 # Gorestrider Gronnling (Glory of the Draenor Raider)
   - 186305 # Infernal Direwolf (Glory of the Hellfire Raider)
 
-- name: Rare Spawns - Tanaan Jungle
-  things:
-  - 171630 # Armored Razorback (Tanaan big rares)
-  - 171619 # Tundra Icehoof (Tanaan big rares)
-  - 171837 # Warsong Direfang (Tanaan big rares)a
-
 - name: Vendors
   things:
   - 171846 # Champion's Treadblade (Alliance chopper thing)
   - 183117 # Corrupted Dreadwing (Apexis Crystals)
   - 171825 # Mosshide Riverwallow (Apexis Crystals)
-  - 171628 # Rocktusk Battleboar (Gold - Garrison)
-  - 171616 # Witherhide Cliffstomper (Gold - Garrison)

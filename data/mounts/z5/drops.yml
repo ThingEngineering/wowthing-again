@@ -1,9 +1,5 @@
-name: Rares
+name: Drops
 groups:
-
-- name: Multiple Zones
-  things:
-  - 179478 # Voidtalon of the Dark Star
 
 - name: Gorgrond
   things:
@@ -30,3 +26,13 @@ groups:
 - name: Talador
   things:
   - 171824 # Sapphire Riverbeast (Silthide)
+
+- name: Multiple Zones
+  things:
+  - 179478 # Voidtalon of the Dark Star
+
+- name: Tanaan Jungle
+  things:
+  - 171630 # Armored Razorback (Tanaan big rares)
+  - 171619 # Tundra Icehoof (Tanaan big rares)
+  - 171837 # Warsong Direfang (Tanaan big rares)a

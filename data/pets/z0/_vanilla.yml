@@ -6,7 +6,7 @@ groups:
   - 116080 # Albino Buzzard (Crysa, Northern Barrens)
   - 117340 # Dibbler (Bert, Gnomeregan)
 
-- name: Rares
+- name: Drops
   things:
   - 147221 # Redridge Tarantula (Gnollfeaster, Redridge Mountains)
 
