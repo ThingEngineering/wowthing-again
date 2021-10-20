@@ -273,3 +273,187 @@ farms:
     id: 184138
     name: Stonebark Girdle
     limit: armor plate
+
+# Treasures
+
+- name: "Aerto's Body"
+  location: 56.0 21.0
+  questId: 61072
+  reset: never
+  type: treasure
+  drops:
+  - type: pet
+    id: 171230
+    name: "Gorm Harrier"
+
+- name: "Cache of the Moon"
+  location: 63.9 37.8
+  questId: 61074
+  reset: never
+  type: treasure
+  drops:
+  - type: mount
+    id: 334352
+    name: "Wildseed Cradle"
+
+- name: "Cache of the Night"
+  location: 36.2 65.3
+  questId: 61110
+  reset: never
+  type: treasure
+  drops:
+  - type: pet
+    id: 171225
+    name: "Starry Dreamfoal"
+
+  - type: transmog
+    id: 179549
+    name: "Nightwillow Cudgel"
+    limit: weapon 1h-mace agi
+
+- name: "Darkreach Supplies"
+  location: 37.6 61.6
+  questId: 61068
+  reset: never
+  type: treasure
+  drops:
+  - type: transmog
+    id: 179593
+    name: "Darkreach Mask"
+    limit: armor cloth
+
+  - type: transmog
+    id: 179594
+    name: "Witherscorn Guise"
+    limit: armor leather
+
+- name: "Desiccated Moth"
+  location: 42.0 32.5
+  questId: 61147
+  reset: never
+  type: treasure
+  drops:
+  - type: pet
+    id: 171234
+    name: "Amber Glitterwing"
+
+- name: "Dreamsong Heart"
+  location: 37.6 37.1
+  questId: 61070
+  reset: never
+  type: treasure
+  drops:
+  - type: transmog
+    id: 179510
+    name: "Dreamsong Warglaive"
+    limit: weapon warglaive
+
+- name: "Elusive Faerie Cache"
+  location: 44.8 75.9
+  questId: 61175
+  reset: never
+  type: treasure
+  drops:
+  - type: toy
+    id: 184490
+    name: "Fae Pipes"
+
+  - type: transmog
+    id: 179512
+    name: "Dreamsong Saber"
+    limit: weapon 1h-sword
+
+- name: "Enchanted Dreamcatcher"
+  location: 36.4 25.1
+  questId: 62259
+  reset: never
+  type: treasure
+  drops:
+  - type: quest
+    id: 62259
+    name: "Anima-Laden Dreamcatcher"
+
+- name: "Faerie Trove"
+  location: 49.7 55.9
+  questId: 61073
+  reset: never
+  type: treasure
+  drops:
+  - type: pet
+    id: 173591
+    name: "Shimmerbough Hoarder"
+
+- name: "Harmonic Chest"
+  location: 67.8 34.6
+  questId: 61165
+  reset: never
+  type: treasure
+  drops:
+  - type: toy
+    id: 184489
+    name: "Fae Harp"
+
+  - type: transmog
+    id: 179565
+    name: "Songwood Stem"
+    limit: weapon offhand
+
+- name: "Hearty Dragon Plume"
+  location: 48.2 39.3
+  questId: 61067
+  reset: never
+  type: treasure
+  drops:
+  - type: toy
+    id: 182729
+    name: "Hearty Dragon Plume"
+
+- name: "Lost Satchel"
+  location: 48.3 20.3
+  questId: 62187
+  reset: never
+  type: treasure
+  drops:
+  - type: quest
+    id: 62187
+    name: "Satchel of Culexwood"
+#
+#- name: "Playful Vulpin Befriended (171206)"
+#  location: 31.8 41.0
+#  questId: 61080 61081 61084 61085 61086
+#  reset: never
+#  type: treasure
+#  drops:
+#  - type: pet
+#    id: 334160
+#    name: "Dodger"
+
+- name: "Swollen Anima Seed"
+  location: 76.7 29.7
+  questId: 62186
+  reset: never
+  type: treasure
+  drops:
+  - type: quest
+    id: 62186
+    name: "Swollen Anima Seed"
+
+- name: "Tame Gladerunner"
+  location: 26.3 59.0
+  questId: 61192
+  reset: never
+  type: treasure
+  drops:
+  - type: mount
+    id: 332252
+    name: "Shimmermist Runner"
+
+#- name: "Veilwing Egg (Ancient Cloudfeather Egg)"
+#  location: 52.9 37.3
+#  questId: 61065
+#  reset: never
+#  type: treasure
+#  drops:
+#  - type: pet
+#    id: 171238
+#    name: "Cloudfeather Fledgling"
