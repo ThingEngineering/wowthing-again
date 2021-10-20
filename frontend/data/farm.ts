@@ -16,6 +16,7 @@ import {
 export const farmType: Record<string, IconDefinition> = {
     chest: faArchive,
     kill: faSkull,
+    killBig: faSkull,
     puzzle: faPuzzlePiece,
 }
 

@@ -11,6 +11,11 @@
 
     export let farm: FarmDataFarm
     export let status: FarmStatus
+
+    let big: boolean
+    $: {
+        big = farm.type.indexOf('Big') > 0
+    }
 </script>
 
 <style lang="scss">
@@ -20,7 +25,7 @@
         top: calc(var(--top) + var(--top-offset, 0px));
         transform: translate(-50%, -50%);
         text-align: center;
-        width: 22px;
+        width: 27px;
 
         &:hover .icon {
             color: #00ccff;
@@ -55,13 +60,17 @@
         padding: 0 2px 1px 2px;
         pointer-events: none;
         word-spacing: -0.2ch;
+
+        &.big {
+            margin-top: -2px;
+        }
     }
 </style>
 
 <div
     class="wrapper"
     class:active={status.need}
-    style="--left: {farm.location[0]}%; --top: {farm.location[1]}%; --top-offset: {status.need ? '7px' : '0px'};"
+    style="--left: {farm.location[0]}%; --top: {farm.location[1]}%; --top-offset: {status.need ? (big ? '11px' : '7px') : '0px'};"
     use:tippyComponent={{
         component: Tooltip,
         props: {farm, status},
@@ -76,11 +85,18 @@
             class:alliance={farm.faction === 'alliance'}
             class:horde={farm.faction === 'horde'}
         >
-            <Fa fw icon={farmType[farm.type]} />
+            <Fa
+                fw
+                icon={farmType[farm.type]}
+                size={big ? 'lg' : 'md'}
+            />
         </div>
 
         {#if status.need}
-            <span class:status-success={status.characters.length === 0}>{status.characters.length}</span>
+            <span
+                class:big
+                class:status-success={status.characters.length === 0}
+            >{status.characters.length}</span>
         {/if}
     </NpcLink>
 </div>
