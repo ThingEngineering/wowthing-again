@@ -1,11 +1,12 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy'
-    import Fa from 'svelte-fa'
 
     import {dropType} from '@/data/farm'
     import {userStore} from '@/stores'
     import type {FarmDataDrop, FarmDataFarm} from '@/types/data'
     import type {DropStatus, FarmStatus} from '@/utils/get-farm-status'
+
+    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
 
     export let farm: FarmDataFarm
     export let status: FarmStatus
@@ -55,7 +56,10 @@
 
 <div class="wowthing-tooltip">
     <h4>{farm.name}</h4>
-    <h5>{farm.reset} reset</h5>
+
+    {#if farm.reset !== 'never'}
+        <h5>{farm.reset} reset</h5>
+    {/if}
 
     {#if farm.note}
         <p class="note">{farm.note}</p>
@@ -67,9 +71,9 @@
                 <tr class:success={!dropStatus.need}>
                     <td class="type status-{dropStatus.need ? 'fail' : 'success'}">
                         {#if drop.type === 'transmog' && drop.limit?.[0] && drop.limit?.[0] !== 'covenant'}
-                            <Fa fw icon={dropType[drop.limit[0]]} />
+                            <IconifyIcon icon={dropType[drop.limit[0]]} />
                         {:else}
-                            <Fa fw icon={dropType[drop.type]} />
+                            <IconifyIcon icon={dropType[drop.type]} />
                         {/if}
                     </td>
                     <td class="name" class:status-success={!dropStatus.need}>{drop.name}</td>

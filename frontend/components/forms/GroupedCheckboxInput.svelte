@@ -1,6 +1,8 @@
 <script lang="ts">
-    import { faCheckSquare, faSquare } from '@fortawesome/free-solid-svg-icons'
-    import Fa from 'svelte-fa'
+    import mdiCheckboxBlankOutline from '@iconify/icons-mdi/checkbox-blank-outline'
+    import mdiCheckboxOutline from '@iconify/icons-mdi/checkbox-outline'
+
+    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
 
     export let bindGroup: string[]
     export let name: string
@@ -21,6 +23,11 @@
 </script>
 
 <style lang="scss">
+    label {
+        & :global(svg) {
+            margin-top: -4px;
+        }
+    }
 </style>
 
 <fieldset class="fancy-checkbox" data-state="{checked}">
@@ -33,7 +40,9 @@
             {checked}
             on:change={onChange}
         >
-        <Fa fw icon={checked ? faCheckSquare : faSquare} />
+        <IconifyIcon
+            icon={checked ? mdiCheckboxOutline : mdiCheckboxBlankOutline}
+        />
         <span class="text {textClass || ''}"><slot /></span>
     </label>
 </fieldset>

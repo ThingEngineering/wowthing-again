@@ -1,11 +1,10 @@
 <script lang="ts">
-    import Fa from 'svelte-fa'
-
     import type { FarmDataFarm } from '@/types/data'
     import type { FarmStatus } from '@/utils/get-farm-status'
     import { farmType } from '@/data/farm'
     import { tippyComponent } from '@/utils/tippy'
 
+    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import NpcLink from '@/components/links/NpcLink.svelte'
     import Tooltip from '@/components/tooltips/farm/TooltipFarm.svelte'
 
@@ -25,21 +24,25 @@
         top: calc(var(--top) + var(--top-offset, 0px));
         transform: translate(-50%, -50%);
         text-align: center;
-        width: 27px;
+        width: 24px;
 
         &:hover .icon {
             color: #00ccff;
         }
 
+        &.active {
+            z-index: 5;
+        }
     }
     .icon {
         pointer-events: none;
+        z-index: 3;
 
         &.active {
             color: #fff;
         }
         &.inactive {
-            color: #009f00;
+            color: #00bb00;
         }
         &.alliance {
             color: #4499ff;
@@ -60,6 +63,7 @@
         padding: 0 2px 1px 2px;
         pointer-events: none;
         word-spacing: -0.2ch;
+        z-index: 6;
 
         &.big {
             margin-top: -2px;
@@ -85,10 +89,9 @@
             class:alliance={farm.faction === 'alliance'}
             class:horde={farm.faction === 'horde'}
         >
-            <Fa
-                fw
+            <IconifyIcon
                 icon={farmType[farm.type]}
-                size={big ? 'lg' : 'md'}
+                scale={big ? '1.25' : '1'}
             />
         </div>
 
