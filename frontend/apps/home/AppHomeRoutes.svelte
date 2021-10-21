@@ -27,7 +27,7 @@
         '/currencies/:slug?': Currencies,
         '/gear/*': Gear,
         '/lockouts': Lockouts,
-        '/mythicplus/:slug?': MythicPlus,
+        '/mythic-plus/:slug?': MythicPlus,
         '/progress/:slug?': Progress,
         '/reputations/:slug?': Reputations,
         '/transmog/:slug1?/:slug2?': Transmog,
