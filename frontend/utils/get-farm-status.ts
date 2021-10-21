@@ -11,7 +11,7 @@ import {covenantSlugMap} from '@/data/covenant'
 import type {ZoneMapState} from '@/stores/local-storage/zone-map'
 import { ArmorType, PrimaryStat, WeaponType } from '@/types/enums'
 import {getNextDailyReset} from '@/utils/get-next-reset'
-import type {Character, StaticData, UserData} from '@/types'
+import type { Character, Settings, StaticData, UserData } from '@/types'
 import type {ZoneMapDataCategory, UserCollectionData, UserQuestData, UserTransmogData} from '@/types/data'
 
 
@@ -39,6 +39,7 @@ function weaponValidForClass(classId: number, limit: string[]): boolean {
 }
 
 export default function getFarmStatus(
+    settings: Settings,
     staticData: StaticData,
     userData: UserData,
     userCollectionData: UserCollectionData,
@@ -52,7 +53,10 @@ export default function getFarmStatus(
 
     const eligibleCharacters = filter(
         filter(
-            userData.characters,
+            filter(
+                userData.characters,
+                (c) => settings.characters.hiddenCharacters.indexOf(c.id) === -1
+            ),
             (c) => c.level >= category.minimumLevel
         ),
         (c) => category.requiredQuestIds.length === 0 ||
