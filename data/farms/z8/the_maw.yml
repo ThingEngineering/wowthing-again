@@ -73,6 +73,10 @@ farms:
   npcId: 168693
   questId: 61346
   drops:
+  - type: quest
+    id: 63164
+    name: "Mawsworn Orders"
+
   - type: transmog
     id: 186618
     name: "Willbreaker's Chain"
@@ -117,6 +121,18 @@ farms:
   npcId: 162844
   questId: 61140
   drops:
+  - type: quest
+    id: 63160
+    name: "Korrath's Grimoire: Aleketh"
+
+  - type: quest
+    id: 63161
+    name: "Korrath's Grimoire: Belidir"
+
+  - type: quest
+    id: 63162
+    name: "Korrath's Grimoire: Gyadrek"
+
   - type: transmog
     id: 186620
     name: "Rezara's Fencing Grips"
@@ -180,6 +196,24 @@ farms:
     id: 186212
     name: "Eternas' Braided Waistcord"
     limit: armor cloth
+
+- name: "Exos, Herald of Domination"
+  location: 20.6 69.4
+  npcId: 170303
+  questId: 62260
+  type: kill
+  drops:
+  - type: quest
+    id: 63160
+    name: "Korrath's Grimoire: Aleketh"
+
+  - type: quest
+    id: 63161
+    name: "Korrath's Grimoire: Belidir"
+
+  - type: quest
+    id: 63162
+    name: "Korrath's Grimoire: Gyadrek"
 
 - name: "Fallen Charger"
   location: 17.7 49.5
@@ -290,6 +324,16 @@ farms:
     name: "Mantle of the Prime Collector"
     limit: armor cloth
 
+- name: "Odalrik"
+  location: 38.6 28.8
+  npcId: 172207
+  questId: 62618
+  type: kill
+  drops:
+  - type: quest
+    id: 63158
+    name: "Wailing Coin"
+
 - name: "Orophea"
   location: 23.7 21.4
   npcId: 172577
@@ -348,6 +392,18 @@ farms:
   npcId: 170634
   questId: 60884
   drops:
+  - type: quest
+    id: 63160
+    name: "Korrath's Grimoire: Aleketh"
+
+  - type: quest
+    id: 63161
+    name: "Korrath's Grimoire: Belidir"
+
+  - type: quest
+    id: 63162
+    name: "Korrath's Grimoire: Gyadrek"
+
   - type: toy
     id: 181794
     name: "Orophea's Lyre"
@@ -455,6 +511,10 @@ farms:
   npcId: 177444
   questId: 64152
   drops:
+  - type: quest
+    id: 62683
+    name: "Feeder's Hand and Key / Seal Breaker Key"
+
   - type: transmog
     id: 186217
     name: "Supple Helhound Leather Pants"
@@ -517,3 +577,51 @@ farms:
     id: 186372
     name: "Tormentor's Greatbelt"
     limit: armor plate
+
+# Treasures
+
+- name: "Helsworn Chest"
+  location: 69.2 45.2
+  questId: 64256
+  reset: never
+  type: treasure
+  drops:
+  - type: transmog
+    id: 187026
+    name: "Field Warden's Torture Kit"
+
+  - type: transmog
+    id: 187240
+    name: "Field Warden's Watchful Eye"
+
+  - type: transmog
+    id: 187019
+    name: "Infiltrator's Shoulderguards"
+
+  - type: transmog
+    id: 187018
+    name: "Ritualist's Shoulder Scythes"
+
+  - type: transmog
+    id: 187014
+    name: "Shackler's Spiked Shoulders"
+
+- name: "Infused Etherwyrm"
+  location: 23.2 42.4
+  questId: 64000
+  reset: never
+  type: treasure
+  drops:
+  - type: pet
+    id: 179025
+    name: "Infused Etherwyrm"
+
+- name: "Lil'Abom"
+  location: 36.5 67.4
+  questId: 64008 64009 64010 64011 64013
+  reset: never
+  type: treasure
+  drops:
+  - type: pet
+    id: 179008
+    name: "Lil'Abom"
