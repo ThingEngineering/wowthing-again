@@ -198,9 +198,10 @@ export default function getFarmStatus(
                 ).map(c => c.id)
 
                 // We don't really need it if no characters are on the list
-                if (dropStatus.characterIds.length === 0) {
-                    dropStatus.need = false
-                }
+                // - ok we kinda do so we can see unfinished things
+                //if (dropStatus.characterIds.length === 0) {
+                //    dropStatus.need = false
+                //}
             }
 
             farmStatus.drops.push(dropStatus)
