@@ -13,10 +13,6 @@ groups:
   things:
   - 54753 # White Polar Bear (The Storm Peaks, Brunnhildar Village daily, random Hyldnir Spoils reward)
 
-- name: Drops
-  things:
-  - 60002 # Time-Lost Proto-Drake
-
 - name: Vendors
   things:
   - 63844 # Argent Hippogryph

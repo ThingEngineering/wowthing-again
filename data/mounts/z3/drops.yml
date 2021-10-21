@@ -1,0 +1,14 @@
+name: Drops
+groups:
+
+- name: Deepholm
+  things:
+  - 88718 # Phosporescent Stone Drake (Deepholm)
+
+- name: Uldum
+  things:
+  - 88750 # Grey Riding Camel (Uldum)
+
+- name: "Vashj'ir"
+  things:
+  - 98718 # Subdued Seahorse (Vashj'ir - Poseidus)
