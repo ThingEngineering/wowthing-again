@@ -1,7 +1,8 @@
 name: Nazjatar
 mapName: z7_nazjatar
-minimumLevel: 45
-wowheadGuide: https://www.wowhead.com/guides/rewards-from-the-darkshore-warfront
+minimumLevel: 50
+requiredQuestId: 54972 55053 # [A] A Way Home/[H] A Way Home
+wowheadGuide: https://www.wowhead.com/guides/comprehensive-nazjatar-guide
 farms:
 
 - name: "Avarius"
