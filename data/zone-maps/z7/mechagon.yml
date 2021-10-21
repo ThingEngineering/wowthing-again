@@ -1,6 +1,7 @@
 name: Mechagon
 mapName: z7_mechagon
 minimumLevel: 45
+requiredQuestId: 55736 # Welcome to the Resistance
 wowheadGuide: https://www.wowhead.com/guides/rewards-from-the-darkshore-warfront
 farms:
 
@@ -24,6 +25,7 @@ farms:
 
   - type: quest
     id: 55455
+    requiredQuestId: 55056 # Blueprint: Mechanocat Laser Pointer
     name: "Paint Vial: Mechagon Gold"
 
   - type: pet
@@ -37,6 +39,7 @@ farms:
   drops:
   - type: quest
     id: 56515
+    requiredQuestId: 55534 # Rustbolt Gramophone
     name: "Vinyl: Gnomeregan Forever"
 
 - name: "Boilburn"
@@ -50,6 +53,7 @@ farms:
 
   - type: quest
     id: 56518
+    requiredQuestId: 55534 # Rustbolt Gramophone
     name: "Vinyl: Depths of Ulduar"
 
 - name: "Bonepicker"
@@ -93,10 +97,12 @@ farms:
 
   - type: quest
     id: 55452
+    requiredQuestId: 55056 # Blueprint: Mechanocat Laser Pointer
     name: "Paint Vial: Fel Mint Green"
 
   - type: quest
     id: 55457
+    requiredQuestId: 55056 # Blueprint: Mechanocat Laser Pointer
     name: "Paint Vial: Overload Orange"
 
 - name: "Deepwater Maw"
@@ -119,6 +125,7 @@ farms:
 
   - type: quest
     id: 56518
+    requiredQuestId: 55534 # Rustbolt Gramophone
     name: "Vinyl: Depths of Ulduar"
 
 - name: "Enforcer KX-T57"
@@ -166,6 +173,7 @@ farms:
   drops:
   - type: quest
     id: 55457
+    requiredQuestId: 55056 # Blueprint: Mechanocat Laser Pointer
     name: "Paint Vial: Overload Orange"
 
   - type: pet
@@ -193,6 +201,7 @@ farms:
   drops:
   - type: quest
     id: 56518
+    requiredQuestId: 55534 # Rustbolt Gramophone
     name: "Vinyl: Depths of Ulduar"
 
 - name: "Gorged Gear-Cruncher"
@@ -237,6 +246,7 @@ farms:
 
   - type: quest
     id: 56515
+    requiredQuestId: 55534 # Rustbolt Gramophone
     name: "Vinyl: Gnomeregan Forever"
 
 - name: "Mecharantula"
@@ -282,6 +292,7 @@ farms:
 
   - type: quest
     id: 56518
+    requiredQuestId: 55534 # Rustbolt Gramophone
     name: "Vinyl: Depths of Ulduar"
 
   - type: transmog
@@ -296,6 +307,7 @@ farms:
   drops:
   - type: quest
     id: 55454
+    requiredQuestId: 55056 # Blueprint: Mechanocat Laser Pointer
     name: "Paint Vial: Lemonade Steel"
 
 - name: "Paol Pondwader"
@@ -315,6 +327,7 @@ farms:
   drops:
   - type: quest
     id: 55517
+    requiredQuestId: 55056 # Blueprint: Mechanocat Laser Pointer
     name: "Paint Vial: Big-ol Bronze"
 
 - name: "Rustfeather"
@@ -360,14 +373,17 @@ farms:
 
   - type: quest
     id: 56517
+    requiredQuestId: 55534 # Rustbolt Gramophone
     name: "Vinyl: Battle of Gnomeregan"
 
   - type: quest
     id: 56516
+    requiredQuestId: 55534 # Rustbolt Gramophone
     name: "Vinyl: Mimiron's Brainstorm"
 
   - type: quest
     id: 56519
+    requiredQuestId: 55534 # Rustbolt Gramophone
     name: "Vinyl: Triumph of Gnomeregan"
 
 - name: "The Kleptoboss"
@@ -377,6 +393,7 @@ farms:
   drops:
   - type: quest
     id: 56518
+    requiredQuestId: 55534 # Rustbolt Gramophone
     name: "Vinyl: Depths of Ulduar"
 
   - type: pet
