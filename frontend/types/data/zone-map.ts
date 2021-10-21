@@ -13,8 +13,8 @@ export interface ZoneMapDataCategory {
 }
 
 export interface ZoneMapDataFarm {
-    faction?: string
     npcId: number
+    faction?: string
     name: string
     note: string
     reset: string
@@ -26,7 +26,8 @@ export interface ZoneMapDataFarm {
 
 export interface ZoneMapDataDrop {
     id: number
-    limit: string[]
+    requiredQuestId?: number
     name: string
     type: string
+    limit: string[]
 }

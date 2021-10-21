@@ -180,11 +180,24 @@ export default function getFarmStatus(
                     )
                 }
 
+                // Filter again for pre-req quests
+                if (drop.requiredQuestId !== undefined) {
+                    characters = filter(
+                        characters,
+                        (c) => userQuestData.characters[c.id].quests.get(drop.requiredQuestId)
+                    )
+                }
+
                 dropStatus.characterIds = filter(
                     characters,
                     (c) => resetMap[c.id] < now ||
                         every(farm.questIds, (q) => userQuestData.characters[c.id]?.dailyQuests?.get(q) === undefined)
                 ).map(c => c.id)
+
+                // We don't really need it if no characters are on the list
+                if (dropStatus.characterIds.length === 0) {
+                    dropStatus.need = false
+                }
             }
 
             farmStatus.drops.push(dropStatus)
