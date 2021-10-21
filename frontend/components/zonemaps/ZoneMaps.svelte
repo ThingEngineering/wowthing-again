@@ -2,7 +2,7 @@
     import {afterUpdate, onMount} from 'svelte'
 
     import {
-        farmStore,
+        zoneMapStore,
         transmogStore,
         userCollectionStore,
         userQuestStore,
@@ -12,14 +12,14 @@
     import getSavedRoute from '@/utils/get-saved-route'
     import type {MultiSlugParams} from '@/types'
 
-    import Map from './FarmsMap.svelte'
-    import Sidebar from './FarmsSidebar.svelte'
+    import Map from './ZoneMapsMap.svelte'
+    import Sidebar from './ZoneMapsSidebar.svelte'
 
     export let params: MultiSlugParams
 
     let loaded: boolean
     $: {
-        loaded = $farmStore.loaded &&
+        loaded = $zoneMapStore.loaded &&
             $transmogStore.loaded &&
             $userCollectionStore.loaded &&
             $userQuestStore.loaded &&
@@ -32,7 +32,7 @@
     }
 
     onMount(async () => await Promise.all([
-        farmStore.fetch(),
+        zoneMapStore.fetch(),
         transmogStore.fetch(),
         userCollectionStore.fetch(),
         userQuestStore.fetch(),
@@ -42,7 +42,7 @@
 
     afterUpdate(() => {
         if (loaded) {
-            getSavedRoute('farms', params.slug1, params.slug2)
+            getSavedRoute('zone-maps', params.slug1, params.slug2)
         }
     })
 </script>

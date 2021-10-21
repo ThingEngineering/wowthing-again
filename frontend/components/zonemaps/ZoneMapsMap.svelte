@@ -3,7 +3,7 @@
     import find from 'lodash/find'
 
     import {
-        farmStore,
+        zoneMapStore,
         staticStore,
         timeStore,
         userCollectionStore,
@@ -11,27 +11,27 @@
         userStore,
         userTransmogStore,
     } from '@/stores'
-    import {farmState} from '@/stores/local-storage/farm'
-    import {farmMapMedia} from '@/stores/media-queries/farm-map'
+    import {zoneMapState} from '@/stores/local-storage/zone-map'
+    import {zoneMapMedia} from '../../stores/media-queries/zone-map'
     import getFarmStatus from '@/utils/get-farm-status'
-    import type {FarmDataCategory} from '@/types/data'
+    import type {ZoneMapDataCategory} from '@/types/data'
     import type {FarmStatus} from '@/utils/get-farm-status'
 
     import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
-    import Farm from './FarmsFarm.svelte'
     import Image from '@/components/images/Image.svelte'
+    import Thing from './ZoneMapsThing.svelte'
 
     export let slug1: string
     export let slug2: string
 
-    let categories: FarmDataCategory[]
+    let categories: ZoneMapDataCategory[]
     let farmStatuses: FarmStatus[]
     let height: number
     let width: number
 
     $: {
         categories = filter(
-            find($farmStore.data.sets, (s) => s !== null && s[0].slug === slug1),
+            find($zoneMapStore.data.sets, (s) => s !== null && s[0].slug === slug1),
             (s) => s?.farms?.length > 0
         )
         if (slug2) {
@@ -47,13 +47,13 @@
                 $userTransmogStore.data,
                 $timeStore,
                 categories[0],
-                $farmState,
+                $zoneMapState,
             )
         }
     }
 
     $: {
-        [width, height] = $farmMapMedia
+        [width, height] = $zoneMapMedia
     }
 </script>
 
@@ -100,35 +100,35 @@
             <button>
                 <CheckboxInput
                     name="track_mounts"
-                    bind:value={$farmState.trackMounts}
+                    bind:value={$zoneMapState.trackMounts}
                 >Track mounts</CheckboxInput>
             </button>
 
             <button>
                 <CheckboxInput
                     name="track_pets"
-                    bind:value={$farmState.trackPets}
+                    bind:value={$zoneMapState.trackPets}
                 >Track pets</CheckboxInput>
             </button>
 
             <button>
                 <CheckboxInput
                         name="track_quests"
-                        bind:value={$farmState.trackQuests}
+                        bind:value={$zoneMapState.trackQuests}
                 >Track quests</CheckboxInput>
             </button>
 
             <button>
                 <CheckboxInput
                     name="track_toys"
-                    bind:value={$farmState.trackToys}
+                    bind:value={$zoneMapState.trackToys}
                 >Track toys</CheckboxInput>
             </button>
 
             <button>
                 <CheckboxInput
                     name="track_transmog"
-                    bind:value={$farmState.trackTransmog}
+                    bind:value={$zoneMapState.trackTransmog}
                 >Track transmog</CheckboxInput>
             </button>
         </div>
@@ -142,7 +142,7 @@
         />
 
         {#each categories[0].farms as farm, farmIndex}
-            <Farm
+            <Thing
                 {farm}
                 status={farmStatuses[farmIndex]}
             />

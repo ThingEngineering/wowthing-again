@@ -78,12 +78,12 @@
         <a href="#/toys/">Toys</a>
         <span class="drop-shadow percent {getPercentClass(toysPercent)}">{fancyPercent(toysPercent)} %</span>
     </li>
+    <li use:active={'/zone-maps/*'}>
+        <a href="#/zone-maps/">Zone Maps</a>
+    </li>
 
     <li class="separator"></li>
 
-    <li use:active={'/farms/*'}>
-        <a href="#/farms/">Farms</a>
-    </li>
     <li use:active={'/transmog/*'}>
         <a href="#/transmog/">Transmog</a>
     </li>

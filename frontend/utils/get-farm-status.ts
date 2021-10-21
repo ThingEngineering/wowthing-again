@@ -8,11 +8,11 @@ import {DateTime} from 'luxon'
 
 import {classMap} from '@/data/character-class'
 import {covenantSlugMap} from '@/data/covenant'
-import type {FarmState} from '@/stores/local-storage/farm'
+import type {ZoneMapState} from '@/stores/local-storage/zone-map'
 import { ArmorType, PrimaryStat, WeaponType } from '@/types/enums'
 import {getNextDailyReset} from '@/utils/get-next-reset'
 import type {Character, StaticData, UserData} from '@/types'
-import type {FarmDataCategory, UserCollectionData, UserQuestData, UserTransmogData} from '@/types/data'
+import type {ZoneMapDataCategory, UserCollectionData, UserQuestData, UserTransmogData} from '@/types/data'
 
 
 function weaponValidForClass(classId: number, limit: string[]): boolean {
@@ -45,8 +45,8 @@ export default function getFarmStatus(
     userQuestData: UserQuestData,
     userTransmogData: UserTransmogData,
     timeStore: DateTime,
-    category: FarmDataCategory,
-    options: FarmState,
+    category: ZoneMapDataCategory,
+    options: ZoneMapState,
 ): FarmStatus[] {
     //console.time('getFarmStatus')
 

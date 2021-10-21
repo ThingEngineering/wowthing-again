@@ -3,17 +3,17 @@
 
     import {dropType} from '@/data/farm'
     import {userStore} from '@/stores'
-    import type {FarmDataDrop, FarmDataFarm} from '@/types/data'
+    import type {ZoneMapDataDrop, ZoneMapDataFarm} from '@/types/data'
     import type {DropStatus, FarmStatus} from '@/utils/get-farm-status'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
 
-    export let farm: FarmDataFarm
+    export let farm: ZoneMapDataFarm
     export let status: FarmStatus
 
-    let sortedDrops: [FarmDataDrop, DropStatus][]
+    let sortedDrops: [ZoneMapDataDrop, DropStatus][]
     $: {
-        const sigh: [FarmDataDrop, DropStatus][] = []
+        const sigh: [ZoneMapDataDrop, DropStatus][] = []
         for (let dropIndex = 0; dropIndex < farm.drops.length; dropIndex++) {
             sigh.push([farm.drops[dropIndex], status.drops[dropIndex]])
         }

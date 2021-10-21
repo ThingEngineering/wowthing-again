@@ -1,18 +1,18 @@
-export interface FarmData {
-    sets: FarmDataCategory[][]
+export interface ZoneMapData {
+    sets: ZoneMapDataCategory[][]
 }
 
-export interface FarmDataCategory {
+export interface ZoneMapDataCategory {
     minimumLevel: number
     requiredQuestId: number
     mapName: string
     name: string
     slug: string
     wowheadGuide: string
-    farms: FarmDataFarm[]
+    farms: ZoneMapDataFarm[]
 }
 
-export interface FarmDataFarm {
+export interface ZoneMapDataFarm {
     faction?: string
     npcId: number
     name: string
@@ -21,10 +21,10 @@ export interface FarmDataFarm {
     type: string
     questIds: number[]
     location: string[]
-    drops: FarmDataDrop[]
+    drops: ZoneMapDataDrop[]
 }
 
-export interface FarmDataDrop {
+export interface ZoneMapDataDrop {
     id: number
     limit: string[]
     name: string

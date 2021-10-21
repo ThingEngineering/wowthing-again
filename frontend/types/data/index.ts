@@ -1,6 +1,6 @@
-export * from './farm'
 export * from './transmog'
 export * from './user-collection'
 export * from './user-quest'
 export * from './user-team'
 export * from './user-transmog'
+export * from './zone-map'

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { FarmDataFarm } from '@/types/data'
+    import type { ZoneMapDataFarm } from '@/types/data'
     import type { FarmStatus } from '@/utils/get-farm-status'
     import { farmType } from '@/data/farm'
     import { tippyComponent } from '@/utils/tippy'
@@ -8,7 +8,7 @@
     import NpcLink from '@/components/links/NpcLink.svelte'
     import Tooltip from '@/components/tooltips/farm/TooltipFarm.svelte'
 
-    export let farm: FarmDataFarm
+    export let farm: ZoneMapDataFarm
     export let status: FarmStatus
 
     let big: boolean

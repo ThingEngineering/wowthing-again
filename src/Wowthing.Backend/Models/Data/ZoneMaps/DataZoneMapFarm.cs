@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace Wowthing.Backend.Models.Data.Farms
+namespace Wowthing.Backend.Models.Data.ZoneMaps
 {
-    public class DataFarmFarm
+    public class DataZoneMapFarm
     {
         public int NpcId { get; set; }
         public string Faction { get; set; }
@@ -13,6 +13,6 @@ namespace Wowthing.Backend.Models.Data.Farms
         public string Reset { get; set; }
         public string Type { get; set; }
         
-        public List<DataFarmDrop> Drops { get; set; }
+        public List<DataZoneMapDrop> Drops { get; set; }
     }
 }

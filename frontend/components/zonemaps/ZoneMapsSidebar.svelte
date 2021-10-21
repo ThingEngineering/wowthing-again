@@ -1,12 +1,12 @@
 <script lang="ts">
-    import {farmStore} from '@/stores'
+    import {zoneMapStore} from '@/stores'
     import type {SidebarItem} from '@/types'
 
     import Sidebar from '@/components/sidebar/Sidebar.svelte'
 
     let categories: SidebarItem[]
     $: {
-        categories = $farmStore.data.sets.map((set) => set === null ? null : ({
+        categories = $zoneMapStore.data.sets.map((set) => set === null ? null : ({
             children: set.slice(1),
             ...set[0],
         }))
@@ -20,7 +20,7 @@
 </script>
 
 <Sidebar
-    baseUrl="/farms"
+    baseUrl="/zone-maps"
     items={categories}
     width="12rem"
     noVisitRoot={true}

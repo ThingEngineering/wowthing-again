@@ -4,9 +4,9 @@ using System.Linq;
 using Newtonsoft.Json;
 using Wowthing.Lib.Extensions;
 
-namespace Wowthing.Backend.Models.Data.Farms
+namespace Wowthing.Backend.Models.Data.ZoneMaps
 {
-    public class OutFarmFarm
+    public class OutZoneMapFarm
     {
         public int NpcId { get; set; }
         public string[] Location { get; set; }
@@ -20,13 +20,13 @@ namespace Wowthing.Backend.Models.Data.Farms
         public string Type { get; set; }
         public List<int> QuestIds { get; set; }
         
-        public List<OutFarmDrop> Drops { get; set; }
+        public List<OutZoneMapDrop> Drops { get; set; }
 
-        public OutFarmFarm(DataFarmFarm farm)
+        public OutZoneMapFarm(DataZoneMapFarm farm)
         {
             Drops = farm.Drops
                 .EmptyIfNull()
-                .Select(drop => new OutFarmDrop(drop))
+                .Select(drop => new OutZoneMapDrop(drop))
                 .ToList();
             Faction = farm.Faction;
             Location = (farm.Location ?? "").Split();
