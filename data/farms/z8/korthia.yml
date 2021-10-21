@@ -4,66 +4,79 @@ minimumLevel: 60
 wowheadGuide: https://www.wowhead.com/guides/shadowlands-korthia-desmotaeron-rares-treasures
 farms:
 
-- name: Carriage Crusher
+- name: "Carriage Crusher"
   location: 58.2 17.7
   npcId: 180246
   questId: 64258
+  type: kill
   drops:
   - type: transmog
     id: 187370
-    name: Carriage Crusher's Padded Slippers
+    name: "Carriage Crusher's Padded Slippers"
     limit: armor cloth
 
   - type: transmog
     id: 187399
-    name: Maw Construct's Shoulderguards
+    name: "Maw Construct's Shoulderguards"
     limit: armor leather
 
-- name: Consumption
-  location: 51.2 41.6
+- name: "Consumption"
+  location: 51.2 41.7
   note: Does not spawn every day
   npcId: 179768
   questId: 64243
   drops:
   - type: transmog
     id: 187246
-    name: Death-Enveloped Pauldrons
+    name: "Death-Enveloped Pauldrons"
 
   - type: transmog
     id: 187247
-    name: Death-Enveloped Shoulder Spikes
+    name: "Death-Enveloped Shoulder Spikes"
 
   - type: transmog
     id: 187245
-    name: Death-Enveloped Spires
+    name: "Death-Enveloped Spires"
 
-- name: Dominated Protector
+- name: "Deadsoul Hatcher"
+  location: 59.3 52.2
+  npcId: 179913
+  questId: 64285
+  type: kill
+  drops:
+  - type: transmog
+    id: 187396
+    name: "Girdle of the Deadsoul"
+    limit: armor plate
+
+- name: "Dominated Protector"
   location: 51.8 20.8
   npcId: 177903
   questId: 63830
+  type: kill
   drops:
   - type: transmog
     id: 187390
-    name: Dominated Protector's Helm
+    name: "Dominated Protector's Helm"
     limit: armor plate
 
-- name: Escaped Wilderling
-  location: 33.1 39.5
+- name: "Escaped Wilderling"
+  location: 33.2 39.4
   note: Must be Night Fae to start the event
   npcId: 180014
   questId: 64320
   drops:
   - type: mount
     id: 353859
-    name: Summer Wilderling
+    name: "Summer Wilderling"
     limit: covenant night-fae
 
   - type: transmog
     id: 187395
-    name: Reinforced Stygian Spaulders
+    name: "Reinforced Stygian Spaulders"
     limit: armor plate
 
-- name: Fleshwing
+- name: "Fleshwing <Lord of the Heap>"
   location: 60.0 43.8
   note: Must be Necrolord to start the event
   npcId: 180042
@@ -71,214 +84,15 @@ farms:
   drops:
   - type: mount
     id: 347250
-    name: Lord of the Corpseflies
+    name: "Lord of the Corpseflies"
     limit: covenant necrolord
 
   - type: transmog
     id: 187372
-    name: Miasma Filtering Headpiece
+    name: "Miasma Filtering Headpiece"
     limit: armor cloth
 
-- name: Kroke the Tormented
-  location: 59.2 35.8
-  note: Does not spawn every day
-  npcId: 179108
-  questId: 64428
-  drops:
-  - type: transmog
-    id: 187248
-    name: Kroke's Gleaming Spaulders
-
-  - type: transmog
-    id: 187250
-    name: Kroke's Wingspiked Pauldrons
-
-  - type: transmog
-    id: 187394
-    name: Tormented Giant's Legplates
-    limit: armor plate
-
-- name: Malbog
-  location: 44.2 29.5
-  note: Can be spawned by just following the path, even without Caretaker Kah-Kay
-  npcId: 179684
-  questId: 64233
-  drops:
-  - type: mount
-    id: 354357
-    name: Crimson Shardhide
-
-  - type: transmog
-    id: 187377
-    name: Malbog's Paws
-    limit: armor leather
-
-- name: Relic Breaker Krelva
-  location: 22.6 41.4
-  npcId: 179931
-  questId: 64291
-  drops:
-  - type: transmog
-    id: 187403
-    name: Relic Breaker's Drape
-
-- name: Reliwik the Defiant
-  location: 56.3 66.2
-  note: Does not spawn every day
-  npcId: 180160
-  questId: 64455
-  drops:
-  - type: mount
-    id: 354360
-    name: Garnet Razorwing
-
-  - type: transmog
-    id: 187388
-    name: Barbed Scale Cinch
-    limit: armor mail
-
-- name: Stygian Stonecrusher
-  location: 46.4 79.6
-  note: Must be Venthyr to start event
-  npcId: 179985
-  questId: 64313
-  drops:
-  - type: mount
-    id: 215545
-    name: Mastercraft Gravewing
-    limit: covenant venthyr
-
-  - type: transmog
-    id: 187386
-    name: Stygian Crystal Studded Legguards
-    limit: armor mail
-
-- name: Wild Worldcracker
-  location: 56.9 32.4
-  note: Must be Kyrian to start event
-  npcId: 180032
-  questId: 64338
-  drops:
-  - type: mount
-    id: 353877
-    name: Foresworn Aquilon
-    limit: covenant kyrian
-
-  - type: toy
-    id: 187176
-    name: Vesper of Harmony
-
-  - type: transmog
-    id: 187380
-    name: Devourer Hide Belt
-    limit: armor leather
-
-- name: Xyraxz the Unknowable
-  location: 45.0 35.5
-  npcId: 179859
-  questId: 64278
-  drops:
-  - type: transmog
-    id: 187387
-    name: Pauldrons of the Unknown Beyond
-    limit: armor mail
-
-  - type: transmog
-    id: 187368
-    name: Xyraxz's Controlling Rod
-    limit: weapon stave int
-
-- name: Yarxhov the Pillager
-  location: 39.4 52.4
-  npcId: 179802
-  questId: 64257
-  drops:
-  - type: transmog
-    id: 187391
-    name: Yarxhov's Rib-Cage
-    limit: armor leather
-
-  - type: transmog
-    id: 187366
-    name: Fallen Vault Guardian's Spire
-    limit: weapon polearm
-
-- name: Zelnithop
-  location: 27.7 58.9
-  npcId: 177336
-  questId: 64442
-  note: Does not spawn every day
-  drops:
-  - type: pet
-    id: 179251
-    name: Korthian Specimen
-
-  - type: transmog
-    id: 187371
-    name: Velvet Gromit Handwraps
-    limit: armor cloth
-
-# Rift lurkers
-- name: Deadsoul Hatcher
-  location: 59.3 52.2
-  note: Spawns inside the rift
-  npcId: 179913
-  questId: 64285
-  drops:
-  - type: transmog
-    id: 187396
-    name: Girdle of the Deadsoul
-    limit: armor plate
-
-- name: Observer Yorik
-  location: 50.3 75.9
-  note: Spawns inside the rift
-  npcId: 179914
-  questId: 64440
-  drops:
-  - type: toy
-    id: 187420
-    name: Maw-Ocular Viewfinder
-
-  - type: transmog
-    id: 187365
-    name: Rift Splitter
-    limit: weapon 1h-axe
-
-- name: Screaming Shade
-  location: 44.6 42.4
-  note: Spawns inside the rift
-  npcId: 179608
-  questId: 64263
-  drops:
-  - type: transmog
-    id: 187400
-    name: Mantle of Screaming Shadows
-    limit: armor cloth
-
-  - type: transmog
-    id: 187362
-    name: Stinging Shadow Screamer
-    limit: weapon dagger agi
-
-- name: Silent Soulstalker
-  location: 57.5 70.4
-  note: Spawns inside the rift
-  npcId: 179911
-  questId: 64284
-  drops:
-  - type: transmog
-    id: 187381
-    name: Rift-Touched Bindings
-    limit: armor leather
-
-  - type: transmog
-    id: 187383
-    name: Silent Soulstalker Sabatons
-    limit: armor mail
-
-# Random spawns
-- name: Konthrogz the Obliterator
+- name: "Konthrogz the Obliterator"
   location: 20.0 68.0
   note: 'Can spawn randomly after another rare dies - "A massive devourer tears an opening into Korthia"'
   npcId: 179472
@@ -286,16 +100,16 @@ farms:
   drops:
   - type: mount
     id: 356501
-    name: Rampaging Mauler
+    name: "Rampaging Mauler"
 
   - type: transmog
     id: 187375
-    name: Bound Worldeater Tendrils
+    name: "Bound Worldeater Tendrils"
     limit: armor cloth
 
   - type: transmog
     id: 187378
-    name: Visage of the Obliterator
+    name: "Visage of the Obliterator"
     limit: armor leather
 
   - type: transmog
@@ -305,10 +119,131 @@ farms:
 
   - type: transmog
     id: 187397
-    name: Vambraces of the In-Between
+    name: "Vambraces of the In-Between"
     limit: armor plate
 
-- name: Towering Exterminator
+- name: "Kroke the Tormented"
+  location: 59.2 35.8
+  note: "Spawns to replace Tormented Demolishers"
+  npcId: 179108
+  questId: 64428
+  drops:
+  - type: transmog
+    id: 187248
+    name: "Kroke's Gleaming Spaulders"
+
+  - type: transmog
+    id: 187250
+    name: "Kroke's Wingspiked Pauldrons"
+
+  - type: transmog
+    id: 187394
+    name: "Tormented Giant's Legplates"
+    limit: armor plate
+
+- name: "Malbog"
+  location: 44.2 29.5
+  note: "Can be spawned by just following the path, even without Caretaker Kah-Kay"
+  npcId: 179684
+  questId: 64233
+  drops:
+  - type: mount
+    id: 354357
+    name: "Crimson Shardhide"
+
+  - type: transmog
+    id: 187377
+    name: "Malbog's Paws"
+    limit: armor leather
+
+- name: "Observer Yorik"
+  location: 50.3 75.9
+  note: "Must be fought in the rift"
+  npcId: 179914
+  questId: 64440
+  drops:
+  - type: toy
+    id: 187420
+    name: "Maw-Ocular Viewfinder"
+
+  - type: transmog
+    id: 187365
+    name: "Rift Splitter"
+    limit: weapon 1h-axe
+
+- name: "Relic Breaker Krelva"
+  location: 22.6 41.4
+  npcId: 179931
+  questId: 64291
+  drops:
+  - type: transmog
+    id: 187403
+    name: "Relic Breaker's Drape"
+
+- name: "Reliwik the Defiant"
+  location: 56.3 66.2
+  note: "Does not spawn every day"
+  npcId: 180160
+  questId: 64455
+  drops:
+  - type: mount
+    id: 354360
+    name: "Garnet Razorwing"
+
+  - type: transmog
+    id: 187388
+    name: "Barbed Scale Cinch"
+    limit: armor mail
+
+- name: "Screaming Shade"
+  location: 44.6 42.4
+  note: Spawns inside the rift
+  npcId: 179608
+  questId: 64263
+  drops:
+  - type: transmog
+    id: 187400
+    name: "Mantle of Screaming Shadows"
+    limit: armor cloth
+
+  - type: transmog
+    id: 187362
+    name: "Stinging Shadow Screamer"
+    limit: weapon dagger agi
+
+- name: "Silent Soulstalker"
+  location: 57.6 70.4
+  note: "Spawns inside the rift"
+  npcId: 179911
+  questId: 64284
+  drops:
+  - type: transmog
+    id: 187381
+    name: "Rift-Touched Bindings"
+    limit: armor leather
+
+  - type: transmog
+    id: 187383
+    name: "Silent Soulstalker Sabatons"
+    limit: armor mail
+
+- name: "Stygian Stonecrusher"
+  location: 46.5 79.6
+  note: "Must be Venthyr to start event"
+  npcId: 179985
+  questId: 64313
+  drops:
+  - type: mount
+    id: 215545
+    name: "Mastercraft Gravewing"
+    limit: covenant venthyr
+
+  - type: transmog
+    id: 187386
+    name: "Stygian Crystal Studded Legguards"
+    limit: armor mail
+
+- name: "Towering Exterminator"
   location: 23.0 68.0
   note: 'Can spawn randomly after another rare dies - "A powerful Mawsworn opens a portal into Korthia"'
   npcId: 179760
@@ -316,7 +251,7 @@ farms:
   drops:
   - type: transmog
     id: 187035
-    name: Cold Burden of the Damned
+    name: "Cold Burden of the Damned"
 
   - type: transmog
     id: 187242
@@ -324,11 +259,11 @@ farms:
 
   - type: transmog
     id: 187241
-    name: Watchful Eye of the Damned
+    name: "Watchful Eye of the Damned"
 
   - type: transmog
     id: 187373
-    name: Soul-Enveloping Leggings
+    name: "Soul-Enveloping Leggings"
     limit: armor cloth
 
   - type: transmog
@@ -343,15 +278,145 @@ farms:
 
   - type: transmog
     id: 187392
-    name: Sabatons of the Towering Construct
+    name: "Sabatons of the Towering Construct"
     limit: armor plate
 
 - name: "Ve'rayn"
   location: 26.0 68.0
-  note: Can spawn inside several different caves
+  note: "Can spawn inside several different caves"
+  npcId: 180162
   questId: 64457
   drops:
+  - type: quest
+    id: 64513
+    name: "Ve'rayn's Head"
+
   - type: transmog
     id: 187369
     name: "Ve'rayn's Formal Robes"
     limit: armor cloth
+
+- name: "Wild Worldcracker"
+  location: 56.9 32.4
+  note: "Must be Kyrian to start event"
+  npcId: 180032
+  questId: 64338
+  drops:
+  - type: mount
+    id: 353877
+    name: "Foresworn Aquilon"
+    limit: covenant kyrian
+
+  - type: toy
+    id: 187176
+    name: "Vesper of Harmony"
+
+  - type: transmog
+    id: 187380
+    name: "Devourer Hide Belt"
+    limit: armor leather
+
+- name: "Xyraxz the Unknowable"
+  location: 45.0 35.5
+  note: "Repair teleporter to visit"
+  npcId: 179859
+  questId: 64278
+  drops:
+  - type: quest
+    id: 63918
+    name: "Obelisk of Dark Tidings"
+
+  - type: transmog
+    id: 187387
+    name: "Pauldrons of the Unknown Beyond"
+    limit: armor mail
+
+  - type: transmog
+    id: 187368
+    name: "Xyraxz's Controlling Rod"
+    limit: weapon stave int
+
+- name: "Yarxhov the Pillager"
+  location: 39.4 52.4
+  note: "Repair teleporter to visit"
+  npcId: 179802
+  questId: 64257
+  drops:
+  - type: quest
+    id: 63917
+    name: "Everliving Statuette"
+
+  - type: transmog
+    id: 187391
+    name: "Yarxhov's Rib-Cage"
+    limit: armor leather
+
+  - type: transmog
+    id: 187366
+    name: "Fallen Vault Guardian's Spire"
+    limit: weapon polearm
+
+- name: "Zelnithop"
+  location: 27.8 58.8
+  npcId: 177336
+  questId: 64442
+  note: "Does not spawn every day"
+  drops:
+  - type: pet
+    id: 179251
+    name: "Korthian Specimen"
+
+  - type: transmog
+    id: 187371
+    name: "Velvet Gromit Handwraps"
+    limit: armor cloth
+
+# Treasures
+
+- name: "Dislodged Nest"
+  location: 47.5 29.2
+  questId: 64241
+  reset: never
+  type: treasure
+  drops:
+  - type: toy
+    id: 187339
+    name: "Silver Shardhide Whistle"
+
+- name: "Forgotten Feather"
+  location: 68.9 29.9
+  questId: 64234
+  reset: never
+  type: treasure
+  drops:
+  - type: toy
+    id: 187051
+    name: "Forgotten Feather"
+
+- name: "Offering Box"
+  location: 45.3 67.1
+  questId: 64268
+  reset: never
+  type: treasure
+  drops:
+  - type: toy
+    id: 187344
+    name: "Offering Kit Maker"
+
+- name: "Spectral Bound Chest"
+  location: 62.1 55.5
+  questId: 64247
+  reset: never
+  type: treasure
+  drops:
+  - type: transmog
+    id: 187026
+    name: "Field Warden's Torture Kit"
+
+  - type: transmog
+    id: 187240
+    name: "Field Warden's Watchful Eye"
+
+  - type: transmog
+    id: 187020
+    name: "Necrobinder's Shoulderpads"
