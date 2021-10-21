@@ -1,13 +1,13 @@
-﻿namespace Wowthing.Backend.Models.Data.Farms
+﻿namespace Wowthing.Backend.Models.Data.ZoneMaps
 {
-    public class OutFarmDrop
+    public class OutZoneMapDrop
     {
         public int Id { get; set; }
         public string[] Limit { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
 
-        public OutFarmDrop(DataFarmDrop drop)
+        public OutZoneMapDrop(DataZoneMapDrop drop)
         {
             Id = drop.Id;
             Name = drop.Name;

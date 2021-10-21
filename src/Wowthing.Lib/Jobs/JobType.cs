@@ -40,6 +40,6 @@
         DataReputationTiersIndex,
         DataTitleIndex,
         CacheTransmog,
-        CacheFarms,
+        CacheZoneMaps,
     }
 }

@@ -18,7 +18,7 @@ src/Wowthing.Web/wwwroot/dist/
 
 # Misc
 api_responses/
-data/farms/addon.txt
+data/zone-maps/addon.txt
 src/Test/
 sets.txt
 zzz_uncategorized.yml

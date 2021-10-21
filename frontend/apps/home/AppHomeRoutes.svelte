@@ -3,7 +3,6 @@
 
     import Achievements from '@/components/achievements/Achievements.svelte'
     import Currencies from '@/components/currencies/Currencies.svelte'
-    import Farms from '@/components/farms/Farms.svelte'
     import Gear from '@/components/gear/Gear.svelte'
     import HomeCards from '@/components/home/HomeCards.svelte'
     import HomeTable from '@/components/home/HomeTable.svelte'
@@ -17,6 +16,7 @@
     import Teams from '@/components/teams/Teams.svelte'
     import Toys from '@/components/collections/Toys.svelte'
     import Transmog from '@/components/transmog/Transmog.svelte'
+    import ZoneMaps from '@/components/zonemaps/ZoneMaps.svelte'
 
     const routes = {
         '/': HomeTable,
@@ -30,12 +30,12 @@
         '/mythicplus/:slug?': MythicPlus,
         '/progress/:slug?': Progress,
         '/reputations/:slug?': Reputations,
+        '/transmog/:slug1?/:slug2?': Transmog,
+        '/zone-maps/:slug1?/:slug2?': ZoneMaps,
 
-        '/farms/:slug1?/:slug2?': Farms,
         '/mounts/:slug1?/:slug2?': Mounts,
         '/pets/:slug1?/:slug2?': Pets,
         '/toys/:slug1?/:slug2?': Toys,
-        '/transmog/:slug1?/:slug2?': Transmog,
 
         '/teams/:slug?': Teams,
 

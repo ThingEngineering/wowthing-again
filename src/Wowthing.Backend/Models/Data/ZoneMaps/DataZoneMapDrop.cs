@@ -1,6 +1,6 @@
-﻿namespace Wowthing.Backend.Models.Data.Farms
+﻿namespace Wowthing.Backend.Models.Data.ZoneMaps
 {
-    public class DataFarmDrop
+    public class DataZoneMapDrop
     {
         public int Id { get; set; }
         public string Limit { get; set; }

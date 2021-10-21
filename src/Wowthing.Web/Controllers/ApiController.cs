@@ -146,7 +146,7 @@ namespace Wowthing.Web.Controllers
             return Content(await db.StringGetAsync("cached_static:data"), "application/json");
         }
 
-        [HttpGet("{type:regex(^(farm|transmog)$)}.{hash:length(32)}.json")]
+        [HttpGet("{type:regex(^(transmog|zone-map)$)}.{hash:length(32)}.json")]
         [ResponseCache(Duration = 365 * 24 * 60 * 60)]
         public async Task<IActionResult> StaticMisc([FromRoute] string type, [FromRoute] string hash)
         {

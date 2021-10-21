@@ -31,12 +31,12 @@ namespace Wowthing.Web.Controllers
 
             var db = _redis.GetDatabase();
             var achievementsHash = db.StringGetAsync("cached_achievements:hash");
-            var farmHash = db.StringGetAsync("cache:farm:hash");
             var staticHash = db.StringGetAsync("cached_static:hash");
             var transmogHash = db.StringGetAsync("cache:transmog:hash");
-            Task.WaitAll(achievementsHash, farmHash, staticHash, transmogHash);
+            var zoneMapHash = db.StringGetAsync("cache:zone-map:hash");
+            Task.WaitAll(achievementsHash, staticHash, transmogHash, zoneMapHash);
 
-            return View(new UserViewModel(user, settings, achievementsHash.Result, farmHash.Result, staticHash.Result, transmogHash.Result));
+            return View(new UserViewModel(user, settings, achievementsHash.Result, staticHash.Result, transmogHash.Result, zoneMapHash.Result));
         }
     }
 }

@@ -16,7 +16,7 @@ const sizes = {
 
 const mediaStore = watchMedia(queries)
 
-export const farmMapMedia = derived(
+export const zoneMapMedia = derived(
     mediaStore,
     $mediaStore => {
         if ($mediaStore.small) {

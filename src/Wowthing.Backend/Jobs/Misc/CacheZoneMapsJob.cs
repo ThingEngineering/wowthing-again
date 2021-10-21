@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Wowthing.Backend.Models.Data;
-using Wowthing.Backend.Models.Data.Farms;
+using Wowthing.Backend.Models.Data.ZoneMaps;
 using Wowthing.Backend.Models.Redis;
 using Wowthing.Backend.Utilities;
 using Wowthing.Lib.Extensions;
@@ -16,7 +16,7 @@ using YamlDotNet.Serialization.NamingConventions;
 
 namespace Wowthing.Backend.Jobs.Misc
 {
-    public class CacheFarmsJob : JobBase, IScheduledJob
+    public class CacheZoneMapsJob : JobBase, IScheduledJob
     {
         private JankTimer _timer;
         private IDeserializer _yaml = new DeserializerBuilder()
@@ -26,7 +26,7 @@ namespace Wowthing.Backend.Jobs.Misc
 
         public static readonly ScheduledJob Schedule = new ScheduledJob
         {
-            Type = JobType.CacheFarms,
+            Type = JobType.CacheZoneMaps,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(24),
             Version = 2,
@@ -36,18 +36,18 @@ namespace Wowthing.Backend.Jobs.Misc
         {
             _timer = new JankTimer();
             
-            await BuildFarmData();
+            await BuildData();
             
             Logger.Information("{0}", _timer.ToString());
         }
 
-        private async Task BuildFarmData()
+        private async Task BuildData()
         {
             // Generate and cache output
-            var farmSets = DataUtilities.LoadData<DataFarmCategory>("farms");
+            var zoneMapSets = DataUtilities.LoadData<DataZoneMapCategory>("zone-maps");
 
-            var sets = new List<List<OutFarmCategory>>();
-            foreach (var catList in farmSets)
+            var sets = new List<List<OutZoneMapCategory>>();
+            foreach (var catList in zoneMapSets)
             {
                 if (catList == null)
                 {
@@ -55,12 +55,12 @@ namespace Wowthing.Backend.Jobs.Misc
                 }
                 else
                 {
-                    sets.Add(catList.Select(cat => cat == null ? null : new OutFarmCategory(cat))
+                    sets.Add(catList.Select(cat => cat == null ? null : new OutZoneMapCategory(cat))
                         .ToList());
                 }
             }
             
-            var cacheData = new RedisFarmCache
+            var cacheData = new RedisZoneMapCache
             {
                 Sets = sets,
             };
@@ -73,7 +73,7 @@ namespace Wowthing.Backend.Jobs.Misc
                 .GroupBy(r => r.ItemID)
                 .ToDictionary(r => r.Key, r => r.First().ItemAppearanceID);
             
-            using (var outFile = File.CreateText(Path.Join(DataUtilities.DataPath, "farms", "addon.txt")))
+            using (var outFile = File.CreateText(Path.Join(DataUtilities.DataPath, "zone-maps", "addon.txt")))
             {
                 foreach (var categories in cacheData.Sets)
                 {
@@ -89,7 +89,7 @@ namespace Wowthing.Backend.Jobs.Misc
                             continue;
                         }
                         
-                        outFile.WriteLine("    -- Farms: {0}", category.Name);
+                        outFile.WriteLine("    -- Zone Maps: {0}", category.Name);
                         foreach (var farm in category.Farms)
                         {
                             foreach (var questId in farm.QuestIds)
@@ -116,8 +116,8 @@ namespace Wowthing.Backend.Jobs.Misc
             _timer.AddPoint("JSON");
             
             var db = Redis.GetDatabase();
-            await db.StringSetAsync("cache:farm:data", cacheJson);
-            await db.StringSetAsync("cache:farm:hash", cacheHash);
+            await db.StringSetAsync("cache:zone-map:data", cacheJson);
+            await db.StringSetAsync("cache:zone-map:hash", cacheHash);
             
             _timer.AddPoint("Cache", true);
         }
