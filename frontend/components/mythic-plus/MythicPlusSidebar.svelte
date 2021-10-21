@@ -22,7 +22,7 @@
 
 
 <Sidebar
-    baseUrl="/mythicplus"
+    baseUrl="/mythic-plus"
     items={categories}
     width="8rem"
 />

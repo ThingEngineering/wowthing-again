@@ -55,8 +55,8 @@
     <li use:active={'/lockouts'}>
         <a href="#/lockouts">Lockouts</a>
     </li>
-    <li use:active={'/mythicplus/*'}>
-        <a href="#/mythicplus/">Mythic+</a>
+    <li use:active={'/mythic-plus/*'}>
+        <a href="#/mythic-plus/">Mythic+</a>
     </li>
     <li use:active={'/progress/*'}>
         <a href="#/progress/">Progress</a>
