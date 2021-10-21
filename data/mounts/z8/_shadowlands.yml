@@ -63,12 +63,6 @@ groups:
   things:
   - 318051 # Silky Shimmermoth (Master Clerk Salorn, Ardenweald)
 
-- name: World Drops
-  things:
-  - 344228 # Battle-Bound Warhound (Theatre of Pain, Maldraxxus)
-  - 336038 # Callow Flayedwing (Maldraxxus)
-  - 352309 # Hand of Bahmethra (Tormentors of Torghast)
-
 - name: Covenant
   things:
   - 336064 # Dauntless Duskrunner

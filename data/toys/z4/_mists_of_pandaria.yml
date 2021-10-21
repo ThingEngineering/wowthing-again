@@ -1,0 +1,36 @@
+name: Mists of Pandaria
+groups:
+
+- name: FIXME
+  things:
+  -  86596 # Nat's Fishing Chair (??)
+
+- name: Instances
+  things:
+  -  98136 # Gastropod Shell (Throne of Thunder)
+  -  98132 # Shado-Pan Geyser Gun (Throne of Thunder)
+
+- name: Quests
+  things:
+  -  88589 # Cremating Torch
+  -  88417 # Gokk'lok's Shell
+  -  88385 # Hozen Idol
+  -  88580 # Ken-Ken's Mask
+  -  95567 # Kirin Tor Beacon
+  -  88579 # Jin Warmkeg's Brew
+  -  88531 # Lao Chin's Last Mug
+  -  88370 # Puntable Marmot
+  -  82467 # Ruthers' Harness
+  -  88387 # Shushen's Spittoon
+  -  88381 # Silversage Incense
+  -  95568 # Sunreaver Beacon
+  -  80822 # The Golden Banana
+  -  88584 # Totem of Harmony
+  -  88377 # Turnip Paint "Gun"
+  -  88375 # Turnip Punching Bag
+
+- name: Vendors
+  things:
+  -  88801 # Flippable Table (Nam Ironpaw, Valley of the Four Winds)
+  -  88802 # Foxicopter Controller (Sally Fizzlefury, Valley of the Four Winds)
+  -  91904 # Stackable Stag (Sally Fizzlefury, Valley of the Four Winds)

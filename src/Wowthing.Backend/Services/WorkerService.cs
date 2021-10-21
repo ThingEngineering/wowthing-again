@@ -80,6 +80,7 @@ namespace Wowthing.Backend.Services
                 var classType = JobTypeToClass[result.Type];
                 using (LogContext.PushProperty("Task", classType.Name[0..^3]))
                 {
+                    IJob job;
                     try
                     {
                         using var scope = _serviceScopeFactory.CreateScope();
@@ -92,7 +93,7 @@ namespace Wowthing.Backend.Services
 
                         await using var context = contextFactory.CreateDbContext();
 
-                        var job = _jobFactory.Create(classType, context, cancellationToken);
+                        job = _jobFactory.Create(classType, context, cancellationToken);
                         await job.Run(result.Data);
                     }
                     catch (Exception ex)

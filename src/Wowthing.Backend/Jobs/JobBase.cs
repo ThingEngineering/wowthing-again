@@ -23,7 +23,7 @@ using Wowthing.Lib.Utilities;
 
 namespace Wowthing.Backend.Jobs
 {
-    public abstract class JobBase : IJob
+    public abstract class JobBase : IJob 
     {
         private const string ApiUrl = "https://{0}.api.blizzard.com/{1}";
         private const string CacheKeyLastModified = "last_modified:{0}";
@@ -160,6 +160,6 @@ namespace Wowthing.Backend.Jobs
         protected void LogNotModified()
         {
             Logger.Debug("304 Not Modified");
-        } 
+        }
     }
 }

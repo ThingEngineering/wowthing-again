@@ -1,0 +1,628 @@
+name: The Maw
+mapName: z8_the_maw
+minimumLevel: 60
+requiredQuestId: 59770 # Stand as One
+wowheadGuide: https://www.wowhead.com/guides/shadowlands-korthia-desmotaeron-rares-treasures
+farms:
+
+- name: "Adjutant Dekaris"
+  location: 25.9 31.2
+  npcId: 157964
+  questId: 57482
+  drops:
+  - type: transmog
+    id: 186222
+    name: "Grips of the Coldheart Adjunct"
+    limit: armor mail
+
+- name: "Agonix"
+  location: 28.2 44.5
+  npcId: 169102
+  questId: 61136
+  drops:
+  - type: transmog
+    id: 186616
+    name: "Bindings of Screaming Death"
+    limit: armor mail
+
+- name: "Akros <Death's Hammer>"
+  location: 34.1 74.5
+  npcId: 170787
+  questId: 60920
+  drops:
+  - type: transmog
+    id: 186617
+    name: "Death's Hammer Stompers"
+    limit: armor plate
+
+- name: "Blinding Shadow"
+  location: 36.0 44.3
+  npcId: 179853
+  questId: 64276
+  drops:
+  - type: transmog
+    id: 187361
+    name: "Rift-Bound Shadow Piercer"
+    limit: weapon bow
+
+- name: "Borr-Geth"
+  location: 39.0 41.2
+  npcId: 157833
+  questId: 57469
+  drops:
+  - type: toy
+    id: 184312
+    name: "Borr-Geth's Fiery Brimstone"
+
+  - type: transmog
+    id: 186223
+    name: "Coif of the Molten Horror"
+    limit: armor mail
+
+- name: "Conjured Death"
+  location: 27.7 13.0
+  npcId: 171317
+  questId: 61106
+  drops:
+  - type: transmog
+    id: 183887
+    name: "Suirhtaned, Blade of the Heir"
+    limit: weapon 1h-sword agi
+
+- name: "Cyrixia <The Willbreaker>"
+  location: 28.7 25.1
+  npcId: 168693
+  questId: 61346
+  drops:
+  - type: quest
+    id: 63164
+    name: "Mawsworn Orders"
+
+  - type: transmog
+    id: 186618
+    name: "Willbreaker's Chain"
+    limit: armor mail
+
+- name: "Darithis the Bleak"
+  location: 61.0 48.0
+  npcId: 160770
+  questId: 62281
+  drops:
+  - type: transmog
+    id: 186220
+    name: "Stygian Chestcage"
+    limit: armor mail
+
+- name: "Darklord Taraxis"
+  location: 49.1 81.8
+  npcId: 158025
+  questId: 62282
+  drops:
+  - type: toy
+    id: 183901
+    name: "Bonestorm Top"
+
+  - type: transmog
+    id: 186611
+    name: "Taraxis Treads"
+    limit: armor leather
+
+- name: "Dartanos <Flayer of Souls>"
+  location: 25.8 14.8
+  npcId: 162452
+  questId: 59230
+  drops:
+  - type: transmog
+    id: 186619
+    name: "Bloodspattered Shoulders of the Flayer"
+    limit: armor plate
+
+- name: "Dath Rezara <Lord of Blades>"
+  location: 19.2 57.4
+  npcId: 162844
+  questId: 61140
+  drops:
+  - type: quest
+    id: 63160
+    name: "Korrath's Grimoire: Aleketh"
+
+  - type: quest
+    id: 63161
+    name: "Korrath's Grimoire: Belidir"
+
+  - type: quest
+    id: 63162
+    name: "Korrath's Grimoire: Gyadrek"
+
+  - type: transmog
+    id: 186620
+    name: "Rezara's Fencing Grips"
+    limit: armor leather
+
+- name: "Deomen the Vortex"
+  location: 61.3 41.3
+  npcId: 179779
+  questId: 64251
+  drops:
+  - type: transmog
+    id: 187385
+    name: "Vortex Piercing Headgear"
+    limit: armor mail
+
+  - type: transmog
+    id: 187367
+    name: "Deomen's Vortex Blade"
+    limit: weapon 1h-sword int
+
+- name: "Dolos <Death's Knife>"
+  location: 28.1 60.6
+  npcId: 170711
+  questId: 60909
+  drops:
+  - type: transmog
+    id: 186209
+    name: "Blood-Spattered Gloves of Death"
+    limit: armor cloth
+
+- name: "Drifting Sorrow"
+  location: 32.0 21.2
+  npcId: 158314
+  questId: 59183
+  drops:
+  - type: transmog
+    id: 186622
+    name: "Robe of Drifting Sorrow"
+    limit: armor cloth
+
+- name: "Eketra <The Impaler>"
+  location: 23.8 53.4
+  npcId: 170774
+  questId: 60915
+  drops:
+  - type: transmog
+    id: 186563
+    name: "Spear of the Impaler"
+    limit: weapon polearm agi
+
+- name: "Eternas the Tormentor"
+  location: 19.2 46.1
+  npcId: 154330
+  questId: 57509
+  drops:
+  - type: pet
+    id: 174081
+    name: "Dread"
+
+  - type: transmog
+    id: 186212
+    name: "Eternas' Braided Waistcord"
+    limit: armor cloth
+
+- name: "Exos, Herald of Domination"
+  location: 20.6 69.4
+  npcId: 170303
+  questId: 62260
+  type: kill
+  drops:
+  - type: quest
+    id: 63160
+    name: "Korrath's Grimoire: Aleketh"
+
+  - type: quest
+    id: 63161
+    name: "Korrath's Grimoire: Belidir"
+
+  - type: quest
+    id: 63162
+    name: "Korrath's Grimoire: Gyadrek"
+
+- name: "Fallen Charger"
+  location: 17.7 49.5
+  note: Rides off to Korthia via one of two paths
+  npcId: 179460
+  questId: 64164
+  drops:
+  - type: mount
+    id: 354353
+    name: "Fallen Charger"
+
+- name: "Guard Orguluus"
+  location: 49.3 72.7
+  npcId: 179851
+  questId: 64272
+  drops:
+  - type: transmog
+    id: 187398
+    name: "Chestguard of the Shadeguard"
+    limit: armor leather
+
+  - type: transmog
+    id: 187363
+    name: "Orguluus' Spear"
+    limit: weapon polearm str
+
+- name: "Houndmaster Vasanok"
+  location: 60.5 64.8
+  npcId: 172523
+  questId: 62209
+  drops:
+  - type: transmog
+    id: 186224
+    name: "Beastwarren Houndmaster's Treads"
+    limit: armor mail
+
+- name: "Huwerath"
+  location: 20.8 29.7
+  npcId: 162965
+  questId: 58918
+  drops:
+  - type: transmog
+    id: 186623
+    name: "Lost Soul's Mantle"
+    limit: armor cloth
+
+- name: "Ikras the Devourer"
+  location: 30.8 50.0
+  note: Flies around all over the place
+  npcId: 175012
+  questId: 62788
+  drops:
+  - type: transmog
+    id: 186214
+    name: "Maw Snakeskin Boots"
+    limit: armor leather
+
+- name: "Krala <Death's Wings>"
+  location: 30.8 68.7
+  npcId: 170692
+  questId: 63381
+  drops:
+  - type: transmog
+    id: 186624
+    name: "Death Wing Drape"
+
+- name: "Malevolent Stygia"
+  location: 27.3 17.5
+  npcId: 171316
+  questId: 61125
+  drops:
+  - type: transmog
+    id: 186625
+    name: "Hood of Malevolence"
+    limit: armor leather
+
+- name: "Morguliax <Lord of Decapitation>"
+  location: 16.9 51.0
+  npcId: 162849
+  questId: 60987
+  drops:
+  - type: toy
+    id: 184292
+    name: "Ancient Elethium Coin"
+
+  - type: transmog
+    id: 185892
+    name: "Stygia-Etched Decapitator"
+    limit: weapon 2h-sword str
+
+- name: "Nascent Devourer"
+  location: 45.5 73.8
+  npcId: 158278
+  questId: 57573
+  drops:
+  - type: transmog
+    id: 186236
+    name: "Devourer's Shadehide Jerkin"
+    limit: armor leather
+
+- name: "Obolos <Prime Adjutant>"
+  location: 48.8 18.3
+  npcId: 164064
+  questId: 60667
+  drops:
+  - type: transmog
+    id: 186238
+    name: "Mantle of the Prime Collector"
+    limit: armor cloth
+
+- name: "Odalrik"
+  location: 38.6 28.8
+  npcId: 172207
+  questId: 62618
+  type: kill
+  drops:
+  - type: quest
+    id: 63158
+    name: "Wailing Coin"
+
+- name: "Orophea"
+  location: 23.7 21.4
+  npcId: 172577
+  questId: 61519
+  drops:
+  - type: toy
+    id: 181794
+    name: "Orophea's Lyre"
+
+  - type: transmog
+    id: 186211
+    name: "Pantaloons of the Condemned Bard"
+    limit: armor cloth
+
+- name: "Orrholyn <Lord of Bloodletting>"
+  location: 25.4 48.8
+  npcId: 162845
+  questId: 60991
+  drops:
+  - type: transmog
+    id: 186626
+    name: "Bloodwicking Bands"
+    limit: armor cloth
+
+- name: "Ratgusher"
+  location: 22.7 42.2
+  npcId: 175821
+  questId: 63044
+  drops:
+  - type: transmog
+    id: 186627
+    name: "Belt of Ten Thousand Tails"
+    limit: armor leather
+
+- name: "Razkazzar <Lord of Axes>"
+  location: 26.2 37.4
+  npcId: 162829
+  questId: 60992
+  drops:
+  - type: transmog
+    id: 186628
+    name: "Razkazzar's Axe Grippers"
+    limit: armor plate
+
+- name: "Sanngror the Torturer"
+  location: 55.6 63.2
+  npcId: 172521
+  questId: 62210
+  drops:
+  - type: pet
+    id: 174084
+    name: "Sharpclaw"
+
+- name: "Shadeweaver Zeris"
+  location: 32.9 66.5
+  npcId: 170634
+  questId: 60884
+  drops:
+  - type: quest
+    id: 63160
+    name: "Korrath's Grimoire: Aleketh"
+
+  - type: quest
+    id: 63161
+    name: "Korrath's Grimoire: Belidir"
+
+  - type: quest
+    id: 63162
+    name: "Korrath's Grimoire: Gyadrek"
+
+  - type: toy
+    id: 181794
+    name: "Orophea's Lyre"
+
+  - type: transmog
+    id: 185945
+    name: "Shadeweaver's Spire"
+    limit: weapon stave int
+
+- name: "Soulforger Rhovus"
+  location: 36.0 41.6
+  npcId: 166398
+  questId: 60834
+  drops:
+  - type: transmog
+    id: 186613
+    name: "Rhovus' Linked Greaves"
+    limit: armor mail
+
+- name: "Soulsmith Yol-Mattar"
+  location: 36.3 37.4
+  npcId: 165047
+  questId: 59441
+  drops:
+  - type: transmog
+    id: 186630
+    name: "Spark Deflecting Girdle"
+    limit: armor plate
+
+- name: "Talaporas, Herald of Pain"
+  location: 28.7 12.0
+  npcId: 170302
+  questId: 60789
+  drops:
+  - type: transmog
+    id: 184107
+    name: "Borogove Cloak"
+
+- name: "Thanassos <Death's Voice>"
+  location: 27.4 71.5
+  npcId: 170731
+  questId: 60914
+  drops:
+  - type: transmog
+    id: 186234
+    name: "Girdle of the Death Speaker"
+    limit: armor plate
+
+- name: "Torglluun"
+  location: 27.7 25.3
+  npcId: 179735
+  questId: 64232
+  drops:
+  - type: toy
+    id: 187139
+    name: "Bottled Shade Heart"
+
+  - type: transmog
+    id: 187389
+    name: "Lord of Shade's Binders"
+    limit: armor mail
+
+  - type: transmog
+    id: 187360
+    name: "Orb of Enveloping Rifts"
+    limit: weapon offhand
+
+- name: "Traitor Balthier"
+  location: 69.0 49.0
+  npcId: 179805
+  questId: 64258
+  drops:
+  - type: transmog
+    id: 187374
+    name: "Balthier's Waistcord"
+    limit: armor cloth
+
+  - type: transmog
+    id: 187364
+    name: "Maldraxxi Traitor's Blade"
+    limit: weapon 1h-sword str
+
+- name: "Valis the Cruel"
+  location: 40.7 59.6
+  npcId: 173086
+  questId: 61728
+  drops:
+  - type: transmog
+    id: 186632
+    name: "Rune Covered Bindings"
+    limit: armor leather
+
+- name: "Yero the Skittish"
+  location: 37.4 62.1
+  npcId: 172862
+  questId: 61568
+  drops:
+  - type: transmog
+    id: 186228
+    name: "Helm of the Skittish Hero"
+    limit: armor plate
+
+- name: "Ylva, Mate of Guarm"
+  location: 66.4 44.0
+  npcId: 177444
+  questId: 64152
+  drops:
+  - type: quest
+    id: 62683
+    name: "Feeder's Hand and Key / Seal Breaker Key"
+
+  - type: transmog
+    id: 186217
+    name: "Supple Helhound Leather Pants"
+    limit: armor leather
+
+  - type: transmog
+    id: 187393
+    name: "Sterling Hound-Handler's Gauntlets"
+    limit: armor plate
+
+  - type: transmog
+    id: 187359
+    name: "Ylva's Water Dish"
+    limit: weapon shield
+
+# World boss
+- name: "Mor'geth"
+  location: 68.9 44.0
+  npcId: 178958
+  questId: 64531
+  reset: weekly
+  type: killBig
+  drops:
+  - type: transmog
+    id: 186357
+    name: "Sorrowful Trousers"
+    limit: armor cloth
+
+  - type: transmog
+    id: 186355
+    name: "Wristwraps of Anguish"
+    limit: armor cloth
+
+  - type: transmog
+    id: 186361
+    name: "Grips of Unleashed Suffering"
+    limit: armor leather
+
+  - type: transmog
+    id: 186360
+    name: "Tormented Soul Harness"
+    limit: armor leather
+
+  - type: transmog
+    id: 186368
+    name: "Mor'geth's Gauntlets of Damnation"
+    limit: armor mail
+
+  - type: transmog
+    id: 186366
+    name: "Stygian Chain Greaves"
+    limit: armor mail
+
+  - type: transmog
+    id: 186370
+    name: "Caged Legplates"
+    limit: armor plate
+
+  - type: transmog
+    id: 186372
+    name: "Tormentor's Greatbelt"
+    limit: armor plate
+
+# Treasures
+
+- name: "Helsworn Chest"
+  location: 69.2 45.2
+  questId: 64256
+  reset: never
+  type: treasure
+  drops:
+  - type: transmog
+    id: 187026
+    name: "Field Warden's Torture Kit"
+
+  - type: transmog
+    id: 187240
+    name: "Field Warden's Watchful Eye"
+
+  - type: transmog
+    id: 187019
+    name: "Infiltrator's Shoulderguards"
+
+  - type: transmog
+    id: 187018
+    name: "Ritualist's Shoulder Scythes"
+
+  - type: transmog
+    id: 187014
+    name: "Shackler's Spiked Shoulders"
+
+- name: "Infused Etherwyrm"
+  location: 23.2 42.4
+  questId: 64000
+  reset: never
+  type: treasure
+  drops:
+  - type: pet
+    id: 179025
+    name: "Infused Etherwyrm"
+
+- name: "Lil'Abom"
+  location: 36.5 67.4
+  questId: 64008 64009 64010 64011 64013
+  reset: never
+  type: treasure
+  drops:
+  - type: pet
+    id: 179008
+    name: "Lil'Abom"

@@ -28,8 +28,8 @@
      data-settings="@Model.SettingsJson"
      data-achievements="@Url.Action("StaticAchievements", "Api", new { hash = Model.AchievementsHash })"
      data-static="@Url.Action("StaticData", "Api", new { hash = Model.StaticHash })"
-     data-farm="@Url.Action("StaticMisc", "Api", new { type = "farm", hash = Model.FarmHash })"
      data-transmog="@Url.Action("StaticMisc", "Api", new { type = "transmog", hash = Model.TransmogHash })"
+     data-zone-map="@Url.Action("StaticMisc", "Api", new { type = "zone-map", hash = Model.ZoneMapHash })"
      data-user="@Url.Action("UserData", "Api", new { username = Model.User.UserName })"
      data-xsrf="@(User?.Identity?.IsAuthenticated == true ? GetAntiXsrfRequestToken() : "")"
 ></div>

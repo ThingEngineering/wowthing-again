@@ -19,22 +19,7 @@ services:
       - wowthing
     volumes:
       - ./:/app/
-
-  frontend:
-    build:
-      context: .
-      dockerfile: frontend/development.Dockerfile
-    logging:
-      options:
-        max-size: "1m"
-        max-file: "5"
-    networks:
-      - wowthing
-    volumes:
-      - ./:/app/
-      - frontend-cache:/root/.cache
-      - frontend-dist:/app/src/Wowthing.Web/wwwroot/dist/
-      - frontend-nm:/app/frontend/node_modules/
+      - /app/src/Wowthing.Backend/bin/container/
 
   web:
     build:
@@ -58,6 +43,25 @@ services:
     volumes:
       - ./:/app/
       - frontend-dist:/app/src/Wowthing.Web/wwwroot/dist/
+      - /app/src/Wowthing.Web/bin/container/
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/development.Dockerfile
+    depends_on:
+      - web
+    logging:
+      options:
+        max-size: "1m"
+        max-file: "5"
+    networks:
+    - wowthing
+    volumes:
+    - ./:/app/
+    - frontend-cache:/root/.cache
+    - frontend-dist:/app/src/Wowthing.Web/wwwroot/dist/
+    - frontend-nm:/app/frontend/node_modules/
 
   postgres:
     image: postgres:13

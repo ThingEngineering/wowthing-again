@@ -8,7 +8,7 @@
 
     export let params: { slug: string }
 
-    afterUpdate(() => getSavedRoute('mythicplus', params.slug))
+    afterUpdate(() => getSavedRoute('mythic-plus', params.slug))
 </script>
 
 <style lang="scss">

@@ -1,13 +1,6 @@
 name: Mechagon / Nazjatar
 groups:
 
-- name: Rare Spawns
-  things:
-  - 169347 # Judgment of Mechagon (The Rusty Prince, Mechagon)
-  - 167931 # Mechagonian Sawblades (Kill Saw, Mechagon)
-  - 170187 # Shadescale (Shassera, Nazjatar)
-  - 170196 # Shirakess Warning Sign (Tidemistress Leth'sindra, Nazjatar)
-
 - name: Treasures
   things:
   - 170198 # Eternal Palace Dining Set (Nazjatar) ??

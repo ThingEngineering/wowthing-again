@@ -1,0 +1,21 @@
+name: Reputations
+groups:
+
+- name: Ascended
+  things:
+  - 184410 # Aspirant's Stretcher (The Ascended, Revered)
+  - 184396 # Malfunctioning Goliath Gauntlet (The Ascended, Paragon)
+  - 184435 # Mark of Purity (The Ascended, Paragon)
+
+- name: Avowed
+  things:
+  - 182890 # Rapid Recitation Quill (The Avowed, Revered)
+  - 184218 # Vulgarity Arbiter (The Avowed, Exalted)
+
+- name: Court of Harvesters
+  things:
+  - 183900 # Sinvyr Tea Set (Court of Harvesters, Honored)
+
+- name: Undying Army
+  things:
+  - 184495 # Infested Arachnid Casing (Undying Army, Paragon)

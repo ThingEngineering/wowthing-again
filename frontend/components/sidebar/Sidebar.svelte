@@ -8,6 +8,7 @@
     export let baseUrl: string
     export let items: SidebarItem[]
     export let id = 'sub-sidebar'
+    export let noVisitRoot = false
     export let percentFunc: (entry: SidebarItem) => number = undefined
     export let width = '10rem'
 
@@ -45,7 +46,13 @@
     <nav id="{id}" class="thing-container">
         <ul>
             {#each items as item}
-                <SidebarEntry {anyChildren} {baseUrl} {item} {percentFunc} />
+                <SidebarEntry
+                    {anyChildren}
+                    {baseUrl}
+                    {item}
+                    {noVisitRoot}
+                    {percentFunc}
+                />
             {/each}
         </ul>
     </nav>

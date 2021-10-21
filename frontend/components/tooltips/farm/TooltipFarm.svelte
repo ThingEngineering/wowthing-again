@@ -1,18 +1,19 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy'
-    import Fa from 'svelte-fa'
 
-    import {farmType} from '@/data/farm'
+    import {dropType} from '@/data/farm'
     import {userStore} from '@/stores'
-    import type {FarmDataDrop, FarmDataFarm} from '@/types/data'
+    import type {ZoneMapDataDrop, ZoneMapDataFarm} from '@/types/data'
     import type {DropStatus, FarmStatus} from '@/utils/get-farm-status'
 
-    export let farm: FarmDataFarm
+    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+
+    export let farm: ZoneMapDataFarm
     export let status: FarmStatus
 
-    let sortedDrops: [FarmDataDrop, DropStatus][]
+    let sortedDrops: [ZoneMapDataDrop, DropStatus][]
     $: {
-        const sigh: [FarmDataDrop, DropStatus][] = []
+        const sigh: [ZoneMapDataDrop, DropStatus][] = []
         for (let dropIndex = 0; dropIndex < farm.drops.length; dropIndex++) {
             sigh.push([farm.drops[dropIndex], status.drops[dropIndex]])
         }
@@ -55,7 +56,10 @@
 
 <div class="wowthing-tooltip">
     <h4>{farm.name}</h4>
-    <h5>{farm.reset} reset</h5>
+
+    {#if farm.reset !== 'never'}
+        <h5>{farm.reset} reset</h5>
+    {/if}
 
     {#if farm.note}
         <p class="note">{farm.note}</p>
@@ -67,9 +71,9 @@
                 <tr class:success={!dropStatus.need}>
                     <td class="type status-{dropStatus.need ? 'fail' : 'success'}">
                         {#if drop.type === 'transmog' && drop.limit?.[0] && drop.limit?.[0] !== 'covenant'}
-                            <Fa fw icon={farmType[drop.limit[0]]} />
+                            <IconifyIcon icon={dropType[drop.limit[0]]} />
                         {:else}
-                            <Fa fw icon={farmType[drop.type]} />
+                            <IconifyIcon icon={dropType[drop.type]} />
                         {/if}
                     </td>
                     <td class="name" class:status-success={!dropStatus.need}>{drop.name}</td>
@@ -81,6 +85,8 @@
                             {/if}
                         {:else if drop.type === 'transmog'}
                             cosmetic
+                        {:else}
+                            {drop.type}
                         {/if}
                     </td>
                 </tr>

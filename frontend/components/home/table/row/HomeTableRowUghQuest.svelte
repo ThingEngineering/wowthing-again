@@ -21,9 +21,16 @@
             valid = false
         }
         else {
-            if (ughQuest && weeklyReset) {
-                const resetTime = getNextWeeklyReset(character.weekly.ughQuestsScannedAt, character.realm.region)
+            const resetTime = getNextWeeklyReset(character.weekly.ughQuestsScannedAt, character.realm.region)
+            if (weeklyReset) {
+                // quest always resets at the end of the week and it's a new week
                 if (resetTime < $timeStore) {
+                    ughQuest.status = 0
+                }
+            }
+            else {
+                // quest was completed and it's a new week
+                if (ughQuest.status === 2 && resetTime < $timeStore) {
                     ughQuest.status = 0
                 }
             }
