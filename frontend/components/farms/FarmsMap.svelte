@@ -32,7 +32,7 @@
     $: {
         categories = filter(
             find($farmStore.data.sets, (s) => s !== null && s[0].slug === slug1),
-            (s) => s.farms.length > 0
+            (s) => s?.farms?.length > 0
         )
         if (slug2) {
             categories = filter(categories, (s) => s.slug === slug2)

@@ -4,16 +4,16 @@ minimumLevel: 45
 wowheadGuide: https://www.wowhead.com/guides/rewards-from-the-darkshore-warfront
 farms:
 
-- name: Alash'anir
+- name: "Alash'anir"
   location: 56.5 30.8
   npcId: 148787
   questId: 54695 54696
   drops:
   - type: mount
     id: 288495
-    name: Ashenvale Chimaera
+    name: "Ashenvale Chimaera"
 
-- name: Athrikus Narassin
+- name: "Athrikus Narassin"
   location: 58.5 24.2
   npcId: 147708
   questId: 54278 54279
@@ -22,7 +22,7 @@ farms:
     id: 166784
     name: Narassin's Soul Gem
 
-- name: Commander Drald
+- name: "Commander Drald"
   faction: alliance
   location: 46.5 85.8
   npcId: 147845
@@ -30,9 +30,9 @@ farms:
   drops:
   - type: toy
     id: 166790
-    name: Highborne Memento
+    name: "Highborne Memento"
 
-- name: Commander Ral'esh
+- name: "Commander Ral'esh"
   location: 38.0 75.8
   npcId: 148025
   questId: 54426 54427
@@ -41,16 +41,16 @@ farms:
     id: 166787
     name: "Twiddle Twirler: Sentinel's Glaive"
 
-- name: Conflagros
+- name: "Conflagros"
   location: 39.3 62.1
   npcId: 147260
   questId: 54232 54233
   drops:
   - type: pet
     id: 148825
-    name: Detective Ray
+    name: "Detective Ray"
 
-- name: Croz Bloodrage
+- name: "Croz Bloodrage"
   faction: alliance
   location: 50.7 32.3
   npcId: 149661
@@ -58,27 +58,27 @@ farms:
   drops:
   - type: mount
     id: 288505
-    name: Kaldorei Nightsaber
+    name: "Kaldorei Nightsaber"
 
-- name: Cyclarus
+- name: "Cyclarus"
   location: 43.8 53.5
   npcId: 147241
   questId: 54229 54230
   drops:
   - type: pet
     id: 148784
-    name: Gust of Cyclarus
+    name: "Gust of Cyclarus"
 
-- name: Gren Tornfur
+- name: "Gren Tornfur"
   location: 40.9 56.4
   npcId: 148031
   questId: 54428 54429
   drops:
   - type: toy
     id: 166785
-    name: Detoxified Blight Grenade
+    name: "Detoxified Blight Grenade"
 
-- name: Grimhorn
+- name: "Grimhorn"
   faction: horde
   location: 50.7 32.3
   npcId: 149656
@@ -86,18 +86,18 @@ farms:
   drops:
   - type: pet
     id: 149205
-    name: Nightwreathed Watcher
+    name: "Nightwreathed Watcher"
 
-- name: Hydrath
+- name: "Hydrath"
   location: 52.4 32.2
   npcId: 147240
   questId: 54227 54228
   drops:
   - type: pet
     id: 148841
-    name: Hydrath Droplet
+    name: "Hydrath Droplet"
 
-- name: Moxo the Beheader
+- name: "Moxo the Beheader"
   faction: alliance
   location: 67.2 18.8
   npcId: 147701
@@ -105,9 +105,9 @@ farms:
   drops:
   - type: mount
     id: 288503
-    name: Umber Nightsaber
+    name: "Umber Nightsaber"
 
-- name: Onu
+- name: "Onu"
   faction: horde
   location: 45.2 74.9
   npcId: 147758
@@ -115,9 +115,9 @@ farms:
   drops:
   - type: pet
     id: 148843
-    name: Everburning Treant
+    name: "Everburning Treant"
 
-- name: Sapper Odette
+- name: "Sapper Odette"
   faction: horde
   location: 32.8 84.1
   npcId: 148103
@@ -127,16 +127,16 @@ farms:
     id: 166788
     name: "Twiddle Twirler: Shredder Blade"
 
-- name: Soggoth the SLitherer
+- name: "Soggoth the Slitherer"
   location: 40.5 85.3
   npcId: 147897
   questId: 54320 54321
   drops:
   - type: pet
     id: 148844
-    name: Void Jelly
+    name: "Void Jelly"
 
-- name: Thelar Moonstrike
+- name: "Thelar Moonstrike"
   faction: horde
   location: 62.1 16.5
   npcId: 147435
@@ -144,18 +144,18 @@ farms:
   drops:
   - type: toy
     id: 166790
-    name: Highborne Memento
+    name: "Highborne Memento"
 
-- name: Twilight Prophet Graeme
+- name: "Twilight Prophet Graeme"
   location: 40.6 82.7
   npcId: 147942
   questId: 54397 54398
   drops:
   - type: pet
     id: 148846
-    name: Zur'aj the Depleted
+    name: "Zur'aj the Depleted"
 
-- name: Zim'kaga
+- name: "Zim'kaga"
   faction: alliance
   location: 62.4 9.9
   npcId: 147664
@@ -163,77 +163,77 @@ farms:
   drops:
   - type: pet
     id: 148843
-    name: Everburning Treant
+    name: "Everburning Treant"
 
 # Faction splits
 
-# 49.6 25.0
-- name: Agathe Wyrmwood
+# 49.5 25.1
+- name: "Agathe Wyrmwood"
   faction: alliance
-  location: 48.9 25.0
+  location: 48.8 25.1
   npcId: 149652
   questId: 54883
   drops:
   - type: mount
     id: 288438
-    name: Blackpaw
+    name: "Blackpaw"
 
-- name: Blackpaw
+- name: "Blackpaw"
   faction: horde
-  location: 50.5 25.0
+  location: 50.4 25.1
   npcId: 149651
   questId: 54890
   drops:
   - type: mount
     id: 288438
-    name: Blackpaw
+    name: "Blackpaw"
 
-# 41.6 76.4
-- name: Athil Dewfire
+# 41.6 76.7
+- name: "Athil Dewfire"
   faction: horde
-  location: 40.7 76.4
+  location: 40.7 76.7
   npcId: 148037
   questId: 54431
   drops:
   - type: mount
     id: 288503
-    name: Umber Nightsaber
+    name: "Umber Nightsaber"
 
   - type: pet
     id: 148781
-    name: Darkshore Sentinel
+    name: "Darkshore Sentinel"
 
-- name: Burninator Mark V
+- name: "Burninator Mark V"
   faction: alliance
-  location: 42.5 76.4
+  location: 42.5 76.7
   npcId: 149141
   questId: 54768
   drops:
   - type: pet
     id: 148781
-    name: Darkshore Sentinel
+    name: "Darkshore Sentinel"
 
   - type: toy
     id: 166788
     name: "Twiddle Twirler: Shredder Blade"
 
-# 39.7 33.0
-- name: Orwell Stevenson
+# 39.7 33.4
+- name: "Orwell Stevenson"
   faction: alliance
-  location: 38.8 33.0
+  location: 38.8 33.4
   npcId: 149664
   questId: 54889
   drops:
   - type: pet
     id: 149205
-    name: Nightwreathed Watcher
+    name: "Nightwreathed Watcher"
 
-- name: Shadowclaw
+- name: "Shadowclaw"
   faction: horde
-  location: 40.6 33.0
+  location: 40.6 33.4
   npcId: 149658
   questId: 54892
   drops:
   - type: mount
     id: 288505
-    name: Kaldorei Nightsaber
+    name: "Kaldorei Nightsaber"

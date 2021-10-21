@@ -1,0 +1,223 @@
+name: Zuldazar
+mapName: z7_zuldazar
+minimumLevel: 10
+farms:
+
+# Kills
+- name: "Atal'zul Gotaka"
+  location: 81.0 21.6
+  npcId: 129961
+  questId: 50280
+  type: kill
+  drops:
+  - type: transmog
+    id: 161042
+    name: "Gotaka's Wallopers"
+    limit: armor plate
+
+- name: "Avatar of Xolotal"
+  location: 49.9 57.4
+  npcId: 129343
+  questId: 49410
+  type: kill
+  drops:
+  - type: transmog
+    id: 161034
+    name: "Thunderhowl Gauntlets"
+    limit: armor mail
+
+- name: "Bloodbulge"
+  location: 59.8 18.3
+  npcId: 128699
+  questId: 49267
+  type: kill
+  drops:
+  - type: transmog
+    id: 161104
+    name: "Blood Feast Gauntlets"
+    limit: armor mail
+
+- name: "Bramblewing"
+  location: 66.7 32.3
+  npcId: 131718
+  questId: 50034
+  type: kill
+  drops:
+  - type: transmog
+    id: 161020
+    name: "Sky-Hunter Breeches"
+    limit: armor cloth
+
+- name: "Daggerjaw"
+  location: 74.2 39.3
+  npcId: 133190
+  questId: 50269
+  type: kill
+  drops:
+  - type: transmog
+    id: 160952
+    name: "Daggerjaw's Incisor"
+    limit: weapon dagger agi
+
+- name: "Dark Chronicler"
+  location: 44.2 76.5
+  npcId: 136428
+  questId: 51083
+  type: kill
+  drops:
+  - type: transmog
+    id: 160979
+    name: "Ancient Chronicler's Focus"
+    limit: weapon offhand int
+
+- name: "Darkspeaker Jo'la"
+  location: 65.4 10.2
+  npcId: 134760
+  questId: 50693
+  type: kill
+  drops:
+  - type: transmog
+    id: 160958
+    name: "Darkspeaker Scepter"
+    limit: weapon 1h-mace int
+
+- name: "G'Naat"
+  location: 80.0 36.0
+  npcId: 133155
+  questId: 50260
+  type: kill
+  drops:
+  - type: transmog
+    id: 161048
+    name: "Brutish Tidecaller Armwraps"
+    limit: armor cloth
+
+- name: "Gahz'ralka"
+  location: 64.3 32.7
+  npcId: 129954
+  questId: 50439
+  type: kill
+  drops:
+  - type: transmog
+    id: 161043
+    name: "Relentless Hydra Legguards"
+    limit: armor plate
+
+- name: "Golrakahn"
+  location: 74.1 28.5
+  npcId: 124185
+  questId: 47792
+  type: kill
+  drops:
+  - type: transmog
+    id: 161035
+    name: "Thundercrash Footguards"
+    limit: armor mail
+
+- name: "Hakbi the Risen"
+  location: 42.0 36.2
+  npcId: 134738
+  questId: 50677
+  type: kill
+  drops:
+  - type: transmog
+    id: 160978
+    name: "Golden Tomb Defender"
+    limit: weapon shield
+
+- name: "Kandak"
+  location: 68.7 48.7
+  npcId: 126637
+  questId: 48543
+  type: kill
+  drops:
+  - type: transmog
+    id: 160984
+    name: "Sauroscale Cloak of Adaptation"
+
+- name: "Kiboku"
+  location: 75.6 35.8
+  npcId: 132244
+  questId: 50159
+  type: kill
+  drops:
+  - type: transmog
+    id: 161112
+    name: "Hillshaker Armplates"
+    limit: armor plate
+
+- name: "Lei-zhi"
+  location: 58.7 74.2
+  npcId: 131233
+  questId: 49911
+  type: kill
+  drops:
+  - type: transmog
+    id: 161033
+    name: "Jolting Leap Legguards"
+    limit: armor mail
+
+- name: "Murderbeak"
+  location: 60.6 66.3
+  npcId: 134782
+  questId: 50281
+  type: kill
+  drops:
+  - type: transmog
+    id: 161022
+    name: "Gusting Axebeak Anklewraps"
+    limit: armor cloth
+
+- name: "N'chala the Egg Thief"
+  location: 69.6 36.9
+  npcId: 149147
+  questId: 54770
+  type: kill
+  drops:
+  - type: pet
+    id: 148520
+    name: "Dasher"
+
+- name: "Tambano"
+  location: 77.7 10.3
+  npcId: 131687
+  questId: 50013
+  type: kill
+  drops:
+  - type: transmog
+    id: 161109
+    name: "Coastal Hardshell Girdle"
+    limit: armor plate
+
+- name: "Torraske the Eternal"
+  location: 46.6 65.3
+  npcId: 127939
+  questId: 49004
+  type: kill
+  drops:
+  - type: transmog
+    id: 161029
+    name: "Ageless Toxin Grips"
+    limit: armor leather
+
+- name: "Umbra'jin"
+  location: 71.4 32.4
+  npcId: 122004
+  questId: 47567
+  type: kill
+  drops:
+  - type: transmog
+    id: 161091
+    name: "Swift-Talon Striders"
+    limit: armor leather
+
+- name: "Warcrawler Karkithiss"
+  location: 44.0 25.4
+  npcId: 133842
+  questId: 50438
+  type: kill
+  drops:
+  - type: transmog
+    id: 161040
+    name: "Arid Dune Stompers"
+    limit: armor plate

@@ -1,6 +1,7 @@
 name: The Maw
 mapName: z8_the_maw
 minimumLevel: 60
+requiredQuestId: 59770 # Stand as One
 wowheadGuide: https://www.wowhead.com/guides/shadowlands-korthia-desmotaeron-rares-treasures
 farms:
 
