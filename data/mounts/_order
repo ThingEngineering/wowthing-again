@@ -49,6 +49,7 @@ pvp/_pvp.yml
 world_events/_blank.yml
     world_events/world_events.yml
     world_events/argent_tournament.yml
+    world_events/hallows_end.yml
 
 -
 
@@ -58,6 +59,8 @@ drops.yml
     z6/drops.yml Legion
     z5/drops.yml Warlords of Draenor
     z4/drops.yml Mists of Pandaria
+    z3/drops.yml Cataclysm
+    z2/drops.yml The Burning Crusade
 
 instances.yml
     z8/instances.yml Shadowlands

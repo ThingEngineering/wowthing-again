@@ -7,7 +7,6 @@ groups:
 
 - name: Misc
   things:
-  -  48025 # Headless Horseman's Mount
   - 191314 # Minion of Grumpus
   - 102349 # Swift Springstrider
 

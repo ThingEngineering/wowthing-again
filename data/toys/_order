@@ -34,8 +34,11 @@ professions/_professions.yml
 
 world_events/_world_events.yml
     world_events/argent_tournament.yml
+    world_events/brewfest.yml
     world_events/darkmoon_faire.yml
     world_events/feast_of_winter_veil.yml
+    world_events/hallows_end.yml
+    world_events/love_is_in_the_air.yml
     world_events/lunar_festival.yml
 
 -
