@@ -414,6 +414,15 @@ farms:
     name: "Shadeweaver's Spire"
     limit: weapon stave int
 
+- name: "Skittering Broodmother"
+  location: 41.8 79.2
+  npcId: 172524
+  questId: 62211
+  drops:
+  - type: transmog
+    id: 186240
+    name: "Broodmotherhide Cloak"
+
 - name: "Soulforger Rhovus"
   location: 36.0 41.6
   npcId: 166398
