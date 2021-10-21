@@ -4,11 +4,11 @@ export interface ZoneMapData {
 
 export interface ZoneMapDataCategory {
     minimumLevel: number
-    requiredQuestId: number
     mapName: string
     name: string
     slug: string
     wowheadGuide: string
+    requiredQuestIds: number[]
     farms: ZoneMapDataFarm[]
 }
 

@@ -55,8 +55,11 @@ export default function getFarmStatus(
             userData.characters,
             (c) => c.level >= category.minimumLevel
         ),
-        (c) => category.requiredQuestId === 0 ||
-            userQuestData.characters[c.id].quests.get(category.requiredQuestId),
+        (c) => category.requiredQuestIds.length === 0 ||
+            some(
+                category.requiredQuestIds,
+                (q) => userQuestData.characters[c.id].quests.get(q)
+            )
     )
 
     const now = DateTime.utc()
