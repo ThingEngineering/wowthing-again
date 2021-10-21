@@ -1,6 +1,7 @@
 name: Bastion
 mapName: z8_bastion
 minimumLevel: 48
+requiredQuestId: 59770 # Stand as One
 wowheadGuide: https://www.wowhead.com/guides/shadowlands-bastion-rares-treasures
 farms:
 
@@ -336,7 +337,6 @@ farms:
   - type: transmog
     id: 182561
     name: "Fallen Disciple's Cloak"
-    limit: weapon cloak
 
 - name: "Vesper of the Silver Wind"
   location: 36.0 26.5

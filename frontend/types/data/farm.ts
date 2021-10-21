@@ -4,6 +4,7 @@ export interface FarmData {
 
 export interface FarmDataCategory {
     minimumLevel: number
+    requiredQuestId: number
     mapName: string
     name: string
     slug: string

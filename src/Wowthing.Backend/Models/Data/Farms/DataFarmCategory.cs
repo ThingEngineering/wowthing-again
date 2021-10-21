@@ -6,6 +6,7 @@ namespace Wowthing.Backend.Models.Data.Farms
     public class DataFarmCategory : IDataCategory, ICloneable
     {
         public int MinimumLevel { get; set; }
+        public int RequiredQuestId { get; set; }
         public string MapName { get; set; }
         public string Name { get; set; }
         public string WowheadGuide { get; set; }

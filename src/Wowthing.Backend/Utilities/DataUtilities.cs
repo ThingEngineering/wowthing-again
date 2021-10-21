@@ -44,7 +44,7 @@ namespace Wowthing.Backend.Utilities
         }
         
         public static List<List<TCategory>> LoadData<TCategory>(string basePath, ILogger logger = null)
-            where TCategory : ICloneable, IDataCategory
+            where TCategory : class?, ICloneable, IDataCategory
         {
             var categories = new List<List<TCategory>>();
             var cache = new Dictionary<string, TCategory>();
@@ -89,9 +89,17 @@ namespace Wowthing.Backend.Utilities
                 }
                 else if (line.StartsWith("    "))
                 {
-                    // Subgroup
-                    logger?.Debug("Loading subgroup: {0}", line.Trim());
-                    things.Add(LoadFile(basePath, line, cache));
+                    var trimmed = line.Trim();
+                    if (trimmed == "-")
+                    {
+                        things.Add(null);
+                    }
+                    else
+                    {
+                        // Subgroup
+                        logger?.Debug("Loading subgroup: {0}", trimmed);
+                        things.Add(LoadFile(basePath, trimmed, cache));
+                    }
                 }
                 else
                 {

@@ -13,7 +13,9 @@ groups:
 
 - name: Maldraxxus
   things:
+  - 344228 # Battle-Bound Warhound (Theatre of Pain, Maldraxxus)
   - 332478 # Blisterback Bloodtusk (Warbring Mal'Korak, Maldraxxus)
+  - 336038 # Callow Flayedwing (Maldraxxus)
   - 332480 # Gorespine (Nerissa Heartless, Maldraxxus)
   - 336042 # Hulking Deathroc (Violet Mistake, Maldraxxus)
 
@@ -25,6 +27,7 @@ groups:
 - name: The Maw
   things:
   - 354353 # Fallen Charger (Fallen Charger)
+  - 352309 # Hand of Bahmethra (Tormentors of Torghast)
   - 312762 # Mawsworn Soulhunter (Gorged Shadehound, The Maw)
 
 - name: Korthia

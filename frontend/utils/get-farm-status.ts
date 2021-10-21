@@ -50,9 +50,13 @@ export default function getFarmStatus(
 ): FarmStatus[] {
     //console.time('getFarmStatus')
 
-    const minLevelCharacters = filter(
-        userData.characters,
-        (c) => c.level >= category.minimumLevel
+    const eligibleCharacters = filter(
+        filter(
+            userData.characters,
+            (c) => c.level >= category.minimumLevel
+        ),
+        (c) => category.requiredQuestId === 0 ||
+            userQuestData.characters[c.id].quests.get(category.requiredQuestId),
     )
 
     const now = DateTime.utc()
@@ -129,35 +133,35 @@ export default function getFarmStatus(
                     switch (drop.limit[0]) {
                         case 'armor':
                             characters = filter(
-                                minLevelCharacters,
+                                eligibleCharacters,
                                 (c) => classMap[c.classId].armorType === armorMap[drop.limit[1]]
                             )
                             break;
 
                         case 'covenant':
                             characters = filter(
-                                minLevelCharacters,
+                                eligibleCharacters,
                                 (c) => c.shadowlands?.covenantId === covenantSlugMap[drop.limit[1]].id
                             )
                             break
 
                         case 'faction':
                             characters = filter(
-                                minLevelCharacters,
+                                eligibleCharacters,
                                 (c) => c.faction === (drop.limit[1] === 'alliance' ? 0 : 1)
                             )
                             break
 
                         case 'weapon':
                             characters = filter(
-                                minLevelCharacters,
+                                eligibleCharacters,
                                 (c) => weaponValidForClass(c.classId, drop.limit.slice(1))
                             )
                             break
                     }
                 }
                 else {
-                    characters = minLevelCharacters
+                    characters = eligibleCharacters
                 }
 
                 // Filter for farm faction

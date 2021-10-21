@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -44,12 +45,24 @@ namespace Wowthing.Backend.Jobs.Misc
         {
             // Generate and cache output
             var farmSets = DataUtilities.LoadData<DataFarmCategory>("farms");
+
+            var sets = new List<List<OutFarmCategory>>();
+            foreach (var catList in farmSets)
+            {
+                if (catList == null)
+                {
+                    sets.Add(null);
+                }
+                else
+                {
+                    sets.Add(catList.Select(cat => cat == null ? null : new OutFarmCategory(cat))
+                        .ToList());
+                }
+            }
             
             var cacheData = new RedisFarmCache
             {
-                Sets = farmSets.Select(
-                    cats => cats.Select(cat => new OutFarmCategory(cat)).ToList()
-                ).ToList(),
+                Sets = sets,
             };
             
             _timer.AddPoint("Load");
@@ -64,8 +77,18 @@ namespace Wowthing.Backend.Jobs.Misc
             {
                 foreach (var categories in cacheData.Sets)
                 {
+                    if (categories == null)
+                    {
+                        continue;
+                    }
+                    
                     foreach (var category in categories)
                     {
+                        if (category == null)
+                        {
+                            continue;
+                        }
+                        
                         outFile.WriteLine("    -- Farms: {0}", category.Name);
                         foreach (var farm in category.Farms)
                         {

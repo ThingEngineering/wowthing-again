@@ -1,6 +1,7 @@
 name: Maldraxxus
 mapName: z8_maldraxxus
 minimumLevel: 48
+requiredQuestId: 59770 # Stand as One
 wowheadGuide: https://www.wowhead.com/guides/shadowlands-maldraxxus-rares-treasures
 farms:
 

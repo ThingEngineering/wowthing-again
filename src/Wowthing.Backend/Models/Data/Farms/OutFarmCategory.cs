@@ -7,6 +7,7 @@ namespace Wowthing.Backend.Models.Data.Farms
     public class OutFarmCategory
     {
         public int MinimumLevel { get; set; }
+        public int RequiredQuestId { get; set; }
         public string MapName { get; set; }
         public string Name { get; set; }
         public string WowheadGuide { get; set; }
@@ -17,6 +18,7 @@ namespace Wowthing.Backend.Models.Data.Farms
         public OutFarmCategory(DataFarmCategory cat)
         {
             MinimumLevel = cat.MinimumLevel;
+            RequiredQuestId = cat.RequiredQuestId;
             MapName = cat.MapName;
             Name = cat.Name;
             WowheadGuide = cat.WowheadGuide;
