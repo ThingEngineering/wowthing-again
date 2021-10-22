@@ -12,8 +12,10 @@
     export let status: FarmStatus
 
     let big: boolean
+    let type: string
     $: {
         big = farm.type.indexOf('Big') > 0
+        type = big ? farm.type.substring(0, farm.type.length - 3) : farm.type
     }
 </script>
 
@@ -90,7 +92,7 @@
             class:horde={farm.faction === 'horde'}
         >
             <IconifyIcon
-                icon={farmType[farm.type]}
+                icon={farmType[type]}
                 scale={big ? '1.25' : '1'}
             />
         </div>
