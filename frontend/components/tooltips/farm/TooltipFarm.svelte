@@ -1,4 +1,5 @@
 <script lang="ts">
+    import mdiMessageBulleted from '@iconify/icons-mdi/message-bulleted'
     import sortBy from 'lodash/sortBy'
 
     import {dropType} from '@/data/farm'
@@ -24,9 +25,11 @@
 
 <style lang="scss">
     .note {
-        border-bottom: 1px solid $border-color;
         color: #00ccff;
         font-size: 0.95rem;
+    }
+    p.note {
+        border-bottom: 1px solid $border-color;
         margin: 0;
         padding: 0.1rem 0.5rem 0.2rem 0.5rem;
     }
@@ -104,6 +107,19 @@
                             {/each}
                         </td>
                     </tr>
+
+                    {#if drop.note}
+                        <tr>
+                            <td></td>
+                            <td class="characters note" colspan="2">
+                                <IconifyIcon
+                                    icon={mdiMessageBulleted}
+                                    scale="0.9"
+                                />
+                                {drop.note}
+                            </td>
+                        </tr>
+                    {/if}
                 {/if}
             {/each}
         </tbody>
