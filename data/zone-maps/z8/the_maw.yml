@@ -661,7 +661,7 @@ farms:
   type: eventBig
   drops:
   - type: mount
-    id: 185973
+    id: 352309
     name: "Hand of Bahmethra"
 
   - type: transmog
