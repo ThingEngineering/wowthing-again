@@ -644,7 +644,7 @@ farms:
   npcId: 174827
   questId: 63180
   reset: bi-weekly
-  type: event
+  type: eventBig
   drops:
   - type: mount
     id: 184167
