@@ -636,3 +636,17 @@ farms:
   - type: pet
     id: 179008
     name: "Lil'Abom"
+
+# Events
+
+- name: "Hunt: Shadehounds"
+  location: 53.7 79.1
+  npcId: 174827
+  questId: 63180
+  reset: bi-weekly
+  type: event
+  drops:
+  - type: mount
+    id: 184167
+    name: Mawsworn Soulhunter
+    requiredQuestId: 60285 # Rule 6: Concealment is Everything
