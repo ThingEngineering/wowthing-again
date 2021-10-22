@@ -189,6 +189,7 @@ export default function getFarmStatus(
 
                 // Filter again for pre-req quests
                 if (drop.requiredQuestId !== undefined) {
+                    console.log(drop.name, drop.requiredQuestId)
                     characters = filter(
                         characters,
                         (c) => userQuestData.characters[c.id].quests.get(drop.requiredQuestId)
