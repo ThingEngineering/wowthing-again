@@ -134,15 +134,17 @@ export default function getFarmStatus(
             )
 
             if (dropStatus.need && !dropStatus.skip) {
-                let characters: Character[]
+                let characters = eligibleCharacters
 
                 if (drop.limit?.length > 0) {
                     switch (drop.limit[0]) {
                         case 'armor':
-                            characters = filter(
-                                eligibleCharacters,
-                                (c) => classMap[c.classId].armorType === armorMap[drop.limit[1]]
-                            )
+                            if (drop.limit[1] !== 'cloak') {
+                                characters = filter(
+                                    eligibleCharacters,
+                                    (c) => classMap[c.classId].armorType === armorMap[drop.limit[1]]
+                                )
+                            }
                             break;
 
                         case 'covenant':
@@ -167,9 +169,6 @@ export default function getFarmStatus(
                             break
                     }
                 }
-                else {
-                    characters = eligibleCharacters
-                }
 
                 // Filter for farm faction
                 if (farm.faction) {
@@ -189,7 +188,6 @@ export default function getFarmStatus(
 
                 // Filter again for pre-req quests
                 if (drop.requiredQuestId !== undefined) {
-                    console.log(drop.name, drop.requiredQuestId)
                     characters = filter(
                         characters,
                         (c) => userQuestData.characters[c.id].quests.get(drop.requiredQuestId)
