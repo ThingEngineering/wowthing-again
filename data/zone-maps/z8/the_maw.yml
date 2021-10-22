@@ -280,6 +280,7 @@ farms:
   - type: transmog
     id: 186624
     name: "Death Wing Drape"
+    limit: armor cloak
 
 - name: "Malevolent Stygia"
   location: 27.3 17.5
@@ -423,6 +424,7 @@ farms:
   - type: transmog
     id: 186240
     name: "Broodmotherhide Cloak"
+    limit: armor cloak
 
 - name: "Soulforger Rhovus"
   location: 36.0 41.6
@@ -452,6 +454,7 @@ farms:
   - type: transmog
     id: 184107
     name: "Borogove Cloak"
+    limit: armor cloak
 
 - name: "Thanassos <Death's Voice>"
   location: 27.4 71.5
@@ -650,3 +653,211 @@ farms:
     id: 184167
     name: Mawsworn Soulhunter
     requiredQuestId: 60285 # Rule 6: Concealment is Everything
+
+- name: "Tormentors of Torghast"
+  location: 50.8 51.4
+  questId: 63854
+  reset: weekly
+  type: eventBig
+  drops:
+  - type: mount
+    id: 185973
+    name: "Hand of Bahmethra"
+
+  - type: transmog
+    id: 186977
+    name: "Beastcaller's Skull Crescent"
+
+  - type: transmog
+    id: 186978
+    name: "Borrowed Eye Crescent"
+
+  - type: transmog
+    id: 186562
+    name: "Tormentor's Manacled Backplate"
+
+- name: "Tormentors - Cloth"
+  location: 48.8 47.4
+  questId: 63854
+  reset: weekly
+  type: cloth
+  drops:
+  - type: transmog
+    id: 186213
+    name: "Bindings of Manifest Pain"
+    note: "Drops from Manifestation of Pain"
+    limit: armor cloth
+
+  - type: transmog
+    id: 186210
+    name: "Diabolic Soul Veil"
+    note: "Drops from The Mass of Souls"
+    limit: armor cloth
+
+  - type: transmog
+    id: 186241
+    name: "Insulated Thermal Leggings"
+    note: "Drops from Sentinel Pyrophus"
+    limit: armor cloth
+
+  - type: transmog
+    id: 186208
+    name: "Padded Insouls"
+    note: "Drops from Promathiz"
+    limit: armor cloth
+
+  - type: transmog
+    id: 186239
+    name: "Drape of the Phantasm"
+    note: "Drops from Algel the Haunter"
+    limit: armor cloak
+
+- name: "Tormentors - Leather"
+  location: 48.8 51.9
+  questId: 63854
+  reset: weekly
+  type: leather
+  drops:
+  - type: transmog
+    id: 186218
+    name: "Fire-Tempered Armor Cinch"
+    note: "Drops from Malleus Grakizz"
+    limit: armor leather
+
+  - type: transmog
+    id: 186237
+    name: "Gormhide Pauldrons"
+    note: "Drops from Gralebboih"
+    limit: armor leather
+
+  - type: transmog
+    id: 186219
+    name: "Pyrophus' Wrist Ties"
+    note: "Drops from Sentinel Pyrophus"
+    limit: armor leather
+
+  - type: transmog
+    id: 186215
+    name: "Soul Stranglers"
+    note: "Drops from The Mass of Souls"
+    limit: armor leather
+
+- name: "Tormentors - Mail"
+  location: 52.8 47.4
+  questId: 63854
+  reset: weekly
+  type: mail
+  drops:
+  - type: transmog
+    id: 186226
+    name: "Cinch of Petrified Vines"
+    note: "Drops from Gruukuuek the Elder"
+    limit: armor mail
+
+  - type: transmog
+    id: 186227
+    name: "Jangling Chain Manacles"
+    note: "Drops from Algel the Haunter"
+    limit: armor mail
+
+  - type: transmog
+    id: 186221
+    name: "Seared-Link Sabatons"
+    note: "Drops from Golmak the Monstrosity"
+    limit: armor mail
+
+  - type: transmog
+    id: 186225
+    name: "Shoulder Joint Spindles"
+    note: "Drops from Sentinel Shakorzeth"
+    limit: armor mail
+
+  - type: transmog
+    id: 186242
+    name: "Zul'gath's Chain Coif"
+    note: "Drops from Zul'gath the Flayer"
+    limit: armor mail
+
+- name: "Tormentors - Plate"
+  location: 52.8 51.9
+  questId: 63854
+  reset: weekly
+  type: plate
+  drops:
+  - type: transmog
+    id: 186231
+    name: "Gloves of Fervent Intercession"
+    note: "Drops from Intercessor Razzra"
+    limit: armor plate
+
+  - type: transmog
+    id: 186229
+    name: "Lavafused Breastplate"
+    note: "Drops from Golmak the Monstrosity"
+    limit: armor plate
+
+  - type: transmog
+    id: 186235
+    name: "Shadow-Wreathed Vambraces"
+    note: "Drops from Zul'gath the Flayer"
+    limit: armor plate
+
+  - type: transmog
+    id: 186233
+    name: "Spaulders of the Skyborn Damned"
+    note: "Drops from Versya the Damned"
+    limit: armor plate
+
+- name: "Tormentors - Weapons"
+  location: 50.8 47.4
+  questId: 63854
+  reset: weekly
+  type: weapon
+  drops:
+  - type: transmog
+    id: 186009
+    name: "Corrupted Elder Branch"
+    note: "Drops from Gruukuuek the Elder"
+    limit: weapon stave agi
+
+  - type: transmog
+    id: 186007
+    name: "Cudgel of the Tin Sentinel"
+    note: "Drops from Promathiz"
+    limit: weapon 1h-mace str
+
+  - type: transmog
+    id: 186012
+    name: "Inferno Blast Shield"
+    note: "Drops from Malleus Grakizz"
+    limit: weapon shield
+
+  - type: transmog
+    id: 186006
+    name: "Kazj's Stygian Splitter"
+    note: "Drops from Kazj the Sentinel"
+    limit: weapon 2h-axe str
+
+  - type: transmog
+    id: 186004
+    name: "Kris of Dark Temptation"
+    note: "Drops from Intercessor Razzra"
+    limit: weapon dagger int
+
+  - type: transmog
+    id: 186010
+    name: "Lost Attendant's Scepter"
+    note: "Drops from Mugrem the Soul Devourer"
+    limit: weapon 1h-mace int
+
+  - type: transmog
+    id: 186005
+    name: "Stygian Pain Borer"
+    note: "Drops from Manifestation of Pain"
+    limit: weapon dagger agi
+
+  - type: transmog
+    id: 186003
+    name: "Versya's Stygian Longbow"
+    note: "Drops from Versya the Damned"
+    limit: weapon bow
