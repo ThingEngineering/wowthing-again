@@ -4,17 +4,17 @@ export interface ZoneMapData {
 
 export interface ZoneMapDataCategory {
     minimumLevel: number
-    requiredQuestId: number
     mapName: string
     name: string
     slug: string
     wowheadGuide: string
+    requiredQuestIds: number[]
     farms: ZoneMapDataFarm[]
 }
 
 export interface ZoneMapDataFarm {
-    faction?: string
     npcId: number
+    faction?: string
     name: string
     note: string
     reset: string
@@ -26,7 +26,9 @@ export interface ZoneMapDataFarm {
 
 export interface ZoneMapDataDrop {
     id: number
-    limit: string[]
+    requiredQuestId?: number
     name: string
+    note?: string
     type: string
+    limit: string[]
 }

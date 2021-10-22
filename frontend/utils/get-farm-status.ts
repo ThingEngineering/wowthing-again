@@ -11,7 +11,7 @@ import {covenantSlugMap} from '@/data/covenant'
 import type {ZoneMapState} from '@/stores/local-storage/zone-map'
 import { ArmorType, PrimaryStat, WeaponType } from '@/types/enums'
 import {getNextDailyReset} from '@/utils/get-next-reset'
-import type {Character, StaticData, UserData} from '@/types'
+import type { Character, Settings, StaticData, UserData } from '@/types'
 import type {ZoneMapDataCategory, UserCollectionData, UserQuestData, UserTransmogData} from '@/types/data'
 
 
@@ -39,6 +39,7 @@ function weaponValidForClass(classId: number, limit: string[]): boolean {
 }
 
 export default function getFarmStatus(
+    settings: Settings,
     staticData: StaticData,
     userData: UserData,
     userCollectionData: UserCollectionData,
@@ -52,11 +53,17 @@ export default function getFarmStatus(
 
     const eligibleCharacters = filter(
         filter(
-            userData.characters,
+            filter(
+                userData.characters,
+                (c) => settings.characters.hiddenCharacters.indexOf(c.id) === -1
+            ),
             (c) => c.level >= category.minimumLevel
         ),
-        (c) => category.requiredQuestId === 0 ||
-            userQuestData.characters[c.id].quests.get(category.requiredQuestId),
+        (c) => category.requiredQuestIds.length === 0 ||
+            some(
+                category.requiredQuestIds,
+                (q) => userQuestData.characters[c.id].quests.get(q)
+            )
     )
 
     const now = DateTime.utc()
@@ -127,15 +134,17 @@ export default function getFarmStatus(
             )
 
             if (dropStatus.need && !dropStatus.skip) {
-                let characters: Character[]
+                let characters = eligibleCharacters
 
                 if (drop.limit?.length > 0) {
                     switch (drop.limit[0]) {
                         case 'armor':
-                            characters = filter(
-                                eligibleCharacters,
-                                (c) => classMap[c.classId].armorType === armorMap[drop.limit[1]]
-                            )
+                            if (drop.limit[1] !== 'cloak') {
+                                characters = filter(
+                                    eligibleCharacters,
+                                    (c) => classMap[c.classId].armorType === armorMap[drop.limit[1]]
+                                )
+                            }
                             break;
 
                         case 'covenant':
@@ -160,9 +169,6 @@ export default function getFarmStatus(
                             break
                     }
                 }
-                else {
-                    characters = eligibleCharacters
-                }
 
                 // Filter for farm faction
                 if (farm.faction) {
@@ -180,11 +186,25 @@ export default function getFarmStatus(
                     )
                 }
 
+                // Filter again for pre-req quests
+                if (drop.requiredQuestId !== undefined) {
+                    characters = filter(
+                        characters,
+                        (c) => userQuestData.characters[c.id].quests.get(drop.requiredQuestId)
+                    )
+                }
+
                 dropStatus.characterIds = filter(
                     characters,
                     (c) => resetMap[c.id] < now ||
                         every(farm.questIds, (q) => userQuestData.characters[c.id]?.dailyQuests?.get(q) === undefined)
                 ).map(c => c.id)
+
+                // We don't really need it if no characters are on the list
+                // - ok we kinda do so we can see unfinished things
+                //if (dropStatus.characterIds.length === 0) {
+                //    dropStatus.need = false
+                //}
             }
 
             farmStatus.drops.push(dropStatus)

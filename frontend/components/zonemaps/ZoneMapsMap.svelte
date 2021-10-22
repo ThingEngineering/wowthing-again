@@ -11,6 +11,7 @@
         userStore,
         userTransmogStore,
     } from '@/stores'
+    import { data as settings } from '@/stores/settings'
     import {zoneMapState} from '@/stores/local-storage/zone-map'
     import {zoneMapMedia} from '../../stores/media-queries/zone-map'
     import getFarmStatus from '@/utils/get-farm-status'
@@ -40,6 +41,7 @@
 
         if (categories.length > 0) {
             farmStatuses = getFarmStatus(
+                $settings,
                 $staticStore.data,
                 $userStore.data,
                 $userCollectionStore.data,
