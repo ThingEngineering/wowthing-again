@@ -44,7 +44,7 @@ namespace Wowthing.Backend.Jobs.Misc
         private async Task BuildData()
         {
             // Generate and cache output
-            var zoneMapSets = DataUtilities.LoadData<DataZoneMapCategory>("zone-maps");
+            var zoneMapSets = DataUtilities.LoadData<DataZoneMapCategory>("zone-maps", Logger);
 
             var sets = new List<List<OutZoneMapCategory>>();
             foreach (var catList in zoneMapSets)

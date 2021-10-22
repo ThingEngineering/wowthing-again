@@ -54,6 +54,9 @@
         color: var(--linkColor, $link-color);
         display: block;
         padding: 0.15rem 0.5rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
 
         &:global(.active) {
             background: $active-background;
