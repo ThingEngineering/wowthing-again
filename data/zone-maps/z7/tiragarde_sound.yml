@@ -1,0 +1,316 @@
+name: Tiragarde Sound
+mapName: z7_tiragarde_sound
+minimumLevel: 10
+farms:
+
+# Kills
+
+- name: "Barman Bill"
+  location: 76.1 82.9
+  npcId: 129181
+  questId: 50233
+  type: kill
+  drops:
+  - type: transmog
+    id: 160451
+    name: "Barman Skewer"
+    limit: weapon dagger agi
+
+- name: "Bashmu"
+  location: 34.5 30.4
+  npcId: 132068
+  questId: 50094
+  type: kill
+  drops:
+  - type: transmog
+    id: 160467
+    name: "Hydra-Hunter Legguards"
+    limit: armor mail
+
+- name: "Black-Eyed Bart"
+  location: 56.3 70.0
+  npcId: 132086
+  questId: 50096
+  type: kill
+  drops:
+  - type: transmog
+    id: 158650
+    name: "Sea-Scourge Greatblade"
+    limit: weapon 2h-sword str
+
+- name: "Blackthorne"
+  location: 85.3 73.4
+  npcId: 139145
+  questId: 51808
+  type: kill
+  drops:
+  - type: transmog
+    id: 154411
+    name: "Vlaros Corps Rifle"
+    limit: weapon gun
+
+- name: "Broodmother Razora"
+  location: 83.5 44.8
+  npcId: 130508
+  questId: 49999
+  type: kill
+  drops:
+  - type: transmog
+    id: 160460
+    name: "Thick Sauroskin Gloves"
+    limit: armor leather
+
+- name: "Captain Wintersail"
+  location: 38.4 20.7
+  npcId: 132088
+  questId: 50097
+  type: kill
+  drops:
+  - type: transmog
+    id: 155422
+    name: "Pirate Chief's Speargun"
+    limit: weapon crossbow
+
+- name: "Carla Smirk"
+  location: 72.5 81.0
+  npcId: 139152
+  questId: 51809
+  type: kill
+  drops:
+  - type: transmog
+    id: 155271
+    name: "Monkey's Paw Chopper"
+    limit: weapon 1h-axe agi
+
+- name: "Fowlmouth"
+  location: 90.5 77.4
+  npcId: 132211
+  questId: 50155
+  type: kill
+  drops:
+  - type: transmog
+    id: 154467
+    name: "Parrot-Trainer Mantle"
+    limit: armor leather
+
+- name: "Foxhollow Skyterror"
+  location: 60.1 22.2
+  npcId: 132127
+  questId: 50137
+  type: kill
+  drops:
+  - type: transmog
+    id: 160454
+    name: "Foxhollow Falconer's Bracers"
+    limit: armor cloth
+
+- name: "Guardian of the Spring"
+  location: 61.7 51.5
+  npcId: 130350
+  questId: 49963
+  type: kill
+  drops:
+  - type: transmog
+    id: 155571
+    name: "Garyl's Riding Blanket"
+    limit: armor cloak
+
+- name: "Gulliver"
+  location: 57.8 55.9
+  npcId: 139233
+  questId: 53373
+  type: kill
+  drops:
+  - type: transmog
+    id: 158338
+    name: "Swift-Travel Gloves"
+    limit: armor cloth
+
+- name: "Honey-Coated Slitherer"
+  location: 64.3 19.4
+  npcId: 137183
+  questId: 51321
+  type: kill
+  drops:
+  - type: transmog
+    id: 160472
+    name: "Honey-Glazed Gauntlets"
+    limit: armor plate
+
+- name: "Kulett the Ornery"
+  location: 47.8 22.2
+  npcId: 131520
+  questId: 49984
+  type: kill
+  drops:
+  - type: transmog
+    id: 158597
+    name: "Silvershell Defender"
+    limit: weapon shield
+
+- name: "Lumbergrasp Sentinel"
+  location: 68.0 20.0
+  npcId: 134106
+  questId: 50525
+  type: kill
+  drops:
+  - type: transmog
+    id: 155524
+    name: "Cursetouched Lumberjack's Axe"
+    limit: weapon 1h-axe str
+
+- name: "Maison the Portable"
+  location: 58.2 49.3
+  npcId: 139290
+  questId: 51880
+  type: kill
+  drops:
+  - type: transmog
+    id: 154458
+    name: "Shellbreaker Warhelm"
+    limit: armor plate
+
+- name: "Merianae"
+  location: 43.0 16.8
+  npcId: 131252
+  questId: 49921
+  type: kill
+  drops:
+  - type: transmog
+    id: 160461
+    name: "Thick Sauroskin Pants"
+    limit: armor leather
+
+- name: "P4-N73R4"
+  location: 64.3 63.3
+  npcId: 139205
+  questId: 51833
+  type: kill
+  drops:
+  - type: transmog
+    id: 161599
+    name: "Mechano-Cat Claw"
+    limit: weapon fist agi
+
+- name: "Ranja"
+  location: 68.3 63.6
+  npcId: 139278
+  questId: 51872
+  type: kill
+  drops:
+  - type: transmog
+    id: 154478
+    name: "Ranja-Hide Bracers"
+    limit: armor leather
+
+- name: "Saurolisk Tamer Mugg"
+  location: 58.7 14.8
+  npcId: 127290
+  questId: 48806
+  type: kill
+  drops:
+  - type: transmog
+    id: 154416
+    name: "Trogg Saurolisk-Breaker"
+    limit: weapon 2h-mace str
+
+- name: "Shiverscale the Toxic"
+  location: 55.1 32.4
+  npcId: 139285
+  questId: 51876
+  type: kill
+  drops:
+  - type: transmog
+    id: 155278
+    name: "Shiverscale Spellknife"
+    limit: weapon dagger int
+
+- name: "Squacks"
+  location: 80.9 82.8
+  npcId: 132280
+  questId: 50160
+  type: kill
+  drops:
+  - type: transmog
+    id: 160455
+    name: "Parrot-Trainer Sash"
+    limit: armor cloth
+
+- name: "Squirgle of the Depths"
+  location: 48.9 37.0
+  npcId: 139135
+  questId: 51807
+  type: kill
+  drops:
+  - type: transmog
+    id: 155551
+    name: "Squirgle's Deepstone Wand"
+    limit: weapon wand
+
+- name: "Sythian the Swift"
+  location: 66.6 13.8
+  npcId: 139280
+  questId: 51873
+  type: kill
+  drops:
+  - type: transmog
+    id: 154474
+    name: "Sythian Swiftbelt"
+    limit: armor leather
+
+- name: "Tempestria"
+  location: 60.5 17.5
+  npcId: 133356
+  questId: 50301
+  type: kill
+  drops:
+  - type: transmog
+    id: 160466
+    name: "Saurolisk Broodmother Boots"
+    limit: armor mail
+
+- name: "Tentulos the Drifter"
+  location: 55.3 51.6
+  npcId: 139289
+  questId: 51879
+  type: kill
+  drops:
+  - type: transmog
+    id: 154448
+    name: "Medusa-Drifter's Chainmail"
+    limit: armor mail
+
+- name: "Tort Jaw"
+  location: 70.4 55.7
+  npcId: 139235
+  questId: 51835
+  type: kill
+  drops:
+  - type: transmog
+    id: 159349
+    name: "Dragon Turtle Handlers"
+    limit: armor mail
+
+- name: "Twin-hearted Construct"
+  location: 70.3 12.5
+  npcId: 131984
+  questId: 50073
+  type: kill
+  drops:
+  - type: transmog
+    id: 160473
+    name: "Wickerthorn Stompers"
+    limit: armor plate
+
+# Treasures
+
+- name: "Hay Covered Chest"
+  location: 67.4 51.6
+  questId: 49963
+  reset: never
+  type: treasure
+  drops:
+  - type: transmog
+    id: 155571
+    name: "Garyl's Riding Blanket"
+    limit: armor cloak

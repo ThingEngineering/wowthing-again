@@ -1,0 +1,401 @@
+name: Drustvar
+mapName: z7_drustvar
+minimumLevel: 10
+farms:
+
+# Kills
+
+- name: "Arclight"
+  location: 29.2 69.0
+  npcId: 137824
+  questId: 51470
+  type: kill
+  drops:
+  - type: transmog
+    id: 160469
+    name: "Arclight Jumpers"
+    limit: armor mail
+
+- name: "Arvon the Betrayed"
+  location: 34.9 69.2
+  npcId: 137529
+  questId: 51383
+  type: kill
+  drops:
+  - type: transmog
+    id: 160449
+    name: "Spectral Revenger"
+    limit: weapon warglaive
+
+- name: "Avalanche"
+  location: 43.8 88.0
+  npcId: 137825
+  questId: 51471
+  type: kill
+  drops:
+  - type: transmog
+    id: 154447
+    name: "Gryphon-Rider's Breastplate"
+    limit: armor plate
+
+- name: "Balethorn"
+  location: 55.5 28.8
+  npcId: 130143
+  questId: 49602
+  type: kill
+  drops:
+  - type: transmog
+    id: 160475
+    name: "Barksnapper Girdle"
+    limit: armor plate
+
+- name: "Barbthorn Queen"
+  location: 59.1 16.8
+  npcId: 127333
+  questId: 48842
+  type: kill
+  drops:
+  - type: transmog
+    id: 155425
+    name: "Barbthorn Queen's Stinger"
+    limit: weapon fist int
+
+- name: "Beshol"
+  location: 50.5 30.0
+  npcId: 129805
+  questId: 49481
+  type: kill
+  drops:
+  - type: transmog
+    id: 158363
+    name: "Spiderhair Circlet"
+    limit: armor cloth
+
+- name: "Betsy"
+  location: 58.5 33.2
+  npcId: 124548
+  questId: 47884
+  type: kill
+  drops:
+  - type: transmog
+    id: 160463
+    name: "Blue-Ribbon Belt"
+    limit: armor leather
+
+- name: "Bilefang Mother"
+  location: 35.1 33.3
+  npcId: 132319
+  questId: 50163
+  type: kill
+  drops:
+  - type: transmog
+    id: 155284
+    name: "Bleak Hills Swatter"
+    limit: weapon 1h-mace str
+
+- name: "Bonesquall"
+  location: 66.6 50.7
+  npcId: 126621
+  questId: 48978
+  type: kill
+  drops:
+  - type: transmog
+    id: 154376
+    name: "Bonecurse Guantlets"
+    limit: armor plate
+
+- name: "Braedan Whitewall"
+  location: 27.6 59.6
+  npcId: 139321
+  questId: 51922
+  type: kill
+  drops:
+  - type: transmog
+    id: 154500
+    name: "Moonwood Bramblespire"
+    limit: weapon staff agi
+
+- name: "Captain Leadfist"
+  location: 27.6 14.2
+  npcId: 135796
+  questId: 50939
+  type: kill
+  drops:
+  - type: transmog
+    id: 160450
+    name: "Leadshot Heavy Rifle"
+    limit: weapon gun
+
+- name: "Emily Mayville"
+  location: 63.4 40.1
+  npcId: 129995
+  questId: 49530
+  type: kill
+  drops:
+  - type: transmog
+    id: 160447
+    name: "Soul-Pillar Lantern"
+    limit: weapon offhand
+
+- name: "Executioner Blackwell"
+  location: 30.9 18.4
+  npcId: 134213
+  questId: 50546
+  type: kill
+  drops:
+  - type: transmog
+    id: 155055
+    name: "Soul-Curse Executioner"
+    limit: weapon 2h-axe str
+
+- name: "Fungi Trio"
+  location: 24.5 22.0
+  npcId: 138866
+  questId: 51749
+  type: kill
+  drops:
+  - type: transmog
+    id: 154217
+    name: "Pearly-White Jackknife"
+    limit: weapon dagger int
+
+- name: "Gluttonous Yeti"
+  location: 63.0 69.6
+  npcId: 127844
+  questId: 48979
+  type: kill
+  drops:
+  - type: transmog
+    id: 158683
+    name: "Giant Yeti's Bowl"
+    limit: weapon shield
+
+- name: "Gorehorn"
+  location: 57.1 44.3
+  npcId: 129835
+  questId: 49480
+  type: kill
+  drops:
+  - type: transmog
+    id: 158710
+    name: "Gorehorn's Rack"
+    limit: weapon 1h-mace agi
+
+- name: "Gorged Boar"
+  location: 28.0 25.9
+  npcId: 138675
+  questId: 51700
+  type: kill
+  drops:
+  - type: transmog
+    id: 154461
+    name: "Cursed Boarhide Helm"
+    limit: armor leather
+
+- name: "Grozgore"
+  location: 50.3 20.6
+  npcId: 127129
+  questId: 49388
+  type: kill
+  drops:
+  - type: transmog
+    id: 160457
+    name: "Lava-Starched Britches"
+    limit: armor cloth
+
+- name: "Haywire Golem"
+  location: 24.1 30.3
+  npcId: 138618
+  questId: 51698
+  type: kill
+  drops:
+  - type: transmog
+    id: 155362
+    name: "Wickerbeast Mulcher"
+    limit: weapon polearm agi
+
+- name: "Hyo'gi"
+  location: 22.9 49.5
+  npcId: 134754
+  questId: 50688
+  type: kill
+  drops:
+  - type: transmog
+    id: 160462
+    name: "Hyo'gi Basket Binders"
+    limit: armor leather
+
+- name: "Idej the Wise"
+  location: 64.9 83.3
+  npcId: 131735
+  questId: 52061
+  type: kill
+  drops:
+  - type: pet
+    id: 139770
+    name: "Taptaf"
+
+- name: "Longfang & Henry Breakwater"
+  location: 59.2 55.3
+  npcId: 127877
+  questId: 48981
+  type: kill
+  drops:
+  - type: transmog
+    id: 159518
+    name: "Long Fang"
+    limit: weapon dagger agi
+
+- name: "Nevermore"
+  location: 59.9 45.5
+  npcId: 130138
+  questId: 49601
+  type: kill
+  drops:
+  - type: transmog
+    id: 160456
+    name: "Blanched Ravenfeather Gloves"
+    limit: armor cloth
+
+- name: "Quillrat Matriarch"
+  location: 66.6 42.7
+  npcId: 125453
+  questId: 48178
+  type: kill
+  drops:
+  - type: transmog
+    id: 158583
+    name: "Quillstitch Greatcloak"
+    limit: armor cloak
+
+- name: "Rimestone"
+  location: 59.6 71.8
+  npcId: 128707
+  questId: 49269
+  type: kill
+  drops:
+  - type: transmog
+    id: 158345
+    name: "Coldsnap Pauldrons"
+    limit: armor mail
+
+- name: "Sister Martha"
+  location: 33.0 57.1
+  npcId: 138863
+  questId: 51748
+  type: kill
+  drops:
+  - type: transmog
+    id: 155299
+    name: "Sister Martha's Soulstealer"
+    limit: weapon wand
+
+- name: "Talon"
+  location: 31.9 40.6
+  npcId: 129950
+  questId: 49528
+  type: kill
+  drops:
+  - type: transmog
+    id: 161444
+    name: "Frosted Talonfeather Mantle"
+    limit: armor cloth
+
+- name: "Vicemaul"
+  location: 72.9 60.5
+  npcId: 127651
+  questId: 48928
+  type: kill
+  drops:
+  - type: transmog
+    id: 160474
+    name: "Vicemaul Wristpinchers"
+    limit: armor plate
+
+- name: "Whargarble the Ill-Tempered"
+  location: 65.0 21.5
+  npcId: 128973
+  questId: 49311
+  type: kill
+  drops:
+  - type: transmog
+    id: 155543
+    name: "Tuskarr Whaler's Harpoon"
+    limit: weapon polearm int
+
+- name: 'Whitney "Steelclaw" Ramsay'
+  location: 29.5 64.1
+  npcId: 139322
+  questId: 51923
+  type: kill
+  drops:
+  - type: transmog
+    id: 154315
+    name: "Rusty Steelclaw"
+    limit: weapon fist agi
+
+# Treasures
+
+- name: "Bespelled Chest"
+  location: 55.6 51.8
+  questId: 53472
+  reset: never
+  type: treasure
+  drops:
+  - type: pet
+    id: 143189
+    name: "Wicker Pup"
+    note: "Spooky Incantation part"
+
+- name: "Enchanted Chest"
+  location: 25.5 24.2
+  questId: 53474
+  reset: never
+  type: treasure
+  drops:
+  - type: pet
+    id: 143189
+    name: "Wicker Pup"
+    note: "Wolf Pup Spine part"
+
+- name: "Ensorcelled Chest"
+  location: 67.8 73.7
+  questId: 53473
+  reset: never
+  type: treasure
+  drops:
+  - type: pet
+    id: 143189
+    name: "Wicker Pup"
+    note: "Miniature Stag Skull part"
+
+- name: "Hexed Chest"
+  location: 18.5 51.3
+  questId: 53471
+  reset: never
+  type: treasure
+  drops:
+  - type: pet
+    id: 143189
+    name: "Wicker Pup"
+    note: "Bundle of Wicker Sticks part"
+
+- name: "Runebound Chest"
+  location: 44.2 27.7
+  questId: 53386
+  reset: never
+  type: treasure
+  drops:
+  - type: toy
+    id: 163742
+    name: "Heartsbane Grimoire"
+
+- name: "Runebound Coffer"
+  location: 33.7 71.7
+  questId: 53387
+  reset: never
+  type: treasure
+  drops:
+  - type: toy
+    id: 163740
+    name: "Drust Ritual Knife"

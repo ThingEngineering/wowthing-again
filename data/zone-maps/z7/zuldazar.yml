@@ -134,6 +134,7 @@ farms:
   - type: transmog
     id: 160984
     name: "Sauroscale Cloak of Adaptation"
+    limit: armor cloak
 
 - name: "Kiboku"
   location: 75.6 35.8

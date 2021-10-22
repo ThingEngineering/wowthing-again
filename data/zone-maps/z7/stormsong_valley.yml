@@ -1,0 +1,295 @@
+name: Stormsong Valley
+mapName: z7_stormsong_valley
+minimumLevel: 10
+farms:
+
+# Kills
+
+- name: "Broodmother"
+  location: 29.5 69.6
+  npcId: 137025
+  questId: 51298
+  type: kill
+  drops:
+  - type: transmog
+    id: 160470
+    name: "Broodcrawler Wristguards"
+    limit: armor mail
+
+- name: "Captain Razorspine"
+  location: 47.3 65.7
+  npcId: 130897
+  questId: 50170
+  type: kill
+  drops:
+  - type: transmog
+    id: 155287
+    name: "Razorspine's Greatmace"
+    limit: weapon 2h-mace str
+
+- name: "Corrupted Tideskipper"
+  location: 67.0 50.2
+  npcId: 139968
+  questId: 52121
+  type: kill
+  drops:
+  - type: transmog
+    id: 154183
+    name: "Boralus-Captain's Chain Boots"
+    limit: armor mail
+
+- name: "Croaker"
+  location: 62.9 32.8
+  npcId: 140938
+  questId: 52303
+  type: kill
+  drops:
+  - type: transmog
+    id: 154460
+    name: "Treasure-Seeker's Diving Helmet"
+    limit: armor mail
+
+- name: "Dagrus the Scorned"
+  location: 67.9 39.8
+  npcId: 134897
+  questId: 50731
+  type: kill
+  drops:
+  - type: transmog
+    id: 160476
+    name: "Fogtide Warboots"
+    limit: armor plate
+
+- name: "Deepfang"
+  location: 52.7 51.6
+  npcId: 139385
+  questId: 50692
+  type: kill
+  drops:
+  - type: transmog
+    id: 160464
+    name: "Dire Hill Wolfsteppers"
+    limit: armor leather
+
+- name: "Doc Marrtens"
+  faction: horde
+  location: 53.4 64.4
+  npcId: 140925
+  questId: 52323
+  type: kill
+  drops:
+  - type: transmog
+    id: 154453
+    name: "Doc's Air-Cushioned Boots"
+    limit: armor leather
+
+- name: "Foreman Scripps"
+  location: 64.4 65.9
+  npcId: 131404
+  questId: 49951
+  type: kill
+  drops:
+  - type: transmog
+    id: 160471
+    name: "Foreman's Stability Belt"
+    limit: armor mail
+
+- name: "Grimscowl the Harebrained"
+  location: 62.1 73.9
+  npcId: 141059
+  questId: 52329
+  type: kill
+  drops:
+  - type: transmog
+    id: 155572
+    name: "Yeti-Rager's Cloak"
+    limit: armor cloak
+
+- name: "Haegol the Hammer"
+  location: 35.2 77.8
+  npcId: 141226
+  questId: 52460
+  type: kill
+  drops:
+  - type: transmog
+    id: 154273
+    name: "Rockstopper Breastplate"
+    limit: armor plate
+
+- name: "Honey Smasher"
+  location: 60.7 17.8
+  npcId: 154154
+  questId: 57674
+  type: kill
+  drops:
+  - type: pet
+    id: 158685
+    name: "Crimson Skipper"
+
+- name: "Ice Sickle"
+  location: 63.5 83.6
+  npcId: 141039
+  questId: 52327
+  type: kill
+  drops:
+  - type: transmog
+    id: 154464
+    name: "Frozen Heart Legguards"
+    limit: armor mail
+
+- name: "Jakala the Cruel"
+  faction: alliance
+  location: 53.6 64.2
+  npcId: 141043
+  questId: 52324
+  type: kill
+  drops:
+  - type: transmog
+    id: 159179
+    name: "Headtaker's Helm"
+    limit: armor leather
+
+- name: "Kickers"
+  location: 31.3 61.7
+  npcId: 141029
+  questId: 52318
+  type: kill
+  drops:
+  - type: transmog
+    id: 154475
+    name: "Goathair Bindings"
+    limit: armor cloth
+
+- name: "Nestmother Acada"
+  location: 43.5 45.0
+  npcId: 138963
+  questId: 51762
+  type: kill
+  drops:
+  - type: transmog
+    id: 160458
+    name: "Ancient Featherlight Slippers"
+    limit: armor cloth
+
+- name: "Osca the Bloodied"
+  location: 42.3 63.2
+  npcId: 141239
+  questId: 52461
+  type: kill
+  drops:
+  - type: transmog
+    id: 159169
+    name: "Bloody Bearhide Pants"
+    limit: armor leather
+
+- name: "Pinku'shon"
+  location: 38.8 51.0
+  npcId: 139298
+  questId: 51959
+  type: kill
+  drops:
+  - type: transmog
+    id: 163678
+    name: "Pinku'shon's Impaler"
+    limit: weapon polearm agi
+
+- name: "Ragna"
+  location: 41.6 74.2
+  npcId: 134884
+  questId: 50725
+  type: kill
+  drops:
+  - type: transmog
+    id: 160465
+    name: "Raging-Earth Wranglers"
+    limit: armor leather
+
+- name: "Sabertron"
+  location: 34.0 32.0
+  npcId: 139328
+  questId: 51956
+  type: kill
+  drops:
+  - type: transmog
+    id: 154664
+    name: "Lionsight Omensword"
+    limit: weapon 2h-sword str
+
+- name: "Sandfang"
+  location: 73.5 60.6
+  npcId: 139988
+  questId: 52125
+  type: kill
+  drops:
+  - type: transmog
+    id: 154389
+    name: "Abyssal-Serpent Pauldrons"
+    limit: armor plate
+
+- name: "Seabreaker Skoloth"
+  location: 33.6 38.2
+  npcId: 138938
+  questId: 51757
+  type: kill
+  drops:
+  - type: transmog
+    id: 160477
+    name: "Skoloth's Anchorplate Greaves"
+    limit: armor plate
+
+- name: "Severus the Outcast"
+  location: 22.6 73.2
+  npcId: 140997
+  questId: 50938
+  type: kill
+  drops:
+  - type: transmog
+    id: 163679
+    name: "Severus' Bindings"
+    limit: armor cloth
+
+- name: "Sister Absinthe"
+  location: 61.6 57.0
+  npcId: 141143
+  questId: 52441
+  type: kill
+  drops:
+  - type: transmog
+    id: 155164
+    name: "Beryl-Tide Greatcloak"
+    limit: armor cloak
+
+- name: "Taja the Tidehowler"
+  location: 60.0 45.8
+  npcId: 139980
+  questId: 52123
+  type: kill
+  drops:
+  - type: transmog
+    id: 154449
+    name: "Tidebound Chestguard"
+    limit: armor leather
+
+- name: "The Lichen King"
+  location: 51.8 79.8
+  npcId: 136189
+  questId: 50974
+  type: kill
+  drops:
+  - type: transmog
+    id: 150909
+    name: "Morel Coils"
+    limit: armor plate
+
+- name: "Vinespeaker Ratha"
+  location: 49.6 68.1
+  npcId: 135939
+  questId: 50037
+  type: kill
+  drops:
+  - type: transmog
+    id: 158299
+    name: "Ratha's Thornscepter"
+    limit: weapon 1h-mace int
+
+# Treasures
