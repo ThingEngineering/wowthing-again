@@ -28,6 +28,7 @@ export interface ZoneMapDataDrop {
     id: number
     requiredQuestId?: number
     name: string
+    note?: string
     type: string
     limit: string[]
 }
