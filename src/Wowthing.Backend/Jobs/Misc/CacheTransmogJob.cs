@@ -45,7 +45,7 @@ namespace Wowthing.Backend.Jobs.Misc
         private async Task BuildTransmogData()
         {
             // Generate and cache output
-            var transmogSets = DataUtilities.LoadData<DataTransmogCategory>("transmog");
+            var transmogSets = DataUtilities.LoadData<DataTransmogCategory>("transmog", Logger);
             
             var cacheData = new RedisTransmogCache
             {
