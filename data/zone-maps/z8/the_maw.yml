@@ -415,7 +415,8 @@ farms:
     limit: weapon stave int
 
 - name: "Skittering Broodmother"
-  location: 41.8 79.2
+  location: 54.3 84.9
+  note: "In the Pit of Anguish"
   npcId: 172524
   questId: 62211
   drops:
