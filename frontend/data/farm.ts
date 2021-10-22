@@ -15,6 +15,7 @@ import mdiWizardHat from '@iconify/icons-mdi/wizard-hat'
 
 export const farmType: Record<string, IconifyIcon> = {
     event: mdiTimerSand,
+    eventBig: mdiTimerSand,
     kill: mdiSkull,
     killBig: mdiSkull,
     puzzle: mdiPuzzle,
