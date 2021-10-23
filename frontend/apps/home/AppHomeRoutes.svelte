@@ -16,7 +16,7 @@
     import Teams from '@/components/teams/Teams.svelte'
     import Toys from '@/components/collections/Toys.svelte'
     import Transmog from '@/components/transmog/Transmog.svelte'
-    import ZoneMaps from '@/components/zonemaps/ZoneMaps.svelte'
+    import ZoneMaps from '@/components/zone-maps/ZoneMaps.svelte'
 
     const routes = {
         '/': HomeTable,

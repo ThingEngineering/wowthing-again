@@ -6,7 +6,7 @@
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import NpcLink from '@/components/links/NpcLink.svelte'
-    import Tooltip from '@/components/tooltips/farm/TooltipFarm.svelte'
+    import Tooltip from '@/components/tooltips/zone-maps/TooltipZoneMapsThing.svelte'
 
     export let farm: ZoneMapDataFarm
     export let status: FarmStatus
@@ -76,7 +76,7 @@
 <div
     class="wrapper"
     class:active={status.need}
-    style="--left: {farm.location[0]}%; --top: {farm.location[1]}%; --top-offset: {status.need ? (big ? '11px' : '7px') : '0px'};"
+    style="--left: {farm.location[0]}%; --top: {farm.location[1]}%; --top-offset: {status.need ? '7px' : '0px'};"
     use:tippyComponent={{
         component: Tooltip,
         props: {farm, status},
