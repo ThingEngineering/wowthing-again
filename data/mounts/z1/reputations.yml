@@ -1,6 +1,10 @@
 name: Reputations
 groups:
 
+- name: "Cenarion Expedition"
+  things:
+  - 43927 # Cenarion War Hippogryph
+
 - name: "Kurenai/Mag'har"
   things:
   - 39315 # Cobalt Riding Talbuk

@@ -1,6 +1,8 @@
 *
+    achievements.yml
     drops.yml
     instances.yml
+    quests.yml
     reputations.yml
 
 z8/_shadowlands.yml
@@ -27,11 +29,13 @@ z2/_wrath_of_the_lich_king.yml
 z1/_the_burning_crusade.yml
 
 z0/_vanilla.yml
-    z0/general.yml
 
 -
 
 achievements.yml
+    z8/achievements.yml Shadowlands
+    z7/achievements.yml Battle for Azeroth
+    pvp/achievements.yml PvP
 
 misc/_misc.yml
     misc/class.yml
@@ -39,12 +43,14 @@ misc/_misc.yml
     misc/racial_horde.yml
     misc/racial_pandaren.yml
 
+money.yml
+
 professions.yml
 
 pvp/_pvp.yml
-    pvp/achievements.yml
     pvp/honor.yml
     pvp/vendors.yml
+    unavailable/arena.yml Unavailable
 
 world_events/_blank.yml
     world_events/world_events.yml
@@ -82,11 +88,9 @@ reputations.yml
     z3/reputations.yml Cataclysm
     z2/reputations.yml Wrath of the Lich King
     z1/reputations.yml The Burning Crusade
-    z0/reputations.yml Vanilla
 
 -
 
-money.yml
 unavailable/_blank.yml
     unavailable/unavailable.yml
     unavailable/arena.yml

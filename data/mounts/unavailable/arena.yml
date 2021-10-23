@@ -1,4 +1,4 @@
-name: Arena
+name: "Arena"
 groups:
 
 - name: "The Burning Crusade"
@@ -51,6 +51,7 @@ groups:
   - 262024 # Notorious Gladiator's Proto-Drake (BfA Season 3)
   - 262027 # Corrupted Gladiator's Proto-Drake (BfA Season 4)
 
-- name: Shadowlands
+- name: "Shadowlands"
   things:
   - 332400 # Sinful Gladiator's Soul Eater (Sinful Gladiator: Shadowlands Season 1)
+  - 353036 # Unchained Gladiator's Soul Eater (Gladiator: Shadowlands Season 2)
