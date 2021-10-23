@@ -85,13 +85,26 @@ export class UserCollectionDataStore extends WritableFancyStore<UserCollectionDa
                     for (const things of group.things) {
                         const seenThing = some(things, (t) => seen[t])
 
-                        // We only want to increase overall counts if the set is not
-                        // 'unavailable'
-                        if (set.slug !== 'unavailable' && !seenThing) {
+                        // We only want to increase some counts if the set is not
+                        // unavailable
+                        const doCategory = (
+                            set.slug !== 'unavailable' &&
+                            group.name.indexOf('Unavailable') < 0
+                        )
+
+                        const doOverall = (
+                            category[0].slug !== 'unavailable' &&
+                            doCategory &&
+                            !seenThing
+                        )
+
+                        if (doCategory) {
+                            categoryData.total++
+                        }
+                        if (doOverall) {
                             overallData.total++
                         }
 
-                        categoryData.total++
                         setData.total++
 
                         for (const thing of things) {
@@ -99,11 +112,13 @@ export class UserCollectionDataStore extends WritableFancyStore<UserCollectionDa
                                 (map && userHas[map[thing]]) ||
                                 (!map && userHas[thing])
                             ) {
-                                if (set.slug !== 'unavailable' && !seenThing) {
+                                if (doCategory) {
+                                    categoryData.have++
+                                }
+                                if (doOverall) {
                                     overallData.have++
                                 }
 
-                                categoryData.have++
                                 setData.have++
 
                                 break
