@@ -20,7 +20,7 @@
 </script>
 
 <Sidebar
-    baseUrl="/transmog"
+    baseUrl="/transmog-sets"
     items={categories}
     width="16rem"
     {percentFunc}
