@@ -15,7 +15,7 @@
     import Settings from '@/components/settings/Settings.svelte'
     import Teams from '@/components/teams/Teams.svelte'
     import Toys from '@/components/collections/Toys.svelte'
-    import Transmog from '@/components/transmog/Transmog.svelte'
+    import TransmogSets from '@/components/transmog-sets/TransmogSets.svelte'
     import ZoneMaps from '@/components/zone-maps/ZoneMaps.svelte'
 
     const routes = {
@@ -30,7 +30,7 @@
         '/mythic-plus/:slug?': MythicPlus,
         '/progress/:slug?': Progress,
         '/reputations/:slug?': Reputations,
-        '/transmog/:slug1?/:slug2?': Transmog,
+        '/transmog-sets/:slug1?/:slug2?': TransmogSets,
         '/zone-maps/:slug1?/:slug2?': ZoneMaps,
 
         '/mounts/:slug1?/:slug2?': Mounts,

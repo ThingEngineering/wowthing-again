@@ -4,8 +4,8 @@
     import {transmogStore, userTransmogStore} from '@/stores'
     import getSavedRoute from '@/utils/get-saved-route'
 
-    import TransmogSidebar from './TransmogSidebar.svelte'
-    import TransmogTable from './TransmogTable.svelte'
+    import Sidebar from './TransmogSetsSidebar.svelte'
+    import Table from './TransmogSetsTable.svelte'
 
     export let params: {
         slug1: string
@@ -30,7 +30,7 @@
         userTransmogStore.fetch(),
     ]))
 
-    afterUpdate(() => getSavedRoute('transmog', params.slug1, params.slug2))
+    afterUpdate(() => getSavedRoute('transmog-sets', params.slug1, params.slug2))
 </script>
 
 <style lang="scss">
@@ -47,7 +47,7 @@
     {:else if !ready}
         <p>L O A D I N G</p>
     {:else}
-        <TransmogSidebar />
-        <TransmogTable slug1={params.slug1} slug2={params.slug2} />
+        <Sidebar />
+        <Table slug1={params.slug1} slug2={params.slug2} />
     {/if}
 </div>
