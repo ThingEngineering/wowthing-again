@@ -1,7 +1,10 @@
-name: General
+name: Quests
 groups:
 
-- name: Quests
+- name: "Un'goro Crater"
   things:
-  - 64659 # Venomhide Ravasaur (?)
+  - 64659 # Venomhide Ravasaur (Un'goro Crater)
+
+- name: "Winterspring"
+  things:
   - 17229 # Winterspring Frostsaber (Wintersaber Trainers)
