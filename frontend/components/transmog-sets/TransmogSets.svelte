@@ -7,7 +7,6 @@
 
     import Sidebar from './TransmogSetsSidebar.svelte'
     import Table from './TransmogSetsTable.svelte'
-    import { data as settings } from '../../stores/settings'
 
     export let params: {
         slug1: string
