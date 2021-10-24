@@ -117,7 +117,7 @@ namespace Wowthing.Web.Controllers
         }
 
         [HttpGet("achievements.{hash:length(32)}.json")]
-        [ResponseCache(Duration = 365 * 24 * 60 * 60)]
+        [ResponseCache(Duration = 365 * 24 * 60 * 60, VaryByHeader = "Origin")]
         public async Task<IActionResult> StaticAchievements([FromRoute] string hash)
         {
             var db = _redis.GetDatabase();
@@ -132,7 +132,7 @@ namespace Wowthing.Web.Controllers
         }
         
         [HttpGet("static.{hash:length(32)}.json")]
-        [ResponseCache(Duration = 365 * 24 * 60 * 60)]
+        [ResponseCache(Duration = 365 * 24 * 60 * 60, VaryByHeader = "Origin")]
         public async Task<IActionResult> StaticData([FromRoute] string hash)
         {
             var db = _redis.GetDatabase();
@@ -147,7 +147,7 @@ namespace Wowthing.Web.Controllers
         }
 
         [HttpGet("{type:regex(^(transmog|zone-map)$)}.{hash:length(32)}.json")]
-        [ResponseCache(Duration = 365 * 24 * 60 * 60)]
+        [ResponseCache(Duration = 365 * 24 * 60 * 60, VaryByHeader = "Origin")]
         public async Task<IActionResult> StaticMisc([FromRoute] string type, [FromRoute] string hash)
         {
             var db = _redis.GetDatabase();

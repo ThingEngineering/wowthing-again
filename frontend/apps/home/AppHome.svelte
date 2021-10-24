@@ -6,18 +6,25 @@
     import Routes from './AppHomeRoutes.svelte'
     import Sidebar from './AppHomeSidebar.svelte'
 
-    let error: boolean
-    let loaded: boolean
-    $: {
-        error = $staticStore.error || $userCollectionStore.error || $userStore.error
-        loaded = $staticStore.loaded && $userCollectionStore.loaded && $userStore.loaded
-    }
-
     onMount(async () => await Promise.all([
         staticStore.fetch(),
         userCollectionStore.fetch(),
         userStore.fetch(),
     ]))
+
+    let error: boolean
+    let loaded: boolean
+    $: {
+        error = $staticStore.error || $userCollectionStore.error || $userStore.error
+        loaded = $staticStore.loaded && $userCollectionStore.loaded && $userStore.loaded
+
+        if (loaded) {
+            userCollectionStore.setup(
+                $staticStore.data,
+                $userCollectionStore.data,
+            )
+        }
+    }
 </script>
 
 <style lang="scss" global>
