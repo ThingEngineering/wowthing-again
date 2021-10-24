@@ -10,6 +10,7 @@ using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Repositories;
 using Wowthing.Web.Extensions;
+using Wowthing.Web.Services;
 
 namespace Wowthing.Web.Controllers
 {
@@ -19,12 +20,20 @@ namespace Wowthing.Web.Controllers
         private readonly JobRepository _jobRepository;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly UriService _uriService;
 
-        public AuthenticationController(ILogger<AuthenticationController> logger, JobRepository jobRepository, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
+        public AuthenticationController(
+            ILogger<AuthenticationController> logger,
+            JobRepository jobRepository,
+            SignInManager<ApplicationUser> signInManager,
+            UriService uriService,
+            UserManager<ApplicationUser> userManager
+        )
         {
             _logger = logger;
             _jobRepository = jobRepository;
             _signInManager = signInManager;
+            _uriService = uriService;
             _userManager = userManager;
         }
 
@@ -110,7 +119,11 @@ namespace Wowthing.Web.Controllers
             // Queue a job to retrieve their characters
             await _jobRepository.AddJobAsync(JobPriority.High, JobType.UserCharacters, user.Id.ToString());
 
-            return LocalRedirect(returnUrl ?? Url.Action("Index", "User", new { username = user.UserName }));
+            if (string.IsNullOrWhiteSpace(returnUrl))
+            {
+                returnUrl = await _uriService.GetUriForUser(user: user);
+            }
+            return Redirect(returnUrl);
         }
 
         [Authorize]
