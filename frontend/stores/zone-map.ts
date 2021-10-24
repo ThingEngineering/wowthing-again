@@ -55,25 +55,29 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
             ])
         )
 
-        for (const categories of zoneMapData.sets) {
-            const categoryCounts = setCounts[categories[0].slug] = new UserDataSetCount(0, 0)
+        for (const maps of zoneMapData.sets) {
+            const categoryCounts = setCounts[maps[0].slug] = new UserDataSetCount(0, 0)
 
-            for (const category of categories.slice(1)) {
-                if (category === null) {
+            const categorySeen: Record<string, Record<number, boolean>> = {}
+
+            for (const map of maps.slice(1)) {
+                if (map === null) {
                     continue
                 }
 
-                const mapKey = `${categories[0].slug}--${category.slug}`
+                const mapSeen: Record<string, Record<number, boolean>> = {}
+
+                const mapKey = `${maps[0].slug}--${map.slug}`
                 const mapCounts = setCounts[mapKey] = new UserDataSetCount(0, 0)
 
                 const eligibleCharacters = filter(
                     shownCharacters,
                     (c) => (
-                        c.level >= category.minimumLevel &&
+                        c.level >= map.minimumLevel &&
                         (
-                            category.requiredQuestIds.length === 0 ||
+                            map.requiredQuestIds.length === 0 ||
                             some(
-                                category.requiredQuestIds,
+                                map.requiredQuestIds,
                                 (q) => userQuestData.characters[c.id].quests.get(q)
                             )
                         )
@@ -81,7 +85,7 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                 )
 
                 const farms: FarmStatus[] = []
-                for (const farm of category.farms) {
+                for (const farm of map.farms) {
                     const farmStatus: FarmStatus = {
                         characters: [],
                         drops: [],
@@ -137,15 +141,34 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                         )
 
                         if (!dropStatus.skip) {
+                            if (categorySeen[drop.type] === undefined) {
+                                categorySeen[drop.type] = {}
+                            }
+                            if (mapSeen[drop.type] === undefined) {
+                                mapSeen[drop.type] = {}
+                            }
+
                             overallCounts.total++
-                            categoryCounts.total++
-                            mapCounts.total++
+                            if (categorySeen[drop.type][drop.id] === undefined) {
+                                categoryCounts.total++
+                            }
+                            if (mapSeen[drop.type][drop.id] === undefined) {
+                                mapCounts.total++
+                            }
+
 
                             if (!dropStatus.need) {
                                 overallCounts.have++
-                                categoryCounts.have++
-                                mapCounts.have++
+                                if (categorySeen[drop.type][drop.id] === undefined) {
+                                    categoryCounts.have++
+                                }
+                                if (mapSeen[drop.type][drop.id] === undefined) {
+                                    mapCounts.have++
+                                }
                             }
+
+                            categorySeen[drop.type][drop.id] = true
+                            mapSeen[drop.type][drop.id] = true
                         }
 
                         if (dropStatus.need && !dropStatus.skip) {
