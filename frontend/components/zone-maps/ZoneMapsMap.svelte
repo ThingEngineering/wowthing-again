@@ -2,21 +2,11 @@
     import filter from 'lodash/filter'
     import find from 'lodash/find'
 
-    import {
-        zoneMapStore,
-        staticStore,
-        timeStore,
-        userCollectionStore,
-        userQuestStore,
-        userStore,
-        userTransmogStore,
-    } from '@/stores'
-    import { data as settings } from '@/stores/settings'
-    import {zoneMapState} from '@/stores/local-storage/zone-map'
-    import {zoneMapMedia} from '../../stores/media-queries/zone-map'
-    import getFarmStatus from '@/utils/get-farm-status'
-    import type {ZoneMapDataCategory} from '@/types/data'
-    import type {FarmStatus} from '@/utils/get-farm-status'
+    import { zoneMapStore } from '@/stores'
+    import { zoneMapState } from '@/stores/local-storage/zone-map'
+    import { zoneMapMedia } from '@/stores/media-queries/zone-map'
+    import type { FarmStatus } from '@/types'
+    import type { ZoneMapDataCategory } from '@/types/data'
 
     import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
     import Image from '@/components/images/Image.svelte'
@@ -40,17 +30,7 @@
         }
 
         if (categories.length > 0) {
-            farmStatuses = getFarmStatus(
-                $settings,
-                $staticStore.data,
-                $userStore.data,
-                $userCollectionStore.data,
-                $userQuestStore.data,
-                $userTransmogStore.data,
-                $timeStore,
-                categories[0],
-                $zoneMapState,
-            )
+            farmStatuses = $zoneMapStore.data.farmStatus[slug2 ? `${slug1}--${slug2}` : slug1]
         }
     }
 
@@ -96,7 +76,7 @@
     }
 </style>
 
-{#if categories.length > 0}
+{#if categories.length > 0 && farmStatuses}
     <div class="farm">
         <div class="toggles">
             <button>

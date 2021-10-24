@@ -1,11 +1,13 @@
 <script lang="ts">
     import { afterUpdate, onMount } from 'svelte'
 
-    import {transmogStore, userTransmogStore} from '@/stores'
+    import { transmogStore, userTransmogStore } from '@/stores'
+    import { data as settings } from '@/stores/settings'
     import getSavedRoute from '@/utils/get-saved-route'
 
     import Sidebar from './TransmogSetsSidebar.svelte'
     import Table from './TransmogSetsTable.svelte'
+    import { data as settings } from '../../stores/settings'
 
     export let params: {
         slug1: string
@@ -21,7 +23,11 @@
         ready = (!error && loaded && $userTransmogStore.data.has !== null)
 
         if (!error && loaded) {
-            userTransmogStore.setup()
+            userTransmogStore.setup(
+                $settings,
+                $transmogStore.data,
+                $userTransmogStore.data,
+            )
         }
     }
 
