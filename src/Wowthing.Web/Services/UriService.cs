@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Security.Policy;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -64,10 +63,13 @@ namespace Wowthing.Web.Services
             }
         }
 
-        public async Task<string> GetUriForUser()
+        public async Task<string> GetUriForUser(ApplicationUser user = null)
         {
             var username = _httpContextAccessor?.HttpContext?.User?.Identity?.Name;
-            var user = await _userManager.FindByNameAsync(username);
+            if (user == null)
+            {
+                user = await _userManager.FindByNameAsync(username);
+            }
 
             if (user.CanUseSubdomain)
             {
@@ -81,13 +83,10 @@ namespace Wowthing.Web.Services
             else
             {
                 return _linkGenerator.GetUriByAction(
-                    httpContext: _httpContextAccessor.HttpContext,
+                    _httpContextAccessor.HttpContext,
                     controller: "User",
                     action: "Index",
-                    values: new
-                    {
-                        username = username,
-                    }
+                    values: new { username }
                 );
             }
         }
