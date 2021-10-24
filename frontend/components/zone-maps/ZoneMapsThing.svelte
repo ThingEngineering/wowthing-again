@@ -42,15 +42,16 @@
 
         &.active {
             color: #fff;
+
+            &.alliance {
+                color: #4499ff;
+            }
+            &.horde {
+                color: #ff8888;
+            }
         }
         &.inactive {
             color: #00bb00;
-        }
-        &.alliance {
-            color: #4499ff;
-        }
-        &.horde {
-            color: #ff8888;
         }
     }
     span {
