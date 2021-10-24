@@ -4,7 +4,7 @@ import { writable } from 'svelte/store'
 export class ZoneMapState {
     public trackMounts = true
     public trackPets = true
-    public trackQuests = true
+    public trackQuests = false
     public trackToys = true
     public trackTransmog = true
 }
