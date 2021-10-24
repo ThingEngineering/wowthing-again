@@ -42,7 +42,7 @@ namespace Wowthing.Web
             wowthingWebConfig.Bind(wowthingWebOptions);
 
             services.Configure<WowthingWebOptions>(wowthingWebConfig);
-            
+
             services.AddResponseCaching();
 
             services.AddRequestDecompression(options =>
@@ -51,7 +51,7 @@ namespace Wowthing.Web
                 options.Providers.Add<GzipDecompressionProvider>();
                 options.Providers.Add<BrotliDecompressionProvider>();
             });
-            
+
             services.AddControllersWithViews()
                 .AddNewtonsoftJson();
 
@@ -64,6 +64,7 @@ namespace Wowthing.Web
 
             services.AddPostgres(Configuration.GetConnectionString("Postgres"));
 
+            // Auth
             services.AddIdentity<ApplicationUser, IdentityRole<long>>()
                 .AddEntityFrameworkStores<WowDbContext>();
 
@@ -88,7 +89,17 @@ namespace Wowthing.Web
                 options.LogoutPath = "/auth/logout";
             });
 
-           // Redis
+            // Anti-forgery
+            services.AddAntiforgery(options =>
+            {
+                // Can't do this in dev as 'localhost' is a special case
+                if (Env.IsProduction())
+                {
+                    options.Cookie.Domain = $".{wowthingWebOptions.Hostname}";
+                }
+            });
+
+            // Redis
             var redis = services.AddRedis(Configuration.GetConnectionString("Redis"));
             services.AddDataProtection()
                 .PersistKeysToStackExchangeRedis(redis);
