@@ -1,14 +1,17 @@
 export default async function fetch_json(
-    request: string,
+    url: string,
 ): Promise<string | null> {
+    const request = new Request(url, {
+        credentials: "include",
+        mode: "cors",
+    })
+
     return fetch(request)
         .then((response) => {
             if (response.ok) {
                 return response.text() ?? null
             } else {
-                console.log(
-                    `fetch failed: ${response.status} ${response.statusText}`,
-                )
+                console.log(`fetch failed: ${response.status} ${response.statusText}`)
                 return null
             }
         })
