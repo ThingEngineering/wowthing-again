@@ -308,6 +308,27 @@ farms:
     id: 183988
     name: "Bondable Val'kyr Diadem"
 
+- name: "Gift of Thenios"
+  location: 40.60 18.90
+  questId: 60894
+  reset: never
+  type: treasure
+  drops:
+  - type: transmog
+    id: 181290
+    name: "Harmonious Sigil of the Archon"
+    limit: covenant kyrian
+
+- name: "Gift of Vesiphone"
+  location: 64.87 71.14
+  questId: 60890
+  reset: never
+  type: treasure
+  drops:
+  - type: pet
+    id: 171697
+    name: Purity
+
 - name: "Lost Disciple's Notes"
   location: 59.3 60.9
   questId: 61048
