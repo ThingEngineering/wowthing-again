@@ -15,7 +15,7 @@
         <nav class="nav">
             <ul>
                 <li class="header-title">
-                    <a href="/">WoWthing</a>
+                    <a href="@uriService.GetBaseAction("Home", "Index")">WoWthing</a>
                 </li>
                 @if (User.Identity.IsAuthenticated)
                 {
@@ -32,13 +32,13 @@
                 {
                     <li>@User.Identity.Name</li>
                     <li>
-                        <a asp-controller="Authentication" asp-action="Logout">Logout</a>
+                        <a href="@uriService.GetBaseAction("Authentication", "Logout")">Logout</a>
                     </li>
                 }
                 else
                 {
                     <li>
-                        <a asp-controller="Authentication" asp-action="Login">Login/Register with Battle.Net</a>
+                        <a href="@uriService.GetBaseAction("Authentication", "Login")">Login/Register with Battle.Net</a>
                     </li>
                 }
             </ul>

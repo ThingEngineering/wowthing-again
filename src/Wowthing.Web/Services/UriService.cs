@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Options;
 using Wowthing.Lib.Models;
@@ -62,10 +63,32 @@ namespace Wowthing.Web.Services
                 return _baseUri;
             }
         }
-
-        public async Task<string> GetUriForUser(ApplicationUser user = null)
+        
+        public string GetBaseAction(string controller, string action, object values = null)
         {
-            var username = _httpContextAccessor?.HttpContext?.User?.Identity?.Name;
+            return _linkGenerator.GetUriByAction(
+                _httpContextAccessor.HttpContext,
+                controller: controller,
+                action: action,
+                values: values,
+                host: new HostString(BaseUri.Host, BaseUri.Port)
+            );
+        }
+
+        public async Task<string> GetUriForUser(string username = null, ApplicationUser user = null)
+        {
+            if (username == null)
+            {
+                if (user == null)
+                {
+                    username = _httpContextAccessor?.HttpContext?.User?.Identity?.Name;
+                }
+                else
+                {
+                    username = user.UserName;
+                }
+            }
+            
             if (user == null)
             {
                 user = await _userManager.FindByNameAsync(username);

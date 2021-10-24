@@ -119,7 +119,11 @@ namespace Wowthing.Web.Controllers
             // Queue a job to retrieve their characters
             await _jobRepository.AddJobAsync(JobPriority.High, JobType.UserCharacters, user.Id.ToString());
 
-            return LocalRedirect(returnUrl ?? _uriService.GetUriForUser(user).ToString());
+            if (string.IsNullOrWhiteSpace(returnUrl))
+            {
+                returnUrl = await _uriService.GetUriForUser(user: user);
+            }
+            return Redirect(returnUrl);
         }
 
         [Authorize]
