@@ -1,0 +1,28 @@
+name: "Achievements"
+groups:
+
+- name: "Dungeons"
+  things:
+  - 239049 # Obsidian Krolusk (Glory of the Wartorn Hero)
+
+- name: "Misc"
+  things:
+  - 295386 295387 # Ironclad Frostclaw/Bloodflank Charger (Two Sides to Every Tale)
+  - 296788 # Mechacycle Model W (Mecha-Done)
+  - 294039 # Snapback Scuttler (Undersea Usurper)
+  - 290328 # Wonderwing 2.0 (Battle for Azeroth Pathfinder, Part Two)
+
+- name: "PvP"
+  things:
+  - 279454 # Conqueror's Scythemaw (Conqueror of Azeroth)
+
+- name: "Raids"
+  things:
+  - 250735 # Bloodgorged Crawg (Glory of the Uldir Raider)
+  - 289101 # Dazar'alor Windreaver (Glory of the Dazar'alor Raider)
+  - 292419 # Azshari Bloatray (Glory of the Palace Raider)
+  - 316343 # Wriggling Parasite (Glory of the Ny'alotha Raider)
+
+- name: "Visions"
+  things:
+  - 305182 # Black Serpent of N'Zoth (Through the Depths of Visions)

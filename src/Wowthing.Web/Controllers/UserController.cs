@@ -1,8 +1,10 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using StackExchange.Redis;
 using Wowthing.Lib.Models;
+using Wowthing.Web.Models;
 using Wowthing.Web.ViewModels;
 
 namespace Wowthing.Web.Controllers
@@ -27,16 +29,7 @@ namespace Wowthing.Web.Controllers
                 return NotFound();
             }
 
-            var settings = user.Settings ?? new ApplicationUserSettings();
-
-            var db = _redis.GetDatabase();
-            var achievementsHash = db.StringGetAsync("cached_achievements:hash");
-            var staticHash = db.StringGetAsync("cached_static:hash");
-            var transmogHash = db.StringGetAsync("cache:transmog:hash");
-            var zoneMapHash = db.StringGetAsync("cache:zone-map:hash");
-            Task.WaitAll(achievementsHash, staticHash, transmogHash, zoneMapHash);
-
-            return View(new UserViewModel(user, settings, achievementsHash.Result, staticHash.Result, transmogHash.Result, zoneMapHash.Result));
+            return View(new UserViewModel(_redis, user));
         }
     }
 }

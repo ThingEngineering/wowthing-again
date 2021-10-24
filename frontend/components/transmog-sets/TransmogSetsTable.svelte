@@ -8,7 +8,7 @@
     import type {TransmogDataCategory} from '@/types/data'
     import getSkipClasses from '@/utils/get-skip-classes'
 
-    import TransmogTableCategory from './TransmogTableCategory.svelte'
+    import TransmogTableCategory from './TransmogSetsTableCategory.svelte'
 
     export let slug1: string
     export let slug2: string

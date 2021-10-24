@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Extensions;
@@ -17,6 +18,7 @@ using Wowthing.Web.Misc;
 using Wowthing.Web.Services;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Wowthing.Web.Models;
 
 namespace Wowthing.Web
 {
@@ -34,6 +36,13 @@ namespace Wowthing.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Our configs
+            var wowthingWebConfig = Configuration.GetSection("WowthingWeb");
+            var wowthingWebOptions = new WowthingWebOptions();
+            wowthingWebConfig.Bind(wowthingWebOptions);
+
+            services.Configure<WowthingWebOptions>(wowthingWebConfig);
+            
             services.AddResponseCaching();
 
             services.AddRequestDecompression(options =>
@@ -69,11 +78,17 @@ namespace Wowthing.Web
 
             services.ConfigureApplicationCookie(options =>
             {
+                // Can't do this in dev as 'localhost' is a special case
+                if (Env.IsProduction())
+                {
+                    options.Cookie.Domain = $".{wowthingWebOptions.Hostname}";
+                }
+
                 options.LoginPath = "/auth/login";
                 options.LogoutPath = "/auth/logout";
             });
 
-            // Redis
+           // Redis
             var redis = services.AddRedis(Configuration.GetConnectionString("Redis"));
             services.AddDataProtection()
                 .PersistKeysToStackExchangeRedis(redis);
@@ -100,8 +115,23 @@ namespace Wowthing.Web
                 });
             }
 
+            // Ugh, CORS
+            services.AddCors(options =>
+            {
+                options.AddPolicy("WowthingCorsPolicy",
+                    builder => builder
+                        .SetIsOriginAllowedToAllowWildcardSubdomains()
+                        .WithOrigins($"https://*.{wowthingWebOptions.Hostname}")
+                        .AllowAnyMethod()
+                        .AllowCredentials()
+                        .AllowAnyHeader()
+                        .Build()
+                );
+            });
+
             // Our services
             services.AddScoped<UploadService>();
+            services.AddScoped<UriService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -135,7 +165,7 @@ namespace Wowthing.Web
 
             app.UseRouting();
 
-            // TODO CORS
+            app.UseCors("WowthingCorsPolicy");
 
             app.UseResponseCaching();
             app.UseRequestDecompression();

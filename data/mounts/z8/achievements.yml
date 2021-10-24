@@ -1,0 +1,22 @@
+name: "Achievements"
+groups:
+
+- name: "Dungeons"
+  things:
+  - 346554 # Tazavesh Gearglider (Fake It 'Til You Make It, Tazavesh)
+  - 344659 # Voracious Gorger (Glory of the Shadowlands Hero)
+  - 358319 # Soultwisted Deathwalker (Shadowlands Keystone Master: Season Two)
+
+- name: "Misc"
+  things:
+  - 354355 # Hand of Salaranga (Breaking the Chains)
+
+- name: "Raids"
+  things:
+  - 332903 # Rampart Screecher (Glory of the Nathria Raider)
+  - 339957 # Hand of Hrestimorak (Glory of the Dominant Raider)
+
+- name: "Torghast"
+  things:
+  - 339956 # Mawsworn Charger (Flawless Master)
+  - 344578 # Corridor Creeper (Twisting Corridors: Layer 8)

@@ -84,8 +84,8 @@
 
     <li class="separator"></li>
 
-    <li use:active={'/transmog/*'}>
-        <a href="#/transmog/">Transmog</a>
+    <li use:active={'/transmog-sets/*'}>
+        <a href="#/transmog-sets/">Transmog Sets</a>
     </li>
 
     <li class="separator"></li>
