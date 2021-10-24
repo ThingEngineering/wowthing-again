@@ -39,7 +39,10 @@ export class WritableFancyStore<TData> {
             return
         }
 
-        const json = await fetch_json(url)
+        const baseUri = document.getElementById('app')?.getAttribute('data-base-uri')
+        const actualUrl = baseUri + url.substring(1)
+
+        const json = await fetch_json(actualUrl)
         if (json === null) {
             this.update(state => {
                 state.error = true

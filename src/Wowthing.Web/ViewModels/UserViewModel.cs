@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System.Threading.Tasks;
+using Newtonsoft.Json;
+using StackExchange.Redis;
 using Wowthing.Lib.Models;
 
 namespace Wowthing.Web.ViewModels
@@ -13,17 +15,25 @@ namespace Wowthing.Web.ViewModels
         public readonly string TransmogHash;
         public readonly string ZoneMapHash;
 
-        public UserViewModel(ApplicationUser user, ApplicationUserSettings settings, string achievementsHash, string staticHash, string transmogHash, string zoneMapHash)
+        public UserViewModel(IConnectionMultiplexer redis, ApplicationUser user)
         {
             User = user;
-            Settings = settings;
-            AchievementsHash = achievementsHash;
-            StaticHash = staticHash;
-            TransmogHash = transmogHash;
-            ZoneMapHash = zoneMapHash;
+            Settings = user.Settings ?? new ApplicationUserSettings();
+
+            var db = redis.GetDatabase();
+            var achievementsHash = db.StringGetAsync("cached_achievements:hash");
+            var staticHash = db.StringGetAsync("cached_static:hash");
+            var transmogHash = db.StringGetAsync("cache:transmog:hash");
+            var zoneMapHash = db.StringGetAsync("cache:zone-map:hash");
+            Task.WaitAll(achievementsHash, staticHash, transmogHash, zoneMapHash);
+
+            AchievementsHash = achievementsHash.Result;
+            StaticHash = staticHash.Result;
+            TransmogHash = transmogHash.Result;
+            ZoneMapHash = zoneMapHash.Result;
 
             Settings.Validate();
-            SettingsJson = JsonConvert.SerializeObject(settings);
+            SettingsJson = JsonConvert.SerializeObject(Settings);
         }
     }
 }
