@@ -1,4 +1,8 @@
+import type { FarmStatus, UserDataSetCount } from '@/types'
+
 export interface ZoneMapData {
+    counts?: Record<string, UserDataSetCount>
+    farmStatus?: Record<string, FarmStatus[]>
     sets: ZoneMapDataCategory[][]
 }
 

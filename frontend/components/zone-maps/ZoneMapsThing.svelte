@@ -1,8 +1,8 @@
 <script lang="ts">
-    import type { ZoneMapDataFarm } from '@/types/data'
-    import type { FarmStatus } from '@/utils/get-farm-status'
     import { farmType } from '@/data/farm'
     import { tippyComponent } from '@/utils/tippy'
+    import type { FarmStatus } from '@/types'
+    import type { ZoneMapDataFarm } from '@/types/data'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import NpcLink from '@/components/links/NpcLink.svelte'

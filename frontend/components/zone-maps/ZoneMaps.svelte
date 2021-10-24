@@ -2,13 +2,16 @@
     import {afterUpdate, onMount} from 'svelte'
 
     import {
-        zoneMapStore,
+        staticStore,
         transmogStore,
         userCollectionStore,
         userQuestStore,
         userStore,
-        userTransmogStore
+        userTransmogStore,
+        zoneMapStore,
     } from '@/stores'
+    import {zoneMapState} from '@/stores/local-storage/zone-map'
+    import { data as settings } from '@/stores/settings'
     import getSavedRoute from '@/utils/get-saved-route'
     import type {MultiSlugParams} from '@/types'
 
@@ -19,25 +22,45 @@
 
     let loaded: boolean
     $: {
-        loaded = $zoneMapStore.loaded &&
-            $transmogStore.loaded &&
+        loaded = $transmogStore.loaded &&
             $userCollectionStore.loaded &&
             $userQuestStore.loaded &&
             $userStore.loaded &&
-            $userTransmogStore.loaded
+            $userTransmogStore.loaded &&
+            $zoneMapStore.loaded
+    }
 
+    $: {
         if (loaded) {
-            userTransmogStore.setup()
+            userTransmogStore.setup(
+                $settings,
+                $transmogStore.data,
+                $userTransmogStore.data,
+            )
+        }
+    }
+
+    $: {
+        if (loaded) {
+            zoneMapStore.setup(
+                $settings,
+                $staticStore.data,
+                $transmogStore.data,
+                $userCollectionStore.data,
+                $userQuestStore.data,
+                $userStore.data,
+                $userTransmogStore.data,
+                $zoneMapStore.data,
+                $zoneMapState,
+            )
         }
     }
 
     onMount(async () => await Promise.all([
-        zoneMapStore.fetch(),
         transmogStore.fetch(),
-        userCollectionStore.fetch(),
         userQuestStore.fetch(),
-        userStore.fetch(),
         userTransmogStore.fetch(),
+        zoneMapStore.fetch(),
     ]))
 
     afterUpdate(() => {

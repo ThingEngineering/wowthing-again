@@ -1,12 +1,9 @@
 import keys from 'lodash/keys'
 import toPairs from 'lodash/toPairs'
-import {get} from 'svelte/store'
 
-import {Dictionary, WritableFancyStore} from '@/types'
-import type { UserTransmogData } from '@/types/data'
+import { Dictionary, Settings, WritableFancyStore } from '@/types'
+import type { TransmogData, UserTransmogData } from '@/types/data'
 import {UserTransmogDataHas} from '@/types/data'
-import {data as settingsStore} from '@/stores/settings'
-import {transmogStore} from '@/stores/transmog'
 import getSkipClasses from '@/utils/get-skip-classes'
 
 
@@ -19,14 +16,12 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
         return url
     }
 
-    setup(): void {
-        console.time('UserTransmogDataStore.initialize')
+    setup(settings: Settings, transmogData: TransmogData, userTransmogData: UserTransmogData): void {
+        console.time('UserTransmogDataStore.setup')
 
         const has: Dictionary<UserTransmogDataHas> = {}
-        const transmogData = get(transmogStore).data
-        const userTransmogData = get(userTransmogStore).data
 
-        const skipClasses = getSkipClasses(get(settingsStore))
+        const skipClasses = getSkipClasses(settings)
 
         for (const baseSet of transmogData.sets) {
             if (baseSet === null) {
@@ -75,7 +70,7 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
             return state
         })
 
-        console.timeEnd('UserTransmogDataStore.initialize')
+        console.timeEnd('UserTransmogDataStore.setup')
     }
 }
 
