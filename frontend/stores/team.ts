@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store'
 
 import type { TeamData } from '@/types'
-import fetch_json from '@/utils/fetch-json'
+import fetchJson from '@/utils/fetch-json'
 import initializeTeam from '@/utils/initialize-team'
 
 export const error = writable(false)
@@ -10,7 +10,7 @@ export const data = writable<TeamData>()
 
 export const fetch = async function (): Promise<void> {
     const url = document.getElementById('app').getAttribute('data-team')
-    const json = await fetch_json(url)
+    const json = await fetchJson(url)
     if (json === null) {
         error.set(true)
         return
