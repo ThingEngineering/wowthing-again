@@ -1,10 +1,8 @@
 import some from 'lodash/some'
-import {get} from 'svelte/store'
 
 import type {UserCollectionData} from '@/types/data'
-import {staticStore} from '@/stores/static'
-import {Dictionary, StaticDataSetCategory, UserDataSetCount, WritableFancyStore} from '@/types'
-import {TypedArray} from '@/types/enums'
+import { Dictionary, StaticData, StaticDataSetCategory, UserDataSetCount, WritableFancyStore } from '@/types'
+import { TypedArray } from '@/types/enums'
 import base64ToDictionary from '@/utils/base64-to-dictionary'
 
 
@@ -17,49 +15,59 @@ export class UserCollectionDataStore extends WritableFancyStore<UserCollectionDa
         return url
     }
 
-    initialize(data: UserCollectionData): void {
-        console.time('UserCollectionDataStore.initialize')
+    setup(
+        staticData: StaticData,
+        userCollectionData: UserCollectionData
+    ): void {
+        console.time('UserCollectionDataStore.setup')
 
         // Unpack packed data
-        data.mounts = base64ToDictionary(TypedArray.Uint16, data.mountsPacked)
-        data.toys = base64ToDictionary(TypedArray.Int32, data.toysPacked)
-
-        data.mountsPacked = null
-        data.toysPacked = null
+        const mounts = base64ToDictionary(TypedArray.Uint16, userCollectionData.mountsPacked)
+        const toys = base64ToDictionary(TypedArray.Int32, userCollectionData.toysPacked)
 
         // Generate set counts
-        const staticData = get(staticStore).data
-
-        data.setCounts = {
+        const setCounts = {
             mounts: {},
             pets: {},
             toys: {},
         }
 
-        data.petsHas = {}
-        for (const key in data.pets) {
-            data.petsHas[key] = true
+        const petsHas: Record<number, boolean> = {}
+        for (const key in userCollectionData.pets) {
+            petsHas[key] = true
         }
 
         UserCollectionDataStore.doSetCounts(
-            data.setCounts['mounts'],
+            setCounts['mounts'],
             staticData.mountSets,
-            data.mounts,
+            mounts,
             staticData.spellToMount
         )
         UserCollectionDataStore.doSetCounts(
-            data.setCounts['pets'],
+            setCounts['pets'],
             staticData.petSets,
-            data.petsHas,
+            petsHas,
             staticData.creatureToPet
         )
         UserCollectionDataStore.doSetCounts(
-            data.setCounts['toys'],
+            setCounts['toys'],
             staticData.toySets,
-            data.toys
+            toys
         )
 
-        console.timeEnd('UserCollectionDataStore.initialize')
+        this.update(state => {
+            state.data.mounts = mounts
+            state.data.mountsPacked = null
+            state.data.toys = toys
+            state.data.toysPacked = null
+
+            state.data.petsHas = petsHas
+            state.data.setCounts = setCounts
+
+            return state
+        })
+
+        console.timeEnd('UserCollectionDataStore.setup')
     }
 
     private static doSetCounts(
