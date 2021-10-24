@@ -9,6 +9,7 @@ namespace Wowthing.Lib.Models
     {
         public const int API_KEY_LENGTH = 16;
 
+        public bool CanUseSubdomain { get; set; } = false;
         public string ApiKey { get; set; }
         public DateTime LastVisit { get; set; } = DateTime.MinValue;
 

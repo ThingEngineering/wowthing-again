@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@inject UriService uriService
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -19,7 +20,7 @@
                 @if (User.Identity.IsAuthenticated)
                 {
                     <li>
-                        <a asp-controller="User" asp-action="Index" asp-route-username="@User.Identity.Name">Home</a>
+                        <a href="@await uriService.GetUriForUser()">Home</a>
                     </li>
                     <li>
                         <a asp-controller="Upload" asp-action="Index">Upload</a>

@@ -1,4 +1,5 @@
 ﻿@model UserViewModel
+@inject UriService uriService
 @{
     ViewData["Title"] = Model.User.UserName;
 }
@@ -24,12 +25,13 @@
     }
 }
 
-<div id="app"
-     data-settings="@Model.SettingsJson"
-     data-achievements="@Url.Action("StaticAchievements", "Api", new { hash = Model.AchievementsHash })"
-     data-static="@Url.Action("StaticData", "Api", new { hash = Model.StaticHash })"
-     data-transmog="@Url.Action("StaticMisc", "Api", new { type = "transmog", hash = Model.TransmogHash })"
-     data-zone-map="@Url.Action("StaticMisc", "Api", new { type = "zone-map", hash = Model.ZoneMapHash })"
-     data-user="@Url.Action("UserData", "Api", new { username = Model.User.UserName })"
-     data-xsrf="@(User?.Identity?.IsAuthenticated == true ? GetAntiXsrfRequestToken() : "")"
-></div>
+    <div id="app"
+         data-base-uri="@uriService.BaseUri"
+         data-settings="@Model.SettingsJson"
+         data-achievements="@Url.Action("StaticAchievements", "Api", new { hash = Model.AchievementsHash })"
+         data-static="@Url.Action("StaticData", "Api", new { hash = Model.StaticHash })"
+         data-transmog="@Url.Action("StaticMisc", "Api", new { type = "transmog", hash = Model.TransmogHash })"
+         data-zone-map="@Url.Action("StaticMisc", "Api", new { type = "zone-map", hash = Model.ZoneMapHash })"
+         data-user="@Url.Action("UserData", "Api", new { username = Model.User.UserName })"
+         data-xsrf="@(User?.Identity?.IsAuthenticated == true ? GetAntiXsrfRequestToken() : "")"
+    ></div>
