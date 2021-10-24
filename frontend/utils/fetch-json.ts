@@ -1,4 +1,4 @@
-export default async function fetch_json(
+export default async function fetchJson(
     url: string,
 ): Promise<string | null> {
     const request = new Request(url, {

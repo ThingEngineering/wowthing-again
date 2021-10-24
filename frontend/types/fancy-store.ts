@@ -1,7 +1,7 @@
 import { get, writable } from 'svelte/store'
 import type { Writable } from 'svelte/store'
 
-import fetch_json from '@/utils/fetch-json'
+import fetchJson from '@/utils/fetch-json'
 
 
 export interface FancyStore<TData> {
@@ -42,7 +42,7 @@ export class WritableFancyStore<TData> {
         const baseUri = document.getElementById('app')?.getAttribute('data-base-uri')
         const actualUrl = baseUri + url.substring(1)
 
-        const json = await fetch_json(actualUrl)
+        const json = await fetchJson(actualUrl)
         if (json === null) {
             this.update(state => {
                 state.error = true
