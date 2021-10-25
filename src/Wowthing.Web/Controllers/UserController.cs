@@ -1,10 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using StackExchange.Redis;
 using Wowthing.Lib.Models;
 using Wowthing.Web.Models;
+using Wowthing.Web.Services;
 using Wowthing.Web.ViewModels;
 
 namespace Wowthing.Web.Controllers
@@ -12,11 +15,13 @@ namespace Wowthing.Web.Controllers
     public class UserController : Controller
     {
         private readonly IConnectionMultiplexer _redis;
+        private readonly UriService _uriService;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public UserController(IConnectionMultiplexer redis, UserManager<ApplicationUser> userManager)
+        public UserController(IConnectionMultiplexer redis, UriService uriService, UserManager<ApplicationUser> userManager)
         {
             _redis = redis;
+            _uriService = uriService;
             _userManager = userManager;
         }
 
@@ -27,6 +32,14 @@ namespace Wowthing.Web.Controllers
             if (user == null || (User?.Identity?.Name != user.UserName && user.Settings?.Privacy?.Public != true))
             {
                 return NotFound();
+            }
+
+            var expectedUri = (await _uriService.GetUriForUser(user: user)).ToString();
+            var actualUri = HttpContext.Request.GetDisplayUrl();
+            if (actualUri != expectedUri)
+            {
+                Console.WriteLine("expected: {0} | actual: {1}", expectedUri, actualUri);
+                return Redirect(expectedUri);
             }
 
             return View(new UserViewModel(_redis, user));

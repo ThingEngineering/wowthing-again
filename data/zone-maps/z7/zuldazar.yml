@@ -222,3 +222,56 @@ farms:
     id: 161040
     name: "Arid Dune Stompers"
     limit: armor plate
+
+# World boss
+- name: "Ji'arak"
+  location: 69.0 31.0
+  npcId: 132253
+  questId: 52169
+  type: killBig
+  drops:
+  - type: transmog
+    id:
+    name: ""
+    limit: armor
+
+  - type: transmog
+    id:
+    name: ""
+    limit: armor
+
+  - type: transmog
+    id:
+    name: ""
+    limit: armor
+
+  - type: transmog
+    id:
+    name: ""
+    limit: armor
+
+  - type: transmog
+    id:
+    name: ""
+    limit: armor
+
+  - type: transmog
+    id:
+    name: ""
+    limit: armor
+
+  - type: transmog
+    id:
+    name: ""
+    limit: armor
+
+  - type: transmog
+    id:
+    name: ""
+    limit: armor
+
+  - type: transmog
+    id:
+    name: ""
+    limit: armor
+
