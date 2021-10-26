@@ -228,50 +228,50 @@ farms:
   location: 69.0 31.0
   npcId: 132253
   questId: 52169
+  reset: weekly
   type: killBig
   drops:
   - type: transmog
-    id:
-    name: ""
-    limit: armor
+    id: 164384
+    name: "Windswept Dinorider's Cape"
+    limit: armor cloak
 
   - type: transmog
-    id:
-    name: ""
-    limit: armor
+    id: 161388
+    name: "Gloves of Eneveloping Winds"
+    limit: armor cloth
 
   - type: transmog
-    id:
-    name: ""
-    limit: armor
+    id: 161401
+    name: "Matriarch's Shadowveil"
+    limit: armor cloth
 
   - type: transmog
-    id:
-    name: ""
-    limit: armor
+    id: 161403
+    name: "Avian Clutch Belt"
+    limit: armor leather
 
   - type: transmog
-    id:
-    name: ""
-    limit: armor
+    id: 161390
+    name: "Savage Terrorwing Leggings"
+    limit: armor leather
 
   - type: transmog
-    id:
-    name: ""
-    limit: armor
+    id: 161394
+    name: "Hurricane Cinch"
+    limit: armor mail
 
   - type: transmog
-    id:
-    name: ""
-    limit: armor
+    id: 161407
+    name: "Windshear Leggings"
+    limit: armor mail
 
   - type: transmog
-    id:
-    name: ""
-    limit: armor
+    id: 161371
+    name: "Galebreaker Sabatons"
+    limit: armor plate
 
   - type: transmog
-    id:
-    name: ""
-    limit: armor
-
+    id: 161409
+    name: "Stormcrash Chestguard"
+    limit: armor plate

@@ -399,3 +399,52 @@ farms:
   - type: toy
     id: 163740
     name: "Drust Ritual Knife"
+
+
+# World boss
+- name: "Hailstone Construct"
+  location: 49.2 74.6
+  npcId: 136385
+  questId: 52157
+  reset: weekly
+  type: killBig
+  drops:
+  - type: transmog
+    id: 161362
+    name: "Frostbreath Leggings"
+    limit: armor cloth
+
+  - type: transmog
+    id: 161361
+    name: "Ice-Rimed Slippers"
+    limit: armor cloth
+
+  - type: transmog
+    id: 161364
+    name: "Chill's End Wristguards"
+    limit: armor leather
+
+  - type: transmog
+    id: 161366
+    name: "Ice Stalker Boots"
+    limit: armor leather
+
+  - type: transmog
+    id: 161368
+    name: "Freezing Tempest Waistguard"
+    limit: armor mail
+
+  - type: transmog
+    id: 161367
+    name: "Hailstone Hauberk"
+    limit: armor mail
+
+  - type: transmog
+    id: 164386
+    name: "Girdle of Biting Winds"
+    limit: armor plate
+
+  - type: transmog
+    id: 161372
+    name: "Ice-Carved Shoulderplates"
+    limit: armor plate

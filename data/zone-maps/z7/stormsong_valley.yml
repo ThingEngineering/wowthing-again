@@ -293,3 +293,47 @@ farms:
     limit: weapon 1h-mace int
 
 # Treasures
+
+
+# World boss
+- name: "Warbringer Yenajz"
+  location: 82.7 48.8
+  npcId: 140163
+  questId: 52166
+  reset: weekly
+  type: killBig
+  drops:
+  - type: transmog
+    id: 161349
+    name: "Amice of the Rending Abyss"
+    limit: armor cloth
+
+  - type: transmog
+    id: 161351
+    name: "Wristwraps of Warped Reality"
+    limit: armor cloth
+
+  - type: transmog
+    id: 161354
+    name: "Leggings of the Endless Void"
+    limit: armor leather
+
+  - type: transmog
+    id: 161353
+    name: "Shadow-Wreathed Gloves"
+    limit: armor leather
+
+  - type: transmog
+    id: 161357
+    name: "Spaulders of the Enveloping Maw"
+    limit: armor mail
+
+  - type: transmog
+    id: 161355
+    name: "Yenajz's Chitinous Stompers"
+    limit: armor mail
+
+  - type: transmog
+    id: 161358
+    name: "Existence-Shattering Gauntlets"
+    limit: armor plate
