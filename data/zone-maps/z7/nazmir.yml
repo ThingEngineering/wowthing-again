@@ -292,3 +292,57 @@ farms:
     limit: armor leather
 
 # Treasures
+
+
+# World boss
+- name: "T'zane"
+  location: 36.0 33.5
+  npcId: 132253
+  questId: 52181
+  reset: weekly
+  type: killBig
+  drops:
+  - type: transmog
+    id: 161389
+    name: "Cinch of All-Consuming Death"
+    limit: armor cloth
+
+  - type: transmog
+    id: 161387
+    name: "Wailing Terror Leggings"
+    limit: armor cloth
+
+  - type: transmog
+    id: 161392
+    name: "Bindings of Eternal Fears"
+    limit: armor leather
+
+  - type: transmog
+    id: 161391
+    name: "Deathshambler's Shoulderpads"
+    limit: armor leather
+
+  - type: transmog
+    id: 161393
+    name: "Legguards of the Barkbound Dead"
+    limit: armor mail
+
+  - type: transmog
+    id: 161395
+    name: "Swampwalker's Soul-Treads"
+    limit: armor mail
+
+  - type: transmog
+    id: 164383
+    name: "Death Devouring Girdle"
+    limit: armor plate
+
+  - type: transmog
+    id: 161396
+    name: "Petrified Mask of the Afterlife"
+    limit: armor plate
+
+  - type: transmog
+    id: 161397
+    name: "Soulplank Vambraces"
+    limit: armor plate

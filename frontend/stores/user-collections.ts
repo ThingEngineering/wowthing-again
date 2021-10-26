@@ -90,15 +90,18 @@ export class UserCollectionDataStore extends WritableFancyStore<UserCollectionDa
                 const setData = setCounts[`${category[0].slug}--${set.slug}`] = new UserDataSetCount(0, 0)
 
                 for (const group of set.groups) {
-                    for (const things of group.things) {
-                        const seenThing = some(things, (t) => seen[t])
-
-                        // We only want to increase some counts if the set is not
-                        // unavailable
-                        const doCategory = (
+                    // We only want to increase some counts if the set is not
+                    // unavailable
+                    const doCategory = (
+                        category[0].slug === 'unavailable' ||
+                        (
                             set.slug !== 'unavailable' &&
                             group.name.indexOf('Unavailable') < 0
                         )
+                    )
+
+                    for (const things of group.things) {
+                        const seenThing = some(things, (t) => seen[t])
 
                         const doOverall = (
                             category[0].slug !== 'unavailable' &&
