@@ -55,7 +55,7 @@ groups:
 
     # Raid Finder set=1475
     - name: Dreadwake Armor
-      wowheadSetId: 2715
+      wowheadSetId: 2719
       items:
         1:  35231 # Head
         3:  35233 # Shoulders
