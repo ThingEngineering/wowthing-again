@@ -755,18 +755,18 @@ groups:
         9:  34409 # Wrists
         10: 10866 # Hands
 
-    # Honor set=799
-    - name: Hateful Gladiator's Ringmail Armor
+    # Honor set=798
+    - name: Hateful Gladiator's Felweave Armor
       wowheadSetId: 839
       items:
-        1:  10580 # Head
-        3:  10592 # Shoulders
-        5:  10570 # Chest
-        6:  10599 # Waist
-        7:  10588 # Legs
-        8:  10598 # Feet
-        9:  10596 # Wrists
-        10: 10575 # Hands
+        1:  10845 # Head
+        3:  10860 # Shoulders
+        5:  10853 # Chest
+        6:  34388 # Waist
+        7:  10855 # Legs
+        8:  34387 # Feet
+        9:  34386 # Wrists
+        10: 10865 # Hands
 
     # PVP Rare set=807
     - name: Savage Gladiator's Felweave Armor
