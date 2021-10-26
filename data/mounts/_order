@@ -4,6 +4,7 @@
     instances.yml
     quests.yml
     reputations.yml
+    vendors.yml
 
 z8/_shadowlands.yml
     z8/covenant_kyrian.yml
@@ -12,6 +13,7 @@ z8/_shadowlands.yml
     z8/covenant_venthyr.yml
 
 z7/_battle_for_azeroth.yml
+    z7/unavailable.yml
 
 z6/_legion.yml
     z6/order_halls.yml
@@ -94,3 +96,4 @@ reputations.yml
 unavailable/_blank.yml
     unavailable/unavailable.yml
     unavailable/arena.yml
+    z7/unavailable.yml Battle for Azeroth
