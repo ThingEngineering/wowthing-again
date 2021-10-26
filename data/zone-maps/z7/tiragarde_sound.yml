@@ -314,3 +314,52 @@ farms:
     id: 155571
     name: "Garyl's Riding Blanket"
     limit: armor cloak
+
+
+# World boss
+- name: "Azurethos"
+  location: 62.0 24.0
+  npcId: 136385
+  questId: 52163
+  reset: weekly
+  type: killBig
+  drops:
+  - type: transmog
+    id: 161353
+    name: "Sandals of Rustling Rage"
+    limit: armor cloth
+
+  - type: transmog
+    id: 161350
+    name: "Windcaller's Down Handwraps"
+    limit: armor cloth
+
+  - type: transmog
+    id: 161352
+    name: "Chestguard of Dire Winds"
+    limit: armor leather
+
+  - type: transmog
+    id: 161365
+    name: "Footpads of the Encircling Storm"
+    limit: armor leather
+
+  - type: transmog
+    id: 161369
+    name: "Bindings of the Winged Typhoon"
+    limit: armor mail
+
+  - type: transmog
+    id: 161356
+    name: "Feathered Galeforce Chest"
+    limit: armor mail
+
+  - type: transmog
+    id: 161360
+    name: "Roost-Defender's Legguards"
+    limit: armor plate
+
+  - type: transmog
+    id: 161398
+    name: "Talonscored Azure Vambraces"
+    limit: armor plate

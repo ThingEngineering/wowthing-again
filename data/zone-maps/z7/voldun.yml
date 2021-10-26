@@ -299,6 +299,7 @@ farms:
   location: 44.1 55.5
   npcId: 138794
   questId: 52196
+  reset: weekly
   type: killBig
   drops:
   - type: mount
