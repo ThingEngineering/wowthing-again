@@ -1,0 +1,233 @@
+name: Eredath
+mapName: z6_eredath
+minimumLevel: 10
+requiredQuestId: 46816
+farms:
+
+- name: "Ataxon"
+  location: 30.3 40.4
+  npcId: 126887
+  questId: 0
+  drops:
+  - type: pet
+    id: 128159
+    name: "Grasping Manifestation"
+
+- name: "Baruut the Bloodthirsty"
+  location: 43.8 60.2
+  npcId: 126862
+  questId: 0
+  drops:
+  - type: toy
+    id: 153193
+    name: "Baruut the Brisk"
+
+- name: "Instructor Tarahna"
+  location: 61.4 50.2
+  npcId: 126900
+  questId: 48718
+  drops:
+  - type: toy
+    id: 153179
+    name: "Blue Conservatory Scroll"
+
+  - type: toy
+    id: 153181
+    name: "Red Conservatory Scroll"
+
+  - type: toy
+    id: 153180
+    name: "Yellow Conservatory Scroll"
+
+  - type: transmog
+    id: 153309
+    name: "Unyielding Peacekeeper's Mace"
+    limit: weapon 1h-mace
+
+- name: "Jed'hin Champion Vorusk"
+  location: 48.8 41.8
+  npcId: 126899
+  questId: 0
+  drops:
+  - type: transmog
+    id: 153302
+    name: "Honed Jed'hin Scimitar"
+    limit: weapon 1h-sword
+
+- name: "Overseer Y'Beda"
+  location: 59.2 37.7
+  npcId: 124440
+  questId: 0
+  drops:
+  - type: transmog
+    id: 153315
+    name: "Praetor's Ornamental Warblade"
+    limit: weapon 2h-sword
+
+- name: "Overseer Y'Morna"
+  location: 60.6 29.8
+  npcId: 125498
+  questId: 0
+  drops:
+  - type: transmog
+    id: 153257
+    name: "Isolon Anchorite's Gavel"
+    limit: weapon 1h-mace
+
+- name: "Overseer Y'Sorna"
+  location: 58.0 30.9
+  npcId: 125497
+  questId: 0
+  drops:
+  - type: transmog
+    id: 153268
+    name: "Enclave Aspirant's Axe"
+    limit: weapon 1h-axe
+
+- name: "Sabuul"
+  location: 44.2 49.8
+  note: "Drops Fel-Spotted Egg which can hatch into mounts/pets"
+  npcId: 126898
+  questId: 0
+  drops:
+  - type: mount
+    id: 235764
+    name: "Darkspore Mana Ray"
+
+  - type: mount
+    id: 253108
+    name: "Felglow Mana Ray"
+
+  - type: mount
+    id: 253109
+    name: "Scintillating Mana Ray"
+
+  - type: mount
+    id: 253106
+    name: "Vibrant Mana Ray"
+
+  - type: pet
+    id: 128157
+    name: "Docile Skyfin"
+
+  - type: pet
+    id: 153055
+    name: "Fel-Afflicted Skyfin"
+
+- name: "Shadowcaster Voruun"
+  location: 44.8 71.4
+  npcId: 122838
+  questId: 0
+  drops:
+  - type: transmog
+    id: 153296
+    name: "Spectral Consul's Cutter"
+    limit: weapon 1h-sword
+
+- name: "Skreeg the Devourer"
+  location: 49.6 10.0
+  npcId: 126912
+  questId: 0
+  drops:
+  - type: mount
+    id: 253662
+    name: "Acid Belcher"
+
+- name: "Sorolis the Ill-Fated"
+  location: 70.2 46.0
+  npcId: 126889
+  questId: 0
+  drops:
+  - type: transmog
+    id: 153292
+    name: "Spectral Censorite's Spire"
+    limit: weapon stave
+
+- name: "Turek the Lucid"
+  location: 38.6 65.2
+  npcId: 126868
+  questId: 0
+  drops:
+  - type: transmog
+    id: 153306
+    name: "Oronaar Miner's Piercer"
+    limit: weapon 1h-axe
+
+- name: "Venomtail Skyfin"
+  location: 33.6 47.5
+  npcId: 126867
+  questId: 48705
+  drops:
+  - type: mount
+    id: 253107
+    name: "Lambent Mana Ray"
+
+- name: "Vigilant Kuro"
+  location: 63.8 64.6
+  npcId: 126866
+  questId: 0
+  drops:
+  - type: toy
+    id: 153183
+    name: "Barrier Generator"
+
+  - type: transmog
+    id: 153323
+    name: "Eredath Vigilant's Crest"
+    limit: weapon shield
+
+- name: "Vigilant Thanos"
+  location: 36.3 23.6
+  npcId: 126865
+  questId: 0
+  drops:
+  - type: toy
+    id: 153183
+    name: "Barrier Generator"
+
+  - type: transmog
+    id: 153322
+    name: "Eredath Vigilant's Shield"
+    limit: weapon shield
+
+- name: "Wrangler Kravos"
+  location: 55.7 59.8
+  npcId: 126852
+  questId: 0
+  drops:
+  - type: mount
+    id: 253058
+    name: "Maddened Chaosrunner"
+
+  - type: transmog
+    id: 153269
+    name: "Enclave Aspirant's Waraxe"
+    limit: weapon 1h-axe
+
+ # Treasure
+
+- name: "Chest of Ill-Gotten Gains"
+  location: 50.6 38.5
+  note: "Requires Light's Judgment power"
+  objectId: 276224
+  questId: 0
+  type: treasure
+  drops:
+  - type: transmog
+    requiredQuestId: 47287 # The Vindicaar Matrix Core - Light's Judgment
+    id: 153325
+    name: "Eredath Vigilant's Redoubt"
+    limit: armor shield
+
+- name: "Void-Tinged Chest"
+  location: 40.2 51.5
+  note: "Requires Lightforged Warframe power"
+  objectId: 276226
+  questId: 0
+  type: treasure
+  drops:
+  - type: transmog
+    id: 153325
+    requiredQuestId: 47994 # Forming a Bond - Lightforged Warframe
+    name: "Eredath Vigilant's Redoubt"
+    limit: armor shield

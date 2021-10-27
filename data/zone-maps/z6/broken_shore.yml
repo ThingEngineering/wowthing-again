@@ -1,0 +1,350 @@
+name: The Broken Shore
+mapName: z6_broken_shore
+minimumLevel: 45
+requiredQuestId: 46730 # Armies of Legionfall
+farms:
+
+- name: "Lord Hel'Nurath"
+  location: 45.2 51.8
+  npcId: 119269
+  drops:
+  - type: mount
+    id: 238454
+    name: "Netherlord's Accursed Wrathsteed"
+    limit: class warlock
+
+# World bosses
+- name: "Aprocon"
+  location: 60.0 62.8
+  npcId: 121124
+  reset: weekly
+  type: killBig
+  drops:
+  - type: transmog
+    id: 147730
+    name: "Ashen Worldscorcher Gloves"
+    limit: armor cloth
+
+  - type: transmog
+    id: 147734
+    name: "Spaulders of Forgotten Worlds"
+    limit: armor cloth
+
+  - type: transmog
+    id: 147738
+    name: "Doom-Herald's Footpads"
+    limit: armor leather
+
+  - type: transmog
+    id: 147743
+    name: "Harness of Devouring Flame"
+    limit: armor mail
+
+  - type: transmog
+    id: 147753
+    name: "Reaver's Rattling Girdle"
+    limit: armor plate
+
+- name: "Brutallus"
+  location: 58.4 28.6
+  npcId: 117239
+  reset: weekly
+  type: killBig
+  drops:
+  - type: transmog
+    id: 147732
+    name: "Leggings of Echoing Calamity"
+    limit: armor cloth
+
+  - type: transmog
+    id: 147739
+    name: "Rigid Meteorguard Gauntlets"
+    limit: armor leather
+
+  - type: transmog
+    id: 147742
+    name: "Violent Zealot's Shoulderpads"
+    limit: armor leather
+
+  - type: transmog
+    id: 147747
+    name: "Armbands of Crude Strategy"
+    limit: armor mail
+
+  - type: transmog
+    id: 147748
+    name: "Gauntlets of Dreadful Tenacity"
+    limit: armor plate
+
+  - type: transmog
+    id: 147749
+    name: "Polished Felfury Helmet"
+    limit: armor plate
+
+- name: "Malificus"
+  location: 60.4 28.6
+  npcId: 121124
+  reset: weekly
+  type: killBig
+  drops:
+  - type: transmog
+    id: 147764
+    name: "Claok of Growing Mistrust"
+    limit: armor cloak
+
+  - type: transmog
+    id: 147735
+    name: "Cuffs of Fearful Service"
+    limit: armor cloth
+
+  - type: transmog
+    id: 147733
+    name: "Doomsayer's Ritualistic Vestment"
+    limit: armor cloth
+
+  - type: transmog
+    id: 147741
+    name: "Legguards of Unholy Disdain"
+    limit: armor leather
+
+  - type: transmog
+    id: 147740
+    name: "Plague-Resistant Headcover"
+    limit: armor leather
+
+  - type: transmog
+    id: 147745
+    name: "Taloned Brain-Scrapers"
+    limit: armor mail
+
+  - type: transmog
+    id: 147744
+    name: "Treads of Disorderly Retreat"
+    limit: armor mail
+
+  - type: transmog
+    id: 147750
+    name: "Malicious Zealot's Legplates"
+    limit: armor plate
+
+- name: "Si'vash"
+  location: 89.6 33.6
+  npcId: 117470
+  reset: weekly
+  type: killBig
+  drops:
+  - type: transmog
+    id: 147731
+    name: "Cowl of Plumbed Depths"
+    limit: armor cloth
+
+  - type: transmog
+    id: 147736
+    name: "Dockthrasher Cinch"
+    limit: armor cloth
+
+  - type: transmog
+    id: 147737
+    name: "Shorebreaker Robes"
+    limit: armor leather
+
+  - type: transmog
+    id: 147746
+    name: "Glistening Seaspray Legguards"
+    limit: armor mail
+
+  - type: transmog
+    id: 147752
+    name: "Pauldrons of the Engulfing Tide"
+    limit: armor plate
+
+  - type: transmog
+    id: 147751
+    name: "Si'vashi Guard's Breastplate"
+    limit: armor plate
+
+# Dauntless gear
+- name: "Dauntless - Cloth"
+  location: 72.0 66.0
+  reset: never
+  type: clothBig
+  drops:
+  - type: transmog
+    id: 147269
+    name: "Unifying Drape"
+    limit: armor cloak
+
+  - type: transmog
+    id: 147225
+    name: "Ley-Touched Bracers"
+    limit: armor cloth
+
+  - type: transmog
+    id: 147253
+    name: "Ley-Touched Cord"
+    limit: armor cloth
+
+  - type: transmog
+    id: 147237
+    name: "Ley-Touched Gloves"
+    limit: armor cloth
+
+  - type: transmog
+    id: 147241
+    name: "Ley-Touched Hood"
+    limit: armor cloth
+
+  - type: transmog
+    id: 147249
+    name: "Ley-Touched Mantle"
+    limit: armor cloth
+
+  - type: transmog
+    id: 147232
+    name: "Ley-Touched Robes"
+    limit: armor cloth
+
+  - type: transmog
+    id: 147233
+    name: "Ley-Touched Sandals"
+    limit: armor cloth
+
+  - type: transmog
+    id: 147245
+    name: "Ley-Touched Trousers"
+    limit: armor cloth
+
+- name: "Dauntless - Leather"
+  location: 74.0 66.0
+  reset: never
+  type: leatherBig
+  drops:
+  - type: transmog
+    id: 147254
+    name: "Fel-Treated Belt"
+    limit: armor leather
+
+  - type: transmog
+    id: 147234
+    name: "Fel-Treated Boots"
+    limit: armor leather
+
+  - type: transmog
+    id: 147226
+    name: "Fel-Treated Bracers"
+    limit: armor leather
+
+  - type: transmog
+    id: 147229
+    name: "Fel-Treated Chestguard"
+    limit: armor leather
+
+  - type: transmog
+    id: 147238
+    name: "Fel-Treated Gauntlets"
+    limit: armor leather
+
+  - type: transmog
+    id: 147242
+    name: "Fel-Treated Hood"
+    limit: armor leather
+
+  - type: transmog
+    id: 147246
+    name: "Fel-Treated Legguards"
+    limit: armor leather
+
+  - type: transmog
+    id: 147250
+    name: "Fel-Treated Spaulders"
+    limit: armor leather
+
+- name: "Dauntless - Mail"
+  location: 76.0 66.0
+  reset: never
+  type: mailBig
+  drops:
+  - type: transmog
+    id: 147255
+    name: "Galvanized Stormscale Belt"
+    limit: armor mail
+
+  - type: transmog
+    id: 147235
+    name: "Galvanized Stormscale Boots"
+    limit: armor mail
+
+  - type: transmog
+    id: 147227
+    name: "Galvanized Stormscale Bracers"
+    limit: armor mail
+
+  - type: transmog
+    id: 147230
+    name: "Galvanized Stormscale Chestguard"
+    limit: armor mail
+
+  - type: transmog
+    id: 147239
+    name: "Galvanized Stormscale Gauntlets"
+    limit: armor mail
+
+  - type: transmog
+    id: 147243
+    name: "Galvanized Stormscale Helm"
+    limit: armor mail
+
+  - type: transmog
+    id: 147247
+    name: "Galvanized Stormscale Legguards"
+    limit: armor mail
+
+  - type: transmog
+    id: 147251
+    name: "Galvanized Stormscale Spaulders"
+    limit: armor mail
+
+- name: "Dauntless - Plate"
+  location: 78.0 66.0
+  reset: never
+  type: plateBig
+  drops:
+  - type: transmog
+    id: 147228
+    name: "Storm-Tempered Bracers"
+    limit: armor plate
+
+  - type: transmog
+    id: 147231
+    name: "Storm-Tempered Breastplate"
+    limit: armor plate
+
+  - type: transmog
+    id: 147240
+    name: "Storm-Tempered Gauntlets"
+    limit: armor plate
+
+  - type: transmog
+    id: 147256
+    name: "Storm-Tempered Girdle"
+    limit: armor plate
+
+  - type: transmog
+    id: 147244
+    name: "Storm-Tempered Greathelm"
+    limit: armor plate
+
+  - type: transmog
+    id: 147236
+    name: "Storm-Tempered Greaves"
+    limit: armor plate
+
+  - type: transmog
+    id: 147248
+    name: "Storm-Tempered Legplates"
+    limit: armor plate
+
+  - type: transmog
+    id: 147252
+    name: "Storm-Tempered Shoulderguards"
+    limit: armor plate
