@@ -655,7 +655,7 @@ farms:
     requiredQuestId: 60285 # Rule 6: Concealment is Everything
 
 - name: "Tormentors of Torghast"
-  location: 50.8 51.4
+  location: 50.8 51.8
   questId: 63854
   reset: weekly
   type: eventBig
