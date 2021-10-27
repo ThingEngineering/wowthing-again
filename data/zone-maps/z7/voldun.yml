@@ -297,6 +297,7 @@ farms:
 
 - name: "Dunegorger Kraulok"
   location: 44.1 55.5
+  minimumLevel: 46
   npcId: 138794
   questId: 52196
   reset: weekly
