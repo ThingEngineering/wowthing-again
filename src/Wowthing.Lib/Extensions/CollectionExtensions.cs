@@ -16,6 +16,11 @@ namespace Wowthing.Lib.Extensions
         {
             return list ?? new List<T>();
         }
+
+        public static T[] EmptyIfNull<T>(this T[] array)
+        {
+            return array ?? Array.Empty<T>();
+        }
         
         public static IEnumerable<T> SelectManyRecursive<T>(this IEnumerable<T> source, Func<T, IEnumerable<T>> selector)
         {

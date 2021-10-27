@@ -8,7 +8,15 @@ namespace Wowthing.Backend.Models.Data.ZoneMaps
 {
     public class OutZoneMapFarm
     {
-        public int NpcId { get; set; }
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public int? MinimumLevel { get; set; }
+        
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public int? NpcId { get; set; }
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public int? ObjectId { get; set; }
+        
         public string[] Location { get; set; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
@@ -33,9 +41,25 @@ namespace Wowthing.Backend.Models.Data.ZoneMaps
                 .ToList();
             Location = (farm.Location ?? "").Split();
             Name = farm.Name;
-            NpcId = farm.NpcId;
-            QuestIds = farm.QuestId.Split().Select(q => int.Parse(q)).ToList();
+            QuestIds = farm.QuestId
+                .EmptyIfNullOrWhitespace()
+                .Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                .Select(q => int.Parse(q))
+                .ToList();
 
+            if (farm.MinimumLevel > 0)
+            {
+                MinimumLevel = farm.MinimumLevel;
+            }
+            if (farm.NpcId > 0)
+            {
+                NpcId = farm.NpcId;
+            }
+            if (farm.ObjectId > 0)
+            {
+                ObjectId = farm.ObjectId;
+            }
+            
             if (!string.IsNullOrEmpty(farm.Faction))
             {
                 Faction = farm.Faction;

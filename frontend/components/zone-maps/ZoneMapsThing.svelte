@@ -77,7 +77,7 @@
 <div
     class="wrapper"
     class:active={status.need}
-    style="--left: {farm.location[0]}%; --top: {farm.location[1]}%; --top-offset: {status.need ? '7px' : '0px'};"
+    style="--left: {farm.location[0]}%; --top: {farm.location[1]}%; --top-offset: {status.need ? (big ? '8px' : '7px') : '0px'};"
     use:tippyComponent={{
         component: Tooltip,
         props: {farm, status},
