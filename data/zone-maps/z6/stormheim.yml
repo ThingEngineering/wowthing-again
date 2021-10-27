@@ -1,0 +1,6 @@
+name: Stormheim
+mapName: z6_stormheim
+minimumLevel: 10
+farms:
+
+- name: Empty
