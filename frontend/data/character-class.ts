@@ -247,3 +247,7 @@ export const classMap: Record<number, CharacterClass> = {
 export const classNameMap: Record<string, CharacterClass> = Object.fromEntries(
     Object.entries(classMap).map(([, cls]) => [cls.name, cls]),
 )
+
+export const classSlugMap: Record<string, CharacterClass> = Object.fromEntries(
+    Object.entries(classMap).map(([, cls]) => [cls.name.toLowerCase().replace(' ', '_'), cls]),
+)

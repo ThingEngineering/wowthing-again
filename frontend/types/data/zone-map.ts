@@ -17,7 +17,9 @@ export interface ZoneMapDataCategory {
 }
 
 export interface ZoneMapDataFarm {
-    npcId: number
+    minimumLevel?: number
+    npcId?: number
+    objectId?: number
     faction?: string
     name: string
     note: string

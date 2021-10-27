@@ -47,5 +47,10 @@ namespace Wowthing.Lib.Extensions
         {
             return string.IsNullOrWhiteSpace(s) ? "" : s[..Math.Min(s.Length, maxLength)];
         }
+
+        public static string EmptyIfNullOrWhitespace(this string s)
+        {
+            return string.IsNullOrWhiteSpace(s) ? "" : s;
+        }
     }
 }
