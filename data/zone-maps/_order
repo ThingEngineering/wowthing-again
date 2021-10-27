@@ -24,3 +24,16 @@ z7/_battle_for_azeroth.yml
     z7/nazmir.yml
     z7/voldun.yml
     z7/zuldazar.yml
+
+z6/_legion.yml
+    z6/antoran_wastes.yml
+    z6/eredath.yml
+    z6/krokuun.yml
+    -
+    z6/broken_shore.yml
+    -
+    z6/azsuna.yml
+    z6/highmountain.yml
+    z6/stormheim.yml
+    z6/suramar.yml
+    z6/valsharah.yml

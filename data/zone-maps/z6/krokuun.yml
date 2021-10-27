@@ -1,0 +1,193 @@
+name: Krokuun
+mapName: z6_krokuun
+minimumLevel: 10
+requiredQuestId: 46816
+farms:
+
+- name: "Commander Endaxis"
+  location: 45.0 58.8
+  npcId: 124775
+  questId: 0
+  drops:
+  - &world-defilers-1
+    type: transmog
+    id: 152946
+    name: "World Defiler's Casque"
+    limit: armor plate
+
+  - &world-defilers-2
+    type: transmog
+    id: 152949
+    name: "World Defiler's Cuirass"
+    limit: armor plate
+
+  - &world-defilers-3
+    type: transmog
+    id: 152947
+    name: "World Defiler's Gauntlets"
+    limit: armor plate
+
+  - &world-defilers-4
+    type: transmog
+    id: 152943
+    name: "World Defiler's Girdle"
+    limit: armor plate
+
+  - &world-defilers-5
+    type: transmog
+    id: 152948
+    name: "World Defiler's Sabatons"
+    limit: armor plate
+
+  - &world-defilers-6
+    type: transmog
+    id: 152944
+    name: "World Defiler's Shoulderplates"
+    limit: armor plate
+
+  - &world-defilers-7
+    type: transmog
+    id: 152945
+    name: "World Defiler's Tuille"
+    limit: armor plate
+
+  - &world-defilers-8
+    type: transmog
+    id: 152942
+    name: "World Defiler's Wristguards"
+    limit: armor plate
+
+  - type: transmog
+    id: 153255
+    name: "Isolon Anchorite's Cudgel"
+    limit: weapon 1h-mace
+
+- name: "Commander Vecaya"
+  location: 39.6 58.8
+  npcId: 122911
+  questId: 0
+  drops:
+  - *world-defilers-1
+  - *world-defilers-2
+  - *world-defilers-3
+  - *world-defilers-4
+  - *world-defilers-5
+  - *world-defilers-6
+  - *world-defilers-7
+  - *world-defilers-8
+
+  - type: transmog
+    id: 153299
+    name: "Militant Exarch's Shortsword"
+    limit: weapon 1h-sword
+
+- name: "Khazaduum"
+  location: 50.3 17.3
+  npcId: 125824
+  questId: 0
+  drops:
+  - *world-defilers-1
+  - *world-defilers-2
+  - *world-defilers-3
+  - *world-defilers-4
+  - *world-defilers-5
+  - *world-defilers-6
+  - *world-defilers-7
+  - *world-defilers-8
+
+  - type: transmog
+    id: 153316
+    name: "Praetor's Ornamental Edge"
+    limit: weapon 2h-sword
+
+- name: "Naroua"
+  location: 70.5 33.7
+  note: "Drops Fel-Spotted Egg which can hatch into mounts/pets"
+  npcId: 126419
+  questId: 0
+  drops:
+  - type: mount
+    id: 235764
+    name: "Darkspore Mana Ray"
+
+  - type: mount
+    id: 253108
+    name: "Felglow Mana Ray"
+
+  - type: mount
+    id: 253109
+    name: "Scintillating Mana Ray"
+
+  - type: mount
+    id: 253106
+    name: "Vibrant Mana Ray"
+
+  - type: pet
+    id: 128157
+    name: "Docile Skyfin"
+
+  - type: pet
+    id: 153055
+    name: "Fel-Afflicted Skyfin"
+
+- name: "Sister Subversia"
+  location: 52.8 31.0
+  npcId: 123464
+  questId: 0
+  drops:
+  - type: toy
+    id: 153124
+    name: "Spire of Spite"
+
+- name: "Talestra the Vile"
+  location: 55.4 80.4
+  npcId: 123689
+  questId: 0
+  drops:
+  - *world-defilers-1
+  - *world-defilers-2
+  - *world-defilers-3
+  - *world-defilers-4
+  - *world-defilers-5
+  - *world-defilers-6
+  - *world-defilers-7
+  - *world-defilers-8
+
+  - type: transmog
+    id: 153329
+    name: "Mystic Wakener's Blade"
+    limit: weapon dagger
+
+- name: "Tereck the Selector"
+  location: 69.6 56.8
+  npcId: 124804
+  questId: 0
+  drops:
+  - *world-defilers-1
+  - *world-defilers-2
+  - *world-defilers-3
+  - *world-defilers-4
+  - *world-defilers-5
+  - *world-defilers-6
+  - *world-defilers-7
+  - *world-defilers-8
+
+  - type: transmog
+    id: 153263
+    name: "Enclave Aspirant's Cleaver"
+    limit: weapon 1h-axe
+
+# Treasures
+
+- name: Krokul Emergency Cache
+  location: 51.3 76.1
+  note: "Requires Lightforged Warframe power"
+  objectId: 276490
+  questId: 0
+  type: treasure
+  drops:
+  - type: transmog
+    id: 153304
+    requiredQuestId: 47994 # Forming a Bond - Lightforged Warframe
+    name: "Oronaar Miner's Dredger"
+    limit: weapon 1h-axe

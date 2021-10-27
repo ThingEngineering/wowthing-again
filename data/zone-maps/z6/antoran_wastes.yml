@@ -1,0 +1,305 @@
+name: Antoran Wastes
+mapName: z6_antoran_wastes
+minimumLevel: 10
+requiredQuestId: 46816
+farms:
+
+- name: "Admiral Rel'var"
+  location: 73.6 71.8
+  npcId: 127090
+  questId: 0
+  drops:
+  - &zealous-felslinger-1
+    type: transmog
+    id: 152883
+    name: "Zealous Felslinger's Boots"
+    limit: armor cloth
+
+  - &zealous-felslinger-2
+    type: transmog
+    id: 152889
+    name: "Zealous Felslinger's Cuffs"
+    limit: armor cloth
+
+  - &zealous-felslinger-3
+    type: transmog
+    id: 152888
+    name: "Zealous Felslinger's Epaulets"
+    limit: armor cloth
+
+  - &zealous-felslinger-4
+    type: transmog
+    id: 152881
+    name: "Zealous Felslinger's Girdle"
+    limit: armor cloth
+
+  - &zealous-felslinger-5
+    type: transmog
+    id: 152885
+    name: "Zealous Felslinger's Handwraps"
+    limit: armor cloth
+
+  - &zealous-felslinger-6
+    type: transmog
+    id: 152887
+    name: "Zealous Felslinger's Leggings"
+    limit: armor cloth
+
+  - &zealous-felslinger-7
+    type: transmog
+    id: 152884
+    name: "Zealous Felslinger's Robe"
+    limit: armor cloth
+
+  - &zealous-felslinger-8
+    type: transmog
+    id: 152886
+    name: "Zealous Felslinger's Visage"
+    limit: armor cloth
+
+  - type: transmog
+    id: 153324
+    name: "Eredath Vigiliant's Bastion"
+    limit: weapon shield
+
+- name: "Blistermaw"
+  location: 61.8 37.6
+  npcId: 122958
+  questId: 0
+  drops:
+  - type: mount
+    id: 253661
+    name: "Crimson Slavermaw"
+
+- name: "Doomcaster Suprax"
+  location: 77.4 74.9
+  npcId: 127703
+  questId: 0
+  drops:
+  - type: toy
+    id: 153194
+    name: "Legion Communication Orb"
+
+- name: "Houndmaster Kerrax"
+  location: 63.1 25.3
+  npcId: 127288
+  questId: 0
+  drops:
+  - type: mount
+    id: 243652
+    name: "Vile Fiend"
+
+- name: "Mistress Il'thendra"
+  location: 57.6 33.6
+  npcId: 122947
+  questId: 0
+  drops:
+  - &world-defilers-1
+    type: transmog
+    id: 152946
+    name: "World Defiler's Casque"
+    limit: armor plate
+
+  - &world-defilers-2
+    type: transmog
+    id: 152949
+    name: "World Defiler's Cuirass"
+    limit: armor plate
+
+  - &world-defilers-3
+    type: transmog
+    id: 152947
+    name: "World Defiler's Gauntlets"
+    limit: armor plate
+    
+  - &world-defilers-4
+    type: transmog
+    id: 152943
+    name: "World Defiler's Girdle"
+    limit: armor plate
+
+  - &world-defilers-5
+    type: transmog
+    id: 152948
+    name: "World Defiler's Sabatons"
+    limit: armor plate
+
+  - &world-defilers-6
+    type: transmog
+    id: 152944
+    name: "World Defiler's Shoulderplates"
+    limit: armor plate
+
+  - &world-defilers-7
+    type: transmog
+    id: 152945
+    name: "World Defiler's Tuille"
+    limit: armor plate
+
+  - &world-defilers-8
+    type: transmog
+    id: 152942
+    name: "World Defiler's Wristguards"
+    limit: armor plate
+
+  - type: transmog
+    id: 153327
+    name: "Mystic Wakener's Dagger"
+    limit: weapon dagger
+
+- name: "Mother Rosula"
+  location: 65.5 26.5
+  npcId: 127705
+  questId: 0
+  drops:
+  - type: pet
+    id: 128388
+    name: "Rebellious Imp"
+
+- name: "Puscilla"
+  location: 65.5 26.7
+  npcId: 126040
+  questId: 0
+  drops:
+  - type: mount
+    id: 253660
+    name: "Biletooth Gnasher"
+
+- name: "Rezira the Seer"
+  location: 65.4 81.4
+  npcId: 127706
+  questId: 0
+  drops:
+  - type: toy
+    id: 153293
+    name: "Sightless Eye"
+
+- name: "Squadron Commander Vishax"
+  location: 77.4 74.9
+  npcId: 127700
+  questId: 0
+  drops:
+  - type: toy
+    id: 153253
+    name: "S.F.E. Interceptor"
+
+- name: "The Many-Faced Devourer"
+  location: 54.7 39.1
+  npcId: 127581
+  questId: 0
+  drops:
+  - type: pet
+    id: 128396
+    name: "Uuna"
+
+- name: "Varga"
+  location: 64.3 48.2
+  note: "Drops Fel-Spotted Egg which can hatch into mounts/pets"
+  npcId: 126208
+  questId: 0
+  drops:
+  - type: mount
+    id: 235764
+    name: "Darkspore Mana Ray"
+
+  - type: mount
+    id: 253108
+    name: "Felglow Mana Ray"
+
+  - type: mount
+    id: 253109
+    name: "Scintillating Mana Ray"
+
+  - type: mount
+    id: 253106
+    name: "Vibrant Mana Ray"
+
+  - type: pet
+    id: 128157
+    name: "Docile Skyfin"
+
+  - type: pet
+    id: 153055
+    name: "Fel-Afflicted Skyfin"
+
+- name: "Void Warden Valsuran"
+  location: 55.6 21.8
+  npcId: 127300
+  questId: 0
+  drops:
+  - *zealous-felslinger-1
+  - *zealous-felslinger-2
+  - *zealous-felslinger-3
+  - *zealous-felslinger-4
+  - *zealous-felslinger-5
+  - *zealous-felslinger-6
+  - *zealous-felslinger-7
+  - *zealous-felslinger-8
+
+  - type: transmog
+    id: 153319
+    name: "Ardent Vindicator's Greatmace"
+    limit: weapon 2h-mace
+
+- name: "Vrax'thul"
+  location: 53.2 35.8
+  npcId: 126199
+  questId: 0
+  drops:
+  - type: mount
+    id: 253660
+    name: "Biletooth Gnasher"
+
+- name: "Worldsplitter Skuul"
+  location: 54.0 55.0
+  npcId: 127118
+  questId: 0
+  drops:
+  - *zealous-felslinger-1
+  - *zealous-felslinger-2
+  - *zealous-felslinger-3
+  - *zealous-felslinger-4
+  - *zealous-felslinger-5
+  - *zealous-felslinger-6
+  - *zealous-felslinger-7
+  - *zealous-felslinger-8
+
+  - type: transmog
+    id: 153312
+    name: "Praetor's Ornamental Greatsword"
+    limit: weapon 2h-sword
+
+- name: "Wrath-Lord Yarez"
+  location: 61.9 64.3
+  npcId: 126338
+  questId: 0
+  drops:
+  - type: toy
+    id: 153126
+    name: "Micro-Artillery Controller"
+
+# Treasures
+
+- name: "Ancient Legion War Cache"
+  location: 65.9 39.9
+  note: "Requires Light's Judgment power"
+  objectId: 277205
+  questId: 0
+  type: treasure
+  drops:
+  - type: transmog
+    id: 153308
+    requiredQuestId: 47287 # The Vindicaar Matrix Core - Light's Judgment
+    name: "Unyielding Peacekeeper's Cudgel"
+    limit: weapon 1h-mace
+
+- name: "Legion Treasure Hoard"
+  location: 49.2 59.5
+  objectId: 277207
+  questId: 0
+  type: treasure
+  drops:
+  - type: transmog
+    id: 153291
+    name: "Spectral Censorite's Staff"
+    limit: weapon stave
