@@ -21,6 +21,28 @@
 
         sortedDrops = sortBy(sigh, (s) => !s[1].need)
     }
+
+    const showCharacters = (dropStatus: DropStatus, nextDrop: [ZoneMapDataDrop, DropStatus]): boolean => {
+        if (nextDrop) {
+            // Compare this drop to the next one - if the character list is the same we don't need to show it
+            const difference = new Set(dropStatus.characterIds)
+            for (const characterId of nextDrop[1].characterIds) {
+                if (difference.has(characterId)) {
+                    difference.delete(characterId)
+                }
+                else {
+                    difference.add(characterId)
+                    break
+                }
+            }
+
+            return difference.size > 0
+        }
+        else
+        {
+            return dropStatus.characterIds.length > 0
+        }
+    }
 </script>
 
 <style lang="scss">
@@ -70,7 +92,7 @@
 
     <table class="table-tooltip-farm table-striped">
         <tbody>
-            {#each sortedDrops as [drop, dropStatus]}
+            {#each sortedDrops as [drop, dropStatus], sortedIndex}
                 <tr class:success={!dropStatus.need}>
                     <td class="type status-{dropStatus.need ? 'fail' : 'success'}">
                         {#if drop.type === 'transmog' && drop.limit?.[0] && drop.limit?.[0] !== 'covenant'}
@@ -94,7 +116,7 @@
                     </td>
                 </tr>
 
-                {#if dropStatus.need && dropStatus.characterIds.length > 0}
+                {#if dropStatus.need && showCharacters(dropStatus, sortedDrops[sortedIndex+1])}
                     <tr>
                         <td></td>
                         <td class="characters" colspan="2">
