@@ -239,17 +239,138 @@ export const raidVaultItemLevel: Dictionary<number> = {
 }
 
 // Fake "instances" for tracking world bosses
-export const extraInstanceMap: Dictionary<StaticDataInstance> = {
-    108001: {
+export const extraInstances: StaticDataInstance[] = [
+    // Mists of Pandaria
+    {
+        expansion: 4,
+        id: 104001,
+        name: 'Sha of Anger',
+        shortName: 'Sha',
+    },
+    {
+        expansion: 4,
+        id: 104002,
+        name: 'Galleon',
+        shortName: 'Gal',
+    },
+    {
+        expansion: 4,
+        id: 104003,
+        name: 'Nalak',
+        shortName: 'Nal',
+    },
+    {
+        expansion: 4,
+        id: 104004,
+        name: 'Oondasta',
+        shortName: 'Oon',
+    },
+
+    // Warlords of Draenor
+    {
+        expansion: 5,
+        id: 105001,
+        name: 'Gorgrond World Bosses',
+        shortName: 'Gor',
+    },
+    {
+        expansion: 5,
+        id: 105002,
+        name: 'Rukhmar',
+        shortName: 'Ruk',
+    },
+    {
+        expansion: 5,
+        id: 105003,
+        name: 'Supreme Lord Kazzak',
+        shortName: 'SLK',
+    },
+
+    // Legion
+    {
+        expansion: 6,
+        id: 106001,
+        name: 'Legion World Bosses',
+        shortName: 'Leg',
+    },
+    {
+        expansion: 6,
+        id: 106002,
+        name: 'Broken Shore World Bosses',
+        shortName: 'BrS',
+    },
+    {
+        expansion: 6,
+        id: 106003,
+        name: 'Argus Greater Invasions',
+        shortName: 'Arg',
+    },
+
+    // Battle for Azeroth
+    {
+        expansion: 7,
+        id: 107001,
+        name: 'Battle for Azeroth World Bosses',
+        shortName: 'BfA',
+    },
+    {
+        expansion: 7,
+        id: 107002,
+        name: 'Arathi World Bosses',
+        shortName: 'ArH',
+    },
+    {
+        expansion: 7,
+        id: 107003,
+        name: 'Darkshore World Bosses',
+        shortName: 'Dar',
+    },
+    {
+        expansion: 7,
+        id: 107004,
+        name: 'Nazjatar World Bosses',
+        shortName: 'Naz',
+    },
+    {
+        expansion: 7,
+        id: 107005,
+        name: 'Uldum World Bosses',
+        shortName: 'Uld',
+    },
+    {
+        expansion: 7,
+        id: 107006,
+        name: 'Vale of Eternal Blossoms World Bosses',
+        shortName: 'VEB',
+    },
+
+    // Shadowlands
+    {
         expansion: 8,
         id: 108001,
         name: 'Shadowlands World Bosses',
         shortName: 'SWB',
     },
-    108002: {
+    {
         expansion: 8,
         id: 108002,
+        name: 'Wrath of the Jailer',
+        shortName: 'WotJ',
+    },
+    {
+        expansion: 8,
+        id: 108003,
+        name: 'Tormentors of Torghast',
+        shortName: 'ToT',
+    },
+    {
+        expansion: 8,
+        id: 108004,
         name: "Mor'geth, Tormentor of the Damned",
         shortName: 'MTD',
     },
-}
+]
+
+export const extraInstanceMap: Record<number, StaticDataInstance> = Object.fromEntries(
+    extraInstances.map((instance) => [instance.id, instance])
+)
