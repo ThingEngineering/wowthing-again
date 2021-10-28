@@ -375,3 +375,33 @@ farms:
   - *mogu1
   - *mogu2
   - *mogu3
+
+# World Boss
+
+- name: "Grand Empress Shek'zara"
+  location: 5.82 56.32
+  npcId: 155851
+  questId: 58705
+  requiredQuestId: 58506 # Network Diagnostics
+  reset: weekly
+  type: killBig
+  drops:
+  - type: transmog
+    id: 174234
+    name: "Maniacal Speaker's Cover"
+    limit: armor cloth
+
+  - type: transmog
+    id: 174243
+    name: "Guise of the Voracious Prowler"
+    limit: armor leather
+
+  - type: transmog
+    id: 174255
+    name: "Greaves of Shattered Thoughts"
+    limit: armor mail
+
+  - type: transmog
+    id: 174264
+    name: "Chitinous Conqueror's Legplates"
+    limit: armor plate

@@ -232,3 +232,33 @@ farms:
   - *aqir1
   - *aqir2
   - *aqir3
+
+# World boss
+
+- name: "Vuk'laz the Earthbreaker"
+  location: 45.67 16.21
+  npcId: 160970
+  questId: 55466
+  requiredQuestId: 58506 # Network Diagnostics
+  reset: weekly
+  type: killBig
+  drops:
+  - type: transmog
+    id: 174237
+    name: "Breeches of Faithful Execution"
+    limit: armor cloth
+
+  - type: transmog
+    id: 174247
+    name: "Grotesque Mutilator's Leggings"
+    limit: armor leather
+
+  - type: transmog
+    id: 174250
+    name: "Psyche Tormentor's Visage"
+    limit: armor mail
+
+  - type: transmog
+    id: 174258
+    name: "Greathelm of Indiscriminate Brutality"
+    limit: armor plate
