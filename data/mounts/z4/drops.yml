@@ -1,13 +1,28 @@
 name: Drops
 groups:
 
+- name: Isle of Giants
+  things:
+  - 138642 # Black Primal Raptor
+  - 138643 # Green Primal Raptor
+  - 138641 # Red Primal Raptor
+  - 138423 # Cobalt Primordial Direhorn (Oondasta)
+
+- name: Isle of Thunder
+  things:
+  - 139442 # Thundering Cobalt Cloud Serpent (Nalak)
+
 - name: Kun-Lai Summit
   things:
   - 127158 # Heavenly Onyx Cloud Serpent (Sha of Anger)
 
+- name: Timeless Isle
+  things:
+  - 148476 # Thundering Onyx Cloud Serpent (Huolon)
+
 - name: Vale of Eternal Blossoms
   things:
-  - 139442 # Thundering Cobalt Cloud Serpent (Nalak)
+  - 132036 # Thundering Ruby Cloud Serpent (Alani)
 
 - name: Valley of the Four Winds
   things:
@@ -18,14 +33,3 @@ groups:
   - 138424 # Amber Primordial Direhorn (Zandalari Warbringer)
   - 138426 # Jade Primordial Direhorn (Zandalari Warbringer)
   - 138425 # Slate Primordial Direhorn (Zandalari Warbringer)
-
-- name: Isle of Giants
-  things:
-  - 138642 # Black Primal Raptor
-  - 138643 # Green Primal Raptor
-  - 138641 # Red Primal Raptor
-  - 138423 # Cobalt Primordial Direhorn (Oondasta)
-
-- name: Isle of Thunder
-  things:
-  - 148476 # Thundering Onyx Cloud Serpent (Huolon)
