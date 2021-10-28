@@ -33,6 +33,7 @@ export interface ZoneMapDataFarm {
 
 export interface ZoneMapDataDrop {
     id: number
+    questId?: number
     requiredQuestId?: number
     name: string
     note?: string

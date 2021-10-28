@@ -258,6 +258,14 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                             dropStatus.validCharacters = dropCharacters.length > 0
 
                             // And finally, filter for characters that aren't locked
+                            if (drop.questId) {
+                                dropCharacters = filter(
+                                    dropCharacters,
+                                    (c) => resetMap[c.id] < now ||
+                                        userQuestData.characters[c.id]?.dailyQuests?.get(drop.questId) === undefined
+                                )
+                            }
+
                             dropStatus.characterIds = filter(
                                 dropCharacters,
                                 (c) => resetMap[c.id] < now ||
