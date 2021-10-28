@@ -12,5 +12,6 @@ export interface CharacterStatus {
 export interface DropStatus {
     need: boolean
     skip: boolean
+    validCharacters: boolean
     characterIds: number[]
 }

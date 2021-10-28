@@ -99,12 +99,23 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                             (c) => c.level >= farm.minimumLevel
                         )
                     }
+                    if (farm.requiredQuestIds.length > 0) {
+                        farmCharacters = filter(
+                            farmCharacters,
+                            (c) => some(
+                                farm.requiredQuestIds,
+                                (q) => userQuestData.characters[c.id].quests.get(q)
+                            )
+                        )
+                    }
 
                     for (const drop of farm.drops) {
+                        let dropCharacters = farmCharacters
                         const dropStatus: DropStatus = {
                             characterIds: [],
                             need: false,
                             skip: false,
+                            validCharacters: false,
                         }
 
                         switch (drop.type) {
@@ -164,7 +175,6 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                                 mapCounts.total++
                             }
 
-
                             if (!dropStatus.need) {
                                 overallCounts.have++
                                 if (categorySeen[drop.type][drop.id] === undefined) {
@@ -182,8 +192,8 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                         if (dropStatus.need && !dropStatus.skip) {
                             // Filter for farm faction
                             if (farm.faction) {
-                                farmCharacters = filter(
-                                    farmCharacters,
+                                dropCharacters = filter(
+                                    dropCharacters,
                                     (c) => c.faction === factionMap[farm.faction]
                                 )
                             }
@@ -192,37 +202,37 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                                 switch (drop.limit[0]) {
                                     case 'armor':
                                         if (drop.limit[1] !== 'cloak') {
-                                            farmCharacters = filter(
-                                                farmCharacters,
+                                            dropCharacters = filter(
+                                                dropCharacters,
                                                 (c) => classMap[c.classId].armorType === armorMap[drop.limit[1]]
                                             )
                                         }
                                         break;
 
                                     case 'class':
-                                        farmCharacters = filter(
-                                            farmCharacters,
+                                        dropCharacters = filter(
+                                            dropCharacters,
                                             (c) => some(drop.limit.slice(1), (cl) => classSlugMap[cl].id === c.classId)
                                         )
                                         break;
 
                                     case 'covenant':
-                                        farmCharacters = filter(
-                                            farmCharacters,
+                                        dropCharacters = filter(
+                                            dropCharacters,
                                             (c) => c.shadowlands?.covenantId === covenantSlugMap[drop.limit[1]].id
                                         )
                                         break
 
                                     case 'faction':
-                                        farmCharacters = filter(
-                                            farmCharacters,
+                                        dropCharacters = filter(
+                                            dropCharacters,
                                             (c) => c.faction === factionMap[drop.limit[1]]
                                         )
                                         break
 
                                     case 'weapon':
-                                        farmCharacters = filter(
-                                            farmCharacters,
+                                        dropCharacters = filter(
+                                            dropCharacters,
                                             (c) => weaponValidForClass(c.classId, drop.limit.slice(1))
                                         )
                                         break
@@ -231,22 +241,25 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
 
                             // Filter again for pre-req quests
                             if (drop.requiredQuestId !== undefined) {
-                                farmCharacters = filter(
-                                    farmCharacters,
+                                dropCharacters = filter(
+                                    dropCharacters,
                                     (c) => userQuestData.characters[c.id].quests.get(drop.requiredQuestId)
                                 )
                             }
 
                             // Filter again for characters that haven't completed the quest
                             if (drop.type === 'quest') {
-                                farmCharacters = filter(
-                                    farmCharacters,
+                                dropCharacters = filter(
+                                    dropCharacters,
                                     (c) => userQuestData.characters[c.id].quests.get(drop.id) === undefined,
                                 )
                             }
 
+                            dropStatus.validCharacters = dropCharacters.length > 0
+
+                            // And finally, filter for characters that aren't locked
                             dropStatus.characterIds = filter(
-                                farmCharacters,
+                                dropCharacters,
                                 (c) => resetMap[c.id] < now ||
                                     every(farm.questIds, (q) => userQuestData.characters[c.id]?.dailyQuests?.get(q) === undefined)
                             ).map(c => c.id)
@@ -259,7 +272,7 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                         }
 
                         farmStatus.drops.push(dropStatus)
-                    }
+                    } // for drop of farm.drops
 
                     farmStatus.need = some(farmStatus.drops, (d) => d.need && !d.skip)
 

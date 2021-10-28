@@ -24,6 +24,11 @@
 
     const showCharacters = (dropStatus: DropStatus, nextDrop: [ZoneMapDataDrop, DropStatus]): boolean => {
         if (nextDrop) {
+            // If they both have no valid characters, bail early
+            if (!dropStatus.validCharacters && !nextDrop[1].validCharacters) {
+                return false
+            }
+
             // Compare this drop to the next one - if the character list is the same we don't need to show it
             const difference = new Set(dropStatus.characterIds)
             for (const characterId of nextDrop[1].characterIds) {
@@ -40,7 +45,7 @@
         }
         else
         {
-            return dropStatus.characterIds.length > 0
+            return !dropStatus.validCharacters || dropStatus.characterIds.length > 0
         }
     }
 </script>
@@ -93,7 +98,9 @@
     <table class="table-tooltip-farm table-striped">
         <tbody>
             {#each sortedDrops as [drop, dropStatus], sortedIndex}
-                <tr class:success={!dropStatus.need}>
+                <tr
+                    class:success={!dropStatus.need || !dropStatus.validCharacters}
+                >
                     <td class="type status-{dropStatus.need ? 'fail' : 'success'}">
                         {#if drop.type === 'transmog' && drop.limit?.[0] && drop.limit?.[0] !== 'covenant'}
                             <IconifyIcon icon={dropType[drop.limit[0]]} />
@@ -117,18 +124,27 @@
                 </tr>
 
                 {#if dropStatus.need && showCharacters(dropStatus, sortedDrops[sortedIndex+1])}
-                    <tr>
-                        <td></td>
-                        <td class="characters" colspan="2">
-                            {#each sortBy(
-                                dropStatus.characterIds
-                                    .map(c => $userStore.data.characterMap[c]),
-                                c => c.name) as character, characterIndex}
-                                {characterIndex > 0 ? ', ' : ''}
-                                <span class="class-{character.classId}">{character.name}</span>
-                            {/each}
-                        </td>
-                    </tr>
+                    {#if dropStatus.validCharacters}
+                        <tr>
+                            <td></td>
+                            <td class="characters" colspan="2">
+                                {#each sortBy(
+                                    dropStatus.characterIds
+                                        .map(c => $userStore.data.characterMap[c]),
+                                    c => c.name) as character, characterIndex}
+                                    {characterIndex > 0 ? ', ' : ''}
+                                    <span class="class-{character.classId}">{character.name}</span>
+                                {/each}
+                            </td>
+                        </tr>
+                    {:else}
+                        <tr class="status-fail">
+                            <td></td>
+                            <td class="characters" colspan="2">
+                                &lt;no valid characters&gt;
+                            </td>
+                        </tr>
+                    {/if}
 
                     {#if drop.note}
                         <tr>
