@@ -7,6 +7,9 @@ namespace Wowthing.Backend.Models.Data.ZoneMaps
         public int Id { get; set; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public int? QuestId { get; set; }
+        
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public int? RequiredQuestId { get; set; }
         
         public string[] Limit { get; set; }
@@ -33,6 +36,11 @@ namespace Wowthing.Backend.Models.Data.ZoneMaps
                 Note = drop.Note;
             }
 
+            if (drop.QuestId > 0)
+            {
+                QuestId = drop.QuestId;
+            }
+            
             if (drop.RequiredQuestId > 0)
             {
                 RequiredQuestId = drop.RequiredQuestId;
