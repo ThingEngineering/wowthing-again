@@ -1,6 +1,7 @@
 name: Vale of Eternal Blossoms
 mapName: z4_vale_of_eternal_blossoms
 minimumLevel: 50
+requiredQuestId: 56539 # Finding the Rajani
 farms:
 
 # Kills
