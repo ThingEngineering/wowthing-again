@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http.Features;
 using Newtonsoft.Json;
 using Wowthing.Backend.Models.Data;
 using Wowthing.Backend.Models.Data.ZoneMaps;
@@ -72,7 +73,8 @@ namespace Wowthing.Backend.Jobs.Misc
             var itemToAppearance = itemModifiedAppearances
                 .GroupBy(r => r.ItemID)
                 .ToDictionary(r => r.Key, r => r.First().ItemAppearanceID);
-            
+
+            var seenQuests = new HashSet<int>();
             using (var outFile = File.CreateText(Path.Join(DataUtilities.DataPath, "zone-maps", "addon.txt")))
             {
                 foreach (var categories in cacheData.Sets)
@@ -94,7 +96,11 @@ namespace Wowthing.Backend.Jobs.Misc
                         {
                             foreach (var questId in farm.QuestIds)
                             {
-                                outFile.WriteLine("    {0}, -- {1}", questId, farm.Name);
+                                if (questId > 0 && !seenQuests.Contains(questId))
+                                {
+                                    outFile.WriteLine("    {0}, -- {1}", questId, farm.Name);
+                                    seenQuests.Add(questId);
+                                }
                             }
                             
                             foreach (var drop in farm.Drops)
@@ -102,6 +108,12 @@ namespace Wowthing.Backend.Jobs.Misc
                                 if (drop.Type == "transmog" && drop.Id > 100000)
                                 {
                                     drop.Id = itemToAppearance[drop.Id];
+                                }
+
+                                if (drop.QuestId > 0 && !seenQuests.Contains(drop.QuestId.Value))
+                                {
+                                    outFile.WriteLine("    {0}, -- {1}:{2}", drop.QuestId, farm.Name, drop.Name);
+                                    seenQuests.Add(drop.QuestId.Value);
                                 }
                             }
                         }
