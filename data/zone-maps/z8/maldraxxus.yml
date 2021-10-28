@@ -512,3 +512,56 @@ farms:
   - type: toy
     id: 181825
     name: "Phial of Ravenous Slime"
+
+# Pool is weird
+- name: "Pool of Mixed Monstrosities"
+  location: 57.0 74.2
+  npcId: 157226
+  reset: daily
+  type: kill
+  drops:
+  - type: mount
+    id: 336042
+    name: "Hulking Deathroc"
+    note: "Drops from Violet Mistake"
+    questId: 61720
+
+  - type: pet
+    id: 172149
+    name: "Invertebrate Oil"
+    note: "Drops from Oily Invertebrate"
+    questId: 61724
+
+  - type: transmog
+    id: 184156
+    name: "Pristine Containment Pack"
+    note: "Drops from Oily Invertebrate"
+    questId: 61724
+
+  - type: transmog
+    id: 184300
+    name: "Fused Spineguard"
+    note: "Drops from Oily Invertebrate"
+    limit: armor cloak
+    questId: 61724
+
+  - type: transmog
+    id: 184301
+    name: "Twenty-Loop Violet Girdle"
+    note: "Drops from Violet Mistake"
+    limite: armor leather
+    questId: 6170
+
+  - type: transmog
+    id: 184302
+    name: "Residue-Coated Muck Waders"
+    note: "Drops from Corrupted Sediment"
+    limit: armor mail
+    questId: 61719
+
+  - type: transmog
+    id: 184175
+    name: "Bone-Blistering Wand"
+    note: "Drops from Burnblister"
+    limit: weapon wand
+    questId: 61723
