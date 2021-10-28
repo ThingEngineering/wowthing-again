@@ -1,6 +1,7 @@
 name: Uldum
 mapName: z3_uldum
 minimumLevel: 50
+requiredQuestId: 56472 # The Uldum Accord
 farms:
 
 # Kills
