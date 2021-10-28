@@ -26,6 +26,7 @@ export interface ZoneMapDataFarm {
     reset: string
     type: string
     questIds: number[]
+    requiredQuestIds: number[]
     location: string[]
     drops: ZoneMapDataDrop[]
 }

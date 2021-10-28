@@ -30,6 +30,8 @@ namespace Wowthing.Backend.Models.Data.ZoneMaps
         public string Reset { get; set; }
         public string Type { get; set; }
         public List<int> QuestIds { get; set; }
+        
+        public List<int> RequiredQuestIds { get; set; }
 
         public List<OutZoneMapDrop> Drops { get; set; }
 
@@ -41,7 +43,14 @@ namespace Wowthing.Backend.Models.Data.ZoneMaps
                 .ToList();
             Location = (farm.Location ?? "").Split();
             Name = farm.Name;
+            
             QuestIds = farm.QuestId
+                .EmptyIfNullOrWhitespace()
+                .Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                .Select(q => int.Parse(q))
+                .ToList();
+            
+            RequiredQuestIds = farm.RequiredQuestId
                 .EmptyIfNullOrWhitespace()
                 .Split(' ', StringSplitOptions.RemoveEmptyEntries)
                 .Select(q => int.Parse(q))
@@ -59,7 +68,7 @@ namespace Wowthing.Backend.Models.Data.ZoneMaps
             {
                 ObjectId = farm.ObjectId;
             }
-            
+
             if (!string.IsNullOrEmpty(farm.Faction))
             {
                 Faction = farm.Faction;
