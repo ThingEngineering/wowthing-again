@@ -12,6 +12,7 @@ namespace Wowthing.Backend.Models.Data.ZoneMaps
         public string Name { get; set; }
         public string Note { get; set; }
         public string QuestId { get; set; }
+        public string RequiredQuestId { get; set; }
         public string Reset { get; set; }
         public string Type { get; set; }
         
