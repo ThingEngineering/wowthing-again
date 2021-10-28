@@ -19,6 +19,10 @@ export class UserCollectionDataStore extends WritableFancyStore<UserCollectionDa
         staticData: StaticData,
         userCollectionData: UserCollectionData
     ): void {
+        if (!userCollectionData.mountsPacked || !userCollectionData.toysPacked) {
+            return
+        }
+        
         console.time('UserCollectionDataStore.setup')
 
         // Unpack packed data
