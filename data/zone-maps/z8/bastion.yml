@@ -191,44 +191,33 @@ farms:
     name: "Mnemonic Attunement Pane"
 
 # Orator Kloe
-- name: "Aethon"
+- name: "Orator Kloe"
   location: 55.1 80.6
-  npcId: 161528
-  questId: 58526
+  note: "Weapons drop from appropriately named mobs"
+  npcId: 161441
   drops:
   - type: transmog
     id: 179487
     name: "Aethon's Horn"
+    questId: 58526
     limit: weapon warglaive
 
-- name: "Cloudtail"
-  location: 57.1 80.6
-  npcId: 161530
-  questId: 60571
-  drops:
   - type: transmog
     id: 179488
     name: "Cloudtail's Paw"
+    questId: 60571
     limit: weapon fist
 
-- name: "Nemaeus"
-  location: 59.1 80.6
-  npcId: 161529
-  questId: 60569
-  drops:
   - type: transmog
     id: 179485
     name: "Fang of Nemaeus"
+    questId: 60569
     limit: weapon dagger agi
 
-- name: "Sigilback"
-  location: 61.1 80.6
-  npcId: 161527
-  questId: 60570
-  drops:
   - type: transmog
     id: 179486
     name: "Sigilback's Smashshell"
+    questId: 60570
     limit: weapon 1h-mace agi
 
 # Weird ones
