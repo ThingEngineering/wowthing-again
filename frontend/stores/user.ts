@@ -49,7 +49,6 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         }
 
         console.timeEnd('UserDataStore.initialize')
-
     }
 }
 
