@@ -16,52 +16,56 @@ groups:
       wowheadSetId: 11989
       items:
         1:  44247 # Head
-        5:  44243 44244 # Chest
+        5:  44243 # Chest
         6:  44249 # Waist
         7:  44248 # Legs
         8:  44245 # Feet
         9:  44250 # Wrists
         10: 44246 # Hands
         16: 44276 # Back
+        20: 44244 # Chest2
 
     # Korthia set=2207
     - name: Foresworn Aspirant's Regalia
       wowheadSetId: 11987
       items:
         1:  44255 # Head
-        5:  44251 44252 # Chest
+        5:  44251 # Chest
         6:  44257 # Waist
         7:  44256 # Legs
         8:  44253 # Feet
         9:  44258 # Wrists
         10: 44254 # Hands
         16: 44277 # Back
+        20: 44252 # Chest2
 
     # Renown set=2208
     - name: Aspiring Aspirant's Regalia
       wowheadSetId: 11985
       items:
         1:  44263 # Head
-        5:  44259 44260 # Chest
+        5:  44259 # Chest
         6:  44265 # Waist
         7:  44264 # Legs
         8:  44261 # Feet
         9:  44266 # Wrists
         10: 44262 # Hands
         16: 44278 # Back
+        20: 44260 # Chest2
 
     # Renown Quartermaster set=2209
     - name: Devoted Aspirant's Regalia
       wowheadSetId: 11983
       items:
         1:  44271 # Head
-        5:  44267 44268 # Chest
+        5:  44267 # Chest
         6:  44273 # Waist
         7:  44272 # Legs
         8:  44269 # Feet
         9:  44274 # Wrists
         10: 44270 # Hands
         16: 44279 # Back
+        20: 44268 # Chest2
 
     necrolord:
     # Death's Advance set=2210
