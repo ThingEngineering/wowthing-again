@@ -1,13 +1,18 @@
 <script lang="ts">
-    import { userStore } from '@/stores'
+    import sortBy from 'lodash/sortBy'
+
+    import { staticStore, userStore } from '@/stores'
     import { data as settingsData } from '@/stores/settings'
-    import type {Character} from '@/types'
+    import type { Character, InstanceDifficulty, StaticDataInstance } from '@/types'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
     import HeadInstance from './LockoutsTableHeadInstance.svelte'
     import RowLockout from './LockoutsTableRowLockout.svelte'
+    import toDigits from '../../utils/to-digits'
+    import { Difficulty } from '@/types'
+    import { difficultyMap } from '../../data/difficulty'
 
     const filterFunc = function(char: Character): boolean {
         return char.level > 10
@@ -17,6 +22,26 @@
         return Object.keys(char.lockouts || {}).length > 0 ? 'a' : 'z'
     }
     const sortFunc = getCharacterSortFunc($settingsData, anyLockouts)
+
+    let sortedLockouts: InstanceDifficulty[]
+    $: {
+        sortedLockouts = sortBy(
+            $userStore.data.allLockouts,
+            (diff: InstanceDifficulty) => {
+                const instance: StaticDataInstance = $staticStore.data.instances[diff.instanceId]
+                if (!diff.difficulty || !instance) {
+                    return 'z'
+                }
+
+                const foo = [
+                    toDigits(100 - instance.expansion, 2),
+                    instance.shortName,
+                    diff.difficulty.shortName,
+                ].join('|')
+                return foo
+            }
+        )
+    }
 </script>
 
 <CharacterTable
@@ -24,13 +49,13 @@
     {sortFunc}
 >
     <CharacterTableHead slot="head">
-        {#each $userStore.data.allLockouts as instanceDifficulty}
+        {#each sortedLockouts as instanceDifficulty}
             <HeadInstance {instanceDifficulty} />
         {/each}
     </CharacterTableHead>
 
     <svelte:fragment slot="rowExtra" let:character>
-        {#each $userStore.data.allLockouts as instanceDifficulty}
+        {#each sortedLockouts as instanceDifficulty}
             <RowLockout {character} {instanceDifficulty} />
         {/each}
     </svelte:fragment>

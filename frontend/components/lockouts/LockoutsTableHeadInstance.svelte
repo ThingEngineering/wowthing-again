@@ -1,5 +1,4 @@
 <script lang="ts">
-    import {extraInstanceMap} from '@/data/dungeon'
     import { staticStore } from '@/stores/static'
     import type {InstanceDifficulty,} from '@/types'
     import tippy from '@/utils/tippy'
@@ -11,7 +10,7 @@
 
     $: {
         const difficulty = instanceDifficulty.difficulty
-        const instance = $staticStore.data.instances[instanceDifficulty.instanceId] || extraInstanceMap[instanceDifficulty.instanceId]
+        const instance = $staticStore.data.instances[instanceDifficulty.instanceId]
 
         if (instance) {
             instanceName = instance.shortName

@@ -1,6 +1,246 @@
 name: Highmountain
-mapName: z6_broken_shore
+mapName: z6_highmountain
 minimumLevel: 10
 farms:
 
-- name: Empty
+# npc=100230 - quest/chest?
+#- name: "Amateur Hunters"
+#  location: 43.16 48.00
+#  npcId:
+#  questId: 40413
+#  drops:
+#  - type: transmog
+#    id: 131781
+#    name: ""
+#    limit: armor
+
+- name: "Beastmaster Pao'lek"
+  location: 48.60 50.00
+  npcId:
+  questId: 39784
+  drops:
+  - type: transmog
+    id: 131756
+    name: ""
+    limit: armor
+
+- name: "Bristlemaul"
+  location: 37.70 45.70
+  npcId: 97449
+  questId: 40405
+  drops:
+  - type: transmog
+    id: 131761
+    name: "Thick Bristly Hood"
+    limit: armor leather
+
+- name: "Brogul the Mighty"
+  location: 56.35 72.50
+  npcId: 94877
+  questId: 39235
+  drops:
+  - type: transmog
+    id: 138396
+    name: "Mighty Chain Footpads"
+    limit: armor mail
+
+- name: "Crab Rider Grmlrml"
+  location: 44.20 12.10
+  npcId: 97933
+  questId: 39994
+  drops:
+  - type: transmog
+    id: 131798
+    name: "Faded Swashbuckler's Jerkin"
+    limit: armor leather
+
+- name: "Crawshuk the Hungry"
+  location: 48.41 40.15
+  note: "Drops Gleaming Roc Feather part"
+  npcId: 97345
+  questId: 39806
+  drops:
+  - &rocfeather-skyhorn-kite
+    type: toy
+    id: 131811
+    name: "Rocfeather Skyhorn Kite"
+
+- name: "Devouring Darkness"
+  location: 54.39 41.12
+  npcId: 100495
+  questId: 40414
+  drops:
+  - type: transmog
+    id: 131780
+    name: "Void Slippers"
+    limit: armor cloth
+
+- name: "Durguth <King of the Hill>"
+  location: 43.8 75.6
+  npcId: 96072
+  questId: 0
+  drops:
+  - type: transmog
+    id: 131796
+    name: "Roggumsoggum's Boppers"
+    limit: armor leather
+
+- name: "Flamescale"
+  location: 40.97 57.75
+  npcId:
+  questId: 39963
+  drops:
+  - type: transmog
+    id: 131773
+    name: "Flamescale Mail"
+    limit: armor mail
+
+- name: "Gurbog da Basher"
+  location: 56.40 60.50
+  npcId: 96590
+  questId: 40347
+  drops:
+  - type: transmog
+    id: 131775
+    name: "Da Basher's Toy Armor"
+    limit: armor plate
+
+- name: "Luggut the Eggeater"
+  location: 50.80 34.60
+  npcId: 98024
+  questId: 40406
+  drops:
+  - type: transmog
+    id: 131776
+    name: "Scale Cord of the Eggeater"
+    limit: armor mail
+
+- name: "Majestic Elderhorn"
+  location: 46.64 31.44
+  npcId: 96410
+  questId: 39646
+  drops:
+  - type: toy
+    id: 131900
+    name: "Majestic Elderhorn Hoof"
+
+- name: "Mynta Talonscreech"
+  location: 54.50 40.60
+  npcId: 97593
+  questId: 39866
+  drops:
+  - type: transmog
+    id: 131792
+    name: "Harefoot Pinnacle Wrap"
+    limit: armor cloak
+
+- name: "Oubdob da Smasher"
+  location: 47.4 73.8
+  npcId: 95204
+  questId: 0
+  drops:
+  - type: transmog
+    id: 131793
+    name: "Oubdob's Smashin' Sweatband"
+    limit: armor cloth
+
+- name: "Sekhan"
+  location: 45.70 55.00
+  npcId: 101077
+  questId: 40681
+  drops:
+  - type: transmog
+    id: 131730
+    name: "Darksaber Leather Belt"
+    limit: armor leather
+
+- name: "Shara Felbreath <Feltotem Warlock>"
+  location: 51.06 25.70
+  npcId: 97093
+  questId: 39762
+  drops:
+  - type: transmog
+    id: 131791
+    name: "Felbreath Bloodsinger Robe"
+    limit: armor cloth
+
+- name: "Skullhat"
+  location: 51.46 31.89
+  npcId: 95872
+  questId: 39465
+  drops:
+  - type: transmog
+    id: 131769
+    name: "The Taskmaster's Wristwraps"
+    limit: armor cloth
+
+- name: "Tenpak Flametotem <The Exiled Shaman>"
+  location: 41.94 41.49
+  npcId: 97203
+  questId: 39782
+  drops:
+  - type: pet
+    id: 98077
+    name: "Crispin"
+
+- name: "Unethical Adventurers"
+  location: 52.4 58.6
+  npcId: 109501
+  questId: 0 # 40423?
+  drops:
+  - type: transmog
+    id: 140683
+    name: "Darkful's Mitts"
+    limit: armor cloth
+
+  - type: transmog
+    id: 140682
+    name: "Zenobia's Handwraps"
+    limit: armor cloth
+
+  - type: transmog
+    id: 140681
+    name: "Jak's Gloves"
+    limit: armor leather
+
+  - type: transmog
+    id: 140680
+    name: "Lysander's Lovindle Bracers"
+    limit: armor mail
+
+  - type: transmog
+    id: 131767
+    name: "Xander's Gauntlets"
+    limit: armor plate
+
+# World boss
+
+- name: ""
+  location: 49.2 7.6
+  npcId: 99929
+  questId: 43985
+  drops:
+  - type: transmog
+    id: 141539
+    name: "Ragged Azsharan Sail Fragment"
+    limit: armor cloak
+
+  - type: transmog
+    id: 141470
+    name: "Faded Bloodsail Handwraps"
+    limit: armor cloth
+
+  - type: transmog
+    id: 141475
+    name: "Salt-Stained Tuskarr Gloves"
+    limit: armor leather
+
+  - type: transmog
+    id: 141466
+    name: "Blackwater Raider Handguards"
+    limit: armor mail
+
+  - type: transmog
+    id: 141476
+    name: "Kezan Pirate's Mitts"
+    limit: armor plate

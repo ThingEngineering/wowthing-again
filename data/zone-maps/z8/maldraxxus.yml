@@ -550,7 +550,7 @@ farms:
     name: "Twenty-Loop Violet Girdle"
     note: "Drops from Violet Mistake"
     limite: armor leather
-    questId: 6170
+    questId: 61720
 
   - type: transmog
     id: 184302
