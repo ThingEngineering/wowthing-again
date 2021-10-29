@@ -8,6 +8,7 @@ export const typeOrder: InventoryType[] = [
     InventoryType.Shoulders,
     InventoryType.Back,
     InventoryType.Chest,
+    InventoryType.Chest2,
     InventoryType.Wrist,
     InventoryType.Hands,
     InventoryType.Waist,

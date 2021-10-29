@@ -1,6 +1,5 @@
 <script lang="ts">
     import {difficultyMap} from '@/data/difficulty'
-    import {extraInstanceMap} from '@/data/dungeon'
     import { staticStore } from '@/stores/static'
     import type {CharacterLockout, Difficulty, StaticDataInstance} from '@/types'
 
@@ -9,7 +8,7 @@
     let instance: StaticDataInstance
     let difficulty: Difficulty
     $: {
-        instance = $staticStore.data.instances[lockout.id] || extraInstanceMap[lockout.id]
+        instance = $staticStore.data.instances[lockout.id]
         difficulty = difficultyMap[lockout.difficulty]
     }
 </script>

@@ -7,6 +7,8 @@
     export let set: TransmogDataGroupData
     export let slotHave: Dictionary<boolean>
     export let subType: string
+
+    console.log({set, slotHave})
 </script>
 
 <style lang="scss">

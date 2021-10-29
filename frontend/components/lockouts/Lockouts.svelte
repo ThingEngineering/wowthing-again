@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { userStore } from '@/stores'
+    import { staticStore, userStore } from '@/stores'
     import { data as settingsData } from '@/stores/settings'
     import type {Character} from '@/types'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
@@ -17,6 +17,11 @@
         return Object.keys(char.lockouts || {}).length > 0 ? 'a' : 'z'
     }
     const sortFunc = getCharacterSortFunc($settingsData, anyLockouts)
+
+    $: {
+        console.log($userStore.data.allLockouts)
+        console.log($staticStore.data.instances)
+    }
 </script>
 
 <CharacterTable
