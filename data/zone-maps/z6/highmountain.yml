@@ -215,10 +215,12 @@ farms:
 
 # World boss
 
-- name: ""
+- name: "Flotsam"
   location: 49.2 7.6
   npcId: 99929
   questId: 43985
+  reset: weekly
+  type: killBig
   drops:
   - type: transmog
     id: 141539
