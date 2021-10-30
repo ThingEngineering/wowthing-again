@@ -18,7 +18,7 @@ FROM (
     FROM    player_character_achievements pca
     LEFT JOIN player_character pc ON pc.id = pca.character_id
     LEFT JOIN player_account pa ON pa.id = pc.account_id
-    --WHERE   pa.user_id = {0}
+    WHERE   pa.user_id = {0}
 ) oof
 WHERE amount > 0
 ORDER BY criteria_id, amount DESC

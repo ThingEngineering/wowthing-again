@@ -3,7 +3,7 @@ import { get } from 'svelte/store'
 import { achievementStore, userAchievementStore } from '@/stores'
 import type { AchievementDataCriteriaTree, Dictionary } from '@/types'
 
-export function getAchievementDataAccount(criteriaTree: AchievementDataCriteriaTree): AchievementDataAccount {
+export function getAccountData(criteriaTree: AchievementDataCriteriaTree): AchievementDataAccount {
     const ctMap = get(achievementStore).data.criteriaTree
     const userCrits = get(userAchievementStore).data.criteria
 
