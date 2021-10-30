@@ -32,6 +32,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         }
 
         userData.allLockouts = []
+        userData.allLockoutsMap = {}
         for (const instanceDifficulty of keys(allLockouts)) {
             const [instanceId, difficultyId] = instanceDifficulty.split('-')
             const difficulty = difficultyMap[difficultyId]
@@ -42,6 +43,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
                     instanceId: parseInt(instanceId),
                     key: instanceDifficulty,
                 })
+                userData.allLockoutsMap[instanceDifficulty] = userData.allLockouts[userData.allLockouts.length - 1]
             }
             else {
                 console.log({instanceId, difficultyId, difficulty})
