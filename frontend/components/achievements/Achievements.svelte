@@ -1,7 +1,7 @@
 <script lang="ts">
     import { onMount } from 'svelte'
 
-    import { achievementStore, userAchievementStore } from '@/stores'
+    import { achievementStore, userAchievementStore, userQuestStore } from '@/stores'
 
     import AchievementsCategory from './AchievementsCategory.svelte'
     import AchievementsSidebar from './AchievementsSidebar.svelte'
@@ -13,15 +13,18 @@
     }
 
     // Fetch achievement data once when this component is mounted
-    onMount(async () => await achievementStore.fetch())
-    onMount(async () => await userAchievementStore.fetch())
+    onMount(async () => await Promise.all([
+        achievementStore.fetch(),
+        userAchievementStore.fetch(),
+        userQuestStore.fetch(),
+    ]))
 
     let error: boolean
     let loaded: boolean
     let ready: boolean
     $: {
-        error = $achievementStore.error || $userAchievementStore.error
-        loaded = $achievementStore.loaded && $userAchievementStore.loaded
+        error = $achievementStore.error || $userAchievementStore.error || $userQuestStore.error
+        loaded = $achievementStore.loaded && $userAchievementStore.loaded && $userQuestStore.loaded
         ready = (!error && loaded && $userAchievementStore.data.achievementCategories !== null)
         if (!error && loaded) {
             userAchievementStore.setup()

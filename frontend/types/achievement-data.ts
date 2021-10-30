@@ -1,5 +1,6 @@
-import type { Dictionary } from '@/types'
 import { AchievementFlags, CriteriaTreeFlags } from '@/types/enums'
+import type { Dictionary } from '@/types'
+import type { CriteriaType } from '@/types/enums/criteria-type'
 
 
 export interface AchievementData {
@@ -56,7 +57,7 @@ export class AchievementDataCriteria {
         public id: number,
         public asset: number,
         public modifierTreeId: number,
-        public type: number,
+        public type: CriteriaType,
     )
     { }
 }
