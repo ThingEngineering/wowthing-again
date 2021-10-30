@@ -71,6 +71,7 @@ namespace Wowthing.Lib.Models
             "gold",
             "itemLevel",
             "keystone",
+            "lockouts",
             "mountSpeed",
             "playedTime",
             "statusIcons",
@@ -167,6 +168,7 @@ namespace Wowthing.Lib.Models
     {
         public List<string> CommonFields { get; set; } = new();
         public List<string> HomeFields { get; set; } = new();
+        public List<int> HomeLockouts { get; set; } = new();
     }
 
     public class ApplicationUserSettingsPrivacy

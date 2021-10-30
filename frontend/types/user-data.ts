@@ -13,6 +13,7 @@ export interface UserData {
 
     // Calculated
     allLockouts: InstanceDifficulty[]
+    allLockoutsMap: Record<string, InstanceDifficulty>
     characterMap: Dictionary<Character>
 }
 

@@ -13,6 +13,7 @@ export interface Settings {
     layout: {
         commonFields: string[]
         homeFields: string[]
+        homeLockouts: number[]
     }
 
     privacy: {

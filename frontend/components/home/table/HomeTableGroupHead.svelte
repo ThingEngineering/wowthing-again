@@ -6,6 +6,7 @@
     import type {Character} from '@/types'
 
     import HeadCovenant from './head/HomeTableHeadCovenant.svelte'
+    import HeadLockouts from './head/HomeTableHeadLockouts.svelte'
     import HeadMount from './head/HomeTableHeadMount.svelte'
     import HeadTorghast from './head/HomeTableHeadTorghast.svelte'
     import RowGold from './row/HomeTableRowGold.svelte'
@@ -49,6 +50,11 @@
         {:else if field === 'keystone'}
             {#if !isPublic || $settings.privacy.publicMythicPlus}
                 <td>Keystone</td>
+            {/if}
+
+        {:else if field === 'lockouts'}
+            {#if !isPublic || $settings.privacy.publicLockouts}
+                <HeadLockouts />
             {/if}
 
         {:else if field === 'mountSpeed'}
