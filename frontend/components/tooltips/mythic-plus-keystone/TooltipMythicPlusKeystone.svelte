@@ -43,7 +43,7 @@
     <h4>{character.name} - M+ Keystone</h4>
     <table class="table-striped">
         <tbody>
-            {#if character.weekly?.keystoneLevel}
+            {#if dungeon && character.weekly?.keystoneLevel}
                 <tr>
                     <td>
                         {dungeon.name}
