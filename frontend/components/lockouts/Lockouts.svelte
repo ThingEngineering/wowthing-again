@@ -5,14 +5,12 @@
     import { data as settingsData } from '@/stores/settings'
     import type { Character, InstanceDifficulty, StaticDataInstance } from '@/types'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
+    import toDigits from '@/utils/to-digits'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
     import HeadInstance from './LockoutsTableHeadInstance.svelte'
     import RowLockout from './LockoutsTableRowLockout.svelte'
-    import toDigits from '../../utils/to-digits'
-    import { Difficulty } from '@/types'
-    import { difficultyMap } from '../../data/difficulty'
 
     const filterFunc = function(char: Character): boolean {
         return char.level > 10
