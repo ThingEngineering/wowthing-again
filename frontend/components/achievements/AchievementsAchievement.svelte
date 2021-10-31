@@ -79,7 +79,8 @@
         grid-template-areas:
             "icon     info"
             ".        chain"
-            "criteria criteria";
+            "criteria criteria"
+            "progress progress";
         grid-template-columns: calc(50px + 0.5rem) auto;
         margin-bottom: 0.5rem;
         padding: 0.5rem;
@@ -93,13 +94,25 @@
         &.faction-1 {
             --image-border-color: #{$neutral-border};
         }
+
+        :global(a) {
+            grid-area: icon;
+            position: relative;
+
+            :global(span) {
+                color: #fff;
+                left: 25px;
+                top: 30px;
+            }
+        }
     }
+
     .info {
         display: grid;
         grid-area: info;
         grid-template-areas:
-            "name points"
-            "desc earned";
+            "name earned"
+            "desc desc";
         grid-template-columns: auto 5.5rem;
         grid-template-rows: 1.5rem auto;
     }
@@ -108,11 +121,6 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-    }
-    .points {
-        grid-area: points;
-        line-height: 1;
-        text-align: right;
     }
     .earned {
         grid-area: earned;
@@ -152,16 +160,16 @@
     <div class="thing-container faction{faction}" class:completed={earned}>
         <AchievementLink id={achievementId}>
             <WowthingImage name="achievement/{achievementId}" size={48} border={1} />
+
+            {#if achievement.points > 0}
+                <span class="pill points">{achievement.points}</span>
+            {/if}
         </AchievementLink>
 
         <div class="info">
             <h3>{achievement.name}</h3>
 
             <p class="description">{achievement.description}</p>
-
-            {#if achievement.points > 0}
-                <span class="points">{achievement.points} points</span>
-            {/if}
 
             {#if earned}
                 <span class="earned">{earnedDate.toLocaleDateString()}</span>

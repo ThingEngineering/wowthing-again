@@ -34,10 +34,10 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
             }
 
             const criteriaDict: Dictionary<AchievementDataCriteria> = {}
-            /*for (const rawCriteria of achievementData.criteriaRaw) {
+            for (const rawCriteria of achievementData.criteriaRaw) {
                 const obj = new AchievementDataCriteria(...rawCriteria)
                 criteriaDict[obj.id] = obj
-            }*/
+            }
 
             const criteriaTreeDict: Dictionary<AchievementDataCriteriaTree> = {}
             for (const rawCriteriaTree of achievementData.criteriaTreeRaw) {

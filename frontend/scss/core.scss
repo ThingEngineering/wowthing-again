@@ -152,3 +152,16 @@ div.content {
     pointer-events: none;
     word-spacing: -0.2ch;
 }
+
+.pill {
+    background-color: $highlight-background;
+    border: 1px solid $border-color;
+    border-radius: $border-radius-small;
+    left: 50%;
+    line-height: 1;
+    padding: 0 2px 1px 2px;
+    pointer-events: none;
+    position: absolute;
+    transform: translateX(-50%);
+    white-space: nowrap;
+}

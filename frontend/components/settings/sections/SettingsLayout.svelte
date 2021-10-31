@@ -22,6 +22,7 @@
         {key: 'covenant', name: 'Covenant'},
         {key: 'itemLevel', name: 'Item level'},
         {key: 'keystone', name: 'Mythic+ keystone'},
+        {key: 'lockouts', name: 'Lockouts'},
         {key: 'mountSpeed', name: 'Mount speed'},
         {key: 'playedTime', name: 'Played time'},
         {key: 'statusIcons', name: 'Status icons'},

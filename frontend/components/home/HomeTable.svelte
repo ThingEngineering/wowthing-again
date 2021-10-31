@@ -9,6 +9,7 @@
     import RowGold from './table/row/HomeTableRowGold.svelte'
     import RowItemLevel from '@/components/character-table/row/ItemLevel.svelte'
     import RowKeystone from '@/components/character-table/row/Keystone.svelte'
+    import RowLockouts from './table/row/HomeTableRowLockouts.svelte'
     import RowMountSpeed from './table/row/HomeTableRowMountSpeed.svelte'
     import RowPlayedTime from './table/row/HomeTableRowPlayedTime.svelte'
     import RowStatuses from './table/row/HomeTableRowStatuses.svelte'
@@ -47,6 +48,11 @@
             {:else if field === 'keystone'}
                 {#if !isPublic || $settings.privacy.publicMythicPlus}
                     <RowKeystone {character} />
+                {/if}
+
+            {:else if field === 'lockouts'}
+                {#if !isPublic || $settings.privacy.publicLockouts}
+                    <RowLockouts {character} />
                 {/if}
 
             {:else if field === 'playedTime'}
