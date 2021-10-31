@@ -6,7 +6,7 @@
 
     import ClassIcon from '@/components/images/ClassIcon.svelte'
     import CovenantIcon from '@/components/images/CovenantIcon.svelte'
-    import TransmogTableSet from './TransmogSetsTableSet.svelte'
+    import TransmogTableSet from './AppearancesTableSet.svelte'
 
     export let category: TransmogDataCategory
     export let setKey: string

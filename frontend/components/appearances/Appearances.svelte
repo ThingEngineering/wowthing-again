@@ -3,15 +3,15 @@
 
     import getSavedRoute from '@/utils/get-saved-route'
 
-    import Sidebar from './TransmogSetsSidebar.svelte'
-    import Table from './TransmogSetsTable.svelte'
+    import Sidebar from './AppearancesSidebar.svelte'
+    import Table from './AppearancesTable.svelte'
 
     export let params: {
         slug1: string
         slug2: string
     }
 
-    afterUpdate(() => getSavedRoute('transmog-sets', params.slug1, params.slug2))
+    afterUpdate(() => getSavedRoute('appearances', params.slug1, params.slug2))
 </script>
 
 <style lang="scss">

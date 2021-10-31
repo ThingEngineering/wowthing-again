@@ -8,7 +8,7 @@
     import getPercentClass from '@/utils/get-percent-class'
     import {tippyComponent} from '@/utils/tippy'
 
-    import TooltipTransmog from '@/components/tooltips/transmog/TooltipTransmog.svelte'
+    import TooltipAppearanceSet from '@/components/tooltips/appearance-set/TooltipAppearanceSet.svelte'
     import WowheadTransmogSetLink from '@/components/links/WowheadTransmogSetLink.svelte'
 
     export let set: TransmogDataGroupData
@@ -51,7 +51,7 @@
         class="{getPercentClass(percent)}"
         colspan="{span}"
         use:tippyComponent={{
-            component: TooltipTransmog,
+            component: TooltipAppearanceSet,
             props: {set, slotHave, subType},
             tippyProps: {placement: 'top-end'},
         }}
