@@ -14,6 +14,7 @@
 
     let error: boolean
     let loaded: boolean
+    let ready: boolean
     $: {
         error = $staticStore.error || $userCollectionStore.error || $userStore.error
         loaded = $staticStore.loaded && $userCollectionStore.loaded && $userStore.loaded
@@ -23,6 +24,7 @@
                 $staticStore.data,
                 $userCollectionStore.data,
             )
+            ready = true
         }
     }
 </script>
@@ -33,7 +35,7 @@
 
 {#if error}
     <p>KABOOM! Something has gone horribly wrong, try reloading the page?</p>
-{:else if !loaded}
+{:else if !ready}
     <p>L O A D I N G</p>
 {:else}
     <Sidebar />
