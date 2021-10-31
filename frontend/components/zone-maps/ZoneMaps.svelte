@@ -22,22 +22,8 @@
 
     let loaded: boolean
     $: {
-        loaded = $transmogStore.loaded &&
-            $userCollectionStore.loaded &&
-            $userQuestStore.loaded &&
-            $userStore.loaded &&
-            $userTransmogStore.loaded &&
+        loaded = $userQuestStore.loaded &&
             $zoneMapStore.loaded
-    }
-
-    $: {
-        if (loaded) {
-            userTransmogStore.setup(
-                $settings,
-                $transmogStore.data,
-                $userTransmogStore.data,
-            )
-        }
     }
 
     $: {
@@ -57,9 +43,7 @@
     }
 
     onMount(async () => await Promise.all([
-        transmogStore.fetch(),
         userQuestStore.fetch(),
-        userTransmogStore.fetch(),
         zoneMapStore.fetch(),
     ]))
 
