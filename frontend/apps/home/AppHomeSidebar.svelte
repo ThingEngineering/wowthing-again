@@ -1,7 +1,7 @@
 <script lang="ts">
     import active from 'svelte-spa-router/active'
 
-    import { userCollectionStore, userStore } from '@/stores'
+    import { userCollectionStore, userStore, userTransmogStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
 
     import Sidebar from '@/components/common/Sidebar.svelte'
@@ -9,14 +9,17 @@
     let mountsPercent: number
     let petsPercent: number
     let toysPercent: number
+    let transmogPercent: number
     $: {
         const mountsOverall = $userCollectionStore.data.setCounts['mounts']['OVERALL']
         const petsOverall = $userCollectionStore.data.setCounts['pets']['OVERALL']
         const toysOverall = $userCollectionStore.data.setCounts['toys']['OVERALL']
+        const transmogOverall = $userTransmogStore.data.has['OVERALL']
 
         mountsPercent = mountsOverall.have / mountsOverall.total * 100
         petsPercent = petsOverall.have / petsOverall.total * 100
         toysPercent = toysOverall.have / toysOverall.total * 100
+        transmogPercent = transmogOverall.have / transmogOverall.total * 100
     }
 
     const fancyPercent = (percent: number): string => {
@@ -66,6 +69,11 @@
     </li>
 
     <li class="separator"></li>
+
+    <li use:active={'/appearances/*'}>
+        <a href="#/appearances/">Appearances</a>
+        <span class="drop-shadow percent {getPercentClass(transmogPercent)}">{fancyPercent(transmogPercent)} %</span>
+    </li>
     <li use:active={'/mounts/*'}>
         <a href="#/mounts/">Mounts</a>
         <span class="drop-shadow percent {getPercentClass(mountsPercent)}">{fancyPercent(mountsPercent)} %</span>
@@ -81,9 +89,6 @@
 
     <li class="separator"></li>
 
-    <li use:active={'/transmog-sets/*'}>
-        <a href="#/transmog-sets/">Transmog Sets</a>
-    </li>
     <li use:active={'/zone-maps/*'}>
         <a href="#/zone-maps/">Zone Maps</a>
     </li>

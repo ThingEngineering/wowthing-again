@@ -2,6 +2,7 @@
     import Router from 'svelte-spa-router'
 
     import Achievements from '@/components/achievements/Achievements.svelte'
+    import Appearances from '@/components/appearances/Appearances.svelte'
     import Currencies from '@/components/currencies/Currencies.svelte'
     import Gear from '@/components/gear/Gear.svelte'
     import HomeCards from '@/components/home/HomeCards.svelte'
@@ -15,7 +16,6 @@
     import Settings from '@/components/settings/Settings.svelte'
     import Teams from '@/components/teams/Teams.svelte'
     import Toys from '@/components/collections/Toys.svelte'
-    import TransmogSets from '@/components/transmog-sets/TransmogSets.svelte'
     import ZoneMaps from '@/components/zone-maps/ZoneMaps.svelte'
 
     const routes = {
@@ -24,13 +24,13 @@
         '/table': HomeTable,
 
         '/achievements/:slug1?/:slug2?': Achievements,
+        '/appearances/:slug1?/:slug2?': Appearances,
         '/currencies/:slug?': Currencies,
         '/gear/*': Gear,
         '/lockouts': Lockouts,
         '/mythic-plus/:slug?': MythicPlus,
         '/progress/:slug?': Progress,
         '/reputations/:slug?': Reputations,
-        '/transmog-sets/:slug1?/:slug2?': TransmogSets,
         '/zone-maps/:slug1?/:slug2?': ZoneMaps,
 
         '/mounts/:slug1?/:slug2?': Mounts,

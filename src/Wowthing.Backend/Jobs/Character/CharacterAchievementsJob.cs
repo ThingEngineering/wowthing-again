@@ -43,7 +43,7 @@ namespace Wowthing.Backend.Jobs.Character
             achievements.AchievementTimestamps = new List<int>();
 
             // Parse API data
-            var criteria = new Dictionary<int, long>();
+            var criteria = new Dictionary<int, (long, bool)>();
             foreach (var dataAchievement in result.Data.Achievements.EmptyIfNull())
             {
                 if (dataAchievement.CompletedTimestamp.HasValue)
@@ -53,10 +53,10 @@ namespace Wowthing.Backend.Jobs.Character
                     achievements.AchievementTimestamps.Add((int)(dataAchievement.CompletedTimestamp / 1000));
                 }
 
-                if (dataAchievement.Criteria?.Amount.HasValue ?? false)
-                {
-                    criteria[dataAchievement.Criteria.Id] = (long)dataAchievement.Criteria.Amount.Value;
-                }
+                criteria[dataAchievement.Criteria.Id] = (
+                    (long)(dataAchievement.Criteria.Amount ?? 0),
+                    dataAchievement.Criteria.IsCompleted
+                );
 
                 RecurseCriteria(criteria, dataAchievement.Criteria?.ChildCriteria);
             }
@@ -64,20 +64,27 @@ namespace Wowthing.Backend.Jobs.Character
             var sortedCriteria = criteria
                 .OrderBy(kvp => kvp.Key)
                 .ToArray();
-            achievements.CriteriaIds = sortedCriteria.Select(kvp => kvp.Key).ToList();
-            achievements.CriteriaAmounts = sortedCriteria.Select(kvp => kvp.Value).ToList();
+            achievements.CriteriaIds = sortedCriteria
+                .Select(kvp => kvp.Key)
+                .ToList();
+            achievements.CriteriaAmounts = sortedCriteria
+                .Select(kvp => kvp.Value.Item1)
+                .ToList();
+            achievements.CriteriaCompleted = sortedCriteria
+                .Select(kvp => kvp.Value.Item2)
+                .ToList();
 
             await Context.SaveChangesAsync();
         }
 
-        private static void RecurseCriteria(Dictionary<int, long> criteriaAmounts, List<ApiCharacterAchievementsCriteriaChild> childCriteria)
+        private static void RecurseCriteria(Dictionary<int, (long, bool)> criteriaAmounts, List<ApiCharacterAchievementsCriteriaChild> childCriteria)
         {
             foreach (var child in childCriteria.EmptyIfNull())
             {
-                if (child.Amount.HasValue)
-                {
-                    criteriaAmounts[child.Id] = (long)child.Amount.Value;
-                }
+                criteriaAmounts[child.Id] = (
+                    (long)(child.Amount ?? 0),
+                    child.IsCompleted
+                );
                 RecurseCriteria(criteriaAmounts, child.ChildCriteria);
             }
         }

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { achievementStore, userAchievementStore, userQuestStore } from '@/stores'
+    import { achievementStore, userAchievementStore, userQuestStore, userStore } from '@/stores'
     import type {AchievementDataAchievement, AchievementDataCriteriaTree} from '@/types'
     import { getCharacterNameRealm } from '@/utils/get-character-name-realm'
     import { AchievementDataCharacter, getCharacterData } from '@/utils/achievements'
@@ -17,16 +17,10 @@
         data = getCharacterData(
             $achievementStore.data,
             $userAchievementStore.data,
+            $userStore.data,
             $userQuestStore.data,
             achievement
         )
-
-        if (achievement.id === 12074) {
-            console.log('-- CHARACTER --')
-            console.log(achievement)
-            console.log(criteriaTree)
-            console.log(data)
-        }
     }
 </script>
 
@@ -75,7 +69,7 @@
                 <ProgressBar
                     title="{getCharacterNameRealm(characterId)}"
                     have={count}
-                    total={data.criteriaTrees.length}
+                    total={data.total}
                 />
             {/each}
         </div>
