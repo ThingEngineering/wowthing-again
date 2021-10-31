@@ -19,9 +19,10 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
     setup(settings: Settings, transmogData: TransmogData, userTransmogData: UserTransmogData): void {
         console.time('UserTransmogDataStore.setup')
 
-        const has: Dictionary<UserTransmogDataHas> = {}
-
         const skipClasses = getSkipClasses(settings)
+
+        const has: Dictionary<UserTransmogDataHas> = {}
+        const overallData = has['OVERALL'] = new UserTransmogDataHas(0, 0)
 
         for (const baseSet of transmogData.sets) {
             if (baseSet === null) {
@@ -47,12 +48,14 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
                             const groupSigh = dataValue[groupIndex]
                             const slotKeys = keys(groupSigh.items)
 
+                            overallData.total += slotKeys.length
                             baseData.total += slotKeys.length
                             setData.total += slotKeys.length
 
                             for (const slotKey of slotKeys) {
                                 for (const transmogId of groupSigh.items[slotKey]) {
                                     if (userTransmogData.transmog[transmogId]) {
+                                        overallData.have++
                                         baseData.have++
                                         setData.have++
                                         break
@@ -64,6 +67,8 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
                 }
             }
         }
+
+        console.log(has)
 
         this.update((state) => {
             state.data.has = has

@@ -1,29 +1,54 @@
 <script lang="ts">
     import { onMount } from 'svelte'
 
-    import { staticStore, userCollectionStore, userStore } from '@/stores'
+    import {
+        staticStore,
+        transmogStore,
+        userCollectionStore,
+        userStore,
+        userTransmogStore,
+    } from '@/stores'
+    import { data as settings } from '@/stores/settings'
 
     import Routes from './AppHomeRoutes.svelte'
     import Sidebar from './AppHomeSidebar.svelte'
 
     onMount(async () => await Promise.all([
         staticStore.fetch(),
+        transmogStore.fetch(),
         userCollectionStore.fetch(),
         userStore.fetch(),
+        userTransmogStore.fetch(),
     ]))
 
     let error: boolean
     let loaded: boolean
     let ready: boolean
     $: {
-        error = $staticStore.error || $userCollectionStore.error || $userStore.error
-        loaded = $staticStore.loaded && $userCollectionStore.loaded && $userStore.loaded
+        error = $staticStore.error
+            || $transmogStore.error
+            || $userCollectionStore.error
+            || $userStore.error
+            || $userTransmogStore.error
+
+        loaded = $staticStore.loaded
+            && $transmogStore.loaded
+            && $userCollectionStore.loaded
+            && $userStore.loaded
+            && $userTransmogStore.loaded
 
         if (loaded) {
             userCollectionStore.setup(
                 $staticStore.data,
                 $userCollectionStore.data,
             )
+
+            userTransmogStore.setup(
+                $settings,
+                $transmogStore.data,
+                $userTransmogStore.data,
+            )
+
             ready = true
         }
     }
