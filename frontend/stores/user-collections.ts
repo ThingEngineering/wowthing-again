@@ -19,15 +19,22 @@ export class UserCollectionDataStore extends WritableFancyStore<UserCollectionDa
         staticData: StaticData,
         userCollectionData: UserCollectionData
     ): void {
-        if (!userCollectionData.mountsPacked || !userCollectionData.toysPacked) {
+        if (userCollectionData.mountsPacked === null && userCollectionData.toysPacked === null) {
             return
         }
         
         console.time('UserCollectionDataStore.setup')
 
+        let mounts: Dictionary<boolean> = {}
+        let toys: Dictionary<boolean> = {}
+
         // Unpack packed data
-        const mounts = base64ToDictionary(TypedArray.Uint16, userCollectionData.mountsPacked)
-        const toys = base64ToDictionary(TypedArray.Int32, userCollectionData.toysPacked)
+        if (userCollectionData.mountsPacked) {
+            mounts = base64ToDictionary(TypedArray.Uint16, userCollectionData.mountsPacked)
+        }
+        if (userCollectionData.toysPacked) {
+            const toys = base64ToDictionary(TypedArray.Int32, userCollectionData.toysPacked)
+        }
 
         // Generate set counts
         const setCounts = {
