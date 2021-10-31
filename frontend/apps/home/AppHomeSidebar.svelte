@@ -69,6 +69,11 @@
     </li>
 
     <li class="separator"></li>
+
+    <li use:active={'/appearances/*'}>
+        <a href="#/appearances/">Appearances</a>
+        <span class="drop-shadow percent {getPercentClass(transmogPercent)}">{fancyPercent(transmogPercent)} %</span>
+    </li>
     <li use:active={'/mounts/*'}>
         <a href="#/mounts/">Mounts</a>
         <span class="drop-shadow percent {getPercentClass(mountsPercent)}">{fancyPercent(mountsPercent)} %</span>
@@ -84,10 +89,6 @@
 
     <li class="separator"></li>
 
-    <li use:active={'/transmog-sets/*'}>
-        <a href="#/transmog-sets/">Transmogs</a>
-        <span class="drop-shadow percent {getPercentClass(transmogPercent)}">{fancyPercent(transmogPercent)} %</span>
-    </li>
     <li use:active={'/zone-maps/*'}>
         <a href="#/zone-maps/">Zone Maps</a>
     </li>

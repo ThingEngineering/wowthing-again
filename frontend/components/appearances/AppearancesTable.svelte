@@ -8,7 +8,7 @@
     import type {TransmogDataCategory} from '@/types/data'
     import getSkipClasses from '@/utils/get-skip-classes'
 
-    import TransmogTableCategory from './TransmogSetsTableCategory.svelte'
+    import Category from './AppearancesTableCategory.svelte'
 
     export let slug1: string
     export let slug2: string
@@ -37,7 +37,7 @@
     <table class="table table-striped character-table">
         <tbody>
             {#each categories as category, categoryIndex}
-                <TransmogTableCategory
+                <Category
                     {category}
                     {setKey}
                     {skipClasses}
