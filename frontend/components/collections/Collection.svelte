@@ -3,7 +3,6 @@
 
     import type { Dictionary, MultiSlugParams, StaticDataSetCategory } from '@/types'
     import type { CollectionContext } from '@/types/contexts'
-    import { userCollectionStore } from '@/stores'
     import getSavedRoute from '@/utils/get-saved-route'
 
     import CollectionSection from './CollectionSection.svelte'
