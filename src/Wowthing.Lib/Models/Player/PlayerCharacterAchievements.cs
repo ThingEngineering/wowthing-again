@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -14,5 +15,6 @@ namespace Wowthing.Lib.Models.Player
         public List<int> AchievementTimestamps { get; set; }
         public List<int> CriteriaIds { get; set; }
         public List<long> CriteriaAmounts { get; set; }
+        public List<bool> CriteriaCompleted { get; set; }
     }
 }
