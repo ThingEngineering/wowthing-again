@@ -33,7 +33,7 @@ export class UserCollectionDataStore extends WritableFancyStore<UserCollectionDa
             mounts = base64ToDictionary(TypedArray.Uint16, userCollectionData.mountsPacked)
         }
         if (userCollectionData.toysPacked) {
-            const toys = base64ToDictionary(TypedArray.Int32, userCollectionData.toysPacked)
+            toys = base64ToDictionary(TypedArray.Int32, userCollectionData.toysPacked)
         }
 
         // Generate set counts
