@@ -11,7 +11,7 @@ import type { UserQuestData } from '@/types/data'
 import { CriteriaType } from '@/types/enums/criteria-type'
 
 
-const debugId = 12944
+const debugId = 14307
 
 export function getCharacterData(
     achievementData: AchievementData,
@@ -32,15 +32,14 @@ export function getCharacterData(
 
     function recurse(
         criteriaTree: AchievementDataCriteriaTree,
-        addTotal = true,
+        addStuff = true,
         first = false,
     ) {
         //const criteriaTree = achievementData.criteriaTree[criteriaTreeId]
         const criteria = achievementData.criteria[criteriaTree.criteriaId]
 
-        if (addTotal && criteriaTree.amount > 0) {
+        if (addStuff && criteriaTree.amount > 0) {
             ret.total += criteriaTree.amount
-            addTotal = false
         }
 
         if (!first) {
@@ -58,11 +57,17 @@ export function getCharacterData(
                 console.log(characterId, userData.characterMap[characterId].name, count)
             }
 
-            characterCounts[characterId] = (characterCounts[characterId] || 0) + Math.min(criteriaTree.amount, count)
+            if (addStuff) {
+                characterCounts[characterId] = (characterCounts[characterId] || 0) + Math.min(criteriaTree.amount, count)
+            }
+        }
+
+        if (addStuff && criteriaTree.amount > 0) {
+            addStuff = false
         }
 
         for (const criteriaTreeId of criteriaTree.children) {
-            recurse(achievementData.criteriaTree[criteriaTreeId], addTotal)
+            recurse(achievementData.criteriaTree[criteriaTreeId], addStuff)
         }
     }
 
