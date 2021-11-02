@@ -38,6 +38,10 @@ groups:
   things:
   - 270564 # Dawnforge Ram
 
+- name: Lightforged Draenei Paladin
+  things:
+  - 363613 # Lightforged Ruinstrider
+
 - name: Tauren Paladin
   things:
   - 69820 # Sunwalker Kodo (Tauren Paladin)
