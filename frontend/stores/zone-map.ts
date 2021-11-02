@@ -114,7 +114,7 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                         const dropStatus: DropStatus = {
                             need: false,
                             skip: false,
-                            validCharacters: false,
+                            validCharacters: true,
                             characterIds: [],
                             completedCharacterIds: [],
                         }

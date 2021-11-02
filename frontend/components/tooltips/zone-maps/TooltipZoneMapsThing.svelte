@@ -114,7 +114,7 @@
         <tbody>
             {#each sortedDrops as [drop, dropStatus], sortedIndex}
                 <tr
-                    class:success={!dropStatus.need || !dropStatus.validCharacters}
+                    class:success={!dropStatus.need || !dropStatus.validCharacters || dropStatus.skip}
                 >
                     <td class="type status-{dropStatus.need ? 'fail' : 'success'}">
                         {#if drop.type === 'transmog' && drop.limit?.[0] && drop.limit?.[0] !== 'covenant'}
@@ -138,8 +138,8 @@
                     </td>
                 </tr>
 
-                {#if dropStatus.need && showCharacters(dropStatus, sortedDrops[sortedIndex+1])}
-                    {#if dropStatus.validCharacters}
+                {#if dropStatus.need && !dropStatus.skip}
+                    {#if showCharacters(dropStatus, sortedDrops[sortedIndex+1])}
                         <tr>
                             <td></td>
                             <td class="characters" colspan="2">
@@ -159,7 +159,7 @@
                                 {/each}
                             </td>
                         </tr>
-                    {:else}
+                    {:else if !dropStatus.validCharacters}
                         <tr class="status-fail">
                             <td></td>
                             <td class="characters" colspan="2">
@@ -173,8 +173,8 @@
                             <td></td>
                             <td class="characters note" colspan="2">
                                 <IconifyIcon
-                                    icon={mdiMessageBulleted}
-                                    scale="0.9"
+                                        icon={mdiMessageBulleted}
+                                        scale="0.9"
                                 />
                                 {drop.note}
                             </td>
