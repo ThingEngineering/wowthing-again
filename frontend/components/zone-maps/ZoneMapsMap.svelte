@@ -47,24 +47,30 @@
         position: relative;
     }
     .toggles {
-        display: flex;
-        justify-content: center;
-        left: 0;
-        position: absolute;
-        top: 1px;
-        width: 100%;
-        z-index: 1;
-    }
-    button {
         background: $highlight-background;
         border: 1px solid $border-color;
         border-radius: $border-radius;
+        display: flex;
+        justify-content: center;
+        left: 50%;
+        padding: 0.2rem 0.3rem;
+        position: absolute;
+        top: 1px;
+        transform: translateX(-50%);
+        z-index: 1;
+
+        & :global(fieldset:not(:first-child)) {
+            margin-left: 0.3rem;
+        }
     }
     .credits {
         bottom: 1px;
         display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        padding: 0 1px;
         position: absolute;
-        right: 1px;
+        width: 100%;
         z-index: 1;
 
         div {
@@ -79,40 +85,30 @@
 {#if categories.length > 0 && farmStatuses}
     <div class="farm">
         <div class="toggles">
-            <button>
-                <CheckboxInput
-                    name="track_mounts"
-                    bind:value={$zoneMapState.trackMounts}
-                >Track mounts</CheckboxInput>
-            </button>
+            <CheckboxInput
+                name="track_mounts"
+                bind:value={$zoneMapState.trackMounts}
+            >Mounts</CheckboxInput>
 
-            <button>
-                <CheckboxInput
-                    name="track_pets"
-                    bind:value={$zoneMapState.trackPets}
-                >Track pets</CheckboxInput>
-            </button>
+            <CheckboxInput
+                name="track_pets"
+                bind:value={$zoneMapState.trackPets}
+            >Pets</CheckboxInput>
 
-            <button>
-                <CheckboxInput
-                        name="track_quests"
-                        bind:value={$zoneMapState.trackQuests}
-                >Track quests</CheckboxInput>
-            </button>
+            <CheckboxInput
+                    name="track_quests"
+                    bind:value={$zoneMapState.trackQuests}
+            >Quests</CheckboxInput>
 
-            <button>
-                <CheckboxInput
-                    name="track_toys"
-                    bind:value={$zoneMapState.trackToys}
-                >Track toys</CheckboxInput>
-            </button>
+            <CheckboxInput
+                name="track_toys"
+                bind:value={$zoneMapState.trackToys}
+            >Toys</CheckboxInput>
 
-            <button>
-                <CheckboxInput
-                    name="track_transmog"
-                    bind:value={$zoneMapState.trackTransmog}
-                >Track transmog</CheckboxInput>
-            </button>
+            <CheckboxInput
+                name="track_transmog"
+                bind:value={$zoneMapState.trackTransmog}
+            >Transmog</CheckboxInput>
         </div>
 
         <Image
@@ -131,12 +127,6 @@
         {/each}
 
         <div class="credits">
-            {#if categories[0].wowheadGuide}
-                <div>
-                    <a href="{categories[0].wowheadGuide}">Wowhead guide</a>
-                </div>
-            {/if}
-
             <div>
                 Data sources:
                 <a href="https://github.com/zarillion/handynotes-plugins">HandyNotes Plugins</a> /
@@ -144,6 +134,12 @@
                 <a href="https://www.wowhead.com">Wowhead</a> /
                 <a href="https://wow.tools">WoW.tools</a>
             </div>
+
+            {#if categories[0].wowheadGuide}
+                <div>
+                    <a href="{categories[0].wowheadGuide}">Wowhead guide</a>
+                </div>
+            {/if}
         </div>
     </div>
 {/if}
