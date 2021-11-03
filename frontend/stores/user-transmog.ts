@@ -68,8 +68,6 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
             }
         }
 
-        console.log(has)
-
         this.update((state) => {
             state.data.has = has
             return state
