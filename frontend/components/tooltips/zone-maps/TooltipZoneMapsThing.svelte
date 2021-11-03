@@ -140,32 +140,36 @@
 
                 {#if dropStatus.need && !dropStatus.skip}
                     {#if showCharacters(dropStatus, sortedDrops[sortedIndex+1])}
-                        <tr>
-                            <td></td>
-                            <td class="characters" colspan="2">
-                                {#each sortBy(
-                                    dropStatus.characterIds
-                                        .map(c => $userStore.data.characterMap[c]),
-                                    c => c.name)
-                                as character}
-                                    <span class="class-{character.classId}">{character.name}</span>
-                                {/each}
-                                {#each sortBy(
-                                    dropStatus.completedCharacterIds
-                                        .map(c => $userStore.data.characterMap[c]),
-                                    c => c.name)
-                                as character}
-                                    <span class="completed class-{character.classId}">{character.name}</span>
-                                {/each}
-                            </td>
-                        </tr>
-                    {:else if !dropStatus.validCharacters}
-                        <tr class="status-fail">
-                            <td></td>
-                            <td class="characters" colspan="2">
-                                &lt;no valid characters&gt;
-                            </td>
-                        </tr>
+                        {#if dropStatus.characterIds.length >0 || dropStatus.completedCharacterIds.length > 0}
+                            <tr>
+                                <td></td>
+                                <td class="characters" colspan="2">
+                                    {#each sortBy(
+                                        dropStatus.characterIds
+                                            .map(c => $userStore.data.characterMap[c]),
+                                        c => c.name)
+                                    as character}
+                                        <span class="class-{character.classId}">{character.name}</span>
+                                    {/each}
+                                    {#each sortBy(
+                                        dropStatus.completedCharacterIds
+                                            .map(c => $userStore.data.characterMap[c]),
+                                        c => c.name)
+                                    as character}
+                                        <span class="completed class-{character.classId}">{character.name}</span>
+                                    {/each}
+                                </td>
+                            </tr>
+                        {/if}
+
+                        {#if !dropStatus.validCharacters}
+                            <tr class="status-fail">
+                                <td></td>
+                                <td class="characters" colspan="2">
+                                    &lt;no valid characters&gt;
+                                </td>
+                            </tr>
+                        {/if}
                     {/if}
 
                     {#if drop.note}
