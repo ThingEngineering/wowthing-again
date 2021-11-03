@@ -12,14 +12,10 @@
 
     export let slug: string
 
-    let category: StaticDataProgressCategory
-    let filterFunc: (char: Character) => boolean = null
-
+    let categories: StaticDataProgressCategory[]
     $: {
-        category = find($staticStore.data.progress, (c: StaticDataProgressCategory) => c.slug === slug)
-        if (category && slug === 'shadowlands') {
-            filterFunc = (c) => c.shadowlands?.covenantId > 0
-        }
+        categories = find($staticStore.data.progress, (p) => p !== null && p[0].slug === slug)
+        console.log(categories)
     }
 </script>
 
@@ -27,14 +23,16 @@
 
 </style>
 
-<CharacterTable {filterFunc}>
+<CharacterTable>
     <CharacterTableHead slot="head">
         {#key slug}
             {#if slug === 'shadowlands'}
                 <th></th>
             {/if}
-            {#each category.groups as group}
-                <HeadProgress {group} />
+            {#each categories as category}
+                {#each category.groups as group}
+                    <HeadProgress {group} />
+                {/each}
             {/each}
         {/key}
     </CharacterTableHead>
@@ -44,8 +42,10 @@
             {#if slug === 'shadowlands'}
                 <RowCovenant {character} />
             {/if}
-            {#each category.groups as group}
-                <RowProgress {character} {group} />
+            {#each categories as category}
+                {#each category.groups as group}
+                    <RowProgress {character} {group} />
+                {/each}
             {/each}
         {/key}
     </svelte:fragment>
