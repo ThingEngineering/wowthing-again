@@ -1,11 +1,20 @@
 <script lang="ts">
     import { staticStore } from '@/stores/static'
+    import type { SidebarItem } from '@/types'
 
     import Sidebar from '@/components/sidebar/Sidebar.svelte'
+
+    let categories: SidebarItem[] = []
+    $: {
+        categories = $staticStore.data.progress.map((set) => set === null ? null : ({
+            children: [],
+            ...set[0],
+        }))
+    }
 </script>
 
 <Sidebar
     baseUrl="/progress"
-    items={$staticStore.data.progress}
+    items={categories}
     width="12rem"
 />

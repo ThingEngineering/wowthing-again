@@ -8,6 +8,7 @@ import { DateTime } from 'luxon'
 
 import { classMap, classSlugMap } from '@/data/character-class'
 import { covenantSlugMap } from '@/data/covenant'
+import { factionMap } from '@/data/faction'
 import { Settings, StaticData, UserData, UserDataSetCount, WritableFancyStore } from '@/types'
 import { ArmorType, PrimaryStat, WeaponType } from '@/types/enums'
 import { getNextDailyReset } from '@/utils/get-next-reset'
@@ -342,11 +343,6 @@ const armorMap: Record<string, ArmorType> = {
     leather: ArmorType.Leather,
     mail: ArmorType.Mail,
     plate: ArmorType.Plate,
-}
-
-const factionMap: Record<string, number> = {
-    alliance: 0,
-    horde: 1,
 }
 
 const statMap: Record<string, PrimaryStat> = {

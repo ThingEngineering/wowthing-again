@@ -2,7 +2,7 @@
     import find from 'lodash/find'
 
     import { staticStore } from '@/stores/static'
-    import type { Character, StaticDataProgressCategory } from '@/types'
+    import type { StaticDataProgressCategory } from '@/types'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
@@ -12,14 +12,9 @@
 
     export let slug: string
 
-    let category: StaticDataProgressCategory
-    let filterFunc: (char: Character) => boolean = null
-
+    let categories: StaticDataProgressCategory[]
     $: {
-        category = find($staticStore.data.progress, (c: StaticDataProgressCategory) => c.slug === slug)
-        if (category && slug === 'shadowlands') {
-            filterFunc = (c) => c.shadowlands?.covenantId > 0
-        }
+        categories = find($staticStore.data.progress, (p) => p !== null && p[0].slug === slug)
     }
 </script>
 
@@ -27,14 +22,16 @@
 
 </style>
 
-<CharacterTable {filterFunc}>
+<CharacterTable>
     <CharacterTableHead slot="head">
         {#key slug}
             {#if slug === 'shadowlands'}
                 <th></th>
             {/if}
-            {#each category.groups as group}
-                <HeadProgress {group} />
+            {#each categories as category}
+                {#each category.groups as group}
+                    <HeadProgress {group} />
+                {/each}
             {/each}
         {/key}
     </CharacterTableHead>
@@ -44,8 +41,10 @@
             {#if slug === 'shadowlands'}
                 <RowCovenant {character} />
             {/if}
-            {#each category.groups as group}
-                <RowProgress {character} {group} />
+            {#each categories as category}
+                {#each category.groups as group}
+                    <RowProgress {character} {group} />
+                {/each}
             {/each}
         {/key}
     </svelte:fragment>

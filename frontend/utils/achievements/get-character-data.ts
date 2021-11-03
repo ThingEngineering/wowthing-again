@@ -8,7 +8,6 @@ import type {
     UserData,
 } from '@/types'
 import type { UserQuestData } from '@/types/data'
-import { CriteriaType } from '@/types/enums/criteria-type'
 
 
 const debugId = 14307
