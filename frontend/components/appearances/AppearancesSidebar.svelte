@@ -1,15 +1,19 @@
 <script lang="ts">
-    import {transmogStore, userTransmogStore} from '@/stores'
-    import type {SidebarItem} from '@/types'
+    import { transmogStore, userTransmogStore } from '@/stores'
+    import type { SidebarItem, UserDataSetCount } from '@/types'
 
+    import ProgressBar from '@/components/common/ProgressBar.svelte'
     import Sidebar from '@/components/sidebar/Sidebar.svelte'
 
     let categories: SidebarItem[]
+    let overall: UserDataSetCount
     $: {
         categories = $transmogStore.data.sets.map((set) => set === null ? null : ({
             children: set.slice(1),
             ...set[0],
         }))
+
+        overall = $userTransmogStore.data.has['OVERALL']
     }
 
     const percentFunc = function(entry: SidebarItem, parentEntry?: SidebarItem) {
@@ -19,9 +23,23 @@
     }
 </script>
 
+<style lang="scss">
+    div {
+        margin-bottom: 0.75rem;
+    }
+</style>
+
 <Sidebar
     baseUrl="/appearances"
     items={categories}
     width="16rem"
     {percentFunc}
-/>
+>
+    <div slot="before">
+        <ProgressBar
+            title="Overall"
+            have={overall.have}
+            total={overall.total}
+        />
+    </div>
+</Sidebar>
