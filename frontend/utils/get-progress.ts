@@ -1,11 +1,9 @@
-import {get} from 'svelte/store'
+import type { Character, StaticDataProgressData, StaticDataProgressGroup } from '@/types'
+import { covenantMap } from '@/data/covenant'
+import { factionIdMap } from '@/data/faction'
+import type { UserQuestData } from '@/types/data'
 
-import type {Character, StaticDataProgressData, StaticDataProgressGroup} from '@/types'
-import {covenantMap} from '@/data/covenant'
-import {userQuestStore} from '@/stores'
-
-export default function getProgress(character: Character, group: StaticDataProgressGroup): ProgressInfo {
-    const userQuestData = get(userQuestStore).data
+export default function getProgress(userQuestData: UserQuestData, character: Character, group: StaticDataProgressGroup): ProgressInfo {
     let have = 0
     let total = 0
     let icon = ''
@@ -17,6 +15,10 @@ export default function getProgress(character: Character, group: StaticDataProgr
             if (datas) {
                 icon = covenantMap[character.shadowlands.covenantId].icon
             }
+            break
+
+        case 'faction':
+            datas = group.data[factionIdMap[character.faction]]
             break
 
         default:

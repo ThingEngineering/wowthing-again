@@ -4,8 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using MoreLinq;
-using MoreLinq.Extensions;
 using Newtonsoft.Json;
 using Wowthing.Backend.Jobs.NonBlizzard;
 using Wowthing.Backend.Models.Data;
@@ -205,18 +203,9 @@ namespace Wowthing.Backend.Jobs.Misc
             return sigh;
         }
 
-        private List<DataProgress> LoadProgress()
+        private List<List<DataProgress>> LoadProgress()
         {
-            var categories = new List<DataProgress>();
-
-            var basePath = Path.Join(DataUtilities.DataPath, "progress");
-            foreach (var line in File.ReadLines(Path.Join(basePath, "_order")))
-            {
-                var filePath = Path.Join(basePath, line);
-                categories.Add(_yaml.Deserialize<DataProgress>(File.OpenText(filePath)));
-            }
-
-            return categories;
+            return DataUtilities.LoadData<DataProgress>("progress", Logger);
         }
 
         private static async Task<SortedDictionary<int, (int, string)>> LoadMountDump()

@@ -4,7 +4,7 @@ export interface StaticData {
     currencies: Dictionary<StaticDataCurrency>
     currencyCategories: Dictionary<StaticDataCurrencyCategory>
     instances: Dictionary<StaticDataInstance>
-    progress: StaticDataProgressCategory[]
+    progress: StaticDataProgressCategory[][]
     realms: Dictionary<StaticDataRealm>
     reputations: Dictionary<StaticDataReputation>
     reputationTiers: Dictionary<StaticDataReputationTier>

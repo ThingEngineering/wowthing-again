@@ -1,8 +1,9 @@
 <script lang="ts">
-    import type { Character, StaticDataProgressData, StaticDataProgressGroup } from '@/types'
+    import { userQuestStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
     import getProgress from '@/utils/get-progress'
     import { tippyComponent } from '@/utils/tippy'
+    import type { Character, StaticDataProgressData, StaticDataProgressGroup } from '@/types'
 
     import TooltipProgress from '@/components/tooltips/progress/TooltipProgress.svelte'
 
@@ -13,7 +14,11 @@
     let have: number
     let total: number
     $: {
-        ({ datas, have, total } = getProgress(character, group))
+        ({ datas, have, total } = getProgress(
+            $userQuestStore.data,
+            character,
+            group,
+        ))
     }
 </script>
 

@@ -17,7 +17,7 @@ namespace Wowthing.Backend.Models.Redis
         [JsonProperty(Order = 2)]
         public SortedDictionary<int, OutInstance> Instances { get; set; }
         [JsonProperty(Order = 3)]
-        public List<DataProgress> Progress { get; set; }
+        public List<List<DataProgress>> Progress { get; set; }
         [JsonProperty(Order = 4)]
         public SortedDictionary<int, WowRealm> Realms { get; set; }
         [JsonProperty(Order = 5)]
