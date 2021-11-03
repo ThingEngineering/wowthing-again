@@ -8,7 +8,7 @@
     .progress-container {
         background: darken($thing-background, 3%);
         border: 1px solid $border-color;
-        border-radius: 1rem;
+        border-radius: $border-radius;
         margin-top: var(--progress-margin-top, 0);
         overflow: hidden;
         position: relative;
