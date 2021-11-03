@@ -15,11 +15,16 @@ groups:
   - 116440 # Burning Defender's Medallion
   - 116435 # Cozy Bonfire
   - 166746 # Fire Eater's Hearthstone
+  - 188701 # Fire Festival Batons
+  - 188699 # Insulated Dancing Insoles
   - 141649 # Set of Matches
+  - 188695 # Summer Cranial Skillet
 
 - name: Noblegarden
   things:
+  - 188698 # Eagger Basket
   - 165802 # Noble Gardener's Hearthstone
+  - 188694 # Spring Florist's Pouch
 
 - name: Timewalking
   things:
@@ -29,6 +34,7 @@ groups:
   - 129965 # Grizzlesnout's Fang (Wrath?)
   - 129952 # Hourglass of Eternity
   - 129926 # Mark of the Ashtongue
+  - 187591 # Nightborne Guard's Vigilance
   - 144393 # Portable Yak Wash (MoP?)
   - 133542 # Tosselwrench's Mega-Accurate Simulation Viewfinder
   - 151184 # Verdant Throwing Sphere (Cupri, Shattrah)

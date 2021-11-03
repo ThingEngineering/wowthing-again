@@ -58,6 +58,7 @@ world_events/_blank.yml
     world_events/world_events.yml
     world_events/argent_tournament.yml
     world_events/hallows_end.yml
+    world_events/timewalking.yml
 
 -
 

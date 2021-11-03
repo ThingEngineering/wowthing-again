@@ -1,18 +1,18 @@
 name: Drops
 groups:
 
-- name: Suramar
+- name: Highmountain
   things:
-  - 140314 # Crab Shank (Pinchshank, Suramar)
+  - 131900 # Majestic Elderhorn Hoof (Majestic Elderhorn, Highmountain)
 
 - name: Stormheim
   things:
   - 129113 # Faintly Glowing Flagon of Mead (Thane Irglov the Merciless, Stormheim)
   - 129045 # Whitewater Tsunami (Whitewater Typhoon, Stormheim)
 
-- name: Highmountain
+- name: Suramar
   things:
-  - 131900 # Majestic Elderhorn Hoof (Majestic Elderhorn, Highmountain)
+  - 140314 # Crab Shank (Pinchshank, Suramar)
 
 - name: "Val'sharah"
   things:
@@ -26,14 +26,14 @@ groups:
   - 153293 # Sightless Eye (Rezira the Seer, Antoran Wastes)
   - 153253 # S.F.E. Interceptor (Squadron Commander Vishax, Antoran Wastes)
 
+- name: "Eredath"
+  things:
+  - 153179 # Blue Conservatory Scroll (Instructor Tarahna, Eredath)
+  - 153181 # Red Conservatory Scroll (Instructor Tarahna, Eredath)
+  - 153180 # Yellow Conservatory Scroll (Instructor Tarahna, Eredath)
+  - 153193 # Baarut the Brisk (Baruut the Bloodthirsty, Eredath)
+  - 153183 # Barrier Generator (Vigilant Kuro/Vigilant Thanos, Eredath)
+
 - name: Krokuun
   things:
   - 153124 # Spire of Spite (Sister Subversia, Krokuun)
-
-- name: "Mac'Aree"
-  things:
-  - 153179 # Blue Conservatory Scroll (Instructor Tarahna, Mac'Aree)
-  - 153181 # Red Conservatory Scroll (Instructor Tarahna, Mac'Aree)
-  - 153180 # Yellow Conservatory Scroll (Instructor Tarahna, Mac'Aree)
-  - 153193 # Baarut the Brisk (Baruut the Bloodthirsty, Mac'Aree)
-  - 153183 # Barrier Generator (Vigilant Kuro/Vigilant Thanos, Mac'Aree)

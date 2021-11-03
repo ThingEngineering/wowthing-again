@@ -1,0 +1,31 @@
+name: Timewalking
+groups:
+
+- name: Achievements
+  things:
+  - 359318 # Soaring Spelltome
+
+- name: Misc
+  things:
+  - 201098 # Infinite Timereaver (Timewalking)
+
+- name: Burning Crusade
+  things:
+  - 194464 # Eclipse Dragonhawk
+
+- name: Wrath of the Lich King
+  things:
+  - 142910 # Ironbound Wraithcharger
+
+- name: Mists of Pandaria
+  things:
+  - 127165 # Yu'lei, Daughter of Jade (Timewalking)
+
+- name: Warlords of Draenor
+  things:
+  - 294568 # Beastlord's Irontusk (Timewarped Badge)
+  - 294569 # Beastlord's Warwolf (Timewarped Badge)
+
+- name: Legion
+  things:
+  - 359013 # Val'sharah Hippogryph

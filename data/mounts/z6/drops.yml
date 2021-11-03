@@ -10,11 +10,12 @@ groups:
 
 - name: Antoran Wastes
   things:
+  - 253660 # Biletooth Gnasher (Puscilla / Vrax'thul, Antoran Wastes)
   - 253661 # Crimson Slavermaw (Blistermaw, Antoran Wastes)
   - 243652 # Vile Fiend (Houndmaster Kerrax, Antoran Wastes)
 
-- name: "Mac'Aree"
+- name: "Eredath"
   things:
-  - 253662 # Acid Belcher (Skreeg the Devourer, Mac'Aree)
-  - 253107 # Lambent Mana Ray (Venomtail Skyfin, Mac'Aree)
-  - 253058 # Maddened Chaosrunner (Wrangler Kravos, Mac'Aree)
+  - 253662 # Acid Belcher (Skreeg the Devourer, Eredath)
+  - 253107 # Lambent Mana Ray (Venomtail Skyfin, Eredath)
+  - 253058 # Maddened Chaosrunner (Wrangler Kravos, Eredath)
