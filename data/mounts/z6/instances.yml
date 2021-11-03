@@ -5,7 +5,6 @@ groups:
   things:
   - 229499 # Midnight (Attumen, Karazhan)
   - 231428 # Smoldering Ember Wyrm (Nightbane, Karazhan)
-  - 253660 # Biletooth Gnasher (Argus?)
 
 - name: Raids
   things:
