@@ -112,10 +112,11 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                     for (const drop of farm.drops) {
                         let dropCharacters = farmCharacters
                         const dropStatus: DropStatus = {
-                            characterIds: [],
                             need: false,
                             skip: false,
-                            validCharacters: false,
+                            validCharacters: true,
+                            characterIds: [],
+                            completedCharacterIds: [],
                         }
 
                         switch (drop.type) {
@@ -266,11 +267,26 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                                 )
                             }
 
-                            dropStatus.characterIds = filter(
+                            for (const character of dropCharacters) {
+                                if (
+                                    resetMap[character.id] < now ||
+                                    every(
+                                        farm.questIds,
+                                        (q) => userQuestData.characters[character.id]?.dailyQuests?.get(q) === undefined
+                                    )
+                                ) {
+                                    dropStatus.characterIds.push(character.id)
+                                }
+                                else {
+                                    dropStatus.completedCharacterIds.push(character.id)
+                                }
+                            }
+
+                            /*dropStatus.characterIds = filter(
                                 dropCharacters,
                                 (c) => resetMap[c.id] < now ||
                                     every(farm.questIds, (q) => userQuestData.characters[c.id]?.dailyQuests?.get(q) === undefined)
-                            ).map(c => c.id)
+                            ).map(c => c.id)*/
 
                             // We don't really need it if no characters are on the list
                             // - ok we kinda do so we can see unfinished things
@@ -301,7 +317,6 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                             id: parseInt(p[0]),
                             types: uniq(p[1]),
                         }))
-
                     farms.push(farmStatus)
                 }
 

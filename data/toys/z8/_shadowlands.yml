@@ -14,6 +14,7 @@ groups:
 
 - name: Covenants
   things:
+  - 187705 # Choofa's Call (Night Fae - Queen's Conservatory cache)
   - 184487 # Gormling in a Bag (??)
   - 184353 # Kyrian Hearthstone (Kyrian)
   - 182773 # Necrolord Hearthstone (Necrolord)
@@ -24,17 +25,6 @@ groups:
   things:
   - 186973 # Anima-ted Leash (Enchanting)
   - 186985 # Elusive Pet Treat (Leatherworking)
-
-- name: Quests
-  things:
-  - 183847 # Acolyte's Guise (Maldraxxus, The Better Part of Valor)
-  - 177951 # Glimmerflies on Strings (Glimmerflight, Bastion) quest
-  - 180947 # Tithe Collector's Vessel (Revendreth, An Unwelcome Incursion)
-  - 187154 # Ancient Korthian Runes (Diviner's Rune Chits, Korthia) relic quest
-  - 187155 # Guise of the Changeling (Guise of the Changeling, Korthia) relic quest
-  - 187140 # Ring of Duplicity (Ring of Self-Reflection, Korthia) relic quest
-  - 187159 # Shadow Slicing Shortsword (Shadow Slicing Shortsword, Korthia) relic quest
-  - 187184 # Vesper of Clarity (Bastion Visitor Dailies, Korthia) quests?
 
 - name: Reputations
   things:

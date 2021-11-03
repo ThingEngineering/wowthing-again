@@ -53,10 +53,13 @@ namespace Wowthing.Backend.Jobs.Character
                     achievements.AchievementTimestamps.Add((int)(dataAchievement.CompletedTimestamp / 1000));
                 }
 
-                criteria[dataAchievement.Criteria.Id] = (
-                    (long)(dataAchievement.Criteria.Amount ?? 0),
-                    dataAchievement.Criteria.IsCompleted
-                );
+                if (dataAchievement.Criteria != null)
+                {
+                    criteria[dataAchievement.Criteria.Id] = (
+                        (long)(dataAchievement.Criteria.Amount ?? 0),
+                        dataAchievement.Criteria.IsCompleted
+                    );
+                }
 
                 RecurseCriteria(criteria, dataAchievement.Criteria?.ChildCriteria);
             }

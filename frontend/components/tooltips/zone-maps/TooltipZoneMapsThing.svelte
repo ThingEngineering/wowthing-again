@@ -45,7 +45,9 @@
         }
         else
         {
-            return !dropStatus.validCharacters || dropStatus.characterIds.length > 0
+            return !dropStatus.validCharacters
+                || dropStatus.characterIds.length > 0
+                || dropStatus.completedCharacterIds.length > 0
         }
     }
 </script>
@@ -81,6 +83,19 @@
     .characters {
         padding-left: 0;
         text-align: left;
+
+        span {
+            white-space: nowrap;
+
+            &.completed {
+                opacity: 0.7;
+                text-decoration: line-through;
+            }
+        }
+
+        span:not(:last-child) {
+            margin-right: 0.3rem;
+        }
     }
 </style>
 
@@ -99,7 +114,7 @@
         <tbody>
             {#each sortedDrops as [drop, dropStatus], sortedIndex}
                 <tr
-                    class:success={!dropStatus.need || !dropStatus.validCharacters}
+                    class:success={!dropStatus.need || !dropStatus.validCharacters || dropStatus.skip}
                 >
                     <td class="type status-{dropStatus.need ? 'fail' : 'success'}">
                         {#if drop.type === 'transmog' && drop.limit?.[0] && drop.limit?.[0] !== 'covenant'}
@@ -123,27 +138,38 @@
                     </td>
                 </tr>
 
-                {#if dropStatus.need && showCharacters(dropStatus, sortedDrops[sortedIndex+1])}
-                    {#if dropStatus.validCharacters}
-                        <tr>
-                            <td></td>
-                            <td class="characters" colspan="2">
-                                {#each sortBy(
-                                    dropStatus.characterIds
-                                        .map(c => $userStore.data.characterMap[c]),
-                                    c => c.name) as character, characterIndex}
-                                    {characterIndex > 0 ? ', ' : ''}
-                                    <span class="class-{character.classId}">{character.name}</span>
-                                {/each}
-                            </td>
-                        </tr>
-                    {:else}
-                        <tr class="status-fail">
-                            <td></td>
-                            <td class="characters" colspan="2">
-                                &lt;no valid characters&gt;
-                            </td>
-                        </tr>
+                {#if dropStatus.need && !dropStatus.skip}
+                    {#if showCharacters(dropStatus, sortedDrops[sortedIndex+1])}
+                        {#if dropStatus.characterIds.length >0 || dropStatus.completedCharacterIds.length > 0}
+                            <tr>
+                                <td></td>
+                                <td class="characters" colspan="2">
+                                    {#each sortBy(
+                                        dropStatus.characterIds
+                                            .map(c => $userStore.data.characterMap[c]),
+                                        c => c.name)
+                                    as character}
+                                        <span class="class-{character.classId}">{character.name}</span>
+                                    {/each}
+                                    {#each sortBy(
+                                        dropStatus.completedCharacterIds
+                                            .map(c => $userStore.data.characterMap[c]),
+                                        c => c.name)
+                                    as character}
+                                        <span class="completed class-{character.classId}">{character.name}</span>
+                                    {/each}
+                                </td>
+                            </tr>
+                        {/if}
+
+                        {#if !dropStatus.validCharacters}
+                            <tr class="status-fail">
+                                <td></td>
+                                <td class="characters" colspan="2">
+                                    &lt;no valid characters&gt;
+                                </td>
+                            </tr>
+                        {/if}
                     {/if}
 
                     {#if drop.note}
@@ -151,8 +177,8 @@
                             <td></td>
                             <td class="characters note" colspan="2">
                                 <IconifyIcon
-                                    icon={mdiMessageBulleted}
-                                    scale="0.9"
+                                        icon={mdiMessageBulleted}
+                                        scale="0.9"
                                 />
                                 {drop.note}
                             </td>

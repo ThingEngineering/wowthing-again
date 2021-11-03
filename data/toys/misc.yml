@@ -14,6 +14,14 @@ groups:
 
 - name: Heirlooms
   things:
+  - 187896 # Scouting Map: A Stormstout's Guide to Pandaria
+  - 187897 # Scouting Map: Cataclysm's Consequences
+  - 187895 # Scouting Map: The Dangers of Draenor
+  - 187899 # Scouting Map: The Many Curiosities of Outland
+  - 187900 # Scouting Map: The Wonders of Kul Tiras and Zandalar
+  - 187898 # Scouting Map: True Cost of the Northrend Campaign
+  - 187875 # Scouting Map: United Fronts of the Broken Isles
+  - 187869 # Scouting Map: Into the Shadowlands
   - 150745 # The Azeroth Campaign (Heirloom vendors)
   - 150746 # To Modernize the Provisioning of Azeroth (Heirloom vendors)
   - 150743 # Surviving Kalimdor (Heirloom vendors)

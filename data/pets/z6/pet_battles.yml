@@ -1,21 +1,6 @@
 name: Pet Battles
 groups:
 
-- name: Argus
-  things:
-  - 128175 # Antoran Bilescourge (Antoran Wastes)
-  - 128163 # Antoran Bile Larva (Antoran Wastes)
-  - 128164 # Bilescourge (Krokuun)
-  - 128162 # Bile Larva (Krokuun)
-  - 128166 # Flickering Argunite (Krokuun)
-  - 128172 # Arcane Gorger (Mac'Aree)
-  - 128174 # Felcrazed Wyrm (Mac'Aree)
-  - 128173 # Pygmy Marsuul (Mac'Aree)
-  - 128167 # Skyfin Juvenile (Mac'Aree)
-  - 128171 # Void Shardling (Mac'Aree)
-  - 128168 # Voidstalker Runt (Mac'Aree)
-  - 128170 # Warpstalker Runt (Mac'Aree)
-
 - name: Azsuna
   things:
   -  97323 # Felspider (Azsuna, Highmountain)
@@ -81,3 +66,24 @@ groups:
   -  97559 # Spring Strider (Val'sharah)
   -  97531 # Terror Larva (Val'sharah)
   -  97547 # Vale Flitter (Val'sharah)
+
+- name: Antoran Wastes
+  things:
+  - 128175 # Antoran Bilescourge (Antoran Wastes)
+  - 128163 # Antoran Bile Larva (Antoran Wastes)
+
+- name: Eredath
+  things:
+  - 128172 # Arcane Gorger (Eredath)
+  - 128174 # Felcrazed Wyrm (Eredath)
+  - 128173 # Pygmy Marsuul (Eredath)
+  - 128167 # Skyfin Juvenile (Eredath)
+  - 128171 # Void Shardling (Eredath)
+  - 128168 # Voidstalker Runt (Eredath)
+  - 128170 # Warpstalker Runt (Eredath)
+
+- name: Krokuun
+  things:
+  - 128164 # Bilescourge (Krokuun)
+  - 128162 # Bile Larva (Krokuun)
+  - 128166 # Flickering Argunite (Krokuun)

@@ -25,7 +25,7 @@ namespace Wowthing.Backend.Jobs.NonBlizzard
             var oof = string.Join(":", seasonIds.Select(s => ApiCharacterRaiderIoSeason.SeasonMap.First(kvp => kvp.Value == s).Key));
             
             // Fetch API data
-            var uri = new Uri(string.Format(ApiUrl, query.Region.ToString().ToLowerInvariant(), query.RealmSlug, query.CharacterName.ToLowerInvariant(), oof));
+            var uri = new Uri(string.Format(ApiUrl, query.Region.ToString().ToLowerInvariant(), query.RealmSlug, query.CharacterName, oof));
 
             var result = await GetJson<ApiCharacterRaiderIo>(uri, useAuthorization: false, useLastModified: false);
             /*if (result.NotModified)
