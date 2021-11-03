@@ -2,7 +2,7 @@
     import find from 'lodash/find'
 
     import { staticStore } from '@/stores/static'
-    import type { Character, StaticDataProgressCategory } from '@/types'
+    import type { StaticDataProgressCategory } from '@/types'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'

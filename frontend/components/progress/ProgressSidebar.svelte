@@ -1,8 +1,8 @@
 <script lang="ts">
     import { staticStore } from '@/stores/static'
+    import type { SidebarItem } from '@/types'
 
     import Sidebar from '@/components/sidebar/Sidebar.svelte'
-    import { SidebarItem } from '../../types'
 
     let categories: SidebarItem[] = []
     $: {
