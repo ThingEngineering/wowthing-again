@@ -15,7 +15,6 @@
     let categories: StaticDataProgressCategory[]
     $: {
         categories = find($staticStore.data.progress, (p) => p !== null && p[0].slug === slug)
-        console.log(categories)
     }
 </script>
 
