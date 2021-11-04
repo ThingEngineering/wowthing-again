@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -21,7 +22,8 @@ namespace Wowthing.Backend.Jobs.User
 
             var userId = long.Parse(data[0]);
 
-            var accessToken = await Context.UserTokens.FirstOrDefaultAsync(t => t.UserId == userId && t.LoginProvider == "BattleNet" && t.Name == "access_token");
+            var accessToken = await Context.UserTokens.FirstOrDefaultAsync(t =>
+                t.UserId == userId && t.LoginProvider == "BattleNet" && t.Name == "access_token");
             if (accessToken == null)
             {
                 Logger.Error("No access_token for user {0}", userId);
@@ -31,7 +33,8 @@ namespace Wowthing.Backend.Jobs.User
             var path = string.Format(ApiPath, accessToken.Value);
 
             // Fetch existing accounts
-            var accountMap = await Context.PlayerAccount.Where(a => a.UserId == userId).ToDictionaryAsync(k => (k.Region, k.AccountId));
+            var accountMap = await Context.PlayerAccount.Where(a => a.UserId == userId)
+                .ToDictionaryAsync(k => (k.Region, k.AccountId));
 
             // Add any new accounts
             var apiAccounts = new List<(WowRegion, ApiAccountProfileAccount)>();
@@ -94,31 +97,40 @@ namespace Wowthing.Backend.Jobs.User
             var seenCharacters = new HashSet<(int, string)>();
             foreach ((var region, var apiAccount) in apiAccounts)
             {
+                int accountId = 0;
                 int added = 0;
-                var accountId = accountMap[(region, apiAccount.Id)].Id;
-                foreach (ApiAccountProfileCharacter apiCharacter in apiAccount.Characters)
+
+                try
                 {
-                    var key = (apiCharacter.Realm.Id, apiCharacter.Name);
-                    seenCharacters.Add(key);
-
-                    if (!characterMap.TryGetValue(key, out PlayerCharacter character))
+                    accountId = accountMap[(region, apiAccount.Id)].Id;
+                    foreach (ApiAccountProfileCharacter apiCharacter in apiAccount.Characters)
                     {
-                        character = characterMap[key] = new PlayerCharacter
-                        {
-                            CharacterId = apiCharacter.Id,
-                        };
-                        Context.PlayerCharacter.Add(character);
-                        added++;
-                    }
+                        var key = (apiCharacter.Realm.Id, apiCharacter.Name);
+                        seenCharacters.Add(key);
 
-                    character.AccountId = accountId;
-                    character.ClassId = apiCharacter.Class.Id;
-                    character.Level = apiCharacter.Level;
-                    character.RaceId = apiCharacter.Race.Id;
-                    character.RealmId = apiCharacter.Realm.Id;
-                    character.Faction = apiCharacter.Faction.EnumParse<WowFaction>();
-                    character.Gender = apiCharacter.Gender.EnumParse<WowGender>();
-                    character.Name = apiCharacter.Name;
+                        if (!characterMap.TryGetValue(key, out PlayerCharacter character))
+                        {
+                            character = characterMap[key] = new PlayerCharacter
+                            {
+                                CharacterId = apiCharacter.Id,
+                            };
+                            Context.PlayerCharacter.Add(character);
+                            added++;
+                        }
+
+                        character.AccountId = accountId;
+                        character.ClassId = apiCharacter.Class.Id;
+                        character.Level = apiCharacter.Level;
+                        character.RaceId = apiCharacter.Race.Id;
+                        character.RealmId = apiCharacter.Realm.Id;
+                        character.Faction = apiCharacter.Faction.EnumParse<WowFaction>();
+                        character.Gender = apiCharacter.Gender.EnumParse<WowGender>();
+                        character.Name = apiCharacter.Name;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error(ex, "Error in region {0}", region.ToString());
                 }
 
                 if (added > 0)
