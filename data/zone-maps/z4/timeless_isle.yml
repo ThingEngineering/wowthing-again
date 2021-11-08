@@ -1,0 +1,168 @@
+name: Timeless Isle
+mapName: z4_timeless_isle
+farms:
+
+- name: "Champions of the Black Flame"
+  location: 70.8 47.6
+  npcId: 73171
+  reset: none
+  drops:
+  - type: toy
+    id: 104302
+    name: "Blackflame Daggers"
+
+- name: "Chelon"
+  location: 25.2 36.0
+  npcId: 72045
+  reset: none
+  drops:
+  - type: toy
+    id: 86584
+    name: "Hardened Shell"
+
+- name: "Dread Ship Vazuvius"
+  location: 25.8 23.2
+  npcId: 73281
+  reset: none
+  drops:
+  - type: toy
+    id: 104294
+    name: "Rime of the Time-Lost Mariner"
+
+- name: "Garnia"
+  location: 64.6 27.5
+  npcId: 73282
+  reset: none
+  drops:
+  - type: pet
+    id: 73356
+    name: "Ruby Droplet"
+
+- name: "Golganarr"
+  location: 61.6 64.0
+  npcId: 72970
+  reset: none
+  drops:
+  - type: toy
+    id: 104262
+    name: "Odd Polished Stone"
+
+- name: "Gu'chi the Swarmbringer"
+  location: 41.4 77.4
+  npcId: 72909
+  reset: none
+  drops:
+  - type: pet
+    id: 73730
+    name: "Gu'chi Swarmling"
+
+- name: "Huolon"
+  location: 65.6 56.8
+  npcId: 73167
+  reset: none
+  drops:
+  - type: mount
+    id: 148476
+    name: "Thundering Onyx Cloud Serpent"
+
+- name: "Jakur of Ordon"
+  location: 53.6 83.0
+  npcId: 73169
+  reset: none
+  drops:
+  - type: toy
+    id: 104331
+    name: "Warning Sign"
+
+- name: "Leafmender"
+  location: 67.5 44.0
+  npcId: 73277
+  reset: none
+  drops:
+  - type: pet
+    id: 73533
+    name: "Ashleaf Spriteling"
+
+- name: "Spirit of Jadefire"
+  location: 43.7 40.7
+  npcId: 72769
+  reset: none
+  drops:
+  - type: pet
+    id: 73738
+    name: "Jadefire Spirit"
+
+- name: "Zhu-Gon the Sour"
+  location: 37.8 77.1
+  npcId: 71919
+  reset: none
+  drops:
+  - type: pet
+    id: 73367
+    name: "Skunky Alemental"
+
+# These drop nothing useful, but some drop achievement items
+# FIXME add achievement items if I ever implement that
+#- name: "Rock Moss"
+#  location: 43.7 40.7
+#  npcId: 73157
+#  reset: none
+#  drops:
+#  - type:
+#    id:
+#    name: ""
+
+#- name: "Spelurk"
+#  location:
+#  npcId:
+#  reset: none
+#  drops:
+#  - type:
+#    id:
+#    name: ""
+
+#- name: "Watcher Osu"
+#  location:
+#  npcId:
+#  reset: none
+#  drops:
+#  - type:
+#    id:
+#    name: ""
+
+# These drop set pieces and pvp gear, not sure I care enough to type that out
+#- name: "Chi-Ji, The Red Crane"
+#  location:
+#  npcId:
+#  reset: none
+#  drops:
+#  - type:
+#    id:
+#    name: ""
+#
+#- name: "Niuzao, The Black Ox"
+#  location:
+#  npcId:
+#  reset: none
+#  drops:
+#  - type:
+#    id:
+#    name: ""
+#
+#- name: "Xuen, The White Tiger"
+#  location:
+#  npcId:
+#  reset: none
+#  drops:
+#  - type:
+#    id:
+#    name: ""
+#
+#- name: "Yu'lon, The Jade Serpent"
+#  location:
+#  npcId:
+#  reset: none
+#  drops:
+#  - type:
+#    id:
+#    name: ""
