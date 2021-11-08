@@ -1,5 +1,6 @@
 export * from './armor-type'
 export * from './chromie-time'
+export * from './criteria-type'
 export * from './faction'
 export * from './instance-type'
 export * from './inventory-slot'
