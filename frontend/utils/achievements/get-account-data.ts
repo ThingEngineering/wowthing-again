@@ -1,6 +1,3 @@
-import { get } from 'svelte/store'
-
-import { achievementStore, userAchievementStore } from '@/stores'
 import type {
     AchievementData,
     AchievementDataAchievement,
