@@ -17,6 +17,7 @@ namespace Wowthing.Backend.Models.Uploads
         public int RestedXp { get; set; }
         public long Copper { get; set; }
 
+        public List<UploadCharacterCovenant> Covenants { get; set; }
         public List<UploadCharacterCurrency> Currencies { get; set; }
         public List<int> DailyQuests { get; set; }
         public List<UploadCharacterLockout> Lockouts { get; set; }
@@ -31,6 +32,25 @@ namespace Wowthing.Backend.Models.Uploads
         public Dictionary<string, UploadWeeklyUghQuest> WeeklyUghQuests { get; set; }
     }
 
+    public class UploadCharacterCovenant
+    {
+        public int Anima { get; set; }
+        public int Id { get; set; }
+        public int Renown { get; set; }
+        public int Souls { get; set; }
+        public UploadCharacterCovenantFeature Conductor { get; set; }
+        public UploadCharacterCovenantFeature Missions { get; set; }
+        public UploadCharacterCovenantFeature Transport { get; set; }
+        public UploadCharacterCovenantFeature Unique { get; set; }
+    }
+
+    public class UploadCharacterCovenantFeature
+    {
+        public int Rank { get; set; }
+        public int? ResearchEnds { get; set; }
+        public string Name { get; set; }
+    }
+    
     public class UploadCharacterCurrency
     {
         public int Id { get; set; }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -28,6 +29,11 @@ namespace Wowthing.Backend.Jobs.User
             Logger.Information("Processing upload...");
 
             var json = LuaToJsonConverter.Convert(data[1].Replace("WWTCSaved = ", ""));
+
+#if DEBUG
+            File.WriteAllText(Path.Join("..", "..", "lua.json"), json);
+#endif
+            
             var parsed = JsonConvert.DeserializeObject<Upload[]>(json)[0]; // TODO work out why this is an array of objects
             _timer.AddPoint("Parse");
             
@@ -40,6 +46,7 @@ namespace Wowthing.Backend.Jobs.User
                 .Include(c => c.Lockouts)
                 .Include(c => c.MythicPlusAddon)
                 .Include(c => c.Reputations)
+                .Include(c => c.Shadowlands)
                 .Include(c => c.Weekly)
                 .ToDictionaryAsync(k => (k.RealmId, k.Name));
 
@@ -90,6 +97,7 @@ namespace Wowthing.Backend.Jobs.User
 
                 transmog.UnionWith(characterData.Transmog.EmptyIfNull());
 
+                HandleCovenants(character, characterData);
                 HandleCurrencies(character, characterData);
                 HandleLockouts(character, characterData);
                 HandleMounts(character, characterData);
@@ -140,6 +148,45 @@ namespace Wowthing.Backend.Jobs.User
             Logger.Information("{0}", _timer.ToString());
         }
 
+        private void HandleCovenants(PlayerCharacter character, UploadCharacter characterData)
+        {
+            if (character.Shadowlands == null)
+            {
+                return;
+            }
+            
+            character.Shadowlands.Covenants = new();
+
+            foreach (var covenantData in characterData.Covenants.EmptyIfNull())
+            {
+                character.Shadowlands.Covenants[covenantData.Id] = new PlayerCharacterShadowlandsCovenant
+                {
+                    Anima = Math.Max(0, covenantData.Anima),
+                    Renown = Math.Max(0, Math.Min(80, covenantData.Renown)),
+                    Souls = Math.Max(0, Math.Min(100, covenantData.Souls)),
+                    Conductor = HandleCovenantsFeature(covenantData.Conductor),
+                    Missions = HandleCovenantsFeature(covenantData.Missions),
+                    Transport = HandleCovenantsFeature(covenantData.Transport),
+                    Unique = HandleCovenantsFeature(covenantData.Unique),
+                };
+            }
+        }
+
+        private PlayerCharacterShadowlandsCovenantFeature HandleCovenantsFeature(UploadCharacterCovenantFeature featureData)
+        {
+            if (featureData == null)
+            {
+                return null;
+            }
+
+            return new PlayerCharacterShadowlandsCovenantFeature
+            {
+                Rank = Math.Max(0, Math.Min(10, featureData.Rank)),
+                ResearchEnds = Math.Max(0, featureData.ResearchEnds ?? 0),
+                Name = featureData.Name.EmptyIfNullOrWhitespace().Truncate(32),
+            };
+        }
+        
         private void HandleCurrencies(PlayerCharacter character, UploadCharacter characterData)
         {
             if (character.Currencies == null)

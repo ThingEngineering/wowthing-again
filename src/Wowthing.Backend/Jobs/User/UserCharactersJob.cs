@@ -130,12 +130,12 @@ namespace Wowthing.Backend.Jobs.User
                 }
                 catch (Exception ex)
                 {
-                    Logger.Error(ex, "Error in region {0}", region.ToString());
+                    Logger.Error(ex, "Error in region {Region}", region.ToString());
                 }
 
                 if (added > 0)
                 {
-                    Logger.Information("Added {0} character(s) to account {1}/{2}", added, region, accountId);
+                    Logger.Information("Added {Added} character(s) to account {Region}/{AccountId}", added, region, accountId);
                 }
             }
 

@@ -17,6 +17,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="5.0.11" />
+    <PackageReference Include="prometheus-net" Version="5.0.1" />
+    <PackageReference Include="prometheus-net.AspNetCore" Version="5.0.1" />
     <PackageReference Include="Zack.EFCore.Batch.Npgsql" Version="1.4.10" />
   </ItemGroup>
 

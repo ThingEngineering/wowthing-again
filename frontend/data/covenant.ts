@@ -10,6 +10,13 @@ export const covenantMap: Dictionary<Covenant> = {
     4: new Covenant(4, 'Necrolord', 'necrolord', 'covenant_necrolord'),
 }
 
+export const covenantOrder: number[] = [
+    1, // Kyrian
+    4, // Necrolord
+    3, // Night Fae
+    2, // Venthyr
+]
+
 export const covenantNameMap = Object.fromEntries(
     Object.entries(covenantMap).map(([, covenant]) => [covenant.name, covenant])
 )
