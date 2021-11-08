@@ -156,7 +156,7 @@
     }
 </style>
 
-{#if show && !earned}
+{#if show}
     <div class="thing-container faction{faction}" class:completed={earned}>
         <AchievementLink id={achievementId}>
             <WowthingImage name="achievement/{achievementId}" size={48} border={1} />
