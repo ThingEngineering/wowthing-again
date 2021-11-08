@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
@@ -13,9 +14,10 @@ using Wowthing.Lib.Models.Player;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    partial class WowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211107175106_Add_PlayerCharacterShadowlands_Covenants")]
+    partial class Add_PlayerCharacterShadowlands_Covenants
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -854,6 +856,70 @@ namespace Wowthing.Lib.Migrations
                         .HasName("pk_player_character_weekly");
 
                     b.ToTable("player_character_weekly");
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.Query.AchievementCriteriaQuery", b =>
+                {
+                    b.Property<long>("Amount")
+                        .HasColumnType("bigint")
+                        .HasColumnName("amount");
+
+                    b.Property<int>("CharacterId")
+                        .HasColumnType("integer")
+                        .HasColumnName("character_id");
+
+                    b.Property<int>("CriteriaId")
+                        .HasColumnType("integer")
+                        .HasColumnName("criteria_id");
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.Query.CompletedAchievementsQuery", b =>
+                {
+                    b.Property<int>("AchievementId")
+                        .HasColumnType("integer")
+                        .HasColumnName("achievement_id");
+
+                    b.Property<int>("Timestamp")
+                        .HasColumnType("integer")
+                        .HasColumnName("timestamp");
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.Query.MountQuery", b =>
+                {
+                    b.Property<List<int>>("AddonMounts")
+                        .HasColumnType("integer[]")
+                        .HasColumnName("addon_mounts");
+
+                    b.Property<List<int>>("Mounts")
+                        .HasColumnType("integer[]")
+                        .HasColumnName("mounts");
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.Query.SchedulerCharacterQuery", b =>
+                {
+                    b.Property<int?>("AccountId")
+                        .HasColumnType("integer")
+                        .HasColumnName("account_id");
+
+                    b.Property<int>("CharacterId")
+                        .HasColumnType("integer")
+                        .HasColumnName("character_id");
+
+                    b.Property<string>("CharacterName")
+                        .HasColumnType("text")
+                        .HasColumnName("character_name");
+
+                    b.Property<string>("RealmSlug")
+                        .HasColumnType("text")
+                        .HasColumnName("realm_slug");
+
+                    b.Property<int>("Region")
+                        .HasColumnType("integer")
+                        .HasColumnName("region");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("user_id");
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.Team.Team", b =>
