@@ -32,9 +32,17 @@
 <style lang="scss">
     .section {
         border: 1px solid $border-color;
+
+        &:not(:last-child) {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
     }
     .section + .section {
-        margin-top: 1rem;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        border-top-width: 0;
+        //margin-top: 1rem;
     }
     h3 {
         margin: 0;
