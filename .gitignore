@@ -20,5 +20,6 @@ src/Wowthing.Web/wwwroot/dist/
 api_responses/
 data/zone-maps/addon.txt
 src/Test/
+lua.json
 sets.txt
 zzz_uncategorized.yml
