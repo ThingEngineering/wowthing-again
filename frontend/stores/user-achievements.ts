@@ -117,7 +117,7 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
 
         this.update(state => {
             state.data.achievementCategories = cheevs
-            state.data.achievementRecent = all.slice(0, 5).map(([, id]) => id)
+            state.data.achievementRecent = all.slice(0, 10).map(([, id]) => id)
             return state
         })
 

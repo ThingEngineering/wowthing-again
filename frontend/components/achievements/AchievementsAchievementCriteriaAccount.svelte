@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { achievementStore } from '@/stores'
-    import type {AchievementDataAchievement, AchievementDataCriteriaTree} from '@/types'
+    import { achievementStore, userAchievementStore } from '@/stores'
     import { AchievementDataAccount, getAccountData } from '@/utils/achievements'
+    import type {AchievementDataAchievement, AchievementDataCriteriaTree} from '@/types'
 
     import AchievementCriteriaTree from './AchievementsAchievementCriteriaTree.svelte'
     import ProgressBar from '@/components/common/ProgressBar.svelte'
@@ -13,7 +13,11 @@
     let progressBar: boolean
     $: {
         criteriaTree = $achievementStore.data.criteriaTree[achievement.criteriaTreeId]
-        data = getAccountData(criteriaTree)
+        data = getAccountData(
+            $achievementStore.data,
+            $userAchievementStore.data,
+            achievement
+        )
 
         progressBar = achievement.isProgressBar || data.criteria[0].isProgressBar
 
@@ -46,9 +50,13 @@
                 total={data.criteria[0].amount}
             />
         {:else}
-            hello
             {#each criteriaTree.children as child}
-                <AchievementCriteriaTree {achievement} criteriaTreeId={child} />
+                <AchievementCriteriaTree
+                    {achievement}
+                    criteriaTreeId={child}
+                    accountWide={true}
+                    haveMap={data.have}
+                />
             {/each}
         {/if}
     </div>
