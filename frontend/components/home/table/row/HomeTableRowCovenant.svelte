@@ -2,8 +2,9 @@
     import { covenantMap } from '@/data/covenant'
     import type { Character, Covenant } from '@/types'
     import getCurrentPeriodForCharacter from '@/utils/get-current-period-for-character'
-    import tippy from '@/utils/tippy'
+    import { tippyComponent } from '@/utils/tippy'
 
+    import Tooltip from '@/components/tooltips/covenant/TooltipCovenant.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let character: Character = undefined
@@ -32,7 +33,12 @@
     }
 </style>
 
-<td use:tippy={tooltip}>
+<td
+    use:tippyComponent={{
+        component: Tooltip,
+        props: { character },
+    }}
+>
     {#if covenant !== undefined}
         <div class="flex-wrapper">
             <WowthingImage name={covenant.icon} size={20} border={1} />

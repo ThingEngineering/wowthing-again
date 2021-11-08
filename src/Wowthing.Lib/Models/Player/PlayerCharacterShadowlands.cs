@@ -16,5 +16,26 @@ namespace Wowthing.Lib.Models.Player
         public int SoulbindId { get; set; }
         public List<int> ConduitIds { get; set; }
         public List<int> ConduitRanks { get; set; }
+        
+        [Column(TypeName = "jsonb")]
+        public Dictionary<int, PlayerCharacterShadowlandsCovenant> Covenants { get; set; }
+    }
+
+    public class PlayerCharacterShadowlandsCovenant
+    {
+        public int Anima { get; set; }
+        public int Renown { get; set; }
+        public int Souls { get; set; }
+        public PlayerCharacterShadowlandsCovenantFeature Conductor { get; set; }
+        public PlayerCharacterShadowlandsCovenantFeature Missions { get; set; }
+        public PlayerCharacterShadowlandsCovenantFeature Transport { get; set; }
+        public PlayerCharacterShadowlandsCovenantFeature Unique { get; set; }
+    }
+
+    public class PlayerCharacterShadowlandsCovenantFeature
+    {
+        public int Rank { get; set; }
+        public int? ResearchEnds { get; set; }
+        public string Name { get; set; }
     }
 }

@@ -209,6 +209,8 @@ namespace Wowthing.Web.Models
         public int CovenantId { get; }
         public int RenownLevel { get; }
         public int SoulbindId { get; }
+
+        public Dictionary<int, PlayerCharacterShadowlandsCovenant> Covenants { get; }
         public List<int[]> Conduits { get; }
 
         public UserApiCharacterShadowlands(PlayerCharacterShadowlands shadowlands)
@@ -219,6 +221,8 @@ namespace Wowthing.Web.Models
 
             Conduits = shadowlands.ConduitIds.Zip(shadowlands.ConduitRanks)
                 .Select(z => new[] { z.First, z.Second }).ToList();
+
+            Covenants = shadowlands.Covenants;
         }
     }
 

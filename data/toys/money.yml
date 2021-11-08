@@ -7,6 +7,10 @@ groups:
   - 166777 # Lion's Pride Firework
   - 166779 # Transmorpher Beacon
 
+- name: Game Editions
+  things:
+  - 172179 # Eternal Traveler's Hearthstone (Shadowlands Epic Edition)
+
 - name: $$$$$
   things:
   -  49704 # Carved Ogre Idol

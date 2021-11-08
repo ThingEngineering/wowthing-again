@@ -75,7 +75,10 @@ namespace Wowthing.Lib.Utilities
                     var (rType, rText) = Recurse();
                     if (rType == StructureType.Array)
                     {
-                        lines.Add($"{indent}[\n{rText}{indent}]");
+                        if (!string.IsNullOrWhiteSpace(rText))
+                        {
+                            lines.Add($"{indent}[\n{rText}{indent}]");
+                        }
                     }
                     else if (rType == StructureType.Dictionary)
                     {
@@ -107,7 +110,10 @@ namespace Wowthing.Lib.Utilities
                         var (rType, rText) = Recurse();
                         if (rType == StructureType.Array)
                         {
-                            lines.Add($"{indent}{key}: [\n{rText}{indent}]");
+                            if (!string.IsNullOrWhiteSpace(rText))
+                            {
+                                lines.Add($"{indent}{key}: [\n{rText}{indent}]");
+                            }
                         }
                         else if (rType == StructureType.Dictionary)
                         {
