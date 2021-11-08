@@ -2,7 +2,7 @@
     import { covenantMap } from '@/data/covenant'
     import type { Character, Covenant } from '@/types'
     import getCurrentPeriodForCharacter from '@/utils/get-current-period-for-character'
-    import tippy, { tippyComponent } from '@/utils/tippy'
+    import { tippyComponent } from '@/utils/tippy'
 
     import Tooltip from '@/components/tooltips/covenant/TooltipCovenant.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
