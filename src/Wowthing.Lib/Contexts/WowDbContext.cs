@@ -129,16 +129,16 @@ namespace Wowthing.Lib.Contexts
             
             // Query types have no tables either
             builder.Entity<AchievementCriteriaQuery>()
-                .ToView(null);
+                .ToTable("AchievementCriteriaQuery", t => t.ExcludeFromMigrations());
 
             builder.Entity<CompletedAchievementsQuery>()
-                .ToView(null);
-            
+                .ToTable("CompletedAchievementsQuery", t => t.ExcludeFromMigrations());
+
             builder.Entity<MountQuery>()
-                .ToView(null);
+                .ToTable("MountQuery", t => t.ExcludeFromMigrations());
 
             builder.Entity<SchedulerCharacterQuery>()
-                .ToView(null);
+                .ToTable("SchedulerCharacterQuery", t => t.ExcludeFromMigrations());
         }
 
         public NpgsqlConnection GetConnection() => (NpgsqlConnection)Database.GetDbConnection();
