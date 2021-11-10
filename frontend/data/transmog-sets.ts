@@ -2,7 +2,7 @@ import {TransmogSet, TransmogSetData} from '@/types'
 import type {Dictionary} from '@/types'
 
 const transmogSets: Dictionary<TransmogSet> = {
-    'all': new TransmogSet('class', [
+    'all': new TransmogSet('all', [
         new TransmogSetData('all', 12),
     ]),
     'armor': new TransmogSet('class', [

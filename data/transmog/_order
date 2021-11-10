@@ -1,42 +1,27 @@
+*
+    raids.yml
+    dungeons.yml
+    pvp.yml
+
 z8/_shadowlands.yml
     z8/covenants.yml
-    z8/raids.yml
-    z8/pvp.yml
 
 z7/_battle_for_azeroth.yml
-    z7/raids.yml
-    z7/pvp.yml
 
 z6/_legion.yml
     z6/misc.yml
-    z6/raids.yml
-    z6/pvp.yml
 
 z5/_warlords_of_draenor.yml
-    z5/raids.yml
-    z5/pvp.yml
 
 z4/_mists_of_pandaria.yml
-    z4/raids.yml
-    z4/dungeons.yml
-    z4/pvp.yml
 
 z3/_cataclysm.yml
-    z3/raids.yml
-    z3/pvp.yml
 
 z2/_wrath_of_the_lich_king.yml
-    z2/raids.yml
-    z2/pvp.yml
 
 z1/_the_burning_crusade.yml
-    z1/raids.yml
-    z1/dungeons.yml
-    z1/pvp.yml
 
 z0/_vanilla.yml
-    z0/raids.yml
-    z0/dungeons.yml
 
 -
 
@@ -65,3 +50,8 @@ pvp.yml
     z3/pvp.yml Cataclysm
     z2/pvp.yml Wrath of the Lich King
     z1/pvp.yml The Burning Crusade
+
+-
+
+misc/_misc.yml
+    misc/racial.yml

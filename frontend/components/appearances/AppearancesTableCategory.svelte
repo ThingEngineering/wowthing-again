@@ -7,6 +7,7 @@
     import ClassIcon from '@/components/images/ClassIcon.svelte'
     import CovenantIcon from '@/components/images/CovenantIcon.svelte'
     import TransmogTableSet from './AppearancesTableSet.svelte'
+    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let category: TransmogDataCategory
     export let setKey: string
@@ -35,8 +36,12 @@
         }
         .icon {
             border-left: 1px solid $border-color;
-            padding: 0.1rem;
         }
+    }
+    .icon {
+        padding: 0.1rem;
+        text-align: center;
+        width: calc(46px + 0.2rem);
     }
     .faded {
         opacity: 0.4;
@@ -71,7 +76,17 @@
 
         <tr class="sticky">
             <td></td>
-            {#if transmogSets[group.type].type === 'covenant'}
+
+            {#if transmogSets[group.type].type === 'all'}
+                <td class="icon">
+                    <WowthingImage
+                        name="spell/61423"
+                        tooltip="Shared"
+                        size={40}
+                    />
+                </td>
+
+            {:else if transmogSets[group.type].type === 'covenant'}
                 {#each transmogSets[group.type].sets as tsd}
                     <td class="icon">
                         <CovenantIcon size={40} covenantName={tsd.subType} />
