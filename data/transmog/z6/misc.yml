@@ -1,6 +1,67 @@
 name: Misc
 groups:
 
+- name: Chromie
+  type: armor
+  sets:
+  - Chromie
+  data:
+    cloth:
+    # Normal set=1457
+    - name: Chronoscryer's Finery
+      wowheadSetId: 2561
+      items:
+        1:  35001 # Head
+        3:  35003 # Shoulders
+        5:  35005 # Chest
+        6:  34998 # Waist
+        7:  35002 # Legs
+        8:  34999 # Feet
+        9:  35004 # Wrists
+        10: 35000 # Hands
+
+    leather:
+    # Normal set=1459
+    - name: Riftscarred Vestments
+      wowheadSetId: 2569
+      items:
+        1:  35010 # Head
+        3:  35012 # Shoulders
+        5:  35008 # Chest
+        6:  35006 # Waist
+        7:  35011 # Legs
+        8:  35007 # Feet
+        9:  35013 # Wrists
+        10: 35009 # Hands
+
+    mail:
+    # Normal set=1458
+    - name: Epoch Sentinel's Mail
+      wowheadSetId: 2560
+      items:
+        1:  35018 # Head
+        3:  35020 # Shoulders
+        5:  35016 # Chest
+        6:  35014 # Waist
+        7:  35019 # Legs
+        8:  35015 # Feet
+        9:  35021 # Wrists
+        10: 35017 # Hands
+
+    plate:
+    # description=0 set=1456
+    - name: Timewarden's Plate
+      wowheadSetId: 2568
+      items:
+        1:  35026 # Head
+        3:  35028 # Shoulders
+        5:  35024 # Chest
+        6:  35022 # Waist
+        7:  35027 # Legs
+        8:  35023 # Feet
+        9:  35029 # Wrists
+        10: 35025 # Hands
+
 - name: Order Hall
   type: class
   sets:
