@@ -6,7 +6,7 @@
 
     import ClassIcon from '@/components/images/ClassIcon.svelte'
     import CovenantIcon from '@/components/images/CovenantIcon.svelte'
-    import TransmogTableSet from './AppearancesTableSet.svelte'
+    import TableSet from './AppearancesTableSet.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let category: TransmogDataCategory
@@ -174,7 +174,7 @@
 
             {#each transmogSets[group.type].sets as transmogSet (`set--${setKey}--${setName}--${transmogSet.type}`)}
                 {#if !skipClasses[transmogSet.type]}
-                    <TransmogTableSet
+                    <TableSet
                         set={group.data?.[transmogSet.type]?.[setIndex]}
                         span={getTransmogSpan(group, transmogSet, skipClasses)}
                         subType={transmogSet.subType}
