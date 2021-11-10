@@ -17,7 +17,7 @@ export function getAccountData(
 
     const rootCriteriaTree = achievementData.criteriaTree[achievement.criteriaTreeId]
 
-    for (const child of rootCriteriaTree.children) {
+    for (const child of rootCriteriaTree?.children ?? []) {
         const childTree = achievementData.criteriaTree[child]
         if (childTree) {
             ret.criteria.push(childTree)
