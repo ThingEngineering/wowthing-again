@@ -34,6 +34,10 @@ export function getCharacterData(
         addStuff = true,
         first = false,
     ) {
+        if (!criteriaTree) {
+            return
+        }
+
         //const criteriaTree = achievementData.criteriaTree[criteriaTreeId]
         const criteria = achievementData.criteria[criteriaTree.criteriaId]
 

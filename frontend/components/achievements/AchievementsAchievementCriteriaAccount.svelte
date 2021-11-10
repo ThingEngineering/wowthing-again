@@ -19,7 +19,7 @@
             achievement
         )
 
-        progressBar = achievement.isProgressBar || data.criteria[0].isProgressBar
+        progressBar = achievement?.isProgressBar || data.criteria[0]?.isProgressBar || false
 
         if (achievement.id === 12866) {
             console.log('-- ACCOUNT --')
