@@ -60,7 +60,7 @@
     }
     .value {
         border-left: 1px solid $border-color;
-        width: 3rem;
+        width: 4rem;
     }
     .active {
         background: rgba(0, 0, 255, 0.3);
