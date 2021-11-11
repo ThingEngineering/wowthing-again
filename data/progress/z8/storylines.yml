@@ -1,0 +1,89 @@
+name: Storylines
+groups:
+
+- name: "Ardenweald Extra Storylines"
+  icon: achievement/14800 # Sojourner of Ardenweald
+  lookup: none
+  type: quest
+  data:
+    0:
+    - name: "Thread of Hope"
+      id: 60066
+
+    - name: "When a Gorm Eats a God"
+      id: 58026
+
+    - name: "Trouble at the Gormling Corral"
+      id: 59656
+
+    - name: "Tricky Spriggans"
+      id: 57871
+
+    - name: "An Ominous Stone"
+      id: 58166
+
+    - name: "Wicked Plan"
+      id: 58267
+
+- name: "Bastion Extra Storylines"
+  icon: achievement/14801 # Sojourner of Bastion
+  lookup: none
+  type: quest
+  data:
+    0:
+    - name: "In Agthia's Memory"
+      id: 57555
+
+    - name: "In the Garden of Respite"
+      id: 57568
+
+    - name: "Pride or Unit"
+      id: 58103 60296
+
+    - name: "Wings of Freedom"
+      id: 59865
+
+    - name: "The Spear of Kalliope"
+      id: 60906 57967
+
+- name: "Maldraxxus Extra Storylines"
+  icon: achievement/14799 # Sojourner of Maldraxxus
+  lookup: none
+  type: quest
+  data:
+    0:
+    - name: "Theater of Pain"
+      id: 57316
+
+    - name: "Mixing Monstrosities"
+      id: 57301
+
+    - name: "Archival Protection"
+      id: 58623
+
+    - name: "Wasteland Work"
+      id: 58794
+
+- name: "Revendreth Extra Storylines"
+  icon: achievement/14798 # Sojourner of Revendreth
+  lookup: none
+  type: quest
+  data:
+    0:
+    - name: "The Duelist's Debt"
+      id: 59726
+
+    - name: "Dirty Jobs"
+      id: 57481
+
+    - name: "Mirror Maker of the Master"
+      id: 57536
+
+    - name: "Tithes of Darkhaven"
+      id: 60178
+
+    - name: "The Final Atonement"
+      id: 58092
+
+    - name: "Revelations of the Light"
+      id: 60470

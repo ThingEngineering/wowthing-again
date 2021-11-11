@@ -55,6 +55,7 @@ export interface StaticDataRealm {
 export interface StaticDataProgressCategory {
     name: string
     slug: string
+    requiredQuestIds: number[]
     groups: StaticDataProgressGroup[]
 }
 
@@ -67,7 +68,7 @@ export interface StaticDataProgressGroup {
 }
 
 export interface StaticDataProgressData {
-    id: number
+    ids: number[]
     description?: string
     name: string
 }

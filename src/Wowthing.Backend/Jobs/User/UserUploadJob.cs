@@ -399,18 +399,28 @@ namespace Wowthing.Backend.Jobs.User
             }
 
             // Vault
-            if (characterData.ScanTimes.TryGetValue("vault", out int vaultScanned) && characterData.MythicDungeons != null && characterData.Vault != null)
+            if (characterData.ScanTimes.TryGetValue("vault", out int vaultScanned))
             {
                 character.Weekly.Vault.ScannedAt = vaultScanned.AsUtcDateTime();
 
                 character.Weekly.Vault.MythicPlusRuns = characterData.MythicDungeons
+                    .EmptyIfNull()
                     .Select(d => new List<int> { d.Map, d.Level })
                     .ToList();
 
                 // https://wowpedia.fandom.com/wiki/API_C_WeeklyRewards.GetActivities
-                character.Weekly.Vault.MythicPlusProgress = ConvertVault(characterData.Vault[0]);
-                character.Weekly.Vault.RankedPvpProgress = ConvertVault(characterData.Vault[1]);
-                character.Weekly.Vault.RaidProgress = ConvertVault(characterData.Vault[2]);
+                if (characterData.Vault != null && characterData.Vault.Length == 3)
+                {
+                    character.Weekly.Vault.MythicPlusProgress = ConvertVault(characterData.Vault[0]);
+                    character.Weekly.Vault.RankedPvpProgress = ConvertVault(characterData.Vault[1]);
+                    character.Weekly.Vault.RaidProgress = ConvertVault(characterData.Vault[2]);
+                }
+                else
+                {
+                    character.Weekly.Vault.MythicPlusProgress = null;
+                    character.Weekly.Vault.RankedPvpProgress = null;
+                    character.Weekly.Vault.RaidProgress = null;
+                }
 
                 Context.Entry(character.Weekly).Property(e => e.Vault).IsModified = true;
             }

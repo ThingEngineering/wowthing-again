@@ -3,10 +3,16 @@
     import getPercentClass from '@/utils/get-percent-class'
     import getProgress from '@/utils/get-progress'
     import { tippyComponent } from '@/utils/tippy'
-    import type { Character, StaticDataProgressData, StaticDataProgressGroup } from '@/types'
+    import type {
+        Character,
+        StaticDataProgressCategory,
+        StaticDataProgressData,
+        StaticDataProgressGroup,
+    } from '@/types'
 
     import TooltipProgress from '@/components/tooltips/progress/TooltipProgress.svelte'
 
+    export let category: StaticDataProgressCategory
     export let character: Character
     export let group: StaticDataProgressGroup
 
@@ -17,6 +23,7 @@
         ({ datas, have, total } = getProgress(
             $userQuestStore.data,
             character,
+            category,
             group,
         ))
     }

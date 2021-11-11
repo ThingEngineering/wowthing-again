@@ -47,7 +47,7 @@ groups:
   -  54487 # Darkmoon Turtle
   -  55367 # Darkmoon Zeppelin
 
-- name: Pet Battles
+- name: ">Pet Battles"
   things:
   -  67443 # Crow
   -  67329 # Darkmoon Glowfly

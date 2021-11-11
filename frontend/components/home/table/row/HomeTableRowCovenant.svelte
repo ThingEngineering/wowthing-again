@@ -1,7 +1,8 @@
 <script lang="ts">
+    import { Constants } from '@/data/constants'
     import { covenantMap } from '@/data/covenant'
     import type { Character, Covenant } from '@/types'
-    import getCurrentPeriodForCharacter from '@/utils/get-current-period-for-character'
+    //import getCurrentPeriodForCharacter from '@/utils/get-current-period-for-character'
     import { tippyComponent } from '@/utils/tippy'
 
     import Tooltip from '@/components/tooltips/covenant/TooltipCovenant.svelte'
@@ -10,18 +11,13 @@
     export let character: Character = undefined
 
     let covenant: Covenant
-    let maxRenown = 60
-    let tooltip: string
     $: {
-        const currentPeriod = getCurrentPeriodForCharacter(character)
+        /*const currentPeriod = getCurrentPeriodForCharacter(character)
         if (currentPeriod) {
             maxRenown = Math.min(80, maxRenown + (currentPeriod.id - 815) * 2)
-        }
+        }*/
 
         covenant = covenantMap[character?.shadowlands?.covenantId]
-        if (covenant) {
-            tooltip = covenant.getTooltip(character?.shadowlands.renownLevel)
-        }
     }
 </script>
 
@@ -42,7 +38,9 @@
     {#if covenant !== undefined}
         <div class="flex-wrapper">
             <WowthingImage name={covenant.icon} size={20} border={1} />
-            <span class:status-success={character.shadowlands.renownLevel >= maxRenown}>{character.shadowlands.renownLevel}</span>
+            <span
+                class:status-success={character.shadowlands.renownLevel >= Constants.maxRenown}
+            >{character.shadowlands.renownLevel}</span>
         </div>
     {:else}
         &nbsp;

@@ -23,12 +23,13 @@
         }
 
         if (feature.researchEnds > 0) {
-            const ends = DateTime.fromSeconds(feature.researchEnds)
+            const ends: DateTime = DateTime.fromSeconds(feature.researchEnds)
             if (ends <= $timeStore) {
                 return feature.rank + 1
             }
             else {
-                return `${feature.rank + 1} in<br><span class="status-shrug">${toNiceDuration(ends - $timeStore)}</span>`
+                const duration = toNiceDuration(ends.diff($timeStore).toMillis())
+                return `${feature.rank + 1} in<br><span class="status-shrug">${duration}</span>`
             }
         }
 
@@ -60,7 +61,7 @@
     }
     .value {
         border-left: 1px solid $border-color;
-        width: 3rem;
+        width: 4rem;
     }
     .active {
         background: rgba(0, 0, 255, 0.3);
