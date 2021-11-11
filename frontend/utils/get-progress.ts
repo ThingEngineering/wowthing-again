@@ -16,8 +16,6 @@ export default function getProgress(
     let total = 0
     let icon = ''
 
-    console.log(character.name, category.name, category.requiredQuestIds)
-
     let datas: StaticDataProgressData[]
 
     if (

@@ -1,0 +1,41 @@
+name: Korthia
+groups:
+
+- name: Chains of Domination
+  icon: achievement/14961 # Chains of Domination
+  lookup: none
+  type: quest
+  data:
+    0:
+    - name: Battle of Ardenweald
+      id: 63639
+
+    - name: Maw Walkers
+      id: 64556
+
+    - name: Focusing the Eye
+      id: 63902
+
+    - name: The Last Sigil
+      id: 63727
+      description: Requires Renown 44
+
+    - name: An Army of Bone and Steel
+      id: 63622
+      description: Requires Renown 47
+
+    - name: The Unseen Guests
+      id: 63656
+      description: Requires Renown 50
+
+    - name: The Power of Night
+      id: 64437
+      description: Requires Renown 52
+
+    - name: A New Path
+      id: 63593
+      description: Requires Renown 56
+
+    - name: What Lies Ahead
+      id: 64314
+      description: Requires Renown 58

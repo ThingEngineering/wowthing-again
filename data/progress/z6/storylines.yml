@@ -1,5 +1,4 @@
 name: "Storylines"
-requiredQuestId: 44663 # In the BLink of an Eye
 groups:
 
 - name: "Suramar Storylines"
