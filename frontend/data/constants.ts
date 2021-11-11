@@ -1,5 +1,6 @@
 export abstract class Constants {
     static readonly characterMaxLevel: number = 60
+    static readonly maxRenown: number = 80
     static readonly maxTorghastWing: number = 12
     static readonly mythicPlusSeason: number = 6
 
