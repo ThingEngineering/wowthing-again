@@ -31,7 +31,9 @@ z0/_vanilla.yml
 misc.yml
 
 professions/_professions.yml
+    professions/archaeology.yml
     professions/engineering.yml
+    professions/fishing.yml
 
 world_events/_world_events.yml
     world_events/argent_tournament.yml

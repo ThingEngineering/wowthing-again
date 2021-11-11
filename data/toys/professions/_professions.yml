@@ -1,46 +1,13 @@
 name: Professions
 groups:
 
-- name: Archaeology
+- name: Enchanting
   things:
-  -  89614 # Anatomical Dummy ()
-  -  69776 # Ancient Amber ()
-  -  64456 # Arrival of the Naaru ()
-  -  64481 # Blessing of the Old God ()
-  -  64646 # Bones of Transformation ()
-  -  64373 # Chalice of the Mountain Kings ()
-  - 160740 # Croak Crock (Zandalari)
-  - 131724 # Crystalline Eye of Undravius ()
-  - 160751 # Dance of the Dead (Drust)
-  -  64361 # Druid and Priest Statue Set ()
-  -  69777 # Haunted War Drum ()
-  -  64358 # Highborne Soul Mirror ()
-  -  64383 # Kaldorei Wind Chimes ()
-  -  64881 # Pendant of the Scarab Storm ()
-  -  64482 # Puzzle Box of Yogg-Saron ()
-  -  64488 # The Innkeeper's Daughter ()
-  -  69775 # Vyrkul Drinking Horn ()
-  -  64651 # Wisp Amulet ()
+  - 128536 # Leylight Brazier (Enchanting)
 
-- name: Fishing
+- name: Inscription
   things:
-  - 142528 # Crate of Bobbers: Can of Worms
-  - 142529 # Crate of Bobbers: Cat Head
-  - 142532 # Crate of Bobbers: Murloc Head (vendor Fishing, Conjurer Margoss)
-  - 142531 # Crate of Bobbers: Squeaky Duck (vendor Fishing, Conjurer Margoss)
-  - 142530 # Crate of Bobbers: Tugboat
-  - 143662 # Crate of Bobbers: Wooden Pepe
-  - 147307 # Carved Wooden Helm (Corbyn, Stormheim) fishing rep
-  - 152574 # Corbyn's Beacon (Corbyn - Helpful Friend)
-  - 147312 # Demon Noggin (Impus, Broken Shore) fishing rep
-  - 147308 # Enchanted Bobber (Ilyssia of the Waters, Azsuna) fishing rep
-  - 147309 # Face of the Forest (Keeper Raynae, Val'sharah) fishing rep
-  - 147310 # Floating Totem (Akule Riverhorn, Highmountain) fishing rep
-  - 168016 # Hyper-Compressed Ocean  (Secret Fish and Where to Find Them) fishing achieve
-  - 108739 # Pretty Draenor Pearl
-  - 147311 # Replica Gondola (Sha'leth, Suramar) fishing rep
-  - 152556 # Trawler Totem (Fishing, Akule Riverhorn - Good Friend)
-  -  45984 # Unusual Compass
+  - 129211 # Steamy Romance Novel Kit (Inscription)
 
 - name: Jewelcrafting
   things:
@@ -56,9 +23,6 @@ groups:
   - 186702 # Pallid Bone Flute
   - 186686 # Pallid Oracle Bones
 
-- name: Other
+- name: Skinning
   things:
-  - 128536 # Leylight Brazier (Enchanting)
-  - 129211 # Steamy Romance Novel Kit (Inscription)
   - 130102 # Mother's Skinning Knife (Quest, Skinning)
-

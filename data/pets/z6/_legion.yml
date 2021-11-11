@@ -8,20 +8,6 @@ groups:
   -  97206 # Dream Whelpling (Emerald Nightmare)
   - 112015 # Nightmare Whelpling (Emerald Nightmare)
 
-- name: Order Hall
-  things:
-  - 112144 # Corgnelius
-  - 112132 # Firebat Pup
-  -  97178 # Hateful Eye
-  - 119498 # Bloodbrood Whelpling (Order Hall, Death Knight)
-  - 119499 # Frostbrood Whelpling (Order Hall, Death Knight)
-  - 119500 # Vilebrood Whelpling (Order Hall, Death Knight)
-  -  98463 # Broot (Order Hall, Druid)
-  - 112798 # Nightmare Lasher (Order Hall, Druid)
-  - 120830 # Ban-Fu, Cub of Ban-Lu (Order Hall, Monk)
-  - 116871 # Crackers (Order Hall, Rogue?)
-  - 114063 # Snowfang (Order Hall, Shaman)
-
 - name: Quests
   things:
   -  96649 # Ashmaw Cub ()
