@@ -112,12 +112,18 @@ export class UserCollectionDataStore extends WritableFancyStore<UserCollectionDa
                     )
 
                     for (const things of group.things) {
+                        const hasThing = some(things, (t) => userHas[map?.[t] ?? t])
                         const seenThing = some(things, (t) => seen[t])
 
                         const doOverall = (
-                            category[0].slug !== 'unavailable' &&
-                            doCategory &&
-                            !seenThing
+                            !seenThing &&
+                            (
+                                hasThing ||
+                                (
+                                    category[0].slug !== 'unavailable' &&
+                                    doCategory
+                                )
+                            )
                         )
 
                         if (doCategory) {
@@ -129,22 +135,15 @@ export class UserCollectionDataStore extends WritableFancyStore<UserCollectionDa
 
                         setData.total++
 
-                        for (const thing of things) {
-                            if (
-                                (map && userHas[map[thing]]) ||
-                                (!map && userHas[thing])
-                            ) {
-                                if (doCategory) {
-                                    categoryData.have++
-                                }
-                                if (doOverall) {
-                                    overallData.have++
-                                }
-
-                                setData.have++
-
-                                break
+                        if (hasThing) {
+                            if (doCategory) {
+                                categoryData.have++
                             }
+                            if (doOverall) {
+                                overallData.have++
+                            }
+
+                            setData.have++
                         }
 
                         for (const thing of things) {
