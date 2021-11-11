@@ -125,6 +125,9 @@ namespace Wowthing.Backend.Utilities
                             {
                                 logger?.Debug("Loading autogroup: {0}", globalFilePath);
                                 things.Add(LoadFile(basePath, globalFilePath, cache));
+
+                                var last = things.Last();
+                                last.Name = ">" + last.Name;
                             }
                         }
                     } 
