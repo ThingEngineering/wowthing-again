@@ -34,7 +34,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
-            Version = 19,
+            Version = 20,
         };
 
         public override async Task Run(params string[] data)
@@ -203,9 +203,26 @@ namespace Wowthing.Backend.Jobs.Misc
             return sigh;
         }
 
-        private List<List<DataProgress>> LoadProgress()
+        private List<List<OutProgress>> LoadProgress()
         {
-            return DataUtilities.LoadData<DataProgress>("progress", Logger);
+            var ret = new List<List<OutProgress>>();
+            
+            var progressSets = DataUtilities.LoadData<DataProgress>("progress", Logger);
+            foreach (var progressSet in progressSets)
+            {
+                if (progressSet == null)
+                {
+                    ret.Add(null);
+                    continue;
+                }
+
+                ret.Add(progressSet
+                    .Select(category => category == null ? null : new OutProgress(category))
+                    .ToList()
+                );
+            }
+
+            return ret;
         }
 
         private static async Task<SortedDictionary<int, (int, string)>> LoadMountDump()

@@ -1,4 +1,5 @@
 <script lang="ts">
+    import filter from 'lodash/filter'
     import find from 'lodash/find'
 
     import { staticStore } from '@/stores/static'
@@ -14,12 +15,23 @@
 
     let categories: StaticDataProgressCategory[]
     $: {
-        categories = find($staticStore.data.progress, (p) => p !== null && p[0].slug === slug)
+        categories = /*filter(*/
+            find($staticStore.data.progress, (p) => p !== null && p[0].slug === slug)//,
+            /*(c) => c?.groups?.length > 0
+        )*/
+
+        console.log(categories)
     }
 </script>
 
 <style lang="scss">
-
+    .spacer {
+        background: $body-background;
+        border-bottom-width: 0 !important;
+        border-left: 1px solid $border-color;
+        border-top-width: 0 !important;
+        width: 1rem;
+    }
 </style>
 
 <CharacterTable>
@@ -28,10 +40,15 @@
             {#if slug === 'shadowlands'}
                 <th></th>
             {/if}
+
             {#each categories as category}
-                {#each category.groups as group}
-                    <HeadProgress {group} />
-                {/each}
+                {#if category === null}
+                    <th class="spacer"></th>
+                {:else}
+                    {#each category.groups as group}
+                        <HeadProgress {group} />
+                    {/each}
+                {/if}
             {/each}
         {/key}
     </CharacterTableHead>
@@ -41,10 +58,19 @@
             {#if slug === 'shadowlands'}
                 <RowCovenant {character} />
             {/if}
+
             {#each categories as category}
-                {#each category.groups as group}
-                    <RowProgress {character} {group} />
-                {/each}
+                {#if category === null}
+                    <td class="spacer"></td>
+                {:else}
+                    {#each category.groups as group}
+                        <RowProgress
+                            {character}
+                            {category}
+                            {group}
+                        />
+                    {/each}
+                {/if}
             {/each}
         {/key}
     </svelte:fragment>
