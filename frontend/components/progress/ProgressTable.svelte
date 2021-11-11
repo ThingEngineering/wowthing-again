@@ -1,5 +1,4 @@
 <script lang="ts">
-    import filter from 'lodash/filter'
     import find from 'lodash/find'
 
     import { staticStore } from '@/stores/static'
@@ -15,12 +14,7 @@
 
     let categories: StaticDataProgressCategory[]
     $: {
-        categories = /*filter(*/
-            find($staticStore.data.progress, (p) => p !== null && p[0].slug === slug)//,
-            /*(c) => c?.groups?.length > 0
-        )*/
-
-        console.log(categories)
+        categories = find($staticStore.data.progress, (p) => p !== null && p[0].slug === slug)
     }
 </script>
 

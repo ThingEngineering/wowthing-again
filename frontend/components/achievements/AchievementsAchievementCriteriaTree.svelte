@@ -10,7 +10,7 @@
     export let accountWide = false
     export let achievement: AchievementDataAchievement
     export let criteriaTreeId: number
-    export let haveMap: Record<number, number>
+    export let haveMap: Record<number, number> = null
 
     let criteriaTree: AchievementDataCriteriaTree
     let have: boolean
