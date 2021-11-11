@@ -245,9 +245,19 @@ export const classMap: Record<number, CharacterClass> = {
 }
 
 export const classNameMap: Record<string, CharacterClass> = Object.fromEntries(
-    Object.entries(classMap).map(([, cls]) => [cls.name, cls]),
+    Object.entries(classMap)
+        .map(([, cls]) => [cls.name, cls]),
 )
 
 export const classSlugMap: Record<string, CharacterClass> = Object.fromEntries(
-    Object.entries(classMap).map(([, cls]) => [cls.name.toLowerCase().replace(' ', '_'), cls]),
+    Object.entries(classMap)
+        .map(([, cls]) => [
+            cls.name.toLowerCase().replace(' ', '-'),
+            cls,
+        ]),
+)
+
+export const classIdToSlug: Record<number, string> = Object.fromEntries(
+    Object.entries(classSlugMap)
+        .map(([slug, cls]) => [cls.id, slug])
 )
