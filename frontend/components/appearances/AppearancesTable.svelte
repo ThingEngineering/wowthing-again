@@ -1,6 +1,7 @@
 <script lang="ts">
     import filter from 'lodash/filter'
     import find from 'lodash/find'
+    import sortBy from 'lodash/sortBy'
 
     import {transmogStore} from '@/stores'
     import {data as settingsData} from '@/stores/settings'
