@@ -1,5 +1,4 @@
 name: "Order Halls"
-requiredQuestId: 44663 # In the BLink of an Eye
 groups:
 
 - name: "Order Hall Campaign"

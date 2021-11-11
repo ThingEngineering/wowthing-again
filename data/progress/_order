@@ -1,4 +1,9 @@
 z8/_shadowlands.yml
+    z8/korthia.yml
+    -
+    z8/covenants.yml
+    -
+    z8/storylines.yml
 
 z7/_battle_for_azeroth.yml
 

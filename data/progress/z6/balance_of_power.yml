@@ -1,5 +1,4 @@
 name: "Balance of Power"
-requiredQuestId: 44663 # In the BLink of an Eye
 groups:
 
 - name: "Balance of Power"
