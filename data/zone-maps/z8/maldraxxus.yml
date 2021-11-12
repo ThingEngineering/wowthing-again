@@ -492,6 +492,7 @@ farms:
   - type: transmog
     id: 183516
     name: "Stained Bonefused Mantle"
+    limit: armor cloth
 
 - name: "Strange Growth"
   location: 55.9 39.0
