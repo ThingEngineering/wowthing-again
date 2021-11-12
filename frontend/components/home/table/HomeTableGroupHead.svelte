@@ -65,6 +65,11 @@
                 <RowPlayedTime {playedTotal} />
             {/if}
 
+        {:else if field === 'restedExperience'}
+            {#if !isPublic}
+                <td>Rest</td>
+            {/if}
+
         {:else if field === 'torghast'}
             <HeadTorghast />
 

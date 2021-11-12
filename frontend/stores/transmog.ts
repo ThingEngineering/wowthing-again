@@ -1,6 +1,6 @@
 import sortBy from 'lodash/sortBy'
 
-import { StaticData, WritableFancyStore } from '@/types'
+import { WritableFancyStore } from '@/types'
 import type { TransmogData, TransmogDataCategory } from '@/types/data'
 
 

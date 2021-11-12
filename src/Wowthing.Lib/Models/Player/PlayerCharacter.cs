@@ -40,12 +40,14 @@ namespace Wowthing.Lib.Models.Player
         public bool IsWarMode { get; set; } = false;
         public int ChromieTime { get; set; } = 0;
         public int PlayedTotal { get; set; } = 0;
+        public int RestedExperience { get; set; } = 0;
         public long Copper { get; set; } = 0;
         public WowMountSkill MountSkill { get; set; } = 0;
 
         // Bookkeeping
         public int DelayHours { get; set; } = 0;
         public DateTime LastApiCheck { get; set; } = DateTime.MinValue;
+        public DateTime LastSeenAddon { get; set; } = DateTime.MinValue;
 
         // Navigation properties
         public PlayerCharacterAchievements Achievements { get; set; }
