@@ -3,6 +3,7 @@ export abstract class Constants {
     static readonly maxRenown: number = 80
     static readonly maxTorghastWing: number = 12
     static readonly mythicPlusSeason: number = 6
+    static readonly restedDuration: number = 10 * 24 * 60 * 60 // 10 days
 
     static readonly icons = {
         enchant: 'spell/7411', // Enchanting

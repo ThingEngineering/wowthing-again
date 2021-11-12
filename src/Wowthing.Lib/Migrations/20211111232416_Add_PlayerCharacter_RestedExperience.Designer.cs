@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
@@ -13,9 +14,10 @@ using Wowthing.Lib.Models.Player;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    partial class WowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211111232416_Add_PlayerCharacter_RestedExperience")]
+    partial class Add_PlayerCharacter_RestedExperience
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -454,10 +456,6 @@ namespace Wowthing.Lib.Migrations
                     b.Property<DateTime>("LastApiCheck")
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("last_api_check");
-
-                    b.Property<DateTime>("LastSeenAddon")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("last_seen_addon");
 
                     b.Property<int>("Level")
                         .HasColumnType("integer")

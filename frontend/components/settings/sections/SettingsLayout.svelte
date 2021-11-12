@@ -25,6 +25,7 @@
         {key: 'lockouts', name: 'Lockouts'},
         {key: 'mountSpeed', name: 'Mount speed'},
         {key: 'playedTime', name: 'Played time'},
+        {key: 'restedExperience', name: 'Rested XP'},
         {key: 'statusIcons', name: 'Status icons'},
         {key: 'torghast', name: 'Torghast'},
         {key: 'vaultMythicPlus', name: 'Vault - Mythic+'},
