@@ -88,12 +88,15 @@ namespace Wowthing.Backend.Jobs.User
                 //Logger.Debug("Found character: {0} => {1}", addonId, character.Id);
                 accountId = character.AccountId.Value;
 
+                character.LastSeenAddon = characterData.LastSeen.AsUtcDateTime();
+                
                 character.ChromieTime = characterData.ChromieTime;
                 character.Copper = characterData.Copper;
                 character.IsResting = characterData.IsResting;
                 character.IsWarMode = characterData.IsWarMode;
                 character.MountSkill = Enum.IsDefined(typeof(WowMountSkill), characterData.MountSkill) ? (WowMountSkill)characterData.MountSkill : 0;
                 character.PlayedTotal = characterData.PlayedTotal;
+                character.RestedExperience = characterData.RestedXp;
 
                 transmog.UnionWith(characterData.Transmog.EmptyIfNull());
 

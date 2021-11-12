@@ -20,7 +20,11 @@ export interface Character {
     playedTotal: number
     raceId: number
     realmId: number
+    restedExperience: number
 
+    lastSeenAddon: string
+
+    // Calculated
     calculatedItemLevel: string
     calculatedItemLevelQuality: number
     realm: StaticDataRealm

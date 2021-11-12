@@ -25,8 +25,10 @@ namespace Wowthing.Web.Models
         public int PlayedTotal { get; set; }
         public int RaceId { get; set; }
         public int RealmId { get; set; }
+        public int RestedExperience { get; set; }
         public long Gold { get; }
         public string Name { get; set; }
+        public DateTime LastSeenAddon { get; set; }
         public WowFaction Faction { get; set; }
         public WowGender Gender { get; set; }
         public WowMountSkill MountSkill { get; set; }
@@ -75,7 +77,9 @@ namespace Wowthing.Web.Models
                 Gold = character.Copper / 10000;
                 IsResting = character.IsResting;
                 IsWarMode = character.IsWarMode;
+                LastSeenAddon = character.LastSeenAddon;
                 PlayedTotal = character.PlayedTotal;
+                RestedExperience = character.RestedExperience;
             }
 
             if (character.EquippedItems?.Items != null)

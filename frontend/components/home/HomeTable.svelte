@@ -12,6 +12,7 @@
     import RowLockouts from './table/row/HomeTableRowLockouts.svelte'
     import RowMountSpeed from './table/row/HomeTableRowMountSpeed.svelte'
     import RowPlayedTime from './table/row/HomeTableRowPlayedTime.svelte'
+    import RowRestedExperience from './table/row/HomeTableRowRestedExperience.svelte'
     import RowStatuses from './table/row/HomeTableRowStatuses.svelte'
     import RowTorghast from './table/row/HomeTableRowTorghast.svelte'
     import RowUghQuest from './table/row/HomeTableRowUghQuest.svelte'
@@ -58,6 +59,11 @@
             {:else if field === 'playedTime'}
                 {#if !isPublic}
                     <RowPlayedTime playedTotal={character.playedTotal} />
+                {/if}
+
+            {:else if field === 'restedExperience'}
+                {#if !isPublic}
+                    <RowRestedExperience {character} />
                 {/if}
 
             {:else if field === 'statusIcons'}
