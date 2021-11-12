@@ -4,14 +4,13 @@
 
     import { userQuestStore } from '@/stores'
     import { staticStore } from '@/stores/static'
-    import type { StaticDataProgressCategory } from '@/types'
+    import type { Character, StaticDataProgressCategory } from '@/types'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
     import HeadProgress from './ProgressTableHead.svelte'
     import RowCovenant from '@/components/home/table/row/HomeTableRowCovenant.svelte'
     import RowProgress from './ProgressTableBody.svelte'
-    import { Character } from '@/types'
 
     export let slug: string
 
