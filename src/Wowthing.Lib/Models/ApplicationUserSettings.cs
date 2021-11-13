@@ -93,7 +93,11 @@ namespace Wowthing.Lib.Models
             else
             {
                 // Clamp between 10 and 1440 minutes
+#if DEBUG
+                General.RefreshInterval = Math.Max(1, Math.Min(1440, General.RefreshInterval));
+#else
                 General.RefreshInterval = Math.Max(10, Math.Min(1440, General.RefreshInterval));
+#endif
             }
             
             General.GroupBy = General.GroupBy
