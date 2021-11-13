@@ -1,8 +1,10 @@
 <script lang="ts">
-    import {transmogSets} from '@/data/transmog-sets'
-    import type {Dictionary} from '@/types'
-    import type {TransmogDataCategory} from '@/types/data'
+    import { transmogSets } from '@/data/transmog-sets'
+    import { userTransmogStore } from '@/stores'
+    import getPercentClass from '@/utils/get-percent-class'
     import getTransmogSpan from '@/utils/get-transmog-span'
+    import type { Dictionary } from '@/types'
+    import type { TransmogDataCategory, TransmogDataGroup } from '@/types/data'
 
     import ClassIcon from '@/components/images/ClassIcon.svelte'
     import CovenantIcon from '@/components/images/CovenantIcon.svelte'
@@ -10,9 +12,20 @@
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let category: TransmogDataCategory
-    export let setKey: string
     export let skipClasses: Dictionary<boolean>
+    export let slugs: string[]
     export let startSpacer = false
+
+    let setKey: string
+    $: {
+        setKey = slugs.join('--')
+    }
+
+    const getPercent = function(group: TransmogDataGroup, setIndex: number): number {
+        const key = `${slugs[0]}--${category.slug}--${group.name}--${setIndex}`
+        const hasData = $userTransmogStore.data.has[key]
+        return hasData ? hasData.have / hasData.total * 100 : 0
+    }
 </script>
 
 <style lang="scss">
@@ -47,7 +60,9 @@
         opacity: 0.4;
     }
     .name {
-        @include cell-width(14rem);
+        @include cell-width(15rem);
+
+        position: relative;
     }
     .highlight {
         background-color: $highlight-background;
@@ -57,6 +72,11 @@
     }
     .tag {
         color: $colour-success;
+    }
+    .percent {
+        position: absolute;
+        right: 0.5rem;
+        word-spacing: -0.2ch;
     }
 </style>
 
@@ -170,9 +190,14 @@
 
     {#each group.sets as setName, setIndex}
         <tr class:faded={setName.endsWith('*')}>
-            <td class="name">&ndash {setName.replace('*', '')}</td>
+            <td class="name">
+                &ndash {setName.replace('*', '')}
+                <span class="drop-shadow percent {getPercentClass(getPercent(group, setIndex))}">
+                     {Math.floor(getPercent(group, setIndex)).toFixed(0)} %
+                </span>
+            </td>
 
-            {#each transmogSets[group.type].sets as transmogSet (`set--${setKey}--${setName}--${transmogSet.type}`)}
+            {#each transmogSets[group.type].sets as transmogSet, transmogSetIndex (`set--${setKey}--${setName}--${transmogSet.type}`)}
                 {#if !skipClasses[transmogSet.type]}
                     <TableSet
                         set={group.data?.[transmogSet.type]?.[setIndex]}

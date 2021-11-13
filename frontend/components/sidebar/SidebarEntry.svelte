@@ -4,10 +4,10 @@
     import { link, location, replace } from 'svelte-spa-router'
     import active from 'svelte-spa-router/active'
 
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-
-    import type {SidebarItem} from '@/types'
     import getPercentClass from '@/utils/get-percent-class'
+    import type {SidebarItem} from '@/types'
+
+    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
 
     export let anyChildren: boolean
     export let baseUrl: string

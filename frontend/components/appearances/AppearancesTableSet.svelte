@@ -3,10 +3,10 @@
     import toPairs from 'lodash/toPairs'
 
     import {userTransmogStore} from '@/stores'
-    import type {Dictionary} from '@/types'
-    import type {TransmogDataGroupData} from '@/types/data'
     import getPercentClass from '@/utils/get-percent-class'
     import {tippyComponent} from '@/utils/tippy'
+    import type {Dictionary} from '@/types'
+    import type {TransmogDataGroupData} from '@/types/data'
 
     import TooltipAppearanceSet from '@/components/tooltips/appearance-set/TooltipAppearanceSet.svelte'
     import WowheadTransmogSetLink from '@/components/links/WowheadTransmogSetLink.svelte'
