@@ -21,6 +21,7 @@ export * from './team-data'
 export * from './tippy'
 export * from './transmog'
 export * from './user-achievement-data'
+export * from './user-count'
 export * from './user-data'
 export * from './zone-maps'
 

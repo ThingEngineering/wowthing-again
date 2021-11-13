@@ -23,11 +23,3 @@ export interface UserDataCurrentPeriod {
     starts: string
     ends: string
 }
-
-export class UserDataSetCount {
-    constructor(
-        public have: number,
-        public total: number,
-    )
-    {}
-}

@@ -1,12 +1,12 @@
 <script lang="ts">
     import { transmogStore, userTransmogStore } from '@/stores'
-    import type { SidebarItem, UserDataSetCount } from '@/types'
+    import type { SidebarItem, UserCount } from '@/types'
 
     import ProgressBar from '@/components/common/ProgressBar.svelte'
     import Sidebar from '@/components/sidebar/Sidebar.svelte'
 
     let categories: SidebarItem[]
-    let overall: UserDataSetCount
+    let overall: UserCount
     $: {
         categories = $transmogStore.data.sets.map((set) => set === null ? null : ({
             children: set.slice(1),

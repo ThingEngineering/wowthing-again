@@ -2,7 +2,7 @@
     import { getContext } from 'svelte'
 
     import { userCollectionStore } from '@/stores'
-    import type { SidebarItem, UserDataSetCount } from '@/types'
+    import type { SidebarItem, UserCount } from '@/types'
     import type { CollectionContext } from '@/types/contexts'
 
     import ProgressBar from '@/components/common/ProgressBar.svelte'
@@ -11,7 +11,7 @@
     const { route, sets } = getContext('collection') as CollectionContext
 
     let categories: SidebarItem[]
-    let overall: UserDataSetCount
+    let overall: UserCount
     $: {
         categories = sets.map((set) => set === null ? null : ({
             children: set.length > 1 ? set.slice(1) : [],

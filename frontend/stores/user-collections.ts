@@ -1,7 +1,7 @@
 import some from 'lodash/some'
 
 import type {UserCollectionData} from '@/types/data'
-import { Dictionary, StaticData, StaticDataSetCategory, UserDataSetCount, WritableFancyStore } from '@/types'
+import { Dictionary, StaticData, StaticDataSetCategory, UserCount, WritableFancyStore } from '@/types'
 import { TypedArray } from '@/types/enums'
 import base64ToDictionary from '@/utils/base64-to-dictionary'
 
@@ -82,12 +82,12 @@ export class UserCollectionDataStore extends WritableFancyStore<UserCollectionDa
     }
 
     private static doSetCounts(
-        setCounts: Dictionary<UserDataSetCount>,
+        setCounts: Dictionary<UserCount>,
         categories: StaticDataSetCategory[][],
         userHas: Dictionary<boolean>,
         map?: Dictionary<number>,
     ): void {
-        const overallData = setCounts['OVERALL'] = new UserDataSetCount(0, 0)
+        const overallData = setCounts['OVERALL'] = new UserCount()
         const seen: Record<number, boolean> = {}
 
         for (const category of categories) {
@@ -95,10 +95,10 @@ export class UserCollectionDataStore extends WritableFancyStore<UserCollectionDa
                 continue
             }
 
-            const categoryData = setCounts[category[0].slug] = new UserDataSetCount(0, 0)
+            const categoryData = setCounts[category[0].slug] = new UserCount()
 
             for (const set of category) {
-                const setData = setCounts[`${category[0].slug}--${set.slug}`] = new UserDataSetCount(0, 0)
+                const setData = setCounts[`${category[0].slug}--${set.slug}`] = new UserCount()
 
                 for (const group of set.groups) {
                     // We only want to increase some counts if the set is not
