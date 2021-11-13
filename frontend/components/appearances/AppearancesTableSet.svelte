@@ -3,10 +3,10 @@
     import toPairs from 'lodash/toPairs'
 
     import {userTransmogStore} from '@/stores'
-    import type {Dictionary} from '@/types'
-    import type {TransmogDataGroupData} from '@/types/data'
     import getPercentClass from '@/utils/get-percent-class'
     import {tippyComponent} from '@/utils/tippy'
+    import type {Dictionary} from '@/types'
+    import type {TransmogDataGroupData} from '@/types/data'
 
     import TooltipAppearanceSet from '@/components/tooltips/appearance-set/TooltipAppearanceSet.svelte'
     import WowheadTransmogSetLink from '@/components/links/WowheadTransmogSetLink.svelte'
@@ -15,11 +15,14 @@
     export let span = 1
     export let subType: string
 
-    let have = 0
-    let total = 0
-    let percent = 0
+    let have: number
+    let percent: number
+    let total: number
     let slotHave: Dictionary<boolean>
     $: {
+        have = 0
+        percent = 0
+        total = 0
         slotHave = {}
         if (set?.items) {
             for (const [slot, items] of toPairs(set.items)) {
