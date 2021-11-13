@@ -1,7 +1,6 @@
-import keys from 'lodash/keys'
 import toPairs from 'lodash/toPairs'
 
-import { Dictionary, Settings, UserCount, WritableFancyStore } from '@/types'
+import { Settings, UserCount, WritableFancyStore } from '@/types'
 import getSkipClasses from '@/utils/get-skip-classes'
 import type { TransmogData, UserTransmogData } from '@/types/data'
 
@@ -20,7 +19,7 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
 
         const skipClasses = getSkipClasses(settings)
 
-        const has: Dictionary<UserCount> = {}
+        const has: Record<string, UserCount> = {}
         const overallData = has['OVERALL'] = new UserCount()
 
         for (const categories of transmogData.sets) {
@@ -50,7 +49,8 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
                             const setData = has[setKey] = has[setKey] || new UserCount()
 
                             const groupSigh = dataValue[setIndex]
-                            const slotKeys = keys(groupSigh.items)
+                            const slotKeys = Object.keys(groupSigh.items)
+                                .map((key) => parseInt(key))
 
                             overallData.total += slotKeys.length
                             baseData.total += slotKeys.length

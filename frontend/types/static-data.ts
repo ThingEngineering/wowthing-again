@@ -1,25 +1,23 @@
-import type { Dictionary } from './dictionary'
-
 export interface StaticData {
-    currencies: Dictionary<StaticDataCurrency>
-    currencyCategories: Dictionary<StaticDataCurrencyCategory>
-    instances: Dictionary<StaticDataInstance>
+    currencies: Record<number, StaticDataCurrency>
+    currencyCategories: Record<number, StaticDataCurrencyCategory>
+    instances: Record<number, StaticDataInstance>
     progress: StaticDataProgressCategory[][]
-    realms: Dictionary<StaticDataRealm>
-    reputations: Dictionary<StaticDataReputation>
-    reputationTiers: Dictionary<StaticDataReputationTier>
+    realms: Record<number, StaticDataRealm>
+    reputations: Record<number, StaticDataReputation>
+    reputationTiers: Record<number, StaticDataReputationTier>
 
     mountSets: StaticDataSetCategory[][]
-    spellToMount: Dictionary<number>
+    spellToMount: Record<number, number>
 
     petSets: StaticDataSetCategory[][]
-    creatureToPet: Dictionary<number>
+    creatureToPet: Record<number, number>
 
     reputationSets: StaticDataReputationCategory[]
 
     toySets: StaticDataSetCategory[][]
 
-    raiderIoScoreTiers: Dictionary<StaticDataRaiderIoScoreTiers>
+    raiderIoScoreTiers: Record<number, StaticDataRaiderIoScoreTiers>
 }
 
 export interface StaticDataCurrency {
@@ -64,7 +62,7 @@ export interface StaticDataProgressGroup {
     lookup: string
     name: string
     type: string
-    data: Dictionary<StaticDataProgressData[]>
+    data: Record<string, StaticDataProgressData[]>
 }
 
 export interface StaticDataProgressData {

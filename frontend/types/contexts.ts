@@ -1,9 +1,9 @@
-import type { Dictionary, StaticDataSetCategory } from '.'
+import type { StaticDataSetCategory } from '.'
 
 export interface CollectionContext {
     route: string
     thingType: string
-    thingMap: Dictionary<number>
-    userHas: Dictionary<boolean>
+    thingMap: Record<number, number>
+    userHas: Record<number, boolean>
     sets: StaticDataSetCategory[][]
 }

@@ -1,7 +1,7 @@
 <script lang="ts">
     import { afterUpdate, setContext } from 'svelte'
 
-    import type { Dictionary, MultiSlugParams, StaticDataSetCategory } from '@/types'
+    import type { MultiSlugParams, StaticDataSetCategory } from '@/types'
     import type { CollectionContext } from '@/types/contexts'
     import getSavedRoute from '@/utils/get-saved-route'
 
@@ -11,8 +11,8 @@
     export let params: MultiSlugParams
     export let route: string
     export let thingType: string
-    export let thingMap: Dictionary<number> = {}
-    export let userHas: Dictionary<boolean> = {}
+    export let thingMap: Record<number, number> = {}
+    export let userHas: Record<number, boolean> = {}
     export let sets: StaticDataSetCategory[][]
 
     const context: CollectionContext = {

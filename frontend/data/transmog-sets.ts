@@ -1,7 +1,6 @@
 import {TransmogSet, TransmogSetData} from '@/types'
-import type {Dictionary} from '@/types'
 
-const transmogSets: Dictionary<TransmogSet> = {
+const transmogSets: Record<string, TransmogSet> = {
     'all': new TransmogSet('all', [
         new TransmogSetData('all', 12),
     ]),

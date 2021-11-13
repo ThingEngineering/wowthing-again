@@ -1,6 +1,3 @@
-import type {Dictionary} from '@/types'
-
-
 export interface TransmogData {
     sets: TransmogDataCategory[][]
 }
@@ -16,12 +13,12 @@ export interface TransmogDataGroup {
     name: string
     tag: string
     type: string
-    data: Dictionary<TransmogDataGroupData[]>
+    data: Record<number, TransmogDataGroupData[]>
     sets: string[]
 }
 
 export interface TransmogDataGroupData {
     wowheadSetId: number
     name: string
-    items: Dictionary<number[]>
+    items: Record<number, number[]>
 }

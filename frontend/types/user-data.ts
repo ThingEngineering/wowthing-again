@@ -1,6 +1,5 @@
 import type { Account } from './account'
 import type { Character } from './character'
-import type { Dictionary } from './dictionary'
 import type { InstanceDifficulty } from './dungeon'
 
 
@@ -9,12 +8,12 @@ export interface UserData {
 
     accounts: Account[]
     characters: Character[]
-    currentPeriod: Dictionary<UserDataCurrentPeriod>
+    currentPeriod: Record<number, UserDataCurrentPeriod>
 
     // Calculated
     allLockouts: InstanceDifficulty[]
     allLockoutsMap: Record<string, InstanceDifficulty>
-    characterMap: Dictionary<Character>
+    characterMap: Record<number, Character>
 }
 
 export interface UserDataCurrentPeriod {
