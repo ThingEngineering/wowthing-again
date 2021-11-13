@@ -9,7 +9,7 @@ import { DateTime } from 'luxon'
 import { classMap, classSlugMap } from '@/data/character-class'
 import { covenantSlugMap } from '@/data/covenant'
 import { factionMap } from '@/data/faction'
-import { Settings, StaticData, UserData, UserDataSetCount, WritableFancyStore } from '@/types'
+import { Settings, StaticData, UserData, UserCount, WritableFancyStore } from '@/types'
 import { ArmorType, PrimaryStat, WeaponType } from '@/types/enums'
 import { getNextDailyReset } from '@/utils/get-next-reset'
 import type { ZoneMapState } from '@/stores/local-storage/zone-map'
@@ -39,13 +39,13 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
 
         const now = DateTime.utc()
         const farmData: Record<string, FarmStatus[]> = {}
-        const setCounts: Record<string, UserDataSetCount> = {}
+        const setCounts: Record<string, UserCount> = {}
 
         const shownCharacters = filter(
             userData.characters,
             (c) => settings.characters.hiddenCharacters.indexOf(c.id) === -1
         )
-        const overallCounts = setCounts['OVERALL'] = new UserDataSetCount(0, 0)
+        const overallCounts = setCounts['OVERALL'] = new UserCount()
         const resetMap = fromPairs(toPairs(userQuestData.characters)
             .map(c => [
                 c[0],
@@ -59,7 +59,7 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
         for (const maps of zoneMapData.sets) {
             const categorySeen: Record<string, Record<number, boolean>> = {}
 
-            const categoryCounts = setCounts[maps[0].slug] = new UserDataSetCount(0, 0)
+            const categoryCounts = setCounts[maps[0].slug] = new UserCount()
 
             const categoryCharacters = filter(
                 shownCharacters,
@@ -83,7 +83,7 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                 const mapSeen: Record<string, Record<number, boolean>> = {}
 
                 const mapKey = `${maps[0].slug}--${map.slug}`
-                const mapCounts = setCounts[mapKey] = new UserDataSetCount(0, 0)
+                const mapCounts = setCounts[mapKey] = new UserCount()
 
                 const eligibleCharacters = filter(
                     categoryCharacters,
