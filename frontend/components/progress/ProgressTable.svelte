@@ -20,7 +20,6 @@
         categories = find($staticStore.data.progress, (p) => p !== null && p[0].slug === slug)
 
         if (categories[0].requiredQuestIds.length > 0) {
-            console.log(categories[0])
             filterFunc = (char: Character) => some(
                 categories[0].requiredQuestIds,
                 (id) => $userQuestStore.data.characters[char.id]?.quests?.has(id)

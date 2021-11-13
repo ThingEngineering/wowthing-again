@@ -57,9 +57,23 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
         )
 
         for (const maps of zoneMapData.sets) {
+            const categorySeen: Record<string, Record<number, boolean>> = {}
+
             const categoryCounts = setCounts[maps[0].slug] = new UserDataSetCount(0, 0)
 
-            const categorySeen: Record<string, Record<number, boolean>> = {}
+            let eligibleCharacters = filter(
+                shownCharacters,
+                (char) => (
+                    char.level >= maps[0].minimumLevel &&
+                    (
+                        maps[0].requiredQuestIds.length === 0 ||
+                        some(
+                            maps[0].requiredQuestIds,
+                            (questId) => userQuestData.characters[char.id].quests.get(questId)
+                        )
+                    )
+                )
+            )
 
             for (const map of maps.slice(1)) {
                 if (map === null) {
@@ -71,15 +85,15 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                 const mapKey = `${maps[0].slug}--${map.slug}`
                 const mapCounts = setCounts[mapKey] = new UserDataSetCount(0, 0)
 
-                const eligibleCharacters = filter(
-                    shownCharacters,
-                    (c) => (
-                        c.level >= map.minimumLevel &&
+                eligibleCharacters = filter(
+                    eligibleCharacters,
+                    (char) => (
+                        char.level >= map.minimumLevel &&
                         (
                             map.requiredQuestIds.length === 0 ||
                             some(
                                 map.requiredQuestIds,
-                                (q) => userQuestData.characters[c.id].quests.get(q)
+                                (questId) => userQuestData.characters[char.id].quests.get(questId)
                             )
                         )
                     )
