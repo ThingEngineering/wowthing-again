@@ -14,7 +14,7 @@
     export let slug2: string
 
     let categories: TransmogDataCategory[]
-    let setKey: string
+    let slugs: string[]
     let skipClasses: Dictionary<boolean>
     $: {
         categories = filter(
@@ -25,7 +25,7 @@
             categories = filter(categories, (s) => s.slug === slug2)
         }
 
-        setKey = slug2 ? `${slug1}--${slug2}` : slug1
+        slugs = slug2 ? [slug1, slug2] : [slug1]
         skipClasses = getSkipClasses($settingsData, categories?.[0])
     }
 </script>
@@ -39,7 +39,7 @@
             {#each categories as category, categoryIndex}
                 <Category
                     {category}
-                    {setKey}
+                    {slugs}
                     {skipClasses}
                     startSpacer={categoryIndex > 0}
                 />
