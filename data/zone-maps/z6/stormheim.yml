@@ -3,4 +3,270 @@ mapName: z6_stormheim
 minimumLevel: 10
 farms:
 
-- name: Empty
+- name: "Bladesquall"
+  location: 45.87 77.36
+  npcId: 129048
+  questId: 38431
+  drops:
+  - type: transmog
+    id: 129048
+    name: "Squallfury Robes"
+    limit: armor cloth
+
+- name: "Captain Brvet"
+  location: 58.00 45.16
+  npcId: 129123
+  questId: 38642
+  drops:
+  - type: transmog
+    id: 129123
+    name: "Brvet's HAuberk of Command"
+    limit: armor mail
+
+- name: 'Daniel "Boomer" Vorick'
+  faction: horde
+  location: 58.4 75.4
+  npcId: 94313
+  drops:
+  - type: transmog
+    id: 129144
+    name: "Boomer's Utility Belt"
+    limit: armor leather
+
+- name: "Dread-Rider Cortis"
+  faction: alliance
+  location: 73.90 60.60
+  npcId: 130134
+  questId: 43343
+  drops:
+  - type: transmog
+    id: 130134
+    name: "Padded-Link Sniper Leggings"
+
+- name: "Egyl the Enduring"
+  location: 41.77 34.11
+  npcId: 132898
+  questId: 40068
+  drops:
+  - type: transmog
+    id: 132898
+    name: "Sabatons of the Endless Vigil"
+    limit: armor plate
+
+- name: "Glimar Ironfist"
+  location: 41.47 67.02
+  npcId: 129291
+  questId: 38333
+  drops:
+  - type: transmog
+    id: 129291
+    name: "Stormslayer Champion Belt"
+    limit: armor plate
+
+- name: "Grrvrgull the Conqueror"
+  location: 78.62 61.16
+  npcId: 138421
+  questId: 40113
+  drops:
+  - type: transmog
+    id: 138421
+    name: "The Conqueror's Chain"
+    limit: armor mail
+
+- name: "Hannval the Butcher"
+  location: 51.60 74.65
+  npcId: 138417
+  questId: 42591
+  drops:
+  - type: transmog
+    id: 138417
+    name: "The Butcher's Apron"
+    limit: armor leather
+
+- name: "Hook & Sinker"
+  faction: alliance
+  location: 42.0 57.6
+  npcId: 92590
+  drops:
+  - type: transmog
+    id: 129109
+    name: "Sinker's Line"
+    limit: armor cloth
+
+- name: "Houndmaster Ely"
+  faction: horde
+  location: 47.2 57.2
+  npcId: 92951
+  drops:
+  - type: transmog
+    id: 129037
+    name: "The Houndmaster's Fancy Pants"
+    limit: armor cloth
+
+- name: "Inquisitor Ernstenbok"
+  location: 63.70 74.22
+  npcId: 140686
+  questId: 37908
+  drops:
+  - type: transmog
+    id: 140686
+    name: "Gargantuan Mantle"
+    limit: armor leather
+
+- name: "Isel the Hammer"
+  location: 62.03 60.49
+  npcId: 129133
+  questId: 39120
+  drops:
+  - type: transmog
+    id: 129133
+    name: "The Hammer's Head"
+    limit: armor mail
+
+- name: "Kottr Vondyr"
+  location: 73.45 47.63
+  npcId: 138419
+  questId: 40109
+  drops:
+  - type: transmog
+    id: 138419
+    name: "The Binder's Bonds"
+    limit: armor leather
+
+- name: "Mordvigbjorn"
+  location: 72.50 49.91
+  npcId: 129035
+  questId: 38837
+  drops:
+  - type: transmog
+    id: 129035
+    name: "Indomitable Bearskin Cloak"
+    limit: armor cloak
+
+- name: "Mother Clacker"
+  location: 35.6 18.6
+  npcId: 91780
+  drops:
+  - type: transmog
+    id: 129040
+    name: "Clacker's Clanking Clam Diggers"
+    limit: armor plate
+
+- name: "Roteye"
+  location: 58.35 33.92
+  npcId: 139387
+  questId: 43342
+  drops:
+  - type: transmog
+    id: 139387
+    name: "Drowned Champion's Greaves"
+    limit: armor mail
+
+- name: "Starbuck"
+  location: 54.80 29.41
+  npcId: 130132
+  questId: 42437
+  drops:
+  - type: transmog
+    id: 130132
+    name: "Bracers of Earthbound Flight"
+    limit: armor leather
+
+- name: "Stormdrake Matriarch"
+  location: 49.50 71.75
+  npcId: 129208
+  questId: 38423
+  drops:
+  - type: pet
+    id: 97205
+    name: "Stormborne Whelpling"
+
+  - type: tranmog
+    id: 129110
+    name: "Matriarch-Hide Legguards"
+    limit: armor leather
+
+- name: "Thane Irglov the Merciless"
+  location: 40.67 72.38
+  npcId: 129113
+  questId: 38424
+  drops:
+  - type: toy
+    id: 129113
+    name: "Faintly Glowing Flagon of Mead"
+
+- name: "The Nameless King"
+  location: 67.30 39.90
+  npcId: 129041
+  questId: 38685
+  drops:
+  - type: transmog
+    id: 129041
+    name: "Aurora of the Nameless King"
+    limit: armor cloth
+
+- name: "Urgev the Flayer"
+  location: 64.80 51.76
+  npcId: 129219
+  questId: 38847
+  drops:
+  - type: transmog
+    id: 129219
+    name: "The Flayer's Runewraps"
+    limit: armor cloth
+
+- name: "Whitewater Typhoon"
+  location: 36.50 52.50
+  npcId: 138418
+  questId: 38472
+  drops:
+  - type: transmog
+    id: 138418
+    name: "Typhoon Grips"
+    limit: armor mail
+
+# Weird one
+
+- name: "Forsaken Deathsquad/Worgen Stalkers"
+  location: 44.4 22.8
+  npcId: 92611
+  questId: 0
+  drops:
+  - type: transmog
+    id: 129264
+    name: "Patrol/Raider Captain's Gauntlets"
+    limit: armor plate
+
+# World bosses
+
+- name: "Nithogg"
+  location: 46.6 30.0
+  npcId: 107544
+  questId: 42270
+  reset: weekly
+  type: killBig
+  drops:
+  - type: transmog
+    id: 141541
+    name: "Windwhipped Greatcloak"
+    limit: armor cloak
+
+  - type: transmog
+    id: 141414
+    name: "Hood of Scorned Brood"
+    limit: armor cloth
+
+  - type: transmog
+    id: 141418
+    name: "Helm of the Mountain Recluse"
+    limit: armor leather
+
+  - type: transmog
+    id: 141420
+    name: "Coif of Unstable Discharge"
+    limit: armor mail
+
+  - type: transmog
+    id: 141424
+    name: "Stormbattered Casque"
+    limit: armor plate
