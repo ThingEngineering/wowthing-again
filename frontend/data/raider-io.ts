@@ -1,10 +1,6 @@
-import type { Dictionary } from '@/types'
-
-const raiderIoScores: Dictionary<string> = {
+export const raiderIoScores: Record<string, string> = {
     all: 'All',
     dps: 'DPS',
     healer: 'Healer',
     tank: 'Tank',
 }
-
-export { raiderIoScores }

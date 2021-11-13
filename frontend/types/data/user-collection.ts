@@ -1,5 +1,4 @@
 import type {UserCount} from '@/types'
-import type { Dictionary } from '@/types/dictionary'
 
 
 export interface UserCollectionData {
@@ -14,7 +13,7 @@ export interface UserCollectionData {
     mounts: Record<number, boolean>
     petsHas: Record<number, boolean>
     toys: Record<number, boolean>
-    setCounts: Dictionary<Dictionary<UserCount>>
+    setCounts: Record<string, Record<string, UserCount>>
 }
 
 export interface UserCollectionDataPet {

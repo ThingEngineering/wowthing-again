@@ -1,5 +1,3 @@
-import type {Dictionary} from '@/types'
-
 export const categoryOrder: number[] = [
     245, // Shadowlands
     22, // Dungeon and Raid
@@ -15,7 +13,8 @@ export const categoryOrder: number[] = [
     //4, // Classic
 ]
 
-export const skipCurrencies: Dictionary<boolean> = {
+// TODO create this from a simple array instead
+export const skipCurrencies: Record<number, boolean> = {
     // Shadowlands
     1743: true, // Fake Anima for Quest Tracking
     1802: true, // Shadowlands PvP Weekly Reward Progress

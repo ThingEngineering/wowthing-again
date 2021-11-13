@@ -4,9 +4,8 @@
 
     import {transmogStore} from '@/stores'
     import {data as settingsData} from '@/stores/settings'
-    import type {Dictionary} from '@/types'
-    import type {TransmogDataCategory} from '@/types/data'
     import getSkipClasses from '@/utils/get-skip-classes'
+    import type {TransmogDataCategory} from '@/types/data'
 
     import Category from './AppearancesTableCategory.svelte'
 
@@ -15,7 +14,7 @@
 
     let categories: TransmogDataCategory[]
     let slugs: string[]
-    let skipClasses: Dictionary<boolean>
+    let skipClasses: Record<number, boolean>
     $: {
         categories = filter(
             find($transmogStore.data.sets, (s) => s !== null && s[0].slug === slug1),

@@ -1,7 +1,4 @@
-import type {Dictionary} from '@/types'
-
-
-export const petBreedMap: Dictionary<string> = {
+export const petBreedMap: Record<number, string> = {
      3: 'B/B',
      4: 'P/P',
      5: 'S/S',

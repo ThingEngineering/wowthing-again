@@ -1,9 +1,9 @@
 import some from 'lodash/some'
 
 import type {UserCollectionData} from '@/types/data'
-import { Dictionary, StaticData, StaticDataSetCategory, UserCount, WritableFancyStore } from '@/types'
+import { StaticData, StaticDataSetCategory, UserCount, WritableFancyStore } from '@/types'
 import { TypedArray } from '@/types/enums'
-import base64ToDictionary from '@/utils/base64-to-dictionary'
+import base64ToRecord from '@/utils/base64-to-record'
 
 
 export class UserCollectionDataStore extends WritableFancyStore<UserCollectionData> {
@@ -25,15 +25,15 @@ export class UserCollectionDataStore extends WritableFancyStore<UserCollectionDa
         
         console.time('UserCollectionDataStore.setup')
 
-        let mounts: Dictionary<boolean> = {}
-        let toys: Dictionary<boolean> = {}
+        let mounts: Record<number, boolean> = {}
+        let toys: Record<number, boolean> = {}
 
         // Unpack packed data
         if (userCollectionData.mountsPacked) {
-            mounts = base64ToDictionary(TypedArray.Uint16, userCollectionData.mountsPacked)
+            mounts = base64ToRecord(TypedArray.Uint16, userCollectionData.mountsPacked)
         }
         if (userCollectionData.toysPacked) {
-            toys = base64ToDictionary(TypedArray.Int32, userCollectionData.toysPacked)
+            toys = base64ToRecord(TypedArray.Int32, userCollectionData.toysPacked)
         }
 
         // Generate set counts
@@ -82,10 +82,10 @@ export class UserCollectionDataStore extends WritableFancyStore<UserCollectionDa
     }
 
     private static doSetCounts(
-        setCounts: Dictionary<UserCount>,
+        setCounts: Record<string, UserCount>,
         categories: StaticDataSetCategory[][],
-        userHas: Dictionary<boolean>,
-        map?: Dictionary<number>,
+        userHas: Record<number, boolean>,
+        map?: Record<number, number>,
     ): void {
         const overallData = setCounts['OVERALL'] = new UserCount()
         const seen: Record<number, boolean> = {}

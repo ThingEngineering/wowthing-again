@@ -1,8 +1,7 @@
-import type {Dictionary} from '@/types'
 import {Difficulty} from '@/types'
 import {InstanceType} from '@/types/enums'
 
-export const difficultyMap: Dictionary<Difficulty> = {
+export const difficultyMap: Record<number, Difficulty> = {
     0: new Difficulty(0, 'World Boss', 'W', InstanceType.Raid, 1, 40),
 
     // Dungeons

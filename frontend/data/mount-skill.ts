@@ -1,5 +1,3 @@
-import type { Dictionary } from '@/types'
-
 export interface MountSkill {
     allianceSpellId: number
     hordeSpellId: number
@@ -8,7 +6,7 @@ export interface MountSkill {
     speed: number
 }
 
-export const mountSkillMap: Dictionary<MountSkill> = {
+export const mountSkillMap: Record<number, MountSkill> = {
     1: {
         allianceSpellId: 458,
         hordeSpellId: 459,

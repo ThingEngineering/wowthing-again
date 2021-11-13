@@ -3,7 +3,7 @@ import some from 'lodash/some'
 import {get} from 'svelte/store'
 
 import { difficultyMap } from '@/data/difficulty'
-import {Account, Dictionary, UserData, WritableFancyStore} from '@/types'
+import {Account, UserData, WritableFancyStore} from '@/types'
 import initializeCharacter from '@/utils/initialize-character'
 
 
@@ -20,7 +20,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         console.time('UserDataStore.initialize')
 
         userData.characterMap = {}
-        const allLockouts: Dictionary<boolean> = {}
+        const allLockouts: Record<string, boolean> = {}
         for (const character of userData.characters) {
             initializeCharacter(character)
 
@@ -35,7 +35,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         userData.allLockoutsMap = {}
         for (const instanceDifficulty of keys(allLockouts)) {
             const [instanceId, difficultyId] = instanceDifficulty.split('-')
-            const difficulty = difficultyMap[difficultyId]
+            const difficulty = difficultyMap[parseInt(difficultyId)]
 
             if (difficulty && instanceId) {
                 userData.allLockouts.push({

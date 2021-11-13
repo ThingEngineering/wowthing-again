@@ -1,11 +1,10 @@
 import Base64ArrayBuffer from 'base64-arraybuffer'
 
-import type {Dictionary} from '@/types'
 import {TypedArray} from '@/types/enums'
 
-export default function base64ToDictionary(arrayType: TypedArray, data: string): Dictionary<boolean>
+export default function base64ToRecord(arrayType: TypedArray, data: string): Record<number, boolean>
 {
-    const ret: Dictionary<boolean> = {}
+    const ret: Record<number, boolean> = {}
     if (data !== null) {
         const decoded = base64ToArray(arrayType, data)
         for (let i = 0; i < decoded.length; i++) {
@@ -17,8 +16,8 @@ export default function base64ToDictionary(arrayType: TypedArray, data: string):
 
 // achievementId:completedTimestamp dictionary as a packed array:
 //   aabbbb = uint16 int32
-export function base64ToAchievements(data: string): Dictionary<number> {
-    const ret: Dictionary<number> = {}
+export function base64ToAchievements(data: string): Record<number, number> {
+    const ret: Record<number, number> = {}
     if (data !== null) {
         const bytes = Base64ArrayBuffer.decode(data)
         const view = new DataView(bytes)

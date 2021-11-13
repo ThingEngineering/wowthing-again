@@ -1,7 +1,6 @@
 import { CharacterRace } from '@/types'
-import type { Dictionary } from '@/types'
 
-export const raceMap: Dictionary<CharacterRace> = {
+export const raceMap: Record<number, CharacterRace> = {
     1: new CharacterRace(1, 'Human'),
     2: new CharacterRace(2, 'Orc'),
     3: new CharacterRace(3, 'Dwarf'),

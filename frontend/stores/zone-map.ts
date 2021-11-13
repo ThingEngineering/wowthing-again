@@ -51,7 +51,7 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                 c[0],
                 getNextDailyReset(
                     c[1].scannedAt,
-                    userData.characterMap[c[0]]?.realm?.region ?? 1,
+                    userData.characterMap[parseInt(c[0])]?.realm?.region ?? 1,
                 ),
             ])
         )

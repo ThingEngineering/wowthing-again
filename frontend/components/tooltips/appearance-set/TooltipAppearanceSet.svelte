@@ -1,11 +1,10 @@
 <script lang="ts">
     import {typeOrder} from '@/data/inventory-type'
-    import type {Dictionary} from '@/types'
     import type {TransmogDataGroupData} from '@/types/data'
     import {InventoryType} from '@/types/enums'
 
     export let set: TransmogDataGroupData
-    export let slotHave: Dictionary<boolean>
+    export let slotHave: Record<number, boolean>
     export let subType: string
 </script>
 

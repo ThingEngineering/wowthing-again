@@ -5,7 +5,6 @@ import {
     AchievementDataAchievement,
     AchievementDataCriteria,
     AchievementDataCriteriaTree,
-    Dictionary,
     UserAchievementDataCategory,
     WritableFancyStore,
 } from '@/types'
@@ -27,19 +26,19 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
 
         const achievementData = get(achievementStore).data
         if (achievementData.achievementRaw) {
-            const achievementDict: Dictionary<AchievementDataAchievement> = {}
+            const achievementDict: Record<number, AchievementDataAchievement> = {}
             for (const rawAchievement of achievementData.achievementRaw) {
                 const obj = new AchievementDataAchievement(...rawAchievement)
                 achievementDict[obj.id] = obj
             }
 
-            const criteriaDict: Dictionary<AchievementDataCriteria> = {}
+            const criteriaDict: Record<number, AchievementDataCriteria> = {}
             for (const rawCriteria of achievementData.criteriaRaw) {
                 const obj = new AchievementDataCriteria(...rawCriteria)
                 criteriaDict[obj.id] = obj
             }
 
-            const criteriaTreeDict: Dictionary<AchievementDataCriteriaTree> = {}
+            const criteriaTreeDict: Record<number, AchievementDataCriteriaTree> = {}
             for (const rawCriteriaTree of achievementData.criteriaTreeRaw) {
                 const obj = new AchievementDataCriteriaTree(...rawCriteriaTree)
                 criteriaTreeDict[obj.id] = obj
@@ -62,7 +61,7 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
         const userAchievements = get(this).data.achievements
 
         const categories = achievementData.categories
-        const keepIds: Dictionary<boolean> = {}
+        const keepIds: Record<number, boolean> = {}
         for (const category of categories) {
             if (category.name !== 'Feats of Strength' && category.name !== 'Legacy') {
                 keepIds[category.id] = true
@@ -72,7 +71,7 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
             }
         }
 
-        const cheevs: Dictionary<UserAchievementDataCategory> = {}
+        const cheevs: Record<number, UserAchievementDataCategory> = {}
         cheevs[0] = new UserAchievementDataCategory(0, 0, 0)
 
         const all: [number, number][] = []
