@@ -15,11 +15,14 @@
     export let span = 1
     export let subType: string
 
-    let have = 0
-    let total = 0
-    let percent = 0
+    let have: number
+    let percent: number
+    let total: number
     let slotHave: Dictionary<boolean>
     $: {
+        have = 0
+        percent = 0
+        total = 0
         slotHave = {}
         if (set?.items) {
             for (const [slot, items] of toPairs(set.items)) {
