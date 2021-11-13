@@ -3,7 +3,7 @@
     import findKey from 'lodash/findKey'
     import sortBy from 'lodash/sortBy'
 
-    import {skipCurrencies} from '@/data/currencies'
+    import {skipCurrenciesMap} from '@/data/currencies'
     import { staticStore } from '@/stores/static'
     import type {StaticDataCurrency} from '@/types'
 
@@ -17,7 +17,7 @@
     let currencies: StaticDataCurrency[]
     $: {
         const categoryId = parseInt(findKey($staticStore.data.currencyCategories, (c) => c.slug === slug))
-        currencies = sortBy(filter($staticStore.data.currencies, (c) => !skipCurrencies[c.id] && c.categoryId === categoryId), (c) => c.name)
+        currencies = sortBy(filter($staticStore.data.currencies, (c) => !skipCurrenciesMap[c.id] && c.categoryId === categoryId), (c) => c.name)
     }
 </script>
 

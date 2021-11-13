@@ -13,51 +13,54 @@ export const categoryOrder: number[] = [
     //4, // Classic
 ]
 
-// TODO create this from a simple array instead
-export const skipCurrencies: Record<number, boolean> = {
+const skipCurrencies: number[] = [
     // Shadowlands
-    1743: true, // Fake Anima for Quest Tracking
-    1802: true, // Shadowlands PvP Weekly Reward Progress
-    1811: true, // zzoldSanctum Architect
-    1812: true, // zzoldSanctum Anima Weaver
-    1829: true, // Renown-Kyrian
-    1830: true, // Renown-Venthyr
-    1831: true, // Renown-Night Fae
-    1832: true, // Renown-Necrolord
-    1859: true, // Reservoir Anima-Kyrian
-    1860: true, // Reservoir Anima-Venthyr
-    1861: true, // Reservoir Anima-Night Fae
-    1862: true, // Reservoir Anima-Necrolord
-    1863: true, // Redeemed Soul-Kyrian
-    1864: true, // Redeemed Soul-Venthyr
-    1865: true, // Redeemed Soul-Night Fae
-    1866: true, // Redeemed Soul-Necrolord
-    1867: true, // Sanctum Architect-Kyrian
-    1868: true, // Sanctum Architect-Venthyr
-    1869: true, // Sanctum Architect-Night Fae
-    1870: true, // Sanctum Architect-Necrolord
-    1871: true, // Sanctum Anima Weaver-Kyrian
-    1872: true, // Sanctum Anima Weaver-Venthyr
-    1873: true, // Sanctum Anima Weaver-Night Fae
-    1874: true, // Sanctum Anima Weaver-Necrolord
+    1743, // Fake Anima for Quest Tracking
+    1802, // Shadowlands PvP Weekly Reward Progress
+    1811, // zzoldSanctum Architect
+    1812, // zzoldSanctum Anima Weaver
+    1829, // Renown-Kyrian
+    1830, // Renown-Venthyr
+    1831, // Renown-Night Fae
+    1832, // Renown-Necrolord
+    1859, // Reservoir Anima-Kyrian
+    1860, // Reservoir Anima-Venthyr
+    1861, // Reservoir Anima-Night Fae
+    1862, // Reservoir Anima-Necrolord
+    1863, // Redeemed Soul-Kyrian
+    1864, // Redeemed Soul-Venthyr
+    1865, // Redeemed Soul-Night Fae
+    1866, // Redeemed Soul-Necrolord
+    1867, // Sanctum Architect-Kyrian
+    1868, // Sanctum Architect-Venthyr
+    1869, // Sanctum Architect-Night Fae
+    1870, // Sanctum Architect-Necrolord
+    1871, // Sanctum Anima Weaver-Kyrian
+    1872, // Sanctum Anima Weaver-Venthyr
+    1873, // Sanctum Anima Weaver-Night Fae
+    1874, // Sanctum Anima Weaver-Necrolord
 
     // Miscellaneous
-    2: true, // Currency Token Test Token 2
-    1: true, // Currency Token Test Token 4
-    4: true, // Currency Token Test Token 5
-    1836: true, // Linked Currency Test (Dst) - PTH
-    1835: true, // Linked Currency Test (Src) - PTH
+    2, // Currency Token Test Token 2
+    1, // Currency Token Test Token 4
+    4, // Currency Token Test Token 5
+    1836, // Linked Currency Test (Dst) - PTH
+    1835, // Linked Currency Test (Src) - PTH
 
     // Player vs. Player
-    104: true, // Honor Points DEPRECATED
-    181: true, // Honor Points DEPRECATED2
+    104, // Honor Points DEPRECATED
+    181, // Honor Points DEPRECATED2
 
     // Legion
-    1355: true, // Felessence
+    1355, // Felessence
 
     // Warlords of Draenor
-    897: true, // UNUSED
+    897, // UNUSED
 
     // Shadowlands
-    1754: true, // Argent Commendation??
-}
+    1754, // Argent Commendation??
+]
+
+export const skipCurrenciesMap: Record<number, boolean> = Object.fromEntries(
+    skipCurrencies.map((currencyId) => [currencyId, true])
+)
