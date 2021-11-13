@@ -61,7 +61,7 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
 
             const categoryCounts = setCounts[maps[0].slug] = new UserDataSetCount(0, 0)
 
-            let eligibleCharacters = filter(
+            const categoryCharacters = filter(
                 shownCharacters,
                 (char) => (
                     char.level >= maps[0].minimumLevel &&
@@ -85,8 +85,8 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                 const mapKey = `${maps[0].slug}--${map.slug}`
                 const mapCounts = setCounts[mapKey] = new UserDataSetCount(0, 0)
 
-                eligibleCharacters = filter(
-                    eligibleCharacters,
+                const eligibleCharacters = filter(
+                    categoryCharacters,
                     (char) => (
                         char.level >= map.minimumLevel &&
                         (
