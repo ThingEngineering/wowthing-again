@@ -11,7 +11,7 @@
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let category: TransmogDataCategory
-    export let skipClasses: Record<number, boolean>
+    export let skipClasses: Record<string, boolean>
     export let slugs: string[]
     export let startSpacer = false
 
@@ -196,7 +196,7 @@
                 </span>
             </td>
 
-            {#each transmogSets[group.type].sets as transmogSet, transmogSetIndex (`set--${setKey}--${setName}--${transmogSet.type}`)}
+            {#each transmogSets[group.type].sets as transmogSet (`set--${setKey}--${setName}--${transmogSet.type}`)}
                 {#if !skipClasses[transmogSet.type]}
                     <TableSet
                         set={group.data?.[transmogSet.type]?.[setIndex]}

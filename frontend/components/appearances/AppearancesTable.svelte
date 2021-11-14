@@ -14,7 +14,7 @@
 
     let categories: TransmogDataCategory[]
     let slugs: string[]
-    let skipClasses: Record<number, boolean>
+    let skipClasses: Record<string, boolean>
     $: {
         categories = filter(
             find($transmogStore.data.sets, (s) => s !== null && s[0].slug === slug1),

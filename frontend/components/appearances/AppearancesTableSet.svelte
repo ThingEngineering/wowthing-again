@@ -17,7 +17,7 @@
     let have: number
     let percent: number
     let total: number
-    let slotHave: Record<number, boolean>
+    let slotHave: Record<string, boolean>
     $: {
         have = 0
         percent = 0

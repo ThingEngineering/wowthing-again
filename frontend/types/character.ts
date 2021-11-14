@@ -30,7 +30,7 @@ export interface Character {
 
     currencies: Record<number, CharacterCurrency>
     equippedItems: Record<number, CharacterEquippedItem>
-    lockouts: Record<number, CharacterLockout>
+    lockouts: Record<string, CharacterLockout>
     mythicPlus: CharacterMythicPlus
     mythicPlusAddon: CharacterMythicPlusAddon
     raiderIo: Record<number, CharacterRaiderIoSeason>
@@ -174,7 +174,7 @@ interface CharacterWeekly {
     keystoneLevel: number
 
     torghast: Record<number, number>
-    ughQuests: Record<number, CharacterWeeklyUghQuest>
+    ughQuests: Record<string, CharacterWeeklyUghQuest>
     vault: CharacterWeeklyVault
 }
 

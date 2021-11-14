@@ -13,7 +13,7 @@ export interface TransmogDataGroup {
     name: string
     tag: string
     type: string
-    data: Record<number, TransmogDataGroupData[]>
+    data: Record<string, TransmogDataGroupData[]>
     sets: string[]
 }
 
