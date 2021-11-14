@@ -120,6 +120,357 @@ groups:
         9:  40988 # Wrists
         10: 40968 # Hands
 
+- name: Battle Season 3
+  tag: S26
+  type: armor
+  sets:
+  - Elite [A]*
+  - Elite [H]*
+  - Gladiator [A]
+  - Gladiator [H]
+  - Aspirant [A]
+  - Aspirant [H]
+  data:
+    cloth:
+    # Elite (Alliance) set=1847
+    - name: Notorious Gladiator's Vestment
+      wowheadSetId:
+      items:
+        1:  40053 # Head
+        3:  40055 # Shoulders
+        5:  40049 # Chest
+        6:  40056 # Waist
+        7:  40054 # Legs
+        8:  40051 # Feet
+        9:  40057 # Wrists
+        10: 40052 # Hands
+        16: 39380 # Back
+
+    # Elite (Horde) set=1896
+    - name: Notorious Gladiator's Vestment
+      wowheadSetId:
+      items:
+        1:  40114 # Head
+        3:  40108 # Shoulders
+        5:  40110 # Chest
+        6:  40106 # Waist
+        7:  40112 # Legs
+        8:  40118 # Feet
+        9:  40104 # Wrists
+        10: 40116 # Hands
+        16: 39381 # Back
+
+    # Gladiator (Alliance) set=1846
+    - name: Notorious Gladiator's Vestment
+      wowheadSetId: 2957
+      items:
+        1:  40062 # Head
+        3:  40064 # Shoulders
+        5:  40058 # Chest
+        6:  40065 # Waist
+        7:  40063 # Legs
+        8:  40060 # Feet
+        9:  40066 # Wrists
+        10: 40061 # Hands
+        16: 40059 # Back
+
+    # Gladiator (Horde) set=1897
+    - name: Notorious Gladiator's Vestment
+      wowheadSetId: 2958
+      items:
+        1:  40113 # Head
+        3:  40107 # Shoulders
+        5:  40109 # Chest
+        6:  40105 # Waist
+        7:  40111 # Legs
+        8:  40117 # Feet
+        9:  40103 # Wrists
+        10: 40115 # Hands
+        16: 40119 # Back
+
+    # Aspirant (Alliance) set=1851
+    - name: Notorious Aspirant's Vestment
+      wowheadSetId: 2955
+      items:
+        1:  40594 # Head
+        3:  40602 # Shoulders
+        5:  40578 # Chest
+        6:  40606 # Waist
+        7:  40598 # Legs
+        8:  40586 # Feet
+        9:  40610 # Wrists
+        10: 40590 # Hands
+        16: 40582 # Back
+
+    # Aspirant (Horde) set=1892
+    - name: Notorious Aspirant's Vestment
+      wowheadSetId: 2956
+      items:
+        1:  40597 # Head
+        3:  40605 # Shoulders
+        5:  40581 # Chest
+        6:  40609 # Waist
+        7:  40601 # Legs
+        8:  40589 # Feet
+        9:  40613 # Wrists
+        10: 40593 # Hands
+        16: 40585 # Back
+
+    leather:
+    # Elite (Alliance) set=1853
+    - name: Notorious Gladiator's Leathers
+      wowheadSetId:
+      items:
+        1:  40275 # Head
+        3:  40278 # Shoulders
+        5:  40271 # Chest
+        6:  40279 # Waist
+        7:  40276 # Legs
+        8:  40273 # Feet
+        9:  40280 # Wrists
+        10: 40274 # Hands
+        16: 39380 # Back
+
+    # Elite (Horde) set=1890
+    - name: Notorious Gladiator's Leathers
+      wowheadSetId:
+      items:
+        1:  40265 # Head
+        3:  40268 # Shoulders
+        5:  40261 # Chest
+        6:  40269 # Waist
+        7:  40266 # Legs
+        8:  40263 # Feet
+        9:  40270 # Wrists
+        10: 40264 # Hands
+        16: 39381 # Back
+
+    # Gladiator (Alliance) set=1852
+    - name: Notorious Gladiator's Leathers
+      wowheadSetId: 2961
+      items:
+        1:  40225 # Head
+        3:  40228 # Shoulders
+        5:  40221 # Chest
+        6:  40229 # Waist
+        7:  40226 # Legs
+        8:  40223 # Feet
+        9:  40230 # Wrists
+        10: 40224 # Hands
+        16: 40222 # Back
+
+    # Gladiator (Horde) set=1891
+    - name: Notorious Gladiator's Leathers
+      wowheadSetId: 2962
+      items:
+        1:  40215 # Head
+        3:  40218 # Shoulders
+        5:  40211 # Chest
+        6:  40219 # Waist
+        7:  40216 # Legs
+        8:  40213 # Feet
+        9:  40220 # Wrists
+        10: 40214 # Hands
+        16: 40212 # Back
+
+    # Aspirant (Alliance) set=1857
+    - name: Notorious Aspirant's Leathers
+      wowheadSetId: 2959
+      items:
+        1:  40642 # Head
+        3:  40650 # Shoulders
+        5:  40622 # Chest
+        6:  40654 # Waist
+        7:  40646 # Legs
+        8:  40634 # Feet
+        9:  40658 # Wrists
+        10: 40638 # Hands
+        16: 40626 # Back
+
+    # Aspirant (Horde) set=1886
+    - name: Notorious Aspirant's Leathers
+      wowheadSetId: 2960
+      items:
+        1:  40645 # Head
+        3:  40653 # Shoulders
+        5:  40625 # Chest
+        6:  40657 # Waist
+        7:  40649 # Legs
+        8:  40637 # Feet
+        9:  40661 # Wrists
+        10: 40641 # Hands
+        16: 40629 # Back
+
+    mail:
+    # Elite (Alliance) set=1859
+    - name: Notorious Gladiator's Chain
+      wowheadSetId:
+      items:
+        1:  40335 # Head
+        3:  40332 # Shoulders
+        5:  40339 # Chest
+        6:  40331 # Waist
+        7:  40334 # Legs
+        8:  40337 # Feet
+        9:  40327 # Wrists
+        10: 40336 # Hands
+        16: 39380 # Back
+
+    # Elite (Horde) set=1884
+    - name: Notorious Gladiator's Chain
+      wowheadSetId:
+      items:
+        1:  40389 # Head
+        3:  40386 # Shoulders
+        5:  40393 # Chest
+        6:  40385 # Waist
+        7:  40388 # Legs
+        8:  40391 # Feet
+        9:  40329 # Wrists
+        10: 40390 # Hands
+        16: 39381 # Back
+
+    # Gladiator (Alliance) set=1858
+    - name: Notorious Gladiator's Chain
+      wowheadSetId: 2965
+      items:
+        1:  40344 # Head
+        3:  40341 # Shoulders
+        5:  40348 # Chest
+        6:  40340 # Waist
+        7:  40343 # Legs
+        8:  40346 # Feet
+        9:  40327 # Wrists
+        10: 40345 # Hands
+        16: 40347 # Back
+
+    # Gladiator (Horde) set=1885
+    - name: Notorious Gladiator's Chain
+      wowheadSetId: 2966
+      items:
+        1:  40362 # Head
+        3:  40359 # Shoulders
+        5:  40366 # Chest
+        6:  40358 # Waist
+        7:  40361 # Legs
+        8:  40364 # Feet
+        9:  40329 # Wrists
+        10: 40363 # Hands
+        16: 40365 # Back
+
+    # Aspirant (Alliance) set=1863
+    - name: Notorious Aspirant's Chain
+      wowheadSetId: 2963
+      items:
+        1: 40682 # Head
+        3: 40690 # Shoulders
+        5: 40662 # Chest
+        6: 40694 # Waist
+        7: 40686 # Legs
+        8: 40674 # Feet
+        9: 40698 # Wrists
+        10: 40678 # Hands
+        16: 40666 # Back
+
+    # Aspirant (Horde) set=1880
+    - name: Notorious Aspirant's Chain
+      wowheadSetId: 2964
+      items:
+        1: 40685 # Head
+        3: 40693 # Shoulders
+        5: 40665 # Chest
+        6: 40697 # Waist
+        7: 40689 # Legs
+        8: 40677 # Feet
+        9: 40701 # Wrists
+        10: 40681 # Hands
+        16: 40669 # Back
+
+    plate:
+    # Elite (Alliance) set=1865
+    - name: Notorious Gladiator's Plate
+      wowheadSetId:
+      items:
+        1:  39942 # Head
+        3:  39943 # Shoulders
+        5:  39939 # Chest
+        6:  39938 # Waist
+        7:  39937 # Legs
+        8:  39936 # Feet
+        9:  39944 # Wrists
+        10: 39941 # Hands
+        16: 39380 # Back
+
+    # Elite (Horde) set=1878
+    - name: Notorious Gladiator's Plate
+      wowheadSetId:
+      items:
+        1:  39950 # Head
+        3:  39948 # Shoulders
+        5:  39954 # Chest
+        6:  39947 # Waist
+        7:  39949 # Legs
+        8:  39952 # Feet
+        9:  40461 # Wrists
+        10: 39951 # Hands
+        16: 39381 # Back
+
+    # Gladiator (Alliance) set=1864
+    - name: Notorious Gladiator's Plate
+      wowheadSetId: 2969
+      items:
+        1:  40408 # Head
+        3:  40406 # Shoulders
+        5:  40412 # Chest
+        6:  40405 # Waist
+        7:  40407 # Legs
+        8:  40410 # Feet
+        9:  40404 # Wrists
+        10: 40409 # Hands
+        16: 40469 # Back
+
+    # Gladiator (Horde) set=1879
+    - name: Notorious Gladiator's Plate
+      wowheadSetId: 2970
+      items:
+        1:  40460 # Head
+        3:  40463 # Shoulders
+        5:  40467 # Chest
+        6:  40462 # Waist
+        7:  40464 # Legs
+        8:  40466 # Feet
+        9:  40461 # Wrists
+        10: 40465 # Hands
+        16: 40411 # Back
+
+    # Aspirant (Alliance) set=1869
+    - name: Notorious Aspirant's Plate
+      wowheadSetId: 2967
+      items:
+        1:  40566 # Head
+        3:  40558 # Shoulders
+        5:  40542 # Chest
+        6:  40562 # Waist
+        7:  40554 # Legs
+        8:  40546 # Feet
+        9:  40570 # Wrists
+        10: 40550 # Hands
+        16: 40574 # Back
+
+    # Aspirant (Horde) set=1874
+    - name: Notorious Aspirant's Plate
+      wowheadSetId: 2968
+      items:
+        1:  40563 # Head
+        3:  40555 # Shoulders
+        5:  40539 # Chest
+        6:  40559 # Waist
+        7:  40551 # Legs
+        8:  40543 # Feet
+        9:  40567 # Wrists
+        10: 40547 # Hands
+        16: 40571 # Back
+
 - name: Battle Season 2
   tag: S25
   type: armor
