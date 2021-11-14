@@ -128,8 +128,7 @@ namespace Wowthing.Backend.Jobs.Misc
             _timer.AddPoint("JSON");
             
             var db = Redis.GetDatabase();
-            await db.StringSetAsync("cache:zone-map:data", cacheJson);
-            await db.StringSetAsync("cache:zone-map:hash", cacheHash);
+            await db.SetCacheDataAndHash("zone-map", cacheJson, cacheHash);
             
             _timer.AddPoint("Cache", true);
         }

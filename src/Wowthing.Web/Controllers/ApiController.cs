@@ -116,46 +116,16 @@ namespace Wowthing.Web.Controllers
             });
         }
 
-        [HttpGet("achievements.{hash:length(32)}.json")]
+        [HttpGet("{type:regex(^(achievement|static|transmog|zone-map)$)}.{hash:length(32)}.json")]
         [ResponseCache(Duration = 365 * 24 * 60 * 60, VaryByHeader = "Origin")]
-        public async Task<IActionResult> StaticAchievements([FromRoute] string hash)
-        {
-            var db = _redis.GetDatabase();
-
-            string jsonHash = await db.StringGetAsync("cached_achievements:hash");
-            if (hash != jsonHash)
-            {
-                return NotFound("Invalid achievement data hash");
-            }
-
-            return Content(await db.StringGetAsync("cached_achievements:data"), "application/json");
-        }
-        
-        [HttpGet("static.{hash:length(32)}.json")]
-        [ResponseCache(Duration = 365 * 24 * 60 * 60, VaryByHeader = "Origin")]
-        public async Task<IActionResult> StaticData([FromRoute] string hash)
-        {
-            var db = _redis.GetDatabase();
-
-            string jsonHash = await db.StringGetAsync("cached_static:hash");
-            if (hash != jsonHash)
-            {
-                return NotFound("Invalid static data hash");
-            }
-
-            return Content(await db.StringGetAsync("cached_static:data"), "application/json");
-        }
-
-        [HttpGet("{type:regex(^(transmog|zone-map)$)}.{hash:length(32)}.json")]
-        [ResponseCache(Duration = 365 * 24 * 60 * 60, VaryByHeader = "Origin")]
-        public async Task<IActionResult> StaticMisc([FromRoute] string type, [FromRoute] string hash)
+        public async Task<IActionResult> CachedJson([FromRoute] string type, [FromRoute] string hash)
         {
             var db = _redis.GetDatabase();
 
             string jsonHash = await db.StringGetAsync($"cache:{type}:hash");
             if (hash != jsonHash)
             {
-                return NotFound($"Invalid {type} data hash");
+                return RedirectToAction("CachedJson", new { type, hash = jsonHash });
             }
 
             return Content(await db.StringGetAsync($"cache:{type}:data"), "application/json");
