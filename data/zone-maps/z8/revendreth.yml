@@ -338,6 +338,16 @@ farms:
     id: 182780
     name: "Muckpool Cookpot"
 
+- name: "Secret Treasure"
+  location: 66.6 42.7
+  note: "Only this specific one has the pet"
+  objectId: 190589
+  type: treasure
+  drops:
+  - type: pet
+    id: 171122
+    name: "Burdened Soul"
+
 - name: "Smuggled Cache"
   location: 31.1 55.1
   questId: 59889
