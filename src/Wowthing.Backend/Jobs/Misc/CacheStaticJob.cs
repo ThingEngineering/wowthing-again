@@ -34,7 +34,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
-            Version = 21,
+            Version = 22,
         };
 
         public override async Task Run(params string[] data)
@@ -123,8 +123,7 @@ namespace Wowthing.Backend.Jobs.Misc
             var cacheHash = cacheJson.Md5();
             _timer.AddPoint("JSON");
 
-            await db.StringSetAsync("cached_static:data", cacheJson);
-            await db.StringSetAsync("cached_static:hash", cacheHash);
+            await db.SetCacheDataAndHash("static", cacheJson, cacheHash);
             _timer.AddPoint("Cache", true);
         }
 
@@ -363,8 +362,7 @@ namespace Wowthing.Backend.Jobs.Misc
             var cacheHash = cacheJson.Md5();
             _timer.AddPoint("JSON");
 
-            await db.StringSetAsync("cached_achievements:data", cacheJson);
-            await db.StringSetAsync("cached_achievements:hash", cacheHash);
+            await db.SetCacheDataAndHash("achievement", cacheJson, cacheHash);
             _timer.AddPoint("Cache", true);
         }
 

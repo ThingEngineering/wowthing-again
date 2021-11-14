@@ -60,8 +60,7 @@ namespace Wowthing.Backend.Jobs.Misc
             var cacheHash = cacheJson.Md5();
 
             var db = Redis.GetDatabase();
-            await db.StringSetAsync("cache:transmog:data", cacheJson);
-            await db.StringSetAsync("cache:transmog:hash", cacheHash);
+            await db.SetCacheDataAndHash("transmog", cacheJson, cacheHash);
             _timer.AddPoint("Cache", true);
         }
     }
