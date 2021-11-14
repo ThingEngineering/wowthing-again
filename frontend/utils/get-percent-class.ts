@@ -1,14 +1,25 @@
-export default function getPercentClass(percent: number): string {
-    if (percent >= 100) {
+import type { UserCount } from '@/types'
+
+
+export default function getPercentClass(percent: number | UserCount): string {
+    let per: number
+    if (typeof percent === 'number') {
+        per = percent
+    }
+    else {
+        per = percent.have / percent.total * 100
+    }
+
+    if (per >= 100) {
         return 'quality5'
     }
-    else if (percent >= 75) {
+    else if (per >= 75) {
         return 'quality4'
     }
-    else if (percent >= 50) {
+    else if (per >= 50) {
         return 'quality3'
     }
-    else if (percent >= 25) {
+    else if (per >= 25) {
         return 'quality2'
     }
     else {

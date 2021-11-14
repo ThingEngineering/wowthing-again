@@ -110,6 +110,7 @@ export class UserCollectionDataStore extends WritableFancyStore<UserCollectionDa
                             group.name.indexOf('Unavailable') < 0
                         )
                     )
+                    const groupData = setCounts[`${category[0].slug}--${set.slug}--${group.name}`] = new UserCount()
 
                     for (const things of group.things) {
                         const hasThing = some(things, (t) => userHas[map?.[t] ?? t])
@@ -134,6 +135,7 @@ export class UserCollectionDataStore extends WritableFancyStore<UserCollectionDa
                         }
 
                         setData.total++
+                        groupData.total++
 
                         if (hasThing) {
                             if (doCategory) {
@@ -144,6 +146,7 @@ export class UserCollectionDataStore extends WritableFancyStore<UserCollectionDa
                             }
 
                             setData.have++
+                            groupData.have++
                         }
 
                         for (const thing of things) {
