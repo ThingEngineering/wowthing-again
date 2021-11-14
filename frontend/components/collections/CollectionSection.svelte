@@ -11,6 +11,7 @@
     import CollectionCount from './CollectionCount.svelte'
     import CollectionThing from './CollectionThing.svelte'
     import CollectionThingPet from './CollectionThingPet.svelte'
+    import getPercentClass from "../../utils/get-percent-class";
 
     export let slug1: string
     export let slug2: string
@@ -54,7 +55,7 @@
         border-top-right-radius: $border-radius;
         color: #ddd;
     }
-    span {
+    .counts {
         font-size: 1rem;
         font-weight: normal;
         margin-left: 0.5rem;
@@ -86,17 +87,25 @@
         {#if section.name}
             <h3>
                 {section.name}
-                <span>
-                    <CollectionCount counts={$userCollectionStore.data.setCounts[route][`${slug1}--${section.slug}`]} />
+                <span class="counts">
+                    <CollectionCount
+                        counts={$userCollectionStore.data.setCounts[route][`${slug1}--${section.slug}`]}
+                    />
                 </span>
             </h3>
         {/if}
         <div class="container">
             {#each section.groups as group, i (`${thingType}--${slug1}--${section.slug}--${i}`)}
-                <div class="collection-group" style="width: {(44 * group.things.length) + (3 * (group.things.length - 1))}px;">
+                <div
+                    class="collection-group"
+                    style="width: {(44 * group.things.length) + (3 * (group.things.length - 1))}px;"
+                >
                     <p
+                        class="drop-shadow {getPercentClass($userCollectionStore.data.setCounts[route][`${slug1}--${section.slug}--${group.name}`])}"
                         use:tippy={group.name}
-                    >{group.name}</p>
+                    >
+                        {group.name}
+                    </p>
                     <div class="wrapper">
                         {#each group.things as things}
                             {#if thingType === 'npc'}
