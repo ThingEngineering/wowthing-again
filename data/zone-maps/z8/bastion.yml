@@ -1,7 +1,6 @@
 name: Bastion
 mapName: z8_bastion
 minimumLevel: 48
-requiredQuestId: 59770 # Stand as One
 wowheadGuide: https://www.wowhead.com/guides/shadowlands-bastion-rares-treasures
 farms:
 

@@ -1,4 +1,3 @@
-import type { Dictionary } from './dictionary'
 import type {Faction} from '@/types/enums'
 import type {StaticDataRealm} from '@/types/static-data'
 
@@ -29,13 +28,13 @@ export interface Character {
     calculatedItemLevelQuality: number
     realm: StaticDataRealm
 
-    currencies: Dictionary<CharacterCurrency>
-    equippedItems: Dictionary<CharacterEquippedItem>
-    lockouts: Dictionary<CharacterLockout>
+    currencies: Record<number, CharacterCurrency>
+    equippedItems: Record<number, CharacterEquippedItem>
+    lockouts: Record<string, CharacterLockout>
     mythicPlus: CharacterMythicPlus
     mythicPlusAddon: CharacterMythicPlusAddon
-    raiderIo: Dictionary<CharacterRaiderIoSeason>
-    reputations: Dictionary<number>
+    raiderIo: Record<number, CharacterRaiderIoSeason>
+    reputations: Record<number, number>
     shadowlands?: CharacterShadowlands
     weekly?: CharacterWeekly
 }
@@ -83,13 +82,13 @@ export interface CharacterLockoutBoss {
 
 export interface CharacterMythicPlus {
     currentPeriodId: number
-    periodRuns: Dictionary<CharacterMythicPlusRun[]>
-    seasons: Dictionary<Dictionary<CharacterMythicPlusRun[]>>
-    seasonBadges: Dictionary<string>
+    periodRuns: Record<number, CharacterMythicPlusRun[]>
+    seasons: Record<number, Record<number, CharacterMythicPlusRun[]>>
+    seasonBadges: Record<number, string>
 }
 
 export interface CharacterMythicPlusAddon {
-    maps: Dictionary<CharacterMythicPlusAddonMap>
+    maps: Record<number, CharacterMythicPlusAddonMap>
     season: number
 }
 
@@ -174,8 +173,8 @@ interface CharacterWeekly {
     keystoneDungeon: number
     keystoneLevel: number
 
-    torghast: Dictionary<number>
-    ughQuests: Dictionary<CharacterWeeklyUghQuest>
+    torghast: Record<number, number>
+    ughQuests: Record<string, CharacterWeeklyUghQuest>
     vault: CharacterWeeklyVault
 }
 

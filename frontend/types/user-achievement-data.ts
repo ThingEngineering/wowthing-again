@@ -1,11 +1,8 @@
-import type { Dictionary } from './dictionary'
-
-
 export interface UserAchievementData {
-    achievements: Dictionary<number>
-    achievementCategories?: Dictionary<UserAchievementDataCategory>
+    achievements: Record<number, number>
+    achievementCategories?: Record<number, UserAchievementDataCategory>
     achievementRecent?: number[]
-    criteria: Dictionary<number[][]>
+    criteria: Record<number, number[][]>
 }
 
 export class UserAchievementDataCategory {

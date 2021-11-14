@@ -1,10 +1,8 @@
-import keys from 'lodash/keys'
 import toPairs from 'lodash/toPairs'
 
-import { Dictionary, Settings, WritableFancyStore } from '@/types'
-import type { TransmogData, UserTransmogData } from '@/types/data'
-import {UserTransmogDataHas} from '@/types/data'
+import { Settings, UserCount, WritableFancyStore } from '@/types'
 import getSkipClasses from '@/utils/get-skip-classes'
+import type { TransmogData, UserTransmogData } from '@/types/data'
 
 
 export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> {
@@ -21,19 +19,19 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
 
         const skipClasses = getSkipClasses(settings)
 
-        const has: Dictionary<UserTransmogDataHas> = {}
-        const overallData = has['OVERALL'] = new UserTransmogDataHas(0, 0)
+        const has: Record<string, UserCount> = {}
+        const overallData = has['OVERALL'] = new UserCount()
 
         for (const categories of transmogData.sets) {
             if (categories === null) {
                 continue
             }
 
-            const baseData = has[categories[0].slug] = new UserTransmogDataHas(0, 0)
+            const baseData = has[categories[0].slug] = new UserCount()
 
             for (const category of categories.slice(1)) {
                 const catKey = `${categories[0].slug}--${category.slug}`
-                const catData = has[catKey] = new UserTransmogDataHas(0, 0)
+                const catData = has[catKey] = new UserCount()
 
                 for (const group of category.groups) {
                     for (const [dataKey, dataValue] of toPairs(group.data)) {
@@ -48,10 +46,11 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
                             }
 
                             const setKey = `${groupKey}--${setIndex}`
-                            const setData = has[setKey] = has[setKey] || new UserTransmogDataHas(0, 0)
+                            const setData = has[setKey] = has[setKey] || new UserCount()
 
                             const groupSigh = dataValue[setIndex]
-                            const slotKeys = keys(groupSigh.items)
+                            const slotKeys = Object.keys(groupSigh.items)
+                                .map((key) => parseInt(key))
 
                             overallData.total += slotKeys.length
                             baseData.total += slotKeys.length

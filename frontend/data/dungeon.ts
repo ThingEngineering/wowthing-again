@@ -1,5 +1,5 @@
 import { Dungeon, MythicPlusAffix, MythicPlusSeason } from '@/types'
-import type { Dictionary, StaticDataInstance } from '@/types'
+import type { StaticDataInstance } from '@/types'
 
 export const affixMap: Record<number, MythicPlusAffix> = Object.fromEntries(
     [
@@ -54,7 +54,7 @@ export const weeklyAffixes: MythicPlusAffix[][] = [
     ['Tyrannical', 'Bolstering', 'Explosive'],
 ].map((arr) => arr.map((affix) => affixNameMap[affix]))
 
-export const dungeonMap: Dictionary<Dungeon> = {
+export const dungeonMap: Record<number, Dungeon> = {
     // Battle for Azeroth
     244: new Dungeon(244, "Atal'Dazar", 'AD', 'dungeon_atal_dazar', 0),
     245: new Dungeon(245, 'Freehold', 'FH', 'dungeon_freehold', 0),
@@ -182,7 +182,7 @@ const orderShadowlands: number[] = [
     382, // Theater of Pain
 ]
 
-export const seasonMap: Dictionary<MythicPlusSeason> = {
+export const seasonMap: Record<number, MythicPlusSeason> = {
     6: new MythicPlusSeason(6, 'SL Season 2', 'sl-2', 60, [orderShadowlands]),
     5: new MythicPlusSeason(5, 'SL Season 1', 'sl-1', 60, [orderShadowlands]),
     4: new MythicPlusSeason(4, 'BfA Season 4', 'bfa-4', 50, [
@@ -200,7 +200,7 @@ export const seasonMap: Dictionary<MythicPlusSeason> = {
     ]),
 }
 
-export const badgeToClass: Dictionary<string> = {
+export const badgeToClass: Record<number, string> = {
     2: 'quality1',
     5: 'quality2',
     10: 'quality3',
@@ -231,7 +231,7 @@ export const keyVaultItemLevel: Array<Array<number>> = [
     [2, 226],
 ]
 
-export const raidVaultItemLevel: Dictionary<number> = {
+export const raidVaultItemLevel: Record<number, number> = {
     17: 213, // LFR
     14: 226, // Normal
     15: 239, // Heroic

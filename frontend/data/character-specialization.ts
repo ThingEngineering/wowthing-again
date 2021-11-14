@@ -1,7 +1,7 @@
 import {PrimaryStat, PlayableClass, Role} from '@/types/enums'
-import type { CharacterSpecialization, Dictionary } from '@/types'
+import type { CharacterSpecialization } from '@/types'
 
-export const specializationMap: Dictionary<CharacterSpecialization> = {
+export const specializationMap: Record<number, CharacterSpecialization> = {
     // Death Knight
     250: {
         classId: PlayableClass.DeathKnight,

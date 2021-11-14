@@ -1,14 +1,13 @@
 import { AchievementFlags, CriteriaTreeFlags } from '@/types/enums'
-import type { Dictionary } from '@/types'
 import type { CriteriaType } from '@/types/enums/criteria-type'
 
 
 export interface AchievementData {
     categories: AchievementDataCategory[]
 
-    achievement: Dictionary<AchievementDataAchievement>
-    criteria: Dictionary<AchievementDataCriteria>
-    criteriaTree: Dictionary<AchievementDataCriteriaTree>
+    achievement: Record<number, AchievementDataAchievement>
+    criteria: Record<number, AchievementDataCriteria>
+    criteriaTree: Record<number, AchievementDataCriteriaTree>
 
     achievementRaw: AchievementDataAchievementArray[]
     criteriaRaw: AchievementDataCriteriaArray[]

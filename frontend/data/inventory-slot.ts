@@ -1,4 +1,4 @@
-import type {Character, Dictionary} from '@/types'
+import type {Character} from '@/types'
 import {InventorySlot, PrimaryStat} from '@/types/enums'
 import {specializationMap} from '@/data/character-specialization'
 
@@ -21,7 +21,7 @@ export const slotOrder: InventorySlot[] = [
     InventorySlot.Trinket2,
 ]
 
-export const validEnchants: Dictionary<number[]> = {
+export const validEnchants: Record<number, number[]> = {
     [InventorySlot.MainHand]: [
         3368, // Rune of the Fallen Crusader
         6196, // Optical Target Embiggener
@@ -61,7 +61,7 @@ export const validEnchants: Dictionary<number[]> = {
     ],
 }
 
-export const specialValidEnchants: Dictionary<SpecialValidEnchant> = {
+export const specialValidEnchants: Record<number, SpecialValidEnchant> = {
     [InventorySlot.Hands]: {
         enchants: [
             6210, // Eternal Strength

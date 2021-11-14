@@ -1,9 +1,9 @@
 import some from 'lodash/some'
 
 import type {UserCollectionData} from '@/types/data'
-import { Dictionary, StaticData, StaticDataSetCategory, UserDataSetCount, WritableFancyStore } from '@/types'
+import { StaticData, StaticDataSetCategory, UserCount, WritableFancyStore } from '@/types'
 import { TypedArray } from '@/types/enums'
-import base64ToDictionary from '@/utils/base64-to-dictionary'
+import base64ToRecord from '@/utils/base64-to-record'
 
 
 export class UserCollectionDataStore extends WritableFancyStore<UserCollectionData> {
@@ -25,15 +25,15 @@ export class UserCollectionDataStore extends WritableFancyStore<UserCollectionDa
         
         console.time('UserCollectionDataStore.setup')
 
-        let mounts: Dictionary<boolean> = {}
-        let toys: Dictionary<boolean> = {}
+        let mounts: Record<number, boolean> = {}
+        let toys: Record<number, boolean> = {}
 
         // Unpack packed data
         if (userCollectionData.mountsPacked) {
-            mounts = base64ToDictionary(TypedArray.Uint16, userCollectionData.mountsPacked)
+            mounts = base64ToRecord(TypedArray.Uint16, userCollectionData.mountsPacked)
         }
         if (userCollectionData.toysPacked) {
-            toys = base64ToDictionary(TypedArray.Int32, userCollectionData.toysPacked)
+            toys = base64ToRecord(TypedArray.Int32, userCollectionData.toysPacked)
         }
 
         // Generate set counts
@@ -82,12 +82,12 @@ export class UserCollectionDataStore extends WritableFancyStore<UserCollectionDa
     }
 
     private static doSetCounts(
-        setCounts: Dictionary<UserDataSetCount>,
+        setCounts: Record<string, UserCount>,
         categories: StaticDataSetCategory[][],
-        userHas: Dictionary<boolean>,
-        map?: Dictionary<number>,
+        userHas: Record<number, boolean>,
+        map?: Record<number, number>,
     ): void {
-        const overallData = setCounts['OVERALL'] = new UserDataSetCount(0, 0)
+        const overallData = setCounts['OVERALL'] = new UserCount()
         const seen: Record<number, boolean> = {}
 
         for (const category of categories) {
@@ -95,10 +95,10 @@ export class UserCollectionDataStore extends WritableFancyStore<UserCollectionDa
                 continue
             }
 
-            const categoryData = setCounts[category[0].slug] = new UserDataSetCount(0, 0)
+            const categoryData = setCounts[category[0].slug] = new UserCount()
 
             for (const set of category) {
-                const setData = setCounts[`${category[0].slug}--${set.slug}`] = new UserDataSetCount(0, 0)
+                const setData = setCounts[`${category[0].slug}--${set.slug}`] = new UserCount()
 
                 for (const group of set.groups) {
                     // We only want to increase some counts if the set is not
@@ -110,6 +110,7 @@ export class UserCollectionDataStore extends WritableFancyStore<UserCollectionDa
                             group.name.indexOf('Unavailable') < 0
                         )
                     )
+                    const groupData = setCounts[`${category[0].slug}--${set.slug}--${group.name}`] = new UserCount()
 
                     for (const things of group.things) {
                         const hasThing = some(things, (t) => userHas[map?.[t] ?? t])
@@ -134,6 +135,7 @@ export class UserCollectionDataStore extends WritableFancyStore<UserCollectionDa
                         }
 
                         setData.total++
+                        groupData.total++
 
                         if (hasThing) {
                             if (doCategory) {
@@ -144,6 +146,7 @@ export class UserCollectionDataStore extends WritableFancyStore<UserCollectionDa
                             }
 
                             setData.have++
+                            groupData.have++
                         }
 
                         for (const thing of things) {

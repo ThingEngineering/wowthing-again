@@ -1,7 +1,11 @@
-import type {Dictionary, TransmogSetData} from '@/types'
+import type {TransmogSetData} from '@/types'
 import type {TransmogDataGroup} from '@/types/data'
 
-export default function getTransmogSpan(group: TransmogDataGroup, set: TransmogSetData, skipClasses: Dictionary<boolean>): number {
+export default function getTransmogSpan(
+    group: TransmogDataGroup,
+    set: TransmogSetData,
+    skipClasses: Record<string, boolean>
+): number {
     let span = set.span
     if (group.type === 'armor') {
         if (set.type === 'leather') {

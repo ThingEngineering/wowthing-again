@@ -1,15 +1,7 @@
-import type { Dictionary } from '@/types/dictionary'
+import type { UserCount } from '@/types'
 
 
 export interface UserTransmogData {
-    has?: Dictionary<UserTransmogDataHas>
-    transmog: Dictionary<number>
-}
-
-export class UserTransmogDataHas {
-    constructor(
-        public have: number,
-        public total: number
-    )
-    { }
+    has?: Record<string, UserCount>
+    transmog: Record<number, number>
 }

@@ -3,7 +3,6 @@
     import { userTransmogStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
     import getTransmogSpan from '@/utils/get-transmog-span'
-    import type { Dictionary } from '@/types'
     import type { TransmogDataCategory, TransmogDataGroup } from '@/types/data'
 
     import ClassIcon from '@/components/images/ClassIcon.svelte'
@@ -12,7 +11,7 @@
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let category: TransmogDataCategory
-    export let skipClasses: Dictionary<boolean>
+    export let skipClasses: Record<string, boolean>
     export let slugs: string[]
     export let startSpacer = false
 
@@ -197,7 +196,7 @@
                 </span>
             </td>
 
-            {#each transmogSets[group.type].sets as transmogSet, transmogSetIndex (`set--${setKey}--${setName}--${transmogSet.type}`)}
+            {#each transmogSets[group.type].sets as transmogSet (`set--${setKey}--${setName}--${transmogSet.type}`)}
                 {#if !skipClasses[transmogSet.type]}
                     <TableSet
                         set={group.data?.[transmogSet.type]?.[setIndex]}

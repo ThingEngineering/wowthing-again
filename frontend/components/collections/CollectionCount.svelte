@@ -7,7 +7,7 @@
     }
 </script>
 
-<style type="scss">
+<style lang="scss">
     span {
         word-spacing: -0.2ch;
     }
