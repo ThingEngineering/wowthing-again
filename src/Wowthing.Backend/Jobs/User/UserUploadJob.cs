@@ -43,6 +43,7 @@ namespace Wowthing.Backend.Jobs.User
                 .Include(c => c.AddonMounts)
                 .Include(c => c.AddonQuests)
                 .Include(c => c.Currencies)
+                .Include(c => c.Items)
                 .Include(c => c.Lockouts)
                 .Include(c => c.MythicPlusAddon)
                 .Include(c => c.Reputations)
@@ -102,6 +103,7 @@ namespace Wowthing.Backend.Jobs.User
 
                 HandleCovenants(character, characterData);
                 HandleCurrencies(character, characterData);
+                HandleItems(character, characterData);
                 HandleLockouts(character, characterData);
                 HandleMounts(character, characterData);
                 HandleMythicPlus(character, characterData);
@@ -212,6 +214,55 @@ namespace Wowthing.Backend.Jobs.User
                     Week = currency.Week,
                     WeekMax = currency.MaxWeek,
                 };
+            }
+        }
+
+        private void HandleItems(PlayerCharacter character, UploadCharacter characterData)
+        {
+            if (character.Items == null)
+            {
+                character.Items = new PlayerCharacterItems
+                {
+                    Character = character,
+                };
+                Context.PlayerCharacterItems.Add(character.Items);
+            }
+
+            var items = new Dictionary<(ItemLocation, int), int>();
+            foreach (var (location, contents) in characterData.Items.EmptyIfNull())
+            {
+                ItemLocation locationType;
+                if (location.StartsWith("bag "))
+                {
+                    locationType = ItemLocation.Bags;
+                }
+                else
+                {
+                    continue;
+                }
+
+                foreach (var (slot, item) in contents)
+                {
+                    var key = (locationType, item.ItemId);
+                    if (!items.ContainsKey(key))
+                    {
+                        items[key] = 0;
+                    }
+
+                    items[key] += item.Count;
+                }
+            }
+
+            character.Items.Items = new();
+            foreach (var ((locationType, itemId), count) in items)
+            {
+                
+                character.Items.Items.Add(new PlayerCharacterItem
+                {
+                    Location = locationType,
+                    Count = count,
+                    ItemId = itemId,
+                });
             }
         }
 

@@ -17,6 +17,7 @@ namespace Wowthing.Lib.Contexts
     {
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
 
+        public DbSet<WowItem> WowItem { get; set; }
         public DbSet<WowPeriod> WowPeriod { get; set; }
         public DbSet<WowRealm> WowRealm { get; set; }
         public DbSet<WowReputation> WowReputation { get; set; }
@@ -33,6 +34,7 @@ namespace Wowthing.Lib.Contexts
         public DbSet<PlayerCharacterAchievements> PlayerCharacterAchievements { get; set; }
         public DbSet<PlayerCharacterCurrencies> PlayerCharacterCurrencies { get; set; }
         public DbSet<PlayerCharacterEquippedItems> PlayerCharacterEquippedItems { get; set; }
+        public DbSet<PlayerCharacterItems> PlayerCharacterItems { get; set; }
         public DbSet<PlayerCharacterLockouts> PlayerCharacterLockouts { get; set; }
         public DbSet<PlayerCharacterMounts> PlayerCharacterMounts { get; set; }
         public DbSet<PlayerCharacterMythicPlus> PlayerCharacterMythicPlus { get; set; }

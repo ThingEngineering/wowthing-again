@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
@@ -13,9 +14,10 @@ using Wowthing.Lib.Models.Player;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    partial class WowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211115065900_Add_WowItem")]
+    partial class Add_WowItem
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -610,22 +612,6 @@ namespace Wowthing.Lib.Migrations
                         .HasName("pk_player_character_equipped_items");
 
                     b.ToTable("player_character_equipped_items");
-                });
-
-            modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacterItems", b =>
-                {
-                    b.Property<int>("CharacterId")
-                        .HasColumnType("integer")
-                        .HasColumnName("character_id");
-
-                    b.Property<List<PlayerCharacterItem>>("Items")
-                        .HasColumnType("jsonb")
-                        .HasColumnName("items");
-
-                    b.HasKey("CharacterId")
-                        .HasName("pk_player_character_items");
-
-                    b.ToTable("player_character_items");
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacterLockouts", b =>
@@ -1363,18 +1349,6 @@ namespace Wowthing.Lib.Migrations
                         .WithOne("EquippedItems")
                         .HasForeignKey("Wowthing.Lib.Models.Player.PlayerCharacterEquippedItems", "CharacterId")
                         .HasConstraintName("fk_player_character_equipped_items_player_character_character_")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Character");
-                });
-
-            modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacterItems", b =>
-                {
-                    b.HasOne("Wowthing.Lib.Models.Player.PlayerCharacter", "Character")
-                        .WithMany()
-                        .HasForeignKey("CharacterId")
-                        .HasConstraintName("fk_player_character_items_player_character_character_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
