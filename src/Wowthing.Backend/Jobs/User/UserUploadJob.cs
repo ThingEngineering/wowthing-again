@@ -231,15 +231,27 @@ namespace Wowthing.Backend.Jobs.User
             var items = new Dictionary<(ItemLocation, int), int>();
             foreach (var (location, contents) in characterData.Items.EmptyIfNull())
             {
-                ItemLocation locationType;
-                if (location.StartsWith("bag "))
+                ItemLocation locationType = ItemLocation.Unknown;
+                if (!location.StartsWith("bag "))
+                {
+                    Logger.Warning("Invalid item location: {Location}", location);
+                    continue;
+                }
+
+                int bagId = int.Parse(location.Split(' ')[1]);
+                if (bagId >= 0 && bagId <= 4)
                 {
                     locationType = ItemLocation.Bags;
                 }
-                else
+                else if (bagId == -1 || (bagId >= 5 && bagId <= 11))
                 {
-                    continue;
+                    locationType = ItemLocation.Bank;
                 }
+                else if (bagId == -3)
+                {
+                    locationType = ItemLocation.ReagentBank;
+                }
+                
 
                 foreach (var (slot, item) in contents)
                 {
