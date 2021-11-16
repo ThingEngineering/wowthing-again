@@ -41,5 +41,6 @@
         DataTitleIndex,
         CacheTransmog,
         CacheZoneMaps,
+        ImportItems,
     }
 }

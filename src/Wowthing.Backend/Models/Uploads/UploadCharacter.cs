@@ -20,6 +20,7 @@ namespace Wowthing.Backend.Models.Uploads
         public List<UploadCharacterCovenant> Covenants { get; set; }
         public List<UploadCharacterCurrency> Currencies { get; set; }
         public List<int> DailyQuests { get; set; }
+        public Dictionary<string, Dictionary<string, UploadCharacterItem>> Items { get; set; }
         public List<UploadCharacterLockout> Lockouts { get; set; }
         public List<int> Mounts { get; set; }
         public UploadCharacterMythicDungeon[] MythicDungeons { get; set; }
@@ -60,6 +61,12 @@ namespace Wowthing.Backend.Models.Uploads
         public int MaxWeek { get; set; }
     }
 
+    public class UploadCharacterItem
+    {
+        public int Count { get; set; }
+        public int ItemId { get; set; }
+    }
+    
     public class UploadCharacterLockout
     {
         public bool Locked { get; set; }

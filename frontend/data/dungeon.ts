@@ -240,6 +240,14 @@ export const raidVaultItemLevel: Record<number, number> = {
 
 // Fake "instances" for tracking world bosses
 export const extraInstances: StaticDataInstance[] = [
+    // Anniversary bosses
+    {
+        expansion: 1,
+        id: 100017,
+        name: 'Doomwalker',
+        shortName: 'DW',
+    },
+
     // Mists of Pandaria
     {
         expansion: 4,
