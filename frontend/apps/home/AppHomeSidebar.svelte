@@ -14,7 +14,7 @@
         const mountsOverall = $userCollectionStore.data.setCounts['mounts']['OVERALL']
         const petsOverall = $userCollectionStore.data.setCounts['pets']['OVERALL']
         const toysOverall = $userCollectionStore.data.setCounts['toys']['OVERALL']
-        const transmogOverall = $userTransmogStore.data.has['OVERALL']
+        const transmogOverall = $userTransmogStore.data.stats['OVERALL']
 
         mountsPercent = mountsOverall.have / mountsOverall.total * 100
         petsPercent = petsOverall.have / petsOverall.total * 100

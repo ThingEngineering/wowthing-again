@@ -48,6 +48,7 @@ namespace Wowthing.Backend.Jobs.User
                 .Include(c => c.MythicPlusAddon)
                 .Include(c => c.Reputations)
                 .Include(c => c.Shadowlands)
+                .Include(c => c.Transmog)
                 .Include(c => c.Weekly)
                 .ToDictionaryAsync(k => (k.RealmId, k.Name));
 
@@ -63,7 +64,6 @@ namespace Wowthing.Backend.Jobs.User
 
             // Deal with character data
             int accountId = 0;
-            var transmog = new HashSet<int>();
             foreach (var (addonId, characterData) in parsed.Characters)
             {
                 // US/Mal'Ganis/Fakenamehere
@@ -99,8 +99,6 @@ namespace Wowthing.Backend.Jobs.User
                 character.PlayedTotal = characterData.PlayedTotal;
                 character.RestedExperience = characterData.RestedXp;
 
-                transmog.UnionWith(characterData.Transmog.EmptyIfNull());
-
                 HandleCovenants(character, characterData);
                 HandleCurrencies(character, characterData);
                 await HandleItems(character, characterData);
@@ -109,6 +107,7 @@ namespace Wowthing.Backend.Jobs.User
                 HandleMythicPlus(character, characterData);
                 HandleQuests(character, characterData);
                 HandleReputations(character, characterData);
+                HandleTransmog(character, characterData);
                 HandleWeekly(character, characterData);
             }
             _timer.AddPoint("Characters");
@@ -128,22 +127,13 @@ namespace Wowthing.Backend.Jobs.User
                         Context.PlayerAccountToys.Add(accountToys);
                     }
 
-                    accountToys.ToyIds = parsed.Toys.OrderBy(t => t).ToList();
-                }
-
-                var accountTransmog = Context.PlayerAccountTransmog.Find(accountId);
-                if (accountTransmog == null)
-                {
-                    accountTransmog = new PlayerAccountTransmog
+                    if (parsed.Toys?.Count > 0)
                     {
-                        AccountId = accountId,
-                    };
-                    Context.PlayerAccountTransmog.Add(accountTransmog);
+                        accountToys.ToyIds = parsed.Toys
+                            .OrderBy(toyId => toyId)
+                            .ToList();
+                    }
                 }
-
-                accountTransmog.TransmogIds = transmog
-                    .OrderBy(t => t)
-                    .ToList();
             }
             _timer.AddPoint("Account");
 
@@ -454,6 +444,27 @@ namespace Wowthing.Backend.Jobs.User
                 .EmptyIfNull()
                 .Select(r => r.Value)
                 .ToList();
+        }
+
+        private void HandleTransmog(PlayerCharacter character, UploadCharacter characterData)
+        {
+            if (character.Transmog == null)
+            {
+                character.Transmog = new PlayerCharacterTransmog
+                {
+                    Character = character,
+                };
+                Context.PlayerCharacterTransmog.Add(character.Transmog);
+            }
+
+            var transmog = characterData.Transmog
+                .EmptyIfNull()
+                .OrderBy(transmogId => transmogId)
+                .ToList();
+            if (transmog.Count > 0)
+            {
+                character.Transmog.TransmogIds = transmog;
+            } 
         }
 
         private void HandleWeekly(PlayerCharacter character, UploadCharacter characterData)

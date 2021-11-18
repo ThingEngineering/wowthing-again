@@ -22,7 +22,7 @@
 
     const getPercent = function(group: TransmogDataGroup, setIndex: number): number {
         const key = `${slugs[0]}--${category.slug}--${group.name}--${setIndex}`
-        const hasData = $userTransmogStore.data.has[key]
+        const hasData = $userTransmogStore.data.stats[key]
         return hasData ? hasData.have / hasData.total * 100 : 0
     }
 </script>

@@ -15,25 +15,37 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
         return url
     }
 
+    initialize(data: UserTransmogData): void {
+        console.time('UserTransmogDataStore.initialize')
+
+        data.userHas = {}
+        for (const transmogId of data.transmog) {
+            data.userHas[transmogId] = true
+        }
+
+        console.timeEnd('UserTransmogDataStore.initialize')
+    }
+
     setup(settings: Settings, transmogData: TransmogData, userTransmogData: UserTransmogData): void {
         console.time('UserTransmogDataStore.setup')
 
         const skipClasses = getSkipClasses(settings)
 
-        const has: Record<string, UserCount> = {}
-        const overallData = has['OVERALL'] = new UserCount()
         const seen: Record<number, boolean> = {}
+        const stats: Record<string, UserCount> = {}
+
+        const overallStats = stats['OVERALL'] = new UserCount()
 
         for (const categories of transmogData.sets) {
             if (categories === null) {
                 continue
             }
 
-            const baseData = has[categories[0].slug] = new UserCount()
+            const baseStats = stats[categories[0].slug] = new UserCount()
 
             for (const category of categories.slice(1)) {
                 const catKey = `${categories[0].slug}--${category.slug}`
-                const catData = has[catKey] = new UserCount()
+                const catStats = stats[catKey] = new UserCount()
 
                 for (const group of category.groups) {
                     for (const [dataKey, dataValue] of toPairs(group.data)) {
@@ -48,7 +60,7 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
                             }
 
                             const setKey = `${groupKey}--${setIndex}`
-                            const setData = has[setKey] = has[setKey] || new UserCount()
+                            const setStats = stats[setKey] = stats[setKey] || new UserCount()
 
                             const groupSigh = dataValue[setIndex]
                             const slotKeys = Object.keys(groupSigh.items)
@@ -59,20 +71,20 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
                                 const seenAny = some(transmogIds, (id) => seen[id])
 
                                 if (!seenAny) {
-                                    overallData.total++
+                                    overallStats.total++
                                 }
-                                baseData.total++
-                                catData.total++
-                                setData.total++
+                                baseStats.total++
+                                catStats.total++
+                                setStats.total++
 
                                 for (const transmogId of transmogIds) {
-                                    if (userTransmogData.transmog[transmogId]) {
+                                    if (userTransmogData.userHas[transmogId]) {
                                         if (!seen[transmogId]) {
-                                            overallData.have++
+                                            overallStats.have++
                                         }
-                                        baseData.have++
-                                        catData.have++
-                                        setData.have++
+                                        baseStats.have++
+                                        catStats.have++
+                                        setStats.have++
                                         break
                                     }
                                 }
@@ -88,7 +100,7 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
         }
 
         this.update((state) => {
-            state.data.has = has
+            state.data.stats = stats
             return state
         })
 
