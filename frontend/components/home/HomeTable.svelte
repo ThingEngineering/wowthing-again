@@ -101,6 +101,7 @@
                     {character}
                     icon={Constants.icons.weeklyAnima}
                     ughQuest={character.weekly?.ughQuests?.['souls']}
+                    weeklyReset={true}
                 />
 
             {:else}
