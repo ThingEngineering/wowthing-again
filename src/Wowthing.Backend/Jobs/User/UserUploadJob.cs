@@ -29,9 +29,11 @@ namespace Wowthing.Backend.Jobs.User
             Logger.Information("Processing upload...");
 
             var json = LuaToJsonConverter.Convert(data[1].Replace("WWTCSaved = ", ""));
+            _timer.AddPoint("Convert");
 
 #if DEBUG
             File.WriteAllText(Path.Join("..", "..", "lua.json"), json);
+            _timer.AddPoint("Write");
 #endif
             
             var parsed = JsonConvert.DeserializeObject<Upload[]>(json)[0]; // TODO work out why this is an array of objects
@@ -59,6 +61,7 @@ namespace Wowthing.Backend.Jobs.User
                 .ToArray();
             var realmMap = await Context.WowRealm
                 .Where(r => realmIds.Contains(r.Id))
+                .AsNoTracking()
                 .ToDictionaryAsync(k => (k.Region, k.Name));
             
             _timer.AddPoint("Load");
@@ -138,6 +141,11 @@ namespace Wowthing.Backend.Jobs.User
             }
             _timer.AddPoint("Account");
 
+#if DEBUG
+            Context.ChangeTracker.DetectChanges();
+            Console.WriteLine(Context.ChangeTracker.DebugView.LongView);
+#endif
+            
             await Context.SaveChangesAsync();
             _timer.AddPoint("Save");
             
@@ -288,8 +296,6 @@ namespace Wowthing.Backend.Jobs.User
                 deleted = await Context
                     .DeleteRangeAsync<PlayerCharacterItem>(item => deleteMe.Contains(item.Id));
             }
-
-            Logger.Debug("Added {0} - Deleted {1}/{2}", added, deleted, deleteMe.Length);
         }
 
         private void HandleLockouts(PlayerCharacter character, UploadCharacter characterData)
