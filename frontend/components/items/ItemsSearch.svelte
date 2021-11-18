@@ -1,5 +1,4 @@
 <script lang="ts">
-    import debounce from 'lodash/debounce'
     import sortBy from 'lodash/sortBy'
     import { onMount } from 'svelte'
     import { location, querystring, replace } from 'svelte-spa-router'
@@ -170,7 +169,7 @@
 
     {#if response !== undefined}
         <div class="results-container">
-            {#each response as item, itemIndex}
+            {#each response as item}
                 <table class="table table-striped">
                     <thead>
                         <tr class="item-row">

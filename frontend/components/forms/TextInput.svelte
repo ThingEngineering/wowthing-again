@@ -2,7 +2,7 @@
     export let label = ''
     export let maxlength = 0
     export let name: string
-    export let placeholder: string
+    export let placeholder = ''
     export let value: string
 </script>
 

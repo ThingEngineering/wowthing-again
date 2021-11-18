@@ -1,6 +1,5 @@
 <script lang="ts">
     import type { SidebarItem } from '@/types'
-    import type { CollectionContext } from '@/types/contexts'
 
     import Sidebar from '@/components/sidebar/Sidebar.svelte'
 
