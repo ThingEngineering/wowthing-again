@@ -10,13 +10,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using StackExchange.Redis;
-using Wowthing.Lib.Constants;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
 using Wowthing.Lib.Utilities;
+using Wowthing.Web.Forms;
 using Wowthing.Web.Models;
 using Wowthing.Web.Models.Team;
 using Wowthing.Web.Services;
@@ -546,12 +546,6 @@ namespace Wowthing.Web.Controllers
             public bool Public { get; set; }
             public ApplicationUser User { get; set; }
             public ApplicationUserSettingsPrivacy Privacy { get; set; }
-        }
-
-        public class ApiSettingsForm
-        {
-            public Dictionary<int, PlayerAccount> Accounts { get; set; }
-            public ApplicationUserSettings Settings { get; set; }
         }
     }
 }
