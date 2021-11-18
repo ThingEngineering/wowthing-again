@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
@@ -13,9 +14,10 @@ using Wowthing.Lib.Models.Player;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    partial class WowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211117185640_Remove_PlayerCharacterItems")]
+    partial class Remove_PlayerCharacterItems
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -612,75 +614,6 @@ namespace Wowthing.Lib.Migrations
                     b.ToTable("player_character_equipped_items");
                 });
 
-            modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacterItem", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnName("id")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<short>("BagId")
-                        .HasColumnType("smallint")
-                        .HasColumnName("bag_id");
-
-                    b.Property<List<short>>("BonusIds")
-                        .HasColumnType("smallint[]")
-                        .HasColumnName("bonus_ids");
-
-                    b.Property<int>("CharacterId")
-                        .HasColumnType("integer")
-                        .HasColumnName("character_id");
-
-                    b.Property<short>("Context")
-                        .HasColumnType("smallint")
-                        .HasColumnName("context");
-
-                    b.Property<int>("Count")
-                        .HasColumnType("integer")
-                        .HasColumnName("count");
-
-                    b.Property<short>("EnchantId")
-                        .HasColumnType("smallint")
-                        .HasColumnName("enchant_id");
-
-                    b.Property<List<int>>("Gems")
-                        .HasColumnType("integer[]")
-                        .HasColumnName("gems");
-
-                    b.Property<int>("ItemId")
-                        .HasColumnType("integer")
-                        .HasColumnName("item_id");
-
-                    b.Property<short>("ItemLevel")
-                        .HasColumnType("smallint")
-                        .HasColumnName("item_level");
-
-                    b.Property<short>("Location")
-                        .HasColumnType("smallint")
-                        .HasColumnName("location");
-
-                    b.Property<short>("Quality")
-                        .HasColumnType("smallint")
-                        .HasColumnName("quality");
-
-                    b.Property<short>("Slot")
-                        .HasColumnType("smallint")
-                        .HasColumnName("slot");
-
-                    b.Property<short>("SuffixId")
-                        .HasColumnType("smallint")
-                        .HasColumnName("suffix_id");
-
-                    b.HasKey("Id")
-                        .HasName("pk_player_character_item");
-
-                    b.HasIndex("CharacterId", "ItemId", "Location")
-                        .HasDatabaseName("ix_player_character_item_character_id_item_id_location");
-
-                    b.ToTable("player_character_item");
-                });
-
             modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacterLockouts", b =>
                 {
                     b.Property<int>("CharacterId")
@@ -1109,11 +1042,6 @@ namespace Wowthing.Lib.Migrations
                     b.HasKey("Id")
                         .HasName("pk_wow_item");
 
-                    b.HasIndex("Name")
-                        .HasDatabaseName("ix_wow_item_name")
-                        .HasMethod("gin")
-                        .HasOperators(new[] { "gin_trgm_ops" });
-
                     b.ToTable("wow_item");
                 });
 
@@ -1427,18 +1355,6 @@ namespace Wowthing.Lib.Migrations
                     b.Navigation("Character");
                 });
 
-            modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacterItem", b =>
-                {
-                    b.HasOne("Wowthing.Lib.Models.Player.PlayerCharacter", "Character")
-                        .WithMany("Items")
-                        .HasForeignKey("CharacterId")
-                        .HasConstraintName("fk_player_character_item_player_character_character_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Character");
-                });
-
             modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacterLockouts", b =>
                 {
                     b.HasOne("Wowthing.Lib.Models.Player.PlayerCharacter", "Character")
@@ -1624,8 +1540,6 @@ namespace Wowthing.Lib.Migrations
                     b.Navigation("Currencies");
 
                     b.Navigation("EquippedItems");
-
-                    b.Navigation("Items");
 
                     b.Navigation("Lockouts");
 

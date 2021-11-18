@@ -34,7 +34,7 @@ namespace Wowthing.Lib.Contexts
         public DbSet<PlayerCharacterAchievements> PlayerCharacterAchievements { get; set; }
         public DbSet<PlayerCharacterCurrencies> PlayerCharacterCurrencies { get; set; }
         public DbSet<PlayerCharacterEquippedItems> PlayerCharacterEquippedItems { get; set; }
-        public DbSet<PlayerCharacterItems> PlayerCharacterItems { get; set; }
+        public DbSet<PlayerCharacterItem> PlayerCharacterItem { get; set; }
         public DbSet<PlayerCharacterLockouts> PlayerCharacterLockouts { get; set; }
         public DbSet<PlayerCharacterMounts> PlayerCharacterMounts { get; set; }
         public DbSet<PlayerCharacterMythicPlus> PlayerCharacterMythicPlus { get; set; }
@@ -117,6 +117,12 @@ namespace Wowthing.Lib.Contexts
             builder.Entity<Team>()
                 .HasIndex(t => new { t.Guid })
                 .IsUnique();
+            
+            // Fancy indexes
+            builder.Entity<WowItem>()
+                .HasIndex(item => item.Name)
+                .HasMethod("gin")
+                .HasOperators("gin_trgm_ops");
 
             // Relationships
             builder.Entity<PlayerCharacterMythicPlusSeason>()
@@ -135,7 +141,7 @@ namespace Wowthing.Lib.Contexts
 
             builder.Entity<CompletedAchievementsQuery>()
                 .ToTable("CompletedAchievementsQuery", t => t.ExcludeFromMigrations());
-
+            
             builder.Entity<MountQuery>()
                 .ToTable("MountQuery", t => t.ExcludeFromMigrations());
 
