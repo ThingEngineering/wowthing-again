@@ -9,7 +9,6 @@ namespace Wowthing.Lib.Utilities
     public class LuaToJsonConverter
     {
         private int _index;
-        private int _indent;
         private readonly string[] _lines;
 
         public LuaToJsonConverter(string luaText)
@@ -20,73 +19,52 @@ namespace Wowthing.Lib.Utilities
         public static string Convert(string luaText)
         {
             var converter = new LuaToJsonConverter(luaText);
-            var sb = new StringBuilder();
 
             var (type, converted) = converter.Recurse();
-
+            return converted;
+            
             if (type == StructureType.Array)
             {
-                sb.AppendLine("[");
-                sb.AppendLine(converted);
-                sb.AppendLine("]");
+                return "[" + converted + "]";
             }
             else if (type == StructureType.Dictionary)
             {
-                sb.AppendLine("{");
-                sb.AppendLine(converted);
-                sb.AppendLine("}");
+                return "{" + converted + "}";
             }
-
-            return sb.ToString();
+            else
+            {
+                return "WTF?";
+            }
         }
 
-        private static readonly Regex Comment = new Regex(@" -- \[\d+\]$", RegexOptions.Compiled);
-        private static readonly Regex Line = new Regex(@"^\s*(.*?)?$", RegexOptions.Compiled);
+        private static readonly Regex Line = new Regex(@"^\s*(.*?),?(?: -- \[\d+\])?$", RegexOptions.Compiled);
         private static readonly Regex KeyValue = new Regex(@"^\[(.*?)\] = (.*?)?$", RegexOptions.Compiled);
 
         public (StructureType, string) Recurse()
         {
-            _indent += 2;
-            var indent = new string(' ', _indent);
-
             var type = StructureType.Array;
             var lines = new List<string>();
 
             while (_index < _lines.Length)
             {
-                string line = _lines[_index];
-                _index++;
-
-                // Strip comments
-                line = Comment.Replace(line, "");
-                // Trailing commas are annoying too
-                line = line.TrimEnd(',');
-
-                var m = Line.Match(line);
+                var m = Line.Match(_lines[_index++]);
                 if (!m.Success)
                 {
-                    throw new Exception($"Bad input line >{_lines[_index-1]}< >{line}<");
+                    throw new Exception($"Bad input line >{_lines[_index-2]}< >{_lines[_index-1]}<");
                 }
 
-                line = m.Groups[1].Value;
+                string line = m.Groups[1].Value;
 
                 if (line == "{")
                 {
                     var (rType, rText) = Recurse();
-                    if (rType == StructureType.Array)
+                    if (rText != "[]")
                     {
-                        if (!string.IsNullOrWhiteSpace(rText))
-                        {
-                            lines.Add($"{indent}[\n{rText}{indent}]");
-                        }
-                    }
-                    else if (rType == StructureType.Dictionary)
-                    {
-                        lines.Add($"{indent}{{\n{rText}{indent}}}");
+                        lines.Add(rText);
                     }
                     continue;
                 }
-                else if (line == "}")
+                if (line == "}")
                 {
                     break;
                 }
@@ -108,37 +86,34 @@ namespace Wowthing.Lib.Utilities
                     if (value == "{")
                     {
                         var (rType, rText) = Recurse();
-                        if (rType == StructureType.Array)
+                        if (rText != "[]")
                         {
-                            if (!string.IsNullOrWhiteSpace(rText))
-                            {
-                                lines.Add($"{indent}{key}: [\n{rText}{indent}]");
-                            }
-                        }
-                        else if (rType == StructureType.Dictionary)
-                        {
-                            lines.Add($"{indent}{key}: {{\n{rText}{indent}}}");
+                            lines.Add($"{key}:{rText}");
                         }
                         continue;
                     }
-                    else if (value == "}")
+                    if (value == "}")
                     {
                         break;
                     }
 
-                    lines.Add($"{indent}{key}: {value}");
+                    lines.Add($"{key}:{value}");
                 }
                 else
                 {
                     // Not [key] = value?
-                    lines.Add($"{indent}{line}");
+                    lines.Add($"{line}");
                 }
             }
 
-            _indent -= 2;
-
-            var text = lines.Count > 0 ? string.Join(",\n", lines) + "\n" : "";
-            return (type, text);
+            if (type == StructureType.Array)
+            {
+                return (type, "[" + string.Join(",", lines) + "]");
+            }
+            else
+            {
+                return (type, "{" + string.Join(",", lines) + "}");
+            }
         }
     }
 
