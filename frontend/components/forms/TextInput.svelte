@@ -2,6 +2,7 @@
     export let label = ''
     export let maxlength = 0
     export let name: string
+    export let placeholder: string
     export let value: string
 </script>
 
@@ -21,6 +22,7 @@
     <input
         id="input-{name}"
         name={name}
+        placeholder={placeholder}
         {maxlength}
         bind:value={value}
     >

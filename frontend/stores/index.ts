@@ -1,4 +1,5 @@
 export * from './achievements'
+export * from './item-search'
 export * from './static'
 export * from './time'
 export * from './transmog'

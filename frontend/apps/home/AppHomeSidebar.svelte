@@ -55,6 +55,13 @@
     <li use:active={'/gear/*'}>
         <a href="#/gear/">Gear</a>
     </li>
+
+    {#if $userStore.loaded && !$userStore.data.public}
+        <li use:active={'/items/*'}>
+            <a href="#/items/">🚧 Items</a>
+        </li>
+    {/if}
+
     <li use:active={'/lockouts'}>
         <a href="#/lockouts">Lockouts</a>
     </li>

@@ -1,3 +1,4 @@
+import some from 'lodash/some'
 import toPairs from 'lodash/toPairs'
 
 import { Settings, UserCount, WritableFancyStore } from '@/types'
@@ -21,6 +22,7 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
 
         const has: Record<string, UserCount> = {}
         const overallData = has['OVERALL'] = new UserCount()
+        const seen: Record<number, boolean> = {}
 
         for (const categories of transmogData.sets) {
             if (categories === null) {
@@ -52,20 +54,31 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
                             const slotKeys = Object.keys(groupSigh.items)
                                 .map((key) => parseInt(key))
 
-                            overallData.total += slotKeys.length
-                            baseData.total += slotKeys.length
-                            catData.total += slotKeys.length
-                            setData.total += slotKeys.length
-
                             for (const slotKey of slotKeys) {
-                                for (const transmogId of groupSigh.items[slotKey]) {
+                                const transmogIds = groupSigh.items[slotKey]
+                                const seenAny = some(transmogIds, (id) => seen[id])
+
+                                if (!seenAny) {
+                                    overallData.total++
+                                }
+                                baseData.total++
+                                catData.total++
+                                setData.total++
+
+                                for (const transmogId of transmogIds) {
                                     if (userTransmogData.transmog[transmogId]) {
-                                        overallData.have++
+                                        if (!seen[transmogId]) {
+                                            overallData.have++
+                                        }
                                         baseData.have++
                                         catData.have++
                                         setData.have++
                                         break
                                     }
+                                }
+
+                                for (const transmogId of transmogIds) {
+                                    seen[transmogId] = true
                                 }
                             }
                         }
