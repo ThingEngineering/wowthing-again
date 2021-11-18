@@ -50,6 +50,7 @@ namespace Wowthing.Backend.Jobs.User
                 .Include(c => c.Shadowlands)
                 .Include(c => c.Transmog)
                 .Include(c => c.Weekly)
+                .AsSplitQuery()
                 .ToDictionaryAsync(k => (k.RealmId, k.Name));
 
             var realmIds = characterMap.Values
