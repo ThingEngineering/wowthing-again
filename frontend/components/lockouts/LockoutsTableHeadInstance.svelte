@@ -30,6 +30,7 @@
 
         border-left: 1px solid $border-color;
         text-align: center;
+        white-space: nowrap;
     }
 </style>
 
