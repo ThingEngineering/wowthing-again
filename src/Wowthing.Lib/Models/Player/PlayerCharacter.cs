@@ -63,6 +63,7 @@ namespace Wowthing.Lib.Models.Player
         public PlayerCharacterRaiderIo RaiderIo { get; set; }
         public PlayerCharacterReputations Reputations { get; set; }
         public PlayerCharacterShadowlands Shadowlands { get; set; }
+        public PlayerCharacterTransmog Transmog { get; set; }
         public PlayerCharacterWeekly Weekly { get; set; }
 
         public PlayerCharacterAddonMounts AddonMounts { get; set; }

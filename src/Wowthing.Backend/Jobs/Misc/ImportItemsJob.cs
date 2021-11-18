@@ -17,7 +17,7 @@ namespace Wowthing.Backend.Jobs.Misc
         {
             Type = JobType.ImportItems,
             Priority = JobPriority.High,
-            Interval = TimeSpan.FromMinutes(1),
+            Interval = TimeSpan.FromHours(1),
             Version = 1,
         };
 

@@ -4,6 +4,6 @@ namespace Wowthing.Web.Models
 {
     public class UserTransmogData
     {
-        public Dictionary<int, int> Transmog { get; set; }
+        public List<int> Transmog { get; set; }
     }
 }

@@ -578,22 +578,16 @@ namespace Wowthing.Web.Controllers
 
             timer.AddPoint("CheckUser");
 
-            var accountTransmogs = await _context.PlayerAccountTransmog
-                .Where(pat => pat.Account.UserId == apiResult.User.Id)
-                .ToArrayAsync();
-
-            var allTransmog = new HashSet<int>();
-            foreach (var accountTransmog in accountTransmogs)
-            {
-                allTransmog.UnionWith(accountTransmog.TransmogIds);
-            }
+            var allTransmog = await _context.AccountTransmogQuery
+                .FromSqlRaw(AccountTransmogQuery.SQL, apiResult.User.Id)
+                .FirstAsync();
             
             timer.AddPoint("Get Transmog");
 
             // Build response
             var data = new UserTransmogData
             {
-                Transmog = allTransmog.ToDictionary(t => t, t => 1),
+                Transmog = allTransmog.TransmogIds,
             };
             
             timer.AddPoint("Build response", true);

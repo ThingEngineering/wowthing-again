@@ -7,6 +7,8 @@ namespace Wowthing.Lib.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.Sql("CREATE EXTENSION IF NOT EXISTS pg_trgm");
+            
             migrationBuilder.CreateIndex(
                 name: "ix_wow_item_name",
                 table: "wow_item",
@@ -20,6 +22,8 @@ namespace Wowthing.Lib.Migrations
             migrationBuilder.DropIndex(
                 name: "ix_wow_item_name",
                 table: "wow_item");
+            
+            migrationBuilder.Sql("DROP EXTENSION IF EXISTS pg_trgm");
         }
     }
 }

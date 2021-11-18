@@ -28,7 +28,6 @@ namespace Wowthing.Lib.Contexts
         public DbSet<PlayerAccount> PlayerAccount { get; set; }
         public DbSet<PlayerAccountPets> PlayerAccountPets { get; set; }
         public DbSet<PlayerAccountToys> PlayerAccountToys { get; set; }
-        public DbSet<PlayerAccountTransmog> PlayerAccountTransmog { get; set; }
 
         public DbSet<PlayerCharacter> PlayerCharacter { get; set; }
         public DbSet<PlayerCharacterAchievements> PlayerCharacterAchievements { get; set; }
@@ -45,6 +44,7 @@ namespace Wowthing.Lib.Contexts
         public DbSet<PlayerCharacterRaiderIo> PlayerCharacterRaiderIo { get; set; }
         public DbSet<PlayerCharacterReputations> PlayerCharacterReputations { get; set; }
         public DbSet<PlayerCharacterShadowlands> PlayerCharacterShadowlands { get; set; }
+        public DbSet<PlayerCharacterTransmog> PlayerCharacterTransmog { get; set; }
         public DbSet<PlayerCharacterWeekly> PlayerCharacterWeekly { get; set; }
 
         public DbSet<PlayerCharacterAddonMounts> PlayerCharacterAddonMounts { get; set; }
@@ -54,6 +54,7 @@ namespace Wowthing.Lib.Contexts
         public DbSet<TeamCharacter> TeamCharacter { get; set; }
 
         // Garbage query types
+        public DbSet<AccountTransmogQuery> AccountTransmogQuery { get; set; }
         public DbSet<AchievementCriteriaQuery> AchievementCriteriaQuery { get; set; } 
         public DbSet<CompletedAchievementsQuery> CompletedAchievementsQuery { get; set; }
         public DbSet<MountQuery> MountQuery { get; set; }
@@ -136,6 +137,9 @@ namespace Wowthing.Lib.Contexts
                 .OnDelete(DeleteBehavior.SetNull);
             
             // Query types have no tables either
+            builder.Entity<AccountTransmogQuery>()
+                .ToTable("AccountTransmogQuery", t => t.ExcludeFromMigrations());
+            
             builder.Entity<AchievementCriteriaQuery>()
                 .ToTable("AchievementCriteriaQuery", t => t.ExcludeFromMigrations());
 

@@ -29,9 +29,11 @@ namespace Wowthing.Backend.Jobs.User
             Logger.Information("Processing upload...");
 
             var json = LuaToJsonConverter.Convert(data[1].Replace("WWTCSaved = ", ""));
+            _timer.AddPoint("Convert");
 
 #if DEBUG
             File.WriteAllText(Path.Join("..", "..", "lua.json"), json);
+            _timer.AddPoint("Write");
 #endif
             
             var parsed = JsonConvert.DeserializeObject<Upload[]>(json)[0]; // TODO work out why this is an array of objects
@@ -48,7 +50,9 @@ namespace Wowthing.Backend.Jobs.User
                 .Include(c => c.MythicPlusAddon)
                 .Include(c => c.Reputations)
                 .Include(c => c.Shadowlands)
+                .Include(c => c.Transmog)
                 .Include(c => c.Weekly)
+                .AsSplitQuery()
                 .ToDictionaryAsync(k => (k.RealmId, k.Name));
 
             var realmIds = characterMap.Values
@@ -57,13 +61,13 @@ namespace Wowthing.Backend.Jobs.User
                 .ToArray();
             var realmMap = await Context.WowRealm
                 .Where(r => realmIds.Contains(r.Id))
+                .AsNoTracking()
                 .ToDictionaryAsync(k => (k.Region, k.Name));
             
             _timer.AddPoint("Load");
 
             // Deal with character data
             int accountId = 0;
-            var transmog = new HashSet<int>();
             foreach (var (addonId, characterData) in parsed.Characters)
             {
                 // US/Mal'Ganis/Fakenamehere
@@ -99,8 +103,6 @@ namespace Wowthing.Backend.Jobs.User
                 character.PlayedTotal = characterData.PlayedTotal;
                 character.RestedExperience = characterData.RestedXp;
 
-                transmog.UnionWith(characterData.Transmog.EmptyIfNull());
-
                 HandleCovenants(character, characterData);
                 HandleCurrencies(character, characterData);
                 await HandleItems(character, characterData);
@@ -109,6 +111,7 @@ namespace Wowthing.Backend.Jobs.User
                 HandleMythicPlus(character, characterData);
                 HandleQuests(character, characterData);
                 HandleReputations(character, characterData);
+                HandleTransmog(character, characterData);
                 HandleWeekly(character, characterData);
             }
             _timer.AddPoint("Characters");
@@ -128,25 +131,21 @@ namespace Wowthing.Backend.Jobs.User
                         Context.PlayerAccountToys.Add(accountToys);
                     }
 
-                    accountToys.ToyIds = parsed.Toys.OrderBy(t => t).ToList();
-                }
-
-                var accountTransmog = Context.PlayerAccountTransmog.Find(accountId);
-                if (accountTransmog == null)
-                {
-                    accountTransmog = new PlayerAccountTransmog
+                    if (parsed.Toys?.Count > 0)
                     {
-                        AccountId = accountId,
-                    };
-                    Context.PlayerAccountTransmog.Add(accountTransmog);
+                        accountToys.ToyIds = parsed.Toys
+                            .OrderBy(toyId => toyId)
+                            .ToList();
+                    }
                 }
-
-                accountTransmog.TransmogIds = transmog
-                    .OrderBy(t => t)
-                    .ToList();
             }
             _timer.AddPoint("Account");
 
+#if DEBUG
+            Context.ChangeTracker.DetectChanges();
+            Console.WriteLine(Context.ChangeTracker.DebugView.LongView);
+#endif
+            
             await Context.SaveChangesAsync();
             _timer.AddPoint("Save");
             
@@ -297,8 +296,6 @@ namespace Wowthing.Backend.Jobs.User
                 deleted = await Context
                     .DeleteRangeAsync<PlayerCharacterItem>(item => deleteMe.Contains(item.Id));
             }
-
-            Logger.Debug("Added {0} - Deleted {1}/{2}", added, deleted, deleteMe.Length);
         }
 
         private void HandleLockouts(PlayerCharacter character, UploadCharacter characterData)
@@ -454,6 +451,27 @@ namespace Wowthing.Backend.Jobs.User
                 .EmptyIfNull()
                 .Select(r => r.Value)
                 .ToList();
+        }
+
+        private void HandleTransmog(PlayerCharacter character, UploadCharacter characterData)
+        {
+            if (character.Transmog == null)
+            {
+                character.Transmog = new PlayerCharacterTransmog
+                {
+                    Character = character,
+                };
+                Context.PlayerCharacterTransmog.Add(character.Transmog);
+            }
+
+            var transmog = characterData.Transmog
+                .EmptyIfNull()
+                .OrderBy(transmogId => transmogId)
+                .ToList();
+            if (transmog.Count > 0)
+            {
+                character.Transmog.TransmogIds = transmog;
+            } 
         }
 
         private void HandleWeekly(PlayerCharacter character, UploadCharacter characterData)

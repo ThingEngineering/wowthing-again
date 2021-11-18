@@ -161,7 +161,7 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                                 break
 
                             case 'transmog':
-                                if (!userTransmogData.transmog[drop.id]) {
+                                if (!userTransmogData.userHas[drop.id]) {
                                     dropStatus.need = true
                                 }
                                 break
