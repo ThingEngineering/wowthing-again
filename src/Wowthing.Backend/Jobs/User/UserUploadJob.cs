@@ -103,7 +103,7 @@ namespace Wowthing.Backend.Jobs.User
 
                 HandleCovenants(character, characterData);
                 HandleCurrencies(character, characterData);
-                HandleItems(character, characterData);
+                await HandleItems(character, characterData);
                 HandleLockouts(character, characterData);
                 HandleMounts(character, characterData);
                 HandleMythicPlus(character, characterData);
@@ -217,18 +217,14 @@ namespace Wowthing.Backend.Jobs.User
             }
         }
 
-        private void HandleItems(PlayerCharacter character, UploadCharacter characterData)
+        private async Task HandleItems(PlayerCharacter character, UploadCharacter characterData)
         {
-            if (character.Items == null)
-            {
-                character.Items = new PlayerCharacterItems
-                {
-                    Character = character,
-                };
-                Context.PlayerCharacterItems.Add(character.Items);
-            }
+            var itemMap = character.Items
+                .EmptyIfNull()
+                .ToDictionary(item => (item.Location, item.BagId, item.Slot));
 
-            var items = new Dictionary<(ItemLocation, int), int>();
+            int added = 0, deleted = 0;
+            var seen = new HashSet<(ItemLocation, short, short)>();
             foreach (var (location, contents) in characterData.Items.EmptyIfNull())
             {
                 ItemLocation locationType = ItemLocation.Unknown;
@@ -238,7 +234,7 @@ namespace Wowthing.Backend.Jobs.User
                     continue;
                 }
 
-                int bagId = int.Parse(location.Split(' ')[1]);
+                short bagId = short.Parse(location.Split(' ')[1]);
                 if (bagId >= 0 && bagId <= 4)
                 {
                     locationType = ItemLocation.Bags;
@@ -251,31 +247,58 @@ namespace Wowthing.Backend.Jobs.User
                 {
                     locationType = ItemLocation.ReagentBank;
                 }
-                
 
-                foreach (var (slot, item) in contents)
+                foreach (var (slotString, itemData) in contents)
                 {
-                    var key = (locationType, item.ItemId);
-                    if (!items.ContainsKey(key))
+                    var slot = short.Parse(slotString[1..]);
+                    var key = (locationType, bagId, slot);
+                    if (itemMap.TryGetValue(key, out var item))
                     {
-                        items[key] = 0;
+                        item.Count = itemData.Count;
+                        item.Context = itemData.Context ?? 0;
+                        item.EnchantId = itemData.EnchantId ?? 0;
+                        item.ItemId = itemData.ItemId;
+                        item.ItemLevel = itemData.ItemLevel;
+                        item.Quality = itemData.Quality;
+                        item.SuffixId = itemData.SuffixId ?? 0;
+                        item.BonusIds = itemData.BonusIds;
+                        item.Gems = itemData.Gems;
+                    }
+                    else {
+                        Context.PlayerCharacterItem.Add(new PlayerCharacterItem
+                        {
+                            CharacterId = character.Id,
+                            BagId = bagId,
+                            Location = locationType,
+                            Slot = slot,
+                            Count = itemData.Count,
+                            Context = itemData.Context ?? 0,
+                            EnchantId = itemData.EnchantId ?? 0,
+                            ItemId = itemData.ItemId,
+                            ItemLevel = itemData.ItemLevel,
+                            Quality = itemData.Quality,
+                            SuffixId = itemData.SuffixId ?? 0,
+                            BonusIds = itemData.BonusIds,
+                            Gems = itemData.Gems,
+                        });
+                        added++;
                     }
 
-                    items[key] += item.Count;
+                    seen.Add(key);
                 }
             }
 
-            character.Items.Items = new();
-            foreach (var ((locationType, itemId), count) in items)
+            var deleteMe = itemMap
+                .Where(kvp => !seen.Contains(kvp.Key))
+                .Select(kvp => kvp.Value.Id)
+                .ToArray();
+            if (deleteMe.Length > 0)
             {
-                
-                character.Items.Items.Add(new PlayerCharacterItem
-                {
-                    Location = locationType,
-                    Count = count,
-                    ItemId = itemId,
-                });
+                deleted = await Context
+                    .DeleteRangeAsync<PlayerCharacterItem>(item => deleteMe.Contains(item.Id));
             }
+
+            Logger.Debug("Added {0} - Deleted {1}/{2}", added, deleted, deleteMe.Length);
         }
 
         private void HandleLockouts(PlayerCharacter character, UploadCharacter characterData)

@@ -53,7 +53,7 @@ namespace Wowthing.Lib.Models.Player
         public PlayerCharacterAchievements Achievements { get; set; }
         public PlayerCharacterCurrencies Currencies { get; set; }
         public PlayerCharacterEquippedItems EquippedItems { get; set; }
-        public PlayerCharacterItems Items { get; set; }
+        public List<PlayerCharacterItem> Items { get; set; }
         public PlayerCharacterLockouts Lockouts { get; set; }
         public PlayerCharacterMounts Mounts { get; set; }
         public PlayerCharacterMythicPlus MythicPlus { get; set; }

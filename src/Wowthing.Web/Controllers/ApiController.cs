@@ -10,14 +10,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using StackExchange.Redis;
-using Wowthing.Lib.Constants;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
 using Wowthing.Lib.Utilities;
+using Wowthing.Web.Forms;
 using Wowthing.Web.Models;
+using Wowthing.Web.Models.Search;
 using Wowthing.Web.Models.Team;
 using Wowthing.Web.Services;
 
@@ -76,6 +77,91 @@ namespace Wowthing.Web.Controllers
             await _userManager.UpdateAsync(user);
 
             return Json(new { key = user.ApiKey });
+        }
+
+        [HttpPost("item-search")]
+        [Authorize]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ItemSearch([FromBody] ApiItemSearchForm form)
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var parts = form.Terms.Split(' ', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+            if (parts.Length == 0)
+            {
+                return BadRequest();
+            }
+
+            var itemQuery = _context.WowItem.AsQueryable();
+            foreach (string part in parts)
+            {
+                // Alias to avoid variable capture bullshit
+                string temp = part;
+                itemQuery = itemQuery.Where(item => EF.Functions.ILike(item.Name, $"%{temp}%"));
+            }
+
+            var items = await itemQuery
+                .Distinct()
+                //.OrderByDescending(item => item.Id)
+                //.Take(100)
+                .ToArrayAsync();
+
+            if (items.Length == 0)
+            {
+                return Json(new string[] { });
+            }
+
+            var itemIds = items.Select(item => item.Id).ToArray();
+            var itemMap = items.ToDictionary(item => item.Id, item => item.Name);
+
+            var characterItems = await _context.PlayerCharacterItem
+                .Where(pci => pci.Character.Account.UserId == user.Id)
+                .Where(pci => itemIds.Contains(pci.ItemId))
+                .ToArrayAsync();
+
+            var ret = characterItems.GroupBy(pci => pci.ItemId)
+                .Select(group => new ItemSearchResponseItem
+                {
+                    ItemId = group.Key,
+                    ItemName = itemMap[group.Key],
+                    Characters = group.Select(result => new ItemSearchResponseCharacter
+                    {
+                        CharacterId = result.CharacterId,
+                        Count = result.Count,
+                        Location = result.Location,
+                        ItemLevel = result.ItemLevel,
+                        Quality = result.Quality,
+                        Context = result.Context > 0 ? result.Context : null,
+                        EnchantId = result.EnchantId > 0 ? result.EnchantId : null,
+                        SuffixId = result.SuffixId > 0 ? result.SuffixId : null,
+                        BonusIds = result.BonusIds,
+                        Gems = result.Gems,
+                    }).ToList()
+                })
+                .OrderBy(item => item.ItemName)
+                .ToList();
+            
+            /*var results = await ItemSearchQuery.ExecuteAsync(_context, user.Id, itemIds);
+            var ret = results.GroupBy(result => result.ItemId)
+                .Select(group => new ItemSearchResponseItem
+                {
+                    ItemId = group.Key,
+                    ItemName = itemMap[group.Key],
+                    Characters = group.Select(result => new ItemSearchResponseCharacter
+                    {
+                        CharacterId = result.CharacterId,
+                        Count = result.Count,
+                        Location = result.Location,
+                    }).ToList()
+                })
+                .OrderBy(item => item.ItemName)
+                .ToList();*/
+            
+            return Json(ret);
         }
 
         [HttpPost("settings")]
@@ -546,12 +632,6 @@ namespace Wowthing.Web.Controllers
             public bool Public { get; set; }
             public ApplicationUser User { get; set; }
             public ApplicationUserSettingsPrivacy Privacy { get; set; }
-        }
-
-        public class ApiSettingsForm
-        {
-            public Dictionary<int, PlayerAccount> Accounts { get; set; }
-            public ApplicationUserSettings Settings { get; set; }
         }
     }
 }

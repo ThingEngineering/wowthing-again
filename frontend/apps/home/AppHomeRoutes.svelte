@@ -7,6 +7,7 @@
     import Gear from '@/components/gear/Gear.svelte'
     import HomeCards from '@/components/home/HomeCards.svelte'
     import HomeTable from '@/components/home/HomeTable.svelte'
+    import Items from '@/components/items/Items.svelte'
     import Lockouts from '@/components/lockouts/Lockouts.svelte'
     import Mounts from '@/components/collections/Mounts.svelte'
     import MythicPlus from '@/components/mythic-plus/MythicPlus.svelte'
@@ -27,6 +28,7 @@
         '/appearances/:slug1?/:slug2?': Appearances,
         '/currencies/:slug?': Currencies,
         '/gear/*': Gear,
+        '/items/:slug?': Items,
         '/lockouts': Lockouts,
         '/mythic-plus/:slug?': MythicPlus,
         '/progress/:slug?': Progress,

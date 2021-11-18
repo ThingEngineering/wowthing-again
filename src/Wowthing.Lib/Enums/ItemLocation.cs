@@ -1,6 +1,6 @@
 ﻿namespace Wowthing.Lib.Enums
 {
-    public enum ItemLocation : byte
+    public enum ItemLocation : short
     {
         Unknown = 0,
         Bags = 1,
