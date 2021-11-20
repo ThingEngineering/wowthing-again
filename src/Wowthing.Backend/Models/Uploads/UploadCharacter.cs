@@ -18,17 +18,17 @@ namespace Wowthing.Backend.Models.Uploads
         public long Copper { get; set; }
 
         public List<UploadCharacterCovenant> Covenants { get; set; }
-        public List<UploadCharacterCurrency> Currencies { get; set; }
+        public Dictionary<short, string> Currencies { get; set; }
         public List<int> DailyQuests { get; set; }
-        public Dictionary<string, Dictionary<string, UploadCharacterItem>> Items { get; set; }
+        public Dictionary<string, Dictionary<string, string>> Items { get; set; }
         public List<UploadCharacterLockout> Lockouts { get; set; }
         public List<int> Mounts { get; set; }
         public UploadCharacterMythicDungeon[] MythicDungeons { get; set; }
         public UploadCharacterMythicPlus MythicPlus { get; set; }
-        public List<UploadCharacterReputation> Reputations { get; set; }
+        public Dictionary<int, int> Reputations { get; set; }
         public Dictionary<string, int> ScanTimes { get; set; }
         public List<UploadCharacterTorghast> Torghast { get; set; }
-        public List<int> Transmog { get; set; }
+        public string Transmog { get; set; }
         public UploadCharacterVault[][] Vault { get; set; }
         public Dictionary<string, UploadWeeklyUghQuest> WeeklyUghQuests { get; set; }
     }
@@ -52,28 +52,6 @@ namespace Wowthing.Backend.Models.Uploads
         public string Name { get; set; }
     }
     
-    public class UploadCharacterCurrency
-    {
-        public int Id { get; set; }
-        public int Total { get; set; }
-        public int MaxTotal { get; set; }
-        public int Week { get; set; }
-        public int MaxWeek { get; set; }
-    }
-
-    public class UploadCharacterItem
-    {
-        public int Count { get; set; }
-        public int ItemId { get; set; }
-        public short? Context { get; set; }
-        public short? EnchantId { get; set; }
-        public short ItemLevel { get; set; }
-        public short Quality { get; set; }
-        public short? SuffixId { get; set; }
-        public List<short> BonusIds { get; set; }
-        public List<int> Gems { get; set; }
-    }
-    
     public class UploadCharacterLockout
     {
         public bool Locked { get; set; }
@@ -83,13 +61,7 @@ namespace Wowthing.Backend.Models.Uploads
         public int MaxBosses { get; set; }
         public int ResetTime { get; set; }
         public string Name { get; set; }
-        public List<UploadCharacterLockoutBoss> Bosses { get; set; }
-    }
-
-    public class UploadCharacterLockoutBoss
-    {
-        public bool Dead { get; set; }
-        public string Name { get; set; }
+        public List<string> Bosses { get; set; }
     }
 
     public class UploadCharacterMythicDungeon
@@ -118,12 +90,6 @@ namespace Wowthing.Backend.Models.Uploads
         public int Level { get; set; }
         public int Score { get; set; }
         public string Name { get; set; }
-    }
-
-    public class UploadCharacterReputation
-    {
-        public int Id { get; set; }
-        public int Value { get; set; }
     }
 
     public class UploadCharacterTorghast

@@ -52,5 +52,10 @@ namespace Wowthing.Lib.Extensions
         {
             return string.IsNullOrWhiteSpace(s) ? "" : s;
         }
+
+        public static string OrDefault(this string s, string defaultValue)
+        {
+            return string.IsNullOrWhiteSpace(s) ? defaultValue : s;
+        }
     }
 }
