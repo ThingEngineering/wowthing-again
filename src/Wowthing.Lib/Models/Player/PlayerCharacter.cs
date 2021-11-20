@@ -51,14 +51,11 @@ namespace Wowthing.Lib.Models.Player
 
         // Navigation properties
         public PlayerCharacterAchievements Achievements { get; set; }
-        public PlayerCharacterCurrencies Currencies { get; set; }
         public PlayerCharacterEquippedItems EquippedItems { get; set; }
-        public List<PlayerCharacterItem> Items { get; set; }
         public PlayerCharacterLockouts Lockouts { get; set; }
         public PlayerCharacterMounts Mounts { get; set; }
         public PlayerCharacterMythicPlus MythicPlus { get; set; }
         public PlayerCharacterMythicPlusAddon MythicPlusAddon { get; set; }
-        public List<PlayerCharacterMythicPlusSeason> MythicPlusSeasons { get; set; }
         public PlayerCharacterQuests Quests { get; set; }
         public PlayerCharacterRaiderIo RaiderIo { get; set; }
         public PlayerCharacterReputations Reputations { get; set; }
@@ -68,5 +65,8 @@ namespace Wowthing.Lib.Models.Player
 
         public PlayerCharacterAddonMounts AddonMounts { get; set; }
         public PlayerCharacterAddonQuests AddonQuests { get; set; }
+
+        public List<PlayerCharacterItem> Items { get; set; }
+        public List<PlayerCharacterMythicPlusSeason> MythicPlusSeasons { get; set; }
     }
 }

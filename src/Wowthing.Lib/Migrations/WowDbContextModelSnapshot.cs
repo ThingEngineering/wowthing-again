@@ -560,26 +560,6 @@ namespace Wowthing.Lib.Migrations
                     b.ToTable("player_character_addon_quests");
                 });
 
-            modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacterCurrencies", b =>
-                {
-                    b.Property<int>("CharacterId")
-                        .HasColumnType("integer")
-                        .HasColumnName("character_id");
-
-                    b.Property<Dictionary<int, PlayerCharacterCurrenciesCurrency>>("Currencies")
-                        .HasColumnType("jsonb")
-                        .HasColumnName("currencies");
-
-                    b.Property<DateTime>("LastUpdated")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("last_updated");
-
-                    b.HasKey("CharacterId")
-                        .HasName("pk_player_character_currencies");
-
-                    b.ToTable("player_character_currencies");
-                });
-
             modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacterEquippedItems", b =>
                 {
                     b.Property<int>("CharacterId")
@@ -931,6 +911,15 @@ namespace Wowthing.Lib.Migrations
                         .HasName("pk_player_character_weekly");
 
                     b.ToTable("player_character_weekly");
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.Query.AccountTransmogQuery", b =>
+                {
+                    b.Property<List<int>>("TransmogIds")
+                        .HasColumnType("integer[]")
+                        .HasColumnName("transmog_ids");
+
+                    b.ToTable("AccountTransmogQuery", t => t.ExcludeFromMigrations());
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.Query.AchievementCriteriaQuery", b =>
@@ -1391,18 +1380,6 @@ namespace Wowthing.Lib.Migrations
                     b.Navigation("Character");
                 });
 
-            modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacterCurrencies", b =>
-                {
-                    b.HasOne("Wowthing.Lib.Models.Player.PlayerCharacter", "Character")
-                        .WithOne("Currencies")
-                        .HasForeignKey("Wowthing.Lib.Models.Player.PlayerCharacterCurrencies", "CharacterId")
-                        .HasConstraintName("fk_player_character_currencies_player_character_character_id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Character");
-                });
-
             modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacterEquippedItems", b =>
                 {
                     b.HasOne("Wowthing.Lib.Models.Player.PlayerCharacter", "Character")
@@ -1620,8 +1597,6 @@ namespace Wowthing.Lib.Migrations
                     b.Navigation("AddonMounts");
 
                     b.Navigation("AddonQuests");
-
-                    b.Navigation("Currencies");
 
                     b.Navigation("EquippedItems");
 
