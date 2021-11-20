@@ -121,7 +121,6 @@ namespace Wowthing.Backend.Jobs.Misc
                 }
             }
 
-
             var cacheJson = JsonConvert.SerializeObject(cacheData);
             var cacheHash = cacheJson.Md5();
 
