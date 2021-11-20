@@ -8,15 +8,24 @@
 
     const characterCurrency: CharacterCurrency = character.currencies?.[currency.id]
     let amount = ''
+    let per: number
     let tooltip = ''
     if (characterCurrency) {
-        amount = toNiceNumber(characterCurrency.total)
+        amount = toNiceNumber(characterCurrency.quantity)
 
-        if (characterCurrency.totalMax > 0) {
-            tooltip = `${characterCurrency.total.toLocaleString()} / ${characterCurrency.totalMax.toLocaleString()}`
+        if (characterCurrency.isMovingMax && characterCurrency.max > 0) {
+            per = characterCurrency.totalQuantity / characterCurrency.max * 100
+            tooltip = `${characterCurrency.totalQuantity.toLocaleString()} / ${characterCurrency.max.toLocaleString()}`
         }
         else {
-            tooltip = characterCurrency.total.toLocaleString()
+            if (characterCurrency.max > 0) {
+                per = characterCurrency.quantity / characterCurrency.max * 100
+                tooltip = `${characterCurrency.quantity.toLocaleString()} / ${characterCurrency.max.toLocaleString()}`
+            }
+            else {
+                per = 0
+                tooltip = characterCurrency.quantity.toLocaleString()
+            }
         }
         tooltip += ` ${currency.name}`
     }
@@ -32,7 +41,11 @@
 </style>
 
 {#if characterCurrency}
-    <td use:tippy={tooltip}>{amount}</td>
+    <td
+        class:status-shrug={per > 50}
+        class:status-fail={per > 90}
+        use:tippy={tooltip}
+    >{amount}</td>
 {:else}
     <td>&nbsp;</td>
 {/if}
