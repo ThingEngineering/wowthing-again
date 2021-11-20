@@ -40,10 +40,15 @@ export interface Character {
 }
 
 export interface CharacterCurrency {
-    total: number
-    totalMax: number
-    week: number
+    id: number
+
+    quantity: number
+    max: number
+    weekQuantity: number
     weekMax: number
+    totalQuantity: number
+    isWeekly: boolean
+    isMovingMax: boolean
 }
 
 export interface CharacterEquippedItem {

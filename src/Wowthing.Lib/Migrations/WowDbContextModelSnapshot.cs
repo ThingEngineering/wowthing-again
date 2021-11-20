@@ -560,24 +560,51 @@ namespace Wowthing.Lib.Migrations
                     b.ToTable("player_character_addon_quests");
                 });
 
-            modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacterCurrencies", b =>
+            modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacterCurrency", b =>
                 {
                     b.Property<int>("CharacterId")
                         .HasColumnType("integer")
                         .HasColumnName("character_id");
 
-                    b.Property<Dictionary<int, PlayerCharacterCurrenciesCurrency>>("Currencies")
-                        .HasColumnType("jsonb")
-                        .HasColumnName("currencies");
+                    b.Property<short>("CurrencyId")
+                        .HasColumnType("smallint")
+                        .HasColumnName("currency_id");
 
-                    b.Property<DateTime>("LastUpdated")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("last_updated");
+                    b.Property<bool>("IsMovingMax")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_moving_max");
 
-                    b.HasKey("CharacterId")
-                        .HasName("pk_player_character_currencies");
+                    b.Property<bool>("IsWeekly")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_weekly");
 
-                    b.ToTable("player_character_currencies");
+                    b.Property<int>("Max")
+                        .HasColumnType("integer")
+                        .HasColumnName("max");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer")
+                        .HasColumnName("quantity");
+
+                    b.Property<int>("TotalQuantity")
+                        .HasColumnType("integer")
+                        .HasColumnName("total_quantity");
+
+                    b.Property<int>("WeekMax")
+                        .HasColumnType("integer")
+                        .HasColumnName("week_max");
+
+                    b.Property<int>("WeekQuantity")
+                        .HasColumnType("integer")
+                        .HasColumnName("week_quantity");
+
+                    b.HasKey("CharacterId", "CurrencyId")
+                        .HasName("pk_player_character_currency");
+
+                    b.HasIndex("CharacterId", "CurrencyId")
+                        .HasDatabaseName("ix_player_character_currency_character_id_currency_id");
+
+                    b.ToTable("player_character_currency");
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacterEquippedItems", b =>
@@ -931,6 +958,15 @@ namespace Wowthing.Lib.Migrations
                         .HasName("pk_player_character_weekly");
 
                     b.ToTable("player_character_weekly");
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.Query.AccountTransmogQuery", b =>
+                {
+                    b.Property<List<int>>("TransmogIds")
+                        .HasColumnType("integer[]")
+                        .HasColumnName("transmog_ids");
+
+                    b.ToTable("AccountTransmogQuery", t => t.ExcludeFromMigrations());
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.Query.AchievementCriteriaQuery", b =>
@@ -1391,12 +1427,12 @@ namespace Wowthing.Lib.Migrations
                     b.Navigation("Character");
                 });
 
-            modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacterCurrencies", b =>
+            modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacterCurrency", b =>
                 {
                     b.HasOne("Wowthing.Lib.Models.Player.PlayerCharacter", "Character")
-                        .WithOne("Currencies")
-                        .HasForeignKey("Wowthing.Lib.Models.Player.PlayerCharacterCurrencies", "CharacterId")
-                        .HasConstraintName("fk_player_character_currencies_player_character_character_id")
+                        .WithMany("Currencies")
+                        .HasForeignKey("CharacterId")
+                        .HasConstraintName("fk_player_character_currency_player_character_character_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

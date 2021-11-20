@@ -31,7 +31,7 @@ namespace Wowthing.Lib.Contexts
 
         public DbSet<PlayerCharacter> PlayerCharacter { get; set; }
         public DbSet<PlayerCharacterAchievements> PlayerCharacterAchievements { get; set; }
-        public DbSet<PlayerCharacterCurrencies> PlayerCharacterCurrencies { get; set; }
+        public DbSet<PlayerCharacterCurrency> PlayerCharacterCurrency { get; set; }
         public DbSet<PlayerCharacterEquippedItems> PlayerCharacterEquippedItems { get; set; }
         public DbSet<PlayerCharacterItem> PlayerCharacterItem { get; set; }
         public DbSet<PlayerCharacterLockouts> PlayerCharacterLockouts { get; set; }
@@ -97,6 +97,9 @@ namespace Wowthing.Lib.Contexts
             builder.Entity<IdentityRoleClaim<long>>().ToTable("asp_net_role_claims");
 
             // Composite keys
+            builder.Entity<PlayerCharacterCurrency>()
+                .HasKey(pcc => new { pcc.CharacterId, pcc.CurrencyId });
+            
             builder.Entity<PlayerCharacterMythicPlusSeason>()
                 .HasKey(mps => new { mps.CharacterId, mps.Season });
 

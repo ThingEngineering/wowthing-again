@@ -8,7 +8,6 @@ groups:
 - name: Stormheim
   things:
   - 129113 # Faintly Glowing Flagon of Mead (Thane Irglov the Merciless, Stormheim)
-  - 129045 # Whitewater Tsunami (Whitewater Typhoon, Stormheim)
 
 - name: Suramar
   things:

@@ -33,7 +33,7 @@ namespace Wowthing.Web.Models
         public WowGender Gender { get; set; }
         public WowMountSkill MountSkill { get; set; }
 
-        public Dictionary<int, PlayerCharacterCurrenciesCurrency> Currencies { get; }
+        public Dictionary<short, UserApiCharacterCurrency> Currencies { get; }
         public Dictionary<int, UserApiCharacterEquippedItem> EquippedItems { get; set; } = new Dictionary<int, UserApiCharacterEquippedItem>();
         public Dictionary<string, PlayerCharacterLockoutsLockout> Lockouts { get; }
         public UserApiCharacterMythicPlus MythicPlus { get; }
@@ -73,13 +73,17 @@ namespace Wowthing.Web.Models
             {
                 AccountId = character.AccountId;
                 ChromieTime = character.ChromieTime;
-                Currencies = character.Currencies?.Currencies;
                 Gold = character.Copper / 10000;
                 IsResting = character.IsResting;
                 IsWarMode = character.IsWarMode;
                 LastSeenAddon = character.LastSeenAddon;
                 PlayedTotal = character.PlayedTotal;
                 RestedExperience = character.RestedExperience;
+                
+                Currencies = character.Currencies
+                    .EmptyIfNull()
+                    .Select(pcc => new UserApiCharacterCurrency(pcc))
+                    .ToDictionary(uacc => uacc.Id);
             }
 
             if (character.EquippedItems?.Items != null)
@@ -137,6 +141,32 @@ namespace Wowthing.Web.Models
         }
     }
 
+    public class UserApiCharacterCurrency
+    {
+        public int Quantity { get; set; }
+        public int Max { get; set; }
+        public int WeekQuantity { get; set; }
+        public int WeekMax { get; set; }
+        public int TotalQuantity { get; set; }
+
+        public short Id { get; set; }
+
+        public bool IsWeekly { get; set; }
+        public bool IsMovingMax { get; set; }
+
+        public UserApiCharacterCurrency(PlayerCharacterCurrency currency)
+        {
+            Quantity = currency.Quantity;
+            Max = currency.Max;
+            WeekQuantity = currency.WeekQuantity;
+            WeekMax = currency.WeekMax;
+            TotalQuantity = currency.TotalQuantity;
+            Id = currency.CurrencyId;
+            IsWeekly = currency.IsWeekly;
+            IsMovingMax = currency.IsMovingMax;
+        }
+    }
+    
     public class UserApiCharacterEquippedItem
     {
         public int Context { get; set; }

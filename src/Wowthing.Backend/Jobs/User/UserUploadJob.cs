@@ -143,7 +143,7 @@ namespace Wowthing.Backend.Jobs.User
 
 #if DEBUG
             Context.ChangeTracker.DetectChanges();
-            Console.WriteLine(Context.ChangeTracker.DebugView.LongView);
+            Console.WriteLine(Context.ChangeTracker.DebugView.ShortView);
 #endif
             
             await Context.SaveChangesAsync();
@@ -193,26 +193,36 @@ namespace Wowthing.Backend.Jobs.User
         
         private void HandleCurrencies(PlayerCharacter character, UploadCharacter characterData)
         {
-            if (character.Currencies == null)
-            {
-                character.Currencies = new PlayerCharacterCurrencies
-                {
-                    Character = character,
-                };
-                Context.PlayerCharacterCurrencies.Add(character.Currencies);
-            }
+            var currencyMap = character.Currencies
+                .EmptyIfNull()
+                .ToDictionary(currency => currency.CurrencyId);
 
-            character.Currencies.Currencies = new Dictionary<int, PlayerCharacterCurrenciesCurrency>();
-
-            foreach (var currency in characterData.Currencies.EmptyIfNull())
+            foreach (var (currencyId, currencyString) in characterData.Currencies.EmptyIfNull())
             {
-                character.Currencies.Currencies[currency.Id] = new PlayerCharacterCurrenciesCurrency
+                // quantity:max:isWeekly:weekQuantity:weekMax:isMovingMax:totalQuantity
+                var parts = currencyString.Split(":");
+                if (parts.Length != 7)
                 {
-                    Total = currency.Total,
-                    TotalMax = currency.MaxTotal,
-                    Week = currency.Week,
-                    WeekMax = currency.MaxWeek,
-                };
+                    Logger.Warning("Invalid currency string: {String}", currencyString);
+                }
+
+                if (!currencyMap.TryGetValue(currencyId, out var currency))
+                {
+                    currency = new PlayerCharacterCurrency
+                    {
+                        CharacterId = character.Id,
+                        CurrencyId = currencyId,
+                    };
+                    Context.PlayerCharacterCurrency.Add(currency);
+                }
+
+                currency.Quantity = int.Parse(parts[0].OrDefault("0"));
+                currency.Max = int.Parse(parts[1].OrDefault("0"));
+                currency.IsWeekly = parts[2] == "1";
+                currency.WeekQuantity = int.Parse(parts[3].OrDefault("0"));
+                currency.WeekMax = int.Parse(parts[4].OrDefault("0"));
+                currency.IsMovingMax = parts[5] == "1";
+                currency.TotalQuantity = int.Parse(parts[6].OrDefault("0"));
             }
         }
 
@@ -227,13 +237,13 @@ namespace Wowthing.Backend.Jobs.User
             foreach (var (location, contents) in characterData.Items.EmptyIfNull())
             {
                 ItemLocation locationType = ItemLocation.Unknown;
-                if (!location.StartsWith("bag "))
+                if (!location.StartsWith("b"))
                 {
                     Logger.Warning("Invalid item location: {Location}", location);
                     continue;
                 }
 
-                short bagId = short.Parse(location.Split(' ')[1]);
+                short bagId = short.Parse(location[1..]);
                 if (bagId >= 0 && bagId <= 4)
                 {
                     locationType = ItemLocation.Bags;
@@ -247,42 +257,51 @@ namespace Wowthing.Backend.Jobs.User
                     locationType = ItemLocation.ReagentBank;
                 }
 
-                foreach (var (slotString, itemData) in contents)
+                foreach (var (slotString, itemString) in contents)
                 {
                     var slot = short.Parse(slotString[1..]);
-                    var key = (locationType, bagId, slot);
-                    if (itemMap.TryGetValue(key, out var item))
+                    // count:id:context:enchant:ilvl:quality:suffix:bonusIDs:gems
+                    var parts = itemString.Split(":");
+                    if (parts.Length != 9)
                     {
-                        item.Count = itemData.Count;
-                        item.Context = itemData.Context ?? 0;
-                        item.EnchantId = itemData.EnchantId ?? 0;
-                        item.ItemId = itemData.ItemId;
-                        item.ItemLevel = itemData.ItemLevel;
-                        item.Quality = itemData.Quality;
-                        item.SuffixId = itemData.SuffixId ?? 0;
-                        item.BonusIds = itemData.BonusIds;
-                        item.Gems = itemData.Gems;
+                        Logger.Warning("Invalid item string: {String}", itemString);
                     }
-                    else {
-                        Context.PlayerCharacterItem.Add(new PlayerCharacterItem
+                    
+                    var key = (locationType, bagId, slot);
+                    if (!itemMap.TryGetValue(key, out var item))
+                    {
+                        item = new PlayerCharacterItem
                         {
                             CharacterId = character.Id,
                             BagId = bagId,
                             Location = locationType,
                             Slot = slot,
-                            Count = itemData.Count,
-                            Context = itemData.Context ?? 0,
-                            EnchantId = itemData.EnchantId ?? 0,
-                            ItemId = itemData.ItemId,
-                            ItemLevel = itemData.ItemLevel,
-                            Quality = itemData.Quality,
-                            SuffixId = itemData.SuffixId ?? 0,
-                            BonusIds = itemData.BonusIds,
-                            Gems = itemData.Gems,
-                        });
+                        };
+                        Context.PlayerCharacterItem.Add(item);
                         added++;
                     }
 
+                    // count:id:context:enchant:ilvl:quality:suffix:bonusIDs:gems
+                    item.Count = int.Parse(parts[0]);
+                    item.ItemId = int.Parse(parts[1]);
+                    item.Context = short.Parse(parts[2].OrDefault("0"));
+                    item.EnchantId = short.Parse(parts[3].OrDefault("0"));
+                    item.ItemLevel = short.Parse(parts[4].OrDefault("0"));
+                    item.Quality = short.Parse(parts[5].OrDefault("0"));
+                    item.SuffixId = short.Parse(parts[6].OrDefault("0"));
+                    
+                    item.BonusIds = parts[7]
+                        .EmptyIfNullOrWhitespace()
+                        .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                        .Select(short.Parse)
+                        .ToList();
+                    
+                    item.Gems = parts[8]
+                        .EmptyIfNullOrWhitespace()
+                        .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                        .Select(int.Parse)
+                        .ToList();
+                    
                     seen.Add(key);
                 }
             }
@@ -300,6 +319,18 @@ namespace Wowthing.Backend.Jobs.User
 
         private void HandleLockouts(PlayerCharacter character, UploadCharacter characterData)
         {
+            // Basic sanity checks
+            if (characterData.Lockouts == null || !characterData.ScanTimes.TryGetValue("lockouts", out int scanTimestamp))
+            {
+                return;
+            }
+
+            var scanTime = scanTimestamp.AsUtcDateTime();
+            if (scanTime <= character.Lockouts.LastUpdated)
+            {
+                return;
+            }
+            
             if (character.Lockouts == null)
             {
                 character.Lockouts = new PlayerCharacterLockouts
@@ -309,30 +340,66 @@ namespace Wowthing.Backend.Jobs.User
                 Context.PlayerCharacterLockouts.Add(character.Lockouts);
             }
 
-            if (characterData.ScanTimes.TryGetValue("lockouts", out int lockoutsScanned) && characterData.Lockouts != null)
+            character.Lockouts.LastUpdated = scanTime;
+            
+            var newLockouts = new List<PlayerCharacterLockoutsLockout>();
+            foreach (var lockoutData in characterData.Lockouts)
             {
-                character.Lockouts.LastUpdated = lockoutsScanned.AsUtcDateTime();
-                character.Lockouts.Lockouts = new List<PlayerCharacterLockoutsLockout>();
-
-                foreach (var lockoutData in characterData.Lockouts)
+                var bosses = new List<PlayerCharacterLockoutsLockoutBoss>();
+                foreach (var bossString in lockoutData.Bosses.EmptyIfNull())
                 {
-                    character.Lockouts.Lockouts.Add(new PlayerCharacterLockoutsLockout
+                    var bossParts = bossString.Split(":");
+                    if (bossParts.Length != 2)
                     {
-                        Locked = lockoutData.Locked,
-                        DefeatedBosses = lockoutData.DefeatedBosses,
-                        Difficulty = lockoutData.Difficulty,
-                        Id = lockoutData.Id,
-                        MaxBosses = lockoutData.MaxBosses,
-                        Name = lockoutData.Name.Truncate(32),
-                        ResetTime = lockoutData.ResetTime.AsUtcDateTime(),
-                        Bosses = lockoutData.Bosses.EmptyIfNull()
-                            .Select(boss => new PlayerCharacterLockoutsLockoutBoss
-                            {
-                                Dead = boss.Dead,
-                                Name = boss.Name.Truncate(32),
-                            }).ToList(),
+                        Logger.Warning("Invalid lockout boss string: {String}", bossString);
+                        continue;
+                    }
+
+                    bosses.Add(new PlayerCharacterLockoutsLockoutBoss
+                    {
+                        Dead = bossParts[0] == "1",
+                        Name = bossParts[1].Truncate(32),
                     });
                 }
+
+                newLockouts.Add(new PlayerCharacterLockoutsLockout
+                {
+                    Locked = lockoutData.Locked,
+                    DefeatedBosses = lockoutData.DefeatedBosses,
+                    Difficulty = lockoutData.Difficulty,
+                    Id = lockoutData.Id,
+                    MaxBosses = lockoutData.MaxBosses,
+                    Name = lockoutData.Name.Truncate(32),
+                    ResetTime = lockoutData.ResetTime.AsUtcDateTime(),
+                    Bosses = bosses,
+                });
+            }
+
+            // Ensure a consistent order
+            newLockouts = newLockouts
+                .OrderBy(lockout => lockout.Id)
+                .ThenBy(lockout => lockout.Difficulty)
+                .ThenBy(lockout => lockout.ResetTime)
+                .ToList();
+
+            // If the lists are different lengths we know an update is required
+            var update = newLockouts.Count != character.Lockouts.Lockouts?.Count;
+            // Otherwise, compare the lists to see if the lockouts are the same
+            if (!update)
+            {
+                for (int i = 0; i < newLockouts.Count; i++)
+                {
+                    if (!character.Lockouts.Lockouts[i].Equals(newLockouts[i]))
+                    {
+                        update = true;
+                        break;
+                    }
+                }
+            }
+
+            if (update)
+            {
+                character.Lockouts.Lockouts = newLockouts;
             }
         }
 
@@ -356,7 +423,10 @@ namespace Wowthing.Backend.Jobs.User
             if (scanTime > character.AddonMounts.ScannedAt)
             {
                 character.AddonMounts.ScannedAt = scanTime;
-                character.AddonMounts.Mounts = characterData.Mounts.EmptyIfNull();
+                character.AddonMounts.Mounts = characterData.Mounts
+                    .EmptyIfNull()
+                    .OrderBy(mountId => mountId)
+                    .ToList();
             }
         }
 
@@ -442,15 +512,18 @@ namespace Wowthing.Backend.Jobs.User
                 return;
             }
 
-            character.Reputations.ExtraReputationIds = characterData.Reputations
+            character.Reputations.ExtraReputationIds = new();
+            character.Reputations.ExtraReputationValues = new();
+
+            var reputations = characterData.Reputations
                 .EmptyIfNull()
-                .Select(r => r.Id)
+                .OrderBy(kvp => kvp.Key)
                 .ToList();
-            
-            character.Reputations.ExtraReputationValues = characterData.Reputations
-                .EmptyIfNull()
-                .Select(r => r.Value)
-                .ToList();
+            foreach (var (id, value) in reputations)
+            {
+                character.Reputations.ExtraReputationIds.Add(id);
+                character.Reputations.ExtraReputationValues.Add(value);
+            }
         }
 
         private void HandleTransmog(PlayerCharacter character, UploadCharacter characterData)
@@ -465,8 +538,9 @@ namespace Wowthing.Backend.Jobs.User
             }
 
             var transmog = characterData.Transmog
-                .EmptyIfNull()
-                .OrderBy(transmogId => transmogId)
+                .EmptyIfNullOrWhitespace()
+                .Split(':', StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse)
                 .ToList();
             if (transmog.Count > 0)
             {
