@@ -300,6 +300,18 @@ namespace Wowthing.Backend.Jobs.User
 
         private void HandleLockouts(PlayerCharacter character, UploadCharacter characterData)
         {
+            // Basic sanity checks
+            if (characterData.Lockouts == null || !characterData.ScanTimes.TryGetValue("lockouts", out int scanTimestamp))
+            {
+                return;
+            }
+
+            var scanTime = scanTimestamp.AsUtcDateTime();
+            if (scanTime <= character.Lockouts.LastUpdated)
+            {
+                return;
+            }
+            
             if (character.Lockouts == null)
             {
                 character.Lockouts = new PlayerCharacterLockouts
@@ -309,30 +321,54 @@ namespace Wowthing.Backend.Jobs.User
                 Context.PlayerCharacterLockouts.Add(character.Lockouts);
             }
 
-            if (characterData.ScanTimes.TryGetValue("lockouts", out int lockoutsScanned) && characterData.Lockouts != null)
+            character.Lockouts.LastUpdated = scanTime;
+            
+            var newLockouts = new List<PlayerCharacterLockoutsLockout>();
+            foreach (var lockoutData in characterData.Lockouts)
             {
-                character.Lockouts.LastUpdated = lockoutsScanned.AsUtcDateTime();
-                character.Lockouts.Lockouts = new List<PlayerCharacterLockoutsLockout>();
-
-                foreach (var lockoutData in characterData.Lockouts)
+                newLockouts.Add(new PlayerCharacterLockoutsLockout
                 {
-                    character.Lockouts.Lockouts.Add(new PlayerCharacterLockoutsLockout
+                    Locked = lockoutData.Locked,
+                    DefeatedBosses = lockoutData.DefeatedBosses,
+                    Difficulty = lockoutData.Difficulty,
+                    Id = lockoutData.Id,
+                    MaxBosses = lockoutData.MaxBosses,
+                    Name = lockoutData.Name.Truncate(32),
+                    ResetTime = lockoutData.ResetTime.AsUtcDateTime(),
+                    Bosses = lockoutData.Bosses.EmptyIfNull()
+                        .Select(boss => new PlayerCharacterLockoutsLockoutBoss
+                        {
+                            Dead = boss.Dead,
+                            Name = boss.Name.Truncate(32),
+                        }).ToList(),
+                });
+            }
+
+            // Ensure a consistent order
+            newLockouts = newLockouts
+                .OrderBy(lockout => lockout.Id)
+                .ThenBy(lockout => lockout.Difficulty)
+                .ThenBy(lockout => lockout.ResetTime)
+                .ToList();
+
+            // If the lists are different lengths we know an update is required
+            var update = newLockouts.Count != character.Lockouts.Lockouts?.Count;
+            // Otherwise, compare the lists to see if the lockouts are the same
+            if (!update)
+            {
+                for (int i = 0; i < newLockouts.Count; i++)
+                {
+                    if (!character.Lockouts.Lockouts[i].Equals(newLockouts[i]))
                     {
-                        Locked = lockoutData.Locked,
-                        DefeatedBosses = lockoutData.DefeatedBosses,
-                        Difficulty = lockoutData.Difficulty,
-                        Id = lockoutData.Id,
-                        MaxBosses = lockoutData.MaxBosses,
-                        Name = lockoutData.Name.Truncate(32),
-                        ResetTime = lockoutData.ResetTime.AsUtcDateTime(),
-                        Bosses = lockoutData.Bosses.EmptyIfNull()
-                            .Select(boss => new PlayerCharacterLockoutsLockoutBoss
-                            {
-                                Dead = boss.Dead,
-                                Name = boss.Name.Truncate(32),
-                            }).ToList(),
-                    });
+                        update = true;
+                        break;
+                    }
                 }
+            }
+
+            if (update)
+            {
+                character.Lockouts.Lockouts = newLockouts;
             }
         }
 
@@ -356,7 +392,10 @@ namespace Wowthing.Backend.Jobs.User
             if (scanTime > character.AddonMounts.ScannedAt)
             {
                 character.AddonMounts.ScannedAt = scanTime;
-                character.AddonMounts.Mounts = characterData.Mounts.EmptyIfNull();
+                character.AddonMounts.Mounts = characterData.Mounts
+                    .EmptyIfNull()
+                    .OrderBy(mountId => mountId)
+                    .ToList();
             }
         }
 
