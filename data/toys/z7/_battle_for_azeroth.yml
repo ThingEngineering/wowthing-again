@@ -20,7 +20,6 @@ groups:
   - 163742 # Heartsbane Grimoire (?, Drustvar)
   - 163603 # Lucille's Handkerchief (?, Drustvar)
   - 168824 # Ocean Simulator (?)
-  - 130194 # Silver Gilnean Brooch (Treasure Chest, Val'sharah)
 
 - name: Vendor
   things:

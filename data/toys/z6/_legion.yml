@@ -41,7 +41,6 @@ groups:
   - 141299 # Kal'dorei Light Globe
   - 140632 # Lava Fountain
   - 140786 # Ley Spider Eggs
-  - 141300 # Magi Focusing Crystal
   - 147867 # Pilfered Sweeper (Curious Wyrmtongue Cache) ??
   - 131811 # Rocfeather Skyhorn Kite (Highmountain)
   - 129055 # Shoe Shine Kit
@@ -50,7 +49,6 @@ groups:
   - 130169 # Tournament Favor
   - 141301 # Unstable Powder Box
   - 143534 # Wand of Simulated Life (Dalaran treasure)
-  - 130249 # Waywatcher's Boon
   - 141306 # Wisp in a Bottle
 
 - name: FIXME
