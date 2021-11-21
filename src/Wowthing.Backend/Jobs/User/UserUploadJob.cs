@@ -324,12 +324,6 @@ namespace Wowthing.Backend.Jobs.User
             {
                 return;
             }
-
-            var scanTime = scanTimestamp.AsUtcDateTime();
-            if (scanTime <= character.Lockouts.LastUpdated)
-            {
-                return;
-            }
             
             if (character.Lockouts == null)
             {
@@ -338,6 +332,12 @@ namespace Wowthing.Backend.Jobs.User
                     Character = character,
                 };
                 Context.PlayerCharacterLockouts.Add(character.Lockouts);
+            }
+
+            var scanTime = scanTimestamp.AsUtcDateTime();
+            if (scanTime <= character.Lockouts.LastUpdated)
+            {
+                return;
             }
 
             character.Lockouts.LastUpdated = scanTime;
