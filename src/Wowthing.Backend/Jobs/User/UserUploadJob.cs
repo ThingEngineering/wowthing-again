@@ -142,8 +142,8 @@ namespace Wowthing.Backend.Jobs.User
             _timer.AddPoint("Account");
 
 #if DEBUG
-            Context.ChangeTracker.DetectChanges();
-            Console.WriteLine(Context.ChangeTracker.DebugView.ShortView);
+            //Context.ChangeTracker.DetectChanges();
+            //Console.WriteLine(Context.ChangeTracker.DebugView.ShortView);
 #endif
             
             await Context.SaveChangesAsync();
