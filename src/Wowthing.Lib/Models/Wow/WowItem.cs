@@ -6,6 +6,12 @@ namespace Wowthing.Lib.Models.Wow
     {
         [Key]
         public int Id { get; set; }
-        public string Name { get; set; }
+        public int ClassMask { get; set; }
+        public long RaceMask { get; set; }
+        public int Stackable { get; set; }
+        public short ClassId { get; set; }
+        public short SubclassId { get; set; }
+        public short InventoryType { get; set; }
+        public short ContainerSlots { get; set; }
     }
 }
