@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using StackExchange.Redis;
 using Wowthing.Lib.Contexts;
+using Wowthing.Lib.Enums;
 using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Player;
@@ -96,27 +97,29 @@ namespace Wowthing.Web.Controllers
                 return BadRequest();
             }
 
-            var itemQuery = _context.WowItem.AsQueryable();
+            var itemQuery = _context.LanguageString
+                .Where(ls => ls.Language == Language.deDE && ls.Type == StringType.WowItemName)
+                .AsQueryable();
             foreach (string part in parts)
             {
                 // Alias to avoid variable capture bullshit
                 string temp = part;
-                itemQuery = itemQuery.Where(item => EF.Functions.ILike(item.Name, $"%{temp}%"));
+                itemQuery = itemQuery.Where(item => EF.Functions.ILike(item.String, $"%{temp}%"));
             }
 
             var items = await itemQuery
+                .Select(ls => new { ls.Id, ls.String })
                 .Distinct()
-                //.OrderByDescending(item => item.Id)
                 //.Take(100)
                 .ToArrayAsync();
 
             if (items.Length == 0)
             {
-                return Json(new string[] { });
+                return Json(Array.Empty<string>());
             }
 
             var itemIds = items.Select(item => item.Id).ToArray();
-            var itemMap = items.ToDictionary(item => item.Id, item => item.Name);
+            var itemMap = items.ToDictionary(item => item.Id, item => item.String);
 
             var characterItems = await _context.PlayerCharacterItem
                 .Where(pci => pci.Character.Account.UserId == user.Id)
@@ -144,23 +147,7 @@ namespace Wowthing.Web.Controllers
                 })
                 .OrderBy(item => item.ItemName)
                 .ToList();
-            
-            /*var results = await ItemSearchQuery.ExecuteAsync(_context, user.Id, itemIds);
-            var ret = results.GroupBy(result => result.ItemId)
-                .Select(group => new ItemSearchResponseItem
-                {
-                    ItemId = group.Key,
-                    ItemName = itemMap[group.Key],
-                    Characters = group.Select(result => new ItemSearchResponseCharacter
-                    {
-                        CharacterId = result.CharacterId,
-                        Count = result.Count,
-                        Location = result.Location,
-                    }).ToList()
-                })
-                .OrderBy(item => item.ItemName)
-                .ToList();*/
-            
+
             return Json(ret);
         }
 
