@@ -33,6 +33,7 @@ export interface Character {
     lockouts: Record<string, CharacterLockout>
     mythicPlus: CharacterMythicPlus
     mythicPlusAddon: CharacterMythicPlusAddon
+    paragons: Record<number, CharacterReputationParagon>
     raiderIo: Record<number, CharacterRaiderIoSeason>
     reputations: Record<number, number>
     shadowlands?: CharacterShadowlands
@@ -144,6 +145,13 @@ export interface CharacterRaiderIoSeason {
     spec3: number
     spec4: number
     tank: number
+}
+
+export interface CharacterReputationParagon {
+    rewardAvailable: boolean
+    current: number
+    max: number
+    received: number
 }
 
 export interface CharacterShadowlands {

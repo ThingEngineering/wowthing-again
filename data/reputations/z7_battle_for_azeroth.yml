@@ -38,50 +38,114 @@ reputations:
       id: 2164
       name: Champions of Azeroth
       icon: inv_faction_championsofazeroth
+      rewards:
+      - type: toy
+        id: 166877
+        name: "Azerite Firework Launcher"
     paragon: true
 
   - both:
       id: 2163
       name: Tortollan Seekers
       icon: inv_faction_tortollanseekers
+      rewards:
+      - type: toy
+        id: 166704
+        name: "Bowl of Glowing Pufferfish"
+
+      - type: toy
+        id: 166851
+        name: "Kojo's Master Matching Set"
     paragon: true
 
   - alliance:
       id: 2159
       name: 7th Legion
       icon: inv_tabard_alliancewareffort
+      rewards:
+      - type: toy
+        id: 166879
+        name: "Rallying War Banner"
     horde:
       id: 2157
       name: The Honorbound
       icon: inv_tabard_hordewareffort
+      rewards:
+      - type: toy
+        id: 166879
+        name: "Rallying War Banner"
     paragon: true
 
   - alliance:
       id: 2162
       name: Storm's Wake
       icon: inv_tabard_stormswake
+      rewards:
+      - type: pet
+        id: 149376
+        name: "Violet Abyssal Eel"
     horde:
       id: 2103
       name: Zandalari Empire
       icon: inv_tabard_zandalariempire
+      rewards:
+      - type: toy
+        id: 166701
+        name: "Warbeast Kraal Dinner Bell"
     paragon: true
 
   - alliance:
       id: 2161
       name: Order of Embers
       icon: inv_tabard_orderoftheembers
+      rewards:
+      - type: pet
+        id: 149375
+        name: "Cobalt Raven Hatchling"
+
+      - type: toy
+        id: 166808
+        name: "Bewitching Tea Set"
     horde:
       id: 2156
       name: Talanji's Expedition
       icon: inv_tabard_talanjisexpedition
+      rewards:
+      - type: pet
+        id: 149372
+        name: "Crimson Bat Pup"
+
+      - type: toy
+        id: 166308
+        name: "For da Blood God!"
     paragon: true
 
   - alliance:
       id: 2160
       name: Proudmoore Admiralty
       icon: inv_tabard_proudmoore
+      rewards:
+      - type: pet
+        id: 149363
+        name: "Albatross Hatchling"
+
+      - type: toy
+        id: 166702
+        name: "Proudmoore Music Box"
     horde:
       id: 2158
       name: Voldunai
       icon: inv_tabard_vulpera
+      rewards:
+      - type: toy
+        id: 166703
+        name: "Goldtusk Inn Breakfast Buffet"
+
+      - type: toy
+        id: 166880
+        name: "Meerah's Jukebox"
+
+      - type: toy
+        id: 165021
+        name: "Words of Akunda"
     paragon: true

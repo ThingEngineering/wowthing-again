@@ -12,6 +12,18 @@ reputations:
       id: 2165
       name: Army of the Light
       icon: inv_legion_faction_armyofthelight
+      rewards:
+      - type: mount
+        id: 254259
+        name: "Avenging Felcrusher"
+
+      - type: mount
+        id: 254258
+        name: "Blessed Felcrusher"
+
+      - type: mount
+        id: 254069
+        name: "Glorious Felcrusher"
     paragon: true
 
 # 7.2 - Broken Shore
@@ -19,6 +31,10 @@ reputations:
       id: 2045
       name: Armies of Legionfall
       icon: achievement_faction_legionfall
+      rewards:
+      - type: pet
+        id: 121715
+        name: "Orphaned Felbat"
     paragon: true
 
 # 7.0
@@ -26,36 +42,60 @@ reputations:
       id: 1900
       name: Court of Farondis
       icon: inv_legion_faction_courtoffarnodis
+      rewards:
+      - type: mount
+        id: 242881
+        name: "Cloudwing Hippogryph"
     paragon: true
 
   - both:
       id: 1883
       name: Dreamweavers
       icon: inv_legion_faction_dreamweavers
+      rewards:
+      - type: mount
+        id: 242875
+        name: "Wild Dreamrunner"
     paragon: true
 
   - both:
       id: 1828
       name: Highmountain Tribe
       icon: inv_legion_faction_hightmountaintribes
+      rewards:
+      - type: mount
+        id: 242874
+        name: "Highmountain Elderhorn"
     paragon: true
 
   - both:
       id: 1859
       name: The Nightfallen
       icon: inv_legion_faction_nightfallen
+      rewards:
+      - type: mount
+        id: 233364
+        name: "Leywoven Flying Carpet"
     paragon: true
 
   - both:
       id: 1948
       name: Valarjar
       icon: inv_legion_faction_valarjar
+      rewards:
+      - type: mount
+        id: 242882
+        name: "Valarjar Stormwing"
     paragon: true
 
   - both:
       id: 1894
       name: The Wardens
       icon: inv_legion_faction_warden
+      rewards:
+      - type: toy
+        id: 147843
+        name: "Sira's Extra Cloak"
     paragon: true
 
 # Friends - 7.?

@@ -32,7 +32,11 @@
         {#key category.name}
             {#each category.reputations as reputationSet, reputationSetIndex}
                 {#each reputationSet as reputation}
-                    <TableRow {character} {reputation} alt={reputationSetIndex % 2 === 1} />
+                    <TableRow
+                        {character}
+                        {reputation}
+                        alt={reputationSetIndex % 2 === 1}
+                    />
                 {/each}
             {/each}
         {/key}

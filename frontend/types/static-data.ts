@@ -103,6 +103,13 @@ export interface StaticDataReputationReputation {
     name: string
     icon: string
     note: string
+    rewards: StaticDataReputationReward[]
+}
+
+export interface StaticDataReputationReward {
+    id: number
+    name: string
+    type: string
 }
 
 // Sets

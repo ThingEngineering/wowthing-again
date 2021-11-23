@@ -5,61 +5,128 @@ reputations:
 - - both:
       id: 2472
       name: The Archivist's Codex
-      icon: inv_inscription_80_scroll
+      icon: achievement/15069
+      rewards:
+      - type: mount
+        id: 347536
+        name: "Tamed Mauler"
+
+      - type: pet
+        id: 179255
+        name: "Gnashtooth"
+    paragon: true
 
   - both:
       id: 2470
       name: Death's Advance
-      icon: inv_tabard_deathsadvance_b_01
+      icon: achievement/15059
+      rewards:
+      - type: mount
+        id: 347810
+        name: "Beryl Shardhide"
+
+      - type: mount
+        id: 354359
+        name: "Fierce Razorwing"
+
+      - type: pet
+        id: 179252
+        name: "Mosscoated Gromit"
+    paragon: true
 
 # 9.0
 - - both:
       id: 2407
       name: The Ascended
-      icon: inv_tabard_bastion_d_01
-    paragon: True
+      icon: achievement/14335
+      rewards:
+      - type: pet
+        id: 175564
+        name: "Larion Cub"
+
+      - type: toy
+        id: 184396
+        name: "Malfunctioning Goliath Gauntlet"
+
+      - type: toy
+        id: 184435
+        name: "Mark of Purity"
+    paragon: true
 
   - both:
       id: 2413
       name: Court of Harvesters
-      icon: inv_tabard_revendreth_d_01
-    paragon: True
+      icon: achievement/14338
+      rewards:
+      - type: pet
+        id: 173502
+        name: "Stoneskin Dredwing Pup"
+    paragon: true
 
   - both:
       id: 2410
       name: The Undying Army
-      icon: inv_tabard_maldraxxus_d_01
-    paragon: True
+      icon: achievement/14336
+      rewards:
+      - type: mount
+        id: 327405
+        name: "Colossal Slaughterclaw"
+
+      - type: pet
+        id: 172148
+        name: "Micromancer"
+
+      - type: toy
+        id: 184495
+        name: "Infested Arachnid Casing"
+    paragon: true
 
   - both:
       id: 2465
       name: The Wild Hunt
-      icon: inv_tabard_ardenweald_d_01
-    paragon: True
+      icon: achievement/14337
+      rewards:
+      - type: mount
+        id: 342666
+        name: "Amber Ardenmoth"
+
+      - type: pet
+        id: 171242
+        name: "Hungry Burrower"
+    paragon: true
 
 # Friends
 - - both:
       id: 2432
       name: Ve'nari
-      icon: inv_stygia
+      icon: achievement/14656
+      rewards:
+      - type: mount
+        id: 354352
+        name: "Soulbound Gloomcharger"
+
+      - type: pet
+        id: 179242
+        name: "Rook"
+    paragon: true
 
 # Covenant things
 - - both:
       id: 2439
       name: The Avowed
-      icon: 6bf_blackrock_nova
+      icon: achievement/14277 # The Accuser's Avowed
 
   - both:
       id: 2464
       name: Court of Night
-      icon: inv_babyhorse2_ardenweald_blue
+      icon: item/180636 # Willowbreeze
 
   - both:
       id: 2463
       name: Marasmius
-      icon: druid_ability_wildmushroom_b
+      icon: achievement/14775
 
   - both:
       id: 2462
       name: Stitchmasters
-      icon: sanctum_features_buildabom
+      icon: achievement/14684 # Abominable Lives

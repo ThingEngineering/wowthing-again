@@ -74,6 +74,7 @@ namespace Wowthing.Backend.Jobs.User
                 var parts = addonId.Split("/");
                 if (parts.Length != 3)
                 {
+                    Logger.Warning("Invalid character key: {String}", addonId);
                     continue;
                 }
 
@@ -204,6 +205,7 @@ namespace Wowthing.Backend.Jobs.User
                 if (parts.Length != 7)
                 {
                     Logger.Warning("Invalid currency string: {String}", currencyString);
+                    continue;
                 }
 
                 if (!currencyMap.TryGetValue(currencyId, out var currency))
@@ -265,6 +267,7 @@ namespace Wowthing.Backend.Jobs.User
                     if (parts.Length != 9)
                     {
                         Logger.Warning("Invalid item string: {String}", itemString);
+                        continue;
                     }
                     
                     var key = (locationType, bagId, slot);
@@ -523,6 +526,29 @@ namespace Wowthing.Backend.Jobs.User
             {
                 character.Reputations.ExtraReputationIds.Add(id);
                 character.Reputations.ExtraReputationValues.Add(value);
+            }
+
+            character.Reputations.Paragons = new();
+            foreach (var (paragonId, paragonString) in characterData.Paragons.EmptyIfNull())
+            {
+                var parts = paragonString.Split(":");
+                if (parts.Length != 3)
+                {
+                    Logger.Warning("Invalid item string: {String}", paragonString);
+                    continue;
+                }
+
+                var total = int.Parse(parts[0]);
+                var max = int.Parse(parts[1]);
+                var rewardAvailable = parts[2] == "1";
+                
+                character.Reputations.Paragons[paragonId] = new PlayerCharacterReputationsParagon
+                {
+                    Current = total % max,
+                    Max = max,
+                    Received = total / max,
+                    RewardAvailable = rewardAvailable,
+                };
             }
         }
 
