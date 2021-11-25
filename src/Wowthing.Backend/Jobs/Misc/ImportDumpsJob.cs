@@ -45,9 +45,12 @@ namespace Wowthing.Backend.Jobs.Misc
             _timer = new JankTimer();
 
             await ImportItems();
+            await ImportMounts();
+            await ImportPets();
+            await ImportToys();
             
             await Context.SaveChangesAsync();
-            _timer.AddPoint("Save");
+            _timer.AddPoint("Save", true);
             
             Logger.Information("{Timing}", _timer.ToString());
         }
@@ -128,6 +131,129 @@ namespace Wowthing.Backend.Jobs.Misc
             }
             
             _timer.AddPoint("Items:Process");
+        }
+
+        private async Task ImportMounts()
+        {
+            var baseMounts = await DataUtilities.LoadDumpCsvAsync<DumpMount>(Path.Join("enUS", "mount"));
+
+            var dbMountMap = await Context.WowMount
+                .ToDictionaryAsync(mount => mount.Id);
+
+            var dbLanguageMap = await Context.LanguageString
+                .Where(ls => ls.Type == StringType.WowMountName)
+                .ToDictionaryAsync(ls => (ls.Language, ls.Id));
+
+            _timer.AddPoint("Mounts:Load");
+            
+            foreach (var mount in baseMounts)
+            {
+                if (!dbMountMap.TryGetValue(mount.ID, out var dbMount))
+                {
+                    dbMount = new WowMount
+                    {
+                        Id = mount.ID,
+                    };
+                    Context.WowMount.Add(dbMount);
+                }
+
+                dbMount.SpellId = mount.SourceSpellID;
+                dbMount.Flags = mount.Flags;
+                dbMount.SourceType = mount.SourceTypeEnum;
+
+                if (!dbLanguageMap.TryGetValue((Language.enUS, mount.ID), out var languageString))
+                {
+                    languageString = new LanguageString
+                    {
+                        Language = Language.enUS,
+                        Type = StringType.WowMountName,
+                        Id = mount.ID,
+                    };
+                    Context.LanguageString.Add(languageString);
+                }
+
+                languageString.String = mount.Name;
+            }
+
+            foreach (var language in _languages)
+            {
+                var languageMounts = await DataUtilities.LoadDumpCsvAsync<DumpMount>(Path.Join(language.ToString(), "mount"), skipValidation: true);
+                foreach (var mount in languageMounts)
+                {
+                    if (!dbLanguageMap.TryGetValue((language, mount.ID), out var languageString))
+                    {
+                        languageString = new LanguageString
+                        {
+                            Language = language,
+                            Type = StringType.WowMountName,
+                            Id = mount.ID,
+                        };
+                        Context.LanguageString.Add(languageString);
+                    }
+
+                    languageString.String = mount.Name;
+                }
+            }
+
+            _timer.AddPoint("Mounts:Process");
+        }
+
+        private async Task ImportPets()
+        {
+            var pets = await DataUtilities.LoadDumpCsvAsync<DumpBattlePetSpecies>("battlepetspecies");
+
+            var dbPetMap = await Context.WowPet
+                .ToDictionaryAsync(pet => pet.Id);
+
+            _timer.AddPoint("Pets:Load");
+
+            foreach (var pet in pets)
+            {
+                if (!dbPetMap.TryGetValue(pet.ID, out var dbPet))
+                {
+                    dbPet = new WowPet
+                    {
+                        Id = pet.ID,
+                    };
+                    Context.WowPet.Add(dbPet);
+                }
+
+                dbPet.CreatureId = pet.CreatureID;
+                dbPet.SpellId = pet.SummonSpellID;
+                dbPet.Flags = pet.Flags;
+                dbPet.PetType = pet.PetTypeEnum;
+                dbPet.SourceType = pet.SourceTypeEnum;
+            }
+            
+            _timer.AddPoint("Pets:Process");
+        }
+
+        private async Task ImportToys()
+        {
+            var toys = await DataUtilities.LoadDumpCsvAsync<DumpToy>("toy");
+
+            var dbToyMap = await Context.WowToy
+                .ToDictionaryAsync(toy => toy.Id);
+
+            _timer.AddPoint("Toys:Load");
+
+            foreach (var toy in toys)
+            {
+                if (!dbToyMap.TryGetValue(toy.ID, out var dbToy))
+                {
+                    dbToy = new WowToy
+                    {
+                        Id = toy.ID,
+                    };
+                    Context.WowToy.Add(dbToy);
+                }
+
+                dbToy.ItemId = toy.ItemID;
+                dbToy.Flags = toy.Flags;
+                dbToy.SourceType = toy.SourceTypeEnum;
+            }
+            
+            _timer.AddPoint("Toys:Process");
         }
     }
 }

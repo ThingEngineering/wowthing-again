@@ -20,12 +20,15 @@ namespace Wowthing.Lib.Contexts
         public DbSet<LanguageString> LanguageString { get; set; }
         
         public DbSet<WowItem> WowItem { get; set; }
+        public DbSet<WowMount> WowMount { get; set; }
+        public DbSet<WowMythicPlusSeason> WowMythicPlusSeason { get; set; }
         public DbSet<WowPeriod> WowPeriod { get; set; }
+        public DbSet<WowPet> WowPet { get; set; }
         public DbSet<WowRealm> WowRealm { get; set; }
         public DbSet<WowReputation> WowReputation { get; set; }
         public DbSet<WowReputationTier> WowReputationTier { get; set; }
-        public DbSet<WowMythicPlusSeason> WowMythicPlusSeason { get; set; }
         public DbSet<WowTitle> WowTitle { get; set; }
+        public DbSet<WowToy> WowToy { get; set; }
 
         public DbSet<PlayerAccount> PlayerAccount { get; set; }
         public DbSet<PlayerAccountPets> PlayerAccountPets { get; set; }
