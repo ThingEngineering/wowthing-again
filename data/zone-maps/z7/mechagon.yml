@@ -298,7 +298,7 @@ farms:
   - type: transmog
     id: 170466
     name: "Junkyard Motivator"
-    limit: weapon staff agi
+    limit: weapon stave agi
 
 - name: "Oxidized Leachbeast"
   location: 56.6 62.9

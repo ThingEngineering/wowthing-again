@@ -223,7 +223,7 @@ farms:
   - type: transmog
     id: 160968
     name: "Skycaller Spellstaff"
-    limit: weapon staff int
+    limit: weapon stave int
 
 - name: "Skycarver Krakit"
   location: 51.3 36.4
