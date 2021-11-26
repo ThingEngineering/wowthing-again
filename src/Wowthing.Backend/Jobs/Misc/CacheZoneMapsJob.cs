@@ -110,10 +110,13 @@ namespace Wowthing.Backend.Jobs.Misc
                                     drop.Id = itemToAppearance[drop.Id];
                                 }
 
-                                if (drop.QuestId > 0 && !seenQuests.Contains(drop.QuestId.Value))
+                                foreach (var dropQuestId in drop.QuestIds.EmptyIfNull())
                                 {
-                                    outFile.WriteLine("    {0}, -- {1}:{2}", drop.QuestId, farm.Name, drop.Name);
-                                    seenQuests.Add(drop.QuestId.Value);
+                                    if (!seenQuests.Contains(dropQuestId))
+                                    {
+                                        outFile.WriteLine("    {0}, -- {1}:{2}", dropQuestId, farm.Name, drop.Name);
+                                        seenQuests.Add(dropQuestId);
+                                    }
                                 }
                             }
                         }
