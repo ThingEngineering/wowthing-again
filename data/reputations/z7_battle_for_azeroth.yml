@@ -5,13 +5,13 @@ reputations:
   - both:
       id: 2415
       name: Rajani
-      icon: inv_tabard_rajani
+      icon: achievement/14156
     paragon: true
 
   - both:
       id: 2417
       name: Uldum Accord
-      icon: inv_tabard_uldumaccord
+      icon: achievement/14155
     paragon: true
 
 # 8.2
@@ -19,17 +19,17 @@ reputations:
   - both:
       id: 2391
       name: Rustbolt Resistance
-      icon: inv_tabard_rustboltresistance
+      icon: achievement/13557
     paragon: true
 
   - alliance:
       id: 2400
       name: Waveblade Ankoan
-      icon: inv_tabard_ankoan
+      icon: achievement/13558
     horde:
       id: 2373
       name: The Unshackled
-      icon: inv_tabard_unshackled
+      icon: achievement/13559
     paragon: true
 
 # 8.0
@@ -37,7 +37,7 @@ reputations:
   - both:
       id: 2164
       name: Champions of Azeroth
-      icon: inv_faction_championsofazeroth
+      icon: achievement/12955
       rewards:
       - type: toy
         id: 166877
@@ -47,7 +47,7 @@ reputations:
   - both:
       id: 2163
       name: Tortollan Seekers
-      icon: inv_faction_tortollanseekers
+      icon: achievement/12956
       rewards:
       - type: toy
         id: 166704
@@ -61,7 +61,7 @@ reputations:
   - alliance:
       id: 2159
       name: 7th Legion
-      icon: inv_tabard_alliancewareffort
+      icon: achievement/12954
       rewards:
       - type: toy
         id: 166879
@@ -69,7 +69,7 @@ reputations:
     horde:
       id: 2157
       name: The Honorbound
-      icon: inv_tabard_hordewareffort
+      icon: achievement/12957
       rewards:
       - type: toy
         id: 166879
@@ -79,7 +79,7 @@ reputations:
   - alliance:
       id: 2162
       name: Storm's Wake
-      icon: inv_tabard_stormswake
+      icon: achievement/12953
       rewards:
       - type: pet
         id: 149376
@@ -87,7 +87,7 @@ reputations:
     horde:
       id: 2103
       name: Zandalari Empire
-      icon: inv_tabard_zandalariempire
+      icon: achievement/12950
       rewards:
       - type: toy
         id: 166701
@@ -97,7 +97,7 @@ reputations:
   - alliance:
       id: 2161
       name: Order of Embers
-      icon: inv_tabard_orderoftheembers
+      icon: achievement/12952
       rewards:
       - type: pet
         id: 149375
@@ -109,7 +109,7 @@ reputations:
     horde:
       id: 2156
       name: Talanji's Expedition
-      icon: inv_tabard_talanjisexpedition
+      icon: achievement/12948
       rewards:
       - type: pet
         id: 149372
@@ -123,7 +123,7 @@ reputations:
   - alliance:
       id: 2160
       name: Proudmoore Admiralty
-      icon: inv_tabard_proudmoore
+      icon: achievement/12951
       rewards:
       - type: pet
         id: 149363
@@ -135,7 +135,7 @@ reputations:
     horde:
       id: 2158
       name: Voldunai
-      icon: inv_tabard_vulpera
+      icon: achievement/12949
       rewards:
       - type: toy
         id: 166703

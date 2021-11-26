@@ -5,13 +5,13 @@ reputations:
 - - both:
       id: 2170
       name: Argussian Reach
-      icon: inv_legion_faction_argussianreach
+      icon: achievement/12076
     paragon: true
 
   - both:
       id: 2165
       name: Army of the Light
-      icon: inv_legion_faction_armyofthelight
+      icon: achievement/12081
       rewards:
       - type: mount
         id: 254259
@@ -24,13 +24,17 @@ reputations:
       - type: mount
         id: 254069
         name: "Glorious Felcrusher"
+
+      - type: toy
+        id: 153182
+        name: "Holy Lightsphere"
     paragon: true
 
 # 7.2 - Broken Shore
 - - both:
       id: 2045
       name: Armies of Legionfall
-      icon: achievement_faction_legionfall
+      icon: achievement/11796
       rewards:
       - type: pet
         id: 121715
@@ -41,7 +45,7 @@ reputations:
 - - both:
       id: 1900
       name: Court of Farondis
-      icon: inv_legion_faction_courtoffarnodis
+      icon: item/140577 # Court of Farondis Tabard
       rewards:
       - type: mount
         id: 242881
@@ -51,7 +55,7 @@ reputations:
   - both:
       id: 1883
       name: Dreamweavers
-      icon: inv_legion_faction_dreamweavers
+      icon: item/140667 # Tabard of the Dreamweavers
       rewards:
       - type: mount
         id: 242875
@@ -61,7 +65,7 @@ reputations:
   - both:
       id: 1828
       name: Highmountain Tribe
-      icon: inv_legion_faction_hightmountaintribes
+      icon: item/140576 # Tabard of the Highmountain Tribe
       rewards:
       - type: mount
         id: 242874
@@ -71,7 +75,7 @@ reputations:
   - both:
       id: 1859
       name: The Nightfallen
-      icon: inv_legion_faction_nightfallen
+      icon: item/140575 # Nightfallen Tabard
       rewards:
       - type: mount
         id: 233364
@@ -81,7 +85,7 @@ reputations:
   - both:
       id: 1948
       name: Valarjar
-      icon: inv_legion_faction_valarjar
+      icon: item/140579 # Valarjar Tabard
       rewards:
       - type: mount
         id: 242882
@@ -91,46 +95,52 @@ reputations:
   - both:
       id: 1894
       name: The Wardens
-      icon: inv_legion_faction_warden
+      icon: item/140580 # Warden's Tabard
       rewards:
       - type: toy
         id: 147843
         name: "Sira's Extra Cloak"
     paragon: true
 
+#
+- - both:
+      id: 2135
+      name: "Chromie"
+      icon: achievement/11941
+
 # Friends - 7.?
 - - both:
       id: 1975
       name: Conjurer Margoss
-      icon: inv_elemental_primal_water
+      icon: item/138777 # Drowned Mana
 
 # Friends
 - - both:
       id: 2099
       name: Akule Riverhorn
-      icon: trade_archaeology_vrykul_runestick
+      icon: item/146960 # Ancient Totem Fragment
 
   - both:
       id: 2100
       name: Corbyn
-      icon: inv_jewelcrafting_gem_27
+      icon: item/146961 # Shiny Bauble
 
   - both:
       id: 2097
       name: Ilyssia of the Waters
-      icon: ability_monk_forcesphere
+      icon: item/146848 # Fragmented Enchantment
 
   - both:
       id: 2102
       name: Impus
-      icon: ability_deathknight_desecratedground
+      icon: item/146963 # Desecrated Seaweed
 
   - both:
       id: 2098
       name: Keeper Raynae
-      icon: ability_xavius_corruptingnova
+      icon: item/146959 # Corrupted Globule
 
   - both:
       id: 2101
       name: Sha'leth
-      icon: inv_misc_fish_58
+      icon: item/146962 # Golden Minnow
