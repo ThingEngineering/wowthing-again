@@ -44,6 +44,7 @@ namespace Wowthing.Backend.Jobs.Misc
         {
             _timer = new JankTimer();
 
+            await ImportCreatures();
             await ImportItems();
             await ImportMounts();
             await ImportPets();
@@ -55,6 +56,35 @@ namespace Wowthing.Backend.Jobs.Misc
             Logger.Information("{Timing}", _timer.ToString());
         }
 
+        private async Task ImportCreatures()
+        {
+            var dbLanguageMap = await Context.LanguageString
+                .Where(ls => ls.Type == StringType.WowCreatureName)
+                .ToDictionaryAsync(ls => (ls.Language, ls.Id));
+
+            foreach (var language in new[]{ Language.enUS}.Concat(_languages))
+            {
+                var languageCreatures = await DataUtilities.LoadDumpCsvAsync<DumpCreature>(Path.Join(language.ToString(), "creature"), skipValidation: true);
+                foreach (var creature in languageCreatures)
+                {
+                    if (!dbLanguageMap.TryGetValue((language, creature.ID), out var languageString))
+                    {
+                        languageString = new LanguageString
+                        {
+                            Language = language,
+                            Type = StringType.WowCreatureName,
+                            Id = creature.ID,
+                        };
+                        Context.LanguageString.Add(languageString);
+                    }
+
+                    languageString.String = creature.Name;
+                }
+            }
+            
+            _timer.AddPoint("Creatures");
+        }
+        
         private async Task ImportItems()
         {
             var items = await DataUtilities.LoadDumpCsvAsync<DumpItem>("item");
@@ -67,8 +97,6 @@ namespace Wowthing.Backend.Jobs.Misc
             var dbLanguageMap = await Context.LanguageString
                 .Where(ls => ls.Type == StringType.WowItemName)
                 .ToDictionaryAsync(ls => (ls.Language, ls.Id));
-
-            _timer.AddPoint("Items:Load");
 
             foreach (var item in items)
             {
@@ -130,7 +158,7 @@ namespace Wowthing.Backend.Jobs.Misc
                 }
             }
             
-            _timer.AddPoint("Items:Process");
+            _timer.AddPoint("Items");
         }
 
         private async Task ImportMounts()
@@ -144,8 +172,6 @@ namespace Wowthing.Backend.Jobs.Misc
                 .Where(ls => ls.Type == StringType.WowMountName)
                 .ToDictionaryAsync(ls => (ls.Language, ls.Id));
 
-            _timer.AddPoint("Mounts:Load");
-            
             foreach (var mount in baseMounts)
             {
                 if (!dbMountMap.TryGetValue(mount.ID, out var dbMount))
@@ -195,7 +221,7 @@ namespace Wowthing.Backend.Jobs.Misc
                 }
             }
 
-            _timer.AddPoint("Mounts:Process");
+            _timer.AddPoint("Mounts");
         }
 
         private async Task ImportPets()
@@ -204,8 +230,6 @@ namespace Wowthing.Backend.Jobs.Misc
 
             var dbPetMap = await Context.WowPet
                 .ToDictionaryAsync(pet => pet.Id);
-
-            _timer.AddPoint("Pets:Load");
 
             foreach (var pet in pets)
             {
@@ -225,7 +249,7 @@ namespace Wowthing.Backend.Jobs.Misc
                 dbPet.SourceType = pet.SourceTypeEnum;
             }
             
-            _timer.AddPoint("Pets:Process");
+            _timer.AddPoint("Pets");
         }
 
         private async Task ImportToys()
@@ -234,8 +258,6 @@ namespace Wowthing.Backend.Jobs.Misc
 
             var dbToyMap = await Context.WowToy
                 .ToDictionaryAsync(toy => toy.Id);
-
-            _timer.AddPoint("Toys:Load");
 
             foreach (var toy in toys)
             {
@@ -253,7 +275,7 @@ namespace Wowthing.Backend.Jobs.Misc
                 dbToy.SourceType = toy.SourceTypeEnum;
             }
             
-            _timer.AddPoint("Toys:Process");
+            _timer.AddPoint("Toys");
         }
     }
 }
