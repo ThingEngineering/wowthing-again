@@ -427,3 +427,25 @@ farms:
     id: 170467
     name: "Whirring Chainblade"
     limit: weapon 1h-sword str
+
+# Events
+
+- name: "Reclamation Rig"
+  location: 70.0 62.0
+  type: event
+  drops:
+  - type: quest
+    id: 55074
+    name: "Blueprint: Rustbolt Requisitions"
+    note: "Hard only"
+    questId: 55848
+
+  - type: pet
+    id: 154904
+    name: "Echoing Oozeling"
+    questId: 55847 55848
+
+  - type: pet
+    id: 155579
+    name: "Irradiated Elementaling"
+    questId: 55847 55848
