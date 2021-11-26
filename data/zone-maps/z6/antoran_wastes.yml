@@ -7,7 +7,7 @@ farms:
 - name: "Admiral Rel'var"
   location: 73.6 71.8
   npcId: 127090
-  questId: 0
+  questId: 48817
   drops:
   - &zealous-felslinger-1
     type: transmog
@@ -92,7 +92,7 @@ farms:
 - name: "Mistress Il'thendra"
   location: 57.6 33.6
   npcId: 122947
-  questId: 0
+  questId: 49240
   drops:
   - &world-defilers-1
     type: transmog
@@ -150,7 +150,7 @@ farms:
 - name: "Mother Rosula"
   location: 65.5 26.5
   npcId: 127705
-  questId: 0
+  questId: 48970
   drops:
   - type: pet
     id: 128388
@@ -159,7 +159,7 @@ farms:
 - name: "Puscilla"
   location: 65.5 26.7
   npcId: 126040
-  questId: 0
+  questId: 48809
   drops:
   - type: mount
     id: 253660
@@ -186,7 +186,7 @@ farms:
 - name: "The Many-Faced Devourer"
   location: 54.7 39.1
   npcId: 127581
-  questId: 0
+  questId: 48966
   drops:
   - type: pet
     id: 128396
@@ -196,7 +196,7 @@ farms:
   location: 64.3 48.2
   note: "Drops Fel-Spotted Egg which can hatch into mounts/pets"
   npcId: 126208
-  questId: 0
+  questId: 48812
   drops:
   - type: mount
     id: 235764
@@ -225,7 +225,7 @@ farms:
 - name: "Void Warden Valsuran"
   location: 55.6 21.8
   npcId: 127300
-  questId: 0
+  questId: 48824
   drops:
   - *zealous-felslinger-1
   - *zealous-felslinger-2
@@ -306,3 +306,4 @@ farms:
 
 # Alchemist 48865
 # Ven'orn 48811
+# Watcher Aival 48822
