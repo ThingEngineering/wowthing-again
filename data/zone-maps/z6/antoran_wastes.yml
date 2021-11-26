@@ -148,7 +148,8 @@ farms:
     limit: weapon dagger
 
 - name: "Mother Rosula"
-  location: 65.5 26.5
+  location: 66.5 18.3
+  note: "Collect 100 imp meat to summon her"
   npcId: 127705
   questId: 48970
   drops:
@@ -177,7 +178,7 @@ farms:
 - name: "Squadron Commander Vishax"
   location: 77.4 74.9
   npcId: 127700
-  questId: 0
+  questId: 48967
   drops:
   - type: toy
     id: 153253

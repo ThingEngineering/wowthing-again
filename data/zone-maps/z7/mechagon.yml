@@ -140,7 +140,7 @@ farms:
   - type: transmog
     id: 170466
     name: "Junkyard Motivator"
-    limit: weapon staff
+    limit: weapon stave
 
   - type: transmog
     id: 170468
@@ -222,7 +222,7 @@ farms:
     id: 167931
     name: "Mechagonian Sawblades"
 
-- name: "Malfunctioning Beastbot (55926 56506)"
+- name: "Malfunctioning Beastbot"
   location: 60.7 42.2
   npcId: 151933
   questId: 55544
