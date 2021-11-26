@@ -8,8 +8,9 @@ z8/_shadowlands.yml
 z7/_battle_for_azeroth.yml
 
 z6/_legion.yml
-    z6/balance_of_power.yml
+    z6/argus.yml
     -
+    z6/balance_of_power.yml
     z6/order_halls.yml
     -
     z6/storylines.yml
