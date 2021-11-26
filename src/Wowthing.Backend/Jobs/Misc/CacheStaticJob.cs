@@ -28,7 +28,14 @@ namespace Wowthing.Backend.Jobs.Misc
         private IDeserializer _yaml = new DeserializerBuilder()
             .WithNamingConvention(LowerCaseNamingConvention.Instance)
             .Build();
-        
+
+        private Dictionary<int, WowItem> _itemMap;
+        private Dictionary<int, WowMount> _mountMap;
+        private Dictionary<int, WowPet> _petMap;
+        private Dictionary<int, WowToy> _toyMap;
+
+        private Dictionary<(StringType Type, Language Language, int Id), string> _stringMap;
+
         public static readonly ScheduledJob Schedule = new ScheduledJob
         {
             Type = JobType.CacheStatic,
@@ -41,10 +48,44 @@ namespace Wowthing.Backend.Jobs.Misc
         {
             _timer = new JankTimer();
 
+            await LoadData();
+
             await BuildStaticData();
             await BuildAchievementData();
             
-            Logger.Information("CacheStaticJob: {0}", _timer.ToString());
+            Logger.Information("{0}", _timer.ToString());
+        }
+
+        private readonly StringType[] _stringTypes = {
+            StringType.WowCreatureName,
+            StringType.WowItemName,
+            StringType.WowMountName,
+        };
+        private async Task LoadData()
+        {
+            _itemMap = await Context.WowItem
+                .AsNoTracking()
+                .ToDictionaryAsync(item => item.Id);
+
+            _mountMap = await Context.WowMount
+                .AsNoTracking()
+                .ToDictionaryAsync(mount => mount.Id);
+            
+            _petMap = await Context.WowPet
+                .Where(pet => (pet.Flags & 32) == 0)
+                .AsNoTracking()
+                .ToDictionaryAsync(pet => pet.Id);
+            
+            _toyMap = await Context.WowToy
+                .AsNoTracking()
+                .ToDictionaryAsync(toy => toy.Id);
+            
+            _stringMap = await Context.LanguageString
+                .Where(ls => _stringTypes.Contains(ls.Type))
+                .AsNoTracking()
+                .ToDictionaryAsync(ls => (ls.Type, ls.Language, ls.Id), ls => ls.String);
+            
+            _timer.AddPoint("Database");
         }
         
         #region Static data
@@ -65,14 +106,21 @@ namespace Wowthing.Backend.Jobs.Misc
             _timer.AddPoint("Instances");
 
             // Mounts
-            var spellToMount = await LoadMountDump();
             var mountSets = LoadSets("mounts");
+            var spellToMount = _mountMap.Values.ToDictionary(
+                mount => mount.SpellId,
+                mount => (mount.Id, _stringMap.GetValueOrDefault((StringType.WowMountName, Language.enUS, mount.Id), "???"))
+            );
             AddUncategorized("mounts", spellToMount, mountSets);
             _timer.AddPoint("Mounts");
 
             // Pets
-            var creatureToPet = await LoadPetDump();
             var petSets = LoadSets("pets");
+            var creatureToPet = _petMap.Values.ToDictionary(
+                pet => pet.CreatureId,
+                pet => (pet.Id,
+                    _stringMap.GetValueOrDefault((StringType.WowCreatureName, Language.enUS, pet.CreatureId), "???"))
+            );
             AddUncategorized("pets", creatureToPet, petSets);
             _timer.AddPoint("Pets");
 
@@ -85,8 +133,11 @@ namespace Wowthing.Backend.Jobs.Misc
             _timer.AddPoint("Reputations");
 
             // Toys
-            var itemToToy = await LoadToyDump();
             var toySets = LoadSets("toys");
+            var itemToToy = _toyMap.Values.ToDictionary(
+                toy => toy.ItemId,
+                toy => (toy.Id, _stringMap.GetValueOrDefault((StringType.WowItemName, Language.enUS, toy.ItemId), "???"))
+            );
             AddUncategorized("toys", itemToToy, toySets);
             _timer.AddPoint("Toys");
 
@@ -224,43 +275,12 @@ namespace Wowthing.Backend.Jobs.Misc
             return ret;
         }
 
-        private static async Task<SortedDictionary<int, (int, string)>> LoadMountDump()
-        {
-            var records = await DataUtilities.LoadDumpCsvAsync<DumpMount>("mount");
-            return new SortedDictionary<int, (int, string)>(
-                records.ToDictionary(
-                    mount => mount.SourceSpellID,
-                    mount => (mount.ID, mount.Name)
-                )
-            );
-        }
-
-        private static async Task<SortedDictionary<int, (int, string)>> LoadPetDump()
-        {
-            var records = await DataUtilities.LoadDumpCsvAsync<DumpBattlePetSpecies>("battlepetspecies", p => (p.Flags & 32) == 0);
-            var creatureIdToName = (await DataUtilities.LoadDumpCsvAsync<DumpCreature>("creature"))
-                .ToDictionary(creature => creature.ID, creature => creature.Name);
-            
-            return new SortedDictionary<int, (int, string)>(
-                records.ToDictionary(
-                    k => k.CreatureID,
-                    v => (v.ID, creatureIdToName.GetValueOrDefault(v.CreatureID, "?"))
-                )
-            );
-        }
-
-        private static async Task<SortedDictionary<int, (int, string)>> LoadToyDump()
-        {
-            var records = await DataUtilities.LoadDumpCsvAsync<DumpToy>("toy");
-            return new SortedDictionary<int, (int, string)>(records.ToDictionary(k => k.ItemID, v => (v.ID, "?")));
-        }
-
         private List<List<DataCollectionCategory>> LoadSets(string dirName)
         {
             return DataUtilities.LoadData<DataCollectionCategory>(dirName, Logger);
         }
 
-        private void AddUncategorized(string dirName, SortedDictionary<int, (int, string)> spellToThing, List<List<DataCollectionCategory>> thingSets)
+        private void AddUncategorized(string dirName, Dictionary<int, (int, string)> spellToThing, List<List<DataCollectionCategory>> thingSets)
         {
             var skip = Array.Empty<int>();
             var skipPath = Path.Join(DataUtilities.DataPath, dirName, "_skip.yml");
@@ -301,7 +321,9 @@ namespace Wowthing.Backend.Jobs.Misc
                             new DataCollectionGroup
                             {
                                 Name = "UNCATEGORIZED",
-                                Things = missing.Select(m => m.ToString()).ToList(),
+                                Things = missing
+                                    .Select(m => m.ToString())
+                                    .ToList(),
                             },
                         },
                     },
@@ -310,7 +332,7 @@ namespace Wowthing.Backend.Jobs.Misc
 #if DEBUG
                 using (var file = File.CreateText(Path.Join("..", "..", "data", dirName, "zzz_uncategorized.yml")))
                 {
-                    foreach (int thing in missing)
+                    foreach (int thing in missing.OrderBy(m => m))
                     {
                         file.WriteLine($"  - {thing} # {spellToThing[thing].Item2}");
                     }
@@ -371,6 +393,7 @@ namespace Wowthing.Backend.Jobs.Misc
             1, // Statistics
             15076, // Guild
         };
+
         private static async Task<List<OutAchievementCategory>> LoadAchievementCategories(Dictionary<int, OutAchievement> achievements)
         {
             var records = await DataUtilities.LoadDumpCsvAsync<DumpAchievementCategory>("achievement_category");
