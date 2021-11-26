@@ -47,7 +47,7 @@ farms:
 - name: "Jed'hin Champion Vorusk"
   location: 48.8 41.8
   npcId: 126899
-  questId: 0
+  questId: 48713
   drops:
   - type: transmog
     id: 153302
@@ -57,7 +57,7 @@ farms:
 - name: "Overseer Y'Beda"
   location: 59.2 37.7
   npcId: 124440
-  questId: 0
+  questId: 48714
   drops:
   - type: transmog
     id: 153315
@@ -77,7 +77,7 @@ farms:
 - name: "Overseer Y'Sorna"
   location: 58.0 30.9
   npcId: 125497
-  questId: 0
+  questId: 48716
   drops:
   - type: transmog
     id: 153268
@@ -146,7 +146,7 @@ farms:
 - name: "Turek the Lucid"
   location: 38.6 65.2
   npcId: 126868
-  questId: 0
+  questId: 48706
   drops:
   - type: transmog
     id: 153306
@@ -165,7 +165,7 @@ farms:
 - name: "Vigilant Kuro"
   location: 63.8 64.6
   npcId: 126866
-  questId: 0
+  questId: 48704
   drops:
   - type: toy
     id: 153183
@@ -193,7 +193,7 @@ farms:
 - name: "Wrangler Kravos"
   location: 55.7 59.8
   npcId: 126852
-  questId: 0
+  questId: 48695
   drops:
   - type: mount
     id: 253058
@@ -231,3 +231,7 @@ farms:
     requiredQuestId: 47994 # Forming a Bond - Lightforged Warframe
     name: "Eredath Vigilant's Redoubt"
     limit: armor shield
+
+# Xethgar 48720
+# Silthon 48935
+# Kaara 48697

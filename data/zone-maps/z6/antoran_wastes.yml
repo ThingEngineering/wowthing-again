@@ -65,7 +65,7 @@ farms:
 - name: "Blistermaw"
   location: 61.8 37.6
   npcId: 122958
-  questId: 0
+  questId: 49183
   drops:
   - type: mount
     id: 253661
@@ -83,7 +83,7 @@ farms:
 - name: "Houndmaster Kerrax"
   location: 63.1 25.3
   npcId: 127288
-  questId: 0
+  questId: 48821
   drops:
   - type: mount
     id: 243652
@@ -244,7 +244,7 @@ farms:
 - name: "Vrax'thul"
   location: 53.2 35.8
   npcId: 126199
-  questId: 0
+  questId: 48810
   drops:
   - type: mount
     id: 253660
@@ -253,7 +253,7 @@ farms:
 - name: "Worldsplitter Skuul"
   location: 54.0 55.0
   npcId: 127118
-  questId: 0
+  questId: 48820
   drops:
   - *zealous-felslinger-1
   - *zealous-felslinger-2
@@ -272,7 +272,7 @@ farms:
 - name: "Wrath-Lord Yarez"
   location: 61.9 64.3
   npcId: 126338
-  questId: 0
+  questId: 48814
   drops:
   - type: toy
     id: 153126
@@ -303,3 +303,6 @@ farms:
     id: 153291
     name: "Spectral Censorite's Staff"
     limit: weapon stave
+
+# Alchemist 48865
+# Ven'orn 48811
