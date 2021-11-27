@@ -21,19 +21,23 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             slug: 'honkstrasza',
         }
 
-        data.currencies = {}
-        for (const currencyArray of data.currenciesRaw) {
-            const obj = new StaticDataCurrency(...currencyArray)
-            data.currencies[obj.id] = obj
+        if (data.currenciesRaw) {
+            data.currencies = {}
+            for (const currencyArray of data.currenciesRaw) {
+                const obj = new StaticDataCurrency(...currencyArray)
+                data.currencies[obj.id] = obj
+            }
+            data.currenciesRaw = null
         }
-        data.currenciesRaw = null
 
-        data.instances = {}
-        for (const instanceArray of data.instancesRaw) {
-            const obj = new StaticDataInstance(...instanceArray)
-            data.instances[obj.id] = obj
+        if (data.instancesRaw) {
+            data.instances = {}
+            for (const instanceArray of data.instancesRaw) {
+                const obj = new StaticDataInstance(...instanceArray)
+                data.instances[obj.id] = obj
+            }
+            data.instancesRaw = null
         }
-        data.instancesRaw = null
 
         for (const instanceId in extraInstanceMap) {
             data.instances[instanceId] = extraInstanceMap[instanceId]
