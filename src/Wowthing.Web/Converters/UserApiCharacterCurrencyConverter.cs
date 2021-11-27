@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Wowthing.Web.Models;
 
-namespace Wowthing.Backend.Converters
+namespace Wowthing.Web.Converters
 {
     public class UserApiCharacterCurrencyConverter : JsonConverter
     {

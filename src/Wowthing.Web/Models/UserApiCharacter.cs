@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.CodeAnalysis;
 using Newtonsoft.Json;
-using Wowthing.Backend.Converters;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Player;
+using Wowthing.Web.Converters;
 
 namespace Wowthing.Web.Models
 {
