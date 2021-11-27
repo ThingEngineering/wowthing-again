@@ -1,11 +1,13 @@
 import { get } from 'svelte/store'
 
 import { data as settingsData } from '@/stores/settings'
+import { getWowheadDomain } from '@/utils/get-wowhead-domain'
 import type { CharacterEquippedItem } from '@/types'
 import type { ItemSearchResponseCharacter } from '@/types/items'
 
 export function getItemUrl(item: CharacterEquippedItem): string {
-    const useWowdb = get(settingsData).general.useWowdb
+    const settings = get(settingsData)
+    const useWowdb = settings.general.useWowdb
 
     let url = ''
     const params = []
@@ -35,7 +37,7 @@ export function getItemUrl(item: CharacterEquippedItem): string {
             params.push(`gems=${item.gemIds.join(':')}`)
         }
 
-        url = `https://www.wowhead.com/item=${item.itemId}`
+        url = `https://${getWowheadDomain(settings.general.language)}.wowhead.com/item=${item.itemId}`
     }
 
     if (params.length > 0) {
