@@ -43,7 +43,7 @@ namespace Wowthing.Backend.Jobs.Misc
         public override async Task Run(params string[] data)
         {
             _timer = new JankTimer();
-
+            
             await ImportCreatures();
             await ImportItems();
             await ImportMounts();
@@ -60,6 +60,7 @@ namespace Wowthing.Backend.Jobs.Misc
         {
             var dbLanguageMap = await Context.LanguageString
                 .Where(ls => ls.Type == StringType.WowCreatureName)
+                .AsNoTracking()
                 .ToDictionaryAsync(ls => (ls.Language, ls.Id));
 
             foreach (var language in new[]{ Language.enUS}.Concat(_languages))
@@ -74,11 +75,15 @@ namespace Wowthing.Backend.Jobs.Misc
                             Language = language,
                             Type = StringType.WowCreatureName,
                             Id = creature.ID,
+                            String = creature.Name,
                         };
                         Context.LanguageString.Add(languageString);
                     }
-
-                    languageString.String = creature.Name;
+                    else if (creature.Name != languageString.String)
+                    {
+                        Context.LanguageString.Attach(languageString);
+                        languageString.String = creature.Name;
+                    }
                 }
             }
             
@@ -96,6 +101,7 @@ namespace Wowthing.Backend.Jobs.Misc
             
             var dbLanguageMap = await Context.LanguageString
                 .Where(ls => ls.Type == StringType.WowItemName)
+                .AsNoTracking()
                 .ToDictionaryAsync(ls => (ls.Language, ls.Id));
 
             foreach (var item in items)
@@ -131,11 +137,15 @@ namespace Wowthing.Backend.Jobs.Misc
                         Language = Language.enUS,
                         Type = StringType.WowItemName,
                         Id = item.ID,
+                        String = itemSparse.Name,
                     };
                     Context.LanguageString.Add(languageString);
                 }
-
-                languageString.String = itemSparse.Name;
+                else if (itemSparse.Name != languageString.String)
+                {
+                    Context.LanguageString.Attach(languageString);
+                    languageString.String = itemSparse.Name;
+                }
             }
 
             foreach (var language in _languages)
@@ -150,11 +160,15 @@ namespace Wowthing.Backend.Jobs.Misc
                             Language = language,
                             Type = StringType.WowItemName,
                             Id = itemSparse.ID,
+                            String = itemSparse.Name,
                         };
                         Context.LanguageString.Add(languageString);
                     }
-
-                    languageString.String = itemSparse.Name;
+                    else if (itemSparse.Name != languageString.String)
+                    {
+                        Context.LanguageString.Attach(languageString);
+                        languageString.String = itemSparse.Name;
+                    }
                 }
             }
             
@@ -170,6 +184,7 @@ namespace Wowthing.Backend.Jobs.Misc
 
             var dbLanguageMap = await Context.LanguageString
                 .Where(ls => ls.Type == StringType.WowMountName)
+                .AsNoTracking()
                 .ToDictionaryAsync(ls => (ls.Language, ls.Id));
 
             foreach (var mount in baseMounts)
@@ -194,11 +209,15 @@ namespace Wowthing.Backend.Jobs.Misc
                         Language = Language.enUS,
                         Type = StringType.WowMountName,
                         Id = mount.ID,
+                        String = mount.Name,
                     };
                     Context.LanguageString.Add(languageString);
                 }
-
-                languageString.String = mount.Name;
+                else if (mount.Name != languageString.String)
+                {
+                    Context.LanguageString.Attach(languageString);
+                    languageString.String = mount.Name;
+                }
             }
 
             foreach (var language in _languages)
@@ -213,11 +232,15 @@ namespace Wowthing.Backend.Jobs.Misc
                             Language = language,
                             Type = StringType.WowMountName,
                             Id = mount.ID,
+                            String = mount.Name,
                         };
                         Context.LanguageString.Add(languageString);
                     }
-
-                    languageString.String = mount.Name;
+                    else if (mount.Name != languageString.String)
+                    {
+                        Context.LanguageString.Attach(languageString);
+                        languageString.String = mount.Name;
+                    }
                 }
             }
 
