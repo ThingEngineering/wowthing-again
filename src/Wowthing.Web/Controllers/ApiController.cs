@@ -98,8 +98,7 @@ namespace Wowthing.Web.Controllers
             }
 
             var itemQuery = _context.LanguageString
-                .Where(ls => ls.Language == Language.deDE && ls.Type == StringType.WowItemName)
-                .AsQueryable();
+                .Where(ls => ls.Language == Language.enUS && ls.Type == StringType.WowItemName);
             foreach (string part in parts)
             {
                 // Alias to avoid variable capture bullshit
@@ -189,7 +188,7 @@ namespace Wowthing.Web.Controllers
             });
         }
 
-        [HttpGet("{type:regex(^(achievement|static|transmog|zone-map)$)}-{language:length(4)}.{hash:length(32)}.json")]
+        [HttpGet("{type:regex(^(achievement|static|transmog|zone-map)$)}-{languageCode:length(4)}.{hash:length(32)}.json")]
         [ResponseCache(Duration = 365 * 24 * 60 * 60, VaryByHeader = "Origin")]
         public async Task<IActionResult> CachedJson([FromRoute] string type, [FromRoute] string languageCode, [FromRoute] string hash)
         {

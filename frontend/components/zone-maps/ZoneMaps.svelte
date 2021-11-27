@@ -22,8 +22,7 @@
 
     let loaded: boolean
     $: {
-        loaded = $userQuestStore.loaded &&
-            $zoneMapStore.loaded
+        loaded = $userQuestStore.loaded
     }
 
     $: {
@@ -42,10 +41,7 @@
         }
     }
 
-    onMount(async () => await Promise.all([
-        userQuestStore.fetch(),
-        zoneMapStore.fetch(),
-    ]))
+    onMount(async () => await userQuestStore.fetch())
 
     afterUpdate(() => {
         if (loaded) {

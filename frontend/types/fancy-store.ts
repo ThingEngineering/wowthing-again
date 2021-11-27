@@ -12,7 +12,7 @@ export interface FancyStore<TData> {
 }
 
 export interface WritableFancyStore<TData> extends Writable<FancyStore<TData>> {
-    fetch(ifNotLoaded?: boolean): Promise<void>
+    fetch(ifNotLoaded?: boolean, language?: Language): Promise<void>
     initialize?(data: TData): void
     readonly dataUrl: string
 }
