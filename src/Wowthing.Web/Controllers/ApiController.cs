@@ -98,7 +98,7 @@ namespace Wowthing.Web.Controllers
             }
 
             var itemQuery = _context.LanguageString
-                .Where(ls => ls.Language == Language.enUS && ls.Type == StringType.WowItemName);
+                .Where(ls => ls.Language == user.Settings.General.Language && ls.Type == StringType.WowItemName);
             foreach (string part in parts)
             {
                 // Alias to avoid variable capture bullshit
