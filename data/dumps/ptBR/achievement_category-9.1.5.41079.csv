@@ -1,3 +1,182 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:fbb23e7347a05674b1b40ffecf88c13d1cfcb580362117f9b9ab5ecbcf058374
-size 3949
+ID,Name_lang
+1,Estatísticas
+21,Jogador x Jogador
+81,Proezas Memoráveis
+92,Personagem
+95,Jogador x Jogador
+96,Missões
+97,Exploração
+122,Mortes
+128,Abates
+130,Personagem
+131,Social
+132,Perícias
+133,Missões
+134,Viagem
+135,Criaturas
+136,Jogadores Abatidos Honrosamente
+137,Golpes Fatais
+140,Riqueza
+145,Consumíveis
+152,Arenas Ranqueadas
+153,Campos de Batalha
+154,Mundo
+155,Eventos Mundiais
+156,Véu de Inverno
+158,Noturnália
+159,Jardinova
+160,Festival da Lua
+161,Solstício
+162,CervaFest
+163,A Semana das Crianças
+165,Arena
+168,Masmorras e Raides
+169,Profissões
+170,Culinária
+171,Pesca
+172,Profissões
+173,Profissões
+178,Profissões secundárias
+187,O Amor Está no Ar
+201,Reputação
+14777,Reinos do Leste
+14778,Kalimdor
+14779,Terralém
+14780,Nortúndria
+14801,Vale Alterac
+14802,Bacia Arathi
+14803,Olho da Tormenta
+14804,Ravina Brado Guerreiro
+14805,The Burning Crusade
+14806,Masmorra de Wrath of the Lich King
+14807,Masmorras e Raides
+14808,Clássico
+14821,Clássico
+14822,The Burning Crusade
+14823,Wrath of the Lich King
+14861,Reinos do Leste
+14862,Terralém
+14863,Nortúndria
+14864,Clássico
+14865,The Burning Crusade
+14866,Wrath of the Lich King
+14901,Invérnia
+14922,Raide de Wrath of the Lich King
+14941,Torneio Argênteo
+14981,Festa da Fartura
+15003,Ilha da Conquista
+15067,Masmorra de Cataclysm
+15068,Raide de Cataclysm
+15069,Cataclysm
+15070,Cataclysm
+15071,Arqueologia
+15072,Cataclysm
+15073,Batalha por Guilnéas
+15074,Montes Gêmeos
+15075,Tol Barad
+15076,Guilda
+15077,Missões
+15078,Jogador x Jogador
+15079,Masmorras e Raides
+15080,Profissões
+15081,Kalimdor
+15082,Clássico
+15083,Masmorra de Cataclysm
+15084,The Burning Crusade
+15085,Masmorra de Wrath of the Lich King
+15086,Raide de Wrath of the Lich King
+15087,Raide de Cataclysm
+15088,Geral
+15089,Reputação
+15090,Campos de Batalha
+15091,Arena
+15092,Campo de Batalha Ranqueado
+15093,Proezas Memoráveis da Guilda
+15096,Cataclysm
+15101,Feira de Negraluna
+15106,Masmorra de Pandária
+15107,Raide de Pandária
+15110,Pandária
+15113,Pandária
+15114,Pandária
+15117,Batalhas de Mascotes
+15118,Coletado
+15119,Batalha
+15120,Nível
+15153,Masmorra de Pandária
+15154,Raide de Pandária
+15162,Minas Estilhaço Prateado
+15163,Templo de Kotmogu
+15164,Mists of Pandaria
+15176,Legado
+15218,Desfiladeiro do Vendaval
+15219,Batalhas de Mascotes
+15220,Draenor
+15222,Campo de testes
+15227,Campo de Testes
+15228,Masmorra de Draenor
+15231,Raide de Draenor
+15232,Draenor
+15233,Warlords of Draenor
+15234,Legado
+15235,Draenor
+15243,Masmorra de Draenor
+15244,Raide de Draenor
+15246,Coleções
+15247,Caixa de Brinquedo
+15248,Montarias
+15252,Legion
+15254,Masmorra de Legion
+15255,Raide de Legion
+15257,Legion
+15258,Legion
+15259,Aparências
+15262,Masmorra de Legion
+15263,Raide de Legion
+15264,Legion
+15266,Honra
+15268,Promoções
+15269,Montarias
+15270,Jogador x Jogador
+15271,Raides
+15272,Masmorras
+15273,Reputação
+15274,Eventos
+15277,Masmorras
+15278,Raides
+15279,Jogador x Jogador
+15280,Moedas
+15283,Mundo
+15284,Battle for Azeroth
+15285,Masmorra de Battle
+15286,Raide de Battle
+15292,Praia Fervilhante
+15298,Battle for Azeroth
+15299,Masmorra de Battle
+15300,Raide de Battle
+15301,Características da Expansão
+15302,Cenários de Pandária
+15303,Guarnição de Draenor
+15304,Salão de Classe de Legion
+15305,Battle for Azeroth
+15307,Expedições Insulares
+15308,Esforço de Guerra
+15409,Battle for Azeroth
+15411,Características da Expansão
+15414,Ashran
+15416,Eventos Mundiais
+15417,Coração de Azeroth
+15422,Shadowlands
+15426,Visões de N'Zoth
+15428,Masmorra de Shadowlands
+15429,Masmorra de Shadowlands
+15430,Shadowlands
+15436,Shadowlands
+15438,Raide de Shadowlands
+15439,Shadowlands
+15440,Thanator
+15441,Santuários dos Pactos
+15442,Raide de Shadowlands
+15446,Personagem
+15447,Missões
+15454,Caminhada Temporal

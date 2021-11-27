@@ -1,3 +1,182 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:19b56d679d3fa1646594c458269bdcfe332126bf39f45dcebbe29318b0ae923f
-size 3860
+ID,Name_lang
+1,Statistiche
+21,PvP
+81,Prove di forza
+92,Personaggio
+95,PvP
+96,Missioni
+97,Esplorazione
+122,Morti
+128,Uccisioni
+130,Personaggio
+131,Sociale
+132,Competenze
+133,Missioni
+134,Viaggi
+135,Creature
+136,Uccisioni onorevoli
+137,Colpi di grazia
+140,Ricchezza
+145,Consumabili
+152,Arene classificate
+153,Campi di battaglia
+154,Mondo
+155,Eventi mondiali
+156,Grande Inverno
+158,Veglia delle Ombre
+159,Festa di Nobiluova
+160,Celebrazione della Luna
+161,Mezza Estate
+162,Festa della Birra
+163,Settimana dei Bambini
+165,Arena
+168,Spedizioni e incursioni
+169,Professioni
+170,Cucina
+171,Pesca
+172,Professioni
+173,Professioni
+178,Secondarie
+187,Amore nell'Aria
+201,Reputazione
+14777,Regni Orientali
+14778,Kalimdor
+14779,Terre Esterne
+14780,Nordania
+14801,Valle d'Alterac
+14802,Bacino d'Arathi
+14803,Occhio del Ciclone
+14804,Forra dei Cantaguerra
+14805,The Burning Crusade
+14806,Spedizioni: Lich King
+14807,Spedizioni e incursioni
+14808,Classico
+14821,Classico
+14822,The Burning Crusade
+14823,Wrath of the Lich King
+14861,Regni Orientali
+14862,Terre Esterne
+14863,Nordania
+14864,Classico
+14865,The Burning Crusade
+14866,Wrath of the Lich King
+14901,Lungoinverno
+14922,Incursioni: Lich King
+14941,Torneo d'Argento
+14981,Ringraziamento
+15003,Isola della Conquista
+15067,Spedizioni: Cataclysm
+15068,Incursioni: Cataclysm
+15069,Cataclysm
+15070,Cataclysm
+15071,Archeologia
+15072,Cataclysm
+15073,Battaglia per Gilneas
+15074,Picchi Gemelli
+15075,Tol Barad
+15076,Gilda
+15077,Missioni
+15078,PvP
+15079,Spedizioni e incursioni
+15080,Professioni
+15081,Kalimdor
+15082,Classico
+15083,Spedizioni: Cataclysm
+15084,The Burning Crusade
+15085,Spedizioni: Lich King
+15086,Incursioni: Lich King
+15087,Incursioni: Cataclysm
+15088,Generale
+15089,Reputazione
+15090,Campi di battaglia
+15091,Arena
+15092,CB classificato
+15093,Prove di forza (Gilda)
+15096,Cataclysm
+15101,Fiera di Lunacupa
+15106,Spedizioni: Pandaria
+15107,Incursioni: Pandaria
+15110,Pandaria
+15113,Pandaria
+15114,Pandaria
+15117,Scontri tra mascotte
+15118,Collezione
+15119,Scontri
+15120,Allenamento
+15153,Spedizioni: Pandaria
+15154,Incursioni: Pandaria
+15162,Miniere di Cupargento
+15163,Tempio di Kotmogu
+15164,Mists of Pandaria
+15176,Incursioni passate
+15218,Scavi di Ventotetro
+15219,Scontri tra mascotte
+15220,Draenor
+15222,Arena d'Addestramento
+15227,Arena d'Addestramento
+15228,Spedizioni: Draenor
+15231,Incursioni: Draenor
+15232,Draenor
+15233,Warlords of Draenor
+15234,Imprese passate
+15235,Draenor
+15243,Spedizioni: Draenor
+15244,Incursioni: Draenor
+15246,Collezioni
+15247,Giocattoli
+15248,Cavalcature
+15252,Legion
+15254,Spedizioni: Legion
+15255,Incursioni: Legion
+15257,Legion
+15258,Legion
+15259,Aspetti
+15262,Spedizioni: Legion
+15263,Incursioni: Legion
+15264,Legion
+15266,Onore
+15268,Promozioni
+15269,Cavalcature
+15270,PvP
+15271,Incursioni
+15272,Spedizioni
+15273,Reputazione
+15274,Eventi
+15277,Spedizioni
+15278,Incursioni
+15279,PvP
+15280,Valute
+15283,Mondo
+15284,Battle for Azeroth
+15285,Spedizioni: BfA
+15286,Incursioni: BfA
+15292,Spiaggia Ribollente
+15298,Battle for Azeroth
+15299,Spedizioni: BfA
+15300,Incursioni: BfA
+15301,Contenuti specifici
+15302,Scenari di Pandaria
+15303,Guarnigione di Draenor
+15304,Enclave di Classe di Legion
+15305,Battle for Azeroth
+15307,Scorrerie sulle Isole
+15308,Sforzo Bellico
+15409,Battle for Azeroth
+15411,Contenuti specifici
+15414,Ashran
+15416,Eventi mondiali
+15417,Cuore di Azeroth
+15422,Shadowlands
+15426,Visioni di N'zoth
+15428,Spedizioni: Shadowlands
+15429,Spedizioni: Shadowlands
+15430,Shadowlands
+15436,Shadowlands
+15438,Incursioni: Shadowlands
+15439,Shadowlands
+15440,Torgast
+15441,Santuari delle Congreghe
+15442,Incursioni: Shadowlands
+15446,Personaggio
+15447,Missioni
+15454,Viaggi nel Tempo

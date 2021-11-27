@@ -1,3 +1,21 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:eda1b66185d1522412d1c66ee68bc600ca990bdcc01005a3fd275e2a10c75743
-size 429
+ID,Name_lang,Flags,ExpansionID
+1,Miscellaneous,0,0
+2,Player vs. Player,0,0
+3,Unused,3,0
+4,Classic,0,0
+21,Wrath of the Lich King,0,2
+22,Dungeon and Raid,0,0
+23,Burning Crusade,0,1
+41,Test,0,0
+81,Cataclysm,0,3
+82,Archaeology,4,0
+89,Meta,4,0
+133,Mists of Pandaria,0,4
+137,Warlords of Draenor,0,5
+141,Legion,0,6
+142,Hidden,4,0
+143,Battle for Azeroth,0,7
+144,Virtual,8,0
+245,Shadowlands,0,8
+246,Debug,0,0
+248,Torghast UI (Hidden),4,8

@@ -1,3 +1,304 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:c33c49dce72c0c7727affcf6b0017a8391ac48ad47fba82e6cd6a894190eec6b
-size 10964
+ID,Name_lang
+1,Ficha de Teste da Moeda de Troca 4
+2,Ficha de Teste da Moeda de Troca 2
+4,Ficha de Teste da Moeda de Troca 5
+22,Item de Teste de Birmingham 4
+42,Distintivo da Justiça
+61,Ficha do Joalheiro de Dalaran
+81,Prêmio do Epicurista
+101,Emblema de Heroísmo
+102,Emblema de Valor
+103,Pontos de Arena
+104,Honor Points DEPRECATED
+121,Marca de Honra do Vale Alterac
+122,Marca de Honra da Bacia Arathi
+123,Marca de Honra do Olho da Tormenta
+124,Marca de Honra da Baía dos Ancestrais
+125,Marca de Honra da Ravina Brado Guerreiro
+126,Marca de Honra de Invérnia
+161,Lasca do Guardião de Pedra
+181,Honor Points DEPRECATED2
+201,Moeda da Empreendimentos S.A.
+221,Emblema da Conquista
+241,Selo do Campeão
+301,Emblema de Triunfo
+321,Marca de Honra da Ilha da Conquista
+341,Emblema de Gelo
+361,Ficha do Joalheiro Ilustre
+384,Fragmento de Arqueologia Enânica
+385,Fragmento de Arqueologia Troll
+391,Comenda de Tol Barad
+393,Fragmento de Arqueologia Fóssil
+394,Fragmento de Arqueologia Noctiélfico
+395,Pontos de Justiça
+396,Pontos de Bravura
+397,Fragmento de Arqueologia Orc
+398,Fragmento de Arqueologia Draenei
+399,Fragmento de Arqueologia Vrykul
+400,Fragmento de Arqueologia Nerubiana
+401,Fragmento de Arqueologia Tol'vir
+402,Ficha da Pata de Ferro
+416,Marca da Árvore do Mundo
+483,Meta de Dominação de Arena
+484,Dominação Meta do CB Ranqueado
+515,Cupom Premiado de Negraluna
+614,Partícula de Escuridão
+615,Essência do Asa da Morte Corrompido
+676,Fragmento de Arqueologia Pandaren
+677,Fragmento de Arqueologia Mogu
+692,Dominação Meta do CB Aleatório
+697,Antigo Amuleto de Boa Sorte
+698,Ficha do Joalheiro Zen
+738,Amuleto Menor de Boa Sorte
+752,Runa Mogu do Destino
+754,Fragmento Arqueológico Mantídeo
+776,Selo Forjado para a Guerra
+777,Moeda Perene
+789,Moeda Sangrenta
+810,Fragmento de Ferro Negro
+821,Fragmento de Arqueologia dos Clãs de Draenor
+823,Cristal Apexis
+824,Recursos da Guarnição
+828,Fragmento de Arqueologia Ôgrica
+829,Fragmento de Arqueologia Arakkoa
+830,N/D
+897,NÃO USADO
+910,Segreto de Alquimia Draenoriana
+944,Fragmento de Artefato
+980,Moedinhas de Ferro
+994,Selo do Destino Temperado
+999,Segredo da Alfaiataria Draenoriana
+1008,Segredo da Joalheria Draenoriana
+1017,Segredo da Couraria Draenoriana
+1020,Segredo da Ferraria Draenoriana
+1101,Latas de Óleo
+1129,Selo do Destino Inevitável
+1149,Olho Cego
+1154,Moedas Sombrias
+1155,Mana Ancestral
+1166,Insígnia Transtemporal
+1171,Conhecimento do Artefato
+1172,Fragmento de Arqueologia Altaneiro
+1173,Fragmento de Arqueologia Tauren Altamontês
+1174,Fragmento de Arqueologia Demoníaco
+1191,Bravura
+1220,Recursos da Ordem
+1226,Estiléter
+1268,Artefato Envelhecido
+1273,Selo do Destino Interrompido
+1275,Moeda Curiosa
+1299,Ouro dos Brigões
+1314,Fragmento de Alma Duradouro
+1324,Comenda da Horda em Qiraji
+1325,Comenda da Aliança em Qiraji
+1342,Suprimentos de Guerra da Queda da Legião
+1347,Legionfall Building - Personal Tracker - Mage Tower (Hidden)
+1349,Legionfall Building - Personal Tracker - Command Tower (Hidden)
+1350,Legionfall Building - Personal Tracker - Nether Tower (Hidden)
+1355,Vilessência
+1356,Ecos da Batalha
+1357,Ecos da Dominação
+1379,Ficha da Provação do Estilo
+1388,Sobras de Armadura
+1401,Suprimentos de Fortaleza
+1416,Moedas de Vento
+1501,Essência Retorcida
+1506,Pedra de Pórtico de Argus
+1508,Argunita Velada
+1533,Essência do Despertar
+1534,Fragmento de Arqueologia Zandalari
+1535,Fragmento de Arqueologia Drusto
+1540,Madeira
+1541,Ferro
+1553,Azerita
+1559,Essência das Tempestades
+1560,Recursos de Guerra
+1565,Fragmento de Azerita Abundante
+1579,Campeões de Azeroth
+1580,Selo do Destino Belicoso
+1585,Honra válida para a conta
+1586,Nível de Honra
+1587,Suprimentos de guerra
+1592,Ordem das Brasas
+1593,Almirantado Proudmore
+1594,Rastro da Tempestade
+1595,Expedição de Talanji
+1596,Voldunai
+1597,Império Zandalari
+1598,Peregrinos Tortollanos
+1599,7ª Legião
+1600,Brigada da Honra
+1602,Dominação
+1703,Moeda de Participação Ranqueada na Série de JxJ
+1704,Estilhaço de Espírito
+1705,Warfronts - Personal Tracker - Iron in Chest (Hidden)
+1710,Dobrão do Marinheiro
+1714,Warfronts - Personal Tracker - Wood in Chest (Hidden)
+1715,Estilhaço do Progenitor
+1716,Medalha de Serviço da Brigada da Honra
+1717,Medalha de Serviço da 7ª Legião
+1718,Resíduo Titânico
+1719,Lembranças Corrompidas
+1721,Pérola de Mana Prismática
+1722,Minério de Azerita
+1723,Lenha
+1728,Fantom
+1738,Libertos
+1739,Ankoanos
+1740,Resistência Ferrúgia (Oculta)
+1742,Resistência Ferrúgia
+1743,Ânima das Terras Sombrias
+1744,Lembrança Corrompida
+1745,Aliado de Nazjatar - Neri Pinafiada
+1746,Aliado de Nazjatar - Vim Salcárdio
+1747,Aliado de Nazjatar - Xablau Guelbraque
+1748,Aliado de Nazjatar - Espadachim Inowari
+1749,Aliado de Nazjatar - Caçador Akana
+1750,Aliado de Nazjatar - Clarividente Ori
+1752,Colmeia Meleira
+1754,Comenda Argêntea
+1755,Visões Aglutinantes
+1757,Acordo de Uldum
+1758,Rajani
+1761,Dano Inimigo
+1762,Vida Inimiga
+1763,Mortes
+1767,Estígia
+1769,"Experiência de Missão (Padrão, Escondida)"
+1792,Honra
+1794,Ânima Expiatória
+1802,Progresso da Recompensa Semanal JxJ de Shadowlands
+1803,Ecos de Ny'alotha
+1804,Ascendidos
+1805,Exército Imorredouro
+1806,Caçada Selvagem
+1807,Corte dos Ceifadores
+1808,Ânima Canalizada
+1810,Alma Redimida
+1811,zzoldSanctum Architect
+1812,zzoldSanctum Anima Weaver
+1813,Ânima-reserva
+1816,Fragmentos de Pedra de Pecado
+1819,Medalhão de Serviço
+1820,Rubi Imbuído
+1822,Renome
+1828,Cinzas d'Alma
+1829,Renome-Kyrianos
+1830,Renome-Venthyr
+1831,Renome-FeériosNoturnos
+1832,Renome-Necrolordes
+1835,Linked Currency Test (Src) - PTH
+1836,Linked Currency Test (Dst) - PTH
+1837,A Corte das Brasas
+1838,A Condessa
+1839,Rasgão e Cara-de-clava
+1840,Cabeça-de-pedra
+1841,Guardião da Cripta Kassir
+1842,Baronesa Vashj
+1843,Arquiteto da Peste Marileth
+1844,Grão-mestre Vole
+1845,Alexandros Mograine
+1846,Sika
+1847,Kleia e Pelagos
+1848,Polemarco Adrestes
+1849,Mikâniko
+1850,Xufa
+1851,Droman Aliothe
+1852,Capitã de Caça Korayn
+1853,Lady Lunamora
+1859,Ânima-reserva - Kyrianos
+1860,Ânima-reserva - Venthyr
+1861,Ânima-reserva - Feérios Noturnos
+1862,Ânima-reserva - Necrolordes
+1863,Alma Redimida - Kyrianos
+1864,Alma Redimida - Venthyr
+1865,Alma Redimida - Feérios Noturnos
+1866,Alma Redimida - Necrolordes
+1867,Arquiteto do Santuário - Kyrianos
+1868,Arquiteto do Santuário - Venthyr
+1869,Arquiteto do Santuário - Feérios Noturnos
+1870,Arquiteto do Santuário - Necrolordes
+1871,Tecelão de Ânima do Santuário - Kyrianos
+1872,Tecelão de Ânima do Santuário - Venthyr
+1873,Tecelão de Ânima do Santuário - Feérios Noturnos
+1874,Tecelão de Ânima do Santuário - Necrolordes
+1877,Bônus de experiência
+1878,Mestres-das-suturas
+1880,Ve'nari
+1883,Energia de Conduíte de Vínculo de Almas
+1884,Os Confessos
+1885,Oferenda Agradecida
+1887,Corte da Noite
+1888,Marasmius
+1889,Progresso na Campanha de Aventura
+1891,Honra no Ranqueado
+1902,9.1 - Torghast XP - Prototype - LJS
+1903,Recompensa Invisível
+1904,Saber da Torre
+1906,Borralhos d'Alma
+1907,Avanço da Morte
+1909,Thanator - Placar - Percentual de Finalização
+1910,Thanator - Placar - Percentual de Almas
+1911,Thanator - Placar - Percentual de Urnas
+1912,Thanator - Placar - Percentual de Embalo de Fogo
+1913,Thanator - Placar - Tempo Total
+1914,Thanator - Placar - Tempo Padrão
+1915,Thanator - Placar - Contagem de Excesso de Mortes
+1916,Thanator - Placar - Contagem de Mortes Iniciais
+1917,Thanator - Placar - Andar Alcançado
+1918,Torghast - Scoreboard - Toast Display - Time Score
+1919,Torghast - Scoreboard - Toast Display - Hot Streak Score
+1920,Torghast - Scoreboard - Toast Display - Deaths Excess Score
+1921,Torghast - Scoreboard - Toast Display - Total Score
+1922,Torghast - Scoreboard - Toast Display - Total Rewards
+1923,Torghast - Scoreboard - Toast Display - Bonus - Souls Rescued
+1924,Torghast - Scoreboard - Toast Display - Bonus - Urns Broken
+1925,Torghast - Scoreboard - Toast Display - Deaths Zero
+1926,Torghast - Scoreboard - Toast Display - Stars
+1931,Pesquisa Catalogada
+1932,Torghast - Scoreboard - Toast Display - Boss Killed
+1933,Torghast - Scoreboard - Toast Display - Bonus - Chests Opened
+1934,Torghast - Scoreboard - Toast Display - Bonus - Escorts Complete
+1935,Torghast - Scoreboard - Toast Display - Bonus - No Trap Damage
+1936,Torghast - Scoreboard - Toast Display - Bonus - Kill Boss Fast
+1937,Torghast - Scoreboard - Toast Display - Bonus - Single Stacks
+1938,Torghast - Scoreboard - Toast Display - Bonus - 5 Stacks
+1939,Torghast - Scoreboard - Toast Display - Bonus - Broker Killer
+1940,Torghast - Scoreboard - Toast Display - Bonus - Elite Slayer
+1941,Torghast - Scoreboard - Toast Display - Bonus - 1000 Phantasma
+1942,Torghast - Scoreboard - Toast Display - Bonus - 500 Phant Left
+1943,Torghast - Scoreboard - Toast Display - Bonus - No Deaths
+1944,Torghast - Scoreboard - Toast Display - Bonus - No Epics
+1945,Torghast - Scoreboard - Toast Display - Bonus - Elite Unnatural
+1946,Torghast - Scoreboard - Toast Display - Total Rewards - AV Bonus
+1947,Bônus de Bravura
+1948,Torghast - Scoreboard - Toast Display - Bonus - Kill Boss Faster
+1949,Torghast - Scoreboard - Toast Display - Bonus - 30+ Count
+1950,Torghast - Scoreboard - Toast Display - 1 Star Value
+1951,Torghast - Scoreboard - Toast Display - 2 Star Value
+1952,Torghast - Scoreboard - Toast Display - 3 Star Value
+1953,Torghast - Scoreboard - Toast Display - 4 Star Value
+1954,Torghast - Scoreboard - Toast Display - 5 Star Value
+1955,Torghast - Scoreboard - Toast Display - Points While Empowered
+1956,Torghast - Scoreboard - Toast Display - Points Empowered Score
+1957,Torghast - Scoreboard - Floor Clear Percent Floor 1
+1958,Torghast - Scoreboard - Floor Clear Percent Floor 2
+1959,Torghast - Scoreboard - Floor Clear Percent Floor 3
+1960,Torghast - Scoreboard - Floor Clear Percent Floor 4
+1961,Torghast - Scoreboard - Floor Empowered Percent Floor 1
+1962,Torghast - Scoreboard - Floor Empowered Percent Floor 2
+1963,Torghast - Scoreboard - Floor Empowered Percent Floor 3
+1964,Torghast - Scoreboard - Floor Empowered Percent Floor 4
+1965,Torghast - Scoreboard - Floor Time Floor 1
+1966,Torghast - Scoreboard - Floor Time Floor 2
+1967,Torghast - Scoreboard - Floor Time Floor 3
+1968,Torghast - Scoreboard - Floor Time Floor 4
+1969,Torghast - Scoreboard - Floor Par Time Floor 1
+1970,Torghast - Scoreboard - Floor Par Time Floor 2
+1971,Torghast - Scoreboard - Floor Par Time Floor 3
+1972,Torghast - Scoreboard - Floor Par Time Floor 4
+1976,Torghast - Scoreboard - Toast Display - Bonus - Phant Left Group
+1977,Brasa Estígia
+1980,Torghast - Scoreboard - Run Layer
+1981,Torghast - Scoreboard - Run ID
+1997,Códice dos Arquivistas
