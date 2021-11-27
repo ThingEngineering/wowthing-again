@@ -12,11 +12,11 @@ namespace Wowthing.Backend.Models.Redis
     public class RedisStaticCache
     {
         [JsonProperty(Order = 0)]
-        public SortedDictionary<int, OutCurrency> Currencies { get; set; }
+        public List<OutCurrency> CurrenciesRaw { get; set; }
         [JsonProperty(Order = 1)]
         public SortedDictionary<int, OutCurrencyCategory> CurrencyCategories { get; set; }
         [JsonProperty(Order = 2)]
-        public SortedDictionary<int, OutInstance> Instances { get; set; }
+        public List<OutInstance> InstancesRaw { get; set; }
         [JsonProperty(Order = 3)]
         public List<List<OutProgress>> Progress { get; set; }
         [JsonProperty(Order = 4)]
@@ -47,5 +47,6 @@ namespace Wowthing.Backend.Models.Redis
 
         [JsonProperty(Order = 100)]
         public Dictionary<int, OutRaiderIoScoreTiers> RaiderIoScoreTiers { get; set; }
+
     }
 }

@@ -3,7 +3,7 @@ import some from 'lodash/some'
 import {get} from 'svelte/store'
 
 import { difficultyMap } from '@/data/difficulty'
-import {Account, UserData, WritableFancyStore} from '@/types'
+import { Account, CharacterCurrency, UserData, WritableFancyStore } from '@/types'
 import initializeCharacter from '@/utils/initialize-character'
 
 
@@ -29,6 +29,13 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             for (const key of keys(character.lockouts)) {
                 allLockouts[key] = true
             }
+
+            character.currencies = {}
+            for (const rawCurrency of character.currenciesRaw) {
+                const obj = new CharacterCurrency(...rawCurrency)
+                character.currencies[obj.id] = obj
+            }
+            character.currenciesRaw = null
         }
 
         userData.allLockouts = []

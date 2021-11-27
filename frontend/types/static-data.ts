@@ -1,9 +1,14 @@
 import type { ZoneMapDataCategory } from '@/types/data'
 
+
 export interface StaticData {
     currencies: Record<number, StaticDataCurrency>
-    currencyCategories: Record<number, StaticDataCurrencyCategory>
+    currenciesRaw: StaticDataCurrencyArray[]
+
     instances: Record<number, StaticDataInstance>
+    instancesRaw: StaticDataInstanceArray[]
+
+    currencyCategories: Record<number, StaticDataCurrencyCategory>
     progress: StaticDataProgressCategory[][]
     realms: Record<number, StaticDataRealm>
     reputations: Record<number, StaticDataReputation>
@@ -24,14 +29,18 @@ export interface StaticData {
     raiderIoScoreTiers: Record<number, StaticDataRaiderIoScoreTiers>
 }
 
-export interface StaticDataCurrency {
-    id: number
-    categoryId: number
-    description: string
-    maxPerWeek: number
-    maxTotal: number
-    name: string
+export class StaticDataCurrency {
+    constructor(
+        public id: number,
+        public categoryId: number,
+        public maxPerWeek: number,
+        public maxTotal: number,
+        public name: string
+    )
+    { }
 }
+
+type StaticDataCurrencyArray = ConstructorParameters<typeof StaticDataCurrency>
 
 export interface StaticDataCurrencyCategory {
     id: number
@@ -39,12 +48,17 @@ export interface StaticDataCurrencyCategory {
     slug: string
 }
 
-export interface StaticDataInstance {
-    expansion: number
-    id: number
-    name: string
-    shortName: string
+export class StaticDataInstance {
+    constructor(
+        public id: number,
+        public expansion: number,
+        public name: string,
+        public shortName: string
+    )
+    { }
 }
+
+type StaticDataInstanceArray = ConstructorParameters<typeof StaticDataInstance>
 
 export interface StaticDataRealm {
     id: number

@@ -45,7 +45,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
-            Version = 23,
+            Version = 24,
         };
 
         public override async Task Run(params string[] data)
@@ -171,9 +171,9 @@ namespace Wowthing.Backend.Jobs.Misc
                 
                 var cacheData = new RedisStaticCache
                 {
-                    Currencies = currencies,
+                    CurrenciesRaw = currencies,
                     CurrencyCategories = currencyCategories,
-                    Instances = instances,
+                    InstancesRaw = instances,
                     RaiderIoScoreTiers = raiderIoScoreTiers ?? new Dictionary<int, OutRaiderIoScoreTiers>(),
                     Realms = realms,
                     Reputations = reputations,
@@ -225,10 +225,10 @@ namespace Wowthing.Backend.Jobs.Misc
             return categories;
         }
 
-        private static async Task<SortedDictionary<int, OutCurrency>> LoadCurrencies()
+        private static async Task<List<OutCurrency>> LoadCurrencies()
         {
             var types = await DataUtilities.LoadDumpCsvAsync<DumpCurrencyTypes>("currencytypes");
-            return new SortedDictionary<int, OutCurrency>(types.ToDictionary(k => k.ID, v => new OutCurrency(v)));
+            return types.Select(type => new OutCurrency(type)).ToList();
         }
 
         private static async Task<SortedDictionary<int, OutCurrencyCategory>> LoadCurrencyCategories()
@@ -248,7 +248,7 @@ namespace Wowthing.Backend.Jobs.Misc
             1, // Party Dungeon
             2, // Raid Dungeon
         };
-        private async Task<SortedDictionary<int, OutInstance>> LoadInstances()
+        private async Task<List<OutInstance>> LoadInstances()
         {
             var journalInstances = await DataUtilities.LoadDumpCsvAsync<DumpJournalInstance>("journalinstance");
             var mapIdToInstanceId = journalInstances
@@ -257,7 +257,7 @@ namespace Wowthing.Backend.Jobs.Misc
 
             var maps = await DataUtilities.LoadDumpCsvAsync<DumpMap>("map");
 
-            var sigh = new SortedDictionary<int, OutInstance>();
+            var sigh = new Dictionary<int, OutInstance>();
             foreach (var map in maps.Where(m => mapIdToInstanceId.ContainsKey(m.ID) && InstanceTypes.Contains(m.InstanceType)))
             {
                 if (mapIdToInstanceId.TryGetValue(map.ID, out int instanceId))
@@ -276,7 +276,7 @@ namespace Wowthing.Backend.Jobs.Misc
                     Logger.Information("No mapIdToInstanceId for {0}??", map.ID);
                 } 
             }
-            return sigh;
+            return sigh.Values.ToList();
         }
 
         private List<List<OutProgress>> LoadProgress()

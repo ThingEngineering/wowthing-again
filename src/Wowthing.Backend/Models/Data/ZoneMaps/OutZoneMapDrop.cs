@@ -14,7 +14,9 @@ namespace Wowthing.Backend.Models.Data.ZoneMaps
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public int? RequiredQuestId { get; set; }
         
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string[] Limit { get; set; }
+
         public string Name { get; set; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]

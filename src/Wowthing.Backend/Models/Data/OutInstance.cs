@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
+using Wowthing.Backend.Converters;
 
 namespace Wowthing.Backend.Models.Data
 {
+    [JsonConverter(typeof(OutInstanceConverter))]
     public class OutInstance
     {
         public int Expansion { get; set; }
