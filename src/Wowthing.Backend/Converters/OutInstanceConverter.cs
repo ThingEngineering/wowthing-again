@@ -1,20 +1,20 @@
 ﻿using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Wowthing.Backend.Models.Data.Achievements;
+using Wowthing.Backend.Models.Data;
 
 namespace Wowthing.Backend.Converters
 {
-    public class OutCriteriaConverter : JsonConverter
+    public class OutInstanceConverter : JsonConverter
     {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            var criteria = (OutCriteria) value;
+            var instance = (OutInstance) value;
             var arr = new JArray();
-            arr.Add(criteria.Id);
-            arr.Add(criteria.Asset);
-            arr.Add(criteria.ModifierTreeId);
-            arr.Add(criteria.Type);
+            arr.Add(instance.Id);
+            arr.Add(instance.Expansion);
+            arr.Add(instance.Name);
+            arr.Add(instance.ShortName);
             arr.WriteTo(writer);
         }
 
@@ -25,7 +25,7 @@ namespace Wowthing.Backend.Converters
 
         public override bool CanConvert(Type objectType)
         {
-            return typeof(OutCriteria) == objectType;
+            return typeof(OutInstance) == objectType;
         }
 
         public override bool CanRead => false;

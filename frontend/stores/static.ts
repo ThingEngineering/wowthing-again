@@ -2,7 +2,7 @@ import sortBy from 'lodash/sortBy'
 
 import { zoneMapStore } from './zone-map'
 import { extraInstanceMap } from '@/data/dungeon'
-import { WritableFancyStore } from '@/types'
+import { StaticDataCurrency, StaticDataInstance, WritableFancyStore } from '@/types'
 import type { StaticData, StaticDataSetCategory } from '@/types'
 
 
@@ -20,6 +20,20 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             name: 'Honkstrasza',
             slug: 'honkstrasza',
         }
+
+        data.currencies = {}
+        for (const currencyArray of data.currenciesRaw) {
+            const obj = new StaticDataCurrency(...currencyArray)
+            data.currencies[obj.id] = obj
+        }
+        data.currenciesRaw = null
+
+        data.instances = {}
+        for (const instanceArray of data.instancesRaw) {
+            const obj = new StaticDataInstance(...instanceArray)
+            data.instances[obj.id] = obj
+        }
+        data.instancesRaw = null
 
         for (const instanceId in extraInstanceMap) {
             data.instances[instanceId] = extraInstanceMap[instanceId]

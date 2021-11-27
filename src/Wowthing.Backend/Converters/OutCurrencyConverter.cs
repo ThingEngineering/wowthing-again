@@ -1,20 +1,21 @@
 ﻿using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Wowthing.Backend.Models.Data.Achievements;
+using Wowthing.Backend.Models.Data;
 
 namespace Wowthing.Backend.Converters
 {
-    public class OutCriteriaConverter : JsonConverter
+    public class OutCurrencyConverter : JsonConverter
     {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            var criteria = (OutCriteria) value;
+            var currency = (OutCurrency) value;
             var arr = new JArray();
-            arr.Add(criteria.Id);
-            arr.Add(criteria.Asset);
-            arr.Add(criteria.ModifierTreeId);
-            arr.Add(criteria.Type);
+            arr.Add(currency.Id);
+            arr.Add(currency.CategoryId);
+            arr.Add(currency.MaxPerWeek);
+            arr.Add(currency.MaxTotal);
+            arr.Add(currency.Name);
             arr.WriteTo(writer);
         }
 
@@ -25,7 +26,7 @@ namespace Wowthing.Backend.Converters
 
         public override bool CanConvert(Type objectType)
         {
-            return typeof(OutCriteria) == objectType;
+            return typeof(OutCurrency) == objectType;
         }
 
         public override bool CanRead => false;
