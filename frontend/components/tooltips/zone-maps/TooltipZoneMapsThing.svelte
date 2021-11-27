@@ -66,8 +66,9 @@
         width: 1.6rem;
     }
     .name {
-        padding-left: 0;
+        max-width: 16rem;
         overflow: hidden;
+        padding-left: 0;
         text-align: left;
         text-overflow: ellipsis;
         white-space: nowrap;
