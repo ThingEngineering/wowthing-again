@@ -11,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using StackExchange.Redis;
 using Wowthing.Lib.Contexts;
+using Wowthing.Lib.Enums;
 using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Player;
@@ -96,27 +97,28 @@ namespace Wowthing.Web.Controllers
                 return BadRequest();
             }
 
-            var itemQuery = _context.WowItem.AsQueryable();
+            var itemQuery = _context.LanguageString
+                .Where(ls => ls.Language == user.Settings.General.Language && ls.Type == StringType.WowItemName);
             foreach (string part in parts)
             {
                 // Alias to avoid variable capture bullshit
                 string temp = part;
-                itemQuery = itemQuery.Where(item => EF.Functions.ILike(item.Name, $"%{temp}%"));
+                itemQuery = itemQuery.Where(item => EF.Functions.ILike(item.String, $"%{temp}%"));
             }
 
             var items = await itemQuery
+                .Select(ls => new { ls.Id, ls.String })
                 .Distinct()
-                //.OrderByDescending(item => item.Id)
                 //.Take(100)
                 .ToArrayAsync();
 
             if (items.Length == 0)
             {
-                return Json(new string[] { });
+                return Json(Array.Empty<string>());
             }
 
             var itemIds = items.Select(item => item.Id).ToArray();
-            var itemMap = items.ToDictionary(item => item.Id, item => item.Name);
+            var itemMap = items.ToDictionary(item => item.Id, item => item.String);
 
             var characterItems = await _context.PlayerCharacterItem
                 .Where(pci => pci.Character.Account.UserId == user.Id)
@@ -144,23 +146,7 @@ namespace Wowthing.Web.Controllers
                 })
                 .OrderBy(item => item.ItemName)
                 .ToList();
-            
-            /*var results = await ItemSearchQuery.ExecuteAsync(_context, user.Id, itemIds);
-            var ret = results.GroupBy(result => result.ItemId)
-                .Select(group => new ItemSearchResponseItem
-                {
-                    ItemId = group.Key,
-                    ItemName = itemMap[group.Key],
-                    Characters = group.Select(result => new ItemSearchResponseCharacter
-                    {
-                        CharacterId = result.CharacterId,
-                        Count = result.Count,
-                        Location = result.Location,
-                    }).ToList()
-                })
-                .OrderBy(item => item.ItemName)
-                .ToList();*/
-            
+
             return Json(ret);
         }
 
@@ -202,19 +188,26 @@ namespace Wowthing.Web.Controllers
             });
         }
 
-        [HttpGet("{type:regex(^(achievement|static|transmog|zone-map)$)}.{hash:length(32)}.json")]
+        [HttpGet("{type:regex(^(achievement|static|transmog|zone-map)$)}-{languageCode:length(4)}.{hash:length(32)}.json")]
         [ResponseCache(Duration = 365 * 24 * 60 * 60, VaryByHeader = "Origin")]
-        public async Task<IActionResult> CachedJson([FromRoute] string type, [FromRoute] string hash)
+        public async Task<IActionResult> CachedJson([FromRoute] string type, [FromRoute] string languageCode, [FromRoute] string hash)
         {
             var db = _redis.GetDatabase();
 
-            string jsonHash = await db.StringGetAsync($"cache:{type}:hash");
-            if (hash != jsonHash)
+            if (!Enum.TryParse<Language>(languageCode, out var language))
             {
-                return RedirectToAction("CachedJson", new { type, hash = jsonHash });
+                language = Language.enUS;
             }
 
-            return Content(await db.StringGetAsync($"cache:{type}:data"), "application/json");
+            string key = type == "static" ? $"static-{language.ToString()}" : type;
+            
+            string jsonHash = await db.StringGetAsync($"cache:{key}:hash");
+            if (hash != jsonHash)
+            {
+                return RedirectToAction("CachedJson", new { type, languageCode, hash = jsonHash });
+            }
+
+            return Content(await db.StringGetAsync($"cache:{key}:data"), "application/json");
         }
 
         [HttpGet("team/{guid:guid}")]

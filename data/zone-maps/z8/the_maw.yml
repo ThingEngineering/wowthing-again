@@ -649,7 +649,7 @@ farms:
   type: eventBig
   drops:
   - type: mount
-    id: 184167
+    id: 312762
     name: Mawsworn Soulhunter
     requiredQuestId: 60285 # Rule 6: Concealment is Everything
 

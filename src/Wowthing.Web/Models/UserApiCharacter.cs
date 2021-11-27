@@ -39,7 +39,8 @@ namespace Wowthing.Web.Models
         public UserApiCharacterMythicPlus MythicPlus { get; }
         public PlayerCharacterMythicPlusAddon MythicPlusAddon { get; }
         public Dictionary<int, PlayerCharacterRaiderIoSeasonScores> RaiderIo { get; }
-        public Dictionary<int, int> Reputations { get; set; } = new Dictionary<int, int>();
+        public Dictionary<int, PlayerCharacterReputationsParagon> Paragons { get; }
+        public Dictionary<int, int> Reputations { get; } = new();
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public UserApiCharacterShadowlands Shadowlands { get; set; }
@@ -121,6 +122,8 @@ namespace Wowthing.Web.Models
                     RaiderIo = character.RaiderIo.Seasons;
                 }
             }
+
+            Paragons = character.Reputations?.Paragons ?? new Dictionary<int, PlayerCharacterReputationsParagon>();
 
             if (character.Reputations?.ReputationIds != null && character.Reputations?.ReputationValues != null)
             {

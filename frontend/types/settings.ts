@@ -1,9 +1,13 @@
+import type { Language } from '@/types/enums'
+
+
 export interface Settings {
     characters: {
         hiddenCharacters: number[]
     }
 
     general: {
+        language: Language
         refreshInterval: number
         useWowdb: boolean
         groupBy: string[]

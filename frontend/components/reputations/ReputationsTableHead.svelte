@@ -1,21 +1,12 @@
 <script lang="ts">
-    import tippy from '@/utils/tippy'
+    import { tippyComponent } from '@/utils/tippy'
 
-    import type { StaticDataReputationSet, TippyProps } from '@/types'
+    import type { StaticDataReputationSet } from '@/types'
 
-    import WowdbImage from '@/components/images/sources/WowdbImage.svelte'
+    import Tooltip from '@/components/tooltips/reputation-header/TooltipReputationHeader.svelte'
+    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let reputation: StaticDataReputationSet
-
-    let tooltip: TippyProps
-    $: {
-        tooltip = {
-            allowHTML: true,
-            content: reputation.both
-                ? reputation.both.name
-                : `[A] ${reputation.alliance.name}<br>[H] ${reputation.horde.name}`,
-        }
-    }
 </script>
 
 <style lang="scss">
@@ -30,8 +21,8 @@
     div {
         display: inline-block;
         position: relative;
-        height: 36px;
-        width: 36px;
+        height: 44px;
+        width: 44px;
     }
     .split-no {
         border: 2px solid lighten($border-color, 20%);
@@ -50,15 +41,32 @@
     }
 </style>
 
-<th use:tippy={tooltip}>
+<th
+    use:tippyComponent={{
+        component: Tooltip,
+        props: {reputation},
+    }}
+>
     {#if reputation.both}
         <div class="split-no">
-            <WowdbImage name={reputation.both.icon} size="medium" />
+            <WowthingImage
+                name={reputation.both.icon}
+                size={40}
+                border={2}
+            />
         </div>
     {:else}
         <div class="split-yes">
-            <WowdbImage name={reputation.alliance.icon} size="medium" />
-            <WowdbImage name={reputation.horde.icon} size="medium" />
+            <WowthingImage
+                name={reputation.alliance.icon}
+                size={40}
+                border={2}
+            />
+            <WowthingImage
+                name={reputation.horde.icon}
+                size={40}
+                border={2}
+            />
         </div>
     {/if}
 </th>

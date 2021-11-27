@@ -3,9 +3,11 @@
 
     import getAccountCharacters from '@/utils/get-account-characters'
     import { userStore } from '@/stores'
-    import { Region } from '@/types/enums'
+    import {data as settingsData} from '@/stores/settings'
+    import { Language, Region } from '@/types/enums'
 
-    import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
+    import Checkbox from '@/components/forms/CheckboxInput.svelte'
+    import Select from '@/components/forms/Select.svelte'
     import TextInput from '@/components/forms/TextInput.svelte'
 
     let apiKey = ''
@@ -91,7 +93,30 @@
 <div class="thing-container settings-container">
     <h2>Account</h2>
 
-    <h3>WoW Accounts</h3>
+    <h3>Language</h3>
+
+    <div class="setting">
+        <Select
+            name="general_language"
+            bind:selected={$settingsData.general.language}
+            options={[
+                [Language.deDE, '[deDE] Deutsch'],
+                [Language.enUS, '[enUS] English'],
+                [Language.esES, '[esES] Español (EU)'],
+                [Language.esMX, '[esMX] Español (Latino)'],
+                [Language.frFR, '[frFR] Français'],
+                [Language.itIT, '[itIT] Italiano'],
+                [Language.ptBR, '[ptBR] Português (Brasil)'],
+                [Language.ruRU, '[ruRU] Русский'],
+            ]}
+        />
+        <p>
+            <strong>NOTE:</strong> this is a very new feature and only used in some places,
+            work is ongoing. You will need to reload the page after changing this!
+        </p>
+    </div>
+
+    <h3 class="space-me">WoW Accounts</h3>
 
     <p>
         Tag is some short text that will display on the far left of character tables if
@@ -122,7 +147,7 @@
                         />
                     </td>
                     <td class="account-enabled">
-                        <CheckboxInput
+                        <Checkbox
                             name="account_enabled_${account.id}"
                             bind:value={account.enabled}
                         />

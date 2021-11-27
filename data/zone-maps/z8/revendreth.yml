@@ -20,7 +20,7 @@ farms:
   questId: 59584
   drops:
   - type: pet
-    id: 333796
+    id: 171119
     name: "Bound Lightspawn"
 
   - type: transmog

@@ -282,6 +282,38 @@ namespace Wowthing.Lib.Migrations
                     b.ToTable("asp_net_users");
                 });
 
+            modelBuilder.Entity("Wowthing.Lib.Models.LanguageString", b =>
+                {
+                    b.Property<short>("Language")
+                        .HasColumnType("smallint")
+                        .HasColumnName("language");
+
+                    b.Property<short>("Type")
+                        .HasColumnType("smallint")
+                        .HasColumnName("type");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    b.Property<string>("String")
+                        .HasColumnType("text")
+                        .HasColumnName("string");
+
+                    b.HasKey("Language", "Type", "Id")
+                        .HasName("pk_language_string");
+
+                    b.HasIndex("String")
+                        .HasDatabaseName("ix_language_string_string")
+                        .HasMethod("gin")
+                        .HasOperators(new[] { "gin_trgm_ops" });
+
+                    b.HasIndex("Language", "Type", "Id")
+                        .HasDatabaseName("ix_language_string_language_type_id");
+
+                    b.ToTable("language_string");
+                });
+
             modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerAccount", b =>
                 {
                     b.Property<int>("Id")
@@ -850,6 +882,10 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnType("integer[]")
                         .HasColumnName("extra_reputation_values");
 
+                    b.Property<Dictionary<int, PlayerCharacterReputationsParagon>>("Paragons")
+                        .HasColumnType("jsonb")
+                        .HasColumnName("paragons");
+
                     b.Property<List<int>>("ReputationIds")
                         .HasColumnType("integer[]")
                         .HasColumnName("reputation_ids");
@@ -1138,19 +1174,64 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnName("id")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("Name")
-                        .HasColumnType("text")
-                        .HasColumnName("name");
+                    b.Property<short>("ClassId")
+                        .HasColumnType("smallint")
+                        .HasColumnName("class_id");
+
+                    b.Property<int>("ClassMask")
+                        .HasColumnType("integer")
+                        .HasColumnName("class_mask");
+
+                    b.Property<short>("ContainerSlots")
+                        .HasColumnType("smallint")
+                        .HasColumnName("container_slots");
+
+                    b.Property<short>("InventoryType")
+                        .HasColumnType("smallint")
+                        .HasColumnName("inventory_type");
+
+                    b.Property<long>("RaceMask")
+                        .HasColumnType("bigint")
+                        .HasColumnName("race_mask");
+
+                    b.Property<int>("Stackable")
+                        .HasColumnType("integer")
+                        .HasColumnName("stackable");
+
+                    b.Property<short>("SubclassId")
+                        .HasColumnType("smallint")
+                        .HasColumnName("subclass_id");
 
                     b.HasKey("Id")
                         .HasName("pk_wow_item");
 
-                    b.HasIndex("Name")
-                        .HasDatabaseName("ix_wow_item_name")
-                        .HasMethod("gin")
-                        .HasOperators(new[] { "gin_trgm_ops" });
-
                     b.ToTable("wow_item");
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowMount", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("Flags")
+                        .HasColumnType("integer")
+                        .HasColumnName("flags");
+
+                    b.Property<short>("SourceType")
+                        .HasColumnType("smallint")
+                        .HasColumnName("source_type");
+
+                    b.Property<int>("SpellId")
+                        .HasColumnType("integer")
+                        .HasColumnName("spell_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_wow_mount");
+
+                    b.ToTable("wow_mount");
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowMythicPlusSeason", b =>
@@ -1191,6 +1272,40 @@ namespace Wowthing.Lib.Migrations
                         .HasName("pk_wow_period");
 
                     b.ToTable("wow_period");
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowPet", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("CreatureId")
+                        .HasColumnType("integer")
+                        .HasColumnName("creature_id");
+
+                    b.Property<int>("Flags")
+                        .HasColumnType("integer")
+                        .HasColumnName("flags");
+
+                    b.Property<short>("PetType")
+                        .HasColumnType("smallint")
+                        .HasColumnName("pet_type");
+
+                    b.Property<short>("SourceType")
+                        .HasColumnType("smallint")
+                        .HasColumnName("source_type");
+
+                    b.Property<int>("SpellId")
+                        .HasColumnType("integer")
+                        .HasColumnName("spell_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_wow_pet");
+
+                    b.ToTable("wow_pet");
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowRealm", b =>
@@ -1285,6 +1400,32 @@ namespace Wowthing.Lib.Migrations
                         .HasName("pk_wow_title");
 
                     b.ToTable("wow_title");
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowToy", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("Flags")
+                        .HasColumnType("integer")
+                        .HasColumnName("flags");
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("integer")
+                        .HasColumnName("item_id");
+
+                    b.Property<short>("SourceType")
+                        .HasColumnType("smallint")
+                        .HasColumnName("source_type");
+
+                    b.HasKey("Id")
+                        .HasName("pk_wow_toy");
+
+                    b.ToTable("wow_toy");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<long>", b =>

@@ -14,7 +14,7 @@
     import Sidebar from './AppHomeSidebar.svelte'
 
     onMount(async () => await Promise.all([
-        staticStore.fetch(),
+        staticStore.fetch(undefined, $settings.general.language),
         transmogStore.fetch(),
         userCollectionStore.fetch(),
         userStore.fetch(),

@@ -7,7 +7,7 @@ farms:
 - name: "Commander Endaxis"
   location: 45.0 58.8
   npcId: 124775
-  questId: 0
+  questId: 48564
   drops:
   - &world-defilers-1
     type: transmog
@@ -65,7 +65,7 @@ farms:
 - name: "Commander Vecaya"
   location: 39.6 58.8
   npcId: 122911
-  questId: 0
+  questId: 48563
   drops:
   - *world-defilers-1
   - *world-defilers-2
@@ -84,7 +84,7 @@ farms:
 - name: "Khazaduum"
   location: 50.3 17.3
   npcId: 125824
-  questId: 0
+  questId: 48561
   drops:
   - *world-defilers-1
   - *world-defilers-2
@@ -133,7 +133,7 @@ farms:
 - name: "Sister Subversia"
   location: 52.8 31.0
   npcId: 123464
-  questId: 0
+  questId: 48565
   drops:
   - type: toy
     id: 153124
@@ -142,7 +142,7 @@ farms:
 - name: "Talestra the Vile"
   location: 55.4 80.4
   npcId: 123689
-  questId: 0
+  questId: 48628
   drops:
   - *world-defilers-1
   - *world-defilers-2
@@ -161,7 +161,7 @@ farms:
 - name: "Tereck the Selector"
   location: 69.6 56.8
   npcId: 124804
-  questId: 0
+  questId: 48664
   drops:
   - *world-defilers-1
   - *world-defilers-2

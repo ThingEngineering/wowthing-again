@@ -40,7 +40,7 @@
         DataReputationTiersIndex,
         DataTitleIndex,
         CacheTransmog,
-        CacheZoneMaps,
-        ImportItems,
+        //CacheZoneMaps,
+        ImportDumps = 1013,
     }
 }

@@ -1,3 +1,5 @@
+import type { ZoneMapDataCategory } from '@/types/data'
+
 export interface StaticData {
     currencies: Record<number, StaticDataCurrency>
     currencyCategories: Record<number, StaticDataCurrencyCategory>
@@ -16,6 +18,8 @@ export interface StaticData {
     reputationSets: StaticDataReputationCategory[]
 
     toySets: StaticDataSetCategory[][]
+
+    zoneMapSets: ZoneMapDataCategory[][]
 
     raiderIoScoreTiers: Record<number, StaticDataRaiderIoScoreTiers>
 }
@@ -103,6 +107,13 @@ export interface StaticDataReputationReputation {
     name: string
     icon: string
     note: string
+    rewards: StaticDataReputationReward[]
+}
+
+export interface StaticDataReputationReward {
+    id: number
+    name: string
+    type: string
 }
 
 // Sets

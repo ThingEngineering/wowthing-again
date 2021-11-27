@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System;
+using System.Linq;
+using Newtonsoft.Json;
 
 namespace Wowthing.Backend.Models.Data.ZoneMaps
 {
@@ -7,7 +9,7 @@ namespace Wowthing.Backend.Models.Data.ZoneMaps
         public int Id { get; set; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public int? QuestId { get; set; }
+        public int[] QuestIds { get; set; }
         
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public int? RequiredQuestId { get; set; }
@@ -36,9 +38,12 @@ namespace Wowthing.Backend.Models.Data.ZoneMaps
                 Note = drop.Note;
             }
 
-            if (drop.QuestId > 0)
+            if (!string.IsNullOrWhiteSpace(drop.QuestId))
             {
-                QuestId = drop.QuestId;
+                QuestIds = drop.QuestId
+                    .Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                    .Select(int.Parse)
+                    .ToArray();
             }
             
             if (drop.RequiredQuestId > 0)

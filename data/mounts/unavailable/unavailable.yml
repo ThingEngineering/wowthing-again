@@ -53,11 +53,6 @@ groups:
   - 253639 # Violet Spellwing (Blood of a Titan - kill Argus)
   - 274610 272472 # Teldrassil Hippogryph/Undercity Plaguebat (Burning of Teldrassil)
 
-- name: Battle for Azeroth
-  things:
-  - 316637 # Awakened Mindborer (Battle for Azeroth Keystone Master: Season Four)
-  - 289639 # Bruce (Brawler's Guild questline)
-
 - name: Shadowlands
   things:
   - 340068 # Sintouched Deathwalker (Shadowlands Keystone Master: Season One)
@@ -80,3 +75,4 @@ groups:
   - 107516 107517 # Spectral Gryphon/Spectral Wind Rider (Scroll of Resurrection)
   - 245723 245725 # Stormwind Skychaser/Orgrimmar Interceptor (Blizzcon 2017)
   - 107203 # Tyrael's Charger (Annual Pass)
+  - 294197 # Obsidian Worldbreaker (15th anniversary event)

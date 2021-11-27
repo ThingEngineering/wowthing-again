@@ -3,4 +3,6 @@ groups:
 
 - name: "Unavailable"
   things:
+  - 316637 # Awakened Mindborer (Battle for Azeroth Keystone Master: Season Four)
+  - 289639 # Bruce (Brawler's Guild questline)
   - 264058 # Mighty Caravan Brutosaur (? unavailable)

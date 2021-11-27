@@ -6,6 +6,9 @@ export abstract class Constants {
     static readonly restedDuration: number = 10 * 24 * 60 * 60 // 10 days
 
     static readonly icons = {
+        alliance: 'achievement/13467', // Tides of Vengeance
+        horde: 'achievement/13466', // Tides of Vengeance
+
         enchant: 'spell/7411', // Enchanting
         gem: 'spell/25229', // Jewelcrafting
         resting: 'spell/140430', // Passed Out

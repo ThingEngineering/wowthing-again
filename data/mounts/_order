@@ -51,8 +51,7 @@ professions.yml
 
 pvp/_pvp.yml
     pvp/honor.yml
-    pvp/vendors.yml
-    unavailable/arena.yml Unavailable
+    unavailable/arena.yml >Unavailable
 
 world_events/_blank.yml
     world_events/world_events.yml

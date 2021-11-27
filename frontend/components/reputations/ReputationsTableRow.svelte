@@ -1,7 +1,7 @@
 <script lang="ts">
     import { staticStore } from '@/stores/static'
     import type {
-        Character,
+        Character, CharacterReputationParagon,
         ReputationTier,
         StaticDataReputation,
         StaticDataReputationReputation,
@@ -18,6 +18,7 @@
     export let reputation: StaticDataReputationSet
 
     let characterRep: number | undefined
+    let paragon: CharacterReputationParagon
     let repInfo: StaticDataReputationReputation
     let repTier: ReputationTier
 
@@ -30,6 +31,18 @@
             if (characterRep !== undefined && dataRep !== undefined) {
                 const tiers: StaticDataReputationTier = $staticStore.data.reputationTiers[dataRep.tierId] || $staticStore.data.reputationTiers[0]
                 repTier = findReputationTier(tiers, characterRep)
+
+                if (reputation.paragon && repTier.maxValue === 0) {
+                    paragon = character.paragons?.[repInfo.id]
+                    if (paragon) {
+                        if (paragon.rewardAvailable) {
+                            repTier.percent = 'BOX'
+                        }
+                        else {
+                            repTier.percent = ((paragon.current / paragon.max) * 100).toFixed(1)
+                        }
+                    }
+                }
             }
         }
     }
@@ -43,8 +56,23 @@
 </style>
 
 {#if characterRep !== undefined}
-    <td class="reputation{repTier.Tier}" class:alt use:tippyComponent={{component: TooltipReputation, props: {characterRep, reputation: repInfo}}}>
-        {repTier.Percent}%
+    <td
+        class="reputation{repTier.tier}"
+        class:alt
+        use:tippyComponent={{
+            component: TooltipReputation,
+            props: {characterRep, reputation: repInfo, paragon}
+        }}
+    >
+        {#if paragon}
+            {#if paragon.rewardAvailable}
+                <span class="status-fail">BOX!</span>
+            {:else}
+                {repTier.percent}%
+            {/if}
+        {:else}
+            {repTier.percent}%
+        {/if}
     </td>
 {:else}
     <td class:alt>&nbsp;</td>
