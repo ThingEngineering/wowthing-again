@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.CodeAnalysis;
 using Newtonsoft.Json;
+using Wowthing.Backend.Converters;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Models;
@@ -33,7 +35,7 @@ namespace Wowthing.Web.Models
         public WowGender Gender { get; set; }
         public WowMountSkill MountSkill { get; set; }
 
-        public Dictionary<short, UserApiCharacterCurrency> Currencies { get; }
+        public List<UserApiCharacterCurrency> CurrenciesRaw { get; }
         public Dictionary<int, UserApiCharacterEquippedItem> EquippedItems { get; set; } = new Dictionary<int, UserApiCharacterEquippedItem>();
         public Dictionary<string, PlayerCharacterLockoutsLockout> Lockouts { get; }
         public UserApiCharacterMythicPlus MythicPlus { get; }
@@ -81,10 +83,10 @@ namespace Wowthing.Web.Models
                 PlayedTotal = character.PlayedTotal;
                 RestedExperience = character.RestedExperience;
                 
-                Currencies = character.Currencies
+                CurrenciesRaw = character.Currencies
                     .EmptyIfNull()
                     .Select(pcc => new UserApiCharacterCurrency(pcc))
-                    .ToDictionary(uacc => uacc.Id);
+                    .ToList();
             }
 
             if (character.EquippedItems?.Items != null)
@@ -144,6 +146,7 @@ namespace Wowthing.Web.Models
         }
     }
 
+    [JsonConverter(typeof(UserApiCharacterCurrencyConverter))]
     public class UserApiCharacterCurrency
     {
         public int Quantity { get; set; }

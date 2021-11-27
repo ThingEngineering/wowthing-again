@@ -26,9 +26,10 @@ export interface Character {
     // Calculated
     calculatedItemLevel: string
     calculatedItemLevelQuality: number
+    currencies: Record<number, CharacterCurrency>
     realm: StaticDataRealm
 
-    currencies: Record<number, CharacterCurrency>
+    currenciesRaw: CharacterCurrencyArray[]
     equippedItems: Record<number, CharacterEquippedItem>
     lockouts: Record<string, CharacterLockout>
     mythicPlus: CharacterMythicPlus
@@ -40,17 +41,21 @@ export interface Character {
     weekly?: CharacterWeekly
 }
 
-export interface CharacterCurrency {
-    id: number
-
-    quantity: number
-    max: number
-    weekQuantity: number
-    weekMax: number
-    totalQuantity: number
-    isWeekly: boolean
-    isMovingMax: boolean
+export class CharacterCurrency {
+    constructor(
+        public id: number,
+        public quantity: number,
+        public max: number,
+        public weekQuantity: number,
+        public weekMax: number,
+        public totalQuantity: number,
+        public isWeekly: boolean,
+        public isMovingMax: boolean
+    )
+    { }
 }
+
+type CharacterCurrencyArray = ConstructorParameters<typeof CharacterCurrency>
 
 export interface CharacterEquippedItem {
     context: number
