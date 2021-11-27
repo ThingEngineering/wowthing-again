@@ -1,5 +1,6 @@
 <script lang="ts">
     import { data as settingsData } from '@/stores/settings'
+    import { getWowheadDomain } from '@/utils/get-wowhead-domain'
 
     export let id: number
 
@@ -9,7 +10,7 @@
             url = `https://www.wowdb.com/spells/${id}`
         }
         else {
-            url = `https://www.wowhead.com/spell=${id}`
+            url = `https://${getWowheadDomain($settingsData.general.language)}.wowhead.com/spell=${id}`
         }
     }
 </script>
