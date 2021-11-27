@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Wowthing.Lib.Enums;
 using Wowthing.Lib.Extensions;
 
 #nullable enable
@@ -162,6 +163,7 @@ namespace Wowthing.Lib.Models
     
     public class ApplicationUserSettingsGeneral
     {
+        public Language Language { get; set; } = Language.enUS;
         public int RefreshInterval { get; set; } = 0;
         public bool UseWowdb { get; set; } = false;
 

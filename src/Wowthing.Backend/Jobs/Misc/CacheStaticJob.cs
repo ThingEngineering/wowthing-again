@@ -34,6 +34,9 @@ namespace Wowthing.Backend.Jobs.Misc
         private Dictionary<int, WowPet> _petMap;
         private Dictionary<int, WowToy> _toyMap;
 
+        private Dictionary<Language, Dictionary<int, (int, string)>> _creatureToPet = new();
+        private Dictionary<Language, Dictionary<int, (int, string)>> _spellToMount = new();
+
         private Dictionary<(StringType Type, Language Language, int Id), string> _stringMap;
 
         public static readonly ScheduledJob Schedule = new ScheduledJob
@@ -86,6 +89,19 @@ namespace Wowthing.Backend.Jobs.Misc
                 .ToDictionaryAsync(ls => (ls.Type, ls.Language, ls.Id), ls => ls.String);
             
             _timer.AddPoint("Database");
+
+            foreach (var language in Enum.GetValues<Language>())
+            {
+                _creatureToPet[language] = _petMap.Values.ToDictionary(
+                    pet => pet.CreatureId,
+                    pet => (pet.Id, _stringMap.GetValueOrDefault((StringType.WowCreatureName, language, pet.CreatureId), "???"))
+                );
+                
+                _spellToMount[language] = _mountMap.Values.ToDictionary(
+                    mount => mount.SpellId,
+                    mount => (mount.Id, _stringMap.GetValueOrDefault((StringType.WowMountName, language, mount.Id), "???"))
+                );
+            }
         }
         
         #region Static data
@@ -107,21 +123,12 @@ namespace Wowthing.Backend.Jobs.Misc
 
             // Mounts
             var mountSets = LoadSets("mounts");
-            var spellToMount = _mountMap.Values.ToDictionary(
-                mount => mount.SpellId,
-                mount => (mount.Id, _stringMap.GetValueOrDefault((StringType.WowMountName, Language.enUS, mount.Id), "???"))
-            );
-            AddUncategorized("mounts", spellToMount, mountSets);
+            AddUncategorized("mounts", _spellToMount[Language.enUS], mountSets);
             _timer.AddPoint("Mounts");
 
             // Pets
             var petSets = LoadSets("pets");
-            var creatureToPet = _petMap.Values.ToDictionary(
-                pet => pet.CreatureId,
-                pet => (pet.Id,
-                    _stringMap.GetValueOrDefault((StringType.WowCreatureName, Language.enUS, pet.CreatureId), "???"))
-            );
-            AddUncategorized("pets", creatureToPet, petSets);
+            AddUncategorized("pets", _creatureToPet[Language.enUS], petSets);
             _timer.AddPoint("Pets");
 
             var progress = LoadProgress();
@@ -147,34 +154,37 @@ namespace Wowthing.Backend.Jobs.Misc
             _timer.AddPoint("Database");
 
             // Ok we're done
+            var sortedSpellToMount = new SortedDictionary<int, int>(_spellToMount[Language.enUS].ToDictionary(k => k.Key, v => v.Value.Item1));
+            var sortedCreatureToPet = new SortedDictionary<int, int>(_creatureToPet[Language.enUS].ToDictionary(k => k.Key, v => v.Value.Item1));
+            
             var cacheData = new RedisStaticCache
             {
                 Currencies = currencies,
                 CurrencyCategories = currencyCategories,
                 Instances = instances,
+                RaiderIoScoreTiers = raiderIoScoreTiers ?? new Dictionary<int, OutRaiderIoScoreTiers>(),
                 Realms = realms,
                 Reputations = reputations,
                 ReputationTiers = reputationTiers,
 
+                CreatureToPet = sortedCreatureToPet,
+                SpellToMount = sortedSpellToMount,
+
                 MountSets = FinalizeCollections(mountSets),
-                SpellToMount = new SortedDictionary<int, int>(spellToMount.ToDictionary(k => k.Key, v => v.Value.Item1)),
-
-                CreatureToPet = new SortedDictionary<int, int>(creatureToPet.ToDictionary(k => k.Key, v => v.Value.Item1)),
                 PetSets = FinalizeCollections(petSets),
-
-                Progress = progress,
-                
-                ReputationSets = reputationSets,
-
                 ToySets = FinalizeCollections(toySets),
 
-                RaiderIoScoreTiers = raiderIoScoreTiers ?? new Dictionary<int, OutRaiderIoScoreTiers>(),
+                Progress = progress,
+                ReputationSets = reputationSets,
             };
-            var cacheJson = JsonConvert.SerializeObject(cacheData);
-            var cacheHash = cacheJson.Md5();
-            _timer.AddPoint("JSON");
 
-            await db.SetCacheDataAndHash("static", cacheJson, cacheHash);
+            foreach (var language in Enum.GetValues<Language>())
+            {
+                var cacheJson = JsonConvert.SerializeObject(cacheData);
+                var cacheHash = cacheJson.Md5();
+                await db.SetCacheDataAndHash($"static-{language.ToString()}", cacheJson, cacheHash);
+            }
+            
             _timer.AddPoint("Cache", true);
         }
 

@@ -189,19 +189,26 @@ namespace Wowthing.Web.Controllers
             });
         }
 
-        [HttpGet("{type:regex(^(achievement|static|transmog|zone-map)$)}.{hash:length(32)}.json")]
+        [HttpGet("{type:regex(^(achievement|static|transmog|zone-map)$)}-{language:length(4)}.{hash:length(32)}.json")]
         [ResponseCache(Duration = 365 * 24 * 60 * 60, VaryByHeader = "Origin")]
-        public async Task<IActionResult> CachedJson([FromRoute] string type, [FromRoute] string hash)
+        public async Task<IActionResult> CachedJson([FromRoute] string type, [FromRoute] string languageCode, [FromRoute] string hash)
         {
             var db = _redis.GetDatabase();
 
-            string jsonHash = await db.StringGetAsync($"cache:{type}:hash");
-            if (hash != jsonHash)
+            if (!Enum.TryParse<Language>(languageCode, out var language))
             {
-                return RedirectToAction("CachedJson", new { type, hash = jsonHash });
+                language = Language.enUS;
             }
 
-            return Content(await db.StringGetAsync($"cache:{type}:data"), "application/json");
+            string key = type == "static" ? $"static-{language.ToString()}" : type;
+            
+            string jsonHash = await db.StringGetAsync($"cache:{key}:hash");
+            if (hash != jsonHash)
+            {
+                return RedirectToAction("CachedJson", new { type, languageCode, hash = jsonHash });
+            }
+
+            return Content(await db.StringGetAsync($"cache:{key}:data"), "application/json");
         }
 
         [HttpGet("team/{guid:guid}")]

@@ -1,6 +1,7 @@
 import { get, writable } from 'svelte/store'
 import type { Writable } from 'svelte/store'
 
+import { Language } from '@/types/enums'
 import fetchJson from '@/utils/fetch-json'
 
 
@@ -25,12 +26,12 @@ export class WritableFancyStore<TData> {
         }))
     }
 
-    async fetch(ifNotLoaded = true): Promise<void> {
+    async fetch(ifNotLoaded = true, language = Language.enUS): Promise<void> {
         if (ifNotLoaded && get(this).loaded) {
             return
         }
 
-        const url = this.dataUrl
+        const url = this.dataUrl.replace('zzZZ', Language[language])
         if (!url) {
             this.update(state => {
                 state.error = true
