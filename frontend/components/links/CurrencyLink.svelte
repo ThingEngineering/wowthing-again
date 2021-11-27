@@ -1,5 +1,6 @@
 <script lang="ts">
     import { data as settingsData } from '@/stores/settings'
+    import { getWowheadDomain } from '@/utils/get-wowhead-domain'
 
     export let id: number
 
@@ -9,7 +10,7 @@
             url = `https://www.wowdb.com/currencies/${id}`
         }
         else {
-            url = `https://www.wowhead.com/currency=${id}`
+            url = `https://${getWowheadDomain($settingsData.general.language)}.wowhead.com/currency=${id}`
         }
     }
 </script>

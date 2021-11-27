@@ -1,5 +1,6 @@
 <script lang="ts">
     import { data as settingsData } from '@/stores/settings'
+    import { getWowheadDomain } from '@/utils/get-wowhead-domain'
 
     export let id: number
     export let bonusIds: number[] = []
@@ -14,7 +15,7 @@
             }
         }
         else {
-            url = `https://www.wowhead.com/item=${id}`
+            url = `https://${getWowheadDomain($settingsData.general.language)}.wowhead.com/item=${id}`
         }
 
         // attach params
