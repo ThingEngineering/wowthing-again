@@ -23,7 +23,7 @@
         if (set.paragon) {
             totalParagon = $userStore.data.characters
                 .reduce(
-                    (a: Character, b: Character) => a + (b.paragons?.[reputation.id]?.received ?? 0),
+                    (a: number, b: Character) => a + (b.paragons?.[reputation.id]?.received ?? 0),
                     0
                 )
 

@@ -1,7 +1,6 @@
 <script lang="ts">
-    import { userStore } from '@/stores'
     import { Faction } from '@/types/enums'
-    import type { Character, StaticDataReputationSet } from '@/types'
+    import type { StaticDataReputationSet } from '@/types'
 
     import Entry from './TooltipReputationHeaderEntry.svelte'
 
