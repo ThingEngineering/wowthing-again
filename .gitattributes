@@ -1,3 +1,2 @@
 *.cmd   eol=crlf
 *.sh    eol=lf
-*.csv filter=lfs diff=lfs merge=lfs -text

@@ -1,3 +1,649 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:abed8e1dad64ce57eebe79e145f1f6cd39725cfbffa9392af221489270a7d190
-size 18024
+ID,Description_lang
+2,Maintenant avec description
+20,Saison 10
+226,Saison 10 élite
+525,Saison 9 élite
+653,Saison 9
+1013,Saison 11
+1208,Saison 11 élite
+1591,Saison 19
+1593,Cette couleur pique les yeux
+1641,Outil Raids
+2015,Héroïque
+2023,Saison 10 élite
+2255,Saison 12
+2667,Saison 12 élite
+3564,
+3759,Matériaux d’artisanat
+3765,Sac de 100 emplacements
+3845,Héroïque élite
+3859,Elite
+3933,Saison 13
+3934,Saison 13 élite
+4918,Rang 1
+4949,Rang 2
+4953,Rang 3
+4957,Rang 4
+4961,Rang 5
+4965,Rang 7
+4969,Rang 8
+4970,Rang 6
+5213,Objet de scénario
+5616,Foudroyant
+6360,Foudroyant héroïque
+6798,Rang 9
+6842,Rang ??
+6843,Saison 8
+6894,Saison 8 élite
+7052,Saison 7
+7225,Saison 7 élite
+7261,Saison 6
+7434,Saison 6 élite
+7463,Saison 5
+7636,Saison 4
+7775,Saison 3
+7906,Saison 2
+8027,Saison 1
+8869,Dynamique
+9059,Saison 14
+9459,Saison 14 élite
+10066,Foudroyant héroïque
+10126,Saison 15
+10520,Saison 15 élite
+11080,Intemporel
+11179,De guerre héroïque
+11428,De guerre
+12743,Trophée
+12790,En parfait état
+12934,Ingrédient d’alchimie
+13021,Matériaux d’artisanat
+13111,de puissance
+13145,Mythique
+13149,Matériau d’ingénierie
+13150,de l’éclair de feu
+13151,du sans égal
+13152,de la prestelame
+13153,du sauvage
+13154,du fanatique
+13155,du fourbe
+13156,de la poussée de fièvre
+13157,de l’aurore
+13158,de l’habile
+13159,du zélote
+13160,du sculpte-vent
+13161,de l’harmonieux
+13162,de l’impitoyable
+13163,du devin
+13164,du noble
+13165,du stratège
+13166,de l’augure
+13167,du vaillant
+13168,du héraut
+13169,du brise-tempête
+13170,de l’impatient
+13171,du savant
+13172,de l’adaptable
+13173,de l’implacable
+13174,du pieux
+13175,de l’incassable
+13176,du décimateur
+13178,Tournoi de Warlords
+13181,Ingrédient culinaire
+13184,Composant d’artisanat
+13185,Étape 2 sur 6
+13186,Étape 3 sur 6
+13187,Étape 1 sur 6
+13188,De guerre mythique
+13190,Équipement de sujet
+13191,Ressource de fief
+13192,Pièce pour comptoir
+13193,Normal
+13194,Module pour comptoir
+13195,En parfait état
+13196,Saison 1 de Warlords
+13197,Jeton JcJ de race
+13198,Saison 1 de Warlords élite
+13201,Palier 0
+13202,Palier 1 - Sacré
+13203,Palier 1 - Feu
+13204,Palier 1 - Corrompu
+13205,Palier 2 - Sacré
+13206,Palier 2 - Feu
+13207,Palier 2 - Corrompu
+13208,Étape 4 sur 6
+13209,Plan de fief
+13210,Marcheur du temps
+13211,Saison 2 de Warlords
+13212,Saison 2 de Warlords élite
+13213,Saison 3 de Warlords
+13214,Saison 3 de Warlords élite
+13215,Voler à la tire
+13216,Distordu dans le temps
+13217,Étape 5 sur 6
+13218,Étape 6 sur 6
+13219,Puissance prodigieuse
+13220,De guerre distordu dans le temps
+13222,Surpuissant
+13223,Mana ancestral
+13224,Équipement naval
+13225,Torve
+13226,Saison 1 de Legion
+13227,Saison 1 de Legion élite
+13228,Équipement de champion
+13230,Étape 1 sur 9
+13231,Étape 2 sur 9
+13232,Étape 3 sur 9
+13233,Étape 4 sur 9
+13234,Étape 5 sur 9
+13235,Étape 6 sur 9
+13236,Étape 7 sur 9
+13237,Étape 8 sur 9
+13238,Étape 9 sur 9
+13239,Forgé par les Titans
+13241,Fureur d’Odyn
+13242,Courroux de Helya
+13243,Fauche-Givre
+13244,Porte-Givre
+13245,Verus
+13246,Muramas
+13247,Al’burq
+13248,Alra’ed
+13249,Angoisse
+13250,Chagrin
+13251,Destin
+13252,Fortune
+13253,Croquetripe
+13254,Volonté d’Akaari
+13256,Oblitérium : 0/10
+13257,Oblitérium : 1/10
+13258,Oblitérium : 2/10
+13259,Oblitérium : 3/10
+13260,Oblitérium : 4/10
+13261,Oblitérium : 5/10
+13262,Oblitérium : 6/10
+13263,Oblitérium : 7/10
+13264,Peut être incinéré
+13265,Mythique 2
+13266,Mythique 3
+13267,Mythique 4
+13268,Mythique 5
+13269,Mythique 6
+13270,Mythique 7
+13271,Mythique 8
+13272,Mythique 9
+13273,Mythique 10
+13274,Gros lot mythique 2
+13275,Gros lot mythique 3
+13276,Gros lot mythique 4
+13277,Gros lot mythique 5
+13278,Gros lot mythique 6
+13279,Gros lot mythique 7
+13280,Gros lot mythique 8
+13281,Gros lot mythique 9
+13282,Oblitérium : 8/10
+13284,Vétéran
+13285,Oblitérium : 9/10
+13286,Oblitérium : 10/10
+13287,Saison 2 de Legion
+13288,Saison 2 de Legion élite
+13289,Mythique 11
+13290,Mythique 12
+13291,Normal à 25
+13292,Héroïque à 25
+13293,Normal à 10
+13294,Rang 8
+13295,Saison 3 de Legion
+13296,Saison 3 de Legion élite
+13297,Saison 4 de Legion
+13298,Saison 4 de Legion élite
+13299,Saison 5 de Legion
+13300,Saison 5 de Legion élite
+13301,Gladiateur
+13302,Combattant I
+13303,Aspirant
+13304,Honneur
+13305,Puits de soleil
+13306,JcJ rare
+13307,JcJ épique
+13308,Mythique 13
+13309,Mythique 14
+13310,Mythique 15
+13311,Saison 6 de Legion
+13312,Saison 7 de Legion
+13313,Saison 6 de Legion élite
+13314,Saison 7 de Legion élite
+13315,Saisons 1 et 2 de Legion
+13316,Saisons 1 et 2 de Legion élite
+13317,Saisons 3 et 4 de Legion
+13318,Saisons 3 et 4 de Legion élite
+13319,Objet d’artisanat
+13320,Délaissé
+13321,Déterminé
+13322,Oblitérium primordial : 0/10
+13323,Oblitérium primordial : 1/10
+13324,Oblitérium primordial : 2/10
+13325,Oblitérium primordial : 3/10
+13326,Oblitérium primordial : 4/10
+13327,Oblitérium primordial : 5/10
+13328,Oblitérium primordial : 6/10
+13329,Oblitérium primordial : 7/10
+13330,Oblitérium primordial : 8/10
+13331,Oblitérium primordial : 9/10
+13332,Oblitérium primordial : 10/10
+13333,Shatug
+13334,F’harg
+13335,"Saisons 5, 6 et 7 de Legion"
+13336,"Saisons 5, 6 et 7 de Legion élite"
+13337,Confisqué
+13338,Non souillé
+13339,Non souillé
+13343,Azérite niveau 3
+13445,Compétiteur I
+13446,Rival I
+13447,Duelliste
+13448,Front de guerre
+13449,Puissance prodigieuse
+13450,Souvenir
+13451,Combattant menaçant
+13452,Combattant sinistre
+13453,Prétendant menaçant
+13454,Prétendant sinistre
+13455,Rival menaçant
+13456,Rival sinistre
+13457,Duelliste menaçant
+13458,Duelliste sinistre
+13459,Gladiateur menaçant
+13460,Gladiateur sinistre
+13461,Saison 1 de Battle for Azeroth
+13462,Saison 2 de Battle for Azeroth
+13463,Élite sinistre
+13464,Élite menaçant
+13465,Bricolage de Mécagone
+13486,Don insidieux scellé
+13487,Don insidieux ouvert
+13488,Saison 4 de l’épreuve du style
+13489,Saison 2 de l’épreuve du style
+13490,Saison 1 de l’épreuve du style
+13491,"Calibrage : 0,75 Hâte - 0,25 Polyvalence"
+13492,Saison 3 de l’épreuve du style
+13493,Prétendant notoire
+13494,Combattant notoire
+13495,Duelliste notoire
+13496,Élite notoire
+13497,Gladiateur notoire
+13498,Rival notoire
+13499,Équipement de monte
+13500,Coalescence de pouvoir
+13501,Carte perforée rouge
+13502,Carte perforée jaune
+13503,Carte perforée bleue
+13504,Composant arcanique
+13505,Perlé
+13506,Saison 3 de Battle for Azeroth
+13507,Benthique
+13508,Saison 4 de Battle for Azeroth
+13509,Relique de l’Empire noir - palier 1
+13510,Relique de l’Empire noir - palier 2
+13511,Relique de l’Empire noir - palier 3
+13512,Relique de l’Empire noir - palier 4
+13513,25 points de corruption
+13516,5 points de corruption
+13517,10 points de corruption
+13518,15 points de corruption
+13519,20 points de corruption
+13520,30 points de corruption
+13521,5 à 30 points de corruption
+13524,Rang 10
+13525,Rang 11
+13526,Rang 12
+13527,Rang 13
+13528,Rang 14
+13529,Rang 15
+13530,Compétiteur corrompu
+13531,Combattant corrompu
+13532,Duelliste corrompu
+13533,Élite corrompu
+13534,Gladiateur corrompu
+13535,Rival corrompu
+13536,Corrompu
+13538,Cryptogrammes d’âmes
+13543,de l’artisan exigeant
+13544,de l’artisan expert
+13545,de l’artisan empressé
+13546,de l’artisan polyvalent
+13547,du tueur de bêtes
+13549,Composant d’artisanat optionnel
+13551,IV
+13552,III
+13553,II
+13554,I
+13555,Suture abominable
+13556,Jardin d’hiver de la Reine
+13557,Améliorateur de cocon catalyseur
+13558,Cocon catalyseur
+13559,Conduit
+13565,66 points de corruption
+13566,35 points de corruption
+13567,15 points de corruption
+13568,20 points de corruption
+13569,10 points de corruption
+13570,75 points de corruption
+13571,50 points de corruption
+13572,25 points de corruption
+13573,45 points de corruption
+13574,28 points de corruption
+13575,17 points de corruption
+13576,30 points de corruption
+13577,12 points de corruption
+13578,16 points de corruption
+13579,8 points de corruption
+13580,60 points de corruption
+13581,Artisanat des transcendés
+13583,Savoir de l’Antre
+13584,Cour des Braises
+13585,Anima
+13586,The Coldest of Fronts (DNT)
+13587,Show them snow mercy! (DNT)
+13588,A Triple Threat (DNT)
+13589,"It's like double trouble, but better! (DNT)"
+13590,Campagne
+13591,Renom
+13592,Jardin d’hiver de la Reine
+13593,Prestige
+13594,Suture abominable
+13595,Unité
+13596,Réseau de transport
+13597,Éthérien
+13599,Contemplation mesurée
+13600,Prêtresse des Jumeaux du soleil
+13601,"X’anshi, retour de l’archevêque Benedictus"
+13602,Éternelle convocation du Vide
+13603,Prisme d’Ombreflamme
+13604,Psaume de délivrance
+13605,Clarté d’esprit
+13606,Baiser de la mort
+13607,Reflet cristallin
+13608,Appareil harmonieux
+13609,Pénitent
+13610,Ombres cautérisantes
+13611,Concentration éclair
+13612,Image divine
+13613,Voûte céleste
+13614,Stratagème de Talbadar
+13615,Serment de l’ancien druide
+13616,Aperçu éphémère de Lycara
+13617,Cycle de la vie et de la mort
+13618,Breuvage de concentration intense
+13619,Vision claire d’Oneth
+13620,Pulsar arcanique primordial
+13621,Équilibre en toute chose
+13622,Lieur de rêve usé
+13623,Bibelot œil-de-chat
+13624,Appétit du prédateur dominant
+13625,Bague de rage
+13626,Étreinte imprégnée de loofa
+13627,Appât fantasmatique stable
+13628,Volonté de l’ordre naturel
+13629,Troisième œil du Geôlier
+13630,Sagacité de Norgannon
+13631,Proclamation de Sephuz
+13632,Jugement de l’Arbitre
+13633,Sacrifice de vitalité
+13634,Souvenir de la fureur d’Ursoc
+13635,Crépitation de l’Antre
+13636,Écho d’Eonar
+13637,Héritage du dormeur
+13638,Souvenir de l’Arbre-Mère
+13639,Leçon du Titan noir
+13640,Infusion verdoyante
+13641,Vision de croissance sans fin
+13642,Œil de symétrie effroyable
+13643,Toucher fatal
+13644,Couvre-bras de vélocité sans faille
+13645,Délice de l’invocateur
+13646,Orée-du-Ciel de Keefer
+13647,Condensateur du dernier empereur
+13648,Trésor de Xuen
+13649,Embrasement de jade
+13650,Infusion céleste
+13651,Dernier baril de Brune d’Orage
+13652,Puissance de Shaohao
+13653,Passions calcinées
+13654,Larme matinale
+13655,Murmure de Yu’lon
+13656,Enseignements ancestraux du monastère
+13657,Focalisateur nébuleux
+13658,Fuir la réalité
+13659,Augmente la durée de Carapace anti-magie et tous les dégâts qu’elle absorbe sont convertis en soins.
+13660,Non classé
+13661,Caresse de la mort
+13662,Souche résistante
+13663,Voile fatal
+13664,Certitude de la mort
+13665,Monstruosité frénétique
+13666,Traînard réanimé
+13667,Domination de Fielsang
+13668,Aura vampirique
+13669,Rune cramoisie
+13670,Puissance de Bryndaor
+13671,Faveur de Koltira
+13672,Rage du champion gelé
+13673,Zéro absolu
+13674,Froid mordant
+13675,Poigne de l’éternité
+13676,Cauchemar
+13677,Doug Test aaa
+13678,Bénédiction du roi-soleil
+13679,Météore en fusion
+13680,Tempête de feu
+13681,Diadème d’incantateur
+13682,Glaçon macabre
+13683,Protecteur de Triune
+13684,Ordre disciplinaire
+13685,Potentiel étendu
+13686,Vents givrants
+13687,Voile de Coup de froid
+13688,Porte-Givre
+13689,Brûlure du givre
+13690,Siphon tempétueux
+13691,Harmonie arcanique
+13692,Déformation temporelle
+13693,Purge arcanique
+13694,Parangon fou
+13695,Garde d’Uther
+13696,Chevalière des rois tourmentés
+13697,Aube et crépuscule
+13698,Barrière de choc
+13699,Jugement du magistrat
+13700,"Brisombre, le lever de soleil"
+13701,Inflorescence du Puits de soleil
+13702,Sigil gravé du vengeur sacré
+13703,Sanctuaire du protecteur ardent
+13704,Rempart de la fureur vertueuse
+13705,Règne des rois éternels
+13706,Verdict final
+13707,Impulsion de l’avant-garde
+13708,Cadence de Fujieda
+13709,Inquisiteur implacable
+13710,Dévastateur
+13711,Volonté du Briseur
+13712,Volonté inflexible
+13713,Représailles
+13714,Le mur
+13715,Tempête du Porteur de Lumière
+13716,Sire-Tonnerre
+13717,Dernier souffle de Maraad
+13718,Verdict final
+13719,Défenseur téméraire
+13720,Déchaînement
+13721,Miroir déformé
+13722,Seigneur de bataille
+13723,Réverbération sismique
+13724,Bague de réminiscence ancestrale
+13725,Bottines de pierre de secousse tellurique
+13726,Heaume des profonds éléments
+13727,Chaînes de dévastation
+13728,Bague en fusion du Brise-ciel enflammé
+13729,Souliers d’équilibre élémentaire
+13730,Gantelets de la Grande Fracture
+13731,Cape du parlevent
+13732,Vents funestes
+13733,Héritage de la sorcière du givre
+13734,Os de loup de féticheur
+13735,Catalyseurs de lave primordiale
+13736,Baudrier de focalisation naturelle de Jonat
+13737,Garde-jambes des marées de marcheur des esprits
+13738,Noyau de marée primordiale
+13739,Pansière d’harmonie terrestre
+13740,Stratagème infaillible
+13741,L’Exécuteur
+13742,Frappe persistante
+13743,Bague d’appel de la nature
+13744,Bottes de trappeur de Nesingwary
+13745,Masque de braises de la forge des Âmes
+13746,Gilet de stratagème du couard en anneaux
+13747,Haubert d’ordre funeste
+13748,Souliers en cobra d’attise-flammes
+13749,"Qa’pla, gantelets de combat en érédun"
+13750,Bottines de traqueur de rylak
+13751,Concentration totale de Serre-d’Aigle
+13752,Talisman de déferlante de tirs
+13753,Bague de supercherie du traqueur de serpent
+13754,Protège-mains de la veille continuelle
+13755,Tenue de combat des feux de brousse tactiques
+13756,Voile du traqueur de rylak
+13757,Injecteurs de poison latent
+13758,Fragments d’os du Boucher
+13759,Sceau d’invocation supérieure de Wilfred
+13760,Écharpe d’Endereth
+13761,Relique de synergie démoniaque
+13762,Robe blasonnée de la Porte des ténèbres
+13763,Anneau d’agonie perpétuelle d’Azj’Aqir
+13764,Mules sombres de Sacrocingle
+13765,Bandelettes matelassées de courroux maléfique
+13766,Cape de consomption courroucée
+13767,Visions de potentiel implosif
+13768,Appel effroyable de l’inquisiteur sinistre
+13769,Bague du cauchemar cornu
+13770,Bandelettes ardentes de l’araignée torve
+13771,Cape de cendres des Azj’Aqir
+13772,Folie des Azj’Aqir
+13773,Braises de la grande tenue diabolique
+13774,Jambards des Ymirjars
+13775,Angoisse collective
+13776,Renforcement de demi-géant
+13777,Faveur de Regard-noir
+13778,Vêture de l’heure la plus sombre
+13779,Démons intérieurs
+13780,Chiffres du chaos
+13781,Noyau gangrené erratique
+13782,Gangrebombardier
+13783,Médaillon de la flamme noire
+13784,Souillure de Razelikh
+13785,Fouet à volutes de gangreflamme
+13786,Menottes d’âme flamboyante
+13787,Frimas
+13789,Vélocité
+13790,Marque du maître assassin
+13791,Ceinturon en lames toxiques
+13792,Chaperon à crocs ensanglantés
+13793,Médaillon de poussière ombreuse
+13794,Brigand audacieux
+13795,Gants lame-du-destin ensanglantés
+13796,Entraves d’exercice des Zoldyck
+13797,Écusson de Marchesoir
+13798,Osier de Vertepeau
+13799,Fourberie de bandit
+13800,Tromblon caché
+13801,Finalité
+13802,Fragment d’âme d’Akaari
+13803,Les putrides
+13804,Ombres mortelles
+13805,Ornemental
+13806,Une cascade de runes orne la surface de cette armure.
+13808,
+13809,Spallières de seigneur funeste vaincu
+13810,Semperardent
+13811,Amélioration permanente : Tourment
+13812,Amélioration permanente : L’Antre
+13813,Voie de l’Ascension
+13815,Rang 1 sur 7
+13816,Rang 2 sur 7
+13817,Rang 3 sur 7
+13818,Rang 4 sur 7
+13819,Rang 5 sur 7
+13820,Rang 6 sur 7
+13821,Rang 7 sur 7
+13822,Niveau d’amélioration : 1/7
+13823,Niveau d’amélioration : 2/7
+13824,Niveau d’amélioration : 3/7
+13825,Niveau d’amélioration : 4/7
+13826,Niveau d’amélioration : 5/7
+13827,Niveau d’amélioration : 6/7
+13828,Niveau d’amélioration : 1/6
+13829,Travail des stygies
+13830,Reliques korthiennes
+13831,Amélioré
+13832,Frénésie d’abomination
+13833,Transfert effréné
+13834,Condamnation finale
+13835,Faim insatiable
+13836,Gloire
+13837,Afflux vicieux
+13838,Fureur de la nature
+13839,Hystérie coupable
+13840,Écho harmonique
+13841,Nuée de sauterelles
+13842,Profondeurs de la Mort
+13843,Délice coupable
+13844,Affinité spirituelle
+13845,Assaut toxique
+13846,Esprits célestes
+13847,Obéissance
+13848,Pic mortel
+13849,Avancée de la mort
+13850,Korthia
+13851,Clarté résonnante
+13852,Éclat de domination
+13853,Braises irradiantes
+13854,Martelet de dévotion
+13855,Regard d’agonie
+13856,Touché par l’Antre
+13857,Massacre flamboyant
+13858,Foi aveugle
+13859,Intendant de renom
+13860,Serment démoniaque
+13861,Saisons d’abondance
+13862,Pacte de Bwonsamdi
+13863,Mot de l’ombre : Manipulation
+13864,Entraves du gladiateur antrelige déchaîné
+13865,Entraves de malédiction du gladiateur déchaîné
+13866,Breuvage de surabondance
+13867,Éléments brisés
+13868,Graines de croissance luxuriante
+13869,Conduction élémentaire
+13870,Rognure d’âme languissante
+13871,Éclat d’annihilation
+13872,Sacoche d’âme moribonde
+13873,Explosion perpétuelle confinée
+13874,Pacte des traqueurs d’âmes
+13875,Sac de munitions
+13876,Fragments de la ramure ancestrale
+13877,Bourse de fragments acérés
+13878,Appel aux armes
+13879,Froidure dévorante
+13881,Harmonie de ligne faë
+13882,Test 1 Override
+13883,Test 2 Override
+13884,Vortex du bourdon déchaîné
+13885,Enseignements sinistres
+13886,Cœur de Faë
+13887,Harmonie des sphères
+13888,Ordre exsangue
+13889,Puissance élyséenne
+13890,Résonance divine
+13891,Inestimable
+13895,Combattant II
+13896,Compétiteur II
+13897,Rival II
+13911,Saison 2 de Shadowlands
