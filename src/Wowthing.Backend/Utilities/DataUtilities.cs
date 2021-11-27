@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using CsvHelper;
+using CsvHelper.Configuration;
 using Serilog;
 using Wowthing.Backend.Models.Data;
 using YamlDotNet.Serialization;
@@ -25,12 +26,25 @@ namespace Wowthing.Backend.Utilities
             .IgnoreUnmatchedProperties()
             .Build();
 
-        public static async Task<List<T>> LoadDumpCsvAsync<T>(string fileName, Func<T, bool> validFunc = null)
+        public static async Task<List<T>> LoadDumpCsvAsync<T>(string fileName, Func<T, bool> validFunc = null, bool skipValidation = false)
         {
             var basePath = Path.Join(DataPath, "dumps");
-            var filePath = Directory.GetFiles(basePath, $"{fileName}-*.csv").OrderByDescending(f => f).First();
 
-            var csvReader = new CsvReader(File.OpenText(filePath), CultureInfo.InvariantCulture);
+            var files = Directory.GetFiles(basePath, $"{fileName}-*.csv");
+            // FIXME crappy hack until importing works
+            if (files.Length == 0)
+            {
+                files = Directory.GetFiles(Path.Join(basePath, "enUS"), $"{fileName}-*.csv");
+            }
+            var filePath = files.OrderByDescending(f => f).First();
+
+            var config = new CsvConfiguration(CultureInfo.InvariantCulture);
+            if (skipValidation)
+            {
+                config.HeaderValidated = null;
+                config.MissingFieldFound = null;
+            }
+            var csvReader = new CsvReader(File.OpenText(filePath), config);
 
             var ret = new List<T>();
             await foreach (T record in csvReader.GetRecordsAsync<T>())

@@ -1,0 +1,35 @@
+﻿namespace Wowthing.Lib.Enums
+{
+    public enum WowInventoryType
+    {
+        NonEquippable = 0,
+        Head,
+        Neck,
+        Shoulders,
+        Shirt,
+        Chest,
+        Waist,
+        Legs,
+        Feet,
+        Wrist,
+        Hands,
+        Finger,
+        Trinket,
+        WeaponOneHand,
+        OffHand,
+        Ranged,
+        Back,
+        WeaponTwoHand,
+        Bag,
+        Tabard,
+        Robe,
+        WeaponMainHand,
+        WeaponOffHand,
+        HeldInOffHand,
+        Ammo,
+        Thrown,
+        RangedRight,
+        Quiver,
+        Relic,
+    }
+}

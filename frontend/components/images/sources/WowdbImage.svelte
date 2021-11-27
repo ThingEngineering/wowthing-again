@@ -9,13 +9,14 @@
     export let cls: string = undefined
     export let tooltip: TippyProps | string = undefined
 
-    const actualSize = (size === 'large' ? 56 : size === 'medium' ? 36 : 16) + (border * 2)
+    const actualSize = (size === 'large' ? 56 : size === 'medium' ? 36 : 16)
 </script>
 
 <Image
     src="https://icons.wowdb.com/retail/{size}/{name}.jpg"
     alt={name}
     size={actualSize}
+    {border}
     {cls}
     {tooltip}
 />

@@ -140,7 +140,7 @@ farms:
   - type: transmog
     id: 170466
     name: "Junkyard Motivator"
-    limit: weapon staff
+    limit: weapon stave
 
   - type: transmog
     id: 170468
@@ -222,7 +222,7 @@ farms:
     id: 167931
     name: "Mechagonian Sawblades"
 
-- name: "Malfunctioning Beastbot (55926 56506)"
+- name: "Malfunctioning Beastbot"
   location: 60.7 42.2
   npcId: 151933
   questId: 55544
@@ -298,7 +298,7 @@ farms:
   - type: transmog
     id: 170466
     name: "Junkyard Motivator"
-    limit: weapon staff agi
+    limit: weapon stave agi
 
 - name: "Oxidized Leachbeast"
   location: 56.6 62.9
@@ -427,3 +427,25 @@ farms:
     id: 170467
     name: "Whirring Chainblade"
     limit: weapon 1h-sword str
+
+# Events
+
+- name: "Reclamation Rig"
+  location: 70.0 62.0
+  type: event
+  drops:
+  - type: quest
+    id: 55074
+    name: "Blueprint: Rustbolt Requisitions"
+    note: "Hard only"
+    questId: 55848
+
+  - type: pet
+    id: 154904
+    name: "Echoing Oozeling"
+    questId: 55847 55848
+
+  - type: pet
+    id: 155579
+    name: "Irradiated Elementaling"
+    questId: 55847 55848

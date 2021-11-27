@@ -17,13 +17,18 @@ namespace Wowthing.Lib.Contexts
     {
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
 
+        public DbSet<LanguageString> LanguageString { get; set; }
+        
         public DbSet<WowItem> WowItem { get; set; }
+        public DbSet<WowMount> WowMount { get; set; }
+        public DbSet<WowMythicPlusSeason> WowMythicPlusSeason { get; set; }
         public DbSet<WowPeriod> WowPeriod { get; set; }
+        public DbSet<WowPet> WowPet { get; set; }
         public DbSet<WowRealm> WowRealm { get; set; }
         public DbSet<WowReputation> WowReputation { get; set; }
         public DbSet<WowReputationTier> WowReputationTier { get; set; }
-        public DbSet<WowMythicPlusSeason> WowMythicPlusSeason { get; set; }
         public DbSet<WowTitle> WowTitle { get; set; }
+        public DbSet<WowToy> WowToy { get; set; }
 
         public DbSet<PlayerAccount> PlayerAccount { get; set; }
         public DbSet<PlayerAccountPets> PlayerAccountPets { get; set; }
@@ -97,6 +102,9 @@ namespace Wowthing.Lib.Contexts
             builder.Entity<IdentityRoleClaim<long>>().ToTable("asp_net_role_claims");
 
             // Composite keys
+            builder.Entity<LanguageString>()
+                .HasKey(ls => new { ls.Language, ls.Type, ls.Id });
+
             builder.Entity<PlayerCharacterCurrency>()
                 .HasKey(pcc => new { pcc.CharacterId, pcc.CurrencyId });
             
@@ -123,8 +131,11 @@ namespace Wowthing.Lib.Contexts
                 .IsUnique();
             
             // Fancy indexes
-            builder.Entity<WowItem>()
-                .HasIndex(item => item.Name)
+            builder.Entity<LanguageString>()
+                .HasIndex(ls => new { ls.Language,ls.Type, ls.Id });
+            
+            builder.Entity<LanguageString>()
+                .HasIndex(ls => new { ls.String })
                 .HasMethod("gin")
                 .HasOperators("gin_trgm_ops");
 

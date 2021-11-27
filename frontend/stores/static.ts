@@ -1,5 +1,6 @@
 import sortBy from 'lodash/sortBy'
 
+import { zoneMapStore } from './zone-map'
 import { extraInstanceMap } from '@/data/dungeon'
 import { WritableFancyStore } from '@/types'
 import type { StaticData, StaticDataSetCategory } from '@/types'
@@ -29,6 +30,14 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
         data.toySets = StaticDataStore.fixSets(data.toySets)
 
         console.timeEnd('StaticDataStore.initialize')
+
+        zoneMapStore.update((state) => {
+            state.data = {
+                sets: data.zoneMapSets,
+            }
+            state.loaded = true
+            return state
+        })
     }
 
     private static fixSets(allSets: StaticDataSetCategory[][]): StaticDataSetCategory[][] {

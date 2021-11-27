@@ -1,0 +1,63 @@
+name: "Argus"
+groups:
+
+- name: "You Are Now Prepared!"
+  icon: achievement/12066 # You Are Now Prepared!
+  type: quest
+  data:
+    0:
+    - name: "Visit spaceship"
+      id: 47224
+
+    - name: "Travel to Krokuul Hovel"
+      id: 46816
+
+    - name: "Defeat Aggonar"
+      id: 46842
+
+    - name: "Recover Xe'ra"
+      id: 47653
+
+    - name: "Move spaceship to Antoran Wastes"
+      id: 48199
+      description: "Unlocks Krokuun/Antoran Wastes WQs"
+
+    - name: "Sizing Up The Opposition"
+      id: 47473
+      description: "[Weekly] 50 Pristine Argunite"
+
+    # sep
+
+    - name: "Travel to Destiny Point"
+      id: 47892
+
+    - name: "Defeat Lord Nath'raxas"
+      id: 47993
+      description: "Unlocks Nath'raxas Hold WQs"
+
+    - name: "Repair the Argunite Matrix"
+      id: 46941
+
+    - name: "The Sigil of Awakening"
+      id: 48107
+      description: "Unlocks Eredath WQs"
+
+    # sep
+
+    - name: "Complete an Invasion Point"
+      id: 48461
+
+    - name: "Defeat Talgath"
+      id: 47416
+      description: "Unlocks Kil'jaeden's Terrace WQs"
+
+    - name: "Defeat Arkhaan"
+      id: 47184
+
+    - name: "A Beacon in the Dark"
+      id: 47220
+      description: "Unlocks Seat of the Triumvirate"
+
+    - name: "Seat of the Triumvirate"
+      id: 47654
+      description: "Unlocks Western Eredath WQs"

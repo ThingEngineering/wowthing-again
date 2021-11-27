@@ -4,6 +4,7 @@ using Wowthing.Backend.Models.API.NonBlizzard;
 using Wowthing.Backend.Models.Data;
 using Wowthing.Backend.Models.Data.Collections;
 using Wowthing.Backend.Models.Data.Progress;
+using Wowthing.Backend.Models.Data.ZoneMaps;
 using Wowthing.Lib.Models.Wow;
 
 namespace Wowthing.Backend.Models.Redis
@@ -40,6 +41,9 @@ namespace Wowthing.Backend.Models.Redis
 
         [JsonProperty(Order = 40)]
         public List<List<OutCollectionCategory>> ToySets { get; set; }
+
+        [JsonProperty(Order = 50)]
+        public List<List<OutZoneMapCategory>> ZoneMapSets { get; set; }
 
         [JsonProperty(Order = 100)]
         public Dictionary<int, OutRaiderIoScoreTiers> RaiderIoScoreTiers { get; set; }
