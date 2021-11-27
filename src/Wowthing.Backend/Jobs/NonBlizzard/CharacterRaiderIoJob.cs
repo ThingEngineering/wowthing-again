@@ -22,7 +22,26 @@ namespace Wowthing.Backend.Jobs.NonBlizzard
 
             // Fetch seasons
             var seasonIds = JsonConvert.DeserializeObject<int[]>(data[1]);
-            var oof = string.Join(":", seasonIds.Select(s => ApiCharacterRaiderIoSeason.SeasonMap.First(kvp => kvp.Value == s).Key));
+
+            var oofParts = new List<string>();
+            foreach (var seasonId in seasonIds.EmptyIfNull())
+            {
+                var rioSeasons = ApiCharacterRaiderIoSeason.SeasonMap
+                    .Where(kvp => kvp.Value == seasonId)
+                    .ToArray();
+                if (rioSeasons.Length > 0)
+                {
+                    oofParts.Add(rioSeasons[0].Key);
+                }
+            }
+
+            if (oofParts.Count == 0)
+            {
+                Logger.Information("No matching seasons found: {Seasons}", string.Join(",", seasonIds.Select(id => id.ToString())));
+                return;
+            }
+            
+            var oof = string.Join(":", oofParts);
             
             // Fetch API data
             var uri = new Uri(string.Format(ApiUrl, query.Region.ToString().ToLowerInvariant(), query.RealmSlug, query.CharacterName, oof));
