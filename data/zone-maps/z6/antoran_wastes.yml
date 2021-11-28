@@ -74,7 +74,7 @@ farms:
 - name: "Doomcaster Suprax"
   location: 77.4 74.9
   npcId: 127703
-  questId: 0
+  questId: 48968
   drops:
   - type: toy
     id: 153194

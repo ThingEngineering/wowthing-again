@@ -7,7 +7,7 @@ farms:
 - name: "Ataxon"
   location: 30.3 40.4
   npcId: 126887
-  questId: 0
+  questId: 48709
   drops:
   - type: pet
     id: 128159
@@ -16,7 +16,7 @@ farms:
 - name: "Baruut the Bloodthirsty"
   location: 43.8 60.2
   npcId: 126862
-  questId: 0
+  questId: 48700
   drops:
   - type: toy
     id: 153193
@@ -67,7 +67,7 @@ farms:
 - name: "Overseer Y'Morna"
   location: 60.6 29.8
   npcId: 125498
-  questId: 0
+  questId: 48717
   drops:
   - type: transmog
     id: 153257
@@ -117,7 +117,7 @@ farms:
 - name: "Shadowcaster Voruun"
   location: 44.8 71.4
   npcId: 122838
-  questId: 0
+  questId: 48692
   drops:
   - type: transmog
     id: 153296
@@ -127,7 +127,7 @@ farms:
 - name: "Skreeg the Devourer"
   location: 49.6 10.0
   npcId: 126912
-  questId: 0
+  questId: 48721
   drops:
   - type: mount
     id: 253662
@@ -136,7 +136,7 @@ farms:
 - name: "Sorolis the Ill-Fated"
   location: 70.2 46.0
   npcId: 126889
-  questId: 0
+  questId: 48710
   drops:
   - type: transmog
     id: 153292
@@ -179,7 +179,7 @@ farms:
 - name: "Vigilant Thanos"
   location: 36.3 23.6
   npcId: 126865
-  questId: 0
+  questId: 48703
   drops:
   - type: toy
     id: 153183

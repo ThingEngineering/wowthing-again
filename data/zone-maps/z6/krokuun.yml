@@ -104,7 +104,7 @@ farms:
   location: 70.5 33.7
   note: "Drops Fel-Spotted Egg which can hatch into mounts/pets"
   npcId: 126419
-  questId: 0
+  questId: 48667
   drops:
   - type: mount
     id: 235764
