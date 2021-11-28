@@ -1,7 +1,7 @@
 name: Antoran Wastes
 mapName: z6_antoran_wastes
 minimumLevel: 10
-requiredQuestId: 46816
+requiredQuestId: 48440 # Into the Night
 farms:
 
 - name: "Admiral Rel'var"

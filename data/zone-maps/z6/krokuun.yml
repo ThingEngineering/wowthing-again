@@ -1,7 +1,7 @@
 name: Krokuun
 mapName: z6_krokuun
 minimumLevel: 10
-requiredQuestId: 46816
+requiredQuestId: 48440 # Into the Night
 farms:
 
 - name: "Commander Endaxis"

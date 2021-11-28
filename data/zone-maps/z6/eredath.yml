@@ -1,7 +1,7 @@
 name: Eredath
 mapName: z6_eredath
 minimumLevel: 10
-requiredQuestId: 46816
+requiredQuestId: 48440 # Into the Night
 farms:
 
 - name: "Ataxon"
