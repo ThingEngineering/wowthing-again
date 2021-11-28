@@ -15,8 +15,11 @@
     export let slugs: string[]
     export let startSpacer = false
 
+    let categoryPercent: number
     let setKey: string
     $: {
+        const categoryHas = $userTransmogStore.data.stats[`${slugs[0]}--${category.slug}`]
+        categoryPercent = categoryHas.have / categoryHas.total * 100
         setKey = slugs.join('--')
     }
 
@@ -49,6 +52,10 @@
         .icon {
             border-left: 1px solid $border-color;
         }
+    }
+    .category-name {
+        font-size: 1.1rem;
+        padding-left: 0.5rem;
     }
     .icon {
         padding: 0.1rem;
@@ -94,7 +101,12 @@
         {/if}
 
         <tr class="sticky">
-            <td></td>
+            <td class="category-name">
+                {category.name}
+                <span class="drop-shadow percent {getPercentClass(categoryPercent)}">
+                     {Math.floor(categoryPercent).toFixed(0)} %
+                </span>
+            </td>
 
             {#if transmogSets[group.type].type === 'all'}
                 <td class="icon">
