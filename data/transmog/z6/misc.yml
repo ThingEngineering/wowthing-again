@@ -62,6 +62,215 @@ groups:
         9:  35029 # Wrists
         10: 35025 # Hands
 
+- name: Legion Assaults
+  type: armor
+  sets:
+  - Assaults
+  data:
+    cloth:
+    - name: "Legion Assaults (Cloth)"
+      wowheadSetId: 2523
+      items:
+        1:  33890 # Head
+        3:  33892 # Shoulders
+        5:  33895 # Chest
+        6:  33887 # Waist
+        7:  33891 # Legs
+        8:  33888 # Feet
+        9:  33894 # Wrists
+        10: 33889 # Hands
+
+    leather:
+    - name: "Legion Assaults (Leather)"
+      wowheadSetId: 2527
+      items:
+        1:  33958 # Head
+        3:  33960 # Shoulders
+        5:  33956 # Chest
+        6:  33954 # Waist
+        7:  33959 # Legs
+        8:  33955 # Feet
+        9:  33961 # Wrists
+        10: 33957 # Hands
+
+    mail:
+    - name: "Legion Assaults (Mail)"
+      wowheadSetId: 2530
+      items:
+        1:  34000 # Head
+        3:  34002 # Shoulders
+        5:  33998 # Chest
+        6:  33996 # Waist
+        7:  34001 # Legs
+        8:  33997 # Feet
+        9:  34003 # Wrists
+        10: 33999 # Hands
+
+    plate:
+    - name: "Legion Assaults (Plate)"
+      wowheadSetId: 2533
+      items:
+        1:  34041 # Head
+        3:  34043 # Shoulders
+        5:  34039 # Chest
+        6:  34037 # Waist
+        7:  34042 # Legs
+        8:  34038 # Feet
+        9:  34044 # Wrists
+        10: 34040 # Hands
+
+- name: Gear Tokens
+  type: armor
+  sets:
+  - Unsullied
+  - Relinquished
+  - Dauntless
+  data:
+    cloth:
+    - name: "Unsullied (Cloth)"
+      wowheadSetId: 2576
+      items:
+        1:  35406 # Head
+        3:  35408 # Shoulders
+        5:  35410 # Chest
+        6:  35403 # Waist
+        7:  35407 # Legs
+        8:  35404 # Feet
+        9:  35409 # Wrists
+        10: 35405 # Hands
+
+    - name: "Relinquished (Cloth)"
+      wowheadSetId: 2524
+      items:
+        1: 33917 # Head
+        3: 33919 # Shoulders
+        5: 33922 # Chest
+        6: 33914 # Waist
+        7: 33918 # Legs
+        8: 33915 # Feet
+        9: 33921 # Wrists
+        10: 33916 # Hands
+
+    - name: "Dauntless (Cloth)"
+      wowheadSetId: 1902
+      items:
+        1:  22608 # Head
+        3:  22604 # Shoulders
+        5:  22606 # Chest
+        6:  22602 # Waist
+        7:  22609 # Legs
+        8:  22603 # Feet
+        10: 22607 # Hands
+
+    leather:
+    - name: "Unsullied (Leather)"
+      wowheadSetId: 2578
+      items:
+        1:  35456 # Head
+        3:  35458 # Shoulders
+        5:  35454 # Chest
+        6:  35452 # Waist
+        7:  35457 # Legs
+        8:  35453 # Feet
+        9:  35459 # Wrists
+        10: 35455 # Hands
+
+    - name: "Relinquished (Leather)"
+      wowheadSetId: 2526
+      items:
+        1:  33966 # Head
+        3:  33968 # Shoulders
+        5:  33964 # Chest
+        6:  33962 # Waist
+        7:  33967 # Legs
+        8:  33963 # Feet
+        9:  33969 # Wrists
+        10: 33965 # Hands
+
+    - name: "Dauntless (Leather)"
+      wowheadSetId: 1904
+      items:
+        1:  22832 # Head
+        3:  22834 # Shoulders
+        5:  22830 # Chest
+        6:  22828 # Waist
+        7:  22833 # Legs
+        8:  22829 # Feet
+        10: 22831 # Hands
+
+    mail:
+    - name: "Unsullied (Mail)"
+      wowheadSetId: 2581
+      items:
+        1:  35521 # Head
+        3:  35523 # Shoulders
+        5:  35507 35519 # Chest
+        6:  35517 # Waist
+        7:  35504 # Legs
+        8:  35518 # Feet
+        9:  35506 # Wrists
+        10: 35520 # Hands
+
+    - name: "Relinquished (Mail)"
+      wowheadSetId: 2529
+      items:
+        1:  34024 # Head
+        3:  34026 # Shoulders
+        5:  34022 # Chest
+        6:  34020 # Waist
+        7:  34025 # Legs
+        8:  34021 # Feet
+        9:  34027 # Wrists
+        10: 34023 # Hands
+
+    - name: "Dauntless (Mail)"
+      wowheadSetId: 1907
+      items:
+        1:  22684 # Head
+        3:  22686 # Shoulders
+        5:  22682 # Chest
+        6:  22680 # Waist
+        7:  22685 # Legs
+        8:  22681 # Feet
+        10: 22683 # Hands
+
+    plate:
+    - name: "Unsullied (Plate)"
+      wowheadSetId: 2582
+      items:
+        1:  35561 # Head
+        3:  35563 # Shoulders
+        5:  35559 # Chest
+        6:  35557 # Waist
+        7:  35562 # Legs
+        8:  35558 # Feet
+        9:  35564 # Wrists
+        10: 35560 # Hands
+
+    - name: "Relinquished (Plate)"
+      wowheadSetId: 2532
+      items:
+        1:  34033 # Head
+        3:  34035 # Shoulders
+        5:  34031 # Chest
+        6:  34029 # Waist
+        7:  34034 # Legs
+        8:  34030 # Feet
+        9:  34036 # Wrists
+        10: 34032 # Hands
+
+    - name: "Dauntless (Plate)"
+      wowheadSetId: 1911
+      items:
+        1:  22640 # Head
+        3:  22642 # Shoulders
+        5:  22638 # Chest
+        6:  22636 # Waist
+        7:  22641 # Legs
+        8:  22637 # Feet
+        9:  22643 # Wrists
+        10: 22639 # Hands
+
 - name: Order Hall
   type: class
   sets:
