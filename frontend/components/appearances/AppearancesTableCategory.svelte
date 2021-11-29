@@ -3,25 +3,27 @@
     import { userTransmogStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
     import getTransmogSpan from '@/utils/get-transmog-span'
-    import type { TransmogDataCategory, TransmogDataGroup } from '@/types/data'
+    import type { TransmogDataCategory } from '@/types/data'
 
     import ClassIcon from '@/components/images/ClassIcon.svelte'
     import CovenantIcon from '@/components/images/CovenantIcon.svelte'
     import TableSet from './AppearancesTableSet.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let category: TransmogDataCategory
     export let skipClasses: Record<string, boolean>
     export let slugs: string[]
     export let startSpacer = false
 
+    let categoryPercent: number
     let setKey: string
     $: {
+        const categoryHas = $userTransmogStore.data.stats[`${slugs[0]}--${category.slug}`]
+        categoryPercent = categoryHas.have / categoryHas.total * 100
         setKey = slugs.join('--')
     }
 
-    const getPercent = function(group: TransmogDataGroup, setIndex: number): number {
-        const key = `${slugs[0]}--${category.slug}--${group.name}--${setIndex}`
+    const getPercent = function(groupIndex: number, setIndex: number): number {
+        const key = `${slugs[0]}--${category.slug}--${groupIndex}--${setIndex}`
         const hasData = $userTransmogStore.data.stats[key]
         return hasData ? hasData.have / hasData.total * 100 : 0
     }
@@ -49,6 +51,10 @@
         .icon {
             border-left: 1px solid $border-color;
         }
+    }
+    .category-name {
+        font-size: 1.1rem;
+        padding-left: 0.5rem;
     }
     .icon {
         padding: 0.1rem;
@@ -86,26 +92,26 @@
 {/if}
 
 {#each category.groups as group, groupIndex}
-    {#if groupIndex === 0 || transmogSets[category.groups[groupIndex-1].type].type !== transmogSets[group.type].type }
-        {#if groupIndex > 0}
+    {#if groupIndex === 0 || (
+        transmogSets[category.groups[groupIndex-1].type].type !== transmogSets[group.type].type &&
+        [transmogSets[category.groups[groupIndex-1].type].type, transmogSets[group.type].type].indexOf('covenant') >= 0
+    )
+    }
+        {#if groupIndex > 0 && category.groups[groupIndex-1].name !== group.name}
             <tr class="spacer">
                 <td colspan="100">&nbsp;</td>
             </tr>
         {/if}
 
         <tr class="sticky">
-            <td></td>
+            <td class="category-name">
+                {category.name}
+                <span class="drop-shadow percent {getPercentClass(categoryPercent)}">
+                     {Math.floor(categoryPercent).toFixed(0)} %
+                </span>
+            </td>
 
-            {#if transmogSets[group.type].type === 'all'}
-                <td class="icon">
-                    <WowthingImage
-                        name="spell/61423"
-                        tooltip="Shared"
-                        size={40}
-                    />
-                </td>
-
-            {:else if transmogSets[group.type].type === 'covenant'}
+            {#if transmogSets[group.type].type === 'covenant'}
                 {#each transmogSets[group.type].sets as tsd}
                     <td class="icon">
                         <CovenantIcon size={40} covenantName={tsd.subType} />
@@ -191,8 +197,8 @@
         <tr class:faded={setName.endsWith('*')}>
             <td class="name">
                 &ndash {setName.replace('*', '')}
-                <span class="drop-shadow percent {getPercentClass(getPercent(group, setIndex))}">
-                     {Math.floor(getPercent(group, setIndex)).toFixed(0)} %
+                <span class="drop-shadow percent {getPercentClass(getPercent(groupIndex, setIndex))}">
+                     {Math.floor(getPercent(groupIndex, setIndex)).toFixed(0)} %
                 </span>
             </td>
 

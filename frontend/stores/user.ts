@@ -31,11 +31,13 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             }
 
             character.currencies = {}
-            for (const rawCurrency of character.currenciesRaw) {
-                const obj = new CharacterCurrency(...rawCurrency)
-                character.currencies[obj.id] = obj
+            if (character.currenciesRaw) {
+                for (const rawCurrency of character.currenciesRaw) {
+                    const obj = new CharacterCurrency(...rawCurrency)
+                    character.currencies[obj.id] = obj
+                }
+                character.currenciesRaw = null
             }
-            character.currenciesRaw = null
         }
 
         userData.allLockouts = []

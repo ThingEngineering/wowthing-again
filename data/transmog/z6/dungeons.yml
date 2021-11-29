@@ -1,6 +1,63 @@
 name: Dungeons
 groups:
 
+- name: Cathedral of Eternal Night
+  type: armor
+  sets:
+  - Cathedral
+  data:
+    cloth:
+    - name: "Cathedral of Eternal Night (Cloth)"
+      wowheadSetId: 2327
+      items:
+        1: 33899 # Head
+        3: 33901 # Shoulders
+        5: 33904 # Chest
+        6: 33896 # Waist
+        7: 33900 # Legs
+        8: 33897 # Feet
+        9: 33903 # Wrists
+        10: 33898 # Hands
+
+    leather:
+    - name: "Cathedral of Eternal Night (Leather)"
+      wowheadSetId: 2525
+      items:
+        1:  33974 # Head
+        3:  33976 # Shoulders
+        5:  33972 # Chest
+        6:  33970 # Waist
+        7:  33975 # Legs
+        8:  33971 # Feet
+        9:  33977 # Wrists
+        10: 33973 # Hands
+
+    mail:
+    - name: "Cathedral of Eternal Night (Mail)"
+      wowheadSetId: 2528
+      items:
+        1:  34008 # Head
+        3:  34010 # Shoulders
+        5:  34006 # Chest
+        6:  34004 # Waist
+        7:  34009 # Legs
+        8:  34005 # Feet
+        9:  34011 # Wrists
+        10: 34007 # Hands
+
+    plate:
+    - name: "Cathedral of Eternal Night (Plate)"
+      wowheadSetId: 2531
+      items:
+        1:  34050 # Head
+        3:  34052 # Shoulders
+        5:  34048 # Chest
+        6:  34046 # Waist
+        7:  34051 # Legs
+        8:  34047 # Feet
+        9:  34053 # Wrists
+        10: 34049 # Hands
+
 - name: Karazhan
   type: armor
   sets:

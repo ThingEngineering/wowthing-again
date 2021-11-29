@@ -1,7 +1,7 @@
 name: Antoran Wastes
 mapName: z6_antoran_wastes
 minimumLevel: 10
-requiredQuestId: 46816
+requiredQuestId: 48440 # Into the Night
 farms:
 
 - name: "Admiral Rel'var"
@@ -74,7 +74,7 @@ farms:
 - name: "Doomcaster Suprax"
   location: 77.4 74.9
   npcId: 127703
-  questId: 0
+  questId: 48968
   drops:
   - type: toy
     id: 153194

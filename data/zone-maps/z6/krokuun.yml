@@ -1,7 +1,7 @@
 name: Krokuun
 mapName: z6_krokuun
 minimumLevel: 10
-requiredQuestId: 46816
+requiredQuestId: 48440 # Into the Night
 farms:
 
 - name: "Commander Endaxis"
@@ -104,7 +104,7 @@ farms:
   location: 70.5 33.7
   note: "Drops Fel-Spotted Egg which can hatch into mounts/pets"
   npcId: 126419
-  questId: 0
+  questId: 48667
   drops:
   - type: mount
     id: 235764

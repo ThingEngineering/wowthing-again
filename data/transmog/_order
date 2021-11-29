@@ -1,4 +1,5 @@
 *
+    misc.yml
     raids.yml
     dungeons.yml
     pvp.yml
@@ -9,7 +10,6 @@ z8/_shadowlands.yml
 z7/_battle_for_azeroth.yml
 
 z6/_legion.yml
-    z6/misc.yml
 
 z5/_warlords_of_draenor.yml
 

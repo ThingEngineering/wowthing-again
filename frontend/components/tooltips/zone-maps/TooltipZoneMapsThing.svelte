@@ -86,6 +86,7 @@
         text-align: left;
 
         span {
+            display: inline-block;
             white-space: nowrap;
 
             &.completed {

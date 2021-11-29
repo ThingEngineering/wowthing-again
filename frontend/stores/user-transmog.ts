@@ -47,13 +47,15 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
                 const catKey = `${categories[0].slug}--${category.slug}`
                 const catStats = stats[catKey] = new UserCount()
 
-                for (const group of category.groups) {
+                for (let groupIndex = 0; groupIndex < category.groups.length; groupIndex++) {
+                    const group = category.groups[groupIndex]
+
                     for (const [dataKey, dataValue] of toPairs(group.data)) {
                         if (skipClasses[dataKey]) {
                             continue
                         }
 
-                        const groupKey = `${catKey}--${group.name}`
+                        const groupKey = `${catKey}--${groupIndex}`
                         for (let setIndex = 0; setIndex < dataValue.length; setIndex++) {
                             if (group.sets[setIndex].endsWith('*')) {
                                 continue
