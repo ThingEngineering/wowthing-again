@@ -15,17 +15,18 @@
     export let startSpacer = false
 
     let categoryPercent: number
+    let getPercent: (groupIndex: number, setIndex: number) => number
     let setKey: string
     $: {
         const categoryHas = $userTransmogStore.data.stats[`${slugs[0]}--${category.slug}`]
         categoryPercent = categoryHas.have / categoryHas.total * 100
         setKey = slugs.join('--')
-    }
 
-    const getPercent = function(groupIndex: number, setIndex: number): number {
-        const key = `${slugs[0]}--${category.slug}--${groupIndex}--${setIndex}`
-        const hasData = $userTransmogStore.data.stats[key]
-        return hasData ? hasData.have / hasData.total * 100 : 0
+        getPercent = function(groupIndex: number, setIndex: number): number {
+            const key = `${slugs[0]}--${category.slug}--${groupIndex}--${setIndex}`
+            const hasData = $userTransmogStore.data.stats[key]
+            return hasData ? hasData.have / hasData.total * 100 : 0
+        }
     }
 </script>
 
