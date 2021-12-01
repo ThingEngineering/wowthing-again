@@ -1,8 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using Newtonsoft.Json;
+using Wowthing.Lib.Converters;
 using Wowthing.Lib.Enums;
 
 namespace Wowthing.Lib.Models.Wow
 {
+    [JsonConverter(typeof(WowRealmConverter))]
     public class WowRealm
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]

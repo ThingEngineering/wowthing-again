@@ -2,7 +2,13 @@ import sortBy from 'lodash/sortBy'
 
 import { zoneMapStore } from './zone-map'
 import { extraInstanceMap } from '@/data/dungeon'
-import { StaticDataCurrency, StaticDataInstance, WritableFancyStore } from '@/types'
+import {
+    StaticDataCurrency,
+    StaticDataInstance,
+    StaticDataRealm,
+    StaticDataReputation,
+    WritableFancyStore,
+} from '@/types'
 import type { StaticData, StaticDataSetCategory } from '@/types'
 
 
@@ -13,13 +19,6 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
 
     initialize(data: StaticData): void {
         console.time('StaticDataStore.initialize')
-
-        data.realms[0] = {
-            id: 0,
-            region: 1,
-            name: 'Honkstrasza',
-            slug: 'honkstrasza',
-        }
 
         if (data.currenciesRaw) {
             data.currencies = {}
@@ -37,10 +36,30 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
                 data.instances[obj.id] = obj
             }
             data.instancesRaw = null
+
+            for (const instanceId in extraInstanceMap) {
+                data.instances[instanceId] = extraInstanceMap[instanceId]
+            }
         }
 
-        for (const instanceId in extraInstanceMap) {
-            data.instances[instanceId] = extraInstanceMap[instanceId]
+        if (data.realmsRaw) {
+            data.realms = {
+                0: new StaticDataRealm(0, 1, 'Honkstrasza', 'honkstrasza'),
+            }
+            for (const realmArray of data.realmsRaw) {
+                const obj = new StaticDataRealm(...realmArray)
+                data.realms[obj.id] = obj
+            }
+            data.realmsRaw = null
+        }
+
+        if (data.reputationsRaw) {
+            data.reputations = {}
+            for (const reputationArray of data.reputationsRaw) {
+                const obj = new StaticDataReputation(...reputationArray)
+                data.reputations[obj.id] = obj
+            }
+            data.reputationsRaw = null
         }
 
         data.mountSets = StaticDataStore.fixSets(data.mountSets)

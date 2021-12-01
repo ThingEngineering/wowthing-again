@@ -8,10 +8,14 @@ export interface StaticData {
     instances: Record<number, StaticDataInstance>
     instancesRaw: StaticDataInstanceArray[]
 
+    realms: Record<number, StaticDataRealm>
+    realmsRaw: StaticDataRealmArray[]
+
+    reputations: Record<number, StaticDataReputation>
+    reputationsRaw: StaticDataReputationArray[]
+
     currencyCategories: Record<number, StaticDataCurrencyCategory>
     progress: StaticDataProgressCategory[][]
-    realms: Record<number, StaticDataRealm>
-    reputations: Record<number, StaticDataReputation>
     reputationTiers: Record<number, StaticDataReputationTier>
 
     mountSets: StaticDataSetCategory[][]
@@ -60,12 +64,17 @@ export class StaticDataInstance {
 
 type StaticDataInstanceArray = ConstructorParameters<typeof StaticDataInstance>
 
-export interface StaticDataRealm {
-    id: number
-    region: number
-    name: string
-    slug: string
+export class StaticDataRealm {
+    constructor(
+        public id: number,
+        public region: number,
+        public name: string,
+        public slug: string
+    )
+    { }
 }
+
+type StaticDataRealmArray = ConstructorParameters<typeof StaticDataRealm>
 
 // Progress
 export interface StaticDataProgressCategory {
@@ -90,11 +99,16 @@ export interface StaticDataProgressData {
 }
 
 // Reputations
-export interface StaticDataReputation {
-    id: number
-    name: string
-    tierId: number
+export class StaticDataReputation {
+    constructor(
+        public id: number,
+        public name: string,
+        public tierId: number
+    )
+    { }
 }
+
+type StaticDataReputationArray = ConstructorParameters<typeof StaticDataReputation>
 
 export interface StaticDataReputationTier {
     id: number
