@@ -19,14 +19,17 @@ export interface StaticData {
     reputationTiers: Record<number, StaticDataReputationTier>
 
     mountSets: StaticDataSetCategory[][]
+    mountSetsRaw: StaticDataSetCategoryArray[][]
     spellToMount: Record<number, number>
 
     petSets: StaticDataSetCategory[][]
+    petSetsRaw: StaticDataSetCategoryArray[][]
     creatureToPet: Record<number, number>
 
-    reputationSets: StaticDataReputationCategory[]
-
     toySets: StaticDataSetCategory[][]
+    toySetsRaw: StaticDataSetCategoryArray[][]
+
+    reputationSets: StaticDataReputationCategory[]
 
     zoneMapSets: ZoneMapDataCategory[][]
 
@@ -145,16 +148,34 @@ export interface StaticDataReputationReward {
 }
 
 // Sets
-export interface StaticDataSetCategory {
-    name: string
-    slug: string
-    groups: StaticDataSetGroup[]
+export class StaticDataSetCategory {
+    public name: string
+    public slug: string
+    public groups: StaticDataSetGroup[]
+
+    constructor(
+        name: string,
+        slug: string,
+        groups: StaticDataSetGroupArray[]
+    )
+    {
+        this.name = name
+        this.slug = slug
+        this.groups = groups.map((groupArray) => new StaticDataSetGroup(...groupArray))
+    }
 }
 
-export interface StaticDataSetGroup {
-    name: string
-    things: number[][]
+export type StaticDataSetCategoryArray = ConstructorParameters<typeof StaticDataSetCategory>
+
+export class StaticDataSetGroup {
+    constructor(
+        public name: string,
+        public things: number[][]
+    )
+    { }
 }
+
+type StaticDataSetGroupArray = ConstructorParameters<typeof StaticDataSetGroup>
 
 // RaiderIO
 export interface StaticDataRaiderIoScoreTiers {

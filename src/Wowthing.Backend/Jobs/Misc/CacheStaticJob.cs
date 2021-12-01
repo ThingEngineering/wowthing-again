@@ -183,9 +183,9 @@ namespace Wowthing.Backend.Jobs.Misc
                     CreatureToPet = sortedCreatureToPet,
                     SpellToMount = sortedSpellToMount,
 
-                    MountSets = FinalizeCollections(mountSets),
-                    PetSets = FinalizeCollections(petSets),
-                    ToySets = FinalizeCollections(toySets),
+                    MountSetsRaw = FinalizeCollections(mountSets),
+                    PetSetsRaw = FinalizeCollections(petSets),
+                    ToySetsRaw = FinalizeCollections(toySets),
 
                     Progress = progress,
                     ReputationSets = reputationSets,

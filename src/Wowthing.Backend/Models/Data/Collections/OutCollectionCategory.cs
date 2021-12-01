@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+using Wowthing.Backend.Converters;
 using Wowthing.Lib.Extensions;
 
 namespace Wowthing.Backend.Models.Data.Collections
 {
+    [JsonConverter(typeof(OutCollectionCategoryConverter))]
     public class OutCollectionCategory
     {
         private const int SplitThreshold = 10;
