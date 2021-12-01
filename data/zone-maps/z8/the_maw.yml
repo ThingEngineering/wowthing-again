@@ -644,14 +644,14 @@ farms:
 - name: "Hunt: Shadehounds"
   location: 53.7 79.1
   npcId: 174827
-  questId: 63180
+  questId: 63178 # 63180 (actual hunt), 63433?
   reset: bi-weekly
   type: eventBig
   drops:
   - type: mount
     id: 312762
     name: Mawsworn Soulhunter
-    requiredQuestId: 60285 # Rule 6: Concealment is Everything
+    #requiredQuestId: 60285 # Rule 6: Concealment is Everything
 
 - name: "Tormentors of Torghast"
   location: 50.8 51.8
