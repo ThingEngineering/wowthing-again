@@ -1,5 +1,9 @@
-﻿namespace Wowthing.Backend.Models.Data
+﻿using Newtonsoft.Json;
+using Wowthing.Backend.Converters;
+
+namespace Wowthing.Backend.Models.Data
 {
+    [JsonConverter(typeof(OutReputationConverter))]
     public class OutReputation
     {
         public int Id { get; set; }

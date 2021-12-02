@@ -8,7 +8,6 @@ groups:
   - 273541 # Underrot Crawg (Unbound Abomination, The Underrot)
   - 290718 # Aerial Unit R-6777/X (King Mechagon, Operation: Mechagon)
   - 299158 # Mechagon Peacekeeper (HK-468 Aerial Oppression Unit, Operation: Mechagon Mythic)
-  - 291492 # Rusty Mechanocrawler (??, Mechagon)
 
 - name: Raids
   things:

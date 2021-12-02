@@ -1,3 +1,6 @@
+import type { FarmDropType } from '@/types/enums'
+
+
 export interface FarmStatus {
     characters: CharacterStatus[]
     need: boolean
@@ -6,7 +9,7 @@ export interface FarmStatus {
 
 export interface CharacterStatus {
     id: number
-    types: string[]
+    types: FarmDropType[]
 }
 
 export interface DropStatus {

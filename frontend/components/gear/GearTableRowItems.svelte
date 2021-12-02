@@ -11,7 +11,7 @@
     export let character: Character = undefined
     export let highlightMissingEnchants: boolean
     export let highlightMissingGems: boolean
-    export let rowspan = 1
+    export let rowspan: number = 0
 
     let characterGear: CharacterGear[]
     let useHighlighting = false
@@ -67,7 +67,7 @@
 </style>
 
 {#each characterGear as gear}
-    <td class="gear" class:no-problem={useHighlighting && !gear.highlight} rowspan="{rowspan}">
+    <td class="gear" class:no-problem={useHighlighting && !gear.highlight} rowspan="{rowspan > 0 ? rowspan : null}">
         {#if gear.equipped !== undefined}
             <a class="quality{gear.equipped.quality}" href={getItemUrl(gear.equipped)}>
                 <WowthingImage name="item/{gear.equipped.itemId}" size={40} border={2} />

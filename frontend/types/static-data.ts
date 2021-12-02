@@ -8,21 +8,28 @@ export interface StaticData {
     instances: Record<number, StaticDataInstance>
     instancesRaw: StaticDataInstanceArray[]
 
+    realms: Record<number, StaticDataRealm>
+    realmsRaw: StaticDataRealmArray[]
+
+    reputations: Record<number, StaticDataReputation>
+    reputationsRaw: StaticDataReputationArray[]
+
     currencyCategories: Record<number, StaticDataCurrencyCategory>
     progress: StaticDataProgressCategory[][]
-    realms: Record<number, StaticDataRealm>
-    reputations: Record<number, StaticDataReputation>
     reputationTiers: Record<number, StaticDataReputationTier>
 
     mountSets: StaticDataSetCategory[][]
+    mountSetsRaw: StaticDataSetCategoryArray[][]
     spellToMount: Record<number, number>
 
     petSets: StaticDataSetCategory[][]
+    petSetsRaw: StaticDataSetCategoryArray[][]
     creatureToPet: Record<number, number>
 
-    reputationSets: StaticDataReputationCategory[]
-
     toySets: StaticDataSetCategory[][]
+    toySetsRaw: StaticDataSetCategoryArray[][]
+
+    reputationSets: StaticDataReputationCategory[]
 
     zoneMapSets: ZoneMapDataCategory[][]
 
@@ -60,12 +67,17 @@ export class StaticDataInstance {
 
 type StaticDataInstanceArray = ConstructorParameters<typeof StaticDataInstance>
 
-export interface StaticDataRealm {
-    id: number
-    region: number
-    name: string
-    slug: string
+export class StaticDataRealm {
+    constructor(
+        public id: number,
+        public region: number,
+        public name: string,
+        public slug: string
+    )
+    { }
 }
+
+type StaticDataRealmArray = ConstructorParameters<typeof StaticDataRealm>
 
 // Progress
 export interface StaticDataProgressCategory {
@@ -90,11 +102,16 @@ export interface StaticDataProgressData {
 }
 
 // Reputations
-export interface StaticDataReputation {
-    id: number
-    name: string
-    tierId: number
+export class StaticDataReputation {
+    constructor(
+        public id: number,
+        public name: string,
+        public tierId: number
+    )
+    { }
 }
+
+type StaticDataReputationArray = ConstructorParameters<typeof StaticDataReputation>
 
 export interface StaticDataReputationTier {
     id: number
@@ -131,16 +148,34 @@ export interface StaticDataReputationReward {
 }
 
 // Sets
-export interface StaticDataSetCategory {
-    name: string
-    slug: string
-    groups: StaticDataSetGroup[]
+export class StaticDataSetCategory {
+    public name: string
+    public slug: string
+    public groups: StaticDataSetGroup[]
+
+    constructor(
+        name: string,
+        slug: string,
+        groups: StaticDataSetGroupArray[]
+    )
+    {
+        this.name = name
+        this.slug = slug
+        this.groups = groups.map((groupArray) => new StaticDataSetGroup(...groupArray))
+    }
 }
 
-export interface StaticDataSetGroup {
-    name: string
-    things: number[][]
+export type StaticDataSetCategoryArray = ConstructorParameters<typeof StaticDataSetCategory>
+
+export class StaticDataSetGroup {
+    constructor(
+        public name: string,
+        public things: number[][]
+    )
+    { }
 }
+
+type StaticDataSetGroupArray = ConstructorParameters<typeof StaticDataSetGroup>
 
 // RaiderIO
 export interface StaticDataRaiderIoScoreTiers {

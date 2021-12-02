@@ -382,3 +382,7 @@ export const extraInstances: StaticDataInstance[] = [
 export const extraInstanceMap: Record<number, StaticDataInstance> = Object.fromEntries(
     extraInstances.map((instance) => [instance.id, instance])
 )
+
+export const lockoutOverride: Record<number, number> = {
+    777: 3, // Legion: Assault on Violet Hold
+}

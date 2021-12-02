@@ -9,12 +9,13 @@ import { DateTime } from 'luxon'
 import { classMap, classSlugMap } from '@/data/character-class'
 import { covenantSlugMap } from '@/data/covenant'
 import { factionMap } from '@/data/faction'
-import { Settings, StaticData, UserData, UserCount, WritableFancyStore } from '@/types'
-import { ArmorType, PrimaryStat, WeaponType } from '@/types/enums'
-import { getNextDailyReset } from '@/utils/get-next-reset'
-import type { ZoneMapState } from '@/stores/local-storage/zone-map'
 import type { DropStatus, FarmStatus } from '@/types'
+import { Settings, StaticData, UserCount, UserData, WritableFancyStore } from '@/types'
+import { ArmorType, FarmDropType, PrimaryStat, WeaponType } from '@/types/enums'
+import { getNextBiWeeklyReset, getNextDailyReset, getNextWeeklyReset } from '@/utils/get-next-reset'
+import type { ZoneMapState } from '@/stores/local-storage/zone-map'
 import type { TransmogData, UserCollectionData, UserQuestData, UserTransmogData, ZoneMapData } from '@/types/data'
+import { ZoneMapDataDrop } from '@/types/data'
 
 
 export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
@@ -46,18 +47,29 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
             (c) => settings.characters.hiddenCharacters.indexOf(c.id) === -1
         )
         const overallCounts = setCounts['OVERALL'] = new UserCount()
-        const resetMap = fromPairs(toPairs(userQuestData.characters)
-            .map(c => [
-                c[0],
-                getNextDailyReset(
-                    c[1].scannedAt,
-                    userData.characterMap[parseInt(c[0])]?.realm?.region ?? 1,
-                ),
-            ])
+        const resetMap = fromPairs(
+            toPairs(userQuestData.characters)
+                .map(c => [
+                    c[0],
+                    {
+                        daily: getNextDailyReset(
+                            c[1].scannedAt,
+                            userData.characterMap[parseInt(c[0])]?.realm?.region ?? 1
+                        ),
+                        biWeekly: getNextBiWeeklyReset(
+                            c[1].scannedAt,
+                            userData.characterMap[parseInt(c[0])]?.realm?.region ?? 1
+                        ),
+                        weekly: getNextWeeklyReset(
+                            c[1].scannedAt,
+                            userData.characterMap[parseInt(c[0])]?.realm?.region ?? 1
+                        )
+                    }
+                ])
         )
 
         for (const maps of zoneMapData.sets) {
-            const categorySeen: Record<string, Record<number, boolean>> = {}
+            const categorySeen: Record<number, Record<number, boolean>> = {}
 
             const categoryCounts = setCounts[maps[0].slug] = new UserCount()
 
@@ -101,10 +113,28 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
 
                 const farms: FarmStatus[] = []
                 for (const farm of map.farms) {
+                    if (farm.dropsRaw) {
+                        farm.drops = farm.dropsRaw
+                            .map((dropArray) => new ZoneMapDataDrop(...dropArray))
+                        farm.dropsRaw = null
+                    }
+                    farm.drops = farm.drops || []
+
                     const farmStatus: FarmStatus = {
                         characters: [],
                         drops: [],
                         need: false,
+                    }
+
+                    let expiredFunc: (characterId: number) => boolean
+                    if (farm.reset === 'weekly') {
+                        expiredFunc = (characterId) => resetMap[characterId].weekly < now
+                    }
+                    else if (farm.reset === 'bi-weekly') {
+                        expiredFunc = (characterId) => resetMap[characterId].biWeekly < now
+                    }
+                    else {
+                        expiredFunc = (characterId) => resetMap[characterId].daily < now
                     }
 
                     let farmCharacters = eligibleCharacters
@@ -135,32 +165,32 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                         }
 
                         switch (drop.type) {
-                            case 'mount':
+                            case FarmDropType.Mount:
                                 if (!userCollectionData.mounts[staticData.spellToMount[drop.id]] &&
                                     !userCollectionData.addonMounts[drop.id]) {
                                     dropStatus.need = true
                                 }
                                 break
 
-                            case 'pet':
+                            case FarmDropType.Pet:
                                 if (!userCollectionData.pets[staticData.creatureToPet[drop.id]]) {
                                     dropStatus.need = true
                                 }
                                 break
 
-                            case 'quest':
+                            case FarmDropType.Quest:
                                 if (!every(userQuestData.characters, (c) => c.quests.get(drop.id) !== undefined)) {
                                     dropStatus.need = true
                                 }
                                 break
 
-                            case 'toy':
+                            case FarmDropType.Toy:
                                 if (!userCollectionData.toys[drop.id]) {
                                     dropStatus.need = true
                                 }
                                 break
 
-                            case 'transmog':
+                            case FarmDropType.Transmog:
                                 if (!userTransmogData.userHas[drop.id]) {
                                     dropStatus.need = true
                                 }
@@ -168,11 +198,11 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                         }
 
                         dropStatus.skip = (
-                            (drop.type === 'mount' && !options.trackMounts) ||
-                            (drop.type === 'pet' && !options.trackPets) ||
-                            (drop.type === 'quest' && !options.trackQuests) ||
-                            (drop.type === 'toy' && !options.trackToys) ||
-                            (drop.type === 'transmog' && !options.trackTransmog)
+                            (drop.type === FarmDropType.Mount && !options.trackMounts) ||
+                            (drop.type === FarmDropType.Pet && !options.trackPets) ||
+                            (drop.type === FarmDropType.Quest && !options.trackQuests) ||
+                            (drop.type === FarmDropType.Toy && !options.trackToys) ||
+                            (drop.type === FarmDropType.Transmog && !options.trackTransmog)
                         )
 
                         if (!dropStatus.skip) {
@@ -264,20 +294,25 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                             }
 
                             // Filter again for characters that haven't completed the quest
-                            if (drop.type === 'quest') {
+                            if (drop.type === FarmDropType.Quest) {
                                 dropCharacters = filter(
                                     dropCharacters,
                                     (c) => userQuestData.characters[c.id].quests.get(drop.id) === undefined,
                                 )
+
+                                if (!dropStatus.skip && dropCharacters.length === 0) {
+                                    dropStatus.need = false
+                                }
                             }
 
                             dropStatus.validCharacters = dropCharacters.length > 0
 
                             // And finally, filter for characters that aren't locked
                             if (drop.questIds) {
+
                                 dropCharacters = filter(
                                     dropCharacters,
-                                    (c) => resetMap[c.id] < now ||
+                                    (c) => expiredFunc(c.id) ||
                                         every(
                                             drop.questIds,
                                             (q) => userQuestData.characters[c.id]?.dailyQuests?.get(q) === undefined
@@ -287,7 +322,7 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                             
                             for (const character of dropCharacters) {
                                 if (
-                                    resetMap[character.id] < now ||
+                                    expiredFunc(character.id) ||
                                     every(
                                         farm.questIds,
                                         (q) => userQuestData.characters[character.id]?.dailyQuests?.get(q) === undefined
@@ -318,7 +353,7 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
 
                     farmStatus.need = some(farmStatus.drops, (d) => d.need && !d.skip)
 
-                    const characterIds: Record<number, string[]> = {}
+                    const characterIds: Record<number, FarmDropType[]> = {}
 
                     for (let dropIndex = 0; dropIndex < farmStatus.drops.length; dropIndex++) {
                         const dropStatus = farmStatus.drops[dropIndex]

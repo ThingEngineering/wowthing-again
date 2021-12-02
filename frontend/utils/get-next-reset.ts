@@ -26,15 +26,7 @@ export function getNextDailyReset(timeString: string, region: Region): DateTime 
     return reset
 }
 
-export function getNextWeeklyReset(timeString: string, region: Region): DateTime {
-    const time = parseApiTime(timeString)
-    if (time.year < 2000) {
-        return time.plus({minutes: 1})
-    }
-
-    const resetDay = resetTimes[region].weeklyResetDay
-    const [resetHour, resetMin] = resetTimes[region].weeklyResetTime
-
+function getResetTime(time: DateTime, resetDay: number, resetHour: number, resetMin: number): DateTime {
     let reset: DateTime = time.set({
         hour: resetHour,
         minute: resetMin,
@@ -53,4 +45,31 @@ export function getNextWeeklyReset(timeString: string, region: Region): DateTime
     }
 
     return reset
+}
+
+export function getNextWeeklyReset(timeString: string, region: Region): DateTime {
+    const time = parseApiTime(timeString)
+    if (time.year < 2000) {
+        return time.plus({minutes: 1})
+    }
+
+    const resetDay = resetTimes[region].weeklyResetDay
+    const [resetHour, resetMin] = resetTimes[region].weeklyResetTime
+
+    return getResetTime(time, resetDay, resetHour, resetMin)
+}
+
+export function getNextBiWeeklyReset(timeString: string, region: Region): DateTime {
+    const time = parseApiTime(timeString)
+    if (time.year < 2000) {
+        return time.plus({minutes: 1})
+    }
+
+    const resetDay = resetTimes[region].biWeeklyResetDay
+    const [resetHour, resetMin] = resetTimes[region].biWeeklyResetTime
+
+    const resetTime = getResetTime(time, resetDay, resetHour, resetMin)
+    const weeklyResetTime = getNextWeeklyReset(timeString, region)
+
+    return resetTime < weeklyResetTime ? resetTime : weeklyResetTime
 }

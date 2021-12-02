@@ -204,11 +204,11 @@ groups:
       items:
         1:  35521 # Head
         3:  35523 # Shoulders
-        5:  35507 35519 # Chest
+        5:  35519 # Chest
         6:  35517 # Waist
-        7:  35504 # Legs
+        7:  35522 # Legs
         8:  35518 # Feet
-        9:  35506 # Wrists
+        9:  35524 # Wrists
         10: 35520 # Hands
 
     - name: "Relinquished (Mail)"

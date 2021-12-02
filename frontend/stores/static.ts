@@ -2,8 +2,15 @@ import sortBy from 'lodash/sortBy'
 
 import { zoneMapStore } from './zone-map'
 import { extraInstanceMap } from '@/data/dungeon'
-import { StaticDataCurrency, StaticDataInstance, WritableFancyStore } from '@/types'
-import type { StaticData, StaticDataSetCategory } from '@/types'
+import {
+    StaticDataCurrency,
+    StaticDataInstance,
+    StaticDataRealm,
+    StaticDataReputation,
+    StaticDataSetCategory,
+    WritableFancyStore,
+} from '@/types'
+import type { StaticData, StaticDataSetCategoryArray } from '@/types'
 
 
 export class StaticDataStore extends WritableFancyStore<StaticData> {
@@ -13,13 +20,6 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
 
     initialize(data: StaticData): void {
         console.time('StaticDataStore.initialize')
-
-        data.realms[0] = {
-            id: 0,
-            region: 1,
-            name: 'Honkstrasza',
-            slug: 'honkstrasza',
-        }
 
         if (data.currenciesRaw) {
             data.currencies = {}
@@ -37,15 +37,37 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
                 data.instances[obj.id] = obj
             }
             data.instancesRaw = null
+
+            for (const instanceId in extraInstanceMap) {
+                data.instances[instanceId] = extraInstanceMap[instanceId]
+            }
         }
 
-        for (const instanceId in extraInstanceMap) {
-            data.instances[instanceId] = extraInstanceMap[instanceId]
+        if (data.realmsRaw) {
+            data.realms = {
+                0: new StaticDataRealm(0, 1, 'Honkstrasza', 'honkstrasza'),
+            }
+            for (const realmArray of data.realmsRaw) {
+                const obj = new StaticDataRealm(...realmArray)
+                data.realms[obj.id] = obj
+            }
+            data.realmsRaw = null
         }
 
-        data.mountSets = StaticDataStore.fixSets(data.mountSets)
-        data.petSets = StaticDataStore.fixSets(data.petSets)
-        data.toySets = StaticDataStore.fixSets(data.toySets)
+        if (data.reputationsRaw) {
+            data.reputations = {}
+            for (const reputationArray of data.reputationsRaw) {
+                const obj = new StaticDataReputation(...reputationArray)
+                data.reputations[obj.id] = obj
+            }
+            data.reputationsRaw = null
+        }
+
+        if (data.mountSetsRaw && data.petSetsRaw && data.toySetsRaw) {
+            data.mountSets = StaticDataStore.fixSets(data.mountSetsRaw)
+            data.petSets = StaticDataStore.fixSets(data.petSetsRaw)
+            data.toySets = StaticDataStore.fixSets(data.toySetsRaw)
+        }
 
         console.timeEnd('StaticDataStore.initialize')
 
@@ -58,28 +80,32 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
         })
     }
 
-    private static fixSets(allSets: StaticDataSetCategory[][]): StaticDataSetCategory[][] {
+    private static fixSets(allSets: StaticDataSetCategoryArray[][]): StaticDataSetCategory[][] {
         const newSets: StaticDataSetCategory[][] = []
 
         for (const sets of allSets) {
             if (sets === null) {
                 newSets.push(null)
+                continue
             }
-            else {
-                newSets.push(
-                    sortBy(
-                        sets,
-                        (set) => [
-                            set.name.startsWith('<') ? 0 : 1,
-                            set.name.startsWith('>') ? 1 : 0,
-                        ]
-                    )
-                )
 
-                for (const set of newSets[newSets.length - 1]) {
-                    if (set.name.startsWith('<') || set.name.startsWith('>')) {
-                        set.name = set.name.substring(1)
-                    }
+            const actualSets = sets.map(
+                (set) => new StaticDataSetCategory(...set)
+            )
+
+            newSets.push(
+                sortBy(
+                    actualSets,
+                    (set) => [
+                        set.name.startsWith('<') ? 0 : 1,
+                        set.name.startsWith('>') ? 1 : 0,
+                    ]
+                )
+            )
+
+            for (const set of newSets[newSets.length - 1]) {
+                if (set.name.startsWith('<') || set.name.startsWith('>')) {
+                    set.name = set.name.substring(1)
                 }
             }
         }

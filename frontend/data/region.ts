@@ -1,17 +1,22 @@
 import {Region} from '@/types/enums'
 import type {ResetTime} from '@/types'
 
+// Times are [hour, minute] in UTC
 export const resetTimes: Record<Region, ResetTime> = {
     [Region.US]: {
-        dailyResetTime: [15, 0],
+        dailyResetTime: [15, 0], // 7am/8am
         weeklyResetDay: 2, // Tuesday
-        weeklyResetTime: [15, 0],
+        weeklyResetTime: [15, 0], // 7am/8am
+        biWeeklyResetDay: 5, // Friday
+        biWeeklyResetTime: [3, 0], // 7pm/8pm
     },
     [Region.KR]: null,
     [Region.EU]: {
-        dailyResetTime: [7, 0],
+        dailyResetTime: [7, 0], // 7am/8am
         weeklyResetDay: 3, // Wednesday
-        weeklyResetTime: [7, 0],
+        weeklyResetTime: [7, 0], // 7am/8am
+        biWeeklyResetDay: 5, // Saturday
+        biWeeklyResetTime: [19, 0], // 7pm/8pm
     },
     [Region.TW]: null,
 }

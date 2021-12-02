@@ -45,7 +45,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
-            Version = 24,
+            Version = 25,
         };
 
         public override async Task Run(params string[] data)
@@ -156,7 +156,7 @@ namespace Wowthing.Backend.Jobs.Misc
             #endif
             
             // Basic database dumps
-            var realms = new SortedDictionary<int, WowRealm>(await Context.WowRealm.ToDictionaryAsync(c => c.Id));
+            var realms = await Context.WowRealm.ToListAsync();
             var reputationTiers = new SortedDictionary<int, WowReputationTier>(await Context.WowReputationTier.ToDictionaryAsync(c => c.Id));
             _timer.AddPoint("Database");
 
@@ -175,17 +175,17 @@ namespace Wowthing.Backend.Jobs.Misc
                     CurrencyCategories = currencyCategories,
                     InstancesRaw = instances,
                     RaiderIoScoreTiers = raiderIoScoreTiers ?? new Dictionary<int, OutRaiderIoScoreTiers>(),
-                    Realms = realms,
-                    Reputations = reputations,
+                    RealmsRaw = realms,
+                    ReputationsRaw = reputations,
                     ReputationTiers = reputationTiers,
                     ZoneMapSets = zoneMaps[language],
 
                     CreatureToPet = sortedCreatureToPet,
                     SpellToMount = sortedSpellToMount,
 
-                    MountSets = FinalizeCollections(mountSets),
-                    PetSets = FinalizeCollections(petSets),
-                    ToySets = FinalizeCollections(toySets),
+                    MountSetsRaw = FinalizeCollections(mountSets),
+                    PetSetsRaw = FinalizeCollections(petSets),
+                    ToySetsRaw = FinalizeCollections(toySets),
 
                     Progress = progress,
                     ReputationSets = reputationSets,
@@ -237,11 +237,13 @@ namespace Wowthing.Backend.Jobs.Misc
             return new SortedDictionary<int, OutCurrencyCategory>(categories.ToDictionary(k => k.ID, v => new OutCurrencyCategory(v)));
         }
 
-        private static async Task<SortedDictionary<int, OutReputation>> LoadReputations()
+        private static async Task<List<OutReputation>> LoadReputations()
         {
             var factions = await DataUtilities.LoadDumpCsvAsync<DumpFaction>("faction");
-
-            return new SortedDictionary<int, OutReputation>(factions.ToDictionary(k => k.ID, v => new OutReputation(v)));
+            return factions
+                .Select(faction => new OutReputation(faction))
+                .OrderBy(rep => rep.Id)
+                .ToList();
         }
 
         private static readonly HashSet<int> InstanceTypes = new HashSet<int>() {

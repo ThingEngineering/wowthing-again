@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Linq;
 using Newtonsoft.Json;
+using Wowthing.Backend.Converters;
 
 namespace Wowthing.Backend.Models.Data.ZoneMaps
 {
+    [JsonConverter(typeof(OutZoneMapDropConverter))]
     public class OutZoneMapDrop
     {
         public int Id { get; set; }

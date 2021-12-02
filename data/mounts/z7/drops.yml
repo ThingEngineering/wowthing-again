@@ -39,6 +39,7 @@ groups:
 - name: Mechagon
   things:
   - 297157 # Junkheap Drifter (Rustfeather, Mechagon)
+  - 291492 # Rusty Mechanocrawler (Arachnoid Harvester, Mechagon)
 
 - name: Nazjatar
   things:

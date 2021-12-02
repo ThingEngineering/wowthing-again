@@ -6,12 +6,20 @@ reputations:
       id: 2415
       name: Rajani
       icon: achievement/14156
+      rewards:
+      - type: pet
+        id: 162013
+        name: "Jade Defender"
     paragon: true
 
   - both:
       id: 2417
       name: Uldum Accord
       icon: achievement/14155
+      rewards:
+      - type: pet
+        id: 162007
+        name: "Cursed Dune Watcher"
     paragon: true
 
 # 8.2
@@ -26,10 +34,36 @@ reputations:
       id: 2400
       name: Waveblade Ankoan
       icon: achievement/13558
+      rewards:
+      - type: mount
+        id: 294038
+        name: "Royal Snapdragon"
+
+      - type: toy
+        id: 170203
+        name: "Flopping Fish"
+
+      - type: toy
+        id: 170469
+        name: "Memento of the Deeps"
+
     horde:
       id: 2373
       name: The Unshackled
       icon: achievement/13559
+      rewards:
+      - type: mount
+        id: 294038
+        name: "Royal Snapdragon"
+
+      - type: toy
+        id: 170203
+        name: "Flopping Fish"
+
+      - type: toy
+        id: 170469
+        name: "Memento of the Deeps"
+
     paragon: true
 
 # 8.0
@@ -77,13 +111,17 @@ reputations:
     paragon: true
 
   - alliance:
-      id: 2162
-      name: Storm's Wake
-      icon: achievement/12953
+      id: 2160
+      name: Proudmoore Admiralty
+      icon: achievement/12951
       rewards:
       - type: pet
-        id: 149376
-        name: "Violet Abyssal Eel"
+        id: 149363
+        name: "Albatross Hatchling"
+
+      - type: toy
+        id: 166702
+        name: "Proudmoore Music Box"
     horde:
       id: 2103
       name: Zandalari Empire
@@ -121,17 +159,13 @@ reputations:
     paragon: true
 
   - alliance:
-      id: 2160
-      name: Proudmoore Admiralty
-      icon: achievement/12951
+      id: 2162
+      name: Storm's Wake
+      icon: achievement/12953
       rewards:
       - type: pet
-        id: 149363
-        name: "Albatross Hatchling"
-
-      - type: toy
-        id: 166702
-        name: "Proudmoore Music Box"
+        id: 149376
+        name: "Violet Abyssal Eel"
     horde:
       id: 2158
       name: Voldunai
@@ -144,8 +178,4 @@ reputations:
       - type: toy
         id: 166880
         name: "Meerah's Jukebox"
-
-      - type: toy
-        id: 165021
-        name: "Words of Akunda"
     paragon: true
