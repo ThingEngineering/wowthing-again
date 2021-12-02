@@ -15,8 +15,12 @@
     let lockout: CharacterLockout
     let maxBosses: number
     $: {
-        lockout = character.lockouts?.[instanceDifficulty?.key]
-        maxBosses = lockoutOverride[instanceDifficulty.instanceId] || lockout.maxBosses
+        if (instanceDifficulty) {
+            lockout = character.lockouts?.[instanceDifficulty.key]
+            if (lockout) {
+                maxBosses = lockoutOverride[instanceDifficulty.instanceId] || lockout.maxBosses
+            }
+        }
     }
 </script>
 
