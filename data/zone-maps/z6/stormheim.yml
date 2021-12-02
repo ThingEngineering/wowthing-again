@@ -181,7 +181,7 @@ farms:
     id: 97205
     name: "Stormborne Whelpling"
 
-  - type: tranmog
+  - type: transmog
     id: 129110
     name: "Matriarch-Hide Legguards"
     limit: armor leather

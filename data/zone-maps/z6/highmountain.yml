@@ -16,13 +16,13 @@ farms:
 
 - name: "Beastmaster Pao'lek"
   location: 48.60 50.00
-  npcId:
+  npcId: 97215
   questId: 39784
   drops:
   - type: transmog
     id: 131756
-    name: ""
-    limit: armor
+    name: "Fletcher's Nimble Grips"
+    limit: armor mail
 
 - name: "Bristlemaul"
   location: 37.70 45.70
