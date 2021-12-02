@@ -2612,6 +2612,11 @@ svelte-drag-and-drop-actions@^1.0.0:
     svelte-coordinate-conversion "^0.1.6"
     svelte-drag-and-drop-actions "^0.1.28"
 
+svelte-intersection-observer@^0.9.2:
+  version "0.9.2"
+  resolved "https://registry.yarnpkg.com/svelte-intersection-observer/-/svelte-intersection-observer-0.9.2.tgz#6c851d5b5cf0c2278c58b7415788b56e7d21c15b"
+  integrity sha512-4q6UwHB+vtWXLKO/gawUpfv8oUoawAftBmm9DeCg7OpCmciyRzSE7cT7trpqWY/mLq6jDSsKxpDiJO5SPwL6Ng==
+
 svelte-media@^0.1.5:
   version "0.1.5"
   resolved "https://registry.yarnpkg.com/svelte-media/-/svelte-media-0.1.5.tgz#c3e869db45191b2f60c78f782fdc0b697e9d1f51"
