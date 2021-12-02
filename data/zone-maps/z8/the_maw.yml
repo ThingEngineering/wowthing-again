@@ -644,7 +644,7 @@ farms:
 - name: "Hunt: Shadehounds"
   location: 53.7 79.1
   npcId: 174827
-  questId: 63178 # 63180 (actual hunt), 63433?
+  questId: 63433 # 63178 (started?) 63180 (actual hunt) 63433 (killed)
   reset: bi-weekly
   type: eventBig
   drops:
