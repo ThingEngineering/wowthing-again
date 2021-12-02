@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
+using Wowthing.Backend.Converters;
 using Wowthing.Lib.Extensions;
 
 namespace Wowthing.Backend.Models.Data.ZoneMaps
@@ -33,6 +34,7 @@ namespace Wowthing.Backend.Models.Data.ZoneMaps
         
         public List<int> RequiredQuestIds { get; set; }
 
+        [JsonProperty(PropertyName = "dropsRaw")]
         public List<OutZoneMapDrop> Drops { get; set; }
 
         public OutZoneMapFarm(DataZoneMapFarm farm)

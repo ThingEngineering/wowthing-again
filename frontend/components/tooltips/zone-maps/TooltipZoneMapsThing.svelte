@@ -4,6 +4,7 @@
 
     import { dropType } from '@/data/farm'
     import { userStore } from '@/stores'
+    import { FarmDropType } from '@/types/enums'
     import type { DropStatus, FarmStatus } from '@/types'
     import type { ZoneMapDataDrop, ZoneMapDataFarm } from '@/types/data'
 
@@ -119,10 +120,10 @@
                     class:success={!dropStatus.need || !dropStatus.validCharacters || dropStatus.skip}
                 >
                     <td class="type status-{dropStatus.need ? 'fail' : 'success'}">
-                        {#if drop.type === 'transmog' && drop.limit?.[0] && drop.limit?.[0] !== 'covenant'}
+                        {#if drop.type === FarmDropType.Transmog && drop.limit?.[0] && drop.limit?.[0] !== 'covenant'}
                             <IconifyIcon icon={dropType[drop.limit[0]]} />
                         {:else}
-                            <IconifyIcon icon={dropType[drop.type]} />
+                            <IconifyIcon icon={dropType[FarmDropType[drop.type].toLowerCase()]} />
                         {/if}
                     </td>
                     <td class="name" class:status-success={!dropStatus.need}>{drop.name}</td>
@@ -132,10 +133,10 @@
                             {#if drop.limit.length > 2}
                                 [ {drop.limit.slice(2).join(', ')} ]
                             {/if}
-                        {:else if drop.type === 'transmog'}
+                        {:else if drop.type === FarmDropType.Transmog}
                             cosmetic
                         {:else}
-                            {drop.type}
+                            {FarmDropType[drop.type].toLowerCase()}
                         {/if}
                     </td>
                 </tr>
