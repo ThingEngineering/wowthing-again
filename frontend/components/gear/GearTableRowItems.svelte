@@ -11,7 +11,7 @@
     export let character: Character = undefined
     export let highlightMissingEnchants: boolean
     export let highlightMissingGems: boolean
-    export let rowspan: number = 0
+    export let rowspan = 0
 
     let characterGear: CharacterGear[]
     let useHighlighting = false

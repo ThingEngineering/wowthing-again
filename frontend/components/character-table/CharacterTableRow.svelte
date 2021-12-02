@@ -18,7 +18,7 @@
     setContext('character', character)
 
     let accountEnabled: boolean
-    let element
+    let element: HTMLElement
     let intersected = false
     $: {
         accountEnabled =
