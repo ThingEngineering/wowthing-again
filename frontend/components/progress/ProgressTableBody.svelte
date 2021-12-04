@@ -18,9 +18,10 @@
 
     let datas: StaticDataProgressData[]
     let have: number
+    let haveIndexes: number[]
     let total: number
     $: {
-        ({ datas, have, total } = getProgress(
+        ({ datas, have, haveIndexes, total } = getProgress(
             $userQuestStore.data,
             character,
             category,
@@ -42,7 +43,11 @@
 </style>
 
 {#if total > 0}
-    <td use:tippyComponent={{component: TooltipProgress, props: {datas, group, have}}}>
+    <td
+        use:tippyComponent={{
+            component: TooltipProgress, props: {datas, group, haveIndexes}
+        }}
+    >
         <span class="{getPercentClass(have / total * 100)}">{have} / {total}</span>
     </td>
 {:else}
