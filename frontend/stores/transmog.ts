@@ -1,6 +1,7 @@
 import sortBy from 'lodash/sortBy'
 
 import { WritableFancyStore } from '@/types'
+import { TransmogDataGroupData } from '@/types/data'
 import type { TransmogData, TransmogDataCategory } from '@/types/data'
 
 
@@ -19,6 +20,19 @@ export class TransmogDataStore extends WritableFancyStore<TransmogData> {
                 newSets.push(null)
             }
             else {
+                for (const category of sets) {
+                    for (const group of category.groups) {
+                        if (group.dataRaw) {
+                            group.data = {}
+                            for (const dataKey in group.dataRaw) {
+                                group.data[dataKey] = group.dataRaw[dataKey]
+                                    .map((dataArray) => new TransmogDataGroupData(...dataArray))
+                            }
+                            group.dataRaw = null
+                        }
+                    }
+                }
+                
                 newSets.push(
                     sortBy(
                         sets,

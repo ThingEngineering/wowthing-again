@@ -1,7 +1,7 @@
 name: Mechagon
 mapName: z7_mechagon
 minimumLevel: 50
-requiredQuestId: 55736 # Welcome to the Resistance
+#requiredQuestId: 55736 # Welcome to the Resistance
 wowheadGuide: https://www.wowhead.com/guides/mechagon-junkyard-tinkering
 farms:
 

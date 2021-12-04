@@ -12,6 +12,7 @@ export default function getProgress(
     category: StaticDataProgressCategory,
     group: StaticDataProgressGroup
 ): ProgressInfo {
+    const haveIndexes: number[] = []
     let have = 0
     let total = 0
     let icon = ''
@@ -49,23 +50,26 @@ export default function getProgress(
 
         if (datas) {
             total = datas.length
-            for (const data of datas) {
+            for (let dataIndex = 0; dataIndex < datas.length; dataIndex++) {
+                const data = datas[dataIndex]
                 if (
                     group.type === 'quest' &&
                     some(data.ids, (id) => userQuestData.characters[character.id]?.quests?.has(id))
                 ) {
+                    haveIndexes.push(dataIndex)
                     have++
                 }
             }
         }
     }
 
-    return { datas, have, icon, total }
+    return { datas, have, haveIndexes, icon, total }
 }
 
 interface ProgressInfo {
     datas: StaticDataProgressData[]
     have: number
+    haveIndexes: number[]
     icon: string
     total: number
 }

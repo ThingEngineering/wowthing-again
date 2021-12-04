@@ -44,7 +44,8 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
 
         const shownCharacters = filter(
             userData.characters,
-            (c) => settings.characters.hiddenCharacters.indexOf(c.id) === -1
+            (c) => settings.characters.hiddenCharacters.indexOf(c.id) === -1 &&
+                userData.accounts?.[c.accountId]?.enabled !== false
         )
         const overallCounts = setCounts['OVERALL'] = new UserCount()
         const resetMap = fromPairs(

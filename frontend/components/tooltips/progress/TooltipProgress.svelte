@@ -3,7 +3,7 @@
 
     export let datas: StaticDataProgressData[]
     export let group: StaticDataProgressGroup
-    export let have: number
+    export let haveIndexes: number[]
 </script>
 
 <div class="wowthing-tooltip">
@@ -12,10 +12,12 @@
         <tbody>
             {#each datas as data, dataIndex}
                 <tr>
-                    <td class="progress-progress">{have > dataIndex ? '✔' : '❌'}</td>
+                    <td class="progress-progress">
+                        {haveIndexes.indexOf(dataIndex) >= 0 ? '✔' : '❌'}
+                    </td>
                     <td class="progress-name">
                         {data.name}
-                        {#if data.description && have <= dataIndex}
+                        {#if data.description && haveIndexes.indexOf(dataIndex) === -1}
                             <span>{data.description}</span>
                         {/if}
                     </td>
