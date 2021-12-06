@@ -32,7 +32,7 @@ export class TransmogDataStore extends WritableFancyStore<TransmogData> {
                         }
                     }
                 }
-                
+
                 newSets.push(
                     sortBy(
                         sets,

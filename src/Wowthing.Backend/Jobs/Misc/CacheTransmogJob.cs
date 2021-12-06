@@ -16,12 +16,7 @@ namespace Wowthing.Backend.Jobs.Misc
 {
     public class CacheTransmogJob : JobBase, IScheduledJob
     {
-        private string _basePath;
         private JankTimer _timer;
-        private IDeserializer _yaml = new DeserializerBuilder()
-            .WithNamingConvention(CamelCaseNamingConvention.Instance)
-            .IgnoreUnmatchedProperties()
-            .Build();
 
         public static readonly ScheduledJob Schedule = new ScheduledJob
         {
@@ -34,12 +29,10 @@ namespace Wowthing.Backend.Jobs.Misc
         public override async Task Run(params string[] data)
         {
             _timer = new JankTimer();
-
-            _basePath = Path.Join(DataUtilities.DataPath, "transmog");
             
             await BuildTransmogData();
             
-            Logger.Information("CacheTransmogJob: {0}", _timer.ToString());
+            Logger.Information("{Timers}", _timer.ToString());
         }
 
         private async Task BuildTransmogData()

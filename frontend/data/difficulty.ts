@@ -22,3 +22,13 @@ export const difficultyMap: Record<number, Difficulty> = {
     16: new Difficulty(16, 'Mythic', 'M', InstanceType.Raid, 20, 20),
     17: new Difficulty(17, 'Looking For Raid', 'L', InstanceType.Raid, 10, 30),
 }
+
+export const journalDifficultyOrder: number[] = [
+    1, // Dungeon Normal
+    2, // Dungeon Heroic
+    23, // Dungeon Mythic
+    17, // Raid LFR
+    14, // Raid Normal
+    15, // Raid Heroic
+    16, // Raid Mythic
+]
