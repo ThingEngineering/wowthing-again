@@ -1,6 +1,6 @@
 ﻿namespace Wowthing.Lib.Enums
 {
-    public enum WowQuality
+    public enum WowQuality : short
     {
         Poor,
         Common,

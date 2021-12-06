@@ -127,6 +127,7 @@ namespace Wowthing.Backend.Jobs.Misc
 
                 dbItem.ClassMask = itemSparse.AllowableClass;
                 dbItem.ContainerSlots = itemSparse.ContainerSlots;
+                dbItem.Quality = (WowQuality)itemSparse.OverallQualityID;
                 dbItem.RaceMask = itemSparse.AllowableRace;
                 dbItem.Stackable = itemSparse.Stackable;
 

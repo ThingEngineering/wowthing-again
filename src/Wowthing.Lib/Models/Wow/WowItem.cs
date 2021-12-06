@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Wowthing.Lib.Enums;
 
 namespace Wowthing.Lib.Models.Wow
 {
@@ -13,5 +14,6 @@ namespace Wowthing.Lib.Models.Wow
         public short SubclassId { get; set; }
         public short InventoryType { get; set; }
         public short ContainerSlots { get; set; }
+        public WowQuality Quality { get; set; }
     }
 }
