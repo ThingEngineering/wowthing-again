@@ -28,10 +28,12 @@ export interface JournalDataEncounter {
 
 export interface JournalDataEncounterItem {
     id: number
+    quality: number
     appearances: JournalDataEncounterItemAppearance[]
 }
 
 export interface JournalDataEncounterItemAppearance {
     appearanceId: number
+    modifierId: number
     difficulties: number[]
 }

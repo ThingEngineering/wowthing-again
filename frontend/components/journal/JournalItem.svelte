@@ -1,12 +1,64 @@
 <script lang="ts">
+    import difference from 'lodash/difference'
+
     import { difficultyMap, journalDifficultyOrder } from '@/data/difficulty'
     import { userTransmogStore } from '@/stores'
-    import type { JournalDataEncounterItem } from '@/types/data/journal'
+    import { getItemUrl } from '@/utils/get-item-url'
+    import type { JournalDataEncounterItem, JournalDataEncounterItemAppearance } from '@/types/data/journal'
 
-    import ItemLink from '@/components/links/ItemLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
+    export let bonusIds: Record<number, number> = undefined
     export let item: JournalDataEncounterItem
+
+    const getQuality = function(appearance: JournalDataEncounterItemAppearance): number {
+        // Mythic Keystone/Mythic difficulties should probably set the quality to epic?
+        for (const difficulty of appearance.difficulties) {
+            if (difficulty !== 8 && difficulty !== 23) {
+                return item.quality
+            }
+        }
+        return 4
+    }
+
+    const getBonusIds = function(appearance: JournalDataEncounterItemAppearance): number[] {
+        if (bonusIds === undefined || appearance.difficulties?.length > 1) {
+            return []
+        }
+
+        const bonusId = bonusIds[appearance.difficulties[0]]
+        return bonusId ? [bonusId] : []
+    }
+
+    const getDifficulties = function(appearance: JournalDataEncounterItemAppearance): string[] {
+
+        if (!appearance.difficulties) {
+            return []
+        }
+
+        // 10 Normal + 25 Normal + Normal? = Normal
+        if (difference(appearance.difficulties, [3, 4]).length === 0 ||
+            difference(appearance.difficulties, [3, 4, 14]).length === 0) {
+            return ['N']
+        }
+        // 10 Heroic + 25 Heroic + Heroic? = Heroic
+        if (difference(appearance.difficulties, [5, 6]).length === 0 ||
+            difference(appearance.difficulties, [5, 6, 15]).length === 0) {
+            return ['H']
+        }
+        // 10 Normal + 25 Normal + 10 Heroic + 25 Heroic = Normal/Heroic (ZA/ZG)
+        if (difference(appearance.difficulties, [3, 4, 5, 6]).length === 0) {
+            return ['N', 'H']
+        }
+
+        const ret: string[] = []
+        for (const difficulty of journalDifficultyOrder) {
+            if (appearance.difficulties.indexOf(difficulty) >= 0) {
+                ret.push(difficultyMap[difficulty].shortName)
+            }
+        }
+        return ret
+    }
 </script>
 
 <style lang="scss">
@@ -17,10 +69,7 @@
         margin-right: 0.25rem;
         position: relative;
 
-        &.thing-yes {
-            --image-border-color: #44aa44;
-        }
-        &.thing-no {
+        &.missing {
             opacity: 0.5;
         }
     }
@@ -42,22 +91,24 @@
 </style>
 
 {#each item.appearances as appearance}
-    <div class="appearance thing-{$userTransmogStore.data.userHas[appearance.appearanceId] ? 'yes' : 'no'}">
-        <ItemLink
-            id={item.id}
-        >
+    <div
+        class="appearance quality{getQuality(appearance)}"
+        class:missing={!$userTransmogStore.data.userHas[appearance.appearanceId]}
+    >
+        <a href="{getItemUrl({
+            itemId: item.id,
+            bonusIds: getBonusIds(appearance),
+        })}">
             <WowthingImage
-                name="item/{item.id}"
+                name="item/{item.id}{appearance.modifierId > 0 ? `_${appearance.modifierId}` : ''}"
                 size={48}
                 border={2}
             />
-        </ItemLink>
+        </a>
 
-        <div class="difficulties">
-            {#each journalDifficultyOrder as difficulty}
-                {#if appearance.difficulties.indexOf(difficulty) >= 0}
-                    <span>{difficultyMap[difficulty].shortName}</span>
-                {/if}
+        <div class="difficulties" data-difficulties="{JSON.stringify(appearance.difficulties)}">
+            {#each getDifficulties(appearance) as difficulty}
+                <span>{difficulty}</span>
             {/each}
         </div>
     </div>

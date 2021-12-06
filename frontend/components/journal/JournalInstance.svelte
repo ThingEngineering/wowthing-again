@@ -2,7 +2,7 @@
     import find from 'lodash/find'
 
     import { journalStore } from '@/stores'
-    import type { JournalDataInstance, JournalDataTier } from '@/types/data/journal'
+    import type { JournalDataInstance, JournalDataTier } from '@/types/data'
 
     import CollectionCount from '@/components/collections/CollectionCount.svelte'
     import Item from './JournalItem.svelte'
@@ -58,7 +58,10 @@
             </h3>
             <div class="items">
                 {#each encounter.items as item}
-                    <Item {item} />
+                    <Item
+                        bonusIds={instance.bonusIds}
+                        {item}
+                    />
                 {/each}
             </div>
         {/each}

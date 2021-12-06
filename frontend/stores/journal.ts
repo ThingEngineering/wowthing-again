@@ -1,6 +1,5 @@
 import { UserCount, WritableFancyStore } from '@/types'
-import type { UserTransmogData } from '@/types/data'
-import type { JournalData } from '@/types/data/journal'
+import type { JournalData, UserTransmogData } from '@/types/data'
 
 
 export class JournalDataStore extends WritableFancyStore<JournalData> {
@@ -19,6 +18,7 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
         const stats: Record<string, UserCount> = {}
 
         const overallStats = stats['OVERALL'] = new UserCount()
+        const overallSeen: Record<number, boolean> = {}
 
         for (const tier of journalData.tiers) {
             const tierStats = stats[tier.slug] = new UserCount()
@@ -26,31 +26,51 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
             for (const instance of tier.instances) {
                 const instanceKey = `${tier.slug}--${instance.slug}`
                 const instanceStats = stats[instanceKey] = new UserCount()
+                const instanceSeen: Record<number, boolean> = {}
 
                 for (const encounter of instance.encounters) {
                     const encounterKey = `${instanceKey}--${encounter.name}`
                     const encounterStats = stats[encounterKey] = new UserCount()
+                    const encounterSeen: Record<number, boolean> = {}
 
                     for (const item of encounter.items) {
                         for (const appearance of item.appearances) {
-                            overallStats.total++
-                            tierStats.total++
-                            instanceStats.total++
-                            encounterStats.total++
-                            
-                            if (userTransmogData.userHas[appearance.appearanceId]) {
-                                overallStats.have++
-                                tierStats.have++
-                                instanceStats.have++
-                                encounterStats.have++
+                            if (!overallSeen[appearance.appearanceId]) {
+                                overallStats.total++
                             }
+
+                            tierStats.total++
+
+                            if (!instanceSeen[appearance.appearanceId]) {
+                                instanceStats.total++
+                            }
+                            if (!encounterSeen[appearance.appearanceId]) {
+                                encounterStats.total++
+                            }
+
+                            if (userTransmogData.userHas[appearance.appearanceId]) {
+                                if (!overallSeen[appearance.appearanceId]) {
+                                    overallStats.have++
+                                }
+
+                                tierStats.have++
+
+                                if (!instanceSeen[appearance.appearanceId]) {
+                                    instanceStats.have++
+                                }
+                                if (!encounterSeen[appearance.appearanceId]) {
+                                    encounterStats.have++
+                                }
+                            }
+
+                            overallSeen[appearance.appearanceId] = true
+                            instanceSeen[appearance.appearanceId] = true
+                            encounterSeen[appearance.appearanceId] = true
                         }
                     }
                 }
             }
         }
-
-        console.log(stats)
 
         this.update((state) => {
             state.data.stats = stats

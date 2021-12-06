@@ -3,15 +3,15 @@
     import find from 'lodash/find'
     import { getContext } from 'svelte'
 
+    import { userCollectionStore } from '@/stores'
+    import getPercentClass from "@/utils/get-percent-class";
+    import tippy from '@/utils/tippy'
     import type { StaticDataSetCategory } from '@/types'
     import type { CollectionContext } from '@/types/contexts'
-    import { userCollectionStore } from '@/stores'
-    import tippy from '@/utils/tippy'
 
     import CollectionCount from './CollectionCount.svelte'
     import CollectionThing from './CollectionThing.svelte'
     import CollectionThingPet from './CollectionThingPet.svelte'
-    import getPercentClass from "../../utils/get-percent-class";
 
     export let slug1: string
     export let slug2: string

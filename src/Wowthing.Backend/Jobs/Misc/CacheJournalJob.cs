@@ -4,19 +4,14 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using MoreLinq;
-using MoreLinq.Extensions;
 using Newtonsoft.Json;
 using Wowthing.Backend.Data;
 using Wowthing.Backend.Models.Data;
 using Wowthing.Backend.Models.Data.Journal;
-using Wowthing.Backend.Models.Data.Transmog;
-using Wowthing.Backend.Models.Redis;
 using Wowthing.Backend.Utilities;
+using Wowthing.Lib.Enums;
 using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Jobs;
-using Wowthing.Lib.Models.Wow;
 using Wowthing.Lib.Utilities;
 
 namespace Wowthing.Backend.Jobs.Misc
@@ -30,7 +25,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheJournal,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(24),
-            Version = 1,
+            Version = 2,
         };
 
         public override async Task Run(params string[] data)
@@ -47,6 +42,13 @@ namespace Wowthing.Backend.Jobs.Misc
             1, // Dungeon Normal
             2, // Dungeon Heroic
             23, // Dungeon Mythic
+            24, // Dungeon Timewalking
+            7, // Legacy LFR
+            3, // 10 Normal
+            4, // 10 Heroic
+            5, // 25 Normal
+            6, // 25 Heroic
+            9, // 40 Player
             17, // Raid LFR
             14, // Raid Normal
             15, // Raid Heroic
@@ -122,6 +124,12 @@ namespace Wowthing.Backend.Jobs.Misc
                 )
                 .ToDictionaryAsync(item => item.Id);
 
+            // TODO languages
+            var stringMap = await Context.LanguageString
+                .Where(ls => ls.Type == StringType.WowItemName && ls.Language == Language.enUS)
+                .AsNoTracking()
+                .ToDictionaryAsync(ls => (ls.Language, ls.Id), ls => ls.String);
+            
             _timer.AddPoint("Database");
 
             tiers.Reverse();
@@ -174,53 +182,78 @@ namespace Wowthing.Backend.Jobs.Misc
                                 continue;
                             }
 
-                            int[] difficulties;
-                            if (encounterItem.DifficultyMask == -1)
+                            if (!Hardcoded.InstanceDifficulties.TryGetValue(instanceId, out int[] difficulties))
                             {
-                                difficulties = mapDifficulties;
-                            }
-                            else if (!difficultiesByItemId.TryGetValue(encounterItem.ID, out difficulties))
-                            {
-                                Logger.Warning("No difficulties for item ID {Id}", encounterItem.ID);
-                                continue;
+                                if (encounterItem.DifficultyMask == -1)
+                                {
+                                    difficulties = mapDifficulties;
+                                }
+                                else if (!difficultiesByItemId.TryGetValue(encounterItem.ID, out difficulties))
+                                {
+                                    Logger.Warning("No difficulties for item ID {Id}", encounterItem.ID);
+                                    continue;
+                                }
                             }
 
                             difficulties = difficulties
                                 .OrderBy(d => Array.IndexOf(_difficultyOrder, d))
                                 .ToArray();
 
-                            var itemAppearances = new Dictionary<int, List<int>>();
+                            var itemAppearances = new Dictionary<int, OutJournalEncounterItemAppearance>();
                             foreach (var difficultyId in difficulties)
                             {
                                 if (!(
                                     instanceData.BonusIds != null &&
-                                    instanceData.BonusIds.TryGetValue(difficultyId, out var bonusId) &&
-                                    bonusAppearanceModifiers.TryGetValue(bonusId, out var modifierId) &&
+                                    instanceData.BonusIds.TryGetValue(difficultyId, out int bonusId) &&
+                                    bonusAppearanceModifiers.TryGetValue(bonusId, out int modifierId) &&
                                     appearances.TryGetValue(modifierId, out int appearanceId)
                                 ))
                                 {
-                                    appearanceId = appearances
+                                    var first = appearances
                                         .OrderBy(kvp => kvp.Key)
-                                        .First()
-                                        .Value;
+                                        .First();
+
+                                    modifierId = first.Key;
+                                    appearanceId = first.Value;
                                 }
 
                                 if (!itemAppearances.ContainsKey(appearanceId))
                                 {
-                                    itemAppearances[appearanceId] = new List<int>();
+                                    itemAppearances[appearanceId] = new OutJournalEncounterItemAppearance
+                                    {
+                                        AppearanceId = appearanceId,
+                                        ModifierId = modifierId,
+                                    };
                                 }
-                                itemAppearances[appearanceId].Add(difficultyId);
+                                itemAppearances[appearanceId].Difficulties.Add(difficultyId);
+                            }
+
+                            foreach (var appearance in itemAppearances.Values)
+                            {
+                                // Don't use both Mythic and Mythic Keystone difficulties
+                                if (appearance.Difficulties.Contains(8) &&
+                                    appearance.Difficulties.Contains(23))
+                                {
+                                    appearance.Difficulties.Remove(8);
+                                }
+                                
+                                // Legacy raids like to have dungeon difficulties for some reason
+                                if (appearance.Difficulties.Contains(3) ||
+                                    appearance.Difficulties.Contains(4) ||
+                                    appearance.Difficulties.Contains(5) ||
+                                    appearance.Difficulties.Contains(6))
+                                {
+                                    appearance.Difficulties.Remove(1);
+                                    appearance.Difficulties.Remove(2);
+                                }
                             }
                             
                             encounterData.Items.Add(new OutJournalEncounterItem
                             {
                                 Id = encounterItem.ItemID,
-                                Appearances = itemAppearances.Select(
-                                    kvp => new OutJournalEncounterItemAppearance
-                                    {
-                                        AppearanceId = kvp.Key,
-                                        Difficulties = kvp.Value,
-                                    })
+                                Quality = itemMap[encounterItem.ItemID].Quality,
+                                Appearances = itemAppearances
+                                    .Values
                                     .ToList(),
                             });
                         }
@@ -243,6 +276,14 @@ namespace Wowthing.Backend.Jobs.Misc
                                     return 1000000;
                                 }
                             })
+                            .ThenBy(item => stringMap[(Language.enUS, item.Id)])
+                            .ThenBy(item => item.Appearances
+                                        .SelectMany(app => app
+                                            .Difficulties
+                                            .Select(diff => Array.IndexOf(_difficultyOrder, diff))
+                                        )
+                                        .Min()
+                            )
                             .ToList();
                         
                         instanceData.Encounters.Add(encounterData);
