@@ -11,6 +11,7 @@ namespace Wowthing.Backend.Models.Data
         public long AllowableRace { get; set; }
         public short ContainerSlots { get; set; }
         public short ExpansionID { get; set; }
+        public short OverallQualityID { get; set; }
         public int Stackable { get; set; }
 
         [Name("Display_lang")]

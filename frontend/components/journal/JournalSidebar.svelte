@@ -1,7 +1,7 @@
 <script lang="ts">
     import { journalStore } from '@/stores'
     import type { SidebarItem } from '@/types'
-    import type { JournalDataTier } from '@/types/data/journal'
+    import type { JournalDataTier } from '@/types/data'
 
     import Sidebar from '@/components/sidebar/Sidebar.svelte'
 
