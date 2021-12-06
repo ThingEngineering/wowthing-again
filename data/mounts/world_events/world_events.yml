@@ -5,10 +5,10 @@ groups:
   things:
   -  60024 # Violet Proto-Drake (world events)
 
-- name: Misc
+- name: Anniversary
   things:
-  - 191314 # Minion of Grumpus
-  - 102349 # Swift Springstrider
+  - 308250 306421 # Stormpike Battle Ram/Frostwolf Snarler (Alterac Valley of Olde)
+  - 306421 308250 # ^ reversed
 
 - name: Brewfest
   things:
@@ -26,3 +26,11 @@ groups:
   things:
   -  71342 # Big Love Rocket (Love is in the Air)
   - 102350 # Swift Lovebird (Love is in the Air)
+
+- name: Noblegarden
+  things:
+  - 102349 # Swift Springstrider
+
+- name: Winter Veil
+  things:
+  - 191314 # Minion of Grumpus

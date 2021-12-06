@@ -15,8 +15,6 @@ groups:
 
 - name: Vendors
   things:
-  - 63844 # Argent Hippogryph
-  - 67466 # Argent Warhorse
   - 60114 60116 # Armored Brown Bear (Dalaran)
   - 61229 61230 # Armored Snowy Gryphon/Armored Blue Wind Rider (Dalaran)
   - 59785 59788 # Black War Mammoth

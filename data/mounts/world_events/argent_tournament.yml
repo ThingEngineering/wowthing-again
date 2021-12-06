@@ -29,4 +29,6 @@ groups:
 
 - name: Misc
   things:
+  - 63844 # Argent Hippogryph
+  - 67466 # Argent Warhorse
   - 66906 # Argent Charger (Paladin)
