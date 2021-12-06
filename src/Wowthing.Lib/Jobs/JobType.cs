@@ -42,5 +42,6 @@
         CacheTransmog,
         //CacheZoneMaps,
         ImportDumps = 1013,
+        CacheJournal,
     }
 }

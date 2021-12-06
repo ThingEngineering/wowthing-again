@@ -1,10 +1,9 @@
 ﻿// ReSharper disable InconsistentNaming
 namespace Wowthing.Backend.Models.Data
 {
-    public class DumpJournalInstance
+    public class DumpMapDifficulty
     {
-        public int ID { get; set; }
+        public int DifficultyID { get; set; }
         public int MapID { get; set; }
-        public int OrderIndex { get; set; }
     }
 }

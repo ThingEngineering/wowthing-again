@@ -9,6 +9,7 @@ using Wowthing.Backend.Jobs.NonBlizzard;
 using Wowthing.Backend.Models.Data;
 using Wowthing.Backend.Models.Data.Achievements;
 using Wowthing.Backend.Models.Data.Collections;
+using Wowthing.Backend.Models.Data.Journal;
 using Wowthing.Backend.Models.Data.Progress;
 using Wowthing.Backend.Models.Data.ZoneMaps;
 using Wowthing.Backend.Models.Redis;

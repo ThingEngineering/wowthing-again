@@ -108,6 +108,9 @@
     <li use:active={'/cards'}>
         <a href="#/cards">🚧 Home (Cards)</a>
     </li>
+    <li use:active={'/journal/*'}>
+        <a href="#/journal/">🚧 Journal</a>
+    </li>
     <li use:active={'/teams'}>
         <a href="#/teams">🚧 Teams</a>
     </li>

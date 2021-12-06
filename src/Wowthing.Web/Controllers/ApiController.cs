@@ -188,7 +188,7 @@ namespace Wowthing.Web.Controllers
             });
         }
 
-        [HttpGet("{type:regex(^(achievement|static|transmog|zone-map)$)}-{languageCode:length(4)}.{hash:length(32)}.json")]
+        [HttpGet("{type:regex(^(achievement|journal|static|transmog|zone-map)$)}-{languageCode:length(4)}.{hash:length(32)}.json")]
         [ResponseCache(Duration = 365 * 24 * 60 * 60, VaryByHeader = "Origin")]
         public async Task<IActionResult> CachedJson([FromRoute] string type, [FromRoute] string languageCode, [FromRoute] string hash)
         {

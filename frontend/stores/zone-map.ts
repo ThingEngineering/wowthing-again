@@ -296,6 +296,10 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
 
                             // Filter again for characters that haven't completed the quest
                             if (drop.type === FarmDropType.Quest) {
+                                if (map.slug === 'mechagon') {
+                                    dropCharacters = filter(dropCharacters, (c) => c.name === 'Wataki')
+                                }
+
                                 dropCharacters = filter(
                                     dropCharacters,
                                     (c) => userQuestData.characters[c.id].quests.get(drop.id) === undefined,
