@@ -2,6 +2,8 @@
     import find from 'lodash/find'
 
     import { journalStore } from '@/stores'
+    import { data as settingsData } from '@/stores/settings'
+    import getFilteredItems from '@/utils/journal/get-filtered-items'
     import type { JournalDataInstance, JournalDataTier } from '@/types/data'
 
     import CollectionCount from '@/components/collections/CollectionCount.svelte'
@@ -17,7 +19,6 @@
             instance = find(tier.instances, (instance) => instance.slug === slug2)
         }
     }
-
 </script>
 
 <style lang="scss">
@@ -57,7 +58,7 @@
                 </span>
             </h3>
             <div class="items">
-                {#each encounter.items as item}
+                {#each getFilteredItems($settingsData, encounter.items) as item}
                     <Item
                         bonusIds={instance.bonusIds}
                         {item}

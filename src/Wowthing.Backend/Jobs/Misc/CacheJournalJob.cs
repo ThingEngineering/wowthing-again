@@ -25,7 +25,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheJournal,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(24),
-            Version = 2,
+            Version = 3,
         };
 
         public override async Task Run(params string[] data)
@@ -168,11 +168,33 @@ namespace Wowthing.Backend.Jobs.Misc
                             Name = encounter.Name,
                         };
 
+                        var items = new List<DumpJournalEncounterItem>();
                         foreach (var encounterItem in itemsByEncounterId[encounter.ID])
+                        {
+                            if (Hardcoded.ItemExpansions.TryGetValue(encounterItem.ItemID, out var expandedItems))
+                            {
+                                Logger.Warning("Adding fake items for {0}", encounterItem.ItemID);
+                                items.AddRange(expandedItems.Select(itemId => new DumpJournalEncounterItem
+                                {
+                                    ID = encounterItem.ID,
+                                    DifficultyMask = encounterItem.DifficultyMask,
+                                    FactionMask = encounterItem.FactionMask,
+                                    Flags = encounterItem.Flags,
+                                    ItemID = itemId,
+                                    JournalEncounterID = encounterItem.JournalEncounterID,
+                                }));
+                            }
+                            else
+                            {
+                                items.Add(encounterItem);
+                            }
+                        }
+                        
+                        foreach (var encounterItem in items)
                         {
                             if (!itemMap.TryGetValue(encounterItem.ItemID, out var item))
                             {
-                                Logger.Warning("No item for ID {Id}", encounterItem.ItemID);
+                                //Logger.Warning("No item for ID {Id}", encounterItem.ItemID);
                                 continue;
                             }
 
@@ -251,7 +273,10 @@ namespace Wowthing.Backend.Jobs.Misc
                             encounterData.Items.Add(new OutJournalEncounterItem
                             {
                                 Id = encounterItem.ItemID,
-                                Quality = itemMap[encounterItem.ItemID].Quality,
+                                ClassMask = item.CalculatedClassMask,
+                                ClassId = item.ClassId,
+                                SubclassId = item.SubclassId,
+                                Quality = item.Quality,
                                 Appearances = itemAppearances
                                     .Values
                                     .ToList(),
@@ -277,12 +302,13 @@ namespace Wowthing.Backend.Jobs.Misc
                                 }
                             })
                             .ThenBy(item => stringMap[(Language.enUS, item.Id)])
-                            .ThenBy(item => item.Appearances
-                                        .SelectMany(app => app
-                                            .Difficulties
-                                            .Select(diff => Array.IndexOf(_difficultyOrder, diff))
-                                        )
-                                        .Min()
+                            .ThenBy(item =>
+                                item.Appearances
+                                    .SelectMany(app => app
+                                        .Difficulties
+                                        .Select(diff => Array.IndexOf(_difficultyOrder, diff))
+                                    )
+                                    .Min()
                             )
                             .ToList();
                         

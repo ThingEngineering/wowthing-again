@@ -1,5 +1,5 @@
 export enum PrimaryStat {
-    Agility,
+    Agility = 1,
     Intellect,
     Strength,
 }

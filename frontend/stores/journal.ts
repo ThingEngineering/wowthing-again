@@ -1,5 +1,8 @@
 import { UserCount, WritableFancyStore } from '@/types'
+import { JournalDataEncounterItem } from '@/types/data'
+import type { Settings } from '@/types'
 import type { JournalData, UserTransmogData } from '@/types/data'
+import getFilteredItems from '@/utils/journal/get-filtered-items'
 
 
 export class JournalDataStore extends WritableFancyStore<JournalData> {
@@ -9,8 +12,24 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
             ?.getAttribute('data-journal')
     }
 
+    initialize(data: JournalData): void {
+        for (const tier of data.tiers) {
+            for (const instance of tier.instances) {
+                for (const encounter of instance.encounters) {
+                    if (encounter.itemsRaw) {
+                        encounter.items = encounter.itemsRaw.map(
+                            (itemArray) => new JournalDataEncounterItem(...itemArray)
+                        )
+                        encounter.itemsRaw = null
+                    }
+                }
+            }
+        }
+    }
+
     setup(
         journalData: JournalData,
+        settingsData: Settings,
         userTransmogData: UserTransmogData
     ): void {
         console.time('JournalDataStore.initialize')
@@ -18,7 +37,6 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
         const stats: Record<string, UserCount> = {}
 
         const overallStats = stats['OVERALL'] = new UserCount()
-        const overallSeen: Record<number, boolean> = {}
 
         for (const tier of journalData.tiers) {
             const tierStats = stats[tier.slug] = new UserCount()
@@ -26,46 +44,25 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
             for (const instance of tier.instances) {
                 const instanceKey = `${tier.slug}--${instance.slug}`
                 const instanceStats = stats[instanceKey] = new UserCount()
-                const instanceSeen: Record<number, boolean> = {}
 
                 for (const encounter of instance.encounters) {
                     const encounterKey = `${instanceKey}--${encounter.name}`
                     const encounterStats = stats[encounterKey] = new UserCount()
-                    const encounterSeen: Record<number, boolean> = {}
-
-                    for (const item of encounter.items) {
+                    
+                    const items = getFilteredItems(settingsData, encounter.items)
+                    for (const item of items) {
                         for (const appearance of item.appearances) {
-                            if (!overallSeen[appearance.appearanceId]) {
-                                overallStats.total++
-                            }
-
+                            overallStats.total++
                             tierStats.total++
-
-                            if (!instanceSeen[appearance.appearanceId]) {
-                                instanceStats.total++
-                            }
-                            if (!encounterSeen[appearance.appearanceId]) {
-                                encounterStats.total++
-                            }
+                            instanceStats.total++
+                            encounterStats.total++
 
                             if (userTransmogData.userHas[appearance.appearanceId]) {
-                                if (!overallSeen[appearance.appearanceId]) {
-                                    overallStats.have++
-                                }
-
+                                overallStats.have++
                                 tierStats.have++
-
-                                if (!instanceSeen[appearance.appearanceId]) {
-                                    instanceStats.have++
-                                }
-                                if (!encounterSeen[appearance.appearanceId]) {
-                                    encounterStats.have++
-                                }
+                                instanceStats.have++
+                                encounterStats.have++
                             }
-
-                            overallSeen[appearance.appearanceId] = true
-                            instanceSeen[appearance.appearanceId] = true
-                            encounterSeen[appearance.appearanceId] = true
                         }
                     }
                 }
