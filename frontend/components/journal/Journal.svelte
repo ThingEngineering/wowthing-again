@@ -2,6 +2,7 @@
     import {afterUpdate, onMount} from 'svelte'
 
     import { journalStore, userTransmogStore } from '@/stores'
+    import { data as settingsData } from '@/stores/settings'
     import getSavedRoute from '@/utils/get-saved-route'
     import type { MultiSlugParams } from '@/types'
 
@@ -22,6 +23,7 @@
         if (loaded) {
             journalStore.setup(
                 $journalStore.data,
+                $settingsData,
                 $userTransmogStore.data
             )
             ready = true

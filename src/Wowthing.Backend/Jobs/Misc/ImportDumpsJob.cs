@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Wowthing.Backend.Models.Data;
 using Wowthing.Backend.Utilities;
+using Wowthing.Lib.Data;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Jobs;
@@ -131,6 +133,45 @@ namespace Wowthing.Backend.Jobs.Misc
                 dbItem.RaceMask = itemSparse.AllowableRace;
                 dbItem.Stackable = itemSparse.Stackable;
 
+                // Stats are ~fun~
+                var primaryStats = new HashSet<WowStat>(itemSparse.Stats
+                    .Where(stat => Hardcoded.PrimaryStats.ContainsKey(stat))
+                    .SelectMany(stat => Hardcoded.PrimaryStats[stat])
+                );
+                if (primaryStats.Contains(WowStat.Agility) &&
+                    primaryStats.Contains(WowStat.Intellect) &&
+                    primaryStats.Contains(WowStat.Strength))
+                {
+                    dbItem.PrimaryStat = WowStat.AgilityIntellectStrength;
+                }
+                else if (primaryStats.Contains(WowStat.Agility) &&
+                         primaryStats.Contains(WowStat.Intellect))
+                {
+                    dbItem.PrimaryStat = WowStat.AgilityIntellect;
+                }
+                else if (primaryStats.Contains(WowStat.Agility) &&
+                         primaryStats.Contains(WowStat.Strength))
+                {
+                    dbItem.PrimaryStat = WowStat.AgilityStrength;
+                }
+                else if (primaryStats.Contains(WowStat.Intellect) &&
+                         primaryStats.Contains(WowStat.Strength))
+                {
+                    dbItem.PrimaryStat = WowStat.IntellectStrength;
+                }
+                else if (primaryStats.Contains(WowStat.Agility))
+                {
+                    dbItem.PrimaryStat = WowStat.Agility;
+                }
+                else if (primaryStats.Contains(WowStat.Intellect))
+                {
+                    dbItem.PrimaryStat = WowStat.Intellect;
+                }
+                else if (primaryStats.Contains(WowStat.Strength))
+                {
+                    dbItem.PrimaryStat = WowStat.Strength;
+                }
+                
                 if (!dbLanguageMap.TryGetValue((Language.enUS, item.ID), out var languageString))
                 {
                     languageString = new LanguageString

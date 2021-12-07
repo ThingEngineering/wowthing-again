@@ -24,16 +24,45 @@ export interface JournalDataInstance {
 export interface JournalDataEncounter {
     name: string
     items: JournalDataEncounterItem[]
+    itemsRaw: JournalDataEncounterItemArray[]
 }
 
-export interface JournalDataEncounterItem {
+export class JournalDataEncounterItem {
     id: number
+    classId: number
+    classMask: number
+    subclassId: number
     quality: number
     appearances: JournalDataEncounterItemAppearance[]
+
+    constructor(
+        id: number,
+        quality: number,
+        classId: number,
+        subclassId: number,
+        classMask: number,
+        appearances: JournalDataEncounterItemAppearanceArray[]
+    )
+    {
+        this.id = id
+        this.quality = quality
+        this.classId = classId
+        this.subclassId = subclassId
+        this.classMask = classMask
+        this.appearances = appearances
+            .map((appearanceArray) => new JournalDataEncounterItemAppearance(...appearanceArray))
+    }
 }
 
-export interface JournalDataEncounterItemAppearance {
-    appearanceId: number
-    modifierId: number
-    difficulties: number[]
+type JournalDataEncounterItemArray = ConstructorParameters<typeof JournalDataEncounterItem>
+
+export class JournalDataEncounterItemAppearance {
+    constructor(
+        public appearanceId: number,
+        public modifierId: number,
+        public difficulties: number[]
+    )
+    {}
 }
+
+type JournalDataEncounterItemAppearanceArray = ConstructorParameters<typeof JournalDataEncounterItemAppearance>
