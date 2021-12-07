@@ -2,8 +2,6 @@ import filter from 'lodash/filter'
 
 import type { Settings } from '@/types'
 import type { JournalDataEncounterItem } from '@/types/data'
-import { classSlugMap } from '@/data/character-class'
-import { weaponTypeToSubclass } from '@/data/item-class'
 import { PlayableClassMask } from '@/types/enums'
 
 
@@ -54,10 +52,6 @@ export default function getFilteredItems(
         items,
         (item: JournalDataEncounterItem) => {
             let keep = true
-
-            if (item.id === 186404) {
-                console.log(item, classMask, item.classMask & classMask)
-            }
 
             // Class mask is a quick check
             if (item.classMask > 0) {
