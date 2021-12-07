@@ -37,13 +37,16 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
         const stats: Record<string, UserCount> = {}
 
         const overallStats = stats['OVERALL'] = new UserCount()
+        const overallSeen: Record<number, boolean> = {}
 
         for (const tier of journalData.tiers) {
             const tierStats = stats[tier.slug] = new UserCount()
+            const tierSeen: Record<number, boolean> = {}
 
             for (const instance of tier.instances) {
                 const instanceKey = `${tier.slug}--${instance.slug}`
                 const instanceStats = stats[instanceKey] = new UserCount()
+                const instanceSeen: Record<number, boolean> = {}
 
                 for (const encounter of instance.encounters) {
                     const encounterKey = `${instanceKey}--${encounter.name}`
@@ -52,17 +55,33 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                     const items = getFilteredItems(settingsData, encounter.items)
                     for (const item of items) {
                         for (const appearance of item.appearances) {
-                            overallStats.total++
-                            tierStats.total++
-                            instanceStats.total++
+                            if (!overallSeen[appearance.appearanceId]) {
+                                overallStats.total++
+                            }
+                            if (!tierSeen[appearance.appearanceId]) {
+                                tierStats.total++
+                            }
+                            if (!instanceSeen[appearance.appearanceId]) {
+                                instanceStats.total++
+                            }
                             encounterStats.total++
 
                             if (userTransmogData.userHas[appearance.appearanceId]) {
-                                overallStats.have++
-                                tierStats.have++
-                                instanceStats.have++
+                                if (!overallSeen[appearance.appearanceId]) {
+                                    overallStats.have++
+                                }
+                                if (!tierSeen[appearance.appearanceId]) {
+                                    tierStats.have++
+                                }
+                                if (!instanceSeen[appearance.appearanceId]) {
+                                    instanceStats.have++
+                                }
                                 encounterStats.have++
                             }
+
+                            overallSeen[appearance.appearanceId] = true
+                            tierSeen[appearance.appearanceId] = true
+                            instanceSeen[appearance.appearanceId] = true
                         }
                     }
                 }
