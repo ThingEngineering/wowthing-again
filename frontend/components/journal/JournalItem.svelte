@@ -1,15 +1,26 @@
 <script lang="ts">
+    import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
     import difference from 'lodash/difference'
 
     import { difficultyMap, journalDifficultyOrder } from '@/data/difficulty'
     import { userTransmogStore } from '@/stores'
+    import { journalState } from '@/stores/local-storage'
     import { getItemUrl } from '@/utils/get-item-url'
     import type { JournalDataEncounterItem, JournalDataEncounterItemAppearance } from '@/types/data/journal'
 
+    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let bonusIds: Record<number, number> = undefined
     export let item: JournalDataEncounterItem
+
+    let appearances: [JournalDataEncounterItemAppearance, boolean][]
+    $: {
+        appearances = []
+        for (const appearance of item.appearances) {
+            appearances.push([appearance, $userTransmogStore.data.userHas[appearance.appearanceId]])
+        }
+    }
 
     const getQuality = function(appearance: JournalDataEncounterItemAppearance): number {
         // Mythic Keystone/Mythic difficulties should probably set the quality to epic?
@@ -31,7 +42,6 @@
     }
 
     const getDifficulties = function(appearance: JournalDataEncounterItemAppearance): string[] {
-
         if (!appearance.difficulties) {
             return []
         }
@@ -70,12 +80,13 @@
         position: relative;
 
         &.missing {
-            opacity: 0.5;
+            filter: grayscale(50%);
+            opacity: 0.6;
         }
     }
     .difficulties {
         position: absolute;
-        bottom: 0px;
+        bottom: 1px;
         left: 50%;
         transform: translateX(-50%);
 
@@ -88,28 +99,48 @@
         padding: 0 2px 1px 2px;
         pointer-events: none;
     }
+    .collected {
+        color: $colour-success;
+        position: absolute;
+        top: -4px;
+        right: -2px;
+    }
 </style>
 
-{#each item.appearances as appearance}
-    <div
-        class="appearance quality{getQuality(appearance)}"
-        class:missing={!$userTransmogStore.data.userHas[appearance.appearanceId]}
-    >
-        <a href="{getItemUrl({
-            itemId: item.id,
-            bonusIds: getBonusIds(appearance),
-        })}">
-            <WowthingImage
-                name="item/{item.id}{appearance.modifierId > 0 ? `_${appearance.modifierId}` : ''}"
-                size={48}
-                border={2}
-            />
-        </a>
+{#each appearances as [appearance, userHas]}
+    {#if
+        ($journalState.showCollected && userHas) ||
+        ($journalState.showUncollected && !userHas)
+    }
+        <div
+            class="appearance quality{getQuality(appearance)}"
+            class:missing={
+                (!$journalState.highlightMissing && !userHas) ||
+                ($journalState.highlightMissing && userHas)
+            }
+        >
+            <a href="{getItemUrl({
+                itemId: item.id,
+                bonusIds: getBonusIds(appearance),
+            })}">
+                <WowthingImage
+                    name="item/{item.id}{appearance.modifierId > 0 ? `_${appearance.modifierId}` : ''}"
+                    size={48}
+                    border={2}
+                />
+            </a>
 
-        <div class="difficulties" data-difficulties="{JSON.stringify(appearance.difficulties)}">
-            {#each getDifficulties(appearance) as difficulty}
-                <span>{difficulty}</span>
-            {/each}
+            {#if userHas}
+                <div class="collected drop-shadow">
+                    <IconifyIcon icon={mdiCheckboxOutline} />
+                </div>
+            {/if}
+
+            <div class="difficulties" data-difficulties="{JSON.stringify(appearance.difficulties)}">
+                {#each getDifficulties(appearance) as difficulty}
+                    <span>{difficulty}</span>
+                {/each}
+            </div>
         </div>
-    </div>
+    {/if}
 {/each}

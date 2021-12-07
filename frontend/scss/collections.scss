@@ -1,0 +1,14 @@
+.collection {
+    h3 {
+        margin: 0;
+        padding: 0.25rem 0.5rem;
+        width: 100%;
+        background: $collection-background;
+        border-bottom: 1px solid $border-color;
+        color: #ddd;
+
+        &:nth-child(n+2) {
+            border-top: 1px solid $border-color;
+        }
+    }
+}
