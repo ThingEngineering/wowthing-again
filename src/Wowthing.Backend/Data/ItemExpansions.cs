@@ -536,6 +536,45 @@ namespace Wowthing.Backend.Data
             { 99685, new[] { 99153, 99173, 99187, 99116 } }, // Vanquisher Shoulders [H]
             { 99717, new[] { 99401, 99431, 99339, 99350 } }, // Vanquisher Shoulders [M]
             #endregion
+            
+            #region Throne of Thunder
+            #endregion
+            
+            #region Mogu'shan Vaults/Heart of Fear/Terrace of Endless Spring
+            #endregion
+            
+            #region Dragon Soul
+            #endregion
+            
+            #region Firelands
+            #endregion
+            
+            #region Bastion of Twilight/Blackwing Descent/Throne of the Four Winds
+            #endregion
+            
+            #region Icecrown Citadel
+            #endregion
+            
+            #region Trial of the Crusader
+            #endregion
+            
+            #region Ulduar
+            #endregion
+            
+            #region Naxxramas/The Obsidian Sanctum/The Eye of Eternity
+            #endregion
+            
+            #region Sunwell Plateau
+            #endregion
+            
+            #region The Battle for Mount Hyjal/Black Temple
+            #endregion
+            
+            #region Serpentshrine Cavern/The Eye
+            #endregion
+            
+            #region Karazhan/Gruul's Lair/Magtheridon's Lair
+            #endregion
         };
     }
 }
