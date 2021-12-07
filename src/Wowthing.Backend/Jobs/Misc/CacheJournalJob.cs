@@ -169,26 +169,34 @@ namespace Wowthing.Backend.Jobs.Misc
                         };
 
                         var items = new List<DumpJournalEncounterItem>();
+                        var fakeItems = new Dictionary<int, DumpJournalEncounterItem>();
                         foreach (var encounterItem in itemsByEncounterId[encounter.ID])
                         {
                             if (Hardcoded.ItemExpansions.TryGetValue(encounterItem.ItemID, out var expandedItems))
                             {
                                 Logger.Warning("Adding fake items for {0}", encounterItem.ItemID);
-                                items.AddRange(expandedItems.Select(itemId => new DumpJournalEncounterItem
+                                foreach (int itemId in expandedItems)
                                 {
-                                    ID = encounterItem.ID,
-                                    DifficultyMask = encounterItem.DifficultyMask,
-                                    FactionMask = encounterItem.FactionMask,
-                                    Flags = encounterItem.Flags,
-                                    ItemID = itemId,
-                                    JournalEncounterID = encounterItem.JournalEncounterID,
-                                }));
+                                    if (!fakeItems.ContainsKey(itemId))
+                                    {
+                                        fakeItems[itemId] = new DumpJournalEncounterItem
+                                        {
+                                            ID = encounterItem.ID,
+                                            DifficultyMask = encounterItem.DifficultyMask,
+                                            FactionMask = encounterItem.FactionMask,
+                                            Flags = encounterItem.Flags,
+                                            ItemID = itemId,
+                                            JournalEncounterID = encounterItem.JournalEncounterID,
+                                        };
+                                    }
+                                }
                             }
                             else
                             {
                                 items.Add(encounterItem);
                             }
                         }
+                        items.AddRange(fakeItems.Values);
                         
                         foreach (var encounterItem in items)
                         {

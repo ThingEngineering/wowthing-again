@@ -1,11 +1,13 @@
 <script lang="ts">
     import { journalStore } from '@/stores'
-    import type { SidebarItem } from '@/types'
+    import type { SidebarItem, UserCount } from '@/types'
     import type { JournalDataTier } from '@/types/data'
 
+    import ProgressBar from '@/components/common/ProgressBar.svelte'
     import Sidebar from '@/components/sidebar/Sidebar.svelte'
 
     let categories: SidebarItem[] = []
+    let overall: UserCount
     $: {
         categories = $journalStore.data.tiers.map((tier: JournalDataTier) => ({
             children: tier.instances.map((instance) => ({
@@ -15,6 +17,8 @@
             name: tier.name,
             slug: tier.slug,
         }))
+
+        overall = $journalStore.data.stats['OVERALL']
     }
 
 
@@ -25,10 +29,24 @@
     }
 </script>
 
+<style lang="scss">
+    div {
+        margin-bottom: 0.75rem;
+    }
+</style>
+
 <Sidebar
     baseUrl="/journal"
     items={categories}
     width="18rem"
     noVisitRoot={true}
     {percentFunc}
-/>
+>
+    <div slot="before">
+        <ProgressBar
+            title="Overall"
+            have={overall.have}
+            total={overall.total}
+        />
+    </div>
+</Sidebar>
