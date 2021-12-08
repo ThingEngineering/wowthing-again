@@ -80,8 +80,11 @@
         position: relative;
 
         &.missing {
-            filter: grayscale(50%);
             opacity: 0.6;
+
+            :global(img) {
+                filter: grayscale(75%);
+            }
         }
     }
     .difficulties {
