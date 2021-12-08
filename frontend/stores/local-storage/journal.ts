@@ -2,7 +2,7 @@ import { writable } from 'svelte/store'
 
 
 export class JournalState {
-    public highlightMissing = false
+    public highlightMissing = true
     public showCollected = true
     public showUncollected = true
 }

@@ -1,9 +1,11 @@
 <script lang="ts">
+    import mdiTshirtCrew from '@iconify/icons-mdi/tshirt-crew'
     import active from 'svelte-spa-router/active'
 
     import { userCollectionStore, userStore, userTransmogStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
 
+    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import Sidebar from '@/components/common/Sidebar.svelte'
 
     let mountsPercent: number
@@ -30,6 +32,10 @@
 <style lang="scss">
     li {
         position: relative;
+
+        :global(svg) {
+            opacity: 0.8;
+        }
     }
 
     .percent {
@@ -77,10 +83,6 @@
 
     <li class="separator"></li>
 
-    <li use:active={'/appearances/*'}>
-        <a href="#/appearances/">Appearances</a>
-        <span class="drop-shadow percent {getPercentClass(transmogPercent)}">{fancyPercent(transmogPercent)} %</span>
-    </li>
     <li use:active={'/mounts/*'}>
         <a href="#/mounts/">Mounts</a>
         <span class="drop-shadow percent {getPercentClass(mountsPercent)}">{fancyPercent(mountsPercent)} %</span>
@@ -96,6 +98,22 @@
 
     <li class="separator"></li>
 
+    <li use:active={'/journal/*'}>
+        <a href="#/journal/">
+            <IconifyIcon icon={mdiTshirtCrew} />
+            Journal
+        </a>
+    </li>
+    <li use:active={'/appearances/*'}>
+        <a href="#/appearances/">
+            <IconifyIcon icon={mdiTshirtCrew} />
+            Sets
+        </a>
+        <span class="drop-shadow percent {getPercentClass(transmogPercent)}">{fancyPercent(transmogPercent)} %</span>
+    </li>
+
+    <li class="separator"></li>
+
     <li use:active={'/zone-maps/*'}>
         <a href="#/zone-maps/">Zone Maps</a>
     </li>
@@ -107,9 +125,6 @@
     </li>
     <li use:active={'/cards'}>
         <a href="#/cards">🚧 Home (Cards)</a>
-    </li>
-    <li use:active={'/journal/*'}>
-        <a href="#/journal/">🚧 Journal</a>
     </li>
     <li use:active={'/teams'}>
         <a href="#/teams">🚧 Teams</a>
