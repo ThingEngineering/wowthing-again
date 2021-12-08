@@ -1,6 +1,6 @@
 <script lang="ts">
     import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
-    import difference from 'lodash/difference'
+    import xor from 'lodash/xor'
 
     import { difficultyMap, journalDifficultyOrder } from '@/data/difficulty'
     import { userTransmogStore } from '@/stores'
@@ -47,17 +47,17 @@
         }
 
         // 10 Normal + 25 Normal + Normal? = Normal
-        if (difference(appearance.difficulties, [3, 4]).length === 0 ||
-            difference(appearance.difficulties, [3, 4, 14]).length === 0) {
+        if (xor(appearance.difficulties, [3, 4]).length === 0 ||
+            xor(appearance.difficulties, [3, 4, 14]).length === 0) {
             return ['N']
         }
         // 10 Heroic + 25 Heroic + Heroic? = Heroic
-        if (difference(appearance.difficulties, [5, 6]).length === 0 ||
-            difference(appearance.difficulties, [5, 6, 15]).length === 0) {
+        if (xor(appearance.difficulties, [5, 6]).length === 0 ||
+            xor(appearance.difficulties, [5, 6, 15]).length === 0) {
             return ['H']
         }
         // 10 Normal + 25 Normal + 10 Heroic + 25 Heroic = Normal/Heroic (ZA/ZG)
-        if (difference(appearance.difficulties, [3, 4, 5, 6]).length === 0) {
+        if (xor(appearance.difficulties, [3, 4, 5, 6]).length === 0) {
             return ['N', 'H']
         }
 
@@ -98,6 +98,7 @@
         line-height: 1;
         padding: 0 2px 1px 2px;
         pointer-events: none;
+        white-space: nowrap;
     }
     .collected {
         color: $colour-success;
