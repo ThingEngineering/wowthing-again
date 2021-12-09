@@ -104,6 +104,10 @@ namespace Wowthing.Backend.Jobs.Misc
                         group2 => group2.ItemAppearanceID
                     )
                 );
+            
+            // HACK fix Warglaives of Azzinoth appearance IDs
+            appearancesByItemId[32837][0] = 34777;
+            appearancesByItemId[32838][0] = 34777;
 
             var bonusAppearanceModifiers = (await DataUtilities.LoadDumpCsvAsync<DumpItemBonus>("itembonus"))
                 .Where(ib => ib.Type == 7) // TODO fix hardcoded
