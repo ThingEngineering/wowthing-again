@@ -9,7 +9,7 @@
     import CollectionCount from '@/components/collections/CollectionCount.svelte'
     import Item from './JournalItem.svelte'
 
-    export let bonusIds: number[]
+    export let bonusIds: Record<number, number>
     export let group: JournalDataEncounterItemGroup
     export let stats: UserCount
 
