@@ -23,6 +23,11 @@ export interface JournalDataInstance {
 
 export interface JournalDataEncounter {
     name: string
+    groups: JournalDataEncounterItemGroup[]
+}
+
+export interface JournalDataEncounterItemGroup {
+    name: string
     items: JournalDataEncounterItem[]
     itemsRaw: JournalDataEncounterItemArray[]
 }

@@ -80,7 +80,7 @@
         position: relative;
 
         &.missing {
-            opacity: 0.6;
+            opacity: 0.5;
 
             :global(img) {
                 filter: grayscale(75%);
