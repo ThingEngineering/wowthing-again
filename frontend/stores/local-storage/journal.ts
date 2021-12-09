@@ -10,6 +10,7 @@ export class JournalState {
     public showMail = true
     public showPlate = true
     public showWeapons = true
+    public showTimewalking = true
 }
 
 const key = 'state-journal'
