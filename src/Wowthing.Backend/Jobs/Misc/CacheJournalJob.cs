@@ -26,7 +26,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheJournal,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(24),
-            Version = 5,
+            Version = 6,
         };
 
         public override async Task Run(params string[] data)
@@ -180,7 +180,7 @@ namespace Wowthing.Backend.Jobs.Misc
                         {
                             if (Hardcoded.ItemExpansions.TryGetValue(encounterItem.ItemID, out var expandedItems))
                             {
-                                Logger.Information("Adding fake items for {0}", encounterItem.ItemID);
+                                Logger.Debug("Expanding items for {Id}", encounterItem.ItemID);
                                 foreach (int itemId in expandedItems)
                                 {
                                     if (!fakeItems.ContainsKey(itemId))
@@ -206,7 +206,7 @@ namespace Wowthing.Backend.Jobs.Misc
 
                         if (Hardcoded.ExtraItemDrops.TryGetValue(encounter.ID, out var extraItems))
                         {
-                            Logger.Information("Adding fake items for encounter {0}", encounter.ID);
+                            Logger.Debug("Adding extra items for encounter {Id}", encounter.ID);
                             foreach (var extraItem in extraItems)
                             {
                                 difficultiesByEncounterItemId[1000000 + extraItem.ItemId] = extraItem.Difficulties.ToArray();
@@ -225,6 +225,12 @@ namespace Wowthing.Backend.Jobs.Misc
                         var itemGroups = new Dictionary<string, OutJournalEncounterItemGroup>();
                         foreach (var encounterItem in items)
                         {
+                            if (Hardcoded.IgnoredJournalItems.Contains(encounterItem.ItemID))
+                            {
+                                Logger.Debug("Skipping ignored item {Id}", encounterItem.ItemID);
+                                continue;
+                            }
+                            
                             if (!itemMap.TryGetValue(encounterItem.ItemID, out var item))
                             {
                                 //Logger.Warning("No item for ID {Id}", encounterItem.ItemID);
