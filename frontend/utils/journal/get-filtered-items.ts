@@ -1,15 +1,18 @@
+import every from 'lodash/every'
 import filter from 'lodash/filter'
+import some from 'lodash/some'
 
 import { PlayableClassMask } from '@/types/enums'
 import type { JournalState } from '@/stores/local-storage'
 import type { Settings } from '@/types'
-import type { JournalDataEncounterItem } from '@/types/data'
+import type { JournalDataEncounterItem, UserTransmogData } from '@/types/data'
 import { ArmorSubclass, ItemClass } from '@/types/enums'
 
 
 export default function getFilteredItems(
     journalState: JournalState,
     settingsData: Settings,
+    userTransmogData: UserTransmogData,
     items: JournalDataEncounterItem[]
 ): JournalDataEncounterItem[] {
     let classMask = 0
@@ -88,7 +91,26 @@ export default function getFilteredItems(
                 }
             }
 
+            // Collected/uncollected toggles
+            if (userTransmogData !== null && keep) {
+                const allCollected = every(
+                    item.appearances,
+                    (appearance) => userTransmogData.userHas[appearance.appearanceId]
+                )
+                const anyCollected = some(
+                    item.appearances,
+                    (appearance) => userTransmogData.userHas[appearance.appearanceId]
+                )
+                if (
+                    (!journalState.showUncollected && !anyCollected) ||
+                    (!journalState.showCollected && allCollected)
+                ) {
+                    keep = false
+                }
+            }
+
             return keep
         }
     )
 }
+

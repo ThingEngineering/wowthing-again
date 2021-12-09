@@ -60,7 +60,12 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                         const groupKey = `${encounterKey}--${group.name}`
                         const groupStats = stats[groupKey] = new UserCount()
 
-                        const items = getFilteredItems(journalState, settingsData, group.items)
+                        const items = getFilteredItems(
+                            journalState,
+                            settingsData,
+                            null,
+                            group.items
+                        )
                         for (const item of items) {
                             for (const appearance of item.appearances) {
                                 if (!overallSeen[appearance.appearanceId]) {

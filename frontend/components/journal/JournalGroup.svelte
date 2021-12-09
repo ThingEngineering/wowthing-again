@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { userTransmogStore } from '@/stores'
     import { journalState } from '@/stores/local-storage'
     import { data as settingsData } from '@/stores/settings'
     import getPercentClass from '@/utils/get-percent-class'
@@ -16,7 +17,12 @@
     let items: JournalDataEncounterItem[]
     let percent: number
     $: {
-        items = getFilteredItems($journalState, $settingsData, group.items)
+        items = getFilteredItems(
+            $journalState,
+            $settingsData,
+            $userTransmogStore.data,
+            group.items
+        )
         percent = Math.floor(stats.have / stats.total * 100)
     }
 </script>
