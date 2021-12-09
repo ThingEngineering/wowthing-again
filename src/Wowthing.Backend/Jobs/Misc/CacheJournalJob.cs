@@ -26,7 +26,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheJournal,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(24),
-            Version = 4,
+            Version = 5,
         };
 
         public override async Task Run(params string[] data)
@@ -82,7 +82,7 @@ namespace Wowthing.Backend.Jobs.Misc
             var itemsByEncounterId = (await DataUtilities.LoadDumpCsvAsync<DumpJournalEncounterItem>("journalencounteritem"))
                 .ToGroupedDictionary(item => item.JournalEncounterID);
 
-            var difficultiesByItemId = (await DataUtilities.LoadDumpCsvAsync<DumpJournalItemXDifficulty>("journalitemxdifficulty"))
+            var difficultiesByEncounterItemId = (await DataUtilities.LoadDumpCsvAsync<DumpJournalItemXDifficulty>("journalitemxdifficulty"))
                 .ToGroupedDictionary(
                     ixd => ixd.JournalEncounterItemID,
                     ixd => ixd.DifficultyID
@@ -176,7 +176,7 @@ namespace Wowthing.Backend.Jobs.Misc
                         {
                             if (Hardcoded.ItemExpansions.TryGetValue(encounterItem.ItemID, out var expandedItems))
                             {
-                                Logger.Warning("Adding fake items for {0}", encounterItem.ItemID);
+                                Logger.Information("Adding fake items for {0}", encounterItem.ItemID);
                                 foreach (int itemId in expandedItems)
                                 {
                                     if (!fakeItems.ContainsKey(itemId))
@@ -188,7 +188,7 @@ namespace Wowthing.Backend.Jobs.Misc
                                             FactionMask = encounterItem.FactionMask,
                                             Flags = encounterItem.Flags,
                                             ItemID = itemId,
-                                            JournalEncounterID = encounterItem.JournalEncounterID,
+                                            JournalEncounterID = encounter.ID,
                                         };
                                     }
                                 }
@@ -200,6 +200,24 @@ namespace Wowthing.Backend.Jobs.Misc
                         }
                         items.AddRange(fakeItems.Values);
 
+                        if (Hardcoded.ExtraItemDrops.TryGetValue(encounter.ID, out var extraItems))
+                        {
+                            Logger.Information("Adding fake items for encounter {0}", encounter.ID);
+                            foreach (var extraItem in extraItems)
+                            {
+                                difficultiesByEncounterItemId[1000000 + extraItem.ItemId] = extraItem.Difficulties.ToArray();
+                                items.Add(new DumpJournalEncounterItem
+                                {
+                                    ID = 1000000 + extraItem.ItemId,
+                                    DifficultyMask = 0,
+                                    FactionMask = 0,
+                                    Flags = 0,
+                                    ItemID = extraItem.ItemId,
+                                    JournalEncounterID = encounter.ID,
+                                });
+                            }
+                        }
+                        
                         var itemGroups = new Dictionary<string, OutJournalEncounterItemGroup>();
                         foreach (var encounterItem in items)
                         {
@@ -221,7 +239,7 @@ namespace Wowthing.Backend.Jobs.Misc
                                 {
                                     difficulties = mapDifficulties;
                                 }
-                                else if (!difficultiesByItemId.TryGetValue(encounterItem.ID, out difficulties))
+                                else if (!difficultiesByEncounterItemId.TryGetValue(encounterItem.ID, out difficulties))
                                 {
                                     Logger.Warning("No difficulties for item ID {Id}", encounterItem.ID);
                                     continue;
