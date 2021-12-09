@@ -9,6 +9,9 @@
 
 <style lang="scss">
     span {
+        font-size: 90%;
+        font-weight: normal;
+        margin-left: 0.4rem;
         word-spacing: -0.2ch;
     }
 </style>

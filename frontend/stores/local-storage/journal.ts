@@ -5,6 +5,11 @@ export class JournalState {
     public highlightMissing = true
     public showCollected = true
     public showUncollected = true
+    public showCloth = true
+    public showLeather = true
+    public showMail = true
+    public showPlate = true
+    public showWeapons = true
 }
 
 const key = 'state-journal'

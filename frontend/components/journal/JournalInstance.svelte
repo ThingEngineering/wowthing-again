@@ -3,13 +3,11 @@
 
     import { journalStore } from '@/stores'
     import { journalState } from '@/stores/local-storage'
-    import { data as settingsData } from '@/stores/settings'
-    import getFilteredItems from '@/utils/journal/get-filtered-items'
     import type { JournalDataInstance, JournalDataTier } from '@/types/data'
 
     import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
     import CollectionCount from '@/components/collections/CollectionCount.svelte'
-    import Item from './JournalItem.svelte'
+    import Group from './JournalGroup.svelte'
 
     export let slug1: string
     export let slug2: string
@@ -29,29 +27,15 @@
         border: 1px solid $border-color;
         border-radius: $border-radius;
     }
-    .collection {
+    .wrapper {
         width: 100%;
     }
     .toggles {
         margin-bottom: calc(0.75rem - 1px);
     }
-    .instance {
-        border: 1px solid $border-color;
-        width: 100%;
-    }
-    .counts {
-        font-size: 1rem;
-        font-weight: normal;
-        margin-left: 0.5rem;
-    }
-    .items {
-        display: flex;
-        flex-wrap: wrap;
-        padding: 0.5rem 0 0 0.75rem;
-    }
 </style>
 
-<div class="collection">
+<div class="wrapper">
     <div class="toggles">
         <button>
             <CheckboxInput
@@ -60,36 +44,72 @@
             >Highlight missing</CheckboxInput>
         </button>
 
+        <span>Show:</span>
+
         <button>
             <CheckboxInput
                 name="show_collected"
                 bind:value={$journalState.showCollected}
-            >Show collected</CheckboxInput>
+            >Collected</CheckboxInput>
         </button>
 
         <button>
             <CheckboxInput
                 name="show_uncollected"
                 bind:value={$journalState.showUncollected}
-            >Show uncollected</CheckboxInput>
+            >Missing</CheckboxInput>
+        </button>
+
+        <button>
+            <CheckboxInput
+                name="show_cloth"
+                bind:value={$journalState.showCloth}
+            >Cloth</CheckboxInput>
+        </button>
+
+        <button>
+            <CheckboxInput
+                name="show_leather"
+                bind:value={$journalState.showLeather}
+            >Leather</CheckboxInput>
+        </button>
+
+        <button>
+            <CheckboxInput
+                name="show_mail"
+                bind:value={$journalState.showMail}
+            >Mail</CheckboxInput>
+        </button>
+
+        <button>
+            <CheckboxInput
+                name="show_plate"
+                bind:value={$journalState.showPlate}
+            >Plate</CheckboxInput>
+        </button>
+
+        <button>
+            <CheckboxInput
+                name="show_weapons"
+                bind:value={$journalState.showWeapons}
+            >Weapons</CheckboxInput>
         </button>
     </div>
 
     {#if instance}
-        <div class="instance thing-container">
+        <div class="collection thing-container">
             {#each instance.encounters as encounter}
                 <h3>
                     {encounter.name}
-                    <span class="counts">
-                        <CollectionCount
-                            counts={$journalStore.data.stats[`${slug1}--${slug2}--${encounter.name}`]} />
-                    </span>
+                    <CollectionCount
+                        counts={$journalStore.data.stats[`${slug1}--${slug2}--${encounter.name}`]} />
                 </h3>
-                <div class="items">
-                    {#each getFilteredItems($settingsData, encounter.items) as item}
-                        <Item
+                <div class="collection-section">
+                    {#each encounter.groups as group}
+                        <Group
                             bonusIds={instance.bonusIds}
-                            {item}
+                            stats={$journalStore.data.stats[`${slug1}--${slug2}--${encounter.name}--${group.name}`]}
+                            {group}
                         />
                     {/each}
                 </div>

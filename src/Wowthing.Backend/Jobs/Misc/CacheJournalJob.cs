@@ -12,6 +12,7 @@ using Wowthing.Backend.Utilities;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Jobs;
+using Wowthing.Lib.Models.Wow;
 using Wowthing.Lib.Utilities;
 
 namespace Wowthing.Backend.Jobs.Misc
@@ -25,7 +26,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheJournal,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(24),
-            Version = 3,
+            Version = 4,
         };
 
         public override async Task Run(params string[] data)
@@ -53,6 +54,7 @@ namespace Wowthing.Backend.Jobs.Misc
             14, // Raid Normal
             15, // Raid Heroic
             16, // Raid Mythic
+            33, // Raid Timewalking
         };
         
         private async Task BuildJournalData()
@@ -197,7 +199,8 @@ namespace Wowthing.Backend.Jobs.Misc
                             }
                         }
                         items.AddRange(fakeItems.Values);
-                        
+
+                        var itemGroups = new Dictionary<string, OutJournalEncounterItemGroup>();
                         foreach (var encounterItem in items)
                         {
                             if (!itemMap.TryGetValue(encounterItem.ItemID, out var item))
@@ -277,8 +280,10 @@ namespace Wowthing.Backend.Jobs.Misc
                                     appearance.Difficulties.Remove(2);
                                 }
                             }
+
+                            var group = GetGroup(itemGroups, item);
                             
-                            encounterData.Items.Add(new OutJournalEncounterItem
+                            group.Items.Add(new OutJournalEncounterItem
                             {
                                 Id = encounterItem.ItemID,
                                 ClassMask = item.CalculatedClassMask,
@@ -291,35 +296,49 @@ namespace Wowthing.Backend.Jobs.Misc
                             });
                         }
 
-                        encounterData.Items = encounterData.Items
-                            .OrderBy(item =>
-                            {
-                                // Armor
-                                if (itemMap[item.Id].ClassId == 4)
-                                {
-                                    return itemMap[item.Id].SubclassId;
-                                }
-                                // Weapon
-                                else if (itemMap[item.Id].ClassId == 2)
-                                {
-                                    return 100 + itemMap[item.Id].SubclassId;
-                                }
-                                else
-                                {
-                                    return 1000000;
-                                }
-                            })
-                            .ThenBy(item => stringMap[(Language.enUS, item.Id)])
-                            .ThenBy(item =>
-                                item.Appearances
-                                    .SelectMany(app => app
-                                        .Difficulties
-                                        .Select(diff => Array.IndexOf(_difficultyOrder, diff))
-                                    )
-                                    .Min()
-                            )
+                        encounterData.Groups = itemGroups.Values
+                            .OrderBy(group => group.Order)
                             .ToList();
-                        
+
+                        foreach (var group in encounterData.Groups)
+                        {
+                            group.Items = group.Items
+                                .OrderBy(item =>
+                                {
+                                    // Armor
+                                    if (itemMap[item.Id].ClassId == 4)
+                                    {
+                                        if (itemMap[item.Id].SubclassId >= 1 && itemMap[item.Id].SubclassId <= 4)
+                                        {
+                                            return itemMap[item.Id].SubclassId;
+                                        }
+                                        else
+                                        {
+                                            return 5 + itemMap[item.Id].SubclassId;
+                                        }
+                                    }
+                                    // Weapon
+                                    else if (itemMap[item.Id].ClassId == 2)
+                                    {
+                                        return 100 + itemMap[item.Id].SubclassId;
+                                    }
+                                    else
+                                    {
+                                        return 1000000;
+                                    }
+                                })
+                                .ThenBy(item => stringMap[(Language.enUS, item.Id)])
+                                .ThenBy(item =>
+                                    item.Appearances
+                                        .SelectMany(app => app
+                                            .Difficulties
+                                            .Select(diff => Array.IndexOf(_difficultyOrder, diff))
+                                        )
+                                        .Min()
+                                )
+                                .ToList();
+                        }
+
                         instanceData.Encounters.Add(encounterData);
                     }
                     
@@ -335,6 +354,63 @@ namespace Wowthing.Backend.Jobs.Misc
             var db = Redis.GetDatabase();
             await db.SetCacheDataAndHash("journal", cacheJson, cacheHash);
             _timer.AddPoint("Cache", true);
+        }
+
+        private OutJournalEncounterItemGroup GetGroup(Dictionary<string, OutJournalEncounterItemGroup> groups, WowItem item)
+        {
+            string groupName = null;
+            int groupOrder = 100;
+            
+            if (item.ClassId == 2)
+            {
+                groupName = "Weapons";
+                groupOrder = 10;
+            }
+            else if (item.ClassId == 4)
+            {
+                if (item.SubclassId == 1)
+                {
+                    groupName = "Cloth";
+                    groupOrder = 1;
+                }
+                else if (item.SubclassId == 2)
+                {
+                    groupName = "Leather";
+                    groupOrder = 2;
+                }
+                else if (item.SubclassId == 3)
+                {
+                    groupName = "Mail";
+                    groupOrder = 3;
+                }
+                else if (item.SubclassId == 4)
+                {
+                    groupName = "Plate";
+                    groupOrder = 4;
+                }
+                // Shields
+                else if (item.SubclassId == 6)
+                {
+                    groupName = "Weapons";
+                    groupOrder = 10;
+                }
+                else
+                {
+                    groupName = "Misc";
+                    groupOrder = 5;
+                }
+            }
+
+            if (!groups.TryGetValue(groupName, out var group))
+            {
+                groups[groupName] = group = new OutJournalEncounterItemGroup
+                {
+                    Name = groupName,
+                    Order = groupOrder,
+                };
+            }
+
+            return group;
         }
     }
 }

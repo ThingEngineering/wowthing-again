@@ -1,8 +1,9 @@
 import { UserCount, WritableFancyStore } from '@/types'
 import { JournalDataEncounterItem } from '@/types/data'
+import getFilteredItems from '@/utils/journal/get-filtered-items'
+import type { JournalState } from '@/stores/local-storage'
 import type { Settings } from '@/types'
 import type { JournalData, UserTransmogData } from '@/types/data'
-import getFilteredItems from '@/utils/journal/get-filtered-items'
 
 
 export class JournalDataStore extends WritableFancyStore<JournalData> {
@@ -16,11 +17,13 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
         for (const tier of data.tiers) {
             for (const instance of tier.instances) {
                 for (const encounter of instance.encounters) {
-                    if (encounter.itemsRaw) {
-                        encounter.items = encounter.itemsRaw.map(
-                            (itemArray) => new JournalDataEncounterItem(...itemArray)
-                        )
-                        encounter.itemsRaw = null
+                    for (const group of encounter.groups) {
+                        if (group.itemsRaw) {
+                            group.items = group.itemsRaw.map(
+                                (itemArray) => new JournalDataEncounterItem(...itemArray)
+                            )
+                            group.itemsRaw = null
+                        }
                     }
                 }
             }
@@ -29,6 +32,7 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
 
     setup(
         journalData: JournalData,
+        journalState: JournalState,
         settingsData: Settings,
         userTransmogData: UserTransmogData
     ): void {
@@ -51,37 +55,44 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                 for (const encounter of instance.encounters) {
                     const encounterKey = `${instanceKey}--${encounter.name}`
                     const encounterStats = stats[encounterKey] = new UserCount()
-                    
-                    const items = getFilteredItems(settingsData, encounter.items)
-                    for (const item of items) {
-                        for (const appearance of item.appearances) {
-                            if (!overallSeen[appearance.appearanceId]) {
-                                overallStats.total++
-                            }
-                            if (!tierSeen[appearance.appearanceId]) {
-                                tierStats.total++
-                            }
-                            if (!instanceSeen[appearance.appearanceId]) {
-                                instanceStats.total++
-                            }
-                            encounterStats.total++
 
-                            if (userTransmogData.userHas[appearance.appearanceId]) {
+                    for (const group of encounter.groups) {
+                        const groupKey = `${encounterKey}--${group.name}`
+                        const groupStats = stats[groupKey] = new UserCount()
+
+                        const items = getFilteredItems(journalState, settingsData, group.items)
+                        for (const item of items) {
+                            for (const appearance of item.appearances) {
                                 if (!overallSeen[appearance.appearanceId]) {
-                                    overallStats.have++
+                                    overallStats.total++
                                 }
                                 if (!tierSeen[appearance.appearanceId]) {
-                                    tierStats.have++
+                                    tierStats.total++
                                 }
                                 if (!instanceSeen[appearance.appearanceId]) {
-                                    instanceStats.have++
+                                    instanceStats.total++
                                 }
-                                encounterStats.have++
-                            }
+                                encounterStats.total++
+                                groupStats.total++
 
-                            overallSeen[appearance.appearanceId] = true
-                            tierSeen[appearance.appearanceId] = true
-                            instanceSeen[appearance.appearanceId] = true
+                                if (userTransmogData.userHas[appearance.appearanceId]) {
+                                    if (!overallSeen[appearance.appearanceId]) {
+                                        overallStats.have++
+                                    }
+                                    if (!tierSeen[appearance.appearanceId]) {
+                                        tierStats.have++
+                                    }
+                                    if (!instanceSeen[appearance.appearanceId]) {
+                                        instanceStats.have++
+                                    }
+                                    encounterStats.have++
+                                    groupStats.have++
+                                }
+
+                                overallSeen[appearance.appearanceId] = true
+                                tierSeen[appearance.appearanceId] = true
+                                instanceSeen[appearance.appearanceId] = true
+                            }
                         }
                     }
                 }
