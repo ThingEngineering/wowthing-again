@@ -20,17 +20,6 @@ namespace Wowthing.Backend.Data
                 }
             },
             {
-                1726, // The Emerald Nightmare > Xavius
-                new List<ExtraItemDrop>
-                {
-                    new()
-                    {
-                        ItemId = 141006, // The First Satyr's Spaulders
-                        Difficulties = new List<int> { 15, 16 }, // Heroic/Mythic Raid
-                    },
-                }
-            },
-            {
                 1897, // Tomb of Sargeras > Maiden of Vigilance
                 new List<ExtraItemDrop>
                 {
