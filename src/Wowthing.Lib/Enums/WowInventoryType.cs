@@ -1,6 +1,6 @@
 ﻿namespace Wowthing.Lib.Enums
 {
-    public enum WowInventoryType
+    public enum WowInventoryType : short
     {
         NonEquippable = 0,
         Head,

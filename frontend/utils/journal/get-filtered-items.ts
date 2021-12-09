@@ -91,6 +91,16 @@ export default function getFilteredItems(
                 }
             }
 
+            // Timewalking
+            if (!journalState.showTimewalking &&
+                keep &&
+                item.appearances.length === 1 &&
+                item.appearances[0].difficulties.length === 1 &&
+                [24, 33].indexOf(item.appearances[0].difficulties[0]) >= 0
+            ) {
+                keep = false
+            }
+
             // Collected/uncollected toggles
             if (userTransmogData !== null && keep) {
                 const allCollected = every(

@@ -26,7 +26,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheJournal,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(24),
-            Version = 6,
+            Version = 7,
         };
 
         public override async Task Run(params string[] data)
@@ -309,14 +309,15 @@ namespace Wowthing.Backend.Jobs.Misc
                                 }
                             }
 
-                            var group = GetGroup(itemGroups, item);
+                            short subclassId = item.InventoryType == (short)WowInventoryType.Back ? (short)0 : item.SubclassId;
                             
+                            var group = GetGroup(itemGroups, item);
                             group.Items.Add(new OutJournalEncounterItem
                             {
                                 Id = encounterItem.ItemID,
                                 ClassMask = item.CalculatedClassMask,
                                 ClassId = item.ClassId,
-                                SubclassId = item.SubclassId,
+                                SubclassId = subclassId,
                                 Quality = item.Quality,
                                 Appearances = itemAppearances
                                     .Values
@@ -398,8 +399,16 @@ namespace Wowthing.Backend.Jobs.Misc
             {
                 if (item.SubclassId == 1)
                 {
-                    groupName = "Cloth";
-                    groupOrder = 1;
+                    if (item.InventoryType == (short)WowInventoryType.Back)
+                    {
+                        groupName = "Cloaks";
+                        groupOrder = 5;
+                    }
+                    else
+                    {
+                        groupName = "Cloth";
+                        groupOrder = 1;
+                    }
                 }
                 else if (item.SubclassId == 2)
                 {
@@ -425,7 +434,7 @@ namespace Wowthing.Backend.Jobs.Misc
                 else
                 {
                     groupName = "Misc";
-                    groupOrder = 5;
+                    groupOrder = 9;
                 }
             }
 

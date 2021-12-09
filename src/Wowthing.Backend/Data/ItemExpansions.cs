@@ -568,12 +568,69 @@ namespace Wowthing.Backend.Data
             #endregion
             
             #region The Battle for Mount Hyjal/Black Temple
+            { 31089, new[] { 30990, 31052, 31065 } }, // Conqueror Chest
+            { 31091, new[] { 31004, 30975, 31017 } }, // Protector Chest
+            { 31090, new[] { 31057, 31028, 31042 } }, // Vanquisher Chest
+
+            { 31092, new[] { 31060, 31050, 30982 } }, // Conqueror Gloves 
+            { 31093, new[] { 31055, 31026, 31034 } }, // Protector Gloves
+            { 31094, new[] { 31001, 30969, 31008 } }, // Vanquisher Gloves
+
+            { 31097, new[] { 31063, 31051, 30987 } }, // Conqueror Helm 
+            { 31096, new[] { 31056, 31027, 31039 } }, // Protector Helm
+            { 31095, new[] { 31003, 30972, 31015 } }, // Vanquisher Helm
+
+            { 31098, new[] { 31068, 31053, 30993 } }, // Conqueror Legs 
+            { 31100, new[] { 31005, 30977, 31019 } }, // Protector Legs
+            { 31099, new[] { 31058, 31029, 31044 } }, // Vanquisher Legs
+            
+            { 31101, new[] { 30996, 31069, 31054 } }, // Conqueror Shoulders
+            { 31103, new[] { 31006, 30979, 31023 } }, // Protector Shoulders
+            { 31102, new[] { 31059, 31030, 31048 } }, // Vanquisher Shoulders
             #endregion
             
             #region Serpentshrine Cavern/The Eye
+            { 30236, new[] { 30164, 30129, 30144 } }, // Champion Chest 
+            { 30237, new[] { 30118, 30216, 30159 } }, // Defender Chest
+            { 30238, new[] { 30139, 30214, 30196 } }, // Hero Chest
+            
+            { 30239, new[] { 30189, 30130, 30145 } }, // Champion Gloves 
+            { 30240, new[] { 30119, 30151, 30232 } }, // Defender Gloves
+            { 30241, new[] { 30205, 30211, 30140 } }, // Hero Gloves
+            
+            { 30242, new[] { 30166, 30125, 30146 } }, // Champion Helm 
+            { 30243, new[] { 30152, 30120, 30228 } }, // Defender Helm
+            { 30244, new[] { 30206, 30212, 30141 } }, // Hero Helm
+            
+            { 30245, new[] { 30172, 30132, 30148 } }, // Champion Legs 
+            { 30246, new[] { 30153, 30121, 30229 } }, // Defender Legs
+            { 30247, new[] { 30207, 30213, 30142 } }, // Hero Legs
+            
+            { 30248, new[] { 30168, 30138, 30149 } }, // Champion Shoulders 
+            { 30249, new[] { 30122, 30154, 30230 } }, // Defender Shoulders
+            { 30250, new[] { 30210, 30215, 30143 } }, // Hero Shoulders
             #endregion
             
             #region Karazhan/Gruul's Lair/Magtheridon's Lair
+            { 29754, new[] { 29038, 29071, 29045 } }, // Champion Chest 
+            { 29753, new[] { 29096, 29050, 29019 } }, // Defender Chest
+            { 29755, new[] { 29082, 29077, 28964 } }, // Hero Chest
+            
+            { 29757, new[] { 29039, 29072, 29048 } }, // Champion Gloves 
+            { 29758, new[] { 29097, 29057, 29020 } }, // Defender Gloves
+            { 29756, new[] { 29085, 29080, 28968 } }, // Hero Gloves
+            
+            { 29760, new[] { 29035, 29073, 29044 } }, // Champion Helm 
+            { 29761, new[] { 29093, 29049, 29021 } }, // Defender Helm
+            { 29759, new[] { 29076, 29081, 28963 } }, // Hero Helm
+            
+            { 29768, new[] { 29030, 29074, 29046 } }, // Champion Legs 
+            { 29767, new[] { 29094, 29059, 29022 } }, // Defender Legs
+            { 29765, new[] { 29083, 29078, 28966 } }, // Hero Legs
+            
+            { 29763, new[] { 29037, 29064, 29047 } }, // Champion Shoulders 
+            { 29764, new[] { 29054, 29100, 29016 } }, // Defender Shoulders
+            { 29762, new[] { 29084, 29079, 28967 } }, // Hero Shoulders
             #endregion
         };
     }

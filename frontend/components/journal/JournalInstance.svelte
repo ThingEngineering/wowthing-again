@@ -104,6 +104,13 @@
                 bind:value={$journalState.showWeapons}
             >Weapons</CheckboxInput>
         </button>
+
+        <button class="margin-left">
+            <CheckboxInput
+                name="show_timewalking"
+                bind:value={$journalState.showTimewalking}
+            >Timewalking</CheckboxInput>
+        </button>
     </div>
 
     {#if instance}
