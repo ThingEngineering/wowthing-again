@@ -568,6 +568,25 @@ namespace Wowthing.Backend.Data
             #endregion
             
             #region The Battle for Mount Hyjal/Black Temple
+            { 31089, new[] { 30990, 31052, 31065 } }, // Conqueror Chest
+            { 31091, new[] { 31004, 30975, 31017 } }, // Protector Chest
+            { 31090, new[] { 31057, 31028, 31042 } }, // Vanquisher Chest
+
+            { 31092, new[] { 31060, 31050, 30982 } }, // Conqueror Gloves 
+            { 31093, new[] { 31055, 31026, 31034 } }, // Protector Gloves
+            { 31094, new[] { 31001, 30969, 31008 } }, // Vanquisher Gloves
+
+            { 31097, new[] { 31063, 31051, 30987 } }, // Conqueror Helm 
+            { 31096, new[] { 31056, 31027, 31039 } }, // Protector Helm
+            { 31095, new[] { 31003, 30972, 31015 } }, // Vanquisher Helm
+
+            { 31098, new[] { 31068, 31053, 30993 } }, // Conqueror Legs 
+            { 31100, new[] { 31005, 30977, 31019 } }, // Protector Legs
+            { 31099, new[] { 31058, 31029, 31044 } }, // Vanquisher Legs
+            
+            { 31101, new[] { 30996, 31069, 31054 } }, // Conqueror Shoulders
+            { 31103, new[] { 31006, 30979, 31023 } }, // Protector Shoulders
+            { 31102, new[] { 31059, 31030, 31048 } }, // Vanquisher Shoulders
             #endregion
             
             #region Serpentshrine Cavern/The Eye
