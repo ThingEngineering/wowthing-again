@@ -112,39 +112,34 @@
 </style>
 
 {#each appearances as [appearance, userHas]}
-    {#if
-        ($journalState.showCollected && userHas) ||
-        ($journalState.showUncollected && !userHas)
-    }
-        <div
-            class="appearance quality{getQuality(appearance)}"
-            class:missing={
-                (!$journalState.highlightMissing && !userHas) ||
-                ($journalState.highlightMissing && userHas)
-            }
-        >
-            <a href="{getItemUrl({
-                itemId: item.id,
-                bonusIds: getBonusIds(appearance),
-            })}">
-                <WowthingImage
-                    name="item/{item.id}{appearance.modifierId > 0 ? `_${appearance.modifierId}` : ''}"
-                    size={48}
-                    border={2}
-                />
-            </a>
+    <div
+        class="appearance quality{getQuality(appearance)}"
+        class:missing={
+            (!$journalState.highlightMissing && !userHas) ||
+            ($journalState.highlightMissing && userHas)
+        }
+    >
+        <a href="{getItemUrl({
+            itemId: item.id,
+            bonusIds: getBonusIds(appearance),
+        })}">
+            <WowthingImage
+                name="item/{item.id}{appearance.modifierId > 0 ? `_${appearance.modifierId}` : ''}"
+                size={48}
+                border={2}
+            />
+        </a>
 
-            {#if userHas}
-                <div class="collected drop-shadow">
-                    <IconifyIcon icon={mdiCheckboxOutline} />
-                </div>
-            {/if}
-
-            <div class="difficulties" data-difficulties="{JSON.stringify(appearance.difficulties)}">
-                {#each getDifficulties(appearance) as difficulty}
-                    <span>{difficulty}</span>
-                {/each}
+        {#if userHas}
+            <div class="collected drop-shadow">
+                <IconifyIcon icon={mdiCheckboxOutline} />
             </div>
+        {/if}
+
+        <div class="difficulties" data-difficulties="{JSON.stringify(appearance.difficulties)}">
+            {#each getDifficulties(appearance) as difficulty}
+                <span>{difficulty}</span>
+            {/each}
         </div>
-    {/if}
+    </div>
 {/each}

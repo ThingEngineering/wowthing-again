@@ -26,12 +26,22 @@
         background: $highlight-background;
         border: 1px solid $border-color;
         border-radius: $border-radius;
+        margin-left: 0.25rem;
+
+        &.margin-left {
+            margin-left: 0.75rem;
+        }
     }
     .wrapper {
         width: 100%;
     }
     .toggles {
+        align-items: center;
+        display: flex;
         margin-bottom: calc(0.75rem - 1px);
+    }
+    .show {
+        margin-left: 0.5rem;
     }
 </style>
 
@@ -44,7 +54,7 @@
             >Highlight missing</CheckboxInput>
         </button>
 
-        <span>Show:</span>
+        <span class="show">Show:</span>
 
         <button>
             <CheckboxInput
@@ -60,7 +70,7 @@
             >Missing</CheckboxInput>
         </button>
 
-        <button>
+        <button class="margin-left">
             <CheckboxInput
                 name="show_cloth"
                 bind:value={$journalState.showCloth}
