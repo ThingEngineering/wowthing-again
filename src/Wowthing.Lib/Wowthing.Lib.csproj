@@ -15,6 +15,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.10" />
+    <PackageReference Include="SluggyUnidecode" Version="2.0.1" />
     <PackageReference Include="StackExchange.Redis" Version="2.2.79" />
     <PackageReference Include="Zack.EFCore.Batch.Npgsql" Version="1.4.10" />
   </ItemGroup>

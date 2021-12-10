@@ -5,15 +5,19 @@ export default function getSavedRoute(route: string, slug1?: string, slug2?: str
     const key = `route-${route}`
     if (slug1 === null) {
         const saved = localStorage.getItem(key)
-        if (saved !== null) {
-            replace(`/${route}/${saved}`)
-        }
-        else {
-            const subSidebar = document.getElementById('sub-sidebar')
-            if (subSidebar !== null) {
-                const first = subSidebar.querySelector('li a')
-                replace(first.getAttribute('href').replace('#', ''))
+        const subSidebar = document.getElementById('sub-sidebar')
+        if (subSidebar !== null) {
+            if (saved !== null) {
+                const urlPath = `/${route}/${saved}`
+                const savedElement = subSidebar.querySelector(`li a[href="#${urlPath}"]`)
+                if (savedElement) {
+                    replace(urlPath)
+                    return
+                }
             }
+
+            const first = subSidebar.querySelector('li a')
+            replace(first.getAttribute('href').replace('#', ''))
         }
     }
     else {
