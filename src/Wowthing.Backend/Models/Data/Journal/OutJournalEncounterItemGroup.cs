@@ -7,7 +7,6 @@ namespace Wowthing.Backend.Models.Data.Journal
     {
         public string Name { get; set; }        
         
-        [JsonProperty(PropertyName = "itemsRaw")]
         public List<OutJournalEncounterItem> Items = new();
 
         [JsonIgnore]

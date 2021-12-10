@@ -1,5 +1,5 @@
 import { UserCount, WritableFancyStore } from '@/types'
-import { JournalDataEncounterItem } from '@/types/data'
+import { JournalDataEncounter } from '@/types/data'
 import getFilteredItems from '@/utils/journal/get-filtered-items'
 import type { JournalState } from '@/stores/local-storage'
 import type { Settings } from '@/types'
@@ -14,20 +14,19 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
     }
 
     initialize(data: JournalData): void {
+        console.time('JournalDataStore.initialize')
+
         for (const tier of data.tiers) {
             for (const instance of tier.instances) {
-                for (const encounter of instance.encounters) {
-                    for (const group of encounter.groups) {
-                        if (group.itemsRaw) {
-                            group.items = group.itemsRaw.map(
-                                (itemArray) => new JournalDataEncounterItem(...itemArray)
-                            )
-                            group.itemsRaw = null
-                        }
-                    }
+                if (instance.encountersRaw) {
+                    instance.encounters = instance.encountersRaw
+                        .map((encounterArray) => new JournalDataEncounter(...encounterArray))
+                    instance.encountersRaw = null
                 }
             }
         }
+
+        console.timeEnd('JournalDataStore.initialize')
     }
 
     setup(
@@ -36,7 +35,7 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
         settingsData: Settings,
         userTransmogData: UserTransmogData
     ): void {
-        console.time('JournalDataStore.initialize')
+        console.time('JournalDataStore.setup')
 
         const stats: Record<string, UserCount> = {}
 
@@ -109,7 +108,7 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
             return state
         })
 
-        console.timeEnd('JournalDataStore.initialize')
+        console.timeEnd('JournalDataStore.setup')
     }
 }
 

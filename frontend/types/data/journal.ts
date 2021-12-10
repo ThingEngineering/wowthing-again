@@ -19,26 +19,50 @@ export interface JournalDataInstance {
     slug: string
     bonusIds?: Record<number, number>
     encounters: JournalDataEncounter[]
+    encountersRaw: JournalDataEncounterArray[]
 }
 
-export interface JournalDataEncounter {
-    name: string
-    groups: JournalDataEncounterItemGroup[]
+export class JournalDataEncounter {
+    public name: string
+    public groups: JournalDataEncounterItemGroup[]
+
+    constructor(
+        name: string,
+        groupsRaw: JournalDataEncounterItemGroupArray[]
+    )
+    {
+        this.name = name
+        this.groups = groupsRaw
+            .map((groupArray) => new JournalDataEncounterItemGroup(...groupArray))
+    }
 }
 
-export interface JournalDataEncounterItemGroup {
-    name: string
-    items: JournalDataEncounterItem[]
-    itemsRaw: JournalDataEncounterItemArray[]
+type JournalDataEncounterArray = ConstructorParameters<typeof JournalDataEncounter>
+
+export class JournalDataEncounterItemGroup {
+    public name: string
+    public items: JournalDataEncounterItem[]
+
+    constructor(
+        name: string,
+        itemsRaw: JournalDataEncounterItemArray[]
+    )
+    {
+        this.name = name
+        this.items = itemsRaw
+            .map((itemArray) => new JournalDataEncounterItem(...itemArray))
+    }
 }
+
+type JournalDataEncounterItemGroupArray = ConstructorParameters<typeof JournalDataEncounterItemGroup>
 
 export class JournalDataEncounterItem {
-    id: number
-    classId: number
-    classMask: number
-    subclassId: number
-    quality: number
-    appearances: JournalDataEncounterItemAppearance[]
+    public id: number
+    public classId: number
+    public classMask: number
+    public subclassId: number
+    public quality: number
+    public appearances: JournalDataEncounterItemAppearance[]
 
     constructor(
         id: number,
@@ -46,7 +70,7 @@ export class JournalDataEncounterItem {
         classId: number,
         subclassId: number,
         classMask: number,
-        appearances: JournalDataEncounterItemAppearanceArray[]
+        appearancesRaw: JournalDataEncounterItemAppearanceArray[]
     )
     {
         this.id = id
@@ -54,7 +78,7 @@ export class JournalDataEncounterItem {
         this.classId = classId
         this.subclassId = subclassId
         this.classMask = classMask
-        this.appearances = appearances
+        this.appearances = appearancesRaw
             .map((appearanceArray) => new JournalDataEncounterItemAppearance(...appearanceArray))
     }
 }
