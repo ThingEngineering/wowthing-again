@@ -23,7 +23,7 @@ namespace Wowthing.Web.ViewModels
 
             var db = redis.GetDatabase();
             var achievementHash = db.StringGetAsync("cache:achievement:hash");
-            var journalHash = db.StringGetAsync("cache:journal:hash");
+            var journalHash = db.StringGetAsync("cache:journal-enUS:hash");
             var staticHash = db.StringGetAsync("cache:static-enUS:hash");
             var transmogHash = db.StringGetAsync("cache:transmog:hash");
             var zoneMapHash = db.StringGetAsync("cache:zone-map:hash");
