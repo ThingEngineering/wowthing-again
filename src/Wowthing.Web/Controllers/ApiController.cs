@@ -188,6 +188,12 @@ namespace Wowthing.Web.Controllers
             });
         }
 
+        private readonly HashSet<string> _hasLanguages = new()
+        {
+            "journal",
+            "static",
+        };
+        
         [HttpGet("{type:regex(^(achievement|journal|static|transmog|zone-map)$)}-{languageCode:length(4)}.{hash:length(32)}.json")]
         [ResponseCache(Duration = 365 * 24 * 60 * 60, VaryByHeader = "Origin")]
         public async Task<IActionResult> CachedJson([FromRoute] string type, [FromRoute] string languageCode, [FromRoute] string hash)
@@ -199,7 +205,7 @@ namespace Wowthing.Web.Controllers
                 language = Language.enUS;
             }
 
-            string key = type == "static" ? $"static-{language.ToString()}" : type;
+            string key = _hasLanguages.Contains(type) ? $"{type}-{language.ToString()}" : type;
             
             string jsonHash = await db.StringGetAsync($"cache:{key}:hash");
             if (hash != jsonHash)

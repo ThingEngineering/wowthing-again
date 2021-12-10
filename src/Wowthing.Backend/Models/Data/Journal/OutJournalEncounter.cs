@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
+using Newtonsoft.Json;
+using Wowthing.Backend.Converters;
 
 namespace Wowthing.Backend.Models.Data.Journal
 {
+    [JsonConverter(typeof(OutJournalEncounterConverter))]
     public class OutJournalEncounter
     {
         public string Name { get; set; }

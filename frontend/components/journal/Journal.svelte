@@ -32,7 +32,7 @@
         }
     }
 
-    onMount(async () => await journalStore.fetch())
+    onMount(async () => await journalStore.fetch(undefined, $settingsData.general.language))
 
     afterUpdate(() => {
         if (loaded) {

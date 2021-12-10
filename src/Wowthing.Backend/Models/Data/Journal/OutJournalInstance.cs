@@ -8,6 +8,8 @@ namespace Wowthing.Backend.Models.Data.Journal
     {
         public int Id { get; set; }
         public string Name { get; set; }
+
+        [JsonProperty(PropertyName = "encountersRaw")]
         public List<OutJournalEncounter> Encounters { get; set; } = new();
                 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]

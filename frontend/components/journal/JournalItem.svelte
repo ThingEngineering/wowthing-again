@@ -105,6 +105,7 @@
     }
     .collected {
         color: $colour-success;
+        pointer-events: none;
         position: absolute;
         top: -4px;
         right: -2px;

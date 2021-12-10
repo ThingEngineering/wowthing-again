@@ -5,7 +5,6 @@ using Wowthing.Lib.Enums;
 
 namespace Wowthing.Backend.Models.Data.Journal
 {
-    [JsonConverter(typeof(OutJournalEncounterItemConverter))]
     public class OutJournalEncounterItem
     {
         public int Id { get; set; }

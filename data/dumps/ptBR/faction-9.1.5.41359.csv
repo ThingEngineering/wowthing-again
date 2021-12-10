@@ -1,0 +1,726 @@
+ID,Name_lang
+1,"JOGADOR, Humano"
+2,"JOGADOR, Orc"
+3,"JOGADOR, Anão"
+4,"JOGADOR, Elfo Noturno"
+5,"JOGADOR, Morto-vivo"
+6,"JOGADOR, Tauren"
+7,Criatura
+8,"JOGADOR, Gnomo"
+9,"JOGADOR, Troll"
+14,Monstro
+15,Irmandade Défias
+16,Gnoll - Pata Molhada
+17,Gnoll - Cristarrubra
+18,Gnoll - Umbrapele
+19,Murloc
+20,"Morto-vivo, Flagelo"
+21,Angra do Butim
+22,Fera - Aranha
+23,Fera - Javali
+24,Worgen
+25,Kobold
+26,"Troll, Sanguescalpo"
+27,"Troll, Rachacrânio"
+28,Presa
+29,Fera - Lobo
+30,Traidor da Irmandade Défias
+31,"Respeitado, Escondido"
+32,Trogg
+33,"Troll, Jubafria"
+34,"Orc, Rocha Negra"
+35,Vilão
+36,Vítima
+37,Fera - Urso
+38,Ogro
+39,Mercenários de Kurzen
+40,Escoltado
+41,Empreendimentos S.A.
+42,Fera - Raptor
+43,Basilisco
+44,Revoada Dragônica Verde
+45,Os Perdidos
+46, Ferraria - Forja de Armaduras
+47,Altaforja
+48,Anões Ferro Negro
+49,"Humano, Vigília Noturna"
+50,Revoada Dragônica Vermelha
+51,Gnoll - Pelemusgo
+52,"Orc, Presa do Dragão Vil"
+53,Gnomo - Leproso
+54,Gnomeregan
+55,Leopardo
+56,Cruzada Escarlate
+57,Gnoll - Putricouro
+58,Fera - Gorila
+59,Irmandade do Tório
+60,Naga
+61,Dalaran
+62,Espírito Desamparado
+63,Uivonegro
+64,Capeta
+65,Pelurso
+66,Genérico da Horda
+67,Horda
+68,Cidade Baixa
+69,Darnassus
+70,Camarilha
+71,Milícia de Eira dos Montes
+72,Ventobravo
+73,Demônio
+74,Elemental
+75,Espírito
+76,Orgrimmar
+77,Tesouro
+78,Gnoll - Fuçalama
+79,"Eira dos Montes, Prefeito de Costa Sul"
+80,Revoada Dragônica Negra
+81,Penhasco do Trovão
+82,"Troll, Cascasseca"
+83,Couraria - Elemental
+84,"Javatusco, Crinavalha"
+85,"Javatusco, Costagulha"
+86,Couraria - Escama de Dragão
+87,Bucaneiros da Vela Sangrenta
+88,Profundezas Negras
+89,Makrura
+90,"Centauro, Kolkar"
+91,"Centauro, Galath"
+92,Clã dos Centauros Gelkis
+93,Clã dos Centauros Magram
+94,Maraudino
+108,Theramore
+109,"Javatusco, Cortacharco"
+110,"Javatusco, Crinavalha 2"
+111,"Javatusco, Pontafatal"
+128,Inimigo
+148,Ambiente
+168,Caravana de Etergarde
+169,Cartel Bondebico
+189,Genérico da Aliança
+209,Etergarde
+229,Caverna Ululante
+249,Silitídeo
+269,Remanescentes de Luaprata
+270,Tribo Zandalar
+289, Ferraria - Forja de Armas
+309,Escorpídeo
+310,Fera - Morcego
+311,Titã
+329,Capataz Arruela
+349,Corvoforte
+369,Geringontzan
+389,Inseto de Gnomeregan
+409,Harpia
+429,Lâmina Ardente
+449,Larápio de Sedanera
+450,Aranha Ardente
+469,Aliança
+470,Vila Catraca
+489,"Goblin, Cliente do Bar Ferro Negro"
+509,A Liga de Arathor
+510,Os Profanadores
+511,Gigante
+529,Aurora Argêntea
+530,Trolls Lançanegra
+531,Revoada Dragônica Bronze
+532,Revoada Dragônica Azul
+549,Couraria - Tribal
+550,Engenharia - Goblin
+551,Engenharia - Gnômica
+569,Ferraria - Forja de Martelos
+570,Ferraria - Forja de Machados
+571,Ferraria - Forja de Espadas
+572,"Troll, Ramavil"
+573,Os Flibusteiros dos Mares do Sul
+574,Caer Darrow
+575,"Pelurso, não corrompido"
+576,Domínio dos Presamatos
+577,Visteterna
+589,Treinadores de Sabres-do-inverno
+609,Círculo Cenariano
+629,Trolls Lança Partida
+630,Treinadores de Ravassauros
+649,Senescal Executus
+669,Fera - Ave Carniceira
+670,Fera - Gato
+671,Fera - Caranguejo
+672,Fera - Crocolisco
+673,Fera - Hiena
+674,Fera - Coruja
+675,Fera - Escorpídeo
+676,Fera - Moa
+677,Fera - Tartaruga
+678,Fera - Serpente Alada
+679,Boneco de Treinamento
+689,Revoada Dragônica Negra - Isca
+709,Campo de Batalha Neutro
+729,Clã Lobo do Gelo
+730,Guarda de Lançatroz
+749,Senhores das Águas Hidraxianos
+750,Senhores do Fogo de Sulfuron
+769,Boneco de Bugitranca
+770,Amuleto de Bugitranca
+771,Bugitranca
+789,Moro'gai
+790,Espírito-guia - Aliança
+809,Shen'dralar
+829,Ogro (Capitão Kebrapaw)
+849,Espírito-guia - Horda
+869,Jaedenar
+889,Pioneiros do Brado Guerreiro
+890,Sentinelas da Asa de Prata
+891,Forças da Aliança
+892,Forças da Horda
+893,Trolls Revatusco
+909,Feira de Negraluna
+910,Prole de Nozdormu
+911,Luaprata
+912,Poder de Kalimdor
+914,"JOGADOR, Elfo Sangrento"
+915,Exércitos de C'Thun
+916,Atacantes Silitídeos
+917,A Brigada de Altaforja
+918,RC Enemies
+919,RC Objects
+920,Vermelho
+921,Azul
+922,Tranquillien
+923,Andarilhos
+925,Andassois
+926,Guilda dos Magísteres
+927,"JOGADOR, Draenei"
+928,Invasores do Flagelo
+929,Clã Malho Sangrento
+930,Exodar
+932,Os Aldor
+933,O Consórcio
+934,Os Áugures
+935,Os Sha'tar
+936,Shattrath
+937,"Troll, Floresta"
+938,Os Omenai
+940,Os Filhos de Lothar
+941,Os Mag'har
+942,Expedição Cenariana
+943,Orc Vil
+944,Fantasma de Orc Vil
+945,Filhos dos Fantasmas de Lothar
+946,Fortaleza da Honra
+947,Thrallmar
+948,Test Faction 2
+949,Test Faction 1
+950,ToWoW - Flag
+951,ToWoW - Flag Trigger Alliance (DND)
+952,Test Faction 3
+954,ToWoW - Flag Trigger Horde (DND)
+955,Degradado
+956,Etéreum
+957,Elemental da Terra
+958,Robôs Guerreiros
+959,Ator Bom
+960,Ator Mau
+961,Pelurso Pinhoquieto
+962,Corujante Enlouquecido
+963,Xadrez da Aliança
+964,Xadrez da Horda
+965,Monstro de Treino
+966,Monstro Parceiro de Treino
+967,O Olho Violeta
+968,Falconélius
+969,Mão de Argus
+970,Sporeggar
+971,Gigante do Limo
+972,Quirósporo
+973,"Monstro, Predador"
+974,"Monstro, Presa"
+975,Anomalia do Caos
+976,Defensores de Hyjal
+977,Invasores de Hyjal
+978,Kurenai
+979,"Harmonia Telúrica, Velho Mundo"
+980,The Burning Crusade
+981,Arakkoa
+982,Estandarte do Pântano Zíngaro (Aliança)
+983,Estandarte do Pântano Zíngaro (Horda)
+984,Estandarte do Pântano Zíngaro (Neutro)
+985,Cavernas do Tempo - Thrall
+986,Cavernas do Tempo - Forte do Desterro
+987,Cavernas do Tempo - Guardas da Costa Sul
+988,Esconderijo do Concílio das Sombras
+989,Defensores do Tempo
+990,A Escama das Areias
+991,"Defensor do Portal Negro, Aliança"
+992,"Defensor do Portal Negro, Horda"
+993,"Atacante do Portal Negro, Legião"
+994,Gatilho do Incitador
+995,Gatilho do Incitador 3
+996,Gatilho do Incitador 4
+997,Gatilho do Incitador 5
+998,Gatilho do Incitador 6
+999,Criatura de Mana
+1000,Serviçal de Hadggar
+1001,Clã Giralança
+1002,Parceiro de Briga Etéreum
+1003,Protetorado
+1004,Arcane Annihilator (DNR)
+1005,"Respeitado, Escondido"
+1006,Kirin'Var - Dathric
+1007,Kirin'Var - Belmara
+1008,Kirin'Var - Luminrath
+1009,Kirin'Var - Cohlien
+1010,Serviçal de Illidan
+1011,Bairro Inferior
+1012,Devotos da Morte Grislíngua
+1013,Espíritos da Lua Negra 1
+1014,Espíritos da Lua Negra 2
+1015,Asa Etérea
+1016,Seita das Serpes
+1017,Arvoroso
+1018,Demônio de Leóteras I
+1019,Demônio de Leóteras II
+1020,Demônio de Leóteras III
+1021,Demônio de Leóteras IV
+1022,Demônio de Leóteras V
+1023,Azaloth
+1024,Esfola-pedra
+1025,Caçador Rancapele
+1026,Vulto da Lua Negra
+1027,Comunicador da Legião
+1028,Ancestrais da Selva da Rapina
+1029,"Xadrez, Respeitado com todo Xadrez"
+1030,Portões do Templo Negro - Illidari
+1031,Guarda Aérea Sha'tari
+1032,Área 52
+1033,Maiev
+1034,Arakkoa Sombria de Skettis
+1035,Arakkoa de Skettis
+1036,Inimigo da Presa do Dragão
+1037,Vanguarda da Aliança
+1038,Ogri'la
+1039,Assolador
+1040,REUSE
+1041,Frenesi
+1042,Inimigo da Guarda Aérea
+1043,"Gambá, Petunia"
+1044,Desertor de Theramore
+1045,Vraikal
+1046,Pirata do Mar Norte
+1047,Morsano
+1048,UNUSED
+1049,"Troll, Amani"
+1050,Expedição Valentia
+1051,UNUSED
+1052,Expedição da Horda
+1053,Guarda Oeste
+1054,Grifo Pintado
+1055,Cão Pestilento Adestrado
+1056,Vraikal (Espírito Ancestral 1)
+1057,Vraikal (Espírito Ancestral 2)
+1058,Vraikal (Espírito Ancestral 3)
+1059,CAB - Bandeira - Aliança
+1060,Test
+1061,vraikal
+1062,Gladiador Vraikal
+1063,Combatente de Valgarde
+1064,Os Taunka
+1065,"Monstro, Reação da Zona de Força 1"
+1066,"Monstro, Reação da Zona de Força 2"
+1067,A Mão da Vingança
+1068,Liga dos Exploradores
+1069,Ram Racing Powerup DND
+1070,Ram Racing Trap DND
+1071,Esquilos do Craig
+1072,REUSE
+1073,Os Kalu'ak
+1074,Feriado - Barril d'Água
+1075,Feriado - Genérico
+1076,Anões de Ferro
+1077,Ofensiva Sol Partido
+1078,Mascote de Companhia de Luta
+1079,"Murlocs, Falésia Invernal"
+1080,"Amigável, Forçar Reação 1"
+1081,"Objeto, Forçar Reação"
+1083,REUSE
+1084,"Vraikal, Mar"
+1085,Ofensiva Brado Guerreiro
+1086,Larápio
+1087,Monstro do Feriado
+1088,"Pelurso, Presa Vermelha"
+1089,"Pelurso, Patálgida"
+1090,Kirin Tor
+1091,A Aliança do Repouso das Serpes
+1092,Azjol-Nerub
+1093,REUSE
+1094,O Pacto de Prata
+1095,Coureador da Serra Gris
+1096,REUSE
+1097,Wrath of the Lich King
+1098,Cavaleiros da Lâmina de Ébano
+1099,Flagelo do Portão da Ira
+1100,Aliança do Portão da Ira
+1101,Horda do Portão da Ira
+1102,CAB - Bandeira - Horda
+1103,CAB - Bandeira - Neutro
+1104,Tribo Feralma
+1105,Os Oráculos
+1106,Cruzada Argêntea
+1107,"Troll, Drakkari"
+1108,CdT Arthas
+1109,CdT Cidadão de Stratholme
+1110,CdT Flagelo
+1111,Freya
+1112,Montaria - Táxi - Aliança
+1113,Montaria - Táxi - Horda
+1114,Montaria - Táxi - Neutro
+1115,"Elemental, Água"
+1116,"Elemental, Ar"
+1117,Bacia Sholazar
+1118,Clássico
+1119,Os Filhos de Hodir
+1120,Gigantes de Ferro
+1121,Vraikal Gélido
+1122,Terrano
+1123,Árbitro de Monstro
+1124,Os Fendessol
+1125,Tornehylde
+1126,Os Gelonatos
+1128,Martelo do Crepúsculo
+1129,"Pelurso, Bosquenero"
+1130,"Cervo, Costa Negra"
+1131,"Urso, Costa Negra"
+1132,"Espreitaluna, Costa Negra"
+1133,Cartel Borraquilha
+1134,Guilnéas
+1135,Harmonia Telúrica
+1136,Conversão de Tranquillien
+1137,Conversão de Sabres-do-inverno
+1138,Cataclysm - Nova Reputação Neutra
+1142,Remanescente de Magram
+1143,Filhos de Gelkis
+1144,REUSE
+1145,Odeia tudo
+1152,"JOGADOR, Goblin"
+1153,"JOGADOR, Worgen"
+1154,Conversão de Pacto de Prata
+1155,Conversão de Fendessol
+1156,Veredito Cinzento
+1157,Pigmeu
+1158,Guardiões de Hyjal
+1159,CAB - Bandeira - Aliança 2
+1160,CAB - Bandeira - Horda 3
+1161,Temível Totem
+1162,Cataclysm
+1168,Guilda
+1169,Guilda
+1171,Therazane
+1172,Clã Presa do Dragão
+1173,Ramkahen
+1174,Clã Martelo Feroz
+1177,Protetores de Baradin
+1178,Punho de Grito Infernal
+1179,Visgo
+1181,"Respeitado, Novo"
+1189,K3
+1204,Vingadores de Hyjal
+1216,Academia de Shang Xi
+1228,Hozens da Floresta
+1233,CdT Nascente da Eternidade – Illidan
+1234,CdT Nascente da Eternidade – Elfos Altaneiros
+1235,CdT Nascente da Eternidade – Illidan (Furtividade)
+1237,CdT Nascente da Eternidade – Demônios
+1240,CdT Nascente da Eternidade – Bolas Demoníacas
+1241,CdT Nascente da Eternidade – Espreitadores de Caça
+1242,Jinyus Barbatana de Pérola
+1243,Hozen
+1245,Mists of Pandaria
+1249,"JOGADOR, Expansão 4 Neutro"
+1252,Sha
+1253,Guardiões do Templo do Leste
+1265,Shen'dralar
+1268,Mogus
+1269,Lótus Dourado
+1270,Shado-pan
+1271,Ordem da Serpente das Nuvens
+1272,Os Lavradores
+1273,"Be Bum, o Ébrio"
+1275,Ella
+1276,Velho Pata do Monte
+1277,Tchi Tchi
+1278,Sho
+1279,Haohan Garra de Barro
+1280,Tina Garra de Barro
+1281,Gina Garra de Barro
+1282,Peixe Cana Alta
+1283,Fazendeiro Fung
+1286,Guardiões do Garça Vermelha
+1302,Os Pescadores
+1336,O Enxame Mantídeo
+1337,Os Klaxxi
+1338,Mogus Gurthan
+1339,Mogus Harthak
+1340,Mogus Korgesh
+1341,Os Celestiais Majestosos
+1345,Os Andarilhos das Lendas
+1351,Os Mestres Cervejeiros
+1352,Pandarens Huojin
+1353,Pandarens Tushui
+1357,Nomi
+1358,Nat Pagle
+1359,O Príncipe Negro
+1364,"Amigável, Forçar Reação 2"
+1366,"Amigável, Forçar Reação 3"
+1367,"Amigável, Forçar Reação 4"
+1368,"Amigável, Forçar Reação 5"
+1369,"Amigável, Forçar Reação 6"
+1370,"Amigável, Forçar Reação 7"
+1371,Aldeia Pata'don
+1372,Aldeia do Mel
+1374,Arena de Brig'ga Fea (Temporada 1)
+1375,Ofensiva de Dominância
+1376,Operação: Muralha de Escudos
+1387,Ofensiva do Kirin Tor
+1388,Investida Fendessol
+1416,Confiança de Akama
+1419,Bar Brigalhada do Bizmo (Temporada 1)
+1433,"Monstro, neutro forçado para forçar reação"
+1435,Ataque Shado-Pan
+1440,Rebelião dos Lançanegra
+1443,Kor'kron
+1444,Warlords of Draenor
+1445,Orcs Lobo do Gelo
+1447,Trolls Lançanegra
+1457,Frentídeos
+1483,Comedores de Frentídeos
+1491,Os Andarilhos do Tempo
+1492,Imperador Shaohao
+1496,Ogros de Fogofrio
+1500,Fantasma Vermelho
+1508,Orcs da Lua Negra
+1509,Os Pálidos
+1514,Seguidores de Rukhmar
+1515,Arakkoas Proscritos
+1520,Exilados da Lua Negra
+1521,Concílio das Sombras
+1591,"Draenei, Draenor"
+1617,Primevo
+1618,Rachador
+1623,A Horda de Ferro
+1665,Os Sargerei
+1674,Esporos de Draenor
+1679,Operação: Aardvark
+1680,Malho Imponente
+1681,Lança de Vol'jin
+1682,Vanguarda de Wrynn
+1687,Goren de Gorgrond
+1690,Arena de Brig'ga Fea (Temporada 2)
+1691,Bar Brigalhada do Bizmo (Temporada 2)
+1708,Orcs Cargaveira
+1710,Defesa Sha'tari
+1711,Sociedade de Preservação de Bondebico
+1712,GarInvasion_IronHorde
+1713,GarInvasion_ShadowCouncil
+1714,GarInvasion_Ogres
+1715,GarInvasion_Primals
+1716,GarInvasion_Breakers
+1717,GarInvasion_ThunderLord
+1718,GarInvasion_Shadowmoon
+1731,Conselho de Exarcas
+1732,Expedição a Draenor de Bondebico
+1733,Delvar Punho de Ferro
+1735,Guarda-costas do Quartel
+1736,Tormmok
+1737,Sacerdote da Garra Ishaal
+1738,Defensora Illona
+1739,Vivianne
+1740,Aeda Brilhalvo
+1741,Leorajh
+1746,Gronn de Nagrand
+1747,Tesouro do Coliseu
+1756,LVA_Looters
+1757,LVA_Preservers
+1758,LVA_Naturalists
+1759,LVA_Machines
+1760,Gladiadores do Malho Imponente
+1786,Invasores da Legião Ardente
+1815,Sobreviventes Guilneanos
+1828,Tribo Alta Montanha
+1833,Destronados
+1834,Legião
+1847,Mão do Profeta
+1848,Caçadores de Cabeças de Vol'jin
+1849,Ordem dos Despertos
+1850,Os Espreitapresa
+1859,Os Noctívoros
+1860,Sede Arcana (Thalyssra)
+1861,Arcane Thirst (Silgryn) DEPRECATED
+1862,Sede Arcana (Oculeth)
+1883,Tece-sonhos
+1888,Vraikal Jandvik
+1894,As Guardiãs
+1899,Guarda da Lua
+1900,Corte de Farondis
+1905,Druida do Bosque Onírico
+1910,Drogbar
+1911,Fantasmas Kvaldir
+1912,Kvaldir
+1913,Filhos da Noite
+1914,Fenecidos
+1919,Sede Arcana (Valtrois)
+1920,Guarda da Lua
+1947,Illidari
+1948,Valarjares
+1953,Pesadelo
+1962,Civil Filho da Noite
+1975,Conjurador Margoss
+1984,Os Primeiros Respondentes
+1989,Guarda da Lua
+2010,Arena de Brig'ga Fea (Temporada 3)
+2011,Bar Brigalhada do Bizmo (Temporada 3)
+2012,Filhos da Noite Rebeldes
+2018,Vingança da Garra
+2040,Vingança da Garra
+2045,Exércitos da Queda da Legião
+2063,Arne Test - Paragon Reputation Stormwind
+2085,Tribo Alta Montanha (Paragão)
+2086,Valarjar (Paragão)
+2087,Corte de Farondis (Paragão)
+2088,Tece-sonhos (Paragão)
+2089,Os Noctívoros (Paragão)
+2090,As Guardiãs (Paragão)
+2091,Exércitos da Queda da Legião (Paragão)
+2097,Ilyssia das Águas
+2098,Guardiã Raynae
+2099,Akule Chifre do Rio
+2100,Corbyn
+2101,Sha'leth
+2102,Diabrius
+2103,Império Zandalari
+2104,Battle for Azeroth
+2105,Nazmani
+2111,Dinossauros Zandalari
+2120,Kul Tiraz - Tiragarde
+2121,Corsários do Grande Oceano
+2122,Saqueadores Maré-férrea
+2135,Crona
+2155,Trolls Sangrentos
+2156,Expedição de Talanji
+2157,Brigada da Honra
+2158,Voldunai
+2159,7ª Legião
+2160,Almirantado Proudmore
+2161,Ordem das Brasas
+2162,Rastro da Tempestade
+2163,Peregrinos Tortollanos
+2164,Campeões de Azeroth
+2165,Exército da Luz
+2166,Exército da Luz (Paragão)
+2167,Casta Argussiana (Paragão)
+2170,Casta Argussiana
+2176,"Neutral, Force Reaction 1"
+2177,"Neutral, Force Reaction 2"
+2178,"Neutral, Force Reaction 3"
+2179,"Neutral, Force Reaction 4"
+2185,Ratos de Porão
+2186,Rufiões Dentenegro
+2187,Corsários Corta-água
+2192,Companhia de Comércio Grimpagris
+2218,8.0 Hidden Object - Red
+2219,8.0 Hidden Object - Withered - Red
+2220,8.0 Hidden Object - Withered - Blue
+2221,8.0 Hidden Object - Withered - Green
+2222,8.0 Hidden Object - Withered - Yellow
+2227,Fera – Abelha
+2228,Fera – Wendigo
+2229,"PLAYER, Void Elf"
+2230,"PLAYER, Highmountain Tauren"
+2231,"PLAYER, Nightborne"
+2232,"PLAYER, Lightforged Draenei"
+2233,Treinamento de Dinossauro - Pterrordax
+2258,Wendigo
+2259,Abelhas
+2264,Kul Tiraz - Drustvar
+2265,Kul Tiraz - Trovamare
+2370,Treinamento de Dinossauro - Escornante
+2371,Bar Brigalhada do Bizmo
+2372,Arena de Brig'ga Fea
+2373,Os Libertos
+2374,Os Libertos (Paragão)
+2375,Caçador Akana
+2376,Clarividente Ori
+2377,Espadachim Inowari
+2378,Império Zandalari (Paragão)
+2379,Almirantado Proudmore (Paragão)
+2380,Expedição de Talanji (Paragão)
+2381,Rastro da Tempestade (Paragão)
+2382,Voldunai (Paragão)
+2383,Ordem das Brasas (Paragão)
+2384,7ª Legião (Paragão)
+2385,Brigada da Honra (Paragão)
+2386,Campeões de Azeroth (Paragão)
+2387,Peregrinos Tortollanos (Paragão)
+2388,Xablau Guelbraque
+2389,Neri Pinafiada
+2390,Vim Salcárdio
+2391,Resistência Ferrúgia
+2392,Resistência Ferrúgia (Paragão)
+2394,Caranguejos-ermitões
+2395,Colmeia Meleira
+2396,Zangão Meleiro
+2397,Matriarca-da-colmeia Meleira
+2398,Coletora Meleira
+2400,Ankoano Lamionda
+2401,Ankoano Lamionda (Paragão)
+2404,Casa dos Constructos
+2405,Casa dos Rituais
+2406,Casa dos Escolhidos
+2407,Os Ascendidos
+2408,Kyrianos Sombrios
+2410,O Exército Imorredouro
+2411,Legião de Pedra
+2412,Pecádia
+2413,Corte dos Ceifadores
+2414,Terras Sombrias
+2415,Rajani
+2416,Rajani (Paragão)
+2417,Acordo de Uldum
+2418,Acordo de Uldum (Paragão)
+2419,N'Zoth
+2422,Feérios Noturnos
+2427,Filhote de Aqir
+2431,Owen Test
+2432,Ve'nari
+2437,Thanator - Guarda
+2438,Thanator - Prisioneiro
+2439,Os Confessos
+2440,O Exército Imorredouro (Paragão)
+2441,Os Ascendidos (Paragão)
+2442,Corte dos Ceifadores (Paragão)
+2444,A Caçada Selvagem (Paragão)
+2445,A Corte das Brasas
+2446,Baronesa Vashj
+2447,Lady Lunamora
+2448,Mikâniko
+2449,A Condessa
+2450,Alexandros Mograine
+2451,Capitã de Caça Korayn
+2452,Polemarco Adrestes
+2453,Rasgão e Cara-de-clava
+2454,Xufa
+2455,Guardião da Cripta Kassir
+2456,Droman Aliothe
+2457,Grão-mestre Vole
+2458,Kleia e Pelagos
+2459,Sika
+2460,Cabeça-de-pedra
+2461,Arquiteto da Peste Marileth
+2462,Mestres-das-suturas
+2463,Marasmius
+2464,Corte da Noite
+2465,A Caçada Selvagem
+2468,Korthia
+2470,Avanço da Morte
+2471,Avanço da Morte (Paragão)
+2472,O Códice dos Arquivistas
+2473,O Códice dos Arquivistas (Paragão)
+2474,Ve'nari (Paragão)

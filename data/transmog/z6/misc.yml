@@ -1,6 +1,191 @@
 name: Misc
 groups:
 
+- name: Mage Tower
+  type: class
+  sets:
+  - Mage Tower
+  data:
+    death-knight:
+    # Timewarped set=2294
+    - name: Gravewarden Armaments
+      wowheadSetId:
+      items:
+        1:  69619 # Head
+        3:  69620 # Shoulders
+        5:  69621 # Chest
+        6:  69622 # Waist
+        7:  69623 # Legs
+        8:  69624 # Feet
+        9:  69745 # Wrists
+        10: 69625 # Hands
+        16: 69626 # Back
+
+    demon-hunter:
+    # Timewarped set=2295
+    - name: Demonbane Armor
+      wowheadSetId:
+      items:
+        1:  69739 # Head
+        3:  69741 # Shoulders
+        5:  69743 # Chest
+        6:  69736 # Waist
+        7:  69740 # Legs
+        8:  69737 # Feet
+        9:  69742 # Wrists
+        10: 69738 # Hands
+        16: 69744 # Back
+
+    druid:
+    # Timewarped set=2296
+    - name: Stormheart Raiment
+      wowheadSetId:
+      items:
+        1:  69654 # Head
+        3:  69655 # Shoulders
+        5:  69656 69662 # Chest
+        6:  69657 # Waist
+        7:  69658 # Legs
+        8:  69659 # Feet
+        9:  69660 # Wrists
+        10: 69661 # Hands
+        16: 69746 # Back
+
+    hunter:
+    # Timewarped set=2297
+    - name: Wildstalker Armor
+      wowheadSetId:
+      items:
+        1:  69636 # Head
+        3:  69637 # Shoulders
+        5:  69638 # Chest
+        6:  69639 # Waist
+        7:  69640 # Legs
+        8:  69641 # Feet
+        9:  69642 # Wrists
+        10: 69643 # Hands
+        16: 69725 # Back
+
+    mage:
+    # Timewarped set=2298
+    - name: Regalia of the Arcane Tempest
+      wowheadSetId:
+      items:
+        1:  69576 # Head
+        3:  69577 # Shoulders
+        5:  69578 # Chest
+        6:  69579 # Waist
+        7:  69580 # Legs
+        8:  69581 # Feet
+        9:  69582 # Wrists
+        10: 69583 # Hands
+        16: 69724 # Back
+
+    monk:
+    # Timewarped set=2299
+    - name: Xuen's Battlegear
+      wowheadSetId:
+      items:
+        1:  69687 # Head
+        3:  69688 # Shoulders
+        5:  69689 # Chest
+        6:  69690 # Waist
+        7:  69691 # Legs
+        8:  69692 # Feet
+        9:  69693 # Wrists
+        10: 69694 # Hands
+        16: 69747 # Back
+
+    paladin:
+    # Timewarped set=2300
+    - name: Radiant Lightbringer Armor
+      wowheadSetId:
+      items:
+        1:  69585 # Head
+        3:  69592 # Shoulders
+        5:  69586 # Chest
+        6:  69587 # Waist
+        7:  69588 # Legs
+        8:  69589 # Feet
+        9:  69590 # Wrists
+        10: 69591 # Hands
+        16: 69726 # Back
+
+    priest:
+    # Timewarped set=2301
+    - name: Vestments of Blind Absolution
+      wowheadSetId:
+      items:
+        1:  69644 # Head
+        3:  69645 # Shoulders
+        5:  69646 69653 # Chest
+        6:  69647 # Waist
+        7:  69648 # Legs
+        8:  69649 # Feet
+        9:  69650 # Wrists
+        10: 69651 # Hands
+        16: 69652 # Back
+
+    rogue:
+    # Timewarped set=2302
+    - name: Fanged Slayer's Armor
+      wowheadSetId:
+      items:
+        1:  69627 # Head
+        3:  69628 # Shoulders
+        5:  69629 # Chest
+        6:  69630 # Waist
+        7:  69631 # Legs
+        8:  69632 # Feet
+        9:  69633 # Wrists
+        10: 69634 # Hands
+        16: 69635 # Back
+
+    shaman:
+    # Timewarped set=2303
+    - name: Regalia of the Skybreaker
+      wowheadSetId:
+      items:
+        1:  69728 # Head
+        3:  69729 # Shoulders
+        5:  69680 69686 # Chest
+        6:  69681 # Waist
+        7:  69682 # Legs
+        8:  69683 # Feet
+        9:  69684 # Wrists
+        10: 69685 # Hands
+        16: 69727 # Back
+
+    warlock:
+    # Timewarped set=2304
+    - name: Diabolic Raiment
+      wowheadSetId:
+      items:
+        1:  69663 # Head
+        3:  69664 # Shoulders
+        5:  69665 69671 # Chest
+        6:  69666 # Waist
+        7:  69667 # Legs
+        8:  69668 # Feet
+        9:  69669 # Wrists
+        10: 69670 # Hands
+        16: 69748 # Back
+
+    warrior:
+    # Timewarped set=2305
+    - name: Titanic Onslaught Armor
+      wowheadSetId:
+      items:
+        1:  69672 # Head
+        3:  69673 # Shoulders
+        5:  69674 # Chest
+        6:  69675 # Waist
+        7:  69676 # Legs
+        8:  69677 # Feet
+        9:  69678 # Wrists
+        10: 69679 # Hands
+        16: 69749 # Back
+
 - name: Chromie
   type: armor
   sets:
