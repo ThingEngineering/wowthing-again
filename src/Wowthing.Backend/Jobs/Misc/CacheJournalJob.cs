@@ -26,7 +26,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheJournal,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(24),
-            Version = 8,
+            Version = 9,
         };
 
         public override async Task Run(params string[] data)
@@ -56,19 +56,21 @@ namespace Wowthing.Backend.Jobs.Misc
             16, // Raid Mythic
             33, // Raid Timewalking
         };
-        
+
+        private readonly StringType[] _stringTypes = {
+            StringType.WowItemName,
+            StringType.WowJournalEncounterName,
+            StringType.WowJournalInstanceName,
+            StringType.WowJournalTierName,
+        };
+
         private async Task BuildJournalData()
         {
-            // TODO languages
             var tiers = await DataUtilities.LoadDumpCsvAsync<DumpJournalTier>(Path.Join("enUS", "journaltier"));
+            tiers.Reverse();
+
             var instancesById = (await DataUtilities.LoadDumpCsvAsync<DumpJournalInstance>(Path.Join("enUS", "journalinstance")))
                 .ToDictionary(instance => instance.ID);
-            var encountersByInstanceId = (await DataUtilities.LoadDumpCsvAsync<DumpJournalEncounter>(Path.Join("enUS", "journalencounter")))
-                .GroupBy(encounter => encounter.JournalInstanceID)
-                .ToDictionary(
-                    group => group.Key,
-                    group => group.OrderBy(encounter => encounter.OrderIndex)
-                );
 
             var tierToInstance = (await DataUtilities.LoadDumpCsvAsync<DumpJournalTierXInstance>("journaltierxinstance"))
                 .GroupBy(x => x.JournalTierID)
@@ -77,6 +79,13 @@ namespace Wowthing.Backend.Jobs.Misc
                     group => group
                         .Select(x => x.JournalInstanceID)
                         .ToArray()
+                );
+
+            var encountersByInstanceId = (await DataUtilities.LoadDumpCsvAsync<DumpJournalEncounter>(Path.Join("enUS", "journalencounter")))
+                .GroupBy(encounter => encounter.JournalInstanceID)
+                .ToDictionary(
+                    group => group.Key,
+                    group => group.OrderBy(encounter => encounter.OrderIndex)
                 );
 
             var itemsByEncounterId = (await DataUtilities.LoadDumpCsvAsync<DumpJournalEncounterItem>("journalencounteritem"))
@@ -129,260 +138,272 @@ namespace Wowthing.Backend.Jobs.Misc
                     (item.ClassId == 4 && item.SubclassId != 0)
                 )
                 .ToDictionaryAsync(item => item.Id);
-
-            // TODO languages
-            var stringMap = await Context.LanguageString
-                .Where(ls => ls.Type == StringType.WowItemName && ls.Language == Language.enUS)
-                .AsNoTracking()
-                .ToDictionaryAsync(ls => (ls.Language, ls.Id), ls => ls.String);
             
             _timer.AddPoint("Database");
 
-            tiers.Reverse();
-            var cacheData = new RedisJournalCache();
-            foreach (var tier in tiers)
-            {
-                var tierData = new OutJournalTier
-                {
-                    Id = tier.ID,
-                    Name = tier.Name,
-                };
+            var db = Redis.GetDatabase();
 
-                var instances = tierToInstance[tier.ID]
-                    .OrderBy(instanceId => instancesById[instanceId].OrderIndex)
-                    .ToArray();
-                foreach (var instanceId in instances)
+            // Once per language, oh boy
+            string cacheHash = null;
+            foreach (var language in Enum.GetValues<Language>())
+            {
+                Logger.Warning("{Lang}", language);
+
+                var cacheData = new RedisJournalCache();
+                
+                var stringMap = await Context.LanguageString
+                    .Where(ls => ls.Language == language && _stringTypes.Contains(ls.Type))
+                    .AsNoTracking()
+                    .ToDictionaryAsync(ls => (ls.Type, ls.Id), ls => ls.String);
+                
+                foreach (var tier in tiers)
                 {
-                    var instance = instancesById[instanceId];
-                    var mapDifficulties = difficultiesByMapId[instance.MapID];
-                    
-                    var instanceData = new OutJournalInstance
+                    var tierData = new OutJournalTier
                     {
-                        Id = instance.ID,
-                        Name = instance.Name,
+                        Id = tier.ID,
+                        Name = stringMap[(StringType.WowJournalTierName, tier.ID)],
                     };
 
-                    if (Hardcoded.InstanceBonusIds.TryGetValue(instanceId, out var bonusIds))
+                    var instances = tierToInstance[tier.ID]
+                        .OrderBy(instanceId => instancesById[instanceId].OrderIndex)
+                        .ToArray();
+                    foreach (var instanceId in instances)
                     {
-                        instanceData.BonusIds = bonusIds;
-                    }
-
-                    foreach (var encounter in encountersByInstanceId[instanceId])
-                    {
-                        var encounterData = new OutJournalEncounter
+                        var instance = instancesById[instanceId];
+                        var mapDifficulties = difficultiesByMapId[instance.MapID];
+                        
+                        var instanceData = new OutJournalInstance
                         {
-                            Name = encounter.Name,
+                            Id = instance.ID,
+                            Name = stringMap[(StringType.WowJournalInstanceName, instance.ID)],
                         };
 
-                        var items = new List<DumpJournalEncounterItem>();
-                        var fakeItems = new Dictionary<int, DumpJournalEncounterItem>();
-                        foreach (var encounterItem in itemsByEncounterId[encounter.ID])
+                        if (Hardcoded.InstanceBonusIds.TryGetValue(instanceId, out var bonusIds))
                         {
-                            if (Hardcoded.ItemExpansions.TryGetValue(encounterItem.ItemID, out var expandedItems))
+                            instanceData.BonusIds = bonusIds;
+                        }
+
+                        foreach (var encounter in encountersByInstanceId[instanceId])
+                        {
+                            var encounterData = new OutJournalEncounter
                             {
-                                Logger.Debug("Expanding items for {Id}", encounterItem.ItemID);
-                                foreach (int itemId in expandedItems)
+                                Name = stringMap[(StringType.WowJournalEncounterName, encounter.ID)],
+                            };
+
+                            var items = new List<DumpJournalEncounterItem>();
+                            var fakeItems = new Dictionary<int, DumpJournalEncounterItem>();
+                            foreach (var encounterItem in itemsByEncounterId[encounter.ID])
+                            {
+                                if (Hardcoded.ItemExpansions.TryGetValue(encounterItem.ItemID, out var expandedItems))
                                 {
-                                    if (!fakeItems.ContainsKey(itemId))
+                                    //Logger.Debug("Expanding items for {Id}", encounterItem.ItemID);
+                                    foreach (int itemId in expandedItems)
                                     {
-                                        fakeItems[itemId] = new DumpJournalEncounterItem
+                                        if (!fakeItems.ContainsKey(itemId))
                                         {
-                                            ID = encounterItem.ID,
-                                            DifficultyMask = encounterItem.DifficultyMask,
-                                            FactionMask = encounterItem.FactionMask,
-                                            Flags = encounterItem.Flags,
-                                            ItemID = itemId,
-                                            JournalEncounterID = encounter.ID,
-                                        };
+                                            fakeItems[itemId] = new DumpJournalEncounterItem
+                                            {
+                                                ID = encounterItem.ID,
+                                                DifficultyMask = encounterItem.DifficultyMask,
+                                                FactionMask = encounterItem.FactionMask,
+                                                Flags = encounterItem.Flags,
+                                                ItemID = itemId,
+                                                JournalEncounterID = encounter.ID,
+                                            };
+                                        }
                                     }
                                 }
-                            }
-                            else
-                            {
-                                items.Add(encounterItem);
-                            }
-                        }
-                        items.AddRange(fakeItems.Values);
-
-                        if (Hardcoded.ExtraItemDrops.TryGetValue(encounter.ID, out var extraItems))
-                        {
-                            Logger.Debug("Adding extra items for encounter {Id}", encounter.ID);
-                            foreach (var extraItem in extraItems)
-                            {
-                                difficultiesByEncounterItemId[1000000 + extraItem.ItemId] = extraItem.Difficulties.ToArray();
-                                items.Add(new DumpJournalEncounterItem
+                                else
                                 {
-                                    ID = 1000000 + extraItem.ItemId,
-                                    DifficultyMask = 0,
-                                    FactionMask = 0,
-                                    Flags = 0,
-                                    ItemID = extraItem.ItemId,
-                                    JournalEncounterID = encounter.ID,
-                                });
+                                    items.Add(encounterItem);
+                                }
                             }
-                        }
-                        
-                        var itemGroups = new Dictionary<string, OutJournalEncounterItemGroup>();
-                        foreach (var encounterItem in items)
-                        {
-                            if (Hardcoded.IgnoredJournalItems.Contains(encounterItem.ItemID))
+                            items.AddRange(fakeItems.Values);
+
+                            if (Hardcoded.ExtraItemDrops.TryGetValue(encounter.ID, out var extraItems))
                             {
-                                Logger.Debug("Skipping ignored item {Id}", encounterItem.ItemID);
-                                continue;
+                                //Logger.Debug("Adding extra items for encounter {Id}", encounter.ID);
+                                foreach (var extraItem in extraItems)
+                                {
+                                    difficultiesByEncounterItemId[1000000 + extraItem.ItemId] = extraItem.Difficulties.ToArray();
+                                    items.Add(new DumpJournalEncounterItem
+                                    {
+                                        ID = 1000000 + extraItem.ItemId,
+                                        DifficultyMask = 0,
+                                        FactionMask = 0,
+                                        Flags = 0,
+                                        ItemID = extraItem.ItemId,
+                                        JournalEncounterID = encounter.ID,
+                                    });
+                                }
                             }
                             
-                            if (!itemMap.TryGetValue(encounterItem.ItemID, out var item))
+                            var itemGroups = new Dictionary<string, OutJournalEncounterItemGroup>();
+                            foreach (var encounterItem in items)
                             {
-                                //Logger.Warning("No item for ID {Id}", encounterItem.ItemID);
-                                continue;
-                            }
-
-                            if (!appearancesByItemId.TryGetValue(encounterItem.ItemID, out var appearances))
-                            {
-                                Logger.Debug("No appearances for ID {Id}", encounterItem.ItemID);
-                                continue;
-                            }
-
-                            if (!Hardcoded.InstanceDifficulties.TryGetValue(instanceId, out int[] difficulties))
-                            {
-                                if (encounterItem.DifficultyMask == -1)
+                                if (Hardcoded.IgnoredJournalItems.Contains(encounterItem.ItemID))
                                 {
-                                    difficulties = mapDifficulties;
-                                }
-                                else if (!difficultiesByEncounterItemId.TryGetValue(encounterItem.ID, out difficulties))
-                                {
-                                    Logger.Warning("No difficulties for item ID {Id}", encounterItem.ID);
+                                    //Logger.Debug("Skipping ignored item {Id}", encounterItem.ItemID);
                                     continue;
                                 }
-                            }
-
-                            difficulties = difficulties
-                                .OrderBy(d => Array.IndexOf(_difficultyOrder, d))
-                                .ToArray();
-
-                            var itemAppearances = new Dictionary<int, OutJournalEncounterItemAppearance>();
-                            foreach (var difficultyId in difficulties)
-                            {
-                                if (!(
-                                    instanceData.BonusIds != null &&
-                                    instanceData.BonusIds.TryGetValue(difficultyId, out int bonusId) &&
-                                    bonusAppearanceModifiers.TryGetValue(bonusId, out int modifierId) &&
-                                    appearances.TryGetValue(modifierId, out int appearanceId)
-                                ))
-                                {
-                                    var first = appearances
-                                        .OrderBy(kvp => kvp.Key)
-                                        .First();
-
-                                    modifierId = first.Key;
-                                    appearanceId = first.Value;
-                                }
-
-                                if (!itemAppearances.ContainsKey(appearanceId))
-                                {
-                                    itemAppearances[appearanceId] = new OutJournalEncounterItemAppearance
-                                    {
-                                        AppearanceId = appearanceId,
-                                        ModifierId = modifierId,
-                                    };
-                                }
-                                itemAppearances[appearanceId].Difficulties.Add(difficultyId);
-                            }
-
-                            foreach (var appearance in itemAppearances.Values)
-                            {
-                                // Don't use both Mythic and Mythic Keystone difficulties
-                                if (appearance.Difficulties.Contains(8) &&
-                                    appearance.Difficulties.Contains(23))
-                                {
-                                    appearance.Difficulties.Remove(8);
-                                }
                                 
-                                // Legacy raids like to have dungeon difficulties for some reason
-                                if (appearance.Difficulties.Contains(3) ||
-                                    appearance.Difficulties.Contains(4) ||
-                                    appearance.Difficulties.Contains(5) ||
-                                    appearance.Difficulties.Contains(6))
+                                if (!itemMap.TryGetValue(encounterItem.ItemID, out var item))
                                 {
-                                    appearance.Difficulties.Remove(1);
-                                    appearance.Difficulties.Remove(2);
+                                    //Logger.Warning("No item for ID {Id}", encounterItem.ItemID);
+                                    continue;
                                 }
+
+                                if (!appearancesByItemId.TryGetValue(encounterItem.ItemID, out var appearances))
+                                {
+                                    Logger.Debug("No appearances for ID {Id}", encounterItem.ItemID);
+                                    continue;
+                                }
+
+                                if (!Hardcoded.InstanceDifficulties.TryGetValue(instanceId, out int[] difficulties))
+                                {
+                                    if (encounterItem.DifficultyMask == -1)
+                                    {
+                                        difficulties = mapDifficulties;
+                                    }
+                                    else if (!difficultiesByEncounterItemId.TryGetValue(encounterItem.ID, out difficulties))
+                                    {
+                                        Logger.Warning("No difficulties for item ID {Id}", encounterItem.ID);
+                                        continue;
+                                    }
+                                }
+
+                                difficulties = difficulties
+                                    .OrderBy(d => Array.IndexOf(_difficultyOrder, d))
+                                    .ToArray();
+
+                                var itemAppearances = new Dictionary<int, OutJournalEncounterItemAppearance>();
+                                foreach (var difficultyId in difficulties)
+                                {
+                                    if (!(
+                                        instanceData.BonusIds != null &&
+                                        instanceData.BonusIds.TryGetValue(difficultyId, out int bonusId) &&
+                                        bonusAppearanceModifiers.TryGetValue(bonusId, out int modifierId) &&
+                                        appearances.TryGetValue(modifierId, out int appearanceId)
+                                    ))
+                                    {
+                                        var first = appearances
+                                            .OrderBy(kvp => kvp.Key)
+                                            .First();
+
+                                        modifierId = first.Key;
+                                        appearanceId = first.Value;
+                                    }
+
+                                    if (!itemAppearances.ContainsKey(appearanceId))
+                                    {
+                                        itemAppearances[appearanceId] = new OutJournalEncounterItemAppearance
+                                        {
+                                            AppearanceId = appearanceId,
+                                            ModifierId = modifierId,
+                                        };
+                                    }
+                                    itemAppearances[appearanceId].Difficulties.Add(difficultyId);
+                                }
+
+                                foreach (var appearance in itemAppearances.Values)
+                                {
+                                    // Don't use both Mythic and Mythic Keystone difficulties
+                                    if (appearance.Difficulties.Contains(8) &&
+                                        appearance.Difficulties.Contains(23))
+                                    {
+                                        appearance.Difficulties.Remove(8);
+                                    }
+                                    
+                                    // Legacy raids like to have dungeon difficulties for some reason
+                                    if (appearance.Difficulties.Contains(3) ||
+                                        appearance.Difficulties.Contains(4) ||
+                                        appearance.Difficulties.Contains(5) ||
+                                        appearance.Difficulties.Contains(6))
+                                    {
+                                        appearance.Difficulties.Remove(1);
+                                        appearance.Difficulties.Remove(2);
+                                    }
+                                }
+
+                                short subclassId = item.InventoryType == (short)WowInventoryType.Back ? (short)0 : item.SubclassId;
+                                
+                                var group = GetGroup(itemGroups, item);
+                                group.Items.Add(new OutJournalEncounterItem
+                                {
+                                    Id = encounterItem.ItemID,
+                                    ClassMask = item.CalculatedClassMask,
+                                    ClassId = item.ClassId,
+                                    SubclassId = subclassId,
+                                    Quality = item.Quality,
+                                    Appearances = itemAppearances
+                                        .Values
+                                        .ToList(),
+                                });
                             }
 
-                            short subclassId = item.InventoryType == (short)WowInventoryType.Back ? (short)0 : item.SubclassId;
-                            
-                            var group = GetGroup(itemGroups, item);
-                            group.Items.Add(new OutJournalEncounterItem
+                            encounterData.Groups = itemGroups.Values
+                                .OrderBy(group => group.Order)
+                                .ToList();
+
+                            foreach (var group in encounterData.Groups)
                             {
-                                Id = encounterItem.ItemID,
-                                ClassMask = item.CalculatedClassMask,
-                                ClassId = item.ClassId,
-                                SubclassId = subclassId,
-                                Quality = item.Quality,
-                                Appearances = itemAppearances
-                                    .Values
-                                    .ToList(),
-                            });
-                        }
-
-                        encounterData.Groups = itemGroups.Values
-                            .OrderBy(group => group.Order)
-                            .ToList();
-
-                        foreach (var group in encounterData.Groups)
-                        {
-                            group.Items = group.Items
-                                .OrderBy(item =>
-                                {
-                                    // Armor
-                                    if (itemMap[item.Id].ClassId == 4)
+                                group.Items = group.Items
+                                    .OrderBy(item =>
                                     {
-                                        if (itemMap[item.Id].SubclassId >= 1 && itemMap[item.Id].SubclassId <= 4)
+                                        // Armor
+                                        if (itemMap[item.Id].ClassId == 4)
                                         {
-                                            return itemMap[item.Id].SubclassId;
+                                            if (itemMap[item.Id].SubclassId >= 1 && itemMap[item.Id].SubclassId <= 4)
+                                            {
+                                                return itemMap[item.Id].SubclassId;
+                                            }
+                                            else
+                                            {
+                                                return 5 + itemMap[item.Id].SubclassId;
+                                            }
+                                        }
+                                        // Weapon
+                                        else if (itemMap[item.Id].ClassId == 2)
+                                        {
+                                            return 100 + itemMap[item.Id].SubclassId;
                                         }
                                         else
                                         {
-                                            return 5 + itemMap[item.Id].SubclassId;
+                                            return 1000000;
                                         }
-                                    }
-                                    // Weapon
-                                    else if (itemMap[item.Id].ClassId == 2)
-                                    {
-                                        return 100 + itemMap[item.Id].SubclassId;
-                                    }
-                                    else
-                                    {
-                                        return 1000000;
-                                    }
-                                })
-                                .ThenBy(item => stringMap[(Language.enUS, item.Id)])
-                                .ThenBy(item =>
-                                    item.Appearances
-                                        .SelectMany(app => app
-                                            .Difficulties
-                                            .Select(diff => Array.IndexOf(_difficultyOrder, diff))
-                                        )
-                                        .Min()
-                                )
-                                .ToList();
-                        }
+                                    })
+                                    .ThenBy(item => stringMap[(StringType.WowItemName, item.Id)])
+                                    .ThenBy(item =>
+                                        item.Appearances
+                                            .SelectMany(app => app
+                                                .Difficulties
+                                                .Select(diff => Array.IndexOf(_difficultyOrder, diff))
+                                            )
+                                            .Min()
+                                    )
+                                    .ToList();
+                            }
 
-                        instanceData.Encounters.Add(encounterData);
+                            instanceData.Encounters.Add(encounterData);
+                        }
+                        
+                        tierData.Instances.Add(instanceData);
                     }
                     
-                    tierData.Instances.Add(instanceData);
+                    cacheData.Tiers.Add(tierData);
+                }
+
+                var cacheJson = JsonConvert.SerializeObject(cacheData);
+                // This ends up being the MD5 of enUS, close enough
+                if (cacheHash == null)
+                {
+                    cacheHash = cacheJson.Md5();
                 }
                 
-                cacheData.Tiers.Add(tierData);
+                await db.SetCacheDataAndHash($"journal-{language.ToString()}", cacheJson, cacheHash);
             }
-            
-            var cacheJson = JsonConvert.SerializeObject(cacheData);
-            var cacheHash = cacheJson.Md5();
 
-            var db = Redis.GetDatabase();
-            await db.SetCacheDataAndHash("journal", cacheJson, cacheHash);
-            _timer.AddPoint("Cache", true);
+            _timer.AddPoint("Cache");
         }
 
         private OutJournalEncounterItemGroup GetGroup(Dictionary<string, OutJournalEncounterItemGroup> groups, WowItem item)
