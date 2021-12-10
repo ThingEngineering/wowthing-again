@@ -210,7 +210,7 @@ namespace Wowthing.Web.Controllers
             string jsonHash = await db.StringGetAsync($"cache:{key}:hash");
             if (hash != jsonHash)
             {
-                return RedirectToAction("CachedJson", new { type, languageCode, hash = jsonHash });
+                return RedirectToAction("CachedJson", new { type, languageCode = language.ToString(), hash = jsonHash });
             }
 
             return Content(await db.StringGetAsync($"cache:{key}:data"), "application/json");
