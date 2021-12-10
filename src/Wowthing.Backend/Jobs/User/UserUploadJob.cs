@@ -4,7 +4,6 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using MoreLinq;
 using Newtonsoft.Json;
 using Wowthing.Backend.Models.Uploads;
 using Wowthing.Lib.Enums;
@@ -232,7 +231,13 @@ namespace Wowthing.Backend.Jobs.User
         {
             var itemMap = character.Items
                 .EmptyIfNull()
-                .ToDictionary(item => (item.Location, item.BagId, item.Slot));
+                .GroupBy(item => (item.Location, item.BagId, item.Slot))
+                .ToDictionary(
+                    group => group.Key,
+                    group => group
+                        .OrderBy(item => item.Id)
+                        .First()
+                    );
 
             int added = 0, deleted = 0;
             var seen = new HashSet<(ItemLocation, short, short)>();
