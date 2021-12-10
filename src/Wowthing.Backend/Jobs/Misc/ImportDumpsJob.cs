@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Wowthing.Backend.Models.Data;
+using Wowthing.Backend.Models.Data.Journal;
 using Wowthing.Backend.Utilities;
 using Wowthing.Lib.Data;
 using Wowthing.Lib.Enums;
@@ -39,57 +40,87 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.ImportDumps,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(24),
-            Version = 1,
+            Version = 2,
         };
 
         public override async Task Run(params string[] data)
         {
             _timer = new JankTimer();
             
-            await ImportCreatures();
             await ImportItems();
             await ImportMounts();
             await ImportPets();
             await ImportToys();
+
+            await ImportStrings<DumpCreature>(
+                StringType.WowCreatureName,
+                "creature",
+                (creature) => creature.ID,
+                (creature) => creature.Name
+            );
             
+            await ImportStrings<DumpJournalEncounter>(
+                StringType.WowJournalEncounterName,
+                "journalencounter",
+                (encounter) => encounter.ID,
+                (encounter) => encounter.Name
+            );
+            
+            await ImportStrings<DumpJournalInstance>(
+                StringType.WowJournalInstanceName,
+                "journalinstance",
+                (instance) => instance.ID,
+                (instance) => instance.Name
+            );
+
+            await ImportStrings<DumpJournalTier>(
+                StringType.WowJournalTierName,
+                "journaltier",
+                (tier) => tier.ID,
+                (tier) => tier.Name
+            );
+
             await Context.SaveChangesAsync();
             _timer.AddPoint("Save", true);
             
             Logger.Information("{Timing}", _timer.ToString());
         }
 
-        private async Task ImportCreatures()
+        private async Task ImportStrings<TDump>(StringType type, string dumpName, Func<TDump, int> getIdFunc, Func<TDump, string> getStringFunc)
         {
             var dbLanguageMap = await Context.LanguageString
-                .Where(ls => ls.Type == StringType.WowCreatureName)
+                .Where(ls => ls.Type == type)
                 .AsNoTracking()
                 .ToDictionaryAsync(ls => (ls.Language, ls.Id));
-
-            foreach (var language in new[]{ Language.enUS}.Concat(_languages))
+            
+            foreach (var language in new[]{ Language.enUS }.Concat(_languages))
             {
-                var languageCreatures = await DataUtilities.LoadDumpCsvAsync<DumpCreature>(Path.Join(language.ToString(), "creature"), skipValidation: true);
-                foreach (var creature in languageCreatures)
+                var dumpObjects = await DataUtilities.LoadDumpCsvAsync<TDump>(Path.Join(language.ToString(), dumpName), skipValidation: true);
+                foreach (var dumpObject in dumpObjects)
                 {
-                    if (!dbLanguageMap.TryGetValue((language, creature.ID), out var languageString))
+                    int objectId = getIdFunc(dumpObject);
+                    string objectString = getStringFunc(dumpObject);
+                    
+                    if (!dbLanguageMap.TryGetValue((language, objectId), out var languageString))
                     {
                         languageString = new LanguageString
                         {
                             Language = language,
-                            Type = StringType.WowCreatureName,
-                            Id = creature.ID,
-                            String = creature.Name,
+                            Type = type,
+                            Id = objectId,
+                            String = objectString,
                         };
                         Context.LanguageString.Add(languageString);
                     }
-                    else if (creature.Name != languageString.String)
+                    else if (objectString != languageString.String)
                     {
                         Context.LanguageString.Attach(languageString);
-                        languageString.String = creature.Name;
+                        languageString.String = objectString;
                     }
                 }
             }
             
-            _timer.AddPoint("Creatures");
+            _timer.AddPoint(type.ToString());
         }
         
         private async Task ImportItems()
