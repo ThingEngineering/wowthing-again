@@ -7,8 +7,7 @@ namespace Wowthing.Backend.Data
         // sourceItemId -> [itemId1, ..., itemIdN]
         public static readonly Dictionary<int, int[]> ItemExpansions = new()
         {
-            //{ , new[] { } }, // 
-            
+            // Shadowlands
             #region Castle Nathria
             {
                 183893, // Abominable Anima Spherule (Sun King)
@@ -460,6 +459,7 @@ namespace Wowthing.Backend.Data
             },
             #endregion // Castle Nathria
             
+            // Mists of Pandaria
             #region Siege of Orgrimmar
             { 99678, new[] { 99052, 99004, 99056 } }, // Conqueror Chest [L]
             { 99743, new[] { 99566, 99627, 99570 } }, // Conqueror Chest [N]
@@ -538,11 +538,130 @@ namespace Wowthing.Backend.Data
             #endregion
             
             #region Throne of Thunder
+            { 95823, new[] { 95910, 95933, 95984 } }, // Conqueror Chest [L]
+            { 95574, new[] { 95280, 95303, 95328 } }, // Conqueror Chest [N]
+            { 96567, new[] { 96654, 96677, 96728 } }, // Conqueror Chest [H]
+
+            { 95824, new[] { 95987, 95945, 95905, 95882 } }, // Protector Chest [L]
+            { 95579, new[] { 95331, 95315, 95275, 95255 } }, // Protector Chest [N]
+            { 96568, new[] { 96731, 96689, 96649, 96626 } }, // Protector Chest [H]
+            
+            { 95822, new[] { 95825, 95935, 95835, 95893 } }, // Vanquisher Chest [L]
+            { 95569, new[] { 95225, 95305, 95235, 95263 } }, // Vanquisher Chest [N]
+            { 96566, new[] { 96569, 96679, 96579, 96637 } }, // Vanquisher Chest [H]
+            
+            { 95856, new[] { 95930, 95981, 95911 } }, // Conqueror Gloves [L]
+            { 95575, new[] { 95300, 95325, 95281 } }, // Conqueror Gloves [N]
+            { 96600, new[] { 96674, 96725, 96655 } }, // Conqueror Gloves [H]
+            
+            { 95857, new[] { 95906, 95988, 95951, 95883 } }, // Protector Gloves [L]
+            { 95580, new[] { 95276, 95332, 95321, 95256 } }, // Protector Gloves [N]
+            { 96601, new[] { 96650, 96732, 96695, 96627 } }, // Protector Gloves [H]
+            
+            { 95855, new[] { 95826, 95890, 95845, 95936 } }, // Vanquisher Gloves [L]
+            { 95570, new[] { 95226, 95260, 95245, 95306 } }, // Vanquisher Gloves [N]
+            { 96599, new[] { 96570, 96634, 96589, 96680 } }, // Vanquisher Gloves [H]
+            
+            { 95880, new[] { 95926, 95982, 95922 } }, // Conqueror Helm [L]
+            { 95577, new[] { 95296, 95326, 95292 } }, // Conqueror Helm [N]
+            { 96624, new[] { 96670, 96726, 96666 } }, // Conqueror Helm [H]
+            
+            { 95881, new[] { 95993, 95942, 95907, 95884 } }, // Protector Helm [L]
+            { 95582, new[] { 95337, 95312, 95277, 95257 } }, // Protector Helm [N]
+            { 96625, new[] { 96737, 96686, 96651, 96628 } }, // Protector Helm [H]
+            
+            { 95879, new[] { 95846, 95832, 95891, 95937 } }, // Vanquisher Helm [L]
+            { 95571, new[] { 95246, 95232, 95261, 95307 } }, // Vanquisher Helm [N]
+            { 96623, new[] { 96590, 96576, 96635, 96681 } }, // Vanquisher Helm [H]
+            
+            { 95888, new[] { 95932, 95983, 95918 } }, // Conqueror Legs [L]
+            { 95576, new[] { 95302, 95327, 95288 } }, // Conqueror Legs [N]
+            { 96632, new[] { 96676, 96727, 96662 } }, // Conqueror Legs [H]
+            
+            { 95889, new[] { 95898, 95953, 95994, 95885 } }, // Protector Legs [L]
+            { 95581, new[] { 95268, 95323, 95338, 95258 } }, // Protector Legs [N]
+            { 96633, new[] { 96642, 96697, 96738, 96629 } }, // Protector Legs [H]
+            
+            { 95887, new[] { 95853, 95828, 95892, 95938 } }, // Vanquisher Legs [L]
+            { 95572, new[] { 95253, 95228, 95262, 95308 } }, // Vanquisher Legs [N]
+            { 96631, new[] { 96597, 96572, 96636, 96682 } }, // Vanquisher Legs [H]
+            
+            { 95956, new[] { 95919, 95929, 95985 } }, // Conqueror Shoulders [L]
+            { 95578, new[] { 95289, 95299, 95329 } }, // Conqueror Shoulders [N]
+            { 96700, new[] { 96663, 96673, 96729 } }, // Conqueror Shoulders [H]
+            
+            { 95957, new[] { 95904, 95944, 95990, 95886 } }, // Protector Shoulders [L]
+            { 95583, new[] { 95274, 95314, 95334, 95259 } }, // Protector Shoulders [N]
+            { 96701, new[] { 96648, 96688, 96734, 96630 } }, // Protector Shoulders [H]
+            
+            { 95955, new[] { 95894, 95844, 95939, 95829 } }, // Vanquisher Shoulders [L]
+            { 95573, new[] { 95264, 95244, 95309, 95229 } }, // Vanquisher Shoulders [N]
+            { 96699, new[] { 96638, 96588, 96683, 96573 } }, // Vanquisher Shoulders [H]
             #endregion
             
             #region Mogu'shan Vaults/Heart of Fear/Terrace of Endless Spring
+            /*{ , new[] { , ,  } }, // Conqueror Chest [L]
+            { , new[] { , ,  } }, // Conqueror Chest [N]
+            { , new[] { , ,  } }, // Conqueror Chest [H]
+
+            { , new[] { , , ,  } }, // Protector Chest [L]
+            { , new[] { , , ,  } }, // Protector Chest [N]
+            { , new[] { , , ,  } }, // Protector Chest [H]
+            
+            { , new[] { , , ,  } }, // Vanquisher Chest [L]
+            { , new[] { , , ,  } }, // Vanquisher Chest [N]
+            { , new[] { , , ,  } }, // Vanquisher Chest [H]
+            
+            { , new[] { , ,  } }, // Conqueror Gloves [L]
+            { , new[] { , ,  } }, // Conqueror Gloves [N]
+            { , new[] { , ,  } }, // Conqueror Gloves [H]
+            
+            { , new[] { , , ,  } }, // Protector Gloves [L]
+            { , new[] { , , ,  } }, // Protector Gloves [N]
+            { , new[] { , , ,  } }, // Protector Gloves [H]
+            
+            { , new[] { , , ,  } }, // Vanquisher Gloves [L]
+            { , new[] { , , ,  } }, // Vanquisher Gloves [N]
+            { , new[] { , , ,  } }, // Vanquisher Gloves [H]
+            
+            { , new[] { , ,  } }, // Conqueror Helm [L]
+            { , new[] { , ,  } }, // Conqueror Helm [N]
+            { , new[] { , ,  } }, // Conqueror Helm [H]
+            
+            { , new[] { , , ,  } }, // Protector Helm [L]
+            { , new[] { , , ,  } }, // Protector Helm [N]
+            { , new[] { , , ,  } }, // Protector Helm [H]
+            
+            { , new[] { , , ,  } }, // Vanquisher Helm [L]
+            { , new[] { , , ,  } }, // Vanquisher Helm [N]
+            { , new[] { , , ,  } }, // Vanquisher Helm [H]
+            
+            { , new[] { , ,  } }, // Conqueror Legs [L]
+            { , new[] { , ,  } }, // Conqueror Legs [N]
+            { , new[] { , ,  } }, // Conqueror Legs [H]
+            
+            { , new[] { , , ,  } }, // Protector Legs [L]
+            { , new[] { , , ,  } }, // Protector Legs [N]
+            { , new[] { , , ,  } }, // Protector Legs [H]
+            
+            { , new[] { , , ,  } }, // Vanquisher Legs [L]
+            { , new[] { , , ,  } }, // Vanquisher Legs [N]
+            { , new[] { , , ,  } }, // Vanquisher Legs [H]
+            
+            { , new[] { , ,  } }, // Conqueror Shoulders [L]
+            { , new[] { , ,  } }, // Conqueror Shoulders [N]
+            { , new[] { , ,  } }, // Conqueror Shoulders [H]
+            
+            { , new[] { , , ,  } }, // Protector Shoulders [L]
+            { , new[] { , , ,  } }, // Protector Shoulders [N]
+            { , new[] { , , ,  } }, // Protector Shoulders [H]
+            
+            { , new[] { , , ,  } }, // Vanquisher Shoulders [L]
+            { , new[] { , , ,  } }, // Vanquisher Shoulders [N]
+            { , new[] { , , ,  } }, // Vanquisher Shoulders [H]*/
             #endregion
             
+            // Cataclysm
             #region Dragon Soul
             #endregion
             
@@ -552,6 +671,7 @@ namespace Wowthing.Backend.Data
             #region Bastion of Twilight/Blackwing Descent/Throne of the Four Winds
             #endregion
             
+            // Wrath of the Lich King
             #region Icecrown Citadel
             #endregion
             
@@ -564,7 +684,19 @@ namespace Wowthing.Backend.Data
             #region Naxxramas/The Obsidian Sanctum/The Eye of Eternity
             #endregion
             
+            // The Burning Crusade
             #region Sunwell Plateau
+            { 34856, new[] { 34562, 34564, 34561 } }, // Conqueror Feet
+            { 34857, new[] { 34570, 34568, 34565 } }, // Protector Feet
+            { 34858, new[] { 34574, 34575, 34571 } }, // Vanquisher Feet
+
+            { 34853, new[] { 34527, 34541, 34487 } }, // Conqueror Waist
+            { 34854, new[] { 34549, 34546, 34543 } }, // Protector Waist
+            { 34855, new[] { 34557, 34558, 34554 } }, // Vanquisher Waist
+
+            { 34848, new[] { 34434, 34436, 34431 } }, // Conqueror Wrists
+            { 34851, new[] { 34443, 34441, 34437 } }, // Protector Wrists
+            { 34852, new[] { 34447, 34448, 34446 } }, // Vanquisher Wrists
             #endregion
             
             #region The Battle for Mount Hyjal/Black Temple
