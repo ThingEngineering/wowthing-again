@@ -3,153 +3,125 @@ reputations:
 
 # 5.4 - Timeless Isle
 - - both:
-      id: 1492
-      name: Emperor Shaohao
+      id: 1492 # Emperor Shaohao
       icon: ability_monk_quipunch
 
 # 5.2 - Isle of Thunder
 - - alliance:
-      id: 1387
-      name: Kirin Tor Offensive
+      id: 1387 # Kirin Tor Offensive
       icon: achievement_reputation_kirintor_offensive
     horde:
-      id: 1388
-      name: Sunreaver Onslaught
+      id: 1388 # Sunreaver Onslaught
       icon: achievement_faction_sunreaveronslaught
 
   - both:
-      id: 1435
-      name: Shado-Pan Assault
+      id: 1435 # Shado-Pan Assault
       icon: achievement_faction_shadopan
 
 # 5.1 - ?
 - - alliance:
-      id: 1376
-      name: "Operation: Shieldwall"
+      id: 1376 # Operation: Shieldwall
       icon: achievement_general_allianceslayer
     horde:
-      id: 1375
-      name: Dominance Offensive
+      id: 1375 # Dominance Offensive
       icon: achievement_general_hordeslayer
 
 # 5.0
   - both:
-      id: 1359
-      name: The Black Prince
+      id: 1359 # The Black Prince
       icon: inv_legendary_theblackprince
 
   - alliance:
-      id: 1242
-      name: Pearlfin Jinyu
+      id: 1242 # Pearlfin Jinyu
       icon: inv_misc_fish_58
     horde:
-      id: 1228
-      name: Forest Hozen
+      id: 1228 # Forest Hozen
       icon: inv_misc_fish_58
 
   - both:
-      id: 1302
-      name: The Anglers
+      id: 1302 # The Anglers
       icon: achievement_faction_anglers
 
   - both:
-      id: 1341
-      name: The August Celestials
+      id: 1341 # The August Celestials
       icon: achievement_faction_celestials
 
   - both:
-      id: 1269
-      name: Golden Lotus
+      id: 1269 # Golden Lotus
       icon: achievement_faction_goldenlotus
 
   - both:
-      id: 1337
-      name: The Klaxxi
+      id: 1337 # The Klaxxi
       icon: achievement_faction_klaxxi
 
   - both:
-      id: 1345
-      name: The Lorewalkers
+      id: 1345 # The Lorewalkers
       icon: achievement_faction_lorewalkers
 
   - both:
-      id: 1271
-      name: Order of the Cloud Serpent
+      id: 1271 # Order of the Cloud Serpent
       icon: achievement_faction_serpentriders
 
   - both:
-      id: 1270
-      name: Shado-Pan
+      id: 1270 # Shado-Pan
       icon: achievement_faction_shadopan
 
   - both:
-      id: 1272
-      name: The Tillers
+      id: 1272 # The Tillers
       icon: achievement_faction_tillers
 
 # Friends
 - - both:
-      id: 1358
-      name: Nat Pagle
+      id: 1358 # Nat Pagle
       icon: inv_helmet_50
 
 # Friends - The Tillers
 - - both:
-      id: 1277
-      name: Chee Chee
+      id: 1277 # Chee Chee
       icon: inv_misc_food_cooked_valleystirfry
       note: Loves Valley Stir Fry
 
   - both:
-      id: 1275
-      name: Ella
+      id: 1275 # Ella
       icon: inv_misc_food_cooked_shrimpdumplings
       note: Loves Shrimp Dumplings
 
   - both:
-      id: 1283
-      name: Farmer Fung
+      id: 1283 # Farmer Fung
       icon: inv_misc_food_cooked_wildfowlroast
       note: Loves Wildfowl Roast
 
   - both:
-      id: 1282
-      name: Fish Fellreed
+      id: 1282 # Fish Fellreed
       icon: inv_misc_food_cooked_twinfishplatter
       note: Loves Twin Fish Platter
 
   - both:
-      id: 1281
-      name: Gina Mudclaw
+      id: 1281 # Gina Mudclaw
       icon: inv_misc_food_cooked_swirlingmistsoup
       note: Loves Swirling Mist Soup
 
   - both:
-      id: 1279
-      name: Haohan Mudclaw
+      id: 1279 # Haohan Mudclaw
       icon: inv_misc_food_cooked_tigersteak
       note: Loves Charbroiled Tiger Steak
 
   - both:
-      id: 1273
-      name: Jogu the Drunk
+      id: 1273 # Jogu the Drunk
       icon: inv_misc_food_cooked_sauteedcarrots
       note: Loves Sauteed Carrots
 
   - both:
-      id: 1276
-      name: Old Hillpaw
+      id: 1276 # Old Hillpaw
       icon: inv_misc_food_cooked_braisedturtle
       note: Loves Braised Turtle
 
   - both:
-      id: 1278
-      name: Sho
+      id: 1278 # Sho
       icon: inv_misc_food_cooked_eternalblossomfish
       note: Loves Eternal Blossom Fish
 
   - both:
-      id: 1280
-      name: Tina Mudclaw
+      id: 1280 # Tina Mudclaw
       icon: inv_misc_food_cooked_firespiritsalmon
       note: Loves Fire Spirit Salmon

@@ -15,6 +15,6 @@
     }
 </script>
 
-<a href="{url}">
+<a href="{url}" on:click>
     <slot />
 </a>

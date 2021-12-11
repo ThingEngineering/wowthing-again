@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using Wowthing.Backend.Data;
 using Wowthing.Backend.Jobs.NonBlizzard;
 using Wowthing.Backend.Models.Data;
 using Wowthing.Backend.Models.Data.Achievements;
@@ -46,7 +47,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
-            Version = 25,
+            Version = 26,
         };
 
         public override async Task Run(params string[] data)
@@ -229,7 +230,10 @@ namespace Wowthing.Backend.Jobs.Misc
         private static async Task<List<OutCurrency>> LoadCurrencies()
         {
             var types = await DataUtilities.LoadDumpCsvAsync<DumpCurrencyTypes>("currencytypes");
-            return types.Select(type => new OutCurrency(type)).ToList();
+            return types
+                .Where(type => !Hardcoded.IgnoredCurrencies.Contains(type.ID))
+                .Select(type => new OutCurrency(type))
+                .ToList();
         }
 
         private static async Task<SortedDictionary<int, OutCurrencyCategory>> LoadCurrencyCategories()

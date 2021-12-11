@@ -3,36 +3,29 @@ reputations:
 
 # 4.2 - ?
 - - both:
-      id: 1204
-      name: Avengers of Hyjal
+      id: 1204 # Avengers of Hyjal
       icon: inv_neck_hyjaldaily_04
 
 # 4.0
 - - alliance:
-      id: 1174
-      name: Wildhammer Clan
+      id: 1174 # Wildhammer Clan
       icon: inv_misc_tabard_wildhammerclan
     horde:
-      id: 1172
-      name: Dragonmaw Clan
+      id: 1172 # Dragonmaw Clan
       icon: inv_misc_tabard_dragonmawclan
 
   - both:
-      id: 1135
-      name: The Earthen Ring
+      id: 1135 # The Earthen Ring
       icon: inv_misc_tabard_earthenring
 
   - both:
-      id: 1158
-      name: Guardians of Hyjal
+      id: 1158 # Guardians of Hyjal
       icon: inv_misc_tabard_guardiansofhyjal
 
   - both:
-      id: 1173
-      name: Ramkahen
+      id: 1173 # Ramkahen
       icon: inv_misc_tabard_tolvir
 
   - both:
-      id: 1171
-      name: Therazane
+      id: 1171 # Therazane
       icon: inv_misc_tabard_therazane

@@ -5,6 +5,7 @@
 
     export let character: Character
     export let currency: StaticDataCurrency
+    export let sortingBy: boolean
 
     const characterCurrency: CharacterCurrency = character.currencies?.[currency.id]
     let amount = ''
@@ -42,6 +43,7 @@
 
 {#if characterCurrency}
     <td
+        class:alt={sortingBy}
         class:status-shrug={per > 50}
         class:status-fail={per > 90}
         use:tippy={tooltip}

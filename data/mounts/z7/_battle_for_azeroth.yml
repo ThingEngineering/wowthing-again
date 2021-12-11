@@ -1,6 +1,12 @@
 name: Battle for Azeroth
 groups:
 
+- name: Misc
+  things:
+  - 316493 # Elusive Quickhoof (Vol'dun)
+  - 300150 # Fabious (Take S.E.L.F.I.E. with the mob in Nazjatar)
+  - 256123 # Xiwyllag ATV (BS & eng crafted items from Operation: Mechagon)
+
 - name: Quests
   things:
   - 297560 # Child of Torcali (Wander Not Alone, Zuldazar)
@@ -10,3 +16,4 @@ groups:
   - 316339 # Shadowbarb Drone (My Own Drone, Uldum)
   - 316802 # Springfur Alpaca (Alpaca It In, Uldum)
   - 302143 # Uncorrupted Voidwing (Lost Flight, Ny'alotha)
+  - 294143 # X-995 Mechanocat (Mechagon craftable after quests)

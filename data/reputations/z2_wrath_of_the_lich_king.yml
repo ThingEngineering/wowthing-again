@@ -3,102 +3,82 @@ reputations:
 
 # x.1?
 - - both:
-      id: 1156
-      name: The Ashen Verdict
+      id: 1156 # The Ashen Verdict
       icon: inv_jewelry_talisman_08
 
 # Sholazar
 - - both:
-      id: 1104
-      name: Frenzyheart Tribe
+      id: 1104 # Frenzyheart Tribe
       icon: achievement_zone_sholazar_08
 
   - both:
-      id: 1105
-      name: The Oracles
+      id: 1105 # The Oracles
       icon: achievement_zone_sholazar_11
 
 # x.0
 - - alliance:
-      id: 1106
-      name: Argent Crusade
+      id: 1106 # Argent Crusade
       icon: inv_misc_tournaments_banner_human
     horde:
-      id: 1106
-      name: Argent Crusade
+      id: 1106 # Argent Crusade
       icon: inv_misc_tournaments_banner_orc
 
   - both:
-      id: 1073
-      name: The Kalu'ak
+      id: 1073 # The Kalu'ak
       icon: achievement_reputation_tuskarr
 
   - both:
-      id: 1090
-      name: Kirin Tor
+      id: 1090 # Kirin Tor
       icon: achievement_reputation_kirintor
 
   - both:
-      id: 1098
-      name: Knights of the Ebon Blade
+      id: 1098 # Knights of the Ebon Blade
       icon: achievement_reputation_knightsoftheebonblade
 
   - both:
-      id: 1119
-      name: The Sons of Hodir
+      id: 1119 # The Sons of Hodir
       icon: spell_frost_wizardmark
 
   - both:
-      id: 1091
-      name: The Wyrmrest Accord
+      id: 1091 # The Wyrmrest Accord
       icon: achievement_reputation_wyrmresttemple
 
 # x.0 faction?
 - - alliance:
-      id: 1037
-      name: Alliance Vanguard
+      id: 1037 # Alliance Vanguard
       icon: spell_misc_hellifrepvphonorholdfavor
     horde:
-      id: 1052
-      name: Horde Expedition
+      id: 1052 # Horde Expedition
       icon: spell_misc_hellifrepvpthrallmarfavor
 
   # Main armies?
   - alliance:
-      id: 1050
-      name: Valliance Expedition
-      icon: a
+      id: 1050 # Valliance Expedition
+      icon:
     horde:
-      id: 1085
-      name: Warsong Offensive
-      icon: b
+      id: 1085 # Warsong Offensive
+      icon:
 
   # Dalaran
   - alliance:
-      id: 1094
-      name: The Silver Covenant
+      id: 1094 # The Silver Covenant
       icon: inv_elemental_primal_mana
     horde:
-      id: 1124
-      name: The Sunreavers
+      id: 1124 # The Sunreavers
       icon: inv_elemental_primal_nether
 
   # ?
   - alliance:
-      id: 1068
-      name: Explorer's League
-      icon: a
+      id: 1068 # Explorer's League
+      icon:
     horde:
-      id: 1067
-      name: The Hand of Vengeance
-      icon: b
+      id: 1067 # The Hand of Vengeance
+      icon:
 
   # New friends
   - alliance:
-      id: 1126
-      name: The Frostborn
-      icon: a
+      id: 1126 # The Frostborn
+      icon:
     horde:
-      id: 1064
-      name: The Taunka
-      icon: b
+      id: 1064 # The Taunka
+      icon:

@@ -81,7 +81,6 @@
     use:tippyComponent={{
         component: Tooltip,
         props: {farm, status},
-        tippyProps: {placement: 'right'},
     }}
 >
     <NpcLink id={farm.npcId} noTooltip={true} toComments={true}>

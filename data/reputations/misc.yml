@@ -2,20 +2,16 @@ name: Misc
 reputations:
 
 - - both:
-      id: 2011
-      name: "Bizmo's Brawlpub"
+      id: 2011 # Bizmo's Brawlpub
       icon:
 
   - both:
-      id: 1419
-      name: "Bizmo's Brawlpub (Season 1)"
+      id: 1419 # Bizmo's Brawlpub (Season 1)
       icon:
 
   - both:
-      id: 1691
-      name: "Bizmo's Brawlpub (Season 2)"
+      id: 1691 # Bizmo's Brawlpub (Season 2)
 
 - - both:
-      id: 909
-      name: Darkmoon Faire
+      id: 909 # Darkmoon Faire
       icon: inv_misc_ticket_darkmoon_01

@@ -5,13 +5,15 @@ import getItemLevelQuality from './get-item-level-quality'
 import { seasonMap } from '@/data/dungeon'
 import { slotOrder } from '@/data/inventory-slot'
 import {staticStore} from '@/stores/static'
-import type { Character, CharacterMythicPlusRun } from '@/types'
+import type { Character, CharacterMythicPlusRun, CharacterReputation, CharacterReputationReputation } from '@/types'
 import { InventorySlot } from '@/types/enums'
 import {CharacterMythicPlusRunMember} from '@/types'
 
 export default function initializeCharacter(character: Character): void {
+    const staticData = get(staticStore).data
+
     // realm
-    character.realm = get(staticStore).data.realms[character.realmId]
+    character.realm = staticData.realms[character.realmId]
 
     // item levels
     if (keys(character.equippedItems).length > 0) {
@@ -100,5 +102,40 @@ export default function initializeCharacter(character: Character): void {
                 }
             }
         }
+    }
+
+    // reputation sets
+    character.reputationData = {}
+    for (const category of staticData.reputationSets) {
+        if (category === null) {
+            continue
+        }
+
+        const catData: CharacterReputation = {
+            sets: [],
+        }
+
+        for (const sets of category.reputations) {
+            const setsData: CharacterReputationReputation[] = []
+
+            for (const reputation of sets) {
+                let repId: number
+                if (reputation.both) {
+                    repId = reputation.both.id
+                }
+                else {
+                    repId = character.faction === 0 ? reputation.alliance.id : reputation.horde.id
+                }
+
+                setsData.push({
+                    reputationId: repId,
+                    value: character.reputations?.[repId] || -1,
+                })
+            }
+
+            catData.sets.push(setsData)
+        }
+
+        character.reputationData[category.slug] = catData
     }
 }
