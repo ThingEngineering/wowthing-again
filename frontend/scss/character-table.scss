@@ -18,26 +18,6 @@
                     border-right: 1px solid $border-color;
                 }
             }
-
-            &:first-child {
-                th {
-                    border-top: 1px solid $border-color;
-
-                    &:first-child {
-                        border-top-left-radius: $border-radius;
-                    }
-
-                    &:last-child {
-                        border-top-right-radius: $border-radius;
-                    }
-                }
-            }
-
-            &:last-child {
-                th {
-                    border-bottom: 1px solid $border-color;
-                }
-            }
         }
     }
 
