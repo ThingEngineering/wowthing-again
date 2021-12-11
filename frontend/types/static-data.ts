@@ -105,8 +105,8 @@ export interface StaticDataProgressData {
 export class StaticDataReputation {
     constructor(
         public id: number,
-        public name: string,
-        public tierId: number
+        public tierId: number,
+        public name: string
     )
     { }
 }
