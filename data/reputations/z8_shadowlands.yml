@@ -3,8 +3,7 @@ reputations:
 
 # 9.1
 - - both:
-      id: 2472
-      name: The Archivist's Codex
+      id: 2472 # The Archivist's Codex
       icon: achievement/15069
       rewards:
       - type: mount
@@ -17,8 +16,7 @@ reputations:
     paragon: true
 
   - both:
-      id: 2470
-      name: Death's Advance
+      id: 2470 # Death's Advance
       icon: achievement/15059
       rewards:
       - type: mount
@@ -36,8 +34,7 @@ reputations:
 
 # 9.0
 - - both:
-      id: 2407
-      name: The Ascended
+      id: 2407 # The Ascended
       icon: achievement/14335
       rewards:
       - type: pet
@@ -54,8 +51,7 @@ reputations:
     paragon: true
 
   - both:
-      id: 2413
-      name: Court of Harvesters
+      id: 2413 # Court of Harvesters
       icon: achievement/14338
       rewards:
       - type: pet
@@ -64,8 +60,7 @@ reputations:
     paragon: true
 
   - both:
-      id: 2410
-      name: The Undying Army
+      id: 2410 # The Undying Army
       icon: achievement/14336
       rewards:
       - type: mount
@@ -82,8 +77,7 @@ reputations:
     paragon: true
 
   - both:
-      id: 2465
-      name: The Wild Hunt
+      id: 2465 # The Wild Hunt
       icon: achievement/14337
       rewards:
       - type: mount
@@ -97,8 +91,7 @@ reputations:
 
 # Friends
 - - both:
-      id: 2432
-      name: Ve'nari
+      id: 2432 # Ve'nari
       icon: achievement/14656
       rewards:
       - type: mount
@@ -112,21 +105,17 @@ reputations:
 
 # Covenant things
 - - both:
-      id: 2439
-      name: The Avowed
+      id: 2439 # The Avowed
       icon: achievement/14277 # The Accuser's Avowed
 
   - both:
-      id: 2464
-      name: Court of Night
+      id: 2464 # Court of Night
       icon: item/180636 # Willowbreeze
 
   - both:
-      id: 2463
-      name: Marasmius
+      id: 2463 # Marasmius
       icon: achievement/14775
 
   - both:
-      id: 2462
-      name: Stitchmasters
+      id: 2462 # Stitchmasters
       icon: achievement/14684 # Abominable Lives

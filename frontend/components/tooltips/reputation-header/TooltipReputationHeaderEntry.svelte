@@ -86,7 +86,7 @@
                         size={20}
                     />
                 {/if}
-                {reputation.name}
+                {$staticStore.data.reputations[reputation.id].name}
             </td>
         </tr>
 

@@ -1,10 +1,11 @@
 <script lang="ts">
     import { staticStore } from '@/stores/static'
     import type {
-        Character, CharacterReputationParagon,
+        Character,
+        CharacterReputationParagon,
+        CharacterReputationReputation,
         ReputationTier,
         StaticDataReputation,
-        StaticDataReputationReputation,
         StaticDataReputationSet,
         StaticDataReputationTier,
     } from '@/types'
@@ -15,32 +16,27 @@
 
     export let alt: boolean
     export let character: Character
+    export let characterRep: CharacterReputationReputation
     export let reputation: StaticDataReputationSet
 
-    let characterRep: number | undefined
+    let dataRep: StaticDataReputation
     let paragon: CharacterReputationParagon
-    let repInfo: StaticDataReputationReputation
     let repTier: ReputationTier
 
     $: {
-        if (character !== undefined && reputation !== undefined) {
-            repInfo = reputation.both || (character.faction === 0 ? reputation.alliance : reputation.horde)
-            const dataRep: StaticDataReputation = $staticStore.data.reputations[repInfo.id]
-            characterRep = character.reputations[repInfo.id]
+        if (reputation !== undefined && characterRep.value !== -1) {
+            dataRep = $staticStore.data.reputations[characterRep.reputationId]
+            const tiers: StaticDataReputationTier = $staticStore.data.reputationTiers[dataRep.tierId] || $staticStore.data.reputationTiers[0]
+            repTier = findReputationTier(tiers, characterRep.value)
 
-            if (characterRep !== undefined && dataRep !== undefined) {
-                const tiers: StaticDataReputationTier = $staticStore.data.reputationTiers[dataRep.tierId] || $staticStore.data.reputationTiers[0]
-                repTier = findReputationTier(tiers, characterRep)
-
-                if (reputation.paragon && repTier.maxValue === 0) {
-                    paragon = character.paragons?.[repInfo.id]
-                    if (paragon) {
-                        if (paragon.rewardAvailable) {
-                            repTier.percent = 'BOX'
-                        }
-                        else {
-                            repTier.percent = ((paragon.current / paragon.max) * 100).toFixed(1)
-                        }
+            if (reputation.paragon && repTier.maxValue === 0) {
+                paragon = character.paragons?.[characterRep.reputationId]
+                if (paragon) {
+                    if (paragon.rewardAvailable) {
+                        repTier.percent = 'BOX'
+                    }
+                    else {
+                        repTier.percent = ((paragon.current / paragon.max) * 100).toFixed(1)
                     }
                 }
             }
@@ -55,13 +51,17 @@
     }
 </style>
 
-{#if characterRep !== undefined}
+{#if characterRep.value !== -1}
     <td
         class="reputation{repTier.tier}"
         class:alt
         use:tippyComponent={{
             component: TooltipReputation,
-            props: {characterRep, reputation: repInfo, paragon}
+            props: {
+                characterRep: characterRep.value,
+                dataRep,
+                paragon,
+            }
         }}
     >
         {#if paragon}

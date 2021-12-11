@@ -3,8 +3,7 @@ reputations:
 # 8.3
 -
   - both:
-      id: 2415
-      name: Rajani
+      id: 2415 # Rajani
       icon: achievement/14156
       rewards:
       - type: pet
@@ -13,8 +12,7 @@ reputations:
     paragon: true
 
   - both:
-      id: 2417
-      name: Uldum Accord
+      id: 2417 # Uldum Accord
       icon: achievement/14155
       rewards:
       - type: pet
@@ -25,14 +23,12 @@ reputations:
 # 8.2
 -
   - both:
-      id: 2391
-      name: Rustbolt Resistance
+      id: 2391 # Rustbolt Resistance
       icon: achievement/13557
     paragon: true
 
   - alliance:
-      id: 2400
-      name: Waveblade Ankoan
+      id: 2400 # Waveblade Ankoan
       icon: achievement/13558
       rewards:
       - type: mount
@@ -48,8 +44,7 @@ reputations:
         name: "Memento of the Deeps"
 
     horde:
-      id: 2373
-      name: The Unshackled
+      id: 2373 # The Unshackled
       icon: achievement/13559
       rewards:
       - type: mount
@@ -69,8 +64,7 @@ reputations:
 # 8.0
 -
   - both:
-      id: 2164
-      name: Champions of Azeroth
+      id: 2164 # Champions of Azeroth
       icon: achievement/12955
       rewards:
       - type: toy
@@ -79,8 +73,7 @@ reputations:
     paragon: true
 
   - both:
-      id: 2163
-      name: Tortollan Seekers
+      id: 2163 # Tortollan Seekers
       icon: achievement/12956
       rewards:
       - type: toy
@@ -93,16 +86,14 @@ reputations:
     paragon: true
 
   - alliance:
-      id: 2159
-      name: 7th Legion
+      id: 2159 # 7th Legion
       icon: achievement/12954
       rewards:
       - type: toy
         id: 166879
         name: "Rallying War Banner"
     horde:
-      id: 2157
-      name: The Honorbound
+      id: 2157 # The Honorbound
       icon: achievement/12957
       rewards:
       - type: toy
@@ -111,8 +102,7 @@ reputations:
     paragon: true
 
   - alliance:
-      id: 2160
-      name: Proudmoore Admiralty
+      id: 2160 # Proudmoore Admiralty
       icon: achievement/12951
       rewards:
       - type: pet
@@ -123,8 +113,7 @@ reputations:
         id: 166702
         name: "Proudmoore Music Box"
     horde:
-      id: 2103
-      name: Zandalari Empire
+      id: 2103 # Zandalari Empire
       icon: achievement/12950
       rewards:
       - type: toy
@@ -133,8 +122,7 @@ reputations:
     paragon: true
 
   - alliance:
-      id: 2161
-      name: Order of Embers
+      id: 2161 # Order of Embers
       icon: achievement/12952
       rewards:
       - type: pet
@@ -145,8 +133,7 @@ reputations:
         id: 166808
         name: "Bewitching Tea Set"
     horde:
-      id: 2156
-      name: Talanji's Expedition
+      id: 2156 # Talanji's Expedition
       icon: achievement/12948
       rewards:
       - type: pet
@@ -159,16 +146,14 @@ reputations:
     paragon: true
 
   - alliance:
-      id: 2162
-      name: Storm's Wake
+      id: 2162 # Storm's Wake
       icon: achievement/12953
       rewards:
       - type: pet
         id: 149376
         name: "Violet Abyssal Eel"
     horde:
-      id: 2158
-      name: Voldunai
+      id: 2158 # Voldunai
       icon: achievement/12949
       rewards:
       - type: toy

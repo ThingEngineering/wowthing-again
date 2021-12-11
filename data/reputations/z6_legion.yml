@@ -3,14 +3,12 @@ reputations:
 
 # 7.3 - Argus
 - - both:
-      id: 2170
-      name: Argussian Reach
+      id: 2170 # Argussian Reach
       icon: achievement/12076
     paragon: true
 
   - both:
-      id: 2165
-      name: Army of the Light
+      id: 2165 # Army of the Light
       icon: achievement/12081
       rewards:
       - type: mount
@@ -32,8 +30,7 @@ reputations:
 
 # 7.2 - Broken Shore
 - - both:
-      id: 2045
-      name: Armies of Legionfall
+      id: 2045 # Armies of Legionfall
       icon: achievement/11796
       rewards:
       - type: pet
@@ -43,8 +40,7 @@ reputations:
 
 # 7.0
 - - both:
-      id: 1900
-      name: Court of Farondis
+      id: 1900 # Court of Farondis
       icon: item/140577 # Court of Farondis Tabard
       rewards:
       - type: mount
@@ -53,8 +49,7 @@ reputations:
     paragon: true
 
   - both:
-      id: 1883
-      name: Dreamweavers
+      id: 1883 # Dreamweavers
       icon: item/140667 # Tabard of the Dreamweavers
       rewards:
       - type: mount
@@ -63,8 +58,7 @@ reputations:
     paragon: true
 
   - both:
-      id: 1828
-      name: Highmountain Tribe
+      id: 1828 # Highmountain Tribe
       icon: item/140576 # Tabard of the Highmountain Tribe
       rewards:
       - type: mount
@@ -73,8 +67,7 @@ reputations:
     paragon: true
 
   - both:
-      id: 1859
-      name: The Nightfallen
+      id: 1859 # The Nightfallen
       icon: item/140575 # Nightfallen Tabard
       rewards:
       - type: mount
@@ -83,8 +76,7 @@ reputations:
     paragon: true
 
   - both:
-      id: 1948
-      name: Valarjar
+      id: 1948 # Valarjar
       icon: item/140579 # Valarjar Tabard
       rewards:
       - type: mount
@@ -93,8 +85,7 @@ reputations:
     paragon: true
 
   - both:
-      id: 1894
-      name: The Wardens
+      id: 1894 # The Wardens
       icon: item/140580 # Warden's Tabard
       rewards:
       - type: toy
@@ -104,43 +95,35 @@ reputations:
 
 #
 - - both:
-      id: 2135
-      name: "Chromie"
+      id: 2135 # Chromie
       icon: achievement/11941
 
 # Friends - 7.?
 - - both:
-      id: 1975
-      name: Conjurer Margoss
+      id: 1975 # Conjurer Margoss
       icon: item/138777 # Drowned Mana
 
 # Friends
 - - both:
-      id: 2099
-      name: Akule Riverhorn
+      id: 2099 # Akule Riverhorn
       icon: item/146960 # Ancient Totem Fragment
 
   - both:
-      id: 2100
-      name: Corbyn
+      id: 2100 # Corbyn
       icon: item/146961 # Shiny Bauble
 
   - both:
-      id: 2097
-      name: Ilyssia of the Waters
+      id: 2097 # Ilyssia of the Waters
       icon: item/146848 # Fragmented Enchantment
 
   - both:
-      id: 2102
-      name: Impus
+      id: 2102 # Impus
       icon: item/146963 # Desecrated Seaweed
 
   - both:
-      id: 2098
-      name: Keeper Raynae
+      id: 2098 # Keeper Raynae
       icon: item/146959 # Corrupted Globule
 
   - both:
-      id: 2101
-      name: Sha'leth
+      id: 2101 # Sha'leth
       icon: item/146962 # Golden Minnow

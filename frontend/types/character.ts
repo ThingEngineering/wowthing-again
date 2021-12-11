@@ -28,6 +28,7 @@ export interface Character {
     calculatedItemLevelQuality: number
     currencies: Record<number, CharacterCurrency>
     realm: StaticDataRealm
+    reputationData: Record<string, CharacterReputation>
 
     currenciesRaw: CharacterCurrencyArray[]
     equippedItems: Record<number, CharacterEquippedItem>
@@ -150,6 +151,15 @@ export interface CharacterRaiderIoSeason {
     spec3: number
     spec4: number
     tank: number
+}
+
+export interface CharacterReputation {
+    sets: CharacterReputationReputation[][]
+}
+
+export interface CharacterReputationReputation {
+    reputationId: number
+    value: number
 }
 
 export interface CharacterReputationParagon {

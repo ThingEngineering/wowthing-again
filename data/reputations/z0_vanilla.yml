@@ -20,88 +20,71 @@ reputations:
 
 # Centaurs ugh
 - - both:
-      id: 92
-      name: Gelkis Clan Centaur
-      icon: a
+      id: 92 # Gelkis Clan Centaur
+      icon:
 
   - both:
-      id: 93
-      name: Magram Clan Centaur
+      id: 93 # Magram Clan Centaur
       icon:
 
 # a
 - - both:
-      id: 529
-      name: Argent Dawn
+      id: 529 # Argent Dawn
       icon: spell_holy_holyguidance
 
   - both:
-      id: 87
-      name: Bloodsail Buccaneers
+      id: 87 # Bloodsail Buccaneers
       icon: inv_helmet_66
 
   - both:
-      id: 910
-      name: Brood of Nozdormu
+      id: 910 # Brood of Nozdormu
       icon: inv_jewelry_ring_40
 
   - both:
-      id: 609
-      name: Cenarion Circle
+      id: 609 # Cenarion Circle
       icon: ability_racial_ultravision
 
   - both:
-      id: 749
-      name: Hydraxian Waterlods
+      id: 749 # Hydraxian Waterlods
       icon: spell_frost_summonwaterelemental_2
 
   - both:
-      id: 349
-      name: Ravenholdt
+      id: 349 # Ravenholdt
       icon:
 
   - both:
-      id: 70
-      name: Syndicate
+      id: 70 # Syndicate
       icon:
 
   - both:
-      id: 59
-      name: Thorium Brotherhood
+      id: 59 # Thorium Brotherhood
       icon: inv_ore_mithril_01
 
   - both:
-      id: 576
-      name: Timbermaw Hold
+      id: 576 # Timbermaw Hold
       icon: inv_misc_horn_01
 
   - both:
-      id: 589
-      name: Wintersaber Trainers
+      id: 589 # Wintersaber Trainers
       icon: ability_mount_pinktiger
 
   - both:
-      id: 270
-      name: Zandalar Tribe
+      id: 270 # Zandalar Tribe
       icon:
 
 # Goblins
 - - both:
-      id: 21
-      name: Booty Bay
+      id: 21 # Booty Bay
       icon:
 
   - both:
-      id: 577
-      name: Everlook
+      id: 577 # Everlook
       icon:
 
   - both:
-      id: 369
-      name: Gadgetzan
+      id: 369 # Gadgetzan
       icon:
 
   - both:
-      id: 470
-      name: Ratchet
+      id: 470 # Ratchet
       icon:

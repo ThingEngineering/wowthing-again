@@ -2,55 +2,43 @@ name: Racial
 reputations:
 
 - - alliance:
-      id: 69
-      name: Darnassus
+      id: 69 # Darnassus
       icon: inv_misc_tournaments_tabard_nightelf
     horde:
-      id: 1133
-      name: Bilgewater Cartel
+      id: 1133 # Bilgewater Cartel
       icon: inv_misc_tabard_kezan
 
   - alliance:
-      id: 930
-      name: Exodar
+      id: 930 # Exodar
       icon: inv_misc_tournaments_tabard_draenei
     horde:
-      id: 530
-      name: Darkspear Trolls
+      id: 530 # Darkspear Trolls
       icon: inv_misc_tournaments_tabard_troll
 
   - alliance:
-      id: 1134
-      name: Gilneas
+      id: 1134 # Gilneas
       icon: inv_misc_tabard_gilneas
     horde:
-      id: 76
-      name: Orgrimmar
+      id: 76 # Orgrimmar
       icon: inv_misc_tournaments_tabard_orc
 
   - alliance:
-      id: 54
-      name: Gnomeregan
+      id: 54 # Gnomeregan
       icon: inv_misc_tournaments_tabard_gnome
     horde:
-      id: 911
-      name: Silvermoon City
+      id: 911 # Silvermoon City
       icon: inv_misc_tournaments_tabard_bloodelf
 
   - alliance:
-      id: 47
-      name: Ironforge
+      id: 47 # Ironforge
       icon: inv_misc_tournaments_tabard_dwarf
     horde:
-      id: 81
-      name: Thunder Bluff
+      id: 81 # Thunder Bluff
       icon: inv_misc_tournaments_tabard_tauren
 
   - alliance:
-      id: 72
-      name: Stormwind
+      id: 72 # Stormwind
       icon: inv_misc_tournaments_tabard_human
     horde:
-      id: 68
-      name: Undercity
+      id: 68 # Undercity
       icon: inv_misc_tournaments_tabard_scourge

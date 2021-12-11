@@ -4,13 +4,12 @@
     import type {
         CharacterReputationParagon,
         StaticDataReputation,
-        StaticDataReputationReputation,
         StaticDataReputationTier
     } from '@/types'
 
     export let characterRep: number
+    export let dataRep: StaticDataReputation
     export let paragon: CharacterReputationParagon
-    export let reputation: StaticDataReputationReputation
 
     const reps: {
         cls: string
@@ -21,7 +20,6 @@
     }[] = []
 
     $: {
-        const dataRep: StaticDataReputation = $staticStore.data.reputations[reputation.id]
         const tiers: StaticDataReputationTier = $staticStore.data.reputationTiers[dataRep.tierId] || $staticStore.data.reputationTiers[0]
 
         for (let i = 0; i < tiers.names.length; i++) {
@@ -70,7 +68,7 @@
 </style>
 
 <div class="wowthing-tooltip">
-    <h4>{reputation.name}</h4>
+    <h4>{dataRep.name}</h4>
     <table class="table-striped">
         <tbody>
             {#each reps as rep}
