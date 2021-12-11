@@ -600,65 +600,65 @@ namespace Wowthing.Backend.Data
             #endregion
             
             #region Mogu'shan Vaults/Heart of Fear/Terrace of Endless Spring
-            /*{ , new[] { , ,  } }, // Conqueror Chest [L]
-            { , new[] { , ,  } }, // Conqueror Chest [N]
-            { , new[] { , ,  } }, // Conqueror Chest [H]
+            { 89265, new[] { 86707, 86712, 86683 } }, // Conqueror Chest [L]
+            { 89237, new[] { 85367, 85372, 85343 } }, // Conqueror Chest [N]
+            { 89250, new[] { 87122, 87190, 87099 } }, // Conqueror Chest [H]
 
-            { , new[] { , , ,  } }, // Protector Chest [L]
-            { , new[] { , , ,  } }, // Protector Chest [N]
-            { , new[] { , , ,  } }, // Protector Chest [H]
+            { 89266, new[] { 86672, 86628, 86728, 86638 } }, // Protector Chest [L]
+            { 89238, new[] { 85332, 85288, 85388, 85298 } }, // Protector Chest [N]
+            { 89251, new[] { 87193, 87134, 87094, 87002 } }, // Protector Chest [H]
             
-            { , new[] { , , ,  } }, // Vanquisher Chest [L]
-            { , new[] { , , ,  } }, // Vanquisher Chest [N]
-            { , new[] { , , ,  } }, // Vanquisher Chest [H]
+            { 89264, new[] { 86678, 86653, 86715, 86643 } }, // Vanquisher Chest [L]
+            { 89239, new[] { 85338, 85313, 85375, 85303 } }, // Vanquisher Chest [N]
+            { 89249, new[] { 86913, 86923, 87010, 87124 } }, // Vanquisher Chest [H]
             
-            { , new[] { , ,  } }, // Conqueror Gloves [L]
-            { , new[] { , ,  } }, // Conqueror Gloves [N]
-            { , new[] { , ,  } }, // Conqueror Gloves [H]
+            { 89271, new[] { 86704, 86709, 86682 } }, // Conqueror Gloves [L]
+            { 89240, new[] { 85364, 85369, 85342 } }, // Conqueror Gloves [N]
+            { 89256, new[] { 87119, 87187, 87100 } }, // Conqueror Gloves [H]
             
-            { , new[] { , , ,  } }, // Protector Gloves [L]
-            { , new[] { , , ,  } }, // Protector Gloves [N]
-            { , new[] { , , ,  } }, // Protector Gloves [H]
+            { 89272, new[] { 86630, 86671, 86727, 86637 } }, // Protector Gloves [L]
+            { 89241, new[] { 85290, 85331, 85387, 85297 } }, // Protector Gloves [N]
+            { 89257, new[] { 87140, 87194, 87095, 87003 } }, // Protector Gloves [H]
             
-            { , new[] { , , ,  } }, // Vanquisher Gloves [L]
-            { , new[] { , , ,  } }, // Vanquisher Gloves [N]
-            { , new[] { , , ,  } }, // Vanquisher Gloves [H]
+            { 89270, new[] { 86648, 86677, 86718, 86642 } }, // Vanquisher Gloves [L]
+            { 89242, new[] { 85308, 85337, 85378, 85302 } }, // Vanquisher Gloves [N]
+            { 89255, new[] { 86933, 86914, 87007, 87125 } }, // Vanquisher Gloves [H]
             
-            { , new[] { , ,  } }, // Conqueror Helm [L]
-            { , new[] { , ,  } }, // Conqueror Helm [N]
-            { , new[] { , ,  } }, // Conqueror Helm [H]
+            { 89274, new[] { 86702, 86710, 86661 } }, // Conqueror Helm [L]
+            { 89235, new[] { 85362, 85370, 85321 } }, // Conqueror Helm [N]
+            { 89259, new[] { 87115, 87188, 87111 } }, // Conqueror Helm [H]
             
-            { , new[] { , , ,  } }, // Protector Helm [L]
-            { , new[] { , , ,  } }, // Protector Helm [N]
-            { , new[] { , , ,  } }, // Protector Helm [H]
+            { 89275, new[] { 86666, 86691, 86726, 86636 } }, // Protector Helm [L]
+            { 89236, new[] { 85326, 85351, 85386, 85296 } }, // Protector Helm [N]
+            { 89260, new[] { 87199, 87131, 87096, 87004 } }, // Protector Helm [H]
             
-            { , new[] { , , ,  } }, // Vanquisher Helm [L]
-            { , new[] { , , ,  } }, // Vanquisher Helm [N]
-            { , new[] { , , ,  } }, // Vanquisher Helm [H]
+            { 89273, new[] { 86647, 86656, 86641, 86717 } }, // Vanquisher Helm [L]
+            { 89234, new[] { 85307, 85316, 85301, 85377 } }, // Vanquisher Helm [N]
+            { 89258, new[] { 86934, 86920, 87126, 87008 } }, // Vanquisher Helm [H]
             
-            { , new[] { , ,  } }, // Conqueror Legs [L]
-            { , new[] { , ,  } }, // Conqueror Legs [N]
-            { , new[] { , ,  } }, // Conqueror Legs [H]
+            { 89268, new[] { 86706, 86711, 86685 } }, // Conqueror Legs [L]
+            { 89243, new[] { 85366, 85371, 85345 } }, // Conqueror Legs [N]
+            { 89253, new[] { 87121, 87189, 87107 } }, // Conqueror Legs [H]
             
-            { , new[] { , , ,  } }, // Protector Legs [L]
-            { , new[] { , , ,  } }, // Protector Legs [N]
-            { , new[] { , , ,  } }, // Protector Legs [H]
+            { 89269, new[] { 86632, 86665, 86737, 86635 } }, // Protector Legs [L]
+            { 89244, new[] { 85292, 85325, 85397, 85295 } }, // Protector Legs [N]
+            { 89254, new[] { 87142, 87200, 87087, 87005 } }, // Protector Legs [H]
             
-            { , new[] { , , ,  } }, // Vanquisher Legs [L]
-            { , new[] { , , ,  } }, // Vanquisher Legs [N]
-            { , new[] { , , ,  } }, // Vanquisher Legs [H]
+            { 89267, new[] { 86722, 86675, 86716, 86640 } }, // Vanquisher Legs [L]
+            { 89245, new[] { 85382, 85335, 85376, 85300 } }, // Vanquisher Legs [N]
+            { 89252, new[] { 86941, 86916, 87009, 87127 } }, // Vanquisher Legs [H]
             
-            { , new[] { , ,  } }, // Conqueror Shoulders [L]
-            { , new[] { , ,  } }, // Conqueror Shoulders [N]
-            { , new[] { , ,  } }, // Conqueror Shoulders [H]
+            { 89277, new[] { 86699, 86713, 86684 } }, // Conqueror Shoulders [L]
+            { 89246, new[] { 85359, 85373, 85344 } }, // Conqueror Shoulders [N]
+            { 89262, new[] { 87118, 87191, 87108 } }, // Conqueror Shoulders [H]
             
-            { , new[] { , , ,  } }, // Protector Shoulders [L]
-            { , new[] { , , ,  } }, // Protector Shoulders [N]
-            { , new[] { , , ,  } }, // Protector Shoulders [H]
+            { 89278, new[] { 86689, 86669, 86733, 86634 } }, // Protector Shoulders [L]
+            { 89247, new[] { 85349, 85329, 85393, 85294 } }, // Protector Shoulders [N]
+            { 89263, new[] { 87133, 87196, 87093, 87006 } }, // Protector Shoulders [H]
             
-            { , new[] { , , ,  } }, // Vanquisher Shoulders [L]
-            { , new[] { , , ,  } }, // Vanquisher Shoulders [N]
-            { , new[] { , , ,  } }, // Vanquisher Shoulders [H]*/
+            { 89276, new[] { 86694, 86714, 86674, 86639 } }, // Vanquisher Shoulders [L]
+            { 89248, new[] { 85354, 85374, 85334, 85299 } }, // Vanquisher Shoulders [N]
+            { 89261, new[] { 86932, 87011, 86917, 87128 } }, // Vanquisher Shoulders [H]
             #endregion
             
             // Cataclysm
