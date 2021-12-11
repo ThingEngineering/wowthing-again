@@ -55,7 +55,7 @@
         use:tippyComponent={{
             component: TooltipAppearanceSet,
             props: {set, slotHave, subType},
-            tippyProps: {placement: 'top-end'},
+            tippyProps: {placement: 'left-end'},
         }}
     >
         {#if set.wowheadSetId}
