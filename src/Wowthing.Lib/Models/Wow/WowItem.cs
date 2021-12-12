@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Wowthing.Lib.Data;
@@ -32,16 +33,22 @@ namespace Wowthing.Lib.Models.Wow
                 int classMask = 0;
                 var itemStats = new HashSet<WowStat>(Hardcoded.StatToStats[PrimaryStat]);
 
-                // Weapons with primary stats
-                if (ClassId == 2 && PrimaryStat != WowStat.None)
+                // Weapons
+                if (ClassId == 2)
                 {
                     foreach (var classData in Hardcoded.Characters)
                     {
                         if (classData.WeaponTypes
                             .Any((t =>
-                                    (int)t.Item1 == SubclassId &&
-                                    t.Item2.Any(stat => itemStats.Contains(stat))
-                            )))
+                                    (short)t.Item1 == SubclassId &&
+                                    (
+                                        PrimaryStat == WowStat.None ||
+                                        (
+                                            itemStats.Count > 0 && 
+                                            t.Item2.Any(stat => itemStats.Contains(stat))
+                                        )
+                                    )
+                                )))
                         {
                             classMask |= (int)classData.Mask;
                         }
