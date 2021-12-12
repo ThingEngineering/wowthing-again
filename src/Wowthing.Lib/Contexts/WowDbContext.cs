@@ -31,6 +31,7 @@ namespace Wowthing.Lib.Contexts
         public DbSet<WowToy> WowToy { get; set; }
 
         public DbSet<PlayerAccount> PlayerAccount { get; set; }
+        public DbSet<PlayerAccountGoldSnapshot> PlayerAccountGoldSnapshot { get; set; }
         public DbSet<PlayerAccountPets> PlayerAccountPets { get; set; }
         public DbSet<PlayerAccountToys> PlayerAccountToys { get; set; }
 
@@ -62,6 +63,7 @@ namespace Wowthing.Lib.Contexts
         public DbSet<AccountTransmogQuery> AccountTransmogQuery { get; set; }
         public DbSet<AchievementCriteriaQuery> AchievementCriteriaQuery { get; set; } 
         public DbSet<CompletedAchievementsQuery> CompletedAchievementsQuery { get; set; }
+        public DbSet<LatestGoldSnapshotQuery> LatestGoldSnapshotQuery { get; set; }
         public DbSet<MountQuery> MountQuery { get; set; }
         public DbSet<SchedulerCharacterQuery> SchedulerCharacterQuery { get; set; }
 
@@ -159,6 +161,9 @@ namespace Wowthing.Lib.Contexts
 
             builder.Entity<CompletedAchievementsQuery>()
                 .ToTable("CompletedAchievementsQuery", t => t.ExcludeFromMigrations());
+
+            builder.Entity<LatestGoldSnapshotQuery>()
+                .ToTable("LatestGoldSnapshotQuery", t => t.ExcludeFromMigrations());
             
             builder.Entity<MountQuery>()
                 .ToTable("MountQuery", t => t.ExcludeFromMigrations());

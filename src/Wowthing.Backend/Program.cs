@@ -103,6 +103,7 @@ namespace Wowthing.Backend
             services.AddSingleton<StateService>();
 
             services.AddHostedService<AuthorizationService>();
+            services.AddHostedService<GoldSnapshotService>();
             services.AddHostedService<JobQueueService>(); 
             services.AddHostedService<SchedulerService>();
             
