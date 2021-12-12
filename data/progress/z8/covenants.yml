@@ -1,13 +1,12 @@
 name: Covenants
 groups:
 
-- name: Covenant Campaign
-  icon: achievement/14790 # Covenant Campaign
-  lookup: covenant
+- name: Kyrian Campaign
+  icon: spell/321076 # Kyrian
+  lookup: none
   type: quest
   data:
-    # Kyrian
-    1:
+    0:
     - name: Among the Kyrian
       id: 57904 # Our Eternal Charge
 
@@ -42,44 +41,53 @@ groups:
       id: 62557 # Our Realm Reclaimed
       description: Requires Renown 21
 
-    # Venthyr
-    2:
-    - name: Sinfall
-      id: 59319 # Advancing Our Efforts
+- name: Necrolord Campaign
+  icon: spell/321078 # Necrolord
+  lookup: none
+  type: quest
+  data:
+    # Necrolord
+    0:
+    - name: Loyal to the Primus
+      id: 59609 # No Rest for the Dead
 
     - name: Torghast
       id: 60272 # The Weak Link
 
-    - name: The Court of Harvesters
-      id: 59719 # The Court
+    - name: The House of Eyes
+      id: 57648 # The Impossible Plan
       description: Requires Renown 5
 
-    - name: Desire
-      id: 57893 # Neither Enemy nor Ally
+    - name: Grand Theft Necropolis
+      id: 58820 # Bindings of Fleshcrafting
       description: Requires Renown 7
 
-    - name: Avarice
-      id: 58444 # Return to Sinfall
+    - name: Do Not Forget
+      id: 59894 # The Golden Dawn
       description: Requires Renown 10
 
-    - name: The Crowned Prince
-      id: 59233 # The Prince's New Crown
+    - name: A Golden Dawn
+      id: 57636 # Pride of Place
       description: Requires Renown 12
 
-    - name: Confronting Sin
-      id: 58395 # Enough Vengeance For One Day
+    - name: The Wages of Sin
+      id: 58624 # Pauldrons of Imperium
       description: Requires Renown 16
 
-    - name: Envy
-      id: 57646 # The Tithelord
+    - name: The House of Rituals
+      id: 61761 # The Better Part of Valor
       description: Requires Renown 19
 
-    - name: Dominion
-      id: 58407 # The Medallion of Dominion
+    - name: Assault on the House of Rituals
+      id: 62406 # Staff of the Primus
       description: Requires Renown 21
 
-    # Night Fae
-    3:
+- name: Night Fae Campaign
+  icon: spell/321077 # Night Fae
+  lookup: none
+  type: quest
+  data:
+    0:
     - name: For Queen and Grove!
       id: 62899 # The Endless Forest
 
@@ -114,38 +122,42 @@ groups:
       id: 60108 # Drust and Ashes
       description: Requires Renown 21
 
-    # Necrolord
-    4:
-    - name: Loyal to the Primus
-      id: 59609 # No Rest for the Dead
+- name: Venthyr Campaign
+  icon: spell/321079 # Venthyr
+  lookup: none
+  type: quest
+  data:
+    0:
+    - name: Sinfall
+      id: 59319 # Advancing Our Efforts
 
     - name: Torghast
       id: 60272 # The Weak Link
 
-    - name: The House of Eyes
-      id: 57648 # The Impossible Plan
+    - name: The Court of Harvesters
+      id: 59719 # The Court
       description: Requires Renown 5
 
-    - name: Grand Theft Necropolis
-      id: 58820 # Bindings of Fleshcrafting
+    - name: Desire
+      id: 57893 # Neither Enemy nor Ally
       description: Requires Renown 7
 
-    - name: Do Not Forget
-      id: 59894 # The Golden Dawn
+    - name: Avarice
+      id: 58444 # Return to Sinfall
       description: Requires Renown 10
 
-    - name: A Golden Dawn
-      id: 57636 # Pride of Place
+    - name: The Crowned Prince
+      id: 59233 # The Prince's New Crown
       description: Requires Renown 12
 
-    - name: The Wages of Sin
-      id: 58624 # Pauldrons of Imperium
+    - name: Confronting Sin
+      id: 58395 # Enough Vengeance For One Day
       description: Requires Renown 16
 
-    - name: The House of Rituals
-      id: 61761 # The Better Part of Valor
+    - name: Envy
+      id: 57646 # The Tithelord
       description: Requires Renown 19
 
-    - name: Assault on the House of Rituals
-      id: 62406 # Staff of the Primus
+    - name: Dominion
+      id: 58407 # The Medallion of Dominion
       description: Requires Renown 21
