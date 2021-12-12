@@ -113,6 +113,10 @@
 </style>
 
 {#each appearances as [appearance, userHas]}
+    {#if
+        ($journalState.showCollected && userHas) ||
+        ($journalState.showUncollected && !userHas)
+    }
     <div
         class="appearance quality{getQuality(appearance)}"
         class:missing={
@@ -143,4 +147,5 @@
             {/each}
         </div>
     </div>
+    {/if}
 {/each}
