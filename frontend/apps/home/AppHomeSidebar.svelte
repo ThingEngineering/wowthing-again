@@ -135,17 +135,23 @@
 
     <li class="separator"></li>
 
-    <li use:active={'/history/*'}>
-        <a href="#/history/">🚧 History</a>
-    </li>
     <li use:active={'/achievements/*'}>
         <a href="#/achievements/summary">🚧 Achievements</a>
     </li>
+
+    {#if $userStore.loaded && !$userStore.data.public}
+        <li use:active={'/history/*'}>
+            <a href="#/history/">🚧 History</a>
+        </li>
+    {/if}
+
+    <li class="separator"></li>
+
     <li use:active={'/cards'}>
-        <a href="#/cards">🚧 Home (Cards)</a>
+        <a href="#/cards">🙈 Home (Cards)</a>
     </li>
     <li use:active={'/teams'}>
-        <a href="#/teams">🚧 Teams</a>
+        <a href="#/teams">🙈 Teams</a>
     </li>
 
     {#if $userStore.loaded && !$userStore.data.public}
