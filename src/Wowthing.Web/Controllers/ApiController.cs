@@ -376,7 +376,7 @@ namespace Wowthing.Web.Controllers
             timer.AddPoint("Mounts");
 
             // Pets
-            var accountPets = accounts
+            var accountPets = tempAccounts
                 .Where(pa => pa.Pets != null)
                 .Select(pa => pa.Pets)
                 .OrderByDescending(pap => pap.UpdatedAt)
@@ -394,7 +394,7 @@ namespace Wowthing.Web.Controllers
             timer.AddPoint("Pets");
             
             // Toys
-            var toyIds = accounts
+            var toyIds = tempAccounts
                 .SelectMany(a => a.Toys?.ToyIds ?? Enumerable.Empty<int>())
                 .Distinct()
                 .ToArray();
