@@ -2,12 +2,13 @@
     import { onMount } from 'svelte'
 
     import {
+        journalStore,
         staticStore,
         transmogStore,
-        userCollectionStore,
         userStore,
         userTransmogStore,
     } from '@/stores'
+    import { journalState } from '@/stores/local-storage'
     import { data as settings } from '@/stores/settings'
 
     import Routes from './AppHomeRoutes.svelte'
@@ -15,8 +16,8 @@
 
     onMount(async () => await Promise.all([
         staticStore.fetch(undefined, $settings.general.language),
+        journalStore.fetch(undefined, $settings.general.language),
         transmogStore.fetch(),
-        userCollectionStore.fetch(),
         userStore.fetch(),
         userTransmogStore.fetch(),
     ]))
@@ -26,27 +27,34 @@
     let ready: boolean
     $: {
         error = $staticStore.error
+            || $journalStore.error
             || $transmogStore.error
-            || $userCollectionStore.error
             || $userStore.error
             || $userTransmogStore.error
 
         loaded = $staticStore.loaded
+            && $journalStore.loaded
             && $transmogStore.loaded
-            && $userCollectionStore.loaded
             && $userStore.loaded
             && $userTransmogStore.loaded
 
         if (loaded) {
-            userCollectionStore.setup(
+            userStore.setup(
                 $staticStore.data,
-                $userCollectionStore.data,
+                $userStore.data,
             )
 
             userTransmogStore.setup(
                 $settings,
                 $transmogStore.data,
                 $userTransmogStore.data,
+            )
+
+            journalStore.setup(
+                $journalStore.data,
+                $journalState,
+                $settings,
+                $userTransmogStore.data
             )
 
             ready = true

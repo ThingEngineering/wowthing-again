@@ -1,23 +1,26 @@
 <script lang="ts">
-    import mdiTshirtCrew from '@iconify/icons-mdi/tshirt-crew'
     import active from 'svelte-spa-router/active'
 
-    import { userCollectionStore, userStore, userTransmogStore } from '@/stores'
+    import { dropType } from '@/data/farm'
+    import { journalStore, userStore, userTransmogStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import Sidebar from '@/components/common/Sidebar.svelte'
 
+    let journalPercent: number
     let mountsPercent: number
     let petsPercent: number
     let toysPercent: number
     let transmogPercent: number
     $: {
-        const mountsOverall = $userCollectionStore.data.setCounts['mounts']['OVERALL']
-        const petsOverall = $userCollectionStore.data.setCounts['pets']['OVERALL']
-        const toysOverall = $userCollectionStore.data.setCounts['toys']['OVERALL']
+        const journalOverall = $journalStore.data.stats['OVERALL']
+        const mountsOverall = $userStore.data.setCounts['mounts']['OVERALL']
+        const petsOverall = $userStore.data.setCounts['pets']['OVERALL']
+        const toysOverall = $userStore.data.setCounts['toys']['OVERALL']
         const transmogOverall = $userTransmogStore.data.stats['OVERALL']
 
+        journalPercent = journalOverall.have / journalOverall.total * 100
         mountsPercent = mountsOverall.have / mountsOverall.total * 100
         petsPercent = petsOverall.have / petsOverall.total * 100
         toysPercent = toysOverall.have / toysOverall.total * 100
@@ -34,6 +37,8 @@
         position: relative;
 
         :global(svg) {
+            color: #eee;
+            margin-top: -4px;
             opacity: 0.8;
         }
     }
@@ -84,15 +89,24 @@
     <li class="separator"></li>
 
     <li use:active={'/mounts/*'}>
-        <a href="#/mounts/">Mounts</a>
+        <a href="#/mounts/">
+            <IconifyIcon icon={dropType.mount} />
+            Mounts
+        </a>
         <span class="drop-shadow percent {getPercentClass(mountsPercent)}">{fancyPercent(mountsPercent)} %</span>
     </li>
     <li use:active={'/pets/*'}>
-        <a href="#/pets/">Pets</a>
+        <a href="#/pets/">
+            <IconifyIcon icon={dropType.pet} />
+            Pets
+        </a>
         <span class="drop-shadow percent {getPercentClass(petsPercent)}">{fancyPercent(petsPercent)} %</span>
     </li>
     <li use:active={'/toys/*'}>
-        <a href="#/toys/">Toys</a>
+        <a href="#/toys/">
+            <IconifyIcon icon={dropType.toy} />
+            Toys
+        </a>
         <span class="drop-shadow percent {getPercentClass(toysPercent)}">{fancyPercent(toysPercent)} %</span>
     </li>
 
@@ -100,13 +114,14 @@
 
     <li use:active={'/journal/*'}>
         <a href="#/journal/">
-            <IconifyIcon icon={mdiTshirtCrew} />
+            <IconifyIcon icon={dropType.transmog} />
             Journal
         </a>
+        <span class="drop-shadow percent {getPercentClass(journalPercent)}">{fancyPercent(journalPercent)} %</span>
     </li>
     <li use:active={'/appearances/*'}>
         <a href="#/appearances/">
-            <IconifyIcon icon={mdiTshirtCrew} />
+            <IconifyIcon icon={dropType.transmog} />
             Sets
         </a>
         <span class="drop-shadow percent {getPercentClass(transmogPercent)}">{fancyPercent(transmogPercent)} %</span>
@@ -120,17 +135,23 @@
 
     <li class="separator"></li>
 
-    <li use:active={'/history/*'}>
-        <a href="#/history/">🚧 History</a>
-    </li>
     <li use:active={'/achievements/*'}>
         <a href="#/achievements/summary">🚧 Achievements</a>
     </li>
+
+    {#if $userStore.loaded && !$userStore.data.public}
+        <li use:active={'/history/*'}>
+            <a href="#/history/">🚧 History</a>
+        </li>
+    {/if}
+
+    <li class="separator"></li>
+
     <li use:active={'/cards'}>
-        <a href="#/cards">🚧 Home (Cards)</a>
+        <a href="#/cards">🙈 Home (Cards)</a>
     </li>
     <li use:active={'/teams'}>
-        <a href="#/teams">🚧 Teams</a>
+        <a href="#/teams">🙈 Teams</a>
     </li>
 
     {#if $userStore.loaded && !$userStore.data.public}

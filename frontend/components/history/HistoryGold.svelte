@@ -13,6 +13,7 @@
     } from 'chart.js'
     import 'chartjs-adapter-luxon'
     import { onMount } from 'svelte'
+    //import type { Item } from 'chart.js'
 
     import { colors } from '@/data/colors'
     import { staticStore, userHistoryStore } from '@/stores'
@@ -32,22 +33,17 @@
         Tooltip,
     )
 
-    const tooltipFooter = (tooltipItems) => {
-        const total = tooltipItems.reduce((a, b) => a + b.parsed.y, 0)
-        return `Total: ${total.toLocaleString()}`
-    }
-
     onMount(() => {
-        const data = {
+        const data: { datasets: any[] } = {
             datasets: [],
         }
 
         const realms: [string, number][] = []
-        for (const realmId: number in $userHistoryStore.data.gold) {
+        for (const realmId in $userHistoryStore.data.gold) {
             const realm: StaticDataRealm = $staticStore.data.realms[realmId]
             realms.push([
                 `[${Region[realm.region]}] ${realm.name}`,
-                realmId
+                parseInt(realmId)
             ])
         }
         realms.sort()
@@ -68,14 +64,15 @@
             })
         }
 
-        const ctx = document.getElementById('gold-chart')
+        const ctx = document.getElementById('gold-chart') as HTMLCanvasElement
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const chart = new Chart(ctx, {
             type: 'line',
             data,
             options: {
                 animation: false,
                 color: '#fff',
-                radius: 6,
+                //radius: 5,
                 responsive: true,
                 spanGaps: true,
                 interaction: {
@@ -83,11 +80,10 @@
                     mode: 'index',
                 },
                 layout: {
-                    padding: '1rem',
+                    padding: 10,
                 },
                 plugins: {
                     legend: {
-                        color: '#eee',
                         position: 'bottom',
                         labels: {
                             font: {
@@ -98,7 +94,10 @@
                     tooltip: {
                         position: 'average',
                         callbacks: {
-                            footer: tooltipFooter,
+                            footer: (tooltipItems) => {
+                                const total: number = tooltipItems.reduce((a: number, b) => a + b.parsed.y, 0)
+                                return `Total: ${total.toLocaleString()}`
+                            },
                         },
                         bodyFont: {
                             size: 14,
@@ -113,7 +112,6 @@
                 },
                 scales: {
                     x: {
-                        color: '#eee',
                         type: 'time',
                         grid: {
                             color: '#666',
@@ -129,7 +127,6 @@
                         },
                     },
                     y: {
-                        color: '#fff',
                         stacked: true,
                         grid: {
                             color: '#666',

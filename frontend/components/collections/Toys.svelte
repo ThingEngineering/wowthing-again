@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { staticStore, userCollectionStore } from '@/stores'
+    import { staticStore, userStore } from '@/stores'
     import type { MultiSlugParams } from '@/types'
 
     import Collection from './Collection.svelte'
@@ -9,7 +9,7 @@
     let thingMap: Record<number, number>
     $: {
         thingMap = {}
-        for (const toyId in $userCollectionStore.data.toys) {
+        for (const toyId in $userStore.data.toys) {
             thingMap[toyId] = parseInt(toyId)
         }
     }
@@ -20,6 +20,6 @@
     {params}
     thingType="item"
     {thingMap}
-    userHas={$userCollectionStore.data.toys}
+    userHas={$userStore.data.toys}
     sets={$staticStore.data.toySets}
 />
