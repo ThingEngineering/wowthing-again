@@ -5,6 +5,7 @@
     import Appearances from '@/components/appearances/Appearances.svelte'
     import Currencies from '@/components/currencies/Currencies.svelte'
     import Gear from '@/components/gear/Gear.svelte'
+    import History from '@/components/history/History.svelte'
     import HomeCards from '@/components/home/HomeCards.svelte'
     import HomeTable from '@/components/home/HomeTable.svelte'
     import Items from '@/components/items/Items.svelte'
@@ -29,6 +30,7 @@
         '/appearances/:slug1?/:slug2?': Appearances,
         '/currencies/:slug?': Currencies,
         '/gear/*': Gear,
+        '/history/:slug?': History,
         '/items/:slug?': Items,
         '/journal/:slug1?/:slug2?': Journal,
         '/lockouts': Lockouts,

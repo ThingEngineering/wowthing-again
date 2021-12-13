@@ -508,6 +508,54 @@ namespace Wowthing.Web.Controllers
 
             return Ok(data);
         }
+
+        [HttpGet("user/{username:username}/history")]
+        public async Task<IActionResult> UserHistoryData([FromRoute] string username)
+        {
+            var timer = new JankTimer();
+
+            var apiResult = await CheckUser(username);
+            if (apiResult.NotFound)
+            {
+                return NotFound();
+            }
+
+            // Maybe this should return 403 Forbidden?
+            if (apiResult.Public)
+            {
+                return NotFound();
+            }
+
+            timer.AddPoint("CheckUser");
+
+            var rawData = await _context.PlayerAccountGoldSnapshot
+                .AsNoTracking()
+                .Where(pags => pags.Account.UserId == apiResult.User.Id)
+                .OrderBy(pags => pags.Time)
+                .ToArrayAsync();
+
+            var data = rawData
+                .GroupBy(pags => pags.Time)
+                .Select(group => new UserHistoryGold
+                    {
+                        Time = group.Key,
+                        Entries = group.Select(pags => new UserHistoryGoldEntry
+                        {
+                            AccountId = pags.AccountId,
+                            RealmId = pags.RealmId,
+                            Gold = pags.Gold,
+                        }).ToArray(),
+                    }
+                )
+                .ToArray();
+
+            timer.AddPoint("Database", true);
+            _logger.LogDebug($"{timer}");
+
+            return Ok(new {
+                GoldRaw = data,
+            });
+        }
         
         [HttpGet("user/{username:username}/quests")]
         public async Task<IActionResult> UserQuestData([FromRoute] string username)
