@@ -1,6 +1,5 @@
 <script lang="ts">
     import find from 'lodash/find'
-    import max from 'lodash/max'
 
     import { reputationState } from '@/stores/local-storage'
     import { data as settingsData } from '@/stores/settings'
