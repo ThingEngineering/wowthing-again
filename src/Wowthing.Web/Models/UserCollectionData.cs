@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models.Player;
+using Wowthing.Web.Converters;
 
 namespace Wowthing.Web.Models
 {
@@ -13,6 +15,7 @@ namespace Wowthing.Web.Models
         public Dictionary<int, List<UserPetDataPet>> Pets { get; set; }
     }
 
+    [JsonConverter(typeof(UserPetDataPetConverter))]
     public class UserPetDataPet
     {
         public int BreedId { get; set; }

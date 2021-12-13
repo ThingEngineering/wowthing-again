@@ -2,7 +2,7 @@
     import mdiTshirtCrew from '@iconify/icons-mdi/tshirt-crew'
     import active from 'svelte-spa-router/active'
 
-    import { userCollectionStore, userStore, userTransmogStore } from '@/stores'
+    import { userStore, userTransmogStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
@@ -13,9 +13,9 @@
     let toysPercent: number
     let transmogPercent: number
     $: {
-        const mountsOverall = $userCollectionStore.data.setCounts['mounts']['OVERALL']
-        const petsOverall = $userCollectionStore.data.setCounts['pets']['OVERALL']
-        const toysOverall = $userCollectionStore.data.setCounts['toys']['OVERALL']
+        const mountsOverall = $userStore.data.setCounts['mounts']['OVERALL']
+        const petsOverall = $userStore.data.setCounts['pets']['OVERALL']
+        const toysOverall = $userStore.data.setCounts['toys']['OVERALL']
         const transmogOverall = $userTransmogStore.data.stats['OVERALL']
 
         mountsPercent = mountsOverall.have / mountsOverall.total * 100

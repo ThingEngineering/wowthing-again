@@ -3,7 +3,7 @@
     import find from 'lodash/find'
     import { getContext } from 'svelte'
 
-    import { userCollectionStore } from '@/stores'
+    import { userStore } from '@/stores'
     import getPercentClass from "@/utils/get-percent-class";
     import tippy from '@/utils/tippy'
     import type { StaticDataSetCategory } from '@/types'
@@ -89,7 +89,7 @@
                 {section.name}
                 <span class="counts">
                     <CollectionCount
-                        counts={$userCollectionStore.data.setCounts[route][`${slug1}--${section.slug}`]}
+                        counts={$userStore.data.setCounts[route][`${slug1}--${section.slug}`]}
                     />
                 </span>
             </h3>
@@ -101,7 +101,7 @@
                     style="width: {(44 * group.things.length) + (3 * (group.things.length - 1))}px;"
                 >
                     <p
-                        class="drop-shadow {getPercentClass($userCollectionStore.data.setCounts[route][`${slug1}--${section.slug}--${group.name}`])}"
+                        class="drop-shadow {getPercentClass($userStore.data.setCounts[route][`${slug1}--${section.slug}--${group.name}`])}"
                         use:tippy={group.name}
                     >
                         {group.name}

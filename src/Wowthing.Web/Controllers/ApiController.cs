@@ -287,7 +287,10 @@ namespace Wowthing.Web.Controllers
             // Retrieve data
             var accounts = new List<PlayerAccount>();
             var tempAccounts = await _context.PlayerAccount
+                .AsNoTracking()
                 .Where(a => a.UserId == apiResult.User.Id)
+                .Include(pa => pa.Pets)
+                .Include(pa => pa.Toys)
                 .ToListAsync();
 
             if (!apiResult.Public)
@@ -365,6 +368,39 @@ namespace Wowthing.Web.Controllers
 
             timer.AddPoint("currentPeriods");
 
+            // Mounts
+            var mounts = await _context.MountQuery
+                .FromSqlRaw(MountQuery.USER_QUERY, apiResult.User.Id)
+                .FirstAsync();
+            
+            timer.AddPoint("Mounts");
+
+            // Pets
+            var accountPets = accounts
+                .Where(pa => pa.Pets != null)
+                .Select(pa => pa.Pets)
+                .OrderByDescending(pap => pap.UpdatedAt)
+                .ToArray();
+
+            var allPets = new Dictionary<long, PlayerAccountPetsPet>();
+            foreach (var pets in accountPets)
+            {
+                foreach (var (petId, pet) in pets.Pets)
+                {
+                    allPets.TryAdd(petId, pet);
+                }
+            }
+            
+            timer.AddPoint("Pets");
+            
+            // Toys
+            var toyIds = accounts
+                .SelectMany(a => a.Toys?.ToyIds ?? Enumerable.Empty<int>())
+                .Distinct()
+                .ToArray();
+            
+            timer.AddPoint("Toys");
+            
             // Build response
             var apiData = new UserApi
             {
@@ -372,6 +408,28 @@ namespace Wowthing.Web.Controllers
                 Characters = characters.Select(character => new UserApiCharacter(character, apiResult.Public, apiResult.Privacy)).ToList(),
                 CurrentPeriod = currentPeriods,
                 Public = apiResult.Public,
+
+                AddonMounts = mounts.AddonMounts
+                    .EmptyIfNull()
+                    .ToDictionary(m => m, m => true),
+
+                MountsPacked = SerializationUtilities.SerializeUInt16Array(mounts.Mounts
+                    .EmptyIfNull()
+                    .Select(m => (ushort)m).ToArray()),
+                
+                Pets = allPets
+                    .Values
+                    .GroupBy(pet => pet.SpeciesId)
+                    .ToDictionary(
+                        group => group.Key,
+                        group => group
+                            .OrderByDescending(pet => pet.Level)
+                            .ThenByDescending(pet => (int)pet.Quality)
+                            .Select(pet => new UserPetDataPet(pet))
+                            .ToList()
+                    ),
+                
+                ToysPacked = SerializationUtilities.SerializeInt32Array(toyIds),
             };
 
             timer.AddPoint("Build response", true);

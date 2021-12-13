@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
     import { dropType } from '@/data/farm'
-    import { staticStore, userCollectionStore, userStore } from '@/stores'
+    import { staticStore, userStore } from '@/stores'
     import { Faction } from '@/types/enums'
     import type { Character, StaticDataReputationReputation, StaticDataReputationSet } from '@/types'
 
@@ -32,14 +32,14 @@
                     let have = false
                     if (reward.type === 'mount') {
                         const mountId = $staticStore.data.spellToMount[reward.id]
-                        have = $userCollectionStore.data.mounts[mountId] === true
+                        have = $userStore.data.mounts[mountId] === true
                     }
                     else if (reward.type === 'pet') {
                         const petId = $staticStore.data.creatureToPet[reward.id]
-                        have = $userCollectionStore.data.pets[petId] !== undefined
+                        have = $userStore.data.pets[petId] !== undefined
                     }
                     else if (reward.type === 'toy') {
-                        have = $userCollectionStore.data.toys[reward.id] === true
+                        have = $userStore.data.toys[reward.id] === true
                     }
 
                     rewards.push({

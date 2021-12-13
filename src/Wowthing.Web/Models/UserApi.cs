@@ -13,5 +13,13 @@ namespace Wowthing.Web.Models
         
         public List<UserApiCharacter> Characters { get; init; }
         public Dictionary<int, WowPeriod> CurrentPeriod { get; init; }
+
+        public Dictionary<int, bool> AddonMounts { get; set; }
+        
+        [JsonProperty(PropertyName = "petsRaw")]
+        public Dictionary<int, List<UserPetDataPet>> Pets { get; set; }
+
+        public string MountsPacked { get; init; }
+        public string ToysPacked { get; init; }
     }
 }

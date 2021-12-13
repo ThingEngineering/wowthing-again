@@ -14,7 +14,7 @@ import { Settings, StaticData, UserCount, UserData, WritableFancyStore } from '@
 import { ArmorType, FarmDropType, PrimaryStat, WeaponType } from '@/types/enums'
 import { getNextBiWeeklyReset, getNextDailyReset, getNextWeeklyReset } from '@/utils/get-next-reset'
 import type { ZoneMapState } from '@/stores/local-storage/zone-map'
-import type { TransmogData, UserCollectionData, UserQuestData, UserTransmogData, ZoneMapData } from '@/types/data'
+import type { TransmogData, UserQuestData, UserTransmogData, ZoneMapData } from '@/types/data'
 import { ZoneMapDataDrop } from '@/types/data'
 
 
@@ -29,7 +29,6 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
         settings: Settings,
         staticData: StaticData,
         transmogData: TransmogData,
-        userCollectionData: UserCollectionData,
         userQuestData: UserQuestData,
         userData: UserData,
         userTransmogData: UserTransmogData,
@@ -167,14 +166,14 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
 
                         switch (drop.type) {
                             case FarmDropType.Mount:
-                                if (!userCollectionData.mounts[staticData.spellToMount[drop.id]] &&
-                                    !userCollectionData.addonMounts[drop.id]) {
+                                if (!userData.mounts[staticData.spellToMount[drop.id]] &&
+                                    !userData.addonMounts[drop.id]) {
                                     dropStatus.need = true
                                 }
                                 break
 
                             case FarmDropType.Pet:
-                                if (!userCollectionData.pets[staticData.creatureToPet[drop.id]]) {
+                                if (!userData.pets[staticData.creatureToPet[drop.id]]) {
                                     dropStatus.need = true
                                 }
                                 break
@@ -186,7 +185,7 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                                 break
 
                             case FarmDropType.Toy:
-                                if (!userCollectionData.toys[drop.id]) {
+                                if (!userData.toys[drop.id]) {
                                     dropStatus.need = true
                                 }
                                 break

@@ -4,7 +4,6 @@
     import {
         staticStore,
         transmogStore,
-        userCollectionStore,
         userStore,
         userTransmogStore,
     } from '@/stores'
@@ -16,7 +15,6 @@
     onMount(async () => await Promise.all([
         staticStore.fetch(undefined, $settings.general.language),
         transmogStore.fetch(),
-        userCollectionStore.fetch(),
         userStore.fetch(),
         userTransmogStore.fetch(),
     ]))
@@ -27,20 +25,18 @@
     $: {
         error = $staticStore.error
             || $transmogStore.error
-            || $userCollectionStore.error
             || $userStore.error
             || $userTransmogStore.error
 
         loaded = $staticStore.loaded
             && $transmogStore.loaded
-            && $userCollectionStore.loaded
             && $userStore.loaded
             && $userTransmogStore.loaded
 
         if (loaded) {
-            userCollectionStore.setup(
+            userStore.setup(
                 $staticStore.data,
-                $userCollectionStore.data,
+                $userStore.data,
             )
 
             userTransmogStore.setup(

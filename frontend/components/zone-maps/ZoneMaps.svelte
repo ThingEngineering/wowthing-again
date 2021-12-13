@@ -4,7 +4,6 @@
     import {
         staticStore,
         transmogStore,
-        userCollectionStore,
         userQuestStore,
         userStore,
         userTransmogStore,
@@ -31,7 +30,6 @@
                 $settings,
                 $staticStore.data,
                 $transmogStore.data,
-                $userCollectionStore.data,
                 $userQuestStore.data,
                 $userStore.data,
                 $userTransmogStore.data,

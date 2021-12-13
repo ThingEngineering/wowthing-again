@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { staticStore, userCollectionStore } from '@/stores'
+    import { staticStore, userStore } from '@/stores'
     import type { MultiSlugParams } from '@/types'
 
     import Collection from './Collection.svelte'
@@ -12,6 +12,6 @@
     {params}
     thingType="npc"
     thingMap={$staticStore.data.creatureToPet}
-    userHas={$userCollectionStore.data.petsHas}
+    userHas={$userStore.data.petsHas}
     sets={$staticStore.data.petSets}
 />
