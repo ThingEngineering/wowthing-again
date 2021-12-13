@@ -23,7 +23,7 @@
             $userTransmogStore.data,
             group.items
         )
-        percent = Math.floor(stats.have / stats.total * 100)
+        percent = Math.floor((stats?.have ?? 0) / (stats?.total ?? 1) * 100)
     }
 </script>
 
