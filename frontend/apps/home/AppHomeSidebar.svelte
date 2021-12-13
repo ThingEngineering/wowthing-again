@@ -120,6 +120,9 @@
 
     <li class="separator"></li>
 
+    <li use:active={'/history/*'}>
+        <a href="#/history/">🚧 History</a>
+    </li>
     <li use:active={'/achievements/*'}>
         <a href="#/achievements/summary">🚧 Achievements</a>
     </li>
