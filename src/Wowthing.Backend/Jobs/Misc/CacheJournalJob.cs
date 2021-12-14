@@ -135,7 +135,10 @@ namespace Wowthing.Backend.Jobs.Misc
                 .AsNoTracking()
                 .Where(item => 
                     item.ClassId == 2 ||
-                    (item.ClassId == 4 && item.SubclassId != 0)
+                    item.ClassId == 4 && (
+                        item.SubclassId != 0 ||
+                        item.InventoryType == 23 // Held in Off-hand
+                    )
                 )
                 .ToDictionaryAsync(item => item.Id);
             
