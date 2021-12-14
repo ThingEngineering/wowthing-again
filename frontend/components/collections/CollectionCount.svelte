@@ -5,7 +5,7 @@
 
     let per: number
     $: {
-        per = (counts?.have ?? 0 / counts?.total ?? 1) * 100
+        per = (counts?.have ?? 0) / (counts?.total ?? 1) * 100
     }
 </script>
 
