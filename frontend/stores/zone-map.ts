@@ -113,7 +113,7 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
 
                 const farms: FarmStatus[] = []
                 for (const farm of map.farms) {
-                    if (farm.dropsRaw) {
+                    if (farm.dropsRaw !== null) {
                         farm.drops = farm.dropsRaw
                             .map((dropArray) => new ZoneMapDataDrop(...dropArray))
                         farm.dropsRaw = null

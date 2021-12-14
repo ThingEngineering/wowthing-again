@@ -21,7 +21,7 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
     initialize(data: StaticData): void {
         console.time('StaticDataStore.initialize')
 
-        if (data.currenciesRaw) {
+        if (data.currenciesRaw !== null) {
             data.currencies = {}
             for (const currencyArray of data.currenciesRaw) {
                 const obj = new StaticDataCurrency(...currencyArray)
@@ -30,7 +30,7 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             data.currenciesRaw = null
         }
 
-        if (data.instancesRaw) {
+        if (data.instancesRaw !== null) {
             data.instances = {}
             for (const instanceArray of data.instancesRaw) {
                 const obj = new StaticDataInstance(...instanceArray)
@@ -43,7 +43,7 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             }
         }
 
-        if (data.realmsRaw) {
+        if (data.realmsRaw !== null) {
             data.realms = {
                 0: new StaticDataRealm(0, 1, 'Honkstrasza', 'honkstrasza'),
             }
@@ -54,7 +54,7 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             data.realmsRaw = null
         }
 
-        if (data.reputationsRaw) {
+        if (data.reputationsRaw !== null) {
             data.reputations = {}
             for (const reputationArray of data.reputationsRaw) {
                 const obj = new StaticDataReputation(...reputationArray)
@@ -63,7 +63,11 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             data.reputationsRaw = null
         }
 
-        if (data.mountSetsRaw && data.petSetsRaw && data.toySetsRaw) {
+        if (
+            data.mountSetsRaw !== null &&
+            data.petSetsRaw !== null &&
+            data.toySetsRaw !== null
+        ) {
             data.mountSets = StaticDataStore.fixSets(data.mountSetsRaw)
             data.petSets = StaticDataStore.fixSets(data.petSetsRaw)
             data.toySets = StaticDataStore.fixSets(data.toySetsRaw)

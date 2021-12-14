@@ -25,7 +25,7 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
         console.time('UserAchievementDataStore.setup')
 
         const achievementData = get(achievementStore).data
-        if (achievementData.achievementRaw) {
+        if (achievementData.achievementRaw !== null) {
             const achievementDict: Record<number, AchievementDataAchievement> = {}
             for (const rawAchievement of achievementData.achievementRaw) {
                 const obj = new AchievementDataAchievement(...rawAchievement)

@@ -23,17 +23,17 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         console.time('UserDataStore.initialize')
 
         // Unpack packed data
-        if (userData.mountsPacked) {
+        if (userData.mountsPacked !== null) {
             userData.mounts = base64ToRecord(TypedArray.Uint16, userData.mountsPacked)
             userData.mountsPacked = null
         }
 
-        if (userData.toysPacked) {
+        if (userData.toysPacked !== null) {
             userData.toys = base64ToRecord(TypedArray.Int32, userData.toysPacked)
             userData.toysPacked = null
         }
 
-        if (userData.petsRaw) {
+        if (userData.petsRaw !== null) {
             userData.pets = {}
             for (const petId in userData.petsRaw) {
                 userData.pets[petId] = userData.petsRaw[petId].map((petArray) => new UserDataPet(...petArray))
@@ -54,7 +54,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             }
 
             character.currencies = {}
-            if (character.currenciesRaw) {
+            if (character.currenciesRaw !== null) {
                 for (const rawCurrency of character.currenciesRaw) {
                     const obj = new CharacterCurrency(...rawCurrency)
                     character.currencies[obj.id] = obj
