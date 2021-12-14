@@ -4,6 +4,7 @@
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
 
+    export let disabled = false
     export let name: string
     export let textClass = ''
     export let value: boolean
@@ -17,13 +18,17 @@
     }
 </style>
 
-<fieldset class="fancy-checkbox">
+<fieldset
+    class="fancy-checkbox"
+    class:disabled
+>
     <label for="input-{name}">
         <input
             id="input-{name}"
             name={name}
             type="checkbox"
             bind:checked={value}
+            {disabled}
         >
         <IconifyIcon
             icon={value ? mdiCheckboxOutline : mdiCheckboxBlankOutline}

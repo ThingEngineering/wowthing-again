@@ -72,21 +72,6 @@
 </script>
 
 <style lang="scss">
-    .appearance {
-        --image-border-width: 2px;
-
-        margin-bottom: 0.5rem;
-        margin-right: 0.25rem;
-        position: relative;
-
-        &.missing {
-            opacity: 0.5;
-
-            :global(img) {
-                filter: grayscale(75%);
-            }
-        }
-    }
     .difficulties {
         position: absolute;
         bottom: 1px;
@@ -103,13 +88,6 @@
         pointer-events: none;
         white-space: nowrap;
     }
-    .collected {
-        color: $colour-success;
-        pointer-events: none;
-        position: absolute;
-        top: -4px;
-        right: -2px;
-    }
 </style>
 
 {#each appearances as [appearance, userHas]}
@@ -118,7 +96,7 @@
         ($journalState.showUncollected && !userHas)
     }
     <div
-        class="appearance quality{getQuality(appearance)}"
+        class="quality{getQuality(appearance)}"
         class:missing={
             (!$journalState.highlightMissing && !userHas) ||
             ($journalState.highlightMissing && userHas)
@@ -136,7 +114,7 @@
         </a>
 
         {#if userHas}
-            <div class="collected drop-shadow">
+            <div class="collected-icon drop-shadow">
                 <IconifyIcon icon={mdiCheckboxOutline} />
             </div>
         {/if}

@@ -1,6 +1,20 @@
 .collection {
     border: 1px solid $border-color;
 
+    & + .collection {
+        border-top-width: 0;
+    }
+
+    &:not(:first-child) {
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }
+
+    &:not(:last-child) {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
     h3 {
         margin: 0;
         padding: 0.25rem 0.5rem;
@@ -18,7 +32,7 @@
 .collection-section {
     display: flex;
     flex-wrap: wrap;
-    padding: 0.5rem 0 0 0.75rem;
+    padding: 0.5rem 0 0.5rem 0.75rem;
     width: 100%;
 }
 
@@ -34,4 +48,33 @@
 .collection-objects {
     display: flex;
     flex-wrap: wrap;
+
+    > div {
+        --image-border-color: #bbb;
+        --image-border-width: 2px;
+
+        margin-bottom: 0.3rem;
+        margin-right: 0.3rem;
+        position: relative;
+
+        &.has-not {
+            --image-border-color: #{darken($colour-fail, 10%)};
+        }
+
+        &.missing {
+            opacity: 0.5;
+
+            img {
+                filter: grayscale(75%);
+            }
+        }
+
+        .collected-icon {
+            color: $colour-success;
+            pointer-events: none;
+            position: absolute;
+            top: -4px;
+            right: -2px;
+        }
+    }
 }

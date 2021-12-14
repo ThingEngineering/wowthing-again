@@ -26,7 +26,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheJournal,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(24),
-            Version = 9,
+            Version = 10,
         };
 
         public override async Task Run(params string[] data)
@@ -85,7 +85,9 @@ namespace Wowthing.Backend.Jobs.Misc
                 .GroupBy(encounter => encounter.JournalInstanceID)
                 .ToDictionary(
                     group => group.Key,
-                    group => group.OrderBy(encounter => encounter.OrderIndex)
+                    group => group
+                        .OrderBy(encounter => encounter.OrderIndex)
+                        .ToList()
                 );
 
             var itemsByEncounterId = (await DataUtilities.LoadDumpCsvAsync<DumpJournalEncounterItem>("journalencounteritem"))
@@ -135,7 +137,10 @@ namespace Wowthing.Backend.Jobs.Misc
                 .AsNoTracking()
                 .Where(item => 
                     item.ClassId == 2 ||
-                    (item.ClassId == 4 && item.SubclassId != 0)
+                    item.ClassId == 4 && (
+                        item.SubclassId != 0 ||
+                        item.InventoryType == 23 // Held in Off-hand
+                    )
                 )
                 .ToDictionaryAsync(item => item.Id);
             
@@ -183,42 +188,67 @@ namespace Wowthing.Backend.Jobs.Misc
                             instanceData.BonusIds = bonusIds;
                         }
 
+                        // Instance has trash drops, add a fake encounter
+                        if (Hardcoded.ExtraItemDrops.ContainsKey(1000000 + instanceId))
+                        {
+                            encountersByInstanceId[instanceId].Insert(0, new DumpJournalEncounter
+                            {
+                                ID = 1000000 + instanceId,
+                                JournalInstanceID = instanceId,
+                                OrderIndex = -1,
+                            });
+                        }
+                        
                         foreach (var encounter in encountersByInstanceId[instanceId])
                         {
-                            var encounterData = new OutJournalEncounter
-                            {
-                                Name = stringMap[(StringType.WowJournalEncounterName, encounter.ID)],
-                            };
-
+                            OutJournalEncounter encounterData;
                             var items = new List<DumpJournalEncounterItem>();
-                            var fakeItems = new Dictionary<int, DumpJournalEncounterItem>();
-                            foreach (var encounterItem in itemsByEncounterId[encounter.ID])
+
+                            if (encounter.ID > 1000000)
                             {
-                                if (Hardcoded.ItemExpansions.TryGetValue(encounterItem.ItemID, out var expandedItems))
+                                encounterData = new OutJournalEncounter
                                 {
-                                    //Logger.Debug("Expanding items for {Id}", encounterItem.ItemID);
-                                    foreach (int itemId in expandedItems)
+                                    Name = "Trash Drops",
+                                };
+                            }
+                            else
+                            {
+                                encounterData = new OutJournalEncounter
+                                {
+                                    Name = stringMap[(StringType.WowJournalEncounterName, encounter.ID)],
+                                };
+
+                                var fakeItems = new Dictionary<int, DumpJournalEncounterItem>();
+                                foreach (var encounterItem in itemsByEncounterId[encounter.ID])
+                                {
+                                    if (Hardcoded.ItemExpansions.TryGetValue(encounterItem.ItemID,
+                                        out var expandedItems))
                                     {
-                                        if (!fakeItems.ContainsKey(itemId))
+                                        //Logger.Debug("Expanding items for {Id}", encounterItem.ItemID);
+                                        foreach (int itemId in expandedItems)
                                         {
-                                            fakeItems[itemId] = new DumpJournalEncounterItem
+                                            if (!fakeItems.ContainsKey(itemId))
                                             {
-                                                ID = encounterItem.ID,
-                                                DifficultyMask = encounterItem.DifficultyMask,
-                                                FactionMask = encounterItem.FactionMask,
-                                                Flags = encounterItem.Flags,
-                                                ItemID = itemId,
-                                                JournalEncounterID = encounter.ID,
-                                            };
+                                                fakeItems[itemId] = new DumpJournalEncounterItem
+                                                {
+                                                    ID = encounterItem.ID,
+                                                    DifficultyMask = encounterItem.DifficultyMask,
+                                                    FactionMask = encounterItem.FactionMask,
+                                                    Flags = encounterItem.Flags,
+                                                    ItemID = itemId,
+                                                    JournalEncounterID = encounter.ID,
+                                                };
+                                            }
                                         }
                                     }
+                                    else
+                                    {
+                                        items.Add(encounterItem);
+                                    }
                                 }
-                                else
-                                {
-                                    items.Add(encounterItem);
-                                }
+
+                                items.AddRange(fakeItems.Values);
                             }
-                            items.AddRange(fakeItems.Values);
 
                             if (Hardcoded.ExtraItemDrops.TryGetValue(encounter.ID, out var extraItems))
                             {
@@ -237,7 +267,7 @@ namespace Wowthing.Backend.Jobs.Misc
                                     });
                                 }
                             }
-                            
+
                             var itemGroups = new Dictionary<string, OutJournalEncounterItemGroup>();
                             foreach (var encounterItem in items)
                             {
@@ -446,8 +476,8 @@ namespace Wowthing.Backend.Jobs.Misc
                     groupName = "Plate";
                     groupOrder = 4;
                 }
-                // Shields
-                else if (item.SubclassId == 6)
+                // Shields, off-hands
+                else if (item.SubclassId == 6 || item.InventoryType == 23)
                 {
                     groupName = "Weapons";
                     groupOrder = 10;

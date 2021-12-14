@@ -4,14 +4,17 @@
     import { getContext } from 'svelte'
 
     import { userStore } from '@/stores'
-    import getPercentClass from "@/utils/get-percent-class";
+    import { collectionState } from '@/stores/local-storage'
+    import getPercentClass from '@/utils/get-percent-class'
     import tippy from '@/utils/tippy'
     import type { StaticDataSetCategory } from '@/types'
     import type { CollectionContext } from '@/types/contexts'
 
+    import Checkbox from '@/components/forms/CheckboxInput.svelte'
     import CollectionCount from './CollectionCount.svelte'
     import CollectionThing from './CollectionThing.svelte'
     import CollectionThingPet from './CollectionThingPet.svelte'
+    import SectionTitle from './CollectionSectionTitle.svelte'
 
     export let slug1: string
     export let slug2: string
@@ -31,92 +34,93 @@
 </script>
 
 <style lang="scss">
-    .section {
+    button {
+        background: $highlight-background;
         border: 1px solid $border-color;
-
-        &:not(:last-child) {
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
-        }
+        border-radius: $border-radius;
+        margin-left: 0.25rem;
     }
-    .section + .section {
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-        border-top-width: 0;
-        //margin-top: 1rem;
-    }
-    h3 {
-        margin: 0;
-        padding: 0.25rem 0.5rem;
+    .wrapper {
+        display: flex;
+        flex-direction: column;
         width: 100%;
-        background: $collection-background;
-        border-bottom: 1px solid $border-color;
-        border-top-left-radius: $border-radius;
-        border-top-right-radius: $border-radius;
-        color: #ddd;
+    }
+    .toggles {
+        align-items: center;
+        display: flex;
+        margin-bottom: calc(0.75rem - 1px);
+    }
+    .show {
+        margin: 0 0.25rem 0 0.5rem;
     }
     .counts {
         font-size: 1rem;
         font-weight: normal;
         margin-left: 0.5rem;
     }
-    .container {
-        display: flex;
-        flex-wrap: wrap;
-        padding: 0.5rem 0 0 0.75rem;
-    }
-    .collection-group {
-        margin: 0 0.75rem 0.75rem 0;
-
-        p {
-            margin: 0 0 0.1rem 0;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-    }
-    .wrapper {
-        align-items: flex-start;
-        display: flex;
-        justify-items: flex-start;
-    }
 </style>
 
-{#each sections as section}
-    <div class="section thing-container">
-        {#if section.name}
-            <h3>
-                {section.name}
-                <span class="counts">
-                    <CollectionCount
-                        counts={$userStore.data.setCounts[route][`${slug1}--${section.slug}`]}
-                    />
-                </span>
-            </h3>
-        {/if}
-        <div class="container">
-            {#each section.groups as group, i (`${thingType}--${slug1}--${section.slug}--${i}`)}
-                <div
-                    class="collection-group"
-                    style="width: {(44 * group.things.length) + (3 * (group.things.length - 1))}px;"
-                >
-                    <p
-                        class="drop-shadow {getPercentClass($userStore.data.setCounts[route][`${slug1}--${section.slug}--${group.name}`])}"
-                        use:tippy={group.name}
-                    >
-                        {group.name}
-                    </p>
-                    <div class="wrapper">
-                        {#each group.things as things}
-                            {#if thingType === 'npc'}
-                                <CollectionThingPet {things} />
-                            {:else}
-                                <CollectionThing {things} />
-                            {/if}
-                        {/each}
-                    </div>
-                </div>
-            {/each}
-        </div>
+
+<div class="wrapper">
+    <div class="toggles">
+        <button>
+            <Checkbox
+                name="highlight_missing"
+                bind:value={$collectionState.highlightMissing[route]}
+            >Highlight missing</Checkbox>
+        </button>
+
+        <!--
+        <span class="show">Show:</span>
+
+        <button>
+            <Checkbox
+                name="show_collected"
+                bind:value={$collectionState.showCollected[route]}
+            >Collected</Checkbox>
+        </button>
+
+        <button>
+            <Checkbox
+                name="show_uncollected"
+                bind:value={$collectionState.showUncollected[route]}
+            >Missing</Checkbox>
+        </button>
+        -->
     </div>
-{/each}
+
+    {#each sections as section}
+        <div class="collection thing-container">
+            {#if section.name}
+                <SectionTitle
+                    title={section.name}
+                    count={$userStore.data.setCounts[route][`${slug1}--${section.slug}`]}
+                />
+            {/if}
+
+            <div class="collection-section">
+                {#each section.groups as group, i (`${thingType}--${slug1}--${section.slug}--${i}`)}
+                    <div
+                        class="collection-group"
+                        style="width: calc({44 * group.things.length}px + {0.3 * group.things.length}em);"
+                    >
+                        <h4
+                            class="drop-shadow text-overflow {getPercentClass($userStore.data.setCounts[route][`${slug1}--${section.slug}--${group.name}`])}"
+                            use:tippy={group.name}
+                        >{group.name}</h4>
+
+                        <div class="collection-objects">
+                            {#each group.things as things}
+                                {#if thingType === 'npc'}
+                                    <CollectionThingPet {things} />
+                                {:else}
+                                    <CollectionThing {things} />
+                                {/if}
+                            {/each}
+                        </div>
+                    </div>
+                {/each}
+            </div>
+        </div>
+    {/each}
+</div>

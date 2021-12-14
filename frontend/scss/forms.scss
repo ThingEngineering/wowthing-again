@@ -5,6 +5,10 @@ input[type='checkbox'] {
 }
 
 .fancy-checkbox {
+    &.disabled {
+        color: $colour-fail;
+    }
+
     label {
         cursor: pointer;
         position: relative;

@@ -1,10 +1,13 @@
 <script lang="ts">
+    import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
     import find from 'lodash/find'
     import { getContext } from 'svelte'
     import type { SvelteComponent } from 'svelte'
 
+    import { collectionState } from '@/stores/local-storage'
     import type {CollectionContext} from '@/types/contexts'
 
+    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import ItemLink from '@/components/links/ItemLink.svelte'
     import NpcLink from '@/components/links/NpcLink.svelte'
     import SpellLink from '@/components/links/SpellLink.svelte'
@@ -12,8 +15,9 @@
 
     export let things: number[] = []
 
-    const { thingMap, thingType, userHas } = getContext('collection') as CollectionContext
+    const { route, thingMap, thingType, userHas } = getContext('collection') as CollectionContext
 
+    let showAsMissing: boolean
     let userHasThing: number | undefined
     let origId: number
     let component: typeof SvelteComponent
@@ -24,6 +28,13 @@
                 userHas[thingMap[value] || -1] !== undefined,
         )
         origId = userHasThing ?? things[0]
+
+        if (userHasThing) {
+            showAsMissing = $collectionState.highlightMissing[route]
+        }
+        else {
+            showAsMissing = !$collectionState.highlightMissing[route]
+        }
 
         if (thingType === 'item') {
             component = ItemLink
@@ -38,25 +49,23 @@
 </script>
 
 <style lang="scss">
-    div {
-        border-radius: $border-radius;
-        display: inline-block;
-
-        &.thing-yes {
-            border: 2px solid #44aa44;
-        }
-        &.thing-no {
-            border: 2px solid $border-color;
-            opacity: 0.5;
-        }
-    }
-    div:not(:first-of-type) {
-        margin-left: 3px;
-    }
 </style>
 
-<div class:thing-yes={userHasThing} class:thing-no={!userHasThing}>
+<div
+    class:has-not={!userHasThing}
+    class:missing={showAsMissing}
+>
     <svelte:component this={component} id={origId}>
-        <WowthingImage name="{thingType}/{origId}" size={40} />
+        <WowthingImage
+            name="{thingType}/{origId}"
+            size={40}
+            border={2}
+        />
     </svelte:component>
+
+    {#if userHasThing}
+        <div class="collected-icon drop-shadow">
+            <IconifyIcon icon={mdiCheckboxOutline} />
+        </div>
+    {/if}
 </div>
