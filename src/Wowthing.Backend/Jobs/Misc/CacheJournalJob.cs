@@ -449,8 +449,8 @@ namespace Wowthing.Backend.Jobs.Misc
                     groupName = "Plate";
                     groupOrder = 4;
                 }
-                // Shields
-                else if (item.SubclassId == 6)
+                // Shields, off-hands
+                else if (item.SubclassId == 6 || item.InventoryType == 23)
                 {
                     groupName = "Weapons";
                     groupOrder = 10;
