@@ -14,6 +14,7 @@
     import CollectionCount from './CollectionCount.svelte'
     import CollectionThing from './CollectionThing.svelte'
     import CollectionThingPet from './CollectionThingPet.svelte'
+    import SectionTitle from './CollectionSectionTitle.svelte'
 
     export let slug1: string
     export let slug2: string
@@ -91,15 +92,12 @@
     {#each sections as section}
         <div class="collection thing-container">
             {#if section.name}
-                <h3>
-                    {section.name}
-                    <span class="counts">
-                        <CollectionCount
-                            counts={$userStore.data.setCounts[route][`${slug1}--${section.slug}`]}
-                        />
-                    </span>
-                </h3>
+                <SectionTitle
+                    title={section.name}
+                    count={$userStore.data.setCounts[route][`${slug1}--${section.slug}`]}
+                />
             {/if}
+
             <div class="collection-section">
                 {#each section.groups as group, i (`${thingType}--${slug1}--${section.slug}--${i}`)}
                     <div

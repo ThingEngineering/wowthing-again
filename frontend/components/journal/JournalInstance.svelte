@@ -6,7 +6,7 @@
     import type { JournalDataInstance, JournalDataTier } from '@/types/data'
 
     import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
-    import CollectionCount from '@/components/collections/CollectionCount.svelte'
+    import SectionTitle from '@/components/collections/CollectionSectionTitle.svelte'
     import Group from './JournalGroup.svelte'
 
     export let slug1: string
@@ -116,11 +116,10 @@
     {#if instance}
         <div class="collection thing-container">
             {#each instance.encounters as encounter}
-                <h3>
-                    {encounter.name}
-                    <CollectionCount
-                        counts={$journalStore.data.stats[`${slug1}--${slug2}--${encounter.name}`]} />
-                </h3>
+                <SectionTitle
+                    title={encounter.name}
+                    count={$journalStore.data.stats[`${slug1}--${slug2}--${encounter.name}`]}
+                />
                 <div class="collection-section">
                     {#each encounter.groups as group}
                         <Group
