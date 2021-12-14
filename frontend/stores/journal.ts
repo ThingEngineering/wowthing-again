@@ -18,7 +18,7 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
 
         for (const tier of data.tiers) {
             for (const instance of tier.instances) {
-                if (instance.encountersRaw) {
+                if (instance.encountersRaw !== null) {
                     instance.encounters = instance.encountersRaw
                         .map((encounterArray) => new JournalDataEncounter(...encounterArray))
                     instance.encountersRaw = null
