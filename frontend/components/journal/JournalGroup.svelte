@@ -21,7 +21,7 @@
             $journalState,
             $settingsData,
             $userTransmogStore.data,
-            group.items
+            group
         )
         percent = Math.floor((stats?.have ?? 0) / (stats?.total ?? 1) * 100)
     }

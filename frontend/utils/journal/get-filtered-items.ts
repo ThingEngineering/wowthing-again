@@ -5,15 +5,14 @@ import some from 'lodash/some'
 import { PlayableClassMask } from '@/types/enums'
 import type { JournalState } from '@/stores/local-storage'
 import type { Settings } from '@/types'
-import type { JournalDataEncounterItem, UserTransmogData } from '@/types/data'
-import { ArmorSubclass, ItemClass } from '@/types/enums'
+import type { JournalDataEncounterItemGroup, JournalDataEncounterItem, UserTransmogData } from '@/types/data'
 
 
 export default function getFilteredItems(
     journalState: JournalState,
     settingsData: Settings,
     userTransmogData: UserTransmogData,
-    items: JournalDataEncounterItem[]
+    group: JournalDataEncounterItemGroup
 ): JournalDataEncounterItem[] {
     let classMask = 0
 
@@ -58,7 +57,7 @@ export default function getFilteredItems(
     }
 
     return filter(
-        items,
+        group.items,
         (item: JournalDataEncounterItem) => {
             let keep = true
 
@@ -67,28 +66,23 @@ export default function getFilteredItems(
                 keep = (item.classMask & classMask) > 0
             }
 
-            // Weapons
-            if (keep && item.classId === ItemClass.Weapon) {
-                keep = journalState.showWeapons
+            // Armor types
+            if (keep && group.name === 'Cloth') {
+                keep = journalState.showCloth
+            }
+            if (keep && group.name === 'Leather') {
+                keep = journalState.showLeather
+            }
+            if (keep && group.name === 'Mail') {
+                keep = journalState.showMail
+            }
+            if (keep && group.name === 'Plate') {
+                keep = journalState.showPlate
             }
 
-            // Armor types
-            if (keep && item.classId === ItemClass.Armor) {
-                if (item.subclassId === ArmorSubclass.Cloth) {
-                    keep = journalState.showCloth
-                }
-                else if (item.subclassId === ArmorSubclass.Leather) {
-                    keep = journalState.showLeather
-                }
-                else if (item.subclassId === ArmorSubclass.Mail) {
-                    keep = journalState.showMail
-                }
-                else if (item.subclassId === ArmorSubclass.Plate) {
-                    keep = journalState.showPlate
-                }
-                else if (item.subclassId === ArmorSubclass.Shield) {
-                    keep = journalState.showWeapons
-                }
+            // Weapons
+            if (keep && group.name === 'Weapons') {
+                keep = journalState.showWeapons
             }
 
             // Timewalking
