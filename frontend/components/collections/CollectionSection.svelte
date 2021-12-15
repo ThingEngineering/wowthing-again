@@ -11,7 +11,6 @@
     import type { CollectionContext } from '@/types/contexts'
 
     import Checkbox from '@/components/forms/CheckboxInput.svelte'
-    import CollectionCount from './CollectionCount.svelte'
     import CollectionThing from './CollectionThing.svelte'
     import CollectionThingPet from './CollectionThingPet.svelte'
     import SectionTitle from './CollectionSectionTitle.svelte'
@@ -34,35 +33,15 @@
 </script>
 
 <style lang="scss">
-    button {
-        background: $highlight-background;
-        border: 1px solid $border-color;
-        border-radius: $border-radius;
-        margin-left: 0.25rem;
-    }
     .wrapper {
         display: flex;
         flex-direction: column;
         width: 100%;
     }
-    .toggles {
-        align-items: center;
-        display: flex;
-        margin-bottom: calc(0.75rem - 1px);
-    }
-    .show {
-        margin: 0 0.25rem 0 0.5rem;
-    }
-    .counts {
-        font-size: 1rem;
-        font-weight: normal;
-        margin-left: 0.5rem;
-    }
 </style>
 
-
 <div class="wrapper">
-    <div class="toggles">
+    <div class="options-container">
         <button>
             <Checkbox
                 name="highlight_missing"
@@ -71,7 +50,7 @@
         </button>
 
         <!--
-        <span class="show">Show:</span>
+        <span>Show:</span>
 
         <button>
             <Checkbox
