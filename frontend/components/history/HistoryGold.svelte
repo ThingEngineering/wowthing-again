@@ -72,7 +72,7 @@
             options: {
                 animation: false,
                 color: '#fff',
-                //radius: 5,
+                radius: 5,
                 responsive: true,
                 spanGaps: true,
                 interaction: {
