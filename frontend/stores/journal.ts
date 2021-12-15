@@ -63,7 +63,7 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                             journalState,
                             settingsData,
                             null,
-                            group.items
+                            group
                         )
                         for (const item of items) {
                             for (const appearance of item.appearances) {

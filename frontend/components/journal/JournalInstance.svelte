@@ -22,31 +22,13 @@
 </script>
 
 <style lang="scss">
-    button {
-        background: $highlight-background;
-        border: 1px solid $border-color;
-        border-radius: $border-radius;
-        margin-left: 0.25rem;
-
-        &.margin-left {
-            margin-left: 0.75rem;
-        }
-    }
     .wrapper {
         width: 100%;
-    }
-    .toggles {
-        align-items: center;
-        display: flex;
-        margin-bottom: calc(0.75rem - 1px);
-    }
-    .show {
-        margin-left: 0.5rem;
     }
 </style>
 
 <div class="wrapper">
-    <div class="toggles">
+    <div class="options-container">
         <button>
             <CheckboxInput
                 name="highlight_missing"
@@ -54,7 +36,7 @@
             >Highlight missing</CheckboxInput>
         </button>
 
-        <span class="show">Show:</span>
+        <span>Show:</span>
 
         <button>
             <CheckboxInput

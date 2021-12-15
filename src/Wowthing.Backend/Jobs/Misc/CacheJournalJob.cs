@@ -221,8 +221,7 @@ namespace Wowthing.Backend.Jobs.Misc
                                 var fakeItems = new Dictionary<int, DumpJournalEncounterItem>();
                                 foreach (var encounterItem in itemsByEncounterId[encounter.ID])
                                 {
-                                    if (Hardcoded.ItemExpansions.TryGetValue(encounterItem.ItemID,
-                                        out var expandedItems))
+                                    if (Hardcoded.ItemExpansions.TryGetValue(encounterItem.ItemID, out var expandedItems))
                                     {
                                         //Logger.Debug("Expanding items for {Id}", encounterItem.ItemID);
                                         foreach (int itemId in expandedItems)

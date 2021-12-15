@@ -13,13 +13,16 @@
     } from 'chart.js'
     import 'chartjs-adapter-luxon'
     import { onMount } from 'svelte'
-    //import type { Item } from 'chart.js'
 
     import { colors } from '@/data/colors'
     import { staticStore, userHistoryStore } from '@/stores'
+    import { historyState } from '@/stores/local-storage'
     import { Region } from '@/types/enums'
     import parseApiTime from '@/utils/parse-api-time'
+    import type { HistoryState } from '@/stores/local-storage'
     import type { StaticDataRealm } from '@/types'
+
+    import Checkbox from '@/components/forms/CheckboxInput.svelte'
 
     Chart.register(
         LineElement,
@@ -33,7 +36,20 @@
         Tooltip,
     )
 
-    onMount(() => {
+    let chart: Chart
+    $: {
+        if (document.getElementById('gold-chart')) {
+            redrawChart($historyState)
+        }
+    }
+
+    onMount(() => redrawChart($historyState))
+
+    const redrawChart = function(historyState: HistoryState) {
+        if (chart) {
+            chart.destroy()
+        }
+
         const data: { datasets: any[] } = {
             datasets: [],
         }
@@ -52,27 +68,26 @@
             const [realmName, realmId] = realms[realmIndex]
             data.datasets.push({
                 backgroundColor: colors[realmIndex],
-                borderColor: '#000',
-                borderWidth: 1,
+                borderColor: historyState.stacked ? '#000' : colors[realmIndex],
+                borderWidth: historyState.stacked ? 1 : 2,
+                fill: historyState.stacked,
+                label: realmName,
+                spanGaps: true,
                 data: $userHistoryStore.data.gold[realmId].map((point) => ({
                     x: parseApiTime(point[0]),
                     y: point[1],
                 })),
-                fill: true,
-                label: realmName,
-                spanGaps: true,
             })
         }
 
         const ctx = document.getElementById('gold-chart') as HTMLCanvasElement
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const chart = new Chart(ctx, {
+        chart = new Chart(ctx, {
             type: 'line',
             data,
             options: {
                 animation: false,
                 color: '#fff',
-                //radius: 5,
+                radius: 5,
                 responsive: true,
                 spanGaps: true,
                 interaction: {
@@ -124,10 +139,11 @@
                         },
                         time: {
                             tooltipFormat: 'ff', // less short localized date and time
+                            minUnit: 'day',
                         },
                     },
                     y: {
-                        stacked: true,
+                        stacked: historyState.stacked,
                         grid: {
                             color: '#666',
                         },
@@ -141,7 +157,7 @@
                 },
             },
         })
-    })
+    }
 </script>
 
 <style lang="scss">
@@ -156,6 +172,17 @@
     }
 </style>
 
-<div class="thing-container">
-    <canvas id="gold-chart"></canvas>
+<div class="view">
+    <div class="options-container">
+        <button>
+            <Checkbox
+                name="highlight_missing"
+                bind:value={$historyState.stacked}
+            >Stacked area</Checkbox>
+        </button>
+    </div>
+
+    <div class="thing-container">
+        <canvas id="gold-chart"></canvas>
+    </div>
 </div>

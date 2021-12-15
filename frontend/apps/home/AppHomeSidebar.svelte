@@ -1,4 +1,5 @@
 <script lang="ts">
+    import mdiWardrobeOutline from '@iconify/icons-mdi/wardrobe-outline'
     import active from 'svelte-spa-router/active'
 
     import { dropType } from '@/data/farm'
@@ -121,7 +122,7 @@
     </li>
     <li use:active={'/appearances/*'}>
         <a href="#/appearances/">
-            <IconifyIcon icon={dropType.transmog} />
+            <IconifyIcon icon={mdiWardrobeOutline} />
             Sets
         </a>
         <span class="drop-shadow percent {getPercentClass(transmogPercent)}">{fancyPercent(transmogPercent)} %</span>

@@ -1,0 +1,22 @@
+.options-container {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 0.75rem;
+
+    button {
+        background: $highlight-background;
+        border: 1px solid $border-color;
+        border-radius: $border-radius;
+        margin-right: 0.25rem;
+
+        &.margin-left {
+            margin-left: 0.5rem;
+        }
+    }
+
+    span {
+        margin-left: 0.25rem;
+        margin-right: 0.5rem;
+    }
+}
