@@ -124,6 +124,7 @@
                         },
                         time: {
                             tooltipFormat: 'ff', // less short localized date and time
+                            minUnit: 'day',
                         },
                     },
                     y: {
