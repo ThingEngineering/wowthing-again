@@ -8,12 +8,8 @@ export default function getSavedRoute(route: string, slug1?: string, slug2?: str
         const subSidebar = document.getElementById('sub-sidebar')
         if (subSidebar !== null) {
             if (saved !== null) {
-                const urlPath = `/${route}/${saved}`
-                const savedElement = subSidebar.querySelector(`li a[href="#${urlPath}"]`)
-                if (savedElement) {
-                    replace(urlPath)
-                    return
-                }
+                replace(`/${route}/${saved}`)
+                return
             }
 
             const first = subSidebar.querySelector('li a')
