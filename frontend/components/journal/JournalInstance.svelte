@@ -14,6 +14,7 @@
 
     let instance: JournalDataInstance
     $: {
+        instance = undefined
         const tier: JournalDataTier = find($journalStore.data.tiers, (tier) => tier.slug === slug1)
         if (tier) {
             instance = find(tier.instances, (instance) => instance.slug === slug2)
