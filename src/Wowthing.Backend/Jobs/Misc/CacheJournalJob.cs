@@ -26,7 +26,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheJournal,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(24),
-            Version = 10,
+            Version = 11,
         };
 
         public override async Task Run(params string[] data)
@@ -168,11 +168,12 @@ namespace Wowthing.Backend.Jobs.Misc
                         Id = tier.ID,
                         Name = stringMap[(StringType.WowJournalTierName, tier.ID)],
                     };
-
-                    var instances = tierToInstance[tier.ID]
+                    var legacyLoot = tier.ID <= 396; // Battle for Azeroth
+                    
+                    var instanceIds = tierToInstance[tier.ID]
                         .OrderBy(instanceId => instancesById[instanceId].OrderIndex)
                         .ToArray();
-                    foreach (var instanceId in instances)
+                    foreach (var instanceId in instanceIds)
                     {
                         var instance = instancesById[instanceId];
                         var mapDifficulties = difficultiesByMapId[instance.MapID];
@@ -360,7 +361,7 @@ namespace Wowthing.Backend.Jobs.Misc
                                 group.Items.Add(new OutJournalEncounterItem
                                 {
                                     Id = encounterItem.ItemID,
-                                    ClassMask = item.CalculatedClassMask,
+                                    ClassMask = item.GetCalculatedClassMask(legacyLoot),
                                     ClassId = item.ClassId,
                                     SubclassId = subclassId,
                                     Quality = item.Quality,
