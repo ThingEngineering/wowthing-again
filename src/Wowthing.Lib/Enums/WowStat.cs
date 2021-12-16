@@ -10,5 +10,6 @@
         AgilityStrength = 11,
         IntellectStrength = 12,
         AgilityIntellectStrength = 13,
+        TransmogOnly = 100,
     }
 }

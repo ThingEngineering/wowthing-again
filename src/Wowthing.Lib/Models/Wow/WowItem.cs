@@ -21,61 +21,68 @@ namespace Wowthing.Lib.Models.Wow
         public WowQuality Quality { get; set; }
         public WowStat PrimaryStat { get; set; }
 
-        public int CalculatedClassMask
+        public int GetCalculatedClassMask(bool legacyLoot = false)
         {
-            get
+            if (ClassMask > 0)
             {
-                if (ClassMask > 0)
-                {
-                    return ClassMask;
-                }
-
-                int classMask = 0;
-                var itemStats = new HashSet<WowStat>(Hardcoded.StatToStats[PrimaryStat]);
-
-                // Weapons
-                if (ClassId == 2)
-                {
-                    foreach (var classData in Hardcoded.Characters)
-                    {
-                        if (classData.WeaponTypes
-                            .Any((t =>
-                                    (short)t.Item1 == SubclassId &&
-                                    (
-                                        PrimaryStat == WowStat.None ||
-                                        (
-                                            itemStats.Count > 0 && 
-                                            t.Item2.Any(stat => itemStats.Contains(stat))
-                                        )
-                                    )
-                                )))
-                        {
-                            classMask |= (int)classData.Mask;
-                        }
-                    }
-                }
-                // Armor types
-                else if (ClassId == 4 && Hardcoded.ArmorSubclassCharacterMask.TryGetValue(SubclassId, out int armorMask))
-                {
-                    classMask = armorMask;
-                }
-                else if (ClassId == 4 && PrimaryStat != WowStat.None)
-                {
-                    foreach (var classData in Hardcoded.Characters)
-                    {
-                        if (classData.ArmorTypes
-                            .Any((t =>
-                                    (int)t.Item1 == SubclassId &&
-                                    t.Item2.Any(stat => itemStats.Contains(stat))
-                                )))
-                        {
-                            classMask |= (int)classData.Mask;
-                        }
-                    }
-                }
-
-                return classMask;
+                return ClassMask;
             }
+
+            int classMask = 0;
+            var itemStats = new HashSet<WowStat>(Hardcoded.StatToStats[PrimaryStat]);
+
+            // Weapons
+            if (ClassId == 2)
+            {
+                foreach (var classData in Hardcoded.Characters)
+                {
+                    if (classData.WeaponTypes
+                        .Any((t =>
+                                (short)t.Item1 == SubclassId &&
+                                (
+                                    PrimaryStat == WowStat.None ||
+                                    legacyLoot ||
+                                    (
+                                        itemStats.Count > 0 && 
+                                        t.Item2.Any(stat => itemStats.Contains(stat))
+                                    )
+                                )
+                            )))
+                    {
+                        classMask |= (int)classData.Mask;
+                    }
+                }
+            }
+            // Armor types
+            else if (ClassId == 4 && Hardcoded.ArmorSubclassCharacterMask.TryGetValue(SubclassId, out int armorMask))
+            {
+                classMask = armorMask;
+            }
+            else if (ClassId == 4 && PrimaryStat != WowStat.None)
+            {
+                foreach (var classData in Hardcoded.Characters)
+                {
+                    if (classData.ArmorTypes
+                        .Any((t =>
+                                (int)t.Item1 == SubclassId &&
+                                (
+                                    PrimaryStat == WowStat.None ||
+                                    legacyLoot ||
+                                    (
+                                        itemStats.Count > 0 &&
+                                        t.Item2.Any(stat => itemStats.Contains(stat))
+                                    )
+                                )
+                            )
+                    )
+                    )
+                    {
+                        classMask |= (int)classData.Mask;
+                    }
+                }
+            }
+
+            return classMask;
         }
     }
 }
