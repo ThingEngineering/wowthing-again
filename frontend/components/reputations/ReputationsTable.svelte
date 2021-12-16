@@ -26,7 +26,7 @@
                 let repValue = -1
                 let paragonValue = -1
                 for (const repId of order) {
-                    repValue = Math.max(repValue, char.reputations?.[repId] || -1)
+                    repValue = Math.max(repValue, char.reputations?.[repId] ?? -1)
                     const paragon = char.paragons?.[repId]
                     if (paragon) {
                         if (paragon.rewardAvailable) {

@@ -1,7 +1,8 @@
 <script lang="ts">
-    import { onMount } from 'svelte'
+    import { afterUpdate, onMount } from 'svelte'
 
     import { userHistoryStore } from '@/stores'
+    import getSavedRoute from '@/utils/get-saved-route'
 
     import Gold from './HistoryGold.svelte'
     import Sidebar from './HistorySidebar.svelte'
@@ -11,6 +12,8 @@
     onMount(async () => {
         await userHistoryStore.fetch()
     })
+
+    afterUpdate(() => getSavedRoute('history', params.slug))
 </script>
 
 <Sidebar />

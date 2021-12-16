@@ -10,22 +10,23 @@
     let overall: UserCount
     $: {
         categories = $journalStore.data.tiers.map((tier: JournalDataTier) => ({
-            children: tier.instances.map((instance) => ({
-                name: instance.name,
-                slug: instance.slug,
-            })),
-            name: tier.name,
-            slug: tier.slug,
+            children: tier.instances,
+            ...tier,
         }))
+
+        categories.push(null)
+        categories.push({
+            name: 'Empty',
+            slug: 'empty',
+        })
 
         overall = $journalStore.data.stats['OVERALL']
     }
 
-
     const percentFunc = function(entry: SidebarItem, parentEntry?: SidebarItem) {
         const slug = parentEntry ? `${parentEntry.slug}--${entry.slug}` : entry.slug
         const hasData = $journalStore.data.stats[slug]
-        return hasData.have / hasData.total * 100
+        return (hasData?.have ?? 0) / (hasData?.total ?? 1) * 100
     }
 </script>
 

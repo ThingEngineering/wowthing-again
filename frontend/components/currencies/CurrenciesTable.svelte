@@ -26,7 +26,7 @@
 
         const order = $currencyState.sortOrder[slug]
         if (order > 0) {
-            sortFunc = (char) => toDigits(1000000 - (char.currencies?.[order]?.quantity || -1), 7)
+            sortFunc = (char) => toDigits(1000000 - (char.currencies?.[order]?.quantity ?? -1), 7)
         }
         else {
             sortFunc = getCharacterSortFunc($settingsData)

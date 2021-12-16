@@ -1,4 +1,8 @@
 <script lang="ts">
+    import mdiChartLine from '@iconify/icons-mdi/chart-line'
+    import mdiHomeOutline from '@iconify/icons-mdi/home-outline'
+    import mdiLockOutline from '@iconify/icons-mdi/lock-outline'
+    import mdiMapOutline from '@iconify/icons-mdi/map-outline'
     import mdiWardrobeOutline from '@iconify/icons-mdi/wardrobe-outline'
     import active from 'svelte-spa-router/active'
 
@@ -56,7 +60,10 @@
 
 <Sidebar>
     <li use:active={'/'}>
-        <a href="#/">Home</a>
+        <a href="#/">
+            <IconifyIcon icon={mdiHomeOutline} />
+            Home
+        </a>
     </li>
 
     <li class="separator"></li>
@@ -69,13 +76,25 @@
     </li>
 
     {#if $userStore.loaded && !$userStore.data.public}
+        <li use:active={'/history/*'}>
+            <a href="#/history/">
+                <IconifyIcon icon={mdiChartLine} />
+                History
+            </a>
+        </li>
+    {/if}
+
+    {#if $userStore.loaded && !$userStore.data.public}
         <li use:active={'/items/*'}>
             <a href="#/items/">🚧 Items</a>
         </li>
     {/if}
 
     <li use:active={'/lockouts'}>
-        <a href="#/lockouts">Lockouts</a>
+        <a href="#/lockouts">
+            <IconifyIcon icon={mdiLockOutline} />
+            Lockouts
+        </a>
     </li>
     <li use:active={'/mythic-plus/*'}>
         <a href="#/mythic-plus/">Mythic+</a>
@@ -128,10 +147,11 @@
         <span class="drop-shadow percent {getPercentClass(transmogPercent)}">{fancyPercent(transmogPercent)} %</span>
     </li>
 
-    <li class="separator"></li>
-
     <li use:active={'/zone-maps/*'}>
-        <a href="#/zone-maps/">Zone Maps</a>
+        <a href="#/zone-maps/">
+            <IconifyIcon icon={mdiMapOutline} />
+            Zone Maps
+        </a>
     </li>
 
     <li class="separator"></li>
@@ -139,12 +159,6 @@
     <li use:active={'/achievements/*'}>
         <a href="#/achievements/summary">🚧 Achievements</a>
     </li>
-
-    {#if $userStore.loaded && !$userStore.data.public}
-        <li use:active={'/history/*'}>
-            <a href="#/history/">🚧 History</a>
-        </li>
-    {/if}
 
     <li class="separator"></li>
 

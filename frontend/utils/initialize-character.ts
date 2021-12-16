@@ -129,7 +129,7 @@ export default function initializeCharacter(character: Character): void {
 
                 setsData.push({
                     reputationId: repId,
-                    value: character.reputations?.[repId] || -1,
+                    value: character.reputations?.[repId] ?? -1,
                 })
             }
 
