@@ -16,20 +16,20 @@
 
     let appearances: [JournalDataEncounterItemAppearance, boolean][]
     $: {
-        appearances = []
-        for (const appearance of item.appearances) {
-            appearances.push([appearance, $userTransmogStore.data.userHas[appearance.appearanceId]])
-        }
+        appearances = item.appearances.map((appearance) => [
+            appearance,
+            $userTransmogStore.data.userHas[appearance.appearanceId]
+        ])
     }
 
     const getQuality = function(appearance: JournalDataEncounterItemAppearance): number {
         // Mythic Keystone/Mythic difficulties should probably set the quality to epic?
         for (const difficulty of appearance.difficulties) {
-            if (difficulty !== 8 && difficulty !== 23) {
-                return item.quality
+            if (difficulty === 23) {
+                return 4
             }
         }
-        return 4
+        return item.quality
     }
 
     const getBonusIds = function(appearance: JournalDataEncounterItemAppearance): number[] {
@@ -95,35 +95,35 @@
         ($journalState.showCollected && userHas) ||
         ($journalState.showUncollected && !userHas)
     }
-    <div
-        class="quality{getQuality(appearance)}"
-        class:missing={
-            (!$journalState.highlightMissing && !userHas) ||
-            ($journalState.highlightMissing && userHas)
-        }
-    >
-        <a href="{getItemUrl({
-            itemId: item.id,
-            bonusIds: getBonusIds(appearance),
-        })}">
-            <WowthingImage
-                name="item/{item.id}{appearance.modifierId > 0 ? `_${appearance.modifierId}` : ''}"
-                size={48}
-                border={2}
-            />
-        </a>
+        <div
+            class="quality{getQuality(appearance)}"
+            class:missing={
+                (!$journalState.highlightMissing && !userHas) ||
+                ($journalState.highlightMissing && userHas)
+            }
+        >
+            <a href="{getItemUrl({
+                itemId: item.id,
+                bonusIds: getBonusIds(appearance),
+            })}">
+                <WowthingImage
+                    name="item/{item.id}{appearance.modifierId > 0 ? `_${appearance.modifierId}` : ''}"
+                    size={48}
+                    border={2}
+                />
+            </a>
 
-        {#if userHas}
-            <div class="collected-icon drop-shadow">
-                <IconifyIcon icon={mdiCheckboxOutline} />
+            {#if userHas}
+                <div class="collected-icon drop-shadow">
+                    <IconifyIcon icon={mdiCheckboxOutline} />
+                </div>
+            {/if}
+
+            <div class="difficulties">
+                {#each getDifficulties(appearance) as difficulty}
+                    <span>{difficulty}</span>
+                {/each}
             </div>
-        {/if}
-
-        <div class="difficulties" data-difficulties="{JSON.stringify(appearance.difficulties)}">
-            {#each getDifficulties(appearance) as difficulty}
-                <span>{difficulty}</span>
-            {/each}
         </div>
-    </div>
     {/if}
 {/each}

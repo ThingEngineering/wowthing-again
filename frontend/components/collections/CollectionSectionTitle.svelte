@@ -9,7 +9,7 @@
 
     let percent: number
     $: {
-        percent = Math.floor(count.have / count.total * 100)
+        percent = Math.floor((count?.have ?? 0) / (count?.total ?? 1) * 100)
     }
 </script>
 
