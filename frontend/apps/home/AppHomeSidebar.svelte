@@ -1,9 +1,15 @@
 <script lang="ts">
-    import mdiChartLine from '@iconify/icons-mdi/chart-line'
-    import mdiHomeOutline from '@iconify/icons-mdi/home-outline'
-    import mdiLockOutline from '@iconify/icons-mdi/lock-outline'
-    import mdiMapOutline from '@iconify/icons-mdi/map-outline'
-    import mdiWardrobeOutline from '@iconify/icons-mdi/wardrobe-outline'
+    import iconConstruction from '@iconify/icons-emojione-monotone/construction'
+    import iconCurrencies from '@iconify/icons-mdi/cash-multiple'
+    import iconHistory from '@iconify/icons-mdi/chart-line'
+    import iconHome from '@iconify/icons-mdi/home-outline'
+    import iconLockouts from '@iconify/icons-mdi/lock-outline'
+    import iconMythicPlus from '@iconify/icons-ic/sharp-more-time'
+    import iconProgress from '@iconify/icons-mdi/progress-question'
+    import iconReputations from '@iconify/icons-mdi/account-star-outline'
+    import iconSets from '@iconify/icons-mdi/wardrobe-outline'
+    import iconSettings from '@iconify/icons-mdi/cog-outline'
+    import iconZoneMaps from '@iconify/icons-emojione-monotone/world-map'
     import active from 'svelte-spa-router/active'
 
     import { dropType } from '@/data/farm'
@@ -61,7 +67,7 @@
 <Sidebar>
     <li use:active={'/'}>
         <a href="#/">
-            <IconifyIcon icon={mdiHomeOutline} />
+            <IconifyIcon icon={iconHome} />
             Home
         </a>
     </li>
@@ -69,16 +75,22 @@
     <li class="separator"></li>
 
     <li use:active={'/currencies/*'}>
-        <a href="#/currencies/">Currencies</a>
+        <a href="#/currencies/">
+            <IconifyIcon icon={iconCurrencies} />
+            Currencies
+        </a>
     </li>
+
     <li use:active={'/gear/*'}>
-        <a href="#/gear/">Gear</a>
+        <a href="#/gear/">
+            Gear
+        </a>
     </li>
 
     {#if $userStore.loaded && !$userStore.data.public}
         <li use:active={'/history/*'}>
             <a href="#/history/">
-                <IconifyIcon icon={mdiChartLine} />
+                <IconifyIcon icon={iconHistory} />
                 History
             </a>
         </li>
@@ -92,18 +104,30 @@
 
     <li use:active={'/lockouts'}>
         <a href="#/lockouts">
-            <IconifyIcon icon={mdiLockOutline} />
+            <IconifyIcon icon={iconLockouts} />
             Lockouts
         </a>
     </li>
+
     <li use:active={'/mythic-plus/*'}>
-        <a href="#/mythic-plus/">Mythic+</a>
+        <a href="#/mythic-plus/">
+            <IconifyIcon icon={iconMythicPlus} />
+            Mythic+
+        </a>
     </li>
+
     <li use:active={'/progress/*'}>
-        <a href="#/progress/">Progress</a>
+        <a href="#/progress/">
+            <IconifyIcon icon={iconProgress} />
+            Progress
+        </a>
     </li>
+
     <li use:active={'/reputations/*'}>
-        <a href="#/reputations/">Reputations</a>
+        <a href="#/reputations/">
+            <IconifyIcon icon={iconReputations} />
+            Reputations
+        </a>
     </li>
 
     <li class="separator"></li>
@@ -115,6 +139,7 @@
         </a>
         <span class="drop-shadow percent {getPercentClass(mountsPercent)}">{fancyPercent(mountsPercent)} %</span>
     </li>
+
     <li use:active={'/pets/*'}>
         <a href="#/pets/">
             <IconifyIcon icon={dropType.pet} />
@@ -122,6 +147,7 @@
         </a>
         <span class="drop-shadow percent {getPercentClass(petsPercent)}">{fancyPercent(petsPercent)} %</span>
     </li>
+
     <li use:active={'/toys/*'}>
         <a href="#/toys/">
             <IconifyIcon icon={dropType.toy} />
@@ -139,9 +165,10 @@
         </a>
         <span class="drop-shadow percent {getPercentClass(journalPercent)}">{fancyPercent(journalPercent)} %</span>
     </li>
+
     <li use:active={'/appearances/*'}>
         <a href="#/appearances/">
-            <IconifyIcon icon={mdiWardrobeOutline} />
+            <IconifyIcon icon={iconSets} />
             Sets
         </a>
         <span class="drop-shadow percent {getPercentClass(transmogPercent)}">{fancyPercent(transmogPercent)} %</span>
@@ -149,7 +176,7 @@
 
     <li use:active={'/zone-maps/*'}>
         <a href="#/zone-maps/">
-            <IconifyIcon icon={mdiMapOutline} />
+            <IconifyIcon icon={iconZoneMaps} />
             Zone Maps
         </a>
     </li>
@@ -157,22 +184,33 @@
     <li class="separator"></li>
 
     <li use:active={'/achievements/*'}>
-        <a href="#/achievements/summary">🚧 Achievements</a>
+        <a href="#/achievements/summary">
+            <IconifyIcon icon={iconConstruction} />
+            Achievements
+        </a>
     </li>
-
-    <li class="separator"></li>
 
     <li use:active={'/cards'}>
-        <a href="#/cards">🙈 Home (Cards)</a>
+        <a href="#/cards">
+            <IconifyIcon icon={iconConstruction} />
+            Home (Cards)
+        </a>
     </li>
     <li use:active={'/teams'}>
-        <a href="#/teams">🙈 Teams</a>
+        <a href="#/teams">
+            <IconifyIcon icon={iconConstruction} />
+            Teams
+        </a>
     </li>
 
     {#if $userStore.loaded && !$userStore.data.public}
         <li class="separator"></li>
+
         <li use:active={'/settings/*'}>
-            <a href="#/settings/">Settings</a>
+            <a href="#/settings/">
+                <IconifyIcon icon={iconSettings} />
+                Settings
+            </a>
         </li>
     {/if}
 </Sidebar>
