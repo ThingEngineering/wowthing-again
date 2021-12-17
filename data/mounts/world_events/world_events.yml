@@ -22,6 +22,10 @@ groups:
   - 228919 # Darkwater Skate (Darkmoon Faire Vendor)
   - 102346 # Swift Forest Strider
 
+- name: Feast of Winter Veil
+  things:
+  - 191314 # Minion of Grumpus
+
 - name: Love is in the Air
   things:
   -  71342 # Big Love Rocket (Love is in the Air)
@@ -30,7 +34,3 @@ groups:
 - name: Noblegarden
   things:
   - 102349 # Swift Springstrider
-
-- name: Winter Veil
-  things:
-  - 191314 # Minion of Grumpus
