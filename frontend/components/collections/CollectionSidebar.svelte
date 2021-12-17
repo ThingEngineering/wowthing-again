@@ -6,7 +6,7 @@
     import type { CollectionContext } from '@/types/contexts'
 
     import ProgressBar from '@/components/common/ProgressBar.svelte'
-    import Sidebar from '@/components/sidebar/Sidebar.svelte'
+    import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
 
     const { route, sets } = getContext('collection') as CollectionContext
 

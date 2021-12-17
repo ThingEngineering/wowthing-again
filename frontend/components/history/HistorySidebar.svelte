@@ -1,7 +1,7 @@
 <script lang="ts">
     import type { SidebarItem } from '@/types'
 
-    import Sidebar from '@/components/sidebar/Sidebar.svelte'
+    import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
 
     let categories: SidebarItem[]
     $: {

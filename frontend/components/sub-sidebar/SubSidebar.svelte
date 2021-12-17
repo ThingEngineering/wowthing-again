@@ -3,7 +3,7 @@
 
     import type {SidebarItem} from '@/types'
 
-    import SidebarEntry from './SidebarEntry.svelte'
+    import SidebarEntry from './SubSidebarEntry.svelte'
 
     export let baseUrl: string
     export let items: SidebarItem[]
