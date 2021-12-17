@@ -1,7 +1,7 @@
 <script lang="ts">
     import some from 'lodash/some'
 
-    import type {SidebarItem} from '@/types'
+    import type { SidebarItem } from '@/types'
 
     import SidebarEntry from './SubSidebarEntry.svelte'
 

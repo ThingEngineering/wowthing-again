@@ -17,7 +17,7 @@
     import getPercentClass from '@/utils/get-percent-class'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import Sidebar from '@/components/common/Sidebar.svelte'
+    import Sidebar from '@/components/main-sidebar/MainSidebar.svelte'
 
     let journalPercent: number
     let mountsPercent: number
@@ -98,7 +98,10 @@
 
     {#if $userStore.loaded && !$userStore.data.public}
         <li use:active={'/items/*'}>
-            <a href="#/items/">🚧 Items</a>
+            <a href="#/items/">
+                <IconifyIcon icon={iconConstruction} />
+                Items
+            </a>
         </li>
     {/if}
 
@@ -196,6 +199,7 @@
             Home (Cards)
         </a>
     </li>
+
     <li use:active={'/teams'}>
         <a href="#/teams">
             <IconifyIcon icon={iconConstruction} />
