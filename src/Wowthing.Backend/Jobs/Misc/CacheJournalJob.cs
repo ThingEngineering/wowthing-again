@@ -367,6 +367,10 @@ namespace Wowthing.Backend.Jobs.Misc
                                     Quality = item.Quality,
                                     Appearances = itemAppearances
                                         .Values
+                                        .OrderBy(app => app.Difficulties
+                                            .Select(diff => Array.IndexOf(_difficultyOrder, diff))
+                                            .Min()
+                                        )
                                         .ToList(),
                                 });
                             }
