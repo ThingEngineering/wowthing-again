@@ -139,7 +139,7 @@ namespace Wowthing.Backend.Jobs.Misc
                     item.ClassId == 2 ||
                     item.ClassId == 4 && (
                         item.SubclassId != 0 ||
-                        item.InventoryType == 23 // Held in Off-hand
+                        item.InventoryType == WowInventoryType.HeldInOffHand
                     )
                 )
                 .ToDictionaryAsync(item => item.Id);
@@ -355,7 +355,7 @@ namespace Wowthing.Backend.Jobs.Misc
                                     }
                                 }
 
-                                short subclassId = item.InventoryType == (short)WowInventoryType.Back ? (short)0 : item.SubclassId;
+                                short subclassId = item.InventoryType == WowInventoryType.Back ? (short)0 : item.SubclassId;
                                 
                                 var group = GetGroup(itemGroups, item);
                                 group.Items.Add(new OutJournalEncounterItem
@@ -383,23 +383,16 @@ namespace Wowthing.Backend.Jobs.Misc
                                         // Armor
                                         if (itemMap[item.Id].ClassId == 4)
                                         {
-                                            if (itemMap[item.Id].SubclassId >= 1 && itemMap[item.Id].SubclassId <= 4)
-                                            {
-                                                return itemMap[item.Id].SubclassId;
-                                            }
-                                            else
-                                            {
-                                                return 5 + itemMap[item.Id].SubclassId;
-                                            }
+                                            return Array.IndexOf(Hardcoded.InventoryTypeOrder, itemMap[item.Id].InventoryType);
                                         }
                                         // Weapon
                                         else if (itemMap[item.Id].ClassId == 2)
                                         {
-                                            return 100 + itemMap[item.Id].SubclassId;
+                                            return itemMap[item.Id].SubclassId;
                                         }
                                         else
                                         {
-                                            return 1000000;
+                                            return 1000;
                                         }
                                     })
                                     .ThenBy(item => stringMap[(StringType.WowItemName, item.Id)])
@@ -450,7 +443,7 @@ namespace Wowthing.Backend.Jobs.Misc
             {
                 if (item.SubclassId == 1)
                 {
-                    if (item.InventoryType == (short)WowInventoryType.Back)
+                    if (item.InventoryType == WowInventoryType.Back)
                     {
                         groupName = "Cloaks";
                         groupOrder = 5;
@@ -477,7 +470,7 @@ namespace Wowthing.Backend.Jobs.Misc
                     groupOrder = 4;
                 }
                 // Shields, off-hands
-                else if (item.SubclassId == 6 || item.InventoryType == 23)
+                else if (item.SubclassId == 6 || item.InventoryType == WowInventoryType.HeldInOffHand)
                 {
                     groupName = "Weapons";
                     groupOrder = 10;
