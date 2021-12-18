@@ -665,7 +665,26 @@ namespace Wowthing.Backend.Data
             #region Dragon Soul
             #endregion
             
-            #region Firelands
+            #region Firelands ALL
+            { 71679, new[] { 71597, 71512, 71517, 71522, 71530, 71535 } }, // Conqueror Chest [H]
+            { 71686, new[] { 71600, 71604, 71547, 71552, 71542, 71501 } }, // Protector Chest [H]
+            { 71672, new[] { 71537, 71476, 71481, 71510, 71486, 71494, 71499 } }, // Vanquisher Chest [H]
+            
+            { 71676, new[] { 71594, 71532, 71527, 71513, 71518, 71523 } }, // Conqueror Gloves [H]
+            { 71683, new[] { 71553, 71548, 71543, 71502, 71601, 71605 } }, // Protector Gloves [H]
+            { 71669, new[] { 71538, 71477, 71482, 71507, 71496, 71487, 71491 } }, // Vanquisher Gloves [H]
+
+            { 71677, new[] { 71595, 71528, 71533, 71524, 71519, 71514 } }, // Conqueror Helm [H]
+            { 71684, new[] { 71544, 71554, 71549, 71606, 71503, 71599 } }, // Protector Helm [H]
+            { 71670, new[] { 71539, 71483, 71478, 71508, 71497, 71488, 71492 } }, // Vanquisher Helm [H]
+            
+            { 71678, new[] { 71596, 71520, 71525, 71515, 71534, 71529 } }, // Conqueror Legs [H]
+            { 71685, new[] { 71555, 71550, 71545, 71504, 71607, 71602 } }, // Protector Legs [H]
+            { 71671, new[] { 71540, 71479, 71484, 71509, 71498, 71489, 71493 } }, // Vanquisher Legs [H]
+            
+            { 71680, new[] { 71598, 71521, 71516, 71526, 71531, 71536 } }, // Conqueror Shoulders [H]
+            { 71687, new[] { 71546, 71556, 71551, 71505, 71603, 71608 } }, // Protector Shoulders [H]
+            { 71673, new[] { 71541, 71480, 71485, 71511, 71495, 71500, 71490 } }, // Vanquisher Shoulders [H]
             #endregion
             
             #region Bastion of Twilight/Blackwing Descent/Throne of the Four Winds
