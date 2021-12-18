@@ -57,10 +57,210 @@ namespace Wowthing.Backend.Data
             },
 
             {
-                1, // > Trash
+                107580, // Icecrown Citadel > Sanctified T10
                 new List<ExtraItemDrop>
                 {
-                    new (0, _raidDifficultiesAll), //
+                    // Conqueror's Mark of Sanctification [10H]
+                    new (51160, new[]{ 5 }),
+                    new (51161, new[]{ 5 }),
+                    new (51162, new[]{ 5 }),
+                    new (51163, new[]{ 5 }),
+                    new (51164, new[]{ 5 }),
+                    new (51165, new[]{ 5 }),
+                    new (51166, new[]{ 5 }),
+                    new (51167, new[]{ 5 }),
+                    new (51168, new[]{ 5 }),
+                    new (51169, new[]{ 5 }),
+                    new (51170, new[]{ 5 }),
+                    new (51171, new[]{ 5 }),
+                    new (51172, new[]{ 5 }),
+                    new (51173, new[]{ 5 }),
+                    new (51174, new[]{ 5 }),
+                    new (51175, new[]{ 5 }),
+                    new (51176, new[]{ 5 }),
+                    new (51177, new[]{ 5 }),
+                    new (51178, new[]{ 5 }),
+                    new (51179, new[]{ 5 }),
+                    new (51180, new[]{ 5 }),
+                    new (51181, new[]{ 5 }),
+                    new (51182, new[]{ 5 }),
+                    new (51183, new[]{ 5 }),
+                    new (51184, new[]{ 5 }),
+                    new (51205, new[]{ 5 }),
+                    new (51206, new[]{ 5 }),
+                    new (51207, new[]{ 5 }),
+                    new (51208, new[]{ 5 }),
+                    new (51209, new[]{ 5 }),
+                    
+                    // Conqueror's Mark of Sanctification [25H]
+                    new (51230, new[]{ 6 }),
+                    new (51231, new[]{ 6 }),
+                    new (51232, new[]{ 6 }),
+                    new (51233, new[]{ 6 }),
+                    new (51234, new[]{ 6 }),
+                    new (51255, new[]{ 6 }),
+                    new (51256, new[]{ 6 }),
+                    new (51257, new[]{ 6 }),
+                    new (51258, new[]{ 6 }),
+                    new (51259, new[]{ 6 }),
+                    new (51260, new[]{ 6 }),
+                    new (51261, new[]{ 6 }),
+                    new (51262, new[]{ 6 }),
+                    new (51263, new[]{ 6 }),
+                    new (51264, new[]{ 6 }),
+                    new (51265, new[]{ 6 }),
+                    new (51266, new[]{ 6 }),
+                    new (51267, new[]{ 6 }),
+                    new (51268, new[]{ 6 }),
+                    new (51269, new[]{ 6 }),
+                    new (51270, new[]{ 6 }),
+                    new (51271, new[]{ 6 }),
+                    new (51272, new[]{ 6 }),
+                    new (51273, new[]{ 6 }),
+                    new (51274, new[]{ 6 }),
+                    new (51275, new[]{ 6 }),
+                    new (51276, new[]{ 6 }),
+                    new (51277, new[]{ 6 }),
+                    new (51278, new[]{ 6 }),
+                    new (51279, new[]{ 6 }),
+                    
+                    // Protector's Mark of Sanctification [10H]
+                    new (51150, new[]{ 5 }),
+                    new (51151, new[]{ 5 }),
+                    new (51152, new[]{ 5 }),
+                    new (51153, new[]{ 5 }),
+                    new (51154, new[]{ 5 }),
+                    new (51190, new[]{ 5 }),
+                    new (51191, new[]{ 5 }),
+                    new (51192, new[]{ 5 }),
+                    new (51193, new[]{ 5 }),
+                    new (51194, new[]{ 5 }),
+                    new (51195, new[]{ 5 }),
+                    new (51196, new[]{ 5 }),
+                    new (51197, new[]{ 5 }),
+                    new (51198, new[]{ 5 }),
+                    new (51199, new[]{ 5 }),
+                    new (51200, new[]{ 5 }),
+                    new (51201, new[]{ 5 }),
+                    new (51202, new[]{ 5 }),
+                    new (51203, new[]{ 5 }),
+                    new (51204, new[]{ 5 }),
+                    new (51210, new[]{ 5 }),
+                    new (51211, new[]{ 5 }),
+                    new (51212, new[]{ 5 }),
+                    new (51213, new[]{ 5 }),
+                    new (51214, new[]{ 5 }),
+                    new (51215, new[]{ 5 }),
+                    new (51216, new[]{ 5 }),
+                    new (51217, new[]{ 5 }),
+                    new (51218, new[]{ 5 }),
+                    new (51219, new[]{ 5 }),
+                    
+                    // Protector's Mark of Sanctification [25H]
+                    new (51220, new[]{ 6 }),
+                    new (51221, new[]{ 6 }),
+                    new (51222, new[]{ 6 }),
+                    new (51223, new[]{ 6 }),
+                    new (51224, new[]{ 6 }),
+                    new (51225, new[]{ 6 }),
+                    new (51226, new[]{ 6 }),
+                    new (51227, new[]{ 6 }),
+                    new (51228, new[]{ 6 }),
+                    new (51229, new[]{ 6 }),
+                    new (51235, new[]{ 6 }),
+                    new (51236, new[]{ 6 }),
+                    new (51237, new[]{ 6 }),
+                    new (51238, new[]{ 6 }),
+                    new (51239, new[]{ 6 }),
+                    new (51240, new[]{ 6 }),
+                    new (51241, new[]{ 6 }),
+                    new (51242, new[]{ 6 }),
+                    new (51243, new[]{ 6 }),
+                    new (51244, new[]{ 6 }),
+                    new (51245, new[]{ 6 }),
+                    new (51246, new[]{ 6 }),
+                    new (51247, new[]{ 6 }),
+                    new (51248, new[]{ 6 }),
+                    new (51249, new[]{ 6 }),
+                    new (51285, new[]{ 6 }),
+                    new (51286, new[]{ 6 }),
+                    new (51287, new[]{ 6 }),
+                    new (51288, new[]{ 6 }),
+                    new (51289, new[]{ 6 }),
+                    
+                    // Vanquisher's Mark of Sanctification [10H]
+                    new (51125, new[]{ 5 }),
+                    new (51126, new[]{ 5 }),
+                    new (51127, new[]{ 5 }),
+                    new (51128, new[]{ 5 }),
+                    new (51129, new[]{ 5 }),
+                    new (51130, new[]{ 5 }),
+                    new (51131, new[]{ 5 }),
+                    new (51132, new[]{ 5 }),
+                    new (51133, new[]{ 5 }),
+                    new (51134, new[]{ 5 }),
+                    new (51135, new[]{ 5 }),
+                    new (51136, new[]{ 5 }),
+                    new (51137, new[]{ 5 }),
+                    new (51138, new[]{ 5 }),
+                    new (51139, new[]{ 5 }),
+                    new (51140, new[]{ 5 }),
+                    new (51141, new[]{ 5 }),
+                    new (51142, new[]{ 5 }),
+                    new (51143, new[]{ 5 }),
+                    new (51144, new[]{ 5 }),
+                    new (51145, new[]{ 5 }),
+                    new (51146, new[]{ 5 }),
+                    new (51147, new[]{ 5 }),
+                    new (51148, new[]{ 5 }),
+                    new (51149, new[]{ 5 }),
+                    new (51155, new[]{ 5 }),
+                    new (51156, new[]{ 5 }),
+                    new (51157, new[]{ 5 }),
+                    new (51158, new[]{ 5 }),
+                    new (51159, new[]{ 5 }),
+                    new (51185, new[]{ 5 }),
+                    new (51186, new[]{ 5 }),
+                    new (51187, new[]{ 5 }),
+                    new (51188, new[]{ 5 }),
+                    new (51189, new[]{ 5 }),
+                    
+                    // Vanquisher's Mark of Sanctification [25H]
+                    new (51250, new[]{ 6 }),
+                    new (51251, new[]{ 6 }),
+                    new (51252, new[]{ 6 }),
+                    new (51253, new[]{ 6 }),
+                    new (51254, new[]{ 6 }),
+                    new (51280, new[]{ 6 }),
+                    new (51281, new[]{ 6 }),
+                    new (51282, new[]{ 6 }),
+                    new (51283, new[]{ 6 }),
+                    new (51284, new[]{ 6 }),
+                    new (51290, new[]{ 6 }),
+                    new (51291, new[]{ 6 }),
+                    new (51292, new[]{ 6 }),
+                    new (51293, new[]{ 6 }),
+                    new (51294, new[]{ 6 }),
+                    new (51295, new[]{ 6 }),
+                    new (51296, new[]{ 6 }),
+                    new (51297, new[]{ 6 }),
+                    new (51298, new[]{ 6 }),
+                    new (51299, new[]{ 6 }),
+                    new (51300, new[]{ 6 }),
+                    new (51301, new[]{ 6 }),
+                    new (51302, new[]{ 6 }),
+                    new (51303, new[]{ 6 }),
+                    new (51304, new[]{ 6 }),
+                    new (51305, new[]{ 6 }),
+                    new (51306, new[]{ 6 }),
+                    new (51307, new[]{ 6 }),
+                    new (51308, new[]{ 6 }),
+                    new (51309, new[]{ 6 }),
+                    new (51310, new[]{ 6 }),
+                    new (51311, new[]{ 6 }),
+                    new (51312, new[]{ 6 }),
+                    new (51313, new[]{ 6 }),
+                    new (51314, new[]{ 6 }),
                 }
             },
             
@@ -70,27 +270,27 @@ namespace Wowthing.Backend.Data
                 new List<ExtraItemDrop>
                 {
                     // Cloth
-                    new (16802, new int[]{ 9 }), // Arcanist Belt
-                    new (16799, new int[]{ 9 }), // Arcanist Bindings
-                    new (16817, new int[]{ 9 }), // Girdle of Prophecy
-                    new (16806, new int[]{ 9 }), // Felheart Belt
-                    new (16804, new int[]{ 9 }), // Felheart Bracers
-                    new (16819, new int[]{ 9 }), // Vambraces of Prophecy
+                    new (16802, new[]{ 9 }), // Arcanist Belt
+                    new (16799, new[]{ 9 }), // Arcanist Bindings
+                    new (16817, new[]{ 9 }), // Girdle of Prophecy
+                    new (16806, new[]{ 9 }), // Felheart Belt
+                    new (16804, new[]{ 9 }), // Felheart Bracers
+                    new (16819, new[]{ 9 }), // Vambraces of Prophecy
                     // Leather
-                    new (16828, new int[]{ 9 }), // Cenarion Belt
-                    new (16830, new int[]{ 9 }), // Cenarion Bracers
-                    new (16827, new int[]{ 9 }), // Nightslayer Belt
-                    new (16825, new int[]{ 9 }), // Nightslayer Bracelets
+                    new (16828, new[]{ 9 }), // Cenarion Belt
+                    new (16830, new[]{ 9 }), // Cenarion Bracers
+                    new (16827, new[]{ 9 }), // Nightslayer Belt
+                    new (16825, new[]{ 9 }), // Nightslayer Bracelets
                     // Mail
-                    new (16838, new int[]{ 9 }), // Earthfury Belt
-                    new (16840, new int[]{ 9 }), // Earthfury Bracers
-                    new (16851, new int[]{ 9 }), // Giantstalker's Belt
-                    new (16850, new int[]{ 9 }), // Giantstalker's Bracers
+                    new (16838, new[]{ 9 }), // Earthfury Belt
+                    new (16840, new[]{ 9 }), // Earthfury Bracers
+                    new (16851, new[]{ 9 }), // Giantstalker's Belt
+                    new (16850, new[]{ 9 }), // Giantstalker's Bracers
                     // Plate
-                    new (16864, new int[]{ 9 }), // Belt of Might
-                    new (16861, new int[]{ 9 }), // Bracers of Might
-                    new (16858, new int[]{ 9 }), // Lawbringer Belt
-                    new (16857, new int[]{ 9 }), // Lawbringer Bracers
+                    new (16864, new[]{ 9 }), // Belt of Might
+                    new (16861, new[]{ 9 }), // Bracers of Might
+                    new (16858, new[]{ 9 }), // Lawbringer Belt
+                    new (16857, new[]{ 9 }), // Lawbringer Bracers
                 }
             },
             {
@@ -98,17 +298,17 @@ namespace Wowthing.Backend.Data
                 new List<ExtraItemDrop>
                 {
                     // Cloth
-                    new (19437, new int[]{ 9 }), // Boots of Pure Thought
-                    new (19438, new int[]{ 9 }), // Ringo's Blizzard Boots
+                    new (19437, new[]{ 9 }), // Boots of Pure Thought
+                    new (19438, new[]{ 9 }), // Ringo's Blizzard Boots
                     // Leather
-                    new (19439, new int[]{ 9 }), // Interlaced Shadow Jerkin
+                    new (19439, new[]{ 9 }), // Interlaced Shadow Jerkin
                     // Cloak
-                    new (19436, new int[]{ 9 }), // Cloak of Draconic Might
+                    new (19436, new[]{ 9 }), // Cloak of Draconic Might
                     // Weapon
-                    new (19362, new int[]{ 9 }), // Doom's Edge
-                    new (19354, new int[]{ 9 }), // Draconic Avenger
-                    new (19358, new int[]{ 9 }), // Draconic Maul
-                    new (19435, new int[]{ 9 }), // Essence Gatherer
+                    new (19362, new[]{ 9 }), // Doom's Edge
+                    new (19354, new[]{ 9 }), // Draconic Avenger
+                    new (19358, new[]{ 9 }), // Draconic Maul
+                    new (19435, new[]{ 9 }), // Essence Gatherer
                 }
             },
             {
@@ -116,13 +316,13 @@ namespace Wowthing.Backend.Data
                 new List<ExtraItemDrop>
                 {
                     // Cloth
-                    new (21838, new int[]{ 9 }), // Garb of Royal Ascension
-                    new (21888, new int[]{ 9 }), // Gloves of the Immortal
+                    new (21838, new[]{ 9 }), // Garb of Royal Ascension
+                    new (21888, new[]{ 9 }), // Gloves of the Immortal
                     // Plate
-                    new (21889, new int[]{ 9 }), // Gloves of the Redeemed Prophecy
+                    new (21889, new[]{ 9 }), // Gloves of the Redeemed Prophecy
                     // Weapon
-                    new (21837, new int[]{ 9 }), // Anubisath Warhammer
-                    new (21856, new int[]{ 9 }), // Neretzek, The Blood Drinker
+                    new (21837, new[]{ 9 }), // Anubisath Warhammer
+                    new (21856, new[]{ 9 }), // Neretzek, The Blood Drinker
                 }
             },
             #endregion

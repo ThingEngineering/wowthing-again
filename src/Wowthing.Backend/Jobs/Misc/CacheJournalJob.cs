@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using MoreLinq;
 using Newtonsoft.Json;
 using Wowthing.Backend.Data;
 using Wowthing.Backend.Models.Data;
@@ -26,7 +27,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheJournal,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(24),
-            Version = 12,
+            Version = 13,
         };
 
         public override async Task Run(params string[] data)
@@ -188,6 +189,21 @@ namespace Wowthing.Backend.Jobs.Misc
                         {
                             instanceData.BonusIds = bonusIds;
                         }
+                        
+                        // Instance has extra encounters, add those
+                        if (Hardcoded.ExtraEncounters.TryGetValue(instanceId, out var extraEncounters))
+                        {
+                            for (int i = extraEncounters.Length - 1; i >= 0; i--)
+                            {
+                                int encounterId = 100000 + (instanceId * 10) + i;
+                                encountersByInstanceId[instanceId].Insert(0, new DumpJournalEncounter
+                                {
+                                    ID = encounterId,
+                                    OrderIndex = -i,
+                                });
+                                stringMap[(StringType.WowJournalEncounterName, encounterId)] = extraEncounters[i];
+                            }
+                        }
 
                         // Instance has trash drops, add a fake encounter
                         if (Hardcoded.ExtraItemDrops.ContainsKey(1000000 + instanceId))
@@ -195,8 +211,7 @@ namespace Wowthing.Backend.Jobs.Misc
                             encountersByInstanceId[instanceId].Insert(0, new DumpJournalEncounter
                             {
                                 ID = 1000000 + instanceId,
-                                JournalInstanceID = instanceId,
-                                OrderIndex = -1,
+                                OrderIndex = -10,
                             });
                         }
                         
@@ -220,7 +235,7 @@ namespace Wowthing.Backend.Jobs.Misc
                                 };
 
                                 var fakeItems = new Dictionary<int, DumpJournalEncounterItem>();
-                                foreach (var encounterItem in itemsByEncounterId[encounter.ID])
+                                foreach (var encounterItem in itemsByEncounterId.GetValueOrDefault(encounter.ID, Array.Empty<DumpJournalEncounterItem>()))
                                 {
                                     if (Hardcoded.ItemExpansions.TryGetValue(encounterItem.ItemID, out var expandedItems))
                                     {
