@@ -746,7 +746,26 @@ namespace Wowthing.Backend.Data
             { 71673, new[] { 71541, 71480, 71485, 71511, 71495, 71500, 71490 } }, // Vanquisher Shoulders [H]
             #endregion
             
-            #region Bastion of Twilight/Blackwing Descent/Throne of the Four Winds
+            #region Bastion of Twilight/Blackwing Descent/Throne of the Four Winds ALL
+            { 65001, new[] { 65230, 65235, 65226, 65221, 65216, 65260 } }, // Conqueror Head [H]
+            { 65000, new[] { 65271, 65266, 65246, 65256, 65251, 65206 } }, // Protector Head [H]
+            { 65002, new[] { 65210, 65186, 65181, 65200, 65190, 65195, 65241 } }, // Vanquisher Head [H]
+
+            { 65088, new[] { 65233, 65238, 65223, 65218, 65228, 65263 } }, // Conqueror Shoulders [H]
+            { 65087, new[] { 65268, 65273, 65208, 65248, 65258, 65253 } }, // Protector Shoulders [H]
+            { 65089, new[] { 65213, 65183, 65188, 65198, 65203, 65193, 65243 } }, // Vanquisher Shoulders [H]
+
+            { 67423, new[] { 65232, 65237, 65214, 65219, 65224, 65262 } }, // Conqueror Chest [H]
+            { 67424, new[] { 65249, 65264, 65269, 65254, 65204, 65244 } }, // Protector Chest [H]
+            { 67425, new[] { 65212, 65179, 65184, 65192, 65197, 65202, 65239 } }, // Vanquisher Chest [H]
+
+            { 67429, new[] { 65234, 65229, 65215, 65220, 65225, 65259 } }, // Conqueror Hands [H]
+            { 67430, new[] { 65265, 65270, 65255, 65250, 65245, 65205 } }, // Protector Hands [H]
+            { 67431, new[] { 65209, 65180, 65185, 65199, 65189, 65194, 65240 } }, // Vanquisher Hands [H]
+
+            { 67428, new[] { 65236, 65231, 65222, 65227, 65217, 65261 } }, // Conqueror Legs [H]
+            { 67427, new[] { 65272, 65267, 65257, 65252, 65247, 65207 } }, // Protector Legs [H]
+            { 67426, new[] { 65211, 65187, 65182, 65201, 65191, 65196, 65242 } }, // Vanquisher Legs [H]
             #endregion
             
             // Wrath of the Lich King
