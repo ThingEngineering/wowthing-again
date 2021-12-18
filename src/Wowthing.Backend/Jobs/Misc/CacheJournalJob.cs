@@ -217,6 +217,11 @@ namespace Wowthing.Backend.Jobs.Misc
                         
                         foreach (var encounter in encountersByInstanceId[instanceId])
                         {
+                            if (Hardcoded.IgnoredJournalEncounter.Contains(encounter.ID))
+                            {
+                                continue;
+                            }
+                            
                             OutJournalEncounter encounterData;
                             var items = new List<DumpJournalEncounterItem>();
 
