@@ -770,6 +770,7 @@ namespace Wowthing.Backend.Data
             
             // Wrath of the Lich King
             #region Icecrown Citadel
+
             #endregion
             
             #region Trial of the Crusader
@@ -778,7 +779,51 @@ namespace Wowthing.Backend.Data
             #region Ulduar
             #endregion
             
-            #region Naxxramas/The Obsidian Sanctum/The Eye of Eternity
+            #region Naxxramas/The Obsidian Sanctum ALL
+            { 40610, new[] { 39497, 39523, 39638, 39633, 39629, 39515 } }, // Conqueror Chest [10]
+            { 40625, new[] { 40423, 40458, 40579, 40574, 40569, 40449 } }, // Conqueror Chest [25]
+
+            { 40611, new[] { 39579, 39606, 39611, 39597, 39592, 39588 } }, // Protector Chest [10]
+            { 40626, new[] { 40503, 40525, 40544, 40523, 40514, 40508 } }, // Protector Chest [25]
+            
+            { 40612, new[] { 39558, 39554, 39538, 39547, 39492, 39617, 39623 } }, // Vanquisher Chest [10]
+            { 40627, new[] { 40495, 40471, 40463, 40469, 40418, 40550, 40559 } }, // Vanquisher Chest [25]
+
+            { 40613, new[] { 39519, 39530, 39500, 39634, 39632, 39639 } }, // Conqueror Hands [10]
+            { 40628, new[] { 40445, 40454, 40420, 40575, 40570, 40580 } }, // Conqueror Hands [25]
+
+            { 40614, new[] { 39582, 39609, 39622, 39593, 39601, 39591 } }, // Protector Hands [10]
+            { 40629, new[] { 40504, 40527, 40545, 40515, 40520, 40509 } }, // Protector Hands [25]
+            
+            { 40615, new[] { 39560, 39544, 39557, 39543, 39495, 39618, 39624 } }, // Vanquisher Hands [10]
+            { 40630, new[] { 40496, 40466, 40472, 40460, 40415, 40552, 40563 } }, // Vanquisher Hands [25]
+
+            { 40616, new[] { 39521, 39514, 39496, 39640, 39628, 39635 } }, // Conqueror Head [10]
+            { 40631, new[] { 40456, 40447, 40421, 40581, 40571, 40576 } }, // Conqueror Head [25]
+
+            { 40617, new[] { 39578, 39610, 39605, 39602, 39583, 39594 } }, // Protector Head [10]
+            { 40632, new[] { 40505, 40546, 40528, 40521, 40510, 40516 } }, // Protector Head [25]
+            
+            { 40618, new[] { 39561, 39545, 39553, 39531, 39491, 39625, 39619 } }, // Vanquisher Head [10]
+            { 40633, new[] { 40499, 40467, 40473, 40461, 40416, 40565, 40554 } }, // Vanquisher Head [25]
+
+            { 40619, new[] { 39517, 39528, 39498, 39630, 39641, 39636 } }, // Conqueror Legs [10]
+            { 40634, new[] { 40448, 40457, 40422, 40572, 40583, 40577 } }, // Conqueror Legs [25]
+
+            { 40620, new[] { 39580, 39612, 39607, 39595, 39589, 39603 } }, // Protector Legs [10]
+            { 40635, new[] { 40506, 40547, 40529, 40517, 40512, 40522 } }, // Protector Legs [25]
+            
+            { 40621, new[] { 39564, 39539, 39555, 39546, 39493, 39626, 39620 } }, // Vanquisher Legs [10]
+            { 40636, new[] { 40500, 40462, 40493, 40468, 40417, 40567, 40556 } }, // Vanquisher Legs [25]
+
+            { 40622, new[] { 39529, 39499, 39642, 39637, 39631, 39518 } }, // Conqueror Shoulders [10]
+            { 40637, new[] { 40459, 40424, 40584, 40578, 40573, 40450 } }, // Conqueror Shoulders [25]
+
+            { 40623, new[] { 39581, 39613, 39608, 39604, 39596, 39590 } }, // Protector Shoulders [10]
+            { 40638, new[] { 40507, 40548, 40530, 40524, 40518, 40513 } }, // Protector Shoulders [25]
+            
+            { 40624, new[] { 39565, 39548, 39556, 39542, 39494, 39627, 39621 } }, // Vanquisher Shoulders [10]
+            { 40639, new[] { 40502, 40470, 40494, 40465, 40419, 40568, 40557 } }, // Vanquisher Shoulders [25]
             #endregion
             
             // The Burning Crusade
