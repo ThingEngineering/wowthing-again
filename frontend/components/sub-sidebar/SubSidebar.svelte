@@ -1,9 +1,9 @@
 <script lang="ts">
     import some from 'lodash/some'
 
-    import type {SidebarItem} from '@/types'
+    import type { SidebarItem } from '@/types'
 
-    import SidebarEntry from './SidebarEntry.svelte'
+    import SidebarEntry from './SubSidebarEntry.svelte'
 
     export let baseUrl: string
     export let items: SidebarItem[]

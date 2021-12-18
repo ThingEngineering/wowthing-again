@@ -13,6 +13,11 @@
     }
 </style>
 
-<svg style="--scale: {scale};">
+<svg
+    style="--scale: {scale};"
+    viewbox="0 0 {icon.width} {icon.height}"
+    aria-hidden="true"
+    role="img"
+>
     {@html icon.body}
 </svg>

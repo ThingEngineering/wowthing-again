@@ -16,7 +16,7 @@ namespace Wowthing.Lib.Models.Wow
         public int Stackable { get; set; }
         public short ClassId { get; set; }
         public short SubclassId { get; set; }
-        public short InventoryType { get; set; }
+        public WowInventoryType InventoryType { get; set; }
         public short ContainerSlots { get; set; }
         public WowQuality Quality { get; set; }
         public WowStat PrimaryStat { get; set; }

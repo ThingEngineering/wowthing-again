@@ -4,7 +4,7 @@
     import type { JournalDataTier } from '@/types/data'
 
     import ProgressBar from '@/components/common/ProgressBar.svelte'
-    import Sidebar from '@/components/sidebar/Sidebar.svelte'
+    import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
 
     let categories: SidebarItem[] = []
     let overall: UserCount

@@ -15,6 +15,19 @@ groups:
   things:
   -  34770 # Macabre Marionette - Day of the Dead
 
+- name: Feast of Winter Veil
+  things:
+  -  24968 # Clockwork Rocket Bot
+  -  15698 # Father Winter's Helper
+  - 128156 # Globe Yeti (Feast of Winter Veil)
+  -  97229 # Grumpling
+  - 151780 # Jingles
+  -  55215 # Lumpy
+  -  73741 # Rotten Little Helper
+  -  15710 # Tiny Snowman
+  -  15706 # Winter Reindeer
+  -  15705 # Winter's Little Helper
+
 - name: Hallow's End
   things:
   -  54128 # Creepy Crate
@@ -55,16 +68,3 @@ groups:
   things:
   -  85846 # Bush Chicken - Pilgrim's Bounty
   -  32818 # Plump Turkey - Pilgrim's Bounty
-
-- name: Winter Veil
-  things:
-  -  24968 # Clockwork Rocket Bot
-  -  15698 # Father Winter's Helper
-  - 128156 # Globe Yeti (Feast of Winter Veil)
-  -  97229 # Grumpling
-  - 151780 # Jingles
-  -  55215 # Lumpy
-  -  73741 # Rotten Little Helper
-  -  15710 # Tiny Snowman
-  -  15706 # Winter Reindeer
-  -  15705 # Winter's Little Helper
