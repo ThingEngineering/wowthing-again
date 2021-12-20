@@ -30,13 +30,6 @@ groups:
   things:
   - 184447 # Kevin's Party Supplies (Slime-Coated Crate, Maldraxxus) treasure
 
-- name: Torghast
-  things:
-  - 187417 # Adamant Vaults Cell (Adamant Vaults)
-  - 187075 # Box of Rattling Chains (Layer 9-12 boss)
-  - 186974 # Experimental Anima Cell (Layer 9-12 broker)
-  - 184223 # Helm of the Dominated (Twisting Corridors: Layer 4)
-
 - name: World Drops
   things:
   - 187174 # Shaded Judgment Stone (The Rift)

@@ -1,6 +1,36 @@
 name: Vendors
 groups:
 
-- name: "Orix the All-Seer"
+- name: "Nazjatar"
   things:
-  - 153204 # All-Seer's Eye (Orix the All-Seer, Antoran Wastes - 1000 eyes)
+  - 169275 # Alliance War Banner (Crafticus Mindbender, Nazjatar / Dazzerian, Nazjatar)
+  - 169278 # Alliance War Standard (Crafticus Mindbender, Nazjatar / Dazzerian, Nazjatar)
+  - 169276 # Horde War Banner (Crafticus Mindbender, Nazjatar / Dazzerian, Nazjatar)
+  - 169277 # Horde War Standard (Crafticus Mindbender, Nazjatar / Dazzerian, Nazjatar)
+  - 170204 # Symbol of Gral (Artisan Okata, Nazjatar / Finder Pruc, Nazjatar) vendor
+
+- name: "Stormsong Valley"
+  things:
+  - 163705 # Imaginary Gun (Madeline Netley, Stormsong Valley / Happy Holaura, Zuldazar)
+  - 163704 # Tiny Mechanical Mouse (Madeline Netley, Stormsong Valley / Happy Holaura, Zuldazar)
+
+- name: "Tiragarde Sound"
+  things:
+  - 166662 # Cranky Crab (Captain Klarisa, Tiragarde Sound / Captain Zen'taga, Zuldazar)
+  - 166744 # Glaive Tosser (Provisioner Stoutforge, Tiragarde Sound)
+  - 166461 # Gnarlwood Waveboard (Captain Klarisa, Tiragarde Sound / Captain Zen'taga, Zuldazar)
+  - 166663 # Hand Anchor (Captain Klarisa, Tiragarde Sound / Captain Zen'taga, Zuldazar)
+
+- name: "Vol'dun"
+  things:
+  - 164983 # Rhan'ka's Escape Plan (Rhan'ka, Vol'dun)
+
+- name: "Zuldazar"
+  things:
+  - 166743 # Blight Bomber (Provisioner Mukra, Zuldazar)
+  - 166662 # Cranky Crab (Captain Klarisa, Tiragarde Sound / Captain Zen'taga, Zuldazar)
+  - 166461 # Gnarlwood Waveboard (Captain Klarisa, Tiragarde Sound / Captain Zen'taga, Zuldazar)
+  - 166663 # Hand Anchor (Captain Klarisa, Tiragarde Sound / Captain Zen'taga, Zuldazar)
+  - 163705 # Imaginary Gun (Madeline Netley, Stormsong Valley / Happy Holaura, Zuldazar)
+  - 163704 # Tiny Mechanical Mouse (Madeline Netley, Stormsong Valley / Happy Holaura, Zuldazar)
+  - 156649 # Zandalari Effigy Amulet (Griftah, Zuldazar)
