@@ -25,6 +25,7 @@ groups:
 
 - name: Mechagon
   things:
+  - 168907 # Holographic Digitalization Hearthstone (Junkyard Tinkering, Mechagon)
   - 169347 # Judgment of Mechagon (The Rusty Prince, Mechagon)
   - 167931 # Mechagonian Sawblades (Kill Saw, Mechagon)
 
@@ -32,6 +33,8 @@ groups:
   things:
   - 170187 # Shadescale (Shassera, Nazjatar)
   - 170196 # Shirakess Warning Sign (Tidemistress Leth'sindra, Nazjatar)
+  - 170476 # Underlight Sealamp (Nazjatar) ??
+  - 170199 # Zanj'ir Weapon Rack (Nazjatar) ??
 
 - name: Uldum
   things:

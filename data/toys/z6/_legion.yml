@@ -4,14 +4,16 @@ groups:
 - name: Instances
   things:
   - 143544 # Skull of Corruption (The Nighthold - Gul'dan)
-  - 152982 # Vixx's Chest of Tricks (Vixx the Collector, The Seat of thew Triumvirate)
   - 153004 # Unstable Portal Emitter (Vixx the Collector, The Seat of thew Triumvirate)
+  - 141331 # Vial of Green Goo (Engineer Omegaplugg, ??)
+  - 152982 # Vixx's Chest of Tricks (Vixx the Collector, The Seat of thew Triumvirate)
 
 - name: Order Halls
   things:
   - 147537 # A Tiny Set of Warglaives (Falara Nightsong, Demon Hunter)
   - 147838 # Akazamzarak's Spare Hat (Down the Rabbit Hole, Mage)
   - 143727 # Champion's Salute (Broken Shore Order Campaign) quest?
+  - 140632 # Lava Fountain (The Maelstrom)
   - 147832 # Magical Saucer (Uhtel'nay, Hall of the Guardian?)
   - 140160 # Stormforged Vrykul Horn (?, Warrior)
   - 139587 # Suspicious Crate (?, Rogue)
@@ -31,26 +33,15 @@ groups:
   - 142494 # Purple Blossom (?, Falcosaurs)
   - 142497 # Tiny Pack (?, Falcosaurs)
 
-- name: Treasures
+- name: Vendors
   things:
-  - 141296 # Ancient Mana Basin
-  - 141297 # Arcano-Shower
-  - 129165 # Barnacle-Encrusted Gem
-  - 141298 # Displacer Meditation Stone
-  - 140780 # Fal'dorei Egg
-  - 141299 # Kal'dorei Light Globe
-  - 140632 # Lava Fountain
-  - 140786 # Ley Spider Eggs
-  - 147867 # Pilfered Sweeper (Curious Wyrmtongue Cache) ??
-  - 131811 # Rocfeather Skyhorn Kite (Highmountain)
-  - 129055 # Shoe Shine Kit
-  - 122681 # Sternfathom's Pet Journal
-  - 130147 # Thistleleaf Branch
-  - 130169 # Tournament Favor
-  - 141301 # Unstable Powder Box
-  - 143534 # Wand of Simulated Life (Dalaran treasure)
-  - 141306 # Wisp in a Bottle
+  - 153204 # All-Seer's Eye (Orix the All-Seer, Antoran Wastes - 1000 eyes)
 
-- name: FIXME
+- name: Withered Training
   things:
-  - 141331 # Vial of Green Goo (Engineer Omegaplugg, ??)
+  - 141296 # Ancient Mana Basin (Suramar)
+  - 141297 # Arcano-Shower (Suramar)
+  - 141298 # Displacer Meditation Stone (Suramar)
+  - 141299 # Kaldorei Light Globe (Suramar)
+  - 141301 # Unstable Powder Box (Suramar)
+  - 141306 # Wisp in a Bottle (Suramar)

@@ -9,7 +9,6 @@
 z8/_shadowlands.yml
 
 z7/_battle_for_azeroth.yml
-    z7/mechagon_nazjatar.yml
 
 z6/_legion.yml
 
@@ -30,6 +29,8 @@ z0/_vanilla.yml
 
 misc.yml
 
+money.yml
+
 professions/_professions.yml
     professions/archaeology.yml
     professions/engineering.yml
@@ -46,5 +47,24 @@ world_events/_world_events.yml
 
 -
 
-money.yml
+drops.yml
+    z8/drops.yml Shadowlands
+    z7/drops.yml Battle for Azeroth
+    z6/drops.yml Legion
+    z5/drops.yml Warlords of Draenor
+    z4/drops.yml Mists of Pandaria
+
+instances.yml
+    z8/instances.yml Shadowlands
+    z7/instances.yml Battle for Azeroth
+
+reputations.yml
+    z8/reputations.yml Shadowlands
+    z7/reputations.yml Battle for Azeroth
+    z6/reputations.yml Legion
+    z5/reputations.yml Warlords of Draenor
+    z4/reputations.yml Mists of Pandaria
+
+-
+
 unavailable.yml
