@@ -1,10 +1,21 @@
 name: The Burning Crusade
 groups:
 
+- name: Drops
+  things:
+  -  32782 # Time-Lost Figurine (Terokk, Terokkar Forest)
+
+- name: Instances
+  things:
+  - 134019 # Don Carlos' Famous Hat (Old Hillsbrad Foothills)
+  -  35275 # Orb of the Sin'dorei (H-Magister's Terrace)
+
 - name: Quests
   things:
   -  30690 # Power Converter
+  - 134021 # X-52 Rocket Helmet
 
-- name: Drops
+- name: Vendors
   things:
-  -  32782 # Time-Lost Figurine
+  - 134007 # Eternal Black Diamond Ring
+  - 134004 # Noble's Eternal Elementium Signet

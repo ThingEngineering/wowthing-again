@@ -12,6 +12,10 @@ groups:
   -  92738 # Safari Hat
   - 174830 # Shadowy Diguise (Pet Battle Challenge: Blackrock Depths)
 
+- name: Events
+  things:
+  - 158149 # Overtuned Corgi Goggles (Anniversary)
+
 - name: Heirlooms
   things:
   - 187896 # Scouting Map: A Stormstout's Guide to Pandaria

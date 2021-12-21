@@ -36,6 +36,10 @@ groups:
 - name: Vendors
   things:
   - 153204 # All-Seer's Eye (Orix the All-Seer, Antoran Wastes - 1000 eyes)
+  -  97921 # Bom'bay's Color-Seein' Sauce (Ravika, Durotar/Echo Isles)
+  -  97942 # Sen'jin Spirit Drum (Ravika, Durotar/Echo Isles)
+  -  98552 # Xan'tish's Flute (Ravika, Durotar/Echo Isles)
+  -  97919 # Whole-Body Shrinka' (Ravika, Durotar/Echo Isles)
 
 - name: Withered Training
   things:

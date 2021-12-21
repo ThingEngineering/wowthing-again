@@ -14,22 +14,6 @@ groups:
   - 151877 # Barrel of Eyepatches (Pickpocketing?)
   -  89139 # Chain Pet Leash (pet supply bag?)
 #
-#- name: Unknown
-#  things:
-#  - 134831 # "Guy Incognito" Costume (??)
-#  - 119220 # Alliance Gladiator's Banner (??)
-#  - 142360 # Blazing Ember Signet
-#  - 143727 # Champion's Salute () unk
-#  - 147865 # Crescent Moonstone () unk
-#  - 140779 # Falanaar Echo (??)
-#  - 143545 # Fel Focusing Crystal (Demon Hunter, ??)
-#  - 119211 # Golden Hearthstone Card: Lord Jaraxxus (???)
-#  - 119221 # Horde Gladiator's Banner (??)
-#  - 129111 # Kvaldir Raiding Horn (??)
-#  - 147697 # Pocket Portal of Felstalker Pups () unk
-#  - 130194 # Silver Gilnean Brooch
-#  - 129045 # Whitewater Tsunami
-
 # Instances
 - name: Dungeons
   things:
@@ -50,12 +34,6 @@ groups:
   things:
   -  53057 # Faded Wizard Hat
 
-- name: BfA
-  things:
-  - 160509 # Echoes of Rezan (World Quest - Old R'gal/Wrath of Rezan)
-  - 163607 # Lucille's Sewing Needle (Quest - Sharp Thinking, Drustvar)
-
-
 # Rare Mobs
 - name: Other
   things:
@@ -66,27 +44,19 @@ groups:
 # Vendor
 - name: Vendor
   things:
-  - 153204 # All-Seer's Eye (Orix the All-Seer, Antoran Wastes - 1000 eyes)
   - 120857 # Barrel of Bandanas
-  -  97921 # Bom'bay's Color-Seein' Sauce (Lenny "Fingers" McCoy, Stormwind)
-  - 134007 # Eternal Black Diamond Ring
   - 133511 # Gurboggle's Gleaming Bauble
-  - 159749 # Haw'li's Hot & Spicy Chili (Vendor - Trader Haw'li, Zuldazar)
   - 136855 # Hunter's Call
   -  43499 # Iron Boot Flask
   -  68806 # Kalytha's Haunted Locket
   - 140231 # Narcissa's Mirror (vendor pet)
   - 136849 # Nature's Beacon
-  - 134004 # Noble's Eternal Elementium Signet
   - 136934 # Raging Elemental Stone
   - 136927 # Scarlet Confessional Book
-  -  97942 # Sen'jin Spirit Drum (Ravika, Durotar)
   - 136935 # Tadpole Cloudseeder
   - 136928 # Thaumaturgist's Orb
   - 136937 # Vol'jin's Serpent Totem
   - 138490 # Waterspeaker's Totem
-  -  97919 # Whole-Body Shrinka' (Ravika, Durotar)
-  -  98552 # Xan'tish's Flute (Ravika, Durotar)
 
 - name: Dalaran
   things:
@@ -104,7 +74,6 @@ groups:
 
 - name: Pandaria
   things:
-  - 102467 # Censer of Eternal Agony
   - 134020 # Chef's Hat
 
 - name: More

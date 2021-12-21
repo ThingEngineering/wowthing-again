@@ -17,7 +17,9 @@ groups:
 - name: Jepetto, Dalaran
   things:
   -  54343 # Blue Crashin' Thrashin' Racer Controller (Jepetto)
+  - 104324 # Foot Ball
   - 137663 # Soft Foam Sword (Jepetto)
+  - 104323 # The Swineskin
   -  54438 # Tiny Blue Ragdoll (Jepetto)
   -  54437 # Tiny Green Ragdoll (Jepetto)
   -  44606 # Toy Train Set (Jepetto)
