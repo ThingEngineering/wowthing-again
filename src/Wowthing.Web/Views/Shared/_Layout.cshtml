@@ -14,13 +14,13 @@
     <header>
         <nav class="nav">
             <ul>
-                <li class="header-title">
+                <!--<li class="header-title">
                     <a href="@uriService.GetBaseAction("Home", "Index")">WoWthing</a>
-                </li>
+                </li>-->
                 @if (User.Identity.IsAuthenticated)
                 {
                     <li>
-                        <a href="@await uriService.GetUriForUser()">Home</a>
+                        <a href="@await uriService.GetUriForUser()">My Page</a>
                     </li>
                     <li>
                         <a asp-controller="Upload" asp-action="Index">Upload</a>
