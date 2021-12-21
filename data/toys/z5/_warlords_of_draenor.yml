@@ -6,13 +6,13 @@ groups:
   - 122700 # Portable Audiophone (Azeroth's Top Twenty Tunes)
   - 122293 # Trans-Dimensional Bird Whistle (What A Strange, Interdimensional Trip It's Been)
 
-- name: FIXME
-  things:
-  - 119219 # Warlord's Flag of Victory
-
 - name: Instances
   things:
   - 119211 # Golden Hearthstone Card: Lord Jaraxxus (Gul'dan, Nighthold)
+
+- name: PvP
+  things:
+  - 119219 # Warlord's Flag of Victory
 
 - name: Quests
   things:
@@ -23,25 +23,6 @@ groups:
   - 119144 # Touch of the Naaru
   - 115506 # Treessassin's Guise
   - 118935 # Ever-Blooming Frond (Cenarion Concerns, Garrison Inn) QUEST
-
-- name: Treasures
-  things:
-  - 127670 # Accursed Tome of the Sargerei
-  - 117550 # Angry Beehive
-  - 108735 # Arena Master's War Horn
-  - 128223 # Bottomless Stygana Mushroom Brew
-  - 127859 # Dazzling Rod
-  - 108743 # Deceptia's Smoldering Boots
-  - 117569 # Giant Deathweb Egg
-  - 118716 # Goren Garb
-  - 127668 # Jewel of Hellfire
-  - 127394 # Podling Camouflage
-  - 127669 # Skull of the Mad Chief
-  - 109739 # Star Chart
-  - 116120 # Tasty Talador Lunch
-  - 127766 # The Perfect Blossom
-  - 127709 # Throbbing Blood Orb
-  - 113375 # Vindicator's Armor Polish Kit
 
 - name: Vendor
   things:

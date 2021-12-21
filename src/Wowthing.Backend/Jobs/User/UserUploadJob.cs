@@ -158,9 +158,9 @@ namespace Wowthing.Backend.Jobs.User
             {
                 return;
             }
-            
-            character.Shadowlands.Covenants = new();
 
+            character.Shadowlands.Covenants ??= new();
+            
             foreach (var covenantData in characterData.Covenants.EmptyIfNull())
             {
                 character.Shadowlands.Covenants[covenantData.Id] = new PlayerCharacterShadowlandsCovenant
@@ -174,6 +174,9 @@ namespace Wowthing.Backend.Jobs.User
                     Unique = HandleCovenantsFeature(covenantData.Unique),
                 };
             }
+
+            // Change detection for this is obnoxious, just update it 
+            Context.Entry(character.Shadowlands).Property(cs => cs.Covenants).IsModified = true;
         }
 
         private PlayerCharacterShadowlandsCovenantFeature HandleCovenantsFeature(UploadCharacterCovenantFeature featureData)

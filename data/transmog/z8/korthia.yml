@@ -65,7 +65,7 @@ groups:
         9:  44274 # Wrists
         10: 44270 # Hands
         16: 44279 # Back
-        20: 44268 # Chest2
+        #20: 44268 # Chest2
 
     necrolord:
     # Death's Advance set=2210
