@@ -1,0 +1,14 @@
+name: ">Unavailable"
+groups:
+
+- name: "Challenge Modes"
+  things:
+  - 171848 # Challenger's War Yeti (Challenge Warlord: Silver)
+
+- name: "Events"
+  things:
+  - 170347 # Core Hound (Lv100 Molten Core)
+
+- name: "Instances"
+  things:
+  - 189999 # Grove Warden (HFC)

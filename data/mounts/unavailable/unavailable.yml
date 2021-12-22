@@ -24,39 +24,6 @@ groups:
   - 15779 # White Mechanostrider Mod B
   - 16083 # White Stallion
 
-- name: Wrath of the Lich King
-  things:
-  - 60021 # Plagued Proto-Drake (Naxx/etc 10 meta)
-  - 59976 # Black Proto-Drake (Naxx/etc 25 meta)
-  - 68057 68056 # Swift Alliance Steed/Swift Horde Wolf (ToGC 10H)
-  - 68187 68188 # Crusader's White/Black Warhorse (ToGC - A Tribute to Immortality)
-
-- name: Mists of Pandaria
-  things:
-  - 142641 # Brawler's Burly Mushan Beast (Brawler's Guild)
-  - 148396 # Kor'kron War Wolf (Garrosh)
-  - 171845 # Warlord's Deathwheel
-  - 132117 # Ashen Pandaren Phoenix (CM)
-  - 129552 # Crimson Pandaren Phoenix (CM)
-  - 132118 # Emerald Pandaren Phoenix (CM)
-  - 132119 # Violet Pandaren Phoenix (CM)
-
-- name: Warlords of Draenor
-  things:
-  - 171848 # Challenger's War Yeti (Challenge Warlord: Silver)
-  - 170347 # Core Hound (Lv100 Molten Core)
-  - 189999 # Grove Warden (HFC)
-
-- name: Legion
-  things:
-  - 230844 # Brawler's Burly Basilisk (Brawler's Guild)
-  - 253639 # Violet Spellwing (Blood of a Titan - kill Argus)
-  - 274610 272472 # Teldrassil Hippogryph/Undercity Plaguebat (Burning of Teldrassil)
-
-- name: Shadowlands
-  things:
-  - 340068 # Sintouched Deathwalker (Shadowlands Keystone Master: Season One)
-
 - name: Rated PvP
   things:
   - 270560 # Vicious War Clefthoof (BfA Season 1)
@@ -82,5 +49,5 @@ groups:
   - 171847 # Cindermane Charger
   - 149801 # Emerald Hippogryph
   - 121820 # Obsidian Nightwing
-  - 49322 # Swift Zhevra
-  - 75973 # X-16083 Touring Rocket
+  -  49322 # Swift Zhevra
+  -  75973 # X-16083 Touring Rocket

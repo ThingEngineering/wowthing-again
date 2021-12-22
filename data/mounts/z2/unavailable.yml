@@ -1,0 +1,11 @@
+name: ">Unavailable"
+groups:
+
+- name: "Instances"
+  things:
+  - 60021 # Plagued Proto-Drake (Naxx/etc 10 meta)
+  - 59976 # Black Proto-Drake (Naxx/etc 25 meta)
+  - 68057 68056 # Swift Alliance Steed/Swift Horde Wolf (ToGC 10H)
+  - 68056 68057 # ^ reversed
+  - 68187 68188 # Crusader's White/Black Warhorse (ToGC - A Tribute to Immortality)
+  - 68188 68187 # ^ reversed

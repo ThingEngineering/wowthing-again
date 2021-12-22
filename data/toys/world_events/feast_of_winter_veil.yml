@@ -20,8 +20,8 @@ groups:
 
 - name: 2019
   things:
-  - 172222 # Crashin' Thrashin' Juggernaught (Alliance)
   - 172223 # Crashin' Thrashin' Battleship (Horde)
+  - 172222 # Crashin' Thrashin' Juggernaught (Alliance)
   - 172219 # Wild Holly
 
 - name: 2018

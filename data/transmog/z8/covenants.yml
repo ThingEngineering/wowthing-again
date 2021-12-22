@@ -2,7 +2,7 @@ name: "Covenants [9.0]"
 groups:
 
 # 9.0
-- name: 'Covenant: Kyrian'
+- name: "Kyrian"
   type: armor
   sets:
   - Campaign
@@ -238,7 +238,7 @@ groups:
         10: 41379 # Hands
         16: 41373 # Back
 
-- name: 'Covenant: Necrolord'
+- name: "Necrolord"
   type: armor
   sets:
   - Campaign
@@ -474,7 +474,7 @@ groups:
         10: 41430 # Hands
         16: 41427 # Back
 
-- name: 'Covenant: Night Fae'
+- name: "Night Fae"
   type: armor
   sets:
   - Campaign
@@ -710,7 +710,7 @@ groups:
         10: 41277 # Hands
         16: 41283 # Back
 
-- name: 'Covenant: Venthyr'
+- name: "Venthyr"
   type: armor
   sets:
   - Campaign
