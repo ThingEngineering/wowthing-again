@@ -6,6 +6,10 @@
 <style lang="scss">
     nav {
         border: 1px solid $border-color;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        border-left-width: 0;
+        margin-left: -1rem;
         margin-right: 1rem;
         min-width: var(--width);
         padding: 0.5rem 0;
