@@ -16,6 +16,7 @@
         CharacterReputations,
         CharacterSoulbinds,
         CharacterMedia,
+        CharacterSpecializations,
       
         DataPlayableClass = 200,
         DataReputationFaction,
