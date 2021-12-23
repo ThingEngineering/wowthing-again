@@ -314,6 +314,12 @@ namespace Wowthing.Web.Controllers
                 .Include(c => c.Shadowlands)
                 .Include(c => c.Weekly);
 
+            if (!apiResult.Public)
+            {
+                characterQuery = characterQuery
+                    .Include(c => c.Media);
+            }
+            
             if (!apiResult.Public || apiResult.Privacy.PublicCurrencies)
             {
                 characterQuery = characterQuery

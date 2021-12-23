@@ -29,6 +29,7 @@ namespace Wowthing.Web.Models
         public int RestedExperience { get; set; }
         public long Gold { get; }
         public string Name { get; set; }
+        public string RenderUrl { get; set; }
         public DateTime LastSeenAddon { get; set; }
         public WowFaction Faction { get; set; }
         public WowGender Gender { get; set; }
@@ -69,6 +70,7 @@ namespace Wowthing.Web.Models
             {
                 Name = character.Name;
                 RealmId = character.RealmId;
+                RenderUrl = character.Media?.MainUrl;
             }
 
             if (!pub)
