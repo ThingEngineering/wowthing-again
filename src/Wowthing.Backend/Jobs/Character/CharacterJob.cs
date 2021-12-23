@@ -137,6 +137,11 @@ namespace Wowthing.Backend.Jobs.Character
                 jobs.Add(JobType.CharacterReputations);
             }
 
+            if (apiCharacter.SpecializationsLink?.Href != null)
+            {
+                jobs.Add(JobType.CharacterSpecializations);
+            }
+
             // Shadowlands specific
             if (apiCharacter.CovenantProgress?.SoulbindsLink?.Href != null)
             {

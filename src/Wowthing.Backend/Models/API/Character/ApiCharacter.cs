@@ -68,6 +68,9 @@ namespace Wowthing.Backend.Models.API.Character
 
         [JsonProperty("reputations")]
         public ApiObnoxiousHref ReputationsLink { get; set; }
+
+        [JsonProperty("specializations")]
+        public ApiObnoxiousHref SpecializationsLink { get; set; }
         
         [JsonProperty("titles")]
         public ApiObnoxiousHref TitlesLink { get; set; }
