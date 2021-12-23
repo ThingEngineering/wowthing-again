@@ -312,6 +312,7 @@ namespace Wowthing.Web.Controllers
                 .Include(c => c.EquippedItems)
                 .Include(c => c.Reputations)
                 .Include(c => c.Shadowlands)
+                .Include(c => c.Specializations)
                 .Include(c => c.Weekly);
 
             if (!apiResult.Public)

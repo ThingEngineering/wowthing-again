@@ -30,6 +30,7 @@ export interface Character {
     currencies: Record<number, CharacterCurrency>
     realm: StaticDataRealm
     reputationData: Record<string, CharacterReputation>
+    specializations: Record<number, Record<number, number>>
 
     currenciesRaw: CharacterCurrencyArray[]
     equippedItems: Record<number, CharacterEquippedItem>
@@ -40,7 +41,12 @@ export interface Character {
     raiderIo: Record<number, CharacterRaiderIoSeason>
     reputations: Record<number, number>
     shadowlands?: CharacterShadowlands
+    specializationsRaw: Record<number, CharacterApiSpecialization>
     weekly?: CharacterWeekly
+}
+
+export class CharacterApiSpecialization {
+    talents: number[][]
 }
 
 export class CharacterCurrency {
