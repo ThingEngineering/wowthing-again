@@ -111,6 +111,11 @@ namespace Wowthing.Backend.Jobs.Character
                 jobs.Add(JobType.CharacterEquipment);
             }
 
+            if (apiCharacter.MediaLink?.Href != null)
+            {
+                jobs.Add(JobType.CharacterMedia);
+            }
+            
             // WTF: this exists even on lower level characters
             if (character.Level >= 50 && apiCharacter.MythicKeystoneProfileLink?.Href != null)
             {

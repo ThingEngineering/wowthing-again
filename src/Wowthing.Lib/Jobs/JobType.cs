@@ -15,6 +15,7 @@
         CharacterQuestsCompleted,
         CharacterReputations,
         CharacterSoulbinds,
+        CharacterMedia,
       
         DataPlayableClass = 200,
         DataReputationFaction,
