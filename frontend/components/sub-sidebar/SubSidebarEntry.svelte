@@ -14,8 +14,10 @@
     export let item: SidebarItem
     export let noVisitRoot = false
     export let parentItem: SidebarItem = undefined
+    export let decorationFunc: (entry: SidebarItem, parentEntry?: SidebarItem) => string = undefined
     export let percentFunc: (entry: SidebarItem, parentEntry?: SidebarItem) => number = undefined
 
+    let decoration: string
     let expanded: boolean
     let percent = -1
     let url: string
@@ -25,6 +27,9 @@
             url = `${baseUrl}/${item.slug}`
             expanded = $location.startsWith(url) && item.children?.length > 0
 
+            if (decorationFunc !== undefined) {
+                decoration = decorationFunc(item, parentItem)
+            }
             if (percentFunc !== undefined) {
                 percent = percentFunc(item, parentItem)
             }
@@ -73,12 +78,12 @@
         }
     }
 
-    .percent {
+    .decoration {
         position: absolute;
         right: 0.5rem;
         word-spacing: -0.2ch;
     }
-    .percent-children {
+    .decoration-children {
         right: 1.8rem;
     }
 </style>
@@ -93,8 +98,18 @@
         >
             {item.name}
 
-            {#if percent >= 0}
-                <span class="drop-shadow percent {anyChildren ? 'percent-children' : ''} {getPercentClass(percent)}">{Math.floor(percent).toFixed(0)} %</span>
+            {#if decoration !== undefined}
+                <span
+                    class="drop-shadow decoration"
+                    class:decoration-children={anyChildren}
+                    class:quality2={(item.children?.length ?? 0) === 0}
+                    class:quality3={item.children?.length > 0}
+                >{decoration}</span>
+            {:else if percent >= 0}
+                <span
+                    class="drop-shadow decoration {getPercentClass(percent)}"
+                    class:decoration-children={anyChildren}
+                >{Math.floor(percent).toFixed(0)} %</span>
             {/if}
 
             {#if item.children?.length > 0}
@@ -112,6 +127,7 @@
                         baseUrl={url}
                         item={child}
                         parentItem={item}
+                        {decorationFunc}
                         {percentFunc}
                     />
                 {/each}
