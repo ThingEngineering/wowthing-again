@@ -3,6 +3,7 @@
 
     import Achievements from '@/components/achievements/Achievements.svelte'
     import Appearances from '@/components/appearances/Appearances.svelte'
+    import Characters from '@/components/characters/Characters.svelte'
     import Currencies from '@/components/currencies/Currencies.svelte'
     import Gear from '@/components/gear/Gear.svelte'
     import History from '@/components/history/History.svelte'
@@ -25,6 +26,8 @@
         '/': HomeTable,
         '/cards': HomeCards,
         '/table': HomeTable,
+
+        '/characters/:slug1?/:slug2?/:slug3?': Characters,
 
         '/achievements/:slug1?/:slug2?': Achievements,
         '/appearances/:slug1?/:slug2?': Appearances,

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
@@ -13,9 +14,10 @@ using Wowthing.Lib.Models.Player;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    partial class WowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211222212248_Add_PlayerCharacterMedia")]
+    partial class Add_PlayerCharacterMedia
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -997,22 +999,6 @@ namespace Wowthing.Lib.Migrations
                     b.ToTable("player_character_shadowlands");
                 });
 
-            modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacterSpecializations", b =>
-                {
-                    b.Property<int>("CharacterId")
-                        .HasColumnType("integer")
-                        .HasColumnName("character_id");
-
-                    b.Property<Dictionary<int, PlayerCharacterSpecializationsSpecialization>>("Specializations")
-                        .HasColumnType("jsonb")
-                        .HasColumnName("specializations");
-
-                    b.HasKey("CharacterId")
-                        .HasName("pk_player_character_specializations");
-
-                    b.ToTable("player_character_specializations");
-                });
-
             modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacterTransmog", b =>
                 {
                     b.Property<int>("CharacterId")
@@ -1850,18 +1836,6 @@ namespace Wowthing.Lib.Migrations
                     b.Navigation("Character");
                 });
 
-            modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacterSpecializations", b =>
-                {
-                    b.HasOne("Wowthing.Lib.Models.Player.PlayerCharacter", "Character")
-                        .WithOne("Specializations")
-                        .HasForeignKey("Wowthing.Lib.Models.Player.PlayerCharacterSpecializations", "CharacterId")
-                        .HasConstraintName("fk_player_character_specializations_player_character_character")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Character");
-                });
-
             modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacterTransmog", b =>
                 {
                     b.HasOne("Wowthing.Lib.Models.Player.PlayerCharacter", "Character")
@@ -1961,8 +1935,6 @@ namespace Wowthing.Lib.Migrations
                     b.Navigation("Reputations");
 
                     b.Navigation("Shadowlands");
-
-                    b.Navigation("Specializations");
 
                     b.Navigation("Transmog");
 

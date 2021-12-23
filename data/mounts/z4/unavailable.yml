@@ -1,0 +1,21 @@
+name: ">Unavailable"
+groups:
+
+- name: "Brawler's Guild"
+  things:
+  - 142641 # Brawler's Burly Mushan Beast (Brawler's Guild)
+
+- name: "Challenge Modes"
+  things:
+  - 132117 # Ashen Pandaren Phoenix (CM)
+  - 129552 # Crimson Pandaren Phoenix (CM)
+  - 132118 # Emerald Pandaren Phoenix (CM)
+  - 132119 # Violet Pandaren Phoenix (CM)
+
+- name: "Instances"
+  things:
+  - 148396 # Kor'kron War Wolf (Garrosh)
+
+- name: "Events"
+  things:
+  - 171845 # Warlord's Deathwheel

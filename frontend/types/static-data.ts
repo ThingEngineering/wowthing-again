@@ -14,6 +14,8 @@ export interface StaticData {
     reputations: Record<number, StaticDataReputation>
     reputationsRaw: StaticDataReputationArray[]
 
+    talents: Record<number, number[][]>
+
     currencyCategories: Record<number, StaticDataCurrencyCategory>
     progress: StaticDataProgressCategory[][]
     reputationTiers: Record<number, StaticDataReputationTier>

@@ -25,6 +25,8 @@ namespace Wowthing.Backend.Models.Redis
         public List<OutReputation> ReputationsRaw { get; set; }
         [JsonProperty(Order = 6)]
         public SortedDictionary<int, WowReputationTier> ReputationTiers { get; set; }
+        [JsonProperty(Order = 7)]
+        public Dictionary<int, List<List<int>>> Talents { get; set; }
 
         [JsonProperty(Order = 10)]
         public List<List<OutCollectionCategory>> MountSetsRaw { get; set; }
@@ -47,6 +49,5 @@ namespace Wowthing.Backend.Models.Redis
 
         [JsonProperty(Order = 100)]
         public Dictionary<int, OutRaiderIoScoreTiers> RaiderIoScoreTiers { get; set; }
-
     }
 }

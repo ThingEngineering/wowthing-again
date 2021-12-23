@@ -54,6 +54,9 @@ namespace Wowthing.Backend.Models.API.Character
         [JsonProperty("equipment")]
         public ApiObnoxiousHref EquipmentLink { get; set; }
         
+        [JsonProperty("media")]
+        public ApiObnoxiousHref MediaLink { get; set; }
+        
         [JsonProperty("mythic_keystone_profile")]
         public ApiObnoxiousHref MythicKeystoneProfileLink { get; set; }
         
@@ -65,6 +68,9 @@ namespace Wowthing.Backend.Models.API.Character
 
         [JsonProperty("reputations")]
         public ApiObnoxiousHref ReputationsLink { get; set; }
+
+        [JsonProperty("specializations")]
+        public ApiObnoxiousHref SpecializationsLink { get; set; }
         
         [JsonProperty("titles")]
         public ApiObnoxiousHref TitlesLink { get; set; }

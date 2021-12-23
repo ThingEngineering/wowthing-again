@@ -53,13 +53,25 @@ export class UserDataStore extends WritableFancyStore<UserData> {
                 allLockouts[key] = true
             }
 
-            character.currencies = {}
             if (character.currenciesRaw !== null) {
+                character.currencies = {}
                 for (const rawCurrency of character.currenciesRaw) {
                     const obj = new CharacterCurrency(...rawCurrency)
                     character.currencies[obj.id] = obj
                 }
                 character.currenciesRaw = null
+            }
+
+            if (character.specializationsRaw !== null) {
+                character.specializations = {}
+                for (const specializationId in character.specializationsRaw) {
+                    const specData: Record<number, number> = {}
+                    for (const [tierId, , spellId] of character.specializationsRaw[specializationId].talents) {
+                        specData[tierId] = spellId
+                    }
+                    character.specializations[specializationId] = specData
+                }
+                character.specializationsRaw = null
             }
         }
 

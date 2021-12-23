@@ -1,5 +1,6 @@
 <script lang="ts">
     import { raceMap } from '@/data/character-race'
+    import { Gender } from '@/types/enums'
     import type { Character, CharacterRace } from '@/types'
 
     import WowthingImage from './sources/WowthingImage.svelte'
@@ -17,10 +18,13 @@
     $: {
         const race: CharacterRace = characterRace || raceMap[character?.raceId || raceId]
         iconName = race?.icons[character?.gender || gender] ?? 'unknown_race'
-        tooltip = `${['Female', 'Male'][character?.gender || gender]} ${
-            race?.name ?? 'Unknown'
-        }`
+        tooltip = `${Gender[character?.gender || gender]} ${race?.name ?? 'Unknown'}`
     }
 </script>
 
-<WowthingImage name={iconName} {size} {border} {tooltip} />
+<WowthingImage
+    name={iconName}
+    {size}
+    {border}
+    {tooltip}
+/>

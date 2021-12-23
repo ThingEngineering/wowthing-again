@@ -171,3 +171,8 @@ div.content {
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+.border {
+    border: 1px solid $border-color;
+    border-radius: $border-radius;
+}

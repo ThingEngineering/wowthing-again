@@ -41,6 +41,7 @@ namespace Wowthing.Lib.Contexts
         public DbSet<PlayerCharacterEquippedItems> PlayerCharacterEquippedItems { get; set; }
         public DbSet<PlayerCharacterItem> PlayerCharacterItem { get; set; }
         public DbSet<PlayerCharacterLockouts> PlayerCharacterLockouts { get; set; }
+        public DbSet<PlayerCharacterMedia> PlayerCharacterMedia { get; set; }
         public DbSet<PlayerCharacterMounts> PlayerCharacterMounts { get; set; }
         public DbSet<PlayerCharacterMythicPlus> PlayerCharacterMythicPlus { get; set; }
         public DbSet<PlayerCharacterMythicPlusAddon> PlayerCharacterMythicPlusAddon { get; set; }
@@ -50,6 +51,7 @@ namespace Wowthing.Lib.Contexts
         public DbSet<PlayerCharacterRaiderIo> PlayerCharacterRaiderIo { get; set; }
         public DbSet<PlayerCharacterReputations> PlayerCharacterReputations { get; set; }
         public DbSet<PlayerCharacterShadowlands> PlayerCharacterShadowlands { get; set; }
+        public DbSet<PlayerCharacterSpecializations> PlayerCharacterSpecializations { get; set; }
         public DbSet<PlayerCharacterTransmog> PlayerCharacterTransmog { get; set; }
         public DbSet<PlayerCharacterWeekly> PlayerCharacterWeekly { get; set; }
 

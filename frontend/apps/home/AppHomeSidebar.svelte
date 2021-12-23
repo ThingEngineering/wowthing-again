@@ -193,6 +193,13 @@
         </a>
     </li>
 
+    <li use:active={'/characters/*'}>
+        <a href="#/characters/">
+            <IconifyIcon icon={iconConstruction} />
+            Characters
+        </a>
+    </li>
+
     <li use:active={'/cards'}>
         <a href="#/cards">
             <IconifyIcon icon={iconConstruction} />

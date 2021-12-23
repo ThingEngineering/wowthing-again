@@ -39,7 +39,7 @@ namespace Wowthing.Lib.Extensions
         }
 
         public static Dictionary<TKey, TObject[]> ToGroupedDictionary<TObject, TKey>(
-            this ICollection<TObject> things,
+            this IEnumerable<TObject> things,
             Func<TObject, TKey> keyFunc
         )
         {
@@ -52,7 +52,7 @@ namespace Wowthing.Lib.Extensions
         }
 
         public static Dictionary<TKey, TReturn[]> ToGroupedDictionary<TObject, TKey, TReturn>(
-            this ICollection<TObject> things,
+            this IEnumerable<TObject> things,
             Func<TObject, TKey> keyFunc, 
             Func<TObject, TReturn> valueFunc
         )

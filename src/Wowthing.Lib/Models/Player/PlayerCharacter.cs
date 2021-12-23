@@ -53,6 +53,7 @@ namespace Wowthing.Lib.Models.Player
         public PlayerCharacterAchievements Achievements { get; set; }
         public PlayerCharacterEquippedItems EquippedItems { get; set; }
         public PlayerCharacterLockouts Lockouts { get; set; }
+        public PlayerCharacterMedia Media { get; set; }
         public PlayerCharacterMounts Mounts { get; set; }
         public PlayerCharacterMythicPlus MythicPlus { get; set; }
         public PlayerCharacterMythicPlusAddon MythicPlusAddon { get; set; }
@@ -60,6 +61,7 @@ namespace Wowthing.Lib.Models.Player
         public PlayerCharacterRaiderIo RaiderIo { get; set; }
         public PlayerCharacterReputations Reputations { get; set; }
         public PlayerCharacterShadowlands Shadowlands { get; set; }
+        public PlayerCharacterSpecializations Specializations { get; set; }
         public PlayerCharacterTransmog Transmog { get; set; }
         public PlayerCharacterWeekly Weekly { get; set; }
 

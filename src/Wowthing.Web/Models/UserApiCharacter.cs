@@ -29,6 +29,7 @@ namespace Wowthing.Web.Models
         public int RestedExperience { get; set; }
         public long Gold { get; }
         public string Name { get; set; }
+        public string RenderUrl { get; set; }
         public DateTime LastSeenAddon { get; set; }
         public WowFaction Faction { get; set; }
         public WowGender Gender { get; set; }
@@ -42,6 +43,9 @@ namespace Wowthing.Web.Models
         public Dictionary<int, PlayerCharacterRaiderIoSeasonScores> RaiderIo { get; }
         public Dictionary<int, PlayerCharacterReputationsParagon> Paragons { get; }
         public Dictionary<int, int> Reputations { get; } = new();
+        
+        [JsonProperty("specializationsRaw")]
+        public Dictionary<int, PlayerCharacterSpecializationsSpecialization> Specializations { get; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public UserApiCharacterShadowlands Shadowlands { get; set; }
@@ -61,6 +65,8 @@ namespace Wowthing.Web.Models
             MountSkill = character.MountSkill;
             RaceId = character.RaceId;
 
+            Specializations = character.Specializations?.Specializations;
+
             if (pub && privacy?.Anonymized == true)
             {
                 Name = "SecretGoose";
@@ -69,6 +75,7 @@ namespace Wowthing.Web.Models
             {
                 Name = character.Name;
                 RealmId = character.RealmId;
+                RenderUrl = character.Media?.MainUrl;
             }
 
             if (!pub)
