@@ -9,6 +9,7 @@
     import type { Character } from '@/types'
 
     import General from './general/CharactersGeneral.svelte'
+    import Specializations from './specializations/CharactersSpecializations.svelte'
 
     export let slug1: string
     export let slug2: string
@@ -25,12 +26,14 @@
         )
 
         if (!slug3) {
-            slug3 = 'general'
+            //slug3 = 'general'
+            slug3 = 'specializations'
         }
     }
 
     const componentMap: Record<string, typeof SvelteComponent> = {
         general: General,
+        specializations: Specializations,
     }
 </script>
 
