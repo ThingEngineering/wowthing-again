@@ -47,7 +47,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
-            Version = 26,
+            Version = 27,
         };
 
         public override async Task Run(params string[] data)
@@ -141,6 +141,10 @@ namespace Wowthing.Backend.Jobs.Misc
             var reputations = await LoadReputations();
             var reputationSets = LoadReputationSets();
             _timer.AddPoint("Reputations");
+            
+            // Talents
+            var talents = await LoadTalents();
+            _timer.AddPoint("Talents");
 
             // Toys
             var toySets = LoadSets("toys");
@@ -180,6 +184,7 @@ namespace Wowthing.Backend.Jobs.Misc
                     RealmsRaw = realms,
                     ReputationsRaw = reputations,
                     ReputationTiers = reputationTiers,
+                    Talents = talents,
                     ZoneMapSets = zoneMaps[language],
 
                     CreatureToPet = sortedCreatureToPet,
@@ -251,6 +256,84 @@ namespace Wowthing.Backend.Jobs.Misc
                 .ToList();
         }
 
+        private static async Task<Dictionary<int, List<List<int>>>> LoadTalents()
+        {
+            var talents = await DataUtilities.LoadDumpCsvAsync<DumpTalent>("talent");
+
+            // classId => { tierId => { column => talent } }
+            var classTalents = talents
+                .Where(talent => talent.ClassID > 0 && talent.SpecID == 0)
+                .GroupBy(talent => talent.ClassID)
+                .ToDictionary(
+                    classGroup => classGroup.Key,
+                    classGroup => classGroup
+                        .GroupBy(talent => talent.TierID)
+                        .ToDictionary(
+                            tierGroup => tierGroup.Key,
+                            tierGroup => tierGroup
+                                .ToDictionary(talent => talent.ColumnIndex)
+                        )
+                );
+            
+            // specId => { tierId => { column => talent } }
+            var specTalents = talents
+                .Where(talent => talent.ClassID > 0 && talent.SpecID > 0)
+                .GroupBy(talent => talent.SpecID)
+                .ToDictionary(
+                    specGroup => specGroup.Key,
+                    specGroup => specGroup
+                        .GroupBy(talent => talent.TierID)
+                        .ToDictionary(
+                            tierGroup => tierGroup.Key,
+                            tierGroup => tierGroup
+                                .ToDictionary(talent => talent.ColumnIndex)
+                        )
+                );
+            
+            // specId => classId
+            var specToClass = talents
+                .Where(talent => talent.ClassID > 0)
+                .GroupBy(talent => talent.SpecID)
+                .ToDictionary(
+                    specGroup => specGroup.Key,
+                    specGroup => specGroup.First().ClassID
+                );
+
+            var ret = new Dictionary<int, List<List<int>>>();
+            foreach (var (specId, tiers) in specTalents)
+            {
+                var specData = new List<List<int>>();
+
+                for (int tierIndex = 0; tierIndex <= 6; tierIndex++)
+                {
+                    var tierData = new List<int>();
+                    tiers.TryGetValue(tierIndex, out var columns);
+                    
+                    for (int columnIndex = 0; columnIndex <= 2; columnIndex++)
+                    {
+                        DumpTalent talent = null;
+                        if (columns != null)
+                        {
+                            columns.TryGetValue(columnIndex, out talent);
+                        }
+                        
+                        if (talent == null)
+                        {
+                            classTalents[specToClass[specId]][tierIndex].TryGetValue(columnIndex, out talent);
+                        }
+                        
+                        tierData.Add(talent?.SpellID ?? 0);
+                    }
+                    
+                    specData.Add(tierData);
+                }
+
+                ret[specId] = specData;
+            }
+
+            return ret;
+        }
+        
         private static readonly HashSet<int> InstanceTypes = new HashSet<int>() {
             1, // Party Dungeon
             2, // Raid Dungeon
