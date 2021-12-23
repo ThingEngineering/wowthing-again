@@ -5,7 +5,11 @@ import { userStore } from '@/stores'
 import type { Character, Settings } from '@/types'
 import toDigits from '@/utils/to-digits'
 
-export default function getCharacterSortFunc(settingsData: Settings, prefixFunc?: (char: Character) => string): (char: Character) => string {
+export default function getCharacterSortFunc(
+    settingsData: Settings,
+    prefixFunc?: (char: Character) => string
+): (char: Character) => string
+{
     const sortBy = settingsData.general.sortBy ?? ['level', 'name']
 
     return (char: Character) => {
