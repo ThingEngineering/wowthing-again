@@ -17,6 +17,7 @@
     export let decorationFunc: (entry: SidebarItem, parentEntry?: SidebarItem) => string = undefined
     export let percentFunc: (entry: SidebarItem, parentEntry?: SidebarItem) => number = undefined
 
+    let activeRegex: string
     let decoration: string
     let expanded: boolean
     let percent = -1
@@ -36,6 +37,13 @@
 
             if (noVisitRoot && expanded && $location === url ) {
                 replace(`${url}/${item.children[0].slug}`)
+            }
+
+            if (parentItem) {
+                activeRegex = '^' + url.replace(/\//g, '\\/') + '(?:\\/|$)'
+            }
+            else {
+                activeRegex = '^' + url.replace(/\//g, '\\/') + '(?:\\?.*?)?$'
             }
         }
     }
@@ -94,7 +102,7 @@
             href="{url}"
             style="{noVisitRoot ? '--linkColor: #ffffff' : null}"
             use:link
-            use:active={new RegExp('^' + url.replace(/\//g, '\\/') + '(?:\\?.*?)?$')}
+            use:active={new RegExp(activeRegex)}
         >
             {item.name}
 

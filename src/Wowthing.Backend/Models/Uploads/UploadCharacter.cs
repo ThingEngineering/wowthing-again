@@ -44,6 +44,7 @@ namespace Wowthing.Backend.Models.Uploads
         public UploadCharacterCovenantFeature Missions { get; set; }
         public UploadCharacterCovenantFeature Transport { get; set; }
         public UploadCharacterCovenantFeature Unique { get; set; }
+        public List<UploadCharacterCovenantSoulbind> Soulbinds { get; set; }
     }
 
     public class UploadCharacterCovenantFeature
@@ -51,6 +52,14 @@ namespace Wowthing.Backend.Models.Uploads
         public int Rank { get; set; }
         public int? ResearchEnds { get; set; }
         public string Name { get; set; }
+    }
+
+    public class UploadCharacterCovenantSoulbind
+    {
+        public int Id { get; set; }
+        public bool Unlocked { get; set; }
+        public List<int> Specs { get; set; }
+        public List<List<int>> Tree { get; set; }
     }
     
     public class UploadCharacterLockout

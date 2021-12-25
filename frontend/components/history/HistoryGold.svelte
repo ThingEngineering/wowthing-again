@@ -78,9 +78,7 @@
                 firstRealmId = realmId
             }
 
-            const colorIndex = (realmIndex + 1) * 2
-            const color1 = colors[colorIndex]
-            const color2 = colors[colorIndex + 1]
+            const color = colors[(realmIndex + 1) * 2]
 
             let points: {x: DateTime, y: number}[]
             if (historyState.scale === 'hour') {
@@ -98,14 +96,16 @@
                 points = sortBy(
                     toPairs(temp),
                     ([date]) => date
-                ).map(
-                    ([, [time, value]]) => [time, value]
+                ).map(([, [time, value]]) => ({
+                        x: time,
+                        y: value,
+                    })
                 )
             }
 
             data.datasets.push({
-                backgroundColor: color1,
-                borderColor: stacked ? '#000' : color1,
+                backgroundColor: color,
+                borderColor: stacked ? '#000' : color,
                 borderWidth: stacked ? 1 : 2,
                 fill: stacked,
                 label: realmName,
@@ -115,13 +115,16 @@
         }
 
         if (historyState.chartType === 'line' && firstRealmId >= 0) {
-            const totals: [string, number][] = []
+            const totals: {x: DateTime, y: number}[] = []
             for (let pointIndex = 0; pointIndex < data.datasets[0].data.length; pointIndex++) {
                 let total = 0
                 for (let datasetIndex = 0; datasetIndex < data.datasets.length; datasetIndex++) {
-                    total += data.datasets[datasetIndex].data[pointIndex][1]
+                    total += data.datasets[datasetIndex].data[pointIndex].y
                 }
-                totals.push([data.datasets[0].data[pointIndex][0], total])
+                totals.push({
+                    x: data.datasets[0].data[pointIndex].x,
+                    y: total
+                })
             }
 
             data.datasets.push({
@@ -131,10 +134,7 @@
                 fill: stacked,
                 label: 'Total',
                 spanGaps: true,
-                data: totals.map((point) => ({
-                    x: parseApiTime(point[0]),
-                    y: point[1],
-                })),
+                data: totals,
             })
         }
 
@@ -145,7 +145,6 @@
             options: {
                 animation: false,
                 color: '#fff',
-                radius: 4,
                 responsive: true,
                 spanGaps: true,
                 interaction: {

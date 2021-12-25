@@ -1,5 +1,5 @@
 <script lang="ts">
-    import find from 'lodash/find'
+    import some from 'lodash/some'
 
     import { userStore}  from '@/stores'
     import { collectionState } from '@/stores/local-storage'
@@ -17,7 +17,7 @@
             $collectionState,
             'mounts',
             $staticStore.data.mountSets,
-            (thing: number[]) => find(
+            (thing: number[]) => some(
                 thing,
                 (value) => $userStore.data.mounts[$staticStore.data.spellToMount[value] || -1] === true
             )

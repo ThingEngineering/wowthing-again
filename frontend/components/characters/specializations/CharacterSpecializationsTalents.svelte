@@ -11,14 +11,13 @@
     export let character: Character
     export let specializationId: number
 
-    let selectedTalent: number[][]
+    let selectedTalent: number[]
     $: {
         selectedTalent = $staticStore.data.talents[specializationId]
             .map((spellIds, tier) => find(
                 spellIds,
                 (spellId) => character.specializations?.[specializationId]?.[tier] === spellId
             ))
-        console.log(selectedTalent)
     }
 </script>
 
@@ -27,6 +26,7 @@
         text-align: center;
     }
     .specialization {
+        background: $highlight-background;
         display: flex;
         flex-direction: column;
         gap: 0.5rem;

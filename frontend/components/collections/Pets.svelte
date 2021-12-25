@@ -1,5 +1,5 @@
 <script lang="ts">
-    import find from 'lodash/find'
+    import some from 'lodash/some'
 
     import { staticStore, userStore } from '@/stores'
     import { collectionState } from '@/stores/local-storage'
@@ -16,7 +16,7 @@
             $collectionState,
             'pets',
             $staticStore.data.petSets,
-            (thing: number[]) => find(
+            (thing: number[]) => some(
                 thing,
                 (value) => $userStore.data.petsHas[$staticStore.data.creatureToPet[value] || -1] === true
             )

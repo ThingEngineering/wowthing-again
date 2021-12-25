@@ -14,6 +14,8 @@ export interface StaticData {
     reputations: Record<number, StaticDataReputation>
     reputationsRaw: StaticDataReputationArray[]
 
+    soulbinds: Record<number, StaticDataSoulbind[]>
+
     talents: Record<number, number[][]>
 
     currencyCategories: Record<number, StaticDataCurrencyCategory>
@@ -177,6 +179,13 @@ export class StaticDataSetGroup {
 }
 
 export type StaticDataSetGroupArray = ConstructorParameters<typeof StaticDataSetGroup>
+
+// Soulbinds
+export interface StaticDataSoulbind {
+    id: number
+    name: string
+    rows: number[][][]
+}
 
 // RaiderIO
 export interface StaticDataRaiderIoScoreTiers {

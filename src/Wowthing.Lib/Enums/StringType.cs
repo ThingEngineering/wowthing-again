@@ -8,5 +8,6 @@
         WowJournalTierName = 4,
         WowJournalInstanceName = 5,
         WowJournalEncounterName = 6,
+        WowSoulbindName = 7,
     }
 }

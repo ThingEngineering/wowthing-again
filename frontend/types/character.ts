@@ -192,12 +192,20 @@ export interface CharacterShadowlandsCovenant {
     missions: CharacterShadowlandsCovenantFeature
     transport: CharacterShadowlandsCovenantFeature
     unique: CharacterShadowlandsCovenantFeature
+    soulbinds: CharacterShadowlandsSoulbind[]
 }
 
 export interface CharacterShadowlandsCovenantFeature {
     rank: number
     researchEnds: number
     name: string
+}
+
+export interface CharacterShadowlandsSoulbind {
+    id: number
+    specializations: number[]
+    tree: number[][]
+    unlocked: boolean
 }
 
 interface CharacterWeekly {

@@ -172,6 +172,7 @@ namespace Wowthing.Backend.Jobs.User
                     Missions = HandleCovenantsFeature(covenantData.Missions),
                     Transport = HandleCovenantsFeature(covenantData.Transport),
                     Unique = HandleCovenantsFeature(covenantData.Unique),
+                    Soulbinds = HandleCovenantsSoulbinds(covenantData.Soulbinds),
                 };
             }
 
@@ -192,6 +193,21 @@ namespace Wowthing.Backend.Jobs.User
                 ResearchEnds = Math.Max(0, featureData.ResearchEnds ?? 0),
                 Name = featureData.Name.EmptyIfNullOrWhitespace().Truncate(32),
             };
+        }
+
+        private List<PlayerCharacterShadowlandsCovenantSoulbind> HandleCovenantsSoulbinds(
+            List<UploadCharacterCovenantSoulbind> soulbinds)
+        {
+            return soulbinds
+                .EmptyIfNull()
+                .Select(soulbind => new PlayerCharacterShadowlandsCovenantSoulbind
+                {
+                    Id = soulbind.Id,
+                    Unlocked = soulbind.Unlocked,
+                    Specializations = soulbind.Specs.EmptyIfNull(),
+                    Tree = soulbind.Tree.EmptyIfNull(),
+                })
+                .ToList();
         }
         
         private void HandleCurrencies(PlayerCharacter character, UploadCharacter characterData)

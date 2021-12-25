@@ -30,6 +30,7 @@ namespace Wowthing.Lib.Models.Player
         public PlayerCharacterShadowlandsCovenantFeature Missions { get; set; }
         public PlayerCharacterShadowlandsCovenantFeature Transport { get; set; }
         public PlayerCharacterShadowlandsCovenantFeature Unique { get; set; }
+        public List<PlayerCharacterShadowlandsCovenantSoulbind> Soulbinds { get; set; }
     }
 
     public class PlayerCharacterShadowlandsCovenantFeature
@@ -37,5 +38,14 @@ namespace Wowthing.Lib.Models.Player
         public int Rank { get; set; }
         public int? ResearchEnds { get; set; }
         public string Name { get; set; }
+    }
+
+    public class PlayerCharacterShadowlandsCovenantSoulbind
+    {
+        public int Id { get; set; }
+
+        public bool Unlocked { get; set; }
+        public List<int> Specializations { get; set; }
+        public List<List<int>> Tree { get; set; }
     }
 }
