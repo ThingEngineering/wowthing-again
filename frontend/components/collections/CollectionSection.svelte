@@ -17,17 +17,18 @@
 
     export let slug1: string
     export let slug2: string
+    export let sets: StaticDataSetCategory[][]
 
-    const { route, sets, thingType } = getContext('collection') as CollectionContext
+    const { route, thingType } = getContext('collection') as CollectionContext
 
-    let sections: StaticDataSetCategory[]
+    let categories: StaticDataSetCategory[]
     $: {
-        sections = filter(
+        categories = filter(
             find(sets, (s) => s !== null && s[0].slug === slug1),
             (s) => s.groups.length > 0
         )
         if (slug2) {
-            sections = filter(sections, (s) => s.slug === slug2)
+            categories = filter(categories, (s) => s.slug === slug2)
         }
     }
 </script>
@@ -49,7 +50,6 @@
             >Highlight missing</Checkbox>
         </button>
 
-        <!--
         <span>Show:</span>
 
         <button>
@@ -65,26 +65,25 @@
                 bind:value={$collectionState.showUncollected[route]}
             >Missing</Checkbox>
         </button>
-        -->
     </div>
 
-    {#each sections as section}
+    {#each categories as category}
         <div class="collection thing-container">
-            {#if section.name}
+            {#if category.name}
                 <SectionTitle
-                    title={section.name}
-                    count={$userStore.data.setCounts[route][`${slug1}--${section.slug}`]}
+                    title={category.name}
+                    count={$userStore.data.setCounts[route][`${slug1}--${category.slug}`]}
                 />
             {/if}
 
             <div class="collection-section">
-                {#each section.groups as group, i (`${thingType}--${slug1}--${section.slug}--${i}`)}
+                {#each category.groups as group, i (`${thingType}--${slug1}--${category.slug}--${i}`)}
                     <div
                         class="collection-group"
                         style="width: calc({44 * group.things.length}px + {0.3 * group.things.length}em);"
                     >
                         <h4
-                            class="drop-shadow text-overflow {getPercentClass($userStore.data.setCounts[route][`${slug1}--${section.slug}--${group.name}`])}"
+                            class="drop-shadow text-overflow {getPercentClass($userStore.data.setCounts[route][`${slug1}--${category.slug}--${group.name}`])}"
                             use:tippy={group.name}
                         >{group.name}</h4>
 

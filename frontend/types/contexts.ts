@@ -5,5 +5,4 @@ export interface CollectionContext {
     thingType: string
     thingMap: Record<number, number>
     userHas: Record<number, boolean>
-    sets: StaticDataSetCategory[][]
 }

@@ -5,6 +5,7 @@
         PointElement,
         LineController,
         LinearScale,
+        LogarithmicScale,
         TimeScale,
         Filler,
         Legend,
@@ -12,7 +13,10 @@
         Tooltip,
     } from 'chart.js'
     import 'chartjs-adapter-luxon'
+    import sortBy from 'lodash/sortBy'
+    import toPairs from 'lodash/toPairs'
     import { onMount } from 'svelte'
+    import type { DateTime } from 'luxon'
 
     import { colors } from '@/data/colors'
     import { staticStore, userHistoryStore } from '@/stores'
@@ -22,13 +26,14 @@
     import type { HistoryState } from '@/stores/local-storage'
     import type { StaticDataRealm } from '@/types'
 
-    import Checkbox from '@/components/forms/CheckboxInput.svelte'
+    import RadioGroup from '@/components/forms/RadioGroup.svelte'
 
     Chart.register(
         LineElement,
         PointElement,
         LineController,
         LinearScale,
+        LogarithmicScale,
         TimeScale,
         Filler,
         Legend,
@@ -45,7 +50,8 @@
 
     onMount(() => redrawChart($historyState))
 
-    const redrawChart = function(historyState: HistoryState) {
+    const redrawChart = function(historyState: HistoryState)
+    {
         if (chart) {
             chart.destroy()
         }
@@ -53,6 +59,7 @@
         const data: { datasets: any[] } = {
             datasets: [],
         }
+        const stacked = historyState.chartType === 'area-stacked'
 
         const realms: [string, number][] = []
         for (const realmId in $userHistoryStore.data.gold) {
@@ -64,16 +71,67 @@
         }
         realms.sort()
 
+        let firstRealmId = -1
         for (let realmIndex = 0; realmIndex < realms.length; realmIndex++) {
             const [realmName, realmId] = realms[realmIndex]
+            if (firstRealmId === -1) {
+                firstRealmId = realmId
+            }
+
+            const colorIndex = (realmIndex + 1) * 2
+            const color1 = colors[colorIndex]
+            const color2 = colors[colorIndex + 1]
+
+            let points: {x: DateTime, y: number}[]
+            if (historyState.scale === 'hour') {
+                points = $userHistoryStore.data.gold[realmId].map((point) => ({
+                    x: parseApiTime(point[0]),
+                    y: point[1],
+                }))
+            }
+            else if (historyState.scale === 'day') {
+                const temp: Record<string, [DateTime, number]> = {}
+                for (const [time, value] of $userHistoryStore.data.gold[realmId]) {
+                    const parsedTime = parseApiTime(time).toLocal()
+                    temp[parsedTime.toISODate()] = [parsedTime.set({ hour: 0, minute: 0, second: 0 }), value]
+                }
+                points = sortBy(
+                    toPairs(temp),
+                    ([date]) => date
+                ).map(
+                    ([, [time, value]]) => [time, value]
+                )
+            }
+
             data.datasets.push({
-                backgroundColor: colors[realmIndex],
-                borderColor: historyState.stacked ? '#000' : colors[realmIndex],
-                borderWidth: historyState.stacked ? 1 : 2,
-                fill: historyState.stacked,
+                backgroundColor: color1,
+                borderColor: stacked ? '#000' : color1,
+                borderWidth: stacked ? 1 : 2,
+                fill: stacked,
                 label: realmName,
                 spanGaps: true,
-                data: $userHistoryStore.data.gold[realmId].map((point) => ({
+                data: points,
+            })
+        }
+
+        if (historyState.chartType === 'line' && firstRealmId >= 0) {
+            const totals: [string, number][] = []
+            for (let pointIndex = 0; pointIndex < data.datasets[0].data.length; pointIndex++) {
+                let total = 0
+                for (let datasetIndex = 0; datasetIndex < data.datasets.length; datasetIndex++) {
+                    total += data.datasets[datasetIndex].data[pointIndex][1]
+                }
+                totals.push([data.datasets[0].data[pointIndex][0], total])
+            }
+
+            data.datasets.push({
+                backgroundColor: colors[0],
+                borderColor: colors[0],
+                borderWidth: 2,
+                fill: stacked,
+                label: 'Total',
+                spanGaps: true,
+                data: totals.map((point) => ({
                     x: parseApiTime(point[0]),
                     y: point[1],
                 })),
@@ -87,11 +145,12 @@
             options: {
                 animation: false,
                 color: '#fff',
-                radius: 5,
+                radius: 4,
                 responsive: true,
                 spanGaps: true,
                 interaction: {
                     axis: 'xy',
+                    intersect: false,
                     mode: 'index',
                 },
                 layout: {
@@ -107,15 +166,22 @@
                         },
                     },
                     tooltip: {
+                        bodySpacing: 5,
+                        boxPadding: 3,
                         position: 'average',
                         callbacks: {
-                            footer: (tooltipItems) => {
+                            footer: (tooltipItems) =>
+                            {
+                                if (historyState.chartType === 'line') {
+                                    return undefined
+                                }
+
                                 const total: number = tooltipItems.reduce((a: number, b) => a + b.parsed.y, 0)
                                 return `Total: ${total.toLocaleString()}`
                             },
                         },
                         bodyFont: {
-                            size: 14,
+                            size: 15,
                         },
                         footerFont: {
                             size: 16,
@@ -138,12 +204,13 @@
                             },
                         },
                         time: {
-                            tooltipFormat: 'ff', // less short localized date and time
+                            tooltipFormat: historyState.scale === 'hour' ? 'ff' : 'DD',
                             minUnit: 'day',
                         },
                     },
                     y: {
-                        stacked: historyState.stacked,
+                        stacked: stacked,
+                        type: 'logarithmic',
                         grid: {
                             color: '#666',
                         },
@@ -158,9 +225,15 @@
             },
         })
     }
+
 </script>
 
 <style lang="scss">
+    .radio-container {
+        background: $highlight-background;
+        margin-right: 0.5rem;
+        padding: 0.25em 0.375em;
+    }
     .thing-container {
         border: 1px solid $border-color;
         border-radius: $border-radius;
@@ -174,12 +247,28 @@
 
 <div class="view">
     <div class="options-container">
-        <button>
-            <Checkbox
-                name="highlight_missing"
-                bind:value={$historyState.stacked}
-            >Stacked area</Checkbox>
-        </button>
+        <div class="radio-container border">
+            <RadioGroup
+                bind:value={$historyState.chartType}
+                name="chart_type"
+                options={[
+                    ['area-stacked', 'Area (stacked)'],
+                    ['line', 'Line'],
+                    //['line-daily', 'Line (daily range)'],
+                ]}
+            />
+        </div>
+
+        <div class="radio-container border">
+            <RadioGroup
+                bind:value={$historyState.scale}
+                name="scale"
+                options={[
+                    ['hour', 'Hourly'],
+                    ['day', 'Daily'],
+                ]}
+            />
+        </div>
     </div>
 
     <div class="thing-container">

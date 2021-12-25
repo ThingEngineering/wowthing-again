@@ -2,7 +2,8 @@ import { writable } from 'svelte/store'
 
 
 export class HistoryState {
-    public stacked = true
+    public chartType = 'stacked-area'
+    public scale = 'hour'
 }
 
 const key = 'state-history'
