@@ -15,14 +15,15 @@
     export let userHas: Record<number, boolean> = {}
     export let sets: StaticDataSetCategory[][]
 
-    const context: CollectionContext = {
-        route,
-        thingType,
-        thingMap,
-        userHas,
-        sets,
+    $: {
+        const context: CollectionContext = {
+            route,
+            thingType,
+            thingMap,
+            userHas,
+        }
+        setContext('collection', context)
     }
-    setContext('collection', context)
 
     afterUpdate(() => {
         window.__tip?.watchElligibleElements()
@@ -40,6 +41,12 @@
 </style>
 
 <div class="collections">
-    <CollectionSidebar />
-    <CollectionSection slug1={params.slug1} slug2={params.slug2} />
+    <CollectionSidebar
+        {sets}
+    />
+    <CollectionSection
+        slug1={params.slug1}
+        slug2={params.slug2}
+        {sets}
+    />
 </div>

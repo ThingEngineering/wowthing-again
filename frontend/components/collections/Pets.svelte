@@ -1,17 +1,34 @@
 <script lang="ts">
+    import find from 'lodash/find'
+
     import { staticStore, userStore } from '@/stores'
-    import type { MultiSlugParams } from '@/types'
+    import { collectionState } from '@/stores/local-storage'
+    import { getFilteredSets } from '@/utils/collections'
+    import type { MultiSlugParams, StaticDataSetCategory } from '@/types'
 
     import Collection from './Collection.svelte'
 
     export let params: MultiSlugParams
+
+    let sets: StaticDataSetCategory[][]
+    $: {
+        sets = getFilteredSets(
+            $collectionState,
+            'pets',
+            $staticStore.data.petSets,
+            (thing: number[]) => find(
+                thing,
+                (value) => $userStore.data.petsHas[$staticStore.data.creatureToPet[value] || -1] === true
+            )
+        )
+    }
 </script>
 
 <Collection
     route="pets"
-    {params}
     thingType="npc"
     thingMap={$staticStore.data.creatureToPet}
     userHas={$userStore.data.petsHas}
-    sets={$staticStore.data.petSets}
+    {params}
+    {sets}
 />

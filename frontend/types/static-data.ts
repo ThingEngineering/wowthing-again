@@ -154,7 +154,7 @@ export class StaticDataSetCategory {
     public slug: string
     public groups: StaticDataSetGroup[]
 
-    constructor(
+    public constructor(
         name: string,
         slug: string,
         groups: StaticDataSetGroupArray[]
@@ -176,7 +176,7 @@ export class StaticDataSetGroup {
     { }
 }
 
-type StaticDataSetGroupArray = ConstructorParameters<typeof StaticDataSetGroup>
+export type StaticDataSetGroupArray = ConstructorParameters<typeof StaticDataSetGroup>
 
 // RaiderIO
 export interface StaticDataRaiderIoScoreTiers {
