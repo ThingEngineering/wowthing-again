@@ -103,7 +103,6 @@ export interface CharacterMythicPlus {
     currentPeriodId: number
     periodRuns: Record<number, CharacterMythicPlusRun[]>
     seasons: Record<number, Record<number, CharacterMythicPlusRun[]>>
-    seasonBadges: Record<number, string>
 }
 
 export interface CharacterMythicPlusAddon {

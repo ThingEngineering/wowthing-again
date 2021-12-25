@@ -51,20 +51,13 @@ export default function initializeCharacter(character: Character): void {
 
     // mythic+ seasons
     if (character.mythicPlus?.seasons) {
-        character.mythicPlus.seasonBadges = {}
         for (const seasonId in seasonMap) {
             const season = seasonMap[seasonId]
             if (character.level >= season.minLevel) {
                 const characterSeason = character.mythicPlus.seasons[seasonId]
                 if (characterSeason !== undefined) {
-                    let total = 0,
-                        timed2 = 0,
-                        timed5 = 0,
-                        timed10 = 0,
-                        timed15 = 0
                     for (let i = 0; i < season.orders.length; i++) {
                         for (let j = 0; j < season.orders[i].length; j++) {
-                            total++
                             const dungeonId = season.orders[i][j]
                             const runs = characterSeason[dungeonId] || []
                             for (let runIndex = 0; runIndex < runs.length; runIndex++) {
@@ -72,32 +65,8 @@ export default function initializeCharacter(character: Character): void {
 
                                 // Members are packed arrays, convert them to useful objects
                                 run.memberObjects = run.members.map(m => new CharacterMythicPlusRunMember(...m))
-
-                                if (run.timed) {
-                                    if (run.keystoneLevel >= 15) {
-                                        timed15++
-                                    }
-                                    if (run.keystoneLevel >= 10) {
-                                        timed10++
-                                    }
-                                    if (run.keystoneLevel >= 5) {
-                                        timed5++
-                                    }
-                                    timed2++
-                                    break
-                                }
                             }
                         }
-                    }
-
-                    if (timed15 === total) {
-                        character.mythicPlus.seasonBadges[season.id] = '15'
-                    } else if (timed10 === total) {
-                        character.mythicPlus.seasonBadges[season.id] = '10'
-                    } else if (timed5 === total) {
-                        character.mythicPlus.seasonBadges[season.id] = '5'
-                    } else if (timed2 === total) {
-                        character.mythicPlus.seasonBadges[season.id] = '2'
                     }
                 }
             }
