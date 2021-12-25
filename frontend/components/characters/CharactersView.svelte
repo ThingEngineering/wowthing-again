@@ -57,28 +57,20 @@
     nav {
         background: $highlight-background;
         border-radius: 0;
+        display: flex;
         margin-bottom: 1rem;
         margin-left: calc(-1rem + -1px);
         padding: 0;
         width: calc(100% + 2rem + 2px);
 
-        ul {
-            list-style: none;
-            margin: 0;
+        a {
+            border-right: 1px solid $border-color;
+            display: block;
+            padding: 0.5rem 1rem;
 
-            li {
-                border-right: 1px solid $border-color;
-                display: inline-block;
-
-                a {
-                    display: block;
-                    padding: 0.5rem 1rem;
-
-                    &:global(.active) {
-                        background: $active-background;
-                        color: #fff;
-                    }
-                }
+            &:global(.active) {
+                background: $active-background;
+                color: #fff;
             }
         }
     }
@@ -97,17 +89,9 @@
         <p>Level {character.level} {Gender[character.gender]} {raceMap[character.raceId].name} {classMap[character.classId].name}</p>
 
         <nav class="border">
-            <ul>
-                <li>
-                    <a href="#/characters/{slug1}/{slug2}/paperdoll" use:active>Paperdoll</a>
-                </li>
-                <li>
-                    <a href="#/characters/{slug1}/{slug2}/specializations" use:active>Specializations</a>
-                </li>
-                <li>
-                    <a href="#/characters/{slug1}/{slug2}/shadowlands" use:active>Shadowlands</a>
-                </li>
-            </ul>
+            <a href="#/characters/{slug1}/{slug2}/paperdoll" use:active>Paperdoll</a>
+            <a href="#/characters/{slug1}/{slug2}/specializations" use:active>Specializations</a>
+            <a href="#/characters/{slug1}/{slug2}/shadowlands" use:active>Shadowlands</a>
         </nav>
 
         <svelte:component
