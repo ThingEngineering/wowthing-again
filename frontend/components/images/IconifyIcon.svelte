@@ -15,7 +15,7 @@
 
 <svg
     style="--scale: {scale};"
-    viewbox="0 0 {icon.width} {icon.height}"
+    viewBox="0 0 {icon.width} {icon.height}"
     aria-hidden="true"
     role="img"
 >

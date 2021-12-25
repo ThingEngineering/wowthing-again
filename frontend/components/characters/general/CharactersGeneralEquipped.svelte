@@ -6,11 +6,11 @@
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
-    export let slot: InventorySlot
+    export let inventorySlot: InventorySlot
 
     let item: CharacterEquippedItem
     $: {
-        item = character.equippedItems[slot]
+        item = character.equippedItems[inventorySlot]
     }
 </script>
 

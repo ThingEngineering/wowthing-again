@@ -69,31 +69,31 @@
     style="{character.renderUrl ? `background-image: url(${character.renderUrl})` : ''};"
 >
     <div class="equipped left">
-        {#each leftSide as slot}
+        {#each leftSide as inventorySlot}
             <Equipped
                 {character}
-                {slot}
+                {inventorySlot}
             />
         {/each}
     </div>
 
     <div class="equipped right">
-        {#each rightSide as slot}
+        {#each rightSide as inventorySlot}
             <Equipped
                 {character}
-                {slot}
+                {inventorySlot}
             />
         {/each}
     </div>
 
     <div class="weapons">
         <Equipped
+            inventorySlot={InventorySlot.MainHand}
             {character}
-            slot={InventorySlot.MainHand}
         />
         <Equipped
+            inventorySlot={InventorySlot.OffHand}
             {character}
-            slot={InventorySlot.OffHand}
         />
     </div>
 </div>

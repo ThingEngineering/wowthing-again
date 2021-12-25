@@ -11,7 +11,7 @@
     export let character: Character
     export let specializationId: number
 
-    let selectedTalent: number[][]
+    let selectedTalent: number[]
     $: {
         selectedTalent = $staticStore.data.talents[specializationId]
             .map((spellIds, tier) => find(

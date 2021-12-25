@@ -1,10 +1,9 @@
 <script lang="ts">
     import find from 'lodash/find'
-    import type { SvelteComponent } from 'svelte'
 
     import { classMap } from '@/data/character-class'
     import { raceMap } from '@/data/character-race'
-    import { staticStore, userStore } from '@/stores'
+    import { userStore } from '@/stores'
     import { Gender, Region } from '@/types/enums'
     import type { Character } from '@/types'
 
@@ -29,11 +28,6 @@
             //slug3 = 'general'
             slug3 = 'specializations'
         }
-    }
-
-    const componentMap: Record<string, typeof SvelteComponent> = {
-        general: General,
-        specializations: Specializations,
     }
 </script>
 
@@ -67,9 +61,10 @@
 
         <p>Level {character.level} {Gender[character.gender]} {raceMap[character.raceId].name} {classMap[character.classId].name}</p>
 
-        <svelte:component
-            this={componentMap[slug3]}
-            {character}
-        />
+        {#if slug3 === 'general'}
+            <General {character} />
+        {:else if slug3 === 'specializations'}
+            <Specializations {character} />
+        {/if}
     </div>
 {/if}
