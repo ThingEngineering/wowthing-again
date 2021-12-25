@@ -33,7 +33,7 @@
         background-color: $highlight-background;
         background-position: 45% 70%;
         background-size: calc(1600px * var(--scale, 0.85)), calc(1200px * var(--scale, 0.85));
-        height: 750px;
+        height: 700px;
         margin: -1rem;
         position: relative;
         width: calc(100% + 2rem);

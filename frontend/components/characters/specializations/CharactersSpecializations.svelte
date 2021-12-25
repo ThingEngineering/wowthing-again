@@ -17,7 +17,8 @@
     .specializations {
         display: flex;
         flex-direction: row;
-        gap: 1rem;
+        gap: 2rem;
+        justify-content: center;
     }
 </style>
 
