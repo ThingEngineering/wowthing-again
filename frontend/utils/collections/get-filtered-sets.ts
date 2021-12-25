@@ -11,8 +11,6 @@ export function getFilteredSets(
     const showCollected = collectionState.showCollected[collectionKey]
     const showUncollected = collectionState.showUncollected[collectionKey]
 
-    console.log({collectionKey, showCollected, showUncollected})
-
     if (showCollected && showUncollected) {
         return sets
     }
@@ -44,9 +42,6 @@ export function getFilteredSets(
 
         ret.push(newCategories)
     }
-
-    console.log(sets)
-    console.log(ret)
 
     return ret
 }

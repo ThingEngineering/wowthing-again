@@ -18,7 +18,6 @@
                 spellIds,
                 (spellId) => character.specializations?.[specializationId]?.[tier] === spellId
             ))
-        console.log(selectedTalent)
     }
 </script>
 

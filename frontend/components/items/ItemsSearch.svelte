@@ -31,7 +31,6 @@
     }
 
     onMount(() => {
-        console.log('onMount', formValid)
         if (formValid) {
             document.getElementById('item-search-submit').click()
         }
