@@ -30,15 +30,28 @@
 
 <style lang="scss">
     .character-image {
-        --scale: 0.85;
-
         background-color: $highlight-background;
-        background-position: 45% 55%;
-        background-size: calc(1600px * var(--scale)), calc(1200px * var(--scale));
+        background-position: 45% 70%;
+        background-size: calc(1600px * var(--scale, 0.85)), calc(1200px * var(--scale, 0.85));
         height: 750px;
         margin: -1rem;
         position: relative;
         width: calc(100% + 2rem);
+
+        &.race-6, // Tauren
+        &.race-28,// Highmountain Tauren
+        &.race-32 // Kul Tiran
+    {
+            --scale: 0.75;
+        }
+
+        &.race-2, // Orc
+        &.race-36,// Mag'har Orc
+        &.race-8, // Troll
+        &.race-31 // Zandalari Troll
+        {
+            --scale: 0.8;
+        }
     }
     .equipped {
         position: absolute;
@@ -66,7 +79,7 @@
 </style>
 
 <div
-    class="character-image"
+    class="character-image race-{character.raceId}"
     style="{character.renderUrl ? `background-image: url(${character.renderUrl})` : ''};"
 >
     <div class="equipped left">
