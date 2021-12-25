@@ -40,7 +40,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.ImportDumps,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(24),
-            Version = 2,
+            Version = 3,
         };
 
         public override async Task Run(params string[] data)
@@ -78,6 +78,13 @@ namespace Wowthing.Backend.Jobs.Misc
                 "journaltier",
                 (tier) => tier.ID,
                 (tier) => tier.Name
+            );
+
+            await ImportStrings<DumpSoulbind>(
+                StringType.WowSoulbindName,
+                "soulbind",
+                (soulbind) => soulbind.ID,
+                (soulbind) => soulbind.Name
             );
 
             await Context.SaveChangesAsync();
