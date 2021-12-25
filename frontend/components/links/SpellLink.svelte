@@ -3,6 +3,7 @@
     import { getWowheadDomain } from '@/utils/get-wowhead-domain'
 
     export let id: number
+    export let itemLevel: number
 
     let url = ''
     $: {
@@ -11,6 +12,9 @@
         }
         else {
             url = `https://${getWowheadDomain($settingsData.general.language)}.wowhead.com/spell=${id}`
+            if (itemLevel > 0) {
+                url += `?ilvl=${itemLevel}`
+            }
         }
     }
 </script>
