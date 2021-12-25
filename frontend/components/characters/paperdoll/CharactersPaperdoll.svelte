@@ -2,7 +2,7 @@
     import { InventorySlot } from '@/types/enums'
     import type { Character } from '@/types'
 
-    import Equipped from './CharactersGeneralEquipped.svelte'
+    import Equipped from './CharactersPaperdollEquipped.svelte'
 
     export let character: Character
 
@@ -36,8 +36,9 @@
         background-position: 45% 55%;
         background-size: calc(1600px * var(--scale)), calc(1200px * var(--scale));
         height: 750px;
+        margin: -1rem;
         position: relative;
-        width: 1000px;
+        width: calc(100% + 2rem);
     }
     .equipped {
         position: absolute;
