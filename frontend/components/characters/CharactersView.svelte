@@ -1,6 +1,7 @@
 <script lang="ts">
     import find from 'lodash/find'
     import type { SvelteComponent } from 'svelte'
+    import { replace } from 'svelte-spa-router'
     import active from 'svelte-spa-router/active'
 
     import { classMap } from '@/data/character-class'
@@ -28,7 +29,7 @@
         )
 
         if (!componentMap[slug3]) {
-            slug3 = 'paperdoll'
+            replace(`/characters/${slug1}/${slug2}/paperdoll`)
         }
     }
 
@@ -88,11 +89,13 @@
 
         <p>Level {character.level} {Gender[character.gender]} {raceMap[character.raceId].name} {classMap[character.classId].name}</p>
 
-        <nav class="border">
-            <a href="#/characters/{slug1}/{slug2}/paperdoll" use:active>Paperdoll</a>
-            <a href="#/characters/{slug1}/{slug2}/specializations" use:active>Specializations</a>
-            <a href="#/characters/{slug1}/{slug2}/shadowlands" use:active>Shadowlands</a>
-        </nav>
+        {#key `${slug1}--${slug2}`}
+            <nav class="border">
+                <a href="#/characters/{slug1}/{slug2}/paperdoll" use:active>Paperdoll</a>
+                <a href="#/characters/{slug1}/{slug2}/specializations" use:active>Specializations</a>
+                <a href="#/characters/{slug1}/{slug2}/shadowlands" use:active>Shadowlands</a>
+            </nav>
+        {/key}
 
         <svelte:component
             this={componentMap[slug3]}
