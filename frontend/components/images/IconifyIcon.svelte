@@ -1,6 +1,7 @@
 <script lang="ts">
     import type { IconifyIcon } from '@iconify/types'
 
+    export let dropShadow = false
     export let icon: IconifyIcon
     export let scale = '1'
 </script>
@@ -18,6 +19,7 @@
     viewBox="0 0 {icon.width} {icon.height}"
     aria-hidden="true"
     role="img"
+    class:drop-shadow={dropShadow}
 >
     {@html icon.body}
 </svg>
