@@ -10,6 +10,7 @@ using Wowthing.Backend.Jobs.NonBlizzard;
 using Wowthing.Backend.Models.Data;
 using Wowthing.Backend.Models.Data.Achievements;
 using Wowthing.Backend.Models.Data.Collections;
+using Wowthing.Backend.Models.Data.Covenants;
 using Wowthing.Backend.Models.Data.Journal;
 using Wowthing.Backend.Models.Data.Progress;
 using Wowthing.Backend.Models.Data.ZoneMaps;
@@ -47,7 +48,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
-            Version = 27,
+            Version = 28,
         };
 
         public override async Task Run(params string[] data)
@@ -66,6 +67,7 @@ namespace Wowthing.Backend.Jobs.Misc
             StringType.WowCreatureName,
             StringType.WowItemName,
             StringType.WowMountName,
+            StringType.WowSoulbindName,
         };
         private async Task LoadData()
         {
@@ -142,6 +144,10 @@ namespace Wowthing.Backend.Jobs.Misc
             var reputationSets = LoadReputationSets();
             _timer.AddPoint("Reputations");
             
+            // Soulbinds
+            var soulbinds = await LoadSoulbinds();
+            _timer.AddPoint("Soulbinds");
+            
             // Talents
             var talents = await LoadTalents();
             _timer.AddPoint("Talents");
@@ -184,6 +190,7 @@ namespace Wowthing.Backend.Jobs.Misc
                     RealmsRaw = realms,
                     ReputationsRaw = reputations,
                     ReputationTiers = reputationTiers,
+                    Soulbinds = soulbinds[language],
                     Talents = talents,
                     ZoneMapSets = zoneMaps[language],
 
@@ -209,6 +216,17 @@ namespace Wowthing.Backend.Jobs.Misc
             }
             
             _timer.AddPoint("Cache", true);
+        }
+
+        private string GetString(StringType type, Language language, int id)
+        {
+            if (!_stringMap.TryGetValue((type, language, id), out var languageName))
+            {
+                languageName = _stringMap.GetValueOrDefault(
+                    (type, language, id), $"{type.ToString()} #{id}");
+            }
+
+            return languageName;
         }
 
         private List<DataReputationCategory> LoadReputationSets()
@@ -256,6 +274,82 @@ namespace Wowthing.Backend.Jobs.Misc
                 .ToList();
         }
 
+        private async Task<Dictionary<Language, Dictionary<int, List<OutSoulbind>>>> LoadSoulbinds()
+        {
+            // Load
+            var soulbinds = await DataUtilities.LoadDumpCsvAsync<DumpSoulbind>(Path.Join("enUS", "soulbind"));
+
+            var soulbindOrder = (await DataUtilities.LoadDumpCsvAsync<DumpSoulbindUiDisplayInfo>("soulbinduidisplayinfo"))
+                .OrderBy(di => di.OrderIndex)
+                .Select(di => di.SoulbindID)
+                .ToArray();
+            
+            var talentTreeIds = new HashSet<int>(soulbinds.Select(soulbind => soulbind.GarrTalentTreeID));
+            var talents = await DataUtilities.LoadDumpCsvAsync<DumpGarrTalent>(
+                "garrtalent",
+                (talent) => talentTreeIds.Contains(talent.GarrTalentTreeID)
+            );
+
+            var talentIds = new HashSet<int>(talents.Select(talent => talent.ID));
+            var talentSpellId = (await DataUtilities.LoadDumpCsvAsync<DumpGarrTalentRank>(
+                "garrtalentrank",
+                rank => talentIds.Contains(rank.GarrTalentID)
+            )).ToDictionary(
+                rank => rank.GarrTalentID,
+                rank => rank.PerkSpellID
+            );
+
+            // Mangle
+            var soulbindsByCovenant = soulbinds
+                .GroupBy(soulbind => soulbind.CovenantID)
+                .ToDictionary(
+                    group => group.Key,
+                    group => group
+                        .OrderBy(soulbind => Array.IndexOf(soulbindOrder, soulbind.ID))
+                        .ToList()
+                    );
+            var talentsByTreeId = talents.ToGroupedDictionary(talent => talent.GarrTalentTreeID);
+
+            // Process
+            var ret = new Dictionary<Language, Dictionary<int, List<OutSoulbind>>>();
+
+            foreach (var language in Enum.GetValues<Language>())
+            {
+                ret[language] = new Dictionary<int, List<OutSoulbind>>();
+
+                foreach (var (covenantId, covenantSoulbinds) in soulbindsByCovenant)
+                {
+                    var retCovenant = ret[language][covenantId] = new List<OutSoulbind>();
+                    
+                    foreach (var soulbind in covenantSoulbinds)
+                    {
+                        retCovenant.Add(new OutSoulbind
+                        {
+                            Id = soulbind.ID,
+                            Name = GetString(StringType.WowSoulbindName, language, soulbind.ID),
+                            Rows = talentsByTreeId[soulbind.GarrTalentTreeID]
+                                .GroupBy(talent => talent.Tier)
+                                .OrderBy(group => group.Key)
+                                .Select(group => group
+                                    .OrderBy(talent => talent.UiOrder)
+                                    .Select(talent => new List<int>
+                                    {
+                                        talent.UiOrder,
+                                        talent.GarrTalentSocketPropertiesID > 0
+                                            ? talent.GarrTalentSocketPropertiesID
+                                            : talentSpellId[talent.ID],
+                                    })
+                                    .ToList()
+                                )
+                                .ToList()
+                        });
+                    }
+                }
+            }
+
+            return ret;
+        }
+        
         private static async Task<Dictionary<int, List<List<int>>>> LoadTalents()
         {
             var talents = await DataUtilities.LoadDumpCsvAsync<DumpTalent>("talent");
@@ -458,17 +552,6 @@ namespace Wowthing.Backend.Jobs.Misc
             }
 
             return ret;
-        }
-
-        private string GetString(StringType type, Language language, int id)
-        {
-            if (!_stringMap.TryGetValue((type, language, id), out var languageName))
-            {
-                languageName = _stringMap.GetValueOrDefault(
-                    (type, language, id), $"{type.ToString()} #{id}");
-            }
-
-            return languageName;
         }
 
         private void DumpZoneMapQuests(List<List<OutZoneMapCategory>> zoneMaps)

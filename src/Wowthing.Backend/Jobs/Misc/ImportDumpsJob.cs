@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Wowthing.Backend.Models.Data;
+using Wowthing.Backend.Models.Data.Covenants;
 using Wowthing.Backend.Models.Data.Journal;
 using Wowthing.Backend.Utilities;
 using Wowthing.Lib.Data;

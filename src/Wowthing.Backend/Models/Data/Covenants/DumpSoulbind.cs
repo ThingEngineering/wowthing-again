@@ -1,7 +1,7 @@
 ﻿using CsvHelper.Configuration.Attributes;
 
 // ReSharper disable InconsistentNaming
-namespace Wowthing.Backend.Models.Data
+namespace Wowthing.Backend.Models.Data.Covenants
 {
     public class DumpSoulbind
     {

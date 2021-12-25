@@ -3,8 +3,10 @@ using Newtonsoft.Json;
 using Wowthing.Backend.Models.API.NonBlizzard;
 using Wowthing.Backend.Models.Data;
 using Wowthing.Backend.Models.Data.Collections;
+using Wowthing.Backend.Models.Data.Covenants;
 using Wowthing.Backend.Models.Data.Progress;
 using Wowthing.Backend.Models.Data.ZoneMaps;
+using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models.Wow;
 
 namespace Wowthing.Backend.Models.Redis
@@ -13,19 +15,29 @@ namespace Wowthing.Backend.Models.Redis
     {
         [JsonProperty(Order = 0)]
         public List<OutCurrency> CurrenciesRaw { get; set; }
+        
         [JsonProperty(Order = 1)]
         public SortedDictionary<int, OutCurrencyCategory> CurrencyCategories { get; set; }
+        
         [JsonProperty(Order = 2)]
         public List<OutInstance> InstancesRaw { get; set; }
+        
         [JsonProperty(Order = 3)]
         public List<List<OutProgress>> Progress { get; set; }
+        
         [JsonProperty(Order = 4)]
         public List<WowRealm> RealmsRaw { get; set; }
+        
         [JsonProperty(Order = 5)]
         public List<OutReputation> ReputationsRaw { get; set; }
+        
         [JsonProperty(Order = 6)]
         public SortedDictionary<int, WowReputationTier> ReputationTiers { get; set; }
+        
         [JsonProperty(Order = 7)]
+        public Dictionary<int, List<OutSoulbind>> Soulbinds { get; set; }
+        
+        [JsonProperty(Order = 8)]
         public Dictionary<int, List<List<int>>> Talents { get; set; }
 
         [JsonProperty(Order = 10)]
