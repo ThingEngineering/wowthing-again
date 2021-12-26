@@ -98,17 +98,17 @@
         <div class="spacer"></div>
 
         <div class="info-row">
-            <div>{characterCovenant?.conductor?.name ?? 'Conductor'}</div>
+            <div>{characterCovenant?.conductor?.name ?? 'Anima Conductor'}</div>
             <div>Rank {characterCovenant?.conductor?.rank ?? 0}</div>
         </div>
 
         <div class="info-row">
-            <div>{characterCovenant?.missions?.name ?? 'Mission Table'}</div>
+            <div>{characterCovenant?.missions?.name ?? 'Command Table'}</div>
             <div>Rank {characterCovenant?.missions?.rank ?? 0}</div>
         </div>
 
         <div class="info-row">
-            <div>{characterCovenant?.transport?.name ?? 'Transport Feature'}</div>
+            <div>{characterCovenant?.transport?.name ?? 'Transport Network'}</div>
             <div>Rank {characterCovenant?.transport?.rank ?? 0}</div>
         </div>
 
