@@ -48,7 +48,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
-            Version = 28,
+            Version = 29,
         };
 
         public override async Task Run(params string[] data)
@@ -327,6 +327,7 @@ namespace Wowthing.Backend.Jobs.Misc
                         {
                             Id = soulbind.ID,
                             Name = GetString(StringType.WowSoulbindName, language, soulbind.ID),
+                            Renown = Hardcoded.SoulbindRenown[soulbind.ID],
                             Rows = talentsByTreeId[soulbind.GarrTalentTreeID]
                                 .GroupBy(talent => talent.Tier)
                                 .OrderBy(group => group.Key)

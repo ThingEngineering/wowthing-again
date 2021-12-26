@@ -1,13 +1,19 @@
 <script lang="ts">
     import find from 'lodash/find'
+    import { DateTime } from 'luxon'
 
     import { Constants } from '@/data/constants'
     import { covenantOrder } from '@/data/covenant'
-    import { staticStore, userQuestStore } from '@/stores'
+    import { staticStore, timeStore, userQuestStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
     import getProgress from '@/utils/get-progress'
-    import { toNiceNumber } from '@/utils/to-nice'
-    import type { Character, CharacterShadowlandsCovenant, StaticDataProgressCategory } from '@/types'
+    import { toNiceDuration, toNiceNumber } from '@/utils/to-nice'
+    import type {
+        Character,
+        CharacterShadowlandsCovenant,
+        CharacterShadowlandsCovenantFeature,
+        StaticDataProgressCategory,
+    } from '@/types'
 
     import Soulbind from './CharactersShadowlandsSoulbind.svelte'
 
@@ -17,10 +23,7 @@
     let characterCovenant: CharacterShadowlandsCovenant
     let campaignHave: number
     let campaignTotal: number
-    let rankConductor: number
-    let rankMissions: number
-    let rankTransport: number
-    let rankUnique: number
+    let features: {maxRank: number, name: string, rank: number, researching: string}[]
     let renown: number
     $: {
         characterCovenant = character.shadowlands?.covenants?.[covenantId]
@@ -42,11 +45,43 @@
         campaignTotal = progress.total
 
         renown = characterCovenant?.renown ?? 0
-        rankConductor = characterCovenant?.conductor?.rank ?? 0
-        rankMissions = characterCovenant?.missions?.rank ?? 0
-        rankTransport = characterCovenant?.transport?.rank ?? 0
-        rankUnique = characterCovenant?.unique?.rank ?? 0
+
+        features = []
+        for (const [key, name, maxRank] of featureOrder) {
+            const featureData = {
+                maxRank,
+                name,
+                rank: 0,
+                researching: '',
+            }
+
+            const characterFeature: CharacterShadowlandsCovenantFeature = characterCovenant?.[key]
+            if (characterFeature) {
+                featureData.name = characterFeature.name
+                featureData.rank = characterFeature.rank
+
+                if (characterFeature.researchEnds > 0) {
+                    const ends: DateTime = DateTime.fromSeconds(characterFeature.researchEnds)
+                    if (ends <= $timeStore) {
+                        featureData.rank++
+                    }
+                    else {
+                        const duration = toNiceDuration(ends.diff($timeStore).toMillis())
+                        featureData.researching = `Upgrades in <span class="status-shrug">${duration}</span>`
+                    }
+                }
+            }
+
+            features.push(featureData)
+        }
     }
+
+    const featureOrder: [string, string, number][] = [
+        ['conductor', 'Anima Conductor', 3],
+        ['missions', 'Command Table', 3],
+        ['transport', 'Transport Network', 3],
+        ['unique', 'Unique Feature', 5],
+    ]
 </script>
 
 <style lang="scss">
@@ -71,6 +106,10 @@
         &.large {
             font-size: 1.1rem;
         }
+    }
+    .info-research {
+        font-style: italic;
+        text-align: right;
     }
     .spacer {
         border-bottom: 1px solid $border-color;
@@ -110,25 +149,20 @@
 
         <div class="spacer"></div>
 
-        <div class="info-row">
-            <div>{characterCovenant?.conductor?.name ?? 'Anima Conductor'}</div>
-            <div class="{getPercentClass(rankConductor / 3 * 100)}">Rank {rankConductor}</div>
-        </div>
+        {#each features as feature, featureIndex}
+            <div class="info-row">
+                <div>{feature.name}</div>
+                <div class="{getPercentClass(feature.rank / feature.maxRank * 100)}">Rank {feature.rank}</div>
+            </div>
 
-        <div class="info-row">
-            <div>{characterCovenant?.missions?.name ?? 'Command Table'}</div>
-            <div class="{getPercentClass(rankMissions / 3 * 100)}">Rank {rankMissions}</div>
-        </div>
+            {#if feature.researching}
+                <div class="info-research">{@html feature.researching}</div>
+            {/if}
 
-        <div class="info-row">
-            <div>{characterCovenant?.transport?.name ?? 'Transport Network'}</div>
-            <div class="{getPercentClass(rankTransport / 3 * 100)}">Rank {rankTransport}</div>
-        </div>
-
-        <div class="info-row">
-            <div>{characterCovenant?.unique?.name ?? 'Unique Feature'}</div>
-            <div class="{getPercentClass(rankUnique / 5 * 100)}">Rank {rankUnique}</div>
-        </div>
+            {#if featureIndex < (features.length - 1)}
+                <div class="spacer"></div>
+            {/if}
+        {/each}
     </div>
 
     <div class="soulbinds">

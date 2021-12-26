@@ -2,7 +2,10 @@
     import { replace } from 'svelte-spa-router'
     import active from 'svelte-spa-router/active'
 
+    import { Constants } from '@/data/constants'
     import { covenantMap, covenantOrder, covenantSlugMap } from '@/data/covenant'
+    import getPercentClass from '@/utils/get-percent-class'
+    import leftPad from '@/utils/left-pad'
     import type { Character, MultiSlugParams } from '@/types'
 
     import Covenant from './CharactersShadowlandsCovenant.svelte'
@@ -23,6 +26,8 @@
 
 <style lang="scss">
     nav {
+        --image-margin-top: -2px;
+
         background: $highlight-background;
         border-radius: 0;
         display: flex;
@@ -35,11 +40,16 @@
         a {
             border-right: 1px solid $border-color;
             display: block;
-            padding: 0.5rem 1rem 0.5rem 0.25rem;
+            padding: 0.25rem 1rem 0.25rem 0.25rem;
 
             &:global(.active) {
                 background: $active-background;
                 color: #fff;
+            }
+
+            pre {
+                display: inline;
+                margin-left: 0.25rem;
             }
         }
     }
@@ -53,10 +63,13 @@
         >
             <WowthingImage
                 name={covenantMap[covenantId].icon}
-                size={24}
+                size={20}
                 border={1}
             />
             {covenantMap[covenantId].name}
+            <pre class="{getPercentClass((character.shadowlands?.covenants[covenantId]?.renown ?? 0) / Constants.maxRenown * 100)}">
+                {@html leftPad(character.shadowlands?.covenants[covenantId]?.renown ?? 0, 2)}
+            </pre>
         </a>
     {/each}
 </nav>

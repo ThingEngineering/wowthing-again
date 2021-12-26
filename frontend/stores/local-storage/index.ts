@@ -1,3 +1,4 @@
+export * from './characters'
 export * from './collection'
 export * from './currency'
 export * from './history'

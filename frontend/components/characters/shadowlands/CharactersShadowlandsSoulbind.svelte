@@ -69,6 +69,14 @@
         gap: 0.3rem;
         justify-content: space-between;
 
+        &.none-chosen.unlocked {
+            --image-border-color: #{$colour-fail};
+
+            .empty-socket {
+                border-color: $colour-fail;
+            }
+        }
+
         &:not(.none-chosen) {
             .soulbind-talent:not(.selected) {
                 filter: grayscale(50%) opacity(75%);
@@ -123,6 +131,7 @@
         <div
             class="soulbind-row"
             class:none-chosen={selectedTalent[rowIndex] === undefined}
+            class:unlocked={character.shadowlands?.covenants[covenantId]?.renown >= soulbind.renown[rowIndex]}
         >
             {#if row.length === 1}
                 <div class="soulbind-talent"></div>
