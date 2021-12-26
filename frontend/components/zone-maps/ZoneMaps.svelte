@@ -19,36 +19,29 @@
 
     export let params: MultiSlugParams
 
-    let loaded: boolean
+    let ready: boolean
     $: {
-        loaded = $userQuestStore.loaded
+        zoneMapStore.setup(
+            $settings,
+            $staticStore.data,
+            $transmogStore.data,
+            $userQuestStore.data,
+            $userStore.data,
+            $userTransmogStore.data,
+            $zoneMapStore.data,
+            $zoneMapState,
+        )
+        ready = true
     }
-
-    $: {
-        if (loaded) {
-            zoneMapStore.setup(
-                $settings,
-                $staticStore.data,
-                $transmogStore.data,
-                $userQuestStore.data,
-                $userStore.data,
-                $userTransmogStore.data,
-                $zoneMapStore.data,
-                $zoneMapState,
-            )
-        }
-    }
-
-    onMount(async () => await userQuestStore.fetch())
 
     afterUpdate(() => {
-        if (loaded) {
+        if (ready) {
             getSavedRoute('zone-maps', params.slug1, params.slug2)
         }
     })
 </script>
 
-{#if !loaded}
+{#if !ready}
     L O A D I N G
 {:else}
     <Sidebar />

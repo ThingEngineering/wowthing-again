@@ -5,6 +5,7 @@
         journalStore,
         staticStore,
         transmogStore,
+        userQuestStore,
         userStore,
         userTransmogStore,
     } from '@/stores'
@@ -18,6 +19,7 @@
         staticStore.fetch(undefined, $settings.general.language),
         journalStore.fetch(undefined, $settings.general.language),
         transmogStore.fetch(),
+        userQuestStore.fetch(),
         userStore.fetch(),
         userTransmogStore.fetch(),
     ]))
@@ -29,12 +31,14 @@
         error = $staticStore.error
             || $journalStore.error
             || $transmogStore.error
+            || $userQuestStore.error
             || $userStore.error
             || $userTransmogStore.error
 
         loaded = $staticStore.loaded
             && $journalStore.loaded
             && $transmogStore.loaded
+            && $userQuestStore.loaded
             && $userStore.loaded
             && $userTransmogStore.loaded
 
