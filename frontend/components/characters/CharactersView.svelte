@@ -34,7 +34,7 @@
         }
     }
 
-    const componentMap: Record<string, SvelteComponent> = {
+    const componentMap: Record<string, typeof SvelteComponent> = {
         paperdoll: Paperdoll,
         shadowlands: Shadowlands,
         specializations: Specializations,

@@ -1,11 +1,11 @@
 <script lang="ts">
     import find from 'lodash/find'
 
-    import { covenantMap, covenantOrder } from '@/data/covenant'
-    import { staticStore, timeStore, userQuestStore } from '@/stores'
+    import { covenantOrder } from '@/data/covenant'
+    import { staticStore, userQuestStore } from '@/stores'
     import getProgress from '@/utils/get-progress'
     import { toNiceNumber } from '@/utils/to-nice'
-    import type { Character, CharacterShadowlandsCovenant, Covenant, StaticDataProgressCategory } from '@/types'
+    import type { Character, CharacterShadowlandsCovenant, StaticDataProgressCategory } from '@/types'
 
     import Soulbind from './CharactersShadowlandsSoulbind.svelte'
 
@@ -13,12 +13,10 @@
     export let covenantId: number
 
     let characterCovenant: CharacterShadowlandsCovenant
-    let covenant: Covenant
     let campaignHave: number
     let campaignTotal: number
     $: {
         characterCovenant = character.shadowlands?.covenants?.[covenantId]
-        covenant = covenantMap[covenantId]
 
         const category: StaticDataProgressCategory = find(
             find(
