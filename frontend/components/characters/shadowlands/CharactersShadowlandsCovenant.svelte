@@ -1,8 +1,10 @@
 <script lang="ts">
     import find from 'lodash/find'
 
+    import { Constants } from '@/data/constants'
     import { covenantOrder } from '@/data/covenant'
     import { staticStore, userQuestStore } from '@/stores'
+    import getPercentClass from '@/utils/get-percent-class'
     import getProgress from '@/utils/get-progress'
     import { toNiceNumber } from '@/utils/to-nice'
     import type { Character, CharacterShadowlandsCovenant, StaticDataProgressCategory } from '@/types'
@@ -15,6 +17,11 @@
     let characterCovenant: CharacterShadowlandsCovenant
     let campaignHave: number
     let campaignTotal: number
+    let rankConductor: number
+    let rankMissions: number
+    let rankTransport: number
+    let rankUnique: number
+    let renown: number
     $: {
         characterCovenant = character.shadowlands?.covenants?.[covenantId]
 
@@ -33,6 +40,12 @@
         )
         campaignHave = progress.have
         campaignTotal = progress.total
+
+        renown = characterCovenant?.renown ?? 0
+        rankConductor = characterCovenant?.conductor?.rank ?? 0
+        rankMissions = characterCovenant?.missions?.rank ?? 0
+        rankTransport = characterCovenant?.transport?.rank ?? 0
+        rankUnique = characterCovenant?.unique?.rank ?? 0
     }
 </script>
 
@@ -42,7 +55,7 @@
         justify-content: space-between;
     }
     .info {
-        width: 15rem;
+        width: 16rem;
 
         h2 {
             border-bottom: 1px solid $border-color;
@@ -75,12 +88,12 @@
 
         <div class="info-row large">
             <div>Renown</div>
-            <div>{characterCovenant?.renown ?? 0}</div>
+            <div class="drop-shadow {getPercentClass(renown / Constants.maxRenown * 100)}">{renown}</div>
         </div>
 
         <div class="info-row large">
             <div>9.0 Campaign</div>
-            <div>{campaignHave} / {campaignTotal}</div>
+            <div class="drop-shadow {getPercentClass(campaignHave / campaignTotal * 100)}">{campaignHave} / {campaignTotal}</div>
         </div>
 
         <div class="spacer"></div>
@@ -98,23 +111,23 @@
         <div class="spacer"></div>
 
         <div class="info-row">
-            <div>{characterCovenant?.conductor?.name ?? 'Conductor'}</div>
-            <div>Rank {characterCovenant?.conductor?.rank ?? 0}</div>
+            <div>{characterCovenant?.conductor?.name ?? 'Anima Conductor'}</div>
+            <div class="{getPercentClass(rankConductor / 3 * 100)}">Rank {rankConductor}</div>
         </div>
 
         <div class="info-row">
-            <div>{characterCovenant?.missions?.name ?? 'Mission Table'}</div>
-            <div>Rank {characterCovenant?.missions?.rank ?? 0}</div>
+            <div>{characterCovenant?.missions?.name ?? 'Command Table'}</div>
+            <div class="{getPercentClass(rankMissions / 3 * 100)}">Rank {rankMissions}</div>
         </div>
 
         <div class="info-row">
-            <div>{characterCovenant?.transport?.name ?? 'Transport Feature'}</div>
-            <div>Rank {characterCovenant?.transport?.rank ?? 0}</div>
+            <div>{characterCovenant?.transport?.name ?? 'Transport Network'}</div>
+            <div class="{getPercentClass(rankTransport / 3 * 100)}">Rank {rankTransport}</div>
         </div>
 
         <div class="info-row">
             <div>{characterCovenant?.unique?.name ?? 'Unique Feature'}</div>
-            <div>Rank {characterCovenant?.unique?.rank ?? 0}</div>
+            <div class="{getPercentClass(rankUnique / 5 * 100)}">Rank {rankUnique}</div>
         </div>
     </div>
 

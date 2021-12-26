@@ -20,10 +20,11 @@
         {key: 'enabled', name: 'Active accounts first'},
         {key: 'faction', name: 'Alliance > Horde'},
         {key: '-faction', name: 'Horde > Alliance'},
+        {key: 'name', name: 'Character name'},
+        {key: 'realm', name: 'Realm name'},
         {key: 'gold', name: 'Gold'},
         {key: 'itemlevel', name: 'Item level'},
         {key: 'level', name: 'Level'},
-        {key: 'name', name: 'Character name'},
     ]
 
     const groupByActive = $settingsData.general.groupBy.map(

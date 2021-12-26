@@ -53,6 +53,7 @@ namespace Wowthing.Lib.Models
             "itemlevel",
             "level",
             "name",
+            "realm",
         };
 
         private readonly HashSet<string> _validCommonFields = new()
