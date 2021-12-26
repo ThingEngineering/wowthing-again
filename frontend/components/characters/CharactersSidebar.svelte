@@ -1,4 +1,5 @@
 <script lang="ts">
+    import filter from 'lodash/filter'
     import find from 'lodash/find'
     import groupBy from 'lodash/groupBy'
     import sortBy from 'lodash/sortBy'
@@ -14,7 +15,10 @@
     let decorationFunc: (entry: SidebarItem, parentEntry?: SidebarItem) => string
     $: {
         const realmCharacters: Record<string, Character[]> = groupBy(
-            $userStore.data.characters,
+            filter(
+                $userStore.data.characters,
+                (char) => $settingsData.characters.hiddenCharacters.indexOf(char.id) === -1
+            ),
             (char) => char.realmId
         )
 
