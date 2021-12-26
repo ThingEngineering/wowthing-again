@@ -8,28 +8,29 @@
     import { raceMap } from '@/data/character-race'
     import { userStore } from '@/stores'
     import { Gender, Region } from '@/types/enums'
-    import type { Character } from '@/types'
+    import type { Character, MultiSlugParams } from '@/types'
 
     import Paperdoll from './paperdoll/CharactersPaperdoll.svelte'
     import Shadowlands from './shadowlands/CharactersShadowlands.svelte'
     import Specializations from './specializations/CharactersSpecializations.svelte'
 
-    export let slug1: string
-    export let slug2: string
-    export let slug3: string
+    export let params: MultiSlugParams
 
+    let baseUrl: string
     let character: Character
     $: {
+        baseUrl = `/characters/${params.slug1}/${params.slug2}`
+
         character = find(
             $userStore.data.characters,
             (char: Character) => (
-                char.realm.slug === slug1 &&
-                char.name === slug2
+                char.realm.slug === params.slug1 &&
+                char.name === params.slug2
             )
         )
 
-        if (!componentMap[slug3]) {
-            replace(`/characters/${slug1}/${slug2}/paperdoll`)
+        if (!componentMap[params.slug3]) {
+            replace(`${baseUrl}/paperdoll`)
         }
     }
 
@@ -89,17 +90,21 @@
 
         <p>Level {character.level} {Gender[character.gender]} {raceMap[character.raceId].name} {classMap[character.classId].name}</p>
 
-        {#key `${slug1}--${slug2}`}
+        {#key `${params.slug1}--${params.slug2}`}
             <nav class="border">
-                <a href="#/characters/{slug1}/{slug2}/paperdoll" use:active>Paperdoll</a>
-                <a href="#/characters/{slug1}/{slug2}/specializations" use:active>Specializations</a>
-                <a href="#/characters/{slug1}/{slug2}/shadowlands" use:active>Shadowlands</a>
+                <a href="#{baseUrl}/paperdoll" use:active>Paperdoll</a>
+                <a href="#{baseUrl}/specializations" use:active>Specializations</a>
+                <a
+                    href="#{baseUrl}/shadowlands"
+                    use:active={`${baseUrl}/shadowlands/*`}
+                >Shadowlands</a>
             </nav>
         {/key}
 
         <svelte:component
-            this={componentMap[slug3]}
+            this={componentMap[params.slug3]}
             {character}
+            {params}
         />
     </div>
 {/if}

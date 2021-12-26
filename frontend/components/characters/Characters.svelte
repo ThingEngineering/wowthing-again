@@ -14,8 +14,4 @@
 </script>
 
 <Sidebar />
-<View
-    slug1={params.slug1}
-    slug2={params.slug2}
-    slug3={params.slug3}
-/>
+<View {params} />

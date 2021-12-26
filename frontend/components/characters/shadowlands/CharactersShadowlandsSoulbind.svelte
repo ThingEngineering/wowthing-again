@@ -4,26 +4,25 @@
     import mdiSwordCross from '@iconify/icons-mdi/sword-cross'
     import find from 'lodash/find'
 
-    import type { CharacterShadowlandsSoulbind, StaticDataSoulbind } from '@/types'
+    import tippy from '@/utils/tippy'
+    import type { Character, CharacterShadowlandsSoulbind, StaticDataSoulbind } from '@/types'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import SpellLink from '@/components/links/SpellLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
-    import { Character } from '@/types'
 
     export let character: Character
     export let covenantId: number
     export let soulbind: StaticDataSoulbind
 
+    let characterSoulbind: CharacterShadowlandsSoulbind
     let selectedTalent: number[][]
     $: {
-        const characterSoulbind: CharacterShadowlandsSoulbind = find(
+        characterSoulbind = find(
             character.shadowlands?.covenants[covenantId]?.soulbinds || [],
             (sb) => sb.id === soulbind.id
         )
         selectedTalent = characterSoulbind?.tree ?? []
-
-        console.log({covenantId, soulbind, character, selectedTalent})
     }
 
     const socketMap: Record<number, any> = {
@@ -55,8 +54,12 @@
         flex-direction: column;
         gap: 0.5rem;
         padding: 0.5rem 1rem;
-        width: calc(2rem + (0.3rem * 2) + (52px * 3));
+        width: calc(2px + 2rem + (0.3rem * 2) + (52px * 3));
 
+        &.inactive {
+            border-color: $colour-fail;
+            opacity: 0.5;
+        }
         &.selected {
             border-color: $colour-success;
         }
@@ -82,6 +85,10 @@
 
         &.selected {
             --image-border-color: #{$colour-success};
+
+            .empty-socket {
+                border-color: $colour-fail;
+            }
         }
 
         & :global(svg) {
@@ -105,8 +112,12 @@
 <div
     class="soulbind thing-container border"
     class:selected={character.shadowlands?.soulbindId === soulbind.id}
+    class:inactive={characterSoulbind?.unlocked !== true}
 >
-    <h3 class="text-overflow">{soulbind.name}</h3>
+    <h3
+        class="text-overflow"
+        use:tippy={`${soulbind.name}${characterSoulbind?.unlocked !== true ? ' [not unlocked]' : ''}`}
+    >{soulbind.name}</h3>
 
     {#each soulbind.rows as row, rowIndex}
         <div
@@ -147,7 +158,10 @@
                                 />
                             </SpellLink>
                         {:else}
-                            <div class="empty-socket">
+                            <div
+                                class="empty-socket"
+                                use:tippy={"Empty socket"}
+                            >
                                 <IconifyIcon
                                     dropShadow={true}
                                     icon={socketMap[column[1]]}
