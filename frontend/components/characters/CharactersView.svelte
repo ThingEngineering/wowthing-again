@@ -7,6 +7,7 @@
     import { classMap } from '@/data/character-class'
     import { raceMap } from '@/data/character-race'
     import { userStore } from '@/stores'
+    import { charactersState } from '@/stores/local-storage'
     import { Gender, Region } from '@/types/enums'
     import type { Character, MultiSlugParams } from '@/types'
 
@@ -30,7 +31,12 @@
         )
 
         if (!componentMap[params.slug3]) {
-            replace(`${baseUrl}/paperdoll`)
+            const stored = $charactersState.lastTab
+
+            replace(`${baseUrl}/${stored || 'paperdoll'}`)
+        }
+        else {
+            $charactersState.lastTab = params.slug3
         }
     }
 
