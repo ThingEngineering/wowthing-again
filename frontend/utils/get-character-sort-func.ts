@@ -4,6 +4,7 @@ import {Constants} from '@/data/constants'
 import { userStore } from '@/stores'
 import type { Character, Settings } from '@/types'
 import toDigits from '@/utils/to-digits'
+import { Region } from '@/types/enums'
 
 export default function getCharacterSortFunc(
     settingsData: Settings,
@@ -45,6 +46,9 @@ export default function getCharacterSortFunc(
             }
             else if (thing === 'name') {
                 out.push(char.name)
+            }
+            else if (thing === 'realm') {
+                out.push(char.realm.name)
             }
         }
 
