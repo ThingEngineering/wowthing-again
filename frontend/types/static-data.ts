@@ -184,6 +184,7 @@ export type StaticDataSetGroupArray = ConstructorParameters<typeof StaticDataSet
 export interface StaticDataSoulbind {
     id: number
     name: string
+    renown: number[]
     rows: number[][][]
 }
 
