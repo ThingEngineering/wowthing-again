@@ -3,7 +3,7 @@
     import { getWowheadDomain } from '@/utils/get-wowhead-domain'
 
     export let id: number
-    export let itemLevel: number
+    export let itemLevel = 0
 
     let url = ''
     $: {

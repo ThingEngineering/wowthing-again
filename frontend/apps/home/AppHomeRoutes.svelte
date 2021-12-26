@@ -27,7 +27,7 @@
         '/cards': HomeCards,
         '/table': HomeTable,
 
-        '/characters/:slug1?/:slug2?/:slug3?': Characters,
+        '/characters/:slug1?/:slug2?/:slug3?/:slug4?': Characters,
 
         '/achievements/:slug1?/:slug2?': Achievements,
         '/appearances/:slug1?/:slug2?': Appearances,

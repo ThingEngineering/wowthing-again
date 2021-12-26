@@ -2,7 +2,6 @@
     import { specializationMap } from '@/data/character-specialization'
     import { userStore } from '@/stores'
     import type { Character, CharacterSpecialization } from '@/types'
-    import getRealmName from '@/utils/get-realm-name'
     import tippy from '@/utils/tippy'
 
     import CharacterCovenant from '@/components/common/CharacterCovenant.svelte'
@@ -143,7 +142,7 @@
         </div>
     </div>
     <div class="name">{character.name}</div>
-    <div class="realm">{getRealmName(character.realmId)}</div>
+    <div class="realm">{character.realm.name}</div>
     {#if character.shadowlands}
         <CharacterCovenant {character} />
     {/if}
