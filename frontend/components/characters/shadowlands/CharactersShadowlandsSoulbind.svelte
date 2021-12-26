@@ -50,8 +50,12 @@
         text-align: center;
     }
     .soulbind {
-        padding: 1rem 2rem;
-        width: 16rem;
+        background: $highlight-background;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        width: calc(2rem + (0.3rem * 2) + (52px * 3));
 
         &.selected {
             border-color: $colour-success;
@@ -59,43 +63,42 @@
     }
     .soulbind-row {
         display: flex;
-        flex-direction: row;
+        gap: 0.3rem;
         justify-content: space-between;
-        margin-top: 1rem;
 
         &:not(.none-chosen) {
-            .soulbind-column:not(.selected) {
+            .soulbind-talent:not(.selected) {
                 filter: grayscale(50%) opacity(75%);
             }
         }
     }
-    .soulbind-column {
+    .soulbind-talent {
         --image-border-radius: #{$border-radius-large};
         --image-border-width: 2px;
 
-        &.selected {
-            --image-border-color: #{$colour-success};
-
-            .conduit-socket {
-                border-color: $colour-success;
-            }
-        }
-    }
-    .conduit-socket {
-        background: $highlight-background;
-        border: 2px solid $border-color;
-        border-radius: $border-radius-large;
         height: 52px;
         position: relative;
         width: 52px;
+
+        &.selected {
+            --image-border-color: #{$colour-success};
+        }
 
         & :global(svg) {
             color: #eee;
             left: 50%;
             position: absolute;
-            bottom: -16px;
+            bottom: -12px;
             transform: scale(0.9) translateX(-50%);
+            z-index: 10;
         }
+    }
+    .empty-socket {
+        background: $thing-background;
+        border: 2px solid $border-color;
+        border-radius: $border-radius-large;
+        height: 100%;
+        width: 100%;
     }
 </style>
 
@@ -111,12 +114,12 @@
             class:none-chosen={selectedTalent[rowIndex] === undefined}
         >
             {#if row.length === 1}
-                <div class="soulbind-column"></div>
+                <div class="soulbind-talent"></div>
             {/if}
 
             {#each row as column}
                 <div
-                    class="soulbind-column"
+                    class="soulbind-talent"
                     class:selected={selectedTalent[rowIndex]?.[0] === column[0] + 1}
                 >
                     {#if column[1] > 3}
@@ -128,35 +131,35 @@
                             />
                         </SpellLink>
                     {:else}
-                        <div class="conduit-socket">
-                            {#if selectedTalent[rowIndex]?.[0] === column[0] + 1 && selectedTalent[rowIndex][1] > 0}
-                                <SpellLink
-                                    id={selectedTalent[rowIndex][1]}
-                                    itemLevel={itemLevel[selectedTalent[rowIndex][2]]}
-                                >
-                                    <WowthingImage
-                                        name="spell/{selectedTalent[rowIndex][1]}"
-                                        size={48}
-                                        border={2}
-                                    />
-                                    <IconifyIcon
-                                        dropShadow={true}
-                                        icon={socketMap[column[1]]}
-                                    />
-                                </SpellLink>
-                            {:else}
+                        {#if selectedTalent[rowIndex]?.[0] === column[0] + 1 && selectedTalent[rowIndex][1] > 0}
+                            <SpellLink
+                                id={selectedTalent[rowIndex][1]}
+                                itemLevel={itemLevel[selectedTalent[rowIndex][2]]}
+                            >
+                                <WowthingImage
+                                    name="spell/{selectedTalent[rowIndex][1]}"
+                                    size={48}
+                                    border={2}
+                                />
                                 <IconifyIcon
                                     dropShadow={true}
                                     icon={socketMap[column[1]]}
                                 />
-                            {/if}
-                        </div>
+                            </SpellLink>
+                        {:else}
+                            <div class="empty-socket">
+                                <IconifyIcon
+                                    dropShadow={true}
+                                    icon={socketMap[column[1]]}
+                                />
+                            </div>
+                        {/if}
                     {/if}
                 </div>
             {/each}
 
             {#if row.length === 1}
-                <div class="soulbind-column"></div>
+                <div class="soulbind-talent"></div>
             {/if}
         </div>
     {/each}
