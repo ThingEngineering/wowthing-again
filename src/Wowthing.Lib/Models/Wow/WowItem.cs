@@ -59,7 +59,7 @@ namespace Wowthing.Lib.Models.Wow
             {
                 classMask = armorMask;
             }
-            else if (ClassId == 4 && PrimaryStat != WowStat.None)
+            else if (ClassId == 4)
             {
                 foreach (var classData in Hardcoded.Characters)
                 {
@@ -75,7 +75,7 @@ namespace Wowthing.Lib.Models.Wow
                                     )
                                 )
                             )
-                    )
+                        )
                     )
                     {
                         classMask |= (int)classData.Mask;
