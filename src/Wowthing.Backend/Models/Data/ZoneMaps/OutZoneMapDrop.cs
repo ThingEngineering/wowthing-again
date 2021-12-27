@@ -5,26 +5,18 @@ using Wowthing.Backend.Converters;
 
 namespace Wowthing.Backend.Models.Data.ZoneMaps
 {
-    [JsonConverter(typeof(OutZoneMapDropConverter))]
     public class OutZoneMapDrop
     {
         public int Id { get; set; }
-
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public int[] QuestIds { get; set; }
-        
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public int ClassMask { get; set; }
+        public int SubType { get; set; }
         public int? RequiredQuestId { get; set; }
-        
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public string[] Limit { get; set; }
-
         public string Name { get; set; }
-
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Note { get; set; }
-
         public string Type { get; set; }
+
+        public int[] QuestIds { get; set; }
+        public string[] Limit { get; set; }
 
         public OutZoneMapDrop(DataZoneMapDrop drop)
         {

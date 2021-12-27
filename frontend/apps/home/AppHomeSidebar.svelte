@@ -13,12 +13,13 @@
     import iconZoneMaps from '@iconify/icons-emojione-monotone/world-map'
     import active from 'svelte-spa-router/active'
 
-    import { dropType } from '@/data/farm'
+    import { dropTypeIcon } from '@/data/farm'
     import { journalStore, userStore, userTransmogStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import Sidebar from '@/components/main-sidebar/MainSidebar.svelte'
+    import { FarmDropType } from "../../types/enums";
 
     let journalPercent: number
     let mountsPercent: number
@@ -145,7 +146,7 @@
 
     <li use:active={'/mounts/*'}>
         <a href="#/mounts/">
-            <IconifyIcon icon={dropType.mount} />
+            <IconifyIcon icon={dropTypeIcon[FarmDropType.Mount]} />
             Mounts
         </a>
         <span class="drop-shadow percent {getPercentClass(mountsPercent)}">{fancyPercent(mountsPercent)} %</span>
@@ -153,7 +154,7 @@
 
     <li use:active={'/pets/*'}>
         <a href="#/pets/">
-            <IconifyIcon icon={dropType.pet} />
+            <IconifyIcon icon={dropTypeIcon[FarmDropType.Pet]} />
             Pets
         </a>
         <span class="drop-shadow percent {getPercentClass(petsPercent)}">{fancyPercent(petsPercent)} %</span>
@@ -161,7 +162,7 @@
 
     <li use:active={'/toys/*'}>
         <a href="#/toys/">
-            <IconifyIcon icon={dropType.toy} />
+            <IconifyIcon icon={dropTypeIcon[FarmDropType.Toy]} />
             Toys
         </a>
         <span class="drop-shadow percent {getPercentClass(toysPercent)}">{fancyPercent(toysPercent)} %</span>
@@ -171,7 +172,7 @@
 
     <li use:active={'/journal/*'}>
         <a href="#/journal/">
-            <IconifyIcon icon={dropType.transmog} />
+            <IconifyIcon icon={dropTypeIcon[FarmDropType.Cosmetic]} />
             Journal
         </a>
         <span class="drop-shadow percent {getPercentClass(journalPercent)}">{fancyPercent(journalPercent)} %</span>

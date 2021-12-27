@@ -2,9 +2,10 @@
     import mdiMessageBulleted from '@iconify/icons-mdi/message-bulleted'
     import sortBy from 'lodash/sortBy'
 
-    import { dropType } from '@/data/farm'
+    import { dropTypeIcon } from '@/data/farm'
+    import { weaponSubclassToString } from '@/data/weapons'
     import { userStore } from '@/stores'
-    import { FarmDropType } from '@/types/enums'
+    import { ArmorType, FarmDropType, FarmResetType } from '@/types/enums'
     import type { DropStatus, FarmStatus } from '@/types'
     import type { ZoneMapDataDrop, ZoneMapDataFarm } from '@/types/data'
 
@@ -105,8 +106,8 @@
 <div class="wowthing-tooltip">
     <h4>{farm.name}</h4>
 
-    {#if farm.reset !== 'never'}
-        <h5>{farm.reset} reset</h5>
+    {#if farm.reset !== FarmResetType.Never}
+        <h5>{FarmResetType[farm.reset].toLowerCase()} reset</h5>
     {/if}
 
     {#if farm.note}
@@ -120,11 +121,7 @@
                     class:success={!dropStatus.need || !dropStatus.validCharacters || dropStatus.skip}
                 >
                     <td class="type status-{dropStatus.need ? 'fail' : 'success'}">
-                        {#if drop.type === FarmDropType.Transmog && drop.limit?.[0] && drop.limit?.[0] !== 'covenant'}
-                            <IconifyIcon icon={dropType[drop.limit[0]]} />
-                        {:else}
-                            <IconifyIcon icon={dropType[FarmDropType[drop.type].toLowerCase()]} />
-                        {/if}
+                        <IconifyIcon icon={dropTypeIcon[drop.type]} />
                     </td>
                     <td class="name" class:status-success={!dropStatus.need}>{drop.name}</td>
                     <td class="limit">
@@ -133,8 +130,12 @@
                             {#if drop.limit.length > 2}
                                 [ {drop.limit.slice(2).join(', ')} ]
                             {/if}
-                        {:else if drop.type === FarmDropType.Transmog}
+                        {:else if drop.type === FarmDropType.Cosmetic}
                             cosmetic
+                        {:else if drop.type === FarmDropType.Armor}
+                            {ArmorType[drop.subType].toLowerCase()}
+                        {:else if drop.type === FarmDropType.Weapon}
+                            {weaponSubclassToString[drop.subType]}
                         {:else}
                             {FarmDropType[drop.type].toLowerCase()}
                         {/if}
