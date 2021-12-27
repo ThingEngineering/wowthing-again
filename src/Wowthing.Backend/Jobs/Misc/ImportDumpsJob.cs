@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Wowthing.Backend.Enums;
 using Wowthing.Backend.Models.Data;
 using Wowthing.Backend.Models.Data.Covenants;
 using Wowthing.Backend.Models.Data.Journal;
@@ -41,7 +42,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.ImportDumps,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(24),
-            Version = 3,
+            Version = 4,
         };
 
         public override async Task Run(params string[] data)
@@ -171,6 +172,13 @@ namespace Wowthing.Backend.Jobs.Misc
                 dbItem.Quality = (WowQuality)itemSparse.OverallQualityID;
                 dbItem.RaceMask = itemSparse.AllowableRace;
                 dbItem.Stackable = itemSparse.Stackable;
+                
+                // Flags
+                if (itemSparse.ItemNameDescriptionID == 13805 || // Cosmetic
+                    itemSparse.Flags4.HasFlag(WowItemFlags4.Cosmetic))
+                {
+                    dbItem.Flags |= WowItemFlags.Cosmetic;
+                }
 
                 // Stats are ~fun~
                 var primaryStats = new HashSet<WowStat>(itemSparse.Stats

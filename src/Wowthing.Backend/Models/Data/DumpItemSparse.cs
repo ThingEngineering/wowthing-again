@@ -1,4 +1,5 @@
 ﻿using CsvHelper.Configuration.Attributes;
+using Wowthing.Backend.Enums;
 
 // ReSharper disable InconsistentNaming
 namespace Wowthing.Backend.Models.Data
@@ -11,9 +12,13 @@ namespace Wowthing.Backend.Models.Data
         public long AllowableRace { get; set; }
         public short ContainerSlots { get; set; }
         public short ExpansionID { get; set; }
+        public int ItemNameDescriptionID { get; set; }
         public short OverallQualityID { get; set; }
         public int Stackable { get; set; }
 
+        [Name("Flags[3]")]
+        public WowItemFlags4 Flags4 { get; set; }
+        
         [Name("StatModifier_bonusStat[0]")]
         public int StatType0 { get; set; }
         [Name("StatModifier_bonusStat[1]")]
