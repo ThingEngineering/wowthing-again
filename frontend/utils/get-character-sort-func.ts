@@ -48,6 +48,7 @@ export default function getCharacterSortFunc(
                 out.push(char.name)
             }
             else if (thing === 'realm') {
+                out.push(Region[char.realm.region])
                 out.push(char.realm.name)
             }
         }

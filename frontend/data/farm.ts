@@ -16,26 +16,36 @@ import mdiTshirtCrew from '@iconify/icons-mdi/tshirt-crew'
 import mdiUnicorn from '@iconify/icons-mdi/unicorn'
 import mdiWizardHat from '@iconify/icons-mdi/wizard-hat'
 
+import { FarmDropType, FarmType } from '@/types/enums'
 
-export const farmType: Record<string, IconifyIcon> = {
-    event: mdiTimerSand,
-    kill: mdiSkull,
-    puzzle: mdiPuzzle,
-    treasure: mdiTreasureChest,
 
-    cloth: mdiLetterC,
-    leather: mdiLetterL,
-    mail: mdiLetterM,
-    plate: mdiLetterP,
-    weapon: mdiAxeBattle,
+export const farmTypeIcon: Record<number, IconifyIcon> = {
+    [FarmType.Event]: mdiTimerSand,
+    [FarmType.EventBig]: mdiTimerSand,
+    [FarmType.Kill]: mdiSkull,
+    [FarmType.KillBig]: mdiSkull,
+    [FarmType.Puzzle]: mdiPuzzle,
+    [FarmType.Treasure]: mdiTreasureChest,
+
+    [FarmType.Cloth]: mdiLetterC,
+    [FarmType.Leather]: mdiLetterL,
+    [FarmType.Mail]: mdiLetterM,
+    [FarmType.Plate]: mdiLetterP,
+    [FarmType.Weapon]: mdiAxeBattle,
 }
 
-export const dropType: Record<string, IconifyIcon> = {
-    armor: mdiTshirtCrew,
+export const dropTypeIcon: Record<number, IconifyIcon> = {
+    [FarmDropType.Armor]: mdiTshirtCrew,
+    [FarmDropType.Cosmetic]: mdiWizardHat,
+    [FarmDropType.Mount]: mdiUnicorn,
+    [FarmDropType.Pet]: mdiSpider,
+    [FarmDropType.Quest]: mdiExclamationThick,
+    [FarmDropType.Toy]: mdiDiceMultiple,
+    [FarmDropType.Weapon]: mdiAxeBattle,
+}
+
+export const dropTypeStringIcon: Record<string, IconifyIcon> = {
     mount: mdiUnicorn,
     pet: mdiSpider,
-    quest: mdiExclamationThick,
     toy: mdiDiceMultiple,
-    transmog: mdiWizardHat,
-    weapon: mdiAxeBattle,
 }

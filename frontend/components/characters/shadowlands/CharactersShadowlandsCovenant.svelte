@@ -55,7 +55,24 @@
                 researching: '',
             }
 
-            const characterFeature: CharacterShadowlandsCovenantFeature = characterCovenant?.[key]
+            // This is kinda gross but I coudln't work out a better way, something like this makes Typescript mad:
+            //   const characterFeature: foo = characterCovenant?.[key]
+            let characterFeature: CharacterShadowlandsCovenantFeature
+            switch (key) {
+                case 'conductor':
+                    characterFeature = characterCovenant?.conductor
+                    break
+                case 'missions':
+                    characterFeature = characterCovenant?.missions
+                    break
+                case 'transport':
+                    characterFeature = characterCovenant?.transport
+                    break
+                case 'unique':
+                    characterFeature = characterCovenant?.unique
+                    break
+            }
+
             if (characterFeature) {
                 featureData.name = characterFeature.name
                 featureData.rank = characterFeature.rank

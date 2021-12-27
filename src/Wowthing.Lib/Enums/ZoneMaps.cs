@@ -1,13 +1,33 @@
 ﻿namespace Wowthing.Lib.Enums
 {
+    public enum FarmType
+    {
+        Kill = 1,
+        KillBig,
+        Puzzle,
+        Treasure,
+        Event,
+        EventBig,
+        Cloth,
+        Leather,
+        Mail,
+        Plate,
+        Weapon,
+    }
+
     public enum FarmIdType
     {
         Npc = 1,
         Object,
     }
     
-    public enum FarmType
+    public enum FarmResetType
     {
+        None,
+        Daily,
+        BiWeekly,
+        Weekly,
+        Never,
     }
 
     public enum FarmDropType
@@ -16,6 +36,9 @@
         Mount,
         Quest,
         Toy,
-        Transmog,
+        Cosmetic,
+        Armor,
+        Weapon,
+        Transmog = 100,
     }
 }

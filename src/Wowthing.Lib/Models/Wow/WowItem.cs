@@ -20,6 +20,7 @@ namespace Wowthing.Lib.Models.Wow
         public short ContainerSlots { get; set; }
         public WowQuality Quality { get; set; }
         public WowStat PrimaryStat { get; set; }
+        public WowItemFlags Flags { get; set; }
 
         public int GetCalculatedClassMask(bool legacyLoot = false)
         {
@@ -58,7 +59,7 @@ namespace Wowthing.Lib.Models.Wow
             {
                 classMask = armorMask;
             }
-            else if (ClassId == 4 && PrimaryStat != WowStat.None)
+            else if (ClassId == 4)
             {
                 foreach (var classData in Hardcoded.Characters)
                 {
@@ -74,7 +75,7 @@ namespace Wowthing.Lib.Models.Wow
                                     )
                                 )
                             )
-                    )
+                        )
                     )
                     {
                         classMask |= (int)classData.Mask;

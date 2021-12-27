@@ -9,13 +9,14 @@ import { DateTime } from 'luxon'
 import { classMap, classSlugMap } from '@/data/character-class'
 import { covenantSlugMap } from '@/data/covenant'
 import { factionMap } from '@/data/faction'
-import type { DropStatus, FarmStatus } from '@/types'
 import { Settings, StaticData, UserCount, UserData, WritableFancyStore } from '@/types'
-import { ArmorType, FarmDropType, PrimaryStat, WeaponType } from '@/types/enums'
+import { ZoneMapDataFarm } from '@/types/data'
+import { FarmDropType, FarmResetType } from '@/types/enums'
 import { getNextBiWeeklyReset, getNextDailyReset, getNextWeeklyReset } from '@/utils/get-next-reset'
+import getTransmogClassMask from '@/utils/get-transmog-class-mask'
 import type { ZoneMapState } from '@/stores/local-storage/zone-map'
+import type { DropStatus, FarmStatus } from '@/types'
 import type { TransmogData, UserQuestData, UserTransmogData, ZoneMapData } from '@/types/data'
-import { ZoneMapDataDrop } from '@/types/data'
 
 
 export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
@@ -37,7 +38,9 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
     ): void {
         console.time('ZoneMapDataStore.setup')
 
+        const classMask = getTransmogClassMask(settings)
         const now = DateTime.utc()
+
         const farmData: Record<string, FarmStatus[]> = {}
         const setCounts: Record<string, UserCount> = {}
 
@@ -111,15 +114,13 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                     )
                 )
 
+                if (map.farmsRaw !== null) {
+                    map.farms = map.farmsRaw.map((farmArray) => new ZoneMapDataFarm(...farmArray))
+                    map.farmsRaw = null
+                }
+
                 const farms: FarmStatus[] = []
                 for (const farm of map.farms) {
-                    if (farm.dropsRaw !== null) {
-                        farm.drops = farm.dropsRaw
-                            .map((dropArray) => new ZoneMapDataDrop(...dropArray))
-                        farm.dropsRaw = null
-                    }
-                    farm.drops = farm.drops || []
-
                     const farmStatus: FarmStatus = {
                         characters: [],
                         drops: [],
@@ -127,14 +128,20 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                     }
 
                     let expiredFunc: (characterId: number) => boolean
-                    if (farm.reset === 'weekly') {
+                    if (farm.reset === FarmResetType.Weekly) {
                         expiredFunc = (characterId) => resetMap[characterId].weekly < now
                     }
-                    else if (farm.reset === 'bi-weekly') {
+                    else if (farm.reset === FarmResetType.BiWeekly) {
                         expiredFunc = (characterId) => resetMap[characterId].biWeekly < now
                     }
-                    else {
+                    else if (farm.reset === FarmResetType.Daily) {
                         expiredFunc = (characterId) => resetMap[characterId].daily < now
+                    }
+                    else if (farm.reset === FarmResetType.None) {
+                        expiredFunc = () => true
+                    }
+                    else {
+                        expiredFunc = () => false
                     }
 
                     let farmCharacters = eligibleCharacters
@@ -144,13 +151,19 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                             (c) => c.level >= farm.minimumLevel
                         )
                     }
-                    if (farm.requiredQuestIds.length > 0) {
+                    if (farm.requiredQuestIds?.length > 0) {
                         farmCharacters = filter(
                             farmCharacters,
                             (c) => some(
                                 farm.requiredQuestIds,
                                 (q) => userQuestData.characters[c.id].quests.get(q)
                             )
+                        )
+                    }
+                    if (farm.faction) {
+                        farmCharacters = filter(
+                            farmCharacters,
+                            (c) => c.faction === factionMap[farm.faction]
                         )
                     }
 
@@ -190,7 +203,9 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                                 }
                                 break
 
-                            case FarmDropType.Transmog:
+                            case FarmDropType.Armor:
+                            case FarmDropType.Cosmetic:
+                            case FarmDropType.Weapon:
                                 if (!userTransmogData.userHas[drop.id]) {
                                     dropStatus.need = true
                                 }
@@ -202,7 +217,7 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                             (drop.type === FarmDropType.Pet && !options.trackPets) ||
                             (drop.type === FarmDropType.Quest && !options.trackQuests) ||
                             (drop.type === FarmDropType.Toy && !options.trackToys) ||
-                            (drop.type === FarmDropType.Transmog && !options.trackTransmog)
+                            (transmogTypes.indexOf(drop.type) >= 0 && !options.trackTransmog)
                         )
 
                         if (!dropStatus.skip) {
@@ -236,25 +251,19 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                         }
 
                         if (dropStatus.need && !dropStatus.skip) {
-                            // Filter for farm faction
-                            if (farm.faction) {
+                            // Filter for class mask
+                            if (drop.classMask > 0) {
                                 dropCharacters = filter(
                                     dropCharacters,
-                                    (c) => c.faction === factionMap[farm.faction]
+                                    (c) => (
+                                        (drop.classMask & classMask) > 0 &&
+                                        (drop.classMask & classMap[c.classId].mask) > 0
+                                    )
                                 )
                             }
 
                             if (drop.limit?.length > 0) {
                                 switch (drop.limit[0]) {
-                                    case 'armor':
-                                        if (drop.limit[1] !== 'cloak') {
-                                            dropCharacters = filter(
-                                                dropCharacters,
-                                                (c) => classMap[c.classId].armorType === armorMap[drop.limit[1]]
-                                            )
-                                        }
-                                        break;
-
                                     case 'class':
                                         dropCharacters = filter(
                                             dropCharacters,
@@ -273,13 +282,6 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                                         dropCharacters = filter(
                                             dropCharacters,
                                             (c) => c.faction === factionMap[drop.limit[1]]
-                                        )
-                                        break
-
-                                    case 'weapon':
-                                        dropCharacters = filter(
-                                            dropCharacters,
-                                            (c) => weaponValidForClass(c.classId, drop.limit.slice(1))
                                         )
                                         break
                                 }
@@ -394,66 +396,8 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
 export const zoneMapStore = new ZoneMapDataStore()
 
 
-const armorMap: Record<string, ArmorType> = {
-    cloth: ArmorType.Cloth,
-    leather: ArmorType.Leather,
-    mail: ArmorType.Mail,
-    plate: ArmorType.Plate,
-}
-
-const statMap: Record<string, PrimaryStat> = {
-    'agi': PrimaryStat.Agility,
-    'int': PrimaryStat.Intellect,
-    'str': PrimaryStat.Strength,
-}
-
-const weaponMap: Record<string, WeaponType> = {
-    '1h-axe': WeaponType.OneHandedAxe,
-    '1h-mace': WeaponType.OneHandedMace,
-    '1h-sword': WeaponType.OneHandedSword,
-    '2h-axe': WeaponType.TwoHandedAxe,
-    '2h-mace': WeaponType.TwoHandedMace,
-    '2h-sword': WeaponType.TwoHandedSword,
-    'bow': WeaponType.Bow,
-    'crossbow': WeaponType.Crossbow,
-    'dagger': WeaponType.Dagger,
-    'fist': WeaponType.Fist,
-    'gun': WeaponType.Gun,
-    'polearm': WeaponType.Polearm,
-    'shield': WeaponType.Shield,
-    'stave': WeaponType.Stave,
-    'wand': WeaponType.Wand,
-    'warglaive': WeaponType.Warglaive,
-}
-
-const weaponValidCache: Record<string, boolean> = {}
-function weaponValidForClass(classId: number, limit: string[]): boolean {
-    const key = `${classId}--${limit.join('--')}`
-    if (weaponValidCache[key] === undefined) {
-        weaponValidCache[key] = getWeaponValidity(classId, limit)
-    }
-    return weaponValidCache[key]
-}
-
-function getWeaponValidity(classId: number, limit: string[]): boolean {
-    const weaponType = weaponMap[limit[0]]
-    if (!weaponType) {
-        return true
-    }
-
-    const cls = classMap[classId]
-    if (cls.weaponTypes.indexOf(weaponType) >= 0) {
-        if (limit.length > 1) {
-            for (const mainStat of limit.slice(1)) {
-                if (cls.primaryStats.indexOf(statMap[mainStat]) >= 0) {
-                    return true
-                }
-            }
-        }
-        else {
-            return true
-        }
-    }
-
-    return false
-}
+const transmogTypes: FarmDropType[] = [
+    FarmDropType.Armor,
+    FarmDropType.Cosmetic,
+    FarmDropType.Weapon,
+]

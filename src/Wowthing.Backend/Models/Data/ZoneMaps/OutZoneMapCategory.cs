@@ -14,7 +14,8 @@ namespace Wowthing.Backend.Models.Data.ZoneMaps
         public string WowheadGuide { get; set; }
 
         public List<int> RequiredQuestIds { get; set; }
-        
+
+        [JsonProperty("farmsRaw")]
         public List<OutZoneMapFarm> Farms { get; set; }
 
         public string Slug => Name.Slugify();

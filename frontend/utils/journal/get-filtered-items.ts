@@ -2,7 +2,7 @@ import every from 'lodash/every'
 import filter from 'lodash/filter'
 import some from 'lodash/some'
 
-import { PlayableClassMask } from '@/types/enums'
+import getTransmogClassMask from '@/utils/get-transmog-class-mask'
 import type { JournalState } from '@/stores/local-storage'
 import type { Settings } from '@/types'
 import type { JournalDataEncounterItemGroup, JournalDataEncounterItem, UserTransmogData } from '@/types/data'
@@ -14,47 +14,7 @@ export default function getFilteredItems(
     userTransmogData: UserTransmogData,
     group: JournalDataEncounterItemGroup
 ): JournalDataEncounterItem[] {
-    let classMask = 0
-
-    if (settingsData.transmog.showMage) {
-        classMask |= PlayableClassMask.Mage
-    }
-    if (settingsData.transmog.showPriest) {
-        classMask |= PlayableClassMask.Priest
-    }
-    if (settingsData.transmog.showWarlock) {
-        classMask |= PlayableClassMask.Warlock
-    }
-
-    if (settingsData.transmog.showDemonHunter) {
-        classMask |= PlayableClassMask.DemonHunter
-    }
-    if (settingsData.transmog.showDruid) {
-        classMask |= PlayableClassMask.Druid
-    }
-    if (settingsData.transmog.showMonk) {
-        classMask |= PlayableClassMask.Monk
-    }
-    if (settingsData.transmog.showRogue) {
-        classMask |= PlayableClassMask.Rogue
-    }
-
-    if (settingsData.transmog.showHunter) {
-        classMask |= PlayableClassMask.Hunter
-    }
-    if (settingsData.transmog.showShaman) {
-        classMask |= PlayableClassMask.Shaman
-    }
-
-    if (settingsData.transmog.showDeathKnight) {
-        classMask |= PlayableClassMask.DeathKnight
-    }
-    if (settingsData.transmog.showPaladin) {
-        classMask |= PlayableClassMask.Paladin
-    }
-    if (settingsData.transmog.showWarrior) {
-        classMask |= PlayableClassMask.Warrior
-    }
+    const classMask = getTransmogClassMask(settingsData)
 
     return filter(
         group.items,

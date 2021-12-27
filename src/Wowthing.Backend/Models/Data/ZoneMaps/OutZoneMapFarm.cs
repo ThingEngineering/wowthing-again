@@ -3,20 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
 using Wowthing.Backend.Converters;
+using Wowthing.Lib.Enums;
 using Wowthing.Lib.Extensions;
 
 namespace Wowthing.Backend.Models.Data.ZoneMaps
 {
+    [JsonConverter(typeof(OutZoneMapFarmConverter))]
     public class OutZoneMapFarm
     {
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public int? MinimumLevel { get; set; }
         
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public int? NpcId { get; set; }
-
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public int? ObjectId { get; set; }
+        public FarmIdType IdType { get; set; }
+        public int Id { get; set; }
         
         public string[] Location { get; set; }
 
@@ -28,8 +27,8 @@ namespace Wowthing.Backend.Models.Data.ZoneMaps
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Note { get; set; }
 
-        public string Reset { get; set; }
-        public string Type { get; set; }
+        public FarmResetType Reset { get; set; }
+        public FarmType Type { get; set; }
         public List<int> QuestIds { get; set; }
         
         public List<int> RequiredQuestIds { get; set; }
@@ -62,13 +61,16 @@ namespace Wowthing.Backend.Models.Data.ZoneMaps
             {
                 MinimumLevel = farm.MinimumLevel;
             }
-            if (farm.NpcId > 0)
-            {
-                NpcId = farm.NpcId;
-            }
+            
             if (farm.ObjectId > 0)
             {
-                ObjectId = farm.ObjectId;
+                IdType = FarmIdType.Object;
+                Id = farm.ObjectId;
+            }
+            else
+            {
+                IdType = FarmIdType.Npc;
+                Id = farm.NpcId;
             }
 
             if (!string.IsNullOrEmpty(farm.Faction))
@@ -81,8 +83,8 @@ namespace Wowthing.Backend.Models.Data.ZoneMaps
                 Note = farm.Note;
             }
 
-            Reset = farm.Reset ?? "daily";
-            Type = farm.Type ?? "kill";
+            Reset = Enum.Parse<FarmResetType>(farm.Reset ?? "daily", true);
+            Type = Enum.Parse<FarmType>(farm.Type ?? "kill", true);
         }
     }
 }

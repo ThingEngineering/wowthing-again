@@ -1,21 +1,20 @@
 <script lang="ts">
-    import { farmType } from '@/data/farm'
+    import { farmTypeIcon } from '@/data/farm'
+    import { FarmIdType, FarmType } from '@/types/enums'
     import { tippyComponent } from '@/utils/tippy'
     import type { FarmStatus } from '@/types'
     import type { ZoneMapDataFarm } from '@/types/data'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import NpcLink from '@/components/links/NpcLink.svelte'
+    import WowheadLink from '@/components/links/WowheadLink.svelte'
     import Tooltip from '@/components/tooltips/zone-maps/TooltipZoneMapsThing.svelte'
 
     export let farm: ZoneMapDataFarm
     export let status: FarmStatus
 
     let big: boolean
-    let type: string
     $: {
-        big = farm.type.indexOf('Big') > 0
-        type = big ? farm.type.substring(0, farm.type.length - 3) : farm.type
+        big = FarmType[farm.type].indexOf('Big') > 0
     }
 </script>
 
@@ -83,7 +82,12 @@
         props: {farm, status},
     }}
 >
-    <NpcLink id={farm.npcId} noTooltip={true} toComments={true}>
+    <WowheadLink
+        id={farm.id}
+        noTooltip={true}
+        toComments={true}
+        type={FarmIdType[farm.idType].toLowerCase()}
+    >
         <div
             class="icon drop-shadow"
             class:active={status.need}
@@ -92,7 +96,7 @@
             class:horde={farm.faction === 'horde'}
         >
             <IconifyIcon
-                icon={farmType[type]}
+                icon={farmTypeIcon[farm.type]}
                 scale={big ? '1.25' : '1'}
             />
         </div>
@@ -103,5 +107,5 @@
                 class:status-success={status.characters.length === 0}
             >{status.characters.length}</span>
         {/if}
-    </NpcLink>
+    </WowheadLink>
 </div>

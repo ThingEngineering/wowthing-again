@@ -48,7 +48,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
-            Version = 29,
+            Version = 30,
         };
 
         public override async Task Run(params string[] data)
@@ -520,9 +520,9 @@ namespace Wowthing.Backend.Jobs.Misc
                     {
                         foreach (var farm in category.Farms)
                         {
-                            if (farm.NpcId > 0)
+                            if (farm.IdType == FarmIdType.Npc && farm.Id > 0)
                             {
-                                farm.Name = _stringMap.GetValueOrDefault((StringType.WowCreatureName, language, farm.NpcId.Value), farm.Name);
+                                farm.Name = _stringMap.GetValueOrDefault((StringType.WowCreatureName, language, farm.Id), farm.Name);
                             }
                             
                             foreach (var drop in farm.Drops)
@@ -541,8 +541,35 @@ namespace Wowthing.Backend.Jobs.Misc
                                 }
                                 else if (drop.Type == "transmog")
                                 {
-                                    drop.Name = GetString(StringType.WowItemName, language, drop.Id);
+                                    var dropItem = _itemMap[drop.Id];
+
                                     drop.Id = itemToAppearance[drop.Id];
+                                    drop.Name = GetString(StringType.WowItemName, language, dropItem.Id);
+
+                                    if (dropItem.ClassId == 2)
+                                    {
+                                        drop.Type = "weapon";
+                                        drop.SubType = dropItem.SubclassId;
+                                    }
+                                    else if (dropItem.ClassId == 4)
+                                    {
+                                        if (dropItem.SubclassId == 6 || dropItem.InventoryType == WowInventoryType.HeldInOffHand)
+                                        {
+                                            drop.Type = "weapon";
+                                            drop.SubType = dropItem.InventoryType == WowInventoryType.HeldInOffHand ? 30 : 31;
+                                        }
+                                        else if (dropItem.SubclassId == 5 || dropItem.Flags.HasFlag(WowItemFlags.Cosmetic))
+                                        {
+                                            drop.Type = "cosmetic";
+                                        }
+                                        else
+                                        {
+                                            drop.Type = "armor";
+                                            drop.SubType = dropItem.InventoryType == WowInventoryType.Back ? 0 : dropItem.SubclassId;
+                                        }
+                                    }
+
+                                    drop.ClassMask = dropItem.GetCalculatedClassMask();
                                 }
                             }
                         }
