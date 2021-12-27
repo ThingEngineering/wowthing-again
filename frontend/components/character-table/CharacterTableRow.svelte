@@ -80,7 +80,11 @@
                     <td class="level">{character.level}</td>
 
                 {:else if field === 'characterName'}
-                    <td class="name">{character.name}</td>
+                    <td class="name">
+                        <a href="#/characters/{character.realm.slug}/{character.name}">
+                            {character.name}
+                        </a>
+                    </td>
 
                 {:else if field === 'realmName'}
                     <td class="realm">&ndash; {character.realm.name}</td>
