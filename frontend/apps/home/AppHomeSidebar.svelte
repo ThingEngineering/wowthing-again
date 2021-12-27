@@ -1,4 +1,5 @@
 <script lang="ts">
+    import iconCharacters from '@iconify/icons-mdi/account-group-outline'
     import iconConstruction from '@iconify/icons-emojione-monotone/construction'
     import iconCurrencies from '@iconify/icons-mdi/cash-multiple'
     import iconHistory from '@iconify/icons-mdi/chart-line'
@@ -73,6 +74,13 @@
     </li>
 
     <li class="separator"></li>
+
+    <li use:active={'/characters/*'}>
+        <a href="#/characters/">
+            <IconifyIcon icon={iconCharacters} />
+            Characters
+        </a>
+    </li>
 
     <li use:active={'/currencies/*'}>
         <a href="#/currencies/">
@@ -190,13 +198,6 @@
         <a href="#/achievements/summary">
             <IconifyIcon icon={iconConstruction} />
             Achievements
-        </a>
-    </li>
-
-    <li use:active={'/characters/*'}>
-        <a href="#/characters/">
-            <IconifyIcon icon={iconConstruction} />
-            Characters
         </a>
     </li>
 
