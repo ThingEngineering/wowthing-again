@@ -20,6 +20,7 @@ namespace Wowthing.Lib.Models.Wow
         public short ContainerSlots { get; set; }
         public WowQuality Quality { get; set; }
         public WowStat PrimaryStat { get; set; }
+        public WowItemFlags Flags { get; set; }
 
         public int GetCalculatedClassMask(bool legacyLoot = false)
         {
