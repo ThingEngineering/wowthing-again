@@ -11,7 +11,6 @@ farms:
   - type: transmog
     id: 139918
     name: "Robse of the Nightborne Ambassador"
-    limit: armor cloth
 
 - name: "Anax"
   location: 33.72 51.23
@@ -30,7 +29,6 @@ farms:
   - type: transmog
     id: 121754
     name: "Mana-Flecked Mantle"
-    limit: armor cloth
 
 - name: "Cadraeus"
   location: 62.56 48.08
@@ -40,7 +38,6 @@ farms:
   - type: transmog
     id: 139969
     name: "Nightborne Stalker's Coif"
-    limit: armor mail
 
 - name: "Cora'kar"
   location: 68.17 58.96
@@ -50,7 +47,6 @@ farms:
   - type: transmog
     id: 139952
     name: "Salt-Tide Jailor's Tunic"
-    limit: armor leather
 
 - name: "Garvrulg"
   location: 53.19 30.21
@@ -60,7 +56,6 @@ farms:
   - type: transmog
     id: 121755
     name: "Slatecrusher Spaulders"
-    limit: armor mail
 
 - name: "Gorgroth"
   location: 27.77 65.47
@@ -70,7 +65,6 @@ farms:
   - type: transmog
     id: 121747
     name: "Soulcrush Legplates"
-    limit: armor plate
 
 - name: "Hertha Grimdottir"
   location: 61.66 39.58
@@ -80,7 +74,6 @@ farms:
   - type: transmog
     id: 121737
     name: "Exile's Chain Boots"
-    limit: armor mail
 
 - name: "Lady Rivantas"
   location: 35.23 67.23
@@ -90,7 +83,6 @@ farms:
   - type: transmog
     id: 141866
     name: "Rivantas' Silk Gloves"
-    limit: armor cloth
 
 - name: "Lieutenant Strathmar"
   location: 48.07 56.37
@@ -100,7 +92,6 @@ farms:
   - type: transmog
     id: 121735
     name: "Nightguard Stompers"
-    limit: armor plate
 
 - name: "Maia the White"
   location: 24.39 35.17
@@ -110,7 +101,6 @@ farms:
   - type: transmog
     id: 139897
     name: "Cloak of the White Prowler"
-    limit: armor cloak
 
 - name: "Myonix"
   location: 40.96 32.82
@@ -120,7 +110,6 @@ farms:
   - type: transmog
     id: 121739
     name: "Felinus Manus"
-    limit: armor leather
 
 - name: "Pinchshank"
   location: 66.65 67.13
@@ -139,7 +128,6 @@ farms:
   - type: transmog
     id: 121759
     name: "Feather-Notched Belt"
-    limit: armor leather
 
 - name: "Rok'nash"
   location: 80.15 70.00
@@ -149,7 +137,6 @@ farms:
   - type: transmog
     id: 140019
     name: "Eel Collars"
-    limit: armor plate
 
 - name: "Shal'an"
   location: 26.10 40.77
@@ -159,4 +146,3 @@ farms:
   - type: transmog
     id: 139926
     name: "Subject 12's ID Bracelets"
-    limit: armor cloth

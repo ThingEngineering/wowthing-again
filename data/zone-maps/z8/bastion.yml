@@ -21,7 +21,6 @@ farms:
   - type: transmog
     id: 183607
     name: "Uncertain Aspirant's Spear"
-    limit: weapon polearm agi
 
 - name: "Cloudfeather Guardian"
   location: 50.4 58.0
@@ -41,7 +40,6 @@ farms:
   - type: transmog
     id: 183608
     name: "Evernote Vesper"
-    limit: weapon offhand int
 
 - name: "Dark Watcher"
   location: 27.8 30.1
@@ -51,7 +49,6 @@ farms:
   - type: transmog
     id: 184297
     name: "Death Warden's Greatblade"
-    limit: weapon 2h-sword str
 
 - name: "Demi the Relic Hoarder"
   location: 37.0 41.8
@@ -61,52 +58,42 @@ farms:
   - type: transmog
     id: 183606
     name: "Bulwark of Echoing Courage"
-    limit: weapon shield
 
   - type: transmog
     id: 183608
     name: "Evernote Vesper"
-    limit: weapon offhand int
 
   - type: transmog
     id: 183614
     name: "Gavel of Harmonious Wisdom"
-    limit: weapon 1h-mace int
 
   - type: transmog
     id: 183613
     name: "Glinting Daybreak Dagger"
-    limit: weapon dagger int
 
   - type: transmog
     id: 183611
     name: "Humble Ophelia's Greatblade"
-    limit: weapon 2h-sword str
 
   - type: transmog
     id: 183612
     name: "Loyal Champion's Hammer"
-    limit: weapon 1h-mace str
 
   - type: transmog
     id: 183604
     name: "Piercing Timbre Crossbow"
-    limit: weapon crossbow
 
   - type: transmog
     id: 183609
     name: "Re-Powered Golliath Fists"
-    limit: weapon fist agi
 
   - type: transmog
     id: 183607
     name: "Uncertain Aspirant's Spear"
-    limit: weapon polearm agi
 
   - type: transmog
     id: 183610
     name: "Warrior Poet's Poniard"
-    limit: weapon dagger agi
 
 - name: "Dionae"
   location: 41.4 48.9
@@ -134,7 +121,6 @@ farms:
   - type: transmog
     id: 180444
     name: "Harmonia's Chosen Belt"
-    limit: armor leather
 
 - name: "Nikara Blackheart"
   location: 51.5 68.6
@@ -144,7 +130,6 @@ farms:
   - type: transmog
     id: 183608
     name: "Evernote Vesper"
-    limit: weapon offhand int
 
 - name: "Orstus and Sotiros"
   location: 22.4 22.8
@@ -159,7 +144,6 @@ farms:
   - type: transmog
     id: 184365
     name: "Aegis of Salvation"
-    limit: weapon shield
 
 - name: "Selena the Reborn"
   location: 61.3 50.9
@@ -169,7 +153,6 @@ farms:
   - type: transmog
     id: 183608
     name: "Evernote Vesper"
-    limit: weapon offhand int
 
 - name: "Sundancer"
   location: 61.4 90.5
@@ -199,25 +182,21 @@ farms:
     id: 179487
     name: "Aethon's Horn"
     questId: 58526
-    limit: weapon warglaive
 
   - type: transmog
     id: 179488
     name: "Cloudtail's Paw"
     questId: 60571
-    limit: weapon fist
 
   - type: transmog
     id: 179485
     name: "Fang of Nemaeus"
     questId: 60569
-    limit: weapon dagger agi
 
   - type: transmog
     id: 179486
     name: "Sigilback's Smashshell"
     questId: 60570
-    limit: weapon 1h-mace agi
 
 # Weird ones
 
@@ -234,7 +213,6 @@ farms:
   - type: transmog
     id: 183605
     name: "Devourer Wrought Warglaive"
-    limit: weapon warglaive
 
 # World boss
 - name: Valinor, the Light of Eons
@@ -247,27 +225,22 @@ farms:
   - type: transmog
     id: 184170
     name: Doubtweaver's Handwraps
-    limit: armor cloth
 
   - type: transmog
     id: 184136
     name: Anima-Charged Wristbanding
-    limit: armor leather
 
   - type: transmog
     id: 184125
     name: Servo-Chain Waistguard
-    limit: armor mail
 
   - type: transmog
     id: 184132
     name: Oversized Centurion Helm
-    limit: armor plate
 
   - type: transmog
     id: 184139
     name: Valinor's Ground Pounders
-    limit: armor plate
 
   - type: transmog
     id: 184141
@@ -284,7 +257,6 @@ farms:
   - type: transmog
     id: 183609
     name: "Re-Powered Golliath Fists"
-    limit: weapon fist agi
 
 - name: "Gift of Chyrus"
   location: 70.5 36.4

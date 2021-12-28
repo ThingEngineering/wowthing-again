@@ -13,54 +13,45 @@ farms:
     type: transmog
     id: 152883
     name: "Zealous Felslinger's Boots"
-    limit: armor cloth
 
   - &zealous-felslinger-2
     type: transmog
     id: 152889
     name: "Zealous Felslinger's Cuffs"
-    limit: armor cloth
 
   - &zealous-felslinger-3
     type: transmog
     id: 152888
     name: "Zealous Felslinger's Epaulets"
-    limit: armor cloth
 
   - &zealous-felslinger-4
     type: transmog
     id: 152881
     name: "Zealous Felslinger's Girdle"
-    limit: armor cloth
 
   - &zealous-felslinger-5
     type: transmog
     id: 152885
     name: "Zealous Felslinger's Handwraps"
-    limit: armor cloth
 
   - &zealous-felslinger-6
     type: transmog
     id: 152887
     name: "Zealous Felslinger's Leggings"
-    limit: armor cloth
 
   - &zealous-felslinger-7
     type: transmog
     id: 152884
     name: "Zealous Felslinger's Robe"
-    limit: armor cloth
 
   - &zealous-felslinger-8
     type: transmog
     id: 152886
     name: "Zealous Felslinger's Visage"
-    limit: armor cloth
 
   - type: transmog
     id: 153324
     name: "Eredath Vigiliant's Bastion"
-    limit: weapon shield
 
 - name: "Blistermaw"
   location: 61.8 37.6
@@ -98,54 +89,45 @@ farms:
     type: transmog
     id: 152946
     name: "World Defiler's Casque"
-    limit: armor plate
 
   - &world-defilers-2
     type: transmog
     id: 152949
     name: "World Defiler's Cuirass"
-    limit: armor plate
-
+    
   - &world-defilers-3
     type: transmog
     id: 152947
     name: "World Defiler's Gauntlets"
-    limit: armor plate
-    
+
   - &world-defilers-4
     type: transmog
     id: 152943
     name: "World Defiler's Girdle"
-    limit: armor plate
 
   - &world-defilers-5
     type: transmog
     id: 152948
     name: "World Defiler's Sabatons"
-    limit: armor plate
 
   - &world-defilers-6
     type: transmog
     id: 152944
     name: "World Defiler's Shoulderplates"
-    limit: armor plate
 
   - &world-defilers-7
     type: transmog
     id: 152945
     name: "World Defiler's Tuille"
-    limit: armor plate
 
   - &world-defilers-8
     type: transmog
     id: 152942
     name: "World Defiler's Wristguards"
-    limit: armor plate
 
   - type: transmog
     id: 153327
     name: "Mystic Wakener's Dagger"
-    limit: weapon dagger
 
 - name: "Mother Rosula"
   location: 66.5 18.3
@@ -240,7 +222,6 @@ farms:
   - type: transmog
     id: 153319
     name: "Ardent Vindicator's Greatmace"
-    limit: weapon 2h-mace
 
 - name: "Vrax'thul"
   location: 53.2 35.8
@@ -268,7 +249,6 @@ farms:
   - type: transmog
     id: 153312
     name: "Praetor's Ornamental Greatsword"
-    limit: weapon 2h-sword
 
 - name: "Wrath-Lord Yarez"
   location: 61.9 64.3
@@ -292,7 +272,6 @@ farms:
     id: 153308
     requiredQuestId: 47287 # The Vindicaar Matrix Core - Light's Judgment
     name: "Unyielding Peacekeeper's Cudgel"
-    limit: weapon 1h-mace
 
 - name: "Legion Treasure Hoard"
   location: 49.2 59.5
@@ -303,7 +282,6 @@ farms:
   - type: transmog
     id: 153291
     name: "Spectral Censorite's Staff"
-    limit: weapon stave
 
 # Alchemist 48865
 # Ven'orn 48811

@@ -16,19 +16,16 @@ farms:
     type: transmog
     id: 174224
     name: "Greatsword of Cruelty"
-    limit: weapon 2h-sword
 
   - &aqir2
     type: transmog
     id: 174222
     name: "Unspeakable Bloodletter"
-    limit: weapon dagger
 
   - &aqir3
     type: transmog
     id: 174227
     name: "Writhing Feeler"
-    limit: weapon dagger
 
 - name: "Aqir Flayer"
   location: 38.7 25.0
@@ -246,19 +243,15 @@ farms:
   - type: transmog
     id: 174237
     name: "Breeches of Faithful Execution"
-    limit: armor cloth
 
   - type: transmog
     id: 174247
     name: "Grotesque Mutilator's Leggings"
-    limit: armor leather
 
   - type: transmog
     id: 174250
     name: "Psyche Tormentor's Visage"
-    limit: armor mail
 
   - type: transmog
     id: 174258
     name: "Greathelm of Indiscriminate Brutality"
-    limit: armor plate
