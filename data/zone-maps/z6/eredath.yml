@@ -42,7 +42,6 @@ farms:
   - type: transmog
     id: 153309
     name: "Unyielding Peacekeeper's Mace"
-    limit: weapon 1h-mace
 
 - name: "Jed'hin Champion Vorusk"
   location: 48.8 41.8
@@ -52,7 +51,6 @@ farms:
   - type: transmog
     id: 153302
     name: "Honed Jed'hin Scimitar"
-    limit: weapon 1h-sword
 
 - name: "Overseer Y'Beda"
   location: 59.2 37.7
@@ -62,7 +60,6 @@ farms:
   - type: transmog
     id: 153315
     name: "Praetor's Ornamental Warblade"
-    limit: weapon 2h-sword
 
 - name: "Overseer Y'Morna"
   location: 60.6 29.8
@@ -72,7 +69,6 @@ farms:
   - type: transmog
     id: 153257
     name: "Isolon Anchorite's Gavel"
-    limit: weapon 1h-mace
 
 - name: "Overseer Y'Sorna"
   location: 58.0 30.9
@@ -82,7 +78,6 @@ farms:
   - type: transmog
     id: 153268
     name: "Enclave Aspirant's Axe"
-    limit: weapon 1h-axe
 
 - name: "Sabuul"
   location: 44.2 49.8
@@ -122,7 +117,6 @@ farms:
   - type: transmog
     id: 153296
     name: "Spectral Consul's Cutter"
-    limit: weapon 1h-sword
 
 - name: "Skreeg the Devourer"
   location: 49.6 10.0
@@ -141,7 +135,6 @@ farms:
   - type: transmog
     id: 153292
     name: "Spectral Censorite's Spire"
-    limit: weapon stave
 
 - name: "Turek the Lucid"
   location: 38.6 65.2
@@ -151,7 +144,6 @@ farms:
   - type: transmog
     id: 153306
     name: "Oronaar Miner's Piercer"
-    limit: weapon 1h-axe
 
 - name: "Venomtail Skyfin"
   location: 33.6 47.5
@@ -174,7 +166,6 @@ farms:
   - type: transmog
     id: 153323
     name: "Eredath Vigilant's Crest"
-    limit: weapon shield
 
 - name: "Vigilant Thanos"
   location: 36.3 23.6
@@ -188,7 +179,6 @@ farms:
   - type: transmog
     id: 153322
     name: "Eredath Vigilant's Shield"
-    limit: weapon shield
 
 - name: "Wrangler Kravos"
   location: 55.7 59.8
@@ -202,7 +192,6 @@ farms:
   - type: transmog
     id: 153269
     name: "Enclave Aspirant's Waraxe"
-    limit: weapon 1h-axe
 
  # Treasure
 
@@ -217,7 +206,6 @@ farms:
     requiredQuestId: 47287 # The Vindicaar Matrix Core - Light's Judgment
     id: 153325
     name: "Eredath Vigilant's Redoubt"
-    limit: weapon shield
 
 - name: "Void-Tinged Chest"
   location: 40.2 51.5
@@ -230,7 +218,6 @@ farms:
     id: 153325
     requiredQuestId: 47994 # Forming a Bond - Lightforged Warframe
     name: "Eredath Vigilant's Redoubt"
-    limit: weapon shield
 
 # Xethgar 48720
 # Silthon 48935

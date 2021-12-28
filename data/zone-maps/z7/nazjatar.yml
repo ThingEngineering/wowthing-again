@@ -170,47 +170,38 @@ farms:
   - type: transmog
     id: 168603
     name: "Cloak of Restless Spirits"
-    limit: armor cloak
 
   - type: transmog
     id: 170089
     name: "Liara's Spire"
-    limit: weapon stave int
 
   - type: transmog
     id: 170090
     name: "Merciless Pincher"
-    limit: weapon fist agi
 
   - type: transmog
     id: 170095
     name: "Moon Priestess' Baton"
-    limit: weapon 1h-mace int
 
   - type: transmog
     id: 170092
     name: "Netherdancer's Knife"
-    limit: weapon dagger agi
 
   - type: transmog
     id: 170094
     name: "Temple Guardian's Saber"
-    limit: weapon 1h-sword str
 
   - type: transmog
     id: 170093
     name: "Tyr'mar's Greatsword"
-    limit: weapon 2h-sword str
 
   - type: transmog
     id: 170088
     name: "Ulmath's Soulseeker"
-    limit: weapon bow agi
 
   - type: transmog
     id: 170091
     name: "Willbinder's Halberd"
-    limit: weapon polearm agi
 
 - name: "Wekemara"
   location: 42.8 77.8
@@ -222,39 +213,31 @@ farms:
   - type: transmog
     id: 168340
     name: "Naga Ritualist's Mantle"
-    limit: armor cloth
 
   - type: transmog
     id: 169925
     name: "Serpentskin Splashers"
-    limit: armor cloth
 
   - type: transmog
     id: 169926
     name: "Belt of Rising Guardians"
-    limit: armor leather
 
   - type: transmog
     id: 168351
     name: "Spitcharged Shoulderguards"
-    limit: armor leather
 
   - type: transmog
     id: 168358
     name: "Chestguard of the Submerged"
-    limit: armor mail
 
   - type: transmog
     id: 169927
     name: "Deepcaller's Clasp"
-    limit: armor mail
 
   - type: transmog
     id: 168366
     name: "Tidal Lurker's Greathelm"
-    limit: armor plate
 
   - type: transmog
     id: 169928
     name: "Wekemara's Warboots"
-    limit: armor plate

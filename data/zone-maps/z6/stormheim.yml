@@ -11,7 +11,6 @@ farms:
   - type: transmog
     id: 129048
     name: "Squallfury Robes"
-    limit: armor cloth
 
 - name: "Captain Brvet"
   location: 58.00 45.16
@@ -21,7 +20,6 @@ farms:
   - type: transmog
     id: 129123
     name: "Brvet's HAuberk of Command"
-    limit: armor mail
 
 - name: 'Daniel "Boomer" Vorick'
   faction: horde
@@ -31,7 +29,6 @@ farms:
   - type: transmog
     id: 129144
     name: "Boomer's Utility Belt"
-    limit: armor leather
 
 - name: "Dread-Rider Cortis"
   faction: alliance
@@ -51,7 +48,6 @@ farms:
   - type: transmog
     id: 132898
     name: "Sabatons of the Endless Vigil"
-    limit: armor plate
 
 - name: "Glimar Ironfist"
   location: 41.47 67.02
@@ -61,7 +57,6 @@ farms:
   - type: transmog
     id: 129291
     name: "Stormslayer Champion Belt"
-    limit: armor plate
 
 - name: "Grrvrgull the Conqueror"
   location: 78.62 61.16
@@ -71,7 +66,6 @@ farms:
   - type: transmog
     id: 138421
     name: "The Conqueror's Chain"
-    limit: armor mail
 
 - name: "Hannval the Butcher"
   location: 51.60 74.65
@@ -81,7 +75,6 @@ farms:
   - type: transmog
     id: 138417
     name: "The Butcher's Apron"
-    limit: armor leather
 
 - name: "Hook & Sinker"
   faction: alliance
@@ -91,7 +84,6 @@ farms:
   - type: transmog
     id: 129109
     name: "Sinker's Line"
-    limit: armor cloth
 
 - name: "Houndmaster Ely"
   faction: horde
@@ -101,7 +93,6 @@ farms:
   - type: transmog
     id: 129037
     name: "The Houndmaster's Fancy Pants"
-    limit: armor cloth
 
 - name: "Inquisitor Ernstenbok"
   location: 63.70 74.22
@@ -111,7 +102,6 @@ farms:
   - type: transmog
     id: 140686
     name: "Gargantuan Mantle"
-    limit: armor leather
 
 - name: "Isel the Hammer"
   location: 62.03 60.49
@@ -121,7 +111,6 @@ farms:
   - type: transmog
     id: 129133
     name: "The Hammer's Head"
-    limit: armor mail
 
 - name: "Kottr Vondyr"
   location: 73.45 47.63
@@ -131,7 +120,6 @@ farms:
   - type: transmog
     id: 138419
     name: "The Binder's Bonds"
-    limit: armor leather
 
 - name: "Mordvigbjorn"
   location: 72.50 49.91
@@ -141,7 +129,6 @@ farms:
   - type: transmog
     id: 129035
     name: "Indomitable Bearskin Cloak"
-    limit: armor cloak
 
 - name: "Mother Clacker"
   location: 35.6 18.6
@@ -150,7 +137,6 @@ farms:
   - type: transmog
     id: 129040
     name: "Clacker's Clanking Clam Diggers"
-    limit: armor plate
 
 - name: "Roteye"
   location: 58.35 33.92
@@ -160,7 +146,6 @@ farms:
   - type: transmog
     id: 139387
     name: "Drowned Champion's Greaves"
-    limit: armor mail
 
 - name: "Starbuck"
   location: 54.80 29.41
@@ -170,7 +155,6 @@ farms:
   - type: transmog
     id: 130132
     name: "Bracers of Earthbound Flight"
-    limit: armor leather
 
 - name: "Stormdrake Matriarch"
   location: 49.50 71.75
@@ -184,7 +168,6 @@ farms:
   - type: transmog
     id: 129110
     name: "Matriarch-Hide Legguards"
-    limit: armor leather
 
 - name: "Thane Irglov the Merciless"
   location: 40.67 72.38
@@ -203,7 +186,6 @@ farms:
   - type: transmog
     id: 129041
     name: "Aurora of the Nameless King"
-    limit: armor cloth
 
 - name: "Urgev the Flayer"
   location: 64.80 51.76
@@ -213,7 +195,6 @@ farms:
   - type: transmog
     id: 129219
     name: "The Flayer's Runewraps"
-    limit: armor cloth
 
 - name: "Whitewater Typhoon"
   location: 36.50 52.50
@@ -223,7 +204,6 @@ farms:
   - type: transmog
     id: 138418
     name: "Typhoon Grips"
-    limit: armor mail
 
 # Weird one
 
@@ -235,7 +215,6 @@ farms:
   - type: transmog
     id: 129264
     name: "Patrol/Raider Captain's Gauntlets"
-    limit: armor plate
 
 # World bosses
 
@@ -249,24 +228,19 @@ farms:
   - type: transmog
     id: 141541
     name: "Windwhipped Greatcloak"
-    limit: armor cloak
 
   - type: transmog
     id: 141414
     name: "Hood of Scorned Brood"
-    limit: armor cloth
 
   - type: transmog
     id: 141418
     name: "Helm of the Mountain Recluse"
-    limit: armor leather
 
   - type: transmog
     id: 141420
     name: "Coif of Unstable Discharge"
-    limit: armor mail
 
   - type: transmog
     id: 141424
     name: "Stormbattered Casque"
-    limit: armor plate

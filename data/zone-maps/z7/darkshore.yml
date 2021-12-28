@@ -250,39 +250,31 @@ farms:
   - type: transmog
     id: 166683
     name: "Garments of the Forest Lord"
-    limit: armor cloth
 
   - type: transmog
     id: 166686
     name: "Ivus' Tanglemoss Waistcord"
-    limit: armor cloth
 
   - type: transmog
     id: 166690
     name: "Protector's Tangleroot Belt"
-    limit: armor leather
 
   - type: transmog
     id: 166687
     name: "Warring Ancient's Mask"
-    limit: armor leather
 
   - type: transmog
     id: 166691
     name: "Forest Protector's Shoulderguards"
-    limit: armor mail
 
   - type: transmog
     id: 166694
     name: "Gnarled Bough Gauntlets"
-    limit: armor mail
 
   - type: transmog
     id: 166695
     name: "Petrified Ironbark Crown"
-    limit: armor plate
 
   - type: transmog
     id: 166698
     name: "Stoneroot Stompers"
-    limit: armor plate

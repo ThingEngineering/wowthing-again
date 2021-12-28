@@ -11,7 +11,6 @@ farms:
   - type: transmog
     id: 141868
     name: "Shal'imanacles"
-    limit: armor cloth
 
 - name: "Arcavellus"
   location: 59.60 12.30
@@ -21,7 +20,6 @@ farms:
   - type: transmog
     id: 129085
     name: "Arcavellus' Unbound Spaulders"
-    limit: armor cloth
 
 - name: "Beacher"
   location: 32.29 29.72
@@ -31,7 +29,6 @@ farms:
   - type: transmog
     id: 129067
     name: "Sand-Blasted Pauldrons"
-    limit: armor plate
 
 - name: "Bilebrain"
   location: 29.27 53.66
@@ -41,7 +38,6 @@ farms:
   - type: transmog
     id: 129079
     name: "Bile-Resistant Boots"
-    limit: armor leather
 
 - name: "Brawlgoth"
   location: 55.10 45.90
@@ -51,7 +47,6 @@ farms:
   - type: transmog
     id: 129068
     name: "Brawlgoth's Choker"
-    limit: armor plate
 
 - name: "Brogozog"
   location: 59.30 46.30
@@ -61,7 +56,6 @@ farms:
   - type: transmog
     id: 129068
     name: "Legion Lord's Spaulder"
-    limit: armor mail
 
 - name: "Broodmother Lizax"
   location: 33.40 41.20
@@ -71,7 +65,6 @@ farms:
   - type: transmog
     id: 141869
     name: "Broodmother Armor"
-    limit: armor leather
 
 - name: "Cailyn Paledoom <Felsworn>"
   location: 52.38 23.04
@@ -81,7 +74,6 @@ farms:
   - type: transmog
     id: 129063
     name: "Darkbane Visage"
-    limit: armor leather
 
 - name: "Captain Volo'ren"
   location: 53.40 44.00
@@ -91,7 +83,6 @@ farms:
   - type: transmog
     id: 129066
     name: "Nar'thalas Guard Mantle"
-    limit: armor leather
 
 - name: "Commander Soraax"
   location: 27.8 51.0
@@ -101,7 +92,6 @@ farms:
   - type: transmog
     id: 141871
     name: "Soraax's Gauntlets of Command"
-    limit: armor plate
 
 - name: "Daggerbeak"
   location: 50.80 31.60
@@ -111,7 +101,6 @@ farms:
   - type: transmog
     id: 129084
     name: "Daggerbeak's Nesting Legguards"
-    limit: armor mail
 
 - name: "Felwing"
   location: 43.57 24.44
@@ -121,7 +110,6 @@ farms:
   - type: transmog
     id: 129087
     name: "Smooth Felwing Wraps"
-    limit: armor leather
 
 - name: "Flog the Captain-Eater"
   location: 45.30 57.80
@@ -131,7 +119,6 @@ farms:
   - type: transmog
     id: 129090
     name: "Bosun's Acid-Blotched Cape"
-    limit: armor cloak
 
 - name: "Houndmaster Stroxis"
   location: 30.77 47.99
@@ -141,7 +128,6 @@ farms:
   - type: transmog
     id: 141873
     name: "Felstalker Leash Belt"
-    limit: armor mail
 
 - name: "Infernal Lord"
   location: 35.30 50.30
@@ -152,7 +138,6 @@ farms:
   - type: transmog
     id: 129083
     name: "Greathelm of Infernal Lords"
-    limit: armor plate
 
 - name: "Inquisitor Tivos"
   location: 28.2 52.0
@@ -162,7 +147,6 @@ farms:
   - type: transmog
     id: 141874
     name: "Inquisitor's Corrupted Cincture"
-    limit: armor cloth
 
 - name: "Marblub the Massive"
   location: 34.2 28.0
@@ -172,7 +156,6 @@ farms:
   - type: transmog
     id: 129067
     name: "Sand-Blasted Pauldrons"
-    limit: armor plate
 
 - name: "Normantis the Deposed"
   location: 49.50 08.80
@@ -183,7 +166,6 @@ farms:
   - type: transmog
     id: 129061
     name: "Cowl of Azure Vengeance"
-    limit: armor cloth
 
 - name: "Pridelord Meowl"
   location: 56.10 29.06
@@ -193,7 +175,6 @@ farms:
   - type: transmog
     id: 138395
     name: "Meowl's Mane"
-    limit: armor cloak
 
 - name: "Ragemaw"
   location: 32.60 48.80
@@ -203,7 +184,6 @@ farms:
   - type: transmog
     id: 129075
     name: "Ragemaw's Hide"
-    limit: armor cloak
 
 - name: "Ravyn-Drath"
   location: 41.05 41.78
@@ -212,7 +192,6 @@ farms:
   - type: transmog
     id: 129080
     name: "Alpha Seal Handwraps"
-    limit: armor leather
 
 - name: "Syphonus"
   location: 67.10 51.40
@@ -222,7 +201,6 @@ farms:
   - type: transmog
     id: 129064
     name: "Arcanetic Plate Greaves"
-    limit: armor plate
 
 - name: "The Muscle <Blacksail Crew>"
   location: 58.6 79.6
@@ -232,7 +210,6 @@ farms:
   - type: transmog
     id: 129081
     name: "The Heavyweight Belt"
-    limit: armor plate
 
 - name: "The Oracle"
   location: 59.70 55.20
@@ -241,7 +218,6 @@ farms:
   - type: transmog
     id: 129065
     name: "The Shadow Oracle's Leggings"
-    limit: armor cloth
 
 - name: "Tide Behemoth"
   location: 61.30 62.00
@@ -251,7 +227,6 @@ farms:
   - type: transmog
     id: 129062
     name: "Scale Helm of the Frigid Depths"
-    limit: armor mail
 
 - name: "Valiyaka the Stormbringer"
   location: 47.30 34.60
@@ -261,7 +236,6 @@ farms:
   - type: transmog
     id: 129082
     name: "Valiyaka's Weathered Handwraps"
-    limit: armor cloth
 
 - name: "Vorthax"
   location: 37.37 43.18
@@ -271,7 +245,6 @@ farms:
   - type: transmog
     id: 141875
     name: "Hauberk of the Wrathblade"
-    limit: armor mail
 
 - name: "Warbringer Mox'na"
   location: 49.10 55.19
@@ -281,7 +254,6 @@ farms:
   - type: transmog
     id: 129069
     name: "Stalker Collar Bracers"
-    limit: armor mail
 
 # World boss
 
@@ -295,19 +267,15 @@ farms:
   - type: transmog
     id: 141443
     name: "Sandals of Frozen Ash"
-    limit: armor cloth
 
   - type: transmog
     id: 141430
     name: "Mana-Tanned Sandals"
-    limit: armor leather
 
   - type: transmog
     id: 141432
     name: "Frostburned Sabatons"
-    limit: armor mail
 
   - type: transmog
     id: 141437
     name: "Warboots of Smoldering Fury"
-    limit: armor plate

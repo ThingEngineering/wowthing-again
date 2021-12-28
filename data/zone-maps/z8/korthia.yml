@@ -13,12 +13,10 @@ farms:
   - type: transmog
     id: 187370
     name: "Carriage Crusher's Padded Slippers"
-    limit: armor cloth
 
   - type: transmog
     id: 187399
     name: "Maw Construct's Shoulderguards"
-    limit: armor leather
 
 - name: "Consumption"
   location: 51.2 41.7
@@ -47,7 +45,6 @@ farms:
   - type: transmog
     id: 187396
     name: "Girdle of the Deadsoul"
-    limit: armor plate
 
 - name: "Dominated Protector"
   location: 51.8 20.8
@@ -58,7 +55,6 @@ farms:
   - type: transmog
     id: 187390
     name: "Dominated Protector's Helm"
-    limit: armor plate
 
 - name: "Escaped Wilderling"
   location: 33.2 39.4
@@ -74,7 +70,6 @@ farms:
   - type: transmog
     id: 187395
     name: "Reinforced Stygian Spaulders"
-    limit: armor plate
 
 - name: "Fleshwing <Lord of the Heap>"
   location: 60.0 43.8
@@ -90,7 +85,6 @@ farms:
   - type: transmog
     id: 187372
     name: "Miasma Filtering Headpiece"
-    limit: armor cloth
 
 - name: "Konthrogz the Obliterator"
   location: 20.0 68.0
@@ -105,22 +99,18 @@ farms:
   - type: transmog
     id: 187375
     name: "Bound Worldeater Tendrils"
-    limit: armor cloth
 
   - type: transmog
     id: 187378
     name: "Visage of the Obliterator"
-    limit: armor leather
 
   - type: transmog
     id: 187384
     name: "Konthrogz's Scaled Handguards"
-    limit: armor mail
 
   - type: transmog
     id: 187397
     name: "Vambraces of the In-Between"
-    limit: armor plate
 
 - name: "Kroke the Tormented"
   location: 59.2 35.8
@@ -139,7 +129,6 @@ farms:
   - type: transmog
     id: 187394
     name: "Tormented Giant's Legplates"
-    limit: armor plate
 
 - name: "Malbog"
   location: 44.2 29.5
@@ -154,7 +143,6 @@ farms:
   - type: transmog
     id: 187377
     name: "Malbog's Paws"
-    limit: armor leather
 
 - name: "Observer Yorik"
   location: 50.3 75.9
@@ -169,7 +157,6 @@ farms:
   - type: transmog
     id: 187365
     name: "Rift Splitter"
-    limit: weapon 1h-axe
 
 - name: "Relic Breaker Krelva"
   location: 22.6 41.4
@@ -193,7 +180,6 @@ farms:
   - type: transmog
     id: 187388
     name: "Barbed Scale Cinch"
-    limit: armor mail
 
 - name: "Screaming Shade"
   location: 44.6 42.4
@@ -204,12 +190,10 @@ farms:
   - type: transmog
     id: 187400
     name: "Mantle of Screaming Shadows"
-    limit: armor cloth
 
   - type: transmog
     id: 187362
     name: "Stinging Shadow Screamer"
-    limit: weapon dagger agi
 
 - name: "Silent Soulstalker"
   location: 57.6 70.4
@@ -220,12 +204,10 @@ farms:
   - type: transmog
     id: 187381
     name: "Rift-Touched Bindings"
-    limit: armor leather
 
   - type: transmog
     id: 187383
     name: "Silent Soulstalker Sabatons"
-    limit: armor mail
 
 - name: "Stygian Stonecrusher"
   location: 46.5 79.6
@@ -241,7 +223,6 @@ farms:
   - type: transmog
     id: 187386
     name: "Stygian Crystal Studded Legguards"
-    limit: armor mail
 
 - name: "Towering Exterminator"
   location: 23.0 68.0
@@ -264,22 +245,18 @@ farms:
   - type: transmog
     id: 187373
     name: "Soul-Enveloping Leggings"
-    limit: armor cloth
 
   - type: transmog
     id: 187376
     name: "Mawsworn Lieutenant's Treads"
-    limit: armor leather
 
   - type: transmog
     id: 187382
     name: "Mawsworn Exterminator's Hauberk"
-    limit: armor mail
 
   - type: transmog
     id: 187392
     name: "Sabatons of the Towering Construct"
-    limit: armor plate
 
 - name: "Ve'rayn"
   location: 26.0 68.0
@@ -294,7 +271,6 @@ farms:
   - type: transmog
     id: 187369
     name: "Ve'rayn's Formal Robes"
-    limit: armor cloth
 
 - name: "Wild Worldcracker"
   location: 56.9 32.4
@@ -314,7 +290,6 @@ farms:
   - type: transmog
     id: 187380
     name: "Devourer Hide Belt"
-    limit: armor leather
 
 - name: "Xyraxz the Unknowable"
   location: 45.0 35.5
@@ -329,12 +304,10 @@ farms:
   - type: transmog
     id: 187387
     name: "Pauldrons of the Unknown Beyond"
-    limit: armor mail
 
   - type: transmog
     id: 187368
     name: "Xyraxz's Controlling Rod"
-    limit: weapon stave int
 
 - name: "Yarxhov the Pillager"
   location: 39.4 52.4
@@ -349,12 +322,10 @@ farms:
   - type: transmog
     id: 187391
     name: "Yarxhov's Rib-Cage"
-    limit: armor leather
 
   - type: transmog
     id: 187366
     name: "Fallen Vault Guardian's Spire"
-    limit: weapon polearm
 
 - name: "Zelnithop"
   location: 27.8 58.8
@@ -369,7 +340,6 @@ farms:
   - type: transmog
     id: 187371
     name: "Velvet Gromit Handwraps"
-    limit: armor cloth
 
 # Treasures
 

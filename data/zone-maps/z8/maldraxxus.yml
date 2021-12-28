@@ -20,7 +20,6 @@ farms:
   - type: transmog
     id: 184290
     name: "Blood-Dyed Bonesaw"
-    limit: weapon dagger int
 
 - name: "Collector Kash"
   location: 48.9 23.5
@@ -35,22 +34,18 @@ farms:
   - type: transmog
     id: 184188
     name: "Collector's Corpse Gambrel"
-    limit: weapon 1h-axe agi
 
   - type: transmog
     id: 184189
     name: "Stained Fleshgorer"
-    limit: weapon 1h-axe agi
 
   - type: transmog
     id: 184181
     name: "Kash's Favored Hook"
-    limit: weapon 1h-axe str
 
   - type: transmog
     id: 184182
     name: "Strengthened Abomination Hook"
-    limit: weapon 1h-axe str
 
 - name: "Corpsecutter Moroc"
   location: 26.4 26.3
@@ -60,12 +55,10 @@ farms:
   - type: transmog
     id: 184177
     name: "Grotesque Goring Pick"
-    limit: weapon 1h-axe str
 
   - type: transmog
     id: 184176
     name: "Moroc's Boneslicing Warglaive"
-    limit: weapon warglaive
 
 - name: "Deadly Dapperling"
   location: 76.8 57.1
@@ -79,7 +72,6 @@ farms:
   - type: transmog
     id: 184280
     name: "Dapper Threads"
-    limit: armor cloth
 
 - name: "Deepscar"
   location: 48.2 51.8
@@ -90,7 +82,6 @@ farms:
   - type: transmog
     id: 182191
     name: "Slobber-Soaked Chew Toy"
-    limit: weapon 1h-mace agi
 
 - name: "Devour'us"
   location: 45.1 28.4
@@ -100,7 +91,6 @@ farms:
   - type: transmog
     id: 184178
     name: "Worldrending Claymore"
-    limit: weapon 2h-sword str
 
 - name: "Gieger"
   location: 31.6 35.4
@@ -116,7 +106,6 @@ farms:
   - type: transmog
     id: 184298
     name: "Amalgamated Forsworn's Journal"
-    limit: weapon offhand int
 
 - name: "Gristlebeak"
   location: 57.8 51.5
@@ -126,7 +115,6 @@ farms:
   - type: transmog
     id: 182196
     name: "Arbalest of the Colossal Predator"
-    limit: weapon crossbow
 
 - name: "Indomitable Schmitd"
   location: 38.8 43.3
@@ -136,7 +124,6 @@ farms:
   - type: transmog
     id: 182192
     name: "Knee-Obstructing Legguards"
-    limit: armor plate
 
 - name: "Necromantic Anomaly"
   location: 72.9 28.9
@@ -160,7 +147,6 @@ farms:
   - type: transmog
     id: 184179
     name: "Lichsworn Commander's Boneblade"
-    limit: weapon 2h-sword str
 
 - name: "Nirvaska the Summoner"
   location: 50.3 63.3
@@ -176,7 +162,6 @@ farms:
   - type: transmog
     id: 183700
     name: "Forgotten Summoner's Shoulderpads"
-    limit: armor cloth
 
 - name: "Pesticide"
   location: 53.7 61.3
@@ -186,7 +171,6 @@ farms:
   - type: transmog
     id: 182205
     name: "Scarab-Shell Faceguard"
-    limit: armor mail
 
 - name: "Ravenomous"
   location: 53.8 18.8
@@ -200,7 +184,6 @@ farms:
   - type: transmog
     id: 184184
     name: "Ravenemous's Acid-Tipped Stinger"
-    limit: weapon dagger agi
 
 - name: "Sabriel the Bonecleaver"
   location: 52.4 47.3 #50.3
@@ -225,7 +208,6 @@ farms:
   - type: transmog
     id: 184287
     name: "Scum-Caked Epaulettes"
-    limit: armor mail
 
 - name: "Sister Chelicerae"
   location: 55.5 23.6
@@ -239,7 +221,6 @@ farms:
   - type: transmog
     id: 184289
     name: "Spindlefang Spellblade"
-    limit: weapon 1h-sword int
 
 - name: "Smorgas the Feaster"
   location: 42.5 53.4
@@ -257,7 +238,6 @@ farms:
   - type: transmog
     id: 184299
     name: "Goresoaked Carapace"
-    limit: armor leather
 
 - name: "Tahonta"
   location: 44.2 51.3
@@ -273,7 +253,6 @@ farms:
   - type: transmog
     id: 182190
     name: "Tauralus Hide Collar"
-    limit: armor leather
 
 - name: "Taskmaster Xox"
   location: 50.6 20.1
@@ -283,22 +262,18 @@ farms:
   - type: transmog
     id: 184193
     name: "Callus-Forged Hook"
-    limit: weapon 1h-axe agi
 
   - type: transmog
     id: 184192
     name: "Pristine Alabaster Gorer"
-    limit: weapon 1h-axe agi
 
   - type: transmog
     id: 184186
     name: "Flesh-Fishing Hook"
-    limit: weapon 1h-axe str
 
   - type: transmog
     id: 184187
     name: "Taskmaster's Tenderizer"
-    limit: weapon 1h-axe str
 
 - name: "Thread Mistress Leeda"
   location: 24.2 43.0
@@ -308,7 +283,6 @@ farms:
   - type: transmog
     id: 184180
     name: "Leeda's Unrefined Mask"
-    limit: armor cloth
 
 - name: "Warbringer Mal'Korak"
   location: 33.7 80.2
@@ -322,7 +296,6 @@ farms:
   - type: transmog
     id: 184288
     name: "Ruthless Warlord's Barrier"
-    limit: weapon shield
 
 - name: "Zargox the Reborn"
   location: 29.0 51.4
@@ -342,7 +315,6 @@ farms:
   - type: transmog
     id: 184285
     name: "Boneclutched Shackles"
-    limit: armor plate
 
 # Weird ones
 - name: "Theater of Pain"
@@ -366,28 +338,22 @@ farms:
   - type: transmog
     id: 184133
     name: "Spine Crawler Waistcord"
-    limit: armor cloth
 
   - type: transmog
     id: 184140
     name: "Bone-Cleated Footpads"
-    limit: armor leather
 
   - type: transmog
     id: 184173
     name: "Bone Crushing Vicegrips"
-    limit: armor mail
 
   - type: transmog
     id: 184128
     name: "Mortanis's Ribcage"
-    limit: armor mail
 
   - type: transmog
     id: 184135
     name: "Shoulderblade Vambraces"
-    limit: armor plate
-
 
 # Treasures
 
@@ -405,7 +371,6 @@ farms:
   - type: transmog
     id: 183619
     name: "Everlasting Boneforged Greataxe"
-    limit: weapon 2h-axe str
 
 #- name: "Cache of Eyes"
 #  location: 54.0 12.3
@@ -449,7 +414,6 @@ farms:
   - type: transmog
     id: 180273
     name: "Sorrowbane"
-    limit: weapon 2h-sword str
 
 - name: "Ornate Bone Shield"
   location: 47.2 62.2
@@ -460,7 +424,6 @@ farms:
   - type: transmog
     id: 180749
     name: "Hauk's Battle-Scarred Bulwark"
-    limit: weapon shield
 
 - name: "Plaguefallen Chest"
   location: 57.7 75.8
@@ -491,7 +454,6 @@ farms:
   - type: transmog
     id: 183516
     name: "Stained Bonefused Mantle"
-    limit: armor cloth
 
 - name: "Strange Growth"
   location: 55.9 39.0
@@ -542,26 +504,22 @@ farms:
     id: 184300
     name: "Fused Spineguard"
     note: "Drops from Oily Invertebrate"
-    limit: armor cloak
     questId: 61724
 
   - type: transmog
     id: 184301
     name: "Twenty-Loop Violet Girdle"
     note: "Drops from Violet Mistake"
-    limite: armor leather
     questId: 61720
 
   - type: transmog
     id: 184302
     name: "Residue-Coated Muck Waders"
     note: "Drops from Corrupted Sediment"
-    limit: armor mail
     questId: 61719
 
   - type: transmog
     id: 184175
     name: "Bone-Blistering Wand"
     note: "Drops from Burnblister"
-    limit: weapon wand
     questId: 61723

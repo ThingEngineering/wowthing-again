@@ -14,7 +14,6 @@ farms:
   - type: transmog
     id: 160451
     name: "Barman Skewer"
-    limit: weapon dagger agi
 
 - name: "Bashmu"
   location: 34.5 30.4
@@ -25,7 +24,6 @@ farms:
   - type: transmog
     id: 160467
     name: "Hydra-Hunter Legguards"
-    limit: armor mail
 
 - name: "Black-Eyed Bart"
   location: 56.3 70.0
@@ -36,7 +34,6 @@ farms:
   - type: transmog
     id: 158650
     name: "Sea-Scourge Greatblade"
-    limit: weapon 2h-sword str
 
 - name: "Blackthorne"
   location: 85.3 73.4
@@ -47,7 +44,6 @@ farms:
   - type: transmog
     id: 154411
     name: "Vlaros Corps Rifle"
-    limit: weapon gun
 
 - name: "Broodmother Razora"
   location: 83.5 44.8
@@ -58,7 +54,6 @@ farms:
   - type: transmog
     id: 160460
     name: "Thick Sauroskin Gloves"
-    limit: armor leather
 
 - name: "Captain Wintersail"
   location: 38.4 20.7
@@ -69,7 +64,6 @@ farms:
   - type: transmog
     id: 155422
     name: "Pirate Chief's Speargun"
-    limit: weapon crossbow
 
 - name: "Carla Smirk"
   location: 72.5 81.0
@@ -80,7 +74,6 @@ farms:
   - type: transmog
     id: 155271
     name: "Monkey's Paw Chopper"
-    limit: weapon 1h-axe agi
 
 - name: "Fowlmouth"
   location: 90.5 77.4
@@ -91,7 +84,6 @@ farms:
   - type: transmog
     id: 154467
     name: "Parrot-Trainer Mantle"
-    limit: armor leather
 
 - name: "Foxhollow Skyterror"
   location: 60.1 22.2
@@ -102,7 +94,6 @@ farms:
   - type: transmog
     id: 160454
     name: "Foxhollow Falconer's Bracers"
-    limit: armor cloth
 
 - name: "Guardian of the Spring"
   location: 61.7 51.5
@@ -113,7 +104,6 @@ farms:
   - type: transmog
     id: 155571
     name: "Garyl's Riding Blanket"
-    limit: armor cloak
 
 - name: "Gulliver"
   location: 57.8 55.9
@@ -124,7 +114,6 @@ farms:
   - type: transmog
     id: 158338
     name: "Swift-Travel Gloves"
-    limit: armor cloth
 
 - name: "Honey-Coated Slitherer"
   location: 64.3 19.4
@@ -135,7 +124,6 @@ farms:
   - type: transmog
     id: 160472
     name: "Honey-Glazed Gauntlets"
-    limit: armor plate
 
 - name: "Kulett the Ornery"
   location: 47.8 22.2
@@ -146,7 +134,6 @@ farms:
   - type: transmog
     id: 158597
     name: "Silvershell Defender"
-    limit: weapon shield
 
 - name: "Lumbergrasp Sentinel"
   location: 68.0 20.0
@@ -157,7 +144,6 @@ farms:
   - type: transmog
     id: 155524
     name: "Cursetouched Lumberjack's Axe"
-    limit: weapon 1h-axe str
 
 - name: "Maison the Portable"
   location: 58.2 49.3
@@ -168,7 +154,6 @@ farms:
   - type: transmog
     id: 154458
     name: "Shellbreaker Warhelm"
-    limit: armor plate
 
 - name: "Merianae"
   location: 43.0 16.8
@@ -179,7 +164,6 @@ farms:
   - type: transmog
     id: 160461
     name: "Thick Sauroskin Pants"
-    limit: armor leather
 
 - name: "P4-N73R4"
   location: 64.3 63.3
@@ -190,7 +174,6 @@ farms:
   - type: transmog
     id: 161599
     name: "Mechano-Cat Claw"
-    limit: weapon fist agi
 
 - name: "Ranja"
   location: 68.3 63.6
@@ -201,7 +184,6 @@ farms:
   - type: transmog
     id: 154478
     name: "Ranja-Hide Bracers"
-    limit: armor leather
 
 - name: "Saurolisk Tamer Mugg"
   location: 58.7 14.8
@@ -212,7 +194,6 @@ farms:
   - type: transmog
     id: 154416
     name: "Trogg Saurolisk-Breaker"
-    limit: weapon 2h-mace str
 
 - name: "Shiverscale the Toxic"
   location: 55.1 32.4
@@ -223,7 +204,6 @@ farms:
   - type: transmog
     id: 155278
     name: "Shiverscale Spellknife"
-    limit: weapon dagger int
 
 - name: "Squacks"
   location: 80.9 82.8
@@ -234,7 +214,6 @@ farms:
   - type: transmog
     id: 160455
     name: "Parrot-Trainer Sash"
-    limit: armor cloth
 
 - name: "Squirgle of the Depths"
   location: 48.9 37.0
@@ -245,7 +224,6 @@ farms:
   - type: transmog
     id: 155551
     name: "Squirgle's Deepstone Wand"
-    limit: weapon wand
 
 - name: "Sythian the Swift"
   location: 66.6 13.8
@@ -256,7 +234,6 @@ farms:
   - type: transmog
     id: 154474
     name: "Sythian Swiftbelt"
-    limit: armor leather
 
 - name: "Tempestria"
   location: 60.5 17.5
@@ -267,7 +244,6 @@ farms:
   - type: transmog
     id: 160466
     name: "Saurolisk Broodmother Boots"
-    limit: armor mail
 
 - name: "Tentulos the Drifter"
   location: 55.3 51.6
@@ -278,7 +254,6 @@ farms:
   - type: transmog
     id: 154448
     name: "Medusa-Drifter's Chainmail"
-    limit: armor mail
 
 - name: "Tort Jaw"
   location: 70.4 55.7
@@ -289,7 +264,6 @@ farms:
   - type: transmog
     id: 159349
     name: "Dragon Turtle Handlers"
-    limit: armor mail
 
 - name: "Twin-hearted Construct"
   location: 70.3 12.5
@@ -300,7 +274,6 @@ farms:
   - type: transmog
     id: 160473
     name: "Wickerthorn Stompers"
-    limit: armor plate
 
 # Treasures
 
@@ -313,8 +286,6 @@ farms:
   - type: transmog
     id: 155571
     name: "Garyl's Riding Blanket"
-    limit: armor cloak
-
 
 # World boss
 - name: "Azurethos"
@@ -327,39 +298,31 @@ farms:
   - type: transmog
     id: 161353
     name: "Sandals of Rustling Rage"
-    limit: armor cloth
 
   - type: transmog
     id: 161350
     name: "Windcaller's Down Handwraps"
-    limit: armor cloth
 
   - type: transmog
     id: 161352
     name: "Chestguard of Dire Winds"
-    limit: armor leather
 
   - type: transmog
     id: 161365
     name: "Footpads of the Encircling Storm"
-    limit: armor leather
 
   - type: transmog
     id: 161369
     name: "Bindings of the Winged Typhoon"
-    limit: armor mail
 
   - type: transmog
     id: 161356
     name: "Feathered Galeforce Chest"
-    limit: armor mail
 
   - type: transmog
     id: 161360
     name: "Roost-Defender's Legguards"
-    limit: armor plate
 
   - type: transmog
     id: 161398
     name: "Talonscored Azure Vambraces"
-    limit: armor plate

@@ -12,7 +12,6 @@ farms:
   - type: transmog
     id: 186222
     name: "Grips of the Coldheart Adjunct"
-    limit: armor mail
 
 - name: "Agonix"
   location: 28.2 44.5
@@ -22,7 +21,6 @@ farms:
   - type: transmog
     id: 186616
     name: "Bindings of Screaming Death"
-    limit: armor mail
 
 - name: "Akros <Death's Hammer>"
   location: 34.1 74.5
@@ -32,7 +30,6 @@ farms:
   - type: transmog
     id: 186617
     name: "Death's Hammer Stompers"
-    limit: armor plate
 
 - name: "Blinding Shadow"
   location: 36.0 44.3
@@ -42,7 +39,6 @@ farms:
   - type: transmog
     id: 187361
     name: "Rift-Bound Shadow Piercer"
-    limit: weapon bow
 
 - name: "Borr-Geth"
   location: 39.0 41.2
@@ -56,7 +52,6 @@ farms:
   - type: transmog
     id: 186223
     name: "Coif of the Molten Horror"
-    limit: armor mail
 
 - name: "Conjured Death"
   location: 27.7 13.0
@@ -66,7 +61,6 @@ farms:
   - type: transmog
     id: 183887
     name: "Suirhtaned, Blade of the Heir"
-    limit: weapon 1h-sword agi
 
 - name: "Cyrixia <The Willbreaker>"
   location: 28.7 25.1
@@ -80,7 +74,6 @@ farms:
   - type: transmog
     id: 186618
     name: "Willbreaker's Chain"
-    limit: armor mail
 
 - name: "Darithis the Bleak"
   location: 61.0 48.0
@@ -90,7 +83,6 @@ farms:
   - type: transmog
     id: 186220
     name: "Stygian Chestcage"
-    limit: armor mail
 
 - name: "Darklord Taraxis"
   location: 49.1 81.8
@@ -104,7 +96,6 @@ farms:
   - type: transmog
     id: 186611
     name: "Taraxis Treads"
-    limit: armor leather
 
 - name: "Dartanos <Flayer of Souls>"
   location: 25.8 14.8
@@ -114,7 +105,6 @@ farms:
   - type: transmog
     id: 186619
     name: "Bloodspattered Shoulders of the Flayer"
-    limit: armor plate
 
 - name: "Dath Rezara <Lord of Blades>"
   location: 19.2 57.4
@@ -136,7 +126,6 @@ farms:
   - type: transmog
     id: 186620
     name: "Rezara's Fencing Grips"
-    limit: armor leather
 
 - name: "Deomen the Vortex"
   location: 61.3 41.3
@@ -146,12 +135,10 @@ farms:
   - type: transmog
     id: 187385
     name: "Vortex Piercing Headgear"
-    limit: armor mail
 
   - type: transmog
     id: 187367
     name: "Deomen's Vortex Blade"
-    limit: weapon 1h-sword int
 
 - name: "Dolos <Death's Knife>"
   location: 28.1 60.6
@@ -161,7 +148,6 @@ farms:
   - type: transmog
     id: 186209
     name: "Blood-Spattered Gloves of Death"
-    limit: armor cloth
 
 - name: "Drifting Sorrow"
   location: 32.0 21.2
@@ -171,7 +157,6 @@ farms:
   - type: transmog
     id: 186622
     name: "Robe of Drifting Sorrow"
-    limit: armor cloth
 
 - name: "Eketra <The Impaler>"
   location: 23.8 53.4
@@ -181,7 +166,6 @@ farms:
   - type: transmog
     id: 186563
     name: "Spear of the Impaler"
-    limit: weapon polearm agi
 
 - name: "Eternas the Tormentor"
   location: 19.2 46.1
@@ -195,7 +179,6 @@ farms:
   - type: transmog
     id: 186212
     name: "Eternas' Braided Waistcord"
-    limit: armor cloth
 
 - name: "Exos, Herald of Domination"
   location: 20.6 69.4
@@ -233,12 +216,10 @@ farms:
   - type: transmog
     id: 187398
     name: "Chestguard of the Shadeguard"
-    limit: armor leather
 
   - type: transmog
     id: 187363
     name: "Orguluus' Spear"
-    limit: weapon polearm str
 
 - name: "Houndmaster Vasanok"
   location: 60.5 64.8
@@ -248,7 +229,6 @@ farms:
   - type: transmog
     id: 186224
     name: "Beastwarren Houndmaster's Treads"
-    limit: armor mail
 
 - name: "Huwerath"
   location: 20.8 29.7
@@ -258,7 +238,6 @@ farms:
   - type: transmog
     id: 186623
     name: "Lost Soul's Mantle"
-    limit: armor cloth
 
 - name: "Ikras the Devourer"
   location: 30.8 50.0
@@ -269,7 +248,6 @@ farms:
   - type: transmog
     id: 186214
     name: "Maw Snakeskin Boots"
-    limit: armor leather
 
 - name: "Krala <Death's Wings>"
   location: 30.8 68.7
@@ -279,7 +257,6 @@ farms:
   - type: transmog
     id: 186624
     name: "Death Wing Drape"
-    limit: armor cloak
 
 - name: "Malevolent Stygia"
   location: 27.3 17.5
@@ -289,7 +266,6 @@ farms:
   - type: transmog
     id: 186625
     name: "Hood of Malevolence"
-    limit: armor leather
 
 - name: "Morguliax <Lord of Decapitation>"
   location: 16.9 51.0
@@ -303,7 +279,6 @@ farms:
   - type: transmog
     id: 185892
     name: "Stygia-Etched Decapitator"
-    limit: weapon 2h-sword str
 
 - name: "Nascent Devourer"
   location: 45.5 73.8
@@ -313,7 +288,6 @@ farms:
   - type: transmog
     id: 186236
     name: "Devourer's Shadehide Jerkin"
-    limit: armor leather
 
 - name: "Obolos <Prime Adjutant>"
   location: 48.8 18.3
@@ -323,7 +297,6 @@ farms:
   - type: transmog
     id: 186238
     name: "Mantle of the Prime Collector"
-    limit: armor cloth
 
 - name: "Odalrik"
   location: 38.6 28.8
@@ -347,7 +320,6 @@ farms:
   - type: transmog
     id: 186211
     name: "Pantaloons of the Condemned Bard"
-    limit: armor cloth
 
 - name: "Orrholyn <Lord of Bloodletting>"
   location: 25.4 48.8
@@ -357,7 +329,6 @@ farms:
   - type: transmog
     id: 186626
     name: "Bloodwicking Bands"
-    limit: armor cloth
 
 - name: "Ratgusher"
   location: 22.7 42.2
@@ -367,7 +338,6 @@ farms:
   - type: transmog
     id: 186627
     name: "Belt of Ten Thousand Tails"
-    limit: armor leather
 
 - name: "Razkazzar <Lord of Axes>"
   location: 26.2 37.4
@@ -377,7 +347,6 @@ farms:
   - type: transmog
     id: 186628
     name: "Razkazzar's Axe Grippers"
-    limit: armor plate
 
 - name: "Sanngror the Torturer"
   location: 55.6 63.2
@@ -412,7 +381,6 @@ farms:
   - type: transmog
     id: 185945
     name: "Shadeweaver's Spire"
-    limit: weapon stave int
 
 - name: "Skittering Broodmother"
   location: 54.3 84.9
@@ -423,7 +391,6 @@ farms:
   - type: transmog
     id: 186240
     name: "Broodmotherhide Cloak"
-    limit: armor cloak
 
 - name: "Soulforger Rhovus"
   location: 36.0 41.6
@@ -433,7 +400,6 @@ farms:
   - type: transmog
     id: 186613
     name: "Rhovus' Linked Greaves"
-    limit: armor mail
 
 - name: "Soulsmith Yol-Mattar"
   location: 36.3 37.4
@@ -443,7 +409,6 @@ farms:
   - type: transmog
     id: 186630
     name: "Spark Deflecting Girdle"
-    limit: armor plate
 
 - name: "Talaporas, Herald of Pain"
   location: 28.7 12.0
@@ -453,7 +418,6 @@ farms:
   - type: transmog
     id: 184107
     name: "Borogove Cloak"
-    limit: armor cloak
 
 - name: "Thanassos <Death's Voice>"
   location: 27.4 71.5
@@ -463,7 +427,6 @@ farms:
   - type: transmog
     id: 186234
     name: "Girdle of the Death Speaker"
-    limit: armor plate
 
 - name: "Torglluun"
   location: 27.7 25.3
@@ -477,12 +440,10 @@ farms:
   - type: transmog
     id: 187389
     name: "Lord of Shade's Binders"
-    limit: armor mail
 
   - type: transmog
     id: 187360
     name: "Orb of Enveloping Rifts"
-    limit: weapon offhand
 
 - name: "Traitor Balthier"
   location: 69.0 49.0
@@ -492,12 +453,10 @@ farms:
   - type: transmog
     id: 187374
     name: "Balthier's Waistcord"
-    limit: armor cloth
 
   - type: transmog
     id: 187364
     name: "Maldraxxi Traitor's Blade"
-    limit: weapon 1h-sword str
 
 - name: "Valis the Cruel"
   location: 40.7 59.6
@@ -507,7 +466,6 @@ farms:
   - type: transmog
     id: 186632
     name: "Rune Covered Bindings"
-    limit: armor leather
 
 - name: "Yero the Skittish"
   location: 37.4 62.1
@@ -517,7 +475,6 @@ farms:
   - type: transmog
     id: 186228
     name: "Helm of the Skittish Hero"
-    limit: armor plate
 
 - name: "Ylva, Mate of Guarm"
   location: 66.4 44.0
@@ -531,17 +488,14 @@ farms:
   - type: transmog
     id: 186217
     name: "Supple Helhound Leather Pants"
-    limit: armor leather
 
   - type: transmog
     id: 187393
     name: "Sterling Hound-Handler's Gauntlets"
-    limit: armor plate
 
   - type: transmog
     id: 187359
     name: "Ylva's Water Dish"
-    limit: weapon shield
 
 # World boss
 - name: "Mor'geth"
@@ -554,42 +508,34 @@ farms:
   - type: transmog
     id: 186357
     name: "Sorrowful Trousers"
-    limit: armor cloth
 
   - type: transmog
     id: 186355
     name: "Wristwraps of Anguish"
-    limit: armor cloth
 
   - type: transmog
     id: 186361
     name: "Grips of Unleashed Suffering"
-    limit: armor leather
 
   - type: transmog
     id: 186360
     name: "Tormented Soul Harness"
-    limit: armor leather
 
   - type: transmog
     id: 186368
     name: "Mor'geth's Gauntlets of Damnation"
-    limit: armor mail
 
   - type: transmog
     id: 186366
     name: "Stygian Chain Greaves"
-    limit: armor mail
 
   - type: transmog
     id: 186370
     name: "Caged Legplates"
-    limit: armor plate
 
   - type: transmog
     id: 186372
     name: "Tormentor's Greatbelt"
-    limit: armor plate
 
 # Treasures
 
@@ -645,7 +591,7 @@ farms:
   location: 53.7 79.1
   npcId: 174827
   questId: 63433 # 63178 (started?) 63180 (actual hunt) 63433 (killed)
-  reset: bi-weekly
+  reset: biWeekly
   type: eventBig
   drops:
   - type: mount
@@ -685,31 +631,26 @@ farms:
     id: 186213
     name: "Bindings of Manifest Pain"
     note: "Drops from Manifestation of Pain"
-    limit: armor cloth
 
   - type: transmog
     id: 186210
     name: "Diabolic Soul Veil"
     note: "Drops from The Mass of Souls"
-    limit: armor cloth
 
   - type: transmog
     id: 186241
     name: "Insulated Thermal Leggings"
     note: "Drops from Sentinel Pyrophus"
-    limit: armor cloth
 
   - type: transmog
     id: 186208
     name: "Padded Insouls"
     note: "Drops from Promathiz"
-    limit: armor cloth
 
   - type: transmog
     id: 186239
     name: "Drape of the Phantasm"
     note: "Drops from Algel the Haunter"
-    limit: armor cloak
 
 - name: "Tormentors - Leather"
   location: 48.8 51.9
@@ -721,25 +662,21 @@ farms:
     id: 186218
     name: "Fire-Tempered Armor Cinch"
     note: "Drops from Malleus Grakizz"
-    limit: armor leather
 
   - type: transmog
     id: 186237
     name: "Gormhide Pauldrons"
     note: "Drops from Gralebboih"
-    limit: armor leather
 
   - type: transmog
     id: 186219
     name: "Pyrophus' Wrist Ties"
     note: "Drops from Sentinel Pyrophus"
-    limit: armor leather
 
   - type: transmog
     id: 186215
     name: "Soul Stranglers"
     note: "Drops from The Mass of Souls"
-    limit: armor leather
 
 - name: "Tormentors - Mail"
   location: 52.8 47.4
@@ -751,31 +688,26 @@ farms:
     id: 186226
     name: "Cinch of Petrified Vines"
     note: "Drops from Gruukuuek the Elder"
-    limit: armor mail
 
   - type: transmog
     id: 186227
     name: "Jangling Chain Manacles"
     note: "Drops from Algel the Haunter"
-    limit: armor mail
 
   - type: transmog
     id: 186221
     name: "Seared-Link Sabatons"
     note: "Drops from Golmak the Monstrosity"
-    limit: armor mail
 
   - type: transmog
     id: 186225
     name: "Shoulder Joint Spindles"
     note: "Drops from Sentinel Shakorzeth"
-    limit: armor mail
 
   - type: transmog
     id: 186242
     name: "Zul'gath's Chain Coif"
     note: "Drops from Zul'gath the Flayer"
-    limit: armor mail
 
 - name: "Tormentors - Plate"
   location: 52.8 51.9
@@ -787,25 +719,21 @@ farms:
     id: 186231
     name: "Gloves of Fervent Intercession"
     note: "Drops from Intercessor Razzra"
-    limit: armor plate
 
   - type: transmog
     id: 186229
     name: "Lavafused Breastplate"
     note: "Drops from Golmak the Monstrosity"
-    limit: armor plate
 
   - type: transmog
     id: 186235
     name: "Shadow-Wreathed Vambraces"
     note: "Drops from Zul'gath the Flayer"
-    limit: armor plate
 
   - type: transmog
     id: 186233
     name: "Spaulders of the Skyborn Damned"
     note: "Drops from Versya the Damned"
-    limit: armor plate
 
 - name: "Tormentors - Weapons"
   location: 50.8 47.4
@@ -817,46 +745,38 @@ farms:
     id: 186009
     name: "Corrupted Elder Branch"
     note: "Drops from Gruukuuek the Elder"
-    limit: weapon stave agi
 
   - type: transmog
     id: 186007
     name: "Cudgel of the Tin Sentinel"
     note: "Drops from Promathiz"
-    limit: weapon 1h-mace str
 
   - type: transmog
     id: 186012
     name: "Inferno Blast Shield"
     note: "Drops from Malleus Grakizz"
-    limit: weapon shield
 
   - type: transmog
     id: 186006
     name: "Kazj's Stygian Splitter"
     note: "Drops from Kazj the Sentinel"
-    limit: weapon 2h-axe str
 
   - type: transmog
     id: 186004
     name: "Kris of Dark Temptation"
     note: "Drops from Intercessor Razzra"
-    limit: weapon dagger int
 
   - type: transmog
     id: 186010
     name: "Lost Attendant's Scepter"
     note: "Drops from Mugrem the Soul Devourer"
-    limit: weapon 1h-mace int
 
   - type: transmog
     id: 186005
     name: "Stygian Pain Borer"
     note: "Drops from Manifestation of Pain"
-    limit: weapon dagger agi
 
   - type: transmog
     id: 186003
     name: "Versya's Stygian Longbow"
     note: "Drops from Versya the Damned"
-    limit: weapon bow

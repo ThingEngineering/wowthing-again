@@ -14,7 +14,6 @@ farms:
   - type: transmog
     id: 160469
     name: "Arclight Jumpers"
-    limit: armor mail
 
 - name: "Arvon the Betrayed"
   location: 34.9 69.2
@@ -25,7 +24,6 @@ farms:
   - type: transmog
     id: 160449
     name: "Spectral Revenger"
-    limit: weapon warglaive
 
 - name: "Avalanche"
   location: 43.8 88.0
@@ -36,7 +34,6 @@ farms:
   - type: transmog
     id: 154447
     name: "Gryphon-Rider's Breastplate"
-    limit: armor plate
 
 - name: "Balethorn"
   location: 55.5 28.8
@@ -47,7 +44,6 @@ farms:
   - type: transmog
     id: 160475
     name: "Barksnapper Girdle"
-    limit: armor plate
 
 - name: "Barbthorn Queen"
   location: 59.1 16.8
@@ -58,7 +54,6 @@ farms:
   - type: transmog
     id: 155425
     name: "Barbthorn Queen's Stinger"
-    limit: weapon fist int
 
 - name: "Beshol"
   location: 50.5 30.0
@@ -69,7 +64,6 @@ farms:
   - type: transmog
     id: 158363
     name: "Spiderhair Circlet"
-    limit: armor cloth
 
 - name: "Betsy"
   location: 58.5 33.2
@@ -80,7 +74,6 @@ farms:
   - type: transmog
     id: 160463
     name: "Blue-Ribbon Belt"
-    limit: armor leather
 
 - name: "Bilefang Mother"
   location: 35.1 33.3
@@ -91,7 +84,6 @@ farms:
   - type: transmog
     id: 155284
     name: "Bleak Hills Swatter"
-    limit: weapon 1h-mace str
 
 - name: "Bonesquall"
   location: 66.6 50.7
@@ -102,7 +94,6 @@ farms:
   - type: transmog
     id: 154376
     name: "Bonecurse Guantlets"
-    limit: armor plate
 
 - name: "Braedan Whitewall"
   location: 27.6 59.6
@@ -113,7 +104,6 @@ farms:
   - type: transmog
     id: 154500
     name: "Moonwood Bramblespire"
-    limit: weapon stave agi
 
 - name: "Captain Leadfist"
   location: 27.6 14.2
@@ -124,7 +114,6 @@ farms:
   - type: transmog
     id: 160450
     name: "Leadshot Heavy Rifle"
-    limit: weapon gun
 
 - name: "Emily Mayville"
   location: 63.4 40.1
@@ -135,7 +124,6 @@ farms:
   - type: transmog
     id: 160447
     name: "Soul-Pillar Lantern"
-    limit: weapon offhand
 
 - name: "Executioner Blackwell"
   location: 30.9 18.4
@@ -146,7 +134,6 @@ farms:
   - type: transmog
     id: 155055
     name: "Soul-Curse Executioner"
-    limit: weapon 2h-axe str
 
 - name: "Fungi Trio"
   location: 24.5 22.0
@@ -157,7 +144,6 @@ farms:
   - type: transmog
     id: 154217
     name: "Pearly-White Jackknife"
-    limit: weapon dagger int
 
 - name: "Gluttonous Yeti"
   location: 63.0 69.6
@@ -168,7 +154,6 @@ farms:
   - type: transmog
     id: 158683
     name: "Giant Yeti's Bowl"
-    limit: weapon shield
 
 - name: "Gorehorn"
   location: 57.1 44.3
@@ -179,7 +164,6 @@ farms:
   - type: transmog
     id: 158710
     name: "Gorehorn's Rack"
-    limit: weapon 1h-mace agi
 
 - name: "Gorged Boar"
   location: 28.0 25.9
@@ -190,7 +174,6 @@ farms:
   - type: transmog
     id: 154461
     name: "Cursed Boarhide Helm"
-    limit: armor leather
 
 - name: "Grozgore"
   location: 50.3 20.6
@@ -201,7 +184,6 @@ farms:
   - type: transmog
     id: 160457
     name: "Lava-Starched Britches"
-    limit: armor cloth
 
 - name: "Haywire Golem"
   location: 24.1 30.3
@@ -212,7 +194,6 @@ farms:
   - type: transmog
     id: 155362
     name: "Wickerbeast Mulcher"
-    limit: weapon polearm agi
 
 - name: "Hyo'gi"
   location: 22.9 49.5
@@ -223,7 +204,6 @@ farms:
   - type: transmog
     id: 160462
     name: "Hyo'gi Basket Binders"
-    limit: armor leather
 
 - name: "Idej the Wise"
   location: 64.9 83.3
@@ -244,7 +224,6 @@ farms:
   - type: transmog
     id: 159518
     name: "Long Fang"
-    limit: weapon dagger agi
 
 - name: "Nevermore"
   location: 59.9 45.5
@@ -255,7 +234,6 @@ farms:
   - type: transmog
     id: 160456
     name: "Blanched Ravenfeather Gloves"
-    limit: armor cloth
 
 - name: "Quillrat Matriarch"
   location: 66.6 42.7
@@ -266,7 +244,6 @@ farms:
   - type: transmog
     id: 158583
     name: "Quillstitch Greatcloak"
-    limit: armor cloak
 
 - name: "Rimestone"
   location: 59.6 71.8
@@ -277,7 +254,6 @@ farms:
   - type: transmog
     id: 158345
     name: "Coldsnap Pauldrons"
-    limit: armor mail
 
 - name: "Sister Martha"
   location: 33.0 57.1
@@ -288,7 +264,6 @@ farms:
   - type: transmog
     id: 155299
     name: "Sister Martha's Soulstealer"
-    limit: weapon wand
 
 - name: "Talon"
   location: 31.9 40.6
@@ -299,7 +274,6 @@ farms:
   - type: transmog
     id: 161444
     name: "Frosted Talonfeather Mantle"
-    limit: armor cloth
 
 - name: "Vicemaul"
   location: 72.9 60.5
@@ -310,7 +284,6 @@ farms:
   - type: transmog
     id: 160474
     name: "Vicemaul Wristpinchers"
-    limit: armor plate
 
 - name: "Whargarble the Ill-Tempered"
   location: 65.0 21.5
@@ -321,7 +294,6 @@ farms:
   - type: transmog
     id: 155543
     name: "Tuskarr Whaler's Harpoon"
-    limit: weapon polearm int
 
 - name: 'Whitney "Steelclaw" Ramsay'
   location: 29.5 64.1
@@ -332,7 +304,6 @@ farms:
   - type: transmog
     id: 154315
     name: "Rusty Steelclaw"
-    limit: weapon fist agi
 
 # Treasures
 
@@ -412,39 +383,31 @@ farms:
   - type: transmog
     id: 161362
     name: "Frostbreath Leggings"
-    limit: armor cloth
 
   - type: transmog
     id: 161361
     name: "Ice-Rimed Slippers"
-    limit: armor cloth
 
   - type: transmog
     id: 161364
     name: "Chill's End Wristguards"
-    limit: armor leather
 
   - type: transmog
     id: 161366
     name: "Ice Stalker Boots"
-    limit: armor leather
 
   - type: transmog
     id: 161368
     name: "Freezing Tempest Waistguard"
-    limit: armor mail
 
   - type: transmog
     id: 161367
     name: "Hailstone Hauberk"
-    limit: armor mail
 
   - type: transmog
     id: 164386
     name: "Girdle of Biting Winds"
-    limit: armor plate
 
   - type: transmog
     id: 161372
     name: "Ice-Carved Shoulderplates"
-    limit: armor plate

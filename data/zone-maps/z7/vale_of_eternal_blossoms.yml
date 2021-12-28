@@ -16,19 +16,16 @@ farms:
     type: transmog
     id: 174220
     name: "Ambered Greatstaff"
-    limit: weapon stave
 
   - &mantid2
     type: transmog
     id: 174223
     name: "Ooze-Imbued Rifle"
-    limit: weapon gun
 
   - &mantid3
     type: transmog
     id: 174227
     name: "Paragon's Will"
-    limit: weapon 1h-sword
 
 - name: "Anh-De the Loyal"
   location: 34.2 68.0
@@ -40,19 +37,16 @@ farms:
     type: transmog
     id: 174225
     name: "Bulwark of the Traitorous Disciple"
-    limit: weapon shield
 
   - &mogu2
     type: transmog
     id: 174221
     name: "Cleaver of the Fractured Dynasty"
-    limit: weapon 1h-axe
 
   - &mogu3
     type: transmog
     id: 174229
     name: "Lantern of the Damned"
-    limit: weapon offhand
 
 - name: "Buh'gzaki the Blasphemous"
   location: 6.5 72.0
@@ -389,19 +383,15 @@ farms:
   - type: transmog
     id: 174234
     name: "Maniacal Speaker's Cover"
-    limit: armor cloth
 
   - type: transmog
     id: 174243
     name: "Guise of the Voracious Prowler"
-    limit: armor leather
 
   - type: transmog
     id: 174255
     name: "Greaves of Shattered Thoughts"
-    limit: armor mail
 
   - type: transmog
     id: 174264
     name: "Chitinous Conqueror's Legplates"
-    limit: armor plate
