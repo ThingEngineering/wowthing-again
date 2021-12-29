@@ -39,7 +39,7 @@
             .map((charId) => parseInt(charId))
     }, 100)
 
-    const realmClick = function(): void {
+    const realmClick = function(this: HTMLElement): void {
         const realmString = this.firstChild.nodeValue.trim()
 
         const realmCharacters: string[] = find(
