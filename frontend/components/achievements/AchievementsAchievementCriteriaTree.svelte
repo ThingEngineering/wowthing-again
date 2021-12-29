@@ -3,12 +3,12 @@
     import mdiClose from '@iconify/icons-mdi/close'
 
     import { achievementStore } from '@/stores'
-    import type { AchievementDataCriteriaTree } from '@/types'
+    import type { AchievementDataAchievement, AchievementDataCriteriaTree } from '@/types'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
 
     export let accountWide = false
-    //export let achievement: AchievementDataAchievement
+    export let achievement: AchievementDataAchievement
     export let criteriaTreeId: number
     export let haveMap: Record<number, number> = null
 
