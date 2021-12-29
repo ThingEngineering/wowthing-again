@@ -9,7 +9,10 @@
 
     import GroupedCheckbox from '@/components/forms/GroupedCheckboxInput.svelte'
 
-    let hiddenCharacters: string[] = $settingsData.characters.hiddenCharacters.map((c) => c.toString())
+    const allCharacterIds: string[] = $userStore.data.characters.map((char) => char.id.toString())
+    let shownCharacters: string[] = $userStore.data.characters
+        .filter((char) => $settingsData.characters.hiddenCharacters.indexOf(char.id) === -1)
+        .map((char) => char.id.toString())
 
     let realms: [string, Character[]][]
     $: {
@@ -25,7 +28,9 @@
     }
 
     $: {
-        $settingsData.characters.hiddenCharacters = hiddenCharacters.map((c) => parseInt(c))
+        $settingsData.characters.hiddenCharacters = allCharacterIds
+            .filter((charId) => shownCharacters.indexOf(charId) === -1)
+            .map((charId) => parseInt(charId))
     }
 </script>
 
@@ -42,7 +47,7 @@
             width: 9.0rem;
         }
 
-        :global(fieldset[data-state="true"]) {
+        :global(fieldset[data-state="false"]) {
             background: rgba(255, 0, 0, 0.2);
 
             & :global(code) {
@@ -62,7 +67,7 @@
             {#each characters as character}
                 <GroupedCheckbox
                     name="character_{character.id}"
-                    bind:bindGroup={hiddenCharacters}
+                    bind:bindGroup={shownCharacters}
                     value={character.id.toString()}
                 >
                     <code>{@html character.level < 10 ? '&nbsp;' : ''}{character.level}</code>
