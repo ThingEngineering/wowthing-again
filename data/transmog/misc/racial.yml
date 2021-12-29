@@ -220,8 +220,8 @@ groups:
         5:  41350 # Chest
         6:  41355 # Waist
         7:  41352 # Legs
-        8:  40283 # Feet
-        9:  40284 # Wrists
+        #8:  40283 # Feet   - these two use a shared "invisible" appearance and will show up as collected for
+        #9:  40284 # Wrists - everyone, wtf Blizzard
         10: 41351 # Hands
         16: 41525 # Back
 
