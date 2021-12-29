@@ -3,7 +3,8 @@ import { writable } from 'svelte/store'
 
 export class HistoryState {
     public chartType = 'stacked-area'
-    public scale = 'hour'
+    public interval = 'hour'
+    public scaleType: 'category' | 'linear' | 'logarithmic' | 'time' | 'timeseries' = 'logarithmic'
 }
 
 const key = 'state-history'

@@ -81,13 +81,13 @@
             const color = colors[(realmIndex + 1) * 2]
 
             let points: {x: DateTime, y: number}[]
-            if (historyState.scale === 'hour') {
+            if (historyState.interval === 'hour') {
                 points = $userHistoryStore.data.gold[realmId].map((point) => ({
                     x: parseApiTime(point[0]),
                     y: point[1],
                 }))
             }
-            else if (historyState.scale === 'day') {
+            else if (historyState.interval === 'day') {
                 const temp: Record<string, [DateTime, number]> = {}
                 for (const [time, value] of $userHistoryStore.data.gold[realmId]) {
                     const parsedTime = parseApiTime(time).toLocal()
@@ -203,13 +203,13 @@
                             },
                         },
                         time: {
-                            tooltipFormat: historyState.scale === 'hour' ? 'ff' : 'DD',
+                            tooltipFormat: historyState.interval === 'hour' ? 'ff' : 'DD',
                             minUnit: 'day',
                         },
                     },
                     y: {
                         stacked: stacked,
-                        type: 'logarithmic',
+                        type: historyState.scaleType,
                         grid: {
                             color: '#666',
                         },
@@ -224,7 +224,6 @@
             },
         })
     }
-
 </script>
 
 <style lang="scss">
@@ -253,18 +252,28 @@
                 options={[
                     ['area-stacked', 'Area (stacked)'],
                     ['line', 'Line'],
-                    //['line-daily', 'Line (daily range)'],
                 ]}
             />
         </div>
 
         <div class="radio-container border">
             <RadioGroup
-                bind:value={$historyState.scale}
-                name="scale"
+                bind:value={$historyState.interval}
+                name="interval"
                 options={[
                     ['hour', 'Hourly'],
                     ['day', 'Daily'],
+                ]}
+            />
+        </div>
+
+        <div class="radio-container border">
+            <RadioGroup
+                    bind:value={$historyState.scaleType}
+                    name="scale_type"
+                    options={[
+                    ['linear', 'Linear'],
+                    ['logarithmic', 'Logarithmic'],
                 ]}
             />
         </div>
