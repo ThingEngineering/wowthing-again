@@ -8,25 +8,25 @@ groups:
   data:
     0:
     - name: "Rank 5 gear upgrades"
-      id: 64300
+      id: 64300 # Research Report: Adaptive Alloys
 
     - name: "Rank 6 gear upgrades"
-      id: 64303
+      id: 64303 # Research Report: First Alloys
 
     - name: "+50% rep from relics"
-      id: 64367
+      id: 64367 # Treatise: Bonds of Stygia in Mortals
 
     - name: "-75% Stygia loss from deaths"
-      id: 64828
+      id: 64828 # Treatise: Bonds of Stygia in Mortals
 
     - name: "Anima from daily/world quests"
-      id: 64027
+      id: 64027 # Treatise: The Study of Anima and Harnessing Every Drop
 
     - name: "Rep from daily/world quests"
-      id: 64366
+      id: 64366 # Treatise: Relics Abound in the Shadowlands
 
     - name: "Stygia from Korthia/Maw stuff"
-      id: 64307
+      id: 64307 # Treatise: Recognizing Stygia and its Uses
 
 - name: "Torghast"
   icon: achievement/14498 # Gatekeepers of Torghast
