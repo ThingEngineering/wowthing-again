@@ -302,6 +302,7 @@ farms:
 
 - name: "Penitence of Purity"
   location: 60.2 78.2
+  minimumLevel: 60
   questId: 61688
   type: treasure
   drops:
