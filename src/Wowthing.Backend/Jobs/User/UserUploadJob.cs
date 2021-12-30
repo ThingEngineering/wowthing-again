@@ -196,8 +196,8 @@ namespace Wowthing.Backend.Jobs.User
 
             return new PlayerCharacterShadowlandsCovenantFeature
             {
-                Rank = Math.Max(feature?.Rank ?? 0, Math.Min(10, featureData.Rank)),
-                ResearchEnds = Math.Max(feature?.ResearchEnds ?? 0, featureData.ResearchEnds ?? 0),
+                Rank = Math.Max(feature?.Rank ?? 0, Math.Min(5, featureData.Rank)),
+                ResearchEnds = featureData.ResearchEnds ?? 0,
                 Name = featureData.Name.EmptyIfNullOrWhitespace().Truncate(32),
             };
         }
