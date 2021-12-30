@@ -140,6 +140,7 @@ farms:
   - type: pet
     id: 175562
     name: "Larion Pouncer"
+    limit: covenant kyrian
 
   - type: transmog
     id: 184365
