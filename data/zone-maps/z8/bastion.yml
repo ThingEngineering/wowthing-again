@@ -299,6 +299,16 @@ farms:
     id: 62170
     name: "You'll Never Walk Alone"
 
+- name: "Penitence of Purity"
+  location: 60.2 78.2
+  questId: 61688
+  type: treasure
+  drops:
+  - type: mount
+    id: 334386
+    name: "Phalynx of Humility"
+    limit: covenant kyrian
+
 - name: "Scroll of Aeons"
   location: 53.5 80.4
   questId: 58298
