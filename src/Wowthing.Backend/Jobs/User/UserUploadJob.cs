@@ -163,24 +163,31 @@ namespace Wowthing.Backend.Jobs.User
             
             foreach (var covenantData in characterData.Covenants.EmptyIfNull())
             {
-                character.Shadowlands.Covenants[covenantData.Id] = new PlayerCharacterShadowlandsCovenant
+                if (!character.Shadowlands.Covenants.TryGetValue(covenantData.Id, out var covenant))
                 {
-                    Anima = Math.Max(0, covenantData.Anima),
-                    Renown = Math.Max(0, Math.Min(80, covenantData.Renown)),
-                    Souls = Math.Max(0, Math.Min(100, covenantData.Souls)),
-                    Conductor = HandleCovenantsFeature(covenantData.Conductor),
-                    Missions = HandleCovenantsFeature(covenantData.Missions),
-                    Transport = HandleCovenantsFeature(covenantData.Transport),
-                    Unique = HandleCovenantsFeature(covenantData.Unique),
-                    Soulbinds = HandleCovenantsSoulbinds(covenantData.Soulbinds),
-                };
+                    covenant = character.Shadowlands.Covenants[covenantData.Id] = new PlayerCharacterShadowlandsCovenant();
+                }
+
+                covenant.Anima = Math.Max(covenant.Anima, covenantData.Anima);
+                covenant.Renown = Math.Max(covenantData.Renown, Math.Min(80, covenantData.Renown));
+                covenant.Souls = Math.Max(covenantData.Souls, Math.Min(100, covenantData.Souls));
+
+                covenant.Soulbinds = HandleCovenantsSoulbinds(covenant.Soulbinds, covenantData.Soulbinds);
+
+                covenant.Conductor = HandleCovenantsFeature(covenant.Conductor, covenantData.Conductor);
+                covenant.Missions = HandleCovenantsFeature(covenant.Missions, covenantData.Missions);
+                covenant.Transport = HandleCovenantsFeature(covenant.Transport, covenantData.Transport);
+                covenant.Unique = HandleCovenantsFeature(covenant.Unique, covenantData.Unique);
             }
 
             // Change detection for this is obnoxious, just update it 
             Context.Entry(character.Shadowlands).Property(cs => cs.Covenants).IsModified = true;
         }
 
-        private PlayerCharacterShadowlandsCovenantFeature HandleCovenantsFeature(UploadCharacterCovenantFeature featureData)
+        private PlayerCharacterShadowlandsCovenantFeature HandleCovenantsFeature(
+            PlayerCharacterShadowlandsCovenantFeature feature,
+            UploadCharacterCovenantFeature featureData
+        )
         {
             if (featureData == null)
             {
@@ -189,25 +196,44 @@ namespace Wowthing.Backend.Jobs.User
 
             return new PlayerCharacterShadowlandsCovenantFeature
             {
-                Rank = Math.Max(0, Math.Min(10, featureData.Rank)),
-                ResearchEnds = Math.Max(0, featureData.ResearchEnds ?? 0),
+                Rank = Math.Max(feature?.Rank ?? 0, Math.Min(10, featureData.Rank)),
+                ResearchEnds = Math.Max(feature?.ResearchEnds ?? 0, featureData.ResearchEnds ?? 0),
                 Name = featureData.Name.EmptyIfNullOrWhitespace().Truncate(32),
             };
         }
 
         private List<PlayerCharacterShadowlandsCovenantSoulbind> HandleCovenantsSoulbinds(
-            List<UploadCharacterCovenantSoulbind> soulbinds)
+            List<PlayerCharacterShadowlandsCovenantSoulbind> soulbinds,
+            List<UploadCharacterCovenantSoulbind> soulbindsData)
         {
-            return soulbinds
-                .EmptyIfNull()
-                .Select(soulbind => new PlayerCharacterShadowlandsCovenantSoulbind
+            if (soulbinds == null)
+            {
+                soulbinds = new List<PlayerCharacterShadowlandsCovenantSoulbind>();
+            }
+
+            var soulbindMap = soulbinds.ToDictionary(soulbind => soulbind.Id);
+
+            foreach (var soulbindData in soulbindsData)
+            {
+                if (!soulbindMap.TryGetValue(soulbindData.Id, out var soulbind))
                 {
-                    Id = soulbind.Id,
-                    Unlocked = soulbind.Unlocked,
-                    Specializations = soulbind.Specs.EmptyIfNull(),
-                    Tree = soulbind.Tree.EmptyIfNull(),
-                })
-                .ToList();
+                    soulbind = soulbindMap[soulbindData.Id] = new PlayerCharacterShadowlandsCovenantSoulbind
+                    {
+                        Id = soulbindData.Id,
+                    };
+                }
+
+                soulbind.Unlocked = soulbind.Unlocked || soulbindData.Unlocked;
+                soulbind.Specializations = soulbindData.Specs.EmptyIfNull();
+
+                var tree = soulbindData.Tree.EmptyIfNull();
+                if (tree.Count > 0)
+                {
+                    soulbind.Tree = tree;
+                }
+            }
+
+            return soulbindMap.Values.ToList();
         }
         
         private void HandleCurrencies(PlayerCharacter character, UploadCharacter characterData)
