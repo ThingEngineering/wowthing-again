@@ -529,6 +529,7 @@ namespace Wowthing.Backend.Jobs.User
             {
                 character.AddonQuests.ScannedAt = scanTime;
                 character.AddonQuests.DailyQuests = characterData.DailyQuests.EmptyIfNull();
+                character.AddonQuests.OtherQuests = characterData.OtherQuests.EmptyIfNull();
             }
         }
 

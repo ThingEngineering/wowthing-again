@@ -1,0 +1,92 @@
+name: ":lock: Shadowlands"
+requiredQuestId: 59770 # Stand as One
+groups:
+
+- name: "Korthia"
+  icon: item/187138 # Research Report: First Alloys
+  type: quest
+  data:
+    0:
+    - name: "Rank 5 gear upgrades"
+      id: 64300
+
+    - name: "Rank 6 gear upgrades"
+      id: 64303
+
+    - name: "+50% rep from relics"
+      id: 64367
+
+    - name: "-75% Stygia loss from deaths"
+      id: 64828
+
+    - name: "Anima from daily/world quests"
+      id: 64027
+
+    - name: "Rep from daily/world quests"
+      id: 64366
+
+    - name: "Stygia from Korthia/Maw stuff"
+      id: 64307
+
+- name: "Torghast"
+  icon: achievement/14498 # Gatekeepers of Torghast
+  type: accountQuest
+  data:
+    0:
+    - name: "Extra storage space"
+      id: 63183 # Extradimensional Pockets
+      note: "Apprehensive"
+
+    - name: "First death doesn't count"
+      id: 63202 # Vessel of Unfortunate Spirits
+      note: "Apprehensive"
+
+    - name: "Hidden teleportation points"
+      id: 63523 # Broker Traversal Enhancer
+      note: "Apprehensive"
+
+    - name: "Uncommon options from Brokers"
+      id: 63193 # Bangle of Seniority
+      note: "Tentative"
+
+    - name: "More epic powers"
+      id: 63204 # Ritual Prism of Fortune
+      note: "Ambivalent"
+
+    - name: "Discounted hoard from Brokers"
+      id: 63201 # Loupe of Unusual Charm
+      note: "Cordial"
+
+    - name: "Rare options from Brokers"
+      id: 63200 # Rank Insignia: Acquisitionist
+      note: "Cordial"
+
+    - name: "At least two power choices"
+      id: 61144 # Possibility Matrix
+      note: "Appreciative"
+
+
+- name: "The Maw"
+  icon: achievement/14656 # Trading Partners
+  type: quest
+  data:
+    0:
+    - name: "Chaotic Riftstone travel"
+      id: 63177 # Encased Riftwalker Essence
+      note: "Apprehensive"
+
+    - name: "Use grapple points"
+      id: 63217 # Animated Levitating Chain
+      note: "Tentative"
+
+    - name: "Teleporter to The Tremaculum"
+      id: 61600 # Animaflow Stabilizer
+      note: "Tentative"
+
+    - name: "Immunity to The Jailer's Mark"
+      id: 63092 # Sigil of the Unseen
+      note: "Tentative"
+
+    - name: "Immunity to Soul Brand"
+      id: 63091 # Soul-Stabilizing Talisman
+      note: "Ambivalent"

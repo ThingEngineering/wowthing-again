@@ -53,8 +53,16 @@ export default function getProgress(
             for (let dataIndex = 0; dataIndex < datas.length; dataIndex++) {
                 const data = datas[dataIndex]
                 if (
-                    group.type === 'quest' &&
-                    some(data.ids, (id) => userQuestData.characters[character.id]?.quests?.has(id))
+                    (
+                        group.type === 'quest' &&
+                        some(data.ids, (id) => userQuestData.characters[character.id]?.quests?.has(id))
+                    ) || (
+                        group.type === 'accountQuest' &&
+                        some(
+                            userQuestData.characters,
+                            (char) => some(data.ids, (id) => char.quests?.has(id))
+                        )
+                    )
                 ) {
                     haveIndexes.push(dataIndex)
                     have++

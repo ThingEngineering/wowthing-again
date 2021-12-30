@@ -658,6 +658,7 @@ namespace Wowthing.Web.Controllers
                     {
                         ScannedAt = c.AddonQuests?.ScannedAt ?? DateTime.MinValue,
                         DailyQuestsPacked = c.AddonQuests?.DailyQuests.EmptyIfNull().ToPackedUInt16Array(),
+                        OtherQuestsPacked = c.AddonQuests?.OtherQuests.EmptyIfNull().ToPackedUInt16Array(),
                         QuestsPacked = c.Quests?.CompletedIds.EmptyIfNull().ToPackedUInt16Array(),
                     }
                 );

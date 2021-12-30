@@ -25,6 +25,7 @@ namespace Wowthing.Backend.Models.Uploads
         public List<int> Mounts { get; set; }
         public UploadCharacterMythicDungeon[] MythicDungeons { get; set; }
         public UploadCharacterMythicPlus MythicPlus { get; set; }
+        public List<int> OtherQuests { get; set; }
         public Dictionary<int, string> Paragons { get; set; }
         public Dictionary<int, int> Reputations { get; set; }
         public Dictionary<string, int> ScanTimes { get; set; }
