@@ -19,7 +19,7 @@
     let selectedTalent: number[][]
     $: {
         characterSoulbind = find(
-            character.shadowlands?.covenants[covenantId]?.soulbinds || [],
+            character.shadowlands?.covenants?.[covenantId]?.soulbinds || [],
             (sb) => sb.id === soulbind.id
         )
         selectedTalent = characterSoulbind?.tree ?? []
@@ -131,7 +131,7 @@
         <div
             class="soulbind-row"
             class:none-chosen={selectedTalent[rowIndex] === undefined}
-            class:unlocked={character.shadowlands?.covenants[covenantId]?.renown >= soulbind.renown[rowIndex]}
+            class:unlocked={character.shadowlands?.covenants?.[covenantId]?.renown >= soulbind.renown[rowIndex]}
         >
             {#if row.length === 1}
                 <div class="soulbind-talent"></div>
