@@ -26,6 +26,8 @@ export class UserQuestDataStore extends WritableFancyStore<UserQuestData> {
             if (characterData.quests === undefined) {
                 characterData.quests = new Map<number, boolean>()
                 this.unpack(characterData.quests, characterData.questsPacked)
+                this.unpack(characterData.quests, characterData.otherQuestsPacked)
+                characterData.otherQuestsPacked = null
                 characterData.questsPacked = null
             }
 

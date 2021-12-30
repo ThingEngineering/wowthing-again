@@ -14,6 +14,7 @@ namespace Wowthing.Lib.Models.Player
         public DateTime ScannedAt { get; set; } = DateTime.MinValue;
         
         public List<int> DailyQuests { get; set; }
+        public List<int> OtherQuests { get; set; }
         public List<int> WeeklyQuests { get; set; }
     }
 }
