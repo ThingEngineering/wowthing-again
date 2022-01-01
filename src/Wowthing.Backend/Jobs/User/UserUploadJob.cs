@@ -168,9 +168,9 @@ namespace Wowthing.Backend.Jobs.User
                     covenant = character.Shadowlands.Covenants[covenantData.Id] = new PlayerCharacterShadowlandsCovenant();
                 }
 
-                covenant.Anima = Math.Max(covenant.Anima, covenantData.Anima);
-                covenant.Renown = Math.Max(covenantData.Renown, Math.Min(80, covenantData.Renown));
-                covenant.Souls = Math.Max(covenantData.Souls, Math.Min(100, covenantData.Souls));
+                covenant.Anima = Math.Max(0, covenantData.Anima);
+                covenant.Renown = Math.Max(0, Math.Min(80, covenantData.Renown));
+                covenant.Souls = Math.Max(0, Math.Min(100, covenantData.Souls));
 
                 covenant.Soulbinds = HandleCovenantsSoulbinds(covenant.Soulbinds, covenantData.Soulbinds);
 
@@ -189,17 +189,19 @@ namespace Wowthing.Backend.Jobs.User
             UploadCharacterCovenantFeature featureData
         )
         {
-            if (featureData == null)
+            if (featureData == null || featureData.Rank == 0)
             {
-                return null;
+                return feature;
             }
-
-            return new PlayerCharacterShadowlandsCovenantFeature
+            else
             {
-                Rank = Math.Max(feature?.Rank ?? 0, Math.Min(5, featureData.Rank)),
-                ResearchEnds = featureData.ResearchEnds ?? 0,
-                Name = featureData.Name.EmptyIfNullOrWhitespace().Truncate(32),
-            };
+                return new PlayerCharacterShadowlandsCovenantFeature
+                {
+                    Rank = Math.Max(0, Math.Min(5, featureData.Rank)),
+                    ResearchEnds = featureData.ResearchEnds ?? 0,
+                    Name = featureData.Name.EmptyIfNullOrWhitespace().Truncate(32),
+                };
+            }
         }
 
         private List<PlayerCharacterShadowlandsCovenantSoulbind> HandleCovenantsSoulbinds(
