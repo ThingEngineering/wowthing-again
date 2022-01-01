@@ -558,6 +558,15 @@ namespace Wowthing.Backend.Jobs.User
                 character.AddonQuests.ScannedAt = scanTime;
                 character.AddonQuests.DailyQuests = characterData.DailyQuests.EmptyIfNull();
                 character.AddonQuests.OtherQuests = characterData.OtherQuests.EmptyIfNull();
+
+                character.AddonQuests.CallingCompleted = characterData.Callings
+                    .EmptyIfNull()
+                    .Select(calling => calling.Completed)
+                    .ToList();
+                character.AddonQuests.CallingExpires = characterData.Callings
+                    .EmptyIfNull()
+                    .Select(calling => calling.Expires)
+                    .ToList();
             }
         }
 
