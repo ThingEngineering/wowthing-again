@@ -69,6 +69,7 @@ namespace Wowthing.Lib.Models
 
         private readonly HashSet<string> _validHomeFields = new()
         {
+            "callings",
             "covenant",
             "gold",
             "itemLevel",

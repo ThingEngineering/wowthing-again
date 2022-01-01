@@ -7,6 +7,8 @@ export interface UserQuestDataCharacter {
     quests?: Map<number, boolean>
     weeklyQuests?: Map<number, boolean>
 
+    callingCompleted: boolean[]
+    callingExpires: number[]
     dailyQuestsPacked: string
     otherQuestsPacked: string
     questsPacked: string
