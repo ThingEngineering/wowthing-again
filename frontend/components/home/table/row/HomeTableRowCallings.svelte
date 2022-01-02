@@ -6,7 +6,6 @@
     import { Constants } from '@/data/constants'
     import { timeStore, userQuestStore } from '@/stores'
     import { getNextDailyResetFromTime } from '@/utils/get-next-reset'
-    import parseApiTime from '@/utils/parse-api-time'
     import type { Character } from '@/types'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
@@ -66,7 +65,7 @@
             <span class="{calling ? 'complete' : 'incomplete'}">
                 <IconifyIcon
                     icon={calling ? iconComplete : iconIncomplete}
-                    scale={1.1}
+                    scale="1.1"
                 />
             </span>
         {/each}
