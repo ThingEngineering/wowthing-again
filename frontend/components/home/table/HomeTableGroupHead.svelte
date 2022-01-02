@@ -5,6 +5,7 @@
     import { userStore } from '@/stores'
     import type {Character} from '@/types'
 
+    import HeadCallings from './head/HomeTableHeadCallings.svelte'
     import HeadCovenant from './head/HomeTableHeadCovenant.svelte'
     import HeadLockouts from './head/HomeTableHeadLockouts.svelte'
     import HeadMount from './head/HomeTableHeadMount.svelte'
@@ -39,7 +40,10 @@
     {/each}
 
     {#each $settings.layout.homeFields as field}
-        {#if field === 'covenant'}
+        {#if field === 'callings'}
+            <HeadCallings />
+
+        {:else if field === 'covenant'}
             <HeadCovenant />
 
         {:else if field === 'gold'}

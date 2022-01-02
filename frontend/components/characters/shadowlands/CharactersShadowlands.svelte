@@ -67,8 +67,8 @@
                 border={1}
             />
             {covenantMap[covenantId].name}
-            <pre class="{getPercentClass((character.shadowlands?.covenants[covenantId]?.renown ?? 0) / Constants.maxRenown * 100)}">
-                {@html leftPad(character.shadowlands?.covenants[covenantId]?.renown ?? 0, 2)}
+            <pre class="{getPercentClass((character.shadowlands?.covenants?.[covenantId]?.renown ?? 0) / Constants.maxRenown * 100)}">
+                {@html leftPad(character.shadowlands?.covenants?.[covenantId]?.renown ?? 0, 2)}
             </pre>
         </a>
     {/each}

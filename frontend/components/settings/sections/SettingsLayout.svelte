@@ -18,8 +18,9 @@
         {key: 'realmName', name: 'Realm name'},
     ]
     const homeChoices: SettingsChoice[] = [
-        {key: 'gold', name: 'Gold'},
+        {key: 'callings', name: 'Callings'},
         {key: 'covenant', name: 'Covenant'},
+        {key: 'gold', name: 'Gold'},
         {key: 'itemLevel', name: 'Item level'},
         {key: 'keystone', name: 'Mythic+ keystone'},
         {key: 'lockouts', name: 'Lockouts'},

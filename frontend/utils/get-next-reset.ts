@@ -11,6 +11,10 @@ export function getNextDailyReset(timeString: string, region: Region): DateTime 
         return time
     }
 
+    return getNextDailyResetFromTime(time, region)
+}
+
+export function getNextDailyResetFromTime(time: DateTime, region: Region): DateTime {
     const [resetHour, resetMin] = resetTimes[region].dailyResetTime
 
     let reset: DateTime = time.set({

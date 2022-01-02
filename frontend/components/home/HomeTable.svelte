@@ -5,6 +5,7 @@
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import GroupHead from './table/HomeTableGroupHead.svelte'
+    import RowCallings from './table/row/HomeTableRowCallings.svelte'
     import RowCovenant from './table/row/HomeTableRowCovenant.svelte'
     import RowGold from './table/row/HomeTableRowGold.svelte'
     import RowItemLevel from '@/components/character-table/row/ItemLevel.svelte'
@@ -32,7 +33,10 @@
 
     <svelte:fragment slot="rowExtra" let:character>
         {#each $settings.layout.homeFields as field}
-            {#if field === 'covenant'}
+            {#if field === 'callings'}
+                <RowCallings {character} />
+
+            {:else if field === 'covenant'}
                 <RowCovenant {character} />
 
             {:else if field === 'gold'}

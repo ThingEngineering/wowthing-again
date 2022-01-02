@@ -17,6 +17,7 @@ namespace Wowthing.Backend.Models.Uploads
         public int RestedXp { get; set; }
         public long Copper { get; set; }
 
+        public List<UploadCharacterCalling> Callings { get; set; }
         public List<UploadCharacterCovenant> Covenants { get; set; }
         public Dictionary<short, string> Currencies { get; set; }
         public List<int> DailyQuests { get; set; }
@@ -33,6 +34,12 @@ namespace Wowthing.Backend.Models.Uploads
         public string Transmog { get; set; }
         public UploadCharacterVault[][] Vault { get; set; }
         public Dictionary<string, UploadWeeklyUghQuest> WeeklyUghQuests { get; set; }
+    }
+
+    public class UploadCharacterCalling
+    {
+        public bool Completed { get; set; }
+        public int Expires { get; set; }
     }
 
     public class UploadCharacterCovenant
