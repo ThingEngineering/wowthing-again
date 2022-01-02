@@ -15,6 +15,13 @@ groups:
   -  30690 # Power Converter
   - 134021 # X-52 Rocket Helmet
 
+- name: "Timewalking"
+  things:
+  - 129929 # Ever-Shifting Mirror
+  - 151016 # Fractured Necrolyte Skull (Cupri, Shattrath)
+  - 129926 # Mark of the Ashtongue
+  - 151184 # Verdant Throwing Sphere (Cupri, Shattrah)
+
 - name: Vendors
   things:
   - 134007 # Eternal Black Diamond Ring

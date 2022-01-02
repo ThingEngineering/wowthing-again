@@ -24,10 +24,13 @@ groups:
   - 115506 # Treessassin's Guise
   - 118935 # Ever-Blooming Frond (Cenarion Concerns, Garrison Inn) QUEST
 
+- name: "Timewalking"
+  things:
+  - 168012 # Apexis Focusing Shard (Kronnus, Warspear / Tempra, Stormshield)
+  - 168014 # Banner of the Burning Blade (Kronnus, Warspear / Tempra, Stormshield)
+
 - name: Vendor
   things:
-  - 168012 # Apexis Focusing Shard (Kronnus, Warspear / Tempra, Stormshield) vendor pvp
-  - 168014 # Banner of the Burning Blade (Kronnus, Warspear / Tempra, Stormshield) vendor pvp
   - 113096 # Bloodmane Charm (Smugglers Run?)
   - 140336 # Brulfist Idol (Slyhoof the Shameless Shaman, Highmountain)
   - 115501 # Kowalski's Music Box (Crafticus Mindbender, Ashran) vendor
