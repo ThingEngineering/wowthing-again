@@ -13,6 +13,7 @@
     import CharacterRow from './CharacterTableRow.svelte'
 
     export let characterLimit = 0
+    export let skipGrouping = false
     export let filterFunc: (char: Character) => boolean = undefined
     export let sortFunc: (char: Character) => string = undefined
 
@@ -44,7 +45,16 @@
             characters = characters.slice(0, characterLimit)
         }
 
-        const grouped = groupBy(characters, groupFunc)
+        let grouped: Record<string, Character[]>
+        if (skipGrouping) {
+            grouped = {
+                all: characters,
+            }
+        }
+        else {
+            grouped = groupBy(characters, groupFunc)
+        }
+
         const pairs: [string, Character[]][] = []
         for (const key of Object.keys(grouped)) {
             pairs.push([key, sortBy(grouped[key], sortFunc)])

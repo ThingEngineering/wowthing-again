@@ -19,6 +19,7 @@
     export let slug: string
 
     let currencies: StaticDataCurrency[]
+    let sorted: boolean
     let sortFunc: (char: Character) => string
     $: {
         const categoryId = parseInt(findKey($staticStore.data.currencyCategories, (c) => c.slug === slug))
@@ -26,15 +27,20 @@
 
         const order = $currencyState.sortOrder[slug]
         if (order > 0) {
+            sorted = true
             sortFunc = (char) => toDigits(1000000 - (char.currencies?.[order]?.quantity ?? -1), 7)
         }
         else {
+            sorted = false
             sortFunc = getCharacterSortFunc($settingsData)
         }
     }
 </script>
 
-<CharacterTable {sortFunc}>
+<CharacterTable
+    skipGrouping={sorted}
+    {sortFunc}
+>
     <CharacterTableHead slot="head">
         {#key slug}
             {#each currencies as currency}
