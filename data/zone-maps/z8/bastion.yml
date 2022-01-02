@@ -303,6 +303,7 @@ farms:
 - name: "Penitence of Purity"
   location: 60.2 78.2
   minimumLevel: 60
+  objectId: 356818
   questId: 61688
   type: treasure
   drops:
@@ -310,6 +311,9 @@ farms:
     id: 334386
     name: "Phalynx of Humility"
     limit: covenant kyrian
+
+  - type: transmog
+    id: 184296 # Purity's Edge Greatblade
 
 - name: "Scroll of Aeons"
   location: 53.5 80.4
