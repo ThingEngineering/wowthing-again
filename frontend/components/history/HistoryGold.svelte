@@ -69,7 +69,7 @@
                 parseInt(realmId)
             ])
         }
-        realms.sort()
+        //realms.sort()
 
         let firstRealmId = -1
         for (let realmIndex = 0; realmIndex < realms.length; realmIndex++) {
@@ -112,6 +112,13 @@
                 spanGaps: true,
                 data: points,
             })
+        }
+
+        if (historyState.scaleType === 'logarithmic') {
+            data.datasets.sort((a, b) => a.data[a.data.length - 1].y - b.data[b.data.length - 1].y)
+        }
+        else {
+            data.datasets.sort((a, b) => b.data[a.data.length - 1].y - a.data[b.data.length - 1].y)
         }
 
         if (historyState.chartType === 'line' && firstRealmId >= 0) {
