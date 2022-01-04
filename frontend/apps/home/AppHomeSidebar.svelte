@@ -13,6 +13,7 @@
     import active from 'svelte-spa-router/active'
 
     import { dropTypeIcon } from '@/data/farm'
+    import { iconStrings } from '@/data/icons'
     import { journalStore, userStore, userTransmogStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
 
@@ -205,13 +206,6 @@
         <a href="#/cards">
             <IconifyIcon icon={iconConstruction} />
             Home (Cards)
-        </a>
-    </li>
-
-    <li use:active={'/teams'}>
-        <a href="#/teams">
-            <IconifyIcon icon={iconConstruction} />
-            Teams
         </a>
     </li>
 
