@@ -1,12 +1,10 @@
 <script lang="ts">
-    import iconComplete from '@iconify/icons-mdi/check'
-    import iconIncomplete from '@iconify/icons-mdi/close'
     import { DateTime } from 'luxon'
 
     import { Constants } from '@/data/constants'
+    import { iconStrings } from '@/data/icons'
     import { timeStore, userQuestStore } from '@/stores'
     import { getNextDailyResetFromTime } from '@/utils/get-next-reset'
-    import parseApiTime from '@/utils/parse-api-time'
     import type { Character } from '@/types'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
@@ -26,7 +24,6 @@
             ]
             resets.push(resets[0].plus({ days: 1 }))
             resets.push(resets[0].plus({ days: 2 }))
-            console.log(character.name, resets)
 
             for (let i = 0; i < callingCompleted.length; i++) {
                 if (callingCompleted[i]) {
@@ -65,8 +62,8 @@
         {#each callings as calling}
             <span class="{calling ? 'complete' : 'incomplete'}">
                 <IconifyIcon
-                    icon={calling ? iconComplete : iconIncomplete}
-                    scale={1.1}
+                    icon={calling ? iconStrings.yes : iconStrings.no}
+                    scale="1.1"
                 />
             </span>
         {/each}

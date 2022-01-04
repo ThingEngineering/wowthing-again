@@ -1,7 +1,5 @@
 <script lang="ts">
-    import mdiCheck from '@iconify/icons-mdi/check'
-    import mdiClose from '@iconify/icons-mdi/close'
-
+    import { iconStrings } from '@/data/icons'
     import { achievementStore } from '@/stores'
     import type { AchievementDataAchievement, AchievementDataCriteriaTree } from '@/types'
 
@@ -38,9 +36,11 @@
         class:status-fail={accountWide && !have}
     >
         {#if accountWide}
-            <IconifyIcon icon={have ? mdiCheck : mdiClose} />
+            <IconifyIcon icon={have ? iconStrings.yes : iconStrings.no} />
         {/if}
+
         {criteriaTree.description}
+
         {#if criteriaTree.children.length > 0}
             {#each criteriaTree.children as child}
                 <svelte:self

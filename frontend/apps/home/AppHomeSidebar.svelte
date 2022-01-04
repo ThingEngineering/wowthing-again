@@ -4,7 +4,6 @@
     import iconCurrencies from '@iconify/icons-mdi/cash-multiple'
     import iconHistory from '@iconify/icons-mdi/chart-line'
     import iconHome from '@iconify/icons-mdi/home-outline'
-    import iconLockouts from '@iconify/icons-mdi/lock-outline'
     import iconMythicPlus from '@iconify/icons-ic/sharp-more-time'
     import iconProgress from '@iconify/icons-mdi/progress-question'
     import iconReputations from '@iconify/icons-mdi/account-star-outline'
@@ -14,6 +13,7 @@
     import active from 'svelte-spa-router/active'
 
     import { dropTypeIcon } from '@/data/farm'
+    import { iconStrings } from '@/data/icons'
     import { journalStore, userStore, userTransmogStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
 
@@ -116,7 +116,7 @@
 
     <li use:active={'/lockouts'}>
         <a href="#/lockouts">
-            <IconifyIcon icon={iconLockouts} />
+            <IconifyIcon icon={iconStrings.lock} />
             Lockouts
         </a>
     </li>
@@ -206,13 +206,6 @@
         <a href="#/cards">
             <IconifyIcon icon={iconConstruction} />
             Home (Cards)
-        </a>
-    </li>
-
-    <li use:active={'/teams'}>
-        <a href="#/teams">
-            <IconifyIcon icon={iconConstruction} />
-            Teams
         </a>
     </li>
 

@@ -44,6 +44,7 @@ world_events/_world_events.yml
     world_events/hallows_end.yml
     world_events/love_is_in_the_air.yml
     world_events/lunar_festival.yml
+    world_events/timewalking.yml
 
 -
 

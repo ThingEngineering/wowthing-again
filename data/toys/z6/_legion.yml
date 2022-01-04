@@ -33,6 +33,10 @@ groups:
   - 142494 # Purple Blossom (?, Falcosaurs)
   - 142497 # Tiny Pack (?, Falcosaurs)
 
+- name: "Timewalking"
+  things:
+  - 187591 # Nightborne Guard's Vigilance
+
 - name: Vendors
   things:
   - 153204 # All-Seer's Eye (Orix the All-Seer, Antoran Wastes - 1000 eyes)

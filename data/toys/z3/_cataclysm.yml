@@ -18,3 +18,8 @@ groups:
 - name: Reputations
   things:
   -  63141 64997 # Tol Barad Searchlight
+
+- name: "Timewalking"
+  things:
+  - 133511 # Gurboggle's Gleaming Bauble
+  - 133542 # Tosselwrench's Mega-Accurate Simulation Viewfinder

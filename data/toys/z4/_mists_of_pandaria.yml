@@ -6,6 +6,11 @@ groups:
   -  98136 # Gastropod Shell (Throne of Thunder)
   -  98132 # Shado-Pan Geyser Gun (Throne of Thunder)
 
+- name: "Timewalking"
+  things:
+  - 144072 # Adopted Puppy Crate (Mistweaver Xia, Timeless Isle)
+  - 144393 # Portable Yak Wash (Mistweaver Xia, Timeless Isle)
+
 - name: Vendors
   things:
   - 102467 # Censer of Eternal Agony (Speaker Gulan, Timeless Isle)

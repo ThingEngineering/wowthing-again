@@ -8,6 +8,7 @@
     import type {SidebarItem} from '@/types'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import IconText from '@/components/common/IconText.svelte'
 
     export let anyChildren: boolean
     export let baseUrl: string
@@ -78,14 +79,15 @@
         &:hover {
             background: $highlight-background;
         }
+    }
+    .expand {
+        position: absolute;
+        right: 0.1rem;
 
-        & :global(svg) {
+        :global(svg) {
             margin-top: 0.1rem;
-            position: absolute;
-            right: 0.1rem;
         }
     }
-
     .decoration {
         position: absolute;
         right: 0.5rem;
@@ -104,7 +106,7 @@
             use:link
             use:active={new RegExp(activeRegex)}
         >
-            {item.name}
+            <IconText text={item.name} />
 
             {#if decoration !== undefined}
                 <span
@@ -121,9 +123,11 @@
             {/if}
 
             {#if item.children?.length > 0}
-                <IconifyIcon
-                    icon={expanded ? mdiChevronDown : mdiChevronRight}
-                />
+                <span class="expand">
+                    <IconifyIcon
+                        icon={expanded ? mdiChevronDown : mdiChevronRight}
+                    />
+                </span>
             {/if}
         </a>
 

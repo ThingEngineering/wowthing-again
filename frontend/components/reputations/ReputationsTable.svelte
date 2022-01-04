@@ -16,12 +16,14 @@
     export let slug: string
 
     let category: StaticDataReputationCategory
+    let sorted: boolean
     let sortFunc: (char: Character) => string
     $: {
         category = find($staticStore.data.reputationSets, (r) => r?.slug === slug)
 
         const order: number[] = $reputationState.sortOrder[slug]
         if (order?.length > 0) {
+            sorted = true
             sortFunc = (char) => {
                 let repValue = -1
                 let paragonValue = -1
@@ -42,12 +44,16 @@
             }
         }
         else {
+            sorted = false
             sortFunc = getCharacterSortFunc($settingsData)
         }
     }
 </script>
 
-<CharacterTable {sortFunc}>
+<CharacterTable
+    skipGrouping={sorted}
+    {sortFunc}
+>
     <CharacterTableHead slot="head">
         {#key category.name}
             {#each category.reputations as reputationSet}
