@@ -315,7 +315,7 @@ namespace Wowthing.Web.Controllers
                 .Include(c => c.Specializations)
                 .Include(c => c.Weekly);
 
-            if (!apiResult.Public)
+            if (!apiResult.Public || !apiResult.Privacy.Anonymized)
             {
                 characterQuery = characterQuery
                     .Include(c => c.Media);

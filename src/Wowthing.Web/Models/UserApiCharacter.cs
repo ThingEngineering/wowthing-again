@@ -64,18 +64,18 @@ namespace Wowthing.Web.Models
             Level = character.Level;
             MountSkill = character.MountSkill;
             RaceId = character.RaceId;
+            RenderUrl = character.Media?.MainUrl;
 
             Specializations = character.Specializations?.Specializations;
 
             if (pub && privacy?.Anonymized == true)
             {
-                Name = "SecretGoose";
+                Name = $"Goose{Id:X4}";
             }
             else
             {
                 Name = character.Name;
                 RealmId = character.RealmId;
-                RenderUrl = character.Media?.MainUrl;
             }
 
             if (!pub)
