@@ -10,7 +10,7 @@ export const weaponSubclassToString: Record<number, string> = {
     [WeaponSubclass.Warglaive]: 'warglaive',
     [WeaponSubclass.Wand]: 'wand',
 
-    [WeaponSubclass.TwoHandedAxe]: '1h axe',
+    [WeaponSubclass.TwoHandedAxe]: '2h axe',
     [WeaponSubclass.TwoHandedMace]: '2h mace',
     [WeaponSubclass.TwoHandedSword]: '2h sword',
     [WeaponSubclass.Polearm]: 'polearm',
