@@ -208,14 +208,11 @@ namespace Wowthing.Backend.Jobs.User
             List<PlayerCharacterShadowlandsCovenantSoulbind> soulbinds,
             List<UploadCharacterCovenantSoulbind> soulbindsData)
         {
-            if (soulbinds == null)
-            {
-                soulbinds = new List<PlayerCharacterShadowlandsCovenantSoulbind>();
-            }
+            var soulbindMap = soulbinds
+                .EmptyIfNull()
+                .ToDictionary(soulbind => soulbind.Id);
 
-            var soulbindMap = soulbinds.ToDictionary(soulbind => soulbind.Id);
-
-            foreach (var soulbindData in soulbindsData)
+            foreach (var soulbindData in soulbindsData.EmptyIfNull())
             {
                 if (!soulbindMap.TryGetValue(soulbindData.Id, out var soulbind))
                 {
