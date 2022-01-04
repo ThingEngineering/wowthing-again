@@ -4,7 +4,6 @@
     import iconCurrencies from '@iconify/icons-mdi/cash-multiple'
     import iconHistory from '@iconify/icons-mdi/chart-line'
     import iconHome from '@iconify/icons-mdi/home-outline'
-    import iconLockouts from '@iconify/icons-mdi/lock-outline'
     import iconMythicPlus from '@iconify/icons-ic/sharp-more-time'
     import iconProgress from '@iconify/icons-mdi/progress-question'
     import iconReputations from '@iconify/icons-mdi/account-star-outline'
@@ -116,7 +115,7 @@
 
     <li use:active={'/lockouts'}>
         <a href="#/lockouts">
-            <IconifyIcon icon={iconLockouts} />
+            <IconifyIcon icon={iconStrings.lock} />
             Lockouts
         </a>
     </li>

@@ -1,8 +1,7 @@
 <script lang="ts">
-    import mdiCheck from '@iconify/icons-mdi/check'
-    import mdiClose from '@iconify/icons-mdi/close'
     import ListView from 'svelte-sortable-flat-list-view'
 
+    import { iconStrings } from '@/data/icons'
     import type { SettingsChoice } from '@/types'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
@@ -89,7 +88,7 @@
                 let:Item
             >
                 {Item.name}
-                <IconifyIcon icon={mdiCheck} />
+                <IconifyIcon icon={iconStrings.yes} />
             </ListView>
         </div>
 
@@ -107,7 +106,7 @@
                 let:Item
             >
                 {Item.name}
-                <IconifyIcon icon={mdiClose} />
+                <IconifyIcon icon={iconStrings.no} />
             </ListView>
         </div>
     </div>

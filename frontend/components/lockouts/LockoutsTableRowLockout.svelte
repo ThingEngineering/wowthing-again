@@ -1,7 +1,6 @@
 <script lang="ts">
-    import mdiCheck from '@iconify/icons-mdi/check'
-
     import { lockoutOverride } from '@/data/dungeon'
+    import { iconStrings } from '@/data/icons'
     import { tippyComponent } from '@/utils/tippy'
     import type { Character, CharacterLockout, InstanceDifficulty } from '@/types'
 
@@ -46,7 +45,7 @@
             <span>{maxBosses}</span>
         {:else}
             {#if lockout.defeatedBosses >= maxBosses}
-                <IconifyIcon icon={mdiCheck} />
+                <IconifyIcon icon={iconStrings.yes} />
             {/if}
         {/if}
     </td>
