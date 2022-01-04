@@ -24,7 +24,6 @@
             ]
             resets.push(resets[0].plus({ days: 1 }))
             resets.push(resets[0].plus({ days: 2 }))
-            console.log(character.name, resets)
 
             for (let i = 0; i < callingCompleted.length; i++) {
                 if (callingCompleted[i]) {
