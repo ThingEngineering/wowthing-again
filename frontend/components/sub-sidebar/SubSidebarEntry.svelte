@@ -53,32 +53,37 @@
 <style lang="scss">
     li {
         color: #00ccff;
-
-        &.separator {
-            border-top: 1px solid $border-color;
-            margin: 0.5rem 0;
-        }
-
-        ul li a {
-            padding-left: 1.5rem;
-        }
     }
 
     a {
         color: var(--linkColor, $link-color);
         display: block;
         padding: 0.15rem 0.5rem;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        position: relative;
 
         &:global(.active) {
             background: $active-background;
         }
-
         &:hover {
             background: $highlight-background;
         }
+
+        :global(span:first-child) {
+            width: calc(var(--width) - 4.6rem);
+        }
+    }
+    .subtree {
+        :global(> a) {
+            padding-left: 1.5rem;
+
+            :global(span:first-child) {
+                width: calc(var(--width) - 6.1rem);
+            }
+        }
+    }
+    .separator {
+        border-top: 1px solid $border-color;
+        margin: 0.5rem 0;
     }
     .expand {
         position: absolute;
@@ -91,6 +96,8 @@
     .decoration {
         position: absolute;
         right: 0.5rem;
+        top: 50%;
+        transform: translateY(-50%);
         word-spacing: -0.2ch;
     }
     .decoration-children {
@@ -99,53 +106,54 @@
 </style>
 
 {#if item}
-    <li>
-        <a
-            href="{url}"
-            style="{noVisitRoot ? '--linkColor: #ffffff' : null}"
-            use:link
-            use:active={new RegExp(activeRegex)}
-        >
-            <IconText text={item.name} />
+    <a
+        href="{url}"
+        style="{noVisitRoot ? '--linkColor: #ffffff' : null}"
+        use:link
+        use:active={new RegExp(activeRegex)}
+    >
+        <IconText
+            cls="text-overflow"
+            text={item.name}
+        />
 
-            {#if decoration !== undefined}
-                <span
-                    class="drop-shadow decoration"
-                    class:decoration-children={anyChildren}
-                    class:quality2={(item.children?.length ?? 0) === 0}
-                    class:quality3={item.children?.length > 0}
-                >{decoration}</span>
-            {:else if percent >= 0}
-                <span
-                    class="drop-shadow decoration {getPercentClass(percent)}"
-                    class:decoration-children={anyChildren}
-                >{Math.floor(percent).toFixed(0)} %</span>
-            {/if}
-
-            {#if item.children?.length > 0}
-                <span class="expand">
-                    <IconifyIcon
-                        icon={expanded ? mdiChevronDown : mdiChevronRight}
-                    />
-                </span>
-            {/if}
-        </a>
-
-        {#if expanded}
-            <ul>
-                {#each item.children as child}
-                    <svelte:self
-                        {anyChildren}
-                        baseUrl={url}
-                        item={child}
-                        parentItem={item}
-                        {decorationFunc}
-                        {percentFunc}
-                    />
-                {/each}
-            </ul>
+        {#if decoration !== undefined}
+            <span
+                class="drop-shadow decoration"
+                class:decoration-children={anyChildren}
+                class:quality2={(item.children?.length ?? 0) === 0}
+                class:quality3={item.children?.length > 0}
+            >{decoration}</span>
+        {:else if percent >= 0}
+            <span
+                class="drop-shadow decoration {getPercentClass(percent)}"
+                class:decoration-children={anyChildren}
+            >{Math.floor(percent).toFixed(0)} %</span>
         {/if}
-    </li>
+
+        {#if item.children?.length > 0}
+            <span class="expand">
+                <IconifyIcon
+                    icon={expanded ? mdiChevronDown : mdiChevronRight}
+                />
+            </span>
+        {/if}
+    </a>
+
+    {#if expanded}
+        <div class="subtree">
+            {#each item.children as child}
+                <svelte:self
+                    {anyChildren}
+                    baseUrl={url}
+                    item={child}
+                    parentItem={item}
+                    {decorationFunc}
+                    {percentFunc}
+                />
+            {/each}
+        </div>
+    {/if}
 {:else}
-    <li class="separator"></li>
+    <div class="separator"></div>
 {/if}

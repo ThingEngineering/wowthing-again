@@ -32,7 +32,7 @@
 
 <style lang="scss">
     span {
-        display: inline-flex;
+        display: block;
 
         :global(svg) {
             margin-top: -4px;
@@ -40,6 +40,9 @@
     }
 </style>
 
-<span bind:this={element}>
+<span
+    bind:this={element}
+    class="text-overflow"
+>
     {@html html}
 </span>
