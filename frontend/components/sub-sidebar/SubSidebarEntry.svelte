@@ -23,6 +23,21 @@
     let expanded: boolean
     let percent = -1
     let url: string
+    let minusWidth: string
+
+    $: {
+        let temp = 0.5
+        if (decorationFunc || percentFunc) {
+            temp += 3.3
+        }
+        if (anyChildren) {
+            temp += 1.3
+        }
+        if (parentItem) {
+            temp += 1 // TODO this should be 1.5 but that doesn't work properly, why?
+        }
+        minusWidth = temp > 0 ? `${temp}rem` : '0px'
+    }
 
     $: {
         if (item) {
@@ -69,16 +84,12 @@
         }
 
         :global(span:first-child) {
-            width: calc(var(--width) - 4.6rem);
+            width: calc(var(--width) - var(--minusWidth));
         }
     }
     .subtree {
         :global(> a) {
             padding-left: 1.5rem;
-
-            :global(span:first-child) {
-                width: calc(var(--width) - 6.1rem);
-            }
         }
     }
     .separator {
@@ -88,10 +99,8 @@
     .expand {
         position: absolute;
         right: 0.1rem;
-
-        :global(svg) {
-            margin-top: 0.1rem;
-        }
+        top: 50%;
+        transform: translateY(-50%);
     }
     .decoration {
         position: absolute;
@@ -108,7 +117,7 @@
 {#if item}
     <a
         href="{url}"
-        style="{noVisitRoot ? '--linkColor: #ffffff' : null}"
+        style="--minusWidth: {minusWidth};{noVisitRoot ? '--linkColor: #ffffff' : ''}"
         use:link
         use:active={new RegExp(activeRegex)}
     >
