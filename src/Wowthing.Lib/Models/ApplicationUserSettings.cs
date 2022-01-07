@@ -194,6 +194,9 @@ namespace Wowthing.Lib.Models
 
     public class ApplicationUserSettingsTransmog
     {
+        public bool ShowAllianceOnly { get; set; } = true;
+        public bool ShowHordeOnly { get; set; } = true;
+        
         public bool ShowDeathKnight { get; set; } = true;
         public bool ShowDemonHunter { get; set; } = true;
         public bool ShowDruid { get; set; } = true;
