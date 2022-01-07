@@ -66,12 +66,8 @@
 </script>
 
 <style lang="scss">
-    li {
-        color: #00ccff;
-    }
-
     a {
-        color: var(--linkColor, $link-color);
+        color: var(--link-color, $link-color);
         display: block;
         padding: 0.15rem 0.5rem;
         position: relative;
@@ -118,7 +114,7 @@
 {#if item}
     <a
         href="{url}"
-        style="--minusWidth: {minusWidth};{noVisitRoot ? '--linkColor: #ffffff' : ''}"
+        style="--minusWidth: {minusWidth};{noVisitRoot ? '--link-color: #ffffff' : ''}"
         use:link
         use:active={new RegExp(activeRegex)}
     >
