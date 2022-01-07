@@ -32,6 +32,9 @@ export interface Settings {
     }
 
     transmog: {
+        showAllianceOnly: boolean
+        showHordeOnly: boolean
+
         showDeathKnight: boolean
         showDemonHunter: boolean
         showDruid: boolean

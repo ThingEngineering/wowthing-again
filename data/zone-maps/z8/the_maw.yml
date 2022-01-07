@@ -541,8 +541,9 @@ farms:
 
 - name: "Helsworn Chest"
   location: 69.2 45.2
+  objectId: 369216
   questId: 64256
-  reset: never
+  reset: daily
   type: treasure
   drops:
   - type: transmog
@@ -552,18 +553,6 @@ farms:
   - type: transmog
     id: 187240
     name: "Field Warden's Watchful Eye"
-
-  - type: transmog
-    id: 187019
-    name: "Infiltrator's Shoulderguards"
-
-  - type: transmog
-    id: 187018
-    name: "Ritualist's Shoulder Scythes"
-
-  - type: transmog
-    id: 187014
-    name: "Shackler's Spiked Shoulders"
 
 - name: "Infused Etherwyrm"
   location: 23.2 42.4

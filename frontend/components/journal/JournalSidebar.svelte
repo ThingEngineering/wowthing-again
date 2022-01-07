@@ -39,7 +39,7 @@
 <Sidebar
     baseUrl="/journal"
     items={categories}
-    width="18rem"
+    width="16rem"
     noVisitRoot={true}
     {percentFunc}
 >

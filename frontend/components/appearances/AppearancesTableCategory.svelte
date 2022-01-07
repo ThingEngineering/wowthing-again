@@ -1,12 +1,15 @@
 <script lang="ts">
     import { transmogSets } from '@/data/transmog-sets'
     import { userTransmogStore } from '@/stores'
+    import { data as settingsData } from '@/stores/settings'
     import getPercentClass from '@/utils/get-percent-class'
     import getTransmogSpan from '@/utils/get-transmog-span'
+    import getFilteredSets from '@/utils/transmog/get-filtered-sets'
     import type { TransmogDataCategory } from '@/types/data'
 
     import ClassIcon from '@/components/images/ClassIcon.svelte'
     import CovenantIcon from '@/components/images/CovenantIcon.svelte'
+    import IconText from '@/components/common/IconText.svelte'
     import TableSet from './AppearancesTableSet.svelte'
 
     export let category: TransmogDataCategory
@@ -194,10 +197,11 @@
         </tr>
     {/if}
 
-    {#each group.sets as setName, setIndex}
+    {#each getFilteredSets($settingsData, group) as [setShow, setName], setIndex}
+        {#if setShow}
         <tr class:faded={setName.endsWith('*')}>
             <td class="name">
-                &ndash {setName.replace('*', '')}
+                &ndash <IconText text={setName.replace('*', '')} />
                 <span class="drop-shadow percent {getPercentClass(getPercent(groupIndex, setIndex))}">
                      {Math.floor(getPercent(groupIndex, setIndex)).toFixed(0)} %
                 </span>
@@ -213,5 +217,6 @@
                 {/if}
             {/each}
         </tr>
+            {/if}
     {/each}
 {/each}

@@ -210,8 +210,8 @@ groups:
 - name: "Garrisons"
   type: all
   sets:
-  - "[A] Stormwind Guard"
-  - "[H] Orgrimmar Guard"
+  - ":alliance: Stormwind Guard"
+  - ":horde: Orgrimmar Guard"
   data:
     all:
     - name: Stormwind Guard

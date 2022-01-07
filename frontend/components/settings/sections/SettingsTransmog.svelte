@@ -5,7 +5,6 @@
 </script>
 
 <style lang="scss">
-
     .armor-type {
         h4 {
             display: inline-block;
@@ -19,13 +18,15 @@
             width: 8.8rem;
         }
     }
+    .separator {
+        border-top: 1px dashed $border-color;
+        margin-bottom: 0.25rem;
+    }
 </style>
 
 <div class="thing-container settings-container">
     <h2>Transmog</h2>
 
-    <h3>Classes to track</h3>
-    
     <div class="armor-type">
         <h4>Cloth</h4>
 
@@ -40,6 +41,7 @@
             bind:value={$settingsData.transmog.showPriest}
             textClass="class-priest"
         >Priest</Checkbox>
+
         <Checkbox
             name="transmog_showWarlock"
             bind:value={$settingsData.transmog.showWarlock}
@@ -105,5 +107,23 @@
             bind:value={$settingsData.transmog.showWarrior}
             textClass="class-warrior"
         >Warrior</Checkbox>
+    </div>
+
+    <div class="separator"></div>
+
+    <div class="armor-type">
+        <h4>Faction</h4>
+
+        <Checkbox
+            name="transmog_showAllianceOnly"
+            bind:value={$settingsData.transmog.showAllianceOnly}
+            textClass="faction-alliance"
+        >Alliance only</Checkbox>
+
+        <Checkbox
+            name="transmog_showHordeOnly"
+            bind:value={$settingsData.transmog.showHordeOnly}
+            textClass="faction-horde"
+        >Horde only</Checkbox>
     </div>
 </div>

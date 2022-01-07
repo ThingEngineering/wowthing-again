@@ -29,7 +29,7 @@
     }
 
     nav {
-        --linkColor: #64e1ff;
+        --link-color: #64e1ff;
 
         border: 1px solid $border-color;
         padding: 0.5rem 0;
@@ -45,18 +45,16 @@
     <slot name="before" />
 
     <nav id="{id}" class="thing-container">
-        <ul>
-            {#each items as item}
-                <SidebarEntry
-                    {anyChildren}
-                    {baseUrl}
-                    {item}
-                    {noVisitRoot}
-                    {decorationFunc}
-                    {percentFunc}
-                />
-            {/each}
-        </ul>
+        {#each items as item}
+            <SidebarEntry
+                {anyChildren}
+                {baseUrl}
+                {item}
+                {noVisitRoot}
+                {decorationFunc}
+                {percentFunc}
+            />
+        {/each}
     </nav>
 
     <slot name="after" />

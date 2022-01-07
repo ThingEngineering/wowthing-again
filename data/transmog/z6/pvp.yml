@@ -5,9 +5,9 @@ groups:
   tag: S23-25
   type: class
   sets:
-  - Elite*
-  - Gladiator [A]
-  - Gladiator [H]
+  - "Elite*"
+  - ":alliance: Gladiator"
+  - ":horde: Gladiator"
   data:
     death-knight:
     # Elite (Alliance) set=1352,1353
@@ -529,8 +529,8 @@ groups:
   tag: S23-25
   type: armor
   sets:
-  - Combatant [A]
-  - Combatant [H]
+  - ":alliance: Combatant"
+  - ":horde: Combatant"
   data:
     cloth:
     # Combatant (Alliance) set=1364,1370,1376
@@ -654,8 +654,8 @@ groups:
   type: class
   sets:
   - Elite*
-  - Gladiator [A]
-  - Gladiator [H]
+  - ":alliance: Gladiator"
+  - ":horde: Gladiator"
   data:
     death-knight:
     # Elite (Alliance) set=1267,1268
@@ -1177,8 +1177,8 @@ groups:
   tag: S19-20
   type: armor
   sets:
-  - Combatant [A]
-  - Combatant [H]
+  - ":alliance: Combatant"
+  - ":horde: Combatant"
   data:
     cloth:
     # Combatant (Alliance) set=1272,1278,1284
@@ -1302,8 +1302,8 @@ groups:
   type: class
   sets:
   - Elite*
-  - Gladiator [A]
-  - Gladiator [H]
+  - ":alliance: Gladiator"
+  - ":horde: Gladiator"
   data:
     death-knight:
     # Elite set=1108,1107
@@ -1782,8 +1782,8 @@ groups:
   tag: S19-20
   type: armor
   sets:
-  - Combatant [A]
-  - Combatant [H]
+  - ":alliance: Combatant"
+  - ":horde: Combatant"
   data:
     cloth:
     # Combatant (Alliance) set=1071,1137,1158
