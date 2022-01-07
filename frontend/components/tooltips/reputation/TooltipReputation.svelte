@@ -31,10 +31,6 @@
                 name: tiers.names[i],
                 thisOne,
             })
-
-            if (tiers.names[i] === 'Exalted' && paragon) {
-                reps[reps.length - 1].name = 'Paragon'
-            }
         }
 
         // Apply quality colours to the bottom 5 tiers
@@ -44,6 +40,16 @@
             if (reps[i].thisOne && reps[i + 1]) {
                 reps[i + 1].thisOne = false
             }
+        }
+
+        if (paragon) {
+            reps.push({
+                cls: 'quality6',
+                maxValue: 10000,
+                minValue: 0,
+                name: 'Paragon',
+                thisOne: false,
+            })
         }
     }
 </script>
@@ -74,13 +80,13 @@
             {#each reps as rep}
                 <tr class="{rep.cls}">
                     {#if rep.name === 'Paragon'}
-                        <td class="number1">{toNiceNumber(paragon.current)}</td>
+                        <td class="drop-shadow number1">{toNiceNumber(paragon.current)}</td>
                         <td class="separator">/</td>
-                        <td class="number2">{toNiceNumber(paragon.max)}</td>
+                        <td class="drop-shadow number2">{toNiceNumber(paragon.max)}</td>
                     {:else if characterRep >= rep.maxValue}
                         <td class="number1" colspan="3">✔</td>
                     {:else}
-                        <td class="number1">
+                        <td class="drop-shadow number1">
                             {#if rep.thisOne}
                                 {toNiceNumber(characterRep - rep.minValue)}
                             {:else}
@@ -88,7 +94,7 @@
                             {/if}
                         </td>
                         <td class="separator">/</td>
-                        <td class="number2">{toNiceNumber(rep.maxValue - rep.minValue)}</td>
+                        <td class="drop-shadow number2">{toNiceNumber(rep.maxValue - rep.minValue)}</td>
                     {/if}
                     <td class="name">{rep.name}</td>
                 </tr>
