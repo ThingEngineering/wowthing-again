@@ -563,8 +563,8 @@ groups:
   type: class
   sets:
   - Elite*
-  - Gladiator [A]
-  - Gladiator [H]
+  - ":alliance: Gladiator"
+  - ":horde: Gladiator"
   data:
     death-knight:
     # Elite set=1138,1139
@@ -1000,8 +1000,8 @@ groups:
   tag: S16
   type: armor
   sets:
-  - Combatant [A]
-  - Combatant [H]
+  - ":alliance: Combatant"
+  - ":horde: Combatant"
   data:
     cloth:
     # Combatant (Alliance) set=74,76,78

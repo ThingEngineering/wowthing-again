@@ -443,8 +443,8 @@ groups:
   type: class
   sets:
   - Elite*
-  - Gladiator [A]
-  - Gladiator [H]
+  - ":alliance: Gladiator"
+  - ":horde: Gladiator"
   data:
     death-knight:
     # Elite set=1010,1011

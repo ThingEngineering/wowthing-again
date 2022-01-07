@@ -124,12 +124,12 @@ groups:
   tag: S26
   type: armor
   sets:
-  - Elite [A]*
-  - Elite [H]*
-  - Gladiator [A]
-  - Gladiator [H]
-  - Aspirant [A]
-  - Aspirant [H]
+  - ":alliance: Elite*"
+  - ":horde: Elite*"
+  - ":alliance: Gladiator"
+  - ":horde: Gladiator"
+  - ":alliance: Aspirant"
+  - ":horde: Aspirant"
   data:
     cloth:
     # Elite (Alliance) set=1847
@@ -475,12 +475,12 @@ groups:
   tag: S25
   type: armor
   sets:
-  - Elite [A}*
-  - Elite [H]*
-  - Gladiator [A]
-  - Gladiator [H]
-  - Aspirant [A]
-  - Aspirant [H]
+  - ":alliance: Elite*"
+  - ":horde: Elite*"
+  - ":alliance: Gladiator"
+  - ":horde: Gladiator"
+  - ":alliance: Aspirant"
+  - ":horde: Aspirant"
   data:
     cloth:
     # Elite (Alliance) set=1801
@@ -826,12 +826,12 @@ groups:
   tag: S24
   type: armor
   sets:
-  - Elite [A}*
-  - Elite [H]*
-  - Gladiator [A]
-  - Gladiator [H]
-  - Aspirant [A]
-  - Aspirant [H]
+  - ":alliance: Elite*"
+  - ":horde: Elite*"
+  - ":alliance: Gladiator"
+  - ":horde: Gladiator"
+  - ":alliance: Aspirant"
+  - ":horde: Aspirant"
   data:
     cloth:
     # Elite (Alliance) set=1738
