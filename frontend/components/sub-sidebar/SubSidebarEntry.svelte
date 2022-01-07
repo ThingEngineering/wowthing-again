@@ -84,6 +84,7 @@
         }
 
         :global(span:first-child) {
+            display: block;
             width: calc(var(--width) - var(--minusWidth));
         }
     }

@@ -1,9 +1,10 @@
 <script lang="ts">
     import { afterUpdate } from 'svelte'
 
-    import { iconStrings } from '@/data/icons'
+    import { iconStrings, imageStrings } from '@/data/icons'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let dropShadow = false
     export let text: string
@@ -18,22 +19,33 @@
         const spans = element.querySelectorAll('[data-string]')
         for (const span of spans) {
             const dataString = span.getAttribute('data-string')
-            const icon = new IconifyIcon({
-                target: span,
-                props: {
-                    icon: iconStrings[dataString],
-                    scale: '0.9',
-                    dropShadow,
-                }
-            })
+
+            if (iconStrings[dataString] || !imageStrings[dataString]) {
+                new IconifyIcon({
+                    target: span,
+                    props: {
+                        icon: iconStrings[dataString] || iconStrings.question,
+                        scale: '0.9',
+                        dropShadow,
+                    }
+                })
+            }
+            else {
+                new WowthingImage({
+                    target: span,
+                    props: {
+                        border: 0,
+                        name: imageStrings[dataString],
+                        size: 20,
+                    }
+                })
+            }
         }
     })
 </script>
 
 <style lang="scss">
     span {
-        display: block;
-
         :global(svg) {
             margin-top: -4px;
         }
