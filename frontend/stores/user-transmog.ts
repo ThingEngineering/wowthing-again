@@ -26,9 +26,15 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
         console.timeEnd('UserTransmogDataStore.initialize')
     }
 
-    setup(settings: Settings, transmogData: TransmogData, userTransmogData: UserTransmogData): void {
+    setup(
+        settings: Settings,
+        transmogData: TransmogData,
+        userTransmogData: UserTransmogData
+    ): void {
         console.time('UserTransmogDataStore.setup')
 
+        const skipAlliance = !settings.transmog.showAllianceOnly
+        const skipHorde = !settings.transmog.showHordeOnly
         const skipClasses = getSkipClasses(settings)
 
         const seen: Record<number, boolean> = {}
@@ -57,7 +63,17 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
 
                         const groupKey = `${catKey}--${groupIndex}`
                         for (let setIndex = 0; setIndex < dataValue.length; setIndex++) {
-                            if (group.sets[setIndex].endsWith('*')) {
+                            const setName = group.sets[setIndex]
+
+                            // Sets that are explicitly not counted
+                            if (setName.endsWith('*')) {
+                                continue
+                            }
+                            // Faction filters
+                            if (skipAlliance && setName.indexOf(':alliance:') >= 0) {
+                                continue
+                            }
+                            if (skipHorde && setName.indexOf(':horde') >= 0) {
                                 continue
                             }
 
