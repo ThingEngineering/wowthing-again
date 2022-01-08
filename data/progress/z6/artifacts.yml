@@ -1,0 +1,388 @@
+name: "Artifacts"
+requiredQuestId: 40715 40814 40646 40618 41085 40636 40408 40706 40840 41335 40684 40579
+groups:
+
+- name: "Balance of Power Appearances"
+  icon: achievement/10748 # Fighting with Style: Valorous
+  type: mixed
+  data:
+    0:
+    - name: "Balance of Power"
+      id: 43533
+      type: quest
+      description: "Required for all of these!"
+
+    - name: "Unleashed Monstrosities"
+      id: 51904
+      type: criteria
+      value: 8
+      description: "Broken Isles World Bosses [%1 / %2]"
+
+    - name: "Mythic+ 15 completed in time"
+      id: 0
+      type: quest
+      description: "Must have done during Legion"
+
+    - name: "Glory of the Legion Hero"
+      id: 11163
+      type: achievement
+      description: "Account wide"
+
+- name: "Challenge Appearances"
+  icon: achievement/11612 # Fighting with Style: Challenging
+  lookup: class
+  requiredQuestId: 44821 # In Dire Need
+  type: quest
+  data:
+    death-knight:
+    #    - name: "Blood Questline"
+    #      id: 45415
+
+    - name: "Blood Challenge"
+      id: 45416
+
+    #    - name: "Frost Questline"
+    #      id: 44924
+
+    - name: "Frost Challenge"
+      id: 44925
+
+    #    - name: "Unholy Questline"
+    #      id: 45126
+
+    - name: "Unholy Challenge"
+      id: 46065
+
+    demon-hunter:
+    #    - name: "Havoc Questline"
+    #      id: 44924
+
+    - name: "Havoc Challenge"
+      id: 44925
+
+    #    - name: "Vengeance Questline"
+    #      id: 45415
+
+    - name: "Vengeance Challenge"
+      id: 45416
+
+    druid:
+    #    - name: "Balance Questline"
+    #      id: 45193
+
+    - name: "Balance Challenge"
+      id: 46127
+
+    #    - name: "Feral Questline"
+    #      id: 45126
+
+    - name: "Feral Challenge"
+      id: 46065
+
+    #    - name: "Guardian Questline"
+    #      id: 45415
+
+    - name: "Guardian Challenge"
+      id: 45416
+
+    #    - name: "Restoration Questline"
+    #      id: 46107
+
+    - name: "Restoration Challenge"
+      id: 46035
+
+    hunter:
+    #    - name: "Beast Mastery Questline"
+    #      id: 45796
+
+    - name: "Beast Mastery Challenge"
+      id: 45627
+
+    #    - name: "Marksmanship Questline"
+    #      id: 45193
+
+    - name: "Marksmanship Challenge"
+      id: 46127
+
+    #    - name: "Survival Questline"
+    #      id: 44924
+
+    - name: "Survival Challenge"
+      id: 44925
+
+    mage:
+    #    - name: "Arcane Questline"
+    #      id: 45525
+
+    - name: "Arcane Challenge"
+      id: 45526
+
+    #    - name: "Fire Questline"
+    #      id: 45126
+
+    - name: "Fire Challenge"
+      id: 46065
+
+    #    - name: "Frost Questline"
+    #      id: 45193
+
+    - name: "Frost Challenge"
+      id: 46127
+
+    monk:
+    #    - name: "Brewmaster Questline"
+    #      id: 45415
+
+    - name: "Brewmaster Challenge"
+      id: 45416
+
+    #    - name: "Mistweaver Questline"
+    #      id: 46107
+
+    - name: "Mistweaver Challenge"
+      id: 46035
+
+    #    - name: "Windwalker Questline"
+    #      id: 45796
+
+    - name: "Windwalker Challenge"
+      id: 45627
+
+    paladin:
+    #    - name: "Holy Questline"
+    #      id: 46107
+
+    - name: "Holy Challenge"
+      id: 46035
+
+    #    - name: "Protection Questline"
+    #      id: 45415
+
+    - name: "Protection Challenge"
+      id: 45416
+
+    #    - name: "Retribution Questline"
+    #      id: 45525
+
+    - name: "Retribution Challenge"
+      id: 45526
+
+    priest:
+    #    - name: "Discipline Questline"
+    #      id: 45796
+
+    - name: "Discipline Challenge"
+      id: 45627
+
+    #    - name: "Holy Questline"
+    #      id: 46107
+
+    - name: "Holy Challenge"
+      id: 46035
+
+    #    - name: "Shadow Questline"
+    #      id: 45193
+
+    - name: "Shadow Challenge"
+      id: 46127
+
+    rogue:
+    #    - name: "Assassination Questline"
+    #      id: 45525
+
+    - name: "Assassination Challenge"
+      id: 45526
+
+    #    - name: "Outlaw Questline"
+    #      id: 45126
+
+    - name: "Outlaw Challenge"
+      id: 46065
+
+    #    - name: "Subtlety Questline"
+    #      id: 44924
+
+    - name: "Subtlety Challenge"
+      id: 44925
+
+    shaman:
+    #    - name: "Elemental Questline"
+    #      id: 45126
+
+    - name: "Elemental Challenge"
+      id: 46065
+
+    #    - name: "Enhancement Questline"
+    #      id: 45525
+
+    - name: "Enhancement Challenge"
+      id: 45526
+
+    #    - name: "Restoration Questline"
+    #      id: 46107
+
+    - name: "Restoration Challenge"
+      id: 46035
+
+    warlock:
+    #    - name: "Affliction Questline"
+    #      id: 45193
+
+    - name: "Affliction Challenge"
+      id: 46127
+
+    #    - name: "Demonology Questline"
+    #      id: 45525
+
+    - name: "Demonology Challenge"
+      id: 45526
+
+    #    - name: "Destruction Questline"
+    #      id: 45796
+
+    - name: "Destruction Challenge"
+      id: 45627
+
+    warrior:
+    #    - name: "Arms Questline"
+    #      id: 44924
+
+    - name: "Arms Challenge"
+      id: 44925
+
+    #    - name: "Fury Questline"
+    #      id: 45126
+
+    - name: "Fury Challenge"
+      id: 46065
+
+    #    - name: "Protection Questline"
+    #      id: 45415
+
+    - name: "Protection Challenge"
+      id: 45416
+
+- name: "Hidden Unlocks"
+  icon: achievement/10460 # Hidden Potential
+  lookup: class
+  type: quest
+  data:
+    death-knight:
+    - name: "Blood"
+      id: 43646
+
+    - name: "Frost"
+      id: 43647
+
+    - name: "Unholy"
+      id: 43648
+
+    demon-hunter:
+    - name: "Havoc"
+      id: 43649
+
+    - name: "Vengeance"
+      id: 43650
+
+    druid:
+    - name: "Balance"
+      id: 43651
+
+    - name: "Feral"
+      id: 43652
+
+    - name: "Guardian"
+      id: 43653
+
+    - name: "Restoration"
+      id: 43654
+
+    hunter:
+    - name: "Beast Mastery"
+      id: 43655
+
+    - name: "Marksmanship"
+      id: 43656
+
+    - name: "Survival"
+      id: 43657
+
+    mage:
+    - name: "Arcane"
+      id: 43658
+
+    - name: "Fire"
+      id: 43659
+
+    - name: "Frost"
+      id: 43660
+
+    monk:
+    - name: "Brewmaster"
+      id: 43661
+
+    - name: "Mistweaver"
+      id: 43662
+
+    - name: "Windwalker"
+      id: 43663
+
+    paladin:
+    - name: "Holy"
+      id: 43664
+
+    - name: "Protection"
+      id: 43665
+
+    - name: "Retribution"
+      id: 43666
+
+    priest:
+    - name: "Discipline"
+      id: 43667
+
+    - name: "Holy"
+      id: 43668
+
+    - name: "Shadow"
+      id: 43669
+
+    rogue:
+    - name: "Assassination"
+      id: 43670
+
+    - name: "Outlaw"
+      id: 43671
+
+    - name: "Subtlety"
+      id: 43672
+
+    shaman:
+    - name: "Elemental"
+      id: 43673
+
+    - name: "Enhancement"
+      id: 43674
+
+    - name: "Restoration"
+      id: 43675
+
+    warlock:
+    - name: "Affliction"
+      id: 43676
+
+    - name: "Demonology"
+      id: 43677
+
+    - name: "Destruction"
+      id: 43678
+
+    warrior:
+    - name: "Arms"
+      id: 43679
+
+    - name: "Fury"
+      id: 43680
+
+    - name: "Protection"
+      id: 43681
