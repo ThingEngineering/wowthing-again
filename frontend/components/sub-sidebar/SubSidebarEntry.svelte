@@ -85,9 +85,7 @@
         }
     }
     .subtree {
-        :global(> a) {
-            padding-left: 1.5rem;
-        }
+        padding-left: 1.0rem;
     }
     .separator {
         border-top: 1px solid $border-color;
@@ -119,7 +117,6 @@
         use:active={new RegExp(activeRegex)}
     >
         <IconText
-            cls="text-overflow"
             text={item.name}
         />
 

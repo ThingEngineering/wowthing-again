@@ -34,10 +34,6 @@
         border: 1px solid $border-color;
         padding: 0.5rem 0;
         width: 100%;
-
-        ul {
-            margin: 0;
-        }
     }
 </style>
 

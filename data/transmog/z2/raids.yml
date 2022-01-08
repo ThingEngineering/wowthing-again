@@ -401,8 +401,8 @@ groups:
   tag: T9
   type: class
   sets:
-  - Alliance
-  - Horde
+  - ":alliance: Normal"
+  - ":horde: Normal"
   data:
     death-knight:
     # 10 Normal (Alliance) set=842
