@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { userQuestStore } from '@/stores'
+    import { userAchievementStore, userQuestStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
     import getProgress from '@/utils/get-progress'
     import { tippyComponent } from '@/utils/tippy'
@@ -22,6 +22,7 @@
     let total: number
     $: {
         ({ datas, have, haveIndexes, total } = getProgress(
+            $userAchievementStore.data,
             $userQuestStore.data,
             character,
             category,

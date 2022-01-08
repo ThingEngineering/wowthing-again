@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Newtonsoft.Json;
+using Wowthing.Lib.Enums;
 using Wowthing.Lib.Extensions;
 
 namespace Wowthing.Backend.Models.Data.Progress
@@ -13,6 +15,11 @@ namespace Wowthing.Backend.Models.Data.Progress
         public string Description { get; set; }
         
         public string Name { get; set; }
+        
+        public ProgressDataType Type { get; set; }
+        
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public int? Value { get; set; }
 
         public OutProgressData(DataProgressData data)
         {
@@ -21,9 +28,19 @@ namespace Wowthing.Backend.Models.Data.Progress
             
             Ids = data.Id
                 .EmptyIfNullOrWhitespace()
-                .Split()
+                .Split(' ', StringSplitOptions.RemoveEmptyEntries)
                 .Select(id => int.Parse(id))
                 .ToList();
+
+            if (!string.IsNullOrWhiteSpace(data.Type))
+            {
+                Type = Enum.Parse<ProgressDataType>(data.Type, true);
+            }
+
+            if (data.Value > 0)
+            {
+                Value = data.Value;
+            }
         }
     }
 }

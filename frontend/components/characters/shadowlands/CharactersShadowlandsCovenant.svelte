@@ -3,7 +3,7 @@
     import { DateTime } from 'luxon'
 
     import { Constants } from '@/data/constants'
-    import { covenantOrder } from '@/data/covenant'
+    import { covenantFeatureOrder, covenantOrder } from '@/data/covenant'
     import { staticStore, timeStore, userQuestStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
     import getProgress from '@/utils/get-progress'
@@ -36,6 +36,7 @@
             (category) => category?.name === 'Covenants'
         )
         const progress = getProgress(
+            null,
             $userQuestStore.data,
             character,
             category,
@@ -47,7 +48,7 @@
         renown = characterCovenant?.renown ?? 0
 
         features = []
-        for (const [key, name, maxRank] of featureOrder) {
+        for (const [key, name, maxRank] of covenantFeatureOrder) {
             const featureData = {
                 maxRank,
                 name,
@@ -55,7 +56,7 @@
                 researching: '',
             }
 
-            // This is kinda gross but I coudln't work out a better way, something like this makes Typescript mad:
+            // This is kinda gross but I couldn't work out a better way, something like this makes Typescript mad:
             //   const characterFeature: foo = characterCovenant?.[key]
             let characterFeature: CharacterShadowlandsCovenantFeature
             switch (key) {
@@ -92,13 +93,6 @@
             features.push(featureData)
         }
     }
-
-    const featureOrder: [string, string, number][] = [
-        ['conductor', 'Anima Conductor', 3],
-        ['missions', 'Command Table', 3],
-        ['transport', 'Transport Network', 3],
-        ['unique', 'Unique Feature', 5],
-    ]
 </script>
 
 <style lang="scss">

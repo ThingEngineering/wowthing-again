@@ -22,3 +22,10 @@ export const covenantNameMap = Object.fromEntries(
 
 export const covenantSlugMap: Record<string, Covenant> =
     fromPairs(Object.values(covenantMap).map(c => [c.slug, c]))
+
+export const covenantFeatureOrder: [string, string, number][] = [
+    ['conductor', 'Anima Conductor', 3],
+    ['missions', 'Command Table', 3],
+    ['transport', 'Transport Network', 3],
+    ['unique', 'Unique Feature', 5],
+]

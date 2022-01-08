@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Wowthing.Lib.Extensions;
 
 namespace Wowthing.Backend.Models.Data.Progress
 {
@@ -21,6 +22,7 @@ namespace Wowthing.Backend.Models.Data.Progress
                 .ToDictionary(
                     kvp => kvp.Key,
                     kvp => kvp.Value
+                        .EmptyIfNull()
                         .Select(v => new OutProgressData(v))
                         .ToList()
                 );

@@ -1,4 +1,5 @@
 import type { ZoneMapDataCategory } from '@/types/data'
+import type { ProgressDataType } from '@/types/enums'
 
 
 export interface StaticData {
@@ -103,6 +104,8 @@ export interface StaticDataProgressData {
     ids: number[]
     description?: string
     name: string
+    type: ProgressDataType
+    value?: number
 }
 
 // Reputations
