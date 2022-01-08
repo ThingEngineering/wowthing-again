@@ -132,26 +132,7 @@ reputations:
       - type: toy
         id: 166808
         name: "Bewitching Tea Set"
-    horde:
-      id: 2156 # Talanji's Expedition
-      icon: achievement/12948
-      rewards:
-      - type: pet
-        id: 149372
-        name: "Crimson Bat Pup"
 
-      - type: toy
-        id: 166308
-        name: "For da Blood God!"
-    paragon: true
-
-  - alliance:
-      id: 2162 # Storm's Wake
-      icon: achievement/12953
-      rewards:
-      - type: pet
-        id: 149376
-        name: "Violet Abyssal Eel"
     horde:
       id: 2158 # Voldunai
       icon: achievement/12949
@@ -163,4 +144,27 @@ reputations:
       - type: toy
         id: 166880
         name: "Meerah's Jukebox"
+
+    paragon: true
+
+  - alliance:
+      id: 2162 # Storm's Wake
+      icon: achievement/12953
+      rewards:
+      - type: pet
+        id: 149376
+        name: "Violet Abyssal Eel"
+
+    horde:
+      id: 2156 # Talanji's Expedition
+      icon: achievement/12948
+      rewards:
+      - type: pet
+        id: 149372
+        name: "Crimson Bat Pup"
+
+      - type: toy
+        id: 166308
+        name: "For da Blood God!"
+
     paragon: true
