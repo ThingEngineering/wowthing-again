@@ -78,7 +78,7 @@ export default function getProgress(
                         }
 
                         case ProgressDataType.AddonAchievement: {
-                            const cheev = userAchievementData.addonAchievements?.[character.id]?.[data.ids[0]]
+                            const cheev = userAchievementData?.addonAchievements?.[character.id]?.[data.ids[0]]
                             if (cheev) {
                                 if (cheev.earned) {
                                     haveThis = true
