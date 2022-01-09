@@ -87,7 +87,6 @@ export default function getProgress(
                                     // TODO do this properly
                                     let have = 0
                                     if (data.ids[0] === 11160) {
-                                        console.log(character.name, cheev.criteria)
                                         have = (cheev.criteria || []).reduce((a, b) => a + Math.min(1, b), 0)
                                     }
                                     else {
