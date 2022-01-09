@@ -13,14 +13,14 @@ groups:
       description: "Required for all of these!"
 
     - name: "Unleashed Monstrosities"
-      id: 51904
-      type: criteria
+      id: 11160
+      type: addonAchievement
       value: 8
-      description: "Broken Isles World Bosses [%1 / %2]"
+      description: "World Bosses [ %1 / %2 ]"
 
-    - name: "Mythic+ 15 completed in time"
-      id: 0
-      type: quest
+    - name: "Mythic +15 completed in time"
+      id: 11162
+      type: addonAchievement
       description: "Must have done during Legion"
 
     - name: "Glory of the Legion Hero"
@@ -386,3 +386,26 @@ groups:
 
     - name: "Protection"
       id: 43681
+
+- name: "Hidden Variants"
+  icon: achievement/10750 # Fighting with Style: Hidden
+  type: mixed
+  data:
+    0:
+    - name: "Dungeons"
+      id: 11152
+      type: addonAchievement
+      value: 30
+      description: "[ %1 / %2 ]"
+
+    - name: "World Quests"
+      id: 11153
+      type: addonAchievement
+      value: 200
+      description: "[ %1 / %2 ]"
+
+    - name: "PvP Kills"
+      id: 11154
+      type: addonAchievement
+      value: 1000
+      description: "[ %1 / %2 ]"
