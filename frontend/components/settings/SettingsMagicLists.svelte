@@ -21,6 +21,7 @@
     .wrapper {
         display: flex;
         gap: 0.5rem;
+        margin-bottom: 0.5rem;
 
         & :global(.column:first-child svg) {
             color: $colour-success;
@@ -34,6 +35,8 @@
         flex: 1;
 
         h3 {
+            border-bottom-width: 0;
+            margin-bottom: 0;
             text-align: center;
         }
     }
