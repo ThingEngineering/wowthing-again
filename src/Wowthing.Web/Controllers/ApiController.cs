@@ -460,13 +460,19 @@ namespace Wowthing.Web.Controllers
 
             var achievementsCompleted = await _context.CompletedAchievementsQuery
                 .FromSqlRaw(CompletedAchievementsQuery.USER_QUERY, apiResult.User.Id)
-                .ToDictionaryAsync(k => k.AchievementId, v => v.Timestamp);
+                .ToDictionaryAsync(
+                    caq => caq.AchievementId,
+                    caq => caq.Timestamp
+                );
             
-            timer.AddPoint("Get Achievements");
+            timer.AddPoint("Achievements");
 
-            var criteria = await _context.AchievementCriteriaQuery
+            /*var criteria = await _context.AchievementCriteriaQuery
                 .FromSqlRaw(AchievementCriteriaQuery.USER_QUERY, apiResult.User.Id)
                 .ToArrayAsync();
+
+            timer.AddPoint("Criteria1a");
+
             var groupedCriteria = criteria
                 .GroupBy(c => c.CriteriaId)
                 .ToDictionary(
@@ -478,16 +484,66 @@ namespace Wowthing.Web.Controllers
                         .ToList()
                 );
             
-            timer.AddPoint("Get Criteria");
+            timer.AddPoint("Criteria2a");*/
+
+            var criterias = await _context.PlayerCharacterAchievements
+                .Where(pca => pca.Character.Account.UserId == apiResult.User.Id)
+                .Select(pca => new
+                {
+                    pca.CharacterId,
+                    pca.CriteriaAmounts,
+                    pca.CriteriaIds,
+                })
+                .ToArrayAsync();
+
+            timer.AddPoint("Criteria1b");
+
+            var groupedCriteria = new Dictionary<int, List<int[]>>();
+            foreach (var characterCriteria in criterias)
+            {
+                for (int i = 0; i < characterCriteria.CriteriaIds.Count; i++)
+                {
+                    int criteriaAmount = (int)characterCriteria.CriteriaAmounts[i];
+                    if (criteriaAmount == 0)
+                    {
+                        continue;
+                    }
+                    
+                    int criteriaId = characterCriteria.CriteriaIds[i];
+                    if (!groupedCriteria.TryGetValue(criteriaId, out var blah))
+                    {
+                        blah = groupedCriteria[criteriaId] = new List<int[]>();
+                    }
+                    
+                    blah.Add(new[] { characterCriteria.CharacterId, criteriaAmount });
+                }
+            }
+
+            foreach (var items in groupedCriteria.Values)
+            {
+                items.Sort((a, b) => b[1].CompareTo(a[1]));
+            }
+            
+            timer.AddPoint("Criteria2b");
+
+            var addonAchievements = await _context.PlayerCharacterAddonAchievements
+                .Where(pcaa => pcaa.Character.Account.UserId == apiResult.User.Id)
+                .ToDictionaryAsync(
+                    pcaa => pcaa.CharacterId,
+                    pcaa => pcaa.Achievements
+                );
+            
+            timer.AddPoint("AddonAchievements");
 
             // Build response
             var data = new UserAchievementData
             {
                 Achievements = achievementsCompleted,
+                AddonAchievements = addonAchievements,
                 Criteria = groupedCriteria,
             };
             
-            timer.AddPoint("Build response", true);
+            timer.AddPoint("Build", true);
             _logger.LogDebug($"{timer}");
 
             return Ok(data);
