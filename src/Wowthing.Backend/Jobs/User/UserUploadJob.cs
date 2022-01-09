@@ -41,6 +41,7 @@ namespace Wowthing.Backend.Jobs.User
             // Fetch character data for this account
             var characterMap = await Context.PlayerCharacter
                 .Where(c => c.Account.UserId == userId)
+                .Include(c => c.AddonAchievements)
                 .Include(c => c.AddonMounts)
                 .Include(c => c.AddonQuests)
                 .Include(c => c.Currencies)
@@ -103,6 +104,7 @@ namespace Wowthing.Backend.Jobs.User
                 character.PlayedTotal = characterData.PlayedTotal;
                 character.RestedExperience = characterData.RestedXp;
 
+                HandleAchievements(character, characterData);
                 HandleCovenants(character, characterData);
                 HandleCurrencies(character, characterData);
                 await HandleItems(character, characterData);
@@ -150,6 +152,41 @@ namespace Wowthing.Backend.Jobs.User
             _timer.AddPoint("Save");
             
             Logger.Information("{0}", _timer.ToString());
+        }
+
+        private void HandleAchievements(PlayerCharacter character, UploadCharacter characterData)
+        {
+            // Basic sanity checks
+            if (characterData.Achievements == null || !characterData.ScanTimes.TryGetValue("achievements", out int scanTimestamp))
+            {
+                return;
+            }
+
+            if (character.AddonAchievements == null)
+            {
+                character.AddonAchievements = new PlayerCharacterAddonAchievements
+                {
+                    Character = character,
+                };
+                Context.PlayerCharacterAddonAchievements.Add(character.AddonAchievements);
+            }
+
+            var scanTime = scanTimestamp.AsUtcDateTime();
+            if (scanTime <= character.AddonAchievements.ScannedAt)
+            {
+                return;
+            }
+
+            character.AddonAchievements.ScannedAt = scanTime;
+            character.AddonAchievements.Achievements = characterData.Achievements
+                .ToDictionary(
+                    ach => ach.Id,
+                    ach => new PlayerCharacterAddonAchievementsAchievement
+                    {
+                        Earned = ach.Earned,
+                        Criteria = ach.Criteria,
+                    }
+                );
         }
 
         private void HandleCovenants(PlayerCharacter character, UploadCharacter characterData)
