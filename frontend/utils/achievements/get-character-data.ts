@@ -54,14 +54,22 @@ export function getCharacterData(
             console.log('--', userAchievementData.criteria[criteriaTree.id] ?? [])
         }
 
-        //console.log('boo', criteria?.type, criteria?.asset)
-        for (const [characterId, count] of userAchievementData.criteria[criteriaTree.id] ?? []) {
-            if (achievement.id === debugId) {
-                console.log(characterId, userData.characterMap[characterId].name, count)
+        if (achievement.id === 14765 || achievement.id === 14766) {
+            for (const characterId in userAchievementData.addonAchievements) {
+                const charData = userAchievementData.addonAchievements[characterId][achievement.id]
+                characterCounts[characterId] = (charData?.criteria ?? [0])[0]
             }
+        }
+        else {
+            //console.log('boo', criteria?.type, criteria?.asset)
+            for (const [characterId, count] of userAchievementData.criteria[criteriaTree.id] ?? []) {
+                if (achievement.id === debugId) {
+                    console.log(characterId, userData.characterMap[characterId].name, count)
+                }
 
-            if (addStuff) {
-                characterCounts[characterId] = (characterCounts[characterId] || 0) + Math.min(criteriaTree.amount, count)
+                if (addStuff) {
+                    characterCounts[characterId] = (characterCounts[characterId] || 0) + Math.min(criteriaTree.amount, count)
+                }
             }
         }
 
