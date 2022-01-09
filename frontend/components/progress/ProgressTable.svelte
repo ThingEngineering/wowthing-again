@@ -16,7 +16,7 @@
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
     import HeadProgress from './ProgressTableHead.svelte'
     import RowCovenant from '@/components/home/table/row/HomeTableRowCovenant.svelte'
-    import RowProgress, { character } from './ProgressTableBody.svelte'
+    import RowProgress from './ProgressTableBody.svelte'
 
     export let slug: string
 
@@ -93,7 +93,7 @@
 </style>
 
 <CharacterTable
-    skipGrouping={true}
+    skipGrouping={sorted}
     {filterFunc}
     {sortFunc}
 >
