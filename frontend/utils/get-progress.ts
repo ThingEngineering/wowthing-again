@@ -21,13 +21,13 @@ export default function getProgress(
     category: StaticDataProgressCategory,
     group: StaticDataProgressGroup
 ): ProgressInfo {
-    const haveIndexes: number[] = []
     let have = 0
     let total = 0
     let icon = ''
 
     let datas: StaticDataProgressData[]
-
+    const descriptionText: Record<number, string> = {}
+    const haveIndexes: number[] = []
 
     if (
         category.requiredQuestIds.length === 0 ||
@@ -76,6 +76,32 @@ export default function getProgress(
                             haveThis = userAchievementData?.achievements[data.ids[0]] > 0
                             break
                         }
+
+                        case ProgressDataType.AddonAchievement: {
+                            const cheev = userAchievementData.addonAchievements?.[character.id]?.[data.ids[0]]
+                            if (cheev) {
+                                if (cheev.earned) {
+                                    haveThis = true
+                                }
+                                else if (data.description && data.value) {
+                                    // TODO do this properly
+                                    let have = 0
+                                    if (data.ids[0] === 11160) {
+                                        console.log(character.name, cheev.criteria)
+                                        have = (cheev.criteria || []).reduce((a, b) => a + Math.min(1, b), 0)
+                                    }
+                                    else {
+                                        have = (cheev.criteria || []).reduce((a, b) => a + b, 0)
+                                    }
+
+                                    descriptionText[dataIndex] = data.description
+                                        .replace('%1', have.toString())
+                                        .replace('%2', data.value.toString())
+                                }
+                            }
+                            break
+                        }
+
                         case ProgressDataType.Criteria: {
                             const criteria = filter(
                                 userAchievementData?.criteria[data.ids[0]] || [],
@@ -84,6 +110,7 @@ export default function getProgress(
                             haveThis = (criteria.length === 1 && criteria[0][1] >= data.value)
                             break
                         }
+
                         case ProgressDataType.Quest: {
                             haveThis = checkCharacterQuestIds(userQuestData, character.id, data.ids)
                             break
@@ -99,7 +126,7 @@ export default function getProgress(
         }
     }
 
-    return { datas, have, haveIndexes, icon, total }
+    return { datas, descriptionText, have, haveIndexes, icon, total }
 }
 
 function checkAccountQuestIds(userQuestData: UserQuestData, questIds: number[]) {
@@ -118,6 +145,7 @@ function checkCharacterQuestIds(userQuestData: UserQuestData, characterId: numbe
 
 interface ProgressInfo {
     datas: StaticDataProgressData[]
+    descriptionText: Record<number, string>
     have: number
     haveIndexes: number[]
     icon: string

@@ -17,11 +17,12 @@
     export let group: StaticDataProgressGroup
 
     let datas: StaticDataProgressData[]
+    let descriptionText: Record<number, string>
     let have: number
     let haveIndexes: number[]
     let total: number
     $: {
-        ({ datas, have, haveIndexes, total } = getProgress(
+        ({ datas, descriptionText, have, haveIndexes, total } = getProgress(
             $userAchievementStore.data,
             $userQuestStore.data,
             character,
@@ -46,7 +47,13 @@
 {#if total > 0}
     <td
         use:tippyComponent={{
-            component: TooltipProgress, props: {datas, group, haveIndexes}
+            component: TooltipProgress,
+            props: {
+                datas,
+                descriptionText,
+                group,
+                haveIndexes
+            },
         }}
     >
         <span class="{getPercentClass(have / total * 100)}">{have} / {total}</span>

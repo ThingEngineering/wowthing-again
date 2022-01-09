@@ -5,5 +5,6 @@
         Quest,
         Achievement,
         Criteria,
+        AddonAchievement,
     }
 }
