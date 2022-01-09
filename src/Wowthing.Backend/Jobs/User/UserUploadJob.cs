@@ -572,11 +572,12 @@ namespace Wowthing.Backend.Jobs.User
 
         private void HandleQuests(PlayerCharacter character, UploadCharacter characterData)
         {
-            if (!characterData.ScanTimes.TryGetValue("quests", out int scanTimestamp))
+            bool hasCallings = characterData.ScanTimes.TryGetValue("callings", out int callingsScanTimestamp);
+            bool hasQuests = characterData.ScanTimes.TryGetValue("quests", out int questsScanTimestamp);
+            if (!hasCallings && !hasQuests)
             {
                 return;
             }
-            var scanTime = scanTimestamp.AsUtcDateTime();
             
             if (character.AddonQuests == null)
             {
@@ -587,20 +588,32 @@ namespace Wowthing.Backend.Jobs.User
                 Context.PlayerCharacterAddonQuests.Add(character.AddonQuests);
             }
 
-            if (scanTime > character.AddonQuests.ScannedAt)
+            if (callingsScanTimestamp > 0)
             {
-                character.AddonQuests.ScannedAt = scanTime;
-                character.AddonQuests.DailyQuests = characterData.DailyQuests.EmptyIfNull();
-                character.AddonQuests.OtherQuests = characterData.OtherQuests.EmptyIfNull();
+                var scanTime = callingsScanTimestamp.AsUtcDateTime();
+                if (scanTime >= character.AddonQuests.CallingsScannedAt)
+                {
+                    character.AddonQuests.CallingsScannedAt = scanTime;
+                    character.AddonQuests.CallingCompleted = characterData.Callings
+                        .EmptyIfNull()
+                        .Select(calling => calling.Completed)
+                        .ToList();
+                    character.AddonQuests.CallingExpires = characterData.Callings
+                        .EmptyIfNull()
+                        .Select(calling => calling.Expires)
+                        .ToList();
+                }
+            }
 
-                character.AddonQuests.CallingCompleted = characterData.Callings
-                    .EmptyIfNull()
-                    .Select(calling => calling.Completed)
-                    .ToList();
-                character.AddonQuests.CallingExpires = characterData.Callings
-                    .EmptyIfNull()
-                    .Select(calling => calling.Expires)
-                    .ToList();
+            if (questsScanTimestamp > 0)
+            {
+                var scanTime = questsScanTimestamp.AsUtcDateTime();
+                if (scanTime >= character.AddonQuests.QuestsScannedAt)
+                {
+                    character.AddonQuests.QuestsScannedAt = scanTime;
+                    character.AddonQuests.DailyQuests = characterData.DailyQuests.EmptyIfNull();
+                    character.AddonQuests.OtherQuests = characterData.OtherQuests.EmptyIfNull();
+                }
             }
         }
 

@@ -69,6 +69,8 @@
     border-style: solid;
 }
 .tippy-content {
+    border-radius: $border-radius;
+    overflow: hidden;
     position: relative;
     padding: $tooltip-padding-y $tooltip-padding-x;
     z-index: 1;

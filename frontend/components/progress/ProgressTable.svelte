@@ -2,20 +2,29 @@
     import find from 'lodash/find'
     import some from 'lodash/some'
 
-    import { userQuestStore } from '@/stores'
+    import { userAchievementStore, userQuestStore, userStore } from '@/stores'
+    import { progressState } from '@/stores/local-storage'
+    import { data as settingsData } from '@/stores/settings'
     import { staticStore } from '@/stores/static'
+    import getCharacterSortFunc from '@/utils/get-character-sort-func'
+    import getProgress from '@/utils/get-progress'
+    import toDigits from '@/utils/to-digits'
     import type { Character, StaticDataProgressCategory } from '@/types'
+    import type { ProgressInfo } from '@/utils/get-progress'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
     import HeadProgress from './ProgressTableHead.svelte'
     import RowCovenant from '@/components/home/table/row/HomeTableRowCovenant.svelte'
-    import RowProgress from './ProgressTableBody.svelte'
+    import RowProgress, { character } from './ProgressTableBody.svelte'
 
     export let slug: string
 
     let categories: StaticDataProgressCategory[]
+    let progress: Record<string, ProgressInfo>
     let filterFunc: (char: Character) => boolean
+    let sorted: boolean
+    let sortFunc: (char: Character) => string
     $: {
         categories = find($staticStore.data.progress, (p) => p !== null && p[0].slug === slug)
 
@@ -27,6 +36,48 @@
         }
         else {
             filterFunc = null
+        }
+
+        const characters: Character[] = filterFunc ?
+            $userStore.data.characters.filter((char) => filterFunc(char)) :
+            $userStore.data.characters
+
+        progress = {}
+        for (const category of categories) {
+            if (category === null) {
+                continue
+            }
+
+            for (let groupIndex = 0; groupIndex < category.groups.length; groupIndex++) {
+                const group = category.groups[groupIndex]
+                for (const character of characters) {
+                    progress[`${category.slug}|${groupIndex}|${character.id}`] = getProgress(
+                        $userAchievementStore.data,
+                        $userQuestStore.data,
+                        character,
+                        category,
+                        group,
+                    )
+                }
+            }
+        }
+        console.log(progress)
+    }
+
+    $: {
+        const order: string = $progressState.sortOrder[slug]
+        if (order) {
+            sorted = true
+            //sortFunc = (char) => toDigits(1000000 - (char.currencies?.[order]?.quantity ?? -1), 7)
+            sortFunc = (char) => {
+                console.log(order, char.id, toDigits(100 - (progress[`${order}|${char.id}`]?.have ?? -1), 3))
+                const data = progress[`${order}|${char.id}`]
+                return toDigits(100 - (data?.total > 0 ? (data?.have ?? 0) : -1), 3)
+            }
+        }
+        else {
+            sorted = false
+            sortFunc = getCharacterSortFunc($settingsData)
         }
     }
 </script>
@@ -41,7 +92,11 @@
     }
 </style>
 
-<CharacterTable {filterFunc}>
+<CharacterTable
+    skipGrouping={true}
+    {filterFunc}
+    {sortFunc}
+>
     <CharacterTableHead slot="head">
         {#key slug}
             {#if slug === 'shadowlands'}
@@ -54,8 +109,13 @@
                 {#if category === null}
                     <th class="spacer"></th>
                 {:else}
-                    {#each category.groups as group}
-                        <HeadProgress {group} />
+                    {#each category.groups as group, groupIndex}
+                        <HeadProgress
+                            sortKey={`${category.slug}|${groupIndex}`}
+                            sortingBy={$progressState.sortOrder[slug] === `${category.slug}|${groupIndex}`}
+                            {group}
+                            {slug}
+                        />
                     {/each}
                 {/if}
             {/each}
@@ -74,10 +134,9 @@
                 {#if category === null}
                     <td class="spacer"></td>
                 {:else}
-                    {#each category.groups as group}
+                    {#each category.groups as group, groupIndex}
                         <RowProgress
-                            {character}
-                            {category}
+                            progressData={progress[`${category.slug}|${groupIndex}|${character.id}`]}
                             {group}
                         />
                     {/each}
