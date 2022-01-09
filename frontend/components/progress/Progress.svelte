@@ -1,6 +1,7 @@
 <script lang="ts">
-    import { afterUpdate } from 'svelte'
+    import { afterUpdate, onMount } from 'svelte'
 
+    import { userAchievementStore } from '@/stores'
     import getSavedRoute from '@/utils/get-saved-route'
 
     import ProgressSidebar from './ProgressSidebar.svelte'
@@ -8,6 +9,7 @@
 
     export let params: { slug: string }
 
+    onMount(async () => await userAchievementStore.fetch())
     afterUpdate(() => getSavedRoute('progress', params.slug))
 </script>
 
@@ -19,9 +21,11 @@
     }
 </style>
 
-<div>
-    <ProgressSidebar />
-    {#if params.slug}
-        <ProgressTable slug={params.slug} />
-    {/if}
-</div>
+{#if $userAchievementStore.loaded}
+    <div>
+        <ProgressSidebar />
+        {#if params.slug}
+            <ProgressTable slug={params.slug} />
+        {/if}
+    </div>
+{/if}

@@ -13,6 +13,7 @@
         Tooltip,
     } from 'chart.js'
     import 'chartjs-adapter-luxon'
+    import some from 'lodash/some'
     import sortBy from 'lodash/sortBy'
     import toPairs from 'lodash/toPairs'
     import { onMount } from 'svelte'
@@ -63,6 +64,10 @@
 
         const realms: [string, number][] = []
         for (const realmId in $userHistoryStore.data.gold) {
+            if (!some($userHistoryStore.data.gold[realmId], ([, value]) => value > 0)) {
+                continue
+            }
+
             const realm: StaticDataRealm = $staticStore.data.realms[realmId]
             realms.push([
                 `[${Region[realm.region]}] ${realm.name}`,

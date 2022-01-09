@@ -1,0 +1,25 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Wowthing.Lib.Models.Player
+{
+    public class PlayerCharacterAddonAchievements
+    {
+        [Key, ForeignKey("Character")]
+        public int CharacterId { get; set; }
+        public PlayerCharacter Character { get; set; }
+
+        public DateTime ScannedAt { get; set; } = DateTime.MinValue;
+        
+        [Column(TypeName = "jsonb")]
+        public Dictionary<int, PlayerCharacterAddonAchievementsAchievement> Achievements { get; set; }
+    }
+
+    public class PlayerCharacterAddonAchievementsAchievement
+    {
+        public bool Earned { get; set; }
+        public List<int> Criteria { get; set; }
+    }
+}

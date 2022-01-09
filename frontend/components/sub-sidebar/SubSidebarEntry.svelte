@@ -79,7 +79,7 @@
             background: $highlight-background;
         }
 
-        :global(span:first-child) {
+        > :global(span:first-child) {
             display: block;
             width: calc(var(--width) - var(--minusWidth));
         }

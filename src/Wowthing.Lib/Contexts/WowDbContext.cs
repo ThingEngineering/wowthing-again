@@ -55,6 +55,7 @@ namespace Wowthing.Lib.Contexts
         public DbSet<PlayerCharacterTransmog> PlayerCharacterTransmog { get; set; }
         public DbSet<PlayerCharacterWeekly> PlayerCharacterWeekly { get; set; }
 
+        public DbSet<PlayerCharacterAddonAchievements> PlayerCharacterAddonAchievements { get; set; }
         public DbSet<PlayerCharacterAddonMounts> PlayerCharacterAddonMounts { get; set; }
         public DbSet<PlayerCharacterAddonQuests> PlayerCharacterAddonQuests { get; set; }
 
