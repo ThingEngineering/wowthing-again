@@ -11,7 +11,8 @@ namespace Wowthing.Lib.Models.Player
         public int CharacterId { get; set; }
         public PlayerCharacter Character { get; set; }
 
-        public DateTime ScannedAt { get; set; } = DateTime.MinValue;
+        public DateTime CallingsScannedAt { get; set; } = DateTime.MinValue;
+        public DateTime QuestsScannedAt { get; set; } = DateTime.MinValue;
         
         public List<bool> CallingCompleted { get; set; }
         public List<int> CallingExpires { get; set; }

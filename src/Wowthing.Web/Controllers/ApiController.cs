@@ -712,7 +712,7 @@ namespace Wowthing.Web.Controllers
                     c => c.Id,
                     c => new UserQuestDataCharacter
                     {
-                        ScannedAt = c.AddonQuests?.ScannedAt ?? DateTime.MinValue,
+                        ScannedAt = c.AddonQuests?.QuestsScannedAt ?? DateTime.MinValue,
                         CallingCompleted = c.AddonQuests?.CallingCompleted.EmptyIfNull(),
                         CallingExpires = c.AddonQuests?.CallingExpires.EmptyIfNull(),
                         DailyQuestsPacked = c.AddonQuests?.DailyQuests.EmptyIfNull().ToPackedUInt16Array(),
