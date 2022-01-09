@@ -142,7 +142,7 @@ function checkCharacterQuestIds(userQuestData: UserQuestData, characterId: numbe
     )
 }
 
-interface ProgressInfo {
+export interface ProgressInfo {
     datas: StaticDataProgressData[]
     descriptionText: Record<number, string>
     have: number
