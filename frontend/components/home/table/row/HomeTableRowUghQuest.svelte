@@ -1,15 +1,12 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
-    import {timeStore} from '@/stores'
-    import type {Character, CharacterWeeklyUghQuest} from '@/types'
-    import {getNextWeeklyReset} from '@/utils/get-next-reset'
-    import {toNiceNumber} from '@/utils/to-nice'
-
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import { timeStore } from '@/stores'
+    import type { Character, CharacterWeeklyUghQuest } from '@/types'
+    import { getNextWeeklyReset } from '@/utils/get-next-reset'
+    import { toNiceNumber } from '@/utils/to-nice'
 
     export let character: Character
     export let cls: string = undefined
-    export let icon: string
     export let ughQuest: CharacterWeeklyUghQuest
     export let weeklyReset = false
 
@@ -62,18 +59,12 @@
     td {
         @include cell-width($width-ugh-quest);
 
-        white-space: nowrap;
+        border-left: 1px solid $border-color;
         word-spacing: -0.2ch;
 
         &.anima {
             @include cell-width($width-ugh-anima);
         }
-    }
-
-    span {
-        display: inline-block;
-        flex: 1;
-        margin-left: 0.3rem;
 
         &.status-shrug {
             text-align: right;
@@ -95,12 +86,7 @@
 </style>
 
 {#if valid}
-    <td class="{cls}">
-        <div class="flex-wrapper">
-            <WowthingImage name={icon} size={20} border={1} />
-            <span class="status-{status}">{text}</span>
-        </div>
-    </td>
+    <td class="{cls} status-{status}">{text}</td>
 {:else}
-    <td></td>
+    <td>&nbsp;</td>
 {/if}
