@@ -65,6 +65,7 @@ namespace Wowthing.Lib.Models.Player
         public PlayerCharacterTransmog Transmog { get; set; }
         public PlayerCharacterWeekly Weekly { get; set; }
 
+        public PlayerCharacterAddonAchievements AddonAchievements { get; set; }
         public PlayerCharacterAddonMounts AddonMounts { get; set; }
         public PlayerCharacterAddonQuests AddonQuests { get; set; }
 
