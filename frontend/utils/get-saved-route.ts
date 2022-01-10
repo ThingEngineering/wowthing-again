@@ -12,7 +12,7 @@ export default function getSavedRoute(route: string, slug1?: string, slug2?: str
                 return
             }
 
-            const first = subSidebar.querySelector('li a')
+            const first = subSidebar.querySelector('a')
             replace(first.getAttribute('href').replace('#', ''))
         }
     }

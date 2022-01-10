@@ -61,7 +61,6 @@
                 }
             }
         }
-        console.log(progress)
     }
 
     $: {
@@ -70,7 +69,6 @@
             sorted = true
             //sortFunc = (char) => toDigits(1000000 - (char.currencies?.[order]?.quantity ?? -1), 7)
             sortFunc = (char) => {
-                console.log(order, char.id, toDigits(100 - (progress[`${order}|${char.id}`]?.have ?? -1), 3))
                 const data = progress[`${order}|${char.id}`]
                 return toDigits(100 - (data?.total > 0 ? (data?.have ?? 0) : -1), 3)
             }

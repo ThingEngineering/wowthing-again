@@ -1,7 +1,9 @@
 @mixin cell-width($width, $paddingLeft: $width-padding, $paddingRight: $width-padding) {
-    $calcWidth: calc(#{$width} + #{$paddingLeft} + #{$paddingRight});
+    $calcLeft: calc(#{$paddingLeft} * var(--padding, 1));
+    $calcRight: calc(#{$paddingRight} * var(--padding, 1));
+    $calcWidth: calc(#{$width} + #{$calcLeft} + #{$calcRight});
     min-width: $calcWidth;
     width: $calcWidth;
-    padding-left: $paddingLeft;
-    padding-right: $paddingRight;
+    padding-left: $calcLeft;
+    padding-right: $calcRight;
 }
