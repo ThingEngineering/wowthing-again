@@ -56,6 +56,13 @@ namespace Wowthing.Lib.Models
             "realm",
         };
 
+        private readonly HashSet<string> _validPadding = new()
+        {
+            "small",
+            "medium",
+            "large",
+        };
+        
         private readonly HashSet<string> _validCommonFields = new()
         {
             "accountTag",
@@ -128,6 +135,11 @@ namespace Wowthing.Lib.Models
                 General.SortBy.Add("name");
             }
 
+            if (!_validPadding.Contains(Layout.Padding))
+            {
+                Layout.Padding = "medium";
+            }
+            
             Layout.CommonFields = Layout.CommonFields
                 .EmptyIfNull()
                 .Where(field => _validCommonFields.Contains(field))
@@ -175,6 +187,7 @@ namespace Wowthing.Lib.Models
 
     public class ApplicationUserSettingsLayout
     {
+        public string Padding { get; set; } = "medium";
         public List<string> CommonFields { get; set; } = new();
         public List<string> HomeFields { get; set; } = new();
         public List<int> HomeLockouts { get; set; } = new();

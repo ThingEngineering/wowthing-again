@@ -63,6 +63,12 @@
         pairs.sort()
         groups = map(pairs, (pair) => pair[1])
     }
+
+    const paddingMap: Record<string, number> = {
+        small: 1,
+        medium: 2,
+        large: 3,
+    }
 </script>
 
 <style lang="scss">
@@ -71,7 +77,10 @@
 <div class="thing-container">
     <slot name="preTable" />
 
-    <table class="table table-striped character-table">
+    <table
+        class="table table-striped character-table"
+        style="--padding: {paddingMap[$settingsData.layout.padding] || 1};"
+    >
         <slot name="head" />
         <tbody>
             {#each groups as group, groupIndex}
