@@ -64,8 +64,11 @@
 </script>
 
 <style lang="scss">
+    h2 + h3 {
+        border-top: 0;
+    }
     h3 {
-        border-top: 1px dotted $border-color;
+        border-top: 1px dashed $border-color;
         margin-top: 0.5rem;
         padding-top: 0.5rem;
     }
@@ -84,6 +87,8 @@
     <div class="thing-container settings-container">
         <h2>Layout</h2>
 
+        <h3>Padding</h3>
+
         <div class="setting setting-layout">
             <RadioGroup
                 bind:value={$settingsData.layout.padding}
@@ -97,7 +102,7 @@
             <p>How much white space is used between columns.</p>
         </div>
 
-        <h3>Character Table</h3>
+        <h3>Character table columns</h3>
 
         <p>
             Drag items between the two lists on the left to control the layout of the
