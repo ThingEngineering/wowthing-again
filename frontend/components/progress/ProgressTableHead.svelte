@@ -14,7 +14,6 @@
     $: {
         onClick = function(event: Event) {
             event.preventDefault()
-            console.log(slug, sortingBy, sortKey)
             $progressState.sortOrder[slug] = sortingBy ? null : sortKey
         }
     }
