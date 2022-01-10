@@ -499,8 +499,13 @@ namespace Wowthing.Web.Controllers
             timer.AddPoint("Criteria1b");
 
             var groupedCriteria = new Dictionary<int, List<int[]>>();
-            foreach (var characterCriteria in criterias)
+            foreach (var characterCriteria in criterias.EmptyIfNull())
             {
+                if (characterCriteria.CriteriaAmounts == null || characterCriteria.CriteriaIds == null)
+                {
+                    continue;
+                }
+                
                 for (int i = 0; i < characterCriteria.CriteriaIds.Count; i++)
                 {
                     int criteriaAmount = (int)characterCriteria.CriteriaAmounts[i];
