@@ -18,6 +18,7 @@ export interface Settings {
         commonFields: string[]
         homeFields: string[]
         homeLockouts: number[]
+        covenantColumn: 'current' | 'all'
         padding: 'small' | 'medium' | 'large'
     }
 
