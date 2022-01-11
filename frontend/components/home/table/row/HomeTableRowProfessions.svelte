@@ -2,8 +2,10 @@
     import { imageStrings } from '@/data/icons'
     import { professionIdToString } from '@/data/professions'
     import { staticStore } from '@/stores/static'
+    import { tippyComponent } from '@/utils/tippy'
     import type { Character, CharacterProfession, StaticDataProfession } from '@/types'
 
+    import Tooltip from '@/components/tooltips/professions/TooltipProfessions.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
@@ -57,7 +59,16 @@
     {#if professions.length > 0}
         <div class="flex-wrapper">
             {#each professions as [profession, charProfession, current]}
-                <div class="profession">
+                <div
+                    class="profession"
+                    use:tippyComponent={{
+                        component: Tooltip,
+                        props: {
+                            character,
+                            profession,
+                        },
+                    }}
+                >
                     <WowthingImage
                         name="{imageStrings[professionIdToString[profession.id]]}"
                         size={20}

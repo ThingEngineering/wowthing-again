@@ -72,7 +72,7 @@
                 {#if !isPublic}
                     <RowRestedExperience {character} />
                 {/if}
-                
+
             {:else if field === 'statusIcons'}
                 <RowStatuses />
 

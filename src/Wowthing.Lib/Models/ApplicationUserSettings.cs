@@ -56,13 +56,17 @@ namespace Wowthing.Lib.Models
             "realm",
         };
 
+        private readonly HashSet<string> _validCovenantColumn = new()
+        {
+            "current",
+            "all",
+        };
         private readonly HashSet<string> _validPadding = new()
         {
             "small",
             "medium",
             "large",
         };
-        
         private readonly HashSet<string> _validCommonFields = new()
         {
             "accountTag",
@@ -73,7 +77,6 @@ namespace Wowthing.Lib.Models
             "characterName",
             "realmName",
         };
-
         private readonly HashSet<string> _validHomeFields = new()
         {
             "callings",
@@ -95,6 +98,7 @@ namespace Wowthing.Lib.Models
             "weeklyKorthia",
             "weeklySouls",
         };
+        
         public void Validate()
         {
             if (General.RefreshInterval <= 0)
@@ -188,6 +192,7 @@ namespace Wowthing.Lib.Models
 
     public class ApplicationUserSettingsLayout
     {
+        public string CovenantColumn { get; set; } = "current";
         public string Padding { get; set; } = "medium";
         public List<string> CommonFields { get; set; } = new();
         public List<string> HomeFields { get; set; } = new();

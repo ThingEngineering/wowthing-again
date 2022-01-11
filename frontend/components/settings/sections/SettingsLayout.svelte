@@ -103,6 +103,20 @@
             <p>How much white space is used between columns.</p>
         </div>
 
+        <h3>Covenant column</h3>
+
+        <div class="setting setting-layout">
+            <RadioGroup
+                bind:value={$settingsData.layout.covenantColumn}
+                name="layout_covenantColumn"
+                options={[
+                    ['current', 'Current only'],
+                    ['all', 'All'],
+                ]}
+            />
+            <p>How many covenants to display in the covenant column.</p>
+        </div>
+
         <h3>Character table columns</h3>
 
         <p>
