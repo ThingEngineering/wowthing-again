@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { Constants } from '@/data/constants'
     import { data as settings } from '@/stores/settings'
     import { userStore } from '@/stores'
 
@@ -73,7 +72,7 @@
                 {#if !isPublic}
                     <RowRestedExperience {character} />
                 {/if}
-uj
+                
             {:else if field === 'statusIcons'}
                 <RowStatuses />
 
