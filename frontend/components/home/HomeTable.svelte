@@ -13,6 +13,7 @@
     import RowLockouts from './table/row/HomeTableRowLockouts.svelte'
     import RowMountSpeed from './table/row/HomeTableRowMountSpeed.svelte'
     import RowPlayedTime from './table/row/HomeTableRowPlayedTime.svelte'
+    import RowProfessions from './table/row/HomeTableRowProfessions.svelte'
     import RowRestedExperience from './table/row/HomeTableRowRestedExperience.svelte'
     import RowStatuses from './table/row/HomeTableRowStatuses.svelte'
     import RowTorghast from './table/row/HomeTableRowTorghast.svelte'
@@ -65,11 +66,14 @@
                     <RowPlayedTime playedTotal={character.playedTotal} />
                 {/if}
 
+            {:else if field === 'professions'}
+                <RowProfessions {character} />
+
             {:else if field === 'restedExperience'}
                 {#if !isPublic}
                     <RowRestedExperience {character} />
                 {/if}
-
+uj
             {:else if field === 'statusIcons'}
                 <RowStatuses />
 
@@ -88,7 +92,6 @@
             {:else if field === 'weeklyAnima'}
                 <RowUghQuest
                     {character}
-                    icon={Constants.icons.weeklyAnima}
                     ughQuest={character.weekly?.ughQuests?.['anima']}
                     cls="anima"
                 />
@@ -96,14 +99,12 @@
             {:else if field === 'weeklyKorthia'}
                 <RowUghQuest
                     {character}
-                    icon={Constants.icons.weeklyAnima}
                     ughQuest={character.weekly?.ughQuests?.['shapingFate']}
                 />
 
             {:else if field === 'weeklySouls'}
                 <RowUghQuest
                     {character}
-                    icon={Constants.icons.weeklyAnima}
                     ughQuest={character.weekly?.ughQuests?.['souls']}
                     weeklyReset={true}
                 />

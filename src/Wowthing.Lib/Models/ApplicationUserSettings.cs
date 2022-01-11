@@ -84,6 +84,7 @@ namespace Wowthing.Lib.Models
             "lockouts",
             "mountSpeed",
             "playedTime",
+            "professions",
             "restedExperience",
             "statusIcons",
             "torghast",

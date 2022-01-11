@@ -12,6 +12,7 @@ using Wowthing.Backend.Models.Data.Achievements;
 using Wowthing.Backend.Models.Data.Collections;
 using Wowthing.Backend.Models.Data.Covenants;
 using Wowthing.Backend.Models.Data.Journal;
+using Wowthing.Backend.Models.Data.Professions;
 using Wowthing.Backend.Models.Data.Progress;
 using Wowthing.Backend.Models.Data.ZoneMaps;
 using Wowthing.Backend.Models.Redis;
@@ -48,7 +49,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
-            Version = 30,
+            Version = 31,
         };
 
         public override async Task Run(params string[] data)
@@ -68,6 +69,7 @@ namespace Wowthing.Backend.Jobs.Misc
             StringType.WowItemName,
             StringType.WowMountName,
             StringType.WowSoulbindName,
+            StringType.WowSkillLineName,
         };
         private async Task LoadData()
         {
@@ -139,6 +141,9 @@ namespace Wowthing.Backend.Jobs.Misc
             var progress = LoadProgress();
             _timer.AddPoint("Progress");
             
+            // Professions
+            var professions = await LoadProfessions();
+            
             // Reputations
             var reputations = await LoadReputations();
             var reputationSets = LoadReputationSets();
@@ -186,6 +191,7 @@ namespace Wowthing.Backend.Jobs.Misc
                     CurrenciesRaw = currencies,
                     CurrencyCategories = currencyCategories,
                     InstancesRaw = instances,
+                    Professions = professions[language],
                     RaiderIoScoreTiers = raiderIoScoreTiers ?? new Dictionary<int, OutRaiderIoScoreTiers>(),
                     RealmsRaw = realms,
                     ReputationsRaw = reputations,
@@ -263,6 +269,46 @@ namespace Wowthing.Backend.Jobs.Misc
         {
             var categories = await DataUtilities.LoadDumpCsvAsync<DumpCurrencyCategory>("currencycategory");
             return new SortedDictionary<int, OutCurrencyCategory>(categories.ToDictionary(k => k.ID, v => new OutCurrencyCategory(v)));
+        }
+
+        private async Task<Dictionary<Language, Dictionary<int, OutProfession>>> LoadProfessions()
+        {
+            var skillLines = await DataUtilities.LoadDumpCsvAsync<DumpSkillLine>(Path.Join("enUS", "skillline"));
+
+            var professions = skillLines
+                .Where(line => Hardcoded.PrimaryProfessions.Contains(line.ID) ||
+                               Hardcoded.SecondaryProfessions.Contains(line.ID));
+
+            var subProfessions = skillLines
+                .Where(line => Hardcoded.PrimaryProfessions.Contains(line.ParentSkillLineID) ||
+                               Hardcoded.SecondaryProfessions.Contains(line.ParentSkillLineID))
+                .ToGroupedDictionary(line => line.ParentSkillLineID);
+            
+            var ret = new Dictionary<Language, Dictionary<int, OutProfession>>();
+            foreach (var language in Enum.GetValues<Language>())
+            {
+                ret[language] = professions
+                    .ToDictionary(
+                        profession => profession.ID,
+                        profession => new OutProfession
+                        {
+                            Id = profession.ID,
+                            Name = GetString(StringType.WowSkillLineName, language, profession.ID),
+                            Type = Hardcoded.PrimaryProfessions.Contains(profession.ID) ? 0 : 1,
+                            SubProfessions = subProfessions
+                                .GetValueOrDefault(profession.ID)
+                                .EmptyIfNull()
+                                .OrderBy(line => line.ParentTierIndex)
+                                .Select(line => new OutSubProfession
+                                {
+                                    Id = line.ID,
+                                    Name = GetString(StringType.WowSkillLineName, language, line.ID),
+                                })
+                                .ToList(),
+                        }
+                    );
+            }
+            return ret;
         }
 
         private static async Task<List<OutReputation>> LoadReputations()

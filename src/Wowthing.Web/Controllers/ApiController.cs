@@ -310,6 +310,7 @@ namespace Wowthing.Web.Controllers
             // Privacy checks
             characterQuery = characterQuery
                 .Include(c => c.EquippedItems)
+                .Include(c => c.Professions)
                 .Include(c => c.Reputations)
                 .Include(c => c.Shadowlands)
                 .Include(c => c.Specializations)

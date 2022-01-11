@@ -9,6 +9,8 @@ export interface StaticData {
     instances: Record<number, StaticDataInstance>
     instancesRaw: StaticDataInstanceArray[]
 
+    professions: Record<number, StaticDataProfession>
+
     realms: Record<number, StaticDataRealm>
     realmsRaw: StaticDataRealmArray[]
 
@@ -71,6 +73,18 @@ export class StaticDataInstance {
 }
 
 type StaticDataInstanceArray = ConstructorParameters<typeof StaticDataInstance>
+
+export interface StaticDataProfession {
+    id: number
+    name: string
+    type: number
+    subProfessions: StaticDataSubProfession[]
+}
+
+export interface StaticDataSubProfession {
+    id: number
+    name: string
+}
 
 export class StaticDataRealm {
     constructor(

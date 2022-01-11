@@ -69,6 +69,9 @@
                 <RowPlayedTime {playedTotal} />
             {/if}
 
+        {:else if field === 'professions'}
+            <td>Professions</td>
+
         {:else if field === 'restedExperience'}
             {#if !isPublic}
                 <td>Rest</td>
