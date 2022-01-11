@@ -4,6 +4,7 @@ using Wowthing.Backend.Models.API.NonBlizzard;
 using Wowthing.Backend.Models.Data;
 using Wowthing.Backend.Models.Data.Collections;
 using Wowthing.Backend.Models.Data.Covenants;
+using Wowthing.Backend.Models.Data.Professions;
 using Wowthing.Backend.Models.Data.Progress;
 using Wowthing.Backend.Models.Data.ZoneMaps;
 using Wowthing.Lib.Enums;
@@ -21,23 +22,26 @@ namespace Wowthing.Backend.Models.Redis
         
         [JsonProperty(Order = 2)]
         public List<OutInstance> InstancesRaw { get; set; }
-        
+
         [JsonProperty(Order = 3)]
-        public List<List<OutProgress>> Progress { get; set; }
+        public Dictionary<int, OutProfession> Professions { get; set; }
         
         [JsonProperty(Order = 4)]
-        public List<WowRealm> RealmsRaw { get; set; }
+        public List<List<OutProgress>> Progress { get; set; }
         
         [JsonProperty(Order = 5)]
-        public List<OutReputation> ReputationsRaw { get; set; }
+        public List<WowRealm> RealmsRaw { get; set; }
         
         [JsonProperty(Order = 6)]
-        public SortedDictionary<int, WowReputationTier> ReputationTiers { get; set; }
+        public List<OutReputation> ReputationsRaw { get; set; }
         
         [JsonProperty(Order = 7)]
-        public Dictionary<int, List<OutSoulbind>> Soulbinds { get; set; }
+        public SortedDictionary<int, WowReputationTier> ReputationTiers { get; set; }
         
         [JsonProperty(Order = 8)]
+        public Dictionary<int, List<OutSoulbind>> Soulbinds { get; set; }
+        
+        [JsonProperty(Order = 9)]
         public Dictionary<int, List<List<int>>> Talents { get; set; }
 
         [JsonProperty(Order = 10)]

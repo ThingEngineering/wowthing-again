@@ -40,6 +40,7 @@ namespace Wowthing.Web.Models
         public Dictionary<string, PlayerCharacterLockoutsLockout> Lockouts { get; }
         public UserApiCharacterMythicPlus MythicPlus { get; }
         public PlayerCharacterMythicPlusAddon MythicPlusAddon { get; }
+        public Dictionary<int, Dictionary<int, PlayerCharacterProfessionTier>> Professions { get; set; }
         public Dictionary<int, PlayerCharacterRaiderIoSeasonScores> RaiderIo { get; }
         public Dictionary<int, PlayerCharacterReputationsParagon> Paragons { get; }
         public Dictionary<int, int> Reputations { get; } = new();
@@ -66,6 +67,7 @@ namespace Wowthing.Web.Models
             RaceId = character.RaceId;
             RenderUrl = character.Media?.MainUrl;
 
+            Professions = character.Professions?.Professions;
             Specializations = character.Specializations?.Specializations;
 
             if (pub && privacy?.Anonymized == true)

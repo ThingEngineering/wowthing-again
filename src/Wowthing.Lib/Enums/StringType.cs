@@ -9,5 +9,6 @@
         WowJournalInstanceName = 5,
         WowJournalEncounterName = 6,
         WowSoulbindName = 7,
+        WowSkillLineName = 8,
     }
 }

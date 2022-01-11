@@ -28,6 +28,7 @@ export interface Character {
     calculatedItemLevel: string
     calculatedItemLevelQuality: number
     currencies: Record<number, CharacterCurrency>
+    professions: Record<number, Record<number, CharacterProfession>>
     realm: StaticDataRealm
     reputationData: Record<string, CharacterReputation>
     specializations: Record<number, Record<number, number>>
@@ -145,6 +146,12 @@ export class CharacterMythicPlusRunMember {
 }
 
 type CharacterMythicPlusRunMemberArray = ConstructorParameters<typeof CharacterMythicPlusRunMember>
+
+export interface CharacterProfession {
+    currentSkill: number
+    maxSkill: number
+    knownRecipes: number[]
+}
 
 export interface CharacterRaiderIoSeason {
     [key: string]: number

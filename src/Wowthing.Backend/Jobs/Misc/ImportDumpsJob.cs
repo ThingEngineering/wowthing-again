@@ -8,6 +8,7 @@ using Wowthing.Backend.Enums;
 using Wowthing.Backend.Models.Data;
 using Wowthing.Backend.Models.Data.Covenants;
 using Wowthing.Backend.Models.Data.Journal;
+using Wowthing.Backend.Models.Data.Professions;
 using Wowthing.Backend.Utilities;
 using Wowthing.Lib.Data;
 using Wowthing.Lib.Enums;
@@ -42,7 +43,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.ImportDumps,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(24),
-            Version = 4,
+            Version = 5,
         };
 
         public override async Task Run(params string[] data)
@@ -80,6 +81,13 @@ namespace Wowthing.Backend.Jobs.Misc
                 "journaltier",
                 (tier) => tier.ID,
                 (tier) => tier.Name
+            );
+
+            await ImportStrings<DumpSkillLine>(
+                StringType.WowSkillLineName,
+                "skillline",
+                (line) => line.ID,
+                (line) => $"{line.DisplayName}|{line.HordeDisplayName}"
             );
 
             await ImportStrings<DumpSoulbind>(

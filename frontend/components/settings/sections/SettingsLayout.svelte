@@ -27,6 +27,7 @@
         {key: 'lockouts', name: 'Lockouts'},
         {key: 'mountSpeed', name: 'Mount speed'},
         {key: 'playedTime', name: 'Played time'},
+        {key: 'professions', name: 'Professions'},
         {key: 'restedExperience', name: 'Rested XP'},
         {key: 'statusIcons', name: 'Status icons'},
         {key: 'torghast', name: 'Torghast'},

@@ -57,6 +57,7 @@ namespace Wowthing.Lib.Models.Player
         public PlayerCharacterMounts Mounts { get; set; }
         public PlayerCharacterMythicPlus MythicPlus { get; set; }
         public PlayerCharacterMythicPlusAddon MythicPlusAddon { get; set; }
+        public PlayerCharacterProfessions Professions { get; set; }
         public PlayerCharacterQuests Quests { get; set; }
         public PlayerCharacterRaiderIo RaiderIo { get; set; }
         public PlayerCharacterReputations Reputations { get; set; }
