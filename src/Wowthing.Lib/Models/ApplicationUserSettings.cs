@@ -135,6 +135,10 @@ namespace Wowthing.Lib.Models
                 General.SortBy.Add("name");
             }
 
+            if (!_validCovenantColumn.Contains(Layout.CovenantColumn))
+            {
+                Layout.CovenantColumn = "current";
+            }
             if (!_validPadding.Contains(Layout.Padding))
             {
                 Layout.Padding = "medium";
