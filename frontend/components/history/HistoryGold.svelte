@@ -20,7 +20,7 @@
     import type { DateTime } from 'luxon'
 
     import { colors } from '@/data/colors'
-    import { staticStore, userHistoryStore } from '@/stores'
+    import { staticStore, timeStore, userHistoryStore } from '@/stores'
     import { historyState } from '@/stores/local-storage'
     import { Region } from '@/types/enums'
     import parseApiTime from '@/utils/parse-api-time'
@@ -50,6 +50,13 @@
     }
 
     onMount(() => redrawChart($historyState))
+
+    const intervalSettings: Record<string, [string, string]> = {
+        hour: ['ff', 'day'],
+        day: ['DD', 'day'],
+        week: ['DD', 'week'],
+        month: ['MMM yyyy', 'month'],
+    }
 
     const redrawChart = function(historyState: HistoryState)
     {
@@ -92,11 +99,44 @@
                     y: point[1],
                 }))
             }
-            else if (historyState.interval === 'day') {
+            else {
                 const temp: Record<string, [DateTime, number]> = {}
                 for (const [time, value] of $userHistoryStore.data.gold[realmId]) {
                     const parsedTime = parseApiTime(time).toLocal()
-                    temp[parsedTime.toISODate()] = [parsedTime.set({ hour: 0, minute: 0, second: 0 }), value]
+                    let fakeTime: DateTime
+                    if (historyState.interval === 'day') {
+                         fakeTime = parsedTime.set({
+                             hour: 0,
+                             minute: 0,
+                             second: 0,
+                         })
+                    }
+                    else if (historyState.interval === 'week') {
+                        fakeTime = parsedTime.set({
+                            weekday: 8,
+                            hour: 0,
+                            minute: 0,
+                            second: 0,
+                        })
+                    }
+                    else if (historyState.interval === 'month') {
+                        fakeTime = parsedTime.set({
+                            day: 1,
+                            hour: 0,
+                            minute: 0,
+                            second: 0,
+                        })
+                    }
+
+                    if (fakeTime > $timeStore) {
+                        fakeTime = $timeStore.set({
+                            hour: 0,
+                            minute: 0,
+                            second: 0,
+                        })
+                    }
+
+                    temp[fakeTime.toISODate()] = [fakeTime, value]
                 }
                 points = sortBy(
                     toPairs(temp),
@@ -215,8 +255,11 @@
                             },
                         },
                         time: {
-                            tooltipFormat: historyState.interval === 'hour' ? 'ff' : 'DD',
-                            minUnit: 'day',
+                            tooltipFormat: intervalSettings[historyState.interval][0],
+                            unit: intervalSettings[historyState.interval][1],
+                            displayFormats: {
+                                week: 'yyyy-MM-dd',
+                            }
                         },
                     },
                     y: {
@@ -275,6 +318,8 @@
                 options={[
                     ['hour', 'Hourly'],
                     ['day', 'Daily'],
+                    ['week', 'Weekly'],
+                    ['month', 'Monthly'],
                 ]}
             />
         </div>
