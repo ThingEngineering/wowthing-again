@@ -288,7 +288,7 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                             }
 
                             // Filter again for pre-req quests
-                            if (drop.requiredQuestId !== undefined) {
+                            if (drop.requiredQuestId > 0) {
                                 dropCharacters = filter(
                                     dropCharacters,
                                     (c) => userQuestData.characters[c.id].quests.get(drop.requiredQuestId)
@@ -325,7 +325,7 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                                         )
                                 )
                             }
-                            
+
                             for (const character of dropCharacters) {
                                 if (
                                     expiredFunc(character.id) ||
