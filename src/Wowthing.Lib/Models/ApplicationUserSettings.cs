@@ -121,11 +121,6 @@ namespace Wowthing.Lib.Models
                 .Where(gb => _validGroupBy.Contains(gb))
                 .Distinct()
                 .ToList();
-            
-            if (General.GroupBy.Count == 0)
-            {
-                General.GroupBy.Add("faction");
-            }
 
             General.SortBy = General.SortBy
                 .EmptyIfNull()
