@@ -612,7 +612,6 @@ farms:
 
 - name: "Tormentors - Cloth"
   location: 48.8 47.4
-  questId: 63854
   reset: weekly
   type: cloth
   drops:
@@ -643,7 +642,6 @@ farms:
 
 - name: "Tormentors - Leather"
   location: 48.8 51.9
-  questId: 63854
   reset: weekly
   type: leather
   drops:
@@ -669,7 +667,6 @@ farms:
 
 - name: "Tormentors - Mail"
   location: 52.8 47.4
-  questId: 63854
   reset: weekly
   type: mail
   drops:
@@ -700,7 +697,6 @@ farms:
 
 - name: "Tormentors - Plate"
   location: 52.8 51.9
-  questId: 63854
   reset: weekly
   type: plate
   drops:
@@ -726,7 +722,6 @@ farms:
 
 - name: "Tormentors - Weapons"
   location: 50.8 47.4
-  questId: 63854
   reset: weekly
   type: weapon
   drops:
