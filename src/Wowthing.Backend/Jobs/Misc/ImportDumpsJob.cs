@@ -43,7 +43,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.ImportDumps,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(24),
-            Version = 5,
+            Version = 6,
         };
 
         public override async Task Run(params string[] data)
@@ -171,11 +171,6 @@ namespace Wowthing.Backend.Jobs.Misc
                     Context.WowItem.Add(dbItem);
                 }
 
-                dbItem.ClassId = item.ClassID;
-                dbItem.SubclassId = item.SubclassID;
-                dbItem.InventoryType = item.InventoryType;
-
-                dbItem.ClassMask = itemSparse.AllowableClass;
                 dbItem.ContainerSlots = itemSparse.ContainerSlots;
                 dbItem.Quality = (WowQuality)itemSparse.OverallQualityID;
                 dbItem.RaceMask = itemSparse.AllowableRace;
@@ -227,6 +222,47 @@ namespace Wowthing.Backend.Jobs.Misc
                     dbItem.PrimaryStat = WowStat.Strength;
                 }
                 
+                // Class/Subclass might need to be mangled
+                dbItem.ClassId = item.ClassID;
+                dbItem.SubclassId = item.SubclassID;
+                dbItem.InventoryType = item.InventoryType;
+
+                if (dbItem.ClassId == (int)WowItemClass.Armor)
+                {
+                    var subClass = (WowArmorSubclass)dbItem.SubclassId;
+                    // Cosmetic
+                    if (dbItem.Flags.HasFlag(WowItemFlags.Cosmetic))
+                    {
+                        dbItem.SubclassId = (int)WowArmorSubclass.Cosmetic;
+                    }
+                    // Cloak
+                    else if (subClass == WowArmorSubclass.Cloth &&
+                             dbItem.InventoryType == WowInventoryType.Back)
+                    {
+                        dbItem.SubclassId = (int)WowArmorSubclass.Cloak;
+                    }
+                    // Shield
+                    else if (subClass == WowArmorSubclass.Shield)
+                    {
+                        dbItem.ClassId = (int)WowItemClass.Weapon;
+                        dbItem.SubclassId = (int)WowWeaponSubclass.Shield;
+                    }
+                    // Off-hand
+                    else if (subClass == WowArmorSubclass.Miscellaneous &&
+                             dbItem.InventoryType == WowInventoryType.OffHand)
+                    {
+                        dbItem.ClassId = (int)WowItemClass.Weapon;
+                        dbItem.SubclassId = (int)WowWeaponSubclass.OffHand;
+                    }
+                }
+
+                dbItem.ClassMask = itemSparse.AllowableClass;
+                /*if (dbItem.ClassMask <= 0)
+                {
+                    dbItem.ClassMask = dbItem.GetCalculatedClassMask();
+                }*/
+                
+                // Strings
                 if (!dbLanguageMap.TryGetValue((Language.enUS, item.ID), out var languageString))
                 {
                     languageString = new LanguageString

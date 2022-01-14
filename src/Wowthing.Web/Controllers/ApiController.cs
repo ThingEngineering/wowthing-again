@@ -163,7 +163,7 @@ namespace Wowthing.Web.Controllers
 
             form.Settings.Validate();
             user.Settings = form.Settings;
-            
+
             await _userManager.UpdateAsync(user);
 
             var accountMap = await _context.PlayerAccount

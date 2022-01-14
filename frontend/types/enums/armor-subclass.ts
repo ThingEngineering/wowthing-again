@@ -6,4 +6,11 @@ export enum ArmorSubclass {
     Plate = 4,
     Cosmetic = 5,
     Shield = 6,
+    Libram = 7,
+    Idol = 8,
+    Totem = 9,
+    Sigil = 10,
+    Relic = 11,
+
+    Cloak = 20,
 }

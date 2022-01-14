@@ -23,5 +23,8 @@
         Crossbow = 18,
         Wand = 19,
         FishingPole = 20,
+        
+        OffHand = 30,
+        Shield = 31,
     }
 }
