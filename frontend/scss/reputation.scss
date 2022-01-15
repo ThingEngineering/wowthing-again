@@ -1,18 +1,36 @@
 .reputation1 {
     color: $quality5-color;
 }
+.reputation1-border {
+    border-color: $quality5-color !important;
+}
 .reputation2 {
     color: $quality4-color;
+}
+.reputation2-border {
+    border-color: $quality4-color !important;
 }
 .reputation3 {
     color: $quality3-color;
 }
+.reputation3-border {
+    border-color: $quality3-color !important;
+}
 .reputation4 {
     color: $quality2-color;
+}
+.reputation4-border {
+    border-color: $quality2-color !important;
 }
 .reputation5 {
     color: $quality1-color;
 }
+.reputation5-border {
+    border-color: $quality1-color !important;
+}
 .reputation6 {
     color: $quality0-color;
+}
+.reputation6-border {
+    border-color: $quality0-color !important;
 }

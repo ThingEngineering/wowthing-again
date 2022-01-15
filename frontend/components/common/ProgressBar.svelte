@@ -1,4 +1,5 @@
 <script lang="ts">
+    export let cls: string = null
     export let title: string
     export let have = Math.floor(Math.random() * 100)
     export let total = 100
@@ -7,7 +8,7 @@
 <style lang="scss">
     .progress-container {
         background: darken($thing-background, 3%);
-        border: 1px solid $border-color;
+        border: var(--bar-border-width, 1px) solid $border-color;
         border-radius: $border-radius;
         margin-top: var(--progress-margin-top, 0);
         overflow: hidden;
@@ -54,7 +55,7 @@
     }
 </style>
 
-<div class="progress-container">
+<div class="progress-container {cls}">
     <div class="progress-bar"></div>
     <div class="progress-bar-hider" style="--width: {have / total * 100}%"></div>
     <span class="left drop-shadow">{title}</span>
