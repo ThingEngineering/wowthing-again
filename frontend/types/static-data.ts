@@ -1,5 +1,6 @@
 import type { ZoneMapDataCategory } from '@/types/data'
-import type { ProgressDataType } from '@/types/enums'
+import type { FarmDropType, ItemQuality, ProgressDataType } from '@/types/enums'
+import type { UserCount } from '@/types/user-count'
 
 
 export interface StaticData {
@@ -37,6 +38,9 @@ export interface StaticData {
     toySetsRaw: StaticDataSetCategoryArray[][]
 
     reputationSets: StaticDataReputationCategory[]
+
+    vendorSets: StaticDataVendorCategory[][]
+    vendorStats: Record<string, UserCount>
 
     zoneMapSets: ZoneMapDataCategory[][]
 
@@ -165,6 +169,26 @@ export interface StaticDataReputationReward {
     id: number
     name: string
     type: string
+}
+
+// Vendors
+export interface StaticDataVendorCategory {
+    name: string
+    slug: string
+    groups: StaticDataVendorGroup[]
+}
+
+export interface StaticDataVendorGroup {
+    name: string
+    type: FarmDropType
+    things: StaticDataVendorItem[]
+}
+
+export interface StaticDataVendorItem {
+    id: number
+    quality: ItemQuality
+    appearanceId?: number
+    costs: Record<string, number>
 }
 
 // Sets

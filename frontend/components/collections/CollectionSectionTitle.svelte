@@ -16,4 +16,5 @@
 <h3 class="{getPercentClass(percent)}">
     {title}
     <Count counts={count} />
+    <slot />
 </h3>

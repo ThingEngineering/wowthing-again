@@ -26,6 +26,7 @@ export const imageStrings: Record<string, string> = {
     engineering: 'spell/4036',
     fishing: 'spell/7620',
     herbalism: 'spell/2366',
+    inscription: 'spell/45357',
     jewelcrafting: 'spell/25229',
     leatherworking: 'spell/2108',
     mining: 'spell/2575',

@@ -6,8 +6,8 @@
     import type { JournalDataInstance, JournalDataTier } from '@/types/data'
 
     import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
-    import SectionTitle from '@/components/collections/CollectionSectionTitle.svelte'
     import Group from './JournalGroup.svelte'
+    import SectionTitle from '@/components/collections/CollectionSectionTitle.svelte'
 
     export let slug1: string
     export let slug2: string

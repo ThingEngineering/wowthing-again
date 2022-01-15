@@ -14,6 +14,7 @@ using Wowthing.Backend.Models.Data.Covenants;
 using Wowthing.Backend.Models.Data.Journal;
 using Wowthing.Backend.Models.Data.Professions;
 using Wowthing.Backend.Models.Data.Progress;
+using Wowthing.Backend.Models.Data.Vendors;
 using Wowthing.Backend.Models.Data.ZoneMaps;
 using Wowthing.Backend.Models.Redis;
 using Wowthing.Backend.Utilities;
@@ -39,6 +40,8 @@ namespace Wowthing.Backend.Jobs.Misc
         private Dictionary<int, WowPet> _petMap;
         private Dictionary<int, WowToy> _toyMap;
 
+        private Dictionary<int, int> _itemToAppearance;
+
         private Dictionary<Language, Dictionary<int, (int, string)>> _creatureToPet = new();
         private Dictionary<Language, Dictionary<int, (int, string)>> _spellToMount = new();
 
@@ -49,7 +52,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
-            Version = 31,
+            Version = 32,
         };
 
         public override async Task Run(params string[] data)
@@ -109,6 +112,11 @@ namespace Wowthing.Backend.Jobs.Misc
                     mount => (mount.Id, _stringMap.GetValueOrDefault((StringType.WowMountName, language, mount.Id), "???"))
                 );
             }
+            
+            var itemModifiedAppearances = await DataUtilities.LoadDumpCsvAsync<DumpItemModifiedAppearance>("itemmodifiedappearance");
+            _itemToAppearance = itemModifiedAppearances
+                .GroupBy(r => r.ItemID)
+                .ToDictionary(r => r.Key, r => r.First().ItemAppearanceID);
         }
         
         #region Static data
@@ -166,6 +174,10 @@ namespace Wowthing.Backend.Jobs.Misc
             AddUncategorized("toys", itemToToy, toySets);
             _timer.AddPoint("Toys");
 
+            // Vendors
+            var vendors = await LoadVendors();
+            _timer.AddPoint("Vendors");
+            
             // Zone Maps
             var zoneMaps = await LoadZoneMaps();
             #if DEBUG
@@ -198,6 +210,7 @@ namespace Wowthing.Backend.Jobs.Misc
                     ReputationTiers = reputationTiers,
                     Soulbinds = soulbinds[language],
                     Talents = talents,
+                    VendorSets = vendors,
                     ZoneMapSets = zoneMaps[language],
 
                     CreatureToPet = sortedCreatureToPet,
@@ -532,6 +545,60 @@ namespace Wowthing.Backend.Jobs.Misc
             return ret;
         }
 
+        private async Task<List<List<OutVendorCategory>>> LoadVendors()
+        {
+            var vendorSets = DataUtilities.LoadData<DataVendorCategory>("vendors", Logger);
+
+            var ret = new List<List<OutVendorCategory>>();
+            foreach (var catList in vendorSets)
+            {
+                if (catList == null)
+                {
+                    ret.Add(null);
+                }
+                else
+                {
+                    ret.Add(catList
+                        .Select(cat => cat == null ? null : new OutVendorCategory(cat))
+                        .ToList()
+                    );
+                }
+            }
+            
+            // Change transmog itemId to appearanceId
+            foreach (var categories in ret.Where(cats => cats != null))
+            {
+                foreach (var category in categories.Where(cat => cat != null))
+                {
+                    foreach (var group in category.Groups)
+                    {
+                        foreach (var item in group.Things)
+                        {
+                            if (group.Type == FarmDropType.Transmog && item.AppearanceId == null)
+                            {
+                                item.AppearanceId = _itemToAppearance[item.Id];
+                            }
+
+                            if (group.Type == FarmDropType.Mount)
+                            {
+                                item.Quality = WowQuality.Epic;
+                            }
+                            else if (group.Type == FarmDropType.Pet)
+                            {
+                                item.Quality = WowQuality.Rare;
+                            }
+                            else
+                            {
+                                item.Quality = _itemMap[item.Id].Quality;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return ret;
+        }
+        
         private async Task<Dictionary<Language, List<List<OutZoneMapCategory>>>> LoadZoneMaps()
         {
             var zoneMapSets = DataUtilities.LoadData<DataZoneMapCategory>("zone-maps", Logger);
@@ -555,11 +622,6 @@ namespace Wowthing.Backend.Jobs.Misc
                 }
 
                 // Change transmog itemId to appearanceId
-                var itemModifiedAppearances = await DataUtilities.LoadDumpCsvAsync<DumpItemModifiedAppearance>("itemmodifiedappearance");
-                var itemToAppearance = itemModifiedAppearances
-                    .GroupBy(r => r.ItemID)
-                    .ToDictionary(r => r.Key, r => r.First().ItemAppearanceID);
-
                 foreach (var categories in sets.Where(cats => cats != null))
                 {
                     foreach (var category in categories.Where(cat => cat != null))
@@ -589,7 +651,7 @@ namespace Wowthing.Backend.Jobs.Misc
                                 {
                                     var dropItem = _itemMap[drop.Id];
 
-                                    drop.Id = itemToAppearance[drop.Id];
+                                    drop.Id = _itemToAppearance[drop.Id];
                                     drop.Name = GetString(StringType.WowItemName, language, dropItem.Id);
 
                                     if (dropItem.ClassId == 2)

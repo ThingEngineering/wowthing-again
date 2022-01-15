@@ -6,6 +6,7 @@ using Wowthing.Backend.Models.Data.Collections;
 using Wowthing.Backend.Models.Data.Covenants;
 using Wowthing.Backend.Models.Data.Professions;
 using Wowthing.Backend.Models.Data.Progress;
+using Wowthing.Backend.Models.Data.Vendors;
 using Wowthing.Backend.Models.Data.ZoneMaps;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models.Wow;
@@ -59,8 +60,11 @@ namespace Wowthing.Backend.Models.Redis
 
         [JsonProperty(Order = 40)]
         public List<List<OutCollectionCategory>> ToySetsRaw { get; set; }
-
+       
         [JsonProperty(Order = 50)]
+        public List<List<OutVendorCategory>> VendorSets { get; set; }
+
+        [JsonProperty(Order = 60)]
         public List<List<OutZoneMapCategory>> ZoneMapSets { get; set; }
 
         [JsonProperty(Order = 100)]

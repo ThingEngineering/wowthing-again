@@ -9,12 +9,14 @@
     import iconReputations from '@iconify/icons-mdi/account-star-outline'
     import iconSets from '@iconify/icons-mdi/wardrobe-outline'
     import iconSettings from '@iconify/icons-mdi/cog-outline'
+    import iconVendors from '@iconify/icons-mdi/cart-outline'
     import iconZoneMaps from '@iconify/icons-emojione-monotone/world-map'
     import active from 'svelte-spa-router/active'
 
     import { dropTypeIcon } from '@/data/farm'
     import { iconStrings } from '@/data/icons'
     import { journalStore, userStore, userTransmogStore } from '@/stores'
+    import { userVendorStore } from '@/stores/user-vendors'
     import getPercentClass from '@/utils/get-percent-class'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
@@ -26,18 +28,21 @@
     let petsPercent: number
     let toysPercent: number
     let transmogPercent: number
+    let vendorPercent: number
     $: {
         const journalOverall = $journalStore.data.stats['OVERALL']
         const mountsOverall = $userStore.data.setCounts['mounts']['OVERALL']
         const petsOverall = $userStore.data.setCounts['pets']['OVERALL']
         const toysOverall = $userStore.data.setCounts['toys']['OVERALL']
         const transmogOverall = $userTransmogStore.data.stats['OVERALL']
+        const vendorOverall = $userVendorStore.data.stats['OVERALL']
 
         journalPercent = journalOverall.have / journalOverall.total * 100
         mountsPercent = mountsOverall.have / mountsOverall.total * 100
         petsPercent = petsOverall.have / petsOverall.total * 100
         toysPercent = toysOverall.have / toysOverall.total * 100
         transmogPercent = transmogOverall.have / transmogOverall.total * 100
+        vendorPercent = vendorOverall.have / vendorOverall.total * 100
     }
 
     const fancyPercent = (percent: number): string => {
@@ -184,6 +189,14 @@
             Sets
         </a>
         <span class="drop-shadow percent {getPercentClass(transmogPercent)}">{fancyPercent(transmogPercent)} %</span>
+    </li>
+
+    <li use:active={'/vendors/*'}>
+        <a href="#/vendors/">
+            <IconifyIcon icon={iconVendors} />
+            Vendors
+        </a>
+        <span class="drop-shadow percent {getPercentClass(vendorPercent)}">{fancyPercent(vendorPercent)} %</span>
     </li>
 
     <li use:active={'/zone-maps/*'}>

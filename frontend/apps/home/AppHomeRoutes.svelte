@@ -20,6 +20,7 @@
     import Settings from '@/components/settings/Settings.svelte'
     import Teams from '@/components/teams/Teams.svelte'
     import Toys from '@/components/collections/Toys.svelte'
+    import Vendors from '@/components/vendors/Vendors.svelte'
     import ZoneMaps from '@/components/zone-maps/ZoneMaps.svelte'
 
     const routes = {
@@ -40,6 +41,7 @@
         '/mythic-plus/:slug?': MythicPlus,
         '/progress/:slug?': Progress,
         '/reputations/:slug?': Reputations,
+        '/vendors/:slug1?/:slug2?': Vendors,
         '/zone-maps/:slug1?/:slug2?': ZoneMaps,
 
         '/mounts/:slug1?/:slug2?': Mounts,
