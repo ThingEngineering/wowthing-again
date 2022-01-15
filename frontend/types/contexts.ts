@@ -1,5 +1,3 @@
-import type { StaticDataSetCategory } from '.'
-
 export interface CollectionContext {
     route: string
     thingType: string

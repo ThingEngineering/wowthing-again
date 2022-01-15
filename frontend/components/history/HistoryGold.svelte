@@ -12,6 +12,7 @@
         Title,
         Tooltip,
     } from 'chart.js'
+    import type { TimeUnit } from 'chart.js'
     import 'chartjs-adapter-luxon'
     import some from 'lodash/some'
     import sortBy from 'lodash/sortBy'
@@ -51,7 +52,7 @@
 
     onMount(() => redrawChart($historyState))
 
-    const intervalSettings: Record<string, [string, string]> = {
+    const intervalSettings: Record<string, [string, TimeUnit]> = {
         hour: ['ff', 'day'],
         day: ['DD', 'day'],
         week: ['DD', 'week'],

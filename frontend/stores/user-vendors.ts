@@ -1,10 +1,10 @@
-import { StaticData, UserCount, UserData, WritableFancyStore } from '@/types'
+import { StaticData, UserCount, WritableFancyStore } from '@/types'
 import type { UserVendorData } from '@/types/data'
 import userHasDrop from '@/utils/user-has-drop'
 
 
 export class UserVendorStore extends WritableFancyStore<UserVendorData> {
-    setup(staticData: StaticData, userData: UserData): void {
+    setup(staticData: StaticData): void {
         const seen: Record<string, boolean> = {}
         const stats: Record<string, UserCount> = {}
         const userHas: Record<string, boolean> = {}

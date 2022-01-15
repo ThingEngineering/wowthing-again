@@ -57,7 +57,6 @@
 
             userVendorStore.setup(
                 $staticStore.data,
-                $userStore.data,
             )
 
             journalStore.setup(
