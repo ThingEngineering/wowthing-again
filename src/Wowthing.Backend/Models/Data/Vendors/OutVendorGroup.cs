@@ -14,8 +14,6 @@ namespace Wowthing.Backend.Models.Data.Vendors
 
         public OutVendorGroup(DataVendorGroup group)
         {
-            Console.WriteLine("name={0} type={1}", group.Name, group.Type);
-            
             Name = group.Name;
             Type = Enum.Parse<FarmDropType>(group.Type, true);
             Things = group.Things
