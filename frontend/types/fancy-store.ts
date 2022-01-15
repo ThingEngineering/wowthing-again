@@ -18,9 +18,9 @@ export interface WritableFancyStore<TData> extends Writable<FancyStore<TData>> {
 }
 
 export class WritableFancyStore<TData> {
-    constructor() {
+    constructor(data: TData = null) {
         Object.assign(this, writable<FancyStore<TData>>({
-            data: null,
+            data: data,
             error: false,
             loaded: false,
         }))

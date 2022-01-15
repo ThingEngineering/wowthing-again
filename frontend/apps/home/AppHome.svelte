@@ -9,6 +9,7 @@
         userStore,
         userTransmogStore,
     } from '@/stores'
+    import { userVendorStore } from '@/stores/user-vendors'
     import { journalState } from '@/stores/local-storage'
     import { data as settings } from '@/stores/settings'
 
@@ -52,6 +53,10 @@
                 $settings,
                 $transmogStore.data,
                 $userTransmogStore.data,
+            )
+
+            userVendorStore.setup(
+                $staticStore.data,
             )
 
             journalStore.setup(

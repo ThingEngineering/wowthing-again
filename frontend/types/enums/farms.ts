@@ -21,6 +21,7 @@ export enum FarmDropType {
     Cosmetic,
     Armor,
     Weapon,
+    Transmog = 100,
 }
 
 export enum FarmIdType

@@ -1,0 +1,437 @@
+name: "Covenant - Venthyr"
+groups:
+
+- name: "Mounts"
+  type: mount
+  things:
+  - id: 332882 # Horrid Dredwing
+    cost: 5000 anima 100 offering
+
+  - id: 353866 # Obsidian Gravewing
+    cost: 7500 anima
+
+  - id: 332927 # Sinfall Gargon
+    cost: 5000 anima
+
+- name: "Pets"
+  type: pet
+  things:
+  - id: 172570 # Sinheart
+    cost: 1500 anima 30 offering
+
+- name: "Toys"
+  type: toy
+  things:
+  - id: 183716 # Venthyr Sinstone
+    cost: 750 anima
+
+- name: "Ensembles"
+  type: transmog
+  things:
+  - id: 186508 # Ensemble: Court Inquisitor's Vestments
+    appearanceId: 44386
+    cost: 10000 anima
+
+  - id: 186510 # Ensemble: Sinful Inquisitor's Vestments
+    appearanceId: 44413
+    cost: 10000 anima
+
+  - id: 186509 # Ensemble: Sinful Venthyr Attire
+    appearanceId: 44381
+    cost: 10000 anima
+
+- name: "Back Items"
+  type: transmog
+  things:
+  - id: 183708 # Glittering Gold Sinstone Chain
+    cost: 3500 anima
+
+  - id: 183712 # Gleaming Crypt Keeper's Mantle
+    cost: 3500 anima
+
+  - id: 183706 # Mantle of Court Blades
+    cost: 1750 anima
+
+  - id: 183705 # Mantle of Crimson Blades
+    cost: 3500 anima 40 offering
+
+- name: "Renown Set: Cloth"
+  type: transmog
+  things:
+  - id: 181097 # Soulbreaker's Crimson Hood
+    cost: 4000 anima 30 offering
+
+  - id: 181099 # Soulbreaker's Crimson Mantle
+    cost: 4000 anima 30 offering
+
+  - id: 181102 # Soulbreaker's Crimson Drape
+    cost: 1500 anima 10 offering
+
+  - id: 181094 # Soulbreaker's Crimson Vestments
+    cost: 4000 anima 30 offering
+
+  - id: 181101 # Soulbreaker's Crimson Wraps
+    cost: 2000 anima 15 offering
+
+  - id: 181096 # Soulbreaker's Crimson Handwraps
+    cost: 2000 anima 15 offering
+
+  - id: 181100 # Soulbreaker's Crimson Sash
+    cost: 3000 anima 25 offering
+
+  - id: 181098 # Soulbreaker's Crimson Leggings
+    cost: 3000 anima 25 offering
+
+  - id: 181095 # Soulbreaker's Crimson Slippers
+    cost: 2000 anima 15 offering
+
+- name: "Renown Set: Leather"
+  type: transmog
+  things:
+  - id: 181043 # Crimson Death Shroud Hood
+    cost: 4000 anima 30 offering
+
+  - id: 181045 # Crimson Death Shroud Spaulders
+    cost: 4000 anima 30 offering
+
+  - id: 181048 # Crimson Death Shroud Wrap
+    cost: 1500 anima 10 offering
+
+  - id: 181040 # Crimson Death Shroud Vest
+    cost: 4000 anima 30 offering
+
+  - id: 181047 # Crimson Death Shroud Bindings
+    cost: 2000 anima 15 offering
+
+  - id: 181042 # Crimson Death Shroud Gloves
+    cost: 2000 anima 15 offering
+
+  - id: 181046 # Crimson Death Shroud Belt
+    cost: 3000 anima 25 offering
+
+  - id: 181044 # Crimson Death Shroud Breeches
+    cost: 3000 anima 25 offering
+
+  - id: 181041 # Crimson Death Shroud Boots
+    cost: 2000 anima 15 offering
+
+- name: "Renown Set: Mail"
+  type: transmog
+  things:
+  - id: 181070 # Fearstalker's Crimson Helm
+    cost: 4000 anima 30 offering
+
+  - id: 181072 # Fearstalker's Crimson Monnion
+    cost: 4000 anima 30 offering
+
+  - id: 181075 # Fearstalker's Crimson Cloak
+    cost: 1500 anima 10 offering
+
+  - id: 181067 # Fearstalker's Crimson Hauberk
+    cost: 4000 anima 30 offering
+
+  - id: 181074 # Fearstalker's Crimson Bracers
+    cost: 2000 anima 15 offering
+
+  - id: 181069 # Fearstalker's Crimson Gauntlets
+    cost: 2000 anima 15 offering
+
+  - id: 181073 # Fearstalker's Crimson Belt
+    cost: 3000 anima 25 offering
+
+  - id: 181071 # Fearstalker's Crimson Leggings
+    cost: 3000 anima 25 offering
+
+  - id: 181068 # Fearstalker's Crimson Sabatons
+    cost: 2000 anima 15 offering
+
+- name: "Renown Set: Plate"
+  type: transmog
+  things:
+  - id: 181004 # Dread Sentinel's Crimson Headgear
+    cost: 4000 anima 30 offering
+
+  - id: 181009 # Dread Sentinel's Crimson Spaulders
+    cost: 4000 anima 30 offering
+
+  - id: 181012 # Dread Sentinel's Crimson Cloak
+    cost: 1500 anima 10 offering
+
+  - id: 181005 # Dread Sentinel's Crimson Chestplate
+    cost: 4000 anima 30 offering
+
+  - id: 181011 # Dread Sentinel's Crimson Vambraces
+    cost: 2000 anima 15 offering
+
+  - id: 181007 # Dread Sentinel's Crimson Grips
+    cost: 2000 anima 15 offering
+
+  - id: 181010 # Dread Sentinel's Crimson Girdle
+    cost: 3000 anima 25 offering
+
+  - id: 181008 # Dread Sentinel's Crimson Legguards
+    cost: 3000 anima 25 offering
+
+  - id: 181006 # Dread Sentinel's Crimson Greatboots
+    cost: 2000 anima 15 offering
+
+- name: "Ember Court Set: Cloth"
+  type: transmog
+  things:
+  - id: 181115 # Soulbreaker's Court Hood
+    cost: 2000 anima
+
+  - id: 181117 # Soulbreaker's Court Mantle
+    cost: 2000 anima
+
+  - id: 181120 # Soulbreaker's Court Drape
+    cost: 750 anima
+
+  - id: 181112 # Soulbreaker's Court Vestments
+    cost: 2000 anima
+
+  - id: 181119 # Soulbreaker's Court Wraps
+    cost: 750 anima
+
+  - id: 181114 # Soulbreaker's Court Handwraps
+    cost: 1500 anima
+
+  - id: 181118 # Soulbreaker's Court Sash
+    cost: 750 anima
+
+  - id: 181116 # Soulbreaker's Court Leggings
+    cost: 1500 anima
+
+  - id: 181113 # Soulbreaker's Court Slippers
+    cost: 1500 anima
+
+- name: "Ember Court Set: Leather"
+  type: transmog
+  things:
+  - id: 181052 # Court Death Shroud Hood
+    cost: 2000 anima
+
+  - id: 181054 # Court Death Shroud Spaulders
+    cost: 2000 anima
+
+  - id: 181057 # Court Death Shroud Cloak
+    cost: 750 anima
+
+  - id: 181049 # Court Death Shroud Vest
+    cost: 2000 anima
+
+  - id: 181056 # Court Death Shroud Bindings
+    cost: 750 anima
+
+  - id: 181051 # Court Death Shroud Gloves
+    cost: 1500 anima
+
+  - id: 181055 # Court Death Shroud Belt
+    cost: 750 anima
+
+  - id: 181053 # Court Death Shroud Breeches
+    cost: 1500 anima
+
+  - id: 181050 # Court Death Shroud Boots
+    cost: 1500 anima
+
+- name: "Ember Court Set: Mail"
+  type: transmog
+  things:
+  - id: 181079 # Fearstalker's Court Helm
+    cost: 2000 anima
+
+  - id: 181081 # Fearstalker's Court Monnion
+    cost: 2000 anima
+
+  - id: 181084 # Fearstalker's Court Cloak
+    cost: 750 anima
+
+  - id: 181076 # Fearstalker's Court Hauberk
+    cost: 2000 anima
+
+  - id: 181083 # Fearstalker's Court Bracers
+    cost: 750 anima
+
+  - id: 181078 # Fearstalker's Court Gauntlets
+    cost: 1500 anima
+
+  - id: 181082 # Fearstalker's Court Belt
+    cost: 750 anima
+
+  - id: 181080 # Fearstalker's Court Leggings
+    cost: 1500 anima
+
+  - id: 181077 # Fearstalker's Court Sabatons
+    cost: 1500 anima
+
+- name: "Ember Court Set: Plate"
+  type: transmog
+  things:
+  - id: 181013 # Dread Sentinel's Court Headgear
+    cost: 2000 anima
+
+  - id: 181018 # Dread Sentinel's Court Spaulders
+    cost: 2000 anima
+
+  - id: 181021 # Dread Sentinel's Court Cloak
+    cost: 750 anima
+
+  - id: 181014 # Dread Sentinel's Court Chestplate
+    cost: 2000 anima
+
+  - id: 181020 # Dread Sentinel's Court Vambraces
+    cost: 750 anima
+
+  - id: 181016 # Dread Sentinel's Court Grips
+    cost: 1500 anima
+
+  - id: 181019 # Dread Sentinel's Court Girdle
+    cost: 750 anima
+
+  - id: 181017 # Dread Sentinel's Court Legguards
+    cost: 1500 anima
+
+  - id: 181015 # Dread Sentinel's Court Greatboots
+    cost: 1500 anima
+
+- name: "Ember Court Weapons"
+  type: transmog
+  things:
+  - id: 182372 # Ember Court Gavel - 1h mace
+    cost: 1750 anima
+
+  - id: 182376 # Court Guradian's Blade - 1h sword
+    cost: 1750 anima
+
+  - id: 182375 # Ember Court Duelist's Blade - 1h sword
+    cost: 1750 anima
+
+  - id: 182377 # Court Sinweaver's Blade - 1h sword
+    cost: 1750 anima
+
+  - id: 182370 # Crusader's Blade of the Ember Court - 2h sword
+    cost: 1750 anima
+
+  - id: 182369 # Ornate Ember Court Dagger - dagger
+    cost: 1750 anima
+
+  - id: 182371 # Claws of the Court's Sentinels - fist
+    cost: 1750 anima
+
+  - id: 182378 # Winged Blade of the Ember Court - warglaive
+    cost: 1750 anima
+
+  - id: 182373 # Ember Court Accuser's Stave - staff
+    cost: 1750 anima
+
+  - id: 182374 # Spiked Ember Court Stave - staff
+    cost: 1750 anima
+
+  - id: 182379 # Ember Court Sentry's Crossbow - crossbow
+    cost: 1750 anima
+
+  - id: 182381 # Court's Crystal - off-hand
+    cost: 1750 anima
+
+  - id: 182380 # Court Bodyguard's Cover - shield
+    cost: 1750 anima
+
+- name: "Renown Quartermaster Weapons"
+  type: transmog
+  things:
+  - id: 182430 # Sinseeker's Dredwing Gavel - 1h mace
+    cost: 3500 anima 50 offering
+
+  - id: 182433 # Barbedged Dredblade - 1h sword
+    cost: 3500 anima 50 offering
+
+  - id: 182434 # Crimson-Edged Wingblade - 1h sword
+    cost: 3500 anima 50 offering
+
+  - id: 182435 # Crimsonbarbed Sinbreaker - 1h sword
+    cost: 3500 anima 50 offering
+
+  - id: 182428 # Gilded Sinfall Bastard Sword - 2h sword
+    cost: 3500 anima 50 offering
+
+  - id: 183975 # Sinfall Ceremonial Blade - dagger
+    cost: 3500 anima 50 offering
+
+  - id: 182427 # Sinfall Heartpiercer - dagger
+    cost: 3500 anima 50 offering
+
+  - id: 182429 # Claw of the Gilded Stoneborn - fist
+    cost: 3500 anima 50 offering
+
+  - id: 182436 # Crimson Dredwing Glaive - warglaive
+    cost: 3500 anima 50 offering
+
+  - id: 182432 # Gilded Sentry Stave - staff
+    cost: 3500 anima 50 offering
+
+  - id: 182431 # Gilded Sineater's Staff - staff
+    cost: 3500 anima 50 offering
+
+  - id: 182437 # Screecher's Crimson Spinethrower - crossbow
+    cost: 3500 anima 50 offering
+
+  - id: 182439 # Sinheart Spell Foci - off-hand
+    cost: 3500 anima 50 offering
+
+  - id: 182438 # Sinfall Gilded Bulwark - shield
+    cost: 3500 anima 50 offering
+
+- name: "Sinfall Quartermaster Weapons"
+  type: transmog
+  things:
+  - id: 181144 # Gavel of Dark Diviniaton - 1h mace
+    cost: 3500 anima 10 offering
+
+  - id: 181149 # Dredbat's Dark Guile - 1h sword
+    cost: 3500 anima 10 offering
+
+  - id: 181150 # Sin's Ebon Edge - 1h sword
+    cost: 3500 anima 10 offering
+
+  - id: 181151 # Souleater's Ebony Barb - 1h sword
+    cost: 3500 anima 10 offering
+
+  - id: 181142 # Dark Blade of the Repentant - 2h sword
+    cost: 3500 anima 10 offering
+
+  - id: 181141 # Ebony Soul Piercer - dagger
+    cost: 3500 anima 10 offering
+
+  - id: 181143 # Claw of the Stoneborn Executioner - fist
+    cost: 3500 anima 10 offering
+
+  - id: 181152 # Dredwing's Ebon Edge - warglaive
+    cost: 3500 anima 10 offering
+
+  - id: 181146 # Singed Soul Spire - staff
+    cost: 3500 anima 10 offering
+
+  - id: 181148 # Stave of Dark Passions - staff
+    cost: 3500 anima 10 offering
+
+  - id: 181153 # Ebony Dredspine Repeater - crossbow
+    cost: 3500 anima 10 offering
+
+  - id: 181156 # Sinstealer's Dark Foci - off-hand
+    cost: 3500 anima 10 offering
+
+  - id: 181154 # Dark Bulwark of Death's Vigil - shield
+    cost: 3500 anima 10 offering
+
+- name: "Ta'rmoro Weapons"
+  type: transmog
+  things:
+  - id: 183977 # House Renathal Ceremonial Dagger - dagger
+    cost: 1750 anima
+
+  - id: 183968 # Venthyr Ritualist's Kris - dagger
+    cost: 3500 anima
+
+#  - id: 182204 # Illusion: Sinwrath
+#    cost: 2500 anima

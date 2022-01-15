@@ -32,10 +32,17 @@
                 gap: calc(0.4rem - 4px);
                 justify-content: center;
 
-                span {
+                a, span {
                     display: inline-block;
                     text-align: center;
                     width: 26px;
+                }
+                a {
+                    color: $body-text;
+
+                    &:hover {
+                        color: $link-color;
+                    }
 
                     &.active {
                         border: 1px solid $colour-shrug;
@@ -65,10 +72,11 @@
             {:else}
                 {#each covenantOrder as covenantId}
                     {#if characterCovenants[covenantId]}
-                        <span
+                        <a
+                            href="#/characters/{character.realm.slug}/{character.name}/shadowlands/{covenantMap[covenantId].slug}"
                             class:active={covenantId === character.shadowlands?.covenantId}
                             class:status-success={characterCovenants[covenantId].renown === Constants.maxRenown}
-                        >{characterCovenants[covenantId].renown}</span>
+                        >{characterCovenants[covenantId].renown}</a>
                     {:else}
                         <span class="status-fail">---</span>
                     {/if}

@@ -1,0 +1,106 @@
+<script lang="ts">
+    import filter from 'lodash/filter'
+    import find from 'lodash/find'
+
+    import { costMap, costOrder } from '@/data/vendors'
+    import { staticStore } from '@/stores/static'
+    import { userVendorStore } from '@/stores/user-vendors'
+    import type { StaticDataVendorCategory } from '@/types'
+
+    import Group from './VendorsGroup.svelte'
+    import SectionTitle from '@/components/collections/CollectionSectionTitle.svelte'
+    import WowheadLink from '@/components/links/WowheadLink.svelte'
+    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+
+    export let slug1: string
+    export let slug2: string
+
+    let categories: StaticDataVendorCategory[]
+    let totalCosts: Record<string, Record<string, number>>
+    $: {
+        categories = filter(
+            find(
+                $staticStore.data.vendorSets,
+                (cats: StaticDataVendorCategory[]) => cats !== null && cats[0].slug === slug1
+            ),
+            (cat: StaticDataVendorCategory) => cat?.groups?.length > 0
+        )
+
+        if (slug2) {
+            categories = filter(
+                categories,
+                (cat: StaticDataVendorCategory) => cat.slug === slug2
+            )
+        }
+
+        totalCosts = {}
+        for (const category of categories) {
+            totalCosts[category.slug] = {}
+            for (const group of category.groups) {
+                for (const thing of group.things) {
+                    if (!$userVendorStore.data.userHas[`${group.type}-${thing.id}`]) {
+                        for (const currency in thing.costs) {
+                            totalCosts[category.slug][currency] = (totalCosts[category.slug][currency] || 0) + thing.costs[currency]
+                        }
+                    }
+                }
+            }
+        }
+        console.log(totalCosts)
+    }
+</script>
+
+<style lang="scss">
+    .costs {
+        --image-border-width: 1px;
+        --image-margin-top: -4px;
+
+        color: $body-text;
+        display: flex;
+        float: right;
+        font-size: 90%;
+        gap: 0.5rem;
+    }
+</style>
+
+{#if categories}
+    <div class="collection thing-container">
+        {#each categories as category}
+            <SectionTitle
+                title={category.name}
+                count={$userVendorStore.data.stats[`${slug1}--${category.slug}`]}
+            >
+                {#if totalCosts[category.slug]}
+                    <span class="costs">
+                        {#each costOrder as cost}
+                            {#if totalCosts[category.slug][cost]}
+                                <div>
+                                    {totalCosts[category.slug][cost].toLocaleString()}
+                                    <WowheadLink
+                                        type={costMap[cost][0]}
+                                        id={costMap[cost][1]}
+                                    >
+                                        <WowthingImage
+                                            name="{costMap[cost][0]}/{costMap[cost][1]}"
+                                            size={20}
+                                            border={0}
+                                        />
+                                    </WowheadLink>
+                                </div>
+                            {/if}
+                        {/each}
+                    </span>
+                {/if}
+            </SectionTitle>
+
+            <div class="collection-section">
+                {#each category.groups as group, groupIndex}
+                    <Group
+                        stats={$userVendorStore.data.stats[`${slug1}--${category.slug}--${groupIndex}`]}
+                        {group}
+                    />
+                {/each}
+            </div>
+        {/each}
+    </div>
+{/if}

@@ -121,11 +121,6 @@ namespace Wowthing.Lib.Models
                 .Where(gb => _validGroupBy.Contains(gb))
                 .Distinct()
                 .ToList();
-            
-            if (General.GroupBy.Count == 0)
-            {
-                General.GroupBy.Add("faction");
-            }
 
             General.SortBy = General.SortBy
                 .EmptyIfNull()
@@ -140,6 +135,10 @@ namespace Wowthing.Lib.Models
                 General.SortBy.Add("name");
             }
 
+            if (!_validCovenantColumn.Contains(Layout.CovenantColumn))
+            {
+                Layout.CovenantColumn = "current";
+            }
             if (!_validPadding.Contains(Layout.Padding))
             {
                 Layout.Padding = "medium";

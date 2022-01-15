@@ -14,5 +14,7 @@
         Totem = 9,
         Sigil = 10,
         Relic = 11,
+        
+        Cloak = 20,
     }
 }

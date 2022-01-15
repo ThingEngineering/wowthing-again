@@ -1,13 +1,13 @@
 import keys from 'lodash/keys'
 import some from 'lodash/some'
-import {get} from 'svelte/store'
+import { get } from 'svelte/store'
 
 import { difficultyMap } from '@/data/difficulty'
 import { Account, CharacterCurrency, UserCount, UserData, UserDataPet, WritableFancyStore } from '@/types'
-import type { StaticData, StaticDataSetCategory } from '@/types'
-import initializeCharacter from '@/utils/initialize-character'
-import base64ToRecord from '@/utils/base64-to-record'
 import { TypedArray } from '@/types/enums'
+import base64ToRecord from '@/utils/base64-to-record'
+import initializeCharacter from '@/utils/initialize-character'
+import type { StaticData, StaticDataSetCategory } from '@/types'
 
 
 export class UserDataStore extends WritableFancyStore<UserData> {
@@ -131,7 +131,6 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             staticData.toySets,
             userData.toys
         )
-
 
         this.update(state => {
             state.data.petsHas = petsHas

@@ -138,10 +138,7 @@ namespace Wowthing.Backend.Jobs.Misc
                 .AsNoTracking()
                 .Where(item => 
                     item.ClassId == 2 ||
-                    item.ClassId == 4 && (
-                        item.SubclassId != 0 ||
-                        item.InventoryType == WowInventoryType.HeldInOffHand
-                    )
+                    (item.ClassId == 4 && item.SubclassId != 0)
                 )
                 .ToDictionaryAsync(item => item.Id);
             
@@ -374,8 +371,6 @@ namespace Wowthing.Backend.Jobs.Misc
                                         appearance.Difficulties.Remove(2);
                                     }
                                 }
-
-                                short subclassId = item.InventoryType == WowInventoryType.Back ? (short)0 : item.SubclassId;
                                 
                                 var group = GetGroup(itemGroups, item);
                                 group.Items.Add(new OutJournalEncounterItem
@@ -383,7 +378,7 @@ namespace Wowthing.Backend.Jobs.Misc
                                     Id = encounterItem.ItemID,
                                     ClassMask = item.GetCalculatedClassMask(legacyLoot),
                                     ClassId = item.ClassId,
-                                    SubclassId = subclassId,
+                                    SubclassId = item.SubclassId,
                                     Quality = item.Quality,
                                     Appearances = itemAppearances
                                         .Values
@@ -457,47 +452,40 @@ namespace Wowthing.Backend.Jobs.Misc
         {
             string groupName = null;
             int groupOrder = 100;
-            
-            if (item.ClassId == 2)
+
+            var cls = (WowItemClass)item.ClassId;
+            if (cls == WowItemClass.Weapon)
             {
                 groupName = "Weapons";
                 groupOrder = 10;
             }
-            else if (item.ClassId == 4)
+            else if (cls == WowItemClass.Armor)
             {
-                if (item.SubclassId == 1)
+                var subClass = (WowArmorSubclass)item.SubclassId;
+                if (subClass == WowArmorSubclass.Cloth)
                 {
-                    if (item.InventoryType == WowInventoryType.Back)
-                    {
-                        groupName = "Cloaks";
-                        groupOrder = 5;
-                    }
-                    else
-                    {
-                        groupName = "Cloth";
-                        groupOrder = 1;
-                    }
+                    groupName = "Cloth";
+                    groupOrder = 1;
                 }
-                else if (item.SubclassId == 2)
+                else if (subClass == WowArmorSubclass.Leather)
                 {
                     groupName = "Leather";
                     groupOrder = 2;
                 }
-                else if (item.SubclassId == 3)
+                else if (subClass == WowArmorSubclass.Mail)
                 {
                     groupName = "Mail";
                     groupOrder = 3;
                 }
-                else if (item.SubclassId == 4)
+                else if (subClass == WowArmorSubclass.Plate)
                 {
                     groupName = "Plate";
                     groupOrder = 4;
                 }
-                // Shields, off-hands
-                else if (item.SubclassId == 6 || item.InventoryType == WowInventoryType.HeldInOffHand)
+                else if (subClass == WowArmorSubclass.Cloak)
                 {
-                    groupName = "Weapons";
-                    groupOrder = 10;
+                    groupName = "Cloaks";
+                    groupOrder = 5;
                 }
                 else
                 {
