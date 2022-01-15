@@ -113,6 +113,10 @@ reputations:
       icon: item/180636 # Willowbreeze
 
   - both:
+      id: 2445 # The Ember Court
+      icon: item/2576 # White Linen Shirt
+
+  - both:
       id: 2463 # Marasmius
       icon: achievement/14775
 

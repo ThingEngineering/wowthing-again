@@ -31,6 +31,7 @@ export const covenantFeatureOrder: [string, string, number][] = [
 ]
 
 export const covenantFeatureReputation: Record<string, number> = {
+    '2-unique': 2445, // The Ember Court
     '3-conductor': 2464, // Court of Night
     '3-transport': 2463, // Marasmius
     '4-unique': 2462, // Stitchmasters
