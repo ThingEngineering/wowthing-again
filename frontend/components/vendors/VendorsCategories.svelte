@@ -3,10 +3,12 @@
     import find from 'lodash/find'
 
     import { costMap, costOrder } from '@/data/vendors'
+    import { vendorState } from '@/stores/local-storage'
     import { staticStore } from '@/stores/static'
     import { userVendorStore } from '@/stores/user-vendors'
     import type { StaticDataVendorCategory } from '@/types'
 
+    import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
     import Group from './VendorsGroup.svelte'
     import SectionTitle from '@/components/collections/CollectionSectionTitle.svelte'
     import WowheadLink from '@/components/links/WowheadLink.svelte'
@@ -51,6 +53,9 @@
 </script>
 
 <style lang="scss">
+    .wrapper {
+        width: 100%;
+    }
     .costs {
         --image-border-width: 1px;
         --image-margin-top: -4px;
@@ -63,44 +68,71 @@
     }
 </style>
 
-{#if categories}
-    <div class="collection thing-container">
-        {#each categories as category}
-            <SectionTitle
-                title={category.name}
-                count={$userVendorStore.data.stats[`${slug1}--${category.slug}`]}
-            >
-                {#if totalCosts[category.slug]}
-                    <span class="costs">
-                        {#each costOrder as cost}
-                            {#if totalCosts[category.slug][cost]}
-                                <div>
-                                    {totalCosts[category.slug][cost].toLocaleString()}
-                                    <WowheadLink
-                                        type={costMap[cost][0]}
-                                        id={costMap[cost][1]}
-                                    >
-                                        <WowthingImage
-                                            name="{costMap[cost][0]}/{costMap[cost][1]}"
-                                            size={20}
-                                            border={0}
-                                        />
-                                    </WowheadLink>
-                                </div>
-                            {/if}
-                        {/each}
-                    </span>
-                {/if}
-            </SectionTitle>
+<div class="wrapper">
+    <div class="options-container">
+        <button>
+            <CheckboxInput
+                name="highlight_missing"
+                bind:value={$vendorState.highlightMissing}
+            >Highlight missing</CheckboxInput>
+        </button>
 
-            <div class="collection-section">
-                {#each category.groups as group, groupIndex}
-                    <Group
-                        stats={$userVendorStore.data.stats[`${slug1}--${category.slug}--${groupIndex}`]}
-                        {group}
-                    />
-                {/each}
-            </div>
-        {/each}
+        <span>Show:</span>
+
+        <button>
+            <CheckboxInput
+                name="show_collected"
+                bind:value={$vendorState.showCollected}
+            >Collected</CheckboxInput>
+        </button>
+
+        <button>
+            <CheckboxInput
+                name="show_uncollected"
+                bind:value={$vendorState.showUncollected}
+            >Missing</CheckboxInput>
+        </button>
     </div>
-{/if}
+
+    {#if categories}
+        <div class="collection thing-container">
+            {#each categories as category}
+                <SectionTitle
+                    title={category.name}
+                    count={$userVendorStore.data.stats[`${slug1}--${category.slug}`]}
+                >
+                    {#if totalCosts[category.slug]}
+                        <span class="costs">
+                            {#each costOrder as cost}
+                                {#if totalCosts[category.slug][cost]}
+                                    <div>
+                                        {totalCosts[category.slug][cost].toLocaleString()}
+                                        <WowheadLink
+                                            type={costMap[cost][0]}
+                                            id={costMap[cost][1]}
+                                        >
+                                            <WowthingImage
+                                                name="{costMap[cost][0]}/{costMap[cost][1]}"
+                                                size={20}
+                                                border={0}
+                                            />
+                                        </WowheadLink>
+                                    </div>
+                                {/if}
+                            {/each}
+                        </span>
+                    {/if}
+                </SectionTitle>
+
+                <div class="collection-section">
+                    {#each category.groups as group, groupIndex}
+                        <Group
+                            stats={$userVendorStore.data.stats[`${slug1}--${category.slug}--${groupIndex}`]}
+                            {group}
+                        />
+                    {/each}
+                </div>
+            {/each}
+        </div>
+    {/if}
+</div>

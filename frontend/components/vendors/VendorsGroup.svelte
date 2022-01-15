@@ -1,5 +1,8 @@
 <script lang="ts">
+    import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
+
     import { costMap, costOrder } from '@/data/vendors'
+    import { vendorState } from '@/stores/local-storage'
     import { userVendorStore } from '@/stores/user-vendors'
     import { FarmDropType } from '@/types/enums'
     import getPercentClass from '@/utils/get-percent-class'
@@ -7,6 +10,7 @@
     import type { StaticDataVendorGroup, StaticDataVendorItem, UserCount } from '@/types'
 
     import CollectionCount from '@/components/collections/CollectionCount.svelte'
+    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import WowheadLink from '@/components/links/WowheadLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
@@ -68,43 +72,54 @@
 
     <div class="collection-objects">
         {#each things as [thing, userHas]}
-            <div
-                class="quality{thing.quality}"
-                class:missing={userHas}
-            >
-                <WowheadLink
-                    id={thing.id}
-                    type={linkType}
+            {#if ($vendorState.showCollected && userHas) || ($vendorState.showUncollected && !userHas)}
+                <div
+                    class="quality{thing.quality}"
+                    class:missing={
+                    (!$vendorState.highlightMissing && !userHas) ||
+                    ($vendorState.highlightMissing && userHas)
+                }
                 >
-                    <WowthingImage
-                        name="{linkType}/{thing.id}"
-                        size={48}
-                        border={2}
-                    />
-                </WowheadLink>
+                    <WowheadLink
+                        id={thing.id}
+                        type={linkType}
+                    >
+                        <WowthingImage
+                            name="{linkType}/{thing.id}"
+                            size={48}
+                            border={2}
+                        />
+                    </WowheadLink>
 
-                {#if !userHas}
-                    <div class="costs">
-                        {#each costOrder as cost}
-                            {#if thing.costs[cost]}
-                                <div>
-                                    {toNiceNumber(thing.costs[cost])}
-                                    <WowheadLink
-                                        type={costMap[cost][0]}
-                                        id={costMap[cost][1]}
-                                    >
-                                        <WowthingImage
-                                            name="{costMap[cost][0]}/{costMap[cost][1]}"
-                                            size={16}
-                                            border={0}
-                                        />
-                                    </WowheadLink>
-                                </div>
-                            {/if}
-                        {/each}
-                    </div>
-                {/if}
-            </div>
+                    {#if userHas}
+                        <div class="collected-icon drop-shadow">
+                            <IconifyIcon icon={mdiCheckboxOutline} />
+                        </div>
+                    {/if}
+
+                    {#if !userHas}
+                        <div class="costs">
+                            {#each costOrder as cost}
+                                {#if thing.costs[cost]}
+                                    <div>
+                                        {toNiceNumber(thing.costs[cost])}
+                                        <WowheadLink
+                                            type={costMap[cost][0]}
+                                            id={costMap[cost][1]}
+                                        >
+                                            <WowthingImage
+                                                name="{costMap[cost][0]}/{costMap[cost][1]}"
+                                                size={16}
+                                                border={0}
+                                            />
+                                        </WowheadLink>
+                                    </div>
+                                {/if}
+                            {/each}
+                        </div>
+                    {/if}
+                </div>
+            {/if}
         {/each}
     </div>
 </div>
