@@ -1,0 +1,289 @@
+name: "Covenant - Necrolord"
+groups:
+
+- name: Mounts
+  type: mount
+  things:
+  - id: 332466 # Armored Bonehoof Tauralus
+    cost: 5000 anima 100 offering
+
+  - id: 336041 # Bonesewn Fleshroc
+    cost: 3500 anima
+
+  - id: 332456 # Plaguerot Tauralus
+    cost: 5000 anima
+
+  - id: 353884 # Regal Corpsefly Harness
+    cost: 7500 anima
+
+  - id: 336064 # Dauntless Duskrunner
+    cost: 2500 anima
+
+  - id: 336039 # Gruesome Flayedwing
+    cost: 2500 anima
+
+  - id: 334365 # Pale Acidmaw
+    cost: 2500 anima
+
+  - id: 312777 # Silvertip Dredwing
+    cost: 2500 anima
+
+- name: Pets
+  type: pet
+  things:
+  - id: 174088 # Jiggles
+    cost: 1500 anima 30 offering
+
+  - id: 172140 # Backbone
+    cost: 750 anima
+
+  - id: 172284 # Bloodfeaster Spiderling
+    cost: 1000 anima
+
+  - id: 171569 # Brightscale Hatchling
+    cost: 1000 anima
+
+  - id: 171982 # Corpulent Bonetusk
+    cost: 1000 anima
+
+  - id: 171233 # Dusty Sporeflutterer
+    cost: 1000 anima
+
+  - id: 172153 # Mu'dud
+    cost: 1250 anima
+
+  - id: 171227 # Pearlwing Heron
+    cost: 1000 anima
+
+  - id: 172135 # Plaguelouse Larva
+    cost: 1000 anima
+
+  - id: 171568 # Sable
+    cost: 1000 anima
+
+  - id: 171151 # Violet Dredwing Pup
+    cost: 1000 anima
+
+- name: Toys
+  type: toy
+  things:
+  - id: 182773 # Necrolord Hearthstone
+    cost: 750 anima
+
+- name: "Ensembles"
+  type: transmog
+  things:
+  - id: 186502 # Ensemble: Marileth's Assistant Vestments
+    appearanceId: 44310
+    cost: 10000 anima
+
+  - id: 184303 # Arsenal: Stitchmasters' Weapons
+    appearanceId: 41339
+    cost: 30000 anima
+
+- name: "Renown Set: Cloth"
+  type: transmog
+  things:
+  - id: 182231 # Prime Conjurer's Cowl
+    cost: 4000 anima 30 offering
+
+  - id: 182236 # Prime Conjurer's Mantle
+    cost: 4000 anima 30 offering
+
+  - id: 182239 # Prime Conjurer's Cape
+    cost: 1500 anima 10 offering
+
+  - id: 182232 # Prime Conjurer's Tunic
+    cost: 4000 anima 30 offering
+
+  - id: 182238 # Prime Conjurer's Wristwraps
+    cost: 2000 anima 15 offering
+
+  - id: 182234 # Prime Conjurer's Gloves
+    cost: 2000 anima 15 offering
+
+  - id: 182237 # Prime Conjurer's Cinch
+    cost: 3000 anima 25 offering
+
+  - id: 182235 # Prime Conjurer's Leggings
+    cost: 3000 anima 25 offering
+
+  - id: 182233 # Prime Conjurer's Slippers
+    cost: 2000 anima 15 offering
+
+- name: "Renown Set: Leather"
+  type: transmog
+  things:
+  - id: 182222 # Prime Wraith's Visage
+    cost: 4000 anima 30 offering
+
+  - id: 182227 # Prime Wraith's Shoulders
+    cost: 4000 anima 30 offering
+
+  - id: 182230 # Prime Wraith's Cloak
+    cost: 1500 anima 10 offering
+
+  - id: 182223 # Prime Wraith's Jerkin
+    cost: 4000 anima 30 offering
+
+  - id: 182229 # Prime Wraith's Armguards
+    cost: 2000 anima 15 offering
+
+  - id: 182225 # Prime Wraith's Stranglers
+    cost: 2000 anima 15 offering
+
+  - id: 182228 # Prime Wraith's Belt
+    cost: 3000 anima 25 offering
+
+  - id: 182226 # Prime Wraith's Breeches
+    cost: 3000 anima 25 offering
+
+  - id: 182224 # Prime Wraith's Boots
+    cost: 2000 anima 15 offering
+
+- name: "Renown Set: Mail"
+  type: transmog
+  things:
+  - id: 182240 # Prime Tactician's Faceguard
+    cost: 4000 anima 30 offering
+
+  - id: 182245 # Prime Tactician's Spaulders
+    cost: 4000 anima 30 offering
+
+  - id: 182248 # Prime Tactician's Drape
+    cost: 1500 anima 10 offering
+
+  - id: 182241 # Prime Tactician's Hauberk
+    cost: 4000 anima 30 offering
+
+  - id: 182247 # Prime Tactician's Bracers
+    cost: 2000 anima 15 offering
+
+  - id: 182243 # Prime Tactician's Gauntlets
+    cost: 2000 anima 15 offering
+
+  - id: 182246 # Prime Tactician's Girdle
+    cost: 3000 anima 25 offering
+
+  - id: 182244 # Prime Tactician's Chausses
+    cost: 3000 anima 25 offering
+
+  - id: 182242 # Prime Tactician's Sabatons
+    cost: 2000 anima 15 offering
+
+- name: "Renown Set: Plate"
+  type: transmog
+  things:
+  - id: 182213 # Prime Harbinger's Greathelm
+    cost: 4000 anima 30 offering
+
+  - id: 182218 # Prime Harbinger's Pauldrons
+    cost: 4000 anima 30 offering
+
+  - id: 182221 # Prime Harbinger's Greatcloak
+    cost: 1500 anima 10 offering
+
+  - id: 182214 # Prime Harbinger's Chestguard
+    cost: 4000 anima 30 offering
+
+  - id: 182220 # Prime Harbinger's Vambraces
+    cost: 2000 anima 15 offering
+
+  - id: 182216 # Prime Harbinger's Crushers
+    cost: 2000 anima 15 offering
+
+  - id: 182219 # Prime Harbinger's Warbelt
+    cost: 3000 anima 25 offering
+
+  - id: 182217 # Prime Harbinger's Greaves
+    cost: 3000 anima 25 offering
+
+  - id: 182215 # Prime Harbinger's Stompers
+    cost: 2000 anima 15 offering
+
+- name: "Back Items"
+  type: transmog
+  things:
+  - id: 181805 # Osteowings of the Necrolords
+    cost: 3500 anima 40 offering
+
+  - id: 181801 # Standard of the Necrolords
+    cost: 3500 anima
+
+- name: "Goreforged Weapons"
+  type: transmog
+  things:
+  - id: 183459 # Goreforged Cleaver - 1h axe
+    cost: 3500 anima 10 offering
+
+  - id: 183946 # Goreforged Chopper - 1h axe
+    cost: 3500 anima 10 offering
+
+  - id: 183457 # Goreforged Greataxe - 2h axe
+    cost: 3500 anima 10 offering
+
+  - id: 183453 # Goreforged Mace - 1h mace
+    cost: 3500 anima 10 offering
+
+  - id: 183450 # Goreforged Shank - dagger
+    cost: 3500 anima 10 offering
+
+  - id: 183460 # Goreforged Sickle - dagger
+    cost: 3500 anima 10 offering
+
+  - id: 183454 # Goreforged Warglaive - warglaive
+    cost: 3500 anima 10 offering
+
+  - id: 183458 # Goreforged Polearm - polearm
+    cost: 3500 anima 10 offering
+
+  - id: 183455 # Goreforged Staff - staff
+    cost: 3500 anima 10 offering
+
+  - id: 183456 # Goreforged Blunderbuss - gun
+    cost: 3500 anima 10 offering
+
+  - id: 183452 # Goreforged Focus - off-hand
+    cost: 3500 anima 10 offering
+
+  - id: 183451 # Goreforged Barrier - shield
+    cost: 3500 anima 10 offering
+#
+- name: "Other Weapons"
+  type: transmog
+  things:
+  - id: 184072 # Brutal Fury-Forged Cleaver - 1h axe
+    cost: 3500 anima 50 offering
+
+  - id: 184074 # Chopper of the Hidden Hand - 1h axe
+    cost: 3500 anima 50 offering
+
+  - id: 184070 # Colossal Greataxe of Pandemonium - 2h axe
+    cost: 3500 anima 50 offering
+
+  - id: 184066 # Wriggling Soulcharged Mace - 1h mace
+    cost: 3500 anima 50 offering
+
+  - id: 184063 # Shank of the Unseen Eye - dagger
+    cost: 3500 anima 50 offering
+
+  - id: 184073 # Crooked Plaguedtouched Dagger - dagger
+    cost: 3500 anima 50 offering
+
+  - id: 184067 # Skullformed Ossein Warglaive - warglaive
+    cost: 3500 anima 50 offering
+
+  - id: 184071 # Blooddoused Aranakk Polearm - polearm
+    cost: 3500 anima 50 offering
+
+  - id: 184068 # Greatstaff of the Lichsworn - staff
+    cost: 3500 anima 50 offering
+
+  - id: 184069 # Soulbarb, the Breathless Kill - gun
+    cost: 3500 anima 50 offering
+
+  - id: 184065 # Lambent Plaguetouched Focus - off-hand
+    cost: 3500 anima 50 offering
+
+  - id: 184064 # Deathforged Bulwark of Maldraxxus - shield
+    cost: 3500 anima 50 offering

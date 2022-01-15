@@ -1,0 +1,73 @@
+name: Korthia
+groups:
+
+- name: "Mounts"
+  type: mount
+  things:
+  - id: 354356 # Amber Shardhide
+    cost: 5000 stygia
+
+  - id: 343550 # Battle-Hardened Aquilon
+    cost: 1000 stygia
+
+  - id: 353885 # Battlefield Swarmer
+    cost: 1000 stygia
+
+  - id: 353873 # Pale Gravewing
+    cost: 1000 stygia
+
+  - id: 353858 # Winter Wilderling
+    cost: 1000 stygia
+
+- name: "Pets"
+  type: pet
+  things:
+  - id: 179253 # Domestic Aunian
+    cost: 1500 stygia 50 polished
+
+- name: "Ensembles"
+  type: transmog
+  things:
+  - id: 186517 # Ensemble: Battlefield Messenger's Regalia
+    appearanceId: 44247
+    cost: 6000 stygia
+
+  - id: 186504 # Ensemble: Frontline Necromancer's Vestments
+    appearanceId: 44312
+    cost: 6000 stygia
+
+  - id: 186499 # Ensemble: Garb of Fall's Promise
+    appearanceId: 44330
+    cost: 6000 stygia
+
+  - id: 186511 # Ensemble: Renathal's Battlefield Attire
+    appearanceId: 44379
+    cost: 6000 stygia
+
+  - id: 186512 # Ensemble: Renathal's Field Inquisitor's Vestments
+    appearanceId: 44395
+    cost: 6000 stygia
+
+- name: "Domination Gear"
+  type: transmog
+  things:
+  - id: 187540 # Cincture of Enveloping Death
+    cost: 2000 stygia
+
+  - id: 187538 # Gloves of Advancing Death
+    cost: 2000 stygia
+
+  - id: 187541 # Chain of Encircling Death
+    cost: 2000 stygia
+
+  - id: 187539 # Gauntlets of Death's Guardian
+    cost: 2000 stygia
+
+- name: "Misc"
+  type: transmog
+  things:
+  - id: 187411 # Mantle of Death's Advance
+    cost: 500 stygia
+
+  - id: 186997 # Death's Advance Tabard
+    cost: 3000 stygia
