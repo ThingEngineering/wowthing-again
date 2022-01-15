@@ -32,6 +32,9 @@ img.quality0 {
         border-color: $quality1-border !important;
     }
 }
+.quality1-border {
+    border-color: $quality1-border !important;
+}
 img.quality1 {
     border-color: $quality1-border !important;
 }
@@ -44,6 +47,9 @@ img.quality1 {
     div, img {
         border-color: $quality2-border !important;
     }
+}
+.quality2-border {
+    border-color: $quality2-border !important;
 }
 img.quality2 {
     border-color: $quality2-border !important;
@@ -58,6 +64,9 @@ img.quality2 {
         border-color: $quality3-border !important;
     }
 }
+.quality3-border {
+    border-color: $quality3-border !important;
+}
 img.quality3 {
     border-color: $quality3-border !important;
 }
@@ -70,6 +79,9 @@ img.quality3 {
     div, img {
         border-color: $quality4-border !important;
     }
+}
+.quality4-border {
+    border-color: $quality4-border !important;
 }
 img.quality4 {
     border-color: $quality4-border !important;
@@ -84,6 +96,9 @@ img.quality4 {
     span {
         color: #ffb400 !important;
     }
+}
+.quality5-border {
+    border-color: $quality5-border !important;
 }
 img.quality5 {
     border-color: $quality5-border !important;
