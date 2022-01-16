@@ -177,6 +177,7 @@ namespace Wowthing.Lib.Models
     public class ApplicationUserSettingsCharacters
     {
         public List<int> HiddenCharacters { get; set; } = new();
+        public List<int> PinnedCharacters { get; set; } = new();
     }
     
     public class ApplicationUserSettingsGeneral

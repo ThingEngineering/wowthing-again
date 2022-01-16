@@ -4,6 +4,7 @@ import type { Language } from '@/types/enums'
 export interface Settings {
     characters: {
         hiddenCharacters: number[]
+        pinnedCharacters: number[]
     }
 
     general: {
