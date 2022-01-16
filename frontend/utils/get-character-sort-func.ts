@@ -2,7 +2,7 @@ import { get } from 'svelte/store'
 
 import {Constants} from '@/data/constants'
 import { userStore } from '@/stores'
-import type { Character, Settings } from '@/types'
+import type { Character, Settings, UserData } from '@/types'
 import toDigits from '@/utils/to-digits'
 import { Region } from '@/types/enums'
 
@@ -15,17 +15,21 @@ export default function getCharacterSortFunc(
 
     return (char: Character) => {
         const out: string[] = []
+        const userData: UserData = get(userStore).data
 
         if (prefixFunc) {
             out.push(prefixFunc(char))
         }
 
+        const index = settingsData.characters.pinnedCharacters?.indexOf(char.id) ?? -1
+        out.push(toDigits(index >= 0 ? index : 999, 3))
+
         for (const thing of sortBy) {
             if (thing === 'account') {
-                out.push(get(userStore).data.accounts?.[char.accountId]?.name ?? `account${char.accountId}`)
+                out.push(userData.accounts?.[char.accountId]?.name ?? `account${char.accountId}`)
             }
             else if (thing === 'enabled') {
-                const enabled = get(userStore).data.accounts?.[char.accountId]?.enabled ?? true
+                const enabled = userData.accounts?.[char.accountId]?.enabled ?? true
                 out.push(enabled ? 'a' : 'z')
             }
             else if (thing === 'faction') {
@@ -35,7 +39,7 @@ export default function getCharacterSortFunc(
                 out.push((5 - char.faction).toString())
             }
             else if (thing === 'gold') {
-                out.push((1000000000 - char.gold).toString())
+                out.push(toDigits(10_000_000 - char.gold, 8).toString())
             }
             else if (thing === 'itemlevel' || thing == 'itemLevel') { // TODO remove me once users are fixed
                 out.push(toDigits(1000 - parseInt(char.calculatedItemLevel || '0'), 4))

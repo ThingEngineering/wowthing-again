@@ -11,8 +11,16 @@
             slug: 'account',
         },
         {
+            name: 'Layout',
+            slug: 'layout',
+        },
+        {
             name: 'Privacy',
             slug: 'privacy',
+        },
+        {
+            name: 'Transmog',
+            slug: 'transmog',
         },
         null,
         {
@@ -20,16 +28,12 @@
             slug: 'hide-characters',
         },
         {
+            name: 'Pin Characters',
+            slug: 'pin-characters',
+        },
+        {
             name: 'Sort Characters',
             slug: 'sort-characters',
-        },
-        {
-            name: 'Layout',
-            slug: 'layout',
-        },
-        {
-            name: 'Transmog',
-            slug: 'transmog',
         },
     ]
 
