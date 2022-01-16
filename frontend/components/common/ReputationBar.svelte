@@ -1,14 +1,13 @@
 <script lang="ts">
-    import { staticStore, userStore } from '@/stores'
+    import { staticStore } from '@/stores'
     import findReputationTier from '@/utils/find-reputation-tier'
-    import type { Character, ReputationTier, StaticDataReputation, StaticDataReputationTier } from '@/types'
+    import type { Character, ReputationTier, StaticDataReputationTier } from '@/types'
 
     import ProgressBar from '@/components/common/ProgressBar.svelte'
 
     export let character: Character
     export let reputationId: number
 
-    let quality: number
     let tier: ReputationTier
     $: {
         const have = character.reputations?.[reputationId] ?? 0

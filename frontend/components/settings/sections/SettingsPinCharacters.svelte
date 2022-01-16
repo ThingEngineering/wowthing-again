@@ -11,7 +11,7 @@
     import MagicLists from '../SettingsMagicLists.svelte'
 
     const allCharacters: SettingsChoice[] = $userStore.data.characters.map((char) => ({
-        key: char.id,
+        key: char.id.toString(),
         name: `${char.name}-${char.realm.name}`,
     }))
 
@@ -20,21 +20,21 @@
     const activeCharacters = sortBy(
         filter(
             allCharacters,
-            (char) => $settingsData.characters.pinnedCharacters.indexOf(char.key) >= 0
+            (char) => $settingsData.characters.pinnedCharacters.indexOf(parseInt(char.key)) >= 0
         ),
-        (char) => $settingsData.characters.pinnedCharacters.indexOf(char.key)
+        (char) => $settingsData.characters.pinnedCharacters.indexOf(parseInt(char.key))
     )
     const inactiveCharacters = sortBy(
         filter(
             allCharacters,
-            (char) => $settingsData.characters.pinnedCharacters.indexOf(char.key) === -1
+            (char) => $settingsData.characters.pinnedCharacters.indexOf(parseInt(char.key)) === -1
         ),
-        (char) => sortFunc($userStore.data.characterMap[char.key])
+        (char) => sortFunc($userStore.data.characterMap[parseInt(char.key)])
     )
 
     const onFunc = debounce(() => {
         settingsData.update(state => {
-            state.characters.pinnedCharacters = activeCharacters.map((c) => c.key)
+            state.characters.pinnedCharacters = activeCharacters.map((c) => parseInt(c.key))
             return state
         })
     }, 100)
