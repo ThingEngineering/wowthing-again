@@ -15,6 +15,7 @@
         StaticDataProgressCategory,
     } from '@/types'
 
+    import Abominations from './CharactersShadowlandsAbominations.svelte'
     import ReputationBar from '@/components/common/ReputationBar.svelte'
     import Soulbind from './CharactersShadowlandsSoulbind.svelte'
     import Soulshapes from './CharactersShadowlandsSoulshapes.svelte'
@@ -190,6 +191,10 @@
                         reputationId={covenantFeatureReputation[`${covenantId}-${feature.key}`]}
                         {character}
                     />
+                {/if}
+
+                {#if covenantId === 4 && feature.key === 'unique' && feature.rank > 0}
+                    <Abominations {character} />
                 {/if}
 
                 {#if featureIndex < (features.length - 1)}
