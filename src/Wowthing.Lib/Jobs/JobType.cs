@@ -22,6 +22,8 @@
         DataReputationFaction,
         DataReputationTiers,
         DataTitle,
+        DataConnectedRealmIndex,
+        DataConnectedRealm,
 
         // Non-Blizzard jobs
         CharacterRaiderIo = 500,

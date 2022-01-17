@@ -10,6 +10,7 @@ namespace Wowthing.Lib.Models.Wow
     {
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
+        public int ConnectedRealmId { get; set; }
         public WowRegion Region { get; set; }
         public string Name { get; set; }
         public string Slug { get; set; }

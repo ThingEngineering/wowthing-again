@@ -17,6 +17,7 @@ namespace Wowthing.Backend.Jobs.Data
             Type = JobType.DataRealmIndex,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromDays(1),
+            Version = 2,
         };
 
         private const string ApiPath = "data/wow/realm/index";
@@ -50,6 +51,8 @@ namespace Wowthing.Backend.Jobs.Data
             }
 
             await Context.SaveChangesAsync();
+            
+            await JobRepository.AddJobAsync(JobPriority.High, JobType.DataConnectedRealmIndex);
         }
     }
 }
