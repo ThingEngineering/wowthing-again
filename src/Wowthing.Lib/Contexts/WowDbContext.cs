@@ -19,6 +19,7 @@ namespace Wowthing.Lib.Contexts
 
         public DbSet<LanguageString> LanguageString { get; set; }
         
+        public DbSet<WowAuction> WowAuction { get; set; }
         public DbSet<WowItem> WowItem { get; set; }
         public DbSet<WowMount> WowMount { get; set; }
         public DbSet<WowMythicPlusSeason> WowMythicPlusSeason { get; set; }
@@ -116,6 +117,9 @@ namespace Wowthing.Lib.Contexts
             builder.Entity<PlayerCharacterMythicPlusSeason>()
                 .HasKey(mps => new { mps.CharacterId, mps.Season });
 
+            builder.Entity<WowAuction>()
+                .HasKey(a => new { a.ConnectedRealmId, a.AuctionId });
+            
             builder.Entity<WowPeriod>()
                 .HasKey(p => new { p.Region, p.Id });
 

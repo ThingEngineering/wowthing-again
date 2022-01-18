@@ -47,5 +47,7 @@
         //CacheZoneMaps,
         ImportDumps = 1013,
         CacheJournal,
+        DataAuctionsStart,
+        DataAuctions,
     }
 }

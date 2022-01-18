@@ -18,6 +18,7 @@ using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Models.Query;
+using Wowthing.Lib.Models.Wow;
 using Wowthing.Lib.Repositories;
 using Wowthing.Lib.Utilities;
 
@@ -52,6 +53,12 @@ namespace Wowthing.Backend.Jobs
         public abstract Task Run(params string[] data);
         #endregion
 
+        protected IDisposable AuctionLog(WowRealm realm)
+        {
+            var jobName = this.GetType().Name[0..^3];
+            return LogContext.PushProperty("Task", $"{jobName} {realm.Region.ToString()} {realm.ConnectedRealmId}");
+        }
+        
         protected IDisposable CharacterLog(SchedulerCharacterQuery query)
         {
             var jobName = this.GetType().Name[0..^3];
@@ -83,10 +90,21 @@ namespace Wowthing.Backend.Jobs
             return GenerateUri(query.Region, ApiNamespace.Profile, filledPath);
         }
 
-        protected async Task<JsonResult<T>> GetJson<T>(Uri uri, bool useAuthorization = true, bool useLastModified = true)
+        protected async Task<JsonResult<T>> GetJson<T>(
+                Uri uri,
+                bool useAuthorization = true,
+                bool useLastModified = true,
+                JankTimer timer = null
+            )
             //where T : class
         {
-            var timer = new JankTimer();
+            bool timerOutput = false;
+            if (timer == null)
+            {
+                timer = new JankTimer();
+                timerOutput = true;
+            }
+
             var db = Redis.GetDatabase();
 
             // Try from cache first
@@ -152,7 +170,11 @@ namespace Wowthing.Backend.Jobs
 
             T obj = JsonConvert.DeserializeObject<T>(contentString);
             timer.AddPoint("JSON", true);
-            Logger.Debug("{0}", timer.ToString());
+
+            if (timerOutput)
+            {
+                Logger.Debug("{0}", timer.ToString());
+            }
 
             return new JsonResult<T> { Data = obj };
         }
