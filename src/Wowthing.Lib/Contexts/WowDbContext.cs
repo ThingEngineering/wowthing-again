@@ -141,7 +141,7 @@ namespace Wowthing.Lib.Contexts
             
             // Fancy indexes
             builder.Entity<LanguageString>()
-                .HasIndex(ls => new { ls.Language,ls.Type, ls.Id });
+                .HasIndex(ls => new { ls.Language, ls.Type, ls.Id });
             
             builder.Entity<LanguageString>()
                 .HasIndex(ls => new { ls.String })

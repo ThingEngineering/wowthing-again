@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using Wowthing.Lib.Enums;
 
 namespace Wowthing.Lib.Models.Wow
 {
+    [Index(nameof(ItemId))]
+    [Index(nameof(PetSpeciesId))]
     public class WowAuction
     {
         public long BidPrice { get; set; }
