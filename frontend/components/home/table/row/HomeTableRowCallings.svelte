@@ -28,10 +28,12 @@
             for (let i = 0; i < callingCompleted.length; i++) {
                 if (callingCompleted[i]) {
                     const expires = DateTime.fromSeconds(callingExpires[i])
-                    for (let resetIndex = 0; resetIndex < resets.length; resetIndex++) {
-                        if (expires < resets[resetIndex]) {
-                            callings[resetIndex] = true
-                            break
+                    if (expires < $timeStore) {
+                        for (let resetIndex = 0; resetIndex < resets.length; resetIndex++) {
+                            if (expires < resets[resetIndex]) {
+                                callings[resetIndex] = true
+                                break
+                            }
                         }
                     }
                 }

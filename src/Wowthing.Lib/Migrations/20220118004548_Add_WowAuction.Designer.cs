@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
@@ -13,9 +14,10 @@ using Wowthing.Lib.Models.Player;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    partial class WowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220118004548_Add_WowAuction")]
+    partial class Add_WowAuction
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1360,12 +1362,6 @@ namespace Wowthing.Lib.Migrations
 
                     b.HasKey("ConnectedRealmId", "AuctionId")
                         .HasName("pk_wow_auction");
-
-                    b.HasIndex("ItemId")
-                        .HasDatabaseName("ix_wow_auction_item_id");
-
-                    b.HasIndex("PetSpeciesId")
-                        .HasDatabaseName("ix_wow_auction_pet_species_id");
 
                     b.ToTable("wow_auction");
                 });

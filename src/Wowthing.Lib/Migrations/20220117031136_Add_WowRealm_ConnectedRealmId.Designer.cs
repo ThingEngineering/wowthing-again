@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
@@ -13,9 +14,10 @@ using Wowthing.Lib.Models.Player;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    partial class WowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220117031136_Add_WowRealm_ConnectedRealmId")]
+    partial class Add_WowRealm_ConnectedRealmId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1294,80 +1296,6 @@ namespace Wowthing.Lib.Migrations
                         .HasDatabaseName("ix_team_character_team_id");
 
                     b.ToTable("team_character");
-                });
-
-            modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowAuction", b =>
-                {
-                    b.Property<int>("ConnectedRealmId")
-                        .HasColumnType("integer")
-                        .HasColumnName("connected_realm_id");
-
-                    b.Property<int>("AuctionId")
-                        .HasColumnType("integer")
-                        .HasColumnName("auction_id");
-
-                    b.Property<long>("BidPrice")
-                        .HasColumnType("bigint")
-                        .HasColumnName("bid_price");
-
-                    b.Property<List<int>>("BonusIds")
-                        .HasColumnType("integer[]")
-                        .HasColumnName("bonus_ids");
-
-                    b.Property<long>("BuyoutPrice")
-                        .HasColumnType("bigint")
-                        .HasColumnName("buyout_price");
-
-                    b.Property<short>("Context")
-                        .HasColumnType("smallint")
-                        .HasColumnName("context");
-
-                    b.Property<int>("ItemId")
-                        .HasColumnType("integer")
-                        .HasColumnName("item_id");
-
-                    b.Property<List<short>>("ModifierTypes")
-                        .HasColumnType("smallint[]")
-                        .HasColumnName("modifier_types");
-
-                    b.Property<List<int>>("ModifierValues")
-                        .HasColumnType("integer[]")
-                        .HasColumnName("modifier_values");
-
-                    b.Property<short>("PetBreedId")
-                        .HasColumnType("smallint")
-                        .HasColumnName("pet_breed_id");
-
-                    b.Property<short>("PetLevel")
-                        .HasColumnType("smallint")
-                        .HasColumnName("pet_level");
-
-                    b.Property<short>("PetQuality")
-                        .HasColumnType("smallint")
-                        .HasColumnName("pet_quality");
-
-                    b.Property<short>("PetSpeciesId")
-                        .HasColumnType("smallint")
-                        .HasColumnName("pet_species_id");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer")
-                        .HasColumnName("quantity");
-
-                    b.Property<short>("TimeLeft")
-                        .HasColumnType("smallint")
-                        .HasColumnName("time_left");
-
-                    b.HasKey("ConnectedRealmId", "AuctionId")
-                        .HasName("pk_wow_auction");
-
-                    b.HasIndex("ItemId")
-                        .HasDatabaseName("ix_wow_auction_item_id");
-
-                    b.HasIndex("PetSpeciesId")
-                        .HasDatabaseName("ix_wow_auction_pet_species_id");
-
-                    b.ToTable("wow_auction");
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowItem", b =>

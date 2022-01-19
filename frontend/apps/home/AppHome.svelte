@@ -5,6 +5,7 @@
         journalStore,
         staticStore,
         transmogStore,
+        userAchievementStore,
         userQuestStore,
         userStore,
         userTransmogStore,
@@ -20,6 +21,7 @@
         staticStore.fetch(undefined, $settings.general.language),
         journalStore.fetch(undefined, $settings.general.language),
         transmogStore.fetch(),
+        userAchievementStore.fetch(),
         userQuestStore.fetch(),
         userStore.fetch(),
         userTransmogStore.fetch(),
@@ -32,6 +34,7 @@
         error = $staticStore.error
             || $journalStore.error
             || $transmogStore.error
+            || $userAchievementStore.error
             || $userQuestStore.error
             || $userStore.error
             || $userTransmogStore.error
@@ -39,6 +42,7 @@
         loaded = $staticStore.loaded
             && $journalStore.loaded
             && $transmogStore.loaded
+            && $userAchievementStore.loaded
             && $userQuestStore.loaded
             && $userStore.loaded
             && $userTransmogStore.loaded

@@ -37,6 +37,29 @@ export const covenantFeatureReputation: Record<string, number> = {
     '4-unique': 2462, // Stitchmasters
 }
 
+// Necrolords
+// [criteriaId, spellId]
+export const abominations: [number, number][] = [
+    [88203, 325454], // Atticus
+    [88196, 325284], // Chordy
+    [88201, 325453], // Flytrap
+    [88208, 326380], // Gas Bag
+    [88209, 338039], // Guillotine
+    [88212, 338037], // Iron Phillip
+    [88210, 326408], // Mama Tomalin
+    [88202, 325452], // Marz
+    [88213, 325458], // Miru
+    [88211, 338043], // Naxx
+    [88214, 326379], // Neena
+    [88207, 326406], // Professor
+    [88204, 325451], // Roseboil
+    [88205, 338040], // Sabrina
+    [88206, 326407], // Toothpick
+    [88215, 343436], // Unity
+]
+
+// Night Fae
+// [spellId, icon]
 export const soulshapes: [number, string][] = [
     [65010, 'item/187882'], // Alpaca
     [62422, 'item/182165'], // Ardenmoth
@@ -81,6 +104,7 @@ export const soulshapes: [number, string][] = [
     [63603, 'item/185047'], // Yak
 ]
 
+// [spellId, icon]
 export const crittershapes: [number, string][] = [
     [64984, 'item/187858'], // Bunny
     [64961, 'item/187819'], // Cat

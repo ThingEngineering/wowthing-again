@@ -22,6 +22,8 @@
         DataReputationFaction,
         DataReputationTiers,
         DataTitle,
+        DataConnectedRealmIndex,
+        DataConnectedRealm,
 
         // Non-Blizzard jobs
         CharacterRaiderIo = 500,
@@ -45,5 +47,7 @@
         //CacheZoneMaps,
         ImportDumps = 1013,
         CacheJournal,
+        DataAuctionsStart,
+        DataAuctions,
     }
 }
