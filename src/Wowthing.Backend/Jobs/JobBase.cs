@@ -169,7 +169,7 @@ namespace Wowthing.Backend.Jobs
             }
 
             T obj = JsonConvert.DeserializeObject<T>(contentString);
-            timer.AddPoint("JSON", true);
+            timer.AddPoint("JSON", timerOutput);
 
             if (timerOutput)
             {
