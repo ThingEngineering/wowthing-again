@@ -16,6 +16,7 @@ using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
+using Wowthing.Lib.Models.Wow;
 using Wowthing.Lib.Utilities;
 using Wowthing.Web.Forms;
 using Wowthing.Web.Models;
@@ -555,6 +556,209 @@ namespace Wowthing.Web.Controllers
             return Ok(data);
         }
 
+        [HttpGet("user/{username:username}/auctions")]
+        public async Task<IActionResult> UserAuctionData([FromRoute] string username)
+        {
+            var timer = new JankTimer();
+
+            var apiResult = await CheckUser(username);
+            if (apiResult.NotFound)
+            {
+                return NotFound();
+            }
+
+            if (apiResult.Public)
+            {
+                return Forbid();
+            }
+            
+            timer.AddPoint("CheckUser");
+
+            var accounts = await _context.PlayerAccount
+                .AsNoTracking()
+                .Where(pa => pa.UserId == apiResult.User.Id)
+                .Include(pa => pa.Pets)
+                .Include(pa => pa.Toys)
+                .ToArrayAsync();
+
+            var accountIds = accounts
+                .Select(account => account.Id)
+                .ToArray();
+            
+            var accountConnectedRealmIds = await _context.WowRealm
+                .AsNoTracking()
+                .Where(realm => _context.PlayerCharacter
+                    .Where(pc => pc.AccountId != null && accountIds.Contains(pc.AccountId.Value))
+                    .Select(pc => pc.RealmId)
+                    .Contains(realm.Id)
+                )
+                .Select(realm => realm.ConnectedRealmId)
+                .Distinct()
+                .ToArrayAsync();
+
+            var accountPetIds = accounts
+                .SelectMany(account => account.Pets?.Pets
+                    .EmptyIfNull()
+                    .Select(pet => pet.Value.SpeciesId)
+                )
+                .Distinct()
+                .ToArray();
+            
+            var accountToyIds = accounts
+                .SelectMany(a => a.Toys?.ToyIds.EmptyIfNull())
+                .Distinct()
+                .ToArray();
+            
+            var accountMounts = await _context.MountQuery
+                .FromSqlRaw(MountQuery.USER_QUERY, apiResult.User.Id)
+                .FirstAsync();
+            
+            timer.AddPoint("Accounts");
+
+            var missingMounts = await _context.WowMount
+                .AsNoTracking()
+                .Where(mount =>
+                    !accountMounts.Mounts.Contains(mount.Id)
+                )
+                .ToArrayAsync();
+            
+            var missingPets = await _context.WowPet
+                .AsNoTracking()
+                .Where(pet =>
+                    (pet.Flags & 32) == 0 &&
+                    pet.SourceType != 4 && // WildPet
+                    !accountPetIds.Contains(pet.Id))
+                .ToArrayAsync();
+            
+            var missingToys = await _context.WowToy
+                .AsNoTracking()
+                .Where(toy => toy.ItemId > 0 && !accountToyIds.Contains(toy.ItemId))
+                .ToArrayAsync();
+            
+            timer.AddPoint("Data");
+
+            var auctionQuery = _context.WowAuction
+                .AsNoTracking()
+                .Where(auction =>
+                    accountConnectedRealmIds.Contains(auction.ConnectedRealmId)
+                );
+            
+            // Pets
+            var petSpeciesMap = missingPets.ToDictionary(pet => pet.Id, pet => pet.CreatureId);
+            
+            var petAuctions = await auctionQuery
+                .Where(auction => missingPets.Select(pet => pet.Id).Contains(auction.PetSpeciesId))
+                .ToArrayAsync();
+
+            var missingPetAuctions = DoAuctionStuff(petAuctions.GroupBy(auction => petSpeciesMap[auction.PetSpeciesId]));
+            
+            // Toys
+            var toyAuctions = await auctionQuery
+                .Where(auction => missingToys.Select(toy => toy.ItemId).Contains(auction.ItemId)) 
+                .ToArrayAsync();
+
+            var missingToyAuctions = DoAuctionStuff(toyAuctions.GroupBy(auction => auction.ItemId));
+
+            timer.AddPoint("Auctions");
+
+            var languageQuery = _context.LanguageString
+                .Where(ls => ls.Language == apiResult.User.Settings.General.Language);
+            
+            var allItemIds = missingToyAuctions.Keys
+                .Distinct()
+                .ToArray();
+
+            var itemNames = await languageQuery
+                .Where(ls =>
+                    ls.Type == StringType.WowItemName &&
+                    allItemIds.Contains(ls.Id)
+                )
+                .ToDictionaryAsync(
+                    ls => ls.Id,
+                    ls => ls.String
+                );
+
+            var allCreatureIds = missingPets
+                .Select(pet => pet.CreatureId)
+                .Distinct();
+            
+            var petNames = await languageQuery
+                .Where(ls =>
+                    ls.Type == StringType.WowCreatureName &&
+                    allCreatureIds.Contains(ls.Id)
+                )
+                .ToDictionaryAsync(
+                    ls => ls.Id,
+                    ls => ls.String
+                );
+
+            timer.AddPoint("Strings", true);
+                
+            _logger.LogDebug($"{timer}");
+
+            var data = new UserAuctionData
+            {
+                ItemNames = itemNames,
+                PetNames = petNames,
+                MissingPets = missingPetAuctions,
+                MissingToys = missingToyAuctions,
+            };
+
+            return Ok(data);
+        }
+
+        private static Dictionary<int, List<WowAuction>> DoAuctionStuff(IEnumerable<IGrouping<int, WowAuction>> groupedAuctions)
+        {
+            var groupedThings = groupedAuctions
+                .ToDictionary(
+                    group => group.Key,
+                    group => group
+                        .ToGroupedDictionary(auction => auction.ConnectedRealmId)
+                );
+            
+            var ret = new Dictionary<int, List<WowAuction>>();
+            foreach (var (thingId, itemRealms) in groupedThings)
+            {
+                ret[thingId] = new List<WowAuction>();
+                foreach (var (realmId, realmAuctions) in itemRealms)
+                {
+                    var lowestBid = realmAuctions
+                        .Where(auction => auction.BidPrice > 0)
+                        .OrderBy(auction => auction.BidPrice)
+                        .FirstOrDefault();
+                    var lowestBuyout = realmAuctions
+                        .Where(auction => auction.BuyoutPrice > 0)
+                        .OrderBy(auction => auction.BuyoutPrice)
+                        .FirstOrDefault();
+
+                    if (lowestBid == null)
+                    {
+                        ret[thingId].Add(lowestBuyout);
+                    }
+                    else if (lowestBuyout == null)
+                    {
+                        ret[thingId].Add(lowestBid);
+                    }
+                    else if (lowestBid.AuctionId == lowestBuyout.AuctionId)
+                    {
+                        ret[thingId].Add(lowestBid);
+                    }
+                    else
+                    {
+                        if (lowestBid.BidPrice < lowestBuyout.BuyoutPrice)
+                        {
+                            ret[thingId].Add(lowestBid);
+                        }
+                        ret[thingId].Add(lowestBuyout);
+                    }
+                }
+                
+                ret[thingId].Sort((a, b) => a.UsefulPrice.CompareTo(b.UsefulPrice));
+            }
+            
+            return ret;
+        }
+
         [HttpGet("user/{username:username}/collections")]
         public async Task<IActionResult> UserCollectionData([FromRoute] string username)
         {
@@ -647,10 +851,9 @@ namespace Wowthing.Web.Controllers
                 return NotFound();
             }
 
-            // Maybe this should return 403 Forbidden?
             if (apiResult.Public)
             {
-                return NotFound();
+                return Forbid();
             }
 
             timer.AddPoint("CheckUser");

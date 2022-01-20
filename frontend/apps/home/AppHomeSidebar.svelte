@@ -223,6 +223,13 @@
     </li>
 
     {#if $userStore.loaded && !$userStore.data.public}
+        <li use:active={'/auctions/*'}>
+            <a href="#/auctions/">
+                <IconifyIcon icon={iconConstruction} />
+                Auctions
+            </a>
+        </li>
+
         <li class="separator"></li>
 
         <li use:active={'/settings/*'}>
