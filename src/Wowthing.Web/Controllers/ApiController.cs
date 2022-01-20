@@ -618,6 +618,7 @@ namespace Wowthing.Web.Controllers
             var missingMounts = await _context.WowMount
                 .AsNoTracking()
                 .Where(mount =>
+                    mount.ItemId > 0 &&
                     !accountMounts.Mounts.Contains(mount.Id)
                 )
                 .ToArrayAsync();
@@ -642,6 +643,15 @@ namespace Wowthing.Web.Controllers
                 .Where(auction =>
                     accountConnectedRealmIds.Contains(auction.ConnectedRealmId)
                 );
+            
+            // Mounts
+            var mountSpellMap = missingMounts.ToDictionary(mount => mount.ItemId, mount => mount.SpellId);
+            
+            var mountAuctions = await auctionQuery
+                .Where(auction => missingMounts.Select(mount => mount.ItemId).Contains(auction.ItemId))
+                .ToArrayAsync();
+
+            var missingMountAuctions = DoAuctionStuff(mountAuctions.GroupBy(auction => mountSpellMap[auction.ItemId]));
             
             // Pets
             var petSpeciesMap = missingPets.ToDictionary(pet => pet.Id, pet => pet.CreatureId);
@@ -692,6 +702,22 @@ namespace Wowthing.Web.Controllers
                     ls => ls.String
                 );
 
+            var mountIdToSpellId = missingMounts
+                .ToDictionary(
+                    mount => mount.Id,
+                    mount => mount.SpellId
+                );
+            
+            var mountNames = await languageQuery
+                .Where(ls =>
+                    ls.Type == StringType.WowMountName &&
+                    mountIdToSpellId.Keys.Contains(ls.Id)
+                )
+                .ToDictionaryAsync(
+                    ls => mountIdToSpellId[ls.Id],
+                    ls => ls.String
+                );
+
             timer.AddPoint("Strings", true);
                 
             _logger.LogDebug($"{timer}");
@@ -699,7 +725,9 @@ namespace Wowthing.Web.Controllers
             var data = new UserAuctionData
             {
                 ItemNames = itemNames,
+                MountNames = mountNames,
                 PetNames = petNames,
+                MissingMounts = missingMountAuctions,
                 MissingPets = missingPetAuctions,
                 MissingToys = missingToyAuctions,
             };

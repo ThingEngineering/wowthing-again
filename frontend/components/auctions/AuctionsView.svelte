@@ -9,13 +9,20 @@
     export let slug: string
 
     let items: [string, number, UserAuctionDataAuction[]]
+    let thingType: string
     $: {
         let auctionMap: Record<number, UserAuctionDataAuction[]>
-        if (slug === 'missing-pets') {
+        if (slug === 'missing-mounts') {
+            auctionMap = $userAuctionStore.data.missingMounts
+            thingType = 'spell'
+        }
+        else if (slug === 'missing-pets') {
             auctionMap = $userAuctionStore.data.missingPets
+            thingType = 'npc'
         }
         else if (slug === 'missing-toys') {
             auctionMap = $userAuctionStore.data.missingToys
+            thingType = 'item'
         }
         else {
             auctionMap = []
@@ -23,10 +30,19 @@
 
         items = []
         for (const thingId in auctionMap) {
+            let name: string
+            if (slug === 'missing-mounts') {
+                name = $userAuctionStore.data.mountNames[thingId]
+            }
+            else if (slug === 'missing-toys') {
+                name = $userAuctionStore.data.itemNames[thingId]
+            }
+            else if (slug.endsWith('-pets')) {
+                name = $userAuctionStore.data.petNames[thingId]
+            }
+
             items.push([
-                slug.endsWith('-pets') ?
-                    $userAuctionStore.data.petNames[thingId] :
-                    $userAuctionStore.data.itemNames[thingId],
+                name,
                 thingId,
                 auctionMap[thingId],
             ])
@@ -95,11 +111,11 @@
                 <tr>
                     <th class="item" colspan="4">
                         <WowheadLink
-                            type="{slug.endsWith('-pets') ? 'npc' : 'item'}"
+                            type={thingType}
                             id={thingId}
                         >
                             <WowthingImage
-                                name="{slug.endsWith('pets') ? 'npc' : 'item'}/{thingId}"
+                                name="{thingType}/{thingId}"
                                 size={20}
                                 border={1}
                             />
