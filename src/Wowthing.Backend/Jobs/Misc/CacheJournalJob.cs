@@ -8,6 +8,7 @@ using MoreLinq;
 using Newtonsoft.Json;
 using Wowthing.Backend.Data;
 using Wowthing.Backend.Models.Data;
+using Wowthing.Backend.Models.Data.Items;
 using Wowthing.Backend.Models.Data.Journal;
 using Wowthing.Backend.Utilities;
 using Wowthing.Lib.Enums;

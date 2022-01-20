@@ -11,6 +11,7 @@ using Wowthing.Backend.Models.Data;
 using Wowthing.Backend.Models.Data.Achievements;
 using Wowthing.Backend.Models.Data.Collections;
 using Wowthing.Backend.Models.Data.Covenants;
+using Wowthing.Backend.Models.Data.Items;
 using Wowthing.Backend.Models.Data.Journal;
 using Wowthing.Backend.Models.Data.Professions;
 using Wowthing.Backend.Models.Data.Progress;
