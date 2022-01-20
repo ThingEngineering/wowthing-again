@@ -107,16 +107,22 @@ namespace Wowthing.Backend
             services.AddHostedService<JobQueueService>(); 
             services.AddHostedService<SchedulerService>();
             
-            for (var i = 0; i < backendOptions.WorkerCountHigh; i++)
+            for (int i = 0; i < backendOptions.WorkerCountHigh; i++)
             {
                 services.AddSingleton<IHostedService>(sp =>
                     ActivatorUtilities.CreateInstance<WorkerService>(sp, JobPriority.High));
             }
             
-            for (var i = 0; i < backendOptions.WorkerCountLow; i++)
+            for (int i = 0; i < backendOptions.WorkerCountLow; i++)
             {
                 services.AddSingleton<IHostedService>(sp =>
                     ActivatorUtilities.CreateInstance<WorkerService>(sp, JobPriority.Low));
+            }
+            
+            for (int i = 0; i < backendOptions.WorkerCountAuction; i++)
+            {
+                services.AddSingleton<IHostedService>(sp =>
+                    ActivatorUtilities.CreateInstance<WorkerService>(sp, JobPriority.Auction));
             }
         }
     }
