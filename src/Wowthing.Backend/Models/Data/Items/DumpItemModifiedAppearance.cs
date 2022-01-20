@@ -1,5 +1,5 @@
 ﻿// ReSharper disable InconsistentNaming
-namespace Wowthing.Backend.Models.Data
+namespace Wowthing.Backend.Models.Data.Items
 {
     public class DumpItemModifiedAppearance
     {
