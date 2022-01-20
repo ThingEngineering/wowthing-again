@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using StackExchange.Redis;
@@ -605,21 +606,28 @@ namespace Wowthing.Web.Controllers
                 .ToArray();
             
             var accountToyIds = accounts
-                .SelectMany(a => a.Toys?.ToyIds.EmptyIfNull())
+                .SelectMany(account => account.Toys?.ToyIds.EmptyIfNull())
                 .Distinct()
                 .ToArray();
             
             var accountMounts = await _context.MountQuery
                 .FromSqlRaw(MountQuery.USER_QUERY, apiResult.User.Id)
                 .FirstAsync();
+
+            var allMountIds = accountMounts.Mounts
+                .EmptyIfNull()
+                .Union(accountMounts.AddonMounts.EmptyIfNull())
+                .Distinct()
+                .ToArray();
             
             timer.AddPoint("Accounts");
+            _logger.LogWarning("Accounts");
 
             var missingMounts = await _context.WowMount
                 .AsNoTracking()
                 .Where(mount =>
                     mount.ItemId > 0 &&
-                    !accountMounts.Mounts.Contains(mount.Id)
+                    !allMountIds.Contains(mount.Id)
                 )
                 .ToArrayAsync();
             
@@ -633,16 +641,18 @@ namespace Wowthing.Web.Controllers
             
             var missingToys = await _context.WowToy
                 .AsNoTracking()
-                .Where(toy => toy.ItemId > 0 && !accountToyIds.Contains(toy.ItemId))
+                .Where(toy =>
+                    toy.ItemId > 0 &&
+                    !accountToyIds.Contains(toy.ItemId)
+                )
                 .ToArrayAsync();
             
             timer.AddPoint("Data");
+            _logger.LogWarning("Data");
 
             var auctionQuery = _context.WowAuction
                 .AsNoTracking()
-                .Where(auction =>
-                    accountConnectedRealmIds.Contains(auction.ConnectedRealmId)
-                );
+                .Where(auction => accountConnectedRealmIds.Contains(auction.ConnectedRealmId));
             
             // Mounts
             var mountSpellMap = missingMounts.ToDictionary(mount => mount.ItemId, mount => mount.SpellId);
@@ -670,6 +680,7 @@ namespace Wowthing.Web.Controllers
             var missingToyAuctions = DoAuctionStuff(toyAuctions.GroupBy(auction => auction.ItemId));
 
             timer.AddPoint("Auctions");
+            _logger.LogWarning("Auctions");
 
             var languageQuery = _context.LanguageString
                 .Where(ls => ls.Language == apiResult.User.Settings.General.Language);
@@ -719,8 +730,9 @@ namespace Wowthing.Web.Controllers
                 );
 
             timer.AddPoint("Strings", true);
-                
-            _logger.LogDebug($"{timer}");
+            _logger.LogWarning("Strings");
+
+            _logger.LogInformation($"{timer}");
 
             var data = new UserAuctionData
             {
@@ -823,7 +835,7 @@ namespace Wowthing.Web.Controllers
             timer.AddPoint("Pets");
 
             var toyIds = accounts
-                .SelectMany(a => a.Toys?.ToyIds ?? Enumerable.Empty<int>())
+                .SelectMany(a => a.Toys?.ToyIds.EmptyIfNull())
                 .Distinct()
                 .ToArray();
             

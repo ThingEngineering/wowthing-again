@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
 using NpgsqlTypes;
 using Wowthing.Backend.Models;
 using Wowthing.Backend.Models.API;
@@ -165,8 +167,27 @@ COPY {0} (
                         // Detach old partition if it exists
                         if (existing != null)
                         {
-                            command.CommandText = string.Format(SqlDetachPartition, existing);
-                            await command.ExecuteNonQueryAsync();
+                            for (int retry = 0; retry < 5; retry++)
+                            {
+                                try
+                                {
+                                    command.CommandText = string.Format(SqlDetachPartition, existing);
+                                    await command.ExecuteNonQueryAsync();
+                                    break;
+                                }
+                                catch (PostgresException pe)
+                                {
+                                    if (pe.SqlState == PostgresErrorCodes.DeadlockDetected)
+                                    {
+                                        Logger.Warning("Deadlock detected, retry #{Retry}", retry + 1);
+                                        await Task.Delay(retry * 500);
+                                    }
+                                    else
+                                    {
+                                        throw;
+                                    }
+                                }
+                            }
                         }
 
                         command.CommandText = string.Format(SqlAttachPartition, tableName, realmId);

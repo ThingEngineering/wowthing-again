@@ -4,5 +4,6 @@
     {
         High = 1,
         Low = 2,
+        Auction = 3,
     }
 }

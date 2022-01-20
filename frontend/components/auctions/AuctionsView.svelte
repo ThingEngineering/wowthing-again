@@ -8,7 +8,7 @@
 
     export let slug: string
 
-    let items: [string, number, UserAuctionDataAuction[]]
+    let items: [string, number, UserAuctionDataAuction[]][]
     let thingType: string
     $: {
         let auctionMap: Record<number, UserAuctionDataAuction[]>
@@ -43,7 +43,7 @@
 
             items.push([
                 name,
-                thingId,
+                parseInt(thingId),
                 auctionMap[thingId],
             ])
         }

@@ -30,7 +30,7 @@ namespace Wowthing.Backend.Jobs.Data
 
             foreach (var connectedRealmId in connectedRealmIds)
             {
-                await JobRepository.AddJobAsync(JobPriority.High, JobType.DataAuctions, connectedRealmId.ToString());
+                await JobRepository.AddJobAsync(JobPriority.Auction, JobType.DataAuctions, connectedRealmId.ToString());
             }
         }
     }
