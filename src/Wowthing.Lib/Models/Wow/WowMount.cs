@@ -7,8 +7,9 @@ namespace Wowthing.Lib.Models.Wow
         [Key]
         public int Id { get; set; }
 
-        public int SpellId { get; set; }
         public int Flags { get; set; }
+        public int ItemId { get; set; }
+        public int SpellId { get; set; }
         public short SourceType { get; set; }
     }
 }

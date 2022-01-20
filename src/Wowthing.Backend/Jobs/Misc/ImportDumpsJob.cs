@@ -43,7 +43,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.ImportDumps,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(24),
-            Version = 6,
+            Version = 7,
         };
 
         public override async Task Run(params string[] data)
@@ -315,6 +315,17 @@ namespace Wowthing.Backend.Jobs.Misc
             var dbMountMap = await Context.WowMount
                 .ToDictionaryAsync(mount => mount.Id);
 
+            var itemEffectsMap = (await DataUtilities.LoadDumpCsvAsync<DumpItemXItemEffect>("itemxitemeffect"))
+                .ToGroupedDictionary(ixie => ixie.ItemEffectID);
+
+            var mountSpellIds = baseMounts.Select(mount => mount.SourceSpellID);
+            var spellTeachMap = (await DataUtilities.LoadDumpCsvAsync<DumpItemEffect>("itemeffect"))
+                .Where(ie => mountSpellIds.Contains(ie.SpellID) && ie.TriggerType == 6) // Learn
+                .GroupBy(ie => ie.SpellID)
+                .ToDictionary(
+                    group => group.Key,
+                    group => group.First());
+
             var dbLanguageMap = await Context.LanguageString
                 .Where(ls => ls.Type == StringType.WowMountName)
                 .AsNoTracking()
@@ -335,6 +346,12 @@ namespace Wowthing.Backend.Jobs.Misc
                 dbMount.Flags = mount.Flags;
                 dbMount.SourceType = mount.SourceTypeEnum;
 
+                if (spellTeachMap.TryGetValue(dbMount.SpellId, out var itemEffect) &&
+                    itemEffectsMap.TryGetValue(itemEffect.ID, out var xItemEffects))
+                {
+                    dbMount.ItemId = xItemEffects.First().ItemID;
+                }
+                
                 if (!dbLanguageMap.TryGetValue((Language.enUS, mount.ID), out var languageString))
                 {
                     languageString = new LanguageString
