@@ -3,6 +3,7 @@
     $calcRight: calc(#{$paddingRight} * var(--padding, 1));
     $calcWidth: calc(#{$width} + #{$calcLeft} + #{$calcRight});
     min-width: $calcWidth;
+    max-width: $calcWidth;
     width: $calcWidth;
     padding-left: $calcLeft;
     padding-right: $calcRight;

@@ -2,7 +2,7 @@
 using Wowthing.Backend.Enums;
 
 // ReSharper disable InconsistentNaming
-namespace Wowthing.Backend.Models.Data
+namespace Wowthing.Backend.Models.Data.Items
 {
     public class DumpItemSparse
     {

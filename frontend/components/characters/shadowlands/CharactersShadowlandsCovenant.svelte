@@ -16,6 +16,7 @@
     } from '@/types'
 
     import Abominations from './CharactersShadowlandsAbominations.svelte'
+    import EmberCourt from './CharactersShadowlandsEmberCourt.svelte'
     import ReputationBar from '@/components/common/ReputationBar.svelte'
     import Soulbind from './CharactersShadowlandsSoulbind.svelte'
     import Soulshapes from './CharactersShadowlandsSoulshapes.svelte'
@@ -193,8 +194,12 @@
                     />
                 {/if}
 
-                {#if covenantId === 4 && feature.key === 'unique' && feature.rank > 0}
-                    <Abominations {character} />
+                {#if feature.key === 'unique' && feature.rank > 0}
+                    {#if covenantId === 2}
+                        <EmberCourt {character} />
+                    {:else if covenantId === 4}
+                        <Abominations {character} />
+                    {/if}
                 {/if}
 
                 {#if featureIndex < (features.length - 1)}

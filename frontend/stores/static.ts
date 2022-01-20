@@ -45,13 +45,27 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
 
         if (data.realmsRaw !== null) {
             data.realms = {
-                0: new StaticDataRealm(0, 1, 'Honkstrasza', 'honkstrasza'),
+                0: new StaticDataRealm(0, 1, 0, 'Honkstrasza', 'honkstrasza'),
             }
+            const connected: Record<number, string[]> = {}
             for (const realmArray of data.realmsRaw) {
                 const obj = new StaticDataRealm(...realmArray)
                 data.realms[obj.id] = obj
+
+                if (obj.connectedRealmId > 0) {
+                    if (connected[obj.connectedRealmId] === undefined) {
+                        connected[obj.connectedRealmId] = []
+                    }
+                    connected[obj.connectedRealmId].push(obj.name)
+                }
             }
             data.realmsRaw = null
+
+            data.connectedRealms = {}
+            for (const crId in connected) {
+                connected[crId].sort()
+                data.connectedRealms[crId] = connected[crId].join(' / ')
+            }
         }
 
         if (data.reputationsRaw !== null) {

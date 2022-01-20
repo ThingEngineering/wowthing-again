@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Wowthing.Lib.Enums;
 
 namespace Wowthing.Lib.Models.Wow
@@ -26,5 +27,8 @@ namespace Wowthing.Lib.Models.Wow
         public List<int> BonusIds { get; set; }
         public List<int> ModifierValues { get; set; }
         public List<short> ModifierTypes { get; set; }
+
+        [JsonIgnore]
+        public long UsefulPrice => BidPrice > 0 ? BidPrice : BuyoutPrice;
     }
 }

@@ -13,6 +13,7 @@ namespace Wowthing.Lib.Converters
             var arr = new JArray();
             arr.Add(member.Id);
             arr.Add(member.Region);
+            arr.Add(member.ConnectedRealmId);
             arr.Add(member.Name);
             arr.Add(member.Slug);
             arr.WriteTo(writer);
