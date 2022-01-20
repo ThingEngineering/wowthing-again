@@ -12,6 +12,7 @@ export interface StaticData {
 
     professions: Record<number, StaticDataProfession>
 
+    connectedRealms: Record<number, string>
     realms: Record<number, StaticDataRealm>
     realmsRaw: StaticDataRealmArray[]
 
@@ -94,6 +95,7 @@ export class StaticDataRealm {
     constructor(
         public id: number,
         public region: number,
+        public connectedRealmId: number,
         public name: string,
         public slug: string
     )

@@ -52,7 +52,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
-            Version = 32,
+            Version = 33,
         };
 
         public override async Task Run(params string[] data)
