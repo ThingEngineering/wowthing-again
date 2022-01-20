@@ -598,7 +598,8 @@ namespace Wowthing.Web.Controllers
                 .ToArrayAsync();
 
             var accountPetIds = accounts
-                .SelectMany(account => account.Pets?.Pets
+                .Where(account => account.Pets != null)
+                .SelectMany(account => account.Pets.Pets
                     .EmptyIfNull()
                     .Select(pet => pet.Value.SpeciesId)
                 )
@@ -606,7 +607,8 @@ namespace Wowthing.Web.Controllers
                 .ToArray();
             
             var accountToyIds = accounts
-                .SelectMany(account => account.Toys?.ToyIds.EmptyIfNull())
+                .Where(account => account.Toys != null)
+                .SelectMany(account => account.Toys.ToyIds.EmptyIfNull())
                 .Distinct()
                 .ToArray();
             
@@ -835,7 +837,7 @@ namespace Wowthing.Web.Controllers
             timer.AddPoint("Pets");
 
             var toyIds = accounts
-                .SelectMany(a => a.Toys?.ToyIds.EmptyIfNull())
+                .SelectMany(a => a.Toys?.ToyIds ?? Enumerable.Empty<int>())
                 .Distinct()
                 .ToArray();
             
