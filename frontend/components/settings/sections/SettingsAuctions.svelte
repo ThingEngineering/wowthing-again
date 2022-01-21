@@ -3,7 +3,7 @@
 
     import { staticStore, userStore } from '@/stores'
     import { data as settingsData } from '@/stores/settings'
-    import type { Character, StaticDataConnectedRealm } from '@/types'
+    import type { Character, StaticData, StaticDataConnectedRealm } from '@/types'
 
     import GroupedCheckbox from '@/components/forms/GroupedCheckboxInput.svelte'
 
@@ -17,34 +17,9 @@
     let shownRealms: string[] = Object.keys(crIds)
         .filter((crId) => $settingsData.auctions.ignoredRealms.indexOf(parseInt(crId)) === -1)
 
-    const connectedRealms: [string, string, string][] = []
-    for (const crId in crIds) {
-        const connectedRealm: StaticDataConnectedRealm = $staticStore.data.connectedRealms[crId]
-
-        const names: string[] = []
-        let extra = 0
-        for (const realmName of connectedRealm.realmNames) {
-            if (realmNames[realmName]) {
-                names.push(realmName)
-            }
-            else {
-                extra++
-            }
-        }
-
-        let nameString = names.join(' / ')
-        if (extra > 0) {
-            nameString += ` (+${extra})`
-        }
-
-        connectedRealms.push([
-            nameString,
-            crId,
-            connectedRealm.displayText,
-        ])
-    }
-
-    connectedRealms.sort()
+    const connectedRealms: StaticDataConnectedRealm[] = Object.keys(crIds)
+        .map((crId) => $staticStore.data.connectedRealms[crId])
+    connectedRealms.sort((a, b) => a.displayText.localeCompare(b.displayText))
 
     $: debouncedUpdateSettings(shownRealms)
 
@@ -64,13 +39,13 @@
 
     <h3>Ignored Realms</h3>
 
-    {#each connectedRealms as [text, crId, tooltip]}
+    {#each connectedRealms as connectedRealm}
         <GroupedCheckbox
-            name="realm_{crId}"
+            name="realm_{connectedRealm.id}"
             bind:bindGroup={shownRealms}
-            value={crId}
+            value={connectedRealm.id.toString()}
         >
-            {text}
+            {connectedRealm.displayText}
         </GroupedCheckbox>
     {/each}
 </div>

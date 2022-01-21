@@ -65,13 +65,16 @@ namespace Wowthing.Web.Controllers
             var accountIds = accounts
                 .Select(account => account.Id)
                 .ToArray();
-            
+
+            var ignoredRealms = user.Settings.Auctions?.IgnoredRealms.EmptyIfNull();
             var accountConnectedRealmIds = await _context.WowRealm
                 .AsNoTracking()
-                .Where(realm => _context.PlayerCharacter
-                    .Where(pc => pc.AccountId != null && accountIds.Contains(pc.AccountId.Value))
-                    .Select(pc => pc.RealmId)
-                    .Contains(realm.Id)
+                .Where(realm =>
+                    _context.PlayerCharacter
+                        .Where(pc => pc.AccountId != null && accountIds.Contains(pc.AccountId.Value))
+                        .Select(pc => pc.RealmId)
+                        .Contains(realm.Id) &&
+                    !ignoredRealms.Contains(realm.ConnectedRealmId)
                 )
                 .Select(realm => realm.ConnectedRealmId)
                 .Distinct()

@@ -1,12 +1,10 @@
 <script lang="ts">
-    import { onMount } from 'svelte'
-
     import {
-        staticStore,
         userAuctionMissingMountStore,
         userAuctionMissingPetStore,
         userAuctionMissingToyStore,
     } from '@/stores'
+    import connectedRealmName from '@/utils/connected-realm-name'
     import type { UserAuctionDataStore } from '@/stores'
     import type { UserAuctionDataAuction } from '@/types/data'
 
@@ -128,7 +126,7 @@
                     {#each auctions as auction}
                         <tr>
                             <td class="realm text-overflow">
-                                {$staticStore.data.connectedRealms[auction.connectedRealmId]}
+                                {connectedRealmName(auction.connectedRealmId)}
                             </td>
                             <td
                                 class="price"

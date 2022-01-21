@@ -49,6 +49,7 @@ export interface StaticData {
 }
 
 export interface StaticDataConnectedRealm {
+    id: number
     displayText: string
     realmNames: string[]
 }
