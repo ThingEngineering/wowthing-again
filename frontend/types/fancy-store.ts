@@ -12,7 +12,7 @@ export interface FancyStore<TData> {
 }
 
 export interface WritableFancyStore<TData> extends Writable<FancyStore<TData>> {
-    fetch(ifNotLoaded?: boolean, language?: Language): Promise<void>
+    fetch(ifNotLoaded?: boolean, language?: Language): Promise<boolean>
     initialize?(data: TData): void
     readonly dataUrl: string
 }
@@ -26,9 +26,9 @@ export class WritableFancyStore<TData> {
         }))
     }
 
-    async fetch(ifNotLoaded = true, language = Language.enUS): Promise<void> {
+    async fetch(ifNotLoaded = true, language = Language.enUS): Promise<boolean> {
         if (ifNotLoaded && get(this).loaded) {
-            return
+            return false
         }
 
         const url = this.dataUrl.replace('zzZZ', Language[language])
@@ -37,7 +37,7 @@ export class WritableFancyStore<TData> {
                 state.error = true
                 return state
             })
-            return
+            return true
         }
 
         const baseUri = document.getElementById('app')?.getAttribute('data-base-uri')
@@ -49,7 +49,7 @@ export class WritableFancyStore<TData> {
                 state.error = true
                 return state
             })
-            return
+            return true
         }
 
         const jsonData = JSON.parse(json) as TData
@@ -60,5 +60,7 @@ export class WritableFancyStore<TData> {
             state.loaded = true
             return state
         })
+
+        return true
     }
 }

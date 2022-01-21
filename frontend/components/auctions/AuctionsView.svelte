@@ -1,53 +1,49 @@
 <script lang="ts">
-    import { staticStore, userAuctionStore } from '@/stores'
+    import {
+        userAuctionMissingMountStore,
+        userAuctionMissingPetStore,
+        userAuctionMissingToyStore,
+    } from '@/stores'
+    import connectedRealmName from '@/utils/connected-realm-name'
+    import type { UserAuctionDataStore } from '@/stores'
     import type { UserAuctionDataAuction } from '@/types/data'
 
-    import GoldPrice from '@/components/common/GoldPrice.svelte'
     import WowheadLink from '@/components/links/WowheadLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let slug: string
 
+    let auctionStore: UserAuctionDataStore
     let items: [string, number, UserAuctionDataAuction[]][]
     let thingType: string
+
     $: {
-        let auctionMap: Record<number, UserAuctionDataAuction[]>
         if (slug === 'missing-mounts') {
-            auctionMap = $userAuctionStore.data.missingMounts
+            auctionStore = userAuctionMissingMountStore
             thingType = 'spell'
         }
         else if (slug === 'missing-pets') {
-            auctionMap = $userAuctionStore.data.missingPets
+            auctionStore = userAuctionMissingPetStore
             thingType = 'npc'
         }
         else if (slug === 'missing-toys') {
-            auctionMap = $userAuctionStore.data.missingToys
+            auctionStore = userAuctionMissingToyStore
             thingType = 'item'
         }
-        else {
-            auctionMap = []
-        }
+    }
 
+    $: {
         items = []
-        for (const thingId in auctionMap) {
-            let name: string
-            if (slug === 'missing-mounts') {
-                name = $userAuctionStore.data.mountNames[thingId]
+        if ($auctionStore.data?.auctions) {
+            for (const thingId in $auctionStore.data.auctions) {
+                items.push([
+                    $auctionStore.data.names[thingId],
+                    parseInt(thingId),
+                    $auctionStore.data.auctions[thingId],
+                ])
             }
-            else if (slug === 'missing-toys') {
-                name = $userAuctionStore.data.itemNames[thingId]
-            }
-            else if (slug.endsWith('-pets')) {
-                name = $userAuctionStore.data.petNames[thingId]
-            }
-
-            items.push([
-                name,
-                parseInt(thingId),
-                auctionMap[thingId],
-            ])
+            items.sort()
         }
-        items.sort()
     }
 
     const timeLeft: Record<number, string> = {
@@ -105,58 +101,60 @@
 </style>
 
 <div class="wrapper">
-    {#each items as [thingName, thingId, auctions]}
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th class="item" colspan="4">
-                        <WowheadLink
-                            type={thingType}
-                            id={thingId}
-                        >
-                            <WowthingImage
-                                name="{thingType}/{thingId}"
-                                size={20}
-                                border={1}
-                            />
-                            {thingName}
-                        </WowheadLink>
-                    </th>
-                </tr>
-            </thead>
-
-            <tbody>
-                {#each auctions as auction}
+    {#await auctionStore.fetch(true) then _}
+        {#each (items || []) as [thingName, thingId, auctions]}
+            <table class="table table-striped">
+                <thead>
                     <tr>
-                        <td class="realm text-overflow">
-                            {$staticStore.data.connectedRealms[auction.connectedRealmId]}
-                        </td>
-                        <td
-                            class="price"
-                            class:no-bid={auction.bidPrice === 0}
-                        >
-                            {#if auction.bidPrice > 0}
-                                {Math.floor(auction.bidPrice / 10000).toLocaleString()} g
-                            {:else}
-                                &lt;no bid&gt;
-                            {/if}
-                        </td>
-                        <td class="price">
-                            {Math.floor(auction.buyoutPrice / 10000).toLocaleString()} g
-                        </td>
-                        <td
-                            class="time-left"
-                            class:status-fail={auction.timeLeft === 0}
-                            class:status-shrug={auction.timeLeft === 1}
-                            class:status-success={auction.timeLeft > 1}
-                        >
-                            {timeLeft[auction.timeLeft]}
-                        </td>
+                        <th class="item" colspan="4">
+                            <WowheadLink
+                                type={thingType}
+                                id={thingId}
+                            >
+                                <WowthingImage
+                                    name="{thingType}/{thingId}"
+                                    size={20}
+                                    border={1}
+                                />
+                                {thingName}
+                            </WowheadLink>
+                        </th>
                     </tr>
-                {/each}
-            </tbody>
-        </table>
-    {:else}
-        No results!
-    {/each}
+                </thead>
+
+                <tbody>
+                    {#each auctions as auction}
+                        <tr>
+                            <td class="realm text-overflow">
+                                {connectedRealmName(auction.connectedRealmId)}
+                            </td>
+                            <td
+                                class="price"
+                                class:no-bid={auction.bidPrice === 0}
+                            >
+                                {#if auction.bidPrice > 0}
+                                    {Math.floor(auction.bidPrice / 10000).toLocaleString()} g
+                                {:else}
+                                    &lt;no bid&gt;
+                                {/if}
+                            </td>
+                            <td class="price">
+                                {Math.floor(auction.buyoutPrice / 10000).toLocaleString()} g
+                            </td>
+                            <td
+                                class="time-left"
+                                class:status-fail={auction.timeLeft === 0}
+                                class:status-shrug={auction.timeLeft === 1}
+                                class:status-success={auction.timeLeft > 1}
+                            >
+                                {timeLeft[auction.timeLeft]}
+                            </td>
+                        </tr>
+                    {/each}
+                </tbody>
+            </table>
+        {:else}
+            No results!
+        {/each}
+    {/await}
 </div>

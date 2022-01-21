@@ -3,19 +3,24 @@ import type { UserAuctionData } from '@/types/data'
 
 
 export class UserAuctionDataStore extends WritableFancyStore<UserAuctionData> {
-    get dataUrl(): string {
-        let url = document.getElementById('app')?.getAttribute('data-user')
-        if (url) {
-            url += '/auctions'
-        }
-        return url
+    private type: string
+
+    constructor(type: string, data: UserAuctionData = null) {
+        super(data)
+        this.type = type
     }
 
-    initialize(userHistoryData: UserAuctionData): void {
+    get dataUrl(): string {
+        return `/api/auctions/missing-${this.type}`
+    }
+
+    /*initialize(userHistoryData: UserAuctionData): void {
         console.time('UserAuctionDataStore.initialize')
 
         console.timeEnd('UserAuctionDataStore.initialize')
-    }
+    }*/
 }
 
-export const userAuctionStore = new UserAuctionDataStore()
+export const userAuctionMissingMountStore = new UserAuctionDataStore('mounts')
+export const userAuctionMissingPetStore = new UserAuctionDataStore('pets')
+export const userAuctionMissingToyStore = new UserAuctionDataStore('toys')

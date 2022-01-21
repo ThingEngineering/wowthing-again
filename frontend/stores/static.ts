@@ -64,7 +64,11 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             data.connectedRealms = {}
             for (const crId in connected) {
                 connected[crId].sort()
-                data.connectedRealms[crId] = connected[crId].join(' / ')
+                data.connectedRealms[crId] = {
+                    id: parseInt(crId),
+                    displayText: connected[crId].join(' / '),
+                    realmNames: connected[crId],
+                }
             }
         }
 

@@ -21,6 +21,7 @@
 <fieldset
     class="fancy-checkbox"
     class:disabled
+    data-state="{value}"
 >
     <label for="input-{name}">
         <input

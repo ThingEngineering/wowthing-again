@@ -53,6 +53,8 @@ namespace Wowthing.Lib.Data
                     (WowWeaponSubclass.Fist, new[] { WowStat.Intellect }),
                     (WowWeaponSubclass.Polearm, new[] { WowStat.Agility, WowStat.Intellect }),
                     (WowWeaponSubclass.Stave, new[] { WowStat.Agility, WowStat.Intellect }),
+
+                    (WowWeaponSubclass.OffHand, new[] { WowStat.Intellect }),
                 },
             },
             new CharacterClassData
@@ -90,6 +92,8 @@ namespace Wowthing.Lib.Data
                     (WowWeaponSubclass.Dagger, new[] { WowStat.Intellect }),
                     (WowWeaponSubclass.Stave, new[] { WowStat.Intellect }),
                     (WowWeaponSubclass.Wand, new[] { WowStat.Intellect }),
+
+                    (WowWeaponSubclass.OffHand, new[] { WowStat.Intellect }),
                 },
             },
             new CharacterClassData
@@ -107,6 +111,8 @@ namespace Wowthing.Lib.Data
                     (WowWeaponSubclass.Fist, new[] { WowStat.Agility, WowStat.Intellect }),
                     (WowWeaponSubclass.Polearm, new[] { WowStat.Agility, WowStat.Intellect }),
                     (WowWeaponSubclass.Stave, new[] { WowStat.Agility, WowStat.Intellect }),
+
+                    (WowWeaponSubclass.OffHand, new[] { WowStat.Intellect }),
                 },
             },
             new CharacterClassData
@@ -126,6 +132,8 @@ namespace Wowthing.Lib.Data
                     (WowWeaponSubclass.TwoHandedMace, new[] { WowStat.Intellect, WowStat.Strength }),
                     (WowWeaponSubclass.TwoHandedSword, new[] { WowStat.Intellect, WowStat.Strength }),
                     (WowWeaponSubclass.Polearm, new[] { WowStat.Intellect, WowStat.Strength }),
+                    
+                    (WowWeaponSubclass.Shield, new[] { WowStat.Intellect, WowStat.Strength }),
                 },
             },
             new CharacterClassData
@@ -141,6 +149,8 @@ namespace Wowthing.Lib.Data
                     (WowWeaponSubclass.Dagger, new[] { WowStat.Intellect }),
                     (WowWeaponSubclass.Stave, new[] { WowStat.Intellect }),
                     (WowWeaponSubclass.Wand, new[] { WowStat.Intellect }),
+
+                    (WowWeaponSubclass.OffHand, new[] { WowStat.Intellect }),
                 },
             },
             new CharacterClassData
@@ -181,6 +191,9 @@ namespace Wowthing.Lib.Data
                     
                     (WowWeaponSubclass.TwoHandedAxe, new[] { WowStat.TransmogOnly }),
                     (WowWeaponSubclass.TwoHandedMace, new[] { WowStat.TransmogOnly }),
+
+                    (WowWeaponSubclass.OffHand, new[] { WowStat.Intellect }),
+                    (WowWeaponSubclass.Shield, new[] { WowStat.Intellect }),
                 },
             },
             new CharacterClassData
@@ -196,6 +209,8 @@ namespace Wowthing.Lib.Data
                     (WowWeaponSubclass.Dagger, new[] { WowStat.Intellect }),
                     (WowWeaponSubclass.Stave, new[] { WowStat.Intellect }),
                     (WowWeaponSubclass.Wand, new[] { WowStat.Intellect }),
+
+                    (WowWeaponSubclass.OffHand, new[] { WowStat.Intellect }),
                 },
             },
             new CharacterClassData
@@ -222,6 +237,8 @@ namespace Wowthing.Lib.Data
                     (WowWeaponSubclass.Crossbow, new[] { WowStat.TransmogOnly }),
                     (WowWeaponSubclass.Gun, new[] { WowStat.TransmogOnly }),
                     (WowWeaponSubclass.Thrown, new[] { WowStat.TransmogOnly }),
+
+                    (WowWeaponSubclass.Shield, new[] { WowStat.Strength }),
                 },
             },
         };

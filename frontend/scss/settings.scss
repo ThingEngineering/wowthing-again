@@ -42,6 +42,15 @@
             margin: 0.3rem 0;
             padding-inline-start: 1.3rem;
         }
+
+
+        &[data-state="false"] {
+            background: rgba(255, 0, 0, 0.2);
+
+            & :global(code) {
+                background: none;
+            }
+        }
     }
 
     .setting {

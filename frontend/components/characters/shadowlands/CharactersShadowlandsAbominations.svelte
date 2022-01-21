@@ -1,8 +1,6 @@
 <script lang="ts">
     import some from 'lodash/some'
 
-    import { userQuestStore } from '@/stores'
-
     import { abominations } from '@/data/covenant'
     import { userAchievementStore } from '@/stores'
     import type { Character } from '@/types'
@@ -13,7 +11,6 @@
     export let character: Character
 
     let charAboms: [number, number, boolean][]
-    let missing: boolean
     $: {
         charAboms = []
         for (const [criteriaId, spellId] of abominations) {
@@ -38,9 +35,6 @@
         margin-bottom: -0.25rem;
         padding-bottom: 0;
         padding-left: 0.25rem;
-    }
-    .collection-objects + .collection-objects {
-        margin-top: 0.5rem;
     }
 </style>
 
