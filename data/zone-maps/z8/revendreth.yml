@@ -239,7 +239,8 @@ farms:
 # World boss
 - name: "Nurgash Muckformed"
   location: 27.2 14.6
-  npcId: 1
+  minimumLevel: 60
+  npcId: 167526
   questId: 61814
   reset: weekly
   type: killBig
