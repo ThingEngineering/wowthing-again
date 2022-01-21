@@ -81,14 +81,6 @@
             white-space: nowrap;
             width: 9.0rem;
         }
-
-        :global(fieldset[data-state="false"]) {
-            background: rgba(255, 0, 0, 0.2);
-
-            & :global(code) {
-                background: none;
-            }
-        }
     }
 </style>
 
