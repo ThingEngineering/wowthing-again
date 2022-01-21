@@ -3,13 +3,13 @@
 
     import { staticStore, userStore } from '@/stores'
     import { data as settingsData } from '@/stores/settings'
-    import type { Character, StaticData, StaticDataConnectedRealm } from '@/types'
+    import type { StaticDataConnectedRealm } from '@/types'
 
     import GroupedCheckbox from '@/components/forms/GroupedCheckboxInput.svelte'
 
     const crIds: Record<number, boolean> = {}
     const realmNames: Record<string, boolean> = {}
-    for (const character: Character of $userStore.data.characters) {
+    for (const character of $userStore.data.characters) {
         crIds[character.realm.connectedRealmId] = true
         realmNames[character.realm.name] = true
     }
@@ -18,7 +18,7 @@
         .filter((crId) => $settingsData.auctions.ignoredRealms.indexOf(parseInt(crId)) === -1)
 
     const connectedRealms: StaticDataConnectedRealm[] = Object.keys(crIds)
-        .map((crId) => $staticStore.data.connectedRealms[crId])
+        .map((crId) => $staticStore.data.connectedRealms[parseInt(crId)])
     connectedRealms.sort((a, b) => a.displayText.localeCompare(b.displayText))
 
     $: debouncedUpdateSettings(shownRealms)

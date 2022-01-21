@@ -196,7 +196,7 @@
 
                 {#if feature.key === 'unique' && feature.rank > 0}
                     {#if covenantId === 2}
-                        <EmberCourt {character} />
+                        <EmberCourt />
                     {:else if covenantId === 4}
                         <Abominations {character} />
                     {/if}
