@@ -1,4 +1,5 @@
 <script lang="ts">
+    import iconBank from '@iconify/icons-mdi/bank'
     import iconCharacters from '@iconify/icons-mdi/account-group-outline'
     import iconConstruction from '@iconify/icons-emojione-monotone/construction'
     import iconCurrencies from '@iconify/icons-mdi/cash-multiple'
@@ -149,6 +150,15 @@
 
     <li class="separator"></li>
 
+    {#if $userStore.loaded && !$userStore.data.public}
+        <li use:active={'/auctions/*'}>
+            <a href="#/auctions/">
+                <IconifyIcon icon={iconBank} />
+                Auctions
+            </a>
+        </li>
+    {/if}
+
     <li use:active={'/mounts/*'}>
         <a href="#/mounts/">
             <IconifyIcon icon={dropTypeIcon[FarmDropType.Mount]} />
@@ -223,13 +233,6 @@
     </li>
 
     {#if $userStore.loaded && !$userStore.data.public}
-        <li use:active={'/auctions/*'}>
-            <a href="#/auctions/">
-                <IconifyIcon icon={iconConstruction} />
-                Auctions
-            </a>
-        </li>
-
         <li class="separator"></li>
 
         <li use:active={'/settings/*'}>
