@@ -9,7 +9,8 @@ namespace Wowthing.Lib.Models
 {
     public class ApplicationUserSettings
     {
-        public ApplicationUserSettingsCharacters Characters { get; set; } = new();
+        public ApplicationUserSettingsAuctions? Auctions { get; set; } = new();
+        public ApplicationUserSettingsCharacters? Characters { get; set; } = new();
         public ApplicationUserSettingsGeneral? General { get; set; } = new();
         public ApplicationUserSettingsLayout? Layout { get; set; } = new();
         public ApplicationUserSettingsPrivacy? Privacy { get; set; } = new();
@@ -17,6 +18,10 @@ namespace Wowthing.Lib.Models
         
         public void Migrate()
         {
+            if (Auctions == null)
+            {
+                Auctions = new();
+            }
             if (Characters == null)
             {
                 Characters = new();
@@ -32,6 +37,11 @@ namespace Wowthing.Lib.Models
             if (Privacy == null)
             {
                 Privacy = new();
+            }
+
+            if (Transmog == null)
+            {
+                Transmog = new();
             }
 
             Validate();
@@ -174,6 +184,11 @@ namespace Wowthing.Lib.Models
         }
     }
 
+    public class ApplicationUserSettingsAuctions
+    {
+        public List<int> IgnoredRealms { get; set; } = new();
+    }
+    
     public class ApplicationUserSettingsCharacters
     {
         public List<int> HiddenCharacters { get; set; } = new();

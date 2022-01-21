@@ -2,6 +2,10 @@ import type { Language } from '@/types/enums'
 
 
 export interface Settings {
+    auctions: {
+        ignoredRealms: number[]
+    }
+
     characters: {
         hiddenCharacters: number[]
         pinnedCharacters: number[]

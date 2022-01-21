@@ -18,10 +18,6 @@
             name: 'Privacy',
             slug: 'privacy',
         },
-        {
-            name: 'Transmog',
-            slug: 'transmog',
-        },
         null,
         {
             name: 'Hide Characters',
@@ -34,6 +30,15 @@
         {
             name: 'Sort Characters',
             slug: 'sort-characters',
+        },
+        null,
+        {
+            name: 'Auctions',
+            slug: 'auctions',
+        },
+        {
+            name: 'Transmog',
+            slug: 'transmog',
         },
     ]
 

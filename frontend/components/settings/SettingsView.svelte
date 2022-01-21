@@ -1,6 +1,7 @@
 <script lang="ts">
     import type { SvelteComponent } from 'svelte'
 
+    import SettingsAuctions from './sections/SettingsAuctions.svelte'
     import SettingsAccount from './sections/SettingsAccount.svelte'
     import SettingsHideCharacters from './sections/SettingsHideCharacters.svelte'
     import SettingsLayout from './sections/SettingsLayout.svelte'
@@ -13,6 +14,7 @@
 
     const components: Record<string, typeof SvelteComponent> = {
         account: SettingsAccount,
+        auctions: SettingsAuctions,
         layout: SettingsLayout,
         privacy: SettingsPrivacy,
         transmog: SettingsTransmog,

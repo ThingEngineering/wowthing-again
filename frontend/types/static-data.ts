@@ -12,7 +12,7 @@ export interface StaticData {
 
     professions: Record<number, StaticDataProfession>
 
-    connectedRealms: Record<number, string>
+    connectedRealms: Record<number, StaticDataConnectedRealm>
     realms: Record<number, StaticDataRealm>
     realmsRaw: StaticDataRealmArray[]
 
@@ -46,6 +46,11 @@ export interface StaticData {
     zoneMapSets: ZoneMapDataCategory[][]
 
     raiderIoScoreTiers: Record<number, StaticDataRaiderIoScoreTiers>
+}
+
+export interface StaticDataConnectedRealm {
+    displayText: string
+    realmNames: string[]
 }
 
 export class StaticDataCurrency {
