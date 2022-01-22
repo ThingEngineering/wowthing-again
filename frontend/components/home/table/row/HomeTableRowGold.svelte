@@ -4,7 +4,7 @@
 
 <style lang="scss">
     td {
-        @include cell-width($width-gold);
+        @include cell-width($width-gold, $maxWidth: $width-gold-max);
 
         text-align: right;
     }
