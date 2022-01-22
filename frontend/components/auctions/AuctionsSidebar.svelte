@@ -18,6 +18,11 @@
                 name: 'Missing Toys',
                 slug: 'missing-toys',
             },
+            null,
+            {
+                name: 'Extra Pets',
+                slug: 'extra-pets',
+            },
         ]
     }
 </script>

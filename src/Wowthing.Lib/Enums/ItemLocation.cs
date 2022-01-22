@@ -6,5 +6,7 @@
         Bags = 1,
         Bank = 2,
         ReagentBank = 3,
+        GuildBank = 4,
+        PetCollection = 10,
     }
 }

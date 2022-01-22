@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -11,6 +12,7 @@ using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Models;
+using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
 using Wowthing.Lib.Models.Wow;
 using Wowthing.Lib.Utilities;
@@ -34,9 +36,140 @@ namespace Wowthing.Web.Controllers
             _context = context;
         }
 
+        [HttpGet("extra-pets")]
+        [Authorize]
+        public async Task<IActionResult> ExtraPets()
+        {
+            var timer = new JankTimer();
+            
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            if (user == null)
+            {
+                _logger.LogWarning("ruh roh");
+                return NotFound();
+            }
+
+            var data = new UserAuctionData();
+
+            var accounts = await _context.PlayerAccount
+                .AsNoTracking()
+                .Where(pa => pa.UserId == user.Id)
+                .Include(pa => pa.Pets)
+                .ToArrayAsync();
+
+            var accountIds = accounts.SelectArray(account => account.Id);
+            
+            var accountPets = accounts
+                .Where(pa => pa.Pets != null)
+                .Select(pa => pa.Pets)
+                .OrderByDescending(pap => pap.UpdatedAt)
+                .ToArray();
+
+            var allPets = new Dictionary<long, PlayerAccountPetsPet>();
+            foreach (var pets in accountPets)
+            {
+                foreach (var (petId, pet) in pets.Pets)
+                {
+                    allPets.TryAdd(petId, pet);
+                }
+            }
+
+            // Caged pets
+            var cages = await _context
+                .PlayerCharacterItem
+                .Where(pci =>
+                    pci.Character.AccountId.HasValue &&
+                    accountIds.Contains(pci.Character.AccountId.Value) &&
+                    pci.ItemId == 82800 // Pet Cage
+                )
+                .ToArrayAsync();
+
+            var accountConnectedRealmIds = await GetConnectedRealmIds(user, accounts);
+            
+            timer.AddPoint("Accounts");
+
+            var groupedPets = allPets.Values
+                .GroupBy(pet => pet.SpeciesId)
+                .ToDictionary(
+                    group => group.Key,
+                    group => group
+                        .Select(pet => new UserAuctionDataPet(pet))
+                        .ToList()
+                );
+
+            foreach (var cagedPet in cages)
+            {
+                int speciesId = cagedPet.Context;
+                if (!groupedPets.TryGetValue(speciesId, out var pets))
+                {
+                    pets = groupedPets[speciesId] = new List<UserAuctionDataPet>();
+                }
+
+                pets.Add(new UserAuctionDataPet(cagedPet));
+            }
+
+            var extraPets = groupedPets
+                .Where(kvp => kvp.Value.Count > 1)
+                .ToDictionary(
+                    kvp => kvp.Key,
+                    kvp => kvp.Value
+                        .OrderBy(pet => pet.Quality)
+                        .ThenBy(pet => pet.Level)
+                        .ToArray()
+                );
+
+            var extraSpeciesIds = extraPets.Keys.ToArray();
+
+            var petSpeciesMap = await _context.WowPet
+                .Where(pet => extraSpeciesIds.Contains(pet.Id))
+                .ToDictionaryAsync(
+                    pet => pet.Id,
+                    pet => pet.CreatureId
+                );
+            
+            var auctions = await _context.WowAuction
+                .AsNoTracking()
+                .Where(auction =>
+                    accountConnectedRealmIds.Contains(auction.ConnectedRealmId) &&
+                    extraSpeciesIds.Contains(auction.PetSpeciesId)
+                )
+                .ToArrayAsync();
+
+            data.Auctions = DoAuctionStuff(auctions.GroupBy(auction => petSpeciesMap[auction.PetSpeciesId]), false);
+            
+            timer.AddPoint("Auctions");
+
+            var creatureIds = extraSpeciesIds.Select(speciesId => petSpeciesMap[speciesId]);
+            data.Names = await _context.LanguageString
+                .AsNoTracking()
+                .Where(ls =>
+                    ls.Language == user.Settings.General.Language &&
+                    ls.Type == StringType.WowCreatureName &&
+                    creatureIds.Contains(ls.Id)
+                )
+                .ToDictionaryAsync(
+                    ls => ls.Id,
+                    ls => ls.String
+                );
+            
+            timer.AddPoint("Strings");
+
+            data.Pets = extraPets
+                .ToDictionary(
+                    kvp => petSpeciesMap[kvp.Key],
+                    kvp => kvp.Value
+                );
+            
+            timer.AddPoint("Data", true);
+
+            _logger.LogInformation($"{timer}");
+
+            return Ok(data);
+        }
+        
         [HttpGet("missing-{type:regex(^(mounts|pets|toys)$)}")]
         [Authorize]
-        public async Task<IActionResult> UserAuctionData([FromRoute] string type)
+        public async Task<IActionResult> Missing([FromRoute] string type)
         {
             var timer = new JankTimer();
             
@@ -61,24 +194,8 @@ namespace Wowthing.Web.Controllers
             }
 
             var accounts = await accountQuery.ToArrayAsync();
-            
-            var accountIds = accounts
-                .Select(account => account.Id)
-                .ToArray();
 
-            var ignoredRealms = user.Settings.Auctions?.IgnoredRealms.EmptyIfNull();
-            var accountConnectedRealmIds = await _context.WowRealm
-                .AsNoTracking()
-                .Where(realm =>
-                    _context.PlayerCharacter
-                        .Where(pc => pc.AccountId != null && accountIds.Contains(pc.AccountId.Value))
-                        .Select(pc => pc.RealmId)
-                        .Contains(realm.Id) &&
-                    !ignoredRealms.Contains(realm.ConnectedRealmId)
-                )
-                .Select(realm => realm.ConnectedRealmId)
-                .Distinct()
-                .ToArrayAsync();
+            var accountConnectedRealmIds = await GetConnectedRealmIds(user, accounts);
 
             timer.AddPoint("Accounts");
 
@@ -87,6 +204,7 @@ namespace Wowthing.Web.Controllers
                 .Where(auction => accountConnectedRealmIds.Contains(auction.ConnectedRealmId));
 
             var languageQuery = _context.LanguageString
+                .AsNoTracking()
                 .Where(ls => ls.Language == user.Settings.General.Language);
 
             var data = new UserAuctionData();
@@ -229,7 +347,7 @@ namespace Wowthing.Web.Controllers
             return Ok(data);
         }
         
-        private static Dictionary<int, List<WowAuction>> DoAuctionStuff(IEnumerable<IGrouping<int, WowAuction>> groupedAuctions)
+        private static Dictionary<int, List<WowAuction>> DoAuctionStuff(IEnumerable<IGrouping<int, WowAuction>> groupedAuctions, bool includeLowBid = true)
         {
             var groupedThings = groupedAuctions
                 .ToDictionary(
@@ -267,18 +385,46 @@ namespace Wowthing.Web.Controllers
                     }
                     else
                     {
-                        if (lowestBid.BidPrice < lowestBuyout.BuyoutPrice)
+                        if (includeLowBid && lowestBid.BidPrice < lowestBuyout.BuyoutPrice)
                         {
                             ret[thingId].Add(lowestBid);
                         }
                         ret[thingId].Add(lowestBuyout);
                     }
                 }
-                
-                ret[thingId].Sort((a, b) => a.UsefulPrice.CompareTo(b.UsefulPrice));
+
+                if (includeLowBid)
+                {
+                    ret[thingId].Sort((a, b) => a.UsefulPrice.CompareTo(b.UsefulPrice));
+                }
+                else
+                {
+                    ret[thingId].Sort((a, b) => a.BuyoutPrice.CompareTo(b.BuyoutPrice));
+                }
             }
             
             return ret;
+        }
+
+        private async Task<int[]> GetConnectedRealmIds(ApplicationUser user, PlayerAccount[] accounts)
+        {
+            var accountIds = accounts.SelectArray(account => account.Id);
+
+            var ignoredRealms = user.Settings.Auctions?.IgnoredRealms.EmptyIfNull();
+            var accountConnectedRealmIds = await _context.WowRealm
+                .AsNoTracking()
+                .Where(realm =>
+                    _context.PlayerCharacter
+                        .Where(pc => pc.AccountId != null && accountIds.Contains(pc.AccountId.Value))
+                        .Select(pc => pc.RealmId)
+                        .Contains(realm.Id) &&
+                    !ignoredRealms.Contains(realm.ConnectedRealmId)
+                )
+                .Select(realm => realm.ConnectedRealmId)
+                .Distinct()
+                .ToArrayAsync();
+
+            return accountConnectedRealmIds;
         }
     }
 }

@@ -350,7 +350,7 @@ namespace Wowthing.Backend.Jobs.User
                     var slot = short.Parse(slotString[1..]);
                     // count:id:context:enchant:ilvl:quality:suffix:bonusIDs:gems
                     var parts = itemString.Split(":");
-                    if (parts.Length != 9)
+                    if (parts.Length != 9 && !(parts.Length == 4 && parts[0] == "pet"))
                     {
                         Logger.Warning("Invalid item string: {String}", itemString);
                         continue;
@@ -370,27 +370,41 @@ namespace Wowthing.Backend.Jobs.User
                         added++;
                     }
 
-                    // count:id:context:enchant:ilvl:quality:suffix:bonusIDs:gems
-                    item.Count = int.Parse(parts[0]);
-                    item.ItemId = int.Parse(parts[1]);
-                    item.Context = short.Parse(parts[2].OrDefault("0"));
-                    item.EnchantId = short.Parse(parts[3].OrDefault("0"));
-                    item.ItemLevel = short.Parse(parts[4].OrDefault("0"));
-                    item.Quality = short.Parse(parts[5].OrDefault("0"));
-                    item.SuffixId = short.Parse(parts[6].OrDefault("0"));
-                    
-                    item.BonusIds = parts[7]
-                        .EmptyIfNullOrWhitespace()
-                        .Split(',', StringSplitOptions.RemoveEmptyEntries)
-                        .Select(short.Parse)
-                        .ToList();
-                    
-                    item.Gems = parts[8]
-                        .EmptyIfNullOrWhitespace()
-                        .Split(',', StringSplitOptions.RemoveEmptyEntries)
-                        .Select(int.Parse)
-                        .ToList();
-                    
+                    if (parts[0] == "pet")
+                    {
+                        // pet:speciesId:level:quality
+                        item.Count = 1;
+                        item.ItemId = 82800; // Pet Cage
+                        item.Context = short.Parse(parts[1]); // SpeciesId
+                        item.ItemLevel = short.Parse(parts[2]); // Level
+                        item.Quality = short.Parse(parts[3]); // Quality
+                        item.BonusIds = new List<short>();
+                        item.Gems = new List<int>();
+                    }
+                    else
+                    {
+                        // count:id:context:enchant:ilvl:quality:suffix:bonusIDs:gems
+                        item.Count = int.Parse(parts[0]);
+                        item.ItemId = int.Parse(parts[1]);
+                        item.Context = short.Parse(parts[2].OrDefault("0"));
+                        item.EnchantId = short.Parse(parts[3].OrDefault("0"));
+                        item.ItemLevel = short.Parse(parts[4].OrDefault("0"));
+                        item.Quality = short.Parse(parts[5].OrDefault("0"));
+                        item.SuffixId = short.Parse(parts[6].OrDefault("0"));
+
+                        item.BonusIds = parts[7]
+                            .EmptyIfNullOrWhitespace()
+                            .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                            .Select(short.Parse)
+                            .ToList();
+
+                        item.Gems = parts[8]
+                            .EmptyIfNullOrWhitespace()
+                            .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                            .Select(int.Parse)
+                            .ToList();
+                    }
+
                     seen.Add(key);
                 }
             }
