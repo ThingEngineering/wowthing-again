@@ -22,6 +22,13 @@ namespace Wowthing.Lib.Extensions
         {
             return array ?? Array.Empty<T>();
         }
+
+        public static TResult[] SelectArray<TSource, TResult>(this IEnumerable<TSource> source, Func<TSource, TResult> resultFunc)
+        {
+            return source
+                .Select(resultFunc)
+                .ToArray();
+        }
         
         public static IEnumerable<T> SelectManyRecursive<T>(this IEnumerable<T> source, Func<T, IEnumerable<T>> selector)
         {
