@@ -187,6 +187,7 @@ namespace Wowthing.Lib.Models
     public class ApplicationUserSettingsAuctions
     {
         public List<int> IgnoredRealms { get; set; } = new();
+        public int MinimumExtraPetsValue { get; set; } = 0;
     }
     
     public class ApplicationUserSettingsCharacters

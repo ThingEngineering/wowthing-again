@@ -126,12 +126,14 @@ namespace Wowthing.Web.Controllers
                     pet => pet.Id,
                     pet => pet.CreatureId
                 );
-            
+
+            long minimumValue = (user.Settings.Auctions?.MinimumExtraPetsValue ?? 0) * 10000;
             var auctions = await _context.WowAuction
                 .AsNoTracking()
                 .Where(auction =>
                     accountConnectedRealmIds.Contains(auction.ConnectedRealmId) &&
-                    extraSpeciesIds.Contains(auction.PetSpeciesId)
+                    extraSpeciesIds.Contains(auction.PetSpeciesId) &&
+                    auction.BuyoutPrice >= minimumValue
                 )
                 .ToArrayAsync();
 
