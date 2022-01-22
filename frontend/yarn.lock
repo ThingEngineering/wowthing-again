@@ -93,6 +93,11 @@
   resolved "https://registry.yarnpkg.com/@iconify/icons-mdi/-/icons-mdi-1.1.42.tgz#abd1503a51af389e50bcc84338706afbcc10ede7"
   integrity sha512-YHX2Z0s+5Y5EQlBbQ2xQV9pI+RmTr4EwRaqtTEPjfP5g8cekQzR7A8aSohLtgq6m+nziDagIROFFZIFzkS+LJw==
 
+"@iconify/icons-noto@^1.1.4":
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/@iconify/icons-noto/-/icons-noto-1.1.4.tgz#9ce3391a5f93d52033c0fd1cff6319ce21ac0fbf"
+  integrity sha512-gAVxWHv7kvmBcI+GPiXpDSAPWpzMqWw5TcfGPDjgULpV/NwfAe6T7LvhX+SAGqsiG35IxmNADIr0Y29UtD83Cg==
+
 "@iconify/svelte@^2.0.0":
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/@iconify/svelte/-/svelte-2.1.0.tgz#7d3618eff72052b57a8d97805f0cfbbf0f2ff760"
