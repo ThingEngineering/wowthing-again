@@ -11,7 +11,7 @@ export class UserAuctionDataStore extends WritableFancyStore<UserAuctionData> {
     }
 
     get dataUrl(): string {
-        return `/api/auctions/missing-${this.type}`
+        return `/api/auctions/${this.type}`
     }
 
     /*initialize(userHistoryData: UserAuctionData): void {
@@ -21,6 +21,7 @@ export class UserAuctionDataStore extends WritableFancyStore<UserAuctionData> {
     }*/
 }
 
-export const userAuctionMissingMountStore = new UserAuctionDataStore('mounts')
-export const userAuctionMissingPetStore = new UserAuctionDataStore('pets')
-export const userAuctionMissingToyStore = new UserAuctionDataStore('toys')
+export const userAuctionExtraPetStore = new UserAuctionDataStore('extra-pets')
+export const userAuctionMissingMountStore = new UserAuctionDataStore('missing-mounts')
+export const userAuctionMissingPetStore = new UserAuctionDataStore('missing-pets')
+export const userAuctionMissingToyStore = new UserAuctionDataStore('missing-toys')

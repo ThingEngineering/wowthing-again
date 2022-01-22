@@ -1,4 +1,5 @@
 export const petBreedMap: Record<number, string> = {
+     0: '???',
      3: 'B/B',
      4: 'P/P',
      5: 'S/S',
