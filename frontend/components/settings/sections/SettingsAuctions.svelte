@@ -6,6 +6,7 @@
     import type { StaticDataConnectedRealm } from '@/types'
 
     import GroupedCheckbox from '@/components/forms/GroupedCheckboxInput.svelte'
+    import NumberInput from '@/components/forms/NumberInput.svelte'
 
     const crIds: Record<number, boolean> = {}
     const realmNames: Record<string, boolean> = {}
@@ -28,7 +29,6 @@
             .filter((crId) => shownRealms.indexOf(crId) === -1)
             .map((crId) => parseInt(crId))
     }, 100)
-
 </script>
 
 <style lang="scss">
@@ -36,6 +36,19 @@
 
 <div class="thing-container settings-container">
     <h2>Auctions</h2>
+
+    <div class="setting">
+        <NumberInput
+            name="auctions_minimumExtraPetsValue"
+            label="Minimum Extra Pets value"
+            minValue={0}
+            maxValue={999999}
+            bind:value={$settingsData.auctions.minimumExtraPetsValue}
+        >
+            <p>Minimum buyout price (in gold) to include an auction in Extra Pets.</p>
+        </NumberInput>
+    </div>
+
 
     <h3>Ignored Realms</h3>
 

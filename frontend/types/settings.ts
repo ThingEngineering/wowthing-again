@@ -4,6 +4,7 @@ import type { Language } from '@/types/enums'
 export interface Settings {
     auctions: {
         ignoredRealms: number[]
+        minimumExtraPetsValue: number
     }
 
     characters: {
