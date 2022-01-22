@@ -1,13 +1,9 @@
 import type { IconifyIcon } from '@iconify/types'
 
-import mdiBagPersonalOutline from '@iconify/icons-mdi/bag-personal-outline'
 import mdiCheck from '@iconify/icons-mdi/check'
-//import mdiClipboardListOutline from '@iconify/icons-mdi/clipboard-list-outline'
 import mdiClose from '@iconify/icons-mdi/close'
 import mdiLockOutline from '@iconify/icons-mdi/lock-outline'
-import mdiPiggyBankOutline from'@iconify/icons-mdi/piggy-bank-outline'
 import mdiQuestion from '@iconify/icons-mdi/help-circle-outline'
-import mdiSpider from '@iconify/icons-mdi/spider'
 
 import notoBackpack from '@iconify/icons-noto/backpack'
 import notoBank from '@iconify/icons-noto/bank'

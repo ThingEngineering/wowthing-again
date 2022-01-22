@@ -5,7 +5,7 @@ export interface UserAuctionData {
     auctions: Record<number, UserAuctionDataAuction[]>
     names: Record<number, string>
 
-    pets?: Record<number, number[]>
+    pets?: Record<number, UserAuctionDataPet[]>
 }
 
 export interface UserAuctionDataAuction {
