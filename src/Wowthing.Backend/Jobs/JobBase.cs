@@ -71,7 +71,7 @@ namespace Wowthing.Backend.Jobs
             return LogContext.PushProperty("Task", $"{userId} {jobName}");
         }
 
-        protected IDisposable UserLog(int userId) => UserLog(userId.ToString());
+        protected IDisposable UserLog(long userId) => UserLog(userId.ToString());
 
         protected static Uri GenerateUri(WowRegion region, ApiNamespace lamespace, string path)
         {

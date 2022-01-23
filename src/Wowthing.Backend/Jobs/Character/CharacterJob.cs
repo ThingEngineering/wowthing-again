@@ -83,7 +83,6 @@ namespace Wowthing.Backend.Jobs.Character
             character.Experience = apiCharacter.Experience;
             character.Faction = apiCharacter.Faction.EnumParse<WowFaction>();
             character.Gender = apiCharacter.Gender.EnumParse<WowGender>();
-            character.GuildId = apiCharacter.Guild?.Id ?? 0;
             character.Level = apiCharacter.Level;
             character.Name = apiCharacter.Name;
             character.RaceId = apiCharacter.Race.Id;
