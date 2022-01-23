@@ -759,12 +759,23 @@ namespace Wowthing.Web.Controllers
             var allTransmog = await _context.AccountTransmogQuery
                 .FromSqlRaw(AccountTransmogQuery.SQL, apiResult.User.Id)
                 .FirstAsync();
+
+            var accountSources = await _context.PlayerAccountTransmogSources
+                .Where(pats => pats.Account.UserId == apiResult.User.Id)
+                .ToArrayAsync();
+            
+            var allSources = new HashSet<string>();
+            foreach (var sources in accountSources)
+            {
+                allSources.UnionWith(sources.Sources);
+            }
             
             timer.AddPoint("Get Transmog");
 
             // Build response
             var data = new UserTransmogData
             {
+                Sources = allSources,
                 Transmog = allTransmog.TransmogIds,
             };
             
