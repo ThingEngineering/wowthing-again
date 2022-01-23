@@ -35,6 +35,7 @@ namespace Wowthing.Lib.Contexts
         public DbSet<PlayerAccountGoldSnapshot> PlayerAccountGoldSnapshot { get; set; }
         public DbSet<PlayerAccountPets> PlayerAccountPets { get; set; }
         public DbSet<PlayerAccountToys> PlayerAccountToys { get; set; }
+        public DbSet<PlayerAccountTransmogSources> PlayerAccountTransmogSources { get; set; }
 
         public DbSet<PlayerCharacter> PlayerCharacter { get; set; }
         public DbSet<PlayerCharacterAchievements> PlayerCharacterAchievements { get; set; }

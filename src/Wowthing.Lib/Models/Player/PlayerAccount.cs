@@ -25,5 +25,6 @@ namespace Wowthing.Lib.Models.Player
         public List<PlayerCharacter> Characters { get; set; }
         public PlayerAccountPets Pets { get; set; }
         public PlayerAccountToys Toys { get; set; }
+        public PlayerAccountTransmogSources TransmogSources { get; set; }
     }
 }

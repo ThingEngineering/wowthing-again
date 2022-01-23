@@ -166,24 +166,40 @@ namespace Wowthing.Backend.Jobs.User
             // Deal with account data
             if (accountId > 0)
             {
-                if (parsed.Toys != null)
+                var accountToys = await Context.PlayerAccountToys.FindAsync(accountId);
+                if (accountToys == null)
                 {
-                    var accountToys = Context.PlayerAccountToys.Find(accountId);
-                    if (accountToys == null)
+                    accountToys = new PlayerAccountToys
                     {
-                        accountToys = new PlayerAccountToys
-                        {
-                            AccountId = accountId,
-                        };
-                        Context.PlayerAccountToys.Add(accountToys);
-                    }
+                        AccountId = accountId,
+                    };
+                    Context.PlayerAccountToys.Add(accountToys);
+                }
 
-                    if (parsed.Toys?.Count > 0)
+                if (parsed.Toys?.Count > 0)
+                {
+                    accountToys.ToyIds = parsed.Toys
+                        .OrderBy(toyId => toyId)
+                        .ToList();
+                }
+
+                var accountTransmogSources = await Context.PlayerAccountTransmogSources.FindAsync(accountId);
+                if (accountTransmogSources == null)
+                {
+                    accountTransmogSources = new PlayerAccountTransmogSources
                     {
-                        accountToys.ToyIds = parsed.Toys
-                            .OrderBy(toyId => toyId)
-                            .ToList();
-                    }
+                        AccountId = accountId,
+                    };
+                    Context.PlayerAccountTransmogSources.Add(accountTransmogSources);
+                }
+
+                if (parsed.TransmogSources?.Count > 0)
+                {
+                    accountTransmogSources.Appearances = parsed.TransmogSources
+                        .ToDictionary(
+                            kvp => kvp.Key,
+                            kvp => kvp.Value.Keys.ToList()
+                        );
                 }
             }
             _timer.AddPoint("Account");
