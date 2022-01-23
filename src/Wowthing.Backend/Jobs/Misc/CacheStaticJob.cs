@@ -113,11 +113,11 @@ namespace Wowthing.Backend.Jobs.Misc
                     mount => (mount.Id, _stringMap.GetValueOrDefault((StringType.WowMountName, language, mount.Id), "???"))
                 );
             }
-            
-            var itemModifiedAppearances = await DataUtilities.LoadDumpCsvAsync<DumpItemModifiedAppearance>("itemmodifiedappearance");
+
+            var itemModifiedAppearances = await Context.WowItemModifiedAppearance.ToArrayAsync();
             _itemToAppearance = itemModifiedAppearances
-                .GroupBy(r => r.ItemID)
-                .ToDictionary(r => r.Key, r => r.First().ItemAppearanceID);
+                .GroupBy(r => r.ItemId)
+                .ToDictionary(r => r.Key, r => r.First().AppearanceId);
         }
         
         #region Static data

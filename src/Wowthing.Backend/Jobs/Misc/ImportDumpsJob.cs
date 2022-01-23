@@ -326,10 +326,16 @@ namespace Wowthing.Backend.Jobs.Misc
                     };
                     Context.WowItemModifiedAppearance.Add(dbAppearance);
                 }
-
+                
                 dbAppearance.AppearanceId = ima.ItemAppearanceID;
                 dbAppearance.ItemId = ima.ItemID;
                 dbAppearance.Modifier = ima.ItemAppearanceModifierID;
+                
+                // HACK fix Warglaives of Azzinoth appearance IDs
+                if ((ima.ItemID == 32837 || ima.ItemID == 32838) && ima.ItemAppearanceModifierID == 0)
+                {
+                    dbAppearance.AppearanceId = 34777;
+                }
             }
         }
         
