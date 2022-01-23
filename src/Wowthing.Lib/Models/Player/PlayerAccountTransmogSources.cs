@@ -10,7 +10,6 @@ namespace Wowthing.Lib.Models.Player
         public int AccountId { get; set; }
         public PlayerAccount Account { get; set; }
 
-        [Column(TypeName = "jsonb")]
-        public Dictionary<int, List<string>> Appearances { get; set; }
+        public List<string> Sources { get; set; }
     }
 }

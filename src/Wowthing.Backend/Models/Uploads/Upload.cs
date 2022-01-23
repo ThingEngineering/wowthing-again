@@ -14,6 +14,6 @@ namespace Wowthing.Backend.Models.Uploads
         public Dictionary<string, UploadGuild> Guilds { get; set; }
         
         public List<int> Toys { get; set; }
-        public Dictionary<int, Dictionary<string, bool>> TransmogSources { get; set; }
+        public Dictionary<string, bool> TransmogSources { get; set; }
     }
 }

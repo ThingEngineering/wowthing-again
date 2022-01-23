@@ -195,11 +195,10 @@ namespace Wowthing.Backend.Jobs.User
 
                 if (parsed.TransmogSources?.Count > 0)
                 {
-                    accountTransmogSources.Appearances = parsed.TransmogSources
-                        .ToDictionary(
-                            kvp => kvp.Key,
-                            kvp => kvp.Value.Keys.ToList()
-                        );
+                    accountTransmogSources.Sources = parsed.TransmogSources
+                        .Keys
+                        .OrderBy(key => key)
+                        .ToList();
                 }
             }
             _timer.AddPoint("Account");
