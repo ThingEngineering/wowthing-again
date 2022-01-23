@@ -13,7 +13,7 @@ namespace Wowthing.Lib.Extensions
         {
             services.AddDbContext<WowDbContext>(options =>
             {
-                options.UseNpgsql(connectionString);
+                options.UseNpgsql(connectionString, options => options.EnableRetryOnFailure());
 #if DEBUG
                 options.EnableSensitiveDataLogging();
 #endif
@@ -21,7 +21,7 @@ namespace Wowthing.Lib.Extensions
 
             services.AddDbContextFactory<WowDbContext>(options =>
             {
-                options.UseNpgsql(connectionString);
+                options.UseNpgsql(connectionString, options => options.EnableRetryOnFailure());
 #if DEBUG
                 options.EnableSensitiveDataLogging();
 #endif
