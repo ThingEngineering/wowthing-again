@@ -40,6 +40,8 @@ export interface Settings {
     }
 
     transmog: {
+        completionistMode: boolean
+
         showAllianceOnly: boolean
         showHordeOnly: boolean
 
