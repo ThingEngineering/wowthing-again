@@ -24,7 +24,6 @@
                 ])
             }
             data.sort()
-            console.log(data)
         }
     }
 </script>

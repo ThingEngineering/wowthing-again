@@ -12,6 +12,9 @@ export default function petLocationTooltip(pet: UserAuctionDataPet): string {
     else if (pet.location === ItemLocation.Bank) {
         return 'Bank: ' + getCharacterNameRealm(pet.locationId)
     }
+    else if (pet.location === ItemLocation.GuildBank) {
+        return 'Guild Bank: ???, Tab ' + pet.locationId
+    }
     else {
         return '?????'
     }
