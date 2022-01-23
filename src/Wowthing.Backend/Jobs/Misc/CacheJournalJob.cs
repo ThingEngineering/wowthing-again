@@ -331,7 +331,7 @@ namespace Wowthing.Backend.Jobs.Misc
                                         instanceData.BonusIds != null &&
                                         instanceData.BonusIds.TryGetValue(difficultyId, out int bonusId) &&
                                         bonusAppearanceModifiers.TryGetValue(bonusId, out int modifierId) &&
-                                        appearances.TryGetValue(modifierId, out int appearanceId)
+                                        appearances.TryGetValue((short)modifierId, out int appearanceId)
                                     ))
                                     {
                                         var first = appearances

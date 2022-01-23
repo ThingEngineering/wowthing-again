@@ -21,6 +21,7 @@ namespace Wowthing.Lib.Contexts
         
         public DbSet<WowAuction> WowAuction { get; set; }
         public DbSet<WowItem> WowItem { get; set; }
+        public DbSet<WowItemModifiedAppearance> WowItemModifiedAppearance { get; set; }
         public DbSet<WowMount> WowMount { get; set; }
         public DbSet<WowMythicPlusSeason> WowMythicPlusSeason { get; set; }
         public DbSet<WowPeriod> WowPeriod { get; set; }

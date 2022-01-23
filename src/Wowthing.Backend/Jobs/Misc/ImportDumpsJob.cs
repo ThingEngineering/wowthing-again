@@ -44,7 +44,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.ImportDumps,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(24),
-            Version = 7,
+            Version = 8,
         };
 
         public override async Task Run(params string[] data)
@@ -52,6 +52,7 @@ namespace Wowthing.Backend.Jobs.Misc
             _timer = new JankTimer();
             
             await ImportItems();
+            await ImportItemAppearances();
             await ImportMounts();
             await ImportPets();
             await ImportToys();
@@ -309,6 +310,29 @@ namespace Wowthing.Backend.Jobs.Misc
             _timer.AddPoint("Items");
         }
 
+        private async Task ImportItemAppearances()
+        {
+            var itemModifiedAppearances = await DataUtilities.LoadDumpCsvAsync<DumpItemModifiedAppearance>("itemmodifiedappearance");
+            var dbMap = await Context.WowItemModifiedAppearance
+                .ToDictionaryAsync(wima => wima.Id);
+
+            foreach (var ima in itemModifiedAppearances)
+            {
+                if (!dbMap.TryGetValue(ima.ID, out var dbAppearance))
+                {
+                    dbAppearance = new WowItemModifiedAppearance
+                    {
+                        Id = ima.ID,
+                    };
+                    Context.WowItemModifiedAppearance.Add(dbAppearance);
+                }
+
+                dbAppearance.AppearanceId = ima.ItemAppearanceID;
+                dbAppearance.ItemId = ima.ItemID;
+                dbAppearance.Modifier = ima.ItemAppearanceModifierID;
+            }
+        }
+        
         private async Task ImportMounts()
         {
             var baseMounts = await DataUtilities.LoadDumpCsvAsync<DumpMount>(Path.Join("enUS", "mount"));
