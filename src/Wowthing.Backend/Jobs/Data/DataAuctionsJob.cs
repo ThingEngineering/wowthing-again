@@ -72,7 +72,7 @@ COPY {0} (
                 .FirstOrDefaultAsync();
 
             var shrug = AuctionLog(realm);
-            
+
             var uri = GenerateUri(realm.Region, ApiNamespace.Dynamic, string.Format(ApiPath, realmId));
             JsonResult<ApiDataAuctions> result;
             try
@@ -92,24 +92,26 @@ COPY {0} (
             }
 
             var tableName = $"wow_auction_{realmId}_{DateTime.UtcNow:yyyyMMddHHmmss}";
-            using (var connection = Context.GetConnection())
+            await using (var connection = Context.GetConnection())
             {
                 await connection.OpenAsync();
 
-                using (var transaction = await connection.BeginTransactionAsync())
+                for (int retry = 0; retry < 5; retry++)
                 {
-                    using (var command = connection.CreateCommand())
-                    {
-                        command.Transaction = transaction;
+                    await using var transaction = await connection.BeginTransactionAsync();
+                    await using var command = connection.CreateCommand();
+                    command.Transaction = transaction;
 
+                    try
+                    {
                         // Create new table
                         command.CommandText = string.Format(SqlCreateTable, tableName);
                         await command.ExecuteNonQueryAsync();
-                        
+
                         timer.AddPoint("Create");
 
                         // Copy auction data
-                        using (var writer = connection.BeginBinaryImport(string.Format(SqlCopy, tableName)))
+                        await using (var writer = connection.BeginBinaryImport(string.Format(SqlCopy, tableName)))
                         {
                             foreach (var auction in result.Data.Auctions)
                             {
@@ -152,7 +154,7 @@ COPY {0} (
 
                         command.CommandText = SqlGetPartitions;
                         string existing = null;
-                        using (var reader = await command.ExecuteReaderAsync())
+                        await using (var reader = await command.ExecuteReaderAsync())
                         {
                             while (reader.Read())
                             {
@@ -167,27 +169,8 @@ COPY {0} (
                         // Detach old partition if it exists
                         if (existing != null)
                         {
-                            for (int retry = 0; retry < 5; retry++)
-                            {
-                                try
-                                {
-                                    command.CommandText = string.Format(SqlDetachPartition, existing);
-                                    await command.ExecuteNonQueryAsync();
-                                    break;
-                                }
-                                catch (PostgresException pe)
-                                {
-                                    if (pe.SqlState == PostgresErrorCodes.DeadlockDetected)
-                                    {
-                                        Logger.Warning("Deadlock detected, retry #{Retry}", retry + 1);
-                                        await Task.Delay(retry * 500);
-                                    }
-                                    else
-                                    {
-                                        throw;
-                                    }
-                                }
-                            }
+                            command.CommandText = string.Format(SqlDetachPartition, existing);
+                            await command.ExecuteNonQueryAsync();
                         }
 
                         command.CommandText = string.Format(SqlAttachPartition, tableName, realmId);
@@ -199,12 +182,28 @@ COPY {0} (
                             command.CommandText = string.Format(SqlDropTable, existing);
                             await command.ExecuteNonQueryAsync();
                         }
-                    } // CreateCommand
 
-                    await transaction.CommitAsync();
-                } // BeginTransaction
-
-                timer.AddPoint("Partition", true);
+                        await transaction.CommitAsync();
+                    }
+                    catch (PostgresException pe)
+                    {
+                        if (pe.SqlState == PostgresErrorCodes.DeadlockDetected)
+                        {
+                            Logger.Warning("Deadlock detected, retry #{Retry}", retry + 1);
+                            await Task.Delay(retry * 500);
+                            await transaction.RollbackAsync();
+                        }
+                        else
+                        {
+                            throw;
+                        }
+                    }
+                    finally
+                    {
+                        retry = 5;
+                        timer.AddPoint("Partition", true);
+                    }
+                }
             }
 
             Logger.Information("{Timer}", timer.ToString());
