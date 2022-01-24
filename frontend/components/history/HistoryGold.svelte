@@ -84,6 +84,8 @@
         }
         //realms.sort()
 
+        const totals: Record<DateTime, number> = {}
+
         let firstRealmId = -1
         for (let realmIndex = 0; realmIndex < realms.length; realmIndex++) {
             const [realmName, realmId] = realms[realmIndex]
@@ -149,6 +151,10 @@
                 )
             }
 
+            for (const point of points) {
+                totals[point.x] = (totals[point.x] || 0) + point.y
+            }
+
             data.datasets.push({
                 backgroundColor: color,
                 borderColor: stacked ? '#000' : color,
@@ -164,21 +170,18 @@
             data.datasets.sort((a, b) => a.data[a.data.length - 1].y - b.data[b.data.length - 1].y)
         }
         else {
-            data.datasets.sort((a, b) => b.data[a.data.length - 1].y - a.data[b.data.length - 1].y)
+            data.datasets.sort((a, b) => b.data[b.data.length - 1].y - a.data[a.data.length - 1].y)
         }
 
         if (historyState.chartType === 'line' && firstRealmId >= 0) {
-            const totals: {x: DateTime, y: number}[] = []
-            for (let pointIndex = 0; pointIndex < data.datasets[0].data.length; pointIndex++) {
-                let total = 0
-                for (let datasetIndex = 0; datasetIndex < data.datasets.length; datasetIndex++) {
-                    total += data.datasets[datasetIndex].data[pointIndex].y
-                }
-                totals.push({
-                    x: data.datasets[0].data[pointIndex].x,
-                    y: total
+            const totalPoints = sortBy(
+                toPairs(totals),
+                ([date]) => date
+            ).map(([date, value]) => ({
+                    x: date,
+                    y: value,
                 })
-            }
+            )
 
             data.datasets.push({
                 backgroundColor: colors[0],
@@ -187,7 +190,7 @@
                 fill: stacked,
                 label: 'Total',
                 spanGaps: true,
-                data: totals,
+                data: totalPoints,
             })
         }
 
