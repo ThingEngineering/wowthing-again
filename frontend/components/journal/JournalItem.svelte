@@ -5,6 +5,7 @@
     import { difficultyMap, journalDifficultyOrder } from '@/data/difficulty'
     import { userTransmogStore } from '@/stores'
     import { journalState } from '@/stores/local-storage'
+    import { data as settingsData } from '@/stores/settings'
     import { getItemUrl } from '@/utils/get-item-url'
     import type { JournalDataEncounterItem, JournalDataEncounterItemAppearance } from '@/types/data/journal'
 
@@ -18,7 +19,9 @@
     $: {
         appearances = item.appearances.map((appearance) => [
             appearance,
-            $userTransmogStore.data.userHas[appearance.appearanceId]
+            $settingsData.transmog.completionistMode ?
+                $userTransmogStore.data.sourceHas[`${item.id}_${appearance.modifierId}`] :
+                $userTransmogStore.data.userHas[appearance.appearanceId]
         ])
     }
 

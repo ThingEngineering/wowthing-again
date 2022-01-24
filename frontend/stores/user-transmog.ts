@@ -16,14 +16,19 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
     }
 
     initialize(data: UserTransmogData): void {
-        console.time('UserTransmogDataStore.initialize')
+        //console.time('UserTransmogDataStore.initialize')
+
+        data.sourceHas = {}
+        for (const sourceId of data.sources) {
+            data.sourceHas[sourceId] = true
+        }
 
         data.userHas = {}
         for (const transmogId of data.transmog) {
             data.userHas[transmogId] = true
         }
 
-        console.timeEnd('UserTransmogDataStore.initialize')
+        //console.timeEnd('UserTransmogDataStore.initialize')
     }
 
     setup(

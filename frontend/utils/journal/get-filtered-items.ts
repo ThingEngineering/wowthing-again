@@ -15,6 +15,7 @@ export default function getFilteredItems(
     group: JournalDataEncounterItemGroup
 ): JournalDataEncounterItem[] {
     const classMask = getTransmogClassMask(settingsData)
+    const masochist = settingsData.transmog.completionistMode
 
     return filter(
         group.items,
@@ -59,11 +60,15 @@ export default function getFilteredItems(
             if (userTransmogData !== null && keep) {
                 const allCollected = every(
                     item.appearances,
-                    (appearance) => userTransmogData.userHas[appearance.appearanceId]
+                    (appearance) => masochist ?
+                        userTransmogData.sourceHas[`${item.id}_${appearance.modifierId}`] :
+                        userTransmogData.userHas[appearance.appearanceId]
                 )
                 const anyCollected = some(
                     item.appearances,
-                    (appearance) => userTransmogData.userHas[appearance.appearanceId]
+                    (appearance) => masochist ?
+                        userTransmogData.sourceHas[`${item.id}_${appearance.modifierId}`] :
+                        userTransmogData.userHas[appearance.appearanceId]
                 )
                 if (
                     (!journalState.showUncollected && !anyCollected) ||
