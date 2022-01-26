@@ -22,7 +22,7 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
     }
 
     initialize(data: StaticData): void {
-        console.time('StaticDataStore.initialize')
+        // console.time('StaticDataStore.initialize')
 
         if (data.currenciesRaw !== null) {
             data.currencies = {}
@@ -125,7 +125,7 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             data.toySets = StaticDataStore.fixSets(data.toySetsRaw)
         }
 
-        console.timeEnd('StaticDataStore.initialize')
+        // console.timeEnd('StaticDataStore.initialize')
 
         zoneMapStore.update((state) => {
             state.data = {

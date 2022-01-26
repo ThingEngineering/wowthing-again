@@ -14,7 +14,7 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
     }
 
     initialize(data: JournalData): void {
-        console.time('JournalDataStore.initialize')
+        // console.time('JournalDataStore.initialize')
 
         for (const tier of data.tiers) {
             for (const instance of tier.instances) {
@@ -26,7 +26,7 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
             }
         }
 
-        console.timeEnd('JournalDataStore.initialize')
+        // console.timeEnd('JournalDataStore.initialize')
     }
 
     setup(
@@ -35,7 +35,7 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
         settingsData: Settings,
         userTransmogData: UserTransmogData
     ): void {
-        console.time('JournalDataStore.setup')
+        // console.time('JournalDataStore.setup')
 
         const masochist = settingsData.transmog.completionistMode
         const stats: Record<string, UserCount> = {}
@@ -111,14 +111,14 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
             }
         }
 
-        console.log(masochist, stats)
+        // console.log(masochist, stats)
 
         this.update((state) => {
             state.data.stats = stats
             return state
         })
 
-        console.timeEnd('JournalDataStore.setup')
+        // console.timeEnd('JournalDataStore.setup')
     }
 }
 

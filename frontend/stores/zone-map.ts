@@ -37,7 +37,7 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
         zoneMapData: ZoneMapData,
         options: ZoneMapState,
     ): void {
-        console.time('ZoneMapDataStore.setup')
+        // console.time('ZoneMapDataStore.setup')
 
         const classMask = getTransmogClassMask(settings)
         const now = DateTime.utc()
@@ -390,7 +390,7 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
             return state
         })
 
-        console.timeEnd('ZoneMapDataStore.setup')
+        // console.timeEnd('ZoneMapDataStore.setup')
     }
 }
 

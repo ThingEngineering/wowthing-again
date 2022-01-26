@@ -16,7 +16,7 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
     }
 
     initialize(data: UserTransmogData): void {
-        //console.time('UserTransmogDataStore.initialize')
+        // console.time('UserTransmogDataStore.initialize')
 
         data.sourceHas = {}
         for (const sourceId of data.sources) {
@@ -28,7 +28,7 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
             data.userHas[transmogId] = true
         }
 
-        //console.timeEnd('UserTransmogDataStore.initialize')
+        // console.timeEnd('UserTransmogDataStore.initialize')
     }
 
     setup(
@@ -36,7 +36,7 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
         transmogData: TransmogData,
         userTransmogData: UserTransmogData
     ): void {
-        console.time('UserTransmogDataStore.setup')
+        // console.time('UserTransmogDataStore.setup')
 
         const skipAlliance = !settings.transmog.showAllianceOnly
         const skipHorde = !settings.transmog.showHordeOnly
@@ -127,7 +127,7 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
             return state
         })
 
-        console.timeEnd('UserTransmogDataStore.setup')
+        // console.timeEnd('UserTransmogDataStore.setup')
     }
 }
 

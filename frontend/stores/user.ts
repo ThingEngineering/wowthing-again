@@ -20,7 +20,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
     }
 
     initialize(userData: UserData): void {
-        console.time('UserDataStore.initialize')
+        // console.time('UserDataStore.initialize')
 
         // Unpack packed data
         if (userData.mountsPacked !== null) {
@@ -97,11 +97,11 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             }
         }
 
-        console.timeEnd('UserDataStore.initialize')
+        // console.timeEnd('UserDataStore.initialize')
     }
 
     setup(staticData: StaticData, userData: UserData): void {
-        console.time('UserDataStore.setup')
+        // console.time('UserDataStore.setup')
 
         const hasMountSpell: Record<number, boolean> = {}
         for (const mountId in userData.hasMount) {
@@ -145,7 +145,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             return state
         })
 
-        console.timeEnd('UserDataStore.setup')
+        // console.timeEnd('UserDataStore.setup')
     }
 
     private static doSetCounts(
