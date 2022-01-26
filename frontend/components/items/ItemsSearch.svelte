@@ -154,7 +154,7 @@
                 [ItemLocation.Bags, 'Bags'],
                 [ItemLocation.Bank, 'Bank'],
                 [ItemLocation.Reagent, 'Reagent Bank'],
-                [ItemLocation.Void, 'Void Storage'],
+                [ItemLocation.GuildBank, 'Guild Bank'],
             ]}
         />
 
