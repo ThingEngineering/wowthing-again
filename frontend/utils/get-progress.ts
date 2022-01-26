@@ -1,18 +1,14 @@
 import filter from 'lodash/filter'
 import some from 'lodash/some'
 
-import type {
-    Character,
-    StaticDataProgressCategory,
-    StaticDataProgressData,
-    StaticDataProgressGroup,
-    UserAchievementData,
-} from '@/types'
+import { classIdToSlug } from '@/data/character-class'
 import { covenantMap } from '@/data/covenant'
 import { factionIdMap } from '@/data/faction'
-import type { UserQuestData } from '@/types/data'
-import { classIdToSlug } from '@/data/character-class'
 import { ProgressDataType } from '@/types/enums'
+import type { Character, UserAchievementData } from '@/types'
+import type { UserQuestData } from '@/types/data'
+import type { StaticDataProgressCategory, StaticDataProgressData, StaticDataProgressGroup } from '@/types/data/static'
+
 
 export default function getProgress(
     userAchievementData: UserAchievementData,

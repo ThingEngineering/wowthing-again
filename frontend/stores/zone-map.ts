@@ -9,7 +9,7 @@ import { DateTime } from 'luxon'
 import { classMap, classSlugMap } from '@/data/character-class'
 import { covenantSlugMap } from '@/data/covenant'
 import { factionMap } from '@/data/faction'
-import { Settings, StaticData, UserCount, UserData, WritableFancyStore } from '@/types'
+import { Settings, UserCount, UserData, WritableFancyStore } from '@/types'
 import { ZoneMapDataFarm } from '@/types/data'
 import { FarmDropType, FarmResetType } from '@/types/enums'
 import { getNextBiWeeklyReset, getNextDailyReset, getNextWeeklyReset } from '@/utils/get-next-reset'
@@ -17,6 +17,7 @@ import getTransmogClassMask from '@/utils/get-transmog-class-mask'
 import type { ZoneMapState } from '@/stores/local-storage/zone-map'
 import type { DropStatus, FarmStatus } from '@/types'
 import type { TransmogData, UserQuestData, UserTransmogData, ZoneMapData } from '@/types/data'
+import type { StaticData } from '@/types/data/static'
 
 
 export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
@@ -179,14 +180,14 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
 
                         switch (drop.type) {
                             case FarmDropType.Mount:
-                                if (!userData.mounts[staticData.spellToMount[drop.id]] &&
+                                if (!userData.hasMountSpell[drop.id] &&
                                     !userData.addonMounts[drop.id]) {
                                     dropStatus.need = true
                                 }
                                 break
 
                             case FarmDropType.Pet:
-                                if (!userData.pets[staticData.creatureToPet[drop.id]]) {
+                                if (!userData.hasPetCreature[drop.id]) {
                                     dropStatus.need = true
                                 }
                                 break
@@ -198,7 +199,7 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                                 break
 
                             case FarmDropType.Toy:
-                                if (!userData.toys[drop.id]) {
+                                if (!userData.hasToy[drop.id]) {
                                     dropStatus.need = true
                                 }
                                 break

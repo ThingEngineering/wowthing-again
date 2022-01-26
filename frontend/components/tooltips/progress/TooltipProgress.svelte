@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { StaticDataProgressData, StaticDataProgressGroup } from '@/types'
+    import type { StaticDataProgressData, StaticDataProgressGroup } from '@/types/data/static'
 
     export let datas: StaticDataProgressData[]
     export let descriptionText: Record<number, string>

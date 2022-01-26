@@ -15,7 +15,7 @@
 
     export let things: number[] = []
 
-    const { route, thingMap, thingType, userHas } = getContext('collection') as CollectionContext
+    const { route, thingType, userHas } = getContext('collection') as CollectionContext
 
     let showAsMissing: boolean
     let userHasThing: number | undefined
@@ -24,8 +24,7 @@
     $: {
         userHasThing = find(
             things,
-            (value: number): boolean =>
-                userHas[thingMap[value] || -1] !== undefined,
+            (value: number): boolean => userHas[value] === true,
         )
         origId = userHasThing ?? things[0]
 

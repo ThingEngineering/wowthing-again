@@ -1,9 +1,10 @@
 <script lang="ts">
     import { afterUpdate, setContext } from 'svelte'
 
-    import type { MultiSlugParams, StaticDataSetCategory } from '@/types'
-    import type { CollectionContext } from '@/types/contexts'
     import getSavedRoute from '@/utils/get-saved-route'
+    import type { MultiSlugParams } from '@/types'
+    import type { CollectionContext } from '@/types/contexts'
+    import type { StaticDataSetCategory} from '@/types/data/static'
 
     import CollectionSection from './CollectionSection.svelte'
     import CollectionSidebar from './CollectionSidebar.svelte'
@@ -11,7 +12,6 @@
     export let params: MultiSlugParams
     export let route: string
     export let thingType: string
-    export let thingMap: Record<number, number> = {}
     export let userHas: Record<number, boolean> = {}
     export let sets: StaticDataSetCategory[][]
 
@@ -19,7 +19,6 @@
         const context: CollectionContext = {
             route,
             thingType,
-            thingMap,
             userHas,
         }
         setContext('collection', context)

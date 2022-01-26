@@ -1,5 +1,5 @@
-import type {Faction} from '@/types/enums'
-import type {StaticDataRealm} from '@/types/static-data'
+import type { StaticDataRealm } from '@/types/data/static'
+import type { Faction } from '@/types/enums'
 
 export interface Character {
     accountId?: number

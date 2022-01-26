@@ -1,5 +1,6 @@
-import type { StaticDataReputationTier } from '@/types'
 import { ReputationTier } from '@/types'
+import type { StaticDataReputationTier } from '@/types/data/static'
+
 
 export default function findReputationTier(
     tiers: StaticDataReputationTier,

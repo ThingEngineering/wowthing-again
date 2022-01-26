@@ -3,7 +3,8 @@
     import { dropTypeStringIcon } from '@/data/farm'
     import { staticStore, userStore } from '@/stores'
     import { Faction } from '@/types/enums'
-    import type { Character, StaticDataReputationReputation, StaticDataReputationSet } from '@/types'
+    import type { Character } from '@/types'
+    import type { StaticDataReputationReputation, StaticDataReputationSet } from '@/types/data/static'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
@@ -31,15 +32,13 @@
                 for (const reward of reputation.rewards) {
                     let have = false
                     if (reward.type === 'mount') {
-                        const mountId = $staticStore.data.spellToMount[reward.id]
-                        have = $userStore.data.mounts[mountId] === true
+                        have = $userStore.data.hasMountSpell[reward.id] === true
                     }
                     else if (reward.type === 'pet') {
-                        const petId = $staticStore.data.creatureToPet[reward.id]
-                        have = $userStore.data.pets[petId] !== undefined
+                        have = $userStore.data.hasPetCreature[reward.id] === true
                     }
                     else if (reward.type === 'toy') {
-                        have = $userStore.data.toys[reward.id] === true
+                        have = $userStore.data.hasToy[reward.id] === true
                     }
 
                     rewards.push({

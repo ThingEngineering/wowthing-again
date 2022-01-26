@@ -1,6 +1,6 @@
 <script lang="ts">
     import { currencyState } from '@/stores/local-storage'
-    import type { StaticDataCurrency } from '@/types'
+    import type { StaticDataCurrency } from '@/types/data/static'
 
     import CurrencyLink from '@/components/links/CurrencyLink.svelte'
     import TableSortedBy from '@/components/common/TableSortedBy.svelte'

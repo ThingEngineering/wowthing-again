@@ -2,13 +2,11 @@
     import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
     import find from 'lodash/find'
     import maxBy from 'lodash/maxBy'
-    import { getContext } from 'svelte'
 
     import { petBreedMap } from '@/data/pet-breed'
-    import { userStore } from '@/stores'
+    import { staticStore, userStore } from '@/stores'
     import { collectionState } from '@/stores/local-storage'
     import type { UserDataPet } from '@/types'
-    import type { CollectionContext } from '@/types/contexts'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import NpcLink from '@/components/links/NpcLink.svelte'
@@ -16,19 +14,17 @@
 
     export let things: number[] = []
 
-    const { thingMap } = getContext('collection') as CollectionContext
-
     let origId: number
     let pets: UserDataPet[]
     let quality: number
     let showAsMissing: boolean
     let userHasThing: number | undefined
     $: {
-        userHasThing = find(things, (value: number): boolean => $userStore.data.pets[thingMap[value] || -1] !== undefined)
+        userHasThing = find(things, (value: number): boolean => $userStore.data.hasPetCreature[value] === true)
         origId = userHasThing ?? things[0]
 
         if (userHasThing) {
-            pets = $userStore.data.pets[thingMap[origId]]
+            pets = $userStore.data.pets[$staticStore.data.petsByCreatureId[origId].id]
             quality = maxBy(pets, (pet: UserDataPet) => pet.quality).quality
             showAsMissing = $collectionState.highlightMissing['pets']
         }

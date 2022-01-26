@@ -3,9 +3,10 @@
 
     import { staticStore, userStore } from '@/stores'
     import { data as settingsData } from '@/stores/settings'
-    import type { Character, InstanceDifficulty, StaticDataInstance } from '@/types'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import toDigits from '@/utils/to-digits'
+    import type { Character, InstanceDifficulty } from '@/types'
+    import type { StaticDataInstance } from '@/types/data/static'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'

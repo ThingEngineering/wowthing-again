@@ -1,6 +1,6 @@
 <script lang="ts">
     import { progressState } from '@/stores/local-storage'
-    import type { StaticDataProgressGroup } from '@/types'
+    import type { StaticDataProgressGroup } from '@/types/data/static'
 
     import TableSortedBy from '@/components/common/TableSortedBy.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'

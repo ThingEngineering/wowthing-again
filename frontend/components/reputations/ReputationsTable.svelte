@@ -6,7 +6,8 @@
     import { staticStore } from '@/stores/static'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import toDigits from '@/utils/to-digits'
-    import type { Character, StaticDataReputationCategory } from '@/types'
+    import type { Character } from '@/types'
+    import type { StaticDataReputationCategory } from '@/types/data/static'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'

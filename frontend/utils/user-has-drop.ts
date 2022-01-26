@@ -1,10 +1,9 @@
 import { get } from 'svelte/store'
 
+import { userStore, userTransmogStore } from '@/stores'
 import { FarmDropType } from '@/types/enums'
-import type { StaticData } from '@/types/static-data'
-import type { UserData } from '@/types/user-data'
 import type { UserTransmogData } from '@/types/data'
-import { staticStore, userStore, userTransmogStore } from '@/stores'
+import type { UserData } from '@/types/user-data'
 
 
 export default function userHasDrop(
@@ -12,22 +11,21 @@ export default function userHasDrop(
     type: FarmDropType,
     id: number
 ): boolean {
-    const staticData: StaticData = get(staticStore).data
     const userData: UserData = get(userStore).data
     const userTransmogData: UserTransmogData = get(userTransmogStore).data
 
     return (
         (
             type === FarmDropType.Mount &&
-            userData.mounts[staticData.spellToMount[id]] === true
+            userData.hasMountSpell[id] === true
         ) ||
         (
             type === FarmDropType.Pet &&
-            userData.pets[staticData.creatureToPet[id]] !== undefined
+            userData.hasPetCreature[id] === true
         ) ||
         (
             type === FarmDropType.Toy &&
-            userData.toys[id] === true
+            userData.hasToy[id] === true
         ) ||
         (
             (

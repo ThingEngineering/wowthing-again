@@ -26,7 +26,7 @@
     import { Region } from '@/types/enums'
     import parseApiTime from '@/utils/parse-api-time'
     import type { HistoryState } from '@/stores/local-storage'
-    import type { StaticDataRealm } from '@/types'
+    import type { StaticDataRealm } from '@/types/data/static'
 
     import RadioGroup from '@/components/forms/RadioGroup.svelte'
 

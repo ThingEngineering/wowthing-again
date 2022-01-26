@@ -1,5 +1,6 @@
-import { StaticData, UserCount, WritableFancyStore } from '@/types'
+import { UserCount, WritableFancyStore } from '@/types'
 import type { UserVendorData } from '@/types/data'
+import type { StaticData } from '@/types/data/static'
 import userHasDrop from '@/utils/user-has-drop'
 
 

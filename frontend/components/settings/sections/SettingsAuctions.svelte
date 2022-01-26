@@ -3,7 +3,7 @@
 
     import { staticStore, userStore } from '@/stores'
     import { data as settingsData } from '@/stores/settings'
-    import type { StaticDataConnectedRealm } from '@/types'
+    import type { StaticDataConnectedRealm } from '@/types/data/static'
 
     import GroupedCheckbox from '@/components/forms/GroupedCheckboxInput.svelte'
     import NumberInput from '@/components/forms/NumberInput.svelte'

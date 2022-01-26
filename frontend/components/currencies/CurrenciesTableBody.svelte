@@ -1,7 +1,8 @@
 <script lang="ts">
-    import type {Character, CharacterCurrency, StaticDataCurrency} from '@/types'
     import tippy from '@/utils/tippy'
-    import {toNiceNumber} from '@/utils/to-nice'
+    import { toNiceNumber } from '@/utils/to-nice'
+    import type { Character, CharacterCurrency } from '@/types'
+    import type { StaticDataCurrency } from '@/types/data/static'
 
     export let character: Character
     export let currency: StaticDataCurrency

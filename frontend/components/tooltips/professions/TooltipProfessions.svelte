@@ -1,6 +1,7 @@
 <script lang="ts">
     import getPercentClass from '@/utils/get-percent-class'
-    import type { Character, StaticDataProfession } from '@/types'
+    import type { Character } from '@/types'
+    import type { StaticDataProfession} from '@/types/data/static'
 
     export let character: Character
     export let profession: StaticDataProfession

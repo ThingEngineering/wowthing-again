@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Wowthing.Backend.Models.API.NonBlizzard;
 using Wowthing.Backend.Models.Data;
 using Wowthing.Backend.Models.Data.Collections;
@@ -44,30 +45,35 @@ namespace Wowthing.Backend.Models.Redis
         
         [JsonProperty(Order = 9)]
         public Dictionary<int, List<List<int>>> Talents { get; set; }
-
-        [JsonProperty(Order = 10)]
-        public List<List<OutCollectionCategory>> MountSetsRaw { get; set; }
-        [JsonProperty(Order = 11)]
-        public SortedDictionary<int, int> SpellToMount { get; set; }
         
-        [JsonProperty(Order = 20)]
-        public List<List<OutCollectionCategory>> PetSetsRaw { get; set; }
-        [JsonProperty(Order = 21)]
-        public SortedDictionary<int, int> CreatureToPet { get; set; }
-
-        [JsonProperty(Order = 30)]
-        public List<DataReputationCategory> ReputationSets { get; set; }
-
-        [JsonProperty(Order = 40)]
-        public List<List<OutCollectionCategory>> ToySetsRaw { get; set; }
-       
         [JsonProperty(Order = 50)]
-        public List<List<OutVendorCategory>> VendorSets { get; set; }
+        public List<JArray> MountsRaw { get; set; }
+
+        [JsonProperty(Order = 51)]
+        public List<List<OutCollectionCategory>> MountSetsRaw { get; set; }
 
         [JsonProperty(Order = 60)]
-        public List<List<OutZoneMapCategory>> ZoneMapSets { get; set; }
+        public List<JArray> PetsRaw { get; set; }
+
+        [JsonProperty(Order = 61)]
+        public List<List<OutCollectionCategory>> PetSetsRaw { get; set; }
+        
+        [JsonProperty(Order = 70)]
+        public List<JArray> ToysRaw { get; set; }
+
+        [JsonProperty(Order = 71)]
+        public List<List<OutCollectionCategory>> ToySetsRaw { get; set; }
 
         [JsonProperty(Order = 100)]
+        public List<DataReputationCategory> ReputationSets { get; set; }
+       
+        [JsonProperty(Order = 101)]
+        public List<List<OutVendorCategory>> VendorSets { get; set; }
+
+        [JsonProperty(Order = 102)]
+        public List<List<OutZoneMapCategory>> ZoneMapSets { get; set; }
+
+        [JsonProperty(Order = 103)]
         public Dictionary<int, OutRaiderIoScoreTiers> RaiderIoScoreTiers { get; set; }
     }
 }

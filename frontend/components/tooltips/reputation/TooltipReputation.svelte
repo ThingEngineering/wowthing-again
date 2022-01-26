@@ -1,11 +1,8 @@
 <script lang="ts">
     import { staticStore } from '@/stores/static'
     import { toNiceNumber } from '@/utils/to-nice'
-    import type {
-        CharacterReputationParagon,
-        StaticDataReputation,
-        StaticDataReputationTier
-    } from '@/types'
+    import type { CharacterReputationParagon } from '@/types'
+    import type { StaticDataReputation, StaticDataReputationTier } from '@/types/data/static'
 
     export let characterRep: number
     export let dataRep: StaticDataReputation

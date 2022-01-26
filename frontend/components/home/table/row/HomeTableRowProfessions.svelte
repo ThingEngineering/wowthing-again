@@ -3,7 +3,8 @@
     import { professionIdToString } from '@/data/professions'
     import { staticStore } from '@/stores/static'
     import { tippyComponent } from '@/utils/tippy'
-    import type { Character, CharacterProfession, StaticDataProfession } from '@/types'
+    import type { Character, CharacterProfession } from '@/types'
+    import type { StaticDataProfession } from '@/types/data/static'
 
     import Tooltip from '@/components/tooltips/professions/TooltipProfessions.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'

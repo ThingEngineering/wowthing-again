@@ -7,7 +7,7 @@
     import { collectionState } from '@/stores/local-storage'
     import getPercentClass from '@/utils/get-percent-class'
     import tippy from '@/utils/tippy'
-    import type { StaticDataSetCategory } from '@/types'
+    import type { StaticDataSetCategory } from '@/types/data/static'
     import type { CollectionContext } from '@/types/contexts'
 
     import Checkbox from '@/components/forms/CheckboxInput.svelte'

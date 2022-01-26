@@ -24,10 +24,13 @@ export interface UserData {
     allLockoutsMap: Record<string, InstanceDifficulty>
     characterMap: Record<number, Character>
 
-    mounts: Record<number, boolean>
+    hasMount: Record<number, boolean>
+    hasMountSpell: Record<number, boolean>
+    hasPet: Record<number, boolean>
+    hasPetCreature: Record<number, boolean>
+    hasToy: Record<number, boolean>
+
     pets: Record<number, UserDataPet[]>
-    petsHas: Record<number, boolean>
-    toys: Record<number, boolean>
     setCounts: Record<string, Record<string, UserCount>>
 }
 
