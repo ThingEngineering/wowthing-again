@@ -84,7 +84,7 @@
         }
         //realms.sort()
 
-        const totals: Record<DateTime, number> = {}
+        const totals: Record<string, number> = {}
 
         let firstRealmId = -1
         for (let realmIndex = 0; realmIndex < realms.length; realmIndex++) {
@@ -152,7 +152,8 @@
             }
 
             for (const point of points) {
-                totals[point.x] = (totals[point.x] || 0) + point.y
+                const iso: string = point.x.toISO()
+                totals[iso] = (totals[iso] || 0) + point.y
             }
 
             data.datasets.push({
