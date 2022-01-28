@@ -22,7 +22,7 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
     }
 
     setup(): void {
-        console.time('UserAchievementDataStore.setup')
+        // console.time('UserAchievementDataStore.setup')
 
         const achievementData = get(achievementStore).data
         if (achievementData.achievementRaw !== null) {
@@ -42,7 +42,7 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
             for (const rawCriteriaTree of achievementData.criteriaTreeRaw) {
                 const obj = new AchievementDataCriteriaTree(...rawCriteriaTree)
                 criteriaTreeDict[obj.id] = obj
-                //console.log(obj.id, rawCriteriaTree, obj)
+                // console.log(obj.id, rawCriteriaTree, obj)
             }
 
             achievementStore.update(state => {
@@ -120,7 +120,7 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
             return state
         })
 
-        console.timeEnd('UserAchievementDataStore.setup')
+        // console.timeEnd('UserAchievementDataStore.setup')
     }
 }
 

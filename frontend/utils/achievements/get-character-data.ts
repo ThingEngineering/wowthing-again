@@ -61,7 +61,7 @@ export function getCharacterData(
             }
         }
         else {
-            //console.log('boo', criteria?.type, criteria?.asset)
+            // console.log('boo', criteria?.type, criteria?.asset)
             for (const [characterId, count] of userAchievementData.criteria[criteriaTree.id] ?? []) {
                 if (achievement.id === debugId) {
                     console.log(characterId, userData.characterMap[characterId].name, count)

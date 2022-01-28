@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using MoreLinq;
+using MoreLinq.Extensions;
 using Newtonsoft.Json;
 using Wowthing.Backend.Models.Uploads;
 using Wowthing.Lib.Enums;
@@ -17,12 +20,13 @@ namespace Wowthing.Backend.Jobs.User
     public class UserUploadJob : JobBase
     {
         private JankTimer _timer;
+        private Dictionary<(WowRegion Region, string Name), WowRealm> _realmMap;
 
         public override async Task Run(params string[] data)
         {
             _timer = new JankTimer();
 
-            int userId = int.Parse(data[0]);
+            long userId = long.Parse(data[0]);
             using var shrug = UserLog(userId);
 
             Logger.Information("Processing upload...");
@@ -31,14 +35,20 @@ namespace Wowthing.Backend.Jobs.User
             _timer.AddPoint("Convert");
 
 #if DEBUG
-            File.WriteAllText(Path.Join("..", "..", "lua.json"), json);
+            await File.WriteAllTextAsync(Path.Join("..", "..", "lua.json"), json);
             _timer.AddPoint("Write");
 #endif
             
             var parsed = JsonConvert.DeserializeObject<Upload[]>(json)[0]; // TODO work out why this is an array of objects
             _timer.AddPoint("Parse");
             
-            // Fetch character data for this account
+            // Fetch guild data
+            var guildMap = await Context.PlayerGuild
+                .Where(pg => pg.UserId == userId)
+                .Include(pg => pg.Items)
+                .ToDictionaryAsync(pg => (pg.RealmId, pg.Name));
+            
+            // Fetch character data
             var characterMap = await Context.PlayerCharacter
                 .Where(c => c.Account.UserId == userId)
                 .Include(c => c.AddonAchievements)
@@ -59,41 +69,66 @@ namespace Wowthing.Backend.Jobs.User
                 .Select(c => c.RealmId)
                 .Distinct()
                 .ToArray();
-            var realmMap = await Context.WowRealm
-                .Where(r => realmIds.Contains(r.Id))
+
+            var connectedRealmId = Context.WowRealm
                 .AsNoTracking()
+                .Where(r => realmIds.Contains(r.Id))
+                .Select(r => r.ConnectedRealmId);
+            
+            _realmMap = await Context.WowRealm
+                .AsNoTracking()
+                .Where(r => connectedRealmId.Contains(r.ConnectedRealmId))
                 .ToDictionaryAsync(k => (k.Region, k.Name));
             
             _timer.AddPoint("Load");
 
+            // Deal with guild data
+            foreach (var (addonId, guildData) in parsed.Guilds.EmptyIfNull())
+            {
+                var (realm, guildName) = ParseAddonId(addonId);
+                if (realm == null)
+                {
+                    continue;
+                }
+
+                if (!guildMap.TryGetValue((realm.Id, guildName), out var guild))
+                {
+                    guild = guildMap[(realm.Id, guildName)] = new PlayerGuild
+                    {
+                        UserId = userId,
+                        RealmId = realm.Id,
+                        Name = guildName,
+                    };
+                    Context.PlayerGuild.Add(guild);
+                }
+                
+                await HandleGuildItems(guild, guildData);
+            }
+
+            await Context.SaveChangesAsync();
+            
+            _timer.AddPoint("Guilds");
+            
             // Deal with character data
             int accountId = 0;
-            foreach (var (addonId, characterData) in parsed.Characters)
+            foreach (var (addonId, characterData) in parsed.Characters.EmptyIfNull())
             {
                 // US/Mal'Ganis/Fakenamehere
-                var parts = addonId.Split("/");
-                if (parts.Length != 3)
+                var (realm, characterName) = ParseAddonId(addonId);
+                if (realm == null)
                 {
-                    Logger.Warning("Invalid character key: {String}", addonId);
                     continue;
                 }
 
-                var region = Enum.Parse<WowRegion>(parts[0]);
-                if (!realmMap.TryGetValue((region, parts[1]), out WowRealm realm))
+                if (!characterMap.TryGetValue((realm.Id, characterName), out PlayerCharacter character))
                 {
-                    Logger.Warning("Invalid realm: {0}/{1}", parts[0], parts[1]);
-                    continue;
-                }
-
-                if (!characterMap.TryGetValue((realm.Id, parts[2]), out PlayerCharacter character))
-                {
-                    Logger.Warning("Invalid character: {0}/{1}/{2}", parts[0], parts[1], parts[2]);
+                    Logger.Warning("Invalid character: {AddonId}", addonId);
                     continue;
                 }
 
                 //Logger.Debug("Found character: {0} => {1}", addonId, character.Id);
                 accountId = character.AccountId.Value;
-
+                
                 character.LastSeenAddon = characterData.LastSeen.AsUtcDateTime();
                 
                 character.ChromieTime = characterData.ChromieTime;
@@ -103,6 +138,16 @@ namespace Wowthing.Backend.Jobs.User
                 character.MountSkill = Enum.IsDefined(typeof(WowMountSkill), characterData.MountSkill) ? (WowMountSkill)characterData.MountSkill : 0;
                 character.PlayedTotal = characterData.PlayedTotal;
                 character.RestedExperience = characterData.RestedXp;
+
+                character.GuildId = null;
+                if (!string.IsNullOrWhiteSpace(characterData.GuildName))
+                {
+                    var (guildRealm, guildName) = ParseAddonId(characterData.GuildName);
+                    if (guildRealm != null && guildMap.TryGetValue((guildRealm.Id, guildName), out var guild))
+                    {
+                        character.GuildId = guild.Id;
+                    }
+                }
 
                 HandleAchievements(character, characterData);
                 HandleCovenants(character, characterData);
@@ -121,24 +166,39 @@ namespace Wowthing.Backend.Jobs.User
             // Deal with account data
             if (accountId > 0)
             {
-                if (parsed.Toys != null)
+                var accountToys = await Context.PlayerAccountToys.FindAsync(accountId);
+                if (accountToys == null)
                 {
-                    var accountToys = Context.PlayerAccountToys.Find(accountId);
-                    if (accountToys == null)
+                    accountToys = new PlayerAccountToys
                     {
-                        accountToys = new PlayerAccountToys
-                        {
-                            AccountId = accountId,
-                        };
-                        Context.PlayerAccountToys.Add(accountToys);
-                    }
+                        AccountId = accountId,
+                    };
+                    Context.PlayerAccountToys.Add(accountToys);
+                }
 
-                    if (parsed.Toys?.Count > 0)
+                if (parsed.Toys?.Count > 0)
+                {
+                    accountToys.ToyIds = parsed.Toys
+                        .OrderBy(toyId => toyId)
+                        .ToList();
+                }
+
+                var accountTransmogSources = await Context.PlayerAccountTransmogSources.FindAsync(accountId);
+                if (accountTransmogSources == null)
+                {
+                    accountTransmogSources = new PlayerAccountTransmogSources
                     {
-                        accountToys.ToyIds = parsed.Toys
-                            .OrderBy(toyId => toyId)
-                            .ToList();
-                    }
+                        AccountId = accountId,
+                    };
+                    Context.PlayerAccountTransmogSources.Add(accountTransmogSources);
+                }
+
+                if (parsed.TransmogSources?.Count > 0)
+                {
+                    accountTransmogSources.Sources = parsed.TransmogSources
+                        .Keys
+                        .OrderBy(key => key)
+                        .ToList();
                 }
             }
             _timer.AddPoint("Account");
@@ -154,6 +214,25 @@ namespace Wowthing.Backend.Jobs.User
             Logger.Information("{0}", _timer.ToString());
         }
 
+        private (WowRealm, string) ParseAddonId(string addonId)
+        {
+            var parts = addonId.Split("/");
+            if (parts.Length != 3)
+            {
+                Logger.Warning("Invalid guild key: {String}", addonId);
+                return (null, null);
+            }
+
+            var region = Enum.Parse<WowRegion>(parts[0]);
+            if (!_realmMap.TryGetValue((region, parts[1]), out WowRealm realm))
+            {
+                Logger.Warning("Invalid realm: {0}/{1}", parts[0], parts[1]);
+                return (null, null);
+            }
+
+            return (realm, parts[2]);
+        }
+        
         private void HandleAchievements(PlayerCharacter character, UploadCharacter characterData)
         {
             // Basic sanity checks
@@ -308,6 +387,61 @@ namespace Wowthing.Backend.Jobs.User
             }
         }
 
+        private async Task HandleGuildItems(PlayerGuild guild, UploadGuild guildData)
+        {
+            var itemMap = guild.Items
+                .EmptyIfNull()
+                .GroupBy(item => (item.TabId, item.Slot))
+                .ToDictionary(
+                    group => group.Key,
+                    group => group
+                        .OrderBy(item => item.Id)
+                        .First()
+                );
+
+            // (tab, slot)
+            var seen = new HashSet<(short, short)>();
+            foreach (var (tab, contents) in guildData.Items.EmptyIfNull())
+            {
+                short tabId = short.Parse(tab[1..]);
+                foreach (var (slotString, itemString) in contents)
+                {
+                    var slot = short.Parse(slotString[1..]);
+                    
+                    var parts = itemString.Split(":");
+                    if (parts.Length != 9 && !(parts.Length == 4 && parts[0] == "pet"))
+                    {
+                        Logger.Warning("Invalid item string: {String}", itemString);
+                        continue;
+                    }
+                    
+                    var key = (tabId, slot);
+                    if (!itemMap.TryGetValue(key, out var item))
+                    {
+                        item = new PlayerGuildItem
+                        {
+                            GuildId = guild.Id,
+                            TabId = tabId,
+                            Slot = slot,
+                        };
+                        Context.PlayerGuildItem.Add(item);
+                    }
+
+                    AddItemDetails(item, parts);
+                    seen.Add(key);
+                }
+            }
+            
+            var deleteMe = itemMap
+                .Where(kvp => !seen.Contains(kvp.Key))
+                .Select(kvp => kvp.Value.Id)
+                .ToArray();
+            if (deleteMe.Length > 0)
+            {
+                await Context.DeleteRangeAsync<PlayerGuildItem>(item => deleteMe.Contains(item.Id));
+            }
+        }
+
         private async Task HandleItems(PlayerCharacter character, UploadCharacter characterData)
         {
             var itemMap = character.Items
@@ -320,7 +454,6 @@ namespace Wowthing.Backend.Jobs.User
                         .First()
                     );
 
-            int added = 0, deleted = 0;
             var seen = new HashSet<(ItemLocation, short, short)>();
             foreach (var (location, contents) in characterData.Items.EmptyIfNull())
             {
@@ -367,44 +500,9 @@ namespace Wowthing.Backend.Jobs.User
                             Slot = slot,
                         };
                         Context.PlayerCharacterItem.Add(item);
-                        added++;
                     }
 
-                    if (parts[0] == "pet")
-                    {
-                        // pet:speciesId:level:quality
-                        item.Count = 1;
-                        item.ItemId = 82800; // Pet Cage
-                        item.Context = short.Parse(parts[1]); // SpeciesId
-                        item.ItemLevel = short.Parse(parts[2]); // Level
-                        item.Quality = short.Parse(parts[3]); // Quality
-                        item.BonusIds = new List<short>();
-                        item.Gems = new List<int>();
-                    }
-                    else
-                    {
-                        // count:id:context:enchant:ilvl:quality:suffix:bonusIDs:gems
-                        item.Count = int.Parse(parts[0]);
-                        item.ItemId = int.Parse(parts[1]);
-                        item.Context = short.Parse(parts[2].OrDefault("0"));
-                        item.EnchantId = short.Parse(parts[3].OrDefault("0"));
-                        item.ItemLevel = short.Parse(parts[4].OrDefault("0"));
-                        item.Quality = short.Parse(parts[5].OrDefault("0"));
-                        item.SuffixId = short.Parse(parts[6].OrDefault("0"));
-
-                        item.BonusIds = parts[7]
-                            .EmptyIfNullOrWhitespace()
-                            .Split(',', StringSplitOptions.RemoveEmptyEntries)
-                            .Select(short.Parse)
-                            .ToList();
-
-                        item.Gems = parts[8]
-                            .EmptyIfNullOrWhitespace()
-                            .Split(',', StringSplitOptions.RemoveEmptyEntries)
-                            .Select(int.Parse)
-                            .ToList();
-                    }
-
+                    AddItemDetails(item, parts);
                     seen.Add(key);
                 }
             }
@@ -415,8 +513,45 @@ namespace Wowthing.Backend.Jobs.User
                 .ToArray();
             if (deleteMe.Length > 0)
             {
-                deleted = await Context
-                    .DeleteRangeAsync<PlayerCharacterItem>(item => deleteMe.Contains(item.Id));
+                await Context.DeleteRangeAsync<PlayerCharacterItem>(item => deleteMe.Contains(item.Id));
+            }
+        }
+
+        private void AddItemDetails(IPlayerItem item, string[] parts)
+        {
+            if (parts[0] == "pet")
+            {
+                // pet:speciesId:level:quality
+                item.Count = 1;
+                item.ItemId = 82800; // Pet Cage
+                item.Context = short.Parse(parts[1]); // SpeciesId
+                item.ItemLevel = short.Parse(parts[2]); // Level
+                item.Quality = short.Parse(parts[3]); // Quality
+                item.BonusIds = new List<short>();
+                item.Gems = new List<int>();
+            }
+            else
+            {
+                // count:id:context:enchant:ilvl:quality:suffix:bonusIDs:gems
+                item.Count = int.Parse(parts[0]);
+                item.ItemId = int.Parse(parts[1]);
+                item.Context = short.Parse(parts[2].OrDefault("0"));
+                item.EnchantId = short.Parse(parts[3].OrDefault("0"));
+                item.ItemLevel = short.Parse(parts[4].OrDefault("0"));
+                item.Quality = short.Parse(parts[5].OrDefault("0"));
+                item.SuffixId = short.Parse(parts[6].OrDefault("0"));
+
+                item.BonusIds = parts[7]
+                    .EmptyIfNullOrWhitespace()
+                    .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                    .Select(short.Parse)
+                    .ToList();
+
+                item.Gems = parts[8]
+                    .EmptyIfNullOrWhitespace()
+                    .Split(',', StringSplitOptions.RemoveEmptyEntries)
+                    .Select(int.Parse)
+                    .ToList();
             }
         }
 

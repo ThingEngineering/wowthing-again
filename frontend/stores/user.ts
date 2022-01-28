@@ -7,7 +7,7 @@ import { Account, CharacterCurrency, UserCount, UserData, UserDataPet, WritableF
 import { TypedArray } from '@/types/enums'
 import base64ToRecord from '@/utils/base64-to-record'
 import initializeCharacter from '@/utils/initialize-character'
-import type { StaticData, StaticDataSetCategory } from '@/types'
+import type { StaticData, StaticDataSetCategory } from '@/types/data/static'
 
 
 export class UserDataStore extends WritableFancyStore<UserData> {
@@ -20,23 +20,25 @@ export class UserDataStore extends WritableFancyStore<UserData> {
     }
 
     initialize(userData: UserData): void {
-        console.time('UserDataStore.initialize')
+        // console.time('UserDataStore.initialize')
 
         // Unpack packed data
         if (userData.mountsPacked !== null) {
-            userData.mounts = base64ToRecord(TypedArray.Uint16, userData.mountsPacked)
+            userData.hasMount = base64ToRecord(TypedArray.Uint16, userData.mountsPacked)
             userData.mountsPacked = null
         }
 
         if (userData.toysPacked !== null) {
-            userData.toys = base64ToRecord(TypedArray.Int32, userData.toysPacked)
+            userData.hasToy = base64ToRecord(TypedArray.Int32, userData.toysPacked)
             userData.toysPacked = null
         }
 
         if (userData.petsRaw !== null) {
             userData.pets = {}
+            userData.hasPet = {}
             for (const petId in userData.petsRaw) {
                 userData.pets[petId] = userData.petsRaw[petId].map((petArray) => new UserDataPet(...petArray))
+                userData.hasPet[petId] = true
             }
             userData.petsRaw = null
         }
@@ -95,16 +97,20 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             }
         }
 
-        console.timeEnd('UserDataStore.initialize')
+        // console.timeEnd('UserDataStore.initialize')
     }
 
     setup(staticData: StaticData, userData: UserData): void {
-        console.time('UserDataStore.setup')
+        // console.time('UserDataStore.setup')
 
-        // For use with Collections
-        const petsHas: Record<number, boolean> = {}
-        for (const key in userData.pets) {
-            petsHas[key] = true
+        const hasMountSpell: Record<number, boolean> = {}
+        for (const mountId in userData.hasMount) {
+            hasMountSpell[staticData.mounts[mountId].spellId] = true
+        }
+
+        const hasPetCreature: Record<number, boolean> = {}
+        for (const petId in userData.hasPet) {
+            hasPetCreature[staticData.pets[petId].creatureId] = true
         }
 
         // Generate set counts
@@ -117,36 +123,36 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         UserDataStore.doSetCounts(
             setCounts['mounts'],
             staticData.mountSets,
-            userData.mounts,
-            staticData.spellToMount
+            userData.hasMount,
+            (spellId) => staticData.mountsBySpellId[spellId].id
         )
         UserDataStore.doSetCounts(
             setCounts['pets'],
             staticData.petSets,
-            petsHas,
-            staticData.creatureToPet
+            userData.hasPet,
+            (creatureId) => staticData.petsByCreatureId[creatureId].id
         )
         UserDataStore.doSetCounts(
             setCounts['toys'],
             staticData.toySets,
-            userData.toys
+            userData.hasToy
         )
 
         this.update(state => {
-            state.data.petsHas = petsHas
+            state.data.hasMountSpell = hasMountSpell
+            state.data.hasPetCreature = hasPetCreature
             state.data.setCounts = setCounts
-
             return state
         })
 
-        console.timeEnd('UserDataStore.setup')
+        // console.timeEnd('UserDataStore.setup')
     }
 
     private static doSetCounts(
         setCounts: Record<string, UserCount>,
         categories: StaticDataSetCategory[][],
         userHas: Record<number, boolean>,
-        map?: Record<number, number>,
+        mapFunc?: (origId: number) => number,
     ): void {
         const overallData = setCounts['OVERALL'] = new UserCount()
         const seen: Record<number, boolean> = {}
@@ -174,7 +180,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
                     const groupData = setCounts[`${category[0].slug}--${set.slug}--${group.name}`] = new UserCount()
 
                     for (const things of group.things) {
-                        const hasThing = some(things, (t) => userHas[map?.[t] ?? t])
+                        const hasThing = some(things, (t) => userHas[mapFunc?.(t) ?? t])
                         const seenThing = some(things, (t) => seen[t])
 
                         const doOverall = (
@@ -218,6 +224,10 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             }
         }
     }
+
+    /*public knowsMount(spellId: number) {
+        return this.get().data.
+    }*/
 }
 
 export const userStore = new UserDataStore()

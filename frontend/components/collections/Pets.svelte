@@ -4,7 +4,8 @@
     import { staticStore, userStore } from '@/stores'
     import { collectionState } from '@/stores/local-storage'
     import { getFilteredSets } from '@/utils/collections'
-    import type { MultiSlugParams, StaticDataSetCategory } from '@/types'
+    import type { MultiSlugParams } from '@/types'
+    import type { StaticDataSetCategory } from '@/types/data/static'
 
     import Collection from './Collection.svelte'
 
@@ -18,7 +19,7 @@
             $staticStore.data.petSets,
             (thing: number[]) => some(
                 thing,
-                (value) => $userStore.data.petsHas[$staticStore.data.creatureToPet[value] || -1] === true
+                (value) => $userStore.data.hasPetCreature[value] === true
             )
         )
     }
@@ -27,8 +28,7 @@
 <Collection
     route="pets"
     thingType="npc"
-    thingMap={$staticStore.data.creatureToPet}
-    userHas={$userStore.data.petsHas}
+    userHas={$userStore.data.hasPetCreature}
     {params}
     {sets}
 />

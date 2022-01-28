@@ -21,6 +21,7 @@ namespace Wowthing.Lib.Contexts
         
         public DbSet<WowAuction> WowAuction { get; set; }
         public DbSet<WowItem> WowItem { get; set; }
+        public DbSet<WowItemModifiedAppearance> WowItemModifiedAppearance { get; set; }
         public DbSet<WowMount> WowMount { get; set; }
         public DbSet<WowMythicPlusSeason> WowMythicPlusSeason { get; set; }
         public DbSet<WowPeriod> WowPeriod { get; set; }
@@ -35,6 +36,7 @@ namespace Wowthing.Lib.Contexts
         public DbSet<PlayerAccountGoldSnapshot> PlayerAccountGoldSnapshot { get; set; }
         public DbSet<PlayerAccountPets> PlayerAccountPets { get; set; }
         public DbSet<PlayerAccountToys> PlayerAccountToys { get; set; }
+        public DbSet<PlayerAccountTransmogSources> PlayerAccountTransmogSources { get; set; }
 
         public DbSet<PlayerCharacter> PlayerCharacter { get; set; }
         public DbSet<PlayerCharacterAchievements> PlayerCharacterAchievements { get; set; }
@@ -60,6 +62,9 @@ namespace Wowthing.Lib.Contexts
         public DbSet<PlayerCharacterAddonMounts> PlayerCharacterAddonMounts { get; set; }
         public DbSet<PlayerCharacterAddonQuests> PlayerCharacterAddonQuests { get; set; }
 
+        public DbSet<PlayerGuild> PlayerGuild { get; set; }
+        public DbSet<PlayerGuildItem> PlayerGuildItem { get; set; }
+        
         public DbSet<Team> Team { get; set; }
         public DbSet<TeamCharacter> TeamCharacter { get; set; }
 
@@ -128,13 +133,17 @@ namespace Wowthing.Lib.Contexts
 
             // Unique indexes
             builder.Entity<PlayerAccount>()
-                .HasIndex(a => new { a.Region, a.AccountId })
+                .HasIndex(pa => new { pa.Region, pa.AccountId })
                 .IsUnique();
 
             builder.Entity<PlayerCharacter>()
-                .HasIndex(c => new { c.RealmId, c.Name })
+                .HasIndex(pc => new { pc.RealmId, pc.Name })
                 .IsUnique();
 
+            builder.Entity<PlayerGuild>()
+                .HasIndex(pg => new { pg.UserId, pg.RealmId, pg.Name })
+                .IsUnique();
+            
             builder.Entity<Team>()
                 .HasIndex(t => new { t.Guid })
                 .IsUnique();

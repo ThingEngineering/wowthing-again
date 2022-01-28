@@ -41,5 +41,14 @@ namespace Wowthing.Web.Models
             Location = cagedPet.Location;
             LocationId = cagedPet.CharacterId;
         }
+
+        public UserAuctionDataPet(PlayerGuildItem cagedPet)
+        {
+            BreedId = 0;
+            Level = cagedPet.ItemLevel;
+            Quality = (WowQuality)cagedPet.Quality;
+            Location = ItemLocation.GuildBank;
+            LocationId = cagedPet.TabId;
+        }
     }
 }

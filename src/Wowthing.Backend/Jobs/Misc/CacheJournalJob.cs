@@ -108,19 +108,15 @@ namespace Wowthing.Backend.Jobs.Misc
                 );
 
             // { itemId => { modifierId => appearanceId } }
-            var appearancesByItemId = (await DataUtilities.LoadDumpCsvAsync<DumpItemModifiedAppearance>("itemmodifiedappearance"))
-                .GroupBy(ima => ima.ItemID)
+            var appearancesByItemId = (await Context.WowItemModifiedAppearance.ToArrayAsync())
+                .GroupBy(ima => ima.ItemId)
                 .ToDictionary(
                     group => group.Key,
                     group => group.ToDictionary(
-                        group2 => group2.ItemAppearanceModifierID,
-                        group2 => group2.ItemAppearanceID
+                        group2 => group2.Modifier,
+                        group2 => group2.AppearanceId
                     )
                 );
-            
-            // HACK fix Warglaives of Azzinoth appearance IDs
-            appearancesByItemId[32837][0] = 34777;
-            appearancesByItemId[32838][0] = 34777;
 
             var bonusAppearanceModifiers = (await DataUtilities.LoadDumpCsvAsync<DumpItemBonus>("itembonus"))
                 .Where(ib => ib.Type == 7) // TODO fix hardcoded
@@ -331,7 +327,7 @@ namespace Wowthing.Backend.Jobs.Misc
                                         instanceData.BonusIds != null &&
                                         instanceData.BonusIds.TryGetValue(difficultyId, out int bonusId) &&
                                         bonusAppearanceModifiers.TryGetValue(bonusId, out int modifierId) &&
-                                        appearances.TryGetValue(modifierId, out int appearanceId)
+                                        appearances.TryGetValue((short)modifierId, out int appearanceId)
                                     ))
                                     {
                                         var first = appearances

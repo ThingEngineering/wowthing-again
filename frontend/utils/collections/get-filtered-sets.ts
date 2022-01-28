@@ -1,5 +1,6 @@
-import { StaticDataSetCategory, StaticDataSetGroup, StaticDataSetGroupArray } from '@/types'
+import { StaticDataSetCategory, StaticDataSetGroup } from '@/types/data/static'
 import type { CollectionState } from '@/stores/local-storage'
+import type { StaticDataSetGroupArray } from '@/types/data/static'
 
 
 export function getFilteredSets(

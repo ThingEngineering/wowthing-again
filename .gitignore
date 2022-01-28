@@ -23,3 +23,5 @@ src/Test/
 lua.json
 sets.txt
 zzz_uncategorized.yml
+
+temp/

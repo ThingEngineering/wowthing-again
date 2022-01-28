@@ -7,7 +7,8 @@
     import { FarmDropType } from '@/types/enums'
     import getPercentClass from '@/utils/get-percent-class'
     import { toNiceNumber } from '@/utils/to-nice'
-    import type { StaticDataVendorGroup, StaticDataVendorItem, UserCount } from '@/types'
+    import type { UserCount } from '@/types'
+    import type { StaticDataVendorGroup, StaticDataVendorItem } from '@/types/data/static'
 
     import CollectionCount from '@/components/collections/CollectionCount.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'

@@ -1,7 +1,7 @@
 <script lang="ts">
     import getPercentClass from '@/utils/get-percent-class'
     import { tippyComponent } from '@/utils/tippy'
-    import type { StaticDataProgressGroup } from '@/types'
+    import type { StaticDataProgressGroup } from '@/types/data/static'
     import type { ProgressInfo } from '@/utils/get-progress'
 
     import TooltipProgress from '@/components/tooltips/progress/TooltipProgress.svelte'

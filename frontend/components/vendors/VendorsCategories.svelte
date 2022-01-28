@@ -6,7 +6,7 @@
     import { vendorState } from '@/stores/local-storage'
     import { staticStore } from '@/stores/static'
     import { userVendorStore } from '@/stores/user-vendors'
-    import type { StaticDataVendorCategory } from '@/types'
+    import type { StaticDataVendorCategory } from '@/types/data/static'
 
     import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
     import Group from './VendorsGroup.svelte'
@@ -48,7 +48,6 @@
                 }
             }
         }
-        console.log(totalCosts)
     }
 </script>
 

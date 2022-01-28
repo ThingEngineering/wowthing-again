@@ -2,15 +2,18 @@ import sortBy from 'lodash/sortBy'
 
 import { zoneMapStore } from './zone-map'
 import { extraInstanceMap } from '@/data/dungeon'
+import { WritableFancyStore } from '@/types'
 import {
     StaticDataCurrency,
     StaticDataInstance,
+    StaticDataMount,
+    StaticDataPet,
     StaticDataRealm,
     StaticDataReputation,
     StaticDataSetCategory,
-    WritableFancyStore,
-} from '@/types'
-import type { StaticData, StaticDataSetCategoryArray } from '@/types'
+    StaticDataToy,
+} from '@/types/data/static'
+import type { StaticData, StaticDataSetCategoryArray } from '@/types/data/static'
 
 
 export class StaticDataStore extends WritableFancyStore<StaticData> {
@@ -19,7 +22,7 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
     }
 
     initialize(data: StaticData): void {
-        console.time('StaticDataStore.initialize')
+        // console.time('StaticDataStore.initialize')
 
         if (data.currenciesRaw !== null) {
             data.currencies = {}
@@ -81,6 +84,37 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             data.reputationsRaw = null
         }
 
+        if (data.mountsRaw !== null) {
+            data.mounts = {}
+            data.mountsBySpellId = {}
+            for (const mountArray of data.mountsRaw) {
+                const obj = new StaticDataMount(...mountArray)
+                data.mounts[obj.id] = obj
+                data.mountsBySpellId[obj.spellId] = obj
+            }
+            data.mountsRaw = null
+        }
+
+        if (data.petsRaw !== null) {
+            data.pets = {}
+            data.petsByCreatureId = {}
+            for (const petArray of data.petsRaw) {
+                const obj = new StaticDataPet(...petArray)
+                data.pets[obj.id] = obj
+                data.petsByCreatureId[obj.creatureId] = obj
+            }
+            data.petsRaw = null
+        }
+
+        if (data.toysRaw !== null) {
+            data.toys = {}
+            for (const toyArray of data.toysRaw) {
+                const obj = new StaticDataToy(...toyArray)
+                data.toys[obj.id] = obj
+            }
+            data.toysRaw = null
+        }
+
         if (
             data.mountSetsRaw !== null &&
             data.petSetsRaw !== null &&
@@ -91,7 +125,7 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             data.toySets = StaticDataStore.fixSets(data.toySetsRaw)
         }
 
-        console.timeEnd('StaticDataStore.initialize')
+        // console.timeEnd('StaticDataStore.initialize')
 
         zoneMapStore.update((state) => {
             state.data = {

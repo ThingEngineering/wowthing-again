@@ -5,7 +5,8 @@
     import find from 'lodash/find'
 
     import tippy from '@/utils/tippy'
-    import type { Character, CharacterShadowlandsSoulbind, StaticDataSoulbind } from '@/types'
+    import type { Character, CharacterShadowlandsSoulbind } from '@/types'
+    import type { StaticDataSoulbind } from '@/types/data/static'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import SpellLink from '@/components/links/SpellLink.svelte'

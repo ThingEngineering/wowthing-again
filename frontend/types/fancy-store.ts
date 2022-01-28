@@ -13,17 +13,33 @@ export interface FancyStore<TData> {
 
 export interface WritableFancyStore<TData> extends Writable<FancyStore<TData>> {
     fetch(ifNotLoaded?: boolean, language?: Language): Promise<boolean>
+    get(): FancyStore<TData>
     initialize?(data: TData): void
     readonly dataUrl: string
 }
 
 export class WritableFancyStore<TData> {
+    private value: FancyStore<TData>
+
     constructor(data: TData = null) {
-        Object.assign(this, writable<FancyStore<TData>>({
-            data: data,
+        this.value = {
+            data,
             error: false,
-            loaded: false,
-        }))
+            loaded: false
+        }
+        const original = writable<FancyStore<TData>>(this.value)
+
+        this.set = (newValue: FancyStore<TData>) => {
+            original.set(this.value = newValue)
+        }
+        this.subscribe = original.subscribe
+        this.update = (stateFunc: (originalValue: FancyStore<TData>) => FancyStore<TData>) => {
+            original.update((oldValue: FancyStore<TData>) => (this.value = stateFunc(oldValue)))
+        }
+    }
+
+    get(): FancyStore<TData> {
+        return this.value
     }
 
     async fetch(ifNotLoaded = true, language = Language.enUS): Promise<boolean> {

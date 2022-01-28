@@ -2,8 +2,9 @@
     import { getContext } from 'svelte'
 
     import { userStore } from '@/stores'
-    import type { SidebarItem, StaticDataSetCategory, UserCount } from '@/types'
+    import type { SidebarItem, UserCount } from '@/types'
     import type { CollectionContext } from '@/types/contexts'
+    import type { StaticDataSetCategory } from '@/types/data/static'
 
     import ProgressBar from '@/components/common/ProgressBar.svelte'
     import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'

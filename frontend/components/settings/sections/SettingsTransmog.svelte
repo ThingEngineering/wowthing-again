@@ -27,6 +27,20 @@
 <div class="thing-container settings-container">
     <h2>Transmog</h2>
 
+    <div class="setting">
+        <Checkbox
+            name="transmog_completionistMode"
+            bind:value={$settingsData.transmog.completionistMode}
+        >Completionist Mode</Checkbox>
+        <p>
+            <strong class="status-shrug">WARNING!</strong>
+            This will only treat a transmog item appearance as collected if you have collected
+            that exact source, not any other item that shares the same appearance.
+        </p>
+    </div>
+
+    <h3>Included Items</h3>
+
     <div class="armor-type">
         <h4>Cloth</h4>
 

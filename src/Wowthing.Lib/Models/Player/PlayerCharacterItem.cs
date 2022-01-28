@@ -7,7 +7,7 @@ using Wowthing.Lib.Enums;
 namespace Wowthing.Lib.Models.Player
 {
     [Index(nameof(CharacterId), nameof(ItemId), nameof(Location))]
-    public class PlayerCharacterItem
+    public class PlayerCharacterItem : IPlayerItem
     {
         // Fields are ordered from largest to smallest for database table size reasons. Postgres doesn't go
         // smaller than a short (2 bytes), sadly.

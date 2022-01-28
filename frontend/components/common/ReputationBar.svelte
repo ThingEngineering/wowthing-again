@@ -1,7 +1,8 @@
 <script lang="ts">
     import { staticStore } from '@/stores'
     import findReputationTier from '@/utils/find-reputation-tier'
-    import type { Character, ReputationTier, StaticDataReputationTier } from '@/types'
+    import type { Character, ReputationTier } from '@/types'
+    import type { StaticDataReputationTier } from '@/types/data/static'
 
     import ProgressBar from '@/components/common/ProgressBar.svelte'
 

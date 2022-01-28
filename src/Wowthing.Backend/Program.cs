@@ -94,7 +94,7 @@ namespace Wowthing.Backend
             // HTTP clients
             services.AddHttpClient("limited", config =>
             {
-                config.Timeout = TimeSpan.FromSeconds(10);
+                config.Timeout = TimeSpan.FromSeconds(30);
             })
                 .AddHttpMessageHandler(() => new RateLimitHttpMessageHandler(RedisUtilities.GetConnection(redisConnectionString), backendOptions.ApiRateLimit))
                 .SetHandlerLifetime(Timeout.InfiniteTimeSpan);

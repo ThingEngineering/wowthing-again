@@ -5,7 +5,8 @@
     import { collectionState } from '@/stores/local-storage'
     import { staticStore } from '@/stores/static'
     import { getFilteredSets } from '@/utils/collections'
-    import type { MultiSlugParams, StaticDataSetCategory } from '@/types'
+    import type { MultiSlugParams } from '@/types'
+    import type { StaticDataSetCategory } from '@/types/data/static'
 
     import Collection from './Collection.svelte'
 
@@ -19,7 +20,7 @@
             $staticStore.data.mountSets,
             (thing: number[]) => some(
                 thing,
-                (value) => $userStore.data.mounts[$staticStore.data.spellToMount[value] || -1] === true
+                (value) => $userStore.data.hasMountSpell[value] === true
             )
         )
     }
@@ -28,8 +29,7 @@
 <Collection
     route="mounts"
     thingType="spell"
-    thingMap={$staticStore.data.spellToMount}
-    userHas={$userStore.data.mounts}
+    userHas={$userStore.data.hasMountSpell}
     {params}
     {sets}
 />

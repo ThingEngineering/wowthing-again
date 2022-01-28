@@ -428,6 +428,22 @@ namespace Wowthing.Lib.Migrations
                     b.ToTable("player_account_toys");
                 });
 
+            modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerAccountTransmogSources", b =>
+                {
+                    b.Property<int>("AccountId")
+                        .HasColumnType("integer")
+                        .HasColumnName("account_id");
+
+                    b.Property<List<string>>("Sources")
+                        .HasColumnType("text[]")
+                        .HasColumnName("sources");
+
+                    b.HasKey("AccountId")
+                        .HasName("pk_player_account_transmog_sources");
+
+                    b.ToTable("player_account_transmog_sources");
+                });
+
             modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacter", b =>
                 {
                     b.Property<int>("Id")
@@ -488,8 +504,8 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("gender");
 
-                    b.Property<long>("GuildId")
-                        .HasColumnType("bigint")
+                    b.Property<int?>("GuildId")
+                        .HasColumnType("integer")
                         .HasColumnName("guild_id");
 
                     b.Property<bool>("IsResting")
@@ -541,6 +557,9 @@ namespace Wowthing.Lib.Migrations
 
                     b.HasIndex("AccountId")
                         .HasDatabaseName("ix_player_character_account_id");
+
+                    b.HasIndex("GuildId")
+                        .HasDatabaseName("ix_player_character_guild_id");
 
                     b.HasIndex("RealmId", "Name")
                         .IsUnique()
@@ -1109,6 +1128,101 @@ namespace Wowthing.Lib.Migrations
                     b.ToTable("player_character_weekly");
                 });
 
+            modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerGuild", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text")
+                        .HasColumnName("name");
+
+                    b.Property<int>("RealmId")
+                        .HasColumnType("integer")
+                        .HasColumnName("realm_id");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_player_guild");
+
+                    b.HasIndex("UserId", "RealmId", "Name")
+                        .IsUnique()
+                        .HasDatabaseName("ix_player_guild_user_id_realm_id_name");
+
+                    b.ToTable("player_guild");
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerGuildItem", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<List<short>>("BonusIds")
+                        .HasColumnType("smallint[]")
+                        .HasColumnName("bonus_ids");
+
+                    b.Property<short>("Context")
+                        .HasColumnType("smallint")
+                        .HasColumnName("context");
+
+                    b.Property<int>("Count")
+                        .HasColumnType("integer")
+                        .HasColumnName("count");
+
+                    b.Property<short>("EnchantId")
+                        .HasColumnType("smallint")
+                        .HasColumnName("enchant_id");
+
+                    b.Property<List<int>>("Gems")
+                        .HasColumnType("integer[]")
+                        .HasColumnName("gems");
+
+                    b.Property<int>("GuildId")
+                        .HasColumnType("integer")
+                        .HasColumnName("guild_id");
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("integer")
+                        .HasColumnName("item_id");
+
+                    b.Property<short>("ItemLevel")
+                        .HasColumnType("smallint")
+                        .HasColumnName("item_level");
+
+                    b.Property<short>("Quality")
+                        .HasColumnType("smallint")
+                        .HasColumnName("quality");
+
+                    b.Property<short>("Slot")
+                        .HasColumnType("smallint")
+                        .HasColumnName("slot");
+
+                    b.Property<short>("SuffixId")
+                        .HasColumnType("smallint")
+                        .HasColumnName("suffix_id");
+
+                    b.Property<short>("TabId")
+                        .HasColumnType("smallint")
+                        .HasColumnName("tab_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_player_guild_item");
+
+                    b.HasIndex("GuildId", "ItemId")
+                        .HasDatabaseName("ix_player_guild_item_guild_id_item_id");
+
+                    b.ToTable("player_guild_item");
+                });
+
             modelBuilder.Entity("Wowthing.Lib.Models.Query.AccountTransmogQuery", b =>
                 {
                     b.Property<List<int>>("TransmogIds")
@@ -1422,6 +1536,32 @@ namespace Wowthing.Lib.Migrations
                         .HasName("pk_wow_item");
 
                     b.ToTable("wow_item");
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowItemModifiedAppearance", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("AppearanceId")
+                        .HasColumnType("integer")
+                        .HasColumnName("appearance_id");
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("integer")
+                        .HasColumnName("item_id");
+
+                    b.Property<short>("Modifier")
+                        .HasColumnType("smallint")
+                        .HasColumnName("modifier");
+
+                    b.HasKey("Id")
+                        .HasName("pk_wow_item_modified_appearance");
+
+                    b.ToTable("wow_item_modified_appearance");
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowMount", b =>
@@ -1757,6 +1897,18 @@ namespace Wowthing.Lib.Migrations
                     b.Navigation("Account");
                 });
 
+            modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerAccountTransmogSources", b =>
+                {
+                    b.HasOne("Wowthing.Lib.Models.Player.PlayerAccount", "Account")
+                        .WithOne("TransmogSources")
+                        .HasForeignKey("Wowthing.Lib.Models.Player.PlayerAccountTransmogSources", "AccountId")
+                        .HasConstraintName("fk_player_account_transmog_sources_player_account_account_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Account");
+                });
+
             modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacter", b =>
                 {
                     b.HasOne("Wowthing.Lib.Models.Player.PlayerAccount", "Account")
@@ -1765,7 +1917,14 @@ namespace Wowthing.Lib.Migrations
                         .HasConstraintName("fk_player_character_player_account_account_id")
                         .OnDelete(DeleteBehavior.SetNull);
 
+                    b.HasOne("Wowthing.Lib.Models.Player.PlayerGuild", "Guild")
+                        .WithMany()
+                        .HasForeignKey("GuildId")
+                        .HasConstraintName("fk_player_character_player_guild_guild_id");
+
                     b.Navigation("Account");
+
+                    b.Navigation("Guild");
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacterAchievements", b =>
@@ -2020,6 +2179,30 @@ namespace Wowthing.Lib.Migrations
                     b.Navigation("Character");
                 });
 
+            modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerGuild", b =>
+                {
+                    b.HasOne("Wowthing.Lib.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .HasConstraintName("fk_player_guild_application_user_user_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerGuildItem", b =>
+                {
+                    b.HasOne("Wowthing.Lib.Models.Player.PlayerGuild", "Guild")
+                        .WithMany("Items")
+                        .HasForeignKey("GuildId")
+                        .HasConstraintName("fk_player_guild_item_player_guild_guild_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Guild");
+                });
+
             modelBuilder.Entity("Wowthing.Lib.Models.Team.Team", b =>
                 {
                     b.HasOne("Wowthing.Lib.Models.ApplicationUser", "User")
@@ -2060,6 +2243,8 @@ namespace Wowthing.Lib.Migrations
                     b.Navigation("Pets");
 
                     b.Navigation("Toys");
+
+                    b.Navigation("TransmogSources");
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerCharacter", b =>
@@ -2105,6 +2290,11 @@ namespace Wowthing.Lib.Migrations
                     b.Navigation("Transmog");
 
                     b.Navigation("Weekly");
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerGuild", b =>
+                {
+                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.Team.Team", b =>

@@ -1,16 +1,9 @@
 <script lang="ts">
     import { staticStore } from '@/stores/static'
-    import type {
-        Character,
-        CharacterReputationParagon,
-        CharacterReputationReputation,
-        ReputationTier,
-        StaticDataReputation,
-        StaticDataReputationSet,
-        StaticDataReputationTier,
-    } from '@/types'
     import findReputationTier from '@/utils/find-reputation-tier'
-    import {tippyComponent} from '@/utils/tippy'
+    import { tippyComponent } from '@/utils/tippy'
+    import type { Character, CharacterReputationParagon, CharacterReputationReputation, ReputationTier } from '@/types'
+    import type { StaticDataReputation, StaticDataReputationSet, StaticDataReputationTier } from '@/types/data/static'
 
     import TooltipReputation from '@/components/tooltips/reputation/TooltipReputation.svelte'
 

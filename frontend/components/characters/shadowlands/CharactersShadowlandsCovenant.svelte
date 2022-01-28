@@ -8,12 +8,8 @@
     import getPercentClass from '@/utils/get-percent-class'
     import getProgress from '@/utils/get-progress'
     import { toNiceDuration, toNiceNumber } from '@/utils/to-nice'
-    import type {
-        Character,
-        CharacterShadowlandsCovenant,
-        CharacterShadowlandsCovenantFeature,
-        StaticDataProgressCategory,
-    } from '@/types'
+    import type { Character, CharacterShadowlandsCovenant, CharacterShadowlandsCovenantFeature } from '@/types'
+    import type { StaticDataProgressCategory } from '@/types/data/static'
 
     import Abominations from './CharactersShadowlandsAbominations.svelte'
     import EmberCourt from './CharactersShadowlandsEmberCourt.svelte'

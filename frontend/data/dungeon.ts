@@ -1,5 +1,6 @@
 import { Dungeon, MythicPlusAffix, MythicPlusSeason } from '@/types'
-import type { StaticDataInstance } from '@/types'
+import type { StaticDataInstance } from '@/types/data/static'
+
 
 export const affixMap: Record<number, MythicPlusAffix> = Object.fromEntries(
     [

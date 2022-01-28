@@ -9,7 +9,8 @@
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import getProgress from '@/utils/get-progress'
     import toDigits from '@/utils/to-digits'
-    import type { Character, StaticDataProgressCategory } from '@/types'
+    import type { Character } from '@/types'
+    import type { StaticDataProgressCategory} from '@/types/data/static'
     import type { ProgressInfo } from '@/utils/get-progress'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'

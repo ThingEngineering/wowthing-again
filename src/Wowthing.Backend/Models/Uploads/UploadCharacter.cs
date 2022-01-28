@@ -16,6 +16,7 @@ namespace Wowthing.Backend.Models.Uploads
         public int PlayedTotal { get; set; }
         public int RestedXp { get; set; }
         public long Copper { get; set; }
+        public string GuildName { get; set; }
 
         public List<UploadCharacterAchievement> Achievements { get; set; }
         public List<UploadCharacterCalling> Callings { get; set; }

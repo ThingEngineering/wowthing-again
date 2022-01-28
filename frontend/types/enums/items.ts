@@ -4,7 +4,7 @@ export enum ItemLocation {
     Bags = 1,
     Bank = 2,
     Reagent = 3,
-    Void = 4,
+    GuildBank,
     PetCollection = 10,
 }
 

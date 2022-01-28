@@ -75,7 +75,16 @@ namespace Wowthing.Web.Controllers
             }
 
             // Caged pets
-            var cages = await _context
+            var guildCages = await _context
+                .PlayerGuildItem
+                .Where(pgi =>
+                    pgi.Guild.UserId == user.Id &&
+                    pgi.ItemId == 82800 && // Pet Cage
+                    pgi.Context > 0
+                )
+                .ToArrayAsync();
+            
+            var playerCages = await _context
                 .PlayerCharacterItem
                 .Where(pci =>
                     pci.Character.AccountId.HasValue &&
@@ -97,7 +106,18 @@ namespace Wowthing.Web.Controllers
                         .ToList()
                 );
 
-            foreach (var cagedPet in cages)
+            foreach (var cagedPet in guildCages)
+            {
+                int speciesId = cagedPet.Context;
+                if (!groupedPets.TryGetValue(speciesId, out var pets))
+                {
+                    pets = groupedPets[speciesId] = new List<UserAuctionDataPet>();
+                }
+
+                pets.Add(new UserAuctionDataPet(cagedPet));
+            }
+            
+            foreach (var cagedPet in playerCages)
             {
                 int speciesId = cagedPet.Context;
                 if (!groupedPets.TryGetValue(speciesId, out var pets))

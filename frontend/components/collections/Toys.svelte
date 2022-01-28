@@ -4,27 +4,22 @@
     import { staticStore, userStore } from '@/stores'
     import { collectionState } from '@/stores/local-storage'
     import { getFilteredSets } from '@/utils/collections'
-    import type { MultiSlugParams, StaticDataSetCategory } from '@/types'
+    import type { MultiSlugParams } from '@/types'
+    import type { StaticDataSetCategory } from '@/types/data/static'
 
     import Collection from './Collection.svelte'
 
     export let params: MultiSlugParams
 
     let sets: StaticDataSetCategory[][]
-    let thingMap: Record<number, number>
     $: {
-        thingMap = {}
-        for (const toyId in $userStore.data.toys) {
-            thingMap[toyId] = parseInt(toyId)
-        }
-
         sets = getFilteredSets(
             $collectionState,
             'toys',
             $staticStore.data.toySets,
             (thing: number[]) => some(
                 thing,
-                (value) => $userStore.data.toys[value] === true
+                (value) => $userStore.data.hasToy[value] === true
             )
         )
     }
@@ -33,8 +28,7 @@
 <Collection
     route="toys"
     thingType="item"
-    userHas={$userStore.data.toys}
+    userHas={$userStore.data.hasToy}
     {params}
     {sets}
-    {thingMap}
 />

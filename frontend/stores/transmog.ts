@@ -11,7 +11,7 @@ export class TransmogDataStore extends WritableFancyStore<TransmogData> {
     }
 
     initialize(data: TransmogData): void {
-        console.time('TransmogDataStore.initialize')
+        // console.time('TransmogDataStore.initialize')
 
         const newSets: TransmogDataCategory[][] = []
 
@@ -53,7 +53,7 @@ export class TransmogDataStore extends WritableFancyStore<TransmogData> {
 
         data.sets = newSets
 
-        console.timeEnd('TransmogDataStore.initialize')
+        // console.timeEnd('TransmogDataStore.initialize')
     }
 }
 

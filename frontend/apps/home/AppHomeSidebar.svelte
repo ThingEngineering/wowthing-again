@@ -22,7 +22,7 @@
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import Sidebar from '@/components/main-sidebar/MainSidebar.svelte'
-    import { FarmDropType } from "../../types/enums";
+    import { FarmDropType } from '@/types/enums'
 
     let journalPercent: number
     let mountsPercent: number

@@ -33,7 +33,6 @@ namespace Wowthing.Lib.Models.Player
         public int AverageItemLevel { get; set; } = 0;
         public int EquippedItemLevel { get; set; } = 0;
         public int Experience { get; set; } = 0;
-        public long GuildId { get; set; } = 0;
 
         // From addon data
         public bool IsResting { get; set; } = false;
@@ -43,6 +42,10 @@ namespace Wowthing.Lib.Models.Player
         public int RestedExperience { get; set; } = 0;
         public long Copper { get; set; } = 0;
         public WowMountSkill MountSkill { get; set; } = 0;
+
+        [ForeignKey("Guild")]
+        public int? GuildId { get; set; }
+        public PlayerGuild Guild { get; set; }
 
         // Bookkeeping
         public int DelayHours { get; set; } = 0;

@@ -5,13 +5,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Wowthing.Backend.Data;
 using Wowthing.Backend.Jobs.NonBlizzard;
 using Wowthing.Backend.Models.Data;
 using Wowthing.Backend.Models.Data.Achievements;
 using Wowthing.Backend.Models.Data.Collections;
 using Wowthing.Backend.Models.Data.Covenants;
-using Wowthing.Backend.Models.Data.Items;
 using Wowthing.Backend.Models.Data.Journal;
 using Wowthing.Backend.Models.Data.Professions;
 using Wowthing.Backend.Models.Data.Progress;
@@ -43,8 +43,8 @@ namespace Wowthing.Backend.Jobs.Misc
 
         private Dictionary<int, int> _itemToAppearance;
 
-        private Dictionary<Language, Dictionary<int, (int, string)>> _creatureToPet = new();
-        private Dictionary<Language, Dictionary<int, (int, string)>> _spellToMount = new();
+        private Dictionary<int, int> _creatureToPet;
+        private Dictionary<int, int> _spellToMount;
 
         private Dictionary<(StringType Type, Language Language, int Id), string> _stringMap;
 
@@ -53,7 +53,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
-            Version = 33,
+            Version = 34,
         };
 
         public override async Task Run(params string[] data)
@@ -84,44 +84,36 @@ namespace Wowthing.Backend.Jobs.Misc
             _mountMap = await Context.WowMount
                 .AsNoTracking()
                 .ToDictionaryAsync(mount => mount.Id);
-            
+            _spellToMount = _mountMap.Values.ToDictionary(mount => mount.SpellId, mount => mount.Id);
+
             _petMap = await Context.WowPet
-                .Where(pet => (pet.Flags & 32) == 0)
                 .AsNoTracking()
+                .Where(pet => (pet.Flags & 32) == 0)
                 .ToDictionaryAsync(pet => pet.Id);
-            
+            _creatureToPet = _petMap.Values.ToDictionary(pet => pet.CreatureId, pet => pet.Id);
+
             _toyMap = await Context.WowToy
                 .AsNoTracking()
                 .ToDictionaryAsync(toy => toy.Id);
             
             _stringMap = await Context.LanguageString
-                .Where(ls => _stringTypes.Contains(ls.Type))
                 .AsNoTracking()
-                .ToDictionaryAsync(ls => (ls.Type, ls.Language, ls.Id), ls => ls.String);
-            
-            _timer.AddPoint("Database");
+                .Where(ls => _stringTypes.Contains(ls.Type))
+                .ToDictionaryAsync(
+                    ls => (ls.Type, ls.Language, ls.Id),
+                    ls => ls.String
+                );
 
-            foreach (var language in Enum.GetValues<Language>())
-            {
-                _creatureToPet[language] = _petMap.Values.ToDictionary(
-                    pet => pet.CreatureId,
-                    pet => (pet.Id, _stringMap.GetValueOrDefault((StringType.WowCreatureName, language, pet.CreatureId), "???"))
-                );
-                
-                _spellToMount[language] = _mountMap.Values.ToDictionary(
-                    mount => mount.SpellId,
-                    mount => (mount.Id, _stringMap.GetValueOrDefault((StringType.WowMountName, language, mount.Id), "???"))
-                );
-            }
-            
-            var itemModifiedAppearances = await DataUtilities.LoadDumpCsvAsync<DumpItemModifiedAppearance>("itemmodifiedappearance");
+            var itemModifiedAppearances = await Context.WowItemModifiedAppearance.ToArrayAsync();
             _itemToAppearance = itemModifiedAppearances
-                .GroupBy(r => r.ItemID)
-                .ToDictionary(r => r.Key, r => r.First().ItemAppearanceID);
+                .GroupBy(r => r.ItemId)
+                .ToDictionary(r => r.Key, r => r.First().AppearanceId);
+
+            _timer.AddPoint("Database");
         }
         
         #region Static data
-        public async Task BuildStaticData()
+        private async Task BuildStaticData()
         {
             var db = Redis.GetDatabase();
 
@@ -139,12 +131,12 @@ namespace Wowthing.Backend.Jobs.Misc
 
             // Mounts
             var mountSets = LoadSets("mounts");
-            AddUncategorized("mounts", _spellToMount[Language.enUS], mountSets);
+            AddUncategorized("mounts", _spellToMount, mountSets, (id) => GetString(StringType.WowMountName, Language.enUS, _spellToMount[id]));
             _timer.AddPoint("Mounts");
 
             // Pets
             var petSets = LoadSets("pets");
-            AddUncategorized("pets", _creatureToPet[Language.enUS], petSets);
+            AddUncategorized("pets", _creatureToPet, petSets, (id) => GetString(StringType.WowCreatureName, Language.enUS, id));
             _timer.AddPoint("Pets");
 
             var progress = LoadProgress();
@@ -170,17 +162,17 @@ namespace Wowthing.Backend.Jobs.Misc
             var toySets = LoadSets("toys");
             var itemToToy = _toyMap.Values.ToDictionary(
                 toy => toy.ItemId,
-                toy => (toy.Id, _stringMap.GetValueOrDefault((StringType.WowItemName, Language.enUS, toy.ItemId), "???"))
+                toy => toy.Id
             );
-            AddUncategorized("toys", itemToToy, toySets);
+            AddUncategorized("toys", itemToToy, toySets, (id) => GetString(StringType.WowItemName, Language.enUS, id));
             _timer.AddPoint("Toys");
 
             // Vendors
-            var vendors = await LoadVendors();
+            var vendors = LoadVendors();
             _timer.AddPoint("Vendors");
             
             // Zone Maps
-            var zoneMaps = await LoadZoneMaps();
+            var zoneMaps = LoadZoneMaps();
             #if DEBUG
             DumpZoneMapQuests(zoneMaps[Language.enUS]);
             #endif
@@ -191,9 +183,6 @@ namespace Wowthing.Backend.Jobs.Misc
             _timer.AddPoint("Database");
 
             // Ok we're done
-            var sortedSpellToMount = new SortedDictionary<int, int>(_spellToMount[Language.enUS].ToDictionary(k => k.Key, v => v.Value.Item1));
-            var sortedCreatureToPet = new SortedDictionary<int, int>(_creatureToPet[Language.enUS].ToDictionary(k => k.Key, v => v.Value.Item1));
-
             string cacheHash = null;
             foreach (var language in Enum.GetValues<Language>())
             {
@@ -214,11 +203,13 @@ namespace Wowthing.Backend.Jobs.Misc
                     VendorSets = vendors,
                     ZoneMapSets = zoneMaps[language],
 
-                    CreatureToPet = sortedCreatureToPet,
-                    SpellToMount = sortedSpellToMount,
-
+                    MountsRaw = RawMounts(language),
                     MountSetsRaw = FinalizeCollections(mountSets),
+                    
+                    PetsRaw = RawPets(language),
                     PetSetsRaw = FinalizeCollections(petSets),
+
+                    ToysRaw = RawToys(language),
                     ToySetsRaw = FinalizeCollections(toySets),
 
                     Progress = progress,
@@ -509,7 +500,7 @@ namespace Wowthing.Backend.Jobs.Misc
                 {
                     if (sigh.ContainsKey(instanceId))
                     {
-                        Logger.Information("DUPLICATE BULLSHIT {0}", map.ID, instanceId);
+                        Logger.Information("DUPLICATE BULLSHIT: mapId={MapId} instanceId={InstanceId}", map.ID, instanceId);
                     }
                     else
                     {
@@ -518,7 +509,7 @@ namespace Wowthing.Backend.Jobs.Misc
                 }
                 else
                 {
-                    Logger.Information("No mapIdToInstanceId for {0}??", map.ID);
+                    Logger.Information("No mapIdToInstanceId for {MapId}??", map.ID);
                 } 
             }
             return sigh.Values.ToList();
@@ -546,7 +537,7 @@ namespace Wowthing.Backend.Jobs.Misc
             return ret;
         }
 
-        private async Task<List<List<OutVendorCategory>>> LoadVendors()
+        private List<List<OutVendorCategory>> LoadVendors()
         {
             var vendorSets = DataUtilities.LoadData<DataVendorCategory>("vendors", Logger);
 
@@ -600,7 +591,7 @@ namespace Wowthing.Backend.Jobs.Misc
             return ret;
         }
         
-        private async Task<Dictionary<Language, List<List<OutZoneMapCategory>>>> LoadZoneMaps()
+        private Dictionary<Language, List<List<OutZoneMapCategory>>> LoadZoneMaps()
         {
             var zoneMapSets = DataUtilities.LoadData<DataZoneMapCategory>("zone-maps", Logger);
 
@@ -636,7 +627,7 @@ namespace Wowthing.Backend.Jobs.Misc
                             
                             foreach (var drop in farm.Drops)
                             {
-                                if (drop.Type == "mount")
+                                /*if (drop.Type == "mount")
                                 {
                                     drop.Name = _spellToMount[language][drop.Id].Item2;
                                 }
@@ -647,8 +638,8 @@ namespace Wowthing.Backend.Jobs.Misc
                                 else if (drop.Type == "toy")
                                 {
                                     drop.Name = GetString(StringType.WowItemName, language, drop.Id);
-                                }
-                                else if (drop.Type == "transmog")
+                                }*/
+                                if (drop.Type == "transmog")
                                 {
                                     var dropItem = _itemMap[drop.Id];
 
@@ -734,7 +725,7 @@ namespace Wowthing.Backend.Jobs.Misc
             return DataUtilities.LoadData<DataCollectionCategory>(dirName, Logger);
         }
 
-        private void AddUncategorized(string dirName, Dictionary<int, (int, string)> spellToThing, List<List<DataCollectionCategory>> thingSets)
+        private void AddUncategorized(string dirName, Dictionary<int, int> lookupMap, List<List<DataCollectionCategory>> thingSets, Func<int, string> nameFunc)
         {
             var skip = Array.Empty<int>();
             var skipPath = Path.Join(DataUtilities.DataPath, dirName, "_skip.yml");
@@ -743,12 +734,15 @@ namespace Wowthing.Backend.Jobs.Misc
                 var newSkip = _yaml.Deserialize<string[]>(File.OpenText(skipPath));
                 if (newSkip != null)
                 {
-                    skip = newSkip.SelectMany(s => s.Split(' ')).Select(s => int.Parse(s)).ToArray();
+                    skip = newSkip.SelectMany(s => s
+                        .Split(' '))
+                        .Select(int.Parse)
+                        .ToArray();
                 }
             }
 
             // Lookup keys - things in sets - skip
-            var missing = spellToThing.Keys
+            var missing = lookupMap.Keys
                 .Except(thingSets
                     .Where(s => s != null)
                     .SelectMany(s => s)
@@ -758,7 +752,7 @@ namespace Wowthing.Backend.Jobs.Misc
                     .SelectMany(g => g.Things)
                     .SelectMany(t => t
                         .Split(' ', StringSplitOptions.RemoveEmptyEntries)
-                        .Select(z => int.Parse(z))
+                        .Select(int.Parse)
                     )
                 )
                 .Except(skip)
@@ -788,7 +782,7 @@ namespace Wowthing.Backend.Jobs.Misc
                 {
                     foreach (int thing in missing.OrderBy(m => m))
                     {
-                        file.WriteLine($"  - {thing} # {spellToThing[thing].Item2}");
+                        file.WriteLine($"  - {thing} # {nameFunc(thing)}");
                     }
                 }
 #endif
@@ -814,6 +808,51 @@ namespace Wowthing.Backend.Jobs.Misc
             }
 
             return ret;
+        }
+
+        private List<JArray> RawMounts(Language language)
+        {
+            return _mountMap
+                .Values
+                .OrderBy(mount => mount.Id)
+                .Select(mount => new JArray(
+                    mount.Id,
+                    mount.SourceType,
+                    mount.ItemId,
+                    mount.SpellId,
+                    GetString(StringType.WowMountName, language, mount.Id)
+                ))
+                .ToList();
+        }
+
+        private List<JArray> RawPets(Language language)
+        {
+            return _petMap
+                .Values
+                .OrderBy(pet => pet.Id)
+                .Select(pet => new JArray(
+                    pet.Id,
+                    pet.SourceType,
+                    pet.PetType,
+                    pet.CreatureId,
+                    pet.SpellId,
+                    GetString(StringType.WowCreatureName, language, pet.CreatureId)
+                ))
+                .ToList();
+        }
+        
+        private List<JArray> RawToys(Language language)
+        {
+            return _toyMap
+                .Values
+                .OrderBy(toy => toy.Id)
+                .Select(toy => new JArray(
+                    toy.Id,
+                    toy.SourceType,
+                    toy.ItemId,
+                    GetString(StringType.WowItemName, language, toy.ItemId)
+                ))
+                .ToList();
         }
         #endregion
         

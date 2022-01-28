@@ -14,7 +14,7 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
     }
 
     initialize(data: JournalData): void {
-        console.time('JournalDataStore.initialize')
+        // console.time('JournalDataStore.initialize')
 
         for (const tier of data.tiers) {
             for (const instance of tier.instances) {
@@ -26,7 +26,7 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
             }
         }
 
-        console.timeEnd('JournalDataStore.initialize')
+        // console.timeEnd('JournalDataStore.initialize')
     }
 
     setup(
@@ -35,21 +35,22 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
         settingsData: Settings,
         userTransmogData: UserTransmogData
     ): void {
-        console.time('JournalDataStore.setup')
+        // console.time('JournalDataStore.setup')
 
+        const masochist = settingsData.transmog.completionistMode
         const stats: Record<string, UserCount> = {}
 
         const overallStats = stats['OVERALL'] = new UserCount()
-        const overallSeen: Record<number, boolean> = {}
+        const overallSeen: Record<string, boolean> = {}
 
         for (const tier of journalData.tiers) {
             const tierStats = stats[tier.slug] = new UserCount()
-            const tierSeen: Record<number, boolean> = {}
+            const tierSeen: Record<string, boolean> = {}
 
             for (const instance of tier.instances) {
                 const instanceKey = `${tier.slug}--${instance.slug}`
                 const instanceStats = stats[instanceKey] = new UserCount()
-                const instanceSeen: Record<number, boolean> = {}
+                const instanceSeen: Record<string, boolean> = {}
 
                 for (const encounter of instance.encounters) {
                     const encounterKey = `${instanceKey}--${encounter.name}`
@@ -67,35 +68,42 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                         )
                         for (const item of items) {
                             for (const appearance of item.appearances) {
-                                if (!overallSeen[appearance.appearanceId]) {
+                                const key = masochist ?
+                                    `${item.id}_${appearance.modifierId}` :
+                                    appearance.appearanceId.toString()
+
+                                if (!overallSeen[key]) {
                                     overallStats.total++
                                 }
-                                if (!tierSeen[appearance.appearanceId]) {
+                                if (!tierSeen[key]) {
                                     tierStats.total++
                                 }
-                                if (!instanceSeen[appearance.appearanceId]) {
+                                if (!instanceSeen[key]) {
                                     instanceStats.total++
                                 }
                                 encounterStats.total++
                                 groupStats.total++
 
-                                if (userTransmogData.userHas[appearance.appearanceId]) {
-                                    if (!overallSeen[appearance.appearanceId]) {
+                                const userHas = masochist ?
+                                    userTransmogData.sourceHas[key] :
+                                    userTransmogData.userHas[appearance.appearanceId]
+                                if (userHas) {
+                                    if (!overallSeen[key]) {
                                         overallStats.have++
                                     }
-                                    if (!tierSeen[appearance.appearanceId]) {
+                                    if (!tierSeen[key]) {
                                         tierStats.have++
                                     }
-                                    if (!instanceSeen[appearance.appearanceId]) {
+                                    if (!instanceSeen[key]) {
                                         instanceStats.have++
                                     }
                                     encounterStats.have++
                                     groupStats.have++
                                 }
 
-                                overallSeen[appearance.appearanceId] = true
-                                tierSeen[appearance.appearanceId] = true
-                                instanceSeen[appearance.appearanceId] = true
+                                overallSeen[key] = true
+                                tierSeen[key] = true
+                                instanceSeen[key] = true
                             }
                         }
                     }
@@ -103,12 +111,14 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
             }
         }
 
+        // console.log(masochist, stats)
+
         this.update((state) => {
             state.data.stats = stats
             return state
         })
 
-        console.timeEnd('JournalDataStore.setup')
+        // console.timeEnd('JournalDataStore.setup')
     }
 }
 

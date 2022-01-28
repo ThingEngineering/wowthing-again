@@ -8,6 +8,7 @@ import mdiQuestion from '@iconify/icons-mdi/help-circle-outline'
 import notoBackpack from '@iconify/icons-noto/backpack'
 import notoBank from '@iconify/icons-noto/bank'
 import notoDogFace from '@iconify/icons-noto/dog-face'
+import notoFamilyWomanWomanGirlBoy from '@iconify/icons-noto/family-woman-woman-girl-boy'
 
 import { Constants } from '@/data/constants'
 import { ItemLocation } from '@/types/enums'
@@ -23,6 +24,7 @@ export const iconStrings: Record<string, IconifyIcon> = {
 export const locationIcons: Record<number, IconifyIcon> = {
     [ItemLocation.Bags]: notoBackpack,
     [ItemLocation.Bank]: notoBank,
+    [ItemLocation.GuildBank]: notoFamilyWomanWomanGirlBoy,
     [ItemLocation.PetCollection]: notoDogFace,
 }
 

@@ -10,6 +10,10 @@ namespace Wowthing.Backend.Models.Uploads
 
         [JsonProperty("chars")]
         public Dictionary<string, UploadCharacter> Characters { get; set; }
+        
+        public Dictionary<string, UploadGuild> Guilds { get; set; }
+        
         public List<int> Toys { get; set; }
+        public Dictionary<string, bool> TransmogSources { get; set; }
     }
 }
