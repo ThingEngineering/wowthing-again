@@ -105,12 +105,24 @@ export class UserDataStore extends WritableFancyStore<UserData> {
 
         const hasMountSpell: Record<number, boolean> = {}
         for (const mountId in userData.hasMount) {
-            hasMountSpell[staticData.mounts[mountId].spellId] = true
+            const mount = staticData.mounts[mountId]
+            if (mount) {
+                hasMountSpell[mount.spellId] = true
+            }
+            else {
+                console.warn('Missing mount data for', mountId)
+            }
         }
 
         const hasPetCreature: Record<number, boolean> = {}
         for (const petId in userData.hasPet) {
-            hasPetCreature[staticData.pets[petId].creatureId] = true
+            const pet = staticData.pets[petId]
+            if (pet) {
+                hasPetCreature[pet.creatureId] = true
+            }
+            else {
+                console.warn('Missing pet data for', petId)
+            }
         }
 
         // Generate set counts
