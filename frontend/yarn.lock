@@ -89,9 +89,9 @@
   integrity sha512-VqQfiXGXelhdJSzv3qILHwBpdX6f5CPCKGqAmZMZLEXEuPEv7O6YVRBt52qz38SagA5bKhMyZWE2ThuuAkwdOA==
 
 "@iconify/icons-mdi@^1.1.36":
-  version "1.1.42"
-  resolved "https://registry.yarnpkg.com/@iconify/icons-mdi/-/icons-mdi-1.1.42.tgz#abd1503a51af389e50bcc84338706afbcc10ede7"
-  integrity sha512-YHX2Z0s+5Y5EQlBbQ2xQV9pI+RmTr4EwRaqtTEPjfP5g8cekQzR7A8aSohLtgq6m+nziDagIROFFZIFzkS+LJw==
+  version "1.1.44"
+  resolved "https://registry.yarnpkg.com/@iconify/icons-mdi/-/icons-mdi-1.1.44.tgz#61e29da90b8a744225226ad89004321aa23d6f1d"
+  integrity sha512-s81voVGamh/njwPVsYzs3vHjUwYZ3WH6GOKzOgU5XbG3RK0FLfS5ZHBZPGMYsYvCodIzRKXaRxqMWje9OL3MJw==
 
 "@iconify/icons-noto@^1.1.4":
   version "1.1.4"
@@ -99,11 +99,11 @@
   integrity sha512-gAVxWHv7kvmBcI+GPiXpDSAPWpzMqWw5TcfGPDjgULpV/NwfAe6T7LvhX+SAGqsiG35IxmNADIr0Y29UtD83Cg==
 
 "@iconify/svelte@^2.0.0":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@iconify/svelte/-/svelte-2.1.1.tgz#7d086fe876b3bd4c5280333727f66e8423642473"
-  integrity sha512-5fyFMvxDtmrWdRmaXFiSCe2PNDaBSmCnuMcEBVkPOV8ZxkZ67Lk4hskqqc0MafMoKHvRgefUneyf2NtFE63Zbw==
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@iconify/svelte/-/svelte-2.1.2.tgz#f6dbc807ea470be47d884d311ada74d73077889c"
+  integrity sha512-NvWPg/lKNDlzyB698vLv8hYT5eRDxSIk0QnMtB7UMOZ7/SbmInyBqsb8t3SXoCYVsNG3poznW+pwYrJZ7kY+mQ==
   dependencies:
-    cross-fetch "^3.1.4"
+    cross-fetch "^3.1.5"
 
 "@iconify/types@^1.0.10":
   version "1.0.12"
@@ -695,7 +695,7 @@ core-util-is@1.0.2, core-util-is@~1.0.0:
   resolved "https://registry.yarnpkg.com/core-util-is/-/core-util-is-1.0.2.tgz#b5fd54220aa2bc5ab57aab7140c940754503c1a7"
   integrity sha1-tf1UIgqivFq1eqtxQMlAdUUDwac=
 
-cross-fetch@^3.1.4:
+cross-fetch@^3.1.5:
   version "3.1.5"
   resolved "https://registry.yarnpkg.com/cross-fetch/-/cross-fetch-3.1.5.tgz#e1389f44d9e7ba767907f7af8454787952ab534f"
   integrity sha512-lvb1SBsI0Z7GDwmuid+mU3kWVBwTVUbe7S0H52yaaAdQOXq2YktTCZdlAcNKFzE6QtRz0snpw9bNiPeOIkkQvw==
@@ -2265,9 +2265,9 @@ rollup-pluginutils@^2.8.2:
     estree-walker "^0.6.1"
 
 rollup@^2.48.0:
-  version "2.65.0"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.65.0.tgz#936ed140ac28f87aff22c6ac950b3d0303fadc3b"
-  integrity sha512-ohZVYrhtVMTqqeqH26sngfMiyGDg6gCUReOsoflXvYpzUkDHp8sVG8F9FQxjs72OfnLWpXP2nNNqQ9I0vkRovA==
+  version "2.66.1"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.66.1.tgz#366b0404de353c4331d538c3ad2963934fcb4937"
+  integrity sha512-crSgLhSkLMnKr4s9iZ/1qJCplgAgrRY+igWv8KhG/AjKOJ0YX/WpmANyn8oxrw+zenF3BXWDLa7Xl/QZISH+7w==
   optionalDependencies:
     fsevents "~2.3.2"
 
@@ -2679,9 +2679,9 @@ svelte-spa-router@^3.1.0:
     regexparam "2.0.0"
 
 svelte@^3.38.2:
-  version "3.46.2"
-  resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.46.2.tgz#f0ffbffaea3a9a760edcbefc0902b41998a686ad"
-  integrity sha512-RXSAtYNefe01Sb1lXtZ2I+gzn3t/h/59hoaRNeRrm8IkMIu6BSiAkbpi41xb+C44x54YKnbk9+dtfs3pM4hECA==
+  version "3.46.3"
+  resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.46.3.tgz#31202b0c795f276726d95b648b6dd413116257ac"
+  integrity sha512-mTOXvv74CVQqJHqoIZDprVfRKVVmYNadXP0VKnOEA54223kLGCr1nMrifS4Zx29qMt/xRB38Eq1D7dDH/fM8fQ==
 
 table@^6.0.9:
   version "6.7.1"
