@@ -767,7 +767,7 @@ namespace Wowthing.Web.Controllers
             var allSources = new HashSet<string>();
             foreach (var sources in accountSources)
             {
-                allSources.UnionWith(sources.Sources);
+                allSources.UnionWith(sources.Sources.EmptyIfNull());
             }
             
             timer.AddPoint("Get Transmog");
