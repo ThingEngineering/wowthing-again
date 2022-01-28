@@ -420,7 +420,7 @@ namespace Wowthing.Backend.Jobs.User
                     {
                         item = new PlayerGuildItem
                         {
-                            GuildId = guild.Id,
+                            Guild = guild,
                             TabId = tabId,
                             Slot = slot,
                         };
