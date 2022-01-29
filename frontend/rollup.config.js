@@ -31,6 +31,7 @@ const sigh = function(baseName) {
         output: {
             sourcemap: !production,
             format: 'iife',
+            indent: false,
             name: 'app',
             dir: distPath,
             entryFileNames: production ? '[name].[hash].js' : '[name].dev.js',
@@ -94,6 +95,8 @@ const sigh = function(baseName) {
             // instead of npm run dev), minify
             production && terser(),
         ],
+        //perf: true,
+        treeshake: production,
         watch: {
             exclude: ['node_modules/**'],
             include: ['**/*.css', '**/*.scss', '**/*.svelte', '**/*.ts'],
