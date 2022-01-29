@@ -44,7 +44,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.ImportDumps,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(24),
-            Version = 8,
+            Version = 9,
         };
 
         public override async Task Run(params string[] data)
@@ -229,17 +229,22 @@ namespace Wowthing.Backend.Jobs.Misc
                 dbItem.SubclassId = item.SubclassID;
                 dbItem.InventoryType = item.InventoryType;
 
-                if (dbItem.ClassId == (int)WowItemClass.Armor)
+                if (Backend.Data.Hardcoded.ItemClassOverride.TryGetValue(item.ID, out var classTuple))
+                {
+                    dbItem.ClassId = (short)classTuple.Item1;
+                    dbItem.SubclassId = (short)classTuple.Item2;
+                }
+                else if (dbItem.ClassId == (int)WowItemClass.Armor)
                 {
                     var subClass = (WowArmorSubclass)dbItem.SubclassId;
                     // Cosmetic
-                    if (dbItem.Flags.HasFlag(WowItemFlags.Cosmetic))
+                    /*if (dbItem.Flags.HasFlag(WowItemFlags.Cosmetic))
                     {
                         dbItem.SubclassId = (int)WowArmorSubclass.Cosmetic;
-                    }
+                    }*/
                     // Cloak
-                    else if (subClass == WowArmorSubclass.Cloth &&
-                             dbItem.InventoryType == WowInventoryType.Back)
+                    if (subClass == WowArmorSubclass.Cloth &&
+                        dbItem.InventoryType == WowInventoryType.Back)
                     {
                         dbItem.SubclassId = (int)WowArmorSubclass.Cloak;
                     }
