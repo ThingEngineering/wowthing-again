@@ -4,8 +4,10 @@
 
     import { costMap, costOrder } from '@/data/vendors'
     import { vendorState } from '@/stores/local-storage'
+    import { data as settingsData } from '@/stores/settings'
     import { staticStore } from '@/stores/static'
     import { userVendorStore } from '@/stores/user-vendors'
+    import getFilteredCategories from '@/utils/vendors/get-filtered-categories'
     import type { StaticDataVendorCategory } from '@/types/data/static'
 
     import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
@@ -20,7 +22,7 @@
     let categories: StaticDataVendorCategory[]
     let totalCosts: Record<string, Record<string, number>>
     $: {
-        categories = filter(
+        let baseCategories = filter(
             find(
                 $staticStore.data.vendorSets,
                 (cats: StaticDataVendorCategory[]) => cats !== null && cats[0].slug === slug1
@@ -29,11 +31,13 @@
         )
 
         if (slug2) {
-            categories = filter(
-                categories,
+            baseCategories = filter(
+                baseCategories,
                 (cat: StaticDataVendorCategory) => cat.slug === slug2
             )
         }
+
+        categories = getFilteredCategories($settingsData, baseCategories)
 
         totalCosts = {}
         for (const category of categories) {
