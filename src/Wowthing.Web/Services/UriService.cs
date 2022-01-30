@@ -92,9 +92,13 @@ namespace Wowthing.Web.Services
             if (user == null)
             {
                 user = await _userManager.FindByNameAsync(username);
+                if (user == null)
+                {
+                    return "";
+                }
             }
 
-            if (user.CanUseSubdomain)
+            if (user?.CanUseSubdomain == true)
             {
                 var builder = new UriBuilder(BaseUri);
                 if (!builder.Host.StartsWith($"{username}."))
@@ -103,8 +107,10 @@ namespace Wowthing.Web.Services
                 }
                 return builder.Uri.ToString();
             }
-            else
+
+            if (_httpContextAccessor != null)
             {
+            
                 return _linkGenerator.GetUriByAction(
                     _httpContextAccessor.HttpContext,
                     controller: "User",
@@ -112,6 +118,8 @@ namespace Wowthing.Web.Services
                     values: new { username }
                 );
             }
+
+            return "";
         }
     }
 }
