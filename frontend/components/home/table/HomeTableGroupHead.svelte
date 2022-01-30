@@ -9,6 +9,7 @@
     import HeadCovenant from './head/HomeTableHeadCovenant.svelte'
     import HeadLockouts from './head/HomeTableHeadLockouts.svelte'
     import HeadMount from './head/HomeTableHeadMount.svelte'
+    import HeadMythicPlusScore from './head/HomeTableHeadMythicPlusScore.svelte'
     import HeadTorghast from './head/HomeTableHeadTorghast.svelte'
     import RowGold from './row/HomeTableRowGold.svelte'
     import RowPlayedTime from './row/HomeTableRowPlayedTime.svelte'
@@ -63,6 +64,9 @@
 
         {:else if field === 'mountSpeed'}
             <HeadMount />
+
+        {:else if field === 'mythicPlusScore'}
+            <HeadMythicPlusScore />
 
         {:else if field === 'playedTime'}
             {#if !isPublic}

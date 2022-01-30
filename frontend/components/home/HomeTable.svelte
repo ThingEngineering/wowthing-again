@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { Constants } from '@/data/constants'
     import { data as settings } from '@/stores/settings'
     import { userStore } from '@/stores'
 
@@ -11,6 +12,7 @@
     import RowKeystone from '@/components/character-table/row/Keystone.svelte'
     import RowLockouts from './table/row/HomeTableRowLockouts.svelte'
     import RowMountSpeed from './table/row/HomeTableRowMountSpeed.svelte'
+    import RowMythicPlusScore from '@/components/character-table/row/RaiderIo.svelte'
     import RowPlayedTime from './table/row/HomeTableRowPlayedTime.svelte'
     import RowProfessions from './table/row/HomeTableRowProfessions.svelte'
     import RowRestedExperience from './table/row/HomeTableRowRestedExperience.svelte'
@@ -59,6 +61,12 @@
                 {#if !isPublic || $settings.privacy.publicLockouts}
                     <RowLockouts {character} />
                 {/if}
+
+            {:else if field === 'mythicPlusScore'}
+                <RowMythicPlusScore
+                    seasonId={Constants.mythicPlusSeason}
+                    {character}
+                />
 
             {:else if field === 'playedTime'}
                 {#if !isPublic}
