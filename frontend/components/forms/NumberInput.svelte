@@ -17,7 +17,9 @@
 </style>
 
 <fieldset>
-    <label for="input-{name}">{label}</label>
+    {#if label}
+        <label for="input-{name}">{label}</label>
+    {/if}
     <input id="input-{name}" name={name} type="number" min="{minValue}" max="{maxValue}" bind:value={value} on:input>
     <slot />
 </fieldset>
