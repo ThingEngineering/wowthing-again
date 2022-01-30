@@ -40,13 +40,12 @@
     <div class="setting">
         <NumberInput
             name="auctions_minimumExtraPetsValue"
-            label="Minimum Extra Pets value"
+            label="Minimum buyout"
             minValue={0}
             maxValue={999999}
             bind:value={$settingsData.auctions.minimumExtraPetsValue}
-        >
-            <p>Minimum buyout price (in gold) to include an auction in Extra Pets.</p>
-        </NumberInput>
+        />
+        <p>Minimum buyout price (in gold) to include an auction in Extra Pets.</p>
     </div>
 
 
