@@ -60,6 +60,7 @@
             )
 
             userVendorStore.setup(
+                $settings,
                 $staticStore.data,
             )
 

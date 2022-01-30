@@ -1,11 +1,18 @@
 import { UserCount, WritableFancyStore } from '@/types'
+import getTransmogClassMask from '@/utils/get-transmog-class-mask'
+import userHasDrop from '@/utils/user-has-drop'
+import type { Settings } from '@/types'
 import type { UserVendorData } from '@/types/data'
 import type { StaticData } from '@/types/data/static'
-import userHasDrop from '@/utils/user-has-drop'
 
 
 export class UserVendorStore extends WritableFancyStore<UserVendorData> {
-    setup(staticData: StaticData): void {
+    setup(
+        settingsData: Settings,
+        staticData: StaticData
+    ): void {
+        const classMask = getTransmogClassMask(settingsData)
+
         const seen: Record<string, boolean> = {}
         const stats: Record<string, UserCount> = {}
         const userHas: Record<string, boolean> = {}
@@ -32,7 +39,13 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
                     const groupKey = `${catKey}--${groupIndex}`
                     const groupStats = stats[groupKey] = new UserCount()
 
+                    group.filteredThings = []
                     for (const thing of group.things) {
+                        if (thing.classMask > 0 && (thing.classMask & classMask) === 0) {
+                            continue
+                        }
+                        group.filteredThings.push(thing)
+
                         const thingKey = `${group.type}-${thing.id}`
 
                         if (!seen[thingKey]) {

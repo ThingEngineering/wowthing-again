@@ -11,6 +11,7 @@ export interface StaticDataVendorGroup {
     name: string
     type: FarmDropType
     things: StaticDataVendorItem[]
+    filteredThings: StaticDataVendorItem[]
 }
 
 export interface StaticDataVendorItem {
