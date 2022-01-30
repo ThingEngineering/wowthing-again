@@ -48,7 +48,6 @@
         <p>Minimum buyout price (in gold) to include an auction in Extra Pets.</p>
     </div>
 
-
     <h3>Ignored Realms</h3>
 
     {#each connectedRealms as connectedRealm}
