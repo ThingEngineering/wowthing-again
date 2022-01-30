@@ -48,8 +48,11 @@ const skipCurrencies: number[] = [
     1835, // Linked Currency Test (Src) - PTH
 
     // Player vs. Player
+    103, // Arena Points
     104, // Honor Points DEPRECATED
     181, // Honor Points DEPRECATED2
+    161, // Stone Keeper's Shard
+    201, // Venture Coin
 
     // Legion
     1355, // Felessence
