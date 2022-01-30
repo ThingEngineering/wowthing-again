@@ -3,11 +3,9 @@
 
     import { costMap, costOrder } from '@/data/vendors'
     import { vendorState } from '@/stores/local-storage'
-    import { data as settingsData } from '@/stores/settings'
     import { userVendorStore } from '@/stores/user-vendors'
     import { FarmDropType } from '@/types/enums'
     import getPercentClass from '@/utils/get-percent-class'
-    import getTransmogClassMask from '@/utils/get-transmog-class-mask'
     import { toNiceNumber } from '@/utils/to-nice'
     import type { UserCount } from '@/types'
     import type { StaticDataVendorGroup, StaticDataVendorItem } from '@/types/data/static'
@@ -24,8 +22,6 @@
     let percent: number
     let things: [StaticDataVendorItem, boolean][]
     $: {
-        const classMask = getTransmogClassMask($settingsData)
-
         if (group.type === FarmDropType.Mount) {
             linkType = 'spell'
         }
@@ -37,7 +33,7 @@
         }
 
         things = []
-        for (const thing of group.things) {
+        for (const thing of group.filteredThings) {
             things.push([
                 thing,
                 $userVendorStore.data.userHas[`${group.type}-${thing.id}`],

@@ -4,10 +4,8 @@
 
     import { costMap, costOrder } from '@/data/vendors'
     import { vendorState } from '@/stores/local-storage'
-    import { data as settingsData } from '@/stores/settings'
     import { staticStore } from '@/stores/static'
     import { userVendorStore } from '@/stores/user-vendors'
-    import getFilteredCategories from '@/utils/vendors/get-filtered-categories'
     import type { StaticDataVendorCategory } from '@/types/data/static'
 
     import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
@@ -22,7 +20,7 @@
     let categories: StaticDataVendorCategory[]
     let totalCosts: Record<string, Record<string, number>>
     $: {
-        let baseCategories = filter(
+        categories = filter(
             find(
                 $staticStore.data.vendorSets,
                 (cats: StaticDataVendorCategory[]) => cats !== null && cats[0].slug === slug1
@@ -31,19 +29,17 @@
         )
 
         if (slug2) {
-            baseCategories = filter(
-                baseCategories,
+            categories = filter(
+                categories,
                 (cat: StaticDataVendorCategory) => cat.slug === slug2
             )
         }
-
-        categories = getFilteredCategories($settingsData, baseCategories)
 
         totalCosts = {}
         for (const category of categories) {
             totalCosts[category.slug] = {}
             for (const group of category.groups) {
-                for (const thing of group.things) {
+                for (const thing of group.filteredThings) {
                     if (!$userVendorStore.data.userHas[`${group.type}-${thing.id}`]) {
                         for (const currency in thing.costs) {
                             totalCosts[category.slug][currency] = (totalCosts[category.slug][currency] || 0) + thing.costs[currency]
@@ -129,10 +125,12 @@
 
                 <div class="collection-section">
                     {#each category.groups as group, groupIndex}
-                        <Group
-                            stats={$userVendorStore.data.stats[`${slug1}--${category.slug}--${groupIndex}`]}
-                            {group}
-                        />
+                        {#if group.filteredThings.length > 0}
+                            <Group
+                                stats={$userVendorStore.data.stats[`${slug1}--${category.slug}--${groupIndex}`]}
+                                {group}
+                            />
+                        {/if}
                     {/each}
                 </div>
             {/each}
