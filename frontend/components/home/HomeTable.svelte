@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { Constants } from '@/data/constants'
     import { data as settings } from '@/stores/settings'
     import { userStore } from '@/stores'
 
@@ -11,6 +12,7 @@
     import RowKeystone from '@/components/character-table/row/Keystone.svelte'
     import RowLockouts from './table/row/HomeTableRowLockouts.svelte'
     import RowMountSpeed from './table/row/HomeTableRowMountSpeed.svelte'
+    import RowMythicPlusScore from '@/components/character-table/row/RaiderIo.svelte'
     import RowPlayedTime from './table/row/HomeTableRowPlayedTime.svelte'
     import RowProfessions from './table/row/HomeTableRowProfessions.svelte'
     import RowRestedExperience from './table/row/HomeTableRowRestedExperience.svelte'
@@ -18,6 +20,7 @@
     import RowTorghast from './table/row/HomeTableRowTorghast.svelte'
     import RowUghQuest from './table/row/HomeTableRowUghQuest.svelte'
     import RowVaultMythicPlus from '@/components/character-table/row/VaultMythicPlus.svelte'
+    import RowVaultPvp from '@/components/character-table/row/VaultPvp.svelte'
     import RowVaultRaid from '@/components/character-table/row/VaultRaid.svelte'
 
     export let characterLimit = 0
@@ -60,6 +63,12 @@
                     <RowLockouts {character} />
                 {/if}
 
+            {:else if field === 'mythicPlusScore'}
+                <RowMythicPlusScore
+                    seasonId={Constants.mythicPlusSeason}
+                    {character}
+                />
+
             {:else if field === 'playedTime'}
                 {#if !isPublic}
                     <RowPlayedTime playedTotal={character.playedTotal} />
@@ -82,8 +91,8 @@
             {:else if field === 'vaultMythicPlus'}
                 <RowVaultMythicPlus {character} />
 
-            <!--{:else if field === 'vaultPvp'}
-                <RowVaultPvp {character} />-->
+            {:else if field === 'vaultPvp'}
+                <RowVaultPvp {character} />
 
             {:else if field === 'vaultRaid'}
                 <RowVaultRaid {character} />

@@ -26,6 +26,7 @@
         {key: 'keystone', name: 'Mythic+ keystone'},
         {key: 'lockouts', name: 'Lockouts'},
         {key: 'mountSpeed', name: 'Mount speed'},
+        {key: 'mythicPlusScore', name: 'Mythic+ score'},
         {key: 'playedTime', name: 'Played time'},
         {key: 'professions', name: 'Professions'},
         {key: 'restedExperience', name: 'Rested XP'},

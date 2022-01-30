@@ -1,6 +1,7 @@
 <script lang="ts">
     import { getContext } from 'svelte'
 
+    import { seasonMap } from '@/data/dungeon'
     import { raiderIoScores } from '@/data/raider-io'
     import { staticStore } from '@/stores/static'
     import tippy from '@/utils/tippy'
@@ -8,6 +9,7 @@
     import type { StaticDataRaiderIoScoreTiers } from '@/types/data/static'
 
     export let season: MythicPlusSeason
+    export let seasonId = 0
 
     let character: Character
     let scores: CharacterRaiderIoSeason | undefined
@@ -15,6 +17,10 @@
     let tooltip: TippyProps
 
     $: {
+        if (seasonId > 0) {
+            season = seasonMap[seasonId]
+        }
+
         character = getContext('character')
         scores = character.raiderIo?.[season.id]
         const tiers: StaticDataRaiderIoScoreTiers = $staticStore.data.raiderIoScoreTiers[season.id]
@@ -53,6 +59,7 @@
     .score {
         @include cell-width($width-raider-io);
 
+        border-left: 1px solid $border-color;
         color: var(--color);
         text-align: right;
     }

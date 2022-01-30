@@ -96,6 +96,7 @@ namespace Wowthing.Lib.Models
             "keystone",
             "lockouts",
             "mountSpeed",
+            "mythicPlusScore",
             "playedTime",
             "professions",
             "restedExperience",

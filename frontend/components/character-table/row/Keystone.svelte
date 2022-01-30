@@ -29,6 +29,8 @@
 <style lang="scss">
     td {
         @include cell-width($width-keystone);
+
+        border-left: 1px solid $border-color;
     }
     span {
         display: inline-block;

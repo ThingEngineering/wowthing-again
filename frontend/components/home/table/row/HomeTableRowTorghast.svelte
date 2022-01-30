@@ -35,6 +35,8 @@
 <style lang="scss">
     td {
         @include cell-width($width-torghast);
+
+        border-left: 1px solid $border-color;
     }
     span {
         &.separator {

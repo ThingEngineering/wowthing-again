@@ -12,6 +12,7 @@
 
 <style lang="scss">
     td {
+        border-left: 1px solid $border-color;
         white-space: nowrap;
 
         & :global(img) {
