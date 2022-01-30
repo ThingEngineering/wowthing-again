@@ -20,6 +20,7 @@
     import RowTorghast from './table/row/HomeTableRowTorghast.svelte'
     import RowUghQuest from './table/row/HomeTableRowUghQuest.svelte'
     import RowVaultMythicPlus from '@/components/character-table/row/VaultMythicPlus.svelte'
+    import RowVaultPvp from '@/components/character-table/row/VaultPvp.svelte'
     import RowVaultRaid from '@/components/character-table/row/VaultRaid.svelte'
 
     export let characterLimit = 0
@@ -90,8 +91,8 @@
             {:else if field === 'vaultMythicPlus'}
                 <RowVaultMythicPlus {character} />
 
-            <!--{:else if field === 'vaultPvp'}
-                <RowVaultPvp {character} />-->
+            {:else if field === 'vaultPvp'}
+                <RowVaultPvp {character} />
 
             {:else if field === 'vaultRaid'}
                 <RowVaultRaid {character} />
