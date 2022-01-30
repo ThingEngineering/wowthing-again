@@ -13,6 +13,7 @@ export interface Settings {
     }
 
     general: {
+        desiredAccountName: string
         language: Language
         refreshInterval: number
         useWowdb: boolean

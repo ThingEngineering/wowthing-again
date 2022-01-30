@@ -124,6 +124,10 @@ namespace Wowthing.Lib.Models
                 General.RefreshInterval = Math.Max(10, Math.Min(1440, General.RefreshInterval));
 #endif
             }
+
+            General.DesiredAccountName = General.DesiredAccountName
+                .EmptyIfNullOrWhitespace()
+                .Truncate(32);
             
             General.GroupBy = General.GroupBy
                 .EmptyIfNull()
@@ -198,6 +202,7 @@ namespace Wowthing.Lib.Models
     
     public class ApplicationUserSettingsGeneral
     {
+        public string DesiredAccountName { get; set; }
         public Language Language { get; set; } = Language.enUS;
         public int RefreshInterval { get; set; } = 0;
         public bool UseWowdb { get; set; } = false;
