@@ -8,6 +8,7 @@ namespace Wowthing.Backend.Models.Data.Vendors
     public class OutVendorItem
     {
         public int Id { get; set; }
+        public int ClassMask { get; set; }
         public WowQuality Quality { get; set; }
         public Dictionary<string, int> Costs { get; set; } = new();
 

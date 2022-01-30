@@ -3,9 +3,11 @@
 
     import { costMap, costOrder } from '@/data/vendors'
     import { vendorState } from '@/stores/local-storage'
+    import { data as settingsData } from '@/stores/settings'
     import { userVendorStore } from '@/stores/user-vendors'
     import { FarmDropType } from '@/types/enums'
     import getPercentClass from '@/utils/get-percent-class'
+    import getTransmogClassMask from '@/utils/get-transmog-class-mask'
     import { toNiceNumber } from '@/utils/to-nice'
     import type { UserCount } from '@/types'
     import type { StaticDataVendorGroup, StaticDataVendorItem } from '@/types/data/static'
@@ -22,6 +24,8 @@
     let percent: number
     let things: [StaticDataVendorItem, boolean][]
     $: {
+        const classMask = getTransmogClassMask($settingsData)
+
         if (group.type === FarmDropType.Mount) {
             linkType = 'spell'
         }
@@ -39,8 +43,6 @@
                 $userVendorStore.data.userHas[`${group.type}-${thing.id}`],
             ])
         }
-
-        // filter items probably
 
         percent = Math.floor((stats?.have ?? 0) / (stats?.total ?? 1) * 100)
     }
@@ -65,62 +67,64 @@
     }
 </style>
 
-<div class="collection-group">
-    <h4 class="drop-shadow {getPercentClass(percent)}">
-        {group.name}
-        <CollectionCount counts={stats} />
-    </h4>
+{#if things?.length > 0}
+    <div class="collection-group">
+        <h4 class="drop-shadow {getPercentClass(percent)}">
+            {group.name}
+            <CollectionCount counts={stats} />
+        </h4>
 
-    <div class="collection-objects">
-        {#each things as [thing, userHas]}
-            {#if ($vendorState.showCollected && userHas) || ($vendorState.showUncollected && !userHas)}
-                <div
-                    class="quality{thing.quality}"
-                    class:missing={
-                    (!$vendorState.highlightMissing && !userHas) ||
-                    ($vendorState.highlightMissing && userHas)
-                }
-                >
-                    <WowheadLink
-                        id={thing.id}
-                        type={linkType}
+        <div class="collection-objects">
+            {#each things as [thing, userHas]}
+                {#if ($vendorState.showCollected && userHas) || ($vendorState.showUncollected && !userHas)}
+                    <div
+                        class="quality{thing.quality}"
+                        class:missing={
+                        (!$vendorState.highlightMissing && !userHas) ||
+                        ($vendorState.highlightMissing && userHas)
+                    }
                     >
-                        <WowthingImage
-                            name="{linkType}/{thing.id}"
-                            size={48}
-                            border={2}
-                        />
-                    </WowheadLink>
+                        <WowheadLink
+                            id={thing.id}
+                            type={linkType}
+                        >
+                            <WowthingImage
+                                name="{linkType}/{thing.id}"
+                                size={48}
+                                border={2}
+                            />
+                        </WowheadLink>
 
-                    {#if userHas}
-                        <div class="collected-icon drop-shadow">
-                            <IconifyIcon icon={mdiCheckboxOutline} />
-                        </div>
-                    {/if}
+                        {#if userHas}
+                            <div class="collected-icon drop-shadow">
+                                <IconifyIcon icon={mdiCheckboxOutline} />
+                            </div>
+                        {/if}
 
-                    {#if !userHas}
-                        <div class="costs">
-                            {#each costOrder as cost}
-                                {#if thing.costs[cost]}
-                                    <div>
-                                        {toNiceNumber(thing.costs[cost])}
-                                        <WowheadLink
-                                            type={costMap[cost][0]}
-                                            id={costMap[cost][1]}
-                                        >
-                                            <WowthingImage
-                                                name="{costMap[cost][0]}/{costMap[cost][1]}"
-                                                size={16}
-                                                border={0}
-                                            />
-                                        </WowheadLink>
-                                    </div>
-                                {/if}
-                            {/each}
-                        </div>
-                    {/if}
-                </div>
-            {/if}
-        {/each}
+                        {#if !userHas}
+                            <div class="costs">
+                                {#each costOrder as cost}
+                                    {#if thing.costs[cost]}
+                                        <div>
+                                            {toNiceNumber(thing.costs[cost])}
+                                            <WowheadLink
+                                                type={costMap[cost][0]}
+                                                id={costMap[cost][1]}
+                                            >
+                                                <WowthingImage
+                                                    name="{costMap[cost][0]}/{costMap[cost][1]}"
+                                                    size={16}
+                                                    border={0}
+                                                />
+                                            </WowheadLink>
+                                        </div>
+                                    {/if}
+                                {/each}
+                            </div>
+                        {/if}
+                    </div>
+                {/if}
+            {/each}
+        </div>
     </div>
-</div>
+{/if}

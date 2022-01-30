@@ -581,6 +581,7 @@ namespace Wowthing.Backend.Jobs.Misc
                             }
                             else
                             {
+                                item.ClassMask = _itemMap[item.Id].GetCalculatedClassMask();
                                 item.Quality = _itemMap[item.Id].Quality;
                             }
                         }

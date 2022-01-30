@@ -15,6 +15,7 @@ export interface StaticDataVendorGroup {
 
 export interface StaticDataVendorItem {
     id: number
+    classMask: number
     quality: ItemQuality
     appearanceId?: number
     costs: Record<string, number>
