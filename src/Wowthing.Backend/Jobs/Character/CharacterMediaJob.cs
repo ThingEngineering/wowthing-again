@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Wowthing.Backend.Models.API.Character;
+using Wowthing.Lib.Enums;
 using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
@@ -52,6 +53,16 @@ namespace Wowthing.Backend.Jobs.Character
             media.MainRawUrl = assetMap.GetValueOrDefault("main-raw");
 
             await Context.SaveChangesAsync();
+
+            if (!string.IsNullOrWhiteSpace(media.MainUrl))
+            {
+                await JobRepository.AddImageJobAsync(ImageType.CharacterFull, query.CharacterId, ImageFormat.Jpeg, media.MainUrl);
+            }
+
+            if (!string.IsNullOrWhiteSpace(media.MainRawUrl))
+            {
+                await JobRepository.AddImageJobAsync(ImageType.Character, query.CharacterId, ImageFormat.WebP, media.MainRawUrl);
+            }
         }
     }
 }

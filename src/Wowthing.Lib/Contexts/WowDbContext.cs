@@ -17,6 +17,7 @@ namespace Wowthing.Lib.Contexts
     {
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
 
+        public DbSet<Image> Image { get; set; }
         public DbSet<LanguageString> LanguageString { get; set; }
         
         public DbSet<WowAuction> WowAuction { get; set; }
@@ -113,6 +114,9 @@ namespace Wowthing.Lib.Contexts
             builder.Entity<IdentityRoleClaim<long>>().ToTable("asp_net_role_claims");
 
             // Composite keys
+            builder.Entity<Image>()
+                .HasKey(image => new { image.Type, image.Id, image.Format });
+            
             builder.Entity<LanguageString>()
                 .HasKey(ls => new { ls.Language, ls.Type, ls.Id });
 

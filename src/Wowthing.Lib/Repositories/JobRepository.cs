@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using StackExchange.Redis;
+using Wowthing.Lib.Enums;
 using Wowthing.Lib.Jobs;
 
 namespace Wowthing.Lib.Repositories
@@ -47,6 +48,18 @@ namespace Wowthing.Lib.Repositories
         public async Task AddJobsAsync(JobPriority priority, JobType type, IEnumerable<string> datas)
         {
             await AddJobsAsync(priority, type, datas.Select(d => new[] { d }));
+        }
+
+        public async Task AddImageJobAsync(ImageType imageType, int id, ImageFormat format, string url)
+        {
+            string[] data =
+            {
+                ((int)imageType).ToString(),
+                id.ToString(),
+                ((int)format).ToString(),
+                url,
+            };
+            await AddJobAsync(JobPriority.Low, JobType.Image, data);
         }
 
         public async Task<bool> CheckLastTime(string prefix, string suffix, TimeSpan maximumAge)

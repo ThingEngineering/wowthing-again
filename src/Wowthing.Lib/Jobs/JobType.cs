@@ -30,6 +30,7 @@
 
         // Internal jobs
         UserUpload = 900,
+        Image,
 
         // Scheduled jobs
         CacheStatic = 1000,

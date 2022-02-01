@@ -74,7 +74,7 @@ COPY {0} (
             var shrug = AuctionLog(realm);
 
             var uri = GenerateUri(realm.Region, ApiNamespace.Dynamic, string.Format(ApiPath, realmId));
-            JsonResult<ApiDataAuctions> result;
+            JobHttpResult<ApiDataAuctions> result;
             try
             {
                 result = await GetJson<ApiDataAuctions>(uri, timer: timer);
