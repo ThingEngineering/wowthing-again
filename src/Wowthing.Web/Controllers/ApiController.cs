@@ -317,12 +317,6 @@ namespace Wowthing.Web.Controllers
                 .Include(c => c.Shadowlands)
                 .Include(c => c.Specializations)
                 .Include(c => c.Weekly);
-
-            if (!apiResult.Public || !apiResult.Privacy.Anonymized)
-            {
-                characterQuery = characterQuery
-                    .Include(c => c.Media);
-            }
             
             if (!apiResult.Public || apiResult.Privacy.PublicCurrencies)
             {
@@ -355,14 +349,36 @@ namespace Wowthing.Web.Controllers
                 .AsSplitQuery()
                 .ToArrayAsync();
 
-            timer.AddPoint("characterQuery");
+            var characterIds = characters
+                .Select(character => character.Id)
+                .ToArray();
+            
+            timer.AddPoint("Characters");
 
+            var backgrounds = await _context.BackgroundImage
+                .Where(bi => bi.Role == null)
+                .ToDictionaryAsync(bi => bi.Id);
+            
+            var images = await _context.Image
+                .Where(image =>
+                    (image.Type == ImageType.Character || image.Type == ImageType.CharacterFull) &&
+                    characterIds.Contains(image.Id)
+                )
+                .ToDictionaryAsync(
+                    image => $"{image.Id.ToString()}-{((int)image.Type).ToString()}",
+                    image => image.Url
+                );
+            
+            timer.AddPoint("Images");
+            
             var currentPeriods = _context.WowPeriod
                 .AsEnumerable()
                 .GroupBy(p => p.Region)
                 .ToDictionary(
                     grp => (int)grp.Key,
-                    grp => grp.OrderByDescending(p => p.Starts).First()
+                    grp => grp
+                        .OrderByDescending(p => p.Starts)
+                        .First()
                 );
 
             var now = DateTime.UtcNow;
@@ -376,7 +392,7 @@ namespace Wowthing.Web.Controllers
                 }
             }
 
-            timer.AddPoint("currentPeriods");
+            timer.AddPoint("Periods");
 
             // Mounts
             var mounts = await _context.MountQuery
@@ -416,7 +432,10 @@ namespace Wowthing.Web.Controllers
             {
                 Accounts = accounts.ToDictionary(k => k.Id, v => new UserApiAccount(v)),
                 Characters = characters.Select(character => new UserApiCharacter(character, apiResult.Public, apiResult.Privacy)).ToList(),
+                
+                Backgrounds = backgrounds,
                 CurrentPeriod = currentPeriods,
+                Images = images,
                 Public = apiResult.Public,
 
                 AddonMounts = mounts.AddonMounts
