@@ -17,6 +17,7 @@ namespace Wowthing.Lib.Contexts
     {
         public DbSet<ApplicationUser> ApplicationUser { get; set; }
 
+        public DbSet<BackgroundImage> BackgroundImage { get; set; }
         public DbSet<Image> Image { get; set; }
         public DbSet<LanguageString> LanguageString { get; set; }
         
