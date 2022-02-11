@@ -1,0 +1,731 @@
+ID,Name_lang
+1,"SPIELER, Mensch"
+2,"SPIELER, Orc"
+3,"SPIELER, Zwerg"
+4,"SPIELER, Nachtelf"
+5,"SPIELER, Untoter"
+6,"SPIELER, Tauren"
+7,Kreatur
+8,"SPIELER, Gnom"
+9,"SPIELER, Troll"
+14,Monster
+15,Bruderschaft der Defias
+16,Gnoll - Flusspfoten
+17,Gnoll - Rotkammgebirge
+18,Gnoll - Schattenfelle
+19,Murloc
+20,"Untoter, Geißel"
+21,Beutebucht
+22,Wildtier - Spinne
+23,Wildtier - Eber
+24,Worgen
+25,Kobold
+26,"Troll, Blutskalpe"
+27,"Troll, Schädelspalter"
+28,Beute
+29,Wildtier - Wolf
+30,Verräter der Bruderschaft der Defias
+31,Befreundet
+32,Trogg
+33,"Troll, Frostmähnen"
+34,"Orc, Schwarzfels"
+35,Bösewicht
+36,Opfer
+37,Wildtier - Bär
+38,Oger
+39,Kurzens Söldner
+40,Eskortierter
+41,Venture Company
+42,Wildtier - Raptor
+43,Basilisk
+44,"Drachenschwarm, Grün"
+45,Verirrte
+46,Schmiedekunst - Rüstungsschmiedekunst
+47,Eisenschmiede
+48,Dunkeleisenzwerge
+49,"Mensch, Nachtwache"
+50,"Drachenschwarm, Rot"
+51,Gnoll - Moosfelle
+52,"Orc, Teufelsdrachenmalklan"
+53,Gnom - Lepra
+54,Gnomeregan
+55,Leopard
+56,Scharlachroter Kreuzzug
+57,Gnoll - Moderfelle
+58,Wildtier - Gorilla
+59,Thoriumbruderschaft
+60,Naga
+61,Dalaran
+62,Unglückseliger Geist
+63,Darkhowl
+64,Grell
+65,Furbolgs
+66,"Horde, Standard"
+67,Horde
+68,Unterstadt
+69,Darnassus
+70,Syndikat
+71,Hügellandmiliz
+72,Sturmwind
+73,Dämon
+74,Elementar
+75,Geist
+76,Orgrimmar
+77,Schatz
+78,Gnoll - Morastschnauzen
+79,"Hügelland, Bürgermeister von Süderstade"
+80,"Drachenschwarm, Schwarz"
+81,Donnerfels
+82,"Troll, Bleichborken"
+83,Lederverarbeitung - Elementar
+84,"Stacheleber, Klingenmähnen"
+85,"Stacheleber, Borstennacken"
+86,Lederverarbeitung - Drachen
+87,Blutsegelbukaniere
+88,Tiefschwarze Grotte
+89,Makrura
+90,"Zentaur, Kolkar"
+91,"Zentaur, Galak"
+92,Gelkisklan
+93,Magramklan
+94,Maraudine
+108,Theramore
+109,"Stacheleber, Klingenhauer"
+110,"Stacheleber, Klingenmähnen 2"
+111,"Stacheleber, Totenkopf"
+128,Feind
+148,Umgebung
+168,Karawane von Nethergarde
+169,Dampfdruckkartell
+189,Allianz Allgemein
+209,Nethergarde
+229,Die Höhlen des Wehklagens
+249,Sillithid
+269,Überlebende aus Silbermond
+270,Stamm der Zandalari
+289,Schmiedekunst - Waffenschmiedekunst
+309,Skorpid
+310,Wildtier - Fledermaus
+311,Titanisch
+329,Zuchtmeister Fitzel
+349,Rabenholdt
+369,Gadgetzan
+389,Gnomeregan-Bug
+409,Harpyie
+429,Brennende Klinge
+449,Schattenseidewilderer
+450,Sengende Spinne
+469,Allianz
+470,Ratschet
+489,"Goblin, Dunkeleisen (Bargast)"
+509,Der Bund von Arathor
+510,Die Entweihten
+511,Riese
+529,Argentumdämmerung
+530,Dunkelspeertrolle
+531,"Drachenschwarm, Bronze"
+532,"Drachenschwarm, Blau"
+549,Lederverarbeitung - Stamm
+550,Ingenieurskunst - Goblin
+551,Ingenieurskunst - Gnom
+569,Schmiedekunst - Hammerschmiedekunst
+570,Schmiedekunst - Axtschmiedekunst
+571,Schmiedekunst - Schwertschmiedekunst
+572,"Troll, Blutfratzen"
+573,Südmeerfreibeuter
+574,Darrowehr
+575,Unverderbte Furbolgs
+576,Holzschlundfeste
+577,Ewige Warte
+589,Wintersäblerausbilder
+609,Zirkel des Cenarius
+629,Splitterspeertrolle
+630,Ravasaurusausbilder
+649,Majordomus Exekutus
+669,Wildtier - Aasvogel
+670,Wildtier - Katze
+671,Wildtier - Krebs
+672,Wildtier - Krokilisk
+673,Wildtier - Hyäne
+674,Wildtier - Eule
+675,Wildtier - Skorpid
+676,Wildtier - Weitschreiter
+677,Wildtier - Schildkröte
+678,Wildtier - Windnatter
+679,Trainingsattrappe
+689,"Drachenschwarm, schwarz - Köder"
+709,"Schlachtfeld, neutral"
+729,Frostwolfklan
+730,Sturmlanzengarde
+749,Hydraxianer
+750,Sulfuronfeuerlords
+769,Gizlocks Attrappe
+770,Gizlocks Glücksbringer
+771,Gizlock
+789,Moro'gai
+790,Geisterführer - Allianz
+809,Shen'dralar
+829,Oger (Hauptmann Krombruch)
+849,Geisterführer - Horde
+869,Jaedenar
+889,Kriegshymnenklan
+890,Silberschwingen
+891,Streitkräfte der Allianz
+892,Streitkräfte der Horde
+893,Bruchhauertrolle
+909,Dunkelmond-Jahrmarkt
+910,Brut Nozdormus
+911,Silbermond
+912,Macht von Kalimdor
+914,"SPIELER, Blutelf"
+915,Armeen von C'Thun
+916,Silithidenaggressoren
+917,Die Eisenschmiedebrigade
+918,Ferngesteuerte Gegner
+919,Ferngesteuerte Objekte
+920,Rot
+921,Blau
+922,Tristessa
+923,Die Weltenwanderer
+925,Sonnenwanderer
+926,Die Magistergilde
+927,"SPIELER, Draenei"
+928,Geißelinvasoren
+929,Klan der Blutschläger
+930,Die Exodar
+932,Die Aldor
+933,Das Konsortium
+934,Die Seher
+935,Die Sha'tar
+936,Shattrath
+937,Waldtrolle
+938,Die Omenai
+940,Die Söhne Lothars
+941,Die Mag'har
+942,Expedition des Cenarius
+943,Höllenorc
+944,Höllenorcgeist
+945,Geister der Söhne Lothars
+946,Ehrenfeste
+947,Thrallmar
+948,Test Faction 2
+949,Test Faction 1
+950,ToWoW - Flag
+951,ToWoW - Flag Trigger Alliance (DND)
+952,Test Faction 3
+954,ToWoW - Flag Trigger Horde (DND)
+955,Die Zerschlagenen
+956,Astraleum
+957,Erdelementare
+958,Kampfroboter
+959,Guter Darsteller
+960,Böser Darsteller
+961,Furbolgs der Tannenruhfeste
+962,Wahnsinniger Eulkin
+963,Schach Allianz
+964,Schach Horde
+965,Monster Spar
+966,Monster Spar Buddy
+967,Das Violette Auge
+968,Sonnenfalken
+969,Hand von Argus
+970,Sporeggar
+971,Fungusgigant
+972,Sporensegler
+973,"Monster, Raubtier"
+974,"Monster, Beute"
+975,Anomalie der Leere
+976,Verteidiger des Hyjal
+977,Invasoren des Hyjal
+978,Kurenai
+979,"Der Irdene Ring, Alte Welt"
+980,The Burning Crusade
+981,Arakkoa
+982,Banner der Zangarmarschen (Allianz)
+983,Banner der Zangarmarschen (Horde)
+984,Banner der Zangarmarschen (Neutral)
+985,Höhlen der Zeit - Thrall
+986,Höhlen der Zeit - Durnholde
+987,Höhlen der Zeit - Wachen von Süderstade
+988,Agent des Schattenrats
+989,Hüter der Zeit
+990,Die Wächter der Sande
+991,"Verteidiger des Dunklen Portals, Allianz"
+992,"Verteidiger des Dunklen Portals, Horde"
+993,"Angreifer des Dunklen Portals, Legion"
+994,Hetzerauslöser
+995,Animationsauslöser 2
+996,Animationsauslöser 3
+997,Animationsauslöser 4
+998,Animationsauslöser 5
+999,Manakreatur
+1000,Khadgars Diener
+1001,Klan der Speerspießer
+1002,Sparringspartner des Astraleums
+1003,Protektorat
+1004,Arkanvernichter (DNR)
+1005,"Befreundet, versteckt"
+1006,Kirin'Var - Dathric
+1007,Kirin'Var - Belmara
+1008,Kirin'Var - Luminrath
+1009,Kirin'Var - Cohlien
+1010,Illidans Diener
+1011,Unteres Viertel
+1012,Die Todeshörigen
+1013,Geister von Schattenmond 1
+1014,Geister von Schattenmond 2
+1015,Netherschwingen
+1016,Wyrmkult
+1017,Treant
+1018,Leotherasdämon I
+1019,Leotherasdämon II
+1020,Leotherasdämon III
+1021,Leotherasdämon IV
+1022,Leotherasdämon V
+1023,Azaloth
+1024,Felsklaue
+1025,Klauenjäger
+1026,Schattenmondschemen
+1027,Legionskommunikator
+1028,Uralte des Rabenwalds
+1029,Schach - Freundlich zu allen Schach
+1030,Tore des Schwarzen Tempels - Illidari
+1031,Himmelswache der Sha'tari
+1032,Area 52
+1033,Maiev
+1034,Schattenhafter Arakkoa von Skettis
+1035,Arakkoa von Skettis
+1036,Drachenmalgegner
+1037,Vorhut der Allianz
+1038,Ogri'la
+1039,Felshetzer
+1040,REUSE
+1041,Frenzy
+1042,Feinde der Himmelswache
+1043,"Stinktier, violett"
+1044,Deserteur von Theramore
+1045,Vrykul
+1046,Piraten des Nordmeeres
+1047,Tuskarr
+1048,UNUSED
+1049,"Troll, Amani"
+1050,Expedition Valianz
+1051,UNUSED
+1052,Expedition der Horde
+1053,Westwacht
+1054,Gefleckter Greif
+1055,Gezähmter Seuchenhund
+1056,Vrykul (Uralter Geist 1)
+1057,Vrykul (Uralter Geist 2)
+1058,Vrykul (Uralter Geist 3)
+1059,CTF - Flagge - Allianz
+1060,Test
+1061,Vrykul
+1062,Gladiator der Vrykul
+1063,Kämpfer von Valgarde
+1064,Die Taunka
+1065,"Monster, Zone Force Reaction 1"
+1066,"Monster, Zone Force Reaction 2"
+1067,Die Hand der Rache
+1068,Forscherliga
+1069,"Widderrennen, Powerup"
+1070,"Widderrennen, Falle"
+1071,Craigs Eichhörnchen
+1072,REUSE
+1073,Die Kalu'ak
+1074,Festtag - Wasserfass
+1075,Festtag - Allgemein
+1076,Eisenzwerge
+1077,Offensive der Zerschmetterten Sonne
+1078,Kampfhaustier
+1079,"Murloc, Winterflossen"
+1080,"Friendly, Force Reaction 1"
+1081,"Object, Force Reaction"
+1083,REUSE
+1084,"Vrykul, Meer"
+1085,Kriegshymnenoffensive
+1086,Wilderer
+1087,Feiertagsmonster
+1088,Furbolgs der Rotfänge
+1089,Furbolgs der Frostpfoten
+1090,Kirin Tor
+1091,Der Wyrmruhpakt
+1092,Azjol-Nerub
+1093,REUSE
+1094,Der Silberbund
+1095,Trapper der Grizzlyhügel
+1096,REUSE
+1097,Wrath of the Lich King
+1098,Ritter der Schwarzen Klinge
+1099,Geißel an der Pforte des Zorns
+1100,Allianz an der Pforte des Zorns
+1101,Horde an der Pforte des Zorns
+1102,CTF - Flagge - Horde
+1103,CTF - Flagge - Neutral
+1104,Stamm der Wildherzen
+1105,Die Orakel
+1106,Argentumkreuzzug
+1107,"Troll, Drakkari"
+1108,HdZ Arthas
+1109,HdZ Bürger von Stratholme
+1110,HdZ Geißel
+1111,Freya
+1112,Reittier - Taxi - Allianz
+1113,Reittier - Taxi - Horde
+1114,Reittier - Taxi - Neutral
+1115,"Elementar, Wasser"
+1116,"Elementar, Luft"
+1117,Sholazarbecken
+1118,Classic
+1119,Die Söhne Hodirs
+1120,Eisenriesen
+1121,Frostvrykul
+1122,Die Irdenen
+1123,Monsterkundiger
+1124,Die Sonnenhäscher
+1125,Hildarthing
+1126,Die Frosterben
+1128,Schattenhammer
+1129,Furbolgs der Schwarzfelle
+1130,"Hirsch, Dunkelküste"
+1131,"Bär, Dunkelküste"
+1132,"Mondpirscher, Dunkelküste"
+1133,Bilgewasserkartell
+1134,Gilneas
+1135,Der Irdene Ring
+1136,Tristessakonversion
+1137,Wintersäblerkonversion
+1138,Kataklysmus - neuer neutraler Ruf
+1142,Überlebende der Magram
+1143,Söhne von Gelkis
+1144,REUSE
+1145,Hasst alles
+1152,"SPIELER, Goblin"
+1153,"SPIELER, Worgen"
+1154,Umwandlung zum Silberbund
+1155,Umwandlung zu den Sonnenhäschern
+1156,Das Äscherne Verdikt
+1157,Die Pygmäen
+1158,Wächter des Hyjal
+1159,CTF - Flagge - Allianz 2
+1160,CTF - Flagge - Horde 2
+1161,Grimmtotems
+1162,Cataclysm
+1168,Gilde
+1169,Gilde
+1171,Therazane
+1172,Drachenmalklan
+1173,Ramkahen
+1174,Wildhammerklan
+1177,Wächter von Baradin
+1178,Höllschreis Hand
+1179,Schleim
+1181,"Befreundet, neu"
+1189,K3
+1204,Rächer des Hyjal
+1216,Akademie des Shang Xi
+1228,Wald-Ho-zen
+1233,CoT Well of Eternity - Illidan
+1234,CoT Well of Eternity - High Elves
+1235,CoT Well of Eternity - Illidan (Stealth)
+1237,CoT Well of Eternity - Demons
+1240,CoT Well of Eternity - Demon Balls
+1241,CoT Well of Eternity - Hunter Stalkers
+1242,Jinyu der Perlflossen
+1243,Ho-zen
+1245,Mists of Pandaria
+1249,"PLAYER, Expansion 4 Neutral"
+1252,Sha
+1253,Wächter des Osttempels
+1265,Shen'dralar
+1268,Mogu
+1269,Goldener Lotus
+1270,Shado-Pan
+1271,Orden der Wolkenschlange
+1272,Die Ackerbauern
+1273,Jogu der Betrunkene
+1275,Ella
+1276,Der alte Hügelpranke
+1277,Chi-Chi
+1278,Sho
+1279,Haohan Lehmkrall
+1280,Tina Lehmkrall
+1281,Gina Lehmkrall
+1282,Fischi Rohrroder
+1283,Bauer Fung
+1286,Wächter des Roten Kranichs
+1302,Die Angler
+1336,Der Mantis-Schwarm
+1337,Die Klaxxi
+1338,Gurthan-Mogu
+1339,Harthak-Mogu
+1340,Korgesh-Mogu
+1341,Die Himmlischen Erhabenen
+1345,Die Lehrensucher
+1351,Die Braumeister
+1352,Die Huojin
+1353,Die Tushui
+1357,Nomi
+1358,Nat Pagle
+1359,Der Schwarze Prinz
+1364,"Friendly, Force Reaction 2"
+1366,"Friendly, Force Reaction 3"
+1367,"Friendly, Force Reaction 4"
+1368,"Friendly, Force Reaction 5"
+1369,"Friendly, Force Reaction 6"
+1370,"Friendly, Force Reaction 7"
+1371,Pel'zin
+1372,Honigtau
+1374,Shlae'gararena (Saison 1)
+1375,Herrschaftsoffensive
+1376,Operation Schildwall
+1387,Offensive der Kirin Tor
+1388,Sonnenhäscheransturm
+1416,Akamas Vertrauen
+1419,Bizmos Boxbar (Saison 1)
+1433,"Monster, Neutralität erzwungen für Zwangsreaktion"
+1435,Shado-Pan-Vorstoß
+1440,Rebellion der Dunkelspeere
+1443,Kor'kron
+1444,Warlords of Draenor
+1445,Frostwolforcs
+1447,Dunkelspeertrolle
+1457,Schotlinge
+1483,Schotlingfresser
+1491,Die Zeitwanderer
+1492,Kaiser Shaohao
+1496,Frostfeueroger
+1500,Rotes Phantom
+1508,Schattenmondorcs
+1509,Die Fahlen
+1514,Jünger von Rukhmar
+1515,Ausgestoßene Arakkoa
+1520,Exilanten des Schattenmondklans
+1521,Schattenrat
+1591,"Draenei, Draenor"
+1617,Die Ursprünglichen
+1618,Die Brecher
+1623,Die Eiserne Horde
+1665,Die Sargerei
+1674,Draenorsporen
+1679,Operation Erdferkel
+1680,Hochfels
+1681,Vol'jins Speer
+1682,Wrynns Vorhut
+1687,Goren von Gorgrond
+1690,Shlae'gararena (Saison 2)
+1691,Bizmos Boxbar (Saison 2)
+1708,Orcs des Lachenden Schädels
+1710,Sha'tarverteidigung
+1711,Werterhaltungsgesellschaft des Dampfdruckkartells
+1712,GarInvasion_IronHorde
+1713,GarInvasion_ShadowCouncil
+1714,GarInvasion_Ogres
+1715,GarInvasion_Primals
+1716,GarInvasion_Breakers
+1717,GarInvasion_ThunderLord
+1718,GarInvasion_Shadowmoon
+1731,Exarchenrat
+1732,Draenorexpedition des Dampfdruckkartells
+1733,Delvar Eisenfaust
+1735,Kasernenleibwächter
+1736,Tormmok
+1737,Krallenpriester Ishaal
+1738,Beschützerin Illona
+1739,Vivianne
+1740,Aeda Morgenglanz
+1741,Leorajh
+1746,Nagrandgronn
+1747,Schatz des Kolosseums
+1756,LVA_Looters
+1757,LVA_Preservers
+1758,LVA_Naturalists
+1759,LVA_Machines
+1760,Gladiatoren von Hochfels
+1786,Invasoren der Brennenden Legion
+1815,Gilnearischer Überlebender
+1828,Der Hochbergstamm
+1833,Die Ungekrönten
+1834,Legion
+1847,Hand des Propheten
+1848,Vol'jins Kopfjäger
+1849,Orden der Erwachten
+1850,Die Säbelzahnpirscher
+1859,Die Nachtsüchtigen
+1860,Arkaner Durst (Thalyssra)
+1861,Arcane Thirst (Silgryn) DEPRECATED
+1862,Arkaner Durst (Oculeth)
+1883,Die Traumweber
+1888,Vrykul von Jandvik
+1894,Die Wächterinnen
+1899,Mondwache
+1900,Farondis' Hofstaat
+1905,Druide vom Hain der Träume
+1910,Drogbar
+1911,Geister der Kvaldir
+1912,Kvaldir
+1913,Nachtgeborene
+1914,Die Verdorrten
+1919,Arkaner Durst (Valtrois)
+1920,Mondwache
+1947,Illidari
+1948,Valarjar
+1953,Alptraum
+1962,Zivilist der Nachtgeborenen
+1975,Beschwörer Margoss
+1984,Die Ersthelfer
+1989,Mondwache
+2010,Shlae'gararena (Saison 3)
+2011,Bizmos Boxbar (Saison 3)
+2012,Rebellen der Nachtgeborenen
+2018,Rache der Kralle
+2040,Rache der Kralle
+2045,Die Legionsrichter
+2063,Arne Test - Paragon Reputation Stormwind
+2085,Der Hochbergstamm (huldigend)
+2086,Valarjar (huldigend)
+2087,Farondis' Hofstaat (huldigend)
+2088,Die Traumweber (huldigend)
+2089,Die Nachtsüchtigen (huldigend)
+2090,Die Wächterinnen (huldigend)
+2091,Die Legionsrichter (huldigend)
+2097,Ilyssia von den Wassern
+2098,Hüterin Raynae
+2099,Akule Flusshorn
+2100,Corbyn
+2101,Sha'leth
+2102,Wichtlus
+2103,Zandalariimperium
+2104,Battle for Azeroth
+2105,Nazmani
+2111,Zandalaridinosaurier
+2120,Kul Tiras - Tiragarde
+2121,Freibeuter des Großen Meers
+2122,Eisenfluträuber
+2135,Chromie
+2155,Bluttrolle
+2156,Talanjis Expedition
+2157,Die Eidgebundenen
+2158,Voldunai
+2159,7. Legion
+2160,Prachtmeeradmiralität
+2161,Glutorden
+2162,Die Sturmwacht
+2163,Tortollanische Sucher
+2164,Champions von Azeroth
+2165,Armee des Lichts
+2166,Armee des Lichts (huldigend)
+2167,Der Argusvorstoß (huldigend)
+2170,Der Argusvorstoß
+2176,"Neutral, Force Reaction 1"
+2177,"Neutral, Force Reaction 2"
+2178,"Neutral, Force Reaction 3"
+2179,"Neutral, Force Reaction 4"
+2185,Die Bilgeratten
+2186,Schwarzzahnvandalen
+2187,Schwertwasserkorsaren
+2192,Handelskompanie Aschenwind
+2218,8.0 Hidden Object - Red
+2219,8.0 Hidden Object - Withered - Red
+2220,8.0 Hidden Object - Withered - Blue
+2221,8.0 Hidden Object - Withered - Green
+2222,8.0 Hidden Object - Withered - Yellow
+2227,Wildtier - Biene
+2228,Wildtier - Wendigo
+2229,"PLAYER, Void Elf"
+2230,"PLAYER, Highmountain Tauren"
+2231,"PLAYER, Nightborne"
+2232,"PLAYER, Lightforged Draenei"
+2233,Dinoausbildung - Pterrordax
+2258,Wendigos
+2259,Bienen
+2264,Kul Tiras - Drustvar
+2265,Kul Tiras - Sturmsang
+2370,Dinoausbildung - Terrorhorn
+2371,Bizmos Boxbar
+2372,Shlae'gararena
+2373,Die Entfesselten
+2374,Die Entfesselten (huldigend)
+2375,Jäger Akana
+2376,Scharfseher Ori
+2377,Klingenkämpfer Inowari
+2378,Zandalariimperium (huldigend)
+2379,Prachtmeeradmiralität (huldigend)
+2380,Talanjis Expedition (huldigend)
+2381,Die Sturmwacht (huldigend)
+2382,Voldunai (huldigend)
+2383,Glutorden (huldigend)
+2384,7. Legion (huldigend)
+2385,Die Eidgebundenen (huldigend)
+2386,Champions von Azeroth (huldigend)
+2387,Tortollanische Sucher (huldigend)
+2388,Poen Kiembrack
+2389,Neri Scharffinne
+2390,Vim Salzherz
+2391,Rostbolzenwiderstand
+2392,Rostbolzenwiderstand (huldigend)
+2394,Einsiedlerkrebse
+2395,Honigrückenschwarm
+2396,Honigrückendrohne
+2397,Honigrückenschwarmmutter
+2398,Honigrückenernterin
+2400,Ankoaner der Meeresklinge
+2401,Ankoaner der Meeresklinge (huldigend)
+2404,Haus der Konstrukte
+2405,Haus der Rituale
+2406,Haus der Auserwählten
+2407,Die Aufgestiegenen
+2408,Dunkle Kyrianer
+2410,Die Unvergängliche Armee
+2411,Steinlegion
+2412,Sündensturz
+2413,Hof der Ernter
+2414,Schattenlande
+2415,Rajani
+2416,Rajani (huldigend)
+2417,Abkommen von Uldum
+2418,Abkommen von Uldum (huldigend)
+2419,N'Zoth
+2422,Nachtfae
+2427,Aqirjungtier
+2431,Owen Test
+2432,Ve'nari
+2437,Torghast - Wache
+2438,Torghast - Gefangener
+2439,Die Eingeschworenen
+2440,Die Uvergängliche Armee (huldigend)
+2441,Die Aufgestiegenen (huldigend)
+2442,Hof der Ernter (huldigend)
+2444,Die Wilde Jagd (huldigend)
+2445,Der Gluthof
+2446,Baronin Vashj
+2447,Lady Mondbeere
+2448,Mikanikos
+2449,Die Gräfin
+2450,Alexandros Mograine
+2451,Jagdhauptmann Korayn
+2452,Polemarch Adrestes
+2453,Rendel und Knüppelfratze
+2454,Choofa
+2455,Grufthüter Kassir
+2456,Dromanin Aliothe
+2457,Großmeister Vole
+2458,Kleia und Pelagos
+2459,Sika
+2460,Steinkopf
+2461,Seuchenerfinder Marileth
+2462,Flickmeister
+2463,Marasmius
+2464,Hof der Nacht
+2465,Die Wilde Jagd
+2468,Korthia
+2469,Fraktalkunde
+2470,Vorstoß des Todes
+2471,Vorstoß des Todes (huldigend)
+2472,Der Archivarskodex
+2473,Der Archivarskodex (huldigend)
+2474,Ve'nari (huldigend)
+2478,Die Erleuchteten
+2479,Die Erleuchteten (huldigend)
+2480,Automa
+2502,Angelockte Monster in Zereth Mortis

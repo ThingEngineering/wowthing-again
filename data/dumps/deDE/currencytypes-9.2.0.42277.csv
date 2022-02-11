@@ -1,0 +1,309 @@
+ID,Name_lang
+1,Abzeichentest 4
+2,Abzeichentest 2
+4,Abzeichentest 5
+22,Birmingham Test Item 3
+42,Abzeichen der Gerechtigkeit
+61,Juwelierssymbol von Dalaran
+81,Feinschmeckerpreis
+101,Emblem des Heldentums
+102,Emblem der Ehre
+103,Arenapunkte
+104,Ehrenpunkte
+121,Ehrenabzeichen des Alteractals
+122,Ehrenabzeichen des Arathibeckens
+123,Ehrenabzeichen vom Auge des Sturms
+124,Ehrenabzeichen vom Strand der Uralten
+125,Ehrenabzeichen der Kriegshymnenschlucht
+126,Ehrenabzeichen von Tausendwinter
+161,Splitter eines Steinbewahrers
+181,Ehrenpunkte
+201,Münze der Venture Co.
+221,Emblem der Eroberung
+241,Siegel des Champions
+301,Emblem des Triumphs
+321,Ehrenabzeichen der Insel der Eroberung
+341,Emblem des Frosts
+361,Symbol des erhabenen Juweliers
+384,Archäolog. Fragment (Zwergisch)
+385,Archäolog. Fragment (Trollisch)
+391,Belobigungsabzeichen von Tol Barad
+393,Archäolog. Fragment (Fossil)
+394,Archäolog. Fragment (Nachtelfisch)
+395,Gerechtigkeitspunkte
+396,Tapferkeitspunkte
+397,Archäolog. Fragment (Orcisch)
+398,Archäolog. Fragment (Draeneiisch)
+399,Archäolog. Fragment (Vrykul)
+400,Archäolog. Fragment (Nerubisch)
+401,Archäolog. Fragment (Tol'vir)
+402,Eisentatzmarke
+416,Abzeichen des Weltenbaums
+483,Eroberung (Meta) Arena
+484,Eroberung (Meta) Gewertetes SF
+515,Gewinnlos des Dunkelmond-Jahrmarkts
+614,Partikel der Dunkelheit
+615,Essenz des verderbten Todesschwinge
+676,Archäolog. Fragment (Pandaren)
+677,Archäolog. Fragment (Mogu)
+692,Eroberung (Meta) Zufälliges SF
+697,Ehrwürdiges Amulett des Glücks
+698,Zenmarke des Juwelenschleifers
+738,Geringes Amulett des Glücks
+752,Schicksalsrune der Mogu
+754,Archäolog. Fragment (Mantis)
+776,Kriegsemblem
+777,Zeitlose Münze
+789,Blutige Münze
+810,Schwarzeisenfragment
+821,Archäolog. Fragment (Klans von Draenor)
+823,Apexiskristalle
+824,Garnisonsressourcen
+828,Archäolog. Fragment (Oger)
+829,Archäolog. Fragment (Arakkoa)
+830,n/a
+897,UNUSED
+910,Alchemiegeheimnis von Draenor
+944,Artefaktfragment
+980,Schäbige Eisenmünzen
+994,Siegel des geschmiedeten Schicksals
+999,Schneidergeheimnis von Draenor
+1008,Juwelenschliffgeheimnis von Draenor
+1017,Lederverarbeitungsgeheimnis von Draenor
+1020,Schmiedegeheimnis von Draenor
+1101,Öl
+1129,Siegel des unausweichlichen Schicksals
+1149,Blindes Auge
+1154,Schattenmünzen
+1155,Uraltes Mana
+1166,Zeitverzerrtes Abzeichen
+1171,Artefaktwissen
+1172,Archäolog. Fragment (Hochgeborene)
+1173,Archäolog. Fragment (Hochbergtauren)
+1174,Archäolog. Fragment (Dämonen)
+1191,Tapferkeitspunkte
+1220,Ordensressourcen
+1226,Nethersplitter
+1268,Verwittertes Artefakt
+1273,Siegel des verheerten Schicksals
+1275,Kuriose Münze
+1299,Kämpfergold
+1314,Verweilendes Seelenfragment
+1324,Qirajipunkte der Horde
+1325,Qirajipunkte der Allianz
+1342,Kriegsvorräte der Legionsrichter
+1347,Legionfall Building - Personal Tracker - Mage Tower (Hidden)
+1349,Legionfall Building - Personal Tracker - Command Tower (Hidden)
+1350,Legionfall Building - Personal Tracker - Nether Tower (Hidden)
+1355,Teufelsessenz
+1356,Echos der Schlacht
+1357,Echos der Dominanz
+1379,Marke des großen Stylechecks
+1388,Rüstungsfetzen
+1401,Festungsressourcen
+1416,Münzen der Luft
+1501,Wabernde Essenz
+1506,Argusportalstein
+1508,Verschleierter Argunit
+1533,Erweckende Essenz
+1534,Archäolog. Fragment (Zandalari)
+1535,Archäolog. Fragment (Drust)
+1540,Holz
+1541,Eisen
+1553,Azerit
+1559,Essenz der Stürme
+1560,Kriegsressourcen
+1565,Reiches Azeritfragment
+1579,Champions von Azeroth
+1580,Siegel des kriegsgezeichneten Schicksals
+1585,Accountweite Ehre
+1586,Ehrestufe
+1587,Kriegsvorräte
+1592,Glutorden
+1593,Prachtmeeradmiralität
+1594,Sturmwacht
+1595,Talanjis Expedition
+1596,Voldunai
+1597,Zandalariimperium
+1598,Tortollanische Sucher
+1599,7. Legion
+1600,Eidgebundene
+1602,Eroberung
+1703,Teilnahmewährung für gewertetes Saison-PvP
+1704,Geistsplitter
+1705,Warfronts - Personal Tracker - Iron in Chest (Hidden)
+1710,Seefahrerdublone
+1714,Warfronts - Personal Tracker - Wood in Chest (Hidden)
+1715,Progenitorsplitter
+1716,Dienstmedaille der Eidgebundenen
+1717,Dienstmedaille der 7. Legion
+1718,Titanenresiduum
+1719,Verderbte Andenken
+1721,Prismatische Manaperle
+1722,Azeriterz
+1723,Holz
+1728,Phantasma
+1738,Entfesselt
+1739,Ankoaner
+1740,Rostbolzenwiderstand (versteckt)
+1742,Rostbolzenwiderstand
+1743,Falsche Anima zur Questverfolgung
+1744,Verderbtes Andenken
+1745,Verbündete in Nazjatar - Neri Scharffinne
+1746,Verbündete in Nazjatar - Vim Salzherz
+1747,Verbündete in Nazjatar - Poen Kiembrack
+1748,Verbündete in Nazjatar - Klingenkämpfer Inowari
+1749,Verbündete in Nazjatar - Jäger Akana
+1750,Verbündete in Nazjatar - Scharfseher Ori
+1752,Honigrückenschwarm
+1754,Argentumbelobigung
+1755,Manifestierte Visionen
+1757,Abkommen von Uldum
+1758,Rajani
+1761,Gegnerischer Schaden
+1762,Gegnerische Gesundheit
+1763,Tode
+1767,Stygia
+1769,"Questerfahrung (Standard, versteckt)"
+1792,Ehre
+1794,Sühnenanima
+1802,Stand der wöchentlichen Belohnungen im PvP der Schattenlande
+1803,Echos aus Ny'alotha
+1804,Aufgestiegene
+1805,Unvergängliche Armee
+1806,Wilde Jagd
+1807,Hof der Ernter
+1808,Kanalisierte Anima
+1810,Erlöste Seele
+1811,zzoldSanctum Architect
+1812,zzoldSanctum Anima Weaver
+1813,Reservoiranima
+1816,Sündensteinfragmente
+1819,Medaillon des Dienstes
+1820,Durchfluteter Rubin
+1822,Ruhm
+1828,Seelenasche
+1829,Ruhm (Kyrianer)
+1830,Ruhm (Venthyr)
+1831,Ruhm (Nachtfae)
+1832,Ruhm (Nekrolords)
+1835,Linked Currency Test (Src) - PTH
+1836,Linked Currency Test (Dst) - PTH
+1837,Der Gluthof
+1838,Die Gräfin
+1839,Rendel und Knüppelfratze
+1840,Steinkopf
+1841,Grufthüter Kassir
+1842,Baronin Vashj
+1843,Seuchenerfinder Marileth
+1844,Großmeister Vole
+1845,Alexandros Mograine
+1846,Sika
+1847,Kleia und Pelagos
+1848,Polemarch Adrestes
+1849,Mikanikos
+1850,Choofa
+1851,Dromanin Aliothe
+1852,Jagdhauptmann Korayn
+1853,Lady Mondbeere
+1859,Reservoiranima - Kyrianer
+1860,Reservoiranima - Venthyr
+1861,Reservoiranima - Nachtfae
+1862,Reservoiranima - Nekrolords
+1863,Erlöste Seele - Kyrianer
+1864,Erlöste Seele - Venthyr
+1865,Erlöste Seele - Nachtfae
+1866,Erlöste Seele - Nekrolords
+1867,Architekt des Sanktums - Kyrianer
+1868,Architekt des Sanktums - Venthyr
+1869,Architekt des Sanktums - Nachtfae
+1870,Architekt des Sanktums - Nekrolords
+1871,Animaweber des Sanktums - Kyrianer
+1872,Animaweber des Sanktums - Venthyr
+1873,Animaweber des Sanktums - Nachtfae
+1874,Animaweber des Sanktums - Nekrolords
+1877,Bonuserfahrung
+1878,Flickmeister
+1880,Ve'nari
+1883,Seelenbandmedienenergie
+1884,Die Eingeschworenen
+1885,Dankbare Gabe
+1887,Hof der Nacht
+1888,Marasmius
+1889,Abenteuerkampagnenfortschritt
+1891,Ehre aus gewertetem PvP
+1902,9.1 - Torghast XP - Prototype - LJS
+1903,Unsichtbare Belohnung
+1904,Turmwissen
+1906,Seelenglut
+1907,Vorstoß des Todes
+1909,Torghast - Punkteübersicht - Abgeschlossen (%)
+1910,Torghast - Punkteübersicht - Seelen (%)
+1911,Torghast - Punkteübersicht - Urnen (%)
+1912,Torghast - Punkteübersicht - Heiße Strähne (%)
+1913,Torghast - Punkteübersicht - Gesamtzeit
+1914,Torghast - Punkteübersicht - Referenzzeit
+1915,Torghast - Punkteübersicht - Tode (Überschuss)
+1916,Torghast - Punkteübersicht - Tode (Startwert)
+1917,Torghast - Punkteübersicht - Erreichter Stock
+1918,Torghast - Scoreboard - Toast Display - Time Score
+1919,Torghast - Scoreboard - Toast Display - Hot Streak Score
+1920,Torghast - Scoreboard - Toast Display - Deaths Excess Score
+1921,Torghast - Scoreboard - Toast Display - Total Score
+1922,Torghast - Scoreboard - Toast Display - Total Rewards
+1923,Torghast - Scoreboard - Toast Display - Bonus - Souls Rescued
+1924,Torghast - Scoreboard - Toast Display - Bonus - Urns Broken
+1925,Torghast - Scoreboard - Toast Display - Deaths Zero
+1926,Torghast - Scoreboard - Toast Display - Stars
+1931,Katalogisierte Forschung
+1932,Torghast - Punkteübersicht - Toastanzeige - Boss getötet
+1933,Torghast - Scoreboard - Toast Display - Bonus - Chests Opened
+1934,Torghast - Scoreboard - Toast Display - Bonus - Escorts Complete
+1935,Torghast - Scoreboard - Toast Display - Bonus - No Trap Damage
+1936,Torghast - Punkteübersicht - Toast - Bonus - Boss schnell tot
+1937,Torghast - Scoreboard - Toast Display - Bonus - Single Stacks
+1938,Torghast - Scoreboard - Toast Display - Bonus - 5 Stacks
+1939,Torghast - Scoreboard - Toast Display - Bonus - Broker Killer
+1940,Torghast - Scoreboard - Toast Display - Bonus - Elite Slayer
+1941,Torghast - Scoreboard - Toast Display - Bonus - 1000 Phantasma
+1942,Torghast - Scoreboard - Toast Display - Bonus - 500 Phant Left
+1943,Torghast - Scoreboard - Toast Display - Bonus - No Deaths
+1944,Torghast - Scoreboard - Toast Display - Bonus - No Epics
+1945,Torghast - Scoreboard - Toast Display - Bonus - Elite Unnatural
+1946,Torghast - Scoreboard - Toast Display - Total Rewards - AV Bonus
+1947,Bonustapferkeitspunkte
+1948,Torghast - Punkteübersicht - Toast - Bonus - Boss schneller tot
+1949,Torghast - Punkteübersicht - Toastanzeige - Bonus - 30+ Punkte
+1950,Torghast - Scoreboard - Toast Display - 1 Star Value
+1951,Torghast - Scoreboard - Toast Display - 2 Star Value
+1952,Torghast - Scoreboard - Toast Display - 3 Star Value
+1953,Torghast - Scoreboard - Toast Display - 4 Star Value
+1954,Torghast - Scoreboard - Toast Display - 5 Star Value
+1955,Torghast - Scoreboard - Toast Display - Points While Empowered
+1956,Torghast - Scoreboard - Toast Display - Points Empowered Score
+1957,Torghast - Scoreboard - Floor Clear Percent Floor 1
+1958,Torghast - Scoreboard - Floor Clear Percent Floor 2
+1959,Torghast - Scoreboard - Floor Clear Percent Floor 3
+1960,Torghast - Scoreboard - Floor Clear Percent Floor 4
+1961,Torghast - Scoreboard - Floor Empowered Percent Floor 1
+1962,Torghast - Scoreboard - Floor Empowered Percent Floor 2
+1963,Torghast - Scoreboard - Floor Empowered Percent Floor 3
+1964,Torghast - Scoreboard - Floor Empowered Percent Floor 4
+1965,Torghast - Scoreboard - Floor Time Floor 1
+1966,Torghast - Scoreboard - Floor Time Floor 2
+1967,Torghast - Scoreboard - Floor Time Floor 3
+1968,Torghast - Scoreboard - Floor Time Floor 4
+1969,Torghast - Scoreboard - Floor Par Time Floor 1
+1970,Torghast - Scoreboard - Floor Par Time Floor 2
+1971,Torghast - Scoreboard - Floor Par Time Floor 3
+1972,Torghast - Scoreboard - Floor Par Time Floor 4
+1976,Torghast - Scoreboard - Toast Display - Bonus - Phant Left Group
+1977,Stygische Glut
+1979,Chiffren der Ersten
+1980,Torghast - Scoreboard - Run Layer
+1981,Torghast - Scoreboard - Run ID
+1982,Die Erleuchteten
+1997,Archivarskodex
+2000,Schicksalspartikel
+2009,Kosmischer Flux
+2010,[DNT] Byron Test Currency
