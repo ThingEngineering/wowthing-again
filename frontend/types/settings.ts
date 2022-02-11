@@ -8,6 +8,7 @@ export interface Settings {
     }
 
     characters: {
+        defaultBackground: number
         hiddenCharacters: number[]
         pinnedCharacters: number[]
     }

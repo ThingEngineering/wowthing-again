@@ -19,7 +19,6 @@ export interface Character {
     playedTotal: number
     raceId: number
     realmId: number
-    renderUrl: string
     restedExperience: number
 
     lastSeenAddon: string

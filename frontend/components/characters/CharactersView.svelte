@@ -49,8 +49,9 @@
 
 <style lang="scss">
     .thing-container {
+        min-width: 1100px;
         padding: 1rem;
-        width: 60rem;
+        width: 1100px;
     }
 
     h2 {

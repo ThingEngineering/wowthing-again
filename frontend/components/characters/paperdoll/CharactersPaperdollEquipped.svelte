@@ -15,31 +15,37 @@
 </script>
 
 <style lang="scss">
-    div {
+    .equipped-item {
         --image-border-width: 2px;
+        --shadow-color: rgba(0, 0, 0, 0.9);
 
-        height: 52px;
-        width: 52px;
+        height: calc(56px + (2 * var(--image-border-width)));
+        width: calc(56px + (2 * var(--image-border-width)));
     }
     a {
         display: block;
         position: relative;
     }
     .empty-slot {
-        background: rgba(0, 0, 0, 0.8);
-        border-width: 2px;
+        background: rgba(0, 0, 0, 0.2);
+        border-width: var(--image-border-width);
+        height: 100%;
+        width: 100%;
     }
     .pill {
         bottom: 2px;
     }
 </style>
 
-<div>
+<div
+    class="equipped-item"
+    class:drop-shadow={item}
+>
     {#if item}
         <a class="quality{item.quality}" href={getItemUrl(item)}>
             <WowthingImage
                 name="item/{item.itemId}"
-                size={48}
+                size={56}
                 border={2}
             />
             <span class="pill">{item.itemLevel}</span>
