@@ -1,4 +1,5 @@
 import type { Account } from './account'
+import type { BackgroundImage } from './background-image'
 import type { Character } from './character'
 import type { InstanceDifficulty } from './dungeon'
 import type { UserCount } from './user-count'
@@ -9,7 +10,10 @@ export interface UserData {
 
     accounts: Account[]
     characters: Character[]
+
+    backgrounds: Record<number, BackgroundImage>
     currentPeriod: Record<number, UserDataCurrentPeriod>
+    images: Record<string, string>
 
     addonMounts: Record<number, boolean>
 
@@ -22,6 +26,7 @@ export interface UserData {
     // Calculated
     allLockouts: InstanceDifficulty[]
     allLockoutsMap: Record<string, InstanceDifficulty>
+    backgroundList: BackgroundImage[]
     characterMap: Record<number, Character>
 
     hasMount: Record<number, boolean>

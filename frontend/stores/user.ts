@@ -1,5 +1,6 @@
 import keys from 'lodash/keys'
 import some from 'lodash/some'
+import sortBy from 'lodash/sortBy'
 import { get } from 'svelte/store'
 
 import { difficultyMap } from '@/data/difficulty'
@@ -21,6 +22,12 @@ export class UserDataStore extends WritableFancyStore<UserData> {
 
     initialize(userData: UserData): void {
         // console.time('UserDataStore.initialize')
+
+        // Background images
+        userData.backgroundList = sortBy(
+            Object.values(userData.backgrounds),
+            (bg) => -bg.id
+        )
 
         // Unpack packed data
         if (userData.mountsPacked !== null) {

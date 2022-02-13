@@ -1,6 +1,10 @@
 name: Drops
 groups:
 
+- name: "Stormsong Valley"
+  things:
+  - 158685 # Crimson Skipper (Honey Smasher)
+
 - name: "Vol'dun"
   things:
   - 149348 # Rebuilt Gorilla Bot

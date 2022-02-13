@@ -1,0 +1,28 @@
+name: "Quests"
+groups:
+
+- name: "Ardenweald"
+  things:
+  - 171241 # Grubby (Ardenweald)
+  - 163897 # Renny (Ardenweald, Glitterfall Basin)
+
+- name: "Bastion"
+  things:
+  - 171667 # Helpful Glimmerfly (How to Catch a Glimmerfly)
+
+- name: "Maldraxxus"
+  things:
+  - 160703 # Plagueborn Slime (Plague Deviser Marileth, Maldraxxus)
+
+- name: "Revendreth"
+  things:
+  - 171136 # Dal (A Stolen Stone Fiend WQ, Revendreth)
+
+- name: "Korthia"
+  things:
+  - 179230 # Chompy (Oozing with Character WQ, Korthia)
+
+- name: "Zereth Mortis"
+  things:
+  - 184923 # E'rnee (Can I Keep Him?, Zereth Mortis)
+  - 185477 # Pocopoc

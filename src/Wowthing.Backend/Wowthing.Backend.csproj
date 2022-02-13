@@ -8,6 +8,7 @@
   <ItemGroup>
     <PackageReference Include="CsvHelper" Version="27.1.1" />
     <PackageReference Include="Decepticon.RateLimit.Redis" Version="1.0.0" />
+    <PackageReference Include="Imageflow.AllPlatforms" Version="0.7.24" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="5.0.11" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />

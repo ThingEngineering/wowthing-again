@@ -29,7 +29,6 @@ namespace Wowthing.Web.Models
         public int RestedExperience { get; set; }
         public long Gold { get; }
         public string Name { get; set; }
-        public string RenderUrl { get; set; }
         public DateTime LastSeenAddon { get; set; }
         public WowFaction Faction { get; set; }
         public WowGender Gender { get; set; }
@@ -65,7 +64,6 @@ namespace Wowthing.Web.Models
             Level = character.Level;
             MountSkill = character.MountSkill;
             RaceId = character.RaceId;
-            RenderUrl = character.Media?.MainUrl;
 
             Professions = character.Professions?.Professions;
             Specializations = character.Specializations?.Specializations;

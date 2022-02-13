@@ -282,6 +282,78 @@ namespace Wowthing.Lib.Migrations
                     b.ToTable("asp_net_users");
                 });
 
+            modelBuilder.Entity("Wowthing.Lib.Models.BackgroundImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("id")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Attribution")
+                        .HasColumnType("text")
+                        .HasColumnName("attribution");
+
+                    b.Property<short>("DefaultBrightness")
+                        .HasColumnType("smallint")
+                        .HasColumnName("default_brightness");
+
+                    b.Property<short>("DefaultSaturate")
+                        .HasColumnType("smallint")
+                        .HasColumnName("default_saturate");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text")
+                        .HasColumnName("description");
+
+                    b.Property<string>("Filename")
+                        .HasColumnType("text")
+                        .HasColumnName("filename");
+
+                    b.Property<long?>("RoleId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("role_id");
+
+                    b.HasKey("Id")
+                        .HasName("pk_background_image");
+
+                    b.HasIndex("RoleId")
+                        .HasDatabaseName("ix_background_image_role_id");
+
+                    b.ToTable("background_image");
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.Image", b =>
+                {
+                    b.Property<int>("Type")
+                        .HasColumnType("integer")
+                        .HasColumnName("type");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer")
+                        .HasColumnName("id");
+
+                    b.Property<short>("Format")
+                        .HasColumnType("smallint")
+                        .HasColumnName("format");
+
+                    b.Property<byte[]>("Data")
+                        .HasColumnType("bytea")
+                        .HasColumnName("data");
+
+                    b.Property<string>("Sha256")
+                        .HasColumnType("char(64)")
+                        .HasColumnName("sha256");
+
+                    b.HasKey("Type", "Id", "Format")
+                        .HasName("pk_image");
+
+                    b.HasIndex("Type", "Sha256", "Format")
+                        .HasDatabaseName("ix_image_type_sha256_format");
+
+                    b.ToTable("image");
+                });
+
             modelBuilder.Entity("Wowthing.Lib.Models.LanguageString", b =>
                 {
                     b.Property<short>("Language")
@@ -1847,6 +1919,16 @@ namespace Wowthing.Lib.Migrations
                         .HasConstraintName("fk_asp_net_user_tokens_asp_net_users_user_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.BackgroundImage", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole<long>", "Role")
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .HasConstraintName("fk_background_image_roles_role_id");
+
+                    b.Navigation("Role");
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.Player.PlayerAccount", b =>

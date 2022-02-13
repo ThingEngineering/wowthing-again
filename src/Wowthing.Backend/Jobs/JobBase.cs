@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
@@ -90,13 +91,43 @@ namespace Wowthing.Backend.Jobs
             return GenerateUri(query.Region, ApiNamespace.Profile, filledPath);
         }
 
-        protected async Task<JsonResult<T>> GetJson<T>(
-                Uri uri,
-                bool useAuthorization = true,
-                bool useLastModified = true,
-                JankTimer timer = null
-            )
-            //where T : class
+        protected async Task<JobHttpResult<T>> GetJson<T>(
+            Uri uri,
+            bool useAuthorization = true,
+            bool useLastModified = true,
+            JankTimer timer = null
+        )
+        {
+            bool timerOutput = false;
+            if (timer == null)
+            {
+                timer = new JankTimer();
+                timerOutput = true;
+            }
+            
+            var result = await GetBytes(uri, useAuthorization, useLastModified, timer);
+            if (result.NotModified)
+            {
+                return new JobHttpResult<T> { NotModified = true };
+            }
+            
+            var obj = JsonConvert.DeserializeObject<T>(Encoding.UTF8.GetString(result.Data));
+            timer.AddPoint("JSON");
+
+            if (timerOutput)
+            {
+                Logger.Debug("{0}", timer.ToString());
+            }
+            
+            return new JobHttpResult<T> { Data = obj };
+        }
+        
+        protected async Task<JobHttpResult<byte[]>> GetBytes(
+            Uri uri,
+            bool useAuthorization = true,
+            bool useLastModified = true,
+            JankTimer timer = null
+        )
         {
             bool timerOutput = false;
             if (timer == null)
@@ -149,7 +180,7 @@ namespace Wowthing.Backend.Jobs
 
             if (response.StatusCode == HttpStatusCode.NotModified)
             {
-                return new JsonResult<T> { NotModified = true };
+                return new JobHttpResult<byte[]> { NotModified = true };
             }
 
             if (!response.IsSuccessStatusCode)
@@ -158,7 +189,7 @@ namespace Wowthing.Backend.Jobs
                 throw new HttpRequestException(((int)response.StatusCode).ToString());
             }
 
-            var contentString = await response.Content.ReadAsStringAsync();
+            var bytes = await response.Content.ReadAsByteArrayAsync(CancellationToken);
 
             timer.AddPoint("API");
 
@@ -167,16 +198,13 @@ namespace Wowthing.Backend.Jobs
                 await db.StringSetAsync(cacheKey, response.Content.Headers.LastModified.Value.UtcDateTime.ToString("O"));
                 timer.AddPoint("Cache");
             }
-
-            T obj = JsonConvert.DeserializeObject<T>(contentString);
-            timer.AddPoint("JSON", timerOutput);
-
+            
             if (timerOutput)
             {
                 Logger.Debug("{0}", timer.ToString());
             }
 
-            return new JsonResult<T> { Data = obj };
+            return new JobHttpResult<byte[]> { Data = bytes };
         }
 
         protected void LogNotModified()

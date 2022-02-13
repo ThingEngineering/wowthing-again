@@ -1,0 +1,50 @@
+name: "Protoform Synthesis"
+groups:
+
+- name: "Hawk"
+  things:
+  - 342668 # Desertwing Hunter
+  - 359372 # Mawdapted Raptora
+  - 359373 # Raptora Swooper
+
+- name: "Snail"
+  things:
+  - 359376 # Bronze Helicid
+  - 359378 # Scarlet Helicid
+  - 346719 # Serenade
+  - 359377 # Unsuccessful Prototype Fleetpod
+
+- name: "Spider"
+  things:
+  - 359401 # Genesis Crawler
+  - 359403 # Ineffable Skitterer
+  - 359402 # Tarachnid Creeper
+
+- name: "Stag"
+  things:
+  - 359278 # Deathrunner
+  - 342671 # Pale Regal Cervid
+  - 359277 # Sundered Zerethsteed
+
+- name: "Toad"
+  things:
+  - 359413 # Goldplate Bufonid
+  - 363703 # Prototype Leaper
+  - 363706 # Russet Bufonid
+
+- name: "Vombata"
+  things:
+  - 359232 # Adorned Vombata
+  - 359230 # Curious Crystalsniffer
+  - 359231 # Darkened Vombata
+
+- name: "Wasp"
+  things:
+  - 359364 # Bronzewing Vespoid
+  - 359366 # Buzz
+  - 359367 # Forged Spiteflyer
+  - 342678 # Vespoid Flutterer
+
+- name: "Wolf"
+  things:
+  - 367673 # Heartbond Lupine

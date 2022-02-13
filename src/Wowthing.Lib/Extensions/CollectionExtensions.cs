@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using Microsoft.AspNetCore.Mvc.TagHelpers.Cache;
 using Wowthing.Lib.Utilities;
 
@@ -38,6 +40,14 @@ namespace Wowthing.Lib.Extensions
                 return result;
             }
             return result.Concat(result.SelectManyRecursive(selector));
+        }
+
+        public static string Sha256(this byte[] bytes)
+        {
+            using var hash = SHA256.Create();
+            return string.Concat(hash
+                .ComputeHash(bytes)
+                .Select(b => b.ToString("x2")));
         }
 
         public static string ToPackedUInt16Array(this List<int> list)

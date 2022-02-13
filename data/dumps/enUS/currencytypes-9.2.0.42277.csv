@@ -1,0 +1,317 @@
+ID,Name_lang,Description_lang,CategoryID,InventoryIconFileID,SpellWeight,SpellCategory,MaxQty,MaxEarnablePerWeek,Quality,FactionID,ItemGroupSoundsID,XpQuestDifficulty,AwardConditionID,MaxQtyWorldStateID,Flags[0],Flags[1]
+1,Currency Token Test Token 4,Text that describes this item can be found here.,1,133792,1,0,0,0,1,0,0,0,0,0,71682,0
+2,Currency Token Test Token 2,,1,132092,1,2,0,0,1,0,0,0,0,0,12289,0
+4,Currency Token Test Token 5,,1,133790,4,3,0,0,1,0,0,0,0,0,0,0
+22,Birmingham Test Item 3,,41,132373,0,0,0,0,1,0,0,0,0,0,0,0
+42,Badge of Justice,,1,135884,0,0,0,0,1,0,0,0,0,0,0,0
+61,Dalaran Jewelcrafter's Token,Tiffany Cartier's shop in Dalaran will gladly accept these tokens for unique jewelcrafting recipes.,21,134138,0,0,0,0,1,0,0,0,0,0,0,0
+81,Epicurean's Award,"Visit special cooking vendors in capital cities and Northrend Dalaran to purchase unusual cooking recipes, spices, and even a fine hat!",1,134411,0,0,0,0,1,0,0,0,0,0,0,0
+101,Emblem of Heroism,,22,135947,0,0,0,0,1,0,0,0,0,0,0,0
+102,Emblem of Valor,,22,237547,0,0,0,0,1,0,0,0,0,0,0,0
+103,Arena Points,,2,135884,0,0,0,0,1,0,0,0,0,0,0,0
+104,Honor Points DEPRECATED,"If you can read this, you've found a bug. REPORT IT!",2,135884,0,0,0,0,1,0,0,0,0,0,0,0
+121,Alterac Valley Mark of Honor,,2,133308,0,0,0,0,1,0,0,0,0,0,0,0
+122,Arathi Basin Mark of Honor,,2,133282,0,0,0,0,1,0,0,0,0,0,0,0
+123,Eye of the Storm Mark of Honor,,2,136032,0,0,0,0,1,0,0,0,0,0,0,0
+124,Strand of the Ancients Mark of Honor,,2,133276,0,0,0,0,1,0,0,0,0,0,0,0
+125,Warsong Gulch Mark of Honor,,2,134420,0,0,0,0,1,0,0,0,0,0,0,0
+126,Wintergrasp Mark of Honor,,2,133408,0,0,0,0,1,0,0,0,0,0,0,0
+161,Stone Keeper's Shard,,2,134375,0,0,0,0,1,0,0,0,0,0,0,0
+181,Honor Points DEPRECATED2,"If you can read this, you've found a bug. REPORT IT!",2,132484,0,0,0,0,1,0,0,0,0,0,0,0
+201,Venture Coin,,2,133799,0,0,0,0,1,0,0,0,0,0,0,0
+221,Emblem of Conquest,,22,135885,0,0,0,0,1,0,0,0,0,0,0,0
+241,Champion's Seal,Awarded for valiant acts in the Crusader's Coliseum.,21,236246,0,0,0,0,1,0,0,0,0,0,2,0
+301,Emblem of Triumph,,22,135979,0,0,0,0,1,0,0,0,0,0,0,0
+321,Isle of Conquest Mark of Honor,,2,133314,0,0,0,0,1,0,0,0,0,0,0,0
+341,Emblem of Frost,,22,334365,0,0,0,0,1,0,0,0,0,0,0,0
+361,Illustrious Jewelcrafter's Token,"Awarded for demonstrating great skill in jewelcrafting, these tokens can be used to purchase unique jewelcrafting plans and the fabulous Chimera's Eye.",81,134501,0,0,0,0,1,0,0,0,0,0,0,0
+384,Dwarf Archaeology Fragment,,82,441144,1,5,200,0,1,0,0,0,0,0,34,0
+385,Troll Archaeology Fragment,,82,441149,1,4,200,0,1,0,0,0,0,0,34,0
+391,Tol Barad Commendation,Awarded for brave deeds performed on Tol Barad.,2,409548,0,0,0,0,1,0,0,0,0,0,2,0
+393,Fossil Archaeology Fragment,,82,442734,1,8,200,0,1,0,0,0,0,0,34,0
+394,Night Elf Archaeology Fragment,,82,441146,1,9,200,0,1,0,0,0,0,0,34,0
+395,Justice Points,Used to purchase less-powerful armor and weapons.,142,463446,0,0,1,0,1,0,0,0,0,0,8280,0
+396,Valor Points,Used to purchase powerful PvE armor and weapons.,142,463447,0,0,300099,100000,4,0,0,0,0,0,8264,0
+397,Orc Archaeology Fragment,,82,442738,1,10,200,0,1,0,0,0,0,0,34,0
+398,Draenei Archaeology Fragment,,82,442731,1,11,200,0,1,0,0,0,0,0,34,0
+399,Vrykul Archaeology Fragment,,82,442742,1,12,200,0,1,0,0,0,0,0,34,0
+400,Nerubian Archaeology Fragment,,82,442736,1,13,200,0,1,0,0,0,0,0,34,0
+401,Tol'vir Archaeology Fragment,,82,442739,1,14,200,0,1,0,0,0,0,0,34,0
+402,Ironpaw Token,Represents your credit with the Ironpaw family of cooks. Can be redeemed for Cooking ingredients and other things at the Stockmaster in Halfhill Market.,1,134912,0,0,0,0,1,0,0,0,0,0,0,0
+416,Mark of the World Tree,Granted by the Guardians of Hyjal. Can be used to purchase reinforcements for the Invasion of the Firelands.,81,513195,0,0,0,0,1,0,0,0,0,0,1026,0
+483,Conquest Arena Meta,,89,463449,0,0,0,0,1,0,0,0,0,0,1484,0
+484,Conquest Rated BG Meta,,89,463449,0,0,0,0,1,0,0,0,0,0,1484,0
+515,Darkmoon Prize Ticket,Awarded for winning games or doing favors at the Darkmoon Faire.,1,134481,0,0,0,0,1,0,0,0,0,0,2,0
+614,Mote of Darkness,"Extracted from the forces of Deathwing, this dark energy can be used to power amazing magics.",81,136192,0,0,0,0,1,0,0,0,0,0,1026,0
+615,Essence of Corrupted Deathwing,"Extracted from Deathwing himself, this dark energy powers the most fearsome of incantations.",81,132851,0,0,0,0,1,0,0,0,0,0,1026,0
+676,Pandaren Archaeology Fragment,,82,442742,1,39,200,0,1,0,0,0,0,0,34,0
+677,Mogu Archaeology Fragment,,82,442742,1,40,200,0,1,0,0,0,0,0,34,0
+692,Conquest Random BG Meta,,89,463449,0,0,0,0,1,0,0,0,0,0,1484,0
+697,Elder Charm of Good Fortune,"Possession of the Elder Charm of Good Fortune allows its lucky owner to risk a coin to receive a bonus reward from Mogu'shan Vaults, Heart of Fear, Terrace of Endless Spring, Sha of Anger, or Salyis' Warband.",133,237281,0,0,20,0,1,0,0,0,0,0,2114,0
+698,Zen Jewelcrafter's Token,"Awarded for demonstrating great skill in jewelcrafting, these tokens can be used to purchase unique jewelcrafting plans and the beautiful Serpent's Eye.",133,442739,0,0,0,0,1,0,0,0,0,0,0,0
+738,Lesser Charm of Good Fortune,"Possession of the Lesser Charms of Good Fortune will result in great happiness and the eventual conversion into Warforged Seals, which allow players to risk a coin to receive a bonus reward from raid encounters.",133,237282,0,0,0,0,1,0,0,0,0,0,66,0
+752,Mogu Rune of Fate,"Possession of the Mogu Rune of Fate allows its lucky owner to risk a rune to receive a bonus reward from the Throne of Thunder, Nalak or Oondasta.",133,646678,0,0,20,0,1,0,0,0,0,0,2,0
+754,Mantid Archaeology Fragment,,82,839407,1,44,200,0,1,0,0,0,0,0,34,0
+776,Warforged Seal,"Possession of the Warforged Seal allows its lucky owner to risk a seal to receive a bonus reward from the Siege of Orgrimmar, the Celestial Trials, and Ordos.",133,514015,0,0,20,0,1,0,0,0,0,0,2,0
+777,Timeless Coin,"You feel the shadowy fingers of previous and future owners of this coin playing across your hand, as if time itself blurs. Spend upon the Timeless Isle to earn powerful and fluid rewards.",133,900319,0,0,0,0,1,0,0,0,0,0,66,0
+789,Bloody Coin,Pulled from the steaming corpses of foes vanquished in the mists of the Timeless Isle.,133,900318,0,0,0,0,1,0,0,0,0,0,66,0
+810,Black Iron Fragment,Scavenged from the shattered armor and weapons of Iron Horde invaders.,133,135241,0,0,0,0,1,0,0,0,0,0,66,0
+821,Draenor Clans Archaeology Fragment,,82,970886,1,45,250,0,1,0,0,0,0,0,34,0
+823,Apexis Crystal,"The enduring legacy of a lost civilization, Apexis crystals contain untold reserves of magical power.",137,1061300,0,0,0,0,2,0,0,0,0,0,8194,0
+824,Garrison Resources,Earn resources to build-up and expand your garrison.,137,1005027,0,0,10000,0,1,0,0,0,0,0,2,0
+828,Ogre Archaeology Fragment,,82,136086,1,47,250,0,1,0,0,0,0,0,34,0
+829,Arakkoa Archaeology Fragment,,82,1002596,1,46,250,0,1,0,0,0,0,0,34,0
+830,n/a,,82,0,1,48,200,0,1,0,0,0,0,0,34,0
+897,UNUSED,,137,132780,0,0,100,0,1,0,0,0,0,0,8194,0
+910,Secret of Draenor Alchemy,Allows you to obtain new Alchemy recipes from the Alchemist's Lab.,137,136240,0,0,0,0,1,0,0,0,0,0,0,0
+944,Artifact Fragment,"A tiny fragment of an Ashran lost artifact, treasured by the Highmaul Ogres.",137,1061303,0,0,100000,0,1,0,0,0,0,0,8202,0
+980,Dingy Iron Coins,Perhaps they're more valuable than they appear on the surface.,137,133792,0,0,2000000,0,3,0,0,0,0,0,8,0
+994,Seal of Tempered Fate,Twists fate to provide an opportunity for additional treasure in Highmaul or Blackrock Foundry raids.,137,838813,0,0,20,0,1,0,0,0,0,0,2,0
+999,Secret of Draenor Tailoring,Allows you to obtain Tailoring recipes from the Tailoring Emporium.,137,136249,0,0,0,0,1,0,0,0,0,0,0,0
+1008,Secret of Draenor Jewelcrafting,Allows you to obtain new Jewelcrafting recipes.,137,134071,0,0,0,0,1,0,0,0,0,0,0,0
+1017,Secret of Draenor Leatherworking,Allows you to obtain Leatherworking recipes from the Tannery.,137,136247,0,0,0,0,1,0,0,0,0,0,0,0
+1020,Secret of Draenor Blacksmithing,Allows you to obtain new Blacksmithing recipes.,137,136241,0,0,0,0,1,0,0,0,0,0,0,0
+1101,Oil,"Found primarily in Tanaan Jungle, Oil is used to fuel naval missions.",137,1131085,0,0,100000,0,1,0,0,0,0,0,66,0
+1129,Seal of Inevitable Fate,Twists fate to provide an opportunity for additional treasure in Hellfire Citadel or Draenor Mythic Dungeons.,137,1119886,0,0,20,0,1,0,0,0,0,0,2,0
+1149,Sightless Eye,"A rough, hand-minted coin. It bears a symbol similar to that of the Kirin Tor, with one key difference: the eye is closed.",141,801132,0,0,5000,0,1,0,0,0,0,0,2,0
+1154,Shadowy Coins,Prized by pickpockets and marks alike. Can be spent in the Underbelly below Dalaran.,141,646678,0,0,500,0,3,0,0,0,0,0,0,0
+1155,Ancient Mana,Concentrated magic from the ancient leylines beneath Suramar.,141,1377394,0,0,300,0,1,0,0,0,0,0,2359298,0
+1166,Timewarped Badge,Earned in Timewalking dungeons. Exchanged for goods from Timewalking Vendors in capital cities.,22,463446,0,0,0,0,3,0,0,0,0,0,8194,0
+1171,Artifact Knowledge,Increases the rate at which you earn Artifact Power.,142,237446,0,0,0,0,6,0,0,0,0,0,525376,0
+1172,Highborne Archaeology Fragment,,82,441146,1,51,200,0,1,0,0,0,0,0,34,0
+1173,Highmountain Tauren Archaeology Fragment,,82,441146,1,52,200,0,1,0,0,0,0,0,34,0
+1174,Demonic Archaeology Fragment,,82,441146,1,54,200,0,1,0,0,0,0,0,34,0
+1191,Valor,A currency used to increase the power of items from Mythic dungeons.,245,463447,0,0,1500,0,4,0,0,0,0,20659,2105794,1
+1220,Order Resources,"Used to recruit troops, run missions, and research upgrades for your order hall.",141,1397630,0,0,0,0,1,0,0,0,0,0,134217730,0
+1226,Nethershard,A fragment of crystallized nether brought to Azeroth by the Legion.,141,132775,0,0,0,0,1,0,0,0,0,0,134217730,0
+1268,Timeworn Artifact,A mysterious naga artifact from the depths of the Great Sea. King Mrgl-Mrgl is looking for these at Timeworn Strand.,141,1061303,0,0,100000,0,1,0,0,0,0,0,8202,0
+1273,Seal of Broken Fate,Twists fate to provide an opportunity for additional treasure from Legion raid and Mythic dungeon bosses.,141,1604167,0,0,6,0,1,0,0,0,0,0,2,0
+1275,Curious Coin,This unusual coin is warm to the touch and vibrates gently in your hand. Used to procure items from Xur'ios in Dalaran.,141,1604168,0,0,0,0,4,0,0,0,0,0,2,0
+1299,Brawler's Gold,Awarded to victors of the Brawler's Guild. Use it to purchase Rumble Cards and other world-altering items at the Brawler's Gold Exchange vendor.,143,237281,0,0,5000,0,1,0,0,0,0,0,2,0
+1314,Lingering Soul Fragment,Soul fragment once belonging to a powerful enemy.,141,463284,0,0,40,20,3,0,0,0,0,0,2097218,0
+1324,Horde Qiraji Commendation,"Completing this quest will grant the Horde credit in the Call of the Scarab event.
+
+The faction which earns the most credit today may hang their banners by the Scarab Gong for the rest of the year.",142,255132,0,0,0,0,1,0,0,0,0,0,1638400,0
+1325,Alliance Qiraji Commendation,"Completing this quest will grant the Alliance credit in the Call of the Scarab event.
+
+The faction which earns the most credit today may hang their banners by the Scarab Gong for the rest of the year.",142,255130,0,0,0,0,1,0,0,0,0,0,1638400,0
+1342,Legionfall War Supplies,Used to further the construction of valuable structures on the Broken Shore.,141,803763,0,0,1000,0,2,0,0,0,0,0,134217730,0
+1347,Legionfall Building - Personal Tracker - Mage Tower (Hidden),,142,0,0,0,0,0,0,0,0,0,0,0,68681728,0
+1349,Legionfall Building - Personal Tracker - Command Tower (Hidden),,142,0,0,0,0,0,0,0,0,0,0,0,68681728,0
+1350,Legionfall Building - Personal Tracker - Nether Tower (Hidden),,142,0,0,0,0,0,0,0,0,0,0,0,68681728,0
+1355,Felessence,Concentrated demonic essence which can be captured and used to create armor of great power.,141,1044089,0,0,0,0,1,0,0,0,0,0,0,0
+1356,Echoes of Battle,"Used to purchase powerful PvP armor. At the end of the season, this currency converts to gold.",141,1455891,0,0,0,0,4,0,0,0,0,0,384,0
+1357,Echoes of Domination,"Used to purchase elite PvP armor. At the end of the season, this currency converts to gold.",141,1455894,0,0,0,0,4,0,0,0,0,0,384,0
+1379,Trial of Style Token,Earned by participating in the Trial of Style. Can be exchanged for transmoggable gear in most major cities.,1,1500867,0,0,200,0,1,0,0,0,0,0,0,0
+1388,Armor Scraps,Gathered from enemy troops and vehicles throughout the warfront. Used in the training of troops and advancing research.,1,133614,0,0,500,0,2,0,0,0,0,0,589826,0
+1401,Stronghold Supplies,Used to build structures and perform research upgrades within a Warfront.,1,1518640,0,0,1000,0,1,0,0,0,0,0,2,0
+1416,Coins of Air,Evaporate into mist after a while.,141,988196,0,0,2000000,0,3,0,0,0,0,0,0,0
+1501,Writhing Essence,Used to upgrade Legion Legendary items to item level 970.,142,893779,0,0,0,0,1,0,0,0,0,0,2,0
+1506,Argus Waystone,Used by the minions of Sargeras to force open portals from Argus to other Legion-controlled worlds.,142,399041,0,0,40,0,3,0,0,0,0,0,0,0
+1508,Veiled Argunite,"This dull-colored crystal is highly valued by ethereal traders, especially Thaumaturge Vashreen aboard the Vindicaar.",141,1064188,0,0,2000,0,3,0,0,0,0,0,134217730,0
+1533,Wakening Essence,Used by Arcanomancer Vridiel in Dalaran above the Broken Isles to create or upgrade Legion Legendary items.,141,236521,0,0,0,0,1,0,0,0,0,0,167772162,0
+1534,Zandalari Archaeology Fragment,,82,2101985,1,57,200,0,1,0,0,0,0,0,34,0
+1535,Drust Archaeology Fragment,,82,2101971,1,58,200,0,1,0,0,0,0,0,34,0
+1540,Wood,Gathered by harvesting trees and piles of wood throughout the warfront. Used to construct buildings and upgrade troops.,142,135435,0,0,100,0,1,0,13,0,0,0,2,0
+1541,Iron,Gathered throughout the warfront. Used to construct buildings and increase the power of you and your allies.,142,133232,0,0,200,0,1,0,9,0,0,0,2,0
+1553,Azerite,"The blood of Azeroth crystalizes into chunks of Azerite, an extremely potent and powerful material.",144,2065624,0,0,0,0,6,0,0,0,77173,0,147857410,0
+1559,Essence of Storms,"Extremely rare, found while killing enemies in the warfront. Used to grant yourself unbridled power at the Altar.",142,463539,0,0,1,0,4,0,0,0,0,0,0,0
+1560,War Resources,"Used to recruit troops, run missions, and research upgrades for your war effort.",143,2032600,0,0,0,0,1,0,0,0,0,0,134217730,0
+1565,Rich Azerite Fragment,A fragment of rich Azerite. Turn-in to a nearby War Master for rewards.,143,2065624,0,0,100000,0,1,0,0,0,0,0,8202,0
+1579,Champions of Azeroth,Grants reputation with the Champions of Azeroth.,142,2032592,0,0,0,0,1,2164,0,0,0,0,8,0
+1580,Seal of Wartorn Fate,Twists fate to provide an opportunity for additional treasure from Battle for Azeroth raid and dungeon bosses.,143,1416740,0,0,5,0,1,0,0,0,0,0,2,0
+1585,Account Wide Honor,Granted from slaying enemies of your faction,144,135884,0,0,0,0,1,0,14,0,0,0,21495810,0
+1586,Honor Level,Granted from slaying many enemies of your faction,144,135885,0,0,0,0,1,0,0,0,0,0,17301504,0
+1587,War Supplies,Used to raise a force for the Battle of Stromgarde,143,463449,0,0,1000,0,2,0,0,0,0,0,2,0
+1592,Order of Embers,Grants reputation with the Order of Embers.,142,2032594,0,0,0,0,1,2161,0,0,0,0,8,0
+1593,Proudmoore Admiralty,Grants reputation with Proudmoore Admiralty.,142,2032595,0,0,0,0,1,2160,0,0,0,0,8,0
+1594,Storm's Wake,Grants reputation with Storm's Wake.,142,2032596,0,0,0,0,1,2162,0,0,0,0,8,0
+1595,Talanji's Expedition,Grants reputation with Talanji's Expedition.,142,2032597,0,0,0,0,1,2156,0,0,0,0,8,0
+1596,Voldunai,Grants reputation with the Voldunai.,142,2032599,0,0,0,0,1,2158,0,0,0,0,8,0
+1597,Zandalari Empire,Grants reputation with the Zandalari Empire.,142,2032601,0,0,0,0,1,2103,0,0,0,0,8,0
+1598,Tortollan Seekers,Grants reputation with the Tortollan Seekers.,142,2032598,0,0,0,0,1,2163,0,0,0,0,8,0
+1599,7th Legion,Grants reputation with the 7th Legion.,142,2032591,0,0,0,0,1,2159,0,0,0,0,8,0
+1600,Honorbound,Grants reputation with the Honorbound.,142,2032593,0,0,0,0,1,2157,0,0,0,0,8,0
+1602,Conquest,Earned from Rated PvP activites. Spend to acquire equipment in Oribos.,2,1523630,0,0,0,0,4,0,14,0,85559,20084,2097546,1
+1703,PVP Season Rated Participation Currency,,142,1060986,0,0,900000,0,1,0,0,0,0,0,19398656,0
+1704,Spirit Shard,The shard pulses with energy.,23,133286,0,0,200,0,1,0,0,0,0,0,3145730,0
+1705,Warfronts - Personal Tracker - Iron in Chest (Hidden),,142,0,0,0,200,0,0,0,0,0,0,0,1639424,0
+1710,Seafarer's Dubloon,Currency used by the many varied tribes of the Great Sea. Used to procure items from traders on Island Expeditions.,143,1604167,0,0,0,0,1,0,0,0,0,0,2,0
+1714,Warfronts - Personal Tracker - Wood in Chest (Hidden),,142,0,0,0,100,0,0,0,0,0,0,0,1639424,0
+1715,Progenitor Shard,TEST,143,340336,0,0,5000,0,1,0,0,0,0,0,1048578,0
+1716,Honorbound Service Medal,"A badge of merit for action taken on the battlefields of Kul Tiras, Zandalar, and active Warfronts. Sought by Provisioner Mukra at the port of Zandalar. For the Horde!",143,2565244,0,0,0,0,1,0,0,0,0,0,536870914,0
+1717,7th Legion Service Medal,"A badge of merit for action taken on the battlefields of Kul Tiras, Zandalar, and active Warfronts. Sought by Provisioner Stoutforge in Boralus. For the Alliance!",143,2565243,0,0,0,0,1,0,0,0,0,0,268435458,0
+1718,Titan Residuum,Unpowered remnants of Azerite armor coveted by ethereal traders in Boralus and Zandalar. Obtained from Mythic Keystone weekly chests and by scrapping or disenchanting Azerite armor.,143,2065602,0,0,0,0,1,0,0,0,84608,0,33554434,0
+1719,Corrupted Mementos,Fragments of memory from Horrific Visions of N'Zoth which can be analyzed at the Titanic Research Archive in the Chamber of Heart.,143,646678,0,0,0,0,1,0,0,0,76436,0,33554434,0
+1721,Prismatic Manapearl,"A glistening sphere of arcane energy found around Nazjatar. These can be traded for rare and powerful items, or used to empower Benthic armor.",143,463858,0,0,0,0,4,0,24,0,0,0,1207959554,0
+1722,Azerite Ore,Gathered across the Island. Used to construct outpost buildings.,142,2032608,0,0,100,0,1,0,0,0,0,0,0,0
+1723,Lumber,Gathered across the Island. Used to construct outpost buildings.,142,135437,0,0,30,0,1,0,0,0,0,0,0,0
+1728,Phantasma,"This extinguished strand of anima can be used to gain power within Torghast.
+
+Leaving Torghast will destroy all Phantasma.",142,3743737,0,0,0,0,4,0,0,0,0,0,1048578,0
+1738,Unshackled,Grants reputation with the Unshackled.,142,2821782,0,0,0,0,1,2373,0,0,0,0,8,0
+1739,Ankoan,Grants reputation with the Ankoan.,142,2909045,0,0,0,0,1,2400,0,0,0,0,8,0
+1740,Rustbolt Resistance (Hidden),Grants reputation with the Rustbolt Resistance.,142,2909316,0,0,0,0,1,2391,0,0,0,0,67108872,0
+1742,Rustbolt Resistance,Grants reputation with the Rustbolt Resistance.,142,2909316,0,0,0,0,1,2391,0,0,0,0,8,0
+1743,Fake Anima for Quest Tracking,Use 1813 for anything real,245,134379,0,0,0,0,3,0,21,0,0,0,134217730,0
+1744,Corrupted Memento,,142,646678,0,0,0,0,1,0,8,0,76436,0,34095106,0
+1745,Nazjatar Ally - Neri Sharpfin,Grants combat experience for Neri Sharpfin.,142,894556,0,0,0,0,1,2389,0,0,0,0,8,0
+1746,Nazjatar Ally - Vim Brineheart,Grants combat experience for Vim Brineheart.,142,894556,0,0,0,0,1,2390,0,0,0,0,8,0
+1747,Nazjatar Ally - Poen Gillbrack,Grants combat experience for Poen Gillbrack.,142,894556,0,0,0,0,1,2388,0,0,0,0,8,0
+1748,Nazjatar Ally - Bladesman Inowari,Grants combat experience for Bladesman Inowari.,142,894556,0,0,0,0,1,2377,0,0,0,0,8,0
+1749,Nazjatar Ally - Hunter Akana,Grants combat experience for Hunter Akana.,142,894556,0,0,0,0,1,2375,0,0,0,0,8,0
+1750,Nazjatar Ally - Farseer Ori,Grants combat experience for Farseer Ori.,142,894556,0,0,0,0,1,2376,0,0,0,0,8,0
+1752,Honeyback Hive,Grants reputation with the Honeyback Hive.,142,2027852,0,0,0,0,1,2395,0,0,0,0,8,0
+1754,Argent Commendation,Commendation from the Argent Crusade in northern Icecrown for actions taken against the invading forces of the Shadowlands.,245,236690,0,0,0,0,1,0,0,0,0,0,2,0
+1755,Coalescing Visions,Wrathion can manipulate these visions into a vessel that will allow you to gain access to a Horrific Vision of N'Zoth.,143,1003600,0,0,0,0,1,0,8,0,0,0,2,0
+1757,Uldum Accord,Grants reputation with the Uldum Accord.,142,3068678,0,0,0,0,1,2417,0,0,0,0,67108872,0
+1758,Rajani,Grants reputation with the Rajani.,142,3068663,0,0,0,0,1,2415,0,0,0,0,67108872,0
+1761,Enemy Damage,Dummy currency for Torghast UI,142,132147,0,0,0,0,0,0,0,0,0,0,0,0
+1762,Enemy Health,Dummy currency for Torghast UI,142,648207,0,0,0,0,0,0,0,0,0,0,0,0
+1763,Deaths,Dummy currency for Torghast UI,142,3450602,0,0,0,0,0,0,0,0,0,0,0,0
+1767,Stygia,The byproduct of the violent destruction of a Soul within the Maw.,245,3743739,0,0,0,0,1,0,0,0,0,0,134217730,0
+1769,"Quest Experience (Standard, Hidden)",,142,1001982,0,0,0,0,0,0,0,5,0,0,16392,0
+1792,Honor,"Used to purchase Unrated PvP equipment in Oribos, and to upgrade Rated and Unrated PvP equipment.",2,1455894,0,0,15000,0,3,0,10,0,0,0,2,0
+1794,Atonement Anima,Use 1813,142,236259,0,0,0,0,1,0,0,0,0,0,8,0
+1802,Shadowlands PvP Weekly Reward Progress,Acquire this currency to attain rewards from the weekly chest in Oribos.,245,1523631,0,0,0,0,4,0,9,0,0,20084,2,1
+1803,Echoes of Ny'alotha,"Scoured of N'Zoth's corruption, MOTHER can use this substance to synthesize essences in the Chamber of Heart.",143,3069889,0,0,0,0,6,0,15,0,0,0,33554434,0
+1804,Ascended,Grants reputation with the Ascended.,142,3257748,0,0,0,0,1,2407,0,0,0,0,10,0
+1805,Undying Army,Grants reputation with the Undying Army.,142,3492310,0,0,0,0,1,2410,0,0,0,0,10,0
+1806,Wild Hunt,Grants reputation with the Wild Hunt.,142,3575389,0,0,0,0,1,2465,0,0,0,0,10,0
+1807,Court of Harvesters,Grants reputation with the Court of Harvesters.,142,3514227,0,0,0,0,1,2413,0,0,0,0,10,0
+1808,Channeled Anima,Anima to be spent in the anima diverter to create a permenant stream.,142,0,0,0,50,0,1,0,0,0,0,0,524288,0
+1810,Redeemed Soul,An exceptional soul that wishes to contribute to empowering your Covenant Sanctum.,142,1391776,0,0,100,0,3,0,21,0,0,0,2,0
+1811,zzoldSanctum Architect,,245,1357814,0,0,0,0,3,0,21,0,0,0,0,0
+1812,zzoldSanctum Anima Weaver,,245,463284,0,0,0,0,3,0,21,0,0,0,0,0
+1813,Reservoir Anima,A measure of the anima your covenant has at its disposal.,245,3528288,0,0,200000,0,3,0,21,0,0,0,2,0
+1816,Sinstone Fragments,"Archivist Fane can use these to recreate Inquisitor Sinstones, which will allow you to hunt inquisitors in the Halls of Atonement.",245,1044087,0,0,0,0,1,0,0,0,73987,0,2,0
+1819,Medallion of Service,A mark of service to Bastion. Used in Ascension Crafting.,245,1033908,0,0,0,0,3,0,24,0,70101,0,2050,0
+1820,Infused Ruby,"Used to power shrines and devices that run on anima in Revendreth. With the drought, various dredgers have begun trading goods for them as well.",245,133250,0,0,100,0,1,0,24,0,88496,0,2097154,0
+1822,Renown,It's Renown,142,3726261,0,0,79,0,6,0,0,0,0,19735,12845058,0
+1828,Soul Ash,A raw source of power found within Torghast. Used to fuel the Runecarver's Chamber.,245,3743738,0,0,0,0,5,0,0,0,0,0,33562626,0
+1829,Renown-Kyrian,It's Renown,245,3257748,0,0,79,0,6,0,0,0,70101,19735,262146,0
+1830,Renown-Venthyr,It's Renown,245,3257751,0,0,79,0,6,0,0,0,70102,19735,262146,0
+1831,Renown-NightFae,It's Renown,245,3257750,0,0,79,0,6,0,0,0,70103,19735,262146,0
+1832,Renown-Necrolord,It's Renown,245,3257749,0,0,79,0,6,0,0,0,70104,19735,262146,0
+1835,Linked Currency Test (Src) - PTH,A test source currency for the new linked currency feature.,1,463447,0,0,0,0,4,0,0,0,0,0,2,0
+1836,Linked Currency Test (Dst) - PTH,A test destination currency for the new linked currency feature.,1,463446,0,0,0,0,4,0,0,0,0,0,2,0
+1837,The Ember Court,Increases the reputation of the The Ember Court.,142,3641397,0,0,0,0,1,2445,0,0,0,0,10,0
+1838,The Countess,A happy party with The Countess increases her friendhip with you.,142,3601527,0,0,0,0,1,2449,0,0,0,0,10,0
+1839,Rendle and Cudgelface,A happy party with Rendle and Cudgelface increases their friendhip with you.,142,3554190,0,0,0,0,1,2453,0,0,0,0,10,0
+1840,Stonehead,A happy party with Stonehead increases his friendhip with you.,142,3670322,0,0,0,0,1,2460,0,0,0,0,10,0
+1841,Cryptkeeper Kassir,A happy party with Cryptkeeper Kassir increases his friendhip with you.,142,3601530,0,0,0,0,1,2455,0,0,0,0,10,0
+1842,Baroness Vashj,A happy party with Baroness Vashj increases her friendhip with you.,142,236422,0,0,0,0,1,2446,0,0,0,0,10,0
+1843,Plague Deviser Marileth,A happy party with Plague Deviser Marileth increases his friendhip with you.,142,3601559,0,0,0,0,1,2461,0,0,0,0,10,0
+1844,Grandmaster Vole,A happy party with Grandmaster Vole increases his friendhip with you.,142,3601555,0,0,0,0,1,2457,0,0,0,0,10,0
+1845,Alexandros Mograine,A happy party with Alexandros Mograine increases his friendhip with you.,142,135331,0,0,0,0,1,2450,0,0,0,0,10,0
+1846,Sika,A happy party with Sika increases her friendhip with you.,142,3601546,0,0,0,0,1,2459,0,0,0,0,10,0
+1847,Kleia and Pelegos,A happy party with Kleia and Pelagos increases their friendhip with you.,142,3601546,0,0,0,0,1,2458,0,0,0,0,10,0
+1848,Polemarch Adrestes,A happy party with Polemarch Adrestes increases his friendhip with you.,142,3095185,0,0,0,0,1,2452,0,0,0,0,10,0
+1849,Mikanikos,A happy party with Mikanikos increases his friendhip with you.,142,3586266,0,0,0,0,1,2448,0,0,0,0,10,0
+1850,Choofa,A happy party with Choofa increases his friendhip with you.,142,3730999,0,0,0,0,1,2454,0,0,0,0,10,0
+1851,Droman Aliothe,A happy party with Droman Aliothe increases her friendhip with you.,142,132276,0,0,0,0,1,2456,0,0,0,0,10,0
+1852,Hunt-Captain Korayn,A happy party with Hunt-Captain Korayn increases his friendhip with you.,142,3601534,0,0,0,0,1,2451,0,0,0,0,10,0
+1853,Lady Moonberry,A happy party with Lady Moonberry increases her friendhip with you.,142,3601533,0,0,0,0,1,2447,0,0,0,0,10,0
+1859,Reservoir Anima-Kyrian,,245,3528288,0,0,200000,0,3,0,21,0,70101,0,0,0
+1860,Reservoir Anima-Venthyr,,245,3528288,0,0,200000,0,3,0,21,0,70102,0,0,0
+1861,Reservoir Anima-Night Fae,,245,3528288,0,0,200000,0,3,0,21,0,70103,0,0,0
+1862,Reservoir Anima-Necrolord,,245,3528288,0,0,200000,0,3,0,21,0,70104,0,0,0
+1863,Redeemed Soul-Kyrian,,245,1391776,0,0,0,0,3,0,21,0,70101,0,0,0
+1864,Redeemed Soul-Venthyr,,245,1391776,0,0,0,0,3,0,21,0,70102,0,0,0
+1865,Redeemed Soul-Night Fae,,245,1391776,0,0,0,0,3,0,21,0,70103,0,0,0
+1866,Redeemed Soul-Necrolord,,245,1391776,0,0,0,0,3,0,21,0,70104,0,0,0
+1867,Sanctum Architect-Kyrian,,245,1357814,0,0,0,0,3,0,21,0,70101,0,0,0
+1868,Sanctum Architect-Venthyr,,245,1357814,0,0,0,0,3,0,21,0,70102,0,0,0
+1869,Sanctum Architect-Night Fae,,245,1357814,0,0,0,0,3,0,21,0,70103,0,0,0
+1870,Sanctum Architect-Necrolord,,245,1357814,0,0,0,0,3,0,21,0,70104,0,0,0
+1871,Sanctum Anima Weaver-Kyrian,,245,463284,0,0,0,0,3,0,21,0,70101,0,0,0
+1872,Sanctum Anima Weaver-Venthyr,,245,463284,0,0,0,0,3,0,21,0,70102,0,0,0
+1873,Sanctum Anima Weaver-Night Fae,,245,463284,0,0,0,0,3,0,21,0,70103,0,0,0
+1874,Sanctum Anima Weaver-Necrolord,,245,463284,0,0,0,0,3,0,21,0,70104,0,0,0
+1877,Bonus Experience,,142,1001982,0,0,0,0,2,0,0,5,0,0,4210696,0
+1878,Stitchmasters,Grants reputation with the Stitchmasters.,142,3622121,0,0,0,0,1,2462,0,0,0,0,8,0
+1880,Ve'nari,Grants reputation with Ve'nari.,142,3527519,0,0,0,0,1,2432,0,0,0,0,8,0
+1883,Soulbind Conduit Energy,Soulbind Conduit Energy,142,3528288,0,0,10,0,1,0,0,0,0,0,74973184,0
+1884,The Avowed,Grants reputation with the Avowed.,142,3601526,0,0,0,0,1,2413,0,0,0,0,8,0
+1885,Grateful Offering,"A gift from the denizens of the Shadowlands, grateful for the return of anima. Acquired from conducting anima to a location and performing activities associated with the inhabitants.",245,134344,0,0,0,0,1,0,0,0,0,0,2,0
+1887,Court of Night,Grants reputation with the Court of Night.,142,3752258,0,0,0,0,1,2464,0,0,0,0,8,0
+1888,Marasmius,Grants reputation with Marasmius.,142,236855,0,0,0,0,1,2463,0,0,0,0,8,0
+1889,Adventure Campaign Progress,This challenge leads to additional adventures with greater rewards.,142,255347,0,0,0,0,4,0,8,0,0,0,72877056,0
+1891,Honor from Rated,,142,1581796,0,0,0,0,1,0,0,0,85559,0,67634176,0
+1902,9.1 - Torghast XP - Prototype - LJS,,142,132877,0,0,0,0,4,0,0,0,0,0,33554434,0
+1903,Invisible Reward,This currency exists to let empty Cover Items work.,142,134400,0,0,1,0,0,0,0,0,0,0,74989568,0
+1904,Tower Knowledge,Manifestation of knowledge gained in Torghast. Used to unlock the power within The Box of Many Things.,245,4037125,0,0,0,0,3,0,0,0,0,20838,33554818,1
+1906,Soul Cinders,A raw source of power found within only the most dangerous layers of Torghast. Used to fuel the Runecarver's Chamber.,245,4067362,0,0,0,0,5,0,0,0,0,0,33562626,0
+1907,Death's Advance,Grants reputation with the Death's Advance.,142,136159,0,0,0,0,1,2470,0,0,0,0,10,0
+1909,Torghast - Scoreboard - Clear Percent,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1910,Torghast - Scoreboard - Souls Percent,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1911,Torghast - Scoreboard - Urns Percent,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1912,Torghast - Scoreboard - Hot Streak Percent,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1913,Torghast - Scoreboard - Total Time,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1914,Torghast - Scoreboard - Par Time,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1915,Torghast - Scoreboard - Deaths Excess Count,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1916,Torghast - Scoreboard - Deaths Start Count,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1917,Torghast - Scoreboard - Floor Reached,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1918,Torghast - Scoreboard - Toast Display - Time Score,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1919,Torghast - Scoreboard - Toast Display - Hot Streak Score,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1920,Torghast - Scoreboard - Toast Display - Deaths Excess Score,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1921,Torghast - Scoreboard - Toast Display - Total Score,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1922,Torghast - Scoreboard - Toast Display - Total Rewards,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1923,Torghast - Scoreboard - Toast Display - Bonus - Souls Rescued,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1924,Torghast - Scoreboard - Toast Display - Bonus - Urns Broken,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1925,Torghast - Scoreboard - Toast Display - Deaths Zero,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1926,Torghast - Scoreboard - Toast Display - Stars,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1931,Cataloged Research,As you bring the Archivist relics he will catalog it which will allow you to start Field Studies to learn more about them or identify relics in his care that you can use in the field.,245,1506458,0,0,0,0,2,0,20,0,0,0,2,0
+1932,Torghast - Scoreboard - Toast Display - Boss Killed,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1933,Torghast - Scoreboard - Toast Display - Bonus - Chests Opened,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1934,Torghast - Scoreboard - Toast Display - Bonus - Escorts Complete,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1935,Torghast - Scoreboard - Toast Display - Bonus - No Trap Damage,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1936,Torghast - Scoreboard - Toast Display - Bonus - Kill Boss Fast,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1937,Torghast - Scoreboard - Toast Display - Bonus - Single Stacks,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1938,Torghast - Scoreboard - Toast Display - Bonus - 5 Stacks,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1939,Torghast - Scoreboard - Toast Display - Bonus - Broker Killer,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1940,Torghast - Scoreboard - Toast Display - Bonus - Elite Slayer,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1941,Torghast - Scoreboard - Toast Display - Bonus - 1000 Phantasma,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1942,Torghast - Scoreboard - Toast Display - Bonus - 500 Phant Left,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1943,Torghast - Scoreboard - Toast Display - Bonus - No Deaths,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1944,Torghast - Scoreboard - Toast Display - Bonus - No Epics,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1945,Torghast - Scoreboard - Toast Display - Bonus - Elite Unnatural,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1946,Torghast - Scoreboard - Toast Display - Total Rewards - AV Bonus,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1947,Bonus Valor,Receive Bonus Valor when any player in your group increases their Mythic+ Rating.,142,463447,0,0,0,0,4,0,0,0,0,0,4202882,0
+1948,Torghast - Scoreboard - Toast Display - Bonus - Kill Boss Faster,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1949,Torghast - Scoreboard - Toast Display - Bonus - 30+ Count,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1950,Torghast - Scoreboard - Toast Display - 1 Star Value,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1951,Torghast - Scoreboard - Toast Display - 2 Star Value,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1952,Torghast - Scoreboard - Toast Display - 3 Star Value,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1953,Torghast - Scoreboard - Toast Display - 4 Star Value,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1954,Torghast - Scoreboard - Toast Display - 5 Star Value,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1955,Torghast - Scoreboard - Toast Display - Points While Empowered,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1956,Torghast - Scoreboard - Toast Display - Points Empowered Score,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1957,Torghast - Scoreboard - Floor Clear Percent Floor 1,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1958,Torghast - Scoreboard - Floor Clear Percent Floor 2,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1959,Torghast - Scoreboard - Floor Clear Percent Floor 3,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1960,Torghast - Scoreboard - Floor Clear Percent Floor 4,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1961,Torghast - Scoreboard - Floor Empowered Percent Floor 1,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1962,Torghast - Scoreboard - Floor Empowered Percent Floor 2,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1963,Torghast - Scoreboard - Floor Empowered Percent Floor 3,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1964,Torghast - Scoreboard - Floor Empowered Percent Floor 4,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1965,Torghast - Scoreboard - Floor Time Floor 1,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1966,Torghast - Scoreboard - Floor Time Floor 2,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1967,Torghast - Scoreboard - Floor Time Floor 3,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1968,Torghast - Scoreboard - Floor Time Floor 4,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1969,Torghast - Scoreboard - Floor Par Time Floor 1,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1970,Torghast - Scoreboard - Floor Par Time Floor 2,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1971,Torghast - Scoreboard - Floor Par Time Floor 3,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1972,Torghast - Scoreboard - Floor Par Time Floor 4,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1976,Torghast - Scoreboard - Toast Display - Bonus - Phant Left Group,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1977,Stygian Ember,"Once a brave warrior, now reduced to a sliver of undeath.
+
+Bonesmith Heirmir in Korthia can use these to improve Shards of Domination.",245,636333,0,0,0,0,4,0,0,0,0,0,2,0
+1979,Cyphers of the First Ones,|L290-Echoes of the power used to forge reality itself. Can be deciphered at Firim's Cypher Console in Exile's Hollow.|l,245,3950362,0,0,0,0,3,0,20,0,0,0,34603010,0
+1980,Torghast - Scoreboard - Run Layer,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1981,Torghast - Scoreboard - Run ID,,248,0,0,0,0,0,0,0,0,0,0,0,68682752,0
+1982,The Enlightened,Grants reputation with The Enlightened.,142,4217591,0,0,0,0,1,2478,0,0,0,0,10,0
+1997,Archivists' Codex,Grants progress with the Archivists' Codex.,142,457654,0,0,0,0,1,2472,0,0,0,0,10,0
+2000,Motes of Fate,,142,237016,0,0,0,0,0,0,0,0,0,0,68681728,0
+2009,Cosmic Flux,"Swirling fragments of creation energy that enable transformation, Cosmic Flux can be used to empower equipment at the Creation Catalyst in Zereth Mortis or fuel the Runecarver's Chamber in Torghast.",245,4381149,0,0,0,0,5,0,14,0,0,0,2,0
+2010,[DNT] Byron Test Currency,A currency used to test currencies.,245,463447,0,0,1500,0,4,0,0,0,0,0,2105794,1

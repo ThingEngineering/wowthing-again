@@ -1,7 +1,31 @@
 name: Instances
 groups:
 
-- name: The Eternal Palace
+- name: "Operation: Mechagon"
+  things:
+  - 154789 # Alloyed Alleyrat
+  - 154796 # Clanking Scrapsorter
+  - 154781 # Copper Hopper
+  - 154794 # H4ND-EE
+  - 154798 # Malfunctioning Microbot
+  - 154850 # Golden Snorf (King Mechagon)
+  - 154857 # Microbot 8D (HK-8 Aerial Oppression Unit)
+
+- name: "Temple of Sethraliss"
+  things:
+  - 138964 # Spawn of Merektha (Merektha, Temple of Sethraliss)
+
+- name: "Tol Dagor"
+  things:
+  - 139049 # Filthy Slime (Gol'than the Malodorous, Tol Dagor)
+
+- name: "Battle of Dazar'alor"
+  things:
+  - 147586 # Child of Pa'ku (Conclave of the Chosen, Battle of Dazar'alor Normal+)
+  - 147585 # Spawn of Krag'wa (Conclave of the Chosen, Battle of Dazar'alor Mythic)
+  - 147587 # Thunder Lizard Runt (Conclave of the Chosen, Battle of Dazar'alor Normal+)
+
+- name: "The Eternal Palace"
   things:
   - 154718 # Blackchasm Crawler
   - 154720 # Chitterspine Deepstalker
@@ -19,17 +43,50 @@ groups:
   - 161924 # Ra'kim (Tek'ris, Ny'alotha)
   - 161921 # Void-Scarred Anubisath (Ra-den, Ny'alotha)
 
-- name: "Operation: Mechagon"
+- name: "Island Expeditions"
   things:
-  - 154789 # Alloyed Alleyrat
-  - 154796 # Clanking Scrapsorter
-  - 154781 # Copper Hopper
-  - 154794 # H4ND-EE
-  - 154798 # Malfunctioning Microbot
-  - 154850 # Golden Snorf (King Mechagon)
-  - 154857 # Microbot 8D (HK-8 Aerial Oppression Unit)
+  - 154693 # Adventurous Hopling
+  - 148976 # Baby Stonehide
+  - 143796 # Barnaby
+  - 143816 # Bloodstone Tunneler
+  - 143795 # Captain Nibs
+  - 143821 # Coldlight Surfrunner
+  - 143803 # Craghoof Kid
+  - 143807 # Deathsting Scorpid
+  - 143804 # False Knucklebump
+  - 148988 # Firesting Buzzer
+  - 154165 # Ghostly Whelpling
+  - 143809 # Giggling Flame
+  - 143799 # Inky
+  - 143819 # Juvenile Brineshell
+  - 143802 # Kindleweb Spiderling
+  - 143820 # Kunchong Hatchling
+  - 143810 # Laughing Stonekin
+  - 148979 # Leatherwing Screecher
+  - 143813 # Littlehoof
+  - 148989 # Lord Woofington
+  - 143812 # Mischievous Zephyr
+  - 143818 # Muskflank Calfling
+  - 148982 # Needleback Pup
+  - 143798 # Octopode Fry
+  - 143811 # Playful Frostkin
+  - 143797 # Poro
+  - 148981 # Rotting Ghoul
+  - 143806 # Sandshell Chitterer
+  - 148991 # Scritches
+  - 143794 # Scuttle
+  - 148984 # Shadefeather Hatchling
+  - 143814 # Snapper
+  - 143817 # Snort
+  - 143801 # Sparkleshell Sandcrawler
+  - 143815 # Sunscale Hatchling
+  - 143808 # Thistlebrush Bud
+  - 148995 # Thunderscale Whelpling
+  - 143805 # Tinder Pup
+  - 148990 # Tonguelasher
+  - 143822 # Voru'kar Leecher
 
-- name: Visions
+- name: "Visions"
   things:
   - 161964 # Anomalus
   - 161959 # C'Thuffer

@@ -1,12 +1,14 @@
 *
     drops.yml
     instances.yml
+    quests.yml
     reputations.yml
     treasures.yml
     vendors.yml
 
 z8/_shadowlands.yml
     z8/covenants.yml
+    z8/protoform_synthesis.yml
     z8/pet_battles.yml
 
 z7/_battle_for_azeroth.yml
@@ -42,6 +44,7 @@ z0/_vanilla.yml
 achievements.yml
 challenge_dungeons.yml
 misc.yml
+money.yml
 professions.yml
 vendors.yml
 
@@ -52,9 +55,39 @@ world_events/_world_events.yml
 
 -
 
-money.yml
-unavailable.yml
+drops.yml
+    z8/drops.yml Shadowlands
+    z7/drops.yml Battle for Azeroth
+    z6/drops.yml Legion
+    z5/drops.yml Warlords of Draenor
+    z4/drops.yml Mists of Pandaria
+
+instances.yml
+    z8/instances.yml Shadowlands
+    z7/instances.yml Battle for Azeroth
+    z4/instances.yml Mists of Pandaria
+    z3/instances.yml Cataclysm
+    z2/instances.yml Wrath of the Lich King
+    z1/instances.yml Burning Crusade
+    z0/instances.yml Classic
+
+pet_battles.yml
+    z8/pet_battles.yml Shadowlands
+    z7/pet_battles.yml Battle for Azeroth
+    z6/pet_battles.yml Legion
+    z5/pet_battles.yml Warlords of Draenor
+    z4/pet_battles.yml Mists of Pandaria
+    z3/pet_battles.yml Cataclysm
+    z2/pet_battles.yml Wrath of the Lich King
+    z1/pet_battles.yml The Burning Crusade
+    z0/pet_battles_eastern_kingdoms.yml Classic - Eastern Kingdoms
+    z0/pet_battles_kalimdor.yml Classic - Kalimdor
+
+reputations.yml
+    z8/reputations.yml Shadowlands
+    z7/reputations.yml Battle for Azeroth
 
 -
 
+unavailable.yml
 yuck.yml

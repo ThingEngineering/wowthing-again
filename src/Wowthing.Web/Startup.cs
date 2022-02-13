@@ -1,4 +1,6 @@
+using System;
 using System.Net;
+using System.Threading.Tasks;
 using Anemonis.AspNetCore.RequestDecompression;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
@@ -139,14 +141,14 @@ namespace Wowthing.Web
                         .Build()
                 );
             });
-
+            
             // Our services
             services.AddScoped<UploadService>();
             services.AddScoped<UriService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, WowDbContext dbContext)
+        public void Configure(IApplicationBuilder app, IServiceProvider serviceProvider, WowDbContext dbContext)
         {
             JsonConvert.DefaultSettings = () => new JsonSerializerSettings
             {
@@ -188,6 +190,27 @@ namespace Wowthing.Web
             {
                 endpoints.MapControllers();
             });
+            
+            CreateRoles(serviceProvider).Wait();
+        }
+
+        private static readonly string[] _roles =
+        {
+            "Admin",
+            "Donor",
+        };
+        private async Task CreateRoles(IServiceProvider serviceProvider)
+        {
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<long>>>();
+
+            foreach (var roleName in _roles)
+            {
+                var exists = await roleManager.RoleExistsAsync(roleName);
+                if (!exists)
+                {
+                    await roleManager.CreateAsync(new IdentityRole<long>(roleName));
+                }
+            }
         }
     }
 }

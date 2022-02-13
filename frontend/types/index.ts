@@ -1,5 +1,6 @@
 export * from './account'
 export * from './achievement-data'
+export * from './background-image'
 export * from './character'
 export * from './character-class'
 export * from './character-race'
