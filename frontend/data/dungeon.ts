@@ -378,6 +378,32 @@ export const extraInstances: StaticDataInstance[] = [
         name: "Mor'geth, Tormentor of the Damned",
         shortName: 'MTD',
     },
+
+    // Holidays
+    {
+        expansion: 0,
+        id: 200285,
+        name: "The Headless Horseman",
+        shortName: 'HH',
+    },
+    {
+        expansion: 0,
+        id: 200286,
+        name: "The Frost Lord Ahune",
+        shortName: 'FLA',
+    },
+    {
+        expansion: 0,
+        id: 200287,
+        name: "Coren Direbrew",
+        shortName: 'CD',
+    },
+    {
+        expansion: 0,
+        id: 200288,
+        name: "The Crown Chemical Co.",
+        shortName: 'CCC',
+    },
 ]
 
 export const extraInstanceMap: Record<number, StaticDataInstance> = Object.fromEntries(
