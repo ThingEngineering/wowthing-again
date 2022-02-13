@@ -7,9 +7,9 @@ WORKDIR /app/src/Wowthing.Backend
 RUN dotnet publish -c Release -o out
 
 
-FROM mcr.microsoft.com/dotnet/aspnet:5.0-alpine AS runtime
+FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS runtime
 
-RUN apk add --no-cache icu-libs
+#RUN apk add --no-cache icu-libs
 
 WORKDIR /app
 COPY --from=build /app/data/ ./data/
