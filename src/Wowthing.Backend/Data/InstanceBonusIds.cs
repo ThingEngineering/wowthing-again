@@ -140,6 +140,7 @@ namespace Wowthing.Backend.Data
             
             { 1190, SlRaid }, // Castle Nathria
             { 1193, SlRaid }, // Sanctum of Domination
+            { 1195, SlRaid }, // Sepulcher of the First Ones
         };
     }
 }
