@@ -1,6 +1,4 @@
 <script lang="ts">
-    import { getContext } from 'svelte'
-
     import { seasonMap } from '@/data/dungeon'
     import { raiderIoScores } from '@/data/raider-io'
     import { staticStore } from '@/stores/static'
@@ -8,10 +6,10 @@
     import type { Character, CharacterRaiderIoSeason, MythicPlusSeason, TippyProps } from '@/types'
     import type { StaticDataRaiderIoScoreTiers } from '@/types/data/static'
 
-    export let season: MythicPlusSeason
+    export let character: Character
+    export let season: MythicPlusSeason = null
     export let seasonId = 0
 
-    let character: Character
     let scores: CharacterRaiderIoSeason | undefined
     let color = '#bbbbbb'
     let tooltip: TippyProps
@@ -20,36 +18,36 @@
         if (seasonId > 0) {
             season = seasonMap[seasonId]
         }
-
-        character = getContext('character')
-        scores = character.raiderIo?.[season.id]
-        const tiers: StaticDataRaiderIoScoreTiers = $staticStore.data.raiderIoScoreTiers[season.id]
-        if (scores !== undefined && tiers !== undefined) {
-            for (let i = 0; i < tiers.score.length; i++) {
-                if (scores.all >= tiers.score[i]) {
-                    color = tiers.rgbHex[i]
-                    break
+        if (season !== null) {
+            scores = character.raiderIo?.[season.id]
+            const tiers: StaticDataRaiderIoScoreTiers = $staticStore.data.raiderIoScoreTiers[season.id]
+            if (scores !== undefined && tiers !== undefined) {
+                for (let i = 0; i < tiers.score.length; i++) {
+                    if (scores.all >= tiers.score[i]) {
+                        color = tiers.rgbHex[i]
+                        break
+                    }
                 }
-            }
 
-            const scoresTable = []
-            for (const k in raiderIoScores) {
-                scoresTable.push(`
+                const scoresTable = []
+                for (const k in raiderIoScores) {
+                    scoresTable.push(`
 <tr>
     <td style="text-align: left">${raiderIoScores[k]}</td>
     <td style="text-align: right">${scores[k].toFixed(1)}</td>
 </tr>`)
-            }
+                }
 
-            tooltip = {
-                allowHTML: true,
-                content: `
+                tooltip = {
+                    allowHTML: true,
+                    content: `
 <div class='wowthing-tooltip'>
     <h4>RaiderIO Scores</h4>
     <table width="100%">
         ${scoresTable.join('')}
     </table>
 </div>`,
+                }
             }
         }
     }
