@@ -512,7 +512,9 @@ namespace Wowthing.Backend.Jobs.Misc
                     Logger.Information("No mapIdToInstanceId for {MapId}??", map.ID);
                 } 
             }
-            return sigh.Values.ToList();
+            return sigh.Values
+                .OrderBy(instance => instance.Id)
+                .ToList();
         }
 
         private List<List<OutProgress>> LoadProgress()
