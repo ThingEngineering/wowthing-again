@@ -56,3 +56,26 @@ groups:
   - 179229 # Eye of Affliction
   - 179329 # Wild Corpsefly
   - 179250 # Young Garnetgullet
+
+- name: "Zereth Mortis"
+  things:
+  - 183281 # Aurelid Floater
+  - 182876 # Bloodsucker Vespoid
+  - 181362 # Bufonid Croaker
+  - 182691 # Emerald Scarabid
+  - 183285 # Enraged Poultrid
+  - 182768 # Green Viperid
+  - 182760 # King Viperid
+  - 183230 # Mawtouched Geomental
+  - 182568 # Metallic Scarabid
+  - 183158 # Momma Vombata
+  - 183292 # Predatory Helicid
+  - 182260 # Proto Avian Fledgling
+  - 182758 # Red Viperid
+  - 182294 # Scarlet Proto Avian
+  - 182473 # Tarachnid Ambusher
+  - 182437 # Tarachnid Stalker
+  - 182234 # Timid Leporid
+  - 182019 # Venomous Bufonid
+  - 182216 # Vicious Leporid
+  - 183142 # Vombata Pup

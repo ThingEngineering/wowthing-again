@@ -1,10 +1,6 @@
 name: Professions
 groups:
 
-- name: Herbalism
-  things:
-  - 128137 # Fel Lasher (Herbalism)
-
 - name: Alchemy
   things:
   - 143374 # Baby Crawg (Transmute: Meat to Pet)
@@ -81,6 +77,10 @@ groups:
   -  70257 # Tiny Red Carp
   -  70260 # Tiny White Carp
   -  24388 # Toothy
+
+- name: Herbalism
+  things:
+  - 128137 # Fel Lasher (Herbalism)
 
 - name: Inscription
   things:

@@ -37,3 +37,8 @@ groups:
   - 354356 # Amber Shardhide (Death's Advance, Revered)
   - 347810 # Beryl Shardhide (Death's Advance, Paragon)
   - 354359 # Fierce Razorwing (Death's Advance, Paragon)
+
+- name: "The Enlightened"
+  things:
+  - 359276 # Anointed Protostag (The Enlightened, Revered)
+  - 359229 # Heartlight Vombata (The Enlightened, Exalted)

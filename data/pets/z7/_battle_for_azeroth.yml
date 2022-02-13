@@ -9,61 +9,15 @@ groups:
   - 161967 # Reek (Reeking of Visions)
   - 147884 # Wicker Wraith (Family Battler)
 
+- name: Events
+  things:
+  - 158681 # Papi
+  - 158683 # Sunsoaked Flitter
+
 - name: Followers
   things:
   - 154827 # Brilliant Glimmershell (Bladesman Inowari, level 20)
   - 154826 # Lustrous Glimmershell (Poen Gillbrack, level 20)
-
-- name: Instances
-  things:
-  - 147586 # Child of Pa'ku (Conclave of the Chosen, Battle of Dazar'alor Normal+)
-  - 139049 # Filthy Slime (Gol'than the Malodorous, Tol Dagor)
-  - 147585 # Spawn of Krag'wa (Conclave of the Chosen, Battle of Dazar'alor Mythic)
-  - 138964 # Spawn of Merektha (Merektha, Temple of Sethraliss)
-  - 147587 # Thunder Lizard Runt (Conclave of the Chosen, Battle of Dazar'alor Normal+)
-
-- name: Island Expeditions
-  things:
-  - 154693 # Adventurous Hopling
-  - 148976 # Baby Stonehide
-  - 143796 # Barnaby
-  - 143816 # Bloodstone Tunneler
-  - 143795 # Captain Nibs
-  - 143821 # Coldlight Surfrunner
-  - 143803 # Craghoof Kid
-  - 143807 # Deathsting Scorpid
-  - 143804 # False Knucklebump
-  - 148988 # Firesting Buzzer
-  - 154165 # Ghostly Whelpling
-  - 143809 # Giggling Flame
-  - 143799 # Inky
-  - 143819 # Juvenile Brineshell
-  - 143802 # Kindleweb Spiderling
-  - 143820 # Kunchong Hatchling
-  - 143810 # Laughing Stonekin
-  - 148979 # Leatherwing Screecher
-  - 143813 # Littlehoof
-  - 148989 # Lord Woofington
-  - 143812 # Mischievous Zephyr
-  - 143818 # Muskflank Calfling
-  - 148982 # Needleback Pup
-  - 143798 # Octopode Fry
-  - 143811 # Playful Frostkin
-  - 143797 # Poro
-  - 148981 # Rotting Ghoul
-  - 143806 # Sandshell Chitterer
-  - 148991 # Scritches
-  - 143794 # Scuttle
-  - 148984 # Shadefeather Hatchling
-  - 143814 # Snapper
-  - 143817 # Snort
-  - 143801 # Sparkleshell Sandcrawler
-  - 143815 # Sunscale Hatchling
-  - 143808 # Thistlebrush Bud
-  - 148995 # Thunderscale Whelpling
-  - 143805 # Tinder Pup
-  - 148990 # Tonguelasher
-  - 143822 # Voru'kar Leecher
 
 - name: Puzzles
   things:
@@ -86,24 +40,6 @@ groups:
   - 139073 # Poda (Missing Business, Vol'dun)
   - 139770 # Taptaf (Taptaf the Pig!, Drustvar)
   - 139372 # Vengeful Chicken (Cutting Edge Poultry Science, ??)
-
-- name: Reputations
-  things:
-  - 149363 # Albatross Hatchling (Proudmoore Admiralty, Paragon)
-  - 143611 # Azerite Puddle (Champions of Azeroth, Revered)
-  - 143214 # Azeriti (Champions of Azeroth, Revered)
-  - 149375 # Cobalt Raven (Order of Embers, Paragon)
-  - 143177 # Corlain Falcon (Order of Embers, Revered)
-  - 143209 # Cou'pa (Tortollan Seekers, Revered)
-  - 149372 # Crimson Bat Pup (Talanji's Expedition, Paragon)
-  - 143738 # Lil' Siege Tower (7th Legion?)
-  - 143739 # Lil' War Machine (The Honorbound?)
-  - 154852 # Mustyfur Snooter (Rustbolt Resistance, Honored)
-  - 143176 # Seabreeze Bumblebee (Storm's Wake, Revered)
-  - 143195 # Tragg the Curious (Talanji's Expedition, Revered)
-  - 149376 # Violet Abyssal Eel (Storm's Wake, Paragon)
-  - 154838 # Damplight Slug (Friendly, The Unshackled - Horde only)
-  - 154837 # Prismatic Softshell (Friendly, Waveblade Ankoan - Alliance only)
 
 - name: Tinkering
   things:

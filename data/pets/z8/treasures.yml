@@ -31,3 +31,7 @@ groups:
   - 173531 # The Count
   - 173508 # Lost Quill (Revendreth)
   - 171125 # Trapped Stonefiend (Revendreth)
+
+- name: "Zereth Mortis"
+  things:
+  - 181337 # Geordy (Ephemera Shell)

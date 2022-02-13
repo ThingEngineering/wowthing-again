@@ -1,0 +1,52 @@
+name: "Reputations"
+groups:
+
+- name: "7th Legion / Honorbound"
+  things:
+  - 143738 # Lil' Siege Tower (7th Legion, Revered)
+  - 143739 # Lil' War Machine (The Honorbound, Revered)
+
+- name: "Champions of Azeroth"
+  things:
+  - 143611 # Azerite Puddle (Champions of Azeroth, Revered)
+  - 143214 # Azeriti (Champions of Azeroth, Revered)
+
+- name: "Order of Embers"
+  things:
+  - 143177 # Corlain Falcon (Order of Embers, Revered)
+  - 149375 # Cobalt Raven (Order of Embers, Paragon)
+
+- name: "Proudmoore Admiralty"
+  things:
+  - 149363 # Albatross Hatchling (Proudmoore Admiralty, Paragon)
+
+- name: "Storm's Wake"
+  things:
+  - 143176 # Seabreeze Bumblebee (Storm's Wake, Revered)
+  - 149376 # Violet Abyssal Eel (Storm's Wake, Paragon)
+
+- name: "Talanji's Expedition"
+  things:
+  - 143195 # Tragg the Curious (Talanji's Expedition, Revered)
+  - 149372 # Crimson Bat Pup (Talanji's Expedition, Paragon)
+
+- name: "Tortollan Seekers"
+  things:
+  - 143209 # Cou'pa (Tortollan Seekers, Revered)
+
+- name: "Rustbolt Resistance"
+  things:
+  - 154852 # Mustyfur Snooter (Rustbolt Resistance, Honored)
+
+- name: "Unshackled / Waveblade Ankoan"
+  things:
+  - 154838 # Damplight Slug (Friendly, The Unshackled - Horde only)
+  - 154837 # Prismatic Softshell (Friendly, Waveblade Ankoan - Alliance only)
+
+- name: "Rajani"
+  things:
+  - 162013 # Jade Defender (Rajani, Paragon)
+
+- name: "Uldum Accord"
+  things:
+  - 162007 # Cursed Dune Watcher (Uldum Accord, Paragon)

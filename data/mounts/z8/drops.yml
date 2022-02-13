@@ -39,3 +39,8 @@ groups:
   - 347250 # Lord of the Corpseflies (Fleshwing, Necrolord only)
   - 215545 # Mastercraft Gravewing (Stygian Stonecrusher, Venthyr only)
   - 353859 # Summer Wilderling (Escaped Wilderling, Night Fae only)
+
+- name: "Zereth Mortis"
+  things:
+  - 368105 # Colossal Plaguespew Mawrat (Rhuv, Gorger of Ruin)
+  - 342680 # Deepstar Aurelid (Hirukon)

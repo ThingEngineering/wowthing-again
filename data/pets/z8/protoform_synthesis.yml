@@ -1,0 +1,73 @@
+name: "Protoform Synthesis"
+groups:
+
+- name: "Axolotl"
+  things:
+  - 184183 # Ambystan Darter
+  - 183277 # Ambystan Snapper
+  - 182264 # Archetype of Metamorphosis
+
+- name: "Chicken"
+  things:
+  - 183557 # Archetype of Satisfaction
+  - 184190 # Multichicken
+  - 184189 # Violent Poultrid
+
+- name: "Elemental"
+  things:
+  - 181615 # Archetype of Animation
+  - 184191 # Stabilized Geomental
+
+- name: "Jellyfish"
+  things:
+  - 184186 # Archetype of Renewal
+  - 184193 # Prototickles
+  - 184192 # Terror Jelly
+
+- name: "Rabbit"
+  things:
+  - 182183 # Archetype of Multiplicity
+  - 184194 # Leaping Leporid
+
+- name: "Snail"
+  things:
+  - 184187 # Archetype of Vigilance
+  - 184195 # Microlicid
+  - 184196 # Shelly
+
+- name: "Snake"
+  things:
+  - 182735 # Archetype of Cunning
+  - 184197 # Viperid Menace
+
+- name: "Spider"
+  things:
+  - 182393 # Archetype of Predation
+
+- name: "Toad"
+  things:
+  - 182081 # Archetype of Serenity
+
+- name: "Vombata"
+  things:
+  - 181488 # Archetype of Discovery
+  - 181547 # Tunneling Vombata
+
+- name: "Wasp"
+  things:
+  - 182840 # Archetype of Malice
+
+- name: "Thing 3"
+  things:
+  - 181308 # Archetype of Focus
+  - 181336 # Omnipotential Core
+  - 181335 # Resonant Echo
+
+- name: "Thing 5"
+  things:
+  - 182504 # Archetype of Survival
+  - 184184 # Fierce Scarabid
+
+- name: "Thing 9"
+  things:
+  - 181578 # Archetype of Motion
