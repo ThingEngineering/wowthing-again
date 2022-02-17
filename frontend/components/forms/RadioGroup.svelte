@@ -3,6 +3,7 @@
     import iconSelected from '@iconify/icons-mdi/radiobox-marked'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import IconText from '@/components/common/IconText.svelte'
 
     export let disabled = false
     export let name: string
@@ -17,7 +18,7 @@
             margin-top: -4px;
         }
 
-        span {
+        :global(span) {
             margin-left: 0;
         }
     }
@@ -40,7 +41,7 @@
             <IconifyIcon
                 icon={optionValue === value ? iconSelected : iconBlank}
             />
-            <span class="text {textClass || ''}">{optionLabel}</span>
+            <IconText text={optionLabel} />
         </label>
     {/each}
 </fieldset>
