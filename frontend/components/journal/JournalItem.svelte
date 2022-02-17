@@ -1,6 +1,7 @@
 <script lang="ts">
     import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
     import xor from 'lodash/xor'
+    import IntersectionObserver from 'svelte-intersection-observer'
 
     import { difficultyMap, journalDifficultyOrder } from '@/data/difficulty'
     import { userTransmogStore } from '@/stores'
@@ -16,6 +17,8 @@
     export let item: JournalDataEncounterItem
 
     let appearances: [JournalDataEncounterItemAppearance, boolean][]
+    let element: HTMLElement
+    let intersected = false
     $: {
         appearances = item.appearances.map((appearance) => [
             appearance,
@@ -75,6 +78,10 @@
 </script>
 
 <style lang="scss">
+    .journal-item {
+        height: 52px;
+        width: 52px;
+    }
     .difficulties {
         position: absolute;
         bottom: 1px;
@@ -98,35 +105,40 @@
         ($journalState.showCollected && userHas) ||
         ($journalState.showUncollected && !userHas)
     }
-        <div
-            class="quality{getQuality(appearance)}"
-            class:missing={
-                (!$journalState.highlightMissing && !userHas) ||
-                ($journalState.highlightMissing && userHas)
-            }
-        >
-            <a href="{getItemUrl({
-                itemId: item.id,
-                bonusIds: getBonusIds(appearance),
-            })}">
-                <WowthingImage
-                    name="item/{item.id}{appearance.modifierId > 0 ? `_${appearance.modifierId}` : ''}"
-                    size={48}
-                    border={2}
-                />
-            </a>
+        <IntersectionObserver once {element} bind:intersecting={intersected}>
+            <div
+                bind:this={element}
+                class="journal-item quality{getQuality(appearance)}"
+                class:missing={
+                    (!$journalState.highlightMissing && !userHas) ||
+                    ($journalState.highlightMissing && userHas)
+                }
+            >
+                {#if intersected}
+                    <a href="{getItemUrl({
+                        itemId: item.id,
+                        bonusIds: getBonusIds(appearance),
+                    })}">
+                        <WowthingImage
+                            name="item/{item.id}{appearance.modifierId > 0 ? `_${appearance.modifierId}` : ''}"
+                            size={48}
+                            border={2}
+                        />
+                    </a>
 
-            {#if userHas}
-                <div class="collected-icon drop-shadow">
-                    <IconifyIcon icon={mdiCheckboxOutline} />
-                </div>
-            {/if}
+                    {#if userHas}
+                        <div class="collected-icon drop-shadow">
+                            <IconifyIcon icon={mdiCheckboxOutline} />
+                        </div>
+                    {/if}
 
-            <div class="difficulties">
-                {#each getDifficulties(appearance) as difficulty}
-                    <span>{difficulty}</span>
-                {/each}
+                    <div class="difficulties">
+                        {#each getDifficulties(appearance) as difficulty}
+                            <span>{difficulty}</span>
+                        {/each}
+                    </div>
+                {/if}
             </div>
-        </div>
+        </IntersectionObserver>
     {/if}
 {/each}
