@@ -10,9 +10,9 @@
         userStore,
         userTransmogStore,
     } from '@/stores'
-    import { userVendorStore } from '@/stores/user-vendors'
-    import { journalState } from '@/stores/local-storage'
+    import { journalState, vendorState } from '@/stores/local-storage'
     import { data as settings } from '@/stores/settings'
+    import { userVendorStore } from '@/stores/user-vendors'
 
     import Routes from './AppHomeRoutes.svelte'
     import Sidebar from './AppHomeSidebar.svelte'
@@ -62,6 +62,7 @@
             userVendorStore.setup(
                 $settings,
                 $staticStore.data,
+                $vendorState
             )
 
             journalStore.setup(
