@@ -6,10 +6,10 @@
     import { userStore } from '@/stores'
     import type { Character } from '@/types'
 
-    import TableIcon from '@/components/common/TableIcon.svelte'
     import ClassIcon from '@/components/images/ClassIcon.svelte'
     import RaceIcon from '@/components/images/RaceIcon.svelte'
     import SpecializationIcon from '@/components/images/SpecializationIcon.svelte'
+    import TableIcon from '@/components/common/TableIcon.svelte'
 
     export let character: Character
     export let last: boolean

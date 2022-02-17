@@ -1,5 +1,6 @@
 <script lang="ts">
     import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
+    import IntersectionObserver from 'svelte-intersection-observer'
 
     import { costMap, costOrder } from '@/data/vendors'
     import { vendorState } from '@/stores/local-storage'
@@ -18,9 +19,11 @@
     export let group: StaticDataVendorGroup
     export let stats: UserCount
 
+    let element: HTMLElement
+    let intersected = false
     let linkType: string
     let percent: number
-    let things: [StaticDataVendorItem, boolean][]
+    let things: [StaticDataVendorItem, boolean, [string, number, string][]][]
     $: {
         if (group.type === FarmDropType.Mount) {
             linkType = 'spell'
@@ -34,10 +37,27 @@
 
         things = []
         for (const thing of group.filteredThings) {
-            things.push([
-                thing,
-                $userVendorStore.data.userHas[`${group.type}-${thing.id}`],
-            ])
+            const userHas = $userVendorStore.data.userHas[`${group.type}-${thing.id}`] === true
+            if (($vendorState.showCollected && userHas) || ($vendorState.showUncollected && !userHas)) {
+                const costs: [string, number, string][] = []
+                if (!userHas) {
+                    for (const costKey of costOrder) {
+                        if (thing.costs[costKey]) {
+                            costs.push([
+                                costMap[costKey][0], // type
+                                costMap[costKey][1], // id
+                                toNiceNumber(thing.costs[costKey]),
+                            ])
+                        }
+                    }
+                }
+
+                things.push([
+                    thing,
+                    userHas,
+                    costs,
+                ])
+            }
         }
 
         percent = Math.floor((stats?.have ?? 0) / (stats?.total ?? 1) * 100)
@@ -45,6 +65,13 @@
 </script>
 
 <style lang="scss">
+    .collection-group {
+        min-height: 96px;
+    }
+    .collection-item {
+        min-height: 52px;
+        width: 52px;
+    }
     .costs {
         --image-border-width: 0;
         --image-margin-top: -4px;
@@ -52,6 +79,7 @@
         background: $highlight-background;
         display: flex;
         flex-direction: column;
+        white-space: nowrap;
 
         div {
             display: flex;
@@ -64,63 +92,62 @@
 </style>
 
 {#if things?.length > 0}
-    <div class="collection-group">
-        <h4 class="drop-shadow {getPercentClass(percent)}">
-            {group.name}
-            <CollectionCount counts={stats} />
-        </h4>
+    <IntersectionObserver once {element} bind:intersecting={intersected}>
+        <div class="collection-group" bind:this={element}>
+            <h4 class="drop-shadow {getPercentClass(percent)}">
+                {group.name}
+                <CollectionCount counts={stats} />
+            </h4>
 
-        <div class="collection-objects">
-            {#each things as [thing, userHas]}
-                {#if ($vendorState.showCollected && userHas) || ($vendorState.showUncollected && !userHas)}
+            <div class="collection-objects" data-inter={intersected}>
+                {#each things as [thing, userHas, costs]}
                     <div
-                        class="quality{thing.quality}"
+                        class="collection-item quality{thing.quality}"
                         class:missing={
-                        (!$vendorState.highlightMissing && !userHas) ||
-                        ($vendorState.highlightMissing && userHas)
-                    }
+                            (!$vendorState.highlightMissing && !userHas) ||
+                            ($vendorState.highlightMissing && userHas)
+                        }
+                        style:height="{52 + (20 * costs.length)}px"
                     >
-                        <WowheadLink
-                            id={thing.id}
-                            type={linkType}
-                        >
-                            <WowthingImage
-                                name="{linkType}/{thing.id}"
-                                size={48}
-                                border={2}
-                            />
-                        </WowheadLink>
+                        {#if intersected}
+                            <WowheadLink
+                                id={thing.id}
+                                type={linkType}
+                            >
+                                <WowthingImage
+                                    name="{linkType}/{thing.id}"
+                                    size={48}
+                                    border={2}
+                                />
+                            </WowheadLink>
 
-                        {#if userHas}
-                            <div class="collected-icon drop-shadow">
-                                <IconifyIcon icon={mdiCheckboxOutline} />
-                            </div>
-                        {/if}
-
-                        {#if !userHas}
-                            <div class="costs">
-                                {#each costOrder as cost}
-                                    {#if thing.costs[cost]}
+                            {#if userHas}
+                                <div class="collected-icon drop-shadow">
+                                    <IconifyIcon icon={mdiCheckboxOutline} />
+                                </div>
+                            {:else}
+                                <div class="costs">
+                                    {#each costs as [costType, costId, costValue]}
                                         <div>
-                                            {toNiceNumber(thing.costs[cost])}
+                                            {costValue}
                                             <WowheadLink
-                                                type={costMap[cost][0]}
-                                                id={costMap[cost][1]}
+                                                type={costType}
+                                                id={costId}
                                             >
                                                 <WowthingImage
-                                                    name="{costMap[cost][0]}/{costMap[cost][1]}"
+                                                    name="{costType}/{costId}"
                                                     size={16}
                                                     border={0}
                                                 />
                                             </WowheadLink>
                                         </div>
-                                    {/if}
-                                {/each}
-                            </div>
+                                    {/each}
+                                </div>
+                            {/if}
                         {/if}
                     </div>
-                {/if}
-            {/each}
+                {/each}
+            </div>
         </div>
-    </div>
+    </IntersectionObserver>
 {/if}

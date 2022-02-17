@@ -2,6 +2,7 @@
     import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
     import find from 'lodash/find'
     import maxBy from 'lodash/maxBy'
+    import IntersectionObserver from 'svelte-intersection-observer'
 
     import { petBreedMap } from '@/data/pet-breed'
     import { staticStore, userStore } from '@/stores'
@@ -14,6 +15,8 @@
 
     export let things: number[] = []
 
+    let element: HTMLElement
+    let intersected = false
     let origId: number
     let pets: UserDataPet[]
     let quality: number
@@ -29,12 +32,16 @@
             showAsMissing = $collectionState.highlightMissing['pets']
         }
         else {
+            pets = []
             showAsMissing = !$collectionState.highlightMissing['pets']
         }
     }
 </script>
 
 <style lang="scss">
+    .collection-object {
+        width: 44px;
+    }
     .pet {
         display: flex;
         font-family: monospace;
@@ -45,30 +52,34 @@
     }
 </style>
 
-<div
-    class="{userHasThing ? `quality${quality}` : 'has-not'}"
-    class:missing={showAsMissing}
->
-    <NpcLink id={origId}>
-        <WowthingImage
-            name="npc/{origId}"
-            size={40}
-            border={2}
-        />
-    </NpcLink>
+<IntersectionObserver once {element} bind:intersecting={intersected}>
+    <div
+        class="collection-object {userHasThing ? `quality${quality}` : 'has-not'}"
+        bind:this={element}
+        class:missing={showAsMissing}
+        style:height="{44 + (18 * pets.length)}px"
+    >
+        {#if intersected}
+            <NpcLink id={origId}>
+                <WowthingImage
+                    name="npc/{origId}"
+                    size={40}
+                    border={2}
+                />
+            </NpcLink>
 
-    {#if pets}
-        {#each pets as pet}
-            <div class="pet quality{pet.quality}">
-                <span>{petBreedMap[pet.breedId]}</span>
-                <span>{pet.level}</span>
-            </div>
-
-            {#if userHasThing}
-                <div class="collected-icon drop-shadow">
-                    <IconifyIcon icon={mdiCheckboxOutline} />
+            {#each pets as pet}
+                <div class="pet quality{pet.quality}">
+                    <span>{petBreedMap[pet.breedId]}</span>
+                    <span>{pet.level}</span>
                 </div>
-            {/if}
-        {/each}
-    {/if}
-</div>
+
+                {#if userHasThing}
+                    <div class="collected-icon drop-shadow">
+                        <IconifyIcon icon={mdiCheckboxOutline} />
+                    </div>
+                {/if}
+            {/each}
+        {/if}
+    </div>
+</IntersectionObserver>
