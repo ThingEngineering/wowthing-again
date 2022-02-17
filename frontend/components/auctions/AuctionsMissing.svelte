@@ -1,10 +1,13 @@
 <script lang="ts">
+    import sortBy from 'lodash/sortBy'
+
     import { timeLeft } from '@/data/auctions'
     import {
         userAuctionMissingMountStore,
         userAuctionMissingPetStore,
         userAuctionMissingToyStore,
     } from '@/stores'
+    import { auctionState } from '@/stores/local-storage/auctions'
     import connectedRealmName from '@/utils/connected-realm-name'
     import type { UserAuctionDataStore } from '@/stores'
     import type { UserAuctionDataAuction } from '@/types/data'
@@ -15,7 +18,7 @@
     export let slug: string
 
     let auctionStore: UserAuctionDataStore
-    let items: [string, number, UserAuctionDataAuction[]][]
+    let things: { id: number, name: string, auctions: UserAuctionDataAuction[] }[]
     let thingType: string
 
     $: {
@@ -34,16 +37,32 @@
     }
 
     $: {
-        items = []
+        things = []
         if ($auctionStore.data?.auctions) {
             for (const thingId in $auctionStore.data.auctions) {
-                items.push([
-                    $auctionStore.data.names[thingId],
-                    parseInt(thingId),
-                    $auctionStore.data.auctions[thingId],
-                ])
+                things.push({
+                    id: parseInt(thingId),
+                    name: $auctionStore.data.names[thingId],
+                    auctions: $auctionStore.data.auctions[thingId],
+                })
             }
-            items.sort()
+
+            const sortState = $auctionState.sortBy[slug] || 'name_up'
+            if (sortState === 'name_down') {
+                things = sortBy(things, (item) => item.name)
+                things.reverse()
+            }
+            else if (sortState === 'price_up') {
+                things = sortBy(things, (item) => item.auctions[0].bidPrice || item.auctions[0].buyoutPrice)
+            }
+            else if (sortState === 'price_down') {
+                things = sortBy(things, (item) => item.auctions[0].bidPrice || item.auctions[0].buyoutPrice)
+                things.reverse()
+            }
+            // name_up is default
+            else {
+                things = sortBy(things, (item) => item.name)
+            }
         }
     }
 </script>
@@ -101,28 +120,28 @@
 
 <div class="wrapper">
     {#await auctionStore.fetch(true) then _}
-        {#each (items || []) as [thingName, thingId, auctions]}
+        {#each (things || []) as item}
             <table class="table table-striped">
                 <thead>
                     <tr>
                         <th class="item" colspan="4">
                             <WowheadLink
                                 type={thingType}
-                                id={thingId}
+                                id={item.id}
                             >
                                 <WowthingImage
-                                    name="{thingType}/{thingId}"
+                                    name="{thingType}/{item.id}"
                                     size={20}
                                     border={1}
                                 />
-                                {thingName}
+                                {item.name}
                             </WowheadLink>
                         </th>
                     </tr>
                 </thead>
 
                 <tbody>
-                {#each auctions as auction}
+                {#each item.auctions as auction}
                     <tr>
                         <td class="realm text-overflow">
                             {connectedRealmName(auction.connectedRealmId)}

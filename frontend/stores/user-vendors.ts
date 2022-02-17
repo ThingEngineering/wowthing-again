@@ -1,6 +1,7 @@
 import { UserCount, WritableFancyStore } from '@/types'
 import getTransmogClassMask from '@/utils/get-transmog-class-mask'
 import userHasDrop from '@/utils/user-has-drop'
+import type { VendorState } from '@/stores/local-storage'
 import type { Settings } from '@/types'
 import type { UserVendorData } from '@/types/data'
 import type { StaticData } from '@/types/data/static'
@@ -9,7 +10,8 @@ import type { StaticData } from '@/types/data/static'
 export class UserVendorStore extends WritableFancyStore<UserVendorData> {
     setup(
         settingsData: Settings,
-        staticData: StaticData
+        staticData: StaticData,
+        vendorState: VendorState
     ): void {
         const classMask = getTransmogClassMask(settingsData)
 
@@ -44,8 +46,8 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
                         if (thing.classMask > 0 && (thing.classMask & classMask) === 0) {
                             continue
                         }
-                        group.filteredThings.push(thing)
 
+                        const hasDrop = userHasDrop(group.type, thing.appearanceId || thing.id)
                         const thingKey = `${group.type}-${thing.id}`
 
                         if (!seen[thingKey]) {
@@ -55,7 +57,7 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
                         catStats.total++
                         groupStats.total++
 
-                        if (userHasDrop(group.type, thing.appearanceId || thing.id)) {
+                        if (hasDrop) {
                             if (!seen[thingKey]) {
                                 overallStats.have++
                             }
@@ -67,6 +69,15 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
                         }
 
                         seen[thingKey] = true
+
+                        if (hasDrop && !vendorState.showCollected) {
+                            continue
+                        }
+                        if (!hasDrop && !vendorState.showUncollected) {
+                            continue
+                        }
+
+                        group.filteredThings.push(thing)
                     }
                 }
             }

@@ -1,7 +1,10 @@
 <script lang="ts">
+    import sortBy from 'lodash/sortBy'
+
     import { locationIcons } from '@/data/icons'
     import { petBreedMap } from '@/data/pet-breed'
     import { userAuctionExtraPetStore } from '@/stores'
+    import { auctionState } from '@/stores/local-storage/auctions'
     import connectedRealmName from '@/utils/connected-realm-name'
     import petLocationTooltip from '@/utils/pet-location-tooltip'
     import tippy from '@/utils/tippy'
@@ -11,19 +14,37 @@
     import WowheadLink from '@/components/links/WowheadLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
-    let data: [string, number, UserAuctionDataAuction[], UserAuctionDataPet[]][]
+    export let slug: string
+
+    let things: { id: number, name: string, auctions: UserAuctionDataAuction[], pets: UserAuctionDataPet[] }[]
     $: {
-        data = []
+        things = []
         if ($userAuctionExtraPetStore.data?.auctions) {
             for (const creatureId in $userAuctionExtraPetStore.data.auctions) {
-                data.push([
-                    $userAuctionExtraPetStore.data.names[creatureId],
-                    parseInt(creatureId),
-                    $userAuctionExtraPetStore.data.auctions[creatureId],
-                    $userAuctionExtraPetStore.data.pets[creatureId],
-                ])
+                things.push({
+                    id: parseInt(creatureId),
+                    name: $userAuctionExtraPetStore.data.names[creatureId],
+                    auctions: $userAuctionExtraPetStore.data.auctions[creatureId],
+                    pets: $userAuctionExtraPetStore.data.pets[creatureId],
+                })
             }
-            data.sort()
+
+            const sortState = $auctionState.sortBy[slug] || 'name_up'
+            if (sortState === 'name_down') {
+                things = sortBy(things, (item) => item.name)
+                things.reverse()
+            }
+            else if (sortState === 'price_up') {
+                things = sortBy(things, (item) => item.auctions[0].bidPrice || item.auctions[0].buyoutPrice)
+            }
+            else if (sortState === 'price_down') {
+                things = sortBy(things, (item) => item.auctions[0].bidPrice || item.auctions[0].buyoutPrice)
+                things.reverse()
+            }
+            // name_up is default
+            else {
+                things = sortBy(things, (item) => item.name)
+            }
         }
     }
 </script>
@@ -89,7 +110,7 @@
 
 <div class="wrapper">
     {#await userAuctionExtraPetStore.fetch(true) then _}
-        {#each data as [name, creatureId, auctions, pets]}
+        {#each things as thing}
             <div class="pet-wrapper">
                 <table class="table table-striped">
                     <thead>
@@ -97,20 +118,20 @@
                             <th class="item" colspan="4">
                                 <WowheadLink
                                     type="npc"
-                                    id={creatureId}
+                                    id={thing.id}
                                 >
                                     <WowthingImage
-                                        name="npc/{creatureId}"
+                                        name="npc/{thing.id}"
                                         size={20}
                                         border={1}
                                     />
-                                    {name}
+                                    {thing.name}
                                 </WowheadLink>
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        {#each auctions as auction}
+                        {#each thing.auctions as auction}
                             <tr>
                                 <td class="realm text-overflow">
                                     {connectedRealmName(auction.connectedRealmId)}
@@ -137,7 +158,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {#each pets as pet}
+                            {#each thing.pets as pet}
                                 <tr>
                                     <td
                                         class="pet-location drop-shadow"

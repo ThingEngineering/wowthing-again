@@ -10,7 +10,6 @@
     "lint": "eslint --cache ."
   },
   "dependencies": {
-    "@iconify/icons-noto": "^1.1.4",
     "base64-arraybuffer": "^0.2.0",
     "chart.js": "^3.6.2",
     "chartjs-adapter-luxon": "^1.1.0",
@@ -22,6 +21,7 @@
     "@iconify/icons-emojione-monotone": "^1.1.0",
     "@iconify/icons-ic": "^1.1.17",
     "@iconify/icons-mdi": "^1.1.36",
+    "@iconify/icons-noto": "^1.1.4",
     "@iconify/svelte": "^2.0.0",
     "@iconify/types": "^1.0.10",
     "@rollup/plugin-alias": "^3.1.2",

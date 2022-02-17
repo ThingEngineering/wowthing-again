@@ -1,13 +1,17 @@
 name: Instances
 groups:
 
-- name: Dungeons
+- name: "Dungeons"
   things:
   - 336036 # Marrowfang (The Necrotic Wake)
   - 353263 # Cartel Master's Gearglider (Hard mode, Tazavesh)
 
-- name: Raids
+- name: "Raids"
   things:
   - 354351 # Sanctum Gloomcharger (The Nine, Sanctum of Domination)
   - 351195 # Vengeance (Mythic Sylvanas, Sanctum of Domination)
   - 368158 # Zereth Overseer (Mythic Jailer, Sepulcher of the First Ones)
+
+- name: "Torghast"
+  things:
+  - 363178 # Colossal Umbrahide Mawrat

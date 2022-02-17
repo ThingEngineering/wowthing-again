@@ -44,6 +44,7 @@ groups:
 - name: Treasures
   things:
   - 342335 # Ascended Skymane (Cache of the Ascended, Bastion)
+  - 368128 # Colossal Wraithbound Mawrat (??, Zereth Mortis)
   - 354358 # Darkmaul (Darkmaul, Korthia)
   - 354361 # Dusklight Razorwing (Dusklight Razorwing, Korthia)
   - 332252 # Shimmermist Runner (Mistveil Tangle Area, Ardenweald)
