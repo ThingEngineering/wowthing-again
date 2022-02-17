@@ -7,7 +7,7 @@
     export let character: Character
     export let selected: number
 
-    const onClick = function(): void {
+    const onClick = function(this: HTMLElement): void {
         selected = parseInt(this.getAttribute('data-id'))
     }
 </script>
