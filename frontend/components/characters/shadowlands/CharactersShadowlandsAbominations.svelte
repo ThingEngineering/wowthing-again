@@ -13,15 +13,17 @@
     let charAboms: [number, number, boolean][]
     $: {
         charAboms = []
-        for (const [criteriaId, spellId] of abominations) {
-            charAboms.push([
-                criteriaId,
-                spellId,
-                some(
-                    $userAchievementStore.data.criteria[criteriaId] || [],
-                    ([charId, value]) => charId === character.id && value > 0
-                )
-            ])
+        if ($userAchievementStore.loaded) {
+            for (const [criteriaId, spellId] of abominations) {
+                charAboms.push([
+                    criteriaId,
+                    spellId,
+                    some(
+                        $userAchievementStore.data.criteria[criteriaId] || [],
+                        ([charId, value]) => charId === character.id && value > 0
+                    )
+                ])
+            }
         }
     }
 </script>

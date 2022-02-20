@@ -34,7 +34,7 @@
         error = $staticStore.error
             || $journalStore.error
             || $transmogStore.error
-            || $userAchievementStore.error
+            //|| $userAchievementStore.error
             || $userQuestStore.error
             || $userStore.error
             || $userTransmogStore.error
@@ -42,7 +42,7 @@
         loaded = $staticStore.loaded
             && $journalStore.loaded
             && $transmogStore.loaded
-            && $userAchievementStore.loaded
+            //&& $userAchievementStore.loaded
             && $userQuestStore.loaded
             && $userStore.loaded
             && $userTransmogStore.loaded

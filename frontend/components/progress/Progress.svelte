@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { afterUpdate, onMount } from 'svelte'
+    import { afterUpdate } from 'svelte'
 
     import { userAchievementStore } from '@/stores'
     import getSavedRoute from '@/utils/get-saved-route'
@@ -9,7 +9,6 @@
 
     export let params: { slug: string }
 
-    onMount(async () => await userAchievementStore.fetch())
     afterUpdate(() => getSavedRoute('progress', params.slug))
 </script>
 
