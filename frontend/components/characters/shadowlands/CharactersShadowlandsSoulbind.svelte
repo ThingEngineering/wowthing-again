@@ -55,7 +55,7 @@
         flex-direction: column;
         gap: 0.5rem;
         padding: 0.5rem 1rem;
-        width: calc(2px + 2rem + (0.3rem * 2) + (52px * 3));
+        width: calc(2px + 3rem + (0.3rem * 2) + (52px * 3));
 
         &.inactive {
             border-color: $colour-fail;

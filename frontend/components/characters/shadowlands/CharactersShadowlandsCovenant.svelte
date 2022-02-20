@@ -105,12 +105,12 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        width: 17rem;
+        width: 22rem;
     }
     .info {
         --bar-height: 1.5rem;
 
-        width: 17rem;
+        width: 22rem;
 
         /*h2 {
             border-bottom: 1px solid $border-color;

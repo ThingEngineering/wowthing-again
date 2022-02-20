@@ -25,8 +25,19 @@
         padding-bottom: 0;
         padding-left: 0.25rem;
     }
+    .collection-objects {
+        gap: 0.25rem;
+    }
     .collection-objects + .collection-objects {
         margin-top: 0.5rem;
+    }
+    .collection-object {
+        --image-border-color: #{$colour-success};
+        --image-border-width: 1px;
+
+        &.missing {
+            --image-border-color: #{$border-color};
+        }
     }
 </style>
 
@@ -36,42 +47,44 @@
         <a href="https://www.wowhead.com/guides/soulshapes-night-fae-covenant">Wowhead guide</a>
     </h3>
     <div class="collection-section">
-            <div class="collection-objects">
-                {#each soulshapes as [questId, icon]}
-                    <div
-                        class:missing={!$userQuestStore.data.characters[character.id]?.quests?.has(questId)}
+        <div class="collection-objects">
+            {#each soulshapes as [questId, icon]}
+                <div
+                    class="collection-object"
+                    class:missing={!$userQuestStore.data.characters[character.id]?.quests?.has(questId)}
+                >
+                    <WowheadLink
+                        type="quest"
+                        id={questId}
                     >
-                        <WowheadLink
-                            type="quest"
-                            id={questId}
-                        >
-                            <WowthingImage
-                                name={icon}
-                                size={32}
-                                border={1}
-                            />
-                        </WowheadLink>
-                    </div>
-                {/each}
-            </div>
+                        <WowthingImage
+                            name={icon}
+                            size={32}
+                            border={1}
+                        />
+                    </WowheadLink>
+                </div>
+            {/each}
+        </div>
 
-            <div class="collection-objects">
-                {#each crittershapes as [questId, icon]}
-                    <div
-                        class:missing={!$userQuestStore.data.characters[character.id]?.quests?.has(questId)}
+        <div class="collection-objects">
+            {#each crittershapes as [questId, icon]}
+                <div
+                    class="collection-object"
+                    class:missing={!$userQuestStore.data.characters[character.id]?.quests?.has(questId)}
+                >
+                    <WowheadLink
+                        type="quest"
+                        id={questId}
                     >
-                        <WowheadLink
-                            type="quest"
-                            id={questId}
-                        >
-                            <WowthingImage
-                                name={icon}
-                                size={32}
-                                border={1}
-                            />
-                        </WowheadLink>
-                    </div>
-                {/each}
-            </div>
+                        <WowthingImage
+                            name={icon}
+                            size={32}
+                            border={1}
+                        />
+                    </WowheadLink>
+                </div>
+            {/each}
+        </div>
     </div>
 </div>
