@@ -9,7 +9,6 @@ namespace Wowthing.Backend.Data
         private static int[] _raidDifficultiesAll = { 17, 14, 15, 16 };
         private static int[] _raidDifficultiesNoLfr = { 14, 15, 16 };
 
-        //869
         public static readonly Dictionary<int, List<ExtraItemDrop>> ExtraItemDrops = new()
         {
             {
@@ -902,6 +901,24 @@ namespace Wowthing.Backend.Data
                     // Plate
                     new(186371, _raidDifficultiesAll), // Ancient Brokensoul Bands
                     new(186373, _raidDifficultiesAll), // Towering Shadowghast Greatboots
+                }
+            },
+            {
+                1001195, // Sepulcher of the First Ones > Trash
+                new List<ExtraItemDrop>()
+                {
+                    // Cloth
+                    new(190630, _raidDifficultiesAll), // Devouring Pellicle Shoulderpads
+                    new(190631, _raidDifficultiesAll), // Vandalized Ephemera Mitts
+                    // Leather
+                    new(190626, _raidDifficultiesAll), // Hood of Empty Eternities
+                    new(190627, _raidDifficultiesAll), // Subversive Lord's Leggings
+                    // Mail
+                    new(190629, _raidDifficultiesAll), // Cartel's Larcenous Toecaps
+                    new(190628, _raidDifficultiesAll), // Lupine's Synthetic Headgear
+                    // Plate
+                    new(190624, _raidDifficultiesAll), // Gauntlets of the End
+                    new(190625, _raidDifficultiesAll), // Pauldrons of Possible Afterlives
                 }
             },
             #endregion
