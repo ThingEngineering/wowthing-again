@@ -765,7 +765,6 @@ namespace Wowthing.Backend.Jobs.User
                     character.AddonQuests.ProgressQuests = new();
                     foreach (var packedProgress in characterData.ProgressQuests.EmptyIfNull())
                     {
-                        Console.WriteLine("poggers {0}", packedProgress);
                         var parts = packedProgress.Split('|', StringSplitOptions.RemoveEmptyEntries);
                         
                         var progress = new PlayerCharacterAddonQuestsProgress
