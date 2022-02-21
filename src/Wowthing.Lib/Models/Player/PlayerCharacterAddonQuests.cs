@@ -17,7 +17,20 @@ namespace Wowthing.Lib.Models.Player
         public List<bool> CallingCompleted { get; set; }
         public List<int> CallingExpires { get; set; }
         public List<int> DailyQuests { get; set; }
-        public List<int> OtherQuests { get; set; }
-        public List<int> WeeklyQuests { get; set; }
+        
+        [Column(TypeName = "jsonb")]
+        public Dictionary<string, PlayerCharacterAddonQuestsProgress> ProgressQuests { get; set; }
+    }
+
+    public class PlayerCharacterAddonQuestsProgress
+    {
+        public int Expires { get; set; }
+        public int Have { get; set; }
+        public int Id { get; set; }
+        public int Need { get; set; }
+        public int Status { get; set; }
+        public string Name { get; set; }
+        public string Text { get; set; }
+        public string Type { get; set; }
     }
 }

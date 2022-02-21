@@ -4,15 +4,24 @@ export interface UserQuestData {
 
 export interface UserQuestDataCharacter {
     dailyQuests?: Map<number, boolean>
+    progressQuests?: Map<string, UserQuestDataCharacterProgress>
     quests?: Map<number, boolean>
-    weeklyQuests?: Map<number, boolean>
 
     callingCompleted: boolean[]
     callingExpires: number[]
     dailyQuestsPacked: string
-    otherQuestsPacked: string
     questsPacked: string
-    weeklyQuestsPacked: string
 
     scannedAt: string
+}
+
+export interface UserQuestDataCharacterProgress {
+    expires: number
+    have: number
+    id: number
+    name: string
+    need: number
+    status: number
+    text: string
+    type: string
 }

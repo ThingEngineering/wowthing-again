@@ -15,10 +15,10 @@
     import RowMythicPlusScore from '@/components/character-table/row/RaiderIo.svelte'
     import RowPlayedTime from './table/row/HomeTableRowPlayedTime.svelte'
     import RowProfessions from './table/row/HomeTableRowProfessions.svelte'
+    import RowProgressQuest from './table/row/HomeTableRowProgressQuest.svelte'
     import RowRestedExperience from './table/row/HomeTableRowRestedExperience.svelte'
     import RowStatuses from './table/row/HomeTableRowStatuses.svelte'
     import RowTorghast from './table/row/HomeTableRowTorghast.svelte'
-    import RowUghQuest from './table/row/HomeTableRowUghQuest.svelte'
     import RowVaultMythicPlus from '@/components/character-table/row/VaultMythicPlus.svelte'
     import RowVaultPvp from '@/components/character-table/row/VaultPvp.svelte'
     import RowVaultRaid from '@/components/character-table/row/VaultRaid.svelte'
@@ -98,23 +98,21 @@
                 <RowVaultRaid {character} />
 
             {:else if field === 'weeklyAnima'}
-                <RowUghQuest
+                <RowProgressQuest
                     {character}
-                    ughQuest={character.weekly?.ughQuests?.['anima']}
-                    cls="anima"
+                    quest={'anima'}
                 />
 
             {:else if field === 'weeklyKorthia'}
-                <RowUghQuest
+                <RowProgressQuest
                     {character}
-                    ughQuest={character.weekly?.ughQuests?.['shapingFate']}
+                    quest={'shapingFate'}
                 />
 
             {:else if field === 'weeklySouls'}
-                <RowUghQuest
+                <RowProgressQuest
                     {character}
-                    ughQuest={character.weekly?.ughQuests?.['souls']}
-                    weeklyReset={true}
+                    quest={'souls'}
                 />
 
             {:else}

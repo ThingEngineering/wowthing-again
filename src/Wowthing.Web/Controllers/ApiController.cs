@@ -300,7 +300,7 @@ namespace Wowthing.Web.Controllers
                 accounts = tempAccounts;
             }
 
-            timer.AddPoint("Get accounts");
+            timer.AddPoint("Accounts");
 
             var characterQuery = _context.PlayerCharacter
                 .Where(c => c.Account.UserId == apiResult.User.Id);
@@ -417,15 +417,11 @@ namespace Wowthing.Web.Controllers
                 }
             }
             
-            timer.AddPoint("Pets");
-            
             // Toys
             var toyIds = tempAccounts
                 .SelectMany(a => a.Toys?.ToyIds ?? Enumerable.Empty<int>())
                 .Distinct()
                 .ToArray();
-            
-            timer.AddPoint("Toys");
             
             // Build response
             var apiData = new UserApi
@@ -742,8 +738,8 @@ namespace Wowthing.Web.Controllers
                         CallingCompleted = c.AddonQuests?.CallingCompleted.EmptyIfNull(),
                         CallingExpires = c.AddonQuests?.CallingExpires.EmptyIfNull(),
                         DailyQuestsPacked = c.AddonQuests?.DailyQuests.EmptyIfNull().ToPackedUInt16Array(),
-                        OtherQuestsPacked = c.AddonQuests?.OtherQuests.EmptyIfNull().ToPackedUInt16Array(),
                         QuestsPacked = c.Quests?.CompletedIds.EmptyIfNull().ToPackedUInt16Array(),
+                        ProgressQuests = c.AddonQuests?.ProgressQuests.EmptyIfNull(),
                     }
                 );
             }

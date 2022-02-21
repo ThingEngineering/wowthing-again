@@ -283,20 +283,11 @@ namespace Wowthing.Web.Models
         public Dictionary<string, int> Torghast { get; set; }
         public PlayerCharacterWeeklyVault Vault { get; set; }
 
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public Dictionary<string, PlayerCharacterWeeklyUghQuest> UghQuests { get; set; }
-
         public UserApiCharacterWeekly(PlayerCharacterWeekly weekly, bool pub, ApplicationUserSettingsPrivacy? privacy)
         {
             Torghast = weekly.Torghast;
             TorghastScannedAt = weekly.TorghastScannedAt;
             Vault = weekly.Vault;
-
-            if (!pub || privacy?.PublicQuests == true)
-            {
-                UghQuests = weekly.UghQuests;
-                UghQuestsScannedAt = weekly.UghQuestsScannedAt;
-            }
 
             if (!pub || privacy?.PublicMythicPlus == true)
             {
