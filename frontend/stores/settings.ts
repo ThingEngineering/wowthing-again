@@ -1,6 +1,8 @@
 import { writable } from 'svelte/store'
 
 import { userStore } from './user'
+import { userQuestStore } from './user-quests'
+import { userTransmogStore } from './user-transmog'
 import type { Settings } from '@/types'
 
 
@@ -16,7 +18,14 @@ export const data = {
         }
 
         if (settings.general.refreshInterval > 0) {
-            interval = setInterval(async () => await userStore.fetch(false), settings.general.refreshInterval * 1000 * 60)
+            interval = setInterval(
+                async () => await Promise.all([
+                    userQuestStore.fetch(false),
+                    userStore.fetch(false),
+                    userTransmogStore.fetch(false),
+                ]),
+                settings.general.refreshInterval * 1000 * 60
+            )
         }
 
         set(settings)
