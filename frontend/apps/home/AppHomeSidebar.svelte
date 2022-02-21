@@ -3,6 +3,7 @@
     import iconCharacters from '@iconify/icons-mdi/account-group-outline'
     import iconConstruction from '@iconify/icons-emojione-monotone/construction'
     import iconCurrencies from '@iconify/icons-mdi/cash-multiple'
+    import iconGear from '@iconify/icons-noto/crossed-swords'
     import iconHistory from '@iconify/icons-mdi/chart-line'
     import iconHome from '@iconify/icons-mdi/home-outline'
     import iconMythicPlus from '@iconify/icons-ic/sharp-more-time'
@@ -75,7 +76,7 @@
 <Sidebar>
     <li use:active={'/'}>
         <a href="#/">
-            <IconifyIcon icon={iconHome} />
+            <IconifyIcon icon={iconHome} dropShadow={true} />
             Home
         </a>
     </li>
@@ -84,20 +85,21 @@
 
     <li use:active={'/characters/*'}>
         <a href="#/characters/">
-            <IconifyIcon icon={iconCharacters} />
+            <IconifyIcon icon={iconCharacters} dropShadow={true} />
             Characters
         </a>
     </li>
 
     <li use:active={'/currencies/*'}>
         <a href="#/currencies/">
-            <IconifyIcon icon={iconCurrencies} />
+            <IconifyIcon icon={iconCurrencies} dropShadow={true} />
             Currencies
         </a>
     </li>
 
     <li use:active={'/gear/*'}>
         <a href="#/gear/">
+            <IconifyIcon icon={iconGear} dropShadow={true} />
             Gear
         </a>
     </li>
@@ -105,7 +107,7 @@
     {#if $userStore.loaded && !$userStore.data.public}
         <li use:active={'/history/*'}>
             <a href="#/history/">
-                <IconifyIcon icon={iconHistory} />
+                <IconifyIcon icon={iconHistory} dropShadow={true} />
                 History
             </a>
         </li>
@@ -114,7 +116,7 @@
     {#if $userStore.loaded && !$userStore.data.public}
         <li use:active={'/items/*'}>
             <a href="#/items/">
-                <IconifyIcon icon={iconConstruction} />
+                <IconifyIcon icon={iconConstruction} dropShadow={true} />
                 Items
             </a>
         </li>
@@ -122,28 +124,28 @@
 
     <li use:active={'/lockouts'}>
         <a href="#/lockouts">
-            <IconifyIcon icon={iconStrings.lock} />
+            <IconifyIcon icon={iconStrings.lock} dropShadow={true} />
             Lockouts
         </a>
     </li>
 
     <li use:active={'/mythic-plus/*'}>
         <a href="#/mythic-plus/">
-            <IconifyIcon icon={iconMythicPlus} />
+            <IconifyIcon icon={iconMythicPlus} dropShadow={true} />
             Mythic+
         </a>
     </li>
 
     <li use:active={'/progress/*'}>
         <a href="#/progress/">
-            <IconifyIcon icon={iconProgress} />
+            <IconifyIcon icon={iconProgress} dropShadow={true} />
             Progress
         </a>
     </li>
 
     <li use:active={'/reputations/*'}>
         <a href="#/reputations/">
-            <IconifyIcon icon={iconReputations} />
+            <IconifyIcon icon={iconReputations} dropShadow={true} />
             Reputations
         </a>
     </li>
@@ -153,7 +155,7 @@
     {#if $userStore.loaded && !$userStore.data.public}
         <li use:active={'/auctions/*'}>
             <a href="#/auctions/">
-                <IconifyIcon icon={iconBank} />
+                <IconifyIcon icon={iconBank} dropShadow={true} />
                 Auctions
             </a>
         </li>
@@ -161,7 +163,7 @@
 
     <li use:active={'/mounts/*'}>
         <a href="#/mounts/">
-            <IconifyIcon icon={dropTypeIcon[FarmDropType.Mount]} />
+            <IconifyIcon icon={dropTypeIcon[FarmDropType.Mount]} dropShadow={true} />
             Mounts
         </a>
         <span class="drop-shadow percent {getPercentClass(mountsPercent)}">{fancyPercent(mountsPercent)} %</span>
@@ -169,7 +171,7 @@
 
     <li use:active={'/pets/*'}>
         <a href="#/pets/">
-            <IconifyIcon icon={dropTypeIcon[FarmDropType.Pet]} />
+            <IconifyIcon icon={dropTypeIcon[FarmDropType.Pet]} dropShadow={true} />
             Pets
         </a>
         <span class="drop-shadow percent {getPercentClass(petsPercent)}">{fancyPercent(petsPercent)} %</span>
@@ -177,7 +179,7 @@
 
     <li use:active={'/toys/*'}>
         <a href="#/toys/">
-            <IconifyIcon icon={dropTypeIcon[FarmDropType.Toy]} />
+            <IconifyIcon icon={dropTypeIcon[FarmDropType.Toy]} dropShadow={true} />
             Toys
         </a>
         <span class="drop-shadow percent {getPercentClass(toysPercent)}">{fancyPercent(toysPercent)} %</span>
@@ -187,7 +189,7 @@
 
     <li use:active={'/journal/*'}>
         <a href="#/journal/">
-            <IconifyIcon icon={dropTypeIcon[FarmDropType.Cosmetic]} />
+            <IconifyIcon icon={dropTypeIcon[FarmDropType.Cosmetic]} dropShadow={true} />
             Journal
         </a>
         <span class="drop-shadow percent {getPercentClass(journalPercent)}">{fancyPercent(journalPercent)} %</span>
@@ -195,7 +197,7 @@
 
     <li use:active={'/appearances/*'}>
         <a href="#/appearances/">
-            <IconifyIcon icon={iconSets} />
+            <IconifyIcon icon={iconSets} dropShadow={true} />
             Sets
         </a>
         <span class="drop-shadow percent {getPercentClass(transmogPercent)}">{fancyPercent(transmogPercent)} %</span>
@@ -203,7 +205,7 @@
 
     <li use:active={'/vendors/*'}>
         <a href="#/vendors/">
-            <IconifyIcon icon={iconVendors} />
+            <IconifyIcon icon={iconVendors} dropShadow={true} />
             Vendors
         </a>
         <span class="drop-shadow percent {getPercentClass(vendorPercent)}">{fancyPercent(vendorPercent)} %</span>
@@ -211,7 +213,7 @@
 
     <li use:active={'/zone-maps/*'}>
         <a href="#/zone-maps/">
-            <IconifyIcon icon={iconZoneMaps} />
+            <IconifyIcon icon={iconZoneMaps} dropShadow={true} />
             Zone Maps
         </a>
     </li>
@@ -220,14 +222,14 @@
 
     <li use:active={'/achievements/*'}>
         <a href="#/achievements/summary">
-            <IconifyIcon icon={iconConstruction} />
+            <IconifyIcon icon={iconConstruction} dropShadow={true} />
             Achievements
         </a>
     </li>
 
     <li use:active={'/cards'}>
         <a href="#/cards">
-            <IconifyIcon icon={iconConstruction} />
+            <IconifyIcon icon={iconConstruction} dropShadow={true} />
             Home (Cards)
         </a>
     </li>
@@ -237,7 +239,7 @@
 
         <li use:active={'/settings/*'}>
             <a href="#/settings/">
-                <IconifyIcon icon={iconSettings} />
+                <IconifyIcon icon={iconSettings} dropShadow={true} />
                 Settings
             </a>
         </li>
