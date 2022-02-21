@@ -348,6 +348,40 @@ farms:
   - type: transmog
     id: 189939 # Zatojin's Paralytic Grip
 
+
+# World Boss
+
+- name: "Antros"
+  location: 49.6 8.2
+  npcId: 182466
+  questId: 0
+  reset: weekly
+  type: killBig
+  drops:
+  - type: transmog
+    id: 190621 # Dealic Deterrent Stockings
+
+  - type: transmog
+    id: 190620 # Sav'thul's Calamitous Tantour
+
+  - type: transmog
+    id: 190619 # Antecedent's Aliform Joggers
+
+  - type: transmog
+    id: 190618 # Lattice of the Distant Keeper
+
+  - type: transmog
+    id: 190616 # Controlled Sequence Clasp
+
+  - type: transmog
+    id: 190617 # Destruction-Core Handlers
+
+  - type: transmog
+    id: 190614 # Antros' Entrusted Bascinet
+
+  - type: transmog
+    id: 190615 # Cosmic Guardian's Casing
+
 # Treasures
 
 - name: "Architect's Reserve"
