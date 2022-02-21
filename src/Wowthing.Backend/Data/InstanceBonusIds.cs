@@ -95,6 +95,14 @@ namespace Wowthing.Backend.Data
             { 16, 6807 }, // Mythic
             { 17, 7186 }, // LFR
         };
+
+        private static readonly Dictionary<int, int> SlRaid2 = new()
+        {
+            { 14, 7189 }, // Normal
+            { 15, 7188 }, // Heroic
+            { 16, 7187 }, // Mythic
+            { 17, 7186 }, // LFR
+        };
         
         public static Dictionary<int, Dictionary<int, int>> InstanceBonusIds = new()
         {
@@ -140,7 +148,7 @@ namespace Wowthing.Backend.Data
             
             { 1190, SlRaid }, // Castle Nathria
             { 1193, SlRaid }, // Sanctum of Domination
-            { 1195, SlRaid }, // Sepulcher of the First Ones
+            { 1195, SlRaid2 }, // Sepulcher of the First Ones
         };
     }
 }
