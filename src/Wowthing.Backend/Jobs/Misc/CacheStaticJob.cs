@@ -623,56 +623,61 @@ namespace Wowthing.Backend.Jobs.Misc
                     {
                         foreach (var farm in category.Farms)
                         {
-                            if (farm.IdType == FarmIdType.Npc && farm.Id > 0)
+                            // This doesn't work as we don't have a mapping of NPC ID -> Creature ID
+                            /*if (farm.IdType == FarmIdType.Npc && farm.Id > 0)
                             {
                                 farm.Name = _stringMap.GetValueOrDefault((StringType.WowCreatureName, language, farm.Id), farm.Name);
-                            }
+                            }*/
                             
                             foreach (var drop in farm.Drops)
                             {
-                                /*if (drop.Type == "mount")
+                                switch (drop.Type)
                                 {
-                                    drop.Name = _spellToMount[language][drop.Id].Item2;
-                                }
-                                else if (drop.Type == "pet")
-                                {
-                                    drop.Name = _creatureToPet[language][drop.Id].Item2;
-                                }
-                                else if (drop.Type == "toy")
-                                {
-                                    drop.Name = GetString(StringType.WowItemName, language, drop.Id);
-                                }*/
-                                if (drop.Type == "transmog")
-                                {
-                                    var dropItem = _itemMap[drop.Id];
-
-                                    drop.Id = _itemToAppearance[drop.Id];
-                                    drop.Name = GetString(StringType.WowItemName, language, dropItem.Id);
-
-                                    if (dropItem.ClassId == 2)
+                                    case "mount":
+                                        drop.Name = GetString(StringType.WowMountName, language, _spellToMount[drop.Id]);
+                                        break;
+                                    
+                                    case "pet":
+                                        drop.Name = GetString(StringType.WowCreatureName, language, drop.Id);
+                                        break;
+                                    
+                                    case "toy":
+                                        drop.Name = GetString(StringType.WowItemName, language, drop.Id);
+                                        break;
+                                    
+                                    case "transmog":
                                     {
-                                        drop.Type = "weapon";
-                                        drop.SubType = dropItem.SubclassId;
-                                    }
-                                    else if (dropItem.ClassId == 4)
-                                    {
-                                        if (dropItem.SubclassId == 6 || dropItem.InventoryType == WowInventoryType.HeldInOffHand)
+                                        var dropItem = _itemMap[drop.Id];
+
+                                        drop.Id = _itemToAppearance[drop.Id];
+                                        drop.Name = GetString(StringType.WowItemName, language, dropItem.Id);
+
+                                        if (dropItem.ClassId == 2)
                                         {
                                             drop.Type = "weapon";
-                                            drop.SubType = dropItem.InventoryType == WowInventoryType.HeldInOffHand ? 30 : 31;
+                                            drop.SubType = dropItem.SubclassId;
                                         }
-                                        else if (dropItem.SubclassId == 5 || dropItem.Flags.HasFlag(WowItemFlags.Cosmetic))
+                                        else if (dropItem.ClassId == 4)
                                         {
-                                            drop.Type = "cosmetic";
+                                            if (dropItem.SubclassId == 6 || dropItem.InventoryType == WowInventoryType.HeldInOffHand)
+                                            {
+                                                drop.Type = "weapon";
+                                                drop.SubType = dropItem.InventoryType == WowInventoryType.HeldInOffHand ? 30 : 31;
+                                            }
+                                            else if (dropItem.SubclassId == 5 || dropItem.Flags.HasFlag(WowItemFlags.Cosmetic))
+                                            {
+                                                drop.Type = "cosmetic";
+                                            }
+                                            else
+                                            {
+                                                drop.Type = "armor";
+                                                drop.SubType = dropItem.InventoryType == WowInventoryType.Back ? 0 : dropItem.SubclassId;
+                                            }
                                         }
-                                        else
-                                        {
-                                            drop.Type = "armor";
-                                            drop.SubType = dropItem.InventoryType == WowInventoryType.Back ? 0 : dropItem.SubclassId;
-                                        }
-                                    }
 
-                                    drop.ClassMask = dropItem.GetCalculatedClassMask();
+                                        drop.ClassMask = dropItem.GetCalculatedClassMask();
+                                        break;
+                                    }
                                 }
                             }
                         }

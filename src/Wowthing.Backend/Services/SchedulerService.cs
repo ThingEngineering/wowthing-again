@@ -25,6 +25,36 @@ namespace Wowthing.Backend.Services
         private readonly List<ScheduledJob> _scheduledJobs = new();
 
         private const string QueryCharacters = @"
+WITH account_last AS (
+    SELECT  a.id AS account_id,
+            GREATEST(u.last_visit, current_timestamp - '1 week'::interval) AS last_visit
+    FROM    player_account a
+    LEFT OUTER JOIN asp_net_users u ON a.user_id = u.id
+)
+SELECT  c.id AS character_id,
+        c.account_id AS account_id,
+        c.name AS character_name,
+        r.region,
+        r.slug AS realm_slug,
+        a.user_id
+FROM    player_character c
+INNER JOIN player_account a ON c.account_id = a.id
+INNER JOIN wow_realm r ON c.realm_id = r.id
+LEFT OUTER JOIN account_last al ON c.account_id = al.account_id
+WHERE (
+    c.account_id IS NOT NULL AND
+    (current_timestamp - c.last_api_check) > (
+        '10 minutes'::interval +
+        ('1 minute'::interval * LEAST(50, GREATEST(0, 60 - c.level))) +
+        ('10 minutes'::interval * EXTRACT(EPOCH FROM current_timestamp - al.last_visit) / 86400) +
+        ('1 hour'::interval * LEAST(168, c.delay_hours))
+    )
+)
+ORDER BY c.last_api_check
+LIMIT 500
+";
+        
+        /*private const string QueryCharacters = @"
 SELECT  c.id AS character_id,
         c.account_id AS account_id,
         c.name AS character_name,
@@ -45,7 +75,7 @@ WHERE (
 )
 ORDER BY c.last_api_check
 LIMIT 500
-";
+";*/
 
         public SchedulerService(IServiceScopeFactory serviceScopeFactory, JobRepository jobRepository)
             : base("Scheduler", TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(TimerInterval))

@@ -33,6 +33,8 @@ export const affixMap: Record<number, MythicPlusAffix> = Object.fromEntries(
         new MythicPlusAffix(120, 'Awakened'), // BfA S4
         new MythicPlusAffix(121, 'Prideful'), // SL S1
         new MythicPlusAffix(128, 'Tormented'), // SL S2
+        new MythicPlusAffix(129, 'Infernal'), // Legion TW S1
+        new MythicPlusAffix(130, 'Encrypted'), // SL S3
     ].map((affix) => [affix.id, affix])
 )
 
@@ -55,50 +57,87 @@ export const weeklyAffixes: MythicPlusAffix[][] = [
     ['Tyrannical', 'Bolstering', 'Explosive'],
 ].map((arr) => arr.map((affix) => affixNameMap[affix]))
 
-export const dungeonMap: Record<number, Dungeon> = {
+// MapChallengeMode.db2
+export const dungeons: Dungeon[] = [
     // Battle for Azeroth
-    244: new Dungeon(244, "Atal'Dazar", 'AD', 'dungeon_atal_dazar', 0),
-    245: new Dungeon(245, 'Freehold', 'FH', 'dungeon_freehold', 0),
-    246: new Dungeon(246, 'Tol Dagor', 'TD', 'dungeon_tol_dagor', 0),
-    247: new Dungeon(
+    new Dungeon(
+        244,
+        "Atal'Dazar",
+        'AD',
+        'dungeon_atal_dazar',
+        0
+    ),
+    new Dungeon(
+        245,
+        'Freehold',
+        'FH',
+        'dungeon_freehold',
+        0
+    ),
+    new Dungeon(
+        246,
+        'Tol Dagor',
+        'TD',
+        'dungeon_tol_dagor',
+        0
+    ),
+    new Dungeon(
         247,
         'The MOTHERLODE!!',
         'ML',
         'dungeon_the_motherlode',
         0
     ),
-    248: new Dungeon(248, 'Waycrest Manor', 'WM', 'dungeon_waycrest_manor', 0),
-    249: new Dungeon(249, "King's Rest", 'KR', 'dungeon_kings_rest', 0),
-    250: new Dungeon(
+    new Dungeon(
+        248,
+        'Waycrest Manor',
+        'WM',
+        'dungeon_waycrest_manor',
+        0
+    ),
+    new Dungeon(
+        249,
+        "King's Rest",
+        'KR',
+        'dungeon_kings_rest',
+        0
+    ),
+    new Dungeon(
         250,
         'Temple of Sethraliss',
         'ToS',
         'dungeon_temple_of_sethraliss',
         0
     ),
-    251: new Dungeon(251, 'The Underrot', 'UR', 'dungeon_the_underrot', 0),
-    252: new Dungeon(
+    new Dungeon(
+        251,
+        'The Underrot',
+        'UR',
+        'dungeon_the_underrot',
+        0
+    ),
+    new Dungeon(
         252,
         'Shrine of the Storm',
         'SoS',
         'dungeon_shrine_of_the_storm',
         0
     ),
-    353: new Dungeon(
+    new Dungeon(
         353,
         'Siege of Boralus',
         'SoB',
         'dungeon_siege_of_boralus',
         0
     ),
-    369: new Dungeon(
+    new Dungeon(
         369,
         'Operation: Mechagon - Junkyard',
         'OMJ',
         'dungeon_operation_mechagon_junkyard',
         0
     ),
-    370: new Dungeon(
+    new Dungeon(
         370,
         'Operation: Mechagon - Workshop',
         'OMW',
@@ -107,52 +146,80 @@ export const dungeonMap: Record<number, Dungeon> = {
     ),
 
     // Shadowlands
-    375: new Dungeon(
+    new Dungeon(
         375,
         'Mists of Tirna Scithe',
         'MoTS',
         'dungeon_mists_of_tirna_scithe',
         30
     ),
-    376: new Dungeon(
+    new Dungeon(
         376,
         'The Necrotic Wake',
         'NW',
         'dungeon_the_necrotic_wake',
         36
     ),
-    377: new Dungeon(377, 'De Other Side', 'DOS', 'dungeon_de_other_side', 43),
-    378: new Dungeon(
+    new Dungeon(
+        377,
+        'De Other Side',
+        'DOS', 'dungeon_de_other_side', 43
+    ),
+    new Dungeon(
         378,
         'Halls of Atonement',
         'HoA',
         'dungeon_halls_of_atonement',
         31
     ),
-    379: new Dungeon(379, 'Plaguefall', 'PF', 'dungeon_plaguefall', 38),
-    380: new Dungeon(
+    new Dungeon(
+        379, 'Plaguefall',
+        'PF',
+        'dungeon_plaguefall',
+        38
+    ),
+    new Dungeon(
         380,
         'Sanguine Depths',
         'SD',
         'dungeon_sanguine_depths',
         41
     ),
-    381: new Dungeon(
+    new Dungeon(
         381,
         'Spires of Ascension',
         'SoA',
         'dungeon_spires_of_ascension',
         39
     ),
-    382: new Dungeon(
+    new Dungeon(
         382,
         'Theater of Pain',
         'ToP',
         'dungeon_theater_of_pain',
         37
     ),
-}
+    new Dungeon(
+        391,
+        'Tazavesh: Streets of Wonder',
+        'TSW',
+        'achievement/15177',
+        39
+    ),
+    new Dungeon(
+        392,
+        "Tazavesh: So'leah's Gambit",
+        'TSG',
+        'achievement/15177',
+        30
+    ),
+]
 
+export const dungeonMap: Record<number, Dungeon> = Object.fromEntries(
+    dungeons.map((dungeon) => [dungeon.id, dungeon])
+)
+
+// 8.0
 const orderBattleForAzeroth: number[] = [
     244, // Atal'Dazar
     245, // Freehold
@@ -166,12 +233,13 @@ const orderBattleForAzeroth: number[] = [
     248, // Waycrest Manor
 ]
 
-// 8.3 dungeons
+// 8.3
 const orderBattleForAzeroth2: number[] = [
     369, // Operation: Mechagon - Junkyard
     370, // Operation: Mechagon - Workshop
 ]
 
+// 9.0
 const orderShadowlands: number[] = [
     377, // De Other Side
     378, // Halls of Atonement
@@ -183,60 +251,51 @@ const orderShadowlands: number[] = [
     382, // Theater of Pain
 ]
 
+// 9.2
+const orderShadowlands2: number[] = [
+    391, // Tazavesh: Streets of Wonder
+    392, // Tazavesh: So'leah's Gambit
+]
+
 export const seasonMap: Record<number, MythicPlusSeason> = {
+    7: new MythicPlusSeason(7, 'SL Season 3', 'sl-3', 60, [orderShadowlands2, orderShadowlands]),
     6: new MythicPlusSeason(6, 'SL Season 2', 'sl-2', 60, [orderShadowlands]),
     5: new MythicPlusSeason(5, 'SL Season 1', 'sl-1', 60, [orderShadowlands]),
-    4: new MythicPlusSeason(4, 'BfA Season 4', 'bfa-4', 50, [
-        orderBattleForAzeroth2,
-        orderBattleForAzeroth,
-    ]),
-    3: new MythicPlusSeason(3, 'BfA Season 3', 'bfa-3', 50, [
-        orderBattleForAzeroth,
-    ]),
-    2: new MythicPlusSeason(2, 'BfA Season 2', 'bfa-2', 50, [
-        orderBattleForAzeroth,
-    ]),
-    1: new MythicPlusSeason(1, 'BfA Season 1', 'bfa-1', 50, [
-        orderBattleForAzeroth,
-    ]),
-}
-
-export const badgeToClass: Record<number, string> = {
-    2: 'quality1',
-    5: 'quality2',
-    10: 'quality3',
-    15: 'quality4',
-    20: 'quality5',
+    4: new MythicPlusSeason(4, 'BfA Season 4', 'bfa-4', 50, [orderBattleForAzeroth2, orderBattleForAzeroth]),
+    3: new MythicPlusSeason(3, 'BfA Season 3', 'bfa-3', 50, [orderBattleForAzeroth]),
+    2: new MythicPlusSeason(2, 'BfA Season 2', 'bfa-2', 50, [orderBattleForAzeroth]),
+    1: new MythicPlusSeason(1, 'BfA Season 1', 'bfa-1', 50, [orderBattleForAzeroth]),
 }
 
 // [rating, max item level] first match >= rating is used
 export const ratingItemLevelUpgrade: Array<Array<number>> = [
-    [2000, 246],
-    [1700, 242],
-    [1400, 239],
-    [1000, 236],
-    [600, 229],
-    [0, 226],
+    [2000, 272],
+    [1700, 268],
+    [1400, 265],
+    [1200, 262],
+    [1000, 259],
+    [600, 255],
+    [0, 252],
 ]
 
 // [key level, item level] first match >= key is used
 export const keyVaultItemLevel: Array<Array<number>> = [
-    [15, 252],
-    [14, 249],
-    [12, 246],
-    [11, 242],
-    [10, 239],
-    [8, 236],
-    [7, 233],
-    [5, 229],
-    [2, 226],
+    [15, 278],
+    [14, 275],
+    [12, 272],
+    [11, 268],
+    [10, 265],
+    [8, 262],
+    [7, 259],
+    [5, 255],
+    [2, 252],
 ]
 
 export const raidVaultItemLevel: Record<number, number> = {
-    17: 213, // LFR
-    14: 226, // Normal
-    15: 239, // Heroic
-    16: 252, // Mythic
+    17: 239, // LFR
+    14: 252, // Normal
+    15: 265, // Heroic
+    16: 278, // Mythic
 }
 
 // Fake "instances" for tracking world bosses
@@ -377,6 +436,12 @@ export const extraInstances: StaticDataInstance[] = [
         id: 108004,
         name: "Mor'geth, Tormentor of the Damned",
         shortName: 'MTD',
+    },
+    {
+        expansion: 8,
+        id: 108005,
+        name: 'Antros',
+        shortName: 'Ant',
     },
 
     // Holidays

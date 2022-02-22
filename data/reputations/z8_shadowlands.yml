@@ -1,6 +1,18 @@
 name: Shadowlands
 reputations:
 
+# 9.2
+- - both:
+      id: 2478 # The Enlightened
+      icon: achievement/15220
+      rewards:
+      - type: toy
+        id: 190177
+
+      - type: transmog
+        id: 190939
+    paragon: true
+
 # 9.1
 - - both:
       id: 2472 # The Archivist's Codex

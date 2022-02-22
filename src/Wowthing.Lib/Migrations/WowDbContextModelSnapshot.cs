@@ -633,6 +633,9 @@ namespace Wowthing.Lib.Migrations
                     b.HasIndex("GuildId")
                         .HasDatabaseName("ix_player_character_guild_id");
 
+                    b.HasIndex("LastApiCheck")
+                        .HasDatabaseName("ix_player_character_last_api_check");
+
                     b.HasIndex("RealmId", "Name")
                         .IsUnique()
                         .HasDatabaseName("ix_player_character_realm_id_name");
@@ -734,17 +737,13 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnType("integer[]")
                         .HasColumnName("daily_quests");
 
-                    b.Property<List<int>>("OtherQuests")
-                        .HasColumnType("integer[]")
-                        .HasColumnName("other_quests");
+                    b.Property<Dictionary<string, PlayerCharacterAddonQuestsProgress>>("ProgressQuests")
+                        .HasColumnType("jsonb")
+                        .HasColumnName("progress_quests");
 
                     b.Property<DateTime>("QuestsScannedAt")
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("quests_scanned_at");
-
-                    b.Property<List<int>>("WeeklyQuests")
-                        .HasColumnType("integer[]")
-                        .HasColumnName("weekly_quests");
 
                     b.HasKey("CharacterId")
                         .HasName("pk_player_character_addon_quests");
@@ -1181,14 +1180,6 @@ namespace Wowthing.Lib.Migrations
                     b.Property<DateTime>("TorghastScannedAt")
                         .HasColumnType("timestamp without time zone")
                         .HasColumnName("torghast_scanned_at");
-
-                    b.Property<Dictionary<string, PlayerCharacterWeeklyUghQuest>>("UghQuests")
-                        .HasColumnType("jsonb")
-                        .HasColumnName("ugh_quests");
-
-                    b.Property<DateTime>("UghQuestsScannedAt")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("ugh_quests_scanned_at");
 
                     b.Property<PlayerCharacterWeeklyVault>("Vault")
                         .HasColumnType("jsonb")

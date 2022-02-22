@@ -22,10 +22,6 @@ namespace Wowthing.Lib.Models.Player
         [Column(TypeName = "jsonb")]
         public Dictionary<string, int> Torghast { get; set; }
 
-        public DateTime UghQuestsScannedAt { get; set; } = DateTime.MinValue;
-        [Column(TypeName = "jsonb")]
-        public Dictionary<string, PlayerCharacterWeeklyUghQuest> UghQuests { get; set; }
-
         [Column(TypeName = "jsonb")]
         public PlayerCharacterWeeklyVault Vault { get; set; } = new PlayerCharacterWeeklyVault();
     }

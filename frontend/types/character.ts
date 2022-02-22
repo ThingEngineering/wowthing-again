@@ -216,22 +216,12 @@ export interface CharacterShadowlandsSoulbind {
 interface CharacterWeekly {
     keystoneScannedAt: string
     torghastScannedAt: string
-    ughQuestsScannedAt: string
 
     keystoneDungeon: number
     keystoneLevel: number
 
     torghast: Record<number, number>
-    ughQuests: Record<string, CharacterWeeklyUghQuest>
     vault: CharacterWeeklyVault
-}
-
-export interface CharacterWeeklyUghQuest {
-    have?: number
-    need?: number
-    status: number
-    text?: string
-    type?: string
 }
 
 interface CharacterWeeklyVault {

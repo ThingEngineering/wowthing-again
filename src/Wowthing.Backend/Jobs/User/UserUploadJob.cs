@@ -761,7 +761,30 @@ namespace Wowthing.Backend.Jobs.User
                 {
                     character.AddonQuests.QuestsScannedAt = scanTime;
                     character.AddonQuests.DailyQuests = characterData.DailyQuests.EmptyIfNull();
-                    character.AddonQuests.OtherQuests = characterData.OtherQuests.EmptyIfNull();
+
+                    character.AddonQuests.ProgressQuests = new();
+                    foreach (var packedProgress in characterData.ProgressQuests.EmptyIfNull())
+                    {
+                        var parts = packedProgress.Split('|', StringSplitOptions.RemoveEmptyEntries);
+                        
+                        var progress = new PlayerCharacterAddonQuestsProgress
+                        {
+                            Id = int.Parse(parts[1]),
+                            Name = parts[2],
+                            Status = int.Parse(parts[3]),
+                            Expires = int.Parse(parts[4]),
+                        };
+
+                        if (parts.Length > 5)
+                        {
+                            progress.Have = int.Parse(parts[5]);
+                            progress.Need = int.Parse(parts[6]);
+                            progress.Type = parts[7];
+                            progress.Text = parts[8];
+                        }
+
+                        character.AddonQuests.ProgressQuests[parts[0]] = progress;
+                    }
                 }
             }
         }
@@ -888,26 +911,6 @@ namespace Wowthing.Backend.Jobs.User
                 }
 
                 Context.Entry(character.Weekly).Property(e => e.Vault).IsModified = true;
-            }
-
-            // Ugh, quests
-            if (characterData.ScanTimes.TryGetValue("quests", out int questsScanned) && characterData.WeeklyUghQuests != null)
-            {
-                character.Weekly.UghQuestsScannedAt = questsScanned.AsUtcDateTime();
-                
-                character.Weekly.UghQuests = new Dictionary<string, PlayerCharacterWeeklyUghQuest>();
-
-                foreach (var (questKey, questData) in characterData.WeeklyUghQuests)
-                {
-                    character.Weekly.UghQuests[questKey.Truncate(32)] = new PlayerCharacterWeeklyUghQuest
-                    {
-                        Have = questData.Have,
-                        Need = questData.Need,
-                        Status = questData.Status,
-                        Text = questData.Text?.Truncate(64),
-                        Type = questData.Type?.Truncate(16),
-                    };
-                }
             }
         }
 
