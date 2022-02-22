@@ -109,6 +109,12 @@
                     quest={'shapingFate'}
                 />
 
+            {:else if field === 'weeklyPatterns'}
+                <RowProgressQuest
+                    {character}
+                    quest={'patterns'}
+                />
+
             {:else if field === 'weeklySouls'}
                 <RowProgressQuest
                     {character}

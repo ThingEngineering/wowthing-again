@@ -65,7 +65,8 @@
                     }
                 }
             }
-            else {
+
+            if (status === '') {
                 status = 'fail'
                 text = 'Get!'
             }
