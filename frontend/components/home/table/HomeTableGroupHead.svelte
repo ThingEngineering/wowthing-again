@@ -103,6 +103,11 @@
                 <td>Korthia</td>
             {/if}
 
+        {:else if field === 'weeklyPatterns'}
+            {#if !isPublic || $settings.privacy.publicQuests}
+                <td>ZM</td>
+            {/if}
+
         {:else if field === 'weeklySouls'}
             {#if !isPublic || $settings.privacy.publicQuests}
                 <td>Souls</td>
