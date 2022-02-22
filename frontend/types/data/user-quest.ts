@@ -4,7 +4,7 @@ export interface UserQuestData {
 
 export interface UserQuestDataCharacter {
     dailyQuests?: Map<number, boolean>
-    progressQuests?: Map<string, UserQuestDataCharacterProgress>
+    progressQuests?: Record<string, UserQuestDataCharacterProgress>
     quests?: Map<number, boolean>
 
     callingCompleted: boolean[]
