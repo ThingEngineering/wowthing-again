@@ -354,7 +354,7 @@ farms:
 - name: "Antros"
   location: 49.6 8.2
   npcId: 182466
-  questId: 0
+  questId: 65143
   reset: weekly
   type: killBig
   drops:
