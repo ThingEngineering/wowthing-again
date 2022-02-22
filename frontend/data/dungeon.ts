@@ -253,8 +253,8 @@ const orderShadowlands: number[] = [
 
 // 9.2
 const orderShadowlands2: number[] = [
-    391, // Tazavesh: Streets of Wonder
     392, // Tazavesh: So'leah's Gambit
+    391, // Tazavesh: Streets of Wonder
 ]
 
 export const seasonMap: Record<number, MythicPlusSeason> = {
