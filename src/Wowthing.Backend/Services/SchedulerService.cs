@@ -27,7 +27,7 @@ namespace Wowthing.Backend.Services
         private const string QueryCharacters = @"
 WITH account_last AS (
     SELECT  a.id AS account_id,
-            GREATEST(u.last_visit, current_timestamp - '24 hours'::interval) AS last_visit
+            GREATEST(u.last_visit, current_timestamp - '1 week'::interval) AS last_visit
     FROM    player_account a
     LEFT OUTER JOIN asp_net_users u ON a.user_id = u.id
 )
