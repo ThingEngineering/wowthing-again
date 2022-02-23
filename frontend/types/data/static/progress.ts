@@ -2,6 +2,7 @@ import type { ProgressDataType } from '@/types/enums'
 
 
 export interface StaticDataProgressCategory {
+    minimumLevel?: number
     name: string
     slug: string
     requiredQuestIds: number[]

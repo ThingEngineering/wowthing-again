@@ -1,0 +1,30 @@
+name: "Zereth Mortis"
+minimumLevel: 60
+groups:
+
+- name: "Secrets of the First Ones"
+  icon: achievement/15259 # Secrets of the First Ones
+  lookup: none
+  type: quest
+  data:
+    0:
+    - name: "Into the Unknown"
+      id: 64958
+
+    - name: "We Battle Onward"
+      id: 64825
+
+    - name: "Forming an Understanding"
+      id: 65305
+
+    - name: "Forging a New Path"
+      id: 64844
+
+    - name: "Crown of Wills"
+      id: 64813
+
+    - name: "A Means to an End"
+      id: 65328
+
+    - name: "Starting Over"
+      id: 65238

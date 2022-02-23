@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 using Wowthing.Lib.Extensions;
 
 namespace Wowthing.Backend.Models.Data.Progress
@@ -10,7 +11,10 @@ namespace Wowthing.Backend.Models.Data.Progress
         public string Name { get; set; }
         public List<int> RequiredQuestIds { get; set; }
         public List<OutProgressGroup> Groups { get; set; }
-        
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public int? MinimumLevel { get; set; }
+
         public string Slug => Name.Slugify();
 
         public OutProgress(DataProgress data)
@@ -27,6 +31,11 @@ namespace Wowthing.Backend.Models.Data.Progress
                 .EmptyIfNull()
                 .Select(group => new OutProgressGroup(group))
                 .ToList();
+
+            if (data.MinimumLevel > 0)
+            {
+                MinimumLevel = data.MinimumLevel;
+            }
         }
     }
 }

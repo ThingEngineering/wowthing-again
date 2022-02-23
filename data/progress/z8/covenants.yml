@@ -1,4 +1,5 @@
 name: Covenants
+minimumLevel: 60
 groups:
 
 - name: Kyrian Campaign

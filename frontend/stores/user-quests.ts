@@ -20,29 +20,22 @@ export class UserQuestDataStore extends WritableFancyStore<UserQuestData> {
         for (const [, characterData] of toPairs(userQuestData.characters)) {
             if (characterData.dailyQuests === undefined) {
                 characterData.dailyQuests = new Map<number, boolean>()
-                this.unpack(characterData.dailyQuests, characterData.dailyQuestsPacked)
-                characterData.dailyQuestsPacked = null
+                for (const questId of characterData.dailyQuestList) {
+                    characterData.dailyQuests.set(questId, true)
+                }
+                characterData.dailyQuestList = null
             }
 
             if (characterData.quests === undefined) {
                 characterData.quests = new Map<number, boolean>()
-                this.unpack(characterData.quests, characterData.questsPacked)
-                characterData.questsPacked = null
+                for (const questId of characterData.questList) {
+                    characterData.quests.set(questId, true)
+                }
+                characterData.questList = null
             }
         }
 
         // console.timeEnd('UserQuestDataStore.initialize')
-    }
-
-    private unpack(map: Map<number, boolean>, data: string): void {
-        if (data === null) {
-            return
-        }
-
-        const decoded = new Uint16Array(Base64ArrayBuffer.decode(data))
-        for (let i = 0; i < decoded.length; i++) {
-            map.set(decoded[i], true)
-        }
     }
 }
 

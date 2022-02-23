@@ -737,8 +737,8 @@ namespace Wowthing.Web.Controllers
                         ScannedAt = c.AddonQuests?.QuestsScannedAt ?? DateTime.MinValue,
                         CallingCompleted = c.AddonQuests?.CallingCompleted.EmptyIfNull(),
                         CallingExpires = c.AddonQuests?.CallingExpires.EmptyIfNull(),
-                        DailyQuestsPacked = c.AddonQuests?.DailyQuests.EmptyIfNull().ToPackedUInt16Array(),
-                        QuestsPacked = c.Quests?.CompletedIds.EmptyIfNull().ToPackedUInt16Array(),
+                        DailyQuestList = c.AddonQuests?.DailyQuests ?? new List<int>(),
+                        QuestList = c.Quests?.CompletedIds ?? new List<int>(),
                         ProgressQuests = c.AddonQuests?.ProgressQuests.EmptyIfNull(),
                     }
                 );

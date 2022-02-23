@@ -1,4 +1,5 @@
 name: Korthia
+minimumLevel: 60
 groups:
 
 - name: Chains of Domination
