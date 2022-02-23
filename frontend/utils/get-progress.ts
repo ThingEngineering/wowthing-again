@@ -26,10 +26,14 @@ export default function getProgress(
     const haveIndexes: number[] = []
 
     if (
-        category.requiredQuestIds.length === 0 ||
-        some(
-            category.requiredQuestIds,
-            (questId) => userQuestData.characters[character.id]?.quests?.has(questId)
+        character.level >= (category.minimumLevel ?? 0)
+        &&
+        (
+            category.requiredQuestIds.length === 0 ||
+            some(
+                category.requiredQuestIds,
+                (questId) => userQuestData.characters[character.id]?.quests?.has(questId)
+            )
         )
     ) {
         switch (group.lookup) {
