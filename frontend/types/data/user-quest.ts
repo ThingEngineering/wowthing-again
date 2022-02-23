@@ -3,16 +3,17 @@ export interface UserQuestData {
 }
 
 export interface UserQuestDataCharacter {
-    dailyQuests?: Map<number, boolean>
-    progressQuests?: Record<string, UserQuestDataCharacterProgress>
-    quests?: Map<number, boolean>
+    scannedAt: string
 
     callingCompleted: boolean[]
     callingExpires: number[]
-    dailyQuestsPacked: string
-    questsPacked: string
+    dailyQuestList: number[]
+    questList: number[]
+    progressQuests?: Record<string, UserQuestDataCharacterProgress>
 
-    scannedAt: string
+    // Computed
+    dailyQuests?: Map<number, boolean>
+    quests?: Map<number, boolean>
 }
 
 export interface UserQuestDataCharacterProgress {

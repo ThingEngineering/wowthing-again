@@ -15,8 +15,9 @@ namespace Wowthing.Web.Models
         public DateTime ScannedAt { get; set; }
         public List<bool> CallingCompleted { get; set; }
         public List<int> CallingExpires { get; set; }
-        public string DailyQuestsPacked { get; set; }
-        public string QuestsPacked { get; set; } 
+        
+        public List<int> DailyQuestList { get; set; }
+        public List<int> QuestList { get; set; }
         
         public Dictionary<string, PlayerCharacterAddonQuestsProgress> ProgressQuests { get; set; }
     }
