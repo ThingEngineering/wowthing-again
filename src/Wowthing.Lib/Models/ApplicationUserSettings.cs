@@ -53,6 +53,7 @@ namespace Wowthing.Lib.Models
             "enabled",
             "faction",
             "maxlevel",
+            "pinned",
         };
         private readonly HashSet<string> _validSortBy = new()
         {
