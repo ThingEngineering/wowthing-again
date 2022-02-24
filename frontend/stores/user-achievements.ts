@@ -105,6 +105,11 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
             }
 
             for (const child of category.children) {
+                // Statistics
+                if (child.id === 1) {
+                    continue
+                }
+
                 cheevs[category.id].have += cheevs[child.id].have
                 cheevs[category.id].points += cheevs[child.id].points
                 cheevs[category.id].total += cheevs[child.id].total
