@@ -30,6 +30,9 @@ export default function getCharacterGroupFunc(settingsData: Settings): (char: Ch
             else if (thing === 'maxlevel') {
                 out.push(char.level === Constants.characterMaxLevel ? 'a' : 'z')
             }
+            else if (thing === 'pinned') {
+                out.push(settingsData.characters.pinnedCharacters.indexOf(char.id) >= 0 ? 'a' : 'z')
+            }
         }
 
         return out.join('|')

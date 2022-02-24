@@ -9,10 +9,11 @@
     import MagicLists from '../SettingsMagicLists.svelte'
 
     const groupByChoices: SettingsChoice[] = [
-        {key: 'account', name: 'Account'},
+        {key: 'account', name: 'Account ID'},
         {key: 'enabled', name: 'Account enabled'},
         {key: 'faction', name: 'Faction'},
-        {key: 'maxlevel', name: 'Max level or not'},
+        {key: 'maxlevel', name: 'Max level'},
+        {key: 'pinned', name: 'Pinned'},
     ]
 
     const sortByChoices: SettingsChoice[] = [
