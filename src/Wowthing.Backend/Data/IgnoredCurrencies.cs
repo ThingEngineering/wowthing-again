@@ -6,6 +6,9 @@ namespace Wowthing.Backend.Data
     {
         public static readonly HashSet<int> IgnoredCurrencies = new()
         {
+            // Shadowlands
+            2010, // [DNT] Byron Test Currency
+            
             // Dungeon and Raid
             221, // Emblem of Conquest
             341, // Emblem of Frost
