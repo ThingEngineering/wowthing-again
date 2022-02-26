@@ -35,7 +35,7 @@
 
 <tr class="table-group-head">
     {#each $settings.layout.commonFields as field}
-        {#if !(field === 'accountTag' && isPublic)}
+        {#if !(field === 'accountTag' && !userStore.useAccountTags)}
             <td></td>
         {/if}
     {/each}
