@@ -227,6 +227,7 @@ namespace Wowthing.Lib.Models
     {
         public bool Anonymized { get; set; } = true;
         public bool Public { get; set; } = true;
+        public bool PublicAccounts { get; set; } = false;
         public bool PublicCurrencies { get; set; } = true;
         public bool PublicLockouts { get; set; } = true;
         public bool PublicMythicPlus { get; set; } = true;

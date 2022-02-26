@@ -78,9 +78,21 @@ namespace Wowthing.Web.Models
                 RealmId = character.RealmId;
             }
 
-            if (!pub)
+            if (!pub || privacy?.PublicAccounts == true)
             {
                 AccountId = character.AccountId;
+            }
+
+            if (!pub || privacy?.PublicCurrencies == true)
+            {
+                CurrenciesRaw = character.Currencies
+                    .EmptyIfNull()
+                    .Select(pcc => new UserApiCharacterCurrency(pcc))
+                    .ToList();
+            }
+
+            if (!pub)
+            {
                 ChromieTime = character.ChromieTime;
                 Gold = character.Copper / 10000;
                 IsResting = character.IsResting;
@@ -88,11 +100,6 @@ namespace Wowthing.Web.Models
                 LastSeenAddon = character.LastSeenAddon;
                 PlayedTotal = character.PlayedTotal;
                 RestedExperience = character.RestedExperience;
-                
-                CurrenciesRaw = character.Currencies
-                    .EmptyIfNull()
-                    .Select(pcc => new UserApiCharacterCurrency(pcc))
-                    .ToList();
             }
 
             if (character.EquippedItems?.Items != null)

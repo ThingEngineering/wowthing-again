@@ -18,6 +18,7 @@
     import { dropTypeIcon } from '@/data/farm'
     import { iconStrings } from '@/data/icons'
     import { journalStore, userStore, userTransmogStore } from '@/stores'
+    import { data as settingsData } from '@/stores/settings'
     import { userVendorStore } from '@/stores/user-vendors'
     import getPercentClass from '@/utils/get-percent-class'
 
@@ -90,12 +91,14 @@
         </a>
     </li>
 
-    <li use:active={'/currencies/*'}>
-        <a href="#/currencies/">
-            <IconifyIcon icon={iconCurrencies} dropShadow={true} />
-            Currencies
-        </a>
-    </li>
+    {#if $userStore.loaded && (!$userStore.data.public || $settingsData.privacy.publicCurrencies)}
+        <li use:active={'/currencies/*'}>
+            <a href="#/currencies/">
+                <IconifyIcon icon={iconCurrencies} dropShadow={true} />
+                Currencies
+            </a>
+        </li>
+    {/if}
 
     <li use:active={'/gear/*'}>
         <a href="#/gear/">

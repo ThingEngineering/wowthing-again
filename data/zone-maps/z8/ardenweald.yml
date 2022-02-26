@@ -229,6 +229,7 @@ farms:
 # World boss
 - name: Oranomonos the Everbranching
   location: 20.0 63.4
+  minimumLevel: 60
   npcId: 167527
   questId: 61815
   reset: weekly
