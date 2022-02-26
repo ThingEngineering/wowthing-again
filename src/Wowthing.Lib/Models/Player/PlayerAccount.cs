@@ -17,7 +17,6 @@ namespace Wowthing.Lib.Models.Player
         public WowRegion Region { get; set; }
         public long AccountId { get; set; }
 
-        public string Name { get; set; }
         public string Tag { get; set; }
         public bool Enabled { get; set; } = true;
 
