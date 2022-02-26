@@ -9,6 +9,9 @@ namespace Wowthing.Backend.Models.Data
         public string Name { get; set; }
         public List<List<DataReputationSet>> Reputations { get; set; }
 
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public int? MinimumLevel { get; set; }
+
         public string Slug => Name.Slugify();
     }
 

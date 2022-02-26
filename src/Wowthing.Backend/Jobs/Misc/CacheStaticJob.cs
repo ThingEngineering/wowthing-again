@@ -33,7 +33,8 @@ namespace Wowthing.Backend.Jobs.Misc
     {
         private JankTimer _timer;
         private IDeserializer _yaml = new DeserializerBuilder()
-            .WithNamingConvention(LowerCaseNamingConvention.Instance)
+            .WithNamingConvention(CamelCaseNamingConvention.Instance)
+            .IgnoreUnmatchedProperties()
             .Build();
 
         private Dictionary<int, WowItem> _itemMap;

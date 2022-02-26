@@ -18,9 +18,12 @@
 
     let category: StaticDataReputationCategory
     let sorted: boolean
+    let filterFunc: (char: Character) => boolean
     let sortFunc: (char: Character) => string
     $: {
         category = find($staticStore.data.reputationSets, (r) => r?.slug === slug)
+
+        filterFunc = (char: Character) => char.level >= (category.minimumLevel ?? 0)
 
         const order: number[] = $reputationState.sortOrder[slug]
         if (order?.length > 0) {
@@ -53,6 +56,7 @@
 
 <CharacterTable
     skipGrouping={sorted}
+    {filterFunc}
     {sortFunc}
 >
     <CharacterTableHead slot="head">

@@ -16,9 +16,10 @@ export interface StaticDataReputationTier {
 }
 
 export interface StaticDataReputationCategory {
+    minimumLevel?: number
     name: string
-    reputations: StaticDataReputationSet[][]
     slug: string
+    reputations: StaticDataReputationSet[][]
 }
 
 export interface StaticDataReputationSet {

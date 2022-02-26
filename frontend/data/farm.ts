@@ -48,4 +48,5 @@ export const dropTypeStringIcon: Record<string, IconifyIcon> = {
     mount: mdiUnicorn,
     pet: mdiSpider,
     toy: mdiDiceMultiple,
+    transmog: mdiWizardHat,
 }
