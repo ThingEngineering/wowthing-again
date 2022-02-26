@@ -26,7 +26,7 @@ export default function getCharacterSortFunc(
 
         for (const thing of sortBy) {
             if (thing === 'account') {
-                out.push(userData.accounts?.[char.accountId]?.name ?? `account${char.accountId}`)
+                out.push(userData.accounts?.[char.accountId]?.tag ?? `account${char.accountId}`)
             }
             else if (thing === 'enabled') {
                 const enabled = userData.accounts?.[char.accountId]?.enabled ?? true
