@@ -8,9 +8,11 @@ reputations:
       rewards:
       - type: toy
         id: 190177
+        name: "Sphere of Enlightened Cogitation"
 
       - type: transmog
         id: 190939
+        name: "Walking Staff of the Enlightened Journey"
     paragon: true
 
 # 9.1
