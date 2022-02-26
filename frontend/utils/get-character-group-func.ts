@@ -13,7 +13,7 @@ export default function getCharacterGroupFunc(settingsData: Settings): (char: Ch
 
         for (const thing of groupBy) {
             if (thing === 'account') {
-                out.push(get(userStore).data.accounts?.[char.accountId]?.name ?? `account${char.accountId}`)
+                out.push(get(userStore).data.accounts?.[char.accountId]?.tag ?? `account${char.accountId}`)
             }
             else if (thing === 'enabled') {
                 const enabled = get(userStore).data.accounts?.[char.accountId]?.enabled ?? true
