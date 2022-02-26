@@ -9,7 +9,7 @@ farms:
 - name: "Akkaris"
   location: 64.7 33.7
   npcId: 179006
-  questId: 65549
+  questId: 65552
   type: kill
   drops:
   - type: transmog
@@ -58,13 +58,16 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 189910 # Adornment of Jingling Fractals
+    id: 189985 # Curtain of Untold Realms [cloak]
 
   - type: transmog
-    id: 189985 # Curtain of Untold Realms
+    id: 189910 # Adornment of Jingling Fractals [cloth]
 
   - type: transmog
-    id: 189999 # Dark Sky Gavel
+    id: 189930 # Restraints of Boundless Chaos [leather]
+
+  - type: transmog
+    id: 189999 # Dark Sky Gavel [1h mace]
 
 - name: "Euv'ouk"
   location: 47.5 45.2
@@ -73,10 +76,16 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 189949 # Shackles of the Bound Guardian
+    id: 189949 # Shackles of the Bound Guardian [mail]
 
   - type: transmog
-    id: 190047 # Converted Broker's Staff
+    id: 189956 # Perverse Champion's Handguards [plate]
+
+  - type: transmog
+    id: 189993 # Twisted Judicator's Gavel
+
+  - type: transmog
+    id: 190047 # Converted Broker's Staff [stave]
 
 - name: "Feasting"
   location: 61.8 60.6
@@ -85,13 +94,13 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 189969 # Vespoid's Clanging Legguards
+    id: 189936 # Feasting's Feeding Cloak [cloak]
 
   - type: transmog
-    id: 189970 # Visor of Visceral Cravings
+    id: 189969 # Vespoid's Clanging Legguards [mail]
 
   - type: transmog
-    id: 189936 # Feasting's Feeding Cloak
+    id: 189970 # Visor of Visceral Cravings [plate]
 
 - name: "Furidian"
   location: 64.6 58.6
@@ -118,10 +127,10 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 189951 # Sunbathed Avian Armor
+    id: 189937 # Garudeon's Blanket of Feathers [cloak]
 
   - type: transmog
-    id: 189937 # Garudeon's Blanket of Feathers
+    id: 189951 # Sunbathed Avian Armor [plate]
 
 - name: "General Zarathura"
   location: 59.9 21.1
@@ -135,10 +144,51 @@ farms:
   - type: transmog
     id: 189948 # Strangulating Chainlink Lasso
 
-#- name: "Hadeon the Stonebreaker"
-#  location: 52.6 25.0
-#  type: kill
-#  drops:
+- name: "Gluttonous Overgrowth"
+  location: 53.1 93.1
+  npcId: 178778
+  questId: 65579
+  drops:
+  - type: transmog
+    id: 189929 # Vinebound Strap [leather]
+
+  - type: transmog
+    id: 189953 # Lush-Stained Footguards [plate]
+
+  - type: transmog
+    id: 190008 # Enlightened Botanist's Machete [1h sword]
+
+  - type: transmog
+    id: 190049 # Perennial Punching Dagger [fist]
+
+- name: "Gorkek"
+  location: 80.4 47.1
+  npcId: 178963
+  questId: 63988
+  drops:
+  - type: transmog
+    id: 189960 # Crouching Legs of the Bufonid [plate]
+
+  - type: transmog
+    id: 190001 # Gorkek's Glistening Throatguard [shield]
+
+- name: "Hadeon the Stonebreaker"
+  location: 52.6 25.0
+  npcId: 178563
+  questId: 65581
+  type: kill
+  drops:
+  - type: transmog
+    id: 189919 # Skittering Scarabid Treads
+
+  - type: transmog
+    id: 189942 # Hadeon's Indomitable Faceguard
+
+  - type: transmog
+    id: 190051 # Elder's Opulent Stave
+
+  - type: transmog
+    id: 190000 # Carapace of Gliding Sands
 
 - name: "Helmix"
   location: 58.2 68.4
@@ -176,6 +226,36 @@ farms:
   - type: transmog
     id: 190005 # Hirukon's Radiant Reach
 
+- name: "Mother Phestis"
+  location: 54.1 34.9
+  npcId: 178508
+  questId: 65547
+  type: kill
+  drops:
+  - type: transmog
+    id: 189923 # Tarachnid's Terrifying Visage
+
+  - type: transmog
+    id: 189950 # Constrained Prey's Binds
+
+  - type: transmog
+    id: 190045 # Flowing Sandbender's Staff
+
+- name: "Orixal"
+  location: 55.7 69.2
+  npcId: 179043
+  questId: 65582
+  type: kill
+  drops:
+  - type: transmog
+    id: 189912 # Orixal's Moist Sash
+
+  - type: transmog
+    id: 189934 # Slime-Wake Sabatons
+
+  - type: transmog
+    id: 189952 # Celestial Mollusk's Chestshell
+
 - name: "Otaris the Provoked"
   location: 58.7 40.4
   npcId: 183814
@@ -183,15 +263,31 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 189909 # Pantaloons of Cold Recesses
+    id: 189909 # Pantaloons of Cold Recesses [cloth]
 
   - type: transmog
-    id: 189945 # Shoulders of the Missing Giant
+    id: 189945 # Shoulders of the Missing Giant [mail]
 
-#- name: "Otiosen"
-#  location: 43.3 87.6
-#  type: kill
-#  drops:
+  - type: transmog
+    id: 189957 # Colossus' Focusing Headpiece [plate]
+
+- name: "Otiosen"
+  location: 43.3 87.6
+  npcId: 183746
+  questId: 65556
+  type: kill
+  drops:
+  - type: transmog
+    id: 189914 # Otiosen's Regenerative Wristwraps
+
+  - type: transmog
+    id: 189925 # Amphibian's Nimble Leggings
+
+  - type: transmog
+    id: 190046 # Broker's Stolen Cane
+
+  - type: transmog
+    id: 189995 # Builder's Alignment Hammer
 
 - name: "Protector of the First Ones"
   location: 38.9 27.6
@@ -199,6 +295,9 @@ farms:
   questId: 64668
   type: kill
   drops:
+  - type: transmog
+    id: 189961 # Enduring Protector's Shoulderguards
+
   - type: transmog
     id: 189984 # Drape of Idolized Symmetry
 
@@ -292,6 +391,12 @@ farms:
   type: kill
   drops:
   - type: transmog
+    id: 189913 # Engulfer's Tightening Cinch
+
+  - type: transmog
+    id: 189921 # Devourer's Insatiable Grips
+
+  - type: transmog
     id: 190006 # Anima-Siphoning Sword
 
 - name: "Vexis"
@@ -300,6 +405,15 @@ farms:
   questId: 65239
   type: kill
   drops:
+  - type: transmog
+    id: 189900 # Vexis' Gentle Heartcloth
+
+  - type: transmog
+    id: 189959 # Legs of Graceful Landing
+
+  - type: transmog
+    id: 189997 # The Lupine Prime's Might
+
   - type: transmog
     id: 190048 # Vexis' Wisest Fang
 
@@ -483,11 +597,14 @@ farms:
   - type: toy
     id: 190853 # Bushel of Mysterious Fruit
 
-#- name: "Damaged Jiro Stash"
-#  location: 38.3 37.2
-#  reset: never
-#  type: treasure
-#  drops:
+- name: "Damaged Jiro Stash"
+  location: 38.3 37.2
+  questId: 64667
+  reset: never
+  type: treasure
+  drops:
+  - type: transmog
+    id: 190637 # Percussive Maintenance Instrument
 
 - name: "Domination Cache"
   location: 60.0 18.0
@@ -496,6 +613,15 @@ farms:
   drops:
   - type: transmog
     id: 190638 # Tormented Mawsteel Greatsword
+
+- name: "Drowned Broker Supplies"
+  location: 35.2 70.2
+  questId: 65523
+  reset: never
+  type: treasure
+  drops:
+  - type: quest
+    id: 65526 # Pirate Pocopoc
 
 #- name: "Fallen Vault"
 #  location: 51.6 9.9
@@ -527,12 +653,6 @@ farms:
 #  type: treasure
 #  drops:
 
-#- name: "Goldplate Bufonid"
-#  location: 60.0 25.8
-#  reset: never
-#  type: treasure
-#  drops:
-
 - name: "Grateful Boon"
   location: 37.2 78.3
   questId: 65545
@@ -543,11 +663,23 @@ farms:
     id: 65401
     name: "Schematic: Adorned Vombata"
 
-#- name: "Mawsworn Cache"
-#  location: 60.6 30.5
-#  reset: never
-#  type: treasure
-#  drops:
+- name: "Library Vault (Lost Scroll)"
+  location: 58.8 77.1
+  questId: 65173
+  reset: never
+  type: treasure
+  drops:
+  - type: quest
+    id: 65360 # Schematic: Viperid Menace
+
+- name: "Mawsworn Cache"
+  location: 60.6 30.5
+  questId: 65441
+  reset: never
+  type: treasure
+  drops:
+  - type: quest
+    id: 65379 # Schematic: Sundered Zerethsteed
 
 - name: "Mistaken Ovoid"
   location: 53.6 72.2
@@ -601,12 +733,55 @@ farms:
   - type: transmog
     id: 190942 # Protomineral Extractor
 
+- name: "Prying Eye Discovery"
+  location: 48.0 66.4
+  questId: 65184
+  reset: never
+  type: treasure
+  drops:
+  - type: quest
+    id: 65534 # Pocobold
+
+- name: "Pulp-Covered Relic"
+  location: 53.4 25.7
+  questId: 65501
+  reset: never
+  type: treasure
+  drops:
+  - type: quest
+    id: 65397 # Schematic: Buzz
+
+- name: "Sandworn Chest"
+  location: 60.0 25.8
+  questId: 65611
+  reset: never
+  type: treasure
+  drops:
+  - type: toy
+    id: 190734 # Makaris's Satchel of Mines
+
 #- name: "Stolen Relic"
 #  location: 37.9 65.2
 #  questId: 65447
 #  reset: never
 #  type: treasure
 #  drops:
+
+#- name: "Stolen Scroll"
+#  location: 34.0 67.6
+#  questId: 65543
+#  reset: never
+#  type: treasure
+#  drops:
+
+- name: "Submerged Chest"
+  location: 58.7 73.0
+  questId: 64545
+  reset: never
+  type: treasure
+  drops:
+  - type: quest
+    id: 65529 # Admiral Pocopoc
 
 #- name: "Symphonic Vault"
 #  location: 52.6 63.0
