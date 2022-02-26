@@ -295,7 +295,7 @@ namespace Wowthing.Web.Controllers
                 .Include(pa => pa.Toys)
                 .ToListAsync();
 
-            if (!apiResult.Public)
+            if (!apiResult.Public || apiResult.Privacy.PublicAccounts)
             {
                 accounts = tempAccounts;
             }

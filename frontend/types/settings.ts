@@ -33,6 +33,7 @@ export interface Settings {
     privacy: {
         anonymized: boolean
         public: boolean
+        publicAccounts: boolean
         publicCurrencies: boolean
         publicLockouts: boolean
         publicMythicPlus: boolean

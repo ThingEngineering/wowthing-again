@@ -34,7 +34,17 @@
 
     <div class="setting">
         <Checkbox
-            name="privacy_share_currencies"
+                name="privacy_public_accounts"
+                bind:value={$settingsData.privacy.publicAccounts}
+        >Public Accounts</Checkbox>
+        <p>
+            Allow visitors to see account tags on characters
+        </p>
+    </div>
+
+    <div class="setting">
+        <Checkbox
+            name="privacy_public_currencies"
             bind:value={$settingsData.privacy.publicCurrencies}
         >Public Currencies</Checkbox>
         <p>
@@ -44,7 +54,7 @@
 
     <div class="setting">
         <Checkbox
-            name="privacy_share_lockouts"
+            name="privacy_public_lockouts"
             bind:value={$settingsData.privacy.publicLockouts}
         >Public Lockouts</Checkbox>
         <p>Allow visitors to see your Lockouts data</p>
@@ -52,7 +62,7 @@
 
     <div class="setting">
         <Checkbox
-            name="privacy_share_mythic_plus"
+            name="privacy_public_mythic_plus"
             bind:value={$settingsData.privacy.publicMythicPlus}
         >Public Mythic+</Checkbox>
         <p>
@@ -63,7 +73,7 @@
 
     <div class="setting">
         <Checkbox
-            name="privacy_share_quests"
+            name="privacy_public_quests"
             bind:value={$settingsData.privacy.publicQuests}
         >Public Quests</Checkbox>
         <p>
@@ -73,7 +83,7 @@
 
     <div class="setting">
         <Checkbox
-            name="privacy_share_transmog"
+            name="privacy_public_transmog"
             bind:value={$settingsData.privacy.publicTransmog}
         >Public Transmog</Checkbox>
         <p>
