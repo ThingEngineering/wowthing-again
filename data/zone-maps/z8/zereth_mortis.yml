@@ -621,7 +621,8 @@ farms:
   type: treasure
   drops:
   - type: quest
-    id: 65526 # Pirate Pocopoc
+    id: 65526
+    name: "Pirate Pocopoc"
 
 #- name: "Fallen Vault"
 #  location: 51.6 9.9
@@ -670,7 +671,8 @@ farms:
   type: treasure
   drops:
   - type: quest
-    id: 65360 # Schematic: Viperid Menace
+    id: 65360
+    name: "Schematic: Viperid Menace"
 
 - name: "Mawsworn Cache"
   location: 60.6 30.5
@@ -679,7 +681,8 @@ farms:
   type: treasure
   drops:
   - type: quest
-    id: 65379 # Schematic: Sundered Zerethsteed
+    id: 65379
+    name: "Schematic: Sundered Zerethsteed"
 
 - name: "Mistaken Ovoid"
   location: 53.6 72.2
@@ -740,7 +743,8 @@ farms:
   type: treasure
   drops:
   - type: quest
-    id: 65534 # Pocobold
+    id: 65534
+    name: "Pocobold"
 
 - name: "Pulp-Covered Relic"
   location: 53.4 25.7
@@ -749,7 +753,8 @@ farms:
   type: treasure
   drops:
   - type: quest
-    id: 65397 # Schematic: Buzz
+    id: 65397
+    name: "Schematic: Buzz"
 
 - name: "Sandworn Chest"
   location: 60.0 25.8
@@ -781,7 +786,8 @@ farms:
   type: treasure
   drops:
   - type: quest
-    id: 65529 # Admiral Pocopoc
+    id: 65529
+    name: "Admiral Pocopoc"
 
 #- name: "Symphonic Vault"
 #  location: 52.6 63.0
