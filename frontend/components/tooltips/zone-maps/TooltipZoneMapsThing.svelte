@@ -1,5 +1,6 @@
 <script lang="ts">
     import mdiMessageBulleted from '@iconify/icons-mdi/message-bulleted'
+    import difference from 'lodash/difference'
     import sortBy from 'lodash/sortBy'
 
     import { dropTypeIcon } from '@/data/farm'
@@ -32,18 +33,10 @@
             }
 
             // Compare this drop to the next one - if the character list is the same we don't need to show it
-            const difference = new Set(dropStatus.characterIds)
-            for (const characterId of nextDrop[1].characterIds) {
-                if (difference.has(characterId)) {
-                    difference.delete(characterId)
-                }
-                else {
-                    difference.add(characterId)
-                    break
-                }
-            }
+            const charDiff = difference(dropStatus.characterIds, nextDrop[1].characterIds)
+            const completeDiff = difference(dropStatus.completedCharacterIds, nextDrop[1].completedCharacterIds)
 
-            return difference.size > 0
+            return charDiff.length > 0 || completeDiff.length > 0
         }
         else
         {
@@ -144,7 +137,7 @@
 
                 {#if dropStatus.need && !dropStatus.skip}
                     {#if showCharacters(dropStatus, sortedDrops[sortedIndex+1])}
-                        {#if dropStatus.characterIds.length >0 || dropStatus.completedCharacterIds.length > 0}
+                        {#if dropStatus.characterIds.length > 0 || dropStatus.completedCharacterIds.length > 0}
                             <tr>
                                 <td></td>
                                 <td class="characters" colspan="2">
