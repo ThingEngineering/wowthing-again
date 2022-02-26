@@ -218,6 +218,7 @@ farms:
 # World boss
 - name: Valinor, the Light of Eons
   location: 25.2 23.2
+  minimumLevel: 60
   npcId: 167524
   questId: 61813
   reset: weekly
