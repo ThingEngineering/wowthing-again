@@ -348,6 +348,82 @@ farms:
   - type: transmog
     id: 189939 # Zatojin's Paralytic Grip
 
+# Dune Dominance
+
+- name: "High Reaver Damaris"
+  location: 61.3 25.8
+  npcId: 182155
+  questId: 65586
+  type: kill
+  drops:
+  - type: transmog
+    id: 190105 # Chilling Domination Mace [str 1h mace]
+
+  - type: transmog
+    id: 190106 # Approaching Terror's Torch [str 2h mace]
+
+  - type: transmog
+    id: 190460 # High Reaver's Sickle [agi polearm]
+
+  - type: transmog
+    id: 190107 # Staff of Broken Coils [int stave]
+
+  - type: transmog
+    id: 190104 # Deadeye's Spirit Piercer [crossbow]
+
+  - type: transmog
+    id: 190459 # Cold Dispiriting Barricade [shield]
+
+- name: "Iska, Outrider of Ruin"
+  location: 63.3 25.8
+  npcId: 182114
+  questId: 65585
+  type: kill
+  drops:
+  - type: mount
+    id: 368105 # Colossal Plaguespew Mawrat
+
+  - type: transmog
+    id: 190102 # Chains of Infectious Serrations [agi 1h mace]
+
+  - type: transmog
+    id: 190103 # Pillar of Noxious Dissemination [str 2h mace]
+
+  - type: transmog
+    id: 190126 # Rotculler's Encroaching Shears [agi polearm]
+
+  - type: transmog
+    id: 190107 # Staff of Broken Coils [int stave]
+
+  - type: transmog
+    id: 190458 # Atrophy's Ominous Bulwark [shield]
+
+- name: "Reanimatrox Marzan"
+  location: 65.3 25.8
+  npcId: 182158
+  questId: 65587
+  type: kill
+  drops:
+  - type: transmog
+    id: 190109 # Cudgel of Mortality's Chains []
+
+  - type: transmog
+    id: 190463 # Dismal Mystic's Glaive [warglaive]
+
+  - type: transmog
+    id: 190461 # Reanimator's Beguiling Baton [str 2h mace]
+
+  - type: transmog
+    id: 190127 # Marzan's Dancing Twin-Scythe [agi polearm]
+
+  - type: transmog
+    id: 190107 # Staff of Broken Coils [int stave]
+
+  - type: transmog
+    id: 190104 # Deadeye's Spirit Piercer [crossbow]
+
+  - type: transmog
+    id: 190108 # Aegis of Laguhing Souls [shield]
 
 # World Boss
 
