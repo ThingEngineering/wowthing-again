@@ -5,6 +5,7 @@ export interface SidebarItem {
     name: string
     slug: string
     children?: SidebarItem[]
+    forceWildcard?: boolean
     id?: number
     percent?: number
     icon?: IconifyIcon

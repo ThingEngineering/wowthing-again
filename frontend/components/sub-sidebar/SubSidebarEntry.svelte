@@ -21,9 +21,9 @@
     let activeRegex: string
     let decoration: string
     let expanded: boolean
+    let minusWidth: string
     let percent = -1
     let url: string
-    let minusWidth: string
 
     $: {
         let temp = 0.5
@@ -55,7 +55,7 @@
                 replace(`${url}/${item.children[0].slug}`)
             }
 
-            if (parentItem) {
+            if (parentItem || item.forceWildcard === true) {
                 activeRegex = '^' + url.replace(/\//g, '\\/') + '(?:\\/|$)'
             }
             else {
