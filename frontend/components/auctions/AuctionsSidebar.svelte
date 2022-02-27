@@ -9,19 +9,23 @@
             {
                 name: 'Missing Mounts',
                 slug: 'missing-mounts',
+                forceWildcard: true,
             },
             {
                 name: 'Missing Pets',
                 slug: 'missing-pets',
+                forceWildcard: true,
             },
             {
                 name: 'Missing Toys',
                 slug: 'missing-toys',
+                forceWildcard: true,
             },
             null,
             {
                 name: 'Extra Pets',
                 slug: 'extra-pets',
+                forceWildcard: true,
             },
         ]
     }

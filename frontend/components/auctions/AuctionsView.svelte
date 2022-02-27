@@ -10,13 +10,17 @@
 
     export let params: MultiSlugParams
 
+    let page: number
+    $: {
+        page = parseInt(params.slug2) || 1
+    }
+
     const componentMap: Record<string, typeof SvelteComponent> = {
         'extra-pets': ExtraPets,
         'missing-mounts': Missing,
         'missing-pets': Missing,
         'missing-toys': Missing,
     }
-
 </script>
 
 <div class="auctions">
@@ -38,5 +42,6 @@
     <svelte:component
         this={componentMap[params.slug1]}
         slug={params.slug1}
+        {page}
     />
 </div>
