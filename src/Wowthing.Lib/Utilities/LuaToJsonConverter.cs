@@ -16,7 +16,7 @@ namespace Wowthing.Lib.Utilities
         {
             var converter = new LuaToJsonConverter(luaText);
 
-            var (type, converted) = converter.Recurse();
+            var (_, converted) = converter.Recurse();
             return converted;
             
             /*if (type == StructureType.Array)

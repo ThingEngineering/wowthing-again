@@ -65,7 +65,7 @@ namespace Wowthing.Backend.Services
 
             // TODO check existing
             var latestSnapshots = await context.LatestGoldSnapshotQuery
-                .FromSqlRaw(LatestGoldSnapshotQuery.SQL)
+                .FromSqlRaw(LatestGoldSnapshotQuery.Sql)
                 .ToDictionaryAsync(gsq => (gsq.AccountId, gsq.RealmId));
 
             timer.AddPoint("LoadSnaps");

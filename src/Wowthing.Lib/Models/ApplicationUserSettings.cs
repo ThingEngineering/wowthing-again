@@ -201,9 +201,9 @@ namespace Wowthing.Lib.Models
     
     public class ApplicationUserSettingsGeneral
     {
-        public string DesiredAccountName { get; set; }
+        public string? DesiredAccountName { get; set; }
         public Language Language { get; set; } = Language.enUS;
-        public int RefreshInterval { get; set; } = 0;
+        public int RefreshInterval { get; set; }
         public bool UseWowdb { get; set; } = false;
 
         public List<string> GroupBy { get; set; } = new();
