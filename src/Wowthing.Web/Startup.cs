@@ -49,7 +49,6 @@ namespace Wowthing.Web
 
             services.AddRequestDecompression(options =>
             {
-                options.Providers.Add<DeflateDecompressionProvider>();
                 options.Providers.Add<GzipDecompressionProvider>();
                 options.Providers.Add<BrotliDecompressionProvider>();
             });

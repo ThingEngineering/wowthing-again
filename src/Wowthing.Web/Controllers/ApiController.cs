@@ -282,7 +282,7 @@ namespace Wowthing.Web.Controllers
             // Update user last visit
             if (!apiResult.Public)
             {
-                apiResult.User.LastVisit = DateTime.Now;
+                apiResult.User.LastVisit = DateTime.UtcNow;
                 await _userManager.UpdateAsync(apiResult.User);
             }
 
