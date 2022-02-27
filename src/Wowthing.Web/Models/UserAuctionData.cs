@@ -31,22 +31,24 @@ namespace Wowthing.Web.Models
             Location = ItemLocation.PetCollection;
         }
 
-        public UserAuctionDataPet(PlayerCharacterItem cagedPet)
+        public UserAuctionDataPet(PlayerCharacterItem item, bool caged = false)
         {
             BreedId = 0;
-            Level = cagedPet.ItemLevel;
-            Quality = (WowQuality)cagedPet.Quality;
-            Location = cagedPet.Location;
-            LocationId = cagedPet.CharacterId;
+            Quality = (WowQuality)item.Quality;
+            Location = item.Location;
+            LocationId = item.CharacterId;
+
+            Level = caged ? item.ItemLevel : 1;
         }
 
-        public UserAuctionDataPet(PlayerGuildItem cagedPet)
+        public UserAuctionDataPet(PlayerGuildItem item, bool caged = false)
         {
             BreedId = 0;
-            Level = cagedPet.ItemLevel;
-            Quality = (WowQuality)cagedPet.Quality;
             Location = ItemLocation.GuildBank;
-            LocationId = cagedPet.TabId;
+            LocationId = item.TabId;
+            Quality = (WowQuality)item.Quality;
+
+            Level = caged ? item.ItemLevel : 1;
         }
     }
 }

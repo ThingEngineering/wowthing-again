@@ -1,10 +1,14 @@
 import type { IconifyIcon } from '@iconify/types'
 
 import mdiArrowDownBoldOutline from '@iconify/icons-mdi/arrow-down-bold-outline'
+import mdiArrowLeftBoldOutline from '@iconify/icons-mdi/arrow-left-bold-outline'
+import mdiArrowRightBoldOutline from '@iconify/icons-mdi/arrow-right-bold-outline'
 import mdiArrowUpBoldOutline from '@iconify/icons-mdi/arrow-up-bold-outline'
 import mdiCheck from '@iconify/icons-mdi/check'
 import mdiClose from '@iconify/icons-mdi/close'
 import mdiLockOutline from '@iconify/icons-mdi/lock-outline'
+import mdiPageFirst from '@iconify/icons-mdi/page-first'
+import mdiPageLast from '@iconify/icons-mdi/page-last'
 import mdiQuestion from '@iconify/icons-mdi/help-circle-outline'
 import mdiSortAlphabeticalAscending from '@iconify/icons-mdi/sort-alphabetical-ascending'
 import mdiSortAlphabeticalDescending from '@iconify/icons-mdi/sort-alphabetical-descending'
@@ -27,7 +31,12 @@ export const iconStrings: Record<string, IconifyIcon> = {
     yes: mdiCheck,
 
     'arrow-down': mdiArrowDownBoldOutline,
+    'arrow-left': mdiArrowLeftBoldOutline,
+    'arrow-right': mdiArrowRightBoldOutline,
     'arrow-up': mdiArrowUpBoldOutline,
+
+    'page-first': mdiPageFirst,
+    'page-last': mdiPageLast,
 
     'sort-alpha-down': mdiSortAlphabeticalDescending,
     'sort-alpha-up': mdiSortAlphabeticalAscending,

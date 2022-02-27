@@ -12,9 +12,11 @@
     import type { UserAuctionDataStore } from '@/stores'
     import type { UserAuctionDataAuction } from '@/types/data'
 
+    import Paginate from '@/components/common/Paginate.svelte'
     import WowheadLink from '@/components/links/WowheadLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
+    export let page: number
     export let slug: string
 
     let auctionStore: UserAuctionDataStore
@@ -118,61 +120,70 @@
     }
 </style>
 
-<div class="wrapper">
-    {#await auctionStore.fetch(true) then _}
-        {#each (things || []) as item}
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th class="item" colspan="4">
-                            <WowheadLink
-                                type={thingType}
-                                id={item.id}
-                            >
-                                <WowthingImage
-                                    name="{thingType}/{item.id}"
-                                    size={20}
-                                    border={1}
-                                />
-                                {item.name}
-                            </WowheadLink>
-                        </th>
-                    </tr>
-                </thead>
+{#await auctionStore.fetch(true)}
+    <div class="wrapper">L O A D I N G . . .</div>
+{:then _}
+    <Paginate
+        items={things || []}
+        perPage={20}
+        {page}
+        let:paginated
+    >
+        <div class="wrapper">
+            {#each paginated as item}
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="item" colspan="4">
+                                <WowheadLink
+                                    type={thingType}
+                                    id={item.id}
+                                >
+                                    <WowthingImage
+                                        name="{thingType}/{item.id}"
+                                        size={20}
+                                        border={1}
+                                    />
+                                    {item.name}
+                                </WowheadLink>
+                            </th>
+                        </tr>
+                    </thead>
 
-                <tbody>
-                {#each item.auctions as auction}
-                    <tr>
-                        <td class="realm text-overflow">
-                            {connectedRealmName(auction.connectedRealmId)}
-                        </td>
-                        <td
-                            class="price"
-                            class:no-bid={auction.bidPrice === 0}
-                        >
-                            {#if auction.bidPrice > 0}
-                                {Math.floor(auction.bidPrice / 10000).toLocaleString()} g
-                            {:else}
-                                &lt;no bid&gt;
-                            {/if}
-                        </td>
-                        <td class="price">
-                            {Math.floor(auction.buyoutPrice / 10000).toLocaleString()} g
-                        </td>
-                        <td
-                            class="time-left"
-                            class:status-fail={auction.timeLeft === 0}
-                            class:status-shrug={auction.timeLeft === 1}
-                            class:status-success={auction.timeLeft > 1}
-                        >
-                            {timeLeft[auction.timeLeft]}
-                        </td>
-                    </tr>
-                {/each}
-                </tbody>
-            </table>
-        {:else}
-            No results!
-        {/each}
-    {/await}
-</div>
+                    <tbody>
+                    {#each item.auctions as auction}
+                        <tr>
+                            <td class="realm text-overflow">
+                                {connectedRealmName(auction.connectedRealmId)}
+                            </td>
+                            <td
+                                class="price"
+                                class:no-bid={auction.bidPrice === 0}
+                            >
+                                {#if auction.bidPrice > 0}
+                                    {Math.floor(auction.bidPrice / 10000).toLocaleString()} g
+                                {:else}
+                                    &lt;no bid&gt;
+                                {/if}
+                            </td>
+                            <td class="price">
+                                {Math.floor(auction.buyoutPrice / 10000).toLocaleString()} g
+                            </td>
+                            <td
+                                class="time-left"
+                                class:status-fail={auction.timeLeft === 0}
+                                class:status-shrug={auction.timeLeft === 1}
+                                class:status-success={auction.timeLeft > 1}
+                            >
+                                {timeLeft[auction.timeLeft]}
+                            </td>
+                        </tr>
+                    {/each}
+                    </tbody>
+                </table>
+            {:else}
+                No results!
+            {/each}
+        </div>
+    </Paginate>
+{/await}

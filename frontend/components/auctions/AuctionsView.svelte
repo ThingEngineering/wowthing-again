@@ -10,18 +10,28 @@
 
     export let params: MultiSlugParams
 
+    let page: number
+    $: {
+        page = parseInt(params.slug2) || 1
+    }
+
     const componentMap: Record<string, typeof SvelteComponent> = {
         'extra-pets': ExtraPets,
         'missing-mounts': Missing,
         'missing-pets': Missing,
         'missing-toys': Missing,
     }
-
 </script>
 
+<style lang="scss">
+    .options-container {
+        padding: 0.2rem 0.3rem;
+    }
+</style>
+
 <div class="auctions">
-    <div class="options-container">
-        <div class="radio-container border">
+    <div class="options-container border">
+        <div class="radio-container">
             <RadioGroup
                 bind:value={$auctionState.sortBy[params.slug1]}
                 name="sort_by"
@@ -38,5 +48,6 @@
     <svelte:component
         this={componentMap[params.slug1]}
         slug={params.slug1}
+        {page}
     />
 </div>

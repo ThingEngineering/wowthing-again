@@ -14,7 +14,5 @@
 
 <Sidebar />
 {#if params.slug1}
-    <View
-        {params}
-    />
+    <View {params} />
 {/if}

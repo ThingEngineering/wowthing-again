@@ -12,5 +12,6 @@ namespace Wowthing.Lib.Models.Wow
         public int Flags { get; set; }
         public short PetType { get; set; }
         public short SourceType { get; set; }
+        public int ItemId { get; set; }
     }
 }

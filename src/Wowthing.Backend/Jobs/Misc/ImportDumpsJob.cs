@@ -18,7 +18,7 @@ namespace Wowthing.Backend.Jobs.Misc
     {
         private JankTimer _timer;
 
-        private Language[] _languages =
+        private readonly Language[] _languages =
         {
             Language.deDE,
             Language.esES,
@@ -32,20 +32,45 @@ namespace Wowthing.Backend.Jobs.Misc
             //Language.zhTW,
         };
 
+        // Unsure if Blizzard data is broken or wow.tools
+        private readonly Dictionary<int, int> _fixedPetSpell = new Dictionary<int, int>()
+        {
+            { 1150, 135261 }, // Ashstone Core
+            { 1322, 148049 }, // Blackfuse Bombling
+            { 1328, 148050 }, // Ruby Droplet
+            { 1395, 159296 }, // Lil' Leftovers
+            { 1511, 171118 }, // Lovebird Hatchling
+            { 2584, 291547 }, // Spirit of the Spring
+        };
+
         public static readonly ScheduledJob Schedule = new ScheduledJob
         {
             Type = JobType.ImportDumps,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(24),
-            Version = 9,
+            Version = 10,
         };
+
+        private Dictionary<int, DumpItemXItemEffect[]> _itemEffectsMap;
+        private Dictionary<int, DumpItemEffect> _spellTeachMap;
 
         public override async Task Run(params string[] data)
         {
             _timer = new JankTimer();
-            
+
             await ImportItems();
             await ImportItemAppearances();
+                        
+            _itemEffectsMap = (await DataUtilities.LoadDumpCsvAsync<DumpItemXItemEffect>("itemxitemeffect"))
+                .ToGroupedDictionary(ixie => ixie.ItemEffectID);
+
+            _spellTeachMap = (await DataUtilities.LoadDumpCsvAsync<DumpItemEffect>("itemeffect"))
+                .Where(ie => ie.TriggerType == 6) // Learn
+                .GroupBy(ie => ie.SpellID)
+                .ToDictionary(
+                    group => group.Key,
+                    group => group.First());
+
             await ImportMounts();
             await ImportPets();
             await ImportToys();
@@ -344,17 +369,6 @@ namespace Wowthing.Backend.Jobs.Misc
             var dbMountMap = await Context.WowMount
                 .ToDictionaryAsync(mount => mount.Id);
 
-            var itemEffectsMap = (await DataUtilities.LoadDumpCsvAsync<DumpItemXItemEffect>("itemxitemeffect"))
-                .ToGroupedDictionary(ixie => ixie.ItemEffectID);
-
-            var mountSpellIds = baseMounts.Select(mount => mount.SourceSpellID);
-            var spellTeachMap = (await DataUtilities.LoadDumpCsvAsync<DumpItemEffect>("itemeffect"))
-                .Where(ie => mountSpellIds.Contains(ie.SpellID) && ie.TriggerType == 6) // Learn
-                .GroupBy(ie => ie.SpellID)
-                .ToDictionary(
-                    group => group.Key,
-                    group => group.First());
-
             var dbLanguageMap = await Context.LanguageString
                 .Where(ls => ls.Type == StringType.WowMountName)
                 .AsNoTracking()
@@ -375,8 +389,8 @@ namespace Wowthing.Backend.Jobs.Misc
                 dbMount.Flags = mount.Flags;
                 dbMount.SourceType = mount.SourceTypeEnum;
 
-                if (spellTeachMap.TryGetValue(dbMount.SpellId, out var itemEffect) &&
-                    itemEffectsMap.TryGetValue(itemEffect.ID, out var xItemEffects))
+                if (_spellTeachMap.TryGetValue(dbMount.SpellId, out var itemEffect) &&
+                    _itemEffectsMap.TryGetValue(itemEffect.ID, out var xItemEffects))
                 {
                     dbMount.ItemId = xItemEffects.First().ItemID;
                 }
@@ -445,10 +459,16 @@ namespace Wowthing.Backend.Jobs.Misc
                 }
 
                 dbPet.CreatureId = pet.CreatureID;
-                dbPet.SpellId = pet.SummonSpellID;
+                dbPet.SpellId = _fixedPetSpell.GetValueOrDefault(pet.ID, pet.SummonSpellID);
                 dbPet.Flags = pet.Flags;
                 dbPet.PetType = pet.PetTypeEnum;
                 dbPet.SourceType = pet.SourceTypeEnum;
+                
+                if (_spellTeachMap.TryGetValue(dbPet.SpellId, out var itemEffect) &&
+                    _itemEffectsMap.TryGetValue(itemEffect.ID, out var xItemEffects))
+                {
+                    dbPet.ItemId = xItemEffects.First().ItemID;
+                }
             }
             
             _timer.AddPoint("Pets");

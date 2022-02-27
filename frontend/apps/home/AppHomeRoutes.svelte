@@ -33,7 +33,7 @@
 
         '/achievements/:slug1?/:slug2?': Achievements,
         '/appearances/:slug1?/:slug2?': Appearances,
-        '/auctions/:slug1?': Auctions,
+        '/auctions/:slug1?/:slug2?': Auctions,
         '/currencies/:slug?': Currencies,
         '/gear/*': Gear,
         '/history/:slug?': History,

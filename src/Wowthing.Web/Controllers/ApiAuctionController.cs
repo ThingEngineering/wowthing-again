@@ -63,7 +63,13 @@ namespace Wowthing.Web.Controllers
                     allPets.TryAdd(petId, pet);
                 }
             }
-
+            
+            // Pet itemId -> id map
+            var petItemIdMap = await _context.WowPet
+                .Where(pet => (pet.Flags & 32) == 0 && pet.ItemId > 0)
+                .ToDictionaryAsync(pet => pet.ItemId, pet => pet.Id);
+            var petItemIds = petItemIdMap.Keys.ToArray();
+            
             // Caged pets
             var guildCages = await _context
                 .PlayerGuildItem
@@ -83,6 +89,24 @@ namespace Wowthing.Web.Controllers
                 )
                 .ToArrayAsync();
 
+            // Learnable pets
+            var guildLearnable = await _context
+                .PlayerGuildItem
+                .Where(pgi =>
+                    pgi.Guild.UserId == user.Id &&
+                    petItemIds.Contains(pgi.ItemId)
+                )
+                .ToArrayAsync();
+            
+            var playerLearnable = await _context
+                .PlayerCharacterItem
+                .Where(pci =>
+                        pci.Character.AccountId.HasValue &&
+                        accountIds.Contains(pci.Character.AccountId.Value) &&
+                        petItemIds.Contains(pci.ItemId)
+                )
+                .ToArrayAsync();
+            
             var accountConnectedRealmIds = await GetConnectedRealmIds(user, accounts);
             
             timer.AddPoint("Accounts");
@@ -104,7 +128,7 @@ namespace Wowthing.Web.Controllers
                     pets = groupedPets[speciesId] = new List<UserAuctionDataPet>();
                 }
 
-                pets.Add(new UserAuctionDataPet(cagedPet));
+                pets.Add(new UserAuctionDataPet(cagedPet, true));
             }
             
             foreach (var cagedPet in playerCages)
@@ -115,7 +139,29 @@ namespace Wowthing.Web.Controllers
                     pets = groupedPets[speciesId] = new List<UserAuctionDataPet>();
                 }
 
-                pets.Add(new UserAuctionDataPet(cagedPet));
+                pets.Add(new UserAuctionDataPet(cagedPet, true));
+            }
+
+            foreach (var learnablePet in guildLearnable)
+            {
+                int speciesId = petItemIdMap[learnablePet.ItemId];
+                if (!groupedPets.TryGetValue(speciesId, out var pets))
+                {
+                    pets = groupedPets[speciesId] = new List<UserAuctionDataPet>();
+                }
+                
+                pets.Add(new UserAuctionDataPet(learnablePet));
+            }
+
+            foreach (var learnablePet in playerLearnable)
+            {
+                int speciesId = petItemIdMap[learnablePet.ItemId];
+                if (!groupedPets.TryGetValue(speciesId, out var pets))
+                {
+                    pets = groupedPets[speciesId] = new List<UserAuctionDataPet>();
+                }
+                
+                pets.Add(new UserAuctionDataPet(learnablePet));
             }
 
             var extraPets = groupedPets
