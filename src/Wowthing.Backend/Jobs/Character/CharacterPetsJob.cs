@@ -1,14 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using StackExchange.Redis;
-using Wowthing.Backend.Models.API;
-using Wowthing.Backend.Models.API.Character;
-using Wowthing.Lib.Constants;
+﻿using Wowthing.Backend.Models.API.Character;
 using Wowthing.Lib.Enums;
-using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
 
@@ -22,9 +13,9 @@ namespace Wowthing.Backend.Jobs.Character
             var query = JsonConvert.DeserializeObject<SchedulerCharacterQuery>(data[0]);
             using var shrug = CharacterLog(query);
 
-            if (query.AccountId == null)
+            if (query?.AccountId == null)
             {
-                throw new ArgumentNullException("AccountId");
+                throw new InvalidDataException("AccountId is null");
             }
 
             var lockKey = $"character_pets:{query.AccountId}";

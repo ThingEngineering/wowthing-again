@@ -2,6 +2,6 @@
 {
     public static class RedisKeys
     {
-        public const string USER_MOUNTS = "collections:{0}:mounts";
+        public const string UserMounts = "collections:{0}:mounts";
     }
 }

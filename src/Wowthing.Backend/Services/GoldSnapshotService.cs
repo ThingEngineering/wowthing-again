@@ -1,9 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using Wowthing.Lib.Contexts;
@@ -15,14 +10,14 @@ namespace Wowthing.Backend.Services
 {
     public class GoldSnapshotService : BackgroundService
     {
-        private readonly ILogger Logger;
+        private readonly ILogger _logger;
         private readonly IServiceScopeFactory _serviceScopeFactory;
 
         public GoldSnapshotService(IServiceScopeFactory serviceScopeFactory)
         {
             _serviceScopeFactory = serviceScopeFactory;
             
-            Logger = Log.ForContext("Service", $"GoldSnap");
+            _logger = Log.ForContext("Service", $"GoldSnap");
         }
         
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -35,7 +30,7 @@ namespace Wowthing.Backend.Services
                 //var nextWake = now.Date + new TimeSpan(now.Hour, now.Minute + 1, 5);
                 var diff = nextWake.Subtract(now);
                 
-                Logger.Debug("Sleeping for {Diff}", diff);
+                _logger.Debug("Sleeping for {Diff}", diff);
                 
                 await Task.Delay(diff, stoppingToken);
 
@@ -45,7 +40,7 @@ namespace Wowthing.Backend.Services
                 }
                 catch (Exception ex)
                 {
-                    Logger.Error(ex, "Kaboom!");
+                    _logger.Error(ex, "Kaboom!");
                 }
             }
         }
@@ -58,7 +53,7 @@ namespace Wowthing.Backend.Services
             var contextFactory = scope.ServiceProvider.GetService<IDbContextFactory<WowDbContext>>();
             if (contextFactory == null)
             {
-                Logger.Error("contextFactory is null??");
+                _logger.Error("contextFactory is null??");
                 return;
             }
 
@@ -70,7 +65,7 @@ namespace Wowthing.Backend.Services
 
             // TODO check existing
             var latestSnapshots = await context.LatestGoldSnapshotQuery
-                .FromSqlRaw(LatestGoldSnapshotQuery.SQL)
+                .FromSqlRaw(LatestGoldSnapshotQuery.Sql)
                 .ToDictionaryAsync(gsq => (gsq.AccountId, gsq.RealmId));
 
             timer.AddPoint("LoadSnaps");
@@ -113,7 +108,7 @@ namespace Wowthing.Backend.Services
             await context.SaveChangesAsync();
 
             timer.AddPoint("Save", true);
-            Logger.Information("GoldSnapshotService: {Times}", timer.ToString());
+            _logger.Information("GoldSnapshotService: {Times}", timer.ToString());
         }
     }
 }

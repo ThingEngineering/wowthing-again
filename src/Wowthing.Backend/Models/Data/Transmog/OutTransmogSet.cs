@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Newtonsoft.Json;
-using Wowthing.Backend.Converters;
-using Wowthing.Lib.Extensions;
+﻿using Wowthing.Backend.Converters;
 
 namespace Wowthing.Backend.Models.Data.Transmog
 {

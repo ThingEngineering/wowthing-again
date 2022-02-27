@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Wowthing.Lib.Extensions
+﻿namespace Wowthing.Lib.Extensions
 {
     public static class TypeExtensions
     {

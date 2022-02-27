@@ -1,9 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Newtonsoft.Json;
-using Wowthing.Lib.Extensions;
-
-namespace Wowthing.Backend.Models.API.Character
+﻿namespace Wowthing.Backend.Models.API.Character
 {
     public class ApiCharacterProfessions
     {

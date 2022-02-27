@@ -1,6 +1,4 @@
-﻿using System;
-using Newtonsoft.Json;
-using Wowthing.Backend.Models.API;
+﻿using Wowthing.Backend.Models.API;
 
 namespace Wowthing.Backend.Models.Redis
 {

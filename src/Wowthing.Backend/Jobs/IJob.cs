@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace Wowthing.Backend.Jobs
+﻿namespace Wowthing.Backend.Jobs
 {
     public interface IJob
     {

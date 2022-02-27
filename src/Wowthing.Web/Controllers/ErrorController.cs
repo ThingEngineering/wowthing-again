@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Net;
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Diagnostics;
 using Wowthing.Web.ViewModels;
 
 namespace Wowthing.Web.Controllers

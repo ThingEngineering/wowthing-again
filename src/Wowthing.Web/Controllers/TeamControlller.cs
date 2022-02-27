@@ -1,8 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using StackExchange.Redis;
+﻿using StackExchange.Redis;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Models.Team;
 using Wowthing.Web.ViewModels;

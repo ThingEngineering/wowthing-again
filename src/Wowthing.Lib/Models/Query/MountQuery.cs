@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-
-namespace Wowthing.Lib.Models.Query
+﻿namespace Wowthing.Lib.Models.Query
 {
     [Keyless]
     public class MountQuery
@@ -9,7 +6,7 @@ namespace Wowthing.Lib.Models.Query
         public List<int> Mounts { get; set; }
         public List<int> AddonMounts { get; set; }
         
-        public static string USER_QUERY = @"
+        public static string UserQuery = @"
 WITH character_ids AS (
     SELECT  pc.id
     FROM    player_character pc

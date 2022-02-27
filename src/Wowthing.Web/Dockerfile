@@ -1,4 +1,4 @@
-FROM wafflefred/dotnet-sdk-nodejs:latest AS build-frontend
+FROM ghcr.io/thingengineering/docker-dotnet-sdk-nodejs:latest AS build-frontend
 
 WORKDIR /app/frontend
 
@@ -13,7 +13,7 @@ COPY frontend/ ./
 RUN yarn run build
 
 
-FROM wafflefred/dotnet-sdk-nodejs:latest AS build-web
+FROM ghcr.io/thingengineering/docker-dotnet-sdk-nodejs:latest AS build-web
 
 WORKDIR /app/src
 COPY src/ ./
@@ -22,7 +22,7 @@ WORKDIR /app/src/Wowthing.Web
 RUN dotnet publish -c Release -o out
 
 
-FROM mcr.microsoft.com/dotnet/aspnet:5.0-alpine AS runtime
+FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine AS runtime
 
 WORKDIR /app
 COPY --from=build-web /app/src/Wowthing.Web/out ./

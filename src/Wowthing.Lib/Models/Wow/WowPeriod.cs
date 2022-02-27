@@ -1,5 +1,4 @@
-﻿using System;
-using Wowthing.Lib.Enums;
+﻿using Wowthing.Lib.Enums;
 
 namespace Wowthing.Lib.Models.Wow
 {

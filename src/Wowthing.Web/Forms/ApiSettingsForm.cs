@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Wowthing.Lib.Models;
+﻿using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Player;
 
 namespace Wowthing.Web.Forms

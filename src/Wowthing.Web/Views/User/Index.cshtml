@@ -1,5 +1,5 @@
 ﻿@model UserViewModel
-@inject UriService uriService
+@inject UriService _uriService
 @{
     ViewData["Title"] = Model.User.UserName;
 }
@@ -26,7 +26,7 @@
 }
 
     <div id="app"
-         data-base-uri="@uriService.BaseUri"
+         data-base-uri="@_uriService.BaseUri"
          data-settings="@Model.SettingsJson"
          data-achievements="@Url.Action("CachedJson", "Api", new { type = "achievement", languageCode = "zzZZ", hash = Model.AchievementHash })"
          data-journal="@Url.Action("CachedJson", "Api", new { type = "journal", languageCode = "zzZZ", hash = Model.JournalHash })"

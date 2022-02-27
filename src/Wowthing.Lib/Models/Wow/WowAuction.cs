@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using Wowthing.Lib.Enums;
 
 namespace Wowthing.Lib.Models.Wow

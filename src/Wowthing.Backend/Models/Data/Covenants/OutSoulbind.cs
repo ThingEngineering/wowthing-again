@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Wowthing.Backend.Models.Data.Covenants
+﻿namespace Wowthing.Backend.Models.Data.Covenants
 {
     public class OutSoulbind
     {

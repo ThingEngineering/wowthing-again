@@ -1,14 +1,11 @@
-﻿using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
-
-namespace Wowthing.Lib.Models.Query
+﻿namespace Wowthing.Lib.Models.Query
 {
     [Keyless]
     public class AccountTransmogQuery
     {
         public List<int> TransmogIds { get; set; }
 
-        public static string SQL = @"
+        public static string Sql = @"
 WITH character_ids AS (
     SELECT  pc.id
     FROM    player_character pc

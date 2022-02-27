@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using Wowthing.Backend.Data;
 using Wowthing.Backend.Jobs.NonBlizzard;
 using Wowthing.Backend.Models.Data;
@@ -20,7 +13,6 @@ using Wowthing.Backend.Models.Data.ZoneMaps;
 using Wowthing.Backend.Models.Redis;
 using Wowthing.Backend.Utilities;
 using Wowthing.Lib.Enums;
-using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models.Wow;
 using Wowthing.Lib.Utilities;
@@ -119,7 +111,7 @@ namespace Wowthing.Backend.Jobs.Misc
             var db = Redis.GetDatabase();
 
             // RaiderIO
-            var raiderIoScoreTiers = await db.JsonGetAsync<Dictionary<int, OutRaiderIoScoreTiers>>(DataRaiderIoScoreTiersJob.CACHE_KEY);
+            var raiderIoScoreTiers = await db.JsonGetAsync<Dictionary<int, OutRaiderIoScoreTiers>>(DataRaiderIoScoreTiersJob.CacheKey);
             
             // Currencies
             var currencies = await LoadCurrencies();
@@ -283,7 +275,8 @@ namespace Wowthing.Backend.Jobs.Misc
 
             var professions = skillLines
                 .Where(line => Hardcoded.PrimaryProfessions.Contains(line.ID) ||
-                               Hardcoded.SecondaryProfessions.Contains(line.ID));
+                               Hardcoded.SecondaryProfessions.Contains(line.ID))
+                .ToArray();
 
             var subProfessions = skillLines
                 .Where(line => Hardcoded.PrimaryProfessions.Contains(line.ParentSkillLineID) ||
@@ -979,7 +972,8 @@ namespace Wowthing.Backend.Jobs.Misc
             // Filter things
             var achievementCriteriaTrees = new HashSet<int>(achievements.Values.Select(a => a.CriteriaTreeId));
             var filtered = criteriaTrees
-                .Where(ct => achievementCriteriaTrees.Contains(ct.ID));
+                .Where(ct => achievementCriteriaTrees.Contains(ct.ID))
+                .ToArray();
             var final = filtered
                 .Concat(
                     filtered

@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Wowthing.Lib.Enums;
+﻿using Wowthing.Lib.Enums;
 
 namespace Wowthing.Lib.Models.Query
 {

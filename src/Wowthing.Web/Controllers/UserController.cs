@@ -1,12 +1,7 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http.Extensions;
+﻿using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 using StackExchange.Redis;
 using Wowthing.Lib.Models;
-using Wowthing.Web.Models;
 using Wowthing.Web.Services;
 using Wowthing.Web.ViewModels;
 
@@ -29,12 +24,12 @@ namespace Wowthing.Web.Controllers
         public async Task<IActionResult> Index([FromRoute] string username)
         {
             var user = await _userManager.FindByNameAsync(username);
-            if (user == null || (User?.Identity?.Name != user.UserName && user.Settings?.Privacy?.Public != true))
+            if (user == null || (User.Identity?.Name != user.UserName && user.Settings?.Privacy?.Public != true))
             {
                 return NotFound();
             }
 
-            var expectedUri = (await _uriService.GetUriForUser(user: user)).ToString();
+            var expectedUri = await _uriService.GetUriForUser(user: user);
             var actualUri = HttpContext.Request.GetDisplayUrl();
             if (actualUri != expectedUri)
             {

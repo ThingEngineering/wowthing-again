@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Newtonsoft.Json;
-using Wowthing.Backend.Converters;
+﻿using Wowthing.Backend.Converters;
 using Wowthing.Lib.Enums;
-using Wowthing.Lib.Extensions;
 
 namespace Wowthing.Backend.Models.Data.ZoneMaps
 {

@@ -1,4 +1,4 @@
-﻿using CsvHelper.Configuration.Attributes;
+﻿
 
 // ReSharper disable InconsistentNaming
 namespace Wowthing.Backend.Models.Data

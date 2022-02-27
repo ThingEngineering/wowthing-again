@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.RegularExpressions;
-using Wowthing.Lib.Extensions;
+﻿using System.Text.RegularExpressions;
 
 namespace Wowthing.Lib.Utilities
 {
@@ -20,10 +16,10 @@ namespace Wowthing.Lib.Utilities
         {
             var converter = new LuaToJsonConverter(luaText);
 
-            var (type, converted) = converter.Recurse();
+            var (_, converted) = converter.Recurse();
             return converted;
             
-            if (type == StructureType.Array)
+            /*if (type == StructureType.Array)
             {
                 return "[" + converted + "]";
             }
@@ -34,7 +30,7 @@ namespace Wowthing.Lib.Utilities
             else
             {
                 return "WTF?";
-            }
+            }*/
         }
 
         private static readonly Regex Line = new Regex(@"^\s*(.*?),?(?: -- \[\d+\])?$", RegexOptions.Compiled);

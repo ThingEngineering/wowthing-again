@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-using Newtonsoft.Json;
-using StackExchange.Redis;
+﻿using StackExchange.Redis;
 using Wowthing.Lib.Models;
 
 namespace Wowthing.Web.ViewModels

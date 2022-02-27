@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace Wowthing.Backend.Models.Data.Collections
+﻿namespace Wowthing.Backend.Models.Data.Collections
 {
     public class OutCollectionGroup
     {

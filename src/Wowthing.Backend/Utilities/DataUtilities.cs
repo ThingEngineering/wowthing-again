@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Globalization;
 using CsvHelper;
 using CsvHelper.Configuration;
 using Serilog;
@@ -21,7 +16,7 @@ namespace Wowthing.Backend.Utilities
         public static readonly string DataPath = "data";
 #endif
 
-        private static readonly IDeserializer _yaml = new DeserializerBuilder()
+        private static readonly IDeserializer Yaml = new DeserializerBuilder()
             .WithNamingConvention(CamelCaseNamingConvention.Instance)
             .IgnoreUnmatchedProperties()
             .Build();
@@ -166,7 +161,7 @@ namespace Wowthing.Backend.Utilities
             if (!categoryCache.TryGetValue(filePath, out TCategory cat))
             {
                 //Logger.Debug("Loading {0}", parts[0]);
-                cat = categoryCache[filePath] = _yaml.Deserialize<TCategory>(File.OpenText(filePath));
+                cat = categoryCache[filePath] = Yaml.Deserialize<TCategory>(File.OpenText(filePath));
             }
             
             if (parts.Length == 2)

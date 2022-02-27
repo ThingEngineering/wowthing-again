@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Wowthing.Lib.Models.Player
+﻿namespace Wowthing.Lib.Models.Player
 {
     public interface IPlayerItem
     {

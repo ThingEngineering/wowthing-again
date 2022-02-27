@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using CsvHelper.Configuration.Attributes;
+﻿using CsvHelper.Configuration.Attributes;
 
 // ReSharper disable InconsistentNaming
 namespace Wowthing.Backend.Models.Data.Achievements

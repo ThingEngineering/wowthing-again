@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Newtonsoft.Json;
-using Wowthing.Lib.Enums;
-using Wowthing.Lib.Extensions;
+﻿using Wowthing.Lib.Enums;
 
 namespace Wowthing.Backend.Models.Data.Progress
 {

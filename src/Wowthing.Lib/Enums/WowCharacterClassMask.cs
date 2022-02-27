@@ -1,9 +1,7 @@
-﻿using System;
-
-namespace Wowthing.Lib.Enums
+﻿namespace Wowthing.Lib.Enums
 {
     [Flags]
-    public enum WowCharacterClassMask : int
+    public enum WowCharacterClassMask
     {
         Warrior = 1,
         Paladin = 2,

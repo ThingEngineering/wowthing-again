@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Wowthing.Backend.Models.API;
+﻿using System.Net.Http;
 using Wowthing.Backend.Models.API.Character;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Jobs;

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
-using Wowthing.Lib.Models;
+﻿using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Wow;
 
 namespace Wowthing.Web.Models

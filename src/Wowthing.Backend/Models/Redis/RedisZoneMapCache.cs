@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Wowthing.Backend.Models.Data.ZoneMaps;
+﻿using Wowthing.Backend.Models.Data.ZoneMaps;
 
 namespace Wowthing.Backend.Models.Redis
 {

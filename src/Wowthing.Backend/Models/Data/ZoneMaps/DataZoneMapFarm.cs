@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Wowthing.Backend.Models.Data.ZoneMaps
+﻿namespace Wowthing.Backend.Models.Data.ZoneMaps
 {
     public class DataZoneMapFarm
     {

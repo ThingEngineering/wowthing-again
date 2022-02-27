@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
-using Wowthing.Lib.Extensions;
-
-namespace Wowthing.Backend.Models.Data.Journal
+﻿namespace Wowthing.Backend.Models.Data.Journal
 {
     public class OutJournalInstance
     {

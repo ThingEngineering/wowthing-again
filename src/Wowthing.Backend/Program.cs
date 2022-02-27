@@ -1,11 +1,7 @@
-using System;
-using System.IO;
 using System.Net;
-using System.Threading;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Serilog;
 using Serilog.Templates;
@@ -13,7 +9,6 @@ using Wowthing.Backend.Extensions;
 using Wowthing.Backend.Models;
 using Wowthing.Backend.Services;
 using Wowthing.Backend.Utilities;
-using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Utilities;
 

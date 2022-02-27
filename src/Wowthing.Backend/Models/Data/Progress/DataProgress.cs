@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Wowthing.Backend.Models.Data.Progress
+﻿namespace Wowthing.Backend.Models.Data.Progress
 {
     public class DataProgress : ICloneable, IDataCategory
     {

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Newtonsoft.Json;
-using Wowthing.Lib.Models.Player;
+﻿using Wowthing.Lib.Models.Player;
 
 namespace Wowthing.Web.Models
 {

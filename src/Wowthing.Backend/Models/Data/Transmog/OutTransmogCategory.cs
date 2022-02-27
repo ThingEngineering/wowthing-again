@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Wowthing.Lib.Extensions;
-
-namespace Wowthing.Backend.Models.Data.Transmog
+﻿namespace Wowthing.Backend.Models.Data.Transmog
 {
     public class OutTransmogCategory
     {

@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using Wowthing.Backend.Models.Data.Transmog;
+﻿using Wowthing.Backend.Models.Data.Transmog;
 
-namespace Wowthing.Backend.Models.Redis
+namespace Wowthing.Backend.Models.Data.Journal
 {
     public class RedisTransmogCache
     {

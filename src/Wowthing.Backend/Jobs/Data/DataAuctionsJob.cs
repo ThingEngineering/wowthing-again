@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Npgsql;
+﻿using Npgsql;
 using NpgsqlTypes;
 using Wowthing.Backend.Models;
 using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.API.Data;
 using Wowthing.Lib.Enums;
-using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Utilities;
 
 namespace Wowthing.Backend.Jobs.Data
@@ -19,7 +12,7 @@ namespace Wowthing.Backend.Jobs.Data
     {
         private const string ApiPath = "data/wow/connected-realm/{0}/auctions";
 
-        private readonly Dictionary<string, WowAuctionTimeLeft> TimeLeftMap = new()
+        private readonly Dictionary<string, WowAuctionTimeLeft> _timeLeftMap = new()
         {
             { "SHORT", WowAuctionTimeLeft.Short },
             { "MEDIUM", WowAuctionTimeLeft.Medium },
@@ -27,22 +20,22 @@ namespace Wowthing.Backend.Jobs.Data
             { "VERY_LONG", WowAuctionTimeLeft.VeryLong },
         };
 
-        private const string SqlCreateTable = "CREATE TABLE {0} (LIKE wow_auction INCLUDING ALL)";
+        private const string CreateTable = "CREATE TABLE {0} (LIKE wow_auction INCLUDING ALL)";
 
-        private const string SqlGetPartitions = @"
+        private const string GetPartitions = @"
 SELECT  pgc.relname
 FROM    pg_catalog.pg_inherits pgi
 INNER JOIN pg_catalog.pg_class pgc ON pgi.inhrelid = pgc.oid
 WHERE   pgi.inhparent = 'wow_auction'::regclass
 ";
 
-        private const string SqlDetachPartition = "ALTER TABLE wow_auction DETACH PARTITION {0}";
+        private const string DetachPartition = "ALTER TABLE wow_auction DETACH PARTITION {0}";
 
-        private const string SqlAttachPartition = "ALTER TABLE wow_auction ATTACH PARTITION {0} FOR VALUES IN ({1})";
+        private const string AttachPartition = "ALTER TABLE wow_auction ATTACH PARTITION {0} FOR VALUES IN ({1})";
 
-        private const string SqlDropTable = "DROP TABLE {0}";
+        private const string DropTable = "DROP TABLE {0}";
 
-        private const string SqlCopy = @"
+        private const string Copy = @"
 COPY {0} (
     connected_realm_id,
     auction_id,
@@ -71,7 +64,7 @@ COPY {0} (
                 .Where(realm => realm.ConnectedRealmId == realmId)
                 .FirstOrDefaultAsync();
 
-            var shrug = AuctionLog(realm);
+            using var shrug = AuctionLog(realm);
 
             var uri = GenerateUri(realm.Region, ApiNamespace.Dynamic, string.Format(ApiPath, realmId));
             JobHttpResult<ApiDataAuctions> result;
@@ -105,13 +98,13 @@ COPY {0} (
                     try
                     {
                         // Create new table
-                        command.CommandText = string.Format(SqlCreateTable, tableName);
+                        command.CommandText = string.Format(CreateTable, tableName);
                         await command.ExecuteNonQueryAsync();
 
                         timer.AddPoint("Create");
 
                         // Copy auction data
-                        await using (var writer = connection.BeginBinaryImport(string.Format(SqlCopy, tableName)))
+                        await using (var writer = connection.BeginBinaryImport(string.Format(Copy, tableName)))
                         {
                             foreach (var auction in result.Data.Auctions)
                             {
@@ -123,7 +116,7 @@ COPY {0} (
                                     NpgsqlDbType.Bigint);
                                 await writer.WriteAsync(auction.Item.Id, NpgsqlDbType.Integer);
                                 await writer.WriteAsync(auction.Quantity, NpgsqlDbType.Integer);
-                                await writer.WriteAsync((short)TimeLeftMap[auction.TimeLeft], NpgsqlDbType.Smallint);
+                                await writer.WriteAsync((short)_timeLeftMap[auction.TimeLeft], NpgsqlDbType.Smallint);
                                 await writer.WriteAsync(auction.Item.Context, NpgsqlDbType.Smallint);
                                 await writer.WriteAsync(auction.Item.PetBreedId, NpgsqlDbType.Smallint);
                                 await writer.WriteAsync(auction.Item.PetLevel, NpgsqlDbType.Smallint);
@@ -152,7 +145,7 @@ COPY {0} (
 
                         timer.AddPoint("Copy");
 
-                        command.CommandText = SqlGetPartitions;
+                        command.CommandText = GetPartitions;
                         string existing = null;
                         await using (var reader = await command.ExecuteReaderAsync())
                         {
@@ -169,17 +162,17 @@ COPY {0} (
                         // Detach old partition if it exists
                         if (existing != null)
                         {
-                            command.CommandText = string.Format(SqlDetachPartition, existing);
+                            command.CommandText = string.Format(DetachPartition, existing);
                             await command.ExecuteNonQueryAsync();
                         }
 
-                        command.CommandText = string.Format(SqlAttachPartition, tableName, realmId);
+                        command.CommandText = string.Format(AttachPartition, tableName, realmId);
                         await command.ExecuteNonQueryAsync();
 
                         // Drop old partition if it exists
                         if (existing != null)
                         {
-                            command.CommandText = string.Format(SqlDropTable, existing);
+                            command.CommandText = string.Format(DropTable, existing);
                             await command.ExecuteNonQueryAsync();
                         }
 
