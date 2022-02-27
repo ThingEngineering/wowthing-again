@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Wowthing.Lib.Enums;
+﻿using Wowthing.Lib.Enums;
 
 namespace Wowthing.Backend.Data
 {

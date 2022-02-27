@@ -1,16 +1,8 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Wowthing.Backend.Models.Data.Transmog;
+﻿using Wowthing.Backend.Models.Data.Transmog;
 using Wowthing.Backend.Models.Redis;
 using Wowthing.Backend.Utilities;
-using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Utilities;
-using YamlDotNet.Serialization;
-using YamlDotNet.Serialization.NamingConventions;
 
 namespace Wowthing.Backend.Jobs.Misc
 {

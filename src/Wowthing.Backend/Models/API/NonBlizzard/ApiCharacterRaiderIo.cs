@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
-
-namespace Wowthing.Backend.Models.API.NonBlizzard
+﻿namespace Wowthing.Backend.Models.API.NonBlizzard
 {
     public class ApiCharacterRaiderIo
     {

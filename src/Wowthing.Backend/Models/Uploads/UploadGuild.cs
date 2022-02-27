@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Wowthing.Backend.Models.Uploads
+﻿namespace Wowthing.Backend.Models.Uploads
 {
     public class UploadGuild
     {

@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace Wowthing.Backend.Models.API
+﻿namespace Wowthing.Backend.Models.API
 {
     public class ApiValueDisplay
     {

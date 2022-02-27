@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Wowthing.Backend.Enums
+﻿namespace Wowthing.Backend.Enums
 {
     [Flags]
     public enum WowItemFlags4

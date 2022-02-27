@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Wowthing.Backend.Models.Data.Journal;
-
-namespace Wowthing.Backend.Data
+﻿namespace Wowthing.Backend.Data
 {
     public static partial class Hardcoded
     {

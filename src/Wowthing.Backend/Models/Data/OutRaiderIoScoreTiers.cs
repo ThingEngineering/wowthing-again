@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Wowthing.Backend.Models.Data
+﻿namespace Wowthing.Backend.Models.Data
 {
     public class OutRaiderIoScoreTiers
     {

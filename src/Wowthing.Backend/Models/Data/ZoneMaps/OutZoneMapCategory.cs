@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Newtonsoft.Json;
-using Wowthing.Lib.Extensions;
-
-namespace Wowthing.Backend.Models.Data.ZoneMaps
+﻿namespace Wowthing.Backend.Models.Data.ZoneMaps
 {
     public class OutZoneMapCategory
     {

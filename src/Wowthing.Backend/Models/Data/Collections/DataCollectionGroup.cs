@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Wowthing.Backend.Models.Data.Collections
+﻿namespace Wowthing.Backend.Models.Data.Collections
 {
     public class DataCollectionGroup
     {

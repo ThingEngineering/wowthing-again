@@ -1,10 +1,6 @@
-﻿using System;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Wowthing.Backend.Models.API;
+﻿using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.API.Data;
 using Wowthing.Lib.Enums;
-using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Models.Wow;
 
 namespace Wowthing.Backend.Jobs.Data

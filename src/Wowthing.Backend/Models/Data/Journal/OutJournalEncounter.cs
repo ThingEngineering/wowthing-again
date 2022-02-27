@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
-using Wowthing.Backend.Converters;
+﻿using Wowthing.Backend.Converters;
 
 namespace Wowthing.Backend.Models.Data.Journal
 {

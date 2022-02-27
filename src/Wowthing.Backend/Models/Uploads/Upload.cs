@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
-
-namespace Wowthing.Backend.Models.Uploads
+﻿namespace Wowthing.Backend.Models.Uploads
 {
     public class Upload
     {

@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Wowthing.Backend.Models.API.Character;
+﻿using Wowthing.Backend.Models.API.Character;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
 

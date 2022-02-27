@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using Wowthing.Backend.Models.Data.Collections;
 
 namespace Wowthing.Backend.Converters

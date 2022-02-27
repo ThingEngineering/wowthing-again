@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using Wowthing.Lib.Extensions;
-
-namespace Wowthing.Backend.Models.Data.Journal
+﻿namespace Wowthing.Backend.Models.Data.Journal
 {
     public class OutJournalTier
     {

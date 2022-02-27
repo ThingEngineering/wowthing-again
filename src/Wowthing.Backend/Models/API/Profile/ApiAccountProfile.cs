@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
-
-namespace Wowthing.Backend.Models.API.Profile
+﻿namespace Wowthing.Backend.Models.API.Profile
 {
     public class ApiAccountProfile
     {

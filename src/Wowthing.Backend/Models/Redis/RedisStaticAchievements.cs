@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
-using Wowthing.Backend.Models.Data;
-using Wowthing.Backend.Models.Data.Achievements;
+﻿using Wowthing.Backend.Models.Data.Achievements;
 
 namespace Wowthing.Backend.Models.Redis
 {

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Wowthing.Backend.Models.Data.Vendors
+﻿namespace Wowthing.Backend.Models.Data.Vendors
 {
     public class DataVendorGroup
     {

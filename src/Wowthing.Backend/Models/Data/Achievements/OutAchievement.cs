@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using Wowthing.Backend.Converters;
+﻿using Wowthing.Backend.Converters;
 using Wowthing.Lib.Enums;
 
 namespace Wowthing.Backend.Models.Data.Achievements

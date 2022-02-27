@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-
-namespace Wowthing.Backend.Models.API.Data
+﻿namespace Wowthing.Backend.Models.API.Data
 {
     public class ApiDataReputationFaction
     {

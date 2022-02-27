@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Wowthing.Lib.Extensions;
-
-namespace Wowthing.Backend.Models.Data.Vendors
+﻿namespace Wowthing.Backend.Models.Data.Vendors
 {
     public class OutVendorCategory
     {

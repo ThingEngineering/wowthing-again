@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 using StackExchange.Redis;
 using Wowthing.Backend.Models;
 using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.Redis;
 using Wowthing.Backend.Services.Base;
-using Wowthing.Lib.Extensions;
 
 namespace Wowthing.Backend.Services
 {

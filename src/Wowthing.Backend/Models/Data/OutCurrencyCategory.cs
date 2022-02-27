@@ -1,6 +1,4 @@
-﻿using Wowthing.Lib.Extensions;
-
-namespace Wowthing.Backend.Models.Data
+﻿namespace Wowthing.Backend.Models.Data
 {
     public class OutCurrencyCategory
     {

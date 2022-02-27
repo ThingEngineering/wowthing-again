@@ -1,6 +1,4 @@
-﻿using System;
-using System.Net.Http;
-using System.Threading;
+﻿using System.Net.Http;
 using Serilog;
 using Wowthing.Backend.Services;
 using Wowthing.Lib.Contexts;

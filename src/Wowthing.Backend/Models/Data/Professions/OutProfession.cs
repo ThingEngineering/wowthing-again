@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Wowthing.Backend.Models.Data.Professions
+﻿namespace Wowthing.Backend.Models.Data.Professions
 {
     public class OutProfession
     {

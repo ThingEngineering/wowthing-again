@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Threading.Channels;
+﻿using System.Threading.Channels;
 using Wowthing.Backend.Models.Redis;
 using Wowthing.Lib.Jobs;
 

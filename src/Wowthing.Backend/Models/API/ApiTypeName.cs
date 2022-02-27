@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Wowthing.Backend.Models.API
+﻿namespace Wowthing.Backend.Models.API
 {
     public class ApiTypeName
     {

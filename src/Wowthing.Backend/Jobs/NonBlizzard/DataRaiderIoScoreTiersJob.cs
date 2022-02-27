@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
+﻿using System.Net.Http;
 using Wowthing.Backend.Models.API.NonBlizzard;
 using Wowthing.Backend.Models.Data;
-using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Jobs;
 
 namespace Wowthing.Backend.Jobs.NonBlizzard

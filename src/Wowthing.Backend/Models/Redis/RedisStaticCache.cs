@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using Wowthing.Backend.Models.API.NonBlizzard;
+﻿using Newtonsoft.Json.Linq;
 using Wowthing.Backend.Models.Data;
 using Wowthing.Backend.Models.Data.Collections;
 using Wowthing.Backend.Models.Data.Covenants;
@@ -9,7 +6,6 @@ using Wowthing.Backend.Models.Data.Professions;
 using Wowthing.Backend.Models.Data.Progress;
 using Wowthing.Backend.Models.Data.Vendors;
 using Wowthing.Backend.Models.Data.ZoneMaps;
-using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models.Wow;
 
 namespace Wowthing.Backend.Models.Redis

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using Wowthing.Lib.Jobs;
+﻿using Wowthing.Lib.Jobs;
 
 namespace Wowthing.Backend.Jobs.Data
 {

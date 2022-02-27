@@ -1,10 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Wowthing.Backend.Models.API;
-using Wowthing.Backend.Models.API.Character;
-using Wowthing.Lib.Extensions;
+﻿using Wowthing.Backend.Models.API.Character;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
 

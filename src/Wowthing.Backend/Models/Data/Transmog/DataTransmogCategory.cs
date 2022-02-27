@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Wowthing.Backend.Models.Data.Transmog
+﻿namespace Wowthing.Backend.Models.Data.Transmog
 {
     public class DataTransmogCategory : ICloneable, IDataCategory
     {

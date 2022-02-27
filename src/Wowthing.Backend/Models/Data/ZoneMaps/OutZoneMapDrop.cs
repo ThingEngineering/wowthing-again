@@ -1,9 +1,4 @@
-﻿using System;
-using System.Linq;
-using Newtonsoft.Json;
-using Wowthing.Backend.Converters;
-
-namespace Wowthing.Backend.Models.Data.ZoneMaps
+﻿namespace Wowthing.Backend.Models.Data.ZoneMaps
 {
     public class OutZoneMapDrop
     {

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Wowthing.Backend.Models.API.Data
+﻿namespace Wowthing.Backend.Models.API.Data
 {
     public class ApiDataReputationFactionIndex
     {

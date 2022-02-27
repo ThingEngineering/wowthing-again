@@ -1,9 +1,6 @@
-﻿using System;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using Wowthing.Backend.Models.Data.ZoneMaps;
 using Wowthing.Lib.Enums;
-using Wowthing.Lib.Extensions;
 
 namespace Wowthing.Backend.Converters
 {

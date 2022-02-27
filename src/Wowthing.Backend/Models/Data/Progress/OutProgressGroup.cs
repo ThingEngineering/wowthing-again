@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Wowthing.Lib.Extensions;
-
-namespace Wowthing.Backend.Models.Data.Progress
+﻿namespace Wowthing.Backend.Models.Data.Progress
 {
     public class OutProgressGroup
     {

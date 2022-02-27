@@ -1,16 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using MoreLinq;
-using MoreLinq.Extensions;
-using Newtonsoft.Json;
-using Wowthing.Backend.Models.Uploads;
+﻿using Wowthing.Backend.Models.Uploads;
 using Wowthing.Lib.Enums;
-using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Wow;
 using Wowthing.Lib.Utilities;
