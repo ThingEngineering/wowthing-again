@@ -1,4 +1,4 @@
-﻿@inject UriService uriService
+﻿@inject UriService _uriService
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,12 +15,12 @@
         <nav class="nav">
             <ul>
                 <!--<li class="header-title">
-                    <a href="@uriService.GetBaseAction("Home", "Index")">WoWthing</a>
+                    <a href="@_uriService.GetBaseAction("Home", "Index")">WoWthing</a>
                 </li>-->
                 @if (User.Identity.IsAuthenticated)
                 {
                     <li>
-                        <a href="@await uriService.GetUriForUser()">My Page</a>
+                        <a href="@await _uriService.GetUriForUser()">My Page</a>
                     </li>
                     <li>
                         <a asp-controller="Upload" asp-action="Index">Upload</a>
@@ -32,13 +32,13 @@
                 {
                     <li>@User.Identity.Name</li>
                     <li>
-                        <a href="@uriService.GetBaseAction("Authentication", "Logout")">Logout</a>
+                        <a href="@_uriService.GetBaseAction("Authentication", "Logout")">Logout</a>
                     </li>
                 }
                 else
                 {
                     <li>
-                        <a href="@uriService.GetBaseAction("Authentication", "Login")">Login/Register with Battle.Net</a>
+                        <a href="@_uriService.GetBaseAction("Authentication", "Login")">Login/Register with Battle.Net</a>
                     </li>
                 }
             </ul>

@@ -1,6 +1,4 @@
-﻿using System;
-using Newtonsoft.Json;
-using Wowthing.Web.Converters;
+﻿using Wowthing.Web.Converters;
 
 namespace Wowthing.Web.Models
 {

@@ -1,24 +1,17 @@
-using System;
-using System.Net;
-using System.Threading.Tasks;
 using Anemonis.AspNetCore.RequestDecompression;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Models;
-using Wowthing.Lib.Extensions;
 using Wowthing.Web.Extensions;
 using Wowthing.Web.Misc;
 using Wowthing.Web.Services;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Wowthing.Web.Models;
 
@@ -193,7 +186,7 @@ namespace Wowthing.Web
             CreateRoles(serviceProvider).Wait();
         }
 
-        private static readonly string[] _roles =
+        private static readonly string[] Roles =
         {
             "Admin",
             "Donor",
@@ -202,7 +195,7 @@ namespace Wowthing.Web
         {
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<long>>>();
 
-            foreach (var roleName in _roles)
+            foreach (var roleName in Roles)
             {
                 var exists = await roleManager.RoleExistsAsync(roleName);
                 if (!exists)

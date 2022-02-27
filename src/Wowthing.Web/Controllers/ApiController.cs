@@ -1,23 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using StackExchange.Redis;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Enums;
-using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
-using Wowthing.Lib.Models.Wow;
 using Wowthing.Lib.Utilities;
 using Wowthing.Web.Forms;
 using Wowthing.Web.Models;
@@ -246,7 +235,7 @@ namespace Wowthing.Web.Controllers
                 return BadRequest("Invalid request format");
             }
             
-            if (apiUpload.ApiKey.Length != ApplicationUser.API_KEY_LENGTH * 2)
+            if (apiUpload.ApiKey.Length != ApplicationUser.ApiKeyLength * 2)
             {
                 return BadRequest("Invalid API key format");
             }
@@ -276,8 +265,6 @@ namespace Wowthing.Web.Controllers
             }
 
             timer.AddPoint("CheckUser");
-
-            var db = _redis.GetDatabase();
 
             // Update user last visit
             if (!apiResult.Public)
@@ -396,7 +383,7 @@ namespace Wowthing.Web.Controllers
 
             // Mounts
             var mounts = await _context.MountQuery
-                .FromSqlRaw(MountQuery.USER_QUERY, apiResult.User.Id)
+                .FromSqlRaw(MountQuery.UserQuery, apiResult.User.Id)
                 .FirstAsync();
             
             timer.AddPoint("Mounts");
@@ -436,7 +423,7 @@ namespace Wowthing.Web.Controllers
 
                 AddonMounts = mounts.AddonMounts
                     .EmptyIfNull()
-                    .ToDictionary(m => m, m => true),
+                    .ToDictionary(m => m, _ => true),
 
                 MountsPacked = SerializationUtilities.SerializeUInt16Array(mounts.Mounts
                     .EmptyIfNull()
@@ -477,7 +464,7 @@ namespace Wowthing.Web.Controllers
             timer.AddPoint("CheckUser");
 
             var achievementsCompleted = await _context.CompletedAchievementsQuery
-                .FromSqlRaw(CompletedAchievementsQuery.USER_QUERY, apiResult.User.Id)
+                .FromSqlRaw(CompletedAchievementsQuery.UserQuery, apiResult.User.Id)
                 .ToDictionaryAsync(
                     caq => caq.AchievementId,
                     caq => caq.Timestamp
@@ -594,7 +581,7 @@ namespace Wowthing.Web.Controllers
             timer.AddPoint("Accounts");
             
             var mounts = await _context.MountQuery
-                .FromSqlRaw(MountQuery.USER_QUERY, apiResult.User.Id)
+                .FromSqlRaw(MountQuery.UserQuery, apiResult.User.Id)
                 .FirstAsync();
             
             timer.AddPoint("Mounts");
@@ -633,7 +620,7 @@ namespace Wowthing.Web.Controllers
                 
                 AddonMounts = mounts.AddonMounts
                     .EmptyIfNull()
-                    .ToDictionary(m => m, m => true),
+                    .ToDictionary(m => m, _ => true),
                 Pets = allPets
                     .Values
                     .GroupBy(pet => pet.SpeciesId)
@@ -772,7 +759,7 @@ namespace Wowthing.Web.Controllers
             timer.AddPoint("CheckUser");
 
             var allTransmog = await _context.AccountTransmogQuery
-                .FromSqlRaw(AccountTransmogQuery.SQL, apiResult.User.Id)
+                .FromSqlRaw(AccountTransmogQuery.Sql, apiResult.User.Id)
                 .FirstAsync();
 
             var accountSources = await _context.PlayerAccountTransmogSources

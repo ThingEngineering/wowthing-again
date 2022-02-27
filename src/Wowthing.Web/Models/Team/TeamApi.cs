@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Wowthing.Lib.Enums;
+﻿using Wowthing.Lib.Enums;
 
 namespace Wowthing.Web.Models.Team
 {

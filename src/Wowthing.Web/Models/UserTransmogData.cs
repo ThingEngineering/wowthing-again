@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Wowthing.Web.Models
+﻿namespace Wowthing.Web.Models
 {
     public class UserTransmogData
     {

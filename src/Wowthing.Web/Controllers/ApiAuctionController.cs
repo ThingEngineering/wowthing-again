@@ -1,16 +1,8 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using StackExchange.Redis;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Enums;
-using Wowthing.Lib.Extensions;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
@@ -23,14 +15,12 @@ namespace Wowthing.Web.Controllers
     [Route("api/auctions")]
     public class ApiAuctionController : Controller
     {
-        private readonly IConnectionMultiplexer _redis;
         private readonly ILogger<ApiAuctionController> _logger;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly WowDbContext _context;
 
-        public ApiAuctionController(IConnectionMultiplexer redis, ILogger<ApiAuctionController> logger, UserManager<ApplicationUser> userManager, WowDbContext context)
+        public ApiAuctionController(ILogger<ApiAuctionController> logger, UserManager<ApplicationUser> userManager, WowDbContext context)
         {
-            _redis = redis;
             _logger = logger;
             _userManager = userManager;
             _context = context;
@@ -234,7 +224,7 @@ namespace Wowthing.Web.Controllers
             {
                 // Missing
                 var accountMounts = await _context.MountQuery
-                    .FromSqlRaw(MountQuery.USER_QUERY, user.Id)
+                    .FromSqlRaw(MountQuery.UserQuery, user.Id)
                     .FirstAsync();
 
                 var allMountIds = accountMounts.Mounts

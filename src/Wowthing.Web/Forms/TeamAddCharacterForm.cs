@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore.Mvc;
-using Wowthing.Lib.Enums;
+﻿using Wowthing.Lib.Enums;
 
 namespace Wowthing.Web.Forms
 {

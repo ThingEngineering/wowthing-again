@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Newtonsoft.Json;
-using Wowthing.Lib.Enums;
+﻿using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Web.Converters;
 
