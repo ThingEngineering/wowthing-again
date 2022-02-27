@@ -1,5 +1,5 @@
-﻿using Wowthing.Backend.Models.Data.Transmog;
-using Wowthing.Backend.Models.Redis;
+﻿using Wowthing.Backend.Models.Data.Journal;
+using Wowthing.Backend.Models.Data.Transmog;
 using Wowthing.Backend.Utilities;
 using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Utilities;

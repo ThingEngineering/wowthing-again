@@ -111,7 +111,7 @@ namespace Wowthing.Backend.Jobs.Misc
             var db = Redis.GetDatabase();
 
             // RaiderIO
-            var raiderIoScoreTiers = await db.JsonGetAsync<Dictionary<int, OutRaiderIoScoreTiers>>(DataRaiderIoScoreTiersJob.CACHE_KEY);
+            var raiderIoScoreTiers = await db.JsonGetAsync<Dictionary<int, OutRaiderIoScoreTiers>>(DataRaiderIoScoreTiersJob.CacheKey);
             
             // Currencies
             var currencies = await LoadCurrencies();
@@ -275,7 +275,8 @@ namespace Wowthing.Backend.Jobs.Misc
 
             var professions = skillLines
                 .Where(line => Hardcoded.PrimaryProfessions.Contains(line.ID) ||
-                               Hardcoded.SecondaryProfessions.Contains(line.ID));
+                               Hardcoded.SecondaryProfessions.Contains(line.ID))
+                .ToArray();
 
             var subProfessions = skillLines
                 .Where(line => Hardcoded.PrimaryProfessions.Contains(line.ParentSkillLineID) ||
@@ -971,7 +972,8 @@ namespace Wowthing.Backend.Jobs.Misc
             // Filter things
             var achievementCriteriaTrees = new HashSet<int>(achievements.Values.Select(a => a.CriteriaTreeId));
             var filtered = criteriaTrees
-                .Where(ct => achievementCriteriaTrees.Contains(ct.ID));
+                .Where(ct => achievementCriteriaTrees.Contains(ct.ID))
+                .ToArray();
             var final = filtered
                 .Concat(
                     filtered

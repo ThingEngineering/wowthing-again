@@ -16,7 +16,7 @@ namespace Wowthing.Backend.Jobs.NonBlizzard
         };
 
         private const string ApiUrl = "https://raider.io/api/v1/mythic-plus/score-tiers?season={0}";
-        public const string CACHE_KEY = "raider_io_tiers";
+        public const string CacheKey = "raider_io_tiers";
 
         public override async Task Run(params string[] data)
         {
@@ -44,7 +44,7 @@ namespace Wowthing.Backend.Jobs.NonBlizzard
             }
 
             var db = Redis.GetDatabase();
-            await db.JsonSetAsync(CACHE_KEY, seasons);
+            await db.JsonSetAsync(CacheKey, seasons);
         }
     }
 }

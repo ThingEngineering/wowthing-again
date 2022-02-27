@@ -1,4 +1,6 @@
-﻿namespace Wowthing.Backend.Models.Data.Journal
+﻿using Wowthing.Backend.Models.Data.Journal;
+
+namespace Wowthing.Backend.Models.Redis
 {
     public class RedisJournalCache
     {

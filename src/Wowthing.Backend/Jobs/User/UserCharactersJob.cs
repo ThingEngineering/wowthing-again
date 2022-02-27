@@ -89,7 +89,6 @@ namespace Wowthing.Backend.Jobs.User
                 .ToDictionaryAsync(k => (k.RealmId, k.Name));
 
             // Loop over API results
-            var seenCharacters = new HashSet<(int, string)>();
             foreach ((var region, var apiAccount) in apiAccounts)
             {
                 int accountId = 0;
@@ -101,7 +100,6 @@ namespace Wowthing.Backend.Jobs.User
                     foreach (ApiAccountProfileCharacter apiCharacter in apiAccount.Characters)
                     {
                         var key = (apiCharacter.Realm.Id, apiCharacter.Name);
-                        seenCharacters.Add(key);
 
                         if (!characterMap.TryGetValue(key, out PlayerCharacter character))
                         {
