@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Wowthing.Lib.Enums
+﻿namespace Wowthing.Lib.Enums
 {
     [Flags]
     public enum WowAchievementFlags

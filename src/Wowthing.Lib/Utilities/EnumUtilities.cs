@@ -1,7 +1,4 @@
-﻿using System;
-using System.Linq;
-
-namespace Wowthing.Lib.Utilities
+﻿namespace Wowthing.Lib.Utilities
 {
     public static class EnumUtilities
     {

@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace Wowthing.Lib.Models.Query
+﻿namespace Wowthing.Lib.Models.Query
 {
     [Keyless]
     public class CompletedAchievementsQuery
@@ -8,7 +6,7 @@ namespace Wowthing.Lib.Models.Query
         public int AchievementId { get; set; }
         public int Timestamp { get; set; }
         
-        public static string USER_QUERY = @"
+        public static string UserQuery = @"
 SELECT achievement_id, MIN(timestamp) AS timestamp
 FROM (
     SELECT  UNNEST(pca.achievement_ids) AS achievement_id,

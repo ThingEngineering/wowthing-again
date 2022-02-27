@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 using Wowthing.Lib.Enums;
 
 namespace Wowthing.Lib.Models

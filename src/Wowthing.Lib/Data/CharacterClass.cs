@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Wowthing.Lib.Enums;
+﻿using Wowthing.Lib.Enums;
 
 namespace Wowthing.Lib.Data
 {
@@ -10,9 +9,9 @@ namespace Wowthing.Lib.Data
             new CharacterClassData
             {
                 Mask = WowCharacterClassMask.DeathKnight,
-                ArmorTypes = new List<(WowArmorSubclass, WowStat[])>
+                /*ArmorTypes = new List<(WowArmorSubclass, WowStat[])>
                 {
-                },
+                },*/
                 WeaponTypes = new List<(WowWeaponSubclass, WowStat[])>
                 {
                     (WowWeaponSubclass.OneHandedAxe, new[] { WowStat.Strength }),
@@ -27,9 +26,9 @@ namespace Wowthing.Lib.Data
             new CharacterClassData
             {
                 Mask = WowCharacterClassMask.DemonHunter,
-                ArmorTypes = new List<(WowArmorSubclass, WowStat[])>
+                /*ArmorTypes = new List<(WowArmorSubclass, WowStat[])>
                 {
-                },
+                },*/
                 WeaponTypes = new List<(WowWeaponSubclass, WowStat[])>
                 {
                     (WowWeaponSubclass.OneHandedAxe, new[] { WowStat.Agility }),
@@ -60,9 +59,9 @@ namespace Wowthing.Lib.Data
             new CharacterClassData
             {
                 Mask = WowCharacterClassMask.Hunter,
-                ArmorTypes = new List<(WowArmorSubclass, WowStat[])>
+                /*ArmorTypes = new List<(WowArmorSubclass, WowStat[])>
                 {
-                },
+                },*/
                 WeaponTypes = new List<(WowWeaponSubclass, WowStat[])>
                 {
                     (WowWeaponSubclass.TwoHandedAxe, new[] { WowStat.Agility }),
@@ -156,9 +155,9 @@ namespace Wowthing.Lib.Data
             new CharacterClassData
             {
                 Mask = WowCharacterClassMask.Rogue,
-                ArmorTypes = new List<(WowArmorSubclass, WowStat[])>
+                /*ArmorTypes = new List<(WowArmorSubclass, WowStat[])>
                 {
-                },
+                },*/
                 WeaponTypes = new List<(WowWeaponSubclass, WowStat[])>
                 {
                     (WowWeaponSubclass.OneHandedAxe, new[] { WowStat.Agility }),

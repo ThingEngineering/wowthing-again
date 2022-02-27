@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace Wowthing.Lib.Models.Query
+﻿namespace Wowthing.Lib.Models.Query
 {
     [Keyless]
     public class AchievementCriteriaQuery
@@ -9,7 +7,7 @@ namespace Wowthing.Lib.Models.Query
         public int CriteriaId { get; set; }
         public long Amount { get; set; }
         
-        public static string USER_QUERY = @"
+        public static string UserQuery = @"
 SELECT *
 FROM (
     SELECT  pca.character_id,  

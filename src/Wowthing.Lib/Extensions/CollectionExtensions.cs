@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using Microsoft.AspNetCore.Mvc.TagHelpers.Cache;
+﻿using System.Security.Cryptography;
 using Wowthing.Lib.Utilities;
 
 namespace Wowthing.Lib.Extensions
@@ -34,8 +29,10 @@ namespace Wowthing.Lib.Extensions
         
         public static IEnumerable<T> SelectManyRecursive<T>(this IEnumerable<T> source, Func<T, IEnumerable<T>> selector)
         {
-            var result = source.SelectMany(selector);
-            if (!result.Any())
+            var result = source
+                .SelectMany(selector)
+                .ToArray();
+            if (result.Length == 0)
             {
                 return result;
             }

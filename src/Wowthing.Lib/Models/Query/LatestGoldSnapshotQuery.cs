@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace Wowthing.Lib.Models.Query
+﻿namespace Wowthing.Lib.Models.Query
 {
     [Keyless]
     public class LatestGoldSnapshotQuery
@@ -9,7 +7,7 @@ namespace Wowthing.Lib.Models.Query
         public int RealmId { get; set; }
         public int Gold { get; set; }
 
-        public static string SQL = @"
+        public static string Sql = @"
 SELECT DISTINCT ON (account_id, realm_id)
     account_id,
     realm_id,

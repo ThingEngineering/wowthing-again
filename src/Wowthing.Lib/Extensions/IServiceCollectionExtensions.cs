@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using StackExchange.Redis;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Repositories;
@@ -13,7 +12,7 @@ namespace Wowthing.Lib.Extensions
         {
             services.AddDbContext<WowDbContext>(options =>
             {
-                options.UseNpgsql(connectionString, options => options.EnableRetryOnFailure());
+                options.UseNpgsql(connectionString, pgOptions => pgOptions.EnableRetryOnFailure());
 #if DEBUG
                 options.EnableSensitiveDataLogging();
 #endif
@@ -21,7 +20,7 @@ namespace Wowthing.Lib.Extensions
 
             services.AddDbContextFactory<WowDbContext>(options =>
             {
-                options.UseNpgsql(connectionString, options => options.EnableRetryOnFailure());
+                options.UseNpgsql(connectionString, pgOptions => pgOptions.EnableRetryOnFailure());
 #if DEBUG
                 options.EnableSensitiveDataLogging();
 #endif
