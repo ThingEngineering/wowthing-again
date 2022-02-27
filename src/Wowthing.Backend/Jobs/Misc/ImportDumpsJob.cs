@@ -18,7 +18,7 @@ namespace Wowthing.Backend.Jobs.Misc
     {
         private JankTimer _timer;
 
-        private Language[] _languages =
+        private readonly Language[] _languages =
         {
             Language.deDE,
             Language.esES,
@@ -30,6 +30,17 @@ namespace Wowthing.Backend.Jobs.Misc
             Language.ruRU,
             //Language.zhCN,
             //Language.zhTW,
+        };
+
+        // Unsure if Blizzard data is broken or wow.tools
+        private readonly Dictionary<int, int> _fixedPetSpell = new Dictionary<int, int>()
+        {
+            { 1150, 135261 }, // Ashstone Core
+            { 1322, 148049 }, // Blackfuse Bombling
+            { 1328, 148050 }, // Ruby Droplet
+            { 1395, 159296 }, // Lil' Leftovers
+            { 1511, 171118 }, // Lovebird Hatchling
+            { 2584, 291547 }, // Spirit of the Spring
         };
 
         public static readonly ScheduledJob Schedule = new ScheduledJob
@@ -448,7 +459,7 @@ namespace Wowthing.Backend.Jobs.Misc
                 }
 
                 dbPet.CreatureId = pet.CreatureID;
-                dbPet.SpellId = pet.SummonSpellID;
+                dbPet.SpellId = _fixedPetSpell.GetValueOrDefault(pet.ID, pet.SummonSpellID);
                 dbPet.Flags = pet.Flags;
                 dbPet.PetType = pet.PetTypeEnum;
                 dbPet.SourceType = pet.SourceTypeEnum;
