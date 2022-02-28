@@ -70,7 +70,7 @@ namespace Wowthing.Backend.Jobs.Misc
                 throw new Exception($"Invalid ImageJob parameters: type={type} id={id} format={format} url={url}");
             }
 
-            timer.AddPoint("Convert", true);
+            timer.AddPoint("Convert");
 
             var sha256 = image.Data.Sha256();
             if (sha256 == image.Sha256)
