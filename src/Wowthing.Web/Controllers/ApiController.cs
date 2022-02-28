@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Net.Mime;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using StackExchange.Redis;
@@ -463,6 +464,14 @@ namespace Wowthing.Web.Controllers
 
             timer.AddPoint("CheckUser");
 
+            var cacheKey = $"data_cache:{apiResult.User.Id}:achievements";
+            var db = _redis.GetDatabase();
+            var cachedData = await db.StringGetAsync(cacheKey);
+            if (!string.IsNullOrEmpty(cachedData))
+            {
+                return Content(cachedData, MediaTypeNames.Application.Json);
+            }
+
             var achievementsCompleted = await _context.CompletedAchievementsQuery
                 .FromSqlRaw(CompletedAchievementsQuery.UserQuery, apiResult.User.Id)
                 .ToDictionaryAsync(
@@ -471,25 +480,6 @@ namespace Wowthing.Web.Controllers
                 );
             
             timer.AddPoint("Achievements");
-
-            /*var criteria = await _context.AchievementCriteriaQuery
-                .FromSqlRaw(AchievementCriteriaQuery.USER_QUERY, apiResult.User.Id)
-                .ToArrayAsync();
-
-            timer.AddPoint("Criteria1a");
-
-            var groupedCriteria = criteria
-                .GroupBy(c => c.CriteriaId)
-                .ToDictionary(
-                    g => g.Key,
-                    g => g
-                        .OrderByDescending(c => c.Amount)
-                        .ThenBy(c => c.CharacterId)
-                        .Select(c => new int[] { c.CharacterId, (int)c.Amount })
-                        .ToList()
-                );
-            
-            timer.AddPoint("Criteria2a");*/
 
             var criterias = await _context.PlayerCharacterAchievements
                 .Where(pca => pca.Character.Account.UserId == apiResult.User.Id)
@@ -552,11 +542,15 @@ namespace Wowthing.Web.Controllers
                 AddonAchievements = addonAchievements,
                 Criteria = groupedCriteria,
             };
+
+            var json = JsonConvert.SerializeObject(data);
             
             timer.AddPoint("Build", true);
             _logger.LogDebug($"{timer}");
 
-            return Ok(data);
+            await db.StringSetAsync(cacheKey, json);
+
+            return Content(json, MediaTypeNames.Application.Json);
         }
 
         [HttpGet("user/{username:username}/collections")]

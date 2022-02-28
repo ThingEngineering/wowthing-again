@@ -57,6 +57,7 @@
 
 <nav class="border">
     {#each covenantOrder as covenantId}
+        {@const renown = character.shadowlands?.covenants?.[covenantId]?.renown ?? 0}
         <a
             href="#/characters/{params.slug1}/{params.slug2}/{params.slug3}/{covenantMap[covenantId].slug}"
             use:active
@@ -67,9 +68,9 @@
                 border={1}
             />
             {covenantMap[covenantId].name}
-            <pre class="{getPercentClass((character.shadowlands?.covenants?.[covenantId]?.renown ?? 0) / Constants.maxRenown * 100)}">
-                {@html leftPad(character.shadowlands?.covenants?.[covenantId]?.renown ?? 0, 2)}
-            </pre>
+            <pre
+                class="{getPercentClass((renown) / Constants.maxRenown * 100)}"
+            >{@html leftPad(renown, 2)}</pre>
         </a>
     {/each}
 </nav>
