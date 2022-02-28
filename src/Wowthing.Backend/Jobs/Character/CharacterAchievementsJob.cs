@@ -1,6 +1,7 @@
 ﻿using Wowthing.Backend.Models.API.Character;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
+using Wowthing.Lib.Utilities;
 
 namespace Wowthing.Backend.Jobs.Character
 {
@@ -13,9 +14,11 @@ namespace Wowthing.Backend.Jobs.Character
             var query = JsonConvert.DeserializeObject<SchedulerCharacterQuery>(data[0]);
             using var shrug = CharacterLog(query);
 
+            var timer = new JankTimer();
+
             // Fetch API data
             var uri = GenerateUri(query, ApiPath);
-            var result = await GetJson<ApiCharacterAchievements>(uri);
+            var result = await GetJson<ApiCharacterAchievements>(uri, timer: timer);
             if (result.NotModified)
             {
                 LogNotModified();
@@ -32,19 +35,18 @@ namespace Wowthing.Backend.Jobs.Character
                 };
                 Context.PlayerCharacterAchievements.Add(achievements);
             }
-
-            achievements.AchievementIds = new List<int>();
-            achievements.AchievementTimestamps = new List<int>();
+            
+            timer.AddPoint("Select");
 
             // Parse API data
+            var cheevs = new Dictionary<int, int>();
             var criteria = new Dictionary<int, (long, bool)>();
             foreach (var dataAchievement in result.Data.Achievements.EmptyIfNull())
             {
                 if (dataAchievement.CompletedTimestamp.HasValue)
                 {
                     // Blizzard provides timestamps with 000 milliseconds for some reason
-                    achievements.AchievementIds.Add(dataAchievement.Id);
-                    achievements.AchievementTimestamps.Add((int)(dataAchievement.CompletedTimestamp / 1000));
+                    cheevs[dataAchievement.Id] = (int)(dataAchievement.CompletedTimestamp / 1000);
                 }
 
                 if (dataAchievement.Criteria != null)
@@ -58,20 +60,60 @@ namespace Wowthing.Backend.Jobs.Character
                 RecurseCriteria(criteria, dataAchievement.Criteria?.ChildCriteria);
             }
 
+            var sortedAchievements = cheevs
+                .OrderBy(kvp => kvp.Key)
+                .ToArray();
+            var achievementIds = sortedAchievements
+                .Select(kvp => kvp.Key)
+                .ToList();
+            var achievementTimestamps = sortedAchievements
+                .Select(kvp => kvp.Key)
+                .ToList();
+            
+            if (!achievementIds.SequenceEqual(achievements.AchievementIds))
+            {
+                achievements.AchievementIds = achievementIds;
+            }
+
+            if (!achievementTimestamps.SequenceEqual(achievements.AchievementTimestamps))
+            {
+                achievements.AchievementTimestamps = achievementTimestamps;
+            }
+            
             var sortedCriteria = criteria
                 .OrderBy(kvp => kvp.Key)
                 .ToArray();
-            achievements.CriteriaIds = sortedCriteria
+            var criteriaIds = sortedCriteria
                 .Select(kvp => kvp.Key)
                 .ToList();
-            achievements.CriteriaAmounts = sortedCriteria
+            var criteriaAmounts = sortedCriteria
                 .Select(kvp => kvp.Value.Item1)
                 .ToList();
-            achievements.CriteriaCompleted = sortedCriteria
+            var criteriaCompleted = sortedCriteria
                 .Select(kvp => kvp.Value.Item2)
                 .ToList();
 
+            if (!criteriaIds.SequenceEqual(achievements.CriteriaIds))
+            {
+                achievements.CriteriaIds = criteriaIds;
+            }
+
+            if (!criteriaAmounts.SequenceEqual(achievements.CriteriaAmounts))
+            {
+                achievements.CriteriaAmounts = criteriaAmounts;
+            }
+
+            if (!criteriaCompleted.SequenceEqual(achievements.CriteriaCompleted))
+            {
+                achievements.CriteriaCompleted = criteriaCompleted;
+            }
+            
+            timer.AddPoint("Process");
+            
             await Context.SaveChangesAsync();
+            
+            timer.AddPoint("Update", true);
+            Logger.Debug("{Timer}", timer.ToString());
         }
 
         private static void RecurseCriteria(Dictionary<int, (long, bool)> criteriaAmounts, List<ApiCharacterAchievementsCriteriaChild> childCriteria)
