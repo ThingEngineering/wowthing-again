@@ -110,7 +110,12 @@ namespace Wowthing.Backend.Jobs.Character
             
             timer.AddPoint("Process");
             
-            await Context.SaveChangesAsync();
+            var updated = await Context.SaveChangesAsync();
+            if (updated > 0)
+            {
+                var db = Redis.GetDatabase();
+                await db.KeyDeleteAsync($"data_cache:{query.UserId}:achievements");
+            }
             
             timer.AddPoint("Update", true);
             Logger.Debug("{Timer}", timer.ToString());
