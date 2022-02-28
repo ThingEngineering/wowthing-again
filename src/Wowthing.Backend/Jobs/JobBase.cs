@@ -189,7 +189,6 @@ namespace Wowthing.Backend.Jobs
             if (useLastModified && response.Content.Headers.LastModified.HasValue)
             {
                 await db.StringSetAsync(cacheKey, response.Content.Headers.LastModified.Value.UtcDateTime.ToString("O"));
-                timer.AddPoint("Cache");
             }
             
             if (timerOutput)
