@@ -70,12 +70,12 @@ namespace Wowthing.Backend.Jobs.Character
                 .Select(kvp => kvp.Key)
                 .ToList();
             
-            if (!achievementIds.SequenceEqual(achievements.AchievementIds))
+            if (achievements.AchievementIds == null || !achievementIds.SequenceEqual(achievements.AchievementIds))
             {
                 achievements.AchievementIds = achievementIds;
             }
 
-            if (!achievementTimestamps.SequenceEqual(achievements.AchievementTimestamps))
+            if (achievements.AchievementTimestamps == null || !achievementTimestamps.SequenceEqual(achievements.AchievementTimestamps))
             {
                 achievements.AchievementTimestamps = achievementTimestamps;
             }
@@ -93,17 +93,17 @@ namespace Wowthing.Backend.Jobs.Character
                 .Select(kvp => kvp.Value.Item2)
                 .ToList();
 
-            if (!criteriaIds.SequenceEqual(achievements.CriteriaIds))
+            if (achievements.CriteriaIds == null || !criteriaIds.SequenceEqual(achievements.CriteriaIds))
             {
                 achievements.CriteriaIds = criteriaIds;
             }
 
-            if (!criteriaAmounts.SequenceEqual(achievements.CriteriaAmounts))
+            if (achievements.CriteriaAmounts == null || !criteriaAmounts.SequenceEqual(achievements.CriteriaAmounts))
             {
                 achievements.CriteriaAmounts = criteriaAmounts;
             }
 
-            if (!criteriaCompleted.SequenceEqual(achievements.CriteriaCompleted))
+            if (achievements.CriteriaCompleted == null || !criteriaCompleted.SequenceEqual(achievements.CriteriaCompleted))
             {
                 achievements.CriteriaCompleted = criteriaCompleted;
             }

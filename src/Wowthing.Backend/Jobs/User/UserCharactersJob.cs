@@ -119,6 +119,8 @@ namespace Wowthing.Backend.Jobs.User
                         character.Faction = apiCharacter.Faction.EnumParse<WowFaction>();
                         character.Gender = apiCharacter.Gender.EnumParse<WowGender>();
                         character.Name = apiCharacter.Name;
+
+                        character.LastApiCheck = DateTime.UtcNow - TimeSpan.FromDays(7);
                     }
                 }
                 catch (Exception ex)
