@@ -29,6 +29,17 @@ namespace Wowthing.Lib.Extensions
             return services;
         }
 
+        public static IServiceCollection AddPooledPostgres(this IServiceCollection services, string connectionString)
+        {
+            services.AddDbContextPool<WowDbContext>(options =>
+            {
+                options.UseNpgsql(connectionString, pgOptions => pgOptions.EnableRetryOnFailure());
+#if DEBUG
+                options.EnableSensitiveDataLogging();
+#endif
+            });
+        }
+
         public static IConnectionMultiplexer AddRedis(this IServiceCollection services, string connectionString)
         {
             var redis = RedisUtilities.GetConnection(connectionString);
