@@ -87,15 +87,16 @@ namespace Wowthing.Lib.Contexts
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            if (!optionsBuilder.IsConfigured)
+            {
+                throw new InvalidOperationException("optionsBuilder is not configured");
+            }
+
             // Context initialized is pretty spammy
             optionsBuilder.ConfigureWarnings(b => b.Log(
                 (CoreEventId.ContextInitialized, LogLevel.Debug)
             ));
         
-            if (!optionsBuilder.IsConfigured)
-            {
-                throw new InvalidOperationException("optionsBuilder is not configured");
-            }
             optionsBuilder.UseSnakeCaseNamingConvention();
             optionsBuilder.UseBatchEF_Npgsql();
         }

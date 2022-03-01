@@ -56,7 +56,7 @@ namespace Wowthing.Web
                 options.ConstraintMap["username"] = typeof(UsernameRouteConstraint);
             });
 
-            services.AddPooledPostgres(Configuration.GetConnectionString("Postgres"));
+            services.AddPostgres(Configuration.GetConnectionString("Postgres"));
 
             // Auth
             services.AddIdentity<ApplicationUser, IdentityRole<long>>()
