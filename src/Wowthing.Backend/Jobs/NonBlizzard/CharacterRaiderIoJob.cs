@@ -15,10 +15,12 @@ namespace Wowthing.Backend.Jobs.NonBlizzard
             using var shrug = CharacterLog(query);
 
             // Fetch seasons
-            var seasonIds = JsonConvert.DeserializeObject<int[]>(data[1]);
+            var seasonIds = JsonConvert
+                .DeserializeObject<int[]>(data[1])
+                .EmptyIfNull();
 
             var oofParts = new List<string>();
-            foreach (var seasonId in seasonIds.EmptyIfNull())
+            foreach (var seasonId in seasonIds)
             {
                 var rioSeasons = ApiCharacterRaiderIoSeason.SeasonMap
                     .Where(kvp => kvp.Value == seasonId)

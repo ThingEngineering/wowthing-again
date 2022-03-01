@@ -41,7 +41,7 @@ namespace Wowthing.Backend.Jobs.Character
             {
                 Logger.Error("HTTP {0}", e.Message);
 
-                var delayHoursIncrement = 0;
+                int delayHoursIncrement;
                 if (e.Message == "403")
                 {
                     // 403s are pretty bad, seem to happen for characters on unsubscribed accounts

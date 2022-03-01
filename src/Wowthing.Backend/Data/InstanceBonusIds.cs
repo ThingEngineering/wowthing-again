@@ -102,7 +102,7 @@
             { 17, 7186 }, // LFR
         };
         
-        public static Dictionary<int, Dictionary<int, int>> InstanceBonusIds = new()
+        public static readonly Dictionary<int, Dictionary<int, int>> InstanceBonusIds = new()
         {
             { 369, MopSiege }, // Siege of Orgrimmar
             

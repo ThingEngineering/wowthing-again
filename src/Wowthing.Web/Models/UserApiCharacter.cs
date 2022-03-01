@@ -48,7 +48,7 @@ namespace Wowthing.Web.Models
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public UserApiCharacterWeekly Weekly { get; }
 
-        public UserApiCharacter(PlayerCharacter character, bool pub = false, ApplicationUserSettingsPrivacy? privacy = null)
+        public UserApiCharacter(PlayerCharacter character, bool pub = false, ApplicationUserSettingsPrivacy privacy = null)
         {
             ActiveSpecId = character.ActiveSpecId;
             ClassId = character.ClassId;
@@ -285,7 +285,7 @@ namespace Wowthing.Web.Models
         public Dictionary<string, int> Torghast { get; set; }
         public PlayerCharacterWeeklyVault Vault { get; set; }
 
-        public UserApiCharacterWeekly(PlayerCharacterWeekly weekly, bool pub, ApplicationUserSettingsPrivacy? privacy)
+        public UserApiCharacterWeekly(PlayerCharacterWeekly weekly, bool pub, ApplicationUserSettingsPrivacy privacy)
         {
             Torghast = weekly.Torghast;
             TorghastScannedAt = weekly.TorghastScannedAt;

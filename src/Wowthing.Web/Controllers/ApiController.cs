@@ -153,7 +153,7 @@ namespace Wowthing.Web.Controllers
                 return NotFound("User does not exist");
             }
 
-            form.Settings.Validate();
+            form.Settings.Migrate();
             user.Settings = form.Settings;
 
             await _userManager.UpdateAsync(user);
@@ -792,7 +792,7 @@ namespace Wowthing.Web.Controllers
                 return ret;
             }
 
-            ret.Public = User?.Identity?.Name != user.UserName;
+            ret.Public = User.Identity?.Name != user.UserName;
             ret.Privacy = user.Settings?.Privacy ?? new ApplicationUserSettingsPrivacy();
 
             if (ret.Public && ret.Privacy.Public != true)
