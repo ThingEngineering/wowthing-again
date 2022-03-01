@@ -13,6 +13,12 @@
         {
             name: 'Layout',
             slug: 'layout',
+            children: [
+                {
+                    name: 'Lockouts',
+                    slug: 'lockouts',
+                }
+            ],
         },
         {
             name: 'Privacy',

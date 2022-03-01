@@ -52,7 +52,7 @@
 
         '/teams/:slug?': Teams,
 
-        '/settings/:slug?': Settings,
+        '/settings/:slug1?/:slug2?': Settings,
     }
 </script>
 
