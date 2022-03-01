@@ -15,15 +15,15 @@ namespace Wowthing.Backend.Jobs
         private readonly JobRepository _jobRepository;
         private readonly StateService _stateService;
         private readonly ConnectionMultiplexer _redis;
+        private readonly Dictionary<Type, Func<object>> _constructorMap;
 
-        public JobFactory(
-            IHttpClientFactory clientFactory,
+        public JobFactory(Dictionary<Type, Func<object>> constructorMap, IHttpClientFactory clientFactory,
             ILogger logger,
             JobRepository jobRepository,
             StateService stateService,
-            string redisConnectionString
-        )
+            string redisConnectionString)
         {
+            _constructorMap = constructorMap;
             _clientFactory = clientFactory;
             _jobRepository = jobRepository;
             _logger = logger;
@@ -34,7 +34,7 @@ namespace Wowthing.Backend.Jobs
 
         public IJob Create(Type type, WowDbContext context, CancellationToken cancellationToken)
         {
-            var obj = (JobBase)Activator.CreateInstance(type);
+            var obj = (JobBase)_constructorMap[type]();
             obj.Http = _clientFactory.CreateClient("limited");
             obj.JobRepository = _jobRepository;
             obj.Logger = _logger;

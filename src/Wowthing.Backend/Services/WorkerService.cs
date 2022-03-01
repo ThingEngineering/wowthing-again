@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.Linq.Expressions;
+using System.Net.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -14,7 +15,8 @@ namespace Wowthing.Backend.Services
     public class WorkerService : BackgroundService
     {
         private static int _instanceCount;
-        private static readonly Dictionary<JobType, Type> JobTypeToClass = new();
+        private static readonly Dictionary<Type, Func<object>> ConstructorMap = new();
+        private static readonly Dictionary<JobType, (Type, string)> JobTypeMap = new();
 
         private readonly ILogger _logger;
         private readonly IServiceScopeFactory _serviceScopeFactory;
@@ -39,7 +41,7 @@ namespace Wowthing.Backend.Services
             _logger = Log.ForContext("Service", $"Worker {instanceId,2}{_priority.ToString()[0]}");
 
             var redisConnectionString = config.GetConnectionString("Redis");
-            _jobFactory = new JobFactory(clientFactory, _logger, jobRepository, stateService, redisConnectionString);
+            _jobFactory = new JobFactory(ConstructorMap, clientFactory, _logger, jobRepository, stateService, redisConnectionString);
         }
 
         // Find all jobs and cache them
@@ -52,7 +54,11 @@ namespace Wowthing.Backend.Services
             foreach (var jobType in jobTypes)
             {
                 var typeName = jobType.Name[0..^3];
-                JobTypeToClass[Enum.Parse<JobType>(typeName)] = jobType;
+                JobTypeMap[Enum.Parse<JobType>(typeName)] = (jobType, typeName);
+
+                var constructorExpression = Expression.New(jobType);
+                var lambda = Expression.Lambda<Func<object>>(constructorExpression);
+                ConstructorMap[jobType] = lambda.Compile();
             }
         }
 
@@ -71,10 +77,9 @@ namespace Wowthing.Backend.Services
                     await Task.Delay(1000, cancellationToken);
                 }
 
-                var classType = JobTypeToClass[result.Type];
-                using (LogContext.PushProperty("Task", classType.Name[0..^3]))
+                (Type classType, string jobName) = JobTypeMap[result.Type];
+                using (LogContext.PushProperty("Task", jobName))
                 {
-                    IJob job;
                     try
                     {
                         using var scope = _serviceScopeFactory.CreateScope();
@@ -85,9 +90,9 @@ namespace Wowthing.Backend.Services
                             continue;
                         }
 
-                        await using var context = contextFactory.CreateDbContext();
+                        await using var context = await contextFactory.CreateDbContextAsync(cancellationToken);
 
-                        job = _jobFactory.Create(classType, context, cancellationToken);
+                        var job = _jobFactory.Create(classType, context, cancellationToken);
                         await job.Run(result.Data);
                     }
                     catch (Exception ex)
