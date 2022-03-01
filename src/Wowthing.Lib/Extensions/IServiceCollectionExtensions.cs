@@ -38,6 +38,8 @@ namespace Wowthing.Lib.Extensions
                 options.EnableSensitiveDataLogging();
 #endif
             });
+
+            return services;
         }
 
         public static IConnectionMultiplexer AddRedis(this IServiceCollection services, string connectionString)
