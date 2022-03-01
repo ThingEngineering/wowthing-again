@@ -42,13 +42,15 @@
     }
 
     .column {
+        border: 1px solid $border-color;
         display: flex;
         flex: 1;
         flex-direction: column;
+        max-height: 40rem;
+        overflow-y: auto;
 
         & :global(.defaultListView) {
             background: $highlight-background;
-            border: 1px solid $border-color;
             border-radius: $border-radius;
             flex: 1;
             width: 100%;
