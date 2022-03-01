@@ -13,7 +13,8 @@ namespace Wowthing.Backend.Jobs.Character
 
         public override async Task Run(params string[] data)
         {
-            var query = JsonConvert.DeserializeObject<SchedulerCharacterQuery>(data[0]);
+            var query = JsonConvert.DeserializeObject<SchedulerCharacterQuery>(data[0]) ??
+                        throw new InvalidJsonException(data[0]);
             using var shrug = CharacterLog(query);
 
             // Get character from API
