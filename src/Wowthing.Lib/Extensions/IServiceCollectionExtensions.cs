@@ -8,6 +8,8 @@ namespace Wowthing.Lib.Extensions
 {
     public static class ServiceCollectionExtensions
     {
+        // NOTE if you're here to add context pooling, good luck working out how to make it play
+        //      nicely with the `dotnet ef` CLI tool and Backend/Web
         public static IServiceCollection AddPostgres(this IServiceCollection services, string connectionString)
         {
             services.AddDbContext<WowDbContext>(options =>
@@ -19,19 +21,6 @@ namespace Wowthing.Lib.Extensions
             }, optionsLifetime: ServiceLifetime.Singleton);
 
             services.AddDbContextFactory<WowDbContext>(options =>
-            {
-                options.UseNpgsql(connectionString, pgOptions => pgOptions.EnableRetryOnFailure());
-#if DEBUG
-                options.EnableSensitiveDataLogging();
-#endif
-            });
-
-            return services;
-        }
-
-        public static IServiceCollection AddPooledPostgres(this IServiceCollection services, string connectionString)
-        {
-            services.AddDbContextPool<WowDbContext>(options =>
             {
                 options.UseNpgsql(connectionString, pgOptions => pgOptions.EnableRetryOnFailure());
 #if DEBUG
