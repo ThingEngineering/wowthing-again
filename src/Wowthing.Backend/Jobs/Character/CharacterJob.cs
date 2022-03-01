@@ -13,7 +13,8 @@ namespace Wowthing.Backend.Jobs.Character
 
         public override async Task Run(params string[] data)
         {
-            var query = JsonConvert.DeserializeObject<SchedulerCharacterQuery>(data[0]);
+            var query = JsonConvert.DeserializeObject<SchedulerCharacterQuery>(data[0]) ??
+                        throw new InvalidJsonException(data[0]);
             using var shrug = CharacterLog(query);
 
             // Get character from API
@@ -40,7 +41,7 @@ namespace Wowthing.Backend.Jobs.Character
             {
                 Logger.Error("HTTP {0}", e.Message);
 
-                var delayHoursIncrement = 0;
+                int delayHoursIncrement;
                 if (e.Message == "403")
                 {
                     // 403s are pretty bad, seem to happen for characters on unsubscribed accounts

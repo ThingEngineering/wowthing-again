@@ -1,5 +1,6 @@
 ﻿using System.Net.Http;
 using Serilog;
+using StackExchange.Redis;
 using Wowthing.Backend.Services;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Repositories;
@@ -13,30 +14,31 @@ namespace Wowthing.Backend.Jobs
         private readonly ILogger _logger;
         private readonly JobRepository _jobRepository;
         private readonly StateService _stateService;
-        private readonly string _redisConnectionString;
+        private readonly ConnectionMultiplexer _redis;
+        private readonly Dictionary<Type, Func<object>> _constructorMap;
 
-        public JobFactory(
-            IHttpClientFactory clientFactory,
+        public JobFactory(Dictionary<Type, Func<object>> constructorMap, IHttpClientFactory clientFactory,
             ILogger logger,
             JobRepository jobRepository,
             StateService stateService,
-            string redisConnectionString
-        )
+            string redisConnectionString)
         {
+            _constructorMap = constructorMap;
             _clientFactory = clientFactory;
             _jobRepository = jobRepository;
             _logger = logger;
-            _redisConnectionString = redisConnectionString;
             _stateService = stateService;
+
+            _redis = RedisUtilities.GetConnection(redisConnectionString);
         }
 
         public IJob Create(Type type, WowDbContext context, CancellationToken cancellationToken)
         {
-            var obj = (JobBase)Activator.CreateInstance(type);
+            var obj = (JobBase)_constructorMap[type]();
             obj.Http = _clientFactory.CreateClient("limited");
             obj.JobRepository = _jobRepository;
             obj.Logger = _logger;
-            obj.Redis = RedisUtilities.GetConnection(_redisConnectionString);
+            obj.Redis = _redis;
             obj.StateService = _stateService;
             obj.Context = context;
             obj.CancellationToken = cancellationToken;

@@ -6,6 +6,8 @@ using Wowthing.Backend.Models.API.Data;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Utilities;
 
+// NOTE this is how Npgsql says to do it: https://www.npgsql.org/doc/api/NpgsqlTypes.NpgsqlDbType.html
+// ReSharper disable BitwiseOperatorOnEnumWithoutFlags
 namespace Wowthing.Backend.Jobs.Data
 {
     public class DataAuctionsJob : JobBase

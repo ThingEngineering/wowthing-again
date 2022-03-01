@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using System.Diagnostics;
+using System.Globalization;
 using CsvHelper;
 using CsvHelper.Configuration;
 using Serilog;
@@ -53,7 +54,7 @@ namespace Wowthing.Backend.Utilities
         }
         
         public static List<List<TCategory>> LoadData<TCategory>(string basePath, ILogger logger = null)
-            where TCategory : class?, ICloneable, IDataCategory
+            where TCategory : class, ICloneable, IDataCategory
         {
             var categories = new List<List<TCategory>>();
             var cache = new Dictionary<string, TCategory>();
@@ -98,6 +99,8 @@ namespace Wowthing.Backend.Utilities
                 }
                 else if (line.StartsWith("    "))
                 {
+                    Debug.Assert(things != null);
+                    
                     var trimmed = line.Trim();
                     if (trimmed == "-")
                     {

@@ -10,14 +10,17 @@ namespace Wowthing.Backend.Jobs.NonBlizzard
 
         public override async Task Run(params string[] data)
         {
-            var query = JsonConvert.DeserializeObject<SchedulerCharacterQuery>(data[0]);
+            var query = JsonConvert.DeserializeObject<SchedulerCharacterQuery>(data[0]) ??
+                        throw new InvalidJsonException(data[0]);
             using var shrug = CharacterLog(query);
 
             // Fetch seasons
-            var seasonIds = JsonConvert.DeserializeObject<int[]>(data[1]);
+            var seasonIds = JsonConvert
+                .DeserializeObject<int[]>(data[1])
+                .EmptyIfNull();
 
             var oofParts = new List<string>();
-            foreach (var seasonId in seasonIds.EmptyIfNull())
+            foreach (var seasonId in seasonIds)
             {
                 var rioSeasons = ApiCharacterRaiderIoSeason.SeasonMap
                     .Where(kvp => kvp.Value == seasonId)

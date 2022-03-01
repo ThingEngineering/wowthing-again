@@ -53,7 +53,7 @@ namespace Wowthing.Lib.Utilities
 
                 if (line == "{")
                 {
-                    var (rType, rText) = Recurse();
+                    var (_, rText) = Recurse();
                     if (rText != "[]")
                     {
                         lines.Add(rText);
@@ -81,7 +81,7 @@ namespace Wowthing.Lib.Utilities
 
                     if (value == "{")
                     {
-                        var (rType, rText) = Recurse();
+                        var (_, rText) = Recurse();
                         if (rText != "[]")
                         {
                             lines.Add($"{key}:{rText}");

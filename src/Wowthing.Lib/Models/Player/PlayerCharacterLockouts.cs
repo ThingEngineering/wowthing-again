@@ -15,7 +15,7 @@ namespace Wowthing.Lib.Models.Player
         public List<PlayerCharacterLockoutsLockout> Lockouts { get; set; }
     }
 
-    public class PlayerCharacterLockoutsLockout : IEquatable<PlayerCharacterLockoutsLockout>
+    public class PlayerCharacterLockoutsLockout
     {
         public bool Locked { get; set; }
         public int DefeatedBosses { get; set; }
@@ -45,31 +45,6 @@ namespace Wowthing.Lib.Models.Player
                    MaxBosses == other.MaxBosses &&
                    Name == other.Name &&
                    ResetTime.Equals(other.ResetTime);
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
-
-            if (obj.GetType() != this.GetType())
-            {
-                return false;
-            }
-
-            return Equals((PlayerCharacterLockoutsLockout)obj);
-        }
-
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(DefeatedBosses, Difficulty, Id, Locked, MaxBosses, Name, ResetTime);
         }
     }
 

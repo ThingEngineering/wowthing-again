@@ -1,4 +1,5 @@
-﻿using Wowthing.Lib.Enums;
+﻿using System.Diagnostics;
+using Wowthing.Lib.Enums;
 
 #nullable enable
 namespace Wowthing.Lib.Models
@@ -14,31 +15,12 @@ namespace Wowthing.Lib.Models
         
         public void Migrate()
         {
-            if (Auctions == null)
-            {
-                Auctions = new();
-            }
-            if (Characters == null)
-            {
-                Characters = new();
-            }
-            if (General == null)
-            {
-                General = new();
-            }
-            if (Layout == null)
-            {
-                Layout = new();
-            }
-            if (Privacy == null)
-            {
-                Privacy = new();
-            }
-
-            if (Transmog == null)
-            {
-                Transmog = new();
-            }
+            Auctions ??= new ApplicationUserSettingsAuctions();
+            Characters ??= new ApplicationUserSettingsCharacters();
+            General ??= new ApplicationUserSettingsGeneral();
+            Layout ??= new ApplicationUserSettingsLayout();
+            Privacy ??= new ApplicationUserSettingsPrivacy();
+            Transmog ??= new ApplicationUserSettingsTransmog();
 
             Validate();
         }
@@ -108,8 +90,11 @@ namespace Wowthing.Lib.Models
             "weeklySouls",
         };
         
-        public void Validate()
+        private void Validate()
         {
+            Debug.Assert(General != null);
+            Debug.Assert(Layout != null);
+            
             if (General.RefreshInterval <= 0)
             {
                 General.RefreshInterval = 0;

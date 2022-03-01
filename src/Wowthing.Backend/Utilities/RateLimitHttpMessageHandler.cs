@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.Diagnostics;
+using System.Net.Http;
 using Decepticon.RateLimit;
 using StackExchange.Redis;
 
@@ -17,6 +18,8 @@ namespace Wowthing.Backend.Utilities
 
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
         {
+            Debug.Assert(request.RequestUri != null);
+            
             int backoff = 100;
             var limitRequest = new ThrottleRateLimitRequest
             {

@@ -27,8 +27,14 @@ namespace Wowthing.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> FromWeb([FromForm] IFormFile luaFile)
         {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
+            {
+                return Forbid();
+            }
+            
             // Process upload
-            await _uploadService.Process(long.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value), luaFile);
+            await _uploadService.Process(long.Parse(userId), luaFile);
 
             return Redirect(Url.Action("Index", "Upload"));
         }

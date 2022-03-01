@@ -26,12 +26,12 @@ namespace Wowthing.Backend.Converters
 
             if (useNote || useRequiredQuestId || useQuestIds || useLimit)
             {
-                arr.Add(new JArray(limit));
+                arr.Add(JArray.FromObject(limit));
             }
 
             if (useNote || useRequiredQuestId || useQuestIds)
             {
-                arr.Add(new JArray(questIds));
+                arr.Add(JArray.FromObject(questIds));
             }
 
             if (useNote || useRequiredQuestId)

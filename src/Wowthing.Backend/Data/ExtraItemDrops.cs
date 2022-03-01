@@ -2,8 +2,8 @@
 {
     public static partial class Hardcoded
     {
-        private static int[] _raidDifficultiesAll = { 17, 14, 15, 16 };
-        private static int[] _raidDifficultiesNoLfr = { 14, 15, 16 };
+        private static readonly int[] RaidDifficultiesAll = { 17, 14, 15, 16 };
+        private static readonly int[] RaidDifficultiesNoLfr = { 14, 15, 16 };
 
         public static readonly Dictionary<int, List<ExtraItemDrop>> ExtraItemDrops = new()
         {
@@ -18,21 +18,21 @@
                 1897, // Tomb of Sargeras > Maiden of Vigilance
                 new List<ExtraItemDrop>
                 {
-                    new(151524, _raidDifficultiesAll), // Hammer of Vigilance
+                    new(151524, RaidDifficultiesAll), // Hammer of Vigilance
                 }
             },
             {
                 1984, // Antorus, the Burning Throne > Aggramar
                 new List<ExtraItemDrop>
                 {
-                    new(152094, _raidDifficultiesAll), // Taeshalach
+                    new(152094, RaidDifficultiesAll), // Taeshalach
                 }
             },
             {
                 2031, // Antorus, the Burning Throne > Argus the Unmaker
                 new List<ExtraItemDrop>
                 {
-                    new(153115, _raidDifficultiesAll), // Scythe of the Unmaker (blue)
+                    new(153115, RaidDifficultiesAll), // Scythe of the Unmaker (blue)
                     new(155880, new[] { 16 }), // Scythe of the Unmaker (red) - Mythic
                 }
             },
@@ -40,14 +40,14 @@
                 2168, // Uldir > Taloc
                 new List<ExtraItemDrop>
                 {
-                    new(163119, _raidDifficultiesAll), // Khor, Hammer of the Guardian
+                    new(163119, RaidDifficultiesAll), // Khor, Hammer of the Guardian
                 }
             },
             {
                 2349, // The Eternal Palace > Za'qul
                 new List<ExtraItemDrop>
                 {
-                    new(168868, _raidDifficultiesAll), // Pauldrons of Za'qul
+                    new(168868, RaidDifficultiesAll), // Pauldrons of Za'qul
                 }
             },
 
@@ -607,27 +607,27 @@
                 new List<ExtraItemDrop>
                 {
                     // Cloth
-                    new (95207, _raidDifficultiesAll), // Abandoned Zandalari Firecord
-                    new (95208, _raidDifficultiesAll), // Abandoned Zandalari Shadowgirdle
-                    new (95224, _raidDifficultiesAll), // Home-Warding Slippers
-                    new (95223, _raidDifficultiesAll), // Silentflame Sandals
+                    new (95207, RaidDifficultiesAll), // Abandoned Zandalari Firecord
+                    new (95208, RaidDifficultiesAll), // Abandoned Zandalari Shadowgirdle
+                    new (95224, RaidDifficultiesAll), // Home-Warding Slippers
+                    new (95223, RaidDifficultiesAll), // Silentflame Sandals
                     // Leather
-                    new (95210, _raidDifficultiesAll), // Abandoned Zandalari Moonstrap
-                    new (95209, _raidDifficultiesAll), // Abandoned Zandalari Silentbelt
-                    new (95221, _raidDifficultiesAll), // Deeproot Treads
-                    new (95219, _raidDifficultiesAll), // Spiderweb Tabi
+                    new (95210, RaidDifficultiesAll), // Abandoned Zandalari Moonstrap
+                    new (95209, RaidDifficultiesAll), // Abandoned Zandalari Silentbelt
+                    new (95221, RaidDifficultiesAll), // Deeproot Treads
+                    new (95219, RaidDifficultiesAll), // Spiderweb Tabi
                     // Mail
-                    new (95211, _raidDifficultiesAll), // Abandoned Zandalari Arrowlinks
-                    new (95212, _raidDifficultiesAll), // Abandoned Zandalari Waterchain
-                    new (95220, _raidDifficultiesAll), // Scalehide Spurs
-                    new (95222, _raidDifficultiesAll), // Spiritbound Boots
+                    new (95211, RaidDifficultiesAll), // Abandoned Zandalari Arrowlinks
+                    new (95212, RaidDifficultiesAll), // Abandoned Zandalari Waterchain
+                    new (95220, RaidDifficultiesAll), // Scalehide Spurs
+                    new (95222, RaidDifficultiesAll), // Spiritbound Boots
                     // Plate
-                    new (95215, _raidDifficultiesAll), // Abandoned Zandalari Bucklebreaker
-                    new (95214, _raidDifficultiesAll), // Abandoned Zandalari Goreplate
-                    new (95213, _raidDifficultiesAll), // Abandoned Zandalari Greatbelt
-                    new (95218, _raidDifficultiesAll), // Columnbreaker Stompers
-                    new (95217, _raidDifficultiesAll), // Locksmasher Greaves
-                    new (95216, _raidDifficultiesAll), // Vaultwalker Sabatons
+                    new (95215, RaidDifficultiesAll), // Abandoned Zandalari Bucklebreaker
+                    new (95214, RaidDifficultiesAll), // Abandoned Zandalari Goreplate
+                    new (95213, RaidDifficultiesAll), // Abandoned Zandalari Greatbelt
+                    new (95218, RaidDifficultiesAll), // Columnbreaker Stompers
+                    new (95217, RaidDifficultiesAll), // Locksmasher Greaves
+                    new (95216, RaidDifficultiesAll), // Vaultwalker Sabatons
                 }
             },
             {
@@ -635,24 +635,24 @@
                 new List<ExtraItemDrop>
                 {
                     // Cloth
-                    new (113225, _raidDifficultiesAll), // Kalaena's Arcane Handwraps
-                    new (113218, _raidDifficultiesAll), // Seebo's Sainted Touch
+                    new (113225, RaidDifficultiesAll), // Kalaena's Arcane Handwraps
+                    new (113218, RaidDifficultiesAll), // Seebo's Sainted Touch
                     // Leather
-                    new (113220, _raidDifficultiesAll), // Crimson Gauntlets of Death
-                    new (113221, _raidDifficultiesAll), // Siid's Silent Stranglers
+                    new (113220, RaidDifficultiesAll), // Crimson Gauntlets of Death
+                    new (113221, RaidDifficultiesAll), // Siid's Silent Stranglers
                     // Mail
-                    new (113222, _raidDifficultiesAll), // Keengrip Arrowpullers
-                    new (113227, _raidDifficultiesAll), // Marco's Crackling Gloves
+                    new (113222, RaidDifficultiesAll), // Keengrip Arrowpullers
+                    new (113227, RaidDifficultiesAll), // Marco's Crackling Gloves
                     // Plate
-                    new (113228, _raidDifficultiesAll), // Gauntlets of Discarded Time
-                    new (113219, _raidDifficultiesAll), // Romy's Reliable Grips
-                    new (113229, _raidDifficultiesAll), // Zoid's Molten Gauntlets
+                    new (113228, RaidDifficultiesAll), // Gauntlets of Discarded Time
+                    new (113219, RaidDifficultiesAll), // Romy's Reliable Grips
+                    new (113229, RaidDifficultiesAll), // Zoid's Molten Gauntlets
                     // Cloak
-                    new (113224, _raidDifficultiesAll), // Aeth's Swiftcinder Cloak
-                    new (113231, _raidDifficultiesAll), // Brave Niunai's Cloak
-                    new (113226, _raidDifficultiesAll), // Cape of the Alpha
-                    new (113230, _raidDifficultiesAll), // Drape of the Omega
-                    new (113223, _raidDifficultiesAll), // Turtleshell Greatcloak
+                    new (113224, RaidDifficultiesAll), // Aeth's Swiftcinder Cloak
+                    new (113231, RaidDifficultiesAll), // Brave Niunai's Cloak
+                    new (113226, RaidDifficultiesAll), // Cape of the Alpha
+                    new (113230, RaidDifficultiesAll), // Drape of the Omega
+                    new (113223, RaidDifficultiesAll), // Turtleshell Greatcloak
                 }
             },
             #endregion
@@ -663,19 +663,19 @@
                 new List<ExtraItemDrop>
                 {
                     // Cloth
-                    new(119336, _raidDifficultiesNoLfr), // Cord of Winsome Sorrows
+                    new(119336, RaidDifficultiesNoLfr), // Cord of Winsome Sorrows
                     // Leather
-                    new(119335, _raidDifficultiesNoLfr), // Eyeripper Girdle
+                    new(119335, RaidDifficultiesNoLfr), // Eyeripper Girdle
                     // Mail
-                    new(119338, _raidDifficultiesNoLfr), // Belt of Inebriated Sorrows
+                    new(119338, RaidDifficultiesNoLfr), // Belt of Inebriated Sorrows
                     // Plate
-                    new(119337, _raidDifficultiesNoLfr), // Ripswallow Plate Belt
+                    new(119337, RaidDifficultiesNoLfr), // Ripswallow Plate Belt
                     // Cloak
-                    new(119343, _raidDifficultiesNoLfr), // Eye-Blinder Greatcloak
-                    new(119347, _raidDifficultiesNoLfr), // Gill's Glorious Windcloak
-                    new(119346, _raidDifficultiesNoLfr), // Kyu-Sy's Tarflame Doomcloak
-                    new(119344, _raidDifficultiesNoLfr), // Magic-Breaker Cape
-                    new(119345, _raidDifficultiesNoLfr), // Milenah's Intricate Cloak
+                    new(119343, RaidDifficultiesNoLfr), // Eye-Blinder Greatcloak
+                    new(119347, RaidDifficultiesNoLfr), // Gill's Glorious Windcloak
+                    new(119346, RaidDifficultiesNoLfr), // Kyu-Sy's Tarflame Doomcloak
+                    new(119344, RaidDifficultiesNoLfr), // Magic-Breaker Cape
+                    new(119345, RaidDifficultiesNoLfr), // Milenah's Intricate Cloak
                 }
             },
             {
@@ -683,17 +683,17 @@
                 new List<ExtraItemDrop>
                 {
                     // Cloth
-                    new(119332, _raidDifficultiesNoLfr), // Bracers of Darkened Skies
-                    new(119342, _raidDifficultiesNoLfr), // Furnace Stoker's Footwraps
+                    new(119332, RaidDifficultiesNoLfr), // Bracers of Darkened Skies
+                    new(119342, RaidDifficultiesNoLfr), // Furnace Stoker's Footwraps
                     // Leather
-                    new(119333, _raidDifficultiesNoLfr), // Bracers of Shattered Limbs
-                    new(119340, _raidDifficultiesNoLfr), // Iron-Flecked Sandals
+                    new(119333, RaidDifficultiesNoLfr), // Bracers of Shattered Limbs
+                    new(119340, RaidDifficultiesNoLfr), // Iron-Flecked Sandals
                     // Mail
-                    new(119334, _raidDifficultiesNoLfr), // Bracers of Callous Disregard
-                    new(119339, _raidDifficultiesNoLfr), // Treads of the Veteran Smith
+                    new(119334, RaidDifficultiesNoLfr), // Bracers of Callous Disregard
+                    new(119339, RaidDifficultiesNoLfr), // Treads of the Veteran Smith
                     // Plate
-                    new(119331, _raidDifficultiesNoLfr), // Bracers of Visceral Force
-                    new(119341, _raidDifficultiesNoLfr), // Doomslag Greatboots
+                    new(119331, RaidDifficultiesNoLfr), // Bracers of Visceral Force
+                    new(119341, RaidDifficultiesNoLfr), // Doomslag Greatboots
                 }
             },
             {
@@ -701,17 +701,17 @@
                 new List<ExtraItemDrop>
                 {
                     // Cloth
-                    new(124182, _raidDifficultiesNoLfr), // Cord of Unhinged Malice
-                    new(124150, _raidDifficultiesNoLfr), // Desiccated Soulrender Slippers
+                    new(124182, RaidDifficultiesNoLfr), // Cord of Unhinged Malice
+                    new(124150, RaidDifficultiesNoLfr), // Desiccated Soulrender Slippers
                     // Leather
-                    new(124277, _raidDifficultiesNoLfr), // Flayed Demonskin Belt
-                    new(124252, _raidDifficultiesNoLfr), // Jungle Assassin's Footpads
+                    new(124277, RaidDifficultiesNoLfr), // Flayed Demonskin Belt
+                    new(124252, RaidDifficultiesNoLfr), // Jungle Assassin's Footpads
                     // Mail
-                    new(124311, _raidDifficultiesNoLfr), // Cursed Demonchain Belt
-                    new(124288, _raidDifficultiesNoLfr), // Unhallowed Voidlink Boots
+                    new(124311, RaidDifficultiesNoLfr), // Cursed Demonchain Belt
+                    new(124288, RaidDifficultiesNoLfr), // Unhallowed Voidlink Boots
                     // Plate
-                    new(124323, _raidDifficultiesNoLfr), // Cruel Hope Crushers
-                    new(124350, _raidDifficultiesNoLfr), // Girdle of Demonic Wrath
+                    new(124323, RaidDifficultiesNoLfr), // Cruel Hope Crushers
+                    new(124350, RaidDifficultiesNoLfr), // Girdle of Demonic Wrath
                 }
             },
             #endregion
@@ -722,18 +722,18 @@
                 new List<ExtraItemDrop>
                 {
                     // Cloth
-                    new(144404, _raidDifficultiesAll), // Mana-Cord of Deception
+                    new(144404, RaidDifficultiesAll), // Mana-Cord of Deception
                     // Leather
-                    new(144405, _raidDifficultiesAll), // Waistclasp of Unethical Power
+                    new(144405, RaidDifficultiesAll), // Waistclasp of Unethical Power
                     // Mail
-                    new(144406, _raidDifficultiesAll), // Vintage Duskwatch Cinch
+                    new(144406, RaidDifficultiesAll), // Vintage Duskwatch Cinch
                     // Plate
-                    new(144407, _raidDifficultiesAll), // Gleaming Celestial Waistguard
+                    new(144407, RaidDifficultiesAll), // Gleaming Celestial Waistguard
                     // Cloak
-                    new(144399, _raidDifficultiesAll), // Aristocrat's Winter Drape
-                    new(144401, _raidDifficultiesAll), // Cloak of Multitudinous Sheaths
-                    new(144403, _raidDifficultiesAll), // Fashionable Autumn Cloak
-                    new(144400, _raidDifficultiesAll), // Feathermane Feather Cloak
+                    new(144399, RaidDifficultiesAll), // Aristocrat's Winter Drape
+                    new(144401, RaidDifficultiesAll), // Cloak of Multitudinous Sheaths
+                    new(144403, RaidDifficultiesAll), // Fashionable Autumn Cloak
+                    new(144400, RaidDifficultiesAll), // Feathermane Feather Cloak
                 }
             },
             {
@@ -741,21 +741,21 @@
                 new List<ExtraItemDrop>
                 {
                     // Cloth
-                    new(147422, _raidDifficultiesAll), // Acolyte's Abandoned Footwraps
-                    new(146989, _raidDifficultiesAll), // Fel-Flecked Grips
-                    new(147423, _raidDifficultiesAll), // Sash of the Unredeemed
+                    new(147422, RaidDifficultiesAll), // Acolyte's Abandoned Footwraps
+                    new(146989, RaidDifficultiesAll), // Fel-Flecked Grips
+                    new(147423, RaidDifficultiesAll), // Sash of the Unredeemed
                     // Leather
-                    new(147425, _raidDifficultiesAll), // Cord of Pilfered Rosaries
-                    new(147424, _raidDifficultiesAll), // Treads of Violent Intrusion
-                    new(147038, _raidDifficultiesAll), // Wakening Horror Spaulders
+                    new(147425, RaidDifficultiesAll), // Cord of Pilfered Rosaries
+                    new(147424, RaidDifficultiesAll), // Treads of Violent Intrusion
+                    new(147038, RaidDifficultiesAll), // Wakening Horror Spaulders
                     // Mail
-                    new(147427, _raidDifficultiesAll), // Pristine Moon-Wrought Clasp
-                    new(147044, _raidDifficultiesAll), // Soul-Rattle Ribcage
-                    new(147426, _raidDifficultiesAll), // Treads of Panicked Escape
+                    new(147427, RaidDifficultiesAll), // Pristine Moon-Wrought Clasp
+                    new(147044, RaidDifficultiesAll), // Soul-Rattle Ribcage
+                    new(147426, RaidDifficultiesAll), // Treads of Panicked Escape
                     // Plate
-                    new(147064, _raidDifficultiesAll), // Diadem of the Highborne
-                    new(147429, _raidDifficultiesAll), // Girdle of the Crumbling Sanctum
-                    new(147428, _raidDifficultiesAll), // Spiked Terrorwake Greatboots
+                    new(147064, RaidDifficultiesAll), // Diadem of the Highborne
+                    new(147429, RaidDifficultiesAll), // Girdle of the Crumbling Sanctum
+                    new(147428, RaidDifficultiesAll), // Spiked Terrorwake Greatboots
                 }
             },
             {
@@ -763,21 +763,21 @@
                 new List<ExtraItemDrop>
                 {
                     // Cloth
-                    new(153018, _raidDifficultiesAll), // Corrupted Mantle of the Felseekers
-                    new(152085, _raidDifficultiesAll), // Cuffs of the Viridian Flameweavers
-                    new(152084, _raidDifficultiesAll), // Gloves of Abhorrent Strategies
+                    new(153018, RaidDifficultiesAll), // Corrupted Mantle of the Felseekers
+                    new(152085, RaidDifficultiesAll), // Cuffs of the Viridian Flameweavers
+                    new(152084, RaidDifficultiesAll), // Gloves of Abhorrent Strategies
                     // Leather
-                    new(152412, _raidDifficultiesAll), // Felflame Inferno Shoulderpads
-                    new(151993, _raidDifficultiesAll), // Leggings of the Sable Stalkers
-                    new(152087, _raidDifficultiesAll), // Sinuous Kerapteron Bindings
+                    new(152412, RaidDifficultiesAll), // Felflame Inferno Shoulderpads
+                    new(151993, RaidDifficultiesAll), // Leggings of the Sable Stalkers
+                    new(152087, RaidDifficultiesAll), // Sinuous Kerapteron Bindings
                     // Mail
-                    new(152682, _raidDifficultiesAll), // Greaves of the Felblade Defenders
-                    new(152088, _raidDifficultiesAll), // Horror Fiend-Scale Breastplate
-                    new(152089, _raidDifficultiesAll), // Wristguards of Ominous Forging
+                    new(152682, RaidDifficultiesAll), // Greaves of the Felblade Defenders
+                    new(152088, RaidDifficultiesAll), // Horror Fiend-Scale Breastplate
+                    new(152089, RaidDifficultiesAll), // Wristguards of Ominous Forging
                     // Plate
-                    new(153019, _raidDifficultiesAll), // Hulking Demonlisher Legplates
-                    new(152090, _raidDifficultiesAll), // Impenetrable Garothi Breastplate
-                    new(152091, _raidDifficultiesAll), // Wristguards of the Dark Keepers
+                    new(153019, RaidDifficultiesAll), // Hulking Demonlisher Legplates
+                    new(152090, RaidDifficultiesAll), // Impenetrable Garothi Breastplate
+                    new(152091, RaidDifficultiesAll), // Wristguards of the Dark Keepers
                 }
             },
             #endregion
@@ -788,17 +788,17 @@
                 new List<ExtraItemDrop>
                 {
                     // Cloth
-                    new(161071, _raidDifficultiesAll), // Bloody Experimenter's Wraps
-                    new(160612, _raidDifficultiesAll), // Spellbound Specimen Handlers
+                    new(161071, RaidDifficultiesAll), // Bloody Experimenter's Wraps
+                    new(160612, RaidDifficultiesAll), // Spellbound Specimen Handlers
                     // Leather
-                    new(161075, _raidDifficultiesAll), // Antiseptic Specimen Handlers
-                    new(161072, _raidDifficultiesAll), // Splatterguards
+                    new(161075, RaidDifficultiesAll), // Antiseptic Specimen Handlers
+                    new(161072, RaidDifficultiesAll), // Splatterguards
                     // Mail
-                    new(161076, _raidDifficultiesAll), // Iron-Grip Specimen Handlers
-                    new(161073, _raidDifficultiesAll), // Reinforced Test Subject Shackles
+                    new(161076, RaidDifficultiesAll), // Iron-Grip Specimen Handlers
+                    new(161073, RaidDifficultiesAll), // Reinforced Test Subject Shackles
                     // Plate
-                    new(161074, _raidDifficultiesAll), // Crushproof Vambraces
-                    new(161077, _raidDifficultiesAll), // Fluid-Resistant Specimen Handlers
+                    new(161074, RaidDifficultiesAll), // Crushproof Vambraces
+                    new(161077, RaidDifficultiesAll), // Fluid-Resistant Specimen Handlers
                 }
             },
             {
@@ -806,19 +806,19 @@
                 new List<ExtraItemDrop>
                 {
                     // Cloth
-                    new(165765, _raidDifficultiesAll), // Cord of Zandalari Resolve
-                    new(165509, _raidDifficultiesAll), // Slippers of the Encroaching Tide
+                    new(165765, RaidDifficultiesAll), // Cord of Zandalari Resolve
+                    new(165509, RaidDifficultiesAll), // Slippers of the Encroaching Tide
                     // Leather
-                    new(165520, _raidDifficultiesAll), // Silent Pillager's Footpads
-                    new(166518, _raidDifficultiesAll), // Warbeast Hide Cinch
+                    new(165520, RaidDifficultiesAll), // Silent Pillager's Footpads
+                    new(166518, RaidDifficultiesAll), // Warbeast Hide Cinch
                     // Mail
-                    new(165547, _raidDifficultiesAll), // City Crusher Sabatons
-                    new(165545, _raidDifficultiesAll), // Waistguard of Elemental Resistance
+                    new(165547, RaidDifficultiesAll), // City Crusher Sabatons
+                    new(165545, RaidDifficultiesAll), // Waistguard of Elemental Resistance
                     // Plate
-                    new(165563, _raidDifficultiesAll), // Boots of the Dark Iron Raider
-                    new(165564, _raidDifficultiesAll), // Last Stand Greatbelt
+                    new(165563, RaidDifficultiesAll), // Boots of the Dark Iron Raider
+                    new(165564, RaidDifficultiesAll), // Last Stand Greatbelt
                     // Cloak
-                    new(165925, _raidDifficultiesAll), // Drape of Valient Defense
+                    new(165925, RaidDifficultiesAll), // Drape of Valient Defense
                 }
             },
             {
@@ -826,19 +826,19 @@
                 new List<ExtraItemDrop>
                 {
                     // Cloth
-                    new(169929, _raidDifficultiesAll), // Cuffs of Soothing Currents
-                    new(169930, _raidDifficultiesAll), // Handwraps of Unhindered Resonance
+                    new(169929, RaidDifficultiesAll), // Cuffs of Soothing Currents
+                    new(169930, RaidDifficultiesAll), // Handwraps of Unhindered Resonance
                     // Leather
-                    new(169932, _raidDifficultiesAll), // Brineweaver Guardian's Gloves
-                    new(169931, _raidDifficultiesAll), // Skulker's Blackwater Bands
+                    new(169932, RaidDifficultiesAll), // Brineweaver Guardian's Gloves
+                    new(169931, RaidDifficultiesAll), // Skulker's Blackwater Bands
                     // Mail
-                    new(169933, _raidDifficultiesAll), // Abyssal Bubbler's Bracers
-                    new(169934, _raidDifficultiesAll), // Deepcrawler's Handguards
+                    new(169933, RaidDifficultiesAll), // Abyssal Bubbler's Bracers
+                    new(169934, RaidDifficultiesAll), // Deepcrawler's Handguards
                     // Plate
-                    new(169935, _raidDifficultiesAll), // Brutish Myrmidon's Vambraces
-                    new(169936, _raidDifficultiesAll), // Gauntlets of Crashing Tides
+                    new(169935, RaidDifficultiesAll), // Brutish Myrmidon's Vambraces
+                    new(169936, RaidDifficultiesAll), // Gauntlets of Crashing Tides
                     // Cloak
-                    new(168602, _raidDifficultiesAll), // Cloak of Blessed Depths
+                    new(168602, RaidDifficultiesAll), // Cloak of Blessed Depths
                 }
             },
             {
@@ -846,16 +846,16 @@
                 new List<ExtraItemDrop>
                 {
                     // Cloth
-                    new(175004, _raidDifficultiesAll), // Legwraps of Horrifying Figments
+                    new(175004, RaidDifficultiesAll), // Legwraps of Horrifying Figments
                     // Leather
-                    new(175007, _raidDifficultiesAll), // Footpads of Terrible Delusions
+                    new(175007, RaidDifficultiesAll), // Footpads of Terrible Delusions
                     // Mail
-                    new(175005, _raidDifficultiesAll), // Belt of Concealed Intent
+                    new(175005, RaidDifficultiesAll), // Belt of Concealed Intent
                     // Plate
-                    new(175006, _raidDifficultiesAll), // Gauntlets of Nightmare Manifest
+                    new(175006, RaidDifficultiesAll), // Gauntlets of Nightmare Manifest
                     // Weapon
-                    new(175010, _raidDifficultiesAll), // Maddened Adherent's Bulwark
-                    new(175009, _raidDifficultiesAll), // Zealous Ritualist's Reverie
+                    new(175010, RaidDifficultiesAll), // Maddened Adherent's Bulwark
+                    new(175009, RaidDifficultiesAll), // Zealous Ritualist's Reverie
                 }
             },
             #endregion
@@ -866,19 +866,19 @@
                 new List<ExtraItemDrop>
                 {
                     // Cloth
-                    new(183017, _raidDifficultiesAll), // Acolyte's Velvet Bindings
-                    new(183008, _raidDifficultiesAll), // Supple Supplicant's Gloves
+                    new(183017, RaidDifficultiesAll), // Acolyte's Velvet Bindings
+                    new(183008, RaidDifficultiesAll), // Supple Supplicant's Gloves
                     // Leather
-                    new(182978, _raidDifficultiesAll), // Barkweave Wristwraps
-                    new(183010, _raidDifficultiesAll), // Stud-Scarred Footwear
+                    new(182978, RaidDifficultiesAll), // Barkweave Wristwraps
+                    new(183010, RaidDifficultiesAll), // Stud-Scarred Footwear
                     // Mail
-                    new(182990, _raidDifficultiesAll), // Legionnaire's Bloodstained Sabatons
-                    new(182982, _raidDifficultiesAll), // Watchful Arbelist's Bracers
+                    new(182990, RaidDifficultiesAll), // Legionnaire's Bloodstained Sabatons
+                    new(182982, RaidDifficultiesAll), // Watchful Arbelist's Bracers
                     // Plate
-                    new(183013, _raidDifficultiesAll), // Fallen Templar's Gauntlets
-                    new(183031, _raidDifficultiesAll), // Soldier's Stoneband Wristguards
+                    new(183013, RaidDifficultiesAll), // Fallen Templar's Gauntlets
+                    new(183031, RaidDifficultiesAll), // Soldier's Stoneband Wristguards
                     // Cloak
-                    new(184778, _raidDifficultiesAll), // Decadent Nathrian Shawl
+                    new(184778, RaidDifficultiesAll), // Decadent Nathrian Shawl
                 }
             },
             {
@@ -886,17 +886,17 @@
                 new List<ExtraItemDrop>
                 {
                     // Cloth
-                    new(186356, _raidDifficultiesAll), // Forlorn Prisoner's Strap
-                    new(186358, _raidDifficultiesAll), // Soulcaster's Woven Grips
+                    new(186356, RaidDifficultiesAll), // Forlorn Prisoner's Strap
+                    new(186358, RaidDifficultiesAll), // Soulcaster's Woven Grips
                     // Leather
-                    new(186362, _raidDifficultiesAll), // Bindings of the Subjugated
-                    new(186359, _raidDifficultiesAll), // Scoundrel's Harrowed Leggings
+                    new(186362, RaidDifficultiesAll), // Bindings of the Subjugated
+                    new(186359, RaidDifficultiesAll), // Scoundrel's Harrowed Leggings
                     // Mail
-                    new(186367, _raidDifficultiesAll), // Bonded Soulsmelt Greaves
-                    new(196364, _raidDifficultiesAll), // Cord of Coerced Spirits
+                    new(186367, RaidDifficultiesAll), // Bonded Soulsmelt Greaves
+                    new(196364, RaidDifficultiesAll), // Cord of Coerced Spirits
                     // Plate
-                    new(186371, _raidDifficultiesAll), // Ancient Brokensoul Bands
-                    new(186373, _raidDifficultiesAll), // Towering Shadowghast Greatboots
+                    new(186371, RaidDifficultiesAll), // Ancient Brokensoul Bands
+                    new(186373, RaidDifficultiesAll), // Towering Shadowghast Greatboots
                 }
             },
             {
@@ -904,17 +904,17 @@
                 new List<ExtraItemDrop>()
                 {
                     // Cloth
-                    new(190630, _raidDifficultiesAll), // Devouring Pellicle Shoulderpads
-                    new(190631, _raidDifficultiesAll), // Vandalized Ephemera Mitts
+                    new(190630, RaidDifficultiesAll), // Devouring Pellicle Shoulderpads
+                    new(190631, RaidDifficultiesAll), // Vandalized Ephemera Mitts
                     // Leather
-                    new(190626, _raidDifficultiesAll), // Hood of Empty Eternities
-                    new(190627, _raidDifficultiesAll), // Subversive Lord's Leggings
+                    new(190626, RaidDifficultiesAll), // Hood of Empty Eternities
+                    new(190627, RaidDifficultiesAll), // Subversive Lord's Leggings
                     // Mail
-                    new(190629, _raidDifficultiesAll), // Cartel's Larcenous Toecaps
-                    new(190628, _raidDifficultiesAll), // Lupine's Synthetic Headgear
+                    new(190629, RaidDifficultiesAll), // Cartel's Larcenous Toecaps
+                    new(190628, RaidDifficultiesAll), // Lupine's Synthetic Headgear
                     // Plate
-                    new(190624, _raidDifficultiesAll), // Gauntlets of the End
-                    new(190625, _raidDifficultiesAll), // Pauldrons of Possible Afterlives
+                    new(190624, RaidDifficultiesAll), // Gauntlets of the End
+                    new(190625, RaidDifficultiesAll), // Pauldrons of Possible Afterlives
                 }
             },
             #endregion

@@ -139,10 +139,12 @@ LIMIT 500
                     return;
                 }
                     
-                await using var context = contextFactory.CreateDbContext();
+                await using var context = await contextFactory.CreateDbContextAsync();
                 
                 // Execute some sort of nasty database query to get characters that need an API check
-                var results = await context.SchedulerCharacterQuery.FromSqlRaw(QueryCharacters).ToArrayAsync();
+                var results = await context.SchedulerCharacterQuery
+                    .FromSqlRaw(QueryCharacters)
+                    .ToArrayAsync();
                 if (results.Length > 0)
                 {
                     Logger.Debug("Pre-GC: {0}", GC.GetTotalMemory(false));

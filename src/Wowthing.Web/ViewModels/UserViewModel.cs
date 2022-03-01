@@ -33,7 +33,7 @@ namespace Wowthing.Web.ViewModels
             TransmogHash = transmogHash.Result;
             ZoneMapHash = zoneMapHash.Result;
 
-            Settings.Validate();
+            Settings.Migrate();
             SettingsJson = JsonConvert.SerializeObject(Settings);
         }
     }

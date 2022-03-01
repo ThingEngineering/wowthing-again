@@ -1,6 +1,6 @@
 ﻿@model TeamViewModel
 @{
-    ViewData["Title"] = Model.Team.Name;
+    ViewData["Title"] = Model?.Team.Name ?? "Unknown team";
 }
 
 @section head
@@ -14,9 +14,9 @@
 }
 
 <div id="app"
-     data-team="@Url.Action("TeamData", "Api", new { guid = Model.Team.Guid })"></div>
+     data-team="@Url.Action("TeamData", "Api", new { guid = Model?.Team.Guid })"></div>
 
 @if (User?.Identity?.IsAuthenticated == true)
 {
-    await Html.RenderPartialAsync("AddCharacterForm", Model.AddForm);
+    await Html.RenderPartialAsync("AddCharacterForm", Model?.AddForm);
 }
