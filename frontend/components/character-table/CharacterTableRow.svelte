@@ -42,10 +42,14 @@
         text-align: right;
     }
     .name {
-        @include cell-width($width-name);
+        @include cell-width($width-name, $maxWidth: $width-name-max);
+
+        white-space: nowrap;
     }
     .realm {
-        @include cell-width($width-realm);
+        @include cell-width($width-realm, $maxWidth: $width-realm-max);
+
+        white-space: nowrap;
     }
 </style>
 
@@ -87,7 +91,7 @@
                     </td>
 
                 {:else if field === 'realmName'}
-                    <td class="realm">&ndash; {character.realm.name}</td>
+                    <td class="realm">{character.realm.name}</td>
                 {/if}
             {/each}
 
