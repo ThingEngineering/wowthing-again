@@ -57,7 +57,7 @@
                         text = `${progressQuest.have} %`
                     }
                     else {
-                        text = `${toNiceNumber(progressQuest.have)} / ${toNiceNumber(progressQuest.need)}`
+                        text = `${Math.floor(progressQuest.have / progressQuest.need * 100)} %`
                         //text = `${}`
                     }
                     if (progressQuest.have === progressQuest.need) {
@@ -107,7 +107,6 @@
 {#if valid}
     <td
         class="status-{status}"
-        class:wide={progressQuest?.need >= 1000}
     >{text}</td>
 {:else}
     <td>&nbsp;</td>
