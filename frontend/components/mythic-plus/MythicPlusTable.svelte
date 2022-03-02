@@ -55,7 +55,10 @@
             isThisWeek = false
             season = find(seasonMap, (season) => season.slug === slug)
             runsFunc = (char, dungeonId) => char.mythicPlus?.seasons?.[season.id]?.[dungeonId]
-            sortFunc = (char) => toDigits(100000 - (char.raiderIo?.[season.id]?.all ?? 0), 6)
+            sortFunc = getCharacterSortFunc(
+                $settingsData,
+                (char) => toDigits(100000 - (char.raiderIo?.[season.id]?.all ?? 0), 6)
+            )
         }
 
         isCurrentSeason = season.id === firstSeason.id

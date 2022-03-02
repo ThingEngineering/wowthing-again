@@ -2,7 +2,7 @@
 {
     public class ApiDataRaiderIoScoreTier
     {
-        public int Score { get; set; }
+        public int? Score { get; set; }
         public string RgbHex { get; set; }
     }
 }

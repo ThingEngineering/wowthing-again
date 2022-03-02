@@ -28,12 +28,12 @@ namespace Wowthing.Backend.Jobs.NonBlizzard
                 var url = string.Format(ApiUrl, seasonSlug);
                 try
                 {
-                    var result = await GetJson<ApiDataRaiderIoScoreTier[]>(new Uri(url));
+                    var result = await GetJson<ApiDataRaiderIoScoreTier[]>(new Uri(url), useAuthorization: false, useLastModified: false);
 
-                    var ordered = result.Data.OrderByDescending(t => t.Score).ToArray();
+                    var ordered = result.Data.OrderByDescending(t => t.Score ?? 0).ToArray();
                     seasons[seasonId] = new OutRaiderIoScoreTiers
                     {
-                        Score = ordered.Select(t => t.Score).ToList(),
+                        Score = ordered.Select(t => t.Score ?? 0).ToList(),
                         RgbHex = ordered.Select(t => t.RgbHex).ToList(),
                     };
                 }

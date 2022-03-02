@@ -57,7 +57,7 @@
                         text = `${progressQuest.have} %`
                     }
                     else {
-                        text = `${toNiceNumber(progressQuest.have)} / ${toNiceNumber(progressQuest.need)}`
+                        text = `${Math.floor(progressQuest.have / progressQuest.need * 100)} %`
                         //text = `${}`
                     }
                     if (progressQuest.have === progressQuest.need) {
@@ -76,14 +76,10 @@
 
 <style lang="scss">
     td {
-        @include cell-width($width-ugh-quest);
+        @include cell-width($width-weekly-quest);
 
         border-left: 1px solid $border-color;
         word-spacing: -0.2ch;
-
-        &.wide {
-            @include cell-width($width-ugh-anima);
-        }
 
         &.status-shrug {
             text-align: right;
@@ -107,7 +103,6 @@
 {#if valid}
     <td
         class="status-{status}"
-        class:wide={progressQuest?.need >= 1000}
     >{text}</td>
 {:else}
     <td>&nbsp;</td>
