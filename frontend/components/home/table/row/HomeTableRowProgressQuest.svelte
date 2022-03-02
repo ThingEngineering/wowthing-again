@@ -76,14 +76,10 @@
 
 <style lang="scss">
     td {
-        @include cell-width($width-ugh-quest);
+        @include cell-width($width-weekly-quest);
 
         border-left: 1px solid $border-color;
         word-spacing: -0.2ch;
-
-        &.wide {
-            @include cell-width($width-ugh-anima);
-        }
 
         &.status-shrug {
             text-align: right;
