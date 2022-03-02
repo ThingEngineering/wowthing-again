@@ -16,6 +16,7 @@
             { "season-bfa-4", 4 },
             { "season-sl-1", 5 },
             { "season-sl-2", 6 },
+            { "season-sl-3", 7 },
         };
 
         public string Season { get; set; }
