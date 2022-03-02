@@ -29,6 +29,10 @@
 
         border-left: 1px solid $border-color;
         text-align: center;
+
+        :global(svg) {
+            margin-top: -4px;
+        }
     }
 </style>
 
