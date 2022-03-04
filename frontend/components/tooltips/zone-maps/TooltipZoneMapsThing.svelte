@@ -85,8 +85,7 @@
             white-space: nowrap;
 
             &.completed {
-                opacity: 0.7;
-                text-decoration: line-through;
+                text-decoration: line-through 3px;
             }
         }
 
