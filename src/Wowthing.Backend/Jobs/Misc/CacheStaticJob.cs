@@ -24,7 +24,7 @@ namespace Wowthing.Backend.Jobs.Misc
     public class CacheStaticJob : JobBase, IScheduledJob
     {
         private JankTimer _timer;
-        private IDeserializer _yaml = new DeserializerBuilder()
+        private readonly IDeserializer _yaml = new DeserializerBuilder()
             .WithNamingConvention(CamelCaseNamingConvention.Instance)
             .IgnoreUnmatchedProperties()
             .Build();
@@ -46,7 +46,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
-            Version = 35,
+            Version = 36,
         };
 
         public override async Task Run(params string[] data)
@@ -97,10 +97,18 @@ namespace Wowthing.Backend.Jobs.Misc
                     ls => ls.String
                 );
 
-            var itemModifiedAppearances = await Context.WowItemModifiedAppearance.ToArrayAsync();
+            var itemModifiedAppearances = await Context.WowItemModifiedAppearance
+                .AsNoTracking()
+                .ToArrayAsync();
             _itemToAppearance = itemModifiedAppearances
-                .GroupBy(r => r.ItemId)
-                .ToDictionary(r => r.Key, r => r.First().AppearanceId);
+                .GroupBy(ima => ima.ItemId)
+                .ToDictionary(
+                    group => group.Key,
+                    group => group
+                        .OrderBy(ima => ima.Modifier)
+                        .First()
+                        .AppearanceId
+                );
 
             _timer.AddPoint("Database");
         }
