@@ -61,6 +61,7 @@ namespace Wowthing.Lib.Models.Wow
                 foreach (var classData in Hardcoded.Characters)
                 {
                     if (classData.ArmorTypes
+                        .EmptyIfNull()
                         .Any((t =>
                                 (int)t.Item1 == SubclassId &&
                                 (
