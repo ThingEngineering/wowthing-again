@@ -8,7 +8,6 @@
     export let disabled = false
     export let name: string
     export let options: [string, string][]
-    export let textClass = ''
     export let value: string
 </script>
 

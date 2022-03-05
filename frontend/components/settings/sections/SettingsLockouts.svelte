@@ -3,7 +3,7 @@
     import filter from 'lodash/filter'
     import sortBy from 'lodash/sortBy'
 
-    import { staticStore, userStore } from '@/stores'
+    import { staticStore } from '@/stores'
     import { data as settingsData } from '@/stores/settings'
     import type { SettingsChoice } from '@/types'
 
@@ -75,7 +75,7 @@
     <div class="filter-instances">
         <TextInput
             name="filter"
-            maxlength="20"
+            maxlength={20}
             placeholder="Search..."
             bind:value={instanceFilter}
         />
