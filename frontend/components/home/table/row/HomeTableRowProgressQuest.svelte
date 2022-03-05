@@ -5,7 +5,6 @@
     import { covenantMap } from '@/data/covenant'
     import { forcedReset } from '@/data/quests'
     import { timeStore, userQuestStore } from '@/stores'
-    import { toNiceNumber } from '@/utils/to-nice'
     import type { Character } from '@/types'
     import type { UserQuestDataCharacterProgress } from '@/types/data'
 

@@ -59,6 +59,7 @@
         month: ['MMM yyyy', 'month'],
     }
 
+    type DataPoint = {x: DateTime, y: number}
     const redrawChart = function(historyState: HistoryState)
     {
         if (chart) {
@@ -84,7 +85,7 @@
         }
         //realms.sort()
 
-        const totals: Record<string, number> = {}
+        const pointMap: Record<number, DateTime> = {}
 
         let firstRealmId = -1
         for (let realmIndex = 0; realmIndex < realms.length; realmIndex++) {
@@ -95,7 +96,7 @@
 
             const color = colors[(realmIndex + 1) * 2]
 
-            let points: {x: DateTime, y: number}[]
+            let points: DataPoint[]
             if (historyState.interval === 'hour') {
                 points = $userHistoryStore.data.gold[realmId].map((point) => ({
                     x: parseApiTime(point[0]),
@@ -152,8 +153,7 @@
             }
 
             for (const point of points) {
-                const iso: string = point.x.toISO()
-                totals[iso] = (totals[iso] || 0) + point.y
+                pointMap[point.x.toUnixInteger()] = point.x
             }
 
             data.datasets.push({
@@ -167,6 +167,42 @@
             })
         }
 
+        // Pad out each dataset with data for all time periods
+        const totals: Record<number, DataPoint> = {}
+
+        const allPoints: [number, DateTime][] = Object.entries(pointMap)
+            .map(([a, b]) => [parseInt(a), b])
+        allPoints.sort()
+
+        for (const dataset of data.datasets) {
+            const oldMap: Record<number, DataPoint> = Object.fromEntries(
+                dataset.data.map((dataPoint: DataPoint) => [dataPoint.x.toUnixInteger(), dataPoint])
+            )
+            const newData: DataPoint[] = []
+
+            for (let pointIndex = 0; pointIndex < allPoints.length; pointIndex++) {
+                const [ts, dateTime] = allPoints[pointIndex]
+                if (oldMap[ts]) {
+                    newData.push(oldMap[ts])
+                }
+                else {
+                    if (pointIndex === 0) {
+                        newData.push({x: dateTime, y: 0})
+                    }
+                    else {
+                        newData.push({x: dateTime, y: newData[pointIndex - 1].y})
+                    }
+                }
+
+                if (totals[ts] === undefined) {
+                    totals[ts] = {x: dateTime, y: 0}
+                }
+                totals[ts].y += newData[pointIndex].y
+            }
+
+            dataset.data = newData
+        }
+
         if (historyState.scaleType === 'logarithmic') {
             data.datasets.sort((a, b) => a.data[a.data.length - 1].y - b.data[b.data.length - 1].y)
         }
@@ -176,12 +212,8 @@
 
         if (historyState.chartType === 'line' && firstRealmId >= 0) {
             const totalPoints = sortBy(
-                toPairs(totals),
-                ([date]) => date
-            ).map(([date, value]) => ({
-                    x: date,
-                    y: value,
-                })
+                Object.values(totals),
+                (point: DataPoint) => point.x.toUnixInteger()
             )
 
             data.datasets.push({

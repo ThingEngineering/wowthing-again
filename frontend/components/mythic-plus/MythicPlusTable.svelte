@@ -71,7 +71,11 @@
     }
 </script>
 
-<CharacterTable {filterFunc} {sortFunc}>
+<CharacterTable
+    skipGrouping={slug !== 'this-week'}
+    {filterFunc}
+    {sortFunc}
+>
     <CharacterTableHead slot="head">
         <HeadItemLevel />
 
