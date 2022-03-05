@@ -153,7 +153,7 @@
             }
 
             for (const point of points) {
-                pointMap[point.x.ts] = point.x
+                pointMap[point.x.toUnixInteger()] = point.x
             }
 
             data.datasets.push({
@@ -170,12 +170,13 @@
         // Pad out each dataset with data for all time periods
         const totals: Record<number, DataPoint> = {}
 
-        const allPoints: [number, DateTime] = Object.entries(pointMap)
+        const allPoints: [number, DateTime][] = Object.entries(pointMap)
+            .map(([a, b]) => [parseInt(a), b])
         allPoints.sort()
 
         for (const dataset of data.datasets) {
-            const oldMap: Record<number, [DateTime, number]> = Object.fromEntries(
-                dataset.data.map((dataPoint: DataPoint) => [dataPoint.x.ts, dataPoint])
+            const oldMap: Record<number, DataPoint> = Object.fromEntries(
+                dataset.data.map((dataPoint: DataPoint) => [dataPoint.x.toUnixInteger(), dataPoint])
             )
             const newData: DataPoint[] = []
 
@@ -212,7 +213,7 @@
         if (historyState.chartType === 'line' && firstRealmId >= 0) {
             const totalPoints = sortBy(
                 Object.values(totals),
-                (point: DataPoint) => point.x.ts
+                (point: DataPoint) => point.x.toUnixInteger()
             )
 
             data.datasets.push({
