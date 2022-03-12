@@ -3,10 +3,13 @@
 
     import { Constants } from '@/data/constants'
     import { covenantMap } from '@/data/covenant'
-    import { forcedReset, progressQuestMap } from '@/data/quests'
+    import { forcedReset, progressQuestMap, progressQuestTitle } from '@/data/quests'
     import { timeStore, userQuestStore } from '@/stores'
+    import { tippyComponent } from '@/utils/tippy'
     import type { Character } from '@/types'
     import type { UserQuestDataCharacterProgress } from '@/types/data'
+
+    import Tooltip from '@/components/tooltips/progress-quest/TooltipProgressQuest.svelte'
 
     export let character: Character
     export let quest: string
@@ -14,12 +17,15 @@
     let progressQuest: UserQuestDataCharacterProgress
     let status = ''
     let text = ''
+    let title = ''
     let valid = true
     $: {
         if (character.level < Constants.characterMaxLevel) {
             valid = false
         }
         else {
+            title = progressQuestTitle[quest]
+
             if (quest === 'weeklyAnima' || quest === 'weeklySouls') {
                 const covenant = covenantMap[character.shadowlands?.covenantId]
                 if (covenant) {
@@ -88,6 +94,10 @@
         border-left: 1px solid $border-color;
         word-spacing: -0.2ch;
 
+        &.center {
+            text-align: center !important;
+        }
+
         &.status-shrug {
             text-align: right;
         }
@@ -110,6 +120,15 @@
 {#if valid}
     <td
         class="status-{status}"
+        class:center={quest === 'weeklyHoliday' || progressQuest === undefined || progressQuest.status !== 1}
+        use:tippyComponent={{
+            component: Tooltip,
+            props: {
+                character,
+                progressQuest,
+                title,
+            }
+        }}
     >{text}</td>
 {:else}
     <td>&nbsp;</td>
