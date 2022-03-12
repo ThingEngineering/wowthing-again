@@ -85,6 +85,7 @@ namespace Wowthing.Lib.Models
             "vaultPvp",
             "vaultRaid",
             "weeklyAnima",
+            "weeklyHoliday",
             "weeklyKorthia",
             "weeklyPatterns",
             "weeklySouls",

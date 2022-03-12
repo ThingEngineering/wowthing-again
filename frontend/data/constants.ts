@@ -5,6 +5,8 @@ export abstract class Constants {
     static readonly mythicPlusSeason: number = 7
     static readonly restedDuration: number = 10 * 24 * 60 * 60 // 10 days
 
+    static readonly holidayCycleStart: number = 845
+
     static readonly icons = {
         alliance: 'achievement/13467', // Tides of Vengeance
         horde: 'achievement/13466', // Tides of Vengeance

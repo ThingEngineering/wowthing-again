@@ -1,6 +1,7 @@
 <script lang="ts">
     import sumBy from 'lodash/sumBy'
 
+    import { progressQuestTitle } from '@/data/quests'
     import { data as settings } from '@/stores/settings'
     import { userStore } from '@/stores'
     import type {Character} from '@/types'
@@ -93,24 +94,9 @@
         {:else if field === 'vaultRaid'}
             <td>Raid Vault</td>
 
-        {:else if field === 'weeklyAnima'}
+        {:else if field.startsWith('weekly')}
             {#if !isPublic || $settings.privacy.publicQuests}
-                <td>Anima</td>
-            {/if}
-
-        {:else if field === 'weeklyKorthia'}
-            {#if !isPublic || $settings.privacy.publicQuests}
-                <td>Korthia</td>
-            {/if}
-
-        {:else if field === 'weeklyPatterns'}
-            {#if !isPublic || $settings.privacy.publicQuests}
-                <td>ZM</td>
-            {/if}
-
-        {:else if field === 'weeklySouls'}
-            {#if !isPublic || $settings.privacy.publicQuests}
-                <td>Souls</td>
+                <td>{progressQuestTitle[field]}</td>
             {/if}
 
         {:else}

@@ -97,28 +97,10 @@
             {:else if field === 'vaultRaid'}
                 <RowVaultRaid {character} />
 
-            {:else if field === 'weeklyAnima'}
+            {:else if field.startsWith('weekly')}
                 <RowProgressQuest
                     {character}
-                    quest={'anima'}
-                />
-
-            {:else if field === 'weeklyKorthia'}
-                <RowProgressQuest
-                    {character}
-                    quest={'shapingFate'}
-                />
-
-            {:else if field === 'weeklyPatterns'}
-                <RowProgressQuest
-                    {character}
-                    quest={'patterns'}
-                />
-
-            {:else if field === 'weeklySouls'}
-                <RowProgressQuest
-                    {character}
-                    quest={'souls'}
+                    quest={field}
                 />
 
             {:else}
