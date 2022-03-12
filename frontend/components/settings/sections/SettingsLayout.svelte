@@ -36,6 +36,7 @@
         {key: 'vaultPvp', name: 'Vault - PvP'},
         {key: 'vaultRaid', name: 'Vault - Raid'},
         {key: 'weeklyAnima', name: 'Weekly - Anima'},
+        {key: 'weeklyHoliday', name: 'Weekly - Holiday'},
         {key: 'weeklyKorthia', name: 'Weekly - Korthia'},
         {key: 'weeklyPatterns', name: 'Weekly - Patterns'},
         {key: 'weeklySouls', name: 'Weekly - Souls'},

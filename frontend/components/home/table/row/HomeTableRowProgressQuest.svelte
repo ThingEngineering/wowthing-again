@@ -3,7 +3,7 @@
 
     import { Constants } from '@/data/constants'
     import { covenantMap } from '@/data/covenant'
-    import { forcedReset } from '@/data/quests'
+    import { forcedReset, progressQuestMap } from '@/data/quests'
     import { timeStore, userQuestStore } from '@/stores'
     import type { Character } from '@/types'
     import type { UserQuestDataCharacterProgress } from '@/types/data'
@@ -20,11 +20,15 @@
             valid = false
         }
         else {
-            if (quest === 'anima' || quest === 'souls') {
+            if (quest === 'weeklyAnima' || quest === 'weeklySouls') {
                 const covenant = covenantMap[character.shadowlands?.covenantId]
                 if (covenant) {
+                    quest = quest.replace('weekly', '').toLowerCase()
                     quest = `${covenant.slug.replace('-fae', 'Fae')}${quest === 'anima' ? 'Anima' : 'Souls'}`
                 }
+            }
+            else {
+                quest = progressQuestMap[quest] || quest
             }
 
             progressQuest = $userQuestStore.data.characters[character.id]?.progressQuests?.[quest]
@@ -52,13 +56,17 @@
                 }
                 else if (progressQuest.status === 1) {
                     status = 'shrug'
+
                     if (progressQuest.type === 'progressbar') {
                         text = `${progressQuest.have} %`
                     }
+                    else if (quest === 'weeklyHoliday') {
+                        text = `${progressQuest.have} / ${progressQuest.need}`
+                    }
                     else {
                         text = `${Math.floor(progressQuest.have / progressQuest.need * 100)} %`
-                        //text = `${}`
                     }
+
                     if (progressQuest.have === progressQuest.need) {
                         status = `${status} shrug-cycle`
                     }
