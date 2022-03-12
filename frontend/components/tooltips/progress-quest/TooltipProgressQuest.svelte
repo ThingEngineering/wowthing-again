@@ -16,20 +16,15 @@
     $: {
         if (progressQuest && (progressQuest.status === QuestStatus.Completed || forcedReset[progressQuest.type])) {
             const expires = DateTime.fromSeconds(progressQuest.expires)
-            duration = toNiceDuration(expires.diff($timeStore)?.toMillis() ?? '')
+            duration = toNiceDuration(expires.diff($timeStore).toMillis())
         }
     }
 </script>
 
 <style lang="scss">
     table {
-        td,
-        th {
+        td {
             padding: 0.25rem 0.5rem;
-        }
-
-        th {
-            font-weight: normal;
         }
     }
     .status-0 {
