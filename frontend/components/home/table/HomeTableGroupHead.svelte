@@ -1,7 +1,7 @@
 <script lang="ts">
     import sumBy from 'lodash/sumBy'
 
-    import { progressQuestTitle } from '@/data/quests'
+    import { progressQuestHead } from '@/data/quests'
     import { data as settings } from '@/stores/settings'
     import { userStore } from '@/stores'
     import type {Character} from '@/types'
@@ -96,7 +96,7 @@
 
         {:else if field.startsWith('weekly')}
             {#if !isPublic || $settings.privacy.publicQuests}
-                <td>{progressQuestTitle[field]}</td>
+                <td>{progressQuestHead[field]}</td>
             {/if}
 
         {:else}

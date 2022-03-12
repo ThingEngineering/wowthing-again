@@ -8,11 +8,19 @@ export const progressQuestMap: Record<string, string> = {
     weeklyPatterns: 'patterns',
 }
 
-export const progressQuestTitle: Record<string, string> = {
+export const progressQuestHead: Record<string, string> = {
     weeklyAnima: 'Anima',
     weeklyHoliday: 'Holiday',
     weeklyKorthia: 'Korthia',
-    weeklyPatterns: 'ZM',
+    weeklyPatterns: 'Zereth',
+    weeklySouls: 'Souls',
+}
+
+export const progressQuestTitle: Record<string, string> = {
+    weeklyAnima: 'Replenish the Reservoir',
+    weeklyHoliday: 'Weekly Holiday Quest',
+    weeklyKorthia: 'Korthia',
+    weeklyPatterns: 'Patterns Within Patterns',
     weeklySouls: 'Souls',
 }
 
@@ -21,6 +29,7 @@ export const forcedReset: Record<string, boolean> = {
     necrolordSouls: true,
     nightFaeSouls: true,
     venthyrSouls: true,
+    weeklySouls: true,
 }
 
 export const holidayQuestCycle: string[] = [

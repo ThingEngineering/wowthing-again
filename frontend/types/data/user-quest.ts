@@ -1,3 +1,6 @@
+import type { QuestStatus } from '@/types/enums'
+
+
 export interface UserQuestData {
     characters: Record<number, UserQuestDataCharacter>
 }
@@ -22,7 +25,7 @@ export interface UserQuestDataCharacterProgress {
     id: number
     name: string
     need: number
-    status: number
+    status: QuestStatus
     text: string
     type: string
 }
