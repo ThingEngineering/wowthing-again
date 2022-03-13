@@ -719,7 +719,10 @@ namespace Wowthing.Web.Controllers
                         CallingCompleted = c.AddonQuests?.CallingCompleted.EmptyIfNull(),
                         CallingExpires = c.AddonQuests?.CallingExpires.EmptyIfNull(),
                         DailyQuestList = c.AddonQuests?.DailyQuests ?? new List<int>(),
-                        QuestList = c.Quests?.CompletedIds ?? new List<int>(),
+                        QuestList = (c.Quests?.CompletedIds ?? new List<int>())
+                            .Union(c.AddonQuests?.OtherQuests ?? new List<int>())
+                            .Distinct()
+                            .ToList(),
                         ProgressQuests = c.AddonQuests?.ProgressQuests.EmptyIfNull(),
                     }
                 );

@@ -20,19 +20,21 @@
         public List<UploadCharacterCalling> Callings { get; set; }
         public List<UploadCharacterCovenant> Covenants { get; set; }
         public Dictionary<short, string> Currencies { get; set; }
-        public List<int> DailyQuests { get; set; }
         public Dictionary<string, Dictionary<string, string>> Items { get; set; }
         public List<UploadCharacterLockout> Lockouts { get; set; }
         public List<int> Mounts { get; set; }
         public UploadCharacterMythicDungeon[] MythicDungeons { get; set; }
         public UploadCharacterMythicPlus MythicPlus { get; set; }
         public Dictionary<int, string> Paragons { get; set; }
-        public List<string> ProgressQuests { get; set; }
         public Dictionary<int, int> Reputations { get; set; }
         public Dictionary<string, int> ScanTimes { get; set; }
         public List<UploadCharacterTorghast> Torghast { get; set; }
         public string Transmog { get; set; }
         public UploadCharacterVault[][] Vault { get; set; }
+        
+        public List<int> DailyQuests { get; set; }
+        public List<int> OtherQuests { get; set; }
+        public List<string> ProgressQuests { get; set; }
     }
 
     public class UploadCharacterAchievement

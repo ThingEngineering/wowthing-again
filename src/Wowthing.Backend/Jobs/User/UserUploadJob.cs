@@ -749,7 +749,9 @@ namespace Wowthing.Backend.Jobs.User
                 if (scanTime >= character.AddonQuests.QuestsScannedAt)
                 {
                     character.AddonQuests.QuestsScannedAt = scanTime;
+                    
                     character.AddonQuests.DailyQuests = characterData.DailyQuests.EmptyIfNull();
+                    character.AddonQuests.OtherQuests = characterData.OtherQuests.EmptyIfNull();
 
                     character.AddonQuests.ProgressQuests = new();
                     foreach (var packedProgress in characterData.ProgressQuests.EmptyIfNull())
