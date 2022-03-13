@@ -70,6 +70,8 @@
 <style lang="scss">
     td {
         @include cell-width($width-mount-speed);
+
+        border-left: 1px solid $border-color;
     }
 </style>
 
