@@ -2,6 +2,14 @@ name: ":lock: Shadowlands"
 requiredQuestId: 59770 # Stand as One
 groups:
 
+- name: "Zereth Mortis"
+  icon: item/188793
+  type: quest
+  data:
+    0:
+    - name: "+50% Cyphers of the First Ones"
+      id: 65282 # Improved Cypher Analysis Tool
+
 - name: "Korthia"
   icon: item/187138 # Research Report: First Alloys
   type: quest

@@ -6,6 +6,7 @@
     td {
         @include cell-width($width-gold, $maxWidth: $width-gold-max);
 
+        border-left: 1px solid $border-color;
         text-align: right;
     }
 </style>

@@ -4,12 +4,26 @@ groups:
 - name: "Zereth Mortis"
   type: armor
   sets:
-  - "Sandworn Relic [154?]"
+  - "World Quest"
   - "Sandworn Relic"
+  - "Anima/Drop"
   data:
     cloth:
+    # modifier=0
+    - name: Oracular Cloth
+      wowheadSetId:
+      items:
+        1:  56674 # Head
+        3:  56675 # Shoulders
+        5:  56676 # Chest
+        6:  56677 # Waist
+        7:  56678 # Legs
+        8:  56679 # Feet
+        9:  56680 # Wrists
+        10: 56681 # Hands
+
     # modifier=154
-    - name: Modifier 154
+    - name: Choral Cloth
       wowheadSetId:
       items:
         1:  56701 # Head
@@ -22,7 +36,7 @@ groups:
         10: 56708 # Hands
 
     # modifier=0
-    - name: Modifier 0
+    - name: Choral Cloth
       wowheadSetId:
       items:
         1:  56683 # Head
@@ -35,8 +49,21 @@ groups:
         10: 56690 # Hands
 
     leather:
+    # modifier=0
+    - name: Cryptic Leather
+      wowheadSetId:
+      items:
+        1:  56832 # Head
+        3:  56833 # Shoulders
+        5:  56834 # Chest
+        6:  56835 # Waist
+        7:  56836 # Legs
+        8:  56837 # Feet
+        9:  56838 # Wrists
+        10: 56839 # Hands
+
     # modifier=154
-    - name: Modifier 154
+    - name: Staccato Leather
       wowheadSetId:
       items:
         1:  56859 # Head
@@ -49,7 +76,7 @@ groups:
         10: 56866 # Hands
 
     # modifier=0
-    - name: Modifier 0
+    - name: Staccato Leather
       wowheadSetId:
       items:
         1:  56841 # Head
@@ -62,8 +89,21 @@ groups:
         10: 56848 # Hands
 
     mail:
+    # modifier=0
+    - name: Enigmatic Mail
+      wowheadSetId:
+      items:
+        1:  57197 # Head
+        3:  57198 # Shoulders
+        5:  57199 # Chest
+        6:  57200 # Waist
+        7:  57201 # Legs
+        8:  57202 # Feet
+        9:  57203 # Wrists
+        10: 57204 # Hands
+
     # modifier=154
-    - name: Modifier 154
+    - name: Anthemic Mail
       wowheadSetId:
       items:
         1:  57224 # Head
@@ -76,7 +116,7 @@ groups:
         10: 57231 # Hands
 
     # modifier=0
-    - name: Modifier 0
+    - name: Anthemic Mail
       wowheadSetId:
       items:
         1:  57206 # Head
@@ -89,8 +129,21 @@ groups:
         10: 57213 # Hands
 
     plate:
+    # modifier=0
+    - name: Numerus Plate
+      wowheadSetId:
+      items:
+        1:  57140 # Head
+        3:  57141 # Shoulders
+        5:  57142 # Chest
+        6:  57143 # Waist
+        7:  57144 # Legs
+        8:  57145 # Feet
+        9:  57146 # Wrists
+        10: 57147 # Hands
+
     # modifier=154
-    - name: Modifier 154
+    - name: Harmonium Plate
       wowheadSetId:
       items:
         1:  57167 # Head
@@ -103,7 +156,7 @@ groups:
         10: 57174 # Hands
 
     # modifier=0
-    - name: Modifier 0
+    - name: Harmonium Plate
       wowheadSetId:
       items:
         1:  57149 # Head
