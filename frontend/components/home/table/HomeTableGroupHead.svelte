@@ -4,6 +4,7 @@
     import { progressQuestHead } from '@/data/quests'
     import { data as settings } from '@/stores/settings'
     import { userStore } from '@/stores'
+    import tippy from '@/utils/tippy'
     import type {Character} from '@/types'
 
     import HeadCallings from './head/HomeTableHeadCallings.svelte'
@@ -52,6 +53,9 @@
             {#if !isPublic}
                 <RowGold {gold} />
             {/if}
+
+        {:else if field === 'itemLevel'}
+            <td use:tippy={'Item Level'}>ilvl</td>
 
         {:else if field === 'keystone'}
             {#if !isPublic || $settings.privacy.publicMythicPlus}
