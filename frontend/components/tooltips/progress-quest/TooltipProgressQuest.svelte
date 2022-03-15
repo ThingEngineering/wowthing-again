@@ -62,7 +62,7 @@
 
             {#if duration}
                 <tr>
-                    <td class="duration">Resets in {duration}</td>
+                    <td class="duration">Resets in {@html duration}</td>
                 </tr>
             {/if}
         </tbody>
