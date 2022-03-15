@@ -44,6 +44,38 @@
     }
 </script>
 
+
+<style lang="scss">
+    tr {
+        &.vault-more {
+            color: #00ccff;
+        }
+        &.vault-reward {
+            color: #1eff00;
+        }
+    }
+
+    .key-level {
+        max-width: 2.1rem;
+        text-align: right;
+        white-space: nowrap;
+    }
+    .dungeon-name {
+        max-width: 15rem;
+        text-align: left;
+        white-space: nowrap;
+    }
+    .item-level {
+        max-width: 3rem;
+        white-space: nowrap;
+    }
+
+    .do-some {
+        width: 15rem;
+        white-space: nowrap;
+    }
+</style>
+
 {#if dungeonName}
     <tr class="{cls}">
         {#if keyLevel}
