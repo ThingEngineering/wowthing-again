@@ -11,7 +11,7 @@ import { covenantSlugMap } from '@/data/covenant'
 import { factionMap } from '@/data/faction'
 import { Settings, UserCount, UserData, WritableFancyStore } from '@/types'
 import { ZoneMapDataFarm } from '@/types/data'
-import { FarmDropType, FarmResetType } from '@/types/enums'
+import { FarmDropType, FarmResetType, PlayableClass, PlayableClassMask } from '@/types/enums'
 import { getNextBiWeeklyReset, getNextDailyReset, getNextWeeklyReset } from '@/utils/get-next-reset'
 import getTransmogClassMask from '@/utils/get-transmog-class-mask'
 import type { ZoneMapState } from '@/stores/local-storage/zone-map'
@@ -19,6 +19,8 @@ import type { DropStatus, FarmStatus } from '@/types'
 import type { TransmogData, UserQuestData, UserTransmogData, ZoneMapData } from '@/types/data'
 import type { StaticData } from '@/types/data/static'
 
+
+type classMaskStrings = keyof typeof PlayableClassMask
 
 export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
     get dataUrl(): string {
@@ -73,9 +75,8 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
         )
 
         for (const maps of zoneMapData.sets) {
-            const categorySeen: Record<number, Record<number, boolean>> = {}
-
             const categoryCounts = setCounts[maps[0].slug] = new UserCount()
+            const categorySeen: Record<number, Record<number, boolean>> = {}
 
             const categoryCharacters = filter(
                 shownCharacters,
@@ -96,10 +97,18 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                     continue
                 }
 
-                const mapSeen: Record<string, Record<number, boolean>> = {}
-
                 const mapKey = `${maps[0].slug}--${map.slug}`
                 const mapCounts = setCounts[mapKey] = new UserCount()
+                const mapSeen: Record<string, Record<number, boolean>> = {}
+
+                let mapClassMask = 0
+                const activeClasses = Object.entries(options.classFilters[mapKey] || {})
+                    .filter(([, value]) => value === true)
+                    .map(([key, ]) => parseInt(key))
+
+                for (const classId of activeClasses) {
+                    mapClassMask |= PlayableClassMask[PlayableClass[classId] as classMaskStrings]
+                }
 
                 const eligibleCharacters = filter(
                     categoryCharacters,
@@ -111,6 +120,10 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                                 map.requiredQuestIds,
                                 (questId) => userQuestData.characters[char.id].quests.get(questId)
                             )
+                        ) &&
+                        (
+                            mapClassMask === 0 ||
+                            (mapClassMask & classMap[char.classId].mask) > 0
                         )
                     )
                 )
@@ -377,6 +390,7 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                             id: parseInt(p[0]),
                             types: uniq(p[1]),
                         }))
+
                     farms.push(farmStatus)
                 }
 

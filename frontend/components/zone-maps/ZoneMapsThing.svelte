@@ -1,5 +1,6 @@
 <script lang="ts">
     import { farmTypeIcon } from '@/data/farm'
+    import { zoneMapState } from '@/stores/local-storage/zone-map'
     import { FarmIdType, FarmType } from '@/types/enums'
     import { tippyComponent } from '@/utils/tippy'
     import type { FarmStatus } from '@/types'
@@ -13,8 +14,17 @@
     export let status: FarmStatus
 
     let big: boolean
+    let show: boolean
     $: {
         big = FarmType[farm.type].indexOf('Big') > 0
+
+        show = true
+        if (!$zoneMapState.showCompleted && !status.need) {
+            show = false
+        }
+        if (!$zoneMapState.showKilled && status.need && status.characters.length === 0) {
+            show = false
+        }
     }
 </script>
 
@@ -73,39 +83,41 @@
     }
 </style>
 
-<div
-    class="wrapper"
-    class:active={status.need}
-    style="--left: {farm.location[0]}%; --top: {farm.location[1]}%; --top-offset: {status.need ? (big ? '7px' : '7px') : '0px'};"
-    use:tippyComponent={{
-        component: Tooltip,
-        props: {farm, status},
-    }}
->
-    <WowheadLink
-        id={farm.id}
-        noTooltip={true}
-        toComments={true}
-        type={FarmIdType[farm.idType].toLowerCase()}
+{#if show}
+    <div
+        class="wrapper"
+        class:active={status.need}
+        style="--left: {farm.location[0]}%; --top: {farm.location[1]}%; --top-offset: {status.need ? (big ? '7px' : '7px') : '0px'};"
+        use:tippyComponent={{
+            component: Tooltip,
+            props: {farm, status},
+        }}
     >
-        <div
-            class="icon drop-shadow"
-            class:active={status.need}
-            class:inactive={!status.need}
-            class:alliance={farm.faction === 'alliance'}
-            class:horde={farm.faction === 'horde'}
+        <WowheadLink
+            id={farm.id}
+            noTooltip={true}
+            toComments={true}
+            type={FarmIdType[farm.idType].toLowerCase()}
         >
-            <IconifyIcon
-                icon={farmTypeIcon[farm.type]}
-                scale={big ? '1.25' : '1'}
-            />
-        </div>
+            <div
+                class="icon drop-shadow"
+                class:active={status.need}
+                class:inactive={!status.need}
+                class:alliance={farm.faction === 'alliance'}
+                class:horde={farm.faction === 'horde'}
+            >
+                <IconifyIcon
+                    icon={farmTypeIcon[farm.type]}
+                    scale={big ? '1.25' : '1'}
+                />
+            </div>
 
-        {#if status.need}
-            <span
-                class:big
-                class:status-success={status.characters.length === 0}
-            >{status.characters.length}</span>
-        {/if}
-    </WowheadLink>
-</div>
+            {#if status.need}
+                <span
+                    class:big
+                    class:status-success={status.characters.length === 0}
+                >{status.characters.length}</span>
+            {/if}
+        </WowheadLink>
+    </div>
+{/if}

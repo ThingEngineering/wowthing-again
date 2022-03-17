@@ -5,6 +5,8 @@ import mdiArrowLeftBoldOutline from '@iconify/icons-mdi/arrow-left-bold-outline'
 import mdiArrowRightBoldOutline from '@iconify/icons-mdi/arrow-right-bold-outline'
 import mdiArrowUpBoldOutline from '@iconify/icons-mdi/arrow-up-bold-outline'
 import mdiCheck from '@iconify/icons-mdi/check'
+import mdiChevronDown from '@iconify/icons-mdi/chevron-down'
+import mdiChevronRight from '@iconify/icons-mdi/chevron-right'
 import mdiClose from '@iconify/icons-mdi/close'
 import mdiLockOutline from '@iconify/icons-mdi/lock-outline'
 import mdiPageFirst from '@iconify/icons-mdi/page-first'
@@ -34,6 +36,9 @@ export const iconStrings: Record<string, IconifyIcon> = {
     'arrow-left': mdiArrowLeftBoldOutline,
     'arrow-right': mdiArrowRightBoldOutline,
     'arrow-up': mdiArrowUpBoldOutline,
+
+    'chevron-down': mdiChevronDown,
+    'chevron-right': mdiChevronRight,
 
     'page-first': mdiPageFirst,
     'page-last': mdiPageLast,

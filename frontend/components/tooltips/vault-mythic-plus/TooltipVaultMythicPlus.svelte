@@ -17,7 +17,7 @@
 
 <div class="wowthing-tooltip">
     <h4>{character.name} - M+ Vault</h4>
-    <table class="table-tooltip-vault table-striped">
+    <table class="table-striped">
         <tbody>
             {#each Array(progress[2].threshold) as _, i}
                 <Run index={i} run={runs[i]} {progress} />

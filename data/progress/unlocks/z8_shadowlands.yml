@@ -1,4 +1,5 @@
 name: ":lock: Shadowlands"
+minimumLevel: 60
 requiredQuestId: 59770 # Stand as One
 groups:
 
@@ -72,7 +73,6 @@ groups:
     - name: "At least two power choices"
       id: 61144 # Possibility Matrix
       note: "Appreciative"
-
 
 - name: "The Maw"
   icon: achievement/14656 # Trading Partners

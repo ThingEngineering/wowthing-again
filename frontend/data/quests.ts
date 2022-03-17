@@ -29,6 +29,7 @@ export const forcedReset: Record<string, boolean> = {
     necrolordSouls: true,
     nightFaeSouls: true,
     venthyrSouls: true,
+    weeklyHoliday: true,
     weeklySouls: true,
 }
 
