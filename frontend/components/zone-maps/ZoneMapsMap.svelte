@@ -57,10 +57,20 @@
         position: absolute;
         top: 1px;
         transform: translateX(-50%);
+        white-space: nowrap;
         z-index: 1;
 
         & :global(fieldset:not(:first-child)) {
             margin-left: 0.3rem;
+        }
+    }
+    .toggle-group {
+        display: flex;
+
+        &:not(:first-child) {
+            border-left: 1px solid $border-color;
+            margin-left: 0.5rem;
+            padding-left: 0.5rem;
         }
     }
     .credits {
@@ -85,30 +95,43 @@
 {#if categories.length > 0 && farmStatuses}
     <div class="farm">
         <div class="toggles">
-            <CheckboxInput
-                name="track_mounts"
-                bind:value={$zoneMapState.trackMounts}
-            >Mounts</CheckboxInput>
+            <div class="toggle-group">
+                <CheckboxInput
+                    name="show_completed"
+                    bind:value={$zoneMapState.showCompleted}
+                >Completed</CheckboxInput>
+                <CheckboxInput
+                    name="show_killed"
+                    bind:value={$zoneMapState.showKilled}
+                >Killed</CheckboxInput>
+            </div>
 
-            <CheckboxInput
-                name="track_pets"
-                bind:value={$zoneMapState.trackPets}
-            >Pets</CheckboxInput>
+            <div class="toggle-group">
+                <CheckboxInput
+                    name="track_mounts"
+                    bind:value={$zoneMapState.trackMounts}
+                >Mounts</CheckboxInput>
 
-            <CheckboxInput
-                    name="track_quests"
-                    bind:value={$zoneMapState.trackQuests}
-            >Quests</CheckboxInput>
+                <CheckboxInput
+                    name="track_pets"
+                    bind:value={$zoneMapState.trackPets}
+                >Pets</CheckboxInput>
 
-            <CheckboxInput
-                name="track_toys"
-                bind:value={$zoneMapState.trackToys}
-            >Toys</CheckboxInput>
+                <CheckboxInput
+                        name="track_quests"
+                        bind:value={$zoneMapState.trackQuests}
+                >Quests</CheckboxInput>
 
-            <CheckboxInput
-                name="track_transmog"
-                bind:value={$zoneMapState.trackTransmog}
-            >Transmog</CheckboxInput>
+                <CheckboxInput
+                    name="track_toys"
+                    bind:value={$zoneMapState.trackToys}
+                >Toys</CheckboxInput>
+
+                <CheckboxInput
+                    name="track_transmog"
+                    bind:value={$zoneMapState.trackTransmog}
+                >Transmog</CheckboxInput>
+            </div>
         </div>
 
         <Image

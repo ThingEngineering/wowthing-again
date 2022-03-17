@@ -2,6 +2,9 @@ import { writable } from 'svelte/store'
 
 
 export class ZoneMapState {
+    public showCompleted = true
+    public showKilled = true
+
     public trackMounts = true
     public trackPets = true
     public trackQuests = false

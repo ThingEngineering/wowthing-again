@@ -377,6 +377,7 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                             id: parseInt(p[0]),
                             types: uniq(p[1]),
                         }))
+
                     farms.push(farmStatus)
                 }
 
