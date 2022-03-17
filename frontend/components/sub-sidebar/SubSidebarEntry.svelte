@@ -1,9 +1,8 @@
 <script lang="ts">
-    import mdiChevronDown from '@iconify/icons-mdi/chevron-down'
-    import mdiChevronRight from '@iconify/icons-mdi/chevron-right'
     import { link, location, replace } from 'svelte-spa-router'
     import active from 'svelte-spa-router/active'
 
+    import { iconStrings } from '@/data/icons'
     import getPercentClass from '@/utils/get-percent-class'
     import type {SidebarItem} from '@/types'
 
@@ -137,7 +136,7 @@
         {#if item.children?.length > 0}
             <span class="expand">
                 <IconifyIcon
-                    icon={expanded ? mdiChevronDown : mdiChevronRight}
+                    icon={iconStrings['chevron-' + (expanded ? 'down' : 'right')]}
                 />
             </span>
         {/if}

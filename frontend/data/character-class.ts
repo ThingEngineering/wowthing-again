@@ -1,4 +1,5 @@
 import { CharacterClass } from '@/types'
+import { PlayableClass } from '@/types/enums'
 
 
 export const classMap: Record<number, CharacterClass> = {
@@ -93,3 +94,21 @@ export const classIdToSlug: Record<number, string> = Object.fromEntries(
     Object.entries(classSlugMap)
         .map(([slug, cls]) => [cls.id, slug])
 )
+
+export const classOrder: number[] = [
+    PlayableClass.Mage,
+    PlayableClass.Priest,
+    PlayableClass.Warlock,
+
+    PlayableClass.DemonHunter,
+    PlayableClass.Druid,
+    PlayableClass.Monk,
+    PlayableClass.Rogue,
+
+    PlayableClass.Hunter,
+    PlayableClass.Shaman,
+
+    PlayableClass.DeathKnight,
+    PlayableClass.Paladin,
+    PlayableClass.Warrior,
+]

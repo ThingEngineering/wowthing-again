@@ -10,6 +10,9 @@ export class ZoneMapState {
     public trackQuests = false
     public trackToys = true
     public trackTransmog = true
+
+    public classExpanded: Record<string, boolean> = {}
+    public classFilters: Record<string, Record<number, boolean>> = {}
 }
 
 const key = 'state-zone-map'
