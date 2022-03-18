@@ -32,6 +32,14 @@
                 return false
             }
 
+            // Simple length check
+            if (
+                dropStatus.characterIds.length !== nextDrop[1].characterIds.length ||
+                dropStatus.completedCharacterIds.length !== nextDrop[1].completedCharacterIds.length
+            ) {
+                return true
+            }
+
             // Compare this drop to the next one - if the character list is the same we don't need to show it
             const charDiff = difference(dropStatus.characterIds, nextDrop[1].characterIds)
             const completeDiff = difference(dropStatus.completedCharacterIds, nextDrop[1].completedCharacterIds)
