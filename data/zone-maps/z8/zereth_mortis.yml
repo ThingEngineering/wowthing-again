@@ -132,6 +132,9 @@ farms:
   - type: transmog
     id: 189951 # Sunbathed Avian Armor [plate]
 
+  - type: transmog
+    id: 190057 # Protective Raptora's Wing-Glaive [warglaive]
+
 - name: "General Zarathura"
   location: 59.9 21.1
   npcId: 182318
@@ -169,6 +172,9 @@ farms:
   npcId: 178963
   questId: 63988
   drops:
+  - type: transmog
+    id: 189926 # Poison-Licked Spaulders [leather]
+
   - type: transmog
     id: 189960 # Crouching Legs of the Bufonid [plate]
 
@@ -236,13 +242,16 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 189923 # Tarachnid's Terrifying Visage
+    id: 189923 # Tarachnid's Terrifying Visage [leather]
 
   - type: transmog
-    id: 189950 # Constrained Prey's Binds
+    id: 189950 # Constrained Prey's Binds [mail]
 
   - type: transmog
-    id: 190045 # Flowing Sandbender's Staff
+    id: 189769 # Fang of Phestis [dagger]
+
+  - type: transmog
+    id: 190045 # Flowing Sandbender's Staff [staff]
 
 - name: "Orixal"
   location: 55.7 69.2
@@ -364,13 +373,16 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 189915 # Tahkwitz' Cloth Ribbon
+    id: 189915 # Tahkwitz' Cloth Ribbon [cloth]
 
   - type: transmog
-    id: 189933 # Vigilant Raptora's Crest
+    id: 189933 # Vigilant Raptora's Crest [mail]
 
   - type: transmog
-    id: 189954 # Lustrous Sentinel's Sabatons
+    id: 189954 # Lustrous Sentinel's Sabatons [plate]
+
+  - type: transmog
+    id: 190003 # Skyward Savior's Talon [dagger]
 
 - name: "Tethos"
   location: 54.5 73.4
@@ -379,13 +391,16 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 189928 # Centripetal Waistband
+    id: 189967 # Hood of Star Topology [cloth]
 
   - type: transmog
-    id: 189966 # Singing Metal Wristbands
+    id: 189928 # Centripetal Waistband [leather]
 
   - type: transmog
-    id: 190055 # Coalescing Energy Implement
+    id: 189966 # Singing Metal Wristbands [plate]
+
+  - type: transmog
+    id: 190055 # Coalescing Energy Implement [off-hand]
 
 - name: "The Engulfer"
   location: 43.9 75.3
@@ -445,10 +460,16 @@ farms:
     id: 190238 # Xy'rath's Booby-Trapped Cache
 
   - type: transmog
-    id: 190052 # Xy'rath's Letter Opener
+    id: 189918 # Fleeting Broker's Strides [leather]
 
   - type: transmog
-    id: 190007 # Xy'rath's Signature Saber
+    id: 189964 # Multi-Faceted Belt [plate]
+
+  - type: transmog
+    id: 190052 # Xy'rath's Letter Opener [dagger]
+
+  - type: transmog
+    id: 190007 # Xy'rath's Signature Saber [1h sword]
 
 - name: "Zatojin"
   location: 43.5 32.9
