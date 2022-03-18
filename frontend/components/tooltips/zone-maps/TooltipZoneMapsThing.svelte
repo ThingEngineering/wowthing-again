@@ -22,7 +22,7 @@
             sigh.push([farm.drops[dropIndex], status.drops[dropIndex]])
         }
 
-        sortedDrops = sortBy(sigh, (s) => !s[1].need)
+        sortedDrops = sortBy(sigh, (s) => [!s[1].need, !s[1].validCharacters])
     }
 
     const showCharacters = (dropStatus: DropStatus, nextDrop: [ZoneMapDataDrop, DropStatus]): boolean => {
