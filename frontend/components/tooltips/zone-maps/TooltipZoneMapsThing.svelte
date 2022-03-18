@@ -34,6 +34,7 @@
 
             // Simple length check
             if (
+                dropStatus.validCharacters !== nextDrop[1].validCharacters ||
                 dropStatus.characterIds.length !== nextDrop[1].characterIds.length ||
                 dropStatus.completedCharacterIds.length !== nextDrop[1].completedCharacterIds.length
             ) {
