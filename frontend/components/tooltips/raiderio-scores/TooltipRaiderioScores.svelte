@@ -19,7 +19,8 @@
 </style>
 
 <div class="wowthing-tooltip">
-    <h4>{character.name} - RaiderIO</h4>
+    <h4>{character.name}</h4>
+    <h5>RaiderIO Score</h5>
     <table class="table-striped">
         <tbody>
             {#each raiderIoScoreOrder as scoreKey}
