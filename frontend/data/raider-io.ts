@@ -4,3 +4,10 @@ export const raiderIoScores: Record<string, string> = {
     healer: 'Healer',
     tank: 'Tank',
 }
+
+export const raiderIoScoreOrder: string[] = [
+    'all',
+    'dps',
+    'healer',
+    'tank',
+]

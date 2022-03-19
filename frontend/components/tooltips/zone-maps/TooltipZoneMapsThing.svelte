@@ -22,7 +22,7 @@
             sigh.push([farm.drops[dropIndex], status.drops[dropIndex]])
         }
 
-        sortedDrops = sortBy(sigh, (s) => !s[1].need)
+        sortedDrops = sortBy(sigh, (s) => [!s[1].need, !s[1].validCharacters])
     }
 
     const showCharacters = (dropStatus: DropStatus, nextDrop: [ZoneMapDataDrop, DropStatus]): boolean => {
@@ -30,6 +30,15 @@
             // If they both have no valid characters, bail early
             if (!dropStatus.validCharacters && !nextDrop[1].validCharacters) {
                 return false
+            }
+
+            // Simple length check
+            if (
+                dropStatus.validCharacters !== nextDrop[1].validCharacters ||
+                dropStatus.characterIds.length !== nextDrop[1].characterIds.length ||
+                dropStatus.completedCharacterIds.length !== nextDrop[1].completedCharacterIds.length
+            ) {
+                return true
             }
 
             // Compare this drop to the next one - if the character list is the same we don't need to show it
