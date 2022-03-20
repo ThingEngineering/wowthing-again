@@ -866,17 +866,6 @@ namespace Wowthing.Backend.Jobs.User
             character.Weekly.KeystoneDungeon = characterData.KeystoneInstance;
             character.Weekly.KeystoneLevel = characterData.KeystoneLevel;
 
-            // Torghast
-            if (characterData.ScanTimes.TryGetValue("torghast", out int torghastScanned) && characterData.Torghast?.Count == 2)
-            {
-                character.Weekly.TorghastScannedAt = torghastScanned.AsUtcDateTime();
-                character.Weekly.Torghast = new();
-                foreach (var wing in characterData.Torghast)
-                {
-                    character.Weekly.Torghast[wing.Name.Truncate(32)] = Math.Max(0, Math.Min(32, wing.Level));
-                } 
-            }
-
             // Vault
             if (characterData.ScanTimes.TryGetValue("vault", out int vaultScanned))
             {

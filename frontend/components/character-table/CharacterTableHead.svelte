@@ -12,10 +12,10 @@
         text-align: right;
     }
     .name {
-        @include cell-width($width-name);
+        @include cell-width($width-name, $maxWidth: $width-name-max);
     }
     .realm {
-        @include cell-width($width-realm);
+        @include cell-width($width-realm, $maxWidth: $width-realm-max);
     }
 </style>
 
