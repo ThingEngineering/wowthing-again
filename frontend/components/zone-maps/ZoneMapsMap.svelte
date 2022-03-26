@@ -7,12 +7,13 @@
     import { zoneMapStore } from '@/stores'
     import { zoneMapState } from '@/stores/local-storage/zone-map'
     import { zoneMapMedia } from '@/stores/media-queries/zone-map'
-    import { PlayableClass } from '@/types/enums'
+    import { FarmDropType, PlayableClass } from '@/types/enums'
     import type { FarmStatus } from '@/types'
     import type { ZoneMapDataCategory } from '@/types/data'
 
     import Checkbox from '@/components/forms/CheckboxInput.svelte'
     import ClassIcon from '@/components/images/ClassIcon.svelte'
+    import Counter from './ZoneMapsCounter.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import Image from '@/components/images/Image.svelte'
     import Thing from './ZoneMapsThing.svelte'
@@ -66,7 +67,7 @@
         padding: 0.2rem 0.3rem;
         position: absolute;
         white-space: nowrap;
-        z-index: 1;
+        z-index: 10;
     }
     .setting-toggles {
         left: 50%;
@@ -98,12 +99,18 @@
     }
     .toggle-group {
         display: flex;
+        height: 1.5rem;
 
         &:not(:first-child) {
             border-left: 1px solid $border-color;
             margin-left: 0.5rem;
             padding-left: 0.5rem;
         }
+    }
+    .checkbox-counter {
+        align-items: flex-end;
+        display: flex;
+        flex-direction: column;
     }
     .credits {
         bottom: 1px;
@@ -113,7 +120,7 @@
         padding: 0 1px;
         position: absolute;
         width: 100%;
-        z-index: 1;
+        z-index: 10;
 
         div {
             background: $highlight-background;
@@ -139,36 +146,56 @@
             </div>
 
             <div class="toggle-group">
-                <Checkbox
-                    name="track_mounts"
-                    bind:value={$zoneMapState.trackMounts}
-                >Mounts</Checkbox>
+                <div class="checkbox-counter">
+                    <Checkbox
+                        name="track_mounts"
+                        bind:value={$zoneMapState.trackMounts}
+                    >Mounts</Checkbox>
 
-                <Checkbox
-                    name="track_pets"
-                    bind:value={$zoneMapState.trackPets}
-                >Pets</Checkbox>
+                    <Counter key={slugKey} type={FarmDropType.Mount} />
+                </div>
 
-                <Checkbox
-                    name="track_quests"
-                    bind:value={$zoneMapState.trackQuests}
-                >Quests</Checkbox>
+                <div class="checkbox-counter">
+                    <Checkbox
+                        name="track_pets"
+                        bind:value={$zoneMapState.trackPets}
+                    >Pets</Checkbox>
 
-                <Checkbox
-                    name="track_toys"
-                    bind:value={$zoneMapState.trackToys}
-                >Toys</Checkbox>
+                    <Counter key={slugKey} type={FarmDropType.Pet} />
+                </div>
 
-                <Checkbox
-                    name="track_transmog"
-                    bind:value={$zoneMapState.trackTransmog}
-                >Transmog</Checkbox>
+                <div class="checkbox-counter">
+                    <Checkbox
+                        name="track_quests"
+                        bind:value={$zoneMapState.trackQuests}
+                    >Quests</Checkbox>
+
+                    <Counter key={slugKey} type={FarmDropType.Quest} />
+                </div>
+
+                <div class="checkbox-counter">
+                    <Checkbox
+                        name="track_toys"
+                        bind:value={$zoneMapState.trackToys}
+                    >Toys</Checkbox>
+
+                    <Counter key={slugKey} type={FarmDropType.Toy} />
+                </div>
+
+                <div class="checkbox-counter">
+                    <Checkbox
+                        name="track_transmog"
+                        bind:value={$zoneMapState.trackTransmog}
+                    >Transmog</Checkbox>
+
+                    <Counter key={slugKey} type={FarmDropType.Transmog} />
+                </div>
             </div>
         </div>
 
         <div
             class="toggles class-toggles"
-            on:click={e => $zoneMapState.classExpanded[slugKey] = !$zoneMapState.classExpanded[slugKey]}
+            on:click={() => $zoneMapState.classExpanded[slugKey] = !$zoneMapState.classExpanded[slugKey]}
         >
             Class:
 

@@ -9,14 +9,14 @@ import { DateTime } from 'luxon'
 import { classMap, classSlugMap } from '@/data/character-class'
 import { covenantSlugMap } from '@/data/covenant'
 import { factionMap } from '@/data/faction'
+import type { DropStatus, FarmStatus } from '@/types'
 import { Settings, UserCount, UserData, WritableFancyStore } from '@/types'
+import type { TransmogData, UserQuestData, UserTransmogData, ZoneMapData } from '@/types/data'
 import { ZoneMapDataFarm } from '@/types/data'
 import { FarmDropType, FarmResetType, PlayableClass, PlayableClassMask } from '@/types/enums'
 import { getNextBiWeeklyReset, getNextDailyReset, getNextWeeklyReset } from '@/utils/get-next-reset'
 import getTransmogClassMask from '@/utils/get-transmog-class-mask'
 import type { ZoneMapState } from '@/stores/local-storage/zone-map'
-import type { DropStatus, FarmStatus } from '@/types'
-import type { TransmogData, UserQuestData, UserTransmogData, ZoneMapData } from '@/types/data'
 import type { StaticData } from '@/types/data/static'
 
 
@@ -46,6 +46,7 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
 
         const farmData: Record<string, FarmStatus[]> = {}
         const setCounts: Record<string, UserCount> = {}
+        const typeCounts: Record<string, Record<number, UserCount>> = {}
 
         const shownCharacters = filter(
             userData.characters,
@@ -99,6 +100,14 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
 
                 const mapKey = `${maps[0].slug}--${map.slug}`
                 const mapCounts = setCounts[mapKey] = new UserCount()
+                const mapTypeCounts: Record<number, UserCount> = typeCounts[mapKey] = {
+                    [FarmDropType.Mount]: new UserCount(),
+                    [FarmDropType.Pet]: new UserCount(),
+                    [FarmDropType.Quest]: new UserCount(),
+                    [FarmDropType.Toy]: new UserCount(),
+                    [FarmDropType.Transmog]: new UserCount(),
+                }
+
                 const mapSeen: Record<string, Record<number, boolean>> = {}
 
                 let mapClassMask = 0
@@ -191,6 +200,7 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                             completedCharacterIds: [],
                         }
 
+                        let fixedType = drop.type
                         switch (drop.type) {
                             case FarmDropType.Mount:
                                 if (!userData.hasMountSpell[drop.id] &&
@@ -223,6 +233,7 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                                 if (!userTransmogData.userHas[drop.id]) {
                                     dropStatus.need = true
                                 }
+                                fixedType = FarmDropType.Transmog
                                 break
                         }
 
@@ -248,6 +259,7 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                             }
                             if (mapSeen[drop.type][drop.id] === undefined) {
                                 mapCounts.total++
+                                mapTypeCounts[fixedType].total++
                             }
 
                             if (!dropStatus.need) {
@@ -257,11 +269,15 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                                 }
                                 if (mapSeen[drop.type][drop.id] === undefined) {
                                     mapCounts.have++
+                                    mapTypeCounts[fixedType].have++
                                 }
                             }
 
                             categorySeen[drop.type][drop.id] = true
-                            mapSeen[drop.type][drop.id] = true
+
+                            if (!mapSeen[drop.type][drop.id]) {
+                                mapSeen[drop.type][drop.id] = true
+                            }
                         }
 
                         if (dropStatus.need && !dropStatus.skip) {
@@ -401,6 +417,8 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
         this.update(state => {
             state.data.counts = setCounts
             state.data.farmStatus = farmData
+            state.data.typeCounts = typeCounts
+            console.log(state)
             return state
         })
 
