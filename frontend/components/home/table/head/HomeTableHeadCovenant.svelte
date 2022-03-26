@@ -7,7 +7,9 @@
 
 <style lang="scss">
     td {
+        padding-bottom: 2px;
         text-align: center;
+        vertical-align: bottom;
 
         &.current {
             @include cell-width($width-covenant);

@@ -7,7 +7,7 @@
     thead {
         tr {
             &:first-child {
-                th {
+                td, th {
                     border-top: 1px solid $border-color;
 
                     &:first-child {
@@ -21,7 +21,7 @@
             }
 
             &:last-child {
-                th {
+                td, th {
                     border-bottom: 1px solid $border-color;
                 }
             }
