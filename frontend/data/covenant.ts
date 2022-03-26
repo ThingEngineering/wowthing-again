@@ -63,12 +63,17 @@ export const abominations: [number, number][] = [
 export const soulshapes: [number, string][] = [
     [65010, 'item/187882'], // Alpaca
     [62422, 'item/182165'], // Ardenmoth
+    [65509, 'item/189977'], // Bat
     [65025, 'item/187905'], // Boar
+    [65510, 'item/189980'], // Brutosaur
+    [65640, 'item/190337'], // Cervid
     [65024, 'item/187904'], // Cloud Serpent
     [64651, 'item/182167'], // Cobra
     [62424, 'item/182168'], // Crane
     [63607, 'item/185051'], // Direhorn
+    [65504, 'item/189971'], // Dragonhawk
     [65021, 'item/187901'], // Eagle
+    [65507, 'item/189975'], // Elekk
     [62428, 'item/182172'], // Equine
     [65008, 'item/187880'], // Goat
     [62426, 'item/182170'], // Gryphon
@@ -86,15 +91,19 @@ export const soulshapes: [number, string][] = [
     [62432, 'item/182177'], // Owlcat
     [65009, 'item/187881'], // Ram
     [62433, 'item/182178'], // Raptor
+    [65506, 'item/189973'], // Ray
     [62434, 'item/182179'], // Runestag
     [63605, 'item/185049'], // Saurolisk
+    [65505, 'item/189972'], // Scorpid
     [62431, 'item/182176'], // Shadowstalker
     [63604, 'item/185048'], // Shoveltusk
     [62436, 'item/182185'], // Shrieker
+    [65512, 'item/189982'], // Silithid
     [62420, 'item/181313'], // Snapper
     [63606, 'item/185050'], // Spider
     [65022, 'item/187902'], // Sporebat
     [62435, 'item/182180'], // Stag
+    [65508, 'item/189976'], // Tallstrider
     [62437, 'item/182181'], // Tiger
     [62423, 'item/182166'], // Ursine
     [62425, 'item/182169'], // Veilwing
@@ -106,6 +115,8 @@ export const soulshapes: [number, string][] = [
 
 // [spellId, icon]
 export const crittershapes: [number, string][] = [
+    [65514, 'item/189986'], // Armadillo
+    [65518, 'item/189990'], // Bee
     [64984, 'item/187858'], // Bunny
     [64961, 'item/187819'], // Cat
     [64982, 'item/155858'], // Cat (Well Fed)
@@ -113,12 +124,17 @@ export const crittershapes: [number, string][] = [
     [64938, 'item/158149'], // Corgi
     [64990, 'item/187871'], // Cricket
     [64994, 'item/187877'], // Frog
+    [65513, 'item/189983'], // Gromit
     [64959, 'item/187818'], // Otter
+    [65517, 'item/189989'], // Penguin
+    [65515, 'item/189987'], // Pig
     [64989, 'item/187870'], // Porcupine
     [64992, 'item/187873'], // Prairie Dog
     [64985, 'item/187859'], // Rat
     [64995, 'item/187878'], // Saurid
     [64993, 'item/187876'], // Saurolisk Hatchling
+    [65516, 'item/189988'], // Sheep
+    [65519, 'item/189991'], // Snail
     [64988, 'item/187862'], // Snake
     [65467, 'item/189705'], // Turkey
 ]
