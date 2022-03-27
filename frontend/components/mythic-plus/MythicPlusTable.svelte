@@ -121,7 +121,11 @@
 
             {#each season.orders as order}
                 {#each order as dungeonId}
-                    <RowDungeon {dungeonId} {runsFunc} seasonId={isThisWeek ? 0 : season.id} />
+                    <RowDungeon
+                        seasonId={isThisWeek ? 0 : season.id}
+                        {dungeonId}
+                        {runsFunc}
+                    />
                 {/each}
             {/each}
         {/key}
