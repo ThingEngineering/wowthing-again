@@ -1,8 +1,8 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
-    import type {Character, CharacterWeeklyProgress} from '@/types'
+    import type { Character, CharacterWeeklyProgress } from '@/types'
     import getMythicPlusVaultItemLevel from '@/utils/get-mythic-plus-vault-item-level'
-    import {tippyComponent} from '@/utils/tippy'
+    import { tippyComponent } from '@/utils/tippy'
 
     import TooltipMythicPlusVault from '@/components/tooltips/vault-mythic-plus/TooltipVaultMythicPlus.svelte'
 
