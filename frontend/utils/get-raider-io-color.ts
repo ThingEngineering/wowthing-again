@@ -7,9 +7,11 @@ export default function getRaiderIoColor(
     tiers: StaticDataRaiderIoScoreTiers,
     score: number
 ): string {
-    for (let i = 0; i < tiers.score.length; i++) {
-        if (score >= tiers.score[i]) {
-            return tiers.rgbHex[i]
+    if (tiers) {
+        for (let i = 0; i < tiers.score.length; i++) {
+            if (score >= tiers.score[i]) {
+                return tiers.rgbHex[i]
+            }
         }
     }
     return null

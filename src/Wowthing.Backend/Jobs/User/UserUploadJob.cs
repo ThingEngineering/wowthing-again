@@ -756,25 +756,30 @@ namespace Wowthing.Backend.Jobs.User
                     character.AddonQuests.ProgressQuests = new();
                     foreach (var packedProgress in characterData.ProgressQuests.EmptyIfNull())
                     {
-                        var parts = packedProgress.Split('|', StringSplitOptions.RemoveEmptyEntries);
+                        var progressParts = packedProgress.Split('|', StringSplitOptions.RemoveEmptyEntries);
+                        if (progressParts.Length < 5)
+                        {
+                            Logger.Warning("Invalid progress string: {progress}", packedProgress);
+                            continue;
+                        }
                         
                         var progress = new PlayerCharacterAddonQuestsProgress
                         {
-                            Id = int.Parse(parts[1]),
-                            Name = parts[2],
-                            Status = int.Parse(parts[3]),
-                            Expires = int.Parse(parts[4]),
+                            Id = int.Parse(progressParts[1]),
+                            Name = progressParts[2],
+                            Status = int.Parse(progressParts[3]),
+                            Expires = int.Parse(progressParts[4]),
                         };
 
-                        if (parts.Length > 5)
+                        if (progressParts.Length > 5)
                         {
-                            progress.Have = int.Parse(parts[5]);
-                            progress.Need = int.Parse(parts[6]);
-                            progress.Type = parts[7];
-                            progress.Text = parts[8];
+                            progress.Have = int.Parse(progressParts[5]);
+                            progress.Need = int.Parse(progressParts[6]);
+                            progress.Type = progressParts[7];
+                            progress.Text = progressParts[8];
                         }
 
-                        character.AddonQuests.ProgressQuests[parts[0]] = progress;
+                        character.AddonQuests.ProgressQuests[progressParts[0]] = progress;
                     }
                 }
             }
@@ -865,17 +870,6 @@ namespace Wowthing.Backend.Jobs.User
 
             character.Weekly.KeystoneDungeon = characterData.KeystoneInstance;
             character.Weekly.KeystoneLevel = characterData.KeystoneLevel;
-
-            // Torghast
-            if (characterData.ScanTimes.TryGetValue("torghast", out int torghastScanned) && characterData.Torghast?.Count == 2)
-            {
-                character.Weekly.TorghastScannedAt = torghastScanned.AsUtcDateTime();
-                character.Weekly.Torghast = new();
-                foreach (var wing in characterData.Torghast)
-                {
-                    character.Weekly.Torghast[wing.Name.Truncate(32)] = Math.Max(0, Math.Min(32, wing.Level));
-                } 
-            }
 
             // Vault
             if (characterData.ScanTimes.TryGetValue("vault", out int vaultScanned))

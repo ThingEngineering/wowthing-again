@@ -31,7 +31,6 @@
         {key: 'professions', name: 'Professions'},
         {key: 'restedExperience', name: 'Rested XP'},
         {key: 'statusIcons', name: 'Status icons'},
-        {key: 'torghast', name: 'Torghast'},
         {key: 'vaultMythicPlus', name: 'Vault - Mythic+'},
         {key: 'vaultPvp', name: 'Vault - PvP'},
         {key: 'vaultRaid', name: 'Vault - Raid'},

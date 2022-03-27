@@ -215,12 +215,10 @@ export interface CharacterShadowlandsSoulbind {
 
 interface CharacterWeekly {
     keystoneScannedAt: string
-    torghastScannedAt: string
 
     keystoneDungeon: number
     keystoneLevel: number
 
-    torghast: Record<number, number>
     vault: CharacterWeeklyVault
 }
 

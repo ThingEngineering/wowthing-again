@@ -3,9 +3,11 @@ import type { FarmDropType, FarmIdType, FarmResetType, FarmType } from '@/types/
 
 
 export interface ZoneMapData {
+    sets: ZoneMapDataCategory[][]
+
     counts?: Record<string, UserCount>
     farmStatus?: Record<string, FarmStatus[]>
-    sets: ZoneMapDataCategory[][]
+    typeCounts?: Record<string, Record<FarmDropType, UserCount>>
 }
 
 export interface ZoneMapDataCategory {

@@ -18,7 +18,6 @@
     import RowProgressQuest from './table/row/HomeTableRowProgressQuest.svelte'
     import RowRestedExperience from './table/row/HomeTableRowRestedExperience.svelte'
     import RowStatuses from './table/row/HomeTableRowStatuses.svelte'
-    import RowTorghast from './table/row/HomeTableRowTorghast.svelte'
     import RowVaultMythicPlus from '@/components/character-table/row/VaultMythicPlus.svelte'
     import RowVaultPvp from '@/components/character-table/row/VaultPvp.svelte'
     import RowVaultRaid from '@/components/character-table/row/VaultRaid.svelte'
@@ -84,9 +83,6 @@
 
             {:else if field === 'statusIcons'}
                 <RowStatuses />
-
-            {:else if field === 'torghast'}
-                <RowTorghast {character} />
 
             {:else if field === 'vaultMythicPlus'}
                 <RowVaultMythicPlus {character} />

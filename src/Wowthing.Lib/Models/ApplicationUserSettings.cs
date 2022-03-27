@@ -80,7 +80,6 @@ namespace Wowthing.Lib.Models
             "professions",
             "restedExperience",
             "statusIcons",
-            "torghast",
             "vaultMythicPlus",
             "vaultPvp",
             "vaultRaid",

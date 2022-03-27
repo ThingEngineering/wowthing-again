@@ -12,7 +12,6 @@
     import HeadLockouts from './head/HomeTableHeadLockouts.svelte'
     import HeadMount from './head/HomeTableHeadMount.svelte'
     import HeadMythicPlusScore from './head/HomeTableHeadMythicPlusScore.svelte'
-    import HeadTorghast from './head/HomeTableHeadTorghast.svelte'
     import RowGold from './row/HomeTableRowGold.svelte'
     import RowPlayedTime from './row/HomeTableRowPlayedTime.svelte'
     import SpacerRow from '@/components/character-table/CharacterTableSpacerRow.svelte'
@@ -85,9 +84,6 @@
             {#if !isPublic}
                 <td>Rest</td>
             {/if}
-
-        {:else if field === 'torghast'}
-            <HeadTorghast />
 
         {:else if field === 'vaultMythicPlus'}
             <td>M+ Vault</td>

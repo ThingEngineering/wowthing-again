@@ -15,6 +15,7 @@
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
+    import HeadCovenant from '@/components/home/table/head/HomeTableHeadCovenant.svelte'
     import HeadProgress from './ProgressTableHead.svelte'
     import RowCovenant from '@/components/home/table/row/HomeTableRowCovenant.svelte'
     import RowProgress from './ProgressTableBody.svelte'
@@ -99,7 +100,7 @@
     <CharacterTableHead slot="head">
         {#key slug}
             {#if slug === 'shadowlands'}
-                <th></th>
+                <HeadCovenant />
             {/if}
 
             <th class="spacer"></th>

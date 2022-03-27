@@ -72,6 +72,9 @@
         padding: 1rem 0.75rem;
         width: 100%;
     }
+    table {
+        width: 100%;
+    }
     form {
         display: flex;
         gap: 0.5rem;
@@ -107,19 +110,25 @@
 
         padding: 0.2rem $width-padding;
         text-align: left;
+        width: 100%;
     }
     .name {
-        @include cell-width($width-name);
+        @include cell-width(5rem);
+
+        padding-right: 1rem;
+        white-space: nowrap;
 
         a {
             text-decoration: underline;
         }
     }
     .realm {
-        @include cell-width($width-realm);
+        @include cell-width(7rem);
+
+        white-space: nowrap;
     }
     .location {
-        @include cell-width($width-item-location);
+        @include cell-width($width-item-location, $paddingLeft: 1rem);
     }
     .count {
         @include cell-width($width-item-count);
@@ -195,7 +204,7 @@
                                     </a>
                                 </td>
                                 <td class="realm">
-                                    &ndash; {$userStore.data.characterMap[characterItem.characterId].realm.name}
+                                    {$userStore.data.characterMap[characterItem.characterId].realm.name}
                                 </td>
                                 <td class="location">
                                     {ItemLocation[characterItem.location]}

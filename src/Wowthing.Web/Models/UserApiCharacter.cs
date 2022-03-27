@@ -277,18 +277,14 @@ namespace Wowthing.Web.Models
     public class UserApiCharacterWeekly
     {
         public DateTime KeystoneScannedAt { get; set; }
-        public DateTime TorghastScannedAt { get; set; }
         public DateTime UghQuestsScannedAt { get; set; }
 
         public int KeystoneDungeon { get; set; }
         public int KeystoneLevel { get; set; }
-        public Dictionary<string, int> Torghast { get; set; }
         public PlayerCharacterWeeklyVault Vault { get; set; }
 
         public UserApiCharacterWeekly(PlayerCharacterWeekly weekly, bool pub, ApplicationUserSettingsPrivacy privacy)
         {
-            Torghast = weekly.Torghast;
-            TorghastScannedAt = weekly.TorghastScannedAt;
             Vault = weekly.Vault;
 
             if (!pub || privacy?.PublicMythicPlus == true)
