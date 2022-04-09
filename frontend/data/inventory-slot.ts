@@ -94,4 +94,5 @@ interface SpecialValidEnchant {
 
 export const gemBonusIds: number[] = [
     7576, // ??
+    7580, // SL Season 3?
 ]
