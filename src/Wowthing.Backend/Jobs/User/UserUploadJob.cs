@@ -866,10 +866,9 @@ namespace Wowthing.Backend.Jobs.User
             if (characterData.ScanTimes.TryGetValue("bags", out int bagsScanned))
             {
                 character.Weekly.KeystoneScannedAt = bagsScanned.AsUtcDateTime();
+                character.Weekly.KeystoneDungeon = characterData.KeystoneInstance;
+                character.Weekly.KeystoneLevel = characterData.KeystoneLevel;
             }
-
-            character.Weekly.KeystoneDungeon = characterData.KeystoneInstance;
-            character.Weekly.KeystoneLevel = characterData.KeystoneLevel;
 
             // Vault
             if (characterData.ScanTimes.TryGetValue("vault", out int vaultScanned))
