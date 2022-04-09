@@ -59,6 +59,7 @@ groups:
 
 - name: "Zereth Mortis"
   things:
+  - 183277 # Ambystan Snapper
   - 183281 # Aurelid Floater
   - 182876 # Bloodsucker Vespoid
   - 181362 # Bufonid Croaker

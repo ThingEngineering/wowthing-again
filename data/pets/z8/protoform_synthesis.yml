@@ -4,7 +4,6 @@ groups:
 - name: "Axolotl"
   things:
   - 184183 # Ambystan Darter
-  - 183277 # Ambystan Snapper
   - 182264 # Archetype of Metamorphosis
 
 - name: "Chicken"
