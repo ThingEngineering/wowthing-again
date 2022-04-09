@@ -16,6 +16,11 @@ groups:
   things:
   - 183900 # Sinvyr Tea Set (Court of Harvesters, Honored)
 
+- name: Enlightened
+  things:
+  - 190237 # Broker Translocation Matrix (Exalted)
+  - 190177 # Sphere of Enlightened Cogitation (Paragon)
+
 - name: Undying Army
   things:
   - 184495 # Infested Arachnid Casing (Undying Army, Paragon)

@@ -39,3 +39,8 @@ groups:
   - 187051 # Forgotten Feather (Forgotten Feather, Korthia) treasure
   - 187344 # Offering Kit Maker (Offering Box, Korthia) treasure
   - 187339 # Silver Shardhide Whistle (Dislodged Nest, Korthia) treasure
+
+- name: Zereth Mortis
+  things:
+  - 190734 # Makaris's Satchel of Mines
+  - 190457 # Protopological Cube
