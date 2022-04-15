@@ -299,6 +299,7 @@ namespace Wowthing.Web.Controllers
 
             // Privacy checks
             characterQuery = characterQuery
+                .Include(c => c.AddonData)
                 .Include(c => c.EquippedItems)
                 .Include(c => c.Professions)
                 .Include(c => c.Reputations)
@@ -415,7 +416,9 @@ namespace Wowthing.Web.Controllers
             var apiData = new UserApi
             {
                 Accounts = accounts.ToDictionary(k => k.Id, v => new UserApiAccount(v)),
-                Characters = characters.Select(character => new UserApiCharacter(character, apiResult.Public, apiResult.Privacy)).ToList(),
+                Characters = characters
+                    .Select(character => new UserApiCharacter(character, apiResult.Public, apiResult.Privacy))
+                    .ToList(),
                 
                 Backgrounds = backgrounds,
                 CurrentPeriod = currentPeriods,

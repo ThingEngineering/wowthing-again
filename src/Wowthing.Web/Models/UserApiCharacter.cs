@@ -30,11 +30,12 @@ namespace Wowthing.Web.Models
         public WowMountSkill MountSkill { get; set; }
 
         public List<UserApiCharacterCurrency> CurrenciesRaw { get; }
-        public Dictionary<int, UserApiCharacterEquippedItem> EquippedItems { get; set; } = new Dictionary<int, UserApiCharacterEquippedItem>();
+        public Dictionary<int, UserApiCharacterEquippedItem> EquippedItems { get; } = new();
+        public Dictionary<int, Dictionary<int, List<int>>> GarrisonTrees { get; }
         public Dictionary<string, PlayerCharacterLockoutsLockout> Lockouts { get; }
         public UserApiCharacterMythicPlus MythicPlus { get; }
         public PlayerCharacterMythicPlusAddon MythicPlusAddon { get; }
-        public Dictionary<int, Dictionary<int, PlayerCharacterProfessionTier>> Professions { get; set; }
+        public Dictionary<int, Dictionary<int, PlayerCharacterProfessionTier>> Professions { get; }
         public Dictionary<int, PlayerCharacterRaiderIoSeasonScores> RaiderIo { get; }
         public Dictionary<int, PlayerCharacterReputationsParagon> Paragons { get; }
         public Dictionary<int, int> Reputations { get; } = new();
@@ -97,6 +98,8 @@ namespace Wowthing.Web.Models
                 RestedExperience = character.RestedExperience;
             }
 
+            GarrisonTrees = character.AddonData?.GarrisonTrees;
+            
             if (character.EquippedItems?.Items != null)
             {
                 EquippedItems = character.EquippedItems.Items
