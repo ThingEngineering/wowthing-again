@@ -10,7 +10,6 @@
     let counts: UserCount
     $: {
         counts = $zoneMapStore.data.typeCounts[key][type]
-        console.log(counts, key)
     }
 </script>
 
