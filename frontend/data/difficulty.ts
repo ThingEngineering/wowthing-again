@@ -47,3 +47,12 @@ export const journalDifficultyOrder: number[] = [
     16, // Raid Mythic
     33, // Raid Timewalking
 ]
+
+export const lockoutDifficultyOrder: number[] = [
+    16, // Raid Mythic
+    15, // Raid Heroic
+    14, // Raid Normal
+    17, // Raid LFR
+
+    0, // World Boss
+]
