@@ -162,6 +162,11 @@ div.content {
     word-spacing: -0.2ch;
 }
 
+.background-box {
+    background-color: $highlight-background;
+    border: 1px solid $border-color;
+    border-radius: $border-radius-small;
+}
 .pill {
     background-color: $highlight-background;
     border: 1px solid $border-color;
