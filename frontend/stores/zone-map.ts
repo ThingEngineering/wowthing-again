@@ -418,7 +418,6 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
             state.data.counts = setCounts
             state.data.farmStatus = farmData
             state.data.typeCounts = typeCounts
-            console.log(state)
             return state
         })
 

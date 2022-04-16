@@ -1,14 +1,14 @@
-$body-background:          #121314;
+$body-background:          #101112;
 $body-text:                #ffffff;
 $link-color:               #44ddff;
 
-$border-color:             #5b5d5f;
+$border-color:             #58595a;
 $border-radius-large:      8px;
 $border-radius:            5px;
 $border-radius-small:      3px;
 
 $header-footer-background: #2c2d2e;
-$thing-background:         #1d1e1f;
+$thing-background:         #1a1b1c;
 $highlight-background:     #04080f;
 $active-background:        mix($thing-background, #0088ff, 80%);
 $collection-background:    $highlight-background;
@@ -37,7 +37,7 @@ $sidebar-sub-link-color:   #c1c2e3;
 
 $table-bg:                  $thing-background;
 $table-striped-bg:          lighten($table-bg, 3%);
-$table-alt-bg:              #0018209f;
+$table-alt-bg:              #00151d9f;
 $table-striped-alt-bg:      lighten($table-alt-bg, 3%);
 
 $width-callings:            4.6rem;

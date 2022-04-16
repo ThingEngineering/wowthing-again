@@ -1,6 +1,7 @@
 <script lang="ts">
     import sortBy from 'lodash/sortBy'
 
+    import { lockoutDifficultyOrder } from '@/data/difficulty'
     import { staticStore, userStore } from '@/stores'
     import { data as settingsData } from '@/stores/settings'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
@@ -32,12 +33,13 @@
                     return 'z'
                 }
 
-                const foo = [
+                const orderIndex = lockoutDifficultyOrder.indexOf(diff.difficulty.id)
+                return [
                     toDigits(100 - instance.expansion, 2),
+                    toDigits(orderIndex >= 0 ? orderIndex : 99, 2),
                     instance.shortName,
                     diff.difficulty.shortName,
                 ].join('|')
-                return foo
             }
         )
     }

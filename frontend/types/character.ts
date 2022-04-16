@@ -34,6 +34,7 @@ export interface Character {
 
     currenciesRaw: CharacterCurrencyArray[]
     equippedItems: Record<number, CharacterEquippedItem>
+    garrisonTrees: Record<number, Record<number, number[]>>
     lockouts: Record<string, CharacterLockout>
     mythicPlus: CharacterMythicPlus
     mythicPlusAddon: CharacterMythicPlusAddon

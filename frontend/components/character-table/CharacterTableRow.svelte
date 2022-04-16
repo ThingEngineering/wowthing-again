@@ -59,6 +59,7 @@
         class="faction{character.faction}"
         class:inactive={!accountEnabled}
         class:last-of-group={last}
+        data-id="{character.id}"
     >
         {#if intersected}
             {#each $settings.layout.commonFields as field}

@@ -20,6 +20,7 @@
         public List<UploadCharacterCalling> Callings { get; set; }
         public List<UploadCharacterCovenant> Covenants { get; set; }
         public Dictionary<short, string> Currencies { get; set; }
+        public Dictionary<string, string[]> GarrisonTrees { get; set; }
         public Dictionary<string, Dictionary<string, string>> Items { get; set; }
         public List<UploadCharacterLockout> Lockouts { get; set; }
         public List<int> Mounts { get; set; }

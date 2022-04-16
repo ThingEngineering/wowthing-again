@@ -1,4 +1,5 @@
 ﻿using Wowthing.Backend.Converters;
+using Wowthing.Backend.Data;
 
 namespace Wowthing.Backend.Models.Data
 {
@@ -14,7 +15,8 @@ namespace Wowthing.Backend.Models.Data
             get
             {
                 // lookup thing
-                string shortName = _shortNameOverride.GetValueOrDefault(Name) ?? string.Join("", Name.Split().Where(w => w.ToLowerInvariant() != "the").Select(w => w[0]));
+                string shortName = Hardcoded.InstanceShortNameOverride
+                    .GetValueOrDefault(Name) ?? string.Join("", Name.Split().Where(w => w.ToLowerInvariant() != "the").Select(w => w[0]));
                 return shortName;
             }
         }
@@ -25,13 +27,5 @@ namespace Wowthing.Backend.Models.Data
             Id = instanceId;
             Name = map.Name;
         }
-
-        private static Dictionary<string, string> _shortNameOverride = new()
-        {
-            { "Atal'Dazar", "AD" },
-            { "Plaguefall", "PF" },
-            { "The Underrot", "UR" },
-            { "Uldir", "Uld" },
-        };
     }
 }
