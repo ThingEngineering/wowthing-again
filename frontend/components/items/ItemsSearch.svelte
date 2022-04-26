@@ -97,6 +97,8 @@
     table {
         display: inline-block;
         margin-bottom: 0.5rem;
+
+        --padding: 2;
     }
     .item-row {
         th {

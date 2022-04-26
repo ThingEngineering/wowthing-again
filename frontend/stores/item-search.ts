@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store'
 
 import { ItemLocation } from '@/types/enums'
-import type { ItemSearchResponseItem } from '@/types/items'
+import type { ItemSearchResponseCharacter, ItemSearchResponseItem } from '@/types/items'
 
 
 export class ItemSearchState {
@@ -30,8 +30,36 @@ export class ItemSearchState {
         })
 
         if (response.ok) {
-            const json = await response.json()
-            return json as ItemSearchResponseItem[]
+            const result = await response.json() as ItemSearchResponseItem[]
+
+            for (const item of result) {
+                const itemMap: Record<string, ItemSearchResponseCharacter[]> = {}
+                for (const character of item.characters) {
+                    const key = [
+                        character.characterId,
+                        character.location,
+                        character.quality,
+                        character.itemLevel,
+                        character.bonusIds.join(':'),
+                    ].join('|')
+
+                    if (!itemMap[key]) {
+                        itemMap[key] = []
+                    }
+                    itemMap[key].push(character)
+                }
+
+                const newCharacters: ItemSearchResponseCharacter[] = []
+                for (const key of Object.keys(itemMap)) {
+                    const character = itemMap[key][0]
+                    character.count = itemMap[key].reduce((a: number, b) => a + b.count, 0)
+                    newCharacters.push(character)
+                }
+
+                item.characters = newCharacters
+            }
+
+            return result
         }
     }
 

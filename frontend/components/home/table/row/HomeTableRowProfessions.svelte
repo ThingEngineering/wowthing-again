@@ -45,6 +45,7 @@
         width: 100%;
     }
     .profession {
+        align-items: center;
         display: flex;
         justify-content: space-between;
 

@@ -1,12 +1,14 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
-    import { data as settings } from '@/stores/settings'
     import { userStore } from '@/stores'
+    import { homeState } from '@/stores/local-storage'
+    import { data as settings } from '@/stores/settings'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import GroupHead from './table/HomeTableGroupHead.svelte'
     import RowCallings from './table/row/HomeTableRowCallings.svelte'
     import RowCovenant from './table/row/HomeTableRowCovenant.svelte'
+    import RowGear from './table/row/HomeTableRowGear.svelte'
     import RowGold from './table/row/HomeTableRowGold.svelte'
     import RowItemLevel from '@/components/character-table/row/ItemLevel.svelte'
     import RowKeystone from '@/components/character-table/row/Keystone.svelte'
@@ -36,24 +38,37 @@
     <svelte:fragment slot="rowExtra" let:character>
         {#each $settings.layout.homeFields as field}
             {#if field === 'callings'}
-                <RowCallings {character} />
+                {#if !$homeState.onlyWeekly}
+                    <RowCallings {character} />
+                {/if}
 
             {:else if field === 'covenant'}
-                <RowCovenant {character} />
+                {#if !$homeState.onlyWeekly}
+                    <RowCovenant {character} />
+                {/if}
+
+            {:else if field === 'gear'}
+                {#if !isPublic && !$homeState.onlyWeekly}
+                    <RowGear {character} />
+                {/if}
 
             {:else if field === 'gold'}
-                {#if !isPublic}
+                {#if !isPublic && !$homeState.onlyWeekly}
                     <RowGold gold={character.gold} />
                 {/if}
 
             {:else if field === 'itemLevel'}
-                <RowItemLevel />
+                {#if !$homeState.onlyWeekly}
+                    <RowItemLevel />
+                {/if}
 
             {:else if field === 'mountSpeed'}
-                <RowMountSpeed />
+                {#if !$homeState.onlyWeekly}
+                    <RowMountSpeed />
+                {/if}
 
             {:else if field === 'keystone'}
-                {#if !isPublic || $settings.privacy.publicMythicPlus}
+                {#if (!isPublic || $settings.privacy.publicMythicPlus) && !$homeState.onlyWeekly}
                     <RowKeystone {character} />
                 {/if}
 
@@ -63,26 +78,32 @@
                 {/if}
 
             {:else if field === 'mythicPlusScore'}
-                <RowMythicPlusScore
-                    seasonId={Constants.mythicPlusSeason}
-                    {character}
-                />
+                {#if !$homeState.onlyWeekly}
+                    <RowMythicPlusScore
+                        seasonId={Constants.mythicPlusSeason}
+                        {character}
+                    />
+                {/if}
 
             {:else if field === 'playedTime'}
-                {#if !isPublic}
+                {#if !isPublic && !$homeState.onlyWeekly}
                     <RowPlayedTime playedTotal={character.playedTotal} />
                 {/if}
 
             {:else if field === 'professions'}
-                <RowProfessions {character} />
+                {#if !$homeState.onlyWeekly}
+                    <RowProfessions {character} />
+                {/if}
 
             {:else if field === 'restedExperience'}
-                {#if !isPublic}
+                {#if !isPublic && !$homeState.onlyWeekly}
                     <RowRestedExperience {character} />
                 {/if}
 
             {:else if field === 'statusIcons'}
-                <RowStatuses />
+                {#if !$homeState.onlyWeekly}
+                    <RowStatuses />
+                {/if}
 
             {:else if field === 'vaultMythicPlus'}
                 <RowVaultMythicPlus {character} />
