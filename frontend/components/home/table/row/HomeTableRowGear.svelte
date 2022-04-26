@@ -2,7 +2,6 @@
     import { Constants } from '@/data/constants'
     import { setItems } from '@/data/gear'
     import { classUnity, legendaryBonusIDs } from '@/data/legendary'
-    import { getItemUrl } from '@/utils/get-item-url'
     import type { Character } from '@/types'
 
     import WowheadLink from '@/components/links/WowheadLink.svelte'

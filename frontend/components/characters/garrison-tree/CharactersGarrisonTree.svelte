@@ -7,7 +7,7 @@
     export let character: Character
     export let tree: GarrisonTree
 
-    let status: Record<number, nunber[]>
+    let status: Record<number, number[]>
     $: {
         status = character.garrisonTrees?.[tree.id]
         console.log({tree, status})
