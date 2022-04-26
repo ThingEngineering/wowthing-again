@@ -9,8 +9,8 @@ core
 .vs/
 
 # Generated stuff
-bin/
-obj/
+src/**/bin/
+src/**/obj/
 node_modules/
 src/Wowthing.Web/wwwroot/dist/
 .eslintcache
