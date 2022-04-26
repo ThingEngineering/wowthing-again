@@ -47,28 +47,20 @@
         @include cell-width($width-callings);
 
         border-left: 1px solid $border-color;
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: space-between;
-    }
-    .complete {
-        color: $colour-success;
-    }
-    .incomplete {
-        color: $colour-fail;
     }
 </style>
 
 <td>
     {#if character.level === Constants.characterMaxLevel}
-        {#each callings as calling}
-            <span class="{calling ? 'complete' : 'incomplete'}">
+        <div class="flex-wrapper">
+            {#each callings as calling}
                 <IconifyIcon
+                    extraClass="{calling ? 'status-success' : 'status-fail'}"
                     icon={calling ? iconStrings.yes : iconStrings.no}
-                    scale="1.1"
+                    scale="0.91"
                 />
-            </span>
-        {/each}
+            {/each}
+        </div>
     {:else}
         &nbsp;
     {/if}

@@ -70,6 +70,7 @@ namespace Wowthing.Lib.Models
         {
             "callings",
             "covenant",
+            "gear",
             "gold",
             "itemLevel",
             "keystone",

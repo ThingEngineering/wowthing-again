@@ -21,6 +21,7 @@
     const homeChoices: SettingsChoice[] = [
         {key: 'callings', name: 'Callings'},
         {key: 'covenant', name: 'Covenant'},
+        {key: 'gear', name: 'Gear'},
         {key: 'gold', name: 'Gold'},
         {key: 'itemLevel', name: 'Item level'},
         {key: 'lockouts', name: 'Lockouts'},

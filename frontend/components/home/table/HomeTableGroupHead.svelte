@@ -2,11 +2,13 @@
     import sumBy from 'lodash/sumBy'
 
     import { progressQuestHead } from '@/data/quests'
-    import { data as settings } from '@/stores/settings'
     import { userStore } from '@/stores'
+    import { homeState } from '@/stores/local-storage'
+    import { data as settings } from '@/stores/settings'
     import tippy from '@/utils/tippy'
     import type {Character} from '@/types'
 
+    import Checkbox from '@/components/forms/CheckboxInput.svelte'
     import HeadCallings from './head/HomeTableHeadCallings.svelte'
     import HeadCovenant from './head/HomeTableHeadCovenant.svelte'
     import HeadLockouts from './head/HomeTableHeadLockouts.svelte'
@@ -19,45 +21,71 @@
     export let group: Character[]
     export let groupIndex: number
 
+    let commonSpan: number
     let gold: number
     let isPublic: boolean
     let playedTotal: number
     $: {
         isPublic = $userStore.data.public
 
+        commonSpan = $settings.layout.commonFields
+            .filter(field => !(field === 'accountTag' && !userStore.useAccountTags))
+            .length
+
         gold = sumBy(group, (c: Character) => c.gold)
         playedTotal = sumBy(group, (c: Character) => c.playedTotal)
     }
 </script>
+
+<style lang="scss">
+    .only-weekly {
+        text-align: left;
+    }
+    tr :global(td:not(:first-child)) {
+        border-left: 1px solid $border-color;
+    }
+</style>
 
 {#if groupIndex > 0}
     <SpacerRow />
 {/if}
 
 <tr class="table-group-head">
-    {#each $settings.layout.commonFields as field}
-        {#if !(field === 'accountTag' && !userStore.useAccountTags)}
-            <td></td>
-        {/if}
-    {/each}
+    <td class="only-weekly" colspan="{commonSpan}">
+        <Checkbox
+            name="only_weekly"
+            bind:value={$homeState.onlyWeekly}
+        >Only weekly</Checkbox>
+    </td>
 
     {#each $settings.layout.homeFields as field}
         {#if field === 'callings'}
-            <HeadCallings />
+            {#if !$homeState.onlyWeekly}
+                <HeadCallings />
+            {/if}
 
         {:else if field === 'covenant'}
-            <HeadCovenant />
+            {#if !$homeState.onlyWeekly}
+                <HeadCovenant />
+            {/if}
+
+        {:else if field === 'gear'}
+            {#if !$homeState.onlyWeekly}
+                <td>Gear</td>
+            {/if}
 
         {:else if field === 'gold'}
-            {#if !isPublic}
+            {#if !isPublic && !$homeState.onlyWeekly}
                 <RowGold {gold} />
             {/if}
 
         {:else if field === 'itemLevel'}
-            <td use:tippy={'Item Level'}>ilvl</td>
+            {#if !$homeState.onlyWeekly}
+                <td use:tippy={'Item Level'}>ilvl</td>
+            {/if}
 
         {:else if field === 'keystone'}
-            {#if !isPublic || $settings.privacy.publicMythicPlus}
+            {#if (!isPublic || $settings.privacy.publicMythicPlus) && !$homeState.onlyWeekly}
                 <td>Keystone</td>
             {/if}
 
@@ -67,21 +95,27 @@
             {/if}
 
         {:else if field === 'mountSpeed'}
-            <HeadMount />
+            {#if !$homeState.onlyWeekly}
+                <HeadMount />
+            {/if}
 
         {:else if field === 'mythicPlusScore'}
-            <HeadMythicPlusScore />
+            {#if !$homeState.onlyWeekly}
+                <HeadMythicPlusScore />
+            {/if}
 
         {:else if field === 'playedTime'}
-            {#if !isPublic}
+            {#if !isPublic && !$homeState.onlyWeekly}
                 <RowPlayedTime {playedTotal} />
             {/if}
 
         {:else if field === 'professions'}
-            <td>Professions</td>
+            {#if !$homeState.onlyWeekly}
+                <td>Professions</td>
+            {/if}
 
         {:else if field === 'restedExperience'}
-            {#if !isPublic}
+            {#if !isPublic && !$homeState.onlyWeekly}
                 <td>Rest</td>
             {/if}
 

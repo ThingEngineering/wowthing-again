@@ -1,4 +1,5 @@
 ﻿using System.Net.Mime;
+using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
@@ -116,8 +117,9 @@ namespace Wowthing.Web.Controllers
                 .Where(pci => pci.Character.Account.UserId == user.Id)
                 .Where(pci => itemIds.Contains(pci.ItemId))
                 .ToArrayAsync();
-
-            var ret = characterItems.GroupBy(pci => pci.ItemId)
+            
+            var ret = characterItems
+                .GroupBy(pci => pci.ItemId)
                 .Select(group => new ItemSearchResponseItem
                 {
                     ItemId = group.Key,
