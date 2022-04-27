@@ -15,15 +15,14 @@
     export let quest: string
 
     let progressQuest: UserQuestDataCharacterProgress
-    let status = ''
-    let text = ''
-    let title = ''
-    let valid = true
+    let status: string
+    let text: string
+    let title: string
+    let valid: boolean
     $: {
-        if (character.level < Constants.characterMaxLevel) {
-            valid = false
-        }
-        else {
+        valid = false
+        if (character.level === Constants.characterMaxLevel) {
+            valid = true
             title = progressQuestTitle[quest]
 
             if (quest === 'weeklyAnima' || quest === 'weeklySouls') {
@@ -41,7 +40,6 @@
             if (progressQuest) {
                 const expires: DateTime = DateTime.fromSeconds(progressQuest.expires)
 
-                valid = true
                 //const resetTime = getNextWeeklyReset(character.weekly.ughQuestsScannedAt, character.realm.region)
                 if (forcedReset[quest]) {
                     // quest always resets even if incomplete
@@ -79,7 +77,7 @@
                 }
             }
 
-            if (status === '') {
+            if (status === undefined) {
                 status = 'fail'
                 text = 'Get!'
             }
