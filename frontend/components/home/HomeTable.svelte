@@ -48,7 +48,7 @@
                 {/if}
 
             {:else if field === 'gear'}
-                {#if !isPublic && !$homeState.onlyWeekly}
+                {#if !$homeState.onlyWeekly}
                     <RowGear {character} />
                 {/if}
 
