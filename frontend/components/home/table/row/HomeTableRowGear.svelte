@@ -57,9 +57,15 @@
 
         border-left: 1px solid $border-color;
     }
+    .flex-wrapper {
+        margin-top: -2px;
+    }
     span {
         &:not(:last-child) {
             width: 3rem;
+        }
+        &:last-child {
+            word-spacing: -0.1ch;
         }
 
         :global(img) {
@@ -71,19 +77,19 @@
 <td>
     {#if character.level === Constants.characterMaxLevel}
         <div class="flex-wrapper">
-            {#each legendaries as legendary}
-                {#if legendary[0] > 0}
-                    <span class="quality5">
+            {#each legendaries as [itemLevel, spellId]}
+                {#if itemLevel > 0}
+                    <span>
                         <WowheadLink
                             type="spell"
-                            id={legendary[1]}
+                            id={spellId}
                         >
                             <WowthingImage
-                                name="spell/{legendary[1]}"
+                                name="spell/{spellId}"
                                 size={20}
                                 border={1}
                             />
-                            {legendary[0]}
+                            {itemLevel}
                         </WowheadLink>
                     </span>
                 {:else}
