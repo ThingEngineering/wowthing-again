@@ -52,17 +52,25 @@
     td {
         @include cell-width($width-home-gear);
 
-        --image-margin-top: 0;
+        //--image-margin-top: 0;
         --link-color: #{ $quality5-color };
 
         border-left: 1px solid $border-color;
     }
     .flex-wrapper {
-        margin-top: -2px;
+        --image-margin-top: -2px !important;
+
+        height: 24px;
     }
     span {
+        &.status-fail {
+            :global(img) {
+                margin-right: 7px;
+            }
+        }
+
         &:not(:last-child) {
-            width: 3rem;
+            width: 3.6rem;
         }
         &:last-child {
             word-spacing: -0.1ch;
@@ -99,7 +107,7 @@
                             size={20}
                             border={1}
                         />
-                        ----
+                        &mdash;
                     </span>
                 {/if}
             {/each}
