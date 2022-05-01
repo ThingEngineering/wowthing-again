@@ -1,21 +1,30 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
-    import { setItems } from '@/data/gear'
+    import { currentSetItems, currentSetLookup } from '@/data/gear'
     import { classUnity, legendaryBonusIDs } from '@/data/legendary'
+    import { tippyComponent } from '@/utils/tippy'
     import type { Character } from '@/types'
 
+    import Tooltip from '@/components/tooltips/tier-set/TooltipTierSet.svelte'
     import WowheadLink from '@/components/links/WowheadLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
 
     let legendaries: [number, number][]
-    let tierPieces: number
-    $: {
+    let tierCount: number
+    let tierPieces: [string, number][]
+    $:
+    {
         legendaries = [[0, 0], [0, 0]]
-        tierPieces = 0
+        tierCount = 0
 
         if (character.equippedItems) {
+            const tierPieceMap: Record<string, number> = {}
+            for (const [tierSlot, ] of currentSetItems) {
+                tierPieceMap[tierSlot] = 0
+            }
+
             for (const slot in character.equippedItems) {
                 const item = character.equippedItems[slot]
 
@@ -40,10 +49,17 @@
                         }
                     }
                 }
-                else if (setItems.indexOf(item.itemId) >= 0) {
-                    tierPieces++
+                else {
+                    const tierSlot = currentSetLookup[item.itemId]
+                    if (tierSlot) {
+                        tierCount++
+                        tierPieceMap[tierSlot] = item.itemLevel
+                    }
                 }
             }
+
+            tierPieces = currentSetItems
+                .map(([tierSlot, itemIds]) => [tierSlot, tierPieceMap[tierSlot]])
         }
     }
 </script>
@@ -113,9 +129,13 @@
             {/each}
 
             <span
-                class:status-shrug={tierPieces >= 2 && tierPieces < 4}
-                class:status-success={tierPieces >= 4}
-            >{tierPieces} pc</span>
+                class:status-shrug={tierCount >= 2 && tierCount < 4}
+                class:status-success={tierCount >= 4}
+                use:tippyComponent={{
+                    component: Tooltip,
+                    props: {character, tierPieces},
+                }}
+            >{tierCount} pc</span>
         </div>
     {/if}
 </td>
