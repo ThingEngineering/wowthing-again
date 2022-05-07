@@ -70,7 +70,7 @@ You're going to need API credentials:
       characters"
     - Click `SAVE`
 1. Clone the repository using whatever Git client you feel like using, I like [Fork](https://git-fork.com/)
-1. Create a `.dev` file in the root directory with values from your Battle.Net API Client:
+1. Create a `.env` file in the root directory (at the same level than the `docker-compose.yml` file) with values from your Battle.Net API Client:
     ```
     BattleNet__ClientID=abcdefg
     BattleNet__ClientSecret=t0ps3cr3tk3y
