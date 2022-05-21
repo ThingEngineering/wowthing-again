@@ -51,9 +51,9 @@ export const weeklyAffixes: MythicPlusAffix[][] = [
     ['Tyrannical', 'Sanguine', 'Storming'],
     ['Fortified', 'Raging', 'Explosive'],
     ['Tyrannical', 'Bursting', 'Volcanic'],
-    ['Fortified', 'Spiteful', 'Grievous'],
+    ['Fortified', 'Spiteful', 'Necrotic'],
     ['Tyrannical', 'Inspiring', 'Quaking'],
-    ['Fortified', 'Sanguine', 'Necrotic'],
+    ['Fortified', 'Sanguine', 'Grievous'],
     ['Tyrannical', 'Bolstering', 'Explosive'],
 ].map((arr) => arr.map((affix) => affixNameMap[affix]))
 
