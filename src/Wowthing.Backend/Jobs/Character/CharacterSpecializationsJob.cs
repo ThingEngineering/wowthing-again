@@ -36,6 +36,7 @@ namespace Wowthing.Backend.Jobs.Character
 
             // Parse API data
             specs.Specializations = result.Data.Specializations
+                .EmptyIfNull()
                 .ToDictionary(
                     spec => spec.Specialization.Id,
                     spec => new PlayerCharacterSpecializationsSpecialization

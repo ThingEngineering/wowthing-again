@@ -6,7 +6,7 @@
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let group: StaticDataProgressGroup
-    export let slug: string
+    export let slugKey: string
     export let sortKey: string
     export let sortingBy: boolean
 
@@ -14,7 +14,7 @@
     $: {
         onClick = function(event: Event) {
             event.preventDefault()
-            $progressState.sortOrder[slug] = sortingBy ? null : sortKey
+            $progressState.sortOrder[slugKey] = sortingBy ? null : sortKey
         }
     }
 </script>
@@ -36,6 +36,10 @@
             border-radius: $border-radius;
         }
     }
+
+    .pill {
+        bottom: 4px;
+    }
 </style>
 
 <th
@@ -50,5 +54,9 @@
 
     {#if sortingBy}
         <TableSortedBy />
+    {/if}
+
+    {#if group.iconText}
+        <span class="pill">{group.iconText}</span>
     {/if}
 </th>

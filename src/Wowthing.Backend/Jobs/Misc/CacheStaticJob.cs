@@ -46,7 +46,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
-            Version = 37,
+            Version = 38,
         };
 
         public override async Task Run(params string[] data)
@@ -491,12 +491,37 @@ namespace Wowthing.Backend.Jobs.Misc
             var journalInstances = await DataUtilities.LoadDumpCsvAsync<DumpJournalInstance>("journalinstance");
             var mapIdToInstanceId = journalInstances
                 .GroupBy(instance => instance.MapID)
-                .ToDictionary(k => k.Key, v => v.OrderByDescending(instance => instance.OrderIndex).First().ID);
+                .ToDictionary(
+                    k => k.Key,
+                    v => v.OrderByDescending(instance => instance.OrderIndex)
+                        .First()
+                        .ID
+                );
 
-            var maps = await DataUtilities.LoadDumpCsvAsync<DumpMap>("map");
+            var mapsById = (await DataUtilities.LoadDumpCsvAsync<DumpMap>("map"))
+                .ToDictionary(map => map.ID);
 
             var sigh = new Dictionary<int, OutInstance>();
-            foreach (var map in maps.Where(m => mapIdToInstanceId.ContainsKey(m.ID) && InstanceTypes.Contains(m.InstanceType)))
+            foreach (var journalInstance in journalInstances)
+            {
+                if (mapsById.TryGetValue(journalInstance.MapID, out var map))
+                {
+                    if (InstanceTypes.Contains(map.InstanceType))
+                    {
+                        sigh.Add(journalInstance.ID, new OutInstance(map, journalInstance.ID));
+                    }
+                    else
+                    {
+                        Logger.Warning("Invalid instance type for instance {InstanceId}: {Type}", journalInstance.ID, map.InstanceType);
+                    }
+                }
+                else
+                {
+                    Logger.Warning("No mapsById entry for {InstanceId}??", journalInstance.ID);
+                } 
+            }
+            
+            /*foreach (var map in maps.Where(m => mapIdToInstanceId.ContainsKey(m.ID) && InstanceTypes.Contains(m.InstanceType)))
             {
                 if (mapIdToInstanceId.TryGetValue(map.ID, out int instanceId))
                 {
@@ -513,7 +538,7 @@ namespace Wowthing.Backend.Jobs.Misc
                 {
                     Logger.Information("No mapIdToInstanceId for {MapId}??", map.ID);
                 } 
-            }
+            }*/
             return sigh.Values
                 .OrderBy(instance => instance.Id)
                 .ToList();

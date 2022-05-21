@@ -50,10 +50,10 @@ namespace Wowthing.Backend.Jobs.Character
 
             await Context.SaveChangesAsync();
 
-            if (!string.IsNullOrWhiteSpace(media.MainUrl))
+            /*if (!string.IsNullOrWhiteSpace(media.MainUrl))
             {
                 await JobRepository.AddImageJobAsync(ImageType.CharacterFull, query.CharacterId, ImageFormat.Jpeg, media.MainUrl);
-            }
+            }*/
 
             if (!string.IsNullOrWhiteSpace(media.MainRawUrl))
             {

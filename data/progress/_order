@@ -1,27 +1,34 @@
 z8/_shadowlands.yml
-    z8/zereth_mortis.yml
-    -
-    z8/korthia.yml
-    -
-    z8/covenants.yml
-    -
-    z8/storylines.yml
+    z8/zone_quests.yml
+    z8/campaign_quests.yml
+    z8/upgrades.yml
+    z8/raid_skips.yml
 
 z7/_battle_for_azeroth.yml
+    z7/zone_quests.yml
+    z7/raid_skips.yml
 
 z6/_legion.yml
     z6/argus.yml
-    -
     z6/artifacts.yml
-    -
     z6/balance_of_power.yml
     z6/order_halls.yml
-    -
     z6/storylines.yml
+    z6/raid_skips.yml
+
+z5/_warlords_of_draenor.yml
+    z5/raid_skips.yml
 
 z2/_wrath_of_the_lich_king.yml
     z2/argent_tournament.yml
 
 -
 
-unlocks/z8_shadowlands.yml
+raid_skips.yml
+    z8/raid_skips.yml Shadowlands
+    z7/raid_skips.yml Battle for Azeroth
+    z6/raid_skips.yml Legion
+    z5/raid_skips.yml Warlords of Draenor
+
+upgrades.yml
+    z8/upgrades.yml Shadowlands

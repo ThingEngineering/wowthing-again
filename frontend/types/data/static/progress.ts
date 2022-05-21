@@ -11,6 +11,7 @@ export interface StaticDataProgressCategory {
 
 export interface StaticDataProgressGroup {
     icon: string
+    iconText?: string
     lookup: string
     name: string
     type: string

@@ -3,13 +3,14 @@
 
     import { userAchievementStore } from '@/stores'
     import getSavedRoute from '@/utils/get-saved-route'
+    import type { MultiSlugParams } from '@/types'
 
     import ProgressSidebar from './ProgressSidebar.svelte'
     import ProgressTable from './ProgressTable.svelte'
 
-    export let params: { slug: string }
+    export let params: MultiSlugParams
 
-    afterUpdate(() => getSavedRoute('progress', params.slug))
+    afterUpdate(() => getSavedRoute('progress', params.slug1, params.slug2))
 </script>
 
 <style lang="scss">
@@ -20,11 +21,9 @@
     }
 </style>
 
-{#if $userAchievementStore.loaded}
-    <div>
-        <ProgressSidebar />
-        {#if params.slug}
-            <ProgressTable slug={params.slug} />
-        {/if}
-    </div>
-{/if}
+<div>
+    <ProgressSidebar />
+    {#if params.slug1}
+        <ProgressTable slug1={params.slug1} slug2={params.slug2} />
+    {/if}
+</div>

@@ -7,7 +7,7 @@ export default function getSavedRoute(route: string, slug1?: string, slug2?: str
         const saved = localStorage.getItem(key)
         const subSidebar = document.getElementById('sub-sidebar')
         if (subSidebar !== null) {
-            if (saved !== null) {
+            if (saved !== null && saved !== 'undefined') {
                 replace(`/${route}/${saved}`)
                 return
             }

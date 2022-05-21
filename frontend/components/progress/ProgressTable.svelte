@@ -1,4 +1,5 @@
 <script lang="ts">
+    import filter from 'lodash/filter'
     import find from 'lodash/find'
     import some from 'lodash/some'
 
@@ -19,25 +20,45 @@
     import HeadProgress from './ProgressTableHead.svelte'
     import RowCovenant from '@/components/home/table/row/HomeTableRowCovenant.svelte'
     import RowProgress from './ProgressTableBody.svelte'
+    import RowProgressRaidSkip from './ProgressTableBodyRaidSkip.svelte'
 
-    export let slug: string
+    export let slug1: string
+    export let slug2: string
 
     let categories: StaticDataProgressCategory[]
     let progress: Record<string, ProgressInfo>
     let filterFunc: (char: Character) => boolean
+    let slugKey: string
     let sorted: boolean
     let sortFunc: (char: Character) => string
-    $: {
-        categories = find($staticStore.data.progress, (p) => p !== null && p[0].slug === slug)
 
-        if (categories[0].requiredQuestIds.length > 0) {
-            filterFunc = (char: Character) => some(
-                categories[0].requiredQuestIds,
-                (id) => $userQuestStore.data.characters[char.id]?.quests?.has(id)
-            )
+    $: {
+        slugKey = `${slug1}|${slug2}`
+    }
+
+    $: {
+        categories = find($staticStore.data.progress, (p) => p !== null && p[0].slug === slug1)
+        const firstCategory = categories[0]
+        if (slug2) {
+            categories = filter(categories, (s) => s !== null && s.slug === slug2)
         }
-        else {
-            filterFunc = null
+
+        const minimumLevels = [firstCategory, ...categories]
+            .map((cat) => cat.minimumLevel)
+            .filter((ml) => (ml || 0) > 0)
+        const minimumLevel = minimumLevels.length > 0 ? Math.min(...minimumLevels) : 0
+
+        const requiredQuestIds = firstCategory.requiredQuestIds.concat(categories[0].requiredQuestIds)
+        filterFunc = (char: Character) => {
+            if (minimumLevel > 0 && char.level < minimumLevel) {
+                return false
+            }
+            if (requiredQuestIds.length > 0 &&
+                !some(requiredQuestIds, (id) => $userQuestStore.data.characters[char.id]?.quests?.has(id)))
+            {
+                return false
+            }
+            return true
         }
 
         const characters: Character[] = filterFunc ?
@@ -66,7 +87,7 @@
     }
 
     $: {
-        const order: string = $progressState.sortOrder[slug]
+        const order: string = $progressState.sortOrder[slugKey]
         if (order) {
             sorted = true
             //sortFunc = (char) => toDigits(1000000 - (char.currencies?.[order]?.quantity ?? -1), 7)
@@ -88,6 +109,7 @@
         border-bottom-width: 0 !important;
         border-left: 1px solid $border-color;
         border-top-width: 0 !important;
+        min-width: 1rem;
         width: 1rem;
     }
 </style>
@@ -98,24 +120,32 @@
     {sortFunc}
 >
     <CharacterTableHead slot="head">
-        {#key slug}
-            {#if slug === 'shadowlands'}
+        {#key slugKey}
+            {#if slug1 === 'shadowlands'}
                 <HeadCovenant />
             {/if}
 
             <th class="spacer"></th>
 
-            {#each categories as category}
+            {#each categories as category, categoryIndex}
                 {#if category === null}
                     <th class="spacer"></th>
                 {:else}
+                    {#if categoryIndex > 0 && categories[categoryIndex-1].groups.length > 0}
+                        <th class="spacer"></th>
+                    {/if}
+
                     {#each category.groups as group, groupIndex}
-                        <HeadProgress
-                            sortKey={`${category.slug}|${groupIndex}`}
-                            sortingBy={$progressState.sortOrder[slug] === `${category.slug}|${groupIndex}`}
-                            {group}
-                            {slug}
-                        />
+                        {#if group.name === 'separator'}
+                            <th class="spacer"></th>
+                        {:else}
+                            <HeadProgress
+                                sortKey={`${category.slug}|${groupIndex}`}
+                                sortingBy={$progressState.sortOrder[slugKey] === `${category.slug}|${groupIndex}`}
+                                {group}
+                                {slugKey}
+                            />
+                        {/if}
                     {/each}
                 {/if}
             {/each}
@@ -123,22 +153,35 @@
     </CharacterTableHead>
 
     <svelte:fragment slot="rowExtra" let:character>
-        {#key slug}
-            {#if slug === 'shadowlands'}
+        {#key slugKey}
+            {#if slug1 === 'shadowlands'}
                 <RowCovenant {character} />
             {/if}
 
             <td class="spacer"></td>
 
-            {#each categories as category}
+            {#each categories as category, categoryIndex}
                 {#if category === null}
                     <td class="spacer"></td>
                 {:else}
+                    {#if categoryIndex > 0 && categories[categoryIndex-1].groups.length > 0}
+                        <td class="spacer"></td>
+                    {/if}
+
                     {#each category.groups as group, groupIndex}
-                        <RowProgress
-                            progressData={progress[`${category.slug}|${groupIndex}|${character.id}`]}
-                            {group}
-                        />
+                        {#if group.name === 'separator'}
+                            <td class="spacer"></td>
+                        {:else if group.type === 'raidSkip'}
+                            <RowProgressRaidSkip
+                                character={character}
+                                {group}
+                            />
+                        {:else}
+                            <RowProgress
+                                progressData={progress[`${category.slug}|${groupIndex}|${character.id}`]}
+                                {group}
+                            />
+                        {/if}
                     {/each}
                 {/if}
             {/each}

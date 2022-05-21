@@ -41,7 +41,7 @@
         '/journal/:slug1?/:slug2?': Journal,
         '/lockouts': Lockouts,
         '/mythic-plus/:slug?': MythicPlus,
-        '/progress/:slug?': Progress,
+        '/progress/:slug1?/:slug2?': Progress,
         '/reputations/:slug?': Reputations,
         '/vendors/:slug1?/:slug2?': Vendors,
         '/zone-maps/:slug1?/:slug2?': ZoneMaps,

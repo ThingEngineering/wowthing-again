@@ -5,5 +5,7 @@
     color: $colour-shrug;
 }
 .status-fail {
+    --shadow-color: #{rgba(mix($colour-fail, #000, 40%), 0.5)};
+
     color: $colour-fail;
 }
