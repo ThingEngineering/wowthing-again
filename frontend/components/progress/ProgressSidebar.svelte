@@ -7,7 +7,7 @@
     let categories: SidebarItem[] = []
     $: {
         categories = $staticStore.data.progress.map((set) => set === null ? null : ({
-            children: [],
+            children: set.slice(1).filter((cat) => cat !== null),
             ...set[0],
         }))
     }

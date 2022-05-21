@@ -1,0 +1,282 @@
+name: Zone Quests
+#requiredQuestId: 47189 52131 # A Nation Divided / We Need Each Other
+groups:
+
+- name: Mechagon Part 1
+  icon: achievement/13541 # Mecha-Done
+  lookup: faction
+  type: quest
+  data:
+    alliance:
+    - name: "The Legend of Mechagon"
+      id: 54088
+
+    - name: "Looking Inside"
+      id: 55040
+
+    - name: "Let's Get It Started"
+      id: 54945
+
+    - name: "You Must be This Height"
+      id: 54087
+
+    - name: "Report to Gila"
+      id: 54946
+
+    - name: "A Small Team"
+      id: 54947
+
+    - name: "The Start of Something Bigger"
+      id: 54992
+
+    - name: "Princely Visit"
+      id: 55645
+
+    - name: "The Resistance Needs YOU!"
+      id: 55729
+
+    - name: "Rescuing the Resistance"
+      id: 55730
+
+    - name: "My Father's Armies"
+      id: 55731
+
+    - name: "We Can Fix It"
+      id: 55995
+
+    - name: "Drill Rig Construction"
+      id: 55734
+
+    - name: "Send My Father a Message"
+      id: 55096
+
+    - name: "Welcome to the Resistance"
+      id: 55736
+      description: "Unlocks Mechagon Daily Quests"
+
+    horde:
+    - name: "The Legend of Mechagon"
+      id: 55646
+
+    - name: "A Quick Ear Hustle"
+      id: 55647
+
+    - name: "This is Our Vault Now"
+      id: 55648
+
+    - name: "Let's Get It Started"
+      id: 55630
+
+    - name: "You Must be This Height"
+      id: 55632
+
+    - name: "Machinations for Mechagon"
+      id: 55649
+
+    - name: "Only the Best Will Do"
+      id: 55650
+
+    - name: "To Mechagon!"
+      id: 55651
+
+    - name: "Prospectus Bay"
+      id: 55652
+
+    - name: "We Come in Peace... and Profit"
+      id: 55685
+
+    - name: "The Resistance Needs YOU!"
+      id: 55729
+
+    - name: "Rescuing the Resistance"
+      id: 55730
+
+    - name: "My Father's Armies"
+      id: 55731
+
+    - name: "We Can Fix It"
+      id: 55995
+
+    - name: "Drill Rig Construction"
+      id: 55734
+
+    - name: "Send My Father a Message"
+      id: 55096
+
+    - name: "Welcome to the Resistance"
+      id: 55736
+      description: "Unlocks Mechagon Daily Quests"
+
+
+- name: "Nazjatar Part 2"
+  icon: achievement/13635 # Mecha-Done
+  lookup: faction
+  type: quest
+  data:
+    alliance:
+    - name: "Essential Empowerment"
+      id: 55851
+
+    - name: "MOTHER Knows Best"
+      id: 55533
+
+    - name: "A Disturbance Beneath the Earth"
+      id: 55374
+
+    - name: "Take My Hand"
+      id: 55400
+
+    - name: "Calming the Spine"
+      id: 55407
+
+    - name: "Dominating the Indomitable"
+      id: 55425
+
+    - name: "A Friendly Face"
+      id: 55497
+
+    - name: "The Heart Forge"
+      id: 55618
+
+    - name: "Harnessing the Power"
+      id: 57010
+      description: "Unlocks the Heart Forge"
+
+    - name: "Back Out to Sea"
+      id: 56162
+
+    - name: "Scouting the Palace"
+      id: 56350
+
+    - name: "The Lost Shaman"
+      id: 55361
+
+    - name: "Rescue the Farseer"
+      id: 55363
+
+    - name: "A Tempered Blade"
+      id: 56156
+      description: "Unlocks Nazjatar World Quests"
+
+    horde:
+    - name: "Essential Empowerment"
+      id: 55851
+
+    - name: "MOTHER Knows Best"
+      id: 55533
+
+    - name: "A Disturbance Beneath the Earth"
+      id: 55374
+
+    - name: "Take My Hand"
+      id: 55400
+
+    - name: "Calming the Spine"
+      id: 55407
+
+    - name: "Dominating the Indomitable"
+      id: 55425
+
+    - name: "A Friendly Face"
+      id: 55497
+
+    - name: "The Heart Forge"
+      id: 55618
+
+    - name: "Harnessing the Power"
+      id: 57010
+      description: "Unlocks the Heart Forge"
+
+    - name: "Back Out to Sea"
+      id: 56161
+
+    - name: "Scouting the Palace"
+      id: 55481
+
+    - name: "Settling In"
+      id: 55384
+
+    - name: "Scouting the Pens"
+      id: 55385
+
+    - name: "Save a Friend"
+      id: 55500
+      description: "Unlocks Nazjatar World Quests"
+
+- name: "Nazjatar Part 1"
+  icon: achievement/13635 # Tour of the Depths
+  lookup: faction
+  type: quest
+  data:
+    alliance:
+    - name: "The Wolf's Offensive"
+      id: 56031
+
+    - name: "Send the Fleet"
+      id: 56043
+
+    - name: "Upheaval"
+      id: 55095
+
+    - name: "Descent"
+      id: 54969
+
+    - name: "Fortunate Souls"
+      id: 56640
+
+    - name: "Disruption of Power"
+      id: 56641
+
+    - name: "Dark Tides"
+      id: 56642
+
+    - name: "In Deep"
+      id: 56643
+
+    - name: "Up Against It"
+      id: 56644
+
+    - name: "Where the Road Leads"
+      id: 55175
+
+    - name: "A Way Home"
+      id: 54972
+      description: "Opens portal back to PLACE"
+
+    horde:
+    - name: "The Warchief's Order"
+      id: 56030
+
+    - name: "Send the Fleet"
+      id: 56044
+
+    - name: "Upheaval"
+      id: 55054
+
+    - name: "Descent"
+      id: 54018
+
+    - name: "The First Arcanist"
+      id: 54021
+
+    - name: "Fortunate Souls"
+      id: 54012
+
+    - name: "Disruption of Power"
+      id: 55092
+
+    - name: "Dark Tides"
+      id: 56063
+
+    - name: "In Deep"
+      id: 54015
+
+    - name: "Up Against It"
+      id: 56429
+
+    - name: "Stay Low, Stay Fast!"
+      id: 55094
+
+    - name: "A Way Home"
+      id: 55053
+      description: "Opens portal back to PLACE"

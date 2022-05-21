@@ -11,6 +11,7 @@
         {
             return new DataProgress
             {
+                MinimumLevel = MinimumLevel,
                 Name = Name,
                 RequiredQuestId = RequiredQuestId,
                 Groups = Groups,

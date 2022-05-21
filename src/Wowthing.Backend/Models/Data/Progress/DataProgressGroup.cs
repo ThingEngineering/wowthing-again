@@ -3,6 +3,7 @@
     public class DataProgressGroup
     {
         public string Icon { get; set; }
+        public string IconText { get; set; }
         public string Lookup { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }

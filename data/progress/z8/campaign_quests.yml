@@ -1,6 +1,76 @@
-name: Covenants
+name: Campaign Quests
 minimumLevel: 60
 groups:
+
+- name: "Secrets of the First Ones"
+  icon: achievement/15259 # Secrets of the First Ones
+  lookup: none
+  type: quest
+  data:
+    0:
+    - name: "Into the Unknown"
+      id: 64958
+
+    - name: "We Battle Onward"
+      id: 64825
+
+    - name: "Forming an Understanding"
+      id: 65305
+
+    - name: "Forging a New Path"
+      id: 64844
+
+    - name: "Crown of Wills"
+      id: 64813
+
+    - name: "A Means to an End"
+      id: 65328
+
+    - name: "Starting Over"
+      id: 65238
+
+- name: separator
+
+- name: Chains of Domination
+  icon: achievement/14961 # Chains of Domination
+  lookup: none
+  type: quest
+  data:
+    0:
+    - name: Battle of Ardenweald
+      id: 63639
+
+    - name: Maw Walkers
+      id: 64556
+
+    - name: Focusing the Eye
+      id: 63902
+
+    - name: The Last Sigil
+      id: 63727
+      description: Requires Renown 44
+
+    - name: An Army of Bone and Steel
+      id: 63622
+      description: Requires Renown 47
+
+    - name: The Unseen Guests
+      id: 63656
+      description: Requires Renown 50
+
+    - name: The Power of Night
+      id: 64437
+      description: Requires Renown 52
+
+    - name: A New Path
+      id: 63593
+      description: Requires Renown 56
+
+    - name: What Lies Ahead
+      id: 64314
+      description: Requires Renown 58
+
+- name: separator
 
 - name: Kyrian Campaign
   icon: spell/321076 # Kyrian
