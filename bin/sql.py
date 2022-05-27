@@ -1,8 +1,18 @@
+query = """
+SELECT *
+FROM (
+    SELECT  user_name,
+            settings#>'{General,DesiredAccountName}' AS desired
+    FROM    asp_net_users
+) oof
+WHERE   desired IS NOT NULL
+        AND desired != '""'
+        AND desired != 'null'
+        AND char_length(user_name) > 30
+;
+"""
+
 blah = """
- 513f820de75641f18d1bc68f3ab1042f | "LutzPS"
- 4033db3d7a8b43699f21f55c19a174f2 | "AMC"
- 8d9fdacc367243dd999b4014c0119153 | "Itsuko"
- ac3efc3b1b5e41a5bce38490344e1f7f | "Nalicka"
 """
 
 for line in blah.splitlines():

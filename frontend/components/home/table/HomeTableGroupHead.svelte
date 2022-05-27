@@ -134,7 +134,9 @@
             {/if}
 
         {:else}
-            <td>&nbsp;</td>
+            {#if !$homeState.onlyWeekly}
+                <td>&nbsp;</td>
+            {/if}
 
         {/if}
     {/each}

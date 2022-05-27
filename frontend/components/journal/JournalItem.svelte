@@ -7,9 +7,11 @@
     import { userTransmogStore } from '@/stores'
     import { journalState } from '@/stores/local-storage'
     import { data as settingsData } from '@/stores/settings'
+    import { PlayableClass, PlayableClassMask } from '@/types/enums'
     import { getItemUrl } from '@/utils/get-item-url'
     import type { JournalDataEncounterItem, JournalDataEncounterItemAppearance } from '@/types/data/journal'
 
+    import ClassIcon from '@/components/images/ClassIcon.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
@@ -17,6 +19,7 @@
     export let item: JournalDataEncounterItem
 
     let appearances: [JournalDataEncounterItemAppearance, boolean][]
+    let classId: number
     let element: HTMLElement
     let intersected = false
     $: {
@@ -26,6 +29,10 @@
                 $userTransmogStore.data.sourceHas[`${item.id}_${appearance.modifierId}`] :
                 $userTransmogStore.data.userHas[appearance.appearanceId]
         ])
+
+        if (item.classMask in PlayableClassMask) {
+            classId = PlayableClass[PlayableClassMask[item.classMask]]
+        }
     }
 
     const getQuality = function(appearance: JournalDataEncounterItemAppearance): number {
@@ -82,6 +89,17 @@
         height: 52px;
         width: 52px;
     }
+    .player-class {
+        --image-margin-top: -4px;
+        --shadow-color: rgba(0, 0, 0, 0.8);
+
+        border: none;
+        height: 24px;
+        left: -1px;
+        width: 24px;
+        position: absolute;
+        top: -1px;
+    }
     .difficulties {
         position: absolute;
         bottom: 1px;
@@ -125,6 +143,16 @@
                             border={2}
                         />
                     </a>
+
+                    {#if classId > 0}
+                        <div class="player-class class-{classId} drop-shadow">
+                            <ClassIcon
+                                border={2}
+                                size={20}
+                                {classId}
+                            />
+                        </div>
+                    {/if}
 
                     {#if userHas}
                         <div class="collected-icon drop-shadow">

@@ -2,6 +2,7 @@ import { writable } from 'svelte/store'
 
 
 export class JournalState {
+    public filtersExpanded = true
     public highlightMissing = true
     public showCollected = true
     public showUncollected = true
@@ -9,7 +10,13 @@ export class JournalState {
     public showLeather = true
     public showMail = true
     public showPlate = true
+    public showTrash = true
     public showWeapons = true
+
+    public showLfr = true
+    public showNormal = true
+    public showHeroic = true
+    public showMythic = true
     public showTimewalking = true
 }
 
