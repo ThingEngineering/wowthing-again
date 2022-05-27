@@ -22,4 +22,9 @@
     }
 </script>
 
-<WowthingImage name={iconName} {size} {border} {tooltip} />
+<WowthingImage
+    name={iconName}
+    {border}
+    {size}
+    {tooltip}
+/>
