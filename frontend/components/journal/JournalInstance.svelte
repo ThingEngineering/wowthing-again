@@ -2,7 +2,7 @@
     import find from 'lodash/find'
 
     import { iconStrings } from '@/data/icons'
-    import { journalStore } from '@/stores'
+    import { journalStore, staticStore } from '@/stores'
     import { JournalState, journalState } from '@/stores/local-storage'
     import type { JournalDataInstance, JournalDataTier } from '@/types/data'
 
@@ -25,7 +25,9 @@
 
     function getFilters(state: JournalState): string {
         let byType: string[] = []
-        let byDifficulty: string[] = []
+        let byMisc: string[] = []
+        let byDungeon: string[] = []
+        let byRaid: string[] = []
 
         if (state.showCloth) {
             byType.push('C')
@@ -39,38 +41,66 @@
         if (state.showPlate) {
             byType.push('P')
         }
-        if (state.showTrash) {
-            byType.push('T')
-        }
-        if (state.showWeapons) {
-            byType.push('W')
-        }
 
-        if (byType.length === 0 || byType.length === 6) {
+        if (byType.length === 0 || byType.length === 4) {
             byType = ['ALL']
         }
 
-        if (state.showLfr) {
-            byDifficulty.push('L')
+        if (state.showCloaks) {
+            byMisc.push('C')
         }
-        if (state.showNormal) {
-            byDifficulty.push('N')
+        if (state.showTrash) {
+            byMisc.push('T')
         }
-        if (state.showHeroic) {
-            byDifficulty.push('H')
-        }
-        if (state.showMythic) {
-            byDifficulty.push('M')
-        }
-        if (state.showTimewalking) {
-            byDifficulty.push('T')
+        if (state.showWeapons) {
+            byMisc.push('W')
         }
 
-        if (byDifficulty.length === 0 || byDifficulty.length === 5) {
-            byDifficulty = ['ALL']
+        if (byMisc.length === 0 || byMisc.length === 3) {
+            byMisc = ['ALL']
         }
 
-        return `${byType.join('')} | ${byDifficulty.join('')}`
+        if (state.showDungeonNormal) {
+            byDungeon.push('N')
+        }
+        if (state.showDungeonHeroic) {
+            byDungeon.push('H')
+        }
+        if (state.showDungeonMythic) {
+            byDungeon.push('M')
+        }
+        if (state.showDungeonTimewalking) {
+            byDungeon.push('T')
+        }
+
+        if (byDungeon.length === 0 || byDungeon.length === 4) {
+            byDungeon = ['ALL']
+        }
+
+        if (state.showRaidLfr) {
+            byRaid.push('L')
+        }
+        if (state.showRaidNormal) {
+            byRaid.push('N')
+        }
+        if (state.showRaidHeroic) {
+            byRaid.push('H')
+        }
+        if (state.showRaidMythic) {
+            byRaid.push('M')
+        }
+        if (state.showRaidMythicOld) {
+            byRaid.push('O')
+        }
+        if (state.showRaidTimewalking) {
+            byRaid.push('T')
+        }
+
+        if (byRaid.length === 0 || byRaid.length === 6) {
+            byRaid = ['ALL']
+        }
+
+        return `${byType.join('')} | ${byMisc.join('')} | ${byDungeon.join('')} | ${byRaid.join('')}`
     }
 </script>
 
@@ -92,8 +122,11 @@
 
         button {
             background: #24282f;
-            margin-left: -1px;
             margin-right: 0;
+
+            &:not(:last-child) {
+                margin-right: -1px;
+            }
         }
     }
 </style>
@@ -164,11 +197,11 @@
                 >Plate</CheckboxInput>
             </button>
 
-            <button>
+            <button class="margin-left">
                 <CheckboxInput
-                    name="show_trash"
-                    bind:value={$journalState.showTrash}
-                >Trash Drops</CheckboxInput>
+                    name="show_cloaks"
+                    bind:value={$journalState.showCloaks}
+                >Cloaks</CheckboxInput>
             </button>
 
             <button>
@@ -177,41 +210,89 @@
                     bind:value={$journalState.showWeapons}
                 >Weapons</CheckboxInput>
             </button>
+
+            <button class="margin-left">
+                <CheckboxInput
+                    name="show_trash"
+                    bind:value={$journalState.showTrash}
+                >Trash Drops</CheckboxInput>
+            </button>
         </div>
 
         <div class="options-container filters-container">
-            <button>
-                <CheckboxInput
-                    name="show_lfr"
-                    bind:value={$journalState.showLfr}
-                >LFR</CheckboxInput>
-            </button>
+            <span>Dungeons:</span>
 
             <button>
                 <CheckboxInput
-                    name="show_normal"
-                    bind:value={$journalState.showNormal}
+                    name="show_dungeon_normal"
+                    bind:value={$journalState.showDungeonNormal}
                 >Normal</CheckboxInput>
             </button>
 
             <button>
                 <CheckboxInput
-                    name="show_heroic"
-                    bind:value={$journalState.showHeroic}
+                    name="show_dungeon_heroic"
+                    bind:value={$journalState.showDungeonHeroic}
                 >Heroic</CheckboxInput>
             </button>
 
             <button>
                 <CheckboxInput
-                    name="show_mythic"
-                    bind:value={$journalState.showMythic}
+                    name="show_dungeon_mythic"
+                    bind:value={$journalState.showDungeonMythic}
                 >Mythic</CheckboxInput>
             </button>
 
             <button>
                 <CheckboxInput
-                    name="show_timewalking"
-                    bind:value={$journalState.showTimewalking}
+                    name="show_dungeon_timewalking"
+                    bind:value={$journalState.showDungeonTimewalking}
+                >Timewalking</CheckboxInput>
+            </button>
+        </div>
+        
+        <div class="options-container filters-container">
+            <span>Raids:</span>
+
+            <button>
+                <CheckboxInput
+                    name="show_raid_lfr"
+                    bind:value={$journalState.showRaidLfr}
+                >LFR</CheckboxInput>
+            </button>
+
+            <button>
+                <CheckboxInput
+                    name="show_raid_normal"
+                    bind:value={$journalState.showRaidNormal}
+                >Normal</CheckboxInput>
+            </button>
+
+            <button>
+                <CheckboxInput
+                    name="show_raid_heroic"
+                    bind:value={$journalState.showRaidHeroic}
+                >Heroic</CheckboxInput>
+            </button>
+
+            <button>
+                <CheckboxInput
+                    name="show_raid_mythic"
+                    bind:value={$journalState.showRaidMythic}
+                >Mythic</CheckboxInput>
+            </button>
+
+            <button>
+                <CheckboxInput
+                    name="show_raid_mythic_old"
+                    bind:value={$journalState.showRaidMythicOld}
+                >Mythic (Old)</CheckboxInput>
+            </button>
+
+            <button>
+                <CheckboxInput
+                    name="show_raid_timewalking"
+                    bind:value={$journalState.showRaidTimewalking}
                 >Timewalking</CheckboxInput>
             </button>
         </div>
@@ -221,23 +302,22 @@
         {#key instance.id}
             <div class="collection thing-container">
                 {#each instance.encounters as encounter, encounterIndex}
-                    {#key encounterIndex}
-                        {#if $journalState.showTrash || encounter.name !== 'Trash Drops'}
-                            <SectionTitle
-                                title={encounter.name}
-                                count={$journalStore.data.stats[`${slug1}--${slug2}--${encounter.name}`]}
-                            />
-                            <div class="collection-section">
-                                {#each encounter.groups as group}
-                                    <Group
-                                        bonusIds={instance.bonusIds}
-                                        stats={$journalStore.data.stats[`${slug1}--${slug2}--${encounter.name}--${group.name}`]}
-                                        {group}
-                                    />
-                                {/each}
-                            </div>
-                        {/if}
-                    {/key}
+                    {#if $journalState.showTrash || encounter.name !== 'Trash Drops'}
+                        <SectionTitle
+                            title={encounter.name}
+                            count={$journalStore.data.stats[`${slug1}--${slug2}--${encounter.name}`]}
+                        />
+                        <div class="collection-section" data-encounter-id="{encounter.id}">
+                            {#each encounter.groups as group}
+                                <Group
+                                    bonusIds={instance.bonusIds}
+                                    instanceExpansion={$staticStore.data.instances[instance.id].expansion}
+                                    stats={$journalStore.data.stats[`${slug1}--${slug2}--${encounter.name}--${group.name}`]}
+                                    {group}
+                                />
+                            {/each}
+                        </div>
+                    {/if}
                 {/each}
             </div>
         {/key}

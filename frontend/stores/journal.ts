@@ -4,6 +4,7 @@ import getFilteredItems from '@/utils/journal/get-filtered-items'
 import type { JournalState } from '@/stores/local-storage'
 import type { Settings } from '@/types'
 import type { JournalData, UserTransmogData } from '@/types/data'
+import type { StaticData } from '@/types/data/static'
 
 
 export class JournalDataStore extends WritableFancyStore<JournalData> {
@@ -33,6 +34,7 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
         journalData: JournalData,
         journalState: JournalState,
         settingsData: Settings,
+        staticData: StaticData,
         userTransmogData: UserTransmogData
     ): void {
         // console.time('JournalDataStore.setup')
@@ -52,9 +54,16 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                 const instanceStats = stats[instanceKey] = new UserCount()
                 const instanceSeen: Record<string, boolean> = {}
 
+                const instanceExpansion = staticData.instances[instance.id].expansion
+
                 for (const encounter of instance.encounters) {
                     const encounterKey = `${instanceKey}--${encounter.name}`
                     const encounterStats = stats[encounterKey] = new UserCount()
+
+                    if (!journalState.showTrash && encounter.name === 'Trash Drops') {
+                        console.log(instance, encounter)
+                        continue
+                    }
 
                     for (const group of encounter.groups) {
                         const groupKey = `${encounterKey}--${group.name}`
@@ -64,6 +73,7 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                             journalState,
                             settingsData,
                             null,
+                            instanceExpansion,
                             group
                         )
                         for (const item of items) {

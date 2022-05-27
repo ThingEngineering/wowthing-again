@@ -21,7 +21,7 @@
     let appearances: [JournalDataEncounterItemAppearance, boolean][]
     let classId: number
     let element: HTMLElement
-    let intersected = false
+    let intersected: boolean
     $: {
         appearances = item.appearances.map((appearance) => [
             appearance,
@@ -123,7 +123,11 @@
         ($journalState.showCollected && userHas) ||
         ($journalState.showUncollected && !userHas)
     }
-        <IntersectionObserver once {element} bind:intersecting={intersected}>
+        <!--<IntersectionObserver
+            bind:intersecting={intersected}
+            once
+            {element}
+        >-->
             <div
                 bind:this={element}
                 class="journal-item quality{getQuality(appearance)}"
@@ -132,7 +136,7 @@
                     ($journalState.highlightMissing && userHas)
                 }
             >
-                {#if intersected}
+                <!--{#if intersected}-->
                     <a href="{getItemUrl({
                         itemId: item.id,
                         bonusIds: getBonusIds(appearance),
@@ -165,8 +169,8 @@
                             <span>{difficulty}</span>
                         {/each}
                     </div>
-                {/if}
+                <!--{/if}-->
             </div>
-        </IntersectionObserver>
+        <!--</IntersectionObserver>-->
     {/if}
 {/each}
