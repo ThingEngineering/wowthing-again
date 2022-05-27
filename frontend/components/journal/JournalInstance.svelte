@@ -97,22 +97,24 @@
     </div>
 
     {#if instance}
-        <div class="collection thing-container">
-            {#each instance.encounters as encounter}
-                <SectionTitle
-                    title={encounter.name}
-                    count={$journalStore.data.stats[`${slug1}--${slug2}--${encounter.name}`]}
-                />
-                <div class="collection-section">
-                    {#each encounter.groups as group}
-                        <Group
-                            bonusIds={instance.bonusIds}
-                            stats={$journalStore.data.stats[`${slug1}--${slug2}--${encounter.name}--${group.name}`]}
-                            {group}
-                        />
-                    {/each}
-                </div>
-            {/each}
-        </div>
+        {#key instance.id}
+            <div class="collection thing-container">
+                {#each instance.encounters as encounter, encounterIndex}
+                    <SectionTitle
+                        title={encounter.name}
+                        count={$journalStore.data.stats[`${slug1}--${slug2}--${encounter.name}`]}
+                    />
+                    <div class="collection-section">
+                        {#each encounter.groups as group}
+                            <Group
+                                bonusIds={instance.bonusIds}
+                                stats={$journalStore.data.stats[`${slug1}--${slug2}--${encounter.name}--${group.name}`]}
+                                {group}
+                            />
+                        {/each}
+                    </div>
+                {/each}
+            </div>
+        {/key}
     {/if}
 </div>
