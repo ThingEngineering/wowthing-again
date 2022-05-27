@@ -70,7 +70,7 @@ You're going to need API credentials:
       characters"
     - Click `SAVE`
 1. Clone the repository using whatever Git client you feel like using, I like [Fork](https://git-fork.com/)
-1. Create a `.dev` file in the root directory with values from your Battle.Net API Client:
+1. Create a `.env` file in the root directory (at the same level than the `docker-compose.yml` file) with values from your Battle.Net API Client:
     ```
     BattleNet__ClientID=abcdefg
     BattleNet__ClientSecret=t0ps3cr3tk3y
@@ -98,6 +98,26 @@ property to `WowDbContext`.
 1. Redis: `docker-compose exec redis redis-cli`
 1. Frontend shell: `docker-compose exec frontend sh`
 
+### Troubleshooting
+
+Here is a list of quick tips if you experiment problems with your local development. Note: use the above commands for connecting the Postgres and/or Redis servers.
+
+1. **Reset the full WoWthing docker setup**. Be sure to remove all *stopped-but-not-deleted* dockers with `docker-compose down`. You can check with `docker ps -a`. You can also delete the volumes where all the data are saved with `docker volume pprruunnee` (WARNING: it will remove **ALL** your docker volumes not used, even those not for WoWthing!!! Ok, now that you have read the warning, the real command is with prune, not pprruunnee.)
+1. **Database is empty**. Connect to the Postgres database, and list tables with the command `\dt`. If you see only `__EFMigrationsHistory`, then you need to create the extension on the database with `create extension pg_trgm with schema pg_catalog;`, and after restart the docker-compose stuff.
+
+1. **No realm in the database**. Connect to the Postgres database and list the realms with `select * from wow_realm;`. If no realms listed, restart the Redis download job for realms with `del scheduled_job:DataRealmIndex_v2`.
+
+1. **No mounts/pets/toys/... in the database**. Connect to the Postgres database and list the realms with `select * from wow_mount;`/`select * from wow_pet;`/`select * from wow_toy;`/`...`. If nothing is listed, restart the Redis download job for static data with `del scheduled_job:CacheStatic_v37` and `del scheduled_job:CacheJournal_v13`.
+
+1. **Can't have data in wow_mount/wow_pet/..., even with the previous tips**. There seems to be some race conditions on the start of the dockers. On way is to:
+
+    1. have a clean start point (delete dockers and associated volumes)
+    1. start the `postgres` and `redis` dockers with `docker-compose up postgres redis`
+    1. create the extension on the database (details above)
+    1. start the `web` docker in another console with `docker-compose up --build web`
+    1. after `web` is initialized, start the `backend` docker in another console with `docker-compose up --build backend`
+    1. if needed, restart the Redis downloads for `realms` and/or `mounts/pets/toys/...` (details above)
+    1. start the `frontend` docker in another console with `docker-compose up --build frontend`
 
 ## TODO
 
