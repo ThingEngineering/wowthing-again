@@ -6,12 +6,14 @@ import getTransmogClassMask from '@/utils/get-transmog-class-mask'
 import type { JournalState } from '@/stores/local-storage'
 import type { Settings } from '@/types'
 import type { JournalDataEncounterItemGroup, JournalDataEncounterItem, JournalDataEncounterItemAppearance, UserTransmogData } from '@/types/data'
+import { Constants } from '@/data/constants'
 
 
 export default function getFilteredItems(
     journalState: JournalState,
     settingsData: Settings,
     userTransmogData: UserTransmogData,
+    instanceExpansion: number,
     group: JournalDataEncounterItemGroup
 ): JournalDataEncounterItem[] {
     const classMask = getTransmogClassMask(settingsData)
@@ -28,7 +30,7 @@ export default function getFilteredItems(
             keep = (item.classMask & classMask) > 0
         }
 
-        // Armor types
+        // Filter types
         if (keep && group.name === 'Cloth') {
             keep = journalState.showCloth
         }
@@ -42,7 +44,10 @@ export default function getFilteredItems(
             keep = journalState.showPlate
         }
 
-        // Weapons
+        if (keep && group.name === 'Cloaks') {
+            keep = journalState.showCloaks
+        }
+
         if (keep && group.name === 'Weapons') {
             keep = journalState.showWeapons
         }
@@ -57,34 +62,60 @@ export default function getFilteredItems(
                 for (const difficulty of appearance.difficulties) {
                     // LFR
                     if ([7, 17].indexOf(difficulty) >= 0) {
-                        if (journalState.showLfr) {
+                        if (journalState.showRaidLfr) {
                             difficulties.push(difficulty)
                         }
                     }
                     // Normal
-                    else if ([1, 3, 4, 9, 14].indexOf(difficulty) >= 0) {
-                        if (journalState.showNormal) {
+                    else if ([1].indexOf(difficulty) >= 0) {
+                        if (journalState.showDungeonNormal) {
+                            difficulties.push(difficulty)
+                        }
+                    }
+                    else if ([3, 4, 9, 14].indexOf(difficulty) >= 0) {
+                        if (journalState.showRaidNormal) {
                             difficulties.push(difficulty)
                         }
                     }
                     // Heroic
-                    else if ([2, 5, 6, 15].indexOf(difficulty) >= 0) {
-                        if (journalState.showHeroic) {
+                    else if ([2].indexOf(difficulty) >= 0) {
+                        if (journalState.showDungeonHeroic) {
+                            difficulties.push(difficulty)
+                        }
+                    }
+                    else if ([5, 6, 15].indexOf(difficulty) >= 0) {
+                        if (journalState.showRaidHeroic) {
                             difficulties.push(difficulty)
                         }
                     }
                     // Mythic
-                    else if ([8, 16, 23].indexOf(difficulty) >= 0) {
-                        if (journalState.showMythic) {
+                    else if ([8, 23].indexOf(difficulty) >= 0) {
+                        if (journalState.showDungeonMythic) {
+                            difficulties.push(difficulty)
+                        }
+                    }
+                    else if ([16].indexOf(difficulty) >= 0) {
+                        if (instanceExpansion === Constants.expansion) {
+                            if (journalState.showRaidMythic) {
+                                difficulties.push(difficulty)
+                            }
+                        }
+                        else if (journalState.showRaidMythicOld) {
                             difficulties.push(difficulty)
                         }
                     }
                     // Timewalking
-                    else if ([24, 33].indexOf(difficulty) >= 0) {
-                        if (journalState.showTimewalking) {
+                    else if ([24].indexOf(difficulty) >= 0) {
+                        if (journalState.showDungeonTimewalking) {
                             difficulties.push(difficulty)
                         }
                     }
+                    else if ([33].indexOf(difficulty) >= 0) {
+                        if (journalState.showRaidTimewalking) {
+                            difficulties.push(difficulty)
+                        }
+                    }
+                    // Leftovers
                     else {
                         difficulties.push(difficulty)
                     }

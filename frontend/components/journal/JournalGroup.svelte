@@ -1,4 +1,6 @@
 <script lang="ts">
+    import IntersectionObserver from 'svelte-intersection-observer'
+
     import { userTransmogStore } from '@/stores'
     import { journalState } from '@/stores/local-storage'
     import { data as settingsData } from '@/stores/settings'
@@ -12,8 +14,11 @@
 
     export let bonusIds: Record<number, number>
     export let group: JournalDataEncounterItemGroup
+    export let instanceExpansion: number
     export let stats: UserCount
 
+    let element: HTMLElement
+    let intersected: boolean
     let items: JournalDataEncounterItem[]
     let percent: number
     $: {
@@ -21,6 +26,7 @@
             $journalState,
             $settingsData,
             $userTransmogStore.data,
+            instanceExpansion,
             group
         )
         percent = Math.floor((stats?.have ?? 0) / (stats?.total ?? 1) * 100)
@@ -38,13 +44,24 @@
             <CollectionCount counts={stats} />
         </h4>
 
-        <div class="collection-objects">
-            {#each items as item}
-                <Item
-                    {bonusIds}
-                    {item}
-                />
-            {/each}
+        <div
+            bind:this={element}
+            class="collection-objects"
+        >
+            <IntersectionObserver
+                bind:intersecting={intersected}
+                once
+                {element}
+            >
+                {#if intersected}
+                    {#each items as item}
+                        <Item
+                            {bonusIds}
+                            {item}
+                        />
+                    {/each}
+                {/if}
+            </IntersectionObserver>
         </div>
     </div>
 {/if}

@@ -23,14 +23,17 @@ export interface JournalDataInstance {
 }
 
 export class JournalDataEncounter {
+    public id: number
     public name: string
     public groups: JournalDataEncounterItemGroup[]
 
     constructor(
+        id: number,
         name: string,
         groupsRaw: JournalDataEncounterItemGroupArray[]
     )
     {
+        this.id = id
         this.name = name
         this.groups = groupsRaw
             .map((groupArray) => new JournalDataEncounterItemGroup(...groupArray))
