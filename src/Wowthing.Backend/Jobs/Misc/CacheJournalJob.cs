@@ -20,7 +20,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheJournal,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(24),
-            Version = 13,
+            Version = 14,
         };
 
         public override async Task Run(params string[] data)
@@ -207,23 +207,20 @@ namespace Wowthing.Backend.Jobs.Misc
                             {
                                 continue;
                             }
-                            
-                            OutJournalEncounter encounterData;
-                            var items = new List<DumpJournalEncounterItem>();
 
+                            var encounterData = new OutJournalEncounter
+                            {
+                                Id = encounter.ID,
+                            };
+                            var items = new List<DumpJournalEncounterItem>();
+                            
                             if (encounter.ID > 1000000)
                             {
-                                encounterData = new OutJournalEncounter
-                                {
-                                    Name = "Trash Drops",
-                                };
+                                encounterData.Name = "Trash Drops";
                             }
                             else
                             {
-                                encounterData = new OutJournalEncounter
-                                {
-                                    Name = stringMap[(StringType.WowJournalEncounterName, encounter.ID)],
-                                };
+                                encounterData.Name = stringMap[(StringType.WowJournalEncounterName, encounter.ID)];
 
                                 var fakeItems = new Dictionary<int, DumpJournalEncounterItem>();
                                 foreach (var encounterItem in itemsByEncounterId.GetValueOrDefault(encounter.ID, Array.Empty<DumpJournalEncounterItem>()))

@@ -10,6 +10,7 @@ namespace Wowthing.Backend.Converters
             var encounter = (OutJournalEncounter) value;
             
             var encounterArray = new JArray();
+            encounterArray.Add(encounter.Id);
             encounterArray.Add(encounter.Name);
 
             var groupsArray = new JArray();
