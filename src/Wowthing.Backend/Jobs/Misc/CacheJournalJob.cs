@@ -251,7 +251,7 @@ namespace Wowthing.Backend.Jobs.Misc
                                 }
 
                                 items.AddRange(fakeItems.Values);
-                            }
+                            } // if (encounter.ID > 1000000)
 
                             if (Hardcoded.ExtraItemDrops.TryGetValue(encounter.ID, out var extraItems))
                             {
