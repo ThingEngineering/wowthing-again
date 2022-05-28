@@ -1,7 +1,6 @@
 <script lang="ts">
     import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
     import xor from 'lodash/xor'
-    import IntersectionObserver from 'svelte-intersection-observer'
 
     import { difficultyMap, journalDifficultyOrder } from '@/data/difficulty'
     import { userTransmogStore } from '@/stores'
@@ -20,8 +19,6 @@
 
     let appearances: [JournalDataEncounterItemAppearance, boolean][]
     let classId: number
-    let element: HTMLElement
-    let intersected: boolean
     $: {
         appearances = item.appearances.map((appearance) => [
             appearance,
@@ -31,7 +28,7 @@
         ])
 
         if (item.classMask in PlayableClassMask) {
-            classId = PlayableClass[PlayableClassMask[item.classMask]]
+            classId = PlayableClass[PlayableClassMask[item.classMask] as keyof typeof PlayableClass]
         }
     }
 
@@ -123,54 +120,45 @@
         ($journalState.showCollected && userHas) ||
         ($journalState.showUncollected && !userHas)
     }
-        <!--<IntersectionObserver
-            bind:intersecting={intersected}
-            once
-            {element}
-        >-->
-            <div
-                bind:this={element}
-                class="journal-item quality{getQuality(appearance)}"
-                class:missing={
-                    (!$journalState.highlightMissing && !userHas) ||
-                    ($journalState.highlightMissing && userHas)
-                }
-            >
-                <!--{#if intersected}-->
-                    <a href="{getItemUrl({
-                        itemId: item.id,
-                        bonusIds: getBonusIds(appearance),
-                    })}">
-                        <WowthingImage
-                            name="item/{item.id}{appearance.modifierId > 0 ? `_${appearance.modifierId}` : ''}"
-                            size={48}
-                            border={2}
-                        />
-                    </a>
+        <div
+            class="journal-item quality{getQuality(appearance)}"
+            class:missing={
+                (!$journalState.highlightMissing && !userHas) ||
+                ($journalState.highlightMissing && userHas)
+            }
+        >
+            <a href="{getItemUrl({
+                itemId: item.id,
+                bonusIds: getBonusIds(appearance),
+            })}">
+                <WowthingImage
+                    name="item/{item.id}{appearance.modifierId > 0 ? `_${appearance.modifierId}` : ''}"
+                    size={48}
+                    border={2}
+                />
+            </a>
 
-                    {#if classId > 0}
-                        <div class="player-class class-{classId} drop-shadow">
-                            <ClassIcon
-                                border={2}
-                                size={20}
-                                {classId}
-                            />
-                        </div>
-                    {/if}
+            {#if classId > 0}
+                <div class="player-class class-{classId} drop-shadow">
+                    <ClassIcon
+                        border={2}
+                        size={20}
+                        {classId}
+                    />
+                </div>
+            {/if}
 
-                    {#if userHas}
-                        <div class="collected-icon drop-shadow">
-                            <IconifyIcon icon={mdiCheckboxOutline} />
-                        </div>
-                    {/if}
+            {#if userHas}
+                <div class="collected-icon drop-shadow">
+                    <IconifyIcon icon={mdiCheckboxOutline} />
+                </div>
+            {/if}
 
-                    <div class="difficulties">
-                        {#each getDifficulties(appearance) as difficulty}
-                            <span>{difficulty}</span>
-                        {/each}
-                    </div>
-                <!--{/if}-->
+            <div class="difficulties">
+                {#each getDifficulties(appearance) as difficulty}
+                    <span>{difficulty}</span>
+                {/each}
             </div>
-        <!--</IntersectionObserver>-->
+        </div>
     {/if}
 {/each}
