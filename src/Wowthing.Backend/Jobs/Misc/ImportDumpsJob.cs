@@ -48,7 +48,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.ImportDumps,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(24),
-            Version = 10,
+            Version = 11,
         };
 
         private Dictionary<int, DumpItemXItemEffect[]> _itemEffectsMap;
@@ -274,7 +274,7 @@ namespace Wowthing.Backend.Jobs.Misc
                     }
                     // Off-hand
                     else if (subClass == WowArmorSubclass.Miscellaneous &&
-                             dbItem.InventoryType == WowInventoryType.OffHand)
+                             dbItem.InventoryType == WowInventoryType.HeldInOffHand)
                     {
                         dbItem.ClassId = (int)WowItemClass.Weapon;
                         dbItem.SubclassId = (int)WowWeaponSubclass.OffHand;

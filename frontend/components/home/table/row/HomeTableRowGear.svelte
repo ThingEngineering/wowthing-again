@@ -59,7 +59,7 @@
             }
 
             tierPieces = currentSetItems
-                .map(([tierSlot, itemIds]) => [tierSlot, tierPieceMap[tierSlot]])
+                .map((x) => [x[0], tierPieceMap[x[0]]])
         }
     }
 </script>

@@ -301,7 +301,7 @@
     {#if instance}
         {#key instance.id}
             <div class="collection thing-container">
-                {#each instance.encounters as encounter, encounterIndex}
+                {#each instance.encounters as encounter}
                     {#if $journalState.showTrash || encounter.name !== 'Trash Drops'}
                         <SectionTitle
                             title={encounter.name}
