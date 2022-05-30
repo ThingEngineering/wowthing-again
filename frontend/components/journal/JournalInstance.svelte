@@ -111,7 +111,7 @@
     .filters-toggle {
         margin-left: auto;
         margin-right: 0;
-
+ 
         :global(svg) {
             margin-top: -4px;
         }
