@@ -88,6 +88,7 @@ namespace Wowthing.Lib.Models
             "weeklyHoliday",
             "weeklyKorthia",
             "weeklyPatterns",
+            "weeklyPvp",
             "weeklySouls",
         };
         

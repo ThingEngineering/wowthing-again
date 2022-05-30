@@ -13,6 +13,7 @@ export const progressQuestHead: Record<string, string> = {
     weeklyHoliday: 'Holiday',
     weeklyKorthia: 'Korthia',
     weeklyPatterns: 'Zereth',
+    weeklyPvp: 'PvP',
     weeklySouls: 'Souls',
 }
 
@@ -21,6 +22,7 @@ export const progressQuestTitle: Record<string, string> = {
     weeklyHoliday: 'Weekly Holiday Quest',
     weeklyKorthia: 'Korthia',
     weeklyPatterns: 'Patterns Within Patterns',
+    weeklyPvp: 'Weekly PvP Quest',
     weeklySouls: 'Souls',
 }
 
@@ -30,6 +32,7 @@ export const forcedReset: Record<string, boolean> = {
     nightFaeSouls: true,
     venthyrSouls: true,
     weeklyHoliday: true,
+    weeklyPvP: true,
     weeklySouls: true,
 }
 

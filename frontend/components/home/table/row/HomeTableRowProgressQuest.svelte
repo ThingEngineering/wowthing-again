@@ -64,7 +64,7 @@
                     if (progressQuest.type === 'progressbar') {
                         text = `${progressQuest.have} %`
                     }
-                    else if (quest === 'weeklyHoliday') {
+                    else if (quest === 'weeklyHoliday' || quest === 'weeklyPvp') {
                         text = `${progressQuest.have} / ${progressQuest.need}`
                     }
                     else {
