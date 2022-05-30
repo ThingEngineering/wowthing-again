@@ -4,7 +4,6 @@ groups:
 - name: "Allied Races"
   things:
   - 306423 # Caravan Hyena (Vulpera)
-  - 370620 # Elusive Emerald Hawkstrider (Blood Elf)
   - 258060 # Highmountain Thunderhoof (Highmountain Tauren)
   - 267274 # Mag'har Direwolf (Mag'har Orc)
   - 258845 # Nightborne Manasaber (Nightborne)
@@ -43,6 +42,7 @@ groups:
   - 35025 # Swift Green Hawkstrider
   - 33660 # Swift Pink Hawkstrider
   - 35027 # Swift Purple Hawkstrider
+  - 370620 # Elusive Emerald Hawkstrider (Blood Elf)
 
 - name: "Thunder Bluff"
   things:
