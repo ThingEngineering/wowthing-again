@@ -42,5 +42,7 @@ groups:
 
 - name: Zereth Mortis
   things:
+  - 190853 # Bushel of Mysterious Fruit
+  - 190926 # Infested Automa Core
   - 190734 # Makaris's Satchel of Mines
   - 190457 # Protopological Cube

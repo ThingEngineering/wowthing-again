@@ -4,6 +4,7 @@ groups:
 - name: "Allied Races"
   things:
   - 271646 # Dark Iron Core Hound (Dark Iron Dwarf)
+  - 369666 # Grimhowl (Dark Iron Dwarf)
   - 258022 # Lightforged Felcrusher (Lightforged Draenei)
   - 282682 # Kul Tiran Charger (Kul Tiran)
   - 305592 # Mechagon Mechanostrider (Mechagnome)
