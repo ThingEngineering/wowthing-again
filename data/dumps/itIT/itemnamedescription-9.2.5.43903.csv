@@ -1,0 +1,661 @@
+ID,Description_lang
+2,Ora con nuove descrizioni
+20,Stagione 10
+226,Stagione 10 Élite
+525,Stagione 9 Élite
+653,Stagione 9
+1013,Stagione 11
+1208,Stagione 11 Élite
+1591,Stagione 19
+1593,Questo colore fa male agli occhi
+1641,Ricerca delle Incursioni
+2015,Eroico
+2023,Stagione 10 Élite
+2255,Stagione 12
+2667,Stagione 12 Élite
+3564,
+3759,Materiale d'Artigianato
+3765,Sacca da 100 Scomparti
+3845,Eroico Élite
+3859,Élite
+3933,Stagione 13
+3934,Stagione 13 Élite
+4918,Grado 1
+4949,Grado 2
+4953,Grado 3
+4957,Grado 4
+4961,Grado 5
+4965,Grado 7
+4969,Grado 8
+4970,Grado 6
+5213,Oggetto di Scenario
+5616,Tuonoforgiato
+6360,Eroico Tuonoforgiato
+6798,Grado 9
+6842,Grado ??
+6843,Stagione 8
+6894,Stagione 8 Élite
+7052,Stagione 7
+7225,Stagione 7 Élite
+7261,Stagione 6
+7434,Stagione 6 Élite
+7463,Stagione 5
+7636,Stagione 4
+7775,Stagione 3
+7906,Stagione 2
+8027,Stagione 1
+8869,Dinamico
+9059,Stagione 14
+9459,Stagione 14 Élite
+10066,Eroico Tuonoforgiato
+10126,Stagione 15
+10520,Stagione 15 Élite
+11080,Senza Tempo
+11179,Eroico Guerraforgiato
+11428,Guerraforgiato
+12743,Trofeo
+12790,Primevo
+12934,Materiale d'Alchimia
+13021,Materiale d'Artigianato
+13111,del Potere
+13145,Mitico
+13149,Materiale di Ingegneria
+13150,della Folgore
+13151,dell'Impareggiabile
+13152,della Lama Veloce
+13153,del Selvaggio
+13154,del Fanatico
+13155,dello Scaltro
+13156,della Bramosia
+13157,dell'Aurora
+13158,dell'Abile
+13159,dello Zelota
+13160,del Plasmaventi
+13161,dell'Armonia
+13162,dello Spietato
+13163,del Divinatore
+13164,del Nobile
+13165,dello Stratega
+13166,dell'Apostolo
+13167,del Sostenitore
+13168,dell'Araldo
+13169,del Solcatempeste
+13170,dell'Impaziente
+13171,dell'Erudito
+13172,del Flessibile
+13173,dell'Implacabile
+13174,del Pio
+13175,dell'Indistruttibile
+13176,del Decimatore
+13178,Torneo di Draenor
+13181,Ingrediente di Cucina
+13184,Reagente d'artigianato
+13185,Fase 2 di 6
+13186,Fase 3 di 6
+13187,Fase 1 di 6
+13188,Mitico Guerraforgiato
+13190,Equipaggiamento seguace
+13191,Risorsa per la Guarnigione
+13192,Merce dell'Emporio
+13193,Normale
+13194,Modulo dell'Emporio
+13195,Primevo
+13196,"Draenor, Stagione 1"
+13197,Emblema Razziale PvP
+13198,"Draenor, Stagione 1 Élite"
+13201,Grado 0
+13202,Grado 1 - Sacra
+13203,Grado 1 - Infuocata
+13204,Grado 1 - Corrotta
+13205,Grado 2 - Sacra
+13206,Grado 2 - Infuocata
+13207,Grado 2 - Corrotta
+13208,Fase 4 di 6
+13209,Progetto della Guarnigione
+13210,Viaggi nel Tempo
+13211,"Draenor, Stagione 2"
+13212,"Draenor, Stagione 2 Élite"
+13213,"Draenor, Stagione 3"
+13214,"Draenor, Stagione 3 Élite"
+13215,Borseggio
+13216,Fuoritempo
+13217,Fase 5 di 6
+13218,Fase 6 di 6
+13219,Potere Artefatto
+13220,Fuoritempo Guerraforgiato
+13222,Potenziato
+13223,Mana Antico
+13224,Potenziamento navale
+13225,Bieco
+13226,"Legion, Stagione 1"
+13227,"Legion, Stagione 1 Élite"
+13228,Equipaggiamento campione
+13230,Fase 1 di 9
+13231,Fase 2 di 9
+13232,Fase 3 di 9
+13233,Fase 4 di 9
+13234,Fase 5 di 9
+13235,Fase 6 di 9
+13236,Fase 7 di 9
+13237,Fase 8 di 9
+13238,Fase 9 di 9
+13239,Titanforgiato
+13241,Furia di Odyn
+13242,Ira di Helya
+13243,Mietigelo
+13244,Brandigelo
+13245,Verus
+13246,Muramas
+13247,Al'burq
+13248,Alra'ed
+13249,Tormento
+13250,Sventura
+13251,Fato
+13252,Destino
+13253,Zannabieca
+13254,Volontà di Akaari
+13256,Obliterum: 0/10
+13257,Obliterum: 1/10
+13258,Obliterum: 2/10
+13259,Obliterum: 3/10
+13260,Obliterum: 4/10
+13261,Obliterum: 5/10
+13262,Obliterum: 6/10
+13263,Obliterum: 7/10
+13264,Disintegrabile
+13265,Mitico 2
+13266,Mitico 3
+13267,Mitico 4
+13268,Mitico 5
+13269,Mitico 6
+13270,Mitico 7
+13271,Mitico 8
+13272,Mitico 9
+13273,Mitico 10
+13274,Mitico 2 Perfetto
+13275,Mitico 3 Perfetto
+13276,Mitico 4 Perfetto
+13277,Mitico 5 Perfetto
+13278,Mitico 6 Perfetto
+13279,Mitico 7 Perfetto
+13280,Mitico 8 Perfetto
+13281,Mitico 9 Perfetto
+13282,Obliterum: 8/10
+13284,Veterano
+13285,Obliterum: 9/10
+13286,Obliterum: 10/10
+13287,"Legion, Stagione 2"
+13288,"Legion, Stagione 2 Élite"
+13289,Mitico 11
+13290,Mitico 12
+13291,25 giocatori (Normale)
+13292,25 giocatori (Eroica)
+13293,10 giocatori (Normale)
+13294,Grado 8
+13295,"Legion, Stagione 3"
+13296,"Legion, Stagione 3 Élite"
+13297,"Legion, Stagione 4"
+13298,"Legion, Stagione 4 Élite"
+13299,"Legion, Stagione 5"
+13300,"Legion, Stagione 5 Élite"
+13301,Gladiatore
+13302,Combattente I
+13303,Pretendente
+13304,Onore
+13305,Pozzo Solare
+13306,PvP Raro
+13307,PvP Epico
+13308,Mitico 13
+13309,Mitico 14
+13310,Mitico 15
+13311,"Legion, Stagione 6"
+13312,"Legion, Stagione 7"
+13313,"Legion, Stagione 6 Élite"
+13314,"Legion, Stagione 7 Élite"
+13315,"Legion, Stagione 1 e 2"
+13316,"Legion, Stagione 1 e 2 Élite"
+13317,"Legion, Stagione 3 e 4"
+13318,"Legion, Stagione 3 e 4 Élite"
+13319,Oggetto creato
+13320,Abbandonato
+13321,Intrepido
+13322,Obliterum Primordiale: 0/10
+13323,Obliterum Primordiale: 1/10
+13324,Obliterum Primordiale: 2/10
+13325,Obliterum Primordiale: 3/10
+13326,Obliterum Primordiale: 4/10
+13327,Obliterum Primordiale: 5/10
+13328,Obliterum Primordiale: 6/10
+13329,Obliterum Primordiale: 7/10
+13330,Obliterum Primordiale: 8/10
+13331,Obliterum Primordiale: 9/10
+13332,Obliterum Primordiale: 10/10
+13333,Shatug
+13334,F'harg
+13335,"Legion, Stagione 5, 6 e 7"
+13336,"Legion, Stagione 5, 6 e 7 Élite"
+13337,Confiscato
+13338,Immacolato
+13339,Immacolato
+13343,"Azerite, Livello 3"
+13445,Sfidante I
+13446,Rivale I
+13447,Duellante
+13448,Fronte di Guerra
+13449,Potere Artefatto
+13450,Ricordo
+13451,Combattente Terrificante
+13452,Combattente Sinistro
+13453,Sfidante Terrificante
+13454,Sfidante Sinistro
+13455,Rivale Terrificante
+13456,Rivale Sinistro
+13457,Duellante Terrificante
+13458,Duellante Sinistro
+13459,Gladiatore Terrificante
+13460,Gladiatore Sinistro
+13461,Stagione 1 di Battle for Azeroth
+13462,Stagione 2 di Battle for Azeroth
+13463,Élite Sinistro
+13464,Élite Terrificante
+13465,Meccanistica di Meccagon
+13486,Dono Insidioso Sigillato
+13487,Dono Insidioso Aperto
+13488,"Prova dello stile, Stagione 4"
+13489,"Prova dello stile, Stagione 2"
+13490,"Prova dello stile, Stagione 1"
+13491,"Calibrazione: 0,75 Celerità : 0,25 Versatilità"
+13492,"Prova dello stile, Stagione 3"
+13493,Sfidante Famigerato
+13494,Combattente Famigerato
+13495,Duellante Famigerato
+13496,Élite Famigerato
+13497,Gladiatore Famigerato
+13498,Rivale Famigerato
+13499,Equipaggiamento per Cavalcatura
+13500,Concentrazione di Potere
+13501,Scheda Perforata Rossa
+13502,Scheda Perforata Gialla
+13503,Scheda Perforata Blu
+13504,Reagente Arcano
+13505,Perlato
+13506,Stagione 3 di Battle for Azeroth
+13507,Bentico
+13508,Stagione 4 di Battle for Azeroth
+13509,Reliquia dell'Impero Nero Livello 1
+13510,Reliquia dell'Impero Nero Livello 2
+13511,Reliquia dell'Impero Nero Livello 3
+13512,Reliquia dell'Impero Nero Livello 4
+13513,25 Corruzione
+13516,5 Corruzione
+13517,10 Corruzione
+13518,15 Corruzione
+13519,20 Corruzione
+13520,30 Corruzione
+13521,5-30 Corruzione
+13524,Grado 10
+13525,Grado 11
+13526,Grado 12
+13527,Grado 13
+13528,Grado 14
+13529,Grado 15
+13530,Sfidante Corrotto
+13531,Combattente Corrotto
+13532,Duellante Corrotto
+13533,Élite Corrotto
+13534,Gladiatore Corrotto
+13535,Rivale Corrotto
+13536,Corrotto
+13538,Codifica dell'Anima
+13543,dell'Artigiano Essenziale
+13544,dell'Artigiano Magistrale
+13545,dell'Artigiano Rapido
+13546,dell'Artigiano Versatile
+13547,dell'Ammazzabestie
+13549,Reagente d'Artigianato Facoltativo
+13551,IV
+13552,III
+13553,II
+13554,I
+13555,Cuciture Abominevoli
+13556,Vivaio della Regina
+13557,Potenziatore del Baccello Catalizzatore
+13558,Baccello Catalizzatore
+13559,Condotto
+13565,66 Corruzione
+13566,35 Corruzione
+13567,15 Corruzione
+13568,20 Corruzione
+13569,10 Corruzione
+13570,75 Corruzione
+13571,50 Corruzione
+13572,25 Corruzione
+13573,45 Corruzione
+13574,28 Corruzione
+13575,17 Corruzione
+13576,30 Corruzione
+13577,12 Corruzione
+13578,16 Corruzione
+13579,8 Corruzione
+13580,60 Corruzione
+13581,Creazioni degli Ascesi
+13583,Conoscenze Fauce
+13584,Corte delle Braci
+13585,Animum
+13586,The Coldest of Fronts (DNT)
+13587,Show them snow mercy! (DNT)
+13588,A Triple Threat (DNT)
+13589,"It's like double trouble, but better! (DNT)"
+13590,Campagna
+13591,Fama
+13592,Vivaio della Regina
+13593,Prestigio
+13594,Cuciture Abominevoli
+13595,Unità
+13596,Rete di Collegamento
+13597,Etereo
+13599,Contemplazione Moderata
+13600,Gemelli della Sacerdotessa del Sole
+13601,"X'anshi, Ritorno dell'Arcivescovo Benedictus"
+13602,Richiamo Eterno del Vuoto
+13603,Prisma d'Ombrofuoco
+13604,Salmo Alleviante
+13605,Lucidità Mentale
+13606,Bacio della Morte
+13607,Riflesso Cristallino
+13608,Apparato Armonioso
+13609,Il Penitente
+13610,Ombre Cauterizzanti
+13611,Concentrazione Rapida
+13612,Immagine Divina
+13613,Volta dei Cieli
+13614,Stratagemma di Talbadar
+13615,Giuramento del Druido Anziano
+13616,Barlume Sfuggente di Lycara
+13617,Circolo della Vita e della Morte
+13618,Fiasca del Focus Profondo
+13619,Visione Limpida di Oneth
+13620,Pulsazione Arcanica Primordiale
+13621,Equilibrio di Tutte le Cose
+13622,Vincolasogni Logoro
+13623,Ninnolo Occhio Felino
+13624,Bramosia del Grande Predatore
+13625,Frenesia
+13626,Abbraccio Infuso di Luffa
+13627,Esca di Fantaplasma Stabile
+13628,Volontà dell'Ordine Naturale
+13629,Terzo Occhio del Carceriere
+13630,Sagacia di Norgannon
+13631,Proclamazione di Sephuz
+13632,Giudizio dell'Arbiter
+13633,Sacrificio della Vitalità
+13634,Rinomata furia di Ursoc
+13635,Rantolo della Fauce
+13636,Eco di Eonar
+13637,Retaggio del Dormiente
+13638,Ricordo dell'Albero Madre
+13639,Lezione del Titano Oscuro
+13640,Infusione Verdeggiante
+13641,Visione della Crescita Eterna
+13642,Occhio della Simmetria Spaventosa
+13643,Tocco Fatale
+13644,Guanti Colposicuro
+13645,Delizia dell'Invocatore
+13646,Altocielo di Keefer
+13647,Condensatore dell'Ultimo Imperatore
+13648,Tesoro di Xuen
+13649,Accensione di Giada
+13650,Infusione Celestiale
+13651,Ultimo Barilotto di Triplo Malto
+13652,Vigore di Shaohao
+13653,Passioni Carbonizzate
+13654,Lacrima del Mattino
+13655,Sussurro di Yu'lon
+13656,Antichi Insegnamenti del Monastero
+13657,Focus Torbido
+13658,Fuga dalla Realtà
+13659,Aumenta la durata dello Scudo Antimagia e i danni subiti che assorbe ti curano.
+13660,Non classificato
+13661,Abbraccio della Morte
+13662,Supersforzo
+13663,Spira Letale
+13664,Certezza della Morte
+13665,Mostruosità Frenetica
+13666,Errante Rianimato
+13667,Dominio di Malacarne
+13668,Aura Vampirica
+13669,Runa Cremisi
+13670,Vigore di Bryndaor
+13671,Favore di Koltira
+13672,Rabbia del Campione Ghiacciato
+13673,Zero Assoluto
+13674,Freddo Pungente
+13675,Stretta dell'Imperituro
+13676,Incubo
+13678,Benedizione del Re del Sole
+13679,Cielo Fuso
+13680,Tempesta di Fuoco
+13681,Tiara dell'Incantatore
+13682,Stalattite Spaventosa
+13683,Protettore della Trinità
+13684,Comando Disciplinare
+13685,Potenziale Esteso
+13686,Venti Gelidi
+13687,Manto del Fronte Gelido
+13688,Brandigelo
+13689,Gelo Intenso
+13690,Tempesta d'Aspirazione
+13691,Armonia Arcana
+13692,Distorsione Temporale
+13693,Abbattimento Arcanico
+13694,Eletto Pazzo
+13695,Guardia di Uther
+13696,Anello con Sigillo dei Re Tormentati
+13697,Del Tramonto e dell'Alba
+13698,Barriera Folgorante
+13699,Giudizio del Magistrato
+13700,"Spezzaombre, Alba del Sole"
+13701,Inflorescenza del Pozzo Solare
+13702,Sigillo Inciso del Vendicatore Sacro
+13703,Santuario del Protettore Ardente
+13704,Baluardo della Giusta Furia
+13705,Regno dei Re Eterni
+13706,Verdetto Finale
+13707,Impeto dell'Avanguardia
+13708,Cadenza di Fujieda
+13709,Inquisitore Implacabile
+13710,Portatore di Morte
+13711,Volontà dello Spezzatore
+13712,Volontà Incrollabile
+13713,Rappresaglia
+13714,Muro
+13715,Tempesta dell'Araldo della Luce
+13716,Spaccatuono
+13717,Ultimo Respiro di Maraad
+13718,Verdetto Finale
+13719,Difensore Sprezzante
+13720,Squilibrato
+13721,Specchio Deformato
+13722,Signore della Battaglia
+13723,Riverbero Sismico
+13724,Vera del Promemoria Ancestrale
+13725,Stivaletti di Pietra del Tremore Profondo
+13726,Elmo degli Elementi Profondi
+13727,Catene della Devastazione
+13728,Vera Fusa della Spaccacieli Ardente
+13729,Calzature dell'Equilibrio Elementale
+13730,Guanti Lunghi della Grande Separazione
+13731,Mantello dell'Oratore del Vento
+13732,Venti del Fato
+13733,Retaggio della Megera del Gelo
+13734,Ossa di Lupo del Taumaturgo
+13735,Attuatori della Lava Primordiale
+13736,Fusciacca del Focus Naturale di Jonat
+13737,Gambali Foderati della Marea dello Spiritista
+13738,Nucleo della Marea Primordiale
+13739,Cotta dell'Armonia Terrestre
+13740,Stratagemma Infallibile
+13741,Il Boia
+13742,Colpo Duraturo
+13743,Vera della Chiamata Selvaggia
+13744,Stivali da Bracconiere di Nesingwary
+13745,Maschera delle Braci della Forgia dell'Anima
+13746,Veste Inanellata dello Stratagemma Vile
+13747,Usbergo del Comando Feroce
+13748,Calzature del Cobra del Destafiamme
+13749,"Qa'pla, Guanti Lunghi da Guerra in Eredun"
+13750,Stivaletti del Predatore di Rylak
+13751,Focus Preciso dell'Artiglio dell'Aquila
+13752,Talismano dei Tiri Crescenti
+13753,Vera dell'Astuzia dell'Inseguitore di Serpenti
+13754,Mitene della Veglia Impassibile
+13755,Tenuta del Fuocobrado Tattico
+13756,Manto del Predatore di Rylak
+13757,Iniettori di Veleno Latente
+13758,Frammenti d'Ossa del Macellaio
+13759,Sigillo di Wilfred dell'Evocazione Superiore
+13760,Fascia di Endereth
+13761,Reliquia della Sinergia Demoniaca
+13762,Vesti del Portale Oscuro Blasonate
+13763,Anello dell'Agonia Perpetua di Azj'aqir
+13764,Pianelle Oscure di Sacrolash
+13765,Fasciature Imbottite dell'Ira Malefica
+13766,Mantello della Consunzione Iraconda
+13767,Visioni del Potenziale Implosivo
+13768,Evocazione del Terrore dell'Inquisitore Tetro
+13769,Vera dell'Incubo Cornuto
+13770,Fasciature Ardenti della Pena del Ragno
+13771,Mantello Cinereo degli Azj'aqir
+13772,Follia degli Azj'aqir
+13773,Braci della Divisa del Diabolico
+13774,Coprigambe degli Ymirjar
+13775,Angoscia Collettiva
+13776,Potenziamento del Mezzo-Gigante
+13777,Dono Lumenero
+13778,Abiti dell'Ora Più Oscura
+13779,Demoni Interiori
+13780,Dita del Caos
+13781,Vilnucleo Erratico
+13782,Vilbombardiere
+13783,Medaglione della Fiamma Oscura
+13784,Profanazione di Razelikh
+13785,Frusta di Vilfiamma Spiraleggiante
+13786,Catene d'Anima Bruciate
+13787,Freddo nascente
+13789,Fluidità
+13790,Marchio del Maestro Assassino
+13791,Cinturone Tossico Tagliente
+13792,Cappuccio Intriso di Sangue
+13793,Medaglione di Polvere d'Ombra
+13794,Farabutto Ardito
+13795,Guanti della Lama Spietata Macchiati di Sangue
+13796,Catene da Allenamento della Famiglia Zoldyck
+13797,Pezza del Calcavespro
+13798,Vimini di Pelleverde
+13799,Astuzia del Bandito
+13800,Schioppo Nascosto
+13801,Atto Finale
+13802,Frammento d'Anima di Akaari
+13803,Il Marcio
+13804,Ombre Letali
+13805,Decorativo
+13806,Rune scendono a cascata sulla superficie di quest'armatura.
+13808,
+13809,Guardaspalle del Signore della Rovina Sconfitto
+13810,Fiammaeterna
+13811,Potenziamento Permanente: Torgast
+13812,Potenziamento Permanente: La Fauce
+13813,Via dell'Ascensione
+13815,Grado 1 di 7
+13816,Grado 2 di 7
+13817,Grado 3 di 7
+13818,Grado 4 di 7
+13819,Grado 5 di 7
+13820,Grado 6 di 7
+13821,Grado 7 di 7
+13822,Livello di potenziamento: 1/7
+13823,Livello di potenziamento: 2/7
+13824,Livello di potenziamento: 3/7
+13825,Livello di potenziamento: 4/7
+13826,Livello di potenziamento: 5/7
+13827,Livello di potenziamento: 6/7
+13828,Livello di potenziamento: 1/6
+13829,Artigianato Stigio
+13830,Reliquie di Korthia
+13831,Potenziato
+13832,Frenesia dell'Abominio
+13833,Trasferimento Dilagante
+13834,Sentenza Finale
+13835,Fame Insaziabile
+13836,Gloria
+13837,Impeto Peccaminoso
+13838,Furia della Natura
+13839,Isteria Peccaminosa
+13840,Eco Armonica
+13841,Sciame di Locuste
+13842,Profondità della Morte
+13843,Delizia Peccaminosa
+13844,Affinità tra Simili
+13845,Massacro Tossico
+13846,Spiriti Celestiali
+13847,Obbedienza
+13848,Aculeo della Morte
+13849,Marcia della Morte
+13850,Korthia
+13851,Lucidità Risonante
+13852,Scheggia del Dominio
+13853,Braci Radiose
+13854,Martellaccio Obbligato
+13855,Sguardo dell'Agonia
+13856,Toccato dalla Fauce
+13857,Massacro Fiammeggiante
+13858,Fede Cieca
+13859,Quartiermastro della Fama
+13860,Giuramento Demoniaco
+13861,Stagioni Abbondanti
+13862,Patto di Bwonsamdi
+13863,Parola d'Ombra: Manipolazione
+13864,Catene dei Giurafauce del Gladiatore Liberato
+13865,Catene della Maledizione del Gladiatore Liberato
+13866,Birra Copiosa
+13867,Elementi Scheggiati
+13868,Semi della Crescita Sfrenata
+13869,Condotto Elementale
+13870,Detrito d'Anima Stagnante
+13871,Scheggia dell'Annientamento
+13872,Borsa d'Anime Decadente
+13873,Esplosione Perpetua Contenuta
+13874,Patto degli Inseguitori d'Anime
+13875,Borsa di Munizioni
+13876,Frammenti delle Corna Antiche
+13877,Sacchetto di Frammenti Taglienti
+13878,Chiamata alle Armi
+13879,Freddo Divorante
+13881,Armonia di Silfaglia
+13882,Test 1 Override
+13883,Test 2 Override
+13884,Vortice del Vespro Furioso
+13885,Insegnamenti Sinistri
+13886,Cuore dei Silfi
+13887,Armonia delle Sfere
+13888,Ordine Pallido
+13889,Vigore Elisio
+13890,Risonanza Divina
+13891,Inestimabile
+13895,Combattente II
+13896,Sfidante II
+13897,Rivale II
+13898,Modulo dei Progenitori
+13899,Codici dei Primi
+13900,Utilizzabile con:
+13901,Le ricette di Shadowlands per armature rare (blu) e migliori.
+13907,Del Sostentamento
+13908,Predestinato
+13911,Stagione 2 di Shadowlands
+13914,Sintesi di Protoforma
+13915,Unità
+13916,Equipaggiamento del Codice
+13922,Predestinato
+13923,Predestinato Eroico
+13924,Predestinato Mitico
+13932,Ricerca delle Incursioni Predestinate
