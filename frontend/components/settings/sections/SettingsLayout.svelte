@@ -39,6 +39,7 @@
         {key: 'weeklyHoliday', name: 'Weekly - Holiday'},
         {key: 'weeklyKorthia', name: 'Weekly - Korthia'},
         {key: 'weeklyPatterns', name: 'Weekly - Patterns'},
+        {key: 'weeklyPvp', name: 'Weekly - PvP'},
         {key: 'weeklySouls', name: 'Weekly - Souls'},
     ]
 

@@ -11,6 +11,7 @@
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
+    import Error from '@/components/common/Error.svelte'
     import TableHead from './ReputationsTableHead.svelte'
     import TableRow from './ReputationsTableRow.svelte'
 
@@ -22,6 +23,9 @@
     let sortFunc: (char: Character) => string
     $: {
         category = find($staticStore.data.reputationSets, (r) => r?.slug === slug)
+        if (!category) {
+            break $
+        }
 
         filterFunc = (char: Character) => char.level >= (category.minimumLevel ?? 0)
 
@@ -54,36 +58,42 @@
     }
 </script>
 
-<CharacterTable
-    skipGrouping={sorted}
-    {filterFunc}
-    {sortFunc}
->
-    <CharacterTableHead slot="head">
-        {#key category.name}
-            {#each category.reputations as reputationSet}
-                {#each reputationSet as reputation}
-                    <TableHead
-                        {reputation}
-                        {slug}
-                    />
+{#if category}
+    <CharacterTable
+        skipGrouping={sorted}
+        {filterFunc}
+        {sortFunc}
+    >
+        <CharacterTableHead slot="head">
+            {#key category.name}
+                {#each category.reputations as reputationSet}
+                    {#each reputationSet as reputation}
+                        <TableHead
+                            {reputation}
+                            {slug}
+                        />
+                    {/each}
                 {/each}
-            {/each}
-        {/key}
-    </CharacterTableHead>
+            {/key}
+        </CharacterTableHead>
 
-    <svelte:fragment slot="rowExtra" let:character>
-        {#key category.name}
-            {#each category.reputations as reputationSet, reputationSetIndex}
-                {#each reputationSet as reputation, reputationIndex}
-                    <TableRow
-                        alt={reputationSetIndex % 2 === 1}
-                        characterRep={character.reputationData[slug].sets[reputationSetIndex][reputationIndex]}
-                        {character}
-                        {reputation}
-                    />
+        <svelte:fragment slot="rowExtra" let:character>
+            {#key category.name}
+                {#each category.reputations as reputationSet, reputationSetIndex}
+                    {#each reputationSet as reputation, reputationIndex}
+                        <TableRow
+                            alt={reputationSetIndex % 2 === 1}
+                            characterRep={character.reputationData[slug].sets[reputationSetIndex][reputationIndex]}
+                            {character}
+                            {reputation}
+                        />
+                    {/each}
                 {/each}
-            {/each}
-        {/key}
-    </svelte:fragment>
-</CharacterTable>
+            {/key}
+        </svelte:fragment>
+    </CharacterTable>
+{:else}
+    <Error
+        text="No reputations found matching provided path"
+    />
+{/if}

@@ -2,6 +2,7 @@
     import filter from 'lodash/filter'
     import find from 'lodash/find'
     import some from 'lodash/some'
+    import { replace } from 'svelte-spa-router'
 
     import { userAchievementStore, userQuestStore, userStore } from '@/stores'
     import { progressState } from '@/stores/local-storage'
@@ -37,10 +38,17 @@
     }
 
     $: {
-        categories = find($staticStore.data.progress, (p) => p !== null && p[0].slug === slug1)
+        categories = find($staticStore.data.progress, (p) => p !== null && p[0].slug === slug1) || []
+        if (categories.length === 0) {
+            break $
+        }
+
         const firstCategory = categories[0]
         if (slug2) {
             categories = filter(categories, (s) => s !== null && s.slug === slug2)
+            if (categories.length === 0) {
+                break $
+            }
         }
 
         const minimumLevels = [firstCategory, ...categories]
@@ -54,8 +62,7 @@
                 return false
             }
             if (requiredQuestIds.length > 0 &&
-                !some(requiredQuestIds, (id) => $userQuestStore.data.characters[char.id]?.quests?.has(id)))
-            {
+                !some(requiredQuestIds, (id) => $userQuestStore.data.characters[char.id]?.quests?.has(id))) {
                 return false
             }
             return true

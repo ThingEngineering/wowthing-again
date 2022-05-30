@@ -11,6 +11,7 @@ groups:
 - name: Games
   things:
   - 116115 # Blazing Wings (Brood of Alysrazor)
+  - 187689 # Dance Dance Darkmoon (Dancing Machine)
   - 122123 # Darkmoon Ring-Flinger (Triumphant Turtle Tossing)
   - 122122 # Darkmoon Tonk Controller (Ace Tonk Commander)
 
