@@ -35,7 +35,7 @@
     "@typescript-eslint/parser": "^4.26.1",
     "eslint": "^7.28.0",
     "eslint-plugin-svelte3": "^3.2.0",
-    "node-sass": "^6.0.0",
+    "node-sass": "^7.0.0",
     "postcss": "^8.2.1",
     "postcss-load-config": "^3.0.0",
     "rimraf": "^3.0.2",
