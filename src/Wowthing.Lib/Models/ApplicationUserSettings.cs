@@ -79,6 +79,7 @@ namespace Wowthing.Lib.Models
             "mythicPlusScore",
             "playedTime",
             "professions",
+            "professionsSecondary",
             "restedExperience",
             "statusIcons",
             "vaultMythicPlus",
@@ -200,6 +201,7 @@ namespace Wowthing.Lib.Models
     public class ApplicationUserSettingsLayout
     {
         public string CovenantColumn { get; set; } = "current";
+        public bool IncludeArchaeology { get; set; } = false;
         public string Padding { get; set; } = "medium";
         public List<string> CommonFields { get; set; } = new();
         public List<string> HomeFields { get; set; } = new();

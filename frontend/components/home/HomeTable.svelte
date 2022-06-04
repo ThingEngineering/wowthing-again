@@ -94,6 +94,11 @@
                 {#if !$homeState.onlyWeekly}
                     <RowProfessions {character} />
                 {/if}
+            
+            {:else if field === 'professionsSecondary'}
+                {#if !$homeState.onlyWeekly}
+                    <RowProfessions {character} professionType={1} />
+                {/if}
 
             {:else if field === 'restedExperience'}
                 {#if !isPublic && !$homeState.onlyWeekly}
