@@ -16,8 +16,8 @@ interface IsKeystoneUpgradeResult {
     scoreIncrease: number
 }
 
-export function isKeystoneUpgrade(character: Character, dungeonId: number): IsKeystoneUpgradeResult {
-    const addonMap = character.mythicPlusAddon?.maps?.[dungeonId]
+export function isKeystoneUpgrade(character: Character, season: number, dungeonId: number): IsKeystoneUpgradeResult {
+    const addonMap = character.mythicPlusAddon?.[season]?.maps?.[dungeonId]
     const affixes = getWeeklyAffixes(character)
 
     let isUpgrade = false

@@ -34,7 +34,7 @@ namespace Wowthing.Web.Models
         public Dictionary<int, Dictionary<int, List<int>>> GarrisonTrees { get; }
         public Dictionary<string, PlayerCharacterLockoutsLockout> Lockouts { get; }
         public UserApiCharacterMythicPlus MythicPlus { get; }
-        public PlayerCharacterMythicPlusAddon MythicPlusAddon { get; }
+        public Dictionary<int, PlayerCharacterAddonDataMythicPlus> MythicPlusAddon { get; }
         public Dictionary<int, Dictionary<int, PlayerCharacterProfessionTier>> Professions { get; }
         public Dictionary<int, PlayerCharacterRaiderIoSeasonScores> RaiderIo { get; }
         public Dictionary<int, PlayerCharacterReputationsParagon> Paragons { get; }
@@ -127,7 +127,7 @@ namespace Wowthing.Web.Models
 
                 if (character.MythicPlusAddon != null)
                 {
-                    MythicPlusAddon = character.MythicPlusAddon;
+                    MythicPlusAddon = character.AddonData?.MythicPlus;
                 }
 
                 if (character.RaiderIo != null)

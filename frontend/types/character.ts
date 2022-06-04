@@ -37,7 +37,7 @@ export interface Character {
     garrisonTrees: Record<number, Record<number, number[]>>
     lockouts: Record<string, CharacterLockout>
     mythicPlus: CharacterMythicPlus
-    mythicPlusAddon: CharacterMythicPlusAddon
+    mythicPlusAddon: Record<number, CharacterMythicPlusAddon>
     paragons: Record<number, CharacterReputationParagon>
     raiderIo: Record<number, CharacterRaiderIoSeason>
     reputations: Record<number, number>
@@ -108,7 +108,15 @@ export interface CharacterMythicPlus {
 
 export interface CharacterMythicPlusAddon {
     maps: Record<number, CharacterMythicPlusAddonMap>
+    runs: Array<CharacterMythicPlusAddonRun>
     season: number
+}
+
+export interface CharacterMythicPlusAddonRun {
+    completed: boolean
+    level: number
+    mapId: number
+    score: number
 }
 
 export interface CharacterMythicPlusAddonMap {

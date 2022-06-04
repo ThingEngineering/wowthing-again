@@ -4,6 +4,7 @@
     import getSavedRoute from '@/utils/get-saved-route'
 
     import MythicPlusSidebar from './MythicPlusSidebar.svelte'
+    import MythicPlusStats from './MythicPlusStats.svelte'
     import MythicPlusTable from './MythicPlusTable.svelte'
 
     export let params: { slug: string }
@@ -12,16 +13,28 @@
 </script>
 
 <style lang="scss">
-    div {
+    .wrapper {
         align-items: flex-start;
         display: flex;
         width: 100%;
     }
+    .sub-wrapper {
+        align-items: flex-start;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
 </style>
 
-<div>
+<div class="wrapper">
     <MythicPlusSidebar />
-    {#if params.slug}
-        <MythicPlusTable slug={params.slug} />
-    {/if}
+    <div class="sub-wrapper">
+        {#if params.slug}
+            <MythicPlusTable slug={params.slug} />
+
+            {#if params.slug !== 'this-week'}
+                <MythicPlusStats slug={params.slug} />
+            {/if}
+        {/if}
+    </div>
 </div>

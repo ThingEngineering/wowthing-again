@@ -298,6 +298,16 @@ export const raidVaultItemLevel: Record<number, number> = {
     16: 278, // Mythic
 }
 
+export const keyTiers = [
+    '2-4',
+    '5-9',
+    '10-14',
+    '15-19',
+    '20-24',
+    '25-29',
+    '30+',
+]
+
 // Fake "instances" for tracking world bosses
 export const extraInstances: StaticDataInstance[] = [
     // Anniversary bosses

@@ -9,3 +9,13 @@
 
     color: $colour-fail;
 }
+
+.border-success {
+    border-color: mix($colour-success, $border-color, 90%) !important;
+}
+.border-shrug {
+    border-color: mix($colour-shrug, $border-color, 90%) !important;
+}
+.border-fail {
+    border-color: mix($colour-fail, $border-color, 90%) !important;
+}

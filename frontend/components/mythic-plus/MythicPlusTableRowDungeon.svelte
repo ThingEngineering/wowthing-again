@@ -1,7 +1,7 @@
 <script lang="ts">
     import { getContext } from 'svelte'
 
-    import type {Character, CharacterMythicPlusAddonMap, CharacterMythicPlusRun} from '@/types'
+    import type {Character, CharacterMythicPlusAddonMap, CharacterMythicPlusAddonRun, CharacterMythicPlusRun} from '@/types'
     import getMythicPlusRunQuality, { getMythicPlusRunQualityAffix } from '@/utils/get-mythic-plus-run-quality'
     import { tippyComponent } from '@/utils/tippy'
 
@@ -15,8 +15,10 @@
     const character: Character = getContext('character')
 
     let addonMap: CharacterMythicPlusAddonMap
+    let allRuns: CharacterMythicPlusAddonRun[]
     let isTyrannical: boolean
     let runs: CharacterMythicPlusRun[]
+    let showBoth: boolean
     $: {
         const affixes = getWeeklyAffixes(character)
         isTyrannical = affixes[0].name === 'Tyrannical'
@@ -27,10 +29,14 @@
             runs = [runs[0]]
         }
 
-        if (character.mythicPlusAddon?.season === seasonId) {
-            const tempMap: CharacterMythicPlusAddonMap = character.mythicPlusAddon.maps[dungeonId]
+        showBoth = seasonId >= 6 && (character.mythicPlusAddon?.[seasonId]?.runs || []).length > 0
+
+        if (character.mythicPlusAddon?.[seasonId]) {
+            const tempMap: CharacterMythicPlusAddonMap = character.mythicPlusAddon[seasonId].maps[dungeonId]
             if (tempMap.fortifiedScore || tempMap.tyrannicalScore) {
                 addonMap = tempMap
+                allRuns = character.mythicPlusAddon[seasonId].runs
+                    .filter((run) => run.mapId === dungeonId)
             }
         }
     }
@@ -80,11 +86,17 @@
     class:tyrannical={isTyrannical}
     use:tippyComponent={{
         component: TooltipMythicPlusRuns,
-        props: { addonMap, dungeonId, runs },
+        props: {
+            addonMap,
+            allRuns,
+            character,
+            dungeonId,
+            runs,
+        },
     }}
 >
     <div class="flex-wrapper">
-        {#if seasonId >= 6}
+        {#if showBoth}
             {#if addonMap?.fortifiedScore}
                 <span
                     class="{getMythicPlusRunQualityAffix(addonMap.fortifiedScore)}"
