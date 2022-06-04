@@ -46,7 +46,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
-            Version = 38,
+            Version = 39,
         };
 
         public override async Task Run(params string[] data)
@@ -287,8 +287,9 @@ namespace Wowthing.Backend.Jobs.Misc
                 .ToArray();
 
             var subProfessions = skillLines
-                .Where(line => Hardcoded.PrimaryProfessions.Contains(line.ParentSkillLineID) ||
-                               Hardcoded.SecondaryProfessions.Contains(line.ParentSkillLineID))
+                .Where(line => (Hardcoded.PrimaryProfessions.Contains(line.ParentSkillLineID) ||
+                               Hardcoded.SecondaryProfessions.Contains(line.ParentSkillLineID)) &&
+                               !Hardcoded.IgnoredProfessions.Contains(line.ID))
                 .ToGroupedDictionary(line => line.ParentSkillLineID);
             
             var ret = new Dictionary<Language, Dictionary<int, OutProfession>>();
