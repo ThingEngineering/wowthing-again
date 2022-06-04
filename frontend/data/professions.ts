@@ -11,6 +11,7 @@ export const professionIdToString: Record<number, string> = {
     393: 'skinning',
     197: 'tailoring',
 
+    794: 'archaeology',
     185: 'cooking',
     356: 'fishing',
 }
