@@ -21,6 +21,13 @@
         {
             185, // Cooking
             356, // Fishing
+            794, // Archaeology
+        };
+
+        public static readonly HashSet<int> IgnoredProfessions = new()
+        {
+            981, // Apprentice Cooking
+            982, // Journeyman Cookbook
         };
     }
 }

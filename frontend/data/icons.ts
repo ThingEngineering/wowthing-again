@@ -61,6 +61,7 @@ export const imageStrings: Record<string, string> = {
     horde: Constants.icons.horde,
 
     alchemy: 'spell/2259',
+    archaeology: 'spell/110393',
     blacksmithing: 'spell/2018',
     cooking: 'spell/2550',
     enchanting: 'spell/7411',

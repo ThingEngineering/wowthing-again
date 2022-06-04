@@ -47,7 +47,7 @@ namespace Wowthing.Backend.Jobs.User
                 .Include(c => c.Currencies)
                 .Include(c => c.Items)
                 .Include(c => c.Lockouts)
-                .Include(c => c.MythicPlusAddon)
+                //.Include(c => c.MythicPlusAddon)
                 .Include(c => c.Reputations)
                 .Include(c => c.Shadowlands)
                 .Include(c => c.Transmog)
@@ -156,7 +156,7 @@ namespace Wowthing.Backend.Jobs.User
                 await HandleItems(character, characterData);
                 HandleLockouts(character, characterData);
                 HandleMounts(character, characterData);
-                HandleMythicPlus(character, characterData);
+                //HandleMythicPlus(character, characterData);
                 HandleQuests(character, characterData);
                 HandleReputations(character, characterData);
                 HandleTransmog(character, characterData);
@@ -236,7 +236,9 @@ namespace Wowthing.Backend.Jobs.User
 
         private void HandleAddonData(PlayerCharacter character, UploadCharacter characterData)
         {
-            if (characterData.GarrisonTrees != null && characterData.ScanTimes.TryGetValue("garrisons", out int garrisonsTimestamp))
+            // Garrison Trees
+            if (characterData.GarrisonTrees != null &&
+                characterData.ScanTimes.TryGetValue("garrisons", out int garrisonsTimestamp))
             {
                 var scanTime = garrisonsTimestamp.AsUtcDateTime();
                 if (scanTime > character.AddonData.GarrisonTreesScannedAt)
@@ -265,6 +267,72 @@ namespace Wowthing.Backend.Jobs.User
                             }
                         }
                     }
+                }
+            }
+            
+            // Mythic Plus
+            if (characterData.MythicPlus != null &&
+                characterData.ScanTimes.TryGetValue("mythicPlus", out int mythicPlusTimestamp))
+            {
+                var scanTime = mythicPlusTimestamp.AsUtcDateTime();
+                if (scanTime > character.AddonData.MythicPlusScannedAt)
+                {
+                    character.AddonData.MythicPlusScannedAt = scanTime;
+
+                    if (character.AddonData.MythicPlus == null)
+                    {
+                        character.AddonData.MythicPlus = new();
+                    }
+
+                    var season = character.AddonData.MythicPlus[characterData.MythicPlus.Season] = new();
+
+                    foreach (var map in characterData.MythicPlus.Maps.EmptyIfNull())
+                    {
+                        var mapData = season.Maps[map.MapId] = new PlayerCharacterAddonDataMythicPlusMap();
+                        mapData.OverallScore = map.OverallScore;
+
+                        foreach (var mapScore in map.AffixScores.EmptyIfNull())
+                        {
+                            // TODO check if ths is different in non-English clients
+                            if (mapScore.Name == "Fortified")
+                            {
+                                mapData.FortifiedScore = new PlayerCharacterAddonDataMythicPlusScore
+                                {
+                                    OverTime = mapScore.OverTime,
+                                    DurationSec = mapScore.DurationSec,
+                                    Level = mapScore.Level,
+                                    Score = mapScore.Score,
+                                };
+                            }
+                            else if (mapScore.Name == "Tyrannical")
+                            {
+                                mapData.TyrannicalScore = new PlayerCharacterAddonDataMythicPlusScore
+                                {
+                                    OverTime = mapScore.OverTime,
+                                    DurationSec = mapScore.DurationSec,
+                                    Level = mapScore.Level,
+                                    Score = mapScore.Score,
+                                };
+                            }
+                        }
+                    }
+
+                    foreach (var runString in characterData.MythicPlus.Runs.EmptyIfNull())
+                    {
+                        var runParts = runString.Split(':');
+                        season.Runs.Add(new PlayerCharacterAddonDataMythicPlusRun
+                        {
+                            MapId = int.Parse(runParts[0]),
+                            Completed = runParts[1] == "1",
+                            Level = int.Parse(runParts[2]),
+                            Score = int.Parse(runParts[3]),
+                        });
+                    }
+                    
+                    // Change detection for this is obnoxious, just update it 
+                    Context.Entry(character.AddonData)
+                        .Property(ad => ad.MythicPlus)
+                        .IsModified = true;
                 }
             }
         }
@@ -701,57 +769,6 @@ namespace Wowthing.Backend.Jobs.User
                     .EmptyIfNull()
                     .OrderBy(mountId => mountId)
                     .ToList();
-            }
-        }
-
-        private void HandleMythicPlus(PlayerCharacter character, UploadCharacter characterData)
-        {
-            if (characterData.MythicPlus == null)
-            {
-                return;
-            }
-            
-            if (character.MythicPlusAddon == null)
-            {
-                character.MythicPlusAddon = new PlayerCharacterMythicPlusAddon
-                {
-                    Character = character,
-                };
-                Context.PlayerCharacterMythicPlusAddon.Add(character.MythicPlusAddon);
-            }
-
-            character.MythicPlusAddon.Maps = new Dictionary<int, PlayerCharacterMythicPlusAddonMap>();
-            character.MythicPlusAddon.Season = characterData.MythicPlus.Season;
-
-            foreach (var map in characterData.MythicPlus.Maps.EmptyIfNull())
-            {
-                var mapData = character.MythicPlusAddon.Maps[map.MapId] = new PlayerCharacterMythicPlusAddonMap();
-                mapData.OverallScore = map.OverallScore;
-
-                foreach (var mapScore in map.AffixScores.EmptyIfNull())
-                {
-                    // TODO check if ths is different in non-English clients
-                    if (mapScore.Name == "Fortified")
-                    {
-                        mapData.FortifiedScore = new PlayerCharacterMythicPlusAddonMapScore
-                        {
-                            OverTime = mapScore.OverTime,
-                            DurationSec = mapScore.DurationSec,
-                            Level = mapScore.Level,
-                            Score = mapScore.Score,
-                        };
-                    }
-                    else if (mapScore.Name == "Tyrannical")
-                    {
-                        mapData.TyrannicalScore = new PlayerCharacterMythicPlusAddonMapScore
-                        {
-                            OverTime = mapScore.OverTime,
-                            DurationSec = mapScore.DurationSec,
-                            Level = mapScore.Level,
-                            Score = mapScore.Score,
-                        };
-                    }
-                }
             }
         }
 

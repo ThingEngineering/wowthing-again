@@ -114,6 +114,12 @@
                 <td>Professions</td>
             {/if}
 
+            
+        {:else if field === 'professionsSecondary'}
+            {#if !$homeState.onlyWeekly}
+                <td>Secondary Profs</td>
+            {/if}
+
         {:else if field === 'restedExperience'}
             {#if !isPublic && !$homeState.onlyWeekly}
                 <td>Rest</td>

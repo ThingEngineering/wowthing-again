@@ -26,6 +26,7 @@ export const validEnchants: Record<number, number[]> = {
         3368, // Rune of the Fallen Crusader
         6196, // Optical Target Embiggener
         6223, // Lightless Force
+        6227, // Ascended Vigor
         6228, // Sinful Revelation
         6229, // Celestial Guidance
     ],

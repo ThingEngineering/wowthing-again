@@ -5,10 +5,11 @@
     import { data as settingsData } from '@/stores/settings'
     import type { SettingsChoice } from '@/types'
 
+    import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
     import HomeTable from '@/components/home/HomeTable.svelte'
     import MagicLists from '../SettingsMagicLists.svelte'
     import RadioGroup from '@/components/forms/RadioGroup.svelte'
-
+    
     const commonChoices: SettingsChoice[] = [
         {key: 'accountTag', name: 'Account tag'},
         {key: 'characterLevel', name: 'Character level'},
@@ -29,7 +30,8 @@
         {key: 'keystone', name: 'Mythic+ keystone'},
         {key: 'mythicPlusScore', name: 'Mythic+ score'},
         {key: 'playedTime', name: 'Played time'},
-        {key: 'professions', name: 'Professions'},
+        {key: 'professions', name: 'Professions - Pri'},
+        {key: 'professionsSecondary', name: 'Professions - Sec'},
         {key: 'restedExperience', name: 'Rested XP'},
         {key: 'statusIcons', name: 'Status icons'},
         {key: 'vaultMythicPlus', name: 'Vault - Mythic+'},
@@ -119,6 +121,17 @@
                 ]}
             />
             <p>How many covenants to display in the covenant column.</p>
+        </div>
+        
+        <h3>Misc</h3>
+
+        <div class="setting setting-checkbox setting-layout">
+            <CheckboxInput
+                bind:value={$settingsData.layout.includeArchaeology}
+                name="layout_includeArchaeology"
+            >
+                Include Archaeology in Professions - Sec column.
+            </CheckboxInput>
         </div>
 
         <h3>Character table columns</h3>

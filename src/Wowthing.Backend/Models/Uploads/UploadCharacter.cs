@@ -101,6 +101,7 @@
     {
         public int Season { get; set; }
         public List<UploadCharacterMythicPlusMap> Maps { get; set; }
+        public List<string> Runs { get; set; }
     }
 
     public class UploadCharacterMythicPlusMap
