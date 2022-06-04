@@ -1,7 +1,8 @@
 <script lang="ts">
-    import type { Character, Dungeon, MythicPlusAffix } from '@/types'
+    import { Constants } from '@/data/constants'
     import getMythicPlusRunQuality, {getMythicPlusRunQualityAffix} from '@/utils/get-mythic-plus-run-quality'
     import { getWeeklyAffixes, isKeystoneUpgrade } from '@/utils/mythic-plus'
+    import type { Character, Dungeon, MythicPlusAffix } from '@/types'
 
     import AffixIcon from '@/components/images/AffixIcon.svelte'
     import type {CharacterMythicPlusAddonMapAffix} from '@/types'
@@ -16,7 +17,7 @@
     $: {
         affixes = getWeeklyAffixes(character)
         if (affixes && dungeon) {
-            ({isUpgrade, mapInfo, scoreIncrease} = isKeystoneUpgrade(character, dungeon.id))
+            ({isUpgrade, mapInfo, scoreIncrease} = isKeystoneUpgrade(character, Constants.mythicPlusSeason, dungeon.id))
         }
     }
 </script>

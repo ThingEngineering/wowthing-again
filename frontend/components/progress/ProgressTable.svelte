@@ -2,7 +2,6 @@
     import filter from 'lodash/filter'
     import find from 'lodash/find'
     import some from 'lodash/some'
-    import { replace } from 'svelte-spa-router'
 
     import { userAchievementStore, userQuestStore, userStore } from '@/stores'
     import { progressState } from '@/stores/local-storage'

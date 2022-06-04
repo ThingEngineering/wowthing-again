@@ -20,7 +20,7 @@
             const resetTime = getNextWeeklyReset(character.weekly.keystoneScannedAt, character.realm.region)
             if (resetTime > $timeStore) {
                 dungeon = dungeonMap[character.weekly.keystoneDungeon]
-                ;({isUpgrade} = isKeystoneUpgrade(character, dungeon.id))
+                ;({isUpgrade} = isKeystoneUpgrade(character, Constants.mythicPlusSeason, dungeon.id))
             }
         }
     }
