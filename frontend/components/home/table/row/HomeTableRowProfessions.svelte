@@ -21,14 +21,13 @@
                 continue
             }
 
-            //for (const professionId in (character.professions || {})) {
             const profession: StaticDataProfession = $staticStore.data.professions[professionId]
             if (profession?.type === professionType) {
                 if (profession.subProfessions.length > 0) {
                     let found = false
                     for (let i = profession.subProfessions.length; i > 0; i--) {
                         const subProfession = profession.subProfessions[i - 1]
-                        const characterSubProfession = character.professions[profession.id]?.[subProfession.id]
+                        const characterSubProfession = character.professions?.[profession.id]?.[subProfession.id]
                         if (characterSubProfession) {
                             professions.push([
                                 profession,
@@ -49,7 +48,7 @@
                     }
                 }
                 else {
-                    const characterProfession = character.professions[profession.id]?.[profession.id]
+                    const characterProfession = character.professions?.[profession.id]?.[profession.id]
                     professions.push([
                         profession,
                         characterProfession || null,
