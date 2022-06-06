@@ -44,7 +44,7 @@ namespace Wowthing.Backend.Services
                     var count = _channels[priority].Reader.Count;
                     if (count > 1000)
                     {
-                        _logger.Warning("{Priority} queue is at {Count}!", priority.ToString(), count));
+                        _logger.Warning("{Priority} queue is at {Count}!", priority.ToString(), count);
                     }
                 }
             }
