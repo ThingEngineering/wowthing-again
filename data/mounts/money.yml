@@ -16,6 +16,10 @@ groups:
   - 341821 # Snowstorm (The Celebration Collection)
   - 348162 # Wandering Ancient (Shadowlands)
   - 356488 # Sarge's Tale (Hearthstone)
+  - 281554 # Meat Wagon (Warcraft III: Reforged Spoils of War Edition)
+  -  58983 # Big Blizzard Bear (BlizzCon 2008)
+  - 245723 245725 # Stormwind Skychaser/Orgrimmar Interceptor (BlizzCon 2017)
+  - 245725 245723 # ^ reversed
 
 - name: Store
   things:
@@ -63,3 +67,12 @@ groups:
   -  74918 # Wooly White Rhino
   -  46197 # X-16081 Nether-Rocket
   -  46199 # X-16081 Nether-Rocket X-TREME
+
+- name: BMAH
+  things:
+  -  24242 # Swift Razzashi Raptor
+  -  24252 # Swift Zulian Tiger
+  -  60021 # Plagued Proto-Drake
+  - 170347 # Core Hound
+  - 294197 # Obsidian Worldbreaker
+  - 264058 # Mighty Caravan Brutosaur
