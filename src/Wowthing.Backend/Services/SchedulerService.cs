@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Net;
+using System.Reflection;
 using System.Runtime;
 using Microsoft.Extensions.DependencyInjection;
 using Wowthing.Backend.Jobs;
@@ -16,6 +17,7 @@ namespace Wowthing.Backend.Services
         
         private readonly JobRepository _jobRepository;
         private readonly IServiceScopeFactory _serviceScopeFactory;
+        private readonly StateService _stateService;
         
         private readonly List<ScheduledJob> _scheduledJobs = new();
 
@@ -72,11 +74,16 @@ ORDER BY c.last_api_check
 LIMIT 500
 ";*/
 
-        public SchedulerService(IServiceScopeFactory serviceScopeFactory, JobRepository jobRepository)
+        public SchedulerService(
+            IServiceScopeFactory serviceScopeFactory,
+            JobRepository jobRepository,
+            StateService stateService
+        )
             : base("Scheduler", TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(TimerInterval))
         {
             _jobRepository = jobRepository;
             _serviceScopeFactory = serviceScopeFactory;
+            _stateService = stateService;
 
             // Schedule jobs for all IScheduledJob implementers
             var jobTypes = AppDomain.CurrentDomain.GetAssemblies()
@@ -129,59 +136,64 @@ LIMIT 500
                 Logger.Error(ex, "Kaboom!");
             }
 
-            try
+            if (_stateService.JobQueueReaders[JobPriority.Low].Count < 5000)
             {
-                using var scope = _serviceScopeFactory.CreateScope();
-                var contextFactory = scope.ServiceProvider.GetService<IDbContextFactory<WowDbContext>>();
-                if (contextFactory == null)
+                try
                 {
-                    Logger.Error("contextFactory is null??");
-                    return;
-                }
-                    
-                await using var context = await contextFactory.CreateDbContextAsync();
-                
-                // Execute some sort of nasty database query to get characters that need an API check
-                var results = await context.SchedulerCharacterQuery
-                    .FromSqlRaw(QueryCharacters)
-                    .ToArrayAsync();
-                if (results.Length > 0)
-                {
-                    Logger.Debug("Pre-GC: {0}", GC.GetTotalMemory(false));
-                    GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
-                    var postGc = GC.GetTotalMemory(true);
-                    Logger.Debug("Post-GC: {0}", postGc);
-
-                    var resultData = results.Select(r => new
+                    using var scope = _serviceScopeFactory.CreateScope();
+                    var contextFactory = scope.ServiceProvider.GetService<IDbContextFactory<WowDbContext>>();
+                    if (contextFactory == null)
                     {
-                        Result = r,
-                        Json = JsonConvert.SerializeObject(r),
-                    });
+                        Logger.Error("contextFactory is null??");
+                        return;
+                    }
 
-                    // Queue character jobs
-                    Logger.Information("Queueing {0} character job(s)", results.Length);
-                    await _jobRepository.AddJobsAsync(JobPriority.Low, JobType.Character,
-                        resultData.Select(d => d.Json));
+                    await using var context = await contextFactory.CreateDbContextAsync();
 
-                    // Update ApiCheckTime
-                    var ids = results.Select(s => s.CharacterId);
-                    //await _context.PlayerCharacter.Where(c => ids.Contains(c.Id))
-                    //    .UpdateAsync(c => new PlayerCharacter {LastApiCheck = DateTime.UtcNow});
-                    await context.BatchUpdate<PlayerCharacter>()
-                        .Set(c => c.LastApiCheck, c => DateTime.UtcNow)
-                        .Where(c => ids.Contains(c.Id))
-                        .ExecuteAsync();
+                    // Execute some sort of nasty database query to get characters that need an API check
+                    var results = await context.SchedulerCharacterQuery
+                        .FromSqlRaw(QueryCharacters)
+                        .ToArrayAsync();
+                    if (results.Length > 0)
+                    {
+                        Logger.Debug("Pre-GC: {0}", GC.GetTotalMemory(false));
+                        GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
+                        var postGc = GC.GetTotalMemory(true);
+                        Logger.Debug("Post-GC: {0}", postGc);
+
+                        var resultData = results.Select(r => new
+                        {
+                            Result = r,
+                            Json = JsonConvert.SerializeObject(r),
+                        });
+
+                        // Queue character jobs
+                        Logger.Information("Queueing {0} character job(s)", results.Length);
+                        await _jobRepository.AddJobsAsync(JobPriority.Low, JobType.Character,
+                            resultData.Select(d => d.Json));
+
+                        // Update ApiCheckTime
+                        var ids = results.Select(s => s.CharacterId);
+                        //await _context.PlayerCharacter.Where(c => ids.Contains(c.Id))
+                        //    .UpdateAsync(c => new PlayerCharacter {LastApiCheck = DateTime.UtcNow});
+                        await context.BatchUpdate<PlayerCharacter>()
+                            .Set(c => c.LastApiCheck, c => DateTime.UtcNow)
+                            .Where(c => ids.Contains(c.Id))
+                            .ExecuteAsync();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logger.Error(ex, "Kaboom!");
                 }
             }
-            catch (Exception ex)
-            {
-                Logger.Error(ex, "Kaboom!");
+            else {
+                Logger.Warning("Low queue is too large, skipping character check!");
+                return;
             }
-            finally
-            {
-                // Release exclusive scheduler lock
-                await _jobRepository.ReleaseLockAsync("scheduler", lockValue);
-            }
+
+            // Release exclusive scheduler lock
+            await _jobRepository.ReleaseLockAsync("scheduler", lockValue);
         }
     }
 }
