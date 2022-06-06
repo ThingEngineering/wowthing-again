@@ -41,7 +41,7 @@ LEFT OUTER JOIN account_last al ON c.account_id = al.account_id
 WHERE (
     c.account_id IS NOT NULL AND
     (current_timestamp - c.last_api_check) > (
-        '10 minutes'::interval +
+        '15 minutes'::interval +
         ('2 minutes'::interval * LEAST(50, GREATEST(0, 60 - c.level))) +
         ('2 minutes'::interval * EXTRACT(EPOCH FROM current_timestamp - al.last_visit) / 3600) +
         ('1 hour'::interval * LEAST(168, c.delay_hours))
