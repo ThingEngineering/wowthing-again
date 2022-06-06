@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Wowthing.Lib.Constants;
 
 namespace Wowthing.Lib.Models.Player
 {
@@ -9,7 +10,7 @@ namespace Wowthing.Lib.Models.Player
         public int CharacterId { get; set; }
         public PlayerCharacter Character { get; set; }
 
-        public DateTime ScannedAt { get; set; } = DateTime.MinValue;
+        public DateTime ScannedAt { get; set; } = MiscConstants.DefaultDateTime;
         
         public List<int> Mounts { get; set; }
     }

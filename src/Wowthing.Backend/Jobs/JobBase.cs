@@ -9,6 +9,7 @@ using StackExchange.Redis;
 using Wowthing.Backend.Models;
 using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Services;
+using Wowthing.Lib.Constants;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models.Query;
@@ -133,7 +134,7 @@ namespace Wowthing.Backend.Jobs
 
             // Try from cache first
             string cacheKey = string.Format(CacheKeyLastModified, uri.ToString().Md5());
-            DateTime lastModified = DateTime.MinValue;
+            DateTime lastModified = MiscConstants.DefaultDateTime;
             if (useLastModified)
             {
                 var value = await db.StringGetAsync(cacheKey);
@@ -149,7 +150,7 @@ namespace Wowthing.Backend.Jobs
             {
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", StateService.AccessToken.AccessToken);
             }
-            if (lastModified > DateTime.MinValue)
+            if (lastModified > MiscConstants.DefaultDateTime)
             {
                 request.Headers.IfModifiedSince = new DateTimeOffset(lastModified);
             }

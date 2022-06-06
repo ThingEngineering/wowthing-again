@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using StackExchange.Redis;
+using Wowthing.Lib.Constants;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models;
@@ -720,7 +721,7 @@ namespace Wowthing.Web.Controllers
                     c => c.Id,
                     c => new UserQuestDataCharacter
                     {
-                        ScannedAt = c.AddonQuests?.QuestsScannedAt ?? DateTime.MinValue,
+                        ScannedAt = c.AddonQuests?.QuestsScannedAt ?? MiscConstants.DefaultDateTime,
                         CallingCompleted = c.AddonQuests?.CallingCompleted.EmptyIfNull(),
                         CallingExpires = c.AddonQuests?.CallingExpires.EmptyIfNull(),
                         DailyQuestList = c.AddonQuests?.DailyQuests ?? new List<int>(),

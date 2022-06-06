@@ -4,7 +4,6 @@ groups:
 - name: Bastion
   things:
   - 184404 # Ever-Abundant Hearth (Enforcer Aegeon, Bastion)
-  - 174445 # Glimmerfly Cocoon (Sigilback, Bastion)
   - 184413 # Mnemonic Attunment Pane (Unstable Memory, Bastion)
 
 - name: Maldraxxus

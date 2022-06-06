@@ -10,6 +10,11 @@ groups:
   - 108635 # Crashin' Thrashin' Killdozer Controller
   - 188680 # Winter Veil Chorus Book
 
+- name: "2022 (maybe)"
+  things:
+  - 191925 # Falling Star Flinger
+  - 191937 # Falling Star Catcher
+
 - name: 2021
   things:
   - 187422 # Rockin' Rollin' Racer Customizer 19.9.3

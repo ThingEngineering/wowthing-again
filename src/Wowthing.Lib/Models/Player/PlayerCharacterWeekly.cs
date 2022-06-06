@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
+using Wowthing.Lib.Constants;
 
 namespace Wowthing.Lib.Models.Player
 {
@@ -12,11 +13,11 @@ namespace Wowthing.Lib.Models.Player
         [JsonIgnore]
         public PlayerCharacter Character { get; set; }
 
-        public DateTime KeystoneScannedAt { get; set; } = DateTime.MinValue;
+        public DateTime KeystoneScannedAt { get; set; } = MiscConstants.DefaultDateTime;
         public int KeystoneDungeon { get; set; }
         public int KeystoneLevel { get; set; }
 
-        public DateTime TorghastScannedAt { get; set; } = DateTime.MinValue;
+        public DateTime TorghastScannedAt { get; set; } = MiscConstants.DefaultDateTime;
         [Column(TypeName = "jsonb")]
         public Dictionary<string, int> Torghast { get; set; }
 
