@@ -1,4 +1,5 @@
 ﻿using Wowthing.Backend.Models.Uploads;
+using Wowthing.Lib.Constants;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Wow;
@@ -101,6 +102,7 @@ namespace Wowthing.Backend.Jobs.User
             
             // Deal with character data
             int accountId = 0;
+            int updated = 0;
             foreach (var (addonId, characterData) in parsed.Characters.EmptyIfNull())
             {
                 // US/Mal'Ganis/Fakenamehere
@@ -161,7 +163,20 @@ namespace Wowthing.Backend.Jobs.User
                 HandleReputations(character, characterData);
                 HandleTransmog(character, characterData);
                 HandleWeekly(character, characterData);
+
+                var lastSeen = characterData.LastSeen.AsUtcDateTime();
+                if (lastSeen > character.LastApiCheck)
+                {
+                    character.LastApiCheck = MiscConstants.DefaultDateTime;
+                    updated++;
+                }
             }
+
+            if (updated > 0)
+            {
+                Logger.Information("Updating {Count} character(s) immediately", updated);
+            }
+            
             _timer.AddPoint("Characters");
 
             // Deal with account data
