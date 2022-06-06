@@ -22,7 +22,7 @@ namespace Wowthing.Backend.Services
         private const string QueryCharacters = @"
 WITH account_last AS (
     SELECT  a.id AS account_id,
-            GREATEST(u.last_visit, current_timestamp - '1 week'::interval) AS last_visit
+            GREATEST(u.last_visit, current_timestamp - '3 days'::interval) AS last_visit
     FROM    player_account a
     LEFT OUTER JOIN asp_net_users u ON a.user_id = u.id
 )
@@ -40,8 +40,8 @@ WHERE (
     c.account_id IS NOT NULL AND
     (current_timestamp - c.last_api_check) > (
         '10 minutes'::interval +
-        ('1 minute'::interval * LEAST(50, GREATEST(0, 60 - c.level))) +
-        ('10 minutes'::interval * EXTRACT(EPOCH FROM current_timestamp - al.last_visit) / 86400) +
+        ('2 minutes'::interval * LEAST(50, GREATEST(0, 60 - c.level))) +
+        ('2 minutes'::interval * EXTRACT(EPOCH FROM current_timestamp - al.last_visit) / 3600) +
         ('1 hour'::interval * LEAST(168, c.delay_hours))
     )
 )
