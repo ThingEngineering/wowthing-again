@@ -1,4 +1,5 @@
-﻿using Wowthing.Backend.Models.API.Character;
+﻿using System.Net.Http;
+using Wowthing.Backend.Models.API.Character;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
 
@@ -15,11 +16,22 @@ namespace Wowthing.Backend.Jobs.Character
             using var shrug = CharacterLog(query);
 
             // Fetch API data
+            ApiCharacterSoulbinds resultData;
             var uri = GenerateUri(query, ApiPath);
-            var result = await GetJson<ApiCharacterSoulbinds>(uri);
-            if (result.NotModified)
+            try
             {
-                LogNotModified();
+                var result = await GetJson<ApiCharacterSoulbinds>(uri);
+                if (result.NotModified)
+                {
+                    LogNotModified();
+                    return;
+                }
+
+                resultData = result.Data;
+            }
+            catch (HttpRequestException e)
+            {
+                Logger.Error("HTTP {0}", e.Message);
                 return;
             }
 
@@ -34,10 +46,10 @@ namespace Wowthing.Backend.Jobs.Character
                 Context.PlayerCharacterShadowlands.Add(shadowlands);
             }
 
-            shadowlands.CovenantId = result.Data.ChosenCovenant?.Id ?? 0;
-            shadowlands.RenownLevel = result.Data.RenownLevel;
+            shadowlands.CovenantId = resultData.ChosenCovenant?.Id ?? 0;
+            shadowlands.RenownLevel = resultData.RenownLevel;
 
-            var soulbind = result.Data.Soulbinds?.FirstOrDefault(s => s.IsActive);
+            var soulbind = resultData.Soulbinds?.FirstOrDefault(s => s.IsActive);
             if (soulbind != null)
             {
                 shadowlands.SoulbindId = soulbind.Soulbind.Id;

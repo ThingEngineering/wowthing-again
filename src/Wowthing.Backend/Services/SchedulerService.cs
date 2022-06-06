@@ -47,7 +47,7 @@ WHERE (
         ('1 hour'::interval * LEAST(168, c.delay_hours))
     )
 )
-ORDER BY c.last_api_check
+ORDER BY r.region, c.last_api_check
 LIMIT 500
 ";
         
@@ -189,7 +189,6 @@ LIMIT 500
             }
             else {
                 Logger.Warning("Low queue is too large, skipping character check!");
-                return;
             }
 
             // Release exclusive scheduler lock

@@ -1,4 +1,5 @@
-﻿using Wowthing.Backend.Models.API.Character;
+﻿using System.Net.Http;
+using Wowthing.Backend.Models.API.Character;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
 
@@ -15,11 +16,22 @@ namespace Wowthing.Backend.Jobs.Character
             using var shrug = CharacterLog(query);
 
             // Fetch API data
+            ApiCharacterProfessions resultData;
             var uri = GenerateUri(query, ApiPath);
-            var result = await GetJson<ApiCharacterProfessions>(uri);
-            if (result.NotModified)
+            try
             {
-                LogNotModified();
+                var result = await GetJson<ApiCharacterProfessions>(uri);
+                if (result.NotModified)
+                {
+                    LogNotModified();
+                    return;
+                }
+
+                resultData = result.Data;
+            }
+            catch (HttpRequestException e)
+            {
+                Logger.Error("HTTP {0}", e.Message);
                 return;
             }
 
@@ -37,7 +49,7 @@ namespace Wowthing.Backend.Jobs.Character
             professions.Professions = new Dictionary<int, Dictionary<int, PlayerCharacterProfessionTier>>();
 
             // Parse API data
-            foreach (var dataProfession in result.Data.All)
+            foreach (var dataProfession in resultData.All)
             {
                 var profession = professions.Professions[dataProfession.Profession.Id] = new Dictionary<int, PlayerCharacterProfessionTier>();
 
