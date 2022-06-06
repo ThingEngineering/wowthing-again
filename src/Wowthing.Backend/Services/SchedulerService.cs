@@ -33,7 +33,8 @@ SELECT  c.id AS character_id,
         c.name AS character_name,
         r.region,
         r.slug AS realm_slug,
-        a.user_id
+        a.user_id,
+        c.last_api_check
 FROM    player_character c
 INNER JOIN player_account a ON c.account_id = a.id
 INNER JOIN wow_realm r ON c.realm_id = r.id
@@ -41,13 +42,13 @@ LEFT OUTER JOIN account_last al ON c.account_id = al.account_id
 WHERE (
     c.account_id IS NOT NULL AND
     (current_timestamp - c.last_api_check) > (
-        '15 minutes'::interval +
-        ('2 minutes'::interval * LEAST(50, GREATEST(0, 60 - c.level))) +
-        ('2 minutes'::interval * EXTRACT(EPOCH FROM current_timestamp - al.last_visit) / 3600) +
+        '10 minutes'::interval +
+        ('5 minutes'::interval * LEAST(50, GREATEST(0, 60 - c.level))) +
+        ('5 minutes'::interval * EXTRACT(EPOCH FROM current_timestamp - al.last_visit) / 3600) +
         ('1 hour'::interval * LEAST(168, c.delay_hours))
     )
 )
-ORDER BY r.region, c.last_api_check
+ORDER BY c.delay_hours, c.last_api_check
 LIMIT 500
 ";
         
