@@ -189,7 +189,6 @@ LIMIT 500
             }
             else {
                 Logger.Warning("Low queue is too large, skipping character check!");
-                return;
             }
 
             // Release exclusive scheduler lock
