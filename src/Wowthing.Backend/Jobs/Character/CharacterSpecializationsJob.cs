@@ -1,4 +1,5 @@
-﻿using Wowthing.Backend.Models.API.Character;
+﻿using System.Net.Http;
+using Wowthing.Backend.Models.API.Character;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
 
@@ -46,13 +47,12 @@ namespace Wowthing.Backend.Jobs.Character
             }
 
             // Parse API data
-            specs.Specializations = (result.Data.Specializations ?? new List<ApiCharacterSpecializationsSpecialization>())
+            specs.Specializations = (resultData.Specializations ?? new List<ApiCharacterSpecializationsSpecialization>())
                 .ToDictionary(
                     spec => spec.Specialization.Id,
                     spec => new PlayerCharacterSpecializationsSpecialization
                     {
-                        PvpTalents = spec.PvpTalents
-                            .EmptyIfNull()
+                        PvpTalents = (spec.PvpTalents ?? new List<ApiCharacterSpecializationsPvpTalent>())
                             .Select(pvpTalent => new List<int>
                             {
                                 pvpTalent.SlotNumber,
@@ -61,8 +61,7 @@ namespace Wowthing.Backend.Jobs.Character
                             })
                             .ToList(),
 
-                        Talents = spec.Talents
-                            .EmptyIfNull()
+                        Talents = (spec.Talents ?? new List<ApiCharacterSpecializationsTalent>())
                             .Select(talent => new List<int>
                             {
                                 talent.TierIndex,
