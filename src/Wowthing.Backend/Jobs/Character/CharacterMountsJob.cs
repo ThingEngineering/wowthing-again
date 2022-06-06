@@ -1,4 +1,5 @@
-﻿using Wowthing.Backend.Models.API.Character;
+﻿using System.Net.Http;
+using Wowthing.Backend.Models.API.Character;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
 
@@ -15,11 +16,21 @@ namespace Wowthing.Backend.Jobs.Character
             using var shrug = CharacterLog(query);
 
             // Fetch API data
+            ApiCharacterMounts resultData;
             var uri = GenerateUri(query, ApiPath);
-            var result = await GetJson<ApiCharacterMounts>(uri);
-            if (result.NotModified)
+            try {
+                var result = await GetJson<ApiCharacterMounts>(uri);
+                if (result.NotModified)
+                {
+                    LogNotModified();
+                    return;
+                }
+
+                resultData = result.Data;
+            }
+            catch (HttpRequestException e)
             {
-                LogNotModified();
+                Logger.Error("HTTP {0}", e.Message);
                 return;
             }
 
@@ -34,7 +45,7 @@ namespace Wowthing.Backend.Jobs.Character
                 Context.PlayerCharacterMounts.Add(mounts);
             }
 
-            mounts.Mounts = result.Data.Mounts
+            mounts.Mounts = resultData.Mounts
                 .Select(m => m.Mount.Id)
                 .ToList();
             

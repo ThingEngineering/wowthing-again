@@ -1,4 +1,5 @@
-﻿using Wowthing.Backend.Models.API.Character;
+﻿using System.Net.Http;
+using Wowthing.Backend.Models.API.Character;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
@@ -16,11 +17,22 @@ namespace Wowthing.Backend.Jobs.Character
             using var shrug = CharacterLog(query);
 
             // Fetch API data
+            ApiCharacterMedia resultData;
             var uri = GenerateUri(query, ApiPath);
-            var result = await GetJson<ApiCharacterMedia>(uri);
-            if (result.NotModified)
+            try
             {
-                LogNotModified();
+                var result = await GetJson<ApiCharacterMedia>(uri);
+                if (result.NotModified)
+                {
+                    LogNotModified();
+                    return;
+                }
+
+                resultData = result.Data;
+            }
+            catch (HttpRequestException e)
+            {
+                Logger.Error("HTTP {0}", e.Message);
                 return;
             }
 
@@ -36,7 +48,7 @@ namespace Wowthing.Backend.Jobs.Character
             }
 
             // Parse API data
-            var assetMap = result.Data.Assets
+            var assetMap = resultData.Assets
                 .EmptyIfNull()
                 .ToDictionary(
                     asset => asset.Key,

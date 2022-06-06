@@ -1,4 +1,5 @@
-﻿using Wowthing.Backend.Models.API.Character;
+﻿using System.Net.Http;
+using Wowthing.Backend.Models.API.Character;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
 
@@ -15,11 +16,22 @@ namespace Wowthing.Backend.Jobs.Character
             using var shrug = CharacterLog(query);
 
             // Fetch API data
+            ApiCharacterReputations resultData;
             var uri = GenerateUri(query, ApiPath);
-            var result = await GetJson<ApiCharacterReputations>(uri);
-            if (result.NotModified)
+            try
             {
-                LogNotModified();
+                var result = await GetJson<ApiCharacterReputations>(uri);
+                if (result.NotModified)
+                {
+                    LogNotModified();
+                    return;
+                }
+
+                resultData = result.Data;
+            }
+            catch (HttpRequestException e)
+            {
+                Logger.Error("HTTP {0}", e.Message);
                 return;
             }
 
@@ -34,8 +46,8 @@ namespace Wowthing.Backend.Jobs.Character
                 Context.PlayerCharacterReputations.Add(reputations);
             }
 
-            reputations.ReputationIds = result.Data.Reputations.Select(r => r.Faction.Id).ToList();
-            reputations.ReputationValues = result.Data.Reputations.Select(r => r.Standing.Raw).ToList();
+            reputations.ReputationIds = resultData.Reputations.Select(r => r.Faction.Id).ToList();
+            reputations.ReputationValues = resultData.Reputations.Select(r => r.Standing.Raw).ToList();
 
             await Context.SaveChangesAsync();
         }
