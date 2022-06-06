@@ -63,3 +63,13 @@ groups:
   -  74918 # Wooly White Rhino
   -  46197 # X-16081 Nether-Rocket
   -  46199 # X-16081 Nether-Rocket X-TREME
+
+- name: BMAH
+  things:
+  -  24242 # Swift Razzashi Raptor
+  -  24252 # Swift Zulian Tiger
+  -  60021 # Plagued Proto-Drake
+  - 170347 # Core Hound
+  - 294197 # Obsidian Worldbreaker
+  - 264058 # Mighty Caravan Brutosaur
+  
