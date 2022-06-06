@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Cryptography;
 using Microsoft.AspNetCore.Identity;
+using Wowthing.Lib.Constants;
 
 namespace Wowthing.Lib.Models
 {
@@ -10,7 +11,7 @@ namespace Wowthing.Lib.Models
 
         public bool CanUseSubdomain { get; set; } = false;
         public string ApiKey { get; set; }
-        public DateTime LastVisit { get; set; } = DateTime.MinValue;
+        public DateTime LastVisit { get; set; } = MiscConstants.DefaultDateTime;
 
         [Column(TypeName = "jsonb")]
         public ApplicationUserSettings Settings { get; set; }

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Wowthing.Lib.Constants;
 
 namespace Wowthing.Lib.Models.Player
 {
@@ -9,7 +10,7 @@ namespace Wowthing.Lib.Models.Player
         public int CharacterId { get; set; }
         public PlayerCharacter Character { get; set; }
 
-        public DateTime LastUpdated { get; set; } = DateTime.MinValue;
+        public DateTime LastUpdated { get; set; } = MiscConstants.DefaultDateTime;
 
         [Column(TypeName = "jsonb")]
         public List<PlayerCharacterLockoutsLockout> Lockouts { get; set; }

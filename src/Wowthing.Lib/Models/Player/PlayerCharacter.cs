@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Wowthing.Lib.Constants;
 using Wowthing.Lib.Enums;
 
 namespace Wowthing.Lib.Models.Player
@@ -48,8 +49,8 @@ namespace Wowthing.Lib.Models.Player
 
         // Bookkeeping
         public int DelayHours { get; set; } = 0;
-        public DateTime LastApiCheck { get; set; } = DateTime.MinValue;
-        public DateTime LastSeenAddon { get; set; } = DateTime.MinValue;
+        public DateTime LastApiCheck { get; set; } = MiscConstants.DefaultDateTime;
+        public DateTime LastSeenAddon { get; set; } = MiscConstants.DefaultDateTime;
 
         // Navigation properties
         public PlayerCharacterAchievements Achievements { get; set; }

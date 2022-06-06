@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Wowthing.Lib.Constants;
 
 namespace Wowthing.Lib.Models.Player;
 
@@ -9,8 +10,8 @@ public class PlayerCharacterAddonData
     public int CharacterId { get; set; }
     public PlayerCharacter Character { get; set; }
    
-    public DateTime GarrisonTreesScannedAt { get; set; } = DateTime.MinValue;
-    public DateTime MythicPlusScannedAt { get; set; } = DateTime.MinValue;
+    public DateTime GarrisonTreesScannedAt { get; set; } = MiscConstants.DefaultDateTime;
+    public DateTime MythicPlusScannedAt { get; set; } = MiscConstants.DefaultDateTime;
 
     [Column(TypeName = "jsonb")]
     public Dictionary<int, Dictionary<int, List<int>>> GarrisonTrees { get; set; }
