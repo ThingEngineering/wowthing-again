@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.API.Profile;
+using Wowthing.Lib.Constants;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Utilities;
@@ -28,7 +29,8 @@ namespace Wowthing.Backend.Jobs.User
             var path = string.Format(ApiPath, accessToken.Value);
 
             // Fetch existing accounts
-            var accountMap = await Context.PlayerAccount.Where(a => a.UserId == userId)
+            var accountMap = await Context.PlayerAccount
+                .Where(a => a.UserId == userId)
                 .ToDictionaryAsync(k => (k.Region, k.AccountId));
 
             // Add any new accounts
@@ -106,6 +108,7 @@ namespace Wowthing.Backend.Jobs.User
                             character = characterMap[key] = new PlayerCharacter
                             {
                                 CharacterId = apiCharacter.Id,
+                                LastApiCheck = MiscConstants.DefaultDateTime,
                             };
                             Context.PlayerCharacter.Add(character);
                             added++;
@@ -119,8 +122,6 @@ namespace Wowthing.Backend.Jobs.User
                         character.Faction = apiCharacter.Faction.EnumParse<WowFaction>();
                         character.Gender = apiCharacter.Gender.EnumParse<WowGender>();
                         character.Name = apiCharacter.Name;
-
-                        character.LastApiCheck = DateTime.UtcNow - TimeSpan.FromDays(7);
                     }
                 }
                 catch (Exception ex)
