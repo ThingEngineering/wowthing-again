@@ -24,7 +24,7 @@ namespace Wowthing.Backend.Jobs.Character
             try
             {
                 // Attempt to get exclusive scheduler lock
-                var lockSuccess = await JobRepository.AcquireLockAsync(lockKey, lockValue, TimeSpan.FromMinutes(5));
+                var lockSuccess = await JobRepository.AcquireLockAsync(lockKey, lockValue, TimeSpan.FromMinutes(1));
                 if (!lockSuccess)
                 {
                     Logger.Debug("Skipping pets, lock failed");
