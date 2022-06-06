@@ -1,4 +1,5 @@
 ﻿using System.Net.Http;
+using System.Text.RegularExpressions;
 using Wowthing.Backend.Models.API.Character;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Jobs;
@@ -10,6 +11,7 @@ namespace Wowthing.Backend.Jobs.Character
     public class CharacterJob : JobBase
     {
         private const string ApiPath = "profile/wow/character/{0}/{1}";
+        private readonly Regex _numberRegex = new Regex(@"\d", RegexOptions.Compiled);
 
         public override async Task Run(params string[] data)
         {
@@ -17,6 +19,16 @@ namespace Wowthing.Backend.Jobs.Character
                         throw new InvalidJsonException(data[0]);
             using var shrug = CharacterLog(query);
 
+            // Skip invalid character names
+            if (_numberRegex.IsMatch(query.CharacterName))
+            {
+                await Context.BatchUpdate<PlayerCharacter>()
+                    .Set(c => c.DelayHours, c => 1000)
+                    .Where(c => c.Id == query.CharacterId)
+                    .ExecuteAsync();
+                return;
+            }
+            
             // Get character from API
             var uri = GenerateUri(query, ApiPath);
             ApiCharacter apiCharacter;
