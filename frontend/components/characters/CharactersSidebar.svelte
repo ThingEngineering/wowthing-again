@@ -8,6 +8,7 @@
     import { data as settingsData } from '@/stores/settings'
     import { Region } from '@/types/enums'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
+    import { splitOnce } from '@/utils/split-once'
     import type { Character, SidebarItem } from '@/types'
 
     import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
@@ -50,7 +51,7 @@
                 return entry.children.length.toString()
             }
             else {
-                const [region, realm] = parentEntry.slug.split('-')
+                const [region, realm] = splitOnce(parentEntry.slug, '-')
                 const character = find(
                     $userStore.data.characters,
                     (character: Character) => (
