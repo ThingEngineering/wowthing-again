@@ -8,7 +8,3 @@ groups:
 - name: "Mythic+"
   things:
   - 316637 # Awakened Mindborer (Battle for Azeroth Keystone Master: Season Four)
-
-- name: "Vendors"
-  things:
-  - 264058 # Mighty Caravan Brutosaur (? unavailable)
