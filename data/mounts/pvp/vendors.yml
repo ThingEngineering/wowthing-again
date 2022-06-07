@@ -13,6 +13,14 @@ groups:
   - 22720 # Black War Ram
   - 22717 # Black War Steed
   - 22723 # Black War Tiger
+  
+- name: "Horde: Marks of Honor"
+  things:
+  - 22718 # Black War Kodo
+  - 22721 # Black War Raptor
+  - 22724 # Black War Wolf
+  - 22722 # Red Skeletal Warhorse
+  - 35028 # Swift Warstrider  
 
 - name: "Alliance: Vicious Saddle"
   things:
@@ -26,14 +34,6 @@ groups:
   - 232523 # Vicious War Turtle
   - 146615 # Vicious Warsaber
 
-- name: "Horde: Marks of Honor"
-  things:
-  - 22718 # Black War Kodo
-  - 22721 # Black War Raptor
-  - 22724 # Black War Wolf
-  - 22722 # Red Skeletal Warhorse
-  - 35028 # Swift Warstrider
-
 - name: "Horde: Vicious Saddle"
   things:
   - 146622 # Vicious Skeletal Warhorse
@@ -45,3 +45,25 @@ groups:
   - 223354 # Vicious War Trike
   - 232525 # Vicious War Turtle
   - 223363 # Vicious Warstrider
+  
+- name: "Battle for Azeroth Vicious Saddle" 
+  things:
+  - 270560 # Vicious War Clefthoof (BFA Season 1 Horde)
+  - 272481 # Vicious War Riverbeast (BFA Season 1 Alliance)
+  - 281890 # Vicious Black Bonesteed (BFA Season 2 Horde)
+  - 281887 # Vicious Black Warsaber (BFA Season 2 Alliance)
+  - 261433 # Vicious War Basilisk (BFA Season 3 Horde)
+  - 261434 # Vicious War Basilisk (BFA Season 3 Alliance) 
+  - 281889 # Vicious White Bonesteed (BFA Season 4 Horde)
+  - 281888 # Vicious White Warsaber (BFA Season 4 Alliance)
+ 
+- name: "Shadowlands Vicious Saddle"
+  things:
+  - 327408 # Vicious War Spider (Shadowlands Season 1 Horde)
+  - 327407 # Vicious War Spider (Shadowlands Season 1 Alliance)
+  - 348769 # Vicious War Gorm (Shadowlands Season 2 Horde)
+  - 348770 # Vicious War Gorm (Shadowlands Season 2 Alliance)
+  - 347255 # Vicious War Croaker (Shadowlands Season 3 Horde)
+  - 347256 # Vicious War Croaker (Shadowlands Season 3 Alliance)
+  - 349823 # Vicious Warstalker (Shadowlands Season 4 Horde)
+  - 349824 # Vicious Warstalker (Shadowlands Season 4 Alliance)
