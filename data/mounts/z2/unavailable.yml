@@ -3,7 +3,6 @@ groups:
 
 - name: "Instances"
   things:
-  - 60021 # Plagued Proto-Drake (Naxx/etc 10 meta)
   - 59976 # Black Proto-Drake (Naxx/etc 25 meta)
   - 68057 68056 # Swift Alliance Steed/Swift Horde Wolf (ToGC 10H)
   - 68056 68057 # ^ reversed
