@@ -1,4 +1,5 @@
-﻿using Wowthing.Backend.Models.API.Character;
+﻿using System.Net.Http;
+using Wowthing.Backend.Models.API.Character;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
@@ -38,14 +39,25 @@ namespace Wowthing.Backend.Jobs.Character
             }
 
             // Fetch API data
+            ApiCharacterPets resultData;
             var uri = GenerateUri(query, ApiPath);
-            var result = await GetJson<ApiCharacterPets>(uri, useLastModified: false);
-            if (result.NotModified)
+            try
             {
-                LogNotModified();
+                var result = await GetJson<ApiCharacterPets>(uri, useLastModified: false);
+                if (result.NotModified)
+                {
+                    LogNotModified();
+                    return;
+                }
+
+                resultData = result.Data;
+            }
+            catch (HttpRequestException e)
+            {
+                Logger.Error("HTTP {0}", e.Message);
                 return;
             }
-            
+
             // Fetch character data
             var pets = await Context.PlayerAccountPets.FindAsync(query.AccountId.Value);
             if (pets == null)
@@ -57,7 +69,7 @@ namespace Wowthing.Backend.Jobs.Character
                 Context.PlayerAccountPets.Add(pets);
             }
             
-            pets.Pets = result.Data.Pets
+            pets.Pets = resultData.Pets
                 .EmptyIfNull()
                 .ToDictionary(
                     k => k.Id,
