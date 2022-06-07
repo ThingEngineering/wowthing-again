@@ -9,6 +9,7 @@
     import { userStore } from '@/stores'
     import { charactersState } from '@/stores/local-storage'
     import { Gender, Region } from '@/types/enums'
+    import { splitOnce } from '@/utils/split-once'
     import type { Character, MultiSlugParams } from '@/types'
 
     import Paperdoll from './paperdoll/CharactersPaperdoll.svelte'
@@ -23,7 +24,7 @@
         baseUrl = `/characters/${params.slug1}/${params.slug2}`
 
         if (params.slug1 && params.slug2) {
-            const [region, realm] = params.slug1.split('-')
+            const [region, realm] = splitOnce(params.slug1, '-')
 
             character = find(
                 $userStore.data.characters,
