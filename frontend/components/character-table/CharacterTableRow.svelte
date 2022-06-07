@@ -4,6 +4,7 @@
 
     import { data as settings } from '@/stores/settings'
     import { userStore } from '@/stores'
+    import { Region } from '@/types/enums'
     import type { Character } from '@/types'
 
     import ClassIcon from '@/components/images/ClassIcon.svelte'
@@ -86,7 +87,7 @@
 
                 {:else if field === 'characterName'}
                     <td class="name">
-                        <a href="#/characters/{character.realm.slug}/{character.name}">
+                        <a href="#/characters/{Region[character.realm.region].toLowerCase()}-{character.realm.slug}/{character.name}">
                             {character.name}
                         </a>
                     </td>

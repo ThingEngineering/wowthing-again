@@ -22,21 +22,26 @@
     $: {
         baseUrl = `/characters/${params.slug1}/${params.slug2}`
 
-        character = find(
-            $userStore.data.characters,
-            (char: Character) => (
-                char.realm.slug === params.slug1 &&
-                char.name === params.slug2
+        if (params.slug1 && params.slug2) {
+            const [region, realm] = params.slug1.split('-')
+
+            character = find(
+                $userStore.data.characters,
+                (char: Character) => (
+                    Region[char.realm.region].toLowerCase() === region &&
+                    char.realm.slug === realm &&
+                    char.name === params.slug2
+                )
             )
-        )
 
-        if (!componentMap[params.slug3]) {
-            const stored = $charactersState.lastTab
+            if (!componentMap[params.slug3]) {
+                const stored = $charactersState.lastTab
 
-            replace(`${baseUrl}/${stored || 'paperdoll'}`)
-        }
-        else {
-            $charactersState.lastTab = params.slug3
+                replace(`${baseUrl}/${stored || 'paperdoll'}`)
+            }
+            else {
+                $charactersState.lastTab = params.slug3
+            }
         }
     }
 
