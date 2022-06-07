@@ -15,7 +15,7 @@ namespace Wowthing.Lib.Models.Player
 
     public class PlayerCharacterSpecializationsSpecialization
     {
-        public List<List<int>> PvpTalents { get; set; }
-        public List<List<int>> Talents { get; set; }
+        public List<List<int>> PvpTalents { get; set; } = new();
+        public List<List<int>> Talents { get; set; } = new();
     }
 }

@@ -47,30 +47,41 @@ namespace Wowthing.Backend.Jobs.Character
             }
 
             // Parse API data
-            specs.Specializations = (resultData.Specializations ?? new List<ApiCharacterSpecializationsSpecialization>())
-                .ToDictionary(
-                    spec => spec.Specialization.Id,
-                    spec => new PlayerCharacterSpecializationsSpecialization
+            specs.Specializations = new();
+            foreach (var specData in resultData.Specializations ?? new List<ApiCharacterSpecializationsSpecialization>())
+            {
+                var spec = new PlayerCharacterSpecializationsSpecialization();
+                
+                foreach (var pvpTalent in specData.PvpTalents ?? new List<ApiCharacterSpecializationsPvpTalent>())
+                {
+                    if (pvpTalent.Selected?.SpellTooltip?.Spell?.Id != null)
                     {
-                        PvpTalents = (spec.PvpTalents ?? new List<ApiCharacterSpecializationsPvpTalent>())
-                            .Select(pvpTalent => new List<int>
-                            {
-                                pvpTalent.SlotNumber,
-                                pvpTalent.Selected.SpellTooltip.Spell.Id,
-
-                            })
-                            .ToList(),
-
-                        Talents = (spec.Talents ?? new List<ApiCharacterSpecializationsTalent>())
-                            .Select(talent => new List<int>
-                            {
-                                talent.TierIndex,
-                                talent.ColumnIndex,
-                                talent.SpellTooltip.Spell.Id,
-                            })
-                            .ToList(),
+                        spec.PvpTalents.Add(new List<int>(
+                        {
+                            pvpTalent.SlotNumber,
+                            pvpTalent.Selected.SpellTooltip.Spell.Id,
+                        }));
                     }
-                );
+                }
+
+                foreach (var talent in specData.Talents ?? new List<ApiCharacterSpecializationsTalent>())
+                {
+                    if (talent.SpellTooltip?.Spell?.Id != null)
+                    {
+                        spec.Talents.Add(new List<int>
+                        {
+                            talent.TierIndex,
+                            talent.ColumnIndex,
+                            talent.SpellTooltip.Spell.Id,
+                        });
+                    }
+                }
+
+                if (specData.Specialization?.Id != null)
+                {
+                    specs.Specializations[specData.Specialization.Id] = spec;
+                }
+            }
 
             await Context.SaveChangesAsync();
         }

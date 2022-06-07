@@ -6,6 +6,7 @@
 
     import { staticStore, userStore } from '@/stores'
     import { data as settingsData } from '@/stores/settings'
+    import { Region } from '@/types/enums'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import type { Character, SidebarItem } from '@/types'
 
@@ -33,8 +34,8 @@
             )
 
             categories.push({
-                name: realm.name,
-                slug: realm.slug,
+                name: `[${Region[realm.region]}] ${realm.name}`,
+                slug: `${Region[realm.region].toLowerCase()}-${realm.slug}`,
                 children: characters.map((character) => ({
                    name: character.name,
                    slug: character.name,
@@ -49,13 +50,16 @@
                 return entry.children.length.toString()
             }
             else {
-                return find(
+                const [region, realm] = parentEntry.slug.split('-')
+                const character = find(
                     $userStore.data.characters,
                     (character: Character) => (
-                        character.realm.slug === parentEntry.slug &&
+                        Region[character.realm.region].toLowerCase() === region &&
+                        character.realm.slug === realm &&
                         character.name === entry.name
                     )
-                ).level.toString()
+                )
+                return character?.level.toString() ?? '??'
             }
         }
     }
@@ -67,7 +71,7 @@
 <Sidebar
     baseUrl="/characters"
     items={categories}
-    width="12rem"
+    width="14rem"
     noVisitRoot={true}
     {decorationFunc}
 />
