@@ -56,11 +56,11 @@ namespace Wowthing.Backend.Jobs.Character
                 {
                     if (pvpTalent.Selected?.SpellTooltip?.Spell?.Id != null)
                     {
-                        spec.PvpTalents.Add(new List<int>(
+                        spec.PvpTalents.Add(new List<int>
                         {
                             pvpTalent.SlotNumber,
                             pvpTalent.Selected.SpellTooltip.Spell.Id,
-                        }));
+                        });
                     }
                 }
 
