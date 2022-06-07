@@ -1,15 +1,6 @@
 name: Instances
 groups:
 
-- name: Achievements
-  things:
-  -  88331 # Volcanic Stone Drake (Glory of the Cataclysm Hero)
-  -  98204 # Amani Battle Bear (Bear-ly Made It, Zul'Aman)
-  -  88335 # Drake of the East Wind (Glory of the Cataclysm Raider)
-  -  88990 # Dark Phoenix (Guild Glory of the Cataclysm Raider)
-  -  97560 # Corrupted Fire Hawk (Glory of the Firelands Raider)
-  - 107844 # Twilight Harbinger (Glory of the Dragon Soul Raider)
-
 - name: Raids
   things:
   - 127170 # Astral Cloud Serpent (MSV)
