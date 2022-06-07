@@ -30,13 +30,6 @@ groups:
   - 354354 # Hand of Nilganihmaht (The Maw)
   - 346141 # Slime Serpent (Slime Serpent, Plaguefall)
 
-- name: PvP
-  things:
-  - 327407 327408 # Vicious War Spider (Season 1)
-  - 348770 348769 # Vicious War Gorm (Season 2)
-  - 347255 347256 # Vicious War Croaker (Season 3)
-  - 349823 349824 # Vicious Warstalker (Season 4?)
-
 - name: Quests
   things:
   - 363701 # Patient Bufonid
