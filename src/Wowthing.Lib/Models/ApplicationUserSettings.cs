@@ -1,7 +1,9 @@
-﻿using System.Diagnostics;
-using Wowthing.Lib.Enums;
+﻿
 
 #nullable enable
+using System.Diagnostics;
+using System.Text.RegularExpressions;
+using Wowthing.Lib.Enums;
 namespace Wowthing.Lib.Models
 {
     public class ApplicationUserSettings
@@ -25,6 +27,8 @@ namespace Wowthing.Lib.Models
             Validate();
         }
 
+        private readonly Regex FixDesiredAccountNameRegex = new Regex(@"[ #""]", RegexOptions.Compiled);
+        
         private readonly HashSet<string> _validGroupBy = new()
         {
             "account",
@@ -112,8 +116,8 @@ namespace Wowthing.Lib.Models
 #endif
             }
 
-            General.DesiredAccountName = General.DesiredAccountName
-                .EmptyIfNullOrWhitespace()
+            General.DesiredAccountName = FixDesiredAccountNameRegex
+                .Replace(General.DesiredAccountName.EmptyIfNullOrWhitespace(), "")
                 .Truncate(32);
             
             General.GroupBy = General.GroupBy
