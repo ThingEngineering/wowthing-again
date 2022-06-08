@@ -116,20 +116,25 @@
         </p>
     </div>
 
-    <h3 class="space-me">Account Name</h3>
+    <h3 class="space-me">User Name</h3>
 
     <div class="setting">
         <TextInput
             name="general_DesiredAccountName"
             maxlength={32}
-            placeholder="Desired account name"
+            placeholder="Desired user name"
             bind:value={$settingsData.general.desiredAccountName}
         />
-        <p>
-            If you would like to rename your account, change this and save changes. Your
-            account should get renamed at some point in the future, log out/in to check.
-            Pinging Freddie on Discord is the best way to have this done quickly.
-        </p>
+        <div>
+            <p>
+                If you would like to change your user name, change this and save changes.
+                Your user name is currently: <code>{document.getElementById('user-name').innerText}</code>
+            </p>
+            <p>
+                Your account will get renamed at some point in the future, log out/in to check.
+                Pinging Freddie on Discord to remind him to do this regularly might help!
+            </p>
+        </div>
     </div>
 
     <h3 class="space-me">WoW Accounts</h3>

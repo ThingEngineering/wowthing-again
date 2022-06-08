@@ -30,7 +30,7 @@
             <ul>
                 @if (User.Identity.IsAuthenticated)
                 {
-                    <li>@User.Identity.Name</li>
+                    <li id="user-name">@User.Identity.Name</li>
                     <li>
                         <a href="@_uriService.GetBaseAction("Authentication", "Logout")">Logout</a>
                     </li>

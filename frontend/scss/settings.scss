@@ -65,6 +65,10 @@
             color: #ddddff;
             flex: 1;
             margin: 0 0 0 0.5rem;
+
+            & + p {
+                margin-top: 1rem;
+            }
         }
     }
 
