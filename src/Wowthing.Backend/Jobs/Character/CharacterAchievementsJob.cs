@@ -80,7 +80,7 @@ namespace Wowthing.Backend.Jobs.Character
                 .Select(kvp => kvp.Key)
                 .ToList();
             var achievementTimestamps = sortedAchievements
-                .Select(kvp => kvp.Key)
+                .Select(kvp => kvp.Value)
                 .ToList();
             
             if (achievements.AchievementIds == null || !achievementIds.SequenceEqual(achievements.AchievementIds))
