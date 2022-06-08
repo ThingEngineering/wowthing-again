@@ -14,5 +14,5 @@ export default function getRaiderIoColor(
             }
         }
     }
-    return null
+    return '#ffffff'
 }
