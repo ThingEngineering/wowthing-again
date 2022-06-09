@@ -4,6 +4,7 @@ using Wowthing.Lib.Constants;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Services;
 using Wowthing.Lib.Utilities;
+using Wowthing.Web.Extensions;
 using Wowthing.Web.Models;
 using Wowthing.Web.Services;
 
@@ -47,12 +48,12 @@ public class UserQuestController : Controller
 
         timer.AddPoint("CheckUser");
 
-        var headers = Request.GetTypedHeaders();
         DateTimeOffset? lastModified = null;
         if (!apiResult.Public)
         {
+            var headers = Request.GetTypedHeaders();
             lastModified = await _cacheService.GetLastModified(RedisKeys.UserLastModifiedQuests, apiResult);
-            if (headers.IfModifiedSince.HasValue && lastModified <= headers.IfModifiedSince)
+            if (lastModified > DateTimeOffset.MinValue && lastModified <= headers.IfModifiedSince)
             {
                 return StatusCode((int)HttpStatusCode.NotModified);
             }
@@ -99,7 +100,7 @@ public class UserQuestController : Controller
 
         if (lastModified > DateTimeOffset.MinValue)
         {
-            Response.GetTypedHeaders().LastModified = lastModified.Value;
+            Response.AddPrivateApiCacheHeaders(lastModified.Value);
         }
 
         return Ok(data);

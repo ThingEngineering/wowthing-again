@@ -2,8 +2,8 @@ export default async function fetchJson(
     url: string,
 ): Promise<string | null> {
     const request = new Request(url, {
-        credentials: "include",
-        mode: "cors",
+        credentials: 'include',
+        mode: 'cors',
     })
 
     return fetch(request)
