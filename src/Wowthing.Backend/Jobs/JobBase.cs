@@ -15,6 +15,7 @@ using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models.Query;
 using Wowthing.Lib.Models.Wow;
 using Wowthing.Lib.Repositories;
+using Wowthing.Lib.Services;
 using Wowthing.Lib.Utilities;
 
 namespace Wowthing.Backend.Jobs
@@ -24,6 +25,7 @@ namespace Wowthing.Backend.Jobs
         private const string ApiUrl = "https://{0}.api.blizzard.com/{1}";
         private const string CacheKeyLastModified = "last_modified:{0}";
 
+        internal CacheService CacheService;
         internal HttpClient Http;
         internal JobRepository JobRepository;
         internal ILogger Logger;
@@ -36,7 +38,7 @@ namespace Wowthing.Backend.Jobs
             .ToDictionary(k => k, v => v.ToString().ToLowerInvariant());
         private static readonly Dictionary<WowRegion, string> RegionToString = EnumUtilities.GetValues<WowRegion>()
             .ToDictionary(k => k, v => v.ToString().ToLowerInvariant());
-        protected static readonly Dictionary<WowRegion, string> RegionToLocale = new Dictionary<WowRegion, string>
+        private static readonly Dictionary<WowRegion, string> RegionToLocale = new Dictionary<WowRegion, string>
         {
             { WowRegion.US, "en_US" },
             { WowRegion.EU, "en_GB" },

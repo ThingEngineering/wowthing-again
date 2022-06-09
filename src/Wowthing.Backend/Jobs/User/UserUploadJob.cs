@@ -175,6 +175,8 @@ namespace Wowthing.Backend.Jobs.User
             if (updated > 0)
             {
                 Logger.Information("Updating {Count} character(s) immediately", updated);
+
+                await CacheService.SetLastModified(RedisKeys.UserLastModifiedQuests, userId);
             }
             
             _timer.AddPoint("Characters");

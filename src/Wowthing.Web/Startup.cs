@@ -13,6 +13,7 @@ using Wowthing.Web.Extensions;
 using Wowthing.Web.Misc;
 using Wowthing.Web.Services;
 using Newtonsoft.Json.Serialization;
+using Wowthing.Lib.Services;
 using Wowthing.Web.Models;
 
 namespace Wowthing.Web
@@ -135,8 +136,10 @@ namespace Wowthing.Web
             });
             
             // Our services
+            services.AddScoped<CacheService>();
             services.AddScoped<UploadService>();
             services.AddScoped<UriService>();
+            services.AddScoped<UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
