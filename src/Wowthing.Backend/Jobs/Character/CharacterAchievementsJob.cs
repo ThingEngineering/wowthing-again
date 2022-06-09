@@ -94,6 +94,7 @@ namespace Wowthing.Backend.Jobs.Character
             }
             
             var sortedCriteria = criteria
+                .Where(kvp => !kvp.Value.Item2 && kvp.Value.Item1 > 0)
                 .OrderBy(kvp => kvp.Key)
                 .ToArray();
             var criteriaIds = sortedCriteria
