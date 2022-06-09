@@ -12,6 +12,7 @@ import mdiPuzzle from '@iconify/icons-mdi/puzzle'
 import mdiSkull from '@iconify/icons-mdi/skull'
 import mdiTimerSand from '@iconify/icons-mdi/timer-sand'
 import mdiTreasureChest from '@iconify/icons-mdi/treasure-chest'
+import mdiTrophy from '@iconify/icons-mdi/trophy'
 import mdiTshirtCrew from '@iconify/icons-mdi/tshirt-crew'
 import mdiUnicorn from '@iconify/icons-mdi/unicorn'
 import mdiWizardHat from '@iconify/icons-mdi/wizard-hat'
@@ -35,6 +36,7 @@ export const farmTypeIcon: Record<number, IconifyIcon> = {
 }
 
 export const dropTypeIcon: Record<number, IconifyIcon> = {
+    [FarmDropType.Achievement]: mdiTrophy,
     [FarmDropType.Armor]: mdiTshirtCrew,
     [FarmDropType.Cosmetic]: mdiWizardHat,
     [FarmDropType.Mount]: mdiUnicorn,

@@ -1,12 +1,15 @@
 <script lang="ts">
     import { getContext } from 'svelte'
 
-    import type {Character, CharacterGear} from '@/types'
-    import {Constants} from '@/data/constants'
+    import { characterBagSlots } from '@/data/inventory-slot'
+    import { Constants } from '@/data/constants'
+    import { staticStore, userStore } from '@/stores'
     import getCharacterGear from '@/utils/get-character-gear'
-    import {getItemUrl} from '@/utils/get-item-url'
+    import { getItemUrl } from '@/utils/get-item-url'
+    import type { Character, CharacterGear } from '@/types'
 
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+import data from '@iconify/icons-mdi/arrow-down-bold-outline'
 
     export let character: Character = undefined
     export let highlightMissingEnchants: boolean
@@ -23,6 +26,9 @@
 </script>
 
 <style lang="scss">
+    .spacer {
+        width: 1rem;
+    }
     .gear {
         height: 44px;
         padding: 2px;
@@ -67,7 +73,11 @@
 </style>
 
 {#each characterGear as gear}
-    <td class="gear" class:no-problem={useHighlighting && !gear.highlight} rowspan="{rowspan > 0 ? rowspan : null}">
+    <td
+        class="gear"
+        class:no-problem={useHighlighting && !gear.highlight}
+        rowspan="{rowspan > 0 ? rowspan : null}"
+    >
         {#if gear.equipped !== undefined}
             <a class="quality{gear.equipped.quality}" href={getItemUrl(gear.equipped)}>
                 <WowthingImage name="item/{gear.equipped.itemId}" size={40} border={2} />
@@ -88,3 +98,28 @@
         {/if}
     </td>
 {/each}
+
+{#if !$userStore.data.public}
+    <td class="spacer"></td>
+
+    {#each characterBagSlots as bagSlot}
+        {@const itemId = character.bags[bagSlot]}
+        {@const bagData = $staticStore.data.bags[itemId]}
+        <td class="gear">
+            {#if itemId && bagData}
+                <a
+                    class="quality{bagData[0]}"
+                    href="{getItemUrl({ itemId })}"
+                >
+                    <WowthingImage
+                        name="item/{itemId}"
+                        size={40}
+                        border={2}
+                    />
+
+                    <span class="item-level">{bagData[1]}</span>
+                </a>
+            {/if}
+        </td>
+    {/each}
+{/if}

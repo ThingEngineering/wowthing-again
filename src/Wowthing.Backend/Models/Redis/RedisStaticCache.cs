@@ -13,33 +13,36 @@ namespace Wowthing.Backend.Models.Redis
     public class RedisStaticCache
     {
         [JsonProperty(Order = 0)]
-        public List<OutCurrency> CurrenciesRaw { get; set; }
+        public Dictionary<int, List<int>> Bags { get; set; }
         
         [JsonProperty(Order = 1)]
-        public SortedDictionary<int, OutCurrencyCategory> CurrencyCategories { get; set; }
+        public List<OutCurrency> CurrenciesRaw { get; set; }
         
         [JsonProperty(Order = 2)]
+        public SortedDictionary<int, OutCurrencyCategory> CurrencyCategories { get; set; }
+        
+        [JsonProperty(Order = 3)]
         public List<OutInstance> InstancesRaw { get; set; }
 
-        [JsonProperty(Order = 3)]
+        [JsonProperty(Order = 4)]
         public Dictionary<int, OutProfession> Professions { get; set; }
         
-        [JsonProperty(Order = 4)]
+        [JsonProperty(Order = 5)]
         public List<List<OutProgress>> Progress { get; set; }
         
-        [JsonProperty(Order = 5)]
+        [JsonProperty(Order = 6)]
         public List<WowRealm> RealmsRaw { get; set; }
         
-        [JsonProperty(Order = 6)]
+        [JsonProperty(Order = 7)]
         public List<OutReputation> ReputationsRaw { get; set; }
         
-        [JsonProperty(Order = 7)]
+        [JsonProperty(Order = 8)]
         public SortedDictionary<int, WowReputationTier> ReputationTiers { get; set; }
         
-        [JsonProperty(Order = 8)]
+        [JsonProperty(Order = 9)]
         public Dictionary<int, List<OutSoulbind>> Soulbinds { get; set; }
         
-        [JsonProperty(Order = 9)]
+        [JsonProperty(Order = 10)]
         public Dictionary<int, List<List<int>>> Talents { get; set; }
         
         [JsonProperty(Order = 50)]

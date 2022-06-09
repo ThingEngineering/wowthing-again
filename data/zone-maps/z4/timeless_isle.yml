@@ -3,6 +3,20 @@ mapName: z4_timeless_isle
 minimumLevel: 30
 farms:
 
+- name: "Bufo"
+  location: 63.7 72.8
+  npcId: 72775
+  reset: none
+  drops:
+  - type: achievement
+    id: 8728
+    criteriaId: 34241
+    name: "Gulp Froglet"
+    note: "Need to loot for credit"
+
+  - type: pet
+    id: 73359 # Gulp Froglet
+
 - name: "Champions of the Black Flame"
   location: 70.8 47.6
   npcId: 73171
@@ -21,6 +35,33 @@ farms:
     id: 86584
     name: "Hardened Shell"
 
+- name: "Cinderfall"
+  location: 54.0 52.4
+  npcId: 73175
+  reset: none
+  drops:
+  - type: achievement
+    id: 8728
+    criteriaId: 34221
+    name: "Falling Flame"
+
+  - type: achievement
+    id: 8728
+    criteriaId: 34238
+    name: "Glowing Blue Ash"
+    note: "Also drops from Foreboding Flame mobs"
+
+- name: "Cranegnasher"
+  location: 43.6 69.4
+  npcId: 72049
+  reset: none
+  drops:
+  - type: achievement
+    id: 8728
+    criteriaId: 34235
+    name: "Pristine Stalker Hide"
+    note: "Also drops from Primal Stalker mobs"
+
 - name: "Dread Ship Vazuvius"
   location: 25.8 23.2
   npcId: 73281
@@ -30,11 +71,27 @@ farms:
     id: 104294
     name: "Rime of the Time-Lost Mariner"
 
+- name: "Foreboding Flames"
+  location: 41.7 40.7
+  npcId: 73162
+  reset: none
+  drops:
+  - type: achievement
+    id: 8728
+    criteriaId: 34238
+    name: "Glowing Blue Ash"
+
 - name: "Garnia"
   location: 64.6 27.5
   npcId: 73282
   reset: none
   drops:
+  - type: achievement
+    id: 8728
+    criteriaId: 34248
+    name: "Ruby Droplet"
+    note: "Need to loot for credit"
+
   - type: pet
     id: 73356
     name: "Ruby Droplet"
@@ -44,15 +101,41 @@ farms:
   npcId: 72970
   reset: none
   drops:
+  - type: achievement
+    id: 8728
+    criteriaId: 34236
+    name: "Glinting Pile of Stone"
+    note: "Also drops from Eroded Cliffdweller mobs"
+
   - type: toy
     id: 104262
     name: "Odd Polished Stone"
+
+- name: "Great Turtle Furyshell"
+  location: 22.2 52.4
+  npcId: 73161
+  reset: none
+  drops:
+  - type: toy
+    id: 86584 # Hardened Shell
 
 - name: "Gu'chi the Swarmbringer"
   location: 41.4 77.4
   npcId: 72909
   reset: none
   drops:
+  - type: achievement
+    id: 8728
+    criteriaId: 34228
+    name: "Gu'chi Swarmling"
+    note: "Need to loot for credit"
+
+  - type: achievement
+    id: 8728
+    criteriaId: 34229
+    name: "Sticky Silkworm Goo"
+    note: "Also drops from Spotted Swarmer mobs"
+
   - type: pet
     id: 73730
     name: "Gu'chi Swarmling"
@@ -80,56 +163,155 @@ farms:
   npcId: 73277
   reset: none
   drops:
+  - type: achievement
+    id: 8728
+    criteriaId: 34250
+    name: "Ashleaf Spriteling"
+    note: "Need to loot for credit"
+  
+  - type: achievement
+    id: 8728
+    criteriaId: 34230
+    name: "Faintly-Glowing Herb"
+
   - type: pet
     id: 73533
     name: "Ashleaf Spriteling"
 
-- name: "Spirit of Jadefire"
+- name: "Jademist Dancers"
+  location: 26.7 30.6
+  npcId: 72767
+  reset: none
+  drops:
+  - type: achievement
+    id: 8728
+    criteriaId: 34245
+    name: "Jademist Dancer"
+  
+  - type: pet
+    id: 73355
+
+- name: "Master Kukuru Gambling"
+  location: 58.2 42.2
+  npcId: 72007
+  reset: none
+  type: treasure
+  drops:
+  - type: achievement
+    id: 8728
+    criteriaId: 34240
+    name: "Bonkers"
+  
+  - type: pet
+    id: 73668 # Bonkers
+
+- name: "Rock Moss"
   location: 43.7 40.7
+  npcId: 73157
+  reset: none
+  drops:
+  - type: achievement
+    id: 8728
+    criteriaId: 34212
+    name: "Golden Moss"
+
+- name: "Spelurk"
+  location: 58.0 48.6
+  npcId: 71864
+  reset: none
+  drops:
+  - type: achievement
+    id: 8728
+    criteriaId: 34212
+    name: "Cursed Talisman"
+
+- name: "Spirit of Jadefire"
+  location: 45.7 40.7
   npcId: 72769
   reset: none
   drops:
+  - type: achievement
+    id: 8728
+    criteriaId: 34239
+    name: "Glowing Green Ash"
+
+  - type: achievement
+    id: 8728
+    criteriaId: 34215
+    name: "Jadefire Spirit"
+    note: "Need to loot for credit"
+
   - type: pet
     id: 73738
     name: "Jadefire Spirit"
+
+- name: "Tsavo'ka"
+  location: 54.0 42.1
+  npcId: 72808
+  reset: none
+  drops:
+  - type: achievement
+    id: 8728
+    criteriaId: 34235
+    name: "Pristine Stalker Hide"
+    note: "Also drops from Primal Stalker mobs"
+
+- name: "Urdur the Cauterizer"
+  location: 43.1 26.6
+  npcId: 73173
+  reset: none
+  drops:
+  - type: achievement
+    id: 8728
+    criteriaId: 34224
+    name: "Ordon Ceremonial Robes"
+    note: "Also drops from Blazebound Chanter and Ordon Fire-Watcher mobs"
+
+  - type: achievement
+    id: 8728
+    criteriaId: 34216
+    name: "Sunset Stone"
+
+- name: "Watcher Osu"
+  location: 57.6 76.6
+  npcId: 73170
+  reset: none
+  drops:
+  - type: achievement
+    id: 8728
+    criteriaId: 34217
+    name: "Ashen Stone"
+
+  - type: achievement
+    id: 8728
+    criteriaId: 34224
+    name: "Ordon Ceremonial Robes"
+    note: "Also drops from Blazebound Chanter and Ordon Fire-Watcher mobs"
+
+- name: "Zesqua"
+  location: 47.0 87.4
+  npcId: 72245
+  reset: none
+  drops:
+  - type: achievement
+    id: 8728
+    criteriaId: 34219
+    name: "Rain Stone"
 
 - name: "Zhu-Gon the Sour"
   location: 37.8 77.1
   npcId: 71919
   reset: none
   drops:
+  - type: achievement
+    id: 8728
+    criteriaId: 34243
+    name: "Skunky Alemental"
+    note: "Need to loot for credit"
+
   - type: pet
     id: 73367
     name: "Skunky Alemental"
-
-# These drop nothing useful, but some drop achievement items
-# FIXME add achievement items if I ever implement that
-#- name: "Rock Moss"
-#  location: 43.7 40.7
-#  npcId: 73157
-#  reset: none
-#  drops:
-#  - type:
-#    id:
-#    name: ""
-
-#- name: "Spelurk"
-#  location:
-#  npcId:
-#  reset: none
-#  drops:
-#  - type:
-#    id:
-#    name: ""
-
-#- name: "Watcher Osu"
-#  location:
-#  npcId:
-#  reset: none
-#  drops:
-#  - type:
-#    id:
-#    name: ""
 
 # These drop set pieces and pvp gear, not sure I care enough to type that out
 #- name: "Chi-Ji, The Red Crane"

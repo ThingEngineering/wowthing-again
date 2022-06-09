@@ -39,6 +39,7 @@
         Cosmetic,
         Armor,
         Weapon,
+        Achievement,
         Transmog = 100,
     }
 }

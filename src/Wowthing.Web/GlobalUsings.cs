@@ -10,3 +10,4 @@ global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.EntityFrameworkCore;
 global using Newtonsoft.Json;
 global using Wowthing.Lib.Extensions;
+global using Wowthing.Web.Extensions;

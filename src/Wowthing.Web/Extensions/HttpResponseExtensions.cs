@@ -5,15 +5,19 @@ namespace Wowthing.Web.Extensions;
 
 public static class HttpResponseExtensions
 {
-    public static void AddPrivateApiCacheHeaders(this HttpResponse response, DateTimeOffset lastModified)
+    private static readonly TimeSpan PrivateCacheTime = TimeSpan.FromSeconds(5);
+    private static readonly TimeSpan PublicCacheTime = TimeSpan.FromSeconds(60);
+    private static readonly TimeSpan StaleCacheTime = TimeSpan.FromHours(24);
+    
+    public static void AddApiCacheHeaders(this HttpResponse response, bool isPublic, DateTimeOffset lastModified)
     {
         var responseHeaders = response.GetTypedHeaders();
         responseHeaders.CacheControl = new CacheControlHeaderValue
         {
-            MaxAge = TimeSpan.FromSeconds(55),
-            Private = true,
+            MaxAge = isPublic ? PublicCacheTime : PrivateCacheTime,
+            Private = !isPublic,
             MaxStale = true,
-            MaxStaleLimit = TimeSpan.FromHours(24),
+            MaxStaleLimit = StaleCacheTime,
         };
         responseHeaders.LastModified = lastModified;
     }

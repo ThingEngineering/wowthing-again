@@ -17,6 +17,8 @@
 
     let sortedDrops: [ZoneMapDataDrop, DropStatus][]
     $: {
+        console.log({farm, status})
+
         const sigh: [ZoneMapDataDrop, DropStatus][] = []
         for (let dropIndex = 0; dropIndex < farm.drops.length; dropIndex++) {
             sigh.push([farm.drops[dropIndex], status.drops[dropIndex]])
@@ -107,7 +109,7 @@
 <div class="wowthing-tooltip">
     <h4>{farm.name}</h4>
 
-    {#if farm.reset !== FarmResetType.Never}
+    {#if farm.reset !== FarmResetType.None && farm.reset !== FarmResetType.Never}
         <h5>{FarmResetType[farm.reset].toLowerCase()} reset</h5>
     {/if}
 

@@ -156,7 +156,7 @@ farms:
   note: "Offers a quest to adopt a bear"
   npcId: 128690
   questId: 38889
-  reset: none
+  reset: never
   drops:
   - type: pet
     id: 96649

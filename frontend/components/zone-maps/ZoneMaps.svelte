@@ -4,6 +4,7 @@
     import {
         staticStore,
         transmogStore,
+        userAchievementStore,
         userQuestStore,
         userStore,
         userTransmogStore,
@@ -21,17 +22,20 @@
 
     let ready: boolean
     $: {
-        zoneMapStore.setup(
-            $settings,
-            $staticStore.data,
-            $transmogStore.data,
-            $userQuestStore.data,
-            $userStore.data,
-            $userTransmogStore.data,
-            $zoneMapStore.data,
-            $zoneMapState,
-        )
-        ready = true
+        if ($userAchievementStore.loaded) {
+            zoneMapStore.setup(
+                $settings,
+                $staticStore.data,
+                $transmogStore.data,
+                $userStore.data,
+                $userAchievementStore.data,
+                $userQuestStore.data,
+                $userTransmogStore.data,
+                $zoneMapStore.data,
+                $zoneMapState,
+            )
+            ready = true
+        }
     }
 
     afterUpdate(() => {

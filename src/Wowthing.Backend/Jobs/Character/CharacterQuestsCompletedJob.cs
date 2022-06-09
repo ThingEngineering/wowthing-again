@@ -37,22 +37,28 @@ namespace Wowthing.Backend.Jobs.Character
             }
 
             // Fetch character data
-            var quests = await Context.PlayerCharacterQuests.FindAsync(query.CharacterId);
-            if (quests == null)
+            var pcQuests = await Context.PlayerCharacterQuests.FindAsync(query.CharacterId);
+            if (pcQuests == null)
             {
-                quests = new PlayerCharacterQuests
+                pcQuests = new PlayerCharacterQuests
                 {
                     CharacterId = query.CharacterId,
                 };
-                Context.PlayerCharacterQuests.Add(quests);
+                Context.PlayerCharacterQuests.Add(pcQuests);
             }
 
-            quests.CompletedIds = resultData.Quests
+            var completedIds = resultData.Quests
                 .EmptyIfNull()
-                .Select(q => q.Id)
+                .Select(quest => quest.Id)
+                .OrderBy(id => id)
                 .ToList();
 
-            var updated = await Context.SaveChangesAsync();
+            if (!completedIds.SequenceEqual(pcQuests.CompletedIds))
+            {
+                pcQuests.CompletedIds = completedIds;
+            }
+
+            int updated = await Context.SaveChangesAsync();
             if (updated > 0)
             {
                 await CacheService.SetLastModified(RedisKeys.UserLastModifiedQuests, query.UserId);

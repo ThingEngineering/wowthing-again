@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using Microsoft.AspNetCore.Http;
 using StackExchange.Redis;
 using Wowthing.Lib.Models;
 
@@ -25,5 +26,24 @@ public class CacheService
         var db = _redis.GetDatabase();
         var redisKey = string.Format(key, userId);
         return await db.DateTimeOffsetSetAsync(redisKey, DateTimeOffset.UtcNow);
+    }
+
+    public async Task<(bool, DateTimeOffset)> CheckLastModified(
+        string cacheKey,
+        HttpRequest request,
+        ApiUserResult apiUserResult
+    )
+    {
+        var db = _redis.GetDatabase();
+        var redisKey = string.Format(cacheKey, apiUserResult.User.Id);
+        var lastModified = await db.DateTimeOffsetGetAsync(redisKey);
+        
+        var headers = request.GetTypedHeaders();
+        if (lastModified > DateTimeOffset.MinValue && headers.IfModifiedSince.HasValue && lastModified <= headers.IfModifiedSince)
+        {
+            return (false, lastModified);
+        }
+
+        return (true, lastModified);
     }
 }

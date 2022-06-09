@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.Net.Mime;
 using Microsoft.Extensions.Logging;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Services;
 using Wowthing.Lib.Utilities;
-using Wowthing.Web.Extensions;
 using Wowthing.Web.Models;
 using Wowthing.Web.Services;
 
@@ -13,13 +12,13 @@ namespace Wowthing.Web.Controllers.API;
 public class UserQuestController : Controller
 {
     private readonly CacheService _cacheService;
-    private readonly ILogger<ApiController> _logger;
+    private readonly ILogger<UserQuestController> _logger;
     private readonly UserService _userService;
     private readonly WowDbContext _context;
 
     public UserQuestController(
         CacheService cacheService,
-        ILogger<ApiController> logger,
+        ILogger<UserQuestController> logger,
         UserService userService,
         WowDbContext context
     )
@@ -48,16 +47,14 @@ public class UserQuestController : Controller
 
         timer.AddPoint("CheckUser");
 
-        DateTimeOffset? lastModified = null;
-        if (!apiResult.Public)
+        var (isModified, lastModified) =
+            await _cacheService.CheckLastModified(RedisKeys.UserLastModifiedQuests, Request, apiResult);
+        if (!isModified)
         {
-            var headers = Request.GetTypedHeaders();
-            lastModified = await _cacheService.GetLastModified(RedisKeys.UserLastModifiedQuests, apiResult);
-            if (lastModified > DateTimeOffset.MinValue && lastModified <= headers.IfModifiedSince)
-            {
-                return StatusCode((int)HttpStatusCode.NotModified);
-            }
+            return StatusCode((int)HttpStatusCode.NotModified);
         }
+        
+        timer.AddPoint("LastModified");
 
         var characters = await _context.PlayerCharacter
             .Where(pc => pc.Account.UserId == apiResult.User.Id)
@@ -87,22 +84,23 @@ public class UserQuestController : Controller
             }
         );
 
-        timer.AddPoint("Get quests");
+        timer.AddPoint("Database");
 
         // Build response
         var data = new UserQuestData
         {
             Characters = characterData,
         };
+        var json = JsonConvert.SerializeObject(data);
 
-        timer.AddPoint("Build response", true);
-        _logger.LogDebug($"{timer}");
+        timer.AddPoint("JSON", true);
+        _logger.LogDebug("{Timer}", timer);
 
         if (lastModified > DateTimeOffset.MinValue)
         {
-            Response.AddPrivateApiCacheHeaders(lastModified.Value);
+            Response.AddApiCacheHeaders(apiResult.Public, lastModified);
         }
 
-        return Ok(data);
+        return Content(json, MediaTypeNames.Application.Json);
     }
 }

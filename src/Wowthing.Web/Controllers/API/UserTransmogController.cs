@@ -9,12 +9,12 @@ namespace Wowthing.Web.Controllers.API;
 
 public class UserTransmogController : Controller
 {
-    private readonly ILogger<ApiController> _logger;
+    private readonly ILogger<UserTransmogController> _logger;
     private readonly UserService _userService;
     private readonly WowDbContext _context;
 
     public UserTransmogController(
-        ILogger<ApiController> logger,
+        ILogger<UserTransmogController> logger,
         UserService userService,
         WowDbContext context
     )

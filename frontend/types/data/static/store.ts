@@ -17,6 +17,7 @@ import type { ZoneMapDataCategory } from '@/types/data'
 
 
 export interface StaticData {
+    bags: Record<number, [number, number]>
     connectedRealms: Record<number, StaticDataConnectedRealm>
     currencyCategories: Record<number, StaticDataCurrencyCategory>
     professions: Record<number, StaticDataProfession>

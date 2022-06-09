@@ -46,7 +46,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
-            Version = 39,
+            Version = 40,
         };
 
         public override async Task Run(params string[] data)
@@ -121,6 +121,14 @@ namespace Wowthing.Backend.Jobs.Misc
             // RaiderIO
             var raiderIoScoreTiers = await db.JsonGetAsync<Dictionary<int, OutRaiderIoScoreTiers>>(DataRaiderIoScoreTiersJob.CacheKey);
             
+            // Bags
+            var bags = _itemMap.Values
+                .Where(item => item.ContainerSlots > 0)
+                .ToDictionary(
+                    item => item.Id,
+                    item => new List<int> { (int)item.Quality, item.ContainerSlots }
+                );
+            
             // Currencies
             var currencies = await LoadCurrencies();
             var currencyCategories = await LoadCurrencyCategories();
@@ -191,6 +199,7 @@ namespace Wowthing.Backend.Jobs.Misc
                 
                 var cacheData = new RedisStaticCache
                 {
+                    Bags = bags,
                     CurrenciesRaw = currencies,
                     CurrencyCategories = currencyCategories,
                     InstancesRaw = instances,
