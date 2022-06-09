@@ -36,6 +36,11 @@
                     .Select(int.Parse)
                     .ToArray();
             }
+
+            if (drop.CriteriaId > 0)
+            {
+                SubType = drop.CriteriaId;
+            }
             
             if (drop.RequiredQuestId > 0)
             {

@@ -9,7 +9,7 @@ import { DateTime } from 'luxon'
 import { classMap, classSlugMap } from '@/data/character-class'
 import { covenantSlugMap } from '@/data/covenant'
 import { factionMap } from '@/data/faction'
-import type { DropStatus, FarmStatus } from '@/types'
+import type { DropStatus, FarmStatus, UserAchievementData } from '@/types'
 import { Settings, UserCount, UserData, WritableFancyStore } from '@/types'
 import type { TransmogData, UserQuestData, UserTransmogData, ZoneMapData } from '@/types/data'
 import { ZoneMapDataFarm } from '@/types/data'
@@ -33,8 +33,9 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
         settings: Settings,
         staticData: StaticData,
         transmogData: TransmogData,
-        userQuestData: UserQuestData,
         userData: UserData,
+        userAchievementData: UserAchievementData,
+        userQuestData: UserQuestData,
         userTransmogData: UserTransmogData,
         zoneMapData: ZoneMapData,
         options: ZoneMapState,
@@ -101,6 +102,7 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                 const mapKey = `${maps[0].slug}--${map.slug}`
                 const mapCounts = setCounts[mapKey] = new UserCount()
                 const mapTypeCounts: Record<number, UserCount> = typeCounts[mapKey] = {
+                    [FarmDropType.Achievement]: new UserCount(),
                     [FarmDropType.Mount]: new UserCount(),
                     [FarmDropType.Pet]: new UserCount(),
                     [FarmDropType.Quest]: new UserCount(),
@@ -202,6 +204,12 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
 
                         let fixedType = drop.type
                         switch (drop.type) {
+                            case FarmDropType.Achievement:
+                                if (!userAchievementData.criteria[drop.subType]) {
+                                    dropStatus.need = true
+                                }
+                                break
+
                             case FarmDropType.Mount:
                                 if (!userData.hasMountSpell[drop.id] &&
                                     !userData.addonMounts[drop.id]) {

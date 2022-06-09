@@ -417,6 +417,72 @@ farms:
     id: 170467
     name: "Whirring Chainblade"
 
+# Treasures
+
+- name: "Azeroth Mini Pack: Bondo's Yard"
+  location: 75.5 35.0
+  note: "Guaranteed from Beastbot and Reclamation Rig"
+  questId: 57134
+  reset: weekly
+  type: treasure
+  drops:
+  - type: achievement
+    id: 13708
+    criteriaId: 81002
+    name: "Bondo Bigblock"
+
+  - type: achievement
+    id: 13708
+    criteriaId: 81003
+    name: "Cork Stuttguard"
+
+  - type: achievement
+    id: 13708
+    criteriaId: 80999
+    name: "Gazlowe"
+
+  - type: achievement
+    id: 13708
+    criteriaId: 81005
+    name: "Naeno Megacrash"
+
+  - type: achievement
+    id: 13708
+    criteriaId: 81004
+    name: "Roadtrogg"
+
+- name: "Azeroth Mini Pack: Mechagon"
+  location: 78.0 35.0
+  note: "From opening Mechanized Chests"
+  questId: 57132
+  reset: weekly
+  type: treasure
+  drops:
+  - type: achievement
+    id: 13708
+    criteriaId: 81008
+    name: "Blastatron"
+
+  - type: achievement
+    id: 13708
+    criteriaId: 81006
+    name: "Cogstar"
+
+  - type: achievement
+    id: 13708
+    criteriaId: 81007
+    name: "HK-8"
+
+  - type: achievement
+    id: 13708
+    criteriaId: 81009
+    name: "King Mechagon"
+
+  - type: achievement
+    id: 13708
+    criteriaId: 81000
+    name: "Overspark"
+
 # Events
 
 - name: "Reclamation Rig"

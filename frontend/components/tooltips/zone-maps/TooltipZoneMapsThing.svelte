@@ -17,6 +17,8 @@
 
     let sortedDrops: [ZoneMapDataDrop, DropStatus][]
     $: {
+        console.log({farm, status})
+
         const sigh: [ZoneMapDataDrop, DropStatus][] = []
         for (let dropIndex = 0; dropIndex < farm.drops.length; dropIndex++) {
             sigh.push([farm.drops[dropIndex], status.drops[dropIndex]])

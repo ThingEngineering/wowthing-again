@@ -4,6 +4,7 @@
     import {
         staticStore,
         transmogStore,
+        userAchievementStore,
         userQuestStore,
         userStore,
         userTransmogStore,
@@ -25,8 +26,9 @@
             $settings,
             $staticStore.data,
             $transmogStore.data,
-            $userQuestStore.data,
             $userStore.data,
+            $userAchievementStore.data,
+            $userQuestStore.data,
             $userTransmogStore.data,
             $zoneMapStore.data,
             $zoneMapState,
