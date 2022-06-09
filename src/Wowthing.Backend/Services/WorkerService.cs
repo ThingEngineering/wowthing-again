@@ -9,6 +9,7 @@ using Wowthing.Backend.Jobs;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Repositories;
+using Wowthing.Lib.Services;
 
 namespace Wowthing.Backend.Services
 {
@@ -26,10 +27,11 @@ namespace Wowthing.Backend.Services
 
         public WorkerService(
             JobPriority priority,
-            IConfiguration config, 
-            IHttpClientFactory clientFactory, 
+            IConfiguration config,
+            CacheService cacheService,
+            IHttpClientFactory clientFactory,
             IServiceScopeFactory serviceScopeFactory,
-            JobRepository jobRepository, 
+            JobRepository jobRepository,
             StateService stateService
         )
         {
@@ -41,7 +43,15 @@ namespace Wowthing.Backend.Services
             _logger = Log.ForContext("Service", $"Worker {instanceId,2}{_priority.ToString()[0]}");
 
             var redisConnectionString = config.GetConnectionString("Redis");
-            _jobFactory = new JobFactory(ConstructorMap, clientFactory, _logger, jobRepository, stateService, redisConnectionString);
+            _jobFactory = new JobFactory(
+                ConstructorMap,
+                cacheService,
+                clientFactory,
+                _logger,
+                jobRepository,
+                stateService,
+                redisConnectionString
+            );
         }
 
         // Find all jobs and cache them

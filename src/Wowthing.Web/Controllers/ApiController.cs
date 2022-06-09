@@ -1,10 +1,8 @@
 ﻿using System.Net.Mime;
-using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using StackExchange.Redis;
-using Wowthing.Lib.Constants;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models;
@@ -26,14 +24,23 @@ namespace Wowthing.Web.Controllers
         private readonly ILogger<ApiController> _logger;
         private readonly UploadService _uploadService;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly UserService _userService;
         private readonly WowDbContext _context;
         
-        public ApiController(IConnectionMultiplexer redis, ILogger<ApiController> logger, UploadService uploadService, UserManager<ApplicationUser> userManager, WowDbContext context)
+        public ApiController(
+            IConnectionMultiplexer redis,
+            ILogger<ApiController> logger,
+            UploadService uploadService,
+            UserManager<ApplicationUser> userManager,
+            UserService userService,
+            WowDbContext context
+        )
         {
             _redis = redis;
             _logger = logger;
             _uploadService = uploadService;
             _userManager = userManager;
+            _userService = userService;
             _context = context;
         }
 
@@ -262,7 +269,7 @@ namespace Wowthing.Web.Controllers
         {
             var timer = new JankTimer();
 
-            var apiResult = await CheckUser(username);
+            var apiResult = await _userService.CheckUser(User, username);
             if (apiResult.NotFound)
             {
                 return NotFound();
@@ -462,7 +469,7 @@ namespace Wowthing.Web.Controllers
         {
             var timer = new JankTimer();
 
-            var apiResult = await CheckUser(username);
+            var apiResult = await _userService.CheckUser(User, username);
             if (apiResult.NotFound)
             {
                 return NotFound();
@@ -564,7 +571,7 @@ namespace Wowthing.Web.Controllers
         {
             var timer = new JankTimer();
 
-            var apiResult = await CheckUser(username);
+            var apiResult = await _userService.CheckUser(User, username);
             if (apiResult.NotFound)
             {
                 return NotFound();
@@ -645,7 +652,7 @@ namespace Wowthing.Web.Controllers
         {
             var timer = new JankTimer();
 
-            var apiResult = await CheckUser(username);
+            var apiResult = await _userService.CheckUser(User, username);
             if (apiResult.NotFound)
             {
                 return NotFound();
@@ -685,141 +692,6 @@ namespace Wowthing.Web.Controllers
             return Ok(new {
                 GoldRaw = data,
             });
-        }
-        
-        [HttpGet("user/{username:username}/quests")]
-        public async Task<IActionResult> UserQuestData([FromRoute] string username)
-        {
-            var timer = new JankTimer();
-
-            var apiResult = await CheckUser(username);
-            if (apiResult.NotFound)
-            {
-                return NotFound();
-            }
-
-            timer.AddPoint("CheckUser");
-
-
-            Dictionary<int, UserQuestDataCharacter> characterData = new();
-            
-            if (!apiResult.Public || apiResult.Privacy.PublicQuests)
-            {
-                var characters = await _context.PlayerCharacter
-                    .Where(pc => pc.Account.UserId == apiResult.User.Id)
-                    .Include(pc => pc.AddonQuests)
-                    .Include(pc => pc.Quests)
-                    .Select(pc => new
-                    {
-                        pc.Id,
-                        pc.AddonQuests,
-                        pc.Quests,
-                    })
-                    .ToArrayAsync();
-                
-                characterData = characters.ToDictionary(
-                    c => c.Id,
-                    c => new UserQuestDataCharacter
-                    {
-                        ScannedAt = c.AddonQuests?.QuestsScannedAt ?? MiscConstants.DefaultDateTime,
-                        CallingCompleted = c.AddonQuests?.CallingCompleted.EmptyIfNull(),
-                        CallingExpires = c.AddonQuests?.CallingExpires.EmptyIfNull(),
-                        DailyQuestList = c.AddonQuests?.DailyQuests ?? new List<int>(),
-                        QuestList = (c.Quests?.CompletedIds ?? new List<int>())
-                            .Union(c.AddonQuests?.OtherQuests ?? new List<int>())
-                            .Distinct()
-                            .ToList(),
-                        ProgressQuests = c.AddonQuests?.ProgressQuests.EmptyIfNull(),
-                    }
-                );
-            }
-
-            timer.AddPoint("Get quests");
-
-            // Build response
-            var data = new UserQuestData
-            {
-                Characters = characterData,
-            };
-            
-            timer.AddPoint("Build response", true);
-            _logger.LogDebug($"{timer}");
-
-            return Ok(data);
-        }
-        
-        [HttpGet("user/{username:username}/transmog")]
-        public async Task<IActionResult> UserTransmogData([FromRoute] string username)
-        {
-            var timer = new JankTimer();
-
-            var apiResult = await CheckUser(username);
-            if (apiResult.NotFound)
-            {
-                return NotFound();
-            }
-
-            timer.AddPoint("CheckUser");
-
-            var allTransmog = await _context.AccountTransmogQuery
-                .FromSqlRaw(AccountTransmogQuery.Sql, apiResult.User.Id)
-                .FirstAsync();
-
-            var accountSources = await _context.PlayerAccountTransmogSources
-                .Where(pats => pats.Account.UserId == apiResult.User.Id)
-                .ToArrayAsync();
-            
-            var allSources = new HashSet<string>();
-            foreach (var sources in accountSources)
-            {
-                allSources.UnionWith(sources.Sources.EmptyIfNull());
-            }
-            
-            timer.AddPoint("Get Transmog");
-
-            // Build response
-            var data = new UserTransmogData
-            {
-                Sources = allSources,
-                Transmog = allTransmog.TransmogIds,
-            };
-            
-            timer.AddPoint("Build response", true);
-            _logger.LogDebug($"{timer}");
-
-            return Ok(data);
-        }
-
-        private async Task<ApiUserResult> CheckUser(string username)
-        {
-            var ret = new ApiUserResult();
-            
-            var user = await _userManager.FindByNameAsync(username);
-            if (user == null)
-            {
-                ret.NotFound = true;
-                return ret;
-            }
-
-            ret.Public = User.Identity?.Name != user.UserName;
-            ret.Privacy = user.Settings?.Privacy ?? new ApplicationUserSettingsPrivacy();
-
-            if (ret.Public && ret.Privacy.Public != true)
-            {
-                ret.NotFound = true;
-                return ret;
-            }
-            
-            ret.User = user;
-            return ret;
-        }
-        
-        private class ApiUserResult
-        {
-            public bool NotFound { get; set; }
-            public bool Public { get; set; }
-            public ApplicationUser User { get; set; }
-            public ApplicationUserSettingsPrivacy Privacy { get; set; }
         }
     }
 }

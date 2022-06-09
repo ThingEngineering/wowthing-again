@@ -10,6 +10,7 @@ using Wowthing.Backend.Models;
 using Wowthing.Backend.Services;
 using Wowthing.Backend.Utilities;
 using Wowthing.Lib.Jobs;
+using Wowthing.Lib.Services;
 using Wowthing.Lib.Utilities;
 
 namespace Wowthing.Backend
@@ -95,6 +96,7 @@ namespace Wowthing.Backend
                 .SetHandlerLifetime(Timeout.InfiniteTimeSpan);
 
             // Services
+            services.AddSingleton<CacheService>();
             services.AddSingleton<StateService>();
 
             services.AddHostedService<AuthorizationService>();

@@ -5,6 +5,17 @@ namespace Wowthing.Lib.Extensions
 {
     public static class DatabaseExtensions
     {
+        public static async Task<DateTimeOffset> DateTimeOffsetGetAsync(this IDatabase db, string key)
+        {
+            string value = await db.StringGetAsync(key);
+            return value == null ? DateTimeOffset.MinValue : DateTimeOffset.FromUnixTimeSeconds(int.Parse(value));
+        }
+
+        public static async Task<bool> DateTimeOffsetSetAsync(this IDatabase db, string key, DateTimeOffset dateTimeOffset)
+        {
+            return await db.StringSetAsync(key, dateTimeOffset.ToUnixTimeSeconds().ToString());
+        }
+
         public static async Task<string[]> GetSetMembersAsync(this IDatabase db, string key)
         {
             var members = await db.SetMembersAsync(key);
