@@ -6,7 +6,6 @@ using Microsoft.Extensions.Logging;
 using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Repositories;
-using Wowthing.Web.Extensions;
 using Wowthing.Web.Services;
 
 namespace Wowthing.Web.Controllers

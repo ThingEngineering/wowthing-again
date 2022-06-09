@@ -1,5 +1,6 @@
 ﻿using System.Net.Http;
 using Wowthing.Backend.Models.API.Character;
+using Wowthing.Lib.Constants;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
 using Wowthing.Lib.Utilities;
@@ -127,8 +128,10 @@ namespace Wowthing.Backend.Jobs.Character
             var updated = await Context.SaveChangesAsync();
             if (updated > 0)
             {
-                var db = Redis.GetDatabase();
-                await db.KeyDeleteAsync($"data_cache:{query.UserId}:achievements");
+                if (updated > 0)
+                {
+                    await CacheService.SetLastModified(RedisKeys.UserLastModifiedAchievements, query.UserId);
+                }
             }
             
             timer.AddPoint("Update", true);

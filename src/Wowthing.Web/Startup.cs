@@ -9,7 +9,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Models;
-using Wowthing.Web.Extensions;
 using Wowthing.Web.Misc;
 using Wowthing.Web.Services;
 using Newtonsoft.Json.Serialization;
