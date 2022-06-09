@@ -7,11 +7,12 @@
 </script>
 
 <style lang="scss">
+    input {
+        border: 1px solid $border-color;
+        width: 100%;
+    }
     label {
         display: block;
-    }
-    input {
-        width: 100%;
     }
 </style>
 

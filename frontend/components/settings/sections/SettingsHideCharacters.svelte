@@ -67,7 +67,7 @@
         h3 {
             cursor: pointer;
             font-size: 1.1rem;
-            margin-top: 0.25rem;
+            margin-top: 0.5rem;
 
             span {
                 color: #00ccff;
