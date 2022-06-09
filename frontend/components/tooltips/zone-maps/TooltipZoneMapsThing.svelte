@@ -109,7 +109,7 @@
 <div class="wowthing-tooltip">
     <h4>{farm.name}</h4>
 
-    {#if farm.reset !== FarmResetType.Never}
+    {#if farm.reset !== FarmResetType.None && farm.reset !== FarmResetType.Never}
         <h5>{FarmResetType[farm.reset].toLowerCase()} reset</h5>
     {/if}
 
