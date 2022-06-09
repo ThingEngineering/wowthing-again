@@ -24,16 +24,6 @@ groups:
   - 15779 # White Mechanostrider Mod B
   - 16083 # White Stallion
 
-- name: Rated PvP
-  things:
-  - 270560 # Vicious War Clefthoof (BfA Season 1)
-  - 272481 # Vicious War Riverbeast (BfA Season 1)
-  - 281890 # Vicious Black Bonesteed (BfA Season 2)
-  - 281887 # Vicious Black Warsaber (BfA Season 2)
-  - 261433 261434 # Vicious War Basilisk (BfA Season 3)
-  - 281889 # Vicious White Bonesteed (BfA Season 4)
-  - 281888 # Vicious White Warsaber (BfA Season 4)
-
 - name: Promotions
   things:
   - 232405 # Primal Flamesaber (Heroes of the Storm)
