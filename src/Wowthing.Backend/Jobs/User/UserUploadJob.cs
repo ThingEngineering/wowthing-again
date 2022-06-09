@@ -576,9 +576,38 @@ namespace Wowthing.Backend.Jobs.User
                     );
 
             var seen = new HashSet<(ItemLocation, short, short)>();
+
+            foreach (var (location, itemId) in characterData.Bags.EmptyIfNull())
+            {
+                if (!location.StartsWith("b"))
+                {
+                    Logger.Warning("Invalid bag location: {Location}", location);
+                    continue;
+                }
+
+                short bagId = short.Parse(location[1..]);
+                ItemLocation locationType = GetBagLocation(bagId);
+
+                var key = (locationType, bagId, (short)0);
+                if (!itemMap.TryGetValue(key, out var item))
+                {
+                    item = new PlayerCharacterItem
+                    {
+                        CharacterId = character.Id,
+                        BagId = bagId,
+                        Location = locationType,
+                        Slot = 0,
+                    };
+                    Context.PlayerCharacterItem.Add(item);
+                }
+
+                item.Count = 1;
+                item.ItemId = itemId;
+                seen.Add(key);
+            }
+            
             foreach (var (location, contents) in characterData.Items.EmptyIfNull())
             {
-                ItemLocation locationType = ItemLocation.Unknown;
                 if (!location.StartsWith("b"))
                 {
                     Logger.Warning("Invalid item location: {Location}", location);
@@ -586,18 +615,7 @@ namespace Wowthing.Backend.Jobs.User
                 }
 
                 short bagId = short.Parse(location[1..]);
-                if (bagId >= 0 && bagId <= 4)
-                {
-                    locationType = ItemLocation.Bags;
-                }
-                else if (bagId == -1 || (bagId >= 5 && bagId <= 11))
-                {
-                    locationType = ItemLocation.Bank;
-                }
-                else if (bagId == -3)
-                {
-                    locationType = ItemLocation.ReagentBank;
-                }
+                ItemLocation locationType = GetBagLocation(bagId);
 
                 foreach (var (slotString, itemString) in contents)
                 {
@@ -638,6 +656,26 @@ namespace Wowthing.Backend.Jobs.User
             }
         }
 
+        private ItemLocation GetBagLocation(short bagId)
+        {
+            if (bagId >= 0 && bagId <= 4)
+            {
+                return ItemLocation.Bags;
+            }
+
+            if (bagId == -1 || (bagId >= 5 && bagId <= 11))
+            {
+                return ItemLocation.Bank;
+            }
+
+            if (bagId == -3)
+            {
+                return ItemLocation.ReagentBank;
+            }
+
+            return ItemLocation.Unknown;
+        }
+        
         private void AddItemDetails(IPlayerItem item, string[] parts)
         {
             if (parts[0] == "pet")

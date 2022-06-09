@@ -98,3 +98,20 @@ export const gemBonusIds: number[] = [
     7576, // ??
     7580, // SL Season 3?
 ]
+
+export const characterBagSlots: number[] = [
+    1,
+    2,
+    3,
+    4,
+]
+
+export const bankBagSlots: number[] = [
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+]

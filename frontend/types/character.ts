@@ -32,6 +32,7 @@ export interface Character {
     reputationData: Record<string, CharacterReputation>
     specializations: Record<number, Record<number, number>>
 
+    bags: Record<number, number>
     currenciesRaw: CharacterCurrencyArray[]
     equippedItems: Record<number, CharacterEquippedItem>
     garrisonTrees: Record<number, Record<number, number[]>>

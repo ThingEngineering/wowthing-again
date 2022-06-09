@@ -17,6 +17,7 @@
         public string GuildName { get; set; }
 
         public List<UploadCharacterAchievement> Achievements { get; set; }
+        public Dictionary<string, int> Bags { get; set; }
         public List<UploadCharacterCalling> Callings { get; set; }
         public List<UploadCharacterCovenant> Covenants { get; set; }
         public Dictionary<short, string> Currencies { get; set; }

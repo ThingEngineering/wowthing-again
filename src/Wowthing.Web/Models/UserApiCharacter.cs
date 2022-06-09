@@ -29,6 +29,7 @@ namespace Wowthing.Web.Models
         public WowGender Gender { get; set; }
         public WowMountSkill MountSkill { get; set; }
 
+        public Dictionary<short, int> Bags { get; set; }
         public List<UserApiCharacterCurrency> CurrenciesRaw { get; }
         public Dictionary<int, UserApiCharacterEquippedItem> EquippedItems { get; } = new();
         public Dictionary<int, Dictionary<int, List<int>>> GarrisonTrees { get; }
@@ -49,7 +50,8 @@ namespace Wowthing.Web.Models
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public UserApiCharacterWeekly Weekly { get; }
 
-        public UserApiCharacter(PlayerCharacter character, bool pub = false, ApplicationUserSettingsPrivacy privacy = null)
+        public UserApiCharacter(PlayerCharacter character, IEnumerable<PlayerCharacterItem> bagItems,
+            bool pub = false, ApplicationUserSettingsPrivacy privacy = null)
         {
             ActiveSpecId = character.ActiveSpecId;
             ClassId = character.ClassId;
@@ -99,6 +101,11 @@ namespace Wowthing.Web.Models
             }
 
             GarrisonTrees = character.AddonData?.GarrisonTrees;
+
+            Bags = bagItems.ToDictionary(
+                bi => bi.BagId,
+                bi => bi.ItemId
+            );
             
             if (character.EquippedItems?.Items != null)
             {

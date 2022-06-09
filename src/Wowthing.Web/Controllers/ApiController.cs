@@ -352,6 +352,17 @@ namespace Wowthing.Web.Controllers
                 .Select(character => character.Id)
                 .ToArray();
             
+            // Bags
+            var bagItems = Array.Empty<PlayerCharacterItem>();
+            if (!apiResult.Public)
+            {
+                bagItems = await _context.PlayerCharacterItem
+                    .AsNoTracking()
+                    .Where(pci => characterIds.Contains(pci.CharacterId) && pci.Slot == 0)
+                    .ToArrayAsync();
+                _logger.LogWarning("eyy mang {0}", bagItems.Length);
+            }
+            
             timer.AddPoint("Characters");
 
             var backgrounds = await _context.BackgroundImage
@@ -427,7 +438,11 @@ namespace Wowthing.Web.Controllers
             {
                 Accounts = accounts.ToDictionary(k => k.Id, v => new UserApiAccount(v)),
                 Characters = characters
-                    .Select(character => new UserApiCharacter(character, apiResult.Public, apiResult.Privacy))
+                    .Select(character => new UserApiCharacter(
+                        character,
+                        bagItems.Where(bi => bi.CharacterId == character.Id),
+                        apiResult.Public,
+                        apiResult.Privacy))
                     .ToList(),
                 
                 Backgrounds = backgrounds,

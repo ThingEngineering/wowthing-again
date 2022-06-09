@@ -1,6 +1,6 @@
 <script lang="ts">
     import { afterUpdate } from 'svelte'
-    import {location, querystring, replace} from 'svelte-spa-router'
+    import { location, querystring, replace } from 'svelte-spa-router'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
@@ -68,6 +68,11 @@
 
     <svelte:fragment slot="rowExtra" let:character>
         <RowItemLevel />
-        <RowItems {character} bind:highlightMissingEnchants bind:highlightMissingGems />
+        
+        <RowItems
+            bind:highlightMissingEnchants
+            bind:highlightMissingGems
+            {character}
+        />
     </svelte:fragment>
 </CharacterTable>
