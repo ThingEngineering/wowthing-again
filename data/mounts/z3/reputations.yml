@@ -10,3 +10,8 @@ groups:
   things:
   - 88748 # Brown Riding Camel (Ramkahen)
   - 88749 # Tan Riding Camel (Ramkahen)
+
+- name: Guild
+  things:
+  - 88990 # Dark Phoenix
+  
