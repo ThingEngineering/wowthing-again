@@ -25,14 +25,14 @@
     }
 }
 
-    <div id="app"
-         data-base-uri="@_uriService.BaseUri"
-         data-settings="@Model.SettingsJson"
-         data-achievements="@Url.Action("CachedJson", "Api", new { type = "achievement", languageCode = "zzZZ", hash = Model.AchievementHash })"
-         data-journal="@Url.Action("CachedJson", "Api", new { type = "journal", languageCode = "zzZZ", hash = Model.JournalHash })"
-         data-static="@Url.Action("CachedJson", "Api", new { type = "static", languageCode = "zzZZ", hash = Model.StaticHash })"
-         data-transmog="@Url.Action("CachedJson", "Api", new { type = "transmog", languageCode = "zzZZ", hash = Model.TransmogHash })"
-         data-zone-map="@Url.Action("CachedJson", "Api", new { type = "zone-map", languageCode = "zzZZ", hash = Model.ZoneMapHash })"
-         data-user="@Url.Action("UserData", "Api", new { username = Model.User.UserName })"
-         data-xsrf="@(User?.Identity?.IsAuthenticated == true ? GetAntiXsrfRequestToken() : "")"
-    ></div>
+<div id="app"
+     data-base-uri="@_uriService.BaseUri"
+     data-settings="@Model.SettingsJson"
+     data-achievements="@Url.Action("CachedJson", "CachedJson", new { type = "achievement", languageCode = "zzZZ", hash = Model.AchievementHash })"
+     data-journal="@Url.Action("CachedJson", "CachedJson", new { type = "journal", languageCode = "zzZZ", hash = Model.JournalHash })"
+     data-static="@Url.Action("CachedJson", "CachedJson", new { type = "static", languageCode = "zzZZ", hash = Model.StaticHash })"
+     data-transmog="@Url.Action("CachedJson", "CachedJson", new { type = "transmog", languageCode = "zzZZ", hash = Model.TransmogHash })"
+     data-zone-map="@Url.Action("CachedJson", "CachedJson", new { type = "zone-map", languageCode = "zzZZ", hash = Model.ZoneMapHash })"
+     data-user="@Url.Action("UserData", "Api", new { username = Model.User.UserName })"
+     data-xsrf="@(User?.Identity?.IsAuthenticated == true ? GetAntiXsrfRequestToken() : "")"
+></div>
