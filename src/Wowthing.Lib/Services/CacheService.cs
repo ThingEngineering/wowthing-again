@@ -37,9 +37,15 @@ public class CacheService
         var db = _redis.GetDatabase();
         var redisKey = string.Format(cacheKey, apiUserResult.User.Id);
         var lastModified = await db.DateTimeOffsetGetAsync(redisKey);
+
+        if (lastModified == DateTimeOffset.MinValue)
+        {
+            lastModified = DateTimeOffset.UtcNow;
+            await db.DateTimeOffsetSetAsync(redisKey, lastModified);
+        }
         
         var headers = request.GetTypedHeaders();
-        if (lastModified > DateTimeOffset.MinValue && headers.IfModifiedSince.HasValue && lastModified <= headers.IfModifiedSince)
+        if (headers.IfModifiedSince.HasValue && lastModified <= headers.IfModifiedSince)
         {
             return (false, lastModified);
         }
