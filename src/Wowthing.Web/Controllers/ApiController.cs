@@ -315,7 +315,6 @@ namespace Wowthing.Web.Controllers
                     .AsNoTracking()
                     .Where(pci => characterIds.Contains(pci.CharacterId) && pci.Slot == 0)
                     .ToArrayAsync();
-                _logger.LogWarning("eyy mang {0}", bagItems.Length);
             }
             
             timer.AddPoint("Characters");

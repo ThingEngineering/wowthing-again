@@ -102,10 +102,12 @@ namespace Wowthing.Web.Models
 
             GarrisonTrees = character.AddonData?.GarrisonTrees;
 
-            Bags = bagItems.ToDictionary(
-                bi => bi.BagId,
-                bi => bi.ItemId
-            );
+            Bags = bagItems
+                .GroupBy(bi => bi.BagId)
+                .ToDictionary(
+                    group => group.Key,
+                    group => group.First().ItemId
+                );
             
             if (character.EquippedItems?.Items != null)
             {
