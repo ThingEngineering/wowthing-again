@@ -1,6 +1,9 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Net.Mime;
+using Microsoft.Extensions.Logging;
+using Wowthing.Lib.Constants;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Models.Query;
+using Wowthing.Lib.Services;
 using Wowthing.Lib.Utilities;
 using Wowthing.Web.Models;
 using Wowthing.Web.Services;
@@ -9,16 +12,19 @@ namespace Wowthing.Web.Controllers.API;
 
 public class UserTransmogController : Controller
 {
+    private readonly CacheService _cacheService;
     private readonly ILogger<UserTransmogController> _logger;
     private readonly UserService _userService;
     private readonly WowDbContext _context;
 
     public UserTransmogController(
+        CacheService cacheService,
         ILogger<UserTransmogController> logger,
         UserService userService,
         WowDbContext context
     )
     {
+        _cacheService = cacheService;
         _logger = logger;
         _userService = userService;
         _context = context;
@@ -37,6 +43,15 @@ public class UserTransmogController : Controller
 
         timer.AddPoint("CheckUser");
 
+        var (isModified, lastModified) =
+            await _cacheService.CheckLastModified(RedisKeys.UserLastModifiedTransmog, Request, apiResult);
+        if (!isModified)
+        {
+            return StatusCode((int)HttpStatusCode.NotModified);
+        }
+        
+        timer.AddPoint("LastModified");
+
         var allTransmog = await _context.AccountTransmogQuery
             .FromSqlRaw(AccountTransmogQuery.Sql, apiResult.User.Id)
             .FirstAsync();
@@ -44,7 +59,7 @@ public class UserTransmogController : Controller
         var accountSources = await _context.PlayerAccountTransmogSources
             .Where(pats => pats.Account.UserId == apiResult.User.Id)
             .ToArrayAsync();
-            
+        
         var allSources = new HashSet<string>();
         foreach (var sources in accountSources)
         {
@@ -59,10 +74,16 @@ public class UserTransmogController : Controller
             Sources = allSources,
             Transmog = allTransmog.TransmogIds,
         };
-            
+        var json = JsonConvert.SerializeObject(data);
+    
         timer.AddPoint("Build response", true);
-        _logger.LogDebug($"{timer}");
+        _logger.LogDebug("{Timer}", timer);
 
-        return Ok(data);
+        if (lastModified > DateTimeOffset.MinValue)
+        {
+            Response.AddApiCacheHeaders(apiResult.Public, lastModified);
+        }
+
+        return Content(json, MediaTypeNames.Application.Json);
     }
 }

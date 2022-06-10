@@ -1,5 +1,6 @@
 ﻿using System.Net.Http;
 using Wowthing.Backend.Models.API.Character;
+using Wowthing.Lib.Constants;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
@@ -60,7 +61,11 @@ namespace Wowthing.Backend.Jobs.Character
             media.MainUrl = assetMap.GetValueOrDefault("main");
             media.MainRawUrl = assetMap.GetValueOrDefault("main-raw");
 
-            await Context.SaveChangesAsync();
+            int updated = await Context.SaveChangesAsync();
+            if (updated > 0)
+            {
+                await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, query.UserId);
+            }
 
             /*if (!string.IsNullOrWhiteSpace(media.MainUrl))
             {

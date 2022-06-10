@@ -1,5 +1,6 @@
 ﻿using System.Net.Http;
 using Wowthing.Backend.Models.API.Character;
+using Wowthing.Lib.Constants;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
 
@@ -36,20 +37,41 @@ namespace Wowthing.Backend.Jobs.Character
             }
 
             // Fetch character data
-            var reputations = await Context.PlayerCharacterReputations.FindAsync(query.CharacterId);
-            if (reputations == null)
+            var pcReputations = await Context.PlayerCharacterReputations.FindAsync(query.CharacterId);
+            if (pcReputations == null)
             {
-                reputations = new PlayerCharacterReputations
+                pcReputations = new PlayerCharacterReputations
                 {
                     CharacterId = query.CharacterId,
                 };
-                Context.PlayerCharacterReputations.Add(reputations);
+                Context.PlayerCharacterReputations.Add(pcReputations);
             }
 
-            reputations.ReputationIds = resultData.Reputations.Select(r => r.Faction.Id).ToList();
-            reputations.ReputationValues = resultData.Reputations.Select(r => r.Standing.Raw).ToList();
+            var sortedReputations = resultData.Reputations
+                .OrderBy(rep => rep.Faction.Id)
+                .ToArray();
 
-            await Context.SaveChangesAsync();
+            var reputationIds = sortedReputations
+                .Select(rep => rep.Faction.Id)
+                .ToList();
+            if (!reputationIds.SequenceEqual(pcReputations.ReputationIds))
+            {
+                pcReputations.ReputationIds = reputationIds;
+            }
+
+            var reputationValues =  sortedReputations
+                .Select(r => r.Standing.Raw)
+                .ToList();
+            if (!reputationValues.SequenceEqual(pcReputations.ReputationValues))
+            {
+                pcReputations.ReputationValues = reputationValues;
+            }
+
+            int updated = await Context.SaveChangesAsync();
+            if (updated > 0)
+            {
+                await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, query.UserId);
+            }
         }
     }
 }

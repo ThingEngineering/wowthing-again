@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using System.Text.RegularExpressions;
 using Wowthing.Backend.Models.API.Character;
+using Wowthing.Lib.Constants;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models.Player;
@@ -97,7 +98,11 @@ namespace Wowthing.Backend.Jobs.Character
 
             character.DelayHours = 0;
 
-            await Context.SaveChangesAsync();
+            int updated = await Context.SaveChangesAsync();
+            if (updated > 0)
+            {
+                await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, query.UserId);
+            }
 
             // Character changed, queue some more stuff
             var jobs = new List<JobType>();

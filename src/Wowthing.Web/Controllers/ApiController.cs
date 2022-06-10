@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using StackExchange.Redis;
+using Wowthing.Lib.Constants;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
+using Wowthing.Lib.Services;
 using Wowthing.Lib.Utilities;
 using Wowthing.Web.Forms;
 using Wowthing.Web.Models;
@@ -20,25 +22,25 @@ namespace Wowthing.Web.Controllers
     [Route("api")]
     public class ApiController : Controller
     {
+        private readonly CacheService _cacheService;
         private readonly IConnectionMultiplexer _redis;
         private readonly ILogger<ApiController> _logger;
-        private readonly UploadService _uploadService;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly UserService _userService;
         private readonly WowDbContext _context;
         
         public ApiController(
+            CacheService cacheService,
             IConnectionMultiplexer redis,
             ILogger<ApiController> logger,
-            UploadService uploadService,
             UserManager<ApplicationUser> userManager,
             UserService userService,
             WowDbContext context
         )
         {
+            _cacheService = cacheService;
             _redis = redis;
             _logger = logger;
-            _uploadService = uploadService;
             _userManager = userManager;
             _userService = userService;
             _context = context;
@@ -190,34 +192,6 @@ namespace Wowthing.Web.Controllers
             });
         }
 
-        private readonly HashSet<string> _hasLanguages = new()
-        {
-            "journal",
-            "static",
-        };
-        
-        [HttpGet("{type:regex(^(achievement|journal|static|transmog|zone-map)$)}-{languageCode:length(4)}.{hash:length(32)}.json")]
-        [ResponseCache(Duration = 365 * 24 * 60 * 60, VaryByHeader = "Origin")]
-        public async Task<IActionResult> CachedJson([FromRoute] string type, [FromRoute] string languageCode, [FromRoute] string hash)
-        {
-            var db = _redis.GetDatabase();
-
-            if (!Enum.TryParse<Language>(languageCode, out var language))
-            {
-                language = Language.enUS;
-            }
-
-            string key = _hasLanguages.Contains(type) ? $"{type}-{language.ToString()}" : type;
-            
-            string jsonHash = await db.StringGetAsync($"cache:{key}:hash");
-            if (hash != jsonHash)
-            {
-                return RedirectToAction("CachedJson", new { type, languageCode = language.ToString(), hash = jsonHash });
-            }
-
-            return Content(await db.StringGetAsync($"cache:{key}:data"), "application/json");
-        }
-
         [HttpGet("team/{guid:guid}")]
         public async Task<IActionResult> TeamData([FromRoute] Guid guid)
         {
@@ -236,34 +210,6 @@ namespace Wowthing.Web.Controllers
             return Ok(data);
         }
 
-        [HttpPost("upload")]
-        public async Task<IActionResult> Upload([FromBody] ApiUpload apiUpload)
-        {
-            // TODO rate limit
-            if (apiUpload?.ApiKey == null || apiUpload.LuaFile == null)
-            {
-                _logger.LogDebug("Upload: {0}", JsonConvert.SerializeObject(apiUpload));
-                return BadRequest("Invalid request format");
-            }
-            
-            if (apiUpload.ApiKey.Length != ApplicationUser.ApiKeyLength * 2)
-            {
-                return BadRequest("Invalid API key format");
-            }
-
-            var user = await _context.ApplicationUser
-                .Where(u => u.ApiKey == apiUpload.ApiKey)
-                .FirstOrDefaultAsync();
-            if (user == null)
-            {
-                return StatusCode((int) HttpStatusCode.Forbidden, "Invalid API key");
-            }
-
-            await _uploadService.Process(user.Id, apiUpload.LuaFile);
-
-            return Ok("Upload accepted");
-        }
-
         [HttpGet("user/{username:username}")]
         public async Task<IActionResult> UserData([FromRoute] string username)
         {
@@ -277,12 +223,21 @@ namespace Wowthing.Web.Controllers
 
             timer.AddPoint("CheckUser");
 
-            // Update user last visit
-            if (!apiResult.Public)
+            var (isModified, lastModified) =
+                await _cacheService.CheckLastModified(RedisKeys.UserLastModifiedGeneral, Request, apiResult);
+            if (!isModified)
             {
-                apiResult.User.LastVisit = DateTime.UtcNow;
-                await _userManager.UpdateAsync(apiResult.User);
+                return StatusCode((int)HttpStatusCode.NotModified);
             }
+        
+            timer.AddPoint("LastModified");
+
+            // Update user last visit
+            // if (!apiResult.Public)
+            // {
+            //     apiResult.User.LastVisit = DateTime.UtcNow;
+            //     await _userManager.UpdateAsync(apiResult.User);
+            // }
 
             // Retrieve data
             var accounts = new List<PlayerAccount>();
@@ -472,92 +427,17 @@ namespace Wowthing.Web.Controllers
                 
                 ToysPacked = SerializationUtilities.SerializeInt32Array(toyIds),
             };
+            var json = JsonConvert.SerializeObject(apiData);
 
-            timer.AddPoint("Build response", true);
-            _logger.LogDebug($"{timer}");
-
-            return Ok(apiData);
-        }
-
-        [HttpGet("user/{username:username}/collections")]
-        public async Task<IActionResult> UserCollectionData([FromRoute] string username)
-        {
-            var timer = new JankTimer();
-
-            var apiResult = await _userService.CheckUser(User, username);
-            if (apiResult.NotFound)
+            timer.AddPoint("Build", true);
+            _logger.LogDebug("{Timer}", timer);
+            
+            if (lastModified > DateTimeOffset.MinValue)
             {
-                return NotFound();
+                Response.AddApiCacheHeaders(apiResult.Public, lastModified);
             }
 
-            timer.AddPoint("CheckUser");
-
-            var accounts = await _context.PlayerAccount
-                .Where(pa => pa.UserId == apiResult.User.Id)
-                .Include(pa => pa.Pets)
-                .Include(pa => pa.Toys)
-                .ToArrayAsync();
-
-            timer.AddPoint("Accounts");
-            
-            var mounts = await _context.MountQuery
-                .FromSqlRaw(MountQuery.UserQuery, apiResult.User.Id)
-                .FirstAsync();
-            
-            timer.AddPoint("Mounts");
-            
-            var accountPets = accounts
-                .Where(pa => pa.Pets != null)
-                .Select(pa => pa.Pets)
-                .OrderByDescending(pap => pap.UpdatedAt)
-                .ToArray();
-            
-            timer.AddPoint("Pets");
-
-            var toyIds = accounts
-                .SelectMany(a => a.Toys?.ToyIds ?? Enumerable.Empty<int>())
-                .Distinct()
-                .ToArray();
-            
-            timer.AddPoint("Toys");
-
-            // Build response
-            var allPets = new Dictionary<long, PlayerAccountPetsPet>();
-            foreach (var pets in accountPets)
-            {
-                foreach (var (petId, pet) in pets.Pets)
-                {
-                    allPets.TryAdd(petId, pet);
-                }
-            }
-
-            var data = new UserCollectionData
-            {
-                MountsPacked = SerializationUtilities.SerializeUInt16Array(mounts.Mounts
-                    .EmptyIfNull()
-                    .Select(m => (ushort)m).ToArray()),
-                ToysPacked = SerializationUtilities.SerializeInt32Array(toyIds),
-                
-                AddonMounts = mounts.AddonMounts
-                    .EmptyIfNull()
-                    .ToDictionary(m => m, _ => true),
-                Pets = allPets
-                    .Values
-                    .GroupBy(pet => pet.SpeciesId)
-                    .ToDictionary(
-                        group => group.Key,
-                        group => group
-                            .OrderByDescending(pet => pet.Level)
-                            .ThenByDescending(pet => (int)pet.Quality)
-                            .Select(pet => new UserPetDataPet(pet))
-                            .ToList()
-                    ),
-            };
-            
-            timer.AddPoint("Build response", true);
-            _logger.LogDebug($"{timer}");
-
-            return Ok(data);
+            return Content(json, MediaTypeNames.Application.Json);
         }
 
         [HttpGet("user/{username:username}/history")]
@@ -600,7 +480,7 @@ namespace Wowthing.Web.Controllers
                 .ToArray();
 
             timer.AddPoint("Database", true);
-            _logger.LogDebug($"{timer}");
+            _logger.LogDebug("{Timer}", timer);
 
             return Ok(new {
                 GoldRaw = data,
