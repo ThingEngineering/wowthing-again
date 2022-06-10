@@ -53,7 +53,7 @@ namespace Wowthing.Backend.Jobs.Character
                 .OrderBy(id => id)
                 .ToList();
 
-            if (!completedIds.SequenceEqual(pcQuests.CompletedIds))
+            if (pcQuests.CompletedIds == null || !completedIds.SequenceEqual(pcQuests.CompletedIds))
             {
                 pcQuests.CompletedIds = completedIds;
             }

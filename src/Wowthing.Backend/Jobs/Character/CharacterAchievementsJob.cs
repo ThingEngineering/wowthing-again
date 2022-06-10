@@ -40,14 +40,14 @@ namespace Wowthing.Backend.Jobs.Character
             }
 
             // Fetch character data
-            var achievements = await Context.PlayerCharacterAchievements.FindAsync(query.CharacterId);
-            if (achievements == null)
+            var pcAchievements = await Context.PlayerCharacterAchievements.FindAsync(query.CharacterId);
+            if (pcAchievements == null)
             {
-                achievements = new PlayerCharacterAchievements
+                pcAchievements = new PlayerCharacterAchievements
                 {
                     CharacterId = query.CharacterId,
                 };
-                Context.PlayerCharacterAchievements.Add(achievements);
+                Context.PlayerCharacterAchievements.Add(pcAchievements);
             }
             
             timer.AddPoint("Select");
@@ -84,14 +84,14 @@ namespace Wowthing.Backend.Jobs.Character
                 .Select(kvp => kvp.Value)
                 .ToList();
             
-            if (achievements.AchievementIds == null || !achievementIds.SequenceEqual(achievements.AchievementIds))
+            if (pcAchievements.AchievementIds == null || !achievementIds.SequenceEqual(pcAchievements.AchievementIds))
             {
-                achievements.AchievementIds = achievementIds;
+                pcAchievements.AchievementIds = achievementIds;
             }
 
-            if (achievements.AchievementTimestamps == null || !achievementTimestamps.SequenceEqual(achievements.AchievementTimestamps))
+            if (pcAchievements.AchievementTimestamps == null || !achievementTimestamps.SequenceEqual(pcAchievements.AchievementTimestamps))
             {
-                achievements.AchievementTimestamps = achievementTimestamps;
+                pcAchievements.AchievementTimestamps = achievementTimestamps;
             }
             
             var sortedCriteria = criteria
@@ -108,19 +108,19 @@ namespace Wowthing.Backend.Jobs.Character
                 .Select(kvp => kvp.Value.Item2)
                 .ToList();
 
-            if (achievements.CriteriaIds == null || !criteriaIds.SequenceEqual(achievements.CriteriaIds))
+            if (pcAchievements.CriteriaIds == null || !criteriaIds.SequenceEqual(pcAchievements.CriteriaIds))
             {
-                achievements.CriteriaIds = criteriaIds;
+                pcAchievements.CriteriaIds = criteriaIds;
             }
 
-            if (achievements.CriteriaAmounts == null || !criteriaAmounts.SequenceEqual(achievements.CriteriaAmounts))
+            if (pcAchievements.CriteriaAmounts == null || !criteriaAmounts.SequenceEqual(pcAchievements.CriteriaAmounts))
             {
-                achievements.CriteriaAmounts = criteriaAmounts;
+                pcAchievements.CriteriaAmounts = criteriaAmounts;
             }
 
-            if (achievements.CriteriaCompleted == null || !criteriaCompleted.SequenceEqual(achievements.CriteriaCompleted))
+            if (pcAchievements.CriteriaCompleted == null || !criteriaCompleted.SequenceEqual(pcAchievements.CriteriaCompleted))
             {
-                achievements.CriteriaCompleted = criteriaCompleted;
+                pcAchievements.CriteriaCompleted = criteriaCompleted;
             }
             
             timer.AddPoint("Process");

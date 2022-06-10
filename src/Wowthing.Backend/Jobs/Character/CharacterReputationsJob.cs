@@ -54,7 +54,7 @@ namespace Wowthing.Backend.Jobs.Character
             var reputationIds = sortedReputations
                 .Select(rep => rep.Faction.Id)
                 .ToList();
-            if (!reputationIds.SequenceEqual(pcReputations.ReputationIds))
+            if (pcReputations.ReputationIds == null || !reputationIds.SequenceEqual(pcReputations.ReputationIds))
             {
                 pcReputations.ReputationIds = reputationIds;
             }
@@ -62,7 +62,7 @@ namespace Wowthing.Backend.Jobs.Character
             var reputationValues =  sortedReputations
                 .Select(r => r.Standing.Raw)
                 .ToList();
-            if (!reputationValues.SequenceEqual(pcReputations.ReputationValues))
+            if (pcReputations.ReputationValues == null || !reputationValues.SequenceEqual(pcReputations.ReputationValues))
             {
                 pcReputations.ReputationValues = reputationValues;
             }

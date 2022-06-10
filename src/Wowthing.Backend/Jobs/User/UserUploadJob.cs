@@ -978,7 +978,7 @@ namespace Wowthing.Backend.Jobs.User
                 .Split(':', StringSplitOptions.RemoveEmptyEntries)
                 .Select(int.Parse)
                 .ToList();
-            if (transmog.Count > 0 && !transmog.SequenceEqual(character.Transmog.TransmogIds))
+            if (transmog.Count > 0 && (character.Transmog.TransmogIds == null || !transmog.SequenceEqual(character.Transmog.TransmogIds)))
             {
                 character.Transmog.TransmogIds = transmog;
                 _resetTransmogCache = true;

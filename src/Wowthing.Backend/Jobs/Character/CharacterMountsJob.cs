@@ -51,7 +51,7 @@ namespace Wowthing.Backend.Jobs.Character
                 .OrderBy(mountId => mountId)
                 .ToList();
 
-            if (!mounts.SequenceEqual(pcMounts.Mounts))
+            if (pcMounts.Mounts == null || !mounts.SequenceEqual(pcMounts.Mounts))
             {
                 pcMounts.Mounts = mounts;
             }
