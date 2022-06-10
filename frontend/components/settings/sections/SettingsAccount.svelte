@@ -7,6 +7,7 @@
     import { Language, Region } from '@/types/enums'
 
     import Checkbox from '@/components/forms/CheckboxInput.svelte'
+    import NumberInput from '@/components/forms/NumberInput.svelte'
     import Select from '@/components/forms/Select.svelte'
     import TextInput from '@/components/forms/TextInput.svelte'
 
@@ -135,6 +136,19 @@
                 Pinging Freddie on Discord to remind him to do this regularly might help!
             </p>
         </div>
+    </div>
+
+    <h3 class="space-me">Auto Refresh</h3>
+
+    <div class="setting">
+        <NumberInput
+            name="general_RefreshInterval"
+            label="Refresh interval"
+            minValue={0}
+            maxValue={1440}
+            bind:value={$settingsData.general.refreshInterval}
+        />
+        <p>How long in minutes to wait between requesting updated data. Set to 0 to disable.</p>
     </div>
 
     <h3 class="space-me">WoW Accounts</h3>
