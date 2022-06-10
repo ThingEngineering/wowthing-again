@@ -1,5 +1,6 @@
 ﻿using System.Net.Http;
 using Wowthing.Backend.Models.API.Character;
+using Wowthing.Lib.Constants;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
 
@@ -35,21 +36,31 @@ namespace Wowthing.Backend.Jobs.Character
             }
 
             // Fetch character data
-            var mounts = await Context.PlayerCharacterMounts.FindAsync(query.CharacterId);
-            if (mounts == null)
+            var pcMounts = await Context.PlayerCharacterMounts.FindAsync(query.CharacterId);
+            if (pcMounts == null)
             {
-                mounts = new PlayerCharacterMounts
+                pcMounts = new PlayerCharacterMounts
                 {
                     CharacterId = query.CharacterId,
                 };
-                Context.PlayerCharacterMounts.Add(mounts);
+                Context.PlayerCharacterMounts.Add(pcMounts);
             }
 
-            mounts.Mounts = resultData.Mounts
-                .Select(m => m.Mount.Id)
+            var mounts = resultData.Mounts
+                .Select(mount => mount.Mount.Id)
+                .OrderBy(mountId => mountId)
                 .ToList();
+
+            if (!mounts.SequenceEqual(pcMounts.Mounts))
+            {
+                pcMounts.Mounts = mounts;
+            }
             
-            await Context.SaveChangesAsync();
+            int updated = await Context.SaveChangesAsync();
+            if (updated > 0)
+            {
+                await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, query.UserId);
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Wowthing.Backend.Models.API.Character;
+using Wowthing.Lib.Constants;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
 
@@ -61,7 +62,11 @@ namespace Wowthing.Backend.Jobs.Character
                     .ToList();
             }
 
-            await Context.SaveChangesAsync();
+            int updated = await Context.SaveChangesAsync();
+            if (updated > 0)
+            {
+                await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, query.UserId);
+            }
         }
     }
 }

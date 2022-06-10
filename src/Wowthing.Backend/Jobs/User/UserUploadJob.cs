@@ -12,6 +12,9 @@ namespace Wowthing.Backend.Jobs.User
         private JankTimer _timer;
         private Dictionary<(WowRegion Region, string Name), WowRealm> _realmMap;
 
+        private bool _resetQuestCache;
+        private bool _resetTransmogCache;
+        
         public override async Task Run(params string[] data)
         {
             _timer = new JankTimer();
@@ -228,8 +231,17 @@ namespace Wowthing.Backend.Jobs.User
             
             await Context.SaveChangesAsync();
             _timer.AddPoint("Save");
+
+            if (_resetQuestCache)
+            {
+                await CacheService.SetLastModified(RedisKeys.UserLastModifiedQuests, userId);
+            }
+            if (_resetTransmogCache)
+            {
+                await CacheService.SetLastModified(RedisKeys.UserLastModifiedTransmog, userId);
+            }
             
-            Logger.Information("{0}", _timer.ToString());
+            Logger.Debug("{Timer}", _timer.ToString());
         }
 
         private (WowRealm, string) ParseAddonId(string addonId)
@@ -900,6 +912,8 @@ namespace Wowthing.Backend.Jobs.User
 
                         character.AddonQuests.ProgressQuests[progressParts[0]] = progress;
                     }
+
+                    _resetQuestCache = true;
                 }
             }
         }
@@ -964,9 +978,10 @@ namespace Wowthing.Backend.Jobs.User
                 .Split(':', StringSplitOptions.RemoveEmptyEntries)
                 .Select(int.Parse)
                 .ToList();
-            if (transmog.Count > 0)
+            if (transmog.Count > 0 && !transmog.SequenceEqual(character.Transmog.TransmogIds))
             {
                 character.Transmog.TransmogIds = transmog;
+                _resetTransmogCache = true;
             } 
         }
 

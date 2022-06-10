@@ -79,6 +79,11 @@ public class UserTransmogController : Controller
         timer.AddPoint("Build response", true);
         _logger.LogDebug("{Timer}", timer);
 
+        if (lastModified > DateTimeOffset.MinValue)
+        {
+            Response.AddApiCacheHeaders(apiResult.Public, lastModified);
+        }
+
         return Content(json, MediaTypeNames.Application.Json);
     }
 }

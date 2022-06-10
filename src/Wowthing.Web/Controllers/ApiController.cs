@@ -1,12 +1,15 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using System.Net.Mime;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using StackExchange.Redis;
+using Wowthing.Lib.Constants;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
+using Wowthing.Lib.Services;
 using Wowthing.Lib.Utilities;
 using Wowthing.Web.Forms;
 using Wowthing.Web.Models;
@@ -19,6 +22,7 @@ namespace Wowthing.Web.Controllers
     [Route("api")]
     public class ApiController : Controller
     {
+        private readonly CacheService _cacheService;
         private readonly IConnectionMultiplexer _redis;
         private readonly ILogger<ApiController> _logger;
         private readonly UserManager<ApplicationUser> _userManager;
@@ -26,6 +30,7 @@ namespace Wowthing.Web.Controllers
         private readonly WowDbContext _context;
         
         public ApiController(
+            CacheService cacheService,
             IConnectionMultiplexer redis,
             ILogger<ApiController> logger,
             UserManager<ApplicationUser> userManager,
@@ -33,6 +38,7 @@ namespace Wowthing.Web.Controllers
             WowDbContext context
         )
         {
+            _cacheService = cacheService;
             _redis = redis;
             _logger = logger;
             _userManager = userManager;
@@ -217,12 +223,21 @@ namespace Wowthing.Web.Controllers
 
             timer.AddPoint("CheckUser");
 
-            // Update user last visit
-            if (!apiResult.Public)
+            var (isModified, lastModified) =
+                await _cacheService.CheckLastModified(RedisKeys.UserLastModifiedGeneral, Request, apiResult);
+            if (!isModified)
             {
-                apiResult.User.LastVisit = DateTime.UtcNow;
-                await _userManager.UpdateAsync(apiResult.User);
+                return StatusCode((int)HttpStatusCode.NotModified);
             }
+        
+            timer.AddPoint("LastModified");
+
+            // Update user last visit
+            // if (!apiResult.Public)
+            // {
+            //     apiResult.User.LastVisit = DateTime.UtcNow;
+            //     await _userManager.UpdateAsync(apiResult.User);
+            // }
 
             // Retrieve data
             var accounts = new List<PlayerAccount>();
@@ -412,11 +427,17 @@ namespace Wowthing.Web.Controllers
                 
                 ToysPacked = SerializationUtilities.SerializeInt32Array(toyIds),
             };
+            var json = JsonConvert.SerializeObject(apiData);
 
-            timer.AddPoint("Build response", true);
-            _logger.LogDebug($"{timer}");
+            timer.AddPoint("Build", true);
+            _logger.LogDebug("{Timer}", timer);
+            
+            if (lastModified > DateTimeOffset.MinValue)
+            {
+                Response.AddApiCacheHeaders(apiResult.Public, lastModified);
+            }
 
-            return Ok(apiData);
+            return Content(json, MediaTypeNames.Application.Json);
         }
 
         [HttpGet("user/{username:username}/history")]
@@ -459,7 +480,7 @@ namespace Wowthing.Web.Controllers
                 .ToArray();
 
             timer.AddPoint("Database", true);
-            _logger.LogDebug($"{timer}");
+            _logger.LogDebug("{Timer}", timer);
 
             return Ok(new {
                 GoldRaw = data,

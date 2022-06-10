@@ -135,8 +135,6 @@ namespace Wowthing.Backend.Jobs.User
                 }
             }
 
-            await Context.SaveChangesAsync();
-
             foreach ((var region, var apiAccount) in apiAccounts)
             {
                 var accountId = accountMap[(region, apiAccount.Id)].Id;
@@ -150,6 +148,12 @@ namespace Wowthing.Backend.Jobs.User
                 {
                     Logger.Information("Deleted {0} character(s) from account {1}/{2}", deleted, region, accountId);
                 }
+            }
+            
+            int updated = await Context.SaveChangesAsync();
+            if (updated > 0)
+            {
+                await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, userId);
             }
         }
     }
