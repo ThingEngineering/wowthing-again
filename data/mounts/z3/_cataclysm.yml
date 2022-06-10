@@ -4,6 +4,10 @@ groups:
 - name: Achievements
   things:
   -  97359 # Flameward Hippogryph (The Molten Front Offensive)
+  -  88331 # Volcanic Stone Drake
+  -  88335 # Drake of the East Wind
+  -  97560 # Corrupted Fire Hawk
+  - 107844 # Twilight Harbinger
 
 - name: Quests
   things:
