@@ -32,8 +32,7 @@ farms:
   reset: none
   drops:
   - type: toy
-    id: 86584
-    name: "Hardened Shell"
+    id: 86584 # Hardened Shell
 
 - name: "Cinderfall"
   location: 54.0 52.4
@@ -71,8 +70,32 @@ farms:
     id: 104294
     name: "Rime of the Time-Lost Mariner"
 
+- name: "Emerald Gander"
+  location: 30.8 45.2
+  note: "Spawns in various places around the lower area"
+  npcId: 73158
+  reset: none
+  drops:
+  - type: achievement
+    id: 8728
+    criteriaId: 34232
+    name: "Windfeather Plume"
+    note: "Also drops from Brilliant Windfeather mobs"
+
+- name: "Flintlord Gairan"
+  location: 48.8 37.0
+  note: "Spawns in various places around the outside of this area"
+  npcId: 73172
+  reset: none
+  drops:
+  - type: achievement
+    id: 8728
+    criteriaId: 34222
+    name: "Ordon Death Chime"
+
 - name: "Foreboding Flames"
   location: 41.7 40.7
+  note: "Spawn only in this cave"
   npcId: 73162
   reset: none
   drops:
@@ -93,8 +116,7 @@ farms:
     note: "Need to loot for credit"
 
   - type: pet
-    id: 73356
-    name: "Ruby Droplet"
+    id: 73356 # Ruby Droplet
 
 - name: "Golganarr"
   location: 61.6 64.0
@@ -120,14 +142,15 @@ farms:
     id: 86584 # Hardened Shell
 
 - name: "Gu'chi the Swarmbringer"
-  location: 41.4 77.4
+  location: 36.8 69.4
+  note: "Patrols the outskirts of Old Pi'jiu"
   npcId: 72909
   reset: none
   drops:
   - type: achievement
     id: 8728
     criteriaId: 34228
-    name: "Gu'chi Swarmling"
+    name: "Swarmling of Gu'chi"
     note: "Need to loot for credit"
 
   - type: achievement
@@ -137,17 +160,43 @@ farms:
     note: "Also drops from Spotted Swarmer mobs"
 
   - type: pet
-    id: 73730
-    name: "Gu'chi Swarmling"
+    id: 73730 # Gu'chi Swarmling
 
 - name: "Huolon"
   location: 65.6 56.8
   npcId: 73167
   reset: none
   drops:
+  - type: achievement
+    id: 8728
+    criteriaId: 34233
+    name: "Quivering Firestorm Egg"
+    note: "Also drops from Crimsonscale Firestorm mobs"
+
   - type: mount
     id: 148476
     name: "Thundering Onyx Cloud Serpent"
+
+- name: "Imperial Python"
+  location: 28.0 61.8
+  note: "Spawns in various places around the lower area"
+  npcId: 73163
+  reset: none
+  drops:
+  - type: achievement
+    id: 8728
+    criteriaId: 34246
+    name: "Death Adder Hatchling"
+    note: "Need to loot for credit"
+
+  - type: achievement
+    id: 8728
+    criteriaId: 34227
+    name: "Partially-Digested Meal"
+    note: "Also drops from Death Adder mobs"
+
+  - type: pet
+    id: 73364 # Death Adder Hatchling
 
 - name: "Jakur of Ordon"
   location: 53.6 83.0
@@ -157,6 +206,16 @@ farms:
   - type: toy
     id: 104331
     name: "Warning Sign"
+
+- name: "Karkanos"
+  location: 33.7 85.3
+  npcId: 72193
+  reset: none
+  drops:
+  - type: achievement
+    id: 8728
+    criteriaId: 34196
+    name: "Giant Purse of Timeless Coins"
 
 - name: "Leafmender"
   location: 67.5 44.0
@@ -175,11 +234,11 @@ farms:
     name: "Faintly-Glowing Herb"
 
   - type: pet
-    id: 73533
-    name: "Ashleaf Spriteling"
+    id: 73533 # Ashleaf Spriteling
 
 - name: "Jademist Dancers"
   location: 26.7 30.6
+  note: "Spawn only on this beach"
   npcId: 72767
   reset: none
   drops:
@@ -187,9 +246,10 @@ farms:
     id: 8728
     criteriaId: 34245
     name: "Jademist Dancer"
+    note: "Need to loot for credit"
   
   - type: pet
-    id: 73355
+    id: 73355 # Jademist Dancer
 
 - name: "Master Kukuru Gambling"
   location: 58.2 42.2
@@ -201,9 +261,41 @@ farms:
     id: 8728
     criteriaId: 34240
     name: "Bonkers"
+    note: "Need to loot for credit"
   
   - type: pet
     id: 73668 # Bonkers
+
+- name: "Monstrous Spineclaw"
+  location: 18.8 54.6
+  note: "Rarely respawns in place of an Ancient Spineclaw"
+  npcId: 73282
+  reset: none
+  drops:
+  - type: achievement
+    id: 8728
+    criteriaId: 34226
+    name: "Scuttler's Shell"
+    note: "Also drops from Ancient Spineclaw mobs"
+
+  - type: achievement
+    id: 8728
+    criteriaId: 34242
+    name: "Spineclaw Crab"
+    note: "Need to loot for credit"
+
+  - type: pet
+    id: 73366 # Spineclaw Crab
+
+- name: "Rattleskew"
+  location: 60.2 87.4
+  npcId: 72048
+  reset: none
+  drops:
+  - type: achievement
+    id: 8728
+    criteriaId: 34210
+    name: "Captain Zvezdan's Lost Leg"
 
 - name: "Rock Moss"
   location: 43.7 40.7
@@ -215,6 +307,32 @@ farms:
     criteriaId: 34212
     name: "Golden Moss"
 
+  - type: achievement
+    id: 8728
+    criteriaId: 34213
+    name: "Strange Glowing Mushroom"
+    note: "Also drops from Damp Shambler mobs"
+
+- name: "Spectral Brewmasters"
+  location: 35.8 77.1
+  npcId: 73018
+  reset: none
+  drops:
+  - type: achievement
+    id: 8728
+    criteriaId: 34205
+    name: "Thick Pi'jiu Brew"
+
+- name: "Spectral Mistweavers"
+  location: 37.8 77.1
+  npcId: 73025
+  reset: none
+  drops:
+  - type: achievement
+    id: 8728
+    criteriaId: 34206
+    name: "Misty Pi'jiu Brew"
+
 - name: "Spelurk"
   location: 58.0 48.6
   npcId: 71864
@@ -222,7 +340,7 @@ farms:
   drops:
   - type: achievement
     id: 8728
-    criteriaId: 34212
+    criteriaId: 34211
     name: "Cursed Talisman"
 
 - name: "Spirit of Jadefire"
@@ -242,8 +360,7 @@ farms:
     note: "Need to loot for credit"
 
   - type: pet
-    id: 73738
-    name: "Jadefire Spirit"
+    id: 73738 # Jadefire Spirit
 
 - name: "Tsavo'ka"
   location: 54.0 42.1
@@ -299,7 +416,7 @@ farms:
     name: "Rain Stone"
 
 - name: "Zhu-Gon the Sour"
-  location: 37.8 77.1
+  location: 39.8 77.1
   npcId: 71919
   reset: none
   drops:
@@ -310,8 +427,42 @@ farms:
     note: "Need to loot for credit"
 
   - type: pet
-    id: 73367
-    name: "Skunky Alemental"
+    id: 73367 # Skunky Alemental
+
+# Treasure
+
+- name: "Crane Nest"
+  location: 31.7 66.9
+  note: "These are spread all over the place"
+  objectId: 222685
+  reset: none
+  type: treasure
+  drops:
+  - type: achievement
+    id: 8728
+    criteriaId: 34249
+    name: "Azure Crane Chick"
+    note: "Need to loot for credit"
+
+  - type: pet
+    id: 73534 # Azure Crane Chick
+
+# Event
+
+- name: "Neverending Spritewood"
+  location: 45.6 73.6
+  npcId: 71823
+  reset: none
+  type: event
+  drops:
+  - type: achievement
+    id: 8728
+    criteriaId: 34247
+    name: "Dandelion Frolicker"
+    note: "Need to loot for credit"
+
+  - type: pet
+    id: 73532 # Dandelion Frolicker
 
 # These drop set pieces and pvp gear, not sure I care enough to type that out
 #- name: "Chi-Ji, The Red Crane"
