@@ -1,11 +1,13 @@
 <script lang="ts">
     import getPercentClass from '@/utils/get-percent-class'
     import { tippyComponent } from '@/utils/tippy'
+    import type { Character } from '@/types'
     import type { StaticDataProgressGroup } from '@/types/data/static'
     import type { ProgressInfo } from '@/utils/get-progress'
 
     import TooltipProgress from '@/components/tooltips/progress/TooltipProgress.svelte'
 
+    export let character: Character
     export let group: StaticDataProgressGroup
     export let progressData: ProgressInfo
 </script>
@@ -27,10 +29,11 @@
         use:tippyComponent={{
             component: TooltipProgress,
             props: {
-                group: group,
                 datas: progressData.datas,
                 descriptionText: progressData.descriptionText,
                 haveIndexes: progressData.haveIndexes,
+                character,
+                group,
             },
         }}
     >

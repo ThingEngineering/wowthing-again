@@ -6,5 +6,6 @@
         Achievement,
         Criteria,
         AddonAchievement,
+        SpentCyphers,
     }
 }

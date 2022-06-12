@@ -1,9 +1,11 @@
 import filter from 'lodash/filter'
 import some from 'lodash/some'
 
+import { toNiceNumber } from './to-nice'
 import { classIdToSlug } from '@/data/character-class'
 import { covenantMap } from '@/data/covenant'
 import { factionIdMap } from '@/data/faction'
+import { garrisonTrees } from '@/data/garrison'
 import { ProgressDataType } from '@/types/enums'
 import type { Character, UserAchievementData } from '@/types'
 import type { UserQuestData } from '@/types/data'
@@ -114,6 +116,16 @@ export default function getProgress(
                             haveThis = checkCharacterQuestIds(userQuestData, character.id, data.ids)
                             break
                         }
+
+                        case ProgressDataType.SpentCyphers: {
+                            const spent = getSpentCyphers(character)
+                            haveThis = spent >= (data.value || 0)
+                            if (!haveThis) {
+                                descriptionText[dataIndex] = `${toNiceNumber(spent)} / ${toNiceNumber(data.value)}`
+                                console.log(descriptionText)
+                            }
+                            break
+                        }
                     }
                 }
 
@@ -140,6 +152,27 @@ function checkCharacterQuestIds(userQuestData: UserQuestData, characterId: numbe
         questIds,
         (id) => userQuestData.characters[characterId]?.quests?.has(id)
     )
+}
+
+function getSpentCyphers(character: Character): number {
+    const characterTree = character.garrisonTrees?.[garrisonTrees.cypherResearch.id]
+    if (characterTree) {
+        let total = 0
+        for (const tier of garrisonTrees.cypherResearch.tiers) {
+            for (const talent of tier) {
+                if (talent === null) {
+                    continue
+                }
+
+                const rank = characterTree[talent.id][0]
+                for (let i = 0; i < rank; i++) {
+                    total += talent.costs[i]
+                }
+            }
+        }
+        return total
+    }
+    return 0
 }
 
 export interface ProgressInfo {

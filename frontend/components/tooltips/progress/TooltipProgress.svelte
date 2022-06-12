@@ -1,6 +1,8 @@
 <script lang="ts">
+    import type { Character } from '@/types'
     import type { StaticDataProgressData, StaticDataProgressGroup } from '@/types/data/static'
 
+    export let character: Character
     export let datas: StaticDataProgressData[]
     export let descriptionText: Record<number, string>
     export let group: StaticDataProgressGroup
@@ -17,13 +19,14 @@
 
         span {
             color: #00ccff;
-            display: block;
+            white-space: nowrap;
         }
     }
 </style>
 
 <div class="wowthing-tooltip">
-    <h4>{group.name}</h4>
+    <h4>{character.name}</h4>
+    <h5>{group.name}</h5>
     <table class="table-striped">
         <tbody>
             {#each datas as data, dataIndex}
@@ -33,8 +36,11 @@
                     </td>
                     <td class="name">
                         {data.name}
-                        {#if data.description && haveIndexes.indexOf(dataIndex) === -1}
-                            <span class="drop-shadow">{descriptionText[dataIndex] || data.description}</span>
+                        {#if descriptionText[dataIndex] && haveIndexes.indexOf(dataIndex) === -1}
+                            <span class="drop-shadow">
+                                &ndash;
+                                {descriptionText[dataIndex] || data.description}
+                            </span>
                         {/if}
                     </td>
                 </tr>

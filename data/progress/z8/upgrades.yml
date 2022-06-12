@@ -3,8 +3,37 @@ minimumLevel: 60
 requiredQuestId: 59770 # Stand as One
 groups:
 
+- name: "Cyphers of the First Ones"
+  icon: "currency/1979" # Cyphers of the First Ones
+  type: mixed
+  data:
+    0:
+    - name: "232 gear"
+      type: spentCyphers
+      value: 0
+
+    - name: "239 gear"
+      type: spentCyphers
+      value: 740
+    
+    - name: "242 gear"
+      type: spentCyphers
+      value: 1480
+    
+    - name: "246 gear"
+      type: spentCyphers
+      value: 2220
+    
+    - name: "249 gear"
+      type: spentCyphers
+      value: 2960
+    
+    - name: "252 gear"
+      type: spentCyphers
+      value: 3700
+
 - name: "Zereth Mortis"
-  icon: item/188793
+  icon: "achievement/15224" #  Explore Zereth Mortis
   type: quest
   data:
     0:

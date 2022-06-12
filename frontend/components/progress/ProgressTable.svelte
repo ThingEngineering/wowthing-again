@@ -185,6 +185,7 @@
                         {:else}
                             <RowProgress
                                 progressData={progress[`${category.slug}|${groupIndex}|${character.id}`]}
+                                {character}
                                 {group}
                             />
                         {/if}
