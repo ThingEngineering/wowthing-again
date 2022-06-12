@@ -105,7 +105,7 @@ namespace Wowthing.Backend.Jobs.User
             
             // Deal with character data
             int accountId = 0;
-            int updated = 0;
+            int updatedCharacters = 0;
             foreach (var (addonId, characterData) in parsed.Characters.EmptyIfNull())
             {
                 // US/Mal'Ganis/Fakenamehere
@@ -171,17 +171,10 @@ namespace Wowthing.Backend.Jobs.User
                 if (lastSeen > character.LastApiCheck)
                 {
                     character.LastApiCheck = MiscConstants.DefaultDateTime;
-                    updated++;
+                    updatedCharacters++;
                 }
             }
 
-            if (updated > 0)
-            {
-                Logger.Information("Updating {Count} character(s) immediately", updated);
-
-                await CacheService.SetLastModified(RedisKeys.UserLastModifiedQuests, userId);
-            }
-            
             _timer.AddPoint("Characters");
 
             // Deal with account data
@@ -231,13 +224,21 @@ namespace Wowthing.Backend.Jobs.User
             
             await Context.SaveChangesAsync();
             _timer.AddPoint("Save");
+            
+            if (updatedCharacters > 0)
+            {
+                Logger.Information("Updating {Count} character(s) immediately", updatedCharacters);
+                await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, userId);
+            }
 
             if (_resetQuestCache)
             {
+                Logger.Debug("Resetting quest cache");
                 await CacheService.SetLastModified(RedisKeys.UserLastModifiedQuests, userId);
             }
             if (_resetTransmogCache)
             {
+                Logger.Debug("Resetting transmog cache");
                 await CacheService.SetLastModified(RedisKeys.UserLastModifiedTransmog, userId);
             }
             
