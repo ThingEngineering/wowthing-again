@@ -50,6 +50,7 @@
     {
         public bool Completed { get; set; }
         public int Expires { get; set; }
+        public int QuestID { get; set; }
     }
 
     public class UploadCharacterCovenant
