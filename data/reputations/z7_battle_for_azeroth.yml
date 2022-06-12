@@ -1,5 +1,6 @@
 name: Battle for Azeroth
 reputations:
+
 # 8.3
 -
   - both:
@@ -19,6 +20,24 @@ reputations:
         id: 162007
         name: "Cursed Dune Watcher"
     paragon: true
+
+# 8.2.5
+-
+  - both:
+      id: 2395 # Honeyback Hive
+      icon: "item/168828" # Royal Jelly
+  
+  - both:
+      id: 2396 # Honeyback Drone
+      icon: "spell/303766" # Honeyback Drone
+  
+  - both:
+      id: 2398 # Honeyback Harvester
+      icon: "spell/259741" # Honeyback Harvester
+  
+  - both:
+      id: 2397 # Honeyback Hivemother
+      icon: "spell/303767" # Honeyback Hivemother
 
 # 8.2
 -
