@@ -17,7 +17,7 @@ import sveltePreprocess from 'svelte-preprocess'
 
 const production = !process.env.ROLLUP_WATCH
 const distPath = '../src/Wowthing.Web/wwwroot/dist'
-const buildMe = ['home', 'teams']
+const buildMe = ['home']//, 'teams']
 const extensions = ['.js', '.svelte', '.ts']
 
 // Ensure distPath exists and is relatively empty

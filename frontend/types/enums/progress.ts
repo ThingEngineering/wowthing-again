@@ -3,4 +3,5 @@ export enum ProgressDataType {
     Achievement,
     Criteria,
     AddonAchievement,
+    SpentCyphers,
 }

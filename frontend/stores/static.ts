@@ -14,6 +14,7 @@ import {
     StaticDataToy,
 } from '@/types/data/static'
 import type { StaticData, StaticDataSetCategoryArray } from '@/types/data/static'
+import { extraReputationTiers } from '@/data/reputation'
 
 
 export class StaticDataStore extends WritableFancyStore<StaticData> {
@@ -82,6 +83,10 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
                 data.reputations[obj.id] = obj
             }
             data.reputationsRaw = null
+
+            for (const extraReputation of extraReputationTiers) {
+                data.reputationTiers[extraReputation.id] = extraReputation
+            }
         }
 
         if (data.mountsRaw !== null) {
