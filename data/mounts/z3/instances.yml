@@ -7,6 +7,7 @@ groups:
   - 88742 # Drake of the North Wind (Altairus, The Vortex Pinnacle)
   - 96491 # Armored Razzashi Raptor (Bloodlord Mandokir, Zul'Gurub)
   - 96499 # Swift Zulian Panther (High Priestess Kilnara, Zul'Gurub)
+  - 98204 # Amani Battle Bear (Timed Run, Zul Aman)
 
 - name: Raids
   things:
