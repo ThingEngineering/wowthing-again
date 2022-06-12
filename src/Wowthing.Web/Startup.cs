@@ -192,6 +192,7 @@ namespace Wowthing.Web
         {
             "Admin",
             "Donor",
+            "Trusted",
         };
         private async Task CreateRoles(IServiceProvider serviceProvider)
         {
