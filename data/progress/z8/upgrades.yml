@@ -10,6 +10,11 @@ groups:
     0:
     - name: "+50% Cyphers of the First Ones"
       id: 65282 # Improved Cypher Analysis Tool
+      note: "Buy from Olea Manu after doing Jiro to Hero quest line"
+    
+    - name: "Enable weapon drops"
+      id: 66579 # Sounds of Healing
+      note: "Random drop after doing Jiro to Hero quest line"
 
 - name: "Korthia"
   icon: item/187138 # Research Report: First Alloys
