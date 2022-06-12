@@ -13,6 +13,7 @@ export interface UserData {
 
     backgrounds: Record<number, BackgroundImage>
     currentPeriod: Record<number, UserDataCurrentPeriod>
+    dailies: Record<string, DailyQuests>
     images: Record<string, string>
 
     addonMounts: Record<number, boolean>
@@ -57,3 +58,10 @@ export class UserDataPet {
 }
 
 export type UserDataPetArray = ConstructorParameters<typeof UserDataPet>
+
+export interface DailyQuests {
+    expansion: number
+    questExpires: number[]
+    questIds: number[]
+    region: number
+}

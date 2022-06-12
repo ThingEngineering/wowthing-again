@@ -319,6 +319,11 @@ namespace Wowthing.Web.Controllers
             
             timer.AddPoint("Characters");
 
+            var dailies = await _context.GlobalDailies
+                .ToDictionaryAsync(gd => $"{gd.Expansion}-{(int)gd.Region}");
+            
+            timer.AddPoint("Dailies");
+            
             var backgrounds = await _context.BackgroundImage
                 .Where(bi => bi.Role == null)
                 .ToDictionaryAsync(bi => bi.Id);
@@ -401,6 +406,7 @@ namespace Wowthing.Web.Controllers
                 
                 Backgrounds = backgrounds,
                 CurrentPeriod = currentPeriods,
+                Dailies = dailies,
                 Images = images,
                 Public = apiResult.Public,
 

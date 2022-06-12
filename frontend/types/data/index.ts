@@ -1,4 +1,5 @@
 export * from './journal'
+export * from './quests'
 export * from './transmog'
 export * from './user-auctions'
 export * from './user-history'
