@@ -915,8 +915,11 @@ namespace Wowthing.Backend.Jobs.User
 
                         foreach (var calling in characterData.Callings)
                         {
-                            questMap[calling.Expires] = Hardcoded.CallingQuestLookup
-                                .GetValueOrDefault(calling.QuestID, calling.QuestID);
+                            if (calling.QuestID > 0)
+                            {
+                                questMap[calling.Expires] = Hardcoded.CallingQuestLookup
+                                    .GetValueOrDefault(calling.QuestID, calling.QuestID);
+                            }
                         }
                         
                         var questPairs = questMap
