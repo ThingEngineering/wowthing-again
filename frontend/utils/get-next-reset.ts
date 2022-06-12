@@ -20,7 +20,8 @@ export function getNextDailyResetFromTime(time: DateTime, region: Region): DateT
     let reset: DateTime = time.set({
         hour: resetHour,
         minute: resetMin,
-        second: 0,
+        second: -1,
+        millisecond: 0,
     })
 
     if (time.hour >= resetHour) {
