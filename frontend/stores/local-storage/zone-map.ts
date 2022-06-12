@@ -5,6 +5,7 @@ export class ZoneMapState {
     public showCompleted = true
     public showKilled = true
 
+    public trackAchievements = true
     public trackMounts = true
     public trackPets = true
     public trackQuests = false

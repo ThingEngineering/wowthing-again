@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
@@ -15,9 +16,10 @@ using Wowthing.Lib.Models.Player;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    partial class WowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220612001907_Add_GlobalDailies")]
+    partial class Add_GlobalDailies
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -345,9 +347,9 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnType("integer[]")
                         .HasColumnName("quest_expires");
 
-                    b.Property<List<int>>("QuestIds")
+                    b.Property<List<int>>("QuestIDs")
                         .HasColumnType("integer[]")
-                        .HasColumnName("quest_ids");
+                        .HasColumnName("quest_i_ds");
 
                     b.HasKey("Expansion", "Region")
                         .HasName("pk_global_dailies");

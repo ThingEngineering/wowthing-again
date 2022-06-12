@@ -1,6 +1,8 @@
-﻿using Wowthing.Backend.Models.Uploads;
+﻿using Wowthing.Backend.Data;
+using Wowthing.Backend.Models.Uploads;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Enums;
+using Wowthing.Lib.Models.Global;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Wow;
 using Wowthing.Lib.Utilities;
@@ -10,6 +12,7 @@ namespace Wowthing.Backend.Jobs.User
     public class UserUploadJob : JobBase
     {
         private JankTimer _timer;
+        private Dictionary<(WowRegion Region, int Expansion), GlobalDailies> _globalDailiesMap = null;
         private Dictionary<(WowRegion Region, string Name), WowRealm> _realmMap;
 
         private bool _resetQuestCache;
@@ -22,6 +25,33 @@ namespace Wowthing.Backend.Jobs.User
             long userId = long.Parse(data[0]);
             using var shrug = UserLog(userId);
 
+            var trustedRole = Context.Roles
+                .Where(r => r.Name == "Trusted")
+                .Select(r => r.Id)
+                .First();
+            bool hasTrustedRole = await Context.UserRoles
+                .Where(ur => ur.UserId == userId && ur.RoleId == trustedRole)
+                .AnyAsync();
+            if (hasTrustedRole)
+            {
+                _globalDailiesMap = await Context.GlobalDailies
+                    .ToDictionaryAsync(gd => (gd.Region, gd.Expansion));
+
+                foreach (var region in EnumUtilities.GetValues<WowRegion>())
+                {
+                    // TODO make this a constant list somewhere
+                    if (!_globalDailiesMap.ContainsKey((region, 8)))
+                    {
+                        var gd = _globalDailiesMap[(region, 8)] = new GlobalDailies
+                        {
+                            Expansion = 8,
+                            Region = region,
+                        };
+                        Context.GlobalDailies.Add(gd);
+                    }
+                }
+            }
+            
             Logger.Information("Processing upload...");
 
             var json = LuaToJsonConverter.Convert(data[1].Replace("WWTCSaved = ", ""));
@@ -105,7 +135,7 @@ namespace Wowthing.Backend.Jobs.User
             
             // Deal with character data
             int accountId = 0;
-            int updated = 0;
+            int updatedCharacters = 0;
             foreach (var (addonId, characterData) in parsed.Characters.EmptyIfNull())
             {
                 // US/Mal'Ganis/Fakenamehere
@@ -162,7 +192,7 @@ namespace Wowthing.Backend.Jobs.User
                 HandleLockouts(character, characterData);
                 HandleMounts(character, characterData);
                 //HandleMythicPlus(character, characterData);
-                HandleQuests(character, characterData);
+                HandleQuests(character, characterData, realm.Region);
                 HandleReputations(character, characterData);
                 HandleTransmog(character, characterData);
                 HandleWeekly(character, characterData);
@@ -171,17 +201,10 @@ namespace Wowthing.Backend.Jobs.User
                 if (lastSeen > character.LastApiCheck)
                 {
                     character.LastApiCheck = MiscConstants.DefaultDateTime;
-                    updated++;
+                    updatedCharacters++;
                 }
             }
 
-            if (updated > 0)
-            {
-                Logger.Information("Updating {Count} character(s) immediately", updated);
-
-                await CacheService.SetLastModified(RedisKeys.UserLastModifiedQuests, userId);
-            }
-            
             _timer.AddPoint("Characters");
 
             // Deal with account data
@@ -223,7 +246,7 @@ namespace Wowthing.Backend.Jobs.User
                 }
             }
             _timer.AddPoint("Account");
-
+            
 #if DEBUG
             //Context.ChangeTracker.DetectChanges();
             //Console.WriteLine(Context.ChangeTracker.DebugView.ShortView);
@@ -231,13 +254,21 @@ namespace Wowthing.Backend.Jobs.User
             
             await Context.SaveChangesAsync();
             _timer.AddPoint("Save");
+            
+            if (updatedCharacters > 0)
+            {
+                Logger.Information("Updating {Count} character(s) immediately", updatedCharacters);
+                await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, userId);
+            }
 
             if (_resetQuestCache)
             {
+                Logger.Debug("Resetting quest cache");
                 await CacheService.SetLastModified(RedisKeys.UserLastModifiedQuests, userId);
             }
             if (_resetTransmogCache)
             {
+                Logger.Debug("Resetting transmog cache");
                 await CacheService.SetLastModified(RedisKeys.UserLastModifiedTransmog, userId);
             }
             
@@ -839,7 +870,7 @@ namespace Wowthing.Backend.Jobs.User
             }
         }
 
-        private void HandleQuests(PlayerCharacter character, UploadCharacter characterData)
+        private void HandleQuests(PlayerCharacter character, UploadCharacter characterData, WowRegion region)
         {
             bool hasCallings = characterData.ScanTimes.TryGetValue("callings", out int callingsScanTimestamp);
             bool hasQuests = characterData.ScanTimes.TryGetValue("quests", out int questsScanTimestamp);
@@ -871,6 +902,38 @@ namespace Wowthing.Backend.Jobs.User
                         .EmptyIfNull()
                         .Select(calling => calling.Expires)
                         .ToList();
+
+                    // User is trusted, update global dailies
+                    if (characterData.Callings != null && _globalDailiesMap != null)
+                    {
+                        var globalDailies = _globalDailiesMap[(region, 8)];
+                        var questMap = new Dictionary<int, int>();
+                        for (int i = 0; i < globalDailies.QuestIds.Count; i++)
+                        {
+                            questMap[globalDailies.QuestExpires[i]] = globalDailies.QuestIds[i];
+                        }
+
+                        foreach (var calling in characterData.Callings)
+                        {
+                            if (calling.QuestID > 0)
+                            {
+                                questMap[calling.Expires] = Hardcoded.CallingQuestLookup
+                                    .GetValueOrDefault(calling.QuestID, calling.QuestID);
+                            }
+                        }
+                        
+                        var questPairs = questMap
+                            .OrderBy(kvp => kvp.Key)
+                            .TakeLast(3)
+                            .ToList();
+
+                        globalDailies.QuestIds = questPairs
+                            .Select(kvp => kvp.Value)
+                            .ToList();
+                        globalDailies.QuestExpires = questPairs
+                            .Select(kvp => kvp.Key)
+                            .ToList();
+                    }
                 }
             }
 

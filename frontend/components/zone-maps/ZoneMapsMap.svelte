@@ -148,6 +148,15 @@
             <div class="toggle-group">
                 <div class="checkbox-counter">
                     <Checkbox
+                        name="track_achievements"
+                        bind:value={$zoneMapState.trackAchievements}
+                    >Achievements</Checkbox>
+
+                    <Counter key={slugKey} type={FarmDropType.Achievement} />
+                </div>
+
+                <div class="checkbox-counter">
+                    <Checkbox
                         name="track_mounts"
                         bind:value={$zoneMapState.trackMounts}
                     >Mounts</Checkbox>
