@@ -246,6 +246,7 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                         }
 
                         dropStatus.skip = (
+                            (drop.type === FarmDropType.Achievement && !options.trackAchievements) ||
                             (drop.type === FarmDropType.Mount && !options.trackMounts) ||
                             (drop.type === FarmDropType.Pet && !options.trackPets) ||
                             (drop.type === FarmDropType.Quest && !options.trackQuests) ||
@@ -261,30 +262,32 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                                 mapSeen[drop.type] = {}
                             }
 
+                            const seenId = drop.type === FarmDropType.Achievement ? drop.subType : drop.id
+
                             overallCounts.total++
-                            if (categorySeen[drop.type][drop.id] === undefined) {
+                            if (categorySeen[drop.type][seenId] === undefined) {
                                 categoryCounts.total++
                             }
-                            if (mapSeen[drop.type][drop.id] === undefined) {
+                            if (mapSeen[drop.type][seenId] === undefined) {
                                 mapCounts.total++
                                 mapTypeCounts[fixedType].total++
                             }
 
                             if (!dropStatus.need) {
                                 overallCounts.have++
-                                if (categorySeen[drop.type][drop.id] === undefined) {
+                                if (categorySeen[drop.type][seenId] === undefined) {
                                     categoryCounts.have++
                                 }
-                                if (mapSeen[drop.type][drop.id] === undefined) {
+                                if (mapSeen[drop.type][seenId] === undefined) {
                                     mapCounts.have++
                                     mapTypeCounts[fixedType].have++
                                 }
                             }
 
-                            categorySeen[drop.type][drop.id] = true
+                            categorySeen[drop.type][seenId] = true
 
-                            if (!mapSeen[drop.type][drop.id]) {
-                                mapSeen[drop.type][drop.id] = true
+                            if (!mapSeen[drop.type][seenId]) {
+                                mapSeen[drop.type][seenId] = true
                             }
                         }
 
