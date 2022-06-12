@@ -9,7 +9,6 @@
     import type { Character, CharacterGear } from '@/types'
 
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
-import data from '@iconify/icons-mdi/arrow-down-bold-outline'
 
     export let character: Character = undefined
     export let highlightMissingEnchants: boolean
