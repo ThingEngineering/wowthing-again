@@ -1,5 +1,4 @@
 <script lang="ts">
-    import find from 'lodash/find'
     import { DateTime } from 'luxon'
 
     import { Constants } from '@/data/constants'

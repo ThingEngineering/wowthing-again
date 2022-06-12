@@ -1,4 +1,3 @@
-import Base64ArrayBuffer from 'base64-arraybuffer'
 import toPairs from 'lodash/toPairs'
 
 import {WritableFancyStore} from '@/types'
