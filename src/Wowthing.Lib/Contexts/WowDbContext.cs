@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Logging;
 using Npgsql;
 using Wowthing.Lib.Models;
+using Wowthing.Lib.Models.Global;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
 using Wowthing.Lib.Models.Team;
@@ -31,7 +32,9 @@ namespace Wowthing.Lib.Contexts
         public DbSet<WowReputationTier> WowReputationTier { get; set; }
         public DbSet<WowTitle> WowTitle { get; set; }
         public DbSet<WowToy> WowToy { get; set; }
-
+        
+        public DbSet<GlobalDailies> GlobalDailies { get; set; }
+        
         public DbSet<PlayerAccount> PlayerAccount { get; set; }
         public DbSet<PlayerAccountGoldSnapshot> PlayerAccountGoldSnapshot { get; set; }
         public DbSet<PlayerAccountPets> PlayerAccountPets { get; set; }
@@ -121,6 +124,9 @@ namespace Wowthing.Lib.Contexts
             builder.Entity<LanguageString>()
                 .HasKey(ls => new { ls.Language, ls.Type, ls.Id });
 
+            builder.Entity<GlobalDailies>()
+                .HasKey(gd => new { gd.Expansion, gd.Region });
+            
             builder.Entity<PlayerCharacterCurrency>()
                 .HasKey(pcc => new { pcc.CharacterId, pcc.CurrencyId });
             
