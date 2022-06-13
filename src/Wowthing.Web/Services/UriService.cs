@@ -1,8 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Wowthing.Lib.Models;
+using Wowthing.Web.Controllers;
 using Wowthing.Web.Models;
 
 namespace Wowthing.Web.Services
@@ -11,22 +13,26 @@ namespace Wowthing.Web.Services
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly LinkGenerator _linkGenerator;
+        private readonly ILogger<AuthenticationController> _logger;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly WowthingWebOptions _webOptions;
 
         public UriService(
             IHttpContextAccessor httpContextAccessor,
+            ILogger<AuthenticationController> logger,
             IOptions<WowthingWebOptions> webOptions,
             LinkGenerator linkGenerator,
             UserManager<ApplicationUser> userManager)
         {
             _httpContextAccessor = httpContextAccessor;
+            _logger = logger;
             _linkGenerator = linkGenerator;
             _userManager = userManager;
             _webOptions = webOptions.Value;
         }
 
         private Uri _baseUri;
+
         public Uri BaseUri
         {
             get
@@ -55,6 +61,7 @@ namespace Wowthing.Web.Services
                     builder.Scheme = _httpContextAccessor.HttpContext.Request.Scheme;
 
                     _baseUri = builder.Uri;
+                    _logger.LogInformation("Base URI is {Uri}", _baseUri);
                 }
 
                 return _baseUri;
@@ -88,13 +95,17 @@ namespace Wowthing.Web.Services
             
             if (user == null)
             {
+                _logger.LogInformation("user=null username={Name}", username);
                 user = await _userManager.FindByNameAsync(username);
                 if (user == null)
                 {
+                    _logger.LogWarning("User not found!");
                     return "";
                 }
             }
 
+            _logger.LogInformation("Found user for username {Name}", username);
+            
             if (user?.CanUseSubdomain == true)
             {
                 var builder = new UriBuilder(BaseUri);
@@ -102,6 +113,7 @@ namespace Wowthing.Web.Services
                 {
                     builder.Host = $"{username}.{builder.Host}";
                 }
+                _logger.LogInformation("User can use subdomain, final URI is {Uri}", builder.Uri);
                 return builder.Uri.ToString();
             }
 
@@ -116,6 +128,8 @@ namespace Wowthing.Web.Services
                 );
             }
 
+            _logger.LogWarning("GetUriForUser had no useful result, uh-oh");
+            
             return "";
         }
     }
