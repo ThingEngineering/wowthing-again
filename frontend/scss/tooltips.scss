@@ -52,6 +52,14 @@
                 border-bottom-right-radius: $border-radius;
             }
         }
+
+        &.table-striped {
+            tbody {
+                tr:nth-child(odd) {
+                    background: $tooltip-striped-bg;
+                }
+            }
+        }
     }
 
     em {
