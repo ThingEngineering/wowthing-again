@@ -16,10 +16,11 @@
     export let character: Character
 
     let callings: [GlobalDailyQuest, boolean][]
+    let resets: DateTime[]
     $: {
         callings = [[null, false], [null, false], [null, false]]
 
-        const resets = [
+        resets = [
             getNextDailyResetFromTime($timeStore, character.realm.region),
         ]
         resets.push(resets[0].plus({ days: 1 }))
@@ -74,7 +75,11 @@
     <td
         use:tippyComponent={{
             component: Tooltip,
-            props: {character, callings},
+            props: {
+                callings,
+                character,
+                resets,
+            },
         }}
     >
         <div class="flex-wrapper">
