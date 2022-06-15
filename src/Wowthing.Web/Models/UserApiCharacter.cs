@@ -134,15 +134,8 @@ namespace Wowthing.Web.Models
                         pub && privacy?.Anonymized == true);
                 }
 
-                if (character.MythicPlusAddon != null)
-                {
-                    MythicPlusAddon = character.AddonData?.MythicPlus;
-                }
-
-                if (character.RaiderIo != null)
-                {
-                    RaiderIo = character.RaiderIo.Seasons;
-                }
+                MythicPlusAddon = character.AddonData?.MythicPlus;
+                RaiderIo = character.RaiderIo?.Seasons;
             }
 
             Paragons = character.Reputations?.Paragons ?? new Dictionary<int, PlayerCharacterReputationsParagon>();
