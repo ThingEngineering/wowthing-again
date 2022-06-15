@@ -2,6 +2,17 @@ name: "Townlong Steppes"
 mapName: "z4_townlong_steppes"
 farms:
 
+# Shared loot here is necks
+
+- name: "G'nathus"
+  location: 20.4 7.4
+  note: "Patrols around the island"
+  npcId: 66467
+  type: kill
+  drops:
+    - type: pet
+      id: 70098 # Spawn of G'nathus
+
 - name: "Huggalon the Heart Watcher"
   location: 37.2 57.6
   npcId: 66900
