@@ -1,0 +1,188 @@
+name: "Kun-Lai Summit"
+mapName: "z4_kun_lai_summit"
+farms:
+
+- name: "Ahone the Wanderer"
+  location: 40.6 42.8
+  npcId: 50817
+  type: kill
+  drops:
+    - type: toy
+      id: 86588 # Pandaren Firework Launcher
+
+    - &shared-1
+      type: transmog
+      id: 87616 # Mountain Trailblazer's Cuffs [cloth]
+
+    - &shared-2
+      type: transmog
+      id: 87615 # Yakwasher's Bracers [cloth]
+
+    - &shared-3
+      type: transmog
+      id: 87617 # Bracers of the Serene Mountaintop [leather]
+
+    - &shared-4
+      type: transmog
+      id: 87613 # Frozen Zandalari Bracer [leather]
+
+    - &shared-5
+      type: transmog
+      id: 87618 # Ice Encrusted Bracer [mail]
+
+    - &shared-6
+      type: transmog
+      id: 87614 # Kafa Picker's Bracers [mail]
+
+    - &shared-7
+      type: transmog
+      id: 87620 # Bracer's of the Frozen Summit [plate]
+
+    - &shared-8
+      type: transmog
+      id: 87619 # Terracotta Guardian's Bracer [plate]
+
+    - &shared-9
+      type: transmog
+      id: 87621 # Wristguards of Great Fortune [plate]
+
+- name: "Borginn Darkfist"
+  location: 55.4 43.4
+  npcId: 50341
+  type: kill
+  drops:
+    - *shared-1
+    - *shared-2
+    - *shared-3
+    - *shared-4
+    - *shared-5
+    - *shared-6
+    - *shared-7
+    - *shared-8
+    - *shared-9
+
+- name: "Havak"
+  location: 57.0 75.8
+  npcId: 50354
+  type: kill
+  drops:
+    - type: toy
+      id: 86573 # Shard of Archstone
+
+    - *shared-1
+    - *shared-2
+    - *shared-3
+    - *shared-4
+    - *shared-5
+    - *shared-6
+    - *shared-7
+    - *shared-8
+    - *shared-9
+
+- name: "Korda Torros"
+  location: 47.4 81.2
+  npcId: 50332
+  type: kill
+  drops:
+    - *shared-1
+    - *shared-2
+    - *shared-3
+    - *shared-4
+    - *shared-5
+    - *shared-6
+    - *shared-7
+    - *shared-8
+    - *shared-9
+
+- name: "Nessos the Oracle"
+  location: 63.8 13.8
+  npcId: 50789
+  type: kill
+  drops:
+    - type: toy
+      id: 86584 # Hardened Shell
+
+    - *shared-1
+    - *shared-2
+    - *shared-3
+    - *shared-4
+    - *shared-5
+    - *shared-6
+    - *shared-7
+    - *shared-8
+    - *shared-9
+
+- name: "Scritch"
+  location: 44.8 63.8
+  npcId: 50831
+  type: kill
+  drops:
+    - *shared-1
+    - *shared-2
+    - *shared-3
+    - *shared-4
+    - *shared-5
+    - *shared-6
+    - *shared-7
+    - *shared-8
+    - *shared-9
+
+- name: "Ski'thik"
+  location: 36.4 79.6
+  npcId: 50733
+  type: kill
+  drops:
+    - *shared-1
+    - *shared-2
+    - *shared-3
+    - *shared-4
+    - *shared-5
+    - *shared-6
+    - *shared-7
+    - *shared-8
+    - *shared-9
+
+- name: "Zai the Outcast"
+  location: 73.0 76.6
+  npcId: 50769
+  type: kill
+  drops:
+    - type: toy
+      id: 86581 # Farwater Conch
+
+    - *shared-1
+    - *shared-2
+    - *shared-3
+    - *shared-4
+    - *shared-5
+    - *shared-6
+    - *shared-7
+    - *shared-8
+    - *shared-9
+
+- name: "Zandalari Warbringer"
+  location: 75.0 67.6
+  npcId: 69842
+  reset: none
+  drops:
+  - type: mount
+    id: 138424 # Amber Primordial Direhorn
+
+  - type: mount
+    id: 138426 # Jade Primordial Direhorn
+
+  - type: mount
+    id: 138425 # Slate Primordial Direhorn
+
+# World Boss
+
+- name: "Sha of Anger"
+  location: 54.4 63.2
+  minimumLevel: 35
+  npcId: 60491
+  questId: 32099
+  reset: weekly
+  type: killBig
+  drops:
+  - type: mount
+    id: 127158 # Heavenly Onyx Cloud Serpent

@@ -1,0 +1,17 @@
+name: "Valley of the Four Winds"
+mapName: "z4_valley_of_the_four_winds"
+farms:
+
+# World Boss
+
+- name: "Galleon"
+  location: 71.6 64.4
+  minimumLevel: 35
+  npcId: 62346
+  questId: 32098
+  reset: weekly
+  type: killBig
+  drops:
+  - type: mount
+    id: 130965 # Son of Galleon
+  # TODO drops a lot of armour also

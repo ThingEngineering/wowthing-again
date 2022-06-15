@@ -1,5 +1,9 @@
 <script lang="ts">
+    import type { DateTime } from 'luxon'
+
     import { iconStrings } from '@/data/icons'
+    import { timeStore } from '@/stores'
+    import { toNiceDuration } from '@/utils/to-nice'
     import type { Character } from '@/types'
     import type { GlobalDailyQuest } from '@/types/data'
 
@@ -7,6 +11,7 @@
 
     export let callings: [GlobalDailyQuest, boolean][]
     export let character: Character
+    export let resets: DateTime[]
 </script>
 
 <style lang="scss">
@@ -16,6 +21,9 @@
     }
     .name {
         text-align: left;
+    }
+    .remaining {
+        text-align: right;
     }
     .description {
         max-width: 20rem;
@@ -27,7 +35,7 @@
     <h4>{character.name} - Callings</h4>
     <table class="table-striped">
         <tbody>
-            {#each callings as [daily, status]}
+            {#each callings as [daily, status], callingIndex}
                 <tr>
                     <td class="status">
                         <IconifyIcon
@@ -41,10 +49,13 @@
                     {:else}
                         <td class="name">Unknown quest</td>
                     {/if}
+                    <td class="remaining">
+                        <code>{toNiceDuration(resets[callingIndex].diff($timeStore).toMillis())}</code>
+                    </td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td class="description">{daily?.description ?? '???'}</td>
+                    <td class="description" colspan="2">{daily?.description ?? '???'}</td>
                 </tr>
             {/each}
         </tbody>

@@ -1,0 +1,17 @@
+name: "Jade Forest, The"
+mapName: "z4_the_jade_forest"
+farms:
+
+- name: "Zandalari Warbringer"
+  location: 52.6 19.0
+  npcId: 69842
+  reset: none
+  drops:
+  - type: mount
+    id: 138424 # Amber Primordial Direhorn
+
+  - type: mount
+    id: 138426 # Jade Primordial Direhorn
+
+  - type: mount
+    id: 138425 # Slate Primordial Direhorn

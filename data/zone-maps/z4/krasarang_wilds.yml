@@ -1,0 +1,17 @@
+name: "Krasarang Wilds"
+mapName: "z4_krasarang_wilds"
+farms:
+
+- name: "Zandalari Warbringer"
+  location: 39.0 67.7
+  npcId: 69842
+  reset: none
+  drops:
+  - type: mount
+    id: 138424 # Amber Primordial Direhorn
+
+  - type: mount
+    id: 138426 # Jade Primordial Direhorn
+
+  - type: mount
+    id: 138425 # Slate Primordial Direhorn
