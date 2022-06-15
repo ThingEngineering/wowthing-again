@@ -101,7 +101,7 @@ def print_thing(thing, thing_type):
     print(f'- name: "{thing.get("name", "???")}"')
 
     if 'locations' in thing:
-        print(f'  locations: {thing["locations"]}')
+        print(f'  location: {thing["locations"]}')
 
     if 'note' in thing:
         print(f'  note: "{thing["note"]}"')
