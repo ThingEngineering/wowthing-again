@@ -1,6 +1,5 @@
 import csv
 import glob
-import math
 import os
 import os.path
 import re
