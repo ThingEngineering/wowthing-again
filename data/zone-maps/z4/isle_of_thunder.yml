@@ -2,6 +2,14 @@ name: "Isle of Thunder"
 mapName: "z4_isle_of_thunder"
 farms:
 
+- name: "Haywire Sunreaver Construct"
+  location: 48.2 87.0
+  npcId: 50358
+  type: kill
+  drops:
+    - type: pet
+      id: 69778 # Sunreaver Micro-Sentry
+
 # World Boss
 
 - name: "Nalak"

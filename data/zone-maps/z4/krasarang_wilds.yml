@@ -2,6 +2,8 @@ name: "Krasarang Wilds"
 mapName: "z4_krasarang_wilds"
 farms:
 
+# Shared loot here is trinkets
+
 - name: "Zandalari Warbringer"
   location: 39.0 67.7
   npcId: 69842
