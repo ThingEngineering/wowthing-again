@@ -12,5 +12,21 @@ farms:
   reset: weekly
   type: killBig
   drops:
-  - type: mount
-    id: 138423 # Cobalt Primordial Direhorn (Oondasta)
+    - type: mount
+      id: 138423 # Cobalt Primordial Direhorn (Oondasta)
+
+# Vendors
+
+- name: "Ku'ma"
+  location: 33.0 54.1
+  npcId: 0
+  reset: none
+  type: vendor
+  drops:
+    - type: mount
+      id: 138640 # Bone-White Primal Raptor
+      note: "A Mountain of Giant Dinosaur Bones [9999]"
+
+    - type: pet
+      id: 69848 # Spectral Porcupette
+      note: "A Large Pile of Giant Dinosaur Bones [999]"
