@@ -1,0 +1,16 @@
+name: "Isle of Thunder"
+mapName: "z4_isle_of_thunder"
+farms:
+
+# World Boss
+
+- name: "Nalak"
+  location: 60.5 37.3
+  minimumLevel: 35
+  npcId: 69099
+  questId: 32518
+  reset: weekly
+  type: killBig
+  drops:
+  - type: mount
+    id: 139442 # Thundering Cobalt Cloud Serpent

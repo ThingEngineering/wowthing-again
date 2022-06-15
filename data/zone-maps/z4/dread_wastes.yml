@@ -1,0 +1,178 @@
+name: "Dread Wastes"
+mapName: "z4_dread_wastes"
+farms:
+
+- name: "Ai-Li Skymirror"
+  location: 34.8 23.0
+  npcId: 50821
+  type: kill
+  drops:
+    - type: toy
+      id: 86589 # Ai-Li's Skymirror
+    
+    - &shared-1
+      type: transmog
+      id: 87635 # Amber-Starched Robes [cloth]
+    
+    - &shared-2
+      type: transmog
+      id: 87634 # Mazu's Robe [cloth]
+    
+    - &shared-3
+      type: transmog
+      id: 87631 # Jiao-Skin Tunic [leather]
+    
+    - &shared-4
+      type: transmog
+      id: 87633 # Sharkskin Armor [leather]
+    
+    - &shared-5
+      type: transmog
+      id: 87630 # Chestpiece of Twinkling Stars [mail]
+    
+    - &shared-6
+      type: transmog
+      id: 87632 # Fearsworn Chestpiece [mail]
+    
+    - &shared-7
+      type: transmog
+      id: 87629 # Chestplate of Manifest Dread [plate]
+    
+    - &shared-8
+      type: transmog
+      id: 87627 # Kunchong Carapace Chestguard [plate]
+    
+    - &shared-9
+      type: transmog
+      id: 87628 # Spinebreaker Chestpiece [plate]
+
+- name: "Dak the Breaker"
+  location: 25.0 28.6
+  npcId: 50334
+  type: kill
+  drops:
+    - *shared-1
+    - *shared-2
+    - *shared-3
+    - *shared-4
+    - *shared-5
+    - *shared-6
+    - *shared-7
+    - *shared-8
+    - *shared-9
+
+- name: "Gar'lok"
+  location: 35.6 30.6 #39.2 41.8
+  npcId: 50739
+  type: kill
+  drops:
+    - type: toy
+      id: 86578 # Eternal Warrior's Sigil
+
+    - *shared-1
+    - *shared-2
+    - *shared-3
+    - *shared-4
+    - *shared-5
+    - *shared-6
+    - *shared-7
+    - *shared-8
+    - *shared-9
+
+- name: "Ik-Ik the Nimble"
+  location: 55.2 63.8
+  npcId: 50836
+  type: kill
+  drops:
+    - type: toy
+      id: 86593 # Hozen Beach Ball
+
+    - *shared-1
+    - *shared-2
+    - *shared-3
+    - *shared-4
+    - *shared-5
+    - *shared-6
+    - *shared-7
+    - *shared-8
+    - *shared-9
+
+- name: "Karr the Darkener"
+  location: 71.8 37.4
+  npcId: 50347
+  type: kill
+  drops:
+    - type: pet
+      id: 64634 # Grinder
+
+    - *shared-1
+    - *shared-2
+    - *shared-3
+    - *shared-4
+    - *shared-5
+    - *shared-6
+    - *shared-7
+    - *shared-8
+    - *shared-9
+
+- name: "Krol the Blade"
+  location: 73.0 22.2
+  npcId: 50356
+  type: kill
+  drops:
+    - *shared-1
+    - *shared-2
+    - *shared-3
+    - *shared-4
+    - *shared-5
+    - *shared-6
+    - *shared-7
+    - *shared-8
+    - *shared-9
+
+- name: "Nalash Verdantis"
+  location: 64.0 58.6
+  npcId: 50776
+  type: kill
+  drops:
+    - type: pet
+      id: 64633 # Aqua Strider
+
+    - *shared-1
+    - *shared-2
+    - *shared-3
+    - *shared-4
+    - *shared-5
+    - *shared-6
+    - *shared-7
+    - *shared-8
+    - *shared-9
+
+- name: "Omnis Grinlok"
+  location: 36.0 62.6
+  npcId: 50805
+  type: kill
+  drops:
+    - *shared-1
+    - *shared-2
+    - *shared-3
+    - *shared-4
+    - *shared-5
+    - *shared-6
+    - *shared-7
+    - *shared-8
+    - *shared-9
+
+- name: "Zandalari Warbringer"
+  location: 47.6 61.6
+  npcId: 69842
+  reset: none
+  drops:
+  - type: mount
+    id: 138424 # Amber Primordial Direhorn
+
+  - type: mount
+    id: 138426 # Jade Primordial Direhorn
+
+  - type: mount
+    id: 138425 # Slate Primordial Direhorn
