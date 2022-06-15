@@ -8,12 +8,12 @@
 
 <style lang="scss">
     th {
-        @include cell-width($width-keystone);
+        @include cell-width($width-keystone, 0, 0);
 
         vertical-align: bottom;
     }
     .flex-wrapper {
-        gap: 4px;
+        gap: 3px;
         justify-content: center;
     }
 </style>
