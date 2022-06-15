@@ -40,6 +40,16 @@ z6/_legion.yml
     z6/suramar.yml
     z6/valsharah.yml
 
+z5/_warlords_of_draenor.yml
+    z5/tanaan_jungle.yml
+    -
+    z5/frostfire_ridge.yml
+    z5/gorgrond.yml
+    z5/nagrand.yml
+    z5/shadowmoon_valley.yml
+    z5/spires_of_arak.yml
+    z5/talador.yml
+
 z4/_mists_of_pandaria.yml
     z4/isle_of_giants.yml
     z4/isle_of_thunder.yml
