@@ -13,6 +13,8 @@
         Mail,
         Plate,
         Weapon,
+        Vendor,
+        Group,
     }
 
     public enum FarmIdType

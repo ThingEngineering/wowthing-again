@@ -11,6 +11,7 @@ export enum FarmType
     Mail,
     Plate,
     Weapon,
+    Vendor,
 }
 
 export enum FarmDropType {

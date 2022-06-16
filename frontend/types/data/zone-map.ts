@@ -24,6 +24,7 @@ export interface ZoneMapDataCategory {
 export class ZoneMapDataFarm {
     public id: number
     public minimumLevel?: number
+    public statisticId?: number
     public name: string
     public faction?: string
     public note?: string
@@ -45,6 +46,7 @@ export class ZoneMapDataFarm {
         questIds: number[],
         dropsRaw: ZoneMapDataDropArray[],
         minimumLevel?: number,
+        statisticId?: number,
         requiredQuestIds?: number[],
         note?: string,
         faction?: string
@@ -59,6 +61,7 @@ export class ZoneMapDataFarm {
         this.questIds = questIds
 
         this.minimumLevel = minimumLevel
+        this.statisticId = statisticId
         this.requiredQuestIds = requiredQuestIds
         this.note = note
         this.faction = faction

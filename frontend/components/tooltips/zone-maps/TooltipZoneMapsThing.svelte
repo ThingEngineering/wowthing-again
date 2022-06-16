@@ -5,7 +5,7 @@
 
     import { dropTypeIcon } from '@/data/farm'
     import { weaponSubclassToString } from '@/data/weapons'
-    import { userStore } from '@/stores'
+    import { userAchievementStore, userStore } from '@/stores'
     import { ArmorType, FarmDropType, FarmResetType } from '@/types/enums'
     import type { DropStatus, FarmStatus } from '@/types'
     import type { ZoneMapDataDrop, ZoneMapDataFarm } from '@/types/data'
@@ -16,15 +16,19 @@
     export let status: FarmStatus
 
     let sortedDrops: [ZoneMapDataDrop, DropStatus][]
+    let statistic: number
     $: {
-        console.log({farm, status})
-
         const sigh: [ZoneMapDataDrop, DropStatus][] = []
         for (let dropIndex = 0; dropIndex < farm.drops.length; dropIndex++) {
             sigh.push([farm.drops[dropIndex], status.drops[dropIndex]])
         }
 
         sortedDrops = sortBy(sigh, (s) => [!s[1].need, !s[1].validCharacters])
+
+        if (farm.statisticId > 0) {
+            statistic = ($userAchievementStore.data.statistics?.[farm.statisticId] || [])
+                .reduce((a, b) => a + b[1], 0)
+        }
     }
 
     const showCharacters = (dropStatus: DropStatus, nextDrop: [ZoneMapDataDrop, DropStatus]): boolean => {
@@ -59,6 +63,9 @@
 </script>
 
 <style lang="scss">
+    .statistic {
+        background: #232;
+    }
     .note {
         color: #00ccff;
         font-size: 0.95rem;
@@ -119,6 +126,12 @@
 
     <table class="table-tooltip-farm table-striped">
         <tbody>
+            {#if statistic > 0}
+                 <tr>
+                    <td class="statistic" colspan="3">{statistic.toLocaleString()} attempts</td>
+                </tr>
+            {/if}
+
             {#each sortedDrops as [drop, dropStatus], sortedIndex}
                 <tr
                     class:success={!dropStatus.need || !dropStatus.validCharacters || dropStatus.skip}

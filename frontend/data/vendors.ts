@@ -5,6 +5,7 @@ export const costOrder: string[] = [
     'stygia',
     'offering',
     'polished',
+    'sandworn',
 ]
 
 export const costMap: Record<string, [string, number]> = {
@@ -15,4 +16,5 @@ export const costMap: Record<string, [string, number]> = {
 
     // Items
     polished: ['item', 163036],
+    sandworn: ['item', 190189],
 }

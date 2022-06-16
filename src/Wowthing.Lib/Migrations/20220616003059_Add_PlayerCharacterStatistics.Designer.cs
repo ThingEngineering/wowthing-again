@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
@@ -15,9 +16,10 @@ using Wowthing.Lib.Models.Player;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    partial class WowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220616003059_Add_PlayerCharacterStatistics")]
+    partial class Add_PlayerCharacterStatistics
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1473,23 +1475,6 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnName("user_id");
 
                     b.ToTable("SchedulerCharacterQuery", null, t => t.ExcludeFromMigrations());
-                });
-
-            modelBuilder.Entity("Wowthing.Lib.Models.Query.StatisticsQuery", b =>
-                {
-                    b.Property<long>("Amount")
-                        .HasColumnType("bigint")
-                        .HasColumnName("amount");
-
-                    b.Property<int>("CharacterId")
-                        .HasColumnType("integer")
-                        .HasColumnName("character_id");
-
-                    b.Property<int>("CriteriaId")
-                        .HasColumnType("integer")
-                        .HasColumnName("criteria_id");
-
-                    b.ToTable("StatisticsQuery", null, t => t.ExcludeFromMigrations());
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.Team.Team", b =>

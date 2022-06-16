@@ -1,3 +1,460 @@
 name: "Tanaan Jungle"
 mapName: "z5_tanaan_jungle"
 farms:
+
+# - name: "Argosh the Destroyer"
+#   location: {'534': [[52.4, 40.2]]}
+#   npcId: 91871
+#   questId: 38430
+#   type: kill
+
+# - name: "Belgork"
+#   location: {'534': [[35.0, 47.0]]}
+#   npcId: 92552
+#   questId: 38609
+#   type: kill
+
+# - name: "Bilkor the Thrower"
+#   location: {'534': [[23.4, 52.2]]}
+#   npcId: 90884
+#   questId: 38262
+#   type: kill
+
+# - name: "Bleeding Hollow Horror"
+#   location: {'534': [[50.8, 74.4]]}
+#   npcId: 92657
+#   questId: 38696
+#   type: kill
+
+# - name: "Bloodhunter Zulk"
+#   location: {'534': [[21.0, 52.4]]}
+#   npcId: 90936
+#   questId: 38266
+#   type: kill
+
+# - name: "Bramblefell"
+#   location: {'534': [[39.0, 68.4]]}
+#   npcId: 91093
+#   questId: 38209
+#   type: kill
+#   drops:
+#     # {127652,toy=true,}
+
+# - name: "Broodlord Ixkor"
+#   location: {'534': [[57.6, 67.2]]}
+#   npcId: 92429
+#   questId: 38589
+#   type: kill
+
+# - name: "Captain Grok'mar"
+#   location: {'534': [[48.4, 57.0]]}
+#   npcId: 93264
+#   questId: 38820
+#   type: kill
+
+# - name: "Captain Ironbeard"
+#   location: {'534': [[35.8, 80.2]]}
+#   npcId: 93076
+#   questId: 38756
+#   type: kill
+#   drops:
+#     # {127659,toy=true,}
+
+# - name: "Ceraxas"
+#   location: {'534': [[31.4, 67.4]]}
+#   npcId: 90434
+#   questId: 38031
+#   type: kill
+
+# - name: "Cindral the Wildfire"
+#   location: {'534': [[44.4, 37.4]]}
+#   npcId: 90519
+#   questId: 37990
+#   type: kill
+
+# - name: "Commander Krag'goth"
+#   location: {'534': [[15.0, 54.2]]}
+#   npcId: 91232
+#   questId: 38746
+#   type: kill
+#   drops:
+#     # 127319
+
+# - name: "Commander Org'mok"
+#   location: {'534': [[50.0, 47.8]]}
+#   npcId: 89675
+#   questId: 38749
+#   type: kill
+
+# - name: "Deathtalon"
+#   location: {'534': [[23.0, 40.2]]}
+#   npcId: 95053
+#   questId: 39287
+#   type: kill
+#   drops:
+#     # {116658,mount=611,},{116669,mount=622,},{116780,mount=643,
+
+# - name: "Doomroller"
+#   location: {'534': [[46.8, 52.6]]}
+#   npcId: 95056
+#   questId: 39289
+#   type: kill
+#   drops:
+#     # {116658,mount=611,},{116669,mount=622,},{116780,mount=643,
+
+# - name: "Dorg the Bloody"
+#   location: {'534': [[22.8, 48.8]]}
+#   npcId: 90887
+#   questId: 38265
+#   type: kill
+
+# - name: "Drakum"
+#   location: {'534': [[83.4, 43.4]]}
+#   npcId: 98283
+#   questId: 40105
+#   type: kill
+#   drops:
+#     # {108631,toy=true,}
+
+# - name: "Driss Vile"
+#   location: {'534': [[20.0, 53.6]]}
+#   npcId: 93028
+#   questId: 38736
+#   type: kill
+#   drops:
+#     # 127331
+
+# - name: "Drivnul"
+#   location: {'534': [[25.4, 46.2]]}
+#   npcId: 90888
+#   questId: 38264
+#   type: kill
+
+# - name: "Executor Riloth"
+#   location: {'534': [[49.6, 36.6]]}
+#   npcId: 91727
+#   questId: 38411
+#   type: kill
+
+# - name: "Fel Overseer Mudlump"
+#   location: {'534': [[40.6, 56.4]]}
+#   npcId: 98408
+#   questId: 40107
+#   type: kill
+#   drops:
+#     # 129295
+
+# - name: "Felbore"
+#   location: {'534': [[28.8, 51.0]]}
+#   npcId: 93168
+#   questId: 38775
+#   type: kill
+
+# - name: "Felsmith Damorka"
+#   location: {'534': [[45.8, 47.0]]}
+#   npcId: 92647
+#   questId: 38634
+#   type: kill
+
+# - name: "Felspark"
+#   location: {'534': [[51.8, 27.4]]}
+#   npcId: 91098
+#   questId: 38211
+#   type: kill
+
+# - name: "Gloomtalon"
+#   location: {'534': [[63.4, 81.0]]}
+#   npcId: 92508
+#   questId: 38604
+#   type: kill
+
+# - name: "Glub'glok"
+#   location: {'534': [[34.4, 77.8]]}
+#   npcId: 93125
+#   questId: 38764
+#   type: kill
+
+# - name: "Gondar"
+#   location: {'534': [[80.4, 56.6]]}
+#   npcId: 98284
+#   questId: 40106
+#   type: kill
+#   drops:
+#     # {108633,toy=true,}
+
+# - name: "Gorabosh"
+#   location: {'534': [[32.6, 35.4]]}
+#   npcId: 92941
+#   questId: 38709
+#   type: kill
+#   drops:
+#     # 127304
+
+# - name: "Grand Warlock Nethekurse"
+#   location: {'534': [[46.4, 42.2]]}
+#   npcId: 91695
+#   questId: 38400
+#   type: kill
+
+# - name: "Grannok"
+#   location: {'534': [[16.0, 59.0]]}
+#   npcId: 93057
+#   questId: 38750
+#   type: kill
+
+# - name: "Harbormaster Korak"
+#   location: {'534': [[39.4, 32.4]]}
+#   npcId: 90094
+#   questId: 39046
+#   type: kill
+
+# - name: "High Priest Ikzan"
+#   location: {'534': [[20.2, 41.2]]}
+#   npcId: 90777
+#   questId: 38028
+#   type: kill
+#   drops:
+#     # {122117,toy=true,}
+
+# - name: "Imp-Master Valessa"
+#   location: {'534': [[30.8, 71.4]]}
+#   npcId: 90429
+#   questId: 38026
+#   type: kill
+#   drops:
+#     # {127655,toy=true,}
+
+# - name: "Jax'zor"
+#   location: {'534': [[26.2, 75.4]]}
+#   npcId: 90437
+#   questId: 38030
+#   type: kill
+
+# - name: "Keravnos"
+#   location: {'534': [[38.4, 80.6]]}
+#   npcId: 80398
+#   questId: 37407
+#   type: kill
+
+# - name: "Krell the Serene"
+#   location: {'534': [[51.8, 83.4]]}
+#   npcId: 92517
+#   questId: 38605
+#   type: kill
+
+# - name: "Kris'kar the Unredeemed"
+#   location: {'534': [[39.6, 68.2]]}
+#   npcId: 93279
+#   questId: 38825
+#   type: kill
+
+# - name: "Lady Oran"
+#   location: {'534': [[25.2, 76.2]]}
+#   npcId: 90438
+#   questId: 38029
+#   type: kill
+
+# - name: "Magwia"
+#   location: {'534': [[52.2, 65.0]]}
+#   npcId: 93002
+#   questId: 38726
+#   type: kill
+
+# - name: "Mistress Thavra"
+#   location: {'534': [[25.8, 79.6]]}
+#   npcId: 90442
+#   questId: 38032
+#   type: kill
+
+# - name: "Overlord Ma'gruth"
+#   location: {'534': [[52.2, 19.8]]}
+#   npcId: 92411
+#   questId: 38580
+#   type: kill
+
+# - name: "Painmistress Selora"
+#   location: {'534': [[53.4, 21.4]]}
+#   npcId: 92274
+#   questId: 38557
+#   type: kill
+
+# - name: "Podlord Wakkawam"
+#   location: {'534': [[16.8, 48.2]]}
+#   npcId: 91374
+#   questId: 38282
+#   type: kill
+#   drops:
+#     # 127336
+
+# - name: "Putre'thar"
+#   location: {'534': [[57.0, 23.0]]}
+#   npcId: 91009
+#   questId: 38457
+#   type: kill
+
+# - name: "Rasthe"
+#   location: {'534': [[16.8, 43.0]]}
+#   npcId: 90782
+#   questId: 38034
+#   type: kill
+
+# - name: "Relgor"
+#   location: {'534': [[26.2, 54.2]]}
+#   npcId: 92197
+#   questId: 38496
+#   type: kill
+
+# - name: "Remnant of the Blood Moon"
+#   location: {'534': [[22.2, 50.4]]}
+#   npcId: 91227
+#   questId: 39159
+#   type: kill
+#   drops:
+#     # {127666,toy=true,}
+
+# - name: "Rendrak"
+#   location: {'534': [[39.0, 73.0], [42.2, 79.4]]}
+#   npcId: 92627
+#   questId: 38631
+#   type: kill
+#   drops:
+#     # 127356
+
+# - name: "Rogond the Tracker"
+#   location: {'534': [[20.4, 49.8]]}
+#   npcId: 90885
+#   questId: 38263
+#   type: kill
+
+# - name: "Sergeant Mor'grak"
+#   location: {'534': [[41.4, 37.4]]}
+#   npcId: 90024
+#   questId: 37953
+#   type: kill
+
+# - name: "Shadowthrash"
+#   location: {'534': [[49.6, 61.0]]}
+#   npcId: 93236
+#   questId: 38812
+#   type: kill
+#   drops:
+#     # 127665
+
+# - name: "Smashum Grabb"
+#   location: {'534': [[87.6, 55.8]]}
+#   npcId: 98285
+#   questId: 40104
+#   type: kill
+#   drops:
+#     # {108634,toy=true,}
+
+# - name: "Soulslicer"
+#   location: {'534': [[62.4, 72.4]]}
+#   npcId: 92495
+#   questId: 38600
+#   type: kill
+
+# - name: "Steelsnout"
+#   location: {'534': [[64.6, 37.0]]}
+#   npcId: 92887
+#   questId: 38700
+#   type: kill
+
+# - name: "Sylissa"
+#   location: {'534': [[41.0, 78.6]]}
+#   npcId: 92606
+#   questId: 38628
+#   type: kill
+
+# - name: "Szirek the Twisted"
+#   location: {'534': [[15.8, 57.0]]}
+#   npcId: 93001
+#   questId: 38752
+#   type: kill
+
+# - name: "Terrorfist"
+#   location: {'534': [[15.0, 63.0]]}
+#   npcId: 95044
+#   questId: 39288
+#   type: kill
+#   drops:
+#     # {116658,mount=611,},{116669,mount=622,},{116780,mount=643,
+
+# - name: "The Blackfang"
+#   location: {'534': [[49.2, 73.4]]}
+#   npcId: 92465
+#   questId: 38597
+#   type: kill
+
+# - name: "The Goreclaw"
+#   location: {'534': [[34.4, 72.4]]}
+#   npcId: 92694
+#   questId: 38654
+#   type: kill
+
+# - name: "The Iron Houndmaster"
+#   location: {'534': [[12.6, 56.6]]}
+#   npcId: 92977
+#   questId: 38751
+#   type: kill
+
+# - name: "The Night Haunter"
+#   location: {'534': [[37.8, 72.6], [38.0, 79.0], [43.4, 68.2]]}
+#   npcId: 92636
+#   questId: 38632
+#   type: kill
+
+# - name: "The Night Haunter"
+#   location: {'534': [[37.4, 67.8], [38.2, 79.2], [43.8, 67.4]]}
+#   npcId: 92645
+#   questId: 38632
+#   type: kill
+
+# - name: "Tho'gar Gorefist"
+#   location: {'534': [[13.4, 56.4]]}
+#   npcId: 91243
+#   questId: 38747
+#   type: kill
+
+# - name: "Thromma the Gutslicer"
+#   location: {'534': [[34.0, 44.2]]}
+#   npcId: 92574
+#   questId: 38620
+#   type: kill
+
+# - name: "Varyx the Damned"
+#   location: {'534': [[27.4, 32.6]]}
+#   npcId: 92451
+#   questId: 37937
+#   type: kill
+
+# - name: "Vengeance"
+#   location: {'534': [[32.4, 73.8]]}
+#   npcId: 95054
+#   questId: 39290
+#   type: kill
+#   drops:
+#     # {116658,mount=611,},{116669,mount=622,},{116780,mount=643,
+
+# - name: "Xanzith the Everlasting"
+#   location: {'534': [[60.0, 21.0]]}
+#   npcId: 92408
+#   questId: 38579
+#   type: kill
+
+# - name: "Xemirkol"
+#   location: {'534': [[69.0, 38.2]]}
+#   npcId: 96235
+#   type: kill
+
+# - name: "Zeter'el"
+#   location: {'534': [[48.2, 28.4]]}
+#   npcId: 91087
+#   questId: 38207
+#   type: kill
+
+# - name: "Zoug the Heavy"
+#   location: {'534': [[37.0, 33.0]]}
+#   npcId: 90122
+#   questId: 39045
+#   type: kill

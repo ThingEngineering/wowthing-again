@@ -28,23 +28,23 @@
 
 <style lang="scss">
     td {
-        @include cell-width($width-keystone);
+        @include cell-width($width-keystone, $paddingRight: 0.1rem);
 
         border-left: 1px solid $border-color;
     }
     span {
         display: inline-block;
     }
+    .flex-wrapper {
+        gap: 0.3rem;
+        justify-content: flex-start;
+    }
     .level {
         min-width: $width-keystone-level;
         width: $width-keystone-level;
-        padding-left: 0.1rem;
-        padding-right: 0.3rem;
         text-align: right;
     }
     .dungeon {
-        min-width: $width-keystone-dungeon;
-        width: $width-keystone-dungeon;
     }
     .upgrade {
         color: #ff88ff;
@@ -60,9 +60,13 @@
     >
         {#if dungeon}
             <div class="flex-wrapper">
-                <WowthingImage name={dungeon.icon} size={20} border={1} />
-                <span class="level {getMythicPlusRunQuality(character.weekly.keystoneLevel)}">{character.weekly.keystoneLevel}</span>
-                <span class="dungeon" class:upgrade={isUpgrade}>{dungeon.abbreviation}</span>
+                <span
+                    class="level {getMythicPlusRunQuality(character.weekly.keystoneLevel)}"
+                >{character.weekly.keystoneLevel}</span>
+                <span
+                    class="dungeon"
+                    class:upgrade={isUpgrade}
+                >{dungeon.abbreviation}</span>
             </div>
         {/if}
     </td>

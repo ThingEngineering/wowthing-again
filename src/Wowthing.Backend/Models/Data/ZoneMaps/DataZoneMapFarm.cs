@@ -5,6 +5,7 @@
         public int MinimumLevel { get; set; }
         public int NpcId { get; set; }
         public int ObjectId { get; set; }
+        public int StatisticId { get; set; }
         public string Faction { get; set; }
         public string Location { get; set; }
         public string Name { get; set; }

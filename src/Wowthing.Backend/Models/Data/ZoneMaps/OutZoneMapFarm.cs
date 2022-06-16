@@ -8,7 +8,10 @@ namespace Wowthing.Backend.Models.Data.ZoneMaps
     {
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public int? MinimumLevel { get; set; }
-        
+
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+        public int? StatisticId { get; set; }
+
         public FarmIdType IdType { get; set; }
         public int Id { get; set; }
         
@@ -66,6 +69,11 @@ namespace Wowthing.Backend.Models.Data.ZoneMaps
             {
                 IdType = FarmIdType.Npc;
                 Id = farm.NpcId;
+            }
+
+            if (farm.StatisticId > 0)
+            {
+                StatisticId = farm.StatisticId;
             }
 
             if (!string.IsNullOrEmpty(farm.Faction))
