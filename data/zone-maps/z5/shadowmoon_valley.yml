@@ -145,7 +145,7 @@ farms:
   type: kill
   drops:
     - type: transmog
-      id: 85001 # Milgra's Mighty Mitts
+      id: 119368 # Milgra's Mighty Mitts
 
 - name: "Morva Soultwister"
   location: 38.6 70.2
