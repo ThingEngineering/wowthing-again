@@ -18,6 +18,7 @@ farms:
   npcId: 69099
   questId: 32518
   reset: weekly
+  statisticId: 8146
   type: killBig
   drops:
   - type: mount

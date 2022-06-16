@@ -10,10 +10,11 @@ farms:
   npcId: 69161
   questId: 32519
   reset: weekly
+  statisticId: 8147
   type: killBig
   drops:
     - type: mount
-      id: 138423 # Cobalt Primordial Direhorn (Oondasta)
+      id: 138423 # Cobalt Primordial Direhorn
 
 # Vendors
 

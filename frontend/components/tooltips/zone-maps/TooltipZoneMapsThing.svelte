@@ -18,8 +18,6 @@
     let sortedDrops: [ZoneMapDataDrop, DropStatus][]
     let statistic: number
     $: {
-        console.log({farm, status})
-
         const sigh: [ZoneMapDataDrop, DropStatus][] = []
         for (let dropIndex = 0; dropIndex < farm.drops.length; dropIndex++) {
             sigh.push([farm.drops[dropIndex], status.drops[dropIndex]])
@@ -30,7 +28,6 @@
         if (farm.statisticId > 0) {
             statistic = ($userAchievementStore.data.statistics?.[farm.statisticId] || [])
                 .reduce((a, b) => a + b[1], 0)
-            console.log(statistic)
         }
     }
 
@@ -66,6 +63,9 @@
 </script>
 
 <style lang="scss">
+    .statistic {
+        background: #232;
+    }
     .note {
         color: #00ccff;
         font-size: 0.95rem;
@@ -127,8 +127,8 @@
     <table class="table-tooltip-farm table-striped">
         <tbody>
             {#if statistic > 0}
-                 <tr class="statistic">
-                    <td colspan="3">{statistic.toLocaleString()} attempts</td>
+                 <tr>
+                    <td class="statistic" colspan="3">{statistic.toLocaleString()} attempts</td>
                 </tr>
             {/if}
 
