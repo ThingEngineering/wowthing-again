@@ -23,7 +23,7 @@ FROM (
     FROM    player_character_statistics pcs
     LEFT JOIN player_character pc ON pc.id = pcs.character_id
     LEFT JOIN player_account pa ON pa.id = pc.account_id
-    --WHERE   pa.user_id = {0}
+    WHERE   pa.user_id = {0}
 ) oof
 ORDER BY statistic_id, quantity DESC, character_id
 ";
