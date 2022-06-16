@@ -1,3 +1,314 @@
 name: "Gorgrond"
 mapName: "z5_gorgrond"
 farms:
+
+# - name: "Alkali"
+#   location: {'543': [[56.2, 40.8], [71.4, 40.2]]}
+#   npcId: 86268
+#   questId: 37371
+#   type: kill
+#   drops:
+#     # 119361
+
+# - name: "Bashiok"
+#   location: {'543': [[40.0, 79.0]]}
+#   npcId: 82085
+#   questId: 35335
+#   type: kill
+#   drops:
+#     # {118222,toy=true,}
+
+# - name: "Basten"
+#   location: {'543': [[69.2, 44.6]]}
+#   npcId: 86257
+#   questId: 37369
+#   type: kill
+#   drops:
+#     # {119432,toy=true,
+
+# - name: "Berthora"
+#   location: {'543': [[39.4, 74.6]]}
+#   npcId: 85907
+#   questId: 36597
+#   type: kill
+#   drops:
+#     # 118232
+
+# - name: "Blademaster Ro'gor"
+#   location: {'543': [[46.0, 33.6]]}
+#   npcId: 86579
+#   questId: 37368
+#   type: kill
+#   drops:
+#     # 119228
+
+# - name: "Char the Burning"
+#   location: {'543': [[53.4, 44.6]]}
+#   npcId: 82311
+#   questId: 35503
+#   type: kill
+#   drops:
+#     # 118212
+
+# - name: "Defector Dazgo"
+#   location: {'543': [[48.2, 21.0]]}
+#   npcId: 86566
+#   questId: 37362
+#   type: kill
+#   drops:
+#     # 119224
+
+# - name: "Depthroot"
+#   location: {'543': [[72.2, 40.8]]}
+#   npcId: 82058
+#   questId: 35996
+#   type: kill
+#   drops:
+#     # 119406
+
+# - name: "Durp the Hated"
+#   location: {'543': [[50.0, 23.8]]}
+#   npcId: 86571
+#   questId: 37366
+#   type: kill
+#   drops:
+#     # 119225
+
+# - name: "Firestarter Grash"
+#   location: {'543': [[72.8, 35.8]]}
+#   npcId: 88580
+#   questId: 37373
+#   type: kill
+#   drops:
+#     # 119381
+
+# - name: "Fossilwood the Petrified"
+#   location: {'543': [[57.4, 68.4]]}
+#   npcId: 85250
+#   questId: 36387
+#   type: kill
+#   drops:
+#     # {118221,toy=true,}
+
+# - name: "Gelgor of the Blue Flame"
+#   location: {'543': [[29.0, 38.8], [34.2, 38.0], [41.8, 45.4]]}
+#   npcId: 81038
+#   questId: 36391
+#   type: kill
+#   drops:
+#     # 118230
+
+# - name: "Glut"
+#   location: {'543': [[45.6, 50.6]]}
+#   npcId: 80868
+#   questId: 36204
+#   type: kill
+#   drops:
+#     # 118229
+
+# - name: "Gnarljaw"
+#   location: {'543': [[54.1, 55.8]]}
+#   npcId: 78269
+#   questId: 37413
+#   type: kill
+#   drops:
+#     # 119397
+
+# - name: "Greldrok the Cunning"
+#   location: {'543': [[46.8, 43.2]]}
+#   npcId: 84431
+#   questId: 36186
+#   type: kill
+#   drops:
+#     # 118210
+
+# - name: "Grove Warden Yal"
+#   location: {'543': [[59.6, 43.0]]}
+#   npcId: 88583
+#   questId: 37375
+#   type: kill
+#   drops:
+#     # 119414
+
+# - name: "Hive Queen Skrikka"
+#   location: {'543': [[52.2, 70.2]]}
+#   npcId: 83522
+#   questId: 35908
+#   type: kill
+#   drops:
+#     # 118209
+
+# - name: "Horgg"
+#   location: {'543': [[47.0, 23.8]]}
+#   npcId: 86577
+#   questId: 37365
+#   type: kill
+#   drops:
+#     # 119229
+
+# - name: "Hunter Bal'ra"
+#   location: {'543': [[55.0, 46.6]]}
+#   npcId: 88672
+#   questId: 37377
+#   type: kill
+#   drops:
+#     # 119412
+
+# - name: "Inventor Blammo"
+#   location: {'543': [[47.6, 30.6]]}
+#   npcId: 86574
+#   questId: 37367
+#   type: kill
+#   drops:
+#     # 119226,119438
+
+# - name: "King Slime"
+#   location: {'543': [[52.2, 55.4]]}
+#   npcId: 78260
+#   questId: 37412
+#   type: kill
+#   drops:
+#     # 119351
+
+# - name: "Mandrakor"
+#   location: {'543': [[50.4, 53.0]]}
+#   npcId: 84406
+#   questId: 36178
+#   type: kill
+#   drops:
+#     # {118709,pet=1564,}
+
+# - name: "Maniacal Madgard"
+#   location: {'543': [[49.0, 33.8]]}
+#   npcId: 86562
+#   questId: 37363
+#   type: kill
+#   drops:
+#     # 119230
+
+# - name: "Mogamago"
+#   location: {'543': [[61.8, 39.3]]}
+#   npcId: 88586
+#   questId: 37376
+#   type: kill
+#   drops:
+#     # 119391
+
+# - name: "Morgo Kain"
+#   location: {'543': [[47.0, 25.8]]}
+#   npcId: 86582
+#   questId: 37364
+#   type: kill
+#   drops:
+#     # 119227
+
+# - name: "Mother Araneae"
+#   location: {'543': [[53.4, 78.2]]}
+#   npcId: 76473
+#   questId: 34726
+#   type: kill
+#   drops:
+#     # 118208
+
+# - name: "Nultra"
+#   location: {'543': [[69.2, 44.6]]}
+#   npcId: 86258
+#   type: kill
+
+# - name: "Poundfist"
+#   location: {'543': [[40.6, 25.8], [43.2, 55.5], [45.4, 47.5], [48.4, 56.8], [51.4, 43.1]]}
+#   npcId: 50985
+#   type: kill
+#   drops:
+#     # {116792,mount=655,}},
+
+# - name: "Riptar"
+#   location: {'543': [[37.6, 81.4]]}
+#   npcId: 85970
+#   questId: 36600
+#   type: kill
+#   drops:
+#     # 118231
+
+# - name: "Rolkor"
+#   location: {'543': [[47.8, 41.4]]}
+#   npcId: 85264
+#   questId: 36393
+#   type: kill
+#   drops:
+#     # 118211
+
+# - name: "Stompalupagus"
+#   location: {'543': [[54.2, 72.4]]}
+#   npcId: 86520
+#   questId: 36837
+#   type: kill
+#   drops:
+#     # 118228
+
+# - name: "Stomper Kreego"
+#   location: {'543': [[38.2, 66.2]]}
+#   npcId: 79629
+#   questId: 35910
+#   type: kill
+#   drops:
+#     # {118224,toy=true,}
+
+# - name: "Sulfurious"
+#   location: {'543': [[39.4, 60.4]]}
+#   npcId: 80725
+#   questId: 36394
+#   type: kill
+#   drops:
+#     # {114227,toy=true,}
+
+# - name: "Sunclaw"
+#   location: {'543': [[44.6, 92.2]]}
+#   npcId: 86137
+#   questId: 36656
+#   type: kill
+#   drops:
+#     # 118223
+
+# - name: "Swift Onyx Flayer"
+#   location: {'543': [[59.6, 31.8]]}
+#   npcId: 88582
+#   questId: 37374
+#   type: kill
+#   drops:
+#     # 119367
+
+# - name: "Sylldross"
+#   location: {'543': [[64.0, 61.8]]}
+#   npcId: 86410
+#   questId: 36794
+#   type: kill
+#   drops:
+#     # 118213
+
+# - name: "The Last Voidtalon"
+#   location: {'525': [[47.7, 27.5], [51.0, 19.9], [52.3, 18.3], [53.84, 17.21]], '535': [[39.7, 55.4], [46.2, 52.6], [47.0, 48.0], [51.9, 41.2]], '539': [[41.9, 75.7], [43.2, 71.0], [46.6, 70.0], [48.7, 69.9], [49.6, 71.6], [50.9, 72.5]], '542': [[36.5, 18.2], [47.0, 20.1], [50.4, 6.1], [60.8, 11.2]], '543': [[43.2, 34.2], [51.6, 38.8], [54.0, 45.0], [56.0, 40.0]], '550': [[40.5, 47.5], [45.9, 31.4], [57.3, 26.7]]}
+#   npcId: 90041
+#   questId: 37864
+#   type: kill
+#   drops:
+#     # {121815,mount=682,}
+
+# - name: "Typhon"
+#   location: {'543': [[75.4, 42.4]]}
+#   npcId: 80371
+#   questId: 37405
+#   type: kill
+
+# - name: "Valstil"
+#   location: {'543': [[69.4, 44.4]]}
+#   npcId: 86259
+#   type: kill
+
+# - name: "Venolasix"
+#   location: {'543': [[63.8, 31.6]]}
+#   npcId: 86266
+#   questId: 37372
+#   type: kill
+#   drops:
+#     # 119395
