@@ -27,13 +27,19 @@ namespace Wowthing.Backend.Converters
             arr.Add(dropsArray);
 
             var useMinimumLevel = farm.MinimumLevel > 0;
+            var useStatisticId = farm.StatisticId > 0;
             var useRequiredQuestIds = farm.RequiredQuestIds.Count > 0;
             var useNote = !string.IsNullOrEmpty(farm.Note);
             var useFaction = !string.IsNullOrEmpty(farm.Faction);
 
-            if (useFaction || useNote || useRequiredQuestIds || useMinimumLevel)
+            if (useFaction || useNote || useRequiredQuestIds || useStatisticId || useMinimumLevel)
             {
                 arr.Add(farm.MinimumLevel ?? 0);
+            }
+
+            if (useFaction || useNote || useRequiredQuestIds || useStatisticId)
+            {
+                arr.Add(farm.StatisticId ?? 0);
             }
 
             if (useFaction || useNote || useRequiredQuestIds)
