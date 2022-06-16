@@ -128,10 +128,7 @@ namespace Wowthing.Backend.Jobs.Character
             var updated = await Context.SaveChangesAsync();
             if (updated > 0)
             {
-                if (updated > 0)
-                {
-                    await CacheService.SetLastModified(RedisKeys.UserLastModifiedAchievements, query.UserId);
-                }
+                await CacheService.SetLastModified(RedisKeys.UserLastModifiedAchievements, query.UserId);
             }
             
             timer.AddPoint("Update", true);

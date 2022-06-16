@@ -110,6 +110,7 @@ namespace Wowthing.Backend.Jobs.Character
             if (apiCharacter.AchievementsLink?.Href != null)
             {
                 jobs.Add(JobType.CharacterAchievements);
+                jobs.Add(JobType.CharacterStatistics);
             }
 
             if (apiCharacter.CollectionsLink?.Href != null)

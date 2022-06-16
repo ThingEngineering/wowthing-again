@@ -106,6 +106,12 @@ public class UserAchievementController : Controller
 
         timer.AddPoint("Criteria2b");
 
+        var statistics = await _context.StatisticsQuery
+            .FromSqlRaw(StatisticsQuery.UserQuery, apiResult.User.Id)
+            .ToArrayAsync();
+        
+        timer.AddPoint("Statistics");
+
         var addonAchievements = await _context.PlayerCharacterAddonAchievements
             .Where(pcaa => pcaa.Character.Account.UserId == apiResult.User.Id)
             .ToDictionaryAsync(
@@ -121,6 +127,8 @@ public class UserAchievementController : Controller
             Achievements = achievementsCompleted,
             AddonAchievements = addonAchievements,
             Criteria = groupedCriteria,
+            Statistics = statistics
+                .ToGroupedDictionary(stat => stat.StatisticId),
         };
 
         var json = JsonConvert.SerializeObject(data);
