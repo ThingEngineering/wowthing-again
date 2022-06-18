@@ -50,7 +50,7 @@
                         <td class="name">Unknown quest</td>
                     {/if}
                     <td class="remaining">
-                        <code>{toNiceDuration(resets[callingIndex].diff($timeStore).toMillis())}</code>
+                        <code>{@html toNiceDuration(resets[callingIndex].diff($timeStore).toMillis())}</code>
                     </td>
                 </tr>
                 <tr>

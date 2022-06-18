@@ -4,13 +4,16 @@
     import sortBy from 'lodash/sortBy'
 
     import { dropTypeIcon } from '@/data/farm'
+    import { iconStrings, imageStrings } from '@/data/icons'
     import { weaponSubclassToString } from '@/data/weapons'
     import { userAchievementStore, userStore } from '@/stores'
-    import { ArmorType, FarmDropType, FarmResetType } from '@/types/enums'
+    import { ArmorType, FarmDropType, FarmResetType, FarmType } from '@/types/enums'
     import type { DropStatus, FarmStatus } from '@/types'
     import type { ZoneMapDataDrop, ZoneMapDataFarm } from '@/types/data'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import ParsedText from '@/components/common/ParsedText.svelte'
+    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let farm: ZoneMapDataFarm
     export let status: FarmStatus
@@ -32,6 +35,10 @@
     }
 
     const showCharacters = (dropStatus: DropStatus, nextDrop: [ZoneMapDataDrop, DropStatus]): boolean => {
+        if (farm.type === FarmType.Vendor) {
+            return false
+        }
+
         if (nextDrop) {
             // If they both have no valid characters, bail early
             if (!dropStatus.validCharacters && !nextDrop[1].validCharacters) {
@@ -63,17 +70,30 @@
 </script>
 
 <style lang="scss">
+    h4 {
+        :global(img) {
+            margin-top: -4px;
+        }
+        :global(svg) {
+            color: #ffff00;
+            margin: -4px -4px 0 -4px;
+        }
+    }
     .statistic {
         background: #232;
     }
     .note {
-        color: #00ccff;
+        color: #00ddff;
         font-size: 0.95rem;
     }
     p.note {
         border-bottom: 1px solid $border-color;
         margin: 0;
         padding: 0.1rem 0.5rem 0.2rem 0.5rem;
+    }
+    td.note {
+        padding-left: 0;
+        text-align: left;
     }
     .type {
         width: 1.6rem;
@@ -114,9 +134,25 @@
 </style>
 
 <div class="wowthing-tooltip">
-    <h4>{farm.name}</h4>
+    <h4>
+        {#if farm.faction}
+            <WowthingImage
+                name={farm.faction === 'alliance' ? imageStrings.alliance : imageStrings.horde}
+                border={1}
+                size={20}
+            />
+        {/if}
 
-    {#if farm.reset !== FarmResetType.None && farm.reset !== FarmResetType.Never}
+        {#if farm.type === FarmType.Quest}
+            <IconifyIcon
+                icon={iconStrings.exclamation}
+            />
+        {/if}
+
+        {farm.name}
+    </h4>
+
+    {#if farm.type !== FarmType.Vendor && farm.reset !== FarmResetType.None && farm.reset !== FarmResetType.Never}
         <h5>{FarmResetType[farm.reset].toLowerCase()} reset</h5>
     {/if}
 
@@ -194,13 +230,15 @@
 
                     {#if drop.note}
                         <tr>
-                            <td></td>
-                            <td class="characters note" colspan="2">
+                            <!--<td>
                                 <IconifyIcon
-                                        icon={mdiMessageBulleted}
-                                        scale="0.9"
+                                    icon={mdiMessageBulleted}
+                                    scale="0.9"
                                 />
-                                {drop.note}
+                            </td>-->
+                            <td></td>
+                            <td class="note" colspan="2">
+                                <ParsedText text={drop.note} />
                             </td>
                         </tr>
                     {/if}

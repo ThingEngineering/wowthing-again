@@ -1,463 +1,283 @@
 name: "Nagrand"
 mapName: "z5_nagrand"
+minimumLevel: 35
 farms:
 
-# - name: "Aogexon"
-#   location: {'550': [[51.0, 16.0]]}
-#   npcId: 86774
-#   questId: 37210
-#   type: kill
-#   drops:
-#     # 118654
+- name: "Bonebreaker"
+  location: 40.0 16.0
+  npcId: 87837
+  questId: 37396
+  type: kill
+  drops:
+    - type: transmog
+      id: 119370 # Rattlekilt [mail]
 
-# - name: "Aogexon"
-#   location: {'550': [[50.2, 41.2]]}
-#   npcId: 87647
-#   type: kill
+- name: "Brutag Grimblade"
+  location: 43.0 36.4
+  npcId: 87234
+  questId: 37400
+  type: kill
+  drops:
+    - type: transmog
+      id: 119380 # Brutag's Iron Toe Boots [plate]
 
-# - name: "Bergruu"
-#   location: {'550': [[62.6, 16.8]]}
-#   npcId: 86732
-#   questId: 37211
-#   type: kill
-#   drops:
-#     # 118655
+- name: "Captain Ironbeard"
+  location: 34.4 77.0
+  npcId: 79725
+  questId: 34727
+  type: kill
+  drops:
+    - type: toy
+      id: 118244 # Iron Buccaneer's Hat
 
-# - name: "Bergruu"
-#   location: {'550': [[50.2, 41.2]]}
-#   npcId: 87661
-#   type: kill
+- name: "Durg Spinecrusher"
+  location: 38.6 22.4
+  npcId: 87788
+  questId: 37395
+  type: kill
+  drops:
+    - type: transmog
+      id: 119405 # Durg's Heavy Maul [2h agi mace]
 
-# - name: "Berserk T-300 Series Mark II"
-#   location: {'550': [[77.0, 64.0]]}
-#   npcId: 82826
-#   questId: 35735
-#   type: kill
-#   drops:
-#     # 116823
+- name: "Flinthide"
+  location: 69.6 41.4
+  npcId: 83483
+  questId: 35893
+  type: kill
+  drops:
+    - type: transmog
+      id: 116807 # Flinthide's Impenetrable Crest [shield]
 
-# - name: "Bonebreaker"
-#   location: {'550': [[40.0, 16.0]]}
-#   npcId: 87837
-#   questId: 37396
-#   type: kill
-#   drops:
-#     # 119370
+- name: "Gorepetal"
+  location: 93.2 28.2
+  npcId: 83509
+  questId: 35898
+  type: kill
+  drops:
+    - type: transmog
+      id: 116916 # Gorepetal's Gentle Grasp [leather]
 
-# - name: "Brutag Grimblade"
-#   location: {'550': [[43.0, 36.4]]}
-#   npcId: 87234
-#   questId: 37400
-#   type: kill
-#   drops:
-#     # 119380
+- name: "Graveltooth"
+  location: 84.6 36.6
+  npcId: 84263
+  questId: 36159
+  type: kill
+  drops:
+    - type: transmog
+      id: 118689 # Graveltooth's Manacles [leather]
 
-# - name: "Captain Ironbeard"
-#   location: {'550': [[34.4, 77.0]]}
-#   npcId: 79725
-#   questId: 34727
-#   type: kill
-#   drops:
-#     # {118244,toy=true,
+- name: "Greatfeather"
+  location: 66.8 51.2
+  npcId: 82758
+  questId: 35714
+  type: kill
+  drops:
+    - type: transmog
+      id: 116795 # Greatfeather's Down Robe [cloth]
 
-# - name: "Dekorhan"
-#   location: {'550': [[50.2, 41.2]]}
-#   npcId: 86743
-#   questId: 37221
-#   type: kill
-#   drops:
-#     # 118656
+- name: "Grizzlemaw"
+  location: 89.4 72.4
+  npcId: 82912
+  questId: 35784
+  type: kill
+  drops:
+    - type: transmog
+      id: 118687 # Grizzled Wolfskin Cloak [cloak]
 
-# - name: "Dekorhan"
-#   location: {'550': [[50.2, 41.2]]}
-#   npcId: 87660
-#   type: kill
+- name: "Guk"
+  location: 23.8 37.9
+  npcId: 98200
+  questId: 40074
+  type: kill
+  drops:
+    - type: pet
+      id: 98238 # Empyreal Manafiend
 
-# - name: "Direhoof"
-#   location: {'550': [[60.0, 38.0]]}
-#   npcId: 86729
-#   questId: 37222
-#   type: kill
-#   drops:
-#     # 118657
+- name: "Hunter Blacktooth"
+  location: 80.6 30.4
+  npcId: 83603
+  questId: 35923
+  type: kill
+  drops:
+    - type: transmog
+      id: 118245 # Hunter Blacktooth's Ribcruncher [2h agi mace]
 
-# - name: "Direhoof"
-#   location: {'550': [[50.2, 41.2]]}
-#   npcId: 87650
-#   type: kill
+- name: "Karosh Blackwind"
+  location: 45.8 34.8
+  npcId: 86959
+  questId: 37399
+  type: kill
+  drops:
+    - type: transmog
+      id: 119355 # Leggings of Howling Winds [cloth]
 
-# - name: "Durg Spinecrusher"
-#   location: {'550': [[38.6, 22.4]]}
-#   npcId: 87788
-#   questId: 37395
-#   type: kill
-#   drops:
-#     # 119405
+- name: "Krud the Eviscerator"
+  location: 58.2 12.0
+  npcId: 88210
+  questId: 37398
+  type: kill
+  drops:
+    - type: transmog
+      id: 119384 # Krud's Girthy Girdle [plate]
 
-# - name: "Explorer Nozzand"
-#   location: {'550': [[89.0, 41.2]]}
-#   npcId: 82486
-#   questId: 35623
-#   type: kill
-#   drops:
-#     # 118679
+- name: "Luk'hok"
+  location: 67.2 43.6
+  note: "Spawns in various places"
+  npcId: 50981
+  type: kill
+  drops:
+    - type: mount
+      id: 171622 # Mottled Meadowstomper
 
-# - name: "Fangler"
-#   location: {'550': [[74.8, 11.8]]}
-#   npcId: 82975
-#   questId: 35836
-#   type: kill
-#   drops:
-#     # 116836
+- name: "Malroc Stonesunder"
+  location: 80.4 60.4
+  npcId: 83643
+  questId: 35932
+  type: kill
+  drops:
+    - type: transmog
+      id: 116796 # Malroc's Staff of Command [agi staff]
 
-# - name: "Flinthide"
-#   location: {'550': [[69.6, 41.4]]}
-#   npcId: 83483
-#   questId: 35893
-#   type: kill
-#   drops:
-#     # 116807
+- name: "Nakk the Thunderer"
+  location: 55.2 35.8
+  note: "Spawns in various places"
+  npcId: 50990
+  type: kill
+  drops:
+    - type: mount
+      id: 171620 # Bloodhoof Bull
 
-# - name: "Gagrog the Brutal"
-#   location: {'550': [[48.2, 22.2]]}
-#   npcId: 86771
-#   questId: 37223
-#   type: kill
-#   drops:
-#     # 118658
+- name: "Netherspawn"
+  location: 47.4 70.2
+  npcId: 83401
+  questId: 35865
+  type: kill
+  drops:
+    - type: pet
+      id: 86081 # Netherspawn, Spawn of Netherspawn
 
-# - name: "Gagrog the Brutal"
-#   location: {'550': [[50.2, 41.2]]}
-#   npcId: 87659
-#   type: kill
+- name: "Ophiis"
+  location: 42.8 49.2
+  npcId: 83409
+  questId: 35875
+  type: kill
+  drops:
+    - type: transmog
+      id: 116765 # Positive Pantaloons [cloth]
 
-# - name: "Gar'lua"
-#   location: {'550': [[52.2, 55.8]]}
-#   npcId: 82764
-#   questId: 35715
-#   type: kill
-#   drops:
-#     # 118246
+- name: "Outrider Duretha"
+  location: 61.8 69.0
+  npcId: 83680
+  questId: 35943
+  type: kill
+  drops:
+    - type: transmog
+      id: 116800 # Duretha's Trail Boots [leather]
 
-# - name: "Gaz'orda"
-#   location: {'550': [[43.4, 77.6]]}
-#   npcId: 80122
-#   questId: 34725
-#   type: kill
-#   drops:
-#     # 116798
+- name: "Pit Beast"
+  location: 58.2 18.0
+  npcId: 88208
+  questId: 37637
+  type: kill
+  drops:
+    - type: transmog
+      id: 120317 # Pristine Hide of the Pit Beast [cloak]
 
-# - name: "Gnarlhoof the Rabid"
-#   location: {'550': [[66.6, 56.2]]}
-#   npcId: 82778
-#   questId: 35717
-#   type: kill
-#   drops:
-#     # 116824
+- name: "Pugg"
+  location: 28.5 30.3
+  npcId: 98199
+  questId: 40073
+  type: kill
+  drops:
+    - type: pet
+      id: 98237 # Empowered Manafiend
 
-# - name: "Gorepetal"
-#   location: {'550': [[93.2, 28.2]]}
-#   npcId: 83509
-#   questId: 35898
-#   type: kill
-#   drops:
-#     # 116916
+- name: "Redclaw the Feral"
+  location: 73.6 57.8
+  npcId: 82755
+  questId: 35712
+  type: kill
+  drops:
+    - type: transmog
+      id: 118243 # Redclaw's Gutripper [int fist]
 
-# - name: "Gortag Steelgrip"
-#   location: {'550': [[42.2, 36.6]]}
-#   npcId: 87344
-#   questId: 37472
-#   type: kill
+- name: "Ru'klaa"
+  location: 58.0 84.0
+  npcId: 83526
+  questId: 35900
+  type: kill
+  drops:
+    - type: transmog
+      id: 118688 # Carapace Shell Shoulders [plate]
 
-# - name: "Graveltooth"
-#   location: {'550': [[84.6, 36.6]]}
-#   npcId: 84263
-#   questId: 36159
-#   type: kill
-#   drops:
-#     # 118689
+- name: "Rukdug"
+  location: 26.2 34.2
+  npcId: 98198
+  questId: 40075
+  type: kill
+  drops:
+    - type: pet
+      id: 98236 # Energized Manafiend
 
-# - name: "Greatfeather"
-#   location: {'550': [[66.8, 51.2]]}
-#   npcId: 82758
-#   questId: 35714
-#   type: kill
-#   drops:
-#     # 116795
+- name: "Scout Pokhar"
+  location: 54.8 61.2
+  npcId: 83634
+  questId: 35931
+  type: kill
+  drops:
+    - type: transmog
+      id: 116797 # Pokhar's Eighth Axe [1h str axe]
 
-# - name: "Grizzlemaw"
-#   location: {'550': [[89.4, 72.4]]}
-#   npcId: 82912
-#   questId: 35784
-#   type: kill
-#   drops:
-#     # 118687
+- name: "Sean Whitesea"
+  location: 61.8 47.2
+  npcId: 83542
+  questId: 35912
+  type: kill
+  drops:
+    - type: transmog
+      id: 116834 # Whitesea's Waistwrap [leather]
 
-# - name: "Guk"
-#   location: {'550': [[23.8, 37.9]]}
-#   npcId: 98200
-#   questId: 40074
-#   type: kill
-#   drops:
-#     # {129218,pet=1765,}
+- name: "Soulfang"
+  location: 75.6 65.0
+  npcId: 80057
+  questId: 36128
+  type: kill
+  drops:
+    - type: transmog
+      id: 116806 # Soul Fang [1h int sword]
 
-# - name: "Hunter Blacktooth"
-#   location: {'550': [[80.6, 30.4]]}
-#   npcId: 83603
-#   questId: 35923
-#   type: kill
-#   drops:
-#     # 118245
+- name: "Tura'aka"
+  location: 64.6 39.4
+  npcId: 83591
+  questId: 35920
+  type: kill
+  drops:
+    - type: transmog
+      id: 116814 # Tura'aka's Clipped Wing [cloak]
 
-# - name: "Hyperious"
-#   location: {'550': [[87.0, 54.8]]}
-#   npcId: 78161
-#   questId: 34862
-#   type: kill
-#   drops:
-#     # 116799
+- name: "Warleader Tome"
+  location: 82.0 60.4
+  note: "Spawns here but patrols all over"
+  npcId: 81330
+  type: kill
+  drops:
+    - type: toy
+      id: 120276 # Outrider's Bridle Chain
 
-# - name: "Karosh Blackwind"
-#   location: {'550': [[45.8, 34.8]]}
-#   npcId: 86959
-#   questId: 37399
-#   type: kill
-#   drops:
-#     # 119355
+- name: "Warmaster Blugthol"
+  location: 82.6 76.2
+  npcId: 79024
+  questId: 34645
+  type: kill
+  drops:
+    - type: transmog
+      id: 116805 # Blug'thol's Bloody Bracers [plate]
 
-# - name: "Krahl Deadeye"
-#   location: {'550': [[42.4, 36.4]]}
-#   npcId: 87239
-#   questId: 37473
-#   type: kill
-
-# - name: "Krud the Eviscerator"
-#   location: {'550': [[58.2, 12.0]]}
-#   npcId: 88210
-#   questId: 37398
-#   type: kill
-#   drops:
-#     # 119384
-
-# - name: "Lernaea"
-#   location: {'550': [[52.2, 89.8]]}
-#   npcId: 80370
-#   questId: 37408
-#   type: kill
-
-# - name: "Luk'hok"
-#   location: {'550': [[65.6, 41.8], [71.0, 56.6], [76.0, 30.0], [77.4, 40.6], [79.2, 56.8], [83.8, 64.8]]}
-#   npcId: 50981
-#   type: kill
-#   drops:
-#     # {116661,mount=614,}
-
-# - name: "Malroc Stonesunder"
-#   location: {'550': [[81.2, 60.0]]}
-#   npcId: 83643
-#   questId: 35932
-#   type: kill
-#   drops:
-#     # 116796
-
-# - name: "Mr. Pinchy Sr."
-#   location: {'550': [[45.8, 15.2]]}
-#   npcId: 84435
-#   questId: 36229
-#   type: kill
-#   drops:
-#     # 118690
-
-# - name: "Mu'gra"
-#   location: {'550': [[34.0, 51.0]]}
-#   npcId: 87666
-#   questId: 37224
-#   type: kill
-#   drops:
-#     # 118659
-
-# - name: "Mu'gra"
-#   location: {'550': [[50.2, 41.2]]}
-#   npcId: 87667
-#   type: kill
-
-# - name: "Nakk the Thunderer"
-#   location: {'550': [[48.8, 34.2], [54.4, 35.4], [60.2, 32.8], [62.2, 15.0], [64.4, 20.4]]}
-#   npcId: 50990
-#   type: kill
-#   drops:
-#     # {116659,mount=612,}
-
-# - name: "Netherspawn"
-#   location: {'550': [[47.4, 70.2]]}
-#   npcId: 83401
-#   questId: 35865
-#   type: kill
-#   drops:
-#     # {116815,pet=1524,}
-
-# - name: "Ophiis"
-#   location: {'550': [[42.8, 49.2]]}
-#   npcId: 83409
-#   questId: 35875
-#   type: kill
-#   drops:
-#     # 116765
-
-# - name: "Outrider Duretha"
-#   location: {'550': [[61.8, 69.0]]}
-#   npcId: 83680
-#   questId: 35943
-#   type: kill
-#   drops:
-#     # 116800
-
-# - name: "Pit Beast"
-#   location: {'550': [[58.2, 18.0]]}
-#   npcId: 88208
-#   questId: 37637
-#   type: kill
-#   drops:
-#     # 120317
-
-# - name: "Pit Slayer"
-#   location: {'550': [[38.0, 19.6]]}
-#   npcId: 87846
-#   questId: 37397
-#   type: kill
-#   drops:
-#     # 119389
-
-# - name: "Pugg"
-#   location: {'550': [[28.5, 30.3]]}
-#   npcId: 98199
-#   questId: 40073
-#   type: kill
-#   drops:
-#     # {129217,pet=1766,}
-
-# - name: "Redclaw the Feral"
-#   location: {'550': [[73.6, 57.8]]}
-#   npcId: 82755
-#   questId: 35712
-#   type: kill
-#   drops:
-#     # 118243
-
-# - name: "Ru'klaa"
-#   location: {'550': [[58.0, 84.0]]}
-#   npcId: 83526
-#   questId: 35900
-#   type: kill
-#   drops:
-#     # 118688
-
-# - name: "Rukdug"
-#   location: {'550': [[26.2, 34.2]]}
-#   npcId: 98198
-#   questId: 40075
-#   type: kill
-#   drops:
-#     # {129216,pet=1764,}
-
-# - name: "Scout Pokhar"
-#   location: {'550': [[54.8, 61.2]]}
-#   npcId: 83634
-#   questId: 35931
-#   type: kill
-#   drops:
-#     # 116797
-
-# - name: "Sean Whitesea"
-#   location: {'550': [[61.8, 47.2]]}
-#   npcId: 83542
-#   questId: 35912
-#   type: kill
-#   drops:
-#     # 116834
-
-# - name: "Soulfang"
-#   location: {'550': [[75.6, 65.0]]}
-#   npcId: 80057
-#   questId: 36128
-#   type: kill
-#   drops:
-#     # 116806
-
-# - name: "The Last Voidtalon"
-#   location: {'525': [[47.7, 27.5], [51.0, 19.9], [52.3, 18.3], [53.84, 17.21]], '535': [[39.7, 55.4], [46.2, 52.6], [47.0, 48.0], [51.9, 41.2]], '539': [[41.9, 75.7], [43.2, 71.0], [46.6, 70.0], [48.7, 69.9], [49.6, 71.6], [50.9, 72.5]], '542': [[36.5, 18.2], [47.0, 20.1], [50.4, 6.1], [60.8, 11.2]], '543': [[43.2, 34.2], [51.6, 38.8], [54.0, 45.0], [56.0, 40.0]], '550': [[40.5, 47.5], [45.9, 31.4], [57.3, 26.7]]}
-#   npcId: 90041
-#   questId: 37864
-#   type: kill
-#   drops:
-#     # {121815,mount=682,}
-
-# - name: "Thek'talon"
-#   location: {'550': [[49.2, 39.8], [53.0, 34.2], [60.4, 28.4]]}
-#   npcId: 86750
-#   questId: 37225
-#   type: kill
-#   drops:
-#     # 118660
-
-# - name: "Thek'talon"
-#   location: {'550': [[50.2, 41.2]]}
-#   npcId: 87655
-#   type: kill
-
-# - name: "Tura'aka"
-#   location: {'550': [[64.6, 39.4]]}
-#   npcId: 83591
-#   questId: 35920
-#   type: kill
-#   drops:
-#     # 116814
-
-# - name: "Vileclaw"
-#   location: {'550': [[50.2, 41.2]]}
-#   npcId: 87653
-#   type: kill
-
-# - name: "Vileclaw"
-#   location: {'550': [[37.0, 38.0]]}
-#   npcId: 88951
-#   questId: 37520
-#   type: kill
-#   drops:
-#     # 120172
-
-# - name: "Warleader Tome"
-#   location: {'550': [[81.4, 60.4]]}
-#   npcId: 81330
-#   type: kill
-#   drops:
-#     # {120276,toy=true,}
-
-# - name: "Warmaster Blugthol"
-#   location: {'550': [[82.6, 76.2]]}
-#   npcId: 79024
-#   questId: 34645
-#   type: kill
-#   drops:
-#     # 116805
-
-# - name: "Windcaller Korast"
-#   location: {'550': [[70.6, 29.4]]}
-#   npcId: 83428
-#   questId: 35877
-#   type: kill
-#   drops:
-#     # 116808
-
-# - name: "Xelganak"
-#   location: {'550': [[41.0, 44.0]]}
-#   npcId: 86835
-#   questId: 37226
-#   type: kill
-#   drops:
-#     # 118661
-
-# - name: "Xelganak"
-#   location: {'550': [[50.2, 41.2]]}
-#   npcId: 87641
-#   type: kill
+- name: "Windcaller Korast"
+  location: 70.6 29.4
+  npcId: 83428
+  questId: 35877
+  type: kill
+  drops:
+    - type: transmog
+      id: 116808 # Whirlwind's Harvest [int staff]

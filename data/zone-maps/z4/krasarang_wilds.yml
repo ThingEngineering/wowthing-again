@@ -17,3 +17,52 @@ farms:
 
   - type: mount
     id: 138425 # Slate Primordial Direhorn
+
+# Quest
+
+- name: "Buried Hozen Treasure"
+  location: 47.1 89.1
+  note: "Starts from Confusing Treasure Map, dropped by Hozen on this island"
+  questId: 30675
+  reset: none
+  type: quest
+  drops:
+    - type: toy
+      id: 80822 # The Golden Banana
+
+- name: "Raid Leader Slovan"
+  location: 29.6 39.0
+  questId: 30169
+  reset: none
+  type: quest
+  drops:
+    - type: toy
+      id: 88387 # Shushen's Spittoon
+
+- name: "Zhu's Despair"
+  location: 72.6 7.0
+  questId: 30090
+  reset: none
+  type: quest
+  drops:
+    - type: toy
+      id: 88580 # Ken-Ken's Mask
+
+# Vendor
+
+- name: "Nat Pagle"
+  location: 68.4 43.4
+  npcId: 63721
+  type: vendor
+  drops:
+    - type: mount
+      id: 118089 # Azure Water Strider
+      note: "{price:1000} at Exalted with The Anglers"
+
+    - type: toy
+      id: 85500 # Anglers Fishing Raft
+      note: "{price:1000} at Revered with The Anglers"
+
+    - type: transmog
+      id: 89401 # Anglers Tabard
+      note: "{price:10} at Exalted with The Anglers"

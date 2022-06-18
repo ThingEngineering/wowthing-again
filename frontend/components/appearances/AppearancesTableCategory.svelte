@@ -9,7 +9,7 @@
 
     import ClassIcon from '@/components/images/ClassIcon.svelte'
     import CovenantIcon from '@/components/images/CovenantIcon.svelte'
-    import IconText from '@/components/common/IconText.svelte'
+    import ParsedText from '@/components/common/ParsedText.svelte'
     import TableSet from './AppearancesTableSet.svelte'
 
     export let category: TransmogDataCategory
@@ -201,7 +201,7 @@
         {#if setShow}
         <tr class:faded={setName.endsWith('*')}>
             <td class="name">
-                &ndash <IconText text={setName.replace('*', '')} />
+                &ndash; <ParsedText text={setName.replace('*', '')} />
                 <span class="drop-shadow percent {getPercentClass(getPercent(groupIndex, setIndex))}">
                      {Math.floor(getPercent(groupIndex, setIndex)).toFixed(0)} %
                 </span>

@@ -12,6 +12,8 @@ export enum FarmType
     Plate,
     Weapon,
     Vendor,
+    Group,
+    Quest,
 }
 
 export enum FarmDropType {
@@ -30,6 +32,7 @@ export enum FarmIdType
 {
     Npc = 1,
     Object,
+    Quest,
 }
 
 export enum FarmResetType

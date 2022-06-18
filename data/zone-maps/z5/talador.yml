@@ -1,371 +1,312 @@
 name: "Talador"
 mapName: "z5_talador"
+minimumLevel: 20
 farms:
 
-# - name: "Aarko"
-#   location: {'535': [[36.4, 96.0]]}
-#   npcId: 77664
-#   questId: 34182
-#   type: kill
+- name: "Avatar of Socrethar"
+  location: 46.6 35.2
+  npcId: 88043
+  questId: 37338
+  type: kill
+  drops:
+    - type: transmog
+      id: 119378 # Socrethar's Stone [off-hand]
 
-# - name: "Archmagus Tekar"
-#   location: {'535': [[43.6, 26.6], [45.0, 32.6]]}
-#   npcId: 88072
-#   questId: 37337
-#   type: kill
+- name: "Bombardier Gu'gok"
+  location: 43.0 38.2
+  npcId: 87597
+  questId: 37339
+  type: kill
+  drops:
+    - type: transmog
+      id: 119413 # Gu'gok's Rangefinder [crossbow]
 
-# - name: "Avatar of Socrethar"
-#   location: {'535': [[46.6, 35.2]]}
-#   npcId: 88043
-#   questId: 37338
-#   type: kill
-#   drops:
-#     # 119378
+- name: "Cro Fleshrender"
+  location: 37.6 70.4
+  npcId: 77620
+  questId: 34165
+  type: kill
+  drops:
+    - type: transmog
+      id: 116123 # Fleshrender's Painbringer [1h str mace]
 
-# - name: "Bombardier Gu'gok"
-#   location: {'535': [[43.0, 38.2], [46.2, 43.4]]}
-#   npcId: 87597
-#   questId: 37339
-#   type: kill
-#   drops:
-#     # 119413
+- name: "Echo of Murmur"
+  location: 34.0 57.2
+  npcId: 77828
+  questId: 34220
+  type: kill
+  drops:
+    - type: toy
+      id: 113670 # Mournful Moan of Murmur
 
-# - name: "Cro Fleshrender"
-#   location: {'535': [[37.6, 70.4]]}
-#   npcId: 77620
-#   questId: 34165
-#   type: kill
-#   drops:
-#     # 116123
+- name: "Felbark"
+  location: 50.8 83.8
+  npcId: 80204
+  questId: 35018
+  type: kill
+  drops:
+    - type: transmog
+      id: 112373 # Felbark's Shin [shield]
 
-# - name: "Dr. Gloom"
-#   location: {'535': [[68.2, 15.8]]}
-#   npcId: 77561
-#   questId: 34142
-#   type: kill
-#   drops:
-#     # 112499
+- name: "Frenzied Golem"
+  location: 46.0 55.0
+  npcId: 77614
+  questId: 34145
+  type: kill
+  drops:
+    - type: transmog
+      id: 113288 # Shard of Contempt [int dagger]
+    
+    - type: transmog
+      id: 113287 # Shard of Scorn [1h agi/str sword]
 
-# - name: "Echo of Murmur"
-#   location: {'535': [[34.0, 57.2]]}
-#   npcId: 77828
-#   questId: 34220
-#   type: kill
-#   drops:
-#     # {113670,toy=true,}
+- name: "Galzomar"
+  location: 56.2 65.4
+  npcId: 78713
+  questId: 34483
+  type: kill
+  drops:
+    - type: toy
+      id: 116122 # Burning Legion Missive
 
-# - name: "Felbark"
-#   location: {'535': [[50.8, 83.8]]}
-#   npcId: 80204
-#   questId: 35018
-#   type: kill
-#   drops:
-#     # 112373
+- name: "Glimmerwing"
+  location: 30.4 64.2
+  npcId: 77719
+  questId: 34189
+  type: kill
+  drops:
+    - type: toy
+      id: 116113 # Breath of Talador
 
-# - name: "Felfire Consort"
-#   location: {'535': [[50.2, 35.2]]}
-#   npcId: 82992
-#   questId: 37341
-#   type: kill
-#   drops:
-#     # 119386
+- name: "Grrbrrgle"
+  location: 22.2 74.0
+  npcId: 85572
+  questId: 36919
+  type: kill
+  drops:
+    - type: transmog
+      id: 120436 # Mrglgirdle [leather]
 
-# - name: "Frenzied Golem"
-#   location: {'535': [[46.0, 55.0]]}
-#   npcId: 77614
-#   questId: 34145
-#   type: kill
-#   drops:
-#     # 113288,113287
+- name: "Gug'tol"
+  location: 47.6 39.0
+  npcId: 83019
+  questId: 37340
+  type: kill
+  drops:
+    - type: transmog
+      id: 119402 # Gug'tol's Imp Imperator [1h int sword]
 
-# - name: "Fungal Praetorian"
-#   location: {'535': [[58.0, 63.6]]}
-#   npcId: 80785
-#   questId: 35813
-#   type: kill
-#   drops:
-#     # {113453,quest=35813,},{113454,quest=35814,}
+- name: "Haakun the All-Consuming"
+  location: 48.0 25.0
+  npcId: 83008
+  questId: 37312
+  type: kill
+  drops:
+    - type: transmog
+      id: 119403 # Sargerei Soulbiter [1h str sword]
 
-# - name: "Galzomar"
-#   location: {'535': [[56.2, 65.4]]}
-#   npcId: 78713
-#   questId: 34483
-#   type: kill
-#   drops:
-#     # {116122,toy=true,}
+- name: "Hammertooth"
+  location: 61.0 46.0
+  npcId: 77715
+  questId: 34185
+  type: kill
+  drops:
+    - type: transmog
+      id: 116124 # Scaled Riverbeast Vest [mail]
 
-# - name: "Gennadian"
-#   location: {'535': [[67.2, 80.2]]}
-#   npcId: 80471
-#   questId: 34929
-#   type: kill
-#   drops:
-#     # 116075
+- name: "Hen-Mother Hami"
+  location: 75.4 50.8
+  npcId: 77626
+  questId: 34167
+  type: kill
+  drops:
+    - type: transmog
+      id: 112369 # Hami-Down Cloak [cloak]
 
-# - name: "Glimmerwing"
-#   location: {'535': [[30.4, 64.2]]}
-#   npcId: 77719
-#   questId: 34189
-#   type: kill
-#   drops:
-#     # {116113,toy=true,}
+- name: "Kharazos the Triumphant"
+  location: 56.2 65.4
+  npcId: 78710
+  questId: 35220
+  type: kill
+  drops:
+    - type: toy
+      id: 116122 # Burning Legion Missive
 
-# - name: "Grrbrrgle"
-#   location: {'535': [[22.2, 74.0]]}
-#   npcId: 85572
-#   questId: 36919
-#   type: kill
-#   drops:
-#     # 120436
+- name: "Klikixx"
+  location: 66.8 85.4
+  npcId: 78872
+  questId: 34498
+  type: kill
+  drops:
+    - type: toy
+      id: 116125 # Klikixx's Webspinner
 
-# - name: "Gug'tol"
-#   location: {'535': [[47.6, 39.0]]}
-#   npcId: 83019
-#   questId: 37340
-#   type: kill
-#   drops:
-#     # 119402
+- name: "Kurlosh Doomfang"
+  location: 37.4 37.4
+  npcId: 82988
+  questId: 37348
+  type: kill
+  drops:
+    - type: transmog
+      id: 119394 # Kuriosh's Kindeyslicer [1h agi dagger]
 
-# - name: "Haakun the All-Consuming"
-#   location: {'535': [[48.0, 25.0]]}
-#   npcId: 83008
-#   questId: 37312
-#   type: kill
-#   drops:
-#     # 119403
+- name: "Lady Demlash"
+  location: 33.4 38.2
+  npcId: 82942
+  questId: 37346
+  type: kill
+  drops:
+    - type: transmog
+      id: 119352 # Demlash's Dashing Robe [cloth]
 
-# - name: "Hammertooth"
-#   location: {'535': [[61.0, 46.0]]}
-#   npcId: 77715
-#   questId: 34185
-#   type: kill
-#   drops:
-#     # 116124
+- name: "Legion Vanguard"
+  location: 37.8 20.6
+  npcId: 88494
+  questId: 37342
+  type: kill
+  drops:
+    - type: transmog
+      id: 119385 # Vanguard's Linebreaking Bracer [plate]
 
-# - name: "Hen-Mother Hami"
-#   location: {'535': [[75.4, 50.8]]}
-#   npcId: 77626
-#   questId: 34167
-#   type: kill
-#   drops:
-#     # 112369
+- name: "Matron of Sin"
+  location: 39.0 49.6
+  npcId: 82998
+  questId: 37349
+  type: kill
+  drops:
+    - type: transmog
+      id: 119353 # Matron's Supple Gloves [cloth]
 
-# - name: "Kaavu the Crimson Claw"
-#   location: {'535': [[77.8, 56.6]]}
-#   npcId: 77750
-#   questId: 34199
-#   type: kill
+- name: "O'mogg Blackheart"
+  location: 56.6 63.6
+  npcId: 76876
+  questId: 35219
+  type: kill
+  drops:
+    # {116122,toy=true,}
 
-# - name: "Kharazos the Triumphant"
-#   location: {'535': [[56.2, 65.4]]}
-#   npcId: 78710
-#   questId: 35220
-#   type: kill
-#   drops:
-#     # {116122,toy=true,}
+- name: "Orumo the Observer"
+  location: 31.4 47.4
+  note: "Need 5 people to summon"
+  npcId: 87668
+  questId: 37344
+  type: kill
+  drops:
+    - type: pet
+      id: 88490 # Eye of Observation
 
-# - name: "Klikixx"
-#   location: {'535': [[66.8, 85.4]]}
-#   npcId: 78872
-#   questId: 34498
-#   type: kill
-#   drops:
-#     # {116125,toy=true,}
+- name: "Ra'kahn"
+  location: 59.4 59.4
+  npcId: 77741
+  questId: 34196
+  type: kill
+  drops:
+    - type: transmog
+      id: 116112 # Ra'kahn's Bite [1h agi fist]
 
-# - name: "Kurlosh Doomfang"
-#   location: {'535': [[37.4, 37.4]]}
-#   npcId: 82988
-#   questId: 37348
-#   type: kill
-#   drops:
-#     # 119394
+- name: "Shadowflame Terrorwalker"
+  location: 41.0 42.0
+  npcId: 82930
+  questId: 37347
+  type: kill
+  drops:
+    - type: transmog
+      id: 119393 # Searing Shadowflame Axe [1h str axe]
 
-# - name: "Lady Demlash"
-#   location: {'535': [[33.4, 38.2]]}
-#   npcId: 82942
-#   questId: 37346
-#   type: kill
-#   drops:
-#     # 119352
+- name: "Shirzir"
+  location: 41.4 60.1
+  npcId: 79543
+  questId: 34671
+  type: kill
+  drops:
+    - type: transmog
+      id: 112370 # Shirzir's Sticky Slippers [leather]
 
-# - name: "Legion Vanguard"
-#   location: {'535': [[37.8, 20.6]]}
-#   npcId: 88494
-#   questId: 37342
-#   type: kill
-#   drops:
-#     # 119385
+- name: "Sikthiss, Maiden of Slaughter"
+  location: 56.2 65.4
+  npcId: 78715
+  questId: 35219
+  type: kill
+  drops:
+    # {116122,toy=true,}
 
-# - name: "Lo'marg Jawcrusher"
-#   location: {'535': [[49.0, 92.0]]}
-#   npcId: 77784
-#   questId: 34208
-#   type: kill
-#   drops:
-#     # 116070
+- name: "Silthide"
+  location: 51.4 81.2, [61.8, 31.2], [62.0, 45.4], [67.2, 60.4], [78.4, 55.0]
+  npcId: 51015
+  type: kill
+  drops:
+    - type: mount
+      id: 171824 # Sapphire Riverbeast
 
-# - name: "Lord Korinak"
-#   location: {'535': [[30.5, 26.4]]}
-#   npcId: 82920
-#   questId: 37345
-#   type: kill
-#   drops:
-#     # 119388
+- name: "Steeltusk"
+  location: 67.7 35.5
+  npcId: 86549
+  questId: 36858
+  type: kill
+  drops:
+    - type: transmog
+      id: 117562 # Steeltusk's Steel Tusk [2h agi polearm]
 
-# - name: "Matron of Sin"
-#   location: {'535': [[39.0, 49.6]]}
-#   npcId: 82998
-#   questId: 37349
-#   type: kill
-#   drops:
-#     # 119353
+- name: "Strategist Ankor"
+  location: 43.6 27.0, [44.6, 37.0]
+  npcId: 88071
+  questId: 37337
+  type: kill
+  drops:
+    - type: transmog
+      id: 119350 # Sagerei Councilor's Drape [cloak]
 
-# - name: "No'losh"
-#   location: {'535': [[85.6, 29.0]]}
-#   npcId: 79334
-#   questId: 34859
-#   type: kill
-#   drops:
-#     # 116077
+- name: "Taladorantula"
+  location: 58.6 87.4
+  npcId: 77634
+  questId: 34171
+  type: kill
+  drops:
+    - type: transmog
+      id: 116126 # Taladorantula Terrorfang [1h agi sword]
 
-# - name: "O'mogg Blackheart"
-#   location: {'535': [[56.6, 63.6]]}
-#   npcId: 76876
-#   questId: 35219
-#   type: kill
-#   drops:
-#     # {116122,toy=true,}
+- name: "Talonpriest Zorkra"
+  location: 53.9 91.0
+  npcId: 79485
+  questId: 34668
+  type: kill
+  drops:
+    - type: transmog
+      id: 116110 # Zorkra's Hood [cloth]
 
-# - name: "Orumo the Observer"
-#   location: {'535': [[31.4, 47.4]]}
-#   npcId: 87668
-#   questId: 37344
-#   type: kill
-#   drops:
-#     # 119375,{119170,pet=1576,}
+- name: "Vigilant Paarthos"
+  location: 36.8 41.0
+  npcId: 88436
+  questId: 37350
+  type: kill
+  drops:
+    - type: transmog
+      id: 119383 # Shoulderplates of the Vigilant [plate]
 
-# - name: "Ra'kahn"
-#   location: {'535': [[59.4, 59.4]]}
-#   npcId: 77741
-#   questId: 34196
-#   type: kill
-#   drops:
-#     # 116112
+- name: "Wandering Vindicator"
+  location: 69.2 33.4
+  npcId: 77776
+  questId: 34204
+  reset: never
+  type: kill
+  drops:
+    - type: transmog
+      id: 112261 # Forgotten Vindicator's Blade
 
-# - name: "Shadowflame Terrorwalker"
-#   location: {'535': [[41.0, 42.0]]}
-#   npcId: 82930
-#   questId: 37347
-#   type: kill
-#   drops:
-#     # 119393
+- name: "Xothear, the Destroyer"
+  location: 36.8 14.6
+  npcId: 82922
+  questId: 37343
+  type: kill
+  drops:
+    - type: transmog
+      id: 119371 # Mantle of the Destroyer [mail]
 
-# - name: "Shirzir"
-#   location: {'535': [[41.4, 60.1]]}
-#   npcId: 79543
-#   questId: 34671
-#   type: kill
-#   drops:
-#     # 112370
-
-# - name: "Sikthiss, Maiden of Slaughter"
-#   location: {'535': [[56.2, 65.4]]}
-#   npcId: 78715
-#   questId: 35219
-#   type: kill
-#   drops:
-#     # {116122,toy=true,}
-
-# - name: "Silthide"
-#   location: {'535': [[51.4, 81.2], [61.8, 31.2], [62.0, 45.4], [67.2, 60.4], [78.4, 55.0]]}
-#   npcId: 51015
-#   type: kill
-#   drops:
-#     # {116767,mount=630,}},
-
-# - name: "Soulbinder Naylana"
-#   location: {'535': [[43.4, 26.6], [45.4, 32.0]]}
-#   npcId: 88083
-#   questId: 37337
-#   type: kill
-
-# - name: "Steeltusk"
-#   location: {'535': [[67.7, 35.5]]}
-#   npcId: 86549
-#   questId: 36858
-#   type: kill
-#   drops:
-#     # 117562
-
-# - name: "Strategist Ankor"
-#   location: {'535': [[43.6, 27.0], [44.6, 37.0]]}
-#   note: "The Sargerei War Council"
-#   npcId: 88071
-#   questId: 37337
-#   type: kill
-#   drops:
-#     # 119350
-
-# - name: "Taladorantula"
-#   location: {'535': [[58.6, 87.4]]}
-#   npcId: 77634
-#   questId: 34171
-#   type: kill
-#   drops:
-#     # 116126
-
-# - name: "Talonpriest Zorkra"
-#   location: {'535': [[53.9, 91.0]]}
-#   npcId: 79485
-#   questId: 34668
-#   type: kill
-#   drops:
-#     # 116110
-
-# - name: "The Last Voidtalon"
-#   location: {'525': [[47.7, 27.5], [51.0, 19.9], [52.3, 18.3], [53.84, 17.21]], '535': [[39.7, 55.4], [46.2, 52.6], [47.0, 48.0], [51.9, 41.2]], '539': [[41.9, 75.7], [43.2, 71.0], [46.6, 70.0], [48.7, 69.9], [49.6, 71.6], [50.9, 72.5]], '542': [[36.5, 18.2], [47.0, 20.1], [50.4, 6.1], [60.8, 11.2]], '543': [[43.2, 34.2], [51.6, 38.8], [54.0, 45.0], [56.0, 40.0]], '550': [[40.5, 47.5], [45.9, 31.4], [57.3, 26.7]]}
-#   npcId: 90041
-#   questId: 37864
-#   type: kill
-#   drops:
-#     # {121815,mount=682,}
-
-# - name: "Underseer Bloodmane"
-#   location: {'535': [[63.8, 20.7]]}
-#   npcId: 80524
-#   questId: 34945
-#   type: kill
-#   drops:
-#     # 112475
-
-# - name: "Vigilant Paarthos"
-#   location: {'535': [[36.8, 41.0]]}
-#   npcId: 88436
-#   questId: 37350
-#   type: kill
-#   drops:
-#     # 119383
-
-# - name: "Wandering Vindicator"
-#   location: {'535': [[69.2, 33.4]]}
-#   npcId: 77776
-#   questId: 34204
-#   type: kill
-#   drops:
-#     # 112261
-
-# - name: "Xothear, the Destroyer"
-#   location: {'535': [[36.8, 14.6]]}
-#   npcId: 82922
-#   questId: 37343
-#   type: kill
-#   drops:
-#     # 119435,119371
-
-# - name: "Yazheera the Incinerator"
-#   location: {'535': [[53.8, 25.8]]}
-#   npcId: 77529
-#   questId: 34135
-#   type: kill
-#   drops:
-#     # 112263
+- name: "Yazheera the Incinerator"
+  location: 53.8 25.8
+  npcId: 77529
+  questId: 34135
+  type: kill
+  drops:
+    - type: transmog
+      id: 112263 # Yazheer's Burning Bracers [mail]

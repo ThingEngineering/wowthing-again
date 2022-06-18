@@ -23,3 +23,27 @@ farms:
   drops:
   - type: mount
     id: 139442 # Thundering Cobalt Cloud Serpent
+
+# Quest
+
+- name: "Securing A Future"
+  faction: alliance
+  location: 63.2 72.2
+  questId: 32599
+  reset: none
+  type: quest
+  drops:
+    - type: toy
+      id: 95589 # Glorious Standard of the Kirin Tor Offensive
+      note: "Requres Exalted with Kirin Tor Offensive"
+
+- name: "Life Blood"
+  faction: horde
+  location: 32.6 35.4
+  questId: 32589
+  reset: none
+  type: quest
+  drops:
+    - type: toy
+      id: 95590 # Glorious Standard of the Sunreaver Onslaught
+      note: "Requres Exalted with Sunreaver Onslaught"

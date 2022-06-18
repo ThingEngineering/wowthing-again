@@ -4,10 +4,11 @@
 
     import { iconStrings } from '@/data/icons'
     import getPercentClass from '@/utils/get-percent-class'
+    import tippy from '@/utils/tippy'
     import type {SidebarItem} from '@/types'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import IconText from '@/components/common/IconText.svelte'
+    import ParsedText from '@/components/common/ParsedText.svelte'
 
     export let anyChildren: boolean
     export let baseUrl: string
@@ -114,8 +115,10 @@
         style="--minusWidth: {minusWidth};{noVisitRoot ? '--link-color: #ffffff' : ''}"
         use:link
         use:active={new RegExp(activeRegex)}
+        use:tippy={item.name}
     >
-        <IconText
+        <ParsedText
+            cls="text-overflow"
             text={item.name}
         />
 

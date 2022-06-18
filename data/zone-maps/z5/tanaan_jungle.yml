@@ -1,5 +1,6 @@
 name: "Tanaan Jungle"
 mapName: "z5_tanaan_jungle"
+minimumLevel: 40
 farms:
 
 # - name: "Argosh the Destroyer"

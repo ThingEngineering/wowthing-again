@@ -30,6 +30,8 @@
 
 <style lang="scss">
     .wrapper {
+        --shadow-color: rgba(0, 0, 0, 0.75);
+
         position: absolute;
         left: var(--left);
         top: calc(var(--top) + var(--top-offset, 0px));
@@ -112,7 +114,7 @@
                 />
             </div>
 
-            {#if status.need}
+            {#if status.need && farm.type != FarmType.Vendor}
                 <span
                     class:big
                     class:status-success={status.characters.length === 0}
