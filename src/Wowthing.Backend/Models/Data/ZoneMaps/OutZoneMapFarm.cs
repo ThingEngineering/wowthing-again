@@ -59,13 +59,18 @@ namespace Wowthing.Backend.Models.Data.ZoneMaps
             {
                 MinimumLevel = farm.MinimumLevel;
             }
-            
-            if (farm.ObjectId > 0)
+
+            if (farm.Type == "quest")
+            {
+                IdType = FarmIdType.Quest;
+                Id = QuestIds.FirstOrDefault();
+            }
+            else if (farm.ObjectId > 0)
             {
                 IdType = FarmIdType.Object;
                 Id = farm.ObjectId;
             }
-            else
+            else 
             {
                 IdType = FarmIdType.Npc;
                 Id = farm.NpcId;
