@@ -454,7 +454,7 @@ farms:
 - name: "Azeroth Mini Pack: Mechagon"
   location: 78.0 35.0
   note: "From opening Mechanized Chests"
-  questId: 57132
+  questId: 57132 57133
   reset: weekly
   type: treasure
   drops:
