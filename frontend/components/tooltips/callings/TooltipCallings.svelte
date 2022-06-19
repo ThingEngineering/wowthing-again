@@ -12,6 +12,11 @@
     export let callings: [GlobalDailyQuest, boolean][]
     export let character: Character
     export let resets: DateTime[]
+
+    let remaining: string[]
+    $: {
+        remaining = resets.map((reset) => toNiceDuration(reset.diff($timeStore).toMillis()))
+    }
 </script>
 
 <style lang="scss">
@@ -50,7 +55,7 @@
                         <td class="name">Unknown quest</td>
                     {/if}
                     <td class="remaining">
-                        <code>{@html toNiceDuration(resets[callingIndex].diff($timeStore).toMillis())}</code>
+                        <code>{@html remaining[callingIndex]}</code>
                     </td>
                 </tr>
                 <tr>
