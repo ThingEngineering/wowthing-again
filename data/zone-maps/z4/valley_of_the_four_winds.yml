@@ -171,3 +171,109 @@ farms:
   - type: mount
     id: 130965 # Son of Galleon
   # TODO drops a lot of armour also
+
+# Quest
+
+- name: "Leaders Among Breeders"
+  location: 86.0 22.0
+  questId: 29944
+  reset: none
+  type: quest
+  drops:
+    - type: toy
+      id: 88375 # Turnip Punching Bag
+
+- name: "Rampaging Rodents"
+  location: 82.0 25.6
+  questId: 29910
+  reset: none
+  type: quest
+  drops:
+    - type: toy
+      id: 88370 # Puntable Marmot
+
+- name: "Yellow and Red Make Orange"
+  location: 68.8 43.2
+  questId: 29945
+  reset: none
+  type: quest
+  drops:
+    - type: toy
+      id: 88377 # Turnip Paint "Gun"
+
+# Treasure
+
+- name: "Ghostly Pandaren Fisherman"
+  location: 46.8 24.6
+  note: "Only appears when raining"
+  npcId: 64004
+  reset: none
+  type: treasure
+  drops:
+    - type: toy
+      id: 85973 # Ancient Pandaren Fishing Charm
+
+# Vendor
+
+- name: "Gina Mudclaw"
+  location: 52.4 51.4
+  npcId: 58706
+  type: vendor
+  drops:
+    - type: mount
+      id: 130138 # Black Riding Goat
+      note: "{price:1500} at Exalted with The Tillers"
+
+    - type: mount
+      id: 130086 # Brown Riding Goat
+      note: "{price:1500} at Exalted with The Tillers"
+
+    - type: mount
+      id: 130137 # White Riding Goat
+      note: "{price:1500} at Exalted with The Tillers"
+
+    - type: toy
+      id: 90175 # Gin-Ji Knife Set
+      note: "{price:250} at Exalted with The Tillers"
+    
+    - type: toy
+      id: 89869 # Pandaren Scarecrow
+      note: "{price:250} at Revered with The Tillers"
+
+    - type: transmog
+      id: 89784 # Tillers Tabard
+      note: "{price:10} at Exalted with The Tillers"
+
+    - type: transmog
+      id: 90893 # Straw Hat [cloth]
+
+    - type: transmog
+      id: 90894 # Straw Hat [leather]
+
+    - type: transmog
+      id: 90895 # Straw Hat [mail]
+
+    - type: transmog
+      id: 90896 # Straw Hat [plate]
+
+- name: "Nam Ironpaw"
+  location: 54.4 51.4
+  npcId: 64395
+  type: vendor
+  drops:
+    - type: toy
+      id: 88801 # Flippable Table
+      note: "{price:40|402}" # 40 Ironpaw Token
+
+- name: "Sally Fizzlefury"
+  location: 16.0 83.0
+  npcId: 55143
+  type: vendor
+  drops:
+    - type: toy
+      id: 88802 # Foxicopter Controller
+      note: "1000g"
+
+    - type: toy
+      id: 91904 # Stackable Stag
+      note: "1000g"

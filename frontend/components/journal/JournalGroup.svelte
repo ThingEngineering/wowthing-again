@@ -34,7 +34,9 @@
 </script>
 
 <style lang="scss">
-
+    .collection-objects {
+        min-height: 52px;
+    }
 </style>
 
 {#if items.length > 0}

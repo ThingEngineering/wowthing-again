@@ -1,5 +1,6 @@
 import type { IconifyIcon } from '@iconify/types'
 
+import hisExclamationCircle from '@iconify/icons-heroicons-solid/exclamation-circle'
 import mdiAxeBattle from '@iconify/icons-mdi/axe-battle'
 import mdiCart from '@iconify/icons-mdi/cart'
 import mdiDiceMultiple from '@iconify/icons-mdi/dice-multiple'
@@ -27,6 +28,7 @@ export const farmTypeIcon: Record<number, IconifyIcon> = {
     [FarmType.Kill]: mdiSkull,
     [FarmType.KillBig]: mdiSkull,
     [FarmType.Puzzle]: mdiPuzzle,
+    [FarmType.Quest]: hisExclamationCircle,
     [FarmType.Treasure]: mdiTreasureChest,
     [FarmType.Vendor]: mdiCart,
 

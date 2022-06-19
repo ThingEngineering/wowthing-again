@@ -8,6 +8,13 @@
             { 16, 450 }, // Mythic
             { 17, 451 }, // LFR
         };
+
+        private static readonly Dictionary<int, int> WodDungeon = new()
+        {
+            { 2, 4202 }, // Heroic
+            { 8, 4204 }, // Mythic Keystone
+            { 23, 4204 }, // Mythic
+        };
         
         private static readonly Dictionary<int, int> WodRaid1 = new()
         {
@@ -59,8 +66,8 @@
         private static readonly Dictionary<int, int> BfaDungeon = new()
         {
             { 2, 4778 }, // Heroic
-            { 8, 4779 }, // Mythic
-            { 23, 4779 }, // Mythic Keystone
+            { 8, 4779 }, // Mythic Keystone
+            { 23, 4779 }, // Mythic
         };
         
         private static readonly Dictionary<int, int> BfaRaid1 = new()
@@ -105,6 +112,16 @@
         public static readonly Dictionary<int, Dictionary<int, int>> InstanceBonusIds = new()
         {
             { 369, MopSiege }, // Siege of Orgrimmar
+            
+            // Warlords of Draenor
+            { 385, WodDungeon }, // Bloodmaul Slag Mines 
+            { 476, WodDungeon }, // Skyreach 
+            { 536, WodDungeon }, // Grimrail Depot 
+            { 537, WodDungeon }, // Shadowmoon Burial Grounds 
+            { 547, WodDungeon }, // Auchindoun 
+            { 556, WodDungeon }, // The Everbloom 
+            { 558, WodDungeon }, // Iron Docks 
+            { 559, WodDungeon }, // Upper Blackrock Spire 
             
             { 477, WodRaid1 }, // Highmaul
             { 457, WodRaid1 }, // Blackrock Foundry

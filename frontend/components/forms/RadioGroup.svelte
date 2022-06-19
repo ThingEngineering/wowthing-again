@@ -3,7 +3,7 @@
     import iconSelected from '@iconify/icons-mdi/radiobox-marked'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import IconText from '@/components/common/IconText.svelte'
+    import ParsedText from '@/components/common/ParsedText.svelte'
 
     export let disabled = false
     export let name: string
@@ -40,7 +40,7 @@
             <IconifyIcon
                 icon={optionValue === value ? iconSelected : iconBlank}
             />
-            <IconText text={optionLabel} />
+            <ParsedText text={optionLabel} />
         </label>
     {/each}
 </fieldset>

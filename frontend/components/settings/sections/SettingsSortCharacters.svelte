@@ -21,6 +21,7 @@
         {key: 'enabled', name: 'Active accounts first'},
         {key: 'faction', name: 'Alliance > Horde'},
         {key: '-faction', name: 'Horde > Alliance'},
+        {key: 'mplusrating', name: 'Mythic+ Rating'},
         {key: 'name', name: 'Character name'},
         {key: 'realm', name: 'Realm name'},
         {key: 'gold', name: 'Gold'},

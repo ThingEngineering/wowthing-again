@@ -500,3 +500,57 @@ farms:
 #  - type:
 #    id:
 #    name: ""
+
+# Vendor
+
+- name: "Mistweaver Ku"
+  location: 43.0 54.2
+  npcId: 73306
+  type: vendor
+  drops:
+    - type: mount
+      id: 127164 # Heavenly Golden Cloud Serpent
+      note: "{price:100000|777} at Exalted with Emperor Shaohao" # 100000x Timeless Coin
+
+    - type: pet
+      id: 73732 # Harmonious Porcupette
+      note: "{price:7500|777} at Revered with Emperor Shaohao" # 7500x Timeless Coin
+
+    - type: toy
+      id: 103685 # Celestial Defender's Medallion
+      note: "{price:1000|777} at Revered with Emperor Shaohao" # 1000x Timeless Coin
+
+- name: "Mistweaver Xia"
+  location: 43.0 56.6
+  note: "Only during MoP Timewalking"
+  npcId: 118828
+  type: vendor
+  drops:
+    - type: mount
+      id: 127165 # Yu'lei, Daughter of Jade
+      note: "{price:5000|1166}" # 5000x Timewarped Badge
+
+    - type: toy
+      id: 144072 # Adopted Puppy Crate
+      note: "{price:1000|1166}" # 1000x Timewarped Badge
+
+    - type: toy
+      id: 144393 # Portable Yak Wash
+      note: "{price:500|1166}" # 500x Timewarped Badge
+
+- name: "Speaker Gulan"
+  location: 75.0 44.8
+  npcId: 73307
+  type: vendor
+  drops:
+    - type: mount
+      id: 148428
+      note: "{price:500|789}" # 500x Bloody Coin
+
+    - type: pet
+      id: 73688 # Vengeful Porcupette
+      note: "{price:100|789}" # 100x Bloody Coin
+
+    - type: toy
+      id: 102467 # Censer of Eternal Agony
+      note: "{price:1000|777}" # 1000x Timeless Coin

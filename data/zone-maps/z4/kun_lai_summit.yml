@@ -187,3 +187,60 @@ farms:
   drops:
   - type: mount
     id: 127158 # Heavenly Onyx Cloud Serpent
+
+# Quest
+
+- name: "A Monkey Idol"
+  location: 52.0 67.2
+  questId: 30599
+  reset: none
+  type: quest
+  drops:
+    - type: toy
+      id: 88385 # Hozen Idol
+
+- name: "Do a Barrel Roll!"
+  location: 29.9 62.2
+  questId: 30991
+  reset: none
+  type: quest
+  drops:
+    - type: toy
+      id: 88531 # Lao Chin's Last Mug
+
+- name: "Holed Up"
+  location: 43.0 88.2
+  questId: 30682
+  reset: none
+  type: quest
+  drops:
+    - type: toy
+      id: 88579 # Jin Warmkeg's Brew
+
+- name: "Roadside Assistance"
+  location: 63.8 60.4 # 64.8 but shifted a little
+  questId: 30617
+  reset: none
+  type: quest
+  drops:
+    - type: toy
+      id: 88381 # Silversage Incense
+
+# Vendor
+
+- name: "Uncle Bigpocket"
+  location: 65.4 61.6
+  npcId: 64518
+  type: vendor
+  drops:
+    - type: mount
+      id: 127220 # Blonde Riding Yak
+      note: "{price:3000}"
+    
+    - type: mount
+      id: 127216 # Grey Riding Yak
+      note: "{price:3000}"
+    
+    - type: mount
+      id: 122708 # Grand Expedition Yak
+      note: "{price:120000}"

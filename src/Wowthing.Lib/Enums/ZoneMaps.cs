@@ -15,12 +15,14 @@
         Weapon,
         Vendor,
         Group,
+        Quest,
     }
 
     public enum FarmIdType
     {
         Npc = 1,
         Object,
+        Quest,
     }
     
     public enum FarmResetType

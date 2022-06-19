@@ -34,3 +34,52 @@ farms:
 
   - type: mount
     id: 138425 # Slate Primordial Direhorn
+
+# Quest
+
+- name: "Choking the Skies"
+  location: 51.2 83.0
+  questId: 31032
+  reset: none
+  type: quest
+  drops:
+    - type: toy
+      id: 88589 # Cremating Torch
+
+- name: "Hatred Becomes Us"
+  location: 82.6 73.0
+  questId: 30783
+  reset: none
+  type: quest
+  drops:
+    - type: toy
+      id: 88584 # Totem of Harmony
+
+- name: "Pick a Yak"
+  location: 39.2 62.0
+  questId: 30930
+  reset: none
+  type: quest
+  drops:
+    - type: toy
+      id: 82467 # Ruthers' Harness
+
+- name: "The Storm Gathers"
+  faction: alliance
+  location: 49.8 69.0
+  questId: 32681
+  reset: none
+  type: quest
+  drops:
+    - type: toy
+      id: 95567 # Kirin Tor Beacon
+
+- name: "The Storm Gathers"
+  faction: horde
+  location: 50.8 73.2
+  questId: 32680
+  reset: none
+  type: quest
+  drops:
+    - type: toy
+      id: 95568 # Sunreaver Beacon

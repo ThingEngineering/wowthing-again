@@ -299,27 +299,25 @@
     {/if}
 
     {#if instance}
-        {#key instance.id}
-            <div class="collection thing-container">
-                {#each instance.encounters as encounter}
-                    {#if $journalState.showTrash || encounter.name !== 'Trash Drops'}
-                        <SectionTitle
-                            title={encounter.name}
-                            count={$journalStore.data.stats[`${slug1}--${slug2}--${encounter.name}`]}
-                        />
-                        <div class="collection-section" data-encounter-id="{encounter.id}">
-                            {#each encounter.groups as group}
-                                <Group
-                                    bonusIds={instance.bonusIds}
-                                    instanceExpansion={$staticStore.data.instances[instance.id].expansion}
-                                    stats={$journalStore.data.stats[`${slug1}--${slug2}--${encounter.name}--${group.name}`]}
-                                    {group}
-                                />
-                            {/each}
-                        </div>
-                    {/if}
-                {/each}
-            </div>
-        {/key}
+        <div class="collection thing-container">
+            {#each instance.encounters as encounter}
+                {#if $journalState.showTrash || encounter.name !== 'Trash Drops'}
+                    <SectionTitle
+                        title={encounter.name}
+                        count={$journalStore.data.stats[`${slug1}--${slug2}--${encounter.name}`]}
+                    />
+                    <div class="collection-section" data-encounter-id="{encounter.id}">
+                        {#each encounter.groups as group}
+                            <Group
+                                bonusIds={instance.bonusIds}
+                                instanceExpansion={$staticStore.data.instances[instance.id].expansion}
+                                stats={$journalStore.data.stats[`${slug1}--${slug2}--${encounter.name}--${group.name}`]}
+                                {group}
+                            />
+                        {/each}
+                    </div>
+                {/if}
+            {/each}
+        </div>
     {/if}
 </div>

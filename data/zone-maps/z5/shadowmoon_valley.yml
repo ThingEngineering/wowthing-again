@@ -1,5 +1,6 @@
 name: "Shadowmoon Valley"
 mapName: "z5_shadowmoon_valley"
+minimumLevel: 10
 farms:
 
 - name: "Amaukwa"
@@ -109,7 +110,7 @@ farms:
   type: kill
   drops:
     - type: transmog
-      id: 109061 # Ku'targ's Merciless Grips
+      id: 109061 # Ku'targ's Merciless Grips [mail]
 
 - name: "Lady Temptessa"
   location: 48.0 77.6
@@ -118,7 +119,7 @@ farms:
   type: kill
   drops:
     - type: transmog
-      id: 119360 # Temptessa's Knee-High Boots [leathger]
+      id: 119360 # Temptessa's Knee-High Boots [leather]
 
 - name: 'Mad "King" Sporeon'
   location: 44.6 21.0
@@ -136,7 +137,7 @@ farms:
   type: kill
   drops:
     - type: transmog
-      id: 119369 # Malgosh's Coif
+      id: 119369 # Malgosh's Coif [mail]
 
 - name: "Master Sergeant Milgra"
   location: 51.8 79.2
@@ -145,7 +146,7 @@ farms:
   type: kill
   drops:
     - type: transmog
-      id: 119368 # Milgra's Mighty Mitts
+      id: 119368 # Milgra's Mighty Mitts [mail]
 
 - name: "Morva Soultwister"
   location: 38.6 70.2
@@ -180,7 +181,7 @@ farms:
   type: kill
   drops:
     - type: transmog
-      id: 119382 # Hershak's Heavy Legguards
+      id: 119382 # Hershak's Heavy Legguards [plate]
 
 - name: "Rai'vosh"
   location: 48.6 22.6

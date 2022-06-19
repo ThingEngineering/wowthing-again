@@ -8,6 +8,7 @@ import mdiCheck from '@iconify/icons-mdi/check'
 import mdiChevronDown from '@iconify/icons-mdi/chevron-down'
 import mdiChevronRight from '@iconify/icons-mdi/chevron-right'
 import mdiClose from '@iconify/icons-mdi/close'
+import mdiExclamationThick from '@iconify/icons-mdi/exclamation-thick'
 import mdiLockOutline from '@iconify/icons-mdi/lock-outline'
 import mdiPageFirst from '@iconify/icons-mdi/page-first'
 import mdiPageLast from '@iconify/icons-mdi/page-last'
@@ -27,6 +28,7 @@ import { ItemLocation } from '@/types/enums'
 
 
 export const iconStrings: Record<string, IconifyIcon> = {
+    exclamation: mdiExclamationThick,
     lock: mdiLockOutline,
     no: mdiClose,
     question: mdiQuestion,

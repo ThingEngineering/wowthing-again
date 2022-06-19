@@ -1,6 +1,6 @@
 name: Mechagon
 mapName: z7_mechagon
-minimumLevel: 50
+minimumLevel: 10
 #requiredQuestId: 55736 # Welcome to the Resistance
 wowheadGuide: https://www.wowhead.com/guides/mechagon-junkyard-tinkering
 farms:
@@ -454,7 +454,7 @@ farms:
 - name: "Azeroth Mini Pack: Mechagon"
   location: 78.0 35.0
   note: "From opening Mechanized Chests"
-  questId: 57132
+  questId: 57132 57133
   reset: weekly
   type: treasure
   drops:

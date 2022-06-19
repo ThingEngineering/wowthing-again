@@ -33,7 +33,6 @@ export function toNiceDuration(milliseconds: number): string {
     }
     if (duration.minutes > 0) {
         parts.push(`${duration.minutes < 10 ? '&nbsp;' : ''}${duration.minutes}m`)
-
     }
 
     return parts.slice(0, 2).join(' ')
