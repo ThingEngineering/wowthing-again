@@ -48,6 +48,10 @@ export default function getCharacterSortFunc(
                 // this will sort by level in descending order
                 out.push(toDigits(Constants.characterMaxLevel - char.level, 2))
             }
+            else if (thing === 'mplusrating') {
+                const rating = char.raiderIo?.[Constants.mythicPlusSeason]?.all || 0
+                out.push(toDigits(10000 - rating, 5))
+            }
             else if (thing === 'name') {
                 out.push(char.name)
             }

@@ -45,6 +45,7 @@ namespace Wowthing.Lib.Models
             "gold",
             "itemlevel",
             "level",
+            "mplusrating",
             "name",
             "realm",
         };
