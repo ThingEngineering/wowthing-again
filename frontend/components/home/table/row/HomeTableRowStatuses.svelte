@@ -1,42 +1,49 @@
 <script lang="ts">
-    import { getContext } from 'svelte'
-
     import { Constants } from '@/data/constants'
     import type { Character } from '@/types'
-    //import tippy from '@/utils/tippy'
 
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
-    const character: Character = getContext('character')
+    export let character: Character
+
+    let images: [string, string][]
+    $: {
+        images = []
+        
+        if (character.isResting && character.level < Constants.characterMaxLevel) {
+            images.push([Constants.icons.resting, 'Resting'])
+        }
+        if (character.isWarMode) {
+            images.push([Constants.icons.warMode, 'War Mode'])
+        }
+    }
 </script>
 
 <style lang="scss">
     td {
+        @include cell-width(var(--width, 0));
+
         border-left: 1px solid $border-color;
         white-space: nowrap;
 
         & :global(img) {
             border-radius: $border-radius;
             margin-top: -4px;
+
+            &:not(:first-child) {
+                margin-left: 3px;
+            }
         }
     }
 </style>
 
-<td>
-    {#if character.isResting && character.level < Constants.characterMaxLevel}
+<td style:--width="calc((22px * {images.length}) + (3px * ({images.length} - 1)))">
+    {#each images as [icon, tooltip]}
         <WowthingImage
-            name={Constants.icons.resting}
+            name={icon}
             size={20}
             border={1}
-            tooltip="Resting"
+            tooltip={tooltip}
         />
-    {/if}
-    {#if character.isWarMode}
-        <WowthingImage
-            name={Constants.icons.warMode}
-            size={20}
-            border={1}
-            tooltip="War Mode"
-        />
-    {/if}
+    {/each}
 </td>
