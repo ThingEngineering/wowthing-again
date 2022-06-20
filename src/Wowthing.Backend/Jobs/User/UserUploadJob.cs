@@ -17,6 +17,21 @@ namespace Wowthing.Backend.Jobs.User
 
         private bool _resetQuestCache;
         private bool _resetTransmogCache;
+
+        private HashSet<string> _fortifiedNames = new()
+        {
+            "Verstärkt", // deDE
+            "Fortified", // enGB/enUS
+            "Reforzada", // esES
+            "Reforzado", // esMX
+            "Fortifié", // frFR
+            "Potenziamento", // itIT
+            "Fortificada", // ptBR/ptPT
+            "Укрепленный", // ruRU
+            "경화", // koKR
+            "强韧", // zhCN
+            "強悍", // zhTW
+        };
         
         public override async Task Run(params string[] data)
         {
@@ -353,8 +368,7 @@ namespace Wowthing.Backend.Jobs.User
 
                         foreach (var mapScore in map.AffixScores.EmptyIfNull())
                         {
-                            // TODO check if ths is different in non-English clients
-                            if (mapScore.Name == "Fortified")
+                            if (_fortifiedNames.Contains(mapScore.Name))
                             {
                                 mapData.FortifiedScore = new PlayerCharacterAddonDataMythicPlusScore
                                 {
@@ -364,7 +378,7 @@ namespace Wowthing.Backend.Jobs.User
                                     Score = mapScore.Score,
                                 };
                             }
-                            else if (mapScore.Name == "Tyrannical")
+                            else
                             {
                                 mapData.TyrannicalScore = new PlayerCharacterAddonDataMythicPlusScore
                                 {
