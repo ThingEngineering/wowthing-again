@@ -107,7 +107,6 @@ export default function getProgress(
                         }
 
                         case ProgressDataType.Criteria: {
-                            console.log('criteria', data)
                             const criteria = filter(
                                 userAchievementData?.criteria[data.ids[0]] || [],
                                 ([characterId,]) => characterId === character.id
@@ -126,7 +125,6 @@ export default function getProgress(
                             haveThis = spent >= (data.value || 0)
                             if (!haveThis) {
                                 descriptionText[dataIndex] = `${toNiceNumber(spent)} / ${toNiceNumber(data.value)}`
-                                console.log(descriptionText)
                             }
                             break
                         }
@@ -152,7 +150,6 @@ function checkAccountQuestIds(userQuestData: UserQuestData, questIds: number[]) 
 }
 
 function checkCharacterQuestIds(userQuestData: UserQuestData, characterId: number, questIds: number[]) {
-    console.log(characterId, questIds)
     return some(
         questIds,
         (id) => userQuestData.characters[characterId]?.quests?.has(id)

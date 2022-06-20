@@ -61,7 +61,6 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                     const encounterStats = stats[encounterKey] = new UserCount()
 
                     if (!journalState.showTrash && encounter.name === 'Trash Drops') {
-                        console.log(instance, encounter)
                         continue
                     }
 

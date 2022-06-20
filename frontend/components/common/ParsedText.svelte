@@ -17,7 +17,6 @@
         html = text.replaceAll(/:(.*?):/g, '<span data-string="$1"></span>')
         html = html.replaceAll(/\{price:(\d+)(?:\|(\d+))?\}/g, (match, amountString, currencyId) => {
             const amount = parseInt(amountString).toLocaleString()
-            console.log({match, amount, currencyId})
             if (currencyId) {
                 const currency = $staticStore.data.currencies[currencyId]
                 return `${amount} <span data-icon="currency/${currencyId}"></span> ${currency.name}`
