@@ -1,6 +1,10 @@
 name: Zone Quests
 groups:
 
+# These are pretty useless since Threads completes them
+# - name: "Ardenweald Story"
+#   icon: achievement/14164 # Awaken, Ardenweald
+
 - name: "Ardenweald Extra Storylines"
   icon: achievement/14800 # Sojourner of Ardenweald
   lookup: none
@@ -25,9 +29,13 @@ groups:
     - name: "Wicked Plan"
       id: 58267
 
+# These are pretty useless since Threads completes them
+# - name: "Bastion Story"
+#   icon: achievement/14281 # The Path to Ascension
+
 - name: "Bastion Extra Storylines"
   icon: achievement/14801 # Sojourner of Bastion
-  lookup: none
+  lookup: none  83602
   type: quest
   data:
     0:
@@ -46,23 +54,37 @@ groups:
     - name: "The Spear of Kalliope"
       id: 60906 57967
 
+# These are pretty useless since Threads completes them
+# - name: "Maldraxxus Story"
+#   icon: achievement/14206 # Blade of the Primus
+
 - name: "Maldraxxus Extra Storylines"
   icon: achievement/14799 # Sojourner of Maldraxxus
   lookup: none
-  type: quest
+  type: mixed
   data:
     0:
     - name: "Theater of Pain"
       id: 57316
+      type: quest
 
     - name: "Mixing Monstrosities"
-      id: 57301
+      #id: 57301 # This stupid quest resets every week
+      id: 14799 2 # AchievementID Criteria (0-based)
+      type: addonAchievement
+      value: 1
 
     - name: "Archival Protection"
       id: 58623
+      type: quest
 
     - name: "Wasteland Work"
       id: 58794
+      type: quest
+
+# These are pretty useless since Threads completes them
+# - name: "Revendreth Story"
+#   icon:
 
 - name: "Revendreth Extra Storylines"
   icon: achievement/14798 # Sojourner of Revendreth

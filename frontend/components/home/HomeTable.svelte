@@ -107,7 +107,7 @@
 
             {:else if field === 'statusIcons'}
                 {#if !$homeState.onlyWeekly}
-                    <RowStatuses />
+                    <RowStatuses {character} />
                 {/if}
 
             {:else if field === 'vaultMythicPlus'}
