@@ -43,7 +43,8 @@ export class WritableFancyStore<TData> {
     }
 
     async fetch(ifNotLoaded = true, language = Language.enUS): Promise<boolean> {
-        if (ifNotLoaded && get(this).loaded) {
+        const wasLoaded = get(this).loaded
+        if (ifNotLoaded && wasLoaded) {
             return false
         }
 
@@ -59,7 +60,23 @@ export class WritableFancyStore<TData> {
         const baseUri = document.getElementById('app')?.getAttribute('data-base-uri')
         const actualUrl = baseUri + url.substring(1)
 
-        const json = await fetchJson(actualUrl)
+        let json: string
+        try {
+            json = await fetchJson(actualUrl)
+        }
+        catch (e) {
+            console.error((e as Error).message)
+            // Only set the error state if we weren't previously loaded to avoid breaking
+            // everything on an attempted refresh
+            if (!wasLoaded) {
+                this.update(state => {
+                    state.error = true
+                    return state
+                })
+            }
+            return false
+        }
+
         if (json === null) {
             this.update(state => {
                 state.error = true
