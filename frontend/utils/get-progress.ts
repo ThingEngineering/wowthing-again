@@ -85,6 +85,9 @@ export default function getProgress(
                                 if (cheev.earned) {
                                     haveThis = true
                                 }
+                                else if (data.ids.length === 2 && data.value) {
+                                    haveThis = cheev.criteria[data.ids[1]] >= data.value
+                                }
                                 else if (data.description && data.value) {
                                     // TODO do this properly
                                     let have = 0
@@ -104,6 +107,7 @@ export default function getProgress(
                         }
 
                         case ProgressDataType.Criteria: {
+                            console.log('criteria', data)
                             const criteria = filter(
                                 userAchievementData?.criteria[data.ids[0]] || [],
                                 ([characterId,]) => characterId === character.id
@@ -148,6 +152,7 @@ function checkAccountQuestIds(userQuestData: UserQuestData, questIds: number[]) 
 }
 
 function checkCharacterQuestIds(userQuestData: UserQuestData, characterId: number, questIds: number[]) {
+    console.log(characterId, questIds)
     return some(
         questIds,
         (id) => userQuestData.characters[characterId]?.quests?.has(id)
