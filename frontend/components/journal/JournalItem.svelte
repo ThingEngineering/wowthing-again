@@ -24,11 +24,14 @@
             appearance,
             $settingsData.transmog.completionistMode ?
                 $userTransmogStore.data.sourceHas[`${item.id}_${appearance.modifierId}`] :
-                $userTransmogStore.data.userHas[appearance.appearanceId]
+                $userTransmogStore.data.userHas[appearance.appearanceId],
         ])
 
         if (item.classMask in PlayableClassMask) {
             classId = PlayableClass[PlayableClassMask[item.classMask] as keyof typeof PlayableClass]
+        }
+        else {
+            classId = 0
         }
     }
 
