@@ -24,7 +24,7 @@ namespace Wowthing.Backend.Jobs.Character
             var uri = GenerateUri(query, ApiPath);
             try
             {
-                var result = await GetJson<ApiCharacterAchievements>(uri, timer: timer);
+                var result = await GetJson<ApiCharacterAchievements>(uri, useLastModified: false, timer: timer);
                 if (result.NotModified)
                 {
                     LogNotModified();

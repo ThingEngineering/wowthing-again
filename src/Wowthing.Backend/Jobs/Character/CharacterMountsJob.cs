@@ -20,7 +20,7 @@ namespace Wowthing.Backend.Jobs.Character
             ApiCharacterMounts resultData;
             var uri = GenerateUri(query, ApiPath);
             try {
-                var result = await GetJson<ApiCharacterMounts>(uri);
+                var result = await GetJson<ApiCharacterMounts>(uri, useLastModified: false);
                 if (result.NotModified)
                 {
                     LogNotModified();
