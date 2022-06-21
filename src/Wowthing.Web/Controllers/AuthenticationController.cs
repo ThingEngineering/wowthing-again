@@ -101,6 +101,8 @@ namespace Wowthing.Web.Controllers
             }
             user.Settings.Migrate();
 
+            user.LastApiCheck = DateTime.UtcNow;
+            
             await _userManager.UpdateAsync(user);
 
             // Sign in the user

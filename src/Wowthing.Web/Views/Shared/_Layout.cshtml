@@ -13,7 +13,7 @@
 <body>
     <header>
         <nav class="nav">
-            <ul>
+            <ul id="nav-left">
                 <!--<li class="header-title">
                     <a href="@_uriService.GetBaseAction("Home", "Index")">WoWthing</a>
                 </li>-->
@@ -27,7 +27,11 @@
                     </li>
                 }
             </ul>
-            <ul>
+            
+            <ul id="nav-center">
+            </ul>
+            
+            <ul id="nav-right">
                 @if (User.Identity.IsAuthenticated)
                 {
                     <li id="user-name">@User.Identity.Name</li>

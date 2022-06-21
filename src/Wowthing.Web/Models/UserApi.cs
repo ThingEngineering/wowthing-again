@@ -6,6 +6,7 @@ namespace Wowthing.Web.Models
 {
     public class UserApi
     {
+        public DateTime? LastApiCheck { get; set; }
         public bool Public { get; init; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]

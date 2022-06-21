@@ -4,6 +4,7 @@
     import {
         journalStore,
         staticStore,
+        timeStore,
         transmogStore,
         userAchievementStore,
         userQuestStore,
@@ -13,7 +14,9 @@
     import { journalState, vendorState } from '@/stores/local-storage'
     import { data as settings } from '@/stores/settings'
     import { userVendorStore } from '@/stores/user-vendors'
+    import parseApiTime from '@/utils/parse-api-time'
 
+    import Refresh from './AppHomeRefresh.svelte'
     import Routes from './AppHomeRoutes.svelte'
     import Sidebar from './AppHomeSidebar.svelte'
 
@@ -72,6 +75,20 @@
                 $staticStore.data,
                 $userTransmogStore.data
             )
+
+            if (!$userStore.data.public && $userStore.data.lastApiCheck) {
+                const parsedTime = parseApiTime($userStore.data.lastApiCheck)
+                const diff = $timeStore.diff(parsedTime).toMillis()
+                // Add the refresh button if lastApiCheck is more than 24 hours ago
+                if (diff > (24 * 60 * 60 * 1000)) {
+                    const navCenter = document.getElementById('nav-center')
+                    navCenter.replaceChildren()
+                    new Refresh({
+                        target: navCenter,
+                        props: {},
+                    })
+                }
+            }
 
             ready = true
         }

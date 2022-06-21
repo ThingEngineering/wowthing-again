@@ -17,7 +17,7 @@ namespace Wowthing.Backend.Jobs.Character
             using var shrug = CharacterLog(query);
 
             var uri = GenerateUri(query, ApiPath, data[1]);
-            var result = await GetJson<ApiCharacterMythicKeystoneProfileSeason>(uri);
+            var result = await GetJson<ApiCharacterMythicKeystoneProfileSeason>(uri, useLastModified: false);
             if (result.NotModified)
             {
                 LogNotModified();

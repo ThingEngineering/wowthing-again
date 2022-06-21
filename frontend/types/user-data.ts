@@ -6,6 +6,7 @@ import type { UserCount } from './user-count'
 
 
 export interface UserData {
+    lastApiCheck: string
     public: boolean
 
     accounts: Account[]

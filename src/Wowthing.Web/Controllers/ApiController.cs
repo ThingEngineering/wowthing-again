@@ -403,6 +403,7 @@ namespace Wowthing.Web.Controllers
                         apiResult.Public,
                         apiResult.Privacy))
                     .ToList(),
+                LastApiCheck = apiResult.Public ? null : apiResult.User.LastApiCheck,
                 
                 Backgrounds = backgrounds,
                 CurrentPeriod = currentPeriods,

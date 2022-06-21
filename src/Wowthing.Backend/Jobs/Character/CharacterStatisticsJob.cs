@@ -24,7 +24,7 @@ public class CharacterStatisticsJob : JobBase
         var uri = GenerateUri(query, ApiPath);
         try
         {
-            var result = await GetJson<ApiCharacterStatistics>(uri, timer: timer);
+            var result = await GetJson<ApiCharacterStatistics>(uri, useLastModified: false, timer: timer);
             if (result.NotModified)
             {
                 LogNotModified();
