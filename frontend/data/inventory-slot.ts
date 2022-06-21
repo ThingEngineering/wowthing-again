@@ -24,6 +24,7 @@ export const slotOrder: InventorySlot[] = [
 export const validEnchants: Record<number, number[]> = {
     [InventorySlot.MainHand]: [
         3368, // Rune of the Fallen Crusader
+        6195, // Infra-green Reflex Sight
         6196, // Optical Target Embiggener
         6223, // Lightless Force
         6227, // Ascended Vigor
