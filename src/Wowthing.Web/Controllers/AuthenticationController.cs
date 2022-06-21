@@ -3,15 +3,18 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
+using Wowthing.Lib.Constants;
 using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Repositories;
+using Wowthing.Lib.Services;
 using Wowthing.Web.Services;
 
 namespace Wowthing.Web.Controllers
 {
     public class AuthenticationController : Controller
     {
+        private readonly CacheService _cacheService;
         private readonly ILogger<AuthenticationController> _logger;
         private readonly JobRepository _jobRepository;
         private readonly SignInManager<ApplicationUser> _signInManager;
@@ -19,6 +22,7 @@ namespace Wowthing.Web.Controllers
         private readonly UriService _uriService;
 
         public AuthenticationController(
+            CacheService cacheService,
             ILogger<AuthenticationController> logger,
             JobRepository jobRepository,
             SignInManager<ApplicationUser> signInManager,
@@ -26,6 +30,7 @@ namespace Wowthing.Web.Controllers
             UserManager<ApplicationUser> userManager
         )
         {
+            _cacheService = cacheService;
             _logger = logger;
             _jobRepository = jobRepository;
             _signInManager = signInManager;
@@ -104,6 +109,8 @@ namespace Wowthing.Web.Controllers
             user.LastApiCheck = DateTime.UtcNow;
             
             await _userManager.UpdateAsync(user);
+            
+            await _cacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, user.Id);
 
             // Sign in the user
             var props = new AuthenticationProperties();
