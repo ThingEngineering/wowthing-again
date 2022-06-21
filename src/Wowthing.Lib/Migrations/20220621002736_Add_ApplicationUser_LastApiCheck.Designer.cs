@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
@@ -15,9 +16,10 @@ using Wowthing.Lib.Models.Player;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    partial class WowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220621002736_Add_ApplicationUser_LastApiCheck")]
+    partial class Add_ApplicationUser_LastApiCheck
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1477,19 +1479,6 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnName("user_id");
 
                     b.ToTable("SchedulerCharacterQuery", null, t => t.ExcludeFromMigrations());
-                });
-
-            modelBuilder.Entity("Wowthing.Lib.Models.Query.SchedulerUserQuery", b =>
-                {
-                    b.Property<string>("ApiKey")
-                        .HasColumnType("text")
-                        .HasColumnName("api_key");
-
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("user_id");
-
-                    b.ToTable("SchedulerUserQuery", null, t => t.ExcludeFromMigrations());
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.Query.StatisticsQuery", b =>

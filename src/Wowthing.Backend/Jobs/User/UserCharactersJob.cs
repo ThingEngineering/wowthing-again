@@ -3,6 +3,7 @@ using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.API.Profile;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Enums;
+using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Utilities;
 
@@ -74,7 +75,7 @@ namespace Wowthing.Backend.Jobs.User
 
             await Context.SaveChangesAsync();
 
-            // Fetch existing users
+            // Fetch existing characters
             var characterPairs = apiAccounts
                 .SelectMany(a => a.Item2.Characters)
                 .Select(c => (c.Realm.Id, c.Name))
@@ -135,6 +136,7 @@ namespace Wowthing.Backend.Jobs.User
                 }
             }
 
+            // Delete any characters that weren't in the API response
             foreach ((var region, var apiAccount) in apiAccounts)
             {
                 var accountId = accountMap[(region, apiAccount.Id)].Id;

@@ -80,6 +80,7 @@ namespace Wowthing.Lib.Contexts
         public DbSet<LatestGoldSnapshotQuery> LatestGoldSnapshotQuery { get; set; }
         public DbSet<MountQuery> MountQuery { get; set; }
         public DbSet<SchedulerCharacterQuery> SchedulerCharacterQuery { get; set; }
+        public DbSet<SchedulerUserQuery> SchedulerUserQuery { get; set; }
         public DbSet<StatisticsQuery> StatisticsQuery { get; set; }
 
         /*public WowDbContext(string connectionString)
@@ -199,6 +200,9 @@ namespace Wowthing.Lib.Contexts
 
             builder.Entity<SchedulerCharacterQuery>()
                 .ToTable("SchedulerCharacterQuery", t => t.ExcludeFromMigrations());
+
+            builder.Entity<SchedulerUserQuery>()
+                .ToTable("SchedulerUserQuery", t => t.ExcludeFromMigrations());
             
             builder.Entity<StatisticsQuery>()
                 .ToTable("StatisticsQuery", t => t.ExcludeFromMigrations());

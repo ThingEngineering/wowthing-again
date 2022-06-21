@@ -6,7 +6,9 @@ using Wowthing.Backend.Jobs;
 using Wowthing.Backend.Services.Base;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Jobs;
+using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Player;
+using Wowthing.Lib.Models.Query;
 using Wowthing.Lib.Repositories;
 
 namespace Wowthing.Backend.Services
@@ -43,29 +45,6 @@ ORDER BY c.delay_hours, c.last_api_check
 LIMIT 500
 ";
         
-        /*private const string QueryCharacters = @"
-SELECT  c.id AS character_id,
-        c.account_id AS account_id,
-        c.name AS character_name,
-        r.region,
-        r.slug AS realm_slug,
-        a.user_id
-FROM    player_character c
-INNER JOIN player_account a ON c.account_id = a.id
-INNER JOIN wow_realm r ON c.realm_id = r.id
-LEFT OUTER JOIN asp_net_users u ON a.user_id = u.id
-WHERE (
-    (current_timestamp - c.last_api_check) > (
-        '10 minutes'::interval +
-        ('1 minute'::interval * LEAST(50, GREATEST(0, 60 - c.level))) +
-        ('10 minutes'::interval * LEAST(24, EXTRACT(EPOCH FROM current_timestamp - COALESCE(u.last_visit, current_timestamp - '24 hours'::interval)) / 86400)) +
-        ('1 hour'::interval * LEAST(168, c.delay_hours))
-    )
-)
-ORDER BY c.last_api_check
-LIMIT 500
-";*/
-
         public SchedulerService(
             IServiceScopeFactory serviceScopeFactory,
             JobRepository jobRepository,
@@ -142,35 +121,51 @@ LIMIT 500
 
                     await using var context = await contextFactory.CreateDbContextAsync();
 
+                    // Execute some sort of nasty database query to get users that need an API check
+                    var userResults = await context.SchedulerUserQuery
+                        .FromSqlRaw(SchedulerUserQuery.SqlQuery)
+                        .ToArrayAsync();
+
+                    if (userResults.Length > 0)
+                    {
+                        var resultData = userResults
+                            .Select(ur => ur.UserId.ToString());
+                        
+                        // Queue user jobs
+                        Logger.Information("Queueing {Count} user job(s)", userResults.Length);
+                        await _jobRepository.AddJobsAsync(JobPriority.Low, JobType.UserCharacters, resultData);
+
+                        // Update user LastApiCheck
+                        var ids = userResults.Select(ur => ur.UserId);
+                        await context.BatchUpdate<ApplicationUser>()
+                            .Set(au => au.LastApiCheck, au => DateTime.UtcNow)
+                            .Where(au => ids.Contains(au.Id))
+                            .ExecuteAsync();
+                    }
+                    
                     // Execute some sort of nasty database query to get characters that need an API check
-                    var results = await context.SchedulerCharacterQuery
+                    var characterResults = await context.SchedulerCharacterQuery
                         .FromSqlRaw(QueryCharacters)
                         .ToArrayAsync();
-                    if (results.Length > 0)
+                    if (characterResults.Length > 0)
                     {
                         Logger.Debug("Pre-GC: {0}", GC.GetTotalMemory(false));
                         GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
                         var postGc = GC.GetTotalMemory(true);
                         Logger.Debug("Post-GC: {0}", postGc);
 
-                        var resultData = results.Select(r => new
-                        {
-                            Result = r,
-                            Json = JsonConvert.SerializeObject(r),
-                        });
+                        var resultData = characterResults
+                            .Select(cr => JsonConvert.SerializeObject(cr));
 
                         // Queue character jobs
-                        Logger.Information("Queueing {0} character job(s)", results.Length);
-                        await _jobRepository.AddJobsAsync(JobPriority.Low, JobType.Character,
-                            resultData.Select(d => d.Json));
+                        Logger.Information("Queueing {0} character job(s)", characterResults.Length);
+                        await _jobRepository.AddJobsAsync(JobPriority.Low, JobType.Character, resultData);
 
-                        // Update ApiCheckTime
-                        var ids = results.Select(s => s.CharacterId);
-                        //await _context.PlayerCharacter.Where(c => ids.Contains(c.Id))
-                        //    .UpdateAsync(c => new PlayerCharacter {LastApiCheck = DateTime.UtcNow});
+                        // Update character LastApiCheck
+                        var ids = characterResults.Select(s => s.CharacterId);
                         await context.BatchUpdate<PlayerCharacter>()
-                            .Set(c => c.LastApiCheck, c => DateTime.UtcNow)
-                            .Where(c => ids.Contains(c.Id))
+                            .Set(pc => pc.LastApiCheck, pc => DateTime.UtcNow)
+                            .Where(pc => ids.Contains(pc.Id))
                             .ExecuteAsync();
                     }
                 }
@@ -180,7 +175,7 @@ LIMIT 500
                 }
             }
             else {
-                Logger.Warning("Low queue is too large, skipping character check!");
+                Logger.Warning("Low queue is too large!");
             }
 
             // Release exclusive scheduler lock
