@@ -22,29 +22,7 @@ namespace Wowthing.Backend.Services
         private readonly StateService _stateService;
         
         private readonly List<ScheduledJob> _scheduledJobs = new();
-
-        private const string QueryCharacters = @"
-SELECT  c.id AS character_id,
-        c.account_id AS account_id,
-        c.name AS character_name,
-        r.region,
-        r.slug AS realm_slug,
-        a.user_id,
-        c.last_api_check
-FROM    player_character c
-INNER JOIN player_account a ON c.account_id = a.id
-INNER JOIN wow_realm r ON c.realm_id = r.id
-WHERE (
-    c.account_id IS NOT NULL AND
-    (current_timestamp - c.last_api_check) > (
-        '8 hours'::interval +
-        ('1 hour'::interval * LEAST(168, c.delay_hours))
-    )
-)
-ORDER BY c.delay_hours, c.last_api_check
-LIMIT 500
-";
-        
+  
         public SchedulerService(
             IServiceScopeFactory serviceScopeFactory,
             JobRepository jobRepository,
@@ -145,7 +123,7 @@ LIMIT 500
                     
                     // Execute some sort of nasty database query to get characters that need an API check
                     var characterResults = await context.SchedulerCharacterQuery
-                        .FromSqlRaw(QueryCharacters)
+                        .FromSqlRaw(SchedulerCharacterQuery.SqlQuery)
                         .ToArrayAsync();
                     if (characterResults.Length > 0)
                     {

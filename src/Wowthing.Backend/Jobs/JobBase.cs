@@ -91,6 +91,7 @@ namespace Wowthing.Backend.Jobs
             Uri uri,
             bool useAuthorization = true,
             bool useLastModified = true,
+            DateTime? lastModified = null,
             JankTimer timer = null
         )
         {
@@ -101,7 +102,7 @@ namespace Wowthing.Backend.Jobs
                 timerOutput = true;
             }
             
-            var result = await GetBytes(uri, useAuthorization, useLastModified, timer);
+            var result = await GetBytes(uri, useAuthorization, useLastModified, lastModified, timer);
             if (result.NotModified)
             {
                 return new JobHttpResult<T> { NotModified = true };
@@ -115,13 +116,18 @@ namespace Wowthing.Backend.Jobs
                 Logger.Debug("{0}", timer.ToString());
             }
             
-            return new JobHttpResult<T> { Data = obj };
+            return new JobHttpResult<T>
+            {
+                Data = obj,
+                LastModified = result.LastModified,
+            };
         }
         
         protected async Task<JobHttpResult<byte[]>> GetBytes(
             Uri uri,
             bool useAuthorization = true,
             bool useLastModified = true,
+            DateTime? lastModified = null,
             JankTimer timer = null
         )
         {
@@ -135,9 +141,9 @@ namespace Wowthing.Backend.Jobs
             var db = Redis.GetDatabase();
 
             // Try from cache first
+            bool useProvidedLastModified = lastModified != null;
             string cacheKey = string.Format(CacheKeyLastModified, uri.ToString().Md5());
-            DateTime lastModified = MiscConstants.DefaultDateTime;
-            if (useLastModified)
+            if (useLastModified && !useProvidedLastModified)
             {
                 var value = await db.StringGetAsync(cacheKey);
                 if (value.HasValue)
@@ -154,7 +160,7 @@ namespace Wowthing.Backend.Jobs
             }
             if (lastModified > MiscConstants.DefaultDateTime)
             {
-                request.Headers.IfModifiedSince = new DateTimeOffset(lastModified);
+                request.Headers.IfModifiedSince = new DateTimeOffset(lastModified.Value);
             }
 
             HttpResponseMessage response;
@@ -189,17 +195,25 @@ namespace Wowthing.Backend.Jobs
 
             timer.AddPoint("API");
 
-            if (useLastModified && response.Content.Headers.LastModified.HasValue)
+            if (response.Content.Headers.LastModified.HasValue)
             {
-                await db.StringSetAsync(cacheKey, response.Content.Headers.LastModified.Value.UtcDateTime.ToString("O"));
+                lastModified = response.Content.Headers.LastModified.Value.UtcDateTime;
+                if (useLastModified && !useProvidedLastModified)
+                {
+                    await db.StringSetAsync(cacheKey, lastModified.Value.ToString("O"));
+                }
             }
-            
+
             if (timerOutput)
             {
                 Logger.Debug("{0}", timer.ToString());
             }
 
-            return new JobHttpResult<byte[]> { Data = bytes };
+            return new JobHttpResult<byte[]>
+            {
+                Data = bytes,
+                LastModified = lastModified ?? MiscConstants.DefaultDateTime,
+            };
         }
 
         protected void LogNotModified()
