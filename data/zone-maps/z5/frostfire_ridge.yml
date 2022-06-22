@@ -3,387 +3,277 @@ mapName: "z5_frostfire_ridge"
 minimumLevel: 10
 farms:
 
-# - name: "Ak'ox the Slaughterer"
-#   location: {'525': [[88.6, 57.4]]}
-#   npcId: 84378
-#   questId: 37525
-#   type: kill
-#   drops:
-#     # 119365
+- name: "Ak'ox the Slaughterer"
+  location: 88.6 57.4
+  npcId: 84378
+  questId: 37525
+  type: kill
+  drops:
+    - type: transmog
+      id: 119365 # Bloodied Tourniquet Belt [leather]
 
-# - name: "Beastcarver Saramor"
-#   location: {'525': [[57.4, 37.4]]}
-#   npcId: 78150
-#   questId: 34130
-#   type: kill
+- name: "Borrok the Devourer"
+  location: 62.6 42.2
+  npcId: 72156
+  type: kill
+  drops:
+    - type: transmog
+      id: 112110 # Carapace Shield of the Devourer [shield]
 
-# - name: "Borrok the Devourer"
-#   location: {'525': [[62.6, 42.2]]}
-#   npcId: 72156
-#   type: kill
-#   drops:
-#     # 112110
+- name: "Breathless"
+  location: 26.8 49.4
+  npcId: 78867
+  questId: 34497
+  type: kill
+  drops:
+    - type: toy
+      id: 111476 # Stolen Breath
 
-# - name: "Breathless"
-#   location: {'525': [[26.8, 49.4]]}
-#   npcId: 78867
-#   questId: 34497
-#   type: kill
-#   drops:
-#     # {111476,toy=true,}
+- name: "Chillfang"
+  location: 41.2 68.2
+  npcId: 80242
+  questId: 34843
+  type: kill
+  drops:
+    - type: transmog
+      id: 111953 # Bat-Leather Breeches [leather]
 
-# - name: "Broodmother Reeg'ak"
-#   location: {'525': [[66.4, 31.4]]}
-#   npcId: 74613
-#   questId: 33843
-#   type: kill
-#   drops:
-#     # 111533
+- name: "Cindermaw"
+  location: 40.4 47.0
+  npcId: 72294
+  questId: 33014
+  type: kill
+  drops:
+    - type: transmog
+      id: 111490 # Cindermaw's Blazing Talon [int dagger]
 
-# - name: "Canyon Icemother"
-#   location: {'525': [[33.8, 23.0]]}
-#   npcId: 71721
-#   questId: 32941
-#   type: kill
-#   drops:
-#     # 101436
+- name: "Clumsy Cragmaul Brute"
+  location: 50.2 18.6
+  npcId: 75120
+  questId: 33531
+  reset: never
+  type: treasure
+  drops:
+    - type: transmog
+      id: 112096 # Dented Ogre Skullcap [mail]
 
-# - name: "Chillfang"
-#   location: {'525': [[41.2, 68.2]]}
-#   npcId: 80242
-#   questId: 34843
-#   type: kill
-#   drops:
-#     # 111953
+- name: "Coldtusk"
+  location: 54.2 67.4
+  npcId: 76914
+  questId: 34131
+  type: kill
+  drops:
+    - type: transmog
+      id: 111484 # Cold Tusk [1h agi/str sword]
 
-# - name: "Cindermaw"
-#   location: {'525': [[40.4, 47.0]]}
-#   npcId: 72294
-#   questId: 33014
-#   type: kill
-#   drops:
-#     # 111490
+- name: "Cyclonic Fury"
+  location: 67.4 78.2
+  npcId: 78621
+  questId: 34477
+  type: kill
+  drops:
+    - type: transmog
+      id: 112086 # Windburnt Pauldrons [cloth]
 
-# - name: "Cloudspeaker Daber"
-#   location: {'525': [[56.4, 38.2], [58.4, 32.4]]}
-#   npcId: 78169
-#   type: kill
+- name: "Firefury Giant"
+  location: 71.4 46.8
+  npcId: 74971
+  questId: 33504
+  type: kill
+  drops:
+    - type: transmog
+      id: 107661 # Smoldering Lavacore Orb [int off-hand]
 
-# - name: "Clumsy Cragmaul Brute"
-#   location: {'525': [[50.2, 18.6]]}
-#   npcId: 75120
-#   questId: 33531
-#   type: kill
-#   drops:
-#     # 112096
+- name: "Gibblette the Cowardly"
+  location: 66.6 25.4
+  npcId: 87352
+  questId: 37380
+  type: kill
+  drops:
+    - type: toy
+      id: 119180 # Goren "Log" Roller
 
-# - name: "Coldstomp the Griever"
-#   location: {'525': [[25.4, 54.4]]}
-#   npcId: 77513
-#   questId: 34129
-#   type: kill
-#   drops:
-#     # 112066
+    - type: transmog
+      id: 119349 # Craven Coward's Cloak [cloak]
+    
+- name: "Gorg'ak the Lava Guzzler"
+  location: 70.8 27.8
+  npcId: 72364
+  questId: 33512
+  type: kill
+  drops:
+    - type: transmog
+      id: 111545 # Smoldering Fist of Gorg'ak [str fist]
 
-# - name: "Coldtusk"
-#   location: {'525': [[54.2, 67.4]]}
-#   npcId: 76914
-#   questId: 34131
-#   type: kill
-#   drops:
-#     # 111484
+- name: "Gorivax"
+  location: 38.0 14.0
+  npcId: 82536
+  questId: 37388
+  type: kill
+  drops:
+    - type: transmog
+      id: 119358 # Voidmesh Cloth Wristwraps [cloth]
 
-# - name: "Cyclonic Fury"
-#   location: {'525': [[67.4, 78.2]]}
-#   npcId: 78621
-#   questId: 34477
-#   type: kill
-#   drops:
-#     # 112086
+- name: "Gorok"
+  location: 22.4 66.2 # [51.2, 50.2], [57.4, 18.2], [63.4, 79.6], [64.6, 52.0]
+  note: "Spawns in various places"
+  npcId: 50992
+  type: killBig
+  drops:
+    - type: mount
+      id: 171636 # Great Greytusk
 
-# - name: "Earthshaker Holar"
-#   location: {'525': [[86.6, 51.8]]}
-#   npcId: 84376
-#   questId: 37403
-#   type: kill
-#   drops:
-#     # 119374
+- name: "Grutush the Pillager"
+  location: 38.4 63.0
+  npcId: 80312
+  questId: 34865
+  type: kill
+  drops:
+    - type: transmog
+      id: 112077 # Grutush's Fur-Padded Pantaloons [mail]
 
-# - name: "Firefury Giant"
-#   location: {'525': [[71.4, 46.8]]}
-#   npcId: 74971
-#   questId: 33504
-#   type: kill
-#   drops:
-#     # 107661
+- name: "Gurun"
+  location: 46.6 55.0
+  npcId: 80235
+  questId: 34839
+  type: kill
+  drops:
+    - type: transmog
+      id: 111955 # Skog's Drape [cloak]
 
-# - name: "Giant-Slayer Kul"
-#   location: {'525': [[54.6, 22.2]]}
-#   npcId: 71665
-#   questId: 32918
-#   type: kill
-#   drops:
-#     # 111530
+- name: "Jabberjaw"
+  location: 48.2 23.4
+  npcId: 82616
+  questId: 37386
+  type: kill
+  drops:
+    - type: transmog
+      id: 119390 # Rockworm Carapace Shield [shield]
 
-# - name: "Giantbane"
-#   location: {'525': [[57.0, 38.0], [58.6, 32.4]]}
-#   npcId: 77519
-#   type: kill
+- name: "Jehil the Climber"
+  location: 61.6 26.4
+  npcId: 79678
+  questId: 34708
+  type: kill
+  drops:
+    - type: transmog
+      id: 112078 # Jehil's Climbin' Boots [leather]
 
-# - name: "Giantslayer Kimla"
-#   location: {'525': [[57.4, 37.4]]}
-#   npcId: 78144
-#   questId: 34130
-#   type: kill
+- name: "Kaga the Ironbender"
+  location: 87.0 46.4
+  npcId: 84374
+  questId: 37404
+  type: kill
+  drops:
+    - type: transmog
+      id: 119372 # Ironstudded Scale Girdle [mail]
 
-# - name: "Gibblette the Cowardly"
-#   location: {'525': [[66.6, 25.4]]}
-#   npcId: 87352
-#   questId: 37380
-#   type: kill
-#   drops:
-#     # 119349,{119180,toy=true,}
+- name: "Moltnoma"
+  location: 43.0 21.0
+  npcId: 82614
+  questId: 37387
+  type: kill
+  drops:
+    - type: transmog
+      id: 119356 # Moltonomoa's Magma Mantle [cloth]
 
-# - name: "Gorg'ak the Lava Guzzler"
-#   location: {'525': [[70.8, 27.8]]}
-#   npcId: 72364
-#   questId: 33512
-#   type: kill
-#   drops:
-#     # 111545
+- name: "Nok-Karosh"
+  location: 13.8 51.4
+  npcId: 81001
+  type: kill
+  drops:
+    - type: mount
+      id: 171851 # Garn Nighthowl
 
-# - name: "Gorivax"
-#   location: {'525': [[38.0, 14.0]]}
-#   npcId: 82536
-#   questId: 37388
-#   type: kill
-#   drops:
-#     # 119358
+- name: "Ogom the Mangler"
+  location: 83.6 47.2
+  npcId: 87622
+  questId: 37402
+  type: kill
+  drops:
+    - type: transmog
+      id: 119366 # Ogom's Manacles [leather]
 
-# - name: "Gorok"
-#   location: {'525': [[22.4, 66.2], [51.2, 50.2], [57.4, 18.2], [63.4, 79.6], [64.6, 52.0]]}
-#   npcId: 50992
-#   type: kill
-#   drops:
-#     # {116674,mount=627,}},
+- name: "Primalist Mur'og"
+  location: 37.0 33.8
+  npcId: 76918
+  questId: 33938
+  type: kill
+  drops:
+    - type: transmog
+      id: 111576 # Ritual Leggings of Mur'og [cloth]
 
-# - name: "Gronnstalker Dawarn"
-#   location: {'525': [[57.4, 37.4]]}
-#   npcId: 78128
-#   questId: 34130
-#   type: kill
+- name: "Ragore Driftstalker"
+  location: 86.6 48.8
+  npcId: 84392
+  questId: 37401
+  type: kill
+  drops:
+    - type: transmog
+      id: 119359 # Tunic of the Driftstalker [leather]
 
-# - name: "Grutush the Pillager"
-#   location: {'525': [[38.4, 63.0]]}
-#   npcId: 80312
-#   questId: 34865
-#   type: kill
-#   drops:
-#     # 112077
+- name: "Scout Goreseeker"
+  location: 76.4 63.4
+  npcId: 77526
+  questId: 34132
+  type: kill
+  drops:
+    - type: transmog
+      id: 112094 # Goreseeker's Goresplattered Garb [leather]
 
-# - name: "Gruuk"
-#   location: {'525': [[50.4, 52.4]]}
-#   npcId: 80190
-#   questId: 34825
-#   type: kill
-#   drops:
-#     # 111948
+- name: "Slogtusk the Corpse-Eater"
+  location: 44.6 15.0
+  npcId: 82617
+  questId: 37385
+  type: kill
+  drops:
+    - type: transmog
+      id: 119362 # Frostboar Leather Helmet [leather]
 
-# - name: "Gurun"
-#   location: {'525': [[46.6, 55.0]]}
-#   npcId: 80235
-#   questId: 34839
-#   type: kill
-#   drops:
-#     # 111955
+- name: "Son of Goramal"
+  location: 38.2 16.0
+  npcId: 82620
+  questId: 37383
+  type: kill
+  drops:
+    - type: transmog
+      id: 119399 # Cudgel of the Son of Goramal [1h int mace]
 
-# - name: "Hoarfrost"
-#   location: {'525': [[68.0, 19.8]]}
-#   npcId: 87348
-#   questId: 37382
-#   type: kill
-#   drops:
-#     # 119415
+- name: "The Beater"
+  location: 26.6 31.4
+  npcId: 77527
+  questId: 34133
+  type: kill
+  drops:
+    - type: transmog
+      id: 111475 # Beater's Beat Stick [2h str mace]
 
-# - name: "Huntmaster Kuang"
-#   location: {'525': [[57.4, 37.4]]}
-#   npcId: 78151
-#   questId: 34130
-#   type: kill
+- name: "The Bone Crawler"
+  location: 72.2 33.0
+  npcId: 78265
+  questId: 34361
+  type: kill
+  drops:
+    - type: transmog
+      id: 111534 # The Bone Crawler's Carapace
 
-# - name: "Jabberjaw"
-#   location: {'525': [[48.2, 23.4]]}
-#   npcId: 82616
-#   questId: 37386
-#   type: kill
-#   drops:
-#     # 119390
+- name: "Tor'goroth"
+  location: 43.4 9.0
+  npcId: 82618
+  questId: 37384
+  type: kill
+  drops:
+    - type: toy
+      id: 119163 # Soul Inhaler
+    
+    - type: transmog
+      id: 119379 # Tor'goroth's Soul Prism [int off-hand]
 
-# - name: "Jaluk the Pacifist"
-#   location: {'525': [[85.0, 52.2]]}
-#   npcId: 87600
-#   questId: 37556
-#   type: kill
-
-# - name: "Jehil the Climber"
-#   location: {'525': [[61.6, 26.4]]}
-#   npcId: 79678
-#   questId: 34708
-#   type: kill
-#   drops:
-#     # 112078
-
-# - name: "Kaga the Ironbender"
-#   location: {'525': [[87.0, 46.4]]}
-#   npcId: 84374
-#   questId: 37404
-#   type: kill
-#   drops:
-#     # 119372
-
-# - name: "Moltnoma"
-#   location: {'525': [[43.0, 21.0]]}
-#   npcId: 82614
-#   questId: 37387
-#   type: kill
-#   drops:
-#     # 119356
-
-# - name: "Mother of Goren"
-#   location: {'525': [[70.0, 27.0]]}
-#   npcId: 87351
-#   questId: 37381
-#   type: kill
-#   drops:
-#     # 119376
-
-# - name: "Nok-Karosh"
-#   location: {'525': [[13.8, 51.4]]}
-#   npcId: 81001
-#   type: kill
-#   drops:
-#     # {116794,mount=657,boe=true,}
-
-# - name: "Ogom the Mangler"
-#   location: {'525': [[83.6, 47.2]]}
-#   npcId: 87622
-#   questId: 37402
-#   type: kill
-#   drops:
-#     # 119366
-
-# - name: "Pale Fishmonger"
-#   location: {'525': [[28.2, 66.4]]}
-#   npcId: 78606
-#   questId: 34470
-#   type: kill
-#   drops:
-#     # 111666
-
-# - name: "Pathfinder Jalog"
-#   location: {'525': [[57.4, 37.4]]}
-#   npcId: 78134
-#   questId: 34130
-#   type: kill
-
-# - name: "Primalist Mur'og"
-#   location: {'525': [[37.0, 33.8]]}
-#   npcId: 76918
-#   questId: 33938
-#   type: kill
-#   drops:
-#     # 111576
-
-# - name: "Ragore Driftstalker"
-#   location: {'525': [[86.6, 48.8]]}
-#   npcId: 84392
-#   questId: 37401
-#   type: kill
-#   drops:
-#     # 119359
-
-# - name: "Scout Goreseeker"
-#   location: {'525': [[76.4, 63.4]]}
-#   npcId: 77526
-#   questId: 34132
-#   type: kill
-#   drops:
-#     # 112094
-
-# - name: "Slogtusk the Corpse-Eater"
-#   location: {'525': [[44.6, 15.0]]}
-#   npcId: 82617
-#   questId: 37385
-#   type: kill
-#   drops:
-#     # 119362
-
-# - name: "Son of Goramal"
-#   location: {'525': [[38.2, 16.0]]}
-#   npcId: 82620
-#   questId: 37383
-#   type: kill
-#   drops:
-#     # 119399
-
-# - name: "The Beater"
-#   location: {'525': [[26.6, 31.4]]}
-#   npcId: 77527
-#   questId: 34133
-#   type: kill
-#   drops:
-#     # 111475
-
-# - name: "The Bone Crawler"
-#   location: {'525': [[72.2, 33.0]]}
-#   npcId: 78265
-#   questId: 34361
-#   type: kill
-#   drops:
-#     # 111534
-
-# - name: "The Last Voidtalon"
-#   location: {'525': [[47.7, 27.5], [51.0, 19.9], [52.3, 18.3], [53.84, 17.21]], '535': [[39.7, 55.4], [46.2, 52.6], [47.0, 48.0], [51.9, 41.2]], '539': [[41.9, 75.7], [43.2, 71.0], [46.6, 70.0], [48.7, 69.9], [49.6, 71.6], [50.9, 72.5]], '542': [[36.5, 18.2], [47.0, 20.1], [50.4, 6.1], [60.8, 11.2]], '543': [[43.2, 34.2], [51.6, 38.8], [54.0, 45.0], [56.0, 40.0]], '550': [[40.5, 47.5], [45.9, 31.4], [57.3, 26.7]]}
-#   npcId: 90041
-#   questId: 37864
-#   type: kill
-#   drops:
-#     # {121815,mount=682,}
-
-# - name: "Tor'goroth"
-#   location: {'525': [[43.4, 9.0]]}
-#   npcId: 82618
-#   questId: 37384
-#   type: kill
-#   drops:
-#     # {119163,toy=true,
-
-# - name: "Ug'lok the Frozen"
-#   location: {'525': [[40.2, 12.2]]}
-#   npcId: 79104
-#   questId: 34522
-#   type: kill
-
-# - name: "Valkor"
-#   location: {'525': [[72.4, 24.2]]}
-#   npcId: 87357
-#   questId: 37378
-#   type: kill
-#   drops:
-#     # 119416
-
-# - name: "Vrok the Ancient"
-#   location: {'525': [[70.6, 39.0]]}
-#   npcId: 87356
-#   questId: 37379
-#   type: kill
-#   drops:
-#     # 119416
-
-# - name: "Yaga the Scarred"
-#   location: {'525': [[40.4, 27.8]]}
-#   npcId: 79145
-#   questId: 34559
-#   type: kill
-#   drops:
-#     # 111477
+- name: "Yaga the Scarred"
+  location: 40.4 27.8
+  npcId: 79145
+  questId: 34559
+  type: kill
+  drops:
+    - type: transmog
+      id: 111477 # Yaga's Trophy Belt [leather]
