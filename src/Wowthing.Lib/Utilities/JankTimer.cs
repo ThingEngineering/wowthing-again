@@ -11,6 +11,7 @@ namespace Wowthing.Lib.Utilities
         public JankTimer()
         {
             _timer = Stopwatch.StartNew();
+            AddPoint("create");
         }
 
         public void AddPoint(string label, bool stop = false)
@@ -25,7 +26,9 @@ namespace Wowthing.Lib.Utilities
 
         public override string ToString()
         {
-            return string.Join(" ", Points.Select(p => $"{p.Item1}={(double)p.Item2 / 1000:F3}s"));
+            return string.Join(" ", Points.Skip(1).Select(p => $"{p.Item1}={(double)p.Item2 / 1000:F3}s"));
         }
+
+        public string TotalDuration => $"{(Points.Last().Item2 - Points.First().Item2) / 1000:F3}s";
     }
 }

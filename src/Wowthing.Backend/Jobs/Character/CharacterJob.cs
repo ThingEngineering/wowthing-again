@@ -33,9 +33,10 @@ namespace Wowthing.Backend.Jobs.Character
             // Get character from API
             var uri = GenerateUri(query, ApiPath);
             ApiCharacter apiCharacter;
+            DateTime lastModified;
             try
             {
-                var result = await GetJson<ApiCharacter>(uri, useLastModified: true);
+                var result = await GetJson<ApiCharacter>(uri, useLastModified: true, lastModified: query.LastApiModified);
                 if (result.NotModified)
                 {
                     LogNotModified();
@@ -49,6 +50,7 @@ namespace Wowthing.Backend.Jobs.Character
                 }
 
                 apiCharacter = result.Data;
+                lastModified = result.LastModified;
             }
             catch (HttpRequestException e)
             {
@@ -97,6 +99,7 @@ namespace Wowthing.Backend.Jobs.Character
             character.RealmId = apiCharacter.Realm.Id;
 
             character.DelayHours = 0;
+            character.LastApiModified = lastModified;
 
             int updated = await Context.SaveChangesAsync();
             if (updated > 0)

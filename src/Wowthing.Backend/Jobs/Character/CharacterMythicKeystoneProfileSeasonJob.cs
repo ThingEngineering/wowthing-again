@@ -1,4 +1,5 @@
-﻿using Wowthing.Backend.Models.API.Character;
+﻿using System.Net.Http;
+using Wowthing.Backend.Models.API.Character;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
@@ -16,11 +17,23 @@ namespace Wowthing.Backend.Jobs.Character
             var seasonId = int.Parse(data[1]);
             using var shrug = CharacterLog(query);
 
+            // Fetch API data
+            ApiCharacterMythicKeystoneProfileSeason resultData;
             var uri = GenerateUri(query, ApiPath, data[1]);
-            var result = await GetJson<ApiCharacterMythicKeystoneProfileSeason>(uri, useLastModified: false);
-            if (result.NotModified)
+            try
             {
-                LogNotModified();
+                var result = await GetJson<ApiCharacterMythicKeystoneProfileSeason>(uri, useLastModified: false);
+                if (result.NotModified)
+                {
+                    LogNotModified();
+                    return;
+                }
+                
+                resultData = result.Data;
+            }
+            catch (HttpRequestException e)
+            {
+                Logger.Error("HTTP {0}", e.Message);
                 return;
             }
 
@@ -29,7 +42,7 @@ namespace Wowthing.Backend.Jobs.Character
                 .Where(mps => mps.CharacterId == query.CharacterId)
                 .ToDictionaryAsync(k => k.Season);
 
-            if (result.Data.BestRuns != null)
+            if (resultData.BestRuns != null)
             {
                 if (!seasonMap.TryGetValue(seasonId, out PlayerCharacterMythicPlusSeason season))
                 {
@@ -41,7 +54,7 @@ namespace Wowthing.Backend.Jobs.Character
                     Context.PlayerCharacterMythicPlusSeason.Add(season);
                 }
 
-                season.Runs = result.Data.BestRuns
+                season.Runs = resultData.BestRuns
                     .EmptyIfNull()
                     .Select(run => new PlayerCharacterMythicPlusRun()
                     {

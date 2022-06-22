@@ -50,6 +50,7 @@ namespace Wowthing.Lib.Models.Player
         // Bookkeeping
         public int DelayHours { get; set; } = 0;
         public DateTime LastApiCheck { get; set; } = MiscConstants.DefaultDateTime;
+        public DateTime LastApiModified { get; set; } = MiscConstants.DefaultDateTime;
         public DateTime LastSeenAddon { get; set; } = MiscConstants.DefaultDateTime;
 
         // Navigation properties

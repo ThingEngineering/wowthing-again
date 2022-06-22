@@ -1,4 +1,5 @@
-﻿using Wowthing.Backend.Models.API.Character;
+﻿using System.Net.Http;
+using Wowthing.Backend.Models.API.Character;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models.Player;
@@ -16,14 +17,26 @@ namespace Wowthing.Backend.Jobs.Character
                         throw new InvalidJsonException(data[0]);
             using var shrug = CharacterLog(query);
 
+            // Fetch API data
+            ApiCharacterMythicKeystoneProfile resultData;
             var uri = GenerateUri(query, ApiPath);
-            var result = await GetJson<ApiCharacterMythicKeystoneProfile>(uri, useLastModified: false);
-            if (result.NotModified)
+            try
             {
-                LogNotModified();
+                var result = await GetJson<ApiCharacterMythicKeystoneProfile>(uri, useLastModified: false);
+                if (result.NotModified)
+                {
+                    LogNotModified();
+                    return;
+                }
+
+                resultData = result.Data;
+            }
+            catch (HttpRequestException e)
+            {
+                Logger.Error("HTTP {0}", e.Message);
                 return;
             }
-            
+
             // Fetch character data
             var mythicPlus = await Context.PlayerCharacterMythicPlus.FindAsync(query.CharacterId);
             if (mythicPlus == null)
@@ -35,9 +48,9 @@ namespace Wowthing.Backend.Jobs.Character
                 Context.PlayerCharacterMythicPlus.Add(mythicPlus);
             }
 
-            mythicPlus.CurrentPeriodId = result.Data.CurrentPeriod.Period.Id;
+            mythicPlus.CurrentPeriodId = resultData.CurrentPeriod.Period.Id;
 
-            mythicPlus.PeriodRuns = result.Data.CurrentPeriod.BestRuns
+            mythicPlus.PeriodRuns = resultData.CurrentPeriod.BestRuns
                 .EmptyIfNull()
                 .Select(run => new PlayerCharacterMythicPlusRun
                 {
@@ -64,7 +77,7 @@ namespace Wowthing.Backend.Jobs.Character
             }
 
             // Start jobs for all seasons
-            var apiSeasons = result.Data?.Seasons
+            var apiSeasons = resultData.Seasons
                 .EmptyIfNull()
                 .Select(s => s.Id)
                 .OrderByDescending(id => id)

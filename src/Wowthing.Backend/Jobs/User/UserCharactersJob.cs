@@ -1,9 +1,9 @@
-﻿using System.Net.Http;
+﻿using System.Net;
+using System.Net.Http;
 using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.API.Profile;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Enums;
-using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Utilities;
 
@@ -16,9 +16,11 @@ namespace Wowthing.Backend.Jobs.User
         public override async Task Run(params string[] data)
         {
             using var shrug = UserLog(data[0]);
+            var timer = new JankTimer();
 
             var userId = long.Parse(data[0]);
 
+            // Get user access token
             var accessToken = await Context.UserTokens.FirstOrDefaultAsync(t =>
                 t.UserId == userId && t.LoginProvider == "BattleNet" && t.Name == "access_token");
             if (accessToken == null)
@@ -29,11 +31,13 @@ namespace Wowthing.Backend.Jobs.User
 
             var path = string.Format(ApiPath, accessToken.Value);
 
+            timer.AddPoint("access_token");
+            
             // Fetch existing accounts
             var accountMap = await Context.PlayerAccount
                 .Where(a => a.UserId == userId)
                 .ToDictionaryAsync(k => (k.Region, k.AccountId));
-
+            
             // Add any new accounts
             var apiAccounts = new List<(WowRegion, ApiAccountProfileAccount)>();
             foreach (var region in EnumUtilities.GetValues<WowRegion>())
@@ -55,25 +59,29 @@ namespace Wowthing.Backend.Jobs.User
                         // TODO handle account changing owner? is that even possible?
                         if (!accountMap.ContainsKey((region, account.Id)))
                         {
-                            var newAccount = new PlayerAccount
+                            var newAccount = accountMap[(region, account.Id)] = new PlayerAccount
                             {
                                 AccountId = account.Id,
                                 Region = region,
                                 UserId = userId,
                             };
                             Context.PlayerAccount.Add(newAccount);
-                            accountMap[(region, account.Id)] = newAccount;
                             Logger.Information("Added new account {0}/{1}", region, account.Id);
                         }
                     }
                 }
                 catch (HttpRequestException e)
                 {
-                    Logger.Warning("HTTP request failed: {region} {e}", region, e.Message);
+                    if (e.StatusCode != HttpStatusCode.NotFound)
+                    {
+                        Logger.Warning("HTTP request failed: {region} {e}", region, e.Message);
+                    }
                 }
             }
 
             await Context.SaveChangesAsync();
+
+            timer.AddPoint("accounts");
 
             // Fetch existing characters
             var characterPairs = apiAccounts
@@ -136,6 +144,8 @@ namespace Wowthing.Backend.Jobs.User
                 }
             }
 
+            timer.AddPoint("characters");
+            
             // Delete any characters that weren't in the API response
             foreach ((var region, var apiAccount) in apiAccounts)
             {
@@ -152,11 +162,17 @@ namespace Wowthing.Backend.Jobs.User
                 }
             }
             
+            timer.AddPoint("delete");
+            
             int updated = await Context.SaveChangesAsync();
             if (updated > 0)
             {
                 await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, userId);
             }
+            
+            timer.AddPoint("save", true);
+            Logger.Information("Completed in {Z}", timer.ToString());
+            Logger.Debug("{Timer}", timer);
         }
     }
 }

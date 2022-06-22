@@ -214,7 +214,7 @@ farms:
   location: 40.6 25.8 #, [43.2, 55.5], [45.4, 47.5], [48.4, 56.8], [51.4, 43.1]
   note: "Spawns in various places. Long respawn!"
   npcId: 50985
-  type: kill
+  type: killBig
   drops:
     - type: mount
       id: 171849 # Sunhide Gronnling

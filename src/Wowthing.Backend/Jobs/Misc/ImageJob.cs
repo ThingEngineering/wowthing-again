@@ -16,7 +16,7 @@ namespace Wowthing.Backend.Jobs.Misc
 
             var timer = new JankTimer();
             
-            var result = await GetBytes(new Uri(url), false, false, timer);
+            var result = await GetBytes(new Uri(url), useAuthorization: false, useLastModified: false, timer: timer);
             if (result.NotModified)
             {
                 LogNotModified();
