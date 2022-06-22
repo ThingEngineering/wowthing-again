@@ -10,6 +10,7 @@ namespace Wowthing.Lib.Utilities
             var options = ConfigurationOptions.Parse(connectionString);
             options.ChannelPrefix = "wowthing_";
             options.ClientName = Assembly.GetCallingAssembly().GetName().Name;
+            options.AbortOnConnectFail = false;
 
             return ConnectionMultiplexer.Connect(options);
         }
