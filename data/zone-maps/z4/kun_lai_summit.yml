@@ -199,6 +199,16 @@ farms:
     - type: toy
       id: 88385 # Hozen Idol
 
+- name: "Breath of Darkest Shadow"
+  faction: horde
+  location: 55.8 34.0
+  note: "Dominance Offensive?"
+  reset: none
+  type: quest
+  drops:
+    - type: mount
+      id: 136164 # Grand Wyvern
+
 - name: "Do a Barrel Roll!"
   location: 29.9 62.2
   questId: 30991

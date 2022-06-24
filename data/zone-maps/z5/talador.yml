@@ -310,3 +310,32 @@ farms:
   drops:
     - type: transmog
       id: 112263 # Yazheer's Burning Bracers [mail]
+
+# Treasure
+
+- name: "Curious Deathweb Egg"
+  location: 66.5 86.9
+  objectId: 227996
+  reset: never
+  type: treasure
+  drops:
+    - type: toy
+      id: 117569 # Giant Deathweb Egg
+
+- name: "Deceptia's Smoldering Boots"
+  location: 58.9 12.0
+  objectId: 226976
+  reset: never
+  type: treasure
+  drops:
+    - type: toy
+      id: 108743 # Deceptia's Smoldering Boots
+
+- name: "Foreman's Lunchbox"
+  location: 57.4 28.7
+  objectId: 227956
+  reset: never
+  type: treasure
+  drops:
+    - type: toy
+      id: 116120 # Tasty Talador Lunch

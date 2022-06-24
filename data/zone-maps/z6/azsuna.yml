@@ -279,3 +279,101 @@ farms:
   - type: transmog
     id: 141437
     name: "Warboots of Smoldering Fury"
+
+# Quest
+
+- name: "Dressing With Class"
+  location: 53.0 47.0
+  questId: 37736
+  reset: never
+  type: quest
+  drops:
+    - type: toy
+      id: 138873 # Mystical Frosh Hat
+
+- name: "The Hunter Returns"
+  location: 3.8 16.8
+  questId: 37959
+  reset: never
+  type: quest
+  drops:
+    - type: toy
+      id: 138876 # Runas' Crystal Grinder
+
+- name: "This IS In My Contract"
+  location: 63.4 53.4
+  questId: 38237
+  reset: never
+  type: quest
+  drops:
+    - type: toy
+      id: 138878 # Copy of Daglop's Contract
+
+# Treasure
+
+- name: "Treasure Chest"
+  location: 49.5 45.3
+  objectId: 240643
+  reset: never
+  type: quest
+  drops:
+    - type: toy
+      id: 122681 # Sternfathom's Pet Journal
+
+# Vendor
+
+- name: "Marin Bladewing"
+  location: 48.2 73.8
+  npcId: 107379
+  title: "The Wardens"
+  type: vendor
+  drops:
+    - type: pet
+      id: 97128 # Fledgling Warden Owl
+      note: "{price:500} at Revered"
+
+    - type: toy
+      id: 130157 # Syxsehnz Rod
+      note: "{price:500} at Revered"
+    
+    - type: toy
+      id: 130191 # Trapped Treasure Chest Kit
+      note: "{price:300} at Honored"
+    
+    - type: transmog
+      id: 139607 # Drape of the Patient Hunter [cloak]
+      note: "{price:5000} at Exalted"
+
+    - type: transmog
+      id: 140580 # Warden's Tabard [tabard]
+      note: "{price:300} at Exalted"
+    
+    - type: transmog
+      id: 139603 # Vault Patroller's Warboots [plate]
+      note: "{price:1000} at Reverd"
+
+- name: "Veridis Fallon"
+  location: 46.8 41.4
+  npcId: 107376
+  title: "Court of Farondis"
+  type: vendor
+  drops:
+    - type: pet
+      id: 112728 # Court Scribe
+      note: "{price:500} at Revered"
+
+    - type: toy
+      id: 129279 # Enchanted Stone Whistle
+      note: "{price:300} at Honored"
+
+    - type: transmog
+      id: 139606 # Cadet's Gaudy Scarf [cloak]
+      note: "{price:1000} at Revered"
+
+    - type: transmog
+      id: 140577 # Court of Farondis Tabard [tabard]
+      note: "{price:300} at Exalted"
+
+    - type: transmog
+      id: 139595 # Once-Fashionable Nar'thalas Leggings
+      note: "{price:5000} at Exalted"

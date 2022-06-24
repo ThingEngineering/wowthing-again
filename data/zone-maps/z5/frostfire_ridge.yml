@@ -116,7 +116,7 @@ farms:
 
 - name: "Gorok"
   location: 22.4 66.2 # [51.2, 50.2], [57.4, 18.2], [63.4, 79.6], [64.6, 52.0]
-  note: "Spawns in various places"
+  note: "Spawns in various places. Long respawn!"
   npcId: 50992
   type: killBig
   drops:
@@ -277,3 +277,36 @@ farms:
   drops:
     - type: transmog
       id: 111477 # Yaga's Trophy Belt [leather]
+
+# Quest
+
+- name: "Diamonds Are Forever"
+  faction: horde
+  location: 20.0 56.4
+  note: "Requires Jewelcrafting"
+  questId: 36380
+  reset: never
+  type: quest
+  drops:
+    - type: toy
+      id: 115503 # Blazing Diamond Pendant
+
+# Treasure
+
+- name: "Arena Master's War Horn"
+  location: 23.1 25.0
+  objectId: 226955
+  reset: never
+  type: treasure
+  drops:
+    - type: toy
+      id: 108735 # Arena Master's War Horn
+
+- name: "Giant Draenor Clam"
+  location: 22.0 9.6
+  objectId: 226967
+  reset: never
+  type: treasure
+  drops:
+    - type: toy
+      id: 108739 # Pretty Draenor Pearl

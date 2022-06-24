@@ -83,3 +83,26 @@ farms:
   drops:
     - type: toy
       id: 95568 # Sunreaver Beacon
+
+# Vendor
+
+- name: "Rushi the Fox"
+  location: 48.8 70.6
+  npcId: 64595
+  type: vendor
+  drops:
+    - type: mount
+      id: 129934 # Blue Shado-Pan Riding Tiger
+      note: "{price:500} at Exalted with Shado-Pan"
+    
+    - type: mount
+      id: 129932 # Green Shado-Pan Riding Tiger
+      note: "{price:1500} at Exalted with Shado-Pan"
+
+    - type: mount
+      id: 129935 # Red Shado-Pan Riding Tiger
+      note: "{price:2500} at Exalted with Shado-Pan"
+
+    - type: transmog
+      id: 89800 # Shado-Pan Tabard [tabard]
+      note: "{price:10} at Exalted with Shado-Pan"

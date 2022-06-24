@@ -135,3 +135,57 @@ farms:
     - *shared-3
     - *shared-4
     - *shared-5
+
+# Vendor
+
+# TODO work out a better way to deal with multiple locations
+- name: "Jaluu the Generous"
+  faction: alliance
+  location: 84.2 62.6
+  npcId: 59908
+  type: vendor
+  drops:
+    - &golden-lotus-1
+      type: mount
+      id: 127174 # Azure Riding Crane
+      note: "{price:500} at Exalted with Golden Lotus"
+
+    - &golden-lotus-2
+      type: mount
+      id: 127176 # Golden Riding Crane
+      note: "{price:2500} at Exalted with Golden Lotus"
+
+    - &golden-lotus-3
+      type: mount
+      id: 127177 # Regal Riding Crane
+      note: "{price:1500} at Exalted with Golden Lotus"
+
+    - &golden-lotus-4
+      type: transmog
+      id: 89797 # Golden Lotus Tabard [exalted]
+      note: "{price:10} at Exalted with Golden Lotus"
+
+- name: "Jaluu the Generous"
+  faction: horde
+  location: 63.0 22.2
+  npcId: 59908
+  type: vendor
+  drops:
+    - *golden-lotus-1
+    - *golden-lotus-2
+    - *golden-lotus-3
+    - *golden-lotus-4
+
+- name: "Tan Shin Tiao"
+  location: 82.2 29.4
+  npcId: 64605
+  type: vendor
+  drops:
+    - type: mount
+      id: 130092 # Red Flying Cloud
+      note: "{price:600} at Exalted with The Lorewalkers"
+
+    - type: transmog
+      id: 89795 # Lorewalkers Tabard [tabard]
+      note: "{price:10} at Exalted with The Lorewalkers"
+    

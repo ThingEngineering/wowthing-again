@@ -274,3 +274,33 @@ farms:
       id: 113570 # Ancient's Bloom
 
 # TODO voidtalon spawn spots?
+
+# Treasure
+
+- name: "Astrologer's Box"
+  location: 49.5 37.5
+  note: "Upstairs"
+  objectId: 226831
+  reset: never
+  type: treasure
+  drops:
+    - type: toy
+      id: 109739 # Star Chart
+
+- name: "Swamplighter Hive"
+  location: 55.3 74.8
+  objectId: 232592
+  reset: never
+  type: treasure
+  drops:
+    - type: toy
+      id: 117550 # Angry Beehive
+
+- name: "Vindicator's Cache"
+  location: 51.1 79.1
+  objectId: 224784
+  reset: never
+  type: treasure
+  drops:
+    - type: toy
+      id: 113375 # Vindicator's Armor Polish Kit
