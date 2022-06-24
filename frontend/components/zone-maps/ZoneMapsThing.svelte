@@ -15,8 +15,10 @@
 
     let big: boolean
     let show: boolean
+    let topOffset: string
     $: {
         big = FarmType[farm.type].indexOf('Big') > 0
+        topOffset = (status.need && farm.type !== FarmType.Vendor) ? (big ? '7px' : '7px') : '0px'
 
         show = true
         if (!$zoneMapState.showCompleted && !status.need) {
@@ -89,7 +91,7 @@
     <div
         class="wrapper"
         class:active={status.need}
-        style="--left: {farm.location[0]}%; --top: {farm.location[1]}%; --top-offset: {status.need ? (big ? '7px' : '7px') : '0px'};"
+        style="--left: {farm.location[0]}%; --top: {farm.location[1]}%; --top-offset: {topOffset};"
         use:tippyComponent={{
             component: Tooltip,
             props: {farm, status},
