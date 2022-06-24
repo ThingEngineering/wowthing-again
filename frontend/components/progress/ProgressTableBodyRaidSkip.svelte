@@ -15,12 +15,15 @@
     let progresses: {cls: string, completed: boolean, difficulty: string, progressQuest: UserQuestDataCharacterProgress}[]
     $: {
         progresses = []
-        for (const difficulty of ['normal', 'heroic', 'mythic']) {
+        for (const difficulty of ['mythic', 'heroic', 'normal']) {
             const questKey = group.data[difficulty][0].name
             const progressQuest = $userQuestStore.data.characters[character.id]?.progressQuests?.[questKey]
 
             let cls: string
-            if (progressQuest === undefined) {
+            if (progresses.length > 0 && progresses[progresses.length - 1].completed) {
+                cls = 'status-success'
+            }
+            else if (progressQuest === undefined) {
                 cls = 'status-fail'
             }
             else if (progressQuest.status === 2) {
@@ -37,6 +40,8 @@
                 progressQuest,
             })
         }
+
+        progresses.reverse()
     }
 </script>
 
