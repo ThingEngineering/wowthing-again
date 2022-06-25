@@ -84,7 +84,7 @@ a:visited
 }
 
 a:hover {
-    color: #4caf50;
+    color: var(--link-hover-color, $link-hover-color);
 }
 
 .primary {
