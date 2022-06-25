@@ -4,7 +4,7 @@ public static partial class Hardcoded
 {
     public static readonly Dictionary<int, int> CallingQuestLookup = new()
     {
-        // Ardenweald
+        // Shadowlands: Ardenweald
         { 60424, 60419 }, // A Call [Kyrian] -> Troubles at Home
         { 60423, 60419 }, // A Call [Necrolord] -> Troubles at Home
         { 60422, 60419 }, // A Call [Venthyr] -> Troubles at Home
@@ -18,7 +18,7 @@ public static partial class Hardcoded
         { 60402, 60388 }, // Training [Necrolord]
         { 60401, 60388 }, // Training [Venthyr]
         
-        // Bastion
+        // Shadowlands: Bastion
         { 60426, 60425 }, // A Call [Necrolord] -> Troubles at Home
         { 60418, 60425 }, // A Call [Night Fae] -> Troubles at Home
         { 60427, 60425 }, // A Call [Venthyr] -> Troubles at Home
@@ -32,7 +32,7 @@ public static partial class Hardcoded
         { 60387, 60404 }, // Training [Night Fae]
         { 60406, 60404 }, // Training [Venthyr]
         
-        // Maldraxxus
+        // Shadowlands: Maldraxxus
         { 60430, 60429 }, // A Call [Kyrian] -> Troubles at Home
         { 60420, 60429 }, // A Call [Night Fae] -> Troubles at Home
         { 60431, 60429 }, // A Call [Venthyr] -> Troubles at Home
@@ -46,7 +46,7 @@ public static partial class Hardcoded
         { 60386, 60408 }, // Training [Night Fae]
         { 60409, 60408 }, // Training [Venthyr]
         
-        // Revendreth
+        // Shadowlands: Revendreth
         { 60434, 60432 }, // A Call [Kyrian] -> Troubles at Home
         { 60433, 60432 }, // A Call [Necrolord] -> Troubles at Home
         { 60421, 60432 }, // A Call [Night Fae] -> Troubles at Home
@@ -59,5 +59,12 @@ public static partial class Hardcoded
         { 60412, 60410 }, // Training [Kyrian]
         { 60411, 60410 }, // Training [Necrolord]
         { 60385, 60410 }, // Training [Night Fae]
+        
+        // Battle for Azeroth
+        { 50599, 50598 }, // Proudmoore Admiralty -> Zandalari Empire
+        { 50600, 50603 }, // Order of Embers -> Voldunai
+        { 50601, 50602 }, // Storm's Wake -> Talanji's Expedition
+        { 50605, 50606 }, // Alliance War Effort -> Horde War Efffort
+        { 56119, 56120 }, // The Waveblade Ankoan -> The Unshackled
     };
 }

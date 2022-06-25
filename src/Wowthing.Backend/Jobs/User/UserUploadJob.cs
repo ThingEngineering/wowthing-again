@@ -54,15 +54,22 @@ namespace Wowthing.Backend.Jobs.User
 
                 foreach (var region in EnumUtilities.GetValues<WowRegion>())
                 {
-                    // TODO make this a constant list somewhere
-                    if (!_globalDailiesMap.ContainsKey((region, 8)))
+                    for (int expansion = 6; expansion <= 8; expansion++)
                     {
-                        var gd = _globalDailiesMap[(region, 8)] = new GlobalDailies
+                        if (!_globalDailiesMap.TryGetValue((region, expansion), out var globalDailies))
                         {
-                            Expansion = 8,
-                            Region = region,
-                        };
-                        Context.GlobalDailies.Add(gd);
+                            globalDailies = _globalDailiesMap[(region, expansion)] = new GlobalDailies
+                            {
+                                Expansion = expansion,
+                                Region = region,
+                            };
+                            Context.GlobalDailies.Add(globalDailies);
+                        }
+
+                        if (globalDailies.QuestRewards == null)
+                        {
+                            globalDailies.QuestRewards = new();
+                        }
                     }
                 }
             }
@@ -988,6 +995,57 @@ namespace Wowthing.Backend.Jobs.User
                         }
 
                         character.AddonQuests.ProgressQuests[progressParts[0]] = progress;
+                    }
+                    
+                    // User is trusted, update global dailies from emissaries
+                    if (characterData.Emissaries != null && _globalDailiesMap != null)
+                    {
+                        foreach (var (expansion, emissaries) in characterData.Emissaries)
+                        {
+                            var globalDailies = _globalDailiesMap[(region, expansion)];
+
+                            var questMap = new Dictionary<int, (int, UploadCharacterEmissaryReward)>();
+                            for (int i = 0; i < globalDailies.QuestIds.Count; i++)
+                            {
+                                questMap[globalDailies.QuestExpires[i]] = (globalDailies.QuestIds[i], null);
+                            }
+
+                            foreach (var emissary in emissaries)
+                            {
+                                if (emissary.QuestID > 0)
+                                {
+                                    questMap[emissary.Expires] = (
+                                        Hardcoded.CallingQuestLookup
+                                            .GetValueOrDefault(emissary.QuestID, emissary.QuestID),
+                                        emissary.Reward
+                                    );
+                                }
+                            }
+
+                            var questPairs = questMap
+                                .OrderBy(kvp => kvp.Key)
+                                .TakeLast(3)
+                                .ToList();
+
+                            globalDailies.QuestExpires = questPairs
+                                .Select(kvp => kvp.Key)
+                                .ToList();
+                            
+                            globalDailies.QuestIds = questPairs
+                                .Select(kvp => kvp.Value.Item1)
+                                .ToList();
+                            
+                            globalDailies.QuestRewards = questPairs
+                                .Select(kvp => new GlobalDailiesReward
+                                {
+                                    CurrencyId = kvp.Value.Item2.CurrencyID,
+                                    ItemId = kvp.Value.Item2.ItemID,
+                                    Money = kvp.Value.Item2.Money,
+                                    Quality = kvp.Value.Item2.Quality,
+                                    Quantity = kvp.Value.Item2.Quantity,
+                                })
+                                .ToList();
+                        }
                     }
 
                     _resetQuestCache = true;
