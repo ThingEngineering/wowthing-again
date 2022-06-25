@@ -134,6 +134,7 @@
 // Junk
 .quality0 {
     --image-border-color: #{$quality0-border};
+    --link-color: #{$quality0-color};
     color: $quality0-color; //!important;
 
     div, img {
@@ -147,6 +148,7 @@ img.quality0 {
 // Common
 .quality1 {
     --image-border-color: #{$quality1-border};
+    --link-color: #{$quality1-color};
     color: $quality1-color; //!important;
 
     div,
@@ -166,6 +168,7 @@ img.quality0 {
 // Uncommon
 .quality2 {
     --image-border-color: #{$quality2-border};
+    --link-color: #{$quality2-color};
     color: $quality2-color; //!important;
 
     div, img {
@@ -182,6 +185,7 @@ img.quality2 {
 // Rare
 .quality3 {
     --image-border-color: #{$quality3-border};
+    --link-color: #{$quality3-color};
     color: $quality3-color; //!important;
 
     div, img {
@@ -198,6 +202,7 @@ img.quality3 {
 // Epic
 .quality4 {
     --image-border-color: #{$quality4-border};
+    --link-color: #{$quality4-color};
     color: $quality4-color; //!important;
 
     div, img {
@@ -214,6 +219,7 @@ img.quality4 {
 // Legendary
 .quality5 {
     --image-border-color: #{$quality5-border};
+    --link-color: #{$quality5-color};
     color: $quality5-color; //!important;
 
     div, img {
@@ -233,6 +239,7 @@ img.quality5 {
 // Artifact
 .quality6 {
     --image-border-color: #{$quality6-border};
+    --link-color: #{$quality6-color};
     color: $quality6-color; //!important;
 
     div, img {
@@ -242,6 +249,7 @@ img.quality5 {
 // Heirloom
 .quality7 {
     --image-border-color: #{$quality7-border};
+    --link-color: #{$quality7-color};
     color: $quality7-color; //!important;
 
     div,img {
