@@ -193,8 +193,8 @@ def main():
                     modifier_appearances.setdefault(v[2], []).append(k)
 
         for modifier_id, appearance_ids in reversed(sorted(modifier_appearances.items())):
-            print(f'    # modifier={modifier_id}')
-            print(f'    - name: Modifier {modifier_id}')
+            print(f'      # modifier={modifier_id}')
+            print(f'      - name: Modifier {modifier_id}')
             print_items(appearance_ids, appearances, item_slot)
 
     else:
@@ -212,8 +212,8 @@ def main():
             print_set_ids = ",".join(str(s) for s in set_ids)
             print_set_name = ' / '.join(list(dict.fromkeys(sets[s]['name'] for s in set_ids)))
 
-            print(f'    # {get_description(sets, set_ids[0])} set={print_set_ids}')
-            print(f'    - name: {print_set_name}')
+            print(f'      # {get_description(sets, set_ids[0])} set={print_set_ids}')
+            print(f'      - name: {print_set_name}')
 
             appearance_ids = []
             for set_id in set_ids:
@@ -232,8 +232,8 @@ def main():
             sort_me.sort()
 
             for (order, description, set_id) in sort_me:
-                print(f'    # {description} set={set_id}')
-                print(f'    - name: {sets[set_id]["name"]}')
+                print(f'      # {description} set={set_id}')
+                print(f'      - name: {sets[set_id]["name"]}')
 
                 print_items(set_items[set_id], appearances, item_slot)
 
@@ -256,7 +256,7 @@ def print_items(appearance_ids, appearances, item_slot):
     ugh = {}
     for appearance_id in appearance_ids:
         if appearance_id not in appearances:
-            print('      # Missing appearance', appearance_id)
+            print('        # Missing appearance', appearance_id)
             continue
 
         item_id, item_appearance_id, modifier_id = appearances[appearance_id]
@@ -268,11 +268,11 @@ def print_items(appearance_ids, appearances, item_slot):
 
     #print(sets[set_id])
     #print(ugh)
-    print(f'      wowheadSetId:')
-    print(f'      items:')
+    print(f'        wowheadSetId:')
+    print(f'        items:')
     for thing in sorted(ugh.items()):#, key=lambda u: SLOT_ORDER.index(u[0])):
         s = thing[0] < 10 and '  ' or ' '
-        print(f'        {thing[0]}:{s}{" ".join(str(s) for s in sorted(thing[1]))}', '#', SLOT_MAP[thing[0]])
+        print(f'          {thing[0]}:{s}{" ".join(str(s) for s in sorted(thing[1]))}', '#', SLOT_MAP[thing[0]])
     print()
 
 
