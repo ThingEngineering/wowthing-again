@@ -4,4 +4,5 @@ export enum ArmorType {
     Leather,
     Mail,
     Plate,
+    Tabard = 21,
 }

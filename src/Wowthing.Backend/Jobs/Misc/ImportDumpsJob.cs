@@ -279,6 +279,12 @@ namespace Wowthing.Backend.Jobs.Misc
                         dbItem.ClassId = (int)WowItemClass.Weapon;
                         dbItem.SubclassId = (int)WowWeaponSubclass.OffHand;
                     }
+                    // Tabard
+                    else if (subClass == WowArmorSubclass.Miscellaneous &&
+                             dbItem.InventoryType == WowInventoryType.Tabard)
+                    {
+                        dbItem.SubclassId = (int)WowArmorSubclass.Tabard;
+                    }
                 }
 
                 dbItem.ClassMask = itemSparse.AllowableClass;

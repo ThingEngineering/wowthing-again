@@ -1,12 +1,17 @@
 <script lang="ts">
+    import { Constants } from '@/data/constants'
     import { staticStore } from '@/stores/static'
     import { toNiceNumber } from '@/utils/to-nice'
-    import type { CharacterReputationParagon } from '@/types'
-    import type { StaticDataReputation, StaticDataReputationTier } from '@/types/data/static'
+    import type { Character, CharacterReputationParagon } from '@/types'
+    import type { StaticDataReputation, StaticDataReputationSet, StaticDataReputationTier } from '@/types/data/static'
 
+    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+
+    export let character: Character
     export let characterRep: number
     export let dataRep: StaticDataReputation
     export let paragon: CharacterReputationParagon
+    export let reputation: StaticDataReputationSet
 
     const reps: {
         cls: string
@@ -71,7 +76,18 @@
 </style>
 
 <div class="wowthing-tooltip">
-    <h4>{dataRep.name}</h4>
+    <h4>{character.name}</h4>
+    <h5>
+        {#if reputation.both === undefined}
+            <WowthingImage
+                name={character.faction === 0 ? Constants.icons.alliance : Constants.icons.horde}
+                size={20}
+            />
+        {/if}
+
+        {dataRep.name}
+    </h5>
+
     <table class="table-striped">
         <tbody>
             {#each reps as rep}

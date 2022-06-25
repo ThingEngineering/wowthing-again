@@ -1,7 +1,7 @@
 name: Money 💸
 groups:
 
-- name: "Collector's Editions"
+- name: "Game Editions"
   things:
   -  11326 # Mini Diablo - Vanilla
   -  11325 # Panda Cub - Vanilla
@@ -15,15 +15,20 @@ groups:
   -  95841 # Nibbles - Legion
   - 129049 # Tottle (BfA Collector's Edition)
   - 157969 # Anima Wyrmling (Shadowlands)
-  -  56266 # Fetish Shaman - D3
-  -  74413 # Treasure Goblin - D3:RoS
+  - 181535 # Murkastrasza (Dragonflight Heroic Edition)
+
+- name: "Other Games"
+  things:
+  -  56266 # Fetish Shaman (D3)
+  -  74413 # Treasure Goblin (D3:RoS)
   - 103159 # Baby Winston (Overwatch)
-  -  42078 # Mini Thor - SC2:WoL
-  -  66984 # Baneling - SC2:HotS
-  -  71655 # Zeradar - SC2:LotV
+  -  42078 # Mini Thor (SC2:WoL)
+  -  66984 # Baneling (SC2:HotS)
+  -  71655 # Zeradar (SC2:LotV)
 
 - name: Promotions
   things:
+  - 181575 # Drakks (Dragonflight preorder bonus)
   - 175203 # Moon-Touched Netherwhelp (The Celebration Collection)
 
 - name: Store
@@ -42,6 +47,7 @@ groups:
   -  53283 # Guardian Cub
   -  36979 # Lil' K.T.
   -  51600 # Lil' Ragnaros
+  - 185586 # Lil' Ursoc
   -  40703 # Lil' XT
   - 113527 # Mischief
   -  51601 # Moonkin Hatchling (Alliance)

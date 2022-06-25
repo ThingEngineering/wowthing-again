@@ -39,6 +39,15 @@ farms:
     - type: toy
       id: 88387 # Shushen's Spittoon
 
+- name: "The Silence"
+  faction: alliance
+  location: 87.6 33.0
+  reset: none
+  type: quest
+  drops:
+    - type: mount
+      id: 136163 # Grand Gryphon
+
 - name: "Zhu's Despair"
   location: 72.6 7.0
   questId: 30090
@@ -49,6 +58,26 @@ farms:
       id: 88580 # Ken-Ken's Mask
 
 # Vendor
+
+- name: "Agent Malley"
+  faction: alliance
+  location: 89.6 33.4
+  npcId: 63721
+  type: vendor
+  drops:
+    - type: mount
+      id: 135416 # Grand Armored Gryphon
+      note: "{price:2000} at Exalted with Operation: Shieldwall"
+
+- name: "Tuskripper Grukna"
+  faction: horde
+  location: 10.8 53.4
+  npcId: 63721
+  type: vendor
+  drops:
+    - type: mount
+      id: 135418 # Grand Armored Wyvern
+      note: "{price:2000} at Exalted with Dominance Offensive"
 
 - name: "Nat Pagle"
   location: 68.4 43.4

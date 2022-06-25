@@ -10,6 +10,7 @@ groups:
 - name: Game Editions
   things:
   - 172179 # Eternal Traveler's Hearthstone (Shadowlands Epic Edition)
+  - 193588 # Timewalker's Hearthstone (Dragonflight Epic Edition)
 
 - name: $$$$$
   things:

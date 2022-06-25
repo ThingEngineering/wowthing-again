@@ -9,9 +9,10 @@ namespace Wowthing.Lib.Data
             new CharacterClassData
             {
                 Mask = WowCharacterClassMask.DeathKnight,
-                /*ArmorTypes = new List<(WowArmorSubclass, WowStat[])>
+                ArmorTypes = new List<(WowArmorSubclass, WowStat[])>
                 {
-                },*/
+                    (WowArmorSubclass.Cloak, new[] { WowStat.Strength }),
+                },
                 WeaponTypes = new List<(WowWeaponSubclass, WowStat[])>
                 {
                     (WowWeaponSubclass.OneHandedAxe, new[] { WowStat.Strength }),
@@ -26,9 +27,10 @@ namespace Wowthing.Lib.Data
             new CharacterClassData
             {
                 Mask = WowCharacterClassMask.DemonHunter,
-                /*ArmorTypes = new List<(WowArmorSubclass, WowStat[])>
+                ArmorTypes = new List<(WowArmorSubclass, WowStat[])>
                 {
-                },*/
+                    (WowArmorSubclass.Cloak, new[] { WowStat.Agility }),
+                },
                 WeaponTypes = new List<(WowWeaponSubclass, WowStat[])>
                 {
                     (WowWeaponSubclass.OneHandedAxe, new[] { WowStat.Agility }),
@@ -42,6 +44,7 @@ namespace Wowthing.Lib.Data
                 Mask = WowCharacterClassMask.Druid,
                 ArmorTypes = new List<(WowArmorSubclass, WowStat[])>
                 {
+                    (WowArmorSubclass.Cloak, new[] { WowStat.Agility, WowStat.Intellect }),
                     (WowArmorSubclass.Miscellaneous, new[] { WowStat.Intellect }),
                 },
                 WeaponTypes = new List<(WowWeaponSubclass, WowStat[])>
@@ -59,9 +62,10 @@ namespace Wowthing.Lib.Data
             new CharacterClassData
             {
                 Mask = WowCharacterClassMask.Hunter,
-                /*ArmorTypes = new List<(WowArmorSubclass, WowStat[])>
+                ArmorTypes = new List<(WowArmorSubclass, WowStat[])>
                 {
-                },*/
+                    (WowArmorSubclass.Cloak, new[] { WowStat.Agility }),
+                },
                 WeaponTypes = new List<(WowWeaponSubclass, WowStat[])>
                 {
                     (WowWeaponSubclass.TwoHandedAxe, new[] { WowStat.Agility }),
@@ -83,6 +87,7 @@ namespace Wowthing.Lib.Data
                 Mask = WowCharacterClassMask.Mage,
                 ArmorTypes = new List<(WowArmorSubclass, WowStat[])>
                 {
+                    (WowArmorSubclass.Cloak, new[] { WowStat.Intellect }),
                     (WowArmorSubclass.Miscellaneous, new[] { WowStat.Intellect }),
                 },
                 WeaponTypes = new List<(WowWeaponSubclass, WowStat[])>
@@ -100,6 +105,7 @@ namespace Wowthing.Lib.Data
                 Mask = WowCharacterClassMask.Monk,
                 ArmorTypes = new List<(WowArmorSubclass, WowStat[])>
                 {
+                    (WowArmorSubclass.Cloak, new[] { WowStat.Agility, WowStat.Intellect }),
                     (WowArmorSubclass.Miscellaneous, new[] { WowStat.Intellect }),
                 },
                 WeaponTypes = new List<(WowWeaponSubclass, WowStat[])>
@@ -119,6 +125,7 @@ namespace Wowthing.Lib.Data
                 Mask = WowCharacterClassMask.Paladin,
                 ArmorTypes = new List<(WowArmorSubclass, WowStat[])>
                 {
+                    (WowArmorSubclass.Cloak, new[] { WowStat.Intellect, WowStat.Strength }),
                     (WowArmorSubclass.Miscellaneous, new[] { WowStat.Intellect }),
                     (WowArmorSubclass.Shield, new[] { WowStat.Intellect, WowStat.Strength }),
                 },
@@ -140,6 +147,7 @@ namespace Wowthing.Lib.Data
                 Mask = WowCharacterClassMask.Priest,
                 ArmorTypes = new List<(WowArmorSubclass, WowStat[])>
                 {
+                    (WowArmorSubclass.Cloak, new[] { WowStat.Intellect }),
                     (WowArmorSubclass.Miscellaneous, new[] { WowStat.Intellect }),
                 },
                 WeaponTypes = new List<(WowWeaponSubclass, WowStat[])>
@@ -155,9 +163,10 @@ namespace Wowthing.Lib.Data
             new CharacterClassData
             {
                 Mask = WowCharacterClassMask.Rogue,
-                /*ArmorTypes = new List<(WowArmorSubclass, WowStat[])>
+                ArmorTypes = new List<(WowArmorSubclass, WowStat[])>
                 {
-                },*/
+                    (WowArmorSubclass.Cloak, new[] { WowStat.Agility }),
+                },
                 WeaponTypes = new List<(WowWeaponSubclass, WowStat[])>
                 {
                     (WowWeaponSubclass.OneHandedAxe, new[] { WowStat.Agility }),
@@ -177,6 +186,7 @@ namespace Wowthing.Lib.Data
                 Mask = WowCharacterClassMask.Shaman,
                 ArmorTypes = new List<(WowArmorSubclass, WowStat[])>
                 {
+                    (WowArmorSubclass.Cloak, new[] { WowStat.Agility, WowStat.Intellect }),
                     (WowArmorSubclass.Miscellaneous, new[] { WowStat.Intellect }),
                     (WowArmorSubclass.Shield, new[] { WowStat.Intellect }),
                 },
@@ -200,6 +210,7 @@ namespace Wowthing.Lib.Data
                 Mask = WowCharacterClassMask.Warlock,
                 ArmorTypes = new List<(WowArmorSubclass, WowStat[])>
                 {
+                    (WowArmorSubclass.Cloak, new[] { WowStat.Intellect }),
                     (WowArmorSubclass.Miscellaneous, new[] { WowStat.Intellect }),
                 },
                 WeaponTypes = new List<(WowWeaponSubclass, WowStat[])>
@@ -217,6 +228,7 @@ namespace Wowthing.Lib.Data
                 Mask = WowCharacterClassMask.Warrior,
                 ArmorTypes = new List<(WowArmorSubclass, WowStat[])>
                 {
+                    (WowArmorSubclass.Cloak, new[] { WowStat.Strength }),
                     (WowArmorSubclass.Shield, new[] { WowStat.Strength }),
                 },
                 WeaponTypes = new List<(WowWeaponSubclass, WowStat[])>

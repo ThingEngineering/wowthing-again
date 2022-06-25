@@ -4,10 +4,24 @@ import sortBy from 'lodash/sortBy'
 import { get } from 'svelte/store'
 
 import { difficultyMap } from '@/data/difficulty'
-import { Account, CharacterCurrency, UserCount, UserData, UserDataPet, WritableFancyStore } from '@/types'
-import { TypedArray } from '@/types/enums'
+import { seasonMap } from '@/data/dungeon'
+import { slotOrder } from '@/data/inventory-slot'
+import {
+    Account,
+    Character,
+    CharacterCurrency,
+    CharacterMythicPlusRun,
+    CharacterMythicPlusRunMember,
+    CharacterReputation,
+    CharacterReputationReputation,
+    UserCount,
+    UserData,
+    UserDataPet,
+    WritableFancyStore,
+} from '@/types'
+import { InventorySlot, TypedArray } from '@/types/enums'
 import base64ToRecord from '@/utils/base64-to-record'
-import initializeCharacter from '@/utils/initialize-character'
+import getItemLevelQuality from '@/utils/get-item-level-quality'
 import type { StaticData, StaticDataSetCategory } from '@/types/data/static'
 
 
@@ -50,17 +64,10 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             userData.petsRaw = null
         }
 
-        // Initialize characters
+        // Characters
         userData.characterMap = {}
-        const allLockouts: Record<string, boolean> = {}
         for (const character of userData.characters) {
-            initializeCharacter(character)
-
             userData.characterMap[character.id] = character
-
-            for (const key of keys(character.lockouts)) {
-                allLockouts[key] = true
-            }
 
             if (character.currenciesRaw !== null) {
                 character.currencies = {}
@@ -84,6 +91,22 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             }
         }
 
+        // console.timeEnd('UserDataStore.initialize')
+    }
+
+    setup(staticData: StaticData, userData: UserData): void {
+        // console.time('UserDataStore.setup')
+        
+        // Initialize characters
+        const allLockouts: Record<string, boolean> = {}
+        for (const character of userData.characters) {
+            this.initializeCharacter(staticData, character)
+
+            for (const key of keys(character.lockouts)) {
+                allLockouts[key] = true
+            }
+        }
+
         // Pre-calculate lockouts
         userData.allLockouts = []
         userData.allLockoutsMap = {}
@@ -103,12 +126,6 @@ export class UserDataStore extends WritableFancyStore<UserData> {
                 console.log({instanceId, difficultyId, difficulty})
             }
         }
-
-        // console.timeEnd('UserDataStore.initialize')
-    }
-
-    setup(staticData: StaticData, userData: UserData): void {
-        // console.time('UserDataStore.setup')
 
         const hasMountSpell: Record<number, boolean> = {}
         for (const mountId in userData.hasMount) {
@@ -165,6 +182,104 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         })
 
         // console.timeEnd('UserDataStore.setup')
+    }
+
+    private initializeCharacter(staticData: StaticData, character: Character): void {
+        // realm
+        character.realm = staticData.realms[character.realmId]
+        
+        // item levels
+        if (keys(character.equippedItems).length > 0) {
+            let count = 0,
+                itemLevels = 0
+            for (let j = 0; j < slotOrder.length; j++) {
+                const slot = slotOrder[j]
+                const item = character.equippedItems[slot]
+                if (item !== undefined) {
+                    itemLevels += item.itemLevel
+                    count++
+                    if (
+                        slot === InventorySlot.MainHand &&
+                        character.equippedItems[InventorySlot.OffHand] === undefined
+                    ) {
+                        itemLevels += item.itemLevel
+                        count++
+                    }
+                }
+            }
+    
+            const itemLevel = itemLevels / count
+            if (itemLevel - character.equippedItemLevel < 1) {
+                character.calculatedItemLevel = itemLevel.toFixed(1)
+            }
+        }
+    
+        if (character.calculatedItemLevel === undefined) {
+            character.calculatedItemLevel = character.equippedItemLevel.toFixed(1)
+        }
+    
+        character.calculatedItemLevelQuality = getItemLevelQuality(
+            parseFloat(character.calculatedItemLevel),
+        )
+    
+        // mythic+ seasons
+        if (character.mythicPlus?.seasons) {
+            for (const seasonId in seasonMap) {
+                const season = seasonMap[seasonId]
+                if (character.level >= season.minLevel) {
+                    const characterSeason = character.mythicPlus.seasons[seasonId]
+                    if (characterSeason !== undefined) {
+                        for (let i = 0; i < season.orders.length; i++) {
+                            for (let j = 0; j < season.orders[i].length; j++) {
+                                const dungeonId = season.orders[i][j]
+                                const runs = characterSeason[dungeonId] || []
+                                for (let runIndex = 0; runIndex < runs.length; runIndex++) {
+                                    const run = runs[runIndex] as CharacterMythicPlusRun
+    
+                                    // Members are packed arrays, convert them to useful objects
+                                    run.memberObjects = run.members.map(m => new CharacterMythicPlusRunMember(...m))
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    
+        // reputation sets
+        character.reputationData = {}
+        for (const category of staticData.reputationSets) {
+            if (category === null) {
+                continue
+            }
+    
+            const catData: CharacterReputation = {
+                sets: [],
+            }
+    
+            for (const sets of category.reputations) {
+                const setsData: CharacterReputationReputation[] = []
+    
+                for (const reputation of sets) {
+                    let repId: number
+                    if (reputation.both) {
+                        repId = reputation.both.id
+                    }
+                    else {
+                        repId = character.faction === 0 ? reputation.alliance.id : reputation.horde.id
+                    }
+    
+                    setsData.push({
+                        reputationId: repId,
+                        value: character.reputations?.[repId] ?? -1,
+                    })
+                }
+    
+                catData.sets.push(setsData)
+            }
+    
+            character.reputationData[category.slug] = catData
+        }
     }
 
     private static doSetCounts(

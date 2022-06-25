@@ -215,10 +215,11 @@ farms:
 
 # Vendor
 
-- name: "Order of the Cloud Serpent"
+- name: "San Redscale"
   location: 56.6 44.4
   npcId: 58414
   reset: never
+  title: "Orde of the Cloud Serpent"
   type: vendor
   drops:
     - type: mount

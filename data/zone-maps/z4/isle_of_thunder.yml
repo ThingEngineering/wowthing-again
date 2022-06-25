@@ -47,3 +47,31 @@ farms:
     - type: toy
       id: 95590 # Glorious Standard of the Sunreaver Onslaught
       note: "Requres Exalted with Sunreaver Onslaught"
+
+# Vendor
+
+- name: "Hiren Loresong"
+  faction: alliance
+  location: 64.6 74.6
+  npcId: 64518
+  type: vendor
+  drops:
+    - type: mount
+      id: 140249 # Golden Primal Direhorn
+      note: "{price:3000} at Exalted with Kirin Tor Offensive"
+
+    - type: transmog
+      id: 95591 # Kirin Tor Offensive Tabard [tabard]
+
+- name: "Vasarin Redmorn"
+  faction: horde
+  location: 33.4 32.4
+  npcId: 64518
+  type: vendor
+  drops:
+    - type: mount
+      id: 140250 # Crimson Primal Direhorn
+      note: "{price:3000} at Exalted with Sunreaver Onslaught"
+
+    - type: transmog
+      id: 95592 # Sunreaver Onslaught Tabard [tabard]

@@ -266,3 +266,47 @@ farms:
 
     - type: transmog
       id: 120114 # Wing-Forged Greatboots [plate]
+
+# Quest
+
+- name: "Cleaning House"
+  faction: alliance
+  location: 39.4 61.6
+  questId: 37287
+  reset: never
+  type: quest
+  drops:
+    - type: toy
+      id: 119001 # Mystery Keg
+
+- name: "Not in Your Army"
+  faction: horde
+  location: 40.0 42.6
+  questId: 37292
+  reset: never
+  type: quest
+  drops:
+    - type: toy
+      id: 119001 # Mystery Keg
+
+# Vendor
+
+- name: "Honest Jim"
+  faction: alliance
+  location: 41.0 61.6
+  note: "Requires Smuggling Run outpost"
+  npcId: 82459
+  type: vendor
+  drops:
+    - type: toy
+      id: 113096 # Bloodmane Charm
+
+- name: 'Linny "The Skinny" Leadpockets'
+  faction: horde
+  location: 41.6 42.6
+  note: "Requires Smuggling Run outpost"
+  npcId: 84243
+  type: vendor
+  drops:
+    - type: toy
+      id: 113096 # Bloodmane Charm

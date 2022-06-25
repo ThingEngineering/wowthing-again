@@ -31,7 +31,7 @@ namespace Wowthing.Backend.Jobs.User
 
             var path = string.Format(ApiPath, accessToken.Value);
 
-            timer.AddPoint("access_token");
+            timer.AddPoint("Token");
             
             // Fetch existing accounts
             var accountMap = await Context.PlayerAccount
@@ -72,16 +72,16 @@ namespace Wowthing.Backend.Jobs.User
                 }
                 catch (HttpRequestException e)
                 {
-                    if (e.StatusCode != HttpStatusCode.NotFound)
+                    if (e.Message != "404")
                     {
-                        Logger.Warning("HTTP request failed: {region} {e}", region, e.Message);
+                        Logger.Warning("HTTP request failed: {region} {e} {sigh}", region, e.Message, e.StatusCode);
                     }
                 }
             }
 
             await Context.SaveChangesAsync();
 
-            timer.AddPoint("accounts");
+            timer.AddPoint("API");
 
             // Fetch existing characters
             var characterPairs = apiAccounts
@@ -144,7 +144,7 @@ namespace Wowthing.Backend.Jobs.User
                 }
             }
 
-            timer.AddPoint("characters");
+            timer.AddPoint("Characters");
             
             // Delete any characters that weren't in the API response
             foreach ((var region, var apiAccount) in apiAccounts)
@@ -162,7 +162,7 @@ namespace Wowthing.Backend.Jobs.User
                 }
             }
             
-            timer.AddPoint("delete");
+            timer.AddPoint("Delete");
             
             int updated = await Context.SaveChangesAsync();
             if (updated > 0)
@@ -170,9 +170,10 @@ namespace Wowthing.Backend.Jobs.User
                 await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, userId);
             }
             
-            timer.AddPoint("save", true);
-            Logger.Information("Completed in {Z}", timer.ToString());
+            timer.AddPoint("Save", true);
+            
             Logger.Debug("{Timer}", timer);
+            Logger.Information("Completed in {Z}", timer.TotalDuration);
         }
     }
 }

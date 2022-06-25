@@ -1,2 +1,3 @@
 name: Battle for Azeroth
-requiredQuestId: 47189 52131 # A Nation Divided / We Need Each Other
+minimumLevel: 10
+requiredQuestId: 46728 50769 # The Nation of Kul Tiras / The Stormwind Extraction

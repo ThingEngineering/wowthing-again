@@ -52,8 +52,10 @@
             component: TooltipReputation,
             props: {
                 characterRep: characterRep.value,
+                character,
                 dataRep,
                 paragon,
+                reputation,
             }
         }}
     >
