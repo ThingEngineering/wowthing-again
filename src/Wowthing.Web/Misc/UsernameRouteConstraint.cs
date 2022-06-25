@@ -8,7 +8,7 @@ namespace Wowthing.Web.Misc
     public class UsernameRouteConstraint : IRouteConstraint
     {
         public static readonly Regex Regex = new Regex(
-            @"^[A-Za-z0-9_-]{3,32}$",
+            @"^[\w-]{3,32}$",
             RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.IgnoreCase,
             TimeSpan.FromMilliseconds(100)
         );
