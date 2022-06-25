@@ -1,7 +1,7 @@
 name: Money 💸
 groups:
 
-- name: CE
+- name: Game Editions
   things:
   - 124659 # Imperial Quilen (MoP) (Also in Store)
   - 155741 # Dread Raven (WoD)
@@ -9,6 +9,7 @@ groups:
   - 255696 # Gilded Ravasaur (Battle for Azeroth Collector's Edition)
   - 255695 # Seabraid Stallion (Battle for Azeroth Collector's Edition)
   - 307932 # Ensorcelled Everwyrm (Shadowlands Heroic Edition)
+  - 359843 # Tangled Dreamweaver (Dragonflight Heroic Edition)
   - 346136 # Viridian Phase-Hunter (TBC Classic Deluxe Edition)
 
 - name: Promotions
