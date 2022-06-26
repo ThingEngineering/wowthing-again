@@ -16,7 +16,8 @@ namespace Wowthing.Web.Models
 
         public Dictionary<int, BackgroundImage> Backgrounds { get; set; }
         public Dictionary<int, WowPeriod> CurrentPeriod { get; init; }
-        public Dictionary<string, GlobalDailies> Dailies { get; set; }
+        public Dictionary<string, GlobalDailies> GlobalDailies { get; set; }
+        public Dictionary<int, string> GlobalDailyItems { get; set; }
         public Dictionary<string, string> Images { get; set; }
 
         public Dictionary<int, bool> AddonMounts { get; set; }

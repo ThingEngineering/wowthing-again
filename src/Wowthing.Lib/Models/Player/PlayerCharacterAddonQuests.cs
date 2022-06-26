@@ -13,11 +13,11 @@ namespace Wowthing.Lib.Models.Player
         public DateTime CallingsScannedAt { get; set; } = MiscConstants.DefaultDateTime;
         public DateTime QuestsScannedAt { get; set; } = MiscConstants.DefaultDateTime;
         
-        public List<bool> CallingCompleted { get; set; }
-        public List<int> CallingExpires { get; set; }
-        
         public List<int> DailyQuests { get; set; }
         public List<int> OtherQuests { get; set; }
+
+        [Column(TypeName = "jsonb")]
+        public Dictionary<int, List<List<int>>> Dailies { get; set; }
         
         [Column(TypeName = "jsonb")]
         public Dictionary<string, PlayerCharacterAddonQuestsProgress> ProgressQuests { get; set; }

@@ -8,8 +8,7 @@ export interface UserQuestData {
 export interface UserQuestDataCharacter {
     scannedAt: string
 
-    callingCompleted: boolean[]
-    callingExpires: number[]
+    dailies: Record<number, number[][]>
     dailyQuestList: number[]
     questList: number[]
     progressQuests?: Record<string, UserQuestDataCharacterProgress>

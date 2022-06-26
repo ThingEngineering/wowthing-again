@@ -5,6 +5,7 @@
     export let id: number
     export let noTooltip = false
     export let toComments = false
+    export let rename = false
     export let type: string
 
     let url = ''
@@ -20,6 +21,7 @@
     <a
         href="{url}"
         data-disable-wowhead-tooltip="{noTooltip ? 'true' : undefined}"
+        data-wh-rename-link="{rename ? 'true' : undefined}"
     >
         <slot />
     </a>

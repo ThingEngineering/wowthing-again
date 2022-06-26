@@ -10,9 +10,8 @@ namespace Wowthing.Web.Models
     public class UserQuestDataCharacter
     {
         public DateTime ScannedAt { get; set; }
-        public List<bool> CallingCompleted { get; set; }
-        public List<int> CallingExpires { get; set; }
         
+        public Dictionary<int, List<List<int>>> Dailies { get; set; }
         public List<int> DailyQuestList { get; set; }
         public List<int> QuestList { get; set; }
         

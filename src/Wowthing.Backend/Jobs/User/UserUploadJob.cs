@@ -54,15 +54,22 @@ namespace Wowthing.Backend.Jobs.User
 
                 foreach (var region in EnumUtilities.GetValues<WowRegion>())
                 {
-                    // TODO make this a constant list somewhere
-                    if (!_globalDailiesMap.ContainsKey((region, 8)))
+                    for (int expansion = 6; expansion <= 8; expansion++)
                     {
-                        var gd = _globalDailiesMap[(region, 8)] = new GlobalDailies
+                        if (!_globalDailiesMap.TryGetValue((region, expansion), out var globalDailies))
                         {
-                            Expansion = 8,
-                            Region = region,
-                        };
-                        Context.GlobalDailies.Add(gd);
+                            globalDailies = _globalDailiesMap[(region, expansion)] = new GlobalDailies
+                            {
+                                Expansion = expansion,
+                                Region = region,
+                            };
+                            Context.GlobalDailies.Add(globalDailies);
+                        }
+
+                        if (globalDailies.QuestRewards == null)
+                        {
+                            globalDailies.QuestRewards = new();
+                        }
                     }
                 }
             }
@@ -902,20 +909,30 @@ namespace Wowthing.Backend.Jobs.User
                 Context.PlayerCharacterAddonQuests.Add(character.AddonQuests);
             }
 
+            if (character.AddonQuests.Dailies == null)
+            {
+                character.AddonQuests.Dailies = new();
+            }
+
             if (callingsScanTimestamp > 0)
             {
                 var scanTime = callingsScanTimestamp.AsUtcDateTime();
                 if (scanTime >= character.AddonQuests.CallingsScannedAt)
                 {
                     character.AddonQuests.CallingsScannedAt = scanTime;
-                    character.AddonQuests.CallingCompleted = characterData.Callings
-                        .EmptyIfNull()
-                        .Select(calling => calling.Completed)
-                        .ToList();
-                    character.AddonQuests.CallingExpires = characterData.Callings
-                        .EmptyIfNull()
-                        .Select(calling => calling.Expires)
-                        .ToList();
+                    
+                    // TODO fix hardcoded if next expansion also has these
+                    character.AddonQuests.Dailies[8] = new List<List<int>>
+                    {
+                        characterData.Callings
+                            .EmptyIfNull()
+                            .Select(calling => calling.Completed ? 1 : 0)
+                            .ToList(),
+                        characterData.Callings
+                            .EmptyIfNull()
+                            .Select(calling => calling.Expires)
+                            .ToList(),
+                    };
 
                     // User is trusted, update global dailies
                     if (characterData.Callings != null && _globalDailiesMap != null)
@@ -988,6 +1005,70 @@ namespace Wowthing.Backend.Jobs.User
                         }
 
                         character.AddonQuests.ProgressQuests[progressParts[0]] = progress;
+                    }
+                    
+                    if (characterData.Emissaries != null)
+                    {
+                        foreach (var (expansion, emissaries) in characterData.Emissaries)
+                        {
+                            character.AddonQuests.Dailies[expansion] = new List<List<int>>
+                            {
+                                emissaries
+                                    .Select(em => em.Completed ? 1 : 0)
+                                    .ToList(),
+                                emissaries
+                                    .Select(em => em.Expires)
+                                    .ToList(),
+                            };
+                            
+                            // User is trusted, update global dailies from emissaries
+                            if (_globalDailiesMap != null)
+                            {
+                                var globalDailies = _globalDailiesMap[(region, expansion)];
+                                
+                                var questMap = new Dictionary<int, (int, UploadCharacterEmissaryReward)>();
+                                for (int i = 0; i < globalDailies.QuestIds.Count; i++)
+                                {
+                                    questMap[globalDailies.QuestExpires[i]] = (globalDailies.QuestIds[i], null);
+                                }
+
+                                foreach (var emissary in emissaries)
+                                {
+                                    if (emissary.QuestID > 0)
+                                    {
+                                        questMap[emissary.Expires] = (
+                                            Hardcoded.CallingQuestLookup
+                                                .GetValueOrDefault(emissary.QuestID, emissary.QuestID),
+                                            emissary.Reward
+                                        );
+                                    }
+                                }
+
+                                var questPairs = questMap
+                                    .OrderBy(kvp => kvp.Key)
+                                    .TakeLast(3)
+                                    .ToList();
+
+                                globalDailies.QuestExpires = questPairs
+                                    .Select(kvp => kvp.Key)
+                                    .ToList();
+
+                                globalDailies.QuestIds = questPairs
+                                    .Select(kvp => kvp.Value.Item1)
+                                    .ToList();
+
+                                globalDailies.QuestRewards = questPairs
+                                    .Select(kvp => new GlobalDailiesReward
+                                    {
+                                        CurrencyId = kvp.Value.Item2?.CurrencyID ?? 0,
+                                        ItemId = kvp.Value.Item2?.ItemID ?? 0,
+                                        Money = kvp.Value.Item2?.Money ?? 0,
+                                        Quality = kvp.Value.Item2?.Quality ?? 0,
+                                        Quantity = kvp.Value.Item2?.Quantity ?? 0,
+                                    })
+                                    .ToList();
+                            }
+                        }
                     }
 
                     _resetQuestCache = true;

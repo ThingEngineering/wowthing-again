@@ -2,6 +2,7 @@ import type { Account } from './account'
 import type { BackgroundImage } from './background-image'
 import type { Character } from './character'
 import type { InstanceDifficulty } from './dungeon'
+import type { ItemQuality } from './enums'
 import type { UserCount } from './user-count'
 
 
@@ -14,7 +15,8 @@ export interface UserData {
 
     backgrounds: Record<number, BackgroundImage>
     currentPeriod: Record<number, UserDataCurrentPeriod>
-    dailies: Record<string, DailyQuests>
+    globalDailies: Record<string, DailyQuests>
+    globalDailyItems?: Record<number, string>
     images: Record<string, string>
 
     addonMounts: Record<number, boolean>
@@ -64,5 +66,14 @@ export interface DailyQuests {
     expansion: number
     questExpires: number[]
     questIds: number[]
+    questRewards: DailyQuestsReward[]
     region: number
+}
+
+export interface DailyQuestsReward {
+    currencyId: number
+    itemId: number
+    money: number
+    quality: ItemQuality
+    quantity: number
 }

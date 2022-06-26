@@ -6,19 +6,20 @@
     import { globalDailyQuests } from '@/data/quests'
     import { timeStore, userQuestStore, userStore } from '@/stores'
     import { getNextDailyResetFromTime } from '@/utils/get-next-reset'
-    import type { Character } from '@/types'
+    import type { Character, DailyQuestsReward } from '@/types'
     import type { GlobalDailyQuest } from '@/types/data'
     import { tippyComponent } from '@/utils/tippy'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import Tooltip from '@/components/tooltips/callings/TooltipCallings.svelte'
+    import Tooltip from '@/components/tooltips/dailies/TooltipDailies.svelte'
 
     export let character: Character
+    export let expansion: number
 
-    let callings: [GlobalDailyQuest, boolean][]
+    let callings: [DailyQuestsReward, GlobalDailyQuest, boolean][]
     let resets: DateTime[]
     $: {
-        callings = [[null, false], [null, false], [null, false]]
+        callings = [[null, null, false], [null, null, false], [null, null, false]]
 
         resets = [
             getNextDailyResetFromTime($timeStore, character.realm.region),
@@ -26,33 +27,33 @@
         resets.push(resets[0].plus({ days: 1 }))
         resets.push(resets[0].plus({ days: 2 }))
 
-        const dailies = $userStore.data.dailies[`8-${character.realm.region}`]
-        if (dailies) {
-            for (let questIndex = 0; questIndex < dailies.questIds.length; questIndex++) {
-                const questId = dailies.questIds[questIndex]
-                const expires = dailies.questExpires[questIndex]
+        const globalDailies = $userStore.data.globalDailies[`${expansion}-${character.realm.region}`]
+        if (globalDailies) {
+            for (let questIndex = 0; questIndex < globalDailies.questIds.length; questIndex++) {
+                const questId = globalDailies.questIds[questIndex]
+                const expires = globalDailies.questExpires[questIndex]
+                const rewards = globalDailies.questRewards[questIndex]
 
                 for (let resetIndex = 0; resetIndex < resets.length; resetIndex++) {
                     const reset = resets[resetIndex]
                     if (reset.toUnixInteger() === expires) {
-                        callings[resetIndex][0] = globalDailyQuests[questId]
+                        callings[resetIndex][0] = rewards
+                        callings[resetIndex][1] = globalDailyQuests[questId]
                         break
                     }
                 }
             }
         }
 
-        if ($userQuestStore.data.characters[character.id]?.callingCompleted?.length > 0) {
-            const callingCompleted: boolean[] = $userQuestStore.data.characters[character.id].callingCompleted
-            const callingExpires: number[] = $userQuestStore.data.characters[character.id].callingExpires
-
-            for (let i = 0; i < callingCompleted.length; i++) {
-                if (callingCompleted[i]) {
-                    const expires = DateTime.fromSeconds(callingExpires[i], {zone: 'utc'})
+        const dailies = $userQuestStore.data.characters[character.id]?.dailies?.[expansion]
+        if (dailies) {
+            for (let i = 0; i < dailies[0].length; i++) {
+                if (dailies[0][i]) {
+                    const expires = DateTime.fromSeconds(dailies[1][i], {zone: 'utc'})
                     if (expires > $timeStore) {
                         for (let resetIndex = 0; resetIndex < resets.length; resetIndex++) {
                             if (expires <= resets[resetIndex]) {
-                                callings[resetIndex][1] = true
+                                callings[resetIndex][2] = true
                                 break
                             }
                         }
@@ -78,12 +79,13 @@
             props: {
                 callings,
                 character,
+                expansion,
                 resets,
             },
         }}
     >
         <div class="flex-wrapper">
-            {#each callings as [daily, status]}
+            {#each callings as [rewards, daily, status]}
                 <IconifyIcon
                     extraClass="{status ? 'status-success' : 'status-fail'}"
                     icon={status ? iconStrings.yes : iconStrings.no}

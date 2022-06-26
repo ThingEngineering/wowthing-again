@@ -21,6 +21,7 @@
         public List<UploadCharacterCalling> Callings { get; set; }
         public List<UploadCharacterCovenant> Covenants { get; set; }
         public Dictionary<short, string> Currencies { get; set; }
+        public Dictionary<int, List<UploadCharacterEmissary>> Emissaries { get; set; }
         public Dictionary<string, string[]> GarrisonTrees { get; set; }
         public Dictionary<string, Dictionary<string, string>> Items { get; set; }
         public List<UploadCharacterLockout> Lockouts { get; set; }
@@ -53,6 +54,20 @@
         public int QuestID { get; set; }
     }
 
+    public class UploadCharacterEmissary : UploadCharacterCalling
+    {
+        public UploadCharacterEmissaryReward Reward { get; set; }
+    }
+
+    public class UploadCharacterEmissaryReward
+    {
+        public int CurrencyID { get; set; }
+        public int ItemID { get; set; }
+        public int Money { get; set; }
+        public int Quality { get; set; }
+        public int Quantity { get; set; }
+    }
+    
     public class UploadCharacterCovenant
     {
         public int Anima { get; set; }

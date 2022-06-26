@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
@@ -16,9 +17,10 @@ using Wowthing.Lib.Models.Player;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    partial class WowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220625222957_Add_GlobalDailies_QuestRewards")]
+    partial class Add_GlobalDailies_QuestRewards
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -794,13 +796,17 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("character_id");
 
+                    b.Property<List<bool>>("CallingCompleted")
+                        .HasColumnType("boolean[]")
+                        .HasColumnName("calling_completed");
+
+                    b.Property<List<int>>("CallingExpires")
+                        .HasColumnType("integer[]")
+                        .HasColumnName("calling_expires");
+
                     b.Property<DateTime>("CallingsScannedAt")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("callings_scanned_at");
-
-                    b.Property<Dictionary<int, List<List<int>>>>("Dailies")
-                        .HasColumnType("jsonb")
-                        .HasColumnName("dailies");
 
                     b.Property<List<int>>("DailyQuests")
                         .HasColumnType("integer[]")

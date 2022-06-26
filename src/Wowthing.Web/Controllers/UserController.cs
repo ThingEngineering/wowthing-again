@@ -30,7 +30,7 @@ namespace Wowthing.Web.Controllers
             }
 
             var expectedUri = await _uriService.GetUriForUser(user: user);
-            var actualUri = HttpContext.Request.GetDisplayUrl();
+            var actualUri = HttpContext.Request.GetEncodedUrl();
             if (actualUri != expectedUri)
             {
                 Console.WriteLine("expected: {0} | actual: {1}", expectedUri, actualUri);

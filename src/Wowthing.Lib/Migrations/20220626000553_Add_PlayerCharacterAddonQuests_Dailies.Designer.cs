@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
@@ -16,9 +17,10 @@ using Wowthing.Lib.Models.Player;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    partial class WowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220626000553_Add_PlayerCharacterAddonQuests_Dailies")]
+    partial class Add_PlayerCharacterAddonQuests_Dailies
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -793,6 +795,14 @@ namespace Wowthing.Lib.Migrations
                     b.Property<int>("CharacterId")
                         .HasColumnType("integer")
                         .HasColumnName("character_id");
+
+                    b.Property<List<bool>>("CallingCompleted")
+                        .HasColumnType("boolean[]")
+                        .HasColumnName("calling_completed");
+
+                    b.Property<List<int>>("CallingExpires")
+                        .HasColumnType("integer[]")
+                        .HasColumnName("calling_expires");
 
                     b.Property<DateTime>("CallingsScannedAt")
                         .HasColumnType("timestamp with time zone")
