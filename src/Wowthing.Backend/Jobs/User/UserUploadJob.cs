@@ -914,6 +914,7 @@ namespace Wowthing.Backend.Jobs.User
                 character.AddonQuests.Dailies = new();
             }
 
+            bool dailiesUpdated = false;
             if (callingsScanTimestamp > 0)
             {
                 var scanTime = callingsScanTimestamp.AsUtcDateTime();
@@ -965,6 +966,8 @@ namespace Wowthing.Backend.Jobs.User
                             .Select(kvp => kvp.Key)
                             .ToList();
                     }
+
+                    dailiesUpdated = true;
                 }
             }
 
@@ -1069,10 +1072,19 @@ namespace Wowthing.Backend.Jobs.User
                                     .ToList();
                             }
                         }
+
+                        dailiesUpdated = true;
                     }
 
                     _resetQuestCache = true;
                 }
+            }
+
+            if (dailiesUpdated)
+            {
+                Context.Entry(character.AddonQuests)
+                    .Property(caq => caq.Dailies)
+                    .IsModified = true;
             }
         }
 
