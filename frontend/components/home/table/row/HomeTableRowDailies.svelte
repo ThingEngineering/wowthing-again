@@ -30,9 +30,9 @@
         const globalDailies = $userStore.data.globalDailies[`${expansion}-${character.realm.region}`]
         if (globalDailies) {
             for (let questIndex = 0; questIndex < globalDailies.questIds.length; questIndex++) {
-                const questId = globalDailies.questIds[questIndex]
-                const expires = globalDailies.questExpires[questIndex]
-                const rewards = globalDailies.questRewards[questIndex]
+                const questId = globalDailies.questIds?.[questIndex]
+                const expires = globalDailies.questExpires?.[questIndex]
+                const rewards = globalDailies.questRewards?.[questIndex]
 
                 for (let resetIndex = 0; resetIndex < resets.length; resetIndex++) {
                     const reset = resets[resetIndex]
