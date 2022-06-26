@@ -22,6 +22,8 @@
     const homeChoices: SettingsChoice[] = [
         {key: 'callings', name: 'Callings'},
         {key: 'covenant', name: 'Covenant'},
+        {key: 'emissariesBfa', name: 'Emissaries - BfA'},
+        {key: 'emissariesLegion', name: 'Emissaries - Legion'},
         {key: 'gear', name: 'Gear'},
         {key: 'gold', name: 'Gold'},
         {key: 'itemLevel', name: 'Item level'},

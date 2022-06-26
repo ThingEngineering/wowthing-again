@@ -73,8 +73,7 @@ public class UserQuestController : Controller
             c => new UserQuestDataCharacter
             {
                 ScannedAt = c.AddonQuests?.QuestsScannedAt ?? MiscConstants.DefaultDateTime,
-                CallingCompleted = c.AddonQuests?.CallingCompleted.EmptyIfNull(),
-                CallingExpires = c.AddonQuests?.CallingExpires.EmptyIfNull(),
+                Dailies = c.AddonQuests?.Dailies.EmptyIfNull(),
                 DailyQuestList = c.AddonQuests?.DailyQuests ?? new List<int>(),
                 QuestList = (c.Quests?.CompletedIds ?? new List<int>())
                     .Union(c.AddonQuests?.OtherQuests ?? new List<int>())

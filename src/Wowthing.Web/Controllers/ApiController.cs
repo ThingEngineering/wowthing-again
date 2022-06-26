@@ -9,6 +9,7 @@ using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
+using Wowthing.Lib.Models.Wow;
 using Wowthing.Lib.Services;
 using Wowthing.Lib.Utilities;
 using Wowthing.Web.Forms;
@@ -319,9 +320,34 @@ namespace Wowthing.Web.Controllers
             
             timer.AddPoint("Characters");
 
-            var dailies = await _context.GlobalDailies
+            var globalDailies = await _context.GlobalDailies
                 .ToDictionaryAsync(gd => $"{gd.Expansion}-{(int)gd.Region}");
-            
+
+            var gdItemIds = new HashSet<int>();
+            foreach (var gd in globalDailies.Values)
+            {
+                foreach (var questReward in gd.QuestRewards.EmptyIfNull())
+                {
+                    if (questReward.ItemId > 0)
+                    {
+                        gdItemIds.Add(questReward.ItemId);
+                    }
+                }
+            }
+
+            Dictionary<int, string> gdItems = null;
+            if (gdItemIds.Count > 0)
+            {
+                gdItems = await _context.LanguageString
+                    .Where(ls => ls.Language == apiResult.User.Settings.General.Language &&
+                                 ls.Type == StringType.WowItemName &&
+                                 gdItemIds.Contains(ls.Id))
+                    .ToDictionaryAsync(
+                        ls => ls.Id,
+                        ls => ls.String
+                    );
+            }
+
             timer.AddPoint("Dailies");
             
             var backgrounds = await _context.BackgroundImage
@@ -407,7 +433,8 @@ namespace Wowthing.Web.Controllers
                 
                 Backgrounds = backgrounds,
                 CurrentPeriod = currentPeriods,
-                Dailies = dailies,
+                GlobalDailies = globalDailies,
+                GlobalDailyItems = gdItems,
                 Images = images,
                 Public = apiResult.Public,
 

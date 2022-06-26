@@ -6,8 +6,8 @@
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import GroupHead from './table/HomeTableGroupHead.svelte'
-    import RowCallings from './table/row/HomeTableRowCallings.svelte'
     import RowCovenant from './table/row/HomeTableRowCovenant.svelte'
+    import RowDailies from './table/row/HomeTableRowDailies.svelte'
     import RowGear from './table/row/HomeTableRowGear.svelte'
     import RowGold from './table/row/HomeTableRowGold.svelte'
     import RowItemLevel from '@/components/character-table/row/ItemLevel.svelte'
@@ -39,12 +39,31 @@
         {#each $settings.layout.homeFields as field}
             {#if field === 'callings'}
                 {#if !$homeState.onlyWeekly}
-                    <RowCallings {character} />
+                    <RowDailies
+                        expansion={8}
+                        {character}
+                    />
                 {/if}
 
             {:else if field === 'covenant'}
                 {#if !$homeState.onlyWeekly}
                     <RowCovenant {character} />
+                {/if}
+                
+            {:else if field === 'emissariesBfa'}
+                {#if !$homeState.onlyWeekly}
+                    <RowDailies
+                        expansion={7}
+                        {character}
+                    />
+                {/if}
+
+            {:else if field === 'emissariesLegion'}
+                {#if !$homeState.onlyWeekly}
+                    <RowDailies
+                        expansion={6}
+                        {character}
+                    />
                 {/if}
 
             {:else if field === 'gear'}

@@ -75,6 +75,8 @@ namespace Wowthing.Lib.Models
         {
             "callings",
             "covenant",
+            "emissariesBfa",
+            "emissariesLegion",
             "gear",
             "gold",
             "itemLevel",
