@@ -9,7 +9,6 @@
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
-import data from '@iconify/icons-mdi/arrow-down-bold-outline';
 
     export let callings: [DailyQuestsReward, GlobalDailyQuest, boolean][]
     export let character: Character
@@ -86,10 +85,6 @@ import data from '@iconify/icons-mdi/arrow-down-bold-outline';
                             {#if rewards.money > 0}
                                 {rewards.money} g
                             {:else if rewards.itemId > 0}
-                                {#if rewards.quantity > 1}
-                                    {rewards.quantity}
-                                {/if}
-
                                 <WowthingImage
                                     name="item/{rewards.itemId}"
                                     size={20}
@@ -98,8 +93,13 @@ import data from '@iconify/icons-mdi/arrow-down-bold-outline';
 
                                 {@const itemName = $userStore.data.globalDailyItems?.[rewards.itemId]}
                                 <span class="quality{rewards.quality}">{itemName || `Item ${rewards.itemId}`}</span>
-                            {:else}
-                                {rewards.quantity.toLocaleString()}
+
+                                {#if rewards.quantity > 1}
+                                    x {rewards.quantity}
+                                {/if}
+
+                            {:else if rewards.currencyId > 0}
+                                {@const currency = $staticStore.data.currencies[rewards.currencyId]}
 
                                 <WowthingImage
                                     name="currency/{rewards.currencyId}"
@@ -108,8 +108,10 @@ import data from '@iconify/icons-mdi/arrow-down-bold-outline';
                                 />
                                 
                                 <span class="quality3">
-                                    {$staticStore.data.currencies[rewards.currencyId].name}
+                                    {currency !== undefined ? currency.name : `Currency #${rewards.currencyId}`}
                                 </span>
+
+                                x {rewards.quantity.toLocaleString()}
                             {/if}
                         {/if}
                     </td>
