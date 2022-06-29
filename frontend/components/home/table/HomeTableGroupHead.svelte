@@ -1,6 +1,7 @@
 <script lang="ts">
     import sumBy from 'lodash/sumBy'
 
+    import { iconStrings } from '@/data/icons'
     import { progressQuestHead } from '@/data/quests'
     import { userStore } from '@/stores'
     import { homeState } from '@/stores/local-storage'
@@ -9,11 +10,11 @@
     import type {Character} from '@/types'
 
     import Checkbox from '@/components/forms/CheckboxInput.svelte'
-    import HeadCallings from './head/HomeTableHeadCallings.svelte'
     import HeadCovenant from './head/HomeTableHeadCovenant.svelte'
     import HeadLockouts from './head/HomeTableHeadLockouts.svelte'
     import HeadMount from './head/HomeTableHeadMount.svelte'
     import HeadMythicPlusScore from './head/HomeTableHeadMythicPlusScore.svelte'
+    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import RowGold from './row/HomeTableRowGold.svelte'
     import RowPlayedTime from './row/HomeTableRowPlayedTime.svelte'
     import SpacerRow from '@/components/character-table/CharacterTableSpacerRow.svelte'
@@ -61,14 +62,30 @@
     {#each $settings.layout.homeFields as field}
         {#if field === 'callings'}
             {#if !$homeState.onlyWeekly}
-                <HeadCallings />
+                <td use:tippy={"Shadowlands Callings"}>
+                    <IconifyIcon icon={iconStrings['calendar-quest']} /> SL
+                </td>
             {/if}
-
+        
         {:else if field === 'covenant'}
             {#if !$homeState.onlyWeekly}
                 <HeadCovenant />
             {/if}
+        
+        {:else if field === 'emissariesBfa'}
+            {#if !$homeState.onlyWeekly}
+                <td use:tippy={"Battle for Azeroth Emissaries"}>
+                    <IconifyIcon icon={iconStrings['calendar-quest']} /> BfA
+                </td>
+            {/if}
 
+        {:else if field === 'emissariesLegion'}
+            {#if !$homeState.onlyWeekly}
+                <td use:tippy={"Legion Emissaries"}>
+                    <IconifyIcon icon={iconStrings['calendar-quest']} /> Legion
+                </td>
+            {/if}
+        
         {:else if field === 'gear'}
             {#if !$homeState.onlyWeekly}
                 <td>Gear</td>
