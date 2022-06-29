@@ -299,6 +299,13 @@ export const globalDailyQuests: Record<number, GlobalDailyQuest> = Object.fromEn
             null,
             'Complete 4 world quests',
         ),
+        new GlobalDailyQuest(
+            43179,
+            ItemQuality.Common,
+            'The Kirin Tor',
+            null,
+            'Complete 3 world quests',
+        ),
         
         new GlobalDailyQuest(
             48639,
