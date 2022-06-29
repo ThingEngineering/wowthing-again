@@ -13,6 +13,7 @@ src/**/bin/
 src/**/obj/
 node_modules/
 src/Wowthing.Web/wwwroot/dist/
+__pycache__
 .eslintcache
 *.log
 

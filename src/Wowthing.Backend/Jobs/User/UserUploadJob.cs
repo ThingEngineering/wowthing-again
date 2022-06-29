@@ -14,6 +14,7 @@ namespace Wowthing.Backend.Jobs.User
         private JankTimer _timer;
         private Dictionary<(WowRegion Region, int Expansion), GlobalDailies> _globalDailiesMap = null;
         private Dictionary<(WowRegion Region, string Name), WowRealm> _realmMap;
+        private Dictionary<string, int> _instanceNameToIdMap;
 
         private bool _resetQuestCache;
         private bool _resetTransmogCache;
@@ -86,6 +87,18 @@ namespace Wowthing.Backend.Jobs.User
             
             var parsed = JsonConvert.DeserializeObject<Upload[]>(json)[0]; // TODO work out why this is an array of objects
             _timer.AddPoint("Parse");
+            
+            // Fetch instance data for lockouts
+            var instances = await Context.LanguageString
+                .Where(ls => ls.Type == StringType.WowJournalInstanceMapName)
+                .AsNoTracking()
+                .ToArrayAsync();
+            
+            _instanceNameToIdMap = new();
+            foreach (var instance in instances)
+            {
+                _instanceNameToIdMap[instance.String] = instance.Id;
+            }
             
             // Fetch guild data
             var guildMap = await Context.PlayerGuild
@@ -806,6 +819,16 @@ namespace Wowthing.Backend.Jobs.User
             var newLockouts = new List<PlayerCharacterLockoutsLockout>();
             foreach (var lockoutData in characterData.Lockouts)
             {
+                if (lockoutData.Id == 0)
+                {
+                    if (!_instanceNameToIdMap.TryGetValue(lockoutData.Name, out int instanceId))
+                    {
+                        Logger.Warning("Invalid lockout instance: {Name}", lockoutData.Name);
+                        continue;
+                    }
+                    lockoutData.Id = instanceId;
+                }
+                
                 var bosses = new List<PlayerCharacterLockoutsLockoutBoss>();
                 foreach (var bossString in lockoutData.Bosses.EmptyIfNull())
                 {

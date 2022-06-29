@@ -83,7 +83,7 @@
                         <p>{daily?.description ?? '???'}</p>
                         {#if rewards}
                             {#if rewards.money > 0}
-                                {rewards.money} g
+                                {Math.floor(rewards.money / 10000).toLocaleString()} g
                             {:else if rewards.itemId > 0}
                                 <WowthingImage
                                     name="item/{rewards.itemId}"

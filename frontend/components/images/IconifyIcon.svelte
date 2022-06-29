@@ -10,6 +10,7 @@
 <style lang="scss">
     svg {
         height: 24px;
+        margin-top: var(--image-margin-top, 0);
         width: 24px;
         transform: scale(var(--scale));
     }

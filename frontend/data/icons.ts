@@ -4,6 +4,7 @@ import mdiArrowDownBoldOutline from '@iconify/icons-mdi/arrow-down-bold-outline'
 import mdiArrowLeftBoldOutline from '@iconify/icons-mdi/arrow-left-bold-outline'
 import mdiArrowRightBoldOutline from '@iconify/icons-mdi/arrow-right-bold-outline'
 import mdiArrowUpBoldOutline from '@iconify/icons-mdi/arrow-up-bold-outline'
+import mdiCalendar from '@iconify/icons-mdi/calendar-alert'
 import mdiCheck from '@iconify/icons-mdi/check'
 import mdiChevronDown from '@iconify/icons-mdi/chevron-down'
 import mdiChevronRight from '@iconify/icons-mdi/chevron-right'
@@ -38,6 +39,8 @@ export const iconStrings: Record<string, IconifyIcon> = {
     'arrow-left': mdiArrowLeftBoldOutline,
     'arrow-right': mdiArrowRightBoldOutline,
     'arrow-up': mdiArrowUpBoldOutline,
+
+    'calendar-quest': mdiCalendar,
 
     'chevron-down': mdiChevronDown,
     'chevron-right': mdiChevronRight,
