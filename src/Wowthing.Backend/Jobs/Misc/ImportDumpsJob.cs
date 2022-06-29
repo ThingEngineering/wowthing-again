@@ -48,7 +48,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.ImportDumps,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(24),
-            Version = 11,
+            Version = 12,
         };
 
         private Dictionary<int, DumpItemXItemEffect[]> _itemEffectsMap;
@@ -58,9 +58,11 @@ namespace Wowthing.Backend.Jobs.Misc
         {
             _timer = new JankTimer();
 
+            await ImportInstances();
+
             await ImportItems();
             await ImportItemAppearances();
-                        
+
             _itemEffectsMap = (await DataUtilities.LoadDumpCsvAsync<DumpItemXItemEffect>("itemxitemeffect"))
                 .ToGroupedDictionary(ixie => ixie.ItemEffectID);
 
@@ -123,7 +125,13 @@ namespace Wowthing.Backend.Jobs.Misc
             Logger.Information("{Timing}", _timer.ToString());
         }
 
-        private async Task ImportStrings<TDump>(StringType type, string dumpName, Func<TDump, int> getIdFunc, Func<TDump, string> getStringFunc)
+        private async Task ImportStrings<TDump>(
+            StringType type,
+            string dumpName,
+            Func<TDump, int> getIdFunc,
+            Func<TDump, string> getStringFunc,
+            Func<TDump, bool> filterFunc = null
+        )
         {
             var dbLanguageMap = await Context.LanguageString
                 .Where(ls => ls.Type == type)
@@ -135,12 +143,17 @@ namespace Wowthing.Backend.Jobs.Misc
                 var dumpObjects = await DataUtilities.LoadDumpCsvAsync<TDump>(Path.Join(language.ToString(), dumpName), skipValidation: true);
                 foreach (var dumpObject in dumpObjects)
                 {
+                    if (filterFunc != null && !filterFunc(dumpObject))
+                    {
+                        continue;
+                    }
+                    
                     int objectId = getIdFunc(dumpObject);
                     string objectString = getStringFunc(dumpObject);
                     
                     if (!dbLanguageMap.TryGetValue((language, objectId), out var languageString))
                     {
-                        languageString = new LanguageString
+                        languageString = dbLanguageMap[(language, objectId)] = new LanguageString
                         {
                             Language = language,
                             Type = type,
@@ -158,6 +171,29 @@ namespace Wowthing.Backend.Jobs.Misc
             }
             
             _timer.AddPoint(type.ToString());
+        }
+
+        private async Task ImportInstances()
+        {
+            var instances = await DataUtilities
+                .LoadDumpCsvAsync<DumpJournalInstance>(Path.Join("enUS", "journalinstance"));
+            
+            var mapIdToInstanceId = instances
+                .Where(instance => !Hardcoded.SkipInstances.Contains(instance.ID))
+                .ToDictionary(
+                    instance => instance.MapID,
+                    instance => instance.ID
+                );
+            
+            await ImportStrings<DumpMap>(
+                StringType.WowJournalInstanceMapName,
+                "map",
+                (map) => mapIdToInstanceId[map.ID],
+                (map) => map.Name,
+                (map) => mapIdToInstanceId.ContainsKey(map.ID)
+            );
+            
+            _timer.AddPoint("Instances");
         }
         
         private async Task ImportItems()
