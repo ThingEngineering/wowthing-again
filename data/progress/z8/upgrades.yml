@@ -37,13 +37,21 @@ groups:
   type: quest
   data:
     0:
+    - name: "Unlock mount crafting"
+      id: 65427 # A New Architect
+      description: "A New Architect quests"
+    
+    - name: "Unlock pet crafting"
+      id: 65419 # Protoform Synthesis
+      description: "Research Dealic Understanding and summon Pocopoc"
+    
     - name: "+50% Cyphers of the First Ones"
       id: 65282 # Improved Cypher Analysis Tool
-      note: "Buy from Olea Manu after doing Jiro to Hero quest line"
+      description: "Buy from Olea Manu after Jiro to Hero quests"
     
     - name: "Enable weapon drops"
       id: 66579 # Sounds of Healing
-      note: "Random drop after doing Jiro to Hero quest line"
+      description: "Random drop after Jiro to Hero quests"
 
 - name: "Korthia"
   icon: item/187138 # Research Report: First Alloys
@@ -78,35 +86,35 @@ groups:
     0:
     - name: "Extra storage space"
       id: 63183 # Extradimensional Pockets
-      note: "Apprehensive"
+      description: "Apprehensive"
 
     - name: "First death doesn't count"
       id: 63202 # Vessel of Unfortunate Spirits
-      note: "Apprehensive"
+      description: "Apprehensive"
 
     - name: "Hidden teleportation points"
       id: 63523 # Broker Traversal Enhancer
-      note: "Apprehensive"
+      description: "Apprehensive"
 
     - name: "Uncommon options from Brokers"
       id: 63193 # Bangle of Seniority
-      note: "Tentative"
+      description: "Tentative"
 
     - name: "More epic powers"
       id: 63204 # Ritual Prism of Fortune
-      note: "Ambivalent"
+      description: "Ambivalent"
 
     - name: "Discounted hoard from Brokers"
       id: 63201 # Loupe of Unusual Charm
-      note: "Cordial"
+      description: "Cordial"
 
     - name: "Rare options from Brokers"
       id: 63200 # Rank Insignia: Acquisitionist
-      note: "Cordial"
+      description: "Cordial"
 
     - name: "At least two power choices"
       id: 61144 # Possibility Matrix
-      note: "Appreciative"
+      description: "Appreciative"
 
 - name: "The Maw"
   icon: achievement/14656 # Trading Partners
@@ -115,20 +123,20 @@ groups:
     0:
     - name: "Chaotic Riftstone travel"
       id: 63177 # Encased Riftwalker Essence
-      note: "Apprehensive"
+      description: "Apprehensive"
 
     - name: "Use grapple points"
       id: 63217 # Animated Levitating Chain
-      note: "Tentative"
+      description: "Tentative"
 
     - name: "Teleporter to The Tremaculum"
       id: 61600 # Animaflow Stabilizer
-      note: "Tentative"
+      description: "Tentative"
 
     - name: "Immunity to The Jailer's Mark"
       id: 63092 # Sigil of the Unseen
-      note: "Tentative"
+      description: "Tentative"
 
     - name: "Immunity to Soul Brand"
       id: 63091 # Soul-Stabilizing Talisman
-      note: "Ambivalent"
+      description: "Ambivalent"
