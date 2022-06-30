@@ -1,6 +1,6 @@
 z8/_shadowlands.yml
     z8/zone_quests.yml
-    z8/campaign_quests.yml
+    z8/covenants.yml
     z8/upgrades.yml
     z8/raid_skips.yml
 
@@ -9,14 +9,14 @@ z7/_battle_for_azeroth.yml
     z7/raid_skips.yml
 
 z6/_legion.yml
-    z6/argus.yml
+    z6/zone_quests.yml
     z6/artifacts.yml
     z6/balance_of_power.yml
     z6/order_halls.yml
-    z6/storylines.yml
     z6/raid_skips.yml
 
 z5/_warlords_of_draenor.yml
+    z5/garrisons.yml
     z5/raid_skips.yml
 
 z2/_wrath_of_the_lich_king.yml

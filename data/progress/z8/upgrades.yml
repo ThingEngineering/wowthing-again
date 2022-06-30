@@ -5,6 +5,7 @@ groups:
 
 - name: "Cyphers of the First Ones"
   icon: "currency/1979" # Cyphers of the First Ones
+  iconText: "Cyphers"
   type: mixed
   data:
     0:
@@ -34,6 +35,7 @@ groups:
 
 - name: "Zereth Mortis"
   icon: "achievement/15224" #  Explore Zereth Mortis
+  iconText: "ZM"
   type: quest
   data:
     0:
@@ -53,8 +55,11 @@ groups:
       id: 66579 # Sounds of Healing
       description: "Random drop after Jiro to Hero quests"
 
+- name: separator
+
 - name: "Korthia"
   icon: item/187138 # Research Report: First Alloys
+  iconText: "Korthia"
   type: quest
   data:
     0:
@@ -79,8 +84,37 @@ groups:
     - name: "Stygia from Korthia/Maw stuff"
       id: 64307 # Treatise: Recognizing Stygia and its Uses
 
-- name: "Torghast"
+- name: separator
+
+- name: "The Maw"
+  icon: achievement/14656 # Trading Partners
+  iconText: "Maw"
+  type: quest
+  data:
+    0:
+    - name: "Chaotic Riftstone travel"
+      id: 63177 # Encased Riftwalker Essence
+      description: "Apprehensive"
+
+    - name: "Use grapple points"
+      id: 63217 # Animated Levitating Chain
+      description: "Tentative"
+
+    - name: "Teleporter to The Tremaculum"
+      id: 61600 # Animaflow Stabilizer
+      description: "Tentative"
+
+    - name: "Immunity to The Jailer's Mark"
+      id: 63092 # Sigil of the Unseen
+      description: "Tentative"
+
+    - name: "Immunity to Soul Brand"
+      id: 63091 # Soul-Stabilizing Talisman
+      description: "Ambivalent"
+
+- name: "Torghast (account-wide)"
   icon: achievement/14498 # Gatekeepers of Torghast
+  iconText: "Torghast"
   type: accountQuest
   data:
     0:
@@ -115,28 +149,3 @@ groups:
     - name: "At least two power choices"
       id: 61144 # Possibility Matrix
       description: "Appreciative"
-
-- name: "The Maw"
-  icon: achievement/14656 # Trading Partners
-  type: quest
-  data:
-    0:
-    - name: "Chaotic Riftstone travel"
-      id: 63177 # Encased Riftwalker Essence
-      description: "Apprehensive"
-
-    - name: "Use grapple points"
-      id: 63217 # Animated Levitating Chain
-      description: "Tentative"
-
-    - name: "Teleporter to The Tremaculum"
-      id: 61600 # Animaflow Stabilizer
-      description: "Tentative"
-
-    - name: "Immunity to The Jailer's Mark"
-      id: 63092 # Sigil of the Unseen
-      description: "Tentative"
-
-    - name: "Immunity to Soul Brand"
-      id: 63091 # Soul-Stabilizing Talisman
-      description: "Ambivalent"

@@ -85,8 +85,8 @@ export default function getProgress(
                                 if (cheev.earned) {
                                     haveThis = true
                                 }
-                                else if (data.ids.length === 2 && data.value) {
-                                    haveThis = cheev.criteria[data.ids[1]] >= data.value
+                                else if (data.ids.length === 2) {
+                                    haveThis = cheev.criteria[data.ids[1]] >= (data.value || 1)
                                 }
                                 else if (data.description && data.value) {
                                     // TODO do this properly
@@ -111,7 +111,7 @@ export default function getProgress(
                                 userAchievementData?.criteria[data.ids[0]] || [],
                                 ([characterId,]) => characterId === character.id
                             )
-                            haveThis = (criteria.length === 1 && criteria[0][1] >= data.value)
+                            haveThis = (criteria.length === 1 && criteria[0][1] >= (data.value || 1))
                             break
                         }
 
