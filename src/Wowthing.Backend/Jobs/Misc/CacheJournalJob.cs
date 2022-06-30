@@ -200,8 +200,16 @@ namespace Wowthing.Backend.Jobs.Misc
                                 OrderIndex = -10,
                             });
                         }
+
+                        var encounters = encountersByInstanceId[instanceId];
+                        if (Hardcoded.JournalBossOrder.TryGetValue(instanceId, out var bossOrder))
+                        {
+                            encounters = encounters
+                                .OrderBy(encounter => Array.IndexOf(bossOrder, encounter.ID))
+                                .ToList();
+                        }
                         
-                        foreach (var encounter in encountersByInstanceId[instanceId])
+                        foreach (var encounter in encounters)
                         {
                             if (Hardcoded.IgnoredJournalEncounter.Contains(encounter.ID))
                             {

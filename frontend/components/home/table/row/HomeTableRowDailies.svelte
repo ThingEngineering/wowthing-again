@@ -3,7 +3,7 @@
 
     import { Constants } from '@/data/constants'
     import { iconStrings } from '@/data/icons'
-    import { globalDailyQuests } from '@/data/quests'
+    import { dailyQuestLevel, globalDailyQuests } from '@/data/quests'
     import { timeStore, userQuestStore, userStore } from '@/stores'
     import { getNextDailyResetFromTime } from '@/utils/get-next-reset'
     import type { Character, DailyQuestsReward } from '@/types'
@@ -68,11 +68,13 @@
     td {
         @include cell-width($width-callings);
 
+        --scale: 0.91;
+
         border-left: 1px solid $border-color;
     }
 </style>
 
-{#if character.level === Constants.characterMaxLevel}
+{#if character.level >= dailyQuestLevel[expansion]}
     <td
         use:tippyComponent={{
             component: Tooltip,
@@ -89,7 +91,6 @@
                 <IconifyIcon
                     extraClass="{status ? 'status-success' : 'status-fail'}"
                     icon={status ? iconStrings.yes : iconStrings.no}
-                    scale="0.91"
                 />
             {/each}
         </div>

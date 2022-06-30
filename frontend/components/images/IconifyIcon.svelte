@@ -4,7 +4,7 @@
     export let dropShadow = false
     export let extraClass: string = undefined
     export let icon: IconifyIcon
-    export let scale = '1'
+    export let scale: string = null
 </script>
 
 <style lang="scss">
@@ -12,12 +12,12 @@
         height: 24px;
         margin-top: var(--image-margin-top, 0);
         width: 24px;
-        transform: scale(var(--scale));
+        transform: scale(var(--scale, 1));
     }
 </style>
 
 <svg
-    style="--scale: {scale};"
+    style:--scale={scale}
     viewBox="0 0 {icon.width} {icon.height}"
     aria-hidden="true"
     role="img"

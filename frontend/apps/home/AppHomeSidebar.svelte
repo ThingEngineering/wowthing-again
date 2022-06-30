@@ -55,11 +55,12 @@
 
 <style lang="scss">
     li {
+        --image-margin-top: -4px;
+
         position: relative;
 
         :global(svg) {
             color: #eee;
-            margin-top: -4px;
             opacity: 0.8;
         }
     }
