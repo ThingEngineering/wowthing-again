@@ -3,7 +3,8 @@
 
     import type { Character } from '@/types'
     import type { StaticDataProgressData, StaticDataProgressGroup } from '@/types/data/static'
-import data from '@iconify/icons-mdi/arrow-down-bold-outline';
+
+    import ParsedText from '@/components/common/ParsedText.svelte'
 
     export let character: Character
     export let datas: StaticDataProgressData[]
@@ -11,14 +12,14 @@ import data from '@iconify/icons-mdi/arrow-down-bold-outline';
     export let group: StaticDataProgressGroup
     export let haveIndexes: number[]
 
-    let useSpan: boolean
+    let cls: string
     $: {
-        useSpan = !some(datas, (data, i) => {
+        cls = some(datas, (data, i) => {
             const desc = descriptionText[i] || data.description
             if (desc && desc.length > 20) {
                 return true
             }
-        })
+        }) ? 'long' : 'short'
     }
 </script>
 
@@ -30,13 +31,14 @@ import data from '@iconify/icons-mdi/arrow-down-bold-outline';
         padding-right: 1rem;
         text-align: left;
 
-        p {
-            color: #00ccff;
-            margin-top: 0;
-        }
-        span {
+        :global(.description-short) {
             color: #00ccff;
             white-space: nowrap; 
+        }
+        :global(.description-long) {
+            color: #00ccff;
+            display: block;
+            margin-top: 0;
         }
     }
 </style>
@@ -55,11 +57,11 @@ import data from '@iconify/icons-mdi/arrow-down-bold-outline';
                     <td class="name">
                         {data.name}
                         {#if description && haveIndexes.indexOf(dataIndex) === -1}
-                            {#if useSpan}
-                                <span class="drop-shadow">&ndash; {description}</span>
-                            {:else}
-                                <p class="drop-shadow">{description}</p>
-                            {/if}
+                            {#if cls === 'short'}&ndash;{/if}
+                            <ParsedText
+                                cls="description-{cls}"
+                                text={description}
+                             />
                         {/if}
                     </td>
                 </tr>
