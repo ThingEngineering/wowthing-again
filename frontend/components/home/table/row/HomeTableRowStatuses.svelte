@@ -23,12 +23,13 @@
     td {
         @include cell-width(var(--width, 0));
 
+        --image-margin-top: -4px;
+
         border-left: 1px solid $border-color;
         white-space: nowrap;
 
         & :global(img) {
             border-radius: $border-radius;
-            margin-top: -4px;
 
             &:not(:first-child) {
                 margin-left: 3px;

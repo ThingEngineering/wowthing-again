@@ -42,8 +42,12 @@
     .only-weekly {
         text-align: left;
     }
-    tr :global(td:not(:first-child)) {
-        border-left: 1px solid $border-color;
+    tr {
+        --scale: 0.91;
+        
+        :global(td:not(:first-child)) {
+            border-left: 1px solid $border-color;
+        }
     }
 </style>
 

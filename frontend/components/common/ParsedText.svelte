@@ -71,10 +71,6 @@
 <style lang="scss">
     span {
         --image-margin-top: -4px;
-
-        :global(svg) {
-            margin-top: -4px;
-        }
     }
 </style>
 

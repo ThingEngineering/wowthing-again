@@ -68,6 +68,8 @@
     td {
         @include cell-width($width-callings);
 
+        --scale: 0.91;
+
         border-left: 1px solid $border-color;
     }
 </style>
@@ -89,7 +91,6 @@
                 <IconifyIcon
                     extraClass="{status ? 'status-success' : 'status-fail'}"
                     icon={status ? iconStrings.yes : iconStrings.no}
-                    scale="0.91"
                 />
             {/each}
         </div>
