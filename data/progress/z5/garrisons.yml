@@ -1,0 +1,283 @@
+name: "Garrisons"
+minimumLevel: 10
+groups:
+
+- name: "Jukebox - Faction"
+  icon: achievement/10016 # Full Discography
+  iconText: "Faction"
+  lookup: faction
+  type: mixed
+  data:
+    alliance:
+      - name: "Unlock Jukebox"
+        id: 38356 # Bringing the Bass [A]
+        type: quest
+      
+      - name: "Cold Mountain"
+        id: 43729
+        type: criteria
+        description: "Fishing in Forlorn Cavern, Ironforge"
+
+      - name: "High Seas"
+        id: 43711
+        type: criteria
+        description: "500x Domination Point Commission"
+
+      - name: "Tinkertown"
+        id: 43708
+        type: criteria
+        description: "Grime-Encrusted Object turn-in, Gnomeregan"
+
+    horde:
+      - name: "Unlock Jukebox"
+        id: 37961 # Bringing the Bass [H]
+        type: quest
+
+      - name: "Mulgore Plains"
+        id: 43764
+        type: criteria
+        description: "Fishing in Pools of Vision, Thunder Bluff"
+
+      - name: "War March"
+        id: 43758
+        type: criteria
+        description: "500x Lion's Landing Commission"
+
+      - name: "Zul'Gurub Voo Doo"
+        id: 43745
+        type: criteria
+        description: "Drops from Jin'do the Godbreaker, Zul'Gurub"
+
+- name: "Jukebox - Bosses"
+  icon: achievement/10016 # Full Discography
+  iconText: "Bosses"
+  lookup: faction
+  type: mixed
+  data:
+    alliance:
+      - name: "A Siege of Worlds"
+        id: 43730
+        type: criteria
+        description: "Blackhand, Blackrock Foundry"
+
+      - name: "Heart of Pandaria"
+        id: 43707
+        type: criteria
+        description: "Sha of Fear, Terrace of Endless Spring"
+
+      - name: "Invincible"
+        id: 43702
+        type: criteria
+        description: "The Lich King, Icecrown Citadel"
+
+      - name: "Karazhan Opera House"
+        id: 43716
+        type: criteria
+        description: "Opera, Karazhan"
+
+      - name: "Legends of Azeroth"
+        id: 43718
+        type: criteria
+        description: "Nefarian, Blackwing Descent"
+
+      - name: "Mountains of Thunder"
+        id: 43704
+        type: criteria
+        description: "Loken, Halls of Lightning"
+
+      - name: "The Burning Legion"
+        id: 43706
+        type: criteria
+        description: "Illidan Stormrage, Black Temple"
+
+      - name: "The Shattering"
+        id: 43703
+        type: criteria
+        description: "Deathwing, Dragon Soul"
+
+      - name: "Wrath of the Lich King"
+        id: 43709
+        type: criteria
+        description: "Kel'Thuzad, Naxxramas"
+
+    horde:
+      - name: "A Siege of Worlds"
+        id: 43737
+        type: criteria
+        description: "Blackhand, Blackrock Foundry"
+
+      - name: "Heart of Pandaria"
+        id: 43750
+        type: criteria
+        description: "Sha of Fear, Terrace of Endless Spring"
+
+      - name: "Invincible"
+        id: 43743
+        type: criteria
+        description: "The Lich King, Icecrown Citadel"
+
+      - name: "Karazhan Opera House"
+        id: 43759
+        type: criteria
+        description: "Opera, Karazhan"
+
+      - name: "Legends of Azeroth"
+        id: 43760
+        type: criteria
+        description: "Nefarian, Blackwing Descent"
+
+      - name: "Mountains of Thunder"
+        id: 43747
+        type: criteria
+        description: "Loken, Halls of Lightning"
+
+      - name: "The Burning Legion"
+        id: 43740
+        type: criteria
+        description: "Illidan Stormrage, Black Temple"
+
+      - name: "The Shattering"
+        id: 43762
+        type: criteria
+        description: "Deathwing, Dragon Soul"
+
+      - name: "Wrath of the Lich King"
+        id: 43761
+        type: criteria
+        description: "Kel'Thuzad, Naxxramas"
+
+- name: "Jukebox - Items"
+  icon: achievement/10016 # Full Discography
+  iconText: "Items"
+  lookup: faction
+  type: mixed
+  data:
+    alliance:
+      - name: "Angelic"
+        id: 43714
+        type: criteria
+        description: "Gurubashi Arena Chest, Stranglethorn Vale"
+
+      - name: "Faerie Dragon"
+        id: 43724
+        type: criteria
+        description: "Mushroom Circle, Tirisfal Glades"
+
+      - name: "Ghost"
+        id: 43717
+        type: criteria
+        description: "Forlorn Composer, Duskwood"
+
+      - name: "Lament of the Highborne"
+        id: 43728
+        type: criteria
+        description: "Sylvanas' room, Undercity"
+
+      - name: "Magic"
+        id: 43715
+        type: criteria
+        description: "Lost Sentinel's Pouch, Ashenvale"
+
+      - name: "Mountains"
+        id: 43732
+        type: criteria
+        description: "Frozen Supplies, Winterspring"
+
+      - name: "Shalandis Isle"
+        id: 43720
+        type: criteria
+        description: "High Priestess' Reliquary, Darnassus"
+
+      - name: "The Black Temple"
+        id: 43721
+        type: criteria
+        description: "Warden's Scroll Case, Shadowmoon Valley"
+
+    horde:
+      - name: "Angelic"
+        id: 43755
+        type: criteria
+        description: "Gurubashi Arena Chest, Stranglethorn Vale"
+
+      - name: "Faerie Dragon"
+        id: 43736
+        type: criteria
+        description: "Mushroom Circle, Tirisfal Glades"
+
+      - name: "Ghost"
+        id: 43741
+        type: criteria
+        description: "Forlorn Composer, Duskwood"
+
+      - name: "Lament of the Highborne"
+        id: 43748
+        type: criteria
+        description: "Sylvanas' room, Undercity"
+
+      - name: "Magic"
+        id: 43739
+        type: criteria
+        description: "Lost Sentinel's Pouch, Ashenvale"
+
+      - name: "Mountains"
+        id: 43753
+        type: criteria
+        description: "Frozen Supplies, Winterspring"
+
+      - name: "Shalandis Isle"
+        id: 43746
+        type: criteria
+        description: "High Priestess' Reliquary, Darnassus"
+
+      - name: "The Black Temple"
+        id: 43744
+        type: criteria
+        description: "Warden's Scroll Case, Shadowmoon Valley"
+
+- name: "Jukebox - Vendor"
+  icon: achievement/10016 # Full Discography
+  iconText: "Vendor"
+  lookup: faction
+  type: mixed
+  data:
+    alliance:
+      - name: "Darkmoon Carousel"
+        id: 43731
+        type: criteria
+        description: "{price:90|515}" # Darkmoon Prize Ticket
+
+      - name: "Song of Liu Lang"
+        id: 43710
+        type: criteria
+        description: "{price:80} at Revered with Lorewalkers"
+
+      - name: "The Argent Tournament"
+        id: 43725
+        type: criteria
+        description: "{price:25|241}" # Champion's Seal
+
+      - name: "Totems of the Grizzlemaw"
+        id: 43705
+        type: criteria
+        description: "Remington Brode, Grizzly Hills"
+
+    horde:
+      - name: "Darkmoon Carousel"
+        id: 43734
+        type: criteria
+        description: "{price:90|515}" # Darkmoon Prize Ticket
+
+      - name: "Song of Liu Lang"
+        id: 43756
+        type: criteria
+        description: "{price:80} at Revered with Lorewalkers"
+
+      - name: "The Argent Tournament"
+        id: 43738
+        type: criteria
+        description: "{price:25|241}" # Champion's Seal
+
+      - name: "Totems of the Grizzlemaw"
+        id: 43763
+        type: criteria
+        description: "Remington Brode, Grizzly Hills"

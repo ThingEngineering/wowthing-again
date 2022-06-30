@@ -1,12 +1,85 @@
 name: Zone Quests
 groups:
 
+- name: "Zereth Mortis campaign"
+  icon: achievement/15259 # Secrets of the First Ones
+  iconText: "ZM"
+  lookup: none
+  type: quest
+  data:
+    0:
+    - name: "Into the Unknown"
+      id: 64958
+
+    - name: "We Battle Onward"
+      id: 64825
+
+    - name: "Forming an Understanding"
+      id: 65305
+
+    - name: "Forging a New Path"
+      id: 64844
+
+    - name: "Crown of Wills"
+      id: 64813
+
+    - name: "A Means to an End"
+      id: 65328
+
+    - name: "Starting Over"
+      id: 65238
+
+- name: separator
+
+- name: "Korthia Campaign"
+  icon: achievement/14961 # Chains of Domination
+  iconText: "Korthia"
+  lookup: none
+  type: quest
+  data:
+    0:
+    - name: Battle of Ardenweald
+      id: 63639
+
+    - name: Maw Walkers
+      id: 64556
+
+    - name: Focusing the Eye
+      id: 63902
+
+    - name: The Last Sigil
+      id: 63727
+      description: Requires Renown 44
+
+    - name: An Army of Bone and Steel
+      id: 63622
+      description: Requires Renown 47
+
+    - name: The Unseen Guests
+      id: 63656
+      description: Requires Renown 50
+
+    - name: The Power of Night
+      id: 64437
+      description: Requires Renown 52
+
+    - name: A New Path
+      id: 63593
+      description: Requires Renown 56
+
+    - name: What Lies Ahead
+      id: 64314
+      description: Requires Renown 58
+
+- name: separator
+
 # These are pretty useless since Threads completes them
 # - name: "Ardenweald Story"
 #   icon: achievement/14164 # Awaken, Ardenweald
 
 - name: "Ardenweald Extra Storylines"
   icon: achievement/14800 # Sojourner of Ardenweald
+  iconText: "Arden"
   lookup: none
   type: quest
   data:
@@ -35,7 +108,8 @@ groups:
 
 - name: "Bastion Extra Storylines"
   icon: achievement/14801 # Sojourner of Bastion
-  lookup: none  83602
+  iconText: "Bastion"
+  lookup: none
   type: quest
   data:
     0:
@@ -60,6 +134,7 @@ groups:
 
 - name: "Maldraxxus Extra Storylines"
   icon: achievement/14799 # Sojourner of Maldraxxus
+  iconText: "Mald"
   lookup: none
   type: mixed
   data:
@@ -88,6 +163,7 @@ groups:
 
 - name: "Revendreth Extra Storylines"
   icon: achievement/14798 # Sojourner of Revendreth
+  iconText: "Reven"
   lookup: none
   type: quest
   data:

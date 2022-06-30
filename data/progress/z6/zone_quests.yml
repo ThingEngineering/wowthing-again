@@ -1,5 +1,120 @@
-name: "Storylines"
+name: "Zone Quests"
 groups:
+
+- name: "You Are Now Prepared!"
+  icon: achievement/12066 # You Are Now Prepared!
+  type: quest
+  data:
+    0:
+    - name: "Visit spaceship"
+      id: 47224
+
+    - name: "Travel to Krokuul Hovel"
+      id: 46816
+
+    - name: "Defeat Aggonar"
+      id: 46842
+
+    - name: "Recover Xe'ra"
+      id: 47653
+
+    - name: "Move spaceship to Antoran Wastes"
+      id: 48199
+      description: "Unlocks Krokuun/Antoran Wastes WQs"
+
+    - name: "Sizing Up The Opposition"
+      id: 47473
+      description: "[Weekly] 50 Pristine Argunite"
+
+    # sep
+
+    - name: "Travel to Destiny Point"
+      id: 47892
+
+    - name: "Defeat Lord Nath'raxas"
+      id: 47993
+      description: "Unlocks Nath'raxas Hold WQs"
+
+    - name: "Repair the Argunite Matrix"
+      id: 46941
+
+    - name: "The Sigil of Awakening"
+      id: 48107
+      description: "Unlocks Eredath WQs"
+
+    # sep
+
+    - name: "Complete an Invasion Point"
+      id: 48461
+
+    - name: "Defeat Talgath"
+      id: 47416
+      description: "Unlocks Kil'jaeden's Terrace WQs"
+
+    - name: "Defeat Arkhaan"
+      id: 47184
+
+    - name: "A Beacon in the Dark"
+      id: 47220
+      description: "Unlocks Seat of the Triumvirate"
+
+    - name: "Seat of the Triumvirate"
+      id: 47654
+      description: "Unlocks Western Eredath WQs"
+
+- name: separator
+
+- name: "Legionfall Campaign"
+  icon: achievement/11546 # Breaching the Tomb
+  type: quest
+  data:
+    0:
+      - name: "Armies of Legionfall"
+        id: 46730
+
+      - name: "Assault on Broken Shore"
+        id: 46734
+
+      - name: "Begin Construction"
+        id: 46245
+
+      - name: "Aalgen Point"
+        id: 46832
+
+      - name: "Vengeance Point"
+        id: 46845
+
+      - name: "Defending Broken Isles"
+        id: 46247
+
+      - name: "Champions of Legionfall"
+        id: 47137
+
+      - name: "Shard Times"
+        id: 46251
+
+      - name: "Mark of the Sentinax"
+        id: 47139
+
+      - name: "Self-Fulfilling Prophecy"
+        id: 46248
+
+      - name: "Intolerable Infestation"
+        id: 46252
+
+      - name: "Relieved of Their Valuables"
+        id: 46769
+
+      - name: "Take Out the Head..."
+        id: 46250
+
+      - name: "Championing Our Cause"
+        id: 46249
+
+      - name: "Strike Them Down"
+        id: 46246
+
+- name: separator
 
 - name: "Suramar Storylines"
   icon: achievement/11124 # Good Suramaritan
@@ -38,6 +153,8 @@ groups:
 
     - name: "Jandvik's Jarl"
       id: 40336
+
+- name: separator
 
 - name: "Azsuna Storylines"
   icon: achievement/10763 # Azsuna Matata
@@ -140,4 +257,3 @@ groups:
 
     - name: "Black Rook Hold"
       id: 38721
-
