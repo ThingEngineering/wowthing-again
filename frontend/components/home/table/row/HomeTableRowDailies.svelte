@@ -3,7 +3,7 @@
 
     import { Constants } from '@/data/constants'
     import { iconStrings } from '@/data/icons'
-    import { globalDailyQuests } from '@/data/quests'
+    import { dailyQuestLevel, globalDailyQuests } from '@/data/quests'
     import { timeStore, userQuestStore, userStore } from '@/stores'
     import { getNextDailyResetFromTime } from '@/utils/get-next-reset'
     import type { Character, DailyQuestsReward } from '@/types'
@@ -72,7 +72,7 @@
     }
 </style>
 
-{#if character.level === Constants.characterMaxLevel}
+{#if character.level >= dailyQuestLevel[expansion]}
     <td
         use:tippyComponent={{
             component: Tooltip,

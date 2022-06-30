@@ -58,6 +58,12 @@ export const holidayQuestCycle: string[] = [
     'TW',
 ]
 
+export const dailyQuestLevel: Record<number, number> = {
+    6: 45,
+    7: 50,
+    8: 60,
+}
+
 export const globalDailyQuests: Record<number, GlobalDailyQuest> = Object.fromEntries(
     [
         // Ardenweald
