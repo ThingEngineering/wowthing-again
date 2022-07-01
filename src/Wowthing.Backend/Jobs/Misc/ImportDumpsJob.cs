@@ -48,7 +48,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.ImportDumps,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(24),
-            Version = 12,
+            Version = 13,
         };
 
         private Dictionary<int, DumpItemXItemEffect[]> _itemEffectsMap;
@@ -244,7 +244,12 @@ namespace Wowthing.Backend.Jobs.Misc
                     .Where(stat => Hardcoded.PrimaryStats.ContainsKey(stat))
                     .SelectMany(stat => Hardcoded.PrimaryStats[stat])
                 );
-                if (primaryStats.Contains(WowStat.Agility) &&
+
+                if (itemSparse.ItemLevel == 1 && dbItem.Flags.HasFlag(WowItemFlags.Cosmetic))
+                {
+                    dbItem.PrimaryStat = WowStat.None;
+                }
+                else if (primaryStats.Contains(WowStat.Agility) &&
                     primaryStats.Contains(WowStat.Intellect) &&
                     primaryStats.Contains(WowStat.Strength))
                 {
