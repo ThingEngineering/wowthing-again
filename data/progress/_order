@@ -6,21 +6,37 @@ z8/_shadowlands.yml
 
 z7/_battle_for_azeroth.yml
     z7/zone_quests.yml
+    z7/travel.yml
     z7/raid_skips.yml
 
 z6/_legion.yml
     z6/zone_quests.yml
+    z6/order_halls.yml
     z6/artifacts.yml
     z6/balance_of_power.yml
-    z6/order_halls.yml
+    z6/travel.yml
     z6/raid_skips.yml
 
 z5/_warlords_of_draenor.yml
     z5/garrisons.yml
+    z5/travel.yml
     z5/raid_skips.yml
+
+z4/_mists_of_pandaria.yml
+    z4/travel.yml
+
+z3/_cataclysm.yml
+    z3/travel.yml
 
 z2/_wrath_of_the_lich_king.yml
     z2/argent_tournament.yml
+    z2/travel.yml
+
+z1/_the_burning_crusade.yml
+    z1/travel.yml
+
+z0/_classic.yml
+    z0/travel.yml
 
 -
 
@@ -29,6 +45,16 @@ raid_skips.yml
     z7/raid_skips.yml Battle for Azeroth
     z6/raid_skips.yml Legion
     z5/raid_skips.yml Warlords of Draenor
+
+travel.yml
+    z7/travel.yml Battle for Azeroth
+    z6/travel.yml Legion
+    z5/travel.yml Warlords of Draenor
+    z4/travel.yml Mists of Pandaria
+    z3/travel.yml Cataclysm
+    z2/travel.yml Wrath of the Lich King
+    z1/travel.yml The Burning Crusade
+    z0/travel.yml Classic
 
 upgrades.yml
     z8/upgrades.yml Shadowlands
