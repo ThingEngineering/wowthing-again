@@ -7,12 +7,13 @@ import { covenantMap } from '@/data/covenant'
 import { factionIdMap } from '@/data/faction'
 import { garrisonTrees } from '@/data/garrison'
 import { ProgressDataType } from '@/types/enums'
-import type { Character, UserAchievementData } from '@/types'
+import type { Character, UserAchievementData, UserData } from '@/types'
 import type { UserQuestData } from '@/types/data'
 import type { StaticDataProgressCategory, StaticDataProgressData, StaticDataProgressGroup } from '@/types/data/static'
 
 
 export default function getProgress(
+    userData: UserData,
     userAchievementData: UserAchievementData,
     userQuestData: UserQuestData,
     character: Character,
@@ -71,6 +72,12 @@ export default function getProgress(
                     (group.type === 'accountQuest' && checkAccountQuestIds(userQuestData, data.ids))
                 ) {
                     haveThis = true
+                }
+                else if (group.type === 'item') {
+                      haveThis = some(
+                        data.ids,
+                        (id) => (userData.characterMap[character.id].progressItems || []).indexOf(id) >= 0
+                    )
                 }
                 else if (group.type === 'mixed') {
                     switch (data.type) {

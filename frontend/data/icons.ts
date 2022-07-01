@@ -14,6 +14,7 @@ import mdiLockOutline from '@iconify/icons-mdi/lock-outline'
 import mdiPageFirst from '@iconify/icons-mdi/page-first'
 import mdiPageLast from '@iconify/icons-mdi/page-last'
 import mdiQuestion from '@iconify/icons-mdi/help-circle-outline'
+import mdiRocketLaunchOutline from '@iconify/icons-mdi/rocket-launch-outline'
 import mdiSortAlphabeticalAscending from '@iconify/icons-mdi/sort-alphabetical-ascending'
 import mdiSortAlphabeticalDescending from '@iconify/icons-mdi/sort-alphabetical-descending'
 import mdiSortNumericAscending from '@iconify/icons-mdi/sort-numeric-ascending'
@@ -33,6 +34,7 @@ export const iconStrings: Record<string, IconifyIcon> = {
     lock: mdiLockOutline,
     no: mdiClose,
     question: mdiQuestion,
+    rocket: mdiRocketLaunchOutline,
     yes: mdiCheck,
 
     'arrow-down': mdiArrowDownBoldOutline,

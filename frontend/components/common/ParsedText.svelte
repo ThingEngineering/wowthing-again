@@ -14,7 +14,7 @@
     let element: HTMLElement
     let html: string
     $: {
-        html = text.replaceAll(/:(.*?):/g, '<span data-string="$1"></span>')
+        html = text.replaceAll(/:([a-z0-9_-]+):/g, '<span data-string="$1"></span>')
         html = html.replaceAll(/\{price:(\d+)(?:\|(\d+))?\}/g, (match, amountString, currencyId) => {
             const amount = parseInt(amountString).toLocaleString()
             if (currencyId) {

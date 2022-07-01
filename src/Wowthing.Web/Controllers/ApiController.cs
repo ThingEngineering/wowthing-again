@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using StackExchange.Redis;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Contexts;
+using Wowthing.Lib.Data;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Player;
@@ -318,6 +319,12 @@ namespace Wowthing.Web.Controllers
                     .ToArrayAsync();
             }
             
+            // Progress items
+            var progressItems = await _context.PlayerCharacterItem
+                .AsNoTracking()
+                .Where(pci => Hardcoded.ProgressItemIds.Contains(pci.ItemId))
+                .ToArrayAsync();
+            
             timer.AddPoint("Characters");
 
             var globalDailies = await _context.GlobalDailies
@@ -412,11 +419,15 @@ namespace Wowthing.Web.Controllers
                 }
             }
             
+            timer.AddPoint("Pets");
+            
             // Toys
             var toyIds = tempAccounts
                 .SelectMany(a => a.Toys?.ToyIds ?? Enumerable.Empty<int>())
                 .Distinct()
                 .ToArray();
+
+            timer.AddPoint("Toys");
             
             // Build response
             var apiData = new UserApi
@@ -426,6 +437,7 @@ namespace Wowthing.Web.Controllers
                     .Select(character => new UserApiCharacter(
                         character,
                         bagItems.Where(bi => bi.CharacterId == character.Id),
+                        progressItems.Where(pi => pi.CharacterId == character.Id),
                         apiResult.Public,
                         apiResult.Privacy))
                     .ToList(),

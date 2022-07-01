@@ -37,6 +37,7 @@ namespace Wowthing.Web.Models
         public UserApiCharacterMythicPlus MythicPlus { get; }
         public Dictionary<int, PlayerCharacterAddonDataMythicPlus> MythicPlusAddon { get; }
         public Dictionary<int, Dictionary<int, PlayerCharacterProfessionTier>> Professions { get; }
+        public int[] ProgressItems { get; set; }
         public Dictionary<int, PlayerCharacterRaiderIoSeasonScores> RaiderIo { get; }
         public Dictionary<int, PlayerCharacterReputationsParagon> Paragons { get; }
         public Dictionary<int, int> Reputations { get; } = new();
@@ -50,8 +51,13 @@ namespace Wowthing.Web.Models
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public UserApiCharacterWeekly Weekly { get; }
 
-        public UserApiCharacter(PlayerCharacter character, IEnumerable<PlayerCharacterItem> bagItems,
-            bool pub = false, ApplicationUserSettingsPrivacy privacy = null)
+        public UserApiCharacter(
+            PlayerCharacter character,
+            IEnumerable<PlayerCharacterItem> bagItems,
+            IEnumerable<PlayerCharacterItem> progressItems,
+            bool pub = false,
+            ApplicationUserSettingsPrivacy privacy = null
+        )
         {
             ActiveSpecId = character.ActiveSpecId;
             ClassId = character.ClassId;
@@ -108,6 +114,11 @@ namespace Wowthing.Web.Models
                     group => group.Key,
                     group => group.First().ItemId
                 );
+            
+            ProgressItems = progressItems
+                .Select(pi => pi.ItemId)
+                .Distinct()
+                .ToArray();
             
             if (character.EquippedItems?.Items != null)
             {
