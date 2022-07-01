@@ -8,6 +8,13 @@
         public static readonly Dictionary<int, List<ExtraItemDrop>> ExtraItemDrops = new()
         {
             {
+                895, // Razorfen Kraul > Roogug
+                new List<ExtraItemDrop>
+                {
+                    new(151443, new[]{ 1 }), // Roogug's Swinesteel Girdle - Normal
+                }
+            },
+            {
                 869, // Siege of Orgrimmar > Garrosh Hellscream
                 new List<ExtraItemDrop>
                 {
