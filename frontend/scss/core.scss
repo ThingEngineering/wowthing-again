@@ -113,6 +113,7 @@ code {
     align-items: flex-start;
     display: flex;
     flex: 1 0 auto;
+    transform: translateZ(0); // null transform to force a new layer/HW acceleration
 }
 
 div.content {
