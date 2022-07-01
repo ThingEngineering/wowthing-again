@@ -322,7 +322,7 @@ namespace Wowthing.Web.Controllers
             // Progress items
             var progressItems = await _context.PlayerCharacterItem
                 .AsNoTracking()
-                .Where(pci => Hardcoded.ProgressItemIds.Contains(pci.ItemId))
+                .Where(pci => characterIds.Contains(pci.CharacterId) && Hardcoded.ProgressItemIds.Contains(pci.ItemId))
                 .ToArrayAsync();
             
             timer.AddPoint("Characters");
