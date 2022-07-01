@@ -33,14 +33,14 @@
                 $staticStore.data.progress,
                 (progress) => progress?.[0].slug === 'shadowlands'
             ),
-            (category) => category?.name === 'Campaign Quests'
+            (category) => category?.name === 'Covenants'
         )
         const progress = getProgress(
             null,
             $userQuestStore.data,
             character,
             category,
-            category.groups[4 + covenantOrder.indexOf(covenantId)],
+            category.groups[covenantOrder.indexOf(covenantId)],
         )
         campaignHave = progress.have
         campaignTotal = progress.total
