@@ -13,7 +13,12 @@ namespace Wowthing.Web.Models.Team
 
         public TeamApiCharacter(TeamCharacter character)
         {
-            Character = new UserApiCharacter(character.Character, Array.Empty<PlayerCharacterItem>(), pub: true);
+            Character = new UserApiCharacter(
+                character.Character,
+                Array.Empty<PlayerCharacterItem>(),
+                Array.Empty<PlayerCharacterItem>(),
+                pub: true
+            );
             Note = character.Note;
             PrimaryRole = character.PrimaryRole;
             SecondaryRole = character.SecondaryRole;

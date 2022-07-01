@@ -40,6 +40,7 @@ export interface Character {
     mythicPlus: CharacterMythicPlus
     mythicPlusAddon: Record<number, CharacterMythicPlusAddon>
     paragons: Record<number, CharacterReputationParagon>
+    progressItems: number[]
     raiderIo: Record<number, CharacterRaiderIoSeason>
     reputations: Record<number, number>
     shadowlands?: CharacterShadowlands
