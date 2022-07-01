@@ -81,6 +81,7 @@
                 const group = category.groups[groupIndex]
                 for (const character of characters) {
                     progress[`${category.slug}|${groupIndex}|${character.id}`] = getProgress(
+                        $userStore.data,
                         $userAchievementStore.data,
                         $userQuestStore.data,
                         character,

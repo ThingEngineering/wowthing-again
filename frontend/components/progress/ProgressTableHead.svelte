@@ -1,5 +1,6 @@
 <script lang="ts">
     import { progressState } from '@/stores/local-storage'
+    import tippy from '@/utils/tippy'
     import type { StaticDataProgressGroup } from '@/types/data/static'
 
     import TableSortedBy from '@/components/common/TableSortedBy.svelte'
@@ -10,8 +11,10 @@
     export let sortKey: string
     export let sortingBy: boolean
 
+    let icons: string[]
     let onClick: (event: Event) => void
     $: {
+        icons = group.icon.split(' ')
         onClick = function(event: Event) {
             event.preventDefault()
             $progressState.sortOrder[slugKey] = sortingBy ? null : sortKey
@@ -21,7 +24,7 @@
 
 <style lang="scss">
     th {
-        @include cell-width($width-progress);
+        @include cell-width($width-progress, $maxWidth: $width-progress-max);
 
         background: $thing-background;
         border: 1px solid $border-color;
@@ -44,13 +47,30 @@
 
 <th
     on:click={onClick}
+    use:tippy={group.name}
 >
-    <WowthingImage
-        name={group.icon}
-        size={48}
-        border={1}
-        tooltip={group.name}
-    />
+    {#if icons.length === 2}
+        <div class="split-icon-yes">
+            <WowthingImage
+                name={icons[0]}
+                size={40}
+                border={2}
+            />
+            <WowthingImage
+                name={icons[1]}
+                size={40}
+                border={2}
+            />
+        </div>
+    {:else}
+        <div class="split-icon-no">
+            <WowthingImage
+                name={icons[0]}
+                size={40}
+                border={2}
+            />
+        </div>
+    {/if}
 
     {#if sortingBy}
         <TableSortedBy />

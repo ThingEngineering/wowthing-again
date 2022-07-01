@@ -47,28 +47,6 @@
         min-width: $width-reputation;
         width: $width-reputation;
     }
-    div {
-        display: inline-block;
-        position: relative;
-        height: 44px;
-        width: 44px;
-    }
-    .split-no {
-        border: 2px solid lighten($border-color, 20%);
-        border-radius: $border-radius;
-    }
-    .split-yes :global(img:first-child) {
-        border: 2px solid $alliance-border;
-        clip-path: polygon(0 0, 0 100%, 100% 0);
-    }
-    .split-yes :global(img:last-child) {
-        border: 2px solid $horde-border;
-        clip-path: polygon(100% 100%, 0 100%, 100% 0);
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        //margin-top: -64px;
-    }
 </style>
 
 <th
@@ -79,7 +57,7 @@
     }}
 >
     {#if reputation.both}
-        <div class="split-no">
+        <div class="split-icon-no">
             <WowthingImage
                 name={reputation.both.icon}
                 size={40}
@@ -87,7 +65,7 @@
             />
         </div>
     {:else}
-        <div class="split-yes">
+        <div class="split-icon-yes">
             <WowthingImage
                 name={reputation.alliance.icon}
                 size={40}

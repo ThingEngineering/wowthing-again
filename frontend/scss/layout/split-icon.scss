@@ -1,0 +1,26 @@
+.split-icon-no,
+.split-icon-yes {
+    display: inline-block;
+    position: relative;
+    height: 44px;
+    width: 44px;
+}
+.split-icon-no {
+    border: 2px solid lighten($border-color, 20%);
+    border-radius: $border-radius;
+}
+.split-icon-yes {
+    img:first-child {
+        border: 2px solid $alliance-border;
+        clip-path: polygon(0 0, 0 100%, 100% 0);
+    }
+    
+    img:last-child {
+        border: 2px solid $horde-border;
+        clip-path: polygon(100% 100%, 0 100%, 100% 0);
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        //margin-top: -64px;
+    }
+}

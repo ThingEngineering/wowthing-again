@@ -4,7 +4,7 @@
 
     import { Constants } from '@/data/constants'
     import { covenantFeatureOrder, covenantFeatureReputation, covenantOrder } from '@/data/covenant'
-    import { staticStore, timeStore, userQuestStore } from '@/stores'
+    import { staticStore, timeStore, userQuestStore, userStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
     import getProgress from '@/utils/get-progress'
     import { toNiceDuration, toNiceNumber } from '@/utils/to-nice'
@@ -36,6 +36,7 @@
             (category) => category?.name === 'Covenants'
         )
         const progress = getProgress(
+            $userStore.data,
             null,
             $userQuestStore.data,
             character,
