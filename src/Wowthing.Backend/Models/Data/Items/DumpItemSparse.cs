@@ -12,6 +12,7 @@ namespace Wowthing.Backend.Models.Data.Items
         public long AllowableRace { get; set; }
         public short ContainerSlots { get; set; }
         public short ExpansionID { get; set; }
+        public int ItemLevel { get; set; }
         public int ItemNameDescriptionID { get; set; }
         public short OverallQualityID { get; set; }
         public int Stackable { get; set; }
