@@ -4,6 +4,9 @@
   "affected": {
     "defaultBase": "main"
   },
+  "cli": {
+    "defaultCollection": "@nxext/svelte"
+  },
   "implicitDependencies": {
     "package.json": {
       "dependencies": "*",
@@ -25,7 +28,7 @@
     }
   },
   "workspaceLayout": {
-    "appsDir": "packages",
+    "appsDir": "apps",
     "libsDir": "packages"
   }
 }
