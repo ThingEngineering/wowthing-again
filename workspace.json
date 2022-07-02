@@ -3,6 +3,7 @@
   "version": 2,
   "projects": {
     "nx-test": "apps/nx-test",
-    "nx-test-e2e": "apps/nx-test-e2e"
+    "nx-test-e2e": "apps/nx-test-e2e",
+    "testlib": "packages/testlib"
   }
 }
