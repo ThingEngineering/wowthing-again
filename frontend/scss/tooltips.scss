@@ -4,13 +4,13 @@
 @import "tooltips/vault";
 
 .wowthing-tooltip {
+    --image-margin-top: -4px;
+
     margin: $tooltip-padding-y*-1 $tooltip-padding-x*-1 $tooltip-padding-y*-1 $tooltip-padding-x*-1;
     text-align:center;
 
     > h4,
     > h5 {
-        --image-margin-top: -4px;
-
         background: $tooltip-title-background;
         font-weight: normal;
     }
@@ -33,6 +33,13 @@
         font-size: 1.0rem;
         margin-top: -0.2rem;
         padding: 0 0.5rem 0.2rem 0.5rem;
+        text-align: center;
+    }
+
+    > .bottom {
+        background: darken($tooltip-title-background, 5%);
+        border-top: 1px solid $tooltip-border;
+        padding: 0.3rem 0.5rem;
         text-align: center;
     }
 

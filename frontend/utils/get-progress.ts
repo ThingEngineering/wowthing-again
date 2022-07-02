@@ -21,6 +21,8 @@ export default function getProgress(
     group: StaticDataProgressGroup
 ): ProgressInfo {
     let have = 0
+    let showCurrency = 0
+    let showReputation = 0
     let total = 0
     let icon = ''
 
@@ -128,6 +130,7 @@ export default function getProgress(
                         }
 
                         case ProgressDataType.SpentCyphers: {
+                            showCurrency = 1979 // Cyphers of the First Ones
                             const spent = getSpentCyphers(character)
                             haveThis = spent >= (data.value || 0)
                             if (!haveThis) {
@@ -146,7 +149,16 @@ export default function getProgress(
         }
     }
 
-    return { datas, descriptionText, have, haveIndexes, icon, total }
+    return {
+        datas,
+        descriptionText,
+        have,
+        haveIndexes,
+        icon,
+        showCurrency,
+        showReputation,
+        total,
+    }
 }
 
 function checkAccountQuestIds(userQuestData: UserQuestData, questIds: number[]) {
@@ -190,5 +202,7 @@ export interface ProgressInfo {
     have: number
     haveIndexes: number[]
     icon: string
+    showCurrency: number
+    showReputation: number
     total: number
 }

@@ -32,6 +32,7 @@
                 datas: progressData.datas,
                 descriptionText: progressData.descriptionText,
                 haveIndexes: progressData.haveIndexes,
+                showCurrency: progressData.showCurrency,
                 character,
                 group,
             },
