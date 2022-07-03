@@ -2,43 +2,50 @@ name: Racial
 reputations:
 
 - - alliance:
+      id: 1353 # Tushui Pandaren
+      icon: item/83079
+    horde:
+      id: 1352 # Huojin Pandaren
+      icon: item/83080
+
+- - alliance:
       id: 69 # Darnassus
-      icon: inv_misc_tournaments_tabard_nightelf
+      icon: item/45579
     horde:
       id: 1133 # Bilgewater Cartel
-      icon: inv_misc_tabard_kezan
+      icon: item/64884
 
   - alliance:
       id: 930 # Exodar
-      icon: inv_misc_tournaments_tabard_draenei
+      icon: item/45580
     horde:
       id: 530 # Darkspear Trolls
-      icon: inv_misc_tournaments_tabard_troll
+      icon: item/45582
 
   - alliance:
       id: 1134 # Gilneas
-      icon: inv_misc_tabard_gilneas
+      icon: item/64882
     horde:
       id: 76 # Orgrimmar
-      icon: inv_misc_tournaments_tabard_orc
+      icon: item/45581
 
   - alliance:
       id: 54 # Gnomeregan
-      icon: inv_misc_tournaments_tabard_gnome
+      icon: item/45578
     horde:
       id: 911 # Silvermoon City
-      icon: inv_misc_tournaments_tabard_bloodelf
+      icon: item/45585
 
   - alliance:
       id: 47 # Ironforge
-      icon: inv_misc_tournaments_tabard_dwarf
+      icon: item/45577
     horde:
       id: 81 # Thunder Bluff
-      icon: inv_misc_tournaments_tabard_tauren
+      icon: item/45584
 
   - alliance:
       id: 72 # Stormwind
-      icon: inv_misc_tournaments_tabard_human
+      icon: item/45574
     horde:
       id: 68 # Undercity
-      icon: inv_misc_tournaments_tabard_scourge
+      icon: item/45583

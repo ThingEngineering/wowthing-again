@@ -8,5 +8,7 @@ z2_wrath_of_the_lich_king.yml
 z1_the_burning_crusade.yml
 z0_vanilla.yml
 -
-racial.yml
 misc.yml
+racial.yml
+-
+unavailable.yml

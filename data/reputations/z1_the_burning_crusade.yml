@@ -4,78 +4,78 @@ reputations:
 # 2.4
 - - both:
       id: 1077 # Shattered Sun Offensive
-      icon: inv_shield_48
+      icon: achievement/897
 
 # 2.1
 - - both:
       id: 1015 # Netherwing
-      icon: ability_mount_netherdrakepurple
+      icon: achievement/898
 
   - both:
       id: 1038 # Ogri'la
-      icon: inv_misc_apexis_crystal
+      icon: achievement/896
 
   - both:
       id: 1031 # Sha'tari Skyguard
-      icon: ability_hunter_pet_netherray
+      icon: achievement/894
 
 # Aldor/Scryers
 - - both:
       id: 932 # The Aldor
-      icon: inv_misc_desecrated_plategloves
+      icon: item/30809 # Mark of Sargeras
 
   - both:
       id: 934 # The Scryers
-      icon: inv_misc_book_07
+      icon: item/30810 # Sunfury Signet
 
 # 9.0
 - - both:
       id: 1012 # Ashtongue Deathsworn
-      icon: achievement_reputation_ashtonguedeathsworn
+      icon: achievement/958
 
   - both:
       id: 933 # The Consortium
-      icon: inv_enchant_shardprismaticlarge
+      icon: achievement/902
 
   - alliance:
       id: 978 # Kurenai
-      icon: inv_misc_foot_centaur
+      icon: achievement/899
     horde:
       id: 941 # The Mag'har
-      icon: inv_misc_foot_centaur
+      icon: achievement/901
 
   - both:
       id: 990 # The Scale of the Sands
-      icon: inv_enchant_dustillusion
+      icon: achievement/959
 
   - both:
       id: 970 # Sporeggar
-      icon: inv_mushroom_11
+      icon: achievement/900
 
   - both:
       id: 967 # The Violet Eye
-      icon: spell_holy_mindsooth
+      icon: achievement/960
 
 # 9.0 dungeons?
 - - both:
       id: 942 # Cenarion Expedition
-      icon: achievement_zone_boreantundra_11
+      icon: item/129949 # Commendation of the Cenarion Expedition
 
   - both:
       id: 989 # Keepers of Time
-      icon: inv_datacrystal02
+      icon: item/129950 # Commendation of the Keepers of Time
 
   - both:
       id: 1011 # Lower City
-      icon: inv_feather_06
+      icon: item/129951 # Commendation of Lower City
 
   - both:
       id: 935 # The Sha'tar
-      icon: inv_shield_30
+      icon: item/129946 # Commendation of The Sha'tar
 
   - alliance:
       id: 946 # Honor Hold
-      icon:
+      icon: item/129948 # Commendation of Honor Hold
     horde:
       id: 947 # Thrallmar
-      icon:
+      icon: item/129947 # Commendation of Thrallmar

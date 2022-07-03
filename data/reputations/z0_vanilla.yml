@@ -1,76 +1,78 @@
 name: Vanilla
 reputations:
 
-# 8.2
-#- - both:
-#      id: 2391
-#      name: Rustbolt Resistance
-#      icon: inv_tabard_rustboltresistance
-#    paragon: true
 #
-#  - alliance:
-#      id: 2400
-#      name: Waveblade Ankoan
-#      icon: inv_tabard_ankoan
-#    horde:
-#      id: 2373
-#      name: The Unshackled
-#      icon: inv_tabard_unshackled
-#    paragon: true
+- - both:
+      id: 529 # Argent Dawn
+      icon: achievement/946
+
+  - both:
+      id: 910 # Brood of Nozdormu
+      icon: achievement/956
+
+  - both:
+      id: 609 # Cenarion Circle
+      icon: achievement/953
+
+  - both:
+      id: 749 # Hydraxian Waterlods
+      icon: achievement/955
+
+  - both:
+      id: 59 # Thorium Brotherhood
+      icon: item/12359 # Thorium Bar
+
+  - both:
+      id: 576 # Timbermaw Hold
+      icon: achievement/944
+
+  - both: # TODO make single faction reps work
+      id: 589 # Wintersaber Trainers
+      icon: item/13086 # Reins of the Winterspring Frostsaber
+
+# PvP
+- - alliance:
+      id: 730 # Stormpike Guard
+      icon: achievement/709
+    horde:
+      id: 729 # The Frostwolf Clan
+      icon: achievement/708
+
+  - alliance:
+      id: 509 # The League of Arathor
+      icon: achievement/711
+    horde:
+      id: 510 # The Defilers
+      icon: achievement/710
+
+  - alliance:
+      id: 890 # Silverwing Sentinels
+      icon: achievement/713
+    horde:
+      id: 889 # Warsong Outriders
+      icon: achievement/712
 
 # Centaurs ugh
 - - both:
       id: 92 # Gelkis Clan Centaur
-      icon:
+      icon: item/5022 # Kodobane's Head
 
   - both:
       id: 93 # Magram Clan Centaur
-      icon:
+      icon: item/5022 # Kodobane's Head
 
-# a
+# Insanity
 - - both:
-      id: 529 # Argent Dawn
-      icon: spell_holy_holyguidance
-
-  - both:
       id: 87 # Bloodsail Buccaneers
-      icon: inv_helmet_66
-
-  - both:
-      id: 910 # Brood of Nozdormu
-      icon: inv_jewelry_ring_40
-
-  - both:
-      id: 609 # Cenarion Circle
-      icon: ability_racial_ultravision
-
-  - both:
-      id: 749 # Hydraxian Waterlods
-      icon: spell_frost_summonwaterelemental_2
+      icon: achievement/871
 
   - both:
       id: 349 # Ravenholdt
-      icon:
+      icon: item/16885 # Heavy Junkbox
 
   - both:
       id: 70 # Syndicate
-      icon:
-
-  - both:
-      id: 59 # Thorium Brotherhood
-      icon: inv_ore_mithril_01
-
-  - both:
-      id: 576 # Timbermaw Hold
-      icon: inv_misc_horn_01
-
-  - both:
-      id: 589 # Wintersaber Trainers
-      icon: ability_mount_pinktiger
-
-  - both:
-      id: 270 # Zandalar Tribe
-      icon:
+      icon: item/17124 # Syndicate Emblem
 
 # Goblins
 - - both:
