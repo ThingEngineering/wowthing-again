@@ -15,7 +15,7 @@
     let html: string
     $: {
         html = text.replaceAll(/:([a-z0-9_-]+):/g, '<span data-string="$1"></span>')
-        html = html.replaceAll(/\{price:(\d+)(?:\|(\d+))?\}/g, (match, amountString, currencyId) => {
+        html = html.replaceAll(/\{price:(\d+)(?:\|(\d+))?\}/g, (_, amountString, currencyId) => {
             const amount = parseInt(amountString).toLocaleString()
             if (currencyId) {
                 const currency = $staticStore.data.currencies[currencyId]

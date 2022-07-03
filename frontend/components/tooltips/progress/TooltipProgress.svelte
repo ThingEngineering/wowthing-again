@@ -1,8 +1,7 @@
 <script lang="ts">
     import some from 'lodash/some'
 
-    import { staticStore, userStore } from '@/stores'
-    import type { Character, CharacterCurrency } from '@/types'
+    import type { Character } from '@/types'
     import type { StaticDataProgressData, StaticDataProgressGroup } from '@/types/data/static'
 
     import ParsedText from '@/components/common/ParsedText.svelte'
@@ -13,7 +12,7 @@
     export let descriptionText: Record<number, string>
     export let group: StaticDataProgressGroup
     export let haveIndexes: number[]
-    export let showCurrency: number = 0
+    export let showCurrency = 0
 
     let cls: string
     $: {
@@ -77,7 +76,6 @@
     </table>
 
     {#if showCurrency > 0}
-        {@const currency = $staticStore.data.currencies[showCurrency]}
         {@const characterCurrency = character.currencies?.[showCurrency]}
         {#if characterCurrency}
             <div class="bottom">

@@ -1,5 +1,4 @@
 <script lang="ts">
-    import mdiMessageBulleted from '@iconify/icons-mdi/message-bulleted'
     import difference from 'lodash/difference'
     import sortBy from 'lodash/sortBy'
 
@@ -230,12 +229,6 @@
 
                     {#if drop.note}
                         <tr>
-                            <!--<td>
-                                <IconifyIcon
-                                    icon={mdiMessageBulleted}
-                                    scale="0.9"
-                                />
-                            </td>-->
                             <td></td>
                             <td class="note" colspan="2">
                                 <ParsedText text={drop.note} />

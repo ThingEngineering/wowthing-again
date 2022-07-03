@@ -9,7 +9,6 @@
     import { tippyComponent } from '@/utils/tippy'
 
     import Tooltip from '@/components/tooltips/mythic-plus-keystone/TooltipMythicPlusKeystone.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
 
@@ -43,8 +42,6 @@
         min-width: $width-keystone-level;
         width: $width-keystone-level;
         text-align: right;
-    }
-    .dungeon {
     }
     .upgrade {
         color: #ff88ff;

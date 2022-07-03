@@ -22,7 +22,7 @@ export default function getProgress(
 ): ProgressInfo {
     let have = 0
     let showCurrency = 0
-    let showReputation = 0
+    const showReputation = 0
     let total = 0
     let icon = ''
 

@@ -1,7 +1,6 @@
 <script lang="ts">
     import { DateTime } from 'luxon'
 
-    import { Constants } from '@/data/constants'
     import { iconStrings } from '@/data/icons'
     import { dailyQuestLevel, globalDailyQuests } from '@/data/quests'
     import { timeStore, userQuestStore, userStore } from '@/stores'
@@ -87,7 +86,7 @@
         }}
     >
         <div class="flex-wrapper">
-            {#each callings as [rewards, daily, status]}
+            {#each callings as [, , status]}
                 <IconifyIcon
                     extraClass="{status ? 'status-success' : 'status-fail'}"
                     icon={status ? iconStrings.yes : iconStrings.no}
