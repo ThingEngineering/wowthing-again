@@ -1,28 +1,58 @@
+# important
 .env
-core
 
-# User-specific files
-*.user
+# compiled output
+/dist
+/tmp
+/out-tsc
+/src/**/bin
+/src/**/obj
+/src/Wowthing.Web/wwwroot/dist/
 
-# Editor garbage
-.idea/
-.vs/
+# dependencies
+node_modules
 
-# Generated stuff
-src/**/bin/
-src/**/obj/
-node_modules/
-src/Wowthing.Web/wwwroot/dist/
-__pycache__
+# generated junk
+__pycache__/
 .eslintcache
 *.log
 
-# Misc
-api_responses/
-data/zone-maps/addon.txt
-src/Test/
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+.settings/
+.vs/
+*.launch
+*.sublime-workspace
+*.user
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+/typings
+core
+npm-debug.log
+yarn-error.log
+testem.log
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# wowthing misc
+/temp
+addon.txt
 lua.json
 sets.txt
 zzz_uncategorized.yml
-
-temp/

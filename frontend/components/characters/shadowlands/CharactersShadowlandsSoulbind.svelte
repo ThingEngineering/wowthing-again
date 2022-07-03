@@ -1,9 +1,7 @@
 <script lang="ts">
-    import mdiLightningBoltOutline from '@iconify/icons-mdi/lightning-bolt-outline'
-    import mdiShieldHalfFull from '@iconify/icons-mdi/shield-half-full'
-    import mdiSwordCross from '@iconify/icons-mdi/sword-cross'
     import find from 'lodash/find'
 
+    import { soulbindSockets } from '@/data/icons'
     import tippy from '@/utils/tippy'
     import type { Character, CharacterShadowlandsSoulbind } from '@/types'
     import type { StaticDataSoulbind } from '@/types/data/static'
@@ -26,11 +24,6 @@
         selectedTalent = characterSoulbind?.tree ?? []
     }
 
-    const socketMap: Record<number, any> = {
-        1: mdiLightningBoltOutline, // Finesse
-        2: mdiSwordCross, // Potency
-        3: mdiShieldHalfFull, // Endurance
-    }
     const itemLevel: number[] = [
         0,
         145,
@@ -164,7 +157,7 @@
                                 />
                                 <IconifyIcon
                                     dropShadow={true}
-                                    icon={socketMap[column[1]]}
+                                    icon={soulbindSockets[column[1]]}
                                 />
                             </SpellLink>
                         {:else}
@@ -174,7 +167,7 @@
                             >
                                 <IconifyIcon
                                     dropShadow={true}
-                                    icon={socketMap[column[1]]}
+                                    icon={soulbindSockets[column[1]]}
                                 />
                             </div>
                         {/if}

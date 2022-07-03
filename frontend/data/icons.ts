@@ -10,15 +10,18 @@ import mdiChevronDown from '@iconify/icons-mdi/chevron-down'
 import mdiChevronRight from '@iconify/icons-mdi/chevron-right'
 import mdiClose from '@iconify/icons-mdi/close'
 import mdiExclamationThick from '@iconify/icons-mdi/exclamation-thick'
+import mdiLightningBoltOutline from '@iconify/icons-mdi/lightning-bolt-outline'
 import mdiLockOutline from '@iconify/icons-mdi/lock-outline'
 import mdiPageFirst from '@iconify/icons-mdi/page-first'
 import mdiPageLast from '@iconify/icons-mdi/page-last'
 import mdiQuestion from '@iconify/icons-mdi/help-circle-outline'
 import mdiRocketLaunchOutline from '@iconify/icons-mdi/rocket-launch-outline'
+import mdiShieldHalfFull from '@iconify/icons-mdi/shield-half-full'
 import mdiSortAlphabeticalAscending from '@iconify/icons-mdi/sort-alphabetical-ascending'
 import mdiSortAlphabeticalDescending from '@iconify/icons-mdi/sort-alphabetical-descending'
 import mdiSortNumericAscending from '@iconify/icons-mdi/sort-numeric-ascending'
 import mdiSortNumericDescending from '@iconify/icons-mdi/sort-numeric-descending'
+import mdiSwordCross from '@iconify/icons-mdi/sword-cross'
 
 import notoBackpack from '@iconify/icons-noto/backpack'
 import notoBank from '@iconify/icons-noto/bank'
@@ -81,4 +84,10 @@ export const imageStrings: Record<string, string> = {
     mining: 'spell/2575',
     skinning: 'spell/8617',
     tailoring: 'spell/3908',
+}
+
+export const soulbindSockets: Record<number, IconifyIcon> = {
+    1: mdiLightningBoltOutline, // Finesse
+    2: mdiSwordCross, // Potency
+    3: mdiShieldHalfFull, // Endurance
 }

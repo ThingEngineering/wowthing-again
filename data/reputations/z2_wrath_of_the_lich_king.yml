@@ -4,52 +4,49 @@ reputations:
 # x.1?
 - - both:
       id: 1156 # The Ashen Verdict
-      icon: inv_jewelry_talisman_08
+      icon: achievement/4598
 
 # Sholazar
 - - both:
       id: 1104 # Frenzyheart Tribe
-      icon: achievement_zone_sholazar_08
+      icon: achievement/950
 
   - both:
       id: 1105 # The Oracles
-      icon: achievement_zone_sholazar_11
+      icon: achievement/851
 
 # x.0
-- - alliance:
+- - both:
       id: 1106 # Argent Crusade
-      icon: inv_misc_tournaments_banner_human
-    horde:
-      id: 1106 # Argent Crusade
-      icon: inv_misc_tournaments_banner_orc
+      icon: achievement/947
 
   - both:
       id: 1073 # The Kalu'ak
-      icon: achievement_reputation_tuskarr
+      icon: achievement/949
 
   - both:
       id: 1090 # Kirin Tor
-      icon: achievement_reputation_kirintor
+      icon: achievement/1008
 
   - both:
       id: 1098 # Knights of the Ebon Blade
-      icon: achievement_reputation_knightsoftheebonblade
+      icon: achievement/1009
 
   - both:
       id: 1119 # The Sons of Hodir
-      icon: spell_frost_wizardmark
+      icon: item/44080 # Reins of the Ice Mammoth
 
   - both:
       id: 1091 # The Wyrmrest Accord
-      icon: achievement_reputation_wyrmresttemple
+      icon: achievement/1007
 
 # x.0 faction?
 - - alliance:
       id: 1037 # Alliance Vanguard
-      icon: spell_misc_hellifrepvphonorholdfavor
+      icon: achievement/1012
     horde:
       id: 1052 # Horde Expedition
-      icon: spell_misc_hellifrepvpthrallmarfavor
+      icon: achievement/1011
 
   # Main armies?
   - alliance:
@@ -62,10 +59,10 @@ reputations:
   # Dalaran
   - alliance:
       id: 1094 # The Silver Covenant
-      icon: inv_elemental_primal_mana
+      icon: achievement/3676
     horde:
       id: 1124 # The Sunreavers
-      icon: inv_elemental_primal_nether
+      icon: achievement/3677
 
   # ?
   - alliance:

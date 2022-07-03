@@ -11,7 +11,8 @@
 
     let checked = bindGroup.indexOf(value) >= 0
 
-    function onChange({ target }: any) {
+    function onChange(ev: Event) {
+        const target = <HTMLInputElement>ev.target
         if (target.checked) {
             bindGroup = [...bindGroup, target.value]
         }
