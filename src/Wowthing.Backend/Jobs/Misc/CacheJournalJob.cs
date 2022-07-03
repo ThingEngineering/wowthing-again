@@ -20,15 +20,15 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheJournal,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(24),
-            Version = 14,
+            Version = 15,
         };
 
         public override async Task Run(params string[] data)
         {
             _timer = new JankTimer();
-            
+
             await BuildJournalData();
-            
+
             Logger.Information("{Timers}", _timer.ToString());
         }
 
@@ -120,17 +120,17 @@ namespace Wowthing.Backend.Jobs.Misc
                         .First()
                         .Value0
                 );
-            
+
             _timer.AddPoint("CSV");
 
             var itemMap = await Context.WowItem
                 .AsNoTracking()
-                .Where(item => 
+                .Where(item =>
                     item.ClassId == 2 ||
                     (item.ClassId == 4 && item.SubclassId != 0)
                 )
                 .ToDictionaryAsync(item => item.Id);
-            
+
             _timer.AddPoint("Database");
 
             var db = Redis.GetDatabase();
@@ -139,15 +139,15 @@ namespace Wowthing.Backend.Jobs.Misc
             string cacheHash = null;
             foreach (var language in Enum.GetValues<Language>())
             {
-                Logger.Warning("{Lang}", language);
+                Logger.Debug("Generating {Lang}", language);
 
                 var cacheData = new RedisJournalCache();
-                
+
                 var stringMap = await Context.LanguageString
                     .Where(ls => ls.Language == language && _stringTypes.Contains(ls.Type))
                     .AsNoTracking()
                     .ToDictionaryAsync(ls => (ls.Type, ls.Id), ls => ls.String);
-                
+
                 foreach (var tier in tiers)
                 {
                     var tierData = new OutJournalTier
@@ -156,7 +156,7 @@ namespace Wowthing.Backend.Jobs.Misc
                         Name = stringMap[(StringType.WowJournalTierName, tier.ID)],
                     };
                     var legacyLoot = tier.ID <= 396; // Battle for Azeroth
-                    
+
                     var instanceIds = tierToInstance[tier.ID]
                         .OrderBy(instanceId => instancesById[instanceId].OrderIndex)
                         .ToArray();
@@ -164,7 +164,7 @@ namespace Wowthing.Backend.Jobs.Misc
                     {
                         var instance = instancesById[instanceId];
                         var mapDifficulties = difficultiesByMapId[instance.MapID];
-                        
+
                         var instanceData = new OutJournalInstance
                         {
                             Id = instance.ID,
@@ -175,7 +175,7 @@ namespace Wowthing.Backend.Jobs.Misc
                         {
                             instanceData.BonusIds = bonusIds;
                         }
-                        
+
                         // Instance has extra encounters, add those
                         if (Hardcoded.ExtraEncounters.TryGetValue(instanceId, out var extraEncounters))
                         {
@@ -208,7 +208,7 @@ namespace Wowthing.Backend.Jobs.Misc
                                 .OrderBy(encounter => Array.IndexOf(bossOrder, encounter.ID))
                                 .ToList();
                         }
-                        
+
                         foreach (var encounter in encounters)
                         {
                             if (Hardcoded.IgnoredJournalEncounter.Contains(encounter.ID))
@@ -221,7 +221,7 @@ namespace Wowthing.Backend.Jobs.Misc
                                 Id = encounter.ID,
                             };
                             var items = new List<DumpJournalEncounterItem>();
-                            
+
                             if (encounter.ID > 1000000)
                             {
                                 encounterData.Name = "Trash Drops";
@@ -287,7 +287,7 @@ namespace Wowthing.Backend.Jobs.Misc
                                     //Logger.Debug("Skipping ignored item {Id}", encounterItem.ItemID);
                                     continue;
                                 }
-                                
+
                                 if (!itemMap.TryGetValue(encounterItem.ItemID, out var item))
                                 {
                                     //Logger.Warning("No item for ID {Id}", encounterItem.ItemID);
@@ -300,7 +300,7 @@ namespace Wowthing.Backend.Jobs.Misc
                                     continue;
                                 }
 
-                                if (!Hardcoded.InstanceDifficulties.TryGetValue(instanceId, out int[] difficulties))
+                                if (!Hardcoded.InstanceDifficulties.TryGetValue((tier.ID, instanceId), out int[] difficulties))
                                 {
                                     if (encounterItem.DifficultyMask == -1)
                                     {
@@ -309,6 +309,17 @@ namespace Wowthing.Backend.Jobs.Misc
                                     else if (!difficultiesByEncounterItemId.TryGetValue(encounterItem.ID, out difficulties))
                                     {
                                         Logger.Warning("No difficulties for item ID {Id}", encounterItem.ID);
+                                        continue;
+                                    }
+                                }
+
+                                // Skip any items that aren't for this difficulty
+                                // TODO handle multiple difficulties better
+                                if (encounterItem.DifficultyMask > 0 && difficulties.Length == 1)
+                                {
+                                    int difficultyValue = 1 << (difficulties[0] - 1);
+                                    if ((encounterItem.DifficultyMask & difficultyValue) == 0)
+                                    {
                                         continue;
                                     }
                                 }
@@ -328,8 +339,7 @@ namespace Wowthing.Backend.Jobs.Misc
                                     ))
                                     {
                                         var first = appearances
-                                            .OrderBy(kvp => kvp.Key)
-                                            .First();
+                                          .MinBy(kvp => kvp.Key);
 
                                         modifierId = first.Key;
                                         appearanceId = first.Value;
@@ -354,7 +364,7 @@ namespace Wowthing.Backend.Jobs.Misc
                                     {
                                         appearance.Difficulties.Remove(8);
                                     }
-                                    
+
                                     // Legacy raids like to have dungeon difficulties for some reason
                                     if (appearance.Difficulties.Contains(3) ||
                                         appearance.Difficulties.Contains(4) ||
@@ -365,7 +375,7 @@ namespace Wowthing.Backend.Jobs.Misc
                                         appearance.Difficulties.Remove(2);
                                     }
                                 }
-                                
+
                                 var group = GetGroup(itemGroups, item);
                                 group.Items.Add(new OutJournalEncounterItem
                                 {
@@ -422,10 +432,10 @@ namespace Wowthing.Backend.Jobs.Misc
 
                             instanceData.Encounters.Add(encounterData);
                         }
-                        
+
                         tierData.Instances.Add(instanceData);
                     }
-                    
+
                     cacheData.Tiers.Add(tierData);
                 }
 
@@ -435,7 +445,7 @@ namespace Wowthing.Backend.Jobs.Misc
                 {
                     cacheHash = cacheJson.Md5();
                 }
-                
+
                 await db.SetCacheDataAndHash($"journal-{language.ToString()}", cacheJson, cacheHash);
             }
 
