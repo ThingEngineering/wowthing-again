@@ -25,9 +25,6 @@
 </script>
 
 <style lang="scss">
-    .spacer {
-        width: 1rem;
-    }
     .gear {
         height: 44px;
         padding: 2px;

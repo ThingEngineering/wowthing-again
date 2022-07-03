@@ -65,31 +65,30 @@
         {sortFunc}
     >
         <CharacterTableHead slot="head">
-            {#key category.name}
-                {#each category.reputations as reputationSet}
-                    {#each reputationSet as reputation}
-                        <TableHead
-                            {reputation}
-                            {slug}
-                        />
-                    {/each}
+            {#each category.reputations as reputationSet}
+                <td class="spacer"></td>
+                
+                {#each reputationSet as reputation}
+                    <TableHead
+                        {reputation}
+                        {slug}
+                    />
                 {/each}
-            {/key}
+            {/each}
         </CharacterTableHead>
 
         <svelte:fragment slot="rowExtra" let:character>
-            {#key category.name}
-                {#each category.reputations as reputationSet, reputationSetIndex}
-                    {#each reputationSet as reputation, reputationIndex}
-                        <TableRow
-                            alt={reputationSetIndex % 2 === 1}
-                            characterRep={character.reputationData[slug].sets[reputationSetIndex][reputationIndex]}
-                            {character}
-                            {reputation}
-                        />
-                    {/each}
+            {#each category.reputations as reputationSet, reputationSetIndex}
+                <td class="spacer"></td>
+
+                {#each reputationSet as reputation, reputationIndex}
+                    <TableRow
+                        characterRep={character.reputationData[slug].sets[reputationSetIndex][reputationIndex]}
+                        {character}
+                        {reputation}
+                    />
                 {/each}
-            {/key}
+            {/each}
         </svelte:fragment>
     </CharacterTable>
 {:else}

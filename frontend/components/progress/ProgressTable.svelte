@@ -110,17 +110,6 @@
     }
 </script>
 
-<style lang="scss">
-    .spacer {
-        background: $body-background;
-        border-bottom-width: 0 !important;
-        border-left: 1px solid $border-color;
-        border-top-width: 0 !important;
-        min-width: 1rem;
-        width: 1rem;
-    }
-</style>
-
 <CharacterTable
     skipGrouping={sorted}
     {filterFunc}

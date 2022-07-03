@@ -7,7 +7,6 @@
 
     import TooltipReputation from '@/components/tooltips/reputation/TooltipReputation.svelte'
 
-    export let alt: boolean
     export let character: Character
     export let characterRep: CharacterReputationReputation
     export let reputation: StaticDataReputationSet
@@ -47,7 +46,6 @@
 {#if characterRep.value !== -1}
     <td
         class="reputation{repTier.tier}"
-        class:alt
         use:tippyComponent={{
             component: TooltipReputation,
             props: {
@@ -70,5 +68,5 @@
         {/if}
     </td>
 {:else}
-    <td class:alt>&nbsp;</td>
+    <td>&nbsp;</td>
 {/if}
