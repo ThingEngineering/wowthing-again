@@ -53,6 +53,17 @@ export const lockoutDifficultyOrder: number[] = [
     15, // Raid Heroic
     14, // Raid Normal
     17, // Raid LFR
+    
+    6, // Legacy 25 Heroic
+    5, // Legacy 10 Heroic
+    9, // Legacy 40 Player
+    4, // Legacy 25 Normal
+    3, // Legacy 10 Normal
+    7, // Legacy LFR
+
+    23, // Dungeon Mythic
+    2, // Dungeon Heroic
+    1, // Dungeon Normal
 
     0, // World Boss
 ]
