@@ -32,6 +32,9 @@
                     }
                 }
             }
+            else {
+                paragon = undefined
+            }
         }
     }
 </script>

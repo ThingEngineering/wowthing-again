@@ -13,15 +13,16 @@
     export let paragon: CharacterReputationParagon
     export let reputation: StaticDataReputationSet
 
-    const reps: {
+    let reps: {
         cls: string
         maxValue: number
         minValue: number
         name: string
         thisOne: boolean
-    }[] = []
+    }[]
 
     $: {
+        reps = []
         const tiers: StaticDataReputationTier = $staticStore.data.reputationTiers[dataRep.tierId] || $staticStore.data.reputationTiers[0]
 
         for (let i = 0; i < tiers.names.length; i++) {
