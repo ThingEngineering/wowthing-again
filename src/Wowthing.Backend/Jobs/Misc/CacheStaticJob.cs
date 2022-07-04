@@ -46,7 +46,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
-            Version = 41,
+            Version = 42,
         };
 
         public override async Task Run(params string[] data)
@@ -57,7 +57,7 @@ namespace Wowthing.Backend.Jobs.Misc
 
             await BuildStaticData();
             await BuildAchievementData();
-            
+
             Logger.Information("{0}", _timer.ToString());
         }
 
@@ -88,7 +88,7 @@ namespace Wowthing.Backend.Jobs.Misc
             _toyMap = await Context.WowToy
                 .AsNoTracking()
                 .ToDictionaryAsync(toy => toy.Id);
-            
+
             _stringMap = await Context.LanguageString
                 .AsNoTracking()
                 .Where(ls => _stringTypes.Contains(ls.Type))
@@ -112,7 +112,7 @@ namespace Wowthing.Backend.Jobs.Misc
 
             _timer.AddPoint("Database");
         }
-        
+
         #region Static data
         private async Task BuildStaticData()
         {
@@ -120,7 +120,7 @@ namespace Wowthing.Backend.Jobs.Misc
 
             // RaiderIO
             var raiderIoScoreTiers = await db.JsonGetAsync<Dictionary<int, OutRaiderIoScoreTiers>>(DataRaiderIoScoreTiersJob.CacheKey);
-            
+
             // Bags
             var bags = _itemMap.Values
                 .Where(item => item.ContainerSlots > 0)
@@ -128,7 +128,7 @@ namespace Wowthing.Backend.Jobs.Misc
                     item => item.Id,
                     item => new List<int> { (int)item.Quality, item.ContainerSlots }
                 );
-            
+
             // Currencies
             var currencies = await LoadCurrencies();
             var currencyCategories = await LoadCurrencyCategories();
@@ -150,19 +150,19 @@ namespace Wowthing.Backend.Jobs.Misc
 
             var progress = LoadProgress();
             _timer.AddPoint("Progress");
-            
+
             // Professions
             var professions = await LoadProfessions();
-            
+
             // Reputations
             var reputations = await LoadReputations();
             var reputationSets = LoadReputationSets();
             _timer.AddPoint("Reputations");
-            
+
             // Soulbinds
             var soulbinds = await LoadSoulbinds();
             _timer.AddPoint("Soulbinds");
-            
+
             // Talents
             var talents = await LoadTalents();
             _timer.AddPoint("Talents");
@@ -179,13 +179,13 @@ namespace Wowthing.Backend.Jobs.Misc
             // Vendors
             var vendors = LoadVendors();
             _timer.AddPoint("Vendors");
-            
+
             // Zone Maps
             var zoneMaps = LoadZoneMaps();
             #if DEBUG
             DumpZoneMapQuests(zoneMaps[Language.enUS]);
             #endif
-            
+
             // Basic database dumps
             var realms = await Context.WowRealm.ToListAsync();
             var reputationTiers = new SortedDictionary<int, WowReputationTier>(await Context.WowReputationTier.ToDictionaryAsync(c => c.Id));
@@ -196,7 +196,7 @@ namespace Wowthing.Backend.Jobs.Misc
             foreach (var language in Enum.GetValues<Language>())
             {
                 Logger.Warning("{Lang}", language);
-                
+
                 var cacheData = new RedisStaticCache
                 {
                     Bags = bags,
@@ -215,7 +215,7 @@ namespace Wowthing.Backend.Jobs.Misc
 
                     MountsRaw = RawMounts(language),
                     MountSetsRaw = FinalizeCollections(mountSets),
-                    
+
                     PetsRaw = RawPets(language),
                     PetSetsRaw = FinalizeCollections(petSets),
 
@@ -235,7 +235,7 @@ namespace Wowthing.Backend.Jobs.Misc
 
                 await db.SetCacheDataAndHash($"static-{language.ToString()}", cacheJson, cacheHash);
             }
-            
+
             _timer.AddPoint("Cache", true);
         }
 
@@ -300,7 +300,7 @@ namespace Wowthing.Backend.Jobs.Misc
                                Hardcoded.SecondaryProfessions.Contains(line.ParentSkillLineID)) &&
                                !Hardcoded.IgnoredProfessions.Contains(line.ID))
                 .ToGroupedDictionary(line => line.ParentSkillLineID);
-            
+
             var ret = new Dictionary<Language, Dictionary<int, OutProfession>>();
             foreach (var language in Enum.GetValues<Language>())
             {
@@ -346,7 +346,7 @@ namespace Wowthing.Backend.Jobs.Misc
                 .OrderBy(di => di.OrderIndex)
                 .Select(di => di.SoulbindID)
                 .ToArray();
-            
+
             var talentTreeIds = new HashSet<int>(soulbinds.Select(soulbind => soulbind.GarrTalentTreeID));
             var talents = await DataUtilities.LoadDumpCsvAsync<DumpGarrTalent>(
                 "garrtalent",
@@ -383,7 +383,7 @@ namespace Wowthing.Backend.Jobs.Misc
                 foreach (var (covenantId, covenantSoulbinds) in soulbindsByCovenant)
                 {
                     var retCovenant = ret[language][covenantId] = new List<OutSoulbind>();
-                    
+
                     foreach (var soulbind in covenantSoulbinds)
                     {
                         retCovenant.Add(new OutSoulbind
@@ -413,7 +413,7 @@ namespace Wowthing.Backend.Jobs.Misc
 
             return ret;
         }
-        
+
         private static async Task<Dictionary<int, List<List<int>>>> LoadTalents()
         {
             var talents = await DataUtilities.LoadDumpCsvAsync<DumpTalent>("talent");
@@ -432,7 +432,7 @@ namespace Wowthing.Backend.Jobs.Misc
                                 .ToDictionary(talent => talent.ColumnIndex)
                         )
                 );
-            
+
             // specId => { tierId => { column => talent } }
             var specTalents = talents
                 .Where(talent => talent.ClassID > 0 && talent.SpecID > 0)
@@ -447,7 +447,7 @@ namespace Wowthing.Backend.Jobs.Misc
                                 .ToDictionary(talent => talent.ColumnIndex)
                         )
                 );
-            
+
             // specId => classId
             var specToClass = talents
                 .Where(talent => talent.ClassID > 0)
@@ -466,7 +466,7 @@ namespace Wowthing.Backend.Jobs.Misc
                 {
                     var tierData = new List<int>();
                     tiers.TryGetValue(tierIndex, out var columns);
-                    
+
                     for (int columnIndex = 0; columnIndex <= 2; columnIndex++)
                     {
                         DumpTalent talent = null;
@@ -474,15 +474,15 @@ namespace Wowthing.Backend.Jobs.Misc
                         {
                             columns.TryGetValue(columnIndex, out talent);
                         }
-                        
+
                         if (talent == null)
                         {
                             classTalents[specToClass[specId]][tierIndex].TryGetValue(columnIndex, out talent);
                         }
-                        
+
                         tierData.Add(talent?.SpellID ?? 0);
                     }
-                    
+
                     specData.Add(tierData);
                 }
 
@@ -491,7 +491,7 @@ namespace Wowthing.Backend.Jobs.Misc
 
             return ret;
         }
-        
+
         private static readonly HashSet<int> InstanceTypes = new HashSet<int>() {
             1, // Party Dungeon
             2, // Raid Dungeon
@@ -528,9 +528,9 @@ namespace Wowthing.Backend.Jobs.Misc
                 else
                 {
                     Logger.Warning("No mapsById entry for {InstanceId}??", journalInstance.ID);
-                } 
+                }
             }
-            
+
             /*foreach (var map in maps.Where(m => mapIdToInstanceId.ContainsKey(m.ID) && InstanceTypes.Contains(m.InstanceType)))
             {
                 if (mapIdToInstanceId.TryGetValue(map.ID, out int instanceId))
@@ -542,12 +542,12 @@ namespace Wowthing.Backend.Jobs.Misc
                     else
                     {
                         sigh.Add(instanceId, new OutInstance(map, instanceId));
-                    } 
+                    }
                 }
                 else
                 {
                     Logger.Information("No mapIdToInstanceId for {MapId}??", map.ID);
-                } 
+                }
             }*/
             return sigh.Values
                 .OrderBy(instance => instance.Id)
@@ -557,7 +557,7 @@ namespace Wowthing.Backend.Jobs.Misc
         private List<List<OutProgress>> LoadProgress()
         {
             var ret = new List<List<OutProgress>>();
-            
+
             var progressSets = DataUtilities.LoadData<DataProgress>("progress", Logger);
             foreach (var progressSet in progressSets)
             {
@@ -595,7 +595,7 @@ namespace Wowthing.Backend.Jobs.Misc
                     );
                 }
             }
-            
+
             // Change transmog itemId to appearanceId
             foreach (var categories in ret.Where(cats => cats != null))
             {
@@ -630,7 +630,7 @@ namespace Wowthing.Backend.Jobs.Misc
 
             return ret;
         }
-        
+
         private Dictionary<Language, List<List<OutZoneMapCategory>>> LoadZoneMaps()
         {
             var zoneMapSets = DataUtilities.LoadData<DataZoneMapCategory>("zone-maps", Logger);
@@ -665,7 +665,7 @@ namespace Wowthing.Backend.Jobs.Misc
                             {
                                 farm.Name = _stringMap.GetValueOrDefault((StringType.WowCreatureName, language, farm.Id), farm.Name);
                             }*/
-                            
+
                             foreach (var drop in farm.Drops)
                             {
                                 switch (drop.Type)
@@ -673,15 +673,16 @@ namespace Wowthing.Backend.Jobs.Misc
                                     case "mount":
                                         drop.Name = GetString(StringType.WowMountName, language, _spellToMount[drop.Id]);
                                         break;
-                                    
+
                                     case "pet":
                                         drop.Name = GetString(StringType.WowCreatureName, language, drop.Id);
                                         break;
-                                    
+
+                                    case "item":
                                     case "toy":
                                         drop.Name = GetString(StringType.WowItemName, language, drop.Id);
                                         break;
-                                    
+
                                     case "transmog":
                                     {
                                         var dropItem = _itemMap[drop.Id];
@@ -747,7 +748,7 @@ namespace Wowthing.Backend.Jobs.Misc
                                     seenQuests.Add(questId);
                                 }
                             }
-                            
+
                             foreach (var drop in farm.Drops)
                             {
                                 foreach (var dropQuestId in drop.QuestIds.EmptyIfNull())
@@ -821,7 +822,7 @@ namespace Wowthing.Backend.Jobs.Misc
                         },
                     },
                 });
-                
+
 #if DEBUG
                 using (var file = File.CreateText(Path.Join("..", "..", "data", dirName, "zzz_uncategorized.yml")))
                 {
@@ -837,7 +838,7 @@ namespace Wowthing.Backend.Jobs.Misc
         private List<List<OutCollectionCategory>> FinalizeCollections(List<List<DataCollectionCategory>> categorySets)
         {
             var ret = new List<List<OutCollectionCategory>>();
-            
+
             foreach (var categorySet in categorySets)
             {
                 if (categorySet == null)
@@ -845,7 +846,7 @@ namespace Wowthing.Backend.Jobs.Misc
                     ret.Add(null);
                     continue;
                 }
-                
+
                 ret.Add(categorySet
                     .Select(category => new OutCollectionCategory(category))
                     .ToList()
@@ -885,7 +886,7 @@ namespace Wowthing.Backend.Jobs.Misc
                 ))
                 .ToList();
         }
-        
+
         private List<JArray> RawToys(Language language)
         {
             return _toyMap
@@ -900,7 +901,7 @@ namespace Wowthing.Backend.Jobs.Misc
                 .ToList();
         }
         #endregion
-        
+
         #region Achievement data
         public async Task BuildAchievementData()
         {
@@ -909,7 +910,7 @@ namespace Wowthing.Backend.Jobs.Misc
             var achievements = await LoadAchievements();
             var achievementCategories = await LoadAchievementCategories(achievements);
             var achievementCriteria = await LoadAchievementCriteria(achievements);
-            
+
             // Ok we're done
             var cacheData = new RedisStaticAchievements
             {
@@ -951,14 +952,14 @@ namespace Wowthing.Backend.Jobs.Misc
                 {
                     outMap[record.Parent].Children.Add(outMap[record.ID]);
                 }
-                
+
                 // Attach achievements
                 if (achievementMap.ContainsKey(record.ID))
                 {
                     outMap[record.ID].AchievementIds = achievementMap[record.ID];
                 }
             }
-            
+
             // Sort everything by Order
             foreach (var category in outMap.Values)
             {
@@ -996,14 +997,14 @@ namespace Wowthing.Backend.Jobs.Misc
         {
             var criteria = await DataUtilities.LoadDumpCsvAsync<DumpCriteria>("criteria");
             //var criteriaMap = criteria.ToDictionary(c => c.ID);
-            
+
             var criteriaTrees = await DataUtilities.LoadDumpCsvAsync<DumpCriteriaTree>("criteriatree");
             var criteriaTreeMap = criteriaTrees.ToDictionary(ct => ct.ID);
-            
+
             //var modifierTrees = await CsvUtilities.LoadDumpCsvAsync<DumpModifierTree>("modifiertree");
             //var modifierTreeMap = modifierTrees.ToDictionary(mt => mt.ID);
 
-            // Keep track of CriteriaTree tree 
+            // Keep track of CriteriaTree tree
             foreach (var criteriaTree in criteriaTrees.Where(ct => ct.Parent > 0))
             {
                 if (criteriaTreeMap.TryGetValue(criteriaTree.Parent, out var parent))
@@ -1011,7 +1012,7 @@ namespace Wowthing.Backend.Jobs.Misc
                     parent.Children.Add(criteriaTree);
                 }
             }
-            
+
             // Filter things
             var achievementCriteriaTrees = new HashSet<int>(achievements.Values.Select(a => a.CriteriaTreeId));
             var filtered = criteriaTrees
@@ -1023,7 +1024,7 @@ namespace Wowthing.Backend.Jobs.Misc
                         .SelectManyRecursive(ct => ct.Children)
                 )
                 .OrderBy(ct => ct.ID);
-            
+
             // Outputs
             return new AchievementCriteria
             {

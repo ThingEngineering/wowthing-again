@@ -431,6 +431,17 @@ farms:
 
 # Treasure
 
+- name: "Blazing Chest"
+  location: 47.5 26.9
+  objectId: 221673
+  questId: 33210
+  reset: never
+  type: treasure
+  drops:
+    - type: item
+      id: 103982 # Burden of Eternity
+      note: "Lootable once per character"
+
 - name: "Crane Nest"
   location: 31.7 66.9
   note: "These are spread all over the place"

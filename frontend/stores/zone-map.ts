@@ -103,6 +103,7 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                 const mapCounts = setCounts[mapKey] = new UserCount()
                 const mapTypeCounts: Record<number, UserCount> = typeCounts[mapKey] = {
                     [FarmDropType.Achievement]: new UserCount(),
+                    [FarmDropType.Item]: new UserCount(),
                     [FarmDropType.Mount]: new UserCount(),
                     [FarmDropType.Pet]: new UserCount(),
                     [FarmDropType.Quest]: new UserCount(),
@@ -208,6 +209,10 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                                 if (!userAchievementData.criteria[drop.subType]) {
                                     dropStatus.need = true
                                 }
+                                break
+
+                            case FarmDropType.Item:
+                                dropStatus.need = true
                                 break
 
                             case FarmDropType.Mount:
