@@ -236,6 +236,31 @@ farms:
     - type: toy
       id: 88381 # Silversage Incense
 
+# Treasure
+
+- name: "Sprite's Cloth Chest"
+  location: 73.0 73.5
+  note: "In back of cave"
+  objectId: 213751
+  questId: 31412
+  reset: never
+  type: treasure
+  drops:
+    - type: transmog
+      id: 86223 # Agile Sprite Cloak
+
+    - type: transmog
+      id: 86222 # Precise Sprite Cloak
+
+    - type: transmog
+      id: 86224 # Steadfast Sprite Cape
+
+    - type: transmog
+      id: 86225 # Strong Sprite Cloak
+
+    - type: transmog
+      id: 86221 # Wise Sprite Cloak
+
 # Vendor
 
 - name: "Uncle Bigpocket"

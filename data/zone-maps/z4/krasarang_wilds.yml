@@ -57,6 +57,43 @@ farms:
     - type: toy
       id: 88580 # Ken-Ken's Mask
 
+# Treasure
+
+- name: "Equipment Locker"
+  location: 42.3 92.0
+  note: "Lowest floor of ship"
+  objectId: 213651
+  questId: 31410
+  reset: never
+  type: treasure
+  drops:
+    - type: transmog
+      id: 86117 # Seafarer's Treads of Precision [cloth]
+
+    - type: transmog
+      id: 86118 # Seafaring Advisor's Slippers [cloth]
+
+    - type: transmog
+      id: 86119 # Seafarer's Boots of Meditation [leather]
+
+    - type: transmog
+      id: 86115 # Swashbuckling Boots [leather]
+
+    - type: transmog
+      id: 86116 # Agile Seafarer's Jackboots [mail]
+
+    - type: transmog
+      id: 86120 # Seafaring Sabatons of Meditation [mail]
+
+    - type: transmog
+      id: 86122 # Plankwalking Greaves [plate]
+
+    - type: transmog
+      id: 86121 # Radiant Seafarer's Boots [plate]
+
+    - type: transmog
+      id: 86123 # Seafarer's Sturdy Boots [plate]
+
 # Vendor
 
 - name: "Agent Malley"
