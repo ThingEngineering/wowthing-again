@@ -670,10 +670,6 @@ namespace Wowthing.Backend.Jobs.Misc
                             {
                                 switch (drop.Type)
                                 {
-                                    case "item":
-                                        drop.Name = GetString(StringType.WowItemName, language, drop.Id);
-                                        break;
-
                                     case "mount":
                                         drop.Name = GetString(StringType.WowMountName, language, _spellToMount[drop.Id]);
                                         break;
@@ -682,6 +678,7 @@ namespace Wowthing.Backend.Jobs.Misc
                                         drop.Name = GetString(StringType.WowCreatureName, language, drop.Id);
                                         break;
 
+                                    case "item":
                                     case "toy":
                                         drop.Name = GetString(StringType.WowItemName, language, drop.Id);
                                         break;
