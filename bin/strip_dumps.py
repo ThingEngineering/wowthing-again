@@ -11,6 +11,9 @@ BASE_DIR = './data/dumps'
 COLUMNS = {
     'achievement': ['ID', 'Description_lang', 'Reward_lang', 'Title_lang'],
     'achievement_category': ['ID', 'Name_lang'],
+    'chrclasses': ['ID', 'Name_male_lang', 'Name_female_lang'],
+    'chrraces': ['ID', 'Name_lang', 'Name_female_lang'],
+    'chrspecialization': ['ID', 'Name_lang', 'FemaleName_lang'],
     'creature': ['ID', 'Name_lang'],
     'criteriatree': ['ID', 'Description_lang'],
     'currencycategory': ['ID', 'Name_lang'],
@@ -48,12 +51,12 @@ def main():
                 print(basename, 'not in COLUMNS?')
                 continue
 
+            newname = os.path.join(filepath, '{0}.new'.format(os.path.splitext(csvfile)[0]))
             with open(csvpath) as in_file:
                 fieldnames = COLUMNS[basename]
                 reader = csv.DictReader(in_file)
                 if len(reader.fieldnames) > len(fieldnames):
                     print('Rewriting {0}'.format(csvpath))
-                    newname = os.path.join(filepath, '{0}.new'.format(os.path.splitext(csvfile)[0]))
 
                     with open(newname, 'w') as out_file:
                         writer = csv.DictWriter(out_file, fieldnames=fieldnames)
