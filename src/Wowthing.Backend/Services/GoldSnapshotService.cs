@@ -16,10 +16,10 @@ namespace Wowthing.Backend.Services
         public GoldSnapshotService(IServiceScopeFactory serviceScopeFactory)
         {
             _serviceScopeFactory = serviceScopeFactory;
-            
+
             _logger = Log.ForContext("Service", $"GoldSnap");
         }
-        
+
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             while (!stoppingToken.IsCancellationRequested)
@@ -29,9 +29,9 @@ namespace Wowthing.Backend.Services
                 var nextWake = now.Date + new TimeSpan(now.Hour + 1, 0, 5);
                 //var nextWake = now.Date + new TimeSpan(now.Hour, now.Minute + 1, 5);
                 var diff = nextWake.Subtract(now);
-                
+
                 _logger.Debug("Sleeping for {Diff}", diff);
-                
+
                 await Task.Delay(diff, stoppingToken);
 
                 try
@@ -69,9 +69,9 @@ namespace Wowthing.Backend.Services
                 .ToDictionaryAsync(gsq => (gsq.AccountId, gsq.RealmId));
 
             timer.AddPoint("LoadSnaps");
-            
+
             // Retrieve new gold data
-            var goldSums = await context.PlayerCharacter
+            /*var goldSums = await context.PlayerCharacter
                 .AsNoTracking()
                 .Where(pc => pc.AccountId != null)
                 .GroupBy(pc => new { pc.AccountId, pc.RealmId })
@@ -83,28 +83,32 @@ namespace Wowthing.Backend.Services
                 })
                 .OrderBy(gs => gs.AccountId)
                 .ThenBy(gs => gs.RealmId)
+                .ToArrayAsync();*/
+
+            var goldSums = await context.GoldSnapshotQuery
+                .FromSqlRaw(GoldSnapshotQuery.SqlQuery)
                 .ToArrayAsync();
-            
+
             timer.AddPoint("LoadCurrent");
-            
+
             // See if anything needs saving
             foreach (var goldSum in goldSums)
             {
                 if (!latestSnapshots.TryGetValue((goldSum.AccountId, goldSum.RealmId), out var snapshot) ||
-                    snapshot.Gold != goldSum.Gold)
+                    snapshot.Gold != goldSum.TotalGold)
                 {
                     context.PlayerAccountGoldSnapshot.Add(new PlayerAccountGoldSnapshot
                     {
                         Time = saveTime,
                         AccountId = goldSum.AccountId,
                         RealmId = goldSum.RealmId,
-                        Gold = goldSum.Gold,
+                        Gold = goldSum.TotalGold,
                     });
                 }
             }
-            
+
             timer.AddPoint("Create");
-            
+
             await context.SaveChangesAsync();
 
             timer.AddPoint("Save", true);
