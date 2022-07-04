@@ -14,7 +14,7 @@ namespace Wowthing.Lib.Models
         public ApplicationUserSettingsLayout? Layout { get; set; } = new();
         public ApplicationUserSettingsPrivacy? Privacy { get; set; } = new();
         public ApplicationUserSettingsTransmog? Transmog { get; set; } = new();
-        
+
         public void Migrate()
         {
             Auctions ??= new ApplicationUserSettingsAuctions();
@@ -28,7 +28,7 @@ namespace Wowthing.Lib.Models
         }
 
         private readonly Regex FixDesiredAccountNameRegex = new Regex(@"[ #""]", RegexOptions.Compiled);
-        
+
         private readonly HashSet<string> _validGroupBy = new()
         {
             "account",
@@ -40,8 +40,11 @@ namespace Wowthing.Lib.Models
         private readonly HashSet<string> _validSortBy = new()
         {
             "account",
+            "armor",
+            "class",
             "enabled",
-            "faction", "-faction",
+            "faction",
+            "-faction",
             "gold",
             "itemlevel",
             "level",
@@ -99,19 +102,19 @@ namespace Wowthing.Lib.Models
             "weeklyPvp",
             "weeklySouls",
         };
-        
+
         private void Validate()
         {
             Debug.Assert(General != null);
             Debug.Assert(Layout != null);
-            
+
             // Clamp between 0 and 1440 minutes
             General.RefreshInterval = Math.Max(0, Math.Min(1440, General.RefreshInterval));
 
             General.DesiredAccountName = FixDesiredAccountNameRegex
                 .Replace(General.DesiredAccountName.EmptyIfNullOrWhitespace(), "")
                 .Truncate(32);
-            
+
             General.GroupBy = General.GroupBy
                 .EmptyIfNull()
                 .Select(gb => gb.ToLower())
@@ -125,7 +128,7 @@ namespace Wowthing.Lib.Models
                 .Where(sb => _validSortBy.Contains(sb))
                 .Distinct()
                 .ToList();
-            
+
             if (General.SortBy.Count == 0)
             {
                 General.SortBy.Add("level");
@@ -140,7 +143,7 @@ namespace Wowthing.Lib.Models
             {
                 Layout.Padding = "medium";
             }
-            
+
             Layout.CommonFields = Layout.CommonFields
                 .EmptyIfNull()
                 .Where(field => _validCommonFields.Contains(field))
@@ -155,7 +158,7 @@ namespace Wowthing.Lib.Models
                 Layout.CommonFields.Add("characterName");
                 Layout.CommonFields.Add("realmName");
             }
-            
+
             Layout.HomeFields = Layout.HomeFields
                 .EmptyIfNull()
                 .Where(field => _validHomeFields.Contains(field))
@@ -176,13 +179,13 @@ namespace Wowthing.Lib.Models
         public List<int> IgnoredRealms { get; set; } = new();
         public int MinimumExtraPetsValue { get; set; } = 0;
     }
-    
+
     public class ApplicationUserSettingsCharacters
     {
         public List<int> HiddenCharacters { get; set; } = new();
         public List<int> PinnedCharacters { get; set; } = new();
     }
-    
+
     public class ApplicationUserSettingsGeneral
     {
         public string? DesiredAccountName { get; set; }
@@ -220,10 +223,10 @@ namespace Wowthing.Lib.Models
     public class ApplicationUserSettingsTransmog
     {
         public bool CompletionistMode { get; set; } = false;
-        
+
         public bool ShowAllianceOnly { get; set; } = true;
         public bool ShowHordeOnly { get; set; } = true;
-        
+
         public bool ShowDeathKnight { get; set; } = true;
         public bool ShowDemonHunter { get; set; } = true;
         public bool ShowDruid { get; set; } = true;
