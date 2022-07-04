@@ -25,6 +25,7 @@ export enum FarmDropType {
     Armor,
     Weapon,
     Achievement,
+    Item,
     Transmog = 100,
 }
 

@@ -6,6 +6,7 @@ import mdiCart from '@iconify/icons-mdi/cart'
 import mdiDiceMultiple from '@iconify/icons-mdi/dice-multiple'
 import mdiDuck from '@iconify/icons-mdi/duck'
 import mdiExclamationThick from '@iconify/icons-mdi/exclamation-thick'
+import mdiGiftOutline from '@iconify/icons-mdi/gift-outline'
 import mdiLetterC from '@iconify/icons-mdi/alpha-c-box-outline'
 import mdiLetterL from '@iconify/icons-mdi/alpha-l-box-outline'
 import mdiLetterM from '@iconify/icons-mdi/alpha-m-box-outline'
@@ -43,6 +44,7 @@ export const dropTypeIcon: Record<number, IconifyIcon> = {
     [FarmDropType.Achievement]: mdiTrophy,
     [FarmDropType.Armor]: mdiTshirtCrew,
     [FarmDropType.Cosmetic]: mdiWizardHat,
+    [FarmDropType.Item]: mdiGiftOutline,
     [FarmDropType.Mount]: mdiUnicorn,
     [FarmDropType.Pet]: mdiDuck,
     [FarmDropType.Quest]: mdiExclamationThick,

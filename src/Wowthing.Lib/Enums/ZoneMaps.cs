@@ -24,7 +24,7 @@
         Object,
         Quest,
     }
-    
+
     public enum FarmResetType
     {
         None,
@@ -44,6 +44,7 @@
         Armor,
         Weapon,
         Achievement,
+        Item,
         Transmog = 100,
     }
 }
