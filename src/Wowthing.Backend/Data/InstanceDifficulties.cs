@@ -15,6 +15,9 @@ public static partial class Hardcoded
         { (395, 959), new[] { 14 } }, // Legion > Invasion Points
 
         // Ugh
+        { (68, 63), new[] { 1 } }, // Classic > Deadmines [N]
+        { (73, 63), new[] { 2 } }, // Cata > Deadmines [H]
+
         { (68, 64), new[] { 1 } }, // Classic > Shadowfang Keep [N]
         { (73, 64), new[] { 2 } }, // Cata > Shadowfang Keep [H]
     };

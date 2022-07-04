@@ -20,7 +20,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheJournal,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(24),
-            Version = 15,
+            Version = 16,
         };
 
         public override async Task Run(params string[] data)
@@ -165,6 +165,9 @@ namespace Wowthing.Backend.Jobs.Misc
                         var instance = instancesById[instanceId];
                         var mapDifficulties = difficultiesByMapId[instance.MapID];
 
+                        var hadDifficulties = Hardcoded.InstanceDifficulties
+                            .TryGetValue((tier.ID, instanceId), out int[] difficulties);
+
                         var instanceData = new OutJournalInstance
                         {
                             Id = instance.ID,
@@ -214,6 +217,16 @@ namespace Wowthing.Backend.Jobs.Misc
                             if (Hardcoded.IgnoredJournalEncounter.Contains(encounter.ID))
                             {
                                 continue;
+                            }
+
+                            if (Hardcoded.JournalEncounterDifficulties.TryGetValue(encounter.ID,
+                                    out int[] encounterDifficulties))
+                            {
+                                if (!encounterDifficulties.Intersect(difficulties).Any())
+                                {
+                                    Logger.Debug("Skipping encounter {Id}", encounter.ID);
+                                    continue;
+                                }
                             }
 
                             var encounterData = new OutJournalEncounter
@@ -300,7 +313,7 @@ namespace Wowthing.Backend.Jobs.Misc
                                     continue;
                                 }
 
-                                if (!Hardcoded.InstanceDifficulties.TryGetValue((tier.ID, instanceId), out int[] difficulties))
+                                if (!hadDifficulties)
                                 {
                                     if (encounterItem.DifficultyMask == -1)
                                     {
