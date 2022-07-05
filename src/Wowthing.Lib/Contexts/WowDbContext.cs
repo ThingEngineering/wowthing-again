@@ -19,7 +19,7 @@ namespace Wowthing.Lib.Contexts
         public DbSet<BackgroundImage> BackgroundImage { get; set; }
         public DbSet<Image> Image { get; set; }
         public DbSet<LanguageString> LanguageString { get; set; }
-        
+
         public DbSet<WowAuction> WowAuction { get; set; }
         public DbSet<WowItem> WowItem { get; set; }
         public DbSet<WowItemModifiedAppearance> WowItemModifiedAppearance { get; set; }
@@ -32,9 +32,9 @@ namespace Wowthing.Lib.Contexts
         public DbSet<WowReputationTier> WowReputationTier { get; set; }
         public DbSet<WowTitle> WowTitle { get; set; }
         public DbSet<WowToy> WowToy { get; set; }
-        
+
         public DbSet<GlobalDailies> GlobalDailies { get; set; }
-        
+
         public DbSet<PlayerAccount> PlayerAccount { get; set; }
         public DbSet<PlayerAccountGoldSnapshot> PlayerAccountGoldSnapshot { get; set; }
         public DbSet<PlayerAccountPets> PlayerAccountPets { get; set; }
@@ -69,14 +69,15 @@ namespace Wowthing.Lib.Contexts
 
         public DbSet<PlayerGuild> PlayerGuild { get; set; }
         public DbSet<PlayerGuildItem> PlayerGuildItem { get; set; }
-        
+
         public DbSet<Team> Team { get; set; }
         public DbSet<TeamCharacter> TeamCharacter { get; set; }
 
         // Garbage query types
         public DbSet<AccountTransmogQuery> AccountTransmogQuery { get; set; }
-        public DbSet<AchievementCriteriaQuery> AchievementCriteriaQuery { get; set; } 
+        public DbSet<AchievementCriteriaQuery> AchievementCriteriaQuery { get; set; }
         public DbSet<CompletedAchievementsQuery> CompletedAchievementsQuery { get; set; }
+        public DbSet<GoldSnapshotQuery> GoldSnapshotQuery { get; set; }
         public DbSet<LatestGoldSnapshotQuery> LatestGoldSnapshotQuery { get; set; }
         public DbSet<MountQuery> MountQuery { get; set; }
         public DbSet<SchedulerCharacterQuery> SchedulerCharacterQuery { get; set; }
@@ -103,7 +104,7 @@ namespace Wowthing.Lib.Contexts
             optionsBuilder.ConfigureWarnings(b => b.Log(
                 (CoreEventId.ContextInitialized, LogLevel.Debug)
             ));
-        
+
             optionsBuilder.UseSnakeCaseNamingConvention();
             optionsBuilder.UseBatchEF_Npgsql();
         }
@@ -123,22 +124,22 @@ namespace Wowthing.Lib.Contexts
             // Composite keys
             builder.Entity<Image>()
                 .HasKey(image => new { image.Type, image.Id, image.Format });
-            
+
             builder.Entity<LanguageString>()
                 .HasKey(ls => new { ls.Language, ls.Type, ls.Id });
 
             builder.Entity<GlobalDailies>()
                 .HasKey(gd => new { gd.Expansion, gd.Region });
-            
+
             builder.Entity<PlayerCharacterCurrency>()
                 .HasKey(pcc => new { pcc.CharacterId, pcc.CurrencyId });
-            
+
             builder.Entity<PlayerCharacterMythicPlusSeason>()
                 .HasKey(mps => new { mps.CharacterId, mps.Season });
 
             builder.Entity<WowAuction>()
                 .HasKey(a => new { a.ConnectedRealmId, a.AuctionId });
-            
+
             builder.Entity<WowPeriod>()
                 .HasKey(p => new { p.Region, p.Id });
 
@@ -157,15 +158,15 @@ namespace Wowthing.Lib.Contexts
             builder.Entity<PlayerGuild>()
                 .HasIndex(pg => new { pg.UserId, pg.RealmId, pg.Name })
                 .IsUnique();
-            
+
             builder.Entity<Team>()
                 .HasIndex(t => new { t.Guid })
                 .IsUnique();
-            
+
             // Fancy indexes
             builder.Entity<LanguageString>()
                 .HasIndex(ls => new { ls.Language, ls.Type, ls.Id });
-            
+
             builder.Entity<LanguageString>()
                 .HasIndex(ls => new { ls.String })
                 .HasMethod("gin")
@@ -181,20 +182,23 @@ namespace Wowthing.Lib.Contexts
                 .HasOne(c => c.Account)
                 .WithMany(a => a.Characters)
                 .OnDelete(DeleteBehavior.SetNull);
-            
+
             // Query types have no tables either
             builder.Entity<AccountTransmogQuery>()
                 .ToTable("AccountTransmogQuery", t => t.ExcludeFromMigrations());
-            
+
             builder.Entity<AchievementCriteriaQuery>()
                 .ToTable("AchievementCriteriaQuery", t => t.ExcludeFromMigrations());
 
             builder.Entity<CompletedAchievementsQuery>()
                 .ToTable("CompletedAchievementsQuery", t => t.ExcludeFromMigrations());
 
+            builder.Entity<GoldSnapshotQuery>()
+                .ToTable("GoldSnapshotQuery", t => t.ExcludeFromMigrations());
+
             builder.Entity<LatestGoldSnapshotQuery>()
                 .ToTable("LatestGoldSnapshotQuery", t => t.ExcludeFromMigrations());
-            
+
             builder.Entity<MountQuery>()
                 .ToTable("MountQuery", t => t.ExcludeFromMigrations());
 
@@ -203,7 +207,7 @@ namespace Wowthing.Lib.Contexts
 
             builder.Entity<SchedulerUserQuery>()
                 .ToTable("SchedulerUserQuery", t => t.ExcludeFromMigrations());
-            
+
             builder.Entity<StatisticsQuery>()
                 .ToTable("StatisticsQuery", t => t.ExcludeFromMigrations());
         }

@@ -271,7 +271,7 @@ export const globalDailyQuests: Record<number, GlobalDailyQuest> = Object.fromEn
             'Complete 4 world quests',
         ),
         new GlobalDailyQuest(
-            42223,
+            42233,
             ItemQuality.Common,
             'Highmountain Tribes',
             null,

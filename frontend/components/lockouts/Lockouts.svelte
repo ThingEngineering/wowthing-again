@@ -3,6 +3,7 @@
 
     import { lockoutDifficultyOrder } from '@/data/difficulty'
     import { staticStore, userStore } from '@/stores'
+    import { lockoutState } from '@/stores/local-storage'
     import { data as settingsData } from '@/stores/settings'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import toDigits from '@/utils/to-digits'
@@ -13,17 +14,38 @@
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
     import HeadInstance from './LockoutsTableHeadInstance.svelte'
     import RowLockout from './LockoutsTableRowLockout.svelte'
+import AchievementLink from '../links/AchievementLink.svelte';
+import { some } from 'lodash';
 
     const filterFunc = function(char: Character): boolean {
         return char.level > 10
     }
 
     const anyLockouts = function(char: Character): string {
-        return Object.keys(char.lockouts || {}).length > 0 ? 'a' : 'z'
+        return Object.keys(char.lockouts || {}).length > 0 ? 'b' : 'z'
     }
-    const sortFunc = getCharacterSortFunc($settingsData, anyLockouts)
+    const hasSortedLockout = function(char: Character): string {
+        return some(
+            Object.keys(char.lockouts || {}),
+            (key) => key.startsWith(`${$lockoutState.sortBy}-`)
+        ) ? 'a' : anyLockouts(char)
+    }
 
+    let sorted: boolean
     let sortedLockouts: InstanceDifficulty[]
+    let sortFunc: (char: Character) => string
+
+    $: {
+        if ($lockoutState.sortBy > 0) {
+            sorted = true
+            sortFunc = getCharacterSortFunc($settingsData, hasSortedLockout)
+        }
+        else {
+            sorted = false
+            sortFunc = getCharacterSortFunc($settingsData, anyLockouts)
+        }
+    }
+
     $: {
         sortedLockouts = sortBy(
             $userStore.data.allLockouts,
@@ -46,6 +68,7 @@
 </script>
 
 <CharacterTable
+    skipGrouping={true}
     {filterFunc}
     {sortFunc}
 >

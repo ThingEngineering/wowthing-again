@@ -27,7 +27,6 @@
         )
 
         onClick = function(event: Event) {
-            event.preventDefault()
             $reputationState.sortOrder[slug] = sortingBy ? [] : [
                 reputation.both?.id ?? 0,
                 reputation.alliance?.id ?? 0,
