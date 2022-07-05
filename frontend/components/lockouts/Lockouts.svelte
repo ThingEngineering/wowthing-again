@@ -1,4 +1,5 @@
 <script lang="ts">
+    import some from 'lodash/some'
     import sortBy from 'lodash/sortBy'
 
     import { lockoutDifficultyOrder } from '@/data/difficulty'
@@ -14,8 +15,6 @@
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
     import HeadInstance from './LockoutsTableHeadInstance.svelte'
     import RowLockout from './LockoutsTableRowLockout.svelte'
-import AchievementLink from '../links/AchievementLink.svelte';
-import { some } from 'lodash';
 
     const filterFunc = function(char: Character): boolean {
         return char.level > 10
