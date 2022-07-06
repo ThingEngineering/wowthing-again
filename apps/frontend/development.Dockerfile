@@ -1,5 +1,7 @@
-FROM node:14-alpine
+FROM node:16-alpine
 
-WORKDIR /app/frontend
+RUN npm i -g npm
 
-ENTRYPOINT yarn && yarn watch
+USER node
+WORKDIR /app
+ENTRYPOINT sh bin/run_dev.sh

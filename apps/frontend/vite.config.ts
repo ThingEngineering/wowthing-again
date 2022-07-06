@@ -56,7 +56,7 @@ const config = <UserConfig> defineConfig({
 		},
 	},
 	server: {
-		host: 'localhost',
+		host: '0.0.0.0',
 		port: 55505,
 		hmr: {
 			clientPort: 55505,
