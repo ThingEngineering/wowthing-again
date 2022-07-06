@@ -95,10 +95,6 @@
     }
 </script>
 
-<style lang="scss" global>
-    @import 'scss/global.scss';
-</style>
-
 {#if error}
     <p>KABOOM! Something has gone horribly wrong, try reloading the page?</p>
 {:else if !ready}

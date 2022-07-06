@@ -1,4 +1,5 @@
-﻿@inject UriService _uriService
+﻿@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostEnv
+@inject UriService _uriService
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +8,10 @@
     <title>@ViewData["Title"] - WoWthing</title>
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" asp-append-version="true">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" asp-append-version="true">
-    <link rel="stylesheet" asp-href-include="~/dist/home.*css">
+    @if (hostEnv.EnvironmentName == "Production")
+    {
+        <link rel="stylesheet" asp-href-include="~/dist/home.*css">
+    }
     @RenderSection("head", required: false)
 </head>
 <body>
@@ -27,10 +31,10 @@
                     </li>
                 }
             </ul>
-            
+
             <ul id="nav-center">
             </ul>
-            
+
             <ul id="nav-right">
                 @if (User.Identity.IsAuthenticated)
                 {

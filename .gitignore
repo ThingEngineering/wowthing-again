@@ -2,12 +2,11 @@
 .env
 
 # compiled output
-/dist
 /tmp
 /out-tsc
 /src/**/bin
 /src/**/obj
-/src/Wowthing.Web/wwwroot/dist/
+dist/
 
 # dependencies
 node_modules
