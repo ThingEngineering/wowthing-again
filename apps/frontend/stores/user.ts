@@ -7,21 +7,23 @@ import { difficultyMap } from '@/data/difficulty'
 import { seasonMap } from '@/data/dungeon'
 import { slotOrder } from '@/data/inventory-slot'
 import {
-    Account,
-    Character,
     CharacterCurrency,
-    CharacterMythicPlusRun,
     CharacterMythicPlusRunMember,
-    CharacterReputation,
-    CharacterReputationReputation,
     UserCount,
-    UserData,
     UserDataPet,
     WritableFancyStore,
 } from '@/types'
 import { InventorySlot, TypedArray } from '@/types/enums'
 import base64ToRecord from '@/utils/base64-to-record'
 import getItemLevelQuality from '@/utils/get-item-level-quality'
+import type {
+    Account,
+    Character,
+    CharacterMythicPlusRun,
+    CharacterReputation,
+    CharacterReputationReputation,
+    UserData,
+} from '@/types'
 import type { StaticData, StaticDataSetCategory } from '@/types/data/static'
 
 

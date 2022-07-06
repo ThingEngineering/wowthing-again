@@ -2,7 +2,8 @@
     import { achievementStore, userAchievementStore, userQuestStore, userStore } from '@/stores'
     import type {AchievementDataAchievement, AchievementDataCriteriaTree} from '@/types'
     import { getCharacterNameRealm } from '@/utils/get-character-name-realm'
-    import { AchievementDataCharacter, getCharacterData } from '@/utils/achievements'
+    import { getCharacterData } from '@/utils/achievements'
+    import type { AchievementDataCharacter } from '@/utils/achievements'
 
     import AchievementCriteriaBar from './AchievementsAchievementCriteriaBar.svelte'
     import AchievementCriteriaTree from './AchievementsAchievementCriteriaTree.svelte'

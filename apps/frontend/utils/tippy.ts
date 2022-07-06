@@ -1,5 +1,5 @@
-import tippy, { SingleTarget } from 'tippy.js'
-import type {Instance, Props} from 'tippy.js'
+import tippy from 'tippy.js'
+import type { Instance, Props, SingleTarget } from 'tippy.js'
 
 import type {TippyProps} from '@/types'
 

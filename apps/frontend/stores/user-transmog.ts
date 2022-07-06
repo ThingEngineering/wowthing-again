@@ -1,8 +1,9 @@
 import some from 'lodash/some'
 import toPairs from 'lodash/toPairs'
 
-import { Settings, UserCount, WritableFancyStore } from '@/types'
+import { UserCount, WritableFancyStore } from '@/types'
 import getSkipClasses from '@/utils/get-skip-classes'
+import type { Settings } from '@/types'
 import type { TransmogData, UserTransmogData } from '@/types/data'
 
 
