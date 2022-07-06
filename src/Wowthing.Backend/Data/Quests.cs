@@ -17,7 +17,7 @@ public static partial class Hardcoded
         { 60403, 60388 }, // Training [Kyrian]
         { 60402, 60388 }, // Training [Necrolord]
         { 60401, 60388 }, // Training [Venthyr]
-        
+
         // Shadowlands: Bastion
         { 60426, 60425 }, // A Call [Necrolord] -> Troubles at Home
         { 60418, 60425 }, // A Call [Night Fae] -> Troubles at Home
@@ -31,7 +31,7 @@ public static partial class Hardcoded
         { 60405, 60404 }, // Training [Necrolord]
         { 60387, 60404 }, // Training [Night Fae]
         { 60406, 60404 }, // Training [Venthyr]
-        
+
         // Shadowlands: Maldraxxus
         { 60430, 60429 }, // A Call [Kyrian] -> Troubles at Home
         { 60420, 60429 }, // A Call [Night Fae] -> Troubles at Home
@@ -45,7 +45,7 @@ public static partial class Hardcoded
         { 60407, 60408 }, // Training [Kyrian]
         { 60386, 60408 }, // Training [Night Fae]
         { 60409, 60408 }, // Training [Venthyr]
-        
+
         // Shadowlands: Revendreth
         { 60434, 60432 }, // A Call [Kyrian] -> Troubles at Home
         { 60433, 60432 }, // A Call [Necrolord] -> Troubles at Home
@@ -59,7 +59,18 @@ public static partial class Hardcoded
         { 60412, 60410 }, // Training [Kyrian]
         { 60411, 60410 }, // Training [Necrolord]
         { 60385, 60410 }, // Training [Night Fae]
-        
+
+        // Shadowlands: Misc
+        { 60459, 60458 }, // Anima Salvage [Necrolord] -> Kyrian
+        { 60457, 60458 }, // Anima Salvage [Night Fae] -> Kyrian
+        { 60460, 60458 }, // Anima Salvage [Venthyr] -> Kyrian
+        { 60416, 60415 }, // Rare Resources [Necrolord] -> Kyrian
+        { 60414, 60415 }, // Rare Resources [Night Fae] -> Kyrian
+        { 60417, 60415 }, // Rare Resources [Venthyr] -> Kyrian
+        { 60455, 60454 }, // Storm the Maw [Necrolord] -> Kyrian
+        { 60452, 60454 }, // Storm the Maw [Night Fae] -> Kyrian
+        { 60456, 60454 }, // Storm the Maw [Venthyr] -> Kyrian
+
         // Battle for Azeroth
         { 50599, 50598 }, // Proudmoore Admiralty -> Zandalari Empire
         { 50600, 50603 }, // Order of Embers -> Voldunai
