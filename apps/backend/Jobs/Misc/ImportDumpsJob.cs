@@ -48,7 +48,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.ImportDumps,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(24),
-            Version = 13,
+            Version = 14,
         };
 
         private Dictionary<int, DumpItemXItemEffect[]> _itemEffectsMap;
@@ -58,6 +58,7 @@ namespace Wowthing.Backend.Jobs.Misc
         {
             _timer = new JankTimer();
 
+            await ImportCharacterSpecializations();
             await ImportInstances();
 
             await ImportItems();
@@ -83,14 +84,14 @@ namespace Wowthing.Backend.Jobs.Misc
                 (creature) => creature.ID,
                 (creature) => creature.Name
             );
-            
+
             await ImportStrings<DumpJournalEncounter>(
                 StringType.WowJournalEncounterName,
                 "journalencounter",
                 (encounter) => encounter.ID,
                 (encounter) => encounter.Name
             );
-            
+
             await ImportStrings<DumpJournalInstance>(
                 StringType.WowJournalInstanceName,
                 "journalinstance",
@@ -121,7 +122,7 @@ namespace Wowthing.Backend.Jobs.Misc
 
             await Context.SaveChangesAsync();
             _timer.AddPoint("Save", true);
-            
+
             Logger.Information("{Timing}", _timer.ToString());
         }
 
@@ -137,7 +138,7 @@ namespace Wowthing.Backend.Jobs.Misc
                 .Where(ls => ls.Type == type)
                 .AsNoTracking()
                 .ToDictionaryAsync(ls => (ls.Language, ls.Id));
-            
+
             foreach (var language in new[]{ Language.enUS }.Concat(_languages))
             {
                 var dumpObjects = await DataUtilities.LoadDumpCsvAsync<TDump>(Path.Join(language.ToString(), dumpName), skipValidation: true);
@@ -147,10 +148,10 @@ namespace Wowthing.Backend.Jobs.Misc
                     {
                         continue;
                     }
-                    
+
                     int objectId = getIdFunc(dumpObject);
                     string objectString = getStringFunc(dumpObject);
-                    
+
                     if (!dbLanguageMap.TryGetValue((language, objectId), out var languageString))
                     {
                         languageString = dbLanguageMap[(language, objectId)] = new LanguageString
@@ -169,22 +170,76 @@ namespace Wowthing.Backend.Jobs.Misc
                     }
                 }
             }
-            
+
             _timer.AddPoint(type.ToString());
+        }
+
+        private async Task ImportCharacterSpecializations()
+        {
+            var specs = await DataUtilities
+                .LoadDumpCsvAsync<DumpChrSpecialization>(Path.Join("enUS", "chrspecialization"));
+
+            var dbSpecMap = await Context.WowCharacterSpecialization
+                .ToDictionaryAsync(spec => spec.Id);
+
+            foreach (var spec in specs)
+            {
+                if (spec.ClassID == 0)
+                {
+                    continue;
+                }
+
+                if (!dbSpecMap.TryGetValue(spec.ID, out var dbSpec))
+                {
+                    dbSpec = new WowCharacterSpecialization
+                    {
+                        Id = spec.ID,
+                    };
+                    Context.WowCharacterSpecialization.Add(dbSpec);
+                }
+
+                dbSpec.ClassId = spec.ClassID;
+                dbSpec.Order = spec.OrderIndex;
+                dbSpec.Role = spec.Role;
+
+                if (spec.PrimaryStatPriority >= 4)
+                {
+                    dbSpec.PrimaryStat = WowStat.Strength;
+                }
+                else if (spec.PrimaryStatPriority >= 2)
+                {
+                    dbSpec.PrimaryStat = WowStat.Agility;
+                }
+                else
+                {
+                    dbSpec.PrimaryStat = WowStat.Intellect;
+                }
+            }
+
+            _timer.AddPoint("CharacterSpecializations");
+
+            await ImportStrings<DumpChrSpecialization>(
+                StringType.WowCharacterSpecializationName,
+                "chrspecialization",
+                (spec) => spec.ID,
+                (spec) => $"{spec.Name}|{spec.FemaleName}"
+            );
         }
 
         private async Task ImportInstances()
         {
             var instances = await DataUtilities
                 .LoadDumpCsvAsync<DumpJournalInstance>(Path.Join("enUS", "journalinstance"));
-            
+
             var mapIdToInstanceId = instances
                 .Where(instance => !Hardcoded.SkipInstances.Contains(instance.ID))
                 .ToDictionary(
                     instance => instance.MapID,
                     instance => instance.ID
                 );
-            
+
+            _timer.AddPoint("Instances");
+
             await ImportStrings<DumpMap>(
                 StringType.WowJournalInstanceMapName,
                 "map",
@@ -192,19 +247,17 @@ namespace Wowthing.Backend.Jobs.Misc
                 (map) => map.Name,
                 (map) => mapIdToInstanceId.ContainsKey(map.ID)
             );
-            
-            _timer.AddPoint("Instances");
         }
-        
+
         private async Task ImportItems()
         {
             var items = await DataUtilities.LoadDumpCsvAsync<DumpItem>("item");
-            
+
             var baseItemSparseMap = (await DataUtilities.LoadDumpCsvAsync<DumpItemSparse>(Path.Join("enUS", "itemsparse")))
                 .ToDictionary(itemsparse => itemsparse.ID);
 
             var dbItemMap = await Context.WowItem.ToDictionaryAsync(item => item.Id);
-            
+
             var dbLanguageMap = await Context.LanguageString
                 .Where(ls => ls.Type == StringType.WowItemName)
                 .AsNoTracking()
@@ -231,7 +284,7 @@ namespace Wowthing.Backend.Jobs.Misc
                 dbItem.Quality = (WowQuality)itemSparse.OverallQualityID;
                 dbItem.RaceMask = itemSparse.AllowableRace;
                 dbItem.Stackable = itemSparse.Stackable;
-                
+
                 // Flags
                 if (itemSparse.ItemNameDescriptionID == 13805 || // Cosmetic
                     itemSparse.Flags4.HasFlag(WowItemFlags4.Cosmetic))
@@ -282,7 +335,7 @@ namespace Wowthing.Backend.Jobs.Misc
                 {
                     dbItem.PrimaryStat = WowStat.Strength;
                 }
-                
+
                 // Class/Subclass might need to be mangled
                 dbItem.ClassId = item.ClassID;
                 dbItem.SubclassId = item.SubclassID;
@@ -333,7 +386,7 @@ namespace Wowthing.Backend.Jobs.Misc
                 {
                     dbItem.ClassMask = dbItem.GetCalculatedClassMask();
                 }*/
-                
+
                 // Strings
                 if (!dbLanguageMap.TryGetValue((Language.enUS, item.ID), out var languageString))
                 {
@@ -376,7 +429,7 @@ namespace Wowthing.Backend.Jobs.Misc
                     }
                 }
             }
-            
+
             _timer.AddPoint("Items");
         }
 
@@ -396,11 +449,11 @@ namespace Wowthing.Backend.Jobs.Misc
                     };
                     Context.WowItemModifiedAppearance.Add(dbAppearance);
                 }
-                
+
                 dbAppearance.AppearanceId = ima.ItemAppearanceID;
                 dbAppearance.ItemId = ima.ItemID;
                 dbAppearance.Modifier = ima.ItemAppearanceModifierID;
-                
+
                 // HACK fix Warglaives of Azzinoth appearance IDs
                 if ((ima.ItemID == 32837 || ima.ItemID == 32838) && ima.ItemAppearanceModifierID == 0)
                 {
@@ -408,7 +461,7 @@ namespace Wowthing.Backend.Jobs.Misc
                 }
             }
         }
-        
+
         private async Task ImportMounts()
         {
             var baseMounts = await DataUtilities.LoadDumpCsvAsync<DumpMount>(Path.Join("enUS", "mount"));
@@ -441,7 +494,7 @@ namespace Wowthing.Backend.Jobs.Misc
                 {
                     dbMount.ItemId = xItemEffects.First().ItemID;
                 }
-                
+
                 if (!dbLanguageMap.TryGetValue((Language.enUS, mount.ID), out var languageString))
                 {
                     languageString = new LanguageString
@@ -510,14 +563,14 @@ namespace Wowthing.Backend.Jobs.Misc
                 dbPet.Flags = pet.Flags;
                 dbPet.PetType = pet.PetTypeEnum;
                 dbPet.SourceType = pet.SourceTypeEnum;
-                
+
                 if (_spellTeachMap.TryGetValue(dbPet.SpellId, out var itemEffect) &&
                     _itemEffectsMap.TryGetValue(itemEffect.ID, out var xItemEffects))
                 {
                     dbPet.ItemId = xItemEffects.First().ItemID;
                 }
             }
-            
+
             _timer.AddPoint("Pets");
         }
 
@@ -543,7 +596,7 @@ namespace Wowthing.Backend.Jobs.Misc
                 dbToy.Flags = toy.Flags;
                 dbToy.SourceType = toy.SourceTypeEnum;
             }
-            
+
             _timer.AddPoint("Toys");
         }
     }

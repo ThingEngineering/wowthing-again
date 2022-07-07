@@ -10,6 +10,7 @@
         WowJournalEncounterName = 6,
         WowSoulbindName = 7,
         WowSkillLineName = 8,
+        WowCharacterSpecializationName = 9,
         // Hacky garbage
         WowJournalInstanceMapName = 1000,
     }
