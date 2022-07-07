@@ -210,8 +210,13 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                         let fixedType = drop.type
                         switch (drop.type) {
                             case FarmDropType.Achievement:
-                                if (!userAchievementData.criteria[drop.subType]) {
-                                    dropStatus.need = true
+                                if (drop.subType > 0) {
+                                    if (!userAchievementData.criteria[drop.subType]) {
+                                        dropStatus.need = true
+                                    }
+                                }
+                                else {
+                                    dropStatus.need = userAchievementData.achievements[drop.id] === undefined
                                 }
                                 break
 
