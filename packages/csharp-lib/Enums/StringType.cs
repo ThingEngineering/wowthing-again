@@ -12,6 +12,7 @@
         WowSkillLineName = 8,
         WowCharacterSpecializationName = 9,
         WowCharacterClassName = 10,
+        WowCharacterRaceName = 11,
         // Hacky garbage
         WowJournalInstanceMapName = 1000,
     }

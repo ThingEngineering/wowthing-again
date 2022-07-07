@@ -59,6 +59,7 @@ namespace Wowthing.Backend.Jobs.Misc
             _timer = new JankTimer();
 
             await ImportCharacterClasses();
+            await ImportCharacterRaces();
             await ImportCharacterSpecializations();
             await ImportInstances();
 
@@ -205,6 +206,38 @@ namespace Wowthing.Backend.Jobs.Misc
                 "chrclasses",
                 (cls) => cls.ID,
                 (cls) => $"{cls.MaleName}|{cls.FemaleName}"
+            );
+        }
+
+        private async Task ImportCharacterRaces()
+        {
+            var races = await DataUtilities
+                .LoadDumpCsvAsync<DumpChrRaces>(Path.Join("enUS", "chrraces"));
+
+            var dbRaceMap = await Context.WowCharacterRace
+                .ToDictionaryAsync(spec => spec.Id);
+
+            foreach (var race in races)
+            {
+                if (!dbRaceMap.TryGetValue(race.ID, out var dbRace))
+                {
+                    dbRace = new WowCharacterRace
+                    {
+                        Id = race.ID,
+                    };
+                    Context.WowCharacterRace.Add(dbRace);
+                }
+
+                dbRace.Faction = race.Faction;
+            }
+
+            _timer.AddPoint("CharacterRaces");
+
+            await ImportStrings<DumpChrRaces>(
+                StringType.WowCharacterRaceName,
+                "chrraces",
+                (race) => race.ID,
+                (race) => $"{race.Name}|{race.FemaleName}"
             );
         }
 
