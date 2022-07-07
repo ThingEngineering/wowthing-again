@@ -77,6 +77,10 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
         )
 
         for (const maps of zoneMapData.sets) {
+            if (maps === null) {
+                continue
+            }
+
             const categoryCounts = setCounts[maps[0].slug] = new UserCount()
             const categorySeen: Record<number, Record<number, boolean>> = {}
 
