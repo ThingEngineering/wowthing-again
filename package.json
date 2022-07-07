@@ -9,6 +9,9 @@
     "./packages/*"
   ],
   "devDependencies": {
+    "@nrwl/devkit": "^14.4.2",
+    "@nrwl/js": "^14.4.2",
+    "@nrwl/workspace": "^14.4.2",
     "@sveltejs/vite-plugin-svelte": "^1.0.0-next.49",
     "@tsconfig/svelte": "^3.0.0",
     "@types/lodash": "^4.14.169",
@@ -19,6 +22,7 @@
     "eslint-config-prettier": "8.1.0",
     "eslint-plugin-svelte3": "^3.4.1",
     "lodash": "^4.17.21",
+    "nx": "^14.4.2",
     "prettier": "^2.6.2",
     "sass": "^1.53.0",
     "svelte": "^3.47.0",
