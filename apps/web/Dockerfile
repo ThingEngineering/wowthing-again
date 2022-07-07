@@ -1,4 +1,4 @@
-FROM ghcr.io/thingengineering/docker-dotnet-sdk-nodejs:latest AS build-frontend
+FROM node:16-alpine AS build-frontend
 
 WORKDIR /app
 
@@ -7,18 +7,19 @@ COPY apps/frontend/package.json ./apps/frontend/
 
 RUN npm i --no-audit --no-fund
 
-COPY apps/frontend/ ./
+COPY tsconfig.base.json ./
+COPY apps/frontend/ ./apps/frontend/
 
 WORKDIR /app/apps/frontend
 
 RUN npm run build
 
 
-FROM ghcr.io/thingengineering/docker-dotnet-sdk-nodejs:latest AS build-web
+FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine AS build-web
 
 WORKDIR /app
-COPY apps/web/ .
-COPY packages/csharp-lib/ .
+COPY apps/web/ ./apps/web/
+COPY packages/csharp-lib/ ./packages/csharp-lib/
 
 WORKDIR /app/apps/web
 RUN dotnet publish -c Release -o out
