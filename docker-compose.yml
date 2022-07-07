@@ -4,7 +4,7 @@ services:
   backend:
     build:
       context: .
-      dockerfile: src/Wowthing.Backend/development.Dockerfile
+      dockerfile: apps/backend/development.Dockerfile
     depends_on:
       - postgres
       - redis
@@ -19,12 +19,13 @@ services:
       - wowthing
     volumes:
       - ./:/app/
-      - /app/src/Wowthing.Backend/bin/container/
+      - /app/apps/backend/bin/container/
+      - /app/apps/backend/obj/container/
 
   web:
     build:
       context: .
-      dockerfile: src/Wowthing.Web/development.Dockerfile
+      dockerfile: apps/web/development.Dockerfile
     depends_on:
       - postgres
       - redis
@@ -42,7 +43,8 @@ services:
       - "55501:5001"
     volumes:
       - ./:/app/
-      - /app/src/Wowthing.Web/bin/container/
+      - /app/apps/web/bin/container/
+      - /app/apps/web/obj/container/
 
   frontend:
     build:
@@ -56,7 +58,6 @@ services:
       - wowthing
     ports:
       - "55505:55505"
-    user: $DOCKER_USER
     volumes:
       - ./:/app/
       - frontend-cache:/root/.npm

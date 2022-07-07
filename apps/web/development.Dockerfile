@@ -1,6 +1,6 @@
 FROM mcr.microsoft.com/dotnet/sdk:6.0
 
-WORKDIR /app/src/Wowthing.Web
+WORKDIR /app/apps/web
 
 RUN dotnet dev-certs https
 

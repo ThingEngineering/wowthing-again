@@ -1,6 +1,6 @@
 FROM mcr.microsoft.com/dotnet/sdk:6.0
 
-WORKDIR /app/src/Wowthing.Backend
+WORKDIR /app/apps/backend
 
 # Required inside Docker, otherwise file-change events may not trigger
 ENV DOTNET_USE_POLLING_FILE_WATCHER 1

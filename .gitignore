@@ -2,14 +2,14 @@
 .env
 
 # compiled output
-/tmp
-/out-tsc
-/src/**/bin
-/src/**/obj
+/apps/**/bin
+/apps/**/obj
+/packages/**/bin
+/packages/**/obj
 dist/
 
 # dependencies
-node_modules
+node_modules/
 
 # generated junk
 __pycache__/

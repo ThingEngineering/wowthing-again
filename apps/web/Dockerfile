@@ -1,16 +1,19 @@
 FROM ghcr.io/thingengineering/docker-dotnet-sdk-nodejs:latest AS build-frontend
 
-WORKDIR /app/frontend
+RUN npm i -g npm
 
-RUN npm i -g yarn
+WORKDIR /app
 
-COPY frontend/.yarn/ ./.yarn/
-COPY frontend/.yarnrc frontend/package.json frontend/yarn.lock ./
+COPY package.json package-lock.json ./
+COPY apps/frontend/package.json ./apps/frontend/
 
-RUN yarn install --frozen-lockfile
+RUN npm i --no-audit --no-fund
 
-COPY frontend/ ./
-RUN yarn run build
+COPY apps/frontend/ ./
+
+WORKDIR /app/apps/frontend
+
+RUN npm run build
 
 
 FROM ghcr.io/thingengineering/docker-dotnet-sdk-nodejs:latest AS build-web

@@ -3,14 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30330.147
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wowthing.Web", "src\Wowthing.Web\Wowthing.Web.csproj", "{4054020D-540C-4016-B305-75E372CCEFEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wowthing.Web", apps\web\Wowthing.Web.csproj", "{4054020D-540C-4016-B305-75E372CCEFEA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wowthing.Lib", "src\Wowthing.Lib\Wowthing.Lib.csproj", "{C300116D-A6B0-4746-9A91-69764774962F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Wowthing.Lib", "packages\csharp-lib\Wowthing.Lib.csproj", "{C300116D-A6B0-4746-9A91-69764774962F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{10E37C5C-C824-4C52-B56B-A94CA2BC69A4}"
 	ProjectSection(SolutionItems) = preProject
-		src\Wowthing.Web\development.Dockerfile = src\Wowthing.Web\development.Dockerfile
-		src\Wowthing.Web\Dockerfile = src\Wowthing.Web\Dockerfile
+		apps\web\development.Dockerfile = apps\web\development.Dockerfile
+		apps\web\Dockerfile = apps\web\Dockerfile
 	EndProjectSection
 EndProject
 Global

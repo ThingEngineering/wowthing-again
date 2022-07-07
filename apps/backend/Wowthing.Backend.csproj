@@ -26,6 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Wowthing.Lib\Wowthing.Lib.csproj" />
+    <ProjectReference Include="..\..\packages\csharp-lib\Wowthing.Lib.csproj" />
   </ItemGroup>
 </Project>
