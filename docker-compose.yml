@@ -4,7 +4,7 @@ services:
   backend:
     build:
       context: .
-      dockerfile: src/Wowthing.Backend/development.Dockerfile
+      dockerfile: apps/backend/development.Dockerfile
     depends_on:
       - postgres
       - redis
@@ -19,12 +19,13 @@ services:
       - wowthing
     volumes:
       - ./:/app/
-      - /app/src/Wowthing.Backend/bin/container/
+      - /app/apps/backend/bin/container/
+      - /app/apps/backend/obj/container/
 
   web:
     build:
       context: .
-      dockerfile: src/Wowthing.Web/development.Dockerfile
+      dockerfile: apps/web/development.Dockerfile
     depends_on:
       - postgres
       - redis
@@ -42,26 +43,25 @@ services:
       - "55501:5001"
     volumes:
       - ./:/app/
-      - frontend-dist:/app/src/Wowthing.Web/wwwroot/dist/
-      - /app/src/Wowthing.Web/bin/container/
+      - /app/apps/web/bin/container/
+      - /app/apps/web/obj/container/
 
   frontend:
     build:
       context: .
-      dockerfile: frontend/development.Dockerfile
-    depends_on:
-      - web
+      dockerfile: apps/frontend/development.Dockerfile
     logging:
       options:
         max-size: "1m"
         max-file: "5"
     networks:
-    - wowthing
+      - wowthing
+    ports:
+      - "55505:55505"
     volumes:
-    - ./:/app/
-    - frontend-cache:/root/.cache
-    - frontend-dist:/app/src/Wowthing.Web/wwwroot/dist/
-    - frontend-nm:/app/frontend/node_modules/
+      - ./:/app/
+      - frontend-cache:/root/.npm
+      - frontend-nm:/app/node_modules/
 
   postgres:
     image: postgres:13
@@ -91,7 +91,6 @@ networks:
 
 volumes:
   frontend-cache:
-  frontend-dist:
   frontend-nm:
   postgres:
   redis:

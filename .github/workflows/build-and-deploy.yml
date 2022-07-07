@@ -23,19 +23,20 @@ jobs:
         with:
           base: main
           filters: |
-            Backend:
+            backend:
+              - 'apps/backend/**'
+              - 'packages/csharp-lib/**'
               - 'data/**'
-              - 'src/Wowthing.Backend/**'
-              - 'src/Wowthing.Lib/**'
               - 'Directory.Build.props'
-              - 'Wowthing.Backend.sln'
 
-            Web:
-              - 'frontend/**'
-              - 'src/Wowthing.Lib/**'
-              - 'src/Wowthing.Web/**'
+            web:
+              - 'apps/frontend/**'
+              - 'apps/web/**'
+              - 'packages/csharp-lib/**'
               - 'Directory.Build.props'
-              - 'Wowthing.Web.sln'
+              - 'package.json'
+              - 'package-lock.json'
+              - 'tsconfig.base.json'
 
       - name: Automatic run
         if: github.event_name != 'workflow_dispatch'
@@ -46,7 +47,7 @@ jobs:
       - name: Manual run
         if: github.event_name == 'workflow_dispatch'
         run: |
-          echo 'PROJECTS=["Backend", "Web"]' >> $GITHUB_ENV
+          echo 'PROJECTS=["backend", "web"]' >> $GITHUB_ENV
 
     outputs:
       projects: ${{ env.PROJECTS }}
@@ -79,14 +80,14 @@ jobs:
 
       - name: Build and push container image
         run: |
-          IMAGE_URL="ghcr.io/thingengineering/wowthing-again/$(echo ${{ matrix.project }} | tr A-Z a-z)"
+          IMAGE_URL="ghcr.io/thingengineering/wowthing-again/${{ matrix.project }}"
           docker buildx build \
             --progress=plain \
             --rm \
             --cache-from=type=registry,ref=$IMAGE_URL:cache \
             --cache-to=type=registry,ref=$IMAGE_URL:cache,mode=max \
             --output type=image,\"name=$IMAGE_URL:$GITHUB_SHA,$IMAGE_URL:latest\",push=true \
-            --file=./src/Wowthing.${{ matrix.project }}/Dockerfile \
+            --file=./apps/${{ matrix.project }}/Dockerfile \
             .
 
   deploy:
@@ -113,6 +114,6 @@ jobs:
 
       - name: Deploy to k8s
         run: |
-          DEPLOYMENT_FILE="_magic/k8s-deployment-$(echo ${{ matrix.project }} | tr A-Z a-z).yml"
+          DEPLOYMENT_FILE="_magic/k8s-deployment-${{ matrix.project }}.yml"
           sed -i "s/_VERSION_/$GITHUB_SHA/g" $DEPLOYMENT_FILE
           kubectl apply -f $DEPLOYMENT_FILE

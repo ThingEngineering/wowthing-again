@@ -1,9 +1,9 @@
 .git/
+.github/
 .idea/
 .vs/
 _magic/
-api_responses/
-src/Wowthing.Web/wwwroot/dist/
+apps/web/wwwroot/dist/
 **/bin
 **/obj
 **/node_modules

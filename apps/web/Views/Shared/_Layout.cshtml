@@ -1,0 +1,80 @@
+﻿@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostEnv
+@inject UriService _uriService
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>@ViewData["Title"] - WoWthing</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" asp-append-version="true">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" asp-append-version="true">
+    @if (hostEnv.EnvironmentName == "Production")
+    {
+        <link rel="stylesheet" asp-href-include="~/dist/home.*css">
+    }
+    @RenderSection("head", required: false)
+</head>
+<body>
+    <header>
+        <nav class="nav">
+            <ul id="nav-left">
+                <!--<li class="header-title">
+                    <a href="@_uriService.GetBaseAction("Home", "Index")">WoWthing</a>
+                </li>-->
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li>
+                        <a href="@await _uriService.GetUriForUser()">My Page</a>
+                    </li>
+                    <li>
+                        <a asp-controller="Upload" asp-action="Index">Upload</a>
+                    </li>
+                }
+            </ul>
+
+            <ul id="nav-center">
+            </ul>
+
+            <ul id="nav-right">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li id="user-name">@User.Identity.Name</li>
+                    <li>
+                        <a href="@_uriService.GetBaseAction("Authentication", "Logout")">Logout</a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <a href="@_uriService.GetBaseAction("Authentication", "Login")">Login/Register with Battle.Net</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    </header>
+    <main>
+        @RenderBody()
+
+        <footer>
+            <ul>
+                <li>
+                    <a href="https://discord.gg/4UkTT5y">Discord</a>
+                </li>
+                <li>
+                    <a href="https://github.com/ThingEngineering/wowthing-again">Github (code/issues)</a>
+                </li>
+                <li>
+                    <a href="https://ko-fi.com/thingengineering">Buy me a coffee?</a>
+                </li>
+            </ul>
+            <ul>
+                <li>
+                    <div>Favicon made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+                </li>
+            </ul>
+        </footer>
+    </main>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>
