@@ -36,7 +36,6 @@ const config = <UserConfig> defineConfig({
 				prebundleSvelteLibraries: true,
 			},
 
-			// @ts-ignore This is temporary until the type definitions are fixed!
 			hot: !production,
 		}),
 	],
