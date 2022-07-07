@@ -15,6 +15,9 @@
     },
     "tsconfig.base.json": "*"
   },
+  "plugins": [
+    "@nx-dotnet/core"
+  ],
   "targetDefaults": {
     "build": {
       "dependsOn": [

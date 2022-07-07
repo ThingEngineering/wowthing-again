@@ -2,10 +2,10 @@
 .env
 
 # compiled output
-/apps/**/bin
-/apps/**/obj
-/packages/**/bin
-/packages/**/obj
+apps/*/bin
+apps/*/obj
+packages/*/bin
+packages/*/obj
 dist/
 
 # dependencies
