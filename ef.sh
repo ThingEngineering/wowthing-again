@@ -2,4 +2,4 @@
 
 export PATH=$PATH:/root/.dotnet/tools
 
-dotnet ef "$@" --project src/Wowthing.Lib --msbuildprojectextensionspath src/Wowthing.Lib/obj/container
+dotnet ef "$@" --project packages/csharp-lib --msbuildprojectextensionspath packages/csharp-lib/obj/container
