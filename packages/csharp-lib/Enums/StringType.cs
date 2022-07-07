@@ -11,6 +11,7 @@
         WowSoulbindName = 7,
         WowSkillLineName = 8,
         WowCharacterSpecializationName = 9,
+        WowCharacterClassName = 10,
         // Hacky garbage
         WowJournalInstanceMapName = 1000,
     }

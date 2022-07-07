@@ -58,6 +58,7 @@ namespace Wowthing.Backend.Jobs.Misc
         {
             _timer = new JankTimer();
 
+            await ImportCharacterClasses();
             await ImportCharacterSpecializations();
             await ImportInstances();
 
@@ -172,6 +173,39 @@ namespace Wowthing.Backend.Jobs.Misc
             }
 
             _timer.AddPoint(type.ToString());
+        }
+
+        private async Task ImportCharacterClasses()
+        {
+            var classes = await DataUtilities
+                .LoadDumpCsvAsync<DumpChrClasses>(Path.Join("enUS", "chrclasses"));
+
+            var dbClassMap = await Context.WowCharacterClass
+                .ToDictionaryAsync(spec => spec.Id);
+
+            foreach (var cls in classes)
+            {
+                if (!dbClassMap.TryGetValue(cls.ID, out var dbClass))
+                {
+                    dbClass = new WowCharacterClass
+                    {
+                        Id = cls.ID,
+                    };
+                    Context.WowCharacterClass.Add(dbClass);
+                }
+
+                dbClass.ArmorMask = cls.ArmorTypeMask;
+                dbClass.RolesMask = cls.RolesMask;
+            }
+
+            _timer.AddPoint("CharacterClasses");
+
+            await ImportStrings<DumpChrClasses>(
+                StringType.WowCharacterClassName,
+                "chrclasses",
+                (cls) => cls.ID,
+                (cls) => $"{cls.MaleName}|{cls.FemaleName}"
+            );
         }
 
         private async Task ImportCharacterSpecializations()
