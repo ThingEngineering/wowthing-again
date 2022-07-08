@@ -33,8 +33,8 @@
         }
     }
 
-    const showCharacters = (dropStatus: DropStatus, nextDrop: [ZoneMapDataDrop, DropStatus]): boolean => {
-        if (farm.type === FarmType.Vendor) {
+    const showCharacters = (drop: ZoneMapDataDrop, dropStatus: DropStatus, nextDrop: [ZoneMapDataDrop, DropStatus]): boolean => {
+        if (farm.type === FarmType.Vendor && drop.type !== FarmDropType.Quest) {
             return false
         }
 
@@ -203,7 +203,7 @@
                         </tr>
                     {/if}
                     
-                    {#if showCharacters(dropStatus, sortedDrops[sortedIndex+1])}
+                    {#if showCharacters(drop, dropStatus, sortedDrops[sortedIndex+1])}
                         {#if dropStatus.characterIds.length > 0 || dropStatus.completedCharacterIds.length > 0}
                             <tr>
                                 <td></td>
