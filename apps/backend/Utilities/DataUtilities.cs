@@ -12,9 +12,11 @@ namespace Wowthing.Backend.Utilities
     public static class DataUtilities
     {
 #if DEBUG
-        public static readonly string DataPath = Path.Join("..", "..");
+        public static readonly string DataPath = Path.Join("..", "..", "data");
+        public static readonly string DumpsPath = Path.Join("..", "..", "dumps");
 #else
         public static readonly string DataPath = "data";
+        public static readonly string DumpsPath = "dumps";
 #endif
 
         private static readonly IDeserializer Yaml = new DeserializerBuilder()
@@ -24,13 +26,11 @@ namespace Wowthing.Backend.Utilities
 
         public static async Task<List<T>> LoadDumpCsvAsync<T>(string fileName, Func<T, bool> validFunc = null, bool skipValidation = false)
         {
-            var basePath = Path.Join(DataPath, "dumps");
-
-            var files = Directory.GetFiles(basePath, $"{fileName}-*.csv");
+            var files = Directory.GetFiles(DumpsPath, $"{fileName}-*.csv");
             // FIXME crappy hack until importing works
             if (files.Length == 0)
             {
-                files = Directory.GetFiles(Path.Join(basePath, "enUS"), $"{fileName}-*.csv");
+                files = Directory.GetFiles(Path.Join(DumpsPath, "enUS"), $"{fileName}-*.csv");
             }
             var filePath = files.OrderByDescending(f => f).First();
 
