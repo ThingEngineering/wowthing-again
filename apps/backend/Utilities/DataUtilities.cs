@@ -12,7 +12,7 @@ namespace Wowthing.Backend.Utilities
     public static class DataUtilities
     {
 #if DEBUG
-        public static readonly string DataPath = Path.Join("..", "..", "data");
+        public static readonly string DataPath = Path.Join("..", "..");
 #else
         public static readonly string DataPath = "data";
 #endif
@@ -52,7 +52,7 @@ namespace Wowthing.Backend.Utilities
             }
             return ret;
         }
-        
+
         public static List<List<TCategory>> LoadData<TCategory>(string basePath, ILogger logger = null)
             where TCategory : class, ICloneable, IDataCategory
         {
@@ -61,7 +61,7 @@ namespace Wowthing.Backend.Utilities
 
             basePath = Path.Join(DataPath, basePath);
             var orderFile = Path.Join(basePath, "_order");
-            
+
             logger?.Debug("Loading {0}", orderFile);
 
             var inGlobal = false;
@@ -74,7 +74,7 @@ namespace Wowthing.Backend.Utilities
                     inGlobal = true;
                     continue;
                 }
-                
+
                 if (line.Trim() == "")
                 {
                     inGlobal = false;
@@ -86,7 +86,7 @@ namespace Wowthing.Backend.Utilities
                     globalFiles.Add(line.Trim());
                     continue;
                 }
-                
+
                 // Separator
                 if (line == "-")
                 {
@@ -100,7 +100,7 @@ namespace Wowthing.Backend.Utilities
                 else if (line.StartsWith("    "))
                 {
                     Debug.Assert(things != null);
-                    
+
                     var trimmed = line.Trim();
                     if (trimmed == "-")
                     {
@@ -142,7 +142,7 @@ namespace Wowthing.Backend.Utilities
                                 last.Name = ">" + last.Name;
                             }
                         }
-                    } 
+                    }
                 }
             }
 
@@ -166,7 +166,7 @@ namespace Wowthing.Backend.Utilities
                 //Logger.Debug("Loading {0}", parts[0]);
                 cat = categoryCache[filePath] = Yaml.Deserialize<TCategory>(File.OpenText(filePath));
             }
-            
+
             if (parts.Length == 2)
             {
                 cat = (TCategory)cat.Clone();

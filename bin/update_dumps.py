@@ -7,7 +7,7 @@ import requests
 import sys
 
 
-BASE_DIR = './data/dumps'
+BASE_DIR = './dumps'
 API_URL = 'https://wow.tools/dbc/api/export/?name={0}&build={1}&locale={2}&useHotfixes=true'
 
 HEADERS = {
