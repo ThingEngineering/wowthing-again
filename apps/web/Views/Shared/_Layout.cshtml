@@ -10,6 +10,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" asp-append-version="true">
     @if (hostEnv.EnvironmentName == "Production")
     {
+        <link rel="stylesheet" asp-href-include="~/dist/vendor.*css">
         <link rel="stylesheet" asp-href-include="~/dist/home.*css">
     }
     @RenderSection("head", required: false)

@@ -8,7 +8,7 @@
 /**********                                              Vite                                               **********/
 /*********************************************************************************************************************/
 
-import { defineConfig, UserConfig } from 'vite'
+import { defineConfig, splitVendorChunkPlugin, UserConfig } from 'vite'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
 import path from 'path'
 import sveltePreprocess from 'svelte-preprocess'
@@ -19,6 +19,7 @@ import tsconfig from './tsconfig.json'
 const production = process.env.NODE_ENV === 'production'
 const config = <UserConfig> defineConfig({
 	plugins: [
+		splitVendorChunkPlugin(),
 		svelte({
 			emitCss: production,
 			preprocess: sveltePreprocess({
@@ -53,6 +54,9 @@ const config = <UserConfig> defineConfig({
 				autoprefixer(),
 			],
 		},
+	},
+	esbuild: {
+		keepNames: true,
 	},
 	server: {
 		host: '0.0.0.0',
