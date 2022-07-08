@@ -194,6 +194,15 @@
                 </tr>
 
                 {#if dropStatus.need && !dropStatus.skip}
+                    {#if drop.note}
+                        <tr>
+                            <td></td>
+                            <td class="note" colspan="2">
+                                <ParsedText text={drop.note} />
+                            </td>
+                        </tr>
+                    {/if}
+                    
                     {#if showCharacters(dropStatus, sortedDrops[sortedIndex+1])}
                         {#if dropStatus.characterIds.length > 0 || dropStatus.completedCharacterIds.length > 0}
                             <tr>
@@ -225,15 +234,6 @@
                                 </td>
                             </tr>
                         {/if}
-                    {/if}
-
-                    {#if drop.note}
-                        <tr>
-                            <td></td>
-                            <td class="note" colspan="2">
-                                <ParsedText text={drop.note} />
-                            </td>
-                        </tr>
                     {/if}
                 {/if}
             {/each}
