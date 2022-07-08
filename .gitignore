@@ -2,15 +2,14 @@
 .env
 
 # compiled output
-/dist
-/tmp
-/out-tsc
-/src/**/bin
-/src/**/obj
-/src/Wowthing.Web/wwwroot/dist/
+apps/*/bin
+apps/*/obj
+packages/*/bin
+packages/*/obj
+dist/
 
 # dependencies
-node_modules
+node_modules/
 
 # generated junk
 __pycache__/
