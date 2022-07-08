@@ -20,7 +20,7 @@
 </script>
 
 <WowthingImage
-    name="spec/{spec.id}"
+    name="spec/{spec?.id ?? 0}"
     {size}
     {border}
     {tooltip}
