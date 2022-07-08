@@ -11,5 +11,6 @@ public class StaticCharacterClass : WowCharacterClass
         Id = dbClass.Id;
         ArmorMask = dbClass.ArmorMask;
         RolesMask = dbClass.RolesMask;
+        Slug = dbClass.Slug;
     }
 }
