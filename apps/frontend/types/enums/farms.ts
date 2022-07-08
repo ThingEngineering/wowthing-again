@@ -43,4 +43,5 @@ export enum FarmResetType
     BiWeekly,
     Weekly,
     Never,
+    Monthly,
 }

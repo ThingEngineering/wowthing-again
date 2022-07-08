@@ -32,6 +32,7 @@
         BiWeekly,
         Weekly,
         Never,
+        Monthly,
     }
 
     public enum FarmDropType
