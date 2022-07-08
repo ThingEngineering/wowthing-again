@@ -4,7 +4,7 @@ import os
 
 
 things = {}
-with open(glob.glob('data/dumps/runeforgelegendaryability-*.csv')[0]) as csv_file:
+with open(glob.glob('dumps/runeforgelegendaryability-*.csv')[0]) as csv_file:
     for row in csv.DictReader(csv_file):
         things[row['ItemBonusListID']] = [row['SpellID'], row['Name_lang']]
 

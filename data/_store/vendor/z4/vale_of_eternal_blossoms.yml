@@ -1,0 +1,41 @@
+map: "z4_vale_of_eternal_blossoms"
+vendors:
+
+- name: "Jaluu the Generous"
+  id: 59908
+  locations:
+    - 84.2 62.6 alliance
+    - 63.0 22.2 horde
+  tags:
+    - "golden-lotus"
+  sells:
+    - type: mount
+      id: 127174 # Azure Riding Crane
+      note: "{repPrice:1269:exalted:500}"
+
+    - type: mount
+      id: 127176 # Golden Riding Crane
+      note: "{repPrice:1269:exalted:2500}"
+
+    - type: mount
+      id: 127177 # Regal Riding Crane
+      note: "{repPrice:1269:exalted:1500}"
+
+    - type: transmog
+      id: 89797 # Golden Lotus Tabard [exalted]
+      note: "{repPrice:1269:exalted:10}"
+
+- name: "Tan Shin Tiao"
+  id: 64605
+  locations:
+    - 82.2 29.4
+  tags:
+    - "the-lorewalkers"
+  sells:
+    - type: mount
+      id: 130092 # Red Flying Cloud
+      note: "{repPrice:1345:exalted:600}"
+
+    - type: transmog
+      id: 89795 # Lorewalkers Tabard [tabard]
+      note: "{repPrice:1345:exalted:10}"

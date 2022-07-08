@@ -6,7 +6,7 @@ import os.path
 import re
 
 
-BASE_DIR = './data/dumps'
+BASE_DIR = './dumps'
 
 COLUMNS = {
     'achievement': ['ID', 'Description_lang', 'Reward_lang', 'Title_lang'],
