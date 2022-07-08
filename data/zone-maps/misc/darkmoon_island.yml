@@ -113,6 +113,8 @@ farms:
     - type: pet
       id: 67332 # Darkmoon Eye
 
+# Quest - Games
+
 - name: "Dance Dance Darkmoon"
   location: 52.9 74.0
   note: "Simon Sezdans"
@@ -584,6 +586,11 @@ farms:
 
     - type: toy
       id: 126931 # Seafarer's Slidewhistle
+
+    - type: quest
+      id: 38934
+      name: "Silas' Secret Stash"
+      note: "Faded Treasure Map, rewards {price:100|515}"
 
 - name: "Gelvas Grimegate"
   location: 48.0 64.8
