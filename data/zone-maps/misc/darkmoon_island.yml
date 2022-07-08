@@ -1,0 +1,337 @@
+name: "Darkmoon Island"
+mapName: "misc_darkmoon_island"
+farms:
+
+# Event
+
+- name: "Blight Boar Concert"
+  location: 63.5 66.5
+  minimumLevel: 25
+  questId: 47767
+  reset: monthly
+  type: event
+  drops:
+    - type: achievement
+      id: 11918
+      name: "Hey, You're a Rockstar!"
+      note: "Participate in the concert"
+
+    - type: achievement
+      id: 11921
+      name: "Mosh Pit"
+      note: "Don't allow any ghouls to reach Delvin"
+
+    - type: achievement
+      id: 11920
+      name: "Perfect Performance"
+      note: "Participate in a perfect performance"
+
+    - type: achievement
+      id: 11919
+      name: "Taking this Show on the Road"
+      note: "Have each of the band's roles assigned to you"
+
+    - type: toy
+      id: 151265 # Blight Boar Microphone
+
+    - type: transmog
+      id: 151255 # Necromedes, the Death Resonator [2h mace]
+
+    - type: transmog
+      id: 151253 # Lightly-Padded Cage Helm [cloth]
+
+    - type: transmog
+      id: 151252 # Leather-Lined Cage Helm [leather]
+
+    - type: transmog
+      id: 151254 # Chain-Linked Cage Helm [mail]
+
+    - type: transmog
+      id: 151251 # Steel-Reinforced Cage Helm [plate]
+
+# Kill
+
+- name: "Darkmoon Rabbit"
+  location: 76.0 78.4
+  npcId: 58336
+  reset: none
+  type: killBig
+  drops:
+    - type: achievement
+      id: 6332
+      name: "That Rabbit's Dynamite"
+      note: "Kill the bunny"
+
+    - type: pet
+      id: 59358 # Darkmoon Rabbit
+
+- name: "Moonfang"
+  location: 39.5 43.9
+  npcId: 71992
+  reset: none
+  type: killBig
+  drops:
+    - type: pet
+      id: 72160 # Moon Moon
+    
+    - type: toy
+      id: 105898 # Moonfang's Paw
+    
+    - type: toy
+      id: 101571 # Moonfang Shroud
+
+# Quest
+
+- name: "A New Darkmoon Challenger!"
+  location: 46.0 62.4
+  note: "Christoph VonFeasel"
+  questId: 36471
+  reset: daily
+  type: quest # TODO account quest?
+  drops:
+    - type: pet
+      id: 85527 # Syd the Squid
+
+- name: "Darkmoon Pet Battle!"
+  location: 47.8 62.4
+  note: "Jeremy Feasel"
+  questId: 32175
+  reset: daily
+  type: quest # TODO account quest?
+  drops:
+    - type: pet
+      id: 67332 # Darkmoon Eye
+
+- name: "Firebird's Challenge"
+  location: 48.6 72.0
+  note: "Ziggie Sparks"
+  questId: 36481
+  reset: daily
+  type: quest
+  drops:
+    - type: achievement
+      id: 9250
+      name: "Flying High"
+      note: "Collect 10 rings"
+
+    - type: achievement
+      id: 9251
+      name: "Ringmaster"
+      note: "Collect 25 rings"
+
+    - type: achievement
+      id: 9252
+      name: "Brood of Alysrazor"
+      note: "Collect 50 rings"
+
+    - type: toy
+      id: 116115 # Blazing Wings
+      note: "Complete the Brood of Alysrazor achievement"
+
+- name: "He Shoots, He Scores!"
+  location: 49.6 60.8
+  note: "Rinling"
+  questId: 29438
+  reset: daily
+  type: quest
+  drops:
+    - type: achievement
+      id: 6022
+      name: "Quick Shot"
+      note: "Score a quick shot"
+
+- name: "It's Hammer Time"
+  location: 53.6 53.8
+  note: "Mola"
+  questId: 28463
+  reset: daily
+  type: quest
+  drops:
+    - type: achievement
+      id: 9983
+      name: "That's Whack!"
+      note: "Score 45 points"
+
+    - type: pet
+      id: 76873 # Hogs
+
+- name: "The Humanoid Cannonball"
+  location: 52.8 56.6
+  note: "Maxima Blastenheimer"
+  questId: 29436
+  reset: daily
+  type: quest
+  drops:
+    - type: achievement
+      id: 6021
+      name: "Blastenheimer Bullseye"
+      note: "Score a bullseye"
+
+- name: "Target: Turtle"
+  location: 51.6 78.6
+  note: "Jessica Rogers"
+  questId: 29455
+  reset: daily
+  type: quest
+  drops:
+    - type: achievement
+      id: 9894
+      name: "Triumphant Turtle Tossing"
+      note: "Successfully toss 10 rings"
+
+    - type: toy
+      id: 122123 # Darkmoon Ring-Flinger
+
+- name: "Tonk Commander"
+  location: 51.0 65.6
+  note: "Finlay Coolshot"
+  questId: 29434
+  reset: daily
+  type: quest
+  drops:
+    - type: achievement
+      id: 9885
+      name: "Ace Tonk Commander"
+      note: "Score 45 hits"
+
+    - type: toy
+      id: 122122 # Darkmoon Tonk Controller
+
+# Vendor
+
+- name: "Carl Goodup"
+  location: 49.8 85.6
+  note: "Wanders up and down the path"
+  npcId: 55305
+  type: vendor
+  drops:
+    - &darkmoon-balloon
+      type: pet
+      id: 55187 # Darkmoon Balloon
+      note: "{price:90|515}" # Darkmoon Prize Ticket
+    
+    - type: pet
+      id: 145946 # Horse Balloon
+      note: "{price:90|515}" # Darkmoon Prize Ticket
+
+    - type: pet
+      id: 145947 # Murloc Balloon
+      note: "{price:90|515}" # Darkmoon Prize Ticket
+
+    - type: pet
+      id: 145948 # Wolf Balloon
+      note: "{price:90|515}" # Darkmoon Prize Ticket
+
+    - type: toy
+      id: 75042 # Flimsy Yellow Balloon
+
+- name: "Chester"
+  location: 51.2 75.0
+  npcId: 85484
+  type: vendor
+  drops:
+    - type: toy
+      id: 116139 # Haunting Memento
+      note: "{price:90|515}" # Darkmoon Prize Ticket
+    
+    - type: transmog
+      id: 116134 # Noble's Fancy Boots
+      note: "{price:75|515}" # Darkmoon Prize Ticket
+    
+    - type: transmog
+      id: 116052 # Nobleman's Coat
+      note: "{price:75|515}" # Darkmoon Prize Ticket
+    
+    - type: transmog
+      id: 116133 # Nobleman's Pantaloons
+      note: "{price:75|515}" # Darkmoon Prize Ticket
+    
+    - type: transmog
+      id: 116137 # Noblewoman's Finery
+      note: "{price:75|515}" # Darkmoon Prize Ticket
+    
+    - type: transmog
+      id: 116136 # Noblewoman's Skirt
+      note: "{price:75|515}" # Darkmoon Prize Ticket
+
+- name: "Galissa Sundew"
+  location: 52.6 88.6
+  npcId: 55103
+  type: vendor
+  drops:
+    - type: mount
+      id: 228919 # Darkwater Skate
+      note: "500 fishies"
+
+    - type: pet
+      id: 93814 # Blorp
+      note: "50 fishies"
+
+    - type: pet
+      id: 93808 # Ghostshell Crab
+      note: "100 fishies"
+
+    - type: toy
+      id: 126931 # Seafarer's Slidewhistle
+
+- name: "Gelvas Grimegate"
+  location: 48.0 64.8
+  npcId: 14828
+  type: vendor
+  drops:
+    - *darkmoon-balloon
+
+    - type: toy
+      id: 97994 # Darkmoon Seesaw
+
+    - type: toy
+      id: 90899 # Darkmoon Whistle
+
+    - type: transmog
+      id: 78340 # Cloak of the Darkmoon Faire [cloak]
+
+    - type: transmog
+      id: 78341 # Darkmoon Hammer [2h mace]
+
+- name: "Lhara"
+  location: 48.6 69.8
+  npcId: 14846
+  type: vendor
+  drops:
+    - type: mount
+      id: 103081 # Darkmoon Dancing Bear
+      note: "{price:180|515}" # Darkmoon Prize Ticket
+    
+    - type: mount
+      id: 247448 # Darkmoon Dirigible
+      note: "{price:1000|515}" # Darkmoon Prize Ticket
+
+    - type: mount
+      id: 102346 # Swift Forest Strider
+      note: "{price:180|515}" # Darkmoon Prize Ticket
+
+    - *darkmoon-balloon
+
+    - type: pet
+      id: 56031 # Darkmoon Cub
+      note: "{price:90|515}" # Darkmoon Prize Ticket
+
+    - type: pet
+      id: 67319 # Darkmoon Hatchling
+      note: "{price:90|515}" # Darkmoon Prize Ticket
+
+    - type: pet
+      id: 54491 # Darkmoon Monkey
+      note: "{price:90|515}" # Darkmoon Prize Ticket
+
+    - type: pet
+      id: 55356 # Darkmoon Tonk
+      note: "{price:90|515}" # Darkmoon Prize Ticket
+
+    - type: pet
+      id: 54487 # Darkmoon Turtle
+      note: "{price:90|515}" # Darkmoon Prize Ticket
+
+    - type: pet
+      id: 55367 # Darkmoon Zeppelin
+      note: "{price:90|515}" # Darkmoon Prize Ticket

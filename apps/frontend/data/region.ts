@@ -15,7 +15,7 @@ export const resetTimes: Record<Region, ResetTime> = {
         dailyResetTime: [7, 0], // 7am/8am
         weeklyResetDay: 3, // Wednesday
         weeklyResetTime: [7, 0], // 7am/8am
-        biWeeklyResetDay: 5, // Saturday
+        biWeeklyResetDay: 6, // Saturday
         biWeeklyResetTime: [19, 0], // 7pm/8pm
     },
     [Region.TW]: null,
