@@ -1,5 +1,4 @@
 <script lang="ts">
-    import { raceMap } from '@/data/character-race'
     import { Constants } from '@/data/constants'
     import { experiencePerLevel } from '@/data/experience'
     import { timeStore } from '@/stores'
@@ -25,7 +24,7 @@
                         restedPer /= 4
                     }
                     // Pandaren earn rested twice as fast
-                    if (raceMap[character.raceId].name === 'Pandaren') {
+                    if (character.raceId === 24 || character.raceId === 25 || character.raceId === 26) {
                         restedPer *= 2
                     }
                     per = Math.floor(Math.min(150, per + restedPer))

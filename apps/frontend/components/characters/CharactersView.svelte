@@ -4,9 +4,7 @@
     import { replace } from 'svelte-spa-router'
     import active from 'svelte-spa-router/active'
 
-    import { classMap } from '@/data/character-class'
-    import { raceMap } from '@/data/character-race'
-    import { userStore } from '@/stores'
+    import { staticStore, userStore } from '@/stores'
     import { charactersState } from '@/stores/local-storage'
     import { Gender, Region } from '@/types/enums'
     import { splitOnce } from '@/utils/split-once'
@@ -101,7 +99,12 @@
             <span>{Region[character.realm.region]}-{character.realm.name}</span>
         </h2>
 
-        <p>Level {character.level} {Gender[character.gender]} {raceMap[character.raceId].name} {classMap[character.classId].name}</p>
+        <p>
+            Level {character.level}
+            {Gender[character.gender]}
+            {$staticStore.data.characterRaces[character.raceId].name}
+            {$staticStore.data.characterClasses[character.classId].name}
+        </p>
 
         {#key `${params.slug1}--${params.slug2}`}
             <nav class="border">

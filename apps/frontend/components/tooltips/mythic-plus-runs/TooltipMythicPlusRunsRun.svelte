@@ -3,8 +3,8 @@
     import sortBy from 'lodash/sortBy'
 
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
-    import {specializationMap} from '@/data/character-specialization'
     import {dungeonMap} from '@/data/dungeon'
+    import { staticStore } from '@/stores'
     import type {CharacterMythicPlusRun, CharacterMythicPlusRunMember, Dungeon, DungeonTimedResult} from '@/types'
 
     import Member from './TooltipMythicPlusRunsMember.svelte'
@@ -21,7 +21,8 @@
         completed = run.completed.split('T')[0]
 
         members = sortBy(run.memberObjects, (m: CharacterMythicPlusRunMember) => [
-            specializationMap[m.specializationId].role,
+            //specializationMap[m.specializationId].role,
+            $staticStore.data.characterSpecializations[m.specializationId].role,
             m.name,
         ])
     }

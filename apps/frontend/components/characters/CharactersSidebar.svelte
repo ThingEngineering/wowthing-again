@@ -25,7 +25,7 @@
         )
 
         categories = []
-        const sortFunc = getCharacterSortFunc($settingsData)
+        const sortFunc = getCharacterSortFunc($settingsData, $staticStore.data)
         for (const realmId in realmCharacters)
         {
             const realm = $staticStore.data.realms[parseInt(realmId)]

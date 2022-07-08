@@ -25,6 +25,19 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
     initialize(data: StaticData): void {
         // console.time('StaticDataStore.initialize')
 
+        data.characterClassesBySlug = {}
+        for (const cls of Object.values(data.characterClasses)) {
+            data.characterClassesBySlug[cls.slug] = cls
+
+            cls.mask = 2 ** (cls.id - 1)
+            cls.specializationIds = []
+
+            const specs = Object.values(data.characterSpecializations)
+                .filter((spec) => spec.classId === cls.id)
+            specs.sort((a, b) => a.order - b.order)
+            cls.specializationIds = specs.map((spec) => spec.id)
+        }
+
         if (data.currenciesRaw !== null) {
             data.currencies = {}
             for (const currencyArray of data.currenciesRaw) {

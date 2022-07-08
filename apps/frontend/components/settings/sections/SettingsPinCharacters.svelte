@@ -3,7 +3,7 @@
     import filter from 'lodash/filter'
     import sortBy from 'lodash/sortBy'
 
-    import { userStore } from '@/stores'
+    import { staticStore, userStore } from '@/stores'
     import { data as settingsData } from '@/stores/settings'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import type { SettingsChoice } from '@/types'
@@ -15,7 +15,7 @@
         name: `${char.name}-${char.realm.name}`,
     }))
 
-    const sortFunc = getCharacterSortFunc($settingsData)
+    const sortFunc = getCharacterSortFunc($settingsData, $staticStore.data)
 
     const activeCharacters = sortBy(
         filter(

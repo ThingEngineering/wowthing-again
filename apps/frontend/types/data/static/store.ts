@@ -1,3 +1,4 @@
+import type { StaticDataCharacterClass, StaticDataCharacterRace, StaticDataCharacterSpecialization } from './character'
 import type { StaticDataCurrency, StaticDataCurrencyArray, StaticDataCurrencyCategory } from './currency'
 import type { StaticDataInstance, StaticDataInstanceArray } from './instance'
 import type { StaticDataMount, StaticDataMountArray } from './mount'
@@ -26,7 +27,10 @@ export interface StaticData {
     soulbinds: Record<number, StaticDataSoulbind[]>
     talents: Record<number, number[][]>
 
-    zoneMapSets: ZoneMapDataCategory[][]
+    characterClasses: Record<number, StaticDataCharacterClass>
+    characterClassesBySlug: Record<string, StaticDataCharacterClass>
+    characterRaces: Record<number, StaticDataCharacterRace>
+    characterSpecializations: Record<number, StaticDataCharacterSpecialization>
 
     currencies: Record<number, StaticDataCurrency>
     currenciesRaw: StaticDataCurrencyArray[]
@@ -65,4 +69,6 @@ export interface StaticData {
 
     vendorSets: StaticDataVendorCategory[][]
     vendorStats: Record<string, UserCount>
+
+    zoneMapSets: ZoneMapDataCategory[][]
 }

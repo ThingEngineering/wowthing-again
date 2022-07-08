@@ -6,7 +6,6 @@ import some from 'lodash/some'
 import uniq from 'lodash/uniq'
 import { DateTime } from 'luxon'
 
-import { classMap, classSlugMap } from '@/data/character-class'
 import { covenantSlugMap } from '@/data/covenant'
 import { factionMap } from '@/data/faction'
 import { UserCount, WritableFancyStore } from '@/types'
@@ -139,7 +138,7 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                         ) &&
                         (
                             mapClassMask === 0 ||
-                            (mapClassMask & classMap[char.classId].mask) > 0
+                            (mapClassMask & staticData.characterClasses[char.classId].mask) > 0
                         )
                     )
                 )
@@ -312,7 +311,7 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                                     dropCharacters,
                                     (c) => (
                                         (drop.classMask & classMask) > 0 &&
-                                        (drop.classMask & classMap[c.classId].mask) > 0
+                                        (drop.classMask & staticData.characterClasses[c.classId].mask) > 0
                                     )
                                 )
                             }
@@ -322,7 +321,10 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                                     case 'class':
                                         dropCharacters = filter(
                                             dropCharacters,
-                                            (c) => some(drop.limit.slice(1), (cl) => classSlugMap[cl].id === c.classId)
+                                            (c) => some(
+                                                drop.limit.slice(1),
+                                                (cl) => staticData.characterClassesBySlug[cl].id === c.classId
+                                            )
                                         )
                                         break;
 

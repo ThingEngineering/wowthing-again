@@ -1,29 +1,28 @@
 <script lang="ts">
-    import { raceMap } from '@/data/character-race'
+    import { staticStore } from '@/stores'
     import { Gender } from '@/types/enums'
-    import type { Character, CharacterRace } from '@/types'
+    import type { Character } from '@/types'
+    import type { StaticDataCharacterRace } from '@/types/data/static/character'
 
     import WowthingImage from './sources/WowthingImage.svelte'
 
     export let character: Character = undefined
-    export let characterRace: CharacterRace = undefined
+    export let characterRace: StaticDataCharacterRace = undefined
     export let gender = 0
     export let raceId = 0
     export let size = 20
     export let border = 1
 
-    let iconName: string
+    let race: StaticDataCharacterRace
     let tooltip: string
-
     $: {
-        const race: CharacterRace = characterRace || raceMap[character?.raceId || raceId]
-        iconName = race?.icons[character?.gender || gender] ?? 'unknown_race'
+        race = characterRace || $staticStore.data.characterRaces[character?.raceId || raceId]
         tooltip = `${Gender[character?.gender || gender]} ${race?.name ?? 'Unknown'}`
     }
 </script>
 
 <WowthingImage
-    name={iconName}
+    name="race_{race.id}_{character?.gender ?? 0}"
     {size}
     {border}
     {tooltip}

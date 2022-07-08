@@ -1,8 +1,8 @@
 <script lang="ts">
-    import { specializationMap } from '@/data/character-specialization'
-    import { userStore } from '@/stores'
-    import type { Character, CharacterSpecialization } from '@/types'
+    import { staticStore, userStore } from '@/stores'
     import tippy from '@/utils/tippy'
+    import type { Character } from '@/types'
+    import type { StaticDataCharacterSpecialization } from '@/types/data/static/character'
 
     import CharacterCovenant from '@/components/common/CharacterCovenant.svelte'
     import ClassIcon from '@/components/images/ClassIcon.svelte'
@@ -13,14 +13,14 @@
 
     let accountEnabled: boolean
     let accountTag: string | undefined
-    let spec: CharacterSpecialization
+    let spec: StaticDataCharacterSpecialization
 
     $: {
         accountEnabled =
             character.accountId === undefined ||
             $userStore.data.accounts[character.accountId].enabled
         accountTag = $userStore.data.accounts?.[character.accountId]?.tag
-        spec = specializationMap[character.activeSpecId]
+        spec = $staticStore.data.characterSpecializations[character.activeSpecId]
     }
 </script>
 
@@ -123,17 +123,31 @@
     {#if accountTag}
         <div class="tag">{accountTag}</div>
     {/if}
+    
     <div class="icons">
-        <RaceIcon size={48} {character} />
-        <ClassIcon size={48} {character} />
+        <RaceIcon
+            size={48}
+            {character}
+        />
+        <ClassIcon
+            size={48}
+            {character}
+        />
+        
         {#if spec !== undefined}
             <div class="spec">
-                <SpecializationIcon {character} size={24} border={2} />
+                <SpecializationIcon
+                    size={24}
+                    border={2}
+                    {character}
+                />
             </div>
         {/if}
+        
         <div class="level" use:tippy={`Level ${character.level}`}>
             {character.level}
         </div>
+        
         <div
             class="item-level quality{character.calculatedItemLevelQuality}"
             use:tippy={`Item Level ${character.equippedItemLevel}`}
@@ -143,6 +157,7 @@
     </div>
     <div class="name">{character.name}</div>
     <div class="realm">{character.realm.name}</div>
+    
     {#if character.shadowlands}
         <CharacterCovenant {character} />
     {/if}

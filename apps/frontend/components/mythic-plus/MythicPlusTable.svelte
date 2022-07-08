@@ -3,7 +3,7 @@
     import sortBy from 'lodash/sortBy'
 
     import { seasonMap, weeklyAffixes } from '@/data/dungeon'
-    import { userStore } from '@/stores'
+    import { staticStore, userStore } from '@/stores'
     import { data as settingsData } from '@/stores/settings'
     import type { Character, CharacterMythicPlusRun, MythicPlusAffix, MythicPlusSeason } from '@/types'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
@@ -49,7 +49,7 @@
                     return []
                 }
             }
-            sortFunc = getCharacterSortFunc($settingsData)
+            sortFunc = getCharacterSortFunc($settingsData, $staticStore.data)
         }
         else {
             isThisWeek = false
@@ -57,6 +57,7 @@
             runsFunc = (char, dungeonId) => char.mythicPlus?.seasons?.[season.id]?.[dungeonId]
             sortFunc = getCharacterSortFunc(
                 $settingsData,
+                $staticStore.data,
                 (char) => toDigits(100000 - (char.raiderIo?.[season.id]?.all ?? 0), 6)
             )
         }

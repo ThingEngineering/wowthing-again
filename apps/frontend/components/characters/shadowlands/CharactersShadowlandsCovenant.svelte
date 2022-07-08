@@ -36,6 +36,7 @@
             (category) => category?.name === 'Covenants'
         )
         const progress = getProgress(
+            $staticStore.data,
             $userStore.data,
             null,
             $userQuestStore.data,

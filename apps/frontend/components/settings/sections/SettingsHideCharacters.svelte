@@ -6,7 +6,7 @@
     import some from 'lodash/some'
     import sortBy from 'lodash/sortBy'
 
-    import { userStore } from '@/stores'
+    import { staticStore, userStore } from '@/stores'
     import {data as settingsData} from '@/stores/settings'
     import { Region } from '@/types/enums'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
@@ -21,7 +21,7 @@
 
     let realms: [string, Character[]][]
     $: {
-        const sortFunc = getCharacterSortFunc($settingsData)
+        const sortFunc = getCharacterSortFunc($settingsData, $staticStore.data)
         const grouped: Record<string, Character[]> = groupBy($userStore.data.characters, (c) => `[${Region[c.realm.region]}] ${c.realm.name}`)
         for (const realmName in grouped) {
             grouped[realmName] = sortBy(grouped[realmName], sortFunc)

@@ -4,10 +4,10 @@
     "compilerOptions": {
         "baseUrl": ".",
         "rootDir": ".",
-        "lib": ["es2020", "dom"],
+        "lib": ["es2021", "dom", "dom.iterable"],
         "module": "es2020",
         "moduleResolution": "node",
-        "target": "es2020",
+        "target": "es2021",
         "declaration": false,
         "emitDecoratorMetadata": true,
         "esModuleInterop": true,

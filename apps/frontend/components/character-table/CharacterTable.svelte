@@ -5,7 +5,7 @@
     import sortBy from 'lodash/sortBy'
 
     import { data as settingsData } from '@/stores/settings'
-    import { userStore } from '@/stores'
+    import { staticStore, userStore } from '@/stores'
     import type {Character} from '@/types'
     import getCharacterGroupFunc from '@/utils/get-character-group-func'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
@@ -28,7 +28,7 @@
             filterFunc = () => true
         }
         if (noSortFunc) {
-            sortFunc = getCharacterSortFunc($settingsData)
+            sortFunc = getCharacterSortFunc($settingsData, $staticStore.data)
         }
 
         groupFunc = getCharacterGroupFunc($settingsData)

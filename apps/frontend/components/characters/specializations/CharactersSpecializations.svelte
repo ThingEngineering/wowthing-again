@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { classMap } from '@/data/character-class'
+    import { staticStore } from '@/stores'
     import type { Character } from '@/types'
 
     import Talents from './CharacterSpecializationsTalents.svelte'
@@ -8,9 +8,8 @@
 
     let specIds: number[]
     $: {
-        specIds = classMap[character.classId].specializationIds
+        specIds = $staticStore.data.characterClasses[character.classId].specializationIds
     }
-
 </script>
 
 <style lang="scss">

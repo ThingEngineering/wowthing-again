@@ -2,17 +2,22 @@ import filter from 'lodash/filter'
 import some from 'lodash/some'
 
 import { toNiceNumber } from './to-nice'
-import { classIdToSlug } from '@/data/character-class'
 import { covenantMap } from '@/data/covenant'
 import { factionIdMap } from '@/data/faction'
 import { garrisonTrees } from '@/data/garrison'
 import { ProgressDataType } from '@/types/enums'
 import type { Character, UserAchievementData, UserData } from '@/types'
 import type { UserQuestData } from '@/types/data'
-import type { StaticDataProgressCategory, StaticDataProgressData, StaticDataProgressGroup } from '@/types/data/static'
+import type {
+    StaticData,
+    StaticDataProgressCategory,
+    StaticDataProgressData,
+    StaticDataProgressGroup
+} from '@/types/data/static'
 
 
 export default function getProgress(
+    staticData: StaticData,
     userData: UserData,
     userAchievementData: UserAchievementData,
     userQuestData: UserQuestData,
@@ -44,7 +49,7 @@ export default function getProgress(
         switch (group.lookup) {
             case 'class':
                 //(c) => some(drop.limit.slice(1), (cl) => classSlugMap[cl].id === c.classId)
-                datas = group.data[classIdToSlug[character.classId]]
+                datas = group.data[staticData.characterClasses[character.classId].slug]
                 break
 
             case 'covenant':

@@ -81,6 +81,7 @@
                 const group = category.groups[groupIndex]
                 for (const character of characters) {
                     progress[`${category.slug}|${groupIndex}|${character.id}`] = getProgress(
+                        $staticStore.data,
                         $userStore.data,
                         $userAchievementStore.data,
                         $userQuestStore.data,
@@ -105,7 +106,7 @@
         }
         else {
             sorted = false
-            sortFunc = getCharacterSortFunc($settingsData)
+            sortFunc = getCharacterSortFunc($settingsData, $staticStore.data)
         }
     }
 </script>

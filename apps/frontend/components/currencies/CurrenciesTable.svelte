@@ -33,7 +33,7 @@
         }
         else {
             sorted = false
-            sortFunc = getCharacterSortFunc($settingsData)
+            sortFunc = getCharacterSortFunc($settingsData, $staticStore.data)
         }
     }
 </script>

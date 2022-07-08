@@ -1,6 +1,6 @@
 import type {Character} from '@/types'
 import {InventorySlot, PrimaryStat} from '@/types/enums'
-import {specializationMap} from '@/data/character-specialization'
+//import {specializationMap} from '@/data/character-specialization'
 
 export const slotOrder: InventorySlot[] = [
     InventorySlot.MainHand,
@@ -64,7 +64,8 @@ export const validEnchants: Record<number, number[]> = {
 }
 
 export const specialValidEnchants: Record<number, SpecialValidEnchant> = {
-    [InventorySlot.Hands]: {
+    // FIXME
+    /*[InventorySlot.Hands]: {
         enchants: [
             6210, // Eternal Strength
         ],
@@ -86,7 +87,7 @@ export const specialValidEnchants: Record<number, SpecialValidEnchant> = {
         ],
         checkFunc: (character: Character) =>
             specializationMap[character.activeSpecId]?.mainStat === PrimaryStat.Agility
-    },
+    },*/
 }
 
 interface SpecialValidEnchant {

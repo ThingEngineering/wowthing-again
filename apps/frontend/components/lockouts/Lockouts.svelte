@@ -35,14 +35,8 @@
     let sortFunc: (char: Character) => string
 
     $: {
-        if ($lockoutState.sortBy > 0) {
-            sorted = true
-            sortFunc = getCharacterSortFunc($settingsData, hasSortedLockout)
-        }
-        else {
-            sorted = false
-            sortFunc = getCharacterSortFunc($settingsData, anyLockouts)
-        }
+        sorted = $lockoutState.sortBy > 0
+        sortFunc = getCharacterSortFunc($settingsData, $staticStore.data, sorted ? hasSortedLockout : anyLockouts)
     }
 
     $: {

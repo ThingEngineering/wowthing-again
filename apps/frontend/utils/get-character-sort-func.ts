@@ -4,11 +4,12 @@ import {Constants} from '@/data/constants'
 import { userStore } from '@/stores'
 import toDigits from '@/utils/to-digits'
 import { Region } from '@/types/enums'
-import { classMap } from '@/data/character-class'
 import type { Character, Settings, UserData } from '@/types'
+import type { StaticData } from '@/types/data/static'
 
 export default function getCharacterSortFunc(
     settingsData: Settings,
+    staticData: StaticData,
     prefixFunc?: (char: Character) => string
 ): (char: Character) => string
 {
@@ -59,7 +60,7 @@ export default function getCharacterSortFunc(
                 }
             }
             else if (thing === 'class') {
-                out.push(classMap[char.classId].name)
+                out.push(staticData.characterClasses[char.classId].name)
             }
             else if (thing === 'enabled') {
                 const enabled = userData.accounts?.[char.accountId]?.enabled ?? true

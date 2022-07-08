@@ -1,20 +1,20 @@
 <script lang="ts">
-    import {classMap} from '@/data/character-class'
-    import {specializationMap} from '@/data/character-specialization'
-    import type {CharacterClass, CharacterMythicPlusRunMember, CharacterSpecialization} from '@/types'
+    import { staticStore } from '@/stores'
     import getItemLevelQuality from '@/utils/get-item-level-quality'
     import getRealmName from '@/utils/get-realm-name'
+    import type { CharacterMythicPlusRunMember } from '@/types'
+    import type { StaticDataCharacterClass, StaticDataCharacterSpecialization } from '@/types/data/static/character'
 
     import ClassIcon from '@/components/images/ClassIcon.svelte'
     import SpecializationIcon from '@/components/images/SpecializationIcon.svelte'
 
     export let member: CharacterMythicPlusRunMember
 
-    let cls: CharacterClass
-    let spec: CharacterSpecialization
+    let cls: StaticDataCharacterClass
+    let spec: StaticDataCharacterSpecialization
     $: {
-        spec = specializationMap[member.specializationId]
-        cls = classMap[spec.classId]
+        spec = $staticStore.data.characterSpecializations[member.specializationId]
+        cls = $staticStore.data.characterClasses[spec.classId]
     }
 </script>
 
