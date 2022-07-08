@@ -55,9 +55,9 @@ const config = <UserConfig> defineConfig({
 			],
 		},
 	},
-	esbuild: {
+	/*esbuild: {
 		keepNames: true,
-	},
+	},*/
 	server: {
 		host: '0.0.0.0',
 		port: 55505,
