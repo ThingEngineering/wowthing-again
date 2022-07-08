@@ -49,6 +49,17 @@ farms:
     - type: transmog
       id: 151251 # Steel-Reinforced Cage Helm [plate]
 
+- name: "Darkmoon Pony"
+  location: 56.7 81.4
+  npcId: 55715
+  reset: none
+  type: event
+  drops:
+    - type: achievement
+      id: 6025
+      name: "I Was Promised a Pony"
+      note: "Ride a pony"
+
 # Kill
 
 - name: "Darkmoon Rabbit"
@@ -101,6 +112,56 @@ farms:
   drops:
     - type: pet
       id: 67332 # Darkmoon Eye
+
+- name: "Dance Dance Darkmoon"
+  location: 52.9 74.0
+  note: "Simon Sezdans"
+  questId: 64783
+  reset: daily
+  type: quest
+  drops:
+    - type: achievement
+      id: 15212
+      name: "First Dance"
+      note: "Successfully participate"
+
+    - type: achievement
+      id: 15213
+      name: "Don't Stop Dancing"
+      note: "Successfully participate 30 times"
+      
+    - type: achievement
+      id: 15222
+      name: "You Got the Beat"
+      note: "Earn a perfect score on Easy"
+      
+    - type: achievement
+      id: 15223
+      name: "Feeling It"
+      note: "Earn a perfect score on Easy 10 times"
+      
+    - type: achievement
+      id: 15214
+      name: "What a Feeling"
+      note: "Earn a perfect score on Medium"
+      
+    - type: achievement
+      id: 15215
+      name: "Can't Stop the Feeling"
+      note: "Earn a perfect score on Medium 10 times"
+      
+    - type: achievement
+      id: 15216
+      name: "Make You Sweat"
+      note: "Earn a perfect score on Hard"
+      
+    - type: achievement
+      id: 15217
+      name: "Maniac on the Dance Floor"
+      note: "Earn a perfect score on Hard 10 times"
+
+    - type: toy
+      id: 187689 # Dance Dance Darkmoon
 
 - name: "Firebird's Challenge"
   location: 48.6 72.0
@@ -197,7 +258,257 @@ farms:
     - type: toy
       id: 122122 # Darkmoon Tonk Controller
 
+# Quest - Races
+
+- name: "The Real Race: Powermonger"
+  location: 42.9 88.0
+  note: "Malle Earnhard"
+  questId: 37910
+  reset: daily
+  type: quest
+  drops:
+    - type: achievement
+      id: 9780
+      name: "Go-Getter"
+      note: "Complete the race within 25 tolls"
+
+    - type: achievement
+      id: 9781
+      name: "Powermonger: Bronze"
+      note: "Complete the race within 20 tolls"
+
+    - type: achievement
+      id: 9783
+      name: "Powermonger: Silver"
+      note: "Complete the race within 15 tolls"
+
+    - type: achievement
+      id: 9785
+      name: "Powermonger: Gold"
+      note: "Complete the race within 11 tolls"
+
+    - type: toy
+      id: 122120 # Gaze of the Darkmoon
+
+- name: "The Real Race: Racing Strider"
+  location: 44.6 88.0
+  note: "Malle Earnhard"
+  questId: 37910
+  reset: daily
+  type: quest
+  drops:
+    - type: achievement
+      id: 9756
+      name: "Darkmoon Racer Novice"
+      note: "Complete the race within 25 tolls"
+
+    - type: achievement
+      id: 9759
+      name: "Darkmoon Racer Jockey"
+      note: "Complete the race within 20 tolls"
+
+    - type: achievement
+      id: 9760
+      name: "Darkmoon Racer Leadfoot"
+      note: "Complete the race within 15 tolls"
+
+    - type: achievement
+      id: 9761
+      name: "Darkmoon Racer Roadhog"
+      note: "Complete the race within 11 tolls"
+
+    - type: toy
+      id: 122129 # Fire-Eater's Vial
+
+- name: "The Real Race: Rocketeer"
+  location: 46.3 88.0
+  note: "Malle Earnhard"
+  questId: 37910
+  reset: daily
+  type: quest
+  drops:
+    - type: achievement
+      id: 9770
+      name: "Blast Off!"
+      note: "Complete the race within 25 tolls"
+
+    - type: achievement
+      id: 9769
+      name: "Rocketeer: Bronze"
+      note: "Complete the race within 20 tolls"
+
+    - type: achievement
+      id: 9766
+      name: "Rocketeer: Silver"
+      note: "Complete the race within 15 tolls"
+
+    - type: achievement
+      id: 9764
+      name: "Rocketeer: Gold"
+      note: "Complete the race within 11 tolls"
+
+    - type: toy
+      id: 122119 # Everlasting Darkmoon Firework
+
+- name: "The Real Race: Wanderluster"
+  location: 48.0 88.0
+  note: "Malle Earnhard"
+  questId: 37910
+  reset: daily
+  type: quest
+  drops:
+    - type: achievement
+      id: 9786
+      name: "Wayfarer"
+      note: "Complete the race within 25 tolls"
+
+    - type: achievement
+      id: 9787
+      name: "Wanderluster: Bronze"
+      note: "Complete the race within 20 tolls"
+
+    - type: achievement
+      id: 9790
+      name: "Wanderluster: Silver"
+      note: "Complete the race within 15 tolls"
+
+    - type: achievement
+      id: 9792
+      name: "Wanderluster: Gold"
+      note: "Complete the race within 11 tolls"
+
+    - type: toy
+      id: 122126 # Attraction Sign
+
+- name: "The Real Big Race: Powermonger"
+  location: 54.4 88.0
+  note: "Patti Earnhard"
+  questId: 37911
+  reset: daily
+  type: quest
+  drops:
+    - type: achievement
+      id: 9812
+      name: "Goal-Oriented"
+      note: "Complete the race within 40 tolls"
+
+    - type: achievement
+      id: 9813
+      name: "Big Powermonger: Bronze"
+      note: "Complete the race within 30 tolls"
+
+    - type: achievement
+      id: 9815
+      name: "Big Powermonger: Silver"
+      note: "Complete the race within 25 tolls"
+
+    - type: achievement
+      id: 9817
+      name: "Big Powermonger: Gold"
+      note: "Complete the race within 20 tolls"
+
+- name: "The Real Big Race: Racing Strider"
+  location: 56.1 88.0
+  note: "Patti Earnhard"
+  questId: 37911
+  reset: daily
+  type: quest
+  drops:
+    - type: achievement
+      id: 9793
+      name: "Big Race Enthusiast"
+      note: "Complete the race within 40 tolls"
+
+    - type: achievement
+      id: 9794
+      name: "Big Race Novice"
+      note: "Complete the race within 35 tolls"
+
+    - type: achievement
+      id: 9795
+      name: "Big Race Jockey"
+      note: "Complete the race within 30 tolls"
+
+    - type: achievement
+      id: 9797
+      name: "Big Race Leadfoot"
+      note: "Complete the race within 25 tolls"
+
+    - type: achievement
+      id: 9799
+      name: "Big Race Roadhog"
+      note: "Complete the race within 20 tolls"
+
+- name: "The Real Big Race: Rocketeer"
+  location: 57.8 88.0
+  note: "Patti Earnhard"
+  questId: 37911
+  reset: daily
+  type: quest
+  drops:
+    - type: achievement
+      id: 9800
+      name: "Rocket Man"
+      note: "Complete the race within 40 tolls"
+
+    - type: achievement
+      id: 9801
+      name: "Big Rocketeer: Bronze"
+      note: "Complete the race within 30 tolls"
+
+    - type: achievement
+      id: 9803
+      name: "Big Rocketeer: Silver"
+      note: "Complete the race within 25 tolls"
+
+    - type: achievement
+      id: 9805
+      name: "Big Rocketeer: Gold"
+      note: "Complete the race within 20 tolls"
+
+    - type: pet
+      id: 90345 # Race MiniZep
+
+- name: "The Real Big Race: Wanderluster"
+  location: 59.5 88.0
+  note: "Patti Earnhard"
+  questId: 37911
+  reset: daily
+  type: quest
+  drops:
+    - type: achievement
+      id: 9806
+      name: "Vagabond"
+      note: "Complete the race within 40 tolls"
+
+    - type: achievement
+      id: 9807
+      name: "Big Wanderluster: Bronze"
+      note: "Complete the race within 30 tolls"
+
+    - type: achievement
+      id: 9809
+      name: "Big Wanderluster: Silver"
+      note: "Complete the race within 25 tolls"
+
+    - type: achievement
+      id: 9811
+      name: "Big Wanderluster: Gold"
+      note: "Complete the race within 20 tolls"
+
+    - type: toy
+      id: 122121 # Darkmoon Gazer
+
 # Vendor
+
+- name: "Boomie Sparks"
+  location: 48.6 74.3
+  npcId: 55278
+  type: vendor
+  drops:
+    - type: toy
+      id: 138202 # Sparklepony XL
+      note: "{price:150|515}" # Darkmoon Prize Ticket
 
 - name: "Carl Goodup"
   location: 49.8 85.6
@@ -283,15 +594,19 @@ farms:
 
     - type: toy
       id: 97994 # Darkmoon Seesaw
+      note: "{price:50|515}" # Darkmoon Prize Ticket
 
     - type: toy
       id: 90899 # Darkmoon Whistle
+      note: "{price:90|515}" # Darkmoon Prize Ticket
 
     - type: transmog
       id: 78340 # Cloak of the Darkmoon Faire [cloak]
+      note: "{price:90|515}" # Darkmoon Prize Ticket
 
     - type: transmog
       id: 78341 # Darkmoon Hammer [2h mace]
+      note: "{price:160|515}" # Darkmoon Prize Ticket
 
 - name: "Lhara"
   location: 48.6 69.8
@@ -335,3 +650,12 @@ farms:
     - type: pet
       id: 55367 # Darkmoon Zeppelin
       note: "{price:90|515}" # Darkmoon Prize Ticket
+
+- name: "Stamp Thunderhorn"
+  location: 52.8 68.6
+  npcId: 14846
+  type: vendor
+  drops:
+    - type: toy
+      id: 162539 # Hot Buttered Popcorn
+      note: "{price:50|515}" # Darkmoon Prize Ticket
