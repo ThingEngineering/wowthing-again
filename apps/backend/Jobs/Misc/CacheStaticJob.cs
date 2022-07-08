@@ -11,6 +11,7 @@ using Wowthing.Backend.Models.Data.Progress;
 using Wowthing.Backend.Models.Data.Vendors;
 using Wowthing.Backend.Models.Data.ZoneMaps;
 using Wowthing.Backend.Models.Redis;
+using Wowthing.Backend.Models.Static;
 using Wowthing.Backend.Utilities;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Jobs;
@@ -46,7 +47,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
-            Version = 42,
+            Version = 43,
         };
 
         public override async Task Run(params string[] data)
@@ -62,6 +63,9 @@ namespace Wowthing.Backend.Jobs.Misc
         }
 
         private readonly StringType[] _stringTypes = {
+            StringType.WowCharacterClassName,
+            StringType.WowCharacterRaceName,
+            StringType.WowCharacterSpecializationName,
             StringType.WowCreatureName,
             StringType.WowItemName,
             StringType.WowMountName,
@@ -128,6 +132,11 @@ namespace Wowthing.Backend.Jobs.Misc
                     item => item.Id,
                     item => new List<int> { (int)item.Quality, item.ContainerSlots }
                 );
+
+            // Character stuff
+            var classes = await LoadCharacterClasses();
+            var races = await LoadCharacterRaces();
+            var specializations = await LoadCharacterSpecializations();
 
             // Currencies
             var currencies = await LoadCurrencies();
@@ -213,6 +222,21 @@ namespace Wowthing.Backend.Jobs.Misc
                     VendorSets = vendors,
                     ZoneMapSets = zoneMaps[language],
 
+                    CharacterClasses = classes.Select(cls => new StaticCharacterClass(cls)
+                    {
+                        Name = GetString(StringType.WowCharacterClassName, language, cls.Id),
+                    }).ToDictionary(cls => cls.Id),
+
+                    CharacterRaces = races.Select(race => new StaticCharacterRace(race)
+                    {
+                        Name = GetString(StringType.WowCharacterRaceName, language, race.Id),
+                    }).ToDictionary(race => race.Id),
+
+                    CharacterSpecializations = specializations.Select(spec => new StaticCharacterSpecialization(spec)
+                    {
+                        Name = GetString(StringType.WowCharacterSpecializationName, language, spec.Id),
+                    }).ToDictionary(spec => spec.Id),
+
                     MountsRaw = RawMounts(language),
                     MountSetsRaw = FinalizeCollections(mountSets),
 
@@ -237,6 +261,27 @@ namespace Wowthing.Backend.Jobs.Misc
             }
 
             _timer.AddPoint("Cache", true);
+        }
+
+        private async Task<WowCharacterClass[]> LoadCharacterClasses()
+        {
+            return await Context.WowCharacterClass
+                .OrderBy(cls => cls.Id)
+                .ToArrayAsync();
+        }
+
+        private async Task<WowCharacterRace[]> LoadCharacterRaces()
+        {
+            return await Context.WowCharacterRace
+                .OrderBy(race => race.Id)
+                .ToArrayAsync();
+        }
+
+        private async Task<WowCharacterSpecialization[]> LoadCharacterSpecializations()
+        {
+            return await Context.WowCharacterSpecialization
+                .OrderBy(spec => spec.Id)
+                .ToArrayAsync();
         }
 
         private string GetString(StringType type, Language language, int id)

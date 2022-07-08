@@ -9,4 +9,6 @@ public class WowCharacterClass
 
     public short ArmorMask { get; set; }
     public short RolesMask { get; set; }
+
+    public string Slug { get; set; }
 }

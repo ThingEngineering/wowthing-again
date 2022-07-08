@@ -197,6 +197,7 @@ namespace Wowthing.Backend.Jobs.Misc
 
                 dbClass.ArmorMask = cls.ArmorTypeMask;
                 dbClass.RolesMask = cls.RolesMask;
+                dbClass.Slug = cls.MaleName.Slugify();
             }
 
             _timer.AddPoint("CharacterClasses");

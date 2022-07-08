@@ -6,6 +6,7 @@ using Wowthing.Backend.Models.Data.Professions;
 using Wowthing.Backend.Models.Data.Progress;
 using Wowthing.Backend.Models.Data.Vendors;
 using Wowthing.Backend.Models.Data.ZoneMaps;
+using Wowthing.Backend.Models.Static;
 using Wowthing.Lib.Models.Wow;
 
 namespace Wowthing.Backend.Models.Redis
@@ -14,37 +15,46 @@ namespace Wowthing.Backend.Models.Redis
     {
         [JsonProperty(Order = 0)]
         public Dictionary<int, List<int>> Bags { get; set; }
-        
+
         [JsonProperty(Order = 1)]
-        public List<OutCurrency> CurrenciesRaw { get; set; }
-        
+        public Dictionary<short, StaticCharacterClass> CharacterClasses;
+
         [JsonProperty(Order = 2)]
-        public SortedDictionary<int, OutCurrencyCategory> CurrencyCategories { get; set; }
-        
+        public Dictionary<short, StaticCharacterRace> CharacterRaces;
+
         [JsonProperty(Order = 3)]
-        public List<OutInstance> InstancesRaw { get; set; }
+        public Dictionary<short, StaticCharacterSpecialization> CharacterSpecializations;
 
         [JsonProperty(Order = 4)]
-        public Dictionary<int, OutProfession> Professions { get; set; }
-        
+        public List<OutCurrency> CurrenciesRaw { get; set; }
+
         [JsonProperty(Order = 5)]
-        public List<List<OutProgress>> Progress { get; set; }
-        
+        public SortedDictionary<int, OutCurrencyCategory> CurrencyCategories { get; set; }
+
         [JsonProperty(Order = 6)]
-        public List<WowRealm> RealmsRaw { get; set; }
-        
+        public List<OutInstance> InstancesRaw { get; set; }
+
         [JsonProperty(Order = 7)]
-        public List<OutReputation> ReputationsRaw { get; set; }
-        
+        public Dictionary<int, OutProfession> Professions { get; set; }
+
         [JsonProperty(Order = 8)]
-        public SortedDictionary<int, WowReputationTier> ReputationTiers { get; set; }
-        
+        public List<List<OutProgress>> Progress { get; set; }
+
         [JsonProperty(Order = 9)]
-        public Dictionary<int, List<OutSoulbind>> Soulbinds { get; set; }
-        
+        public List<WowRealm> RealmsRaw { get; set; }
+
         [JsonProperty(Order = 10)]
+        public List<OutReputation> ReputationsRaw { get; set; }
+
+        [JsonProperty(Order = 11)]
+        public SortedDictionary<int, WowReputationTier> ReputationTiers { get; set; }
+
+        [JsonProperty(Order = 12)]
+        public Dictionary<int, List<OutSoulbind>> Soulbinds { get; set; }
+
+        [JsonProperty(Order = 13)]
         public Dictionary<int, List<List<int>>> Talents { get; set; }
-        
+
         [JsonProperty(Order = 50)]
         public List<JArray> MountsRaw { get; set; }
 
@@ -56,7 +66,7 @@ namespace Wowthing.Backend.Models.Redis
 
         [JsonProperty(Order = 61)]
         public List<List<OutCollectionCategory>> PetSetsRaw { get; set; }
-        
+
         [JsonProperty(Order = 70)]
         public List<JArray> ToysRaw { get; set; }
 
@@ -65,7 +75,7 @@ namespace Wowthing.Backend.Models.Redis
 
         [JsonProperty(Order = 100)]
         public List<DataReputationCategory> ReputationSets { get; set; }
-       
+
         [JsonProperty(Order = 101)]
         public List<List<OutVendorCategory>> VendorSets { get; set; }
 
