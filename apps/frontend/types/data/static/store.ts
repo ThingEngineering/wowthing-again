@@ -1,6 +1,6 @@
 import type { StaticDataBag, StaticDataBagArray } from './bag'
 import type { StaticDataCharacterClass, StaticDataCharacterRace, StaticDataCharacterSpecialization } from './character'
-import type { StaticDataCurrency, StaticDataCurrencyArray, StaticDataCurrencyCategory } from './currency'
+import type { StaticDataCurrency, StaticDataCurrencyArray, StaticDataCurrencyCategory, StaticDataCurrencyCategoryArray } from './currency'
 import type { StaticDataInstance, StaticDataInstanceArray } from './instance'
 import type { StaticDataMount, StaticDataMountArray } from './mount'
 import type { StaticDataPet, StaticDataPetArray } from './pet'
@@ -20,7 +20,6 @@ import type { ZoneMapDataCategory } from '@/types/data'
 
 export interface StaticData {
     connectedRealms: Record<number, StaticDataConnectedRealm>
-    currencyCategories: Record<number, StaticDataCurrencyCategory>
     professions: Record<number, StaticDataProfession>
     progress: StaticDataProgressCategory[][]
     raiderIoScoreTiers: Record<number, StaticDataRaiderIoScoreTiers>
@@ -36,21 +35,24 @@ export interface StaticData {
     rawBags: StaticDataBagArray[]
 
     currencies: Record<number, StaticDataCurrency>
-    currenciesRaw: StaticDataCurrencyArray[]
+    rawCurrencies: StaticDataCurrencyArray[]
+
+    currencyCategories: Record<number, StaticDataCurrencyCategory>
+    rawCurrencyCategories: StaticDataCurrencyCategoryArray[]
 
     instances: Record<number, StaticDataInstance>
     instancesRaw: StaticDataInstanceArray[]
 
     mounts: Record<number, StaticDataMount>
     mountsBySpellId: Record<number, StaticDataMount>
-    mountsRaw: StaticDataMountArray[]
+    rawMounts: StaticDataMountArray[]
 
     mountSets: StaticDataSetCategory[][]
     mountSetsRaw: StaticDataSetCategoryArray[][]
 
     pets: Record<number, StaticDataPet>
     petsByCreatureId: Record<number, StaticDataPet>
-    petsRaw: StaticDataPetArray[]
+    rawPets: StaticDataPetArray[]
 
     petSets: StaticDataSetCategory[][]
     petSetsRaw: StaticDataSetCategoryArray[][]
@@ -65,7 +67,7 @@ export interface StaticData {
     reputationTiers: Record<number, StaticDataReputationTier>
 
     toys: Record<number, StaticDataToy>
-    toysRaw: StaticDataToyArray[]
+    rawToys: StaticDataToyArray[]
 
     toySets: StaticDataSetCategory[][]
     toySetsRaw: StaticDataSetCategoryArray[][]

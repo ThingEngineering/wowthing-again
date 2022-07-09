@@ -5,6 +5,7 @@ import { extraInstanceMap } from '@/data/dungeon'
 import { WritableFancyStore } from '@/types'
 import {
     StaticDataCurrency,
+    StaticDataCurrencyCategory,
     StaticDataInstance,
     StaticDataMount,
     StaticDataPet,
@@ -48,13 +49,22 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             data.rawBags = null
         }
 
-        if (data.currenciesRaw !== null) {
+        if (data.rawCurrencies !== null) {
             data.currencies = {}
-            for (const currencyArray of data.currenciesRaw) {
+            for (const currencyArray of data.rawCurrencies) {
                 const obj = new StaticDataCurrency(...currencyArray)
                 data.currencies[obj.id] = obj
             }
-            data.currenciesRaw = null
+            data.rawCurrencies = null
+        }
+
+        if (data.rawCurrencyCategories !== null) {
+            data.currencyCategories = {}
+            for (const categoryArray of data.rawCurrencyCategories) {
+                const obj = new StaticDataCurrencyCategory(...categoryArray)
+                data.currencyCategories[obj.id] = obj
+            }
+            data.rawCurrencyCategories = null
         }
 
         if (data.instancesRaw !== null) {
@@ -112,35 +122,35 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             }
         }
 
-        if (data.mountsRaw !== null) {
+        if (data.rawMounts !== null) {
             data.mounts = {}
             data.mountsBySpellId = {}
-            for (const mountArray of data.mountsRaw) {
+            for (const mountArray of data.rawMounts) {
                 const obj = new StaticDataMount(...mountArray)
                 data.mounts[obj.id] = obj
                 data.mountsBySpellId[obj.spellId] = obj
             }
-            data.mountsRaw = null
+            data.rawMounts = null
         }
 
-        if (data.petsRaw !== null) {
+        if (data.rawPets !== null) {
             data.pets = {}
             data.petsByCreatureId = {}
-            for (const petArray of data.petsRaw) {
+            for (const petArray of data.rawPets) {
                 const obj = new StaticDataPet(...petArray)
                 data.pets[obj.id] = obj
                 data.petsByCreatureId[obj.creatureId] = obj
             }
-            data.petsRaw = null
+            data.rawPets = null
         }
 
-        if (data.toysRaw !== null) {
+        if (data.rawToys !== null) {
             data.toys = {}
-            for (const toyArray of data.toysRaw) {
+            for (const toyArray of data.rawToys) {
                 const obj = new StaticDataToy(...toyArray)
                 data.toys[obj.id] = obj
             }
-            data.toysRaw = null
+            data.rawToys = null
         }
 
         if (

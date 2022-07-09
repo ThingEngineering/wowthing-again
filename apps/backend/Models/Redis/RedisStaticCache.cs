@@ -26,10 +26,10 @@ namespace Wowthing.Backend.Models.Redis
         public Dictionary<short, StaticCharacterSpecialization> CharacterSpecializations;
 
         [JsonProperty(Order = 4)]
-        public List<OutCurrency> CurrenciesRaw { get; set; }
+        public StaticCurrency[] RawCurrencies { get; set; }
 
         [JsonProperty(Order = 5)]
-        public SortedDictionary<int, OutCurrencyCategory> CurrencyCategories { get; set; }
+        public StaticCurrencyCategory[] RawCurrencyCategories { get; set; }
 
         [JsonProperty(Order = 6)]
         public List<OutInstance> InstancesRaw { get; set; }
@@ -56,19 +56,19 @@ namespace Wowthing.Backend.Models.Redis
         public Dictionary<int, List<List<int>>> Talents { get; set; }
 
         [JsonProperty(Order = 50)]
-        public List<JArray> MountsRaw { get; set; }
+        public List<JArray> RawMounts { get; set; }
 
         [JsonProperty(Order = 51)]
         public List<List<OutCollectionCategory>> MountSetsRaw { get; set; }
 
         [JsonProperty(Order = 60)]
-        public List<JArray> PetsRaw { get; set; }
+        public List<JArray> RawPets { get; set; }
 
         [JsonProperty(Order = 61)]
         public List<List<OutCollectionCategory>> PetSetsRaw { get; set; }
 
         [JsonProperty(Order = 70)]
-        public List<JArray> ToysRaw { get; set; }
+        public List<JArray> RawToys { get; set; }
 
         [JsonProperty(Order = 71)]
         public List<List<OutCollectionCategory>> ToySetsRaw { get; set; }

@@ -47,7 +47,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
-            Version = 43,
+            Version = 44,
         };
 
         public override async Task Run(params string[] data)
@@ -67,6 +67,8 @@ namespace Wowthing.Backend.Jobs.Misc
             StringType.WowCharacterRaceName,
             StringType.WowCharacterSpecializationName,
             StringType.WowCreatureName,
+            StringType.WowCurrencyName,
+            StringType.WowCurrencyCategoryName,
             StringType.WowItemName,
             StringType.WowMountName,
             StringType.WowSoulbindName,
@@ -134,13 +136,28 @@ namespace Wowthing.Backend.Jobs.Misc
                 .ToList();
 
             // Character stuff
-            var classes = await LoadCharacterClasses();
-            var races = await LoadCharacterRaces();
-            var specs = await LoadCharacterSpecializations();
+            var classes =  await Context.WowCharacterClass
+                .OrderBy(cls => cls.Id)
+                .ToArrayAsync();
+
+            var races = await Context.WowCharacterRace
+                .OrderBy(race => race.Id)
+                .ToArrayAsync();
+
+            var specs = await Context.WowCharacterSpecialization
+                .OrderBy(spec => spec.Id)
+                .ToArrayAsync();
 
             // Currencies
-            var currencies = await LoadCurrencies();
-            var currencyCategories = await LoadCurrencyCategories();
+            var currencies = await Context.WowCurrency
+                .Where(currency => !Hardcoded.IgnoredCurrencies.Contains(currency.Id))
+                .OrderBy(currency => currency.Id)
+                .ToArrayAsync();
+
+            var currencyCategories = await Context.WowCurrencyCategory
+                .OrderBy(category => category.Id)
+                .ToArrayAsync();
+
             _timer.AddPoint("Currencies");
 
             // Instances
@@ -204,7 +221,7 @@ namespace Wowthing.Backend.Jobs.Misc
 
             _timer.AddPoint("Database");
 
-            // Ok we're done
+            // Add anything that uses strings
             string cacheHash = null;
             foreach (var language in Enum.GetValues<Language>())
             {
@@ -225,8 +242,16 @@ namespace Wowthing.Backend.Jobs.Misc
                     Name = GetString(StringType.WowCharacterSpecializationName, language, spec.Id),
                 }).ToDictionary(spec => spec.Id);
 
-                cacheData.CurrenciesRaw = currencies;
-                cacheData.CurrencyCategories = currencyCategories;
+                cacheData.RawCurrencies = currencies.Select(currency => new StaticCurrency(currency)
+                {
+                    Name = GetString(StringType.WowCurrencyName, language, currency.Id),
+                }).ToArray();
+
+                cacheData.RawCurrencyCategories = currencyCategories.Select(category => new StaticCurrencyCategory(category)
+                {
+                    Name = GetString(StringType.WowCurrencyCategoryName, language, category.Id),
+                }).ToArray();
+
                 cacheData.InstancesRaw = instances;
                 cacheData.Professions = professions[language];
                 cacheData.ReputationsRaw = reputations;
@@ -236,13 +261,12 @@ namespace Wowthing.Backend.Jobs.Misc
                 cacheData.VendorSets = vendors;
                 cacheData.ZoneMapSets = zoneMaps[language];
 
-                cacheData.MountsRaw = RawMounts(language);
+                cacheData.RawMounts = RawMounts(language);
+                cacheData.RawPets = RawPets(language);
+                cacheData.RawToys = RawToys(language);
+
                 cacheData.MountSetsRaw = FinalizeCollections(mountSets);
-
-                cacheData.PetsRaw = RawPets(language);
                 cacheData.PetSetsRaw = FinalizeCollections(petSets);
-
-                cacheData.ToysRaw = RawToys(language);
                 cacheData.ToySetsRaw = FinalizeCollections(toySets);
 
                 cacheData.Progress = progress;
@@ -259,27 +283,6 @@ namespace Wowthing.Backend.Jobs.Misc
             }
 
             _timer.AddPoint("Cache", true);
-        }
-
-        private async Task<WowCharacterClass[]> LoadCharacterClasses()
-        {
-            return await Context.WowCharacterClass
-                .OrderBy(cls => cls.Id)
-                .ToArrayAsync();
-        }
-
-        private async Task<WowCharacterRace[]> LoadCharacterRaces()
-        {
-            return await Context.WowCharacterRace
-                .OrderBy(race => race.Id)
-                .ToArrayAsync();
-        }
-
-        private async Task<WowCharacterSpecialization[]> LoadCharacterSpecializations()
-        {
-            return await Context.WowCharacterSpecialization
-                .OrderBy(spec => spec.Id)
-                .ToArrayAsync();
         }
 
         private string GetString(StringType type, Language language, int id)
@@ -312,21 +315,6 @@ namespace Wowthing.Backend.Jobs.Misc
             }
 
             return categories;
-        }
-
-        private static async Task<List<OutCurrency>> LoadCurrencies()
-        {
-            var types = await DataUtilities.LoadDumpCsvAsync<DumpCurrencyTypes>("currencytypes");
-            return types
-                .Where(type => !Hardcoded.IgnoredCurrencies.Contains(type.ID))
-                .Select(type => new OutCurrency(type))
-                .ToList();
-        }
-
-        private static async Task<SortedDictionary<int, OutCurrencyCategory>> LoadCurrencyCategories()
-        {
-            var categories = await DataUtilities.LoadDumpCsvAsync<DumpCurrencyCategory>("currencycategory");
-            return new SortedDictionary<int, OutCurrencyCategory>(categories.ToDictionary(k => (int)k.ID, v => new OutCurrencyCategory(v)));
         }
 
         private async Task<Dictionary<Language, Dictionary<int, OutProfession>>> LoadProfessions()

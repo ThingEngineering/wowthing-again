@@ -1,19 +1,17 @@
 ﻿using Newtonsoft.Json.Linq;
-using Wowthing.Backend.Models.Data;
+using Wowthing.Backend.Models.Static;
 
-namespace Wowthing.Backend.Converters
+namespace Wowthing.Backend.Converters.Static
 {
-    public class OutCurrencyConverter : JsonConverter
+    public class StaticCurrencyCategoryConverter : JsonConverter
     {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            var currency = (OutCurrency) value;
+            var category = (StaticCurrencyCategory) value;
             var arr = new JArray();
-            arr.Add(currency.Id);
-            arr.Add(currency.CategoryId);
-            arr.Add(currency.MaxPerWeek);
-            arr.Add(currency.MaxTotal);
-            arr.Add(currency.Name);
+            arr.Add(category.Id);
+            arr.Add(category.Name);
+            arr.Add(category.Slug);
             arr.WriteTo(writer);
         }
 
@@ -24,7 +22,7 @@ namespace Wowthing.Backend.Converters
 
         public override bool CanConvert(Type objectType)
         {
-            return typeof(OutCurrency) == objectType;
+            return typeof(StaticCurrencyCategory) == objectType;
         }
 
         public override bool CanRead => false;

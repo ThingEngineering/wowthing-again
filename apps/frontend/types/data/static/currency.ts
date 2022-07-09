@@ -10,8 +10,13 @@ export class StaticDataCurrency {
 }
 export type StaticDataCurrencyArray = ConstructorParameters<typeof StaticDataCurrency>
 
-export interface StaticDataCurrencyCategory {
-    id: number
-    name: string
-    slug: string
+export class StaticDataCurrencyCategory {
+    constructor(
+        public id: number,
+        public name: string,
+        public slug: string
+    )
+    { }
 }
+
+export type StaticDataCurrencyCategoryArray = ConstructorParameters<typeof StaticDataCurrencyCategory>
