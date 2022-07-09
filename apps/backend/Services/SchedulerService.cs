@@ -16,13 +16,13 @@ namespace Wowthing.Backend.Services
     public sealed class SchedulerService : TimerService
     {
         private const int TimerInterval = 10;
-        
+
         private readonly JobRepository _jobRepository;
         private readonly IServiceScopeFactory _serviceScopeFactory;
         private readonly StateService _stateService;
-        
+
         private readonly List<ScheduledJob> _scheduledJobs = new();
-  
+
         public SchedulerService(
             IServiceScopeFactory serviceScopeFactory,
             JobRepository jobRepository,
@@ -49,7 +49,7 @@ namespace Wowthing.Backend.Services
         protected override async void TimerCallback(object state)
         {
             var lockValue = Guid.NewGuid().ToString("N");
-            
+
             try
             {
                 // Attempt to get exclusive scheduler lock
@@ -108,7 +108,7 @@ namespace Wowthing.Backend.Services
                     {
                         var resultData = userResults
                             .Select(ur => ur.UserId.ToString());
-                        
+
                         // Queue user jobs
                         Logger.Information("Queueing {Count} user job(s)", userResults.Length);
                         await _jobRepository.AddJobsAsync(JobPriority.Low, JobType.UserCharacters, resultData);
@@ -120,7 +120,7 @@ namespace Wowthing.Backend.Services
                             .Where(au => ids.Contains(au.Id))
                             .ExecuteAsync();
                     }
-                    
+
                     // Execute some sort of nasty database query to get characters that need an API check
                     var characterResults = await context.SchedulerCharacterQuery
                         .FromSqlRaw(SchedulerCharacterQuery.SqlQuery)

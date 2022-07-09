@@ -100,11 +100,11 @@
 
     {#each characterBagSlots as bagSlot}
         {@const itemId = character.bags[bagSlot]}
-        {@const bagData = $staticStore.data.bags[itemId]}
+        {@const bag = $staticStore.data.bags[itemId]}
         <td class="gear">
-            {#if itemId && bagData}
+            {#if itemId && bag}
                 <a
-                    class="quality{bagData[0]}"
+                    class="quality{bag.quality}"
                     href="{getItemUrl({ itemId })}"
                 >
                     <WowthingImage
@@ -113,7 +113,7 @@
                         border={2}
                     />
 
-                    <span class="item-level">{bagData[1]}</span>
+                    <span class="item-level">{bag.slots}</span>
                 </a>
             {/if}
         </td>

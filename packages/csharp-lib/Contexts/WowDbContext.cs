@@ -24,6 +24,8 @@ namespace Wowthing.Lib.Contexts
         public DbSet<WowCharacterClass> WowCharacterClass { get; set; }
         public DbSet<WowCharacterRace> WowCharacterRace { get; set; }
         public DbSet<WowCharacterSpecialization> WowCharacterSpecialization { get; set; }
+        public DbSet<WowCurrency> WowCurrency { get; set; }
+        public DbSet<WowCurrencyCategory> WowCurrencyCategory { get; set; }
         public DbSet<WowItem> WowItem { get; set; }
         public DbSet<WowItemModifiedAppearance> WowItemModifiedAppearance { get; set; }
         public DbSet<WowMount> WowMount { get; set; }

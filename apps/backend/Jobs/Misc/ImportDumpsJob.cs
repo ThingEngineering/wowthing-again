@@ -48,7 +48,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.ImportDumps,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(24),
-            Version = 14,
+            Version = 15,
         };
 
         private Dictionary<int, DumpItemXItemEffect[]> _itemEffectsMap;
@@ -61,6 +61,8 @@ namespace Wowthing.Backend.Jobs.Misc
             await ImportCharacterClasses();
             await ImportCharacterRaces();
             await ImportCharacterSpecializations();
+            await ImportCurrencies();
+            await ImportCurrencyCategories();
             await ImportInstances();
 
             await ImportItems();
@@ -205,8 +207,8 @@ namespace Wowthing.Backend.Jobs.Misc
             await ImportStrings<DumpChrClasses>(
                 StringType.WowCharacterClassName,
                 "chrclasses",
-                (cls) => cls.ID,
-                (cls) => $"{cls.MaleName}|{cls.FemaleName}"
+                cls => cls.ID,
+                cls => $"{cls.MaleName}|{cls.FemaleName}"
             );
         }
 
@@ -237,8 +239,8 @@ namespace Wowthing.Backend.Jobs.Misc
             await ImportStrings<DumpChrRaces>(
                 StringType.WowCharacterRaceName,
                 "chrraces",
-                (race) => race.ID,
-                (race) => $"{race.Name}|{race.FemaleName}"
+                race => race.ID,
+                race => $"{race.Name}|{race.FemaleName}"
             );
         }
 
@@ -289,8 +291,75 @@ namespace Wowthing.Backend.Jobs.Misc
             await ImportStrings<DumpChrSpecialization>(
                 StringType.WowCharacterSpecializationName,
                 "chrspecialization",
-                (spec) => spec.ID,
-                (spec) => $"{spec.Name}|{spec.FemaleName}"
+                spec => spec.ID,
+                spec => $"{spec.Name}|{spec.FemaleName}"
+            );
+        }
+
+        private async Task ImportCurrencies()
+        {
+            var currencies = await DataUtilities
+                .LoadDumpCsvAsync<DumpCurrencyTypes>(Path.Join("enUS", "currencytypes"));
+
+            var dbCurrencyMap = await Context.WowCurrency
+                .ToDictionaryAsync(currency => currency.Id);
+
+            foreach (var currency in currencies)
+            {
+                if (!dbCurrencyMap.TryGetValue(currency.ID, out var dbCurrency))
+                {
+                    dbCurrency = dbCurrencyMap[currency.ID] = new WowCurrency
+                    {
+                        Id = currency.ID,
+                    };
+                    Context.WowCurrency.Add(dbCurrency);
+                }
+
+                dbCurrency.CategoryId = currency.CategoryID;
+                dbCurrency.MaxPerWeek = currency.MaxEarnablePerWeek;
+                dbCurrency.MaxTotal = currency.MaxQty;
+            }
+
+            _timer.AddPoint("Currency");
+
+            await ImportStrings<DumpCurrencyTypes>(
+                StringType.WowCurrencyName,
+                "currencytypes",
+                currency => currency.ID,
+                currency => currency.Name
+            );
+        }
+
+        private async Task ImportCurrencyCategories()
+        {
+            var categories = await DataUtilities
+                .LoadDumpCsvAsync<DumpCurrencyCategory>(Path.Join("enUS", "currencycategory"));
+
+            var dbCategoryMap = await Context.WowCurrencyCategory
+                .ToDictionaryAsync(currency => currency.Id);
+
+            foreach (var category in categories)
+            {
+                if (!dbCategoryMap.TryGetValue(category.ID, out var dbCategory))
+                {
+                    dbCategory = dbCategoryMap[category.ID] = new WowCurrencyCategory
+                    {
+                        Id = category.ID,
+                    };
+                    Context.WowCurrencyCategory.Add(dbCategory);
+                }
+
+                dbCategory.Expansion = category.ExpansionID;
+                dbCategory.Flags = category.Flags;
+            }
+
+            _timer.AddPoint("CurrencyCategory");
+
+            await ImportStrings<DumpCurrencyCategory>(
+                StringType.WowCurrencyCategoryName,
+                "currencycategory",
+                category => category.ID,
+                category => category.Name
             );
         }
 

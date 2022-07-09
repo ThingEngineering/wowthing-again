@@ -121,22 +121,22 @@ namespace Wowthing.Backend.Jobs.Misc
         private async Task BuildStaticData()
         {
             var db = Redis.GetDatabase();
+            var cacheData = new RedisStaticCache();
 
             // RaiderIO
             var raiderIoScoreTiers = await db.JsonGetAsync<Dictionary<int, OutRaiderIoScoreTiers>>(DataRaiderIoScoreTiersJob.CacheKey);
+            cacheData.RaiderIoScoreTiers = raiderIoScoreTiers ?? new Dictionary<int, OutRaiderIoScoreTiers>();
 
             // Bags
-            var bags = _itemMap.Values
+            cacheData.RawBags = _itemMap.Values
                 .Where(item => item.ContainerSlots > 0)
-                .ToDictionary(
-                    item => item.Id,
-                    item => new List<int> { (int)item.Quality, item.ContainerSlots }
-                );
+                .Select(item => new List<int> { item.Id, (int)item.Quality, item.ContainerSlots })
+                .ToList();
 
             // Character stuff
             var classes = await LoadCharacterClasses();
             var races = await LoadCharacterRaces();
-            var specializations = await LoadCharacterSpecializations();
+            var specs = await LoadCharacterSpecializations();
 
             // Currencies
             var currencies = await LoadCurrencies();
@@ -196,8 +196,12 @@ namespace Wowthing.Backend.Jobs.Misc
             #endif
 
             // Basic database dumps
-            var realms = await Context.WowRealm.ToListAsync();
+            cacheData.RealmsRaw = await Context.WowRealm
+                .OrderBy(realm => realm.Id)
+                .ToListAsync();
+
             var reputationTiers = new SortedDictionary<int, WowReputationTier>(await Context.WowReputationTier.ToDictionaryAsync(c => c.Id));
+
             _timer.AddPoint("Database");
 
             // Ok we're done
@@ -206,49 +210,43 @@ namespace Wowthing.Backend.Jobs.Misc
             {
                 Logger.Warning("{Lang}", language);
 
-                var cacheData = new RedisStaticCache
+                cacheData.CharacterClasses = classes.Select(cls => new StaticCharacterClass(cls)
                 {
-                    Bags = bags,
-                    CurrenciesRaw = currencies,
-                    CurrencyCategories = currencyCategories,
-                    InstancesRaw = instances,
-                    Professions = professions[language],
-                    RaiderIoScoreTiers = raiderIoScoreTiers ?? new Dictionary<int, OutRaiderIoScoreTiers>(),
-                    RealmsRaw = realms,
-                    ReputationsRaw = reputations,
-                    ReputationTiers = reputationTiers,
-                    Soulbinds = soulbinds[language],
-                    Talents = talents,
-                    VendorSets = vendors,
-                    ZoneMapSets = zoneMaps[language],
+                    Name = GetString(StringType.WowCharacterClassName, language, cls.Id),
+                }).ToDictionary(cls => cls.Id);
 
-                    CharacterClasses = classes.Select(cls => new StaticCharacterClass(cls)
-                    {
-                        Name = GetString(StringType.WowCharacterClassName, language, cls.Id),
-                    }).ToDictionary(cls => cls.Id),
+                cacheData.CharacterRaces = races.Select(race => new StaticCharacterRace(race)
+                {
+                    Name = GetString(StringType.WowCharacterRaceName, language, race.Id),
+                }).ToDictionary(race => race.Id);
 
-                    CharacterRaces = races.Select(race => new StaticCharacterRace(race)
-                    {
-                        Name = GetString(StringType.WowCharacterRaceName, language, race.Id),
-                    }).ToDictionary(race => race.Id),
+                cacheData.CharacterSpecializations = specs.Select(spec => new StaticCharacterSpecialization(spec)
+                {
+                    Name = GetString(StringType.WowCharacterSpecializationName, language, spec.Id),
+                }).ToDictionary(spec => spec.Id);
 
-                    CharacterSpecializations = specializations.Select(spec => new StaticCharacterSpecialization(spec)
-                    {
-                        Name = GetString(StringType.WowCharacterSpecializationName, language, spec.Id),
-                    }).ToDictionary(spec => spec.Id),
+                cacheData.CurrenciesRaw = currencies;
+                cacheData.CurrencyCategories = currencyCategories;
+                cacheData.InstancesRaw = instances;
+                cacheData.Professions = professions[language];
+                cacheData.ReputationsRaw = reputations;
+                cacheData.ReputationTiers = reputationTiers;
+                cacheData.Soulbinds = soulbinds[language];
+                cacheData.Talents = talents;
+                cacheData.VendorSets = vendors;
+                cacheData.ZoneMapSets = zoneMaps[language];
 
-                    MountsRaw = RawMounts(language),
-                    MountSetsRaw = FinalizeCollections(mountSets),
+                cacheData.MountsRaw = RawMounts(language);
+                cacheData.MountSetsRaw = FinalizeCollections(mountSets);
 
-                    PetsRaw = RawPets(language),
-                    PetSetsRaw = FinalizeCollections(petSets),
+                cacheData.PetsRaw = RawPets(language);
+                cacheData.PetSetsRaw = FinalizeCollections(petSets);
 
-                    ToysRaw = RawToys(language),
-                    ToySetsRaw = FinalizeCollections(toySets),
+                cacheData.ToysRaw = RawToys(language);
+                cacheData.ToySetsRaw = FinalizeCollections(toySets);
 
-                    Progress = progress,
-                    ReputationSets = reputationSets,
-                };
+                cacheData.Progress = progress;
+                cacheData.ReputationSets = reputationSets;
 
                 var cacheJson = JsonConvert.SerializeObject(cacheData);
                 // This ends up being the MD5 of enUS, close enough
@@ -328,7 +326,7 @@ namespace Wowthing.Backend.Jobs.Misc
         private static async Task<SortedDictionary<int, OutCurrencyCategory>> LoadCurrencyCategories()
         {
             var categories = await DataUtilities.LoadDumpCsvAsync<DumpCurrencyCategory>("currencycategory");
-            return new SortedDictionary<int, OutCurrencyCategory>(categories.ToDictionary(k => k.ID, v => new OutCurrencyCategory(v)));
+            return new SortedDictionary<int, OutCurrencyCategory>(categories.ToDictionary(k => (int)k.ID, v => new OutCurrencyCategory(v)));
         }
 
         private async Task<Dictionary<Language, Dictionary<int, OutProfession>>> LoadProfessions()

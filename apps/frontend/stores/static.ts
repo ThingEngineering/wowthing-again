@@ -15,6 +15,7 @@ import {
 } from '@/types/data/static'
 import type { StaticData, StaticDataSetCategoryArray } from '@/types/data/static'
 import { extraReputationTiers } from '@/data/reputation'
+import { StaticDataBag } from '@/types/data/static/bag'
 
 
 export class StaticDataStore extends WritableFancyStore<StaticData> {
@@ -36,6 +37,15 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
                 .filter((spec) => spec.classId === cls.id)
             specs.sort((a, b) => a.order - b.order)
             cls.specializationIds = specs.map((spec) => spec.id)
+        }
+
+        if (data.rawBags !== null) {
+            data.bags = {}
+            for (const bagArray of data.rawBags) {
+                const obj = new StaticDataBag(...bagArray)
+                data.bags[obj.id] = obj
+            }
+            data.rawBags = null
         }
 
         if (data.currenciesRaw !== null) {

@@ -5,9 +5,9 @@ namespace Wowthing.Backend.Models.Data
 {
     public class DumpCurrencyTypes
     {
-        public int ID { get; set; }
+        public short ID { get; set; }
 
-        public int CategoryID { get; set; }
+        public short CategoryID { get; set; }
         public int MaxEarnablePerWeek { get; set; }
         public int MaxQty { get; set; }
 

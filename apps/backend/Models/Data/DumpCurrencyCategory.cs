@@ -5,11 +5,11 @@ namespace Wowthing.Backend.Models.Data
 {
     public class DumpCurrencyCategory
     {
-        public int ID { get; set; }
+        public short ID { get; set; }
 
-        public int ExpansionID { get; set; }
-        public int Flags { get; set; }
-        
+        public short ExpansionID { get; set; }
+        public short Flags { get; set; }
+
         [Name("Name_lang")]
         public string Name { get; set; }
     }

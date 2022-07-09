@@ -14,7 +14,7 @@ namespace Wowthing.Backend.Models.Redis
     public class RedisStaticCache
     {
         [JsonProperty(Order = 0)]
-        public Dictionary<int, List<int>> Bags { get; set; }
+        public List<List<int>> RawBags { get; set; }
 
         [JsonProperty(Order = 1)]
         public Dictionary<short, StaticCharacterClass> CharacterClasses;

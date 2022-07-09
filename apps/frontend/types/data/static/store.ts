@@ -1,3 +1,4 @@
+import type { StaticDataBag, StaticDataBagArray } from './bag'
 import type { StaticDataCharacterClass, StaticDataCharacterRace, StaticDataCharacterSpecialization } from './character'
 import type { StaticDataCurrency, StaticDataCurrencyArray, StaticDataCurrencyCategory } from './currency'
 import type { StaticDataInstance, StaticDataInstanceArray } from './instance'
@@ -18,7 +19,6 @@ import type { ZoneMapDataCategory } from '@/types/data'
 
 
 export interface StaticData {
-    bags: Record<number, [number, number]>
     connectedRealms: Record<number, StaticDataConnectedRealm>
     currencyCategories: Record<number, StaticDataCurrencyCategory>
     professions: Record<number, StaticDataProfession>
@@ -31,6 +31,9 @@ export interface StaticData {
     characterClassesBySlug: Record<string, StaticDataCharacterClass>
     characterRaces: Record<number, StaticDataCharacterRace>
     characterSpecializations: Record<number, StaticDataCharacterSpecialization>
+
+    bags: Record<number, StaticDataBag>
+    rawBags: StaticDataBagArray[]
 
     currencies: Record<number, StaticDataCurrency>
     currenciesRaw: StaticDataCurrencyArray[]
