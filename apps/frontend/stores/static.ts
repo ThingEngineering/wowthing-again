@@ -104,28 +104,24 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
 
         if (data.rawMounts !== null) {
             data.mounts = {}
-            data.mountsBySpellId = {}
             for (const mountArray of data.rawMounts) {
                 const obj = new StaticDataMount(...mountArray)
                 data.mounts[obj.id] = obj
-                data.mountsBySpellId[obj.spellId] = obj
             }
             data.rawMounts = null
         }
 
         if (data.rawPets !== null) {
             data.pets = {}
-            data.petsByCreatureId = {}
             for (const petArray of data.rawPets) {
                 const obj = new StaticDataPet(...petArray)
                 data.pets[obj.id] = obj
-                data.petsByCreatureId[obj.creatureId] = obj
             }
             data.rawPets = null
         }
 
         if (data.rawToys !== null) {
-            data.toys = StaticDataStore.createObjects(data.rawToys, StaticDataToy)
+            data.toys = StaticDataStore.createObjects(data.rawToys, StaticDataToy, (toy) => toy.itemId)
             data.rawToys = null
         }
 
@@ -152,13 +148,14 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
 
     private static createObjects<TArray, TObject extends { id: number }>(
         arrays: any[][],
-        objectConstructor: { new (...args: any[]): TObject }
+        objectConstructor: { new (...args: any[]): TObject },
+        idFunc: (obj: TObject) => number = null
     ): Record<number, TObject>
     {
         const ret: Record<number, TObject> = {}
         for (const array of arrays) {
             const obj = new objectConstructor(...array)
-            ret[obj.id] = obj
+            ret[idFunc?.(obj) ?? obj.id] = obj
         }
         return ret
     }

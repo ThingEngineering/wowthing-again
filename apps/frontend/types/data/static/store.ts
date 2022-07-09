@@ -44,14 +44,12 @@ export interface StaticData {
     instancesRaw: StaticDataInstanceArray[]
 
     mounts: Record<number, StaticDataMount>
-    mountsBySpellId: Record<number, StaticDataMount>
     rawMounts: StaticDataMountArray[]
 
     mountSets: StaticDataSetCategory[][]
     mountSetsRaw: StaticDataSetCategoryArray[][]
 
     pets: Record<number, StaticDataPet>
-    petsByCreatureId: Record<number, StaticDataPet>
     rawPets: StaticDataPetArray[]
 
     petSets: StaticDataSetCategory[][]

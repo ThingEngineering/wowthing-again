@@ -224,14 +224,14 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                                 break
 
                             case FarmDropType.Mount:
-                                if (!userData.hasMountSpell[drop.id] &&
+                                if (!userData.hasMount[drop.id] &&
                                     !userData.addonMounts[drop.id]) {
                                     dropStatus.need = true
                                 }
                                 break
 
                             case FarmDropType.Pet:
-                                if (!userData.hasPetCreature[drop.id]) {
+                                if (!userData.hasPet[drop.id]) {
                                     dropStatus.need = true
                                 }
                                 break
