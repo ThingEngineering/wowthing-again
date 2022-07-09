@@ -13,14 +13,16 @@
     export let reputation: StaticDataReputationReputation
     export let set: StaticDataReputationSet
 
-    const rewards: {
+    let name: string
+    let rewards: {
         id: number,
         name: string,
         type: string,
         have: boolean,
-    }[] = []
+    }[]
     let totalParagon = 0
     $: {
+        rewards = []
         if (set.paragon) {
             totalParagon = $userStore.data.characters
                 .reduce(
@@ -32,13 +34,19 @@
                 for (const reward of reputation.rewards) {
                     let have = false
                     if (reward.type === 'mount') {
-                        have = $userStore.data.hasMountSpell[reward.id] === true
+                        have = $userStore.data.hasMount[reward.id] === true
+                        name = $staticStore.data.mounts[reward.id].name
                     }
                     else if (reward.type === 'pet') {
-                        have = $userStore.data.hasPetCreature[reward.id] === true
+                        have = $userStore.data.hasPet[reward.id] === true
+                        name = $staticStore.data.pets[reward.id].name
                     }
                     else if (reward.type === 'toy') {
                         have = $userStore.data.hasToy[reward.id] === true
+                        name = $staticStore.data.toys[reward.id].name
+                    }
+                    else {
+                        name = reward.name
                     }
 
                     rewards.push({
