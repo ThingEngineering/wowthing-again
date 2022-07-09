@@ -3,76 +3,76 @@ groups:
 
 - name: "Game Editions"
   things:
-  -  11326 # Mini Diablo - Vanilla
-  -  11325 # Panda Cub - Vanilla
-  -  11327 # Zergling - Vanilla
-  -  15358 # Lurky - TBC (EU)
-  -  18381 # Netherwhelp - TBC
-  -  28883 # Frosty - WotLK
-  -  46896 # Lil' Deathwing - Cata
-  -  63832 # Lucky Quilen Cub - MoP
-  -  77137 # Dread Hatchling - WoD
-  -  95841 # Nibbles - Legion
-  - 129049 # Tottle (BfA Collector's Edition)
-  - 157969 # Anima Wyrmling (Shadowlands)
-  - 181535 # Murkastrasza (Dragonflight Heroic Edition)
+  - 93 # Mini Diablo - Vanilla
+  - 92 # Panda Cub - Vanilla
+  - 94 # Zergling - Vanilla
+  - 111 # Lurky - TBC (EU)
+  - 131 # Netherwhelp - TBC
+  - 188 # Frosty - WotLK
+  - 268 # Lil' Deathwing - Cata
+  - 671 # Lucky Quilen Cub - MoP
+  - 1386 # Dread Hatchling - WoD
+  - 1691 # Nibbles - Legion
+  - 2143 # Tottle (BfA Collector's Edition)
+  - 2779 # Anima Wyrmling (Shadowlands)
+  - 3175 # Murkastrasza (Dragonflight Heroic Edition)
 
 - name: "Other Games"
   things:
-  -  56266 # Fetish Shaman (D3)
-  -  74413 # Treasure Goblin (D3:RoS)
-  - 103159 # Baby Winston (Overwatch)
-  -  42078 # Mini Thor (SC2:WoL)
-  -  66984 # Baneling (SC2:HotS)
-  -  71655 # Zeradar (SC2:LotV)
+  - 346 # Fetish Shaman (D3)
+  - 1365 # Treasure Goblin (D3:RoS)
+  - 1828 # Baby Winston (Overwatch)
+  - 258 # Mini Thor (SC2:WoL)
+  - 903 # Baneling (SC2:HotS)
+  - 1255 # Zeradar (SC2:LotV)
 
 - name: Promotions
   things:
-  - 181575 # Drakks (Dragonflight preorder bonus)
-  - 175203 # Moon-Touched Netherwhelp (The Celebration Collection)
+  - 3177 # Drakks (Dragonflight preorder bonus)
+  - 3053 # Moon-Touched Netherwhelp (The Celebration Collection)
 
 - name: Store
   things:
-  -  74402 # Alterac Brew-Pup
-  -  88807 # Argi
-  - 179589 # Blinky
-  -  71488 # Blossoming Ancient
-  -  85283 # Brightpaw
-  - 138741 # Cap'n Crackers
-  -  53623 # Cenarion Hatchling
-  -  68267 # Cinder Kitten
-  - 158142 # Daisy
-  - 151788 # Dottie
-  -  36908 # Gryphon Hatchling
-  -  53283 # Guardian Cub
-  -  36979 # Lil' K.T.
-  -  51600 # Lil' Ragnaros
-  - 185586 # Lil' Ursoc
-  -  40703 # Lil' XT
-  - 113527 # Mischief
-  -  51601 # Moonkin Hatchling (Alliance)
-  -  51649 # Moonkin Hatchling (Horde)
-  -  36911 # Pandaren Monk
-  - 123650 # Shadow
-  -  58163 # Soul of the Aspects
-  - 122033 # Twilight
-  - 138742 # Whomper
-  -  36909 # Wind Rider Cub
+  - 1363 # Alterac Brew-Pup
+  - 1603 # Argi
+  - 3153 # Blinky
+  - 1248 # Blossoming Ancient
+  - 1466 # Brightpaw
+  - 2185 # Cap'n Crackers
+  - 316 # Cenarion Hatchling
+  - 1117 # Cinder Kitten
+  - 2780 # Daisy
+  - 2623 # Dottie
+  - 245 # Gryphon Hatchling
+  - 311 # Guardian Cub
+  - 249 # Lil' K.T.
+  - 297 # Lil' Ragnaros
+  - 3249 # Lil' Ursoc
+  - 256 # Lil' XT
+  - 1936 # Mischief
+  - 296 # Moonkin Hatchling (Alliance)
+  - 298 # Moonkin Hatchling (Horde)
+  - 248 # Pandaren Monk
+  - 2062 # Shadow
+  - 347 # Soul of the Aspects
+  - 2051 # Twilight
+  - 2184 # Whomper
+  - 246 # Wind Rider Cub
 
 - name: TCG
   things:
-  -  23234 # Bananas
-  -  25110 # Dragon Kite
-  -  27914 # Ethereal Soul-Trader
-  -  59020 # Eye of the Legion
-  -  54730 # Gregarious Grell
-  -  69208 # Gusting Grimoire
-  -  17255 # Hippogryph Hatchling
-  -  52343 # Landro's Lichling
-  -  50468 # Landro's Lil' XT
-  -  52344 # Nightsaber Cub
-  -  54383 # Purple Puffer
-  -  25109 # Rocket Chicken
-  -  54745 # Sand Scarab
-  -  36511 # Spectral Tiger Cub
-  -  36482 # Tuskarr Kite
+  - 156 # Bananas
+  - 169 # Dragon Kite
+  - 183 # Ethereal Soul-Trader
+  - 348 # Eye of the Legion
+  - 333 # Gregarious Grell
+  - 1174 # Gusting Grimoire
+  - 130 # Hippogryph Hatchling
+  - 302 # Landro's Lichling
+  - 285 # Landro's Lil' XT
+  - 303 # Nightsaber Cub
+  - 328 # Purple Puffer
+  - 168 # Rocket Chicken
+  - 665 # Sand Scarab
+  - 242 # Spectral Tiger Cub
+  - 241 # Tuskarr Kite

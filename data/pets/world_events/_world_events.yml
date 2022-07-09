@@ -3,68 +3,68 @@ groups:
 
 - name: Brawler's Guild
   things:
-  -  68601 # Clock'em - Brawler's Guild
+  - 1142 # Clock'em - Brawler's Guild
 
 - name: Brewfest
   things:
-  -  24753 # Pint-Sized Pink Pachyderm
-  -  85994 # Stout Alemental
-  -  22943 # Wolpertinger
+  - 166 # Pint-Sized Pink Pachyderm
+  - 1518 # Stout Alemental
+  - 153 # Wolpertinger
 
 - name: Day of the Dead
   things:
-  -  34770 # Macabre Marionette - Day of the Dead
+  - 1351 # Macabre Marionette - Day of the Dead
 
 - name: Feast of Winter Veil
   things:
-  -  24968 # Clockwork Rocket Bot
-  -  15698 # Father Winter's Helper
-  - 128156 # Globe Yeti (Feast of Winter Veil)
-  -  97229 # Grumpling
-  - 151780 # Jingles
-  -  55215 # Lumpy
-  -  73741 # Rotten Little Helper
-  -  15710 # Tiny Snowman
-  -  15706 # Winter Reindeer
-  -  15705 # Winter's Little Helper
+  - 191 # Clockwork Rocket Bot
+  - 119 # Father Winter's Helper
+  - 2114 # Globe Yeti (Feast of Winter Veil)
+  - 1725 # Grumpling
+  - 2622 # Jingles
+  - 337 # Lumpy
+  - 1349 # Rotten Little Helper
+  - 117 # Tiny Snowman
+  - 118 # Winter Reindeer
+  - 120 # Winter's Little Helper
 
 - name: Hallow's End
   things:
-  -  54128 # Creepy Crate
-  -  86061 # Cursed Birman
-  -  53884 # Feline Familiar
-  -  97569 # Ghostly Maggot
-  -  97568 # Ghostly Rat
-  - 117341 # Naxxy
-  -  23909 # Sinister Squashling
-  -  97324 # Spectral Spinner
-  -  86067 # Widget the Departed
+  - 321 # Creepy Crate
+  - 1521 # Cursed Birman
+  - 319 # Feline Familiar
+  - 1740 # Ghostly Maggot
+  - 1741 # Ghostly Rat
+  - 2002 # Naxxy
+  - 162 # Sinister Squashling
+  - 1730 # Spectral Spinner
+  - 1523 # Widget the Departed
 
 - name: Love is in the Air
   things:
-  -  85710 # Lovebird Hatchling
-  -  16085 # Peddlefeet
-  -  38374 # Toxic Wasteling
+  - 1511 # Lovebird Hatchling
+  - 122 # Peddlefeet
+  - 251 # Toxic Wasteling
 
 - name: Lunar Festival
   things:
-  -  55574 # Festival Lantern - Lunar Festival
-  -  55571 # Lunar Lantern - Lunar Festival
+  - 342 # Festival Lantern - Lunar Festival
+  - 341 # Lunar Lantern - Lunar Festival
 
 - name: Midsummer
   things:
-  -  85872 # Blazing Cindercrawler
-  -  40198 # Frigid Frostling
-  - 114543 # Igneous Flameling
-  -  16701 # Spirit of Summer
+  - 1517 # Blazing Cindercrawler
+  - 253 # Frigid Frostling
+  - 1949 # Igneous Flameling
+  - 128 # Spirit of Summer
 
 - name: Noblegarden
   things:
-  -  85773 # Mystical Spring Bouquet
-  -  33975 # Noblegarden Bunny
-  -  32791 # Spring Rabbit
+  - 1514 # Mystical Spring Bouquet
+  - 1943 # Noblegarden Bunny
+  - 200 # Spring Rabbit
 
 - name: Pilgrim's Bounty
   things:
-  -  85846 # Bush Chicken - Pilgrim's Bounty
-  -  32818 # Plump Turkey - Pilgrim's Bounty
+  - 1516 # Bush Chicken - Pilgrim's Bounty
+  - 201 # Plump Turkey - Pilgrim's Bounty

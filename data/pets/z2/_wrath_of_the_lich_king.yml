@@ -3,12 +3,12 @@ groups:
 
 - name: Reputations
   things:
-  -  32595 # Pengu (Exalted, The Kalu'ak)
-  -  32591 # Cobra Hatchling (The Oracles)
-  -  32592 # Proto-Drake Whelp (The Oracles)
-  -  32589 # Tickbird Hatchling (The Oracles)
-  -  32590 # White Tickbird hatchling (The Oracles)
+  - 198 # Pengu (Exalted, The Kalu'ak)
+  - 197 # Cobra Hatchling (The Oracles)
+  - 196 # Proto-Drake Whelp (The Oracles)
+  - 194 # Tickbird Hatchling (The Oracles)
+  - 195 # White Tickbird hatchling (The Oracles)
 
 - name: World Drops
   things:
-  -  35400 # Gundrak Hatchling (Zul'Drak)
+  - 234 # Gundrak Hatchling (Zul'Drak)

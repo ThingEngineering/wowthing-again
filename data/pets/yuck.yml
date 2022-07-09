@@ -3,115 +3,115 @@ groups:
 
 - name: Trainer
   things:
-  -  63098 # Gilnean Raven - Worgen
-  -  65314 # Jade Crane Chick - Pandaren
-  -  63097 # Shore Crawler - Goblin
+  - 630 # Gilnean Raven - Worgen
+  - 792 # Jade Crane Chick - Pandaren
+  - 629 # Shore Crawler - Goblin
 
 - name: Treasure
   things:
-  -  35396 # Darting Hatchling - Dustwallow Marsh
-  -  35387 # Leaping Hatchling - The Barrens
-  -  99526 # Leyline Broodling ()
-  -  88814 # Nethaera's Light - Dalaran
-  -  35397 # Ravasaur Hatchling - Un'goro Crater
-  -  35398 # Razormaw Hatchling - Wetlands
-  -  25706 # Searing Scorchling
-  -  61087 # Sun Darter Hatchling (puzzle?)
-  -  99389 # Thistleleaf Adventurer ()
+  - 232 # Darting Hatchling - Dustwallow Marsh
+  - 235 # Leaping Hatchling - The Barrens
+  - 1808 # Leyline Broodling ()
+  - 1604 # Nethaera's Light - Dalaran
+  - 237 # Ravasaur Hatchling - Un'goro Crater
+  - 238 # Razormaw Hatchling - Wetlands
+  - 172 # Searing Scorchling
+  - 382 # Sun Darter Hatchling (puzzle?)
+  - 1803 # Thistleleaf Adventurer ()
 
 - name: Vendor
   things:
-  -   7394 # Ancona Chicken - Thousand Needles
-  - 106270 # Celestial Calf ()
-  -   7390 # Cockatiel - Cape of Stranglethorn
-  - 128118 # Cross Gazer (Quest, A Pile of Intact Demon Eyes, Antoran Wastes - eye vendor?)
-  - 106278 # Felbat Pup (Nethershard)
-  - 118060 # Infinite Hatchling (Timeless Isle - Mistweaver Xia)
-  - 118063 # Paradox Spirit (Timeless Isle - Mistweaver Xia)
-  - 119040 # Tylarr Gronnden (Deeprun Tram/Brawl'gar Arena)
-  -  52831 # Winterspring Cub - Winterspring
+  - 52 # Ancona Chicken - Thousand Needles
+  - 1888 # Celestial Calf ()
+  - 47 # Cockatiel - Cape of Stranglethorn
+  - 2115 # Cross Gazer (Quest, A Pile of Intact Demon Eyes, Antoran Wastes - eye vendor?)
+  - 1889 # Felbat Pup (Nethershard)
+  - 2017 # Infinite Hatchling (Timeless Isle - Mistweaver Xia)
+  - 2018 # Paradox Spirit (Timeless Isle - Mistweaver Xia)
+  - 2022 # Tylarr Gronnden (Deeprun Tram/Brawl'gar Arena)
+  - 306 # Winterspring Cub - Winterspring
 
 - name: Vendor - Alliance
   things:
-  -   7385 # Bombay Cat - Elwynn Forest
-  -   7384 # Cornish Rex Cat - Elwynn Forest
-  -   7382 # Orange Tabby Cat - Elwynn Forest
-  -   7381 # Silver Tabby Cat - Elwynn Forest
-  -   7386 # White Kitten - Stormwind City
-  -  21010 # Blue Moth - Exodar
-  -  21009 # Red Moth - Exodar
-  -  21018 # White Moth - Exodar
-  -  21008 # Yellow Moth - Exodar
-  -   7553 # Great Horned Owl - Teldrassil
-  -   7555 # Hawk Owl - Teldrassil
-  -   7560 # Snowshoe Rabbit - Dun Morogh
+  - 40 # Bombay Cat - Elwynn Forest
+  - 41 # Cornish Rex Cat - Elwynn Forest
+  - 43 # Orange Tabby Cat - Elwynn Forest
+  - 45 # Silver Tabby Cat - Elwynn Forest
+  - 46 # White Kitten - Stormwind City
+  - 138 # Blue Moth - Exodar
+  - 139 # Red Moth - Exodar
+  - 141 # White Moth - Exodar
+  - 140 # Yellow Moth - Exodar
+  - 68 # Great Horned Owl - Teldrassil
+  - 67 # Hawk Owl - Teldrassil
+  - 72 # Snowshoe Rabbit - Dun Morogh
 
 - name: Vendor - Dalaran
   things:
-  -   7561 # Albino Snake - Dalaran
-  -  98128 # Sewer-Pipe Jelly
-  -  83584 # Autumnal Sproutling (Dalaran - Draemus)
-  -  40295 # Blue Clockwork Rocket Bot - Dalaran
-  -  34364 # Calico Cat - Dalaran
-  -  29147 # Ghostly Skull - Dalaran
-  -  35399 # Obsidian Hatchling - Dalaran
-  - 117371 # Trashy (Dalaran - Conjurer Margoss)
-  -  97238 # Nursery Spider
+  - 74 # Albino Snake - Dalaran
+  - 1754 # Sewer-Pipe Jelly
+  - 1429 # Autumnal Sproutling (Dalaran - Draemus)
+  - 254 # Blue Clockwork Rocket Bot - Dalaran
+  - 224 # Calico Cat - Dalaran
+  - 190 # Ghostly Skull - Dalaran
+  - 236 # Obsidian Hatchling - Dalaran
+  - 2004 # Trashy (Dalaran - Conjurer Margoss)
+  - 1727 # Nursery Spider
 
 - name: Vendor - Horde
   things:
-  -   7565 # Black Kingsnake - Orgrimmar
-  -   7562 # Brown Snake - Orgrimmar
-  -   7567 # Crimson Snake - Orgrimmar
-  -  21056 # Blue Dragonhawk - Silvermoon
-  -  21055 # Golden Dragonhawk - Silvermoon
-  -  21064 # Red Dragonhawk - Silvermoon
-  -  21063 # Silver Dragonhawk - Silvermoon
-  -  14421 # Brown Prairie Dog - Mulgore
-  -   7395 # Undercity Cockroach - Undercity
+  - 75 # Black Kingsnake - Orgrimmar
+  - 77 # Brown Snake - Orgrimmar
+  - 78 # Crimson Snake - Orgrimmar
+  - 145 # Blue Dragonhawk - Silvermoon
+  - 142 # Golden Dragonhawk - Silvermoon
+  - 143 # Red Dragonhawk - Silvermoon
+  - 144 # Silver Dragonhawk - Silvermoon
+  - 70 # Brown Prairie Dog - Mulgore
+  - 55 # Undercity Cockroach - Undercity
 
 - name: World Drops
   things:
-  -  35395 # Deviate Hatchling
-  -  15429 # Disgusting Oozeling
-  -  71201 # Filthling - Isle of Thunder
-  -  48641 # Fox Kit - Tol Barad
-  -  83562 # Zomstrok - Shadowmoon Valley (WoD)
+  - 233 # Deviate Hatchling
+  - 114 # Disgusting Oozeling
+  - 1245 # Filthling - Isle of Thunder
+  - 278 # Fox Kit - Tol Barad
+  - 1428 # Zomstrok - Shadowmoon Valley (WoD)
 
 - name: Misc
   things:
-  - 124594 # Dig Rat (Pickpocket)
-  - 124389 # Sneaky Marmot (Pickpocket)
+  - 2065 # Dig Rat (Pickpocket)
+  - 2063 # Sneaky Marmot (Pickpocket)
 
 # Quests
 - name: Quests
   things:
-  -  54539 # Alliance Balloon
-  -  62829 # Fishy
-  -  54541 # Horde Balloon
-  -  77221 # Iron Starlette
-  -  52894 # Lashtail Hatchling
-  -  84330 # Meadowstomper Calf - Nagrand (WoD)
-  -   8376 # Mechanical Chicken
-  -  22445 # Miniwing
-  -  52226 # Panther Cub
-  -  69649 # Red Panda
-  -  51090 # Singing Sunflower
-  -  69848 # Spectral Porcupette
-  -  51632 # Tiny Flamefly
-  -  30379 # Westfall Chicken
-  -  34278 # Withers
+  - 331 # Alliance Balloon
+  - 847 # Fishy
+  - 332 # Horde Balloon
+  - 1387 # Iron Starlette
+  - 307 # Lashtail Hatchling
+  - 1446 # Meadowstomper Calf - Nagrand (WoD)
+  - 83 # Mechanical Chicken
+  - 149 # Miniwing
+  - 301 # Panther Cub
+  - 1176 # Red Panda
+  - 291 # Singing Sunflower
+  - 1185 # Spectral Porcupette
+  - 287 # Tiny Flamefly
+  - 84 # Westfall Chicken
+  - 220 # Withers
 
 - name: Daily
   things:
-  -  61086 # Porcupette
-  -  73011 # Lil' Bling - Blingtron
-  -  85284 # Sky-Bo - Blingtron 5000
-  -  99505 # Knockoff Blingtron (Blingtron 6000)
+  - 381 # Porcupette
+  - 1320 # Lil' Bling - Blingtron
+  - 1467 # Sky-Bo - Blingtron 5000
+  - 1806 # Knockoff Blingtron (Blingtron 6000)
 
 
 
 # Rare Mobs
 - name: Other
   things:
-  - 133064 # Silithid Mini-Tank (Drop - Silithus: The Wound)
+  - 2163 # Silithid Mini-Tank (Drop - Silithus: The Wound)

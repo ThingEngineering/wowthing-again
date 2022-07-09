@@ -3,105 +3,105 @@ groups:
 
 - name: Alchemy
   things:
-  - 143374 # Baby Crawg (Transmute: Meat to Pet)
-  - 143958 # Bloated Bloodfeaster (Transmute: Meat to Pet)
-  - 143957 # Gearspring Hopper (Transmute: Meat to Pet)
-  -  98172 # Ridgeback Piglet
-  - 143959 # Slippy (Transmute: Meat to Pet)
-  -  98183 # Thaumaturgical Piglet
-  - 111425 # Transmutant
+  - 2477 # Baby Crawg (Transmute: Meat to Pet)
+  - 2476 # Bloated Bloodfeaster (Transmute: Meat to Pet)
+  - 2474 # Gearspring Hopper (Transmute: Meat to Pet)
+  - 1756 # Ridgeback Piglet
+  - 2475 # Slippy (Transmute: Meat to Pet)
+  - 1759 # Thaumaturgical Piglet
+  - 1920 # Transmutant
 
 - name: Archaeology
   things:
-  -  86420 # Ancient Nest Guardian
-  -  48609 # Clockwork Gnome
-  -  45128 # Crawling Claw
-  - 139744 # Direhorn Hatchling (Zandalari)
-  -  45340 # Fossilized Hatchling
-  -  86422 # Frostwolf Ghostpup
-  -  53225 # Pterrordax Hatchling
-  - 139782 # Restored Revenant (Drust)
-  -  53232 # Voodoo Figurine
-  - 106232 # Wyrmy Tunkins
+  - 1531 # Ancient Nest Guardian
+  - 277 # Clockwork Gnome
+  - 264 # Crawling Claw
+  - 2197 # Direhorn Hatchling (Zandalari)
+  - 266 # Fossilized Hatchling
+  - 1530 # Frostwolf Ghostpup
+  - 309 # Pterrordax Hatchling
+  - 2199 # Restored Revenant (Drust)
+  - 310 # Voodoo Figurine
+  - 1887 # Wyrmy Tunkins
 
 - name: Blacksmithing
   things:
-  -  84853 # Soul of the Forge - Blacksmithing
+  - 1569 # Soul of the Forge - Blacksmithing
 
 - name: Cooking
   things:
-  - 78895 # Lil' Leftovers - Cooking
+  - 1395 # Lil' Leftovers - Cooking
 
 - name: Enchanting
   things:
-  -  96403 # Enchanted Cauldron
-  -  46898 # Enchanted Lantern
-  -  96405 # Enchanted Pen
-  - 139743 # Enchanted Tiki Mask
-  -  96404 # Enchanted Torch
-  -  50545 # Magic Lamp
+  - 1699 # Enchanted Cauldron
+  - 267 # Enchanted Lantern
+  - 1701 # Enchanted Pen
+  - 2201 # Enchanted Tiki Mask
+  - 1700 # Enchanted Torch
+  - 292 # Magic Lamp
 
 - name: Engineering
   things:
-  -  43916 # De-Weaponized Mechanical Companion
-  -  80329 # Lifelike Mechanical Frostboar
-  -  12419 # Lifelike Toad
-  -   9657 # Lil' Smoky
-  -  79410 # Mechanical Axebeak
-  -  64899 # Mechanical Pandaren Dragonling
-  -  88134 # Mechanical Scorpid
-  -   2671 # Mechanical Squirrel
-  - 147619 # Mechantula
-  -  43800 # Personal World Destroyer
-  -   9656 # Pet Bombling
-  - 170421 # PHA7-YNX
-  -  70082 # Pierre
-  -  71693 # Rascal-Bot
-  -  15699 # Tranquil Mechanical Yeti
-  - 106210 # Trigger
+  - 262 # De-Weaponized Mechanical Companion
+  - 1412 # Lifelike Mechanical Frostboar
+  - 95 # Lifelike Toad
+  - 86 # Lil' Smoky
+  - 1403 # Mechanical Axebeak
+  - 844 # Mechanical Pandaren Dragonling
+  - 1565 # Mechanical Scorpid
+  - 39 # Mechanical Squirrel
+  - 2530 # Mechantula
+  - 261 # Personal World Destroyer
+  - 85 # Pet Bombling
+  - 2889 # PHA7-YNX
+  - 1204 # Pierre
+  - 1256 # Rascal-Bot
+  - 116 # Tranquil Mechanical Yeti
+  - 1886 # Trigger
 
 - name: Fishing
   things:
-  -  26056 # Chuck
-  - 126579 # Ghost Shark (fishing vendor)
-  -  31575 # Giant Sewer Rat
-  - 161951 # Gloop (Black Empire Assault, Uldum)
-  -  18839 # Magical Crawdad
-  -  24389 # Muckbreath
-  -  55386 # Sea Pony
-  -  26050 # Snarly
-  - 109216 # Sting Ray Pup (fishing vendor)
-  -  33226 # Strand Crawler
-  -  70258 # Tiny Blue Carp
-  -  70259 # Tiny Green Carp
-  -  70257 # Tiny Red Carp
-  -  70260 # Tiny White Carp
-  -  24388 # Toothy
+  - 174 # Chuck
+  - 2077 # Ghost Shark (fishing vendor)
+  - 193 # Giant Sewer Rat
+  - 2837 # Gloop (Black Empire Assault, Uldum)
+  - 132 # Magical Crawdad
+  - 164 # Muckbreath
+  - 340 # Sea Pony
+  - 173 # Snarly
+  - 1911 # Sting Ray Pup (fishing vendor)
+  - 211 # Strand Crawler
+  - 1207 # Tiny Blue Carp
+  - 1208 # Tiny Green Carp
+  - 1206 # Tiny Red Carp
+  - 1209 # Tiny White Carp
+  - 163 # Toothy
 
 - name: Herbalism
   things:
-  - 128137 # Fel Lasher (Herbalism)
+  - 2117 # Fel Lasher (Herbalism)
 
 - name: Inscription
   things:
-  -  66104 # Chi-Ji Kite
-  -  66105 # Yu'lon Kite
+  - 849 # Chi-Ji Kite
+  - 850 # Yu'lon Kite
 
 - name: Jewelcrafting
   things:
-  - 61877 # Jade Owl
-  - 61883 # Sapphire Cub
+  - 845 # Jade Owl
+  - 846 # Sapphire Cub
 
 - name: Mining
   things:
-  - 50722 # Elementium Geode - Mining
+  - 293 # Elementium Geode - Mining
 
 - name: Skinning
   things:
-  - 128160 # Fossorial Bile Larva (Skinning)
+  - 2121 # Fossorial Bile Larva (Skinning)
 
 - name: Tailoring
   things:
-  -  82464 # Elekk Plushie
-  -  67230 # Imperial Moth
-  -  67233 # Imperial Silkworm
+  - 1426 # Elekk Plushie
+  - 1039 # Imperial Moth
+  - 1040 # Imperial Silkworm

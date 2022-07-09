@@ -3,26 +3,26 @@ groups:
 
 - name: Vanilla
   things:
-  -  16548 # Mr. Wiggles
-  -  51635 # Scooter the Snail
-  -  16547 # Speedy
-  -  16549 # Whiskers the Rat
+  - 126 # Mr. Wiggles
+  - 289 # Scooter the Snail
+  - 125 # Speedy
+  - 127 # Whiskers the Rat
 
 - name: Burning Crusade
   things:
-  -  23258 # Egbert
-  -  53048 # Legs
-  -  23266 # Peanut
-  -  23231 # Willy
+  - 158 # Egbert
+  - 308 # Legs
+  - 159 # Peanut
+  - 157 # Willy
 
 - name: Wrath of the Lich King
   things:
-  -  33530 # Curious Oracle Hatchling
-  -  33529 # Curious Wolvar Pup
+  - 225 # Curious Oracle Hatchling
+  - 226 # Curious Wolvar Pup
 
 - name: Battle for Azeroth
   things:
-  - 150119 # Beakbert
-  - 150120 # Froglet
-  - 150098 # Mr. Crabs
-  - 150126 # Scaley
+  - 2576 # Beakbert
+  - 2577 # Froglet
+  - 2575 # Mr. Crabs
+  - 2578 # Scaley

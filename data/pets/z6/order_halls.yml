@@ -3,36 +3,36 @@ groups:
 
 - name: Missions
   things:
-  - 112144 # Corgnelius (It's so FLUFFY!)
-  - 112132 # Firebat Pup (Friends, Not Food)
+  - 1929 # Corgnelius (It's so FLUFFY!)
+  - 1928 # Firebat Pup (Friends, Not Food)
 
 - name: Death Knight
   things:
-  - 119498 # Bloodbrood Whelpling (Order Hall, Death Knight)
-  - 119499 # Frostbrood Whelpling (Order Hall, Death Knight)
-  - 119500 # Vilebrood Whelpling (Order Hall, Death Knight)
+  - 2035 # Bloodbrood Whelpling (Order Hall, Death Knight)
+  - 2036 # Frostbrood Whelpling (Order Hall, Death Knight)
+  - 2037 # Vilebrood Whelpling (Order Hall, Death Knight)
 
 - name: Demon Hunter
   things:
-  -  97178 # Hateful Eye
+  - 1718 # Hateful Eye
 
 - name: Druid
   things:
-  -  98463 # Broot (Order Hall, Druid)
-  - 112798 # Nightmare Lasher (Order Hall, Druid)
+  - 1777 # Broot (Order Hall, Druid)
+  - 1932 # Nightmare Lasher (Order Hall, Druid)
 
 - name: Monk
   things:
-  - 120830 # Ban-Fu, Cub of Ban-Lu (Order Hall, Monk)
+  - 2047 # Ban-Fu, Cub of Ban-Lu (Order Hall, Monk)
 
 - name: Rogue
   things:
-  - 116871 # Crackers (Order Hall, Rogue?)
+  - 1997 # Crackers (Order Hall, Rogue?)
 
 - name: Shaman
   things:
-  - 114063 # Snowfang (Order Hall, Shaman)
+  - 1941 # Snowfang (Order Hall, Shaman)
 
 - name: Warlock
   things:
-  -  97178 # Hateful Eye
+  - 1718 # Hateful Eye

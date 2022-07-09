@@ -3,87 +3,87 @@ groups:
 
 - name: Drustvar
   things:
-  - 143045 # Coastal Scuttler (Drustvar)
-  - 143037 # River Otter (Drustvar, Stormsong Valley)
+  - 2386 # Coastal Scuttler (Drustvar)
+  - 2378 # River Otter (Drustvar, Stormsong Valley)
 
 - name: Mechagon
   things:
-  - 154769 # Duskytooth Snooter
-  - 154773 # Experimental Roach
-  - 154775 # Fleeting Frog
-  - 154771 # Junkheap Roach
-  - 154785 # Mechagon Marmot
-  - 154779 # Motorized Croaker
-  - 154783 # Rustbolt Clucker
-  - 154767 # Rustyroot Snooter
-  - 154791 # Scrapyard Tunneler
-  - 154787 # Specimen 97
-  - 154777 # Yellow Junkhopper
+  - 2662 # Duskytooth Snooter
+  - 2664 # Experimental Roach
+  - 2665 # Fleeting Frog
+  - 2663 # Junkheap Roach
+  - 2670 # Mechagon Marmot
+  - 2667 # Motorized Croaker
+  - 2669 # Rustbolt Clucker
+  - 2661 # Rustyroot Snooter
+  - 2673 # Scrapyard Tunneler
+  - 2671 # Specimen 97
+  - 2666 # Yellow Junkhopper
 
 - name: Nazjatar
   things:
-  - 154814 # Abyssal Slitherling
-  - 154714 # Bloodseeker
-  - 154706 # Chitterspine Skitterling
-  - 154712 # Deeptide Fingerling
-  - 154704 # Glimmershell Scuttler
-  - 154710 # Great Sea Albatross
-  - 154708 # Hissing Chitterspine
-  - 154724 # Muck Slug
-  - 154697 # Sandclaw Pincher
-  - 154702 # Sandclaw Sunshell
-  - 154716 # Spireshell Snail
+  - 2678 # Abyssal Slitherling
+  - 2652 # Bloodseeker
+  - 2648 # Chitterspine Skitterling
+  - 2651 # Deeptide Fingerling
+  - 2647 # Glimmershell Scuttler
+  - 2650 # Great Sea Albatross
+  - 2649 # Hissing Chitterspine
+  - 2660 # Muck Slug
+  - 2645 # Sandclaw Pincher
+  - 2646 # Sandclaw Sunshell
+  - 2653 # Spireshell Snail
 
 - name: Nazmir
   things:
-  - 143047 # Bloodfever Tarantula (Nazmir)
-  - 143055 # Boghopper (Nazmir)
-  - 143057 # Coastal Bounder (Nazmir)
-  - 143048 # Elusive Skimmer (Nazmir)
-  - 143053 # Glutted Bleeder (Nazmir)
-  - 143052 # Returned Hatchling (Nazmir)
-  - 143054 # Spectral Raven (Nazmir)
-  - 143051 # Sticky Oozeling (Nazmir)
-  - 143050 # Young Sand Sifter (Nazmir)
+  - 2388 # Bloodfever Tarantula (Nazmir)
+  - 2398 # Boghopper (Nazmir)
+  - 2400 # Coastal Bounder (Nazmir)
+  - 2389 # Elusive Skimmer (Nazmir)
+  - 2395 # Glutted Bleeder (Nazmir)
+  - 2394 # Returned Hatchling (Nazmir)
+  - 2397 # Spectral Raven (Nazmir)
+  - 2393 # Sticky Oozeling (Nazmir)
+  - 2392 # Young Sand Sifter (Nazmir)
 
 - name: Stormsong Valley
   things:
-  - 143033 # Freshwater Crawler (Stormsong Valley)
-  - 143038 # Honey Bee (Stormsong Valley)
-  - 143032 # River Frog (Stormsong Valley)
-  - 143037 # River Otter (Drustvar, Stormsong Valley)
-  - 143036 # Sandyback Crawler (Stormsong Valley, Tiragarde Sound)
-  - 143031 # Shadowback Crawler (Stormsong Valley)
-  - 143034 # Vale Marmot (Stormsong Valley)
-  - 143035 # Valley Chicken (Stormsong Valley)
+  - 2374 # Freshwater Crawler (Stormsong Valley)
+  - 2379 # Honey Bee (Stormsong Valley)
+  - 2373 # River Frog (Stormsong Valley)
+  - 2378 # River Otter (Drustvar, Stormsong Valley)
+  - 2377 # Sandyback Crawler (Stormsong Valley, Tiragarde Sound)
+  - 2372 # Shadowback Crawler (Stormsong Valley)
+  - 2375 # Vale Marmot (Stormsong Valley)
+  - 2376 # Valley Chicken (Stormsong Valley)
 
 - name: Tiragarde Sound
   things:
-  - 143042 # Giant Woodworm (Tiragarde Sound)
-  - 143041 # Inland Croaker (Tiragarde Sound)
-  - 143039 # Parasitic Boarfly (Tiragarde Sound)
-  - 143036 # Sandyback Crawler (Stormsong Valley, Tiragarde Sound)
-  - 143040 # Shack Crab (Tiragarde Sound)
+  - 2383 # Giant Woodworm (Tiragarde Sound)
+  - 2382 # Inland Croaker (Tiragarde Sound)
+  - 2380 # Parasitic Boarfly (Tiragarde Sound)
+  - 2377 # Sandyback Crawler (Stormsong Valley, Tiragarde Sound)
+  - 2381 # Shack Crab (Tiragarde Sound)
 
 - name: Uldum
   things:
-  - 162499 # Oasis Void-Duster
-  - 162502 # Void-Scarred Locust
+  - 2863 # Oasis Void-Duster
+  - 2864 # Void-Scarred Locust
 
 - name: Vale of Eternal Blossoms
   things:
-  - 162506 # Voidglower
-  - 162518 # Voidskimmer
-  - 162525 # Golden Chirper
+  - 2866 # Voidglower
+  - 2865 # Voidskimmer
+  - 2867 # Golden Chirper
 
 - name: "Vol'dun"
   things:
-  - 143056 # Hermit Crab (Vol'dun)
+  - 2399 # Hermit Crab (Vol'dun)
 
 - name: Zuldazar
   things:
-  - 148517 # Baby Zandalari Raptor (Zuldazar)
-  - 143044 # Barrier Hermit (Zuldazar)
-  - 143046 # Golden Beetle (Zuldazar)
-  - 143049 # Leafy Flutterwing (Zuldazar)
-  - 143043 # Shore Butterfly (Zuldazar)
+  - 2537 # Baby Zandalari Raptor (Zuldazar)
+  - 2385 # Barrier Hermit (Zuldazar)
+  - 2387 # Golden Beetle (Zuldazar)
+  - 2390 # Leafy Flutterwing (Zuldazar)
+  - 2384 # Shore Butterfly (Zuldazar)

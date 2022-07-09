@@ -3,96 +3,96 @@ groups:
 
 - name: "Operation: Mechagon"
   things:
-  - 154789 # Alloyed Alleyrat
-  - 154796 # Clanking Scrapsorter
-  - 154781 # Copper Hopper
-  - 154794 # H4ND-EE
-  - 154798 # Malfunctioning Microbot
-  - 154850 # Golden Snorf (King Mechagon)
-  - 154857 # Microbot 8D (HK-8 Aerial Oppression Unit)
+  - 2672 # Alloyed Alleyrat
+  - 2675 # Clanking Scrapsorter
+  - 2668 # Copper Hopper
+  - 2674 # H4ND-EE
+  - 2676 # Malfunctioning Microbot
+  - 2711 # Golden Snorf (King Mechagon)
+  - 2718 # Microbot 8D (HK-8 Aerial Oppression Unit)
 
 - name: "Temple of Sethraliss"
   things:
-  - 138964 # Spawn of Merektha (Merektha, Temple of Sethraliss)
+  - 2186 # Spawn of Merektha (Merektha, Temple of Sethraliss)
 
 - name: "Tol Dagor"
   things:
-  - 139049 # Filthy Slime (Gol'than the Malodorous, Tol Dagor)
+  - 2187 # Filthy Slime (Gol'than the Malodorous, Tol Dagor)
 
 - name: "Battle of Dazar'alor"
   things:
-  - 147586 # Child of Pa'ku (Conclave of the Chosen, Battle of Dazar'alor Normal+)
-  - 147585 # Spawn of Krag'wa (Conclave of the Chosen, Battle of Dazar'alor Mythic)
-  - 147587 # Thunder Lizard Runt (Conclave of the Chosen, Battle of Dazar'alor Normal+)
+  - 2527 # Child of Pa'ku (Conclave of the Chosen, Battle of Dazar'alor Normal+)
+  - 2528 # Spawn of Krag'wa (Conclave of the Chosen, Battle of Dazar'alor Mythic)
+  - 2529 # Thunder Lizard Runt (Conclave of the Chosen, Battle of Dazar'alor Normal+)
 
 - name: "The Eternal Palace"
   things:
-  - 154718 # Blackchasm Crawler
-  - 154720 # Chitterspine Deepstalker
-  - 154722 # Trench Slug
-  - 154831 # Lightless Ambusher (Lady Ashvane, The Eternal Palace)
-  - 154833 # Mindlost Bloodfrenzy (Blackwater Behemoth, The Eternal Palace)
-  - 154835 # Nameless Octopode (Za'qul, The Eternal Palace)
-  - 154819 # Zanj'ir Poker (Queen Azshara, The Eternal Palace)
+  - 2657 # Blackchasm Crawler
+  - 2658 # Chitterspine Deepstalker
+  - 2659 # Trench Slug
+  - 2692 # Lightless Ambusher (Lady Ashvane, The Eternal Palace)
+  - 2694 # Mindlost Bloodfrenzy (Blackwater Behemoth, The Eternal Palace)
+  - 2696 # Nameless Octopode (Za'qul, The Eternal Palace)
+  - 2680 # Zanj'ir Poker (Queen Azshara, The Eternal Palace)
 
 - name: "Ny'alotha"
   things:
-  - 161923 # Aqir Hivespawn (Tek'ris, Ny'alotha)
-  - 161946 # Eye of Corruption (N'Zoth the Corruptor, Ny'alotha)
-  - 161919 # Muar (Maut, Ny'alotha)
-  - 161924 # Ra'kim (Tek'ris, Ny'alotha)
-  - 161921 # Void-Scarred Anubisath (Ra-den, Ny'alotha)
+  - 2834 # Aqir Hivespawn (Tek'ris, Ny'alotha)
+  - 2836 # Eye of Corruption (N'Zoth the Corruptor, Ny'alotha)
+  - 2832 # Muar (Maut, Ny'alotha)
+  - 2835 # Ra'kim (Tek'ris, Ny'alotha)
+  - 2833 # Void-Scarred Anubisath (Ra-den, Ny'alotha)
 
 - name: "Island Expeditions"
   things:
-  - 154693 # Adventurous Hopling
-  - 148976 # Baby Stonehide
-  - 143796 # Barnaby
-  - 143816 # Bloodstone Tunneler
-  - 143795 # Captain Nibs
-  - 143821 # Coldlight Surfrunner
-  - 143803 # Craghoof Kid
-  - 143807 # Deathsting Scorpid
-  - 143804 # False Knucklebump
-  - 148988 # Firesting Buzzer
-  - 154165 # Ghostly Whelpling
-  - 143809 # Giggling Flame
-  - 143799 # Inky
-  - 143819 # Juvenile Brineshell
-  - 143802 # Kindleweb Spiderling
-  - 143820 # Kunchong Hatchling
-  - 143810 # Laughing Stonekin
-  - 148979 # Leatherwing Screecher
-  - 143813 # Littlehoof
-  - 148989 # Lord Woofington
-  - 143812 # Mischievous Zephyr
-  - 143818 # Muskflank Calfling
-  - 148982 # Needleback Pup
-  - 143798 # Octopode Fry
-  - 143811 # Playful Frostkin
-  - 143797 # Poro
-  - 148981 # Rotting Ghoul
-  - 143806 # Sandshell Chitterer
-  - 148991 # Scritches
-  - 143794 # Scuttle
-  - 148984 # Shadefeather Hatchling
-  - 143814 # Snapper
-  - 143817 # Snort
-  - 143801 # Sparkleshell Sandcrawler
-  - 143815 # Sunscale Hatchling
-  - 143808 # Thistlebrush Bud
-  - 148995 # Thunderscale Whelpling
-  - 143805 # Tinder Pup
-  - 148990 # Tonguelasher
-  - 143822 # Voru'kar Leecher
+  - 2755 # Adventurous Hopling
+  - 2551 # Baby Stonehide
+  - 2456 # Barnaby
+  - 2451 # Bloodstone Tunneler
+  - 2455 # Captain Nibs
+  - 2457 # Coldlight Surfrunner
+  - 2448 # Craghoof Kid
+  - 2464 # Deathsting Scorpid
+  - 2449 # False Knucklebump
+  - 2557 # Firesting Buzzer
+  - 2754 # Ghostly Whelpling
+  - 2466 # Giggling Flame
+  - 2461 # Inky
+  - 2453 # Juvenile Brineshell
+  - 2447 # Kindleweb Spiderling
+  - 2454 # Kunchong Hatchling
+  - 2468 # Laughing Stonekin
+  - 2552 # Leatherwing Screecher
+  - 2471 # Littlehoof
+  - 2558 # Lord Woofington
+  - 2467 # Mischievous Zephyr
+  - 2458 # Muskflank Calfling
+  - 2554 # Needleback Pup
+  - 2462 # Octopode Fry
+  - 2465 # Playful Frostkin
+  - 2452 # Poro
+  - 2553 # Rotting Ghoul
+  - 2463 # Sandshell Chitterer
+  - 2560 # Scritches
+  - 2445 # Scuttle
+  - 2556 # Shadefeather Hatchling
+  - 2472 # Snapper
+  - 2459 # Snort
+  - 2446 # Sparkleshell Sandcrawler
+  - 2473 # Sunscale Hatchling
+  - 2469 # Thistlebrush Bud
+  - 2561 # Thunderscale Whelpling
+  - 2450 # Tinder Pup
+  - 2559 # Tonguelasher
+  - 2460 # Voru'kar Leecher
 
 - name: "Visions"
   things:
-  - 161964 # Anomalus
-  - 161959 # C'Thuffer
-  - 161966 # Void-Scarred Beetle
-  - 161962 # Void-Scarred Cat
-  - 161961 # Void-Scarred Hare
-  - 160196 # Void-Scarred Pup
-  - 161963 # Void-Scarred Rat
-  - 160187 # Void-Scarred Toad
+  - 2842 # Anomalus
+  - 2838 # C'Thuffer
+  - 2843 # Void-Scarred Beetle
+  - 2840 # Void-Scarred Cat
+  - 2839 # Void-Scarred Hare
+  - 2797 # Void-Scarred Pup
+  - 2841 # Void-Scarred Rat
+  - 2796 # Void-Scarred Toad

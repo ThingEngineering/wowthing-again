@@ -3,18 +3,18 @@ groups:
 
 - name: Quests
   things:
-  -  42177 # Blue Mini Jouster
-  -  42183 # Gold Mini Jouster
+  - 259 # Blue Mini Jouster
+  - 260 # Gold Mini Jouster
 
 - name: Drops
   things:
-  -  48982 # Tiny Shale Spider - Jadefang
+  - 279 # Tiny Shale Spider - Jadefang
 
 - name: Reputations
   things:
-  -  48107 # Rustberg Gull
+  - 271 # Rustberg Gull
 
 - name: Vendors
   things:
-  -  53661 # Crimson Lasher - Molten Front
-  -  53658 # Hyjal Bear Cub - Molten Front
+  - 318 # Crimson Lasher - Molten Front
+  - 317 # Hyjal Bear Cub - Molten Front

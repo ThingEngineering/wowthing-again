@@ -3,45 +3,45 @@ groups:
 
 - name: Dungeons
   things:
-  - 26119 # Phoenix Hatchling - Magisters' Terrace
-  - 24480 # Mojo - Zul'Aman
+  - 175 # Phoenix Hatchling - Magisters' Terrace
+  - 165 # Mojo - Zul'Aman
 
 - name: Karazhan
   things:
-  - 71033 # Fiendish Imp - Karazhan
-  - 71014 # Lil' Bad Wolf - Karazhan
-  - 71015 # Menagerie Custodian - Karazhan
-  - 71016 # Netherspace Abyssal - Karazhan
+  - 1229 # Fiendish Imp - Karazhan
+  - 1226 # Lil' Bad Wolf - Karazhan
+  - 1227 # Menagerie Custodian - Karazhan
+  - 1228 # Netherspace Abyssal - Karazhan
 
 - name: Serpentshrine Cavern
   things:
-  - 71019 # Coilfang Stalker (SSC)
-  - 71018 # Tainted Waveling (SSC)
-  - 71017 # Tideskipper (SSC)
+  - 1232 # Coilfang Stalker (SSC)
+  - 1231 # Tainted Waveling (SSC)
+  - 1230 # Tideskipper (SSC)
 
 - name: Tempest Keep
   things:
-  - 71021 # Lesser Voidcaller (Tempest Keep
-  - 71022 # Phoenix Hawk Hatchling (Tempest Keep
-  - 71020 # Pocket Reaver (Tempest Keep
+  - 1234 # Lesser Voidcaller (Tempest Keep
+  - 1235 # Phoenix Hawk Hatchling (Tempest Keep
+  - 1233 # Pocket Reaver (Tempest Keep
 
 - name: Hyjal Summit
   things:
-  - 90200 # Grotesque - Hyjal Summit
-  - 90208 # Hyjal Wisp - Hyjal Summit
-  - 90207 # Stinkrot - Hyjal Summit
+  - 1622 # Grotesque - Hyjal Summit
+  - 1631 # Hyjal Wisp - Hyjal Summit
+  - 1629 # Stinkrot - Hyjal Summit
 
 - name: Black Temple
   things:
-  - 90202 # Abyssius - Black Temple
-  - 90203 # Fragment of Anger - Black Temple
-  - 90205 # Fragment of Desire - Black Temple
-  - 90204 # Fragment of Suffering - Black Temple
-  - 90201 # Leviathan Hatchling - Black Temple
-  - 90206 # Sister of Temptation - Black Temple
+  - 1624 # Abyssius - Black Temple
+  - 1625 # Fragment of Anger - Black Temple
+  - 1627 # Fragment of Desire - Black Temple
+  - 1626 # Fragment of Suffering - Black Temple
+  - 1623 # Leviathan Hatchling - Black Temple
+  - 1628 # Sister of Temptation - Black Temple
 
 - name: Sunwell
   things:
-  - 90213 # Chaos Pup (Sunwell
-  - 90212 # Sunblade Micro-Defender (Sunwell
-  - 90214 # Wretched Servant (Sunwell
+  - 1633 # Chaos Pup (Sunwell
+  - 1632 # Sunblade Micro-Defender (Sunwell
+  - 1634 # Wretched Servant (Sunwell

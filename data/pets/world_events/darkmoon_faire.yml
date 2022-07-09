@@ -3,52 +3,52 @@ groups:
 
 - name: Achievements
   things:
-  -  76873 # Hogs (That's Whack! achievement)
-  -  90345 # Race MiniZep (Big Rocketeer: Gold achievement)
+  - 1384 # Hogs (That's Whack! achievement)
+  - 1636 # Race MiniZep (Big Rocketeer: Gold achievement)
 
 - name: Drops
   things:
-  -  59358 # Darkmoon Rabbit
-  -  72160 # Moon Moon
+  - 848 # Darkmoon Rabbit
+  - 1276 # Moon Moon
 
 - name: Fishing
   things:
-  -  93814 # Blorp
-  -  93808 # Ghostshell Crab
-  -  55386 # Sea Pony
+  - 1666 # Blorp
+  - 1665 # Ghostshell Crab
+  - 340 # Sea Pony
 
 - name: Quests
   things:
-  -  14878 # Jubling
+  - 106 # Jubling
 
 - name: "Quests: Daily"
   things:
-  -  67332 # Darkmoon Eye
-  -  85527 # Syd the Squid
+  - 1063 # Darkmoon Eye
+  - 1478 # Syd the Squid
 
 - name: "Vendor: Carl Goodup"
   things:
-  - 145946 # Horse Balloon
-  - 145947 # Murloc Balloon
-  - 145948 # Wolf Balloon
+  - 2484 # Horse Balloon
+  - 2483 # Murloc Balloon
+  - 2482 # Wolf Balloon
 
 - name: "Vendor: Flik"
   things:
-  -   7549 # Tree Frog
-  -   7550 # Wood Frog
+  - 65 # Tree Frog
+  - 64 # Wood Frog
 
 - name: "Vendor: Lhara"
   things:
-  -  55187 # Darkmoon Balloon
-  -  56031 # Darkmoon Cub
-  -  67319 # Darkmoon Hatchling
-  -  54491 # Darkmoon Monkey
-  -  55356 # Darkmoon Tonk
-  -  54487 # Darkmoon Turtle
-  -  55367 # Darkmoon Zeppelin
+  - 336 # Darkmoon Balloon
+  - 343 # Darkmoon Cub
+  - 1061 # Darkmoon Hatchling
+  - 330 # Darkmoon Monkey
+  - 338 # Darkmoon Tonk
+  - 335 # Darkmoon Turtle
+  - 339 # Darkmoon Zeppelin
 
 - name: ">Pet Battles"
   things:
-  -  67443 # Crow
-  -  67329 # Darkmoon Glowfly
-  -  62953 # Sea Gull
+  - 1068 # Crow
+  - 1062 # Darkmoon Glowfly
+  - 560 # Sea Gull

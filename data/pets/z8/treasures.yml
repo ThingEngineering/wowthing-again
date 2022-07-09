@@ -3,35 +3,35 @@ groups:
 
 - name: Ardenweald
   things:
-  - 171234 # Amber Glitterwing (Ardenweald)
-  - 171230 # Gorm Harrier (Ardenweald)
-  - 173591 # Shimmerbough Hoarder
-  - 173533 # Sinfall Screecher
-  - 171225 # Starry Dreamfoal (Ardenweald)
+  - 2911 # Amber Glitterwing (Ardenweald)
+  - 2921 # Gorm Harrier (Ardenweald)
+  - 3022 # Shimmerbough Hoarder
+  - 3010 # Sinfall Screecher
+  - 2914 # Starry Dreamfoal (Ardenweald)
 
 - name: Bastion
   things:
-  - 171238 # Cloudfeather Fledgling (Bastion)
-  - 171697 # Purity (Bastion)
-  - 171693 # Silvershell Snapper (Bastion)
+  - 2909 # Cloudfeather Fledgling (Bastion)
+  - 2935 # Purity (Bastion)
+  - 2932 # Silvershell Snapper (Bastion)
 
 - name: Maldraxxus
   things:
-  - 173534 # Bloodlouse Larva (Maldraxxus)
-  - 172132 # Bubbling Pustule (Maldraxxus)
-  - 173847 # Carpal
-  - 174125 # Iridescent Ooze
-  - 171985 # Luminous Webspinner (Maldraxxus)
-  - 171987 # Skittering Venomspitter (Maldraxxus)
-  - 174677 # Spinebug
+  - 3013 # Bloodlouse Larva (Maldraxxus)
+  - 2952 # Bubbling Pustule (Maldraxxus)
+  - 3025 # Carpal
+  - 3045 # Iridescent Ooze
+  - 2947 # Luminous Webspinner (Maldraxxus)
+  - 2949 # Skittering Venomspitter (Maldraxxus)
+  - 3047 # Spinebug
 
 - name: Revendreth
   things:
-  - 171122 # Burdened Soul (Revendreth)
-  - 173531 # The Count
-  - 173508 # Lost Quill (Revendreth)
-  - 171125 # Trapped Stonefiend (Revendreth)
+  - 2894 # Burdened Soul (Revendreth)
+  - 3009 # The Count
+  - 3008 # Lost Quill (Revendreth)
+  - 2901 # Trapped Stonefiend (Revendreth)
 
 - name: "Zereth Mortis"
   things:
-  - 181337 # Geordy (Ephemera Shell)
+  - 3172 # Geordy (Ephemera Shell)
