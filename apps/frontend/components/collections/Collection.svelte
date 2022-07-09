@@ -11,13 +11,15 @@
 
     export let params: MultiSlugParams
     export let route: string
+    export let sets: StaticDataSetCategory[][]
+    export let thingMapFunc: (thing: number) => number = undefined
     export let thingType: string
     export let userHas: Record<number, boolean> = {}
-    export let sets: StaticDataSetCategory[][]
 
     $: {
         const context: CollectionContext = {
             route,
+            thingMapFunc,
             thingType,
             userHas,
         }

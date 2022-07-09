@@ -20,16 +20,20 @@
             $staticStore.data.mountSets,
             (thing: number[]) => some(
                 thing,
-                (value) => $userStore.data.hasMountSpell[value] === true
+                (value) => $userStore.data.hasMount[value] === true
             )
         )
+        
     }
+    
+    const thingMapFunc = (thing: number) => $staticStore.data.mounts[thing].spellId
 </script>
 
 <Collection
     route="mounts"
     thingType="spell"
-    userHas={$userStore.data.hasMountSpell}
+    userHas={$userStore.data.hasMount}
     {params}
     {sets}
+    {thingMapFunc}
 />

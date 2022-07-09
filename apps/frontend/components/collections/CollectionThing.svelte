@@ -13,7 +13,7 @@
 
     export let things: number[] = []
 
-    const { route, thingType, userHas } = getContext('collection') as CollectionContext
+    const { route, thingMapFunc, thingType, userHas } = getContext('collection') as CollectionContext
 
     let element: HTMLElement
     let intersected = false
@@ -26,6 +26,10 @@
             (value: number): boolean => userHas[value] === true,
         )
         origId = userHasThing ?? things[0]
+
+        if (thingMapFunc) {
+            origId = thingMapFunc(origId)
+        }
 
         if (userHasThing) {
             showAsMissing = $collectionState.highlightMissing[route]

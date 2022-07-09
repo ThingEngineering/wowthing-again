@@ -17,11 +17,11 @@ export default function userHasDrop(
     return (
         (
             type === FarmDropType.Mount &&
-            userData.hasMountSpell[id] === true
+            userData.hasMount[id] === true
         ) ||
         (
             type === FarmDropType.Pet &&
-            userData.hasPetCreature[id] === true
+            userData.hasPet[id] === true
         ) ||
         (
             type === FarmDropType.Toy &&

@@ -129,28 +129,6 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             }
         }
 
-        const hasMountSpell: Record<number, boolean> = {}
-        for (const mountId in userData.hasMount) {
-            const mount = staticData.mounts[mountId]
-            if (mount) {
-                hasMountSpell[mount.spellId] = true
-            }
-            else {
-                console.warn('Missing mount data for', mountId)
-            }
-        }
-
-        const hasPetCreature: Record<number, boolean> = {}
-        for (const petId in userData.hasPet) {
-            const pet = staticData.pets[petId]
-            if (pet) {
-                hasPetCreature[pet.creatureId] = true
-            }
-            else {
-                console.warn('Missing pet data for', petId)
-            }
-        }
-
         // Generate set counts
         const setCounts = {
             mounts: {},
@@ -161,14 +139,12 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         UserDataStore.doSetCounts(
             setCounts['mounts'],
             staticData.mountSets,
-            userData.hasMount,
-            (spellId) => staticData.mountsBySpellId[spellId].id
+            userData.hasMount
         )
         UserDataStore.doSetCounts(
             setCounts['pets'],
             staticData.petSets,
-            userData.hasPet,
-            (creatureId) => staticData.petsByCreatureId[creatureId].id
+            userData.hasPet
         )
         UserDataStore.doSetCounts(
             setCounts['toys'],
@@ -177,8 +153,6 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         )
 
         this.update(state => {
-            state.data.hasMountSpell = hasMountSpell
-            state.data.hasPetCreature = hasPetCreature
             state.data.setCounts = setCounts
             return state
         })
@@ -287,8 +261,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
     private static doSetCounts(
         setCounts: Record<string, UserCount>,
         categories: StaticDataSetCategory[][],
-        userHas: Record<number, boolean>,
-        mapFunc?: (origId: number) => number,
+        userHas: Record<number, boolean>
     ): void {
         const overallData = setCounts['OVERALL'] = new UserCount()
         const seen: Record<number, boolean> = {}
@@ -316,7 +289,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
                     const groupData = setCounts[`${category[0].slug}--${set.slug}--${group.name}`] = new UserCount()
 
                     for (const things of group.things) {
-                        const hasThing = some(things, (t) => userHas[mapFunc?.(t) ?? t])
+                        const hasThing = some(things, (t) => userHas[t])
                         const seenThing = some(things, (t) => seen[t])
 
                         const doOverall = (
@@ -360,10 +333,6 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             }
         }
     }
-
-    /*public knowsMount(spellId: number) {
-        return this.get().data.
-    }*/
 }
 
 export const userStore = new UserDataStore()
