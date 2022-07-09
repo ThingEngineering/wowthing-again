@@ -3,33 +3,33 @@ groups:
 
 - name: Isle of Giants
   things:
-  - 138642 # Black Primal Raptor
-  - 138643 # Green Primal Raptor
-  - 138641 # Red Primal Raptor
-  - 138423 # Cobalt Primordial Direhorn (Oondasta)
+  - 539 # Black Primal Raptor
+  - 540 # Green Primal Raptor
+  - 538 # Red Primal Raptor
+  - 533 # Cobalt Primordial Direhorn (Oondasta)
 
 - name: Isle of Thunder
   things:
-  - 139442 # Thundering Cobalt Cloud Serpent (Nalak)
+  - 542 # Thundering Cobalt Cloud Serpent (Nalak)
 
 - name: Kun-Lai Summit
   things:
-  - 127158 # Heavenly Onyx Cloud Serpent (Sha of Anger)
+  - 473 # Heavenly Onyx Cloud Serpent (Sha of Anger)
 
 - name: Timeless Isle
   things:
-  - 148476 # Thundering Onyx Cloud Serpent (Huolon)
+  - 561 # Thundering Onyx Cloud Serpent (Huolon)
 
 - name: Vale of Eternal Blossoms
   things:
-  - 132036 # Thundering Ruby Cloud Serpent (Alani)
+  - 517 # Thundering Ruby Cloud Serpent (Alani)
 
 - name: Valley of the Four Winds
   things:
-  - 130965 # Son of Galleon (Galleon)
+  - 515 # Son of Galleon (Galleon)
 
 - name: Warbringers
   things:
-  - 138424 # Amber Primordial Direhorn (Zandalari Warbringer)
-  - 138426 # Jade Primordial Direhorn (Zandalari Warbringer)
-  - 138425 # Slate Primordial Direhorn (Zandalari Warbringer)
+  - 534 # Amber Primordial Direhorn (Zandalari Warbringer)
+  - 536 # Jade Primordial Direhorn (Zandalari Warbringer)
+  - 535 # Slate Primordial Direhorn (Zandalari Warbringer)

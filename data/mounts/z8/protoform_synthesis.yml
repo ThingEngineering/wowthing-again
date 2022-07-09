@@ -3,48 +3,48 @@ groups:
 
 - name: "Hawk"
   things:
-  - 342668 # Desertwing Hunter
-  - 359372 # Mawdapted Raptora
-  - 359373 # Raptora Swooper
+  - 1430 # Desertwing Hunter
+  - 1536 # Mawdapted Raptora
+  - 1537 # Raptora Swooper
 
 - name: "Snail"
   things:
-  - 359376 # Bronze Helicid
-  - 359378 # Scarlet Helicid
-  - 346719 # Serenade
-  - 359377 # Unsuccessful Prototype Fleetpod
+  - 1538 # Bronze Helicid
+  - 1540 # Scarlet Helicid
+  - 1448 # Serenade
+  - 1539 # Unsuccessful Prototype Fleetpod
 
 - name: "Spider"
   things:
-  - 359401 # Genesis Crawler
-  - 359403 # Ineffable Skitterer
-  - 359402 # Tarachnid Creeper
+  - 1541 # Genesis Crawler
+  - 1543 # Ineffable Skitterer
+  - 1542 # Tarachnid Creeper
 
 - name: "Stag"
   things:
-  - 359278 # Deathrunner
-  - 342671 # Pale Regal Cervid
-  - 359277 # Sundered Zerethsteed
+  - 1526 # Deathrunner
+  - 1431 # Pale Regal Cervid
+  - 1528 # Sundered Zerethsteed
 
 - name: "Toad"
   things:
-  - 359413 # Goldplate Bufonid
-  - 363703 # Prototype Leaper
-  - 363706 # Russet Bufonid
+  - 1547 # Goldplate Bufonid
+  - 1570 # Prototype Leaper
+  - 1571 # Russet Bufonid
 
 - name: "Vombata"
   things:
-  - 359232 # Adorned Vombata
-  - 359230 # Curious Crystalsniffer
-  - 359231 # Darkened Vombata
+  - 1525 # Adorned Vombata
+  - 1523 # Curious Crystalsniffer
+  - 1524 # Darkened Vombata
 
 - name: "Wasp"
   things:
-  - 359364 # Bronzewing Vespoid
-  - 359366 # Buzz
-  - 359367 # Forged Spiteflyer
-  - 342678 # Vespoid Flutterer
+  - 1535 # Bronzewing Vespoid
+  - 1534 # Buzz
+  - 1533 # Forged Spiteflyer
+  - 1433 # Vespoid Flutterer
 
 - name: "Wolf"
   things:
-  - 367673 # Heartbond Lupine
+  - 1580 # Heartbond Lupine

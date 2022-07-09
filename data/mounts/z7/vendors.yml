@@ -3,35 +3,35 @@ groups:
 
 - name: "Capital Cities"
   things:
-  - 279474 # Palehide Direhorn (Tricky Nick, Boralus / Talutu, Dazar'alor)
+  - 1179 # Palehide Direhorn (Tricky Nick, Boralus / Talutu, Dazar'alor)
 
 - name: "Gottum, Nazmir"
   things:
-  - 288587 # Blue Marsh Hopper (Gottum, Nazmir)
-  - 259740 # Green Marsh Hopper (Gottum, Nazmir)
-  - 288589 # Yellow Marsh Hopper (Gottum, Nazmir)
+  - 1206 # Blue Marsh Hopper (Gottum, Nazmir)
+  - 1012 # Green Marsh Hopper (Gottum, Nazmir)
+  - 1207 # Yellow Marsh Hopper (Gottum, Nazmir)
 
 - name: "Mrrl, Nazjatar"
   things:
-  - 300153 # Crimson Tidestallion (Mrrl, Nazjatar)
+  - 1260 # Crimson Tidestallion (Mrrl, Nazjatar)
 
 - name: "💰 Corrupted Mementos"
   things:
-  - 316340 # Wicked Swarmer (Corrupted Mementos)
+  - 1321 # Wicked Swarmer (Corrupted Mementos)
 
 - name: "💰 Nazjatar Battle Commendation"
   things:
-  - 300151 # Inkscale Deepseeker (Nazjatar Battle Commendation)
+  - 1262 # Inkscale Deepseeker (Nazjatar Battle Commendation)
 
 - name: "💰 Seafarer's Dubloons (Island Expeditions)"
   things:
-  - 288711 # Saltwater Seahorse (Seafarer's Dubloon)
-  - 266925 # Siltwing Albatross (Seafarer's Dubloon)
+  - 1208 # Saltwater Seahorse (Seafarer's Dubloon)
+  - 1042 # Siltwing Albatross (Seafarer's Dubloon)
 
 - name: "💰 Service Medals"
   things:
-  - 288506 # Sandy Nightsaber (Service Medal)
-  - 288736 # Azureshell Krolusk (Service Medal) - Alliance A
-  - 288735 # Rubyshell Krolusk (Service Medal) - Horde A
-  - 288740 # Priestess' Moonsaber (Service Medal) - Alliance B
-  - 288714 # Bloodthirsty Dreadwing (Service Medal) - Alliance C
+  - 1204 # Sandy Nightsaber (Service Medal)
+  - 1214 # Azureshell Krolusk (Service Medal) - Alliance A
+  - 1215 # Rubyshell Krolusk (Service Medal) - Horde A
+  - 1216 # Priestess' Moonsaber (Service Medal) - Alliance B
+  - 1210 # Bloodthirsty Dreadwing (Service Medal) - Alliance C

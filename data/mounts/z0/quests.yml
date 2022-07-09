@@ -3,8 +3,8 @@ groups:
 
 - name: "Un'goro Crater"
   things:
-  - 64659 # Venomhide Ravasaur (Un'goro Crater)
+  - 311 # Venomhide Ravasaur (Un'goro Crater)
 
 - name: "Winterspring"
   things:
-  - 17229 # Winterspring Frostsaber (Wintersaber Trainers)
+  - 55 # Winterspring Frostsaber (Wintersaber Trainers)

@@ -3,28 +3,28 @@ groups:
 
 - name: Campaign
   things:
-  - 332932 # Crypt Gargon (Chapter 4)
-  - 312754 # Battle Gargon Vrednic (Final Chapter)
+  - 1385 # Crypt Gargon (Chapter 4)
+  - 1299 # Battle Gargon Vrednic (Final Chapter)
 
 - name: Renown
   things:
-  - 332927 # Sinfall Gargon (Renown 23)
-  - 333021 # Gravestone Battle Gargon (Renown 39)
-  - 353872 # Sinfall Gravewing (Renown 45)
-  - 353866 # Obsidian Gravewing (Renown 70)
+  - 1384 # Sinfall Gargon (Renown 23)
+  - 1388 # Gravestone Battle Gargon (Renown 39)
+  - 1490 # Sinfall Gravewing (Renown 45)
+  - 1489 # Obsidian Gravewing (Renown 70)
 
 - name: Conductor
   things:
-  - 332882 # Horrid Dredwing (Harika the Horrid)
+  - 1310 # Horrid Dredwing (Harika the Horrid)
 
 - name: Ember Court
   things:
-  - 332949 # Desire's Battle Gargon (The Countess reward chest)
+  - 1387 # Desire's Battle Gargon (The Countess reward chest)
 
 - name: Transport
   things:
-  - 333023 # Battle Gargon Silessa
+  - 1389 # Battle Gargon Silessa
 
 - name: Misc
   things:
-  - 312753 # Hopecrusher Gargon (Revendreth)
+  - 1298 # Hopecrusher Gargon (Revendreth)

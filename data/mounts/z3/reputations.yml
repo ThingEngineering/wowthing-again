@@ -3,19 +3,19 @@ groups:
 
 - name: "Baradin's Wardens"
   things:
-    - 88741 # Drake of the West Wind
-    - 92231 92232 # Spectral Steed/Spectral Wolf
+  - 394 # Drake of the West Wind
+  - 405 406 # Spectral Steed/Spectral Wolf
 
 - name: "Hellscream's Reach"
   things:
-    - 88741 # Drake of the West Wind
-    - 92232 92231 # Spectral Wolf/Spectral Steed
+  - 394 # Drake of the West Wind
+  - 406 405 # Spectral Wolf/Spectral Steed
 
 - name: Ramkahen
   things:
-    - 88748 # Brown Riding Camel
-    - 88749 # Tan Riding Camel
+  - 398 # Brown Riding Camel
+  - 399 # Tan Riding Camel
 
 - name: Guild
   things:
-    - 88990 # Dark Phoenix
+  - 401 # Dark Phoenix

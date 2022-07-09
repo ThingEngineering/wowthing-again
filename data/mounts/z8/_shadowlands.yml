@@ -3,56 +3,56 @@ groups:
 
 - name: Adventures
   things:
-  - 312776 # Chittering Animite
-  - 312763 # Darkwarren Hardshell
-  - 341776 # Highwind Darkmane
-  - 341766 # Warstitched Darkhound
+  - 1309 # Chittering Animite
+  - 1305 # Darkwarren Hardshell
+  - 1423 # Highwind Darkmane
+  - 1422 # Warstitched Darkhound
 
 - name: Callings
   things:
-  - 344574 # Bulbous Necroray (Supplies of the Undying Army)
-  - 344576 # Infested Necroray (Supplies of the Undying Army)
-  - 344575 # Pestilent Necroray (Supplies of the Undying Army)
+  - 1438 # Bulbous Necroray (Supplies of the Undying Army)
+  - 1439 # Infested Necroray (Supplies of the Undying Army)
+  - 1440 # Pestilent Necroray (Supplies of the Undying Army)
 
 - name: Covenant Assaults
   things:
-  - 332904 # Harvester's Dredwing
-  - 352742 # Undying Darkhound
-  - 352441 # Wild Hunt Legsplitter
-  - 343550 # Battle-Hardened Aquilon (On the Offensive achievement + Exalted)
-  - 353885 # Battlefield Swarmer (On the Offensive achievement + Exalted)
-  - 353873 # Pale Gravewing (On the Offensive achievement + Exalted)
-  - 353858 # Winter Wilderling (On the Offensive achievement + Exalted)
+  - 1378 # Harvester's Dredwing
+  - 1477 # Undying Darkhound
+  - 1476 # Wild Hunt Legsplitter
+  - 1436 # Battle-Hardened Aquilon (On the Offensive achievement + Exalted)
+  - 1497 # Battlefield Swarmer (On the Offensive achievement + Exalted)
+  - 1491 # Pale Gravewing (On the Offensive achievement + Exalted)
+  - 1486 # Winter Wilderling (On the Offensive achievement + Exalted)
 
 - name: Puzzles
   things:
-  - 344577 # Bound Shadehound (The Maw)
-  - 354354 # Hand of Nilganihmaht (The Maw)
-  - 346141 # Slime Serpent (Slime Serpent, Plaguefall)
+  - 1441 # Bound Shadehound (The Maw)
+  - 1503 # Hand of Nilganihmaht (The Maw)
+  - 1445 # Slime Serpent (Slime Serpent, Plaguefall)
 
 - name: Quests
   things:
-  - 363701 # Patient Bufonid
+  - 1569 # Patient Bufonid
 
 - name: Treasures
   things:
-  - 342335 # Ascended Skymane (Cache of the Ascended, Bastion)
-  - 368128 # Colossal Wraithbound Mawrat (??, Zereth Mortis)
-  - 354358 # Darkmaul (Darkmaul, Korthia)
-  - 354361 # Dusklight Razorwing (Dusklight Razorwing, Korthia)
-  - 332252 # Shimmermist Runner (Mistveil Tangle Area, Ardenweald)
-  - 334433 # Silverwind Larion (Gift of the Silver Wind, Bastion)
-  - 339588 # Sinrunner Blanchy (Dead Blanchy, Revendreth)
-  - 354362 # Wandering Arden Doe (Maelie, Korthia)
-  - 334352 # Wildseed Cradle (Cache of the Moon, Ardenweald)
+  - 1426 # Ascended Skymane (Cache of the Ascended, Bastion)
+  - 1585 # Colossal Wraithbound Mawrat (??, Zereth Mortis)
+  - 1507 # Darkmaul (Darkmaul, Korthia)
+  - 1510 # Dusklight Razorwing (Dusklight Razorwing, Korthia)
+  - 1360 # Shimmermist Runner (Mistveil Tangle Area, Ardenweald)
+  - 1404 # Silverwind Larion (Gift of the Silver Wind, Bastion)
+  - 1414 # Sinrunner Blanchy (Dead Blanchy, Revendreth)
+  - 1511 # Wandering Arden Doe (Maelie, Korthia)
+  - 1397 # Wildseed Cradle (Cache of the Moon, Ardenweald)
 
 - name: Vendors
   things:
-  - 318051 # Silky Shimmermoth (Master Clerk Salorn, Ardenweald)
+  - 1332 # Silky Shimmermoth (Master Clerk Salorn, Ardenweald)
 
 - name: Covenant
   things:
-  - 336064 # Dauntless Duskrunner
-  - 336039 # Gruesome Flayedwing
-  - 334365 # Pale Acidmaw
-  - 312777 # Silvertip Dredwing
+  - 1413 # Dauntless Duskrunner
+  - 1408 # Gruesome Flayedwing
+  - 1392 # Pale Acidmaw
+  - 1376 # Silvertip Dredwing

@@ -3,62 +3,62 @@ groups:
 
 - name: "Allied Races"
   things:
-  - 306423 # Caravan Hyena (Vulpera)
-  - 258060 # Highmountain Thunderhoof (Highmountain Tauren)
-  - 267274 # Mag'har Direwolf (Mag'har Orc)
-  - 258845 # Nightborne Manasaber (Nightborne)
-  - 263707 # Zandalari Direhorn (Zandalari Troll)
+  - 1286 # Caravan Hyena (Vulpera)
+  - 1007 # Highmountain Thunderhoof (Highmountain Tauren)
+  - 1044 # Mag'har Direwolf (Mag'har Orc)
+  - 1008 # Nightborne Manasaber (Nightborne)
+  - 1038 # Zandalari Direhorn (Zandalari Troll)
 
 - name: "Bilgewater Cartel"
   things:
-  - 87090 # Goblin Trike Key
-  - 87091 # Goblin Turbo-Trike Key
+  - 388 # Goblin Trike Key
+  - 389 # Goblin Turbo-Trike Key
 
 - name: "Darkspear Trolls"
   things:
-  - 8395 # Emerald Raptor
-  - 10796 # Turqoise Raptor
-  - 10799 # Violet Raptor
-  - 23241 # Swift Blue Raptor
-  - 23242 # Swift Olive Raptor
-  - 23243 # Swift Orange Raptor
+  - 27 # Emerald Raptor
+  - 36 # Turqoise Raptor
+  - 38 # Violet Raptor
+  - 97 # Swift Blue Raptor
+  - 98 # Swift Olive Raptor
+  - 99 # Swift Orange Raptor
 
 - name: "Orgrimmar"
   things:
-  - 64658 # Black Wolf
-  - 6654 # Brown Wolf
-  - 6653 # Dire Wolf
-  - 580 # Timber Wolf
-  - 23250 # Swift Brown Wolf
-  - 23252 # Swift Gray Wolf
-  - 23251 # Swift Timber Wolf
+  - 310 # Black Wolf
+  - 20 # Brown Wolf
+  - 19 # Dire Wolf
+  - 14 # Timber Wolf
+  - 104 # Swift Brown Wolf
+  - 106 # Swift Gray Wolf
+  - 105 # Swift Timber Wolf
 
 - name: "Silvermoon City"
   things:
-  - 35022 # Black Hawkstrider
-  - 35020 # Blue Hawkstrider
-  - 35018 # Purple Hawkstrider
-  - 34795 # Red Hawkstrider
-  - 35025 # Swift Green Hawkstrider
-  - 33660 # Swift Pink Hawkstrider
-  - 35027 # Swift Purple Hawkstrider
-  - 370620 # Elusive Emerald Hawkstrider (Blood Elf)
+  - 159 # Black Hawkstrider
+  - 158 # Blue Hawkstrider
+  - 157 # Purple Hawkstrider
+  - 152 # Red Hawkstrider
+  - 160 # Swift Green Hawkstrider
+  - 146 # Swift Pink Hawkstrider
+  - 161 # Swift Purple Hawkstrider
+  - 1600 # Elusive Emerald Hawkstrider (Blood Elf)
 
 - name: "Thunder Bluff"
   things:
-  - 18990 # Brown Kodo
-  - 18989 # Gray Kodo
-  - 64657 # White Kodo
-  - 23249 # Great Brown Kodo
-  - 23248 # Great Gray Kodo
-  - 23247 # Great White Kodo
+  - 72 # Brown Kodo
+  - 71 # Gray Kodo
+  - 309 # White Kodo
+  - 103 # Great Brown Kodo
+  - 102 # Great Gray Kodo
+  - 101 # Great White Kodo
 
 - name: "Undercity"
   things:
-  - 17465 # Green Skeletal Warhorse
-  - 66846 # Ochre Skeletal Warhorse
-  - 23246 # Purple Skeletal Warhorse
-  - 64977 # Black Skeletal Horse
-  - 17463 # Blue Skeletal Horse
-  - 17464 # Brown Skeletal Horse
-  - 17462 # Red Skeletal Horse
+  - 68 # Green Skeletal Warhorse
+  - 336 # Ochre Skeletal Warhorse
+  - 100 # Purple Skeletal Warhorse
+  - 314 # Black Skeletal Horse
+  - 66 # Blue Skeletal Horse
+  - 67 # Brown Skeletal Horse
+  - 65 # Red Skeletal Horse

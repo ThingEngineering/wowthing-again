@@ -3,10 +3,10 @@ groups:
 
 - name: Honor Level
   things:
-  - 222202 # Prestigious Bronze Courser (Honor Level 15)
-  - 222238 # Prestigious Ivory Courser (Honor Level 40)
-  - 222240 # Prestigious Azure Courser (Honor Level 70)
-  - 222237 # Prestigious Forest Courser (Honor Level 125)
-  - 222236 # Prestigious Royal Courser (Honor Level 150)
-  - 222241 # Prestigious Midnight Courser (Honor Level 250)
-  - 281044 # Prestigious Bloodforged Courser (Honor Level 500)
+  - 826 # Prestigious Bronze Courser (Honor Level 15)
+  - 833 # Prestigious Ivory Courser (Honor Level 40)
+  - 834 # Prestigious Azure Courser (Honor Level 70)
+  - 832 # Prestigious Forest Courser (Honor Level 125)
+  - 831 # Prestigious Royal Courser (Honor Level 150)
+  - 836 # Prestigious Midnight Courser (Honor Level 250)
+  - 1192 # Prestigious Bloodforged Courser (Honor Level 500)

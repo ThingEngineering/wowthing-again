@@ -3,37 +3,37 @@ groups:
 
 - name: Vanilla
   things:
-  - 43688 # Amani War Bear (ZA)
-  - 16056 # Ancient Frostsaber
-  - 16081 # Arctic Wolf
-  - 16055 # Black Nightsaber
-  - 26656 # Black Qiraji Battle Tank (AQ40 opening)
-  - 17461 # Black Ram
-  - 43899 # Brewfest Ram
-  - 17460 # Frost Ram
-  - 18991 # Green Kodo
-  - 17459 # Icy Blue Mechanostrider Mod A
-  - 17450 # Ivory Raptor
-  - 16082 # Palomino
-  - 16080 # Red Wolf
+  - 199 # Amani War Bear (ZA)
+  - 46 # Ancient Frostsaber
+  - 51 # Arctic Wolf
+  - 45 # Black Nightsaber
+  - 122 # Black Qiraji Battle Tank (AQ40 opening)
+  - 64 # Black Ram
+  - 201 # Brewfest Ram
+  - 63 # Frost Ram
+  - 73 # Green Kodo
+  - 62 # Icy Blue Mechanostrider Mod A
+  - 56 # Ivory Raptor
+  - 52 # Palomino
+  - 50 # Red Wolf
 # - 66847 # Swift Dawnsaber - Duplicates Striped Dawnsaber?
-  - 24242 # Swift Razzashi Raptor (ZG)
-  - 24252 # Swift Zulian Tiger (ZG)
-  - 18992 # Teal Kodo
-  - 16084 # Mottled Red Raptor
-  - 15779 # White Mechanostrider Mod B
-  - 16083 # White Stallion
+  - 110 # Swift Razzashi Raptor (ZG)
+  - 111 # Swift Zulian Tiger (ZG)
+  - 74 # Teal Kodo
+  - 54 # Mottled Red Raptor
+  - 42 # White Mechanostrider Mod B
+  - 53 # White Stallion
 
 - name: Promotions
   things:
-  - 232405 # Primal Flamesaber (Heroes of the Storm)
-  - 107516 107517 # Spectral Gryphon/Spectral Wind Rider (Scroll of Resurrection)
-  - 107203 # Tyrael's Charger (Annual Pass)
+  - 896 # Primal Flamesaber (Heroes of the Storm)
+  - 440 441 # Spectral Gryphon/Spectral Wind Rider (Scroll of Resurrection)
+  - 439 # Tyrael's Charger (Annual Pass)
 
 - name: Recruit-A-Friend
   things:
-  - 171847 # Cindermane Charger
-  - 149801 # Emerald Hippogryph
-  - 121820 # Obsidian Nightwing
-  -  49322 # Swift Zhevra
-  -  75973 # X-16083 Touring Rocket
+  - 454 # Cindermane Charger
+  - 568 # Emerald Hippogryph
+  - 455 # Obsidian Nightwing
+  - 224 # Swift Zhevra
+  - 382 # X-16083 Touring Rocket

@@ -3,58 +3,58 @@ groups:
 
 - name: Drustvar
   things:
-  - 260174 # Terrified Pack Mule (??, Drustvar)
+  - 1018 # Terrified Pack Mule (??, Drustvar)
 
 - name: Nazmir
   things:
-  - 243795 # Leaping Veinseeker (??, Nazmir)
+  - 956 # Leaping Veinseeker (??, Nazmir)
 
 - name: Stormsong Valley
   things:
-  - 260175 # Goldenmane (??, Stormsong)
-  - 275623 # Nazjatar Blood Serpent (Adherent of the Abyss, Stormsong Valley) ?
+  - 1019 # Goldenmane (??, Stormsong)
+  - 1057 # Nazjatar Blood Serpent (Adherent of the Abyss, Stormsong Valley) ?
 
 - name: "Vol'dun"
   things:
-  - 237286 # Dune Scavenger (??, Vol'dun)
-  - 298367 # Mollie (Dunegorger Kraulok, Vol'dun)
+  - 928 # Dune Scavenger (??, Vol'dun)
+  - 1250 # Mollie (Dunegorger Kraulok, Vol'dun)
 
 - name: "Arathi Highlands"
   things:
-  - 279457 # Broken Highland Mustang (Knight-Captain Aldrin)
-  - 279456 # Highland Mustang (Doomrider Helgrim)
-  - 279608 # Lil' Donkey (Overseer Krix)
-  - 279611 # Skullripper (Skullripper)
-  - 279569 # Swift Albino Raptor (Beastrider Kama)
-  - 279868 # Witherbark Direwing (Nimar the Slayer)
+  - 1173 # Broken Highland Mustang (Knight-Captain Aldrin)
+  - 1174 # Highland Mustang (Doomrider Helgrim)
+  - 1182 # Lil' Donkey (Overseer Krix)
+  - 1183 # Skullripper (Skullripper)
+  - 1180 # Swift Albino Raptor (Beastrider Kama)
+  - 1185 # Witherbark Direwing (Nimar the Slayer)
 
 - name: "Darkshore"
   things:
-  - 288495 # Ashenvale Chimaera (Alash'anir)
-  - 288438 # Blackpaw (Blackpaw)
-  - 288499 # Frightened Kodo (Frightened Kodo)
-  - 288505 # Kaldorei Nightsaber (Crox Bloodrage / Shadowclaw)
-  - 288503 # Umber Nightsaber (Athil Dewfire / Moxo the Beheader)
+  - 1200 # Ashenvale Chimaera (Alash'anir)
+  - 1199 # Blackpaw (Blackpaw)
+  - 1201 # Frightened Kodo (Frightened Kodo)
+  - 1205 # Kaldorei Nightsaber (Crox Bloodrage / Shadowclaw)
+  - 1203 # Umber Nightsaber (Athil Dewfire / Moxo the Beheader)
 
 - name: Mechagon
   things:
-  - 297157 # Junkheap Drifter (Rustfeather, Mechagon)
-  - 291492 # Rusty Mechanocrawler (Arachnoid Harvester, Mechagon)
+  - 1248 # Junkheap Drifter (Rustfeather, Mechagon)
+  - 1229 # Rusty Mechanocrawler (Arachnoid Harvester, Mechagon)
 
 - name: Nazjatar
   things:
-  - 300149 # Silent Glider (Soundless, Nazjatar)
+  - 1257 # Silent Glider (Soundless, Nazjatar)
 
 - name: "Uldum"
   things:
-  - 315847 # Drake of the Four Winds (Ishak of the Four Winds)
-  - 316337 # Malevolent Drone (Corpse Eater)
-  - 316275 # Waste Marauder (Rotfeaster)
+  - 1314 # Drake of the Four Winds (Ishak of the Four Winds)
+  - 1319 # Malevolent Drone (Corpse Eater)
+  - 1317 # Waste Marauder (Rotfeaster)
 
 - name: "Vale of Eternal Blossoms"
   things:
-  - 312751 # Clutch of Ha-Li (Ha-Li)
-  - 315014 # Ivory Cloud Serpent (Vale of Eternal Blossoms)
-  - 315427 # Rajani Warserpent (Rei Lun, Pristine Cloud Serpent Scale)
-  - 316722 # Ren's Stalwart Hound (Houndlord Ren)
-  - 316723 # Xinlao (Anh-De the Loyal)
+  - 1297 # Clutch of Ha-Li (Ha-Li)
+  - 1311 # Ivory Cloud Serpent (Vale of Eternal Blossoms)
+  - 1313 # Rajani Warserpent (Rei Lun, Pristine Cloud Serpent Scale)
+  - 1327 # Ren's Stalwart Hound (Houndlord Ren)
+  - 1328 # Xinlao (Anh-De the Loyal)

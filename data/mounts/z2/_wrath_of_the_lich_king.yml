@@ -3,20 +3,20 @@ groups:
 
 - name: Achievements
   things:
-  - 72808 # Bloodbathed Frostbrood Vanquisher
-  - 72807 # Icebound Frostbrood Vanquisher
-  - 63956 # Ironbound Proto-Drake
-  - 59961 # Red Proto-Drake
-  - 63963 # Rusted Proto-Drake
+  - 365 # Bloodbathed Frostbrood Vanquisher
+  - 364 # Icebound Frostbrood Vanquisher
+  - 306 # Ironbound Proto-Drake
+  - 262 # Red Proto-Drake
+  - 307 # Rusted Proto-Drake
 
 - name: Quests
   things:
-  - 54753 # White Polar Bear (The Storm Peaks, Brunnhildar Village daily, random Hyldnir Spoils reward)
+  - 237 # White Polar Bear (The Storm Peaks, Brunnhildar Village daily, random Hyldnir Spoils reward)
 
 - name: Vendors
   things:
-  - 60114 60116 # Armored Brown Bear (Dalaran)
-  - 61229 61230 # Armored Snowy Gryphon/Armored Blue Wind Rider (Dalaran)
-  - 59785 59788 # Black War Mammoth
-  - 61425 61447 # Traveler's Tundra Mammoth (Dalaran)
-  - 59791 59793 # Wooly Mammoth (Dalaran)
+  - 269 270 # Armored Brown Bear (Dalaran)
+  - 276 277 # Armored Snowy Gryphon/Armored Blue Wind Rider (Dalaran)
+  - 254 255 # Black War Mammoth
+  - 280 284 # Traveler's Tundra Mammoth (Dalaran)
+  - 256 257 # Wooly Mammoth (Dalaran)
