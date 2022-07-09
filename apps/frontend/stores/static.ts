@@ -41,38 +41,22 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
         }
 
         if (data.rawBags !== null) {
-            data.bags = {}
-            for (const bagArray of data.rawBags) {
-                const obj = new StaticDataBag(...bagArray)
-                data.bags[obj.id] = obj
-            }
+            data.bags = StaticDataStore.createObjects(data.rawBags, StaticDataBag)
             data.rawBags = null
         }
 
         if (data.rawCurrencies !== null) {
-            data.currencies = {}
-            for (const currencyArray of data.rawCurrencies) {
-                const obj = new StaticDataCurrency(...currencyArray)
-                data.currencies[obj.id] = obj
-            }
+            data.currencies = StaticDataStore.createObjects(data.rawCurrencies, StaticDataCurrency)
             data.rawCurrencies = null
         }
 
         if (data.rawCurrencyCategories !== null) {
-            data.currencyCategories = {}
-            for (const categoryArray of data.rawCurrencyCategories) {
-                const obj = new StaticDataCurrencyCategory(...categoryArray)
-                data.currencyCategories[obj.id] = obj
-            }
+            data.currencyCategories = StaticDataStore.createObjects(data.rawCurrencyCategories, StaticDataCurrencyCategory)
             data.rawCurrencyCategories = null
         }
 
         if (data.instancesRaw !== null) {
-            data.instances = {}
-            for (const instanceArray of data.instancesRaw) {
-                const obj = new StaticDataInstance(...instanceArray)
-                data.instances[obj.id] = obj
-            }
+            data.instances = StaticDataStore.createObjects(data.instancesRaw, StaticDataInstance)
             data.instancesRaw = null
 
             for (const instanceId in extraInstanceMap) {
@@ -110,11 +94,7 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
         }
 
         if (data.reputationsRaw !== null) {
-            data.reputations = {}
-            for (const reputationArray of data.reputationsRaw) {
-                const obj = new StaticDataReputation(...reputationArray)
-                data.reputations[obj.id] = obj
-            }
+            data.reputations = StaticDataStore.createObjects(data.reputationsRaw, StaticDataReputation)
             data.reputationsRaw = null
 
             for (const extraReputation of extraReputationTiers) {
@@ -145,11 +125,7 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
         }
 
         if (data.rawToys !== null) {
-            data.toys = {}
-            for (const toyArray of data.rawToys) {
-                const obj = new StaticDataToy(...toyArray)
-                data.toys[obj.id] = obj
-            }
+            data.toys = StaticDataStore.createObjects(data.rawToys, StaticDataToy)
             data.rawToys = null
         }
 
@@ -172,6 +148,19 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             state.loaded = true
             return state
         })
+    }
+
+    private static createObjects<TArray, TObject extends { id: number }>(
+        arrays: any[][],
+        objectConstructor: { new (...args: any[]): TObject }
+    ): Record<number, TObject>
+    {
+        const ret: Record<number, TObject> = {}
+        for (const array of arrays) {
+            const obj = new objectConstructor(...array)
+            ret[obj.id] = obj
+        }
+        return ret
     }
 
     private static fixSets(allSets: StaticDataSetCategoryArray[][]): StaticDataSetCategory[][] {
