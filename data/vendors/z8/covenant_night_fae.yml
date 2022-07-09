@@ -4,31 +4,31 @@ groups:
 - name: "Mounts"
   type: mount
   things:
-  - id: 353857 # Autumnal Wilderling Harness
+  - id: 1485 # Autumnal Wilderling
     cost: 7500 anima
 
-  - id: 332248 # Enchanted Winterborn Runestag
+  - id: 1359 # Enchanted Winterborn Runestag
     cost: 5000 anima
 
-  - id: 332243 # Shadeleaf Runestag
+  - id: 1354 # Shadeleaf Runestag
     cost: 5000 anima
 
-  - id: 340503 # Umbral Scythehorn
+  - id: 1420 # Umbral Scythehorn
     cost: 5000 anima 5 offering
 
-  - id: 342667 # Vibrant Flutterwing
+  - id: 1429 # Vibrant Flutterwing
     cost: 5000 anima
 
-  - id: 334366 # Wild Glimmerfur Prowler
+  - id: 1393 # Wild Glimmerfur Prowler
     cost: 5000 anima 75 offering
 
-  - id: 332245 # Winterborn Runestag
+  - id: 1356 # Winterborn Runestag
     cost: 5000 anima 5 offering
 
 - name: "Pets"
   type: pet
   things:
-  - id: 173587 # Trootie
+  - id: 3018 # Trootie
     cost: 1500 anima 20 offering
 
 - name: "Toys"
