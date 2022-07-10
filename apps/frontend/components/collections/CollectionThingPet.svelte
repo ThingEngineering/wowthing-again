@@ -28,10 +28,10 @@
     let userHasThing: number | undefined
     $: {
         userHasThing = find(things, (petId: number): boolean => $userStore.data.hasPet[petId] === true)
-        origId = thingMapFunc(userHasThing ?? things[0])
+        origId = userHasThing ?? things[0]
 
         if (userHasThing) {
-            pets = $userStore.data.pets[$staticStore.data.petsByCreatureId[origId].id]
+            pets = $userStore.data.pets[origId]
             quality = maxBy(pets, (pet: UserDataPet) => pet.quality).quality
             showAsMissing = $collectionState.highlightMissing['pets']
         }
@@ -64,9 +64,10 @@
         style:height="{44 + (18 * pets.length)}px"
     >
         {#if intersected}
-            <NpcLink id={origId}>
+            {@const creatureId = thingMapFunc(origId)}
+            <NpcLink id={creatureId}>
                 <WowthingImage
-                    name="npc/{origId}"
+                    name="npc/{creatureId}"
                     size={40}
                     border={2}
                 />

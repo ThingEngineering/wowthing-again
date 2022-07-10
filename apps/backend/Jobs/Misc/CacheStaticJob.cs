@@ -37,9 +37,6 @@ namespace Wowthing.Backend.Jobs.Misc
 
         private Dictionary<int, int> _itemToAppearance;
 
-        private Dictionary<int, int> _creatureToPet;
-        private Dictionary<int, int> _spellToMount;
-
         private Dictionary<(StringType Type, Language Language, int Id), string> _stringMap;
 
         public static readonly ScheduledJob Schedule = new ScheduledJob
@@ -47,7 +44,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
-            Version = 45,
+            Version = 46,
         };
 
         public override async Task Run(params string[] data)
@@ -85,17 +82,15 @@ namespace Wowthing.Backend.Jobs.Misc
             _mountMap = await Context.WowMount
                 .AsNoTracking()
                 .ToDictionaryAsync(mount => mount.Id);
-            _spellToMount = _mountMap.Values.ToDictionary(mount => mount.SpellId, mount => mount.Id);
 
             _petMap = await Context.WowPet
                 .AsNoTracking()
                 .Where(pet => (pet.Flags & 32) == 0)
                 .ToDictionaryAsync(pet => pet.Id);
-            _creatureToPet = _petMap.Values.ToDictionary(pet => pet.CreatureId, pet => pet.Id);
 
             _toyMap = await Context.WowToy
                 .AsNoTracking()
-                .ToDictionaryAsync(toy => toy.Id);
+                .ToDictionaryAsync(toy => toy.ItemId);
 
             _stringMap = await Context.LanguageString
                 .AsNoTracking()
@@ -168,12 +163,12 @@ namespace Wowthing.Backend.Jobs.Misc
 
             // Mounts
             var mountSets = LoadSets("mounts");
-            AddUncategorized("mounts", _spellToMount, mountSets, (id) => GetString(StringType.WowMountName, Language.enUS, _spellToMount[id]));
+            AddUncategorized("mounts", _mountMap, mountSets, (id) => GetString(StringType.WowMountName, Language.enUS, id));
             _timer.AddPoint("Mounts");
 
             // Pets
             var petSets = LoadSets("pets");
-            AddUncategorized("pets", _creatureToPet, petSets, (id) => GetString(StringType.WowCreatureName, Language.enUS, id));
+            AddUncategorized("pets", _petMap, petSets, (id) => GetString(StringType.WowCreatureName, Language.enUS, id));
             _timer.AddPoint("Pets");
 
             var progress = LoadProgress();
@@ -200,11 +195,7 @@ namespace Wowthing.Backend.Jobs.Misc
 
             // Toys
             var toySets = LoadSets("toys");
-            var itemToToy = _toyMap.Values.ToDictionary(
-                toy => toy.ItemId,
-                toy => toy.Id
-            );
-            AddUncategorized("toys", itemToToy, toySets, (id) => GetString(StringType.WowItemName, Language.enUS, id));
+            AddUncategorized("toys", _toyMap, toySets, (id) => GetString(StringType.WowItemName, Language.enUS, id));
             _timer.AddPoint("Toys");
 
             // Vendors
@@ -703,7 +694,7 @@ namespace Wowthing.Backend.Jobs.Misc
                                 switch (drop.Type)
                                 {
                                     case "mount":
-                                        drop.Name = GetString(StringType.WowMountName, language, _spellToMount[drop.Id]);
+                                        drop.Name = GetString(StringType.WowMountName, language, drop.Id);
                                         break;
 
                                     case "pet":
@@ -803,7 +794,12 @@ namespace Wowthing.Backend.Jobs.Misc
             return DataUtilities.LoadData<DataCollectionCategory>(dirName, Logger);
         }
 
-        private void AddUncategorized(string dirName, Dictionary<int, int> lookupMap, List<List<DataCollectionCategory>> thingSets, Func<int, string> nameFunc)
+        private void AddUncategorized<T>(
+            string dirName,
+            Dictionary<int, T> lookupMap,
+            List<List<DataCollectionCategory>> thingSets,
+            Func<int, string> nameFunc
+        )
         {
             var skip = Array.Empty<int>();
             var skipPath = Path.Join(DataUtilities.DataPath, dirName, "_skip.yml");
