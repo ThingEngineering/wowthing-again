@@ -3,24 +3,24 @@ groups:
 
 - name: Campaign
   things:
-  - 332455 # War-Bred Tauralus (Chapter 2)
-  - 332462 # Armored War-Bred Tauralus (Final Chapter)
+  - 1364 # War-Bred Tauralus (Chapter 2)
+  - 1368 # Armored War-Bred Tauralus (Final Chapter)
 
 - name: Renown
   things:
-  - 332456 # Plaguerot Tauralus (Renown 23)
-  - 332464 # Armored Plaguerot Tauralus (Renown 39)
-  - 353883 # Maldraxxian Corpsefly
-  - 353884 # Regal Corpsefly
+  - 1365 # Plaguerot Tauralus (Renown 23)
+  - 1369 # Armored Plaguerot Tauralus (Renown 39)
+  - 1495 # Maldraxxian Corpsefly
+  - 1496 # Regal Corpsefly
 
 - name: Conductor
   things:
-  - 332466 # Armored Bonehoof Tauralus (Sabriel the Bonecleaver, Maldraxxus)
-  - 336045 # Predatory Plagueroc (Gieger, Maldraxxus)
+  - 1370 # Armored Bonehoof Tauralus (Sabriel the Bonecleaver, Maldraxxus)
+  - 1411 # Predatory Plagueroc (Gieger, Maldraxxus)
 
 - name: Abomination Stitching
   things:
-  - 332467 # Armored Chosen Tauralus (Things To Do When You're Dead achievement)
-  - 332457 # Bonehoof Tauralus (Tahonta rare, Level 2)
-  - 336041 # Bonesewn Fleshroc (Level 5)
-  - 332460 # Chosen Tauralus (The Gang's All Here achievement)
+  - 1371 # Armored Chosen Tauralus (Things To Do When You're Dead achievement)
+  - 1366 # Bonehoof Tauralus (Tahonta rare, Level 2)
+  - 1409 # Bonesewn Fleshroc (Level 5)
+  - 1367 # Chosen Tauralus (The Gang's All Here achievement)

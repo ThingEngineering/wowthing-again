@@ -181,7 +181,7 @@ farms:
   type: kill
   drops:
     - type: pet
-      id: 88103 # Doom Bloom
+      id: 1564 # Doom Bloom
 
 - name: "Mogamago"
   location: 61.8 39.3
@@ -217,7 +217,7 @@ farms:
   type: killBig
   drops:
     - type: mount
-      id: 171849 # Sunhide Gronnling
+      id: 655 # Sunhide Gronnling
 
 - name: "Riptar"
   location: 37.6 81.4

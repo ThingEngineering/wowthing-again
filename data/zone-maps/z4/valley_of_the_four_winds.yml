@@ -169,7 +169,7 @@ farms:
   type: killBig
   drops:
   - type: mount
-    id: 130965 # Son of Galleon
+    id: 515 # Son of Galleon
   # TODO drops a lot of armour also
 
 # Quest
@@ -221,21 +221,21 @@ farms:
   type: vendor
   drops:
     - type: mount
-      id: 130138 # Black Riding Goat
+      id: 511 # Black Riding Goat
       note: "{price:1500} at Exalted with The Tillers"
 
     - type: mount
-      id: 130086 # Brown Riding Goat
+      id: 508 # Brown Riding Goat
       note: "{price:1500} at Exalted with The Tillers"
 
     - type: mount
-      id: 130137 # White Riding Goat
+      id: 510 # White Riding Goat
       note: "{price:1500} at Exalted with The Tillers"
 
     - type: toy
       id: 90175 # Gin-Ji Knife Set
       note: "{price:250} at Exalted with The Tillers"
-    
+
     - type: toy
       id: 89869 # Pandaren Scarecrow
       note: "{price:250} at Revered with The Tillers"

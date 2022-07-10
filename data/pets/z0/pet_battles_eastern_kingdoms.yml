@@ -3,305 +3,305 @@ groups:
 
 - name: Arathi Highlands
   things:
-  -  62019 # Cat
-  -  61704 # Grasslands Cottontail
-  -  61751 # Hare
-  -  61141 # Prairie Dog
-  -  61366 # Rat
-  -  61071 # Small Frog
-  -  61703 # Tiny Twister
+  - 459 # Cat
+  - 443 # Grasslands Cottontail
+  - 448 # Hare
+  - 386 # Prairie Dog
+  - 417 # Rat
+  - 419 # Small Frog
+  - 445 # Tiny Twister
 
 - name: Badlands
   things:
-  -  61319 # Beetle
-  -  61257 # Black Rat
-  -  61438 # Gold Beetle
-  -  61443 # King Snake
-  -  61439 # Rattlesnake
-  -  61441 # Spiky Lizard
-  -  61440 # Stripe-Tailed Scorpid
+  - 406 # Beetle
+  - 398 # Black Rat
+  - 430 # Gold Beetle
+  - 438 # King Snake
+  - 431 # Rattlesnake
+  - 433 # Spiky Lizard
+  - 432 # Stripe-Tailed Scorpid
 
 - name: Blasted Lands
   things:
-  -  61325 # Adder
-  -  61328 # Fire Beetle
-  -  61326 # Scorpid
-  -  61329 # Scorpling
-  -  61327 # Spider
+  - 635 # Adder
+  - 415 # Fire Beetle
+  - 414 # Scorpid
+  - 416 # Scorpling
+  - 412 # Spider
 
 - name: Burning Steppes
   things:
-  -  61385 # Ash Viper
-  -  61384 # Cockroach
-  -  61328 # Fire Beetle
-  -  61386 # Lava Beetle
-  -  61383 # Lava Crab
-  -  61326 # Scorpid
+  - 425 # Ash Viper
+  - 393 # Cockroach
+  - 415 # Fire Beetle
+  - 429 # Lava Beetle
+  - 423 # Lava Crab
+  - 414 # Scorpid
 
 - name: Deadwind Pass
   things:
-  -  68819 # Arcane Eye
-  -  61375 # Restless Shadeling
+  - 1160 # Arcane Eye
+  - 439 # Restless Shadeling
 
 - name: Dun Morogh
   things:
-  -  61325 # Adder
-  -  61690 # Alpine Hare
-  -  68838 # Fluxfire Feline
-  -  61691 # Irradiated Roach
-  -  61753 # Maggot
-  -  61080 # Rabbit
-  -  61366 # Rat
-  -  61169 # Roach
-  -  61689 # Snow Cub
-  -  61327 # Spider
-  -  61312 # Strand Crab
-  -  61369 # Toad
+  - 635 # Adder
+  - 441 # Alpine Hare
+  - 1162 # Fluxfire Feline
+  - 442 # Irradiated Roach
+  - 450 # Maggot
+  - 378 # Rabbit
+  - 417 # Rat
+  - 424 # Roach
+  - 440 # Snow Cub
+  - 412 # Spider
+  - 401 # Strand Crab
+  - 420 # Toad
 
 - name: Duskwood
   things:
-  -  61257 # Black Rat
-  -  62664 # Chicken
-  -  61253 # Dusk Spiderling
-  -  61143 # Mouse
-  -  61080 # Rabbit
-  -  61258 # Rat Snake
-  -  61169 # Roach
-  -  61255 # Skunk
-  -  61071 # Small Frog
-  -  61081 # Squirrel
-  -  61259 # Widow Spiderling
+  - 398 # Black Rat
+  - 646 # Chicken
+  - 396 # Dusk Spiderling
+  - 385 # Mouse
+  - 378 # Rabbit
+  - 399 # Rat Snake
+  - 424 # Roach
+  - 397 # Skunk
+  - 419 # Small Frog
+  - 379 # Squirrel
+  - 400 # Widow Spiderling
 
 - name: Eastern Plaguelands
   things:
-  -  61829 # Bat
-  -  61257 # Black Rat
-  -  61830 # Festering Maggot
-  -  61827 # Infected Fawn
-  -  61828 # Infected Squirrel
-  -  61326 # Scorpid
-  -  61327 # Spider
+  - 626 # Bat
+  - 398 # Black Rat
+  - 457 # Festering Maggot
+  - 628 # Infected Fawn
+  - 627 # Infected Squirrel
+  - 414 # Scorpid
+  - 412 # Spider
 
 - name: Elwynn Forest
   things:
-  -  60649 # Black Lamb
-  -  62019 # Cat
-  -  62664 # Chicken
-  -  61165 # Fawn
-  -  61080 # Rabbit
-  -  61071 # Small Frog
-  -  61327 # Spider
-  -  61081 # Squirrel
-  -  62954 # Stormwind Rat
+  - 374 # Black Lamb
+  - 459 # Cat
+  - 646 # Chicken
+  - 447 # Fawn
+  - 378 # Rabbit
+  - 419 # Small Frog
+  - 412 # Spider
+  - 379 # Squirrel
+  - 675 # Stormwind Rat
 
 - name: Eversong Woods
   things:
-  -  62019 # Cat
-  -  61080 # Rabbit
-  -  62020 # Ruby Sapling
-  -  61071 # Small Frog
-  -  61142 # Snake
-  -  61369 # Toad
+  - 459 # Cat
+  - 378 # Rabbit
+  - 460 # Ruby Sapling
+  - 419 # Small Frog
+  - 387 # Snake
+  - 420 # Toad
 
 - name: Ghostlands
   things:
-  -  62022 # Larva
-  -  61753 # Maggot
-  -  61366 # Rat
-  -  61071 # Small Frog
-  -  61142 # Snake
-  -  61327 # Spider
-  -  62034 # Spirit Crab
-  -  61369 # Toad
+  - 461 # Larva
+  - 450 # Maggot
+  - 417 # Rat
+  - 419 # Small Frog
+  - 387 # Snake
+  - 412 # Spider
+  - 463 # Spirit Crab
+  - 420 # Toad
 
 - name: Gilneas
   things:
-  -  61327 # Spider
-  -  61369 # Toad
+  - 412 # Spider
+  - 420 # Toad
 
 - name: Gilneas City
   things:
-  -  61327 # Spider
+  - 412 # Spider
 
 - name: Hillsbrad Foothills
   things:
-  -  62664 # Chicken
-  -  61368 # Huge Toad
-  -  61758 # Infested Bear Cub
-  -  68806 # Lofty Libram
-  -  61753 # Maggot
-  -  61080 # Rabbit
-  -  61366 # Rat
-  -  61757 # Red-Tailed Chipmunk
-  -  61755 # Snowshoe Hare
-  -  61327 # Spider
-  -  61081 # Squirrel
-  -  61369 # Toad
+  - 646 # Chicken
+  - 648 # Huge Toad
+  - 453 # Infested Bear Cub
+  - 1159 # Lofty Libram
+  - 450 # Maggot
+  - 378 # Rabbit
+  - 417 # Rat
+  - 452 # Red-Tailed Chipmunk
+  - 640 # Snowshoe Hare
+  - 412 # Spider
+  - 379 # Squirrel
+  - 420 # Toad
 
 - name: Ironforge
   things:
-  -  61317 # Long-tailed Mole
+  - 404 # Long-tailed Mole
 
 - name: Loch Modan
   things:
-  -  61459 # Little Black Ram
-  -  61366 # Rat
-  -  61169 # Roach
-  -  61071 # Small Frog
-  -  61142 # Snake
-  -  61689 # Snow Cub
-  -  61081 # Squirrel
+  - 437 # Little Black Ram
+  - 417 # Rat
+  - 424 # Roach
+  - 419 # Small Frog
+  - 387 # Snake
+  - 440 # Snow Cub
+  - 379 # Squirrel
 
 - name: New Tinkertown
   things:
-  -  61690 # Alpine Hare
-  -  68838 # Fluxfire Feline
-  -  61691 # Irradiated Roach
-  -  61689 # Snow Cub
+  - 441 # Alpine Hare
+  - 1162 # Fluxfire Feline
+  - 442 # Irradiated Roach
+  - 440 # Snow Cub
 
 - name: Northern Stranglethorn
   things:
-  -  61319 # Beetle
-  -  61314 # Crimson Moth
-  -  61320 # Forest Spiderling
-  -  61321 # Lizard Hatchling
-  -  61317 # Long-tailed Mole
-  -  61313 # Parrot
-  -  61322 # Polly
-  -  61169 # Roach
-  -  61312 # Strand Crab
-  -  61318 # Tree Python
+  - 406 # Beetle
+  - 421 # Crimson Moth
+  - 407 # Forest Spiderling
+  - 408 # Lizard Hatchling
+  - 404 # Long-tailed Mole
+  - 403 # Parrot
+  - 409 # Polly
+  - 424 # Roach
+  - 401 # Strand Crab
+  - 405 # Tree Python
 
 - name: Redridge Mountains
   things:
-  -  62664 # Chicken
-  -  61171 # Fledgling Buzzard
-  -  61167 # Mountain Cottontail
-  -  61080 # Rabbit
-  -  61168 # Redridge Rat
-  -  61169 # Roach
+  - 646 # Chicken
+  - 395 # Fledgling Buzzard
+  - 391 # Mountain Cottontail
+  - 378 # Rabbit
+  - 392 # Redridge Rat
+  - 424 # Roach
 
 - name: Searing Gorge
   things:
-  -  61420 # Ash Spiderling
-  -  61328 # Fire Beetle
-  -  61443 # King Snake
-  -  61383 # Lava Crab
-  -  61425 # Molten Hatchling
+  - 427 # Ash Spiderling
+  - 415 # Fire Beetle
+  - 438 # King Snake
+  - 423 # Lava Crab
+  - 428 # Molten Hatchling
 
 - name: Silvermoon City
   things:
-  -  62019 # Cat
-  -  61143 # Mouse
-  -  61080 # Rabbit
+  - 459 # Cat
+  - 385 # Mouse
+  - 378 # Rabbit
 
 - name: Silverpine Forest
   things:
-  -  61890 # Blighted Squirrel
-  -  61827 # Infected Fawn
-  -  61828 # Infected Squirrel
-  -  61080 # Rabbit
-  -  61366 # Rat
-  -  61757 # Red-Tailed Chipmunk
-  -  61142 # Snake
-  -  61081 # Squirrel
-  -  61369 # Toad
+  - 455 # Blighted Squirrel
+  - 628 # Infected Fawn
+  - 627 # Infected Squirrel
+  - 378 # Rabbit
+  - 417 # Rat
+  - 452 # Red-Tailed Chipmunk
+  - 387 # Snake
+  - 379 # Squirrel
+  - 420 # Toad
 
 - name: Stormwind City
   things:
-  -  61080 # Rabbit
-  -  61366 # Rat
-  -  61081 # Squirrel
-  -  62954 # Stormwind Rat
-  -  61081 # Squirrel
+  - 378 # Rabbit
+  - 417 # Rat
+  - 379 # Squirrel
+  - 675 # Stormwind Rat
+  - 379 # Squirrel
 
 - name: Sunstrider Isle
   things:
-  -  62019 # Cat
+  - 459 # Cat
 
 - name: Swamp of Sorrows
   things:
-  -  61368 # Huge Toad
-  -  61372 # Moccasin
-  -  61313 # Parrot
-  -  61366 # Rat
-  -  61327 # Spider
-  -  61312 # Strand Crab
-  -  61370 # Swamp Moth
-  -  61369 # Toad
-  -  61367 # Water Snake
+  - 648 # Huge Toad
+  - 422 # Moccasin
+  - 403 # Parrot
+  - 417 # Rat
+  - 412 # Spider
+  - 401 # Strand Crab
+  - 402 # Swamp Moth
+  - 420 # Toad
+  - 418 # Water Snake
 
 - name: The Cape of Stranglethorn
   things:
-  -  61324 # Baby Ape
-  -  61319 # Beetle
-  -  61314 # Crimson Moth
-  -  61320 # Forest Spiderling
-  -  61321 # Lizard Hatchling
-  -  61317 # Long-tailed Mole
-  -  61313 # Parrot
-  -  61366 # Rat
-  -  61169 # Roach
-  -  61312 # Strand Crab
-  -  61318 # Tree Python
-  -  61323 # Wharf Rat
+  - 411 # Baby Ape
+  - 406 # Beetle
+  - 421 # Crimson Moth
+  - 407 # Forest Spiderling
+  - 408 # Lizard Hatchling
+  - 404 # Long-tailed Mole
+  - 403 # Parrot
+  - 417 # Rat
+  - 424 # Roach
+  - 401 # Strand Crab
+  - 405 # Tree Python
+  - 410 # Wharf Rat
 
 - name: The Hinterlands
   things:
-  -  61752 # Brown Marmot
-  -  61384 # Cockroach
-  -  61751 # Hare
-  -  61718 # Jade Oozeling
-  -  61753 # Maggot
-  -  61366 # Rat
-  -  61327 # Spider
+  - 449 # Brown Marmot
+  - 393 # Cockroach
+  - 448 # Hare
+  - 446 # Jade Oozeling
+  - 450 # Maggot
+  - 417 # Rat
+  - 412 # Spider
 
 - name: Tirisfal Glades
   things:
-  -  61829 # Bat
-  -  62664 # Chicken
-  -  61905 # Lost of Lordaeron
-  -  61753 # Maggot
-  -  61080 # Rabbit
-  -  61366 # Rat
-  -  61169 # Roach
-  -  61327 # Spider
+  - 626 # Bat
+  - 646 # Chicken
+  - 458 # Lost of Lordaeron
+  - 450 # Maggot
+  - 378 # Rabbit
+  - 417 # Rat
+  - 424 # Roach
+  - 412 # Spider
 
 - name: Undercity
   things:
-  -  61829 # Bat
-  -  61905 # Lost of Lordaeron
-  -  61169 # Roach
-  -  61889 # Undercity Rat
+  - 626 # Bat
+  - 458 # Lost of Lordaeron
+  - 424 # Roach
+  - 454 # Undercity Rat
 
 - name: Western Plaguelands
   things:
-  -  61257 # Black Rat
-  -  61826 # Blighthawk
-  -  61080 # Rabbit
-  -  61081 # Squirrel
+  - 398 # Black Rat
+  - 456 # Blighthawk
+  - 378 # Rabbit
+  - 379 # Squirrel
 
 - name: Westfall
   things:
-  -  62664 # Chicken
-  -  61143 # Mouse
-  -  61141 # Prairie Dog
-  -  61080 # Rabbit
-  -  61158 # Shore Crab
-  -  61071 # Small Frog
-  -  61142 # Snake
-  -  61081 # Squirrel
-  -  61160 # Tiny Harvester
+  - 646 # Chicken
+  - 385 # Mouse
+  - 386 # Prairie Dog
+  - 378 # Rabbit
+  - 388 # Shore Crab
+  - 419 # Small Frog
+  - 387 # Snake
+  - 379 # Squirrel
+  - 389 # Tiny Harvester
 
 - name: Wetlands
   things:
-  -  61257 # Black Rat
-  -  61384 # Cockroach
-  -  62905 # Highlands Mouse
-  -  61677 # Mountain Skunk
-  -  61143 # Mouse
-  -  61080 # Rabbit
-  -  61081 # Squirrel
-  -  61686 # Tiny Bog Beast
-  -  61369 # Toad
-  -  61367 # Water Snake
+  - 398 # Black Rat
+  - 393 # Cockroach
+  - 550 # Highlands Mouse
+  - 633 # Mountain Skunk
+  - 385 # Mouse
+  - 378 # Rabbit
+  - 379 # Squirrel
+  - 509 # Tiny Bog Beast
+  - 420 # Toad
+  - 418 # Water Snake

@@ -224,14 +224,14 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                                 break
 
                             case FarmDropType.Mount:
-                                if (!userData.hasMountSpell[drop.id] &&
+                                if (!userData.hasMount[drop.id] &&
                                     !userData.addonMounts[drop.id]) {
                                     dropStatus.need = true
                                 }
                                 break
 
                             case FarmDropType.Pet:
-                                if (!userData.hasPetCreature[drop.id]) {
+                                if (!userData.hasPet[drop.id]) {
                                     dropStatus.need = true
                                 }
                                 break
@@ -251,7 +251,8 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                             case FarmDropType.Armor:
                             case FarmDropType.Cosmetic:
                             case FarmDropType.Weapon:
-                                if (!userTransmogData.userHas[drop.id]) {
+                                const item = staticData.items[drop.id]
+                                if (!userTransmogData.userHas[item?.appearanceId ?? 0]) {
                                     dropStatus.need = true
                                 }
                                 fixedType = FarmDropType.Transmog

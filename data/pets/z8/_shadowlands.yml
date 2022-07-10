@@ -3,43 +3,43 @@ groups:
 
 - name: Achievements
   things:
-  - 174085 # Death Seeker
-  - 183772 # Lightless Tormentor (The Jailer's Gauntlet: Layer 1)
-  - 179241 # Mord'al Eveningstar
-  - 179083 # Sly
+  - 3041 # Death Seeker
+  - 3221 # Lightless Tormentor (The Jailer's Gauntlet: Layer 1)
+  - 3132 # Mord'al Eveningstar
+  - 3101 # Sly
 
 - name: Adventures
   things:
-  - 171240 # Devouring Animite
-  - 171984 # Pernicious Bonetusk
-  - 173589 # Runelight Leaper
-  - 171719 # Spirited Skyfoal
+  - 2922 # Devouring Animite
+  - 2946 # Pernicious Bonetusk
+  - 3020 # Runelight Leaper
+  - 2942 # Spirited Skyfoal
 
 - name: Maw Assaults
   things:
-  - 179132 # Copperback Etherwyrm
-  - 179171 # Fodder
-  - 179025 # Infused Etherwyrm
-  - 179180 # Invasive Buzzer
-  - 179008 # Lil'Abom
+  - 3103 # Copperback Etherwyrm
+  - 3114 # Fodder
+  - 3099 # Infused Etherwyrm
+  - 3116 # Invasive Buzzer
+  - 3098 # Lil'Abom
 
 - name: Puzzles
   things:
-  - 175563 # Courage
-  - 171954 # Oonar's Arm
+  - 3065 # Courage
+  - 2944 # Oonar's Arm
 
 - name: Treasures
   things:
-  - 171710 # Gilded Wader
+  - 2938 # Gilded Wader
 
 - name: Vendors
   things:
-  - 171243 # Gloober, as G'huun
-  - 179137 # Ruby Baubleworm
-  - 179138 # Turquoise Baubleworm
-  - 179139 # Topaz Baubleworm
-  - 178216 # Flawless Amethyst Baubleworm
+  - 2917 # Gloober, as G'huun
+  - 3104 # Ruby Baubleworm
+  - 3105 # Turquoise Baubleworm
+  - 3106 # Topaz Baubleworm
+  - 3097 # Flawless Amethyst Baubleworm
 
 - name: World Drops
   things:
-  - 179220 # Grappling Gauntlet
+  - 3121 # Grappling Gauntlet

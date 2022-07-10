@@ -3,36 +3,36 @@ groups:
 
 - name: Gorgrond
   things:
-  - 171849 # Sunhide Gronnling
+  - 655 # Sunhide Gronnling
 
 - name: Frostfire Ridge
   things:
-  - 171851 # Garn Nighthowl (Nok-Karosh)
-  - 171636 # Great Greytusk (Gorok)
+  - 657 # Garn Nighthowl (Nok-Karosh)
+  - 627 # Great Greytusk (Gorok)
 
 - name: Nagrand
   things:
-  - 171620 # Bloodhoof Bull (Nakk the Thunderer)
-  - 171622 # Mottled Meadowstomper (Luk'hok)
+  - 612 # Bloodhoof Bull (Nakk the Thunderer)
+  - 614 # Mottled Meadowstomper (Luk'hok)
 
 - name: Shadowmoon Valley
   things:
-  - 171830 # Swift Breezestrider
+  - 636 # Swift Breezestrider
 
 - name: Spires of Arak
   things:
-  - 171828 # Solar Spirehawk (World Boss - WoD)
+  - 634 # Solar Spirehawk (World Boss - WoD)
 
 - name: Talador
   things:
-  - 171824 # Sapphire Riverbeast (Silthide)
+  - 630 # Sapphire Riverbeast (Silthide)
 
 - name: Multiple Zones
   things:
-  - 179478 # Voidtalon of the Dark Star
+  - 682 # Voidtalon of the Dark Star
 
 - name: Tanaan Jungle
   things:
-  - 171630 # Armored Razorback (Tanaan big rares)
-  - 171619 # Tundra Icehoof (Tanaan big rares)
-  - 171837 # Warsong Direfang (Tanaan big rares)a
+  - 622 # Armored Razorback (Tanaan big rares)
+  - 611 # Tundra Icehoof (Tanaan big rares)
+  - 643 # Warsong Direfang (Tanaan big rares)a

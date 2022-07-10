@@ -3,36 +3,36 @@ groups:
 
 - name: Fishing Shack
   things:
-  - 127271 # Crimson Water Strider (Fishing Shack)
+  - 488 # Crimson Water Strider (Fishing Shack)
 
 - name: Invasions
   things:
-  - 171836 # Garn Steelmaw
-  - 171635 # Giant Coldsnout
-  - 171624 # Shadowhide Pearltusk
-  - 171843 # Smoky Direwolf
+  - 642 # Garn Steelmaw
+  - 626 # Giant Coldsnout
+  - 616 # Shadowhide Pearltusk
+  - 649 # Smoky Direwolf
 
 - name: Missions
   things:
-  - 189364 # Coalfist Gronnling (Mission)
-  - 171826 # Mudback Riverbeast (Mission)
+  - 762 # Coalfist Gronnling (Mission)
+  - 631 # Mudback Riverbeast (Mission)
 
 - name: Stables
   things:
-  - 171629 # Armored Frostboar
-  - 171838 # Armored Frostwolf
-  - 171617 # Trained Icehoof
-  - 171623 # Trained Meadowstomper
-  - 171638 # Trained Riverwallow
-  - 171637 # Trained Rocktusk
-  - 171831 # Trained Silverpelt
-  - 171841 # Trained Snarler
+  - 621 # Armored Frostboar
+  - 644 # Armored Frostwolf
+  - 609 # Trained Icehoof
+  - 615 # Trained Meadowstomper
+  - 629 # Trained Riverwallow
+  - 628 # Trained Rocktusk
+  - 637 # Trained Silverpelt
+  - 647 # Trained Snarler
 
 - name: Trading Post
   things:
-  - 171626 171839 # Armored Irontusk/Ironside Warwolf (Trading Post)
+  - 618 645 # Armored Irontusk/Ironside Warwolf (Trading Post)
 
 - name: Vendors
   things:
-  - 171628 # Rocktusk Battleboar (Gold - Garrison)
-  - 171616 # Witherhide Cliffstomper (Gold - Garrison)
+  - 620 # Rocktusk Battleboar (Gold - Garrison)
+  - 608 # Witherhide Cliffstomper (Gold - Garrison)

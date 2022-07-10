@@ -125,7 +125,7 @@ farms:
   type: kill
   drops:
   - type: mount
-    id: 312751
+    id: 1297
     name: "Clutch of Ha-Li"
 
   - *mogu1
@@ -179,7 +179,7 @@ farms:
   type: kill
   drops:
   - type: mount
-    id: 316722
+    id: 1327
     name: "Ren's Stalwart Hound"
 
   - *mogu1
@@ -253,7 +253,7 @@ farms:
   type: kill
   drops:
   - type: mount
-    id: 315427
+    id: 1313
     name: "Rajani Warserpent"
     note: "Pristine Cloud Serpent Scale item"
 
@@ -332,7 +332,7 @@ farms:
   type: kill
   drops:
   - type: pet
-    id: 161954
+    id: 2845
     name: "K'uddly"
 
 - name: "Tisiphon"
@@ -352,7 +352,7 @@ farms:
   type: kill
   drops:
   - type: pet
-    id: 161992
+    id: 2846
     name: "Corrupted Tentacle"
 
   - type: toy

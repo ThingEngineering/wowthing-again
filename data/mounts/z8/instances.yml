@@ -3,15 +3,15 @@ groups:
 
 - name: "Dungeons"
   things:
-  - 336036 # Marrowfang (The Necrotic Wake)
-  - 353263 # Cartel Master's Gearglider (Hard mode, Tazavesh)
+  - 1406 # Marrowfang (The Necrotic Wake)
+  - 1481 # Cartel Master's Gearglider (Hard mode, Tazavesh)
 
 - name: "Raids"
   things:
-  - 354351 # Sanctum Gloomcharger (The Nine, Sanctum of Domination)
-  - 351195 # Vengeance (Mythic Sylvanas, Sanctum of Domination)
-  - 368158 # Zereth Overseer (Mythic Jailer, Sepulcher of the First Ones)
+  - 1500 # Sanctum Gloomcharger (The Nine, Sanctum of Domination)
+  - 1471 # Vengeance (Mythic Sylvanas, Sanctum of Domination)
+  - 1587 # Zereth Overseer (Mythic Jailer, Sepulcher of the First Ones)
 
 - name: "Torghast"
   things:
-  - 363178 # Colossal Umbrahide Mawrat
+  - 1565 # Colossal Umbrahide Mawrat

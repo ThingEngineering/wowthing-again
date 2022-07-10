@@ -63,7 +63,7 @@ farms:
   questId: 64320
   drops:
   - type: mount
-    id: 353859
+    id: 1487
     name: "Summer Wilderling"
     limit: covenant night-fae
 
@@ -78,7 +78,7 @@ farms:
   questId: 64349
   drops:
   - type: mount
-    id: 347250
+    id: 1449
     name: "Lord of the Corpseflies"
     limit: covenant necrolord
 
@@ -93,7 +93,7 @@ farms:
   questId: 64246
   drops:
   - type: mount
-    id: 356501
+    id: 1514
     name: "Rampaging Mauler"
 
   - type: transmog
@@ -137,7 +137,7 @@ farms:
   questId: 64233
   drops:
   - type: mount
-    id: 354357
+    id: 1506
     name: "Crimson Shardhide"
 
   - type: transmog
@@ -174,7 +174,7 @@ farms:
   questId: 64455
   drops:
   - type: mount
-    id: 354360
+    id: 1509
     name: "Garnet Razorwing"
 
   - type: transmog
@@ -216,7 +216,7 @@ farms:
   questId: 64313
   drops:
   - type: mount
-    id: 215545
+    id: 803
     name: "Mastercraft Gravewing"
     limit: covenant venthyr
 
@@ -279,7 +279,7 @@ farms:
   questId: 64338
   drops:
   - type: mount
-    id: 353877
+    id: 1493
     name: "Foresworn Aquilon"
     limit: covenant kyrian
 
@@ -334,7 +334,7 @@ farms:
   note: "Does not spawn every day"
   drops:
   - type: pet
-    id: 179251
+    id: 3136
     name: "Korthian Specimen"
 
   - type: transmog

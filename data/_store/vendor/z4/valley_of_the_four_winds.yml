@@ -1,49 +1,6 @@
 map: "z4_valley_of_the_four_winds"
 vendors:
 
-- name: "Gina Mudclaw"
-  id: 58706
-  locations:
-    - 52.4 51.4
-  tags:
-    - "the-tillers" # reputation 1272
-  sells:
-    - type: mount
-      id: 130138 # Black Riding Goat
-      note: "{repPrice:1272|exalted|1500}"
-
-    - type: mount
-      id: 130086 # Brown Riding Goat
-      note: "{repPrice:1272|exalted|1500}"
-
-    - type: mount
-      id: 130137 # White Riding Goat
-      note: "{repPrice:1272|exalted|1500}"
-
-    - type: toy
-      id: 90175 # Gin-Ji Knife Set
-      note: "{repPrice:1272|exalted|250}"
-    
-    - type: toy
-      id: 89869 # Pandaren Scarecrow
-      note: "{repPrice:1272|revered|250}"
-
-    - type: transmog
-      id: 89784 # Tillers Tabard
-      note: "{repPrice:1272|exalted|10}"
-
-    - type: transmog
-      id: 90893 # Straw Hat [cloth]
-
-    - type: transmog
-      id: 90894 # Straw Hat [leather]
-
-    - type: transmog
-      id: 90895 # Straw Hat [mail]
-
-    - type: transmog
-      id: 90896 # Straw Hat [plate]
-
 - name: "Nam Ironpaw"
   id: 64395
   locations:

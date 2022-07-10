@@ -3,63 +3,63 @@ groups:
 
 - name: Erris the Collector
   things:
-  -  88577 # Bone Serpent
-  -  91407 # Slithershock Elver
-  -  91408 # Young Talbuk
+  - 1600 # Bone Serpent
+  - 1655 # Slithershock Elver
+  - 1656 # Young Talbuk
 
 - name: Missions
   things:
-  -  93143 # Cinder Pup - Mission
-  -  94867 # Left Shark - Mission
+  - 1662 # Cinder Pup - Mission
+  - 1687 # Left Shark - Mission
 
 - name: Vendors
   things:
-  -  88514 # Bloodthorn Hatchling - Vendor
-  -  94927 # Crusher - Vendor
-  -  88415 # Dusty Sporewing - Vendor
-  -  88575 # Glowing Sporebat - Vendor
-  -  93142 # Lost Netherpup - Vendor
+  - 1577 # Bloodthorn Hatchling - Vendor
+  - 1688 # Crusher - Vendor
+  - 1588 # Dusty Sporewing - Vendor
+  - 1598 # Glowing Sporebat - Vendor
+  - 1661 # Lost Netherpup - Vendor
 
 - name: Barn
   things:
-  -  87257 # Pygmy Cow - Barn
+  - 1543 # Pygmy Cow - Barn
 
 - name: Engineering Works
   things:
-  -  80329 # Lifelike Mechanical Frostboar
-  -  79410 # Mechanical Axebeak
-  -  88134 # Mechanical Scorpid
+  - 1412 # Lifelike Mechanical Frostboar
+  - 1403 # Mechanical Axebeak
+  - 1565 # Mechanical Scorpid
 
 - name: Fishing Shack
   things:
-  -  86445 # Land Shark
-  -  84441 # Sea Calf
+  - 115 # Land Shark
+  - 1448 # Sea Calf
 
 - name: Herb Garden
   things:
-  -  79039 # Crazy Carrot - Herb Garden
-  -  83594 # Nightshade Sproutling - Herbalism (Garrison?)
+  - 1396 # Crazy Carrot - Herb Garden
+  - 1432 # Nightshade Sproutling - Herbalism (Garrison?)
 
 - name: Inn / Tavern
   things:
-  -  88222 # Everbloom Peachick - Inn
-  -  88225 # Sentinel's Companion
+  - 1566 # Everbloom Peachick - Inn
+  - 1567 # Sentinel's Companion
 
 - name: Menagerie
   things:
-  -  77021 # Albino Chimaeraling
-  -  87704 # Firewing
-  -  83817 # Ghastly Kid
-  -  88300 # Puddle Terror
-  -  83588 # Sun Sproutling
-  -  88367 # Sunfire Kaliri
-  -  78421 # Weebomination
+  - 1385 # Albino Chimaeraling
+  - 1545 # Firewing
+  - 1442 # Ghastly Kid
+  - 1568 # Puddle Terror
+  - 1434 # Sun Sproutling
+  - 1570 # Sunfire Kaliri
+  - 1394 # Weebomination
 
 - name: Mine
   things:
-  - 85667 # Ore Eater - Mining (Garrison?)
+  - 1495 # Ore Eater - Mining (Garrison?)
 
 - name: Trading Post
   things:
-  -  85014 # Bone Wasp - Laughing Skull
-  -  88452 # Sky Fry - Sha'tari Defense
+  - 1458 # Bone Wasp - Laughing Skull
+  - 1575 # Sky Fry - Sha'tari Defense

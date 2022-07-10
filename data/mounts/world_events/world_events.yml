@@ -3,34 +3,34 @@ groups:
 
 - name: Achievements
   things:
-  -  60024 # Violet Proto-Drake (world events)
+  - 267 # Violet Proto-Drake (world events)
 
 - name: Anniversary
   things:
-  - 308250 306421 # Stormpike Battle Ram/Frostwolf Snarler (Alterac Valley of Olde)
-  - 306421 308250 # ^ reversed
+  - 1292 1285 # Stormpike Battle Ram/Frostwolf Snarler (Alterac Valley of Olde)
+  - 1285 1292 # ^ reversed
 
 - name: Brewfest
   things:
-  -  49379 # Great Brewfest Kodo
-  -  43900 # Swift Brewfest Ram
+  - 226 # Great Brewfest Kodo
+  - 202 # Swift Brewfest Ram
 
 - name: Darkmoon Faire
   things:
-  - 103081 # Darkmoon Dancing Bear (Darkmoon Faire Vendor)
-  - 247448 # Darkmoon Dirigible (Darkmoon Faire)
-  - 228919 # Darkwater Skate (Darkmoon Faire Vendor)
-  - 102346 # Swift Forest Strider
+  - 434 # Darkmoon Dancing Bear (Darkmoon Faire Vendor)
+  - 962 # Darkmoon Dirigible (Darkmoon Faire)
+  - 855 # Darkwater Skate (Darkmoon Faire Vendor)
+  - 429 # Swift Forest Strider
 
 - name: Feast of Winter Veil
   things:
-  - 191314 # Minion of Grumpus
+  - 769 # Minion of Grumpus
 
 - name: Love is in the Air
   things:
-  -  71342 # Big Love Rocket (Love is in the Air)
-  - 102350 # Swift Lovebird (Love is in the Air)
+  - 352 # Big Love Rocket (Love is in the Air)
+  - 431 # Swift Lovebird (Love is in the Air)
 
 - name: Noblegarden
   things:
-  - 102349 # Swift Springstrider
+  - 430 # Swift Springstrider

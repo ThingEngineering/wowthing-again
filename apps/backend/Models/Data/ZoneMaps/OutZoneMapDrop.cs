@@ -41,7 +41,7 @@
             {
                 SubType = drop.CriteriaId;
             }
-            
+
             if (drop.RequiredQuestId > 0)
             {
                 RequiredQuestId = drop.RequiredQuestId;

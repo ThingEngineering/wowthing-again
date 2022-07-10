@@ -96,27 +96,27 @@ farms:
   questId: 48667
   drops:
   - type: mount
-    id: 235764
+    id: 906
     name: "Darkspore Mana Ray"
 
   - type: mount
-    id: 253108
+    id: 975
     name: "Felglow Mana Ray"
 
   - type: mount
-    id: 253109
+    id: 976
     name: "Scintillating Mana Ray"
 
   - type: mount
-    id: 253106
+    id: 974
     name: "Vibrant Mana Ray"
 
   - type: pet
-    id: 128157
+    id: 2118
     name: "Docile Skyfin"
 
   - type: pet
-    id: 128158
+    id: 2119
     name: "Fel-Afflicted Skyfin"
 
 - name: "Sister Subversia"

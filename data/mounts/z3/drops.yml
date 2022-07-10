@@ -3,12 +3,12 @@ groups:
 
 - name: Deepholm
   things:
-  - 88718 # Phosporescent Stone Drake (Deepholm)
+  - 393 # Phosporescent Stone Drake (Deepholm)
 
 - name: Uldum
   things:
-  - 88750 # Grey Riding Camel (Uldum)
+  - 400 # Grey Riding Camel (Uldum)
 
 - name: "Vashj'ir"
   things:
-  - 98718 # Subdued Seahorse (Vashj'ir - Poseidus)
+  - 420 # Subdued Seahorse (Vashj'ir - Poseidus)

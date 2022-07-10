@@ -166,13 +166,13 @@ farms:
   reset: none
   drops:
   - type: mount
-    id: 138424 # Amber Primordial Direhorn
+    id: 534 # Amber Primordial Direhorn
 
   - type: mount
-    id: 138426 # Jade Primordial Direhorn
+    id: 536 # Jade Primordial Direhorn
 
   - type: mount
-    id: 138425 # Slate Primordial Direhorn
+    id: 535 # Slate Primordial Direhorn
 
 # World Boss
 
@@ -186,7 +186,7 @@ farms:
   type: killBig
   drops:
   - type: mount
-    id: 127158 # Heavenly Onyx Cloud Serpent
+    id: 473 # Heavenly Onyx Cloud Serpent
 
 # Quest
 
@@ -207,7 +207,7 @@ farms:
   type: quest
   drops:
     - type: mount
-      id: 136164 # Grand Wyvern
+      id: 529 # Grand Wyvern
 
 - name: "Do a Barrel Roll!"
   location: 29.9 62.2
@@ -269,13 +269,13 @@ farms:
   type: vendor
   drops:
     - type: mount
-      id: 127220 # Blonde Riding Yak
+      id: 487 # Blonde Riding Yak
       note: "{price:3000}"
-    
+
     - type: mount
-      id: 127216 # Grey Riding Yak
+      id: 486 # Grey Riding Yak
       note: "{price:3000}"
-    
+
     - type: mount
-      id: 122708 # Grand Expedition Yak
+      id: 460 # Grand Expedition Yak
       note: "{price:120000}"

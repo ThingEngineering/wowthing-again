@@ -3,79 +3,79 @@ groups:
 
 - name: "Stormsong Valley"
   things:
-  - 158685 # Crimson Skipper (Honey Smasher)
+  - 2794 # Crimson Skipper (Honey Smasher)
 
 - name: "Vol'dun"
   things:
-  - 149348 # Rebuilt Gorilla Bot
-  - 149361 # Rebuilt Mechanical Spider
+  - 2564 # Rebuilt Gorilla Bot
+  - 2565 # Rebuilt Mechanical Spider
 
 - name: "Zuldazar"
   things:
-  - 148520 # Dasher (N'chala the Egg Thief, Zuldazar)
+  - 2538 # Dasher (N'chala the Egg Thief, Zuldazar)
 
 - name: "Arathi Highlands"
   things:
-  - 143503 # Aldrusian Sproutling (Drop - Branchlord Aldrus, Arathi Highlands)
-  - 143564 # Foulfeather (Drop - Plaguefeather, Arathi Highlands)
-  - 143627 # Fozling (Drop - Fozruk, Arathi Highlands)
-  - 143499 # Fuzzy Creepling (Drop - Venomarus, Arathi Highlands)
-  - 143563 # Ragepeep (Drop - Ragebeak, Arathi Highlands)
-  - 143533 # Scabby (Drop - Yogursa, Arathi Highlands)
-  - 143628 # Squawkling (Drop - Man-Hunter Rog, Arathi Highlands)
-  - 143515 # Teeny Titan Orb (Drop - Echo of Myzrael, Arathi Highlands)
-  - 143507 # Voidwiggler (Drop - Darbel Montrose, Arathi Highlands)
+  - 2433 # Aldrusian Sproutling (Drop - Branchlord Aldrus, Arathi Highlands)
+  - 2438 # Foulfeather (Drop - Plaguefeather, Arathi Highlands)
+  - 2440 # Fozling (Drop - Fozruk, Arathi Highlands)
+  - 2432 # Fuzzy Creepling (Drop - Venomarus, Arathi Highlands)
+  - 2437 # Ragepeep (Drop - Ragebeak, Arathi Highlands)
+  - 2436 # Scabby (Drop - Yogursa, Arathi Highlands)
+  - 2441 # Squawkling (Drop - Man-Hunter Rog, Arathi Highlands)
+  - 2435 # Teeny Titan Orb (Drop - Echo of Myzrael, Arathi Highlands)
+  - 2434 # Voidwiggler (Drop - Darbel Montrose, Arathi Highlands)
 
 - name: "Darkshore"
   things:
-  - 148781 # Darkshore Sentinel - Athil Dewfire / Burninator Mark V
-  - 148825 # Detective Ray (Conflagros)
-  - 148843 # Everburning Treant (A: Zim'kaga/H: Onu)
-  - 148784 # Gust of Cyclarus (Cyclarus)
-  - 148841 # Hydrath Droplet (Hydrath)
-  - 149205 # Nightwreathed Watcher (A: Orwell Stevenson/H: Grimhorn)
-  - 148844 # Void Jelly (Soggoth the Slitherer)
-  - 148846 # Zur'aj the Depleted (Twilight Prophet Graeme)
+  - 2544 # Darkshore Sentinel - Athil Dewfire / Burninator Mark V
+  - 2546 # Detective Ray (Conflagros)
+  - 2548 # Everburning Treant (A: Zim'kaga/H: Onu)
+  - 2545 # Gust of Cyclarus (Cyclarus)
+  - 2547 # Hydrath Droplet (Hydrath)
+  - 2563 # Nightwreathed Watcher (A: Orwell Stevenson/H: Grimhorn)
+  - 2549 # Void Jelly (Soggoth the Slitherer)
+  - 2550 # Zur'aj the Depleted (Twilight Prophet Graeme)
 
 - name: "Mechagon"
   things:
-  - 154894 # Arachnoid Skitterbot
-  - 155829 # Armored Vaultbot
-  - 154893 # Bonebiter
-  - 154904 # Echoing Oozeling
-  - 155579 # Irradiated Elementaling
-  - 154854 # Lost Robogrip
-  - 154851 # Snowsoft Nibbler
-  - 155600 # Spraybot 0D
+  - 2720 # Arachnoid Skitterbot
+  - 2766 # Armored Vaultbot
+  - 2719 # Bonebiter
+  - 2721 # Echoing Oozeling
+  - 2756 # Irradiated Elementaling
+  - 2715 # Lost Robogrip
+  - 2712 # Snowsoft Nibbler
+  - 2753 # Spraybot 0D
 
 - name: "Nazjatar"
   things:
-  - 154836 # Amethyst Softshell
-  - 154845 # Brinestone Algan
-  - 154846 # Budding Algan
-  - 154829 # Caverndark Nightmare
-  - 154828 # Chitterspine Needler
-  - 154847 # Coral Lashling
-  - 154834 # Daggertooth Frenzy
-  - 154823 # Glittering Diamondshell
-  - 154820 # Murgle
-  - 154821 # Necrofin Tadpole
-  - 154842 # Sandkeep
-  - 154843 # Scalebrood Hydra
-  - 154840 # Seafury
-  - 154848 # Skittering Eel
-  - 154832 # Spawn of Nalaada
-  - 154841 # Stormwrath
-  - 154839 # Wriggler
+  - 2697 # Amethyst Softshell
+  - 2706 # Brinestone Algan
+  - 2707 # Budding Algan
+  - 2690 # Caverndark Nightmare
+  - 2689 # Chitterspine Needler
+  - 2708 # Coral Lashling
+  - 2695 # Daggertooth Frenzy
+  - 2684 # Glittering Diamondshell
+  - 2681 # Murgle
+  - 2682 # Necrofin Tadpole
+  - 2703 # Sandkeep
+  - 2704 # Scalebrood Hydra
+  - 2701 # Seafury
+  - 2709 # Skittering Eel
+  - 2693 # Spawn of Nalaada
+  - 2702 # Stormwrath
+  - 2700 # Wriggler
 
 - name: "Uldum"
   things:
-  - 162004 # Aqir Tunneler
-  - 162006 # Pygmy Camel
-  - 161997 # Rotbreath
+  - 2848 # Aqir Tunneler
+  - 2849 # Pygmy Camel
+  - 2847 # Rotbreath
 
 - name: "Vale of Eternal Blossoms"
   things:
-  - 161992 # Corrupted Tentacle
-  - 161954 # K'uddly
-  - 162012 # Wicked Lurker
+  - 2846 # Corrupted Tentacle
+  - 2845 # K'uddly
+  - 2851 # Wicked Lurker

@@ -19,7 +19,7 @@
             $staticStore.data.toySets,
             (thing: number[]) => some(
                 thing,
-                (value) => $userStore.data.hasToy[value] === true
+                (toyId) => $userStore.data.hasToy[toyId] === true
             )
         )
     }

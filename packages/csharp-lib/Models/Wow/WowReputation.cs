@@ -1,13 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Wowthing.Lib.Models.Wow
+namespace Wowthing.Lib.Models.Wow;
+
+public class WowReputation
 {
-    public class WowReputation
-    {
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int Id { get; set; }
-        
-        public string Name { get; set; }
-        public int TierId { get; set; }
-    }
+    [Key]
+    public short Id { get; set; }
+
+    public short Expansion { get; set; }
+    public short ParagonId { get; set; }
+    public short ParentId { get; set; }
+    public short TierId { get; set; }
 }

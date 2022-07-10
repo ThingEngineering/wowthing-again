@@ -32,7 +32,7 @@
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public string Note { get; set; }
-        
+
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public List<DataReputationReward> Rewards { get; set; }
     }
@@ -40,7 +40,6 @@
     public class DataReputationReward
     {
         public int Id { get; set; }
-        public string Name { get; set; }
         public string Type { get; set; }
     }
 }

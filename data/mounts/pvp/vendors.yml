@@ -3,67 +3,67 @@ groups:
 
 - name: Alterac Valley
   things:
-  - 23510 23509 # Stormpike Battle Charger/Frostwolf Howler
-  - 23509 23510 # ^ reversed
+  - 109 108 # Stormpike Battle Charger/Frostwolf Howler
+  - 108 109 # ^ reversed
 
 - name: "Alliance: Marks of Honor"
   things:
-  - 22719 # Black Battlestrider
-  - 48027 # Black War Elekk
-  - 22720 # Black War Ram
-  - 22717 # Black War Steed
-  - 22723 # Black War Tiger
-  
+  - 77 # Black Battlestrider
+  - 220 # Black War Elekk
+  - 78 # Black War Ram
+  - 75 # Black War Steed
+  - 81 # Black War Tiger
+
 - name: "Horde: Marks of Honor"
   things:
-  - 22718 # Black War Kodo
-  - 22721 # Black War Raptor
-  - 22724 # Black War Wolf
-  - 22722 # Red Skeletal Warhorse
-  - 35028 # Swift Warstrider  
+  - 76 # Black War Kodo
+  - 79 # Black War Raptor
+  - 82 # Black War Wolf
+  - 80 # Red Skeletal Warhorse
+  - 162 # Swift Warstrider
 
 - name: "Alliance: Vicious Saddle"
   things:
-  - 223341 # Vicious Gilnean Warhorse
-  - 229487 # Vicious War Bear
-  - 223578 # Vicious War Elekk
-  - 242896 # Vicious War Fox
-  - 229512 # Vicious War Lion
-  - 183889 # Vicious War Mechanostrider
-  - 171834 # Vicious War Ram
-  - 232523 # Vicious War Turtle
-  - 146615 # Vicious Warsaber
+  - 841 # Vicious Gilnean Warhorse
+  - 873 # Vicious War Bear
+  - 844 # Vicious War Elekk
+  - 945 # Vicious War Fox
+  - 876 # Vicious War Lion
+  - 755 # Vicious War Mechanostrider
+  - 640 # Vicious War Ram
+  - 900 # Vicious War Turtle
+  - 554 # Vicious Warsaber
 
 - name: "Horde: Vicious Saddle"
   things:
-  - 146622 # Vicious Skeletal Warhorse
-  - 229486 # Vicious War Bear
-  - 242897 # Vicious War Fox
-  - 185052 # Vicious War Kodo
-  - 171835 # Vicious War Raptor
-  - 230988 # Vicious War Scorpion
-  - 223354 # Vicious War Trike
-  - 232525 # Vicious War Turtle
-  - 223363 # Vicious Warstrider
-  
-- name: "Battle for Azeroth Vicious Saddle" 
+  - 555 # Vicious Skeletal Warhorse
+  - 874 # Vicious War Bear
+  - 946 # Vicious War Fox
+  - 756 # Vicious War Kodo
+  - 641 # Vicious War Raptor
+  - 882 # Vicious War Scorpion
+  - 842 # Vicious War Trike
+  - 901 # Vicious War Turtle
+  - 843 # Vicious Warstrider
+
+- name: "Battle for Azeroth Vicious Saddle"
   things:
-  - 270560 # Vicious War Clefthoof (BFA Season 1 Horde)
-  - 272481 # Vicious War Riverbeast (BFA Season 1 Alliance)
-  - 281890 # Vicious Black Bonesteed (BFA Season 2 Horde)
-  - 281887 # Vicious Black Warsaber (BFA Season 2 Alliance)
-  - 261433 # Vicious War Basilisk (BFA Season 3 Horde)
-  - 261434 # Vicious War Basilisk (BFA Season 3 Alliance) 
-  - 281889 # Vicious White Bonesteed (BFA Season 4 Horde)
-  - 281888 # Vicious White Warsaber (BFA Season 4 Alliance)
- 
+  - 1045 # Vicious War Clefthoof (BFA Season 1 Horde)
+  - 1050 # Vicious War Riverbeast (BFA Season 1 Alliance)
+  - 1196 # Vicious Black Bonesteed (BFA Season 2 Horde)
+  - 1195 # Vicious Black Warsaber (BFA Season 2 Alliance)
+  - 1027 # Vicious War Basilisk (BFA Season 3 Horde)
+  - 1026 # Vicious War Basilisk (BFA Season 3 Alliance)
+  - 1197 # Vicious White Bonesteed (BFA Season 4 Horde)
+  - 1194 # Vicious White Warsaber (BFA Season 4 Alliance)
+
 - name: "Shadowlands Vicious Saddle"
   things:
-  - 327408 # Vicious War Spider (Shadowlands Season 1 Horde)
-  - 327407 # Vicious War Spider (Shadowlands Season 1 Alliance)
-  - 348769 # Vicious War Gorm (Shadowlands Season 2 Horde)
-  - 348770 # Vicious War Gorm (Shadowlands Season 2 Alliance)
-  - 347255 # Vicious War Croaker (Shadowlands Season 3 Horde)
-  - 347256 # Vicious War Croaker (Shadowlands Season 3 Alliance)
-  - 349823 # Vicious Warstalker (Shadowlands Season 4 Horde)
-  - 349824 # Vicious Warstalker (Shadowlands Season 4 Alliance)
+  - 1352 # Vicious War Spider (Shadowlands Season 1 Horde)
+  - 1351 # Vicious War Spider (Shadowlands Season 1 Alliance)
+  - 1459 # Vicious War Gorm (Shadowlands Season 2 Horde)
+  - 1460 # Vicious War Gorm (Shadowlands Season 2 Alliance)
+  - 1451 # Vicious War Croaker (Shadowlands Season 3 Horde)
+  - 1452 # Vicious War Croaker (Shadowlands Season 3 Alliance)
+  - 1466 # Vicious Warstalker (Shadowlands Season 4 Horde)
+  - 1465 # Vicious Warstalker (Shadowlands Season 4 Alliance)

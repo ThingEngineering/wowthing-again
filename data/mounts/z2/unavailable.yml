@@ -3,8 +3,8 @@ groups:
 
 - name: "Instances"
   things:
-  - 59976 # Black Proto-Drake (Naxx/etc 25 meta)
-  - 68057 68056 # Swift Alliance Steed/Swift Horde Wolf (ToGC 10H)
-  - 68056 68057 # ^ reversed
-  - 68187 68188 # Crusader's White/Black Warhorse (ToGC - A Tribute to Immortality)
-  - 68188 68187 # ^ reversed
+  - 263 # Black Proto-Drake (Naxx/etc 25 meta)
+  - 343 342 # Swift Alliance Steed/Swift Horde Wolf (ToGC 10H)
+  - 342 343 # ^ reversed
+  - 344 345 # Crusader's White/Black Warhorse (ToGC - A Tribute to Immortality)
+  - 345 344 # ^ reversed

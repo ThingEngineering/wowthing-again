@@ -2,10 +2,14 @@ import sortBy from 'lodash/sortBy'
 
 import { zoneMapStore } from './zone-map'
 import { extraInstanceMap } from '@/data/dungeon'
+import { extraReputationTiers } from '@/data/reputation'
 import { WritableFancyStore } from '@/types'
 import {
+    StaticDataBag,
     StaticDataCurrency,
+    StaticDataCurrencyCategory,
     StaticDataInstance,
+    StaticDataItem,
     StaticDataMount,
     StaticDataPet,
     StaticDataRealm,
@@ -13,9 +17,10 @@ import {
     StaticDataSetCategory,
     StaticDataToy,
 } from '@/types/data/static'
-import type { StaticData, StaticDataSetCategoryArray } from '@/types/data/static'
-import { extraReputationTiers } from '@/data/reputation'
-
+import type {
+    StaticDataSetCategoryArray,
+} from '@/types/data/static'
+import type { StaticData } from '@/types/data/static/store'
 
 export class StaticDataStore extends WritableFancyStore<StaticData> {
     get dataUrl(): string {
@@ -38,21 +43,28 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             cls.specializationIds = specs.map((spec) => spec.id)
         }
 
-        if (data.currenciesRaw !== null) {
-            data.currencies = {}
-            for (const currencyArray of data.currenciesRaw) {
-                const obj = new StaticDataCurrency(...currencyArray)
-                data.currencies[obj.id] = obj
-            }
-            data.currenciesRaw = null
+        if (data.rawBags !== null) {
+            data.bags = StaticDataStore.createObjects(data.rawBags, StaticDataBag)
+            data.rawBags = null
+        }
+
+        if (data.rawCurrencies !== null) {
+            data.currencies = StaticDataStore.createObjects(data.rawCurrencies, StaticDataCurrency)
+            data.rawCurrencies = null
+        }
+
+        if (data.rawCurrencyCategories !== null) {
+            data.currencyCategories = StaticDataStore.createObjects(data.rawCurrencyCategories, StaticDataCurrencyCategory)
+            data.rawCurrencyCategories = null
+        }
+
+        if (data.rawItems !== null) {
+            data.items = StaticDataStore.createObjects(data.rawItems, StaticDataItem)
+            data.rawItems = null
         }
 
         if (data.instancesRaw !== null) {
-            data.instances = {}
-            for (const instanceArray of data.instancesRaw) {
-                const obj = new StaticDataInstance(...instanceArray)
-                data.instances[obj.id] = obj
-            }
+            data.instances = StaticDataStore.createObjects(data.instancesRaw, StaticDataInstance)
             data.instancesRaw = null
 
             for (const instanceId in extraInstanceMap) {
@@ -89,48 +101,36 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             }
         }
 
-        if (data.reputationsRaw !== null) {
-            data.reputations = {}
-            for (const reputationArray of data.reputationsRaw) {
-                const obj = new StaticDataReputation(...reputationArray)
-                data.reputations[obj.id] = obj
-            }
-            data.reputationsRaw = null
+        if (data.rawReputations !== null) {
+            data.reputations = StaticDataStore.createObjects(data.rawReputations, StaticDataReputation)
+            data.rawReputations = null
 
             for (const extraReputation of extraReputationTiers) {
                 data.reputationTiers[extraReputation.id] = extraReputation
             }
         }
 
-        if (data.mountsRaw !== null) {
+        if (data.rawMounts !== null) {
             data.mounts = {}
-            data.mountsBySpellId = {}
-            for (const mountArray of data.mountsRaw) {
+            for (const mountArray of data.rawMounts) {
                 const obj = new StaticDataMount(...mountArray)
                 data.mounts[obj.id] = obj
-                data.mountsBySpellId[obj.spellId] = obj
             }
-            data.mountsRaw = null
+            data.rawMounts = null
         }
 
-        if (data.petsRaw !== null) {
+        if (data.rawPets !== null) {
             data.pets = {}
-            data.petsByCreatureId = {}
-            for (const petArray of data.petsRaw) {
+            for (const petArray of data.rawPets) {
                 const obj = new StaticDataPet(...petArray)
                 data.pets[obj.id] = obj
-                data.petsByCreatureId[obj.creatureId] = obj
             }
-            data.petsRaw = null
+            data.rawPets = null
         }
 
-        if (data.toysRaw !== null) {
-            data.toys = {}
-            for (const toyArray of data.toysRaw) {
-                const obj = new StaticDataToy(...toyArray)
-                data.toys[obj.id] = obj
-            }
-            data.toysRaw = null
+        if (data.rawToys !== null) {
+            data.toys = StaticDataStore.createObjects(data.rawToys, StaticDataToy, (toy) => toy.itemId)
+            data.rawToys = null
         }
 
         if (
@@ -152,6 +152,20 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             state.loaded = true
             return state
         })
+    }
+
+    private static createObjects<TArray, TObject extends { id: number }>(
+        arrays: any[][],
+        objectConstructor: { new (...args: any[]): TObject },
+        idFunc: (obj: TObject) => number = null
+    ): Record<number, TObject>
+    {
+        const ret: Record<number, TObject> = {}
+        for (const array of arrays) {
+            const obj = new objectConstructor(...array)
+            ret[idFunc?.(obj) ?? obj.id] = obj
+        }
+        return ret
     }
 
     private static fixSets(allSets: StaticDataSetCategoryArray[][]): StaticDataSetCategory[][] {

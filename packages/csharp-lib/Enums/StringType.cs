@@ -13,6 +13,11 @@
         WowCharacterSpecializationName = 9,
         WowCharacterClassName = 10,
         WowCharacterRaceName = 11,
+        WowCurrencyName = 12,
+        WowCurrencyCategoryName = 13,
+        WowReputationName = 14,
+        WowReputationDescription = 15,
+
         // Hacky garbage
         WowJournalInstanceMapName = 1000,
     }

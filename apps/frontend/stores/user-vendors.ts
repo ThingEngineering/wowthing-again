@@ -2,8 +2,8 @@ import { UserCount, WritableFancyStore } from '@/types'
 import getTransmogClassMask from '@/utils/get-transmog-class-mask'
 import userHasDrop from '@/utils/user-has-drop'
 import type { VendorState } from '@/stores/local-storage'
-import type { Settings } from '@/types'
-import type { UserVendorData } from '@/types/data'
+import type { Settings, UserData } from '@/types'
+import type { UserTransmogData, UserVendorData } from '@/types/data'
 import type { StaticData } from '@/types/data/static'
 
 
@@ -11,6 +11,8 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
     setup(
         settingsData: Settings,
         staticData: StaticData,
+        userData: UserData,
+        userTransmogData: UserTransmogData,
         vendorState: VendorState
     ): void {
         const classMask = getTransmogClassMask(settingsData)
@@ -47,7 +49,13 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
                             continue
                         }
 
-                        const hasDrop = userHasDrop(group.type, thing.appearanceId || thing.id)
+                        const hasDrop = userHasDrop(
+                            staticData,
+                            userData,
+                            userTransmogData,
+                            group.type,
+                            thing.appearanceId || thing.id
+                        )
                         const thingKey = `${group.type}-${thing.id}`
 
                         if (!seen[thingKey]) {

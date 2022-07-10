@@ -65,7 +65,7 @@ farms:
   type: kill
   drops:
     - type: pet
-      id: 88692 # Servant of Demidos
+      id: 1601 # Servant of Demidos
 
 - name: "Faebright"
   location: 61.6 61.8
@@ -172,7 +172,7 @@ farms:
   type: kill
   drops:
     - type: mount
-      id: 171830 # Swift Breezestrider
+      id: 636 # Swift Breezestrider
 
 - name: "Quartermaster Hershak"
   location: 50.0 72.4

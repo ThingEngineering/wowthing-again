@@ -3,87 +3,87 @@ groups:
 
 - name: Azsuna
   things:
-  -  97323 # Felspider (Azsuna, Highmountain)
-  -  97018 # Albatross Chick (Azsuna, Stormheim)
-  - 110826 # Coastal Sandpiper (Azsuna, Suramar)
-  -  98386 # Eldritch Manafiend (Azsuna)
-  -  98385 # Erudite Manafiend (Azsuna)
-  -  97076 # Fledgling Kingfeather (Azsuna)
-  -  97078 # Fledgling Oliveback (Azsuna)
-  -  97283 # Juvenile Scuttleback (Azsuna)
-  -  97294 # Olivetail Hare (Azsuna)
-  -  97542 # Slithering Brownscale (Azsuna, Stormheim, Val'sharah)
+  - 1731 # Felspider (Azsuna, Highmountain)
+  - 1708 # Albatross Chick (Azsuna, Stormheim)
+  - 1914 # Coastal Sandpiper (Azsuna, Suramar)
+  - 1774 # Eldritch Manafiend (Azsuna)
+  - 1773 # Erudite Manafiend (Azsuna)
+  - 1709 # Fledgling Kingfeather (Azsuna)
+  - 1710 # Fledgling Oliveback (Azsuna)
+  - 1728 # Juvenile Scuttleback (Azsuna)
+  - 1729 # Olivetail Hare (Azsuna)
+  - 1736 # Slithering Brownscale (Azsuna, Stormheim, Val'sharah)
 
 - name: Dalaran
   things:
-  - 111158 # Blind Rat (Dalaran Sewers)
-  -  98506 # Dust Bunny
-  - 110666 # Young Mutant Warturtle
+  - 1915 # Blind Rat (Dalaran Sewers)
+  - 1778 # Dust Bunny
+  - 1912 # Young Mutant Warturtle
 
 - name: Highmountain
   things:
-  -  97741 # Black-Footed Fox Kit (Highmountain, Stormheim)
-  -  97236 # Burrow Spiderling (Highmountain)
-  -  98428 # Coralback Fiddler (Highmountain)
-  -  88542 # Echo Batling (Highmountain)
-  -  97323 # Felspider (Azsuna, Highmountain)
-  -  98192 # Hog-Nosed Bat (Highmountain)
-  -  97118 # Long-Eared Owl (Highmountain, Stormheim)
-  -  97743 # Mist Fox Kit (Highmountain, Stormheim)
-  -  98446 # Mudshell Conch (Highmountain)
-  -  97126 # Northern Hawk Owl (Highmountain)
-  -  98211 # Spiketail Beaver (Highmountain)
+  - 1743 # Black-Footed Fox Kit (Highmountain, Stormheim)
+  - 1726 # Burrow Spiderling (Highmountain)
+  - 1775 # Coralback Fiddler (Highmountain)
+  - 1761 # Echo Batling (Highmountain)
+  - 1731 # Felspider (Azsuna, Highmountain)
+  - 1762 # Hog-Nosed Bat (Highmountain)
+  - 1713 # Long-Eared Owl (Highmountain, Stormheim)
+  - 1744 # Mist Fox Kit (Highmountain, Stormheim)
+  - 1776 # Mudshell Conch (Highmountain)
+  - 1714 # Northern Hawk Owl (Highmountain)
+  - 1763 # Spiketail Beaver (Highmountain)
 
 - name: Stormheim
   things:
-  -  97018 # Albatross Chick (Azsuna, Stormheim)
-  -  97741 # Black-Footed Fox Kit (Highmountain, Stormheim)
-  -  97080 # Golden Eaglet (Stormheim)
-  -  97118 # Long-Eared Owl (Highmountain, Stormheim)
-  -  97743 # Mist Fox Kit (Highmountain, Stormheim)
-  -  97840 # Rose Taipan (Stormheim)
-  -  97542 # Slithering Brownscale (Azsuna, Stormheim, Val'sharah)
-  - 111172 # Stormstruck Beaver (Stormheim)
-  -  97952 # Tiny Apparition (Stormheim)
+  - 1708 # Albatross Chick (Azsuna, Stormheim)
+  - 1743 # Black-Footed Fox Kit (Highmountain, Stormheim)
+  - 1712 # Golden Eaglet (Stormheim)
+  - 1713 # Long-Eared Owl (Highmountain, Stormheim)
+  - 1744 # Mist Fox Kit (Highmountain, Stormheim)
+  - 1749 # Rose Taipan (Stormheim)
+  - 1736 # Slithering Brownscale (Azsuna, Stormheim, Val'sharah)
+  - 1917 # Stormstruck Beaver (Stormheim)
+  - 1750 # Tiny Apparition (Stormheim)
 
 - name: Suramar
   things:
-  - 110826 # Coastal Sandpiper (Azsuna, Suramar)
-  -  99527 # Crystalline Broodling (Suramar)
-  -  99528 # Thornclaw Broodling (Suramar)
-  -  99513 # Vicious Broodling (Suramar)
+  - 1914 # Coastal Sandpiper (Azsuna, Suramar)
+  - 1809 # Crystalline Broodling (Suramar)
+  - 1810 # Thornclaw Broodling (Suramar)
+  - 1807 # Vicious Broodling (Suramar)
 
 - name: The Great Sea
   things:
-  - 113440 # Squirky (The Great Sea)
+  - 1935 # Squirky (The Great Sea)
 
 - name: "Val'sharah"
   things:
-  -  97555 # Auburn Ringtail (Val'sharah)
-  - 110741 # Gleamhoof Fawn (Val'sharah)
-  -  97511 # Shimmering Aquafly (Val'sharah)
-  -  97542 # Slithering Brownscale (Azsuna, Stormheim, Val'sharah)
-  -  97559 # Spring Strider (Val'sharah)
-  -  97531 # Terror Larva (Val'sharah)
-  -  97547 # Vale Flitter (Val'sharah)
+  - 1738 # Auburn Ringtail (Val'sharah)
+  - 1913 # Gleamhoof Fawn (Val'sharah)
+  - 1734 # Shimmering Aquafly (Val'sharah)
+  - 1736 # Slithering Brownscale (Azsuna, Stormheim, Val'sharah)
+  - 1739 # Spring Strider (Val'sharah)
+  - 1735 # Terror Larva (Val'sharah)
+  - 1737 # Vale Flitter (Val'sharah)
 
 - name: Antoran Wastes
   things:
-  - 128175 # Antoran Bilescourge (Antoran Wastes)
-  - 128163 # Antoran Bile Larva (Antoran Wastes)
+  - 2126 # Antoran Bilescourge (Antoran Wastes)
+  - 2122 # Antoran Bile Larva (Antoran Wastes)
 
 - name: Eredath
   things:
-  - 128172 # Arcane Gorger (Eredath)
-  - 128174 # Felcrazed Wyrm (Eredath)
-  - 128173 # Pygmy Marsuul (Eredath)
-  - 128167 # Skyfin Juvenile (Eredath)
-  - 128171 # Void Shardling (Eredath)
-  - 128168 # Voidstalker Runt (Eredath)
-  - 128170 # Warpstalker Runt (Eredath)
+  - 2131 # Arcane Gorger (Eredath)
+  - 2132 # Felcrazed Wyrm (Eredath)
+  - 2133 # Pygmy Marsuul (Eredath)
+  - 2134 # Skyfin Juvenile (Eredath)
+  - 2130 # Void Shardling (Eredath)
+  - 2129 # Voidstalker Runt (Eredath)
+  - 2128 # Warpstalker Runt (Eredath)
 
 - name: Krokuun
   things:
-  - 128164 # Bilescourge (Krokuun)
-  - 128162 # Bile Larva (Krokuun)
-  - 128166 # Flickering Argunite (Krokuun)
+  - 2124 # Bilescourge (Krokuun)
+  - 2123 # Bile Larva (Krokuun)
+  - 2127 # Flickering Argunite (Krokuun)

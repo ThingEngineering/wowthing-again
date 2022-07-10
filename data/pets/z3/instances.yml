@@ -3,30 +3,30 @@ groups:
 
 - name: Bastion of Twilight
   things:
-  - 127858 # Bound Stream (Elementium Monstrosity, Bastion of Twilight)
-  - 127859 # Faceless Minion (Cho'gall, Bastion of Twilight)
-  - 127857 # Twilght Clutch-Sister (Valiona, Bastion of Twilight)
+  - 2082 # Bound Stream (Elementium Monstrosity, Bastion of Twilight)
+  - 2083 # Faceless Minion (Cho'gall, Bastion of Twilight)
+  - 2081 # Twilght Clutch-Sister (Valiona, Bastion of Twilight)
 
 - name: Blackwing Descent
   things:
-  - 127852 # Discarded Experiment (Maloriak, Blackwing Descent)
-  - 127853 # Rattlejaw (Nefarian, Blackwing Descent)
-  - 127850 # Tinytron (Magmatron, Blackwing Descent)
+  - 2079 # Discarded Experiment (Maloriak, Blackwing Descent)
+  - 2080 # Rattlejaw (Nefarian, Blackwing Descent)
+  - 2078 # Tinytron (Magmatron, Blackwing Descent)
 
 - name: Throne of the Four Winds
   things:
-  - 127863 # Drafty (Nezir, Throne of the Four Winds)
-  - 127862 # Zephyrian Prince (Al'Akir, Throne of the Four Winds)
+  - 2085 # Drafty (Nezir, Throne of the Four Winds)
+  - 2084 # Zephyrian Prince (Al'Akir, Throne of the Four Winds)
 
 - name: Firelands
   things:
-  - 127947 # Blazehound (Shannox, Firelands)
-  - 127948 # Cinderweb Recluse (Beth'tilac, Firelands)
-  - 127951 # Infernal Pyreclaw (Majordomo Staghelm, Firelands)
-  - 127950 # Surger (Baleroc, Firelands)
+  - 2086 # Blazehound (Shannox, Firelands)
+  - 2087 # Cinderweb Recluse (Beth'tilac, Firelands)
+  - 2089 # Infernal Pyreclaw (Majordomo Staghelm, Firelands)
+  - 2088 # Surger (Baleroc, Firelands)
 
 - name: Dragon Soul
   things:
-  - 127953 # Corrupted Blood (Spine of Deathwing, Dragon Soul)
-  - 127952 # Faceless Mindlasher (Yor'sahj the Unsleeping, Dragon Soul)
-  - 127954 # Unstable Tendril (Deathwing, Dragon Soul)
+  - 2091 # Corrupted Blood (Spine of Deathwing, Dragon Soul)
+  - 2090 # Faceless Mindlasher (Yor'sahj the Unsleeping, Dragon Soul)
+  - 2092 # Unstable Tendril (Deathwing, Dragon Soul)

@@ -3,13 +3,13 @@ groups:
 
 - name: Achievements
   things:
-  - 191633 # Soaring Skyterror (Draenor Pathfinder)
-  - 171632 # Frostplains Battleboar (Glory of the Draenor Hero)
-  - 171436 # Gorestrider Gronnling (Glory of the Draenor Raider)
-  - 186305 # Infernal Direwolf (Glory of the Hellfire Raider)
+  - 772 # Soaring Skyterror (Draenor Pathfinder)
+  - 623 # Frostplains Battleboar (Glory of the Draenor Hero)
+  - 607 # Gorestrider Gronnling (Glory of the Draenor Raider)
+  - 758 # Infernal Direwolf (Glory of the Hellfire Raider)
 
 - name: Vendors
   things:
-  - 171846 # Champion's Treadblade (Alliance chopper thing)
-  - 183117 # Corrupted Dreadwing (Apexis Crystals)
-  - 171825 # Mosshide Riverwallow (Apexis Crystals)
+  - 652 # Champion's Treadblade (Alliance chopper thing)
+  - 753 # Corrupted Dreadwing (Apexis Crystals)
+  - 632 # Mosshide Riverwallow (Apexis Crystals)

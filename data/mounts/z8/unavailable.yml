@@ -3,13 +3,13 @@ groups:
 
 - name: "Arena"
   things:
-  - 332400 # Sinful Gladiator's Soul Eater (Gladiator: Shadowlands Season 1)
-  - 353036 # Unchained Gladiator's Soul Eater (Gladiator: Shadowlands Season 2)
-  - 365559 # Cosmic Gladiator's Soul Eater (Gladiator: Shadowlands Season 3)
-  - 370346 # Eternal Gladiator's Soul Eater
+  - 1363 # Sinful Gladiator's Soul Eater (Gladiator: Shadowlands Season 1)
+  - 1480 # Unchained Gladiator's Soul Eater (Gladiator: Shadowlands Season 2)
+  - 1572 # Cosmic Gladiator's Soul Eater (Gladiator: Shadowlands Season 3)
+  - 1599 # Eternal Gladiator's Soul Eater
 
 - name: "Mythic+"
   things:
-  - 340068 # Sintouched Deathwalker (Shadowlands Keystone Master: Season One)
-  - 358319 # Soultwisted Deathwalker (Shadowlands Keystone Master: Season Two)
-  - 334482 # Restoration Deathwalker (Shadowlands Keystone Master: Season Four)
+  - 1419 # Sintouched Deathwalker (Shadowlands Keystone Master: Season One)
+  - 1520 # Soultwisted Deathwalker (Shadowlands Keystone Master: Season Two)
+  - 1405 # Restoration Deathwalker (Shadowlands Keystone Master: Season Four)

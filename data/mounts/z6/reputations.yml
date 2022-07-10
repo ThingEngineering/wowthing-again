@@ -3,40 +3,40 @@ groups:
 
 - name: Court of Farondis
   things:
-  - 242881 # Cloudwing Hippogryph (Farondis Chest)
+  - 943 # Cloudwing Hippogryph (Farondis Chest)
 
 - name: Dreamweavers
   things:
-  - 242875 # Wild Dreamrunner (Dreamweaver Cache)
+  - 942 # Wild Dreamrunner (Dreamweaver Cache)
 
 - name: Highmountain Tribe
   things:
-  - 242874 # Highmountain Elderhorn (Highmountain Supplies)
+  - 941 # Highmountain Elderhorn (Highmountain Supplies)
 
 - name: Nightfallen
   things:
-  - 233364 # Leywoven Flying Carpet (Nightfallen Cache)
+  - 905 # Leywoven Flying Carpet (Nightfallen Cache)
 
 - name: Valarjar
   things:
-  - 242882 # Valarjar Stormwing (Valarjar Strongbox)
+  - 944 # Valarjar Stormwing (Valarjar Strongbox)
 
 - name: Talon's Vengeance
   things:
-  - 230401 # Ivory Hawkstrider (Talon's Vengeance Exalted)
+  - 877 # Ivory Hawkstrider (Talon's Vengeance Exalted)
 
 - name: Argussian Reach
   things:
-  - 253004 # Amethyst Ruinstrider (Argussian Reach, Exalted)
-  - 253005 # Beryl Ruinstrider (Argussian Reach, Exalted)
-  - 253007 # Cerulean Ruinstrider (Argussian Reach, Exalted)
-  - 253006 # Russet Ruinstrider (Argussian Reach, Exalted)
-  - 242305 # Sable Ruinstrider (Argussian Reach, Exaled)
-  - 253008 # Umber Ruinstrider (Argussian Reach, Exalted)
+  - 964 # Amethyst Ruinstrider (Argussian Reach, Exalted)
+  - 966 # Beryl Ruinstrider (Argussian Reach, Exalted)
+  - 965 # Cerulean Ruinstrider (Argussian Reach, Exalted)
+  - 968 # Russet Ruinstrider (Argussian Reach, Exalted)
+  - 939 # Sable Ruinstrider (Argussian Reach, Exaled)
+  - 967 # Umber Ruinstrider (Argussian Reach, Exalted)
 
 - name: Army of the Light
   things:
-  - 239013 # Lightforged Warframe (Army of the Light, Exalted)
-  - 254259 # Avenging Felcrusher (Army of the Light, Paragon)
-  - 254258 # Blessed Felcrusher (Army of the Light, Paragon)
-  - 254069 # Glorious Felcrusher (Army of the Light, Paragon)
+  - 932 # Lightforged Warframe (Army of the Light, Exalted)
+  - 985 # Avenging Felcrusher (Army of the Light, Paragon)
+  - 984 # Blessed Felcrusher (Army of the Light, Paragon)
+  - 983 # Glorious Felcrusher (Army of the Light, Paragon)

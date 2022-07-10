@@ -59,7 +59,7 @@ farms:
   questId: 49183
   drops:
   - type: mount
-    id: 253661
+    id: 979
     name: "Crimson Slavermaw"
 
 - name: "Doomcaster Suprax"
@@ -77,7 +77,7 @@ farms:
   questId: 48821
   drops:
   - type: mount
-    id: 243652
+    id: 955
     name: "Vile Fiend"
 
 - name: "Mistress Il'thendra"
@@ -94,7 +94,7 @@ farms:
     type: transmog
     id: 152949
     name: "World Defiler's Cuirass"
-    
+
   - &world-defilers-3
     type: transmog
     id: 152947
@@ -136,7 +136,7 @@ farms:
   questId: 48970
   drops:
   - type: pet
-    id: 128388
+    id: 2135
     name: "Rebellious Imp"
 
 - name: "Puscilla"
@@ -145,7 +145,7 @@ farms:
   questId: 48809
   drops:
   - type: mount
-    id: 253660
+    id: 981
     name: "Biletooth Gnasher"
 
 - name: "Rezira the Seer"
@@ -172,7 +172,7 @@ farms:
   questId: 48966
   drops:
   - type: pet
-    id: 128396
+    id: 2136
     name: "Uuna"
 
 - name: "Varga"
@@ -182,27 +182,27 @@ farms:
   questId: 48812
   drops:
   - type: mount
-    id: 235764
+    id: 906
     name: "Darkspore Mana Ray"
 
   - type: mount
-    id: 253108
+    id: 975
     name: "Felglow Mana Ray"
 
   - type: mount
-    id: 253109
+    id: 976
     name: "Scintillating Mana Ray"
 
   - type: mount
-    id: 253106
+    id: 974
     name: "Vibrant Mana Ray"
 
   - type: pet
-    id: 128157
+    id: 2118
     name: "Docile Skyfin"
 
   - type: pet
-    id: 128158
+    id: 2119
     name: "Fel-Afflicted Skyfin"
 
 - name: "Void Warden Valsuran"
@@ -229,7 +229,7 @@ farms:
   questId: 48810
   drops:
   - type: mount
-    id: 253660
+    id: 981
     name: "Biletooth Gnasher"
 
 - name: "Worldsplitter Skuul"

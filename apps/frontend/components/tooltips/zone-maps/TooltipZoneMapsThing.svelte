@@ -5,7 +5,7 @@
     import { dropTypeIcon } from '@/data/farm'
     import { iconStrings, imageStrings } from '@/data/icons'
     import { weaponSubclassToString } from '@/data/weapons'
-    import { userAchievementStore, userStore } from '@/stores'
+    import { staticStore, userAchievementStore, userStore } from '@/stores'
     import { ArmorType, FarmDropType, FarmResetType, FarmType } from '@/types/enums'
     import type { DropStatus, FarmStatus } from '@/types'
     import type { ZoneMapDataDrop, ZoneMapDataFarm } from '@/types/data'
@@ -30,6 +30,31 @@
         if (farm.statisticId > 0) {
             statistic = ($userAchievementStore.data.statistics?.[farm.statisticId] || [])
                 .reduce((a, b) => a + b[1], 0)
+        }
+    }
+
+    const getDropName = (drop: ZoneMapDataDrop): string => {
+        if (drop.type === FarmDropType.Item ||
+            drop.type === FarmDropType.Cosmetic ||
+            drop.type === FarmDropType.Armor ||
+            drop.type === FarmDropType.Weapon ||
+            drop.type === FarmDropType.Transmog) {
+            return $staticStore.data.items[drop.id]?.name || `Unknown item #${drop.id}`
+        }
+        else if (drop.type === FarmDropType.Mount) {
+            const mount = $staticStore.data.mounts[drop.id]
+            return mount ? mount.name : `Unknown mount #${drop.id}`
+        }
+        else if (drop.type === FarmDropType.Pet) {
+            const pet = $staticStore.data.pets[drop.id]
+            return pet ? pet.name : `Unknown pet #${drop.id}`
+        }
+        else if (drop.type === FarmDropType.Toy) {
+            const toy = $staticStore.data.toys[drop.id]
+            return toy ? toy.name : `Unknown toy #${drop.id}`
+        }
+        else {
+            return drop.name || "???"
         }
     }
 
@@ -174,7 +199,12 @@
                     <td class="type status-{dropStatus.need ? 'fail' : 'success'}">
                         <IconifyIcon icon={dropTypeIcon[drop.type]} />
                     </td>
-                    <td class="name" class:status-success={!dropStatus.need}>{drop.name}</td>
+                    <td
+                        class="name"
+                        class:status-success={!dropStatus.need}
+                    >
+                        {getDropName(drop)}
+                    </td>
                     <td class="limit">
                         {#if drop.limit?.length > 0}
                             {drop.limit[1]}

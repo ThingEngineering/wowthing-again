@@ -3,8 +3,8 @@ groups:
 
 - name: "Challenge Modes"
   things:
-  - 171848 # Challenger's War Yeti (Challenge Warlord: Silver)
+  - 654 # Challenger's War Yeti (Challenge Warlord: Silver)
 
 - name: "Instances"
   things:
-  - 189999 # Grove Warden (HFC)
+  - 764 # Grove Warden (HFC)

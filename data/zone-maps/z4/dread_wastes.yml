@@ -9,39 +9,39 @@ farms:
   drops:
     - type: toy
       id: 86589 # Ai-Li's Skymirror
-    
+
     - &shared-1
       type: transmog
       id: 87635 # Amber-Starched Robes [cloth]
-    
+
     - &shared-2
       type: transmog
       id: 87634 # Mazu's Robe [cloth]
-    
+
     - &shared-3
       type: transmog
       id: 87631 # Jiao-Skin Tunic [leather]
-    
+
     - &shared-4
       type: transmog
       id: 87633 # Sharkskin Armor [leather]
-    
+
     - &shared-5
       type: transmog
       id: 87630 # Chestpiece of Twinkling Stars [mail]
-    
+
     - &shared-6
       type: transmog
       id: 87632 # Fearsworn Chestpiece [mail]
-    
+
     - &shared-7
       type: transmog
       id: 87629 # Chestplate of Manifest Dread [plate]
-    
+
     - &shared-8
       type: transmog
       id: 87627 # Kunchong Carapace Chestguard [plate]
-    
+
     - &shared-9
       type: transmog
       id: 87628 # Spinebreaker Chestpiece [plate]
@@ -103,7 +103,7 @@ farms:
   type: kill
   drops:
     - type: pet
-      id: 64634 # Grinder
+      id: 834 # Grinder
 
     - *shared-1
     - *shared-2
@@ -136,7 +136,7 @@ farms:
   type: kill
   drops:
     - type: pet
-      id: 64633 # Aqua Strider
+      id: 836 # Aqua Strider
 
     - *shared-1
     - *shared-2
@@ -169,13 +169,13 @@ farms:
   reset: none
   drops:
   - type: mount
-    id: 138424 # Amber Primordial Direhorn
+    id: 534 # Amber Primordial Direhorn
 
   - type: mount
-    id: 138426 # Jade Primordial Direhorn
+    id: 536 # Jade Primordial Direhorn
 
   - type: mount
-    id: 138425 # Slate Primordial Direhorn
+    id: 535 # Slate Primordial Direhorn
 
 # Quest
 
@@ -197,7 +197,7 @@ farms:
   type: vendor
   drops:
     - type: mount
-      id: 123886 # Amber Scorpion
+      id: 463 # Amber Scorpion
       note: "{price:10000} at Exalted with The Klaxxi"
 
     - type: transmog

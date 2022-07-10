@@ -3,36 +3,36 @@ groups:
 
 - name: Blackrock Depths
   things:
-  - 162663 # Experiment 13 (Vendor)
-  - 162670 # Tinyclaw (Vendor)
-  - 162677 # Wailing Lasher (Vendor)
+  - 2868 # Experiment 13 (Vendor)
+  - 2869 # Tinyclaw (Vendor)
+  - 2870 # Wailing Lasher (Vendor)
 
 - name: Deadmines
   things:
-  - 124589 # Mining Monkey (Achievement)
-  - 122629 # Foe Reaper 0.9 (Vendor)
-  - 119794 # Pocket Cannon (Vendor)
-  - 122612 # Tricorne (Vendor)
+  - 2064 # Mining Monkey (Achievement)
+  - 2058 # Foe Reaper 0.9 (Vendor)
+  - 2041 # Pocket Cannon (Vendor)
+  - 2057 # Tricorne (Vendor)
 
 - name: Gnomeregan
   things:
-  - 147838 # Mini Spider Tank (Achievement)
-  - 147692 # Alarm-O-Dog (Vendor)
-  - 147679 # Leper Rat (Vendor)
-  - 147671 # Mechanical Cockroach (Vendor)
+  - 2534 # Mini Spider Tank (Achievement)
+  - 2533 # Alarm-O-Dog (Vendor)
+  - 2532 # Leper Rat (Vendor)
+  - 2531 # Mechanical Cockroach (Vendor)
 
 - name: Stratholme
   things:
-  - 154445 # Minimancer (Achievement)
-  - 155865 # Burnout (Achievement)
-  - 155246 # Crypt Fiend (Vendor)
-  - 155240 # Gruesome Belcher (Vendor)
-  - 155248 # Shrieker (Vendor)
-  - 155244 # Ziggy (Vendor)
+  - 2638 # Minimancer (Achievement)
+  - 2767 # Burnout (Achievement)
+  - 2749 # Crypt Fiend (Vendor)
+  - 2747 # Gruesome Belcher (Vendor)
+  - 2750 # Shrieker (Vendor)
+  - 2748 # Ziggy (Vendor)
 
 - name: Wailing Caverns
   things:
-  - 121317 # Son of Skum (Achievement)
-  - 117182 # Cavern Moccasin (Vendor)
-  - 117180 # Everliving Spore (Vendor)
-  - 117184 # Young Venomfang (Vendor)
+  - 2049 # Son of Skum (Achievement)
+  - 1999 # Cavern Moccasin (Vendor)
+  - 1998 # Everliving Spore (Vendor)
+  - 2000 # Young Venomfang (Vendor)

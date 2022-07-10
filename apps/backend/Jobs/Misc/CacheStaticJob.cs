@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using MoreLinq.Extensions;
+using Newtonsoft.Json.Linq;
 using Wowthing.Backend.Data;
 using Wowthing.Backend.Jobs.NonBlizzard;
 using Wowthing.Backend.Models.Data;
@@ -36,9 +37,7 @@ namespace Wowthing.Backend.Jobs.Misc
         private Dictionary<int, WowToy> _toyMap;
 
         private Dictionary<int, int> _itemToAppearance;
-
-        private Dictionary<int, int> _creatureToPet;
-        private Dictionary<int, int> _spellToMount;
+        private HashSet<int> _itemIds = new();
 
         private Dictionary<(StringType Type, Language Language, int Id), string> _stringMap;
 
@@ -47,7 +46,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
-            Version = 43,
+            Version = 47,
         };
 
         public override async Task Run(params string[] data)
@@ -67,8 +66,12 @@ namespace Wowthing.Backend.Jobs.Misc
             StringType.WowCharacterRaceName,
             StringType.WowCharacterSpecializationName,
             StringType.WowCreatureName,
+            StringType.WowCurrencyName,
+            StringType.WowCurrencyCategoryName,
             StringType.WowItemName,
             StringType.WowMountName,
+            StringType.WowReputationDescription,
+            StringType.WowReputationName,
             StringType.WowSoulbindName,
             StringType.WowSkillLineName,
         };
@@ -81,17 +84,15 @@ namespace Wowthing.Backend.Jobs.Misc
             _mountMap = await Context.WowMount
                 .AsNoTracking()
                 .ToDictionaryAsync(mount => mount.Id);
-            _spellToMount = _mountMap.Values.ToDictionary(mount => mount.SpellId, mount => mount.Id);
 
             _petMap = await Context.WowPet
                 .AsNoTracking()
                 .Where(pet => (pet.Flags & 32) == 0)
                 .ToDictionaryAsync(pet => pet.Id);
-            _creatureToPet = _petMap.Values.ToDictionary(pet => pet.CreatureId, pet => pet.Id);
 
             _toyMap = await Context.WowToy
                 .AsNoTracking()
-                .ToDictionaryAsync(toy => toy.Id);
+                .ToDictionaryAsync(toy => toy.ItemId);
 
             _stringMap = await Context.LanguageString
                 .AsNoTracking()
@@ -121,26 +122,41 @@ namespace Wowthing.Backend.Jobs.Misc
         private async Task BuildStaticData()
         {
             var db = Redis.GetDatabase();
+            var cacheData = new RedisStaticCache();
 
             // RaiderIO
             var raiderIoScoreTiers = await db.JsonGetAsync<Dictionary<int, OutRaiderIoScoreTiers>>(DataRaiderIoScoreTiersJob.CacheKey);
+            cacheData.RaiderIoScoreTiers = raiderIoScoreTiers ?? new Dictionary<int, OutRaiderIoScoreTiers>();
 
             // Bags
-            var bags = _itemMap.Values
+            cacheData.RawBags = _itemMap.Values
                 .Where(item => item.ContainerSlots > 0)
-                .ToDictionary(
-                    item => item.Id,
-                    item => new List<int> { (int)item.Quality, item.ContainerSlots }
-                );
+                .Select(item => new List<int> { item.Id, (int)item.Quality, item.ContainerSlots })
+                .ToList();
 
             // Character stuff
-            var classes = await LoadCharacterClasses();
-            var races = await LoadCharacterRaces();
-            var specializations = await LoadCharacterSpecializations();
+            var classes =  await Context.WowCharacterClass
+                .OrderBy(cls => cls.Id)
+                .ToArrayAsync();
+
+            var races = await Context.WowCharacterRace
+                .OrderBy(race => race.Id)
+                .ToArrayAsync();
+
+            var specs = await Context.WowCharacterSpecialization
+                .OrderBy(spec => spec.Id)
+                .ToArrayAsync();
 
             // Currencies
-            var currencies = await LoadCurrencies();
-            var currencyCategories = await LoadCurrencyCategories();
+            var currencies = await Context.WowCurrency
+                .Where(currency => !Hardcoded.IgnoredCurrencies.Contains(currency.Id))
+                .OrderBy(currency => currency.Id)
+                .ToArrayAsync();
+
+            var currencyCategories = await Context.WowCurrencyCategory
+                .OrderBy(category => category.Id)
+                .ToArrayAsync();
+
             _timer.AddPoint("Currencies");
 
             // Instances
@@ -149,12 +165,12 @@ namespace Wowthing.Backend.Jobs.Misc
 
             // Mounts
             var mountSets = LoadSets("mounts");
-            AddUncategorized("mounts", _spellToMount, mountSets, (id) => GetString(StringType.WowMountName, Language.enUS, _spellToMount[id]));
+            AddUncategorized("mounts", _mountMap, mountSets, (id) => GetString(StringType.WowMountName, Language.enUS, id));
             _timer.AddPoint("Mounts");
 
             // Pets
             var petSets = LoadSets("pets");
-            AddUncategorized("pets", _creatureToPet, petSets, (id) => GetString(StringType.WowCreatureName, Language.enUS, id));
+            AddUncategorized("pets", _petMap, petSets, (id) => GetString(StringType.WowCreatureName, Language.enUS, id));
             _timer.AddPoint("Pets");
 
             var progress = LoadProgress();
@@ -164,7 +180,10 @@ namespace Wowthing.Backend.Jobs.Misc
             var professions = await LoadProfessions();
 
             // Reputations
-            var reputations = await LoadReputations();
+            var reputations = await Context.WowReputation
+                .OrderBy(rep => rep.Id)
+                .ToArrayAsync();
+
             var reputationSets = LoadReputationSets();
             _timer.AddPoint("Reputations");
 
@@ -173,82 +192,93 @@ namespace Wowthing.Backend.Jobs.Misc
             _timer.AddPoint("Soulbinds");
 
             // Talents
-            var talents = await LoadTalents();
+            cacheData.Talents = await LoadTalents();
             _timer.AddPoint("Talents");
 
             // Toys
             var toySets = LoadSets("toys");
-            var itemToToy = _toyMap.Values.ToDictionary(
-                toy => toy.ItemId,
-                toy => toy.Id
-            );
-            AddUncategorized("toys", itemToToy, toySets, (id) => GetString(StringType.WowItemName, Language.enUS, id));
+            AddUncategorized("toys", _toyMap, toySets, (id) => GetString(StringType.WowItemName, Language.enUS, id));
             _timer.AddPoint("Toys");
 
             // Vendors
-            var vendors = LoadVendors();
+            cacheData.VendorSets = LoadVendors();
             _timer.AddPoint("Vendors");
 
             // Zone Maps
-            var zoneMaps = LoadZoneMaps();
+            cacheData.ZoneMapSets = LoadZoneMaps();
             #if DEBUG
-            DumpZoneMapQuests(zoneMaps[Language.enUS]);
+            DumpZoneMapQuests(cacheData.ZoneMapSets);
             #endif
 
             // Basic database dumps
-            var realms = await Context.WowRealm.ToListAsync();
+            cacheData.RealmsRaw = await Context.WowRealm
+                .OrderBy(realm => realm.Id)
+                .ToListAsync();
+
             var reputationTiers = new SortedDictionary<int, WowReputationTier>(await Context.WowReputationTier.ToDictionaryAsync(c => c.Id));
+
             _timer.AddPoint("Database");
 
-            // Ok we're done
+            // Add anything that uses strings
             string cacheHash = null;
             foreach (var language in Enum.GetValues<Language>())
             {
                 Logger.Warning("{Lang}", language);
 
-                var cacheData = new RedisStaticCache
+                cacheData.CharacterClasses = classes.Select(cls => new StaticCharacterClass(cls)
                 {
-                    Bags = bags,
-                    CurrenciesRaw = currencies,
-                    CurrencyCategories = currencyCategories,
-                    InstancesRaw = instances,
-                    Professions = professions[language],
-                    RaiderIoScoreTiers = raiderIoScoreTiers ?? new Dictionary<int, OutRaiderIoScoreTiers>(),
-                    RealmsRaw = realms,
-                    ReputationsRaw = reputations,
-                    ReputationTiers = reputationTiers,
-                    Soulbinds = soulbinds[language],
-                    Talents = talents,
-                    VendorSets = vendors,
-                    ZoneMapSets = zoneMaps[language],
+                    Name = GetString(StringType.WowCharacterClassName, language, cls.Id),
+                }).ToDictionary(cls => cls.Id);
 
-                    CharacterClasses = classes.Select(cls => new StaticCharacterClass(cls)
+                cacheData.CharacterRaces = races.Select(race => new StaticCharacterRace(race)
+                {
+                    Name = GetString(StringType.WowCharacterRaceName, language, race.Id),
+                }).ToDictionary(race => race.Id);
+
+                cacheData.CharacterSpecializations = specs.Select(spec => new StaticCharacterSpecialization(spec)
+                {
+                    Name = GetString(StringType.WowCharacterSpecializationName, language, spec.Id),
+                }).ToDictionary(spec => spec.Id);
+
+                cacheData.RawCurrencies = currencies.Select(currency => new StaticCurrency(currency)
+                {
+                    Name = GetString(StringType.WowCurrencyName, language, currency.Id),
+                }).ToArray();
+
+                cacheData.RawCurrencyCategories = currencyCategories.Select(category => new StaticCurrencyCategory(category)
+                {
+                    Name = GetString(StringType.WowCurrencyCategoryName, language, category.Id),
+                }).ToArray();
+
+                cacheData.RawItems = _itemIds
+                    .OrderBy(itemId => itemId)
+                    .Select(itemId => new StaticItem(_itemMap[itemId])
                     {
-                        Name = GetString(StringType.WowCharacterClassName, language, cls.Id),
-                    }).ToDictionary(cls => cls.Id),
+                        AppearanceId = _itemToAppearance.GetValueOrDefault(itemId),
+                        Name = GetString(StringType.WowItemName, language, itemId),
+                    }).ToArray();
 
-                    CharacterRaces = races.Select(race => new StaticCharacterRace(race)
-                    {
-                        Name = GetString(StringType.WowCharacterRaceName, language, race.Id),
-                    }).ToDictionary(race => race.Id),
+                cacheData.RawReputations = reputations.Select(rep => new StaticReputation(rep)
+                {
+                    Name = GetString(StringType.WowReputationName, language, rep.Id),
+                    Description = GetString(StringType.WowReputationDescription, language, rep.Id),
+                }).ToArray();
 
-                    CharacterSpecializations = specializations.Select(spec => new StaticCharacterSpecialization(spec)
-                    {
-                        Name = GetString(StringType.WowCharacterSpecializationName, language, spec.Id),
-                    }).ToDictionary(spec => spec.Id),
+                cacheData.InstancesRaw = instances;
+                cacheData.Professions = professions[language];
+                cacheData.ReputationTiers = reputationTiers;
+                cacheData.Soulbinds = soulbinds[language];
 
-                    MountsRaw = RawMounts(language),
-                    MountSetsRaw = FinalizeCollections(mountSets),
+                cacheData.RawMounts = RawMounts(language);
+                cacheData.RawPets = RawPets(language);
+                cacheData.RawToys = RawToys(language);
 
-                    PetsRaw = RawPets(language),
-                    PetSetsRaw = FinalizeCollections(petSets),
+                cacheData.MountSetsRaw = FinalizeCollections(mountSets);
+                cacheData.PetSetsRaw = FinalizeCollections(petSets);
+                cacheData.ToySetsRaw = FinalizeCollections(toySets);
 
-                    ToysRaw = RawToys(language),
-                    ToySetsRaw = FinalizeCollections(toySets),
-
-                    Progress = progress,
-                    ReputationSets = reputationSets,
-                };
+                cacheData.Progress = progress;
+                cacheData.ReputationSets = reputationSets;
 
                 var cacheJson = JsonConvert.SerializeObject(cacheData);
                 // This ends up being the MD5 of enUS, close enough
@@ -261,27 +291,6 @@ namespace Wowthing.Backend.Jobs.Misc
             }
 
             _timer.AddPoint("Cache", true);
-        }
-
-        private async Task<WowCharacterClass[]> LoadCharacterClasses()
-        {
-            return await Context.WowCharacterClass
-                .OrderBy(cls => cls.Id)
-                .ToArrayAsync();
-        }
-
-        private async Task<WowCharacterRace[]> LoadCharacterRaces()
-        {
-            return await Context.WowCharacterRace
-                .OrderBy(race => race.Id)
-                .ToArrayAsync();
-        }
-
-        private async Task<WowCharacterSpecialization[]> LoadCharacterSpecializations()
-        {
-            return await Context.WowCharacterSpecialization
-                .OrderBy(spec => spec.Id)
-                .ToArrayAsync();
         }
 
         private string GetString(StringType type, Language language, int id)
@@ -314,21 +323,6 @@ namespace Wowthing.Backend.Jobs.Misc
             }
 
             return categories;
-        }
-
-        private static async Task<List<OutCurrency>> LoadCurrencies()
-        {
-            var types = await DataUtilities.LoadDumpCsvAsync<DumpCurrencyTypes>("currencytypes");
-            return types
-                .Where(type => !Hardcoded.IgnoredCurrencies.Contains(type.ID))
-                .Select(type => new OutCurrency(type))
-                .ToList();
-        }
-
-        private static async Task<SortedDictionary<int, OutCurrencyCategory>> LoadCurrencyCategories()
-        {
-            var categories = await DataUtilities.LoadDumpCsvAsync<DumpCurrencyCategory>("currencycategory");
-            return new SortedDictionary<int, OutCurrencyCategory>(categories.ToDictionary(k => k.ID, v => new OutCurrencyCategory(v)));
         }
 
         private async Task<Dictionary<Language, Dictionary<int, OutProfession>>> LoadProfessions()
@@ -371,15 +365,6 @@ namespace Wowthing.Backend.Jobs.Misc
                     );
             }
             return ret;
-        }
-
-        private static async Task<List<OutReputation>> LoadReputations()
-        {
-            var factions = await DataUtilities.LoadDumpCsvAsync<DumpFaction>("faction");
-            return factions
-                .Select(faction => new OutReputation(faction))
-                .OrderBy(rep => rep.Id)
-                .ToList();
         }
 
         private async Task<Dictionary<Language, Dictionary<int, List<OutSoulbind>>>> LoadSoulbinds()
@@ -650,9 +635,10 @@ namespace Wowthing.Backend.Jobs.Misc
                     {
                         foreach (var item in group.Things)
                         {
-                            if (group.Type == FarmDropType.Transmog && item.AppearanceId == null)
+                            if (group.Type == FarmDropType.Transmog)// && item.AppearanceId == null)
                             {
-                                item.AppearanceId = _itemToAppearance[item.Id];
+                                _itemIds.Add(item.Id);
+                                //item.AppearanceId = _itemToAppearance[item.Id];
                             }
 
                             if (group.Type == FarmDropType.Mount)
@@ -676,98 +662,86 @@ namespace Wowthing.Backend.Jobs.Misc
             return ret;
         }
 
-        private Dictionary<Language, List<List<OutZoneMapCategory>>> LoadZoneMaps()
+        private List<List<OutZoneMapCategory>> LoadZoneMaps()
         {
             var zoneMapSets = DataUtilities.LoadData<DataZoneMapCategory>("zone-maps", Logger);
 
-            var ret = new Dictionary<Language, List<List<OutZoneMapCategory>>>();
+            var ret = new List<List<OutZoneMapCategory>>();
 
-            foreach (var language in Enum.GetValues<Language>())
+            foreach (var catList in zoneMapSets)
             {
-                var sets = new List<List<OutZoneMapCategory>>();
-                foreach (var catList in zoneMapSets)
+                if (catList == null)
                 {
-                    if (catList == null)
-                    {
-                        sets.Add(null);
-                    }
-                    else
-                    {
-                        sets.Add(catList.Select(cat => cat == null ? null : new OutZoneMapCategory(cat))
-                            .ToList());
-                    }
+                    ret.Add(null);
                 }
-
-                // Change transmog itemId to appearanceId
-                foreach (var categories in sets.Where(cats => cats != null))
+                else
                 {
-                    foreach (var category in categories.Where(cat => cat != null))
+                    ret.Add(catList.Select(cat => cat == null ? null : new OutZoneMapCategory(cat))
+                        .ToList());
+                }
+            }
+
+            // Change transmog itemId to appearanceId
+            foreach (var categories in ret.Where(cats => cats != null))
+            {
+                foreach (var category in categories.Where(cat => cat != null))
+                {
+                    foreach (var farm in category.Farms)
                     {
-                        foreach (var farm in category.Farms)
+                        // This doesn't work as we don't have a mapping of NPC ID -> Creature ID
+                        /*if (farm.IdType == FarmIdType.Npc && farm.Id > 0)
                         {
-                            // This doesn't work as we don't have a mapping of NPC ID -> Creature ID
-                            /*if (farm.IdType == FarmIdType.Npc && farm.Id > 0)
-                            {
-                                farm.Name = _stringMap.GetValueOrDefault((StringType.WowCreatureName, language, farm.Id), farm.Name);
-                            }*/
+                            farm.Name = _stringMap.GetValueOrDefault((StringType.WowCreatureName, language, farm.Id), farm.Name);
+                        }*/
 
-                            foreach (var drop in farm.Drops)
+                        foreach (var drop in farm.Drops)
+                        {
+                            switch (drop.Type)
                             {
-                                switch (drop.Type)
+                                case "mount":
+                                case "pet":
+                                case "toy":
+                                    break;
+
+                                case "item":
+                                    _itemIds.Add(drop.Id);
+                                    break;
+
+                                case "transmog":
                                 {
-                                    case "mount":
-                                        drop.Name = GetString(StringType.WowMountName, language, _spellToMount[drop.Id]);
-                                        break;
+                                    _itemIds.Add(drop.Id);
 
-                                    case "pet":
-                                        drop.Name = GetString(StringType.WowCreatureName, language, drop.Id);
-                                        break;
-
-                                    case "item":
-                                    case "toy":
-                                        drop.Name = GetString(StringType.WowItemName, language, drop.Id);
-                                        break;
-
-                                    case "transmog":
+                                    var dropItem = _itemMap[drop.Id];
+                                    if (dropItem.ClassId == 2)
                                     {
-                                        var dropItem = _itemMap[drop.Id];
-
-                                        drop.Id = _itemToAppearance[drop.Id];
-                                        drop.Name = GetString(StringType.WowItemName, language, dropItem.Id);
-
-                                        if (dropItem.ClassId == 2)
+                                        drop.Type = "weapon";
+                                        drop.SubType = dropItem.SubclassId;
+                                    }
+                                    else if (dropItem.ClassId == 4)
+                                    {
+                                        if (dropItem.SubclassId == 6 || dropItem.InventoryType == WowInventoryType.HeldInOffHand)
                                         {
                                             drop.Type = "weapon";
-                                            drop.SubType = dropItem.SubclassId;
+                                            drop.SubType = dropItem.InventoryType == WowInventoryType.HeldInOffHand ? 30 : 31;
                                         }
-                                        else if (dropItem.ClassId == 4)
+                                        else if (dropItem.SubclassId == 5 || dropItem.Flags.HasFlag(WowItemFlags.Cosmetic))
                                         {
-                                            if (dropItem.SubclassId == 6 || dropItem.InventoryType == WowInventoryType.HeldInOffHand)
-                                            {
-                                                drop.Type = "weapon";
-                                                drop.SubType = dropItem.InventoryType == WowInventoryType.HeldInOffHand ? 30 : 31;
-                                            }
-                                            else if (dropItem.SubclassId == 5 || dropItem.Flags.HasFlag(WowItemFlags.Cosmetic))
-                                            {
-                                                drop.Type = "cosmetic";
-                                            }
-                                            else
-                                            {
-                                                drop.Type = "armor";
-                                                drop.SubType = dropItem.InventoryType == WowInventoryType.Back ? 0 : dropItem.SubclassId;
-                                            }
+                                            drop.Type = "cosmetic";
                                         }
-
-                                        drop.ClassMask = dropItem.GetCalculatedClassMask();
-                                        break;
+                                        else
+                                        {
+                                            drop.Type = "armor";
+                                            drop.SubType = dropItem.InventoryType == WowInventoryType.Back ? 0 : dropItem.SubclassId;
+                                        }
                                     }
+
+                                    drop.ClassMask = dropItem.GetCalculatedClassMask();
+                                    break;
                                 }
                             }
                         }
                     }
                 }
-
-                ret[language] = sets;
             }
 
             return ret;
@@ -816,7 +790,12 @@ namespace Wowthing.Backend.Jobs.Misc
             return DataUtilities.LoadData<DataCollectionCategory>(dirName, Logger);
         }
 
-        private void AddUncategorized(string dirName, Dictionary<int, int> lookupMap, List<List<DataCollectionCategory>> thingSets, Func<int, string> nameFunc)
+        private void AddUncategorized<T>(
+            string dirName,
+            Dictionary<int, T> lookupMap,
+            List<List<DataCollectionCategory>> thingSets,
+            Func<int, string> nameFunc
+        )
         {
             var skip = Array.Empty<int>();
             var skipPath = Path.Join(DataUtilities.DataPath, dirName, "_skip.yml");

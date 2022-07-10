@@ -3,18 +3,18 @@ groups:
 
 - name: Draemus, New Dalaran
   things:
-  -  99425 # Alarm-o-Bot
-  -  98185 # Fel Piglet
-  -  97127 # Nightwatch Swooper
-  -  98132 # Plump Jelly
-  -  79730 # River Calf
+  - 1805 # Alarm-o-Bot
+  - 1760 # Fel Piglet
+  - 1715 # Nightwatch Swooper
+  - 1755 # Plump Jelly
+  - 1453 # River Calf
 
 - name: Guild Vendor
   things:
-  -  49587  49590 # Guild Herald
-  -  49586  49588 # Guild Page
-  -  48242 # Armadillo Pup - Critter Kill Squad
-  -  47944 # Dark Phoenix Hatchling - United Nations
-  -  84521 # Deathwatch Hatchling - Challenge Warlords: Gold - Guild Edition
-  -  54027 # Lil' Tarecgosa - Dragonwrath, Tarecgosa's Rest - Guild Edition
-  -  65313 # Thundering Serpent Hatchling - Challenge Conquerors: Gold - Guild Edition ?
+  - 282 283 # Guild Herald
+  - 280 281 # Guild Page
+  - 272 # Armadillo Pup - Critter Kill Squad
+  - 270 # Dark Phoenix Hatchling - United Nations
+  - 1449 # Deathwatch Hatchling - Challenge Warlords: Gold - Guild Edition
+  - 320 # Lil' Tarecgosa - Dragonwrath, Tarecgosa's Rest - Guild Edition
+  - 802 # Thundering Serpent Hatchling - Challenge Conquerors: Gold - Guild Edition ?

@@ -3,23 +3,23 @@ groups:
 
 - name: Guild
   things:
-  - 90621 93644 # Golden King/Kor'kron Annihilator
-  - 93644 90621 # ^ reversed
-  - 124408 # Thundering Jade Cloud Serpent
-  - 171627 # Blacksteel Battleboar (Guild Glory of the Draenor Raider)
+  - 403 409 # Golden King/Kor'kron Annihilator
+  - 409 403 # ^ reversed
+  - 466 # Thundering Jade Cloud Serpent
+  - 619 # Blacksteel Battleboar (Guild Glory of the Draenor Raider)
 
 - name: Puzzles
   things:
-  - 223018 # Fathom Dweller (Kosumoth)
-  - 247402 # Lucid Nightmare (weird puzzle?)
-  - 243025 # Riddler's Mind-Worm (Gift of the Mind-Seekers)
-  - 261395 # The Hivemind (??)
+  - 838 # Fathom Dweller (Kosumoth)
+  - 961 # Lucid Nightmare (weird puzzle?)
+  - 947 # Riddler's Mind-Worm (Gift of the Mind-Seekers)
+  - 1025 # The Hivemind (??)
 
 - name: Recruit-A-Friend
   things:
-  - 307263 # Explorer's Dunetrekker
-  - 307256 # Explorer's Jungle Hopper
+  - 1288 # Explorer's Dunetrekker
+  - 1287 # Explorer's Jungle Hopper
 
 - name: World Drops?
   things:
-  - 315987 # Mail Muncher (Mail Muncher, Horrific Visions)
+  - 1315 # Mail Muncher (Mail Muncher, Horrific Visions)

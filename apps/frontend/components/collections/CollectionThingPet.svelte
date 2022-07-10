@@ -2,18 +2,22 @@
     import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
     import find from 'lodash/find'
     import maxBy from 'lodash/maxBy'
+    import { getContext } from 'svelte'
     import IntersectionObserver from 'svelte-intersection-observer'
 
     import { petBreedMap } from '@/data/pet-breed'
     import { staticStore, userStore } from '@/stores'
     import { collectionState } from '@/stores/local-storage'
     import type { UserDataPet } from '@/types'
+    import type { CollectionContext } from '@/types/contexts'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import NpcLink from '@/components/links/NpcLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let things: number[] = []
+
+    const { thingMapFunc } = getContext('collection') as CollectionContext
 
     let element: HTMLElement
     let intersected = false
@@ -23,11 +27,11 @@
     let showAsMissing: boolean
     let userHasThing: number | undefined
     $: {
-        userHasThing = find(things, (value: number): boolean => $userStore.data.hasPetCreature[value] === true)
+        userHasThing = find(things, (petId: number): boolean => $userStore.data.hasPet[petId] === true)
         origId = userHasThing ?? things[0]
 
         if (userHasThing) {
-            pets = $userStore.data.pets[$staticStore.data.petsByCreatureId[origId].id]
+            pets = $userStore.data.pets[origId]
             quality = maxBy(pets, (pet: UserDataPet) => pet.quality).quality
             showAsMissing = $collectionState.highlightMissing['pets']
         }
@@ -60,9 +64,10 @@
         style:height="{44 + (18 * pets.length)}px"
     >
         {#if intersected}
-            <NpcLink id={origId}>
+            {@const creatureId = thingMapFunc(origId)}
+            <NpcLink id={creatureId}>
                 <WowthingImage
-                    name="npc/{origId}"
+                    name="npc/{creatureId}"
                     size={40}
                     border={2}
                 />

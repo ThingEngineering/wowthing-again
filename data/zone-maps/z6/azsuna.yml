@@ -329,17 +329,17 @@ farms:
   type: vendor
   drops:
     - type: pet
-      id: 97128 # Fledgling Warden Owl
+      id: 1716 # Fledgling Warden Owl
       note: "{price:500} at Revered"
 
     - type: toy
       id: 130157 # Syxsehnz Rod
       note: "{price:500} at Revered"
-    
+
     - type: toy
       id: 130191 # Trapped Treasure Chest Kit
       note: "{price:300} at Honored"
-    
+
     - type: transmog
       id: 139607 # Drape of the Patient Hunter [cloak]
       note: "{price:5000} at Exalted"
@@ -347,7 +347,7 @@ farms:
     - type: transmog
       id: 140580 # Warden's Tabard [tabard]
       note: "{price:300} at Exalted"
-    
+
     - type: transmog
       id: 139603 # Vault Patroller's Warboots [plate]
       note: "{price:1000} at Reverd"
@@ -359,7 +359,7 @@ farms:
   type: vendor
   drops:
     - type: pet
-      id: 112728 # Court Scribe
+      id: 1931 # Court Scribe
       note: "{price:500} at Revered"
 
     - type: toy

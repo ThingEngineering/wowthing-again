@@ -9,7 +9,7 @@ farms:
   npcId: 119269
   drops:
   - type: mount
-    id: 238454
+    id: 931
     name: "Netherlord's Accursed Wrathsteed"
     limit: class warlock
 

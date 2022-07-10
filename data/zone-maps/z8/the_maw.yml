@@ -173,7 +173,7 @@ farms:
   questId: 57509
   drops:
   - type: pet
-    id: 174081
+    id: 3037
     name: "Dread"
 
   - type: transmog
@@ -205,7 +205,7 @@ farms:
   questId: 64164
   drops:
   - type: mount
-    id: 354353
+    id: 1502
     name: "Fallen Charger"
 
 - name: "Guard Orguluus"
@@ -354,7 +354,7 @@ farms:
   questId: 62210
   drops:
   - type: pet
-    id: 174084
+    id: 3040
     name: "Sharpclaw"
 
 - name: "Shadeweaver Zeris"
@@ -561,7 +561,7 @@ farms:
   type: treasure
   drops:
   - type: pet
-    id: 179025
+    id: 3099
     name: "Infused Etherwyrm"
 
 - name: "Lil'Abom"
@@ -571,7 +571,7 @@ farms:
   type: treasure
   drops:
   - type: pet
-    id: 179008
+    id: 3098
     name: "Lil'Abom"
 
 # Events
@@ -584,7 +584,7 @@ farms:
   type: eventBig
   drops:
   - type: mount
-    id: 312762
+    id: 1304
     name: Mawsworn Soulhunter
     #requiredQuestId: 60285 # Rule 6: Concealment is Everything
 
@@ -595,7 +595,7 @@ farms:
   type: eventBig
   drops:
   - type: mount
-    id: 352309
+    id: 1475
     name: "Hand of Bahmethra"
 
   - type: transmog

@@ -4,19 +4,19 @@ groups:
 - name: "Mounts"
   type: mount
   things:
-  - id: 332882 # Horrid Dredwing
+  - id: 1310 # Horrid Dredwing
     cost: 5000 anima 100 offering
 
-  - id: 353866 # Obsidian Gravewing
+  - id: 1489 # Obsidian Gravewing
     cost: 7500 anima
 
-  - id: 332927 # Sinfall Gargon
+  - id: 1384 # Sinfall Gargon
     cost: 5000 anima
 
 - name: "Pets"
   type: pet
   things:
-  - id: 172570 # Sinheart
+  - id: 2966 # Sinheart
     cost: 1500 anima 30 offering
 
 - name: "Toys"

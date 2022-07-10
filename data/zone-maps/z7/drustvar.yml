@@ -211,7 +211,7 @@ farms:
   type: kill
   drops:
   - type: pet
-    id: 139770
+    id: 2198
     name: "Taptaf"
 
 - name: "Longfang & Henry Breakwater"
@@ -313,7 +313,7 @@ farms:
   type: treasure
   drops:
   - type: pet
-    id: 143189
+    id: 2411
     name: "Wicker Pup"
     note: "Spooky Incantation part"
 
@@ -324,7 +324,7 @@ farms:
   type: treasure
   drops:
   - type: pet
-    id: 143189
+    id: 2411
     name: "Wicker Pup"
     note: "Wolf Pup Spine part"
 
@@ -335,7 +335,7 @@ farms:
   type: treasure
   drops:
   - type: pet
-    id: 143189
+    id: 2411
     name: "Wicker Pup"
     note: "Miniature Stag Skull part"
 
@@ -346,7 +346,7 @@ farms:
   type: treasure
   drops:
   - type: pet
-    id: 143189
+    id: 2411
     name: "Wicker Pup"
     note: "Bundle of Wicker Sticks part"
 

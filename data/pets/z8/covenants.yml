@@ -3,41 +3,41 @@ groups:
 
 - name: Shared
   things:
-  - 172284 # Bloodfeaster Spiderling
-  - 171569 # Brightscale Hatchling
-  - 171982 # Corpulent Bonetusk
-  - 171233 # Dusty Sporeflutterer
-  - 175715 # Lucy
-  - 171227 # Pearlwing Heron
-  - 172135 # Plaguelouse Larva
-  - 171568 # Sable
-  - 171151 # Violet Dredwing Pup
+  - 2965 # Bloodfeaster Spiderling
+  - 2931 # Brightscale Hatchling
+  - 2945 # Corpulent Bonetusk
+  - 2912 # Dusty Sporeflutterer
+  - 3066 # Lucy
+  - 2923 # Pearlwing Heron
+  - 2954 # Plaguelouse Larva
+  - 2933 # Sable
+  - 2904 # Violet Dredwing Pup
 
 - name: Kyrian
   things:
-  - 171716 # Indigo
-  - 174087 # Ruffle
+  - 2941 # Indigo
+  - 3042 # Ruffle
 
 - name: Necrolord
   things:
-  - 172140 # Backbone
-  - 174088 # Jiggles
-  - 172153 # Mu'dud
+  - 2958 # Backbone
+  - 3043 # Jiggles
+  - 2963 # Mu'dud
 
 - name: Night Fae
   things:
-  - 173585 # Fun Guss
-  - 171235 # Fuzzy Shimmermoth
-  - 173586 # Leafadore
-  - 173593 # Sir Reginald
-  - 173588 # Stemmins
-  - 173587 # Trootie
-  - 171224 # Willowbreeze
+  - 3016 # Fun Guss
+  - 2913 # Fuzzy Shimmermoth
+  - 3017 # Leafadore
+  - 3023 # Sir Reginald
+  - 3019 # Stemmins
+  - 3018 # Trootie
+  - 2915 # Willowbreeze
 
 - name: Venthyr
   things:
-  - 173535 # Battie
-  - 173842 # Char
-  - 172854 # Dredger Butler
-  - 172570 # Sinheart
-  - 173536 # Stony
+  - 3011 # Battie
+  - 3024 # Char
+  - 2967 # Dredger Butler
+  - 2966 # Sinheart
+  - 3012 # Stony

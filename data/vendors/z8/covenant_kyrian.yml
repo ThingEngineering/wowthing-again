@@ -4,37 +4,37 @@ groups:
 - name: "Mounts"
   type: mount
   things:
-  - id: 334409 # Eternal Phalynx of Humility
+  - id: 1402 # Eternal Phalynx of Humility
     cost: 2500 anima
 
-  - id: 334408 # Eternal Phalynx of Loyalty
+  - id: 1401 # Eternal Phalynx of Loyalty
     cost: 2500 anima
 
-  - id: 334386 # Phalynx of Humility
+  - id: 1395 # Phalynx of Humility
     cost: 5000 anima 100 offering
 
-  - id: 334398 # Phalynx of Purity
+  - id: 1398 # Phalynx of Purity
     cost: 5000 anima
 
-  - id: 353880 # Ascendant's Aquilon
+  - id: 1494 # Ascendant's Aquilon
     cost: 7500 anima
 
-  - id: 336064 # Dauntless Duskrunner
+  - id: 1413 # Dauntless Duskrunner
     cost: 2500 anima
 
-  - id: 336039 # Gruesome Flayedwing
+  - id: 1408 # Gruesome Flayedwing
     cost: 2500 anima
 
-  - id: 334365 # Pale Acidmaw
+  - id: 1392 # Pale Acidmaw
     cost: 2500 anima
 
-  - id: 312777 # Silvertip Dredwing
+  - id: 1376 # Silvertip Dredwing
     cost: 2500 anima
 
 - name: "Pets"
   type: pet
   things:
-  - id: 174087 # Ruffle
+  - id: 3042 # Ruffle
     cost: 1500 anima 30 offering
 
 - name: "Toys"

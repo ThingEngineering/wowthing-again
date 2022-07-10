@@ -34,9 +34,7 @@ export interface UserData {
     characterMap: Record<number, Character>
 
     hasMount: Record<number, boolean>
-    hasMountSpell: Record<number, boolean>
     hasPet: Record<number, boolean>
-    hasPetCreature: Record<number, boolean>
     hasToy: Record<number, boolean>
 
     pets: Record<number, UserDataPet[]>

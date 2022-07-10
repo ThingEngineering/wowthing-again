@@ -3,46 +3,46 @@ groups:
 
 - name: Vendors
   things:
-  - 143175 # Abyssal Eel (Madeline Netley, Stormsong Valley)
-  - 143206 # Barnacled Hermit Crab (Madeline Netley, Stormsang Valley/Jenoh, Vol'dun)
-  - 143181 # Bilefang Skitterer (Nigel Rifthold, Drustvar)
-  - 143203 # Blue Flitter (Madeline Netley, Stormsang Valley/Happy Holaua, Zuldazar)
-  - 143211 # Carnivorous Lasher (Madeline Netley, Stormsong Valley/Jenoh, Vol'dun)
-  - 143198 # Child of Jani (Happy Holaua, Zuldazar)
-  - 143178 # Drustvar Piglet (Nigel Rifthold, Drustvar)
-  - 143179 # Frenzied Cottontail (Nigel Rifthold, Drustvar)
-  - 143204 # Freshwater Pincher (Madeline Netley, Stormsong Valley/Jenoh, Vol'dun)
-  - 143184 # Greating Macaw (Dana Pull, Tiaragarde Sound)
-  - 143360 # Lost Platysaur (Talutu, Zuldazar/Tricky Nick, Tiragarde Sound)
-  - 143188 # Mechanical Prairie Dog (Dana Pull, Tiragarde Sounde)
-  - 143197 # Ranishu Runt (Jenoh, Vol'dun)
-  - 143207 # Sandstinger Wasp (Madeline Netley, Stormsang Valley/Jenoh, Vol'dun)
-  - 143202 # Saurolisk Hatchling (Madeline Netley, Stormsang Valley/Happy Holaua, Zuldazar)
-  - 139081 # Smoochums (Nigel Rifthold, Drustvar)
-  - 148525 # Tanzil (Provisioner Mukra, Dazar'alor)
-  - 148524 # Trecker (Provisioner Stoutforge, Boralus)
+  - 2403 # Abyssal Eel (Madeline Netley, Stormsong Valley)
+  - 2425 # Barnacled Hermit Crab (Madeline Netley, Stormsang Valley/Jenoh, Vol'dun)
+  - 2408 # Bilefang Skitterer (Nigel Rifthold, Drustvar)
+  - 2422 # Blue Flitter (Madeline Netley, Stormsang Valley/Happy Holaua, Zuldazar)
+  - 2428 # Carnivorous Lasher (Madeline Netley, Stormsong Valley/Jenoh, Vol'dun)
+  - 2418 # Child of Jani (Happy Holaua, Zuldazar)
+  - 2406 # Drustvar Piglet (Nigel Rifthold, Drustvar)
+  - 2407 # Frenzied Cottontail (Nigel Rifthold, Drustvar)
+  - 2423 # Freshwater Pincher (Madeline Netley, Stormsong Valley/Jenoh, Vol'dun)
+  - 2409 # Greating Macaw (Dana Pull, Tiaragarde Sound)
+  - 2430 # Lost Platysaur (Talutu, Zuldazar/Tricky Nick, Tiragarde Sound)
+  - 2410 # Mechanical Prairie Dog (Dana Pull, Tiragarde Sounde)
+  - 2417 # Ranishu Runt (Jenoh, Vol'dun)
+  - 2426 # Sandstinger Wasp (Madeline Netley, Stormsang Valley/Jenoh, Vol'dun)
+  - 2421 # Saurolisk Hatchling (Madeline Netley, Stormsang Valley/Happy Holaua, Zuldazar)
+  - 2189 # Smoochums (Nigel Rifthold, Drustvar)
+  - 2540 # Tanzil (Provisioner Mukra, Dazar'alor)
+  - 2539 # Trecker (Provisioner Stoutforge, Boralus)
 
 - name: Nazjatar
   things:
-  - 154830 # Chitterspine Devourer (Crafticus Mindbender/Dazzerian - PvP)
-  - 154849 # Drowned Hatchling (Feylana the Handler)
-  - 154825 # Pearlescent Glimmershell
+  - 2691 # Chitterspine Devourer (Crafticus Mindbender/Dazzerian - PvP)
+  - 2710 # Drowned Hatchling (Feylana the Handler)
+  - 2686 # Pearlescent Glimmershell
 
 - name: Nazmir
   things:
-  - 143200 # Accursed Hexxer (Shoak, Nazmir)
-  - 143194 # Bloodfeaster Larvae (Shoak, Nazmir)
-  - 143205 # Crimson Frog (Nigel Rifthold, Drustvar/Shoak, Nazmir)
-  - 143199 # Swamp Toad (Shoak, Nazmir)
+  - 2420 # Accursed Hexxer (Shoak, Nazmir)
+  - 2414 # Bloodfeaster Larvae (Shoak, Nazmir)
+  - 2424 # Crimson Frog (Nigel Rifthold, Drustvar/Shoak, Nazmir)
+  - 2419 # Swamp Toad (Shoak, Nazmir)
 
 - name: Zuldazar
   things:
-  - 143196 # Lil' Ben'fon (Happy Holaua, Zuldazar)
-  - 139622 # Lil' Tika (Happy Holaua, Zuldazar)
-  - 143191 # Tiny Direhorn (Happy Holaua, Zuldazar)
-  - 143193 # Zandalari Shinchomper (Happy Holaua, Zuldazar)
+  - 2416 # Lil' Ben'fon (Happy Holaua, Zuldazar)
+  - 2196 # Lil' Tika (Happy Holaua, Zuldazar)
+  - 2412 # Tiny Direhorn (Happy Holaua, Zuldazar)
+  - 2413 # Zandalari Shinchomper (Happy Holaua, Zuldazar)
 
 - name: Islands
   things:
-  - 148985 # Albino Duskwatcher
-  - 148997 # Crimson Octopode
+  - 2555 # Albino Duskwatcher
+  - 2562 # Crimson Octopode

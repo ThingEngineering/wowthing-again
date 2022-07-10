@@ -15,7 +15,7 @@ farms:
     note: "Need to loot for credit"
 
   - type: pet
-    id: 73359 # Gulp Froglet
+    id: 1338 # Gulp Froglet
 
 - name: "Champions of the Black Flame"
   location: 70.8 47.6
@@ -116,7 +116,7 @@ farms:
     note: "Need to loot for credit"
 
   - type: pet
-    id: 73356 # Ruby Droplet
+    id: 1328 # Ruby Droplet
 
 - name: "Golganarr"
   location: 61.6 64.0
@@ -160,7 +160,7 @@ farms:
     note: "Also drops from Spotted Swarmer mobs"
 
   - type: pet
-    id: 73730 # Gu'chi Swarmling
+    id: 1345 # Gu'chi Swarmling
 
 - name: "Huolon"
   location: 65.6 56.8
@@ -174,7 +174,7 @@ farms:
     note: "Also drops from Crimsonscale Firestorm mobs"
 
   - type: mount
-    id: 148476
+    id: 561
     name: "Thundering Onyx Cloud Serpent"
 
 - name: "Imperial Python"
@@ -196,7 +196,7 @@ farms:
     note: "Also drops from Death Adder mobs"
 
   - type: pet
-    id: 73364 # Death Adder Hatchling
+    id: 1330 # Death Adder Hatchling
 
 - name: "Jakur of Ordon"
   location: 53.6 83.0
@@ -227,14 +227,14 @@ farms:
     criteriaId: 34250
     name: "Ashleaf Spriteling"
     note: "Need to loot for credit"
-  
+
   - type: achievement
     id: 8728
     criteriaId: 34230
     name: "Faintly-Glowing Herb"
 
   - type: pet
-    id: 73533 # Ashleaf Spriteling
+    id: 1323 # Ashleaf Spriteling
 
 - name: "Jademist Dancers"
   location: 26.7 30.6
@@ -247,9 +247,9 @@ farms:
     criteriaId: 34245
     name: "Jademist Dancer"
     note: "Need to loot for credit"
-  
+
   - type: pet
-    id: 73355 # Jademist Dancer
+    id: 1333 # Jademist Dancer
 
 - name: "Master Kukuru Gambling"
   location: 58.2 42.2
@@ -262,9 +262,9 @@ farms:
     criteriaId: 34240
     name: "Bonkers"
     note: "Need to loot for credit"
-  
+
   - type: pet
-    id: 73668 # Bonkers
+    id: 1343 # Bonkers
 
 - name: "Monstrous Spineclaw"
   location: 18.8 54.6
@@ -285,7 +285,7 @@ farms:
     note: "Need to loot for credit"
 
   - type: pet
-    id: 73366 # Spineclaw Crab
+    id: 1337 # Spineclaw Crab
 
 - name: "Rattleskew"
   location: 60.2 87.4
@@ -360,7 +360,7 @@ farms:
     note: "Need to loot for credit"
 
   - type: pet
-    id: 73738 # Jadefire Spirit
+    id: 1348 # Jadefire Spirit
 
 - name: "Tsavo'ka"
   location: 54.0 42.1
@@ -427,7 +427,7 @@ farms:
     note: "Need to loot for credit"
 
   - type: pet
-    id: 73367 # Skunky Alemental
+    id: 1336 # Skunky Alemental
 
 # Treasure
 
@@ -456,7 +456,7 @@ farms:
     note: "Need to loot for credit"
 
   - type: pet
-    id: 73534 # Azure Crane Chick
+    id: 1321 # Azure Crane Chick
 
 # Event
 
@@ -473,7 +473,7 @@ farms:
     note: "Need to loot for credit"
 
   - type: pet
-    id: 73532 # Dandelion Frolicker
+    id: 1329 # Dandelion Frolicker
 
 # These drop set pieces and pvp gear, not sure I care enough to type that out
 #- name: "Chi-Ji, The Red Crane"
@@ -520,11 +520,11 @@ farms:
   type: vendor
   drops:
     - type: mount
-      id: 127164 # Heavenly Golden Cloud Serpent
+      id: 475 # Heavenly Golden Cloud Serpent
       note: "{price:100000|777} at Exalted with Emperor Shaohao" # 100000x Timeless Coin
 
     - type: pet
-      id: 73732 # Harmonious Porcupette
+      id: 1346 # Harmonious Porcupette
       note: "{price:7500|777} at Revered with Emperor Shaohao" # 7500x Timeless Coin
 
     - type: toy
@@ -538,7 +538,7 @@ farms:
   type: vendor
   drops:
     - type: mount
-      id: 127165 # Yu'lei, Daughter of Jade
+      id: 476 # Yu'lei, Daughter of Jade
       note: "{price:5000|1166}" # 5000x Timewarped Badge
 
     - type: toy
@@ -555,11 +555,11 @@ farms:
   type: vendor
   drops:
     - type: mount
-      id: 148428
+      id: 560
       note: "{price:500|789}" # 500x Bloody Coin
 
     - type: pet
-      id: 73688 # Vengeful Porcupette
+      id: 1344 # Vengeful Porcupette
       note: "{price:100|789}" # 100x Bloody Coin
 
     - type: toy

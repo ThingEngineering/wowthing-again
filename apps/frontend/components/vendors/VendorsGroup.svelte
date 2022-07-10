@@ -3,6 +3,7 @@
     import IntersectionObserver from 'svelte-intersection-observer'
 
     import { costMap, costOrder } from '@/data/vendors'
+    import { staticStore } from '@/stores'
     import { vendorState } from '@/stores/local-storage'
     import { userVendorStore } from '@/stores/user-vendors'
     import { FarmDropType } from '@/types/enums'
@@ -20,18 +21,22 @@
     export let stats: UserCount
 
     let element: HTMLElement
+    let idFunc: (id: number) => number
     let intersected = false
     let linkType: string
     let percent: number
     let things: [StaticDataVendorItem, boolean, [string, number, string][]][]
     $: {
         if (group.type === FarmDropType.Mount) {
+            idFunc = (mountId: number) => $staticStore.data.mounts[mountId].spellId
             linkType = 'spell'
         }
         else if (group.type === FarmDropType.Pet) {
+            idFunc = (petId: number) => $staticStore.data.pets[petId].creatureId
             linkType = 'npc'
         }
         else {
+            idFunc = (id: number) => id
             linkType = 'item'
         }
 
@@ -101,6 +106,7 @@
 
             <div class="collection-objects" data-inter={intersected}>
                 {#each things as [thing, userHas, costs]}
+                    {@const thingId = idFunc(thing.id)}
                     <div
                         class="collection-item quality{thing.quality}"
                         class:missing={
@@ -111,11 +117,11 @@
                     >
                         {#if intersected}
                             <WowheadLink
-                                id={thing.id}
+                                id={thingId}
                                 type={linkType}
                             >
                                 <WowthingImage
-                                    name="{linkType}/{thing.id}"
+                                    name="{linkType}/{thingId}"
                                     size={48}
                                     border={2}
                                 />

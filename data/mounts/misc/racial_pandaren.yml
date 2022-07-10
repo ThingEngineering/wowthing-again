@@ -3,15 +3,15 @@ groups:
 
 - name: Pandaren
   things:
-  - 127286 # Black Dragon Turtle
-  - 127287 # Blue Dragon Turtle
-  - 127288 # Brown Dragon Turtle
-  - 120395 # Green Dragon Turtle
-  - 127289 # Purple Dragon Turtle
-  - 127290 # Red Dragon Turtle
-  - 127295 # Great Black Dragon Turtle
-  - 127302 # Great Blue Dragon Turtle
-  - 127308 # Great Brown Dragon Turtle
-  - 127293 # Great Green Dragon Turtle
-  - 127310 # Great Purple Dragon Turtle
-  - 120822 # Great Red Dragon Turtle
+  - 492 # Black Dragon Turtle
+  - 493 # Blue Dragon Turtle
+  - 494 # Brown Dragon Turtle
+  - 452 # Green Dragon Turtle
+  - 495 # Purple Dragon Turtle
+  - 496 # Red Dragon Turtle
+  - 498 # Great Black Dragon Turtle
+  - 499 # Great Blue Dragon Turtle
+  - 500 # Great Brown Dragon Turtle
+  - 497 # Great Green Dragon Turtle
+  - 501 # Great Purple Dragon Turtle
+  - 453 # Great Red Dragon Turtle

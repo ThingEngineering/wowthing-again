@@ -11,7 +11,7 @@ farms:
   type: kill
   drops:
     - type: pet
-      id: 70098 # Spawn of G'nathus
+      id: 1201 # Spawn of G'nathus
 
 - name: "Huggalon the Heart Watcher"
   location: 37.2 57.6
@@ -27,13 +27,13 @@ farms:
   reset: none
   drops:
   - type: mount
-    id: 138424 # Amber Primordial Direhorn
+    id: 534 # Amber Primordial Direhorn
 
   - type: mount
-    id: 138426 # Jade Primordial Direhorn
+    id: 536 # Jade Primordial Direhorn
 
   - type: mount
-    id: 138425 # Slate Primordial Direhorn
+    id: 535 # Slate Primordial Direhorn
 
 # Quest
 
@@ -92,15 +92,15 @@ farms:
   type: vendor
   drops:
     - type: mount
-      id: 129934 # Blue Shado-Pan Riding Tiger
+      id: 506 # Blue Shado-Pan Riding Tiger
       note: "{price:500} at Exalted with Shado-Pan"
-    
+
     - type: mount
-      id: 129932 # Green Shado-Pan Riding Tiger
+      id: 505 # Green Shado-Pan Riding Tiger
       note: "{price:1500} at Exalted with Shado-Pan"
 
     - type: mount
-      id: 129935 # Red Shado-Pan Riding Tiger
+      id: 507 # Red Shado-Pan Riding Tiger
       note: "{price:2500} at Exalted with Shado-Pan"
 
     - type: transmog

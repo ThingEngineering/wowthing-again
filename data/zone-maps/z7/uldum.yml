@@ -74,7 +74,7 @@ farms:
   type: kill
   drops:
   - type: mount
-    id: 316337
+    id: 1319
     name: "Malevolent Drone"
 
   - *aqir1
@@ -119,7 +119,7 @@ farms:
   type: kill
   drops:
   - type: mount
-    id: 315847
+    id: 1314
     name: "Drake of the Four Winds"
 
 - name: "Lord Aj'qirai"
@@ -129,7 +129,7 @@ farms:
   type: kill
   drops:
   - type: pet
-    id: 161997
+    id: 2847
     name: "Rotbreath"
 
   - *aqir1
@@ -183,7 +183,7 @@ farms:
   type: kill
   drops:
   - type: mount
-    id: 316275
+    id: 1317
     name: "Waste Marauder"
 
 - name: "Skikx'traz"
@@ -193,7 +193,7 @@ farms:
   type: kill
   drops:
   - type: pet
-    id: 162004
+    id: 2848
     name: "Aqir Tunneler"
 
   - *aqir1

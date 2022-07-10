@@ -1781,6 +1781,56 @@ namespace Wowthing.Lib.Migrations
                     b.ToTable("wow_character_specialization", (string)null);
                 });
 
+            modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowCurrency", b =>
+                {
+                    b.Property<short>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<short>("Id"));
+
+                    b.Property<short>("CategoryId")
+                        .HasColumnType("smallint")
+                        .HasColumnName("category_id");
+
+                    b.Property<int>("MaxPerWeek")
+                        .HasColumnType("integer")
+                        .HasColumnName("max_per_week");
+
+                    b.Property<int>("MaxTotal")
+                        .HasColumnType("integer")
+                        .HasColumnName("max_total");
+
+                    b.HasKey("Id")
+                        .HasName("pk_wow_currency");
+
+                    b.ToTable("wow_currency", (string)null);
+                });
+
+            modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowCurrencyCategory", b =>
+                {
+                    b.Property<short>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<short>("Id"));
+
+                    b.Property<short>("Expansion")
+                        .HasColumnType("smallint")
+                        .HasColumnName("expansion");
+
+                    b.Property<short>("Flags")
+                        .HasColumnType("smallint")
+                        .HasColumnName("flags");
+
+                    b.HasKey("Id")
+                        .HasName("pk_wow_currency_category");
+
+                    b.ToTable("wow_currency_category", (string)null);
+                });
+
             modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowItem", b =>
                 {
                     b.Property<int>("Id")
@@ -2003,16 +2053,27 @@ namespace Wowthing.Lib.Migrations
 
             modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowReputation", b =>
                 {
-                    b.Property<int>("Id")
-                        .HasColumnType("integer")
+                    b.Property<short>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint")
                         .HasColumnName("id");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("text")
-                        .HasColumnName("name");
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<short>("Id"));
 
-                    b.Property<int>("TierId")
-                        .HasColumnType("integer")
+                    b.Property<short>("Expansion")
+                        .HasColumnType("smallint")
+                        .HasColumnName("expansion");
+
+                    b.Property<short>("ParagonId")
+                        .HasColumnType("smallint")
+                        .HasColumnName("paragon_id");
+
+                    b.Property<short>("ParentId")
+                        .HasColumnType("smallint")
+                        .HasColumnName("parent_id");
+
+                    b.Property<short>("TierId")
+                        .HasColumnType("smallint")
                         .HasColumnName("tier_id");
 
                     b.HasKey("Id")

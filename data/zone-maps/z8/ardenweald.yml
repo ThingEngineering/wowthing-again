@@ -19,7 +19,7 @@ farms:
   questId: 59201 62271
   drops:
   - type: pet
-    id: 171231
+    id: 2920
     name: "Gorm Needler"
 
 - name: "Dustbrawl"
@@ -55,7 +55,7 @@ farms:
   questId: 59006
   drops:
   - type: pet
-    id: 173993
+    id: 3035
     name: "Lavender Nibbler"
 
 - name: "Gormtamer Tizo"
@@ -64,7 +64,7 @@ farms:
   questId: 59145
   drops:
   - type: mount
-    id: 334364
+    id: 1362
     name: "Spinemaw Gladechewer"
 
 - name: "Humon'gozz"
@@ -73,7 +73,7 @@ farms:
   questId: 59157
   drops:
   - type: mount
-    id: 339632
+    id: 1415
     name: "Arboreal Gulper"
 
 - name: "Hunter Vivanna"
@@ -123,7 +123,7 @@ farms:
   questId: 60306
   drops:
   - type: mount
-    id: 312767
+    id: 1306
     name: "Swift Gloomhoof"
 
 - name: "Old Ardeite"
@@ -132,7 +132,7 @@ farms:
   questId: 59208 62270
   drops:
   - type: pet
-    id: 171239
+    id: 2908
     name: "Chirpy Valeshrieker"
 
 - name: "Rootwrithe"
@@ -178,7 +178,7 @@ farms:
     limit: covenant night-fae
 
   - type: mount
-    id: 334366
+    id: 1393
     name: "Wild Glimmerfur Prowler"
     limit: covenant night-fae
 
@@ -203,7 +203,7 @@ farms:
   questId: 59140
   drops:
   - type: pet
-    id: 171246
+    id: 2907
     name: Rocky
 
 - name: "Star Lake: Argus"
@@ -264,7 +264,7 @@ farms:
   type: treasure
   drops:
   - type: pet
-    id: 171230
+    id: 2921
     name: "Gorm Harrier"
 
 - name: "Cache of the Moon"
@@ -274,7 +274,7 @@ farms:
   type: treasure
   drops:
   - type: mount
-    id: 334352
+    id: 1397
     name: "Wildseed Cradle"
 
 - name: "Cache of the Night"
@@ -284,7 +284,7 @@ farms:
   type: treasure
   drops:
   - type: pet
-    id: 171225
+    id: 2914
     name: "Starry Dreamfoal"
 
   - type: transmog
@@ -312,7 +312,7 @@ farms:
   type: treasure
   drops:
   - type: pet
-    id: 171234
+    id: 2911
     name: "Amber Glitterwing"
 
 - name: "Dreamsong Heart"
@@ -356,7 +356,7 @@ farms:
   type: treasure
   drops:
   - type: pet
-    id: 173591
+    id: 3022
     name: "Shimmerbough Hoarder"
 
 - name: "Harmonic Chest"
@@ -420,7 +420,7 @@ farms:
   type: treasure
   drops:
   - type: mount
-    id: 332252
+    id: 1360
     name: "Shimmermist Runner"
 
 #- name: "Veilwing Egg (Ancient Cloudfeather Egg)"

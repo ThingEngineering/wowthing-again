@@ -166,7 +166,7 @@ farms:
   questId: 39782
   drops:
   - type: pet
-    id: 98077
+    id: 1752
     name: "Crispin"
 
 - name: "Unethical Adventurers"

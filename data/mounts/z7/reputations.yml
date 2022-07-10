@@ -3,48 +3,48 @@ groups:
 
 - name: Order of Embers
   things:
-  - 275859 # Dusky Waycrest Gryphon (Order of Embers, Exalted)
-  - 260173 # Smoky Charger (Order of Embers, Exalted)
+  - 1062 # Dusky Waycrest Gryphon (Order of Embers, Exalted)
+  - 1016 # Smoky Charger (Order of Embers, Exalted)
 
 - name: Proudmoore Admiralty
   things:
-  - 259213 # Admiralty Stallion (Proudmoore Admiralty, Exalted)
-  - 275868 # Proudmoore Sea Scout (Proudmoore Admiralty, Exalted)
+  - 1010 # Admiralty Stallion (Proudmoore Admiralty, Exalted)
+  - 1064 # Proudmoore Sea Scout (Proudmoore Admiralty, Exalted)
 
 - name: "Storm's Wake"
   things:
-  - 260172 # Dapple Gray (Storm's Wake, Exalted)
-  - 275866 # Stormsong Coastwatcher (Storm's Wake, Exalted)
+  - 1015 # Dapple Gray (Storm's Wake, Exalted)
+  - 1063 # Stormsong Coastwatcher (Storm's Wake, Exalted)
 
 - name: "Talanji's Expedition"
   things:
-  - 275838 # Captured Swampstalker (Talanji's Expedition, Exalted)
-  - 275841 # Expedition Bloodswarmer (Talanji's Expedition, Exalted)
+  - 1059 # Captured Swampstalker (Talanji's Expedition, Exalted)
+  - 1061 # Expedition Bloodswarmer (Talanji's Expedition, Exalted)
 
 - name: Voldunai
   things:
-  - 237287 # Alabaster Hyena (Voldunai, Exalted)
-  - 275840 # Voldunai Dunescraper (Voldunai, Exalted)
+  - 926 # Alabaster Hyena (Voldunai, Exalted)
+  - 1060 # Voldunai Dunescraper (Voldunai, Exalted)
 
 - name: Zandalari Empire
   things:
-  - 275837 # Cobalt Pterrordax (Zandalari Empire, Exalted)
-  - 244712 # Spectral Terrorwing (Zandalari Empire, Exalted)
+  - 1058 # Cobalt Pterrordax (Zandalari Empire, Exalted)
+  - 958 # Spectral Terrorwing (Zandalari Empire, Exalted)
 
 - name: Beeeeeees
   things:
-  - 259741 # Honeyback Harvester (Beeeeeees, Exalted)
+  - 1013 # Honeyback Harvester (Beeeeeees, Exalted)
 
 - name: Rustbolt Resistance
   things:
-  - 299170 # Rustbolt Resistor (Rustbolt Resistance, Exalted)
+  - 1254 # Rustbolt Resistor (Rustbolt Resistance, Exalted)
 
 - name: Unshackled
   things:
-  - 292407 # Ankoan Waveray (Unshackled, Exalted)
-  - 291538 # Unshackled Waveray (Unshackled, Exalted)
-  - 294038 # Royal Snapdragon (Unshackled, Paragon)
+  - 1231 # Ankoan Waveray (Unshackled, Exalted)
+  - 1230 # Unshackled Waveray (Unshackled, Exalted)
+  - 1237 # Royal Snapdragon (Unshackled, Paragon)
 
 - name: Uldum Accord
   things:
-  - 316276 # Wastewander Skyterror (Uldum Accord, Exalted)
+  - 1318 # Wastewander Skyterror (Uldum Accord, Exalted)

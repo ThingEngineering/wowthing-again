@@ -3,43 +3,43 @@ groups:
 
 - name: Ardenweald
   things:
-  - 171239 # Chirpy Valeshrieker
-  - 171247 # Dodger
-  - 171231 # Gorm Needler
-  - 173993 # Lavender Nibbler
-  - 171246 # Rocky
+  - 2908 # Chirpy Valeshrieker
+  - 2905 # Dodger
+  - 2920 # Gorm Needler
+  - 3035 # Lavender Nibbler
+  - 2907 # Rocky
 
 - name: Bastion
   things:
-  - 171714 # Devoured Wader
-  - 171565 # Golden Cloudfeather
-  - 175562 # Larion Pouncer
+  - 2940 # Devoured Wader
+  - 2925 # Golden Cloudfeather
+  - 3063 # Larion Pouncer
 
 - name: Maldraxxus
   things:
-  - 171986 # Boneweave Hatchling
-  - 172136 # Corpselouse Larva
-  - 172137 # Feasting Larva
-  - 172155 # Foulwing Buzzer
-  - 172149 # Invertebrate Oil
-  - 172134 # Shy Melvin
-  - 172139 # Writhing Spine
+  - 2948 # Boneweave Hatchling
+  - 2955 # Corpselouse Larva
+  - 2956 # Feasting Larva
+  - 2964 # Foulwing Buzzer
+  - 2960 # Invertebrate Oil
+  - 2953 # Shy Melvin
+  - 2957 # Writhing Spine
 
 - name: Revendreth
   things:
-  - 171120 # Animated Tome
-  - 171117 # Blushing Spiderling
-  - 171119 # Bound Lightspawn
-  - 171150 # Crimson Dredwing Pup
-  - 171121 # Primordial Bogling
-  - 171118 # Wrathling
+  - 2893 # Animated Tome
+  - 2891 # Blushing Spiderling
+  - 2892 # Bound Lightspawn
+  - 2903 # Crimson Dredwing Pup
+  - 2896 # Primordial Bogling
+  - 2897 # Wrathling
 
 - name: The Maw / Korthia
   things:
-  - 179181 # Amaranthine Stinger
-  - 174083 # Decaying Mawrat
-  - 174081 # Dread
-  - 179228 # Golden Eye
-  - 179251 # Korthian Specimen
-  - 174084 # Sharpclaw
-  - 174082 # Undying Deathroach
+  - 3117 # Amaranthine Stinger
+  - 3039 # Decaying Mawrat
+  - 3037 # Dread
+  - 3125 # Golden Eye
+  - 3136 # Korthian Specimen
+  - 3040 # Sharpclaw
+  - 3038 # Undying Deathroach

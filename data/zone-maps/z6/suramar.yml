@@ -18,7 +18,7 @@ farms:
   questId: 43954
   drops:
   - type: pet
-    id: 113136
+    id: 1934
     name: "Benax"
 
 - name: "Apothecary Faldren"

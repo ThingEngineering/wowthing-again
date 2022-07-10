@@ -3,17 +3,17 @@ groups:
 
 - name: Dungeons
   things:
-  - 88746 # Vitreous Stone Drake (Slabhide, The Stonecore)
-  - 88742 # Drake of the North Wind (Altairus, The Vortex Pinnacle)
-  - 96491 # Armored Razzashi Raptor (Bloodlord Mandokir, Zul'Gurub)
-  - 96499 # Swift Zulian Panther (High Priestess Kilnara, Zul'Gurub)
-  - 98204 # Amani Battle Bear (Timed Run, Zul Aman)
+  - 397 # Vitreous Stone Drake (Slabhide, The Stonecore)
+  - 395 # Drake of the North Wind (Altairus, The Vortex Pinnacle)
+  - 410 # Armored Razzashi Raptor (Bloodlord Mandokir, Zul'Gurub)
+  - 411 # Swift Zulian Panther (High Priestess Kilnara, Zul'Gurub)
+  - 419 # Amani Battle Bear (Timed Run, Zul Aman)
 
 - name: Raids
   things:
-  -  88744 # Drake of the South Wind (Al'Akir, Throne of the Four Winds)
-  - 101542 # Flametalon of Alysrazor (Alysrazor, Firelands)
-  -  97493 # Pureblood Fire Hawk (Ragnaros, Firelands)
-  - 107842 # Blazing Drake (Madness of Deathwing, Dragon Soul)
-  - 110039 # Experiment 578-B (Ultraxion, Dragon Soul)
-  - 107845 # Life-Binder's Handmaiden (H-Madness of Deathwing, Dragon Soul)
+  - 396 # Drake of the South Wind (Al'Akir, Throne of the Four Winds)
+  - 425 # Flametalon of Alysrazor (Alysrazor, Firelands)
+  - 415 # Pureblood Fire Hawk (Ragnaros, Firelands)
+  - 442 # Blazing Drake (Madness of Deathwing, Dragon Soul)
+  - 445 # Experiment 578-B (Ultraxion, Dragon Soul)
+  - 444 # Life-Binder's Handmaiden (H-Madness of Deathwing, Dragon Soul)

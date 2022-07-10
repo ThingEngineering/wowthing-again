@@ -3,80 +3,80 @@ groups:
 
 - name: Ardenweald
   things:
-  - 176020 # Decay Grub
-  - 173590 # Deepwood Leaper
-  - 171229 # Gorm Rootstinger
-  - 176021 # Starmoth
-  - 171228 # Tranquil Wader
-  - 176019 # Verdant Kit
+  - 3081 # Decay Grub
+  - 3021 # Deepwood Leaper
+  - 2919 # Gorm Rootstinger
+  - 3082 # Starmoth
+  - 2924 # Tranquil Wader
+  - 3080 # Verdant Kit
 
 - name: Bastion
   things:
-  - 171702 # Copperfur Kit
-  - 171567 # Fledgling Teroclaw
-  - 171664 # Fluttering Glimmerfly
-  - 171670 # Glimmerpool Hatchling
-  - 171703 # Rustfur Kit
-  - 171668 # Vibrant Glimmerfly
-  - 171712 # Wader Chick
-  - 171666 # Wild Etherwyrm
+  - 2936 # Copperfur Kit
+  - 2926 # Fledgling Teroclaw
+  - 2927 # Fluttering Glimmerfly
+  - 2930 # Glimmerpool Hatchling
+  - 2937 # Rustfur Kit
+  - 2929 # Vibrant Glimmerfly
+  - 2939 # Wader Chick
+  - 2943 # Wild Etherwyrm
 
 - name: Maldraxxus
   things:
-  - 175023 # Animated Cruor
-  - 175022 # Bleak Skitterer
-  - 172130 # Clutch
-  - 176024 # Crawbat
-  - 175024 # Necroray Spawnling
-  - 175021 # Pulsating Maggot
+  - 3051 # Animated Cruor
+  - 3050 # Bleak Skitterer
+  - 2950 # Clutch
+  - 3083 # Crawbat
+  - 3052 # Necroray Spawnling
+  - 3049 # Pulsating Maggot
 
 - name: Revendreth
   things:
-  - 171149 # Dusky Dredwing Pup
-  - 171123 # Lost Soul
-  - 173555 # Mire Creeper
-  - 173506 # Rosetipped Spiderling
-  - 173556 # Withering Creeper
+  - 2902 # Dusky Dredwing Pup
+  - 2895 # Lost Soul
+  - 3014 # Mire Creeper
+  - 3007 # Rosetipped Spiderling
+  - 3015 # Withering Creeper
 
 - name: The Maw
   things:
-  - 179179 # Clinging Remains
-  - 179226 # Deathroach
-  - 179229 # Eye of Affliction
-  - 179219 # Grip of Terror
-  - 179183 # Lost Limb
-  - 179182 # Scurrying Mawrat
-  - 179227 # Vile Deathroach
+  - 3115 # Clinging Remains
+  - 3123 # Deathroach
+  - 3126 # Eye of Affliction
+  - 3120 # Grip of Terror
+  - 3119 # Lost Limb
+  - 3118 # Scurrying Mawrat
+  - 3124 # Vile Deathroach
 
 - name: Korthia
   things:
-  - 179131 # Animite Broodling
-  - 179248 # Anxious Nibbler
-  - 179256 # Devourling
-  - 179229 # Eye of Affliction
-  - 179329 # Wild Corpsefly
-  - 179250 # Young Garnetgullet
+  - 3102 # Animite Broodling
+  - 3134 # Anxious Nibbler
+  - 3139 # Devourling
+  - 3126 # Eye of Affliction
+  - 3141 # Wild Corpsefly
+  - 3135 # Young Garnetgullet
 
 - name: "Zereth Mortis"
   things:
-  - 183277 # Ambystan Snapper
-  - 183281 # Aurelid Floater
-  - 182876 # Bloodsucker Vespoid
-  - 181362 # Bufonid Croaker
-  - 182691 # Emerald Scarabid
-  - 183285 # Enraged Poultrid
-  - 182768 # Green Viperid
-  - 182760 # King Viperid
-  - 183230 # Mawtouched Geomental
-  - 182568 # Metallic Scarabid
-  - 183158 # Momma Vombata
-  - 183292 # Predatory Helicid
-  - 182260 # Proto Avian Fledgling
-  - 182758 # Red Viperid
-  - 182294 # Scarlet Proto Avian
-  - 182473 # Tarachnid Ambusher
-  - 182437 # Tarachnid Stalker
-  - 182234 # Timid Leporid
-  - 182019 # Venomous Bufonid
-  - 182216 # Vicious Leporid
-  - 183142 # Vombata Pup
+  - 3216 # Ambystan Snapper
+  - 3217 # Aurelid Floater
+  - 3212 # Bloodsucker Vespoid
+  - 3173 # Bufonid Croaker
+  - 3206 # Emerald Scarabid
+  - 3218 # Enraged Poultrid
+  - 3210 # Green Viperid
+  - 3209 # King Viperid
+  - 3215 # Mawtouched Geomental
+  - 3205 # Metallic Scarabid
+  - 3214 # Momma Vombata
+  - 3219 # Predatory Helicid
+  - 3196 # Proto Avian Fledgling
+  - 3208 # Red Viperid
+  - 3200 # Scarlet Proto Avian
+  - 3203 # Tarachnid Ambusher
+  - 3202 # Tarachnid Stalker
+  - 3191 # Timid Leporid
+  - 3180 # Venomous Bufonid
+  - 3190 # Vicious Leporid
+  - 3213 # Vombata Pup

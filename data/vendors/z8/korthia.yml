@@ -4,25 +4,25 @@ groups:
 - name: "Mounts"
   type: mount
   things:
-  - id: 354356 # Amber Shardhide
+  - id: 1505 # Amber Shardhide
     cost: 5000 stygia
 
-  - id: 343550 # Battle-Hardened Aquilon
+  - id: 1436 # Battle-Hardened Aquilon
     cost: 1000 stygia
 
-  - id: 353885 # Battlefield Swarmer
+  - id: 1497 # Battlefield Swarmer
     cost: 1000 stygia
 
-  - id: 353873 # Pale Gravewing
+  - id: 1491 # Pale Gravewing
     cost: 1000 stygia
 
-  - id: 353858 # Winter Wilderling
+  - id: 1486 # Winter Wilderling
     cost: 1000 stygia
 
 - name: "Pets"
   type: pet
   things:
-  - id: 179253 # Domestic Aunian
+  - id: 3138 # Domestic Aunian
     cost: 1500 stygia 50 polished
 
 - name: "Ensembles"

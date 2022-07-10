@@ -3,13 +3,13 @@ groups:
 
 - name: "Brawler's Guild"
   things:
-  - 230844 # Brawler's Burly Basilisk (Brawler's Guild)
+  - 878 # Brawler's Burly Basilisk (Brawler's Guild)
 
 - name: "Events"
   things:
-  - 274610 272472 # Teldrassil Hippogryph/Undercity Plaguebat (Burning of Teldrassil)
-  - 272472 274610 # ^ reversed
+  - 1054 1049 # Teldrassil Hippogryph/Undercity Plaguebat (Burning of Teldrassil)
+  - 1049 1054 # ^ reversed
 
 - name: "Instances"
   things:
-  - 253639 # Violet Spellwing (Blood of a Titan - kill Argus)
+  - 978 # Violet Spellwing (Blood of a Titan - kill Argus)

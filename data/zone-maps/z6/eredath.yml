@@ -10,7 +10,7 @@ farms:
   questId: 48709
   drops:
   - type: pet
-    id: 128159
+    id: 2120
     name: "Grasping Manifestation"
 
 - name: "Baruut the Bloodthirsty"
@@ -86,27 +86,27 @@ farms:
   questId: 48712
   drops:
   - type: mount
-    id: 235764
+    id: 906
     name: "Darkspore Mana Ray"
 
   - type: mount
-    id: 253108
+    id: 975
     name: "Felglow Mana Ray"
 
   - type: mount
-    id: 253109
+    id: 976
     name: "Scintillating Mana Ray"
 
   - type: mount
-    id: 253106
+    id: 974
     name: "Vibrant Mana Ray"
 
   - type: pet
-    id: 128157
+    id: 2118
     name: "Docile Skyfin"
 
   - type: pet
-    id: 128158
+    id: 2119
     name: "Fel-Afflicted Skyfin"
 
 - name: "Shadowcaster Voruun"
@@ -124,7 +124,7 @@ farms:
   questId: 48721
   drops:
   - type: mount
-    id: 253662
+    id: 980
     name: "Acid Belcher"
 
 - name: "Sorolis the Ill-Fated"
@@ -151,7 +151,7 @@ farms:
   questId: 48705
   drops:
   - type: mount
-    id: 253107
+    id: 973
     name: "Lambent Mana Ray"
 
 - name: "Vigilant Kuro"
@@ -186,7 +186,7 @@ farms:
   questId: 48695
   drops:
   - type: mount
-    id: 253058
+    id: 970
     name: "Maddened Chaosrunner"
 
   - type: transmog

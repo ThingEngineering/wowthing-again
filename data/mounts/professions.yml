@@ -2,51 +2,51 @@ name: Professions
 groups:
 - name: Alchemy
   things:
-  - 93326 # Sandstone Drake
+  - 407 # Sandstone Drake
 
 - name: Archaeology
   things:
-  -  84751 # Fossilized Raptor
-  - 196681 # Spirit of Eche'ro
-  -  92155 # Ultramarine Qiraji Battle Tank (Scepter of Azj'Aqir)
+  - 386 # Fossilized Raptor
+  - 779 # Spirit of Eche'ro
+  - 404 # Ultramarine Qiraji Battle Tank (Scepter of Azj'Aqir)
 
 - name: Blacksmithing
   things:
-  - 213209 # Steelbound Devourer
+  - 797 # Steelbound Devourer
 
 - name: Engineering
   things:
-  - 126507 # Depleted-Kyparium Rocket
-  -  44153 # Flying Machine
-  - 126508 # Geosynchronous World Spinner
-  - 261437 # Mecha-Mogul Mk2
-  -  60424 55531 # Mekgineer's Chopper/Mechano-Hog
-  - 134359 # Sky Golem
-  -  44151 # Turbo-Charged Flying Machine
+  - 469 # Depleted-Kyparium Rocket
+  - 205 # Flying Machine
+  - 470 # Geosynchronous World Spinner
+  - 1028 # Mecha-Mogul Mk2
+  - 275 240 # Mekgineer's Chopper/Mechano-Hog
+  - 522 # Sky Golem
+  - 204 # Turbo-Charged Flying Machine
 
 - name: Fishing
   things:
-  - 214791 # Brinedeep Bottom-Feeder (Conjurer Margoss - Honored, Fishing)
-  - 278803 # Great Sea Ray (Fishing)
-  - 253711 # Pond Nettle (Fishing)
-  -  64731 # Sea Turtle (Fishing)
+  - 800 # Brinedeep Bottom-Feeder (Conjurer Margoss - Honored, Fishing)
+  - 1166 # Great Sea Ray (Fishing)
+  - 982 # Pond Nettle (Fishing)
+  - 312 # Sea Turtle (Fishing)
 
 - name: Jewelcrafting
   things:
-  - 120043 # Jeweled Onyx Panther
-  - 121837 # Jade Panther
-  - 121838 # Ruby Panther
-  - 121836 # Sapphire Panther
-  - 121839 # Sunstone Panther
+  - 451 # Jeweled Onyx Panther
+  - 457 # Jade Panther
+  - 458 # Ruby Panther
+  - 456 # Sapphire Panther
+  - 459 # Sunstone Panther
 
 - name: Leatherworking
   things:
-  - 171844 # Dustmane Direwolf
-  - 213339 # Great Northern Elderhorn
+  - 650 # Dustmane Direwolf
+  - 854 # Great Northern Elderhorn
 
 - name: Tailoring
   things:
-  - 169952 # Creeping Carpet
-  -  61451 # Flying Carpet
-  -  75596 # Frosty Flying Carpet
-  -  61309 # Magnificent Flying Carpet
+  - 603 # Creeping Carpet
+  - 285 # Flying Carpet
+  - 375 # Frosty Flying Carpet
+  - 279 # Magnificent Flying Carpet
