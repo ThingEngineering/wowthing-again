@@ -74,7 +74,7 @@ farms:
       note: "Kill the bunny"
 
     - type: pet
-      id: 59358 # Darkmoon Rabbit
+      id: 848 # Darkmoon Rabbit
 
 - name: "Moonfang"
   location: 39.5 43.9
@@ -83,11 +83,11 @@ farms:
   type: killBig
   drops:
     - type: pet
-      id: 72160 # Moon Moon
-    
+      id: 1276 # Moon Moon
+
     - type: toy
       id: 105898 # Moonfang's Paw
-    
+
     - type: toy
       id: 101571 # Moonfang Shroud
 
@@ -101,7 +101,7 @@ farms:
   type: quest # TODO account quest?
   drops:
     - type: pet
-      id: 85527 # Syd the Squid
+      id: 1478 # Syd the Squid
 
 - name: "Darkmoon Pet Battle!"
   location: 47.8 62.4
@@ -111,7 +111,7 @@ farms:
   type: quest # TODO account quest?
   drops:
     - type: pet
-      id: 67332 # Darkmoon Eye
+      id: 1063 # Darkmoon Eye
 
 # Quest - Games
 
@@ -131,32 +131,32 @@ farms:
       id: 15213
       name: "Don't Stop Dancing"
       note: "Successfully participate 30 times"
-      
+
     - type: achievement
       id: 15222
       name: "You Got the Beat"
       note: "Earn a perfect score on Easy"
-      
+
     - type: achievement
       id: 15223
       name: "Feeling It"
       note: "Earn a perfect score on Easy 10 times"
-      
+
     - type: achievement
       id: 15214
       name: "What a Feeling"
       note: "Earn a perfect score on Medium"
-      
+
     - type: achievement
       id: 15215
       name: "Can't Stop the Feeling"
       note: "Earn a perfect score on Medium 10 times"
-      
+
     - type: achievement
       id: 15216
       name: "Make You Sweat"
       note: "Earn a perfect score on Hard"
-      
+
     - type: achievement
       id: 15217
       name: "Maniac on the Dance Floor"
@@ -216,7 +216,7 @@ farms:
       note: "Score 45 points"
 
     - type: pet
-      id: 76873 # Hogs
+      id: 1384 # Hogs
 
 - name: "The Humanoid Cannonball"
   location: 52.8 56.6
@@ -469,7 +469,7 @@ farms:
       note: "Complete the race within 20 tolls"
 
     - type: pet
-      id: 90345 # Race MiniZep
+      id: 1636 # Race MiniZep
 
 - name: "The Real Big Race: Wanderluster"
   location: 59.5 88.0
@@ -522,17 +522,17 @@ farms:
       type: pet
       id: 55187 # Darkmoon Balloon
       note: "{price:90|515}" # Darkmoon Prize Ticket
-    
+
     - type: pet
-      id: 145946 # Horse Balloon
+      id: 2484 # Horse Balloon
       note: "{price:90|515}" # Darkmoon Prize Ticket
 
     - type: pet
-      id: 145947 # Murloc Balloon
+      id: 2483 # Murloc Balloon
       note: "{price:90|515}" # Darkmoon Prize Ticket
 
     - type: pet
-      id: 145948 # Wolf Balloon
+      id: 2482 # Wolf Balloon
       note: "{price:90|515}" # Darkmoon Prize Ticket
 
     - type: toy
@@ -546,23 +546,23 @@ farms:
     - type: toy
       id: 116139 # Haunting Memento
       note: "{price:90|515}" # Darkmoon Prize Ticket
-    
+
     - type: transmog
       id: 116134 # Noble's Fancy Boots
       note: "{price:75|515}" # Darkmoon Prize Ticket
-    
+
     - type: transmog
       id: 116052 # Nobleman's Coat
       note: "{price:75|515}" # Darkmoon Prize Ticket
-    
+
     - type: transmog
       id: 116133 # Nobleman's Pantaloons
       note: "{price:75|515}" # Darkmoon Prize Ticket
-    
+
     - type: transmog
       id: 116137 # Noblewoman's Finery
       note: "{price:75|515}" # Darkmoon Prize Ticket
-    
+
     - type: transmog
       id: 116136 # Noblewoman's Skirt
       note: "{price:75|515}" # Darkmoon Prize Ticket
@@ -573,15 +573,15 @@ farms:
   type: vendor
   drops:
     - type: mount
-      id: 228919 # Darkwater Skate
+      id: 855 # Darkwater Skate
       note: "500 fishies"
 
     - type: pet
-      id: 93814 # Blorp
+      id: 1666 # Blorp
       note: "50 fishies"
 
     - type: pet
-      id: 93808 # Ghostshell Crab
+      id: 1665 # Ghostshell Crab
       note: "100 fishies"
 
     - type: toy
@@ -621,41 +621,41 @@ farms:
   type: vendor
   drops:
     - type: mount
-      id: 103081 # Darkmoon Dancing Bear
+      id: 434 # Darkmoon Dancing Bear
       note: "{price:180|515}" # Darkmoon Prize Ticket
-    
+
     - type: mount
-      id: 247448 # Darkmoon Dirigible
+      id: 962 # Darkmoon Dirigible
       note: "{price:1000|515}" # Darkmoon Prize Ticket
 
     - type: mount
-      id: 102346 # Swift Forest Strider
+      id: 429 # Swift Forest Strider
       note: "{price:180|515}" # Darkmoon Prize Ticket
 
     - *darkmoon-balloon
 
     - type: pet
-      id: 56031 # Darkmoon Cub
+      id: 343 # Darkmoon Cub
       note: "{price:90|515}" # Darkmoon Prize Ticket
 
     - type: pet
-      id: 67319 # Darkmoon Hatchling
+      id: 1061 # Darkmoon Hatchling
       note: "{price:90|515}" # Darkmoon Prize Ticket
 
     - type: pet
-      id: 54491 # Darkmoon Monkey
+      id: 330 # Darkmoon Monkey
       note: "{price:90|515}" # Darkmoon Prize Ticket
 
     - type: pet
-      id: 55356 # Darkmoon Tonk
+      id: 338 # Darkmoon Tonk
       note: "{price:90|515}" # Darkmoon Prize Ticket
 
     - type: pet
-      id: 54487 # Darkmoon Turtle
+      id: 335 # Darkmoon Turtle
       note: "{price:90|515}" # Darkmoon Prize Ticket
 
     - type: pet
-      id: 55367 # Darkmoon Zeppelin
+      id: 339 # Darkmoon Zeppelin
       note: "{price:90|515}" # Darkmoon Prize Ticket
 
 - name: "Stamp Thunderhorn"

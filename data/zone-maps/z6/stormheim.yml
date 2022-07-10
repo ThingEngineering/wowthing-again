@@ -162,7 +162,7 @@ farms:
   questId: 38423
   drops:
   - type: pet
-    id: 97205
+    id: 1721
     name: "Stormborne Whelpling"
 
   - type: transmog

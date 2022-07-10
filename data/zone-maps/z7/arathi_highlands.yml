@@ -10,7 +10,7 @@ farms:
   questId: 53083 53504
   drops:
   - type: mount
-    id: 279569
+    id: 1180
     name: Swift Albino Raptor
 
 - name: Branchlord Aldrus
@@ -19,7 +19,7 @@ farms:
   questId: 53013 53505
   drops:
   - type: pet
-    id: 143503
+    id: 2433
     name: Aldrusian Sproutling
 
 - name: Darbel Montrose
@@ -28,7 +28,7 @@ farms:
   questId: 53084 53507
   drops:
   - type: pet
-    id: 143507
+    id: 2434
     name: Voidwiggler
 
 - name: Doomrider Helgrim
@@ -38,7 +38,7 @@ farms:
   questId: 53085
   drops:
   - type: mount
-    id: 279456
+    id: 1174
     name: Highland Mustang
 
 - name: Echo of Myzrael
@@ -47,7 +47,7 @@ farms:
   questId: 53059 53508
   drops:
   - type: pet
-    id: 143515
+    id: 2435
     name: Teeny Titan Orb
 
 - name: Foulbelly
@@ -65,7 +65,7 @@ farms:
   questId: 53019 53510
   drops:
   - type: pet
-    id: 143627
+    id: 2440
     name: Fozling
 
 - name: Geomancer Flintdagger
@@ -93,7 +93,7 @@ farms:
   questId: 53088
   drops:
   - type: mount
-    id: 279457
+    id: 1173
     name: Broken Highland Mustang
 
 - name: Kor'gresh Coldrage
@@ -120,7 +120,7 @@ farms:
   questId: 53090 53515
   drops:
   - type: pet
-    id: 143628
+    id: 2441
     name: Squawkling
 
 - name: Molok the Crusher
@@ -138,7 +138,7 @@ farms:
   questId: 53091 53517
   drops:
   - type: mount
-    id: 279868
+    id: 1185
     name: Witherbark Direwing
 
 - name: Overseer Krix
@@ -147,7 +147,7 @@ farms:
   questId: 53014 53518
   drops:
   - type: mount
-    id: 279608
+    id: 1182
     name: Lil' Donkey
 
 - name: Plaguefeather
@@ -156,7 +156,7 @@ farms:
   questId: 53020 53519
   drops:
   - type: pet
-    id: 143564
+    id: 2438
     name: Foulfeather
 
 - name: Ragebeak
@@ -165,7 +165,7 @@ farms:
   questId: 53016 53522
   drops:
   - type: pet
-    id: 143563
+    id: 2437
     name: Ragepeep
 
 - name: Ruul Onestone
@@ -192,7 +192,7 @@ farms:
   questId: 53022 53526
   drops:
   - type: mount
-    id: 279611
+    id: 1183
     name: Skullripper
 
 - name: Venomarus
@@ -201,7 +201,7 @@ farms:
   questId: 53024 53528
   drops:
   - type: pet
-    id: 143499
+    id: 2432
     name: Fuzzy Creepling
 
 - name: Yogursa
@@ -210,7 +210,7 @@ farms:
   questId: 53015 53529
   drops:
   - type: pet
-    id: 143533
+    id: 2436
     name: Scabby
 
 - name: Zalas Witherbark

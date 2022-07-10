@@ -10,13 +10,13 @@ farms:
   reset: none
   drops:
   - type: mount
-    id: 138424 # Amber Primordial Direhorn
+    id: 534 # Amber Primordial Direhorn
 
   - type: mount
-    id: 138426 # Jade Primordial Direhorn
+    id: 536 # Jade Primordial Direhorn
 
   - type: mount
-    id: 138425 # Slate Primordial Direhorn
+    id: 535 # Slate Primordial Direhorn
 
 # Quest
 
@@ -46,7 +46,7 @@ farms:
   type: quest
   drops:
     - type: mount
-      id: 136163 # Grand Gryphon
+      id: 528 # Grand Gryphon
 
 - name: "Zhu's Despair"
   location: 72.6 7.0
@@ -103,7 +103,7 @@ farms:
   type: vendor
   drops:
     - type: mount
-      id: 135416 # Grand Armored Gryphon
+      id: 526 # Grand Armored Gryphon
       note: "{price:2000} at Exalted with Operation: Shieldwall"
 
 - name: "Tuskripper Grukna"
@@ -113,7 +113,7 @@ farms:
   type: vendor
   drops:
     - type: mount
-      id: 135418 # Grand Armored Wyvern
+      id: 527 # Grand Armored Wyvern
       note: "{price:2000} at Exalted with Dominance Offensive"
 
 - name: "Nat Pagle"
@@ -122,7 +122,7 @@ farms:
   type: vendor
   drops:
     - type: mount
-      id: 118089 # Azure Water Strider
+      id: 449 # Azure Water Strider
       note: "{price:1000} at Exalted with The Anglers"
 
     - type: toy

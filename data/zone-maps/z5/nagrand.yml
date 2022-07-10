@@ -91,7 +91,7 @@ farms:
   type: kill
   drops:
     - type: pet
-      id: 98238 # Empyreal Manafiend
+      id: 1765 # Empyreal Manafiend
 
 - name: "Hunter Blacktooth"
   location: 80.6 30.4
@@ -127,7 +127,7 @@ farms:
   type: kill
   drops:
     - type: mount
-      id: 171622 # Mottled Meadowstomper
+      id: 614 # Mottled Meadowstomper
 
 - name: "Malroc Stonesunder"
   location: 80.4 60.4
@@ -145,7 +145,7 @@ farms:
   type: kill
   drops:
     - type: mount
-      id: 171620 # Bloodhoof Bull
+      id: 612 # Bloodhoof Bull
 
 - name: "Netherspawn"
   location: 47.4 70.2
@@ -154,7 +154,7 @@ farms:
   type: kill
   drops:
     - type: pet
-      id: 86081 # Netherspawn, Spawn of Netherspawn
+      id: 1524 # Netherspawn, Spawn of Netherspawn
 
 - name: "Ophiis"
   location: 42.8 49.2
@@ -190,7 +190,7 @@ farms:
   type: kill
   drops:
     - type: pet
-      id: 98237 # Empowered Manafiend
+      id: 1766 # Empowered Manafiend
 
 - name: "Redclaw the Feral"
   location: 73.6 57.8
@@ -217,7 +217,7 @@ farms:
   type: kill
   drops:
     - type: pet
-      id: 98236 # Energized Manafiend
+      id: 1764 # Energized Manafiend
 
 - name: "Scout Pokhar"
   location: 54.8 61.2

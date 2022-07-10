@@ -10,7 +10,7 @@ farms:
   questId: 54695 54696
   drops:
   - type: mount
-    id: 288495
+    id: 1200
     name: "Ashenvale Chimaera"
 
 - name: "Athrikus Narassin"
@@ -47,7 +47,7 @@ farms:
   questId: 54232 54233
   drops:
   - type: pet
-    id: 148825
+    id: 2546
     name: "Detective Ray"
 
 - name: "Cyclarus"
@@ -56,7 +56,7 @@ farms:
   questId: 54229 54230
   drops:
   - type: pet
-    id: 148784
+    id: 2545
     name: "Gust of Cyclarus"
 
 - name: "Gren Tornfur"
@@ -74,7 +74,7 @@ farms:
   questId: 54227 54228
   drops:
   - type: pet
-    id: 148841
+    id: 2547
     name: "Hydrath Droplet"
 
 - name: "Moxo the Beheader"
@@ -84,7 +84,7 @@ farms:
   questId: 54277
   drops:
   - type: mount
-    id: 288503
+    id: 1203
     name: "Umber Nightsaber"
 
 - name: "Onu"
@@ -94,7 +94,7 @@ farms:
   questId: 54291
   drops:
   - type: pet
-    id: 148843
+    id: 2548
     name: "Everburning Treant"
 
 - name: "Sapper Odette"
@@ -113,7 +113,7 @@ farms:
   questId: 54320 54321
   drops:
   - type: pet
-    id: 148844
+    id: 2549
     name: "Void Jelly"
 
 - name: "Thelar Moonstrike"
@@ -132,7 +132,7 @@ farms:
   questId: 54397 54398
   drops:
   - type: pet
-    id: 148846
+    id: 2550
     name: "Zur'aj the Depleted"
 
 - name: "Zim'kaga"
@@ -142,7 +142,7 @@ farms:
   questId: 54274
   drops:
   - type: pet
-    id: 148843
+    id: 2548
     name: "Everburning Treant"
 
 # Faction splits
@@ -155,7 +155,7 @@ farms:
   questId: 54883
   drops:
   - type: mount
-    id: 288438
+    id: 1199
     name: "Blackpaw"
 
 - name: "Blackpaw"
@@ -165,7 +165,7 @@ farms:
   questId: 54890
   drops:
   - type: mount
-    id: 288438
+    id: 1199
     name: "Blackpaw"
 
 # 41.6 76.7
@@ -176,11 +176,11 @@ farms:
   questId: 54431
   drops:
   - type: mount
-    id: 288503
+    id: 1203
     name: "Umber Nightsaber"
 
   - type: pet
-    id: 148781
+    id: 2544
     name: "Darkshore Sentinel"
 
 - name: "Burninator Mark V"
@@ -190,7 +190,7 @@ farms:
   questId: 54768
   drops:
   - type: pet
-    id: 148781
+    id: 2544
     name: "Darkshore Sentinel"
 
   - type: toy
@@ -205,7 +205,7 @@ farms:
   questId: 54889
   drops:
   - type: pet
-    id: 149205
+    id: 2563
     name: "Nightwreathed Watcher"
 
 - name: "Shadowclaw"
@@ -215,7 +215,7 @@ farms:
   questId: 54892
   drops:
   - type: mount
-    id: 288505
+    id: 1205
     name: "Kaldorei Nightsaber"
 
 # 50.7 32.3
@@ -226,7 +226,7 @@ farms:
   questId: 54886
   drops:
   - type: mount
-    id: 288505
+    id: 1205
     name: "Kaldorei Nightsaber"
 
 - name: "Grimhorn"
@@ -236,7 +236,7 @@ farms:
   questId: 54891
   drops:
   - type: pet
-    id: 149205
+    id: 2563
     name: "Nightwreathed Watcher"
 
 

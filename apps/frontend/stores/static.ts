@@ -2,11 +2,14 @@ import sortBy from 'lodash/sortBy'
 
 import { zoneMapStore } from './zone-map'
 import { extraInstanceMap } from '@/data/dungeon'
+import { extraReputationTiers } from '@/data/reputation'
 import { WritableFancyStore } from '@/types'
 import {
+    StaticDataBag,
     StaticDataCurrency,
     StaticDataCurrencyCategory,
     StaticDataInstance,
+    StaticDataItem,
     StaticDataMount,
     StaticDataPet,
     StaticDataRealm,
@@ -14,10 +17,10 @@ import {
     StaticDataSetCategory,
     StaticDataToy,
 } from '@/types/data/static'
-import type { StaticData, StaticDataSetCategoryArray } from '@/types/data/static'
-import { extraReputationTiers } from '@/data/reputation'
-import { StaticDataBag } from '@/types/data/static/bag'
-
+import type {
+    StaticDataSetCategoryArray,
+} from '@/types/data/static'
+import type { StaticData } from '@/types/data/static/store'
 
 export class StaticDataStore extends WritableFancyStore<StaticData> {
     get dataUrl(): string {
@@ -53,6 +56,11 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
         if (data.rawCurrencyCategories !== null) {
             data.currencyCategories = StaticDataStore.createObjects(data.rawCurrencyCategories, StaticDataCurrencyCategory)
             data.rawCurrencyCategories = null
+        }
+
+        if (data.rawItems !== null) {
+            data.items = StaticDataStore.createObjects(data.rawItems, StaticDataItem)
+            data.rawItems = null
         }
 
         if (data.instancesRaw !== null) {

@@ -95,7 +95,7 @@ farms:
 
     - type: transmog
       id: 119349 # Craven Coward's Cloak [cloak]
-    
+
 - name: "Gorg'ak the Lava Guzzler"
   location: 70.8 27.8
   npcId: 72364
@@ -121,7 +121,7 @@ farms:
   type: killBig
   drops:
     - type: mount
-      id: 171636 # Great Greytusk
+      id: 627 # Great Greytusk
 
 - name: "Grutush the Pillager"
   location: 38.4 63.0
@@ -183,7 +183,7 @@ farms:
   type: kill
   drops:
     - type: mount
-      id: 171851 # Garn Nighthowl
+      id: 657 # Garn Nighthowl
 
 - name: "Ogom the Mangler"
   location: 83.6 47.2
@@ -265,7 +265,7 @@ farms:
   drops:
     - type: toy
       id: 119163 # Soul Inhaler
-    
+
     - type: transmog
       id: 119379 # Tor'goroth's Soul Prism [int off-hand]
 

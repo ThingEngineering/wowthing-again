@@ -193,13 +193,13 @@ farms:
   reset: none
   drops:
   - type: mount
-    id: 138424 # Amber Primordial Direhorn
+    id: 534 # Amber Primordial Direhorn
 
   - type: mount
-    id: 138426 # Jade Primordial Direhorn
+    id: 536 # Jade Primordial Direhorn
 
   - type: mount
-    id: 138425 # Slate Primordial Direhorn
+    id: 535 # Slate Primordial Direhorn
 
 # Treasure
 
@@ -223,17 +223,17 @@ farms:
   type: vendor
   drops:
     - type: mount
-      id: 123992 # Azure Cloud Serpent
+      id: 464 # Azure Cloud Serpent
       note: "{price:3000} at Exalted"
-    
+
     - type: mount
-      id: 123993 # Golden Cloud Serpent
+      id: 465 # Golden Cloud Serpent
       note: "{price:3000} at Exalted"
-    
+
     - type: mount
-      id: 113199 # Jade Cloud Serpent
+      id: 448 # Jade Cloud Serpent
       note: "{price:3000} at Exalted"
-  
+
     - type: toy
       id: 89222 # Cloud Ring
       note: "{price:1000} at Revered"

@@ -56,7 +56,7 @@ farms:
   drops:
     - type: transmog
       id: 113288 # Shard of Contempt [int dagger]
-    
+
     - type: transmog
       id: 113287 # Shard of Scorn [1h agi/str sword]
 
@@ -193,7 +193,7 @@ farms:
   type: kill
   drops:
     - type: pet
-      id: 88490 # Eye of Observation
+      id: 1576 # Eye of Observation
 
 - name: "Ra'kahn"
   location: 59.4 59.4
@@ -236,7 +236,7 @@ farms:
   type: kill
   drops:
     - type: mount
-      id: 171824 # Sapphire Riverbeast
+      id: 630 # Sapphire Riverbeast
 
 - name: "Steeltusk"
   location: 67.7 35.5

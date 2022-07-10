@@ -36,7 +36,7 @@ farms:
   reset: none
   drops:
   - type: mount
-    id: 132036 # Thundering Ruby Cloud Serpent
+    id: 517 # Thundering Ruby Cloud Serpent
 
 - name: "Kal'tik the Blight"
   location: 14.0 58.2
@@ -182,10 +182,10 @@ farms:
   type: vendor
   drops:
     - type: mount
-      id: 130092 # Red Flying Cloud
+      id: 509 # Red Flying Cloud
       note: "{price:600} at Exalted with The Lorewalkers"
 
     - type: transmog
       id: 89795 # Lorewalkers Tabard [tabard]
       note: "{price:10} at Exalted with The Lorewalkers"
-    
+

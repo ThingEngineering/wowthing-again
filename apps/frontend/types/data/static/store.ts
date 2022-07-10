@@ -2,6 +2,7 @@ import type { StaticDataBag, StaticDataBagArray } from './bag'
 import type { StaticDataCharacterClass, StaticDataCharacterRace, StaticDataCharacterSpecialization } from './character'
 import type { StaticDataCurrency, StaticDataCurrencyArray, StaticDataCurrencyCategory, StaticDataCurrencyCategoryArray } from './currency'
 import type { StaticDataInstance, StaticDataInstanceArray } from './instance'
+import type { StaticDataItem, StaticDataItemArray } from './item'
 import type { StaticDataMount, StaticDataMountArray } from './mount'
 import type { StaticDataPet, StaticDataPetArray } from './pet'
 import type { StaticDataProfession } from './profession'
@@ -42,6 +43,9 @@ export interface StaticData {
 
     instances: Record<number, StaticDataInstance>
     instancesRaw: StaticDataInstanceArray[]
+
+    items: Record<number, StaticDataItem>
+    rawItems: StaticDataItemArray[]
 
     mounts: Record<number, StaticDataMount>
     rawMounts: StaticDataMountArray[]

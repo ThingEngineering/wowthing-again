@@ -160,7 +160,7 @@ farms:
   type: kill
   drops:
   - type: pet
-    id: 148520
+    id: 2538
     name: "Dasher"
 
 - name: "Tambano"

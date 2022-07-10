@@ -11,7 +11,7 @@ farms:
   questId: 55584
   drops:
   - type: pet
-    id: 154845
+    id: 2706
     name: "Brinestone Algan"
 
 - name: "Blindlight"
@@ -20,7 +20,7 @@ farms:
   questId: 56269
   drops:
   - type: pet
-    id: 154821
+    id: 2682
     name: "Necrofin Tadpole"
 
 - name: "Carnivorous Lasher"
@@ -29,7 +29,7 @@ farms:
   questId: 55366
   drops:
   - type: pet
-    id: 154847
+    id: 2708
     name: "Coral Lashling"
 
 - name: "Caverndark Terror"
@@ -38,7 +38,7 @@ farms:
   questId: 56283
   drops:
   - type: pet
-    id: 154829
+    id: 2690
     name: "Caverndark Nightmare"
 
 - name: "Elderspawn Nalaada"
@@ -47,7 +47,7 @@ farms:
   questId: 56285
   drops:
   - type: pet
-    id: 154832
+    id: 2693
     name: "Spawn of Nalaada"
 
 - name: "Iridescent Glimmershell"
@@ -56,7 +56,7 @@ farms:
   questId: 56286
   drops:
   - type: pet
-    id: 154825
+    id: 2686
     name: "Pearlescent Glimmershell"
 
 - name: "King Gakula"
@@ -65,7 +65,7 @@ farms:
   questId: 55671
   drops:
   - type: pet
-    id: 154820
+    id: 2681
     name: "Murgle"
 
 - name: "Needlespine"
@@ -74,7 +74,7 @@ farms:
   questId: 56275
   drops:
   - type: pet
-    id: 154828
+    id: 2689
     name: "Chitterspine Needler"
 
 - name: "Prince Typhonus"
@@ -83,7 +83,7 @@ farms:
   questId: 56289
   drops:
   - type: pet
-    id: 154840
+    id: 2701
     name: "Seafury"
 
 - name: "Prince Vortran"
@@ -92,7 +92,7 @@ farms:
   questId: 56290
   drops:
   - type: pet
-    id: 154841
+    id: 2702
     name: "Stormwrath"
 
 - name: "Scale Matriarch Gratinax"
@@ -101,7 +101,7 @@ farms:
   questId: 56292
   drops:
   - type: pet
-    id: 154843
+    id: 2704
     name: "Scalebrood Hydra"
 
 - name: "Scale Matriarch Vynara"
@@ -110,7 +110,7 @@ farms:
   questId: 56293
   drops:
   - type: pet
-    id: 154843
+    id: 2704
     name: "Scalebrood Hydra"
 
 - name: "Scale Matriarch Zodia"
@@ -119,7 +119,7 @@ farms:
   questId: 56294
   drops:
   - type: pet
-    id: 154843
+    id: 2704
     name: "Scalebrood Hydra"
 
 - name: "Shassera"
@@ -137,7 +137,7 @@ farms:
   questId: 56298
   drops:
   - type: mount
-    id: 300149
+    id: 1257
     name: "Silent Glider"
 
 - name: "Tidemistress Leth'sindra"
@@ -155,7 +155,7 @@ farms:
   questId: 55603
   drops:
   - type: pet
-    id: 154848
+    id: 2709
     name: "Skittering Eel"
 
 # World bosses

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using MoreLinq.Extensions;
+using Newtonsoft.Json.Linq;
 using Wowthing.Backend.Data;
 using Wowthing.Backend.Jobs.NonBlizzard;
 using Wowthing.Backend.Models.Data;
@@ -36,6 +37,7 @@ namespace Wowthing.Backend.Jobs.Misc
         private Dictionary<int, WowToy> _toyMap;
 
         private Dictionary<int, int> _itemToAppearance;
+        private HashSet<int> _itemIds = new();
 
         private Dictionary<(StringType Type, Language Language, int Id), string> _stringMap;
 
@@ -44,7 +46,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
-            Version = 46,
+            Version = 47,
         };
 
         public override async Task Run(params string[] data)
@@ -190,7 +192,7 @@ namespace Wowthing.Backend.Jobs.Misc
             _timer.AddPoint("Soulbinds");
 
             // Talents
-            var talents = await LoadTalents();
+            cacheData.Talents = await LoadTalents();
             _timer.AddPoint("Talents");
 
             // Toys
@@ -199,13 +201,13 @@ namespace Wowthing.Backend.Jobs.Misc
             _timer.AddPoint("Toys");
 
             // Vendors
-            var vendors = LoadVendors();
+            cacheData.VendorSets = LoadVendors();
             _timer.AddPoint("Vendors");
 
             // Zone Maps
-            var zoneMaps = LoadZoneMaps();
+            cacheData.ZoneMapSets = LoadZoneMaps();
             #if DEBUG
-            DumpZoneMapQuests(zoneMaps[Language.enUS]);
+            DumpZoneMapQuests(cacheData.ZoneMapSets);
             #endif
 
             // Basic database dumps
@@ -248,6 +250,14 @@ namespace Wowthing.Backend.Jobs.Misc
                     Name = GetString(StringType.WowCurrencyCategoryName, language, category.Id),
                 }).ToArray();
 
+                cacheData.RawItems = _itemIds
+                    .OrderBy(itemId => itemId)
+                    .Select(itemId => new StaticItem(_itemMap[itemId])
+                    {
+                        AppearanceId = _itemToAppearance.GetValueOrDefault(itemId),
+                        Name = GetString(StringType.WowItemName, language, itemId),
+                    }).ToArray();
+
                 cacheData.RawReputations = reputations.Select(rep => new StaticReputation(rep)
                 {
                     Name = GetString(StringType.WowReputationName, language, rep.Id),
@@ -258,9 +268,6 @@ namespace Wowthing.Backend.Jobs.Misc
                 cacheData.Professions = professions[language];
                 cacheData.ReputationTiers = reputationTiers;
                 cacheData.Soulbinds = soulbinds[language];
-                cacheData.Talents = talents;
-                cacheData.VendorSets = vendors;
-                cacheData.ZoneMapSets = zoneMaps[language];
 
                 cacheData.RawMounts = RawMounts(language);
                 cacheData.RawPets = RawPets(language);
@@ -628,9 +635,10 @@ namespace Wowthing.Backend.Jobs.Misc
                     {
                         foreach (var item in group.Things)
                         {
-                            if (group.Type == FarmDropType.Transmog && item.AppearanceId == null)
+                            if (group.Type == FarmDropType.Transmog)// && item.AppearanceId == null)
                             {
-                                item.AppearanceId = _itemToAppearance[item.Id];
+                                _itemIds.Add(item.Id);
+                                //item.AppearanceId = _itemToAppearance[item.Id];
                             }
 
                             if (group.Type == FarmDropType.Mount)
@@ -654,98 +662,86 @@ namespace Wowthing.Backend.Jobs.Misc
             return ret;
         }
 
-        private Dictionary<Language, List<List<OutZoneMapCategory>>> LoadZoneMaps()
+        private List<List<OutZoneMapCategory>> LoadZoneMaps()
         {
             var zoneMapSets = DataUtilities.LoadData<DataZoneMapCategory>("zone-maps", Logger);
 
-            var ret = new Dictionary<Language, List<List<OutZoneMapCategory>>>();
+            var ret = new List<List<OutZoneMapCategory>>();
 
-            foreach (var language in Enum.GetValues<Language>())
+            foreach (var catList in zoneMapSets)
             {
-                var sets = new List<List<OutZoneMapCategory>>();
-                foreach (var catList in zoneMapSets)
+                if (catList == null)
                 {
-                    if (catList == null)
-                    {
-                        sets.Add(null);
-                    }
-                    else
-                    {
-                        sets.Add(catList.Select(cat => cat == null ? null : new OutZoneMapCategory(cat))
-                            .ToList());
-                    }
+                    ret.Add(null);
                 }
-
-                // Change transmog itemId to appearanceId
-                foreach (var categories in sets.Where(cats => cats != null))
+                else
                 {
-                    foreach (var category in categories.Where(cat => cat != null))
+                    ret.Add(catList.Select(cat => cat == null ? null : new OutZoneMapCategory(cat))
+                        .ToList());
+                }
+            }
+
+            // Change transmog itemId to appearanceId
+            foreach (var categories in ret.Where(cats => cats != null))
+            {
+                foreach (var category in categories.Where(cat => cat != null))
+                {
+                    foreach (var farm in category.Farms)
                     {
-                        foreach (var farm in category.Farms)
+                        // This doesn't work as we don't have a mapping of NPC ID -> Creature ID
+                        /*if (farm.IdType == FarmIdType.Npc && farm.Id > 0)
                         {
-                            // This doesn't work as we don't have a mapping of NPC ID -> Creature ID
-                            /*if (farm.IdType == FarmIdType.Npc && farm.Id > 0)
-                            {
-                                farm.Name = _stringMap.GetValueOrDefault((StringType.WowCreatureName, language, farm.Id), farm.Name);
-                            }*/
+                            farm.Name = _stringMap.GetValueOrDefault((StringType.WowCreatureName, language, farm.Id), farm.Name);
+                        }*/
 
-                            foreach (var drop in farm.Drops)
+                        foreach (var drop in farm.Drops)
+                        {
+                            switch (drop.Type)
                             {
-                                switch (drop.Type)
+                                case "mount":
+                                case "pet":
+                                case "toy":
+                                    break;
+
+                                case "item":
+                                    _itemIds.Add(drop.Id);
+                                    break;
+
+                                case "transmog":
                                 {
-                                    case "mount":
-                                        drop.Name = GetString(StringType.WowMountName, language, drop.Id);
-                                        break;
+                                    _itemIds.Add(drop.Id);
 
-                                    case "pet":
-                                        drop.Name = GetString(StringType.WowCreatureName, language, drop.Id);
-                                        break;
-
-                                    case "item":
-                                    case "toy":
-                                        drop.Name = GetString(StringType.WowItemName, language, drop.Id);
-                                        break;
-
-                                    case "transmog":
+                                    var dropItem = _itemMap[drop.Id];
+                                    if (dropItem.ClassId == 2)
                                     {
-                                        var dropItem = _itemMap[drop.Id];
-
-                                        drop.Id = _itemToAppearance[drop.Id];
-                                        drop.Name = GetString(StringType.WowItemName, language, dropItem.Id);
-
-                                        if (dropItem.ClassId == 2)
+                                        drop.Type = "weapon";
+                                        drop.SubType = dropItem.SubclassId;
+                                    }
+                                    else if (dropItem.ClassId == 4)
+                                    {
+                                        if (dropItem.SubclassId == 6 || dropItem.InventoryType == WowInventoryType.HeldInOffHand)
                                         {
                                             drop.Type = "weapon";
-                                            drop.SubType = dropItem.SubclassId;
+                                            drop.SubType = dropItem.InventoryType == WowInventoryType.HeldInOffHand ? 30 : 31;
                                         }
-                                        else if (dropItem.ClassId == 4)
+                                        else if (dropItem.SubclassId == 5 || dropItem.Flags.HasFlag(WowItemFlags.Cosmetic))
                                         {
-                                            if (dropItem.SubclassId == 6 || dropItem.InventoryType == WowInventoryType.HeldInOffHand)
-                                            {
-                                                drop.Type = "weapon";
-                                                drop.SubType = dropItem.InventoryType == WowInventoryType.HeldInOffHand ? 30 : 31;
-                                            }
-                                            else if (dropItem.SubclassId == 5 || dropItem.Flags.HasFlag(WowItemFlags.Cosmetic))
-                                            {
-                                                drop.Type = "cosmetic";
-                                            }
-                                            else
-                                            {
-                                                drop.Type = "armor";
-                                                drop.SubType = dropItem.InventoryType == WowInventoryType.Back ? 0 : dropItem.SubclassId;
-                                            }
+                                            drop.Type = "cosmetic";
                                         }
-
-                                        drop.ClassMask = dropItem.GetCalculatedClassMask();
-                                        break;
+                                        else
+                                        {
+                                            drop.Type = "armor";
+                                            drop.SubType = dropItem.InventoryType == WowInventoryType.Back ? 0 : dropItem.SubclassId;
+                                        }
                                     }
+
+                                    drop.ClassMask = dropItem.GetCalculatedClassMask();
+                                    break;
                                 }
                             }
                         }
                     }
                 }
-
-                ret[language] = sets;
             }
 
             return ret;

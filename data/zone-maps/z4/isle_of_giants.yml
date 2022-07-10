@@ -14,7 +14,7 @@ farms:
   type: killBig
   drops:
     - type: mount
-      id: 138423 # Cobalt Primordial Direhorn
+      id: 533 # Cobalt Primordial Direhorn
 
 # Vendors
 
@@ -25,9 +25,9 @@ farms:
   type: vendor
   drops:
     - type: mount
-      id: 138640 # Bone-White Primal Raptor
+      id: 537 # Bone-White Primal Raptor
       note: "A Mountain of Giant Dinosaur Bones [9999]"
 
     - type: pet
-      id: 69848 # Spectral Porcupette
+      id: 1185 # Spectral Porcupette
       note: "A Large Pile of Giant Dinosaur Bones [999]"

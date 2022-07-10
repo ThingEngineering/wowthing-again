@@ -18,7 +18,7 @@ farms:
   questId: 38767
   drops:
   - type: pet
-    id: 99403
+    id: 1804
     name: "Risen Saber Kitten"
 
 - name: "Dreadbog"
@@ -44,7 +44,7 @@ farms:
   questId: 38468
   drops:
   - type: pet
-    id: 108568
+    id: 1907
     name: "Pygmy Owl"
 
 - name: "Lyrath Moonfeather"
@@ -80,7 +80,7 @@ farms:
   questId: 39130
   drops:
   - type: pet
-    id: 99394
+    id: 1802
     name: "Fetid Waveling"
 
 - name: "Seersei"
@@ -159,7 +159,7 @@ farms:
   reset: never
   drops:
   - type: pet
-    id: 96649
+    id: 1706
     name: "Ashmaw Cub"
 
 # World Bosses

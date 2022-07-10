@@ -19,7 +19,7 @@ farms:
   questId: 59584
   drops:
   - type: pet
-    id: 171119
+    id: 2892
     name: "Bound Lightspawn"
 
   - type: transmog
@@ -62,7 +62,7 @@ farms:
   questId: 59582
   drops:
   - type: pet
-    id: 171121
+    id: 2896
     name: "Primordial Bogling"
 
 - name: "Executioner Aatron"
@@ -89,7 +89,7 @@ farms:
   questId: 59869
   drops:
   - type: mount
-    id: 332905
+    id: 1379
     name: "Endmire Flyer"
 
   - type: transmog
@@ -123,7 +123,7 @@ farms:
   questId: 59612
   drops:
   - type: mount
-    id: 332882
+    id: 1310
     name: "Horrid Dredwing"
 
   - type: transmog
@@ -136,7 +136,7 @@ farms:
   questId: 59900
   drops:
   - type: mount
-    id: 312753
+    id: 1298
     name: "Hopecrusher Gargon"
     limit: covenant venthyr
 
@@ -155,7 +155,7 @@ farms:
   questId: 59580
   drops:
   - type: pet
-    id: 171118
+    id: 2897
     name: "Wrathling"
 
   - type: transmog
@@ -178,7 +178,7 @@ farms:
   questId: 60729
   drops:
   - type: pet
-    id: 171118
+    id: 2897
     name: "Wrathling"
 
 - name: "Scrivener Lenua"
@@ -187,7 +187,7 @@ farms:
   questId: 58213
   drops:
   - type: pet
-    id: 171120
+    id: 2893
     name: "Animated Tome"
 
 - name: "Sinstone Hoarder"
@@ -224,7 +224,7 @@ farms:
   questId: 56877
   drops:
   - type: pet
-    id: 171117
+    id: 2891
     name: "Blushing Spiderling"
 
 - name: "Worldedge Gorger"
@@ -233,7 +233,7 @@ farms:
   questId: 58259
   drops:
   - type: mount
-    id: 333027
+    id: 1391
     name: "Loyal Gorger"
 
 # World boss
@@ -304,7 +304,7 @@ farms:
   type: treasure
   drops:
   - type: pet
-    id: 173508
+    id: 3008
     name: "Lost Quill"
 
 - name: "Makeshift Muckpool"
@@ -325,7 +325,7 @@ farms:
   type: treasure
   drops:
   - type: pet
-    id: 171122
+    id: 2894
     name: "Burdened Soul"
 
 - name: "Smuggled Cache"
@@ -365,7 +365,7 @@ farms:
   type: treasure
   drops:
   - type: pet
-    id: 173531
+    id: 3009
     name: "The Count"
 
 - name: "Vrytha's Dredglaive"

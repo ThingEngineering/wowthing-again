@@ -277,7 +277,7 @@ farms:
   type: killBig
   drops:
   - type: mount
-    id: 298367
+    id: 1250
     name: "Mollie"
 
   - type: transmog

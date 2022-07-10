@@ -8,7 +8,7 @@ farms:
   type: kill
   drops:
     - type: pet
-      id: 69778 # Sunreaver Micro-Sentry
+      id: 1178 # Sunreaver Micro-Sentry
 
 # World Boss
 
@@ -22,7 +22,7 @@ farms:
   type: killBig
   drops:
   - type: mount
-    id: 139442 # Thundering Cobalt Cloud Serpent
+    id: 542 # Thundering Cobalt Cloud Serpent
 
 # Quest
 
@@ -57,7 +57,7 @@ farms:
   type: vendor
   drops:
     - type: mount
-      id: 140249 # Golden Primal Direhorn
+      id: 545 # Golden Primal Direhorn
       note: "{price:3000} at Exalted with Kirin Tor Offensive"
 
     - type: transmog
@@ -70,7 +70,7 @@ farms:
   type: vendor
   drops:
     - type: mount
-      id: 140250 # Crimson Primal Direhorn
+      id: 546 # Crimson Primal Direhorn
       note: "{price:3000} at Exalted with Sunreaver Onslaught"
 
     - type: transmog

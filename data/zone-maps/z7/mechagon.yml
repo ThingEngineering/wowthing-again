@@ -10,7 +10,7 @@ farms:
   questId: 55512
   drops:
   - type: mount
-    id: 291492
+    id: 1229
     name: "Rusty Mechanocrawler"
 
 - name: "Armored Vaultbot"
@@ -28,7 +28,7 @@ farms:
     name: "Paint Vial: Mechagon Gold"
 
   - type: pet
-    id: 155829
+    id: 2766
     name: "Armored Vaultbot"
 
 - name: "Boggac Skullbash"
@@ -65,7 +65,7 @@ farms:
     name: "Blueprint: Mechano-Treat"
 
   - type: pet
-    id: 154893
+    id: 2719
     name: "Bonebiter"
 
 - name: "Caustic Mechaslime"
@@ -172,7 +172,7 @@ farms:
     name: "Paint Vial: Overload Orange"
 
   - type: pet
-    id: 154851
+    id: 2712
     name: "Snowsoft Nibbler"
 
 - name: "Gear Checker Cogstar"
@@ -226,7 +226,7 @@ farms:
     name: "Blueprint: Anti-Gravity Pack"
 
   - type: pet
-    id: 154854
+    id: 2715
     name: "Lost Robogrip"
 
 - name: "Mechagonian Nullifier"
@@ -249,7 +249,7 @@ farms:
   questId: 55386
   drops:
   - type: pet
-    id: 154894
+    id: 2720
     name: "Arachnoid Skitterbot"
 
 - name: "Mr. Fixthis"
@@ -331,7 +331,7 @@ farms:
     name: "Blueprint: Anti-Gravity Pack"
 
   - type: mount
-    id: 297157
+    id: 1248
     name: "Junkheap Drifter"
 
 - name: "Scrapclaw"
@@ -387,7 +387,7 @@ farms:
     name: "Vinyl: Depths of Ulduar"
 
   - type: pet
-    id: 155600
+    id: 2753
     name: "Spraybot 0D"
 
 - name: "The Rusty Prince"
@@ -495,11 +495,11 @@ farms:
     questId: 55848
 
   - type: pet
-    id: 154904
+    id: 2721
     name: "Echoing Oozeling"
     questId: 55847 55848
 
   - type: pet
-    id: 155579
+    id: 2756
     name: "Irradiated Elementaling"
     questId: 55847 55848

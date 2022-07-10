@@ -10,7 +10,7 @@ farms:
   questId: 60977
   drops:
   - type: mount
-    id: 342335
+    id: 1426
     name: "Ascended Skymane"
 
 - name: "Aspirant Eolis"
@@ -28,7 +28,7 @@ farms:
   questId: 60978 62191
   drops:
   - type: pet
-    id: 171565
+    id: 2925
     name: "Golden Cloudfeather"
 
 - name: "Collector Astorestes"
@@ -101,7 +101,7 @@ farms:
   questId: 62650
   drops:
   - type: pet
-    id: 171693
+    id: 2932
     name: "Silvershell Snapper"
 
 - name: "Enforcer Aegeon"
@@ -138,7 +138,7 @@ farms:
   questId: 61634
   drops:
   - type: pet
-    id: 175562
+    id: 3063
     name: "Larion Pouncer"
     limit: covenant kyrian
 
@@ -161,7 +161,7 @@ farms:
   questId: 60862
   drops:
   - type: mount
-    id: 312765
+    id: 1307
     name: "Sundancer"
 
 - name: "Unstable Memory"
@@ -208,7 +208,7 @@ farms:
   questId: 61001 61046 61047
   drops:
   - type: pet
-    id: 171714
+    id: 2940
     name: "Devoured Wader"
 
   - type: transmog
@@ -288,7 +288,7 @@ farms:
   type: treasure
   drops:
   - type: pet
-    id: 171697
+    id: 2935
     name: Purity
 
 - name: "Lost Disciple's Notes"
@@ -309,7 +309,7 @@ farms:
   type: treasure
   drops:
   - type: mount
-    id: 334386
+    id: 1395
     name: "Phalynx of Humility"
     limit: covenant kyrian
 
@@ -344,5 +344,5 @@ farms:
   type: treasure
   drops:
   - type: mount
-    id: 334433
+    id: 1404
     name: "Silverwind Larion"

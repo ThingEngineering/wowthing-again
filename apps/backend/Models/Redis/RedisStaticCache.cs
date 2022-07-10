@@ -55,6 +55,9 @@ namespace Wowthing.Backend.Models.Redis
         [JsonProperty(Order = 13)]
         public Dictionary<int, List<List<int>>> Talents { get; set; }
 
+        [JsonProperty(Order = 40)]
+        public StaticItem[] RawItems { get; set; }
+
         [JsonProperty(Order = 50)]
         public List<JArray> RawMounts { get; set; }
 

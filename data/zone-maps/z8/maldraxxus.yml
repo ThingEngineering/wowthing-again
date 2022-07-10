@@ -66,7 +66,7 @@ farms:
   questId: 58868
   drops:
   - type: pet
-    id: 172134
+    id: 2953
     name: "Shy Melvin"
 
   - type: transmog
@@ -99,7 +99,7 @@ farms:
   questId: 58872
   drops:
   - type: mount
-    id: 336045
+    id: 1411
     name: "Predatory Plagueroc"
     limit: covenant necrolord
 
@@ -141,7 +141,7 @@ farms:
   questId: 58851
   drops:
   - type: mount
-    id: 332480
+    id: 1373
     name: "Gorespine"
 
   - type: transmog
@@ -178,7 +178,7 @@ farms:
   questId: 58004
   drops:
   - type: pet
-    id: 172155
+    id: 2964
     name: "Foulwing Buzzer"
 
   - type: transmog
@@ -192,7 +192,7 @@ farms:
   questId: 58784
   drops:
   - type: mount
-    id: 332466
+    id: 1370
     name: "Armored Bonehoof Tauralus"
     limit: covenant necrolord
 
@@ -202,7 +202,7 @@ farms:
   questId: 58006
   drops:
   - type: pet
-    id: 172139
+    id: 2957
     name: "Writhing Spine"
 
   - type: transmog
@@ -215,7 +215,7 @@ farms:
   questId: 58003
   drops:
   - type: pet
-    id: 171986
+    id: 2948
     name: "Boneweave Hatchling"
 
   - type: transmog
@@ -228,11 +228,11 @@ farms:
   questId: 58768
   drops:
   - type: pet
-    id: 172136
+    id: 2955
     name: "Corpselouse Larva"
 
   - type: pet
-    id: 172137
+    id: 2956
     name: "Feasting Larva"
 
   - type: transmog
@@ -246,7 +246,7 @@ farms:
   questId: 58783
   drops:
   - type: mount
-    id: 332457
+    id: 1366
     name: "Bonehoof Tauralus"
     limit: covenant necrolord
 
@@ -290,7 +290,7 @@ farms:
   questId: 58889
   drops:
   - type: mount
-    id: 332478
+    id: 1372
     name: "Blisterback Bloodtusk"
 
   - type: transmog
@@ -324,7 +324,7 @@ farms:
   questId: 62786
   drops:
   - type: mount
-    id: 344228
+    id: 1437
     name: "Battle-Bound Warhound"
 
 # World boss
@@ -389,7 +389,7 @@ farms:
   type: treasure
   drops:
   - type: pet
-    id: 174677
+    id: 3047
     name: "Spinebug"
 
 - name: "Necro Tome"
@@ -409,7 +409,7 @@ farms:
   type: treasure
   drops:
   - type: pet
-    id: 171954
+    id: 2944
     name: "Oonar's Arm"
 
   - type: transmog
@@ -433,7 +433,7 @@ farms:
   type: treasure
   drops:
   - type: pet
-    id: 174125
+    id: 3045
     name: "Iridescent Ooze"
 
 - name: "Ritualist's Cache"
@@ -463,7 +463,7 @@ farms:
   type: treasure
   drops:
   - type: pet
-    id: 173534
+    id: 3013
     name: "Bloodlouse Larva"
 
 - name: "Vat of Conspicuous Slime"
@@ -484,13 +484,13 @@ farms:
   type: kill
   drops:
   - type: mount
-    id: 336042
+    id: 1410
     name: "Hulking Deathroc"
     note: "Drops from Violet Mistake"
     questId: 61720
 
   - type: pet
-    id: 172149
+    id: 2960
     name: "Invertebrate Oil"
     note: "Drops from Oily Invertebrate"
     questId: 61724

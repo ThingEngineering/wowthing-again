@@ -65,6 +65,8 @@
             userVendorStore.setup(
                 $settings,
                 $staticStore.data,
+                $userStore.data,
+                $userTransmogStore.data,
                 $vendorState
             )
 

@@ -224,7 +224,7 @@ farms:
   type: kill
   drops:
   - type: mount
-    id: 342680 # Deepstar Aurelid
+    id: 1434 # Deepstar Aurelid
 
   - type: transmog
     id: 189905 # Hirukon's Syrupy Squeezers
@@ -529,7 +529,7 @@ farms:
   type: kill
   drops:
   - type: mount
-    id: 368105 # Colossal Plaguespew Mawrat
+    id: 1584 # Colossal Plaguespew Mawrat
 
   - type: transmog
     id: 190102 # Chains of Infectious Serrations [agi 1h mace]
