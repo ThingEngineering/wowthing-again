@@ -1,8 +1,12 @@
 export class StaticDataReputation {
     constructor(
         public id: number,
+        public expansion: number,
         public tierId: number,
-        public name: string
+        public parentId: number,
+        public paragonId: number,
+        public name: string,
+        public description?: string
     )
     { }
 }
@@ -38,6 +42,5 @@ export interface StaticDataReputationReputation {
 
 export interface StaticDataReputationReward {
     id: number
-    name: string
     type: string
 }

@@ -48,7 +48,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.ImportDumps,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(24),
-            Version = 15,
+            Version = 16,
         };
 
         private Dictionary<int, DumpItemXItemEffect[]> _itemEffectsMap;
@@ -63,6 +63,7 @@ namespace Wowthing.Backend.Jobs.Misc
             await ImportCharacterSpecializations();
             await ImportCurrencies();
             await ImportCurrencyCategories();
+            await ImportFactions();
             await ImportInstances();
 
             await ImportItems();
@@ -360,6 +361,48 @@ namespace Wowthing.Backend.Jobs.Misc
                 "currencycategory",
                 category => category.ID,
                 category => category.Name
+            );
+        }
+
+        private async Task ImportFactions()
+        {
+            var factions = await DataUtilities
+                .LoadDumpCsvAsync<DumpFaction>(Path.Join("enUS", "faction"));
+
+            var dbReputationMap = await Context.WowReputation
+                .ToDictionaryAsync(rep => rep.Id);
+
+            foreach (var faction in factions)
+            {
+                if (!dbReputationMap.TryGetValue(faction.ID, out var dbReputation))
+                {
+                    dbReputation = dbReputationMap[faction.ID] = new WowReputation
+                    {
+                        Id = faction.ID,
+                    };
+                    Context.WowReputation.Add(dbReputation);
+                }
+
+                dbReputation.Expansion = faction.Expansion;
+                dbReputation.ParagonId = faction.ParagonFactionID;
+                dbReputation.ParentId = faction.ParentFactionID;
+                dbReputation.TierId = faction.FriendshipRepID;
+            }
+
+            _timer.AddPoint("Faction");
+
+            await ImportStrings<DumpFaction>(
+                StringType.WowReputationName,
+                "faction",
+                faction => faction.ID,
+                faction => faction.Name
+            );
+
+            await ImportStrings<DumpFaction>(
+                StringType.WowReputationDescription,
+                "faction",
+                faction => faction.ID,
+                faction => faction.Description
             );
         }
 

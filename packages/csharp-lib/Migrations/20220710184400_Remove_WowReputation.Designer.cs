@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Wowthing.Lib.Contexts;
@@ -16,9 +17,10 @@ using Wowthing.Lib.Models.Player;
 namespace Wowthing.Lib.Migrations
 {
     [DbContext(typeof(WowDbContext))]
-    partial class WowDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220710184400_Remove_WowReputation")]
+    partial class Remove_WowReputation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -2049,37 +2051,6 @@ namespace Wowthing.Lib.Migrations
                         .HasName("pk_wow_realm");
 
                     b.ToTable("wow_realm", (string)null);
-                });
-
-            modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowReputation", b =>
-                {
-                    b.Property<short>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("smallint")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<short>("Id"));
-
-                    b.Property<short>("Expansion")
-                        .HasColumnType("smallint")
-                        .HasColumnName("expansion");
-
-                    b.Property<short>("ParagonId")
-                        .HasColumnType("smallint")
-                        .HasColumnName("paragon_id");
-
-                    b.Property<short>("ParentId")
-                        .HasColumnType("smallint")
-                        .HasColumnName("parent_id");
-
-                    b.Property<short>("TierId")
-                        .HasColumnType("smallint")
-                        .HasColumnName("tier_id");
-
-                    b.HasKey("Id")
-                        .HasName("pk_wow_reputation");
-
-                    b.ToTable("wow_reputation", (string)null);
                 });
 
             modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowReputationTier", b =>

@@ -93,9 +93,9 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             }
         }
 
-        if (data.reputationsRaw !== null) {
-            data.reputations = StaticDataStore.createObjects(data.reputationsRaw, StaticDataReputation)
-            data.reputationsRaw = null
+        if (data.rawReputations !== null) {
+            data.reputations = StaticDataStore.createObjects(data.rawReputations, StaticDataReputation)
+            data.rawReputations = null
 
             for (const extraReputation of extraReputationTiers) {
                 data.reputationTiers[extraReputation.id] = extraReputation

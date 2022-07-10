@@ -44,7 +44,7 @@ namespace Wowthing.Backend.Models.Redis
         public List<WowRealm> RealmsRaw { get; set; }
 
         [JsonProperty(Order = 10)]
-        public List<OutReputation> ReputationsRaw { get; set; }
+        public StaticReputation[] RawReputations { get; set; }
 
         [JsonProperty(Order = 11)]
         public SortedDictionary<int, WowReputationTier> ReputationTiers { get; set; }

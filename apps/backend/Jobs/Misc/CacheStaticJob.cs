@@ -47,7 +47,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
-            Version = 44,
+            Version = 45,
         };
 
         public override async Task Run(params string[] data)
@@ -71,6 +71,8 @@ namespace Wowthing.Backend.Jobs.Misc
             StringType.WowCurrencyCategoryName,
             StringType.WowItemName,
             StringType.WowMountName,
+            StringType.WowReputationDescription,
+            StringType.WowReputationName,
             StringType.WowSoulbindName,
             StringType.WowSkillLineName,
         };
@@ -181,7 +183,10 @@ namespace Wowthing.Backend.Jobs.Misc
             var professions = await LoadProfessions();
 
             // Reputations
-            var reputations = await LoadReputations();
+            var reputations = await Context.WowReputation
+                .OrderBy(rep => rep.Id)
+                .ToArrayAsync();
+
             var reputationSets = LoadReputationSets();
             _timer.AddPoint("Reputations");
 
@@ -252,9 +257,14 @@ namespace Wowthing.Backend.Jobs.Misc
                     Name = GetString(StringType.WowCurrencyCategoryName, language, category.Id),
                 }).ToArray();
 
+                cacheData.RawReputations = reputations.Select(rep => new StaticReputation(rep)
+                {
+                    Name = GetString(StringType.WowReputationName, language, rep.Id),
+                    Description = GetString(StringType.WowReputationDescription, language, rep.Id),
+                }).ToArray();
+
                 cacheData.InstancesRaw = instances;
                 cacheData.Professions = professions[language];
-                cacheData.ReputationsRaw = reputations;
                 cacheData.ReputationTiers = reputationTiers;
                 cacheData.Soulbinds = soulbinds[language];
                 cacheData.Talents = talents;
@@ -357,15 +367,6 @@ namespace Wowthing.Backend.Jobs.Misc
                     );
             }
             return ret;
-        }
-
-        private static async Task<List<OutReputation>> LoadReputations()
-        {
-            var factions = await DataUtilities.LoadDumpCsvAsync<DumpFaction>("faction");
-            return factions
-                .Select(faction => new OutReputation(faction))
-                .OrderBy(rep => rep.Id)
-                .ToList();
         }
 
         private async Task<Dictionary<Language, Dictionary<int, List<OutSoulbind>>>> LoadSoulbinds()

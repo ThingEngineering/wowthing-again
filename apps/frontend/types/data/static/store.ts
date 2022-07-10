@@ -59,7 +59,7 @@ export interface StaticData {
     realmsRaw: StaticDataRealmArray[]
 
     reputations: Record<number, StaticDataReputation>
-    reputationsRaw: StaticDataReputationArray[]
+    rawReputations: StaticDataReputationArray[]
 
     reputationSets: StaticDataReputationCategory[]
     reputationTiers: Record<number, StaticDataReputationTier>
