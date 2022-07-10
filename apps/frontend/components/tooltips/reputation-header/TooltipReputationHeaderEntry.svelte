@@ -33,25 +33,27 @@
             if (reputation.rewards) {
                 for (const reward of reputation.rewards) {
                     let have = false
+                    let name: string
                     if (reward.type === 'mount') {
                         have = $userStore.data.hasMount[reward.id] === true
-                        name = $staticStore.data.mounts[reward.id].name
+                        const mount = $staticStore.data.mounts[reward.id]
+                        name = mount ? mount.name : `Mount #${reward.id}`
                     }
                     else if (reward.type === 'pet') {
                         have = $userStore.data.hasPet[reward.id] === true
-                        name = $staticStore.data.pets[reward.id].name
+                        const pet = $staticStore.data.pets[reward.id]
+                        name = pet ? pet.name : `Pet #${reward.id}`
                     }
                     else if (reward.type === 'toy') {
                         have = $userStore.data.hasToy[reward.id] === true
-                        name = $staticStore.data.toys[reward.id].name
-                    }
-                    else {
-                        name = reward.name
+                        const toy = $staticStore.data.toys[reward.id]
+                        name = toy ? toy.name : `Toy #${reward.id}`
                     }
 
                     rewards.push({
                         ...reward,
                         have,
+                        name,
                     })
                 }
             }
