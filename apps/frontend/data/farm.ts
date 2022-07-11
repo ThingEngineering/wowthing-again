@@ -49,12 +49,6 @@ export const dropTypeIcon: Record<number, IconifyIcon> = {
     [RewardType.Pet]: mdiDuck,
     [RewardType.Quest]: mdiExclamationThick,
     [RewardType.Toy]: mdiDiceMultiple,
+    [RewardType.Transmog]: mdiWizardHat,
     [RewardType.Weapon]: mdiAxeBattle,
-}
-
-export const dropTypeStringIcon: Record<string, IconifyIcon> = {
-    mount: mdiUnicorn,
-    pet: mdiDuck,
-    toy: mdiDiceMultiple,
-    transmog: mdiWizardHat,
 }

@@ -37,7 +37,7 @@ namespace Wowthing.Backend.Jobs.Misc
         private Dictionary<int, WowToy> _toyMap;
 
         private Dictionary<int, int> _itemToAppearance;
-        private HashSet<int> _itemIds = new();
+        private readonly HashSet<int> _itemIds = new();
 
         private Dictionary<(StringType Type, Language Language, int Id), string> _stringMap;
 
@@ -46,7 +46,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
-            Version = 47,
+            Version = 48,
         };
 
         public override async Task Run(params string[] data)
@@ -184,7 +184,7 @@ namespace Wowthing.Backend.Jobs.Misc
                 .OrderBy(rep => rep.Id)
                 .ToArrayAsync();
 
-            var reputationSets = LoadReputationSets();
+            cacheData.RawReputationSets = LoadReputationSets();
             _timer.AddPoint("Reputations");
 
             // Soulbinds
@@ -278,7 +278,6 @@ namespace Wowthing.Backend.Jobs.Misc
                 cacheData.ToySetsRaw = FinalizeCollections(toySets);
 
                 cacheData.Progress = progress;
-                cacheData.ReputationSets = reputationSets;
 
                 var cacheJson = JsonConvert.SerializeObject(cacheData);
                 // This ends up being the MD5 of enUS, close enough
@@ -322,7 +321,34 @@ namespace Wowthing.Backend.Jobs.Misc
                 }
             }
 
+            foreach (var category in categories.Where(category => category != null))
+            {
+                foreach (var reputationSet in category.Reputations)
+                {
+                    foreach (var reputation in reputationSet)
+                    {
+                        AddReputationItems(reputation.Both);
+                        AddReputationItems(reputation.Alliance);
+                        AddReputationItems(reputation.Horde);
+                    }
+                }
+            }
+
             return categories;
+        }
+
+        private void AddReputationItems(DataReputation reputation)
+        {
+            if (reputation?.Rewards != null)
+            {
+                foreach (var reward in reputation.Rewards)
+                {
+                    if (reward.Type == "transmog")
+                    {
+                        _itemIds.Add(reward.Id);
+                    }
+                }
+            }
         }
 
         private async Task<Dictionary<Language, Dictionary<int, OutProfession>>> LoadProfessions()

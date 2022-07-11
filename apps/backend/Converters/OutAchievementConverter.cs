@@ -3,7 +3,7 @@ using Wowthing.Backend.Models.Data.Achievements;
 
 namespace Wowthing.Backend.Converters
 {
-    public class OutAchievementConverter: JsonConverter
+    public class OutAchievementConverter : JsonConverter
     {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {

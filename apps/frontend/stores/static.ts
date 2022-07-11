@@ -14,6 +14,7 @@ import {
     StaticDataPet,
     StaticDataRealm,
     StaticDataReputation,
+    StaticDataReputationCategory,
     StaticDataSetCategory,
     StaticDataToy,
 } from '@/types/data/static'
@@ -108,6 +109,19 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             for (const extraReputation of extraReputationTiers) {
                 data.reputationTiers[extraReputation.id] = extraReputation
             }
+        }
+
+        if (data.rawReputationSets !== null) {
+            data.reputationSets = []
+            for (const repArray of data.rawReputationSets) {
+                if (repArray === null) {
+                    data.reputationSets.push(null)
+                }
+                else {
+                    data.reputationSets.push(new StaticDataReputationCategory(...repArray))
+                }
+            }
+            data.rawReputationSets = null
         }
 
         if (data.rawMounts !== null) {

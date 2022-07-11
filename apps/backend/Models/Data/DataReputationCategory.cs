@@ -1,5 +1,8 @@
-﻿namespace Wowthing.Backend.Models.Data
+﻿using Wowthing.Backend.Converters;
+
+namespace Wowthing.Backend.Models.Data
 {
+    [JsonConverter(typeof(DataReputationCategoryConverter))]
     public class DataReputationCategory
     {
         public string Name { get; set; }
