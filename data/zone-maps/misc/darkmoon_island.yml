@@ -12,24 +12,16 @@ farms:
   type: event
   drops:
     - type: achievement
-      id: 11918
-      name: "Hey, You're a Rockstar!"
-      note: "Participate in the concert"
+      id: 11918 # "Hey, You're a Rockstar!"
 
     - type: achievement
-      id: 11921
-      name: "Mosh Pit"
-      note: "Don't allow any ghouls to reach Delvin"
+      id: 11921 # "Mosh Pit"
 
     - type: achievement
-      id: 11920
-      name: "Perfect Performance"
-      note: "Participate in a perfect performance"
+      id: 11920 # "Perfect Performance"
 
     - type: achievement
-      id: 11919
-      name: "Taking this Show on the Road"
-      note: "Have each of the band's roles assigned to you"
+      id: 11919 # "Taking this Show on the Road"
 
     - type: toy
       id: 151265 # Blight Boar Microphone
@@ -56,9 +48,7 @@ farms:
   type: event
   drops:
     - type: achievement
-      id: 6025
-      name: "I Was Promised a Pony"
-      note: "Ride a pony"
+      id: 6025 # "I Was Promised a Pony"
 
 # Kill
 
@@ -69,9 +59,7 @@ farms:
   type: killBig
   drops:
     - type: achievement
-      id: 6332
-      name: "That Rabbit's Dynamite"
-      note: "Kill the bunny"
+      id: 6332 # "That Rabbit's Dynamite"
 
     - type: pet
       id: 848 # Darkmoon Rabbit
@@ -123,44 +111,28 @@ farms:
   type: quest
   drops:
     - type: achievement
-      id: 15212
-      name: "First Dance"
-      note: "Successfully participate"
+      id: 15212 # "First Dance"
 
     - type: achievement
-      id: 15213
-      name: "Don't Stop Dancing"
-      note: "Successfully participate 30 times"
+      id: 15213 # "Don't Stop Dancing"
 
     - type: achievement
-      id: 15222
-      name: "You Got the Beat"
-      note: "Earn a perfect score on Easy"
+      id: 15222 # "You Got the Beat"
 
     - type: achievement
-      id: 15223
-      name: "Feeling It"
-      note: "Earn a perfect score on Easy 10 times"
+      id: 15223 # "Feeling It"
 
     - type: achievement
-      id: 15214
-      name: "What a Feeling"
-      note: "Earn a perfect score on Medium"
+      id: 15214 # "What a Feeling"
 
     - type: achievement
-      id: 15215
-      name: "Can't Stop the Feeling"
-      note: "Earn a perfect score on Medium 10 times"
+      id: 15215 # "Can't Stop the Feeling"
 
     - type: achievement
-      id: 15216
-      name: "Make You Sweat"
-      note: "Earn a perfect score on Hard"
+      id: 15216 # "Make You Sweat"
 
     - type: achievement
-      id: 15217
-      name: "Maniac on the Dance Floor"
-      note: "Earn a perfect score on Hard 10 times"
+      id: 15217 # "Maniac on the Dance Floor"
 
     - type: toy
       id: 187689 # Dance Dance Darkmoon
@@ -173,23 +145,16 @@ farms:
   type: quest
   drops:
     - type: achievement
-      id: 9250
-      name: "Flying High"
-      note: "Collect 10 rings"
+      id: 9250 # "Flying High"
 
     - type: achievement
-      id: 9251
-      name: "Ringmaster"
-      note: "Collect 25 rings"
+      id: 9251 # "Ringmaster"
 
     - type: achievement
-      id: 9252
-      name: "Brood of Alysrazor"
-      note: "Collect 50 rings"
+      id: 9252 # "Brood of Alysrazor"
 
     - type: toy
       id: 116115 # Blazing Wings
-      note: "Complete the Brood of Alysrazor achievement"
 
 - name: "He Shoots, He Scores!"
   location: 49.6 60.8
@@ -199,9 +164,7 @@ farms:
   type: quest
   drops:
     - type: achievement
-      id: 6022
-      name: "Quick Shot"
-      note: "Score a quick shot"
+      id: 6022 # "Quick Shot"
 
 - name: "It's Hammer Time"
   location: 53.6 53.8
@@ -211,9 +174,7 @@ farms:
   type: quest
   drops:
     - type: achievement
-      id: 9983
-      name: "That's Whack!"
-      note: "Score 45 points"
+      id: 9983 # "That's Whack!"
 
     - type: pet
       id: 1384 # Hogs
@@ -226,9 +187,7 @@ farms:
   type: quest
   drops:
     - type: achievement
-      id: 6021
-      name: "Blastenheimer Bullseye"
-      note: "Score a bullseye"
+      id: 6021 # "Blastenheimer Bullseye"
 
 - name: "Target: Turtle"
   location: 51.6 78.6
@@ -238,9 +197,7 @@ farms:
   type: quest
   drops:
     - type: achievement
-      id: 9894
-      name: "Triumphant Turtle Tossing"
-      note: "Successfully toss 10 rings"
+      id: 9894 # "Triumphant Turtle Tossing"
 
     - type: toy
       id: 122123 # Darkmoon Ring-Flinger
@@ -253,9 +210,7 @@ farms:
   type: quest
   drops:
     - type: achievement
-      id: 9885
-      name: "Ace Tonk Commander"
-      note: "Score 45 hits"
+      id: 9885 # "Ace Tonk Commander"
 
     - type: toy
       id: 122122 # Darkmoon Tonk Controller
@@ -270,24 +225,16 @@ farms:
   type: quest
   drops:
     - type: achievement
-      id: 9780
-      name: "Go-Getter"
-      note: "Complete the race within 25 tolls"
+      id: 9780 # "Go-Getter"
 
     - type: achievement
-      id: 9781
-      name: "Powermonger: Bronze"
-      note: "Complete the race within 20 tolls"
+      id: 9781 # "Powermonger: Bronze"
 
     - type: achievement
-      id: 9783
-      name: "Powermonger: Silver"
-      note: "Complete the race within 15 tolls"
+      id: 9783 # "Powermonger: Silver"
 
     - type: achievement
-      id: 9785
-      name: "Powermonger: Gold"
-      note: "Complete the race within 11 tolls"
+      id: 9785 # "Powermonger: Gold"
 
     - type: toy
       id: 122120 # Gaze of the Darkmoon
@@ -300,24 +247,16 @@ farms:
   type: quest
   drops:
     - type: achievement
-      id: 9756
-      name: "Darkmoon Racer Novice"
-      note: "Complete the race within 25 tolls"
+      id: 9756 # "Darkmoon Racer Novice"
 
     - type: achievement
-      id: 9759
-      name: "Darkmoon Racer Jockey"
-      note: "Complete the race within 20 tolls"
+      id: 9759 # "Darkmoon Racer Jockey"
 
     - type: achievement
-      id: 9760
-      name: "Darkmoon Racer Leadfoot"
-      note: "Complete the race within 15 tolls"
+      id: 9760 # "Darkmoon Racer Leadfoot"
 
     - type: achievement
-      id: 9761
-      name: "Darkmoon Racer Roadhog"
-      note: "Complete the race within 11 tolls"
+      id: 9761 # "Darkmoon Racer Roadhog"
 
     - type: toy
       id: 122129 # Fire-Eater's Vial
@@ -330,24 +269,16 @@ farms:
   type: quest
   drops:
     - type: achievement
-      id: 9770
-      name: "Blast Off!"
-      note: "Complete the race within 25 tolls"
+      id: 9770 # "Blast Off!"
 
     - type: achievement
-      id: 9769
-      name: "Rocketeer: Bronze"
-      note: "Complete the race within 20 tolls"
+      id: 9769 # "Rocketeer: Bronze"
 
     - type: achievement
-      id: 9766
-      name: "Rocketeer: Silver"
-      note: "Complete the race within 15 tolls"
+      id: 9766 # "Rocketeer: Silver"
 
     - type: achievement
-      id: 9764
-      name: "Rocketeer: Gold"
-      note: "Complete the race within 11 tolls"
+      id: 9764 # "Rocketeer: Gold"
 
     - type: toy
       id: 122119 # Everlasting Darkmoon Firework
@@ -360,24 +291,16 @@ farms:
   type: quest
   drops:
     - type: achievement
-      id: 9786
-      name: "Wayfarer"
-      note: "Complete the race within 25 tolls"
+      id: 9786 # "Wayfarer"
 
     - type: achievement
-      id: 9787
-      name: "Wanderluster: Bronze"
-      note: "Complete the race within 20 tolls"
+      id: 9787 # "Wanderluster: Bronze"
 
     - type: achievement
-      id: 9790
-      name: "Wanderluster: Silver"
-      note: "Complete the race within 15 tolls"
+      id: 9790 # "Wanderluster: Silver"
 
     - type: achievement
-      id: 9792
-      name: "Wanderluster: Gold"
-      note: "Complete the race within 11 tolls"
+      id: 9792 # "Wanderluster: Gold"
 
     - type: toy
       id: 122126 # Attraction Sign
@@ -390,24 +313,16 @@ farms:
   type: quest
   drops:
     - type: achievement
-      id: 9812
-      name: "Goal-Oriented"
-      note: "Complete the race within 40 tolls"
+      id: 9812 # "Goal-Oriented"
 
     - type: achievement
-      id: 9813
-      name: "Big Powermonger: Bronze"
-      note: "Complete the race within 30 tolls"
+      id: 9813 # "Big Powermonger: Bronze"
 
     - type: achievement
-      id: 9815
-      name: "Big Powermonger: Silver"
-      note: "Complete the race within 25 tolls"
+      id: 9815 # "Big Powermonger: Silver"
 
     - type: achievement
-      id: 9817
-      name: "Big Powermonger: Gold"
-      note: "Complete the race within 20 tolls"
+      id: 9817 # "Big Powermonger: Gold"
 
 - name: "The Real Big Race: Racing Strider"
   location: 56.1 88.0
@@ -417,29 +332,19 @@ farms:
   type: quest
   drops:
     - type: achievement
-      id: 9793
-      name: "Big Race Enthusiast"
-      note: "Complete the race within 40 tolls"
+      id: 9793 # "Big Race Enthusiast"
 
     - type: achievement
-      id: 9794
-      name: "Big Race Novice"
-      note: "Complete the race within 35 tolls"
+      id: 9794 # "Big Race Novice"
 
     - type: achievement
-      id: 9795
-      name: "Big Race Jockey"
-      note: "Complete the race within 30 tolls"
+      id: 9795 # "Big Race Jockey"
 
     - type: achievement
-      id: 9797
-      name: "Big Race Leadfoot"
-      note: "Complete the race within 25 tolls"
+      id: 9797 # "Big Race Leadfoot"
 
     - type: achievement
-      id: 9799
-      name: "Big Race Roadhog"
-      note: "Complete the race within 20 tolls"
+      id: 9799 # "Big Race Roadhog"
 
 - name: "The Real Big Race: Rocketeer"
   location: 57.8 88.0
@@ -449,24 +354,16 @@ farms:
   type: quest
   drops:
     - type: achievement
-      id: 9800
-      name: "Rocket Man"
-      note: "Complete the race within 40 tolls"
+      id: 9800 # "Rocket Man"
 
     - type: achievement
-      id: 9801
-      name: "Big Rocketeer: Bronze"
-      note: "Complete the race within 30 tolls"
+      id: 9801 # "Big Rocketeer: Bronze"
 
     - type: achievement
-      id: 9803
-      name: "Big Rocketeer: Silver"
-      note: "Complete the race within 25 tolls"
+      id: 9803 # "Big Rocketeer: Silver"
 
     - type: achievement
-      id: 9805
-      name: "Big Rocketeer: Gold"
-      note: "Complete the race within 20 tolls"
+      id: 9805 # "Big Rocketeer: Gold"
 
     - type: pet
       id: 1636 # Race MiniZep
@@ -479,24 +376,16 @@ farms:
   type: quest
   drops:
     - type: achievement
-      id: 9806
-      name: "Vagabond"
-      note: "Complete the race within 40 tolls"
+      id: 9806 # "Vagabond"
 
     - type: achievement
-      id: 9807
-      name: "Big Wanderluster: Bronze"
-      note: "Complete the race within 30 tolls"
+      id: 9807 # "Big Wanderluster: Bronze"
 
     - type: achievement
-      id: 9809
-      name: "Big Wanderluster: Silver"
-      note: "Complete the race within 25 tolls"
+      id: 9809 # "Big Wanderluster: Silver"
 
     - type: achievement
-      id: 9811
-      name: "Big Wanderluster: Gold"
-      note: "Complete the race within 20 tolls"
+      id: 9811 # "Big Wanderluster: Gold"
 
     - type: toy
       id: 122121 # Darkmoon Gazer

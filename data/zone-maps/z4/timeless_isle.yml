@@ -10,9 +10,7 @@ farms:
   drops:
   - type: achievement
     id: 8728
-    criteriaId: 34241
-    name: "Gulp Froglet"
-    note: "Need to loot for credit"
+    criteriaId: 34241 # Gulp Froglet
 
   - type: pet
     id: 1338 # Gulp Froglet
@@ -23,7 +21,7 @@ farms:
   reset: none
   drops:
   - type: toy
-    id: 104302 # Blackflame Daggers"
+    id: 104302 # Blackflame Daggers
 
 - name: "Chelon"
   location: 25.2 36.0
@@ -40,14 +38,11 @@ farms:
   drops:
   - type: achievement
     id: 8728
-    criteriaId: 34221
-    name: "Falling Flame"
+    criteriaId: 34221 # Falling Flame
 
   - type: achievement
     id: 8728
-    criteriaId: 34238
-    name: "Glowing Blue Ash"
-    note: "Also drops from Foreboding Flame mobs"
+    criteriaId: 34238 # Glowing Blue Ash
 
 - name: "Cranegnasher"
   location: 43.6 69.4
@@ -56,9 +51,7 @@ farms:
   drops:
   - type: achievement
     id: 8728
-    criteriaId: 34235
-    name: "Pristine Stalker Hide"
-    note: "Also drops from Primal Stalker mobs"
+    criteriaId: 34235 # Pristine Stalker Hide
 
 - name: "Dread Ship Vazuvius"
   location: 25.8 23.2
@@ -76,9 +69,7 @@ farms:
   drops:
   - type: achievement
     id: 8728
-    criteriaId: 34232
-    name: "Windfeather Plume"
-    note: "Also drops from Brilliant Windfeather mobs"
+    criteriaId: 34232 # Windfeather Plume
 
 - name: "Flintlord Gairan"
   location: 48.8 37.0
@@ -88,8 +79,7 @@ farms:
   drops:
   - type: achievement
     id: 8728
-    criteriaId: 34222
-    name: "Ordon Death Chime"
+    criteriaId: 34222 # Ordon Death Chime
 
 - name: "Foreboding Flames"
   location: 41.7 40.7
@@ -99,8 +89,7 @@ farms:
   drops:
   - type: achievement
     id: 8728
-    criteriaId: 34238
-    name: "Glowing Blue Ash"
+    criteriaId: 34238 # Glowing Blue Ash
 
 - name: "Garnia"
   location: 64.6 27.5
@@ -109,9 +98,7 @@ farms:
   drops:
   - type: achievement
     id: 8728
-    criteriaId: 34248
-    name: "Ruby Droplet"
-    note: "Need to loot for credit"
+    criteriaId: 34248 # Ruby Droplet
 
   - type: pet
     id: 1328 # Ruby Droplet
@@ -123,9 +110,7 @@ farms:
   drops:
   - type: achievement
     id: 8728
-    criteriaId: 34236
-    name: "Glinting Pile of Stone"
-    note: "Also drops from Eroded Cliffdweller mobs"
+    criteriaId: 34236 # Glinting Pile of Stone
 
   - type: toy
     id: 104262 # Odd Polished Stone
@@ -146,15 +131,11 @@ farms:
   drops:
   - type: achievement
     id: 8728
-    criteriaId: 34228
-    name: "Swarmling of Gu'chi"
-    note: "Need to loot for credit"
+    criteriaId: 34228 # Swarmling of Gu'chi
 
   - type: achievement
     id: 8728
-    criteriaId: 34229
-    name: "Sticky Silkworm Goo"
-    note: "Also drops from Spotted Swarmer mobs"
+    criteriaId: 34229 # Sticky Silkworm Goo
 
   - type: pet
     id: 1345 # Gu'chi Swarmling
@@ -166,9 +147,7 @@ farms:
   drops:
   - type: achievement
     id: 8728
-    criteriaId: 34233
-    name: "Quivering Firestorm Egg"
-    note: "Also drops from Crimsonscale Firestorm mobs"
+    criteriaId: 34233 # Quivering Firestorm Egg
 
   - type: mount
     id: 561 # Thundering Onyx Cloud Serpent
@@ -181,15 +160,11 @@ farms:
   drops:
   - type: achievement
     id: 8728
-    criteriaId: 34246
-    name: "Death Adder Hatchling"
-    note: "Need to loot for credit"
+    criteriaId: 34246 # Death Adder Hatchling
 
   - type: achievement
     id: 8728
-    criteriaId: 34227
-    name: "Partially-Digested Meal"
-    note: "Also drops from Death Adder mobs"
+    criteriaId: 34227 # Partially-Digested Meal
 
   - type: pet
     id: 1330 # Death Adder Hatchling
@@ -209,8 +184,7 @@ farms:
   drops:
   - type: achievement
     id: 8728
-    criteriaId: 34196
-    name: "Giant Purse of Timeless Coins"
+    criteriaId: 34196 # Giant Purse of Timeless Coins
 
 - name: "Leafmender"
   location: 67.5 44.0
@@ -219,14 +193,11 @@ farms:
   drops:
   - type: achievement
     id: 8728
-    criteriaId: 34250
-    name: "Ashleaf Spriteling"
-    note: "Need to loot for credit"
+    criteriaId: 34250 # Ashleaf Spriteling
 
   - type: achievement
     id: 8728
-    criteriaId: 34230
-    name: "Faintly-Glowing Herb"
+    criteriaId: 34230 # Faintly-Glowing Herb
 
   - type: pet
     id: 1323 # Ashleaf Spriteling
@@ -239,9 +210,7 @@ farms:
   drops:
   - type: achievement
     id: 8728
-    criteriaId: 34245
-    name: "Jademist Dancer"
-    note: "Need to loot for credit"
+    criteriaId: 34245 # Jademist Dancer
 
   - type: pet
     id: 1333 # Jademist Dancer
@@ -254,9 +223,7 @@ farms:
   drops:
   - type: achievement
     id: 8728
-    criteriaId: 34240
-    name: "Bonkers"
-    note: "Need to loot for credit"
+    criteriaId: 34240 # Bonkers
 
   - type: pet
     id: 1343 # Bonkers
@@ -269,15 +236,11 @@ farms:
   drops:
   - type: achievement
     id: 8728
-    criteriaId: 34226
-    name: "Scuttler's Shell"
-    note: "Also drops from Ancient Spineclaw mobs"
+    criteriaId: 34226 # Scuttler's Shell
 
   - type: achievement
     id: 8728
-    criteriaId: 34242
-    name: "Spineclaw Crab"
-    note: "Need to loot for credit"
+    criteriaId: 34242 # Spineclaw Crab
 
   - type: pet
     id: 1337 # Spineclaw Crab
@@ -289,8 +252,7 @@ farms:
   drops:
   - type: achievement
     id: 8728
-    criteriaId: 34210
-    name: "Captain Zvezdan's Lost Leg"
+    criteriaId: 34210 # Captain Zvezdan's Lost Leg
 
 - name: "Rock Moss"
   location: 43.7 40.7
@@ -299,14 +261,11 @@ farms:
   drops:
   - type: achievement
     id: 8728
-    criteriaId: 34212
-    name: "Golden Moss"
+    criteriaId: 34212 # Golden Moss
 
   - type: achievement
     id: 8728
-    criteriaId: 34213
-    name: "Strange Glowing Mushroom"
-    note: "Also drops from Damp Shambler mobs"
+    criteriaId: 34213 # Strange Glowing Mushroom
 
 - name: "Spectral Brewmasters"
   location: 35.8 77.1
@@ -315,8 +274,7 @@ farms:
   drops:
   - type: achievement
     id: 8728
-    criteriaId: 34205
-    name: "Thick Pi'jiu Brew"
+    criteriaId: 34205 # Thick Pi'jiu Brew
 
 - name: "Spectral Mistweavers"
   location: 37.8 77.1
@@ -325,8 +283,7 @@ farms:
   drops:
   - type: achievement
     id: 8728
-    criteriaId: 34206
-    name: "Misty Pi'jiu Brew"
+    criteriaId: 34206 # Misty Pi'jiu Brew
 
 - name: "Spelurk"
   location: 58.0 48.6
@@ -335,8 +292,7 @@ farms:
   drops:
   - type: achievement
     id: 8728
-    criteriaId: 34211
-    name: "Cursed Talisman"
+    criteriaId: 34211 # Cursed Talisman
 
 - name: "Spirit of Jadefire"
   location: 45.7 40.7
@@ -345,14 +301,11 @@ farms:
   drops:
   - type: achievement
     id: 8728
-    criteriaId: 34239
-    name: "Glowing Green Ash"
+    criteriaId: 34239 # Glowing Green Ash
 
   - type: achievement
     id: 8728
-    criteriaId: 34215
-    name: "Jadefire Spirit"
-    note: "Need to loot for credit"
+    criteriaId: 34215 # Jadefire Spirit
 
   - type: pet
     id: 1348 # Jadefire Spirit
@@ -364,9 +317,7 @@ farms:
   drops:
   - type: achievement
     id: 8728
-    criteriaId: 34235
-    name: "Pristine Stalker Hide"
-    note: "Also drops from Primal Stalker mobs"
+    criteriaId: 34235 # Pristine Stalker Hide
 
 - name: "Urdur the Cauterizer"
   location: 43.1 26.6
@@ -375,14 +326,11 @@ farms:
   drops:
   - type: achievement
     id: 8728
-    criteriaId: 34224
-    name: "Ordon Ceremonial Robes"
-    note: "Also drops from Blazebound Chanter and Ordon Fire-Watcher mobs"
+    criteriaId: 34224 # Ordon Ceremonial Robes
 
   - type: achievement
     id: 8728
-    criteriaId: 34216
-    name: "Sunset Stone"
+    criteriaId: 34216 # Sunset Stone
 
 - name: "Watcher Osu"
   location: 57.6 76.6
@@ -391,14 +339,11 @@ farms:
   drops:
   - type: achievement
     id: 8728
-    criteriaId: 34217
-    name: "Ashen Stone"
+    criteriaId: 34217 # Ashen Stone
 
   - type: achievement
     id: 8728
-    criteriaId: 34224
-    name: "Ordon Ceremonial Robes"
-    note: "Also drops from Blazebound Chanter and Ordon Fire-Watcher mobs"
+    criteriaId: 34224 # Ordon Ceremonial Robes
 
 - name: "Zesqua"
   location: 47.0 87.4
@@ -407,8 +352,7 @@ farms:
   drops:
   - type: achievement
     id: 8728
-    criteriaId: 34219
-    name: "Rain Stone"
+    criteriaId: 34219 # Rain Stone
 
 - name: "Zhu-Gon the Sour"
   location: 39.8 77.1
@@ -417,9 +361,7 @@ farms:
   drops:
   - type: achievement
     id: 8728
-    criteriaId: 34243
-    name: "Skunky Alemental"
-    note: "Need to loot for credit"
+    criteriaId: 34243 # Skunky Alemental
 
   - type: pet
     id: 1336 # Skunky Alemental
@@ -446,9 +388,7 @@ farms:
   drops:
   - type: achievement
     id: 8728
-    criteriaId: 34249
-    name: "Azure Crane Chick"
-    note: "Need to loot for credit"
+    criteriaId: 34249 # Azure Crane Chick
 
   - type: pet
     id: 1321 # Azure Crane Chick
@@ -463,9 +403,7 @@ farms:
   drops:
   - type: achievement
     id: 8728
-    criteriaId: 34247
-    name: "Dandelion Frolicker"
-    note: "Need to loot for credit"
+    criteriaId: 34247 # Dandelion Frolicker
 
   - type: pet
     id: 1329 # Dandelion Frolicker
