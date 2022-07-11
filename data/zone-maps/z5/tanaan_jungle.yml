@@ -92,15 +92,15 @@ farms:
   drops:
     - &shared-mount-1
       type: mount
-      id: 171630 # Armored Razorback
+      id: 622 # Armored Razorback
 
     - &shared-mount-2
       type: mount
-      id: 171619 # Tundra Icehoof
+      id: 611 # Tundra Icehoof
 
     - &shared-mount-3
       type: mount
-      id: 171837 # Warsong Direfang
+      id: 643 # Warsong Direfang
 
 - name: "Doomroller"
   location: 46.8 52.6
@@ -644,12 +644,12 @@ farms:
   drops:
     - &order-1
       type: mount
-      id: 183117 # Corrupted Dreadwing
+      id: 753 # Corrupted Dreadwing
       note: "{price:150000|823} at Friendly with Order of the Awakened"
 
     - &order-2
       type: pet
-      id: 96123 # Blazing Firehawk
+      id: 1693 # Blazing Firehawk
       note: "{price:2000|823} at Exalted with Order of the Awakened"
 
     - &order-3
