@@ -33,7 +33,7 @@ namespace Wowthing.Backend.Jobs.User
             "强韧", // zhCN
             "強悍", // zhTW
         };
-        
+
         public override async Task Run(params string[] data)
         {
             _timer = new JankTimer();
@@ -74,7 +74,7 @@ namespace Wowthing.Backend.Jobs.User
                     }
                 }
             }
-            
+
             Logger.Information("Processing upload...");
 
             var json = LuaToJsonConverter.Convert(data[1].Replace("WWTCSaved = ", ""));
@@ -84,28 +84,28 @@ namespace Wowthing.Backend.Jobs.User
             await File.WriteAllTextAsync(Path.Join("..", "..", "lua.json"), json);
             _timer.AddPoint("Write");
 #endif
-            
+
             var parsed = JsonConvert.DeserializeObject<Upload[]>(json)[0]; // TODO work out why this is an array of objects
             _timer.AddPoint("Parse");
-            
+
             // Fetch instance data for lockouts
             var instances = await Context.LanguageString
                 .Where(ls => ls.Type == StringType.WowJournalInstanceMapName)
                 .AsNoTracking()
                 .ToArrayAsync();
-            
+
             _instanceNameToIdMap = new();
             foreach (var instance in instances)
             {
                 _instanceNameToIdMap[instance.String] = instance.Id;
             }
-            
+
             // Fetch guild data
             var guildMap = await Context.PlayerGuild
                 .Where(pg => pg.UserId == userId)
                 .Include(pg => pg.Items)
                 .ToDictionaryAsync(pg => (pg.RealmId, pg.Name));
-            
+
             // Fetch character data
             var characterMap = await Context.PlayerCharacter
                 .Where(c => c.Account.UserId == userId)
@@ -133,12 +133,12 @@ namespace Wowthing.Backend.Jobs.User
                 .AsNoTracking()
                 .Where(r => realmIds.Contains(r.Id))
                 .Select(r => r.ConnectedRealmId);
-            
+
             _realmMap = await Context.WowRealm
                 .AsNoTracking()
                 .Where(r => connectedRealmId.Contains(r.ConnectedRealmId))
                 .ToDictionaryAsync(k => (k.Region, k.Name));
-            
+
             _timer.AddPoint("Load");
 
             // Deal with guild data
@@ -160,14 +160,14 @@ namespace Wowthing.Backend.Jobs.User
                     };
                     Context.PlayerGuild.Add(guild);
                 }
-                
+
                 await HandleGuildItems(guild, guildData);
             }
 
             await Context.SaveChangesAsync();
-            
+
             _timer.AddPoint("Guilds");
-            
+
             // Deal with character data
             int accountId = 0;
             int updatedCharacters = 0;
@@ -188,9 +188,9 @@ namespace Wowthing.Backend.Jobs.User
 
                 //Logger.Debug("Found character: {0} => {1}", addonId, character.Id);
                 accountId = character.AccountId.Value;
-                
+
                 character.LastSeenAddon = characterData.LastSeen.AsUtcDateTime();
-                
+
                 character.ChromieTime = characterData.ChromieTime;
                 character.Copper = characterData.Copper;
                 character.IsResting = characterData.IsResting;
@@ -219,7 +219,7 @@ namespace Wowthing.Backend.Jobs.User
                 }
 
                 HandleAddonData(character, characterData);
-                
+
                 HandleAchievements(character, characterData);
                 HandleCovenants(character, characterData);
                 HandleCurrencies(character, characterData);
@@ -281,15 +281,15 @@ namespace Wowthing.Backend.Jobs.User
                 }
             }
             _timer.AddPoint("Account");
-            
+
 #if DEBUG
             //Context.ChangeTracker.DetectChanges();
             //Console.WriteLine(Context.ChangeTracker.DebugView.ShortView);
 #endif
-            
+
             await Context.SaveChangesAsync();
             _timer.AddPoint("Save");
-            
+
             if (updatedCharacters > 0)
             {
                 Logger.Information("Updating {Count} character(s) immediately", updatedCharacters);
@@ -306,7 +306,7 @@ namespace Wowthing.Backend.Jobs.User
                 Logger.Debug("Resetting transmog cache");
                 await CacheService.SetLastModified(RedisKeys.UserLastModifiedTransmog, userId);
             }
-            
+
             Logger.Debug("{Timer}", _timer.ToString());
         }
 
@@ -340,14 +340,14 @@ namespace Wowthing.Backend.Jobs.User
                 {
                     character.AddonData.GarrisonTreesScannedAt = scanTime;
                     character.AddonData.GarrisonTrees = new Dictionary<int, Dictionary<int, List<int>>>();
-                    
+
                     foreach (var (key, packedData) in characterData.GarrisonTrees)
                     {
                         if (!int.TryParse(key, out int treeId))
                         {
                             continue;
                         }
-                        
+
                         var tree = character.AddonData.GarrisonTrees[treeId] = new Dictionary<int, List<int>>();
                         foreach (var packed in packedData)
                         {
@@ -364,7 +364,7 @@ namespace Wowthing.Backend.Jobs.User
                     }
                 }
             }
-            
+
             // Mythic Plus
             if (characterData.MythicPlus != null &&
                 characterData.ScanTimes.TryGetValue("mythicPlus", out int mythicPlusTimestamp))
@@ -422,15 +422,15 @@ namespace Wowthing.Backend.Jobs.User
                             Score = int.Parse(runParts[3]),
                         });
                     }
-                    
-                    // Change detection for this is obnoxious, just update it 
+
+                    // Change detection for this is obnoxious, just update it
                     Context.Entry(character.AddonData)
                         .Property(ad => ad.MythicPlus)
                         .IsModified = true;
                 }
             }
         }
-        
+
         private void HandleAchievements(PlayerCharacter character, UploadCharacter characterData)
         {
             // Basic sanity checks
@@ -474,7 +474,7 @@ namespace Wowthing.Backend.Jobs.User
             }
 
             character.Shadowlands.Covenants ??= new();
-            
+
             foreach (var covenantData in characterData.Covenants.EmptyIfNull())
             {
                 if (!character.Shadowlands.Covenants.TryGetValue(covenantData.Id, out var covenant))
@@ -494,7 +494,7 @@ namespace Wowthing.Backend.Jobs.User
                 covenant.Unique = HandleCovenantsFeature(covenant.Unique, covenantData.Unique);
             }
 
-            // Change detection for this is obnoxious, just update it 
+            // Change detection for this is obnoxious, just update it
             Context.Entry(character.Shadowlands).Property(cs => cs.Covenants).IsModified = true;
         }
 
@@ -548,7 +548,7 @@ namespace Wowthing.Backend.Jobs.User
 
             return soulbindMap.Values.ToList();
         }
-        
+
         private void HandleCurrencies(PlayerCharacter character, UploadCharacter characterData)
         {
             var currencyMap = character.Currencies
@@ -605,14 +605,14 @@ namespace Wowthing.Backend.Jobs.User
                 foreach (var (slotString, itemString) in contents)
                 {
                     var slot = short.Parse(slotString[1..]);
-                    
+
                     var parts = itemString.Split(":");
                     if (parts.Length != 9 && !(parts.Length == 4 && parts[0] == "pet"))
                     {
                         Logger.Warning("Invalid item string: {String}", itemString);
                         continue;
                     }
-                    
+
                     var key = (tabId, slot);
                     if (!itemMap.TryGetValue(key, out var item))
                     {
@@ -629,7 +629,7 @@ namespace Wowthing.Backend.Jobs.User
                     seen.Add(key);
                 }
             }
-            
+
             var deleteMe = itemMap
                 .Where(kvp => !seen.Contains(kvp.Key))
                 .Select(kvp => kvp.Value.Id)
@@ -682,7 +682,7 @@ namespace Wowthing.Backend.Jobs.User
                 item.ItemId = itemId;
                 seen.Add(key);
             }
-            
+
             foreach (var (location, contents) in characterData.Items.EmptyIfNull())
             {
                 if (!location.StartsWith("b"))
@@ -704,7 +704,7 @@ namespace Wowthing.Backend.Jobs.User
                         Logger.Warning("Invalid item string: {String}", itemString);
                         continue;
                     }
-                    
+
                     var key = (locationType, bagId, slot);
                     if (!itemMap.TryGetValue(key, out var item))
                     {
@@ -752,7 +752,7 @@ namespace Wowthing.Backend.Jobs.User
 
             return ItemLocation.Unknown;
         }
-        
+
         private void AddItemDetails(IPlayerItem item, string[] parts)
         {
             if (parts[0] == "pet")
@@ -798,7 +798,7 @@ namespace Wowthing.Backend.Jobs.User
             {
                 return;
             }
-            
+
             if (character.Lockouts == null)
             {
                 character.Lockouts = new PlayerCharacterLockouts
@@ -815,7 +815,7 @@ namespace Wowthing.Backend.Jobs.User
             }
 
             character.Lockouts.LastUpdated = scanTime;
-            
+
             var newLockouts = new List<PlayerCharacterLockoutsLockout>();
             foreach (var lockoutData in characterData.Lockouts)
             {
@@ -828,7 +828,7 @@ namespace Wowthing.Backend.Jobs.User
                     }
                     lockoutData.Id = instanceId;
                 }
-                
+
                 var bosses = new List<PlayerCharacterLockoutsLockoutBoss>();
                 foreach (var bossString in lockoutData.Bosses.EmptyIfNull())
                 {
@@ -894,7 +894,7 @@ namespace Wowthing.Backend.Jobs.User
                 return;
             }
             var scanTime = scanTimestamp.AsUtcDateTime();
-            
+
             if (character.AddonMounts == null)
             {
                 character.AddonMounts = new PlayerCharacterAddonMounts
@@ -922,7 +922,7 @@ namespace Wowthing.Backend.Jobs.User
             {
                 return;
             }
-            
+
             if (character.AddonQuests == null)
             {
                 character.AddonQuests = new PlayerCharacterAddonQuests
@@ -944,7 +944,7 @@ namespace Wowthing.Backend.Jobs.User
                 if (scanTime >= character.AddonQuests.CallingsScannedAt)
                 {
                     character.AddonQuests.CallingsScannedAt = scanTime;
-                    
+
                     // TODO fix hardcoded if next expansion also has these
                     character.AddonQuests.Dailies[8] = new List<List<int>>
                     {
@@ -976,7 +976,7 @@ namespace Wowthing.Backend.Jobs.User
                                     .GetValueOrDefault(calling.QuestID, calling.QuestID);
                             }
                         }
-                        
+
                         var questPairs = questMap
                             .OrderBy(kvp => kvp.Key)
                             .TakeLast(3)
@@ -1000,20 +1000,20 @@ namespace Wowthing.Backend.Jobs.User
                 if (scanTime >= character.AddonQuests.QuestsScannedAt)
                 {
                     character.AddonQuests.QuestsScannedAt = scanTime;
-                    
+
                     character.AddonQuests.DailyQuests = characterData.DailyQuests.EmptyIfNull();
                     character.AddonQuests.OtherQuests = characterData.OtherQuests.EmptyIfNull();
 
                     character.AddonQuests.ProgressQuests = new();
                     foreach (var packedProgress in characterData.ProgressQuests.EmptyIfNull())
                     {
-                        var progressParts = packedProgress.Split('|', StringSplitOptions.RemoveEmptyEntries);
+                        var progressParts = packedProgress.Split('|');
                         if (progressParts.Length < 5)
                         {
                             Logger.Warning("Invalid progress string: {progress}", packedProgress);
                             continue;
                         }
-                        
+
                         var progress = new PlayerCharacterAddonQuestsProgress
                         {
                             Id = int.Parse(progressParts[1]),
@@ -1032,7 +1032,7 @@ namespace Wowthing.Backend.Jobs.User
 
                         character.AddonQuests.ProgressQuests[progressParts[0]] = progress;
                     }
-                    
+
                     if (characterData.Emissaries != null)
                     {
                         foreach (var (expansion, emissaries) in characterData.Emissaries)
@@ -1046,12 +1046,12 @@ namespace Wowthing.Backend.Jobs.User
                                     .Select(em => em.Expires)
                                     .ToList(),
                             };
-                            
+
                             // User is trusted, update global dailies from emissaries
                             if (_globalDailiesMap != null)
                             {
                                 var globalDailies = _globalDailiesMap[(region, expansion)];
-                                
+
                                 var questMap = new Dictionary<int, (int, UploadCharacterEmissaryReward)>();
                                 for (int i = 0; i < globalDailies.QuestIds.Count; i++)
                                 {
@@ -1144,7 +1144,7 @@ namespace Wowthing.Backend.Jobs.User
                 var total = int.Parse(parts[0]);
                 var max = int.Parse(parts[1]);
                 var rewardAvailable = parts[2] == "1";
-                
+
                 character.Reputations.Paragons[paragonId] = new PlayerCharacterReputationsParagon
                 {
                     Current = total % max,
@@ -1175,7 +1175,7 @@ namespace Wowthing.Backend.Jobs.User
             {
                 character.Transmog.TransmogIds = transmog;
                 _resetTransmogCache = true;
-            } 
+            }
         }
 
         private void HandleWeekly(PlayerCharacter character, UploadCharacter characterData)
