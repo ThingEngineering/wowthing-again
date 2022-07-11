@@ -800,7 +800,7 @@ namespace Wowthing.Backend.Jobs.Misc
                                 {
                                     if (!seenQuests.Contains(dropQuestId))
                                     {
-                                        outFile.WriteLine("    {0}, -- {1}:{2}", dropQuestId, farm.Name, drop.Name);
+                                        outFile.WriteLine("    {0}, -- {1}", dropQuestId, farm.Name);
                                         seenQuests.Add(dropQuestId);
                                     }
                                 }

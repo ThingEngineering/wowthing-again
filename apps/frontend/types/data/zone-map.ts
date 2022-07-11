@@ -75,7 +75,6 @@ type ZoneMapDataFarmArray = ConstructorParameters<typeof ZoneMapDataFarm>
 export class ZoneMapDataDrop {
     constructor(
         public id: number,
-        public name: string,
         public type: RewardType,
         public subType: number,
         public classMask: number,

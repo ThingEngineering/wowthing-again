@@ -22,7 +22,6 @@ namespace Wowthing.Backend.Converters
 
             arr.Add(drop.Id);
             arr.Add(Enum.Parse<RewardType>(drop.Type, true));
-            arr.Add(drop.Name);
 
             if (useNote || useRequiredQuestId || useQuestIds || useLimit)
             {
