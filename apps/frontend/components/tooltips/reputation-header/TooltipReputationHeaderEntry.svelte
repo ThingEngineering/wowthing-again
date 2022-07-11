@@ -13,7 +13,6 @@
     export let reputation: StaticDataReputationReputation
     export let set: StaticDataReputationSet
 
-    let name: string
     let rewards: {
         id: number,
         name: string,

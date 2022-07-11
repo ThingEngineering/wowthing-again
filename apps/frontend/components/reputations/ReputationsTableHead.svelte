@@ -26,7 +26,7 @@
             (repId) => repId > 0 && repIds.indexOf(repId) >= 0
         )
 
-        onClick = function(event: Event) {
+        onClick = function() {
             $reputationState.sortOrder[slug] = sortingBy ? [] : [
                 reputation.both?.id ?? 0,
                 reputation.alliance?.id ?? 0,

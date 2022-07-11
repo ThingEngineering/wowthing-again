@@ -1,5 +1,5 @@
 import type {Character} from '@/types'
-import {InventorySlot, PrimaryStat} from '@/types/enums'
+import {InventorySlot} from '@/types/enums'
 //import {specializationMap} from '@/data/character-specialization'
 
 export const slotOrder: InventorySlot[] = [

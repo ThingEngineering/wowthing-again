@@ -154,7 +154,7 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
         })
     }
 
-    private static createObjects<TArray, TObject extends { id: number }>(
+    private static createObjects<TObject extends { id: number }>(
         arrays: any[][],
         objectConstructor: { new (...args: any[]): TObject },
         idFunc: (obj: TObject) => number = null
