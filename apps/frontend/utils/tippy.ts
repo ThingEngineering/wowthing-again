@@ -6,7 +6,7 @@ import type {TippyProps} from '@/types'
 const defaultProps: TippyProps = {
     duration: [0, 0],
     ignoreAttributes: true,
-    maxWidth: 400,
+    maxWidth: 600,
     placement: 'right',
 }
 
