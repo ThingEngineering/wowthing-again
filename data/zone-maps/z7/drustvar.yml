@@ -11,8 +11,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 160469
-    name: "Arclight Jumpers"
+    id: 160469 # Arclight Jumpers
 
 - name: "Arvon the Betrayed"
   location: 34.9 69.2
@@ -21,8 +20,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 160449
-    name: "Spectral Revenger"
+    id: 160449 # Spectral Revenger
 
 - name: "Avalanche"
   location: 43.8 88.0
@@ -31,8 +29,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 154447
-    name: "Gryphon-Rider's Breastplate"
+    id: 154447 # Gryphon-Rider's Breastplate
 
 - name: "Balethorn"
   location: 55.5 28.8
@@ -41,8 +38,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 160475
-    name: "Barksnapper Girdle"
+    id: 160475 # Barksnapper Girdle
 
 - name: "Barbthorn Queen"
   location: 59.1 16.8
@@ -51,8 +47,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 155425
-    name: "Barbthorn Queen's Stinger"
+    id: 155425 # Barbthorn Queen's Stinger
 
 - name: "Beshol"
   location: 50.5 30.0
@@ -61,8 +56,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 158363
-    name: "Spiderhair Circlet"
+    id: 158363 # Spiderhair Circlet
 
 - name: "Betsy"
   location: 58.5 33.2
@@ -71,8 +65,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 160463
-    name: "Blue-Ribbon Belt"
+    id: 160463 # Blue-Ribbon Belt
 
 - name: "Bilefang Mother"
   location: 35.1 33.3
@@ -81,8 +74,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 155284
-    name: "Bleak Hills Swatter"
+    id: 155284 # Bleak Hills Swatter
 
 - name: "Bonesquall"
   location: 66.6 50.7
@@ -91,8 +83,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 154376
-    name: "Bonecurse Guantlets"
+    id: 154376 # Bonecurse Guantlets
 
 - name: "Braedan Whitewall"
   location: 27.6 59.6
@@ -101,8 +92,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 154500
-    name: "Moonwood Bramblespire"
+    id: 154500 # Moonwood Bramblespire
 
 - name: "Captain Leadfist"
   location: 27.6 14.2
@@ -111,8 +101,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 160450
-    name: "Leadshot Heavy Rifle"
+    id: 160450 # Leadshot Heavy Rifle
 
 - name: "Emily Mayville"
   location: 63.4 40.1
@@ -121,8 +110,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 160447
-    name: "Soul-Pillar Lantern"
+    id: 160447 # Soul-Pillar Lantern
 
 - name: "Executioner Blackwell"
   location: 30.9 18.4
@@ -131,8 +119,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 155055
-    name: "Soul-Curse Executioner"
+    id: 155055 # Soul-Curse Executioner
 
 - name: "Fungi Trio"
   location: 24.5 22.0
@@ -141,8 +128,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 154217
-    name: "Pearly-White Jackknife"
+    id: 154217 # Pearly-White Jackknife
 
 - name: "Gluttonous Yeti"
   location: 63.0 69.6
@@ -151,8 +137,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 158683
-    name: "Giant Yeti's Bowl"
+    id: 158683 # Giant Yeti's Bowl
 
 - name: "Gorehorn"
   location: 57.1 44.3
@@ -161,8 +146,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 158710
-    name: "Gorehorn's Rack"
+    id: 158710 # Gorehorn's Rack
 
 - name: "Gorged Boar"
   location: 28.0 25.9
@@ -171,8 +155,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 154461
-    name: "Cursed Boarhide Helm"
+    id: 154461 # Cursed Boarhide Helm
 
 - name: "Grozgore"
   location: 50.3 20.6
@@ -181,8 +164,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 160457
-    name: "Lava-Starched Britches"
+    id: 160457 # Lava-Starched Britches
 
 - name: "Haywire Golem"
   location: 24.1 30.3
@@ -191,8 +173,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 155362
-    name: "Wickerbeast Mulcher"
+    id: 155362 # Wickerbeast Mulcher
 
 - name: "Hyo'gi"
   location: 22.9 49.5
@@ -201,8 +182,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 160462
-    name: "Hyo'gi Basket Binders"
+    id: 160462 # Hyo'gi Basket Binders
 
 - name: "Idej the Wise"
   location: 64.9 83.3
@@ -211,8 +191,7 @@ farms:
   type: kill
   drops:
   - type: pet
-    id: 2198
-    name: "Taptaf"
+    id: 2198 # Taptaf
 
 - name: "Longfang & Henry Breakwater"
   location: 59.2 55.3
@@ -221,8 +200,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 159518
-    name: "Long Fang"
+    id: 159518 # Long Fang
 
 - name: "Nevermore"
   location: 59.9 45.5
@@ -231,8 +209,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 160456
-    name: "Blanched Ravenfeather Gloves"
+    id: 160456 # Blanched Ravenfeather Gloves
 
 - name: "Quillrat Matriarch"
   location: 66.6 42.7
@@ -241,8 +218,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 158583
-    name: "Quillstitch Greatcloak"
+    id: 158583 # Quillstitch Greatcloak
 
 - name: "Rimestone"
   location: 59.6 71.8
@@ -251,8 +227,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 158345
-    name: "Coldsnap Pauldrons"
+    id: 158345 # Coldsnap Pauldrons
 
 - name: "Sister Martha"
   location: 33.0 57.1
@@ -261,8 +236,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 155299
-    name: "Sister Martha's Soulstealer"
+    id: 155299 # Sister Martha's Soulstealer
 
 - name: "Talon"
   location: 31.9 40.6
@@ -271,8 +245,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 161444
-    name: "Frosted Talonfeather Mantle"
+    id: 161444 # Frosted Talonfeather Mantle
 
 - name: "Vicemaul"
   location: 72.9 60.5
@@ -281,8 +254,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 160474
-    name: "Vicemaul Wristpinchers"
+    id: 160474 # Vicemaul Wristpinchers
 
 - name: "Whargarble the Ill-Tempered"
   location: 65.0 21.5
@@ -291,8 +263,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 155543
-    name: "Tuskarr Whaler's Harpoon"
+    id: 155543 # Tuskarr Whaler's Harpoon
 
 - name: 'Whitney "Steelclaw" Ramsay'
   location: 29.5 64.1
@@ -301,8 +272,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 154315
-    name: "Rusty Steelclaw"
+    id: 154315 # Rusty Steelclaw
 
 # Treasures
 
@@ -313,8 +283,7 @@ farms:
   type: treasure
   drops:
   - type: pet
-    id: 2411
-    name: "Wicker Pup"
+    id: 2411 # Wicker Pup
     note: "Spooky Incantation part"
 
 - name: "Enchanted Chest"
@@ -324,8 +293,7 @@ farms:
   type: treasure
   drops:
   - type: pet
-    id: 2411
-    name: "Wicker Pup"
+    id: 2411 # Wicker Pup
     note: "Wolf Pup Spine part"
 
 - name: "Ensorcelled Chest"
@@ -335,8 +303,7 @@ farms:
   type: treasure
   drops:
   - type: pet
-    id: 2411
-    name: "Wicker Pup"
+    id: 2411 # Wicker Pup
     note: "Miniature Stag Skull part"
 
 - name: "Hexed Chest"
@@ -346,8 +313,7 @@ farms:
   type: treasure
   drops:
   - type: pet
-    id: 2411
-    name: "Wicker Pup"
+    id: 2411 # Wicker Pup
     note: "Bundle of Wicker Sticks part"
 
 - name: "Runebound Chest"
@@ -357,8 +323,7 @@ farms:
   type: treasure
   drops:
   - type: toy
-    id: 163742
-    name: "Heartsbane Grimoire"
+    id: 163742 # Heartsbane Grimoire
 
 - name: "Runebound Coffer"
   location: 33.7 71.7
@@ -367,8 +332,7 @@ farms:
   type: treasure
   drops:
   - type: toy
-    id: 163740
-    name: "Drust Ritual Knife"
+    id: 163740 # Drust Ritual Knife
 
 
 # World boss
@@ -380,33 +344,25 @@ farms:
   type: killBig
   drops:
   - type: transmog
-    id: 161362
-    name: "Frostbreath Leggings"
+    id: 161362 # Frostbreath Leggings
 
   - type: transmog
-    id: 161361
-    name: "Ice-Rimed Slippers"
+    id: 161361 # Ice-Rimed Slippers
 
   - type: transmog
-    id: 161364
-    name: "Chill's End Wristguards"
+    id: 161364 # Chill's End Wristguards
 
   - type: transmog
-    id: 161366
-    name: "Ice Stalker Boots"
+    id: 161366 # Ice Stalker Boots
 
   - type: transmog
-    id: 161368
-    name: "Freezing Tempest Waistguard"
+    id: 161368 # Freezing Tempest Waistguard
 
   - type: transmog
-    id: 161367
-    name: "Hailstone Hauberk"
+    id: 161367 # Hailstone Hauberk
 
   - type: transmog
-    id: 164386
-    name: "Girdle of Biting Winds"
+    id: 164386 # Girdle of Biting Winds
 
   - type: transmog
-    id: 161372
-    name: "Ice-Carved Shoulderplates"
+    id: 161372 # Ice-Carved Shoulderplates

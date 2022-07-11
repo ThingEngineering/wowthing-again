@@ -10,8 +10,7 @@ farms:
   questId: 57482
   drops:
   - type: transmog
-    id: 186222
-    name: "Grips of the Coldheart Adjunct"
+    id: 186222 # Grips of the Coldheart Adjunct
 
 - name: "Agonix"
   location: 28.2 44.5
@@ -19,8 +18,7 @@ farms:
   questId: 61136
   drops:
   - type: transmog
-    id: 186616
-    name: "Bindings of Screaming Death"
+    id: 186616 # Bindings of Screaming Death
 
 - name: "Akros <Death's Hammer>"
   location: 34.1 74.5
@@ -28,8 +26,7 @@ farms:
   questId: 60920
   drops:
   - type: transmog
-    id: 186617
-    name: "Death's Hammer Stompers"
+    id: 186617 # Death's Hammer Stompers
 
 - name: "Blinding Shadow"
   location: 36.0 44.3
@@ -37,8 +34,7 @@ farms:
   questId: 64276
   drops:
   - type: transmog
-    id: 187361
-    name: "Rift-Bound Shadow Piercer"
+    id: 187361 # Rift-Bound Shadow Piercer
 
 - name: "Borr-Geth"
   location: 39.0 41.2
@@ -46,12 +42,10 @@ farms:
   questId: 57469
   drops:
   - type: toy
-    id: 184312
-    name: "Borr-Geth's Fiery Brimstone"
+    id: 184312 # Borr-Geth's Fiery Brimstone
 
   - type: transmog
-    id: 186223
-    name: "Coif of the Molten Horror"
+    id: 186223 # Coif of the Molten Horror
 
 - name: "Conjured Death"
   location: 27.7 13.0
@@ -59,8 +53,7 @@ farms:
   questId: 61106
   drops:
   - type: transmog
-    id: 183887
-    name: "Suirhtaned, Blade of the Heir"
+    id: 183887 # Suirhtaned, Blade of the Heir
 
 - name: "Cyrixia <The Willbreaker>"
   location: 28.7 25.1
@@ -68,12 +61,10 @@ farms:
   questId: 61346
   drops:
   - type: quest
-    id: 63164
-    name: "Mawsworn Orders"
+    id: 63164 # Mawsworn Orders
 
   - type: transmog
-    id: 186618
-    name: "Willbreaker's Chain"
+    id: 186618 # Willbreaker's Chain
 
 - name: "Darithis the Bleak"
   location: 61.0 48.0
@@ -81,8 +72,7 @@ farms:
   questId: 62281
   drops:
   - type: transmog
-    id: 186220
-    name: "Stygian Chestcage"
+    id: 186220 # Stygian Chestcage
 
 - name: "Darklord Taraxis"
   location: 49.1 81.8
@@ -90,12 +80,10 @@ farms:
   questId: 62282
   drops:
   - type: toy
-    id: 183901
-    name: "Bonestorm Top"
+    id: 183901 # Bonestorm Top
 
   - type: transmog
-    id: 186611
-    name: "Taraxis Treads"
+    id: 186611 # Taraxis Treads
 
 - name: "Dartanos <Flayer of Souls>"
   location: 25.8 14.8
@@ -103,8 +91,7 @@ farms:
   questId: 59230
   drops:
   - type: transmog
-    id: 186619
-    name: "Bloodspattered Shoulders of the Flayer"
+    id: 186619 # Bloodspattered Shoulders of the Flayer
 
 - name: "Dath Rezara <Lord of Blades>"
   location: 19.2 57.4
@@ -112,20 +99,16 @@ farms:
   questId: 61140
   drops:
   - type: quest
-    id: 63160
-    name: "Korrath's Grimoire: Aleketh"
+    id: 63160 # Korrath's Grimoire: Aleketh
 
   - type: quest
-    id: 63161
-    name: "Korrath's Grimoire: Belidir"
+    id: 63161 # Korrath's Grimoire: Belidir
 
   - type: quest
-    id: 63162
-    name: "Korrath's Grimoire: Gyadrek"
+    id: 63162 # Korrath's Grimoire: Gyadrek
 
   - type: transmog
-    id: 186620
-    name: "Rezara's Fencing Grips"
+    id: 186620 # Rezara's Fencing Grips
 
 - name: "Deomen the Vortex"
   location: 61.3 41.3
@@ -133,12 +116,10 @@ farms:
   questId: 64251
   drops:
   - type: transmog
-    id: 187385
-    name: "Vortex Piercing Headgear"
+    id: 187385 # Vortex Piercing Headgear
 
   - type: transmog
-    id: 187367
-    name: "Deomen's Vortex Blade"
+    id: 187367 # Deomen's Vortex Blade
 
 - name: "Dolos <Death's Knife>"
   location: 28.1 60.6
@@ -146,8 +127,7 @@ farms:
   questId: 60909
   drops:
   - type: transmog
-    id: 186209
-    name: "Blood-Spattered Gloves of Death"
+    id: 186209 # Blood-Spattered Gloves of Death
 
 - name: "Drifting Sorrow"
   location: 32.0 21.2
@@ -155,8 +135,7 @@ farms:
   questId: 59183
   drops:
   - type: transmog
-    id: 186622
-    name: "Robe of Drifting Sorrow"
+    id: 186622 # Robe of Drifting Sorrow
 
 - name: "Eketra <The Impaler>"
   location: 23.8 53.4
@@ -164,8 +143,7 @@ farms:
   questId: 60915
   drops:
   - type: transmog
-    id: 186563
-    name: "Spear of the Impaler"
+    id: 186563 # Spear of the Impaler
 
 - name: "Eternas the Tormentor"
   location: 19.2 46.1
@@ -173,12 +151,10 @@ farms:
   questId: 57509
   drops:
   - type: pet
-    id: 3037
-    name: "Dread"
+    id: 3037 # Dread
 
   - type: transmog
-    id: 186212
-    name: "Eternas' Braided Waistcord"
+    id: 186212 # Eternas' Braided Waistcord
 
 - name: "Exos, Herald of Domination"
   location: 20.6 69.4
@@ -187,16 +163,13 @@ farms:
   type: kill
   drops:
   - type: quest
-    id: 63160
-    name: "Korrath's Grimoire: Aleketh"
+    id: 63160 # Korrath's Grimoire: Aleketh
 
   - type: quest
-    id: 63161
-    name: "Korrath's Grimoire: Belidir"
+    id: 63161 # Korrath's Grimoire: Belidir
 
   - type: quest
-    id: 63162
-    name: "Korrath's Grimoire: Gyadrek"
+    id: 63162 # Korrath's Grimoire: Gyadrek
 
 - name: "Fallen Charger"
   location: 17.7 49.5
@@ -205,8 +178,7 @@ farms:
   questId: 64164
   drops:
   - type: mount
-    id: 1502
-    name: "Fallen Charger"
+    id: 1502 # Fallen Charger
 
 - name: "Guard Orguluus"
   location: 49.3 72.7
@@ -214,12 +186,10 @@ farms:
   questId: 64272
   drops:
   - type: transmog
-    id: 187398
-    name: "Chestguard of the Shadeguard"
+    id: 187398 # Chestguard of the Shadeguard
 
   - type: transmog
-    id: 187363
-    name: "Orguluus' Spear"
+    id: 187363 # Orguluus' Spear
 
 - name: "Houndmaster Vasanok"
   location: 60.5 64.8
@@ -227,8 +197,7 @@ farms:
   questId: 62209
   drops:
   - type: transmog
-    id: 186224
-    name: "Beastwarren Houndmaster's Treads"
+    id: 186224 # Beastwarren Houndmaster's Treads
 
 - name: "Huwerath"
   location: 20.8 29.7
@@ -236,8 +205,7 @@ farms:
   questId: 58918
   drops:
   - type: transmog
-    id: 186623
-    name: "Lost Soul's Mantle"
+    id: 186623 # Lost Soul's Mantle
 
 - name: "Ikras the Devourer"
   location: 30.8 50.0
@@ -246,8 +214,7 @@ farms:
   questId: 62788
   drops:
   - type: transmog
-    id: 186214
-    name: "Maw Snakeskin Boots"
+    id: 186214 # Maw Snakeskin Boots
 
 - name: "Krala <Death's Wings>"
   location: 30.8 68.7
@@ -255,8 +222,7 @@ farms:
   questId: 63381
   drops:
   - type: transmog
-    id: 186624
-    name: "Death Wing Drape"
+    id: 186624 # Death Wing Drape
 
 - name: "Malevolent Stygia"
   location: 27.3 17.5
@@ -264,8 +230,7 @@ farms:
   questId: 61125
   drops:
   - type: transmog
-    id: 186625
-    name: "Hood of Malevolence"
+    id: 186625 # Hood of Malevolence
 
 - name: "Morguliax <Lord of Decapitation>"
   location: 16.9 51.0
@@ -273,12 +238,10 @@ farms:
   questId: 60987
   drops:
   - type: toy
-    id: 184292
-    name: "Ancient Elethium Coin"
+    id: 184292 # Ancient Elethium Coin
 
   - type: transmog
-    id: 185892
-    name: "Stygia-Etched Decapitator"
+    id: 185892 # Stygia-Etched Decapitator
 
 - name: "Nascent Devourer"
   location: 45.5 73.8
@@ -286,8 +249,7 @@ farms:
   questId: 57573
   drops:
   - type: transmog
-    id: 186236
-    name: "Devourer's Shadehide Jerkin"
+    id: 186236 # Devourer's Shadehide Jerkin
 
 - name: "Obolos <Prime Adjutant>"
   location: 48.8 18.3
@@ -295,8 +257,7 @@ farms:
   questId: 60667
   drops:
   - type: transmog
-    id: 186238
-    name: "Mantle of the Prime Collector"
+    id: 186238 # Mantle of the Prime Collector
 
 - name: "Odalrik"
   location: 38.6 28.8
@@ -305,8 +266,7 @@ farms:
   type: kill
   drops:
   - type: quest
-    id: 63158
-    name: "Wailing Coin"
+    id: 63158 # Wailing Coin
 
 - name: "Orophea"
   location: 23.7 21.4
@@ -314,12 +274,10 @@ farms:
   questId: 61519
   drops:
   - type: toy
-    id: 181794
-    name: "Orophea's Lyre"
+    id: 181794 # Orophea's Lyre
 
   - type: transmog
-    id: 186211
-    name: "Pantaloons of the Condemned Bard"
+    id: 186211 # Pantaloons of the Condemned Bard
 
 - name: "Orrholyn <Lord of Bloodletting>"
   location: 25.4 48.8
@@ -327,8 +285,7 @@ farms:
   questId: 60991
   drops:
   - type: transmog
-    id: 186626
-    name: "Bloodwicking Bands"
+    id: 186626 # Bloodwicking Bands
 
 - name: "Ratgusher"
   location: 22.7 42.2
@@ -336,8 +293,7 @@ farms:
   questId: 63044
   drops:
   - type: transmog
-    id: 186627
-    name: "Belt of Ten Thousand Tails"
+    id: 186627 # Belt of Ten Thousand Tails
 
 - name: "Razkazzar <Lord of Axes>"
   location: 26.2 37.4
@@ -345,8 +301,7 @@ farms:
   questId: 60992
   drops:
   - type: transmog
-    id: 186628
-    name: "Razkazzar's Axe Grippers"
+    id: 186628 # Razkazzar's Axe Grippers
 
 - name: "Sanngror the Torturer"
   location: 55.6 63.2
@@ -354,8 +309,7 @@ farms:
   questId: 62210
   drops:
   - type: pet
-    id: 3040
-    name: "Sharpclaw"
+    id: 3040 # Sharpclaw
 
 - name: "Shadeweaver Zeris"
   location: 32.9 66.5
@@ -363,24 +317,19 @@ farms:
   questId: 60884
   drops:
   - type: quest
-    id: 63160
-    name: "Korrath's Grimoire: Aleketh"
+    id: 63160 # Korrath's Grimoire: Aleketh
 
   - type: quest
-    id: 63161
-    name: "Korrath's Grimoire: Belidir"
+    id: 63161 # Korrath's Grimoire: Belidir
 
   - type: quest
-    id: 63162
-    name: "Korrath's Grimoire: Gyadrek"
+    id: 63162 # Korrath's Grimoire: Gyadrek
 
   - type: toy
-    id: 181794
-    name: "Orophea's Lyre"
+    id: 181794 # Orophea's Lyre
 
   - type: transmog
-    id: 185945
-    name: "Shadeweaver's Spire"
+    id: 185945 # Shadeweaver's Spire
 
 - name: "Skittering Broodmother"
   location: 54.3 84.9
@@ -389,8 +338,7 @@ farms:
   questId: 62211
   drops:
   - type: transmog
-    id: 186240
-    name: "Broodmotherhide Cloak"
+    id: 186240 # Broodmotherhide Cloak
 
 - name: "Soulforger Rhovus"
   location: 36.0 41.6
@@ -398,8 +346,7 @@ farms:
   questId: 60834
   drops:
   - type: transmog
-    id: 186613
-    name: "Rhovus' Linked Greaves"
+    id: 186613 # Rhovus' Linked Greaves
 
 - name: "Soulsmith Yol-Mattar"
   location: 36.3 37.4
@@ -407,8 +354,7 @@ farms:
   questId: 59441
   drops:
   - type: transmog
-    id: 186630
-    name: "Spark Deflecting Girdle"
+    id: 186630 # Spark Deflecting Girdle
 
 - name: "Talaporas, Herald of Pain"
   location: 28.7 12.0
@@ -416,8 +362,7 @@ farms:
   questId: 60789
   drops:
   - type: transmog
-    id: 184107
-    name: "Borogove Cloak"
+    id: 184107 # Borogove Cloak
 
 - name: "Thanassos <Death's Voice>"
   location: 27.4 71.5
@@ -425,8 +370,7 @@ farms:
   questId: 60914
   drops:
   - type: transmog
-    id: 186234
-    name: "Girdle of the Death Speaker"
+    id: 186234 # Girdle of the Death Speaker
 
 - name: "Torglluun"
   location: 27.7 25.3
@@ -434,16 +378,13 @@ farms:
   questId: 64232
   drops:
   - type: toy
-    id: 187139
-    name: "Bottled Shade Heart"
+    id: 187139 # Bottled Shade Heart
 
   - type: transmog
-    id: 187389
-    name: "Lord of Shade's Binders"
+    id: 187389 # Lord of Shade's Binders
 
   - type: transmog
-    id: 187360
-    name: "Orb of Enveloping Rifts"
+    id: 187360 # Orb of Enveloping Rifts
 
 - name: "Traitor Balthier"
   location: 69.0 49.0
@@ -451,12 +392,10 @@ farms:
   questId: 64258
   drops:
   - type: transmog
-    id: 187374
-    name: "Balthier's Waistcord"
+    id: 187374 # Balthier's Waistcord
 
   - type: transmog
-    id: 187364
-    name: "Maldraxxi Traitor's Blade"
+    id: 187364 # Maldraxxi Traitor's Blade
 
 - name: "Valis the Cruel"
   location: 40.7 59.6
@@ -464,8 +403,7 @@ farms:
   questId: 61728
   drops:
   - type: transmog
-    id: 186632
-    name: "Rune Covered Bindings"
+    id: 186632 # Rune Covered Bindings
 
 - name: "Yero the Skittish"
   location: 37.4 62.1
@@ -473,8 +411,7 @@ farms:
   questId: 61568
   drops:
   - type: transmog
-    id: 186228
-    name: "Helm of the Skittish Hero"
+    id: 186228 # Helm of the Skittish Hero
 
 - name: "Ylva, Mate of Guarm"
   location: 66.4 44.0
@@ -482,20 +419,16 @@ farms:
   questId: 64152
   drops:
   - type: quest
-    id: 62683
-    name: "Feeder's Hand and Key / Seal Breaker Key"
+    id: 62683 # Feeder's Hand and Key / Seal Breaker Key
 
   - type: transmog
-    id: 186217
-    name: "Supple Helhound Leather Pants"
+    id: 186217 # Supple Helhound Leather Pants
 
   - type: transmog
-    id: 187393
-    name: "Sterling Hound-Handler's Gauntlets"
+    id: 187393 # Sterling Hound-Handler's Gauntlets
 
   - type: transmog
-    id: 187359
-    name: "Ylva's Water Dish"
+    id: 187359 # Ylva's Water Dish
 
 # World boss
 - name: "Mor'geth"
@@ -506,36 +439,28 @@ farms:
   type: killBig
   drops:
   - type: transmog
-    id: 186357
-    name: "Sorrowful Trousers"
+    id: 186357 # Sorrowful Trousers
 
   - type: transmog
-    id: 186355
-    name: "Wristwraps of Anguish"
+    id: 186355 # Wristwraps of Anguish
 
   - type: transmog
-    id: 186361
-    name: "Grips of Unleashed Suffering"
+    id: 186361 # Grips of Unleashed Suffering
 
   - type: transmog
-    id: 186360
-    name: "Tormented Soul Harness"
+    id: 186360 # Tormented Soul Harness
 
   - type: transmog
-    id: 186368
-    name: "Mor'geth's Gauntlets of Damnation"
+    id: 186368 # Mor'geth's Gauntlets of Damnation
 
   - type: transmog
-    id: 186366
-    name: "Stygian Chain Greaves"
+    id: 186366 # Stygian Chain Greaves
 
   - type: transmog
-    id: 186370
-    name: "Caged Legplates"
+    id: 186370 # Caged Legplates
 
   - type: transmog
-    id: 186372
-    name: "Tormentor's Greatbelt"
+    id: 186372 # Tormentor's Greatbelt
 
 # Treasures
 
@@ -547,12 +472,10 @@ farms:
   type: treasure
   drops:
   - type: transmog
-    id: 187026
-    name: "Field Warden's Torture Kit"
+    id: 187026 # Field Warden's Torture Kit
 
   - type: transmog
-    id: 187240
-    name: "Field Warden's Watchful Eye"
+    id: 187240 # Field Warden's Watchful Eye
 
 - name: "Infused Etherwyrm"
   location: 23.2 42.4
@@ -561,8 +484,7 @@ farms:
   type: treasure
   drops:
   - type: pet
-    id: 3099
-    name: "Infused Etherwyrm"
+    id: 3099 # Infused Etherwyrm
 
 - name: "Lil'Abom"
   location: 36.5 67.4
@@ -571,8 +493,7 @@ farms:
   type: treasure
   drops:
   - type: pet
-    id: 3098
-    name: "Lil'Abom"
+    id: 3098 # Lil'Abom
 
 # Events
 
@@ -584,8 +505,7 @@ farms:
   type: eventBig
   drops:
   - type: mount
-    id: 1304
-    name: Mawsworn Soulhunter
+    id: 1304 # Mawsworn Soulhunter
     #requiredQuestId: 60285 # Rule 6: Concealment is Everything
 
 - name: "Tormentors of Torghast"
@@ -595,20 +515,16 @@ farms:
   type: eventBig
   drops:
   - type: mount
-    id: 1475
-    name: "Hand of Bahmethra"
+    id: 1475 # Hand of Bahmethra
 
   - type: transmog
-    id: 186977
-    name: "Beastcaller's Skull Crescent"
+    id: 186977 # Beastcaller's Skull Crescent
 
   - type: transmog
-    id: 186978
-    name: "Borrowed Eye Crescent"
+    id: 186978 # Borrowed Eye Crescent
 
   - type: transmog
-    id: 186562
-    name: "Tormentor's Manacled Backplate"
+    id: 186562 # Tormentor's Manacled Backplate
 
 - name: "Tormentors - Cloth"
   location: 48.8 47.4
@@ -616,28 +532,23 @@ farms:
   type: cloth
   drops:
   - type: transmog
-    id: 186213
-    name: "Bindings of Manifest Pain"
+    id: 186213 # Bindings of Manifest Pain
     note: "Drops from Manifestation of Pain"
 
   - type: transmog
-    id: 186210
-    name: "Diabolic Soul Veil"
+    id: 186210 # Diabolic Soul Veil
     note: "Drops from The Mass of Souls"
 
   - type: transmog
-    id: 186241
-    name: "Insulated Thermal Leggings"
+    id: 186241 # Insulated Thermal Leggings
     note: "Drops from Sentinel Pyrophus"
 
   - type: transmog
-    id: 186208
-    name: "Padded Insouls"
+    id: 186208 # Padded Insouls
     note: "Drops from Promathiz"
 
   - type: transmog
-    id: 186239
-    name: "Drape of the Phantasm"
+    id: 186239 # Drape of the Phantasm
     note: "Drops from Algel the Haunter"
 
 - name: "Tormentors - Leather"
@@ -646,23 +557,19 @@ farms:
   type: leather
   drops:
   - type: transmog
-    id: 186218
-    name: "Fire-Tempered Armor Cinch"
+    id: 186218 # Fire-Tempered Armor Cinch
     note: "Drops from Malleus Grakizz"
 
   - type: transmog
-    id: 186237
-    name: "Gormhide Pauldrons"
+    id: 186237 # Gormhide Pauldrons
     note: "Drops from Gralebboih"
 
   - type: transmog
-    id: 186219
-    name: "Pyrophus' Wrist Ties"
+    id: 186219 # Pyrophus' Wrist Ties
     note: "Drops from Sentinel Pyrophus"
 
   - type: transmog
-    id: 186215
-    name: "Soul Stranglers"
+    id: 186215 # Soul Stranglers
     note: "Drops from The Mass of Souls"
 
 - name: "Tormentors - Mail"
@@ -671,28 +578,23 @@ farms:
   type: mail
   drops:
   - type: transmog
-    id: 186226
-    name: "Cinch of Petrified Vines"
+    id: 186226 # Cinch of Petrified Vines
     note: "Drops from Gruukuuek the Elder"
 
   - type: transmog
-    id: 186227
-    name: "Jangling Chain Manacles"
+    id: 186227 # Jangling Chain Manacles
     note: "Drops from Algel the Haunter"
 
   - type: transmog
-    id: 186221
-    name: "Seared-Link Sabatons"
+    id: 186221 # Seared-Link Sabatons
     note: "Drops from Golmak the Monstrosity"
 
   - type: transmog
-    id: 186225
-    name: "Shoulder Joint Spindles"
+    id: 186225 # Shoulder Joint Spindles
     note: "Drops from Sentinel Shakorzeth"
 
   - type: transmog
-    id: 186242
-    name: "Zul'gath's Chain Coif"
+    id: 186242 # Zul'gath's Chain Coif
     note: "Drops from Zul'gath the Flayer"
 
 - name: "Tormentors - Plate"
@@ -701,23 +603,19 @@ farms:
   type: plate
   drops:
   - type: transmog
-    id: 186231
-    name: "Gloves of Fervent Intercession"
+    id: 186231 # Gloves of Fervent Intercession
     note: "Drops from Intercessor Razzra"
 
   - type: transmog
-    id: 186229
-    name: "Lavafused Breastplate"
+    id: 186229 # Lavafused Breastplate
     note: "Drops from Golmak the Monstrosity"
 
   - type: transmog
-    id: 186235
-    name: "Shadow-Wreathed Vambraces"
+    id: 186235 # Shadow-Wreathed Vambraces
     note: "Drops from Zul'gath the Flayer"
 
   - type: transmog
-    id: 186233
-    name: "Spaulders of the Skyborn Damned"
+    id: 186233 # Spaulders of the Skyborn Damned
     note: "Drops from Versya the Damned"
 
 - name: "Tormentors - Weapons"
@@ -726,41 +624,33 @@ farms:
   type: weapon
   drops:
   - type: transmog
-    id: 186009
-    name: "Corrupted Elder Branch"
+    id: 186009 # Corrupted Elder Branch
     note: "Drops from Gruukuuek the Elder"
 
   - type: transmog
-    id: 186007
-    name: "Cudgel of the Tin Sentinel"
+    id: 186007 # Cudgel of the Tin Sentinel
     note: "Drops from Promathiz"
 
   - type: transmog
-    id: 186012
-    name: "Inferno Blast Shield"
+    id: 186012 # Inferno Blast Shield
     note: "Drops from Malleus Grakizz"
 
   - type: transmog
-    id: 186006
-    name: "Kazj's Stygian Splitter"
+    id: 186006 # Kazj's Stygian Splitter
     note: "Drops from Kazj the Sentinel"
 
   - type: transmog
-    id: 186004
-    name: "Kris of Dark Temptation"
+    id: 186004 # Kris of Dark Temptation
     note: "Drops from Intercessor Razzra"
 
   - type: transmog
-    id: 186010
-    name: "Lost Attendant's Scepter"
+    id: 186010 # Lost Attendant's Scepter
     note: "Drops from Mugrem the Soul Devourer"
 
   - type: transmog
-    id: 186005
-    name: "Stygian Pain Borer"
+    id: 186005 # Stygian Pain Borer
     note: "Drops from Manifestation of Pain"
 
   - type: transmog
-    id: 186003
-    name: "Versya's Stygian Longbow"
+    id: 186003 # Versya's Stygian Longbow
     note: "Drops from Versya the Damned"

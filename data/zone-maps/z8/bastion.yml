@@ -10,8 +10,7 @@ farms:
   questId: 60977
   drops:
   - type: mount
-    id: 1426
-    name: "Ascended Skymane"
+    id: 1426 # Ascended Skymane
 
 - name: "Aspirant Eolis"
   location: 32.6 23.4
@@ -19,8 +18,7 @@ farms:
   questId: 61083
   drops:
   - type: transmog
-    id: 183607
-    name: "Uncertain Aspirant's Spear"
+    id: 183607 # Uncertain Aspirant's Spear
 
 - name: "Cloudfeather Guardian"
   location: 50.4 58.0
@@ -28,8 +26,7 @@ farms:
   questId: 60978 62191
   drops:
   - type: pet
-    id: 2925
-    name: "Golden Cloudfeather"
+    id: 2925 # Golden Cloudfeather
 
 - name: "Collector Astorestes"
   location: 66.0 43.7
@@ -38,8 +35,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 183608
-    name: "Evernote Vesper"
+    id: 183608 # Evernote Vesper
 
 - name: "Dark Watcher"
   location: 27.8 30.1
@@ -47,8 +43,7 @@ farms:
   questId: 60883
   drops:
   - type: transmog
-    id: 184297
-    name: "Death Warden's Greatblade"
+    id: 184297 # Death Warden's Greatblade
 
 - name: "Demi the Relic Hoarder"
   location: 37.0 41.8
@@ -56,44 +51,34 @@ farms:
   questId: 61069 61000
   drops:
   - type: transmog
-    id: 183606
-    name: "Bulwark of Echoing Courage"
+    id: 183606 # Bulwark of Echoing Courage
 
   - type: transmog
-    id: 183608
-    name: "Evernote Vesper"
+    id: 183608 # Evernote Vesper
 
   - type: transmog
-    id: 183614
-    name: "Gavel of Harmonious Wisdom"
+    id: 183614 # Gavel of Harmonious Wisdom
 
   - type: transmog
-    id: 183613
-    name: "Glinting Daybreak Dagger"
+    id: 183613 # Glinting Daybreak Dagger
 
   - type: transmog
-    id: 183611
-    name: "Humble Ophelia's Greatblade"
+    id: 183611 # Humble Ophelia's Greatblade
 
   - type: transmog
-    id: 183612
-    name: "Loyal Champion's Hammer"
+    id: 183612 # Loyal Champion's Hammer
 
   - type: transmog
-    id: 183604
-    name: "Piercing Timbre Crossbow"
+    id: 183604 # Piercing Timbre Crossbow
 
   - type: transmog
-    id: 183609
-    name: "Re-Powered Golliath Fists"
+    id: 183609 # Re-Powered Golliath Fists
 
   - type: transmog
-    id: 183607
-    name: "Uncertain Aspirant's Spear"
+    id: 183607 # Uncertain Aspirant's Spear
 
   - type: transmog
-    id: 183610
-    name: "Warrior Poet's Poniard"
+    id: 183610 # Warrior Poet's Poniard
 
 - name: "Dionae"
   location: 41.4 48.9
@@ -101,8 +86,7 @@ farms:
   questId: 62650
   drops:
   - type: pet
-    id: 2932
-    name: "Silvershell Snapper"
+    id: 2932 # Silvershell Snapper
 
 - name: "Enforcer Aegeon"
   location: 51.2 19.5
@@ -110,8 +94,7 @@ farms:
   questId: 60998
   drops:
   - type: toy
-    id: 184404
-    name: "Ever-Abundant Hearth"
+    id: 184404 # Ever-Abundant Hearth
 
 - name: "Fallen Acolyte Erisne"
   location: 60.4 73.0
@@ -119,8 +102,7 @@ farms:
   questId: 58222
   drops:
   - type: transmog
-    id: 180444
-    name: "Harmonia's Chosen Belt"
+    id: 180444 # Harmonia's Chosen Belt
 
 - name: "Nikara Blackheart"
   location: 51.5 68.6
@@ -128,8 +110,7 @@ farms:
   questId: 58319
   drops:
   - type: transmog
-    id: 183608
-    name: "Evernote Vesper"
+    id: 183608 # Evernote Vesper
 
 - name: "Orstus and Sotiros"
   location: 22.4 22.8
@@ -138,13 +119,11 @@ farms:
   questId: 61634
   drops:
   - type: pet
-    id: 3063
-    name: "Larion Pouncer"
+    id: 3063 # Larion Pouncer
     limit: covenant kyrian
 
   - type: transmog
-    id: 184365
-    name: "Aegis of Salvation"
+    id: 184365 # Aegis of Salvation
 
 - name: "Selena the Reborn"
   location: 61.3 50.9
@@ -152,8 +131,7 @@ farms:
   questId: 58320
   drops:
   - type: transmog
-    id: 183608
-    name: "Evernote Vesper"
+    id: 183608 # Evernote Vesper
 
 - name: "Sundancer"
   location: 61.4 90.5
@@ -161,8 +139,7 @@ farms:
   questId: 60862
   drops:
   - type: mount
-    id: 1307
-    name: "Sundancer"
+    id: 1307 # Sundancer
 
 - name: "Unstable Memory"
   location: 43.5 25.2
@@ -170,8 +147,7 @@ farms:
   questId: 60997
   drops:
   - type: toy
-    id: 184413
-    name: "Mnemonic Attunement Pane"
+    id: 184413 # Mnemonic Attunement Pane
 
 # Orator Kloe
 - name: "Orator Kloe"
@@ -180,23 +156,19 @@ farms:
   npcId: 161441
   drops:
   - type: transmog
-    id: 179487
-    name: "Aethon's Horn"
+    id: 179487 # Aethon's Horn
     questId: 58526
 
   - type: transmog
-    id: 179488
-    name: "Cloudtail's Paw"
+    id: 179488 # Cloudtail's Paw
     questId: 60571
 
   - type: transmog
-    id: 179485
-    name: "Fang of Nemaeus"
+    id: 179485 # Fang of Nemaeus
     questId: 60569
 
   - type: transmog
-    id: 179486
-    name: "Sigilback's Smashshell"
+    id: 179486 # Sigilback's Smashshell
     questId: 60570
 
 # Weird ones
@@ -208,12 +180,10 @@ farms:
   questId: 61001 61046 61047
   drops:
   - type: pet
-    id: 2940
-    name: "Devoured Wader"
+    id: 2940 # Devoured Wader
 
   - type: transmog
-    id: 183605
-    name: "Devourer Wrought Warglaive"
+    id: 183605 # Devourer Wrought Warglaive
 
 # World boss
 - name: Valinor, the Light of Eons
@@ -225,28 +195,22 @@ farms:
   type: killBig
   drops:
   - type: transmog
-    id: 184170
-    name: Doubtweaver's Handwraps
+    id: 184170 # Doubtweaver's Handwraps
 
   - type: transmog
-    id: 184136
-    name: Anima-Charged Wristbanding
+    id: 184136 # Anima-Charged Wristbanding
 
   - type: transmog
-    id: 184125
-    name: Servo-Chain Waistguard
+    id: 184125 # Servo-Chain Waistguard
 
   - type: transmog
-    id: 184132
-    name: Oversized Centurion Helm
+    id: 184132 # Oversized Centurion Helm
 
   - type: transmog
-    id: 184139
-    name: Valinor's Ground Pounders
+    id: 184139 # Valinor's Ground Pounders
 
   - type: transmog
-    id: 184141
-    name: Shroud of the Penitent
+    id: 184141 # Shroud of the Penitent
 
 # Treasures
 
@@ -257,8 +221,7 @@ farms:
   type: treasure
   drops:
   - type: transmog
-    id: 183609
-    name: "Re-Powered Golliath Fists"
+    id: 183609 # Re-Powered Golliath Fists
 
 - name: "Gift of Chyrus"
   location: 70.5 36.4
@@ -267,8 +230,7 @@ farms:
   type: treasure
   drops:
   - type: toy
-    id: 183988
-    name: "Bondable Val'kyr Diadem"
+    id: 183988 # Bondable Val'kyr Diadem
 
 - name: "Gift of Thenios"
   location: 40.60 18.90
@@ -277,8 +239,7 @@ farms:
   type: treasure
   drops:
   - type: transmog
-    id: 181290
-    name: "Harmonious Sigil of the Archon"
+    id: 181290 # Harmonious Sigil of the Archon
     limit: covenant kyrian
 
 - name: "Gift of Vesiphone"
@@ -288,8 +249,7 @@ farms:
   type: treasure
   drops:
   - type: pet
-    id: 2935
-    name: Purity
+    id: 2935 # Purity
 
 - name: "Lost Disciple's Notes"
   location: 59.3 60.9
@@ -298,8 +258,7 @@ farms:
   type: treasure
   drops:
   - type: quest
-    id: 62170
-    name: "You'll Never Walk Alone"
+    id: 62170 # You'll Never Walk Alone
 
 - name: "Penitence of Purity"
   location: 60.2 78.2
@@ -309,8 +268,7 @@ farms:
   type: treasure
   drops:
   - type: mount
-    id: 1395
-    name: "Phalynx of Humility"
+    id: 1395 # Phalynx of Humility
     limit: covenant kyrian
 
   - type: transmog
@@ -323,8 +281,7 @@ farms:
   type: treasure
   drops:
   - type: toy
-    id: 173984
-    name: "Scroll of Aeons"
+    id: 173984 # Scroll of Aeons
 
 - name: "Stolen Equipment"
   location: 40.5 49.8
@@ -333,8 +290,7 @@ farms:
   type: treasure
   drops:
   - type: transmog
-    id: 182561
-    name: "Fallen Disciple's Cloak"
+    id: 182561 # Fallen Disciple's Cloak
 
 - name: "Vesper of the Silver Wind"
   location: 36.0 26.5
@@ -344,5 +300,4 @@ farms:
   type: treasure
   drops:
   - type: mount
-    id: 1404
-    name: "Silverwind Larion"
+    id: 1404 # Silverwind Larion

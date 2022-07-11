@@ -11,8 +11,7 @@ farms:
   questId: 55584
   drops:
   - type: pet
-    id: 2706
-    name: "Brinestone Algan"
+    id: 2706 # Brinestone Algan
 
 - name: "Blindlight"
   location: 37.4 82.6
@@ -20,8 +19,7 @@ farms:
   questId: 56269
   drops:
   - type: pet
-    id: 2682
-    name: "Necrofin Tadpole"
+    id: 2682 # Necrofin Tadpole
 
 - name: "Carnivorous Lasher"
   location: 54.7 41.8
@@ -29,8 +27,7 @@ farms:
   questId: 55366
   drops:
   - type: pet
-    id: 2708
-    name: "Coral Lashling"
+    id: 2708 # Coral Lashling
 
 - name: "Caverndark Terror"
   location: 40.8 7.4
@@ -38,8 +35,7 @@ farms:
   questId: 56283
   drops:
   - type: pet
-    id: 2690
-    name: "Caverndark Nightmare"
+    id: 2690 # Caverndark Nightmare
 
 - name: "Elderspawn Nalaada"
   location: 51.8 74.9
@@ -47,8 +43,7 @@ farms:
   questId: 56285
   drops:
   - type: pet
-    id: 2693
-    name: "Spawn of Nalaada"
+    id: 2693 # Spawn of Nalaada
 
 - name: "Iridescent Glimmershell"
   location: 43.4 55.1
@@ -56,8 +51,7 @@ farms:
   questId: 56286
   drops:
   - type: pet
-    id: 2686
-    name: "Pearlescent Glimmershell"
+    id: 2686 # Pearlescent Glimmershell
 
 - name: "King Gakula"
   location: 29.4 29.0
@@ -65,8 +59,7 @@ farms:
   questId: 55671
   drops:
   - type: pet
-    id: 2681
-    name: "Murgle"
+    id: 2681 # Murgle
 
 - name: "Needlespine"
   location: 48.6 17.6
@@ -74,8 +67,7 @@ farms:
   questId: 56275
   drops:
   - type: pet
-    id: 2689
-    name: "Chitterspine Needler"
+    id: 2689 # Chitterspine Needler
 
 - name: "Prince Typhonus"
   location: 42.7 87.4
@@ -83,8 +75,7 @@ farms:
   questId: 56289
   drops:
   - type: pet
-    id: 2701
-    name: "Seafury"
+    id: 2701 # Seafury
 
 - name: "Prince Vortran"
   location: 43.0 75.5
@@ -92,8 +83,7 @@ farms:
   questId: 56290
   drops:
   - type: pet
-    id: 2702
-    name: "Stormwrath"
+    id: 2702 # Stormwrath
 
 - name: "Scale Matriarch Gratinax"
   location: 35.6 41.4
@@ -101,8 +91,7 @@ farms:
   questId: 56292
   drops:
   - type: pet
-    id: 2704
-    name: "Scalebrood Hydra"
+    id: 2704 # Scalebrood Hydra
 
 - name: "Scale Matriarch Vynara"
   location: 27.2 37.1
@@ -110,8 +99,7 @@ farms:
   questId: 56293
   drops:
   - type: pet
-    id: 2704
-    name: "Scalebrood Hydra"
+    id: 2704 # Scalebrood Hydra
 
 - name: "Scale Matriarch Zodia"
   location: 28.6 46.6
@@ -119,8 +107,7 @@ farms:
   questId: 56294
   drops:
   - type: pet
-    id: 2704
-    name: "Scalebrood Hydra"
+    id: 2704 # Scalebrood Hydra
 
 - name: "Shassera"
   location: 62.7 8.1
@@ -128,8 +115,7 @@ farms:
   questId: 56295
   drops:
   - type: toy
-    id: 170187
-    name: "Shadescale"
+    id: 170187 # Shadescale
 
 - name: "Soundless"
   location: 60.2 47.4
@@ -137,8 +123,7 @@ farms:
   questId: 56298
   drops:
   - type: mount
-    id: 1257
-    name: "Silent Glider"
+    id: 1257 # Silent Glider
 
 - name: "Tidemistress Leth'sindra"
   location: 65.9 22.4
@@ -146,8 +131,7 @@ farms:
   questId: 56106
   drops:
   - type: toy
-    id: 170196
-    name: "Shirakess Warning Sign"
+    id: 170196 # Shirakess Warning Sign
 
 - name: "Vor'koth"
   location: 48.0 24.3
@@ -155,8 +139,7 @@ farms:
   questId: 55603
   drops:
   - type: pet
-    id: 2709
-    name: "Skittering Eel"
+    id: 2709 # Skittering Eel
 
 # World bosses
 
@@ -168,40 +151,31 @@ farms:
   type: killBig
   drops:
   - type: transmog
-    id: 168603
-    name: "Cloak of Restless Spirits"
+    id: 168603 # Cloak of Restless Spirits
 
   - type: transmog
-    id: 170089
-    name: "Liara's Spire"
+    id: 170089 # Liara's Spire
 
   - type: transmog
-    id: 170090
-    name: "Merciless Pincher"
+    id: 170090 # Merciless Pincher
 
   - type: transmog
-    id: 170095
-    name: "Moon Priestess' Baton"
+    id: 170095 # Moon Priestess' Baton
 
   - type: transmog
-    id: 170092
-    name: "Netherdancer's Knife"
+    id: 170092 # Netherdancer's Knife
 
   - type: transmog
-    id: 170094
-    name: "Temple Guardian's Saber"
+    id: 170094 # Temple Guardian's Saber
 
   - type: transmog
-    id: 170093
-    name: "Tyr'mar's Greatsword"
+    id: 170093 # Tyr'mar's Greatsword
 
   - type: transmog
-    id: 170088
-    name: "Ulmath's Soulseeker"
+    id: 170088 # Ulmath's Soulseeker
 
   - type: transmog
-    id: 170091
-    name: "Willbinder's Halberd"
+    id: 170091 # Willbinder's Halberd
 
 - name: "Wekemara"
   location: 42.8 77.8
@@ -211,33 +185,25 @@ farms:
   type: killBig
   drops:
   - type: transmog
-    id: 168340
-    name: "Naga Ritualist's Mantle"
+    id: 168340 # Naga Ritualist's Mantle
 
   - type: transmog
-    id: 169925
-    name: "Serpentskin Splashers"
+    id: 169925 # Serpentskin Splashers
 
   - type: transmog
-    id: 169926
-    name: "Belt of Rising Guardians"
+    id: 169926 # Belt of Rising Guardians
 
   - type: transmog
-    id: 168351
-    name: "Spitcharged Shoulderguards"
+    id: 168351 # Spitcharged Shoulderguards
 
   - type: transmog
-    id: 168358
-    name: "Chestguard of the Submerged"
+    id: 168358 # Chestguard of the Submerged
 
   - type: transmog
-    id: 169927
-    name: "Deepcaller's Clasp"
+    id: 169927 # Deepcaller's Clasp
 
   - type: transmog
-    id: 168366
-    name: "Tidal Lurker's Greathelm"
+    id: 168366 # Tidal Lurker's Greathelm
 
   - type: transmog
-    id: 169928
-    name: "Wekemara's Warboots"
+    id: 169928 # Wekemara's Warboots

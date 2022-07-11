@@ -23,8 +23,7 @@ farms:
   reset: none
   drops:
   - type: toy
-    id: 104302
-    name: "Blackflame Daggers"
+    id: 104302 # Blackflame Daggers"
 
 - name: "Chelon"
   location: 25.2 36.0
@@ -67,8 +66,7 @@ farms:
   reset: none
   drops:
   - type: toy
-    id: 104294
-    name: "Rime of the Time-Lost Mariner"
+    id: 104294 # Rime of the Time-Lost Mariner
 
 - name: "Emerald Gander"
   location: 30.8 45.2
@@ -130,8 +128,7 @@ farms:
     note: "Also drops from Eroded Cliffdweller mobs"
 
   - type: toy
-    id: 104262
-    name: "Odd Polished Stone"
+    id: 104262 # Odd Polished Stone
 
 - name: "Great Turtle Furyshell"
   location: 22.2 52.4
@@ -174,8 +171,7 @@ farms:
     note: "Also drops from Crimsonscale Firestorm mobs"
 
   - type: mount
-    id: 561
-    name: "Thundering Onyx Cloud Serpent"
+    id: 561 # Thundering Onyx Cloud Serpent
 
 - name: "Imperial Python"
   location: 28.0 61.8
@@ -204,8 +200,7 @@ farms:
   reset: none
   drops:
   - type: toy
-    id: 104331
-    name: "Warning Sign"
+    id: 104331 # Warning Sign
 
 - name: "Karkanos"
   location: 33.7 85.3

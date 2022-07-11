@@ -20,8 +20,7 @@ farms:
   questId: 39784
   drops:
   - type: transmog
-    id: 131756
-    name: "Fletcher's Nimble Grips"
+    id: 131756 # Fletcher's Nimble Grips
 
 - name: "Bristlemaul"
   location: 37.70 45.70
@@ -29,8 +28,7 @@ farms:
   questId: 40405
   drops:
   - type: transmog
-    id: 131761
-    name: "Thick Bristly Hood"
+    id: 131761 # Thick Bristly Hood
 
 - name: "Brogul the Mighty"
   location: 56.35 72.50
@@ -38,8 +36,7 @@ farms:
   questId: 39235
   drops:
   - type: transmog
-    id: 138396
-    name: "Mighty Chain Footpads"
+    id: 138396 # Mighty Chain Footpads
 
 - name: "Crab Rider Grmlrml"
   location: 44.20 12.10
@@ -47,8 +44,7 @@ farms:
   questId: 39994
   drops:
   - type: transmog
-    id: 131798
-    name: "Faded Swashbuckler's Jerkin"
+    id: 131798 # Faded Swashbuckler's Jerkin
 
 - name: "Crawshuk the Hungry"
   location: 48.41 40.15
@@ -58,8 +54,7 @@ farms:
   drops:
   - &rocfeather-skyhorn-kite
     type: toy
-    id: 131811
-    name: "Rocfeather Skyhorn Kite"
+    id: 131811 # Rocfeather Skyhorn Kite
 
 - name: "Devouring Darkness"
   location: 54.39 41.12
@@ -67,8 +62,7 @@ farms:
   questId: 40414
   drops:
   - type: transmog
-    id: 131780
-    name: "Void Slippers"
+    id: 131780 # Void Slippers
 
 - name: "Durguth <King of the Hill>"
   location: 43.8 75.6
@@ -76,8 +70,7 @@ farms:
   questId: 0
   drops:
   - type: transmog
-    id: 131796
-    name: "Roggumsoggum's Boppers"
+    id: 131796 # Roggumsoggum's Boppers
 
 - name: "Flamescale"
   location: 40.97 57.75
@@ -85,8 +78,7 @@ farms:
   questId: 39963
   drops:
   - type: transmog
-    id: 131773
-    name: "Flamescale Mail"
+    id: 131773 # Flamescale Mail
 
 - name: "Gurbog da Basher"
   location: 56.40 60.50
@@ -94,8 +86,7 @@ farms:
   questId: 40347
   drops:
   - type: transmog
-    id: 131775
-    name: "Da Basher's Toy Armor"
+    id: 131775 # Da Basher's Toy Armor
 
 - name: "Luggut the Eggeater"
   location: 50.80 34.60
@@ -103,8 +94,7 @@ farms:
   questId: 40406
   drops:
   - type: transmog
-    id: 131776
-    name: "Scale Cord of the Eggeater"
+    id: 131776 # Scale Cord of the Eggeater
 
 - name: "Majestic Elderhorn"
   location: 46.64 31.44
@@ -112,8 +102,7 @@ farms:
   questId: 39646
   drops:
   - type: toy
-    id: 131900
-    name: "Majestic Elderhorn Hoof"
+    id: 131900 # Majestic Elderhorn Hoof
 
 - name: "Mynta Talonscreech"
   location: 54.50 40.60
@@ -121,8 +110,7 @@ farms:
   questId: 39866
   drops:
   - type: transmog
-    id: 131792
-    name: "Harefoot Pinnacle Wrap"
+    id: 131792 # Harefoot Pinnacle Wrap
 
 - name: "Oubdob da Smasher"
   location: 47.4 73.8
@@ -130,8 +118,7 @@ farms:
   questId: 0
   drops:
   - type: transmog
-    id: 131793
-    name: "Oubdob's Smashin' Sweatband"
+    id: 131793 # Oubdob's Smashin' Sweatband
 
 - name: "Sekhan"
   location: 45.70 55.00
@@ -139,8 +126,7 @@ farms:
   questId: 40681
   drops:
   - type: transmog
-    id: 131730
-    name: "Darksaber Leather Belt"
+    id: 131730 # Darksaber Leather Belt
 
 - name: "Shara Felbreath <Feltotem Warlock>"
   location: 51.06 25.70
@@ -148,8 +134,7 @@ farms:
   questId: 39762
   drops:
   - type: transmog
-    id: 131791
-    name: "Felbreath Bloodsinger Robe"
+    id: 131791 # Felbreath Bloodsinger Robe
 
 - name: "Skullhat"
   location: 51.46 31.89
@@ -157,8 +142,7 @@ farms:
   questId: 39465
   drops:
   - type: transmog
-    id: 131769
-    name: "The Taskmaster's Wristwraps"
+    id: 131769 # The Taskmaster's Wristwraps
 
 - name: "Tenpak Flametotem <The Exiled Shaman>"
   location: 41.94 41.49
@@ -166,8 +150,7 @@ farms:
   questId: 39782
   drops:
   - type: pet
-    id: 1752
-    name: "Crispin"
+    id: 1752 # Crispin
 
 - name: "Unethical Adventurers"
   location: 52.4 58.6
@@ -175,24 +158,19 @@ farms:
   questId: 0 # 40423?
   drops:
   - type: transmog
-    id: 140683
-    name: "Darkful's Mitts"
+    id: 140683 # Darkful's Mitts
 
   - type: transmog
-    id: 140682
-    name: "Zenobia's Handwraps"
+    id: 140682 # Zenobia's Handwraps
 
   - type: transmog
-    id: 140681
-    name: "Jak's Gloves"
+    id: 140681 # Jak's Gloves
 
   - type: transmog
-    id: 140680
-    name: "Lysander's Lovindle Bracers"
+    id: 140680 # Lysander's Lovindle Bracers
 
   - type: transmog
-    id: 131767
-    name: "Xander's Gauntlets"
+    id: 131767 # Xander's Gauntlets
 
 # World boss
 
@@ -204,21 +182,16 @@ farms:
   type: killBig
   drops:
   - type: transmog
-    id: 141539
-    name: "Ragged Azsharan Sail Fragment"
+    id: 141539 # Ragged Azsharan Sail Fragment
 
   - type: transmog
-    id: 141470
-    name: "Faded Bloodsail Handwraps"
+    id: 141470 # Faded Bloodsail Handwraps
 
   - type: transmog
-    id: 141475
-    name: "Salt-Stained Tuskarr Gloves"
+    id: 141475 # Salt-Stained Tuskarr Gloves
 
   - type: transmog
-    id: 141466
-    name: "Blackwater Raider Handguards"
+    id: 141466 # Blackwater Raider Handguards
 
   - type: transmog
-    id: 141476
-    name: "Kezan Pirate's Mitts"
+    id: 141476 # Kezan Pirate's Mitts

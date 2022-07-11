@@ -11,47 +11,38 @@ farms:
   drops:
   - &zealous-felslinger-1
     type: transmog
-    id: 152883
-    name: "Zealous Felslinger's Boots"
+    id: 152883 # Zealous Felslinger's Boots
 
   - &zealous-felslinger-2
     type: transmog
-    id: 152889
-    name: "Zealous Felslinger's Cuffs"
+    id: 152889 # Zealous Felslinger's Cuffs
 
   - &zealous-felslinger-3
     type: transmog
-    id: 152888
-    name: "Zealous Felslinger's Epaulets"
+    id: 152888 # Zealous Felslinger's Epaulets
 
   - &zealous-felslinger-4
     type: transmog
-    id: 152881
-    name: "Zealous Felslinger's Girdle"
+    id: 152881 # Zealous Felslinger's Girdle
 
   - &zealous-felslinger-5
     type: transmog
-    id: 152885
-    name: "Zealous Felslinger's Handwraps"
+    id: 152885 # Zealous Felslinger's Handwraps
 
   - &zealous-felslinger-6
     type: transmog
-    id: 152887
-    name: "Zealous Felslinger's Leggings"
+    id: 152887 # Zealous Felslinger's Leggings
 
   - &zealous-felslinger-7
     type: transmog
-    id: 152884
-    name: "Zealous Felslinger's Robe"
+    id: 152884 # Zealous Felslinger's Robe
 
   - &zealous-felslinger-8
     type: transmog
-    id: 152886
-    name: "Zealous Felslinger's Visage"
+    id: 152886 # Zealous Felslinger's Visage
 
   - type: transmog
-    id: 153324
-    name: "Eredath Vigiliant's Bastion"
+    id: 153324 # Eredath Vigiliant's Bastion
 
 - name: "Blistermaw"
   location: 61.8 37.6
@@ -59,8 +50,7 @@ farms:
   questId: 49183
   drops:
   - type: mount
-    id: 979
-    name: "Crimson Slavermaw"
+    id: 979 # Crimson Slavermaw
 
 - name: "Doomcaster Suprax"
   location: 77.4 74.9
@@ -68,8 +58,7 @@ farms:
   questId: 48968
   drops:
   - type: toy
-    id: 153194
-    name: "Legion Communication Orb"
+    id: 153194 # Legion Communication Orb
 
 - name: "Houndmaster Kerrax"
   location: 63.1 25.3
@@ -77,8 +66,7 @@ farms:
   questId: 48821
   drops:
   - type: mount
-    id: 955
-    name: "Vile Fiend"
+    id: 955 # Vile Fiend
 
 - name: "Mistress Il'thendra"
   location: 57.6 33.6
@@ -87,47 +75,38 @@ farms:
   drops:
   - &world-defilers-1
     type: transmog
-    id: 152946
-    name: "World Defiler's Casque"
+    id: 152946 # World Defiler's Casque
 
   - &world-defilers-2
     type: transmog
-    id: 152949
-    name: "World Defiler's Cuirass"
+    id: 152949 # World Defiler's Cuirass
 
   - &world-defilers-3
     type: transmog
-    id: 152947
-    name: "World Defiler's Gauntlets"
+    id: 152947 # World Defiler's Gauntlets
 
   - &world-defilers-4
     type: transmog
-    id: 152943
-    name: "World Defiler's Girdle"
+    id: 152943 # World Defiler's Girdle
 
   - &world-defilers-5
     type: transmog
-    id: 152948
-    name: "World Defiler's Sabatons"
+    id: 152948 # World Defiler's Sabatons
 
   - &world-defilers-6
     type: transmog
-    id: 152944
-    name: "World Defiler's Shoulderplates"
+    id: 152944 # World Defiler's Shoulderplates
 
   - &world-defilers-7
     type: transmog
-    id: 152945
-    name: "World Defiler's Tuille"
+    id: 152945 # World Defiler's Tuille
 
   - &world-defilers-8
     type: transmog
-    id: 152942
-    name: "World Defiler's Wristguards"
+    id: 152942 # World Defiler's Wristguards
 
   - type: transmog
-    id: 153327
-    name: "Mystic Wakener's Dagger"
+    id: 153327 # Mystic Wakener's Dagger
 
 - name: "Mother Rosula"
   location: 66.5 18.3
@@ -136,8 +115,7 @@ farms:
   questId: 48970
   drops:
   - type: pet
-    id: 2135
-    name: "Rebellious Imp"
+    id: 2135 # Rebellious Imp
 
 - name: "Puscilla"
   location: 65.5 26.7
@@ -145,8 +123,7 @@ farms:
   questId: 48809
   drops:
   - type: mount
-    id: 981
-    name: "Biletooth Gnasher"
+    id: 981 # Biletooth Gnasher
 
 - name: "Rezira the Seer"
   location: 65.4 81.4
@@ -154,8 +131,7 @@ farms:
   questId: 0
   drops:
   - type: toy
-    id: 153293
-    name: "Sightless Eye"
+    id: 153293 # Sightless Eye
 
 - name: "Squadron Commander Vishax"
   location: 77.4 74.9
@@ -163,8 +139,7 @@ farms:
   questId: 48967
   drops:
   - type: toy
-    id: 153253
-    name: "S.F.E. Interceptor"
+    id: 153253 # S.F.E. Interceptor
 
 - name: "The Many-Faced Devourer"
   location: 54.7 39.1
@@ -172,8 +147,7 @@ farms:
   questId: 48966
   drops:
   - type: pet
-    id: 2136
-    name: "Uuna"
+    id: 2136 # Uuna
 
 - name: "Varga"
   location: 64.3 48.2
@@ -182,28 +156,22 @@ farms:
   questId: 48812
   drops:
   - type: mount
-    id: 906
-    name: "Darkspore Mana Ray"
+    id: 906 # Darkspore Mana Ray
 
   - type: mount
-    id: 975
-    name: "Felglow Mana Ray"
+    id: 975 # Felglow Mana Ray
 
   - type: mount
-    id: 976
-    name: "Scintillating Mana Ray"
+    id: 976 # Scintillating Mana Ray
 
   - type: mount
-    id: 974
-    name: "Vibrant Mana Ray"
+    id: 974 # Vibrant Mana Ray
 
   - type: pet
-    id: 2118
-    name: "Docile Skyfin"
+    id: 2118 # Docile Skyfin
 
   - type: pet
-    id: 2119
-    name: "Fel-Afflicted Skyfin"
+    id: 2119 # Fel-Afflicted Skyfin
 
 - name: "Void Warden Valsuran"
   location: 55.6 21.8
@@ -220,8 +188,7 @@ farms:
   - *zealous-felslinger-8
 
   - type: transmog
-    id: 153319
-    name: "Ardent Vindicator's Greatmace"
+    id: 153319 # Ardent Vindicator's Greatmace
 
 - name: "Vrax'thul"
   location: 53.2 35.8
@@ -229,8 +196,7 @@ farms:
   questId: 48810
   drops:
   - type: mount
-    id: 981
-    name: "Biletooth Gnasher"
+    id: 981 # Biletooth Gnasher
 
 - name: "Worldsplitter Skuul"
   location: 54.0 55.0
@@ -247,8 +213,7 @@ farms:
   - *zealous-felslinger-8
 
   - type: transmog
-    id: 153312
-    name: "Praetor's Ornamental Greatsword"
+    id: 153312 # Praetor's Ornamental Greatsword
 
 - name: "Wrath-Lord Yarez"
   location: 61.9 64.3
@@ -256,8 +221,7 @@ farms:
   questId: 48814
   drops:
   - type: toy
-    id: 153126
-    name: "Micro-Artillery Controller"
+    id: 153126 # Micro-Artillery Controller
 
 # Treasures
 
@@ -269,9 +233,8 @@ farms:
   type: treasure
   drops:
   - type: transmog
-    id: 153308
+    id: 153308 # Unyielding Peacekeeper's Cudgel
     requiredQuestId: 47287 # The Vindicaar Matrix Core - Light's Judgment
-    name: "Unyielding Peacekeeper's Cudgel"
 
 - name: "Legion Treasure Hoard"
   location: 49.2 59.5
@@ -280,8 +243,7 @@ farms:
   type: treasure
   drops:
   - type: transmog
-    id: 153291
-    name: "Spectral Censorite's Staff"
+    id: 153291 # Spectral Censorite's Staff
 
 # Alchemist 48865
 # Ven'orn 48811

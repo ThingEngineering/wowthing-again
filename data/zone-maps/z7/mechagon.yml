@@ -10,8 +10,7 @@ farms:
   questId: 55512
   drops:
   - type: mount
-    id: 1229
-    name: "Rusty Mechanocrawler"
+    id: 1229 # Rusty Mechanocrawler
 
 - name: "Armored Vaultbot"
   location: 53.8 49.3
@@ -19,8 +18,7 @@ farms:
   questId: 55546
   drops:
   - type: quest
-    id: 55058
-    name: "Blueprint: Vaultbot Key"
+    id: 55058 # Blueprint: Vaultbot Key
 
   - type: quest
     id: 55455
@@ -28,8 +26,7 @@ farms:
     name: "Paint Vial: Mechagon Gold"
 
   - type: pet
-    id: 2766
-    name: "Armored Vaultbot"
+    id: 2766 # Armored Vaultbot
 
 - name: "Boggac Skullbash"
   location: 55.6 25.7
@@ -47,8 +44,7 @@ farms:
   questId: 55857
   drops:
   - type: quest
-    id: 55030
-    name: "Blueprint: Scrap Trap"
+    id: 55030 # Blueprint: Scrap Trap
 
   - type: quest
     id: 56518
@@ -61,12 +57,10 @@ farms:
   questId: 55537
   drops:
   - type: quest
-    id: 55061
-    name: "Blueprint: Mechano-Treat"
+    id: 55061 # Blueprint: Mechano-Treat
 
   - type: pet
-    id: 2719
-    name: "Bonebiter"
+    id: 2719 # Bonebiter
 
 - name: "Caustic Mechaslime"
   location: 66.5 58.9
@@ -74,8 +68,7 @@ farms:
   questId: 56368
   drops:
   - type: quest
-    id: 55078
-    name: "Blueprint: Utility Mechanoclaw"
+    id: 55078 # Blueprint: Utility Mechanoclaw
 
 - name: "Crazed Trogg"
   location: 82.5 20.7
@@ -83,16 +76,13 @@ farms:
   questId: 55812
   drops:
   - type: quest
-    id: 55077
-    name: "Blueprint: Blue Spraybot"
+    id: 55077 # Blueprint: Blue Spraybot
 
   - type: quest
-    id: 55076
-    name: "Blueprint: Green Spraybot"
+    id: 55076 # Blueprint: Green Spraybot
 
   - type: quest
-    id: 55075
-    name: "Blueprint: Orange Spraybot"
+    id: 55075 # Blueprint: Orange Spraybot
 
   - type: quest
     id: 55452
@@ -110,8 +100,7 @@ farms:
   questId: 55514
   drops:
   - type: quest
-    id: 55057
-    name: "Blueprint: Canned Minnows"
+    id: 55057 # Blueprint: Canned Minnows
 
 - name: "Earthbreaker Gulroc"
   location: 63.1 25.6
@@ -119,8 +108,7 @@ farms:
   questId: 55814
   drops:
   - type: quest
-    id: 55030
-    name: "Blueprint: Scrap Trap"
+    id: 55030 # Blueprint: Scrap Trap
 
   - type: quest
     id: 56518
@@ -133,24 +121,19 @@ farms:
   questId: 56207
   drops:
   - type: quest
-    id: 55082
-    name: "Blueprint: Rustbolt Pocket Turret"
+    id: 55082 # Blueprint: Rustbolt Pocket Turret
 
   - type: transmog
-    id: 170466
-    name: "Junkyard Motivator"
+    id: 170466 # Junkyard Motivator
 
   - type: transmog
-    id: 170468
-    name: "Supervolt Zapper"
+    id: 170468 # Supervolt Zapper
 
   - type: transmog
-    id: 170467
-    name: "Whirring Chainblade"
+    id: 170467 # Whirring Chainblade
 
   - type: transmog
-    id: 170470
-    name: "Reinforced Grease Deflector"
+    id: 170470 # Reinforced Grease Deflector
 
 - name: "Foul Manifestation"
   location: 65.5 51.7
@@ -158,8 +141,7 @@ farms:
   questId: 55513
   drops:
   - type: quest
-    id: 55063
-    name: "Blueprint: G99.99 Landshark"
+    id: 55063 # Blueprint: G99.99 Landshark
 
 - name: "Fungarian Furor"
   location: 44.6 39.6
@@ -172,8 +154,7 @@ farms:
     name: "Paint Vial: Overload Orange"
 
   - type: pet
-    id: 2712
-    name: "Snowsoft Nibbler"
+    id: 2712 # Snowsoft Nibbler
 
 - name: "Gear Checker Cogstar"
   location: 61.4 51.2
@@ -181,12 +162,10 @@ farms:
   questId: 55852
   drops:
   - type: quest
-    id: 55062
-    name: "Blueprint: Ultrasafe Transporter: Mechagon"
+    id: 55062 # Blueprint: Ultrasafe Transporter: Mechagon
 
   - type: transmog
-    id: 170467
-    name: "Whirring Chainblade"
+    id: 170467 # Whirring Chainblade
 
 - name: "Gemicide"
   location: 59.8 67.0
@@ -204,8 +183,7 @@ farms:
   questId: 56367
   drops:
   - type: quest
-    id: 55061
-    name: "Blueprint: Mechano-Treat"
+    id: 55061 # Blueprint: Mechano-Treat
 
 - name: "Killsaw"
   location: 44.8 46.4
@@ -213,8 +191,7 @@ farms:
   questId: 55369
   drops:
   - type: toy
-    id: 167931
-    name: "Mechagonian Sawblades"
+    id: 167931 # Mechagonian Sawblades
 
 - name: "Malfunctioning Beastbot"
   location: 60.7 42.2
@@ -222,12 +199,10 @@ farms:
   questId: 55544
   drops:
   - type: quest
-    id: 55081
-    name: "Blueprint: Anti-Gravity Pack"
+    id: 55081 # Blueprint: Anti-Gravity Pack
 
   - type: pet
-    id: 2715
-    name: "Lost Robogrip"
+    id: 2715 # Lost Robogrip
 
 - name: "Mechagonian Nullifier"
   location: 57.2 52.6
@@ -235,8 +210,7 @@ farms:
   questId: 55207
   drops:
   - type: quest
-    id: 55069
-    name: "Blueprint: Protocol Transference Device"
+    id: 55069 # Blueprint: Protocol Transference Device
 
   - type: quest
     id: 56515
@@ -249,8 +223,7 @@ farms:
   questId: 55386
   drops:
   - type: pet
-    id: 2720
-    name: "Arachnoid Skitterbot"
+    id: 2720 # Arachnoid Skitterbot
 
 - name: "Mr. Fixthis"
   location: 61.0 61.0
@@ -258,12 +231,10 @@ farms:
   questId: 55859
   drops:
   - type: quest
-    id: 55068
-    name: "Blueprint: BAWLD-371"
+    id: 55068 # Blueprint: BAWLD-371
 
   - type: transmog
-    id: 170467
-    name: "Whirring Chainblade"
+    id: 170467 # Whirring Chainblade
 
 - name: "OOX-Avenger/MG"
   location: 57.1 39.4
@@ -271,8 +242,7 @@ farms:
   questId: 55515
   drops:
   - type: quest
-    id: 55071
-    name: "Blueprint: Emergency Rocket Chicken"
+    id: 55071 # Blueprint: Emergency Rocket Chicken
 
 - name: "Ol' Big Tusk"
   location: 56.2 36.0
@@ -280,8 +250,7 @@ farms:
   questId: 55853
   drops:
   - type: quest
-    id: 55061
-    name: "Blueprint: Mechano-Treat"
+    id: 55061 # Blueprint: Mechano-Treat
 
   - type: quest
     id: 56518
@@ -289,8 +258,7 @@ farms:
     name: "Vinyl: Depths of Ulduar"
 
   - type: transmog
-    id: 170466
-    name: "Junkyard Motivator"
+    id: 170466 # Junkyard Motivator
 
 - name: "Oxidized Leachbeast"
   location: 56.6 62.9
@@ -308,8 +276,7 @@ farms:
   questId: 55405
   drops:
   - type: transmog
-    id: 170468
-    name: "Supervolt Zapper"
+    id: 170468 # Supervolt Zapper
 
 - name: "Rumblerocks"
   location: 40.2 53.2
@@ -327,12 +294,10 @@ farms:
   questId: 55811
   drops:
   - type: quest
-    id: 55081
-    name: "Blueprint: Anti-Gravity Pack"
+    id: 55081 # Blueprint: Anti-Gravity Pack
 
   - type: mount
-    id: 1248
-    name: "Junkheap Drifter"
+    id: 1248 # Junkheap Drifter
 
 - name: "Scrapclaw"
   location: 82.3 73.0
@@ -340,8 +305,7 @@ farms:
   questId: 56737
   drops:
   - type: transmog
-    id: 170470
-    name: "Reinforced Grease Deflector"
+    id: 170470 # Reinforced Grease Deflector
 
 - name: "Seaspit"
   location: 19.1 79.8
@@ -349,8 +313,7 @@ farms:
   questId: 55545
   drops:
   - type: quest
-    id: 55065
-    name: "Blueprint: Rustbolt Kegerator"
+    id: 55065 # Blueprint: Rustbolt Kegerator
 
 - name: "Steel Singer Freza"
   location: 26.3 78.1
@@ -358,8 +321,7 @@ farms:
   questId: 55854
   drops:
   - type: quest
-    id: 55064
-    name: "Blueprint: Rustbolt Gramophone"
+    id: 55064 # Blueprint: Rustbolt Gramophone
 
   - type: quest
     id: 56517
@@ -387,8 +349,7 @@ farms:
     name: "Vinyl: Depths of Ulduar"
 
   - type: pet
-    id: 2753
-    name: "Spraybot 0D"
+    id: 2753 # Spraybot 0D
 
 - name: "The Rusty Prince"
   location: 57.3 58.3
@@ -396,12 +357,10 @@ farms:
   questId: 56182
   drops:
   - type: toy
-    id: 169347
-    name: "Judgment of Mechagon"
+    id: 169347 # Judgment of Mechagon
 
   - type: transmog
-    id: 170467
-    name: "Whirring Chainblade"
+    id: 170467 # Whirring Chainblade
 
 - name: "The Scrap King"
   location: 72.3 49.9
@@ -409,12 +368,10 @@ farms:
   questId: 55364
   drops:
   - type: quest
-    id: 55061
-    name: "Blueprint: Mechano-Treat"
+    id: 55061 # Blueprint: Mechano-Treat
 
   - type: transmog
-    id: 170467
-    name: "Whirring Chainblade"
+    id: 170467 # Whirring Chainblade
 
 # Treasures
 
@@ -489,17 +446,14 @@ farms:
   type: event
   drops:
   - type: quest
-    id: 55074
-    name: "Blueprint: Rustbolt Requisitions"
+    id: 55074 # Blueprint: Rustbolt Requisitions
     note: "Hard only"
     questId: 55848
 
   - type: pet
-    id: 2721
-    name: "Echoing Oozeling"
+    id: 2721 # Echoing Oozeling
     questId: 55847 55848
 
   - type: pet
-    id: 2756
-    name: "Irradiated Elementaling"
+    id: 2756 # Irradiated Elementaling
     questId: 55847 55848

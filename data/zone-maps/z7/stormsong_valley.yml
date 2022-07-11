@@ -11,8 +11,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 160470
-    name: "Broodcrawler Wristguards"
+    id: 160470 # Broodcrawler Wristguards
 
 - name: "Captain Razorspine"
   location: 47.3 65.7
@@ -21,8 +20,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 155287
-    name: "Razorspine's Greatmace"
+    id: 155287 # Razorspine's Greatmace
 
 - name: "Corrupted Tideskipper"
   location: 67.0 50.2
@@ -31,8 +29,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 154183
-    name: "Boralus-Captain's Chain Boots"
+    id: 154183 # Boralus-Captain's Chain Boots
 
 - name: "Croaker"
   location: 62.9 32.8
@@ -41,8 +38,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 154460
-    name: "Treasure-Seeker's Diving Helmet"
+    id: 154460 # Treasure-Seeker's Diving Helmet
 
 - name: "Dagrus the Scorned"
   location: 67.9 39.8
@@ -51,8 +47,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 160476
-    name: "Fogtide Warboots"
+    id: 160476 # Fogtide Warboots
 
 - name: "Deepfang"
   location: 52.7 51.6
@@ -61,8 +56,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 160464
-    name: "Dire Hill Wolfsteppers"
+    id: 160464 # Dire Hill Wolfsteppers
 
 - name: "Doc Marrtens"
   faction: horde
@@ -72,8 +66,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 154453
-    name: "Doc's Air-Cushioned Boots"
+    id: 154453 # Doc's Air-Cushioned Boots
 
 - name: "Foreman Scripps"
   location: 64.4 65.9
@@ -82,8 +75,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 160471
-    name: "Foreman's Stability Belt"
+    id: 160471 # Foreman's Stability Belt
 
 - name: "Grimscowl the Harebrained"
   location: 62.1 73.9
@@ -92,8 +84,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 155572
-    name: "Yeti-Rager's Cloak"
+    id: 155572 # Yeti-Rager's Cloak
 
 - name: "Haegol the Hammer"
   location: 35.2 77.8
@@ -102,8 +93,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 154273
-    name: "Rockstopper Breastplate"
+    id: 154273 # Rockstopper Breastplate
 
 - name: "Honey Smasher"
   location: 60.7 17.8
@@ -112,8 +102,7 @@ farms:
   type: kill
   drops:
   - type: pet
-    id: 2794
-    name: "Crimson Skipper"
+    id: 2794 # Crimson Skipper
 
 - name: "Ice Sickle"
   location: 63.5 83.6
@@ -122,8 +111,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 154464
-    name: "Frozen Heart Legguards"
+    id: 154464 # Frozen Heart Legguards
 
 - name: "Jakala the Cruel"
   faction: alliance
@@ -133,8 +121,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 159179
-    name: "Headtaker's Helm"
+    id: 159179 # Headtaker's Helm
 
 - name: "Kickers"
   location: 31.3 61.7
@@ -143,8 +130,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 154475
-    name: "Goathair Bindings"
+    id: 154475 # Goathair Bindings
 
 - name: "Nestmother Acada"
   location: 43.5 45.0
@@ -153,8 +139,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 160458
-    name: "Ancient Featherlight Slippers"
+    id: 160458 # Ancient Featherlight Slippers
 
 - name: "Osca the Bloodied"
   location: 42.3 63.2
@@ -163,8 +148,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 159169
-    name: "Bloody Bearhide Pants"
+    id: 159169 # Bloody Bearhide Pants
 
 - name: "Pinku'shon"
   location: 38.8 51.0
@@ -173,8 +157,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 163678
-    name: "Pinku'shon's Impaler"
+    id: 163678 # Pinku'shon's Impaler
 
 - name: "Ragna"
   location: 41.6 74.2
@@ -183,8 +166,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 160465
-    name: "Raging-Earth Wranglers"
+    id: 160465 # Raging-Earth Wranglers
 
 - name: "Sabertron"
   location: 34.0 32.0
@@ -193,8 +175,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 154664
-    name: "Lionsight Omensword"
+    id: 154664 # Lionsight Omensword
 
 - name: "Sandfang"
   location: 73.5 60.6
@@ -203,8 +184,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 154389
-    name: "Abyssal-Serpent Pauldrons"
+    id: 154389 # Abyssal-Serpent Pauldrons
 
 - name: "Seabreaker Skoloth"
   location: 33.6 38.2
@@ -213,8 +193,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 160477
-    name: "Skoloth's Anchorplate Greaves"
+    id: 160477 # Skoloth's Anchorplate Greaves
 
 - name: "Severus the Outcast"
   location: 22.6 73.2
@@ -223,8 +202,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 163679
-    name: "Severus' Bindings"
+    id: 163679 # Severus' Bindings
 
 - name: "Sister Absinthe"
   location: 61.6 57.0
@@ -233,8 +211,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 155164
-    name: "Beryl-Tide Greatcloak"
+    id: 155164 # Beryl-Tide Greatcloak
 
 - name: "Taja the Tidehowler"
   location: 60.0 45.8
@@ -243,8 +220,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 154449
-    name: "Tidebound Chestguard"
+    id: 154449 # Tidebound Chestguard
 
 - name: "The Lichen King"
   location: 51.8 79.8
@@ -253,8 +229,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 150909
-    name: "Morel Coils"
+    id: 150909 # Morel Coils
 
 - name: "Vinespeaker Ratha"
   location: 49.6 68.1
@@ -263,8 +238,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 158299
-    name: "Ratha's Thornscepter"
+    id: 158299 # Ratha's Thornscepter
 
 # Treasures
 
@@ -278,29 +252,22 @@ farms:
   type: killBig
   drops:
   - type: transmog
-    id: 161349
-    name: "Amice of the Rending Abyss"
+    id: 161349 # Amice of the Rending Abyss
 
   - type: transmog
-    id: 161351
-    name: "Wristwraps of Warped Reality"
+    id: 161351 # Wristwraps of Warped Reality
 
   - type: transmog
-    id: 161354
-    name: "Leggings of the Endless Void"
+    id: 161354 # Leggings of the Endless Void
 
   - type: transmog
-    id: 161353
-    name: "Shadow-Wreathed Gloves"
+    id: 161353 # Shadow-Wreathed Gloves
 
   - type: transmog
-    id: 161357
-    name: "Spaulders of the Enveloping Maw"
+    id: 161357 # Spaulders of the Enveloping Maw
 
   - type: transmog
-    id: 161355
-    name: "Yenajz's Chitinous Stompers"
+    id: 161355 # Yenajz's Chitinous Stompers
 
   - type: transmog
-    id: 161358
-    name: "Existence-Shattering Gauntlets"
+    id: 161358 # Existence-Shattering Gauntlets

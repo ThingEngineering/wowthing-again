@@ -14,18 +14,15 @@ farms:
   drops:
   - &aqir1
     type: transmog
-    id: 174224
-    name: "Greatsword of Cruelty"
+    id: 174224 # Greatsword of Cruelty
 
   - &aqir2
     type: transmog
-    id: 174222
-    name: "Unspeakable Bloodletter"
+    id: 174222 # Unspeakable Bloodletter
 
   - &aqir3
     type: transmog
-    id: 174227
-    name: "Writhing Feeler"
+    id: 174227 # Writhing Feeler
 
 - name: "Aqir Flayer"
   location: 38.7 25.0
@@ -74,8 +71,7 @@ farms:
   type: kill
   drops:
   - type: mount
-    id: 1319
-    name: "Malevolent Drone"
+    id: 1319 # Malevolent Drone
 
   - *aqir1
   - *aqir2
@@ -88,8 +84,7 @@ farms:
   type: kill
   drops:
   - type: toy
-    id: 175140
-    name: "All-Seeing Eye"
+    id: 175140 # All-Seeing Eye
     note: "All-Seeing Right Eye part"
 
 - name: "High Priest Ytaessis"
@@ -119,8 +114,7 @@ farms:
   type: kill
   drops:
   - type: mount
-    id: 1314
-    name: "Drake of the Four Winds"
+    id: 1314 # Drake of the Four Winds
 
 - name: "Lord Aj'qirai"
   location: 34.7 18.9
@@ -129,8 +123,7 @@ farms:
   type: kill
   drops:
   - type: pet
-    id: 2847
-    name: "Rotbreath"
+    id: 2847 # Rotbreath
 
   - *aqir1
   - *aqir2
@@ -183,8 +176,7 @@ farms:
   type: kill
   drops:
   - type: mount
-    id: 1317
-    name: "Waste Marauder"
+    id: 1317 # Waste Marauder
 
 - name: "Skikx'traz"
   location: 21.2 61.0
@@ -193,8 +185,7 @@ farms:
   type: kill
   drops:
   - type: pet
-    id: 2848
-    name: "Aqir Tunneler"
+    id: 2848 # Aqir Tunneler
 
   - *aqir1
   - *aqir2
@@ -207,8 +198,7 @@ farms:
   type: kill
   drops:
   - type: toy
-    id: 169303
-    name: "Hell-Bent Bracers"
+    id: 169303 # Hell-Bent Bracers
 
 - name: "Warcaster Xeshro"
   location: 33.6 25.7
@@ -241,17 +231,13 @@ farms:
   type: killBig
   drops:
   - type: transmog
-    id: 174237
-    name: "Breeches of Faithful Execution"
+    id: 174237 # Breeches of Faithful Execution
 
   - type: transmog
-    id: 174247
-    name: "Grotesque Mutilator's Leggings"
+    id: 174247 # Grotesque Mutilator's Leggings
 
   - type: transmog
-    id: 174250
-    name: "Psyche Tormentor's Visage"
+    id: 174250 # Psyche Tormentor's Visage
 
   - type: transmog
-    id: 174258
-    name: "Greathelm of Indiscriminate Brutality"
+    id: 174258 # Greathelm of Indiscriminate Brutality
