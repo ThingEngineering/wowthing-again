@@ -14,18 +14,15 @@ farms:
   drops:
   - &mantid1
     type: transmog
-    id: 174220
-    name: "Ambered Greatstaff"
+    id: 174220 # Ambered Greatstaff
 
   - &mantid2
     type: transmog
-    id: 174223
-    name: "Ooze-Imbued Rifle"
+    id: 174223 # Ooze-Imbued Rifle
 
   - &mantid3
     type: transmog
-    id: 174227
-    name: "Paragon's Will"
+    id: 174227 # Paragon's Will
 
 - name: "Anh-De the Loyal"
   location: 34.2 68.0
@@ -35,18 +32,15 @@ farms:
   drops:
   - &mogu1
     type: transmog
-    id: 174225
-    name: "Bulwark of the Traitorous Disciple"
+    id: 174225 # Bulwark of the Traitorous Disciple
 
   - &mogu2
     type: transmog
-    id: 174221
-    name: "Cleaver of the Fractured Dynasty"
+    id: 174221 # Cleaver of the Fractured Dynasty
 
   - &mogu3
     type: transmog
-    id: 174229
-    name: "Lantern of the Damned"
+    id: 174229 # Lantern of the Damned
 
 - name: "Buh'gzaki the Blasphemous"
   location: 6.5 72.0
@@ -125,8 +119,7 @@ farms:
   type: kill
   drops:
   - type: mount
-    id: 1297
-    name: "Clutch of Ha-Li"
+    id: 1297 # Clutch of Ha-Li
 
   - *mogu1
   - *mogu2
@@ -179,8 +172,7 @@ farms:
   type: kill
   drops:
   - type: mount
-    id: 1327
-    name: "Ren's Stalwart Hound"
+    id: 1327 # Ren's Stalwart Hound
 
   - *mogu1
   - *mogu2
@@ -253,8 +245,7 @@ farms:
   type: kill
   drops:
   - type: mount
-    id: 1313
-    name: "Rajani Warserpent"
+    id: 1313 # Rajani Warserpent
     note: "Pristine Cloud Serpent Scale item"
 
   - *mogu1
@@ -308,8 +299,7 @@ farms:
   type: kill
   drops:
   - type: toy
-    id: 174873
-    name: "Trans-mogu-rifier"
+    id: 174873 # Trans-mogu-rifier
 
   - *mogu1
   - *mogu2
@@ -332,8 +322,7 @@ farms:
   type: kill
   drops:
   - type: pet
-    id: 2845
-    name: "K'uddly"
+    id: 2845 # K'uddly
 
 - name: "Tisiphon"
   location: 9.6 67.4
@@ -352,12 +341,10 @@ farms:
   type: kill
   drops:
   - type: pet
-    id: 2846
-    name: "Corrupted Tentacle"
+    id: 2846 # Corrupted Tentacle
 
   - type: toy
-    id: 175140
-    name: "All-Seeing Eye"
+    id: 175140 # All-Seeing Eye
     note: "All-Seeing Left Eye part"
 
 - name: "Xiln the Mountain"
@@ -381,17 +368,13 @@ farms:
   type: killBig
   drops:
   - type: transmog
-    id: 174234
-    name: "Maniacal Speaker's Cover"
+    id: 174234 # Maniacal Speaker's Cover
 
   - type: transmog
-    id: 174243
-    name: "Guise of the Voracious Prowler"
+    id: 174243 # Guise of the Voracious Prowler
 
   - type: transmog
-    id: 174255
-    name: "Greaves of Shattered Thoughts"
+    id: 174255 # Greaves of Shattered Thoughts
 
   - type: transmog
-    id: 174264
-    name: "Chitinous Conqueror's Legplates"
+    id: 174264 # Chitinous Conqueror's Legplates

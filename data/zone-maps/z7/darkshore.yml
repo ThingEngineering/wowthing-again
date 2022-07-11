@@ -10,8 +10,7 @@ farms:
   questId: 54695 54696
   drops:
   - type: mount
-    id: 1200
-    name: "Ashenvale Chimaera"
+    id: 1200 # Ashenvale Chimaera
 
 - name: "Athrikus Narassin"
   location: 58.5 24.2
@@ -19,8 +18,7 @@ farms:
   questId: 54278 54279
   drops:
   - type: toy
-    id: 166784
-    name: Narassin's Soul Gem
+    id: 166784 # Narassin's Soul Gem
 
 - name: "Commander Drald"
   faction: alliance
@@ -29,8 +27,7 @@ farms:
   questId: 54309
   drops:
   - type: toy
-    id: 166790
-    name: "Highborne Memento"
+    id: 166790 # Highborne Memento
 
 - name: "Commander Ral'esh"
   location: 38.0 75.8
@@ -38,8 +35,7 @@ farms:
   questId: 54426 54427
   drops:
   - type: toy
-    id: 166787
-    name: "Twiddle Twirler: Sentinel's Glaive"
+    id: 166787 # Twiddle Twirler: Sentinel's Glaive
 
 - name: "Conflagros"
   location: 39.3 62.1
@@ -47,8 +43,7 @@ farms:
   questId: 54232 54233
   drops:
   - type: pet
-    id: 2546
-    name: "Detective Ray"
+    id: 2546 # Detective Ray
 
 - name: "Cyclarus"
   location: 43.8 53.5
@@ -56,8 +51,7 @@ farms:
   questId: 54229 54230
   drops:
   - type: pet
-    id: 2545
-    name: "Gust of Cyclarus"
+    id: 2545 # Gust of Cyclarus
 
 - name: "Gren Tornfur"
   location: 40.9 56.4
@@ -65,8 +59,7 @@ farms:
   questId: 54428 54429
   drops:
   - type: toy
-    id: 166785
-    name: "Detoxified Blight Grenade"
+    id: 166785 # Detoxified Blight Grenade
 
 - name: "Hydrath"
   location: 52.4 32.2
@@ -74,8 +67,7 @@ farms:
   questId: 54227 54228
   drops:
   - type: pet
-    id: 2547
-    name: "Hydrath Droplet"
+    id: 2547 # Hydrath Droplet
 
 - name: "Moxo the Beheader"
   faction: alliance
@@ -84,8 +76,7 @@ farms:
   questId: 54277
   drops:
   - type: mount
-    id: 1203
-    name: "Umber Nightsaber"
+    id: 1203 # Umber Nightsaber
 
 - name: "Onu"
   faction: horde
@@ -94,8 +85,7 @@ farms:
   questId: 54291
   drops:
   - type: pet
-    id: 2548
-    name: "Everburning Treant"
+    id: 2548 # Everburning Treant
 
 - name: "Sapper Odette"
   faction: horde
@@ -104,8 +94,7 @@ farms:
   questId: 54452
   drops:
   - type: toy
-    id: 166788
-    name: "Twiddle Twirler: Shredder Blade"
+    id: 166788 # Twiddle Twirler: Shredder Blade
 
 - name: "Soggoth the Slitherer"
   location: 40.5 85.3
@@ -113,8 +102,7 @@ farms:
   questId: 54320 54321
   drops:
   - type: pet
-    id: 2549
-    name: "Void Jelly"
+    id: 2549 # Void Jelly
 
 - name: "Thelar Moonstrike"
   faction: horde
@@ -123,8 +111,7 @@ farms:
   questId: 54252
   drops:
   - type: toy
-    id: 166790
-    name: "Highborne Memento"
+    id: 166790 # Highborne Memento
 
 - name: "Twilight Prophet Graeme"
   location: 40.6 82.7
@@ -132,8 +119,7 @@ farms:
   questId: 54397 54398
   drops:
   - type: pet
-    id: 2550
-    name: "Zur'aj the Depleted"
+    id: 2550 # Zur'aj the Depleted
 
 - name: "Zim'kaga"
   faction: alliance
@@ -142,8 +128,7 @@ farms:
   questId: 54274
   drops:
   - type: pet
-    id: 2548
-    name: "Everburning Treant"
+    id: 2548 # Everburning Treant
 
 # Faction splits
 
@@ -155,8 +140,7 @@ farms:
   questId: 54883
   drops:
   - type: mount
-    id: 1199
-    name: "Blackpaw"
+    id: 1199 # Blackpaw
 
 - name: "Blackpaw"
   faction: horde
@@ -165,8 +149,7 @@ farms:
   questId: 54890
   drops:
   - type: mount
-    id: 1199
-    name: "Blackpaw"
+    id: 1199 # Blackpaw
 
 # 41.6 76.7
 - name: "Athil Dewfire"
@@ -176,12 +159,10 @@ farms:
   questId: 54431
   drops:
   - type: mount
-    id: 1203
-    name: "Umber Nightsaber"
+    id: 1203 # Umber Nightsaber
 
   - type: pet
-    id: 2544
-    name: "Darkshore Sentinel"
+    id: 2544 # Darkshore Sentinel
 
 - name: "Burninator Mark V"
   faction: alliance
@@ -190,12 +171,10 @@ farms:
   questId: 54768
   drops:
   - type: pet
-    id: 2544
-    name: "Darkshore Sentinel"
+    id: 2544 # Darkshore Sentinel
 
   - type: toy
-    id: 166788
-    name: "Twiddle Twirler: Shredder Blade"
+    id: 166788 # Twiddle Twirler: Shredder Blade
 
 # 39.7 33.4
 - name: "Orwell Stevenson"
@@ -205,8 +184,7 @@ farms:
   questId: 54889
   drops:
   - type: pet
-    id: 2563
-    name: "Nightwreathed Watcher"
+    id: 2563 # Nightwreathed Watcher
 
 - name: "Shadowclaw"
   faction: horde
@@ -215,8 +193,7 @@ farms:
   questId: 54892
   drops:
   - type: mount
-    id: 1205
-    name: "Kaldorei Nightsaber"
+    id: 1205 # Kaldorei Nightsaber
 
 # 50.7 32.3
 - name: "Croz Bloodrage"
@@ -226,8 +203,7 @@ farms:
   questId: 54886
   drops:
   - type: mount
-    id: 1205
-    name: "Kaldorei Nightsaber"
+    id: 1205 # Kaldorei Nightsaber
 
 - name: "Grimhorn"
   faction: horde
@@ -236,8 +212,7 @@ farms:
   questId: 54891
   drops:
   - type: pet
-    id: 2563
-    name: "Nightwreathed Watcher"
+    id: 2563 # Nightwreathed Watcher
 
 
 # World boss
@@ -248,33 +223,25 @@ farms:
   type: killBig
   drops:
   - type: transmog
-    id: 166683
-    name: "Garments of the Forest Lord"
+    id: 166683 # Garments of the Forest Lord
 
   - type: transmog
-    id: 166686
-    name: "Ivus' Tanglemoss Waistcord"
+    id: 166686 # Ivus' Tanglemoss Waistcord
 
   - type: transmog
-    id: 166690
-    name: "Protector's Tangleroot Belt"
+    id: 166690 # Protector's Tangleroot Belt
 
   - type: transmog
-    id: 166687
-    name: "Warring Ancient's Mask"
+    id: 166687 # Warring Ancient's Mask
 
   - type: transmog
-    id: 166691
-    name: "Forest Protector's Shoulderguards"
+    id: 166691 # Forest Protector's Shoulderguards
 
   - type: transmog
-    id: 166694
-    name: "Gnarled Bough Gauntlets"
+    id: 166694 # Gnarled Bough Gauntlets
 
   - type: transmog
-    id: 166695
-    name: "Petrified Ironbark Crown"
+    id: 166695 # Petrified Ironbark Crown
 
   - type: transmog
-    id: 166698
-    name: "Stoneroot Stompers"
+    id: 166698 # Stoneroot Stompers

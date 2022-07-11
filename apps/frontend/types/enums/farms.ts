@@ -16,7 +16,7 @@ export enum FarmType
     Quest,
 }
 
-export enum FarmDropType {
+export enum RewardType {
     Pet = 1,
     Mount,
     Quest,

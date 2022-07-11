@@ -77,7 +77,7 @@ namespace Wowthing.Backend.Models.Redis
         public List<List<OutCollectionCategory>> ToySetsRaw { get; set; }
 
         [JsonProperty(Order = 100)]
-        public List<DataReputationCategory> ReputationSets { get; set; }
+        public List<DataReputationCategory> RawReputationSets { get; set; }
 
         [JsonProperty(Order = 101)]
         public List<List<OutVendorCategory>> VendorSets { get; set; }

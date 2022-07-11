@@ -1,7 +1,8 @@
 <script lang="ts">
-    import { afterUpdate } from 'svelte'
+    import { afterUpdate, onMount } from 'svelte'
 
     import {
+        achievementStore,
         staticStore,
         transmogStore,
         userAchievementStore,
@@ -20,9 +21,19 @@
 
     export let params: MultiSlugParams
 
+    onMount(async () => await Promise.all([
+        achievementStore.fetch(undefined, $settings.general.language),
+    ]))
+
+    let error: boolean
+    let loaded: boolean
     let ready: boolean
     $: {
-        if ($userAchievementStore.loaded) {
+        error = $achievementStore.error || $userAchievementStore.error
+        loaded = $achievementStore.loaded && $userAchievementStore.loaded
+        ready = (!error && loaded)
+
+        if (ready) {
             zoneMapStore.setup(
                 $settings,
                 $staticStore.data,

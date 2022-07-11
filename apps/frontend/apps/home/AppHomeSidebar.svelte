@@ -24,7 +24,7 @@
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import Sidebar from '@/components/main-sidebar/MainSidebar.svelte'
-    import { FarmDropType } from '@/types/enums'
+    import { RewardType } from '@/types/enums'
 
     let journalPercent: number
     let mountsPercent: number
@@ -167,7 +167,7 @@
 
     <li use:active={'/mounts/*'}>
         <a href="#/mounts/">
-            <IconifyIcon icon={dropTypeIcon[FarmDropType.Mount]} dropShadow={true} />
+            <IconifyIcon icon={dropTypeIcon[RewardType.Mount]} dropShadow={true} />
             Mounts
         </a>
         <span class="drop-shadow percent {getPercentClass(mountsPercent)}">{fancyPercent(mountsPercent)} %</span>
@@ -175,7 +175,7 @@
 
     <li use:active={'/pets/*'}>
         <a href="#/pets/">
-            <IconifyIcon icon={dropTypeIcon[FarmDropType.Pet]} dropShadow={true} />
+            <IconifyIcon icon={dropTypeIcon[RewardType.Pet]} dropShadow={true} />
             Pets
         </a>
         <span class="drop-shadow percent {getPercentClass(petsPercent)}">{fancyPercent(petsPercent)} %</span>
@@ -183,7 +183,7 @@
 
     <li use:active={'/toys/*'}>
         <a href="#/toys/">
-            <IconifyIcon icon={dropTypeIcon[FarmDropType.Toy]} dropShadow={true} />
+            <IconifyIcon icon={dropTypeIcon[RewardType.Toy]} dropShadow={true} />
             Toys
         </a>
         <span class="drop-shadow percent {getPercentClass(toysPercent)}">{fancyPercent(toysPercent)} %</span>
@@ -193,7 +193,7 @@
 
     <li use:active={'/journal/*'}>
         <a href="#/journal/">
-            <IconifyIcon icon={dropTypeIcon[FarmDropType.Cosmetic]} dropShadow={true} />
+            <IconifyIcon icon={dropTypeIcon[RewardType.Cosmetic]} dropShadow={true} />
             Journal
         </a>
         <span class="drop-shadow percent {getPercentClass(journalPercent)}">{fancyPercent(journalPercent)} %</span>

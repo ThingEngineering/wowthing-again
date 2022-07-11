@@ -7,7 +7,7 @@
     import { zoneMapStore } from '@/stores'
     import { zoneMapState } from '@/stores/local-storage/zone-map'
     import { zoneMapMedia } from '@/stores/media-queries/zone-map'
-    import { FarmDropType, PlayableClass } from '@/types/enums'
+    import { RewardType, PlayableClass } from '@/types/enums'
     import type { FarmStatus } from '@/types'
     import type { ZoneMapDataCategory } from '@/types/data'
 
@@ -152,7 +152,7 @@
                         bind:value={$zoneMapState.trackAchievements}
                     >Achievements</Checkbox>
 
-                    <Counter key={slugKey} type={FarmDropType.Achievement} />
+                    <Counter key={slugKey} type={RewardType.Achievement} />
                 </div>
 
                 <div class="checkbox-counter">
@@ -161,7 +161,7 @@
                         bind:value={$zoneMapState.trackMounts}
                     >Mounts</Checkbox>
 
-                    <Counter key={slugKey} type={FarmDropType.Mount} />
+                    <Counter key={slugKey} type={RewardType.Mount} />
                 </div>
 
                 <div class="checkbox-counter">
@@ -170,7 +170,7 @@
                         bind:value={$zoneMapState.trackPets}
                     >Pets</Checkbox>
 
-                    <Counter key={slugKey} type={FarmDropType.Pet} />
+                    <Counter key={slugKey} type={RewardType.Pet} />
                 </div>
 
                 <div class="checkbox-counter">
@@ -179,7 +179,7 @@
                         bind:value={$zoneMapState.trackQuests}
                     >Quests</Checkbox>
 
-                    <Counter key={slugKey} type={FarmDropType.Quest} />
+                    <Counter key={slugKey} type={RewardType.Quest} />
                 </div>
 
                 <div class="checkbox-counter">
@@ -188,7 +188,7 @@
                         bind:value={$zoneMapState.trackToys}
                     >Toys</Checkbox>
 
-                    <Counter key={slugKey} type={FarmDropType.Toy} />
+                    <Counter key={slugKey} type={RewardType.Toy} />
                 </div>
 
                 <div class="checkbox-counter">
@@ -197,7 +197,7 @@
                         bind:value={$zoneMapState.trackTransmog}
                     >Transmog</Checkbox>
 
-                    <Counter key={slugKey} type={FarmDropType.Transmog} />
+                    <Counter key={slugKey} type={RewardType.Transmog} />
                 </div>
             </div>
         </div>

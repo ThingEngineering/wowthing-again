@@ -1,4 +1,4 @@
-import type { FarmDropType } from '@/types/enums'
+import type { RewardType } from '@/types/enums'
 
 
 export interface FarmStatus {
@@ -9,7 +9,7 @@ export interface FarmStatus {
 
 export interface CharacterStatus {
     id: number
-    types: FarmDropType[]
+    types: RewardType[]
 }
 
 export interface DropStatus {

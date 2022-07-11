@@ -10,8 +10,7 @@ farms:
   questId: 59854
   drops:
   - type: transmog
-    id: 183729
-    name: "Filth-Splattered Headcover"
+    id: 183729 # Filth-Splattered Headcover
 
 - name: "Amalgamation of Light"
   location: 25.3 48.5
@@ -19,24 +18,19 @@ farms:
   questId: 59584
   drops:
   - type: pet
-    id: 2892
-    name: "Bound Lightspawn"
+    id: 2892 # Bound Lightspawn
 
   - type: transmog
-    id: 179926
-    name: "Light-Infused Tunic"
+    id: 179926 # Light-Infused Tunic
 
   - type: transmog
-    id: 179924
-    name: "Light-Infused Jacket"
+    id: 179924 # Light-Infused Jacket
 
   - type: transmog
-    id: 179653
-    name: "Light-Infused Hauberk"
+    id: 179653 # Light-Infused Hauberk
 
   - type: transmog
-    id: 179925
-    name: "Light-Infused Breastplate"
+    id: 179925 # Light-Infused Breastplate
 
 - name: "Amalgamation of Sin"
   location: 65.8 29.1
@@ -44,8 +38,7 @@ farms:
   questId: 60836
   drops:
   - type: transmog
-    id: 183730
-    name: "Sinstone-Studded Greathelm"
+    id: 183730 # Sinstone-Studded Greathelm
 
 - name: "Azgar"
   location: 35.8 70.5
@@ -53,8 +46,7 @@ farms:
   questId: 59893
   drops:
   - type: transmog
-    id: 183731
-    name: "Smolder-Tempered Legplates"
+    id: 183731 # Smolder-Tempered Legplates
 
 - name: "Bog Beast"
   location: 35.0 32.3
@@ -62,8 +54,7 @@ farms:
   questId: 59582
   drops:
   - type: pet
-    id: 2896
-    name: "Primordial Bogling"
+    id: 2896 # Primordial Bogling
 
 - name: "Executioner Aatron"
   location: 37.1 47.4
@@ -71,8 +62,7 @@ farms:
   questId: 59913
   drops:
   - type: transmog
-    id: 183737
-    name: "Aatron's Stone Girdle"
+    id: 183737 # Aatron's Stone Girdle
 
 - name: "Executioner Adrastia"
   location: 43.1 51.8
@@ -80,8 +70,7 @@ farms:
   questId: 58441
   drops:
   - type: transmog
-    id: 180502
-    name: "Adrastia's Executioner Gloves"
+    id: 180502 # Adrastia's Executioner Gloves
 
 - name: "Famu the Infinite"
   location: 62.5 47.2
@@ -89,12 +78,10 @@ farms:
   questId: 59869
   drops:
   - type: mount
-    id: 1379
-    name: "Endmire Flyer"
+    id: 1379 # Endmire Flyer
 
   - type: transmog
-    id: 183739
-    name: "Endmire Wristwarmers"
+    id: 183739 # Endmire Wristwarmers
 
 - name: "Forgemaster Madalav"
   location: 32.6 15.4
@@ -103,8 +90,7 @@ farms:
   questId: 61618
   drops:
   - type: transmog
-    id: 180939
-    name: "Mantle of the Forgemaster's Dark Blades"
+    id: 180939 # Mantle of the Forgemaster's Dark Blades
     limit: covenant venthyr
 
 - name: "Grand Arcanist Dimitri"
@@ -113,8 +99,7 @@ farms:
   questId: 60173
   drops:
   - type: transmog
-    id: 180503
-    name: "Grand Arcanist's Soulblade"
+    id: 180503 # Grand Arcanist's Soulblade
 
 - name: "Harika the Horrid"
   location: 45.8 79.1
@@ -123,12 +108,10 @@ farms:
   questId: 59612
   drops:
   - type: mount
-    id: 1310
-    name: "Horrid Dredwing"
+    id: 1310 # Horrid Dredwing
 
   - type: transmog
-    id: 183720
-    name: "Dredbatskin Jerkin"
+    id: 183720 # Dredbatskin Jerkin
 
 - name: "Hopecrusher"
   location: 52.0 51.8
@@ -136,8 +119,7 @@ farms:
   questId: 59900
   drops:
   - type: mount
-    id: 1298
-    name: "Hopecrusher Gargon"
+    id: 1298 # Hopecrusher Gargon
     limit: covenant venthyr
 
 - name: "Innervus"
@@ -146,8 +128,7 @@ farms:
   questId: 58210
   drops:
   - type: transmog
-    id: 183735
-    name: "Rogue Sinstealer's Mantle"
+    id: 183735 # Rogue Sinstealer's Mantle
 
 - name: "Leeched Soul"
   location: 68.0 81.8
@@ -155,12 +136,10 @@ farms:
   questId: 59580
   drops:
   - type: pet
-    id: 2897
-    name: "Wrathling"
+    id: 2897 # Wrathling
 
   - type: transmog
-    id: 183736
-    name: "Pride Resistant Handwraps"
+    id: 183736 # Pride Resistant Handwraps
 
 - name: "Lord Mortegore"
   location: 76.0 61.6
@@ -168,8 +147,7 @@ farms:
   questId: 58633
   drops:
   - type: transmog
-    id: 180501
-    name: "Skull-Formed Headcage"
+    id: 180501 # Skull-Formed Headcage
 
 - name: "Manifestation of Wrath"
   location: 49.0 34.9
@@ -178,8 +156,7 @@ farms:
   questId: 60729
   drops:
   - type: pet
-    id: 2897
-    name: "Wrathling"
+    id: 2897 # Wrathling
 
 - name: "Scrivener Lenua"
   location: 38.3 69.1
@@ -187,8 +164,7 @@ farms:
   questId: 58213
   drops:
   - type: pet
-    id: 2893
-    name: "Animated Tome"
+    id: 2893 # Animated Tome
 
 - name: "Sinstone Hoarder"
   location: 67.4 30.5
@@ -196,8 +172,7 @@ farms:
   questId: 62252
   drops:
   - type: transmog
-    id: 183732
-    name: "Sinstone-Linked Greaves"
+    id: 183732 # Sinstone-Linked Greaves
 
 - name: "Sire Ladinas"
   location: 34.0 55.6
@@ -206,8 +181,7 @@ farms:
   questId: 58263
   drops:
   - type: toy
-    id: 180873
-    name: "Smolderheart"
+    id: 180873 # Smolderheart
 
 - name: "Stonefist"
   location: 31.3 23.2
@@ -215,8 +189,7 @@ farms:
   questId: 62220
   drops:
   - type: transmog
-    id: 180488
-    name: "Fist Forged Breastplate"
+    id: 180488 # Fist Forged Breastplate
 
 - name: "Tomb Burster"
   location: 43.0 79.1
@@ -224,8 +197,7 @@ farms:
   questId: 56877
   drops:
   - type: pet
-    id: 2891
-    name: "Blushing Spiderling"
+    id: 2891 # Blushing Spiderling
 
 - name: "Worldedge Gorger"
   location: 38.6 72.0
@@ -233,8 +205,7 @@ farms:
   questId: 58259
   drops:
   - type: mount
-    id: 1391
-    name: "Loyal Gorger"
+    id: 1391 # Loyal Gorger
 
 # World boss
 - name: "Nurgash Muckformed"
@@ -246,24 +217,19 @@ farms:
   type: killBig
   drops:
   - type: transmog
-    id: 184131
-    name: "Comfortable Slumberwraps"
+    id: 184131 # Comfortable Slumberwraps
 
   - type: transmog
-    id: 184137
-    name: "Sinstone Shoulderpadding"
+    id: 184137 # Sinstone Shoulderpadding
 
   - type: transmog
-    id: 184130
-    name: "Nurgash's Belt of Many Sinstones"
+    id: 184130 # Nurgash's Belt of Many Sinstones
 
   - type: transmog
-    id: 184134
-    name: "Jingling Stone Stompers"
+    id: 184134 # Jingling Stone Stompers
 
   - type: transmog
-    id: 184171
-    name: "Hardened Castle Crushers"
+    id: 184171 # Hardened Castle Crushers
 
 # Treasures
 
@@ -274,8 +240,7 @@ farms:
   type: treasure
   drops:
   - type: toy
-    id: 179393
-    name: "Mirror of Envious Dreams"
+    id: 179393 # Mirror of Envious Dreams
 
 - name: "Forbidden Chamber"
   location: 47.3 55.4
@@ -284,8 +249,7 @@ farms:
   type: treasure
   drops:
   - type: toy
-    id: 184075
-    name: "Stonewrought Sentry"
+    id: 184075 # Stonewrought Sentry
 
 - name: "Forgotten Angler's Rod"
   location: 73.6 75.4
@@ -294,8 +258,7 @@ farms:
   type: treasure
   drops:
   - type: toy
-    id: 180993
-    name: "Bat Visage Bobber"
+    id: 180993 # Bat Visage Bobber
 
 - name: "Lost Quill"
   location: 37.7 69.2
@@ -304,8 +267,7 @@ farms:
   type: treasure
   drops:
   - type: pet
-    id: 3008
-    name: "Lost Quill"
+    id: 3008 # Lost Quill
 
 - name: "Makeshift Muckpool"
   location: 29.7 37.2
@@ -314,8 +276,7 @@ farms:
   type: treasure
   drops:
   - type: toy
-    id: 182780
-    name: "Muckpool Cookpot"
+    id: 182780 # Muckpool Cookpot
 
 - name: "Secret Treasure"
   location: 66.6 42.7
@@ -325,8 +286,7 @@ farms:
   type: treasure
   drops:
   - type: pet
-    id: 2894
-    name: "Burdened Soul"
+    id: 2894 # Burdened Soul
 
 - name: "Smuggled Cache"
   location: 31.1 55.1
@@ -335,8 +295,7 @@ farms:
   type: treasure
   drops:
   - type: quest
-    id: 62189
-    name: "Bundle of Smuggled Parasol Components"
+    id: 62189 # Bundle of Smuggled Parasol Components
 
 - name: "Stylish Parasol"
   location: 38.4 44.2
@@ -345,8 +304,7 @@ farms:
   type: treasure
   drops:
   - type: toy
-    id: 182694
-    name: "Stylish Black Parasol"
+    id: 182694 # Stylish Black Parasol
 
 - name: "Taskmaster's Trove"
   location: 63.4 74.0
@@ -355,8 +313,7 @@ farms:
   type: treasure
   drops:
   - type: toy
-    id: 183986
-    name: "Bondable Sinstone"
+    id: 183986 # Bondable Sinstone
 
 - name: "The Count"
   location: 57.4 43.4
@@ -365,8 +322,7 @@ farms:
   type: treasure
   drops:
   - type: pet
-    id: 3009
-    name: "The Count"
+    id: 3009 # The Count
 
 - name: "Vrytha's Dredglaive"
   location: 70.2 60.0
@@ -375,5 +331,4 @@ farms:
   type: treasure
   drops:
   - type: transmog
-    id: 177807
-    name: "Vyrtha's Dredglaive"
+    id: 177807 # Vyrtha's Dredglaive

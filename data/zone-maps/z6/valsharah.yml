@@ -9,8 +9,7 @@ farms:
   questId: 43446
   drops:
   - type: transmog
-    id: 130135
-    name: "Mana-Prowler Leggings"
+    id: 130135 # Mana-Prowler Leggings
 
 - name: "Darkshade"
   location: 44.14 52.09
@@ -18,8 +17,7 @@ farms:
   questId: 38767
   drops:
   - type: pet
-    id: 1804
-    name: "Risen Saber Kitten"
+    id: 1804 # Risen Saber Kitten
 
 - name: "Dreadbog"
   location: 60.31 44.27
@@ -27,16 +25,14 @@ farms:
   questId: 39858
   drops:
   - type: transmog
-    id: 130125
-    name: "Dreadbog Fungalflesh Cape"
+    id: 130125 # Dreadbog Fungalflesh Cape
 
 - name: "Gathenak the Subjugator"
   location: 49.2 49.0
   npcId: 93679
   drops:
   - type: transmog
-    id: 132359
-    name: "The Subjugator's Shackles"
+    id: 132359 # The Subjugator's Shackles
 
 - name: "Gorebeak"
   location: 59.74 77.47
@@ -44,8 +40,7 @@ farms:
   questId: 38468
   drops:
   - type: pet
-    id: 1907
-    name: "Pygmy Owl"
+    id: 1907 # Pygmy Owl
 
 - name: "Lyrath Moonfeather"
   location: 61.79 29.54
@@ -53,8 +48,7 @@ farms:
   questId: 40079
   drops:
   - type: transmog
-    id: 130118
-    name: "Moonfeather Handwraps"
+    id: 130118 # Moonfeather Handwraps
 
 - name: "Mad Henryk"
   location: 47.22 58.02
@@ -62,8 +56,7 @@ farms:
   questId: 39357
   drops:
   - type: toy
-    id: 130214
-    name: "Worn Doll"
+    id: 130214 # Worn Doll
 
 - name: "Perrexx the Corruptor"
   location: 61.05 69.40
@@ -71,8 +64,7 @@ farms:
   questId: 39596
   drops:
   - type: transmog
-    id: 130137
-    name: "Bramblevine Spaulders"
+    id: 130137 # Bramblevine Spaulders
 
 - name: "Pollous the Fetid"
   location: 67.50 45.10
@@ -80,8 +72,7 @@ farms:
   questId: 39130
   drops:
   - type: pet
-    id: 1802
-    name: "Fetid Waveling"
+    id: 1802 # Fetid Waveling
 
 - name: "Seersei"
   location: 41.64 78.27
@@ -89,16 +80,14 @@ farms:
   questId: 38479
   drops:
   - type: toy
-    id: 130171
-    name: "Cursed Orb"
+    id: 130171 # Cursed Orb
 
 - name: "Skul'vrax"
   location: 61.0 88.0
   npcId: 93654
   drops:
   - type: transmog
-    id: 130115
-    name: "Darkfiend Slippers"
+    id: 130115 # Darkfiend Slippers
 
 - name: "Theryssia"
   location: 38.06 52.81
@@ -106,8 +95,7 @@ farms:
   questId: 38772
   drops:
   - type: transmog
-    id: 130136
-    name: "Theryssia's White Gown"
+    id: 130136 # Theryssia's White Gown
 
 - name: "Thondrax"
   location: 62.60 47.50
@@ -115,8 +103,7 @@ farms:
   questId: 38780
   drops:
   - type: transmog
-    id: 130121
-    name: "Thondrax's Night-Runed Bands"
+    id: 130121 # Thondrax's Night-Runed Bands
 
 - name: "Undergrell Attack"
   location: 67.16 69.62
@@ -124,8 +111,7 @@ farms:
   questId: 43176
   drops:
   - type: transmog
-    id: 130133
-    name: "Undergrell Mobilehelm"
+    id: 130133 # Undergrell Mobilehelm
 
 - name: "Wraithtalon"
   location: 66.87 36.86
@@ -133,8 +119,7 @@ farms:
   questId: 39856 43447
   drops:
   - type: transmog
-    id: 130116
-    name: "Twisted Wraithtalon Gloves"
+    id: 130116 # Twisted Wraithtalon Gloves
 
 # Treasures
 
@@ -146,8 +131,7 @@ farms:
   type: treasure
   drops:
   - type: toy
-    id: 130147
-    name: "Thistleleaf Branch"
+    id: 130147 # Thistleleaf Branch
 
 # Quests
 
@@ -159,8 +143,7 @@ farms:
   reset: never
   drops:
   - type: pet
-    id: 1706
-    name: "Ashmaw Cub"
+    id: 1706 # Ashmaw Cub
 
 # World Bosses
 
@@ -172,24 +155,19 @@ farms:
   type: killBig
   drops:
   - type: transmog
-    id: 141540
-    name: "Coerced Wizard's Cloak"
+    id: 141540 # Coerced Wizard's Cloak
 
   - type: transmog
-    id: 141416
-    name: "Padawsen's Squished Pauldrons"
+    id: 141416 # Padawsen's Squished Pauldrons
 
   - type: transmog
-    id: 141445
-    name: "Mantle of the Aspiring Spellgiant"
+    id: 141445 # Mantle of the Aspiring Spellgiant
 
   - type: transmog
-    id: 141422
-    name: "Shoulderguards of Unimaginative Magic"
+    id: 141422 # Shoulderguards of Unimaginative Magic
 
   - type: transmog
-    id: 141426
-    name: "Shoulderplates of Oversized Sorcery"
+    id: 141426 # Shoulderplates of Oversized Sorcery
 
 - name: "Shar'thos"
   location: 55.8 44.0
@@ -199,21 +177,16 @@ farms:
   type: killBig
   drops:
   - type: transmog
-    id: 141542
-    name: "Despoiled Dreamthread Cloak"
+    id: 141542 # Despoiled Dreamthread Cloak
 
   - type: transmog
-    id: 141495
-    name: "Robe of Fever Dreams"
+    id: 141495 # Robe of Fever Dreams
 
   - type: transmog
-    id: 141487
-    name: "Raiments of Waking Nightmares"
+    id: 141487 # Raiments of Waking Nightmares
 
   - type: transmog
-    id: 141491
-    name: "Hauberk of the Snarled Vale"
+    id: 141491 # Hauberk of the Snarled Vale
 
   - type: transmog
-    id: 141481
-    name: "Chestplate of Blackened Emeralds"
+    id: 141481 # Chestplate of Blackened Emeralds

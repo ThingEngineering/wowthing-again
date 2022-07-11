@@ -9,8 +9,7 @@ farms:
   questId: 42505
   drops:
   - type: transmog
-    id: 141868
-    name: "Shal'imanacles"
+    id: 141868 # Shal'imanacles
 
 - name: "Arcavellus"
   location: 59.60 12.30
@@ -18,8 +17,7 @@ farms:
   questId: 37932
   drops:
   - type: transmog
-    id: 129085
-    name: "Arcavellus' Unbound Spaulders"
+    id: 129085 # Arcavellus' Unbound Spaulders
 
 - name: "Beacher"
   location: 32.29 29.72
@@ -27,8 +25,7 @@ farms:
   questId: 38238
   drops:
   - type: transmog
-    id: 129067
-    name: "Sand-Blasted Pauldrons"
+    id: 129067 # Sand-Blasted Pauldrons
 
 - name: "Bilebrain"
   location: 29.27 53.66
@@ -36,8 +33,7 @@ farms:
   questId: 42417
   drops:
   - type: transmog
-    id: 129079
-    name: "Bile-Resistant Boots"
+    id: 129079 # Bile-Resistant Boots
 
 - name: "Brawlgoth"
   location: 55.10 45.90
@@ -45,8 +41,7 @@ farms:
   questId: 42450
   drops:
   - type: transmog
-    id: 129068
-    name: "Brawlgoth's Choker"
+    id: 129068 # Brawlgoth's Choker
 
 - name: "Brogozog"
   location: 59.30 46.30
@@ -54,8 +49,7 @@ farms:
   questId: 38212
   drops:
   - type: transmog
-    id: 129068
-    name: "Legion Lord's Spaulder"
+    id: 129068 # Legion Lord's Spaulder
 
 - name: "Broodmother Lizax"
   location: 33.40 41.20
@@ -63,8 +57,7 @@ farms:
   questId: 44670
   drops:
   - type: transmog
-    id: 141869
-    name: "Broodmother Armor"
+    id: 141869 # Broodmother Armor
 
 - name: "Cailyn Paledoom <Felsworn>"
   location: 52.38 23.04
@@ -72,8 +65,7 @@ farms:
   questId: 38268
   drops:
   - type: transmog
-    id: 129063
-    name: "Darkbane Visage"
+    id: 129063 # Darkbane Visage
 
 - name: "Captain Volo'ren"
   location: 53.40 44.00
@@ -81,8 +73,7 @@ farms:
   questId: 37821
   drops:
   - type: transmog
-    id: 129066
-    name: "Nar'thalas Guard Mantle"
+    id: 129066 # Nar'thalas Guard Mantle
 
 - name: "Commander Soraax"
   location: 27.8 51.0
@@ -90,8 +81,7 @@ farms:
   questId: 0
   drops:
   - type: transmog
-    id: 141871
-    name: "Soraax's Gauntlets of Command"
+    id: 141871 # Soraax's Gauntlets of Command
 
 - name: "Daggerbeak"
   location: 50.80 31.60
@@ -99,8 +89,7 @@ farms:
   questId: 37869
   drops:
   - type: transmog
-    id: 129084
-    name: "Daggerbeak's Nesting Legguards"
+    id: 129084 # Daggerbeak's Nesting Legguards
 
 - name: "Felwing"
   location: 43.57 24.44
@@ -108,8 +97,7 @@ farms:
   questId: 42069
   drops:
   - type: transmog
-    id: 129087
-    name: "Smooth Felwing Wraps"
+    id: 129087 # Smooth Felwing Wraps
 
 - name: "Flog the Captain-Eater"
   location: 45.30 57.80
@@ -117,8 +105,7 @@ farms:
   questId: 37824
   drops:
   - type: transmog
-    id: 129090
-    name: "Bosun's Acid-Blotched Cape"
+    id: 129090 # Bosun's Acid-Blotched Cape
 
 - name: "Houndmaster Stroxis"
   location: 30.77 47.99
@@ -126,18 +113,15 @@ farms:
   questId: 42286
   drops:
   - type: transmog
-    id: 141873
-    name: "Felstalker Leash Belt"
+    id: 141873 # Felstalker Leash Belt
 
 - name: "Infernal Lord"
   location: 35.30 50.30
   npcId: 90803
   questId: 38037
-  # 129083,
   drops:
   - type: transmog
-    id: 129083
-    name: "Greathelm of Infernal Lords"
+    id: 129083 # Greathelm of Infernal Lords
 
 - name: "Inquisitor Tivos"
   location: 28.2 52.0
@@ -145,8 +129,7 @@ farms:
   questId: 0
   drops:
   - type: transmog
-    id: 141874
-    name: "Inquisitor's Corrupted Cincture"
+    id: 141874 # Inquisitor's Corrupted Cincture
 
 - name: "Marblub the Massive"
   location: 34.2 28.0
@@ -154,18 +137,15 @@ farms:
   questId: 0
   drops:
   - type: transmog
-    id: 129067
-    name: "Sand-Blasted Pauldrons"
+    id: 129067 # Sand-Blasted Pauldrons
 
 - name: "Normantis the Deposed"
   location: 49.50 08.80
   npcId: 90217
   questId: 37928
-  # 129061,
   drops:
   - type: transmog
-    id: 129061
-    name: "Cowl of Azure Vengeance"
+    id: 129061 # Cowl of Azure Vengeance
 
 - name: "Pridelord Meowl"
   location: 56.10 29.06
@@ -173,8 +153,7 @@ farms:
   questId: 38061
   drops:
   - type: transmog
-    id: 138395
-    name: "Meowl's Mane"
+    id: 138395 # Meowl's Mane
 
 - name: "Ragemaw"
   location: 32.60 48.80
@@ -182,16 +161,14 @@ farms:
   questId: 44108
   drops:
   - type: transmog
-    id: 129075
-    name: "Ragemaw's Hide"
+    id: 129075 # Ragemaw's Hide
 
 - name: "Ravyn-Drath"
   location: 41.05 41.78
   questId: 37537
   drops:
   - type: transmog
-    id: 129080
-    name: "Alpha Seal Handwraps"
+    id: 129080 # Alpha Seal Handwraps
 
 - name: "Syphonus"
   location: 67.10 51.40
@@ -199,8 +176,7 @@ farms:
   questId: 37989
   drops:
   - type: transmog
-    id: 129064
-    name: "Arcanetic Plate Greaves"
+    id: 129064 # Arcanetic Plate Greaves
 
 - name: "The Muscle <Blacksail Crew>"
   location: 58.6 79.6
@@ -208,16 +184,14 @@ farms:
   questId: 0
   drops:
   - type: transmog
-    id: 129081
-    name: "The Heavyweight Belt"
+    id: 129081 # The Heavyweight Belt
 
 - name: "The Oracle"
   location: 59.70 55.20
   questId: 37822
   drops:
   - type: transmog
-    id: 129065
-    name: "The Shadow Oracle's Leggings"
+    id: 129065 # The Shadow Oracle's Leggings
 
 - name: "Tide Behemoth"
   location: 61.30 62.00
@@ -225,8 +199,7 @@ farms:
   questId: 38217
   drops:
   - type: transmog
-    id: 129062
-    name: "Scale Helm of the Frigid Depths"
+    id: 129062 # Scale Helm of the Frigid Depths
 
 - name: "Valiyaka the Stormbringer"
   location: 47.30 34.60
@@ -234,8 +207,7 @@ farms:
   questId: 37726
   drops:
   - type: transmog
-    id: 129082
-    name: "Valiyaka's Weathered Handwraps"
+    id: 129082 # Valiyaka's Weathered Handwraps
 
 - name: "Vorthax"
   location: 37.37 43.18
@@ -243,8 +215,7 @@ farms:
   questId: 42280
   drops:
   - type: transmog
-    id: 141875
-    name: "Hauberk of the Wrathblade"
+    id: 141875 # Hauberk of the Wrathblade
 
 - name: "Warbringer Mox'na"
   location: 49.10 55.19
@@ -252,8 +223,7 @@ farms:
   questId: 37909
   drops:
   - type: transmog
-    id: 129069
-    name: "Stalker Collar Bracers"
+    id: 129069 # Stalker Collar Bracers
 
 # World boss
 
@@ -265,20 +235,16 @@ farms:
   type: killBig
   drops:
   - type: transmog
-    id: 141443
-    name: "Sandals of Frozen Ash"
+    id: 141443 # Sandals of Frozen Ash
 
   - type: transmog
-    id: 141430
-    name: "Mana-Tanned Sandals"
+    id: 141430 # Mana-Tanned Sandals
 
   - type: transmog
-    id: 141432
-    name: "Frostburned Sabatons"
+    id: 141432 # Frostburned Sabatons
 
   - type: transmog
-    id: 141437
-    name: "Warboots of Smoldering Fury"
+    id: 141437 # Warboots of Smoldering Fury
 
 # Quest
 

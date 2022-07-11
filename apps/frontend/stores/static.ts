@@ -14,6 +14,7 @@ import {
     StaticDataPet,
     StaticDataRealm,
     StaticDataReputation,
+    StaticDataReputationCategory,
     StaticDataSetCategory,
     StaticDataToy,
 } from '@/types/data/static'
@@ -110,6 +111,19 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             }
         }
 
+        if (data.rawReputationSets !== null) {
+            data.reputationSets = []
+            for (const repArray of data.rawReputationSets) {
+                if (repArray === null) {
+                    data.reputationSets.push(null)
+                }
+                else {
+                    data.reputationSets.push(new StaticDataReputationCategory(...repArray))
+                }
+            }
+            data.rawReputationSets = null
+        }
+
         if (data.rawMounts !== null) {
             data.mounts = {}
             for (const mountArray of data.rawMounts) {
@@ -154,7 +168,7 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
         })
     }
 
-    private static createObjects<TArray, TObject extends { id: number }>(
+    private static createObjects<TObject extends { id: number }>(
         arrays: any[][],
         objectConstructor: { new (...args: any[]): TObject },
         idFunc: (obj: TObject) => number = null

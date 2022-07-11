@@ -20,7 +20,7 @@ import mdiTshirtCrew from '@iconify/icons-mdi/tshirt-crew'
 import mdiUnicorn from '@iconify/icons-mdi/unicorn'
 import mdiWizardHat from '@iconify/icons-mdi/wizard-hat'
 
-import { FarmDropType, FarmType } from '@/types/enums'
+import { RewardType, FarmType } from '@/types/enums'
 
 
 export const farmTypeIcon: Record<number, IconifyIcon> = {
@@ -41,20 +41,14 @@ export const farmTypeIcon: Record<number, IconifyIcon> = {
 }
 
 export const dropTypeIcon: Record<number, IconifyIcon> = {
-    [FarmDropType.Achievement]: mdiTrophy,
-    [FarmDropType.Armor]: mdiTshirtCrew,
-    [FarmDropType.Cosmetic]: mdiWizardHat,
-    [FarmDropType.Item]: mdiGiftOutline,
-    [FarmDropType.Mount]: mdiUnicorn,
-    [FarmDropType.Pet]: mdiDuck,
-    [FarmDropType.Quest]: mdiExclamationThick,
-    [FarmDropType.Toy]: mdiDiceMultiple,
-    [FarmDropType.Weapon]: mdiAxeBattle,
-}
-
-export const dropTypeStringIcon: Record<string, IconifyIcon> = {
-    mount: mdiUnicorn,
-    pet: mdiDuck,
-    toy: mdiDiceMultiple,
-    transmog: mdiWizardHat,
+    [RewardType.Achievement]: mdiTrophy,
+    [RewardType.Armor]: mdiTshirtCrew,
+    [RewardType.Cosmetic]: mdiWizardHat,
+    [RewardType.Item]: mdiGiftOutline,
+    [RewardType.Mount]: mdiUnicorn,
+    [RewardType.Pet]: mdiDuck,
+    [RewardType.Quest]: mdiExclamationThick,
+    [RewardType.Toy]: mdiDiceMultiple,
+    [RewardType.Transmog]: mdiWizardHat,
+    [RewardType.Weapon]: mdiAxeBattle,
 }

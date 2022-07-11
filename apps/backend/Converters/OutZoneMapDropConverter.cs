@@ -10,19 +10,18 @@ namespace Wowthing.Backend.Converters
         {
             var drop = (OutZoneMapDrop) value;
             var arr = new JArray();
-            
+
             var limit = drop.Limit.EmptyIfNull();
             var questIds = drop.QuestIds.EmptyIfNull();
             var requiredQuestId = drop.RequiredQuestId ?? 0;
-            
+
             var useLimit = limit.Length > 0;
             var useQuestIds = questIds.Length > 0;
             var useRequiredQuestId = requiredQuestId > 0;
             var useNote = !string.IsNullOrEmpty(drop.Note);
 
             arr.Add(drop.Id);
-            arr.Add(Enum.Parse<FarmDropType>(drop.Type, true));
-            arr.Add(drop.Name);
+            arr.Add(Enum.Parse<RewardType>(drop.Type, true));
 
             if (useNote || useRequiredQuestId || useQuestIds || useLimit)
             {
@@ -45,7 +44,7 @@ namespace Wowthing.Backend.Converters
             }
             arr.WriteTo(writer);
         }
-        
+
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             throw new NotImplementedException();

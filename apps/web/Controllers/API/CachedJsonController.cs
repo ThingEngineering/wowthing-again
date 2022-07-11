@@ -20,6 +20,7 @@ public class CachedJsonController : Controller
 
     private readonly HashSet<string> _hasLanguages = new()
     {
+        "achievement",
         "journal",
         "static",
     };
@@ -32,14 +33,17 @@ public class CachedJsonController : Controller
 
         if (!Enum.TryParse<Language>(languageCode, out var language))
         {
+            _logger.LogWarning("Invalid country code: {code}", languageCode);
             language = Language.enUS;
         }
 
         string key = _hasLanguages.Contains(type) ? $"{type}-{language.ToString()}" : type;
-            
+        _logger.LogDebug("key = {key}", key);
+
         string jsonHash = await db.StringGetAsync($"cache:{key}:hash");
         if (hash != jsonHash)
         {
+            _logger.LogWarning("Invalid content hash: {hash}", hash);
             return RedirectToAction("CachedJson", new { type, languageCode = language.ToString(), hash = jsonHash });
         }
 

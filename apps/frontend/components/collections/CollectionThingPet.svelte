@@ -6,7 +6,7 @@
     import IntersectionObserver from 'svelte-intersection-observer'
 
     import { petBreedMap } from '@/data/pet-breed'
-    import { staticStore, userStore } from '@/stores'
+    import { userStore } from '@/stores'
     import { collectionState } from '@/stores/local-storage'
     import type { UserDataPet } from '@/types'
     import type { CollectionContext } from '@/types/contexts'

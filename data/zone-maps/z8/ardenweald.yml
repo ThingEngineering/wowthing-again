@@ -10,8 +10,7 @@ farms:
   questId: 59226
   drops:
   - type: transmog
-    id: 180166
-    name: "Deathbinder's Staff"
+    id: 180166 # Deathbinder's Staff
 
 - name: "Deifir the Untamed"
   location: 47.5 28.4
@@ -19,8 +18,7 @@ farms:
   questId: 59201 62271
   drops:
   - type: pet
-    id: 2920
-    name: "Gorm Needler"
+    id: 2920 # Gorm Needler
 
 - name: "Dustbrawl"
   location: 48.4 77.2
@@ -28,8 +26,7 @@ farms:
   questId: 58987
   drops:
   - type: transmog
-    id: 181395
-    name: "Dustbreak Maul"
+    id: 181395 # Dustbreak Maul
 
 - name: "Egg-Tender Leh'go"
   location: 57.9 29.6
@@ -37,8 +34,7 @@ farms:
   questId: 60266
   drops:
   - type: transmog
-    id: 179539
-    name: "Kelox's Eggbeater"
+    id: 179539 # Kelox's Eggbeater
 
 - name: "Faeflayer"
   location: 68.6 27.6
@@ -46,8 +42,7 @@ farms:
   questId: 61184
   drops:
   - type: transmog
-    id: 180144
-    name: "Faeflayer's Hatchet"
+    id: 180144 # Faeflayer's Hatchet
 
 - name: "Gormbore"
   location: 54.1 76.0
@@ -55,8 +50,7 @@ farms:
   questId: 59006
   drops:
   - type: pet
-    id: 3035
-    name: "Lavender Nibbler"
+    id: 3035 # Lavender Nibbler
 
 - name: "Gormtamer Tizo"
   location: 27.9 52.5
@@ -64,8 +58,7 @@ farms:
   questId: 59145
   drops:
   - type: mount
-    id: 1362
-    name: "Spinemaw Gladechewer"
+    id: 1362 # Spinemaw Gladechewer
 
 - name: "Humon'gozz"
   location: 32.4 30.3
@@ -73,8 +66,7 @@ farms:
   questId: 59157
   drops:
   - type: mount
-    id: 1415
-    name: "Arboreal Gulper"
+    id: 1415 # Arboreal Gulper
 
 - name: "Hunter Vivanna"
   location: 67.4 51.5
@@ -82,16 +74,13 @@ farms:
   questId: 59221
   drops:
   - type: transmog
-    id: 179596
-    name: "Drust Mask of Dominance"
+    id: 179596 # Drust Mask of Dominance
 
   - type: transmog
-    id: 179593
-    name: "Darkreach Mask"
+    id: 179593 # Darkreach Mask
 
   - type: transmog
-    id: 179594
-    name: "Witherscorn Guise"
+    id: 179594 # Witherscorn Guise
 
 - name: "Mymaen"
   location: 62.1 24.7
@@ -99,8 +88,7 @@ farms:
   questId: 59431
   drops:
   - type: transmog
-    id: 179502
-    name: "Ripvine Barb"
+    id: 179502 # Ripvine Barb
 
 - name: "Mystic Rainbowhorn"
   location: 65.7 28.1
@@ -108,13 +96,11 @@ farms:
   questId: 59235
   drops:
   - type: quest
-    id: 62434
-    name: "Runestag Soul"
+    id: 62434 # Runestag Soul
     limit: covenant night-fae
 
   - type: transmog
-    id: 179586
-    name: "Elderwood Piercer"
+    id: 179586 # Elderwood Piercer
 
 - name: "Night Mare"
   location: 57.9 49.8
@@ -123,8 +109,7 @@ farms:
   questId: 60306
   drops:
   - type: mount
-    id: 1306
-    name: "Swift Gloomhoof"
+    id: 1306 # Swift Gloomhoof
 
 - name: "Old Ardeite"
   location: 51.1 57.4
@@ -132,8 +117,7 @@ farms:
   questId: 59208 62270
   drops:
   - type: pet
-    id: 2908
-    name: "Chirpy Valeshrieker"
+    id: 2908 # Chirpy Valeshrieker
 
 - name: "Rootwrithe"
   location: 65.1 44.3
@@ -141,8 +125,7 @@ farms:
   questId: 60273
   drops:
   - type: transmog
-    id: 179603
-    name: "Nettlehusk Barrier"
+    id: 179603 # Nettlehusk Barrier
 
 - name: "Skuld Vit"
   location: 37.7 59.2
@@ -150,13 +133,11 @@ farms:
   questId: 59220
   drops:
   - type: quest
-    id: 62439
-    name: "Wolfhawk Soul"
+    id: 62439 # Wolfhawk Soul
     limit: covenant night-fae
 
   - type: transmog
-    id: 180146
-    name: "Axe of Broken Wills"
+    id: 180146 # Axe of Broken Wills
 
 - name: "Soultwister Cero"
   location: 72.4 51.8
@@ -164,8 +145,7 @@ farms:
   questId: 61177
   drops:
   - type: transmog
-    id: 180164
-    name: "Soultwister's Scythe"
+    id: 180164 # Soultwister's Scythe
 
 - name: "Valfir the Unrelenting"
   location: 30.1 55.4
@@ -173,18 +153,15 @@ farms:
   questId: 61632
   drops:
   - type: quest
-    id: 62431
-    name: "Shadowstalker Soul"
+    id: 62431 # Shadowstalker Soul
     limit: covenant night-fae
 
   - type: mount
-    id: 1393
-    name: "Wild Glimmerfur Prowler"
+    id: 1393 # Wild Glimmerfur Prowler
     limit: covenant night-fae
 
   - type: transmog
-    id: 180154
-    name: "Greataxe of Unrelenting Pursuit"
+    id: 180154 # Greataxe of Unrelenting Pursuit
 
 - name: "Wrigglemortis"
   location: 58.3 61.8
@@ -192,8 +169,7 @@ farms:
   questId: 59170
   drops:
   - type: transmog
-    id: 181396
-    name: "Thornsweeper Scythe"
+    id: 181396 # Thornsweeper Scythe
 
 # Weird ones
 - name: Macabre
@@ -203,8 +179,7 @@ farms:
   questId: 59140
   drops:
   - type: pet
-    id: 2907
-    name: Rocky
+    id: 2907 # Rocky
 
 - name: "Star Lake: Argus"
   location: 41.2 44.5
@@ -213,8 +188,7 @@ farms:
   questId: 61633
   drops:
   - type: transmog
-    id: 179534
-    name: "Mi'kai's Deathscythe"
+    id: 179534 # Mi'kai's Deathscythe
 
 - name: "Star Lake: Azshara"
   location: 43.2 44.5
@@ -223,8 +197,7 @@ farms:
   questId: 61633
   drops:
   - type: transmog
-    id: 179518
-    name: Glimmerlight Staff
+    id: 179518 # Glimmerlight Staff
 
 # World boss
 - name: Oranomonos the Everbranching
@@ -236,24 +209,19 @@ farms:
   type: killBig
   drops:
   - type: transmog
-    id: 184127
-    name: Slippers of the Leafy Undergrowth
+    id: 184127 # Slippers of the Leafy Undergrowth
 
   - type: transmog
-    id: 184129
-    name: Oranomonos's Diaphanous Leggings
+    id: 184129 # Oranomonos's Diaphanous Leggings
 
   - type: transmog
-    id: 184172
-    name: Seed-Tender's Handwraps
+    id: 184172 # Seed-Tender's Handwraps
 
   - type: transmog
-    id: 184126
-    name: Ironroot Bindings
+    id: 184126 # Ironroot Bindings
 
   - type: transmog
-    id: 184138
-    name: Stonebark Girdle
+    id: 184138 # Stonebark Girdle
 
 # Treasures
 
@@ -264,8 +232,7 @@ farms:
   type: treasure
   drops:
   - type: pet
-    id: 2921
-    name: "Gorm Harrier"
+    id: 2921 # Gorm Harrier
 
 - name: "Cache of the Moon"
   location: 63.9 37.8
@@ -274,8 +241,7 @@ farms:
   type: treasure
   drops:
   - type: mount
-    id: 1397
-    name: "Wildseed Cradle"
+    id: 1397 # Wildseed Cradle
 
 - name: "Cache of the Night"
   location: 36.2 65.3
@@ -284,12 +250,10 @@ farms:
   type: treasure
   drops:
   - type: pet
-    id: 2914
-    name: "Starry Dreamfoal"
+    id: 2914 # Starry Dreamfoal
 
   - type: transmog
-    id: 179549
-    name: "Nightwillow Cudgel"
+    id: 179549 # Nightwillow Cudgel
 
 - name: "Darkreach Supplies"
   location: 37.6 61.6
@@ -298,12 +262,10 @@ farms:
   type: treasure
   drops:
   - type: transmog
-    id: 179593
-    name: "Darkreach Mask"
+    id: 179593 # Darkreach Mask
 
   - type: transmog
-    id: 179594
-    name: "Witherscorn Guise"
+    id: 179594 # Witherscorn Guise
 
 - name: "Desiccated Moth"
   location: 42.0 32.5
@@ -312,8 +274,7 @@ farms:
   type: treasure
   drops:
   - type: pet
-    id: 2911
-    name: "Amber Glitterwing"
+    id: 2911 # Amber Glitterwing
 
 - name: "Dreamsong Heart"
   location: 37.6 37.1
@@ -322,8 +283,7 @@ farms:
   type: treasure
   drops:
   - type: transmog
-    id: 179510
-    name: "Dreamsong Warglaive"
+    id: 179510 # Dreamsong Warglaive
 
 - name: "Elusive Faerie Cache"
   location: 44.8 75.9
@@ -332,12 +292,10 @@ farms:
   type: treasure
   drops:
   - type: toy
-    id: 184490
-    name: "Fae Pipes"
+    id: 184490 # Fae Pipes
 
   - type: transmog
-    id: 179512
-    name: "Dreamsong Saber"
+    id: 179512 # Dreamsong Saber
 
 - name: "Enchanted Dreamcatcher"
   location: 36.4 25.1
@@ -346,8 +304,7 @@ farms:
   type: treasure
   drops:
   - type: quest
-    id: 62259
-    name: "Anima-Laden Dreamcatcher"
+    id: 62259 # Anima-Laden Dreamcatcher
 
 - name: "Faerie Trove"
   location: 49.7 55.9
@@ -356,8 +313,7 @@ farms:
   type: treasure
   drops:
   - type: pet
-    id: 3022
-    name: "Shimmerbough Hoarder"
+    id: 3022 # Shimmerbough Hoarder
 
 - name: "Harmonic Chest"
   location: 67.8 34.6
@@ -366,12 +322,10 @@ farms:
   type: treasure
   drops:
   - type: toy
-    id: 184489
-    name: "Fae Harp"
+    id: 184489 # Fae Harp
 
   - type: transmog
-    id: 179565
-    name: "Songwood Stem"
+    id: 179565 # Songwood Stem
 
 - name: "Hearty Dragon Plume"
   location: 48.2 39.3
@@ -380,8 +334,7 @@ farms:
   type: treasure
   drops:
   - type: toy
-    id: 182729
-    name: "Hearty Dragon Plume"
+    id: 182729 # Hearty Dragon Plume
 
 - name: "Lost Satchel"
   location: 48.3 20.3
@@ -390,8 +343,7 @@ farms:
   type: treasure
   drops:
   - type: quest
-    id: 62187
-    name: "Satchel of Culexwood"
+    id: 62187 # Satchel of Culexwood
 #
 #- name: "Playful Vulpin Befriended (171206)"
 #  location: 31.8 41.0
@@ -410,8 +362,7 @@ farms:
   type: treasure
   drops:
   - type: quest
-    id: 62186
-    name: "Swollen Anima Seed"
+    id: 62186 # Swollen Anima Seed
 
 - name: "Tame Gladerunner"
   location: 26.3 59.0
@@ -420,8 +371,7 @@ farms:
   type: treasure
   drops:
   - type: mount
-    id: 1360
-    name: "Shimmermist Runner"
+    id: 1360 # Shimmermist Runner
 
 #- name: "Veilwing Egg (Ancient Cloudfeather Egg)"
 #  location: 52.9 37.3

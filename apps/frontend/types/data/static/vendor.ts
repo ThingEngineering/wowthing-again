@@ -1,4 +1,4 @@
-import type { FarmDropType, ItemQuality } from '@/types/enums'
+import type { RewardType, ItemQuality } from '@/types/enums'
 
 
 export interface StaticDataVendorCategory {
@@ -9,7 +9,7 @@ export interface StaticDataVendorCategory {
 
 export interface StaticDataVendorGroup {
     name: string
-    type: FarmDropType
+    type: RewardType
     things: StaticDataVendorItem[]
     filteredThings: StaticDataVendorItem[]
 }

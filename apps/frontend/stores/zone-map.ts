@@ -10,7 +10,7 @@ import { covenantSlugMap } from '@/data/covenant'
 import { factionMap } from '@/data/faction'
 import { UserCount, WritableFancyStore } from '@/types'
 import { ZoneMapDataFarm } from '@/types/data'
-import { FarmDropType, FarmResetType, PlayableClass, PlayableClassMask } from '@/types/enums'
+import { RewardType, FarmResetType, PlayableClass, PlayableClassMask } from '@/types/enums'
 import { getNextBiWeeklyReset, getNextDailyReset, getNextWeeklyReset } from '@/utils/get-next-reset'
 import getTransmogClassMask from '@/utils/get-transmog-class-mask'
 import type { ZoneMapState } from '@/stores/local-storage/zone-map'
@@ -105,13 +105,13 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                 const mapKey = `${maps[0].slug}--${map.slug}`
                 const mapCounts = setCounts[mapKey] = new UserCount()
                 const mapTypeCounts: Record<number, UserCount> = typeCounts[mapKey] = {
-                    [FarmDropType.Achievement]: new UserCount(),
-                    [FarmDropType.Item]: new UserCount(),
-                    [FarmDropType.Mount]: new UserCount(),
-                    [FarmDropType.Pet]: new UserCount(),
-                    [FarmDropType.Quest]: new UserCount(),
-                    [FarmDropType.Toy]: new UserCount(),
-                    [FarmDropType.Transmog]: new UserCount(),
+                    [RewardType.Achievement]: new UserCount(),
+                    [RewardType.Item]: new UserCount(),
+                    [RewardType.Mount]: new UserCount(),
+                    [RewardType.Pet]: new UserCount(),
+                    [RewardType.Quest]: new UserCount(),
+                    [RewardType.Toy]: new UserCount(),
+                    [RewardType.Transmog]: new UserCount(),
                 }
 
                 const mapSeen: Record<string, Record<number, boolean>> = {}
@@ -208,7 +208,7 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
 
                         let fixedType = drop.type
                         switch (drop.type) {
-                            case FarmDropType.Achievement:
+                            case RewardType.Achievement:
                                 if (drop.subType > 0) {
                                     if (!userAchievementData.criteria[drop.subType]) {
                                         dropStatus.need = true
@@ -219,52 +219,52 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                                 }
                                 break
 
-                            case FarmDropType.Item:
+                            case RewardType.Item:
                                 dropStatus.need = true
                                 break
 
-                            case FarmDropType.Mount:
+                            case RewardType.Mount:
                                 if (!userData.hasMount[drop.id] &&
                                     !userData.addonMounts[drop.id]) {
                                     dropStatus.need = true
                                 }
                                 break
 
-                            case FarmDropType.Pet:
+                            case RewardType.Pet:
                                 if (!userData.hasPet[drop.id]) {
                                     dropStatus.need = true
                                 }
                                 break
 
-                            case FarmDropType.Quest:
+                            case RewardType.Quest:
                                 if (!every(userQuestData.characters, (c) => c.quests.get(drop.id) !== undefined)) {
                                     dropStatus.need = true
                                 }
                                 break
 
-                            case FarmDropType.Toy:
+                            case RewardType.Toy:
                                 if (!userData.hasToy[drop.id]) {
                                     dropStatus.need = true
                                 }
                                 break
 
-                            case FarmDropType.Armor:
-                            case FarmDropType.Cosmetic:
-                            case FarmDropType.Weapon:
+                            case RewardType.Armor:
+                            case RewardType.Cosmetic:
+                            case RewardType.Weapon:
                                 const item = staticData.items[drop.id]
                                 if (!userTransmogData.userHas[item?.appearanceId ?? 0]) {
                                     dropStatus.need = true
                                 }
-                                fixedType = FarmDropType.Transmog
+                                fixedType = RewardType.Transmog
                                 break
                         }
 
                         dropStatus.skip = (
-                            (drop.type === FarmDropType.Achievement && !options.trackAchievements) ||
-                            (drop.type === FarmDropType.Mount && !options.trackMounts) ||
-                            (drop.type === FarmDropType.Pet && !options.trackPets) ||
-                            (drop.type === FarmDropType.Quest && !options.trackQuests) ||
-                            (drop.type === FarmDropType.Toy && !options.trackToys) ||
+                            (drop.type === RewardType.Achievement && !options.trackAchievements) ||
+                            (drop.type === RewardType.Mount && !options.trackMounts) ||
+                            (drop.type === RewardType.Pet && !options.trackPets) ||
+                            (drop.type === RewardType.Quest && !options.trackQuests) ||
+                            (drop.type === RewardType.Toy && !options.trackToys) ||
                             (transmogTypes.indexOf(drop.type) >= 0 && !options.trackTransmog)
                         )
 
@@ -276,7 +276,7 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                                 mapSeen[drop.type] = {}
                             }
 
-                            const seenId = drop.type === FarmDropType.Achievement ? drop.subType : drop.id
+                            const seenId = drop.type === RewardType.Achievement ? drop.subType : drop.id
 
                             overallCounts.total++
                             if (categorySeen[drop.type][seenId] === undefined) {
@@ -354,7 +354,7 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                             }
 
                             // Filter again for characters that haven't completed the quest
-                            if (drop.type === FarmDropType.Quest) {
+                            if (drop.type === RewardType.Quest) {
                                 if (map.slug === 'mechagon') {
                                     dropCharacters = filter(dropCharacters, (c) => c.name === 'Wataki')
                                 }
@@ -417,7 +417,7 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
 
                     farmStatus.need = some(farmStatus.drops, (d) => d.need && !d.skip)
 
-                    const characterIds: Record<number, FarmDropType[]> = {}
+                    const characterIds: Record<number, RewardType[]> = {}
 
                     for (let dropIndex = 0; dropIndex < farmStatus.drops.length; dropIndex++) {
                         const dropStatus = farmStatus.drops[dropIndex]
@@ -456,8 +456,8 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
 export const zoneMapStore = new ZoneMapDataStore()
 
 
-const transmogTypes: FarmDropType[] = [
-    FarmDropType.Armor,
-    FarmDropType.Cosmetic,
-    FarmDropType.Weapon,
+const transmogTypes: RewardType[] = [
+    RewardType.Armor,
+    RewardType.Cosmetic,
+    RewardType.Weapon,
 ]

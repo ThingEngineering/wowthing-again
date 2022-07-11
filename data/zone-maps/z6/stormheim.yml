@@ -9,8 +9,7 @@ farms:
   questId: 38431
   drops:
   - type: transmog
-    id: 129048
-    name: "Squallfury Robes"
+    id: 129048 # Squallfury Robes
 
 - name: "Captain Brvet"
   location: 58.00 45.16
@@ -18,8 +17,7 @@ farms:
   questId: 38642
   drops:
   - type: transmog
-    id: 129123
-    name: "Brvet's HAuberk of Command"
+    id: 129123 # Brvet's HAuberk of Command
 
 - name: 'Daniel "Boomer" Vorick'
   faction: horde
@@ -27,8 +25,7 @@ farms:
   npcId: 94313
   drops:
   - type: transmog
-    id: 129144
-    name: "Boomer's Utility Belt"
+    id: 129144 # Boomer's Utility Belt
 
 - name: "Dread-Rider Cortis"
   faction: alliance
@@ -37,8 +34,7 @@ farms:
   questId: 43343
   drops:
   - type: transmog
-    id: 130134
-    name: "Padded-Link Sniper Leggings"
+    id: 130134 # Padded-Link Sniper Leggings
 
 - name: "Egyl the Enduring"
   location: 41.77 34.11
@@ -46,8 +42,7 @@ farms:
   questId: 40068
   drops:
   - type: transmog
-    id: 132898
-    name: "Sabatons of the Endless Vigil"
+    id: 132898 # Sabatons of the Endless Vigil
 
 - name: "Glimar Ironfist"
   location: 41.47 67.02
@@ -55,8 +50,7 @@ farms:
   questId: 38333
   drops:
   - type: transmog
-    id: 129291
-    name: "Stormslayer Champion Belt"
+    id: 129291 # Stormslayer Champion Belt
 
 - name: "Grrvrgull the Conqueror"
   location: 78.62 61.16
@@ -64,8 +58,7 @@ farms:
   questId: 40113
   drops:
   - type: transmog
-    id: 138421
-    name: "The Conqueror's Chain"
+    id: 138421 # The Conqueror's Chain
 
 - name: "Hannval the Butcher"
   location: 51.60 74.65
@@ -73,8 +66,7 @@ farms:
   questId: 42591
   drops:
   - type: transmog
-    id: 138417
-    name: "The Butcher's Apron"
+    id: 138417 # The Butcher's Apron
 
 - name: "Hook & Sinker"
   faction: alliance
@@ -82,8 +74,7 @@ farms:
   npcId: 92590
   drops:
   - type: transmog
-    id: 129109
-    name: "Sinker's Line"
+    id: 129109 # Sinker's Line
 
 - name: "Houndmaster Ely"
   faction: horde
@@ -91,8 +82,7 @@ farms:
   npcId: 92951
   drops:
   - type: transmog
-    id: 129037
-    name: "The Houndmaster's Fancy Pants"
+    id: 129037 # The Houndmaster's Fancy Pants
 
 - name: "Inquisitor Ernstenbok"
   location: 63.70 74.22
@@ -100,8 +90,7 @@ farms:
   questId: 37908
   drops:
   - type: transmog
-    id: 140686
-    name: "Gargantuan Mantle"
+    id: 140686 # Gargantuan Mantle
 
 - name: "Isel the Hammer"
   location: 62.03 60.49
@@ -109,8 +98,7 @@ farms:
   questId: 39120
   drops:
   - type: transmog
-    id: 129133
-    name: "The Hammer's Head"
+    id: 129133 # The Hammer's Head
 
 - name: "Kottr Vondyr"
   location: 73.45 47.63
@@ -118,8 +106,7 @@ farms:
   questId: 40109
   drops:
   - type: transmog
-    id: 138419
-    name: "The Binder's Bonds"
+    id: 138419 # The Binder's Bonds
 
 - name: "Mordvigbjorn"
   location: 72.50 49.91
@@ -127,16 +114,14 @@ farms:
   questId: 38837
   drops:
   - type: transmog
-    id: 129035
-    name: "Indomitable Bearskin Cloak"
+    id: 129035 # Indomitable Bearskin Cloak
 
 - name: "Mother Clacker"
   location: 35.6 18.6
   npcId: 91780
   drops:
   - type: transmog
-    id: 129040
-    name: "Clacker's Clanking Clam Diggers"
+    id: 129040 # Clacker's Clanking Clam Diggers
 
 - name: "Roteye"
   location: 58.35 33.92
@@ -144,8 +129,7 @@ farms:
   questId: 43342
   drops:
   - type: transmog
-    id: 139387
-    name: "Drowned Champion's Greaves"
+    id: 139387 # Drowned Champion's Greaves
 
 - name: "Starbuck"
   location: 54.80 29.41
@@ -153,8 +137,7 @@ farms:
   questId: 42437
   drops:
   - type: transmog
-    id: 130132
-    name: "Bracers of Earthbound Flight"
+    id: 130132 # Bracers of Earthbound Flight
 
 - name: "Stormdrake Matriarch"
   location: 49.50 71.75
@@ -162,12 +145,10 @@ farms:
   questId: 38423
   drops:
   - type: pet
-    id: 1721
-    name: "Stormborne Whelpling"
+    id: 1721 # Stormborne Whelpling
 
   - type: transmog
-    id: 129110
-    name: "Matriarch-Hide Legguards"
+    id: 129110 # Matriarch-Hide Legguards
 
 - name: "Thane Irglov the Merciless"
   location: 40.67 72.38
@@ -175,8 +156,7 @@ farms:
   questId: 38424
   drops:
   - type: toy
-    id: 129113
-    name: "Faintly Glowing Flagon of Mead"
+    id: 129113 # Faintly Glowing Flagon of Mead
 
 - name: "The Nameless King"
   location: 67.30 39.90
@@ -184,8 +164,7 @@ farms:
   questId: 38685
   drops:
   - type: transmog
-    id: 129041
-    name: "Aurora of the Nameless King"
+    id: 129041 # Aurora of the Nameless King
 
 - name: "Urgev the Flayer"
   location: 64.80 51.76
@@ -193,8 +172,7 @@ farms:
   questId: 38847
   drops:
   - type: transmog
-    id: 129219
-    name: "The Flayer's Runewraps"
+    id: 129219 # The Flayer's Runewraps
 
 - name: "Whitewater Typhoon"
   location: 36.50 52.50
@@ -202,8 +180,7 @@ farms:
   questId: 38472
   drops:
   - type: transmog
-    id: 138418
-    name: "Typhoon Grips"
+    id: 138418 # Typhoon Grips
 
 # Weird one
 
@@ -213,8 +190,7 @@ farms:
   questId: 0
   drops:
   - type: transmog
-    id: 129264
-    name: "Patrol/Raider Captain's Gauntlets"
+    id: 129264 # Patrol/Raider Captain's Gauntlets
 
 # World bosses
 
@@ -226,21 +202,16 @@ farms:
   type: killBig
   drops:
   - type: transmog
-    id: 141541
-    name: "Windwhipped Greatcloak"
+    id: 141541 # Windwhipped Greatcloak
 
   - type: transmog
-    id: 141414
-    name: "Hood of Scorned Brood"
+    id: 141414 # Hood of Scorned Brood
 
   - type: transmog
-    id: 141418
-    name: "Helm of the Mountain Recluse"
+    id: 141418 # Helm of the Mountain Recluse
 
   - type: transmog
-    id: 141420
-    name: "Coif of Unstable Discharge"
+    id: 141420 # Coif of Unstable Discharge
 
   - type: transmog
-    id: 141424
-    name: "Stormbattered Casque"
+    id: 141424 # Stormbattered Casque

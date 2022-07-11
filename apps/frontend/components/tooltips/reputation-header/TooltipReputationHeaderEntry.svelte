@@ -1,8 +1,8 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
-    import { dropTypeStringIcon } from '@/data/farm'
-    import { staticStore, userStore } from '@/stores'
-    import { Faction } from '@/types/enums'
+    import { dropTypeIcon } from '@/data/farm'
+    import { staticStore, userStore, userTransmogStore } from '@/stores'
+    import { Faction, RewardType } from '@/types/enums'
     import type { Character } from '@/types'
     import type { StaticDataReputationReputation, StaticDataReputationSet } from '@/types/data/static'
 
@@ -13,11 +13,10 @@
     export let reputation: StaticDataReputationReputation
     export let set: StaticDataReputationSet
 
-    let name: string
     let rewards: {
         id: number,
         name: string,
-        type: string,
+        type: RewardType,
         have: boolean,
     }[]
     let totalParagon = 0
@@ -34,20 +33,25 @@
                 for (const reward of reputation.rewards) {
                     let have = false
                     let name: string
-                    if (reward.type === 'mount') {
+                    if (reward.type === RewardType.Mount) {
                         have = $userStore.data.hasMount[reward.id] === true
                         const mount = $staticStore.data.mounts[reward.id]
                         name = mount ? mount.name : `Mount #${reward.id}`
                     }
-                    else if (reward.type === 'pet') {
+                    else if (reward.type === RewardType.Pet) {
                         have = $userStore.data.hasPet[reward.id] === true
                         const pet = $staticStore.data.pets[reward.id]
                         name = pet ? pet.name : `Pet #${reward.id}`
                     }
-                    else if (reward.type === 'toy') {
+                    else if (reward.type === RewardType.Toy) {
                         have = $userStore.data.hasToy[reward.id] === true
                         const toy = $staticStore.data.toys[reward.id]
                         name = toy ? toy.name : `Toy #${reward.id}`
+                    }
+                    else if (reward.type === RewardType.Transmog) {
+                        const item = $staticStore.data.items[reward.id]
+                        have = $userTransmogStore.data.userHas[item?.appearanceId || 0]
+                        name = item?.name || `Item #${reward.id}`
                     }
 
                     rewards.push({
@@ -106,7 +110,7 @@
                 <td
                     class="type status-{reward.have ? 'success' : 'fail'}"
                 >
-                    <IconifyIcon icon={dropTypeStringIcon[reward.type]} />
+                    <IconifyIcon icon={dropTypeIcon[reward.type]} />
                 </td>
                 <td class="name">
                     {reward.name}

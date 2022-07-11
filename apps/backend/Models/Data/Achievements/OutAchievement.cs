@@ -4,21 +4,24 @@ using Wowthing.Lib.Enums;
 namespace Wowthing.Backend.Models.Data.Achievements
 {
     [JsonConverter(typeof(OutAchievementConverter))]
-    public class OutAchievement
+    public class OutAchievement : ICloneable
     {
-        public int CategoryId { get; }
-        public int CriteriaTreeId { get; }
-        public int Faction { get; }
-        public int Id { get; }
-        public int MinimumCriteria { get; }
-        public int Order { get; }
-        public int Points { get; }
+        public int CategoryId { get; set; }
+        public int CriteriaTreeId { get; set; }
+        public int Faction { get; set; }
+        public int Id { get; set; }
+        public int MinimumCriteria { get; set; }
+        public int Order { get; set; }
+        public int Points { get; set; }
         public int SupersededBy { get; set; }
-        public int Supersedes { get; }
-        public string Description { get; }
-        public string Name { get; }
-        public string Reward { get; }
-        public WowAchievementFlags Flags { get; }
+        public int Supersedes { get; set; }
+        public string Description { get; set; }
+        public string Name { get; set; }
+        public string Reward { get; set; }
+        public WowAchievementFlags Flags { get; set; }
+
+        public OutAchievement()
+        { }
 
         public OutAchievement(DumpAchievement dump)
         {
@@ -34,6 +37,25 @@ namespace Wowthing.Backend.Models.Data.Achievements
             Description = dump.Description;
             Name = dump.Name;
             Reward = dump.Reward;
+        }
+
+        public object Clone()
+        {
+            return new OutAchievement
+            {
+                CategoryId = CategoryId,
+                CriteriaTreeId = CriteriaTreeId,
+                Faction = Faction,
+                Flags = Flags,
+                Id = Id,
+                MinimumCriteria = MinimumCriteria,
+                Order = Order,
+                Points = Points,
+                Supersedes = Supersedes,
+                Description = Description,
+                Name = Name,
+                Reward = Reward,
+            };
         }
     }
 }

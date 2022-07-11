@@ -1,4 +1,4 @@
-import { FarmDropType } from '@/types/enums'
+import { RewardType } from '@/types/enums'
 import type { StaticData } from '@/types/data/static'
 import type { UserData } from '@/types/user-data'
 import type { UserTransmogData } from '@/types/data'
@@ -8,28 +8,28 @@ export default function userHasDrop(
     staticData: StaticData,
     userData: UserData,
     userTransmogData: UserTransmogData,
-    type: FarmDropType,
+    type: RewardType,
     id: number
 ): boolean {
     return (
         (
-            type === FarmDropType.Mount &&
+            type === RewardType.Mount &&
             userData.hasMount[id] === true
         ) ||
         (
-            type === FarmDropType.Pet &&
+            type === RewardType.Pet &&
             userData.hasPet[id] === true
         ) ||
         (
-            type === FarmDropType.Toy &&
+            type === RewardType.Toy &&
             userData.hasToy[id] === true
         ) ||
         (
             (
-                type === FarmDropType.Armor ||
-                type === FarmDropType.Cosmetic ||
-                type === FarmDropType.Transmog ||
-                type === FarmDropType.Weapon
+                type === RewardType.Armor ||
+                type === RewardType.Cosmetic ||
+                type === RewardType.Transmog ||
+                type === RewardType.Weapon
             ) &&
             userTransmogData.userHas[staticData.items[id]?.appearanceId || id] === true
         )

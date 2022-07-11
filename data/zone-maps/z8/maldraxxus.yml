@@ -10,16 +10,13 @@ farms:
   questId: 58870
   drops:
   - type: toy
-    id: 184476
-    name: "Regenerating Slime Vial"
+    id: 184476 # Regenerating Slime Vial
 
   - type: transmog
-    id: 184154
-    name: "Grungy Containment Pack"
+    id: 184154 # Grungy Containment Pack
 
   - type: transmog
-    id: 184290
-    name: "Blood-Dyed Bonesaw"
+    id: 184290 # Blood-Dyed Bonesaw
 
 - name: "Collector Kash"
   location: 48.9 23.5
@@ -27,25 +24,20 @@ farms:
   questId: 58005
   drops:
   - type: quest
-    id: 62408
-    name: "Jagged Bonesaw"
+    id: 62408 # Jagged Bonesaw
     limit: covenant necrolord
 
   - type: transmog
-    id: 184188
-    name: "Collector's Corpse Gambrel"
+    id: 184188 # Collector's Corpse Gambrel
 
   - type: transmog
-    id: 184189
-    name: "Stained Fleshgorer"
+    id: 184189 # Stained Fleshgorer
 
   - type: transmog
-    id: 184181
-    name: "Kash's Favored Hook"
+    id: 184181 # Kash's Favored Hook
 
   - type: transmog
-    id: 184182
-    name: "Strengthened Abomination Hook"
+    id: 184182 # Strengthened Abomination Hook
 
 - name: "Corpsecutter Moroc"
   location: 26.4 26.3
@@ -53,12 +45,10 @@ farms:
   questId: 58335
   drops:
   - type: transmog
-    id: 184177
-    name: "Grotesque Goring Pick"
+    id: 184177 # Grotesque Goring Pick
 
   - type: transmog
-    id: 184176
-    name: "Moroc's Boneslicing Warglaive"
+    id: 184176 # Moroc's Boneslicing Warglaive
 
 - name: "Deadly Dapperling"
   location: 76.8 57.1
@@ -66,12 +56,10 @@ farms:
   questId: 58868
   drops:
   - type: pet
-    id: 2953
-    name: "Shy Melvin"
+    id: 2953 # Shy Melvin
 
   - type: transmog
-    id: 184280
-    name: "Dapper Threads"
+    id: 184280 # Dapper Threads
 
 - name: "Deepscar"
   location: 48.2 51.8
@@ -80,8 +68,7 @@ farms:
   questId: 58878
   drops:
   - type: transmog
-    id: 182191
-    name: "Slobber-Soaked Chew Toy"
+    id: 182191 # Slobber-Soaked Chew Toy
 
 - name: "Devour'us"
   location: 45.1 28.4
@@ -89,8 +76,7 @@ farms:
   questId: 58835
   drops:
   - type: transmog
-    id: 184178
-    name: "Worldrending Claymore"
+    id: 184178 # Worldrending Claymore
 
 - name: "Gieger"
   location: 31.6 35.4
@@ -99,13 +85,11 @@ farms:
   questId: 58872
   drops:
   - type: mount
-    id: 1411
-    name: "Predatory Plagueroc"
+    id: 1411 # Predatory Plagueroc
     limit: covenant necrolord
 
   - type: transmog
-    id: 184298
-    name: "Amalgamated Forsworn's Journal"
+    id: 184298 # Amalgamated Forsworn's Journal
 
 - name: "Gristlebeak"
   location: 57.8 51.5
@@ -113,8 +97,7 @@ farms:
   questId: 58837
   drops:
   - type: transmog
-    id: 182196
-    name: "Arbalest of the Colossal Predator"
+    id: 182196 # Arbalest of the Colossal Predator
 
 - name: "Indomitable Schmitd"
   location: 38.8 43.3
@@ -122,8 +105,7 @@ farms:
   questId: 58332
   drops:
   - type: transmog
-    id: 182192
-    name: "Knee-Obstructing Legguards"
+    id: 182192 # Knee-Obstructing Legguards
 
 - name: "Necromantic Anomaly"
   location: 72.9 28.9
@@ -131,8 +113,7 @@ farms:
   questId: 62369
   drops:
   - type: transmog
-    id: 181810
-    name: "Phylactery of the Dead Conniver"
+    id: 181810 # Phylactery of the Dead Conniver
     limit: covenant necrolord
 
 - name: "Nerissa Heartless"
@@ -141,12 +122,10 @@ farms:
   questId: 58851
   drops:
   - type: mount
-    id: 1373
-    name: "Gorespine"
+    id: 1373 # Gorespine
 
   - type: transmog
-    id: 184179
-    name: "Lichsworn Commander's Boneblade"
+    id: 184179 # Lichsworn Commander's Boneblade
 
 - name: "Nirvaska the Summoner"
   location: 50.3 63.3
@@ -155,13 +134,11 @@ farms:
   questId: 58629
   drops:
   - type: transmog
-    id: 181811
-    name: "Beckoner's Shadowy Crystal"
+    id: 181811 # Beckoner's Shadowy Crystal
     limit: covenant necrolord
 
   - type: transmog
-    id: 183700
-    name: "Forgotten Summoner's Shoulderpads"
+    id: 183700 # Forgotten Summoner's Shoulderpads
 
 - name: "Pesticide"
   location: 53.7 61.3
@@ -169,8 +146,7 @@ farms:
   questId: 58875
   drops:
   - type: transmog
-    id: 182205
-    name: "Scarab-Shell Faceguard"
+    id: 182205 # Scarab-Shell Faceguard
 
 - name: "Ravenomous"
   location: 53.8 18.8
@@ -178,12 +154,10 @@ farms:
   questId: 58004
   drops:
   - type: pet
-    id: 2964
-    name: "Foulwing Buzzer"
+    id: 2964 # Foulwing Buzzer
 
   - type: transmog
-    id: 184184
-    name: "Ravenemous's Acid-Tipped Stinger"
+    id: 184184 # Ravenemous's Acid-Tipped Stinger
 
 - name: "Sabriel the Bonecleaver"
   location: 52.4 47.3 #50.3
@@ -192,8 +166,7 @@ farms:
   questId: 58784
   drops:
   - type: mount
-    id: 1370
-    name: "Armored Bonehoof Tauralus"
+    id: 1370 # Armored Bonehoof Tauralus
     limit: covenant necrolord
 
 - name: "Scunner"
@@ -202,12 +175,10 @@ farms:
   questId: 58006
   drops:
   - type: pet
-    id: 2957
-    name: "Writhing Spine"
+    id: 2957 # Writhing Spine
 
   - type: transmog
-    id: 184287
-    name: "Scum-Caked Epaulettes"
+    id: 184287 # Scum-Caked Epaulettes
 
 - name: "Sister Chelicerae"
   location: 55.5 23.6
@@ -215,12 +186,10 @@ farms:
   questId: 58003
   drops:
   - type: pet
-    id: 2948
-    name: "Boneweave Hatchling"
+    id: 2948 # Boneweave Hatchling
 
   - type: transmog
-    id: 184289
-    name: "Spindlefang Spellblade"
+    id: 184289 # Spindlefang Spellblade
 
 - name: "Smorgas the Feaster"
   location: 42.5 53.4
@@ -228,16 +197,13 @@ farms:
   questId: 58768
   drops:
   - type: pet
-    id: 2955
-    name: "Corpselouse Larva"
+    id: 2955 # Corpselouse Larva
 
   - type: pet
-    id: 2956
-    name: "Feasting Larva"
+    id: 2956 # Feasting Larva
 
   - type: transmog
-    id: 184299
-    name: "Goresoaked Carapace"
+    id: 184299 # Goresoaked Carapace
 
 - name: "Tahonta"
   location: 44.2 51.3
@@ -246,13 +212,11 @@ farms:
   questId: 58783
   drops:
   - type: mount
-    id: 1366
-    name: "Bonehoof Tauralus"
+    id: 1366 # Bonehoof Tauralus
     limit: covenant necrolord
 
   - type: transmog
-    id: 182190
-    name: "Tauralus Hide Collar"
+    id: 182190 # Tauralus Hide Collar
 
 - name: "Taskmaster Xox"
   location: 50.6 20.1
@@ -260,20 +224,16 @@ farms:
   questId: 58091
   drops:
   - type: transmog
-    id: 184193
-    name: "Callus-Forged Hook"
+    id: 184193 # Callus-Forged Hook
 
   - type: transmog
-    id: 184192
-    name: "Pristine Alabaster Gorer"
+    id: 184192 # Pristine Alabaster Gorer
 
   - type: transmog
-    id: 184186
-    name: "Flesh-Fishing Hook"
+    id: 184186 # Flesh-Fishing Hook
 
   - type: transmog
-    id: 184187
-    name: "Taskmaster's Tenderizer"
+    id: 184187 # Taskmaster's Tenderizer
 
 - name: "Thread Mistress Leeda"
   location: 24.2 43.0
@@ -281,8 +241,7 @@ farms:
   questId: 58678
   drops:
   - type: transmog
-    id: 184180
-    name: "Leeda's Unrefined Mask"
+    id: 184180 # Leeda's Unrefined Mask
 
 - name: "Warbringer Mal'Korak"
   location: 33.7 80.2
@@ -290,12 +249,10 @@ farms:
   questId: 58889
   drops:
   - type: mount
-    id: 1372
-    name: "Blisterback Bloodtusk"
+    id: 1372 # Blisterback Bloodtusk
 
   - type: transmog
-    id: 184288
-    name: "Ruthless Warlord's Barrier"
+    id: 184288 # Ruthless Warlord's Barrier
 
 - name: "Zargox the Reborn"
   location: 29.0 51.4
@@ -303,18 +260,15 @@ farms:
   questId: 59290
   drops:
   - type: quest
-    id: 62404
-    name: "Ashen Ink"
+    id: 62404 # Ashen Ink
     limit: covenant necrolord
 
   - type: transmog
-    id: 181804
-    name: "Trophy of the Reborn Bonelord"
+    id: 181804 # Trophy of the Reborn Bonelord
     limit: covenant necrolord
 
   - type: transmog
-    id: 184285
-    name: "Boneclutched Shackles"
+    id: 184285 # Boneclutched Shackles
 
 # Weird ones
 - name: "Theater of Pain"
@@ -324,8 +278,7 @@ farms:
   questId: 62786
   drops:
   - type: mount
-    id: 1437
-    name: "Battle-Bound Warhound"
+    id: 1437 # Battle-Bound Warhound
 
 # World boss
 - name: "Mortanis"
@@ -337,24 +290,19 @@ farms:
   type: killBig
   drops:
   - type: transmog
-    id: 184133
-    name: "Spine Crawler Waistcord"
+    id: 184133 # Spine Crawler Waistcord
 
   - type: transmog
-    id: 184140
-    name: "Bone-Cleated Footpads"
+    id: 184140 # Bone-Cleated Footpads
 
   - type: transmog
-    id: 184173
-    name: "Bone Crushing Vicegrips"
+    id: 184173 # Bone Crushing Vicegrips
 
   - type: transmog
-    id: 184128
-    name: "Mortanis's Ribcage"
+    id: 184128 # Mortanis's Ribcage
 
   - type: transmog
-    id: 184135
-    name: "Shoulderblade Vambraces"
+    id: 184135 # Shoulderblade Vambraces
 
 # Treasures
 
@@ -366,12 +314,10 @@ farms:
   type: treasure
   drops:
   - type: toy
-    id: 184318
-    name: "Battlecry of Krexus"
+    id: 184318 # Battlecry of Krexus
 
   - type: transmog
-    id: 183619
-    name: "Everlasting Boneforged Greataxe"
+    id: 183619 # Everlasting Boneforged Greataxe
 
 #- name: "Cache of Eyes"
 #  location: 54.0 12.3
@@ -389,8 +335,7 @@ farms:
   type: treasure
   drops:
   - type: pet
-    id: 3047
-    name: "Spinebug"
+    id: 3047 # Spinebug
 
 - name: "Necro Tome"
   location: 42.4 23.3
@@ -399,8 +344,7 @@ farms:
   type: treasure
   drops:
   - type: toy
-    id: 182732
-    name: "The Necronom-i-nom"
+    id: 182732 # The Necronom-i-nom
 
 - name: "Oonar's Arm and Sorrowbane"
   location: 51.4 48.5
@@ -409,12 +353,10 @@ farms:
   type: treasure
   drops:
   - type: pet
-    id: 2944
-    name: "Oonar's Arm"
+    id: 2944 # Oonar's Arm
 
   - type: transmog
-    id: 180273
-    name: "Sorrowbane"
+    id: 180273 # Sorrowbane
 
 - name: "Ornate Bone Shield"
   location: 47.2 62.2
@@ -423,8 +365,7 @@ farms:
   type: treasure
   drops:
   - type: transmog
-    id: 180749
-    name: "Hauk's Battle-Scarred Bulwark"
+    id: 180749 # Hauk's Battle-Scarred Bulwark
 
 - name: "Plaguefallen Chest"
   location: 57.7 75.8
@@ -433,8 +374,7 @@ farms:
   type: treasure
   drops:
   - type: pet
-    id: 3045
-    name: "Iridescent Ooze"
+    id: 3045 # Iridescent Ooze
 
 - name: "Ritualist's Cache"
   location: 64.7 24.8
@@ -443,8 +383,7 @@ farms:
   type: treasure
   drops:
   - type: quest
-    id: 62372
-    name: "Page 76 of the Necronom-i-nom"
+    id: 62372 # Page 76 of the Necronom-i-nom
 
 - name: "Runespeaker's Trove"
   location: 31.7 70.0
@@ -453,8 +392,7 @@ farms:
   type: treasure
   drops:
   - type: transmog
-    id: 183516
-    name: "Stained Bonefused Mantle"
+    id: 183516 # Stained Bonefused Mantle
 
 - name: "Strange Growth"
   location: 55.9 39.0
@@ -463,8 +401,7 @@ farms:
   type: treasure
   drops:
   - type: pet
-    id: 3013
-    name: "Bloodlouse Larva"
+    id: 3013 # Bloodlouse Larva
 
 - name: "Vat of Conspicuous Slime"
   location: 59.9 79.1
@@ -473,8 +410,7 @@ farms:
   type: treasure
   drops:
   - type: toy
-    id: 181825
-    name: "Phial of Ravenous Slime"
+    id: 181825 # Phial of Ravenous Slime
 
 # Pool is weird
 - name: "Pool of Mixed Monstrosities"
@@ -484,43 +420,36 @@ farms:
   type: kill
   drops:
   - type: mount
-    id: 1410
-    name: "Hulking Deathroc"
+    id: 1410 # Hulking Deathroc
     note: "Drops from Violet Mistake"
     questId: 61720
 
   - type: pet
-    id: 2960
-    name: "Invertebrate Oil"
+    id: 2960 # Invertebrate Oil
     note: "Drops from Oily Invertebrate"
     questId: 61724
 
   - type: transmog
-    id: 184156
-    name: "Pristine Containment Pack"
+    id: 184156 # Pristine Containment Pack
     note: "Drops from Oily Invertebrate"
     questId: 61724
 
   - type: transmog
-    id: 184300
-    name: "Fused Spineguard"
+    id: 184300 # Fused Spineguard
     note: "Drops from Oily Invertebrate"
     questId: 61724
 
   - type: transmog
-    id: 184301
-    name: "Twenty-Loop Violet Girdle"
+    id: 184301 # Twenty-Loop Violet Girdle
     note: "Drops from Violet Mistake"
     questId: 61720
 
   - type: transmog
-    id: 184302
-    name: "Residue-Coated Muck Waders"
+    id: 184302 # Residue-Coated Muck Waders
     note: "Drops from Corrupted Sediment"
     questId: 61719
 
   - type: transmog
-    id: 184175
-    name: "Bone-Blistering Wand"
+    id: 184175 # Bone-Blistering Wand
     note: "Drops from Burnblister"
     questId: 61723

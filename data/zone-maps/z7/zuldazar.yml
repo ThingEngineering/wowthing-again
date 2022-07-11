@@ -10,8 +10,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 161042
-    name: "Gotaka's Wallopers"
+    id: 161042 # Gotaka's Wallopers
 
 - name: "Avatar of Xolotal"
   location: 49.9 57.4
@@ -20,8 +19,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 161034
-    name: "Thunderhowl Gauntlets"
+    id: 161034 # Thunderhowl Gauntlets
 
 - name: "Bloodbulge"
   location: 59.8 18.3
@@ -30,8 +28,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 161104
-    name: "Blood Feast Gauntlets"
+    id: 161104 # Blood Feast Gauntlets
 
 - name: "Bramblewing"
   location: 66.7 32.3
@@ -40,8 +37,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 161020
-    name: "Sky-Hunter Breeches"
+    id: 161020 # Sky-Hunter Breeches
 
 - name: "Daggerjaw"
   location: 74.2 39.3
@@ -50,8 +46,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 160952
-    name: "Daggerjaw's Incisor"
+    id: 160952 # Daggerjaw's Incisor
 
 - name: "Dark Chronicler"
   location: 44.2 76.5
@@ -60,8 +55,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 160979
-    name: "Ancient Chronicler's Focus"
+    id: 160979 # Ancient Chronicler's Focus
 
 - name: "Darkspeaker Jo'la"
   location: 65.4 10.2
@@ -70,8 +64,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 160958
-    name: "Darkspeaker Scepter"
+    id: 160958 # Darkspeaker Scepter
 
 - name: "G'Naat"
   location: 80.0 36.0
@@ -80,8 +73,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 161048
-    name: "Brutish Tidecaller Armwraps"
+    id: 161048 # Brutish Tidecaller Armwraps
 
 - name: "Gahz'ralka"
   location: 64.3 32.7
@@ -90,8 +82,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 161043
-    name: "Relentless Hydra Legguards"
+    id: 161043 # Relentless Hydra Legguards
 
 - name: "Golrakahn"
   location: 74.1 28.5
@@ -100,8 +91,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 161035
-    name: "Thundercrash Footguards"
+    id: 161035 # Thundercrash Footguards
 
 - name: "Hakbi the Risen"
   location: 42.0 36.2
@@ -110,8 +100,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 160978
-    name: "Golden Tomb Defender"
+    id: 160978 # Golden Tomb Defender
 
 - name: "Kandak"
   location: 68.7 48.7
@@ -120,8 +109,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 160984
-    name: "Sauroscale Cloak of Adaptation"
+    id: 160984 # Sauroscale Cloak of Adaptation
 
 - name: "Kiboku"
   location: 75.6 35.8
@@ -130,8 +118,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 161112
-    name: "Hillshaker Armplates"
+    id: 161112 # Hillshaker Armplates
 
 - name: "Lei-zhi"
   location: 58.7 74.2
@@ -140,8 +127,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 161033
-    name: "Jolting Leap Legguards"
+    id: 161033 # Jolting Leap Legguards
 
 - name: "Murderbeak"
   location: 60.6 66.3
@@ -150,8 +136,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 161022
-    name: "Gusting Axebeak Anklewraps"
+    id: 161022 # Gusting Axebeak Anklewraps
 
 - name: "N'chala the Egg Thief"
   location: 69.6 36.9
@@ -160,8 +145,7 @@ farms:
   type: kill
   drops:
   - type: pet
-    id: 2538
-    name: "Dasher"
+    id: 2538 # Dasher
 
 - name: "Tambano"
   location: 77.7 10.3
@@ -170,8 +154,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 161109
-    name: "Coastal Hardshell Girdle"
+    id: 161109 # Coastal Hardshell Girdle
 
 - name: "Torraske the Eternal"
   location: 46.6 65.3
@@ -180,8 +163,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 161029
-    name: "Ageless Toxin Grips"
+    id: 161029 # Ageless Toxin Grips
 
 - name: "Umbra'jin"
   location: 71.4 32.4
@@ -190,8 +172,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 161091
-    name: "Swift-Talon Striders"
+    id: 161091 # Swift-Talon Striders
 
 - name: "Warcrawler Karkithiss"
   location: 44.0 25.4
@@ -200,8 +181,7 @@ farms:
   type: kill
   drops:
   - type: transmog
-    id: 161040
-    name: "Arid Dune Stompers"
+    id: 161040 # Arid Dune Stompers
 
 # World boss
 - name: "Ji'arak"
@@ -212,37 +192,28 @@ farms:
   type: killBig
   drops:
   - type: transmog
-    id: 164384
-    name: "Windswept Dinorider's Cape"
+    id: 164384 # Windswept Dinorider's Cape
 
   - type: transmog
-    id: 161388
-    name: "Gloves of Eneveloping Winds"
+    id: 161388 # Gloves of Eneveloping Winds
 
   - type: transmog
-    id: 161401
-    name: "Matriarch's Shadowveil"
+    id: 161401 # Matriarch's Shadowveil
 
   - type: transmog
-    id: 161403
-    name: "Avian Clutch Belt"
+    id: 161403 # Avian Clutch Belt
 
   - type: transmog
-    id: 161390
-    name: "Savage Terrorwing Leggings"
+    id: 161390 # Savage Terrorwing Leggings
 
   - type: transmog
-    id: 161394
-    name: "Hurricane Cinch"
+    id: 161394 # Hurricane Cinch
 
   - type: transmog
-    id: 161407
-    name: "Windshear Leggings"
+    id: 161407 # Windshear Leggings
 
   - type: transmog
-    id: 161371
-    name: "Galebreaker Sabatons"
+    id: 161371 # Galebreaker Sabatons
 
   - type: transmog
-    id: 161409
-    name: "Stormcrash Chestguard"
+    id: 161409 # Stormcrash Chestguard

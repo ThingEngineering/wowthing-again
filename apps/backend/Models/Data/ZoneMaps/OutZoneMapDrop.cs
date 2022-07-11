@@ -6,7 +6,6 @@
         public int ClassMask { get; set; }
         public int SubType { get; set; }
         public int? RequiredQuestId { get; set; }
-        public string Name { get; set; }
         public string Note { get; set; }
         public string Type { get; set; }
 
@@ -16,7 +15,6 @@
         public OutZoneMapDrop(DataZoneMapDrop drop)
         {
             Id = drop.Id;
-            Name = drop.Name;
             Type = drop.Type;
 
             if (!string.IsNullOrEmpty(drop.Limit))

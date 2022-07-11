@@ -9,7 +9,7 @@ import type { StaticDataProfession } from './profession'
 import type { StaticDataProgressCategory } from './progress'
 import type { StaticDataRaiderIoScoreTiers } from './raider-io'
 import type { StaticDataConnectedRealm, StaticDataRealm, StaticDataRealmArray } from './realm'
-import type { StaticDataReputation, StaticDataReputationArray, StaticDataReputationCategory, StaticDataReputationTier } from './reputation'
+import type { StaticDataReputation, StaticDataReputationArray, StaticDataReputationCategory, StaticDataReputationCategoryArray, StaticDataReputationTier } from './reputation'
 import type { StaticDataSetCategory, StaticDataSetCategoryArray } from './set'
 import type { StaticDataSoulbind } from './soulbind'
 import type { StaticDataToy, StaticDataToyArray } from './toy'
@@ -66,6 +66,8 @@ export interface StaticData {
     rawReputations: StaticDataReputationArray[]
 
     reputationSets: StaticDataReputationCategory[]
+    rawReputationSets: StaticDataReputationCategoryArray[]
+
     reputationTiers: Record<number, StaticDataReputationTier>
 
     toys: Record<number, StaticDataToy>

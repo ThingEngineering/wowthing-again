@@ -18,7 +18,7 @@ namespace Wowthing.Backend.Converters
             arr.Add(farm.Name);
             arr.Add(string.Join(",", farm.Location));
             arr.Add(new JArray(farm.QuestIds));
-            
+
             var dropsArray = new JArray();
             foreach (var drop in farm.Drops.EmptyIfNull())
             {
@@ -64,14 +64,13 @@ namespace Wowthing.Backend.Converters
         {
             var dropArray = new JArray();
 
-            var dropType = Enum.Parse<FarmDropType>(drop.Type, true);
-            
+            var dropType = Enum.Parse<RewardType>(drop.Type, true);
+
             dropArray.Add(drop.Id);
-            dropArray.Add(drop.Name);
             dropArray.Add(dropType);
             dropArray.Add(drop.SubType);
             dropArray.Add(drop.ClassMask);
-            
+
             // Optional things
             var limit = drop.Limit.EmptyIfNull();
             var questIds = drop.QuestIds.EmptyIfNull();
@@ -104,7 +103,7 @@ namespace Wowthing.Backend.Converters
 
             return dropArray;
         }
-        
+
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             throw new NotImplementedException();
@@ -116,6 +115,6 @@ namespace Wowthing.Backend.Converters
         }
 
         public override bool CanRead => false;
-        
+
     }
 }

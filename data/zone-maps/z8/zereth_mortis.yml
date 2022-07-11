@@ -338,8 +338,7 @@ farms:
   type: kill
   drops:
   - type: quest
-    id: 65505
-    name: "Scorpid Soul"
+    id: 65505 # Scorpid Soul
     limit: covenant night-fae
 
   - type: transmog
@@ -635,8 +634,7 @@ farms:
   type: treasure
   drops:
   - type: quest
-    id: 65528
-    name: "Dapper Pocopoc"
+    id: 65528 # Dapper Pocopoc
 
 - name: "Bushel of Progenitor Produce"
   location: 47.4 95.2
@@ -645,8 +643,7 @@ farms:
   type: treasure
   drops:
   - type: quest
-    id: 65524
-    name: "Chef Pocopoc"
+    id: 65524 # Chef Pocopoc
 
   - type: toy
     id: 190853 # Bushel of Mysterious Fruit
@@ -675,8 +672,7 @@ farms:
   type: treasure
   drops:
   - type: quest
-    id: 65526
-    name: "Pirate Pocopoc"
+    id: 65526 # Pirate Pocopoc
 
 #- name: "Fallen Vault"
 #  location: 51.6 9.9
@@ -698,8 +694,7 @@ farms:
   type: treasure
   drops:
   - type: quest
-    id: 65393
-    name: "Schematic: Prototype Leaper"
+    id: 65393 # Schematic: Prototype Leaper
 
 #- name: "Gnawed Valise"
 #  location: 39.0 73.2
@@ -715,8 +710,7 @@ farms:
   type: treasure
   drops:
   - type: quest
-    id: 65401
-    name: "Schematic: Adorned Vombata"
+    id: 65401 # Schematic: Adorned Vombata
 
 - name: "Library Vault (Lost Scroll)"
   location: 58.8 77.1
@@ -725,8 +719,7 @@ farms:
   type: treasure
   drops:
   - type: quest
-    id: 65360
-    name: "Schematic: Viperid Menace"
+    id: 65360 # Schematic: Viperid Menace
 
 - name: "Mawsworn Cache"
   location: 60.6 30.5
@@ -735,8 +728,7 @@ farms:
   type: treasure
   drops:
   - type: quest
-    id: 65379
-    name: "Schematic: Sundered Zerethsteed"
+    id: 65379 # Schematic: Sundered Zerethsteed
 
 - name: "Mistaken Ovoid"
   location: 53.6 72.2
@@ -745,8 +737,7 @@ farms:
   type: treasure
   drops:
   - type: quest
-    id: 65333
-    name: "Schematic: Multichicken"
+    id: 65333 # Schematic: Multichicken
 
 #- name: "Offering to the First Ones"
 #  location: 34.8 56.0
@@ -769,8 +760,7 @@ farms:
   type: treasure
   drops:
   - type: quest
-    id: 65538
-    name: "Pepepec"
+    id: 65538 # Pepepec
 
 - name: "Protoflora Harvester"
   location: 52.6 71.5
@@ -797,8 +787,7 @@ farms:
   type: treasure
   drops:
   - type: quest
-    id: 65534
-    name: "Pocobold"
+    id: 65534 # Pocobold
 
 - name: "Pulp-Covered Relic"
   location: 53.4 25.7
@@ -807,8 +796,7 @@ farms:
   type: treasure
   drops:
   - type: quest
-    id: 65397
-    name: "Schematic: Buzz"
+    id: 65397 # Schematic: Buzz
 
 - name: "Sandworn Chest"
   location: 60.0 25.8
@@ -840,8 +828,7 @@ farms:
   type: treasure
   drops:
   - type: quest
-    id: 65529
-    name: "Admiral Pocopoc"
+    id: 65529 # Admiral Pocopoc
 
 #- name: "Symphonic Vault"
 #  location: 52.6 63.0

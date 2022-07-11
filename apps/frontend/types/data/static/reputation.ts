@@ -1,3 +1,5 @@
+import type { RewardType } from '@/types/enums'
+
 export class StaticDataReputation {
     constructor(
         public id: number,
@@ -19,28 +21,71 @@ export interface StaticDataReputationTier {
     names: string[]
 }
 
-export interface StaticDataReputationCategory {
-    minimumLevel?: number
-    name: string
-    slug: string
-    reputations: StaticDataReputationSet[][]
-}
+export class StaticDataReputationCategory {
+    public reputations: StaticDataReputationSet[][]
 
-export interface StaticDataReputationSet {
-    both: StaticDataReputationReputation
-    alliance: StaticDataReputationReputation
-    horde: StaticDataReputationReputation
-    paragon: boolean
+    constructor(
+        public name: string,
+        public slug: string,
+        reputationArrays: StaticDataReputationSetArray[][],
+        public minimumLevel?: number
+    )
+    {
+        this.reputations = reputationArrays
+            .map((repGroup) => repGroup.map(
+                (repSet) => new StaticDataReputationSet(...repSet)
+            ))
+    }
 }
+export type StaticDataReputationCategoryArray = ConstructorParameters<typeof StaticDataReputationCategory>
 
-export interface StaticDataReputationReputation {
-    id: number
-    icon: string
-    note: string
-    rewards: StaticDataReputationReward[]
+export class StaticDataReputationSet {
+    public both: StaticDataReputationReputation
+    public alliance: StaticDataReputationReputation
+    public horde: StaticDataReputationReputation
+    
+    constructor(
+        public paragon: boolean,
+        reputationArrays: StaticDataReputationReputationArray[]
+    )
+    {
+        for (const reputationArray of reputationArrays) {
+            const obj = new StaticDataReputationReputation(...reputationArray)
+            if (reputationArray[0] === 'both') {
+                this.both = obj
+            }
+            else if (reputationArray[0] === 'alliance') {
+                this.alliance = obj
+            }
+            else if (reputationArray[0] === 'horde') {
+                this.horde = obj
+            }
+        }
+    }
 }
+export type StaticDataReputationSetArray = ConstructorParameters<typeof StaticDataReputationSet>
 
-export interface StaticDataReputationReward {
-    id: number
-    type: string
+export class StaticDataReputationReputation {
+    public rewards: StaticDataReputationReward[]
+
+    constructor(
+        key: string,
+        public id: number,
+        public icon: string,
+        rewards: StaticDataReputationRewardArray[],
+        public note?: string
+    )
+    {
+        this.rewards = rewards.map((rewardArray) => new StaticDataReputationReward(...rewardArray))
+    }
 }
+export type StaticDataReputationReputationArray = ConstructorParameters<typeof StaticDataReputationReputation>
+
+export class StaticDataReputationReward {
+    constructor(
+        public type: RewardType,
+        public id: number
+    )
+    { }
+}
+export type StaticDataReputationRewardArray = ConstructorParameters<typeof StaticDataReputationReward>

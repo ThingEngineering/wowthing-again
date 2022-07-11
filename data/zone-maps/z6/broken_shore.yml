@@ -9,8 +9,7 @@ farms:
   npcId: 119269
   drops:
   - type: mount
-    id: 931
-    name: "Netherlord's Accursed Wrathsteed"
+    id: 931 # Netherlord's Accursed Wrathsteed
     limit: class warlock
 
 # World bosses
@@ -21,24 +20,19 @@ farms:
   type: killBig
   drops:
   - type: transmog
-    id: 147730
-    name: "Ashen Worldscorcher Gloves"
+    id: 147730 # Ashen Worldscorcher Gloves
 
   - type: transmog
-    id: 147734
-    name: "Spaulders of Forgotten Worlds"
+    id: 147734 # Spaulders of Forgotten Worlds
 
   - type: transmog
-    id: 147738
-    name: "Doom-Herald's Footpads"
+    id: 147738 # Doom-Herald's Footpads
 
   - type: transmog
-    id: 147743
-    name: "Harness of Devouring Flame"
+    id: 147743 # Harness of Devouring Flame
 
   - type: transmog
-    id: 147753
-    name: "Reaver's Rattling Girdle"
+    id: 147753 # Reaver's Rattling Girdle
 
 - name: "Brutallus"
   location: 58.4 28.6
@@ -47,28 +41,22 @@ farms:
   type: killBig
   drops:
   - type: transmog
-    id: 147732
-    name: "Leggings of Echoing Calamity"
+    id: 147732 # Leggings of Echoing Calamity
 
   - type: transmog
-    id: 147739
-    name: "Rigid Meteorguard Gauntlets"
+    id: 147739 # Rigid Meteorguard Gauntlets
 
   - type: transmog
-    id: 147742
-    name: "Violent Zealot's Shoulderpads"
+    id: 147742 # Violent Zealot's Shoulderpads
 
   - type: transmog
-    id: 147747
-    name: "Armbands of Crude Strategy"
+    id: 147747 # Armbands of Crude Strategy
 
   - type: transmog
-    id: 147748
-    name: "Gauntlets of Dreadful Tenacity"
+    id: 147748 # Gauntlets of Dreadful Tenacity
 
   - type: transmog
-    id: 147749
-    name: "Polished Felfury Helmet"
+    id: 147749 # Polished Felfury Helmet
 
 - name: "Malificus"
   location: 60.4 28.6
@@ -77,36 +65,28 @@ farms:
   type: killBig
   drops:
   - type: transmog
-    id: 147764
-    name: "Claok of Growing Mistrust"
+    id: 147764 # Claok of Growing Mistrust
 
   - type: transmog
-    id: 147735
-    name: "Cuffs of Fearful Service"
+    id: 147735 # Cuffs of Fearful Service
 
   - type: transmog
-    id: 147733
-    name: "Doomsayer's Ritualistic Vestment"
+    id: 147733 # Doomsayer's Ritualistic Vestment
 
   - type: transmog
-    id: 147741
-    name: "Legguards of Unholy Disdain"
+    id: 147741 # Legguards of Unholy Disdain
 
   - type: transmog
-    id: 147740
-    name: "Plague-Resistant Headcover"
+    id: 147740 # Plague-Resistant Headcover
 
   - type: transmog
-    id: 147745
-    name: "Taloned Brain-Scrapers"
+    id: 147745 # Taloned Brain-Scrapers
 
   - type: transmog
-    id: 147744
-    name: "Treads of Disorderly Retreat"
+    id: 147744 # Treads of Disorderly Retreat
 
   - type: transmog
-    id: 147750
-    name: "Malicious Zealot's Legplates"
+    id: 147750 # Malicious Zealot's Legplates
 
 - name: "Si'vash"
   location: 89.6 33.6
@@ -115,28 +95,22 @@ farms:
   type: killBig
   drops:
   - type: transmog
-    id: 147731
-    name: "Cowl of Plumbed Depths"
+    id: 147731 # Cowl of Plumbed Depths
 
   - type: transmog
-    id: 147736
-    name: "Dockthrasher Cinch"
+    id: 147736 # Dockthrasher Cinch
 
   - type: transmog
-    id: 147737
-    name: "Shorebreaker Robes"
+    id: 147737 # Shorebreaker Robes
 
   - type: transmog
-    id: 147746
-    name: "Glistening Seaspray Legguards"
+    id: 147746 # Glistening Seaspray Legguards
 
   - type: transmog
-    id: 147752
-    name: "Pauldrons of the Engulfing Tide"
+    id: 147752 # Pauldrons of the Engulfing Tide
 
   - type: transmog
-    id: 147751
-    name: "Si'vashi Guard's Breastplate"
+    id: 147751 # Si'vashi Guard's Breastplate
 
 # Dauntless gear
 - name: "Dauntless - Cloth"
@@ -145,40 +119,31 @@ farms:
   type: cloth
   drops:
   - type: transmog
-    id: 147269
-    name: "Unifying Drape"
+    id: 147269 # Unifying Drape
 
   - type: transmog
-    id: 147225
-    name: "Ley-Touched Bracers"
+    id: 147225 # Ley-Touched Bracers
 
   - type: transmog
-    id: 147253
-    name: "Ley-Touched Cord"
+    id: 147253 # Ley-Touched Cord
 
   - type: transmog
-    id: 147237
-    name: "Ley-Touched Gloves"
+    id: 147237 # Ley-Touched Gloves
 
   - type: transmog
-    id: 147241
-    name: "Ley-Touched Hood"
+    id: 147241 # Ley-Touched Hood
 
   - type: transmog
-    id: 147249
-    name: "Ley-Touched Mantle"
+    id: 147249 # Ley-Touched Mantle
 
   - type: transmog
-    id: 147232
-    name: "Ley-Touched Robes"
+    id: 147232 # Ley-Touched Robes
 
   - type: transmog
-    id: 147233
-    name: "Ley-Touched Sandals"
+    id: 147233 # Ley-Touched Sandals
 
   - type: transmog
-    id: 147245
-    name: "Ley-Touched Trousers"
+    id: 147245 # Ley-Touched Trousers
 
 - name: "Dauntless - Leather"
   location: 74.0 66.0
@@ -186,36 +151,28 @@ farms:
   type: leather
   drops:
   - type: transmog
-    id: 147254
-    name: "Fel-Treated Belt"
+    id: 147254 # Fel-Treated Belt
 
   - type: transmog
-    id: 147234
-    name: "Fel-Treated Boots"
+    id: 147234 # Fel-Treated Boots
 
   - type: transmog
-    id: 147226
-    name: "Fel-Treated Bracers"
+    id: 147226 # Fel-Treated Bracers
 
   - type: transmog
-    id: 147229
-    name: "Fel-Treated Chestguard"
+    id: 147229 # Fel-Treated Chestguard
 
   - type: transmog
-    id: 147238
-    name: "Fel-Treated Gauntlets"
+    id: 147238 # Fel-Treated Gauntlets
 
   - type: transmog
-    id: 147242
-    name: "Fel-Treated Hood"
+    id: 147242 # Fel-Treated Hood
 
   - type: transmog
-    id: 147246
-    name: "Fel-Treated Legguards"
+    id: 147246 # Fel-Treated Legguards
 
   - type: transmog
-    id: 147250
-    name: "Fel-Treated Spaulders"
+    id: 147250 # Fel-Treated Spaulders
 
 - name: "Dauntless - Mail"
   location: 76.0 66.0
@@ -223,36 +180,28 @@ farms:
   type: mail
   drops:
   - type: transmog
-    id: 147255
-    name: "Galvanized Stormscale Belt"
+    id: 147255 # Galvanized Stormscale Belt
 
   - type: transmog
-    id: 147235
-    name: "Galvanized Stormscale Boots"
+    id: 147235 # Galvanized Stormscale Boots
 
   - type: transmog
-    id: 147227
-    name: "Galvanized Stormscale Bracers"
+    id: 147227 # Galvanized Stormscale Bracers
 
   - type: transmog
-    id: 147230
-    name: "Galvanized Stormscale Chestguard"
+    id: 147230 # Galvanized Stormscale Chestguard
 
   - type: transmog
-    id: 147239
-    name: "Galvanized Stormscale Gauntlets"
+    id: 147239 # Galvanized Stormscale Gauntlets
 
   - type: transmog
-    id: 147243
-    name: "Galvanized Stormscale Helm"
+    id: 147243 # Galvanized Stormscale Helm
 
   - type: transmog
-    id: 147247
-    name: "Galvanized Stormscale Legguards"
+    id: 147247 # Galvanized Stormscale Legguards
 
   - type: transmog
-    id: 147251
-    name: "Galvanized Stormscale Spaulders"
+    id: 147251 # Galvanized Stormscale Spaulders
 
 - name: "Dauntless - Plate"
   location: 78.0 66.0
@@ -260,33 +209,25 @@ farms:
   type: plate
   drops:
   - type: transmog
-    id: 147228
-    name: "Storm-Tempered Bracers"
+    id: 147228 # Storm-Tempered Bracers
 
   - type: transmog
-    id: 147231
-    name: "Storm-Tempered Breastplate"
+    id: 147231 # Storm-Tempered Breastplate
 
   - type: transmog
-    id: 147240
-    name: "Storm-Tempered Gauntlets"
+    id: 147240 # Storm-Tempered Gauntlets
 
   - type: transmog
-    id: 147256
-    name: "Storm-Tempered Girdle"
+    id: 147256 # Storm-Tempered Girdle
 
   - type: transmog
-    id: 147244
-    name: "Storm-Tempered Greathelm"
+    id: 147244 # Storm-Tempered Greathelm
 
   - type: transmog
-    id: 147236
-    name: "Storm-Tempered Greaves"
+    id: 147236 # Storm-Tempered Greaves
 
   - type: transmog
-    id: 147248
-    name: "Storm-Tempered Legplates"
+    id: 147248 # Storm-Tempered Legplates
 
   - type: transmog
-    id: 147252
-    name: "Storm-Tempered Shoulderguards"
+    id: 147252 # Storm-Tempered Shoulderguards
