@@ -1,15 +1,8 @@
 import values from 'lodash/values'
 import { get } from 'svelte/store'
 
-import {
-    AchievementDataAchievement,
-    AchievementDataCriteria,
-    AchievementDataCriteriaTree,
-    UserAchievementDataCategory,
-    WritableFancyStore,
-} from '@/types'
-import type { UserAchievementData } from '@/types'
-import { achievementStore } from '@/stores/achievements'
+import { UserAchievementDataCategory, WritableFancyStore } from '@/types'
+import type { AchievementData, UserAchievementData } from '@/types'
 
 
 export class UserAchievementDataStore extends WritableFancyStore<UserAchievementData> {
@@ -21,42 +14,10 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
         return url
     }
 
-    setup(): void {
+    setup(
+        achievementData: AchievementData
+    ): void {
         // console.time('UserAchievementDataStore.setup')
-
-        const achievementData = get(achievementStore).data
-        if (achievementData.achievementRaw !== null) {
-            const achievementDict: Record<number, AchievementDataAchievement> = {}
-            for (const rawAchievement of achievementData.achievementRaw) {
-                const obj = new AchievementDataAchievement(...rawAchievement)
-                achievementDict[obj.id] = obj
-            }
-
-            const criteriaDict: Record<number, AchievementDataCriteria> = {}
-            for (const rawCriteria of achievementData.criteriaRaw) {
-                const obj = new AchievementDataCriteria(...rawCriteria)
-                criteriaDict[obj.id] = obj
-            }
-
-            const criteriaTreeDict: Record<number, AchievementDataCriteriaTree> = {}
-            for (const rawCriteriaTree of achievementData.criteriaTreeRaw) {
-                const obj = new AchievementDataCriteriaTree(...rawCriteriaTree)
-                criteriaTreeDict[obj.id] = obj
-                // console.log(obj.id, rawCriteriaTree, obj)
-            }
-
-            achievementStore.update(state => {
-                state.data.achievementRaw = null
-                state.data.criteriaRaw = null
-                state.data.criteriaTreeRaw = null
-
-                state.data.achievement = achievementDict
-                state.data.criteria = criteriaDict
-                state.data.criteriaTree = criteriaTreeDict
-
-                return state
-            })
-        }
 
         const userAchievements = get(this).data.achievements
 
@@ -75,7 +36,7 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
         cheevs[0] = new UserAchievementDataCategory(0, 0, 0)
 
         const all: [number, number][] = []
-        for (const achievement of values(get(achievementStore).data.achievement)) {
+        for (const achievement of values(achievementData.achievement)) {
             if (!cheevs[achievement.categoryId]) {
                 cheevs[achievement.categoryId] = new UserAchievementDataCategory(0, 0, 0)
             }
@@ -99,7 +60,7 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
             }
         }
 
-        for (const category of get(achievementStore).data.categories) {
+        for (const category of achievementData.categories) {
             if (!cheevs[category.id]) {
                 cheevs[category.id] = new UserAchievementDataCategory(0, 0, 0)
             }

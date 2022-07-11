@@ -26,7 +26,7 @@
         loaded = $achievementStore.loaded && $userAchievementStore.loaded
         ready = (!error && loaded && $userAchievementStore.data.achievementCategories !== null)
         if (!error && loaded) {
-            userAchievementStore.setup()
+            userAchievementStore.setup($achievementStore.data)
         }
     }
 </script>
