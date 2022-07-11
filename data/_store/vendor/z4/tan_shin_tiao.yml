@@ -1,0 +1,15 @@
+id: 64605
+name: "Tan Shin Tiao"
+locations:
+  z4_vale_of_eternal_blossoms:
+    - 82.2 29.4
+tags:
+  - "the-lorewalkers"
+sells:
+  - type: mount
+    id: 130092 # Red Flying Cloud
+    note: "{repPrice:1345:exalted:600}"
+
+  - type: transmog
+    id: 89795 # Lorewalkers Tabard [tabard]
+    note: "{repPrice:1345:exalted:10}"

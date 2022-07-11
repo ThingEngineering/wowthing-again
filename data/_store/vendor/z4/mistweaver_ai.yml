@@ -1,0 +1,47 @@
+id: 73305
+name: "Mistweaver Ai"
+locations:
+  z4_timeless_isle:
+    - 45.0 54.2
+tags:
+  - "timeless-isle"
+sells:
+  - type: transmog
+    id: 105920 # Pandaren Peace Offering [1h str mace]
+    note: "{price:10000|777}" # Timeless Coin
+
+  - type: transmog
+    id: 105926 # Ordon Sacrificial Dagger [int dagger]
+    note: "{price:10000|777}" # Timeless Coin
+
+  - type: transmog
+    id: 105929 # Scavenged Pandaren Dagger [agi dagger]
+    note: "{price:10000|777}" # Timeless Coin
+
+  - type: transmog
+    id: 105924 # Hozen Can Opener [agi fist]
+    note: "{price:10000|777}" # Timeless Coin
+
+  - type: transmog
+    id: 105925 # Yak-Herder's Longstaff [str polearm]
+    note: "{price:20000|777}" # Timeless Coin
+
+  - type: transmog
+    id: 105921 # Cloudscorcher Greatstaff [int staff]
+    note: "{price:20000|777}" # Timeless Coin
+
+  - type: transmog
+    id: 105923 # Contemplation of Shaohao [agi staff]
+    note: "{price:20000|777}" # Timeless Coin
+
+  - type: transmog
+    id: 105927 # Featherdraw Longbow [bow]
+    note: "{price:20000|777}" # Timeless Coin
+
+  - type: transmog
+    id: 105919 # Daylight Protectorate [shield]
+    note: "{price:10000|777}" # Timeless Coin
+
+  - type: transmog
+    id: 105922 # Shield of the Eternal Noon [shield]
+    note: "{price:10000|777}" # Timeless Coin

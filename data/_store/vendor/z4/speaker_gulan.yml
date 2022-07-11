@@ -1,0 +1,19 @@
+id: 73307
+name: "Speaker Gulan"
+locations:
+  z4_timeless_isle:
+    - 75.0 44.8
+tags:
+  - "timeless-isle"
+sells:
+  - type: mount
+    id: 560
+    note: "{price:500|789}" # 500x Bloody Coin
+
+  - type: pet
+    id: 1344 # Vengeful Porcupette
+    note: "{price:100|789}" # 100x Bloody Coin
+
+  - type: toy
+    id: 102467 # Censer of Eternal Agony
+    note: "{price:1000|777}" # 1000x Timeless Coin

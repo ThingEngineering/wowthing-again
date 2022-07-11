@@ -4,7 +4,7 @@ locations:
   z4_valley_of_the_four_winds:
     - 52.4 51.4
 tags:
-  - "the-tillers" # reputation 1272
+  - "tillers"
 sells:
   - type: mount
     id: 130138 # Black Riding Goat

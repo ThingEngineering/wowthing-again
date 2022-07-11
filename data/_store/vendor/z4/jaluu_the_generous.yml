@@ -1,0 +1,24 @@
+id: 59908
+name: "Jaluu the Generous"
+locations:
+  z4_vale_of_eternal_blossoms:
+    - 84.2 62.6 alliance
+    - 63.0 22.2 horde
+tags:
+  - "golden-lotus"
+sells:
+  - type: mount
+    id: 127174 # Azure Riding Crane
+    note: "{repPrice:1269:exalted:500}"
+
+  - type: mount
+    id: 127176 # Golden Riding Crane
+    note: "{repPrice:1269:exalted:2500}"
+
+  - type: mount
+    id: 127177 # Regal Riding Crane
+    note: "{repPrice:1269:exalted:1500}"
+
+  - type: transmog
+    id: 89797 # Golden Lotus Tabard [exalted]
+    note: "{repPrice:1269:exalted:10}"
