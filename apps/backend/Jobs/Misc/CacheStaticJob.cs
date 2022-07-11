@@ -46,7 +46,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
-            Version = 48,
+            Version = 49,
         };
 
         public override async Task Run(params string[] data)
@@ -223,7 +223,7 @@ namespace Wowthing.Backend.Jobs.Misc
             string cacheHash = null;
             foreach (var language in Enum.GetValues<Language>())
             {
-                Logger.Warning("{Lang}", language);
+                Logger.Information("Static {Lang}", language);
 
                 cacheData.CharacterClasses = classes.Select(cls => new StaticCharacterClass(cls)
                 {
@@ -958,22 +958,34 @@ namespace Wowthing.Backend.Jobs.Misc
             var db = Redis.GetDatabase();
 
             var achievements = await LoadAchievements();
-            var achievementCategories = await LoadAchievementCategories(achievements);
-            var achievementCriteria = await LoadAchievementCriteria(achievements);
+            var categories = await LoadAchievementCategories(achievements[Language.enUS]);
+            var criteria = await LoadAchievementCriteria(achievements[Language.enUS]);
 
             // Ok we're done
             var cacheData = new RedisStaticAchievements
             {
-                Categories = achievementCategories,
-                AchievementRaw = achievements.Values.ToList(),
-                CriteriaRaw = achievementCriteria.Criteria.Values.ToList(),
-                CriteriaTreeRaw = achievementCriteria.CriteriaTree.Values.ToList(),
+                Categories = categories,
+                CriteriaRaw = criteria[Language.enUS].Criteria.Values.ToList(),
             };
-            var cacheJson = JsonConvert.SerializeObject(cacheData);
-            var cacheHash = cacheJson.Md5();
-            _timer.AddPoint("JSON");
 
-            await db.SetCacheDataAndHash("achievement", cacheJson, cacheHash);
+            string cacheHash = null;
+            foreach (var language in Enum.GetValues<Language>())
+            {
+                Logger.Information("Achievement {Lang}", language);
+
+                cacheData.AchievementRaw = achievements[language].Values.ToList();
+                cacheData.CriteriaTreeRaw = criteria[language].CriteriaTree.Values.ToList();
+
+                var cacheJson = JsonConvert.SerializeObject(cacheData);
+                // This ends up being the MD5 of enUS, close enough
+                if (cacheHash == null)
+                {
+                    cacheHash = cacheJson.Md5();
+                }
+
+                await db.SetCacheDataAndHash($"achievement-{language.ToString()}", cacheJson, cacheHash);
+            }
+
             _timer.AddPoint("Cache", true);
         }
 
@@ -1023,9 +1035,11 @@ namespace Wowthing.Backend.Jobs.Misc
                 .ToList();
         }
 
-        private static async Task<Dictionary<int, OutAchievement>> LoadAchievements()
+        private static async Task<Dictionary<Language, Dictionary<int, OutAchievement>>> LoadAchievements()
         {
-            var records = await DataUtilities.LoadDumpCsvAsync<DumpAchievement>("achievement");
+            var ret = new Dictionary<Language, Dictionary<int, OutAchievement>>();
+            var records = await DataUtilities
+                .LoadDumpCsvAsync<DumpAchievement>(Path.Join("enUS", "achievement"));
 
             var achievementMap = records
                 .Where(a => !a.Flags.HasFlag(WowAchievementFlags.Tracking))
@@ -1040,11 +1054,40 @@ namespace Wowthing.Backend.Jobs.Misc
                 }
             }
 
-            return achievementMap;
+            ret[Language.enUS] = achievementMap;
+
+            foreach (var language in Enum.GetValues<Language>())
+            {
+                if (language == Language.enUS)
+                {
+                    continue;
+                }
+
+                var langRecords = await DataUtilities
+                    .LoadDumpCsvAsync<DumpAchievement>(Path.Join(language.ToString(), "achievement"), skipValidation: true);
+
+                var langMap = new Dictionary<int, OutAchievement>();
+                //foreach (var (achievementId, achievement) in ret[Language.enUS])
+                foreach (var record in langRecords)
+                {
+                    if (ret[Language.enUS].TryGetValue(record.ID, out var usAchievement))
+                    {
+                        langMap[record.ID] = (OutAchievement)usAchievement.Clone();
+                        langMap[record.ID].Description = record.Description;
+                        langMap[record.ID].Name = record.Name;
+                    }
+                }
+
+                ret[language] = langMap;
+            }
+
+            return ret;
         }
 
-        private static async Task<AchievementCriteria> LoadAchievementCriteria(Dictionary<int, OutAchievement> achievements)
+        private async Task<Dictionary<Language, AchievementCriteria>> LoadAchievementCriteria(Dictionary<int, OutAchievement> achievements)
         {
+            var ret = new Dictionary<Language, AchievementCriteria>();
+
             var criteria = await DataUtilities.LoadDumpCsvAsync<DumpCriteria>("criteria");
             //var criteriaMap = criteria.ToDictionary(c => c.ID);
 
@@ -1075,13 +1118,44 @@ namespace Wowthing.Backend.Jobs.Misc
                 )
                 .OrderBy(ct => ct.ID);
 
-            // Outputs
-            return new AchievementCriteria
+            ret[Language.enUS] = new AchievementCriteria
             {
-                Criteria = criteria.Select(c => new OutCriteria(c)).ToDictionary(c => c.Id),
-                //CriteriaTree = criteriaTrees.Select(ct => new OutCriteriaTree(ct, criteriaTreeChildren)).ToDictionary(ct => ct.Id),
-                CriteriaTree = final.Select(ct => new OutCriteriaTree(ct)).ToDictionary(ct => ct.Id)
+                Criteria = criteria
+                    .Select(c => new OutCriteria(c))
+                    .ToDictionary(c => c.Id),
+
+                CriteriaTree = final
+                    .Select(ct => new OutCriteriaTree(ct))
+                    .ToDictionary(ct => ct.Id),
             };
+
+            foreach (var language in Enum.GetValues<Language>())
+            {
+                if (language == Language.enUS)
+                {
+                    continue;
+                }
+
+                var langRecords = await DataUtilities
+                    .LoadDumpCsvAsync<DumpCriteriaTree>(Path.Join(language.ToString(), "criteriatree"), skipValidation: true);
+
+                var langMap = new Dictionary<int, OutCriteriaTree>();
+                foreach (var record in langRecords)
+                {
+                    if (ret[Language.enUS].CriteriaTree.TryGetValue(record.ID, out var usCriteria))
+                    {
+                        langMap[record.ID] = (OutCriteriaTree)usCriteria.Clone();
+                        langMap[record.ID].Description = record.Description;
+                    }
+                }
+
+                ret[language] = new AchievementCriteria
+                {
+                    CriteriaTree = langMap,
+                };
+            }
+
+            return ret;
         }
         #endregion
     }

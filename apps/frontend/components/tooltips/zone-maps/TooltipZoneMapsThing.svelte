@@ -232,14 +232,19 @@
                 </tr>
 
                 {#if dropStatus.need && !dropStatus.skip}
-                    {#if drop.note || (drop.type === RewardType.Achievement && drop.subType === 0)}
+                    {#if drop.note || drop.type === RewardType.Achievement}
                         <tr>
                             <td></td>
                             <td class="note" colspan="2">
                                 {#if drop.note}
                                     <ParsedText text={drop.note} />
                                 {:else if drop.type === RewardType.Achievement}
-                                    {$achievementStore.data.achievement[drop.id].description}
+                                    {#if drop.subType > 0}
+                                        <IconifyIcon icon={dropTypeIcon[RewardType.Achievement]} />
+                                        {$achievementStore.data.achievement[drop.id].name}
+                                    {:else}
+                                        {$achievementStore.data.achievement[drop.id].description}
+                                    {/if}
                                 {/if}
                             </td>
                         </tr>
