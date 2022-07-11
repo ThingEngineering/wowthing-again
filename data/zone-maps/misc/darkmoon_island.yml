@@ -409,7 +409,7 @@ farms:
   drops:
     - &darkmoon-balloon
       type: pet
-      id: 55187 # Darkmoon Balloon
+      id: 336 # Darkmoon Balloon
       note: "{price:90|515}" # Darkmoon Prize Ticket
 
     - type: pet
