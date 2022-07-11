@@ -1,5 +1,5 @@
 import type { FarmStatus, UserCount } from '@/types'
-import type { FarmDropType, FarmIdType, FarmResetType, FarmType } from '@/types/enums'
+import type { RewardType, FarmIdType, FarmResetType, FarmType } from '@/types/enums'
 
 
 export interface ZoneMapData {
@@ -7,7 +7,7 @@ export interface ZoneMapData {
 
     counts?: Record<string, UserCount>
     farmStatus?: Record<string, FarmStatus[]>
-    typeCounts?: Record<string, Record<FarmDropType, UserCount>>
+    typeCounts?: Record<string, Record<RewardType, UserCount>>
 }
 
 export interface ZoneMapDataCategory {
@@ -76,7 +76,7 @@ export class ZoneMapDataDrop {
     constructor(
         public id: number,
         public name: string,
-        public type: FarmDropType,
+        public type: RewardType,
         public subType: number,
         public classMask: number,
         public limit?: string[],

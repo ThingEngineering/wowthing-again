@@ -635,17 +635,17 @@ namespace Wowthing.Backend.Jobs.Misc
                     {
                         foreach (var item in group.Things)
                         {
-                            if (group.Type == FarmDropType.Transmog)// && item.AppearanceId == null)
+                            if (group.Type == RewardType.Transmog)// && item.AppearanceId == null)
                             {
                                 _itemIds.Add(item.Id);
                                 //item.AppearanceId = _itemToAppearance[item.Id];
                             }
 
-                            if (group.Type == FarmDropType.Mount)
+                            if (group.Type == RewardType.Mount)
                             {
                                 item.Quality = WowQuality.Epic;
                             }
-                            else if (group.Type == FarmDropType.Pet)
+                            else if (group.Type == RewardType.Pet)
                             {
                                 item.Quality = WowQuality.Rare;
                             }

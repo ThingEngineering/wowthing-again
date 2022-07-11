@@ -35,7 +35,7 @@
         Monthly,
     }
 
-    public enum FarmDropType
+    public enum RewardType
     {
         Pet = 1,
         Mount,

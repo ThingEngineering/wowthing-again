@@ -2,10 +2,10 @@
     import { zoneMapStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
     import type { UserCount } from '@/types'
-    import type { FarmDropType } from '@/types/enums'
+    import type { RewardType } from '@/types/enums'
 
     export let key: string
-    export let type: FarmDropType
+    export let type: RewardType
 
     let counts: UserCount
     $: {

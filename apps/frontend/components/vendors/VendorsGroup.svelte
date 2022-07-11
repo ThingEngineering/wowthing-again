@@ -6,7 +6,7 @@
     import { staticStore } from '@/stores'
     import { vendorState } from '@/stores/local-storage'
     import { userVendorStore } from '@/stores/user-vendors'
-    import { FarmDropType } from '@/types/enums'
+    import { RewardType } from '@/types/enums'
     import getPercentClass from '@/utils/get-percent-class'
     import { toNiceNumber } from '@/utils/to-nice'
     import type { UserCount } from '@/types'
@@ -27,11 +27,11 @@
     let percent: number
     let things: [StaticDataVendorItem, boolean, [string, number, string][]][]
     $: {
-        if (group.type === FarmDropType.Mount) {
+        if (group.type === RewardType.Mount) {
             idFunc = (mountId: number) => $staticStore.data.mounts[mountId].spellId
             linkType = 'spell'
         }
-        else if (group.type === FarmDropType.Pet) {
+        else if (group.type === RewardType.Pet) {
             idFunc = (petId: number) => $staticStore.data.pets[petId].creatureId
             linkType = 'npc'
         }

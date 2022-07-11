@@ -64,7 +64,7 @@ namespace Wowthing.Backend.Converters
         {
             var dropArray = new JArray();
 
-            var dropType = Enum.Parse<FarmDropType>(drop.Type, true);
+            var dropType = Enum.Parse<RewardType>(drop.Type, true);
             
             dropArray.Add(drop.Id);
             dropArray.Add(drop.Name);
