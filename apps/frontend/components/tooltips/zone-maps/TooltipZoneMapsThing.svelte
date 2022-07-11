@@ -5,7 +5,7 @@
     import { dropTypeIcon } from '@/data/farm'
     import { iconStrings, imageStrings } from '@/data/icons'
     import { weaponSubclassToString } from '@/data/weapons'
-    import { staticStore, userAchievementStore, userStore } from '@/stores'
+    import { achievementStore, staticStore, userAchievementStore, userStore } from '@/stores'
     import { ArmorType, RewardType, FarmResetType, FarmType } from '@/types/enums'
     import type { DropStatus, FarmStatus } from '@/types'
     import type { ZoneMapDataDrop, ZoneMapDataFarm } from '@/types/data'
@@ -41,6 +41,14 @@
             drop.type === RewardType.Transmog) {
             return $staticStore.data.items[drop.id]?.name || `Unknown item #${drop.id}`
         }
+        else if (drop.type === RewardType.Achievement) {
+            if (drop.subType > 0) {
+                return $achievementStore.data.criteriaTree[drop.subType]?.description ?? `Criteria #${drop.subType}`
+            }
+            else {
+                return $achievementStore.data.achievement[drop.id]?.name ?? `Achievement #${drop.id}`
+            }
+        }
         else if (drop.type === RewardType.Mount) {
             const mount = $staticStore.data.mounts[drop.id]
             return mount ? mount.name : `Unknown mount #${drop.id}`
@@ -54,7 +62,7 @@
             return toy ? toy.name : `Unknown toy #${drop.id}`
         }
         else {
-            return drop.name || "???"
+            return "???"
         }
     }
 
@@ -224,11 +232,15 @@
                 </tr>
 
                 {#if dropStatus.need && !dropStatus.skip}
-                    {#if drop.note}
+                    {#if drop.note || (drop.type === RewardType.Achievement && drop.subType === 0)}
                         <tr>
                             <td></td>
                             <td class="note" colspan="2">
-                                <ParsedText text={drop.note} />
+                                {#if drop.note}
+                                    <ParsedText text={drop.note} />
+                                {:else if drop.type === RewardType.Achievement}
+                                    {$achievementStore.data.achievement[drop.id].description}
+                                {/if}
                             </td>
                         </tr>
                     {/if}
