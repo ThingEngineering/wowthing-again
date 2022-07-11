@@ -251,8 +251,7 @@ export class ZoneMapDataStore extends WritableFancyStore<ZoneMapData> {
                             case RewardType.Armor:
                             case RewardType.Cosmetic:
                             case RewardType.Weapon:
-                                const item = staticData.items[drop.id]
-                                if (!userTransmogData.userHas[item?.appearanceId ?? 0]) {
+                                if (!userTransmogData.userHas[staticData.items[drop.id]?.appearanceId ?? 0]) {
                                     dropStatus.need = true
                                 }
                                 fixedType = RewardType.Transmog

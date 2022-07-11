@@ -13,7 +13,7 @@ import { svelte } from '@sveltejs/vite-plugin-svelte'
 import path from 'path'
 import sveltePreprocess from 'svelte-preprocess'
 import autoprefixer from 'autoprefixer'
-import pkg from './package.json'
+//import pkg from './package.json'
 import tsconfig from './tsconfig.json'
 
 const production = process.env.NODE_ENV === 'production'
