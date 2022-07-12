@@ -5,22 +5,22 @@
     import { dropTypeIcon } from '@/data/farm'
     import { iconStrings, imageStrings } from '@/data/icons'
     import { weaponSubclassToString } from '@/data/weapons'
-    import { achievementStore, staticStore, userAchievementStore, userStore } from '@/stores'
+    import { achievementStore, manualStore, staticStore, userAchievementStore, userStore } from '@/stores'
     import { ArmorType, RewardType, FarmResetType, FarmType } from '@/types/enums'
     import type { DropStatus, FarmStatus } from '@/types'
-    import type { ZoneMapDataDrop, ZoneMapDataFarm } from '@/types/data'
+    import type { ManualDataZoneMapDrop, ManualDataZoneMapFarm } from '@/types/data/manual'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
-    export let farm: ZoneMapDataFarm
+    export let farm: ManualDataZoneMapFarm
     export let status: FarmStatus
 
-    let sortedDrops: [ZoneMapDataDrop, DropStatus][]
+    let sortedDrops: [ManualDataZoneMapDrop, DropStatus][]
     let statistic: number
     $: {
-        const sigh: [ZoneMapDataDrop, DropStatus][] = []
+        const sigh: [ManualDataZoneMapDrop, DropStatus][] = []
         for (let dropIndex = 0; dropIndex < farm.drops.length; dropIndex++) {
             sigh.push([farm.drops[dropIndex], status.drops[dropIndex]])
         }
@@ -33,13 +33,13 @@
         }
     }
 
-    const getDropName = (drop: ZoneMapDataDrop): string => {
+    const getDropName = (drop: ManualDataZoneMapDrop): string => {
         if (drop.type === RewardType.Item ||
             drop.type === RewardType.Cosmetic ||
             drop.type === RewardType.Armor ||
             drop.type === RewardType.Weapon ||
             drop.type === RewardType.Transmog) {
-            return $staticStore.data.items[drop.id]?.name || `Unknown item #${drop.id}`
+            return $manualStore.data.shared.items[drop.id]?.name || `Unknown item #${drop.id}`
         }
         else if (drop.type === RewardType.Achievement) {
             if (drop.subType > 0) {
@@ -66,7 +66,7 @@
         }
     }
 
-    const showCharacters = (drop: ZoneMapDataDrop, dropStatus: DropStatus, nextDrop: [ZoneMapDataDrop, DropStatus]): boolean => {
+    const showCharacters = (drop: ManualDataZoneMapDrop, dropStatus: DropStatus, nextDrop: [ManualDataZoneMapDrop, DropStatus]): boolean => {
         if (farm.type === FarmType.Vendor && drop.type !== RewardType.Quest) {
             return false
         }

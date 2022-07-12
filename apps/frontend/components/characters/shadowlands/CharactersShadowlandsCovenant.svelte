@@ -4,12 +4,12 @@
 
     import { Constants } from '@/data/constants'
     import { covenantFeatureOrder, covenantFeatureReputation, covenantOrder } from '@/data/covenant'
-    import { staticStore, timeStore, userQuestStore, userStore } from '@/stores'
+    import { manualStore, staticStore, timeStore, userQuestStore, userStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
     import getProgress from '@/utils/get-progress'
     import { toNiceDuration, toNiceNumber } from '@/utils/to-nice'
     import type { Character, CharacterShadowlandsCovenant, CharacterShadowlandsCovenantFeature } from '@/types'
-    import type { StaticDataProgressCategory } from '@/types/data/static'
+    import type { ManualDataProgressCategory } from '@/types/data/manual'
 
     import Abominations from './CharactersShadowlandsAbominations.svelte'
     import EmberCourt from './CharactersShadowlandsEmberCourt.svelte'
@@ -28,9 +28,9 @@
     $: {
         characterCovenant = character.shadowlands?.covenants?.[covenantId]
 
-        const category: StaticDataProgressCategory = find(
+        const category: ManualDataProgressCategory = find(
             find(
-                $staticStore.data.progress,
+                $manualStore.data.progressSets,
                 (progress) => progress?.[0].slug === 'shadowlands'
             ),
             (category) => category?.name === 'Covenants'

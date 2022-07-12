@@ -5,13 +5,13 @@
 
     import { userAchievementStore, userQuestStore, userStore } from '@/stores'
     import { progressState } from '@/stores/local-storage'
+    import { manualStore, staticStore } from '@/stores'
     import { data as settingsData } from '@/stores/settings'
-    import { staticStore } from '@/stores/static'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import getProgress from '@/utils/get-progress'
     import toDigits from '@/utils/to-digits'
     import type { Character } from '@/types'
-    import type { StaticDataProgressCategory} from '@/types/data/static'
+    import type { ManualDataProgressCategory} from '@/types/data/manual'
     import type { ProgressInfo } from '@/utils/get-progress'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
@@ -25,7 +25,7 @@
     export let slug1: string
     export let slug2: string
 
-    let categories: StaticDataProgressCategory[]
+    let categories: ManualDataProgressCategory[]
     let progress: Record<string, ProgressInfo>
     let filterFunc: (char: Character) => boolean
     let slugKey: string
@@ -37,7 +37,7 @@
     }
 
     $: {
-        categories = find($staticStore.data.progress, (p) => p !== null && p[0].slug === slug1) || []
+        categories = find($manualStore.data.progressSets, (p) => p !== null && p[0].slug === slug1) || []
         if (categories.length === 0) {
             break $
         }

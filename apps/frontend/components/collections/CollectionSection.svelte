@@ -7,7 +7,7 @@
     import { collectionState } from '@/stores/local-storage'
     import getPercentClass from '@/utils/get-percent-class'
     import tippy from '@/utils/tippy'
-    import type { StaticDataSetCategory } from '@/types/data/static'
+    import type { ManualDataSetCategory } from '@/types/data/manual'
     import type { CollectionContext } from '@/types/contexts'
 
     import Checkbox from '@/components/forms/CheckboxInput.svelte'
@@ -17,11 +17,11 @@
 
     export let slug1: string
     export let slug2: string
-    export let sets: StaticDataSetCategory[][]
+    export let sets: ManualDataSetCategory[][]
 
     const { route, thingType } = getContext('collection') as CollectionContext
 
-    let categories: StaticDataSetCategory[]
+    let categories: ManualDataSetCategory[]
     $: {
         categories = filter(
             find(sets, (s) => s !== null && s[0].slug === slug1),

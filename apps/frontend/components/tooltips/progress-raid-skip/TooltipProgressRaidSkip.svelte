@@ -1,10 +1,10 @@
 <script lang="ts">
     import type { Character } from '@/types'
     import type { UserQuestDataCharacterProgress } from '@/types/data'
-    import type { StaticDataProgressGroup } from '@/types/data/static'
+    import type { ManualDataProgressGroup } from '@/types/data/manual'
 
     export let character: Character
-    export let group: StaticDataProgressGroup
+    export let group: ManualDataProgressGroup
     export let progresses: {cls: string, completed: boolean, difficulty: string, progressQuest: UserQuestDataCharacterProgress}[]
 </script>
 

@@ -41,7 +41,7 @@
         }
 
         things = []
-        for (const thing of group.filteredThings) {
+        for (const thing of group.sellsFiltered) {
             const userHas = $userVendorStore.data.userHas[`${group.type}-${thing.id}`] === true
             if (($vendorState.showCollected && userHas) || ($vendorState.showUncollected && !userHas)) {
                 const costs: [string, number, string][] = []

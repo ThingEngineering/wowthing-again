@@ -3,10 +3,10 @@
     import find from 'lodash/find'
 
     import { costMap, costOrder } from '@/data/vendors'
+    import { manualStore } from '@/stores'
     import { vendorState } from '@/stores/local-storage'
-    import { staticStore } from '@/stores/static'
     import { userVendorStore } from '@/stores/user-vendors'
-    import type { StaticDataVendorCategory } from '@/types/data/static'
+    import type { ManualDataVendorCategory } from '@/types/data/manual'
 
     import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
     import Group from './VendorsGroup.svelte'
@@ -17,21 +17,21 @@
     export let slug1: string
     export let slug2: string
 
-    let categories: StaticDataVendorCategory[]
+    let categories: ManualDataVendorCategory[]
     let totalCosts: Record<string, Record<string, number>>
     $: {
         categories = filter(
             find(
-                $staticStore.data.vendorSets,
-                (cats: StaticDataVendorCategory[]) => cats !== null && cats[0].slug === slug1
+                $manualStore.data.vendors.sets,
+                (cats: ManualDataVendorCategory[]) => cats !== null && cats[0].slug === slug1
             ),
-            (cat: StaticDataVendorCategory) => cat?.groups?.length > 0
+            (cat: ManualDataVendorCategory) => cat?.groups?.length > 0
         )
 
         if (slug2) {
             categories = filter(
                 categories,
-                (cat: StaticDataVendorCategory) => cat.slug === slug2
+                (cat: ManualDataVendorCategory) => cat.slug === slug2
             )
         }
 
@@ -39,7 +39,7 @@
         for (const category of categories) {
             totalCosts[category.slug] = {}
             for (const group of category.groups) {
-                for (const thing of group.filteredThings) {
+                for (const thing of group.sellsFiltered) {
                     if (!$userVendorStore.data.userHas[`${group.type}-${thing.id}`]) {
                         for (const currency in thing.costs) {
                             totalCosts[category.slug][currency] = (totalCosts[category.slug][currency] || 0) + thing.costs[currency]
@@ -125,7 +125,7 @@
 
                 <div class="collection-section">
                     {#each category.groups as group, groupIndex}
-                        {#if group.filteredThings.length > 0}
+                        {#if group.sellsFiltered.length > 0}
                             <Group
                                 stats={$userVendorStore.data.stats[`${slug1}--${category.slug}--${groupIndex}`]}
                                 {group}

@@ -1,10 +1,11 @@
-﻿using Wowthing.Backend.Converters;
+﻿using Wowthing.Backend.Converters.Manual;
+using Wowthing.Backend.Models.Data.ZoneMaps;
 using Wowthing.Lib.Enums;
 
-namespace Wowthing.Backend.Models.Data.ZoneMaps
+namespace Wowthing.Backend.Models.Manual.ZoneMaps
 {
-    [JsonConverter(typeof(OutZoneMapFarmConverter))]
-    public class OutZoneMapFarm
+    [JsonConverter(typeof(ManualZoneMapCategoryConverter))]
+    public class ManualZoneMapFarm
     {
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public int? MinimumLevel { get; set; }
@@ -14,7 +15,7 @@ namespace Wowthing.Backend.Models.Data.ZoneMaps
 
         public FarmIdType IdType { get; set; }
         public int Id { get; set; }
-        
+
         public string[] Location { get; set; }
 
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
@@ -28,27 +29,27 @@ namespace Wowthing.Backend.Models.Data.ZoneMaps
         public FarmResetType Reset { get; set; }
         public FarmType Type { get; set; }
         public List<int> QuestIds { get; set; }
-        
+
         public List<int> RequiredQuestIds { get; set; }
 
         [JsonProperty(PropertyName = "dropsRaw")]
-        public List<OutZoneMapDrop> Drops { get; set; }
+        public List<ManualZoneMapDrop> Drops { get; set; }
 
-        public OutZoneMapFarm(DataZoneMapFarm farm)
+        public ManualZoneMapFarm(DataZoneMapFarm farm)
         {
             Drops = farm.Drops
                 .EmptyIfNull()
-                .Select(drop => new OutZoneMapDrop(drop))
+                .Select(drop => new ManualZoneMapDrop(drop))
                 .ToList();
             Location = (farm.Location ?? "").Split();
             Name = farm.Name;
-            
+
             QuestIds = farm.QuestId
                 .EmptyIfNullOrWhitespace()
                 .Split(' ', StringSplitOptions.RemoveEmptyEntries)
                 .Select(q => int.Parse(q))
                 .ToList();
-            
+
             RequiredQuestIds = farm.RequiredQuestId
                 .EmptyIfNullOrWhitespace()
                 .Split(' ', StringSplitOptions.RemoveEmptyEntries)
@@ -70,7 +71,7 @@ namespace Wowthing.Backend.Models.Data.ZoneMaps
                 IdType = FarmIdType.Object;
                 Id = farm.ObjectId;
             }
-            else 
+            else
             {
                 IdType = FarmIdType.Npc;
                 Id = farm.NpcId;

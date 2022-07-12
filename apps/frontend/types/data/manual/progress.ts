@@ -1,24 +1,24 @@
 import type { ProgressDataType } from '@/types/enums'
 
 
-export interface StaticDataProgressCategory {
+export interface ManualDataProgressCategory {
     minimumLevel?: number
     name: string
     slug: string
     requiredQuestIds: number[]
-    groups: StaticDataProgressGroup[]
+    groups: ManualDataProgressGroup[]
 }
 
-export interface StaticDataProgressGroup {
+export interface ManualDataProgressGroup {
     icon: string
     iconText?: string
     lookup: string
     name: string
     type: string
-    data: Record<string, StaticDataProgressData[]>
+    data: Record<string, ManualDataProgressData[]>
 }
 
-export interface StaticDataProgressData {
+export interface ManualDataProgressData {
     ids: number[]
     description?: string
     name: string

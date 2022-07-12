@@ -1,6 +1,10 @@
-﻿namespace Wowthing.Backend.Models.Data.ZoneMaps
+﻿using Wowthing.Backend.Converters.Manual;
+using Wowthing.Backend.Models.Data.ZoneMaps;
+
+namespace Wowthing.Backend.Models.Manual.ZoneMaps
 {
-    public class OutZoneMapCategory
+    [JsonConverter(typeof(ManualZoneMapCategoryConverter))]
+    public class ManualZoneMapCategory
     {
         public int MinimumLevel { get; set; }
         public string MapName { get; set; }
@@ -10,11 +14,11 @@
         public List<int> RequiredQuestIds { get; set; }
 
         [JsonProperty("farmsRaw")]
-        public List<OutZoneMapFarm> Farms { get; set; }
+        public List<ManualZoneMapFarm> Farms { get; set; }
 
         public string Slug => Name.Slugify();
-        
-        public OutZoneMapCategory(DataZoneMapCategory cat)
+
+        public ManualZoneMapCategory(DataZoneMapCategory cat)
         {
             MinimumLevel = cat.MinimumLevel;
             MapName = cat.MapName;
@@ -28,7 +32,7 @@
 
             Farms = cat.Farms
                 .EmptyIfNull()
-                .Select(farm => new OutZoneMapFarm(farm))
+                .Select(farm => new ManualZoneMapFarm(farm))
                 .ToList();
         }
     }

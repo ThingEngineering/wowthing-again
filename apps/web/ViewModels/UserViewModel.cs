@@ -10,6 +10,7 @@ namespace Wowthing.Web.ViewModels
         public readonly string SettingsJson;
         public readonly string AchievementHash;
         public readonly string JournalHash;
+        public readonly string ManualHash;
         public readonly string StaticHash;
         public readonly string TransmogHash;
         public readonly string ZoneMapHash;
@@ -22,6 +23,7 @@ namespace Wowthing.Web.ViewModels
             var db = redis.GetDatabase();
             var achievementHash = db.StringGetAsync("cache:achievement:hash");
             var journalHash = db.StringGetAsync("cache:journal-enUS:hash");
+            var manualHash = db.StringGetAsync("cache:manual-enUS:hash");
             var staticHash = db.StringGetAsync("cache:static-enUS:hash");
             var transmogHash = db.StringGetAsync("cache:transmog:hash");
             var zoneMapHash = db.StringGetAsync("cache:zone-map:hash");
@@ -29,6 +31,7 @@ namespace Wowthing.Web.ViewModels
 
             AchievementHash = achievementHash.Result;
             JournalHash = journalHash.Result;
+            ManualHash = manualHash.Result;
             StaticHash = staticHash.Result;
             TransmogHash = transmogHash.Result;
             ZoneMapHash = zoneMapHash.Result;

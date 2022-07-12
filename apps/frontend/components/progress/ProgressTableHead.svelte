@@ -1,12 +1,12 @@
 <script lang="ts">
     import { progressState } from '@/stores/local-storage'
     import tippy from '@/utils/tippy'
-    import type { StaticDataProgressGroup } from '@/types/data/static'
+    import type { ManualDataProgressGroup } from '@/types/data/manual'
 
     import TableSortedBy from '@/components/common/TableSortedBy.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
-    export let group: StaticDataProgressGroup
+    export let group: ManualDataProgressGroup
     export let slugKey: string
     export let sortKey: string
     export let sortingBy: boolean

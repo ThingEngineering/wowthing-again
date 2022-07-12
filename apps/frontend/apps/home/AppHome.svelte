@@ -3,6 +3,7 @@
 
     import {
         journalStore,
+        manualStore,
         staticStore,
         timeStore,
         transmogStore,
@@ -11,7 +12,7 @@
         userStore,
         userTransmogStore,
     } from '@/stores'
-    import { journalState, vendorState } from '@/stores/local-storage'
+    import { journalState, vendorState, zoneMapState } from '@/stores/local-storage'
     import { data as settings } from '@/stores/settings'
     import { userVendorStore } from '@/stores/user-vendors'
     import parseApiTime from '@/utils/parse-api-time'
@@ -21,8 +22,9 @@
     import Sidebar from './AppHomeSidebar.svelte'
 
     onMount(async () => await Promise.all([
-        staticStore.fetch(undefined, $settings.general.language),
         journalStore.fetch(undefined, $settings.general.language),
+        manualStore.fetch(undefined, $settings.general.language),
+        staticStore.fetch(undefined, $settings.general.language),
         transmogStore.fetch(),
         userAchievementStore.fetch(),
         userQuestStore.fetch(),
@@ -36,22 +38,36 @@
     $: {
         error = $staticStore.error
             || $journalStore.error
+            || $manualStore.error
             || $transmogStore.error
-            //|| $userAchievementStore.error
+            || $userAchievementStore.error
             || $userQuestStore.error
             || $userStore.error
             || $userTransmogStore.error
 
         loaded = $staticStore.loaded
             && $journalStore.loaded
+            && $manualStore.loaded
             && $transmogStore.loaded
-            //&& $userAchievementStore.loaded
+            && $userAchievementStore.loaded
             && $userQuestStore.loaded
             && $userStore.loaded
             && $userTransmogStore.loaded
 
         if (loaded) {
+            manualStore.setup(
+                $settings,
+                $manualStore.data,
+                $staticStore.data,
+                $userStore.data,
+                $userAchievementStore.data,
+                $userQuestStore.data,
+                $userTransmogStore.data,
+                $zoneMapState,
+            )
+
             userStore.setup(
+                $manualStore.data,
                 $staticStore.data,
                 $userStore.data,
             )
@@ -64,7 +80,7 @@
 
             userVendorStore.setup(
                 $settings,
-                $staticStore.data,
+                $manualStore.data,
                 $userStore.data,
                 $userTransmogStore.data,
                 $vendorState

@@ -1,6 +1,8 @@
-﻿namespace Wowthing.Backend.Models.Data.ZoneMaps
+﻿using Wowthing.Backend.Models.Data.ZoneMaps;
+
+namespace Wowthing.Backend.Models.Manual.ZoneMaps
 {
-    public class OutZoneMapDrop
+    public class ManualZoneMapDrop
     {
         public int Id { get; set; }
         public int ClassMask { get; set; }
@@ -12,7 +14,7 @@
         public int[] QuestIds { get; set; }
         public string[] Limit { get; set; }
 
-        public OutZoneMapDrop(DataZoneMapDrop drop)
+        public ManualZoneMapDrop(DataZoneMapDrop drop)
         {
             Id = drop.Id;
             Type = drop.Type;

@@ -4,14 +4,14 @@
     import getSavedRoute from '@/utils/get-saved-route'
     import type { MultiSlugParams } from '@/types'
     import type { CollectionContext } from '@/types/contexts'
-    import type { StaticDataSetCategory} from '@/types/data/static'
+    import type { ManualDataSetCategory} from '@/types/data/manual'
 
     import CollectionSection from './CollectionSection.svelte'
     import CollectionSidebar from './CollectionSidebar.svelte'
 
     export let params: MultiSlugParams
     export let route: string
-    export let sets: StaticDataSetCategory[][]
+    export let sets: ManualDataSetCategory[][]
     export let thingMapFunc: (thing: number) => number = undefined
     export let thingType: string
     export let userHas: Record<number, boolean> = {}

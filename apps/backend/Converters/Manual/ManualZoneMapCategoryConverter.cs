@@ -1,30 +1,62 @@
 ﻿using Newtonsoft.Json.Linq;
-using Wowthing.Backend.Models.Data.ZoneMaps;
+using Wowthing.Backend.Models.Manual.ZoneMaps;
 using Wowthing.Lib.Enums;
 
-namespace Wowthing.Backend.Converters
+namespace Wowthing.Backend.Converters.Manual
 {
-    public class OutZoneMapFarmConverter : JsonConverter
+    public class ManualZoneMapCategoryConverter : JsonConverter
     {
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            var farm = (OutZoneMapFarm) value;
-            var arr = new JArray();
+            var category = (ManualZoneMapCategory)value;
+            var catArray = new JArray();
 
-            arr.Add(farm.Type);
-            arr.Add(farm.Reset);
-            arr.Add(farm.IdType);
-            arr.Add(farm.Id);
-            arr.Add(farm.Name);
-            arr.Add(string.Join(",", farm.Location));
-            arr.Add(new JArray(farm.QuestIds));
+            catArray.Add(category.Name);
+            catArray.Add(category.Slug);
+            catArray.Add(category.MapName);
+            catArray.Add(category.MinimumLevel);
+
+            var questArray = new JArray();
+            foreach (var questId in category.RequiredQuestIds)
+            {
+                questArray.Add(questId);
+            }
+            catArray.Add(questArray);
+
+            var farmArray = new JArray();
+            foreach (var farm in category.Farms)
+            {
+                farmArray.Add(CreateFarmArray(farm));
+            }
+            catArray.Add(farmArray);
+
+            if (!string.IsNullOrWhiteSpace(category.WowheadGuide))
+            {
+                catArray.Add(category.WowheadGuide);
+            }
+
+            catArray.WriteTo(writer);
+        }
+
+        private JArray CreateFarmArray(ManualZoneMapFarm farm)
+        {
+            var farmArray = new JArray();
+
+            farmArray.Add(farm.Type);
+            farmArray.Add(farm.Reset);
+            farmArray.Add(farm.IdType);
+            farmArray.Add(farm.Id);
+            farmArray.Add(farm.Name);
+            farmArray.Add(string.Join(",", farm.Location));
+            farmArray.Add(new JArray(farm.QuestIds));
 
             var dropsArray = new JArray();
             foreach (var drop in farm.Drops.EmptyIfNull())
             {
                 dropsArray.Add(CreateDropArray(drop));
             }
-            arr.Add(dropsArray);
+
+            farmArray.Add(dropsArray);
 
             var useMinimumLevel = farm.MinimumLevel > 0;
             var useStatisticId = farm.StatisticId > 0;
@@ -34,33 +66,33 @@ namespace Wowthing.Backend.Converters
 
             if (useFaction || useNote || useRequiredQuestIds || useStatisticId || useMinimumLevel)
             {
-                arr.Add(farm.MinimumLevel ?? 0);
+                farmArray.Add(farm.MinimumLevel ?? 0);
             }
 
             if (useFaction || useNote || useRequiredQuestIds || useStatisticId)
             {
-                arr.Add(farm.StatisticId ?? 0);
+                farmArray.Add(farm.StatisticId ?? 0);
             }
 
             if (useFaction || useNote || useRequiredQuestIds)
             {
-                arr.Add(new JArray(farm.RequiredQuestIds));
+                farmArray.Add(new JArray(farm.RequiredQuestIds));
             }
 
             if (useFaction || useNote)
             {
-                arr.Add(farm.Note ?? "");
+                farmArray.Add(farm.Note ?? "");
             }
 
             if (useFaction)
             {
-                arr.Add(farm.Faction);
+                farmArray.Add(farm.Faction);
             }
 
-            arr.WriteTo(writer);
+            return farmArray;
         }
 
-        private JArray CreateDropArray(OutZoneMapDrop drop)
+        private JArray CreateDropArray(ManualZoneMapDrop drop)
         {
             var dropArray = new JArray();
 
@@ -104,17 +136,17 @@ namespace Wowthing.Backend.Converters
             return dropArray;
         }
 
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
+            JsonSerializer serializer)
         {
             throw new NotImplementedException();
         }
 
         public override bool CanConvert(Type objectType)
         {
-            return typeof(OutZoneMapFarm) == objectType;
+            return typeof(ManualZoneMapCategory) == objectType;
         }
 
         public override bool CanRead => false;
-
     }
 }
