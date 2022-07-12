@@ -1,0 +1,14 @@
+id: 63721
+name: "Tuskripper Grukna"
+faction: horde
+locations:
+  z4_krasarang_wilds:
+    - 10.8 53.4
+tags:
+  - "dominance-offensive"
+sells:
+  - type: mount
+    id: 527 # Grand Armored Wyvern
+    costs:
+      0: 2000 # Gold
+    reputation: 1375 exalted # Dominance Offensive

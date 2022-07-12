@@ -5,16 +5,21 @@ locations:
     - 43.0 54.2
 tags:
   - "emperor-shaohao"
-  - "timeless-isle"
 sells:
   - type: mount
     id: 475 # Heavenly Golden Cloud Serpent
-    note: "{price:100000|777} at Exalted with Emperor Shaohao" # 100000x Timeless Coin
+    costs:
+      777: 100000 # Timeless Coin
+    reputation: 1492 exalted # Emperor Shaohao
 
   - type: pet
     id: 1346 # Harmonious Porcupette
-    note: "{price:7500|777} at Revered with Emperor Shaohao" # 7500x Timeless Coin
+    costs:
+      777: 7500 # Timeless Coin
+    reputation: 1492 revered # Emperor Shaohao
 
   - type: toy
     id: 103685 # Celestial Defender's Medallion
-    note: "{price:1000|777} at Revered with Emperor Shaohao" # 1000x Timeless Coin
+    costs:
+      777: 1000 # Timeless Coin
+    reputation: 1492 revered # Emperor Shaohao

@@ -4,7 +4,7 @@
 
     import { classOrder } from '@/data/character-class'
     import { iconStrings } from '@/data/icons'
-    import { manualStore } from '@/stores'
+    import { manualStore, staticStore } from '@/stores'
     import { zoneMapState } from '@/stores/local-storage/zone-map'
     import { zoneMapMedia } from '@/stores/media-queries/zone-map'
     import { RewardType, PlayableClass } from '@/types/enums'
@@ -41,7 +41,7 @@
         if (categories.length > 0) {
             farms = [...categories[0].farms]
             for (const vendorId of ($manualStore.data.shared.vendorsByMap[categories[0].mapName] || [])) {
-                farms.push(...$manualStore.data.shared.vendors[vendorId].asFarms(categories[0].mapName))
+                farms.push(...$manualStore.data.shared.vendors[vendorId].asFarms($staticStore.data, categories[0].mapName))
             }
 
             farmStatuses = $manualStore.data.zoneMaps.farmStatus[slugKey]

@@ -6,4 +6,5 @@ locations:
 sells:
   - type: toy
     id: 88801 # Flippable Table
-    note: "{price:40|402}" # 40 Ironpaw Token
+    costs:
+      402: 40 # Ironpaw Token

@@ -5,25 +5,29 @@ locations:
   z4_timeless_isle:
     - 43.0 56.6
 tags:
-  - "timeless-isle"
   - "timewalking"
 sells:
   - type: mount
     id: 476 # Yu'lei, Daughter of Jade
-    note: "{price:5000|1166}" # 5000x Timewarped Badge
+    costs:
+      1166: 20000 # Timewarped Badge
 
   - type: pet
     id: 2017 # Infinite Hatchling
-    note: "{price:2200|1166}" # 2200x Timewarped Badge
+    costs:
+      1166: 2200 # Timewarped Badge
   
   - type: pet
     id: 2018 # Paradox Spirit
-    note: "{price:2200|1166}" # 2200x Timewarped Badge
+    costs:
+      1166: 2200 # Timewarped Badge
 
   - type: toy
     id: 144072 # Adopted Puppy Crate
-    note: "{price:1000|1166}" # 1000x Timewarped Badge
+    costs:
+      1166: 1000 # Timewarped Badge
 
   - type: toy
     id: 144393 # Portable Yak Wash
-    note: "{price:500|1166}" # 500x Timewarped Badge
+    costs:
+      1166: 500 # Timewarped Badge

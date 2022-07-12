@@ -6,8 +6,10 @@ locations:
 sells:
   - type: toy
     id: 88802 # Foxicopter Controller
-    note: "{price:1000}"
+    costs:
+      0: 1000 # Gold
 
   - type: toy
     id: 91904 # Stackable Stag
-    note: "{price:1000}"
+    costs:
+      0: 1000 # Gold

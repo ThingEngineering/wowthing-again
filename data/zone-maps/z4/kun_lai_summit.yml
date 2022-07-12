@@ -260,22 +260,3 @@ farms:
 
     - type: transmog
       id: 86221 # Wise Sprite Cloak
-
-# Vendor
-
-- name: "Uncle Bigpocket"
-  location: 65.4 61.6
-  npcId: 64518
-  type: vendor
-  drops:
-    - type: mount
-      id: 487 # Blonde Riding Yak
-      note: "{price:3000}"
-
-    - type: mount
-      id: 486 # Grey Riding Yak
-      note: "{price:3000}"
-
-    - type: mount
-      id: 460 # Grand Expedition Yak
-      note: "{price:120000}"

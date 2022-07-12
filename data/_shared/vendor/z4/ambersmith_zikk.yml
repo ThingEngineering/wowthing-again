@@ -1,0 +1,19 @@
+id: 64599
+name: "Ambermisth Zikk"
+locations:
+  z4_dread_wastes:
+    - 55.0 35.6
+tags:
+  - "klaxxi"
+sells:
+  - type: mount
+    id: 463 # Amber Scorpion
+    costs:
+      0: 10000 # Gold
+    reputation: 1337 exalted # The Klaxxi
+
+  - type: transmog
+    id: 89798 # Klaxxi Tabard
+    costs:
+      0: 10 # Gold
+    reputation: 1337 exalted # The Klaxxi

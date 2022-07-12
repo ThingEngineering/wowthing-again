@@ -1,0 +1,14 @@
+id: 63721
+name: "Agent Malley"
+faction: alliance
+locations:
+  z4_krasarang_wilds:
+    - 89.6 33.4
+tags:
+  - "operation-shieldwall"
+sells:
+  - type: mount
+    id: 526 # Grand Armored Gryphon
+    costs:
+      0: 2000 # Gold
+    reputation: 1376 exalted # Operation: Shieldwall

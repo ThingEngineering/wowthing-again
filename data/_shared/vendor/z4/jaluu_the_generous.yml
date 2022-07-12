@@ -8,17 +8,25 @@ tags:
   - "golden-lotus"
 sells:
   - type: mount
-    id: 127174 # Azure Riding Crane
-    note: "{repPrice:1269:exalted:500}"
+    id: 479 # Azure Riding Crane
+    costs:
+      0: 500 # Gold
+    reputation: 1269 exalted # Golden Lotus
 
   - type: mount
-    id: 127176 # Golden Riding Crane
-    note: "{repPrice:1269:exalted:2500}"
+    id: 480 # Golden Riding Crane
+    costs:
+      0: 2500 # Gold
+    reputation: 1269 exalted # Golden Lotus
 
   - type: mount
-    id: 127177 # Regal Riding Crane
-    note: "{repPrice:1269:exalted:1500}"
+    id: 481 # Regal Riding Crane
+    costs:
+      0: 1500 # Gold
+    reputation: 1269 exalted # Golden Lotus
 
   - type: transmog
     id: 89797 # Golden Lotus Tabard [exalted]
-    note: "{repPrice:1269:exalted:10}"
+    costs:
+      0: 10 # Gold
+    reputation: 1269 exalted # Golden Lotus

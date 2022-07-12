@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using MoreLinq.Extensions;
+using Newtonsoft.Json.Linq;
 using Wowthing.Backend.Models.Manual;
 using Wowthing.Lib.Enums;
 
@@ -32,17 +33,7 @@ public class ManualVendorConverter : JsonConverter
         var sellsArray = new JArray();
         foreach (var item in vendor.Sells)
         {
-            var itemArray = new JArray();
-
-            itemArray.Add(Enum.Parse<RewardType>(item.Type, true));
-            itemArray.Add(item.Id);
-
-            if (!string.IsNullOrWhiteSpace(item.Note))
-            {
-                itemArray.Add(item.Note);
-            }
-
-            sellsArray.Add(itemArray);
+            sellsArray.Add(CreateItemArray(item));
         }
         vendorArray.Add(sellsArray);
 
@@ -52,6 +43,51 @@ public class ManualVendorConverter : JsonConverter
         }
 
         vendorArray.WriteTo(writer);
+    }
+
+    private JArray CreateItemArray(ManualVendorItem item)
+    {
+        bool useCosts = item.Costs.EmptyIfNull().Count >= 0;
+        bool useReputation = !string.IsNullOrWhiteSpace(item.Reputation);
+        bool useNote = !string.IsNullOrWhiteSpace(item.Note);
+
+        var itemArray = new JArray();
+
+        itemArray.Add(Enum.Parse<RewardType>(item.Type, true));
+        itemArray.Add(item.Id);
+
+        if (useNote || useReputation || useCosts)
+        {
+            var costsArray = new JArray();
+            foreach (var (currency, amount) in item.Costs.EmptyIfNull().OrderBy(kvp => kvp.Key))
+            {
+                var costArray = new JArray();
+                costArray.Add(currency);
+                costArray.Add(amount);
+                costsArray.Add(costArray);
+            }
+
+            itemArray.Add(costsArray);
+        }
+
+        if (useNote || useReputation)
+        {
+            var reputationArray = new JArray();
+            if (!string.IsNullOrWhiteSpace(item.Reputation))
+            {
+                var parts = item.Reputation.Split();
+                reputationArray.Add(int.Parse(parts[0]));
+                reputationArray.Add(Enum.Parse<RewardReputation>(parts[1], true));
+            }
+            itemArray.Add(reputationArray);
+        }
+
+        if (useNote)
+        {
+            itemArray.Add(item.Note);
+        }
+
+        return itemArray;
     }
 
     public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)

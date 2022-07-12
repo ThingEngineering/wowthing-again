@@ -7,13 +7,16 @@ tags:
   - "timeless-isle"
 sells:
   - type: mount
-    id: 560
-    note: "{price:500|789}" # 500x Bloody Coin
+    id: 560 # Ashhide Mushan Beast
+    costs:
+      789: 500 # Bloody Coin
 
   - type: pet
     id: 1344 # Vengeful Porcupette
-    note: "{price:100|789}" # 100x Bloody Coin
+    costs:
+      789: 100 # Bloody Coin
 
   - type: toy
     id: 102467 # Censer of Eternal Agony
-    note: "{price:1000|777}" # 1000x Timeless Coin
+    costs:
+      777: 1000 # Timeless Coin

@@ -4,12 +4,16 @@ locations:
   z4_vale_of_eternal_blossoms:
     - 82.2 29.4
 tags:
-  - "the-lorewalkers"
+  - "lorewalkers"
 sells:
   - type: mount
-    id: 130092 # Red Flying Cloud
-    note: "{repPrice:1345:exalted:600}"
+    id: 509 # Red Flying Cloud
+    costs:
+      0: 600 # Gold
+    reputation: 1345 exalted # Lorewalkers
 
   - type: transmog
     id: 89795 # Lorewalkers Tabard [tabard]
-    note: "{repPrice:1345:exalted:10}"
+    costs:
+      0: 10 # Gold
+    reputation: 1345 exalted # Lorewalkers

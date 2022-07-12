@@ -35,6 +35,14 @@
         Monthly,
     }
 
+    public enum RewardReputation
+    {
+        Friendly = 1,
+        Honored = 2,
+        Revered = 3,
+        Exalted = 4,
+    }
+
     public enum RewardType
     {
         Pet = 1,

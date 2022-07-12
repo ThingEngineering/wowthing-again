@@ -344,7 +344,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
 
                 const farms = [...map.farms]
                 for (const vendorId of (manualData.shared.vendorsByMap[map.mapName] || [])) {
-                    farms.push(...manualData.shared.vendors[vendorId].asFarms(map.mapName))
+                    farms.push(...manualData.shared.vendors[vendorId].asFarms(staticData, map.mapName))
                 }
 
                 const farmStatuses: FarmStatus[] = []
@@ -450,6 +450,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                             case RewardType.Armor:
                             case RewardType.Cosmetic:
                             case RewardType.Weapon:
+                            case RewardType.Transmog:
                                 if (!userTransmogData.userHas[manualData.shared.items[drop.id]?.appearanceId ?? 0]) {
                                     dropStatus.need = true
                                 }

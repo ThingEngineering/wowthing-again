@@ -8,27 +8,39 @@ tags:
 sells:
   - type: mount
     id: 511 # Black Riding Goat
-    note: "{repPrice:1272|exalted|1500}"
+    costs:
+      0: 1500 # Gold
+    reputation: 1272 exalted # Tillers
 
   - type: mount
     id: 508 # Brown Riding Goat
-    note: "{repPrice:1272|exalted|1500}"
+    costs:
+      0: 1500 # Gold
+    reputation: 1272 exalted # Tillers
 
   - type: mount
     id: 510 # White Riding Goat
-    note: "{repPrice:1272|exalted|1500}"
+    costs:
+      0: 1500 # Gold
+    reputation: 1272 exalted # Tillers
 
   - type: toy
     id: 90175 # Gin-Ji Knife Set
-    note: "{repPrice:1272|exalted|250}"
+    costs:
+      0: 250 # Gold
+    reputation: 1272 exalted # Tillers
   
   - type: toy
     id: 89869 # Pandaren Scarecrow
-    note: "{repPrice:1272|revered|250}"
+    costs:
+      0: 250 # Gold
+    reputation: 1272 revered # Tillers
 
   - type: transmog
     id: 89784 # Tillers Tabard
-    note: "{repPrice:1272|exalted|10}"
+    costs:
+      0: 10 # Gold
+    reputation: 1272 exalted # Tillers
 
   - type: transmog
     id: 90893 # Straw Hat [cloth]

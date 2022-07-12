@@ -1,0 +1,31 @@
+id: 64595
+name: "Rushi the Fox"
+locations:
+  z4_townlong_stepps:
+    - 48.8 70.6
+tags:
+  - "shado-pan"
+sells:
+  - type: mount
+    id: 506 # Blue Shado-Pan Riding Tiger
+    costs:
+      0: 500 # Gold
+    reputation: 1270 exalted # Shado-Pan
+
+  - type: mount
+    id: 505 # Green Shado-Pan Riding Tiger
+    costs:
+      0: 1500 # Gold
+    reputation: 1270 exalted # Shado-Pan
+
+  - type: mount
+    id: 507 # Red Shado-Pan Riding Tiger
+    costs:
+      0: 2500 # Gold
+    reputation: 1270 exalted # Shado-Pan
+
+  - type: transmog
+    id: 89800 # Shado-Pan Tabard [tabard]
+    costs:
+      0: 10 # Gold
+    reputation: 1270 exalted # Shado-Pan

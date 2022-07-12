@@ -244,6 +244,7 @@ public class CacheManualJob : JobBase, IScheduledJob
 
         foreach (var file in files)
         {
+            Logger.Debug("Parsing {file}", file.FullName);
             var vendor = _yaml.Deserialize<ManualVendor>(File.OpenText(file.FullName));
             ret.Add(vendor);
         }
