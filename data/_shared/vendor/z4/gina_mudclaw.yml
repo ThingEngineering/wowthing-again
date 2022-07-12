@@ -7,15 +7,15 @@ tags:
   - "tillers"
 sells:
   - type: mount
-    id: 130138 # Black Riding Goat
+    id: 511 # Black Riding Goat
     note: "{repPrice:1272|exalted|1500}"
 
   - type: mount
-    id: 130086 # Brown Riding Goat
+    id: 508 # Brown Riding Goat
     note: "{repPrice:1272|exalted|1500}"
 
   - type: mount
-    id: 130137 # White Riding Goat
+    id: 510 # White Riding Goat
     note: "{repPrice:1272|exalted|1500}"
 
   - type: toy

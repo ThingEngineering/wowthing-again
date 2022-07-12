@@ -6,7 +6,7 @@ locations:
 tags:
   - "emperor-shaohao"
   - "timeless-isle"
-drops:
+sells:
   - type: mount
     id: 475 # Heavenly Golden Cloud Serpent
     note: "{price:100000|777} at Exalted with Emperor Shaohao" # 100000x Timeless Coin
