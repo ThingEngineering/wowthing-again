@@ -14,6 +14,7 @@ import {
     ManualDataSetCategory,
     ManualDataSharedItem,
     ManualDataSharedVendor,
+    ManualDataTransmogCategory,
     ManualDataVendorCategory,
     ManualDataZoneMapCategory,
 } from '@/types/data/manual'
@@ -21,7 +22,7 @@ import { FarmResetType, PlayableClass, PlayableClassMask, RewardType } from '@/t
 import { getNextBiWeeklyReset, getNextDailyReset, getNextWeeklyReset } from '@/utils/get-next-reset'
 import getTransmogClassMask from '@/utils/get-transmog-class-mask'
 import type { ZoneMapState } from '@/stores/local-storage'
-import type { DropStatus, FarmStatus, Settings, UserAchievementData, UserData } from '@/types'
+import type { DropStatus, FancyStore, FarmStatus, Settings, UserAchievementData, UserData } from '@/types'
 import type { UserQuestData, UserTransmogData } from '@/types/data'
 import type { ManualData, ManualDataSetCategoryArray } from '@/types/data/manual'
 import type { StaticData } from '@/types/data/static'
@@ -40,6 +41,9 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
             vendors: {},
             vendorsByMap: {},
             vendorsByTag: {},
+        }
+        data.transmog = {
+            sets: [],
         }
         data.vendors = {
             sets: [],
@@ -69,6 +73,20 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
             }
         }
         data.rawSharedVendors = null
+
+        for (const categories of data.rawTransmogSets) {
+            if (categories === null) {
+                data.transmog.sets.push(null)
+            }
+            else {
+                data.transmog.sets.push(
+                    categories.map(
+                        (catArray) => catArray === null ? null : new ManualDataTransmogCategory(...catArray)
+                    )
+                )
+            }
+        }
+        data.rawTransmogSets = null
 
         for (const categories of data.rawVendorSets) {
             if (categories === null) {
@@ -154,12 +172,64 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
     ): void {
         // console.time('ManualDataStore.setup')
 
-        this.setupZoneMaps(settings, manualData, staticData, userData, userAchievementData, userQuestData, userTransmogData, zoneMapState)
+        this.update(state => {
+            this.setupTransmog(
+                state,
+                manualData
+            )
+            
+            this.setupZoneMaps(
+                state,
+                settings,
+                manualData,
+                staticData,
+                userData,
+                userAchievementData,
+                userQuestData,
+                userTransmogData,
+                zoneMapState
+            )
+            
+            return state
+        })
 
         // console.timeEnd('ManualDataStore.setup')
     }
 
+    private setupTransmog(
+        state: FancyStore<ManualData>,
+        manualData: ManualData
+    ) {
+        const newSets: ManualDataTransmogCategory[][] = []
+
+        for (const sets of manualData.transmog.sets) {
+            if (sets === null) {
+                newSets.push(null)
+            }
+            else {
+                newSets.push(
+                    sortBy(
+                        sets,
+                        (set) => [
+                            set.name.startsWith('<') ? 0 : 1,
+                            set.name.startsWith('>') ? 1 : 0,
+                        ]
+                    )
+                )
+
+                for (const set of newSets[newSets.length - 1]) {
+                    if (set.name.startsWith('<') || set.name.startsWith('>')) {
+                        set.name = set.name.substring(1)
+                    }
+                }
+            }
+        }
+
+        state.data.transmog.sets = newSets
+    }
+
     private setupZoneMaps(
+        state: FancyStore<ManualData>,
         settings: Settings,
         manualData: ManualData,
         staticData: StaticData,
@@ -570,12 +640,9 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
             } // category of categories.slice(1)
         } // categories of zoneMapData.sets
 
-        this.update(state => {
-            state.data.zoneMaps.counts = setCounts
-            state.data.zoneMaps.farmStatus = farmData
-            state.data.zoneMaps.typeCounts = typeCounts
-            return state
-        })
+        state.data.zoneMaps.counts = setCounts
+        state.data.zoneMaps.farmStatus = farmData
+        state.data.zoneMaps.typeCounts = typeCounts
     }
 }
 

@@ -5,12 +5,12 @@
     import {userTransmogStore} from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
     import {tippyComponent} from '@/utils/tippy'
-    import type {TransmogDataGroupData} from '@/types/data'
+    import type { ManualDataTransmogGroup } from '@/types/data/manual'
 
     import TooltipAppearanceSet from '@/components/tooltips/appearance-set/TooltipAppearanceSet.svelte'
     import WowheadTransmogSetLink from '@/components/links/WowheadTransmogSetLink.svelte'
 
-    export let set: TransmogDataGroupData
+    export let set: ManualDataTransmogGroup
     export let span = 1
     export let subType: string
 

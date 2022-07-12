@@ -1,10 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore.Diagnostics;
 using StackExchange.Redis;
 using Wowthing.Backend.Models.Data.Collections;
+using Wowthing.Backend.Models.Data.Journal;
 using Wowthing.Backend.Models.Data.Progress;
+using Wowthing.Backend.Models.Data.Transmog;
 using Wowthing.Backend.Models.Data.Vendors;
 using Wowthing.Backend.Models.Data.ZoneMaps;
 using Wowthing.Backend.Models.Manual;
+using Wowthing.Backend.Models.Manual.Transmog;
 using Wowthing.Backend.Models.Manual.Vendors;
 using Wowthing.Backend.Models.Manual.ZoneMaps;
 using Wowthing.Backend.Models.Static;
@@ -170,6 +173,9 @@ public class CacheManualJob : JobBase, IScheduledJob
         // Shared vendors
         cacheData.SharedVendors = LoadSharedVendors();
 
+        // Transmog
+        cacheData.TransmogSets = LoadTransmog();
+
         // Vendors
         cacheData.VendorSets = LoadVendors();
 
@@ -250,6 +256,31 @@ public class CacheManualJob : JobBase, IScheduledJob
                 {
                     _itemIds.Add(item.Id);
                 }
+            }
+        }
+
+        return ret;
+    }
+
+    // Generate and cache output
+    private List<List<ManualTransmogCategory>> LoadTransmog()
+    {
+        var transmogSets = DataUtilities.LoadData<DataTransmogCategory>("transmog", Logger);
+
+        var ret = new List<List<ManualTransmogCategory>>();
+
+        foreach (var catList in transmogSets)
+        {
+            if (catList == null)
+            {
+                ret.Add(null);
+            }
+            else
+            {
+                ret.Add(catList
+                    .Select(cat => cat == null ? null : new ManualTransmogCategory(cat))
+                    .ToList()
+                );
             }
         }
 

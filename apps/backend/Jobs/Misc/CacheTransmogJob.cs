@@ -1,5 +1,6 @@
 ﻿using Wowthing.Backend.Models.Data.Journal;
 using Wowthing.Backend.Models.Data.Transmog;
+using Wowthing.Backend.Models.Manual.Transmog;
 using Wowthing.Backend.Utilities;
 using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Utilities;
@@ -21,9 +22,9 @@ namespace Wowthing.Backend.Jobs.Misc
         public override async Task Run(params string[] data)
         {
             _timer = new JankTimer();
-            
+
             await BuildTransmogData();
-            
+
             Logger.Information("{Timers}", _timer.ToString());
         }
 
@@ -31,16 +32,16 @@ namespace Wowthing.Backend.Jobs.Misc
         {
             // Generate and cache output
             var transmogSets = DataUtilities.LoadData<DataTransmogCategory>("transmog", Logger);
-            
+
             var cacheData = new RedisTransmogCache
             {
                 Sets = transmogSets.Select(
                     sets => sets?.Select(
-                            set => new OutTransmogCategory(set))
+                            set => new ManualTransmogCategory(set))
                         .ToList()
-                    )?.ToList(), 
+                    )?.ToList(),
             };
-            
+
             var cacheJson = JsonConvert.SerializeObject(cacheData);
             var cacheHash = cacheJson.Md5();
 

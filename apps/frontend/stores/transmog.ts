@@ -1,7 +1,7 @@
 import sortBy from 'lodash/sortBy'
 
 import { WritableFancyStore } from '@/types'
-import { TransmogDataGroupData } from '@/types/data'
+import { ManualDataTransmogGroup } from '@/types/data/manual'
 import type { TransmogData, TransmogDataCategory } from '@/types/data'
 
 

@@ -1,5 +1,6 @@
 ﻿using Wowthing.Backend.Models.Data.Collections;
 using Wowthing.Backend.Models.Data.Progress;
+using Wowthing.Backend.Models.Manual.Transmog;
 using Wowthing.Backend.Models.Manual.Vendors;
 using Wowthing.Backend.Models.Manual.ZoneMaps;
 using Wowthing.Backend.Models.Static;
@@ -19,6 +20,9 @@ public class ManualCache
 
     [JsonProperty("rawToySets")]
     public List<List<OutCollectionCategory>> ToySets { get; set; }
+
+    [JsonProperty("rawTransmogSets")]
+    public List<List<ManualTransmogCategory>> TransmogSets { get; set; }
 
     [JsonProperty("rawVendorSets")]
     public List<List<ManualVendorCategory>> VendorSets { get; set; }

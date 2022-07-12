@@ -1,9 +1,9 @@
-﻿using Wowthing.Backend.Models.Data.Transmog;
+﻿using Wowthing.Backend.Models.Manual.Transmog;
 
 namespace Wowthing.Backend.Models.Data.Journal
 {
     public class RedisTransmogCache
     {
-        public List<List<OutTransmogCategory>> Sets { get; set; }
+        public List<List<ManualTransmogCategory>> Sets { get; set; }
     }
 }

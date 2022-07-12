@@ -12,8 +12,6 @@ namespace Wowthing.Web.ViewModels
         public readonly string JournalHash;
         public readonly string ManualHash;
         public readonly string StaticHash;
-        public readonly string TransmogHash;
-        public readonly string ZoneMapHash;
 
         public UserViewModel(IConnectionMultiplexer redis, ApplicationUser user)
         {
@@ -25,16 +23,12 @@ namespace Wowthing.Web.ViewModels
             var journalHash = db.StringGetAsync("cache:journal-enUS:hash");
             var manualHash = db.StringGetAsync("cache:manual-enUS:hash");
             var staticHash = db.StringGetAsync("cache:static-enUS:hash");
-            var transmogHash = db.StringGetAsync("cache:transmog:hash");
-            var zoneMapHash = db.StringGetAsync("cache:zone-map:hash");
-            Task.WaitAll(achievementHash, journalHash, staticHash, transmogHash, zoneMapHash);
+            Task.WaitAll(achievementHash, journalHash, staticHash);
 
             AchievementHash = achievementHash.Result;
             JournalHash = journalHash.Result;
             ManualHash = manualHash.Result;
             StaticHash = staticHash.Result;
-            TransmogHash = transmogHash.Result;
-            ZoneMapHash = zoneMapHash.Result;
 
             Settings.Migrate();
             SettingsJson = JsonConvert.SerializeObject(Settings);
