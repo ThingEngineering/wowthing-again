@@ -2,15 +2,15 @@
     import some from 'lodash/some'
 
     import type { Character } from '@/types'
-    import type { StaticDataProgressData, StaticDataProgressGroup } from '@/types/data/static'
+    import type { ManualDataProgressData, ManualDataProgressGroup } from '@/types/data/manual'
 
     import ParsedText from '@/components/common/ParsedText.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
-    export let datas: StaticDataProgressData[]
+    export let datas: ManualDataProgressData[]
     export let descriptionText: Record<number, string>
-    export let group: StaticDataProgressGroup
+    export let group: ManualDataProgressGroup
     export let haveIndexes: number[]
     export let showCurrency = 0
 

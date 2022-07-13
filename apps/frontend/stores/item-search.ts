@@ -40,7 +40,7 @@ export class ItemSearchState {
                         character.location,
                         character.quality,
                         character.itemLevel,
-                        character.bonusIds.join(':'),
+                        (character.bonusIds || []).join(':'),
                     ].join('|')
 
                     if (!itemMap[key]) {

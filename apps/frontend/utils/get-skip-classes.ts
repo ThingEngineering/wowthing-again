@@ -1,12 +1,12 @@
 import sumBy from 'lodash/sumBy'
 
 import type { Settings } from '@/types'
-import type { TransmogDataCategory } from '@/types/data'
+import type { ManualDataTransmogCategory } from '@/types/data/manual'
 
 
 export default function getSkipClasses(
     settingsData: Settings,
-    category?: TransmogDataCategory
+    category?: ManualDataTransmogCategory
 ): Record<string, boolean> {
     const skipClasses: Record<string, boolean> = {}
 
@@ -24,7 +24,7 @@ export default function getSkipClasses(
     skipClasses['warrior'] = !settingsData.transmog.showWarrior
 
     if (category) {
-        for (const skipClass of category.skipClasses) {
+        for (const skipClass of (category.skipClasses || [])) {
             skipClasses[skipClass] = true
         }
     }

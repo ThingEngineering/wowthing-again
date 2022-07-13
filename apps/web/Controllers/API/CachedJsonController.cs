@@ -22,10 +22,11 @@ public class CachedJsonController : Controller
     {
         "achievement",
         "journal",
+        "manual",
         "static",
     };
 
-    [HttpGet("api/{type:regex(^(achievement|journal|static|transmog|zone-map)$)}-{languageCode:length(4)}.{hash:length(32)}.json")]
+    [HttpGet("api/{type:regex(^(achievement|journal|manual|static|transmog|zone-map)$)}-{languageCode:length(4)}.{hash:length(32)}.json")]
     [ResponseCache(Duration = 365 * 24 * 60 * 60, VaryByHeader = "Origin")]
     public async Task<IActionResult> CachedJson([FromRoute] string type, [FromRoute] string languageCode, [FromRoute] string hash)
     {

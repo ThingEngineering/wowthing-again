@@ -24,7 +24,8 @@ import type {
     CharacterReputationReputation,
     UserData,
 } from '@/types'
-import type { StaticData, StaticDataSetCategory } from '@/types/data/static'
+import type { StaticData } from '@/types/data/static'
+import type { ManualData, ManualDataSetCategory } from '@/types/data/manual'
 
 
 export class UserDataStore extends WritableFancyStore<UserData> {
@@ -96,7 +97,11 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         // console.timeEnd('UserDataStore.initialize')
     }
 
-    setup(staticData: StaticData, userData: UserData): void {
+    setup(
+        manualData: ManualData,
+        staticData: StaticData,
+        userData: UserData
+    ): void {
         // console.time('UserDataStore.setup')
         
         // Initialize characters
@@ -138,17 +143,17 @@ export class UserDataStore extends WritableFancyStore<UserData> {
 
         UserDataStore.doSetCounts(
             setCounts['mounts'],
-            staticData.mountSets,
+            manualData.mountSets,
             userData.hasMount
         )
         UserDataStore.doSetCounts(
             setCounts['pets'],
-            staticData.petSets,
+            manualData.petSets,
             userData.hasPet
         )
         UserDataStore.doSetCounts(
             setCounts['toys'],
-            staticData.toySets,
+            manualData.toySets,
             userData.hasToy
         )
 
@@ -260,7 +265,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
 
     private static doSetCounts(
         setCounts: Record<string, UserCount>,
-        categories: StaticDataSetCategory[][],
+        categories: ManualDataSetCategory[][],
         userHas: Record<number, boolean>
     ): void {
         const overallData = setCounts['OVERALL'] = new UserCount()

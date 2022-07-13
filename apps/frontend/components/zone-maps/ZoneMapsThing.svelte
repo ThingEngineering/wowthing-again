@@ -4,13 +4,13 @@
     import { FarmIdType, FarmType } from '@/types/enums'
     import { tippyComponent } from '@/utils/tippy'
     import type { FarmStatus } from '@/types'
-    import type { ZoneMapDataFarm } from '@/types/data'
+    import type { ManualDataZoneMapFarm } from '@/types/data/manual'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import WowheadLink from '@/components/links/WowheadLink.svelte'
     import Tooltip from '@/components/tooltips/zone-maps/TooltipZoneMapsThing.svelte'
 
-    export let farm: ZoneMapDataFarm
+    export let farm: ManualDataZoneMapFarm
     export let status: FarmStatus
 
     let big: boolean

@@ -4,13 +4,13 @@ import userHasDrop from '@/utils/user-has-drop'
 import type { VendorState } from '@/stores/local-storage'
 import type { Settings, UserData } from '@/types'
 import type { UserTransmogData, UserVendorData } from '@/types/data'
-import type { StaticData } from '@/types/data/static'
+import type { ManualData } from '@/types/data/manual'
 
 
 export class UserVendorStore extends WritableFancyStore<UserVendorData> {
     setup(
         settingsData: Settings,
-        staticData: StaticData,
+        manualData: ManualData,
         userData: UserData,
         userTransmogData: UserTransmogData,
         vendorState: VendorState
@@ -23,7 +23,7 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
 
         const overallStats = stats['OVERALL'] = new UserCount()
 
-        for (const categories of staticData.vendorSets) {
+        for (const categories of manualData.vendors.sets) {
             if (categories === null) {
                 continue
             }
@@ -43,20 +43,21 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
                     const groupKey = `${catKey}--${groupIndex}`
                     const groupStats = stats[groupKey] = new UserCount()
 
-                    group.filteredThings = []
-                    for (const thing of group.things) {
+                    group.sellsFiltered = []
+                    for (const thing of group.sells) {
                         if (thing.classMask > 0 && (thing.classMask & classMask) === 0) {
                             continue
                         }
 
                         const hasDrop = userHasDrop(
-                            staticData,
+                            manualData,
                             userData,
                             userTransmogData,
-                            group.type,
-                            thing.appearanceId || thing.id
+                            thing.type,
+                            thing.id,
+                            thing.appearanceId
                         )
-                        const thingKey = `${group.type}-${thing.id}`
+                        const thingKey = `${thing.type}-${thing.id}`
 
                         if (!seen[thingKey]) {
                             overallStats.total++
@@ -85,7 +86,7 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
                             continue
                         }
 
-                        group.filteredThings.push(thing)
+                        group.sellsFiltered.push(thing)
                     }
                 }
             }

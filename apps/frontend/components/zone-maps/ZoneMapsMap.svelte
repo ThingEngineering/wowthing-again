@@ -4,12 +4,12 @@
 
     import { classOrder } from '@/data/character-class'
     import { iconStrings } from '@/data/icons'
-    import { zoneMapStore } from '@/stores'
+    import { manualStore, staticStore } from '@/stores'
     import { zoneMapState } from '@/stores/local-storage/zone-map'
     import { zoneMapMedia } from '@/stores/media-queries/zone-map'
     import { RewardType, PlayableClass } from '@/types/enums'
     import type { FarmStatus } from '@/types'
-    import type { ZoneMapDataCategory } from '@/types/data'
+    import type { ManualDataZoneMapCategory, ManualDataZoneMapFarm } from '@/types/data/manual'
 
     import Checkbox from '@/components/forms/CheckboxInput.svelte'
     import ClassIcon from '@/components/images/ClassIcon.svelte'
@@ -21,7 +21,8 @@
     export let slug1: string
     export let slug2: string
 
-    let categories: ZoneMapDataCategory[]
+    let categories: ManualDataZoneMapCategory[]
+    let farms: ManualDataZoneMapFarm[]
     let farmStatuses: FarmStatus[]
     let height: number
     let width: number
@@ -29,7 +30,7 @@
 
     $: {
         categories = filter(
-            find($zoneMapStore.data.sets, (s) => s !== null && s[0].slug === slug1),
+            find($manualStore.data.zoneMaps.sets, (s) => s !== null && s[0].slug === slug1),
             (s) => s?.farms?.length > 0
         )
         if (slug2) {
@@ -38,7 +39,12 @@
         slugKey = slug2 ? `${slug1}--${slug2}` : slug1
 
         if (categories.length > 0) {
-            farmStatuses = $zoneMapStore.data.farmStatus[slugKey]
+            farms = [...categories[0].farms]
+            for (const vendorId of ($manualStore.data.shared.vendorsByMap[categories[0].mapName] || [])) {
+                farms.push(...$manualStore.data.shared.vendors[vendorId].asFarms($staticStore.data, categories[0].mapName))
+            }
+
+            farmStatuses = $manualStore.data.zoneMaps.farmStatus[slugKey]
         }
         if ($zoneMapState.classFilters[slugKey] === undefined) {
             $zoneMapState.classExpanded[slugKey] = false
@@ -239,7 +245,7 @@
             {height}
         />
 
-        {#each categories[0].farms as farm, farmIndex}
+        {#each farms as farm, farmIndex}
             <Thing
                 status={farmStatuses[farmIndex]}
                 {farm}

@@ -1,0 +1,18 @@
+id: 68000
+name: "Hiren Loresong"
+locations:
+  z4_isle_of_thunder:
+    - 64.6 74.6 alliance
+tags:
+  - "kirin-tor-offensive"
+sells:
+  - type: mount
+    id: 545 # Golden Primal Direhorn
+    costs:
+      0: 3000 # Gold
+    reputation: 1387 exalted # Kirin Tor Offensive
+
+  - type: transmog
+    id: 95591 # Kirin Tor Offensive Tabard [tabard]
+    costs:
+      0: 10 # Gold

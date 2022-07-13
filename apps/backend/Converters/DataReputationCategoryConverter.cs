@@ -32,12 +32,12 @@ public class DataReputationCategoryConverter : JsonConverter
 
                 if (reputation.Alliance != null)
                 {
-                    repsArr.Add(GetReputationArray("both", reputation.Alliance));
+                    repsArr.Add(GetReputationArray("alliance", reputation.Alliance));
                 }
 
                 if (reputation.Horde != null)
                 {
-                    repsArr.Add(GetReputationArray("both", reputation.Horde));
+                    repsArr.Add(GetReputationArray("horde", reputation.Horde));
                 }
 
                 repArr.Add(repsArr);

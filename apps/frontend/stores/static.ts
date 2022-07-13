@@ -1,6 +1,3 @@
-import sortBy from 'lodash/sortBy'
-
-import { zoneMapStore } from './zone-map'
 import { extraInstanceMap } from '@/data/dungeon'
 import { extraReputationTiers } from '@/data/reputation'
 import { WritableFancyStore } from '@/types'
@@ -15,13 +12,10 @@ import {
     StaticDataRealm,
     StaticDataReputation,
     StaticDataReputationCategory,
-    StaticDataSetCategory,
     StaticDataToy,
 } from '@/types/data/static'
-import type {
-    StaticDataSetCategoryArray,
-} from '@/types/data/static'
 import type { StaticData } from '@/types/data/static/store'
+
 
 export class StaticDataStore extends WritableFancyStore<StaticData> {
     get dataUrl(): string {
@@ -147,25 +141,7 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             data.rawToys = null
         }
 
-        if (
-            data.mountSetsRaw !== null &&
-            data.petSetsRaw !== null &&
-            data.toySetsRaw !== null
-        ) {
-            data.mountSets = StaticDataStore.fixSets(data.mountSetsRaw)
-            data.petSets = StaticDataStore.fixSets(data.petSetsRaw)
-            data.toySets = StaticDataStore.fixSets(data.toySetsRaw)
-        }
-
         // console.timeEnd('StaticDataStore.initialize')
-
-        zoneMapStore.update((state) => {
-            state.data = {
-                sets: data.zoneMapSets,
-            }
-            state.loaded = true
-            return state
-        })
     }
 
     private static createObjects<TObject extends { id: number }>(
@@ -180,39 +156,6 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             ret[idFunc?.(obj) ?? obj.id] = obj
         }
         return ret
-    }
-
-    private static fixSets(allSets: StaticDataSetCategoryArray[][]): StaticDataSetCategory[][] {
-        const newSets: StaticDataSetCategory[][] = []
-
-        for (const sets of allSets) {
-            if (sets === null) {
-                newSets.push(null)
-                continue
-            }
-
-            const actualSets = sets.map(
-                (set) => new StaticDataSetCategory(...set)
-            )
-
-            newSets.push(
-                sortBy(
-                    actualSets,
-                    (set) => [
-                        set.name.startsWith('<') ? 0 : 1,
-                        set.name.startsWith('>') ? 1 : 0,
-                    ]
-                )
-            )
-
-            for (const set of newSets[newSets.length - 1]) {
-                if (set.name.startsWith('<') || set.name.startsWith('>')) {
-                    set.name = set.name.substring(1)
-                }
-            }
-        }
-
-        return newSets
     }
 }
 

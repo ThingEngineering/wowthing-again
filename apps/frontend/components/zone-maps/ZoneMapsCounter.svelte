@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { zoneMapStore } from '@/stores'
+    import { manualStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
     import type { UserCount } from '@/types'
     import type { RewardType } from '@/types/enums'
@@ -9,7 +9,7 @@
 
     let counts: UserCount
     $: {
-        counts = $zoneMapStore.data.typeCounts[key][type]
+        counts = $manualStore.data.zoneMaps.typeCounts[key][type]
     }
 </script>
 

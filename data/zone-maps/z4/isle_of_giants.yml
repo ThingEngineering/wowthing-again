@@ -15,19 +15,3 @@ farms:
   drops:
     - type: mount
       id: 533 # Cobalt Primordial Direhorn
-
-# Vendors
-
-- name: "Ku'ma"
-  location: 33.0 54.1
-  npcId: 0
-  reset: none
-  type: vendor
-  drops:
-    - type: mount
-      id: 537 # Bone-White Primal Raptor
-      note: "A Mountain of Giant Dinosaur Bones [9999]"
-
-    - type: pet
-      id: 1185 # Spectral Porcupette
-      note: "A Large Pile of Giant Dinosaur Bones [999]"

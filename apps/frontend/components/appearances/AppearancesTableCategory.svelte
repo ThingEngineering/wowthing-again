@@ -5,14 +5,14 @@
     import getPercentClass from '@/utils/get-percent-class'
     import getTransmogSpan from '@/utils/get-transmog-span'
     import getFilteredSets from '@/utils/transmog/get-filtered-sets'
-    import type { TransmogDataCategory } from '@/types/data'
+    import type { ManualDataTransmogCategory } from '@/types/data/manual'
 
     import ClassIcon from '@/components/images/ClassIcon.svelte'
     import CovenantIcon from '@/components/images/CovenantIcon.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
     import TableSet from './AppearancesTableSet.svelte'
 
-    export let category: TransmogDataCategory
+    export let category: ManualDataTransmogCategory
     export let skipClasses: Record<string, boolean>
     export let slugs: string[]
     export let startSpacer = false

@@ -4,14 +4,14 @@
     import { userStore } from '@/stores'
     import type { SidebarItem, UserCount } from '@/types'
     import type { CollectionContext } from '@/types/contexts'
-    import type { StaticDataSetCategory } from '@/types/data/static'
+    import type { ManualDataSetCategory } from '@/types/data/manual'
 
     import ProgressBar from '@/components/common/ProgressBar.svelte'
     import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
 
     const { route } = getContext('collection') as CollectionContext
 
-    export let sets: StaticDataSetCategory[][]
+    export let sets: ManualDataSetCategory[][]
 
     let categories: SidebarItem[]
     let overall: UserCount

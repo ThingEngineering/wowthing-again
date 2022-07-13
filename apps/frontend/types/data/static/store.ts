@@ -6,23 +6,16 @@ import type { StaticDataItem, StaticDataItemArray } from './item'
 import type { StaticDataMount, StaticDataMountArray } from './mount'
 import type { StaticDataPet, StaticDataPetArray } from './pet'
 import type { StaticDataProfession } from './profession'
-import type { StaticDataProgressCategory } from './progress'
 import type { StaticDataRaiderIoScoreTiers } from './raider-io'
 import type { StaticDataConnectedRealm, StaticDataRealm, StaticDataRealmArray } from './realm'
 import type { StaticDataReputation, StaticDataReputationArray, StaticDataReputationCategory, StaticDataReputationCategoryArray, StaticDataReputationTier } from './reputation'
-import type { StaticDataSetCategory, StaticDataSetCategoryArray } from './set'
 import type { StaticDataSoulbind } from './soulbind'
 import type { StaticDataToy, StaticDataToyArray } from './toy'
-import type { StaticDataVendorCategory } from './vendor'
-
-import type { UserCount } from '@/types'
-import type { ZoneMapDataCategory } from '@/types/data'
 
 
 export interface StaticData {
     connectedRealms: Record<number, StaticDataConnectedRealm>
     professions: Record<number, StaticDataProfession>
-    progress: StaticDataProgressCategory[][]
     raiderIoScoreTiers: Record<number, StaticDataRaiderIoScoreTiers>
     soulbinds: Record<number, StaticDataSoulbind[]>
     talents: Record<number, number[][]>
@@ -50,14 +43,8 @@ export interface StaticData {
     mounts: Record<number, StaticDataMount>
     rawMounts: StaticDataMountArray[]
 
-    mountSets: StaticDataSetCategory[][]
-    mountSetsRaw: StaticDataSetCategoryArray[][]
-
     pets: Record<number, StaticDataPet>
     rawPets: StaticDataPetArray[]
-
-    petSets: StaticDataSetCategory[][]
-    petSetsRaw: StaticDataSetCategoryArray[][]
 
     realms: Record<number, StaticDataRealm>
     realmsRaw: StaticDataRealmArray[]
@@ -72,12 +59,4 @@ export interface StaticData {
 
     toys: Record<number, StaticDataToy>
     rawToys: StaticDataToyArray[]
-
-    toySets: StaticDataSetCategory[][]
-    toySetsRaw: StaticDataSetCategoryArray[][]
-
-    vendorSets: StaticDataVendorCategory[][]
-    vendorStats: Record<string, UserCount>
-
-    zoneMapSets: ZoneMapDataCategory[][]
 }

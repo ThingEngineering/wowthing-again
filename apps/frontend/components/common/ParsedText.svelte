@@ -15,16 +15,42 @@
     let html: string
     $: {
         html = text.replaceAll(/:([a-z0-9_-]+):/g, '<span data-string="$1"></span>')
-        html = html.replaceAll(/\{price:(\d+)(?:\|(\d+))?\}/g, (_, amountString: string, currencyId: number) => {
-            const amount = parseInt(amountString).toLocaleString()
-            if (currencyId) {
-                const currency = $staticStore.data.currencies[currencyId]
-                return `${amount} <span data-icon="currency/${currencyId}"></span> ${currency.name}`
+        
+        html = html.replaceAll(
+            /\{repPrice:(\d+)\|(\d+)\|(\d+)(?:\|(\d+))?\}/g,
+            (_, repId: number, repLevel: number, amount: number, currencyId: number) => {
+                const parts: string[] = []
+                if (currencyId) {
+                    parts.push(`{price:${amount}|${currencyId}}`)
+                }
+                else {
+                    parts.push(`{price:${amount}}`)
+                }
+                
+                parts.push('at')
+                parts.push(['??', 'Friendly', 'Honored', 'Revered', 'Exalted'][repLevel])
+                parts.push('with')
+
+                parts.push($staticStore.data.reputations[repId]?.name ?? `Reputation #${repId}`)
+
+                return parts.join(' ')
             }
-            else {
-                return `${amount}g`
+        )
+
+        // {price:amount} or {price:amount|currencyId}
+        html = html.replaceAll(
+            /\{price:(\d+)(?:\|(\d+))?\}/g,
+            (_, amountString: string, currencyId: number) => {
+                const amount = parseInt(amountString).toLocaleString()
+                if (currencyId) {
+                    const currency = $staticStore.data.currencies[currencyId]
+                    return `${amount} <span data-icon="currency/${currencyId}"></span> ${currency.name}`
+                }
+                else {
+                    return `${amount}g`
+                }
             }
-        })
+        )
     }
 
     afterUpdate(() => {

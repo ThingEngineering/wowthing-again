@@ -18,7 +18,7 @@
         CharacterMedia,
         CharacterSpecializations,
         CharacterStatistics,
-      
+
         DataPlayableClass = 200,
         DataReputationFaction,
         DataReputationTiers,
@@ -51,5 +51,6 @@
         CacheJournal,
         DataAuctionsStart,
         DataAuctions,
+        CacheManual,
     }
 }

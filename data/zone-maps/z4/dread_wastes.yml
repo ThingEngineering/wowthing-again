@@ -188,18 +188,3 @@ farms:
     - type: toy
       id: 88417 # Gokk'lok's Shell
       note: "Starts from killing Gokk'lok in the water"
-
-# Vendor
-
-- name: "Ambermisth Zikk"
-  location: 55.0 35.6
-  npcId: 64599
-  type: vendor
-  drops:
-    - type: mount
-      id: 463 # Amber Scorpion
-      note: "{price:10000} at Exalted with The Klaxxi"
-
-    - type: transmog
-      id: 89798 # Klaxxi Tabard
-      note: "{price:10} at Exalted with The Klaxxi"

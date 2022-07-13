@@ -1,0 +1,18 @@
+id: 67672
+name: "Vasarin Redmorn"
+locations:
+  z4_isle_of_thunder:
+    - 33.4 32.4 horde
+tags:
+  - "sunreaver-onslaught"
+sells:
+  - type: mount
+    id: 546 # Crimson Primal Direhorn
+    costs:
+      0: 3000 # Gold
+    reputation: 1388 exalted # Sunreaver Onslaught
+
+  - type: transmog
+    id: 95592 # Sunreaver Onslaught Tabard [tabard]
+    costs:
+      0: 10 # Gold

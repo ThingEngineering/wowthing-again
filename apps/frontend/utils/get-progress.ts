@@ -9,10 +9,12 @@ import { ProgressDataType } from '@/types/enums'
 import type { Character, UserAchievementData, UserData } from '@/types'
 import type { UserQuestData } from '@/types/data'
 import type {
+    ManualDataProgressCategory,
+    ManualDataProgressData,
+    ManualDataProgressGroup,
+} from '@/types/data/manual'
+import type {
     StaticData,
-    StaticDataProgressCategory,
-    StaticDataProgressData,
-    StaticDataProgressGroup
 } from '@/types/data/static'
 
 
@@ -22,8 +24,8 @@ export default function getProgress(
     userAchievementData: UserAchievementData,
     userQuestData: UserQuestData,
     character: Character,
-    category: StaticDataProgressCategory,
-    group: StaticDataProgressGroup
+    category: ManualDataProgressCategory,
+    group: ManualDataProgressGroup
 ): ProgressInfo {
     let have = 0
     let showCurrency = 0
@@ -31,7 +33,7 @@ export default function getProgress(
     let total = 0
     let icon = ''
 
-    let datas: StaticDataProgressData[]
+    let datas: ManualDataProgressData[]
     const descriptionText: Record<number, string> = {}
     const haveIndexes: number[] = []
 
@@ -202,7 +204,7 @@ function getSpentCyphers(character: Character): number {
 }
 
 export interface ProgressInfo {
-    datas: StaticDataProgressData[]
+    datas: ManualDataProgressData[]
     descriptionText: Record<number, string>
     have: number
     haveIndexes: number[]

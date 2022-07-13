@@ -13,79 +13,27 @@ namespace Wowthing.Backend.Models.Redis
 {
     public class RedisStaticCache
     {
-        [JsonProperty(Order = 0)]
         public List<List<int>> RawBags { get; set; }
 
-        [JsonProperty(Order = 1)]
-        public Dictionary<short, StaticCharacterClass> CharacterClasses;
-
-        [JsonProperty(Order = 2)]
-        public Dictionary<short, StaticCharacterRace> CharacterRaces;
-
-        [JsonProperty(Order = 3)]
-        public Dictionary<short, StaticCharacterSpecialization> CharacterSpecializations;
-
-        [JsonProperty(Order = 4)]
-        public StaticCurrency[] RawCurrencies { get; set; }
-
-        [JsonProperty(Order = 5)]
-        public StaticCurrencyCategory[] RawCurrencyCategories { get; set; }
-
-        [JsonProperty(Order = 6)]
+        public Dictionary<short, StaticCharacterClass> CharacterClasses { get; set; }
+        public Dictionary<short, StaticCharacterRace> CharacterRaces { get; set; }
+        public Dictionary<short, StaticCharacterSpecialization> CharacterSpecializations { get; set; }
         public List<OutInstance> InstancesRaw { get; set; }
-
-        [JsonProperty(Order = 7)]
         public Dictionary<int, OutProfession> Professions { get; set; }
-
-        [JsonProperty(Order = 8)]
-        public List<List<OutProgress>> Progress { get; set; }
-
-        [JsonProperty(Order = 9)]
         public List<WowRealm> RealmsRaw { get; set; }
-
-        [JsonProperty(Order = 10)]
-        public StaticReputation[] RawReputations { get; set; }
-
-        [JsonProperty(Order = 11)]
+        public Dictionary<int, OutRaiderIoScoreTiers> RaiderIoScoreTiers { get; set; }
         public SortedDictionary<int, WowReputationTier> ReputationTiers { get; set; }
-
-        [JsonProperty(Order = 12)]
         public Dictionary<int, List<OutSoulbind>> Soulbinds { get; set; }
-
-        [JsonProperty(Order = 13)]
         public Dictionary<int, List<List<int>>> Talents { get; set; }
 
-        [JsonProperty(Order = 40)]
+        public StaticCurrency[] RawCurrencies { get; set; }
+        public StaticCurrencyCategory[] RawCurrencyCategories { get; set; }
         public StaticItem[] RawItems { get; set; }
-
-        [JsonProperty(Order = 50)]
         public List<JArray> RawMounts { get; set; }
-
-        [JsonProperty(Order = 51)]
-        public List<List<OutCollectionCategory>> MountSetsRaw { get; set; }
-
-        [JsonProperty(Order = 60)]
         public List<JArray> RawPets { get; set; }
-
-        [JsonProperty(Order = 61)]
-        public List<List<OutCollectionCategory>> PetSetsRaw { get; set; }
-
-        [JsonProperty(Order = 70)]
+        public StaticReputation[] RawReputations { get; set; }
         public List<JArray> RawToys { get; set; }
 
-        [JsonProperty(Order = 71)]
-        public List<List<OutCollectionCategory>> ToySetsRaw { get; set; }
-
-        [JsonProperty(Order = 100)]
         public List<DataReputationCategory> RawReputationSets { get; set; }
-
-        [JsonProperty(Order = 101)]
-        public List<List<OutVendorCategory>> VendorSets { get; set; }
-
-        [JsonProperty(Order = 102)]
-        public List<List<OutZoneMapCategory>> ZoneMapSets { get; set; }
-
-        [JsonProperty(Order = 103)]
-        public Dictionary<int, OutRaiderIoScoreTiers> RaiderIoScoreTiers { get; set; }
     }
 }

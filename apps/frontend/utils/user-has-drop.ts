@@ -1,15 +1,16 @@
 import { RewardType } from '@/types/enums'
-import type { StaticData } from '@/types/data/static'
+import type { ManualData } from '@/types/data/manual'
 import type { UserData } from '@/types/user-data'
 import type { UserTransmogData } from '@/types/data'
 
 
 export default function userHasDrop(
-    staticData: StaticData,
+    manualData: ManualData,
     userData: UserData,
     userTransmogData: UserTransmogData,
     type: RewardType,
-    id: number
+    id: number,
+    appearanceId?: number
 ): boolean {
     return (
         (
@@ -31,7 +32,7 @@ export default function userHasDrop(
                 type === RewardType.Transmog ||
                 type === RewardType.Weapon
             ) &&
-            userTransmogData.userHas[staticData.items[id]?.appearanceId || id] === true
+            userTransmogData.userHas[appearanceId ?? manualData.shared.items[id]?.appearanceId] === true
         )
     )
 }

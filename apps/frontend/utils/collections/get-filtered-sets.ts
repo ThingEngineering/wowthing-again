@@ -1,14 +1,14 @@
-import { StaticDataSetCategory, StaticDataSetGroup } from '@/types/data/static'
+import { ManualDataSetCategory, ManualDataSetGroup } from '@/types/data/manual'
 import type { CollectionState } from '@/stores/local-storage'
-import type { StaticDataSetGroupArray } from '@/types/data/static'
+import type { ManualDataSetGroupArray } from '@/types/data/manual'
 
 
 export function getFilteredSets(
     collectionState: CollectionState,
     collectionKey: string,
-    sets: StaticDataSetCategory[][],
+    sets: ManualDataSetCategory[][],
     hasFunc: (things: number[]) => boolean
-): StaticDataSetCategory[][] {
+): ManualDataSetCategory[][] {
     const showCollected = collectionState.showCollected[collectionKey]
     const showUncollected = collectionState.showUncollected[collectionKey]
 
@@ -16,16 +16,16 @@ export function getFilteredSets(
         return sets
     }
 
-    const ret: StaticDataSetCategory[][] = []
+    const ret: ManualDataSetCategory[][] = []
     for (const categories of sets) {
         if (categories === null) {
             ret.push(null)
             continue
         }
 
-        const newCategories: StaticDataSetCategory[] = []
+        const newCategories: ManualDataSetCategory[] = []
         for (const category of categories) {
-            const newGroups: StaticDataSetGroup[] = []
+            const newGroups: ManualDataSetGroup[] = []
             for (const group of category.groups) {
                 const newThings: number[][] = group.things.filter((thing) => {
                     const userHas = hasFunc(thing)
@@ -33,12 +33,12 @@ export function getFilteredSets(
                 })
 
                 if (newThings.length > 0) {
-                    newGroups.push(new StaticDataSetGroup(group.name, newThings))
+                    newGroups.push(new ManualDataSetGroup(group.name, newThings))
                 }
             }
 
-            const newGroupArrays: StaticDataSetGroupArray[] = newGroups.map((group) => [group.name, group.things])
-            newCategories.push(new StaticDataSetCategory(category.name, category.slug, newGroupArrays))
+            const newGroupArrays: ManualDataSetGroupArray[] = newGroups.map((group) => [group.name, group.things])
+            newCategories.push(new ManualDataSetCategory(category.name, category.slug, newGroupArrays))
         }
 
         ret.push(newCategories)

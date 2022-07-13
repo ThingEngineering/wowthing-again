@@ -4,7 +4,8 @@ import toPairs from 'lodash/toPairs'
 import { UserCount, WritableFancyStore } from '@/types'
 import getSkipClasses from '@/utils/get-skip-classes'
 import type { Settings } from '@/types'
-import type { TransmogData, UserTransmogData } from '@/types/data'
+import type { UserTransmogData } from '@/types/data'
+import type { ManualData } from '@/types/data/manual'
 
 
 export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> {
@@ -34,7 +35,7 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
 
     setup(
         settings: Settings,
-        transmogData: TransmogData,
+        manualData: ManualData,
         userTransmogData: UserTransmogData
     ): void {
         // console.time('UserTransmogDataStore.setup')
@@ -48,7 +49,7 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
 
         const overallStats = stats['OVERALL'] = new UserCount()
 
-        for (const categories of transmogData.sets) {
+        for (const categories of manualData.transmog.sets) {
             if (categories === null) {
                 continue
             }

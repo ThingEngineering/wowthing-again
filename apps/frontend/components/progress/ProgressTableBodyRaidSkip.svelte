@@ -4,13 +4,13 @@
     import { tippyComponent } from '@/utils/tippy'
     import type { Character } from '@/types'
     import type { UserQuestDataCharacterProgress } from '@/types/data'
-    import type { StaticDataProgressGroup } from '@/types/data/static'
+    import type { ManualDataProgressGroup } from '@/types/data/manual'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import Tooltip from '@/components/tooltips/progress-raid-skip/TooltipProgressRaidSkip.svelte'
 
     export let character: Character
-    export let group: StaticDataProgressGroup
+    export let group: ManualDataProgressGroup
 
     let progresses: {cls: string, completed: boolean, difficulty: string, progressQuest: UserQuestDataCharacterProgress}[]
     $: {

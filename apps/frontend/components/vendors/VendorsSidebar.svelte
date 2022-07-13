@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { staticStore } from '@/stores'
+    import { manualStore } from '@/stores'
     import { userVendorStore } from '@/stores/user-vendors'
     import type { SidebarItem, UserCount } from '@/types'
 
@@ -9,7 +9,7 @@
     let categories: SidebarItem[] = []
     let overall: UserCount
     $: {
-        categories = $staticStore.data.vendorSets.map((cat) => cat === null ? null : ({
+        categories = $manualStore.data.vendors.sets.map((cat) => cat === null ? null : ({
             children: cat.slice(1),
             ...cat[0],
         }))

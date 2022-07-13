@@ -4,342 +4,598 @@ groups:
 - name: "Mounts"
   type: mount
   things:
-  - id: 1485 # Autumnal Wilderling
-    cost: 7500 anima
+  - type: mount
+    id: 1485 # Autumnal Wilderling
+    costs:
+      1813: 7500 # Reservoir Anima
 
-  - id: 1359 # Enchanted Winterborn Runestag
-    cost: 5000 anima
+  - type: mount
+    id: 1359 # Enchanted Winterborn Runestag
+    costs:
+      1813: 5000 # Reservoir Anima
 
-  - id: 1354 # Shadeleaf Runestag
-    cost: 5000 anima
+  - type: mount
+    id: 1354 # Shadeleaf Runestag
+    costs:
+      1813: 5000 # Reservoir Anima
 
-  - id: 1420 # Umbral Scythehorn
-    cost: 5000 anima 5 offering
+  - type: mount
+    id: 1420 # Umbral Scythehorn
+    costs:
+      1813: 5000 # Reservoir Anima
+      1885: 5 # Grateful Offering
 
-  - id: 1429 # Vibrant Flutterwing
-    cost: 5000 anima
+  - type: mount
+    id: 1429 # Vibrant Flutterwing
+    costs:
+      1813: 5000 # Reservoir Anima
 
-  - id: 1393 # Wild Glimmerfur Prowler
-    cost: 5000 anima 75 offering
+  - type: mount
+    id: 1393 # Wild Glimmerfur Prowler
+    costs:
+      1813: 5000 # Reservoir Anima
+      1885: 75 # Grateful Offering
 
-  - id: 1356 # Winterborn Runestag
-    cost: 5000 anima 5 offering
+  - type: mount
+    id: 1356 # Winterborn Runestag
+    costs:
+      1813: 5000 # Reservoir Anima
+      1885: 5 # Grateful Offering
 
 - name: "Pets"
-  type: pet
   things:
-  - id: 3018 # Trootie
-    cost: 1500 anima 20 offering
+  - type: pet
+    id: 3018 # Trootie
+    costs:
+      1813: 1500 # Reservoir Anima
+      1885: 20 # Grateful Offering
 
 - name: "Toys"
-  type: toy
   things:
-  - id: 180290 # Night Fae Hearthstone
-    cost: 750 anima
+  - type: toy
+    id: 180290 # Night Fae Hearthstone
+    costs:
+      1813: 750 # Reservoir Anima
 
 - name: "Ensembles"
-  type: transmog
   things:
-  - id: 184113 # Ensemble: Conservator's Regalia - cloth
+  - type: transmog
+    id: 184113 # Ensemble: Conservator's Regalia - cloth
     appearanceId: 41889
-    cost: 12500 anima
+    costs:
+      1813: 12500 # Reservoir Anima
 
-  - id: 184114 # Ensemble: Winterborn Regalia - cloth
+  - type: transmog
+    id: 184114 # Ensemble: Winterborn Regalia - cloth
     appearanceId: 41859
-    cost: 25000 anima 5 offering
+    costs:
+      1813: 25000 # Reservoir Anima
+      1885: 5 # Grateful Offering
 
-  - id: 184112 # Ensemble: Conservator's Raiment - leather
+  - type: transmog
+    id: 184112 # Ensemble: Conservator's Raiment - leather
     appearanceId: 41829
-    cost: 12500 anima
+    costs:
+      1813: 12500 # Reservoir Anima
 
-  - id: 184115 # Ensemble: Winterborn Raiment - leather
+  - type: transmog
+    id: 184115 # Ensemble: Winterborn Raiment - leather
     appearanceId: 41848
-    cost: 25000 anima 5 offering
+    costs:
+      1813: 25000 # Reservoir Anima
+      1885: 5 # Grateful Offering
 
-  - id: 184111 # Ensemble: Conservator's Guise - mail
+  - type: transmog
+    id: 184111 # Ensemble: Conservator's Guise - mail
     appearanceId: 43213
-    cost: 12500 anima
+    costs:
+      1813: 12500 # Reservoir Anima
 
-  - id: 184116 # Ensemble: Winterborn Guise - mail
+  - type: transmog
+    id: 184116 # Ensemble: Winterborn Guise - mail
     appearanceId: 43233
-    cost: 25000 anima 5 offering
+    costs:
+      1813: 25000 # Reservoir Anima
+      1885: 5 # Grateful Offering
 
-  - id: 184110 # Ensemble: Conservator's Warbark - plate
+  - type: transmog
+    id: 184110 # Ensemble: Conservator's Warbark - plate
     appearanceId: 41263
-    cost: 12500 anima
+    costs:
+      1813: 12500 # Reservoir Anima
 
-  - id: 184117 # Ensemble: Winterborn Warbark - plate
+  - type: transmog
+    id: 184117 # Ensemble: Winterborn Warbark - plate
     appearanceId: 41262
-    cost: 25000 anima 5 offering
+    costs:
+      1813: 25000 # Reservoir Anima
+      1885: 5 # Grateful Offering
 
   # korthia
-  - id: 186498 # Ensemble: Garb of the Azure Dusk
+  - type: transmog
+    id: 186498 # Ensemble: Garb of the Azure Dusk
     appearanceId: 44283
-    cost: 10000 anima
+    costs:
+      1813: 10000 # Reservoir Anima
 
   # weapons
-  - id: 184118 # Arsenal: Winterborn Weapons
+  - type: transmog
+    id: 184118 # Arsenal: Winterborn Weapons
     appearanceId: 42314
-    cost: 30000 anima
+    costs:
+      1813: 30000 # Reservoir Anima
 
 - name: "Renown Set: Cloth"
   type: transmog
   things:
-  - id: 179668 # Night Courtier's Cowl
-    cost: 4000 anima 30 offering
+  - type: transmog
+    id: 179668 # Night Courtier's Cowl
+    costs:
+      1813: 4000 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
-  - id: 179674 # Night Courtier's Amice
-    cost: 4000 anima 30 offering
+  - type: transmog
+    id: 179674 # Night Courtier's Amice
+    costs:
+      1813: 4000 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
-  - id: 179624 # Night Courtier's Drape
-    cost: 1500 anima 10 offering
+  - type: transmog
+    id: 179624 # Night Courtier's Drape
+    costs:
+      1813: 1500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
-  - id: 179658 # Night Courtier's Tunic
-    cost: 4000 anima 30 offering
+  - type: transmog
+    id: 179658 # Night Courtier's Tunic
+    costs:
+      1813: 4000 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
-  - id: 179654 # Night Courtier's Robes
-    cost: 4000 anima 30 offering
+  - type: transmog
+    id: 179654 # Night Courtier's Robes
+    costs:
+      1813: 4000 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
-  - id: 179680 # Night Courtier's Cuffs
-    cost: 2000 anima 15 offering
+  - type: transmog
+    id: 179680 # Night Courtier's Cuffs
+    costs:
+      1813: 2000 # Reservoir Anima
+      1885: 15 # Grateful Offering
 
-  - id: 179665 # Night Courtier's Handwraps
-    cost: 2000 anima 15 offering
+  - type: transmog
+    id: 179665 # Night Courtier's Handwraps
+    costs:
+      1813: 2000 # Reservoir Anima
+      1885: 15 # Grateful Offering
 
-  - id: 179677 # Night Courtier's Sash
-    cost: 3000 anima 25 offering
+  - type: transmog
+    id: 179677 # Night Courtier's Sash
+    costs:
+      1813: 3000 # Reservoir Anima
+      1885: 25 # Grateful Offering
 
-  - id: 179671 # Night Courtier's Leggings
-    cost: 3000 anima 25 offering
+  - type: transmog
+    id: 179671 # Night Courtier's Leggings
+    costs:
+      1813: 3000 # Reservoir Anima
+      1885: 25 # Grateful Offering
 
-  - id: 179661 # Night Courtier's Sandals
-    cost: 2000 anima 15 offering
+  - type: transmog
+    id: 179661 # Night Courtier's Sandals
+    costs:
+      1813: 2000 # Reservoir Anima
+      1885: 15 # Grateful Offering
 
 - name: "Renown Set: Leather"
-  type: transmog
   things:
-  - id: 179788 # Night Courtier's Crest
-    cost: 4000 anima 30 offering
+  - type: transmog
+    id: 179788 # Night Courtier's Crest
+    costs:
+      1813: 4000 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
-  - id: 179797 # Night Courtier's Mantle
-    cost: 4000 anima 30 offering
+  - type: transmog
+    id: 179797 # Night Courtier's Mantle
+    costs:
+      1813: 4000 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
-  - id: 179628 # Night Courtier's Cape
-    cost: 1500 anima 10 offering
+  - type: transmog
+    id: 179628 # Night Courtier's Cape
+    costs:
+      1813: 1500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
-  - id: 179776 # Night Courtier's Chestguard
-    cost: 4000 anima 30 offering
+  - type: transmog
+    id: 179776 # Night Courtier's Chestguard
+    costs:
+      1813: 4000 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
-  - id: 179794 # Night Courtier's Vestment
-    cost: 4000 anima 30 offering
+  - type: transmog
+    id: 179794 # Night Courtier's Vestment
+    costs:
+      1813: 4000 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
-  - id: 179803 # Night Courtier's Bracers
-    cost: 2000 anima 15 offering
+  - type: transmog
+    id: 179803 # Night Courtier's Bracers
+    costs:
+      1813: 2000 # Reservoir Anima
+      1885: 15 # Grateful Offering
 
-  - id: 179785 # Night Courtier's Armguards
-    cost: 2000 anima 15 offering
+  - type: transmog
+    id: 179785 # Night Courtier's Armguards
+    costs:
+      1813: 2000 # Reservoir Anima
+      1885: 15 # Grateful Offering
 
-  - id: 179800 # Night Courtier's Belt
-    cost: 3000 anima 25 offering
+  - type: transmog
+    id: 179800 # Night Courtier's Belt
+    costs:
+      1813: 3000 # Reservoir Anima
+      1885: 25 # Grateful Offering
 
-  - id: 179791 # Night Courtier's Britches
-    cost: 3000 anima 25 offering
+  - type: transmog
+    id: 179791 # Night Courtier's Britches
+    costs:
+      1813: 3000 # Reservoir Anima
+      1885: 25 # Grateful Offering
 
-  - id: 179782 # Night Courtier's Anklewraps
-    cost: 2000 anima 15 offering
+  - type: transmog
+    id: 179782 # Night Courtier's Anklewraps
+    costs:
+      1813: 2000 # Reservoir Anima
+      1885: 15 # Grateful Offering
 
 - name: "Renown Set: Mail"
-  type: transmog
   things:
-  - id: 181929 # Night Courtier's Guise
-    cost: 4000 anima 30 offering
+  - type: transmog
+    id: 181929 # Night Courtier's Guise
+    costs:
+      1813: 4000 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
-  - id: 181927 # Night Courtier's Spaulders
-    cost: 4000 anima 30 offering
+  - type: transmog
+    id: 181927 # Night Courtier's Spaulders
+    costs:
+      1813: 4000 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
-  - id: 181879 # Night Courtier's Greatcloak
-    cost: 1500 anima 10 offering
+  - type: transmog
+    id: 181879 # Night Courtier's Greatcloak
+    costs:
+      1813: 1500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
-  - id: 181932 # Night Courtier's Hauberk
-    cost: 4000 anima 30 offering
+  - type: transmog
+    id: 181932 # Night Courtier's Hauberk
+    costs:
+      1813: 4000 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
-  - id: 181941 # Night Courtier's Raiment
-    cost: 4000 anima 30 offering
+  - type: transmog
+    id: 181941 # Night Courtier's Raiment
+    costs:
+      1813: 4000 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
-  - id: 181925 # Night Courtier's Armbands
-    cost: 2000 anima 15 offering
+  - type: transmog
+    id: 181925 # Night Courtier's Armbands
+    costs:
+      1813: 2000 # Reservoir Anima
+      1885: 15 # Grateful Offering
 
-  - id: 181930 # Night Courtier's Gloves
-    cost: 2000 anima 15 offering
+  - type: transmog
+    id: 181930 # Night Courtier's Gloves
+    costs:
+      1813: 2000 # Reservoir Anima
+      1885: 15 # Grateful Offering
 
-  - id: 181926 # Night Courtier's Buckle
-    cost: 3000 anima 25 offering
+  - type: transmog
+    id: 181926 # Night Courtier's Buckle
+    costs:
+      1813: 3000 # Reservoir Anima
+      1885: 25 # Grateful Offering
 
-  - id: 181928 # Night Courtier's Legguards
-    cost: 3000 anima 25 offering
+  - type: transmog
+    id: 181928 # Night Courtier's Legguards
+    costs:
+      1813: 3000 # Reservoir Anima
+      1885: 25 # Grateful Offering
 
-  - id: 181931 # Night Courtier's Footguards
-    cost: 2000 anima 15 offering
+  - type: transmog
+    id: 181931 # Night Courtier's Footguards
+    costs:
+      1813: 2000 # Reservoir Anima
+      1885: 15 # Grateful Offering
 
 - name: "Renown Set: Plate"
-  type: transmog
   things:
-  - id: 179907 # Night Courtier's Greathelm
-    cost: 4000 anima 30 offering
+  - type: transmog
+    id: 179907 # Night Courtier's Greathelm
+    costs:
+      1813: 4000 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
-  - id: 179905 # Night Courtier's Pauldrons
-    cost: 4000 anima 30 offering
+  - type: transmog
+    id: 179905 # Night Courtier's Pauldrons
+    costs:
+      1813: 4000 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
-  - id: 179634 # Night Courtier's Cloak
-    cost: 1500 anima 10 offering
+  - type: transmog
+    id: 179634 # Night Courtier's Cloak
+    costs:
+      1813: 1500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
-  - id: 179910 # Night Courtier's Chestplate
-    cost: 4000 anima 30 offering
+  - type: transmog
+    id: 179910 # Night Courtier's Chestplate
+    costs:
+      1813: 4000 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
-  - id: 179903 # Night Courtier's Vambraces
-    cost: 2000 anima 15 offering
+  - type: transmog
+    id: 179903 # Night Courtier's Vambraces
+    costs:
+      1813: 2000 # Reservoir Anima
+      1885: 15 # Grateful Offering
 
-  - id: 179908 # Night Courtier's Gauntlets
-    cost: 2000 anima 15 offering
+  - type: transmog
+    id: 179908 # Night Courtier's Gauntlets
+    costs:
+      1813: 2000 # Reservoir Anima
+      1885: 15 # Grateful Offering
 
-  - id: 179904 # Night Courtier's Girdle
-    cost: 3000 anima 25 offering
+  - type: transmog
+    id: 179904 # Night Courtier's Girdle
+    costs:
+      1813: 3000 # Reservoir Anima
+      1885: 25 # Grateful Offering
 
-  - id: 179906 # Night Courtier's Greaves
-    cost: 3000 anima 25 offering
+  - type: transmog
+    id: 179906 # Night Courtier's Greaves
+    costs:
+      1813: 3000 # Reservoir Anima
+      1885: 25 # Grateful Offering
 
-  - id: 179909 # Night Courtier's Sabatons
-    cost: 2000 anima 15 offering
+  - type: transmog
+    id: 179909 # Night Courtier's Sabatons
+    costs:
+      1813: 2000 # Reservoir Anima
+      1885: 15 # Grateful Offering
 
 - name: "Back Items"
-  type: transmog
   things:
-  - id: 181303 # Night Courtier's Branches
-    cost: 3500 anima
+  - type: transmog
+    id: 181303 # Night Courtier's Branches
+    costs:
+      1813: 3500 # Reservoir Anima
 
-  - id: 181307 # Night Courtier's Bulb
-    cost: 3500 anima
+  - type: transmog
+    id: 181307 # Night Courtier's Bulb
+    costs:
+      1813: 3500 # Reservoir Anima
 
-  - id: 181311 # Night Courtier's Pack
-    cost: 3500 anima 40 offering
+  - type: transmog
+    id: 181311 # Night Courtier's Pack
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 40 # Grateful Offering
 
-  - id: 181305 # Faewoven Bulb
-    cost: 3500 anima
+  - type: transmog
+    id: 181305 # Faewoven Bulb
+    costs:
+      1813: 3500 # Reservoir Anima
 
-  - id: 181309 # Faewoven Pack
-    cost: 3500 anima
+  - type: transmog
+    id: 181309 # Faewoven Pack
+    costs:
+      1813: 3500 # Reservoir Anima
 
-  - id: 181304 # Winterwoven Branches
-    cost: 3500 anima
+  - type: transmog
+    id: 181304 # Winterwoven Branches
+    costs:
+      1813: 3500 # Reservoir Anima
 
-  - id: 181308 # Winterwoven Bulb
-    cost: 3500 anima 5 offering
+  - type: transmog
+    id: 181308 # Winterwoven Bulb
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 5 # Grateful Offering
 
-  - id: 181312 # Winterwoven Pack
-    cost: 3500 anima 5 offering
+  - type: transmog
+    id: 181312 # Winterwoven Pack
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 5 # Grateful Offering
 
 - name: "Night Courtier's Weapons"
-  type: transmog
   things:
-  - id: 182352 # Night Courtier's Mace - 1h mace
-    cost: 3500 anima 50 offering
+  - type: transmog
+    id: 182352 # Night Courtier's Mace - 1h mace
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 50 # Grateful Offering
 
-  - id: 179558 # Night Courtier's Scepter - 1h mace
-    cost: 3500 anima 50 offering
+  - type: transmog
+    id: 179558 # Night Courtier's Scepter - 1h mace
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 50 # Grateful Offering
 
-  - id: 179540 # Night Courtier's Maul - 2h mace
-    cost: 3500 anima 50 offering
+  - type: transmog
+    id: 179540 # Night Courtier's Maul - 2h mace
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 50 # Grateful Offering
 
-  - id: 179494 # Night Courtier's Fang - dagger
-    cost: 3500 anima 50 offering
+  - type: transmog
+    id: 179494 # Night Courtier's Fang - dagger
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 50 # Grateful Offering
 
-  - id: 179581 # Night Courtier's Jaws - fist
-    cost: 3500 anima 50 offering
+  - type: transmog
+    id: 179581 # Night Courtier's Jaws - fist
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 50 # Grateful Offering
 
-  - id: 180257 # Night Courtier's Warglaive - warglaive
-    cost: 3500 anima 50 offering
+  - type: transmog
+    id: 180257 # Night Courtier's Warglaive - warglaive
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 50 # Grateful Offering
 
-  - id: 180020 # Night Courtier's Wand - wand
-    cost: 3500 anima 50 offering
+  - type: transmog
+    id: 180020 # Night Courtier's Wand - wand
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 50 # Grateful Offering
 
-  - id: 180003 # Night Courtier's Spire - staff
-    cost: 3500 anima 50 offering
+  - type: transmog
+    id: 180003 # Night Courtier's Spire - staff
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 50 # Grateful Offering
 
-  - id: 179528 # Night Courtier's Warspear - staff
-    cost: 3500 anima 50 offering
+  - type: transmog
+    id: 179528 # Night Courtier's Warspear - staff
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 50 # Grateful Offering
 
-  - id: 180077 # Night Courtier's Warbow - bow
-    cost: 3500 anima 50 offering
+  - type: transmog
+    id: 180077 # Night Courtier's Warbow - bow
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 50 # Grateful Offering
 
-  - id: 179568 # Night Courtier's Lyre - off-hand
-    cost: 3500 anima 50 offering
+  - type: transmog
+    id: 179568 # Night Courtier's Lyre - off-hand
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 50 # Grateful Offering
 
-  - id: 179608 # Night Courtier's Barrier - shield
-    cost: 3500 anima 50 offering
+  - type: transmog
+    id: 179608 # Night Courtier's Barrier - shield
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 50 # Grateful Offering
 
 - name: "Wild Hunt Weapons"
-  type: transmog
   things:
-  - id: 179560 # Scepter of the Wild Hunt - 1h mace
-    cost: 3500 anima 10 offering
+  - type: transmog
+    id: 179560 # Scepter of the Wild Hunt - 1h mace
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
-  - id: 179542 # Warmaul of the Wild Hunt - 2h mace
-    cost: 3500 anima 10 offering
+  - type: transmog
+    id: 179542 # Warmaul of the Wild Hunt - 2h mace
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
-  - id: 179493 # Fang of the Wild Hunt - dagger
-    cost: 3500 anima 10 offering
+  - type: transmog
+    id: 179493 # Fang of the Wild Hunt - dagger
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
-  - id: 179580 # Jaws of the Wild Hunt - fist
-    cost: 3500 anima 10 offering
+  - type: transmog
+    id: 179580 # Jaws of the Wild Hunt - fist
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
-  - id: 180005 # Staff of the Wild Hunt - staff
-    cost: 3500 anima 10 offering
+  - type: transmog
+    id: 180005 # Staff of the Wild Hunt - staff
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
-  - id: 179529 # Warspear of the Wild Hunt - staff
-    cost: 3500 anima 10 offering
+  - type: transmog
+    id: 179529 # Warspear of the Wild Hunt - staff
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
-  - id: 179567 # Harp of the Wild Hunt - off-hand
-    cost: 3500 anima 10 offering
+  - type: transmog
+    id: 179567 # Harp of the Wild Hunt - off-hand
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
-  - id: 179602 # Bulwark of the Wild Hunt - shield
-    cost: 3500 anima 10 offering
+  - type: transmog
+    id: 179602 # Bulwark of the Wild Hunt - shield
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
 - name: "Misc"
-  type: transmog
   things:
-  - id: 183969 # Theater Prop Kris - dagger
-    cost: 500 anima
+  - type: transmog
+    id: 183969 # Theater Prop Kris - dagger
+    costs:
+      1813: 500 # Reservoir Anima
 
 #- name: idk
-#  type: transmog
 #  things:
-#  - id: 184164 # Illusion: Wild Soul
-#    cost: 2500 anima
+#  - type: transmog
+#    id: 184164 # Illusion: Wild Soul
+#    costs:
+#      1813: 2500 # Reservoir Anima
 #
-#  - id: 182175 # Moose Soul
-#    cost: 1500 anima
+#  - type: transmog
+#    id: 182175 # Moose Soul
+#    costs:
+#      1813: 1500 # Reservoir Anima
 #
-#  - id: 182166 # Ursine Soul
-#    cost: 1500 anima
+#  - type: transmog
+#    id: 182166 # Ursine Soul
+#    costs:
+#      1813: 1500 # Reservoir Anima
 #
-#  - id: 182182 # Lupine Soul
-#    cost: 1500 anima 5 offering
+#  - type: transmog
+#    id: 182182 # Lupine Soul
+#    costs:
+#      1813: 1500 # Reservoir Anima
+#      1885: 5 # Grateful Offering
 #
-#  - id: 182174 # Leonine Soul
-#    cost: 1500 anima 5 offering
+#  - type: transmog
+#    id: 182174 # Leonine Soul
+#    costs:
+#      1813: 1500 # Reservoir Anima
+#      1885: 5 # Grateful Offering
 #
-#  - id: 182181 # Tiger Soul
-#    cost: 1500 anima
+#  - type: transmog
+#    id: 182181 # Tiger Soul
+#    costs:
+#      1813: 1500 # Reservoir Anima
 #
-#  - id: 187873 # Prairie Dog Soul
-#    cost: 10000 anima
+#  - type: transmog
+#    id: 187873 # Prairie Dog Soul
+#    costs:
+#      1813: 10000 # Reservoir Anima
 #
-#  - id: 187901 # Eagle Soul
-#    cost: 20000 anima
+#  - type: transmog
+#    id: 187901 # Eagle Soul
+#    costs:
+#      1813: 20000 # Reservoir Anima
 #
-#  - id: 187871 # Cricket Soul
-#    cost: 15000 anima 25 offering
+#  - type: transmog
+#    id: 187871 # Cricket Soul
+#    costs:
+#      1813: 15000 # Reservoir Anima
+#      1885: 25 # Grateful Offering
 #
-#  - id: 187881 # Ram Soul
-#    cost: 25000 anima 50 offering
-#
+#  - type: transmog
+#    id: 187881 # Ram Soul
+#    costs:
+#      1813: 25000 # Reservoir Anima
+#      1885: 50 # Grateful Offering
