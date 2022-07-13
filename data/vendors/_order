@@ -14,6 +14,8 @@ z6/_legion.yml
     z6/stormheim.yml
     z6/suramar.yml
     z6/valsharah.yml
+    -
+    z6/dalaran.yml
 
 z5/_warlords_of_draenor.yml
     z5/tanaan_jungle.yml
