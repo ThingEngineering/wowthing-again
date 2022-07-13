@@ -4,7 +4,8 @@
   "license": "GPL-3.0-only",
   "private": true,
   "scripts": {
-    "disable-prepare": "nx g @nx-dotnet/core:restore"
+    "disable-prepare": "nx g @nx-dotnet/core:restore",
+    "lint": "nx run-many --target=lint --all"
   },
   "workspaces": [
     "./apps/*",
