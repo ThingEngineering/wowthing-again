@@ -8,6 +8,9 @@ export const costOrder: number[] = [
     //'polished',
     //'sandworn',
 
+    // Legion
+    1226, // Nethershard
+
     // Mists of Pandaria
     402, // Ironpaw Token
     777, // Timeless Coin

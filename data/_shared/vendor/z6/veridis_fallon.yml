@@ -3,6 +3,8 @@ name: "Veridis Fallon"
 locations:
   z6_azsuna:
     - 46.8 41.4
+tags:
+  - "court-of-farondis"
 sells:
   - type: pet
     id: 1931 # Court Scribe

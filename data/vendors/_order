@@ -7,11 +7,18 @@ z8/_shadowlands.yml
     z8/covenant_venthyr.yml
 
 z6/_legion.yml
+    z6/broken_shore.yml
+    -
     z6/azsuna.yml
+    z6/highmountain.yml
+    z6/stormheim.yml
+    z6/suramar.yml
+    z6/valsharah.yml
 
 z5/_warlords_of_draenor.yml
     z5/tanaan_jungle.yml
     -
+    z5/nagrand.yml
     z5/spires_of_arak.yml
 
 z4/_mists_of_pandaria.yml
