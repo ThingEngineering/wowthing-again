@@ -5,285 +5,432 @@ groups:
   type: mount
   things:
   - id: 1370 # Armored Bonehoof Tauralus
-    cost: 5000 anima 100 offering
+    costs:
+      1813: 5000 # Reservoir Anima
+      1885: 100 # Grateful Offering
 
   - id: 1409 # Bonesewn Fleshroc
-    cost: 3500 anima
+    costs:
+      1813: 3500 # Reservoir Anima
 
   - id: 1365 # Plaguerot Tauralus
-    cost: 5000 anima
+    costs:
+      1813: 5000 # Reservoir Anima
 
   - id: 1496 # Regal Corpsefly
-    cost: 7500 anima
+    costs:
+      1813: 7500 # Reservoir Anima
 
   - id: 1413 # Dauntless Duskrunner
-    cost: 2500 anima
+    costs:
+      1813: 2500 # Reservoir Anima
 
   - id: 1408 # Gruesome Flayedwing
-    cost: 2500 anima
+    costs:
+      1813: 2500 # Reservoir Anima
 
   - id: 1392 # Pale Acidmaw
-    cost: 2500 anima
+    costs:
+      1813: 2500 # Reservoir Anima
 
   - id: 1376 # Silvertip Dredwing
-    cost: 2500 anima
+    costs:
+      1813: 2500 # Reservoir Anima
 
 - name: Pets
   type: pet
   things:
   - id: 2958 # Backbone
-    cost: 750 anima
+    costs:
+      1813: 750 # Reservoir Anima
 
   - id: 3043 # Jiggles
-    cost: 1500 anima 30 offering
+    costs:
+      1813: 1500 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
   - id: 2963 # Mu'dud
-    cost: 1250 anima
+    costs:
+      1813: 1250 # Reservoir Anima
 
   - id: 2965 # Bloodfeaster Spiderling
-    cost: 1000 anima
+    costs:
+      1813: 1000 # Reservoir Anima
 
   - id: 2931 # Brightscale Hatchling
-    cost: 1000 anima
+    costs:
+      1813: 1000 # Reservoir Anima
 
   - id: 2945 # Corpulent Bonetusk
-    cost: 1000 anima
+    costs:
+      1813: 1000 # Reservoir Anima
 
   - id: 2912 # Dusty Sporeflutterer
-    cost: 1000 anima
+    costs:
+      1813: 1000 # Reservoir Anima
 
   - id: 2923 # Pearlwing Heron
-    cost: 1000 anima
+    costs:
+      1813: 1000 # Reservoir Anima
 
   - id: 2954 # Plaguelouse Larva
-    cost: 1000 anima
+    costs:
+      1813: 1000 # Reservoir Anima
 
   - id: 2933 # Sable
-    cost: 1000 anima
+    costs:
+      1813: 1000 # Reservoir Anima
 
   - id: 2904 # Violet Dredwing Pup
-    cost: 1000 anima
+    costs:
+      1813: 1000 # Reservoir Anima
 
 - name: Toys
   type: toy
   things:
   - id: 182773 # Necrolord Hearthstone
-    cost: 750 anima
+    costs:
+      1813: 750 # Reservoir Anima
 
 - name: "Ensembles"
   type: transmog
   things:
   - id: 186502 # Ensemble: Marileth's Assistant Vestments
     appearanceId: 44310
-    cost: 10000 anima
+    costs:
+      1813: 10000 # Reservoir Anima
 
   - id: 184303 # Arsenal: Stitchmasters' Weapons
     appearanceId: 41339
-    cost: 30000 anima
+    costs:
+      1813: 30000 # Reservoir Anima
 
 - name: "Renown Set: Cloth"
   type: transmog
   things:
   - id: 182231 # Prime Conjurer's Cowl
-    cost: 4000 anima 30 offering
+    costs:
+      1813: 4000 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
   - id: 182236 # Prime Conjurer's Mantle
-    cost: 4000 anima 30 offering
+    costs:
+      1813: 4000 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
   - id: 182239 # Prime Conjurer's Cape
-    cost: 1500 anima 10 offering
+    costs:
+      1813: 1500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
   - id: 182232 # Prime Conjurer's Tunic
-    cost: 4000 anima 30 offering
+    costs:
+      1813: 4000 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
   - id: 182238 # Prime Conjurer's Wristwraps
-    cost: 2000 anima 15 offering
+    costs:
+      1813: 2000 # Reservoir Anima
+      1885: 15 # Grateful Offering
 
   - id: 182234 # Prime Conjurer's Gloves
-    cost: 2000 anima 15 offering
+    costs:
+      1813: 2000 # Reservoir Anima
+      1885: 15 # Grateful Offering
 
   - id: 182237 # Prime Conjurer's Cinch
-    cost: 3000 anima 25 offering
+    costs:
+      1813: 3000 # Reservoir Anima
+      1885: 25 # Grateful Offering
 
   - id: 182235 # Prime Conjurer's Leggings
-    cost: 3000 anima 25 offering
+    costs:
+      1813: 3000 # Reservoir Anima
+      1885: 25 # Grateful Offering
 
   - id: 182233 # Prime Conjurer's Slippers
-    cost: 2000 anima 15 offering
+    costs:
+      1813: 2000 # Reservoir Anima
+      1885: 15 # Grateful Offering
 
 - name: "Renown Set: Leather"
   type: transmog
   things:
   - id: 182222 # Prime Wraith's Visage
-    cost: 4000 anima 30 offering
+    costs:
+      1813: 4000 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
   - id: 182227 # Prime Wraith's Shoulders
-    cost: 4000 anima 30 offering
+    costs:
+      1813: 4000 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
   - id: 182230 # Prime Wraith's Cloak
-    cost: 1500 anima 10 offering
+    costs:
+      1813: 1500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
   - id: 182223 # Prime Wraith's Jerkin
-    cost: 4000 anima 30 offering
+    costs:
+      1813: 4000 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
   - id: 182229 # Prime Wraith's Armguards
-    cost: 2000 anima 15 offering
+    costs:
+      1813: 2000 # Reservoir Anima
+      1885: 15 # Grateful Offering
 
   - id: 182225 # Prime Wraith's Stranglers
-    cost: 2000 anima 15 offering
+    costs:
+      1813: 2000 # Reservoir Anima
+      1885: 15 # Grateful Offering
 
   - id: 182228 # Prime Wraith's Belt
-    cost: 3000 anima 25 offering
+    costs:
+      1813: 3000 # Reservoir Anima
+      1885: 25 # Grateful Offering
 
   - id: 182226 # Prime Wraith's Breeches
-    cost: 3000 anima 25 offering
+    costs:
+      1813: 3000 # Reservoir Anima
+      1885: 25 # Grateful Offering
 
   - id: 182224 # Prime Wraith's Boots
-    cost: 2000 anima 15 offering
+    costs:
+      1813: 2000 # Reservoir Anima
+      1885: 15 # Grateful Offering
 
 - name: "Renown Set: Mail"
   type: transmog
   things:
   - id: 182240 # Prime Tactician's Faceguard
-    cost: 4000 anima 30 offering
+    costs:
+      1813: 4000 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
   - id: 182245 # Prime Tactician's Spaulders
-    cost: 4000 anima 30 offering
+    costs:
+      1813: 4000 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
   - id: 182248 # Prime Tactician's Drape
-    cost: 1500 anima 10 offering
+    costs:
+      1813: 1500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
   - id: 182241 # Prime Tactician's Hauberk
-    cost: 4000 anima 30 offering
+    costs:
+      1813: 4000 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
   - id: 182247 # Prime Tactician's Bracers
-    cost: 2000 anima 15 offering
+    costs:
+      1813: 2000 # Reservoir Anima
+      1885: 15 # Grateful Offering
 
   - id: 182243 # Prime Tactician's Gauntlets
-    cost: 2000 anima 15 offering
+    costs:
+      1813: 2000 # Reservoir Anima
+      1885: 15 # Grateful Offering
 
   - id: 182246 # Prime Tactician's Girdle
-    cost: 3000 anima 25 offering
+    costs:
+      1813: 3000 # Reservoir Anima
+      1885: 25 # Grateful Offering
 
   - id: 182244 # Prime Tactician's Chausses
-    cost: 3000 anima 25 offering
+    costs:
+      1813: 3000 # Reservoir Anima
+      1885: 25 # Grateful Offering
 
   - id: 182242 # Prime Tactician's Sabatons
-    cost: 2000 anima 15 offering
+    costs:
+      1813: 2000 # Reservoir Anima
+      1885: 15 # Grateful Offering
 
 - name: "Renown Set: Plate"
   type: transmog
   things:
   - id: 182213 # Prime Harbinger's Greathelm
-    cost: 4000 anima 30 offering
+    costs:
+      1813: 4000 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
   - id: 182218 # Prime Harbinger's Pauldrons
-    cost: 4000 anima 30 offering
+    costs:
+      1813: 4000 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
   - id: 182221 # Prime Harbinger's Greatcloak
-    cost: 1500 anima 10 offering
+    costs:
+      1813: 1500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
   - id: 182214 # Prime Harbinger's Chestguard
-    cost: 4000 anima 30 offering
+    costs:
+      1813: 4000 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
   - id: 182220 # Prime Harbinger's Vambraces
-    cost: 2000 anima 15 offering
+    costs:
+      1813: 2000 # Reservoir Anima
+      1885: 15 # Grateful Offering
 
   - id: 182216 # Prime Harbinger's Crushers
-    cost: 2000 anima 15 offering
+    costs:
+      1813: 2000 # Reservoir Anima
+      1885: 15 # Grateful Offering
 
   - id: 182219 # Prime Harbinger's Warbelt
-    cost: 3000 anima 25 offering
+    costs:
+      1813: 3000 # Reservoir Anima
+      1885: 25 # Grateful Offering
 
   - id: 182217 # Prime Harbinger's Greaves
-    cost: 3000 anima 25 offering
+    costs:
+      1813: 3000 # Reservoir Anima
+      1885: 25 # Grateful Offering
 
   - id: 182215 # Prime Harbinger's Stompers
-    cost: 2000 anima 15 offering
+    costs:
+      1813: 2000 # Reservoir Anima
+      1885: 15 # Grateful Offering
 
 - name: "Back Items"
   type: transmog
   things:
   - id: 181805 # Osteowings of the Necrolords
-    cost: 3500 anima 40 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 40 # Grateful Offering
 
   - id: 181801 # Standard of the Necrolords
-    cost: 3500 anima
+    costs:
+      1813: 3500 # Reservoir Anima
 
 - name: "Goreforged Weapons"
   type: transmog
   things:
   - id: 183459 # Goreforged Cleaver - 1h axe
-    cost: 3500 anima 10 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
   - id: 183946 # Goreforged Chopper - 1h axe
-    cost: 3500 anima 10 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
   - id: 183457 # Goreforged Greataxe - 2h axe
-    cost: 3500 anima 10 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
   - id: 183453 # Goreforged Mace - 1h mace
-    cost: 3500 anima 10 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
   - id: 183450 # Goreforged Shank - dagger
-    cost: 3500 anima 10 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
   - id: 183460 # Goreforged Sickle - dagger
-    cost: 3500 anima 10 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
   - id: 183454 # Goreforged Warglaive - warglaive
-    cost: 3500 anima 10 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
   - id: 183458 # Goreforged Polearm - polearm
-    cost: 3500 anima 10 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
   - id: 183455 # Goreforged Staff - staff
-    cost: 3500 anima 10 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
   - id: 183456 # Goreforged Blunderbuss - gun
-    cost: 3500 anima 10 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
   - id: 183452 # Goreforged Focus - off-hand
-    cost: 3500 anima 10 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
   - id: 183451 # Goreforged Barrier - shield
-    cost: 3500 anima 10 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 #
 - name: "Other Weapons"
   type: transmog
   things:
   - id: 184072 # Brutal Fury-Forged Cleaver - 1h axe
-    cost: 3500 anima 50 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 50 # Grateful Offering
 
   - id: 184074 # Chopper of the Hidden Hand - 1h axe
-    cost: 3500 anima 50 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 50 # Grateful Offering
 
   - id: 184070 # Colossal Greataxe of Pandemonium - 2h axe
-    cost: 3500 anima 50 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 50 # Grateful Offering
 
   - id: 184066 # Wriggling Soulcharged Mace - 1h mace
-    cost: 3500 anima 50 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 50 # Grateful Offering
 
   - id: 184063 # Shank of the Unseen Eye - dagger
-    cost: 3500 anima 50 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 50 # Grateful Offering
 
   - id: 184073 # Crooked Plaguedtouched Dagger - dagger
-    cost: 3500 anima 50 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 50 # Grateful Offering
 
   - id: 184067 # Skullformed Ossein Warglaive - warglaive
-    cost: 3500 anima 50 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 50 # Grateful Offering
 
   - id: 184071 # Blooddoused Aranakk Polearm - polearm
-    cost: 3500 anima 50 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 50 # Grateful Offering
 
   - id: 184068 # Greatstaff of the Lichsworn - staff
-    cost: 3500 anima 50 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 50 # Grateful Offering
 
   - id: 184069 # Soulbarb, the Breathless Kill - gun
-    cost: 3500 anima 50 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 50 # Grateful Offering
 
   - id: 184065 # Lambent Plaguetouched Focus - off-hand
-    cost: 3500 anima 50 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 50 # Grateful Offering
 
   - id: 184064 # Deathforged Bulwark of Maldraxxus - shield
-    cost: 3500 anima 50 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 50 # Grateful Offering

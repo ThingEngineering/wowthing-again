@@ -5,69 +5,86 @@ groups:
   type: mount
   things:
   - id: 1505 # Amber Shardhide
-    cost: 5000 stygia
+    costs:
+      1767: 5000 # Stygia
 
   - id: 1436 # Battle-Hardened Aquilon
-    cost: 1000 stygia
+    costs:
+      1767: 1000 # Stygia
 
   - id: 1497 # Battlefield Swarmer
-    cost: 1000 stygia
+    costs:
+      1767: 1000 # Stygia
 
   - id: 1491 # Pale Gravewing
-    cost: 1000 stygia
+    costs:
+      1767: 1000 # Stygia
 
   - id: 1486 # Winter Wilderling
-    cost: 1000 stygia
+    costs:
+      1767: 1000 # Stygia
 
 - name: "Pets"
   type: pet
   things:
   - id: 3138 # Domestic Aunian
-    cost: 1500 stygia 50 polished
+    costs:
+      1767: 1500 # Stygia 50 polished
 
 - name: "Ensembles"
   type: transmog
   things:
   - id: 186517 # Ensemble: Battlefield Messenger's Regalia
     appearanceId: 44247
-    cost: 6000 stygia
+    costs:
+      1767: 6000 # Stygia
 
   - id: 186504 # Ensemble: Frontline Necromancer's Vestments
     appearanceId: 44312
-    cost: 6000 stygia
+    costs:
+      1767: 6000 # Stygia
 
   - id: 186499 # Ensemble: Garb of Fall's Promise
     appearanceId: 44330
-    cost: 6000 stygia
+    costs:
+      1767: 6000 # Stygia
 
   - id: 186511 # Ensemble: Renathal's Battlefield Attire
     appearanceId: 44379
-    cost: 6000 stygia
+    costs:
+      1767: 6000 # Stygia
 
   - id: 186512 # Ensemble: Renathal's Field Inquisitor's Vestments
     appearanceId: 44395
-    cost: 6000 stygia
+    costs:
+      1767: 6000 # Stygia
 
 - name: "Domination Gear"
   type: transmog
   things:
   - id: 187540 # Cincture of Enveloping Death
-    cost: 2000 stygia
+    costs:
+      1767: 2000 # Stygia
 
   - id: 187538 # Gloves of Advancing Death
-    cost: 2000 stygia
+    costs:
+      1767: 2000 # Stygia
 
   - id: 187541 # Chain of Encircling Death
-    cost: 2000 stygia
+    costs:
+      1767: 2000 # Stygia
 
   - id: 187539 # Gauntlets of Death's Guardian
-    cost: 2000 stygia
+    costs:
+      1767: 2000 # Stygia
 
 - name: "Misc"
   type: transmog
   things:
   - id: 187411 # Mantle of Death's Advance
-    cost: 500 stygia
+    costs:
+      1767: 500 # Stygia
 
   - id: 186997 # Death's Advance Tabard
-    cost: 3000 stygia
+    costs:
+      1767: 3000 # Stygia

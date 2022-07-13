@@ -10,6 +10,12 @@
     export let tooltip: TippyProps | string = undefined
 
     const actualSize = size + (border * 2)
+
+    $: {
+        if (name === 'currency/0') {
+            name = 'item/135464' // Bulging Sack of Gold
+        }
+    }
 </script>
 
 <Image

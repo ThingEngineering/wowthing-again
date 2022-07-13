@@ -5,453 +5,655 @@ groups:
   type: mount
   things:
   - id: 1402 # Eternal Phalynx of Humility
-    cost: 2500 anima
+    costs:
+      1813: 2500 # Reservoir Anima
 
   - id: 1401 # Eternal Phalynx of Loyalty
-    cost: 2500 anima
+    costs:
+      1813: 2500 # Reservoir Anima
 
   - id: 1395 # Phalynx of Humility
-    cost: 5000 anima 100 offering
+    costs:
+      1813: 5000 # Reservoir Anima
+      1885: 100 # Grateful Offering
 
   - id: 1398 # Phalynx of Purity
-    cost: 5000 anima
+    costs:
+      1813: 5000 # Reservoir Anima
 
   - id: 1494 # Ascendant's Aquilon
-    cost: 7500 anima
+    costs:
+      1813: 7500 # Reservoir Anima
 
   - id: 1413 # Dauntless Duskrunner
-    cost: 2500 anima
+    costs:
+      1813: 2500 # Reservoir Anima
 
   - id: 1408 # Gruesome Flayedwing
-    cost: 2500 anima
+    costs:
+      1813: 2500 # Reservoir Anima
 
   - id: 1392 # Pale Acidmaw
-    cost: 2500 anima
+    costs:
+      1813: 2500 # Reservoir Anima
 
   - id: 1376 # Silvertip Dredwing
-    cost: 2500 anima
+    costs:
+      1813: 2500 # Reservoir Anima
 
 - name: "Pets"
   type: pet
   things:
   - id: 3042 # Ruffle
-    cost: 1500 anima 30 offering
+    costs:
+      1813: 1500 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
 - name: "Toys"
   type: toy
   things:
   - id: 184353 # Kyrian Hearthstone
-    cost: 750 anima
+    costs:
+      1813: 7500 # Reservoir Anima
 
 - name: "Ensembles"
   type: transmog
   things:
   - id: 186516 # Devoted Aspirant's Regalia
-    cost: 10000 anima
     appearanceId: 44271
+    costs:
+      1813: 10000 # Reservoir Anima
 
   - id: 184496 # Vestments of the Discordant
-    cost: 12500 anima
     appearanceId: 42495
+    costs:
+      1813: 12500 # Reservoir Anima
 
   - id: 184497 # Garb of the Discordant
-    cost: 12500 anima
     appearanceId: 42279
+    costs:
+      1813: 12500 # Reservoir Anima
 
   - id: 184498 # Chain of the Discordant
-    cost: 12500 anima
     appearanceId: 42913
+    costs:
+      1813: 12500 # Reservoir Anima
 
   - id: 184499 # Warplate of the Discordant
-    cost: 12500 anima
     appearanceId: 41382
+    costs:
+      1813: 12500 # Reservoir Anima
 
 - name: "Renown Set: Cloth"
   type: transmog
   things:
   - id: 178179 # Harmonious Watcher's Helm
-    cost: 4000 anima 30 offering
+    costs:
+      1813: 4000 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
   - id: 178184 # Harmonious Watcher's Shoulders
-    cost: 4000 anima 30 offering
+    costs:
+      1813: 4000 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
   - id: 178187 # Harmonious Watcher's Cloak
-    cost: 1500 anima 10 offering
+    costs:
+      1813: 1500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
   - id: 178180 # Harmonious Watcher's Chestplate
-    cost: 4000 anima 30 offering
+    costs:
+      1813: 4000 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
   - id: 178186 # Harmonious Watcher's Wristwraps
-    cost: 2000 anima 15 offering
+    costs:
+      1813: 2000 # Reservoir Anima
+      1885: 15 # Grateful Offering
 
   - id: 178182 # Harmonious Watcher's Gauntlets
-    cost: 2000 anima 15 offering
+    costs:
+      1813: 2000 # Reservoir Anima
+      1885: 15 # Grateful Offering
 
   - id: 178185 # Harmonious Watcher's Girdle
-    cost: 3000 anima 25 offering
+    costs:
+      1813: 3000 # Reservoir Anima
+      1885: 25 # Grateful Offering
 
   - id: 178183 # Harmonious Watcher's Legguards
-    cost: 3000 anima 25 offering
+    costs:
+      1813: 3000 # Reservoir Anima
+      1885: 25 # Grateful Offering
 
   - id: 178181 # Harmonious Watcher's Warboots
-    cost: 2000 anima 15 offering
+    costs:
+      1813: 2000 # Reservoir Anima
+      1885: 15 # Grateful Offering
 
 - name: "Renown Set: Leather"
   type: transmog
   things:
   - id: 177196 # Harmonious Bearer's Helm
-    cost: 4000 anima 30 offering
+    costs:
+      1813: 4000 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
   - id: 177201 # Harmonious Bearer's Shoulders
-    cost: 4000 anima 30 offering
+    costs:
+      1813: 4000 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
   - id: 177220 # Harmonious Bearer's Cloak
-    cost: 1500 anima 10 offering
+    costs:
+      1813: 1500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
   - id: 177197 # Harmonious Bearer's Chestplate
-    cost: 4000 anima 30 offering
+    costs:
+      1813: 4000 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
   - id: 177203 # Harmonious Bearer's Wristwraps
-    cost: 2000 anima 15 offering
+    costs:
+      1813: 2000 # Reservoir Anima
+      1885: 15 # Grateful Offering
 
   - id: 177199 # Harmonious Bearer's Gauntlets
-    cost: 2000 anima 15 offering
+    costs:
+      1813: 2000 # Reservoir Anima
+      1885: 15 # Grateful Offering
 
   - id: 177200 # Harmonious Bearer's Legguards
-    cost: 3000 anima 25 offering
+    costs:
+      1813: 3000 # Reservoir Anima
+      1885: 25 # Grateful Offering
 
   - id: 177202 # Harmonious Bearer's Girdle
-    cost: 3000 anima 25 offering
+    costs:
+      1813: 3000 # Reservoir Anima
+      1885: 25 # Grateful Offering
 
   - id: 177198 # Harmonious Bearer's Warboots
-    cost: 2000 anima 15 offering
+    costs:
+      1813: 2000 # Reservoir Anima
+      1885: 15 # Grateful Offering
 
 - name: "Renown Set: Mail"
   type: transmog
   things:
   - id: 179952 # Harmonious Forgelite's Helm
-    cost: 4000 anima 30 offering
+    costs:
+      1813: 4000 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
   - id: 179954 # Harmonious Forgelite's Spaulders
-    cost: 4000 anima 30 offering
+    costs:
+      1813: 4000 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
   - id: 179957 # Harmonious Forgelite's Cloak
-    cost: 1500 anima 10 offering
+    costs:
+      1813: 1500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
   - id: 179949 # Harmonious Forgelite's Vest
-    cost: 4000 anima 30 offering
+    costs:
+      1813: 4000 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
   - id: 179956 # Harmonious Forgelite's Wristwraps
-    cost: 2000 anima 15 offering
+    costs:
+      1813: 2000 # Reservoir Anima
+      1885: 15 # Grateful Offering
 
   - id: 179951 # Harmonious Forgelite's Gloves
-    cost: 2000 anima 15 offering
+    costs:
+      1813: 2000 # Reservoir Anima
+      1885: 15 # Grateful Offering
 
   - id: 179955 # Harmonious Forgelite's Belt
-    cost: 3000 anima 25 offering
+    costs:
+      1813: 3000 # Reservoir Anima
+      1885: 25 # Grateful Offering
 
   - id: 179953 # Harmonious Forgelite's Breeches
-    cost: 3000 anima 25 offering
+    costs:
+      1813: 3000 # Reservoir Anima
+      1885: 25 # Grateful Offering
 
   - id: 179950 # Harmonious Forgelite's Boots
-    cost: 2000 anima 15 offering
+    costs:
+      1813: 2000 # Reservoir Anima
+      1885: 15 # Grateful Offering
 
 - name: "Renown Set: Plate"
   type: transmog
   things:
   - id: 177666 # Harmonious Collector's Helm
-    cost: 4000 anima 30 offering
+    costs:
+      1813: 4000 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
   - id: 177671 # Harmonious Collector's Shoulders
-    cost: 4000 anima 30 offering
+    costs:
+      1813: 4000 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
   - id: 177674 # Harmonious Collector's Cloak
-    cost: 1500 anima 10 offering
+    costs:
+      1813: 1500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
   - id: 177667 # Harmonious Collector's Chestplate
-    cost: 4000 anima 30 offering
+    costs:
+      1813: 4000 # Reservoir Anima
+      1885: 30 # Grateful Offering
 
   - id: 177673 # Harmonious Collector's Wristwraps
-    cost: 2000 anima 15 offering
+    costs:
+      1813: 2000 # Reservoir Anima
+      1885: 15 # Grateful Offering
 
   - id: 177669 # Harmonious Collector's Gauntlets
-    cost: 2000 anima 15 offering
+    costs:
+      1813: 2000 # Reservoir Anima
+      1885: 15 # Grateful Offering
 
   - id: 177672 # Harmonious Collector's Girdle
-    cost: 3000 anima 25 offering
+    costs:
+      1813: 3000 # Reservoir Anima
+      1885: 25 # Grateful Offering
 
   - id: 177670 # Harmonious Collector's Legguards
-    cost: 3000 anima 25 offering
+    costs:
+      1813: 3000 # Reservoir Anima
+      1885: 25 # Grateful Offering
 
   - id: 177668 # Harmonious Collector's Warboots
-    cost: 2000 anima 15 offering
+    costs:
+      1813: 2000 # Reservoir Anima
+      1885: 15 # Grateful Offering
 
 - name: "Back Items"
   type: transmog
   things:
   - id: 181292 # Discordant Sigil of the Archon
-    cost: 1750 anima
+    costs:
+      1813: 1750 # Reservoir Anima
 
   - id: 181296 # Discordant Wings of the Ascended
-    cost: 1750 anima
+    costs:
+      1813: 1750 # Reservoir Anima
 
   - id: 181294 # Harmonious Wings of the Ascended
-    cost: 3500 anima 40 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 40 # Grateful Offering
 
   - id: 181289 # Halo of the Discordant
-    cost: 1750 anima
+    costs:
+      1813: 1750 # Reservoir Anima
 
   - id: 181288 # Halo of the Harmonious
-    cost: 3500 anima
+    costs:
+      1813: 3500 # Reservoir Anima
 
   - id: 177222 # Discordant Bearer's Cloak
-    cost: 750 anima
+    costs:
+      1813: 750 # Reservoir Anima
 
   - id: 177683 # Discordant Collector's Cloak
-    cost: 750 anima
+    costs:
+      1813: 750 # Reservoir Anima
 
   - id: 179967 # Discordant Forgelite's Cloak
-    cost: 750 anima
+    costs:
+      1813: 750 # Reservoir Anima
 
   - id: 178205 # Discordant Watcher's Cloak
-    cost: 750 anima
+    costs:
+      1813: 750 # Reservoir Anima
 
 - name: "Doubt Tinged Weapons"
   type: transmog
   things:
   - id: 174300 # Doubt Tinged Carver - 1h axe
-    cost: 1750 anima
+    costs:
+      1813: 1750 # Reservoir Anima
 
   - id: 184538 # Doubt Tinged Cleaver - 1h axe
-    cost: 1750 anima
+    costs:
+      1813: 1750 # Reservoir Anima
 
   - id: 180314 # Doubt Tinged Bludgeon - 2h mace
-    cost: 1750 anima
+    costs:
+      1813: 1750 # Reservoir Anima
 
   - id: 184540 # Doubt Tinged Longsword - 1h sword
-    cost: 1750 anima
+    costs:
+      1813: 1750 # Reservoir Anima
 
   - id: 177847 # Doubt Tinged Slicer - 1h sword
-    cost: 1750 anima
+    costs:
+      1813: 1750 # Reservoir Anima
 
   - id: 177852 # Doubt Tinged Rapier - 1h sword
-    cost: 1750 anima
+    costs:
+      1813: 1750 # Reservoir Anima
 
   - id: 184539 # Doubt Tinged Mindpiercer - dagger
-    cost: 1750 anima
+    costs:
+      1813: 1750 # Reservoir Anima
 
   - id: 177862 # Doubt Tinged Twinblade - dagger
-    cost: 1750 anima
+    costs:
+      1813: 1750 # Reservoir Anima
 
   - id: 184238 # Doubt Tinged Warglaive - warglaive
-    cost: 1750 anima
+    costs:
+      1813: 1750 # Reservoir Anima
 
   - id: 177871 # Doubt Tinged Glaive - polearm
-    cost: 1750 anima
+    costs:
+      1813: 1750 # Reservoir Anima
 
   - id: 178972 # Doubt Tinged Greatstaff - staff
-    cost: 1750 anima
+    costs:
+      1813: 1750 # Reservoir Anima
 
   - id: 177857 # Doubt Tinged Warbow - bow
-    cost: 1750 anima
+    costs:
+      1813: 1750 # Reservoir Anima
 
   - id: 177867 # Doubt Tinged Beacon - off-hand
-    cost: 1750 anima
+    costs:
+      1813: 1750 # Reservoir Anima
 
   - id: 174312 # Doubt Tinged Deflector - shield
-    cost: 1750 anima
+    costs:
+      1813: 1750 # Reservoir Anima
 
 - name: "Harmonious Weapons"
   type: transmog
   things:
   - id: 184541 # Harmonious Collector's Battleaxe - 1h axe
-    cost: 3500 anima 50 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 50 # Grateful Offering
 
   - id: 174303 # Harmonious Forgelite's Carver - 1h axe
-    cost: 3500 anima 50 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 50 # Grateful Offering
 
   - id: 180316 # Harmonious Collector's Greatmaul - 2h mace
-    cost: 3500 anima 50 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 50 # Grateful Offering
 
   - id: 177848 # Harmonious Collector's Kopis - 1h sword
-    cost: 3500 anima 50 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 50 # Grateful Offering
 
   - id: 184542 # Harmonious Forgelite's Blade - 1h sword
-    cost: 3500 anima 50 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 50 # Grateful Offering
 
   - id: 177854 # Harmonious Watcher's Spellsword - 1h sword
-    cost: 3500 anima 50 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 50 # Grateful Offering
 
   - id: 177864 # Harmonious Bearer's Poniard - dagger
-    cost: 3500 anima 50 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 50 # Grateful Offering
 
   - id: 184543 # Harmonious Watcher's Barb - dagger
-    cost: 3500 anima 50 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 50 # Grateful Offering
 
   - id: 184240 # Harmonious Bearer's Warglaive - warglaive
-    cost: 3500 anima 50 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 50 # Grateful Offering
 
   - id: 184545 # Harmonious Bearer's Halberd - polearm
-    cost: 3500 anima 50 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 50 # Grateful Offering
 
   - id: 178974 # Harmonious Watcher's Vesperstaff - staff
-    cost: 3500 anima 50 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 50 # Grateful Offering
 
   - id: 177859 # Harmonious Forgelite's Bow - bow
-    cost: 3500 anima 50 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 50 # Grateful Offering
 
   - id: 177869 # Harmonious Watcher's Guiding Light - off-hand
-    cost: 3500 anima 50 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 50 # Grateful Offering
 
   - id: 174314 # Harmonious Collector's Bulwark - shield
-    cost: 3500 anima 50 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 50 # Grateful Offering
 
 - name: "Selfless Weapons"
   type: transmog
   things:
   - id: 174301 # Selfless Bearer's Labrys - 1h axe
-    cost: 3500 anima 10 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
   - id: 184535 # Selfless Forgelite's Hatchet - 1h axe
-    cost: 3500 anima 10 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
   - id: 180311 # Selfless Collector's Cudgel - 2h mace
-    cost: 3500 anima 10 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
   - id: 175248 # Selfless Bearer's Blade - 1h sword
-    cost: 3500 anima 10 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
   - id: 184537 # Selfless Forgelite's Falchion - 1h sword
-    cost: 3500 anima 10 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
   - id: 177853 # Selfless Watcher's Spellsword - 1h sword
-    cost: 3500 anima 10 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
   - id: 184536 # Selfless Watcher's Edge - dagger
-    cost: 3500 anima 10 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
   - id: 177863 # Selfless Watcher's Sidearm - dagger
-    cost: 3500 anima 10 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
   - id: 184239 # Selfless Bearer's Warglaive - warglaive
-    cost: 3500 anima 10 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
   - id: 175249 # Selfless Collector's Javelin - polearm
-    cost: 3500 anima 10 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
   - id: 178970 # Selfless Watcher's Spire - staff
-    cost: 3500 anima 10 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
   - id: 177858 # Selfless Forgelite's Longbow - bow
-    cost: 3500 anima 10 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
   - id: 177868 # Selfless Bearer's Waylight - off-hand
-    cost: 3500 anima 10 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
   - id: 174313 # Selfless Collector's Ward - shield
-    cost: 3500 anima 10 offering
+    costs:
+      1813: 3500 # Reservoir Anima
+      1885: 10 # Grateful Offering
 
 - name: "Necrolord Weapons"
   type: transmog
   things:
   - id: 181327 # Spineforged Tenderizer - 1h mace
-    cost: 500 anima
+    costs:
+      1813: 500 # Reservoir Anima
 
   - id: 181328 # Marrowfused Sword - 1h sword
-    cost: 500 anima
+    costs:
+      1813: 500 # Reservoir Anima
 
   - id: 181329 # Marrowfused Claymore - 2h sword
-    cost: 500 anima
+    costs:
+      1813: 500 # Reservoir Anima
 
   - id: 181325 # Marrowfused Dagger - dagger
-    cost: 500 anima
+    costs:
+      1813: 500 # Reservoir Anima
 
   - id: 181326 # Bloodstained Hacksaw - dagger
-    cost: 500 anima
+    costs:
+      1813: 500 # Reservoir Anima
 
   - id: 181330 # Marrowfused Warglaive - warglaive
-    cost: 500 anima
+    costs:
+      1813: 500 # Reservoir Anima
 
   - id: 181321 # Gem-Crowned Wand - wand
-    cost: 500 anima
+    costs:
+      1813: 500 # Reservoir Anima
 
   - id: 181323 # Blightclutched Greatstaff - staff
-    cost: 500 anima
+    costs:
+      1813: 500 # Reservoir Anima
 
   - id: 181320 # Bonejowl Ballista - crossbow
-    cost: 1000 anima
+    costs:
+      1813: 1000 # Reservoir Anima
 
   - id: 181322 # Bonebound Tome - off-hand
-    cost: 1000 anima
+    costs:
+      1813: 1000 # Reservoir Anima
 
   - id: 181331 # Marrowfused Shield - shield
-    cost: 500 anima
+    costs:
+      1813: 500 # Reservoir Anima
 
 - name: "Night Fae Weapons"
   type: transmog
   things:
   - id: 179548 # Elderwood Gavel - 1h mace
-    cost: 500 anima
+    costs:
+      1813: 500 # Reservoir Anima
 
   - id: 179538 # Grove Warden's Maul - 2h mace
-    cost: 500 anima
+    costs:
+      1813: 500 # Reservoir Anima
 
   - id: 179514 # Ripvine Saber - 1h sword
-    cost: 500 anima
+    costs:
+      1813: 500 # Reservoir Anima
 
   - id: 179499 # Nightwillow Barb - dagger
-    cost: 500 anima
+    costs:
+      1813: 500 # Reservoir Anima
 
   - id: 179509 # Grove Warden's Edge - warglaive
-    cost: 1000 anima
+    costs:
+      1813: 1000 # Reservoir Anima
 
   - id: 179533 # Grove Warden's Harvester - polearm
-    cost: 1000 anima
+    costs:
+      1813: 1000 # Reservoir Anima
 
   - id: 179516 # Songwood Staff - staff
-    cost: 1000 anima
+    costs:
+      1813: 1000 # Reservoir Anima
 
   - id: 179585 # Nightwillow Shortbow - bow
-    cost: 500 anima
+    costs:
+      1813: 500 # Reservoir Anima
 
   - id: 179563 # Heartwood Stem - off-hand
-    cost: 500 anima
+    costs:
+      1813: 500 # Reservoir Anima
 
   - id: 179605 # Elderwood Barrier - shield
-    cost: 500 anima
+    costs:
+      1813: 500 # Reservoir Anima
 
 - name: "Venthyr Weapons"
   type: transmog
   things:
   - id: 180962 # Sterling-Silver Cudgel - 1h mace
-    cost: 1000 anima
+    costs:
+      1813: 1000 # Reservoir Anima
 
   - id: 180960 # Shiny-Metal Topped Basher - 2h mace
-    cost: 500 anima
+    costs:
+      1813: 500 # Reservoir Anima
 
   - id: 180958 # Redelev House Foil - 1h sword
-    cost: 1000 anima
+    costs:
+      1813: 1000 # Reservoir Anima
 
   - id: 180959 # Dredger Anklebiter - dagger
-    cost: 500 anima
+    costs:
+      1813: 500 # Reservoir Anima
 
   - id: 180961 # Silver-Bladed Ritual Dagger - dagger
-    cost: 1000 anima
+    costs:
+      1813: 1000 # Reservoir Anima
 
   - id: 180957 # Batwing Glaive - warglaive
-    cost: 500 anima
+    costs:
+      1813: 500 # Reservoir Anima
 
   - id: 180955 # Stonewing Halberd - polearm
-    cost: 500 anima
+    costs:
+      1813: 500 # Reservoir Anima
 
   - id: 180954 # Crypt Watcher's Spire - staff
-    cost: 500 anima
+    costs:
+      1813: 500 # Reservoir Anima
 
   - id: 180956 # Axeblade Blunderbuss - gun
-    cost: 500 anima
+    costs:
+      1813: 500 # Reservoir Anima
 
   - id: 180963 # Crypt Keeper's Vessel - off-hand
-    cost: 500 anima
+    costs:
+      1813: 500 # Reservoir Anima
 
   - id: 180964 # Ember Court Barrier - shield
-    cost: 500 anima
+    costs:
+      1813: 500 # Reservoir Anima

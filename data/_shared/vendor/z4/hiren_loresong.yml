@@ -1,9 +1,8 @@
-id: 64518
+id: 68000
 name: "Hiren Loresong"
-faction: alliance
 locations:
   z4_isle_of_thunder:
-    - 64.6 74.6
+    - 64.6 74.6 alliance
 tags:
   - "kirin-tor-offensive"
 sells:

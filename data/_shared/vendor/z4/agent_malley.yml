@@ -1,9 +1,8 @@
-id: 63721
+id: 69059
 name: "Agent Malley"
-faction: alliance
 locations:
   z4_krasarang_wilds:
-    - 89.6 33.4
+    - 89.6 33.4 alliance
 tags:
   - "operation-shieldwall"
 sells:

@@ -16,6 +16,8 @@ import {
     ManualDataSharedVendor,
     ManualDataTransmogCategory,
     ManualDataVendorCategory,
+    ManualDataVendorGroup,
+    ManualDataVendorItem,
     ManualDataZoneMapCategory,
 } from '@/types/data/manual'
 import { FarmResetType, PlayableClass, PlayableClassMask, RewardType } from '@/types/enums'
@@ -177,6 +179,10 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                 state,
                 manualData
             )
+
+            this.setupVendors(
+                state,
+            )
             
             this.setupZoneMaps(
                 state,
@@ -226,6 +232,89 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
         }
 
         state.data.transmog.sets = newSets
+    }
+
+    private setupVendors(
+        state: FancyStore<ManualData>
+    )
+    {
+        for (const categories of state.data.vendors.sets) {
+            for (const category of categories) {
+                if (category === null || (category.vendorMaps.length === 0 && category.vendorTags.length === 0)) {
+                    continue
+                }
+
+                // Remove any auto groups
+                category.groups = category.groups.filter((group) => group.auto !== true)
+
+                // Find useful vendors
+                const vendorIds: number[] = []
+                for (const mapName of category.vendorMaps) {
+                    vendorIds.push(...(state.data.shared.vendorsByMap[mapName] || []))
+                }
+                for (const tagName of category.vendorTags) {
+                    vendorIds.push(...(state.data.shared.vendorsByTag[tagName] || []))
+                }
+
+                const autoGroups: Record<string, ManualDataVendorGroup> = {}
+
+                for (const vendorId of vendorIds) {
+                    const vendor = state.data.shared.vendors[vendorId]
+                    for (const item of vendor.sells) {
+                        if (item.type === RewardType.Mount) {
+                            autoGroups["mounts"] = autoGroups["mounts"] || new ManualDataVendorGroup(
+                                "Mounts",
+                                item.type,
+                                []
+                            )
+                            autoGroups["mounts"].auto = true
+                            autoGroups["mounts"].sells.push(new ManualDataVendorItem(
+                                item.id,
+                                4,
+                                0,
+                                Object.entries(item.costs).map(([key, val]) => [parseInt(key), val])
+                            ))
+                        }
+                        else if (item.type === RewardType.Pet) {
+                            autoGroups["pets"] = autoGroups["pets"] || new ManualDataVendorGroup(
+                                "Pets",
+                                item.type,
+                                []
+                            )
+                            autoGroups["pets"].auto = true
+                            autoGroups["pets"].sells.push(new ManualDataVendorItem(
+                                item.id,
+                                4,
+                                0,
+                                Object.entries(item.costs).map(([key, val]) => [parseInt(key), val])
+                            ))
+                        }
+                        else if (item.type === RewardType.Toy) {
+                            autoGroups["toys"] = autoGroups["toys"] || new ManualDataVendorGroup(
+                                "Toys",
+                                item.type,
+                                []
+                            )
+                            autoGroups["toys"].auto = true
+                            autoGroups["toys"].sells.push(new ManualDataVendorItem(
+                                item.id,
+                                4,
+                                0,
+                                Object.entries(item.costs).map(([key, val]) => [parseInt(key), val])
+                            ))
+                        }
+                    }
+                }
+
+                const groups = Object.entries(autoGroups)
+                groups.sort()
+
+                for (const [key, group] of groups) {
+                    category.groups.push(group)
+                }
+                //console.log(category, vendorIds)
+            }
+        }
     }
 
     private setupZoneMaps(

@@ -2,7 +2,7 @@ id: 73305
 name: "Mistweaver Ai"
 locations:
   z4_timeless_isle:
-    - 45.0 54.2
+    - 43.0 56.6
 tags:
 sells:
   - type: transmog

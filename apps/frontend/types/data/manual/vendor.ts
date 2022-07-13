@@ -7,7 +7,9 @@ export class ManualDataVendorCategory {
     constructor(
         public name: string,
         public slug: string,
-        groupArrays: ManualDataVendorGroupArray[]
+        groupArrays: ManualDataVendorGroupArray[],
+        public vendorMaps: string[],
+        public vendorTags: string[]
     )
     {
         this.groups = groupArrays.map((groupArray) => new ManualDataVendorGroup(...groupArray))
@@ -18,6 +20,7 @@ export type ManualDataVendorCategoryArray = ConstructorParameters<typeof ManualD
 export class ManualDataVendorGroup {
     public sells: ManualDataVendorItem[]
     public sellsFiltered: ManualDataVendorItem[]
+    public auto?: boolean
 
     constructor(
         public name: string,
@@ -31,13 +34,13 @@ export class ManualDataVendorGroup {
 export type ManualDataVendorGroupArray = ConstructorParameters<typeof ManualDataVendorGroup>
 
 export class ManualDataVendorItem {
-    public costs: Record<string, number>
+    public costs: Record<number, number>
 
     constructor(
         public id: number,
         public quality: ItemQuality,
         public classMask: number,
-        costs: [string, number][],
+        costs: [number, number][],
         public appearanceId?: number
     )
     {

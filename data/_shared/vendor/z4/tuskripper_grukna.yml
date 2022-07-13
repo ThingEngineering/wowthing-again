@@ -1,9 +1,8 @@
-id: 63721
+id: 69060
 name: "Tuskripper Grukna"
-faction: horde
 locations:
   z4_krasarang_wilds:
-    - 10.8 53.4
+    - 10.8 53.4 horde
 tags:
   - "dominance-offensive"
 sells:

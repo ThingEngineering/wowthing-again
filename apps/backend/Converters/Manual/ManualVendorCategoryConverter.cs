@@ -20,6 +20,20 @@ public class ManualVendorCategoryConverter : JsonConverter
         }
         catArray.Add(groupsArray);
 
+        var mapsArray = new JArray();
+        foreach (var mapName in category.VendorMaps)
+        {
+            mapsArray.Add(mapName);
+        }
+        catArray.Add(mapsArray);
+
+        var tagsArray = new JArray();
+        foreach (var mapName in category.VendorTags)
+        {
+            tagsArray.Add(mapName);
+        }
+        catArray.Add(tagsArray);
+
         catArray.WriteTo(writer);
     }
 

@@ -5,3 +5,16 @@ z8/_shadowlands.yml
     z8/covenant_necrolord.yml
     z8/covenant_night_fae.yml
     z8/covenant_venthyr.yml
+
+z4/_mists_of_pandaria.yml
+    z4/timeless_isle.yml
+    -
+    z4/dread_wastes.yml
+    z4/isle_of_giants.yml
+    z4/isle_of_thunder.yml
+    z4/jade_forest.yml
+    z4/krasarang_wilds.yml
+    z4/kun_lai_summit.yml
+    z4/townlong_steppes.yml
+    z4/vale_of_eternal_blossoms.yml
+    z4/valley_of_the_four_winds.yml

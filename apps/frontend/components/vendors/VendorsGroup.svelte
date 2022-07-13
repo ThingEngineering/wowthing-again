@@ -2,7 +2,7 @@
     import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
     import IntersectionObserver from 'svelte-intersection-observer'
 
-    import { costMap, costOrder } from '@/data/vendors'
+    import { costOrder } from '@/data/vendors'
     import { staticStore } from '@/stores'
     import { vendorState } from '@/stores/local-storage'
     import { userVendorStore } from '@/stores/user-vendors'
@@ -10,14 +10,14 @@
     import getPercentClass from '@/utils/get-percent-class'
     import { toNiceNumber } from '@/utils/to-nice'
     import type { UserCount } from '@/types'
-    import type { StaticDataVendorGroup, StaticDataVendorItem } from '@/types/data/static'
+    import type { ManualDataVendorGroup, ManualDataVendorItem } from '@/types/data/manual'
 
     import CollectionCount from '@/components/collections/CollectionCount.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import WowheadLink from '@/components/links/WowheadLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
-    export let group: StaticDataVendorGroup
+    export let group: ManualDataVendorGroup
     export let stats: UserCount
 
     let element: HTMLElement
@@ -25,7 +25,7 @@
     let intersected = false
     let linkType: string
     let percent: number
-    let things: [StaticDataVendorItem, boolean, [string, number, string][]][]
+    let things: [ManualDataVendorItem, boolean, [string, number, string][]][]
     $: {
         if (group.type === RewardType.Mount) {
             idFunc = (mountId: number) => $staticStore.data.mounts[mountId].spellId
@@ -49,8 +49,8 @@
                     for (const costKey of costOrder) {
                         if (thing.costs[costKey]) {
                             costs.push([
-                                costMap[costKey][0], // type
-                                costMap[costKey][1], // id
+                                'currency',
+                                costKey,
                                 toNiceNumber(thing.costs[costKey]),
                             ])
                         }

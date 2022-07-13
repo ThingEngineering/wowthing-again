@@ -3,7 +3,7 @@ name: "Mistweaver Xia"
 note: "Only during MoP Timewalking"
 locations:
   z4_timeless_isle:
-    - 43.0 56.6
+    - 44.6 55.4
 tags:
   - "timewalking"
 sells:

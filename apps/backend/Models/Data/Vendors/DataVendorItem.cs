@@ -4,6 +4,6 @@
     {
         public int AppearanceId { get; set; }
         public int Id { get; set; }
-        public string Cost { get; set; }
+        public Dictionary<int, int> Costs { get; set; }
     }
 }

@@ -2,7 +2,7 @@
     import filter from 'lodash/filter'
     import find from 'lodash/find'
 
-    import { costMap, costOrder } from '@/data/vendors'
+    import { costOrder } from '@/data/vendors'
     import { manualStore } from '@/stores'
     import { vendorState } from '@/stores/local-storage'
     import { userVendorStore } from '@/stores/user-vendors'
@@ -18,7 +18,7 @@
     export let slug2: string
 
     let categories: ManualDataVendorCategory[]
-    let totalCosts: Record<string, Record<string, number>>
+    let totalCosts: Record<string, Record<number, number>>
     $: {
         categories = filter(
             find(
@@ -48,6 +48,7 @@
                 }
             }
         }
+        console.log(totalCosts)
     }
 </script>
 
@@ -102,16 +103,16 @@
                 >
                     {#if totalCosts[category.slug]}
                         <span class="costs">
-                            {#each costOrder as cost}
-                                {#if totalCosts[category.slug][cost]}
+                            {#each costOrder as currencyId}
+                                {#if totalCosts[category.slug][currencyId]}
                                     <div>
-                                        {totalCosts[category.slug][cost].toLocaleString()}
+                                        {totalCosts[category.slug][currencyId].toLocaleString()}
                                         <WowheadLink
-                                            type={costMap[cost][0]}
-                                            id={costMap[cost][1]}
+                                            type="currency"
+                                            id={currencyId}
                                         >
                                             <WowthingImage
-                                                name="{costMap[cost][0]}/{costMap[cost][1]}"
+                                                name="currency/{currencyId}"
                                                 size={20}
                                                 border={0}
                                             />

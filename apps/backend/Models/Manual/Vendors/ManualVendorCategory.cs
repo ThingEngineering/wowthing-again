@@ -7,6 +7,8 @@ namespace Wowthing.Backend.Models.Manual.Vendors
     public class ManualVendorCategory
     {
         public string Name { get; set; }
+        public List<string> VendorMaps { get; set; }
+        public List<string> VendorTags { get; set; }
         public List<ManualVendorGroup> Groups { get; set; }
 
         public string Slug => Name.Slugify();
@@ -18,6 +20,10 @@ namespace Wowthing.Backend.Models.Manual.Vendors
                 .EmptyIfNull()
                 .Select(group => new ManualVendorGroup(group))
                 .ToList();
+            VendorMaps = category.VendorMaps
+                .EmptyIfNull();
+            VendorTags = category.VendorTags
+                .EmptyIfNull();
         }
     }
 }
