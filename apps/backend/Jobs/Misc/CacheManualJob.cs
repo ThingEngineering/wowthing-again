@@ -324,7 +324,7 @@ public class CacheManualJob : JobBase, IScheduledJob
 
     private void DoCommonItemStuff(ManualVendorItem item)
     {
-        if (item.Type == RewardType.Item || item.Type == RewardType.Transmog)
+        if (item.Type is RewardType.Item or RewardType.Transmog)
         {
             _itemIds.Add(item.Id);
 
@@ -370,6 +370,15 @@ public class CacheManualJob : JobBase, IScheduledJob
         {
             item.ClassMask = _itemMap[item.Id].GetCalculatedClassMask();
             item.Quality = _itemMap[item.Id].Quality;
+        }
+
+        // Costs with an ID >1 million are items
+        foreach (var (currencyId, amount) in item.Costs.EmptyIfNull())
+        {
+            if (currencyId > 1_000_000)
+            {
+                _itemIds.Add(currencyId - 1_000_000);
+            }
         }
     }
 

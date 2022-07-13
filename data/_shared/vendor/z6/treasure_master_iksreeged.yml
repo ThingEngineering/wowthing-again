@@ -1,0 +1,10 @@
+id: 120076
+name: "Treasure Master Iks'reeged"
+locations:
+  z6_broken_shore:
+    - 45.0 52.0
+sells:
+  - type: toy
+    id: 142452 # Lingering Wyrmtongue Essence
+    costs:
+      1226: 50000 # Nethershard

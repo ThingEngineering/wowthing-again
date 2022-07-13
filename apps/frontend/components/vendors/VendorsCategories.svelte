@@ -2,10 +2,10 @@
     import filter from 'lodash/filter'
     import find from 'lodash/find'
 
-    import { costOrder } from '@/data/vendors'
-    import { manualStore } from '@/stores'
+    import { manualStore, staticStore } from '@/stores'
     import { vendorState } from '@/stores/local-storage'
     import { userVendorStore } from '@/stores/user-vendors'
+    import { getCurrencyCosts } from '@/utils/get-currency-costs'
     import type { ManualDataVendorCategory } from '@/types/data/manual'
 
     import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
@@ -102,22 +102,20 @@
                 >
                     {#if totalCosts[category.slug]}
                         <span class="costs">
-                            {#each costOrder as currencyId}
-                                {#if totalCosts[category.slug][currencyId]}
-                                    <div>
-                                        {totalCosts[category.slug][currencyId].toLocaleString()}
-                                        <WowheadLink
-                                            type="currency"
-                                            id={currencyId}
-                                        >
-                                            <WowthingImage
-                                                name="currency/{currencyId}"
-                                                size={20}
-                                                border={0}
-                                            />
-                                        </WowheadLink>
-                                    </div>
-                                {/if}
+                            {#each getCurrencyCosts($manualStore.data, $staticStore.data, totalCosts[category.slug]) as [linkType, linkId, value]}
+                                <div>
+                                    {value}
+                                    <WowheadLink
+                                        type={linkType}
+                                        id={linkId}
+                                    >
+                                        <WowthingImage
+                                            name="{linkType}/{linkId}"
+                                            size={20}
+                                            border={0}
+                                        />
+                                    </WowheadLink>
+                                </div>
                             {/each}
                         </span>
                     {/if}

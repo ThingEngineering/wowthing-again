@@ -2,13 +2,12 @@
     import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
     import IntersectionObserver from 'svelte-intersection-observer'
 
-    import { costOrder } from '@/data/vendors'
     import { manualStore, staticStore } from '@/stores'
     import { vendorState } from '@/stores/local-storage'
     import { userVendorStore } from '@/stores/user-vendors'
     import { RewardType } from '@/types/enums'
+    import { getCurrencyCosts } from '@/utils/get-currency-costs'
     import getPercentClass from '@/utils/get-percent-class'
-    import { toNiceNumber } from '@/utils/to-nice'
     import type { UserCount } from '@/types'
     import type { ManualDataVendorGroup, ManualDataVendorItem } from '@/types/data/manual'
 
@@ -31,15 +30,7 @@
             if (($vendorState.showCollected && userHas) || ($vendorState.showUncollected && !userHas)) {
                 const costs: [string, number, string][] = []
                 if (!userHas) {
-                    for (const costKey of costOrder) {
-                        if (thing.costs[costKey]) {
-                            costs.push([
-                                'currency',
-                                costKey,
-                                toNiceNumber(thing.costs[costKey]),
-                            ])
-                        }
-                    }
+                    costs.push(...getCurrencyCosts($manualStore.data, $staticStore.data, thing.costs))
                 }
 
                 let linkType: string

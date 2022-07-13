@@ -24,6 +24,7 @@ public class ManualVendorItem
     {
         Id = item.Id;
         Note = item.Note;
+        Reputation = item.Reputation;
         Type = Enum.Parse<RewardType>(item.Type, true);
         Costs = item.Costs;
 

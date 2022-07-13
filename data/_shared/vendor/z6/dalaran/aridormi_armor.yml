@@ -1,0 +1,68 @@
+id: 1180899
+name: "Aridorimi"
+note: "Only during Legion Timewalking"
+locations:
+  z6_dalaran:
+    - 70.4 49.6
+tags:
+  - "timewalking"
+sells:
+  - type: transmog
+    id: 187580 # Nar'thalas Ceremonial Legwraps [cloth]
+    costs:
+      1166: 25 # Timewarped Badge
+
+  - type: transmog
+    id: 187579 # Nar'thalas Ceremonial Tunic [cloth]
+    costs:
+      1166: 25 # Timewarped Badge
+
+  - type: transmog
+    id: 187581 # Nar'thalas Scrollmantle [cloth]
+    costs:
+      1166: 35 # Timewarped Badge
+
+  - type: transmog
+    id: 187583 # Thorignir Breeches [leather]
+    costs:
+      1166: 25 # Timewarped Badge
+
+  - type: transmog
+    id: 187582 # Thorignir Heartguard [leather]
+    costs:
+      1166: 25 # Timewarped Badge
+  
+  - type: transmog
+    id: 187584 # Thorignir Spaulders [leather]
+    costs:
+      1166: 35 # Timewarped Badge
+
+  - type: transmog
+    id: 187585 # Leyguard Cuirass [mail]
+    costs:
+      1166: 25 # Timewarped Badge
+  
+  - type: transmog
+    id: 187586 # Leyguard Greaves [mail]
+    costs:
+      1166: 25 # Timewarped Badge
+
+  - type: transmog
+    id: 187585 # Leyguard Mantle [mail]
+    costs:
+      1166: 35 # Timewarped Badge
+  
+  - type: transmog
+    id: 187588 # Black Rook Elite Chestguard [plate]
+    costs:
+      1166: 25 # Timewarped Badge
+  
+  - type: transmog
+    id: 187589 # Black Rook Elite Legguards [plate]
+    costs:
+      1166: 25 # Timewarped Badge
+
+  - type: transmog
+    id: 187590 # Black Rook Elite Chestguard [plate]
+    costs:
+      1166: 35 # Timewarped Badge

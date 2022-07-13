@@ -2,7 +2,7 @@
     import { afterUpdate } from 'svelte'
 
     import { iconStrings, imageStrings } from '@/data/icons'
-    import { staticStore } from '@/stores'
+    import { manualStore, staticStore } from '@/stores'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
@@ -43,8 +43,25 @@
             (_, amountString: string, currencyId: number) => {
                 const amount = parseInt(amountString).toLocaleString()
                 if (currencyId) {
-                    const currency = $staticStore.data.currencies[currencyId]
-                    return `${amount} <span data-icon="currency/${currencyId}"></span> ${currency.name}`
+                    if (currencyId > 1000000) {
+                        const itemId = currencyId - 1000000
+                        const item = $manualStore.data.shared.items[itemId]
+                        if (item) {
+                            return `${amount} <span data-icon="item/${itemId}"></span> ${item.name}`
+                        }
+                        else {
+                            return `${amount} Item #${itemId}`
+                        }
+                    }
+                    else {
+                        const currency = $staticStore.data.currencies[currencyId]
+                        if (currency) {
+                            return `${amount} <span data-icon="currency/${currencyId}"></span> ${currency.name}`
+                        }
+                        else {
+                            return `${amount} Currency #${currencyId}`
+                        }
+                    }
                 }
                 else {
                     return `${amount}g`

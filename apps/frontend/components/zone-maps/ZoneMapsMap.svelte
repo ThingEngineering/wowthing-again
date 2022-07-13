@@ -41,7 +41,7 @@
         if (categories.length > 0) {
             farms = [...categories[0].farms]
             for (const vendorId of ($manualStore.data.shared.vendorsByMap[categories[0].mapName] || [])) {
-                farms.push(...$manualStore.data.shared.vendors[vendorId].asFarms($staticStore.data, categories[0].mapName))
+                farms.push(...$manualStore.data.shared.vendors[vendorId].asFarms(categories[0].mapName))
             }
 
             farmStatuses = $manualStore.data.zoneMaps.farmStatus[slugKey]

@@ -17,6 +17,7 @@ groups:
   things:
   - 269 270 # Armored Brown Bear (Dalaran)
   - 276 277 # Armored Snowy Gryphon/Armored Blue Wind Rider (Dalaran)
+  - 277 276 # ^ reversed
   - 254 255 # Black War Mammoth
   - 280 284 # Traveler's Tundra Mammoth (Dalaran)
   - 256 257 # Wooly Mammoth (Dalaran)
