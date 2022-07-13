@@ -40,7 +40,7 @@
             totalCosts[category.slug] = {}
             for (const group of category.groups) {
                 for (const thing of group.sellsFiltered) {
-                    if (!$userVendorStore.data.userHas[`${group.type}-${thing.id}`]) {
+                    if (!$userVendorStore.data.userHas[`${thing.type}-${thing.id}`]) {
                         for (const currency in thing.costs) {
                             totalCosts[category.slug][currency] = (totalCosts[category.slug][currency] || 0) + thing.costs[currency]
                         }
@@ -48,7 +48,6 @@
                 }
             }
         }
-        console.log(totalCosts)
     }
 </script>
 

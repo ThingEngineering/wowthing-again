@@ -14,3 +14,5 @@ sells:
 
   - type: transmog
     id: 95592 # Sunreaver Onslaught Tabard [tabard]
+    costs:
+      0: 10 # Gold

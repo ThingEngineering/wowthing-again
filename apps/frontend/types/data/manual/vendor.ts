@@ -24,7 +24,6 @@ export class ManualDataVendorGroup {
 
     constructor(
         public name: string,
-        public type: RewardType,
         itemArrays: ManualDataVendorItemArray[],
     )
     {
@@ -38,13 +37,48 @@ export class ManualDataVendorItem {
 
     constructor(
         public id: number,
+        public type: RewardType,
+        public subType: number,
         public quality: ItemQuality,
         public classMask: number,
-        costs: [number, number][],
-        public appearanceId?: number
+        costArrays?: number[][],
+        public reputation?: number[],
+        public appearanceId?: number,
+        public note?: string
     )
     {
-        this.costs = Object.fromEntries(costs)
+        this.costs = {}
+        if (costArrays) {
+            for (const costArray of costArrays) {
+                this.costs[costArray[0]] = costArray[1]
+            }
+        }
+    }
+    
+    getNote(): string | undefined {
+        if (this.costs) {
+            const parts: string[] = []
+            const keys = Object.keys(this.costs).map((key) => parseInt(key))
+            keys.sort()
+            for (const key of keys) {
+                let price: string
+                if (key === 0) {
+                    price = `${this.costs[key]}`
+                }
+                else {
+                    price = `${this.costs[key]}|${key}`
+                }
+                
+                if (this.reputation) {
+                    parts.push(`{repPrice:${this.reputation[0]}|${this.reputation[1]}|${price}}`)
+                }
+                else {
+                    parts.push(`{price:${price}}`)
+                }
+            }
+            return parts.join(', ')
+        }
+        return undefined
     }
 }
 export type ManualDataVendorItemArray = ConstructorParameters<typeof ManualDataVendorItem>

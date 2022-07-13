@@ -233,30 +233,27 @@ public class CacheManualJob : JobBase, IScheduledJob
         return ret;
     }
 
-    private List<ManualVendor> LoadSharedVendors()
+    private List<ManualSharedVendor> LoadSharedVendors()
     {
         var di = new DirectoryInfo(Path.Join(DataUtilities.DataPath, "_shared", "vendor"));
         var files = di.GetFiles("*.yml", SearchOption.AllDirectories)
             .OrderBy(file => file.FullName)
             .ToArray();
 
-        var ret = new List<ManualVendor>();
+        var ret = new List<ManualSharedVendor>();
 
         foreach (var file in files)
         {
             Logger.Debug("Parsing {file}", file.FullName);
-            var vendor = _yaml.Deserialize<ManualVendor>(File.OpenText(file.FullName));
-            ret.Add(vendor);
+            var vendor = _yaml.Deserialize<DataSharedVendor>(File.OpenText(file.FullName));
+            ret.Add(new ManualSharedVendor(vendor));
         }
 
         foreach (var vendor in ret)
         {
             foreach (var item in vendor.Sells)
             {
-                if (item.Type is "item" or "transmog")
-                {
-                    _itemIds.Add(item.Id);
-                }
+                DoCommonItemStuff(item);
             }
         }
 
@@ -308,7 +305,6 @@ public class CacheManualJob : JobBase, IScheduledJob
             }
         }
 
-        // Change transmog itemId to appearanceId
         foreach (var categories in ret.Where(cats => cats != null))
         {
             foreach (var category in categories.Where(cat => cat != null))
@@ -317,31 +313,64 @@ public class CacheManualJob : JobBase, IScheduledJob
                 {
                     foreach (var item in group.Things)
                     {
-                        if (group.Type == RewardType.Transmog) // && item.AppearanceId == null)
-                        {
-                            _itemIds.Add(item.Id);
-                            //item.AppearanceId = _itemToAppearance[item.Id];
-                        }
-
-                        if (group.Type == RewardType.Mount)
-                        {
-                            item.Quality = WowQuality.Epic;
-                        }
-                        else if (group.Type == RewardType.Pet)
-                        {
-                            item.Quality = WowQuality.Rare;
-                        }
-                        else
-                        {
-                            item.ClassMask = _itemMap[item.Id].GetCalculatedClassMask();
-                            item.Quality = _itemMap[item.Id].Quality;
-                        }
+                        DoCommonItemStuff(item);
                     }
                 }
             }
         }
 
         return ret;
+    }
+
+    private void DoCommonItemStuff(ManualVendorItem item)
+    {
+        if (item.Type == RewardType.Item || item.Type == RewardType.Transmog)
+        {
+            _itemIds.Add(item.Id);
+
+            var dropItem = _itemMap[item.Id];
+            if (dropItem.ClassId == 2)
+            {
+                item.Type = RewardType.Weapon;
+                item.SubType = dropItem.SubclassId;
+            }
+            else if (dropItem.ClassId == 4)
+            {
+                if (dropItem.SubclassId == 6 ||
+                    dropItem.InventoryType == WowInventoryType.HeldInOffHand)
+                {
+                    item.Type = RewardType.Weapon;
+                    item.SubType = dropItem.InventoryType == WowInventoryType.HeldInOffHand
+                        ? 30
+                        : 31;
+                }
+                else if (dropItem.SubclassId == 5 || dropItem.Flags.HasFlag(WowItemFlags.Cosmetic))
+                {
+                    item.Type = RewardType.Cosmetic;
+                }
+                else
+                {
+                    item.Type = RewardType.Armor;
+                    item.SubType = dropItem.InventoryType == WowInventoryType.Back
+                        ? 0
+                        : dropItem.SubclassId;
+                }
+            }
+        }
+
+        if (item.Type == RewardType.Mount)
+        {
+            item.Quality = WowQuality.Epic;
+        }
+        else if (item.Type == RewardType.Pet)
+        {
+            item.Quality = WowQuality.Rare;
+        }
+        else
+        {
+            item.ClassMask = _itemMap[item.Id].GetCalculatedClassMask();
+            item.Quality = _itemMap[item.Id].Quality;
+        }
     }
 
     private List<List<ManualZoneMapCategory>> LoadZoneMaps()

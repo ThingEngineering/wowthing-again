@@ -35,5 +35,5 @@ public class ManualCache
     public StaticItem[] SharedItems { get; set; }
 
     [JsonProperty("rawSharedVendors")]
-    public List<ManualVendor> SharedVendors { get; set; }
+    public List<ManualSharedVendor> SharedVendors { get; set; }
 }

@@ -262,46 +262,34 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                     const vendor = state.data.shared.vendors[vendorId]
                     for (const item of vendor.sells) {
                         if (item.type === RewardType.Mount) {
-                            autoGroups["mounts"] = autoGroups["mounts"] || new ManualDataVendorGroup(
-                                "Mounts",
-                                item.type,
-                                []
-                            )
-                            autoGroups["mounts"].auto = true
-                            autoGroups["mounts"].sells.push(new ManualDataVendorItem(
-                                item.id,
-                                4,
-                                0,
-                                Object.entries(item.costs).map(([key, val]) => [parseInt(key), val])
-                            ))
+                            autoGroups['0mounts'] ||= new ManualDataVendorGroup('Mounts', [])
+                            autoGroups['0mounts'].auto = true
+                            autoGroups['0mounts'].sells.push(item)
                         }
                         else if (item.type === RewardType.Pet) {
-                            autoGroups["pets"] = autoGroups["pets"] || new ManualDataVendorGroup(
-                                "Pets",
-                                item.type,
-                                []
-                            )
-                            autoGroups["pets"].auto = true
-                            autoGroups["pets"].sells.push(new ManualDataVendorItem(
-                                item.id,
-                                4,
-                                0,
-                                Object.entries(item.costs).map(([key, val]) => [parseInt(key), val])
-                            ))
+                            autoGroups['0pets'] ||= new ManualDataVendorGroup('Pets', [])
+                            autoGroups['0pets'].auto = true
+                            autoGroups['0pets'].sells.push(item)
                         }
                         else if (item.type === RewardType.Toy) {
-                            autoGroups["toys"] = autoGroups["toys"] || new ManualDataVendorGroup(
-                                "Toys",
-                                item.type,
-                                []
-                            )
-                            autoGroups["toys"].auto = true
-                            autoGroups["toys"].sells.push(new ManualDataVendorItem(
-                                item.id,
-                                4,
-                                0,
-                                Object.entries(item.costs).map(([key, val]) => [parseInt(key), val])
-                            ))
+                            autoGroups['0toys'] ||= new ManualDataVendorGroup('Toys', [])
+                            autoGroups['0toys'].auto = true
+                            autoGroups['0toys'].sells.push(item)
+                        }
+                        else if (item.type === RewardType.Armor) {
+                            autoGroups['1armor'] ||= new ManualDataVendorGroup('Armor', [])
+                            autoGroups['1armor'].auto = true
+                            autoGroups['1armor'].sells.push(item)
+                        }
+                        else if (item.type === RewardType.Weapon) {
+                            autoGroups['1weapons'] ||= new ManualDataVendorGroup('Weapons', [])
+                            autoGroups['1weapons'].auto = true
+                            autoGroups['1weapons'].sells.push(item)
+                        }
+                        else if (item.type === RewardType.Cosmetic || item.type === RewardType.Transmog) {
+                            autoGroups['2transmog'] ||= new ManualDataVendorGroup('Transmog', [])
+                            autoGroups['2transmog'].auto = true
+                            autoGroups['2transmog'].sells.push(item)
                         }
                     }
                 }

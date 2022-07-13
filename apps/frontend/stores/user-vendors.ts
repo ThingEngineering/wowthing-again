@@ -53,11 +53,11 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
                             manualData,
                             userData,
                             userTransmogData,
-                            group.type,
+                            thing.type,
                             thing.id,
                             thing.appearanceId
                         )
-                        const thingKey = `${group.type}-${thing.id}`
+                        const thingKey = `${thing.type}-${thing.id}`
 
                         if (!seen[thingKey]) {
                             overallStats.total++

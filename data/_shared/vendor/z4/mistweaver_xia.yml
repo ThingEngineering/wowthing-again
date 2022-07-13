@@ -10,7 +10,7 @@ sells:
   - type: mount
     id: 476 # Yu'lei, Daughter of Jade
     costs:
-      1166: 20000 # Timewarped Badge
+      1166: 5000 # Timewarped Badge
 
   - type: pet
     id: 2017 # Infinite Hatchling

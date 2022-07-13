@@ -3,7 +3,7 @@
     import IntersectionObserver from 'svelte-intersection-observer'
 
     import { costOrder } from '@/data/vendors'
-    import { staticStore } from '@/stores'
+    import { manualStore, staticStore } from '@/stores'
     import { vendorState } from '@/stores/local-storage'
     import { userVendorStore } from '@/stores/user-vendors'
     import { RewardType } from '@/types/enums'
@@ -21,28 +21,13 @@
     export let stats: UserCount
 
     let element: HTMLElement
-    let idFunc: (id: number) => number
     let intersected = false
-    let linkType: string
     let percent: number
-    let things: [ManualDataVendorItem, boolean, [string, number, string][]][]
+    let things: [ManualDataVendorItem, string, number, boolean, [string, number, string][]][]
     $: {
-        if (group.type === RewardType.Mount) {
-            idFunc = (mountId: number) => $staticStore.data.mounts[mountId].spellId
-            linkType = 'spell'
-        }
-        else if (group.type === RewardType.Pet) {
-            idFunc = (petId: number) => $staticStore.data.pets[petId].creatureId
-            linkType = 'npc'
-        }
-        else {
-            idFunc = (id: number) => id
-            linkType = 'item'
-        }
-
         things = []
         for (const thing of group.sellsFiltered) {
-            const userHas = $userVendorStore.data.userHas[`${group.type}-${thing.id}`] === true
+            const userHas = $userVendorStore.data.userHas[`${thing.type}-${thing.id}`] === true
             if (($vendorState.showCollected && userHas) || ($vendorState.showUncollected && !userHas)) {
                 const costs: [string, number, string][] = []
                 if (!userHas) {
@@ -57,8 +42,25 @@
                     }
                 }
 
+                let linkType: string
+                let linkId: number
+                if (thing.type === RewardType.Mount) {
+                    linkType = 'spell'
+                    linkId = $staticStore.data.mounts[thing.id].spellId
+                }
+                else if (thing.type === RewardType.Pet) {
+                    linkType = 'npc'
+                    linkId = $staticStore.data.pets[thing.id].creatureId
+                }
+                else {
+                    linkType = 'item'
+                    linkId = thing.id
+                }
+
                 things.push([
                     thing,
+                    linkType,
+                    linkId,
                     userHas,
                     costs,
                 ])
@@ -105,23 +107,23 @@
             </h4>
 
             <div class="collection-objects" data-inter={intersected}>
-                {#each things as [thing, userHas, costs]}
-                    {@const thingId = idFunc(thing.id)}
+                {#each things as [thing, linkType, linkId, userHas, costs]}
                     <div
-                        class="collection-item quality{thing.quality}"
+                        class="collection-item quality{thing.quality || $manualStore.data.shared.items[thing.id]?.quality || 0}"
                         class:missing={
                             (!$vendorState.highlightMissing && !userHas) ||
                             ($vendorState.highlightMissing && userHas)
                         }
+                        data-thing="{thing.type} {thing.id}"
                         style:height="{52 + (20 * costs.length)}px"
                     >
                         {#if intersected}
                             <WowheadLink
-                                id={thingId}
+                                id={linkId}
                                 type={linkType}
                             >
                                 <WowthingImage
-                                    name="{linkType}/{thingId}"
+                                    name="{linkType}/{linkId}"
                                     size={48}
                                     border={2}
                                 />
@@ -132,7 +134,7 @@
                                     <IconifyIcon icon={mdiCheckboxOutline} />
                                 </div>
                             {:else}
-                                <div class="costs">
+                                <div class="costs quality1">
                                     {#each costs as [costType, costId, costValue]}
                                         <div>
                                             {costValue}

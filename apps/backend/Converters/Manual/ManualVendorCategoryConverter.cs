@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using Wowthing.Backend.Models.Manual;
 using Wowthing.Backend.Models.Manual.Vendors;
 
 namespace Wowthing.Backend.Converters.Manual;
@@ -42,42 +43,15 @@ public class ManualVendorCategoryConverter : JsonConverter
         var groupArray = new JArray();
 
         groupArray.Add(group.Name);
-        groupArray.Add(group.Type);
 
         var itemsArray = new JArray();
         foreach (var item in group.Things)
         {
-            itemsArray.Add(CreateItemArray(item));
+            itemsArray.Add(ManualSharedVendorConverter.CreateItemArray(item));
         }
         groupArray.Add(itemsArray);
 
         return groupArray;
-    }
-
-    private JToken CreateItemArray(ManualVendorItem item)
-    {
-        var itemArray = new JArray();
-
-        itemArray.Add(item.Id);
-        itemArray.Add(item.Quality);
-        itemArray.Add(item.ClassMask);
-
-        var costsArray = new JArray();
-        foreach (var (currency, amount) in item.Costs)
-        {
-            var costArray = new JArray();
-            costArray.Add(currency);
-            costArray.Add(amount);
-            costsArray.Add(costArray);
-        }
-        itemArray.Add(costsArray);
-
-        if (item.AppearanceId.HasValue)
-        {
-            itemArray.Add(item.AppearanceId.Value);
-        }
-
-        return itemArray;
     }
 
     public override object ReadJson(JsonReader reader, Type objectType, object existingValue,

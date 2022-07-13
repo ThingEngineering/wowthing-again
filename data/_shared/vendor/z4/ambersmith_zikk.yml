@@ -17,3 +17,57 @@ sells:
     costs:
       0: 10 # Gold
     reputation: 1337 exalted # The Klaxxi
+
+  - type: transmog
+    id: 89400 # Amber Sledge of Klaxxi'vess [1h agi mace]
+    costs:
+      0: 15 # Gold
+    reputation: 1337 exalted
+
+  - type: transmog
+    id: 89397 # Amber Saber of Klaxxi'vess [1h int sword]
+    costs:
+      0: 15 # Gold
+    reputation: 1337 exalted
+
+  - type: transmog
+    id: 89396 # Amber Espada of Klaxxi'vess [1h str sword]
+    costs:
+      0: 18 # Gold
+    reputation: 1337 exalted
+
+  - type: transmog
+    id: 89393 # Amber Slicer of Klaxxi'vess [agi dagger]
+    costs:
+      0: 16 # Gold
+    reputation: 1337 exalted
+
+  - type: transmog
+    id: 89392 # Amber Spine of Klaxxi'vess [int dagger]
+    costs:
+      0: 16 # Gold
+    reputation: 1337 exalted
+
+  - type: transmog
+    id: 89398 # Amber Flammard of Klaxxi'vess [2h str sword]
+    costs:
+      0: 19 # Gold
+    reputation: 1337 exalted
+
+  - type: transmog
+    id: 89394 # Amber Spear of Klaxxi'vess [agi polearm]
+    costs:
+      0: 20 # Gold
+    reputation: 1337 exalted
+
+  - type: transmog
+    id: 89395 # Amber Scythe of Klaxxi'vess [int staff]
+    costs:
+      0: 20 # Gold
+    reputation: 1337 exalted
+
+  - type: transmog
+    id: 89399 # Amber Sprayer of Klaxxi'vess [gun]
+    costs:
+      0: 19 # Gold
+    reputation: 1337 exalted
