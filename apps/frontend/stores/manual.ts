@@ -423,7 +423,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
 
                 const farms = [...map.farms]
                 for (const vendorId of (manualData.shared.vendorsByMap[map.mapName] || [])) {
-                    farms.push(...manualData.shared.vendors[vendorId].asFarms(staticData, map.mapName))
+                    farms.push(...manualData.shared.vendors[vendorId].asFarms(map.mapName))
                 }
 
                 const farmStatuses: FarmStatus[] = []

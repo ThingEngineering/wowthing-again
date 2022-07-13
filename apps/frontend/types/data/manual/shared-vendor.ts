@@ -19,25 +19,26 @@ export class ManualDataSharedVendor {
         this.sells = sells.map((arr) => new ManualDataVendorItem(...arr))
     }
 
-    asFarms(staticData: StaticData, mapName: string): ManualDataZoneMapFarm[] {
+    asFarms(mapName: string): ManualDataZoneMapFarm[] {
         const ret: ManualDataZoneMapFarm[] = []
         
         for (const location of (this.locations[mapName] || [])) {
             ret.push(<ManualDataZoneMapFarm>{
                 faction: location[2],
-                id: this.id,
+                id: this.id > 1000000 ? this.id - 1000000 : this.id,
                 idType: FarmIdType.Npc,
                 location: [location[0], location[1]],
                 name: this.name,
+                note: this.note,
                 questIds: [],
                 reset: FarmResetType.None,
                 type: FarmType.Vendor,
                 drops: this.sells.map((item) => <ManualDataZoneMapDrop>{
                     id: item.id,
                     type: item.type,
-                    subType: 0,
-                    classMask: 0,
-                    note: item.getNote(staticData),
+                    subType: item.subType,
+                    classMask: item.classMask,
+                    note: item.getNote(),
                 }),
             })
         }

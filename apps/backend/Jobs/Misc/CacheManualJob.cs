@@ -324,7 +324,7 @@ public class CacheManualJob : JobBase, IScheduledJob
 
     private void DoCommonItemStuff(ManualVendorItem item)
     {
-        if (item.Type == RewardType.Item || item.Type == RewardType.Transmog)
+        if (item.Type is RewardType.Item or RewardType.Transmog)
         {
             _itemIds.Add(item.Id);
 
