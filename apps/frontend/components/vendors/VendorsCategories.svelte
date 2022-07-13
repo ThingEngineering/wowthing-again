@@ -104,14 +104,16 @@
                         <span class="costs">
                             {#each costOrder as currencyId}
                                 {#if totalCosts[category.slug][currencyId]}
+                                    {@const linkType = currencyId > 1000000 ? 'item' : 'currency'}
+                                    {@const linkId = currencyId > 1000000 ? currencyId - 1000000 : currencyId}
                                     <div>
                                         {totalCosts[category.slug][currencyId].toLocaleString()}
                                         <WowheadLink
-                                            type="currency"
-                                            id={currencyId}
+                                            type={linkType}
+                                            id={linkId}
                                         >
                                             <WowthingImage
-                                                name="currency/{currencyId}"
+                                                name="{linkType}/{linkId}"
                                                 size={20}
                                                 border={0}
                                             />
