@@ -86,6 +86,10 @@ reputations:
 - - both:
       id: 2135 # Chromie
       icon: achievement/11941
+  
+  - both:
+      id: 2018
+      icon: item/142369 # Ivory Hawkstrider
 
 # Friends - 7.?
 - - both:
