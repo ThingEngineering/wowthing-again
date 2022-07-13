@@ -24,7 +24,7 @@ export default function getSkipClasses(
     skipClasses['warrior'] = !settingsData.transmog.showWarrior
 
     if (category) {
-        for (const skipClass of category.skipClasses) {
+        for (const skipClass of (category.skipClasses || [])) {
             skipClasses[skipClass] = true
         }
     }
