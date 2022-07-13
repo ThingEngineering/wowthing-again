@@ -1,0 +1,26 @@
+id: 55103
+name: "Galissa Sundew"
+locations:
+  misc_darkmoon_island:
+    - 52.6 88.6
+sells:
+  - type: mount
+    id: 855 # Darkwater Skate
+    note: "500 fishies"
+
+  - type: pet
+    id: 1666 # Blorp
+    note: "50 fishies"
+
+  - type: pet
+    id: 1665 # Ghostshell Crab
+    note: "100 fishies"
+
+  - type: toy
+    id: 126931 # Seafarer's Slidewhistle
+    note: "25 fishies"
+
+  - type: quest
+    id: 38934
+    name: "Silas' Secret Stash"
+    note: "Faded Treasure Map, rewards {price:100|515}"

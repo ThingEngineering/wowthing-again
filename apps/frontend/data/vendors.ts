@@ -14,6 +14,7 @@ export const costOrder: number[] = [
     789, // Bloody Coin
 
     // Misc
+    515, // Darkmoon Prize Ticket
     1166, // Timewarped Badge
     0, // Gold
 ]

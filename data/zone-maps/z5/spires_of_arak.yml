@@ -288,25 +288,3 @@ farms:
   drops:
     - type: toy
       id: 119001 # Mystery Keg
-
-# Vendor
-
-- name: "Honest Jim"
-  faction: alliance
-  location: 41.0 61.6
-  note: "Requires Smuggling Run outpost"
-  npcId: 82459
-  type: vendor
-  drops:
-    - type: toy
-      id: 113096 # Bloodmane Charm
-
-- name: 'Linny "The Skinny" Leadpockets'
-  faction: horde
-  location: 41.6 42.6
-  note: "Requires Smuggling Run outpost"
-  npcId: 84243
-  type: vendor
-  drops:
-    - type: toy
-      id: 113096 # Bloodmane Charm
