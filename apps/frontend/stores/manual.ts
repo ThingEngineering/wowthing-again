@@ -239,6 +239,10 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
     )
     {
         for (const categories of state.data.vendors.sets) {
+            if (categories === null) {
+                continue
+            }
+            
             for (const category of categories) {
                 if (category === null || (category.vendorMaps.length === 0 && category.vendorTags.length === 0)) {
                     continue
