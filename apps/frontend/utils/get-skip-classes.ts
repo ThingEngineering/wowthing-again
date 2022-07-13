@@ -1,12 +1,12 @@
 import sumBy from 'lodash/sumBy'
 
 import type { Settings } from '@/types'
-import type { TransmogDataCategory } from '@/types/data'
+import type { ManualDataTransmogCategory } from '@/types/data/manual'
 
 
 export default function getSkipClasses(
     settingsData: Settings,
-    category?: TransmogDataCategory
+    category?: ManualDataTransmogCategory
 ): Record<string, boolean> {
     const skipClasses: Record<string, boolean> = {}
 

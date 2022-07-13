@@ -17,7 +17,6 @@ import {
     ManualDataTransmogCategory,
     ManualDataVendorCategory,
     ManualDataVendorGroup,
-    ManualDataVendorItem,
     ManualDataZoneMapCategory,
 } from '@/types/data/manual'
 import { FarmResetType, PlayableClass, PlayableClassMask, RewardType } from '@/types/enums'
@@ -301,7 +300,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                 const groups = Object.entries(autoGroups)
                 groups.sort()
 
-                for (const [key, group] of groups) {
+                for (const [, group] of groups) {
                     category.groups.push(group)
                 }
                 //console.log(category, vendorIds)
