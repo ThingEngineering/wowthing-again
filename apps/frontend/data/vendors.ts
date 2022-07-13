@@ -1,6 +1,8 @@
 
 
 export const costOrder: number[] = [
+    0, // Gold
+
     // Shadowlands
     1813, // Reservoir Anima
     1767, // Stygia
@@ -10,6 +12,7 @@ export const costOrder: number[] = [
 
     // Legion
     1226, // Nethershard
+    1124099, // Blackfang Claw
 
     // Mists of Pandaria
     402, // Ironpaw Token
@@ -19,8 +22,5 @@ export const costOrder: number[] = [
     // Misc
     515, // Darkmoon Prize Ticket
     1166, // Timewarped Badge
-    0, // Gold
-
-    // Items
     1124669, // Darkmoon Daggermaw
 ]
