@@ -264,35 +264,34 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                 for (const vendorId of vendorIds) {
                     const vendor = state.data.shared.vendors[vendorId]
                     for (const item of vendor.sells) {
+                        let groupKey: string
+                        let groupName: string
+
                         if (item.type === RewardType.Mount) {
-                            autoGroups['0mounts'] ||= new ManualDataVendorGroup('Mounts', [])
-                            autoGroups['0mounts'].auto = true
-                            autoGroups['0mounts'].sells.push(item)
+                            [groupKey, groupName] = ['0mounts', 'Mounts']
                         }
                         else if (item.type === RewardType.Pet) {
-                            autoGroups['0pets'] ||= new ManualDataVendorGroup('Pets', [])
-                            autoGroups['0pets'].auto = true
-                            autoGroups['0pets'].sells.push(item)
+                            [groupKey, groupName] = ['0pets', 'Pets']
                         }
                         else if (item.type === RewardType.Toy) {
-                            autoGroups['0toys'] ||= new ManualDataVendorGroup('Toys', [])
-                            autoGroups['0toys'].auto = true
-                            autoGroups['0toys'].sells.push(item)
+                            [groupKey, groupName] = ['0toys', 'Toys']
                         }
                         else if (item.type === RewardType.Armor) {
-                            autoGroups['1armor'] ||= new ManualDataVendorGroup('Armor', [])
-                            autoGroups['1armor'].auto = true
-                            autoGroups['1armor'].sells.push(item)
+                            [groupKey, groupName] = ['1armor', 'Armor']
                         }
                         else if (item.type === RewardType.Weapon) {
-                            autoGroups['1weapons'] ||= new ManualDataVendorGroup('Weapons', [])
-                            autoGroups['1weapons'].auto = true
-                            autoGroups['1weapons'].sells.push(item)
+                            [groupKey, groupName] = ['1weapons', 'Weapons']
                         }
                         else if (item.type === RewardType.Cosmetic || item.type === RewardType.Transmog) {
-                            autoGroups['2transmog'] ||= new ManualDataVendorGroup('Transmog', [])
-                            autoGroups['2transmog'].auto = true
-                            autoGroups['2transmog'].sells.push(item)
+                            [groupKey, groupName] = ['2transmog', 'Transmog']
+                        }
+
+                        if (groupKey) {
+                            autoGroups[groupKey] ||= new ManualDataVendorGroup(groupName, [])
+                            autoGroups[groupKey].auto = true
+                            if (!some(autoGroups[groupKey].sells, (sell) => sell.type === item.type && sell.id === item.id)) {
+                                autoGroups[groupKey].sells.push(item)
+                            }
                         }
                     }
                 }
