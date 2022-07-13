@@ -46,7 +46,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheStatic,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(1),
-            Version = 50,
+            Version = 51,
         };
 
         public override async Task Run(params string[] data)
@@ -144,6 +144,7 @@ namespace Wowthing.Backend.Jobs.Misc
                 .ToArrayAsync();
 
             var specs = await Context.WowCharacterSpecialization
+                .Where(spec => spec.Order < 4)
                 .OrderBy(spec => spec.Id)
                 .ToArrayAsync();
 
