@@ -17,4 +17,7 @@ export const costOrder: number[] = [
     515, // Darkmoon Prize Ticket
     1166, // Timewarped Badge
     0, // Gold
+
+    // Items
+    1124669, // Darkmoon Daggermaw
 ]

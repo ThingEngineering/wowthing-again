@@ -34,8 +34,8 @@
                     for (const costKey of costOrder) {
                         if (thing.costs[costKey]) {
                             costs.push([
-                                'currency',
-                                costKey,
+                                costKey > 1000000 ? 'item' : 'currency',
+                                costKey > 1000000 ? costKey - 1000000 : costKey,
                                 toNiceNumber(thing.costs[costKey]),
                             ])
                         }

@@ -371,6 +371,15 @@ public class CacheManualJob : JobBase, IScheduledJob
             item.ClassMask = _itemMap[item.Id].GetCalculatedClassMask();
             item.Quality = _itemMap[item.Id].Quality;
         }
+
+        // Costs with an ID >1 million are items
+        foreach (var (currencyId, amount) in item.Costs.EmptyIfNull())
+        {
+            if (currencyId > 1_000_000)
+            {
+                _itemIds.Add(currencyId - 1_000_000);
+            }
+        }
     }
 
     private List<List<ManualZoneMapCategory>> LoadZoneMaps()

@@ -69,7 +69,7 @@ export class ManualDataVendorItem {
                     price = `${this.costs[key]}|${key}`
                 }
                 
-                if (this.reputation) {
+                if (this.reputation?.length === 2) {
                     parts.push(`{repPrice:${this.reputation[0]}|${this.reputation[1]}|${price}}`)
                 }
                 else {
