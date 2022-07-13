@@ -4,7 +4,7 @@ locations:
   z5_nagrand:
     - 50.4 41.4
 sells:
- - type: mount
+  - type: mount
     id: 625 # Domesticated Razorback
     costs:
       0: 5000 # Gold
