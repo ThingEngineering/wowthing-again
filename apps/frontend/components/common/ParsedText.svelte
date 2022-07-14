@@ -73,6 +73,7 @@
     afterUpdate(() => {
         const stringSpans = element.querySelectorAll('[data-string]')
         for (const span of stringSpans) {
+            span.replaceChildren()
             const dataString = span.getAttribute('data-string')
 
             if (iconStrings[dataString] || !imageStrings[dataString]) {
@@ -99,6 +100,7 @@
 
         const iconSpans = element.querySelectorAll('[data-icon]')
         for (const span of iconSpans) {
+            span.replaceChildren()
             new WowthingImage({
                 target: span,
                 props: {
