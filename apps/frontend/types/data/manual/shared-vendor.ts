@@ -1,5 +1,4 @@
 import { FarmIdType, FarmResetType, FarmType } from '@/types/enums'
-import type { StaticData } from '@/types/data/static'
 import type { ManualDataZoneMapDrop, ManualDataZoneMapFarm } from './zone-map'
 import { ManualDataVendorItem, type ManualDataVendorItemArray } from './vendor'
 

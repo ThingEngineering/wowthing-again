@@ -1,0 +1,18 @@
+id: 128756
+name: "Magister Langley"
+locations:
+  z5_stormshield:
+    - 54.6 17.6
+sells:
+  - type: mount
+    id: 639 # Pale Thorngrazer
+    costs:
+      0: 5000 # Gold
+      1137642: 100 # Mark of Honor
+    reputation: 1682 exalted # Wrynn's Vanguard
+
+  - type: transmog
+    id: 115517 # Wrynn's Vanguard Tabard [tabard]
+    costs:
+      0: 8 # Gold
+    reputation: 1682 exalted # Wrynn's Vanguard

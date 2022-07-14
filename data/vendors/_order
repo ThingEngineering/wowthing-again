@@ -7,6 +7,9 @@ z8/_shadowlands.yml
     z8/covenant_venthyr.yml
 
 z7/_battle_for_azeroth.yml
+    z7/mechagon.yml
+    z7/nazjatar.yml
+    -
     z7/boralus.yml
     z7/drustvar.yml
     z7/stormsong_valley.yml
@@ -18,6 +21,9 @@ z7/_battle_for_azeroth.yml
     z7/zuldazar.yml
 
 z6/_legion.yml
+    z6/antoran_wastes.yml
+    z6/vindicaar.yml
+    -
     z6/broken_shore.yml
     -
     z6/azsuna.yml
@@ -33,6 +39,9 @@ z5/_warlords_of_draenor.yml
     -
     z5/nagrand.yml
     z5/spires_of_arak.yml
+    -
+    z5/stormshield.yml
+    z5/warspear.yml
 
 z4/_mists_of_pandaria.yml
     z4/timeless_isle.yml

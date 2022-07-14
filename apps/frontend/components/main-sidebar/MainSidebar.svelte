@@ -12,7 +12,7 @@
         margin-left: -1rem;
         margin-right: 1rem;
         min-width: var(--width);
-        padding: 0.5rem 0;
+        padding: 0.2rem 0;
         position: sticky;
         top: 0;
         width: var(--width);
@@ -29,7 +29,7 @@
     }
     ul :global(.separator) {
         border-top: 1px solid $border-color;
-        margin: 0.5rem 0;
+        margin: 0.2rem 0;
     }
 </style>
 
