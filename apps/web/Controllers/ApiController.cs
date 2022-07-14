@@ -30,7 +30,7 @@ namespace Wowthing.Web.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly UserService _userService;
         private readonly WowDbContext _context;
-        
+
         public ApiController(
             CacheService cacheService,
             IConnectionMultiplexer redis,
@@ -129,7 +129,7 @@ namespace Wowthing.Web.Controllers
                 .Where(pci => pci.Character.Account.UserId == user.Id)
                 .Where(pci => itemIds.Contains(pci.ItemId))
                 .ToArrayAsync();
-            
+
             var ret = characterItems
                 .GroupBy(pci => pci.ItemId)
                 .Select(group => new ItemSearchResponseItem
@@ -186,7 +186,7 @@ namespace Wowthing.Web.Controllers
             }
 
             await _context.SaveChangesAsync();
-            
+
             return Json(new
             {
                 Accounts = accountMap.Values.ToList(),
@@ -231,7 +231,7 @@ namespace Wowthing.Web.Controllers
             {
                 return StatusCode((int)HttpStatusCode.NotModified);
             }
-        
+
             timer.AddPoint("LastModified");
 
             // Update user last visit
@@ -258,7 +258,8 @@ namespace Wowthing.Web.Controllers
             timer.AddPoint("Accounts");
 
             var characterQuery = _context.PlayerCharacter
-                .Where(c => c.Account.UserId == apiResult.User.Id);
+                .Where(c => c.Account.UserId == apiResult.User.Id)
+                .Where(c => c.Level > 0);
             if (apiResult.Public)
             {
                 characterQuery = characterQuery.Where(c => c.Level >= 11);
@@ -273,7 +274,7 @@ namespace Wowthing.Web.Controllers
                 .Include(c => c.Shadowlands)
                 .Include(c => c.Specializations)
                 .Include(c => c.Weekly);
-            
+
             if (!apiResult.Public || apiResult.Privacy.PublicCurrencies)
             {
                 characterQuery = characterQuery
@@ -285,7 +286,7 @@ namespace Wowthing.Web.Controllers
                 characterQuery = characterQuery
                     .Include(c => c.Lockouts);
             }
-            
+
             if (!apiResult.Public || apiResult.Privacy.PublicMythicPlus)
             {
                 characterQuery = characterQuery
@@ -308,7 +309,7 @@ namespace Wowthing.Web.Controllers
             var characterIds = characters
                 .Select(character => character.Id)
                 .ToArray();
-            
+
             // Bags
             var bagItems = Array.Empty<PlayerCharacterItem>();
             if (!apiResult.Public)
@@ -318,13 +319,13 @@ namespace Wowthing.Web.Controllers
                     .Where(pci => characterIds.Contains(pci.CharacterId) && pci.Slot == 0)
                     .ToArrayAsync();
             }
-            
+
             // Progress items
             var progressItems = await _context.PlayerCharacterItem
                 .AsNoTracking()
                 .Where(pci => characterIds.Contains(pci.CharacterId) && Hardcoded.ProgressItemIds.Contains(pci.ItemId))
                 .ToArrayAsync();
-            
+
             timer.AddPoint("Characters");
 
             var globalDailies = await _context.GlobalDailies
@@ -356,11 +357,11 @@ namespace Wowthing.Web.Controllers
             }
 
             timer.AddPoint("Dailies");
-            
+
             var backgrounds = await _context.BackgroundImage
                 .Where(bi => bi.Role == null)
                 .ToDictionaryAsync(bi => bi.Id);
-            
+
             var images = await _context.Image
                 .Where(image =>
                     (image.Type == ImageType.Character || image.Type == ImageType.CharacterFull) &&
@@ -370,9 +371,9 @@ namespace Wowthing.Web.Controllers
                     image => $"{image.Id.ToString()}-{((int)image.Type).ToString()}",
                     image => image.Url
                 );
-            
+
             timer.AddPoint("Images");
-            
+
             var currentPeriods = _context.WowPeriod
                 .AsEnumerable()
                 .GroupBy(p => p.Region)
@@ -400,7 +401,7 @@ namespace Wowthing.Web.Controllers
             var mounts = await _context.MountQuery
                 .FromSqlRaw(MountQuery.UserQuery, apiResult.User.Id)
                 .FirstAsync();
-            
+
             timer.AddPoint("Mounts");
 
             // Pets
@@ -418,9 +419,9 @@ namespace Wowthing.Web.Controllers
                     allPets.TryAdd(petId, pet);
                 }
             }
-            
+
             timer.AddPoint("Pets");
-            
+
             // Toys
             var toyIds = tempAccounts
                 .SelectMany(a => a.Toys?.ToyIds ?? Enumerable.Empty<int>())
@@ -428,7 +429,7 @@ namespace Wowthing.Web.Controllers
                 .ToArray();
 
             timer.AddPoint("Toys");
-            
+
             // Build response
             var apiData = new UserApi
             {
@@ -442,7 +443,7 @@ namespace Wowthing.Web.Controllers
                         apiResult.Privacy))
                     .ToList(),
                 LastApiCheck = apiResult.Public ? null : apiResult.User.LastApiCheck,
-                
+
                 Backgrounds = backgrounds,
                 CurrentPeriod = currentPeriods,
                 GlobalDailies = globalDailies,
@@ -457,7 +458,7 @@ namespace Wowthing.Web.Controllers
                 MountsPacked = SerializationUtilities.SerializeUInt16Array(mounts.Mounts
                     .EmptyIfNull()
                     .Select(m => (ushort)m).ToArray()),
-                
+
                 Pets = allPets
                     .Values
                     .GroupBy(pet => pet.SpeciesId)
@@ -469,14 +470,14 @@ namespace Wowthing.Web.Controllers
                             .Select(pet => new UserPetDataPet(pet))
                             .ToList()
                     ),
-                
+
                 ToysPacked = SerializationUtilities.SerializeInt32Array(toyIds),
             };
             var json = JsonConvert.SerializeObject(apiData);
 
             timer.AddPoint("Build", true);
             _logger.LogDebug("{Timer}", timer);
-            
+
             if (lastModified > DateTimeOffset.MinValue)
             {
                 Response.AddApiCacheHeaders(apiResult.Public, lastModified);
