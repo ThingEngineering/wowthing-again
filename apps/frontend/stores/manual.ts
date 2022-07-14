@@ -369,7 +369,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                         maps[0].requiredQuestIds.length === 0 ||
                         some(
                             maps[0].requiredQuestIds,
-                            (questId) => userQuestData.characters[char.id].quests.get(questId)
+                            (questId) => userQuestData.characters[char.id]?.quests?.get(questId)
                         )
                     )
                 )
@@ -411,7 +411,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                             map.requiredQuestIds.length === 0 ||
                             some(
                                 map.requiredQuestIds,
-                                (questId) => userQuestData.characters[char.id].quests.get(questId)
+                                (questId) => userQuestData.characters[char.id]?.quests?.get(questId)
                             )
                         ) &&
                         (
@@ -463,7 +463,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                             farmCharacters,
                             (c) => some(
                                 farm.requiredQuestIds,
-                                (q) => userQuestData.characters[c.id].quests.get(q)
+                                (q) => userQuestData.characters[c.id]?.quests?.get(q)
                             )
                         )
                     }
@@ -515,7 +515,10 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                                 break
 
                             case RewardType.Quest:
-                                if (!every(userQuestData.characters, (c) => c.quests.get(drop.id) !== undefined)) {
+                                if (!every(
+                                        userQuestData.characters,
+                                        (char) => char?.quests?.get(drop.id) !== undefined)
+                                    ) {
                                     dropStatus.need = true
                                 }
                                 break
@@ -627,7 +630,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                             if (drop.requiredQuestId > 0) {
                                 dropCharacters = filter(
                                     dropCharacters,
-                                    (c) => userQuestData.characters[c.id].quests.get(drop.requiredQuestId)
+                                    (c) => userQuestData.characters[c.id]?.quests?.get(drop.requiredQuestId)
                                 )
                             }
 
@@ -639,7 +642,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
 
                                 dropCharacters = filter(
                                     dropCharacters,
-                                    (c) => userQuestData.characters[c.id].quests.get(drop.id) === undefined,
+                                    (c) => userQuestData.characters[c.id]?.quests?.get(drop.id) === undefined,
                                 )
 
                                 if (!dropStatus.skip && dropCharacters.length === 0) {
