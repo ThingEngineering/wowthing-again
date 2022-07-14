@@ -9,7 +9,7 @@
 
     let counts: UserCount
     $: {
-        counts = $manualStore.data.zoneMaps.typeCounts[key][type]
+        counts = $manualStore.data.zoneMaps.typeCounts[key]?.[type]
     }
 </script>
 
