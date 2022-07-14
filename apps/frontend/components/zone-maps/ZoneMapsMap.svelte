@@ -4,7 +4,7 @@
 
     import { classOrder } from '@/data/character-class'
     import { iconStrings } from '@/data/icons'
-    import { manualStore, staticStore } from '@/stores'
+    import { manualStore } from '@/stores'
     import { zoneMapState } from '@/stores/local-storage/zone-map'
     import { zoneMapMedia } from '@/stores/media-queries/zone-map'
     import { RewardType, PlayableClass } from '@/types/enums'

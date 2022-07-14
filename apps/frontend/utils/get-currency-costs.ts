@@ -27,7 +27,7 @@ export function getCurrencyCosts(
 
     return sortBy(
         ret,
-        ([type, id, value]) => {
+        ([type, id, ]) => {
             const index = costOrder.indexOf(id)
             if (index >= 0) {
                 return toDigits(index, 6)
