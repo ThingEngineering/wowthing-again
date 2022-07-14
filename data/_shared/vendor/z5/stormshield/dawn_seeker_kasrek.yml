@@ -1,0 +1,11 @@
+id: 92501
+name: "Dawn-Seeker Kasrek"
+locations:
+  z5_stormshield:
+    - 51.6 61.8
+sells:
+  - type: mount
+    id: 632 # Mosshide Riverwallow
+    costs:
+      0: 50000 # Gold
+      823: 5000 # Apexis Crystal
