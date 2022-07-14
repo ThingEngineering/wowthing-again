@@ -85,7 +85,9 @@
         }
     }
     .subtree {
-        padding-left: 1.0rem;
+        :global(a) {
+            padding-left: 1.0rem;
+        }
     }
     .separator {
         border-top: 1px solid $border-color;
