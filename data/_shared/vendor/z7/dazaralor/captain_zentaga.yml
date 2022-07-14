@@ -37,7 +37,7 @@ sells:
   - type: toy
     id: 166663 # Hand Anchor
     costs:
-      1710: 100 # Seafarer's Dubloon
+      1710: 150 # Seafarer's Dubloon
 
   - type: transmog
     id: 160286 # Blue Tricorne Hat
