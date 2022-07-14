@@ -29,16 +29,13 @@
     let slugKey: string
 
     $: {
-        categories = filter(
-            find($manualStore.data.zoneMaps.sets, (s) => s !== null && s[0].slug === slug1),
-            (s) => s?.farms?.length > 0
-        )
+        categories = find($manualStore.data.zoneMaps.sets, (s) => s !== null && s[0]?.slug === slug1)
         if (slug2) {
-            categories = filter(categories, (s) => s.slug === slug2)
+            categories = filter(categories, (s) => s?.slug === slug2)
         }
         slugKey = slug2 ? `${slug1}--${slug2}` : slug1
 
-        if (categories.length > 0) {
+        if (categories?.length > 0) {
             farms = [...categories[0].farms]
             for (const vendorId of ($manualStore.data.shared.vendorsByMap[categories[0].mapName] || [])) {
                 farms.push(...$manualStore.data.shared.vendors[vendorId].asFarms(categories[0].mapName))
@@ -137,7 +134,7 @@
     }
 </style>
 
-{#if categories.length > 0 && farmStatuses}
+{#if categories?.length > 0}
     <div class="farm">
         <div class="toggles setting-toggles">
             <div class="toggle-group">
