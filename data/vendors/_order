@@ -7,6 +7,9 @@ z8/_shadowlands.yml
     z8/covenant_venthyr.yml
 
 z7/_battle_for_azeroth.yml
+    z7/mechagon.yml
+    z7/nazjatar.yml
+    -
     z7/boralus.yml
     z7/drustvar.yml
     z7/stormsong_valley.yml
