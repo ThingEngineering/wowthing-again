@@ -1,0 +1,10 @@
+id: 134446
+name: "Francois"
+locations:
+  z7_tiragarde_sound:
+    - 52.3 30.9
+sells:
+  - type: pet
+    id: 2165 # Francois
+    costs:
+      0: 1000000 # Gold

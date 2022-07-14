@@ -19,10 +19,12 @@ z7/_battle_for_azeroth.yml
     z7/arathi_highlands.yml
     z7/darkshore.yml
     -
+    z7/boralus.yml
     z7/drustvar.yml
     z7/stormsong_valley.yml
     z7/tiragarde_sound.yml
     -
+    z7/dazaralor.yml
     z7/nazmir.yml
     z7/voldun.yml
     z7/zuldazar.yml
