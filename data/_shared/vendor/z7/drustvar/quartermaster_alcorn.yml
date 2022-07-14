@@ -1,0 +1,35 @@
+id: 135815
+name: "Quartermaster Alcorn"
+locations:
+  z7_drustvar:
+    - 37.8 49.0 alliance
+sells:
+  - type: mount
+    id: 1062 # Dusky Waycrest Gryphon
+    costs:
+      0: 90000 # Gold
+    reputation: 2161 exalted # Order of Embers
+
+  - type: mount
+    id: 1016 # Smoky Charger
+    costs:
+      0: 10000 # Gold
+    reputation: 2161 exalted # Order of Embers
+
+  - type: pet
+    id: 2405 # Corlain Falcon
+    costs:
+      1163036: 200 # Polished Pet Charm
+    reputation: 2161 revered # Order of Embers
+
+  - type: transmog
+    id: 160541 # Order of Embers Tabard
+    costs:
+      0: 625 # Gold
+    reputation: 2161 exalted # Order of Embers
+
+  - type: transmog
+    id: 160535 # Witch Hunter's Cape
+    costs:
+      0: 1100 # Gold
+    reputation: 2161 honored # Order of Embers

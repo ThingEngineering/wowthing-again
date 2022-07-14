@@ -125,7 +125,7 @@
         justify-content: space-between;
         padding: 0 1px;
         position: absolute;
-        width: 100%;
+        right: 0;
         z-index: 10;
 
         div {

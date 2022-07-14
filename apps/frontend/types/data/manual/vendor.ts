@@ -78,7 +78,7 @@ export class ManualDataVendorItem {
             }
             return parts.join(', ')
         }
-        return undefined
+        return this.note
     }
 }
 export type ManualDataVendorItemArray = ConstructorParameters<typeof ManualDataVendorItem>
