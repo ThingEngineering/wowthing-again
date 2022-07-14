@@ -29,7 +29,7 @@
     }
     ul :global(.separator) {
         border-top: 1px solid $border-color;
-        margin: 0.5rem 0;
+        margin: 0.2rem 0;
     }
 </style>
 
