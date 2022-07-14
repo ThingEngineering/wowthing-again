@@ -32,12 +32,12 @@ namespace Wowthing.Backend.Jobs.User
             var path = string.Format(ApiPath, accessToken.Value);
 
             timer.AddPoint("Token");
-            
+
             // Fetch existing accounts
             var accountMap = await Context.PlayerAccount
                 .Where(a => a.UserId == userId)
                 .ToDictionaryAsync(k => (k.Region, k.AccountId));
-            
+
             // Add any new accounts
             var apiAccounts = new List<(WowRegion, ApiAccountProfileAccount)>();
             foreach (var region in EnumUtilities.GetValues<WowRegion>())
@@ -105,10 +105,10 @@ namespace Wowthing.Backend.Jobs.User
                 int accountId = 0;
                 int added = 0;
 
-                try
+                accountId = accountMap[(region, apiAccount.Id)].Id;
+                foreach (ApiAccountProfileCharacter apiCharacter in apiAccount.Characters)
                 {
-                    accountId = accountMap[(region, apiAccount.Id)].Id;
-                    foreach (ApiAccountProfileCharacter apiCharacter in apiAccount.Characters)
+                    try
                     {
                         var key = (apiCharacter.Realm.Id, apiCharacter.Name);
 
@@ -132,27 +132,38 @@ namespace Wowthing.Backend.Jobs.User
                         character.Gender = apiCharacter.Gender.EnumParse<WowGender>();
                         character.Name = apiCharacter.Name;
                     }
-                }
-                catch (Exception ex)
-                {
-                    Logger.Error(ex, "Error in region {Region}", region.ToString());
+                    catch (Exception ex)
+                    {
+                        Logger.Error(ex, "Error in region {Region}", region.ToString());
+                        Logger.Warning("Character: {json}", JsonConvert.SerializeObject(apiCharacter));
+                    }
                 }
 
                 if (added > 0)
                 {
-                    Logger.Information("Added {Added} character(s) to account {Region}/{AccountId}", added, region, accountId);
+                    Logger.Information("Added {Added} character(s) to account {Region}/{AccountId}", added, region,
+                        accountId);
                 }
             }
 
             timer.AddPoint("Characters");
-            
+
             // Delete any characters that weren't in the API response
             foreach ((var region, var apiAccount) in apiAccounts)
             {
                 var accountId = accountMap[(region, apiAccount.Id)].Id;
-                var characterIds = apiAccount.Characters
-                    .Select(c => characterMap[(c.Realm.Id, c.Name)].Id)
-                    .ToArray();
+                var characterIds = new List<int>();
+                foreach (var apiCharacter in apiAccount.Characters)
+                {
+                    if (characterMap.TryGetValue((apiCharacter.Realm?.Id ?? 0, apiCharacter.Name), out var character))
+                    {
+                        characterIds.Add(character.Id);
+                    }
+                    else
+                    {
+                        Logger.Warning("Invalid character??");
+                    }
+                }
 
                 int deleted = await Context
                     .DeleteRangeAsync<PlayerCharacter>(c => c.AccountId == accountId && !characterIds.Contains(c.Id));
@@ -161,17 +172,17 @@ namespace Wowthing.Backend.Jobs.User
                     Logger.Information("Deleted {0} character(s) from account {1}/{2}", deleted, region, accountId);
                 }
             }
-            
+
             timer.AddPoint("Delete");
-            
+
             int updated = await Context.SaveChangesAsync();
             if (updated > 0)
             {
                 await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, userId);
             }
-            
+
             timer.AddPoint("Save", true);
-            
+
             Logger.Debug("{Timer}", timer);
             Logger.Information("Completed in {Z}", timer.TotalDuration);
         }
