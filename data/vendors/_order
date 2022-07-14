@@ -18,6 +18,9 @@ z7/_battle_for_azeroth.yml
     z7/zuldazar.yml
 
 z6/_legion.yml
+    z6/antoran_wastes.yml
+    z6/vindicaar.yml
+    -
     z6/broken_shore.yml
     -
     z6/azsuna.yml
