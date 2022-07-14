@@ -12,7 +12,7 @@
         margin-left: -1rem;
         margin-right: 1rem;
         min-width: var(--width);
-        padding: 0.5rem 0;
+        padding: 0.2rem 0;
         position: sticky;
         top: 0;
         width: var(--width);

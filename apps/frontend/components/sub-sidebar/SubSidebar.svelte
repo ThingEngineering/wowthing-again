@@ -32,7 +32,7 @@
         --link-color: #64e1ff;
 
         border: 1px solid $border-color;
-        padding: 0.5rem 0;
+        padding: 0.2rem 0;
         width: 100%;
     }
 </style>
