@@ -3,6 +3,44 @@ name: "Baruma"
 locations:
   misc_darkmoon_island:
     - 47.8 65.4
+
+sets:
+  - name: "Sorcerer's Regalia"
+    range: 0 8
+    sortKey: "d2-1"
+  
+  - name: "Vestments of the Virtuous"
+    range: 8 8
+    sortKey: "d2-2"
+  
+  - name: "Deathmist Raiment"
+    range: 16 8
+    sortKey: "d2-3"
+  
+  - name: "Feralheart Raiment"
+    range: 24 8
+    sortKey: "d2-4"
+  
+  - name: "Darkmantle Armor"
+    range: 32 8
+    sortKey: "d2-5"
+  
+  - name: "Beastmaster Armor"
+    range: 40 8
+    sortKey: "d2-6"
+  
+  - name: "The Five Thunders"
+    range: 48 8
+    sortKey: "d2-7"
+  
+  - name: "Soulforge Armor"
+    range: 56 8
+    sortKey: "d2-8"
+  
+  - name: "Battlegear of Heroism"
+    range: 64 8
+    sortKey: "d2-9"
+
 sells:
   - type: transmog
     id: 78198 # Replica Sorcerer's Crown
