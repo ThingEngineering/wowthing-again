@@ -3,6 +3,7 @@ import type { RewardType } from '@/types/enums'
 
 export interface FarmStatus {
     characters: CharacterStatus[]
+    link?: string
     need: boolean
     drops: DropStatus[]
 }

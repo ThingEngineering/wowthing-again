@@ -4,8 +4,8 @@
 
     import { iconStrings, imageStrings, rewardTypeIcons } from '@/data/icons'
     import { weaponSubclassToString } from '@/data/weapons'
-    import { achievementStore, manualStore, staticStore, userAchievementStore, userStore } from '@/stores'
-    import { ArmorType, RewardType, FarmResetType, FarmType } from '@/types/enums'
+    import { achievementStore, journalStore, manualStore, staticStore, userAchievementStore, userStore } from '@/stores'
+    import { ArmorType, RewardType, FarmResetType, FarmType, FarmIdType } from '@/types/enums'
     import type { DropStatus, FarmStatus } from '@/types'
     import type { ManualDataZoneMapDrop, ManualDataZoneMapFarm } from '@/types/data/manual'
 
@@ -196,6 +196,15 @@
             {#if statistic > 0}
                  <tr>
                     <td class="statistic" colspan="3">{statistic.toLocaleString()} attempts</td>
+                </tr>
+            {/if}
+
+            {#if farm.idType == FarmIdType.Instance}
+                {@const stats = $journalStore.data.stats[status.link.replace('/', '--')]}
+                <tr>
+                    <td colspan="3">
+                        {stats.have} / {stats.total} drops
+                    </td>
                 </tr>
             {/if}
 

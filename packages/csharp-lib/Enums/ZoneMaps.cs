@@ -25,6 +25,7 @@
         Npc = 1,
         Object,
         Quest,
+        Instance,
     }
 
     public enum FarmResetType

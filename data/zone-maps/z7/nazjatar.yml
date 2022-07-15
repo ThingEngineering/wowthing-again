@@ -207,3 +207,11 @@ farms:
 
   - type: transmog
     id: 169928 # Wekemara's Warboots
+
+# Instance
+
+- name: "The Eternal Palace"
+  instanceId: 1179
+  location: 50.5 12.0
+  reset: weekly
+  type: raid
