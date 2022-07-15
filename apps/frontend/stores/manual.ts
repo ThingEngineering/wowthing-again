@@ -410,6 +410,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                     [RewardType.Quest]: new UserCount(),
                     [RewardType.Toy]: new UserCount(),
                     [RewardType.Transmog]: new UserCount(),
+                    [RewardType.SetSpecial]: new UserCount(),
                 }
 
                 const mapSeen: Record<string, Record<number, boolean>> = {}
@@ -557,6 +558,14 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                                     dropStatus.need = true
                                 }
                                 fixedType = RewardType.Transmog
+                                break
+                            
+                            case RewardType.SetSpecial:
+                                dropStatus.setHave = drop.itemIds.filter(
+                                    (itemId) => userTransmogData.userHas[manualData.shared.items[itemId]?.appearanceId ?? 0]
+                                ).length
+                                dropStatus.setNeed = drop.itemIds.length
+                                dropStatus.need = dropStatus.setHave < dropStatus.setNeed
                                 break
                         }
 

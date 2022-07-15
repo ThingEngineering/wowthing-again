@@ -46,6 +46,8 @@ export class ManualDataZoneMapFarm {
 export type ManualDataZoneMapFarmArray = ConstructorParameters<typeof ManualDataZoneMapFarm>
 
 export class ManualDataZoneMapDrop {
+    public itemIds?: number[]
+
     constructor(
         public id: number,
         public type: RewardType,

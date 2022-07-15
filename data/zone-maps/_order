@@ -8,6 +8,8 @@ z8/_shadowlands.yml
     z8/bastion.yml
     z8/maldraxxus.yml
     z8/revendreth.yml
+    -
+    z8/oribos_1.yml
 
 z7/_battle_for_azeroth.yml
     z7/uldum.yml

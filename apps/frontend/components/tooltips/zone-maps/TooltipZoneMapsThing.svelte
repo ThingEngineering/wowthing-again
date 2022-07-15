@@ -6,6 +6,7 @@
     import { weaponSubclassToString } from '@/data/weapons'
     import { achievementStore, journalStore, manualStore, staticStore, userAchievementStore, userStore } from '@/stores'
     import { ArmorType, RewardType, FarmResetType, FarmType, FarmIdType } from '@/types/enums'
+    import leftPad from '@/utils/left-pad'
     import type { DropStatus, FarmStatus } from '@/types'
     import type { ManualDataZoneMapDrop, ManualDataZoneMapFarm } from '@/types/data/manual'
 
@@ -64,6 +65,9 @@ import { difficultyMap } from '@/data/difficulty';
         }
         else if (drop.type === RewardType.InstanceSpecial) {
             return difficultyMap[drop.id].name
+        }
+        else if (drop.type === RewardType.SetSpecial) {
+            return drop.limit[0]
         }
         else {
             return "???"
@@ -240,6 +244,8 @@ import { difficultyMap } from '@/data/difficulty';
                             {weaponSubclassToString[drop.subType]}
                         {:else if drop.type === RewardType.InstanceSpecial}
                             {@html drop.limit[0]}
+                        {:else if drop.type === RewardType.SetSpecial}
+                            <code>{@html leftPad(dropStatus.setHave, 2)} / {@html leftPad(dropStatus.setNeed, 2)}</code>
                         {:else if drop.limit?.length > 0}
                             {drop.limit[1]}
                             {#if drop.limit.length > 2}

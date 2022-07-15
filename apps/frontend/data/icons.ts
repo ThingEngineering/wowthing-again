@@ -25,6 +25,7 @@ import mdiLetterM from '@iconify/icons-mdi/alpha-m-box-outline'
 import mdiLetterP from '@iconify/icons-mdi/alpha-p-box-outline'
 import mdiLightningBoltOutline from '@iconify/icons-mdi/lightning-bolt-outline'
 import mdiLockOutline from '@iconify/icons-mdi/lock-outline'
+import mdiMulticast from '@iconify/icons-mdi/multicast'
 import mdiPageFirst from '@iconify/icons-mdi/page-first'
 import mdiPageLast from '@iconify/icons-mdi/page-last'
 import mdiPuzzle from '@iconify/icons-mdi/puzzle'
@@ -141,6 +142,7 @@ export const rewardTypeIcons: Record<number, IconifyIcon> = {
     [RewardType.Weapon]: mdiAxeBattle,
 
     [RewardType.InstanceSpecial]: faDungeon,
+    [RewardType.SetSpecial]: mdiMulticast,
 }
 
 export const soulbindSockets: Record<number, IconifyIcon> = {
