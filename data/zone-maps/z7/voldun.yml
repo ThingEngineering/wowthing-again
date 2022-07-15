@@ -2,6 +2,13 @@ name: Vol'dun
 mapName: z7_voldun
 farms:
 
+# Instance
+
+- name: "Temple of Sethraliss"
+  instanceId: 1030
+  location: 51.9 25.1
+  type: dungeon
+
 # Kills
 
 - name: "Ak'tar"

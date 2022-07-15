@@ -2,6 +2,14 @@ name: "Townlong Steppes"
 mapName: "z4_townlong_steppes"
 farms:
 
+# Instance
+
+- name: "Siege of Niuzao Temple"
+  instanceId: 324
+  location: 34.7 81.6
+  type: dungeon
+
+# Kill
 # Shared loot here is necks
 
 - name: "G'nathus"

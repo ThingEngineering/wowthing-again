@@ -4,6 +4,20 @@ minimumLevel: 45
 requiredQuestId: 46730 # Armies of Legionfall
 farms:
 
+# Instance
+
+- name: "Tomb of Sargeras"
+  instanceId: 875
+  location: 64.1 21.2
+  type: raid
+
+- name: "Cathedral of Eternal Night"
+  instanceId: 900
+  location: 64.7 16.6
+  type: dungeon
+
+# Kill
+
 - name: "Lord Hel'Nurath"
   location: 45.2 51.8
   npcId: 119269

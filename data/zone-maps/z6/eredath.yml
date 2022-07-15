@@ -4,6 +4,15 @@ minimumLevel: 10
 requiredQuestId: 48440 # Into the Night
 farms:
 
+# Instance
+
+- name: "Seat of the Triumvirate"
+  instanceId: 945
+  location: 22.1 56.2
+  type: dungeon
+
+# Kill
+
 - name: "Ataxon"
   location: 30.3 40.4
   npcId: 126887

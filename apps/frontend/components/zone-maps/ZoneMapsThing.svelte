@@ -22,13 +22,14 @@
     $: {
         if (farm.type === FarmType.Dungeon || farm.type === FarmType.Raid) {
             status = getInstanceFarmStatus($journalStore.data, $staticStore.data, farm)
+            //big = farm.type === FarmType.Raid
             topOffset = '0px'
         }
         else {
+            big = FarmType[farm.type].indexOf('Big') > 0
             topOffset = (status.need && farm.type !== FarmType.Vendor) ? (big ? '7px' : '7px') : '0px'
         }
 
-        big = FarmType[farm.type].indexOf('Big') > 0
 
         show = true
         if (!$zoneMapState.showCompleted && !status.need) {
@@ -84,6 +85,12 @@
             &.horde {
                 color: #ff8888;
             }
+            &.dungeon {
+                color: #fff53f;
+            }
+            &.raid {
+                color: #fb7fff;
+            }
         }
         &.inactive {
             color: #00bb00;
@@ -124,7 +131,7 @@
                 <div class="{classes.join(' ')}">
                     <IconifyIcon
                         icon={farmTypeIcons[farm.type]}
-                        scale={big ? '1.25' : '1'}
+                        scale={'1'}
                     />
                 </div>
             </a>

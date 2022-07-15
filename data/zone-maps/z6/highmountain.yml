@@ -3,6 +3,15 @@ mapName: z6_highmountain
 minimumLevel: 10
 farms:
 
+# Instance
+
+- name: "Neltharion's Lair"
+  instanceId: 767
+  location: 49.7 68.7
+  type: dungeon
+
+ # Kill
+
 # npc=100230 - quest/chest?
 #- name: "Amateur Hunters"
 #  location: 43.16 48.00

@@ -2,6 +2,13 @@ name: Tiragarde Sound
 mapName: z7_tiragarde_sound
 farms:
 
+# Instance
+
+- name: "Freehold"
+  instanceId: 1001
+  location: 84.6 78.9
+  type: dungeon
+
 # Kills
 
 - name: "Barman Bill"

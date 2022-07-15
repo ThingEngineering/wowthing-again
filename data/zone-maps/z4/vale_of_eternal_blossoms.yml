@@ -2,6 +2,26 @@ name: "Vale of Eternal Blossoms"
 mapName: "z4_vale_of_eternal_blossoms"
 farms:
 
+# Instance
+
+- name: "Mogu'shan Palace"
+  instanceId: 321
+  location: 80.9 32.8
+  type: dungeon
+
+- name: "Gate of the Setting Sun"
+  instanceId: 303
+  location: 15.8 74.3
+  type: dungeon
+
+- name: "Siege of Orgrimmar"
+  instanceId: 369
+  location: 72.4 44.2
+  reset: weekly
+  type: raid
+
+# Kill
+
 - name: "Ai-Ran the Shifting Cloud"
   location: 42.4 69.0
   npcId: 50822

@@ -2,6 +2,15 @@ name: "Jade Forest, The"
 mapName: "z4_the_jade_forest"
 farms:
 
+# Instance
+
+- name: "Temple of the Jade Serpent"
+  instanceId: 313
+  location: 56.2 57.9
+  type: dungeon
+
+# Kill
+
 - name: "Aethis"
   location: 33.4 50.8
   npcId: 50750

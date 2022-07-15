@@ -4,6 +4,8 @@ minimumLevel: 45
 wowheadGuide: https://www.wowhead.com/arathi-highlights-outdoor-warfronts-rewards
 farms:
 
+# Kill
+
 - name: Beastrider Kama
   location: 65.3 71.2
   npcId: 142709
@@ -198,13 +200,15 @@ farms:
   - type: toy
     id: 163745 # Witherbark Gong
 
-# World bosses
+# World Boss
+
 - name: Doom's Howl
   faction: alliance
   location: 37.1 39.2
   npcId: 138122
   questId: 53002
   reset: weekly
+  type: killBig
   drops:
   - type: toy
     id: 163828 # Toy Siege Tower
@@ -215,6 +219,7 @@ farms:
   npcId: 137374
   questId: 53001
   reset: weekly
+  type: killBig
   drops:
   - type: toy
     id: 163829 # Toy War Machine

@@ -2,6 +2,13 @@ name: Drustvar
 mapName: z7_drustvar
 farms:
 
+# Instance
+
+- name: "Waycrest Manor"
+  instanceId: 1021
+  location: 33.8 12.6
+  type: dungeon
+
 # Kills
 
 - name: "Arclight"

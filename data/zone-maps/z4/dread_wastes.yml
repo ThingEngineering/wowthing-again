@@ -2,6 +2,21 @@ name: "Dread Wastes"
 mapName: "z4_dread_wastes"
 farms:
 
+# Instance
+
+- name: "Gate of the Setting Sun"
+  instanceId: 303
+  location: 76.0 20.6
+  type: dungeon
+
+- name: "Heart of Fear"
+  instanceId: 330
+  location: 38.8 35.0
+  reset: weekly
+  type: raid
+
+# Kill
+
 - name: "Ai-Li Skymirror"
   location: 34.8 23.0
   npcId: 50821

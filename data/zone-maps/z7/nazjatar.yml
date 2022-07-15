@@ -5,6 +5,16 @@ requiredQuestId: 54972 55053 # [A] A Way Home/[H] A Way Home
 wowheadGuide: https://www.wowhead.com/guides/comprehensive-nazjatar-guide
 farms:
 
+# Instance
+
+- name: "The Eternal Palace"
+  instanceId: 1179
+  location: 50.5 12.0
+  reset: weekly
+  type: raid
+
+# Kill
+
 - name: "Avarius"
   location: 36.9 11.2
   npcId: 150191
@@ -207,11 +217,3 @@ farms:
 
   - type: transmog
     id: 169928 # Wekemara's Warboots
-
-# Instance
-
-- name: "The Eternal Palace"
-  instanceId: 1179
-  location: 50.5 12.0
-  reset: weekly
-  type: raid

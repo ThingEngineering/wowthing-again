@@ -2,6 +2,16 @@ name: "Isle of Thunder"
 mapName: "z4_isle_of_thunder"
 farms:
 
+# Instance
+
+- name: "Throne of Thunder"
+  instanceId: 362
+  location: 63.6 32.3
+  reset: weekly
+  type: raid
+
+# Kill
+
 - name: "Haywire Sunreaver Construct"
   location: 48.2 87.0
   npcId: 50358

@@ -4,6 +4,15 @@ minimumLevel: 10
 requiredQuestId: 48440 # Into the Night
 farms:
 
+# Instance
+
+- name: "Antorus, the Burning Throne"
+  instanceId: 946
+  location: 55.0 62.4
+  type: raid
+
+# Kill
+
 - name: "Admiral Rel'var"
   location: 73.6 71.8
   npcId: 127090

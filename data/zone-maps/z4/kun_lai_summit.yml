@@ -2,6 +2,21 @@ name: "Kun-Lai Summit"
 mapName: "z4_kun_lai_summit"
 farms:
 
+# Instance
+
+- name: "Shado-Pan Monastery"
+  instanceId: 312
+  location: 36.7 47.3
+  type: dungeon
+
+- name: "Mogu'shan Vaults"
+  instanceId: 317
+  location: 59.6 39.2
+  reset: weekly
+  type: raid
+
+# Kill
+
 - name: "Ahone the Wanderer"
   location: 40.6 42.8
   npcId: 50817
