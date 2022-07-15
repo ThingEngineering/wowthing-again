@@ -4,6 +4,14 @@ minimumLevel: 60
 wowheadGuide: https://www.wowhead.com/guides/shadowlands-ardenweald-rares-treasures
 farms:
 
+# Instance
+
+- name: "Sepulcher of the First Ones"
+  instanceId: 1195
+  location: 80.6 53.4
+  reset: weekly
+  type: raid
+
 # Kills
 
 - name: "Akkaris"

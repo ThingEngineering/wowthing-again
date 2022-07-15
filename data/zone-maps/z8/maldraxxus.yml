@@ -4,6 +4,20 @@ minimumLevel: 48
 wowheadGuide: https://www.wowhead.com/guides/shadowlands-maldraxxus-rares-treasures
 farms:
 
+# Instance
+
+- name: "Plaguefall"
+  instanceId: 1183
+  location: 59.2 64.8
+  type: dungeon
+
+- name: "Theater of Pain"
+  instanceId: 1187
+  location: 53.0 53.0
+  type: dungeon
+
+# Kill
+
 - name: "Bubbleblood"
   location: 52.7 35.4
   npcId: 162727

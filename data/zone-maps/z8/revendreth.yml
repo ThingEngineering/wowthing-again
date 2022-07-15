@@ -4,6 +4,26 @@ minimumLevel: 48
 wowheadGuide: https://www.wowhead.com/guides/shadowlands-revendreth-rares-treasures
 farms:
 
+# Instance
+
+- name: "Halls of Atonement"
+  instanceId: 1185
+  location: 78.3 49.1
+  type: dungeon
+
+- name: "Sanguine Depths"
+  instanceId: 1189
+  location: 50.9 29.9
+  type: dungeon
+
+- name: "Castle Nathria"
+  instanceId: 1190
+  location: 46.2 41.2
+  reset: weekly
+  type: raid
+
+# Kill
+
 - name: "Amalgamation of Filth"
   location: 53.2 73.0
   npcId: 166393
