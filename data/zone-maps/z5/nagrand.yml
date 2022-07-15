@@ -3,6 +3,16 @@ mapName: "z5_nagrand"
 minimumLevel: 35
 farms:
 
+# Instance
+
+- name: "Highmaul"
+  instanceId: 477
+  location: 32.9 38.4
+  reset: weekly
+  type: raid
+
+# Kill
+
 - name: "Bonebreaker"
   location: 40.0 16.0
   npcId: 87837
