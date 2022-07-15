@@ -17,12 +17,12 @@
     import RowMythicPlusScore from '@/components/character-table/row/RaiderIo.svelte'
     import RowPlayedTime from './table/row/HomeTableRowPlayedTime.svelte'
     import RowProfessions from './table/row/HomeTableRowProfessions.svelte'
-    import RowProgressQuest from './table/row/HomeTableRowProgressQuest.svelte'
     import RowRestedExperience from './table/row/HomeTableRowRestedExperience.svelte'
     import RowStatuses from './table/row/HomeTableRowStatuses.svelte'
     import RowVaultMythicPlus from '@/components/character-table/row/VaultMythicPlus.svelte'
     import RowVaultPvp from '@/components/character-table/row/VaultPvp.svelte'
     import RowVaultRaid from '@/components/character-table/row/VaultRaid.svelte'
+    import RowWeeklies from './table/row/HomeTableRowWeeklies.svelte'
 
     export let characterLimit = 0
 
@@ -138,11 +138,8 @@
             {:else if field === 'vaultRaid'}
                 <RowVaultRaid {character} />
 
-            {:else if field.startsWith('weekly')}
-                <RowProgressQuest
-                    {character}
-                    quest={field}
-                />
+            {:else if field === 'weeklies'}
+                <RowWeeklies {character} />
 
             {:else}
                 <td>&nbsp;</td>

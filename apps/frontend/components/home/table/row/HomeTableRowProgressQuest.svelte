@@ -25,11 +25,10 @@
             valid = true
             title = progressQuestTitle[quest]
 
-            if (quest === 'weeklyAnima' || quest === 'weeklySouls') {
+            if (quest === 'slAnima') {
                 const covenant = covenantMap[character.shadowlands?.covenantId]
                 if (covenant) {
-                    quest = quest.replace('weekly', '').toLowerCase()
-                    quest = `${covenant.slug.replace('-fae', 'Fae')}${quest === 'anima' ? 'Anima' : 'Souls'}`
+                    quest = `${covenant.slug.replace('-fae', 'Fae')}Anima`
                 }
             }
             else {

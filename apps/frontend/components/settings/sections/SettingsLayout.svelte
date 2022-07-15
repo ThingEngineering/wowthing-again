@@ -39,12 +39,7 @@
         {key: 'vaultMythicPlus', name: 'Vault - Mythic+'},
         {key: 'vaultPvp', name: 'Vault - PvP'},
         {key: 'vaultRaid', name: 'Vault - Raid'},
-        {key: 'weeklyAnima', name: 'Weekly - Anima'},
-        {key: 'weeklyHoliday', name: 'Weekly - Holiday'},
-        {key: 'weeklyKorthia', name: 'Weekly - Korthia'},
-        {key: 'weeklyPatterns', name: 'Weekly - Patterns'},
-        {key: 'weeklyPvp', name: 'Weekly - PvP'},
-        {key: 'weeklySouls', name: 'Weekly - Souls'},
+        {key: 'weeklies', name: 'Weeklies'},
     ]
 
     const commonActive = $settingsData.layout.commonFields.map(

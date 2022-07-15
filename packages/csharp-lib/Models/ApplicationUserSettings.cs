@@ -95,12 +95,21 @@ namespace Wowthing.Lib.Models
             "vaultMythicPlus",
             "vaultPvp",
             "vaultRaid",
-            "weeklyAnima",
-            "weeklyHoliday",
-            "weeklyKorthia",
-            "weeklyPatterns",
-            "weeklyPvp",
-            "weeklySouls",
+            "weeklies",
+        };
+
+        private readonly HashSet<string> _validHomeWeeklies = new()
+        {
+            "holidayArenaSkirmishes",
+            "holidayBattlegrounds",
+            "holidayDungeons",
+            "holidayPetBattles",
+            "holidayTimewalking",
+            "holidayWorldQuests",
+
+            "slAnima",
+            "slKorthia",
+            "slZerethMortis",
         };
 
         private void Validate()
@@ -171,6 +180,12 @@ namespace Wowthing.Lib.Models
                 Layout.HomeFields.Add("itemLevel");
                 Layout.HomeFields.Add("covenant");
             }
+
+            Layout.HomeWeeklies = Layout.HomeWeeklies
+                .EmptyIfNull()
+                .Where(field => _validHomeWeeklies.Contains(field))
+                .Distinct()
+                .ToList();
         }
     }
 
@@ -205,6 +220,7 @@ namespace Wowthing.Lib.Models
         public List<string> CommonFields { get; set; } = new();
         public List<string> HomeFields { get; set; } = new();
         public List<int> HomeLockouts { get; set; } = new();
+        public List<string> HomeWeeklies { get; set; } = new();
     }
 
     public class ApplicationUserSettingsPrivacy

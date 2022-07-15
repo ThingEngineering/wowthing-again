@@ -17,7 +17,11 @@
                 {
                     name: 'Lockouts',
                     slug: 'lockouts',
-                }
+                },
+                {
+                    name: 'Weeklies',
+                    slug: 'weeklies',
+                },
             ],
         },
         {

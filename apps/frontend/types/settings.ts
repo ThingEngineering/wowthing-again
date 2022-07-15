@@ -26,6 +26,7 @@ export interface Settings {
         commonFields: string[]
         homeFields: string[]
         homeLockouts: number[]
+        homeWeeklies: string[]
         covenantColumn: 'current' | 'all'
         includeArchaeology: boolean
         padding: 'small' | 'medium' | 'large'

@@ -1,15 +1,16 @@
 <script lang="ts">
     import type { SvelteComponent } from 'svelte'
 
-    import SettingsAuctions from './sections/SettingsAuctions.svelte'
-    import SettingsAccount from './sections/SettingsAccount.svelte'
-    import SettingsHideCharacters from './sections/SettingsHideCharacters.svelte'
-    import SettingsLayout from './sections/SettingsLayout.svelte'
-    import SettingsLockouts from './sections/SettingsLockouts.svelte'
-    import SettingsPinCharacters from './sections/SettingsPinCharacters.svelte'
-    import SettingsPrivacy from './sections/SettingsPrivacy.svelte'
-    import SettingsSortCharacters from './sections/SettingsSortCharacters.svelte'
-    import SettingsTransmog from './sections/SettingsTransmog.svelte'
+    import Auctions from './sections/SettingsAuctions.svelte'
+    import Account from './sections/SettingsAccount.svelte'
+    import HideCharacters from './sections/SettingsHideCharacters.svelte'
+    import Layout from './sections/SettingsLayout.svelte'
+    import Lockouts from './sections/SettingsLockouts.svelte'
+    import PinCharacters from './sections/SettingsPinCharacters.svelte'
+    import Privacy from './sections/SettingsPrivacy.svelte'
+    import SortCharacters from './sections/SettingsSortCharacters.svelte'
+    import Transmog from './sections/SettingsTransmog.svelte'
+    import Weeklies from './sections/SettingsWeeklies.svelte'
 
     export let slug1: string
     export let slug2: string
@@ -20,15 +21,16 @@
     }
 
     const components: Record<string, typeof SvelteComponent> = {
-        'account': SettingsAccount,
-        'auctions': SettingsAuctions,
-        'layout': SettingsLayout,
-        'layout/lockouts': SettingsLockouts,
-        'privacy': SettingsPrivacy,
-        'transmog': SettingsTransmog,
-        'hide-characters': SettingsHideCharacters,
-        'pin-characters': SettingsPinCharacters,
-        'sort-characters': SettingsSortCharacters,
+        'account': Account,
+        'auctions': Auctions,
+        'layout': Layout,
+        'layout/lockouts': Lockouts,
+        'layout/weeklies': Weeklies,
+        'privacy': Privacy,
+        'transmog': Transmog,
+        'hide-characters': HideCharacters,
+        'pin-characters': PinCharacters,
+        'sort-characters': SortCharacters,
     }
 </script>
 
