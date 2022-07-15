@@ -2,21 +2,22 @@
     import difference from 'lodash/difference'
     import sortBy from 'lodash/sortBy'
 
+    import { difficultyMap } from '@/data/difficulty'
     import { iconStrings, imageStrings, rewardTypeIcons } from '@/data/icons'
     import { weaponSubclassToString } from '@/data/weapons'
     import { achievementStore, journalStore, manualStore, staticStore, userAchievementStore, userStore } from '@/stores'
     import { ArmorType, RewardType, FarmResetType, FarmType, FarmIdType } from '@/types/enums'
     import leftPad from '@/utils/left-pad'
     import type { DropStatus, FarmStatus } from '@/types'
-    import type { ManualDataZoneMapDrop, ManualDataZoneMapFarm } from '@/types/data/manual'
+    import type { ManualDataZoneMapCategory, ManualDataZoneMapDrop, ManualDataZoneMapFarm } from '@/types/data/manual'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
-import { difficultyMap } from '@/data/difficulty';
 
     export let drops: ManualDataZoneMapDrop[]
     export let farm: ManualDataZoneMapFarm
+    export let map: ManualDataZoneMapCategory
     export let status: FarmStatus
 
     let sortedDrops: [ManualDataZoneMapDrop, DropStatus][]
@@ -76,6 +77,9 @@ import { difficultyMap } from '@/data/difficulty';
 
     const showCharacters = (drop: ManualDataZoneMapDrop, dropStatus: DropStatus, nextDrop: [ManualDataZoneMapDrop, DropStatus]): boolean => {
         if (farm.type === FarmType.Vendor && drop.type !== RewardType.Quest) {
+            return false
+        }
+        if (map.mapName === 'misc_exiles_reach') {
             return false
         }
 

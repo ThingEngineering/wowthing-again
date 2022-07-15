@@ -244,6 +244,7 @@
 
         {#each farms as farm, farmIndex}
             <Thing
+                map={categories[0]}
                 status={farmStatuses[farmIndex]}
                 {farm}
             />
