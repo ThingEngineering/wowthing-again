@@ -1,7 +1,7 @@
 ﻿using Wowthing.Backend.Models.Data.Vendors;
 using Wowthing.Lib.Enums;
 
-namespace Wowthing.Backend.Models.Manual;
+namespace Wowthing.Backend.Models.Manual.Vendors;
 
 public class ManualVendorItem
 {
@@ -14,8 +14,8 @@ public class ManualVendorItem
     public RewardType Type { get; set; }
     public Dictionary<int, int> Costs { get; set; }
 
-    [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public int? AppearanceId { get; set; }
+    public int? AppearanceItemId { get; set; }
 
     public ManualVendorItem()
     {}
@@ -31,6 +31,11 @@ public class ManualVendorItem
         if (item.AppearanceId > 0)
         {
             AppearanceId = item.AppearanceId;
+        }
+
+        if (item.AppearanceItemId > 0)
+        {
+            AppearanceItemId = item.AppearanceItemId;
         }
     }
 }

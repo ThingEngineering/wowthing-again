@@ -33,11 +33,13 @@ sells:
   - type: transmog
     id: 141372 # Arsenal: Armaments of the Ebon Blade
     appearanceId: 32596 # Bloodied Ebon Blade
+    note: "Death Knight only"
     costs:
       1226: 2000 # Nethershard
 
   - type: transmog
     id: 141371 # Arsenal: Armaments of the Silver Hand
     appearanceId: 28592 # Gilded Warhammer
+    note: "Paladin only"
     costs:
       1226: 1000 # Nethershard

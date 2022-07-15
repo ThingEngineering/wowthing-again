@@ -4,6 +4,15 @@ minimumLevel: 60
 wowheadGuide: https://www.wowhead.com/guides/shadowlands-korthia-desmotaeron-rares-treasures
 farms:
 
+# Instance
+
+- name: "Sanctum of Domination"
+  instanceId: 1193
+  location: 69.7 32.1
+  type: raid
+
+# Kill
+
 - name: "Adjutant Dekaris"
   location: 25.9 31.2
   npcId: 157964

@@ -4,6 +4,20 @@ minimumLevel: 48
 wowheadGuide: https://www.wowhead.com/guides/shadowlands-bastion-rares-treasures
 farms:
 
+# Instance
+
+- name: "Spires of Ascension"
+  instanceId: 1186
+  location: 58.4 28.7
+  type: dungeon
+
+- name: "The Necrotic Wake"
+  instanceId: 1182
+  location: 40.0 55.3
+  type: dungeon
+
+# Kill
+
 - name: "The Ascended Council"
   location: 53.5 88.7
   npcId: 170899

@@ -58,7 +58,7 @@
     }
 </script>
 
-{#if category}
+{#if category?.reputations}
     <CharacterTable
         skipGrouping={sorted}
         {filterFunc}

@@ -3,6 +3,15 @@ mapName: "z5_spires_of_arak"
 minimumLevel: 30
 farms:
 
+# Instance
+
+- name: "Skyreach"
+  instanceId: 476
+  location: 35.6 33.6
+  type: dungeon
+
+# Kill
+
 - name: "Betsi Boombasket"
   location: 58.2 84.6
   npcId: 84887

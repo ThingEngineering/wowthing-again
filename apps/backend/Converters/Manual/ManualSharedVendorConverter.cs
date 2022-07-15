@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
-using Wowthing.Backend.Models.Manual;
+using Wowthing.Backend.Models.Manual.Vendors;
 using Wowthing.Lib.Enums;
 
 namespace Wowthing.Backend.Converters.Manual;
@@ -36,12 +36,37 @@ public class ManualSharedVendorConverter : JsonConverter
         }
         vendorArray.Add(sellsArray);
 
+        var setsArray = new JArray();
+        foreach (var set in vendor.Sets)
+        {
+            setsArray.Add(CreateSetArray(set));
+        }
+        vendorArray.Add(setsArray);
+
         if (!string.IsNullOrWhiteSpace(vendor.Note))
         {
             vendorArray.Add(vendor.Note);
         }
 
         vendorArray.WriteTo(writer);
+    }
+
+    public static JArray CreateSetArray(ManualSharedVendorSet set)
+    {
+        var setArray = new JArray();
+        setArray.Add(set.Name);
+
+        var rangeArray = new JArray();
+        rangeArray.Add(set.Range[0]);
+        rangeArray.Add(set.Range[1]);
+        setArray.Add(rangeArray);
+
+        if (!string.IsNullOrWhiteSpace(set.SortKey))
+        {
+            setArray.Add(set.SortKey);
+        }
+
+        return setArray;
     }
 
     public static JArray CreateItemArray(ManualVendorItem item)

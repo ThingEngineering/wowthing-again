@@ -3,6 +3,15 @@ mapName: "z5_frostfire_ridge"
 minimumLevel: 10
 farms:
 
+# Instance
+
+- name: "Bloodmaul Slag Mines"
+  instanceId: 385
+  location: 49.8 24.7
+  type: dungeon
+
+# Kill
+
 - name: "Ak'ox the Slaughterer"
   location: 88.6 57.4
   npcId: 84378

@@ -3,6 +3,15 @@ mapName: "z5_shadowmoon_valley"
 minimumLevel: 10
 farms:
 
+# Instance
+
+- name: "Shadowmoon Burial Grounds"
+  instanceId: 537
+  location: 31.9 42.5
+  type: dungeon
+
+# Kill
+
 - name: "Amaukwa"
   location: 36.6 35.8
   note: "Patrols around the area"

@@ -3,6 +3,16 @@ mapName: "z5_tanaan_jungle"
 minimumLevel: 40
 farms:
 
+# Instance
+
+- name: "Hellfire Citadel"
+  instanceId: 669
+  location: 45.7 53.5
+  reset: weekly
+  type: raid
+
+# Kill
+
 - name: "Argosh the Destroyer"
   location: 52.4 40.2
   npcId: 91871

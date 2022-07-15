@@ -3,6 +3,31 @@ mapName: "z5_gorgrond"
 minimumLevel: 15
 farms:
 
+# Instance
+
+- name: "Grimrail Depot"
+  instanceId: 536
+  location: 55.2 31.9
+  type: dungeon
+
+- name: "Iron Docks"
+  instanceId: 558
+  location: 45.4 13.5
+  type: dungeon
+
+- name: "The Everbloom"
+  instanceId: 556
+  location: 59.6 45.5
+  type: dungeon
+
+- name: "Blackrock Foundry"
+  instanceId: 457
+  location: 51.3 28.6
+  reset: weekly
+  type: raid
+
+# Kill
+
 - name: "Alkali"
   location: 56.2 40.8 #, [71.4, 40.2]
   note: "Also spawns in other places, zzz"
