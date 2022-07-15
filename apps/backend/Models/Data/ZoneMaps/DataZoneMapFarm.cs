@@ -3,6 +3,7 @@
     public class DataZoneMapFarm
     {
         public int MinimumLevel { get; set; }
+        public int InstanceId { get; set; }
         public int NpcId { get; set; }
         public int ObjectId { get; set; }
         public int StatisticId { get; set; }
@@ -14,7 +15,7 @@
         public string RequiredQuestId { get; set; }
         public string Reset { get; set; }
         public string Type { get; set; }
-        
+
         public List<DataZoneMapDrop> Drops { get; set; }
     }
 }

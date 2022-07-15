@@ -4,6 +4,15 @@ mapName: z7_mechagon
 wowheadGuide: https://www.wowhead.com/guides/mechagon-junkyard-tinkering
 farms:
 
+# Instance
+
+- name: "Operation: Mechagon"
+  instanceId: 1178
+  location: 73.2 36.2
+  type: dungeon
+
+# Kill
+
 - name: "Arachnoid Harvester"
   location: 52.9 40.9
   npcId: 151934
@@ -376,7 +385,7 @@ farms:
 # Treasures
 
 - name: "Azeroth Mini Pack: Bondo's Yard"
-  location: 75.5 35.0
+  location: 81.0 39.0
   note: "Guaranteed from Beastbot and Reclamation Rig"
   questId: 57134
   reset: weekly
@@ -408,7 +417,7 @@ farms:
     name: "Roadtrogg"
 
 - name: "Azeroth Mini Pack: Mechagon"
-  location: 78.0 35.0
+  location: 83.0 39.0
   note: "From opening Mechanized Chests"
   questId: 57132 57133
   reset: weekly

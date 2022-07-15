@@ -1,8 +1,10 @@
 <script lang="ts">
-    import { farmTypeIcon } from '@/data/farm'
+    import { farmTypeIcons } from '@/data/icons'
+    import { journalStore, staticStore } from '@/stores'
     import { zoneMapState } from '@/stores/local-storage/zone-map'
     import { FarmIdType, FarmType } from '@/types/enums'
     import { tippyComponent } from '@/utils/tippy'
+    import { getInstanceFarmStatus } from '@/utils/get-instance-farm-status'
     import type { FarmStatus } from '@/types'
     import type { ManualDataZoneMapFarm } from '@/types/data/manual'
 
@@ -14,11 +16,20 @@
     export let status: FarmStatus
 
     let big: boolean
+    let classes: string[]
     let show: boolean
     let topOffset: string
     $: {
-        big = FarmType[farm.type].indexOf('Big') > 0
-        topOffset = (status.need && farm.type !== FarmType.Vendor) ? (big ? '7px' : '7px') : '0px'
+        if (farm.type === FarmType.Dungeon || farm.type === FarmType.Raid) {
+            status = getInstanceFarmStatus($journalStore.data, $staticStore.data, farm)
+            //big = farm.type === FarmType.Raid
+            topOffset = '0px'
+        }
+        else {
+            big = FarmType[farm.type].indexOf('Big') > 0
+            topOffset = (status.need && farm.type !== FarmType.Vendor) ? (big ? '7px' : '7px') : '0px'
+        }
+
 
         show = true
         if (!$zoneMapState.showCompleted && !status.need) {
@@ -26,6 +37,18 @@
         }
         if (!$zoneMapState.showKilled && status.need && status.characters.length === 0) {
             show = false
+        }
+
+        classes = ['icon', 'drop-shadow']
+        classes.push(status.need ? 'active' : 'inactive')
+        if (farm.faction) {
+            classes.push(farm.faction)
+        }
+        if (farm.type === FarmType.Dungeon) {
+            classes.push('dungeon')
+        }
+        if (farm.type === FarmType.Raid) {
+            classes.push('raid')
         }
     }
 </script>
@@ -62,6 +85,12 @@
             &.horde {
                 color: #ff8888;
             }
+            &.dungeon {
+                color: #fff53f;
+            }
+            &.raid {
+                color: #fb7fff;
+            }
         }
         &.inactive {
             color: #00bb00;
@@ -97,31 +126,36 @@
             props: {farm, status},
         }}
     >
-        <WowheadLink
-            id={farm.id}
-            noTooltip={true}
-            toComments={true}
-            type={FarmIdType[farm.idType].toLowerCase()}
-        >
-            <div
-                class="icon drop-shadow"
-                class:active={status.need}
-                class:inactive={!status.need}
-                class:alliance={farm.faction === 'alliance'}
-                class:horde={farm.faction === 'horde'}
+        {#if farm.type === FarmType.Dungeon || farm.type === FarmType.Raid}
+            <a href="#/journal/{status.link}">
+                <div class="{classes.join(' ')}">
+                    <IconifyIcon
+                        icon={farmTypeIcons[farm.type]}
+                        scale={'1'}
+                    />
+                </div>
+            </a>
+        {:else}
+            <WowheadLink
+                id={farm.id}
+                noTooltip={true}
+                toComments={true}
+                type={FarmIdType[farm.idType].toLowerCase()}
             >
-                <IconifyIcon
-                    icon={farmTypeIcon[farm.type]}
-                    scale={big ? '1.25' : '1'}
-                />
-            </div>
+                <div class="{classes.join(' ')}">
+                    <IconifyIcon
+                        icon={farmTypeIcons[farm.type]}
+                        scale={big ? '1.25' : '1'}
+                    />
+                </div>
 
-            {#if status.need && farm.type != FarmType.Vendor}
-                <span
-                    class:big
-                    class:status-success={status.characters.length === 0}
-                >{status.characters.length}</span>
-            {/if}
-        </WowheadLink>
+                {#if status.need && farm.type != FarmType.Vendor}
+                    <span
+                        class:big
+                        class:status-success={status.characters.length === 0}
+                    >{status.characters.length}</span>
+                {/if}
+            </WowheadLink>
+        {/if}
     </div>
 {/if}

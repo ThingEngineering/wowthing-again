@@ -3,6 +3,26 @@ mapName: z6_stormheim
 minimumLevel: 10
 farms:
 
+# Instance
+
+- name: "Halls of Valor"
+  instanceId: 721
+  location: 70.7 66.2
+  type: dungeon
+
+- name: "Maw of Souls"
+  instanceId: 727
+  location: 52.5 42.2
+  type: dungeon
+
+- name: "Trial of Valor"
+  instanceId: 861
+  location: 68.3 66.2
+  reset: weekly
+  type: raid
+
+# Kill
+
 - name: "Bladesquall"
   location: 45.87 77.36
   npcId: 129048

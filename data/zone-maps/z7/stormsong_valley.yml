@@ -2,6 +2,13 @@ name: Stormsong Valley
 mapName: z7_stormsong_valley
 farms:
 
+# Instance
+
+- name: "Shrine of the Storm"
+  instanceId: 1036
+  location: 78.9 26.5
+  type: dungeon
+
 # Kills
 
 - name: "Broodmother"

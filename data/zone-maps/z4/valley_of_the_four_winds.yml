@@ -2,6 +2,15 @@ name: "Valley of the Four Winds"
 mapName: "z4_valley_of_the_four_winds"
 farms:
 
+# Instance
+
+- name: "Stormstout Brewery"
+  instanceId: 302
+  location: 36.1 69.1
+  type: dungeon
+
+# Kill
+
 - name: "Blackhoof"
   location: 32.8 62.4 # 39.4 56.8
   npcId: 51059

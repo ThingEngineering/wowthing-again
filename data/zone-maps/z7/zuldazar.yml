@@ -2,6 +2,18 @@ name: Zuldazar
 mapName: z7_zuldazar
 farms:
 
+# Instance
+
+- name: "Atal'Dazar"
+  instanceId: 968
+  location: 43.4 39.4
+  type: dungeon
+
+- name: "Kings' Rest"
+  instanceId: 1041
+  location: 37.6 39.4
+  type: dungeon
+
 # Kills
 - name: "Atal'zul Gotaka"
   location: 81.0 21.6

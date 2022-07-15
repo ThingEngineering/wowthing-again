@@ -14,6 +14,8 @@ export enum FarmType
     Vendor,
     Group,
     Quest,
+    Dungeon,
+    Raid,
 }
 
 export enum RewardType {
@@ -34,6 +36,7 @@ export enum FarmIdType
     Npc = 1,
     Object,
     Quest,
+    Instance,
 }
 
 export enum FarmResetType

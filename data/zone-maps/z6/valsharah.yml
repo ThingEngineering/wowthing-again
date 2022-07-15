@@ -3,6 +3,26 @@ mapName: z6_valsharah
 minimumLevel: 10
 farms:
 
+# Instance
+
+- name: "Black Rook Hold"
+  instanceId: 740
+  location: 38.6 51.0
+  type: dungeon
+
+- name: "Darkheart Thicket"
+  instanceId: 762
+  location: 59.0 31.1
+  type: dungeon
+
+- name: "The Emerald Nightmare"
+  instanceId: 822
+  location: 56.3 36.9
+  reset: weekly
+  type: raid
+
+ # Kill
+
 - name: "Bahagar"
   location: 45.59 88.79
   npcId: 130135

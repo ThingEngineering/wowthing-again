@@ -15,8 +15,7 @@
     import iconZoneMaps from '@iconify/icons-emojione-monotone/world-map'
     import active from 'svelte-spa-router/active'
 
-    import { dropTypeIcon } from '@/data/farm'
-    import { iconStrings } from '@/data/icons'
+    import { iconStrings, rewardTypeIcons } from '@/data/icons'
     import { journalStore, userStore, userTransmogStore } from '@/stores'
     import { data as settingsData } from '@/stores/settings'
     import { userVendorStore } from '@/stores/user-vendors'
@@ -167,7 +166,7 @@
 
     <li use:active={'/mounts/*'}>
         <a href="#/mounts/">
-            <IconifyIcon icon={dropTypeIcon[RewardType.Mount]} dropShadow={true} />
+            <IconifyIcon icon={rewardTypeIcons[RewardType.Mount]} dropShadow={true} />
             Mounts
         </a>
         <span class="drop-shadow percent {getPercentClass(mountsPercent)}">{fancyPercent(mountsPercent)} %</span>
@@ -175,7 +174,7 @@
 
     <li use:active={'/pets/*'}>
         <a href="#/pets/">
-            <IconifyIcon icon={dropTypeIcon[RewardType.Pet]} dropShadow={true} />
+            <IconifyIcon icon={rewardTypeIcons[RewardType.Pet]} dropShadow={true} />
             Pets
         </a>
         <span class="drop-shadow percent {getPercentClass(petsPercent)}">{fancyPercent(petsPercent)} %</span>
@@ -183,7 +182,7 @@
 
     <li use:active={'/toys/*'}>
         <a href="#/toys/">
-            <IconifyIcon icon={dropTypeIcon[RewardType.Toy]} dropShadow={true} />
+            <IconifyIcon icon={rewardTypeIcons[RewardType.Toy]} dropShadow={true} />
             Toys
         </a>
         <span class="drop-shadow percent {getPercentClass(toysPercent)}">{fancyPercent(toysPercent)} %</span>
@@ -193,7 +192,7 @@
 
     <li use:active={'/journal/*'}>
         <a href="#/journal/">
-            <IconifyIcon icon={dropTypeIcon[RewardType.Cosmetic]} dropShadow={true} />
+            <IconifyIcon icon={rewardTypeIcons[RewardType.Cosmetic]} dropShadow={true} />
             Journal
         </a>
         <span class="drop-shadow percent {getPercentClass(journalPercent)}">{fancyPercent(journalPercent)} %</span>

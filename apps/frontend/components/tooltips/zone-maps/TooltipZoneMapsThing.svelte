@@ -2,11 +2,10 @@
     import difference from 'lodash/difference'
     import sortBy from 'lodash/sortBy'
 
-    import { dropTypeIcon } from '@/data/farm'
-    import { iconStrings, imageStrings } from '@/data/icons'
+    import { iconStrings, imageStrings, rewardTypeIcons } from '@/data/icons'
     import { weaponSubclassToString } from '@/data/weapons'
-    import { achievementStore, manualStore, staticStore, userAchievementStore, userStore } from '@/stores'
-    import { ArmorType, RewardType, FarmResetType, FarmType } from '@/types/enums'
+    import { achievementStore, journalStore, manualStore, staticStore, userAchievementStore, userStore } from '@/stores'
+    import { ArmorType, RewardType, FarmResetType, FarmType, FarmIdType } from '@/types/enums'
     import type { DropStatus, FarmStatus } from '@/types'
     import type { ManualDataZoneMapDrop, ManualDataZoneMapFarm } from '@/types/data/manual'
 
@@ -200,12 +199,21 @@
                 </tr>
             {/if}
 
+            {#if farm.idType == FarmIdType.Instance}
+                {@const stats = $journalStore.data.stats[status.link.replace('/', '--')]}
+                <tr>
+                    <td colspan="3">
+                        {stats.have} / {stats.total} drops
+                    </td>
+                </tr>
+            {/if}
+
             {#each sortedDrops as [drop, dropStatus], sortedIndex}
                 <tr
                     class:success={!dropStatus.need || !dropStatus.validCharacters || dropStatus.skip}
                 >
                     <td class="type status-{dropStatus.need ? 'fail' : 'success'}">
-                        <IconifyIcon icon={dropTypeIcon[drop.type]} />
+                        <IconifyIcon icon={rewardTypeIcons[drop.type]} />
                     </td>
                     <td
                         class="name"
@@ -240,7 +248,7 @@
                                     <ParsedText text={drop.note} />
                                 {:else if drop.type === RewardType.Achievement}
                                     {#if drop.subType > 0}
-                                        <IconifyIcon icon={dropTypeIcon[RewardType.Achievement]} />
+                                        <IconifyIcon icon={rewardTypeIcons[RewardType.Achievement]} />
                                         {$achievementStore.data.achievement[drop.id].name}
                                     {:else}
                                         {$achievementStore.data.achievement[drop.id].description}

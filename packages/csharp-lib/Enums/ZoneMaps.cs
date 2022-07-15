@@ -16,6 +16,8 @@
         Vendor,
         Group,
         Quest,
+        Dungeon,
+        Raid,
     }
 
     public enum FarmIdType
@@ -23,6 +25,7 @@
         Npc = 1,
         Object,
         Quest,
+        Instance,
     }
 
     public enum FarmResetType

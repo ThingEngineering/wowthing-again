@@ -3,6 +3,20 @@ mapName: z6_azsuna
 minimumLevel: 10
 farms:
 
+# Instance
+
+- name: "Eye of Azshara"
+  instanceId: 716
+  location: 61.1 41.2
+  type: dungeon
+
+- name: "Vault of the Wardens"
+  instanceId: 707
+  location: 48.1 82.2
+  type: dungeon
+
+# Kill
+
 - name: "Arcanist Shal'iman"
   location: 34.96 33.91
   npcId: 107657

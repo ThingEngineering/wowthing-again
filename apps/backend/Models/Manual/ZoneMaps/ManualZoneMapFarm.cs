@@ -66,6 +66,11 @@ namespace Wowthing.Backend.Models.Manual.ZoneMaps
                 IdType = FarmIdType.Quest;
                 Id = QuestIds.FirstOrDefault();
             }
+            else if (farm.InstanceId > 0)
+            {
+                IdType = FarmIdType.Instance;
+                Id = farm.InstanceId;
+            }
             else if (farm.ObjectId > 0)
             {
                 IdType = FarmIdType.Object;

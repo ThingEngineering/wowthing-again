@@ -3,6 +3,26 @@ mapName: z6_suramar
 minimumLevel: 10
 farms:
 
+# Instance
+
+- name: "Court of Stars"
+  instanceId: 800
+  location: 50.7 65.5
+  type: dungeon
+
+- name: "The Arcway"
+  instanceId: 726
+  location: 43.0 62.0
+  type: dungeon
+
+- name: "The Nighthold"
+  instanceId: 786
+  location: 45.4 62.0
+  reset: weekly
+  type: raid
+
+# Kill
+
 - name: "Ambassador D'vwinn"
   location: 54.80 63.76
   npcId: 139918

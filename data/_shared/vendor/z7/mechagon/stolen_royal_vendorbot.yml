@@ -2,7 +2,7 @@ id: 150716
 name: "Stolen Royal Vendorbot"
 locations:
   z7_mechagon:
-    - 73.6 36.6
+    - 75.2 36.2
 sells:
   - type: mount
     id: 1254 # Rustbolt Resistor

@@ -2,6 +2,19 @@ name: Nazmir
 mapName: z7_nazmir
 farms:
 
+# Instance
+
+- name: "The Underrot"
+  instanceId: 1022
+  location: 51.4 64.8
+  type: dungeon
+
+- name: "Uldir"
+  instanceId: 1031
+  location: 54.1 63.0
+  reset: weekly
+  type: raid
+
 # Kills
 
 - name: "Azerite-Infused Slag"
