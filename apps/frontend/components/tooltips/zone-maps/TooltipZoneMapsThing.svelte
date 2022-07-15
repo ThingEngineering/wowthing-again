@@ -12,7 +12,9 @@
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+import { difficultyMap } from '@/data/difficulty';
 
+    export let drops: ManualDataZoneMapDrop[]
     export let farm: ManualDataZoneMapFarm
     export let status: FarmStatus
 
@@ -20,8 +22,8 @@
     let statistic: number
     $: {
         const sigh: [ManualDataZoneMapDrop, DropStatus][] = []
-        for (let dropIndex = 0; dropIndex < farm.drops.length; dropIndex++) {
-            sigh.push([farm.drops[dropIndex], status.drops[dropIndex]])
+        for (let dropIndex = 0; dropIndex < drops.length; dropIndex++) {
+            sigh.push([drops[dropIndex], status.drops[dropIndex]])
         }
 
         sortedDrops = sortBy(sigh, (s) => [!s[1].need, !s[1].validCharacters])
@@ -59,6 +61,9 @@
         else if (drop.type === RewardType.Toy) {
             const toy = $staticStore.data.toys[drop.id]
             return toy ? toy.name : `Unknown toy #${drop.id}`
+        }
+        else if (drop.type === RewardType.InstanceSpecial) {
+            return difficultyMap[drop.id].name
         }
         else {
             return "???"
@@ -203,7 +208,7 @@
                 {@const stats = $journalStore.data.stats[status.link.replace('/', '--')]}
                 <tr>
                     <td colspan="3">
-                        {stats.have} / {stats.total} drops
+                        {stats.have} / {stats.total} unique drops
                     </td>
                 </tr>
             {/if}
@@ -222,17 +227,19 @@
                         {getDropName(drop)}
                     </td>
                     <td class="limit">
-                        {#if drop.limit?.length > 0}
-                            {drop.limit[1]}
-                            {#if drop.limit.length > 2}
-                                [ {drop.limit.slice(2).join(', ')} ]
-                            {/if}
-                        {:else if drop.type === RewardType.Cosmetic}
+                        {#if drop.type === RewardType.Cosmetic}
                             cosmetic
                         {:else if drop.type === RewardType.Armor}
                             {ArmorType[drop.subType].toLowerCase()}
                         {:else if drop.type === RewardType.Weapon}
                             {weaponSubclassToString[drop.subType]}
+                        {:else if drop.type === RewardType.InstanceSpecial}
+                            {@html drop.limit[0]}
+                        {:else if drop.limit?.length > 0}
+                            {drop.limit[1]}
+                            {#if drop.limit.length > 2}
+                                [ {drop.limit.slice(2).join(', ')} ]
+                            {/if}
                         {:else}
                             {RewardType[drop.type].toLowerCase()}
                         {/if}

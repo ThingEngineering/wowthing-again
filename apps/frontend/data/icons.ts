@@ -139,6 +139,8 @@ export const rewardTypeIcons: Record<number, IconifyIcon> = {
     [RewardType.Toy]: mdiDiceMultiple,
     [RewardType.Transmog]: mdiWizardHat,
     [RewardType.Weapon]: mdiAxeBattle,
+
+    [RewardType.InstanceSpecial]: faDungeon,
 }
 
 export const soulbindSockets: Record<number, IconifyIcon> = {

@@ -29,6 +29,7 @@ export enum RewardType {
     Achievement,
     Item,
     Transmog = 100,
+    InstanceSpecial = 1000,
 }
 
 export enum FarmIdType

@@ -110,6 +110,18 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                                     groupStats.have++
                                 }
 
+                                for (const difficulty of appearance.difficulties) {
+                                    const difficultyKey = `${instanceKey}--${difficulty}`
+                                    const difficultyStats = stats[difficultyKey] = stats[difficultyKey] || new UserCount()
+
+                                    if (!instanceSeen[key]) {
+                                        difficultyStats.total++
+                                        if (userHas) {
+                                            difficultyStats.have++
+                                        }
+                                    }
+                                }
+                                
                                 overallSeen[key] = true
                                 tierSeen[key] = true
                                 instanceSeen[key] = true

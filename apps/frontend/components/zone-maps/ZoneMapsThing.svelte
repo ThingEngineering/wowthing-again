@@ -4,9 +4,9 @@
     import { zoneMapState } from '@/stores/local-storage/zone-map'
     import { FarmIdType, FarmType } from '@/types/enums'
     import { tippyComponent } from '@/utils/tippy'
-    import { getInstanceFarmStatus } from '@/utils/get-instance-farm-status'
+    import { getInstanceFarm } from '@/utils/get-instance-farm'
     import type { FarmStatus } from '@/types'
-    import type { ManualDataZoneMapFarm } from '@/types/data/manual'
+    import type { ManualDataZoneMapDrop, ManualDataZoneMapFarm } from '@/types/data/manual'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import WowheadLink from '@/components/links/WowheadLink.svelte'
@@ -17,16 +17,18 @@
 
     let big: boolean
     let classes: string[]
+    let drops: ManualDataZoneMapDrop[]
     let show: boolean
     let topOffset: string
     $: {
         if (farm.type === FarmType.Dungeon || farm.type === FarmType.Raid) {
-            status = getInstanceFarmStatus($journalStore.data, $staticStore.data, farm)
+            [status, drops] = getInstanceFarm($journalStore.data, $staticStore.data, farm)
             //big = farm.type === FarmType.Raid
             topOffset = '0px'
         }
         else {
             big = FarmType[farm.type].indexOf('Big') > 0
+            drops = farm.drops
             topOffset = (status.need && farm.type !== FarmType.Vendor) ? (big ? '7px' : '7px') : '0px'
         }
 
@@ -123,7 +125,11 @@
         style="--left: {farm.location[0]}%; --top: {farm.location[1]}%; --top-offset: {topOffset};"
         use:tippyComponent={{
             component: Tooltip,
-            props: {farm, status},
+            props: {
+                drops,
+                farm,
+                status,
+            },
         }}
     >
         {#if farm.type === FarmType.Dungeon || farm.type === FarmType.Raid}
