@@ -146,6 +146,11 @@ import { difficultyMap } from '@/data/difficulty';
         text-align: left;
         white-space: nowrap;
         word-spacing: -0.2ch;
+
+        :global(code) {
+            color: $body-text;
+            word-spacing: normal;
+        }
     }
     .success {
         opacity: 0.7;
