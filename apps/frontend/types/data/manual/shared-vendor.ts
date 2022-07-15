@@ -1,10 +1,11 @@
+import { ManualDataVendorItem, type ManualDataVendorItemArray } from './vendor'
 import { FarmIdType, FarmResetType, FarmType } from '@/types/enums'
 import type { ManualDataZoneMapDrop, ManualDataZoneMapFarm } from './zone-map'
-import { ManualDataVendorItem, type ManualDataVendorItemArray } from './vendor'
 
 
 export class ManualDataSharedVendor {
     public sells: ManualDataVendorItem[]
+    public sets: ManualDataSharedVendorSet[]
 
     constructor(
         public id: number,
@@ -12,10 +13,12 @@ export class ManualDataSharedVendor {
         public tags: string[],
         public locations: Record<string, string[]>,
         sells: ManualDataVendorItemArray[],
+        sets: ManualDataSharedVendorSetArray[],
         public note?: string
     )
     {
-        this.sells = sells.map((arr) => new ManualDataVendorItem(...arr))
+        this.sells = sells.map((itemArray) => new ManualDataVendorItem(...itemArray))
+        this.sets = sets.map((setArray) => new ManualDataSharedVendorSet(...setArray))
     }
 
     asFarms(mapName: string): ManualDataZoneMapFarm[] {
@@ -46,3 +49,13 @@ export class ManualDataSharedVendor {
     }
 }
 export type ManualDataSharedVendorArray = ConstructorParameters<typeof ManualDataSharedVendor>
+
+export class ManualDataSharedVendorSet {
+    constructor(
+        public name: string,
+        public range: number[],
+        public sortKey?: string
+    )
+    { }
+}
+export type ManualDataSharedVendorSetArray = ConstructorParameters<typeof ManualDataSharedVendorSet>

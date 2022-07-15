@@ -1,7 +1,7 @@
 ﻿using Wowthing.Backend.Models.Data.Vendors;
 using Wowthing.Lib.Enums;
 
-namespace Wowthing.Backend.Models.Manual;
+namespace Wowthing.Backend.Models.Manual.Vendors;
 
 public class ManualVendorItem
 {

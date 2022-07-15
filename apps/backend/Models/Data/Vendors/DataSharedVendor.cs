@@ -7,5 +7,6 @@ public class DataSharedVendor
     public string Note { get; set; }
     public string[] Tags { get; set; }
     public Dictionary<string, string[]> Locations { get; set; }
+    public DataSharedVendorSet[] Sets { get; set; }
     public DataVendorItem[] Sells { get; set; }
 }
