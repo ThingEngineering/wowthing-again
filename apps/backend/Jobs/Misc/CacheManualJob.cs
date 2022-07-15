@@ -1,7 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Diagnostics;
-using StackExchange.Redis;
+﻿using StackExchange.Redis;
 using Wowthing.Backend.Models.Data.Collections;
-using Wowthing.Backend.Models.Data.Journal;
 using Wowthing.Backend.Models.Data.Progress;
 using Wowthing.Backend.Models.Data.Transmog;
 using Wowthing.Backend.Models.Data.Vendors;
@@ -56,7 +54,7 @@ public class CacheManualJob : JobBase, IScheduledJob
 #else
         Interval = TimeSpan.FromHours(1),
 #endif
-        Version = 1,
+        Version = 2,
     };
 
     public override async Task Run(params string[] data)
@@ -328,7 +326,17 @@ public class CacheManualJob : JobBase, IScheduledJob
         {
             _itemIds.Add(item.Id);
 
-            var dropItem = _itemMap[item.Id];
+            WowItem dropItem;
+            if (item.AppearanceItemId > 0)
+            {
+                item.AppearanceId = _itemToAppearance[item.AppearanceItemId.Value];
+                dropItem = _itemMap[item.AppearanceItemId.Value];
+            }
+            else
+            {
+                dropItem = _itemMap[item.Id];
+            }
+
             if (dropItem.ClassId == 2)
             {
                 item.Type = RewardType.Weapon;
@@ -344,7 +352,10 @@ public class CacheManualJob : JobBase, IScheduledJob
                         ? 30
                         : 31;
                 }
-                else if (dropItem.SubclassId == 5 || dropItem.Flags.HasFlag(WowItemFlags.Cosmetic))
+                else if (
+                    dropItem.SubclassId == 5 ||
+                    (dropItem.SubclassId is not (>= 1 and <= 4) && dropItem.Flags.HasFlag(WowItemFlags.Cosmetic))
+                )
                 {
                     item.Type = RewardType.Cosmetic;
                 }

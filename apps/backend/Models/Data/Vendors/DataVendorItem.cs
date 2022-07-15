@@ -3,6 +3,7 @@
     public class DataVendorItem
     {
         public int AppearanceId { get; set; }
+        public int AppearanceItemId { get; set; }
         public int Id { get; set; }
         public string Note { get; set; }
         public string Reputation { get; set; }
