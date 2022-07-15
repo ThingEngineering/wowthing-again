@@ -7,8 +7,15 @@ export const progressQuests: Record<string, string[]> = {
 }
 
 export const progressQuestMap: Record<string, string> = {
-    weeklyKorthia: 'shapingFate',
-    weeklyPatterns: 'patterns',
+    weeklyAnima: 'weeklyHoliday',
+    weeklyHoliday: 'weeklyHoliday',
+    weeklyKorthia: 'weeklyHoliday',
+    weeklyPatterns: 'weeklyHoliday',
+    weeklyPvp: 'weeklyHoliday',
+    weeklySouls: 'weeklyHoliday',
+
+    slKorthia: 'shapingFate',
+    slZerethMortis: 'patterns',
 }
 
 export const progressQuestHead: Record<string, string> = {
@@ -40,23 +47,36 @@ export const forcedReset: Record<string, boolean> = {
 }
 
 export const holidayQuestCycle: string[] = [
-    'Dng',
-    'Pets',
-    'TW',
-    'Arena',
-    'WQs',
-    'TW',
-    'BGs',
+    'holidayDungeons',
+    'holidayPetBattles',
+    'holidayTimewalking',
+    'holidayArenaSkirmishes',
+    'holidayWorldQuests',
+    'holidayTimewalking',
+    'holidayBattlegrounds',
 
-    'Dng',
-    'TW',
-    'Pets',
-    'Arena',
-    'TW',
-    'WQs',
-    'BGs',
-    'TW',
+    'holidayDungeons',
+    'holidayTimewalking',
+    'holidayPetBattles',
+    'holidayArenaSkirmishes',
+    'holidayTimewalking',
+    'holidayWorldQuests',
+    'holidayBattlegrounds',
+    'holidayTimewalking',
 ]
+
+export const weekliesHead: Record<string, string> = {
+    holidayArenaSkirmishes: 'Skirm',
+    holidayBattlegrounds: 'BGs',
+    holidayDungeons: 'Dung',
+    holidayPetBattles: 'Pets',
+    holidayTimewalking: 'TW',
+    holidayWorldQuests: 'WQs',
+
+    slAnima: 'Anima',
+    slKorthia: 'Korth',
+    slZerethMortis: 'ZM',
+}
 
 export const dailyQuestLevel: Record<number, number> = {
     6: 45,
