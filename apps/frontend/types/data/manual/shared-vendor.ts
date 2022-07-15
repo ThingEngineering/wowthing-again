@@ -1,5 +1,5 @@
 import { ManualDataVendorItem, type ManualDataVendorItemArray } from './vendor'
-import { FarmIdType, FarmResetType, FarmType } from '@/types/enums'
+import { FarmIdType, FarmResetType, FarmType, RewardType } from '@/types/enums'
 import type { ManualDataZoneMapDrop, ManualDataZoneMapFarm } from './zone-map'
 
 
@@ -24,6 +24,42 @@ export class ManualDataSharedVendor {
     asFarms(mapName: string): ManualDataZoneMapFarm[] {
         const ret: ManualDataZoneMapFarm[] = []
         
+        const drops: ManualDataZoneMapDrop[] = []
+        const seen: Record<number, boolean> = {}
+
+        if (this.sets) {
+            for (const set of this.sets) {
+                const itemIds = this.sells
+                    .slice(set.range[0], set.range[0] + set.range[1])
+                    .map((item) => item.id)
+                
+                drops.push({
+                    id: 0,
+                    type: RewardType.SetSpecial,
+                    subType: 0,
+                    classMask: 0,
+                    itemIds: itemIds,
+                    limit: [set.name],
+                })
+                
+                for (const itemId of itemIds) {
+                    seen[itemId] = true
+                }
+            }
+
+            for (const item of this.sells) {
+                if (!seen[item.id]) {
+                    drops.push({
+                        id: item.id,
+                        type: item.type,
+                        subType: item.subType,
+                        classMask: item.classMask,
+                        note: item.getNote(),
+                    })
+                }
+            }
+        }
+
         for (const location of (this.locations[mapName] || [])) {
             ret.push(<ManualDataZoneMapFarm>{
                 faction: location[2],
@@ -35,13 +71,7 @@ export class ManualDataSharedVendor {
                 questIds: [],
                 reset: FarmResetType.None,
                 type: FarmType.Vendor,
-                drops: this.sells.map((item) => <ManualDataZoneMapDrop>{
-                    id: item.id,
-                    type: item.type,
-                    subType: item.subType,
-                    classMask: item.classMask,
-                    note: item.getNote(),
-                }),
+                drops: drops,
             })
         }
 

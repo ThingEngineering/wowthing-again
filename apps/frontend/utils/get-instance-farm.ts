@@ -32,8 +32,6 @@ export function getInstanceFarm(
             status.link = `${tier.slug}/${instance.slug}`
             status.need = stats.have < stats.total
 
-            console.log(instance)
-
             const difficulties: Set<number> = new Set()
             for (const encounter of instance.encounters) {
                 for (const group of encounter.groups) {
