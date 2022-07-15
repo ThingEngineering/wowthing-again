@@ -2,8 +2,7 @@
     import difference from 'lodash/difference'
     import sortBy from 'lodash/sortBy'
 
-    import { dropTypeIcon } from '@/data/farm'
-    import { iconStrings, imageStrings } from '@/data/icons'
+    import { iconStrings, imageStrings, rewardTypeIcons } from '@/data/icons'
     import { weaponSubclassToString } from '@/data/weapons'
     import { achievementStore, manualStore, staticStore, userAchievementStore, userStore } from '@/stores'
     import { ArmorType, RewardType, FarmResetType, FarmType } from '@/types/enums'
@@ -205,7 +204,7 @@
                     class:success={!dropStatus.need || !dropStatus.validCharacters || dropStatus.skip}
                 >
                     <td class="type status-{dropStatus.need ? 'fail' : 'success'}">
-                        <IconifyIcon icon={dropTypeIcon[drop.type]} />
+                        <IconifyIcon icon={rewardTypeIcons[drop.type]} />
                     </td>
                     <td
                         class="name"
@@ -240,7 +239,7 @@
                                     <ParsedText text={drop.note} />
                                 {:else if drop.type === RewardType.Achievement}
                                     {#if drop.subType > 0}
-                                        <IconifyIcon icon={dropTypeIcon[RewardType.Achievement]} />
+                                        <IconifyIcon icon={rewardTypeIcons[RewardType.Achievement]} />
                                         {$achievementStore.data.achievement[drop.id].name}
                                     {:else}
                                         {$achievementStore.data.achievement[drop.id].description}

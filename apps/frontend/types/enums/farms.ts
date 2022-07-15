@@ -14,6 +14,8 @@ export enum FarmType
     Vendor,
     Group,
     Quest,
+    Dungeon,
+    Raid,
 }
 
 export enum RewardType {

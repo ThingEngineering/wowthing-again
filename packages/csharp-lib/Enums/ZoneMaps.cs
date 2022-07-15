@@ -16,6 +16,8 @@
         Vendor,
         Group,
         Quest,
+        Dungeon,
+        Raid,
     }
 
     public enum FarmIdType

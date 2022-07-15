@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { farmTypeIcon } from '@/data/farm'
+    import { farmTypeIcons } from '@/data/icons'
     import { zoneMapState } from '@/stores/local-storage/zone-map'
     import { FarmIdType, FarmType } from '@/types/enums'
     import { tippyComponent } from '@/utils/tippy'
@@ -111,7 +111,7 @@
                 class:horde={farm.faction === 'horde'}
             >
                 <IconifyIcon
-                    icon={farmTypeIcon[farm.type]}
+                    icon={farmTypeIcons[farm.type]}
                     scale={big ? '1.25' : '1'}
                 />
             </div>
