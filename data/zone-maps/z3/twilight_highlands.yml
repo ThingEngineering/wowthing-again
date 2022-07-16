@@ -1,3 +1,16 @@
 name: "Twilight Highlands"
 mapName: z3_twilight_highlands
 farms:
+
+# Instance
+
+- name: "Grim Batol"
+  instanceId: 71
+  location: 19.2 54.0
+  type: dungeon
+
+- name: "The Bastion of Twilight"
+  instanceId: 72
+  location: 34.0 78.0
+  reset: weekly
+  type: raid
