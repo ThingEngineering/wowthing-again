@@ -13,8 +13,26 @@
     }
 </script>
 
-<h3 class="{getPercentClass(percent)}">
-    {title}
+<style lang="scss">
+    div {
+        align-items: center;
+        background: $collection-background;
+        border-bottom: 1px solid $border-color;
+        color: #ddd;
+        display: flex;
+        padding: 0.25rem 0.5rem;
+        width: 100%;
+    }
+    h3 {
+        flex: 0 0 auto;
+        margin: 0;
+    }
+</style>
+
+<div>
+    <h3 class="{getPercentClass(percent)}">
+        {title}
+    </h3>
     <Count counts={count} />
     <slot />
-</h3>
+</div>

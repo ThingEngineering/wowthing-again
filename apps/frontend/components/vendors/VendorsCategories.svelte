@@ -61,9 +61,12 @@
 
         color: $body-text;
         display: flex;
-        float: right;
+        flex-wrap: wrap;
         font-size: 90%;
         gap: 0.5rem;
+        justify-content: flex-end;
+        margin-left: auto;
+        padding-left: 1rem;
     }
 </style>
 
