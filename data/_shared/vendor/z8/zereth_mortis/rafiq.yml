@@ -6,19 +6,19 @@ locations:
     - 60.6 51.0
 
 sets:
-  - name: "Cloth"
+  - name: "Sandworn Relic Cloth"
     range: 0 8
     sortKey: "1"
 
-  - name: "Leather"
+  - name: "Sandworn Relic Leather"
     range: 8 8
     sortKey: "2"
   
-  - name: "Mail"
+  - name: "Sandworn Relic Mail"
     range: 16 8
     sortKey: "3"
   
-  - name: "Plate"
+  - name: "Sandworn Relic Plate"
     range: 24 8
     sortKey: "4"
 

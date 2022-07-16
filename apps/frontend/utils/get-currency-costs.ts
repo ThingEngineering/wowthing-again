@@ -4,14 +4,12 @@ import { costOrder } from '@/data/vendors'
 import toDigits from '@/utils/to-digits'
 import { toNiceNumber } from '@/utils/to-nice'
 import type { ManualData } from '@/types/data/manual'
-import type { StaticData } from '@/types/data/static'
 
 
 export function getCurrencyCosts(
     manualData: ManualData,
-    staticData: StaticData,
     costs: Record<number, number>
-): [string, number, string][] {
+): [string, number, string, number, number][] {
     const ret: [string, number, string, number, number][] = []
 
     const currencyIds = Object.keys(costs)
@@ -27,7 +25,7 @@ export function getCurrencyCosts(
         ])
     }
 
-    return sortBy(
+   return sortBy(
         ret,
         ([type, id, , originalId, value]) => {
             const index = costOrder.indexOf(originalId)
@@ -41,5 +39,51 @@ export function getCurrencyCosts(
 
             return `555555$|${toDigits(999999 - value, 6)}|{staticData.currencies[id]?.name ?? 'ZZZ'}`
         }
-    ).map(([a, b, c]) => [a, b, c])
+    )
+}
+
+export function getCurrencyCostsString(
+    manualData: ManualData,
+    costs: Record<number, number>,
+    reputation?: number[]
+): string {
+    const parts: string[] = []
+    const sortedCosts = getCurrencyCosts(manualData, costs)
+    for (const [type, , , id, value] of sortedCosts) {
+        let price: string
+        if (type === 'currency' && id === 0) {
+            price = `${value}`
+        }
+        else {
+            price = `${value}|${id}`
+        }
+
+        if (reputation?.length === 2) {
+            parts.push(`{repPrice:${reputation[0]}|${reputation[1]}|${price}}`)
+        }
+        else {
+            parts.push(`{price:${price}}`)
+        }
+    }
+    return parts.join(', ')
+}
+
+export function getSetCurrencyCostsString(
+    manualData: ManualData,
+    appearanceIds: number[],
+    costses: Record<number, number>[],
+    haveFunc: (appearanceId: number) => boolean
+): string {
+    const totalCosts: Record<number, number> = {}
+    for (let i = 0; i < appearanceIds.length; i++) {
+        if (haveFunc(appearanceIds[i])) {
+            continue
+        }
+
+        for (const key in costses[i]) {
+            const keyNumber = parseInt(key)
+            totalCosts[keyNumber] = (totalCosts[keyNumber] || 0) + costses[i][keyNumber]
+        }
+    }
+    return getCurrencyCostsString(manualData, totalCosts)
 }
