@@ -1,0 +1,15 @@
+name: "Howling Fjord"
+mapName: z2_howling_fjord
+farms:
+
+# Instance
+
+- name: "Utgarde Keep"
+  instanceId: 285
+  location: 57.3 46.8
+  type: dungeon
+
+- name: "Utgarde Pinnacle"
+  instanceId: 286
+  location: 59.3 46.8
+  type: dungeon

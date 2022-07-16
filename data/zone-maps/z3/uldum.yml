@@ -1,0 +1,26 @@
+name: "Uldum"
+mapName: z3_uldum
+farms:
+
+# Instance
+
+- name: "Halls of Origination"
+  instanceId: 70
+  location: 71.6 52.2
+  type: dungeon
+
+- name: "Lost City of the Tol'vir"
+  instanceId: 69
+  location: 60.5 64.2
+  type: dungeon
+
+- name: "The Vortex Pinnacle"
+  instanceId: 68
+  location: 76.7 84.4
+  type: dungeon
+
+- name: "Throne of the Four Winds"
+  instanceId: 74
+  location: 38.4 80.6
+  reset: weekly
+  type: raid

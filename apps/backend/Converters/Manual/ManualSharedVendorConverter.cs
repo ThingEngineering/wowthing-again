@@ -75,6 +75,7 @@ public class ManualSharedVendorConverter : JsonConverter
         bool useReputation = !string.IsNullOrWhiteSpace(item.Reputation);
         bool useAppearance = item.AppearanceId.HasValue;
         bool useNote = !string.IsNullOrWhiteSpace(item.Note);
+        bool useBonusIds = item.BonusIds?.Length > 0;
 
         var itemArray = new JArray();
 
@@ -84,7 +85,7 @@ public class ManualSharedVendorConverter : JsonConverter
         itemArray.Add(item.Quality);
         itemArray.Add(item.ClassMask);
 
-        if (useNote || useAppearance || useReputation || useCosts)
+        if (useNote || useBonusIds || useAppearance || useReputation || useCosts)
         {
             var costsArray = new JArray();
             foreach (var (currency, amount) in item.Costs.EmptyIfNull().OrderBy(kvp => kvp.Key))
@@ -98,7 +99,7 @@ public class ManualSharedVendorConverter : JsonConverter
             itemArray.Add(costsArray);
         }
 
-        if (useNote || useAppearance || useReputation)
+        if (useNote || useBonusIds || useAppearance || useReputation)
         {
             var reputationArray = new JArray();
             if (!string.IsNullOrWhiteSpace(item.Reputation))
@@ -110,9 +111,19 @@ public class ManualSharedVendorConverter : JsonConverter
             itemArray.Add(reputationArray);
         }
 
-        if (useNote || useAppearance)
+        if (useNote || useBonusIds || useAppearance)
         {
             itemArray.Add(item.AppearanceId ?? 0);
+        }
+
+        if (useNote || useBonusIds)
+        {
+            var bonusArray = new JArray();
+            foreach (int bonusId in item.BonusIds.EmptyIfNull())
+            {
+                bonusArray.Add(bonusId);
+            }
+            itemArray.Add(bonusArray);
         }
 
         if (useNote)

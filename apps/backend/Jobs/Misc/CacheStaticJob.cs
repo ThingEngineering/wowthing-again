@@ -521,7 +521,8 @@ namespace Wowthing.Backend.Jobs.Misc
         };
         private async Task<List<OutInstance>> LoadInstances()
         {
-            var journalInstances = await DataUtilities.LoadDumpCsvAsync<DumpJournalInstance>("journalinstance");
+            var journalInstances = await DataUtilities
+                .LoadDumpCsvAsync<DumpJournalInstance>("journalinstance");
             var mapIdToInstanceId = journalInstances
                 .GroupBy(instance => instance.MapID)
                 .ToDictionary(
@@ -573,7 +574,8 @@ namespace Wowthing.Backend.Jobs.Misc
                 }
             }*/
             return sigh.Values
-                .OrderBy(instance => instance.Id)
+                .OrderBy(instance => instance.Expansion)
+                .ThenBy(instance => instance.Id)
                 .ToList();
         }
 

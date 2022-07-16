@@ -1,0 +1,11 @@
+name: "Mount Hyjal"
+mapName: z3_mount_hyjal
+farms:
+
+# Instance
+
+- name: "Firelands"
+  instanceId: 78
+  location: 47.3 78.0
+  reset: weekly
+  type: raid

@@ -12,7 +12,7 @@ export function getCurrencyCosts(
     staticData: StaticData,
     costs: Record<number, number>
 ): [string, number, string][] {
-    const ret: [string, number, string, number][] = []
+    const ret: [string, number, string, number, number][] = []
 
     const currencyIds = Object.keys(costs)
         .map((currencyId) => parseInt(currencyId))
@@ -23,22 +23,23 @@ export function getCurrencyCosts(
             currencyId > 1000000 ? currencyId - 1000000 : currencyId,
             toNiceNumber(costs[currencyId]),
             currencyId,
+            costs[currencyId],
         ])
     }
 
     return sortBy(
         ret,
-        ([type, id, , originalId]) => {
+        ([type, id, , originalId, value]) => {
             const index = costOrder.indexOf(originalId)
             if (index >= 0) {
                 return toDigits(index, 6)
             }
 
             if (type === 'item') {
-                return `999999${manualData.shared.items[id]?.name ?? 'ZZZ'}`
+                return `999999|${toDigits(999999 - value, 6)}|${manualData.shared.items[id]?.name ?? 'ZZZ'}`
             }
 
-            return `555555${staticData.currencies[id]?.name ?? 'ZZZ'}`
+            return `555555$|${toDigits(999999 - value, 6)}|{staticData.currencies[id]?.name ?? 'ZZZ'}`
         }
-    ).map(([a, b, c, ]) => [a, b, c])
+    ).map(([a, b, c]) => [a, b, c])
 }

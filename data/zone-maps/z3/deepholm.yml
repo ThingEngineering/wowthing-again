@@ -1,0 +1,10 @@
+name: "Deepholm"
+mapName: z3_deepholm
+farms:
+
+# Instance
+
+- name: "The Stonecore"
+  instanceId: 67
+  location: 47.6 52.0
+  type: dungeon

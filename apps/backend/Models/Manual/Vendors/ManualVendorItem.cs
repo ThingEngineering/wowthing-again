@@ -1,4 +1,5 @@
-﻿using Wowthing.Backend.Models.Data.Vendors;
+﻿using MoreLinq.Extensions;
+using Wowthing.Backend.Models.Data.Vendors;
 using Wowthing.Lib.Enums;
 
 namespace Wowthing.Backend.Models.Manual.Vendors;
@@ -16,6 +17,7 @@ public class ManualVendorItem
 
     public int? AppearanceId { get; set; }
     public int? AppearanceItemId { get; set; }
+    public int[] BonusIds { get; set; }
 
     public ManualVendorItem()
     {}
@@ -36,6 +38,19 @@ public class ManualVendorItem
         if (item.AppearanceItemId > 0)
         {
             AppearanceItemId = item.AppearanceItemId;
+        }
+
+        if (!string.IsNullOrWhiteSpace(item.Quality))
+        {
+            Quality = Enum.Parse<WowQuality>(item.Quality, true);
+        }
+
+        if (!string.IsNullOrWhiteSpace(item.BonusIds))
+        {
+            BonusIds = item.BonusIds
+                .Split(' ')
+                .Select(int.Parse)
+                .ToArray();
         }
     }
 }

@@ -1,0 +1,11 @@
+name: "Blade's Edge Mountains"
+mapName: z1_blades_edge_mountains
+farms:
+
+# Instance
+
+- name: "Gruul's Lair"
+  instanceId: 746
+  location: 68.7 24.3
+  reset: weekly
+  type: raid

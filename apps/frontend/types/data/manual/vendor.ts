@@ -44,6 +44,7 @@ export class ManualDataVendorItem {
         costArrays?: number[][],
         public reputation?: number[],
         public appearanceId?: number,
+        public bonusIds?: number[],
         public note?: string
     )
     {
