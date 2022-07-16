@@ -262,7 +262,7 @@
                 </tr>
 
                 {#if dropStatus.need && !dropStatus.skip}
-                    {#if drop.note || drop.type === RewardType.Achievement}
+                    {#if drop.note || drop.type === RewardType.Achievement || dropStatus.setNote}
                         <tr>
                             <td></td>
                             <td class="note" colspan="2">
@@ -275,6 +275,8 @@
                                     {:else}
                                         {$achievementStore.data.achievement[drop.id].description}
                                     {/if}
+                                {:else if dropStatus.setNote}
+                                    <ParsedText text={dropStatus.setNote} />
                                 {/if}
                             </td>
                         </tr>

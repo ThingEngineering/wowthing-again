@@ -30,7 +30,7 @@
             if (($vendorState.showCollected && userHas) || ($vendorState.showUncollected && !userHas)) {
                 const costs: [string, number, string][] = []
                 if (!userHas) {
-                    costs.push(...getCurrencyCosts($manualStore.data, $staticStore.data, thing.costs))
+                    costs.push(...getCurrencyCosts($manualStore.data, thing.costs))
                 }
 
                 const extraParams: Record<string, string> = {}

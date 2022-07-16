@@ -21,4 +21,5 @@ export interface DropStatus {
     completedCharacterIds: number[],
     setHave?: number
     setNeed?: number
+    setNote?: string
 }

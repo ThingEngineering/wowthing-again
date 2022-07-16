@@ -47,6 +47,7 @@ export type ManualDataZoneMapFarmArray = ConstructorParameters<typeof ManualData
 
 export class ManualDataZoneMapDrop {
     public appearanceIds?: number[]
+    public costs?: Record<number, number>[]
 
     constructor(
         public id: number,

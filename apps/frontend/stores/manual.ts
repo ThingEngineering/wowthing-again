@@ -27,6 +27,7 @@ import type { DropStatus, FancyStore, FarmStatus, Settings, UserAchievementData,
 import type { UserQuestData, UserTransmogData } from '@/types/data'
 import type { ManualData, ManualDataSetCategoryArray } from '@/types/data/manual'
 import type { StaticData } from '@/types/data/static'
+import { getSetCurrencyCostsString } from '@/utils/get-currency-costs'
 
 
 type classMaskStrings = keyof typeof PlayableClassMask
@@ -562,10 +563,18 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                             
                             case RewardType.SetSpecial:
                                 dropStatus.setHave = drop.appearanceIds.filter(
-                                    (itemId) => userTransmogData.userHas[itemId]
+                                    (appearanceId) => userTransmogData.userHas[appearanceId]
                                 ).length
                                 dropStatus.setNeed = drop.appearanceIds.length
                                 dropStatus.need = dropStatus.setHave < dropStatus.setNeed
+
+                                dropStatus.setNote = getSetCurrencyCostsString(
+                                    manualData,
+                                    drop.appearanceIds,
+                                    drop.costs,
+                                    (appearanceId) => userTransmogData.userHas[appearanceId]
+                                )
+                                
                                 break
                         }
 

@@ -1,4 +1,6 @@
+import { getCurrencyCostsString } from '@/utils/get-currency-costs'
 import type { RewardType, ItemQuality } from '@/types/enums'
+import type { ManualData } from './store'
 
 
 export class ManualDataVendorCategory {
@@ -56,30 +58,8 @@ export class ManualDataVendorItem {
         }
     }
     
-    getNote(): string | undefined {
-        if (this.costs) {
-            const parts: string[] = []
-            const keys = Object.keys(this.costs).map((key) => parseInt(key))
-            keys.sort()
-            for (const key of keys) {
-                let price: string
-                if (key === 0) {
-                    price = `${this.costs[key]}`
-                }
-                else {
-                    price = `${this.costs[key]}|${key}`
-                }
-                
-                if (this.reputation?.length === 2) {
-                    parts.push(`{repPrice:${this.reputation[0]}|${this.reputation[1]}|${price}}`)
-                }
-                else {
-                    parts.push(`{price:${price}}`)
-                }
-            }
-            return parts.join(', ')
-        }
-        return this.note
+    getNote(manualData: ManualData): string | undefined {
+        return this.costs ? getCurrencyCostsString(manualData, this.costs, this.reputation) : this.note
     }
 }
 export type ManualDataVendorItemArray = ConstructorParameters<typeof ManualDataVendorItem>

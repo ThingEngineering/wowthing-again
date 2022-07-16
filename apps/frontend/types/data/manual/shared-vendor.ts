@@ -33,6 +33,12 @@ export class ManualDataSharedVendor {
                 const appearanceIds = this.sells
                     .slice(set.range[0], set.range[0] + set.range[1])
                     .map((item) => item.appearanceId ?? manualData.shared.items[item.id]?.appearanceId ?? 0)
+                const costs: Record<number, number>[] = []
+                
+                for (let sellIndex = 0; sellIndex < this.sells.length; sellIndex++) {
+                    costs.push(this.sells[sellIndex].costs)
+                    seen[appearanceIds[sellIndex]] = true
+                }
                 
                 drops.push({
                     id: 0,
@@ -40,12 +46,9 @@ export class ManualDataSharedVendor {
                     subType: 0,
                     classMask: 0,
                     appearanceIds: appearanceIds,
+                    costs: costs,
                     limit: [set.name],
                 })
-                
-                for (const appearanceId of appearanceIds) {
-                    seen[appearanceId] = true
-                }
             }
 
             for (const item of this.sells) {
@@ -55,7 +58,7 @@ export class ManualDataSharedVendor {
                         type: item.type,
                         subType: item.subType,
                         classMask: item.classMask,
-                        note: item.getNote(),
+                        note: item.getNote(manualData),
                     })
                 }
             }

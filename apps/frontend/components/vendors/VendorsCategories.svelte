@@ -2,7 +2,7 @@
     import filter from 'lodash/filter'
     import find from 'lodash/find'
 
-    import { manualStore, staticStore } from '@/stores'
+    import { manualStore } from '@/stores'
     import { vendorState } from '@/stores/local-storage'
     import { userVendorStore } from '@/stores/user-vendors'
     import { getCurrencyCosts } from '@/utils/get-currency-costs'
@@ -105,7 +105,7 @@
                 >
                     {#if totalCosts[category.slug]}
                         <span class="costs">
-                            {#each getCurrencyCosts($manualStore.data, $staticStore.data, totalCosts[category.slug]) as [linkType, linkId, value]}
+                            {#each getCurrencyCosts($manualStore.data, totalCosts[category.slug]) as [linkType, linkId, value]}
                                 <div>
                                     {value}
                                     <WowheadLink
