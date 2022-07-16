@@ -20,7 +20,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheJournal,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(24),
-            Version = 16,
+            Version = 17,
         };
 
         public override async Task Run(params string[] data)
@@ -147,6 +147,22 @@ namespace Wowthing.Backend.Jobs.Misc
                     .Where(ls => ls.Language == language && _stringTypes.Contains(ls.Type))
                     .AsNoTracking()
                     .ToDictionaryAsync(ls => (ls.Type, ls.Id), ls => ls.String);
+
+                foreach (var (tier, dungeons) in Hardcoded.ExtraTiers)
+                {
+                    tiers.Add(tier);
+                    tierToInstance[tier.ID] = dungeons
+                        .Select(dungeon => dungeon.ID)
+                        .ToArray();
+                    stringMap[(StringType.WowJournalTierName, tier.ID)] = tier.Name;
+
+                    foreach (var dungeon in dungeons)
+                    {
+                        instancesById[dungeon.ID] = dungeon;
+                        encountersByInstanceId[dungeon.ID] = new List<DumpJournalEncounter>();
+                        stringMap[(StringType.WowJournalInstanceName, dungeon.ID)] = dungeon.Name;
+                    }
+                }
 
                 foreach (var tier in tiers)
                 {
@@ -447,6 +463,11 @@ namespace Wowthing.Backend.Jobs.Misc
                         }
 
                         tierData.Instances.Add(instanceData);
+                    }
+
+                    if (tierData.Id == 1)
+                    {
+                        cacheData.Tiers.Add(null);
                     }
 
                     cacheData.Tiers.Add(tierData);

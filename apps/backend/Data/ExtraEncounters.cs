@@ -11,6 +11,14 @@
                     "Sanctified T10",
                 }
             },
+            {
+                1, // Darkmaul Citadel
+                new[]
+                {
+                    "Tunk",
+                    "Gor'groth"
+                }
+            },
         };
     }
 }

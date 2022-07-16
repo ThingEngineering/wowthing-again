@@ -93,7 +93,7 @@
                     new (51207, new[]{ 5 }),
                     new (51208, new[]{ 5 }),
                     new (51209, new[]{ 5 }),
-                    
+
                     // Conqueror's Mark of Sanctification [25H]
                     new (51230, new[]{ 6 }),
                     new (51231, new[]{ 6 }),
@@ -125,7 +125,7 @@
                     new (51277, new[]{ 6 }),
                     new (51278, new[]{ 6 }),
                     new (51279, new[]{ 6 }),
-                    
+
                     // Protector's Mark of Sanctification [10H]
                     new (51150, new[]{ 5 }),
                     new (51151, new[]{ 5 }),
@@ -157,7 +157,7 @@
                     new (51217, new[]{ 5 }),
                     new (51218, new[]{ 5 }),
                     new (51219, new[]{ 5 }),
-                    
+
                     // Protector's Mark of Sanctification [25H]
                     new (51220, new[]{ 6 }),
                     new (51221, new[]{ 6 }),
@@ -189,7 +189,7 @@
                     new (51287, new[]{ 6 }),
                     new (51288, new[]{ 6 }),
                     new (51289, new[]{ 6 }),
-                    
+
                     // Vanquisher's Mark of Sanctification [10H]
                     new (51125, new[]{ 5 }),
                     new (51126, new[]{ 5 }),
@@ -226,7 +226,7 @@
                     new (51187, new[]{ 5 }),
                     new (51188, new[]{ 5 }),
                     new (51189, new[]{ 5 }),
-                    
+
                     // Vanquisher's Mark of Sanctification [25H]
                     new (51250, new[]{ 6 }),
                     new (51251, new[]{ 6 }),
@@ -265,7 +265,32 @@
                     new (51314, new[]{ 6 }),
                 }
             },
-            
+
+            #region Miscellaneous
+            {
+                // Darkmaul Citadel
+                100010, // Tunk
+                new List<ExtraItemDrop>
+                {
+                    new (178162, new[]{ 1 }), // Tunk's Whomper
+                    new (178163, new[]{ 1 }), // Tunk's Shinguard
+                    new (178164, new[]{ 1 }), // Tunk's Needle
+                    new (178165, new[]{ 1 }), // Tunk's Tooth
+                    new (178166, new[]{ 1 }), // Tunk's Toothpick
+                    new (178167, new[]{ 1 }), // Tunk's Lil' Whomper
+                    new (179360, new[]{ 1 }), // Tunk's Tiny Bow
+                    new (179362, new[]{ 1 }), // Tunk's Backscratcher
+                }
+            },
+            {
+                100011, // Gor'groth
+                new List<ExtraItemDrop>
+                {
+                    new (178169, new[]{ 1 }), // Decrepit Dragonscale Drape
+                }
+            },
+            #endregion
+
             #region Classic Trash
             {
                 1000741, // Molten Core > Trash
@@ -328,7 +353,7 @@
                 }
             },
             #endregion
-            
+
             #region Burning Crusade Trash
             {
                 1000745, // Karazhan > Trash
@@ -429,7 +454,7 @@
                 }
             },
             #endregion
-            
+
             #region Wrath of the Lich King Trash
             {
                 1000754, // Naxxramas > Trash
@@ -465,7 +490,7 @@
                     new (46346, new[] { 3 }), // Boots of Unsettled Prey
                     new (45544, new[] { 4 }), // Leggings of the Tortured Earth
                     new (45543, new[] { 4 }), // Shoulders of Misfortune
-                    // Plate 
+                    // Plate
                     new (46345, new[] { 3 }), // Bracers of Righteous Reformation
                     new (46340, new[] { 3 }), // Adamant Handguards
                     new (45542, new[] { 4 }), // Greaves of the Stonewarder
@@ -473,7 +498,7 @@
                     new (46347, new[] { 3 }), // Cloak of the Dormant Blaze
                     new (46341, new[] { 3 }), // Drape of the Spellweaver
                     new (45541, new[] { 4 }), // Shroud of Alteration
-                    // Weapon 
+                    // Weapon
                     new (46351, new[] { 3 }), // Bloodcrush Cudgel
                     new (45605, new[] { 4 }), // Daschal's Bite
                     new (46342, new[] { 3 }), // Golemheart Longbow
@@ -496,7 +521,7 @@
                 }
             },
             #endregion
-            
+
             #region Cataclysm Trash
             {
                 1000072, // The Bastion of Twilight > Trash
@@ -575,9 +600,9 @@
                     new (78878, new[] { 14 }), // Spine of the Thousand Cuts
                 }
             },
-            
+
             #endregion
-            
+
             #region Mists of Pandaria Trash
             {
                 1000330, // Heart of Fear > Trash
@@ -606,7 +631,7 @@
                     new (86849, new[]{ 17 }), // Plated Locust Bracers
                     new (86191, new[]{ 14 }), // Plated Locust Bracers
                     new (86848, new[]{ 17 }), // Serrated Wasp Bracers
-                    new (86190, new[]{ 14 }), // Serrated Wasp Bracers            
+                    new (86190, new[]{ 14 }), // Serrated Wasp Bracers
                 }
             },
             {
@@ -663,7 +688,7 @@
                 }
             },
             #endregion
-            
+
             #region Warlords of Draenor Trash
             {
                 1000477, // Highmaul > Trash
@@ -722,7 +747,7 @@
                 }
             },
             #endregion
-            
+
             #region Legion Trash
             {
                 1000786, // The Nighthold > Trash
@@ -788,7 +813,7 @@
                 }
             },
             #endregion
-            
+
             #region Battle for Azeroth Trash
             {
                 1001031, // Uldir > Trash
@@ -866,7 +891,7 @@
                 }
             },
             #endregion
-            
+
             #region Shadowlands Trash
             {
                 1001190, // Castle Nathria > Trash
