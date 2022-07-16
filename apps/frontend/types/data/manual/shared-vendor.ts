@@ -1,6 +1,7 @@
 import { ManualDataVendorItem, type ManualDataVendorItemArray } from './vendor'
 import { FarmIdType, FarmResetType, FarmType, RewardType } from '@/types/enums'
 import type { ManualDataZoneMapDrop, ManualDataZoneMapFarm } from './zone-map'
+import type { ManualData } from './store'
 
 
 export class ManualDataSharedVendor {
@@ -21,7 +22,7 @@ export class ManualDataSharedVendor {
         this.sets = sets.map((setArray) => new ManualDataSharedVendorSet(...setArray))
     }
 
-    asFarms(mapName: string): ManualDataZoneMapFarm[] {
+    asFarms(manualData: ManualData, mapName: string): ManualDataZoneMapFarm[] {
         const ret: ManualDataZoneMapFarm[] = []
         
         const drops: ManualDataZoneMapDrop[] = []
@@ -29,26 +30,26 @@ export class ManualDataSharedVendor {
 
         if (this.sets) {
             for (const set of this.sets) {
-                const itemIds = this.sells
+                const appearanceIds = this.sells
                     .slice(set.range[0], set.range[0] + set.range[1])
-                    .map((item) => item.id)
+                    .map((item) => item.appearanceId ?? manualData.shared.items[item.id]?.appearanceId ?? 0)
                 
                 drops.push({
                     id: 0,
                     type: RewardType.SetSpecial,
                     subType: 0,
                     classMask: 0,
-                    itemIds: itemIds,
+                    appearanceIds: appearanceIds,
                     limit: [set.name],
                 })
                 
-                for (const itemId of itemIds) {
-                    seen[itemId] = true
+                for (const appearanceId of appearanceIds) {
+                    seen[appearanceId] = true
                 }
             }
 
             for (const item of this.sells) {
-                if (!seen[item.id]) {
+                if (!seen[item.appearanceId ?? manualData.shared.items[item.id]?.appearanceId ?? 0]) {
                     drops.push({
                         id: item.id,
                         type: item.type,

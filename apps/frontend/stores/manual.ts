@@ -444,7 +444,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
 
                 const farms = [...map.farms]
                 for (const vendorId of (manualData.shared.vendorsByMap[map.mapName] || [])) {
-                    farms.push(...manualData.shared.vendors[vendorId].asFarms(map.mapName))
+                    farms.push(...manualData.shared.vendors[vendorId].asFarms(manualData, map.mapName))
                 }
 
                 const farmStatuses: FarmStatus[] = []
@@ -561,10 +561,10 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                                 break
                             
                             case RewardType.SetSpecial:
-                                dropStatus.setHave = drop.itemIds.filter(
-                                    (itemId) => userTransmogData.userHas[manualData.shared.items[itemId]?.appearanceId ?? 0]
+                                dropStatus.setHave = drop.appearanceIds.filter(
+                                    (itemId) => userTransmogData.userHas[itemId]
                                 ).length
-                                dropStatus.setNeed = drop.itemIds.length
+                                dropStatus.setNeed = drop.appearanceIds.length
                                 dropStatus.need = dropStatus.setHave < dropStatus.setNeed
                                 break
                         }
