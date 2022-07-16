@@ -2,7 +2,6 @@
     import sumBy from 'lodash/sumBy'
 
     import { iconStrings } from '@/data/icons'
-    import { progressQuestHead } from '@/data/quests'
     import { userStore } from '@/stores'
     import { homeState } from '@/stores/local-storage'
     import { data as settings } from '@/stores/settings'

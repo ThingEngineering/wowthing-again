@@ -6,13 +6,14 @@
     import { tippyComponent } from '@/utils/tippy'
     import { getInstanceFarm } from '@/utils/get-instance-farm'
     import type { FarmStatus } from '@/types'
-    import type { ManualDataZoneMapDrop, ManualDataZoneMapFarm } from '@/types/data/manual'
+    import type { ManualDataZoneMapCategory, ManualDataZoneMapDrop, ManualDataZoneMapFarm } from '@/types/data/manual'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import WowheadLink from '@/components/links/WowheadLink.svelte'
     import Tooltip from '@/components/tooltips/zone-maps/TooltipZoneMapsThing.svelte'
 
     export let farm: ManualDataZoneMapFarm
+    export let map: ManualDataZoneMapCategory
     export let status: FarmStatus
 
     let big: boolean
@@ -128,6 +129,7 @@
             props: {
                 drops,
                 farm,
+                map,
                 status,
             },
         }}
@@ -155,7 +157,7 @@
                     />
                 </div>
 
-                {#if status.need && farm.type != FarmType.Vendor}
+                {#if status.need && farm.type != FarmType.Vendor && map.mapName !== 'misc_exiles_reach'}
                     <span
                         class:big
                         class:status-success={status.characters.length === 0}

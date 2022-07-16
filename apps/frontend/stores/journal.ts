@@ -17,7 +17,7 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
     initialize(data: JournalData): void {
         // console.time('JournalDataStore.initialize')
 
-        for (const tier of data.tiers) {
+        for (const tier of data.tiers.filter((tier) => tier !== null)) {
             for (const instance of tier.instances) {
                 if (instance.encountersRaw !== null) {
                     instance.encounters = instance.encountersRaw
@@ -45,7 +45,7 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
         const overallStats = stats['OVERALL'] = new UserCount()
         const overallSeen: Record<string, boolean> = {}
 
-        for (const tier of journalData.tiers) {
+        for (const tier of journalData.tiers.filter((tier) => tier !== null)) {
             const tierStats = stats[tier.slug] = new UserCount()
             const tierSeen: Record<string, boolean> = {}
 
@@ -54,7 +54,7 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                 const instanceStats = stats[instanceKey] = new UserCount()
                 const instanceSeen: Record<string, boolean> = {}
 
-                const instanceExpansion = staticData.instances[instance.id].expansion
+                const instanceExpansion = staticData.instances[instance.id]?.expansion ?? 0
 
                 for (const encounter of instance.encounters) {
                     const encounterKey = `${instanceKey}--${encounter.name}`
