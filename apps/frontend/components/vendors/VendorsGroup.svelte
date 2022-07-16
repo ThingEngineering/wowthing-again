@@ -22,13 +22,13 @@
     let element: HTMLElement
     let intersected = false
     let percent: number
-    let things: [ManualDataVendorItem, string, number, Record<string, string>, boolean, [string, number, string][]][]
+    let things: [ManualDataVendorItem, string, number, Record<string, string>, boolean, [string, number, string, number, number][]][]
     $: {
         things = []
         for (const thing of group.sellsFiltered) {
             const userHas = $userVendorStore.data.userHas[`${thing.type}-${thing.id}`] === true
             if (($vendorState.showCollected && userHas) || ($vendorState.showUncollected && !userHas)) {
-                const costs: [string, number, string][] = []
+                const costs: [string, number, string, number, number][] = []
                 if (!userHas) {
                     costs.push(...getCurrencyCosts($manualStore.data, thing.costs))
                 }
