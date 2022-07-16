@@ -27,5 +27,25 @@ sells:
   - type: transmog
     id: 190611 # Tabard of the Enlightened
     costs:
-      0: 944
+      0: 944 #gold
     reputation: 2478 exalted # The Enlightened
+
+    - type: transmog
+    id: 190751 # Dimensional Oracular Wrists
+    costs:
+      0: 195 # Gold
+
+    - type: transmog
+    id: 190748 # Dimensional Cryptic Grips
+    costs:
+      0: 208 # Gold
+
+    - type: transmog
+    id: 190742 # Dimensional Enigmatic Footguards
+    costs:
+      0: 303 # Gold
+
+    - type: transmog
+    id: 190745 # Dimensional Numerus Handguards
+    costs:
+      0: 206 # Gold
