@@ -33,7 +33,7 @@
                     costs.push(...getCurrencyCosts($manualStore.data, $staticStore.data, thing.costs))
                 }
 
-                let extraParams: Record<string, string> = {}
+                const extraParams: Record<string, string> = {}
                 let linkType: string
                 let linkId: number
                 if (thing.type === RewardType.Mount) {
