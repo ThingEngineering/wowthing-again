@@ -17,7 +17,7 @@
     let instance: JournalDataInstance
     $: {
         instance = undefined
-        const tier: JournalDataTier = find($journalStore.data.tiers, (tier) => tier.slug === slug1)
+        const tier: JournalDataTier = find($journalStore.data.tiers, (tier) => tier?.slug === slug1)
         if (tier) {
             instance = find(tier.instances, (instance) => instance.slug === slug2)
         }
@@ -310,7 +310,7 @@
                         {#each encounter.groups as group}
                             <Group
                                 bonusIds={instance.bonusIds}
-                                instanceExpansion={$staticStore.data.instances[instance.id].expansion}
+                                instanceExpansion={$staticStore.data.instances[instance.id]?.expansion ?? 0}
                                 stats={$journalStore.data.stats[`${slug1}--${slug2}--${encounter.name}--${group.name}`]}
                                 {group}
                             />

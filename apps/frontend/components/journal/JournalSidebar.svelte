@@ -9,16 +9,10 @@
     let categories: SidebarItem[] = []
     let overall: UserCount
     $: {
-        categories = $journalStore.data.tiers.map((tier: JournalDataTier) => ({
+        categories = $journalStore.data.tiers.map((tier: JournalDataTier) => tier === null ? null : ({
             children: tier.instances,
             ...tier,
         }))
-
-        categories.push(null)
-        categories.push({
-            name: 'Empty',
-            slug: 'empty',
-        })
 
         overall = $journalStore.data.stats['OVERALL']
     }
