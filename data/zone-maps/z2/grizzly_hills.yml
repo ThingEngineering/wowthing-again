@@ -1,3 +1,10 @@
 name: "Grizzly Hills"
 mapName: z2_grizzly_hills
 farms:
+
+# Instance
+
+- name: "Drak'Tharon Keep"
+  instanceId: 273
+  location: 17.5 27.0
+  type: dungeon
