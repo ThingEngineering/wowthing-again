@@ -11,6 +11,7 @@ namespace Wowthing.Lib.Models
         public ApplicationUserSettingsAuctions? Auctions { get; set; } = new();
         public ApplicationUserSettingsCharacters? Characters { get; set; } = new();
         public ApplicationUserSettingsGeneral? General { get; set; } = new();
+        public ApplicationUserSettingsHistory? History { get; set; } = new();
         public ApplicationUserSettingsLayout? Layout { get; set; } = new();
         public ApplicationUserSettingsPrivacy? Privacy { get; set; } = new();
         public ApplicationUserSettingsTransmog? Transmog { get; set; } = new();
@@ -20,6 +21,7 @@ namespace Wowthing.Lib.Models
             Auctions ??= new ApplicationUserSettingsAuctions();
             Characters ??= new ApplicationUserSettingsCharacters();
             General ??= new ApplicationUserSettingsGeneral();
+            History ??= new ApplicationUserSettingsHistory();
             Layout ??= new ApplicationUserSettingsLayout();
             Privacy ??= new ApplicationUserSettingsPrivacy();
             Transmog ??= new ApplicationUserSettingsTransmog();
@@ -117,6 +119,7 @@ namespace Wowthing.Lib.Models
             Debug.Assert(General != null);
             Debug.Assert(Layout != null);
 
+            // General
             // Clamp between 0 and 1440 minutes
             General.RefreshInterval = Math.Max(0, Math.Min(1440, General.RefreshInterval));
 
@@ -144,6 +147,7 @@ namespace Wowthing.Lib.Models
                 General.SortBy.Add("name");
             }
 
+            // Layout
             if (!_validCovenantColumn.Contains(Layout.CovenantColumn))
             {
                 Layout.CovenantColumn = "current";
@@ -210,6 +214,11 @@ namespace Wowthing.Lib.Models
 
         public List<string> GroupBy { get; set; } = new();
         public List<string> SortBy { get; set; } = new();
+    }
+
+    public class ApplicationUserSettingsHistory
+    {
+        public List<int> HiddenRealms { get; set; } = new();
     }
 
     public class ApplicationUserSettingsLayout

@@ -442,6 +442,13 @@ namespace Wowthing.Web.Controllers
                         apiResult.Public,
                         apiResult.Privacy))
                     .ToList(),
+
+                GoldHistoryRealms = apiResult.Public ? null : await _context.PlayerAccountGoldSnapshot
+                    .Where(pags => tempAccounts.Select(account => account.Id).Contains(pags.AccountId))
+                    .Select(pags => pags.RealmId)
+                    .Distinct()
+                    .ToListAsync(),
+
                 LastApiCheck = apiResult.Public ? null : apiResult.User.LastApiCheck,
 
                 Backgrounds = backgrounds,
@@ -504,9 +511,12 @@ namespace Wowthing.Web.Controllers
 
             timer.AddPoint("CheckUser");
 
+            var hiddenRealmIds = apiResult.User.Settings.History?.HiddenRealms ?? new List<int>();
+
             var rawData = await _context.PlayerAccountGoldSnapshot
                 .AsNoTracking()
                 .Where(pags => pags.Account.UserId == apiResult.User.Id)
+                .Where(pags => !hiddenRealmIds.Contains(pags.RealmId))
                 .OrderBy(pags => pags.Time)
                 .ToArrayAsync();
 

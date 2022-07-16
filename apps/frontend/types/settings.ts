@@ -22,6 +22,10 @@ export interface Settings {
         sortBy: string[]
     }
 
+    history: {
+        hiddenRealms: number[]
+    }
+
     layout: {
         commonFields: string[]
         homeFields: string[]

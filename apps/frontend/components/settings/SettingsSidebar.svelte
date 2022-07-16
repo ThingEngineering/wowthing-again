@@ -47,6 +47,10 @@
             slug: 'auctions',
         },
         {
+            name: 'History',
+            slug: 'history',
+        },
+        {
             name: 'Transmog',
             slug: 'transmog',
         },
