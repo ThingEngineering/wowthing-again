@@ -114,11 +114,9 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                                     const difficultyKey = `${instanceKey}--${difficulty}`
                                     const difficultyStats = stats[difficultyKey] = stats[difficultyKey] || new UserCount()
 
-                                    if (!instanceSeen[key]) {
-                                        difficultyStats.total++
-                                        if (userHas) {
-                                            difficultyStats.have++
-                                        }
+                                    difficultyStats.total++
+                                    if (userHas) {
+                                        difficultyStats.have++
                                     }
                                 }
                                 
