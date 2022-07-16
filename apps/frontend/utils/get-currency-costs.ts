@@ -11,7 +11,7 @@ export function getCurrencyCosts(
     manualData: ManualData,
     staticData: StaticData,
     costs: Record<number, number>
-): [string, number, string, number][] {
+): [string, number, string][] {
     const ret: [string, number, string, number][] = []
 
     const currencyIds = Object.keys(costs)
@@ -40,5 +40,5 @@ export function getCurrencyCosts(
 
             return `555555${staticData.currencies[id]?.name ?? 'ZZZ'}`
         }
-    )
+    ).map(([a, b, c, ]) => [a, b, c])
 }
