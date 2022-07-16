@@ -279,7 +279,7 @@
                     new (178166, new[]{ 1 }), // Tunk's Toothpick
                     new (178167, new[]{ 1 }), // Tunk's Lil' Whomper
                     new (179360, new[]{ 1 }), // Tunk's Tiny Bow
-                    new (179362, new[]{ 1 }), // Tunk's Backscratcher
+                    //new (179362, new[]{ 1 }), // Tunk's Backscratcher -- doesn't actually exist
                 }
             },
             {
