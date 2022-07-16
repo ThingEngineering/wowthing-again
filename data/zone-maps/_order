@@ -74,6 +74,47 @@ z4/_mists_of_pandaria.yml
     z4/valley_of_the_four_winds.yml
     z4/veiled_stair.yml
 
+z3/_cataclysm.yml
+    z3/molten_front.yml
+    z3/tol_barad.yml
+    -
+    z3/deepholm.yml
+    z3/mount_hyjal.yml
+    z3/twilight_highlands.yml
+    z3/uldum.yml
+    z3/vashjir.yml
+
+z2/_wrath_of_the_lich_king.yml
+    z2/borean_tundra.yml
+    z2/crystalsong_forest.yml
+    z2/dragonblight.yml
+    z2/grizzly_hills.yml
+    z2/howling_fjord.yml
+    z2/icecrown.yml
+    z2/sholazar_basin.yml
+    z2/storm_peaks.yml
+    z2/zuldrak.yml
+    -
+    z2/dalaran.yml
+
+z1/_the_burning_crusade.yml
+    z1/blades_edge_mountains.yml
+    z1/hellfire_peninsula.yml
+    z1/nagrand.yml
+    z1/netherstorm.yml
+    z1/shadowmoon_valley.yml
+    z1/terokkar_forest.yml
+    z1/zangarmarsh.yml
+    -
+    z1/azuremyst_isle.yml
+    z1/bloodmyst_isle.yml
+    z1/exodar.yml
+    -
+    z1/eversong_woods.yml
+    z1/ghostlands.yml
+    z1/silvermoon_city.yml
+    -
+    z1/shattrath_city.yml
 -
 
 misc/_misc.yml
