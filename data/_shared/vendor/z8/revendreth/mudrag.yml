@@ -1,9 +1,10 @@
 id: 165419
 name: "Grand Marshal Mudrag"
+note: "Requires Ramparts Racer achievement"
+
 locations:
   z8_revendreth:
     - 40.6 46.8
-note: "Requires Ramparts Racer"
 
 sells:
   - type: toy

@@ -30,22 +30,22 @@ sells:
       0: 944 #gold
     reputation: 2478 exalted # The Enlightened
 
-    - type: transmog
-    id: 190751 # Dimensional Oracular Wrists
+  - type: transmog
+    id: 190751 # Dimensional Oracular Wrists [cloth]
     costs:
       0: 195 # Gold
 
-    - type: transmog
-    id: 190748 # Dimensional Cryptic Grips
+  - type: transmog
+    id: 190748 # Dimensional Cryptic Grips [leather]
     costs:
       0: 208 # Gold
 
-    - type: transmog
-    id: 190742 # Dimensional Enigmatic Footguards
+  - type: transmog
+    id: 190742 # Dimensional Enigmatic Footguards [mail]
     costs:
       0: 303 # Gold
 
-    - type: transmog
-    id: 190745 # Dimensional Numerus Handguards
+  - type: transmog
+    id: 190745 # Dimensional Numerus Handguards [plate]
     costs:
       0: 206 # Gold
