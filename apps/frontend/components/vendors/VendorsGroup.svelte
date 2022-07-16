@@ -22,7 +22,7 @@
     let element: HTMLElement
     let intersected = false
     let percent: number
-    let things: [ManualDataVendorItem, string, number, boolean, [string, number, string][]][]
+    let things: [ManualDataVendorItem, string, number, Record<string, string>, boolean, [string, number, string][]][]
     $: {
         things = []
         for (const thing of group.sellsFiltered) {
@@ -33,6 +33,7 @@
                     costs.push(...getCurrencyCosts($manualStore.data, $staticStore.data, thing.costs))
                 }
 
+                let extraParams: Record<string, string> = {}
                 let linkType: string
                 let linkId: number
                 if (thing.type === RewardType.Mount) {
@@ -46,12 +47,18 @@
                 else {
                     linkType = 'item'
                     linkId = thing.id
+                    if (thing.bonusIds) {
+                        extraParams['bonus'] = thing.bonusIds
+                            .map((bonusId) => bonusId.toString())
+                            .join(':')
+                    }
                 }
 
                 things.push([
                     thing,
                     linkType,
                     linkId,
+                    extraParams,
                     userHas,
                     costs,
                 ])
@@ -98,7 +105,7 @@
             </h4>
 
             <div class="collection-objects" data-inter={intersected}>
-                {#each things as [thing, linkType, linkId, userHas, costs]}
+                {#each things as [thing, linkType, linkId, extraParams, userHas, costs]}
                     <div
                         class="collection-item quality{thing.quality || $manualStore.data.shared.items[thing.id]?.quality || 0}"
                         class:missing={
@@ -112,6 +119,7 @@
                             <WowheadLink
                                 id={linkId}
                                 type={linkType}
+                                {extraParams}
                             >
                                 <WowthingImage
                                     name="{linkType}/{linkId}"

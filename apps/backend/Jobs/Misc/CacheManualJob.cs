@@ -380,7 +380,10 @@ public class CacheManualJob : JobBase, IScheduledJob
         else
         {
             item.ClassMask = _itemMap[item.Id].GetCalculatedClassMask();
-            item.Quality = _itemMap[item.Id].Quality;
+            if (item.Quality == WowQuality.Poor)
+            {
+                item.Quality = _itemMap[item.Id].Quality;
+            }
         }
 
         // Costs with an ID >1 million are items

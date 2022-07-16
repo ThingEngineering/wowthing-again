@@ -2,6 +2,7 @@
     import { data as settingsData } from '@/stores/settings'
     import { getWowheadDomain } from '@/utils/get-wowhead-domain'
 
+    export let extraParams: Record<string, string> = {}
     export let id: number
     export let noTooltip = false
     export let toComments = false
@@ -11,6 +12,21 @@
     let url = ''
     $: {
         url = `https://${getWowheadDomain($settingsData.general.language)}.wowhead.com/${type}=${id}`
+
+        if (Object.keys(extraParams).length > 0) {
+            url += '?'
+            let first = true
+            for (const param in extraParams) {
+                if (first) {
+                    first = false
+                }
+                else {
+                    url += '&'
+                }
+                url += `${param}=${extraParams[param]}`
+            }
+        }
+        
         if (toComments) {
             url += '#comments'
         }
