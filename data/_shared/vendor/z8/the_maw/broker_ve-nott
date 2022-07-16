@@ -4,6 +4,7 @@ name: "Broker Ve'nott"
 locations:
   z8_the_maw:
     - 48.2 39.4
+note: "Inside Torghast"
 
 sets:
   - name: "Shoulders"
@@ -80,62 +81,62 @@ sells:
       1728: 300 # Phantasma
 
   - type: transmog
-    id: 187752 # Argent Mawsworn Greatblade
+    id: 188752 # Argent Mawsworn Greatblade
     costs:
       1728: 300 # Phantasma
 
   - type: transmog
-    id: 187742 # Ashen Mawsworn Crossbow
+    id: 188742 # Ashen Mawsworn Crossbow
     costs:
       1728: 300 # Phantasma
 
   - type: transmog
-    id: 187747 # Ashen Mawsworn Halberd
+    id: 188747 # Ashen Mawsworn Halberd
     costs:
       1728: 300 # Phantasma
 
   - type: transmog
-    id: 187745 # Ashen Mawsworn Maul
+    id: 188745 # Ashen Mawsworn Maul
     costs:
       1728: 300 # Phantasma
 
   - type: transmog
-    id: 187749 # Ashen Mawsworn Staff
+    id: 188749 # Ashen Mawsworn Staff
     costs:
       1728: 300 # Phantasma
 
   - type: transmog
-    id: 187750 # Burnished Mawsworn Greatsword
+    id: 188750 # Burnished Mawsworn Greatsword
     costs:
       1728: 300 # Phantasma
 
   - type: transmog
-    id: 187737 # Ebon Mawsworn Crossbow
+    id: 188737 # Ebon Mawsworn Crossbow
     costs:
       1728: 300 # Phantasma
 
   - type: transmog
-    id: 187746 # Ebon Mawsworn Halberd
+    id: 188746 # Ebon Mawsworn Halberd
     costs:
       1728: 300 # Phantasma
 
   - type: transmog
-    id: 187744 # Ebon Mawsworn Maul
+    id: 188744 # Ebon Mawsworn Maul
     costs:
       1728: 300 # Phantasma
 
   - type: transmog
-    id: 187748 # Ebon Mawsworn Staff
+    id: 188748 # Ebon Mawsworn Staff
     costs:
       1728: 300 # Phantasma
 
   - type: transmog
-    id: 187753 # Gilded Mawsworn Greatsword
+    id: 188753 # Gilded Mawsworn Greatsword
     costs:
       1728: 300 # Phantasma
 
   - type: transmog
-    id: 187690 # Corrupted Skull Crescent
+    id: 188690 # Corrupted Skull Crescent
     costs:
       0: 150 # Gold
 
