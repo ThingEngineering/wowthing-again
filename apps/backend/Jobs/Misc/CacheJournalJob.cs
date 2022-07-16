@@ -240,7 +240,7 @@ namespace Wowthing.Backend.Jobs.Misc
                             {
                                 if (!encounterDifficulties.Intersect(difficulties).Any())
                                 {
-                                    Logger.Debug("Skipping encounter {Id}", encounter.ID);
+                                    Logger.Debug("Skipping encounter {Id} {Name}", encounter.ID, encounter.Name);
                                     continue;
                                 }
                             }
@@ -344,14 +344,20 @@ namespace Wowthing.Backend.Jobs.Misc
 
                                 // Skip any items that aren't for this difficulty
                                 // TODO handle multiple difficulties better
-                                if (encounterItem.DifficultyMask > 0 && difficulties.Length == 1)
+                                /*if (encounterItem.DifficultyMask > 0 && difficulties.Length == 1)
                                 {
                                     int difficultyValue = 1 << (difficulties[0] - 1);
                                     if ((encounterItem.DifficultyMask & difficultyValue) == 0)
                                     {
+                                        if (encounter.ID == 1617)
+                                        {
+                                            Logger.Warning("Difficulty skip? {Mask} {Difficulty}",
+                                                encounterItem.DifficultyMask, difficultyValue);
+                                        }
+
                                         continue;
                                     }
-                                }
+                                }*/
 
                                 difficulties = difficulties
                                     .OrderBy(d => Array.IndexOf(_difficultyOrder, d))
