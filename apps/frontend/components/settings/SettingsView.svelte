@@ -11,6 +11,7 @@
     import SortCharacters from './sections/SettingsSortCharacters.svelte'
     import Transmog from './sections/SettingsTransmog.svelte'
     import Weeklies from './sections/SettingsWeeklies.svelte'
+    import History from './sections/SettingsHistory.svelte'
 
     export let slug1: string
     export let slug2: string
@@ -23,6 +24,7 @@
     const components: Record<string, typeof SvelteComponent> = {
         'account': Account,
         'auctions': Auctions,
+        'history': History,
         'layout': Layout,
         'layout/lockouts': Lockouts,
         'layout/weeklies': Weeklies,

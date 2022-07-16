@@ -14,6 +14,8 @@ namespace Wowthing.Web.Models
 
         public List<UserApiCharacter> Characters { get; init; }
 
+        public List<int> GoldHistoryRealms { get; set; }
+
         public Dictionary<int, BackgroundImage> Backgrounds { get; set; }
         public Dictionary<int, WowPeriod> CurrentPeriod { get; init; }
         public Dictionary<string, GlobalDailies> GlobalDailies { get; set; }
