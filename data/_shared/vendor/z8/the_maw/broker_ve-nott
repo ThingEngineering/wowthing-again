@@ -1,0 +1,155 @@
+id: 170257
+name: "Broker Ve'nott"
+
+locations:
+  z8_the_maw:
+    - 48.2 39.4
+
+sets:
+  - name: "Shoulders"
+    range: 1 11
+    sortKey: "shoulders"
+
+  - name: "Weapons"
+    range: 12 11
+    sortKey: "weapons"
+
+  - name: "Backs"
+    range: 23 4
+    sortKey: "back"
+    
+sells:
+  - type: toy
+    id: 186974 # Experimental Anima Cell
+    costs:
+      1728: 300 # Phantasma
+
+  - type: transmog
+    id: 187086 # Deathsworn's Sterling Shoulderguards
+    costs:
+      1728: 300 # Phantasma
+
+  - type: transmog
+    id: 187089 # Sterling Blade-Tipped Shoulders
+    costs:
+      1728: 300 # Phantasma
+
+  - type: transmog
+    id: 187099 # Sterling Fortress Spaulders
+    costs:
+      1728: 300 # Phantasma
+
+  - type: transmog
+    id: 187087 # Sterling Impaler's Mantle
+    costs:
+      1728: 300 # Phantasma
+
+  - type: transmog
+    id: 187100 # Sterling Ornamental Mantle
+    costs:
+      1728: 300 # Phantasma
+
+  - type: transmog
+    id: 187085 # Sterling Shoulder Skewers
+    costs:
+      1728: 300 # Phantasma
+
+  - type: transmog
+    id: 187101 # Sterling Shoulder-Shields
+    costs:
+      1728: 300 # Phantasma
+
+  - type: transmog
+    id: 187088 # Sterling Skullwing Shoulders
+    costs:
+      1728: 300 # Phantasma
+
+  - type: transmog
+    id: 187095 # Sterling Spiked Pauldrons
+    costs:
+      1728: 300 # Phantasma
+
+  - type: transmog
+    id: 187098 # Sterling Twin-Scythe Shoulders
+    costs:
+      1728: 300 # Phantasma
+
+  - type: transmog
+    id: 187090 # Sterling Wingblade Pauldrons
+    costs:
+      1728: 300 # Phantasma
+
+  - type: transmog
+    id: 187752 # Argent Mawsworn Greatblade
+    costs:
+      1728: 300 # Phantasma
+
+  - type: transmog
+    id: 187742 # Ashen Mawsworn Crossbow
+    costs:
+      1728: 300 # Phantasma
+
+  - type: transmog
+    id: 187747 # Ashen Mawsworn Halberd
+    costs:
+      1728: 300 # Phantasma
+
+  - type: transmog
+    id: 187745 # Ashen Mawsworn Maul
+    costs:
+      1728: 300 # Phantasma
+
+  - type: transmog
+    id: 187749 # Ashen Mawsworn Staff
+    costs:
+      1728: 300 # Phantasma
+
+  - type: transmog
+    id: 187750 # Burnished Mawsworn Greatsword
+    costs:
+      1728: 300 # Phantasma
+
+  - type: transmog
+    id: 187737 # Ebon Mawsworn Crossbow
+    costs:
+      1728: 300 # Phantasma
+
+  - type: transmog
+    id: 187746 # Ebon Mawsworn Halberd
+    costs:
+      1728: 300 # Phantasma
+
+  - type: transmog
+    id: 187744 # Ebon Mawsworn Maul
+    costs:
+      1728: 300 # Phantasma
+
+  - type: transmog
+    id: 187748 # Ebon Mawsworn Staff
+    costs:
+      1728: 300 # Phantasma
+
+  - type: transmog
+    id: 187753 # Gilded Mawsworn Greatsword
+    costs:
+      1728: 300 # Phantasma
+
+  - type: transmog
+    id: 187690 # Corrupted Skull Crescent
+    costs:
+      0: 150 # Gold
+
+  - type: transmog
+    id: 187034 # Gilded Agony Cage
+    costs:
+      1728: 1000 # Phantasma
+
+  - type: transmog
+    id: 187083 # Gilded Eye Crescent
+    costs:
+      1728: 1000 # Phantasma
+
+  - type: transmog
+    id: 187082 # Gilded Skull Crescent
+    costs:
+      1728: 1000 # Phantasma
