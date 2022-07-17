@@ -101,6 +101,8 @@ z2/_wrath_of_the_lich_king.yml
     z2/dalaran.yml
 
 z1/_the_burning_crusade.yml
+    z1/isle_of_queldanas.yml
+    -
     z1/blades_edge_mountains.yml
     z1/hellfire_peninsula.yml
     z1/nagrand.yml

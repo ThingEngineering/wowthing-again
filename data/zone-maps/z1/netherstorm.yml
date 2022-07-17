@@ -24,3 +24,14 @@ farms:
   location: 73.7 63.7
   reset: weekly
   type: raid
+
+# Quest
+
+- name: "Back to the Chief!"
+  location: 37.2 63.8
+  questId: 10249
+  reset: none
+  type: quest
+  drops:
+    - type: toy
+      id: 134021 # X-52 Rocket Helmet
