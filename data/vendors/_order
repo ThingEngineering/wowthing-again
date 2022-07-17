@@ -78,6 +78,8 @@ z3/_cataclysm.yml
 z1/_the_burning_crusade.yml
     z1/nagrand.yml
     z1/netherstorm.yml
+    -
+    z1/shattrath_city.yml
 
 -
 
