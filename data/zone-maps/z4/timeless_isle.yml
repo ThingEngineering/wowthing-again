@@ -91,6 +91,13 @@ farms:
     id: 8728
     criteriaId: 34238 # Glowing Blue Ash
 
+  - type: achievement
+    id: 8728
+    criteriaId: 34244 # Ominous Flame
+
+  - type: pet
+    id: 1335 # Ominous Flame
+
 - name: "Garnia"
   location: 64.6 27.5
   npcId: 73282
