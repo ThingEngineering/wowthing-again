@@ -928,46 +928,55 @@ sells:
   # Ensemble
   - type: transmog
     id: 146608 # Ensemble: Gladiator's Chain Armor
+    transmogSetId: 976
     costs:
       1137642: 12
 
   - type: transmog
     id: 146609 # Ensemble: Gladiator's Dragonhide Armor
+    transmogSetId: 977
     costs:
       1137642: 12
 
   - type: transmog
     id: 146611 # Ensemble: Gladiator's Felweave Armor
+    transmogSetId: 970
     costs:
       1137642: 12
 
   - type: transmog
     id: 146612 # Ensemble: Gladiator's Leather Armor
+    transmogSetId: 972
     costs:
       1137642: 12
 
   - type: transmog
     id: 146613 # Ensemble: Gladiator's Plate Armor
+    transmogSetId: 381
     costs:
       1137642: 12
 
   - type: transmog
     id: 146614 # Ensemble: Gladiator's Ringmail Armor
+    transmogSetId: 971
     costs:
       1137642: 12
 
   - type: transmog
     id: 146615 # Ensemble: Gladiator's Satin Armor
+    transmogSetId: 973
     costs:
       1137642: 12
 
   - type: transmog
     id: 146616 # Ensemble: Gladiator's Scaled Armor
+    transmogSetId: 974
     costs:
       1137642: 12
 
   - type: transmog
     id: 146617 # Ensemble: Gladiator's Silk Armor
+    transmogSetId: 975
     costs:
       1137642: 12
 
