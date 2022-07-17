@@ -18,4 +18,7 @@ export const costOrder: number[] = [
     1813, // Reservoir Anima
     1767, // Stygia
     1885, // Grateful Offering
+
+    // Cataclysm
+    1071617, // Crystallized Firestone
 ]

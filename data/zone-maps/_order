@@ -76,7 +76,7 @@ z4/_mists_of_pandaria.yml
 
 z3/_cataclysm.yml
     z3/molten_front.yml
-    z3/tol_barad.yml
+    z3/tol_barad_peninsula.yml
     -
     z3/deepholm.yml
     z3/mount_hyjal.yml
