@@ -1,98 +1,99 @@
 id: 54650
 name: "Kezzik the Striker"
+note: "Gladiator and General's Gladiator"
 
 locations:
   z1_netherstorm:
-    - 33.0 64.2
+    - 30.0 64.2
 
 sets:
-  - name: "Armor - Chain"
+  - name: "S1 Armor - Chain"
     range: 0 11
-    sortKey: "armor1-chain"
+    sortKey: "s1-armor1-chain"
 
-  - name: "Armor - Dragonhide"
+  - name: "S1 Armor - Dragonhide"
     range: 11 11
-    sortKey: "armor1-dragonhide"
+    sortKey: "s1-armor1-dragonhide"
 
-  - name: "Armor - Dreadweave"
+  - name: "S1 Armor - Dreadweave"
     range: 22 11
-    sortKey: "armor1-dreadweave"
+    sortKey: "s1-armor1-dreadweave"
 
-  - name: "Armor - Felweave"
+  - name: "S1 Armor - Felweave"
     range: 33 8
-    sortKey: "armor2-felweave"
+    sortKey: "s1-armor2-felweave"
 
-  - name: "Armor - Kodohide"
+  - name: "S1 Armor - Kodohide"
     range: 41 11
-    sortKey: "armor1-kodohide"
+    sortKey: "s1-armor1-kodohide"
 
-  - name: "Armor - Lamellar"
+  - name: "S1 Armor - Lamellar"
     range: 52 11
-    sortKey: "armor1-lamellar"
+    sortKey: "s1-armor1-lamellar"
 
-  - name: "Armor - Leather"
+  - name: "S1 Armor - Leather"
     range: 63 11
-    sortKey: "armor1-leather"
+    sortKey: "s1-armor1-leather"
 
-  - name: "Armor - Linked"
+  - name: "S1 Armor - Linked"
     range: 74 11
-    sortKey: "armor1-linked"
+    sortKey: "s1-armor1-linked"
 
-  - name: "Armor - Mail"
+  - name: "S1 Armor - Mail"
     range: 85 11
-    sortKey: "armor1-mail"
+    sortKey: "s1-armor1-mail"
 
-  - name: "Armor - Mooncloth"
+  - name: "S1 Armor - Mooncloth"
     range: 96 5
-    sortKey: "armor3-mooncloth"
+    sortKey: "s1-armor3-mooncloth"
 
-  - name: "Armor - Ornamented"
+  - name: "S1 Armor - Ornamented"
     range: 101 5
-    sortKey: "armor3-ornamented"
+    sortKey: "s1-armor3-ornamented"
 
-  - name: "Armor - Plate"
+  - name: "S1 Armor - Plate"
     range: 106 11
-    sortKey: "armor1-plate"
+    sortKey: "s1-armor1-plate"
 
-  - name: "Armor - Ringmail"
+  - name: "S1 Armor - Ringmail"
     range: 117 5
-    sortKey: "armor3-ringmail"
+    sortKey: "s1-armor3-ringmail"
 
-  - name: "Armor - Satin"
+  - name: "S1 Armor - Satin"
     range: 122 8
-    sortKey: "armor2-satin"
+    sortKey: "s1-armor2-satin"
 
-  - name: "Armor - Scaled"
+  - name: "S1 Armor - Scaled"
     range: 130 11
-    sortKey: "armor1-scaled"
+    sortKey: "s1-armor1-scaled"
 
-  - name: "Armor - Silk"
+  - name: "S1 Armor - Silk"
     range: 141 11
-    sortKey: "armor1-silk"
+    sortKey: "s1-armor1-silk"
 
-  - name: "Armor - Wyrmhide"
+  - name: "S1 Armor - Wyrmhide"
     range: 152 11
-    sortKey: "armor1-wyrmhide"
+    sortKey: "s1-armor1-wyrmhide"
 
-  - name: "Ensembles"
+  - name: "S1 Ensembles"
     range: 163 9
-    sortKey: "ensembles"
+    sortKey: "s1-ensembles"
   
-  - name: "Weapons - Agility"
+  - name: "S1 Weapons - Agility"
     range: 172 9
-    sortKey: "weapons-agility"
+    sortKey: "s1-weapons-agility"
   
-  - name: "Weapons - Intellect"
+  - name: "S1 Weapons - Intellect"
     range: 181 5
-    sortKey: "weapons-intellect"
+    sortKey: "s1-weapons-intellect"
   
-  - name: "Weapons - Strength"
+  - name: "S1 Weapons - Strength"
     range: 186 6
-    sortKey: "weapons-strength"
+    sortKey: "s1-weapons-strength"
   
-  - name: "Weapons - Misc"
+  - name: "S1 Weapons - Misc"
     range: 192 4
-    sortKey: "weapons-zzz"
+    sortKey: "s1-weapons-zzz"
 
 sells:
   # Chain
