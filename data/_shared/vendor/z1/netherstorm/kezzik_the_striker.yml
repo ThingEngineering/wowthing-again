@@ -1,0 +1,1096 @@
+id: 54650
+name: "Kezzik the Striker"
+
+locations:
+  z1_netherstorm:
+    - 33.0 64.2
+
+sets:
+  - name: "Armor - Chain"
+    range: 0 11
+    sortKey: "armor1-chain"
+
+  - name: "Armor - Dragonhide"
+    range: 11 11
+    sortKey: "armor1-dragonhide"
+
+  - name: "Armor - Dreadweave"
+    range: 22 11
+    sortKey: "armor1-dreadweave"
+
+  - name: "Armor - Felweave"
+    range: 33 8
+    sortKey: "armor2-felweave"
+
+  - name: "Armor - Kodohide"
+    range: 41 11
+    sortKey: "armor1-kodohide"
+
+  - name: "Armor - Lamellar"
+    range: 52 11
+    sortKey: "armor1-lamellar"
+
+  - name: "Armor - Leather"
+    range: 63 11
+    sortKey: "armor1-leather"
+
+  - name: "Armor - Linked"
+    range: 74 11
+    sortKey: "armor1-linked"
+
+  - name: "Armor - Mail"
+    range: 85 11
+    sortKey: "armor1-mail"
+
+  - name: "Armor - Mooncloth"
+    range: 96 5
+    sortKey: "armor3-mooncloth"
+
+  - name: "Armor - Ornamented"
+    range: 101 5
+    sortKey: "armor3-ornamented"
+
+  - name: "Armor - Plate"
+    range: 106 11
+    sortKey: "armor1-plate"
+
+  - name: "Armor - Ringmail"
+    range: 117 5
+    sortKey: "armor3-ringmail"
+
+  - name: "Armor - Satin"
+    range: 122 8
+    sortKey: "armor2-satin"
+
+  - name: "Armor - Scaled"
+    range: 130 11
+    sortKey: "armor1-scaled"
+
+  - name: "Armor - Silk"
+    range: 141 11
+    sortKey: "armor1-silk"
+
+  - name: "Armor - Wyrmhide"
+    range: 152 11
+    sortKey: "armor1-wyrmhide"
+
+  - name: "Ensembles"
+    range: 163 9
+    sortKey: "ensembles"
+  
+  - name: "Weapons - Agility"
+    range: 172 9
+    sortKey: "weapons-agility"
+  
+  - name: "Weapons - Intellect"
+    range: 181 5
+    sortKey: "weapons-intellect"
+  
+  - name: "Weapons - Strength"
+    range: 186 6
+    sortKey: "weapons-strength"
+  
+  - name: "Weapons - Misc"
+    range: 192 4
+    sortKey: "weapons-zzz"
+
+sells:
+  # Chain
+  - type: transmog
+    id: 28331 # Gladiator's Chain Helm
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 28333 # Gladiator's Chain Spaulders
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 28334 # Gladiator's Chain Armor
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 28451 # General's Chain Bracers
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 28973 # Marshal's Chain Bracers
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 28335 # Gladiator's Chain Gauntlets
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 28450 # General's Chain Girdle
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 28974 # Marshal's Chain Girdle
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 28332 # Gladiator's Chain Leggings
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 28449 # General's Chain Sabatons
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 28975 # Marshal's Chain Sabatons
+    costs:
+      1137642: 2
+  
+  # Dragonhide
+  - type: transmog
+    id: 28127 # Gladiator's Dragonhide Helm
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 28129 # Gladiator's Dragonhide Spaulders
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 28130 # Gladiator's Dragonhide Tunic
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 28445 # General's Dragonhide Bracers
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 28978 # Marshal's Dragonhide Bracers
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 28126 # Gladiator's Dragonhide Gloves
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 28443 # General's Dragonhide Belt
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 28976 # Marshal's Dragonhide Belt
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 28128 # Gladiator's Dragonhide Legguards
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 28444 # General's Dragonhide Boots
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 28977 # Marshal's Dragonhide Boots
+    costs:
+      1137642: 2
+
+  # Dreadweave
+  - type: transmog
+    id: 24553 # Gladiator's Dreadweave Hood
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 24554 # Gladiator's Dreadweave Mantle
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 24552 # Gladiator's Dreadweave Robe
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 28405 # General's Dreadweave Cuffs
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 28981 # Marshal's Dreadweave Cuffs
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 24556 # Gladiator's Dreadweave Gloves
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 28404 # General's Dreadweave Belt
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 28980 # Marshal's Dreadweave Belt
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 24555 # Gladiator's Dreadweave Leggings
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 28402 # General's Dreadweave Stalkers
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 28982 # Marshal's Dreadweave Stalkers
+    costs:
+      1137642: 2
+
+  # Felweave
+  - type: transmog
+    id: 30187 # Gladiator's Felweave Cowl
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 30186 # Gladiator's Felweave Amice
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 30200 # Gladiator's Felweave Raiment
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 147772 # General's Felweave Cuffs
+    costs:
+      1137642: 1
+  
+  - type: transmog
+    id: 30188 # Gladiator's Felweave Handguards
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 147615 # General's Felweave Belt
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 30201 # Gladiator's Felweave Trousers
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 147616 # General's Felweave Boots
+    costs:
+      1137642: 2
+
+  # Kodohide
+  - type: transmog
+    id: 31376 # Gladiator's Kodohide Helm
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 31378 # Gladiator's Kodohide Spaulders
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 31379 # Gladiator's Kodohide Tunic
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 31598 # General's Kodohide Bracers
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 31599 # Marshal's Kodohide Bracers
+    costs:
+      1137642: 1
+  
+  - type: transmog
+    id: 31375 # Gladiator's Kodohide Gloves
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 31594 # General's Kodohide Belt
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 31596 # Marshal's Kodohide Belt
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 31377 # Gladiator's Kodohide Legguards
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 31595 # General's Kodohide Boots
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 31597 # Marshal's Kodohide Boots
+    costs:
+      1137642: 2
+
+  # Lamellar
+  - type: transmog
+    id: 27704 # Gladiator's Lamellar Helm
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 27706 # Gladiator's Lamellar Shoulders
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 27702 # Gladiator's Lamellar Chestpiece
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 27703 # Gladiator's Lamellar Gauntlets
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 28643 # General's Lamellar Bracers
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 28984 # Marshal's Lamellar Bracers
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 28641 # General's Lamellar Belt
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 28983 # Marshal's Lamellar Belt
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 27705 # Gladiator's Lamellar Legguards
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 28642 # General's Lamellar Greaves
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 28985 # Marshal's Lamellar Greaves
+    costs:
+      1137642: 2
+
+  # Leather
+  - type: transmog
+    id: 25830 # Gladiator's Leather Helm
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 25832 # Gladiator's Leather Spaulders
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 25831 # Gladiator's Leather Tunic
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 28424 # General's Leather Bracers
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 28988 # Marshal's Leather Bracers
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 25834 # Gladiator's Leather Gloves
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 28423 # General's Leather Belt
+    costs:
+      1137642: 1
+  - type: transmog
+    id: 28986 # Marshal's Leather Belt
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 25833 # Gladiator's Leather Legguards
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 28422 # General's Leather Boots
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 28987 # Marshal's Leather Boots
+    costs:
+      1137642: 2
+
+  # Linked
+  - type: transmog
+    id: 25998 # Gladiator's Linked Helm
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 25999 # Gladiator's Linked Spaulders
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 25997 # Gladiator's Linked Armor
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 28605 # General's Linked Bracers
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 28989 # Marshal's Linked Bracers
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 26000 # Gladiator's Linked Gauntlets
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 28629 # General's Linked Girdle
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 28990 # Marshal's Linked Girdle
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 26001 # Gladiator's Linked Leggings
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 28630 # General's Linked Sabatons
+    costs:
+      1137642: 2
+  
+  - type: transmog
+    id: 28991 # Marshal's Linked Sabatons
+    costs:
+      1137642: 2
+
+  # Mail
+  - type: transmog
+    id: 27471 # Gladiator's Mail Helm
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 27473 # Gladiator's Mail Spaulders
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 27469 # Gladiator's Mail Armor
+    costs:
+      1137642: 3
+  - type: transmog
+    id: 28638 # General's Mail Bracers
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 28992 # Marshal's Mail Bracers
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 27470 # Gladiator's Mail Gauntlets
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 28639 # General's Mail Girdle
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 28993 # Marshal's Mail Girdle
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 27472 # Gladiator's Mail Leggings
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 28640 # General's Mail Sabatons
+    costs:
+      1137642: 2
+  
+  - type: transmog
+    id: 28994 # Marshal's Mail Sabatons
+    costs:
+      1137642: 2
+
+  # Mooncloth
+  - type: transmog
+    id: 31410 # Gladiator's Mooncloth Hood
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 31412 # Gladiator's Mooncloth Mantle
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 31413 # Gladiator's Mooncloth Robe
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 31409 # Gladiator's Mooncloth Gloves
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 31411 # Gladiator's Mooncloth Leggings
+    costs:
+      1137642: 3
+
+  # Ornamented
+  - type: transmog
+    id: 31616 # Gladiator's Ornamented Headcover
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 31619 # Gladiator's Ornamented Spaulders
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 31613 # Gladiator's Ornamented Chestguard
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 31614 # Gladiator's Ornamented Gloves
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 31618 # Gladiator's Ornamented Legplates
+    costs:
+      1137642: 3
+
+  # Plate
+  - type: transmog
+    id: 24545 # Gladiator's Plate Helm
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 24546 # Gladiator's Plate Shoulders
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 24544 # Gladiator's Plate Chestpiece
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 28381 # General's Plate Bracers
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 28996 # Marshal's Plate Bracers
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 24549 # Gladiator's Plate Gauntlets
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 28385 # General's Plate Belt
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 28995 # Marshal's Plate Belt
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 24547 # Gladiator's Plate Legguards
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 28383 # General's Plate Greaves
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 28997 # Marshal's Plate Greaves
+    costs:
+      1137642: 2
+
+  # Ringmail
+  - type: transmog
+    id: 31400 # Gladiator's Ringmail Helm
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 31407 # Gladiator's Ringmail Spaulders
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 31396 # Gladiator's Ringmail Armor
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 31397 # Gladiator's Ringmail Gauntlets
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 31406 # Gladiator's Ringmail Leggings
+    costs:
+      1137642: 3
+
+  # Satin
+  - type: transmog
+    id: 27708 # Gladiator's Satin Hood
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 27710 # Gladiator's Satin Mantle
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 27711 # Gladiator's Satin Robe
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 147771 # General's Satin Cuffs
+    costs:
+      1137642: 1
+  
+  - type: transmog
+    id: 27707 # Gladiator's Satin Gloves
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 147613 # General's Satin Cord
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 27709 # Gladiator's Satin Leggings
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 147614 # General's Satin Slippers
+    costs:
+      1137642: 2
+
+  # Scaled
+  - type: transmog
+    id: 27881 # Gladiator's Scaled Helm
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 27883 # Gladiator's Scaled Shoulders
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 27879 # Gladiator's Scaled Chestpiece
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 28646 # General's Scaled Bracers
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 28999 # Marshal's Scaled Bracers
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 27880 # Gladiator's Scaled Gauntlets
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 28644 # General's Scaled Belt
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 28998 # Marshal's Scaled Belt
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 27882 # Gladiator's Scaled Legguards
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 28645 # General's Scaled Greaves
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 29000 # Marshal's Scaled Greaves
+    costs:
+      1137642: 2
+  
+  # Silk
+  - type: transmog
+    id: 25855 # Gladiator's Silk Cowl
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 25854 # Gladiator's Silk Amice
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 25856 # Gladiator's Silk Raiment
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 28411 # General's Silk Cuffs
+    costs:
+      1137642: 1
+  
+  - type: transmog
+    id: 29002 # Marshal's Silk Cuffs
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 25857 # Gladiator's Silk Handguards
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 28409 # General's Silk Belt
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 29001 # Marshal's Silk Belt
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 25858 # Gladiator's Silk Trousers
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 28410 # General's Silk Footguards
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 29003 # Marshal's Silk Footguards
+    costs:
+      1137642: 2
+
+  # Wyrmhide
+  - type: transmog
+    id: 28137 # Gladiator's Wyrmhide Helm
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 28139 # Gladiator's Wyrmhide Spaulders
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 28140 # Gladiator's Wyrmhide Tunic
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 28448 # General's Wyrmhide Bracers
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 29006 # Marshal's Wyrmhide Bracers
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 28136 # Gladiator's Wyrmhide Gloves
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 28138 # Gladiator's Wyrmhide Legguards
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 28446 # General's Wyrmhide Belt
+    costs:
+      1137642: 1
+  
+  - type: transmog
+    id: 29004 # Marshal's Wyrmhide Belt
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 28447 # General's Wyrmhide Boots
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 29005 # Marshal's Wyrmhide Boots
+    costs:
+      1137642: 2
+
+  # Ensemble
+  - type: transmog
+    id: 146608 # Ensemble: Gladiator's Chain Armor
+    costs:
+      1137642: 12
+
+  - type: transmog
+    id: 146609 # Ensemble: Gladiator's Dragonhide Armor
+    costs:
+      1137642: 12
+
+  - type: transmog
+    id: 146611 # Ensemble: Gladiator's Felweave Armor
+    costs:
+      1137642: 12
+
+  - type: transmog
+    id: 146612 # Ensemble: Gladiator's Leather Armor
+    costs:
+      1137642: 12
+
+  - type: transmog
+    id: 146613 # Ensemble: Gladiator's Plate Armor
+    costs:
+      1137642: 12
+
+  - type: transmog
+    id: 146614 # Ensemble: Gladiator's Ringmail Armor
+    costs:
+      1137642: 12
+
+  - type: transmog
+    id: 146615 # Ensemble: Gladiator's Satin Armor
+    costs:
+      1137642: 12
+
+  - type: transmog
+    id: 146616 # Ensemble: Gladiator's Scaled Armor
+    costs:
+      1137642: 12
+
+  - type: transmog
+    id: 146617 # Ensemble: Gladiator's Silk Armor
+    costs:
+      1137642: 12
+
+  # Weapons - Agility
+  - type: transmog
+    id: 28308 # Gladiator's Cleaver [1h agi axe]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 28305 # Gladiator's Pummeler [1h agi mace]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 28307 # Gladiator's Quickblade [1h agi sword]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 28312 # Gladiator's Shanker [agi dagger]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 28310 # Gladiator's Shiv [agi dagger]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 28314 # Gladiator's Fleshslicer [agi fist]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 28313 # Gladiator's Ripper [agi fist]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 28476 # Gladiator's Maul [2h agi mace]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 28300 # Gladiator's Painsaw [agi polearm]
+    costs:
+      1137642: 5
+
+  # Weapons - Intellect
+  - type: transmog
+    id: 32450 # Gladiator's Gavel [1h int mace]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 32451 # Gladiator's Salvation [1h int mace]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 28297 # Gladiator's Spellblade [1h int dagger]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 24557 # Gladiator's War Staff [int staff]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 28320 # Gladiator's Touch of Defeat [wand]
+    costs:
+      1137642: 5
+
+  # Weapons - Strength
+  - type: transmog
+    id: 28309 # Gladiator's Hacker [1h str axe]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 28302 # Gladiator's Bonecracker [1h str mace]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 28295 # Gladiator's Slicer [1h str sword]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 28298 # Gladiator's Decapitator [2h str axe]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 28299 # Gladiator's Bonegrinder [2h str mace]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 24550 # Gladiator's Greatsword [2h str sword]
+    costs:
+      1137642: 5
+
+  # Weapons - Misc
+  - type: transmog
+    id: 28294 # Gladiator's Heavy Crossbow [crossbow]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 28346 # Gladiator's Endgame [int off-hand]
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 32452 # Gladiator's Reprieve [int off-hand]
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 28358 # Gladiator's Shield Wall [shield]
+    costs:
+      1137642: 2
