@@ -226,7 +226,7 @@
                 </tr>
             {/if}
 
-            {#each sortedDrops as [drop, dropStatus], sortedIndex}
+            {#each sortedDrops.slice(0, 22) as [drop, dropStatus], sortedIndex}
                 {@const isCriteria = drop.type === RewardType.Achievement && drop.subType > 0}
                 <tr
                     class:success={!dropStatus.need || !dropStatus.validCharacters || dropStatus.skip}
@@ -319,6 +319,12 @@
                     {/if}
                 {/if}
             {/each}
+
+            {#if sortedDrops.length > 22}
+                <tr>
+                    <td colspan="3">... and {sortedDrops.length - 22} more</td>
+                </tr>
+            {/if}
         </tbody>
     </table>
 </div>
