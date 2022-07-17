@@ -227,11 +227,12 @@
             {/if}
 
             {#each sortedDrops as [drop, dropStatus], sortedIndex}
+                {@const isCriteria = drop.type === RewardType.Achievement && drop.subType > 0}
                 <tr
                     class:success={!dropStatus.need || !dropStatus.validCharacters || dropStatus.skip}
                 >
                     <td class="type status-{dropStatus.need ? 'fail' : 'success'}">
-                        <IconifyIcon icon={rewardTypeIcons[drop.type]} />
+                        <IconifyIcon icon={isCriteria ? iconStrings['list'] : rewardTypeIcons[drop.type]} />
                     </td>
                     <td
                         class="name"
@@ -250,6 +251,8 @@
                             {@html drop.limit[0]}
                         {:else if drop.type === RewardType.SetSpecial}
                             <code>{@html leftPad(dropStatus.setHave, 2)} / {@html leftPad(dropStatus.setNeed, 2)}</code>
+                        {:else if isCriteria}
+                            criteria
                         {:else if drop.limit?.length > 0}
                             {drop.limit[1]}
                             {#if drop.limit.length > 2}
