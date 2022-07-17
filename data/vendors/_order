@@ -66,6 +66,18 @@ z4/_mists_of_pandaria.yml
     z4/vale_of_eternal_blossoms.yml
     z4/valley_of_the_four_winds.yml
 
+z3/_cataclysm.yml
+    z3/molten_front.yml
+    z3/tol_barad_peninsula.yml
+    -
+    z3/deepholm.yml
+    z3/mount_hyjal.yml
+    z3/twilight_highlands.yml
+    z3/uldum.yml
+
+z1/_the_burning_crusade.yml
+    z1/netherstorm.yml
+
 -
 
 misc/_misc.yml

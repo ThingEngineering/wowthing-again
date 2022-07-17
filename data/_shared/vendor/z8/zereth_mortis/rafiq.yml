@@ -160,7 +160,7 @@ sells:
       1190189: 300 # Sandworn Relic
 
   - type: transmog
-    id: 188023 # Anthemic Shoulders [mail shoulders]
+    id: 188024 # Anthemic Shoulders [mail shoulders]
     appearanceId: 57225
     bonusIds: 1492 8093
     quality: epic

@@ -18,6 +18,7 @@ import mdiClose from '@iconify/icons-mdi/close'
 import mdiDiceMultiple from '@iconify/icons-mdi/dice-multiple'
 import mdiDuck from '@iconify/icons-mdi/duck'
 import mdiExclamationThick from '@iconify/icons-mdi/exclamation-thick'
+import mdiFormatListCheckbox from '@iconify/icons-mdi/format-list-checkbox'
 import mdiGiftOutline from '@iconify/icons-mdi/gift-outline'
 import mdiLetterC from '@iconify/icons-mdi/alpha-c-box-outline'
 import mdiLetterL from '@iconify/icons-mdi/alpha-l-box-outline'
@@ -93,6 +94,8 @@ export const iconStrings: Record<string, IconifyIcon> = {
 
     'chevron-down': mdiChevronDown,
     'chevron-right': mdiChevronRight,
+
+    'list': mdiFormatListCheckbox,
 
     'page-first': mdiPageFirst,
     'page-last': mdiPageLast,

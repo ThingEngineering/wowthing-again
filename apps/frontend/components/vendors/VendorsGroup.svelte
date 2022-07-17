@@ -71,7 +71,7 @@
 
 <style lang="scss">
     .collection-group {
-        min-height: 96px;
+        min-height: 76px;
     }
     .collection-item {
         min-height: 52px;
