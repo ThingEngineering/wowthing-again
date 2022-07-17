@@ -265,7 +265,7 @@
                 </tr>
 
                 {#if dropStatus.need && !dropStatus.skip}
-                    {#if drop.note || drop.type === RewardType.Achievement || dropStatus.setNote}
+                    {#if sortedDrops.length < 10 && (drop.note || drop.type === RewardType.Achievement || dropStatus.setNote)}
                         <tr>
                             <td></td>
                             <td class="note" colspan="2">
