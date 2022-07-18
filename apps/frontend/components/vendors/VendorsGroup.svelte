@@ -18,6 +18,7 @@
 
     export let group: ManualDataVendorGroup
     export let stats: UserCount
+    export let useV2: boolean
 
     let element: HTMLElement
     let intersected = false
@@ -38,7 +39,7 @@
                 let linkId: number
                 if (thing.type === RewardType.Mount) {
                     linkType = 'spell'
-                    linkId = $staticStore.data.mounts[thing.id].spellId
+                    linkId = $staticStore.data.mounts[thing.id]?.spellId
                 }
                 else if (thing.type === RewardType.Pet) {
                     linkType = 'npc'
@@ -70,10 +71,7 @@
 </script>
 
 <style lang="scss">
-    .collection-group {
-        min-height: 76px;
-    }
-    .collection-item {
+    .collection-v2-item {
         min-height: 52px;
         width: 52px;
     }
@@ -98,7 +96,7 @@
 
 {#if things?.length > 0}
     <IntersectionObserver once {element} bind:intersecting={intersected}>
-        <div class="collection-group" bind:this={element}>
+        <div class="collection{useV2 ? '-v2' : ''}-group" bind:this={element}>
             <h4 class="drop-shadow {getPercentClass(percent)}">
                 {group.name}
                 <CollectionCount counts={stats} />
@@ -107,7 +105,7 @@
             <div class="collection-objects" data-inter={intersected}>
                 {#each things as [thing, linkType, linkId, extraParams, userHas, costs]}
                     <div
-                        class="collection-item quality{thing.quality || $manualStore.data.shared.items[thing.id]?.quality || 0}"
+                        class="collection{useV2 ? '-v2' : ''}-item quality{thing.quality || $manualStore.data.shared.items[thing.id]?.quality || 0}"
                         class:missing={
                             (!$vendorState.highlightMissing && !userHas) ||
                             ($vendorState.highlightMissing && userHas)
