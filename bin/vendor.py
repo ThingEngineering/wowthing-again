@@ -54,6 +54,16 @@ INVENTORY_SLOT = {
     23: 'off-hand',
     26: 'ranged',
 }
+SORT_KEY = {
+    1: 1,
+    3: 2,
+    5: 3,
+    9: 4,
+    10: 5,
+    6: 6,
+    7: 7,
+    8: 8,
+}
 SKIP_INVENTORY_SLOT = set([
     2, # neck
     11, # ring
@@ -129,7 +139,7 @@ sorted_items = sorted(items, key=lambda item: [
     item["classs"],
     item.get("subclass", 0),
     item.get("reqclass", 0),
-    item.get("slot", 0),
+    SORT_KEY.get(item.get("slot", 0), item.get("slot", 0) + 100),
     item["name"],
 
 ])
