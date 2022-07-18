@@ -112,12 +112,10 @@
                                 {#if thingType === 'npc'}
                                     <CollectionThingPet
                                         {things}
-                                        {useV2}
                                     />
                                 {:else}
                                     <CollectionThing
                                         {things}
-                                        {useV2}
                                     />
                                 {/if}
                             {/each}

@@ -13,7 +13,6 @@
     import SectionTitle from '@/components/collections/CollectionSectionTitle.svelte'
     import WowheadLink from '@/components/links/WowheadLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
-import { reduce } from 'lodash';
 
     export let slug1: string
     export let slug2: string

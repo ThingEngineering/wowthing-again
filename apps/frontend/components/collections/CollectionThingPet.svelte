@@ -16,7 +16,6 @@
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let things: number[] = []
-    export let useV2: boolean
 
     const { thingMapFunc } = getContext('collection') as CollectionContext
 
@@ -44,8 +43,7 @@
 </script>
 
 <style lang="scss">
-    .collection-item,
-    .collection-v2-item {
+    .collection-item {
         width: 44px;
     }
     .pet {
