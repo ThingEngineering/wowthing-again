@@ -75,6 +75,18 @@
         min-height: 52px;
         width: 52px;
     }
+    .collected-appearances {
+        border-bottom-left-radius: 0;
+        border-top-right-radius: 0;
+        color: $colour-success;
+        line-height: 1;
+        padding: 0.1rem 0.2rem;
+        pointer-events: none;
+        position: absolute;
+        top: 30px;
+        right: 1px;
+        
+    }
     .costs {
         --image-border-width: 0;
         --image-margin-top: -4px;
@@ -125,6 +137,12 @@
                                     border={2}
                                 />
                             </WowheadLink>
+
+                            {#if thing.extraAppearances > 0}
+                                <div class="collected-appearances background-box drop-shadow">
+                                    +{thing.extraAppearances}
+                                </div>
+                            {/if}
 
                             {#if userHas}
                                 <div class="collected-icon drop-shadow">

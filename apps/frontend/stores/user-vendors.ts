@@ -4,7 +4,8 @@ import userHasDrop from '@/utils/user-has-drop'
 import type { VendorState } from '@/stores/local-storage'
 import type { Settings, UserData } from '@/types'
 import type { UserTransmogData, UserVendorData } from '@/types/data'
-import type { ManualData } from '@/types/data/manual'
+import type { ManualData, ManualDataVendorItem } from '@/types/data/manual'
+import { RewardType } from '@/types/enums'
 
 
 export class UserVendorStore extends WritableFancyStore<UserVendorData> {
@@ -43,10 +44,26 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
                     const groupKey = `${catKey}--${groupIndex}`
                     const groupStats = stats[groupKey] = new UserCount()
 
+                    const appearanceMap: Record<number, ManualDataVendorItem> = {}
+
                     group.sellsFiltered = []
                     for (const thing of group.sells) {
                         if (thing.classMask > 0 && (thing.classMask & classMask) === 0) {
                             continue
+                        }
+
+                        if (transmogTypes.indexOf(thing.type) >= 0) {
+                            const appearanceId = thing.appearanceId || manualData.shared.items[thing.id].appearanceId
+                            if (appearanceId) {
+                                if (appearanceMap[appearanceId]) {
+                                    appearanceMap[appearanceId].extraAppearances++
+                                    continue
+                                }
+                                else {
+                                    appearanceMap[appearanceId] = thing
+                                    thing.extraAppearances = 0
+                                }
+                            }
                         }
 
                         const hasDrop = userHasDrop(
@@ -101,3 +118,10 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
 }
 
 export const userVendorStore = new UserVendorStore({})
+
+const transmogTypes: RewardType[] = [
+    RewardType.Armor,
+    RewardType.Cosmetic,
+    RewardType.Transmog,
+    RewardType.Weapon,
+]
