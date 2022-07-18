@@ -1,4 +1,5 @@
 import type { UserCount } from '@/types'
+import type { RewardType } from '../enums'
 
 
 export interface JournalData {
@@ -60,28 +61,19 @@ export class JournalDataEncounterItemGroup {
 type JournalDataEncounterItemGroupArray = ConstructorParameters<typeof JournalDataEncounterItemGroup>
 
 export class JournalDataEncounterItem {
-    public id: number
-    public classId: number
-    public classMask: number
-    public subclassId: number
-    public quality: number
     public appearances: JournalDataEncounterItemAppearance[]
 
     constructor(
-        id: number,
-        quality: number,
-        classId: number,
-        subclassId: number,
-        classMask: number,
+        public type: RewardType,
+        public id: number,
+        public quality: number,
+        public classId: number,
+        public subclassId: number,
+        public classMask: number,
         appearancesRaw: JournalDataEncounterItemAppearanceArray[]
     )
     {
-        this.id = id
-        this.quality = quality
-        this.classId = classId
-        this.subclassId = subclassId
-        this.classMask = classMask
-        this.appearances = appearancesRaw
+        this.appearances = (appearancesRaw || [])
             .map((appearanceArray) => new JournalDataEncounterItemAppearance(...appearanceArray))
     }
 }

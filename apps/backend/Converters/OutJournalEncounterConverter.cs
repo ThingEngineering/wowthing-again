@@ -8,7 +8,7 @@ namespace Wowthing.Backend.Converters
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
             var encounter = (OutJournalEncounter) value;
-            
+
             var encounterArray = new JArray();
             encounterArray.Add(encounter.Id);
             encounterArray.Add(encounter.Name);
@@ -23,6 +23,7 @@ namespace Wowthing.Backend.Converters
                 foreach (var item in group.Items)
                 {
                     var itemArray = new JArray();
+                    itemArray.Add(item.Type);
                     itemArray.Add(item.Id);
                     itemArray.Add(item.Quality);
                     itemArray.Add(item.ClassId);
@@ -36,18 +37,18 @@ namespace Wowthing.Backend.Converters
                         appearanceArray.Add(appearance.AppearanceId);
                         appearanceArray.Add(appearance.ModifierId);
                         appearanceArray.Add(new JArray(appearance.Difficulties));
-                
+
                         appearancesArray.Add(appearanceArray);
                     }
 
                     itemArray.Add(appearancesArray);
                     itemsArray.Add(itemArray);
                 }
-                
+
                 groupArray.Add(itemsArray);
                 groupsArray.Add(groupArray);
             }
-            
+
             encounterArray.Add(groupsArray);
             encounterArray.WriteTo(writer);
         }
