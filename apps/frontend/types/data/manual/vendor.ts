@@ -36,6 +36,7 @@ export type ManualDataVendorGroupArray = ConstructorParameters<typeof ManualData
 
 export class ManualDataVendorItem {
     public costs: Record<number, number>
+    public extraAppearances: number
 
     constructor(
         public id: number,
