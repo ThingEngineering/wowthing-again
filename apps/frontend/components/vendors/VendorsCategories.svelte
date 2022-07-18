@@ -88,6 +88,10 @@ import { reduce } from 'lodash';
             --column-count: 4;
             width: 75.75rem;
         }
+        @media screen and (min-width: 2015px) {
+            --column-count: 5;
+            width: 94.75rem;
+        }
     }
 </style>
 
