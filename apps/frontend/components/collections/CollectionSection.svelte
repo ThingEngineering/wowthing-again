@@ -39,6 +39,26 @@
         flex-direction: column;
         width: 100%;
     }
+    .collection-v2-section {
+        --column-count: 1;
+        --column-gap: 1.25rem;
+        --column-width: 18.75rem;
+
+        width: 18.75rem;
+        
+        @media screen and (min-width: 1130px) {
+            --column-count: 2;
+            width: 39.5rem;
+        }
+        @media screen and (min-width: 1445px) {
+            --column-count: 3;
+            width: 59.5rem;
+        }
+        @media screen and (min-width: 1770px) {
+            --column-count: 4;
+            width: 79.5rem;
+        }
+    }
 </style>
 
 <div class="wrapper">
@@ -68,6 +88,7 @@
     </div>
 
     {#each categories as category}
+        {@const useV2 = category.groups.length > 2 && category.groups.reduce((a, b) => a + b.things.length, 0) > 30}
         <div class="collection thing-container">
             {#if category.name}
                 <SectionTitle
@@ -76,11 +97,10 @@
                 />
             {/if}
 
-            <div class="collection-section">
-                {#each category.groups as group, i (`${thingType}--${slug1}--${category.slug}--${i}`)}
+            <div class="collection{useV2 ? '-v2' : ''}-section">
+                {#each category.groups as group}
                     <div
-                        class="collection-group"
-                        style="width: calc({44 * group.things.length}px + {0.3 * group.things.length}em);"
+                        class="collection{useV2 ? '-v2' : ''}-group"
                     >
                         <h4
                             class="drop-shadow text-overflow {getPercentClass($userStore.data.setCounts[route][`${slug1}--${category.slug}--${group.name}`])}"
@@ -90,9 +110,15 @@
                         <div class="collection-objects">
                             {#each group.things as things}
                                 {#if thingType === 'npc'}
-                                    <CollectionThingPet {things} />
+                                    <CollectionThingPet
+                                        {things}
+                                        {useV2}
+                                    />
                                 {:else}
-                                    <CollectionThing {things} />
+                                    <CollectionThing
+                                        {things}
+                                        {useV2}
+                                    />
                                 {/if}
                             {/each}
                         </div>

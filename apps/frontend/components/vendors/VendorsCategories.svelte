@@ -146,7 +146,7 @@ import { reduce } from 'lodash';
                     {/if}
                 </SectionTitle>
 
-                <div class="{useV2 ? 'collection-v2-section' : 'collection-section'}">
+                <div class="collection{useV2 ? '-v2' : ''}-section">
                     {#each category.groups as group, groupIndex}
                         {#if group.sellsFiltered.length > 0}
                             <Group
