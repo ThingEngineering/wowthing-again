@@ -1,874 +1,783 @@
 id: 107610
-name: Kitzie Crankshot
+name: "Kitzie Crankshot"
 note: "Vengeful and Vindicator's Gladiator"
 
 locations:
   z1_netherstorm:
-    - 34.0 64.2
+    - 33 64.2
+
+sets:
+  - name: "Armor - S03 Druid"
+    range: 0 15
+    sortKey: "armor-s03-1-druid"
+
+  - name: "Armor - S03 Hunter"
+    range: 15 5
+    sortKey: "armor-s03-1-hunter"
+
+  - name: "Armor - S03 Mage"
+    range: 20 5
+    sortKey: "armor-s03-1-mage"
+
+  - name: "Armor - S03 Paladin"
+    range: 25 15
+    sortKey: "armor-s03-1-paladin"
+
+  - name: "Armor - S03 Priest"
+    range: 40 10
+    sortKey: "armor-s03-1-priest"
+
+  - name: "Armor - S03 Rogue"
+    range: 50 5
+    sortKey: "armor-s03-1-rogue"
+
+  - name: "Armor - S03 Shaman"
+    range: 55 15
+    sortKey: "armor-s03-1-shaman"
+
+  - name: "Armor - S03 Warlock"
+    range: 70 10
+    sortKey: "armor-s03-1-warlock"
+
+  - name: "Armor - S03 Warrior"
+    range: 80 5
+    sortKey: "armor-s03-1-warrior"
+
+  - name: "Armor - S03 Shared Cloth"
+    range: 85 9
+    sortKey: "armor-s03-2-1"
+
+  - name: "Armor - S03 Shared Leather"
+    range: 94 13
+    sortKey: "armor-s03-2-2"
+
+  - name: "Armor - S03 Shared Mail"
+    range: 107 12
+    sortKey: "armor-s03-2-3"
+
+  - name: "Armor - S03 Shared Plate"
+    range: 119 12
+    sortKey: "armor-s03-2-4"
+
+  - name: "Collections - S03"
+    range: 131 10
+    sortKey: "collections-s03"
+
+  # - name: "Armor - S03 Cloaks"
+  #   range: 130 7
+  #   sortKey: "armor-s03-3-1"
+
+  # - name: "Armor - S03 Ensembles"
+  #   range: 137 12
+  #   sortKey: "armor-s03-3-2"
+
+  # - name: "Weapons - S03 Agility"
+  #   range: 149 9
+  #   sortKey: "weapons-s03-1-1"
+
+  # - name: "Weapons - S03 Intellect"
+  #   range: 158 7
+  #   sortKey: "weapons-s03-1-2"
+
+  # - name: "Weapons - S03 Strength"
+  #   range: 165 5
+  #   sortKey: "weapons-s03-1-3"
+
+  # - name: "Weapons - S03 Misc"
+  #   range: 170 5
+  #   sortKey: "weapons-s03-2-1"
 
 sells:
-  - type: transmog
-    id: 33006 # Vengeful Gladiator's Heavy Crossbow
-    costs:
-      1137642: 5
+  # Druid
 
   - type: transmog
-    id: 33661 # Vengeful Gladiator's Barrier
+    id: 33672 # Vengeful Gladiator's Dragonhide Helm [leather head]
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 33691 # Vengeful Gladiator's Kodohide Helm [leather head]
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 33768 # Vengeful Gladiator's Wyrmhide Helm [leather head]
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 33674 # Vengeful Gladiator's Dragonhide Spaulders [leather shoulders]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33662 # Vengeful Gladiator's Bonecracker
-    costs:
-      1137642: 5
-
-  - type: transmog
-    id: 33663 # Vengeful Gladiator's Bonegrinder
-    costs:
-      1137642: 5
-
-  - type: transmog
-    id: 33664 # Vengeful Gladiator's Chain Armor
-    costs:
-      1137642: 3
-
-  - type: transmog
-    id: 33665 # Vengeful Gladiator's Chain Gauntlets
+    id: 33693 # Vengeful Gladiator's Kodohide Spaulders [leather shoulders]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33666 # Vengeful Gladiator's Chain Helm
-    costs:
-      1137642: 3
-
-  - type: transmog
-    id: 33667 # Vengeful Gladiator's Chain Leggings
-    costs:
-      1137642: 3
-
-  - type: transmog
-    id: 33668 # Vengeful Gladiator's Chain Spaulders
+    id: 33770 # Vengeful Gladiator's Wyrmhide Spaulders [leather shoulders]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33669 # Vengeful Gladiator's Cleaver
+    id: 33675 # Vengeful Gladiator's Dragonhide Tunic [leather chest]
     costs:
-      1137642: 5
+      1137642: 3
 
   - type: transmog
-    id: 33670 # Vengeful Gladiator's Decapitator
+    id: 33694 # Vengeful Gladiator's Kodohide Tunic [leather chest]
     costs:
-      1137642: 5
+      1137642: 3
 
   - type: transmog
-    id: 33671 # Vengeful Gladiator's Dragonhide Gloves
+    id: 33771 # Vengeful Gladiator's Wyrmhide Tunic [leather chest]
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 33671 # Vengeful Gladiator's Dragonhide Gloves [leather hands]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33672 # Vengeful Gladiator's Dragonhide Helm
-    costs:
-      1137642: 3
-
-  - type: transmog
-    id: 33673 # Vengeful Gladiator's Dragonhide Legguards
-    costs:
-      1137642: 3
-
-  - type: transmog
-    id: 33674 # Vengeful Gladiator's Dragonhide Spaulders
+    id: 33690 # Vengeful Gladiator's Kodohide Gloves [leather hands]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33675 # Vengeful Gladiator's Dragonhide Tunic
-    costs:
-      1137642: 3
-
-  - type: transmog
-    id: 33676 # Vengeful Gladiator's Dreadweave Gloves
+    id: 33767 # Vengeful Gladiator's Wyrmhide Gloves [leather hands]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33677 # Vengeful Gladiator's Dreadweave Hood
+    id: 33673 # Vengeful Gladiator's Dragonhide Legguards [leather legs]
     costs:
       1137642: 3
 
   - type: transmog
-    id: 33678 # Vengeful Gladiator's Dreadweave Leggings
+    id: 33692 # Vengeful Gladiator's Kodohide Legguards [leather legs]
     costs:
       1137642: 3
 
   - type: transmog
-    id: 33679 # Vengeful Gladiator's Dreadweave Mantle
+    id: 33769 # Vengeful Gladiator's Wyrmhide Legguards [leather legs]
+    costs:
+      1137642: 3
+
+  # Hunter
+
+  - type: transmog
+    id: 33666 # Vengeful Gladiator's Chain Helm [mail head]
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 33668 # Vengeful Gladiator's Chain Spaulders [mail shoulders]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33680 # Vengeful Gladiator's Dreadweave Robe
+    id: 33664 # Vengeful Gladiator's Chain Armor [mail chest]
     costs:
       1137642: 3
 
   - type: transmog
-    id: 33681 # Vengeful Gladiator's Endgame
+    id: 33665 # Vengeful Gladiator's Chain Gauntlets [mail hands]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33682 # Vengeful Gladiator's Felweave Amice
+    id: 33667 # Vengeful Gladiator's Chain Leggings [mail legs]
+    costs:
+      1137642: 3
+
+  # Mage
+
+  - type: transmog
+    id: 33758 # Vengeful Gladiator's Silk Cowl [cloth head]
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 33757 # Vengeful Gladiator's Silk Amice [cloth shoulders]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33683 # Vengeful Gladiator's Felweave Cowl
+    id: 33760 # Vengeful Gladiator's Silk Raiment [cloth chest]
     costs:
       1137642: 3
 
   - type: transmog
-    id: 33684 # Vengeful Gladiator's Felweave Handguards
+    id: 33759 # Vengeful Gladiator's Silk Handguards [cloth hands]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33685 # Vengeful Gladiator's Felweave Raiment
+    id: 33761 # Vengeful Gladiator's Silk Trousers [cloth legs]
+    costs:
+      1137642: 3
+
+  # Paladin
+
+  - type: transmog
+    id: 33697 # Vengeful Gladiator's Lamellar Helm [plate head]
     costs:
       1137642: 3
 
   - type: transmog
-    id: 33686 # Vengeful Gladiator's Felweave Trousers
+    id: 33724 # Vengeful Gladiator's Ornamented Headcover [plate head]
     costs:
       1137642: 3
 
   - type: transmog
-    id: 33687 # Vengeful Gladiator's Gavel
+    id: 33751 # Vengeful Gladiator's Scaled Helm [plate head]
     costs:
-      1137642: 5
+      1137642: 3
 
   - type: transmog
-    id: 33688 # Vengeful Gladiator's Greatsword
-    costs:
-      1137642: 5
-
-  - type: transmog
-    id: 33689 # Vengeful Gladiator's Hacker
-    costs:
-      1137642: 5
-
-  - type: transmog
-    id: 33690 # Vengeful Gladiator's Kodohide Gloves
+    id: 33699 # Vengeful Gladiator's Lamellar Shoulders [plate shoulders]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33691 # Vengeful Gladiator's Kodohide Helm
-    costs:
-      1137642: 3
-
-  - type: transmog
-    id: 33692 # Vengeful Gladiator's Kodohide Legguards
-    costs:
-      1137642: 3
-
-  - type: transmog
-    id: 33693 # Vengeful Gladiator's Kodohide Spaulders
+    id: 33726 # Vengeful Gladiator's Ornamented Spaulders [plate shoulders]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33694 # Vengeful Gladiator's Kodohide Tunic
-    costs:
-      1137642: 3
-
-  - type: transmog
-    id: 33695 # Vengeful Gladiator's Lamellar Chestpiece
-    costs:
-      1137642: 3
-
-  - type: transmog
-    id: 33696 # Vengeful Gladiator's Lamellar Gauntlets
+    id: 33753 # Vengeful Gladiator's Scaled Shoulders [plate shoulders]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33697 # Vengeful Gladiator's Lamellar Helm
+    id: 33695 # Vengeful Gladiator's Lamellar Chestpiece [plate chest]
     costs:
       1137642: 3
 
   - type: transmog
-    id: 33698 # Vengeful Gladiator's Lamellar Legguards
+    id: 33722 # Vengeful Gladiator's Ornamented Chestguard [plate chest]
     costs:
       1137642: 3
 
   - type: transmog
-    id: 33699 # Vengeful Gladiator's Lamellar Shoulders
+    id: 33749 # Vengeful Gladiator's Scaled Chestpiece [plate chest]
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 33696 # Vengeful Gladiator's Lamellar Gauntlets [plate hands]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33700 # Vengeful Gladiator's Leather Gloves
+    id: 33723 # Vengeful Gladiator's Ornamented Gloves [plate hands]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33701 # Vengeful Gladiator's Leather Helm
-    costs:
-      1137642: 3
-
-  - type: transmog
-    id: 33702 # Vengeful Gladiator's Leather Legguards
-    costs:
-      1137642: 3
-
-  - type: transmog
-    id: 33703 # Vengeful Gladiator's Leather Spaulders
+    id: 33750 # Vengeful Gladiator's Scaled Gauntlets [plate hands]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33704 # Vengeful Gladiator's Leather Tunic
+    id: 33698 # Vengeful Gladiator's Lamellar Legguards [plate legs]
     costs:
       1137642: 3
 
   - type: transmog
-    id: 33705 # Vengeful Gladiator's Fleshslicer
-    costs:
-      1137642: 5
-
-  - type: transmog
-    id: 33706 # Vengeful Gladiator's Linked Armor
+    id: 33725 # Vengeful Gladiator's Ornamented Legplates [plate legs]
     costs:
       1137642: 3
 
   - type: transmog
-    id: 33707 # Vengeful Gladiator's Linked Gauntlets
+    id: 33752 # Vengeful Gladiator's Scaled Legguards [plate legs]
+    costs:
+      1137642: 3
+
+  # Priest
+
+  - type: transmog
+    id: 33718 # Vengeful Gladiator's Mooncloth Hood [cloth head]
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 33745 # Vengeful Gladiator's Satin Hood [cloth head]
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 33720 # Vengeful Gladiator's Mooncloth Mantle [cloth shoulders]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33708 # Vengeful Gladiator's Linked Helm
-    costs:
-      1137642: 3
-
-  - type: transmog
-    id: 33709 # Vengeful Gladiator's Linked Leggings
-    costs:
-      1137642: 3
-
-  - type: transmog
-    id: 33710 # Vengeful Gladiator's Linked Spaulders
+    id: 33747 # Vengeful Gladiator's Satin Mantle [cloth shoulders]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33711 # Vengeful Gladiator's Mail Armor
+    id: 33721 # Vengeful Gladiator's Mooncloth Robe [cloth chest]
     costs:
       1137642: 3
 
   - type: transmog
-    id: 33712 # Vengeful Gladiator's Mail Gauntlets
+    id: 33748 # Vengeful Gladiator's Satin Robe [cloth chest]
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 33717 # Vengeful Gladiator's Mooncloth Gloves [cloth hands]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33713 # Vengeful Gladiator's Mail Helm
-    costs:
-      1137642: 3
-
-  - type: transmog
-    id: 33714 # Vengeful Gladiator's Mail Leggings
-    costs:
-      1137642: 3
-
-  - type: transmog
-    id: 33715 # Vengeful Gladiator's Mail Spaulders
+    id: 33744 # Vengeful Gladiator's Satin Gloves [cloth hands]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33716 # Vengeful Gladiator's Staff
+    id: 33719 # Vengeful Gladiator's Mooncloth Leggings [cloth legs]
     costs:
-      1137642: 5
+      1137642: 3
 
   - type: transmog
-    id: 33717 # Vengeful Gladiator's Mooncloth Gloves
+    id: 33746 # Vengeful Gladiator's Satin Leggings [cloth legs]
+    costs:
+      1137642: 3
+
+  # Rogue
+
+  - type: transmog
+    id: 33701 # Vengeful Gladiator's Leather Helm [leather head]
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 33703 # Vengeful Gladiator's Leather Spaulders [leather shoulders]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33718 # Vengeful Gladiator's Mooncloth Hood
+    id: 33704 # Vengeful Gladiator's Leather Tunic [leather chest]
     costs:
       1137642: 3
 
   - type: transmog
-    id: 33719 # Vengeful Gladiator's Mooncloth Leggings
-    costs:
-      1137642: 3
-
-  - type: transmog
-    id: 33720 # Vengeful Gladiator's Mooncloth Mantle
+    id: 33700 # Vengeful Gladiator's Leather Gloves [leather hands]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33721 # Vengeful Gladiator's Mooncloth Robe
+    id: 33702 # Vengeful Gladiator's Leather Legguards [leather legs]
+    costs:
+      1137642: 3
+
+  # Shaman
+
+  - type: transmog
+    id: 33708 # Vengeful Gladiator's Linked Helm [mail head]
     costs:
       1137642: 3
 
   - type: transmog
-    id: 33722 # Vengeful Gladiator's Ornamented Chestguard
+    id: 33713 # Vengeful Gladiator's Mail Helm [mail head]
     costs:
       1137642: 3
 
   - type: transmog
-    id: 33723 # Vengeful Gladiator's Ornamented Gloves
+    id: 33740 # Vengeful Gladiator's Ringmail Helm [mail head]
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 33710 # Vengeful Gladiator's Linked Spaulders [mail shoulders]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33724 # Vengeful Gladiator's Ornamented Headcover
-    costs:
-      1137642: 3
-
-  - type: transmog
-    id: 33725 # Vengeful Gladiator's Ornamented Legplates
-    costs:
-      1137642: 3
-
-  - type: transmog
-    id: 33726 # Vengeful Gladiator's Ornamented Spaulders
+    id: 33715 # Vengeful Gladiator's Mail Spaulders [mail shoulders]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33727 # Vengeful Gladiator's Painsaw
-    costs:
-      1137642: 5
-
-  - type: transmog
-    id: 33728 # Vengeful Gladiator's Plate Chestpiece
-    costs:
-      1137642: 3
-
-  - type: transmog
-    id: 33729 # Vengeful Gladiator's Plate Gauntlets
+    id: 33742 # Vengeful Gladiator's Ringmail Spaulders [mail shoulders]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33730 # Vengeful Gladiator's Plate Helm
+    id: 33706 # Vengeful Gladiator's Linked Armor [mail chest]
     costs:
       1137642: 3
 
   - type: transmog
-    id: 33731 # Vengeful Gladiator's Plate Legguards
+    id: 33711 # Vengeful Gladiator's Mail Armor [mail chest]
     costs:
       1137642: 3
 
   - type: transmog
-    id: 33732 # Vengeful Gladiator's Plate Shoulders
+    id: 33738 # Vengeful Gladiator's Ringmail Armor [mail chest]
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 33707 # Vengeful Gladiator's Linked Gauntlets [mail hands]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33733 # Vengeful Gladiator's Pummeler
-    costs:
-      1137642: 5
-
-  - type: transmog
-    id: 33734 # Vengeful Gladiator's Quickblade
-    costs:
-      1137642: 5
-
-  - type: transmog
-    id: 33735 # Vengeful Gladiator's Redoubt
+    id: 33712 # Vengeful Gladiator's Mail Gauntlets [mail hands]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33736 # Vengeful Gladiator's Reprieve
+    id: 33739 # Vengeful Gladiator's Ringmail Gauntlets [mail hands]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33737 # Vengeful Gladiator's Ripper
-    costs:
-      1137642: 5
-
-  - type: transmog
-    id: 33738 # Vengeful Gladiator's Ringmail Armor
+    id: 33709 # Vengeful Gladiator's Linked Leggings [mail legs]
     costs:
       1137642: 3
 
   - type: transmog
-    id: 33739 # Vengeful Gladiator's Ringmail Gauntlets
+    id: 33714 # Vengeful Gladiator's Mail Leggings [mail legs]
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 33741 # Vengeful Gladiator's Ringmail Leggings [mail legs]
+    costs:
+      1137642: 3
+
+  # Warlock
+
+  - type: transmog
+    id: 33677 # Vengeful Gladiator's Dreadweave Hood [cloth head]
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 33683 # Vengeful Gladiator's Felweave Cowl [cloth head]
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 33679 # Vengeful Gladiator's Dreadweave Mantle [cloth shoulders]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33740 # Vengeful Gladiator's Ringmail Helm
-    costs:
-      1137642: 3
-
-  - type: transmog
-    id: 33741 # Vengeful Gladiator's Ringmail Leggings
-    costs:
-      1137642: 3
-
-  - type: transmog
-    id: 33742 # Vengeful Gladiator's Ringmail Spaulders
+    id: 33682 # Vengeful Gladiator's Felweave Amice [cloth shoulders]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33743 # Vengeful Gladiator's Salvation
+    id: 33680 # Vengeful Gladiator's Dreadweave Robe [cloth chest]
     costs:
-      1137642: 5
+      1137642: 3
 
   - type: transmog
-    id: 33744 # Vengeful Gladiator's Satin Gloves
+    id: 33685 # Vengeful Gladiator's Felweave Raiment [cloth chest]
+    costs:
+      1137642: 3
+
+  - type: transmog
+    id: 33676 # Vengeful Gladiator's Dreadweave Gloves [cloth hands]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33745 # Vengeful Gladiator's Satin Hood
-    costs:
-      1137642: 3
-
-  - type: transmog
-    id: 33746 # Vengeful Gladiator's Satin Leggings
-    costs:
-      1137642: 3
-
-  - type: transmog
-    id: 33747 # Vengeful Gladiator's Satin Mantle
+    id: 33684 # Vengeful Gladiator's Felweave Handguards [cloth hands]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33748 # Vengeful Gladiator's Satin Robe
+    id: 33678 # Vengeful Gladiator's Dreadweave Leggings [cloth legs]
     costs:
       1137642: 3
 
   - type: transmog
-    id: 33749 # Vengeful Gladiator's Scaled Chestpiece
+    id: 33686 # Vengeful Gladiator's Felweave Trousers [cloth legs]
+    costs:
+      1137642: 3
+
+  # Warrior
+
+  - type: transmog
+    id: 33730 # Vengeful Gladiator's Plate Helm [plate head]
     costs:
       1137642: 3
 
   - type: transmog
-    id: 33750 # Vengeful Gladiator's Scaled Gauntlets
+    id: 33732 # Vengeful Gladiator's Plate Shoulders [plate shoulders]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33751 # Vengeful Gladiator's Scaled Helm
+    id: 33728 # Vengeful Gladiator's Plate Chestpiece [plate chest]
     costs:
       1137642: 3
 
   - type: transmog
-    id: 33752 # Vengeful Gladiator's Scaled Legguards
-    costs:
-      1137642: 3
-
-  - type: transmog
-    id: 33753 # Vengeful Gladiator's Scaled Shoulders
+    id: 33729 # Vengeful Gladiator's Plate Gauntlets [plate hands]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33754 # Vengeful Gladiator's Shanker
-    costs:
-      1137642: 5
-
-  - type: transmog
-    id: 33755 # Vengeful Gladiator's Shield Wall
-    costs:
-      1137642: 2
-
-  - type: transmog
-    id: 33756 # Vengeful Gladiator's Shiv
-    costs:
-      1137642: 5
-
-  - type: transmog
-    id: 33757 # Vengeful Gladiator's Silk Amice
-    costs:
-      1137642: 2
-
-  - type: transmog
-    id: 33758 # Vengeful Gladiator's Silk Cowl
+    id: 33731 # Vengeful Gladiator's Plate Legguards [plate legs]
     costs:
       1137642: 3
 
-  - type: transmog
-    id: 33759 # Vengeful Gladiator's Silk Handguards
-    costs:
-      1137642: 2
+  # Shared Cloth
 
   - type: transmog
-    id: 33760 # Vengeful Gladiator's Silk Raiment
-    costs:
-      1137642: 3
-
-  - type: transmog
-    id: 33761 # Vengeful Gladiator's Silk Trousers
-    costs:
-      1137642: 3
-
-  - type: transmog
-    id: 33762 # Vengeful Gladiator's Slicer
-    costs:
-      1137642: 5
-
-  - type: transmog
-    id: 33763 # Vengeful Gladiator's Spellblade
-    costs:
-      1137642: 5
-
-  - type: transmog
-    id: 33764 # Vengeful Gladiator's Touch of Defeat
-    costs:
-      1137642: 5
-
-  - type: transmog
-    id: 33766 # Vengeful Gladiator's War Staff
-    costs:
-      1137642: 5
-
-  - type: transmog
-    id: 33767 # Vengeful Gladiator's Wyrmhide Gloves
-    costs:
-      1137642: 2
-
-  - type: transmog
-    id: 33768 # Vengeful Gladiator's Wyrmhide Helm
-    costs:
-      1137642: 3
-
-  - type: transmog
-    id: 33769 # Vengeful Gladiator's Wyrmhide Legguards
-    costs:
-      1137642: 3
-
-  - type: transmog
-    id: 33770 # Vengeful Gladiator's Wyrmhide Spaulders
-    costs:
-      1137642: 2
-
-  - type: transmog
-    id: 33771 # Vengeful Gladiator's Wyrmhide Tunic
-    costs:
-      1137642: 3
-
-  - type: transmog
-    id: 33801 # Vengeful Gladiator's Mutilator
-    costs:
-      1137642: 5
-
-  - type: transmog
-    id: 33811 # Vindicator's Plate Belt
+    id: 33883 # Vindicator's Dreadweave Cuffs [cloth wrists]
     costs:
       1137642: 1
 
   - type: transmog
-    id: 33812 # Vindicator's Plate Greaves
+    id: 33901 # Vindicator's Mooncloth Cuffs [cloth wrists]
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 33913 # Vindicator's Silk Cuffs [cloth wrists]
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 33882 # Vindicator's Dreadweave Belt [cloth waist]
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 33900 # Vindicator's Mooncloth Belt [cloth waist]
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 33912 # Vindicator's Silk Belt [cloth waist]
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 33884 # Vindicator's Dreadweave Stalkers [cloth feet]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33813 # Vindicator's Plate Bracers
-    costs:
-      1137642: 1
-
-  - type: transmog
-    id: 33876 # Vindicator's Chain Bracers
-    costs:
-      1137642: 1
-
-  - type: transmog
-    id: 33877 # Vindicator's Chain Girdle
-    costs:
-      1137642: 1
-
-  - type: transmog
-    id: 33878 # Vindicator's Chain Sabatons
+    id: 33902 # Vindicator's Mooncloth Slippers [cloth feet]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33879 # Vindicator's Dragonhide Belt
+    id: 33914 # Vindicator's Silk Footguards [cloth feet]
+    costs:
+      1137642: 2
+
+  # Shared Leather
+
+  - type: transmog
+    id: 33881 # Vindicator's Dragonhide Bracers [leather wrists]
     costs:
       1137642: 1
 
   - type: transmog
-    id: 33880 # Vindicator's Dragonhide Boots
+    id: 33887 # Vindicator's Kodohide Bracers [leather wrists]
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 33893 # Vindicator's Leather Bracers [leather wrists]
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 147670 # Vindicator's Leather Wristguards [leather wrists]
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 33917 # Vindicator's Wyrmhide Bracers [leather wrists]
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 33879 # Vindicator's Dragonhide Belt [leather waist]
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 33885 # Vindicator's Kodohide Belt [leather waist]
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 33891 # Vindicator's Leather Belt [leather waist]
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 33915 # Vindicator's Wyrmhide Belt [leather waist]
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 33880 # Vindicator's Dragonhide Boots [leather feet]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33881 # Vindicator's Dragonhide Bracers
-    costs:
-      1137642: 1
-
-  - type: transmog
-    id: 33882 # Vindicator's Dreadweave Belt
-    costs:
-      1137642: 1
-
-  - type: transmog
-    id: 33883 # Vindicator's Dreadweave Cuffs
-    costs:
-      1137642: 1
-
-  - type: transmog
-    id: 33884 # Vindicator's Dreadweave Stalkers
+    id: 33886 # Vindicator's Kodohide Boots [leather feet]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33885 # Vindicator's Kodohide Belt
-    costs:
-      1137642: 1
-
-  - type: transmog
-    id: 33886 # Vindicator's Kodohide Boots
+    id: 33892 # Vindicator's Leather Boots [leather feet]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33887 # Vindicator's Kodohide Bracers
+    id: 33916 # Vindicator's Wyrmhide Boots [leather feet]
+    costs:
+      1137642: 2
+
+  # Shared Mail
+
+  - type: transmog
+    id: 33876 # Vindicator's Chain Bracers [mail wrists]
     costs:
       1137642: 1
 
   - type: transmog
-    id: 33888 # Vindicator's Lamellar Belt
+    id: 33894 # Vindicator's Linked Bracers [mail wrists]
     costs:
       1137642: 1
 
   - type: transmog
-    id: 33889 # Vindicator's Lamellar Bracers
+    id: 33897 # Vindicator's Mail Bracers [mail wrists]
     costs:
       1137642: 1
 
   - type: transmog
-    id: 33890 # Vindicator's Lamellar Greaves
+    id: 33906 # Vindicator's Ringmail Bracers [mail wrists]
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 33877 # Vindicator's Chain Girdle [mail waist]
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 33895 # Vindicator's Linked Girdle [mail waist]
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 33898 # Vindicator's Mail Girdle [mail waist]
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 33907 # Vindicator's Ringmail Girdle [mail waist]
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 33878 # Vindicator's Chain Sabatons [mail feet]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33891 # Vindicator's Leather Belt
-    costs:
-      1137642: 1
-
-  - type: transmog
-    id: 33892 # Vindicator's Leather Boots
+    id: 33896 # Vindicator's Linked Sabatons [mail feet]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33893 # Vindicator's Leather Bracers
-    costs:
-      1137642: 1
-
-  - type: transmog
-    id: 33894 # Vindicator's Linked Bracers
-    costs:
-      1137642: 1
-
-  - type: transmog
-    id: 33895 # Vindicator's Linked Girdle
-    costs:
-      1137642: 1
-
-  - type: transmog
-    id: 33896 # Vindicator's Linked Sabatons
+    id: 33899 # Vindicator's Mail Sabatons [mail feet]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33897 # Vindicator's Mail Bracers
+    id: 33908 # Vindicator's Ringmail Sabatons [mail feet]
+    costs:
+      1137642: 2
+
+  # Shared Plate
+
+  - type: transmog
+    id: 33889 # Vindicator's Lamellar Bracers [plate wrists]
     costs:
       1137642: 1
 
   - type: transmog
-    id: 33898 # Vindicator's Mail Girdle
+    id: 33904 # Vindicator's Ornamented Bracers [plate wrists]
     costs:
       1137642: 1
 
   - type: transmog
-    id: 33899 # Vindicator's Mail Sabatons
+    id: 33813 # Vindicator's Plate Bracers [plate wrists]
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 33910 # Vindicator's Scaled Bracers [plate wrists]
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 33888 # Vindicator's Lamellar Belt [plate waist]
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 33903 # Vindicator's Ornamented Belt [plate waist]
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 33811 # Vindicator's Plate Belt [plate waist]
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 33909 # Vindicator's Scaled Belt [plate waist]
+    costs:
+      1137642: 1
+
+  - type: transmog
+    id: 33890 # Vindicator's Lamellar Greaves [plate feet]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33900 # Vindicator's Mooncloth Belt
-    costs:
-      1137642: 1
-
-  - type: transmog
-    id: 33901 # Vindicator's Mooncloth Cuffs
-    costs:
-      1137642: 1
-
-  - type: transmog
-    id: 33902 # Vindicator's Mooncloth Slippers
+    id: 33905 # Vindicator's Ornamented Greaves [plate feet]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33903 # Vindicator's Ornamented Belt
-    costs:
-      1137642: 1
-
-  - type: transmog
-    id: 33904 # Vindicator's Ornamented Bracers
-    costs:
-      1137642: 1
-
-  - type: transmog
-    id: 33905 # Vindicator's Ornamented Greaves
+    id: 33812 # Vindicator's Plate Greaves [plate feet]
     costs:
       1137642: 2
 
   - type: transmog
-    id: 33906 # Vindicator's Ringmail Bracers
-    costs:
-      1137642: 1
-
-  - type: transmog
-    id: 33907 # Vindicator's Ringmail Girdle
-    costs:
-      1137642: 1
-
-  - type: transmog
-    id: 33908 # Vindicator's Ringmail Sabatons
+    id: 33911 # Vindicator's Scaled Greaves [plate feet]
     costs:
       1137642: 2
 
-  - type: transmog
-    id: 33909 # Vindicator's Scaled Belt
-    costs:
-      1137642: 1
+  # Ensembles
 
   - type: transmog
-    id: 33910 # Vindicator's Scaled Bracers
+    id: 146649 # Arsenal: Vengeful Gladiator's Weapons
     costs:
-      1137642: 1
-
-  - type: transmog
-    id: 33911 # Vindicator's Scaled Greaves
-    costs:
-      1137642: 2
-
-  - type: transmog
-    id: 33912 # Vindicator's Silk Belt
-    costs:
-      1137642: 1
-
-  - type: transmog
-    id: 33913 # Vindicator's Silk Cuffs
-    costs:
-      1137642: 1
-
-  - type: transmog
-    id: 33914 # Vindicator's Silk Footguards
-    costs:
-      1137642: 2
-
-  - type: transmog
-    id: 33915 # Vindicator's Wyrmhide Belt
-    costs:
-      1137642: 1
-
-  - type: transmog
-    id: 33916 # Vindicator's Wyrmhide Boots
-    costs:
-      1137642: 2
-
-  - type: transmog
-    id: 33917 # Vindicator's Wyrmhide Bracers
-    costs:
-      1137642: 1
-
-  - type: transmog
-    id: 34014 # Vengeful Gladiator's Waraxe
-    costs:
-      1137642: 5
-
-  - type: transmog
-    id: 34015 # Vengeful Gladiator's Chopper
-    costs:
-      1137642: 5
-
-  - type: transmog
-    id: 34016 # Vengeful Gladiator's Slasher
-    costs:
-      1137642: 5
-
-  - type: transmog
-    id: 34033 # Vengeful Gladiator's Grimoire
-    costs:
-      1137642: 2
-
-  - type: transmog
-    id: 34059 # Vengeful Gladiator's Baton of Light
-    costs:
-      1137642: 5
-
-  - type: transmog
-    id: 34066 # Vengeful Gladiator's Piercing Touch
-    costs:
-      1137642: 5
-
-  - type: transmog
-    id: 34529 # Vengeful Gladiator's Longbow
-    costs:
-      1137642: 5
-
-  - type: transmog
-    id: 34530 # Vengeful Gladiator's Rifle
-    costs:
-      1137642: 5
-
-  - type: transmog
-    id: 34540 # Vengeful Gladiator's Battle Staff
-    costs:
-      1137642: 5
-
-  - type: transmog
-    id: 146628 # Ensemble: Vengeful Gladiator's Chain Armor
-    costs:
-      1137642: 12
-
-  - type: transmog
-    id: 146629 # Ensemble: Vengeful Gladiator's Dragonhide Armor
-    costs:
-      1137642: 12
-
-  - type: transmog
-    id: 146631 # Ensemble: Vengeful Gladiator's Felweave Armor
-    costs:
-      1137642: 12
-
-  - type: transmog
-    id: 146632 # Ensemble: Vengeful Gladiator's Leather Armor
-    costs:
-      1137642: 12
+      1137642: 80
 
   - type: transmog
     id: 146633 # Ensemble: Vengeful Gladiator's Plate Armor
-    costs:
-      1137642: 12
-
-  - type: transmog
-    id: 146634 # Ensemble: Vengeful Gladiator's Ringmail Armor
-    costs:
-      1137642: 12
-
-  - type: transmog
-    id: 146635 # Ensemble: Vengeful Gladiator's Satin Armor
     costs:
       1137642: 12
 
@@ -878,17 +787,219 @@ sells:
       1137642: 12
 
   - type: transmog
+    id: 146628 # Ensemble: Vengeful Gladiator's Chain Armor
+    costs:
+      1137642: 12
+
+  - type: transmog
+    id: 146632 # Ensemble: Vengeful Gladiator's Leather Armor
+    costs:
+      1137642: 12
+
+  - type: transmog
+    id: 146635 # Ensemble: Vengeful Gladiator's Satin Armor
+    costs:
+      1137642: 12
+
+  - type: transmog
+    id: 146634 # Ensemble: Vengeful Gladiator's Ringmail Armor
+    costs:
+      1137642: 12
+
+  - type: transmog
     id: 146637 # Ensemble: Vengeful Gladiator's Silk Armor
     costs:
       1137642: 12
 
   - type: transmog
-    id: 146649 # Arsenal: Vengeful Gladiator's Weapons
+    id: 146631 # Ensemble: Vengeful Gladiator's Felweave Armor
     costs:
-      1137642: 80
+      1137642: 12
 
   - type: transmog
-    id: 147670 # Vindicator's Leather Wristguards
+    id: 146629 # Ensemble: Vengeful Gladiator's Dragonhide Armor
     costs:
-      1137642: 1
+      1137642: 12
+
+  # Weapons
+
+  - type: transmog
+    id: 34015 # Vengeful Gladiator's Chopper [1h ? axe]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 33669 # Vengeful Gladiator's Cleaver [1h ? axe]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 33689 # Vengeful Gladiator's Hacker [1h ? axe]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 33670 # Vengeful Gladiator's Decapitator [2h ? axe]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 34014 # Vengeful Gladiator's Waraxe [2h ? axe]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 34529 # Vengeful Gladiator's Longbow [bow]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 34530 # Vengeful Gladiator's Rifle [gun]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 33662 # Vengeful Gladiator's Bonecracker [1h ? mace]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 33687 # Vengeful Gladiator's Gavel [1h ? mace]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 33733 # Vengeful Gladiator's Pummeler [1h ? mace]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 33743 # Vengeful Gladiator's Salvation [1h ? mace]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 33663 # Vengeful Gladiator's Bonegrinder [2h ? mace]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 33727 # Vengeful Gladiator's Painsaw [polearm]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 33734 # Vengeful Gladiator's Quickblade [1h ? sword]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 33762 # Vengeful Gladiator's Slicer [1h ? sword]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 33688 # Vengeful Gladiator's Greatsword [2h ? sword]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 34540 # Vengeful Gladiator's Battle Staff [staff]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 33716 # Vengeful Gladiator's Staff [staff]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 33766 # Vengeful Gladiator's War Staff [staff]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 33705 # Vengeful Gladiator's Fleshslicer [fist]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 33737 # Vengeful Gladiator's Ripper [fist]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 34016 # Vengeful Gladiator's Slasher [fist]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 33801 # Vengeful Gladiator's Mutilator [? dagger]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 33754 # Vengeful Gladiator's Shanker [? dagger]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 33756 # Vengeful Gladiator's Shiv [? dagger]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 33763 # Vengeful Gladiator's Spellblade [? dagger]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 33006 # Vengeful Gladiator's Heavy Crossbow [crossbow]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 34059 # Vengeful Gladiator's Baton of Light [wand]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 34066 # Vengeful Gladiator's Piercing Touch [wand]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 33764 # Vengeful Gladiator's Touch of Defeat [wand]
+    costs:
+      1137642: 5
+
+  - type: transmog
+    id: 33681 # Vengeful Gladiator's Endgame [off-hand]
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 34033 # Vengeful Gladiator's Grimoire [off-hand]
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 33736 # Vengeful Gladiator's Reprieve [off-hand]
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 33661 # Vengeful Gladiator's Barrier [shield]
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 33735 # Vengeful Gladiator's Redoubt [shield]
+    costs:
+      1137642: 2
+
+  - type: transmog
+    id: 33755 # Vengeful Gladiator's Shield Wall [shield]
+    costs:
+      1137642: 2
 
