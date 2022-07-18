@@ -85,7 +85,6 @@
         position: absolute;
         top: 30px;
         right: 1px;
-        
     }
     .costs {
         --image-border-width: 0;

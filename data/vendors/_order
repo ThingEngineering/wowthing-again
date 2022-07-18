@@ -87,3 +87,8 @@ z1/_the_burning_crusade.yml
 
 misc/_misc.yml
     misc/darkmoon_island.yml
+
+-
+
+pvp/_pvp.yml
+    pvp/the_burning_crusade.yml
