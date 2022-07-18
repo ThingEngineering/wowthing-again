@@ -9,3 +9,14 @@ farms:
   location: 68.7 24.3
   reset: weekly
   type: raid
+
+# Quest
+
+- name: "Show Them Gnome Mercy!"
+  location: 60.4 69.0
+  questId: 10675
+  reset: none
+  type: quest
+  drops:
+    - type: toy
+      id: 30690 # Power Converter

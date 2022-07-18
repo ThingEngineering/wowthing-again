@@ -88,6 +88,9 @@
         :global(a) {
             padding-left: 1.0rem;
         }
+        :global(.separator) {
+            margin: 0.2rem 1.7rem 0.2rem 1rem;
+        }
     }
     .separator {
         border-top: 1px solid $border-color;

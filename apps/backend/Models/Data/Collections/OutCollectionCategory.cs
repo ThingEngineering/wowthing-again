@@ -19,11 +19,11 @@ namespace Wowthing.Backend.Models.Data.Collections
 
             foreach (var group in category.Groups.EmptyIfNull())
             {
-                if (group.Things.Count <= SplitThreshold)
-                {
+                //if (group.Things.Count <= SplitThreshold)
+                //{
                     Groups.Add(new OutCollectionGroup(group));
                     continue;
-                }
+                //}
 
                 var things = group.Things.ToArray();
                 var count = things.Length / SplitSize;

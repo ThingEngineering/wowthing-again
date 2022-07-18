@@ -76,6 +76,8 @@ z3/_cataclysm.yml
     z3/uldum.yml
 
 z1/_the_burning_crusade.yml
+    z1/isle_of_queldanas.yml
+    -
     z1/nagrand.yml
     z1/netherstorm.yml
     -

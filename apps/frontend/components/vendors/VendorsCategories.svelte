@@ -68,6 +68,30 @@
         margin-left: auto;
         padding-left: 1rem;
     }
+    .collection-v2-section {
+        --column-count: 1;
+        --column-gap: 1rem;
+        --column-width: 18rem;
+
+        width: 18.75rem;
+        
+        @media screen and (min-width: 1100px) {
+            --column-count: 2;
+            width: 37.75rem;
+        }
+        @media screen and (min-width: 1405px) {
+            --column-count: 3;
+            width: 56.75rem;
+        }
+        @media screen and (min-width: 1710px) {
+            --column-count: 4;
+            width: 75.75rem;
+        }
+        @media screen and (min-width: 2015px) {
+            --column-count: 5;
+            width: 94.75rem;
+        }
+    }
 </style>
 
 <div class="wrapper">
@@ -99,6 +123,7 @@
     {#if categories}
         <div class="collection thing-container">
             {#each categories as category}
+                {@const useV2 = category.groups.length > 3 && category.groups.reduce((a, b) => a + b.sellsFiltered.length, 0) > 30}
                 <SectionTitle
                     title={category.name}
                     count={$userVendorStore.data.stats[`${slug1}--${category.slug}`]}
@@ -124,12 +149,13 @@
                     {/if}
                 </SectionTitle>
 
-                <div class="collection-section">
+                <div class="collection{useV2 ? '-v2' : ''}-section">
                     {#each category.groups as group, groupIndex}
                         {#if group.sellsFiltered.length > 0}
                             <Group
                                 stats={$userVendorStore.data.stats[`${slug1}--${category.slug}--${groupIndex}`]}
                                 {group}
+                                {useV2}
                             />
                         {/if}
                     {/each}

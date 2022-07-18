@@ -54,6 +54,16 @@ INVENTORY_SLOT = {
     23: 'off-hand',
     26: 'ranged',
 }
+SORT_KEY = {
+    1: 1,
+    3: 2,
+    5: 3,
+    9: 4,
+    10: 5,
+    6: 6,
+    7: 7,
+    8: 8,
+}
 SKIP_INVENTORY_SLOT = set([
     2, # neck
     11, # ring
@@ -99,9 +109,9 @@ items = json.loads(re.sub(r'(standing|react|stack|avail|cost):', r'"\1":', m.gro
 
 faction = ''
 react = npc['react']
-if react == [1, 0]:
+if react[0] == 1 and react[1] <= 0:
     faction = ' alliance'
-elif react == [0, 1]:
+elif react[0] <= 0 and react[1] == 1:
     faction = ' horde'
 
 print(f'id: {npc["id"]}')
@@ -114,7 +124,7 @@ print('locations:')
 
 for map_set in mapper.values():
     for map in map_set:
-        map_name = map['uiMapName'].lower().replace(' ', '_').replace('-', '_')
+        map_name = map['uiMapName'].lower().replace(' ', '_').replace('-', '_').replace("'", '')
         print(f'  {map_name}:')
         
         for coord in map['coords']:
@@ -128,7 +138,8 @@ sorted_items = sorted(items, key=lambda item: [
     -item["standing"],
     item["classs"],
     item.get("subclass", 0),
-    item.get("slot", 0),
+    item.get("reqclass", 0),
+    SORT_KEY.get(item.get("slot", 0), item.get("slot", 0) + 100),
     item["name"],
 
 ])
@@ -147,7 +158,11 @@ for item in sorted_items:
         type_parts.append(WEAPON_SUBCLASS.get(item_subclass, f'subclass={item_subclass}'))
     
     elif item_class == 4:
-        if item_subclass == -6:
+        if item_subclass == -8:
+            type_parts.append('shirt')
+        elif item_subclass == -7:
+            type_parts.append('tabard')
+        elif item_subclass == -6:
             type_parts.append('cloak')
         elif item_subclass == -5:
             type_parts.append('off-hand')
@@ -167,7 +182,7 @@ for item in sorted_items:
 
     costs = item['cost']
     if costs[0] > 0:
-        print(f'      0: {math.floor(costs[0] / 10000)} # Gold')
+        print(f'      0: {max(1, math.floor(costs[0] / 10000))} # Gold')
 
     if len(costs) >= 2:
         for cost in costs[1]:

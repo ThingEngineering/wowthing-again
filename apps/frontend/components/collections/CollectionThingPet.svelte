@@ -43,7 +43,7 @@
 </script>
 
 <style lang="scss">
-    .collection-object {
+    .collection-item {
         width: 44px;
     }
     .pet {

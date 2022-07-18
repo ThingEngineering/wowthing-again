@@ -1,0 +1,22 @@
+.collection-v2-section {
+    column-count: var(--column-count, 1);
+    column-width: var(--column-width, 20rem);
+    gap: var(--column-gap, 1rem);
+    padding: 0.5rem 0 0.75rem 0.75rem;
+    width: 100%;
+}
+
+.collection-v2-group {
+    --image-border-color: #bbb;
+    --image-border-width: 2px;
+    
+    break-inside: avoid;
+
+    + .collection-v2-group {
+        margin-top: 1rem;
+    }
+
+    .collection-object {
+        margin-top: 0.1rem;
+    }
+}
