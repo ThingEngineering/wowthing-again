@@ -1,10 +1,10 @@
 id: 69321
 name: "Herwin Steampop"
-note: "Deadly Gladiator"
+note: "Deadly Gladiator [S5]"
 
 locations:
   z2_dalaran_underbelly:
-    - 57.6 57.4
+    - 57.8 57.4
 
 tags:
   - "pvp"

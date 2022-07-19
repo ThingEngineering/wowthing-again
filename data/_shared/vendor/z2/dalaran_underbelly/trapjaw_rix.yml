@@ -1,10 +1,10 @@
 id: 40212
 name: "Trapjaw Rix"
-note: "Savage Gladiator"
+note: "Savage Gladiator [S5]"
 
 locations:
   z2_dalaran_underbelly:
-    - 61.6 57.4
+    - 61.4 57.4
 
 sets:
   - name: "Armor - S05 Death Knight"

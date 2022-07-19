@@ -75,6 +75,10 @@ z3/_cataclysm.yml
     z3/twilight_highlands.yml
     z3/uldum.yml
 
+z2/_wrath_of_the_lich_king.yml
+    z2/dalaran.yml
+    z2/dalaran_underbelly.yml
+
 z1/_the_burning_crusade.yml
     z1/isle_of_queldanas.yml
     -
@@ -91,4 +95,5 @@ misc/_misc.yml
 -
 
 pvp/_pvp.yml
+    pvp/wrath_of_the_lich_king.yml
     pvp/the_burning_crusade.yml
