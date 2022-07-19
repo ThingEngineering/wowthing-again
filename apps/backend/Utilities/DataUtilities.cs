@@ -19,7 +19,7 @@ public static class DataUtilities
         public static readonly string DumpsPath = "dumps";
 #endif
 
-    private static readonly IDeserializer Yaml = new DeserializerBuilder()
+    public static readonly IDeserializer YamlDeserializer = new DeserializerBuilder()
         .WithNamingConvention(CamelCaseNamingConvention.Instance)
         .IgnoreUnmatchedProperties()
         .Build();
@@ -164,7 +164,7 @@ public static class DataUtilities
         if (!categoryCache.TryGetValue(filePath, out TCategory cat))
         {
             //Logger.Debug("Loading {0}", parts[0]);
-            cat = categoryCache[filePath] = Yaml.Deserialize<TCategory>(File.OpenText(filePath));
+            cat = categoryCache[filePath] = YamlDeserializer.Deserialize<TCategory>(File.OpenText(filePath));
         }
 
         if (parts.Length == 2)

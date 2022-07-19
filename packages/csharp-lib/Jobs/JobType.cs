@@ -52,4 +52,5 @@ public enum JobType
     DataAuctionsStart,
     DataAuctions,
     CacheManual,
+    CacheAchievements,
 }

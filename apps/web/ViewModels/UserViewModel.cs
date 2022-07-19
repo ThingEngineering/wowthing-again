@@ -19,7 +19,7 @@ public class UserViewModel
         Settings = user.Settings ?? new ApplicationUserSettings();
 
         var db = redis.GetDatabase();
-        var achievementHash = db.StringGetAsync("cache:achievement:hash");
+        var achievementHash = db.StringGetAsync("cache:achievement-enUS:hash");
         var journalHash = db.StringGetAsync("cache:journal-enUS:hash");
         var manualHash = db.StringGetAsync("cache:manual-enUS:hash");
         var staticHash = db.StringGetAsync("cache:static-enUS:hash");

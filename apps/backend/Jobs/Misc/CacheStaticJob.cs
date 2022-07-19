@@ -1,16 +1,11 @@
-﻿using MoreLinq.Extensions;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using Wowthing.Backend.Data;
 using Wowthing.Backend.Jobs.NonBlizzard;
 using Wowthing.Backend.Models.Data;
 using Wowthing.Backend.Models.Data.Achievements;
-using Wowthing.Backend.Models.Data.Collections;
 using Wowthing.Backend.Models.Data.Covenants;
 using Wowthing.Backend.Models.Data.Journal;
 using Wowthing.Backend.Models.Data.Professions;
-using Wowthing.Backend.Models.Data.Progress;
-using Wowthing.Backend.Models.Data.Vendors;
-using Wowthing.Backend.Models.Data.ZoneMaps;
 using Wowthing.Backend.Models.Redis;
 using Wowthing.Backend.Models.Static;
 using Wowthing.Backend.Utilities;
@@ -18,18 +13,12 @@ using Wowthing.Lib.Enums;
 using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models.Wow;
 using Wowthing.Lib.Utilities;
-using YamlDotNet.Serialization;
-using YamlDotNet.Serialization.NamingConventions;
 
 namespace Wowthing.Backend.Jobs.Misc;
 
 public class CacheStaticJob : JobBase, IScheduledJob
 {
     private JankTimer _timer;
-    private readonly IDeserializer _yaml = new DeserializerBuilder()
-        .WithNamingConvention(CamelCaseNamingConvention.Instance)
-        .IgnoreUnmatchedProperties()
-        .Build();
 
     private Dictionary<int, WowItem> _itemMap;
     private Dictionary<int, WowMount> _mountMap;
@@ -54,9 +43,7 @@ public class CacheStaticJob : JobBase, IScheduledJob
         _timer = new JankTimer();
 
         await LoadData();
-
         await BuildStaticData();
-        await BuildAchievementData();
 
         Logger.Information("{0}", _timer.ToString());
     }
@@ -196,7 +183,7 @@ public class CacheStaticJob : JobBase, IScheduledJob
         string cacheHash = null;
         foreach (var language in Enum.GetValues<Language>())
         {
-            Logger.Information("Static {Lang}", language);
+            Logger.Information("{Lang}", language);
 
             cacheData.CharacterClasses = classes.Select(cls => new StaticCharacterClass(cls)
             {
@@ -284,7 +271,7 @@ public class CacheStaticJob : JobBase, IScheduledJob
             else
             {
                 var filePath = Path.Join(basePath, line);
-                categories.Add(_yaml.Deserialize<DataReputationCategory>(File.OpenText(filePath)));
+                categories.Add(DataUtilities.YamlDeserializer.Deserialize<DataReputationCategory>(File.OpenText(filePath)));
             }
         }
 
@@ -625,213 +612,6 @@ public class CacheStaticJob : JobBase, IScheduledJob
     }
     #endregion
 
-    #region Achievement data
-    public async Task BuildAchievementData()
-    {
-        var db = Redis.GetDatabase();
-
-        var achievements = await LoadAchievements();
-        var categories = await LoadAchievementCategories(achievements[Language.enUS]);
-        var criteria = await LoadAchievementCriteria(achievements[Language.enUS]);
-
-        // Ok we're done
-        var cacheData = new RedisStaticAchievements
-        {
-            Categories = categories,
-            CriteriaRaw = criteria[Language.enUS].Criteria.Values.ToList(),
-        };
-
-        string cacheHash = null;
-        foreach (var language in Enum.GetValues<Language>())
-        {
-            Logger.Information("Achievement {Lang}", language);
-
-            cacheData.AchievementRaw = achievements[language].Values.ToList();
-            cacheData.CriteriaTreeRaw = criteria[language].CriteriaTree.Values.ToList();
-
-            var cacheJson = JsonConvert.SerializeObject(cacheData);
-            // This ends up being the MD5 of enUS, close enough
-            if (cacheHash == null)
-            {
-                cacheHash = cacheJson.Md5();
-            }
-
-            await db.SetCacheDataAndHash($"achievement-{language.ToString()}", cacheJson, cacheHash);
-        }
-
-        _timer.AddPoint("Cache", true);
-    }
-
-    private static readonly HashSet<int> SkipAchievementCategories = new()
-    {
-        1, // Statistics
-        15076, // Guild
-    };
-
-    private static async Task<List<OutAchievementCategory>> LoadAchievementCategories(Dictionary<int, OutAchievement> achievements)
-    {
-        var records = await DataUtilities.LoadDumpCsvAsync<DumpAchievementCategory>("achievement_category");
-        var outMap = records.ToDictionary(
-            record => record.ID,
-            record => new OutAchievementCategory(record)
-        );
-
-        var achievementMap = achievements.Values
-            .GroupBy(a => a.CategoryId)
-            .ToDictionary(g => g.Key, g => g.Select(a => a.Id).ToList());
-
-        foreach (var record in records)
-        {
-            // Attach children
-            if (record.Parent > -1)
-            {
-                outMap[record.Parent].Children.Add(outMap[record.ID]);
-            }
-
-            // Attach achievements
-            if (achievementMap.ContainsKey(record.ID))
-            {
-                outMap[record.ID].AchievementIds = achievementMap[record.ID];
-            }
-        }
-
-        // Sort everything by Order
-        foreach (var category in outMap.Values)
-        {
-            category.Children.Sort((a, b) => a.Order.CompareTo(b.Order));
-        }
-
-        // Return all root categories that aren't in the skip list
-        return outMap.Values
-            .Where(record => record.Parent == -1 && !SkipAchievementCategories.Contains(record.Id))
-            .OrderBy(record => record.Order)
-            .ToList();
-    }
-
-    private static async Task<Dictionary<Language, Dictionary<int, OutAchievement>>> LoadAchievements()
-    {
-        var ret = new Dictionary<Language, Dictionary<int, OutAchievement>>();
-        var records = await DataUtilities
-            .LoadDumpCsvAsync<DumpAchievement>(Path.Join("enUS", "achievement"));
-
-        var achievementMap = records
-            .Where(a => !a.Flags.HasFlag(WowAchievementFlags.Tracking))
-            .Where(a => !Hardcoded.IgnoredAchievements.Contains(a.ID))
-            .Select(a => new OutAchievement(a))
-            .ToDictionary(a => a.Id);
-
-        foreach (var achievement in achievementMap.Values)
-        {
-            if (achievement.Supersedes > 0 && achievementMap.ContainsKey(achievement.Supersedes))
-            {
-                achievementMap[achievement.Supersedes].SupersededBy = achievement.Id;
-            }
-        }
-
-        ret[Language.enUS] = achievementMap;
-
-        foreach (var language in Enum.GetValues<Language>())
-        {
-            if (language == Language.enUS)
-            {
-                continue;
-            }
-
-            var langRecords = await DataUtilities
-                .LoadDumpCsvAsync<DumpAchievement>(Path.Join(language.ToString(), "achievement"), skipValidation: true);
-
-            var langMap = new Dictionary<int, OutAchievement>();
-            //foreach (var (achievementId, achievement) in ret[Language.enUS])
-            foreach (var record in langRecords)
-            {
-                if (ret[Language.enUS].TryGetValue(record.ID, out var usAchievement))
-                {
-                    langMap[record.ID] = (OutAchievement)usAchievement.Clone();
-                    langMap[record.ID].Description = record.Description;
-                    langMap[record.ID].Name = record.Name;
-                }
-            }
-
-            ret[language] = langMap;
-        }
-
-        return ret;
-    }
-
-    private async Task<Dictionary<Language, AchievementCriteria>> LoadAchievementCriteria(Dictionary<int, OutAchievement> achievements)
-    {
-        var ret = new Dictionary<Language, AchievementCriteria>();
-
-        var criteria = await DataUtilities.LoadDumpCsvAsync<DumpCriteria>("criteria");
-        //var criteriaMap = criteria.ToDictionary(c => c.ID);
-
-        var criteriaTrees = await DataUtilities.LoadDumpCsvAsync<DumpCriteriaTree>("criteriatree");
-        var criteriaTreeMap = criteriaTrees.ToDictionary(ct => ct.ID);
-
-        //var modifierTrees = await CsvUtilities.LoadDumpCsvAsync<DumpModifierTree>("modifiertree");
-        //var modifierTreeMap = modifierTrees.ToDictionary(mt => mt.ID);
-
-        // Keep track of CriteriaTree tree
-        foreach (var criteriaTree in criteriaTrees.Where(ct => ct.Parent > 0))
-        {
-            if (criteriaTreeMap.TryGetValue(criteriaTree.Parent, out var parent))
-            {
-                parent.Children.Add(criteriaTree);
-            }
-        }
-
-        // Filter things
-        var achievementCriteriaTrees = new HashSet<int>(achievements.Values.Select(a => a.CriteriaTreeId));
-        var filtered = criteriaTrees
-            .Where(ct => achievementCriteriaTrees.Contains(ct.ID))
-            .ToArray();
-        var final = filtered
-            .Concat(
-                filtered
-                    .SelectManyRecursive(ct => ct.Children)
-            )
-            .OrderBy(ct => ct.ID);
-
-        ret[Language.enUS] = new AchievementCriteria
-        {
-            Criteria = criteria
-                .Select(c => new OutCriteria(c))
-                .ToDictionary(c => c.Id),
-
-            CriteriaTree = final
-                .Select(ct => new OutCriteriaTree(ct))
-                .ToDictionary(ct => ct.Id),
-        };
-
-        foreach (var language in Enum.GetValues<Language>())
-        {
-            if (language == Language.enUS)
-            {
-                continue;
-            }
-
-            var langRecords = await DataUtilities
-                .LoadDumpCsvAsync<DumpCriteriaTree>(Path.Join(language.ToString(), "criteriatree"), skipValidation: true);
-
-            var langMap = new Dictionary<int, OutCriteriaTree>();
-            foreach (var record in langRecords)
-            {
-                if (ret[Language.enUS].CriteriaTree.TryGetValue(record.ID, out var usCriteria))
-                {
-                    langMap[record.ID] = (OutCriteriaTree)usCriteria.Clone();
-                    langMap[record.ID].Description = record.Description;
-                }
-            }
-
-            ret[language] = new AchievementCriteria
-            {
-                CriteriaTree = langMap,
-            };
-        }
-
-        return ret;
-    }
-    #endregion
 }
 
 internal struct AchievementCriteria
