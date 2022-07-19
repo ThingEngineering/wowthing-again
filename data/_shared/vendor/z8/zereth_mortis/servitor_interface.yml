@@ -111,7 +111,7 @@ sells:
       1189150: 1 # Raptora Lattice
       
   - type: mount
-    id: 1531 # Pale Regal Cervid
+    id: 1431 # Pale Regal Cervid
     costs:
       1188957: 400 # Genesis Mote
       1189176: 1 # Protoform Sentience Crown
