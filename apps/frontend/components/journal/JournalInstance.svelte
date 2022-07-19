@@ -9,8 +9,6 @@
     import Group from './JournalGroup.svelte'
     import Options from './JournalOptions.svelte'
     import SectionTitle from '@/components/collections/CollectionSectionTitle.svelte'
-import { reduce } from 'lodash';
-import Appearances from '../appearances/Appearances.svelte'
 
     export let slug1: string
     export let slug2: string
