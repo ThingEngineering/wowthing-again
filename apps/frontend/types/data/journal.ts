@@ -24,35 +24,36 @@ export interface JournalDataInstance {
 }
 
 export class JournalDataEncounter {
-    public id: number
-    public name: string
     public groups: JournalDataEncounterItemGroup[]
+    public statistics?: Record<number, number>
 
     constructor(
-        id: number,
-        name: string,
-        groupsRaw: JournalDataEncounterItemGroupArray[]
+        public id: number,
+        public name: string,
+        groupsRaw: JournalDataEncounterItemGroupArray[],
+        statisticsRaw?: [number, number][]
     )
     {
-        this.id = id
-        this.name = name
         this.groups = groupsRaw
             .map((groupArray) => new JournalDataEncounterItemGroup(...groupArray))
+        
+        this.statistics = {}
+        for (const [difficulty, statisticId] of (statisticsRaw || [])) {
+            this.statistics[difficulty] = statisticId
+        }
     }
 }
 
 type JournalDataEncounterArray = ConstructorParameters<typeof JournalDataEncounter>
 
 export class JournalDataEncounterItemGroup {
-    public name: string
     public items: JournalDataEncounterItem[]
 
     constructor(
-        name: string,
+        public name: string,
         itemsRaw: JournalDataEncounterItemArray[]
     )
     {
-        this.name = name
         this.items = itemsRaw
             .map((itemArray) => new JournalDataEncounterItem(...itemArray))
     }

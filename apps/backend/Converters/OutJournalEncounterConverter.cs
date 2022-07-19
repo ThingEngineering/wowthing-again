@@ -48,8 +48,21 @@ namespace Wowthing.Backend.Converters
                 groupArray.Add(itemsArray);
                 groupsArray.Add(groupArray);
             }
-
             encounterArray.Add(groupsArray);
+
+            if (encounter.Statistics != null)
+            {
+                var statsArray = new JArray();
+                foreach (var (difficulty, statisticId) in encounter.Statistics)
+                {
+                    var diffArray = new JArray();
+                    diffArray.Add(difficulty);
+                    diffArray.Add(statisticId);
+                    statsArray.Add(diffArray);
+                }
+                encounterArray.Add(statsArray);
+            }
+
             encounterArray.WriteTo(writer);
         }
 

@@ -260,10 +260,13 @@ namespace Wowthing.Backend.Jobs.Misc
                                 }
                             }
 
+                            Hardcoded.JournalEncounterStatistics.TryGetValue(encounter.ID, out var statistics);
                             var encounterData = new OutJournalEncounter
                             {
                                 Id = encounter.ID,
+                                Statistics = statistics,
                             };
+
                             var items = new List<DumpJournalEncounterItem>();
 
                             if (encounter.ID > 1000000)

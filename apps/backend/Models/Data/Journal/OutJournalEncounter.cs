@@ -9,5 +9,6 @@ namespace Wowthing.Backend.Models.Data.Journal
         public string Name { get; set; }
 
         public List<OutJournalEncounterItemGroup> Groups = new();
+        public Dictionary<int, int> Statistics { get; set; }
     }
 }

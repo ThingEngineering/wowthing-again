@@ -5,6 +5,7 @@
     import { journalState } from '@/stores/local-storage'
     import type { JournalDataInstance, JournalDataTier } from '@/types/data'
 
+    import EncounterStats from './JournalEncounterStats.svelte'
     import Group from './JournalGroup.svelte'
     import Options from './JournalOptions.svelte'
     import SectionTitle from '@/components/collections/CollectionSectionTitle.svelte'
@@ -35,10 +36,15 @@
         <div class="collection thing-container" data-instance-id="{instance.id}">
             {#each instance.encounters as encounter}
                 {#if $journalState.showTrash || encounter.name !== 'Trash Drops'}
+                    {@const statsKey = `${slug1}--${slug2}--${encounter.name}`}
                     <SectionTitle
                         title={encounter.name}
-                        count={$journalStore.data.stats[`${slug1}--${slug2}--${encounter.name}`]}
+                        count={$journalStore.data.stats[statsKey]}
                     >
+                        <EncounterStats
+                            {encounter}
+                            {statsKey}
+                        />
                     </SectionTitle>
 
                     <div class="collection-section" data-encounter-id="{encounter.id}">
