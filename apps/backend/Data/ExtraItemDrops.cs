@@ -3,6 +3,7 @@
     public static partial class Hardcoded
     {
         private static readonly int[] RaidDifficultiesAll = { 17, 14, 15, 16 };
+        private static readonly int[] RaidDifficultiesLfrNormalHeroic = { 3, 4, 5, 6, 7 };
         private static readonly int[] RaidDifficultiesNoLfr = { 14, 15, 16 };
 
         public static readonly Dictionary<int, List<ExtraItemDrop>> ExtraItemDrops = new()
@@ -639,27 +640,27 @@
                 new List<ExtraItemDrop>
                 {
                     // Cloth
-                    new (95207, RaidDifficultiesAll), // Abandoned Zandalari Firecord
-                    new (95208, RaidDifficultiesAll), // Abandoned Zandalari Shadowgirdle
-                    new (95224, RaidDifficultiesAll), // Home-Warding Slippers
-                    new (95223, RaidDifficultiesAll), // Silentflame Sandals
+                    new (95207, RaidDifficultiesLfrNormalHeroic), // Abandoned Zandalari Firecord
+                    new (95208, RaidDifficultiesLfrNormalHeroic), // Abandoned Zandalari Shadowgirdle
+                    new (95224, RaidDifficultiesLfrNormalHeroic), // Home-Warding Slippers
+                    new (95223, RaidDifficultiesLfrNormalHeroic), // Silentflame Sandals
                     // Leather
-                    new (95210, RaidDifficultiesAll), // Abandoned Zandalari Moonstrap
-                    new (95209, RaidDifficultiesAll), // Abandoned Zandalari Silentbelt
-                    new (95221, RaidDifficultiesAll), // Deeproot Treads
-                    new (95219, RaidDifficultiesAll), // Spiderweb Tabi
+                    new (95210, RaidDifficultiesLfrNormalHeroic), // Abandoned Zandalari Moonstrap
+                    new (95209, RaidDifficultiesLfrNormalHeroic), // Abandoned Zandalari Silentbelt
+                    new (95221, RaidDifficultiesLfrNormalHeroic), // Deeproot Treads
+                    new (95219, RaidDifficultiesLfrNormalHeroic), // Spiderweb Tabi
                     // Mail
-                    new (95211, RaidDifficultiesAll), // Abandoned Zandalari Arrowlinks
-                    new (95212, RaidDifficultiesAll), // Abandoned Zandalari Waterchain
-                    new (95220, RaidDifficultiesAll), // Scalehide Spurs
-                    new (95222, RaidDifficultiesAll), // Spiritbound Boots
+                    new (95211, RaidDifficultiesLfrNormalHeroic), // Abandoned Zandalari Arrowlinks
+                    new (95212, RaidDifficultiesLfrNormalHeroic), // Abandoned Zandalari Waterchain
+                    new (95220, RaidDifficultiesLfrNormalHeroic), // Scalehide Spurs
+                    new (95222, RaidDifficultiesLfrNormalHeroic), // Spiritbound Boots
                     // Plate
-                    new (95215, RaidDifficultiesAll), // Abandoned Zandalari Bucklebreaker
-                    new (95214, RaidDifficultiesAll), // Abandoned Zandalari Goreplate
-                    new (95213, RaidDifficultiesAll), // Abandoned Zandalari Greatbelt
-                    new (95218, RaidDifficultiesAll), // Columnbreaker Stompers
-                    new (95217, RaidDifficultiesAll), // Locksmasher Greaves
-                    new (95216, RaidDifficultiesAll), // Vaultwalker Sabatons
+                    new (95215, RaidDifficultiesLfrNormalHeroic), // Abandoned Zandalari Bucklebreaker
+                    new (95214, RaidDifficultiesLfrNormalHeroic), // Abandoned Zandalari Goreplate
+                    new (95213, RaidDifficultiesLfrNormalHeroic), // Abandoned Zandalari Greatbelt
+                    new (95218, RaidDifficultiesLfrNormalHeroic), // Columnbreaker Stompers
+                    new (95217, RaidDifficultiesLfrNormalHeroic), // Locksmasher Greaves
+                    new (95216, RaidDifficultiesLfrNormalHeroic), // Vaultwalker Sabatons
                 }
             },
             {
