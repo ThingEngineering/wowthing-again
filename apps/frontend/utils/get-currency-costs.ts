@@ -34,7 +34,13 @@ export function getCurrencyCosts(
             }
 
             if (type === 'item') {
-                return `999999|${toDigits(999999 - value, 6)}|${manualData.shared.items[id]?.name ?? 'ZZZ'}`
+                const item = manualData.shared.items[id]
+                return [
+                    '999999',
+                    toDigits(999999 - value, 6),
+                    toDigits(10 - item?.quality ?? 0, 2),
+                    item?.name ?? 'ZZZ',
+                ].join('|')
             }
 
             return `555555$|${toDigits(999999 - value, 6)}|{staticData.currencies[id]?.name ?? 'ZZZ'}`
