@@ -13,7 +13,7 @@ public class OutAchievementCategory : ICloneable
     [JsonIgnore]
     public int Parent { get; set; }
 
-    public string Slug => Name.Slugify();
+    public string Slug { get; set; }
 
     public OutAchievementCategory()
     { }
@@ -22,6 +22,7 @@ public class OutAchievementCategory : ICloneable
     {
         Id = category.ID;
         Name = category.Name;
+        Slug = Name.Slugify();
         Order = category.UiOrder;
         Parent = category.Parent;
     }
@@ -32,6 +33,7 @@ public class OutAchievementCategory : ICloneable
         {
             Id = Id,
             Name = (string)Name.Clone(),
+            Slug = (string)Slug.Clone(),
             Order = Order,
             Parent = Parent,
             AchievementIds = AchievementIds,

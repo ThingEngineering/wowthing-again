@@ -35,7 +35,7 @@ public class CacheStaticJob : JobBase, IScheduledJob
         Type = JobType.CacheStatic,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(1),
-        Version = 51,
+        Version = 52,
     };
 
     public override async Task Run(params string[] data)
@@ -208,6 +208,7 @@ public class CacheStaticJob : JobBase, IScheduledJob
             cacheData.RawCurrencyCategories = currencyCategories.Select(category => new StaticCurrencyCategory(category)
             {
                 Name = GetString(StringType.WowCurrencyCategoryName, language, category.Id),
+                Slug = GetString(StringType.WowCurrencyCategoryName, Language.enUS, category.Id).Slugify(),
             }).ToArray();
 
             cacheData.RawItems = _itemIds

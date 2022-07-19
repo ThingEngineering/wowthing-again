@@ -19,13 +19,14 @@ public class CacheJournalJob : JobBase, IScheduledJob
     private Dictionary<int, WowMount> _mountMap;
     private Dictionary<int, WowPet> _petMap;
     private Dictionary<int, WowToy> _toyMap;
+    private Dictionary<(StringType Type, Language language, int Id), string> _stringMap;
 
     public static readonly ScheduledJob Schedule = new ScheduledJob
     {
         Type = JobType.CacheJournal,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(24),
-        Version = 19,
+        Version = 20,
     };
 
     public override async Task Run(params string[] data)
@@ -146,9 +147,15 @@ public class CacheJournalJob : JobBase, IScheduledJob
             .AsNoTracking()
             .ToDictionaryAsync(toy => toy.ItemId);
 
+        _stringMap = await Context.LanguageString
+            .Where(ls => _stringTypes.Contains(ls.Type))
+            .AsNoTracking()
+            .ToDictionaryAsync(ls => (ls.Type, ls.Language, ls.Id), ls => ls.String);
+
         _timer.AddPoint("Database");
 
         var db = Redis.GetDatabase();
+
 
         // Once per language, oh boy
         string cacheHash = null;
@@ -158,24 +165,19 @@ public class CacheJournalJob : JobBase, IScheduledJob
 
             var cacheData = new RedisJournalCache();
 
-            var stringMap = await Context.LanguageString
-                .Where(ls => ls.Language == language && _stringTypes.Contains(ls.Type))
-                .AsNoTracking()
-                .ToDictionaryAsync(ls => (ls.Type, ls.Id), ls => ls.String);
-
             foreach (var (tier, dungeons) in Hardcoded.ExtraTiers)
             {
                 tiers.Add(tier);
                 tierToInstance[tier.ID] = dungeons
                     .Select(dungeon => dungeon.ID)
                     .ToArray();
-                stringMap[(StringType.WowJournalTierName, tier.ID)] = tier.Name;
+                _stringMap[(StringType.WowJournalTierName, language, tier.ID)] = tier.Name;
 
                 foreach (var dungeon in dungeons)
                 {
                     instancesById[dungeon.ID] = dungeon;
                     encountersByInstanceId[dungeon.ID] = new List<DumpJournalEncounter>();
-                    stringMap[(StringType.WowJournalInstanceName, dungeon.ID)] = dungeon.Name;
+                    _stringMap[(StringType.WowJournalInstanceName, language, dungeon.ID)] = dungeon.Name;
                 }
             }
 
@@ -184,8 +186,10 @@ public class CacheJournalJob : JobBase, IScheduledJob
                 var tierData = new OutJournalTier
                 {
                     Id = tier.ID,
-                    Name = stringMap[(StringType.WowJournalTierName, tier.ID)],
+                    Name = _stringMap[(StringType.WowJournalTierName, language, tier.ID)],
+                    Slug = _stringMap[(StringType.WowJournalTierName, Language.enUS, tier.ID)].Slugify(),
                 };
+
                 var legacyLoot = tier.ID <= 396; // Battle for Azeroth
 
                 var instanceIds = tierToInstance[tier.ID]
@@ -202,7 +206,8 @@ public class CacheJournalJob : JobBase, IScheduledJob
                     var instanceData = new OutJournalInstance
                     {
                         Id = instance.ID,
-                        Name = stringMap[(StringType.WowJournalInstanceName, instance.ID)],
+                        Name = _stringMap[(StringType.WowJournalInstanceName, language, instance.ID)],
+                        Slug = _stringMap[(StringType.WowJournalInstanceName, Language.enUS, instance.ID)].Slugify(),
                     };
 
                     if (Hardcoded.InstanceBonusIds.TryGetValue(instanceId, out var bonusIds))
@@ -221,7 +226,7 @@ public class CacheJournalJob : JobBase, IScheduledJob
                                 ID = encounterId,
                                 OrderIndex = -i,
                             });
-                            stringMap[(StringType.WowJournalEncounterName, encounterId)] = extraEncounters[i];
+                            _stringMap[(StringType.WowJournalEncounterName, language, encounterId)] = extraEncounters[i];
                         }
                     }
 
@@ -275,7 +280,7 @@ public class CacheJournalJob : JobBase, IScheduledJob
                         }
                         else
                         {
-                            encounterData.Name = stringMap[(StringType.WowJournalEncounterName, encounter.ID)];
+                            encounterData.Name = _stringMap[(StringType.WowJournalEncounterName, language, encounter.ID)];
 
                             var fakeItems = new Dictionary<int, DumpJournalEncounterItem>();
                             foreach (var encounterItem in itemsByEncounterId.GetValueOrDefault(encounter.ID, Array.Empty<DumpJournalEncounterItem>()))
@@ -491,7 +496,7 @@ public class CacheJournalJob : JobBase, IScheduledJob
                                         return 1000;
                                     }
                                 })
-                                .ThenBy(item => stringMap[(StringType.WowItemName, item.Id)])
+                                .ThenBy(item => _stringMap[(StringType.WowItemName, language, item.Id)])
                                 .ThenBy(item =>
                                     item.Appearances
                                         .SelectMany(app => app
