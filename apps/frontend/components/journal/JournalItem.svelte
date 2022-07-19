@@ -93,6 +93,10 @@
         if (xor(appearance.difficulties, [3, 4, 5, 6]).length === 0) {
             return ['N', 'H']
         }
+        // 10 Normal + 25 Normal + 10 Heroic + 25 Heroic + LFR = 
+        if (xor(appearance.difficulties, [3, 4, 5, 6, 7]).length === 0) {
+            return ['L', 'N', 'H']
+        }
 
         const ret: string[] = []
         for (const difficulty of journalDifficultyOrder) {
