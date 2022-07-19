@@ -15,7 +15,7 @@
 
     // Fetch achievement data once when this component is mounted
     onMount(async () => await Promise.all([
-        achievementStore.fetch(undefined, $settings.general.language),
+        achievementStore.fetch({ language: $settings.general.language }),
         //userAchievementStore.fetch(),
     ]))
 

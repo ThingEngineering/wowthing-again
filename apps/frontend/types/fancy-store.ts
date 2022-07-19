@@ -11,8 +11,13 @@ export interface FancyStore<TData> {
     loaded: boolean
 }
 
+export interface FancyStoreFetchOptions {
+    ifLoaded: boolean
+    language: Language
+}
+
 export interface WritableFancyStore<TData> extends Writable<FancyStore<TData>> {
-    fetch(ifNotLoaded?: boolean, language?: Language): Promise<boolean>
+    fetch(options: Partial<FancyStoreFetchOptions>): Promise<boolean>
     get(): FancyStore<TData>
     initialize?(data: TData): void
     readonly dataUrl: string
@@ -42,13 +47,13 @@ export class WritableFancyStore<TData> {
         return this.value
     }
 
-    async fetch(ifNotLoaded = true, language = Language.enUS): Promise<boolean> {
+    async fetch(options?: Partial<FancyStoreFetchOptions>): Promise<boolean> {
         const wasLoaded = get(this).loaded
-        if (ifNotLoaded && wasLoaded) {
+        if (options?.ifLoaded !== true && wasLoaded) {
             return false
         }
 
-        const url = this.dataUrl.replace('zzZZ', Language[language])
+        const url = this.dataUrl.replace('zzZZ', Language[options?.language ?? Language.enUS])
         if (!url) {
             this.update(state => {
                 state.error = true

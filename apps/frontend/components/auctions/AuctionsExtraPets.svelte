@@ -110,7 +110,7 @@
     }
 </style>
 
-{#await userAuctionExtraPetStore.fetch(true)}
+{#await userAuctionExtraPetStore.fetch()}
     <div class="wrapper">L O A D I N G . . .</div>
 {:then _}
     <Paginate
