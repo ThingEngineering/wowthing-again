@@ -15,5 +15,28 @@ public static partial class Hardcoded
             }
         },
         #endregion
+
+        #region Mists of Pandaria
+        { 691, new() // Sha of Anger
+            {
+                { 14, 6989 },
+            }
+        },
+        { 725, new() // Galleon
+            {
+                { 14, 6990 },
+            }
+        },
+        { 814, new() // Nalak
+            {
+                { 14, 8146 },
+            }
+        },
+        { 826, new() // Oondasta
+            {
+                { 14, 8147 },
+            }
+        },
+        #endregion
     };
 }
