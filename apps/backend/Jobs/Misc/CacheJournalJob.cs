@@ -25,7 +25,7 @@ namespace Wowthing.Backend.Jobs.Misc
             Type = JobType.CacheJournal,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(24),
-            Version = 18,
+            Version = 19,
         };
 
         public override async Task Run(params string[] data)
@@ -425,26 +425,6 @@ namespace Wowthing.Backend.Jobs.Misc
                                     itemAppearances[appearanceId].Difficulties.Add(difficultyId);
                                 }
 
-                                foreach (var appearance in itemAppearances.Values)
-                                {
-                                    // Don't use both Mythic and Mythic Keystone difficulties
-                                    if (appearance.Difficulties.Contains(8) &&
-                                        appearance.Difficulties.Contains(23))
-                                    {
-                                        appearance.Difficulties.Remove(8);
-                                    }
-
-                                    // Legacy raids like to have dungeon difficulties for some reason
-                                    if (appearance.Difficulties.Contains(3) ||
-                                        appearance.Difficulties.Contains(4) ||
-                                        appearance.Difficulties.Contains(5) ||
-                                        appearance.Difficulties.Contains(6))
-                                    {
-                                        appearance.Difficulties.Remove(1);
-                                        appearance.Difficulties.Remove(2);
-                                    }
-                                }
-
                                 var group = GetGroup(itemGroups, item);
                                 group.Items.Add(new OutJournalEncounterItem
                                 {
@@ -470,6 +450,29 @@ namespace Wowthing.Backend.Jobs.Misc
 
                             foreach (var group in encounterData.Groups)
                             {
+                                foreach (var item in group.Items)
+                                {
+                                    foreach (var appearance in item.Appearances)
+                                    {
+                                        // Don't use both Mythic and Mythic Keystone difficulties
+                                        if (appearance.Difficulties.Contains(8) &&
+                                            appearance.Difficulties.Contains(23))
+                                        {
+                                            appearance.Difficulties.Remove(8);
+                                        }
+
+                                        // Legacy raids like to have dungeon difficulties for some reason
+                                        if (appearance.Difficulties.Contains(3) ||
+                                            appearance.Difficulties.Contains(4) ||
+                                            appearance.Difficulties.Contains(5) ||
+                                            appearance.Difficulties.Contains(6))
+                                        {
+                                            appearance.Difficulties.Remove(1);
+                                            appearance.Difficulties.Remove(2);
+                                        }
+                                    }
+                                }
+
                                 group.Items = group.Items
                                     .OrderBy(item =>
                                     {
