@@ -1,7 +1,6 @@
-﻿namespace Wowthing.Backend.Jobs
+﻿namespace Wowthing.Backend.Jobs;
+
+public interface IJob
 {
-    public interface IJob
-    {
-        Task Run(params string[] data);
-    }
+    Task Run(params string[] data);
 }

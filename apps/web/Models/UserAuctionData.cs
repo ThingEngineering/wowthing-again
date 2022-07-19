@@ -2,53 +2,52 @@
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Wow;
 
-namespace Wowthing.Web.Models
+namespace Wowthing.Web.Models;
+
+public class UserAuctionData
 {
-    public class UserAuctionData
-    {
-        public Dictionary<int, List<WowAuction>> Auctions { get; set; }
-        public Dictionary<int, string> Names { get; set; }
+    public Dictionary<int, List<WowAuction>> Auctions { get; set; }
+    public Dictionary<int, string> Names { get; set; }
         
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public Dictionary<int, UserAuctionDataPet[]> Pets { get; set; }
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+    public Dictionary<int, UserAuctionDataPet[]> Pets { get; set; }
+}
+
+public class UserAuctionDataPet
+{
+    public int BreedId { get; set; }
+    public int Level { get; set; }
+    public ItemLocation Location { get; set; }
+    public WowQuality Quality { get; set; }
+        
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+    public int? LocationId { get; set; }
+
+    public UserAuctionDataPet(PlayerAccountPetsPet pet)
+    {
+        BreedId = pet.BreedId;
+        Level = pet.Level;
+        Quality = pet.Quality;
+        Location = ItemLocation.PetCollection;
     }
 
-    public class UserAuctionDataPet
+    public UserAuctionDataPet(PlayerCharacterItem item, bool caged = false)
     {
-        public int BreedId { get; set; }
-        public int Level { get; set; }
-        public ItemLocation Location { get; set; }
-        public WowQuality Quality { get; set; }
-        
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public int? LocationId { get; set; }
+        BreedId = 0;
+        Quality = (WowQuality)item.Quality;
+        Location = item.Location;
+        LocationId = item.CharacterId;
 
-        public UserAuctionDataPet(PlayerAccountPetsPet pet)
-        {
-            BreedId = pet.BreedId;
-            Level = pet.Level;
-            Quality = pet.Quality;
-            Location = ItemLocation.PetCollection;
-        }
+        Level = caged ? item.ItemLevel : 1;
+    }
 
-        public UserAuctionDataPet(PlayerCharacterItem item, bool caged = false)
-        {
-            BreedId = 0;
-            Quality = (WowQuality)item.Quality;
-            Location = item.Location;
-            LocationId = item.CharacterId;
+    public UserAuctionDataPet(PlayerGuildItem item, bool caged = false)
+    {
+        BreedId = 0;
+        Location = ItemLocation.GuildBank;
+        LocationId = item.TabId;
+        Quality = (WowQuality)item.Quality;
 
-            Level = caged ? item.ItemLevel : 1;
-        }
-
-        public UserAuctionDataPet(PlayerGuildItem item, bool caged = false)
-        {
-            BreedId = 0;
-            Location = ItemLocation.GuildBank;
-            LocationId = item.TabId;
-            Quality = (WowQuality)item.Quality;
-
-            Level = caged ? item.ItemLevel : 1;
-        }
+        Level = caged ? item.ItemLevel : 1;
     }
 }

@@ -1,8 +1,7 @@
-﻿namespace Wowthing.Lib.Enums
+﻿namespace Wowthing.Lib.Enums;
+
+public enum ImageType
 {
-    public enum ImageType
-    {
-        CharacterFull = 1,
-        Character,
-    }
+    CharacterFull = 1,
+    Character,
 }

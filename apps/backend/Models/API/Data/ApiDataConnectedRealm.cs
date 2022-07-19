@@ -1,8 +1,7 @@
-﻿namespace Wowthing.Backend.Models.API.Data
+﻿namespace Wowthing.Backend.Models.API.Data;
+
+public class ApiDataConnectedRealm
 {
-    public class ApiDataConnectedRealm
-    {
-        public int Id { get; set; }
-        public List<ApiObnoxiousObject> Realms { get; set; }
-    }
+    public int Id { get; set; }
+    public List<ApiObnoxiousObject> Realms { get; set; }
 }

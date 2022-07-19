@@ -1,8 +1,7 @@
-﻿namespace Wowthing.Backend.Models.API
+﻿namespace Wowthing.Backend.Models.API;
+
+public class ApiTypeValue<TType, TValue>
 {
-    public class ApiTypeValue<TType, TValue>
-    {
-        public TType Type { get; set; }
-        public TValue Value { get; set; }
-    }
+    public TType Type { get; set; }
+    public TValue Value { get; set; }
 }

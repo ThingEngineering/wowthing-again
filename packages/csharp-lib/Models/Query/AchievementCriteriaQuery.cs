@@ -1,13 +1,13 @@
-﻿namespace Wowthing.Lib.Models.Query
+﻿namespace Wowthing.Lib.Models.Query;
+
+[Keyless]
+public class AchievementCriteriaQuery
 {
-    [Keyless]
-    public class AchievementCriteriaQuery
-    {
-        public int CharacterId { get; set; }
-        public int CriteriaId { get; set; }
-        public long Amount { get; set; }
+    public int CharacterId { get; set; }
+    public int CriteriaId { get; set; }
+    public long Amount { get; set; }
         
-        public static string UserQuery = @"
+    public static string UserQuery = @"
 SELECT *
 FROM (
     SELECT  pca.character_id,  
@@ -21,5 +21,4 @@ FROM (
 WHERE amount > 0
 ORDER BY criteria_id, amount DESC
 ";
-    }
 }

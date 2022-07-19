@@ -1,20 +1,20 @@
 ﻿using Wowthing.Lib.Enums;
 
-namespace Wowthing.Lib.Models.Query
+namespace Wowthing.Lib.Models.Query;
+
+[Keyless]
+public class SchedulerCharacterQuery
 {
-    [Keyless]
-    public class SchedulerCharacterQuery
-    {
-        public long UserId { get; set; }
-        public int? AccountId { get; set; }
-        public WowRegion Region { get; set; }
-        public string RealmSlug { get; set; }
-        public int CharacterId { get; set; }
-        public string CharacterName { get; set; }
-        public DateTime LastApiCheck { get; set; }
-        public DateTime LastApiModified { get; set; }
+    public long UserId { get; set; }
+    public int? AccountId { get; set; }
+    public WowRegion Region { get; set; }
+    public string RealmSlug { get; set; }
+    public int CharacterId { get; set; }
+    public string CharacterName { get; set; }
+    public DateTime LastApiCheck { get; set; }
+    public DateTime LastApiModified { get; set; }
         
-        public static string SqlQuery = @"
+    public static string SqlQuery = @"
 SELECT  c.id AS character_id,
         c.account_id AS account_id,
         c.name AS character_name,
@@ -36,5 +36,4 @@ WHERE (
 ORDER BY c.delay_hours, c.last_api_check
 LIMIT 500
 ";
-    }
 }

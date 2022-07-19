@@ -1,7 +1,6 @@
-﻿namespace Wowthing.Backend.Models.API.Data
+﻿namespace Wowthing.Backend.Models.API.Data;
+
+public class ApiDataTitleIndex
 {
-    public class ApiDataTitleIndex
-    {
-        public List<ApiObnoxiousObject> Titles { get; set; }
-    }
+    public List<ApiObnoxiousObject> Titles { get; set; }
 }

@@ -1,9 +1,8 @@
 ﻿// ReSharper disable InconsistentNaming
-namespace Wowthing.Backend.Models.Data.Covenants
+namespace Wowthing.Backend.Models.Data.Covenants;
+
+public class DumpGarrTalentRank
 {
-    public class DumpGarrTalentRank
-    {
-        public int GarrTalentID { get; set; }
-        public int PerkSpellID { get; set; }
-    }
+    public int GarrTalentID { get; set; }
+    public int PerkSpellID { get; set; }
 }

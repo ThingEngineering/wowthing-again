@@ -1,9 +1,8 @@
-﻿namespace Wowthing.Lib.Enums
+﻿namespace Wowthing.Lib.Enums;
+
+public enum WowRole : short
 {
-    public enum WowRole : short
-    {
-        Tank = 0,
-        Healer = 1,
-        Dps = 2,
-    }
+    Tank = 0,
+    Healer = 1,
+    Dps = 2,
 }

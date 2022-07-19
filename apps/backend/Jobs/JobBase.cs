@@ -18,207 +18,206 @@ using Wowthing.Lib.Repositories;
 using Wowthing.Lib.Services;
 using Wowthing.Lib.Utilities;
 
-namespace Wowthing.Backend.Jobs
+namespace Wowthing.Backend.Jobs;
+
+public abstract class JobBase : IJob 
 {
-    public abstract class JobBase : IJob 
+    private const string ApiUrl = "https://{0}.api.blizzard.com/{1}";
+    private const string CacheKeyLastModified = "last_modified:{0}";
+
+    internal CacheService CacheService;
+    internal HttpClient Http;
+    internal JobRepository JobRepository;
+    internal ILogger Logger;
+    internal IConnectionMultiplexer Redis;
+    internal StateService StateService;
+    internal WowDbContext Context;
+    internal CancellationToken CancellationToken;
+
+    private static readonly Dictionary<ApiNamespace, string> NamespaceToString = EnumUtilities.GetValues<ApiNamespace>()
+        .ToDictionary(k => k, v => v.ToString().ToLowerInvariant());
+    private static readonly Dictionary<WowRegion, string> RegionToString = EnumUtilities.GetValues<WowRegion>()
+        .ToDictionary(k => k, v => v.ToString().ToLowerInvariant());
+    private static readonly Dictionary<WowRegion, string> RegionToLocale = new Dictionary<WowRegion, string>
     {
-        private const string ApiUrl = "https://{0}.api.blizzard.com/{1}";
-        private const string CacheKeyLastModified = "last_modified:{0}";
+        { WowRegion.US, "en_US" },
+        { WowRegion.EU, "en_GB" },
+        { WowRegion.KR, "ko_KR" },
+        { WowRegion.TW, "zh_TW" },
+    };
 
-        internal CacheService CacheService;
-        internal HttpClient Http;
-        internal JobRepository JobRepository;
-        internal ILogger Logger;
-        internal IConnectionMultiplexer Redis;
-        internal StateService StateService;
-        internal WowDbContext Context;
-        internal CancellationToken CancellationToken;
+    #region IJob
+    public abstract Task Run(params string[] data);
+    #endregion
 
-        private static readonly Dictionary<ApiNamespace, string> NamespaceToString = EnumUtilities.GetValues<ApiNamespace>()
-            .ToDictionary(k => k, v => v.ToString().ToLowerInvariant());
-        private static readonly Dictionary<WowRegion, string> RegionToString = EnumUtilities.GetValues<WowRegion>()
-            .ToDictionary(k => k, v => v.ToString().ToLowerInvariant());
-        private static readonly Dictionary<WowRegion, string> RegionToLocale = new Dictionary<WowRegion, string>
+    protected IDisposable AuctionLog(WowRealm realm)
+    {
+        var jobName = this.GetType().Name[0..^3];
+        return LogContext.PushProperty("Task", $"{jobName} {realm.Region.ToString()} {realm.ConnectedRealmId}");
+    }
+        
+    protected IDisposable CharacterLog(SchedulerCharacterQuery query)
+    {
+        var jobName = this.GetType().Name[0..^3];
+        return LogContext.PushProperty("Task", $"{query.Region}/{query.RealmSlug}/{query.CharacterName.ToLower()} {jobName}");
+    }
+
+    protected IDisposable UserLog(string userId)
+    {
+        var jobName = this.GetType().Name[0..^3];
+        return LogContext.PushProperty("Task", $"{userId} {jobName}");
+    }
+
+    protected IDisposable UserLog(long userId) => UserLog(userId.ToString());
+
+    protected static Uri GenerateUri(WowRegion region, ApiNamespace lamespace, string path)
+    {
+        var builder = new UriBuilder(string.Format(ApiUrl, RegionToString[region], path));
+        var query = HttpUtility.ParseQueryString(builder.Query);
+        query["locale"] = RegionToLocale[region];
+        query["namespace"] = $"{ NamespaceToString[lamespace] }-{ RegionToString[region] }";
+        builder.Query = query.ToString();
+        return builder.Uri;
+    }
+
+    protected static Uri GenerateUri(SchedulerCharacterQuery query, string path, params string[] formatExtra)
+    {
+        var formatParams = new[] {query.RealmSlug, query.CharacterName.ToLower()}.Concat(formatExtra).ToArray();
+        var filledPath = string.Format(path, formatParams);
+        return GenerateUri(query.Region, ApiNamespace.Profile, filledPath);
+    }
+
+    protected async Task<JobHttpResult<T>> GetJson<T>(
+        Uri uri,
+        bool useAuthorization = true,
+        bool useLastModified = true,
+        DateTime? lastModified = null,
+        JankTimer timer = null
+    )
+    {
+        bool timerOutput = false;
+        if (timer == null)
         {
-            { WowRegion.US, "en_US" },
-            { WowRegion.EU, "en_GB" },
-            { WowRegion.KR, "ko_KR" },
-            { WowRegion.TW, "zh_TW" },
+            timer = new JankTimer();
+            timerOutput = true;
+        }
+            
+        var result = await GetBytes(uri, useAuthorization, useLastModified, lastModified, timer);
+        if (result.NotModified)
+        {
+            return new JobHttpResult<T> { NotModified = true };
+        }
+            
+        var obj = JsonConvert.DeserializeObject<T>(Encoding.UTF8.GetString(result.Data));
+        timer.AddPoint("JSON");
+
+        if (timerOutput)
+        {
+            Logger.Debug("{0}", timer.ToString());
+        }
+            
+        return new JobHttpResult<T>
+        {
+            Data = obj,
+            LastModified = result.LastModified,
         };
-
-        #region IJob
-        public abstract Task Run(params string[] data);
-        #endregion
-
-        protected IDisposable AuctionLog(WowRealm realm)
-        {
-            var jobName = this.GetType().Name[0..^3];
-            return LogContext.PushProperty("Task", $"{jobName} {realm.Region.ToString()} {realm.ConnectedRealmId}");
-        }
+    }
         
-        protected IDisposable CharacterLog(SchedulerCharacterQuery query)
+    protected async Task<JobHttpResult<byte[]>> GetBytes(
+        Uri uri,
+        bool useAuthorization = true,
+        bool useLastModified = true,
+        DateTime? lastModified = null,
+        JankTimer timer = null
+    )
+    {
+        bool timerOutput = false;
+        if (timer == null)
         {
-            var jobName = this.GetType().Name[0..^3];
-            return LogContext.PushProperty("Task", $"{query.Region}/{query.RealmSlug}/{query.CharacterName.ToLower()} {jobName}");
+            timer = new JankTimer();
+            timerOutput = true;
         }
 
-        protected IDisposable UserLog(string userId)
-        {
-            var jobName = this.GetType().Name[0..^3];
-            return LogContext.PushProperty("Task", $"{userId} {jobName}");
-        }
+        var db = Redis.GetDatabase();
 
-        protected IDisposable UserLog(long userId) => UserLog(userId.ToString());
-
-        protected static Uri GenerateUri(WowRegion region, ApiNamespace lamespace, string path)
+        // Try from cache first
+        bool useProvidedLastModified = lastModified != null;
+        string cacheKey = string.Format(CacheKeyLastModified, uri.ToString().Md5());
+        if (useLastModified && !useProvidedLastModified)
         {
-            var builder = new UriBuilder(string.Format(ApiUrl, RegionToString[region], path));
-            var query = HttpUtility.ParseQueryString(builder.Query);
-            query["locale"] = RegionToLocale[region];
-            query["namespace"] = $"{ NamespaceToString[lamespace] }-{ RegionToString[region] }";
-            builder.Query = query.ToString();
-            return builder.Uri;
-        }
-
-        protected static Uri GenerateUri(SchedulerCharacterQuery query, string path, params string[] formatExtra)
-        {
-            var formatParams = new[] {query.RealmSlug, query.CharacterName.ToLower()}.Concat(formatExtra).ToArray();
-            var filledPath = string.Format(path, formatParams);
-            return GenerateUri(query.Region, ApiNamespace.Profile, filledPath);
-        }
-
-        protected async Task<JobHttpResult<T>> GetJson<T>(
-            Uri uri,
-            bool useAuthorization = true,
-            bool useLastModified = true,
-            DateTime? lastModified = null,
-            JankTimer timer = null
-        )
-        {
-            bool timerOutput = false;
-            if (timer == null)
+            var value = await db.StringGetAsync(cacheKey);
+            if (value.HasValue)
             {
-                timer = new JankTimer();
-                timerOutput = true;
+                lastModified = DateTime.Parse(value.ToString());
             }
-            
-            var result = await GetBytes(uri, useAuthorization, useLastModified, lastModified, timer);
-            if (result.NotModified)
-            {
-                return new JobHttpResult<T> { NotModified = true };
-            }
-            
-            var obj = JsonConvert.DeserializeObject<T>(Encoding.UTF8.GetString(result.Data));
-            timer.AddPoint("JSON");
-
-            if (timerOutput)
-            {
-                Logger.Debug("{0}", timer.ToString());
-            }
-            
-            return new JobHttpResult<T>
-            {
-                Data = obj,
-                LastModified = result.LastModified,
-            };
         }
-        
-        protected async Task<JobHttpResult<byte[]>> GetBytes(
-            Uri uri,
-            bool useAuthorization = true,
-            bool useLastModified = true,
-            DateTime? lastModified = null,
-            JankTimer timer = null
-        )
+
+        using var request = new HttpRequestMessage(HttpMethod.Get, uri);
+
+        if (useAuthorization)
         {
-            bool timerOutput = false;
-            if (timer == null)
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", StateService.AccessToken.AccessToken);
+        }
+        if (lastModified > MiscConstants.DefaultDateTime)
+        {
+            request.Headers.IfModifiedSince = new DateTimeOffset(lastModified.Value);
+        }
+
+        HttpResponseMessage response;
+        try
+        {
+            response = await Http.SendAsync(request, CancellationToken);
+        }
+        catch (OperationCanceledException ex)
+        {
+            if (ex.InnerException != null)
             {
-                timer = new JankTimer();
-                timerOutput = true;
+                throw ex.InnerException;
             }
+            else
+            {
+                throw new HttpRequestException("Operation canceled??");
+            }
+        }
 
-            var db = Redis.GetDatabase();
+        if (response.StatusCode == HttpStatusCode.NotModified)
+        {
+            return new JobHttpResult<byte[]> { NotModified = true };
+        }
 
-            // Try from cache first
-            bool useProvidedLastModified = lastModified != null;
-            string cacheKey = string.Format(CacheKeyLastModified, uri.ToString().Md5());
+        if (!response.IsSuccessStatusCode)
+        {
+            response.Content?.Dispose();
+            throw new HttpRequestException(((int)response.StatusCode).ToString());
+        }
+
+        var bytes = await response.Content.ReadAsByteArrayAsync(CancellationToken);
+
+        timer.AddPoint("API");
+
+        if (response.Content.Headers.LastModified.HasValue)
+        {
+            lastModified = response.Content.Headers.LastModified.Value.UtcDateTime;
             if (useLastModified && !useProvidedLastModified)
             {
-                var value = await db.StringGetAsync(cacheKey);
-                if (value.HasValue)
-                {
-                    lastModified = DateTime.Parse(value.ToString());
-                }
+                await db.StringSetAsync(cacheKey, lastModified.Value.ToString("O"));
             }
-
-            using var request = new HttpRequestMessage(HttpMethod.Get, uri);
-
-            if (useAuthorization)
-            {
-                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", StateService.AccessToken.AccessToken);
-            }
-            if (lastModified > MiscConstants.DefaultDateTime)
-            {
-                request.Headers.IfModifiedSince = new DateTimeOffset(lastModified.Value);
-            }
-
-            HttpResponseMessage response;
-            try
-            {
-                response = await Http.SendAsync(request, CancellationToken);
-            }
-            catch (OperationCanceledException ex)
-            {
-                if (ex.InnerException != null)
-                {
-                    throw ex.InnerException;
-                }
-                else
-                {
-                    throw new HttpRequestException("Operation canceled??");
-                }
-            }
-
-            if (response.StatusCode == HttpStatusCode.NotModified)
-            {
-                return new JobHttpResult<byte[]> { NotModified = true };
-            }
-
-            if (!response.IsSuccessStatusCode)
-            {
-                response.Content?.Dispose();
-                throw new HttpRequestException(((int)response.StatusCode).ToString());
-            }
-
-            var bytes = await response.Content.ReadAsByteArrayAsync(CancellationToken);
-
-            timer.AddPoint("API");
-
-            if (response.Content.Headers.LastModified.HasValue)
-            {
-                lastModified = response.Content.Headers.LastModified.Value.UtcDateTime;
-                if (useLastModified && !useProvidedLastModified)
-                {
-                    await db.StringSetAsync(cacheKey, lastModified.Value.ToString("O"));
-                }
-            }
-
-            if (timerOutput)
-            {
-                Logger.Debug("{0}", timer.ToString());
-            }
-
-            return new JobHttpResult<byte[]>
-            {
-                Data = bytes,
-                LastModified = lastModified ?? MiscConstants.DefaultDateTime,
-            };
         }
 
-        protected void LogNotModified()
+        if (timerOutput)
         {
-            Logger.Debug("304 Not Modified");
+            Logger.Debug("{0}", timer.ToString());
         }
+
+        return new JobHttpResult<byte[]>
+        {
+            Data = bytes,
+            LastModified = lastModified ?? MiscConstants.DefaultDateTime,
+        };
+    }
+
+    protected void LogNotModified()
+    {
+        Logger.Debug("304 Not Modified");
     }
 }

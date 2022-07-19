@@ -1,10 +1,9 @@
-﻿namespace Wowthing.Web.ViewModels
-{
-    public class ErrorViewModel
-    {
-        public string RequestId;
-        public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+﻿namespace Wowthing.Web.ViewModels;
 
-        public string OriginalUrl { get; set; }
-    }
+public class ErrorViewModel
+{
+    public string RequestId;
+    public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+
+    public string OriginalUrl { get; set; }
 }

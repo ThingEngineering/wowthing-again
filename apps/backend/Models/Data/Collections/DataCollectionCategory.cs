@@ -1,17 +1,16 @@
-﻿namespace Wowthing.Backend.Models.Data.Collections
-{
-    public class DataCollectionCategory : ICloneable, IDataCategory
-    {
-        public string Name { get; set; }
-        public List<DataCollectionGroup> Groups { get; set; } = new();
+﻿namespace Wowthing.Backend.Models.Data.Collections;
 
-        public object Clone()
+public class DataCollectionCategory : ICloneable, IDataCategory
+{
+    public string Name { get; set; }
+    public List<DataCollectionGroup> Groups { get; set; } = new();
+
+    public object Clone()
+    {
+        return new DataCollectionCategory
         {
-            return new DataCollectionCategory
-            {
-                Name = (string)Name.Clone(),
-                Groups = Groups,
-            };
-        }
+            Name = (string)Name.Clone(),
+            Groups = Groups,
+        };
     }
 }

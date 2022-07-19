@@ -5,51 +5,50 @@ using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models.Wow;
 using Wowthing.Lib.Utilities;
 
-namespace Wowthing.Backend.Jobs.Data
+namespace Wowthing.Backend.Jobs.Data;
+
+public class DataRealmIndexJob : JobBase, IScheduledJob
 {
-    public class DataRealmIndexJob : JobBase, IScheduledJob
+    public static readonly ScheduledJob Schedule = new ScheduledJob
     {
-        public static readonly ScheduledJob Schedule = new ScheduledJob
+        Type = JobType.DataRealmIndex,
+        Priority = JobPriority.High,
+        Interval = TimeSpan.FromDays(1),
+        Version = 2,
+    };
+
+    private const string ApiPath = "data/wow/realm/index";
+
+    public override async Task Run(params string[] data)
+    {
+        // Fetch existing data
+        var realmMap = await Context.WowRealm.ToDictionaryAsync(k => k.Id);
+
+        foreach (var region in EnumUtilities.GetValues<WowRegion>())
         {
-            Type = JobType.DataRealmIndex,
-            Priority = JobPriority.High,
-            Interval = TimeSpan.FromDays(1),
-            Version = 2,
-        };
+            // Fetch API data
+            var uri = GenerateUri(region, ApiNamespace.Dynamic, ApiPath);
+            var result = await GetJson<ApiDataRealmIndex>(uri, useLastModified: false);
 
-        private const string ApiPath = "data/wow/realm/index";
-
-        public override async Task Run(params string[] data)
-        {
-            // Fetch existing data
-            var realmMap = await Context.WowRealm.ToDictionaryAsync(k => k.Id);
-
-            foreach (var region in EnumUtilities.GetValues<WowRegion>())
+            foreach (var apiRealm in result.Data.Realms)
             {
-                // Fetch API data
-                var uri = GenerateUri(region, ApiNamespace.Dynamic, ApiPath);
-                var result = await GetJson<ApiDataRealmIndex>(uri, useLastModified: false);
-
-                foreach (var apiRealm in result.Data.Realms)
+                if (!realmMap.TryGetValue(apiRealm.Id, out WowRealm realm))
                 {
-                    if (!realmMap.TryGetValue(apiRealm.Id, out WowRealm realm))
+                    realm = new WowRealm
                     {
-                        realm = new WowRealm
-                        {
-                            Id = apiRealm.Id,
-                        };
-                        Context.WowRealm.Add(realm);
-                    }
-
-                    realm.Region = region;
-                    realm.Name = apiRealm.Name;
-                    realm.Slug = apiRealm.Slug;
+                        Id = apiRealm.Id,
+                    };
+                    Context.WowRealm.Add(realm);
                 }
-            }
 
-            await Context.SaveChangesAsync();
-            
-            await JobRepository.AddJobAsync(JobPriority.High, JobType.DataConnectedRealmIndex);
+                realm.Region = region;
+                realm.Name = apiRealm.Name;
+                realm.Slug = apiRealm.Slug;
+            }
         }
+
+        await Context.SaveChangesAsync();
+            
+        await JobRepository.AddJobAsync(JobPriority.High, JobType.DataConnectedRealmIndex);
     }
 }

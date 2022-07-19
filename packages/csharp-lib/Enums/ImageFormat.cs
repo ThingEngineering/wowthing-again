@@ -1,9 +1,8 @@
-﻿namespace Wowthing.Lib.Enums
+﻿namespace Wowthing.Lib.Enums;
+
+public enum ImageFormat : short
 {
-    public enum ImageFormat : short
-    {
-        Jpeg = 1,
-        Png,
-        WebP,
-    }
+    Jpeg = 1,
+    Png,
+    WebP,
 }

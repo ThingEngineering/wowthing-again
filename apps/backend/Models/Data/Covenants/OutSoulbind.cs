@@ -1,10 +1,9 @@
-﻿namespace Wowthing.Backend.Models.Data.Covenants
+﻿namespace Wowthing.Backend.Models.Data.Covenants;
+
+public class OutSoulbind
 {
-    public class OutSoulbind
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public int[] Renown { get; set; }
-        public List<List<List<int>>> Rows { get; set; } = new();
-    }
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public int[] Renown { get; set; }
+    public List<List<List<int>>> Rows { get; set; } = new();
 }

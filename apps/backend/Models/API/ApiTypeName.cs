@@ -1,14 +1,13 @@
-﻿namespace Wowthing.Backend.Models.API
-{
-    public class ApiTypeName
-    {
-        public string Type { get; set; }
-        public string Name { get; set; }
+﻿namespace Wowthing.Backend.Models.API;
 
-        public TEnum EnumParse<TEnum>()
-            where TEnum : struct, Enum
-        {
-            return Enum.Parse<TEnum>(Name.Replace(" ", ""), true);
-        }
+public class ApiTypeName
+{
+    public string Type { get; set; }
+    public string Name { get; set; }
+
+    public TEnum EnumParse<TEnum>()
+        where TEnum : struct, Enum
+    {
+        return Enum.Parse<TEnum>(Name.Replace(" ", ""), true);
     }
 }

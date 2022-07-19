@@ -1,20 +1,19 @@
-﻿namespace Wowthing.Backend.Models.Data.Transmog
+﻿namespace Wowthing.Backend.Models.Data.Transmog;
+
+public class DataTransmogCategory : ICloneable, IDataCategory
 {
-    public class DataTransmogCategory : ICloneable, IDataCategory
-    {
-        public string Name { get; set; }
-        public List<string> SkipClasses { get; set; }
-        public List<DataTransmogGroup> Groups { get; set; }
+    public string Name { get; set; }
+    public List<string> SkipClasses { get; set; }
+    public List<DataTransmogGroup> Groups { get; set; }
         
-        public object Clone()
+    public object Clone()
+    {
+        return new DataTransmogCategory
         {
-            return new DataTransmogCategory
-            {
-                Name = (string)Name.Clone(),
-                // We don't have to change these, reference is fine
-                SkipClasses = SkipClasses,
-                Groups = Groups,
-            };
-        }
+            Name = (string)Name.Clone(),
+            // We don't have to change these, reference is fine
+            SkipClasses = SkipClasses,
+            Groups = Groups,
+        };
     }
 }

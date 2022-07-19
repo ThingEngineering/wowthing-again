@@ -1,12 +1,12 @@
-﻿namespace Wowthing.Lib.Models.Query
+﻿namespace Wowthing.Lib.Models.Query;
+
+[Keyless]
+public class MountQuery
 {
-    [Keyless]
-    public class MountQuery
-    {
-        public List<int> Mounts { get; set; }
-        public List<int> AddonMounts { get; set; }
+    public List<int> Mounts { get; set; }
+    public List<int> AddonMounts { get; set; }
         
-        public static string UserQuery = @"
+    public static string UserQuery = @"
 WITH character_ids AS (
     SELECT  pc.id
     FROM    player_character pc
@@ -33,5 +33,4 @@ FROM
         ) temp2
     ) addon_mounts
 ";
-    }
 }

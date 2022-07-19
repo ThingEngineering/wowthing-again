@@ -1,8 +1,7 @@
-﻿namespace Wowthing.Backend.Models.API
+﻿namespace Wowthing.Backend.Models.API;
+
+public class ApiTypeId
 {
-    public class ApiTypeId
-    {
-        public int Id { get; set; }
-        public string Type { get; set; }
-    }
+    public int Id { get; set; }
+    public string Type { get; set; }
 }

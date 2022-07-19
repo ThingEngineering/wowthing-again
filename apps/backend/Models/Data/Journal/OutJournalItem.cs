@@ -1,7 +1,6 @@
-﻿namespace Wowthing.Backend.Models.Data.Journal
+﻿namespace Wowthing.Backend.Models.Data.Journal;
+
+public class OutJournalItem
 {
-    public class OutJournalItem
-    {
-        public int ItemId { get; set; }
-    }
+    public int ItemId { get; set; }
 }

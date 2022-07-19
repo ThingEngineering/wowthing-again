@@ -1,10 +1,9 @@
-﻿namespace Wowthing.Lib.Extensions
+﻿namespace Wowthing.Lib.Extensions;
+
+public static class LongExtensions
 {
-    public static class LongExtensions
+    public static DateTime AsUtcTimestamp(this long timestamp)
     {
-        public static DateTime AsUtcTimestamp(this long timestamp)
-        {
-            return DateTimeOffset.FromUnixTimeMilliseconds(timestamp).UtcDateTime;
-        }
+        return DateTimeOffset.FromUnixTimeMilliseconds(timestamp).UtcDateTime;
     }
 }

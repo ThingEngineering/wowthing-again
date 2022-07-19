@@ -1,10 +1,9 @@
-﻿namespace Wowthing.Lib.Utilities
+﻿namespace Wowthing.Lib.Utilities;
+
+public static class EnumUtilities
 {
-    public static class EnumUtilities
+    public static T[] GetValues<T>()
     {
-        public static T[] GetValues<T>()
-        {
-            return Enum.GetValues(typeof(T)).Cast<T>().ToArray();
-        }
+        return Enum.GetValues(typeof(T)).Cast<T>().ToArray();
     }
 }

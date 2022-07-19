@@ -1,12 +1,12 @@
-﻿namespace Wowthing.Lib.Models.Query
+﻿namespace Wowthing.Lib.Models.Query;
+
+[Keyless]
+public class CompletedAchievementsQuery
 {
-    [Keyless]
-    public class CompletedAchievementsQuery
-    {
-        public int AchievementId { get; set; }
-        public int Timestamp { get; set; }
+    public int AchievementId { get; set; }
+    public int Timestamp { get; set; }
         
-        public static string UserQuery = @"
+    public static string UserQuery = @"
 SELECT achievement_id, MIN(timestamp) AS timestamp
 FROM (
     SELECT  UNNEST(pca.achievement_ids) AS achievement_id,
@@ -18,5 +18,4 @@ FROM (
 ) oof
 GROUP BY achievement_id
         ";
-    }
 }
