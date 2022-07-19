@@ -716,6 +716,7 @@ public class CacheStaticJob : JobBase, IScheduledJob
 
         var achievementMap = records
             .Where(a => !a.Flags.HasFlag(WowAchievementFlags.Tracking))
+            .Where(a => !Hardcoded.IgnoredAchievements.Contains(a.ID))
             .Select(a => new OutAchievement(a))
             .ToDictionary(a => a.Id);
 
