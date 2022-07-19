@@ -20,9 +20,9 @@ export const data = {
         if (settings.general.refreshInterval > 0) {
             interval = setInterval(
                 async () => await Promise.all([
-                    userQuestStore.fetch({ ifLoaded: true }),
-                    userStore.fetch({ ifLoaded: true }),
-                    userTransmogStore.fetch({ ifLoaded: true }),
+                    userQuestStore.fetch({ evenIfLoaded: true }),
+                    userStore.fetch({ evenIfLoaded: true }),
+                    userTransmogStore.fetch({ evenIfLoaded: true }),
                 ]),
                 settings.general.refreshInterval * 1000 * 60
             )

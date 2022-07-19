@@ -12,7 +12,8 @@ export interface FancyStore<TData> {
 }
 
 export interface FancyStoreFetchOptions {
-    ifLoaded: boolean
+    evenIfLoaded: boolean
+    onlyIfLoaded: boolean
     language: Language
 }
 
@@ -49,7 +50,10 @@ export class WritableFancyStore<TData> {
 
     async fetch(options?: Partial<FancyStoreFetchOptions>): Promise<boolean> {
         const wasLoaded = get(this).loaded
-        if (options?.ifLoaded !== true && wasLoaded) {
+        if (options?.evenIfLoaded !== true && wasLoaded) {
+            return false
+        }
+        if (options?.onlyIfLoaded === true && !wasLoaded) {
             return false
         }
 

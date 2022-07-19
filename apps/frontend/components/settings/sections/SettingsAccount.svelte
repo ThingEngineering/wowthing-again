@@ -113,7 +113,7 @@
         />
         <p>
             <strong>NOTE:</strong> this is a very new feature and only used in some places,
-            work is ongoing. You will need to reload the page after changing this!
+            work is ongoing.
         </p>
     </div>
 
