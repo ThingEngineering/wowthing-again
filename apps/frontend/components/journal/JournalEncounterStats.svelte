@@ -35,7 +35,6 @@
                 ])
             }
         }
-        console.log(difficulties)
     }
 </script>
 
