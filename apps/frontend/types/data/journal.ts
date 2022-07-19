@@ -1,4 +1,5 @@
 import type { UserCount } from '@/types'
+import type { RewardType } from '../enums'
 
 
 export interface JournalData {
@@ -23,35 +24,36 @@ export interface JournalDataInstance {
 }
 
 export class JournalDataEncounter {
-    public id: number
-    public name: string
     public groups: JournalDataEncounterItemGroup[]
+    public statistics?: Record<number, number>
 
     constructor(
-        id: number,
-        name: string,
-        groupsRaw: JournalDataEncounterItemGroupArray[]
+        public id: number,
+        public name: string,
+        groupsRaw: JournalDataEncounterItemGroupArray[],
+        statisticsRaw?: [number, number][]
     )
     {
-        this.id = id
-        this.name = name
         this.groups = groupsRaw
             .map((groupArray) => new JournalDataEncounterItemGroup(...groupArray))
+        
+        this.statistics = {}
+        for (const [difficulty, statisticId] of (statisticsRaw || [])) {
+            this.statistics[difficulty] = statisticId
+        }
     }
 }
 
 type JournalDataEncounterArray = ConstructorParameters<typeof JournalDataEncounter>
 
 export class JournalDataEncounterItemGroup {
-    public name: string
     public items: JournalDataEncounterItem[]
 
     constructor(
-        name: string,
+        public name: string,
         itemsRaw: JournalDataEncounterItemArray[]
     )
     {
-        this.name = name
         this.items = itemsRaw
             .map((itemArray) => new JournalDataEncounterItem(...itemArray))
     }
@@ -60,28 +62,19 @@ export class JournalDataEncounterItemGroup {
 type JournalDataEncounterItemGroupArray = ConstructorParameters<typeof JournalDataEncounterItemGroup>
 
 export class JournalDataEncounterItem {
-    public id: number
-    public classId: number
-    public classMask: number
-    public subclassId: number
-    public quality: number
     public appearances: JournalDataEncounterItemAppearance[]
 
     constructor(
-        id: number,
-        quality: number,
-        classId: number,
-        subclassId: number,
-        classMask: number,
+        public type: RewardType,
+        public id: number,
+        public quality: number,
+        public classId: number,
+        public subclassId: number,
+        public classMask: number,
         appearancesRaw: JournalDataEncounterItemAppearanceArray[]
     )
     {
-        this.id = id
-        this.quality = quality
-        this.classId = classId
-        this.subclassId = subclassId
-        this.classMask = classMask
-        this.appearances = appearancesRaw
+        this.appearances = (appearancesRaw || [])
             .map((appearanceArray) => new JournalDataEncounterItemAppearance(...appearanceArray))
     }
 }

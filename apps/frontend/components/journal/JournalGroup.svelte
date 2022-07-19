@@ -16,6 +16,7 @@
     export let group: JournalDataEncounterItemGroup
     export let instanceExpansion: number
     export let stats: UserCount
+    export let useV2: boolean
 
     let element: HTMLElement
     let intersected: boolean
@@ -40,7 +41,7 @@
 </style>
 
 {#if items.length > 0}
-    <div class="collection-group">
+    <div class="collection{useV2 ? '-v2' : ''}-group">
         <h4 class="drop-shadow {getPercentClass(percent)}">
             {group.name}
             <CollectionCount counts={stats} />

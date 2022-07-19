@@ -15,12 +15,17 @@ namespace Wowthing.Backend.Jobs.Misc
     {
         private JankTimer _timer;
 
+        private Dictionary<int, WowItem> _itemMap;
+        private Dictionary<int, WowMount> _mountMap;
+        private Dictionary<int, WowPet> _petMap;
+        private Dictionary<int, WowToy> _toyMap;
+
         public static readonly ScheduledJob Schedule = new ScheduledJob
         {
             Type = JobType.CacheJournal,
             Priority = JobPriority.High,
             Interval = TimeSpan.FromHours(24),
-            Version = 17,
+            Version = 19,
         };
 
         public override async Task Run(params string[] data)
@@ -123,13 +128,23 @@ namespace Wowthing.Backend.Jobs.Misc
 
             _timer.AddPoint("CSV");
 
-            var itemMap = await Context.WowItem
+            _itemMap = await Context.WowItem
                 .AsNoTracking()
-                .Where(item =>
-                    item.ClassId == 2 ||
-                    (item.ClassId == 4 && item.SubclassId != 0)
-                )
                 .ToDictionaryAsync(item => item.Id);
+
+            _mountMap = await Context.WowMount
+                .AsNoTracking()
+                .Where(mount => mount.ItemId > 0)
+                .ToDictionaryAsync(mount => mount.ItemId);
+
+            _petMap = await Context.WowPet
+                .AsNoTracking()
+                .Where(pet => pet.ItemId > 0 && (pet.Flags & 32) == 0)
+                .ToDictionaryAsync(pet => pet.ItemId);
+
+            _toyMap = await Context.WowToy
+                .AsNoTracking()
+                .ToDictionaryAsync(toy => toy.ItemId);
 
             _timer.AddPoint("Database");
 
@@ -245,10 +260,13 @@ namespace Wowthing.Backend.Jobs.Misc
                                 }
                             }
 
+                            Hardcoded.JournalEncounterStatistics.TryGetValue(encounter.ID, out var statistics);
                             var encounterData = new OutJournalEncounter
                             {
                                 Id = encounter.ID,
+                                Statistics = statistics,
                             };
+
                             var items = new List<DumpJournalEncounterItem>();
 
                             if (encounter.ID > 1000000)
@@ -317,15 +335,9 @@ namespace Wowthing.Backend.Jobs.Misc
                                     continue;
                                 }
 
-                                if (!itemMap.TryGetValue(encounterItem.ItemID, out var item))
+                                if (!_itemMap.TryGetValue(encounterItem.ItemID, out var item))
                                 {
                                     //Logger.Warning("No item for ID {Id}", encounterItem.ItemID);
-                                    continue;
-                                }
-
-                                if (!appearancesByItemId.TryGetValue(encounterItem.ItemID, out var appearances))
-                                {
-                                    Logger.Debug("No appearances for ID {Id}", encounterItem.ItemID);
                                     continue;
                                 }
 
@@ -340,6 +352,28 @@ namespace Wowthing.Backend.Jobs.Misc
                                         Logger.Warning("No difficulties for item ID {Id}", encounterItem.ID);
                                         continue;
                                     }
+                                }
+
+                                if (!appearancesByItemId.TryGetValue(item.Id, out var appearances))
+                                {
+                                    if (_mountMap.TryGetValue(item.Id, out var mount))
+                                    {
+                                        AddGroupSpecial(itemGroups, "Mounts", RewardType.Mount, item, difficulties);
+                                        continue;
+                                    }
+                                    else if (_petMap.TryGetValue(item.Id, out var pet))
+                                    {
+                                        AddGroupSpecial(itemGroups, "Pets", RewardType.Pet, item, difficulties);
+                                        continue;
+                                    }
+                                    else if (_toyMap.TryGetValue(item.Id, out var toy))
+                                    {
+                                        AddGroupSpecial(itemGroups, "Toys", RewardType.Toy, item, difficulties);
+                                        continue;
+                                    }
+
+                                    //Logger.Debug("No appearances for ID {Id}", item.Id);
+                                    continue;
                                 }
 
                                 // Skip any items that aren't for this difficulty
@@ -391,26 +425,6 @@ namespace Wowthing.Backend.Jobs.Misc
                                     itemAppearances[appearanceId].Difficulties.Add(difficultyId);
                                 }
 
-                                foreach (var appearance in itemAppearances.Values)
-                                {
-                                    // Don't use both Mythic and Mythic Keystone difficulties
-                                    if (appearance.Difficulties.Contains(8) &&
-                                        appearance.Difficulties.Contains(23))
-                                    {
-                                        appearance.Difficulties.Remove(8);
-                                    }
-
-                                    // Legacy raids like to have dungeon difficulties for some reason
-                                    if (appearance.Difficulties.Contains(3) ||
-                                        appearance.Difficulties.Contains(4) ||
-                                        appearance.Difficulties.Contains(5) ||
-                                        appearance.Difficulties.Contains(6))
-                                    {
-                                        appearance.Difficulties.Remove(1);
-                                        appearance.Difficulties.Remove(2);
-                                    }
-                                }
-
                                 var group = GetGroup(itemGroups, item);
                                 group.Items.Add(new OutJournalEncounterItem
                                 {
@@ -419,6 +433,7 @@ namespace Wowthing.Backend.Jobs.Misc
                                     ClassId = item.ClassId,
                                     SubclassId = item.SubclassId,
                                     Quality = item.Quality,
+                                    Type = RewardType.Item,
                                     Appearances = itemAppearances
                                         .Values
                                         .OrderBy(app => app.Difficulties
@@ -435,18 +450,41 @@ namespace Wowthing.Backend.Jobs.Misc
 
                             foreach (var group in encounterData.Groups)
                             {
+                                foreach (var item in group.Items)
+                                {
+                                    foreach (var appearance in item.Appearances)
+                                    {
+                                        // Don't use both Mythic and Mythic Keystone difficulties
+                                        if (appearance.Difficulties.Contains(8) &&
+                                            appearance.Difficulties.Contains(23))
+                                        {
+                                            appearance.Difficulties.Remove(8);
+                                        }
+
+                                        // Legacy raids like to have dungeon difficulties for some reason
+                                        if (appearance.Difficulties.Contains(3) ||
+                                            appearance.Difficulties.Contains(4) ||
+                                            appearance.Difficulties.Contains(5) ||
+                                            appearance.Difficulties.Contains(6))
+                                        {
+                                            appearance.Difficulties.Remove(1);
+                                            appearance.Difficulties.Remove(2);
+                                        }
+                                    }
+                                }
+
                                 group.Items = group.Items
                                     .OrderBy(item =>
                                     {
                                         // Armor
-                                        if (itemMap[item.Id].ClassId == 4)
+                                        if (_itemMap[item.Id].ClassId == 4)
                                         {
-                                            return Array.IndexOf(Hardcoded.InventoryTypeOrder, itemMap[item.Id].InventoryType);
+                                            return Array.IndexOf(Hardcoded.InventoryTypeOrder, _itemMap[item.Id].InventoryType);
                                         }
                                         // Weapon
-                                        else if (itemMap[item.Id].ClassId == 2)
+                                        else if (_itemMap[item.Id].ClassId == 2)
                                         {
-                                            return itemMap[item.Id].SubclassId;
+                                            return _itemMap[item.Id].SubclassId;
                                         }
                                         else
                                         {
@@ -548,6 +586,51 @@ namespace Wowthing.Backend.Jobs.Misc
             }
 
             return group;
+        }
+
+        private void AddGroupSpecial(
+            Dictionary<string, OutJournalEncounterItemGroup> itemGroups,
+            string name,
+            RewardType rewardType,
+            WowItem item, int[] difficulties)
+        {
+            if (!itemGroups.ContainsKey(name))
+            {
+                itemGroups[name] = new OutJournalEncounterItemGroup
+                {
+                    Name = name,
+                    Order = 0,
+                };
+            }
+
+            int classId = 0;
+            if (rewardType == RewardType.Mount)
+            {
+                classId = _mountMap[item.Id].Id;
+            }
+            else if (rewardType == RewardType.Pet)
+            {
+                classId = _petMap[item.Id].Id;
+            }
+
+            var outItem = new OutJournalEncounterItem
+            {
+                Id = item.Id,
+                ClassId = classId,
+                Quality = item.Quality,
+                Type = rewardType,
+                Appearances = new List<OutJournalEncounterItemAppearance>
+                {
+                    new OutJournalEncounterItemAppearance
+                    {
+                        AppearanceId = 0,
+                        ModifierId = 0,
+                        Difficulties = difficulties.ToList(),
+                    }
+                },
+            };
+
+            itemGroups[name].Items.Add(outItem);
         }
     }
 }

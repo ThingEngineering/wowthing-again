@@ -3,10 +3,10 @@
     import xor from 'lodash/xor'
 
     import { difficultyMap, journalDifficultyOrder } from '@/data/difficulty'
-    import { userTransmogStore } from '@/stores'
+    import { userStore, userTransmogStore } from '@/stores'
     import { journalState } from '@/stores/local-storage'
     import { data as settingsData } from '@/stores/settings'
-    import { PlayableClass, PlayableClassMask } from '@/types/enums'
+    import { PlayableClass, PlayableClassMask, RewardType } from '@/types/enums'
     import { getItemUrl } from '@/utils/get-item-url'
     import type { JournalDataEncounterItem, JournalDataEncounterItemAppearance } from '@/types/data/journal'
 
@@ -20,12 +20,32 @@
     let appearances: [JournalDataEncounterItemAppearance, boolean][]
     let classId: number
     $: {
-        appearances = item.appearances.map((appearance) => [
-            appearance,
-            $settingsData.transmog.completionistMode ?
-                $userTransmogStore.data.sourceHas[`${item.id}_${appearance.modifierId}`] :
-                $userTransmogStore.data.userHas[appearance.appearanceId],
-        ])
+        if (item.type === RewardType.Mount) {
+            appearances = item.appearances.map((appearance) => [
+                appearance,
+                $userStore.data.hasMount[item.classId],
+            ])
+        }
+        else if (item.type === RewardType.Pet) {
+            appearances = item.appearances.map((appearance) => [
+                appearance,
+                $userStore.data.hasPet[item.classId],
+            ])
+        }
+        else if (item.type === RewardType.Toy) {
+            appearances = item.appearances.map((appearance) => [
+                appearance,
+                $userStore.data.hasToy[item.id],
+            ])
+        }
+        else {
+            appearances = item.appearances.map((appearance) => [
+                appearance,
+                $settingsData.transmog.completionistMode ?
+                    $userTransmogStore.data.sourceHas[`${item.id}_${appearance.modifierId}`] :
+                    $userTransmogStore.data.userHas[appearance.appearanceId],
+            ])
+        }
 
         if (item.classMask in PlayableClassMask) {
             classId = PlayableClass[PlayableClassMask[item.classMask] as keyof typeof PlayableClass]
@@ -72,6 +92,10 @@
         // 10 Normal + 25 Normal + 10 Heroic + 25 Heroic = Normal/Heroic (ZA/ZG)
         if (xor(appearance.difficulties, [3, 4, 5, 6]).length === 0) {
             return ['N', 'H']
+        }
+        // 10 Normal + 25 Normal + 10 Heroic + 25 Heroic + LFR = 
+        if (xor(appearance.difficulties, [3, 4, 5, 6, 7]).length === 0) {
+            return ['L', 'N', 'H']
         }
 
         const ret: string[] = []

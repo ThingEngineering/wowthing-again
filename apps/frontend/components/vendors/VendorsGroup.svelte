@@ -71,7 +71,7 @@
 </script>
 
 <style lang="scss">
-    .collection-v2-item {
+    .collection-object {
         min-height: 52px;
         width: 52px;
     }
@@ -85,7 +85,6 @@
         position: absolute;
         top: 30px;
         right: 1px;
-        
     }
     .costs {
         --image-border-width: 0;
@@ -117,7 +116,7 @@
             <div class="collection-objects" data-inter={intersected}>
                 {#each things as [thing, linkType, linkId, extraParams, userHas, costs]}
                     <div
-                        class="collection{useV2 ? '-v2' : ''}-item quality{thing.quality || $manualStore.data.shared.items[thing.id]?.quality || 0}"
+                        class="collection-object quality{thing.quality || $manualStore.data.shared.items[thing.id]?.quality || 0}"
                         class:missing={
                             (!$vendorState.highlightMissing && !userHas) ||
                             ($vendorState.highlightMissing && userHas)

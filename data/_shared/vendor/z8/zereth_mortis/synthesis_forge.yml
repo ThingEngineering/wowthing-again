@@ -5,11 +5,11 @@ note: "Pet Protoform Synthesis"
 locations:
   z8_zereth_mortis:
     - 60.6 59.4
-    
+
 sets:
-  - name: "Pets"
+  - name: "Protoform Pets"
     range: 0 28
-    sortKey: "1"
+    sortKey: "pets-protoform"
 
 sells:
   - type: pet

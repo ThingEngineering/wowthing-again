@@ -6,6 +6,10 @@ locations:
   z1_netherstorm:
     - 35 64.2
 
+tags:
+  - "pvp"
+  - "pvp-s01"
+
 sets:
   - name: "Armor - S01 Druid"
     range: 0 15

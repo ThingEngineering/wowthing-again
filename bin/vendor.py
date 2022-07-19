@@ -54,6 +54,46 @@ INVENTORY_SLOT = {
     23: 'off-hand',
     26: 'ranged',
 }
+SORT_CHRCLASS = {
+    32: 1,   # 6=death knight
+    2048: 2, # 12=demon hunter
+    1024: 3, # 11=druid
+    4: 4,    # 3=hunter
+    128: 5,  # 8=mage
+    512: 6,  # 10=monk
+    2: 7,    # 2=paladin
+    16: 8,   # 5=priest
+    8: 9,    # 4=rogue
+    64: 10,  # 7=shaman
+    256: 11, # 9=warlock
+    1: 12,   # 1=warrior
+
+    # cloth
+    (16 + 128 + 256): 20,
+    # leather
+    (8 + 512): 21,
+    (8 + 512 + 1024): 21,
+    (8 + 512 + 1024 + 2048): 21,
+    # mail
+    (4 + 64): 22,
+    # plate
+    (1 + 2): 23,
+    (1 + 2 + 32): 23,
+}
+SORT_CLASS = {
+    4: 1, # Armor
+    0: 2, # Misc
+    2: 3, # Weapon
+}
+SORT_SUBCLASS = {
+    (4, 1): 1, # Cloth
+    (4, 2): 2, # Leather
+    (4, 3): 3, # Mail
+    (4, 4): 4, # Plate
+    (4, -6): 5, # Cloak
+    (4, -5): 1000, # Off-hand
+    (4, 6): 10001, # Shield
+}
 SORT_KEY = {
     1: 1,
     3: 2,
@@ -123,8 +163,11 @@ print()
 print('locations:')
 
 for map_set in mapper.values():
+    if isinstance(map_set, dict):
+        map_set = map_set.values()
+
     for map in map_set:
-        map_name = map['uiMapName'].lower().replace(' ', '_').replace('-', '_').replace("'", '')
+        map_name = map.get('uiMapName', 'unknown').lower().replace(' ', '_').replace('-', '_').replace("'", '')
         print(f'  {map_name}:')
         
         for coord in map['coords']:
@@ -136,9 +179,8 @@ print('sells:')
 
 sorted_items = sorted(items, key=lambda item: [
     -item["standing"],
-    item["classs"],
-    item.get("subclass", 0),
-    item.get("reqclass", 0),
+    SORT_CLASS.get(item["classs"], item["classs"] + 100),
+    SORT_CHRCLASS.get(item.get("reqclass", 0), SORT_SUBCLASS.get((item["classs"], item.get("subclass", 0)), item.get("subclass", 0) + 100)),
     SORT_KEY.get(item.get("slot", 0), item.get("slot", 0) + 100),
     item["name"],
 
