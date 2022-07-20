@@ -130,10 +130,6 @@
         flex-direction: column;
         //width: 100%;
     }
-    .thing-container {
-        padding: 0.5rem;
-        //width: 100%;
-    }
     table {
         --image-border-width: 1px;
     }
@@ -146,9 +142,9 @@
             display: block;
             margin-top: 0.1rem;
         }
-        :global(img) {
-            //transform: scale(1.2);
-        }
+        /*:global(img) {
+            transform: scale(1.2);
+        }*/
     }
     .y-axis {
         @include cell-width(4rem);

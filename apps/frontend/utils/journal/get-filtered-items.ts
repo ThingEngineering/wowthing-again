@@ -1,10 +1,6 @@
 import cloneDeep from 'lodash/cloneDeep'
-import every from 'lodash/every'
-import some from 'lodash/some'
 
-import getTransmogClassMask from '@/utils/get-transmog-class-mask'
 import type { JournalState } from '@/stores/local-storage'
-import type { Settings } from '@/types'
 import type { JournalDataEncounterItemGroup, JournalDataEncounterItem, JournalDataEncounterItemAppearance, UserTransmogData } from '@/types/data'
 import { Constants } from '@/data/constants'
 

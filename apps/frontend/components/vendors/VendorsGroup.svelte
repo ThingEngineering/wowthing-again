@@ -6,9 +6,10 @@
     import { vendorState } from '@/stores/local-storage'
     import { userVendorStore } from '@/stores/user-vendors'
     import { PlayableClass, PlayableClassMask, RewardType } from '@/types/enums'
+    import { ThingData } from '@/types/vendors'
     import getPercentClass from '@/utils/get-percent-class'
     import type { UserCount } from '@/types'
-    import type { ManualDataVendorGroup, ManualDataVendorItem } from '@/types/data/manual'
+    import type { ManualDataVendorGroup } from '@/types/data/manual'
 
     import ClassIcon from '@/components/images/ClassIcon.svelte'
     import CollectionCount from '@/components/collections/CollectionCount.svelte'
@@ -19,22 +20,6 @@
     export let group: ManualDataVendorGroup
     export let stats: UserCount
     export let useV2: boolean
-
-    class ThingData {
-        public classId: number
-        public extraParams: Record<string, string>
-        public linkId: number
-        public linkType: string
-        public quality: number
-
-        constructor(
-            public item: ManualDataVendorItem,
-            public userHas: boolean
-        )
-        {
-            this.extraParams = {}
-        }
-    }
 
     let element: HTMLElement
     let intersected = false
