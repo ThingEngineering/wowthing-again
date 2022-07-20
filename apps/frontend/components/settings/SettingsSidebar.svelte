@@ -1,7 +1,7 @@
 <script lang="ts">
-    import { userStore } from '@/stores'
+    import { achievementStore, journalStore, manualStore, staticStore, userStore } from '@/stores'
     import { data as settingsData } from '@/stores/settings'
-    import type { Account, Settings, SidebarItem } from '@/types'
+    import type { Account, FancyStoreFetchOptions, Settings, SidebarItem } from '@/types'
 
     import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
 
@@ -77,7 +77,9 @@
 
         if (response.ok) {
             const json = await response.json()
-            settingsData.set(json.settings as Settings)
+            const settings = json.settings as Settings
+            settingsData.set(settings)
+
             userStore.update(state => {
                 for (const account of json.accounts as Account[]) {
                     state.data.accounts[account.id] = account
@@ -85,6 +87,19 @@
                 return state
             })
             buttonText = 'Saved!'
+
+            const fetchOptions: Partial<FancyStoreFetchOptions> = {
+                language: settings.general.language,
+                evenIfLoaded: true,
+                onlyIfLoaded: true,
+            }
+            await Promise.all([
+                achievementStore.fetch(fetchOptions),
+                journalStore.fetch(fetchOptions),
+                manualStore.fetch(fetchOptions),
+                staticStore.fetch(fetchOptions),
+            ])
+
             setTimeout(() => { buttonText = 'Save changes'}, 1000)
         }
     }

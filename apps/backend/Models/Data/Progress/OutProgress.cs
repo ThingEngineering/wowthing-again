@@ -1,35 +1,34 @@
-﻿namespace Wowthing.Backend.Models.Data.Progress
+﻿namespace Wowthing.Backend.Models.Data.Progress;
+
+public class OutProgress
 {
-    public class OutProgress
+    public string Name { get; set; }
+    public List<int> RequiredQuestIds { get; set; }
+    public List<OutProgressGroup> Groups { get; set; }
+
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+    public int? MinimumLevel { get; set; }
+
+    public string Slug => Name.Slugify();
+
+    public OutProgress(DataProgress data)
     {
-        public string Name { get; set; }
-        public List<int> RequiredQuestIds { get; set; }
-        public List<OutProgressGroup> Groups { get; set; }
+        Name = data.Name;
+            
+        RequiredQuestIds = data.RequiredQuestId
+            .EmptyIfNullOrWhitespace()
+            .Split(' ', StringSplitOptions.RemoveEmptyEntries)
+            .Select(id => int.Parse(id))
+            .ToList();
+            
+        Groups = data.Groups
+            .EmptyIfNull()
+            .Select(group => new OutProgressGroup(group))
+            .ToList();
 
-        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-        public int? MinimumLevel { get; set; }
-
-        public string Slug => Name.Slugify();
-
-        public OutProgress(DataProgress data)
+        if (data.MinimumLevel > 0)
         {
-            Name = data.Name;
-            
-            RequiredQuestIds = data.RequiredQuestId
-                .EmptyIfNullOrWhitespace()
-                .Split(' ', StringSplitOptions.RemoveEmptyEntries)
-                .Select(id => int.Parse(id))
-                .ToList();
-            
-            Groups = data.Groups
-                .EmptyIfNull()
-                .Select(group => new OutProgressGroup(group))
-                .ToList();
-
-            if (data.MinimumLevel > 0)
-            {
-                MinimumLevel = data.MinimumLevel;
-            }
+            MinimumLevel = data.MinimumLevel;
         }
     }
 }

@@ -1,24 +1,18 @@
 import cloneDeep from 'lodash/cloneDeep'
-import every from 'lodash/every'
-import some from 'lodash/some'
 
-import getTransmogClassMask from '@/utils/get-transmog-class-mask'
 import type { JournalState } from '@/stores/local-storage'
-import type { Settings } from '@/types'
 import type { JournalDataEncounterItemGroup, JournalDataEncounterItem, JournalDataEncounterItemAppearance, UserTransmogData } from '@/types/data'
 import { Constants } from '@/data/constants'
 
 
 export default function getFilteredItems(
     journalState: JournalState,
-    settingsData: Settings,
     userTransmogData: UserTransmogData,
+    group: JournalDataEncounterItemGroup,
+    classMask: number,
     instanceExpansion: number,
-    group: JournalDataEncounterItemGroup
+    masochist: boolean
 ): JournalDataEncounterItem[] {
-    const classMask = getTransmogClassMask(settingsData)
-    const masochist = settingsData.transmog.completionistMode
-
     const items: JournalDataEncounterItem[] = []
 
     for (const origItem of group.items) {
@@ -61,40 +55,40 @@ export default function getFilteredItems(
 
                 for (const difficulty of appearance.difficulties) {
                     // LFR
-                    if ([7, 17].indexOf(difficulty) >= 0) {
+                    if (difficulty === 7 || difficulty === 17) {
                         if (journalState.showRaidLfr) {
                             difficulties.push(difficulty)
                         }
                     }
                     // Normal
-                    else if ([1].indexOf(difficulty) >= 0) {
+                    else if (difficulty === 1) {
                         if (journalState.showDungeonNormal) {
                             difficulties.push(difficulty)
                         }
                     }
-                    else if ([3, 4, 9, 14].indexOf(difficulty) >= 0) {
+                    else if (difficulty === 3 || difficulty === 4 || difficulty === 9 || difficulty === 14) {
                         if (journalState.showRaidNormal) {
                             difficulties.push(difficulty)
                         }
                     }
                     // Heroic
-                    else if ([2].indexOf(difficulty) >= 0) {
+                    else if (difficulty === 2) {
                         if (journalState.showDungeonHeroic) {
                             difficulties.push(difficulty)
                         }
                     }
-                    else if ([5, 6, 15].indexOf(difficulty) >= 0) {
+                    else if (difficulty === 5 || difficulty ===6 || difficulty === 15) {
                         if (journalState.showRaidHeroic) {
                             difficulties.push(difficulty)
                         }
                     }
                     // Mythic
-                    else if ([8, 23].indexOf(difficulty) >= 0) {
+                    else if (difficulty === 8 || difficulty === 23) {
                         if (journalState.showDungeonMythic) {
                             difficulties.push(difficulty)
                         }
                     }
-                    else if ([16].indexOf(difficulty) >= 0) {
+                    else if (difficulty === 16) {
                         if (instanceExpansion === Constants.expansion) {
                             if (journalState.showRaidMythic) {
                                 difficulties.push(difficulty)
@@ -105,12 +99,12 @@ export default function getFilteredItems(
                         }
                     }
                     // Timewalking
-                    else if ([24].indexOf(difficulty) >= 0) {
+                    else if (difficulty === 24) {
                         if (journalState.showDungeonTimewalking) {
                             difficulties.push(difficulty)
                         }
                     }
-                    else if ([33].indexOf(difficulty) >= 0) {
+                    else if (difficulty === 33) {
                         if (journalState.showRaidTimewalking) {
                             difficulties.push(difficulty)
                         }
@@ -135,18 +129,25 @@ export default function getFilteredItems(
 
         // Collected/uncollected toggles
         if (userTransmogData !== null && keep) {
-            const allCollected = every(
-                item.appearances,
-                (appearance) => masochist ?
-                    userTransmogData.sourceHas[`${item.id}_${appearance.modifierId}`] :
-                    userTransmogData.userHas[appearance.appearanceId]
-            )
-            const anyCollected = some(
-                item.appearances,
-                (appearance) => masochist ?
-                    userTransmogData.sourceHas[`${item.id}_${appearance.modifierId}`] :
-                    userTransmogData.userHas[appearance.appearanceId]
-            )
+            let allCollected = true
+            let anyCollected = false
+            for (const appearance of item.appearances) {
+                let has = false
+                if (masochist) {
+                    has = userTransmogData.sourceHas[`${item.id}_${appearance.modifierId}`]
+                }
+                else {
+                    has = userTransmogData.userHas[appearance.appearanceId]
+                }
+                
+                if (has) {
+                    anyCollected = true
+                }
+                else {
+                    allCollected = false
+                }
+            }
+
             if (
                 (!journalState.showUncollected && !anyCollected) ||
                 (!journalState.showCollected && allCollected)

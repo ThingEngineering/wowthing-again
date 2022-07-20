@@ -1,8 +1,7 @@
-﻿namespace Wowthing.Lib.Enums
+﻿namespace Wowthing.Lib.Enums;
+
+public enum WowGender
 {
-    public enum WowGender
-    {
-        Female,
-        Male,
-    }
+    Female,
+    Male,
 }

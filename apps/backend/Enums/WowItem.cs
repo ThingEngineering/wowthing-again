@@ -1,8 +1,7 @@
-﻿namespace Wowthing.Backend.Enums
+﻿namespace Wowthing.Backend.Enums;
+
+[Flags]
+public enum WowItemFlags4
 {
-    [Flags]
-    public enum WowItemFlags4
-    {
-        Cosmetic = 0x10000,
-    }
+    Cosmetic = 0x10000,
 }

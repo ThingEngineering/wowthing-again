@@ -1,8 +1,7 @@
-﻿namespace Wowthing.Backend.Models
+﻿namespace Wowthing.Backend.Models;
+
+public class BattleNetOptions
 {
-    public class BattleNetOptions
-    {
-        public string ClientId { get; set; }
-        public string ClientSecret { get; set; }
-    }
+    public string ClientId { get; set; }
+    public string ClientSecret { get; set; }
 }

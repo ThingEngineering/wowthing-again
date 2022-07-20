@@ -9,7 +9,7 @@
     import { data as settingsData } from '@/stores/settings'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import getProgress from '@/utils/get-progress'
-    import toDigits from '@/utils/to-digits'
+    import leftPad from '@/utils/left-pad'
     import type { Character } from '@/types'
     import type { ManualDataProgressCategory} from '@/types/data/manual'
     import type { ProgressInfo } from '@/utils/get-progress'
@@ -98,10 +98,9 @@
         const order: string = $progressState.sortOrder[slugKey]
         if (order) {
             sorted = true
-            //sortFunc = (char) => toDigits(1000000 - (char.currencies?.[order]?.quantity ?? -1), 7)
             sortFunc = (char) => {
                 const data = progress[`${order}|${char.id}`]
-                return toDigits(100 - (data?.total > 0 ? (data?.have ?? 0) : -1), 3)
+                return leftPad(100 - (data?.total > 0 ? (data?.have ?? 0) : -1), 3, '0')
             }
         }
         else {

@@ -7,184 +7,183 @@ using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Utilities;
 
-namespace Wowthing.Backend.Jobs.User
+namespace Wowthing.Backend.Jobs.User;
+
+public class UserCharactersJob : JobBase
 {
-    public class UserCharactersJob : JobBase
+    private const string ApiPath = "profile/user/wow?access_token={0}";
+
+    public override async Task Run(params string[] data)
     {
-        private const string ApiPath = "profile/user/wow?access_token={0}";
+        using var shrug = UserLog(data[0]);
+        var timer = new JankTimer();
 
-        public override async Task Run(params string[] data)
+        var userId = long.Parse(data[0]);
+
+        // Get user access token
+        var accessToken = await Context.UserTokens.FirstOrDefaultAsync(t =>
+            t.UserId == userId && t.LoginProvider == "BattleNet" && t.Name == "access_token");
+        if (accessToken == null)
         {
-            using var shrug = UserLog(data[0]);
-            var timer = new JankTimer();
+            Logger.Error("No access_token for user {0}", userId);
+            return;
+        }
 
-            var userId = long.Parse(data[0]);
+        var path = string.Format(ApiPath, accessToken.Value);
 
-            // Get user access token
-            var accessToken = await Context.UserTokens.FirstOrDefaultAsync(t =>
-                t.UserId == userId && t.LoginProvider == "BattleNet" && t.Name == "access_token");
-            if (accessToken == null)
+        timer.AddPoint("Token");
+
+        // Fetch existing accounts
+        var accountMap = await Context.PlayerAccount
+            .Where(a => a.UserId == userId)
+            .ToDictionaryAsync(k => (k.Region, k.AccountId));
+
+        // Add any new accounts
+        var apiAccounts = new List<(WowRegion, ApiAccountProfileAccount)>();
+        foreach (var region in EnumUtilities.GetValues<WowRegion>())
+        {
+            var uri = GenerateUri(region, ApiNamespace.Profile, path);
+            try
             {
-                Logger.Error("No access_token for user {0}", userId);
-                return;
+                var result = await GetJson<ApiAccountProfile>(uri, useAuthorization: false, useLastModified: false);
+                var profile = result.Data;
+                if (profile?.Accounts == null)
+                {
+                    continue;
+                }
+
+                foreach (ApiAccountProfileAccount account in profile.Accounts)
+                {
+                    apiAccounts.Add((region, account));
+
+                    // TODO handle account changing owner? is that even possible?
+                    if (!accountMap.ContainsKey((region, account.Id)))
+                    {
+                        var newAccount = accountMap[(region, account.Id)] = new PlayerAccount
+                        {
+                            AccountId = account.Id,
+                            Region = region,
+                            UserId = userId,
+                        };
+                        Context.PlayerAccount.Add(newAccount);
+                        Logger.Information("Added new account {0}/{1}", region, account.Id);
+                    }
+                }
             }
-
-            var path = string.Format(ApiPath, accessToken.Value);
-
-            timer.AddPoint("Token");
-
-            // Fetch existing accounts
-            var accountMap = await Context.PlayerAccount
-                .Where(a => a.UserId == userId)
-                .ToDictionaryAsync(k => (k.Region, k.AccountId));
-
-            // Add any new accounts
-            var apiAccounts = new List<(WowRegion, ApiAccountProfileAccount)>();
-            foreach (var region in EnumUtilities.GetValues<WowRegion>())
+            catch (HttpRequestException e)
             {
-                var uri = GenerateUri(region, ApiNamespace.Profile, path);
+                if (e.Message != "404")
+                {
+                    Logger.Warning("HTTP request failed: {region} {e} {sigh}", region, e.Message, e.StatusCode);
+                }
+            }
+        }
+
+        await Context.SaveChangesAsync();
+
+        timer.AddPoint("API");
+
+        // Fetch existing characters
+        var characterPairs = apiAccounts
+            .SelectMany(a => a.Item2.Characters)
+            .Select(c => (c.Realm.Id, c.Name))
+            .ToArray();
+
+        var orPredicate = PredicateBuilder.False<PlayerCharacter>();
+        foreach ((int realmId, string name) in characterPairs)
+        {
+            orPredicate = orPredicate.Or(c => c.RealmId == realmId && c.Name == name);
+        }
+
+        var characterMap = await Context.PlayerCharacter
+            .Where(orPredicate)
+            .ToDictionaryAsync(k => (k.RealmId, k.Name));
+
+        // Loop over API results
+        foreach ((var region, var apiAccount) in apiAccounts)
+        {
+            int accountId = 0;
+            int added = 0;
+
+            accountId = accountMap[(region, apiAccount.Id)].Id;
+            foreach (ApiAccountProfileCharacter apiCharacter in apiAccount.Characters)
+            {
                 try
                 {
-                    var result = await GetJson<ApiAccountProfile>(uri, useAuthorization: false, useLastModified: false);
-                    var profile = result.Data;
-                    if (profile?.Accounts == null)
-                    {
-                        continue;
-                    }
+                    var key = (apiCharacter.Realm.Id, apiCharacter.Name);
 
-                    foreach (ApiAccountProfileAccount account in profile.Accounts)
+                    if (!characterMap.TryGetValue(key, out PlayerCharacter character))
                     {
-                        apiAccounts.Add((region, account));
-
-                        // TODO handle account changing owner? is that even possible?
-                        if (!accountMap.ContainsKey((region, account.Id)))
+                        character = characterMap[key] = new PlayerCharacter
                         {
-                            var newAccount = accountMap[(region, account.Id)] = new PlayerAccount
-                            {
-                                AccountId = account.Id,
-                                Region = region,
-                                UserId = userId,
-                            };
-                            Context.PlayerAccount.Add(newAccount);
-                            Logger.Information("Added new account {0}/{1}", region, account.Id);
-                        }
+                            CharacterId = apiCharacter.Id,
+                            LastApiCheck = MiscConstants.DefaultDateTime,
+                        };
+                        Context.PlayerCharacter.Add(character);
+                        added++;
                     }
+
+                    character.AccountId = accountId;
+                    character.ClassId = apiCharacter.Class.Id;
+                    character.Level = apiCharacter.Level;
+                    character.RaceId = apiCharacter.Race.Id;
+                    character.RealmId = apiCharacter.Realm.Id;
+                    character.Faction = apiCharacter.Faction.EnumParse<WowFaction>();
+                    character.Gender = apiCharacter.Gender.EnumParse<WowGender>();
+                    character.Name = apiCharacter.Name;
                 }
-                catch (HttpRequestException e)
+                catch (Exception ex)
                 {
-                    if (e.Message != "404")
-                    {
-                        Logger.Warning("HTTP request failed: {region} {e} {sigh}", region, e.Message, e.StatusCode);
-                    }
+                    Logger.Error(ex, "Error in region {Region}", region.ToString());
+                    Logger.Warning("Character: {json}", JsonConvert.SerializeObject(apiCharacter));
                 }
             }
 
-            await Context.SaveChangesAsync();
-
-            timer.AddPoint("API");
-
-            // Fetch existing characters
-            var characterPairs = apiAccounts
-                .SelectMany(a => a.Item2.Characters)
-                .Select(c => (c.Realm.Id, c.Name))
-                .ToArray();
-
-            var orPredicate = PredicateBuilder.False<PlayerCharacter>();
-            foreach ((int realmId, string name) in characterPairs)
+            if (added > 0)
             {
-                orPredicate = orPredicate.Or(c => c.RealmId == realmId && c.Name == name);
+                Logger.Information("Added {Added} character(s) to account {Region}/{AccountId}", added, region,
+                    accountId);
             }
-
-            var characterMap = await Context.PlayerCharacter
-                .Where(orPredicate)
-                .ToDictionaryAsync(k => (k.RealmId, k.Name));
-
-            // Loop over API results
-            foreach ((var region, var apiAccount) in apiAccounts)
-            {
-                int accountId = 0;
-                int added = 0;
-
-                accountId = accountMap[(region, apiAccount.Id)].Id;
-                foreach (ApiAccountProfileCharacter apiCharacter in apiAccount.Characters)
-                {
-                    try
-                    {
-                        var key = (apiCharacter.Realm.Id, apiCharacter.Name);
-
-                        if (!characterMap.TryGetValue(key, out PlayerCharacter character))
-                        {
-                            character = characterMap[key] = new PlayerCharacter
-                            {
-                                CharacterId = apiCharacter.Id,
-                                LastApiCheck = MiscConstants.DefaultDateTime,
-                            };
-                            Context.PlayerCharacter.Add(character);
-                            added++;
-                        }
-
-                        character.AccountId = accountId;
-                        character.ClassId = apiCharacter.Class.Id;
-                        character.Level = apiCharacter.Level;
-                        character.RaceId = apiCharacter.Race.Id;
-                        character.RealmId = apiCharacter.Realm.Id;
-                        character.Faction = apiCharacter.Faction.EnumParse<WowFaction>();
-                        character.Gender = apiCharacter.Gender.EnumParse<WowGender>();
-                        character.Name = apiCharacter.Name;
-                    }
-                    catch (Exception ex)
-                    {
-                        Logger.Error(ex, "Error in region {Region}", region.ToString());
-                        Logger.Warning("Character: {json}", JsonConvert.SerializeObject(apiCharacter));
-                    }
-                }
-
-                if (added > 0)
-                {
-                    Logger.Information("Added {Added} character(s) to account {Region}/{AccountId}", added, region,
-                        accountId);
-                }
-            }
-
-            timer.AddPoint("Characters");
-
-            // Delete any characters that weren't in the API response
-            foreach ((var region, var apiAccount) in apiAccounts)
-            {
-                var accountId = accountMap[(region, apiAccount.Id)].Id;
-                var characterIds = new List<int>();
-                foreach (var apiCharacter in apiAccount.Characters)
-                {
-                    if (characterMap.TryGetValue((apiCharacter.Realm?.Id ?? 0, apiCharacter.Name), out var character))
-                    {
-                        characterIds.Add(character.Id);
-                    }
-                    else
-                    {
-                        Logger.Warning("Invalid character??");
-                    }
-                }
-
-                int deleted = await Context
-                    .DeleteRangeAsync<PlayerCharacter>(c => c.AccountId == accountId && !characterIds.Contains(c.Id));
-                if (deleted > 0)
-                {
-                    Logger.Information("Deleted {0} character(s) from account {1}/{2}", deleted, region, accountId);
-                }
-            }
-
-            timer.AddPoint("Delete");
-
-            int updated = await Context.SaveChangesAsync();
-            if (updated > 0)
-            {
-                await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, userId);
-            }
-
-            timer.AddPoint("Save", true);
-
-            Logger.Debug("{Timer}", timer);
-            Logger.Information("Completed in {Z}", timer.TotalDuration);
         }
+
+        timer.AddPoint("Characters");
+
+        // Delete any characters that weren't in the API response
+        foreach ((var region, var apiAccount) in apiAccounts)
+        {
+            var accountId = accountMap[(region, apiAccount.Id)].Id;
+            var characterIds = new List<int>();
+            foreach (var apiCharacter in apiAccount.Characters)
+            {
+                if (characterMap.TryGetValue((apiCharacter.Realm?.Id ?? 0, apiCharacter.Name), out var character))
+                {
+                    characterIds.Add(character.Id);
+                }
+                else
+                {
+                    Logger.Warning("Invalid character??");
+                }
+            }
+
+            int deleted = await Context
+                .DeleteRangeAsync<PlayerCharacter>(c => c.AccountId == accountId && !characterIds.Contains(c.Id));
+            if (deleted > 0)
+            {
+                Logger.Information("Deleted {0} character(s) from account {1}/{2}", deleted, region, accountId);
+            }
+        }
+
+        timer.AddPoint("Delete");
+
+        int updated = await Context.SaveChangesAsync();
+        if (updated > 0)
+        {
+            await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, userId);
+        }
+
+        timer.AddPoint("Save", true);
+
+        Logger.Debug("{Timer}", timer);
+        Logger.Information("Completed in {Z}", timer.TotalDuration);
     }
 }

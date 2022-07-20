@@ -15,7 +15,7 @@
     export let params: MultiSlugParams
 
     onMount(async () => await Promise.all([
-        achievementStore.fetch(undefined, $settings.general.language),
+        achievementStore.fetch({ language: $settings.general.language }),
     ]))
 
     let error: boolean

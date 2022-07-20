@@ -1,11 +1,11 @@
-﻿namespace Wowthing.Lib.Models.Query
-{
-    [Keyless]
-    public class AccountTransmogQuery
-    {
-        public List<int> TransmogIds { get; set; }
+﻿namespace Wowthing.Lib.Models.Query;
 
-        public static string Sql = @"
+[Keyless]
+public class AccountTransmogQuery
+{
+    public List<int> TransmogIds { get; set; }
+
+    public static string Sql = @"
 WITH character_ids AS (
     SELECT  pc.id
     FROM    player_character pc
@@ -19,5 +19,4 @@ FROM (
     WHERE   character_id IN (SELECT id FROM character_ids)
 ) temp1
 ";
-    }
 }

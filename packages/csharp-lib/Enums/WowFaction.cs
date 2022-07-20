@@ -1,9 +1,8 @@
-﻿namespace Wowthing.Lib.Enums
+﻿namespace Wowthing.Lib.Enums;
+
+public enum WowFaction : short
 {
-    public enum WowFaction : short
-    {
-        Alliance,
-        Horde,
-        Neutral,
-    }
+    Alliance,
+    Horde,
+    Neutral,
 }

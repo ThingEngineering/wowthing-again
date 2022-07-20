@@ -11,8 +11,14 @@ export interface FancyStore<TData> {
     loaded: boolean
 }
 
+export interface FancyStoreFetchOptions {
+    evenIfLoaded: boolean
+    onlyIfLoaded: boolean
+    language: Language
+}
+
 export interface WritableFancyStore<TData> extends Writable<FancyStore<TData>> {
-    fetch(ifNotLoaded?: boolean, language?: Language): Promise<boolean>
+    fetch(options: Partial<FancyStoreFetchOptions>): Promise<boolean>
     get(): FancyStore<TData>
     initialize?(data: TData): void
     readonly dataUrl: string
@@ -42,13 +48,16 @@ export class WritableFancyStore<TData> {
         return this.value
     }
 
-    async fetch(ifNotLoaded = true, language = Language.enUS): Promise<boolean> {
+    async fetch(options?: Partial<FancyStoreFetchOptions>): Promise<boolean> {
         const wasLoaded = get(this).loaded
-        if (ifNotLoaded && wasLoaded) {
+        if (options?.evenIfLoaded !== true && wasLoaded) {
+            return false
+        }
+        if (options?.onlyIfLoaded === true && !wasLoaded) {
             return false
         }
 
-        const url = this.dataUrl.replace('zzZZ', Language[language])
+        const url = this.dataUrl.replace('zzZZ', Language[options?.language ?? Language.enUS])
         if (!url) {
             this.update(state => {
                 state.error = true
@@ -61,11 +70,12 @@ export class WritableFancyStore<TData> {
         const actualUrl = baseUri + url.substring(1)
 
         let json: string
+        let redirected: boolean
         try {
-            json = await fetchJson(actualUrl)
+            [json, redirected] = await fetchJson(actualUrl)
         }
-        catch (e) {
-            console.error((e as Error).message)
+        catch (err) {
+            console.error(err)
             // Only set the error state if we weren't previously loaded to avoid breaking
             // everything on an attempted refresh
             if (!wasLoaded) {
@@ -75,6 +85,11 @@ export class WritableFancyStore<TData> {
                 })
             }
             return false
+        }
+
+        // Redirected SHOULD mean it was a 304
+        if (options?.evenIfLoaded && redirected) {
+            return true
         }
 
         if (json === null) {

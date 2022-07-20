@@ -7,6 +7,7 @@ namespace Wowthing.Backend.Models.Data;
 public class DumpChrRaces
 {
     public short ID { get; set; }
+    public short PlayableRaceBit { get; set; }
 
     [Name("Alliance")]
     public WowFaction Faction { get; set; }

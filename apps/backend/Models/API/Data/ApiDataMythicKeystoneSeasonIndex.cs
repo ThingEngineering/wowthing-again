@@ -1,7 +1,6 @@
-﻿namespace Wowthing.Backend.Models.API.Data
+﻿namespace Wowthing.Backend.Models.API.Data;
+
+public class ApiDataMythicKeystoneSeasonIndex
 {
-    public class ApiDataMythicKeystoneSeasonIndex
-    {
-        public List<ApiObnoxiousObject> Seasons { get; set; }
-    }
+    public List<ApiObnoxiousObject> Seasons { get; set; }
 }

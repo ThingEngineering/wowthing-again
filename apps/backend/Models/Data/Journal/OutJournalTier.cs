@@ -1,11 +1,9 @@
-﻿namespace Wowthing.Backend.Models.Data.Journal
-{
-    public class OutJournalTier
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public List<OutJournalInstance> Instances { get; set; } = new();
+﻿namespace Wowthing.Backend.Models.Data.Journal;
 
-        public string Slug => Name.Slugify();
-    }
+public class OutJournalTier
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public string Slug { get; set; }
+    public List<OutJournalInstance> Instances { get; set; } = new();
 }

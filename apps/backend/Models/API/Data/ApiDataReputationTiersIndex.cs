@@ -1,8 +1,7 @@
-﻿namespace Wowthing.Backend.Models.API.Data
+﻿namespace Wowthing.Backend.Models.API.Data;
+
+public class ApiDataReputationTiersIndex
 {
-    public class ApiDataReputationTiersIndex
-    {
-        [JsonProperty("reputation_tiers")]
-        public List<ApiObnoxiousObject> Tiers { get; set; }
-    }
+    [JsonProperty("reputation_tiers")]
+    public List<ApiObnoxiousObject> Tiers { get; set; }
 }

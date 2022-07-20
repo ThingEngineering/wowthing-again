@@ -1,12 +1,11 @@
-﻿namespace Wowthing.Backend.Models.Data.Journal
-{
-    public class OutJournalEncounterItemGroup
-    {
-        public string Name { get; set; }        
-        
-        public List<OutJournalEncounterItem> Items = new();
+﻿namespace Wowthing.Backend.Models.Data.Journal;
 
-        [JsonIgnore]
-        public int Order { get; set; }
-    }
+public class OutJournalEncounterItemGroup
+{
+    public string Name { get; set; }        
+        
+    public List<OutJournalEncounterItem> Items = new();
+
+    [JsonIgnore]
+    public int Order { get; set; }
 }

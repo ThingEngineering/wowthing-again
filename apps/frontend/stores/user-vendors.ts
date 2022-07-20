@@ -16,6 +16,8 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
         userTransmogData: UserTransmogData,
         vendorState: VendorState
     ): void {
+        // console.time('UserVendorStore.setup')
+
         const classMask = getTransmogClassMask(settingsData)
 
         const seen: Record<string, boolean> = {}
@@ -114,6 +116,8 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
             state.data.userHas = userHas
             return state
         })
+
+        // console.timeEnd('UserVendorStore.setup')
     }
 }
 

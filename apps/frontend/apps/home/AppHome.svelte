@@ -21,9 +21,9 @@
     import Sidebar from './AppHomeSidebar.svelte'
 
     onMount(async () => await Promise.all([
-        journalStore.fetch(undefined, $settings.general.language),
-        manualStore.fetch(undefined, $settings.general.language),
-        staticStore.fetch(undefined, $settings.general.language),
+        journalStore.fetch({ language: $settings.general.language }),
+        manualStore.fetch({ language: $settings.general.language }),
+        staticStore.fetch({ language: $settings.general.language }),
         userAchievementStore.fetch(),
         userQuestStore.fetch(),
         userStore.fetch(),

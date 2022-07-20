@@ -120,7 +120,7 @@
     }
 </style>
 
-{#await auctionStore.fetch(true)}
+{#await auctionStore.fetch()}
     <div class="wrapper">L O A D I N G . . .</div>
 {:then _}
     <Paginate

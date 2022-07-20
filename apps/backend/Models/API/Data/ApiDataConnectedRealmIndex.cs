@@ -1,8 +1,7 @@
-﻿namespace Wowthing.Backend.Models.API.Data
+﻿namespace Wowthing.Backend.Models.API.Data;
+
+public class ApiDataConnectedRealmIndex
 {
-    public class ApiDataConnectedRealmIndex
-    {
-        [JsonProperty("connected_realms")]
-        public List<ApiObnoxiousHref> ConnectedRealms { get; set; }
-    }
+    [JsonProperty("connected_realms")]
+    public List<ApiObnoxiousHref> ConnectedRealms { get; set; }
 }

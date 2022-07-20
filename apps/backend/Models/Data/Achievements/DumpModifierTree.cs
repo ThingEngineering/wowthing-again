@@ -1,15 +1,14 @@
 ﻿// ReSharper disable InconsistentNaming
-namespace Wowthing.Backend.Models.Data.Achievements
+namespace Wowthing.Backend.Models.Data.Achievements;
+
+public class DumpModifierTree
 {
-    public class DumpModifierTree
-    {
-        public int Amount { get; set; }
-        public int Asset { get; set; }
-        public int ID { get; set; }
-        public int Operator { get; set; }
-        public int Parent { get; set; }
-        public int SecondaryAsset { get; set; }
-        public int TertiaryAsset { get; set; }
-        public int Type { get; set; }
-    }
+    public int Amount { get; set; }
+    public int Asset { get; set; }
+    public int ID { get; set; }
+    public int Operator { get; set; }
+    public int Parent { get; set; }
+    public int SecondaryAsset { get; set; }
+    public int TertiaryAsset { get; set; }
+    public int Type { get; set; }
 }

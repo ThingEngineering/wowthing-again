@@ -1,5 +1,6 @@
 import { UserCount, WritableFancyStore } from '@/types'
 import { JournalDataEncounter } from '@/types/data'
+import getTransmogClassMask from '@/utils/get-transmog-class-mask'
 import getFilteredItems from '@/utils/journal/get-filtered-items'
 import type { JournalState } from '@/stores/local-storage'
 import type { Settings } from '@/types'
@@ -39,6 +40,7 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
     ): void {
         // console.time('JournalDataStore.setup')
 
+        const classMask = getTransmogClassMask(settingsData)
         const masochist = settingsData.transmog.completionistMode
         const stats: Record<string, UserCount> = {}
 
@@ -70,59 +72,59 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
 
                         const items = getFilteredItems(
                             journalState,
-                            settingsData,
                             null,
+                            group,
+                            classMask,
                             instanceExpansion,
-                            group
+                            masochist
                         )
                         for (const item of items) {
                             for (const appearance of item.appearances) {
-                                const key = masochist ?
+                                const appearanceKey = masochist ?
                                     `${item.id}_${appearance.modifierId}` :
                                     appearance.appearanceId.toString()
 
-                                if (!overallSeen[key]) {
+                                if (!overallSeen[appearanceKey]) {
                                     overallStats.total++
                                 }
-                                if (!tierSeen[key]) {
+                                if (!tierSeen[appearanceKey]) {
                                     tierStats.total++
                                 }
-                                if (!instanceSeen[key]) {
+                                if (!instanceSeen[appearanceKey]) {
                                     instanceStats.total++
                                 }
                                 encounterStats.total++
                                 groupStats.total++
 
                                 const userHas = masochist ?
-                                    userTransmogData.sourceHas[key] :
+                                    userTransmogData.sourceHas[appearanceKey] :
                                     userTransmogData.userHas[appearance.appearanceId]
                                 if (userHas) {
-                                    if (!overallSeen[key]) {
+                                    if (!overallSeen[appearanceKey]) {
                                         overallStats.have++
                                     }
-                                    if (!tierSeen[key]) {
+                                    if (!tierSeen[appearanceKey]) {
                                         tierStats.have++
                                     }
-                                    if (!instanceSeen[key]) {
+                                    if (!instanceSeen[appearanceKey]) {
                                         instanceStats.have++
                                     }
                                     encounterStats.have++
                                     groupStats.have++
                                 }
 
-                                overallSeen[key] = true
-                                tierSeen[key] = true
-                                instanceSeen[key] = true
+                                overallSeen[appearanceKey] = true
+                                tierSeen[appearanceKey] = true
+                                instanceSeen[appearanceKey] = true
 
                                 for (const difficulty of appearance.difficulties) {
                                     const instanceDifficultyKey = `${instanceKey}--${difficulty}`
-                                    const instanceDifficultyStats = stats[instanceDifficultyKey] = stats[instanceDifficultyKey] || new UserCount()
+                                    const instanceDifficultyStats = stats[instanceDifficultyKey] ||= new UserCount()
 
                                     const encounterDifficultyKey = `${encounterKey}--${difficulty}`
-                                    const encounterDifficultyStats = stats[encounterDifficultyKey] = stats[encounterDifficultyKey] || new UserCount()
+                                    const encounterDifficultyStats = stats[encounterDifficultyKey] ||= new UserCount()
 
-
-                                    const itemKey = `${key}--${difficulty}`
+                                    const itemKey = `${appearanceKey}--${difficulty}`
                                     if (!instanceSeen[itemKey]) {
                                         instanceDifficultyStats.total++
                                         encounterDifficultyStats.total++

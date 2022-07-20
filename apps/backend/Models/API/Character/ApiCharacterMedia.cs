@@ -1,7 +1,6 @@
-﻿namespace Wowthing.Backend.Models.API.Character
+﻿namespace Wowthing.Backend.Models.API.Character;
+
+public class ApiCharacterMedia
 {
-    public class ApiCharacterMedia
-    {
-        public List<ApiKeyValue<string>> Assets { get; set; }
-    }
+    public List<ApiKeyValue<string>> Assets { get; set; }
 }

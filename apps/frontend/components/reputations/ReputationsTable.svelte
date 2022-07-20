@@ -5,7 +5,7 @@
     import { data as settingsData } from '@/stores/settings'
     import { staticStore } from '@/stores/static'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
-    import toDigits from '@/utils/to-digits'
+    import leftPad from '@/utils/left-pad'
     import type { Character } from '@/types'
     import type { StaticDataReputationCategory } from '@/types/data/static'
 
@@ -48,7 +48,10 @@
                     }
                 }
 
-                return `${toDigits(100000 - repValue, 6)}-${toDigits(10000 - paragonValue, 6)}`
+                return [
+                    leftPad(100000 - repValue, 6, '0'),
+                    leftPad(10000 - paragonValue, 6, '0'),
+                ].join('|')
             }
         }
         else {
@@ -78,17 +81,19 @@
         </CharacterTableHead>
 
         <svelte:fragment slot="rowExtra" let:character>
-            {#each category.reputations as reputationSet, reputationSetIndex}
-                <td class="spacer"></td>
+            {#key `reputations|${slug}`}
+                {#each category.reputations as reputationSet, reputationSetIndex}
+                    <td class="spacer"></td>
 
-                {#each reputationSet as reputation, reputationIndex}
-                    <TableRow
-                        characterRep={character.reputationData[slug].sets[reputationSetIndex][reputationIndex]}
-                        {character}
-                        {reputation}
-                    />
+                    {#each reputationSet as reputation, reputationIndex}
+                        <TableRow
+                            characterRep={character.reputationData[slug].sets[reputationSetIndex][reputationIndex]}
+                            {character}
+                            {reputation}
+                        />
+                    {/each}
                 {/each}
-            {/each}
+            {/key}
         </svelte:fragment>
     </CharacterTable>
 {:else}

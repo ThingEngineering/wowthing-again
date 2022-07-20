@@ -1,21 +1,20 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Wowthing.Lib.Models.Player
+namespace Wowthing.Lib.Models.Player;
+
+public class PlayerCharacterSpecializations
 {
-    public class PlayerCharacterSpecializations
-    {
-        [Key, ForeignKey("Character")]
-        public int CharacterId { get; set; }
-        public PlayerCharacter Character { get; set; }
+    [Key, ForeignKey("Character")]
+    public int CharacterId { get; set; }
+    public PlayerCharacter Character { get; set; }
 
-        [Column(TypeName = "jsonb")]
-        public Dictionary<int, PlayerCharacterSpecializationsSpecialization> Specializations { get; set; }
-    }
+    [Column(TypeName = "jsonb")]
+    public Dictionary<int, PlayerCharacterSpecializationsSpecialization> Specializations { get; set; }
+}
 
-    public class PlayerCharacterSpecializationsSpecialization
-    {
-        public List<List<int>> PvpTalents { get; set; } = new();
-        public List<List<int>> Talents { get; set; } = new();
-    }
+public class PlayerCharacterSpecializationsSpecialization
+{
+    public List<List<int>> PvpTalents { get; set; } = new();
+    public List<List<int>> Talents { get; set; } = new();
 }

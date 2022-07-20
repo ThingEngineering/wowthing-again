@@ -8,7 +8,7 @@
     import type { Character, CharacterMythicPlusRun, MythicPlusAffix, MythicPlusSeason } from '@/types'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
     import getCurrentPeriodForCharacter from '@/utils/get-current-period-for-character'
-    import toDigits from '@/utils/to-digits'
+    import leftPad from '@/utils/left-pad'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
@@ -58,7 +58,7 @@
             sortFunc = getCharacterSortFunc(
                 $settingsData,
                 $staticStore.data,
-                (char) => toDigits(100000 - (char.raiderIo?.[season.id]?.all ?? 0), 6)
+                (char) => leftPad(100000 - (char.raiderIo?.[season.id]?.all ?? 0), 6, '0')
             )
         }
 

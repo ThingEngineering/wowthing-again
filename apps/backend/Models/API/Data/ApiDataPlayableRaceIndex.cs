@@ -1,7 +1,6 @@
-﻿namespace Wowthing.Backend.Models.API.Data
+﻿namespace Wowthing.Backend.Models.API.Data;
+
+public class ApiDataPlayableRaceIndex
 {
-    public class ApiDataPlayableRaceIndex
-    {
-        public List<ApiObnoxiousObject> Races { get; set; }
-    }
+    public List<ApiObnoxiousObject> Races { get; set; }
 }

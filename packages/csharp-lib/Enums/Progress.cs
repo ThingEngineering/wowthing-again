@@ -1,11 +1,10 @@
-﻿namespace Wowthing.Lib.Enums
+﻿namespace Wowthing.Lib.Enums;
+
+public enum ProgressDataType
 {
-    public enum ProgressDataType
-    {
-        Quest,
-        Achievement,
-        Criteria,
-        AddonAchievement,
-        SpentCyphers,
-    }
+    Quest,
+    Achievement,
+    Criteria,
+    AddonAchievement,
+    SpentCyphers,
 }

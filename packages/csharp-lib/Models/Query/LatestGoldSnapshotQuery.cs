@@ -1,13 +1,13 @@
-﻿namespace Wowthing.Lib.Models.Query
-{
-    [Keyless]
-    public class LatestGoldSnapshotQuery
-    {
-        public int AccountId { get; set; }
-        public int RealmId { get; set; }
-        public int Gold { get; set; }
+﻿namespace Wowthing.Lib.Models.Query;
 
-        public static string Sql = @"
+[Keyless]
+public class LatestGoldSnapshotQuery
+{
+    public int AccountId { get; set; }
+    public int RealmId { get; set; }
+    public int Gold { get; set; }
+
+    public static string Sql = @"
 SELECT DISTINCT ON (account_id, realm_id)
     account_id,
     realm_id,
@@ -19,6 +19,4 @@ WINDOW wnd AS (
     ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
 )
 ";
-    }
 }
- 

@@ -1,26 +1,43 @@
-﻿namespace Wowthing.Backend.Models.Data.Achievements
+﻿namespace Wowthing.Backend.Models.Data.Achievements;
+
+public class OutAchievementCategory : ICloneable
 {
-    public class OutAchievementCategory
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public List<int> AchievementIds { get; set; } = new();
+    public List<OutAchievementCategory> Children { get; set; } = new();
+
+    [JsonIgnore]
+    public int Order { get; set; }
+
+    [JsonIgnore]
+    public int Parent { get; set; }
+
+    public string Slug { get; set; }
+
+    public OutAchievementCategory()
+    { }
+
+    public OutAchievementCategory(DumpAchievementCategory category)
     {
-        public int Id { get; }
-        public string Name { get; }
-        public List<int> AchievementIds { get; set; } = new();
-        public List<OutAchievementCategory> Children { get; } = new();
+        Id = category.ID;
+        Name = category.Name;
+        Slug = Name.Slugify();
+        Order = category.UiOrder;
+        Parent = category.Parent;
+    }
 
-        [JsonIgnore]
-        public int Order { get; }
-        
-        [JsonIgnore]
-        public int Parent { get; }
-
-        public string Slug => Name.Slugify();
-
-        public OutAchievementCategory(DumpAchievementCategory category)
+    public object Clone()
+    {
+        return new OutAchievementCategory
         {
-            Id = category.ID;
-            Name = category.Name;
-            Order = category.UiOrder;
-            Parent = category.Parent;
-        }
+            Id = Id,
+            Name = (string)Name.Clone(),
+            Slug = (string)Slug.Clone(),
+            Order = Order,
+            Parent = Parent,
+            AchievementIds = AchievementIds,
+            Children = Children,
+        };
     }
 }

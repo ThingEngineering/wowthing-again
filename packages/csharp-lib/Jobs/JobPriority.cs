@@ -1,9 +1,8 @@
-﻿namespace Wowthing.Lib.Jobs
+﻿namespace Wowthing.Lib.Jobs;
+
+public enum JobPriority
 {
-    public enum JobPriority
-    {
-        High = 1,
-        Low = 2,
-        Auction = 3,
-    }
+    High = 1,
+    Low = 2,
+    Auction = 3,
 }

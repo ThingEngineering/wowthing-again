@@ -5,105 +5,104 @@ using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
 
-namespace Wowthing.Backend.Jobs.Character
+namespace Wowthing.Backend.Jobs.Character;
+
+public class CharacterMythicKeystoneProfileJob : JobBase
 {
-    public class CharacterMythicKeystoneProfileJob : JobBase
+    private const string ApiPath = "profile/wow/character/{0}/{1}/mythic-keystone-profile";
+
+    public override async Task Run(params string[] data)
     {
-        private const string ApiPath = "profile/wow/character/{0}/{1}/mythic-keystone-profile";
+        var query = JsonConvert.DeserializeObject<SchedulerCharacterQuery>(data[0]) ??
+                    throw new InvalidJsonException(data[0]);
+        using var shrug = CharacterLog(query);
 
-        public override async Task Run(params string[] data)
+        // Fetch API data
+        ApiCharacterMythicKeystoneProfile resultData;
+        var uri = GenerateUri(query, ApiPath);
+        try
         {
-            var query = JsonConvert.DeserializeObject<SchedulerCharacterQuery>(data[0]) ??
-                        throw new InvalidJsonException(data[0]);
-            using var shrug = CharacterLog(query);
-
-            // Fetch API data
-            ApiCharacterMythicKeystoneProfile resultData;
-            var uri = GenerateUri(query, ApiPath);
-            try
+            var result = await GetJson<ApiCharacterMythicKeystoneProfile>(uri, useLastModified: false);
+            if (result.NotModified)
             {
-                var result = await GetJson<ApiCharacterMythicKeystoneProfile>(uri, useLastModified: false);
-                if (result.NotModified)
-                {
-                    LogNotModified();
-                    return;
-                }
-
-                resultData = result.Data;
-            }
-            catch (HttpRequestException e)
-            {
-                Logger.Error("HTTP {0}", e.Message);
+                LogNotModified();
                 return;
             }
 
-            // Fetch character data
-            var mythicPlus = await Context.PlayerCharacterMythicPlus.FindAsync(query.CharacterId);
-            if (mythicPlus == null)
+            resultData = result.Data;
+        }
+        catch (HttpRequestException e)
+        {
+            Logger.Error("HTTP {0}", e.Message);
+            return;
+        }
+
+        // Fetch character data
+        var mythicPlus = await Context.PlayerCharacterMythicPlus.FindAsync(query.CharacterId);
+        if (mythicPlus == null)
+        {
+            mythicPlus = new PlayerCharacterMythicPlus
             {
-                mythicPlus = new PlayerCharacterMythicPlus
+                CharacterId = query.CharacterId,
+            };
+            Context.PlayerCharacterMythicPlus.Add(mythicPlus);
+        }
+
+        mythicPlus.CurrentPeriodId = resultData.CurrentPeriod.Period.Id;
+
+        mythicPlus.PeriodRuns = resultData.CurrentPeriod.BestRuns
+            .EmptyIfNull()
+            .Select(run => new PlayerCharacterMythicPlusRun
+            {
+                Affixes = run.Affixes.Select(a => a.Id).ToList(),
+                Completed = run.CompletedTimestamp.AsUtcTimestamp(),
+                DungeonId = run.Dungeon.Id,
+                Duration = run.Duration,
+                KeystoneLevel = run.KeystoneLevel,
+                Members = run.Members.Select(member => new PlayerCharacterMythicPlusRunMember
                 {
-                    CharacterId = query.CharacterId,
-                };
-                Context.PlayerCharacterMythicPlus.Add(mythicPlus);
-            }
+                    ItemLevel = member.ItemLevel,
+                    Name = member.Character.Name,
+                    RealmId = member.Character.Realm.Id,
+                    SpecializationId = member.Specialization.Id,
+                }).ToList(),
+                Timed = run.Timed,
+            })
+            .ToList();
 
-            mythicPlus.CurrentPeriodId = resultData.CurrentPeriod.Period.Id;
+        int updated = await Context.SaveChangesAsync();
+        if (updated > 0)
+        {
+            await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, query.UserId);
+        }
 
-            mythicPlus.PeriodRuns = resultData.CurrentPeriod.BestRuns
-                .EmptyIfNull()
-                .Select(run => new PlayerCharacterMythicPlusRun
-                {
-                    Affixes = run.Affixes.Select(a => a.Id).ToList(),
-                    Completed = run.CompletedTimestamp.AsUtcTimestamp(),
-                    DungeonId = run.Dungeon.Id,
-                    Duration = run.Duration,
-                    KeystoneLevel = run.KeystoneLevel,
-                    Members = run.Members.Select(member => new PlayerCharacterMythicPlusRunMember
-                    {
-                        ItemLevel = member.ItemLevel,
-                        Name = member.Character.Name,
-                        RealmId = member.Character.Realm.Id,
-                        SpecializationId = member.Specialization.Id,
-                    }).ToList(),
-                    Timed = run.Timed,
-                })
-                .ToList();
+        // Start jobs for all seasons
+        var apiSeasons = resultData.Seasons
+            .EmptyIfNull()
+            .Select(s => s.Id)
+            .OrderByDescending(id => id)
+            .ToArray();
 
-            int updated = await Context.SaveChangesAsync();
-            if (updated > 0)
-            {
-                await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, query.UserId);
-            }
+        var existingSeasonIds = await Context.PlayerCharacterMythicPlusSeason
+            .Where(mps => mps.CharacterId == query.CharacterId)
+            .OrderByDescending(mps => mps.Season)
+            .Select(mps => mps.Season)
+            .ToArrayAsync();
 
-            // Start jobs for all seasons
-            var apiSeasons = resultData.Seasons
-                .EmptyIfNull()
-                .Select(s => s.Id)
-                .OrderByDescending(id => id)
-                .ToArray();
-
-            var existingSeasonIds = await Context.PlayerCharacterMythicPlusSeason
-                .Where(mps => mps.CharacterId == query.CharacterId)
-                .OrderByDescending(mps => mps.Season)
-                .Select(mps => mps.Season)
-                .ToArrayAsync();
-
-            // If we've already visited every season for this character, just grab the latest
-            if (apiSeasons.Length > 0 && Enumerable.SequenceEqual(apiSeasons, existingSeasonIds))
-            {
-                apiSeasons = new[] { apiSeasons[0] };
-            }
+        // If we've already visited every season for this character, just grab the latest
+        if (apiSeasons.Length > 0 && Enumerable.SequenceEqual(apiSeasons, existingSeasonIds))
+        {
+            apiSeasons = new[] { apiSeasons[0] };
+        }
             
-            foreach (var apiSeason in apiSeasons)
-            { 
-                await JobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterMythicKeystoneProfileSeason, data[0], apiSeason.ToString());
-            }
+        foreach (var apiSeason in apiSeasons)
+        { 
+            await JobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterMythicKeystoneProfileSeason, data[0], apiSeason.ToString());
+        }
 
-            if (apiSeasons.Length > 0)
-            {
-                await JobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterRaiderIo, data[0], JsonConvert.SerializeObject(apiSeasons));
-            }
+        if (apiSeasons.Length > 0)
+        {
+            await JobRepository.AddJobAsync(JobPriority.Low, JobType.CharacterRaiderIo, data[0], JsonConvert.SerializeObject(apiSeasons));
         }
     }
 }

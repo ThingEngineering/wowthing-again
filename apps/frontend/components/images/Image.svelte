@@ -9,6 +9,7 @@
     export let size = 0
     export let width = 0
     export let cls: string = undefined
+    export let lazy = true
     export let tooltip: TippyProps | string = undefined
 
     let actualHeight: number
@@ -35,6 +36,6 @@
     width={actualWidth}
     height={actualHeight}
     alt={alt}
-    loading="lazy"
+    loading="{lazy ? 'lazy' : null}"
     use:tippy={tooltip}
 />

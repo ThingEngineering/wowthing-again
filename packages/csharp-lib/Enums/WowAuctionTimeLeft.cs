@@ -1,10 +1,9 @@
-﻿namespace Wowthing.Lib.Enums
+﻿namespace Wowthing.Lib.Enums;
+
+public enum WowAuctionTimeLeft : short
 {
-    public enum WowAuctionTimeLeft : short
-    {
-        Short,
-        Medium,
-        Long,
-        VeryLong,
-    }
+    Short,
+    Medium,
+    Long,
+    VeryLong,
 }

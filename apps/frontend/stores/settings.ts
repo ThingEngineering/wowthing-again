@@ -6,7 +6,7 @@ import { userTransmogStore } from './user-transmog'
 import type { Settings } from '@/types'
 
 
-let interval: number | null = null
+let interval: NodeJS.Timer | null = null
 
 const { set, subscribe, update } = writable<Settings>()
 
@@ -20,9 +20,9 @@ export const data = {
         if (settings.general.refreshInterval > 0) {
             interval = setInterval(
                 async () => await Promise.all([
-                    userQuestStore.fetch(false),
-                    userStore.fetch(false),
-                    userTransmogStore.fetch(false),
+                    userQuestStore.fetch({ evenIfLoaded: true }),
+                    userStore.fetch({ evenIfLoaded: true }),
+                    userTransmogStore.fetch({ evenIfLoaded: true }),
                 ]),
                 settings.general.refreshInterval * 1000 * 60
             )

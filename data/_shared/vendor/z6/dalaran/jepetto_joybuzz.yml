@@ -1,8 +1,10 @@
 id: 96483
 name: "Jepetto Joybuzz"
+
 locations:
   z6_dalaran:
     - 43.6 45.6
+
 sells:
   - type: pet
     id: 254 # Blue Clockwork Rocket Bot

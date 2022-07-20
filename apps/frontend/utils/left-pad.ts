@@ -1,9 +1,9 @@
 
 
-export default function leftPad(n: number, digits: number): string {
+export default function leftPad(n: number, digits: number, pad = '&nbsp;'): string {
     let ret = n.toString()
     if (ret.length < digits) {
-        ret = `${'&nbsp;'.repeat(digits - ret.length)}${ret}`
+        ret = `${pad.repeat(digits - ret.length)}${ret}`
     }
     return ret
 }

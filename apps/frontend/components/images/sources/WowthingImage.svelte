@@ -3,10 +3,11 @@
 
     import Image from '../Image.svelte'
 
-    export let name: string
-    export let size: number
     export let border = 0
     export let cls: string = undefined
+    export let lazy = true
+    export let name: string
+    export let size: number
     export let tooltip: TippyProps | string = undefined
 
     const actualSize = size + (border * 2)
@@ -23,5 +24,6 @@
     alt={name}
     size={actualSize}
     {cls}
+    {lazy}
     {tooltip}
 />

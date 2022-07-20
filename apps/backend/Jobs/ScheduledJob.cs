@@ -1,25 +1,24 @@
 ﻿using Wowthing.Lib.Jobs;
 
-namespace Wowthing.Backend.Jobs
-{
-    public class ScheduledJob
-    {
-        public JobPriority Priority;
-        public JobType Type;
-        public TimeSpan Interval;
-        public int Version = 1;
+namespace Wowthing.Backend.Jobs;
 
-        private string _redisKey;
-        public string RedisKey
+public class ScheduledJob
+{
+    public JobPriority Priority;
+    public JobType Type;
+    public TimeSpan Interval;
+    public int Version = 1;
+
+    private string _redisKey;
+    public string RedisKey
+    {
+        get
         {
-            get
+            if (_redisKey == null)
             {
-                if (_redisKey == null)
-                {
-                    _redisKey = $"{Type}_v{Version}";
-                }
-                return _redisKey;
+                _redisKey = $"{Type}_v{Version}";
             }
+            return _redisKey;
         }
     }
 }

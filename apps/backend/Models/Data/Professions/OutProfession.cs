@@ -1,10 +1,9 @@
-﻿namespace Wowthing.Backend.Models.Data.Professions
+﻿namespace Wowthing.Backend.Models.Data.Professions;
+
+public class OutProfession
 {
-    public class OutProfession
-    {
-        public int Id { get; set; }
-        public int Type { get; set; }
-        public string Name { get; set; }
-        public List<OutSubProfession> SubProfessions { get; set; }
-    }
+    public int Id { get; set; }
+    public int Type { get; set; }
+    public string Name { get; set; }
+    public List<OutSubProfession> SubProfessions { get; set; }
 }
