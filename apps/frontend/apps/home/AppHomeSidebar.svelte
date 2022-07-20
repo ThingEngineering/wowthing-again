@@ -237,6 +237,13 @@
         </a>
     </li>
 
+    <li use:active={'/matrix'}>
+        <a href="#/matrix">
+            <IconifyIcon icon={iconConstruction} dropShadow={true} />
+            Matrix
+        </a>
+    </li>
+
     {#if $userStore.loaded && !$userStore.data.public}
         <li class="separator"></li>
 
