@@ -54,6 +54,20 @@ INVENTORY_SLOT = {
     23: 'off-hand',
     26: 'ranged',
 }
+CHRCLASS = {
+    1: 'Death Knight',
+    2: 'Demon Hunter',
+    3: 'Druid',
+    4: 'Hunter',
+    5: 'Mage',
+    6: 'Monk',
+    7: 'Paladin',
+    8: 'Priest',
+    9: 'Rogue',
+    10: 'Shaman',
+    11: 'Warlock',
+    12: 'Warrior',
+}
 SORT_CHRCLASS = {
     32: 1,   # 6=death knight
     2048: 2, # 12=demon hunter
@@ -86,11 +100,11 @@ SORT_CLASS = {
     2: 3, # Weapon
 }
 SORT_SUBCLASS = {
-    (4, 1): 1, # Cloth
-    (4, 2): 2, # Leather
-    (4, 3): 3, # Mail
-    (4, 4): 4, # Plate
-    (4, -6): 5, # Cloak
+    (4, 1): 20, # Cloth
+    (4, 2): 21, # Leather
+    (4, 3): 22, # Mail
+    (4, 4): 23, # Plate
+    (4, -6): 30, # Cloak
     (4, -5): 1000, # Off-hand
     (4, 6): 10001, # Shield
 }
@@ -180,17 +194,32 @@ print('sells:')
 sorted_items = sorted(items, key=lambda item: [
     -item["standing"],
     SORT_CLASS.get(item["classs"], item["classs"] + 100),
-    SORT_CHRCLASS.get(item.get("reqclass", 0), SORT_SUBCLASS.get((item["classs"], item.get("subclass", 0)), item.get("subclass", 0) + 100)),
+    SORT_CHRCLASS.get(
+        item.get("reqclass", 0),
+        SORT_SUBCLASS.get(
+            (item["classs"], item.get("subclass", 0)),
+            item.get("subclass", 0) + 100
+        )
+    ),
     SORT_KEY.get(item.get("slot", 0), item.get("slot", 0) + 100),
     item["name"],
 
 ])
 
+last_cls = None
 for item in sorted_items:
     item_class = item.get('classs', 0)
     item_subclass = item.get('subclass', 0)
     item_slot = item.get('slot', 0)
     type_parts = []
+
+    sort_key = SORT_CHRCLASS.get(item.get('reqclass', 0), 0)
+    char_class = CHRCLASS.get(sort_key, sort_key)
+
+    if char_class != last_cls:
+        print(f'  # {char_class}')
+        print()
+        last_cls = char_class
 
     if item_slot in SKIP_INVENTORY_SLOT:
         print(f'  # Skipped id={item["id"]} name={item["name"]} slot={item_slot}')
