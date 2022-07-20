@@ -48,7 +48,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
         Type = JobType.ImportDumps,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(24),
-        Version = 16,
+        Version = 17,
     };
 
     private Dictionary<int, DumpItemXItemEffect[]> _itemEffectsMap;
@@ -215,24 +215,24 @@ public class ImportDumpsJob : JobBase, IScheduledJob
 
     private async Task ImportCharacterRaces()
     {
-        var races = await DataUtilities
+        var dumpRaces = await DataUtilities
             .LoadDumpCsvAsync<DumpChrRaces>(Path.Join("enUS", "chrraces"));
 
         var dbRaceMap = await Context.WowCharacterRace
-            .ToDictionaryAsync(spec => spec.Id);
+            .ToDictionaryAsync(race => race.Id);
 
-        foreach (var race in races)
+        foreach (var dumpRace in dumpRaces.Where(race => race.PlayableRaceBit >= 0))
         {
-            if (!dbRaceMap.TryGetValue(race.ID, out var dbRace))
+            if (!dbRaceMap.TryGetValue(dumpRace.ID, out var dbRace))
             {
                 dbRace = new WowCharacterRace
                 {
-                    Id = race.ID,
+                    Id = dumpRace.ID,
                 };
                 Context.WowCharacterRace.Add(dbRace);
             }
 
-            dbRace.Faction = race.Faction;
+            dbRace.Faction = dumpRace.Faction;
         }
 
         _timer.AddPoint("CharacterRaces");
