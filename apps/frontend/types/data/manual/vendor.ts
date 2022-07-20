@@ -1,6 +1,7 @@
 import { getCurrencyCostsString } from '@/utils/get-currency-costs'
 import type { RewardType, ItemQuality } from '@/types/enums'
 import type { ManualData } from './store'
+import type { StaticData } from '@/types/data/static/store'
 
 
 export class ManualDataVendorCategory {
@@ -22,11 +23,11 @@ export type ManualDataVendorCategoryArray = ConstructorParameters<typeof ManualD
 export class ManualDataVendorGroup {
     public sells: ManualDataVendorItem[]
     public sellsFiltered: ManualDataVendorItem[]
-    public auto?: boolean
 
     constructor(
         public name: string,
         itemArrays: ManualDataVendorItemArray[],
+        public auto?: boolean
     )
     {
         this.sells = itemArrays.map((itemArray) => new ManualDataVendorItem(...itemArray))
@@ -37,6 +38,7 @@ export type ManualDataVendorGroupArray = ConstructorParameters<typeof ManualData
 export class ManualDataVendorItem {
     public costs: Record<number, number>
     public extraAppearances: number
+    public sortedCosts: [string, number, string, number, number][]
 
     constructor(
         public id: number,
@@ -59,8 +61,8 @@ export class ManualDataVendorItem {
         }
     }
     
-    getNote(manualData: ManualData): string | undefined {
-        return this.costs ? getCurrencyCostsString(manualData, this.costs, this.reputation) : this.note
+    getNote(manualData: ManualData, staticData: StaticData): string | undefined {
+        return this.costs ? getCurrencyCostsString(manualData, staticData, this.costs, this.reputation) : this.note
     }
 }
 export type ManualDataVendorItemArray = ConstructorParameters<typeof ManualDataVendorItem>

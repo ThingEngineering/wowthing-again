@@ -70,11 +70,12 @@ export class WritableFancyStore<TData> {
         const actualUrl = baseUri + url.substring(1)
 
         let json: string
+        let redirected: boolean
         try {
-            json = await fetchJson(actualUrl)
+            [json, redirected] = await fetchJson(actualUrl)
         }
-        catch (e) {
-            console.error((e as Error).message)
+        catch (err) {
+            console.error(err)
             // Only set the error state if we weren't previously loaded to avoid breaking
             // everything on an attempted refresh
             if (!wasLoaded) {
@@ -84,6 +85,11 @@ export class WritableFancyStore<TData> {
                 })
             }
             return false
+        }
+
+        // Redirected SHOULD mean it was a 304
+        if (options?.evenIfLoaded && redirected) {
+            return true
         }
 
         if (json === null) {

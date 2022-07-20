@@ -10,7 +10,7 @@ export const data = writable<TeamData>()
 
 export const fetch = async function (): Promise<void> {
     const url = document.getElementById('app').getAttribute('data-team')
-    const json = await fetchJson(url)
+    const [json, redirected] = await fetchJson(url)
     if (json === null) {
         error.set(true)
         return

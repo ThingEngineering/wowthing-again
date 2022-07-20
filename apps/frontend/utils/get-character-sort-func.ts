@@ -2,7 +2,7 @@ import { get } from 'svelte/store'
 
 import {Constants} from '@/data/constants'
 import { userStore } from '@/stores'
-import toDigits from '@/utils/to-digits'
+import leftPad from '@/utils/left-pad'
 import { Region } from '@/types/enums'
 import type { Character, Settings, UserData } from '@/types'
 import type { StaticData } from '@/types/data/static'
@@ -24,7 +24,7 @@ export default function getCharacterSortFunc(
         }
 
         const index = settingsData.characters.pinnedCharacters?.indexOf(char.id) ?? -1
-        out.push(toDigits(index >= 0 ? index : 999, 3))
+        out.push(leftPad(index >= 0 ? index : 999, 3, '0'))
 
         for (const thing of sortBy) {
             if (thing === 'account') {
@@ -73,18 +73,18 @@ export default function getCharacterSortFunc(
                 out.push((5 - char.faction).toString())
             }
             else if (thing === 'gold') {
-                out.push(toDigits(10_000_000 - char.gold, 8).toString())
+                out.push(leftPad(10_000_000 - char.gold, 8, '0'))
             }
             else if (thing === 'itemlevel' || thing == 'itemLevel') { // TODO remove me once users are fixed
-                out.push(toDigits(1000 - parseInt(char.calculatedItemLevel || '0'), 4))
+                out.push(leftPad(1000 - parseInt(char.calculatedItemLevel || '0'), 4, '0'))
             }
             else if (thing === 'level') {
                 // this will sort by level in descending order
-                out.push(toDigits(Constants.characterMaxLevel - char.level, 2))
+                out.push(leftPad(Constants.characterMaxLevel - char.level, 2, '0'))
             }
             else if (thing === 'mplusrating') {
                 const rating = char.raiderIo?.[Constants.mythicPlusSeason]?.all || 0
-                out.push(toDigits(10000 - rating, 5))
+                out.push(leftPad(10000 - rating, 5, '0'))
             }
             else if (thing === 'name') {
                 out.push(char.name)

@@ -4,7 +4,7 @@
 
     import { achievementStore, userAchievementStore } from '@/stores'
     import type { AchievementDataCategory } from '@/types'
-    import toDigits from '@/utils/to-digits'
+    import leftPad from '@/utils/left-pad'
 
     import AchievementsAchievement from './AchievementsAchievement.svelte'
 
@@ -22,8 +22,8 @@
 
         achievementIds = sortBy(category.achievementIds, id => [
             $userAchievementStore.data.achievements[id] === undefined ? '1' : '0',
-            toDigits($achievementStore.data.achievement[id].order, 4),
-            toDigits(100000 - id, 6)
+            leftPad($achievementStore.data.achievement[id].order, 4, '0'),
+            leftPad(100000 - id, 6, '0')
         ].join('|'))
         console.timeEnd('AchievementsCategory computed')
     }

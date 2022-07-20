@@ -27,7 +27,7 @@ import type { DropStatus, FancyStore, FarmStatus, Settings, UserAchievementData,
 import type { UserQuestData, UserTransmogData } from '@/types/data'
 import type { ManualData, ManualDataSetCategoryArray } from '@/types/data/manual'
 import type { StaticData } from '@/types/data/static'
-import { getSetCurrencyCostsString } from '@/utils/get-currency-costs'
+import { getCurrencyCosts, getSetCurrencyCostsString } from '@/utils/get-currency-costs'
 
 
 type classMaskStrings = keyof typeof PlayableClassMask
@@ -126,7 +126,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
         data.rawPetSets = null
         data.rawToySets = null
 
-        console.log(data)
+        //console.log(data)
     }
     
     private static fixSets(allSets: ManualDataSetCategoryArray[][]): ManualDataSetCategory[][] {
@@ -182,6 +182,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
 
             this.setupVendors(
                 state,
+                staticData
             )
             
             this.setupZoneMaps(
@@ -195,7 +196,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                 userTransmogData,
                 zoneMapState
             )
-            
+
             return state
         })
 
@@ -235,9 +236,13 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
     }
 
     private setupVendors(
-        state: FancyStore<ManualData>
+        state: FancyStore<ManualData>,
+        staticData: StaticData
     )
     {
+        // console.time('setupVendors')
+
+        const autoSeen: Record<string, boolean> = {}
         for (const categories of state.data.vendors.sets) {
             if (categories === null) {
                 continue
@@ -268,10 +273,15 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                     for (let setIndex = 0; setIndex < vendor.sets.length; setIndex++) {
                         const set = vendor.sets[setIndex]
                         const groupKey = `${set.sortKey ? '09' + set.sortKey : 10 + setIndex}${set.name}`
-                        autoGroups[groupKey] ||= new ManualDataVendorGroup(set.name, [])
-                        autoGroups[groupKey].auto = true
+                        
+                        const autoGroup = autoGroups[groupKey] ||= new ManualDataVendorGroup(set.name, [], true)
                         for (let itemIndex = set.range[0]; itemIndex < set.range[0] + set.range[1]; itemIndex++) {
-                            autoGroups[groupKey].sells.push(vendor.sells[itemIndex])
+                            const item = vendor.sells[itemIndex]
+                            const seenKey = `${item.type}|${item.id}`
+                            if (!autoSeen[seenKey]) {
+                                autoGroup.sells.push(item)
+                                autoSeen[seenKey] = true
+                            }
                         }
                     }
 
@@ -298,20 +308,15 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                             [groupKey, groupName] = ['90transmog', 'Transmog']
                         }
 
+                        item.sortedCosts = getCurrencyCosts(state.data, staticData, item.costs)
+
                         if (groupKey) {
-                            autoGroups[groupKey] ||= new ManualDataVendorGroup(groupName, [])
-                            autoGroups[groupKey].auto = true
+                            const autoGroup = autoGroups[groupKey] ||= new ManualDataVendorGroup(groupName, [], true)
 
-                            const seen = some(
-                                Object.values(autoGroups),
-                                (group) => some(
-                                    group.sells,
-                                    (sell) => sell.type === item.type && sell.id === item.id
-                                )
-                            )
-
-                            if (!seen) {
-                                autoGroups[groupKey].sells.push(item)
+                            const seenKey = `${item.type}|${item.id}`
+                            if (!autoSeen[seenKey]) {
+                                autoGroup.sells.push(item)
+                                autoSeen[seenKey] = true
                             }
                         }
                     }
@@ -319,13 +324,11 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
 
                 const groups = Object.entries(autoGroups)
                 groups.sort()
-
-                for (const [, group] of groups) {
-                    category.groups.push(group)
-                }
-                //console.log(category, vendorIds)
+                category.groups = groups.map(([, group]) => group)
             }
         }
+
+        // console.timeEnd('setupVendors')
     }
 
     private setupZoneMaps(
@@ -445,7 +448,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
 
                 const farms = [...map.farms]
                 for (const vendorId of (manualData.shared.vendorsByMap[map.mapName] || [])) {
-                    farms.push(...manualData.shared.vendors[vendorId].asFarms(manualData, map.mapName))
+                    farms.push(...manualData.shared.vendors[vendorId].asFarms(manualData, staticData, map.mapName))
                 }
 
                 const farmStatuses: FarmStatus[] = []
@@ -570,6 +573,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
 
                                 dropStatus.setNote = getSetCurrencyCostsString(
                                     manualData,
+                                    staticData,
                                     drop.appearanceIds,
                                     drop.costs,
                                     (appearanceId) => userTransmogData.userHas[appearanceId]

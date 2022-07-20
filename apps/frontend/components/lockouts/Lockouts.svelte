@@ -7,7 +7,7 @@
     import { lockoutState } from '@/stores/local-storage'
     import { data as settingsData } from '@/stores/settings'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
-    import toDigits from '@/utils/to-digits'
+    import leftPad from '@/utils/left-pad'
     import type { Character, InstanceDifficulty } from '@/types'
     import type { StaticDataInstance } from '@/types/data/static'
 
@@ -50,8 +50,8 @@
 
                 const orderIndex = lockoutDifficultyOrder.indexOf(diff.difficulty.id)
                 return [
-                    toDigits(100 - instance.expansion, 2),
-                    toDigits(orderIndex >= 0 ? orderIndex : 99, 2),
+                    leftPad(100 - instance.expansion, 2, '0'),
+                    leftPad(orderIndex >= 0 ? orderIndex : 99, 2, '0'),
                     instance.shortName,
                     diff.difficulty.shortName,
                 ].join('|')

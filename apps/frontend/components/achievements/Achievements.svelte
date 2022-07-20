@@ -25,9 +25,12 @@
     $: {
         error = $achievementStore.error || $userAchievementStore.error
         loaded = $achievementStore.loaded && $userAchievementStore.loaded
-        ready = (!error && loaded && $userAchievementStore.data.achievementCategories !== null)
+        ready = false
         if (!error && loaded) {
-            userAchievementStore.setup($achievementStore.data)
+            if (!$userAchievementStore.data.achievementCategories) {
+                userAchievementStore.setup($achievementStore.data)
+            }
+            ready = true
         }
     }
 </script>
@@ -40,7 +43,7 @@
     }
 </style>
 
-<div>
+<div class="wrapper">
     {#if error}
         <p>KABOOM! Something has gone horribly wrong, try reloading the page?</p>
     {:else if !ready}

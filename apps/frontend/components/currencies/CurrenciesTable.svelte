@@ -8,7 +8,7 @@
     import { data as settingsData } from '@/stores/settings'
     import { staticStore } from '@/stores/static'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
-    import toDigits from '@/utils/to-digits'
+    import leftPad from '@/utils/left-pad'
     import type { Character } from '@/types'
     import type { StaticDataCurrency } from '@/types/data/static'
 
@@ -29,7 +29,7 @@
         const order = $currencyState.sortOrder[slug]
         if (order > 0) {
             sorted = true
-            sortFunc = (char) => toDigits(1000000 - (char.currencies?.[order]?.quantity ?? -1), 7)
+            sortFunc = (char) => leftPad(1000000 - (char.currencies?.[order]?.quantity ?? -1), 7, '0')
         }
         else {
             sorted = false

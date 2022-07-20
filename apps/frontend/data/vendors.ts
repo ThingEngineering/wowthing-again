@@ -22,3 +22,7 @@ export const costOrder: number[] = [
     // Cataclysm
     1071617, // Crystallized Firestone
 ]
+
+export const costOrderMap: Record<number, number> = Object.fromEntries(
+    costOrder.map((value, index) => [value, index])
+)

@@ -1,22 +1,14 @@
 export default async function fetchJson(
     url: string,
-): Promise<string | null> {
+): Promise<[string | null, boolean]> {
     const request = new Request(url, {
         credentials: 'include',
         mode: 'cors',
     })
 
-    return fetch(request)
-        .then((response) => {
-            if (response.ok) {
-                return response.text() ?? null
-            } else {
-                console.log(`fetch failed: ${response.status} ${response.statusText}`)
-                return null
-            }
-        })
-        .catch((err) => {
-            console.error(`fetch error: ${err}`)
-            return null
-        })
+    const response = await fetch(request)
+    if (!response.ok) {
+        throw response.statusText
+    }
+    return [await response.text() ?? null, response.redirected]
 }

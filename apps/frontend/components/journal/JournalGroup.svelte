@@ -5,6 +5,7 @@
     import { journalState } from '@/stores/local-storage'
     import { data as settingsData } from '@/stores/settings'
     import getPercentClass from '@/utils/get-percent-class'
+    import getTransmogClassMask from '@/utils/get-transmog-class-mask'
     import getFilteredItems from '@/utils/journal/get-filtered-items'
     import type { UserCount } from '@/types'
     import type { JournalDataEncounterItem, JournalDataEncounterItemGroup } from '@/types/data'
@@ -25,10 +26,11 @@
     $: {
         items = getFilteredItems(
             $journalState,
-            $settingsData,
             $userTransmogStore.data,
+            group,
+            getTransmogClassMask($settingsData),
             instanceExpansion,
-            group
+            $settingsData.transmog.completionistMode
         )
         percent = Math.floor((stats?.have ?? 0) / (stats?.total ?? 1) * 100)
     }

@@ -5,12 +5,12 @@
     import { manualStore, staticStore } from '@/stores'
     import { vendorState } from '@/stores/local-storage'
     import { userVendorStore } from '@/stores/user-vendors'
-    import { RewardType } from '@/types/enums'
-    import { getCurrencyCosts } from '@/utils/get-currency-costs'
+    import { PlayableClass, PlayableClassMask, RewardType } from '@/types/enums'
     import getPercentClass from '@/utils/get-percent-class'
     import type { UserCount } from '@/types'
     import type { ManualDataVendorGroup, ManualDataVendorItem } from '@/types/data/manual'
 
+    import ClassIcon from '@/components/images/ClassIcon.svelte'
     import CollectionCount from '@/components/collections/CollectionCount.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import WowheadLink from '@/components/links/WowheadLink.svelte'
@@ -20,49 +20,62 @@
     export let stats: UserCount
     export let useV2: boolean
 
+    class ThingData {
+        public classId: number
+        public extraParams: Record<string, string>
+        public linkId: number
+        public linkType: string
+        public quality: number
+
+        constructor(
+            public item: ManualDataVendorItem,
+            public userHas: boolean
+        )
+        {
+            this.extraParams = {}
+        }
+    }
+
     let element: HTMLElement
     let intersected = false
     let percent: number
-    let things: [ManualDataVendorItem, string, number, Record<string, string>, boolean, [string, number, string, number, number][]][]
+    let things: ThingData[]
     $: {
         things = []
         for (const thing of group.sellsFiltered) {
             const userHas = $userVendorStore.data.userHas[`${thing.type}-${thing.id}`] === true
             if (($vendorState.showCollected && userHas) || ($vendorState.showUncollected && !userHas)) {
-                const costs: [string, number, string, number, number][] = []
-                if (!userHas) {
-                    costs.push(...getCurrencyCosts($manualStore.data, thing.costs))
-                }
+                const thingData = new ThingData(thing, userHas)
 
-                const extraParams: Record<string, string> = {}
-                let linkType: string
-                let linkId: number
+                thingData.quality = thing.quality || $manualStore.data.shared.items[thing.id]?.quality || 0
+
                 if (thing.type === RewardType.Mount) {
-                    linkType = 'spell'
-                    linkId = $staticStore.data.mounts[thing.id]?.spellId
+                    thingData.linkType = 'spell'
+                    thingData.linkId = $staticStore.data.mounts[thing.id]?.spellId
                 }
                 else if (thing.type === RewardType.Pet) {
-                    linkType = 'npc'
-                    linkId = $staticStore.data.pets[thing.id].creatureId
+                    thingData.linkType = 'npc'
+                    thingData.linkId = $staticStore.data.pets[thing.id].creatureId
                 }
                 else {
-                    linkType = 'item'
-                    linkId = thing.id
+                    thingData.linkType = 'item'
+                    thingData.linkId = thing.id
+                    
                     if (thing.bonusIds) {
-                        extraParams['bonus'] = thing.bonusIds
+                        thingData.extraParams['bonus'] = thing.bonusIds
                             .map((bonusId) => bonusId.toString())
                             .join(':')
                     }
+
+                    if (thing.classMask in PlayableClassMask) {
+                        thingData.classId = PlayableClass[PlayableClassMask[thing.classMask] as keyof typeof PlayableClass]
+                    }
+                    else {
+                        thingData.classId = 0
+                    }
                 }
 
-                things.push([
-                    thing,
-                    linkType,
-                    linkId,
-                    extraParams,
-                    userHas,
-                    costs,
-                ])
+                things.push(thingData)
             }
         }
 
@@ -71,6 +84,9 @@
 </script>
 
 <style lang="scss">
+    .collection-objects {
+        min-height: 52px;
+    }
     .collection-object {
         min-height: 52px;
         width: 52px;
@@ -103,53 +119,81 @@
             justify-content: flex-end;
         }
     }
+    .player-class {
+        --image-margin-top: -4px;
+        --shadow-color: rgba(0, 0, 0, 0.8);
+
+        border: none;
+        height: 24px;
+        left: -1px;
+        width: 24px;
+        position: absolute;
+        top: -1px;
+    }
 </style>
 
 {#if things?.length > 0}
-    <IntersectionObserver once {element} bind:intersecting={intersected}>
-        <div class="collection{useV2 ? '-v2' : ''}-group" bind:this={element}>
+    <IntersectionObserver
+        once
+        {element}
+        bind:intersecting={intersected}
+    >
+        <div
+            bind:this={element}
+            class="collection{useV2 ? '-v2' : ''}-group"
+        >
             <h4 class="drop-shadow {getPercentClass(percent)}">
                 {group.name}
                 <CollectionCount counts={stats} />
             </h4>
 
-            <div class="collection-objects" data-inter={intersected}>
-                {#each things as [thing, linkType, linkId, extraParams, userHas, costs]}
+            <div class="collection-objects">
+                {#each things as thing}
                     <div
-                        class="collection-object quality{thing.quality || $manualStore.data.shared.items[thing.id]?.quality || 0}"
+                        class="collection-object quality{thing.quality}"
                         class:missing={
-                            (!$vendorState.highlightMissing && !userHas) ||
-                            ($vendorState.highlightMissing && userHas)
+                            (!$vendorState.highlightMissing && !thing.userHas) ||
+                            ($vendorState.highlightMissing && thing.userHas)
                         }
-                        data-thing="{thing.type} {thing.id}"
-                        style:height="{52 + (20 * costs.length)}px"
+                        style:height="{52 + (20 * thing.item.sortedCosts.length)}px"
                     >
                         {#if intersected}
                             <WowheadLink
-                                id={linkId}
-                                type={linkType}
-                                {extraParams}
+                                id={thing.linkId}
+                                type={thing.linkType}
+                                extraParams={thing.extraParams}
                             >
                                 <WowthingImage
-                                    name="{linkType}/{linkId}"
+                                    name="{thing.linkType}/{thing.linkId}"
                                     size={48}
                                     border={2}
+                                    lazy={false}
                                 />
                             </WowheadLink>
 
-                            {#if thing.extraAppearances > 0}
+                            {#if thing.item.extraAppearances > 0}
                                 <div class="collected-appearances background-box drop-shadow">
-                                    +{thing.extraAppearances}
+                                    +{thing.item.extraAppearances}
                                 </div>
                             {/if}
 
-                            {#if userHas}
+                            {#if thing.classId > 0}
+                                <div class="player-class class-{thing.classId} drop-shadow">
+                                    <ClassIcon
+                                        border={2}
+                                        size={20}
+                                        classId={thing.classId}
+                                    />
+                                </div>
+                            {/if}
+            
+                            {#if thing.userHas}
                                 <div class="collected-icon drop-shadow">
                                     <IconifyIcon icon={mdiCheckboxOutline} />
                                 </div>
                             {:else}
                                 <div class="costs quality1">
-                                    {#each costs as [costType, costId, costValue]}
+                                    {#each thing.item.sortedCosts as [costType, costId, costValue]}
                                         <div>
                                             {costValue}
                                             <WowheadLink
@@ -160,6 +204,7 @@
                                                     name="{costType}/{costId}"
                                                     size={16}
                                                     border={0}
+                                                    lazy={false}
                                                 />
                                             </WowheadLink>
                                         </div>

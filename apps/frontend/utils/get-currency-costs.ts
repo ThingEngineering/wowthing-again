@@ -1,60 +1,69 @@
-import sortBy from 'lodash/sortBy'
-
-import { costOrder } from '@/data/vendors'
-import toDigits from '@/utils/to-digits'
+import { costOrderMap } from '@/data/vendors'
+import leftPad from '@/utils/left-pad'
 import { toNiceNumber } from '@/utils/to-nice'
 import type { ManualData } from '@/types/data/manual'
+import type { StaticData } from '@/types/data/static'
 
+
+type CurrencyArray = [string, number, string, number, number]
 
 export function getCurrencyCosts(
     manualData: ManualData,
+    staticData: StaticData,
     costs: Record<number, number>
-): [string, number, string, number, number][] {
-    const ret: [string, number, string, number, number][] = []
+): CurrencyArray[] {
+    const temp: [string, CurrencyArray][] = []
 
     const currencyIds = Object.keys(costs)
         .map((currencyId) => parseInt(currencyId))
     
     for (const currencyId of currencyIds) {
-        ret.push([
+        const currencyData: CurrencyArray = [
             currencyId > 1000000 ? 'item' : 'currency',
             currencyId > 1000000 ? currencyId - 1000000 : currencyId,
             toNiceNumber(costs[currencyId]),
             currencyId,
             costs[currencyId],
-        ])
+        ]
+
+        let sortKey: string
+
+        const index = costOrderMap[currencyId] || -1
+        if (index >= 0) {
+            sortKey = leftPad(index, 6, '0')
+        }
+        else if (currencyData[0] === 'item') {
+            const item = manualData.shared.items[currencyData[1]]
+            sortKey = [
+                '999999',
+                leftPad(999999 - currencyData[4], 6, '0'),
+                leftPad(10 - item?.quality ?? 0, 2, '0'),
+                item?.name ?? 'ZZZ',
+            ].join('|')
+        }
+        else {
+            sortKey = [
+                '555555',
+                leftPad(999999 - currencyData[4], 6, '0'),
+                staticData.currencies[currencyData[1]]?.name ?? 'ZZZ'
+            ].join('|')
+        }
+
+        temp.push([sortKey, currencyData])
     }
 
-   return sortBy(
-        ret,
-        ([type, id, , originalId, value]) => {
-            const index = costOrder.indexOf(originalId)
-            if (index >= 0) {
-                return toDigits(index, 6)
-            }
-
-            if (type === 'item') {
-                const item = manualData.shared.items[id]
-                return [
-                    '999999',
-                    toDigits(999999 - value, 6),
-                    toDigits(10 - item?.quality ?? 0, 2),
-                    item?.name ?? 'ZZZ',
-                ].join('|')
-            }
-
-            return `555555$|${toDigits(999999 - value, 6)}|{staticData.currencies[id]?.name ?? 'ZZZ'}`
-        }
-    )
+    temp.sort()
+    return temp.map(([, currencyData]) => currencyData)
 }
 
 export function getCurrencyCostsString(
     manualData: ManualData,
+    staticData: StaticData,
     costs: Record<number, number>,
     reputation?: number[]
 ): string {
     const parts: string[] = []
-    const sortedCosts = getCurrencyCosts(manualData, costs)
+    const sortedCosts = getCurrencyCosts(manualData, staticData, costs)
     for (const [type, , , id, value] of sortedCosts) {
         let price: string
         if (type === 'currency' && id === 0) {
@@ -76,6 +85,7 @@ export function getCurrencyCostsString(
 
 export function getSetCurrencyCostsString(
     manualData: ManualData,
+    staticData: StaticData,
     appearanceIds: number[],
     costses: Record<number, number>[],
     haveFunc: (appearanceId: number) => boolean
@@ -91,5 +101,5 @@ export function getSetCurrencyCostsString(
             totalCosts[keyNumber] = (totalCosts[keyNumber] || 0) + costses[i][keyNumber]
         }
     }
-    return getCurrencyCostsString(manualData, totalCosts)
+    return getCurrencyCostsString(manualData, staticData, totalCosts)
 }

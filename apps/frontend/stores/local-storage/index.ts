@@ -1,3 +1,4 @@
+export * from './auctions'
 export * from './characters'
 export * from './collection'
 export * from './currency'

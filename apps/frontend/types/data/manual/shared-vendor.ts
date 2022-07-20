@@ -2,6 +2,7 @@ import { ManualDataVendorItem, type ManualDataVendorItemArray } from './vendor'
 import { FarmIdType, FarmResetType, FarmType, RewardType } from '@/types/enums'
 import type { ManualDataZoneMapDrop, ManualDataZoneMapFarm } from './zone-map'
 import type { ManualData } from './store'
+import type { StaticData } from '@/types/data/static'
 
 
 export class ManualDataSharedVendor {
@@ -22,7 +23,7 @@ export class ManualDataSharedVendor {
         this.sets = sets.map((setArray) => new ManualDataSharedVendorSet(...setArray))
     }
 
-    asFarms(manualData: ManualData, mapName: string): ManualDataZoneMapFarm[] {
+    asFarms(manualData: ManualData, staticData: StaticData, mapName: string): ManualDataZoneMapFarm[] {
         const ret: ManualDataZoneMapFarm[] = []
         
         const drops: ManualDataZoneMapDrop[] = []
@@ -58,7 +59,7 @@ export class ManualDataSharedVendor {
                         type: item.type,
                         subType: item.subType,
                         classMask: item.classMask,
-                        note: item.getNote(manualData),
+                        note: item.getNote(manualData, staticData),
                     })
                 }
             }
