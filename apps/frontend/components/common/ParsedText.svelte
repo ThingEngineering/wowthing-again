@@ -4,7 +4,9 @@
     import { iconStrings, imageStrings } from '@/data/icons'
     import { manualStore, staticStore } from '@/stores'
 
+    import ClassIcon from '../images/ClassIcon.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import RaceIcon from '../images/RaceIcon.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let cls: string = undefined
@@ -14,8 +16,8 @@
     let element: HTMLElement
     let html: string
     $: {
-        html = text.replaceAll(/:([a-z0-9_-]+):/g, '<span data-string="$1"></span>')
-        
+        html = text
+
         html = html.replaceAll(
             /\{repPrice:(\d+)\|(\d+)\|(\d+)(?:\|(\d+))?\}/g,
             (_, repId: number, repLevel: number, amount: number, currencyId: number) => {
@@ -68,11 +70,16 @@
                 }
             }
         )
+
+        html = html.replaceAll(/:class-(\d+):/g, '<span data-class="$1"></span>')
+        html = html.replaceAll(/:race-(\d+):/g, '<span data-race="$1"></span>')
+
+        // :foo: icon strings
+        html = html.replaceAll(/:([a-z0-9_-]+):/g, '<span data-string="$1"></span>')
     }
 
     afterUpdate(() => {
-        const stringSpans = element.querySelectorAll('[data-string]')
-        for (const span of stringSpans) {
+        for (const span of element.querySelectorAll('[data-string]')) {
             span.replaceChildren()
             const dataString = span.getAttribute('data-string')
 
@@ -98,8 +105,7 @@
             }
         }
 
-        const iconSpans = element.querySelectorAll('[data-icon]')
-        for (const span of iconSpans) {
+        for (const span of element.querySelectorAll('[data-icon]')) {
             span.replaceChildren()
             new WowthingImage({
                 target: span,
@@ -107,6 +113,26 @@
                     border: 0,
                     name: span.getAttribute('data-icon'),
                     size: 16,
+                }
+            })
+        }
+
+        for (const span of element.querySelectorAll('[data-class]')) {
+            span.replaceChildren()
+            new ClassIcon({
+                target: span,
+                props: {
+                    classId: parseInt(span.getAttribute('data-class'))
+                }
+            })
+        }
+        
+        for (const span of element.querySelectorAll('[data-race]')) {
+            span.replaceChildren()
+            new RaceIcon({
+                target: span,
+                props: {
+                    raceId: parseInt(span.getAttribute('data-race'))
                 }
             })
         }
