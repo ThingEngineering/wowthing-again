@@ -1,0 +1,647 @@
+id: 33963
+name: "Magister Sarien"
+note: "Legacy Justice Quartermaster" # S5 Deadly
+
+locations:
+  z2_dalaran:
+    - 63.8 22.0 horde
+    #- 65.6 23.3 horde
+
+sets:
+  - name: "Armor - S05 Death Knight"
+    range: 0 5
+    sortKey: "armor-s05-1-deathknight"
+
+  - name: "Armor - S05 Druid"
+    range: 5 15
+    sortKey: "armor-s05-1-druid"
+
+  - name: "Armor - S05 Hunter"
+    range: 20 5
+    sortKey: "armor-s05-1-hunter"
+
+  - name: "Armor - S05 Mage"
+    range: 25 5
+    sortKey: "armor-s05-1-mage"
+
+  - name: "Armor - S05 Paladin"
+    range: 30 10
+    sortKey: "armor-s05-1-paladin"
+
+  - name: "Armor - S05 Priest"
+    range: 40 10
+    sortKey: "armor-s05-1-priest"
+
+  - name: "Armor - S05 Rogue"
+    range: 50 5
+    sortKey: "armor-s05-1-rogue"
+
+  - name: "Armor - S05 Shaman"
+    range: 55 15
+    sortKey: "armor-s05-1-shaman"
+
+  - name: "Armor - S05 Warlock"
+    range: 70 5
+    sortKey: "armor-s05-1-warlock"
+
+  - name: "Armor - S05 Warrior"
+    range: 75 5
+    sortKey: "armor-s05-1-warrior"
+
+  - name: "Armor - Misc Cloth"
+    range: 80 3
+    sortKey: "armor-misc-1-1"
+
+  - name: "Armor - Misc Leather"
+    range: 83 6
+    sortKey: "armor-misc-1-2"
+
+  - name: "Armor - Misc Mail"
+    range: 89 6
+    sortKey: "armor-misc-1-3"
+
+  - name: "Armor - Misc Plate"
+    range: 95 9
+    sortKey: "armor-misc-1-4"
+
+sells:
+  # Death Knight
+
+  - type: transmog
+    id: 40824 # Deadly Gladiator's Dreadplate Helm [plate head]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 40863 # Deadly Gladiator's Dreadplate Shoulders [plate shoulders]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 40784 # Deadly Gladiator's Dreadplate Chestpiece [plate chest]
+    costs:
+      0: 10 # Gold
+
+  - type: transmog
+    id: 40806 # Deadly Gladiator's Dreadplate Gauntlets [plate hands]
+    costs:
+      0: 5 # Gold
+
+  - type: transmog
+    id: 40845 # Deadly Gladiator's Dreadplate Legguards [plate legs]
+    costs:
+      0: 11 # Gold
+
+  # Druid
+
+  - type: transmog
+    id: 41677 # Deadly Gladiator's Dragonhide Helm [leather head]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 41320 # Deadly Gladiator's Kodohide Helm [leather head]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 41326 # Deadly Gladiator's Wyrmhide Helm [leather head]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 41714 # Deadly Gladiator's Dragonhide Spaulders [leather shoulders]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 41274 # Deadly Gladiator's Kodohide Spaulders [leather shoulders]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 41280 # Deadly Gladiator's Wyrmhide Spaulders [leather shoulders]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 41660 # Deadly Gladiator's Dragonhide Robes [leather chest]
+    costs:
+      0: 11 # Gold
+
+  - type: transmog
+    id: 41309 # Deadly Gladiator's Kodohide Robes [leather chest]
+    costs:
+      0: 10 # Gold
+
+  - type: transmog
+    id: 41315 # Deadly Gladiator's Wyrmhide Robes [leather chest]
+    costs:
+      0: 11 # Gold
+
+  - type: transmog
+    id: 41772 # Deadly Gladiator's Dragonhide Gloves [leather hands]
+    costs:
+      0: 5 # Gold
+
+  - type: transmog
+    id: 41286 # Deadly Gladiator's Kodohide Gloves [leather hands]
+    costs:
+      0: 5 # Gold
+
+  - type: transmog
+    id: 41292 # Deadly Gladiator's Wyrmhide Gloves [leather hands]
+    costs:
+      0: 5 # Gold
+
+  - type: transmog
+    id: 41666 # Deadly Gladiator's Dragonhide Legguards [leather legs]
+    costs:
+      0: 10 # Gold
+
+  - type: transmog
+    id: 41297 # Deadly Gladiator's Kodohide Legguards [leather legs]
+    costs:
+      0: 11 # Gold
+
+  - type: transmog
+    id: 41303 # Deadly Gladiator's Wyrmhide Legguards [leather legs]
+    costs:
+      0: 11 # Gold
+
+  # Hunter
+
+  - type: transmog
+    id: 41156 # Deadly Gladiator's Chain Helm [mail head]
+    costs:
+      0: 7 # Gold
+
+  - type: transmog
+    id: 41216 # Deadly Gladiator's Chain Spaulders [mail shoulders]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 41086 # Deadly Gladiator's Chain Armor [mail chest]
+    costs:
+      0: 10 # Gold
+
+  - type: transmog
+    id: 41142 # Deadly Gladiator's Chain Gauntlets [mail hands]
+    costs:
+      0: 5 # Gold
+
+  - type: transmog
+    id: 41204 # Deadly Gladiator's Chain Leggings [mail legs]
+    costs:
+      0: 11 # Gold
+
+  # Mage
+
+  - type: transmog
+    id: 41945 # Deadly Gladiator's Silk Cowl [cloth head]
+    costs:
+      0: 7 # Gold
+
+  - type: transmog
+    id: 41964 # Deadly Gladiator's Silk Amice [cloth shoulders]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 41951 # Deadly Gladiator's Silk Raiment [cloth chest]
+    costs:
+      0: 11 # Gold
+
+  - type: transmog
+    id: 41970 # Deadly Gladiator's Silk Handguards [cloth hands]
+    costs:
+      0: 5 # Gold
+
+  - type: transmog
+    id: 41958 # Deadly Gladiator's Silk Trousers [cloth legs]
+    costs:
+      0: 11 # Gold
+
+  # Paladin
+
+  - type: transmog
+    id: 40932 # Deadly Gladiator's Ornamented Headcover [plate head]
+    costs:
+      0: 7 # Gold
+
+  - type: transmog
+    id: 40825 # Deadly Gladiator's Scaled Helm [plate head]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 40962 # Deadly Gladiator's Ornamented Spaulders [plate shoulders]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 40864 # Deadly Gladiator's Scaled Shoulders [plate shoulders]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 40905 # Deadly Gladiator's Ornamented Chestguard [plate chest]
+    costs:
+      0: 11 # Gold
+
+  - type: transmog
+    id: 40785 # Deadly Gladiator's Scaled Chestpiece [plate chest]
+    costs:
+      0: 10 # Gold
+
+  - type: transmog
+    id: 40926 # Deadly Gladiator's Ornamented Gloves [plate hands]
+    costs:
+      0: 5 # Gold
+
+  - type: transmog
+    id: 40805 # Deadly Gladiator's Scaled Gauntlets [plate hands]
+    costs:
+      0: 5 # Gold
+
+  - type: transmog
+    id: 40938 # Deadly Gladiator's Ornamented Legplates [plate legs]
+    costs:
+      0: 11 # Gold
+
+  - type: transmog
+    id: 40846 # Deadly Gladiator's Scaled Legguards [plate legs]
+    costs:
+      0: 11 # Gold
+
+  # Priest
+
+  - type: transmog
+    id: 41853 # Deadly Gladiator's Mooncloth Hood [cloth head]
+    costs:
+      0: 6 # Gold
+
+  - type: transmog
+    id: 41914 # Deadly Gladiator's Satin Hood [cloth head]
+    costs:
+      0: 6 # Gold
+
+  - type: transmog
+    id: 41868 # Deadly Gladiator's Mooncloth Mantle [cloth shoulders]
+    costs:
+      0: 6 # Gold
+
+  - type: transmog
+    id: 41933 # Deadly Gladiator's Satin Mantle [cloth shoulders]
+    costs:
+      0: 6 # Gold
+
+  - type: transmog
+    id: 41858 # Deadly Gladiator's Mooncloth Robe [cloth chest]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 41920 # Deadly Gladiator's Satin Robe [cloth chest]
+    costs:
+      0: 9 # Gold
+
+  - type: transmog
+    id: 41873 # Deadly Gladiator's Mooncloth Gloves [cloth hands]
+    costs:
+      0: 4 # Gold
+
+  - type: transmog
+    id: 41939 # Deadly Gladiator's Satin Gloves [cloth hands]
+    costs:
+      0: 4 # Gold
+
+  - type: transmog
+    id: 41863 # Deadly Gladiator's Mooncloth Leggings [cloth legs]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 41926 # Deadly Gladiator's Satin Leggings [cloth legs]
+    costs:
+      0: 8 # Gold
+
+  # Rogue
+
+  - type: transmog
+    id: 41671 # Deadly Gladiator's Leather Helm [leather head]
+    costs:
+      0: 6 # Gold
+
+  - type: transmog
+    id: 41682 # Deadly Gladiator's Leather Spaulders [leather shoulders]
+    costs:
+      0: 6 # Gold
+
+  - type: transmog
+    id: 41649 # Deadly Gladiator's Leather Tunic [leather chest]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 41766 # Deadly Gladiator's Leather Gloves [leather hands]
+    costs:
+      0: 4 # Gold
+
+  - type: transmog
+    id: 41654 # Deadly Gladiator's Leather Legguards [leather legs]
+    costs:
+      0: 8 # Gold
+
+  # Shaman
+
+  - type: transmog
+    id: 41150 # Deadly Gladiator's Linked Helm [mail head]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 41018 # Deadly Gladiator's Mail Helm [mail head]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 41012 # Deadly Gladiator's Ringmail Helm [mail head]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 41210 # Deadly Gladiator's Linked Spaulders [mail shoulders]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 41043 # Deadly Gladiator's Mail Spaulders [mail shoulders]
+    costs:
+      0: 7 # Gold
+
+  - type: transmog
+    id: 41037 # Deadly Gladiator's Ringmail Spaulders [mail shoulders]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 41080 # Deadly Gladiator's Linked Armor [mail chest]
+    costs:
+      0: 11 # Gold
+
+  - type: transmog
+    id: 40991 # Deadly Gladiator's Mail Armor [mail chest]
+    costs:
+      0: 10 # Gold
+
+  - type: transmog
+    id: 40990 # Deadly Gladiator's Ringmail Armor [mail chest]
+    costs:
+      0: 10 # Gold
+
+  - type: transmog
+    id: 41136 # Deadly Gladiator's Linked Gauntlets [mail hands]
+    costs:
+      0: 5 # Gold
+
+  - type: transmog
+    id: 41006 # Deadly Gladiator's Mail Gauntlets [mail hands]
+    costs:
+      0: 5 # Gold
+
+  - type: transmog
+    id: 41000 # Deadly Gladiator's Ringmail Gauntlets [mail hands]
+    costs:
+      0: 5 # Gold
+
+  - type: transmog
+    id: 41198 # Deadly Gladiator's Linked Leggings [mail legs]
+    costs:
+      0: 10 # Gold
+
+  - type: transmog
+    id: 41032 # Deadly Gladiator's Mail Leggings [mail legs]
+    costs:
+      0: 10 # Gold
+
+  - type: transmog
+    id: 41026 # Deadly Gladiator's Ringmail Leggings [mail legs]
+    costs:
+      0: 10 # Gold
+
+  # Warlock
+
+  - type: transmog
+    id: 41992 # Deadly Gladiator's Felweave Cowl [cloth head]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 42010 # Deadly Gladiator's Felweave Amice [cloth shoulders]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 41997 # Deadly Gladiator's Felweave Raiment [cloth chest]
+    costs:
+      0: 11 # Gold
+
+  - type: transmog
+    id: 42016 # Deadly Gladiator's Felweave Handguards [cloth hands]
+    costs:
+      0: 5 # Gold
+
+  - type: transmog
+    id: 42004 # Deadly Gladiator's Felweave Trousers [cloth legs]
+    costs:
+      0: 10 # Gold
+
+  # Warrior
+
+  - type: transmog
+    id: 40823 # Deadly Gladiator's Plate Helm [plate head]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 40862 # Deadly Gladiator's Plate Shoulders [plate shoulders]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 40786 # Deadly Gladiator's Plate Chestpiece [plate chest]
+    costs:
+      0: 10 # Gold
+
+  - type: transmog
+    id: 40804 # Deadly Gladiator's Plate Gauntlets [plate hands]
+    costs:
+      0: 5 # Gold
+
+  - type: transmog
+    id: 40844 # Deadly Gladiator's Plate Legguards [plate legs]
+    costs:
+      0: 11 # Gold
+
+  # Misc Cloth
+
+  - type: transmog
+    id: 45840 # Touch of the Occult [cloth hands]
+    costs:
+      0: 78 # Gold
+
+  - type: transmog
+    id: 45831 # Sash of Potent Incantations [cloth waist]
+    costs:
+      0: 81 # Gold
+
+  - type: transmog
+    id: 45848 # Legwraps of the Master Conjurer [cloth legs]
+    costs:
+      0: 161 # Gold
+
+  # Misc Leather
+
+  - type: transmog
+    id: 45838 # Gloves of the Blind Stalker [leather hands]
+    costs:
+      0: 83 # Gold
+
+  - type: transmog
+    id: 45839 # Grips of the Secret Grove [leather hands]
+    costs:
+      0: 84 # Gold
+
+  - type: transmog
+    id: 45830 # Belt of the Living Thicket [leather waist]
+    costs:
+      0: 81 # Gold
+
+  - type: transmog
+    id: 45829 # Belt of the Twilight Assassin [leather waist]
+    costs:
+      0: 81 # Gold
+
+  - type: transmog
+    id: 45846 # Leggings of Wavering Shadow [leather legs]
+    costs:
+      0: 159 # Gold
+
+  - type: transmog
+    id: 45847 # Wildstrider Legguards [leather legs]
+    costs:
+      0: 160 # Gold
+
+  # Misc Mail
+
+  - type: transmog
+    id: 45837 # Gloves of Augury [mail hands]
+    costs:
+      0: 83 # Gold
+
+  - type: transmog
+    id: 45836 # Gloves of Unerring Aim [mail hands]
+    costs:
+      0: 83 # Gold
+
+  - type: transmog
+    id: 45827 # Belt of the Ardent Marksman [mail waist]
+    costs:
+      0: 80 # Gold
+
+  - type: transmog
+    id: 45828 # Windchill Binding [mail waist]
+    costs:
+      0: 81 # Gold
+
+  - type: transmog
+    id: 45844 # Leggings of the Tireless Sentry [mail legs]
+    costs:
+      0: 158 # Gold
+
+  - type: transmog
+    id: 45845 # Leggings of the Weary Mystic [mail legs]
+    costs:
+      0: 159 # Gold
+
+  # Misc Plate
+
+  - type: transmog
+    id: 45833 # Bladebreaker Gauntlets [plate hands]
+    costs:
+      0: 82 # Gold
+
+  - type: transmog
+    id: 45835 # Gauntlets of Serene Blessing [plate hands]
+    costs:
+      0: 83 # Gold
+
+  - type: transmog
+    id: 45834 # Gauntlets of the Royal Watch [plate hands]
+    costs:
+      0: 82 # Gold
+
+  - type: transmog
+    id: 45824 # Belt of the Singing Blade [plate waist]
+    costs:
+      0: 79 # Gold
+
+  - type: transmog
+    id: 45826 # Girdle of Unyielding Trust [plate waist]
+    costs:
+      0: 80 # Gold
+
+  - type: transmog
+    id: 45825 # Shieldwarder Girdle [plate waist]
+    costs:
+      0: 80 # Gold
+
+  - type: transmog
+    id: 45843 # Legguards of the Peaceful Covenant [plate legs]
+    costs:
+      0: 158 # Gold
+
+  - type: transmog
+    id: 45841 # Legplates of the Violet Champion [plate legs]
+    costs:
+      0: 156 # Gold
+
+  - type: transmog
+    id: 45842 # Wyrmguard Legplates [plate legs]
+    costs:
+      0: 157 # Gold
+
+  # Tier
+
+  - type: transmog
+    id: 45632 # Breastplate of the Wayward Conqueror
+    costs:
+      0: 166 # Gold
+
+  - type: transmog
+    id: 45633 # Breastplate of the Wayward Protector
+    costs:
+      0: 208 # Gold
+
+  - type: transmog
+    id: 45634 # Breastplate of the Wayward Vanquisher
+    costs:
+      0: 167 # Gold
+
+  - type: transmog
+    id: 45638 # Crown of the Wayward Conqueror
+    costs:
+      0: 127 # Gold
+
+  - type: transmog
+    id: 45639 # Crown of the Wayward Protector
+    costs:
+      0: 159 # Gold
+
+  - type: transmog
+    id: 45640 # Crown of the Wayward Vanquisher
+    costs:
+      0: 128 # Gold
+
