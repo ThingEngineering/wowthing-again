@@ -81,17 +81,19 @@
         </CharacterTableHead>
 
         <svelte:fragment slot="rowExtra" let:character>
-            {#each category.reputations as reputationSet, reputationSetIndex}
-                <td class="spacer"></td>
+            {#key `reputations|${slug}`}
+                {#each category.reputations as reputationSet, reputationSetIndex}
+                    <td class="spacer"></td>
 
-                {#each reputationSet as reputation, reputationIndex}
-                    <TableRow
-                        characterRep={character.reputationData[slug].sets[reputationSetIndex][reputationIndex]}
-                        {character}
-                        {reputation}
-                    />
+                    {#each reputationSet as reputation, reputationIndex}
+                        <TableRow
+                            characterRep={character.reputationData[slug].sets[reputationSetIndex][reputationIndex]}
+                            {character}
+                            {reputation}
+                        />
+                    {/each}
                 {/each}
-            {/each}
+            {/key}
         </svelte:fragment>
     </CharacterTable>
 {:else}
