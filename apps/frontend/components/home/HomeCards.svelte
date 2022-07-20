@@ -2,10 +2,14 @@
     import { userStore } from '@/stores'
 
     import CharacterCard from './card/Card.svelte'
+    import UnderConstruction from '@/components/common/UnderConstruction.svelte'
 </script>
 
 <style lang="scss">
-    section {
+    .wrapper {
+        width: 100%;
+    }
+    .card-container {
         align-items: flex-start;
         display: grid;
         grid-template-columns: repeat(auto-fill, 8.5rem);
@@ -15,8 +19,12 @@
     }
 </style>
 
-<section>
-    {#each $userStore.data.characters as character}
-        <CharacterCard {character} />
-    {/each}
-</section>
+<div class="wrapper">
+    <UnderConstruction />
+
+    <div class="card-container">
+        {#each $userStore.data.characters as character}
+            <CharacterCard {character} />
+        {/each}
+    </div>
+</div>

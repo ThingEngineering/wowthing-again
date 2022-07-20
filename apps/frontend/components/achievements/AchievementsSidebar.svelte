@@ -3,6 +3,7 @@
     import type { SidebarItem } from '@/types'
 
     import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
+    import UnderConstruction from '@/components/common/UnderConstruction.svelte'
 
     let categories: SidebarItem[]
     $: {
@@ -20,13 +21,27 @@
 
     const percentFunc = function(entry: SidebarItem): number {
         const cat = $userAchievementStore.data.achievementCategories[entry.id]
-        return cat.have / cat.total * 100
+        return cat ? cat.have / cat.total * 100 : 0
     }
 </script>
 
-<Sidebar
-    baseUrl="/achievements"
-    items={categories}
-    width="17rem"
-    percentFunc={percentFunc}
-/>
+<style lang="scss">
+    .sidebar-wrapper {
+        display: flex;
+        flex-direction: column;
+        padding-right: 1rem;
+        width: 18rem;
+    }
+</style>
+
+
+<div class="sidebar-wrapper">
+    <UnderConstruction />
+
+    <Sidebar
+        baseUrl="/achievements"
+        items={categories}
+        width="17rem"
+        percentFunc={percentFunc}
+    />
+</div>
