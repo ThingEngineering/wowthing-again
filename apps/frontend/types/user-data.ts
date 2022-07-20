@@ -10,7 +10,7 @@ export interface UserData {
     lastApiCheck: string
     public: boolean
 
-    accounts: Account[]
+    accounts: Record<number, Account>
     characters: Character[]
     goldHistoryRealms: number[]
 
