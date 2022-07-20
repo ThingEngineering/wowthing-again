@@ -147,12 +147,6 @@ public class CacheAchievementsJob : JobBase, IScheduledJob
         foreach (var childCategory in category.Children.EmptyIfNull())
         {
             langCategory.Children.Add(GetLanguageCategory(langNames, childCategory));
-            Logger.Debug(
-                "child {child} = {name} = {name2}",
-                childCategory.Id,
-                childCategory.Name,
-                langCategory.Children.Last().Name
-            );
         }
 
         return langCategory;
