@@ -1,11 +1,11 @@
-id: 31581
-name: "Magister Brasael"
+id: 31579
+name: "Arcanist Adurin"
 note: "Legacy Justice Quartermaster" # S5 Hateful
 
 locations:
   z2_dalaran:
-    - 65.6 22.0 horde
-    #- 65.6 23.3 horde
+    - 37.8 54.4 alliance
+    #- 37.8 55.7
 
 tags:
   - "pvp"
@@ -71,6 +71,46 @@ sets:
   - name: "Armor - Misc Cloaks"
     range: 98 4
     sortKey: "armor-misc-2-1"
+  
+  - name: "Armor - T07 Death Knight"
+    range: 102 4
+    sortKey: "armor-t07-1-deathknight"
+
+  - name: "Armor - T07 Druid"
+    range: 106 6
+    sortKey: "armor-t07-1-druid"
+
+  - name: "Armor - T07 Hunter"
+    range: 112 2
+    sortKey: "armor-t07-1-hunter"
+
+  - name: "Armor - T07 Mage"
+    range: 114 2
+    sortKey: "armor-t07-1-mage"
+
+  - name: "Armor - T07 Paladin"
+    range: 116 6
+    sortKey: "armor-t07-1-paladin"
+
+  - name: "Armor - T07 Priest"
+    range: 122 4
+    sortKey: "armor-t07-1-priest"
+
+  - name: "Armor - T07 Rogue"
+    range: 126 2
+    sortKey: "armor-t07-1-rogue"
+
+  - name: "Armor - T07 Shaman"
+    range: 128 6
+    sortKey: "armor-t07-1-shaman"
+
+  - name: "Armor - T07 Warlock"
+    range: 134 2
+    sortKey: "armor-t07-1-warlock"
+
+  - name: "Armor - T07 Warrior"
+    range: 136 4
+    sortKey: "armor-t07-1-warrior"
 
 sells:
   # Death Knight
@@ -182,27 +222,27 @@ sells:
   - type: transmog
     id: 41155 # Hateful Gladiator's Chain Helm [mail head]
     costs:
-      0: 7 # Gold
+      0: 6 # Gold
 
   - type: transmog
     id: 41215 # Hateful Gladiator's Chain Spaulders [mail shoulders]
     costs:
-      0: 8 # Gold
+      0: 6 # Gold
 
   - type: transmog
     id: 41085 # Hateful Gladiator's Chain Armor [mail chest]
     costs:
-      0: 10 # Gold
+      0: 9 # Gold
 
   - type: transmog
     id: 41141 # Hateful Gladiator's Chain Gauntlets [mail hands]
     costs:
-      0: 5 # Gold
+      0: 4 # Gold
 
   - type: transmog
     id: 41203 # Hateful Gladiator's Chain Leggings [mail legs]
     costs:
-      0: 11 # Gold
+      0: 9 # Gold
 
   # Mage
 
@@ -288,79 +328,79 @@ sells:
   - type: transmog
     id: 41852 # Hateful Gladiator's Mooncloth Hood [cloth head]
     costs:
-      0: 6 # Gold
+      0: 7 # Gold
 
   - type: transmog
     id: 41913 # Hateful Gladiator's Satin Hood [cloth head]
     costs:
-      0: 6 # Gold
+      0: 8 # Gold
 
   - type: transmog
     id: 41867 # Hateful Gladiator's Mooncloth Mantle [cloth shoulders]
     costs:
-      0: 6 # Gold
+      0: 8 # Gold
 
   - type: transmog
     id: 41931 # Hateful Gladiator's Satin Mantle [cloth shoulders]
     costs:
-      0: 6 # Gold
+      0: 8 # Gold
 
   - type: transmog
     id: 41857 # Hateful Gladiator's Mooncloth Robe [cloth chest]
     costs:
-      0: 8 # Gold
+      0: 10 # Gold
 
   - type: transmog
     id: 41919 # Hateful Gladiator's Satin Robe [cloth chest]
     costs:
-      0: 9 # Gold
+      0: 11 # Gold
 
   - type: transmog
     id: 41872 # Hateful Gladiator's Mooncloth Gloves [cloth hands]
     costs:
-      0: 4 # Gold
+      0: 5 # Gold
 
   - type: transmog
     id: 41938 # Hateful Gladiator's Satin Gloves [cloth hands]
     costs:
-      0: 4 # Gold
+      0: 5 # Gold
 
   - type: transmog
     id: 41862 # Hateful Gladiator's Mooncloth Leggings [cloth legs]
     costs:
-      0: 8 # Gold
+      0: 11 # Gold
 
   - type: transmog
     id: 41925 # Hateful Gladiator's Satin Leggings [cloth legs]
     costs:
-      0: 8 # Gold
+      0: 10 # Gold
 
   # Rogue
 
   - type: transmog
     id: 41670 # Hateful Gladiator's Leather Helm [leather head]
     costs:
-      0: 6 # Gold
+      0: 8 # Gold
 
   - type: transmog
     id: 41681 # Hateful Gladiator's Leather Spaulders [leather shoulders]
     costs:
-      0: 6 # Gold
+      0: 7 # Gold
 
   - type: transmog
     id: 41648 # Hateful Gladiator's Leather Tunic [leather chest]
     costs:
-      0: 8 # Gold
+      0: 10 # Gold
 
   - type: transmog
     id: 41765 # Hateful Gladiator's Leather Gloves [leather hands]
     costs:
-      0: 4 # Gold
+      0: 5 # Gold
 
   - type: transmog
     id: 41653 # Hateful Gladiator's Leather Legguards [leather legs]
     costs:
-      0: 8 # Gold
+      0: 11 # Gold
 
   # Shaman
 
@@ -471,176 +511,348 @@ sells:
   - type: transmog
     id: 40819 # Hateful Gladiator's Plate Helm [plate head]
     costs:
-      0: 7 # Gold
+      0: 6 # Gold
 
   - type: transmog
     id: 40859 # Hateful Gladiator's Plate Shoulders [plate shoulders]
     costs:
-      0: 8 # Gold
+      0: 6 # Gold
 
   - type: transmog
     id: 40783 # Hateful Gladiator's Plate Chestpiece [plate chest]
     costs:
-      0: 10 # Gold
+      0: 8 # Gold
 
   - type: transmog
     id: 40801 # Hateful Gladiator's Plate Gauntlets [plate hands]
     costs:
-      0: 5 # Gold
+      0: 4 # Gold
 
   - type: transmog
     id: 40840 # Hateful Gladiator's Plate Legguards [plate legs]
     costs:
-      0: 10 # Gold
+      0: 8 # Gold
 
-  # Misc Cloth
+  # 0
 
   - type: transmog
     id: 40741 # Cuffs of the Shadow Ascendant [cloth wrists]
     costs:
-      0: 81 # Gold
+      0: 86 # Gold
 
   - type: transmog
     id: 40740 # Wraps of the Astral Traveler [cloth wrists]
     costs:
-      0: 80 # Gold
+      0: 85 # Gold
 
   - type: transmog
     id: 40751 # Slippers of the Holy Light [cloth feet]
     costs:
-      0: 116 # Gold
+      0: 123 # Gold
 
   - type: transmog
     id: 40750 # Xintor's Expeditionary Boots [cloth feet]
     costs:
-      0: 116 # Gold
+      0: 123 # Gold
 
   # Misc Leather
 
   - type: transmog
     id: 40739 # Bands of the Great Tree [leather wrists]
     costs:
-      0: 80 # Gold
+      0: 85 # Gold
 
   - type: transmog
     id: 40738 # Wristwraps of the Cutthroat [leather wrists]
     costs:
-      0: 80 # Gold
+      0: 85 # Gold
 
   - type: transmog
     id: 40748 # Boots of Captain Ellis [leather feet]
     costs:
-      0: 115 # Gold
+      0: 122 # Gold
 
   - type: transmog
     id: 40749 # Rainey's Chewed Boots [leather feet]
     costs:
-      0: 115 # Gold
-
-  # Misc Mail
+      0: 122 # Gold
 
   - type: transmog
     id: 40736 # Armguard of the Tower Archer [mail wrists]
     costs:
-      0: 79 # Gold
+      0: 84 # Gold
 
   - type: transmog
     id: 40737 # Pigmented Clan Bindings [mail wrists]
     costs:
-      0: 80 # Gold
+      0: 85 # Gold
 
   - type: transmog
     id: 40746 # Pack-Ice Striders [mail feet]
     costs:
-      0: 114 # Gold
+      0: 121 # Gold
 
   - type: transmog
     id: 40747 # Treads of Coastal Wandering [mail feet]
     costs:
-      0: 114 # Gold
-
-  # Misc Plate
+      0: 122 # Gold
 
   - type: transmog
     id: 40734 # Bracers of Dalaran's Parapets [plate wrists]
     costs:
-      0: 79 # Gold
+      0: 84 # Gold
 
   - type: transmog
     id: 40733 # Wristbands of the Sentinel Huntress [plate wrists]
     costs:
-      0: 78 # Gold
+      0: 83 # Gold
 
   - type: transmog
     id: 40735 # Zartson's Jungle Vambraces [plate wrists]
     costs:
-      0: 79 # Gold
+      0: 84 # Gold
 
   - type: transmog
     id: 40742 # Bladed Steelboots [plate feet]
     costs:
-      0: 109 # Gold
+      0: 116 # Gold
 
   - type: transmog
     id: 40743 # Kyzoc's Ground Stompers [plate feet]
     costs:
-      0: 110 # Gold
+      0: 116 # Gold
 
   - type: transmog
     id: 40745 # Sabatons of Rapid Recovery [plate feet]
     costs:
-      0: 113 # Gold
-
-  # Misc Cloaks
+      0: 121 # Gold
 
   - type: transmog
     id: 40724 # Cloak of Kea Feathers [cloak]
     costs:
-      0: 110 # Gold
+      0: 117 # Gold
 
   - type: transmog
     id: 40723 # Disguise of the Kumiho [cloak]
     costs:
-      0: 110 # Gold
+      0: 116 # Gold
 
   - type: transmog
     id: 40721 # Hammerhead Sharkskin Cloak [cloak]
     costs:
-      0: 120 # Gold
+      0: 128 # Gold
 
   - type: transmog
     id: 40722 # Platinum Mesh Cloak [cloak]
     costs:
-      0: 109 # Gold
+      0: 116 # Gold
 
-  # Tier
+  # T7 Death Knight
 
   - type: transmog
-    id: 40634 # Legplates of the Lost Conqueror
+    id: 40568 # Valorous Scourgeborne Pauldrons [Death Knight, Vanquisher]
+    costs:
+      0: 138 # Gold
+
+  - type: transmog
+    id: 40557 # Valorous Scourgeborne Shoulderplates [Death Knight, Vanquisher]
+    costs:
+      0: 138 # Gold
+
+  - type: transmog
+    id: 40567 # Valorous Scourgeborne Legguards [Death Knight, Vanquisher]
+    costs:
+      0: 163 # Gold
+
+  - type: transmog
+    id: 40556 # Valorous Scourgeborne Legplates [Death Knight, Vanquisher]
+    costs:
+      0: 163 # Gold
+
+  # T7 Druid
+
+  - type: transmog
+    id: 40470 # Valorous Dreamwalker Mantle [Druid, Vanquisher]
+    costs:
+      0: 138 # Gold
+
+  - type: transmog
+    id: 40494 # Valorous Dreamwalker Shoulderpads [Druid, Vanquisher]
+    costs:
+      0: 138 # Gold
+
+  - type: transmog
+    id: 40465 # Valorous Dreamwalker Spaulders [Druid, Vanquisher]
+    costs:
+      0: 138 # Gold
+
+  - type: transmog
+    id: 40462 # Valorous Dreamwalker Leggings [Druid, Vanquisher]
+    costs:
+      0: 163 # Gold
+
+  - type: transmog
+    id: 40493 # Valorous Dreamwalker Legguards [Druid, Vanquisher]
+    costs:
+      0: 163 # Gold
+
+  - type: transmog
+    id: 40468 # Valorous Dreamwalker Trousers [Druid, Vanquisher]
+    costs:
+      0: 163 # Gold
+
+  # T7 Hunter
+
+  - type: transmog
+    id: 40507 # Valorous Crypstalker Spaulders [Hunter, Protector]
+    costs:
+      0: 123 # Gold
+
+  - type: transmog
+    id: 40506 # Valorous Cryptstalker Legguards [Hunter, Protector]
+    costs:
+      0: 163 # Gold
+
+  # T7 Mage
+
+  - type: transmog
+    id: 40419 # Valorous Frostfire Shoulderpads [Mage, Vanquisher]
+    costs:
+      0: 138 # Gold
+
+  - type: transmog
+    id: 40417 # Valorous Frostfire Leggings [Mage, Vanquisher]
+    costs:
+      0: 163 # Gold
+
+  # T7 Paladin
+
+  - type: transmog
+    id: 40584 # Valorous Redemption Shoulderguards [Paladin, Conqueror]
+    costs:
+      0: 116 # Gold
+
+  - type: transmog
+    id: 40578 # Valorous Redemption Shoulderplates [Paladin, Conqueror]
+    costs:
+      0: 116 # Gold
+
+  - type: transmog
+    id: 40573 # Valorous Redemption Spaulders [Paladin, Conqueror]
+    costs:
+      0: 116 # Gold
+
+  - type: transmog
+    id: 40572 # Valorous Redemption Greaves [Paladin, Conqueror]
     costs:
       0: 153 # Gold
 
   - type: transmog
-    id: 40635 # Legplates of the Lost Protector
+    id: 40577 # Valorous Redemption Legguards [Paladin, Conqueror]
     costs:
-      0: 192 # Gold
+      0: 153 # Gold
 
   - type: transmog
-    id: 40636 # Legplates of the Lost Vanquisher
+    id: 40583 # Valorous Redemption Legplates [Paladin, Conqueror]
     costs:
-      0: 154 # Gold
+      0: 153 # Gold
+
+  # T7 Priest
 
   - type: transmog
-    id: 40637 # Mantle of the Lost Conqueror
+    id: 40459 # Valorous Mantle of Faith [Priest, Conqueror]
     costs:
       0: 116 # Gold
 
   - type: transmog
-    id: 40638 # Mantle of the Lost Protector
-    costs:
-      0: 145 # Gold
-
-  - type: transmog
-    id: 40639 # Mantle of the Lost Vanquisher
+    id: 40450 # Valorous Shoulderpads of Faith [Priest, Conqueror]
     costs:
       0: 116 # Gold
+
+  - type: transmog
+    id: 40448 # Valorous Leggings of Faith [Priest, Conqueror]
+    costs:
+      0: 153 # Gold
+
+  - type: transmog
+    id: 40457 # Valorous Pants of Faith [Priest, Conqueror]
+    costs:
+      0: 153 # Gold
+
+  # T7 Rogue
+
+  - type: transmog
+    id: 40502 # Valorous Bonescythe Pauldrons [Rogue, Vanquisher]
+    costs:
+      0: 138 # Gold
+
+  - type: transmog
+    id: 40500 # Valorous Bonescythe Legguards [Rogue, Vanquisher]
+    costs:
+      0: 163 # Gold
+
+  # T7 Shaman
+
+  - type: transmog
+    id: 40524 # Valorous Earthshatter Shoulderguards [Shaman, Protector]
+    costs:
+      0: 123 # Gold
+
+  - type: transmog
+    id: 40518 # Valorous Earthshatter Shoulderpads [Shaman, Protector]
+    costs:
+      0: 123 # Gold
+
+  - type: transmog
+    id: 40513 # Valorous Earthshatter Spaulders [Shaman, Protector]
+    costs:
+      0: 123 # Gold
+
+  - type: transmog
+    id: 40517 # Valorous Earthshatter Kilt [Shaman, Protector]
+    costs:
+      0: 163 # Gold
+
+  - type: transmog
+    id: 40512 # Valorous Earthshatter Legguards [Shaman, Protector]
+    costs:
+      0: 163 # Gold
+
+  - type: transmog
+    id: 40522 # Valorous Earthshatter War-Kilt [Shaman, Protector]
+    costs:
+      0: 163 # Gold
+
+  # T7 Warlock
+
+  - type: transmog
+    id: 40424 # Valorous Plagueheart Shoulderpads [Warlock, Conqueror]
+    costs:
+      0: 116 # Gold
+
+  - type: transmog
+    id: 40422 # Valorous Plagueheart Leggings [Warlock, Conqueror]
+    costs:
+      0: 153 # Gold
+
+  # T7 Warrior
+
+  - type: transmog
+    id: 40548 # Valorous Dreadnaught Pauldrons [Warrior, Protector]
+    costs:
+      0: 123 # Gold
+
+  - type: transmog
+    id: 40530 # Valorous Dreadnaught Shoulderplate [Warrior, Protector]
+    costs:
+      0: 123 # Gold
+
+  - type: transmog
+    id: 40529 # Valorous Dreadnaught Legplates [Warrior, Protector]
+    costs:
+      0: 163 # Gold
+
+  - type: transmog
+    id: 40547 # Valorous Dreadnaught Legguards [Warrior, Protector]
+    costs:
+      0: 163 # Gold
