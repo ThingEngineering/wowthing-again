@@ -19,7 +19,8 @@
     {
         <script type="module" src="http://localhost:55505/apps/home.ts"></script>
     }
-    else {
+    else
+    {
         <script type="module" asp-src-include="~/dist/vendor.*js"></script>
         <script type="module" asp-src-include="~/dist/home.*js"></script>
     }
@@ -30,6 +31,7 @@
     }
     else
     {
+        <script>const wowhead_tooltips = { "hide": { "sellprice": true } }</script>
         <script type="text/javascript" src="https://wow.zamimg.com/widgets/power.js" async></script>
     }
 }
