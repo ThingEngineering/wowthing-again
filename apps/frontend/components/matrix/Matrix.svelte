@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { filter } from 'lodash'
     import groupBy from 'lodash/groupBy'
     import some from 'lodash/some'
     import sortBy from 'lodash/sortBy'
@@ -8,6 +9,7 @@
     import { Constants } from '@/data/constants'
     import { staticStore, userStore } from '@/stores'
     import { matrixState } from '@/stores/local-storage'
+    import { data as settings } from '@/stores/settings'
     import { Faction, factionValues, Gender, genderValues } from '@/types/enums'
     import { getGenderedName } from '@/utils/get-gendered-name'
     import type { Character } from '@/types'
@@ -26,7 +28,10 @@
             sortBy(
                 Object.entries(
                     groupBy(
-                        $userStore.data.characters,
+                        filter(
+                            $userStore.data.characters,
+                            (char) => $settings.characters.hiddenCharacters.indexOf(char.id) === -1
+                        ),
                         (char) => [
                             $matrixState.x_class ? char.classId : null,
                             $matrixState.x_gender ? char.gender : null,
