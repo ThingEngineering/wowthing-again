@@ -6,12 +6,15 @@ import type { Settings, UserData } from '@/types'
 import type { UserTransmogData, UserVendorData } from '@/types/data'
 import type { ManualData, ManualDataVendorItem } from '@/types/data/manual'
 import { RewardType } from '@/types/enums'
+import { getCurrencyCosts } from '@/utils/get-currency-costs'
+import type { StaticData } from '@/types/data/static'
 
 
 export class UserVendorStore extends WritableFancyStore<UserVendorData> {
     setup(
         settingsData: Settings,
         manualData: ManualData,
+        staticData: StaticData,
         userData: UserData,
         userTransmogData: UserTransmogData,
         vendorState: VendorState
@@ -49,21 +52,23 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
                     const appearanceMap: Record<number, ManualDataVendorItem> = {}
 
                     group.sellsFiltered = []
-                    for (const thing of group.sells) {
-                        if (thing.classMask > 0 && (thing.classMask & classMask) === 0) {
+                    for (const item of group.sells) {
+                        item.sortedCosts = getCurrencyCosts(manualData, staticData, item.costs)
+
+                        if (item.classMask > 0 && (item.classMask & classMask) === 0) {
                             continue
                         }
 
-                        if (transmogTypes.indexOf(thing.type) >= 0) {
-                            const appearanceId = thing.appearanceId || manualData.shared.items[thing.id].appearanceId
+                        if (transmogTypes.indexOf(item.type) >= 0) {
+                            const appearanceId = item.appearanceId || manualData.shared.items[item.id].appearanceId
                             if (appearanceId) {
                                 if (appearanceMap[appearanceId]) {
                                     appearanceMap[appearanceId].extraAppearances++
                                     continue
                                 }
                                 else {
-                                    appearanceMap[appearanceId] = thing
-                                    thing.extraAppearances = 0
+                                    appearanceMap[appearanceId] = item
+                                    item.extraAppearances = 0
                                 }
                             }
                         }
@@ -72,11 +77,11 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
                             manualData,
                             userData,
                             userTransmogData,
-                            thing.type,
-                            thing.id,
-                            thing.appearanceId
+                            item.type,
+                            item.id,
+                            item.appearanceId
                         )
-                        const thingKey = `${thing.type}-${thing.id}`
+                        const thingKey = `${item.type}-${item.id}`
 
                         if (!seen[thingKey]) {
                             overallStats.total++
@@ -105,7 +110,7 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
                             continue
                         }
 
-                        group.sellsFiltered.push(thing)
+                        group.sellsFiltered.push(item)
                     }
                 }
             }

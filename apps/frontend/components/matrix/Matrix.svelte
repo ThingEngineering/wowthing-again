@@ -103,8 +103,8 @@
 
         yEntries = []
         yKeys = []
-        for (const accountId of $matrixState.y_account ? Object.keys($userStore.data.accounts) : ['']) {
-            for (const faction of $matrixState.y_faction ? factionValues : ['']) {
+        for (const faction of $matrixState.y_faction ? factionValues : ['']) {
+            for (const accountId of $matrixState.y_account ? Object.keys($userStore.data.accounts) : ['']) {
                 if (faction === '2') {
                     continue // neutral
                 }
