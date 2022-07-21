@@ -52,6 +52,10 @@ export function getInstanceFarm(
             for (const difficulty of sortedDifficulties) {
                 const difficultyKey = `${instanceKey}--${difficulty}`
                 const difficultyStats = journalData.stats[difficultyKey]
+                if (!difficultyStats) {
+                    console.log(`no difficulty stats for key "${difficultyKey}"`)
+                    continue
+                }
 
                 status.drops.push({
                     need: difficultyStats.have < difficultyStats.total,
