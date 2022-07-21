@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { filter } from 'lodash'
     import groupBy from 'lodash/groupBy'
     import some from 'lodash/some'
     import sortBy from 'lodash/sortBy'
@@ -8,11 +9,13 @@
     import { Constants } from '@/data/constants'
     import { staticStore, userStore } from '@/stores'
     import { matrixState } from '@/stores/local-storage'
+    import { data as settings } from '@/stores/settings'
     import { Faction, factionValues, Gender, genderValues } from '@/types/enums'
     import { getGenderedName } from '@/utils/get-gendered-name'
     import type { Character } from '@/types'
 
     import Checkbox from '@/components/forms/CheckboxInput.svelte'
+    import NumberInput from '@/components/forms/NumberInput.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
     import UnderConstruction from '@/components/common/UnderConstruction.svelte'
 
@@ -26,7 +29,11 @@
             sortBy(
                 Object.entries(
                     groupBy(
-                        $userStore.data.characters,
+                        filter(
+                            $userStore.data.characters,
+                            (char) => $settings.characters.hiddenCharacters.indexOf(char.id) === -1 &&
+                                char.level >= $matrixState.minLevel
+                        ),
                         (char) => [
                             $matrixState.x_class ? char.classId : null,
                             $matrixState.x_gender ? char.gender : null,
@@ -130,6 +137,11 @@
         flex-direction: column;
         //width: 100%;
     }
+    .options-container {
+        :global(input) {
+            margin-top: 0;
+        }
+    }
     table {
         --image-border-width: 1px;
     }
@@ -190,9 +202,7 @@
                 disabled={$matrixState.x_gender && $matrixState.x_race}
             >Class</Checkbox>
         </button>
-    </div>
 
-    <div class="options-container">
         <span>Y axis:</span>
 
         <button>
@@ -208,6 +218,15 @@
                 bind:value={$matrixState.y_faction}
             >Faction</Checkbox>
         </button>
+
+        <span>Level >=</span>
+
+        <NumberInput
+            name="general_RefreshInterval"
+            minValue={0}
+            maxValue={Constants.characterMaxLevel}
+            bind:value={$matrixState.minLevel}
+        />
     </div>
 
     <table class="table table-striped">

@@ -1,5 +1,5 @@
 <script lang="ts">
-    export let label: string
+    export let label: string = null
     export let name: string
     export let value: number
     export let minValue: number

@@ -6,6 +6,7 @@ import leftPad from '@/utils/left-pad'
 import { Region } from '@/types/enums'
 import type { Character, Settings, UserData } from '@/types'
 import type { StaticData } from '@/types/data/static'
+import CharactersShadowlandsSoulshapes from '@/components/characters/shadowlands/CharactersShadowlandsSoulshapes.svelte'
 
 export default function getCharacterSortFunc(
     settingsData: Settings,
@@ -84,7 +85,7 @@ export default function getCharacterSortFunc(
             }
             else if (thing === 'mplusrating') {
                 const rating = char.raiderIo?.[Constants.mythicPlusSeason]?.all || 0
-                out.push(leftPad(10000 - rating, 5, '0'))
+                out.push(leftPad(Math.floor(10000 - rating), 5, '0'))
             }
             else if (thing === 'name') {
                 out.push(char.name)
