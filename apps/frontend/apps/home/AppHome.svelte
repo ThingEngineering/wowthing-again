@@ -50,7 +50,7 @@
             && $userStore.loaded
             && $userTransmogStore.loaded
 
-        if (loaded) {
+        if (!error && loaded) {
             manualStore.setup(
                 $settings,
                 $manualStore.data,

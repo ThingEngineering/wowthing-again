@@ -51,9 +51,11 @@ export class WritableFancyStore<TData> {
     async fetch(options?: Partial<FancyStoreFetchOptions>): Promise<boolean> {
         const wasLoaded = get(this).loaded
         if (options?.evenIfLoaded !== true && wasLoaded) {
+            console.log('evenIfLoaded', options)
             return false
         }
         if (options?.onlyIfLoaded === true && !wasLoaded) {
+            console.log('onlyIfLoaded', options)
             return false
         }
 
@@ -89,6 +91,7 @@ export class WritableFancyStore<TData> {
 
         // Redirected SHOULD mean it was a 304
         if (wasLoaded && redirected) {
+            console.log('wasLoaded', options)
             return true
         }
 
@@ -97,7 +100,7 @@ export class WritableFancyStore<TData> {
                 state.error = true
                 return state
             })
-            return true
+            return false
         }
 
         const jsonData = JSON.parse(json) as TData
