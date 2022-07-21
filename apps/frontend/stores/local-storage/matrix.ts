@@ -2,12 +2,14 @@ import { writable } from 'svelte/store'
 
 
 export class MatrixState {
-    public y_account = false
-    public y_faction = false
+    public minLevel = 0
 
     public x_class = false
     public x_gender = false
     public x_race = false
+
+    public y_account = false
+    public y_faction = false
 }
 
 const key = 'state-matrix'

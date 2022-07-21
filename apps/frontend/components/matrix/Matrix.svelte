@@ -15,6 +15,7 @@
     import type { Character } from '@/types'
 
     import Checkbox from '@/components/forms/CheckboxInput.svelte'
+    import NumberInput from '@/components/forms/NumberInput.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
     import UnderConstruction from '@/components/common/UnderConstruction.svelte'
 
@@ -30,7 +31,8 @@
                     groupBy(
                         filter(
                             $userStore.data.characters,
-                            (char) => $settings.characters.hiddenCharacters.indexOf(char.id) === -1
+                            (char) => $settings.characters.hiddenCharacters.indexOf(char.id) === -1 &&
+                                char.level >= $matrixState.minLevel
                         ),
                         (char) => [
                             $matrixState.x_class ? char.classId : null,
@@ -135,6 +137,11 @@
         flex-direction: column;
         //width: 100%;
     }
+    .options-container {
+        :global(input) {
+            margin-top: 0;
+        }
+    }
     table {
         --image-border-width: 1px;
     }
@@ -195,9 +202,7 @@
                 disabled={$matrixState.x_gender && $matrixState.x_race}
             >Class</Checkbox>
         </button>
-    </div>
 
-    <div class="options-container">
         <span>Y axis:</span>
 
         <button>
@@ -213,6 +218,15 @@
                 bind:value={$matrixState.y_faction}
             >Faction</Checkbox>
         </button>
+
+        <span>Level >=</span>
+
+        <NumberInput
+            name="general_RefreshInterval"
+            minValue={0}
+            maxValue={Constants.characterMaxLevel}
+            bind:value={$matrixState.minLevel}
+        />
     </div>
 
     <table class="table table-striped">
