@@ -23,7 +23,7 @@
                 let kills = -1
                 const statisticId = encounter.statistics?.[difficulty] ?? 0
                 if (statisticId) {
-                    kills = $userAchievementStore.data.statistics[statisticId]
+                    kills = ($userAchievementStore.data.statistics?.[statisticId] || [])
                         .reduce((a, b) => a + b[1], 0)
                 }
 
