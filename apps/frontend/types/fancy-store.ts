@@ -88,7 +88,7 @@ export class WritableFancyStore<TData> {
         }
 
         // Redirected SHOULD mean it was a 304
-        if (options?.evenIfLoaded && redirected) {
+        if (wasLoaded && redirected) {
             return true
         }
 
