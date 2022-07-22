@@ -843,7 +843,7 @@ public static partial class Hardcoded
                 new(165509, RaidDifficultiesAll), // Slippers of the Encroaching Tide
                 // Leather
                 new(165520, RaidDifficultiesAll), // Silent Pillager's Footpads
-                new(166518, RaidDifficultiesAll), // Warbeast Hide Cinch
+                new(165518, RaidDifficultiesAll), // Warbeast Hide Cinch
                 // Mail
                 new(165547, RaidDifficultiesAll), // City Crusher Sabatons
                 new(165545, RaidDifficultiesAll), // Waistguard of Elemental Resistance
