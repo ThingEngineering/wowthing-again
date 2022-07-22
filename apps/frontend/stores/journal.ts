@@ -3,7 +3,7 @@ import findIndex from 'lodash/findIndex'
 import maxBy from 'lodash/maxBy'
 import sortBy from 'lodash/sortBy'
 
-import { UserCount, WritableFancyStore } from '@/types'
+import { UserCount, WritableFancyStore, type UserData } from '@/types'
 import { JournalDataEncounter, JournalDataEncounterItem, JournalDataEncounterItemAppearance } from '@/types/data'
 import getTransmogClassMask from '@/utils/get-transmog-class-mask'
 import getFilteredItems from '@/utils/journal/get-filtered-items'
@@ -11,6 +11,8 @@ import type { JournalState } from '@/stores/local-storage'
 import type { Settings } from '@/types'
 import type { JournalData, UserTransmogData } from '@/types/data'
 import type { StaticData } from '@/types/data/static'
+import { transmogTypes } from './user-vendors'
+import { RewardType } from '@/types/enums'
 
 
 export class JournalDataStore extends WritableFancyStore<JournalData> {
@@ -41,6 +43,7 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
         journalData: JournalData,
         journalState: JournalState,
         staticData: StaticData,
+        userData: UserData,
         userTransmogData: UserTransmogData
     ): void {
         // console.time('JournalDataStore.setup')
@@ -87,14 +90,20 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                         )
 
                         if (!masochist) {
+                            const keepItems: JournalDataEncounterItem[] = []
+
                             const appearanceMap: Record<number, JournalDataEncounterItem[]> = {}
                             for (const item of filteredItems) {
-                                for (const appearance of item.appearances) {
-                                    (appearanceMap[appearance.appearanceId] ||= []).push(item)
+                                if (transmogTypes.indexOf(item.type) >= 0) {
+                                    for (const appearance of item.appearances) {
+                                        (appearanceMap[appearance.appearanceId] ||= []).push(item)
+                                    }
+                                }
+                                else {
+                                    keepItems.push(item)
                                 }
                             }
 
-                            filteredItems = []
                             for (const [appearanceIdStr, items] of Object.entries(appearanceMap)) {
                                 const appearanceId = parseInt(appearanceIdStr)
 
@@ -122,11 +131,11 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                                             .map((difficulty) => parseInt(difficulty))
                                     )
                                 ]
-                                filteredItems.push(item)
+                                keepItems.push(item)
                             }
 
                             filteredItems = sortBy(
-                                filteredItems,
+                                keepItems,
                                 (item) => findIndex(
                                     group.items,
                                     (origItem) => origItem.id === item.id
@@ -136,9 +145,31 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
 
                         for (const item of filteredItems) {
                             for (const appearance of item.appearances) {
-                                const appearanceKey = masochist ?
-                                    `${item.id}_${appearance.modifierId}` :
-                                    appearance.appearanceId.toString()
+                                let appearanceKey: string
+                                let userHas: boolean
+
+                                if (item.type === RewardType.Item) {
+                                    appearanceKey = masochist ?
+                                        `${item.id}_${appearance.modifierId}` :
+                                        appearance.appearanceId.toString()
+                                    
+                                    userHas = masochist ?
+                                        userTransmogData.sourceHas[appearanceKey] :
+                                        userTransmogData.userHas[appearance.appearanceId]
+                                }
+                                else {
+                                    appearanceKey = `z-${item.type}-${item.id}`
+
+                                    if (item.type === RewardType.Mount) {
+                                        userHas = userData.hasMount[item.classId]
+                                    }
+                                    else if (item.type === RewardType.Pet) {
+                                        userHas = userData.hasPet[item.classId]
+                                    }
+                                    else if (item.type === RewardType.Toy) {
+                                        userHas = userData.hasToy[item.id]
+                                    }
+                                }
 
                                 if (!overallSeen[appearanceKey]) {
                                     overallStats.total++
@@ -156,9 +187,6 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                                     groupStats.total++
                                 }
 
-                                const userHas = masochist ?
-                                    userTransmogData.sourceHas[appearanceKey] :
-                                    userTransmogData.userHas[appearance.appearanceId]
                                 if (userHas) {
                                     if (!overallSeen[appearanceKey]) {
                                         overallStats.have++

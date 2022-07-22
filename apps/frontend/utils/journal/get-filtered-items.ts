@@ -3,6 +3,8 @@ import cloneDeep from 'lodash/cloneDeep'
 import type { JournalState } from '@/stores/local-storage'
 import type { JournalDataEncounterItemGroup, JournalDataEncounterItem, JournalDataEncounterItemAppearance, UserTransmogData } from '@/types/data'
 import { Constants } from '@/data/constants'
+import { RewardType } from '@/types/enums'
+import { transmogTypes } from '@/stores/user-vendors'
 
 
 export default function getFilteredItems(
@@ -47,112 +49,114 @@ export default function getFilteredItems(
         }
 
         // Appearances
-        if (keep) {
-            const appearances: JournalDataEncounterItemAppearance[] = []
+        if (item.type === RewardType.Item) {
+            if (keep) {
+                const appearances: JournalDataEncounterItemAppearance[] = []
 
-            for (const appearance of item.appearances) {
-                const difficulties: number[] = []
+                for (const appearance of item.appearances) {
+                    const difficulties: number[] = []
 
-                for (const difficulty of appearance.difficulties) {
-                    // LFR
-                    if (difficulty === 7 || difficulty === 17) {
-                        if (journalState.showRaidLfr) {
-                            difficulties.push(difficulty)
-                        }
-                    }
-                    // Normal
-                    else if (difficulty === 1) {
-                        if (journalState.showDungeonNormal) {
-                            difficulties.push(difficulty)
-                        }
-                    }
-                    else if (difficulty === 3 || difficulty === 4 || difficulty === 9 || difficulty === 14) {
-                        if (journalState.showRaidNormal) {
-                            difficulties.push(difficulty)
-                        }
-                    }
-                    // Heroic
-                    else if (difficulty === 2) {
-                        if (journalState.showDungeonHeroic) {
-                            difficulties.push(difficulty)
-                        }
-                    }
-                    else if (difficulty === 5 || difficulty ===6 || difficulty === 15) {
-                        if (journalState.showRaidHeroic) {
-                            difficulties.push(difficulty)
-                        }
-                    }
-                    // Mythic
-                    else if (difficulty === 8 || difficulty === 23) {
-                        if (journalState.showDungeonMythic) {
-                            difficulties.push(difficulty)
-                        }
-                    }
-                    else if (difficulty === 16) {
-                        if (instanceExpansion === Constants.expansion) {
-                            if (journalState.showRaidMythic) {
+                    for (const difficulty of appearance.difficulties) {
+                        // LFR
+                        if (difficulty === 7 || difficulty === 17) {
+                            if (journalState.showRaidLfr) {
                                 difficulties.push(difficulty)
                             }
                         }
-                        else if (journalState.showRaidMythicOld) {
+                        // Normal
+                        else if (difficulty === 1) {
+                            if (journalState.showDungeonNormal) {
+                                difficulties.push(difficulty)
+                            }
+                        }
+                        else if (difficulty === 3 || difficulty === 4 || difficulty === 9 || difficulty === 14) {
+                            if (journalState.showRaidNormal) {
+                                difficulties.push(difficulty)
+                            }
+                        }
+                        // Heroic
+                        else if (difficulty === 2) {
+                            if (journalState.showDungeonHeroic) {
+                                difficulties.push(difficulty)
+                            }
+                        }
+                        else if (difficulty === 5 || difficulty ===6 || difficulty === 15) {
+                            if (journalState.showRaidHeroic) {
+                                difficulties.push(difficulty)
+                            }
+                        }
+                        // Mythic
+                        else if (difficulty === 8 || difficulty === 23) {
+                            if (journalState.showDungeonMythic) {
+                                difficulties.push(difficulty)
+                            }
+                        }
+                        else if (difficulty === 16) {
+                            if (instanceExpansion === Constants.expansion) {
+                                if (journalState.showRaidMythic) {
+                                    difficulties.push(difficulty)
+                                }
+                            }
+                            else if (journalState.showRaidMythicOld) {
+                                difficulties.push(difficulty)
+                            }
+                        }
+                        // Timewalking
+                        else if (difficulty === 24) {
+                            if (journalState.showDungeonTimewalking) {
+                                difficulties.push(difficulty)
+                            }
+                        }
+                        else if (difficulty === 33) {
+                            if (journalState.showRaidTimewalking) {
+                                difficulties.push(difficulty)
+                            }
+                        }
+                        // Leftovers
+                        else {
                             difficulties.push(difficulty)
                         }
                     }
-                    // Timewalking
-                    else if (difficulty === 24) {
-                        if (journalState.showDungeonTimewalking) {
-                            difficulties.push(difficulty)
-                        }
+
+                    appearance.difficulties = difficulties
+                    if (appearance.difficulties.length > 0) {
+                        appearances.push(appearance)
                     }
-                    else if (difficulty === 33) {
-                        if (journalState.showRaidTimewalking) {
-                            difficulties.push(difficulty)
-                        }
+                }
+
+                item.appearances = appearances
+                if (appearances.length === 0) {
+                    keep = false
+                }
+            }
+
+            // Collected/uncollected toggles
+            if (userTransmogData !== null && keep) {
+                let allCollected = true
+                let anyCollected = false
+                for (const appearance of item.appearances) {
+                    let has = false
+                    if (masochist) {
+                        has = userTransmogData.sourceHas[`${item.id}_${appearance.modifierId}`]
                     }
-                    // Leftovers
                     else {
-                        difficulties.push(difficulty)
+                        has = userTransmogData.userHas[appearance.appearanceId]
+                    }
+                    
+                    if (has) {
+                        anyCollected = true
+                    }
+                    else {
+                        allCollected = false
                     }
                 }
 
-                appearance.difficulties = difficulties
-                if (appearance.difficulties.length > 0) {
-                    appearances.push(appearance)
+                if (
+                    (!journalState.showUncollected && !anyCollected) ||
+                    (!journalState.showCollected && allCollected)
+                ) {
+                    keep = false
                 }
-            }
-
-            item.appearances = appearances
-            if (appearances.length === 0) {
-                keep = false
-            }
-        }
-
-        // Collected/uncollected toggles
-        if (userTransmogData !== null && keep) {
-            let allCollected = true
-            let anyCollected = false
-            for (const appearance of item.appearances) {
-                let has = false
-                if (masochist) {
-                    has = userTransmogData.sourceHas[`${item.id}_${appearance.modifierId}`]
-                }
-                else {
-                    has = userTransmogData.userHas[appearance.appearanceId]
-                }
-                
-                if (has) {
-                    anyCollected = true
-                }
-                else {
-                    allCollected = false
-                }
-            }
-
-            if (
-                (!journalState.showUncollected && !anyCollected) ||
-                (!journalState.showCollected && allCollected)
-            ) {
-                keep = false
             }
         }
 

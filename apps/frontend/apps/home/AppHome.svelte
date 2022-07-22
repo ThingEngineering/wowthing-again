@@ -88,6 +88,7 @@
                 $journalStore.data,
                 $journalState,
                 $staticStore.data,
+                $userStore.data,
                 $userTransmogStore.data
             )
 
