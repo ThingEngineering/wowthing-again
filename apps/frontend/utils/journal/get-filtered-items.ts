@@ -1,5 +1,3 @@
-import cloneDeep from 'lodash/cloneDeep'
-
 import { Constants } from '@/data/constants'
 import { RewardType } from '@/types/enums'
 import type { JournalState } from '@/stores/local-storage'
@@ -7,22 +5,19 @@ import type {
     JournalDataEncounterItem,
     JournalDataEncounterItemAppearance,
     JournalDataEncounterItemGroup,
-    UserTransmogData
 } from '@/types/data'
 
 
 export default function getFilteredItems(
     journalState: JournalState,
-    userTransmogData: UserTransmogData,
     group: JournalDataEncounterItemGroup,
     classMask: number,
     instanceExpansion: number,
-    masochist: boolean
 ): JournalDataEncounterItem[] {
     const items: JournalDataEncounterItem[] = []
 
     for (const origItem of group.items) {
-        const item = cloneDeep(origItem)
+        const item = origItem.clone()
         let keep = true
 
         // Class mask is a quick check
@@ -130,35 +125,6 @@ export default function getFilteredItems(
 
                 item.appearances = appearances
                 if (appearances.length === 0) {
-                    keep = false
-                }
-            }
-
-            // Collected/uncollected toggles
-            if (userTransmogData !== null && keep) {
-                let allCollected = true
-                let anyCollected = false
-                for (const appearance of item.appearances) {
-                    let has = false
-                    if (masochist) {
-                        has = userTransmogData.sourceHas[`${item.id}_${appearance.modifierId}`]
-                    }
-                    else {
-                        has = userTransmogData.userHas[appearance.appearanceId]
-                    }
-                    
-                    if (has) {
-                        anyCollected = true
-                    }
-                    else {
-                        allCollected = false
-                    }
-                }
-
-                if (
-                    (!journalState.showUncollected && !anyCollected) ||
-                    (!journalState.showCollected && allCollected)
-                ) {
                     keep = false
                 }
             }

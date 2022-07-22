@@ -1,11 +1,12 @@
 import { ManualDataVendorItem, type ManualDataVendorItemArray } from './vendor'
-import { FarmIdType, FarmResetType, FarmType, RewardType } from '@/types/enums'
+import { Faction, FarmIdType, FarmResetType, FarmType, RewardType } from '@/types/enums'
 import type { ManualDataZoneMapDrop, ManualDataZoneMapFarm } from './zone-map'
 import type { ManualData } from './store'
 import type { StaticData } from '@/types/data/static'
 
 
 export class ManualDataSharedVendor {
+    public faction: Faction
     public sells: ManualDataVendorItem[]
     public sets: ManualDataSharedVendorSet[]
 
@@ -21,6 +22,28 @@ export class ManualDataSharedVendor {
     {
         this.sells = sells.map((itemArray) => new ManualDataVendorItem(...itemArray))
         this.sets = sets.map((setArray) => new ManualDataSharedVendorSet(...setArray))
+        
+        let faction = 0
+        for (const locations of Object.values(this.locations)) {
+            for (const location of locations) {
+                if (location[2] === 'alliance') {
+                    faction |= 1
+                }
+                else if (location[2] === 'horde') {
+                    faction |= 2
+                }
+            }
+        }
+        
+        if (faction === 0 || faction === 3) {
+            this.faction = Faction.Both
+        }
+        else if (faction === 1) {
+            this.faction = Faction.Alliance
+        }
+        else if (faction === 2) {
+            this.faction = Faction.Horde
+        }
     }
 
     asFarms(manualData: ManualData, staticData: StaticData, mapName: string): ManualDataZoneMapFarm[] {

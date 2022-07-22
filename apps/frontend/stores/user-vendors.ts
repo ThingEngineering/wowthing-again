@@ -5,7 +5,7 @@ import type { VendorState } from '@/stores/local-storage'
 import type { Settings, UserData } from '@/types'
 import type { UserTransmogData, UserVendorData } from '@/types/data'
 import type { ManualData, ManualDataVendorItem } from '@/types/data/manual'
-import { RewardType } from '@/types/enums'
+import { Faction, RewardType } from '@/types/enums'
 import { getCurrencyCosts } from '@/utils/get-currency-costs'
 import type { StaticData } from '@/types/data/static'
 
@@ -22,6 +22,7 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
         // console.time('UserVendorStore.setup')
 
         const classMask = getTransmogClassMask(settingsData)
+        const masochist = settingsData.transmog.completionistMode
 
         const seen: Record<string, boolean> = {}
         const stats: Record<string, UserCount> = {}
@@ -59,11 +60,20 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
                             continue
                         }
 
-                        if (transmogTypes.indexOf(item.type) >= 0) {
+                        if (masochist) {
+                            item.extraAppearances = 0
+                        }
+                        else if (transmogTypes.indexOf(item.type) >= 0) {
                             const appearanceId = item.appearanceId || manualData.shared.items[item.id].appearanceId
                             if (appearanceId) {
-                                if (appearanceMap[appearanceId]) {
-                                    appearanceMap[appearanceId].extraAppearances++
+                                const existingItem = appearanceMap[appearanceId]
+                                if (existingItem) {
+                                    existingItem.extraAppearances++
+
+                                    if (existingItem.faction !== Faction.Both && item.faction !== existingItem.faction) {
+                                        existingItem.faction = Faction.Both
+                                    }
+
                                     continue
                                 }
                                 else {
@@ -111,8 +121,8 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
                         }
 
                         group.sellsFiltered.push(item)
-                    }
-                }
+                    } // item of group.sells
+                } // group of category.groups
             }
         }
 

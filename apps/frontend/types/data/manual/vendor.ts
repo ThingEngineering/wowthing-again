@@ -1,5 +1,6 @@
+import { Faction } from '@/types/enums'
 import { getCurrencyCostsString } from '@/utils/get-currency-costs'
-import type { RewardType, ItemQuality } from '@/types/enums'
+import type { RewardType, ItemQuality,  } from '@/types/enums'
 import type { ManualData } from './store'
 import type { StaticData } from '@/types/data/static/store'
 
@@ -38,6 +39,7 @@ export type ManualDataVendorGroupArray = ConstructorParameters<typeof ManualData
 export class ManualDataVendorItem {
     public costs: Record<number, number>
     public extraAppearances: number
+    public faction: Faction = Faction.Both
     public sortedCosts: [string, number, string, number, number][]
 
     constructor(

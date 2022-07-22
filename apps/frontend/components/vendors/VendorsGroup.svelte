@@ -5,7 +5,7 @@
     import { manualStore, staticStore } from '@/stores'
     import { vendorState } from '@/stores/local-storage'
     import { userVendorStore } from '@/stores/user-vendors'
-    import { PlayableClass, PlayableClassMask, RewardType } from '@/types/enums'
+    import { Faction, PlayableClass, PlayableClassMask, RewardType } from '@/types/enums'
     import { ThingData } from '@/types/vendors'
     import getPercentClass from '@/utils/get-percent-class'
     import type { UserCount } from '@/types'
@@ -13,6 +13,7 @@
 
     import ClassIcon from '@/components/images/ClassIcon.svelte'
     import CollectionCount from '@/components/collections/CollectionCount.svelte'
+    import FactionIcon from '../images/FactionIcon.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import WowheadLink from '@/components/links/WowheadLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
@@ -104,16 +105,23 @@
             justify-content: flex-end;
         }
     }
-    .player-class {
+    .icon {
+        --image-border-radius: 50%;
         --image-margin-top: -4px;
         --shadow-color: rgba(0, 0, 0, 0.8);
 
         border: none;
         height: 24px;
-        left: -1px;
         width: 24px;
         position: absolute;
+    }
+    .icon-class {
+        left: -1px;
         top: -1px;
+    }
+    .icon-faction {
+        left: -1px;
+        top: 29px;
     }
 </style>
 
@@ -140,7 +148,7 @@
                             (!$vendorState.highlightMissing && !thing.userHas) ||
                             ($vendorState.highlightMissing && thing.userHas)
                         }
-                        style:height="{52 + (20 * thing.item.sortedCosts.length)}px"
+                        style:height="{!thing.userHas ? (52 + (20 * thing.item.sortedCosts.length)) + 'px' : null}"
                     >
                         {#if intersected}
                             <WowheadLink
@@ -162,8 +170,18 @@
                                 </div>
                             {/if}
 
+                            {#if thing.item.faction !== Faction.Both}
+                                <div class="icon icon-faction drop-shadow">
+                                    <FactionIcon
+                                        faction={thing.item.faction}
+                                        border={2}
+                                        size={20}
+                                    />
+                                </div>
+                            {/if}
+
                             {#if thing.classId > 0}
-                                <div class="player-class class-{thing.classId} drop-shadow">
+                                <div class="icon icon-class class-{thing.classId} drop-shadow">
                                     <ClassIcon
                                         border={2}
                                         size={20}

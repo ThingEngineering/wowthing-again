@@ -3,7 +3,7 @@
 
     import getPercentClass from '@/utils/get-percent-class'
     import type { UserCount } from '@/types'
-    import type { JournalDataEncounterItemGroup } from '@/types/data'
+    import type { JournalDataEncounterItem, JournalDataEncounterItemGroup } from '@/types/data'
 
     import CollectionCount from '@/components/collections/CollectionCount.svelte'
     import Item from './JournalItem.svelte'
@@ -15,10 +15,12 @@
 
     let element: HTMLElement
     let intersected: boolean
+    let items: JournalDataEncounterItem[]
     let percent: number
     $: {
         percent = Math.floor((stats?.have ?? 0) / (stats?.total ?? 1) * 100)
-        //console.log(group)
+
+        items = group.filteredItems.filter((item) => item.show)
     }
 </script>
 
@@ -28,7 +30,7 @@
     }
 </style>
 
-{#if group.filteredItems.length > 0}
+{#if items.length > 0}
     <div class="collection{useV2 ? '-v2' : ''}-group">
         <h4 class="drop-shadow {getPercentClass(percent)}">
             {group.name}
@@ -45,7 +47,7 @@
                 {element}
             >
                 {#if intersected}
-                    {#each group.filteredItems as item}
+                    {#each items as item}
                         <Item
                             {bonusIds}
                             {item}
