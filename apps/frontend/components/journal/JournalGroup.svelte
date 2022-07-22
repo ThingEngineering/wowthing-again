@@ -3,14 +3,13 @@
 
     import getPercentClass from '@/utils/get-percent-class'
     import type { UserCount } from '@/types'
-    import type { JournalDataEncounterItem, JournalDataEncounterItemGroup } from '@/types/data'
+    import type { JournalDataEncounterItemGroup } from '@/types/data'
 
     import CollectionCount from '@/components/collections/CollectionCount.svelte'
     import Item from './JournalItem.svelte'
 
     export let bonusIds: Record<number, number>
     export let group: JournalDataEncounterItemGroup
-    export let instanceExpansion: number
     export let stats: UserCount
     export let useV2: boolean
 
