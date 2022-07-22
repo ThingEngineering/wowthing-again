@@ -128,7 +128,7 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
 
 export const userVendorStore = new UserVendorStore({})
 
-const transmogTypes: RewardType[] = [
+export const transmogTypes: RewardType[] = [
     RewardType.Armor,
     RewardType.Cosmetic,
     RewardType.Transmog,
