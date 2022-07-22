@@ -32,9 +32,9 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
     }
 
     setup(
+        settingsData: Settings,
         journalData: JournalData,
         journalState: JournalState,
-        settingsData: Settings,
         staticData: StaticData,
         userTransmogData: UserTransmogData
     ): void {
@@ -61,6 +61,7 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                 for (const encounter of instance.encounters) {
                     const encounterKey = `${instanceKey}--${encounter.name}`
                     const encounterStats = stats[encounterKey] = new UserCount()
+                    const encounterSeen: Record<string, boolean> = {}
 
                     if (!journalState.showTrash && encounter.name === 'Trash Drops') {
                         continue
@@ -69,6 +70,7 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                     for (const group of encounter.groups) {
                         const groupKey = `${encounterKey}--${group.name}`
                         const groupStats = stats[groupKey] = new UserCount()
+                        const groupSeen: Record<string, boolean> = {}
 
                         const items = getFilteredItems(
                             journalState,
@@ -93,8 +95,12 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                                 if (!instanceSeen[appearanceKey]) {
                                     instanceStats.total++
                                 }
-                                encounterStats.total++
-                                groupStats.total++
+                                if (!encounterSeen[appearanceKey]) {
+                                    encounterStats.total++
+                                }
+                                if (!groupSeen[appearanceKey]) {
+                                    groupStats.total++
+                                }
 
                                 const userHas = masochist ?
                                     userTransmogData.sourceHas[appearanceKey] :
@@ -109,13 +115,19 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                                     if (!instanceSeen[appearanceKey]) {
                                         instanceStats.have++
                                     }
-                                    encounterStats.have++
-                                    groupStats.have++
+                                    if (!encounterSeen[appearanceKey]) {
+                                        encounterStats.have++
+                                    }
+                                    if (!groupSeen[appearanceKey]) {
+                                        groupStats.have++
+                                    }
                                 }
 
                                 overallSeen[appearanceKey] = true
                                 tierSeen[appearanceKey] = true
                                 instanceSeen[appearanceKey] = true
+                                encounterSeen[appearanceKey] = true
+                                groupSeen[appearanceKey] = true
 
                                 for (const difficulty of appearance.difficulties) {
                                     const instanceDifficultyKey = `${instanceKey}--${difficulty}`
@@ -125,17 +137,23 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                                     const encounterDifficultyStats = stats[encounterDifficultyKey] ||= new UserCount()
 
                                     const itemKey = `${appearanceKey}--${difficulty}`
+
                                     if (!instanceSeen[itemKey]) {
                                         instanceDifficultyStats.total++
-                                        encounterDifficultyStats.total++
-
                                         if (userHas) {
                                             instanceDifficultyStats.have++
+                                        }
+                                    }
+
+                                    if (!encounterSeen[itemKey]) {
+                                        encounterDifficultyStats.total++
+                                        if (userHas) {
                                             encounterDifficultyStats.have++
                                         }
                                     }
 
                                     instanceSeen[itemKey] = true
+                                    encounterSeen[itemKey] = true
                                 }
                             }
                         }
