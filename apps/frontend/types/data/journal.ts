@@ -64,6 +64,7 @@ type JournalDataEncounterItemGroupArray = ConstructorParameters<typeof JournalDa
 
 export class JournalDataEncounterItem {
     public appearances: JournalDataEncounterItemAppearance[]
+    public extraAppearances: number
 
     constructor(
         public type: RewardType,

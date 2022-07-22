@@ -8,6 +8,7 @@
     import { data as settingsData } from '@/stores/settings'
     import { PlayableClass, PlayableClassMask, RewardType } from '@/types/enums'
     import { getItemUrl } from '@/utils/get-item-url'
+    import tippy from '@/utils/tippy'
     import type { JournalDataEncounterItem, JournalDataEncounterItemAppearance } from '@/types/data/journal'
 
     import ClassIcon from '@/components/images/ClassIcon.svelte'
@@ -53,6 +54,8 @@
         else {
             classId = 0
         }
+
+        //console.log(item, appearances)
     }
 
     const getQuality = function(appearance: JournalDataEncounterItemAppearance): number {
@@ -74,34 +77,35 @@
         return bonusId ? [bonusId] : []
     }
 
-    const getDifficulties = function(appearance: JournalDataEncounterItemAppearance): string[] {
+    const getDifficulties = function(appearance: JournalDataEncounterItemAppearance): [string[], string[]] {
         if (!appearance.difficulties) {
-            return []
+            return [[], []]
         }
 
         // 10 Normal + 25 Normal + Normal? = Normal
         if (xor(appearance.difficulties, [3, 4]).length === 0 ||
             xor(appearance.difficulties, [3, 4, 14]).length === 0) {
-            return ['N']
+            return [['N'], ['Normal']]
         }
         // 10 Heroic + 25 Heroic + Heroic? = Heroic
         if (xor(appearance.difficulties, [5, 6]).length === 0 ||
             xor(appearance.difficulties, [5, 6, 15]).length === 0) {
-            return ['H']
+            return [['H'], ['Heroic']]
         }
         // 10 Normal + 25 Normal + 10 Heroic + 25 Heroic = Normal/Heroic (ZA/ZG)
         if (xor(appearance.difficulties, [3, 4, 5, 6]).length === 0) {
-            return ['N', 'H']
+            return [['N', 'H'], ['Normal', 'Heroic']]
         }
         // 10 Normal + 25 Normal + 10 Heroic + 25 Heroic + LFR = 
         if (xor(appearance.difficulties, [3, 4, 5, 6, 7]).length === 0) {
-            return ['L', 'N', 'H']
+            return [['L', 'N', 'H'], ['LFR', 'Normal', 'Heroic']]
         }
 
-        const ret: string[] = []
+        const ret: [string[], string[]] = [[], []]
         for (const difficulty of journalDifficultyOrder) {
             if (appearance.difficulties.indexOf(difficulty) >= 0) {
-                ret.push(difficultyMap[difficulty].shortName)
+                ret[0].push(difficultyMap[difficulty].shortName)
+                ret[1].push(difficultyMap[difficulty].name)
             }
         }
         return ret
@@ -110,8 +114,14 @@
 
 <style lang="scss">
     .journal-item {
-        height: 52px;
+        min-height: 52px;
         width: 52px;
+
+        :global(img) {
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+
+        }
     }
     .player-class {
         --image-margin-top: -4px;
@@ -124,20 +134,27 @@
         position: absolute;
         top: -1px;
     }
-    .difficulties {
-        position: absolute;
-        bottom: 1px;
-        left: 50%;
-        transform: translateX(-50%);
-
-        background-color: $highlight-background;
-        border: 1px solid $border-color;
-        border-radius: $border-radius-small;
-        display: inline-flex;
-        //font-size: 0.9rem;
+    .collected-appearances {
+        border-bottom-left-radius: 0;
+        border-top-right-radius: 0;
+        color: $colour-success;
         line-height: 1;
-        padding: 0 2px 1px 2px;
+        padding: 0.1rem 0.2rem;
         pointer-events: none;
+        position: absolute;
+        top: 30px;
+        right: 1px;
+    }
+    .difficulties {
+        background-color: $highlight-background;
+        border: 1px solid;
+        border-radius: $border-radius-small;
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+        line-height: 1;
+        margin-top: -1px;
+        padding: 0 2px 1px 2px;
+        text-align: center;
         white-space: nowrap;
     }
 </style>
@@ -147,6 +164,7 @@
         ($journalState.showCollected && userHas) ||
         ($journalState.showUncollected && !userHas)
     }
+        {@const [diffShort, diffLong] = getDifficulties(appearance)}
         <div
             class="journal-item quality{getQuality(appearance)}"
             class:missing={
@@ -174,6 +192,12 @@
                     />
                 </div>
             {/if}
+            
+            {#if item.extraAppearances > 0}
+                <div class="collected-appearances background-box drop-shadow">
+                    +{item.extraAppearances}
+                </div>
+            {/if}
 
             {#if userHas}
                 <div class="collected-icon drop-shadow">
@@ -181,8 +205,8 @@
                 </div>
             {/if}
 
-            <div class="difficulties">
-                {#each getDifficulties(appearance) as difficulty}
+            <div class="difficulties" use:tippy={diffLong.join(' / ')}>
+                {#each diffShort as difficulty}
                     <span>{difficulty}</span>
                 {/each}
             </div>

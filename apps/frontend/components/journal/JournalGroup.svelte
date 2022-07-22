@@ -19,6 +19,7 @@
     let percent: number
     $: {
         percent = Math.floor((stats?.have ?? 0) / (stats?.total ?? 1) * 100)
+        //console.log(group)
     }
 </script>
 

@@ -1,5 +1,10 @@
+import clone from 'lodash/cloneDeep'
+import findIndex from 'lodash/findIndex'
+import maxBy from 'lodash/maxBy'
+import sortBy from 'lodash/sortBy'
+
 import { UserCount, WritableFancyStore } from '@/types'
-import { JournalDataEncounter } from '@/types/data'
+import { JournalDataEncounter, JournalDataEncounterItem, JournalDataEncounterItemAppearance } from '@/types/data'
 import getTransmogClassMask from '@/utils/get-transmog-class-mask'
 import getFilteredItems from '@/utils/journal/get-filtered-items'
 import type { JournalState } from '@/stores/local-storage'
@@ -72,7 +77,7 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                         const groupStats = stats[groupKey] = new UserCount()
                         const groupSeen: Record<string, boolean> = {}
 
-                        group.filteredItems = getFilteredItems(
+                        let filteredItems = getFilteredItems(
                             journalState,
                             userTransmogData,
                             group,
@@ -80,7 +85,56 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                             instanceExpansion,
                             masochist
                         )
-                        for (const item of group.filteredItems) {
+
+                        if (!masochist) {
+                            const appearanceMap: Record<number, JournalDataEncounterItem[]> = {}
+                            for (const item of filteredItems) {
+                                for (const appearance of item.appearances) {
+                                    (appearanceMap[appearance.appearanceId] ||= []).push(item)
+                                }
+                            }
+
+                            filteredItems = []
+                            for (const [appearanceIdStr, items] of Object.entries(appearanceMap)) {
+                                const appearanceId = parseInt(appearanceIdStr)
+
+                                const difficulties: Record<number, boolean> = {}
+                                for (const item of items) {
+                                    for (const appearance of item.appearances) {
+                                        if (appearance.appearanceId === appearanceId) {
+                                            for (const difficulty of appearance.difficulties) {
+                                                difficulties[difficulty] = true
+                                            }
+                                            break
+                                        }
+                                    }
+                                }
+
+                                const item = clone(maxBy(items, (item) => item.classMask))
+                                item.extraAppearances = items.length - 1
+                                item.quality = maxBy(items, (item) => item.quality).quality
+                                item.classMask = items.reduce((a, b) => a | b.classMask, 0)
+                                item.appearances = [
+                                    new JournalDataEncounterItemAppearance(
+                                        appearanceId,
+                                        0,
+                                        Object.keys(difficulties)
+                                            .map((difficulty) => parseInt(difficulty))
+                                    )
+                                ]
+                                filteredItems.push(item)
+                            }
+
+                            filteredItems = sortBy(
+                                filteredItems,
+                                (item) => findIndex(
+                                    group.items,
+                                    (origItem) => origItem.id === item.id
+                                )
+                            )
+                        }
+
+                        for (const item of filteredItems) {
                             for (const appearance of item.appearances) {
                                 const appearanceKey = masochist ?
                                     `${item.id}_${appearance.modifierId}` :
@@ -157,6 +211,7 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                                 }
                             }
                         }
+                        group.filteredItems = filteredItems
                     }
                 }
             }
