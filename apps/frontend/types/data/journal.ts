@@ -48,6 +48,7 @@ type JournalDataEncounterArray = ConstructorParameters<typeof JournalDataEncount
 
 export class JournalDataEncounterItemGroup {
     public items: JournalDataEncounterItem[]
+    public filteredItems: JournalDataEncounterItem[]
 
     constructor(
         public name: string,

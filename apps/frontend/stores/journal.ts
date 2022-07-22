@@ -72,15 +72,15 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                         const groupStats = stats[groupKey] = new UserCount()
                         const groupSeen: Record<string, boolean> = {}
 
-                        const items = getFilteredItems(
+                        group.filteredItems = getFilteredItems(
                             journalState,
-                            null,
+                            userTransmogData,
                             group,
                             classMask,
                             instanceExpansion,
                             masochist
                         )
-                        for (const item of items) {
+                        for (const item of group.filteredItems) {
                             for (const appearance of item.appearances) {
                                 const appearanceKey = masochist ?
                                     `${item.id}_${appearance.modifierId}` :
