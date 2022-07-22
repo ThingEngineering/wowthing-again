@@ -3,16 +3,17 @@ import findIndex from 'lodash/findIndex'
 import maxBy from 'lodash/maxBy'
 import sortBy from 'lodash/sortBy'
 
+import { journalDifficultyOrder } from '@/data/difficulty'
 import { UserCount, WritableFancyStore, type UserData } from '@/types'
 import { JournalDataEncounter, JournalDataEncounterItem, JournalDataEncounterItemAppearance } from '@/types/data'
+import { RewardType } from '@/types/enums'
 import getTransmogClassMask from '@/utils/get-transmog-class-mask'
 import getFilteredItems from '@/utils/journal/get-filtered-items'
+import leftPad from '@/utils/left-pad'
 import type { JournalState } from '@/stores/local-storage'
 import type { Settings } from '@/types'
 import type { JournalData, UserTransmogData } from '@/types/data'
 import type { StaticData } from '@/types/data/static'
-import { transmogTypes } from './user-vendors'
-import { RewardType } from '@/types/enums'
 
 
 export class JournalDataStore extends WritableFancyStore<JournalData> {
@@ -94,7 +95,7 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
 
                             const appearanceMap: Record<number, JournalDataEncounterItem[]> = {}
                             for (const item of filteredItems) {
-                                if (transmogTypes.indexOf(item.type) >= 0) {
+                                if (item.type === RewardType.Item) {
                                     for (const appearance of item.appearances) {
                                         (appearanceMap[appearance.appearanceId] ||= []).push(item)
                                     }
@@ -127,8 +128,11 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                                     new JournalDataEncounterItemAppearance(
                                         appearanceId,
                                         0,
-                                        Object.keys(difficulties)
-                                            .map((difficulty) => parseInt(difficulty))
+                                        sortBy(
+                                            Object.keys(difficulties)
+                                                .map((difficulty) => parseInt(difficulty)),
+                                            (diff) => journalDifficultyOrder.indexOf(diff)
+                                        )
                                     )
                                 ]
                                 keepItems.push(item)
@@ -136,10 +140,14 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
 
                             filteredItems = sortBy(
                                 keepItems,
-                                (item) => findIndex(
-                                    group.items,
-                                    (origItem) => origItem.id === item.id
-                                )
+                                (item) => [
+                                    leftPad(
+                                        findIndex(group.items, (origItem) => origItem.id === item.id),
+                                        3,
+                                        '0'
+                                    ),
+                                    journalDifficultyOrder.indexOf(item.appearances[0].difficulties[0])
+                                ].join('|')
                             )
                         }
 

@@ -1,10 +1,14 @@
 import cloneDeep from 'lodash/cloneDeep'
 
-import type { JournalState } from '@/stores/local-storage'
-import type { JournalDataEncounterItemGroup, JournalDataEncounterItem, JournalDataEncounterItemAppearance, UserTransmogData } from '@/types/data'
 import { Constants } from '@/data/constants'
 import { RewardType } from '@/types/enums'
-import { transmogTypes } from '@/stores/user-vendors'
+import type { JournalState } from '@/stores/local-storage'
+import type {
+    JournalDataEncounterItem,
+    JournalDataEncounterItemAppearance,
+    JournalDataEncounterItemGroup,
+    UserTransmogData
+} from '@/types/data'
 
 
 export default function getFilteredItems(
