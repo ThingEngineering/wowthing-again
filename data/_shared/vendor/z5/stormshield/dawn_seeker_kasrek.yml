@@ -2,7 +2,7 @@ id: 92501
 name: "Dawn-Seeker Kasrek"
 locations:
   z5_stormshield:
-    - 51.6 61.8
+    - 51.6 61.8 alliance
 sells:
   - type: mount
     id: 632 # Mosshide Riverwallow

@@ -1,11 +1,9 @@
-import clone from 'lodash/cloneDeep'
 import findIndex from 'lodash/findIndex'
-import maxBy from 'lodash/maxBy'
 import sortBy from 'lodash/sortBy'
 
-import { journalDifficultyOrder } from '@/data/difficulty'
+import { journalDifficultyMap, journalDifficultyOrder } from '@/data/difficulty'
 import { UserCount, WritableFancyStore, type UserData } from '@/types'
-import { JournalDataEncounter, JournalDataEncounterItem, JournalDataEncounterItemAppearance } from '@/types/data'
+import { JournalDataEncounter, JournalDataEncounterItem } from '@/types/data'
 import { RewardType } from '@/types/enums'
 import getTransmogClassMask from '@/utils/get-transmog-class-mask'
 import getFilteredItems from '@/utils/journal/get-filtered-items'
@@ -83,11 +81,9 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
 
                         let filteredItems = getFilteredItems(
                             journalState,
-                            userTransmogData,
                             group,
                             classMask,
                             instanceExpansion,
-                            masochist
                         )
 
                         if (!masochist) {
@@ -120,21 +116,25 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                                     }
                                 }
 
-                                const item = clone(maxBy(items, (item) => item.classMask))
-                                item.extraAppearances = items.length - 1
-                                item.quality = maxBy(items, (item) => item.quality).quality
-                                item.classMask = items.reduce((a, b) => a | b.classMask, 0)
-                                item.appearances = [
-                                    new JournalDataEncounterItemAppearance(
+                                const item = new JournalDataEncounterItem(
+                                    items[0].type,
+                                    items[0].id,
+                                    Math.max(...items.map((item) => item.quality)),
+                                    items[0].classId,
+                                    items[0].subclassId,
+                                    items.reduce((a, b) => a | b.classMask, 0),
+                                    [[
                                         appearanceId,
                                         0,
                                         sortBy(
                                             Object.keys(difficulties)
                                                 .map((difficulty) => parseInt(difficulty)),
-                                            (diff) => journalDifficultyOrder.indexOf(diff)
+                                            (diff) => journalDifficultyMap[diff]
                                         )
-                                    )
-                                ]
+                                    ]]
+                                )
+                                item.extraAppearances = items.length - 1
+
                                 keepItems.push(item)
                             }
 
@@ -152,6 +152,8 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                         }
 
                         for (const item of filteredItems) {
+                            let allCollected = true
+
                             for (const appearance of item.appearances) {
                                 let appearanceKey: string
                                 let userHas: boolean
@@ -178,6 +180,11 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                                         userHas = userData.hasToy[item.id]
                                     }
                                 }
+
+                                if (!userHas) {
+                                    allCollected = false
+                                }
+
 
                                 if (!overallSeen[appearanceKey]) {
                                     overallStats.total++
@@ -246,14 +253,19 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                                     encounterSeen[itemKey] = true
                                 }
                             }
+
+                            if (
+                                (journalState.showUncollected && !allCollected) ||
+                                (journalState.showCollected && allCollected)
+                            ) {
+                                item.show = true
+                            }
                         }
                         group.filteredItems = filteredItems
                     }
                 }
             }
         }
-
-        // console.log(masochist, stats)
 
         this.update((state) => {
             state.data.stats = stats

@@ -104,11 +104,11 @@
         yEntries = []
         yKeys = []
         for (const faction of $matrixState.y_faction ? factionValues : ['']) {
-            for (const accountId of $matrixState.y_account ? Object.keys($userStore.data.accounts) : ['']) {
-                if (faction === '2') {
-                    continue // neutral
-                }
+            if (faction === '2' || faction === '10') {
+                continue // neutral
+            }
 
+            for (const accountId of $matrixState.y_account ? Object.keys($userStore.data.accounts) : ['']) {
                 yKeys.push(`${accountId},${faction}`)
 
                 const yParts: string[] = []

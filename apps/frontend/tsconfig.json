@@ -9,6 +9,7 @@
         "paths": {
             "@/*": ["*"]
         },
+        "resolveJsonModule": true,
         "strict": true,
         "strictNullChecks": false
     }

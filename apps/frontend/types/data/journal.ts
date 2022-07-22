@@ -65,6 +65,7 @@ type JournalDataEncounterItemGroupArray = ConstructorParameters<typeof JournalDa
 export class JournalDataEncounterItem {
     public appearances: JournalDataEncounterItemAppearance[]
     public extraAppearances: number
+    public show: boolean
 
     constructor(
         public type: RewardType,
@@ -78,6 +79,22 @@ export class JournalDataEncounterItem {
     {
         this.appearances = (appearancesRaw || [])
             .map((appearanceArray) => new JournalDataEncounterItemAppearance(...appearanceArray))
+    }
+
+    clone(): JournalDataEncounterItem {
+        return new JournalDataEncounterItem(
+            this.type,
+            this.id,
+            this.quality,
+            this.classId,
+            this.subclassId,
+            this.classMask,
+            this.appearances.map((appearance) => [
+                appearance.appearanceId,
+                appearance.modifierId,
+                appearance.difficulties
+            ])
+        )
     }
 }
 

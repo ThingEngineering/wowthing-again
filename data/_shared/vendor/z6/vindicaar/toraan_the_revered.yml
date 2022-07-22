@@ -58,8 +58,9 @@ sells:
       0: 300 # Gold
     reputation: 2170 exalted # Argussian Reach
 
-  - type: transmog
-    id: 153290 # Krokuul Mining Pick [1h str axe]
-    costs:
-      0: 200 # Gold
-    reputation: 2165 honored # Army of the Light
+  # Doesn't unlock appearance
+  # - type: transmog
+  #   id: 153290 # Krokuul Mining Pick [1h str axe]
+  #   costs:
+  #     0: 200 # Gold
+  #   reputation: 2165 honored # Army of the Light

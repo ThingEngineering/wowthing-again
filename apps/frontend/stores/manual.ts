@@ -17,9 +17,10 @@ import {
     ManualDataTransmogCategory,
     ManualDataVendorCategory,
     ManualDataVendorGroup,
+    ManualDataVendorItem,
     ManualDataZoneMapCategory,
 } from '@/types/data/manual'
-import { FarmResetType, PlayableClass, PlayableClassMask, RewardType } from '@/types/enums'
+import { Faction, FarmResetType, PlayableClass, PlayableClassMask, RewardType } from '@/types/enums'
 import { getNextBiWeeklyReset, getNextDailyReset, getNextWeeklyReset } from '@/utils/get-next-reset'
 import getTransmogClassMask from '@/utils/get-transmog-class-mask'
 import type { ZoneMapState } from '@/stores/local-storage'
@@ -242,7 +243,6 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
     {
         // console.time('setupVendors')
 
-        const autoSeen: Record<string, boolean> = {}
         for (const categories of state.data.vendors.sets) {
             if (categories === null) {
                 continue
@@ -252,6 +252,8 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                 if (category === null || (category.vendorMaps.length === 0 && category.vendorTags.length === 0)) {
                     continue
                 }
+
+                const autoSeen: Record<string, ManualDataVendorItem> = {}
 
                 // Remove any auto groups
                 category.groups = category.groups.filter((group) => group.auto !== true)
@@ -278,9 +280,13 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                         for (let itemIndex = set.range[0]; itemIndex < set.range[0] + set.range[1]; itemIndex++) {
                             const item = vendor.sells[itemIndex]
                             const seenKey = `${item.type}|${item.id}`
-                            if (!autoSeen[seenKey]) {
+                            const autoItem = autoSeen[seenKey]
+                            if (!autoItem) {
                                 autoGroup.sells.push(item)
-                                autoSeen[seenKey] = true
+                                autoSeen[seenKey] = item
+                            }
+                            else if (autoItem.faction !== Faction.Both && item.faction !== autoItem.faction) {
+                                autoItem.faction = Faction.Both
                             }
                         }
                     }
@@ -308,15 +314,20 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                             [groupKey, groupName] = ['90transmog', 'Transmog']
                         }
 
+                        item.faction = vendor.faction
                         item.sortedCosts = getCurrencyCosts(state.data, staticData, item.costs)
 
                         if (groupKey) {
                             const autoGroup = autoGroups[groupKey] ||= new ManualDataVendorGroup(groupName, [], true)
 
                             const seenKey = `${item.type}|${item.id}`
-                            if (!autoSeen[seenKey]) {
+                            const autoItem = autoSeen[seenKey]
+                            if (!autoItem) {
                                 autoGroup.sells.push(item)
-                                autoSeen[seenKey] = true
+                                autoSeen[seenKey] = item
+                            }
+                            else if (autoItem.faction !== Faction.Both && item.faction !== autoItem.faction) {
+                                autoItem.faction = Faction.Both
                             }
                         }
                     }

@@ -48,6 +48,10 @@ export const journalDifficultyOrder: number[] = [
     33, // Raid Timewalking
 ]
 
+export const journalDifficultyMap: Record<number, number> = Object.fromEntries(
+    journalDifficultyOrder.map((value, index) => [value, index])
+)
+
 export const lockoutDifficultyOrder: number[] = [
     16, // Raid Mythic
     15, // Raid Heroic

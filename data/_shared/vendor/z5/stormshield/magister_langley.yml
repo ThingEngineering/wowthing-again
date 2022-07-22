@@ -2,7 +2,7 @@ id: 128756
 name: "Magister Langley"
 locations:
   z5_stormshield:
-    - 54.6 17.6
+    - 54.6 17.6 alliance
 sells:
   - type: mount
     id: 639 # Pale Thorngrazer
