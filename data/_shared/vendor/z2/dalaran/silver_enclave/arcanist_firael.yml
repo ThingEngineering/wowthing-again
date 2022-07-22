@@ -68,6 +68,46 @@ sets:
     range: 95 9
     sortKey: "armor-misc-1-4"
 
+  - name: "Armor - T08 Death Knight"
+    range: 104 4
+    sortKey: "armor-t08-1-deathknight"
+
+  - name: "Armor - T08 Druid"
+    range: 108 6
+    sortKey: "armor-t08-1-druid"
+
+  - name: "Armor - T08 Hunter"
+    range: 114 2
+    sortKey: "armor-t08-1-hunter"
+
+  - name: "Armor - T08 Mage"
+    range: 116 2
+    sortKey: "armor-t08-1-mage"
+
+  - name: "Armor - T08 Paladin"
+    range: 118 6
+    sortKey: "armor-t08-1-paladin"
+
+  - name: "Armor - T08 Priest"
+    range: 124 4
+    sortKey: "armor-t08-1-priest"
+
+  - name: "Armor - T08 Rogue"
+    range: 128 2
+    sortKey: "armor-t08-1-rogue"
+
+  - name: "Armor - T08 Shaman"
+    range: 130 6
+    sortKey: "armor-t08-1-shaman"
+
+  - name: "Armor - T08 Warlock"
+    range: 136 2
+    sortKey: "armor-t08-1-warlock"
+
+  - name: "Armor - T08 Warrior"
+    range: 138 4
+    sortKey: "armor-t08-1-warrior"
+
 sells:
   # Death Knight
 
@@ -611,33 +651,212 @@ sells:
     costs:
       0: 167 # Gold
 
-  - type: transmog
-    id: 45632 # Breastplate of the Wayward Conqueror
-    costs:
-      0: 208 # Gold
+  # T8 - Death Knight
 
   - type: transmog
-    id: 45633 # Breastplate of the Wayward Protector
+    id: 46120 # Conqueror's Darkruned Faceguard [Death Knight -84]
     costs:
-      0: 167 # Gold
+      0: 152 # Gold
 
   - type: transmog
-    id: 45634 # Breastplate of the Wayward Vanquisher
+    id: 46115 # Conqueror's Darkruned Helmet [Death Knight -83]
+    costs:
+      0: 152 # Gold
+
+  - type: transmog
+    id: 46118 # Conqueror's Darkruned Chestguard [Death Knight -84]
     costs:
       0: 199 # Gold
 
   - type: transmog
-    id: 45638 # Crown of the Wayward Conqueror
+    id: 46111 # Conqueror's Darkruned Battleplate [Death Knight -83]
+    costs:
+      0: 199 # Gold
+
+  # T8 - Druid
+
+  - type: transmog
+    id: 46184 # Conqueror's Nightsong Headpiece [Druid -78]
+    costs:
+      0: 152 # Gold
+
+  - type: transmog
+    id: 46191 # Conqueror's Nightsong Cover [Druid -77]
+    costs:
+      0: 152 # Gold
+
+  - type: transmog
+    id: 46161 # Conqueror's Nightsong Headguard [Druid -76]
+    costs:
+      0: 152 # Gold
+
+  - type: transmog
+    id: 46186 # Conqueror's Nightsong Robe [Druid -78]
+    costs:
+      0: 199 # Gold
+
+  - type: transmog
+    id: 46194 # Conqueror's Nightsong Vestments [Druid -77]
+    costs:
+      0: 199 # Gold
+
+  - type: transmog
+    id: 46159 # Conqueror's Nightsong Raiments [Druid -76]
+    costs:
+      0: 199 # Gold
+
+  # T8 - Hunter
+  
+  - type: transmog
+    id: 46143 # Conqueror's Scourgestalker Headpiece [Hunter -87]
+    costs:
+      0: 127 # Gold
+ 
+  - type: transmog
+    id: 46141 # Conqueror's Scourgestalker Tunic [Hunter -87]
+    costs:
+      0: 167 # Gold
+
+  # T8 - Mage
+
+  - type: transmog
+    id: 46129 # Conqueror's Kirin Tor Hood [Mage -85]
+    costs:
+      0: 152 # Gold
+
+  - type: transmog
+    id: 46130 # Conqueror's Kirin Tor Tunic [Mage -85]
+    costs:
+      0: 199 # Gold
+
+  # T8 - Paladin
+
+  - type: transmog
+    id: 46180 # Conqueror's Aegis Headpiece [Paladin -71]
     costs:
       0: 159 # Gold
 
   - type: transmog
-    id: 45639 # Crown of the Wayward Protector
+    id: 46175 # Conqueror's Aegis Faceguard [Paladin -70]
+    costs:
+      0: 159 # Gold
+
+  - type: transmog
+    id: 46156 # Conqueror's Aegis Helm [Paladin -69]
+    costs:
+      0: 159 # Gold
+
+  - type: transmog
+    id: 46178 # Conqueror's Aegis Tunic [Paladin -71]
+    costs:
+      0: 208 # Gold
+
+  - type: transmog
+    id: 46173 # Conqueror's Aegis Breastplate [Paladin -70]
+    costs:
+      0: 208 # Gold
+
+  - type: transmog
+    id: 46154 # Conqueror's Aegis Battleplate [Paladin -69]
+    costs:
+      0: 208 # Gold
+
+  # T8 - Priest
+
+  - type: transmog
+    id: 46197 # Conqueror's Cowl of Sanctification [Priest -82]
+    costs:
+      0: 159 # Gold
+
+  - type: transmog
+    id: 46172 # Conqueror's Circlet of Sanctification [Priest -81]
+    costs:
+      0: 159 # Gold
+
+  - type: transmog
+    id: 46193 # Conqueror's Robe of Sanctification [Priest -82]
+    costs:
+      0: 208 # Gold
+
+  - type: transmog
+    id: 46168 # Conqueror's Raiments of Sanctification [Priest -81]
+    costs:
+      0: 208 # Gold
+
+  # T8 - Rogue
+
+  - type: transmog
+    id: 46125 # Conqueror's Terrorblade Helmet [Rogue -75]
+    costs:
+      0: 152 # Gold
+
+  - type: transmog
+    id: 46123 # Conqueror's Terrorblade Breastplate [Rogue -75]
+    costs:
+      0: 199 # Gold
+
+  # T8 - Shaman
+
+  - type: transmog
+    id: 46201 # Conqueror's Worldbreaker Headpiece [Shaman -74]
+    costs:
+      0: 127 # Gold
+ 
+  - type: transmog
+    id: 46209 # Conqueror's Worldbreaker Helm [Shaman -73]
+    costs:
+      0: 127 # Gold
+ 
+  - type: transmog
+    id: 46212 # Conqueror's Worldbreaker Faceguard [Shaman -72]
+    costs:
+      0: 127 # Gold
+ 
+  - type: transmog
+    id: 46198 # Conqueror's Worldbreaker Tunic [Shaman -74]
+    costs:
+      0: 167 # Gold
+
+  - type: transmog
+    id: 46206 # Conqueror's Worldbreaker Hauberk [Shaman -73]
+    costs:
+      0: 167 # Gold
+
+  - type: transmog
+    id: 46205 # Conqueror's Worldbreaker Chestguard [Shaman -72]
+    costs:
+      0: 167 # Gold
+
+  # T8 - Warlock
+
+  - type: transmog
+    id: 46140 # Conqueror's Deathbringer Hood [Warlock -86]
+    costs:
+      0: 159 # Gold
+ 
+  - type: transmog
+    id: 46137 # Conqueror's Deathbringer Robe [Warlock -86]
+    costs:
+      0: 208 # Gold
+
+  # T8 - Warrior
+
+  - type: transmog
+    id: 46166 # Conqueror's Siegebreaker Greathelm [Warrior -80]
+    costs:
+      0: 127 # Gold
+ 
+  - type: transmog
+    id: 46151 # Conqueror's Siegebreaker Helmet [Warrior -79]
     costs:
       0: 127 # Gold
 
   - type: transmog
-    id: 45640 # Crown of the Wayward Vanquisher
+    id: 46162 # Conqueror's Siegebreaker Breastplate [Warrior -80]
     costs:
-      0: 152 # Gold
+      0: 167 # Gold
 
+  - type: transmog
+    id: 46146 # Conqueror's Siegebreaker Battleplate [Warrior -79]
+    costs:
+      0: 167 # Gold

@@ -72,6 +72,46 @@ sets:
     range: 89 7
     sortKey: "weapons-misc"
 
+  - name: "Armor - T07 Death Knight"
+    range: 96 4
+    sortKey: "armor-t07-1-deathknight"
+
+  - name: "Armor - T07 Druid"
+    range: 100 6
+    sortKey: "armor-t07-1-druid"
+
+  - name: "Armor - T07 Hunter"
+    range: 106 2
+    sortKey: "armor-t07-1-hunter"
+
+  - name: "Armor - T07 Mage"
+    range: 108 2
+    sortKey: "armor-t07-1-mage"
+
+  - name: "Armor - T07 Paladin"
+    range: 110 6
+    sortKey: "armor-t07-1-paladin"
+
+  - name: "Armor - T07 Priest"
+    range: 116 4
+    sortKey: "armor-t07-1-priest"
+
+  - name: "Armor - T07 Rogue"
+    range: 120 2
+    sortKey: "armor-t07-1-rogue"
+
+  - name: "Armor - T07 Shaman"
+    range: 122 6
+    sortKey: "armor-t07-1-shaman"
+
+  - name: "Armor - T07 Warlock"
+    range: 128 2
+    sortKey: "armor-t07-1-warlock"
+
+  - name: "Armor - T07 Warrior"
+    range: 130 4
+    sortKey: "armor-t07-1-warrior"
+
 sells:
   # Death Knight
 
@@ -575,32 +615,212 @@ sells:
     costs:
       0: 153 # Gold
 
-  - type: transmog
-    id: 40610 # Chestguard of the Lost Conqueror
-    costs:
-      0: 144 # Gold
+  # T7 - Death Knight
 
   - type: transmog
-    id: 40611 # Chestguard of the Lost Protector
-    costs:
-      0: 153 # Gold
-
-  - type: transmog
-    id: 40612 # Chestguard of the Lost Vanquisher
+    id: 39623 # Heroes' Scourgeborne Chestguard [Death Knight -753]
     costs:
       0: 181 # Gold
 
   - type: transmog
-    id: 40613 # Gloves of the Lost Conqueror
+    id: 39617 # Heroes' Scourgeborne Battleplate [Death Knight -752]
+    costs:
+      0: 181 # Gold
+
+  - type: transmog
+    id: 39624 # Heroes' Scourgeborne Handguards [Death Knight -753]
+    costs:
+      0: 92 # Gold
+
+  - type: transmog
+    id: 39618 # Heroes' Scourgeborne Gauntlets [Death Knight -752]
+    costs:
+      0: 92 # Gold
+
+  # T7 - Druid
+  
+  - type: transmog
+    id: 39547 # Heroes' Dreamwalker Vestments [Druid -760]
+    costs:
+      0: 181 # Gold
+
+  - type: transmog
+    id: 39538 # Heroes' Dreamwalker Robe [Druid -759]
+    costs:
+      0: 181 # Gold
+
+  - type: transmog
+    id: 39554 # Heroes' Dreamwalker Raiments [Druid -758]
+    costs:
+      0: 181 # Gold
+
+  - type: transmog
+    id: 39544 # Heroes' Dreamwalker Gloves [Druid -760]
+    costs:
+      0: 92 # Gold
+
+  - type: transmog
+    id: 39543 # Heroes' Dreamwalker Handguards [Druid -759]
+    costs:
+      0: 92 # Gold
+
+  - type: transmog
+    id: 39557 # Heroes' Dreamwalker Handgrips [Druid -758]
+    costs:
+      0: 92 # Gold
+
+  # T7 - Hunter
+  
+  - type: transmog
+    id: 39579 # Heroes' Cryptstalker Tunic [Hunter -754]
+    costs:
+      0: 153 # Gold
+
+  - type: transmog
+    id: 39582 # Heroes' Cryptstalker Handguards [Hunter -754]
+    costs:
+      0: 78 # Gold
+
+  # T7 - Mage
+
+  - type: transmog
+    id: 39492 # Heroes' Frostfire Robe [Mage -763]
+    costs:
+      0: 181 # Gold
+
+  - type: transmog
+    id: 39495 # Heroes' Frostfire Gloves [Mage -763]
+    costs:
+      0: 92 # Gold
+
+  # T7 - Paladin
+  
+  - type: transmog
+    id: 39638 # Heroes' Redemption Breastplate [Paladin -751]
+    costs:
+      0: 144 # Gold
+
+  - type: transmog
+    id: 39629 # Heroes' Redemption Tunic [Paladin -750]
+    costs:
+      0: 144 # Gold
+
+  - type: transmog
+    id: 39633 # Heroes' Redemption Chestpiece [Paladin -749]
+    costs:
+      0: 144 # Gold
+  
+  - type: transmog
+    id: 39639 # Heroes' Redemption Handguards [Paladin -751]
     costs:
       0: 73 # Gold
 
   - type: transmog
-    id: 40614 # Gloves of the Lost Protector
+    id: 39632 # Heroes' Redemption Gloves [Paladin -750]
+    costs:
+      0: 73 # Gold
+
+  - type: transmog
+    id: 39634 # Heroes' Redemption Gauntlets [Paladin -749]
+    costs:
+      0: 73 # Gold
+
+  # T7 - Priest
+
+  - type: transmog
+    id: 39523 # Heroes' Raiments of Faith [Priest -765]
+    costs:
+      0: 144 # Gold
+
+  - type: transmog
+    id: 39515 # Heroes' Robe of Faith [Priest -764]
+    costs:
+      0: 144 # Gold
+
+  - type: transmog
+    id: 39530 # Heroes' Handwraps of Faith [Priest -765]
+    costs:
+      0: 73 # Gold
+
+  - type: transmog
+    id: 39519 # Heroes' Gloves of Faith [Priest -764]
+    costs:
+      0: 73 # Gold
+  
+  # T7 - Rogue
+  
+  - type: transmog
+    id: 39558 # Heroes' Bonescythe Breastplate [Rogue -761]
+    costs:
+      0: 181 # Gold
+
+  - type: transmog
+    id: 39560 # Heroes' Bonescythe Gauntlets [Rogue -761]
+    costs:
+      0: 92 # Gold
+
+  # T7 - Shaman
+
+  - type: transmog
+    id: 39588 # Heroes' Earthshatter Tunic [Shaman -757]
+    costs:
+      0: 153 # Gold
+
+  - type: transmog
+    id: 39592 # Heroes' Earthshatter Hauberk [Shaman -756]
+    costs:
+      0: 153 # Gold
+
+  - type: transmog
+    id: 39597 # Heroes' Earthshatter Chestguard [Shaman -755]
+    costs:
+      0: 153 # Gold
+
+  - type: transmog
+    id: 39591 # Heroes' Earthshatter Handguards [Shaman -757]
     costs:
       0: 78 # Gold
 
   - type: transmog
-    id: 40615 # Gloves of the Lost Vanquisher
+    id: 39593 # Heroes' Earthshatter Gloves [Shaman -756]
     costs:
-      0: 92 # Gold
+      0: 78 # Gold
+
+  - type: transmog
+    id: 39601 # Heroes' Earthshatter Grips [Shaman -755]
+    costs:
+      0: 78 # Gold
+
+  # T7 - Warlock
+
+  - type: transmog
+    id: 39497 # Heroes' Plagueheart Robe [Warlock -762]
+    costs:
+      0: 144 # Gold
+
+  - type: transmog
+    id: 39500 # Heroes' Plagueheart Gloves [Warlock -762]
+    costs:
+      0: 73 # Gold
+
+  # T7 - Warrior
+
+  - type: transmog
+    id: 39606 # Heroes' Dreadnaught Battleplate [Warrior -748]
+    costs:
+      0: 153 # Gold
+
+  - type: transmog
+    id: 39611 # Heroes' Dreadnaught Breastplate [Warrior -747]
+    costs:
+      0: 153 # Gold
+
+  - type: transmog
+    id: 39609 # Heroes' Dreadnaught Gauntlets [Warrior -748]
+    costs:
+      0: 78 # Gold
+
+  - type: transmog
+    id: 39622 # Heroes' Dreadnaught Handguards [Warrior -747]
+    costs:
+      0: 78 # Gold
