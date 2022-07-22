@@ -8,7 +8,7 @@
 /**********                                              Vite                                               **********/
 /*********************************************************************************************************************/
 
-import { defineConfig, splitVendorChunkPlugin, UserConfig } from 'vite'
+import { defineConfig, splitVendorChunkPlugin, type UserConfig } from 'vite'
 import { svelte } from '@sveltejs/vite-plugin-svelte'
 import path from 'path'
 import sveltePreprocess from 'svelte-preprocess'
