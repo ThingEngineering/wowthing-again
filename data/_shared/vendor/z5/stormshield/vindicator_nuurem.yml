@@ -2,7 +2,7 @@ id: 85932
 name: "Vindicator Nuurem"
 locations:
   z5_stormshield:
-    - 46.6 76.2
+    - 46.6 76.2 alliance
 sells:
   - type: mount
     id: 617 # Dusty Rockhide
