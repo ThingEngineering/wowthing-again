@@ -6,7 +6,6 @@ import leftPad from '@/utils/left-pad'
 import { Region } from '@/types/enums'
 import type { Character, Settings, UserData } from '@/types'
 import type { StaticData } from '@/types/data/static'
-import CharactersShadowlandsSoulshapes from '@/components/characters/shadowlands/CharactersShadowlandsSoulshapes.svelte'
 
 export default function getCharacterSortFunc(
     settingsData: Settings,

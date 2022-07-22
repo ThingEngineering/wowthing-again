@@ -1,5 +1,10 @@
+import clone from 'lodash/cloneDeep'
+import findIndex from 'lodash/findIndex'
+import maxBy from 'lodash/maxBy'
+import sortBy from 'lodash/sortBy'
+
 import { UserCount, WritableFancyStore } from '@/types'
-import { JournalDataEncounter } from '@/types/data'
+import { JournalDataEncounter, JournalDataEncounterItem, JournalDataEncounterItemAppearance } from '@/types/data'
 import getTransmogClassMask from '@/utils/get-transmog-class-mask'
 import getFilteredItems from '@/utils/journal/get-filtered-items'
 import type { JournalState } from '@/stores/local-storage'
@@ -32,9 +37,9 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
     }
 
     setup(
+        settingsData: Settings,
         journalData: JournalData,
         journalState: JournalState,
-        settingsData: Settings,
         staticData: StaticData,
         userTransmogData: UserTransmogData
     ): void {
@@ -61,6 +66,7 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                 for (const encounter of instance.encounters) {
                     const encounterKey = `${instanceKey}--${encounter.name}`
                     const encounterStats = stats[encounterKey] = new UserCount()
+                    const encounterSeen: Record<string, boolean> = {}
 
                     if (!journalState.showTrash && encounter.name === 'Trash Drops') {
                         continue
@@ -69,16 +75,66 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                     for (const group of encounter.groups) {
                         const groupKey = `${encounterKey}--${group.name}`
                         const groupStats = stats[groupKey] = new UserCount()
+                        const groupSeen: Record<string, boolean> = {}
 
-                        const items = getFilteredItems(
+                        let filteredItems = getFilteredItems(
                             journalState,
-                            null,
+                            userTransmogData,
                             group,
                             classMask,
                             instanceExpansion,
                             masochist
                         )
-                        for (const item of items) {
+
+                        if (!masochist) {
+                            const appearanceMap: Record<number, JournalDataEncounterItem[]> = {}
+                            for (const item of filteredItems) {
+                                for (const appearance of item.appearances) {
+                                    (appearanceMap[appearance.appearanceId] ||= []).push(item)
+                                }
+                            }
+
+                            filteredItems = []
+                            for (const [appearanceIdStr, items] of Object.entries(appearanceMap)) {
+                                const appearanceId = parseInt(appearanceIdStr)
+
+                                const difficulties: Record<number, boolean> = {}
+                                for (const item of items) {
+                                    for (const appearance of item.appearances) {
+                                        if (appearance.appearanceId === appearanceId) {
+                                            for (const difficulty of appearance.difficulties) {
+                                                difficulties[difficulty] = true
+                                            }
+                                            break
+                                        }
+                                    }
+                                }
+
+                                const item = clone(maxBy(items, (item) => item.classMask))
+                                item.extraAppearances = items.length - 1
+                                item.quality = maxBy(items, (item) => item.quality).quality
+                                item.classMask = items.reduce((a, b) => a | b.classMask, 0)
+                                item.appearances = [
+                                    new JournalDataEncounterItemAppearance(
+                                        appearanceId,
+                                        0,
+                                        Object.keys(difficulties)
+                                            .map((difficulty) => parseInt(difficulty))
+                                    )
+                                ]
+                                filteredItems.push(item)
+                            }
+
+                            filteredItems = sortBy(
+                                filteredItems,
+                                (item) => findIndex(
+                                    group.items,
+                                    (origItem) => origItem.id === item.id
+                                )
+                            )
+                        }
+
+                        for (const item of filteredItems) {
                             for (const appearance of item.appearances) {
                                 const appearanceKey = masochist ?
                                     `${item.id}_${appearance.modifierId}` :
@@ -93,8 +149,12 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                                 if (!instanceSeen[appearanceKey]) {
                                     instanceStats.total++
                                 }
-                                encounterStats.total++
-                                groupStats.total++
+                                if (!encounterSeen[appearanceKey]) {
+                                    encounterStats.total++
+                                }
+                                if (!groupSeen[appearanceKey]) {
+                                    groupStats.total++
+                                }
 
                                 const userHas = masochist ?
                                     userTransmogData.sourceHas[appearanceKey] :
@@ -109,13 +169,19 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                                     if (!instanceSeen[appearanceKey]) {
                                         instanceStats.have++
                                     }
-                                    encounterStats.have++
-                                    groupStats.have++
+                                    if (!encounterSeen[appearanceKey]) {
+                                        encounterStats.have++
+                                    }
+                                    if (!groupSeen[appearanceKey]) {
+                                        groupStats.have++
+                                    }
                                 }
 
                                 overallSeen[appearanceKey] = true
                                 tierSeen[appearanceKey] = true
                                 instanceSeen[appearanceKey] = true
+                                encounterSeen[appearanceKey] = true
+                                groupSeen[appearanceKey] = true
 
                                 for (const difficulty of appearance.difficulties) {
                                     const instanceDifficultyKey = `${instanceKey}--${difficulty}`
@@ -125,20 +191,27 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                                     const encounterDifficultyStats = stats[encounterDifficultyKey] ||= new UserCount()
 
                                     const itemKey = `${appearanceKey}--${difficulty}`
+
                                     if (!instanceSeen[itemKey]) {
                                         instanceDifficultyStats.total++
-                                        encounterDifficultyStats.total++
-
                                         if (userHas) {
                                             instanceDifficultyStats.have++
+                                        }
+                                    }
+
+                                    if (!encounterSeen[itemKey]) {
+                                        encounterDifficultyStats.total++
+                                        if (userHas) {
                                             encounterDifficultyStats.have++
                                         }
                                     }
 
                                     instanceSeen[itemKey] = true
+                                    encounterSeen[itemKey] = true
                                 }
                             }
                         }
+                        group.filteredItems = filteredItems
                     }
                 }
             }

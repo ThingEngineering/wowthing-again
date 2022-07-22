@@ -1,7 +1,7 @@
 <script lang="ts">
     import find from 'lodash/find'
 
-    import { journalStore, staticStore } from '@/stores'
+    import { journalStore } from '@/stores'
     import { journalState } from '@/stores/local-storage'
     import type { JournalDataInstance, JournalDataTier } from '@/types/data'
 
@@ -76,7 +76,6 @@
                         {#each encounter.groups as group}
                             <Group
                                 bonusIds={instance.bonusIds}
-                                instanceExpansion={$staticStore.data.instances[instance.id]?.expansion ?? 0}
                                 stats={$journalStore.data.stats[`${slug1}--${slug2}--${encounter.name}--${group.name}`]}
                                 {group}
                                 {useV2}

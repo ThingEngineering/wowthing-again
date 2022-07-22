@@ -1,4 +1,5 @@
-﻿using StackExchange.Redis;
+﻿using MoreLinq;
+using StackExchange.Redis;
 using Wowthing.Backend.Models.Data.Collections;
 using Wowthing.Backend.Models.Data.Progress;
 using Wowthing.Backend.Models.Data.Transmog;
@@ -255,7 +256,9 @@ public class CacheManualJob : JobBase, IScheduledJob
             }
         }
 
-        return ret;
+        return ret
+            .OrderBy(vendor => vendor.Id)
+            .ToList();
     }
 
     // Generate and cache output

@@ -84,9 +84,9 @@
             )
 
             journalStore.setup(
+                $settings,
                 $journalStore.data,
                 $journalState,
-                $settings,
                 $staticStore.data,
                 $userTransmogStore.data
             )
