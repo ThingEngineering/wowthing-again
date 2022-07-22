@@ -26,7 +26,7 @@ public class CacheJournalJob : JobBase, IScheduledJob
         Type = JobType.CacheJournal,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(24),
-        Version = 20,
+        Version = 21,
     };
 
     public override async Task Run(params string[] data)
@@ -127,7 +127,7 @@ public class CacheJournalJob : JobBase, IScheduledJob
                     .Value0
             );
 
-        _timer.AddPoint("CSV");
+        _timer.AddPoint("Dumps");
 
         _itemMap = await Context.WowItem
             .AsNoTracking()
@@ -153,6 +153,10 @@ public class CacheJournalJob : JobBase, IScheduledJob
             .ToDictionaryAsync(ls => (ls.Type, ls.Language, ls.Id), ls => ls.String);
 
         _timer.AddPoint("Database");
+
+        var itemExpansions = DataUtilities.LoadItemExpansions();
+
+        _timer.AddPoint("Shared");
 
         var db = Redis.GetDatabase();
 
@@ -285,7 +289,7 @@ public class CacheJournalJob : JobBase, IScheduledJob
                             var fakeItems = new Dictionary<int, DumpJournalEncounterItem>();
                             foreach (var encounterItem in itemsByEncounterId.GetValueOrDefault(encounter.ID, Array.Empty<DumpJournalEncounterItem>()))
                             {
-                                if (Hardcoded.ItemExpansions.TryGetValue(encounterItem.ItemID, out var expandedItems))
+                                if (itemExpansions.TryGetValue(encounterItem.ItemID, out var expandedItems))
                                 {
                                     //Logger.Debug("Expanding items for {Id}", encounterItem.ItemID);
                                     foreach (int itemId in expandedItems)

@@ -175,4 +175,25 @@ public static class DataUtilities
 
         return cat;
     }
+
+    public static Dictionary<int, int[]> LoadItemExpansions()
+    {
+        var di = new DirectoryInfo(Path.Join(DataPath, "_shared", "item_expansion"));
+        var files = di.GetFiles("*.yml", SearchOption.AllDirectories)
+            .OrderBy(file => file.FullName)
+            .ToArray();
+
+        var ret = new Dictionary<int, int[]>();
+
+        foreach (var file in files)
+        {
+            var items = YamlDeserializer.Deserialize<Dictionary<int, int[]>>(File.OpenText(file.FullName));
+            foreach (var (itemId, expandedIds) in items)
+            {
+                ret[itemId] = expandedIds;
+            }
+        }
+
+        return ret;
+    }
 }
