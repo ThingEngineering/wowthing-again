@@ -7,9 +7,10 @@ locations:
     - 51.6 41.6
 
 sets:
-  - name: "Armor - Sha'tari"
-    range: 2 17
-    sortKey: "armor-shatari"
+  - name: "Reputation - The Sha'tar"
+    range: 0 19
+    sortKey: "0-rep-the-shatar"
+    skipTooltip: true
 
 sells:
   - type: transmog
