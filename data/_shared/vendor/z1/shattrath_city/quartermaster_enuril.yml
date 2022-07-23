@@ -6,6 +6,12 @@ locations:
   z1_shattrath_city:
     - 60.4 63.8
 
+sets:
+  - name: "Reputation - The Scryers"
+    range: 0 5
+    sortKey: "0-rep-the-scryers"
+    skipTooltip: true
+
 sells:
   - type: transmog
     id: 29125 # Retainer's Blade [agi dagger]

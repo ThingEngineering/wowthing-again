@@ -6,6 +6,12 @@ locations:
   z1_shattrath_city:
     - 47.8 26.0
 
+sets:
+  - name: "Reputation - The Aldor"
+    range: 0 5
+    sortKey: "0-rep-the-aldor"
+    skipTooltip: true
+
 sells:
   - type: transmog
     id: 29124 # Vindicator's Brand [1h agi/str sword]

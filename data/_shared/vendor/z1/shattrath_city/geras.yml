@@ -6,80 +6,31 @@ locations:
     - 51.6 43.6
 
 sets:
-  - name: "Armor - G'eras Cloaks"
-    range: 0 11
-    sortKey: "armor-geras-cloaks"
-
-  - name: "Armor - G'eras Cloth"
-    range: 11 12
-    sortKey: "armor-geras-cloth"
+  - name: "Armor - Misc Cloth"
+    range: 0 12
+    sortKey: "1-armor-misc-cloth"
   
-  - name: "Armor - G'eras Leather"
-    range: 23 24
-    sortKey: "armor-geras-leather"
+  - name: "Armor - Misc Leather"
+    range: 12 24
+    sortKey: "1-armor-misc-leather"
 
-  - name: "Armor - G'eras Mail"
-    range: 47 21
-    sortKey: "armor-geras-mail"
+  - name: "Armor - Misc Mail"
+    range: 36 21
+    sortKey: "1-armor-misc-mail"
 
-  - name: "Armor - G'eras Plate"
-    range: 68 23
-    sortKey: "armor-geras-plate"
+  - name: "Armor - Misc Plate"
+    range: 57 23
+    sortKey: "1-armor-misc-plate"
   
-  - name: "Weapons - G'eras"
+  - name: "Armor - Misc Cloaks"
+    range: 80 11
+    sortKey: "1-armor-misc-cloaks"
+
+  - name: "Weapons - Misc"
     range: 91 13
-    sortKey: "weapons-geras"
+    sortKey: "1-weapons-misc"
 
 sells:
-  - type: transmog
-    id: 29375 # Bishop's Cloak [back]
-    costs:
-      0: 66 # Gold
-
-  - type: transmog
-    id: 29382 # Blood Knight War Cloak [back]
-    costs:
-      0: 50 # Gold
-
-  - type: transmog
-    id: 35321 # Cloak of Arcane Alacrity [back]
-    costs:
-      0: 59 # Gold
-
-  - type: transmog
-    id: 33304 # Cloak of Subjugated Power [back]
-    costs:
-      0: 73 # Gold
-
-  - type: transmog
-    id: 35324 # Cloak of Swift Reprieve [back]
-    costs:
-      0: 75 # Gold
-
-  - type: transmog
-    id: 33484 # Dory's Embrace [back]
-    costs:
-      0: 56 # Gold
-
-  - type: transmog
-    id: 29385 # Farstrider Defender's Cloak [back]
-    costs:
-      0: 64 # Gold
-
-  - type: transmog
-    id: 33333 # Kharmaa's Shroud of Hope [back]
-    costs:
-      0: 55 # Gold
-
-  - type: transmog
-    id: 29369 # Shawl of Shifting Probabilities [back]
-    costs:
-      0: 52 # Gold
-
-  - type: transmog
-    id: 33593 # Slikk's Cloak of Placation [back]
-    costs:
-      0: 69 # Gold
 
   - type: transmog
     id: 32090 # Cowl of Naaru Blessings [cloth head]
@@ -485,6 +436,55 @@ sells:
     id: 33523 # Sabatons of the Righteous Defender [plate feet]
     costs:
       0: 56 # Gold
+  - type: transmog
+    id: 29375 # Bishop's Cloak [back]
+    costs:
+      0: 66 # Gold
+
+  - type: transmog
+    id: 29382 # Blood Knight War Cloak [back]
+    costs:
+      0: 50 # Gold
+
+  - type: transmog
+    id: 35321 # Cloak of Arcane Alacrity [back]
+    costs:
+      0: 59 # Gold
+
+  - type: transmog
+    id: 33304 # Cloak of Subjugated Power [back]
+    costs:
+      0: 73 # Gold
+
+  - type: transmog
+    id: 35324 # Cloak of Swift Reprieve [back]
+    costs:
+      0: 75 # Gold
+
+  - type: transmog
+    id: 33484 # Dory's Embrace [back]
+    costs:
+      0: 56 # Gold
+
+  - type: transmog
+    id: 29385 # Farstrider Defender's Cloak [back]
+    costs:
+      0: 64 # Gold
+
+  - type: transmog
+    id: 33333 # Kharmaa's Shroud of Hope [back]
+    costs:
+      0: 55 # Gold
+
+  - type: transmog
+    id: 29369 # Shawl of Shifting Probabilities [back]
+    costs:
+      0: 52 # Gold
+
+  - type: transmog
+    id: 33593 # Slikk's Cloak of Placation [back]
+    costs:
+      0: 69 # Gold
 
   - type: transmog
     id: 29275 # Searing Sunblade [agi dagger]

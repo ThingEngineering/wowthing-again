@@ -61,9 +61,14 @@ public class ManualSharedVendorConverter : JsonConverter
         rangeArray.Add(set.Range[1]);
         setArray.Add(rangeArray);
 
-        if (!string.IsNullOrWhiteSpace(set.SortKey))
+        if (set.SkipTooltip || !string.IsNullOrWhiteSpace(set.SortKey))
         {
             setArray.Add(set.SortKey);
+        }
+
+        if (set.SkipTooltip)
+        {
+            setArray.Add(set.SkipTooltip);
         }
 
         return setArray;

@@ -7,9 +7,9 @@ locations:
     - 62.0 69.0
 
 sets:
-  - name: "Armor - Lower City"
-    range: 3 17
-    sortKey: "armor-lowercity"
+  - name: "Reputation - Lower City"
+    range: 0 20
+    sortKey: "0-rep-lower-city"
 
 sells:
   - type: transmog

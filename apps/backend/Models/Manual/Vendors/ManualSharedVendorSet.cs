@@ -6,6 +6,7 @@ public class ManualSharedVendorSet
 {
     public string Name { get; set; }
     public int[] Range { get; set; }
+    public bool SkipTooltip { get; set; }
     public string SortKey { get; set; }
 
     public ManualSharedVendorSet(DataSharedVendorSet set)
@@ -15,6 +16,7 @@ public class ManualSharedVendorSet
             .Split(' ')
             .Select(int.Parse)
             .ToArray();
+        SkipTooltip = set.SkipTooltip;
         SortKey = set.SortKey;
     }
 }

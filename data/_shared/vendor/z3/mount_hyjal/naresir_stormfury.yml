@@ -5,37 +5,16 @@ locations:
   z3_mount_hyjal:
     - 48.3 81.0
 
+tags:
+  - "avenges-of-hyjal"
+
+sets:
+  - name: "Reputation - Avengers of Hyjal"
+    range: 0 13
+    sortKey: "a-rep-avengers"
+    skipTooltip: true
+
 sells:
-  - type: transmog
-    id: 71227 # Bladed Flamewrath Greatcloak [back]
-    costs:
-      0: 237 # Gold
-    reputation: 1204 friendly # Avengers of Hyjal
-
-  - type: transmog
-    id: 70930 # Durable Flamewrath Greatcloak [back]
-    costs:
-      0: 237 # Gold
-    reputation: 1204 friendly # Avengers of Hyjal
-
-  - type: transmog
-    id: 71229 # Flowing Flamewrath Greatcloak [back]
-    costs:
-      0: 237 # Gold
-    reputation: 1204 friendly # Avengers of Hyjal
-
-  - type: transmog
-    id: 71230 # Rippling Flamewrath Greatcloak [back]
-    costs:
-      0: 237 # Gold
-    reputation: 1204 friendly # Avengers of Hyjal
-
-  - type: transmog
-    id: 71228 # Sleek Flamewrath Greatcloak [back]
-    costs:
-      0: 237 # Gold
-    reputation: 1204 friendly # Avengers of Hyjal
-
   - type: transmog
     id: 71258 # Embereye Belt [cloth waist]
     costs:
@@ -83,3 +62,33 @@ sells:
     costs:
       0: 285 # Gold
     reputation: 1204 honored # Avengers of Hyjal
+
+  - type: transmog
+    id: 71227 # Bladed Flamewrath Greatcloak [back]
+    costs:
+      0: 237 # Gold
+    reputation: 1204 friendly # Avengers of Hyjal
+
+  - type: transmog
+    id: 70930 # Durable Flamewrath Greatcloak [back]
+    costs:
+      0: 237 # Gold
+    reputation: 1204 friendly # Avengers of Hyjal
+
+  - type: transmog
+    id: 71229 # Flowing Flamewrath Greatcloak [back]
+    costs:
+      0: 237 # Gold
+    reputation: 1204 friendly # Avengers of Hyjal
+
+  - type: transmog
+    id: 71230 # Rippling Flamewrath Greatcloak [back]
+    costs:
+      0: 237 # Gold
+    reputation: 1204 friendly # Avengers of Hyjal
+
+  - type: transmog
+    id: 71228 # Sleek Flamewrath Greatcloak [back]
+    costs:
+      0: 237 # Gold
+    reputation: 1204 friendly # Avengers of Hyjal

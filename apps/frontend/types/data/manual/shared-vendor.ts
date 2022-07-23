@@ -112,7 +112,8 @@ export class ManualDataSharedVendorSet {
     constructor(
         public name: string,
         public range: number[],
-        public sortKey?: string
+        public sortKey?: string,
+        public skipTooltip?: boolean
     )
     { }
 }
