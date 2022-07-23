@@ -7,12 +7,12 @@ export const progressQuests: Record<string, string[]> = {
 }
 
 export const progressQuestMap: Record<string, string> = {
-    weeklyAnima: 'weeklyHoliday',
-    weeklyHoliday: 'weeklyHoliday',
-    weeklyKorthia: 'weeklyHoliday',
-    weeklyPatterns: 'weeklyHoliday',
-    weeklyPvp: 'weeklyHoliday',
-    weeklySouls: 'weeklyHoliday',
+    holidayArenaSkirmishes: 'weeklyHoliday',
+    holidayBattlegrounds: 'weeklyHoliday',
+    holidayDungeons: 'weeklyHoliday',
+    holidayPetBattles: 'weeklyHoliday',
+    holidayTimewalking: 'weeklyHoliday',
+    holidayWorldQuests: 'weeklyHoliday',
 
     slKorthia: 'shapingFate',
     slZerethMortis: 'patterns',
