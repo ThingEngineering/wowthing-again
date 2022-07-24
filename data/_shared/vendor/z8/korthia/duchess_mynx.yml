@@ -50,31 +50,26 @@ sells:
 
   - type: transmog
     id: 186517 # Ensemble: Battlefield Messenger's Regalia
-    appearanceId: 44247
     costs:
       1767: 6000 # Stygia
 
   - type: transmog
     id: 186504 # Ensemble: Frontline Necromancer's Vestments
-    appearanceId: 44312
     costs:
       1767: 6000 # Stygia
 
   - type: transmog
     id: 186499 # Ensemble: Garb of Fall's Promise
-    appearanceId: 44330
     costs:
       1767: 6000 # Stygia
 
   - type: transmog
     id: 186511 # Ensemble: Renathal's Battlefield Attire
-    appearanceId: 44379
     costs:
       1767: 6000 # Stygia
 
   - type: transmog
     id: 186512 # Ensemble: Renathal's Field Inquisitor's Vestments
-    appearanceId: 44395
     costs:
       1767: 6000 # Stygia
 

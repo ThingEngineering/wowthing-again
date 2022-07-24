@@ -18,7 +18,6 @@ sells:
 
   - type: transmog
     id: 128472 # Ensemble: Battlegear of the Frostwolves
-    appearanceItemId: 128458 # Frostwolf Belt
     costs:
       0: 500 # Gold
     reputation: 1848 revered # Vol'jin's Headhunters"
