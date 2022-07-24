@@ -48,7 +48,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
         Type = JobType.ImportDumps,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(24),
-        Version = 17,
+        Version = 18,
     };
 
     private Dictionary<int, DumpItemXItemEffect[]> _itemEffectsMap;
@@ -69,15 +69,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
         await ImportItems();
         await ImportItemAppearances();
 
-        _itemEffectsMap = (await DataUtilities.LoadDumpCsvAsync<DumpItemXItemEffect>("itemxitemeffect"))
-            .ToGroupedDictionary(ixie => ixie.ItemEffectID);
-
-        _spellTeachMap = (await DataUtilities.LoadDumpCsvAsync<DumpItemEffect>("itemeffect"))
-            .Where(ie => ie.TriggerType == 6) // Learn
-            .GroupBy(ie => ie.SpellID)
-            .ToDictionary(
-                group => group.Key,
-                group => group.First());
+        await ImportItemEffects();
 
         await ImportMounts();
         await ImportPets();
@@ -640,6 +632,71 @@ public class ImportDumpsJob : JobBase, IScheduledJob
                 dbAppearance.AppearanceId = 34777;
             }
         }
+    }
+
+    private async Task ImportItemEffects()
+    {
+        var itemEffectToItems = (await DataUtilities.LoadDumpCsvAsync<DumpItemXItemEffect>("itemxitemeffect"))
+            .ToGroupedDictionary(ixie => ixie.ItemEffectID);
+
+        var itemEffects = await DataUtilities.LoadDumpCsvAsync<DumpItemEffect>("itemeffect");
+
+        var spellEffectMap = (await DataUtilities.LoadDumpCsvAsync<DumpSpellEffect>("spelleffect"))
+            .ToGroupedDictionary(se => se.SpellID);
+
+        var dbMap = await Context.WowItemEffect
+            .ToDictionaryAsync(wie => wie.ItemXItemEffectId);
+
+        foreach (var dumpItemEffect in itemEffects)
+        {
+            if (dumpItemEffect.TriggerType == 0) // On Use
+            {
+                if (!spellEffectMap.TryGetValue(dumpItemEffect.SpellID, out var spellEffects))
+                {
+                    Logger.Debug("No spell effects? ItemEffect {ie}", dumpItemEffect.ID);
+                    continue;
+                }
+
+                foreach (var spellEffect in spellEffects)
+                {
+                    if (!Enum.IsDefined(typeof(WowSpellEffectEffect), spellEffect.Effect))
+                    {
+                        continue;
+                    }
+
+                    foreach (var itemXItemEffect in itemEffectToItems[dumpItemEffect.ID])
+                    {
+                        if (!dbMap.TryGetValue(itemXItemEffect.ID, out var dbItemEffect))
+                        {
+                            dbItemEffect = dbMap[dumpItemEffect.ID] = new WowItemEffect
+                            {
+                                ItemXItemEffectId = itemXItemEffect.ID,
+                            };
+                            Context.WowItemEffect.Add(dbItemEffect);
+                        }
+
+                        dbItemEffect.Effect = (WowSpellEffectEffect)spellEffect.Effect;
+                        dbItemEffect.ItemId = itemXItemEffect.ItemID;
+                        dbItemEffect.Values = new[]
+                        {
+                            spellEffect.EffectMiscValue0,
+                            spellEffect.EffectMiscValue1,
+                        };
+                    }
+                }
+            }
+        }
+
+        _spellTeachMap = itemEffects
+            .Where(ie => ie.TriggerType == 6) // Learn
+            .GroupBy(ie => ie.SpellID)
+            .ToDictionary(
+                group => group.Key,
+                group => group.First());
+
+        _itemEffectsMap = itemEffectToItems;
+
+        _timer.AddPoint("ItemEffects");
     }
 
     private async Task ImportMounts()

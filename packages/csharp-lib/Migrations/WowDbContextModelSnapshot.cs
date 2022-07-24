@@ -1886,6 +1886,33 @@ namespace Wowthing.Lib.Migrations
                     b.ToTable("wow_item", (string)null);
                 });
 
+            modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowItemEffect", b =>
+                {
+                    b.Property<int>("ItemXItemEffectId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("item_x_item_effect_id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ItemXItemEffectId"));
+
+                    b.Property<int>("Effect")
+                        .HasColumnType("integer")
+                        .HasColumnName("effect");
+
+                    b.Property<int>("ItemId")
+                        .HasColumnType("integer")
+                        .HasColumnName("item_id");
+
+                    b.Property<int[]>("Values")
+                        .HasColumnType("integer[]")
+                        .HasColumnName("values");
+
+                    b.HasKey("ItemXItemEffectId")
+                        .HasName("pk_wow_item_effect");
+
+                    b.ToTable("wow_item_effect", (string)null);
+                });
+
             modelBuilder.Entity("Wowthing.Lib.Models.Wow.WowItemModifiedAppearance", b =>
                 {
                     b.Property<int>("Id")
