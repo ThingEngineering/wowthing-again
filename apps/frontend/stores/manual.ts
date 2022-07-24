@@ -521,6 +521,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                         }
 
                         let fixedType = drop.type
+                        if (drop.id === 128472) console.log(drop)
                         switch (drop.type) {
                             case RewardType.Achievement:
                                 if (drop.subType > 0) {
@@ -569,15 +570,26 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                             case RewardType.Cosmetic:
                             case RewardType.Weapon:
                             case RewardType.Transmog:
-                                if (!userTransmogData.userHas[manualData.shared.items[drop.id]?.appearanceId ?? 0]) {
-                                    dropStatus.need = true
+                                if (drop.appearanceIds?.length > 0) {
+                                    dropStatus.need = some(
+                                        drop.appearanceIds[0],
+                                        (appearanceId) => !userTransmogData.userHas[appearanceId]
+                                    )
+                                }
+                                else {
+                                    if (!userTransmogData.userHas[manualData.shared.items[drop.id]?.appearanceId ?? 0]) {
+                                        dropStatus.need = true
+                                    }
                                 }
                                 fixedType = RewardType.Transmog
                                 break
                             
                             case RewardType.SetSpecial:
                                 dropStatus.setHave = drop.appearanceIds.filter(
-                                    (appearanceId) => userTransmogData.userHas[appearanceId]
+                                    (appearanceIds) => every(
+                                        appearanceIds,
+                                        (appearanceId) => userTransmogData.userHas[appearanceId]
+                                    )
                                 ).length
                                 dropStatus.setNeed = drop.appearanceIds.length
                                 dropStatus.need = dropStatus.setHave < dropStatus.setNeed

@@ -1,3 +1,5 @@
+import every from 'lodash/every'
+
 import { ManualDataVendorItem, type ManualDataVendorItemArray } from './vendor'
 import { Faction, FarmIdType, FarmResetType, FarmType, RewardType } from '@/types/enums'
 import type { ManualDataZoneMapDrop, ManualDataZoneMapFarm } from './zone-map'
@@ -54,14 +56,25 @@ export class ManualDataSharedVendor {
 
         if (this.sets) {
             for (const set of this.sets) {
-                const appearanceIds = this.sells
-                    .slice(set.range[0], set.range[0] + set.range[1])
-                    .map((item) => item.appearanceId ?? manualData.shared.items[item.id]?.appearanceId ?? 0)
+                const appearanceIds: number[][] = []
                 const costs: Record<number, number>[] = []
                 
-                for (let sellIndex = 0; sellIndex < this.sells.length; sellIndex++) {
-                    costs.push(this.sells[sellIndex].costs)
-                    seen[appearanceIds[sellIndex]] = true
+                for (let sellIndex = set.range[0]; sellIndex < set.range[0] + set.range[1]; sellIndex++) {
+                    const item = this.sells[sellIndex]
+                    costs.push(item.costs)
+                    
+                    if (item.appearanceIds?.length > 0) {
+                        appearanceIds.push(item.appearanceIds)
+                    }
+                    else {
+                        appearanceIds.push([manualData.shared.items[item.id]?.appearanceId ?? 0])
+                    }
+
+                    for (const appearanceId of appearanceIds[appearanceIds.length - 1]) {
+                        if (appearanceId > 0) {
+                            seen[appearanceId] = true
+                        }
+                    }
                 }
                 
                 drops.push({
@@ -76,12 +89,17 @@ export class ManualDataSharedVendor {
             }
 
             for (const item of this.sells) {
-                if (!seen[item.appearanceId ?? manualData.shared.items[item.id]?.appearanceId ?? 0]) {
+                const itemSeen = item.appearanceIds?.length > 0
+                    ? every(item.appearanceIds, (appearanceId) => seen[appearanceId])
+                    : seen[manualData.shared.items[item.id]?.appearanceId ?? 0]
+
+                if (!itemSeen) {
                     drops.push({
                         id: item.id,
                         type: item.type,
                         subType: item.subType,
                         classMask: item.classMask,
+                        appearanceIds: [item.appearanceIds],
                         note: item.getNote(manualData, staticData),
                     })
                 }
