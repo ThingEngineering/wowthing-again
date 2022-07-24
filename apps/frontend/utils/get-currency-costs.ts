@@ -1,3 +1,5 @@
+import every from 'lodash/every'
+
 import { costOrderMap } from '@/data/vendors'
 import leftPad from '@/utils/left-pad'
 import { toNiceNumber } from '@/utils/to-nice'
@@ -86,13 +88,13 @@ export function getCurrencyCostsString(
 export function getSetCurrencyCostsString(
     manualData: ManualData,
     staticData: StaticData,
-    appearanceIds: number[],
+    allAppearanceIds: number[][],
     costses: Record<number, number>[],
     haveFunc: (appearanceId: number) => boolean
 ): string {
     const totalCosts: Record<number, number> = {}
-    for (let i = 0; i < appearanceIds.length; i++) {
-        if (haveFunc(appearanceIds[i])) {
+    for (let i = 0; i < allAppearanceIds.length; i++) {
+        if (every(allAppearanceIds[i], (appearanceId: number) => haveFunc(appearanceId))) {
             continue
         }
 

@@ -19,7 +19,6 @@ sells:
 
   - type: transmog
     id: 188209 # Ensemble: Ravencrest's Battleplate
-    appearanceItemId: 188208 # Black Rook Elite Bracers
     costs:
       1166: 500 # Timewarped Badge
 

@@ -50,7 +50,7 @@ export class ManualDataVendorItem {
         public classMask: number,
         costArrays?: number[][],
         public reputation?: number[],
-        public appearanceId?: number,
+        public appearanceIds?: number[],
         public bonusIds?: number[],
         public note?: string
     )

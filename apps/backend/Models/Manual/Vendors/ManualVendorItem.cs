@@ -15,8 +15,7 @@ public class ManualVendorItem
     public RewardType Type { get; set; }
     public Dictionary<int, int> Costs { get; set; }
 
-    public int? AppearanceId { get; set; }
-    public int? AppearanceItemId { get; set; }
+    public int[]? AppearanceIds { get; set; }
     public int[] BonusIds { get; set; }
 
     public ManualVendorItem()
@@ -32,12 +31,7 @@ public class ManualVendorItem
 
         if (item.AppearanceId > 0)
         {
-            AppearanceId = item.AppearanceId;
-        }
-
-        if (item.AppearanceItemId > 0)
-        {
-            AppearanceItemId = item.AppearanceItemId;
+            AppearanceIds = new[] { item.AppearanceId };
         }
 
         if (!string.IsNullOrWhiteSpace(item.Quality))

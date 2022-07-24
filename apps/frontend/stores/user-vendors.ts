@@ -64,7 +64,7 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
                             item.extraAppearances = 0
                         }
                         else if (transmogTypes.indexOf(item.type) >= 0) {
-                            const appearanceId = item.appearanceId || manualData.shared.items[item.id].appearanceId
+                            const appearanceId = manualData.shared.items[item.id].appearanceId
                             if (appearanceId) {
                                 const existingItem = appearanceMap[appearanceId]
                                 if (existingItem) {
@@ -89,7 +89,7 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
                             userTransmogData,
                             item.type,
                             item.id,
-                            item.appearanceId
+                            item.appearanceIds
                         )
                         const thingKey = `${item.type}-${item.id}`
 

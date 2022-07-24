@@ -18,7 +18,6 @@ sells:
 
   - type: transmog
     id: 128473 # Ensemble: Ceremonial Karabor Finery
-    appearanceItemId: 128469 # Ceremonial Bracers of Karabor
     costs:
       0: 500 # Gold
     reputation: 1847 revered # Hand of the Prophet
