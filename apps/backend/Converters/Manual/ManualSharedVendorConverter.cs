@@ -6,6 +6,8 @@ namespace Wowthing.Backend.Converters.Manual;
 
 public class ManualSharedVendorConverter : JsonConverter
 {
+    private static readonly int[] _emptyAppearances = { 0 };
+
     public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
     {
         var vendor = (ManualSharedVendor) value;
@@ -78,7 +80,7 @@ public class ManualSharedVendorConverter : JsonConverter
     {
         bool useCosts = item.Costs.EmptyIfNull().Count >= 0;
         bool useReputation = !string.IsNullOrWhiteSpace(item.Reputation);
-        bool useAppearance = item.AppearanceId.HasValue;
+        bool useAppearance = item.AppearanceIds != null;
         bool useNote = !string.IsNullOrWhiteSpace(item.Note);
         bool useBonusIds = item.BonusIds?.Length > 0;
 
@@ -118,7 +120,12 @@ public class ManualSharedVendorConverter : JsonConverter
 
         if (useNote || useBonusIds || useAppearance)
         {
-            itemArray.Add(item.AppearanceId ?? 0);
+            var appearanceArray = new JArray();
+            foreach (var appearanceId in item.AppearanceIds ?? _emptyAppearances)
+            {
+                appearanceArray.Add(appearanceId);
+            }
+            itemArray.Add(appearanceArray);
         }
 
         if (useNote || useBonusIds)

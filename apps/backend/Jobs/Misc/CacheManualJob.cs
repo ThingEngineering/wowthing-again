@@ -1,6 +1,8 @@
 ﻿using MoreLinq;
 using StackExchange.Redis;
+using Wowthing.Backend.Models.Data;
 using Wowthing.Backend.Models.Data.Collections;
+using Wowthing.Backend.Models.Data.Items;
 using Wowthing.Backend.Models.Data.Progress;
 using Wowthing.Backend.Models.Data.Transmog;
 using Wowthing.Backend.Models.Data.Vendors;
@@ -32,8 +34,10 @@ public class CacheManualJob : JobBase, IScheduledJob
         .Build();
 
     private IDatabase _db;
+    private Dictionary<int, int[]> _collectionItemToModifiedAppearances;
     private Dictionary<int, int> _itemToAppearance;
     private Dictionary<int, WowItem> _itemMap;
+    private Dictionary<int, WowItemModifiedAppearance> _itemModifiedAppearanceMap;
     private Dictionary<int, WowMount> _mountMap;
     private Dictionary<int, WowPet> _petMap;
     private Dictionary<int, WowToy> _toyMap;
@@ -55,7 +59,7 @@ public class CacheManualJob : JobBase, IScheduledJob
 #else
         Interval = TimeSpan.FromHours(1),
 #endif
-        Version = 3,
+        Version = 4,
     };
 
     public override async Task Run(params string[] data)
@@ -111,6 +115,9 @@ public class CacheManualJob : JobBase, IScheduledJob
             .AsNoTracking()
             .ToArrayAsync();
 
+        _itemModifiedAppearanceMap = itemModifiedAppearances
+            .ToDictionary(ima => ima.Id);
+
         _itemToAppearance = itemModifiedAppearances
             .GroupBy(ima => ima.ItemId)
             .ToDictionary(
@@ -141,6 +148,21 @@ public class CacheManualJob : JobBase, IScheduledJob
                 ls => (ls.Type, ls.Language, ls.Id),
                 ls => ls.String
             );
+
+        var transmogSets = (await DataUtilities.LoadDumpCsvAsync<DumpTransmogSetItem>("transmogsetitem"))
+            .ToGroupedDictionary(tsi => tsi.TransmogSetID);
+
+        _collectionItemToModifiedAppearances = await Context.WowItemEffect
+            .AsNoTracking()
+            .Where(wie => wie.Effect == WowSpellEffectEffect.LearnTransmogSet)
+            .ToDictionaryAsync(
+                wie => wie.ItemId,
+                wie => transmogSets[wie.Values[0]]
+                    .Select(tsi => tsi.ItemModifiedAppearanceID)
+                    .ToArray()
+            );
+
+        _timer.AddPoint("Load");
     }
 
     private async Task CacheData()
@@ -329,15 +351,12 @@ public class CacheManualJob : JobBase, IScheduledJob
         {
             _itemIds.Add(item.Id);
 
-            WowItem dropItem;
-            if (item.AppearanceItemId > 0)
+            var dropItem = _itemMap[item.Id];
+            if (_collectionItemToModifiedAppearances.TryGetValue(item.Id, out var imas))
             {
-                item.AppearanceId = _itemToAppearance[item.AppearanceItemId.Value];
-                dropItem = _itemMap[item.AppearanceItemId.Value];
-            }
-            else
-            {
-                dropItem = _itemMap[item.Id];
+                item.AppearanceIds = imas
+                    .Select(ima => _itemModifiedAppearanceMap[ima].AppearanceId)
+                    .ToArray();
             }
 
             if (dropItem.ClassId == 2)
