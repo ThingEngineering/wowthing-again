@@ -1,8 +1,5 @@
 export const categoryOrder: number[] = [
     245, // Shadowlands
-    22, // Dungeon and Raid
-    1, // Miscellaneous
-    2, // Player vs. Player
     143, // Battle for Azeroth
     141, // Legion
     137, // Warlords of Draenor
@@ -11,6 +8,10 @@ export const categoryOrder: number[] = [
     21, // Wrath of the Lich King
     23, // Burning Crusade
     //4, // Classic
+    0,
+    22, // Dungeon and Raid
+    1, // Miscellaneous
+    2, // Player vs. Player
 ]
 
 const skipCurrencies: number[] = [

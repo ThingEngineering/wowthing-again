@@ -7,7 +7,7 @@
 
     let categories: SidebarItem[]
     $: {
-        categories = categoryOrder.map((id) => ({
+        categories = categoryOrder.map((id) => id === 0 ? null : ({
            children: [],
            ...$staticStore.data.currencyCategories[id],
         }))
