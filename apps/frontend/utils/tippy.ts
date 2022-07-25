@@ -42,9 +42,14 @@ export default function (node: SingleTarget, props: TippyProps | string): Svelte
             tp.destroy()
         },
         update(params: any) {
-            tippyProps = {
-                ...tippyProps,
-                ...params,
+            if (typeof params === 'string') {
+                tippyProps.content = params
+            }
+            else {
+                tippyProps = {
+                    ...tippyProps,
+                    ...params,
+                }
             }
             tp.setProps(tippyProps)
         },
