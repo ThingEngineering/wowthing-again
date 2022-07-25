@@ -1,6 +1,7 @@
 <script lang="ts">
     import { staticStore } from '@/stores'
     import { Gender } from '@/types/enums'
+    import { getGenderedName } from '@/utils/get-gendered-name'
     import type { Character } from '@/types'
     import type { StaticDataCharacterRace } from '@/types/data/static/character'
 
@@ -17,7 +18,7 @@
     let tooltip: string
     $: {
         race = characterRace || $staticStore.data.characterRaces[character?.raceId || raceId]
-        tooltip = `${Gender[character?.gender || gender]} ${race?.name ?? 'Unknown'}`
+        tooltip = `${Gender[character?.gender || gender]} ${getGenderedName(race?.name ?? 'Unknown', character?.gender ?? 0)}`
     }
 </script>
 

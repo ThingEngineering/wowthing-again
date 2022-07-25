@@ -12,7 +12,9 @@ type CurrencyArray = [string, number, string, number, number]
 export function getCurrencyCosts(
     manualData: ManualData,
     staticData: StaticData,
-    costs: Record<number, number>
+    costs: Record<number, number>,
+    skipCostOrder?: boolean,
+    skipNiceNumbers?: boolean
 ): CurrencyArray[] {
     const temp: [string, CurrencyArray][] = []
 
@@ -23,7 +25,7 @@ export function getCurrencyCosts(
         const currencyData: CurrencyArray = [
             currencyId > 1000000 ? 'item' : 'currency',
             currencyId > 1000000 ? currencyId - 1000000 : currencyId,
-            toNiceNumber(costs[currencyId]),
+            skipNiceNumbers === true ? costs[currencyId].toLocaleString() : toNiceNumber(costs[currencyId]),
             currencyId,
             costs[currencyId],
         ]
@@ -31,14 +33,14 @@ export function getCurrencyCosts(
         let sortKey: string
 
         const index = costOrderMap[currencyId] || -1
-        if (index >= 0) {
+        if (skipCostOrder !== true && index >= 0) {
             sortKey = leftPad(index, 6, '0')
         }
         else if (currencyData[0] === 'item') {
             const item = manualData.shared.items[currencyData[1]]
             sortKey = [
                 '999999',
-                leftPad(999999 - currencyData[4], 6, '0'),
+                leftPad(999_999_999 - currencyData[4], 9, '0'),
                 leftPad(10 - item?.quality ?? 0, 2, '0'),
                 item?.name ?? 'ZZZ',
             ].join('|')
@@ -46,7 +48,7 @@ export function getCurrencyCosts(
         else {
             sortKey = [
                 '555555',
-                leftPad(999999 - currencyData[4], 6, '0'),
+                leftPad(999_999_999 - currencyData[4], 9, '0'),
                 staticData.currencies[currencyData[1]]?.name ?? 'ZZZ'
             ].join('|')
         }

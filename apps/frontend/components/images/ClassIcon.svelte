@@ -1,5 +1,6 @@
 <script lang="ts">
     import { staticStore } from '@/stores'
+    import { getGenderedName } from '@/utils/get-gendered-name'
     import type { Character } from '@/types'
     import type { StaticDataCharacterClass } from '@/types/data/static/character'
 
@@ -15,7 +16,7 @@
     let tooltip: string
     $: {
         cls = characterClass || $staticStore.data.characterClasses[character?.classId ?? classId]
-        tooltip = cls?.name ?? `Unknown class`
+        tooltip = getGenderedName(cls?.name ?? `Unknown class`, character?.gender ?? 0)
     }
 </script>
 
