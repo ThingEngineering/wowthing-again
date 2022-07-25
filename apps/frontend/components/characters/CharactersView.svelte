@@ -102,8 +102,9 @@
         <p>
             Level {character.level}
             {Gender[character.gender]}
-            {$staticStore.data.characterRaces[character.raceId].name}
-            {$staticStore.data.characterClasses[character.classId].name}
+            {character.raceName}
+            {character.specializationName}
+            {character.className}
         </p>
 
         {#key `${params.slug1}--${params.slug2}`}

@@ -26,6 +26,7 @@ import type {
 } from '@/types'
 import type { StaticData } from '@/types/data/static'
 import type { ManualData, ManualDataSetCategory } from '@/types/data/manual'
+import { getGenderedName } from '@/utils/get-gendered-name'
 
 
 export class UserDataStore extends WritableFancyStore<UserData> {
@@ -166,6 +167,22 @@ export class UserDataStore extends WritableFancyStore<UserData> {
     }
 
     private initializeCharacter(staticData: StaticData, character: Character): void {
+        // names
+        character.className = getGenderedName(
+            staticData.characterClasses[character.classId].name,
+            character.gender
+        )
+        character.raceName = getGenderedName(
+            staticData.characterRaces[character.raceId].name,
+            character.gender
+        )
+        if (character.activeSpecId > 0) {
+            character.specializationName = getGenderedName(
+                staticData.characterSpecializations[character.activeSpecId].name,
+                character.gender
+            )
+        }
+
         // realm
         character.realm = staticData.realms[character.realmId]
         

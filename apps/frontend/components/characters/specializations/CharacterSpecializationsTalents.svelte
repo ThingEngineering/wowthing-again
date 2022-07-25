@@ -2,6 +2,7 @@
     import find from 'lodash/find'
 
     import { staticStore } from '@/stores'
+    import { getGenderedName } from '@/utils/get-gendered-name'
     import type { Character } from '@/types'
 
     import SpellLink from '@/components/links/SpellLink.svelte'
@@ -61,7 +62,7 @@
     class="specialization border"
     class:selected={character.activeSpecId === specializationId}
 >
-    <h3>{$staticStore.data.characterSpecializations[specializationId].name}</h3>
+    <h3>{getGenderedName($staticStore.data.characterSpecializations[specializationId].name, character.gender)}</h3>
 
     {#each $staticStore.data.talents[specializationId] as tier, tierIndex}
         <div
