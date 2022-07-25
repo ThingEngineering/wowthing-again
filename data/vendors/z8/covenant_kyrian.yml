@@ -62,7 +62,7 @@ groups:
   - type: toy
     id: 184353 # Kyrian Hearthstone
     costs:
-      1813: 7500 # Reservoir Anima
+      1813: 750 # Reservoir Anima
 
 - name: "Ensembles"
   things:
