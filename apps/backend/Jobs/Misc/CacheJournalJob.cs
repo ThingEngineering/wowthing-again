@@ -26,7 +26,7 @@ public class CacheJournalJob : JobBase, IScheduledJob
         Type = JobType.CacheJournal,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(24),
-        Version = 21,
+        Version = 22,
     };
 
     public override async Task Run(params string[] data)
@@ -219,18 +219,45 @@ public class CacheJournalJob : JobBase, IScheduledJob
                         instanceData.BonusIds = bonusIds;
                     }
 
+                    var encounters = encountersByInstanceId[instanceId];
+                    if (Hardcoded.JournalBossOrder.TryGetValue(instanceId, out var bossOrder))
+                    {
+                        encounters = encounters
+                            .OrderBy(encounter => Array.IndexOf(bossOrder, encounter.ID))
+                            .ToList();
+                    }
+
                     // Instance has extra encounters, add those
                     if (Hardcoded.ExtraEncounters.TryGetValue(instanceId, out var extraEncounters))
                     {
                         for (int i = extraEncounters.Length - 1; i >= 0; i--)
                         {
+                            var extraEncounter = extraEncounters[i];
                             int encounterId = 100000 + (instanceId * 10) + i;
-                            encountersByInstanceId[instanceId].Insert(0, new DumpJournalEncounter
+
+                            var encounter = new DumpJournalEncounter
                             {
                                 ID = encounterId,
                                 OrderIndex = -i,
-                            });
-                            _stringMap[(StringType.WowJournalEncounterName, language, encounterId)] = extraEncounters[i];
+                            };
+
+                            if (extraEncounter.AfterEncounter.HasValue)
+                            {
+                                for (int j = 0; j < encountersByInstanceId[instanceId].Count; j++)
+                                {
+                                    if (encountersByInstanceId[instanceId][j].ID == extraEncounter.AfterEncounter.Value)
+                                    {
+                                        encountersByInstanceId[instanceId].Insert(j + 1, encounter);
+                                        break;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                encountersByInstanceId[instanceId].Insert(0, encounter);
+                            }
+
+                            _stringMap[(StringType.WowJournalEncounterName, language, encounterId)] = extraEncounter.Name;
                         }
                     }
 
@@ -242,14 +269,6 @@ public class CacheJournalJob : JobBase, IScheduledJob
                             ID = 1000000 + instanceId,
                             OrderIndex = -10,
                         });
-                    }
-
-                    var encounters = encountersByInstanceId[instanceId];
-                    if (Hardcoded.JournalBossOrder.TryGetValue(instanceId, out var bossOrder))
-                    {
-                        encounters = encounters
-                            .OrderBy(encounter => Array.IndexOf(bossOrder, encounter.ID))
-                            .ToList();
                     }
 
                     foreach (var encounter in encounters)
@@ -368,20 +387,20 @@ public class CacheJournalJob : JobBase, IScheduledJob
                                 if (_mountMap.TryGetValue(item.Id, out var mount))
                                 {
                                     AddGroupSpecial(itemGroups, "Mounts", RewardType.Mount, item, difficulties);
-                                    continue;
                                 }
                                 else if (_petMap.TryGetValue(item.Id, out var pet))
                                 {
                                     AddGroupSpecial(itemGroups, "Pets", RewardType.Pet, item, difficulties);
-                                    continue;
                                 }
                                 else if (_toyMap.TryGetValue(item.Id, out var toy))
                                 {
                                     AddGroupSpecial(itemGroups, "Toys", RewardType.Toy, item, difficulties);
-                                    continue;
                                 }
+                                // else
+                                // {
+                                //     Logger.Debug("No appearances for ID {Id}", item.Id);
+                                // }
 
-                                //Logger.Debug("No appearances for ID {Id}", item.Id);
                                 continue;
                             }
 

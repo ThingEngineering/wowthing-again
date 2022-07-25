@@ -521,7 +521,6 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                         }
 
                         let fixedType = drop.type
-                        if (drop.id === 128472) console.log(drop)
                         switch (drop.type) {
                             case RewardType.Achievement:
                                 if (drop.subType > 0) {

@@ -24,6 +24,10 @@ export interface Character {
     lastSeenAddon: string
 
     // Calculated
+    className: string
+    raceName: string
+    specializationName: string
+
     calculatedItemLevel: string
     calculatedItemLevelQuality: number
     currencies: Record<number, CharacterCurrency>

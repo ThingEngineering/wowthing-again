@@ -15,52 +15,343 @@ public static partial class Hardcoded
                 new(151443, new[]{ 1 }), // Roogug's Swinesteel Girdle - Normal
             }
         },
-        {
-            869, // Siege of Orgrimmar > Garrosh Hellscream
-            new List<ExtraItemDrop>
-            {
-                new(112935, new[]{ 16 }), // Tusks of Mannoroth - Mythic
-            }
-        },
-        {
-            1897, // Tomb of Sargeras > Maiden of Vigilance
-            new List<ExtraItemDrop>
-            {
-                new(151524, RaidDifficultiesAll), // Hammer of Vigilance
-            }
-        },
-        {
-            1984, // Antorus, the Burning Throne > Aggramar
-            new List<ExtraItemDrop>
-            {
-                new(152094, RaidDifficultiesAll), // Taeshalach
-            }
-        },
-        {
-            2031, // Antorus, the Burning Throne > Argus the Unmaker
-            new List<ExtraItemDrop>
-            {
-                new(153115, RaidDifficultiesAll), // Scythe of the Unmaker (blue)
-                new(155880, new[] { 16 }), // Scythe of the Unmaker (red) - Mythic
-            }
-        },
-        {
-            2168, // Uldir > Taloc
-            new List<ExtraItemDrop>
-            {
-                new(163119, RaidDifficultiesAll), // Khor, Hammer of the Guardian
-            }
-        },
-        {
-            2349, // The Eternal Palace > Za'qul
-            new List<ExtraItemDrop>
-            {
-                new(168868, RaidDifficultiesAll), // Pauldrons of Za'qul
-            }
-        },
 
+        #region Miscellaneous
+        // Darkmaul Citadel
         {
-            107580, // Icecrown Citadel > Sanctified T10
+            100010, // Tunk
+            new List<ExtraItemDrop>
+            {
+                new (178162, new[]{ 1 }), // Tunk's Whomper
+                new (178163, new[]{ 1 }), // Tunk's Shinguard
+                new (178164, new[]{ 1 }), // Tunk's Needle
+                new (178165, new[]{ 1 }), // Tunk's Tooth
+                new (178166, new[]{ 1 }), // Tunk's Toothpick
+                new (178167, new[]{ 1 }), // Tunk's Lil' Whomper
+                new (179360, new[]{ 1 }), // Tunk's Tiny Bow
+                //new (179362, new[]{ 1 }), // Tunk's Backscratcher -- doesn't actually exist
+            }
+        },
+        {
+            100011, // Gor'groth
+            new List<ExtraItemDrop>
+            {
+                new (178169, new[]{ 1 }), // Decrepit Dragonscale Drape
+            }
+        },
+        #endregion
+
+        #region Classic
+        // Dire Maul > Gordok Tribute
+        {
+            102300,
+            new List<ExtraItemDrop>
+            {
+                // Cloth
+                new (18532, new[] { 1 }), // Mindsurge Robe
+                new (18475, new[] { 1 }), // Oddly Magical Belt
+                // Leather
+                new (18528, new[] { 1 }), // Cyclone Spaulders
+                new (18478, new[] { 1 }), // Hyena Hide Jerkin
+                new (18476, new[] { 1 }), // Mud Stained Boots
+                new (18477, new[] { 1 }), // Shaggy Leggings
+                // Mail
+                new (18479, new[] { 1 }), // Carrion Scorpid Helm
+                new (18530, new[] { 1 }), // Ogre Forged Hauberk
+                // Plate
+                new (18529, new[] { 1 }), // Elemental Plate Girdle
+                new (18533, new[] { 1 }), // Gordok Bracers of Power
+                new (18480, new[] { 1 }), // Scarab Plate Helm
+                // Cloak
+                new (18495, new[] { 1 }), // Redoubt Cloak
+                // Weapon
+                new (18538, new[] { 1 }), // Treant's Bane
+                new (18481, new[] { 1 }), // Skullcracking Mace
+                new (18531, new[] { 1 }), // Unyielding Maul
+                new (18534, new[] { 1 }), // Rod of the Ogre Magi
+                new (18482, new[] { 1 }), // Ogre Toothpick Shooter
+                new (18499, new[] { 1 }), // Barrier Shield
+            }
+        },
+        // Gnomeregan > Endgineer Omegaplugg
+        {
+            102310,
+            new List<ExtraItemDrop>
+            {
+                // Toy
+                new (141331, new[] { 1 }), // Vial of Green Goo
+            }
+        },
+        // Stratholme > Postmaster Malown
+        {
+            102360,
+            new List<ExtraItemDrop>
+            {
+                // Cloth
+                new (13390, new[] { 1 }), // The Postmaster's Band
+                new (13391, new[] { 1 }), // The Postmaster's Treads
+                new (13389, new[] { 1 }), // The Postmaster's Trousers
+                new (13388, new[] { 1 }), // The Postmaster's Tunic
+                // Weapon
+                new (13393, new[] { 1 }), // Malown's Slam
+            }
+        },
+        // Stratholme > Skul
+        {
+            102361,
+            new List<ExtraItemDrop>
+            {
+                // Leather
+                new (13395, new[]{ 1 }), // Skul's Fingerbone Claws
+                // Plate
+                new (13394, new[]{ 1 }), // Skul's Cold Embrace
+                // Weapon
+                new (13396, new[]{ 1 }), // Skul's Ghastly Touch
+            }
+        },
+        // Stratholme > Stonespine
+        {
+            102362,
+            new List<ExtraItemDrop>
+            {
+                // Cloth
+                new (13954, new[] { 1 }), // Verdant Footpads
+                // Cloak
+                new (13397, new[] { 1 }), // Stoneskin Gargoyle Cape
+                // Weapon
+                new (13399, new[] { 1 }), // Gargoyle Shredder Talons
+            }
+        },
+        #endregion
+
+        #region Classic Trash
+        {
+            1000741, // Molten Core > Trash
+            new List<ExtraItemDrop>
+            {
+                // Cloth
+                new (16802, new[]{ 9 }), // Arcanist Belt
+                new (16799, new[]{ 9 }), // Arcanist Bindings
+                new (16817, new[]{ 9 }), // Girdle of Prophecy
+                new (16806, new[]{ 9 }), // Felheart Belt
+                new (16804, new[]{ 9 }), // Felheart Bracers
+                new (16819, new[]{ 9 }), // Vambraces of Prophecy
+                // Leather
+                new (16828, new[]{ 9 }), // Cenarion Belt
+                new (16830, new[]{ 9 }), // Cenarion Bracers
+                new (16827, new[]{ 9 }), // Nightslayer Belt
+                new (16825, new[]{ 9 }), // Nightslayer Bracelets
+                // Mail
+                new (16838, new[]{ 9 }), // Earthfury Belt
+                new (16840, new[]{ 9 }), // Earthfury Bracers
+                new (16851, new[]{ 9 }), // Giantstalker's Belt
+                new (16850, new[]{ 9 }), // Giantstalker's Bracers
+                // Plate
+                new (16864, new[]{ 9 }), // Belt of Might
+                new (16861, new[]{ 9 }), // Bracers of Might
+                new (16858, new[]{ 9 }), // Lawbringer Belt
+                new (16857, new[]{ 9 }), // Lawbringer Bracers
+            }
+        },
+        {
+            1000742, // Blackwing Lair > Trash
+            new List<ExtraItemDrop>
+            {
+                // Cloth
+                new (19437, new[]{ 9 }), // Boots of Pure Thought
+                new (19438, new[]{ 9 }), // Ringo's Blizzard Boots
+                // Leather
+                new (19439, new[]{ 9 }), // Interlaced Shadow Jerkin
+                // Cloak
+                new (19436, new[]{ 9 }), // Cloak of Draconic Might
+                // Weapon
+                new (19362, new[]{ 9 }), // Doom's Edge
+                new (19354, new[]{ 9 }), // Draconic Avenger
+                new (19358, new[]{ 9 }), // Draconic Maul
+                new (19435, new[]{ 9 }), // Essence Gatherer
+            }
+        },
+        {
+            1000743, // Ruins of Ahn'Qiraj > Trash
+            new List<ExtraItemDrop>
+            {
+                // Mail
+                new (21804, new[] { 3 }), // Coif of Elemental Fury
+                // Plate
+                new (21803, new[] { 3 }), // Helm of the Holy Avenger
+                new (21805, new[] { 3 }), // Polished Obsidian Pauldrons
+                // Weapon
+                new (21801, new[] { 3 }), // Antenna of Invigoration
+                new (21800, new[] { 3 }), // Silithid Husked Launcher
+                new (21802, new[] { 3 }), // The Lost Kris of Zedd
+            }
+        },
+        {
+            1000744, // Temple of Ahn'Qiraj > Trash
+            new List<ExtraItemDrop>
+            {
+                // Cloth
+                new (21838, new[]{ 9 }), // Garb of Royal Ascension
+                new (21888, new[]{ 9 }), // Gloves of the Immortal
+                // Plate
+                new (21889, new[]{ 9 }), // Gloves of the Redeemed Prophecy
+                // Weapon
+                new (21837, new[]{ 9 }), // Anubisath Warhammer
+                new (21856, new[]{ 9 }), // Neretzek, The Blood Drinker
+
+                new (21801, new[] { 3 }), // Gloves of the Fallen Prophet
+            }
+        },
+        #endregion
+
+        #region The Burning Crusade
+        // Old Hillsbrad Foothills / Don Carlos
+        {
+            102510,
+            new List<ExtraItemDrop>
+            {
+                // Toy
+                new (134019, new[] { 2 }), // Don Carlos' Famous Hat
+            }
+        },
+        // Karazhan / Nightbane
+        {
+            107450,
+            new List<ExtraItemDrop>
+            {
+                // Cloth
+                new (28602, new[] { 3 }), // Robe of the Elder Scribes
+                // Leather
+                new (28601, new[] { 3 }), // Chestguard of the Conniver
+                new (28600, new[] { 3 }), // Stonebough Jerkin
+                // Mail
+                new (28610, new[] { 3 }), // Ferocious Swift-Kickers
+                new (28599, new[] { 3 }), // Scaled Breastplate of Carnage
+                // Plate
+                new (28608, new[] { 3 }), // Ironstriders of Urgency
+                new (28597, new[] { 3 }), // Panzar'Thar Breastplate
+                // Weapon
+                new (28604, new[] { 3 }), // Nightstaff of the Everliving
+                new (28603, new[] { 3 }), // Talisman of Nightbane
+                new (28611, new[] { 3 }), // Dragonheart Flameshield
+                new (28606, new[] { 3 }), // Shield of Impenetrable Darkness
+            }
+        },
+        #endregion
+
+        #region The Burning Crusade Trash
+        {
+            1000745, // Karazhan > Trash
+            new List<ExtraItemDrop>
+            {
+                // Cloth
+                new (30668, new[] { 3 }), // Grasp of the Dead
+                new (30673, new[] { 3 }), // Inferno Waist Cord
+                // Leather
+                new (30644, new[] { 3 }), // Grips of Deftness
+                new (30674, new[] { 3 }), // Zierhut's Lost Treads
+                // Mail
+                new (30643, new[] { 3 }), // Belt of the Tracker
+                // Plate
+                new (30641, new[] { 3 }), // Boots of Elusion
+                // Cloak
+                new (30642, new[] { 3 }), // Drape of the Righteous
+            }
+        },
+        {
+            1000748, // Serpentshrine Cavern > Trash
+            new List<ExtraItemDrop>
+            {
+                // Plate
+                new (30027, new[] { 9 }), // Boots of Courage Unending
+                // Weapon
+                new (30021, new[] { 9 }), // Wildfury Greatstaff
+            }
+        },
+        {
+            1000749, // The Eye > Trash
+            new List<ExtraItemDrop>
+            {
+                // Cloth
+                new (30020, new[] { 9 }), // Fire-Cord of the Magus
+                new (30024, new[] { 9 }), // Mantle of the Elven Kings
+                // Leather
+                new (30029, new[] { 9 }), // Bark-Gloves of Ancient Wisdom
+                // Mail
+                new (30026, new[] { 9 }), // Bands of the Celestial Archer
+                new (30030, new[] { 9 }), // Girdle of Fallen Stars
+            }
+        },
+        {
+            1000750, // The Battle for Mount Hyjal > Trash
+            new List<ExtraItemDrop>
+            {
+                // Cloth
+                new (32609, new[] { 9 }), // Boots of the Divine Light
+                // Mail
+                new (32592, new[] { 9 }), // Chestguard of Relentless Storms
+                // Cloak
+                new (32590, new[] { 9 }), // Nethervoid Cloak
+                new (34010, new[] { 9 }), // Pepe's Shroud of Pacification
+                // Weapon
+                new (34009, new[] { 9 }), // Hammer of Judgement
+                new (32946, new[] { 9 }), // Claw of Molten Fury
+                new (32945, new[] { 9 }), // Fist of Molten Fury
+            }
+        },
+        {
+            1000751, // Black Temple > Trash
+            new List<ExtraItemDrop>
+            {
+                // Cloth
+                new (32609, new[] { 9 }), // Boots of the Divine Light
+                // Leather
+                new (32593, new[] { 9 }), // Treads of the Den Mother
+                // Mail
+                new (32592, new[] { 9 }), // Chestguard of Relentless Storms
+                // Plate
+                new (32606, new[] { 9 }), // Girdle of the Lightbearer
+                new (32608, new[] { 9 }), // Pillager's Gauntlets
+                // Cloak
+                new (32590, new[] { 9 }), // Nethervoid Cloak
+                new (34012, new[] { 9 }), // Shroud of the Final Stand
+                // Weapon
+                new (34009, new[] { 9 }), // Hammer of Judgement
+                new (32943, new[] { 9 }), // Swiftsteel Bludgeon
+                new (34011, new[] { 9 }), // Illidari Runeshield
+            }
+        },
+        {
+            1000752, // Sunwell Plateau > Trash
+            new List<ExtraItemDrop>
+            {
+                // Leather
+                new (34351, new[] { 9 }), // Tranquil Majesty Wraps
+                new (34407, new[] { 9 }), // Tranquil Moonlight Wraps
+                // Mail
+                new (34350, new[] { 9 }), // Gauntlets of the Ancient Shadowmoon
+                new (34409, new[] { 9 }), // Gauntlets of the Ancient Frostwolf
+                // Weapon
+                new (34346, new[] { 9 }), // Mounting Vengeance
+                new (34183, new[] { 9 }), // Shivering Felspine
+                new (34348, new[] { 9 }), // Wand of Cleansing Light
+                new (34347, new[] { 9 }), // Wand of the Demonsoul
+            }
+        },
+        #endregion
+
+        #region Wrath of the Lich King
+        // The Culling of Stratholme > Infinite Corruptor
+        {
+            102790,
+            new List<ExtraItemDrop>
+            {
+                new(43951, new[]{ 2 }), // Reins of the Bronze Drake
+            }
+        },
+        // Icecrown Citadel > Sanctified T10
+        {
+            107580,
             new List<ExtraItemDrop>
             {
                 // Conqueror's Mark of Sanctification [10H]
@@ -266,194 +557,6 @@ public static partial class Hardcoded
                 new (51314, new[]{ 6 }),
             }
         },
-
-        #region Miscellaneous
-        {
-            // Darkmaul Citadel
-            100010, // Tunk
-            new List<ExtraItemDrop>
-            {
-                new (178162, new[]{ 1 }), // Tunk's Whomper
-                new (178163, new[]{ 1 }), // Tunk's Shinguard
-                new (178164, new[]{ 1 }), // Tunk's Needle
-                new (178165, new[]{ 1 }), // Tunk's Tooth
-                new (178166, new[]{ 1 }), // Tunk's Toothpick
-                new (178167, new[]{ 1 }), // Tunk's Lil' Whomper
-                new (179360, new[]{ 1 }), // Tunk's Tiny Bow
-                //new (179362, new[]{ 1 }), // Tunk's Backscratcher -- doesn't actually exist
-            }
-        },
-        {
-            100011, // Gor'groth
-            new List<ExtraItemDrop>
-            {
-                new (178169, new[]{ 1 }), // Decrepit Dragonscale Drape
-            }
-        },
-        #endregion
-
-        #region Classic Trash
-        {
-            1000741, // Molten Core > Trash
-            new List<ExtraItemDrop>
-            {
-                // Cloth
-                new (16802, new[]{ 9 }), // Arcanist Belt
-                new (16799, new[]{ 9 }), // Arcanist Bindings
-                new (16817, new[]{ 9 }), // Girdle of Prophecy
-                new (16806, new[]{ 9 }), // Felheart Belt
-                new (16804, new[]{ 9 }), // Felheart Bracers
-                new (16819, new[]{ 9 }), // Vambraces of Prophecy
-                // Leather
-                new (16828, new[]{ 9 }), // Cenarion Belt
-                new (16830, new[]{ 9 }), // Cenarion Bracers
-                new (16827, new[]{ 9 }), // Nightslayer Belt
-                new (16825, new[]{ 9 }), // Nightslayer Bracelets
-                // Mail
-                new (16838, new[]{ 9 }), // Earthfury Belt
-                new (16840, new[]{ 9 }), // Earthfury Bracers
-                new (16851, new[]{ 9 }), // Giantstalker's Belt
-                new (16850, new[]{ 9 }), // Giantstalker's Bracers
-                // Plate
-                new (16864, new[]{ 9 }), // Belt of Might
-                new (16861, new[]{ 9 }), // Bracers of Might
-                new (16858, new[]{ 9 }), // Lawbringer Belt
-                new (16857, new[]{ 9 }), // Lawbringer Bracers
-            }
-        },
-        {
-            1000742, // Blackwing Lair > Trash
-            new List<ExtraItemDrop>
-            {
-                // Cloth
-                new (19437, new[]{ 9 }), // Boots of Pure Thought
-                new (19438, new[]{ 9 }), // Ringo's Blizzard Boots
-                // Leather
-                new (19439, new[]{ 9 }), // Interlaced Shadow Jerkin
-                // Cloak
-                new (19436, new[]{ 9 }), // Cloak of Draconic Might
-                // Weapon
-                new (19362, new[]{ 9 }), // Doom's Edge
-                new (19354, new[]{ 9 }), // Draconic Avenger
-                new (19358, new[]{ 9 }), // Draconic Maul
-                new (19435, new[]{ 9 }), // Essence Gatherer
-            }
-        },
-        {
-            1000744, // Temple of Ahn'Qiraj > Trash
-            new List<ExtraItemDrop>
-            {
-                // Cloth
-                new (21838, new[]{ 9 }), // Garb of Royal Ascension
-                new (21888, new[]{ 9 }), // Gloves of the Immortal
-                // Plate
-                new (21889, new[]{ 9 }), // Gloves of the Redeemed Prophecy
-                // Weapon
-                new (21837, new[]{ 9 }), // Anubisath Warhammer
-                new (21856, new[]{ 9 }), // Neretzek, The Blood Drinker
-            }
-        },
-        #endregion
-
-        #region Burning Crusade Trash
-        {
-            1000745, // Karazhan > Trash
-            new List<ExtraItemDrop>
-            {
-                // Cloth
-                new (30668, new[] { 3 }), // Grasp of the Dead
-                new (30673, new[] { 3 }), // Inferno Waist Cord
-                // Leather
-                new (30644, new[] { 3 }), // Grips of Deftness
-                new (30674, new[] { 3 }), // Zierhut's Lost Treads
-                // Mail
-                new (30643, new[] { 3 }), // Belt of the Tracker
-                // Plate
-                new (30641, new[] { 3 }), // Boots of Elusion
-                // Cloak
-                new (30642, new[] { 3 }), // Drape of the Righteous
-            }
-        },
-        {
-            1000748, // Serpentshrine Cavern > Trash
-            new List<ExtraItemDrop>
-            {
-                // Plate
-                new (30027, new[] { 9 }), // Boots of Courage Unending
-                // Weapon
-                new (30021, new[] { 9 }), // Wildfury Greatstaff
-            }
-        },
-        {
-            1000749, // The Eye > Trash
-            new List<ExtraItemDrop>
-            {
-                // Cloth
-                new (30020, new[] { 9 }), // Fire-Cord of the Magus
-                new (30024, new[] { 9 }), // Mantle of the Elven Kings
-                // Leather
-                new (30029, new[] { 9 }), // Bark-Gloves of Ancient Wisdom
-                // Mail
-                new (30026, new[] { 9 }), // Bands of the Celestial Archer
-                new (30030, new[] { 9 }), // Girdle of Fallen Stars
-            }
-        },
-        {
-            1000750, // The Battle for Mount Hyjal > Trash
-            new List<ExtraItemDrop>
-            {
-                // Cloth
-                new (32609, new[] { 9 }), // Boots of the Divine Light
-                // Mail
-                new (32592, new[] { 9 }), // Chestguard of Relentless Storms
-                // Cloak
-                new (32590, new[] { 9 }), // Nethervoid Cloak
-                new (34010, new[] { 9 }), // Pepe's Shroud of Pacification
-                // Weapon
-                new (34009, new[] { 9 }), // Hammer of Judgement
-                new (32946, new[] { 9 }), // Claw of Molten Fury
-                new (32945, new[] { 9 }), // Fist of Molten Fury
-            }
-        },
-        {
-            1000751, // Black Temple > Trash
-            new List<ExtraItemDrop>
-            {
-                // Cloth
-                new (32609, new[] { 9 }), // Boots of the Divine Light
-                // Leather
-                new (32593, new[] { 9 }), // Treads of the Den Mother
-                // Mail
-                new (32592, new[] { 9 }), // Chestguard of Relentless Storms
-                // Plate
-                new (32606, new[] { 9 }), // Girdle of the Lightbearer
-                new (32608, new[] { 9 }), // Pillager's Gauntlets
-                // Cloak
-                new (32590, new[] { 9 }), // Nethervoid Cloak
-                new (34012, new[] { 9 }), // Shroud of the Final Stand
-                // Weapon
-                new (34009, new[] { 9 }), // Hammer of Judgement
-                new (32943, new[] { 9 }), // Swiftsteel Bludgeon
-                new (34011, new[] { 9 }), // Illidari Runeshield
-            }
-        },
-        {
-            1000752, // Sunwell Plateau > Trash
-            new List<ExtraItemDrop>
-            {
-                // Leather
-                new (34351, new[] { 9 }), // Tranquil Majesty Wraps
-                new (34407, new[] { 9 }), // Tranquil Moonlight Wraps
-                // Mail
-                new (34350, new[] { 9 }), // Gauntlets of the Ancient Shadowmoon
-                new (34409, new[] { 9 }), // Gauntlets of the Ancient Frostwolf
-                // Weapon
-                new (34346, new[] { 9 }), // Mounting Vengeance
-                new (34183, new[] { 9 }), // Shivering Felspine
-                new (34348, new[] { 9 }), // Wand of Cleansing Light
-                new (34347, new[] { 9 }), // Wand of the Demonsoul
-            }
-        },
         #endregion
 
         #region Wrath of the Lich King Trash
@@ -523,6 +626,17 @@ public static partial class Hardcoded
         },
         #endregion
 
+        #region Cataclysm
+        // Firelands > Majordomo Staghelm
+        {
+            197,
+            new List<ExtraItemDrop>
+            {
+                new(122304, new[]{ 14, 15, 33 }), // Fandral's Seed Pouch
+            }
+        },
+        #endregion
+
         #region Cataclysm Trash
         {
             1000072, // The Bastion of Twilight > Trash
@@ -562,21 +676,21 @@ public static partial class Hardcoded
             {
                 // Leather
                 new (71640, new[] { 14 }), // Riplimb's Lost Collar
-                new (71641, new[] { 15 }), // Riplimb's Lost Collar
+                //new (71641, new[] { 15 }), // Riplimb's Lost Collar
                 // Mail
                 new (71365, new[] { 14 }), // Hide-Bound Chains
-                new (71561, new[] { 15 }), // Hide-Bound Chains
+                //new (71561, new[] { 15 }), // Hide-Bound Chains
                 // Weapon
                 new (71359, new[] { 14 }), // Chelley's Sterilized Scalpel
-                new (71560, new[] { 15 }), // Chelley's Sterilized Scalpel
+                //new (71560, new[] { 15 }), // Chelley's Sterilized Scalpel
                 new (71366, new[] { 14 }), // Lava Bolt Crossbow
-                new (71558, new[] { 15 }), // Lava Bolt Crossbow
+                //new (71558, new[] { 15 }), // Lava Bolt Crossbow
                 new (71362, new[] { 14 }), // Obsidium Cleaver
-                new (71562, new[] { 15 }), // Obsidium Cleaver
+                //new (71562, new[] { 15 }), // Obsidium Cleaver
                 new (71361, new[] { 14 }), // Ranseur of Hatred
-                new (71557, new[] { 15 }), // Ranseur of Hatred
+                //new (71557, new[] { 15 }), // Ranseur of Hatred
                 new (71360, new[] { 14 }), // Spire of Scarlet Pain
-                new (71559, new[] { 15 }), // Spire of Scarlet Pain
+                //new (71559, new[] { 15 }), // Spire of Scarlet Pain
             }
         },
         {
@@ -602,6 +716,25 @@ public static partial class Hardcoded
             }
         },
 
+        #endregion
+
+        #region Mists of Pandaria
+        // Schjolomance > Doctor Theolen Krastinov
+        {
+            102460,
+            new List<ExtraItemDrop>
+            {
+                new(88566, new[]{ 2 }), // Krastinov's Bag of Horrors - Heroic
+            }
+        },
+        // Siege of Orgrimmar > Garrosh Hellscream
+        {
+            869,
+            new List<ExtraItemDrop>
+            {
+                new(112935, new[]{ 16 }), // Tusks of Mannoroth - Mythic
+            }
+        },
         #endregion
 
         #region Mists of Pandaria Trash
@@ -639,6 +772,8 @@ public static partial class Hardcoded
             1000362, // Throne of Thunder > Trash
             new List<ExtraItemDrop>
             {
+                // Toy
+                new (98136, RaidDifficultiesLfrNormalHeroic), // Gastropod Shell
                 // Cloth
                 new (95207, RaidDifficultiesLfrNormalHeroic), // Abandoned Zandalari Firecord
                 new (95208, RaidDifficultiesLfrNormalHeroic), // Abandoned Zandalari Shadowgirdle
@@ -749,6 +884,69 @@ public static partial class Hardcoded
         },
         #endregion
 
+        #region Legion
+        // Return to Karazhan > Nightbane
+        {
+            108600,
+            new List<ExtraItemDrop>
+            {
+                // Mount
+                new(142552, new[]{ 23 }), // Smoldering Ember Wyrm
+                // Cloth
+                new(142297, new[]{ 23 }), // Robes of the Ancient Chronicle
+                // Leather
+                new(142203, new[]{ 23 }), // Harness of Smoldering Betrayal
+                // Mail
+                new(142301, new[]{ 23 }), // Hauberk of Warped Intuition
+                // Plate
+                new(142303, new[]{ 23 }), // Chestplate of Impenetrable Darkness
+            }
+        },
+        // Seat of the Triumvirate > Vixx the Collector
+        {
+            109450,
+            new List<ExtraItemDrop>
+            {
+                new(153004, new[] { 2, 23 }), // Unstable Portal Emitter
+                new(152982, new[] { 2, 23 }), // Vixx's Chest of Tricks
+            }
+        },
+        // The Nighthold > Gul'dan
+        {
+            1737,
+            new List<ExtraItemDrop>
+            {
+                new(119211, RaidDifficultiesAll), // Golden Hearthstone Card: Lord Jaraxxus
+                new(143544, RaidDifficultiesAll), // Skull of Corruption
+            }
+        },
+        // Tomb of Sargeras > Maiden of Vigilance
+        {
+            1897,
+            new List<ExtraItemDrop>
+            {
+                new(151524, RaidDifficultiesAll), // Hammer of Vigilance
+            }
+        },
+        // Antorus, the Burning Throne > Aggramar
+        {
+            1984,
+            new List<ExtraItemDrop>
+            {
+                new(152094, RaidDifficultiesAll), // Taeshalach
+            }
+        },
+        // Antorus, the Burning Throne > Argus the Unmaker
+        {
+            2031,
+            new List<ExtraItemDrop>
+            {
+                new(153115, RaidDifficultiesAll), // Scythe of the Unmaker (blue)
+                new(155880, new[] { 16 }), // Scythe of the Unmaker (red) - Mythic
+            }
+        },
+        #endregion
+
         #region Legion Trash
         {
             1000786, // The Nighthold > Trash
@@ -811,6 +1009,41 @@ public static partial class Hardcoded
                 new(153019, RaidDifficultiesAll), // Hulking Demonlisher Legplates
                 new(152090, RaidDifficultiesAll), // Impenetrable Garothi Breastplate
                 new(152091, RaidDifficultiesAll), // Wristguards of the Dark Keepers
+            }
+        },
+        #endregion
+
+        #region Battle for Azeroth
+        // Uldir > Taloc
+        {
+            2168,
+            new List<ExtraItemDrop>
+            {
+                new(163119, RaidDifficultiesAll), // Khor, Hammer of the Guardian
+            }
+        },
+        // Azeroth > Doom's Howl
+        {
+            2213,
+            new List<ExtraItemDrop>
+            {
+                new(163828, new[]{ 14 }), // Toy Siege Tower
+            }
+        },
+        // Azeroth > The Lion's Roar
+        {
+            2214,
+            new List<ExtraItemDrop>
+            {
+                new(163829, new[]{ 14 }), // Toy War Machine
+            }
+        },
+        // The Eternal Palace > Za'qul
+        {
+            2349,
+            new List<ExtraItemDrop>
+            {
+                new(168868, RaidDifficultiesAll), // Pauldrons of Za'qul
             }
         },
         #endregion
