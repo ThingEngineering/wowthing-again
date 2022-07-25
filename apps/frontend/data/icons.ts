@@ -75,6 +75,11 @@ export const imageStrings: Record<string, string> = {
     mining: 'spell/2575',
     skinning: 'spell/8617',
     tailoring: 'spell/3908',
+
+    'covenant-kyrian': 'covenant_kyrian',
+    'covenant-necrolord': 'covenant_necrolord',
+    'covenant-night-fae': 'covenant_night_fae',
+    'covenant-venthyr': 'covenant_venthyr',
 }
 
 export const iconStrings: Record<string, IconifyIcon> = {
