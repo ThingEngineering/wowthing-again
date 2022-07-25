@@ -48,11 +48,11 @@ public class ImportDumpsJob : JobBase, IScheduledJob
         Type = JobType.ImportDumps,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(24),
-        Version = 18,
+        Version = 19,
     };
 
     private Dictionary<int, DumpItemXItemEffect[]> _itemEffectsMap;
-    private Dictionary<int, DumpItemEffect> _spellTeachMap;
+    private Dictionary<int, int[]> _spellTeachMap;
 
     public override async Task Run(params string[] data)
     {
@@ -685,15 +685,35 @@ public class ImportDumpsJob : JobBase, IScheduledJob
                     }
                 }
             }
+            else if (dumpItemEffect.TriggerType == 6) // On Learn
+            {
+                foreach (var itemXItemEffect in itemEffectToItems[dumpItemEffect.ID])
+                {
+                    if (!dbMap.TryGetValue(itemXItemEffect.ID, out var dbItemEffect))
+                    {
+                        dbItemEffect = dbMap[dumpItemEffect.ID] = new WowItemEffect
+                        {
+                            ItemXItemEffectId = itemXItemEffect.ID,
+                        };
+                        Context.WowItemEffect.Add(dbItemEffect);
+                    }
+
+                    dbItemEffect.Effect = WowSpellEffectEffect.LearnSpell;
+                    dbItemEffect.ItemId = itemXItemEffect.ItemID;
+                    dbItemEffect.Values = new[]
+                    {
+                        dumpItemEffect.SpellID,
+                    };
+                }
+            }
         }
 
-        _spellTeachMap = itemEffects
-            .Where(ie => ie.TriggerType == 6) // Learn
-            .GroupBy(ie => ie.SpellID)
-            .ToDictionary(
-                group => group.Key,
-                group => group.First());
-
+        _spellTeachMap = dbMap.Values
+            .Where(wie => wie.Effect == WowSpellEffectEffect.LearnSpell)
+            .ToGroupedDictionary(
+                wie => wie.Values[0],
+                wie => wie.ItemId
+            );
         _itemEffectsMap = itemEffectToItems;
 
         _timer.AddPoint("ItemEffects");
@@ -726,10 +746,9 @@ public class ImportDumpsJob : JobBase, IScheduledJob
             dbMount.Flags = mount.Flags;
             dbMount.SourceType = mount.SourceTypeEnum;
 
-            if (_spellTeachMap.TryGetValue(dbMount.SpellId, out var itemEffect) &&
-                _itemEffectsMap.TryGetValue(itemEffect.ID, out var xItemEffects))
+            if (_spellTeachMap.TryGetValue(dbMount.SpellId, out var itemIds))
             {
-                dbMount.ItemId = xItemEffects.First().ItemID;
+                dbMount.ItemId = itemIds.Last();
             }
 
             if (!dbLanguageMap.TryGetValue((Language.enUS, mount.ID), out var languageString))
@@ -801,10 +820,9 @@ public class ImportDumpsJob : JobBase, IScheduledJob
             dbPet.PetType = pet.PetTypeEnum;
             dbPet.SourceType = pet.SourceTypeEnum;
 
-            if (_spellTeachMap.TryGetValue(dbPet.SpellId, out var itemEffect) &&
-                _itemEffectsMap.TryGetValue(itemEffect.ID, out var xItemEffects))
+            if (_spellTeachMap.TryGetValue(dbPet.SpellId, out var itemIds))
             {
-                dbPet.ItemId = xItemEffects.First().ItemID;
+                dbPet.ItemId = itemIds.Last();
             }
         }
 
