@@ -132,7 +132,7 @@
 
     {#if categories}
         <div class="collection thing-container">
-            {#if !slug2}
+            {#if firstCategory && !slug2}
                 <SectionTitle
                     title={firstCategory.name}
                     count={$userVendorStore.data.stats[`${slug1}`]}
