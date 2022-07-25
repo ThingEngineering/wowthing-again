@@ -18,13 +18,19 @@
     export let slug2: string
 
     let categories: ManualDataVendorCategory[]
+    let firstCategory: ManualDataVendorCategory
     let totalCosts: Record<string, Record<number, number>>
     $: {
+        categories = find(
+            $manualStore.data.vendors.sets,
+            (cats: ManualDataVendorCategory[]) => cats !== null && cats[0].slug === slug1
+        )
+        if (categories) {
+            firstCategory = categories[0]
+        }
+        
         categories = filter(
-            find(
-                $manualStore.data.vendors.sets,
-                (cats: ManualDataVendorCategory[]) => cats !== null && cats[0].slug === slug1
-            ),
+            categories,
             (cat: ManualDataVendorCategory) => cat?.groups?.length > 0
         )
 
@@ -35,13 +41,14 @@
             )
         }
 
-        totalCosts = {}
+        totalCosts = {'OVERALL': {}}
         for (const category of categories) {
             totalCosts[category.slug] = {}
             for (const group of category.groups) {
                 for (const thing of group.sellsFiltered) {
                     if (!$userVendorStore.data.userHas[`${thing.type}-${thing.id}`]) {
                         for (const currency in thing.costs) {
+                            totalCosts['OVERALL'][currency] = (totalCosts['OVERALL'][currency] || 0) + thing.costs[currency]
                             totalCosts[category.slug][currency] = (totalCosts[category.slug][currency] || 0) + thing.costs[currency]
                         }
                     }
@@ -55,6 +62,9 @@
     .wrapper {
         width: 100%;
     }
+    .spacer {
+        margin-bottom: 0.5rem;
+    }
     .costs {
         --image-border-width: 1px;
         --image-margin-top: -4px;
@@ -62,7 +72,7 @@
         color: $body-text;
         display: flex;
         flex-wrap: wrap;
-        font-size: 90%;
+        //font-size: 90%;
         gap: 0.5rem;
         justify-content: flex-end;
         margin-left: auto;
@@ -122,6 +132,32 @@
 
     {#if categories}
         <div class="collection thing-container">
+            {#if !slug2}
+                <SectionTitle
+                    title={firstCategory.name}
+                    count={$userVendorStore.data.stats[`${slug1}`]}
+                >
+                    <span class="costs">
+                        {#each getCurrencyCosts($manualStore.data, $staticStore.data, totalCosts['OVERALL'], true, true) as [linkType, linkId, value]}
+                            <div>
+                                <CurrencyLink
+                                    currencyId={linkType === 'currency' ? linkId : undefined}
+                                    itemId={linkType === 'item' ? linkId : undefined}
+                                >
+                                    {value}
+                                    <WowthingImage
+                                        name="{linkType}/{linkId}"
+                                        size={20}
+                                        border={0}
+                                    />
+                                </CurrencyLink>
+                            </div>
+                        {/each}
+                    </span>
+                </SectionTitle>
+                <div class="spacer"></div>
+            {/if}
+
             {#each categories as category}
                 {@const useV2 = category.groups.length > 3 && category.groups.reduce((a, b) => a + b.sellsFiltered.length, 0) > 30}
                 <SectionTitle
@@ -130,7 +166,7 @@
                 >
                     {#if totalCosts[category.slug]}
                         <span class="costs">
-                            {#each getCurrencyCosts($manualStore.data, $staticStore.data, totalCosts[category.slug]) as [linkType, linkId, value]}
+                            {#each getCurrencyCosts($manualStore.data, $staticStore.data, totalCosts[category.slug], true, true) as [linkType, linkId, value]}
                                 <div>
                                     <CurrencyLink
                                         currencyId={linkType === 'currency' ? linkId : undefined}
