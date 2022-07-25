@@ -31,6 +31,7 @@ public class UserApiCharacter
 
     public Dictionary<short, int> Bags { get; set; }
     public List<UserApiCharacterCurrency> CurrenciesRaw { get; }
+    public Dictionary<int, int> CurrencyItems { get; set; }
     public Dictionary<int, UserApiCharacterEquippedItem> EquippedItems { get; } = new();
     public Dictionary<int, Dictionary<int, List<int>>> GarrisonTrees { get; }
     public Dictionary<string, PlayerCharacterLockoutsLockout> Lockouts { get; }
@@ -41,7 +42,7 @@ public class UserApiCharacter
     public Dictionary<int, PlayerCharacterRaiderIoSeasonScores> RaiderIo { get; }
     public Dictionary<int, PlayerCharacterReputationsParagon> Paragons { get; }
     public Dictionary<int, int> Reputations { get; } = new();
-        
+
     [JsonProperty("specializationsRaw")]
     public Dictionary<int, PlayerCharacterSpecializationsSpecialization> Specializations { get; }
 
@@ -54,6 +55,7 @@ public class UserApiCharacter
     public UserApiCharacter(
         PlayerCharacter character,
         IEnumerable<PlayerCharacterItem> bagItems,
+        IEnumerable<PlayerCharacterItem> currencyItems,
         IEnumerable<PlayerCharacterItem> progressItems,
         bool pub = false,
         ApplicationUserSettingsPrivacy privacy = null
@@ -93,6 +95,13 @@ public class UserApiCharacter
                 .EmptyIfNull()
                 .Select(pcc => new UserApiCharacterCurrency(pcc))
                 .ToList();
+
+            CurrencyItems = currencyItems
+                .GroupBy(ci => ci.ItemId)
+                .ToDictionary(
+                    group => group.Key,
+                    group => group.Sum(ci => ci.Count)
+                );
         }
 
         if (!pub)
@@ -114,12 +123,12 @@ public class UserApiCharacter
                 group => group.Key,
                 group => group.First().ItemId
             );
-            
+
         ProgressItems = progressItems
             .Select(pi => pi.ItemId)
             .Distinct()
             .ToArray();
-            
+
         if (character.EquippedItems?.Items != null)
         {
             EquippedItems = character.EquippedItems.Items
@@ -196,7 +205,7 @@ public class UserApiCharacterCurrency
         IsMovingMax = currency.IsMovingMax;
     }
 }
-    
+
 public class UserApiCharacterEquippedItem
 {
     public int Context { get; set; }
@@ -250,7 +259,7 @@ public class UserApiCharacterMythicPlus
                     Seasons.Values
                         .SelectMany(x => x.Values.SelectMany(y => y))
                 );
-                
+
             foreach (var run in allRuns)
             {
                 run.Members = run.Members

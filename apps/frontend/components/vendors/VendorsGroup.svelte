@@ -13,7 +13,8 @@
 
     import ClassIcon from '@/components/images/ClassIcon.svelte'
     import CollectionCount from '@/components/collections/CollectionCount.svelte'
-    import FactionIcon from '../images/FactionIcon.svelte'
+    import CurrencyLink from '@/components/links/CurrencyLink.svelte'
+    import FactionIcon from '@/components/images/FactionIcon.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import WowheadLink from '@/components/links/WowheadLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
@@ -96,6 +97,11 @@
         display: flex;
         flex-direction: column;
         white-space: nowrap;
+
+        :global(a) {
+            text-align: right;
+            width: 100%;
+        }
 
         div {
             display: flex;
@@ -198,18 +204,18 @@
                                 <div class="costs quality1">
                                     {#each thing.item.sortedCosts as [costType, costId, costValue]}
                                         <div>
-                                            {costValue}
-                                            <WowheadLink
-                                                type={costType}
-                                                id={costId}
+                                            <CurrencyLink
+                                                currencyId={costType === 'currency' ? costId : undefined}
+                                                itemId={costType === 'item' ? costId : undefined}
                                             >
+                                                {costValue}
                                                 <WowthingImage
                                                     name="{costType}/{costId}"
                                                     size={16}
                                                     border={0}
                                                     lazy={false}
                                                 />
-                                            </WowheadLink>
+                                            </CurrencyLink>
                                         </div>
                                     {/each}
                                 </div>

@@ -9,9 +9,9 @@
     import type { ManualDataVendorCategory } from '@/types/data/manual'
 
     import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
+    import CurrencyLink from '@/components/links/CurrencyLink.svelte'
     import Group from './VendorsGroup.svelte'
     import SectionTitle from '@/components/collections/CollectionSectionTitle.svelte'
-    import WowheadLink from '@/components/links/WowheadLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let slug1: string
@@ -132,17 +132,17 @@
                         <span class="costs">
                             {#each getCurrencyCosts($manualStore.data, $staticStore.data, totalCosts[category.slug]) as [linkType, linkId, value]}
                                 <div>
-                                    {value}
-                                    <WowheadLink
-                                        type={linkType}
-                                        id={linkId}
+                                    <CurrencyLink
+                                        currencyId={linkType === 'currency' ? linkId : undefined}
+                                        itemId={linkType === 'item' ? linkId : undefined}
                                     >
+                                        {value}
                                         <WowthingImage
                                             name="{linkType}/{linkId}"
                                             size={20}
                                             border={0}
                                         />
-                                    </WowheadLink>
+                                    </CurrencyLink>
                                 </div>
                             {/each}
                         </span>

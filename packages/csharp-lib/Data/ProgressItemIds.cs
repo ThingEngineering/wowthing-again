@@ -2,7 +2,7 @@
 
 public static partial class Hardcoded
 {
-    public static readonly int[] ProgressItemIds = new[]
+    public static readonly int[] ProgressItemIds =
     {
         32757, // Blessed Medallion of Karabor
         37863, // Direbrew's Remote
@@ -28,7 +28,7 @@ public static partial class Hardcoded
         142469, // Violet Seal of the Grand Magus
         166559, // Commander's Signet of Battle
         166560, // Captain's Signet of Command
-        
+
         40585, // Signet of the Kirin Tor
         40586, // Band of the Kirin Tor
         44934, // Loop of the Kirin Tor

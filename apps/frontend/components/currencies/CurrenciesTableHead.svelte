@@ -39,8 +39,8 @@
 
 <th>
     <CurrencyLink
-        id={currency.id}
         on:click={onClick}
+        {currency}
     >
         <WowthingImage
             name="currency/{currency.id}"

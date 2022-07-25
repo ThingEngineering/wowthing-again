@@ -34,6 +34,7 @@ export interface Character {
 
     bags: Record<number, number>
     currenciesRaw: CharacterCurrencyArray[]
+    currencyItems: Record<number, number>
     equippedItems: Record<number, CharacterEquippedItem>
     garrisonTrees: Record<number, Record<number, number[]>>
     lockouts: Record<string, CharacterLockout>

@@ -326,6 +326,12 @@ public class ApiController : Controller
             .Where(pci => characterIds.Contains(pci.CharacterId) && Hardcoded.ProgressItemIds.Contains(pci.ItemId))
             .ToArrayAsync();
 
+        // Currency items
+        var currencyItems = await _context.PlayerCharacterItem
+            .AsNoTracking()
+            .Where(pci => characterIds.Contains(pci.CharacterId) && Hardcoded.CurrencyItemIds.Contains(pci.ItemId))
+            .ToArrayAsync();
+
         timer.AddPoint("Characters");
 
         var globalDailies = await _context.GlobalDailies
@@ -438,6 +444,7 @@ public class ApiController : Controller
                 .Select(character => new UserApiCharacter(
                     character,
                     bagItems.Where(bi => bi.CharacterId == character.Id),
+                    currencyItems.Where(pi => pi.CharacterId == character.Id),
                     progressItems.Where(pi => pi.CharacterId == character.Id),
                     apiResult.Public,
                     apiResult.Privacy))
