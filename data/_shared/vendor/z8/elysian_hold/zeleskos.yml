@@ -1,0 +1,45 @@
+id: 171981
+name: "Zeleskos"
+note: "Pet Vendor"
+
+locations:
+  bastion:
+    - 63.2 17.2
+  unknown:
+    - 31.2 46.4
+    - 31.4 47.2
+    - 31.6 47.2
+
+sells:
+  # 0
+
+  - type: transmog
+    id: 181315 # Bloodfeaster Spiderling
+    costs:
+      1163036: 250
+
+  - type: transmog
+    id: 181168 # Corpulent Bonetusk
+    costs:
+      1163036: 250
+
+  - type: transmog
+    id: 180628 # Pearlwing Heron
+    costs:
+      1163036: 250
+
+  - type: transmog
+    id: 180814 # Sable
+    costs:
+      1163036: 250
+
+  - type: transmog
+    id: 184398 # Steward Featherling
+    costs:
+      1163036: 250
+
+  - type: transmog
+    id: 180603 # Violet Dredwing Pup
+    costs:
+      1163036: 250
+
