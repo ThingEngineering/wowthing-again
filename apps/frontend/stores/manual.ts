@@ -291,7 +291,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                             setPosition++;
 
                             const item = vendor.sells[itemIndex]
-                            const seenKey = `${item.type}|${item.id}`
+                            const seenKey = `${item.type}|${item.id}|${(item.bonusIds || []).join(',')}`
                             const autoItem = autoSeen[seenKey]
                             if (!autoItem) {
                                 autoGroup.sells.push(item)
@@ -332,7 +332,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                         if (groupKey) {
                             const autoGroup = autoGroups[groupKey] ||= new ManualDataVendorGroup(groupName, [], true)
 
-                            const seenKey = `${item.type}|${item.id}`
+                            const seenKey = `${item.type}|${item.id}|${(item.bonusIds || []).join(',')}`
                             const autoItem = autoSeen[seenKey]
                             if (!autoItem) {
                                 autoGroup.sells.push(item)

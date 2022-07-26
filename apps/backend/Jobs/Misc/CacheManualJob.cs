@@ -34,8 +34,10 @@ public class CacheManualJob : JobBase, IScheduledJob
         .Build();
 
     private IDatabase _db;
+
+    private Dictionary<int, int> _bonusAppearanceModifiers;
     private Dictionary<int, int[]> _collectionItemToModifiedAppearances;
-    private Dictionary<int, int> _itemToAppearance;
+    private Dictionary<int, Dictionary<short, int>> _itemToAppearance;
     private Dictionary<int, WowItem> _itemMap;
     private Dictionary<int, WowItemModifiedAppearance> _itemModifiedAppearanceMap;
     private Dictionary<int, WowMount> _mountMap;
@@ -59,7 +61,7 @@ public class CacheManualJob : JobBase, IScheduledJob
 #else
         Interval = TimeSpan.FromHours(1),
 #endif
-        Version = 4,
+        Version = 5,
     };
 
     public override async Task Run(params string[] data)
@@ -122,10 +124,10 @@ public class CacheManualJob : JobBase, IScheduledJob
             .GroupBy(ima => ima.ItemId)
             .ToDictionary(
                 group => group.Key,
-                group => group
-                    .OrderBy(ima => ima.Modifier)
-                    .First()
-                    .AppearanceId
+                group => group.ToDictionary(
+                    ima => ima.Modifier,
+                    ima => ima.AppearanceId
+                )
             );
 
         _mountMap = await Context.WowMount
@@ -160,6 +162,17 @@ public class CacheManualJob : JobBase, IScheduledJob
                 wie => transmogSets[wie.Values[0]]
                     .Select(tsi => tsi.ItemModifiedAppearanceID)
                     .ToArray()
+            );
+
+        _bonusAppearanceModifiers = (await DataUtilities.LoadDumpCsvAsync<DumpItemBonus>("itembonus"))
+            .Where(ib => ib.Type == 7) // TODO fix hardcoded
+            .GroupBy(ib => ib.ParentItemBonusListID)
+            .ToDictionary(
+                group => group.Key,
+                group => group
+                    .OrderBy(ib => ib.OrderIndex)
+                    .First()
+                    .Value0
             );
 
         _timer.AddPoint("Load");
@@ -216,7 +229,7 @@ public class CacheManualJob : JobBase, IScheduledJob
                 .OrderBy(itemId => itemId)
                 .Select(itemId => new StaticItem(_itemMap[itemId])
                 {
-                    AppearanceId = _itemToAppearance.GetValueOrDefault(itemId),
+                    AppearanceIds = _itemToAppearance.GetValueOrDefault(itemId),
                     Name = GetString(StringType.WowItemName, language, itemId),
                 })
                 .ToArray();
@@ -350,6 +363,20 @@ public class CacheManualJob : JobBase, IScheduledJob
         if (item.Type is RewardType.Item or RewardType.Transmog)
         {
             _itemIds.Add(item.Id);
+
+            if ((item.AppearanceIds?.Length ?? 0) == 0 && item.BonusIds?.Length > 0)
+            {
+                foreach (int bonusId in item.BonusIds)
+                {
+                    if (_itemToAppearance.TryGetValue(item.Id, out var appearances) &&
+                        _bonusAppearanceModifiers.TryGetValue(bonusId, out int modifierId) &&
+                        appearances.TryGetValue((short)modifierId, out var appearanceId))
+                    {
+                        item.AppearanceIds = new[] { appearanceId };
+                        break;
+                    }
+                }
+            }
 
             var dropItem = _itemMap[item.Id];
             if (_collectionItemToModifiedAppearances.TryGetValue(item.Id, out var imas))

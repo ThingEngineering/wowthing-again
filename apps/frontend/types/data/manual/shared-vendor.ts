@@ -84,7 +84,7 @@ export class ManualDataSharedVendor {
                         appearanceIds.push(item.appearanceIds)
                     }
                     else {
-                        appearanceIds.push([manualData.shared.items[item.id]?.appearanceId ?? 0])
+                        appearanceIds.push([manualData.shared.items[item.id]?.appearanceIds?.[0] ?? 0])
                     }
 
                     for (const appearanceId of appearanceIds[appearanceIds.length - 1]) {
@@ -108,7 +108,7 @@ export class ManualDataSharedVendor {
             for (const item of this.sells) {
                 const itemSeen = item.appearanceIds?.length > 0
                     ? every(item.appearanceIds, (appearanceId) => seen[appearanceId])
-                    : seen[manualData.shared.items[item.id]?.appearanceId ?? 0]
+                    : seen[manualData.shared.items[item.id]?.appearanceIds?.[0] ?? 0]
 
                 if (!itemSeen) {
                     drops.push({

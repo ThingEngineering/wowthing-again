@@ -215,7 +215,7 @@ public class CacheStaticJob : JobBase, IScheduledJob
                 .OrderBy(itemId => itemId)
                 .Select(itemId => new StaticItem(_itemMap[itemId])
                 {
-                    AppearanceId = _itemToAppearance.GetValueOrDefault(itemId),
+                    AppearanceIds = _itemToAppearance.GetValueOrDefault(itemId),
                     Name = GetString(StringType.WowItemName, language, itemId),
                 }).ToArray();
 

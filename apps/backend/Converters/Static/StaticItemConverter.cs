@@ -11,7 +11,17 @@ public class StaticItemConverter : JsonConverter
         var arr = new JArray();
         arr.Add(item.Id);
         arr.Add(item.Quality);
-        arr.Add(item.AppearanceId);
+
+        var appearArray = new JArray();
+        foreach (var (modifier, appearanceId) in item.AppearanceIds.EmptyIfNull())
+        {
+            var modArray = new JArray();
+            modArray.Add(modifier);
+            modArray.Add(appearanceId);
+            appearArray.Add(modArray);
+        }
+        arr.Add(appearArray);
+
         arr.Add(item.Name);
         arr.WriteTo(writer);
     }

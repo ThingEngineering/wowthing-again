@@ -35,7 +35,8 @@ export default function userHasDrop(
             )
         }
         else {
-            return userTransmogData.userHas[manualData.shared.items[id]?.appearanceId] === true
+            const appearanceId = manualData.shared.items[id]?.appearanceIds?.[0] || 0
+            return userTransmogData.userHas[appearanceId] === true
         }
             
     }
