@@ -9,63 +9,63 @@ locations:
 
 sets:
   - name: "Armor - S06 Death Knight"
-    range: 0 5
+    range: 5
     sortKey: "armor-s06-1-deathknight"
 
   - name: "Armor - S06 Druid"
-    range: 5 15
+    range: 15
     sortKey: "armor-s06-1-druid"
 
   - name: "Armor - S06 Hunter"
-    range: 20 5
+    range: 5
     sortKey: "armor-s06-1-hunter"
 
   - name: "Armor - S06 Mage"
-    range: 25 5
+    range: 5
     sortKey: "armor-s06-1-mage"
 
   - name: "Armor - S06 Paladin"
-    range: 30 10
+    range: 10
     sortKey: "armor-s06-1-paladin"
 
   - name: "Armor - S06 Priest"
-    range: 40 10
+    range: 10
     sortKey: "armor-s06-1-priest"
 
   - name: "Armor - S06 Rogue"
-    range: 50 5
+    range: 5
     sortKey: "armor-s06-1-rogue"
 
   - name: "Armor - S06 Shaman"
-    range: 55 15
+    range: 15
     sortKey: "armor-s06-1-shaman"
 
   - name: "Armor - S06 Warlock"
-    range: 70 5
+    range: 5
     sortKey: "armor-s06-1-warlock"
 
   - name: "Armor - S06 Warrior"
-    range: 75 5
+    range: 5
     sortKey: "armor-s06-1-warrior"
 
   - name: "Armor - Misc Cloth"
-    range: 80 4
+    range: 4
     sortKey: "armor-misc-1-1"
 
   - name: "Armor - Misc Leather"
-    range: 84 4
+    range: 4
     sortKey: "armor-misc-1-2"
 
   - name: "Armor - Misc Mail"
-    range: 88 4
+    range: 4
     sortKey: "armor-misc-1-3"
 
   - name: "Armor - Misc Plate"
-    range: 92 6
+    range: 6
     sortKey: "armor-misc-1-4"
 
   - name: "Weapons - Misc"
-    range: 98 1
+    range: 1
     sortKey: "weapons-misc"
 
 sells:

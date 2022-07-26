@@ -12,11 +12,19 @@ public class ManualSharedVendorSet
     public ManualSharedVendorSet(DataSharedVendorSet set)
     {
         Name = set.Name;
-        Range = set.Range
-            .Split(' ')
-            .Select(int.Parse)
-            .ToArray();
         SkipTooltip = set.SkipTooltip;
         SortKey = set.SortKey;
+
+        var parts = set.Range
+            .Split(' ');
+
+        if (parts.Length == 1)
+        {
+            Range = new[] { int.Parse(parts[0]), 0 };
+        }
+        else
+        {
+            Range = new[] { int.Parse(parts[0]), int.Parse(parts[1]) };
+        }
     }
 }

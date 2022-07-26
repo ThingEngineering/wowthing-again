@@ -8,47 +8,47 @@ locations:
 
 sets:
   - name: "Armor - S05 Death Knight"
-    range: 0 5
+    range: 5
     sortKey: "armor-s05-1-deathknight"
 
   - name: "Armor - S05 Druid"
-    range: 5 15
+    range: 15
     sortKey: "armor-s05-1-druid"
 
   - name: "Armor - S05 Hunter"
-    range: 20 5
+    range: 5
     sortKey: "armor-s05-1-hunter"
 
   - name: "Armor - S05 Mage"
-    range: 25 5
+    range: 5
     sortKey: "armor-s05-1-mage"
 
   - name: "Armor - S05 Paladin"
-    range: 30 10
+    range: 10
     sortKey: "armor-s05-1-paladin"
 
   - name: "Armor - S05 Priest"
-    range: 40 10
+    range: 10
     sortKey: "armor-s05-1-priest"
 
   - name: "Armor - S05 Rogue"
-    range: 50 5
+    range: 5
     sortKey: "armor-s05-1-rogue"
 
   - name: "Armor - S05 Shaman"
-    range: 55 15
+    range: 15
     sortKey: "armor-s05-1-shaman"
 
   - name: "Armor - S05 Warlock"
-    range: 70 5
+    range: 5
     sortKey: "armor-s05-1-warlock"
 
   - name: "Armor - S05 Warrior"
-    range: 75 5
+    range: 5
     sortKey: "armor-s05-1-warrior"
 
   - name: "Collections - S05"
-    range: 80 11
+    range: 11
     sortKey: "collections-s05"
 
 sells:

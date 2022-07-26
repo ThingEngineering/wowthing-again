@@ -8,7 +8,7 @@ locations:
 
 sets:
   - name: "Reputation - The Sha'tar"
-    range: 0 19
+    range: -1
     sortKey: "0-rep-the-shatar"
     skipTooltip: true
 

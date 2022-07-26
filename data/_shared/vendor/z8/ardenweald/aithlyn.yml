@@ -6,9 +6,9 @@ locations:
     - 48.4 50.4
 
 sets:
-  - name: "Armor - The Wild Hunt"
-    range: 5 8
-    sortKey: "armor-wild-hunt"
+  - name: "Reputation - The Wild Hunt"
+    range: -1
+    sortKey: "rep-the-wild-hunt"
 
 sells:
   - type: mount

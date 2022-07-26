@@ -10,7 +10,7 @@ tags:
 
 sets:
   - name: "Reputation - Avengers of Hyjal"
-    range: 0 13
+    range: -1
     sortKey: "a-rep-avengers"
     skipTooltip: true
 

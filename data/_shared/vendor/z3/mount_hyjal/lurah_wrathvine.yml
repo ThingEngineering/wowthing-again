@@ -7,7 +7,7 @@ locations:
 
 sets:
   - name: "Weapons - Crystallized"
-    range: 0 7
+    range: -1
     sortKey: "a-weapons-crystallized"
     skipTooltip: true
 

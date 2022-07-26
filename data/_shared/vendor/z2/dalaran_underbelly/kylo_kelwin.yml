@@ -12,83 +12,83 @@ tags:
 
 sets:
   - name: "Armor - S06 Death Knight"
-    range: 0 5
+    range: 5
     sortKey: "armor-s06-1-deathknight"
 
   - name: "Armor - S06 Druid"
-    range: 5 15
+    range: 15
     sortKey: "armor-s06-1-druid"
 
   - name: "Armor - S06 Hunter"
-    range: 20 5
+    range: 5
     sortKey: "armor-s06-1-hunter"
 
   - name: "Armor - S06 Mage"
-    range: 25 5
+    range: 5
     sortKey: "armor-s06-1-mage"
 
   - name: "Armor - S06 Paladin"
-    range: 30 10
+    range: 10
     sortKey: "armor-s06-1-paladin"
 
   - name: "Armor - S06 Priest"
-    range: 40 10
+    range: 10
     sortKey: "armor-s06-1-priest"
 
   - name: "Armor - S06 Rogue"
-    range: 50 5
+    range: 5
     sortKey: "armor-s06-1-rogue"
 
   - name: "Armor - S06 Shaman"
-    range: 55 15
+    range: 15
     sortKey: "armor-s06-1-shaman"
 
   - name: "Armor - S06 Warlock"
-    range: 70 5
+    range: 5
     sortKey: "armor-s06-1-warlock"
 
   - name: "Armor - S06 Warrior"
-    range: 75 5
+    range: 5
     sortKey: "armor-s06-1-warrior"
 
   - name: "Armor - S06 Shared Cloth"
-    range: 80 9
+    range: 9
     sortKey: "armor-s06-2-1"
 
   - name: "Armor - S06 Shared Leather"
-    range: 89 9
+    range: 9
     sortKey: "armor-s06-2-2"
 
   - name: "Armor - S06 Shared Mail"
-    range: 98 9
+    range: 9
     sortKey: "armor-s06-2-3"
 
   - name: "Armor - S06 Shared Plate"
-    range: 107 9
+    range: 9
     sortKey: "armor-s06-2-4"
 
   - name: "Armor - S06 Shared Cloaks"
-    range: 116 7
+    range: 7
     sortKey: "armor-s06-2-5"
 
   - name: "Collections - S06"
-    range: 123 11
+    range: 11
     sortKey: "collections-s06"
 
   - name: "Weapons - S06 Agility"
-    range: 134 14
+    range: 14
     sortKey: "weapons-s06-1"
 
   - name: "Weapons - S06 Intellect"
-    range: 148 8
+    range: 8
     sortKey: "weapons-s06-2"
   
   - name: "Weapons - S06 Strength"
-    range: 156 8
+    range: 8
     sortKey: "weapons-s06-3"
 
   - name: "Weapons - S06 Misc"
-    range: 164 6
+    range: 6
     sortKey: "weapons-s06-4"
 
 sells:

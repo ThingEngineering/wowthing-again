@@ -7,7 +7,7 @@ locations:
 
 sets:
   - name: "Armor - Court of Harvesters"
-    range: 5 8
+    range: 8 5
     sortKey: "armor-court"
 
 sells:

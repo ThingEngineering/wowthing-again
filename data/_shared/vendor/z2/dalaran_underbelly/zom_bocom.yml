@@ -12,83 +12,83 @@ tags:
 
 sets:
   - name: "Armor - S07 Death Knight"
-    range: 0 5
+    range: 5
     sortKey: "armor-s07-1-deathknight"
 
   - name: "Armor - S07 Druid"
-    range: 5 15
+    range: 15
     sortKey: "armor-s07-1-druid"
 
   - name: "Armor - S07 Hunter"
-    range: 20 5
+    range: 5
     sortKey: "armor-s07-1-hunter"
 
   - name: "Armor - S07 Mage"
-    range: 25 5
+    range: 5
     sortKey: "armor-s07-1-mage"
 
   - name: "Armor - S07 Paladin"
-    range: 30 10
+    range: 10
     sortKey: "armor-s07-1-paladin"
 
   - name: "Armor - S07 Priest"
-    range: 40 10
+    range: 10
     sortKey: "armor-s07-1-priest"
 
   - name: "Armor - S07 Rogue"
-    range: 50 5
+    range: 5
     sortKey: "armor-s07-1-rogue"
 
   - name: "Armor - S07 Shaman"
-    range: 55 15
+    range: 15
     sortKey: "armor-s07-1-shaman"
 
   - name: "Armor - S07 Warlock"
-    range: 70 5
+    range: 5
     sortKey: "armor-s07-1-warlock"
 
   - name: "Armor - S07 Warrior"
-    range: 75 5
+    range: 5
     sortKey: "armor-s07-1-warrior"
 
   - name: "Armor - S07 Shared Cloth"
-    range: 80 10
+    range: 10
     sortKey: "armor-s07-2-1"
 
   - name: "Armor - S07 Shared Leather"
-    range: 90 9
+    range: 9
     sortKey: "armor-s07-2-2"
 
   - name: "Armor - S07 Shared Mail"
-    range: 99 9
+    range: 9
     sortKey: "armor-s07-2-3"
 
   - name: "Armor - S07 Shared Plate"
-    range: 108 9
+    range: 9
     sortKey: "armor-s07-2-4"
 
   - name: "Armor - S07 Shared Cloaks"
-    range: 117 7
+    range: 7
     sortKey: "armor-s07-2-5"
 
   - name: "Collections - S07"
-    range: 124 11
+    range: 11
     sortKey: "collections-s07"
 
   - name: "Weapons - S07 Agility"
-    range: 135 13
+    range: 13
     sortKey: "weapons-s07-1"
 
   - name: "Weapons - S07 Intellect"
-    range: 148 11
+    range: 11
     sortKey: "weapons-s07-2"
   
   - name: "Weapons - S07 Strength"
-    range: 159 8
+    range: 8
     sortKey: "weapons-s07-3"
 
   - name: "Weapons - S07 Misc"
-    range: 167 7
+    range: 7
     sortKey: "weapons-s07-4"
 
 sells:

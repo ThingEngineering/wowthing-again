@@ -55,12 +55,29 @@ export class ManualDataSharedVendor {
         const seen: Record<number, boolean> = {}
 
         if (this.sets) {
+            let setPosition = 0;
             for (const set of this.sets) {
                 const appearanceIds: number[][] = []
                 const costs: Record<number, number>[] = []
+
+                if (set.range[1] > 0) {
+                    setPosition = set.range[1]
+                }
                 
-                for (let sellIndex = set.range[0]; sellIndex < set.range[0] + set.range[1]; sellIndex++) {
+                let setEnd = setPosition + set.range[0]
+                if (set.range[0] === -1) {
+                    setEnd = this.sells.length
+                }
+
+                for (let sellIndex = setPosition; sellIndex < setEnd; sellIndex++) {
+                    setPosition++
+
                     const item = this.sells[sellIndex]
+                    if (!item) {
+                        console.error('Fell off the end at', sellIndex, set)
+                        break
+                    }
+
                     costs.push(item.costs)
                     
                     if (item.appearanceIds?.length > 0) {

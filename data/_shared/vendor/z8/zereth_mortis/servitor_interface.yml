@@ -8,7 +8,7 @@ locations:
 
 sets:
   - name: "Protoform Mounts"
-    range: 0 24
+    range: -1
     sortKey: "mounts-protoform"
 
 sells:    

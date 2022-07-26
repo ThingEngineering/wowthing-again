@@ -9,19 +9,19 @@ locations:
 
 sets:
   - name: "Armor - T07 Death Knight"
-    range: 0 20
+    range: 20
     sortKey: "armor-t07-1-deathknight"
 
   - name: "Armor - T07 Paladin"
-    range: 20 30
+    range: 30
     sortKey: "armor-t07-1-paladin"
 
   - name: "Armor - T07 Warrior"
-    range: 50 20
+    range: 20
     sortKey: "armor-t07-1-warrior"
 
   - name: "Armor - Misc Plate"
-    range: 70 27
+    range: 27
     sortKey: "armor-misc-1-4"
 
 sells:

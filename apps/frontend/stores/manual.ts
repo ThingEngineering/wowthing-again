@@ -272,12 +272,24 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                 for (const vendorId of vendorIds) {
                     const vendor = state.data.shared.vendors[vendorId]
 
+                    let setPosition = 0;
                     for (let setIndex = 0; setIndex < vendor.sets.length; setIndex++) {
                         const set = vendor.sets[setIndex]
                         const groupKey = `${set.sortKey ? '09' + set.sortKey : 10 + setIndex}${set.name}`
                         
+                        if (set.range[1] > 0) {
+                            setPosition = set.range[1]
+                        }
+                        
+                        let setEnd = setPosition + set.range[0]
+                        if (set.range[0] === -1) {
+                            setEnd = vendor.sells.length
+                        }
+
                         const autoGroup = autoGroups[groupKey] ||= new ManualDataVendorGroup(set.name, [], true)
-                        for (let itemIndex = set.range[0]; itemIndex < set.range[0] + set.range[1]; itemIndex++) {
+                        for (let itemIndex = setPosition; itemIndex < setEnd; itemIndex++) {
+                            setPosition++;
+
                             const item = vendor.sells[itemIndex]
                             const seenKey = `${item.type}|${item.id}`
                             const autoItem = autoSeen[seenKey]

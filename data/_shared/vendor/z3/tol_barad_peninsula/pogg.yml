@@ -7,7 +7,7 @@ locations:
 
 sets:
   - name: "Weapons"
-    range: 6 8
+    range: 8 6
     sortKey: "weapons"
 
 sells:

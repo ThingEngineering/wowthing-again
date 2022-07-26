@@ -9,27 +9,27 @@ locations:
 
 sets:
   - name: "Armor - T08 Death Knight"
-    range: 0 20
+    range: 20
     sortKey: "armor-t08-1-deathknight"
 
   - name: "Armor - T09 Death Knight"
-    range: 20 10
+    range: 10
     sortKey: "armor-t09-1-deathknight"
 
   - name: "Armor - T08 Paladin"
-    range: 30 30
+    range: 30
     sortKey: "armor-t08-1-paladin"
 
   - name: "Armor - T09 Paladin"
-    range: 60 15
+    range: 15
     sortKey: "armor-t09-1-paladin"
 
   - name: "Armor - T08 Warrior"
-    range: 75 20
+    range: 20
     sortKey: "armor-t08-1-warrior"
 
   - name: "Armor - T09 Warrior"
-    range: 95 10
+    range: 10
     sortKey: "armor-t09-1-warrior"
 
 sells:

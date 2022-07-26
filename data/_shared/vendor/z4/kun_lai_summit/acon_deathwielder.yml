@@ -8,87 +8,87 @@ locations:
 
 sets:
   - name: "Armor - S15 Death Knight"
-    range: 0 5
+    range: 5
     sortKey: "armor-s15-1-deathknight"
 
   - name: "Armor - S15 Druid"
-    range: 5 15
+    range: 15
     sortKey: "armor-s15-1-druid"
 
   - name: "Armor - S15 Hunter"
-    range: 20 5
+    range: 5
     sortKey: "armor-s15-1-hunter"
 
   - name: "Armor - S15 Mage"
-    range: 25 5
+    range: 5
     sortKey: "armor-s15-1-mage"
 
   - name: "Armor - S15 Monk"
-    range: 30 10
+    range: 10
     sortKey: "armor-s15-1-monk"
 
   - name: "Armor - S15 Paladin"
-    range: 40 10
+    range: 10
     sortKey: "armor-s15-1-paladin"
 
   - name: "Armor - S15 Priest"
-    range: 50 5
+    range: 5
     sortKey: "armor-s15-1-priest"
 
   - name: "Armor - S15 Rogue"
-    range: 55 5
+    range: 5
     sortKey: "armor-s15-1-rogue"
 
   - name: "Armor - S15 Shaman"
-    range: 60 15
+    range: 15
     sortKey: "armor-s15-1-shaman"
 
   - name: "Armor - S15 Warlock"
-    range: 75 5
+    range: 5
     sortKey: "armor-s15-1-warlock"
 
   - name: "Armor - S15 Warrior"
-    range: 80 5
+    range: 5
     sortKey: "armor-s15-1-warrior"
 
   - name: "Armor - S15 Shared Cloth"
-    range: 85 9
+    range: 9
     sortKey: "armor-s15-2-1"
 
   - name: "Armor - S15 Shared Leather"
-    range: 94 12
+    range: 12
     sortKey: "armor-s15-2-2"
 
   - name: "Armor - S15 Shared Mail"
-    range: 106 12
+    range: 12
     sortKey: "armor-s15-2-3"
 
   - name: "Armor - S15 Shared Plate"
-    range: 118 12
+    range: 12
     sortKey: "armor-s15-2-4"
 
   - name: "Armor - S15 Cloaks"
-    range: 130 7
+    range: 7
     sortKey: "armor-s15-3-1"
 
   - name: "Armor - S15 Ensembles"
-    range: 137 12
+    range: 12
     sortKey: "armor-s15-3-2"
 
   - name: "Weapons - S15 Agility"
-    range: 149 9
+    range: 9
     sortKey: "weapons-s15-1-1"
 
   - name: "Weapons - S15 Intellect"
-    range: 158 7
+    range: 7
     sortKey: "weapons-s15-1-2"
 
   - name: "Weapons - S15 Strength"
-    range: 165 5
+    range: 5
     sortKey: "weapons-s15-1-3"
 
   - name: "Weapons - S15 Misc"
-    range: 170 5
+    range: 5
     sortKey: "weapons-s15-2-1"
 
 sells:

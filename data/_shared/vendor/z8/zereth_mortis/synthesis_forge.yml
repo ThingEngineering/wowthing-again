@@ -8,7 +8,7 @@ locations:
 
 sets:
   - name: "Protoform Pets"
-    range: 0 28
+    range: -1
     sortKey: "pets-protoform"
 
 sells:

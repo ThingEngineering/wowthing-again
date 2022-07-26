@@ -8,7 +8,7 @@ locations:
 
 sets:
   - name: "Reputation - Lower City"
-    range: 0 20
+    range: -1
     sortKey: "0-rep-lower-city"
 
 sells:
