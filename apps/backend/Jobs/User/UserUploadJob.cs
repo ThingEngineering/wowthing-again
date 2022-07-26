@@ -1,4 +1,5 @@
-﻿using Wowthing.Backend.Data;
+﻿using MoreLinq.Extensions;
+using Wowthing.Backend.Data;
 using Wowthing.Backend.Models.Uploads;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Enums;
@@ -987,9 +988,8 @@ public class UserUploadJob : JobBase
                         }
                     }
 
-                    var questPairs = questMap
-                        .OrderBy(kvp => kvp.Key)
-                        .TakeLast(3)
+                    var questPairs = Enumerable.TakeLast(questMap
+                            .OrderBy(kvp => kvp.Key), 3)
                         .ToList();
 
                     globalDailies.QuestIds = questPairs
@@ -1080,9 +1080,8 @@ public class UserUploadJob : JobBase
                                 }
                             }
 
-                            var questPairs = questMap
-                                .OrderBy(kvp => kvp.Key)
-                                .TakeLast(3)
+                            var questPairs = Enumerable.TakeLast(questMap
+                                    .OrderBy(kvp => kvp.Key), 3)
                                 .ToList();
 
                             globalDailies.QuestExpires = questPairs
@@ -1174,6 +1173,18 @@ public class UserUploadJob : JobBase
                 Character = character,
             };
             Context.PlayerCharacterTransmog.Add(character.Transmog);
+        }
+
+        var illusions = characterData.Illusions
+            .EmptyIfNullOrWhitespace()
+            .Split(':', StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse)
+            .ToList();
+        if (illusions.Count > 0 && (character.Transmog.IllusionIds == null ||
+                                    !illusions.SequenceEqual(character.Transmog.IllusionIds)))
+        {
+            character.Transmog.IllusionIds = illusions;
+            _resetTransmogCache = true;
         }
 
         var transmog = characterData.Transmog
