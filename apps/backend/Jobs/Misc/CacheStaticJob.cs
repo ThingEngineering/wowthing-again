@@ -6,6 +6,7 @@ using Wowthing.Backend.Models.Data.Achievements;
 using Wowthing.Backend.Models.Data.Covenants;
 using Wowthing.Backend.Models.Data.Journal;
 using Wowthing.Backend.Models.Data.Professions;
+using Wowthing.Backend.Models.Data.Transmog;
 using Wowthing.Backend.Models.Redis;
 using Wowthing.Backend.Models.Static;
 using Wowthing.Backend.Utilities;
@@ -25,7 +26,7 @@ public class CacheStaticJob : JobBase, IScheduledJob
     private Dictionary<int, WowPet> _petMap;
     private Dictionary<int, WowToy> _toyMap;
 
-    private Dictionary<int, int> _itemToAppearance;
+    private Dictionary<int, Dictionary<short, int>> _itemToAppearance;
     private readonly HashSet<int> _itemIds = new();
 
     private Dictionary<(StringType Type, Language Language, int Id), string> _stringMap;
@@ -61,6 +62,7 @@ public class CacheStaticJob : JobBase, IScheduledJob
         StringType.WowReputationName,
         StringType.WowSoulbindName,
         StringType.WowSkillLineName,
+        StringType.WowSpellItemEnchantmentName,
     };
     private async Task LoadData()
     {
@@ -96,10 +98,10 @@ public class CacheStaticJob : JobBase, IScheduledJob
             .GroupBy(ima => ima.ItemId)
             .ToDictionary(
                 group => group.Key,
-                group => group
-                    .OrderBy(ima => ima.Modifier)
-                    .First()
-                    .AppearanceId
+                group => group.ToDictionary(
+                    ima => ima.Modifier,
+                    ima => ima.AppearanceId
+                )
             );
 
         _timer.AddPoint("Database");
@@ -146,6 +148,10 @@ public class CacheStaticJob : JobBase, IScheduledJob
             .ToArrayAsync();
 
         _timer.AddPoint("Currencies");
+
+        // Illusions
+        var illusions = await LoadIllusions();
+        _timer.AddPoint("Illusions");
 
         // Instances
         var instances = await LoadInstances();
@@ -199,6 +205,11 @@ public class CacheStaticJob : JobBase, IScheduledJob
             {
                 Name = GetString(StringType.WowCharacterSpecializationName, language, spec.Id),
             }).ToDictionary(spec => spec.Id);
+
+            cacheData.Illusions = illusions.Select(illusion => new StaticIllusion(illusion)
+            {
+                Name = GetString(StringType.WowSpellItemEnchantmentName, language, illusion.SpellItemEnchantmentID)
+            }).ToDictionary(illusion => illusion.Id);
 
             cacheData.RawCurrencies = currencies.Select(currency => new StaticCurrency(currency)
             {
@@ -501,6 +512,12 @@ public class CacheStaticJob : JobBase, IScheduledJob
         }
 
         return ret;
+    }
+
+    private async Task<List<DumpTransmogIllusion>> LoadIllusions()
+    {
+        return await DataUtilities
+            .LoadDumpCsvAsync<DumpTransmogIllusion>("transmogillusion");
     }
 
     private static readonly HashSet<int> InstanceTypes = new HashSet<int>() {
