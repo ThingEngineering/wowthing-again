@@ -1,5 +1,6 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 using SluggyUnidecode;
 
 namespace Wowthing.Lib.Extensions;
@@ -22,9 +23,14 @@ public static class StringExtensions
             .Select(b => b.ToString("x2")));
     }
 
+    private static readonly Regex IconStringRegex = new Regex(@"\:\S+\:", RegexOptions.Compiled);
     public static string Slugify(this string s)
     {
-        return s.ToSlug();
+        if (string.IsNullOrWhiteSpace(s))
+        {
+            return null;
+        }
+        return IconStringRegex.Replace(s, "").ToSlug();
     }
 
     private static readonly string[] Splits = new[] { "\r\n", "\r", "\n" };
