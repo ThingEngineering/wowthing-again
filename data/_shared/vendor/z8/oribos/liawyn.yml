@@ -7,7 +7,7 @@ locations:
 
 sets:
   - name: "Armor - The Wild Hunt"
-    range: 5 8
+    range: 8 5
     sortKey: "armor-wild-hunt"
 
 sells:

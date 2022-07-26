@@ -82,6 +82,14 @@
             return [[], []]
         }
 
+        // 10 Normal + 10 Heroic = 10
+        if (xor(appearance.difficulties, [3, 5]).length === 0) {
+            return [['10NH'], ['10 Normal / 10 Heroic']]
+        }
+        // 25 Normal + 25 Heroic = 25
+        if (xor(appearance.difficulties, [4, 6]).length === 0) {
+            return [['25NH'], ['25 Normal / 25 Heroic']]
+        }
         // 10 Normal + 25 Normal + Normal? = Normal
         if (xor(appearance.difficulties, [3, 4]).length === 0 ||
             xor(appearance.difficulties, [3, 4, 14]).length === 0) {
@@ -96,7 +104,11 @@
         if (xor(appearance.difficulties, [3, 4, 5, 6]).length === 0) {
             return [['N', 'H'], ['Normal', 'Heroic']]
         }
-        // 10 Normal + 25 Normal + 10 Heroic + 25 Heroic + LFR = 
+        // 10 Normal + 25 Normal + LFR = LFR/Normal/Heroic
+        if (xor(appearance.difficulties, [3, 4, 7]).length === 0) {
+            return [['L', 'N', 'H'], ['LFR', 'Normal', 'Heroic']]
+        }
+        // 10 Normal + 25 Normal + 10 Heroic + 25 Heroic + LFR = LFR/Normal/Heroic
         if (xor(appearance.difficulties, [3, 4, 5, 6, 7]).length === 0) {
             return [['L', 'N', 'H'], ['LFR', 'Normal', 'Heroic']]
         }

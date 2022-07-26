@@ -12,83 +12,83 @@ tags:
 
 sets:
   - name: "Armor - S04 Death Knight"
-    range: 0 5
+    range: 5
     sortKey: "armor-s04-1-deathknight"
 
   - name: "Armor - S04 Druid"
-    range: 5 15
+    range: 15
     sortKey: "armor-s04-1-druid"
 
   - name: "Armor - S04 Hunter"
-    range: 20 5
+    range: 5
     sortKey: "armor-s04-1-hunter"
 
   - name: "Armor - S04 Mage"
-    range: 25 5
+    range: 5
     sortKey: "armor-s04-1-mage"
 
   - name: "Armor - S04 Paladin"
-    range: 30 15
+    range: 15
     sortKey: "armor-s04-1-paladin"
 
   - name: "Armor - S04 Priest"
-    range: 45 10
+    range: 10
     sortKey: "armor-s04-1-priest"
 
   - name: "Armor - S04 Rogue"
-    range: 55 5
+    range: 5
     sortKey: "armor-s04-1-rogue"
 
   - name: "Armor - S04 Shaman"
-    range: 60 15
+    range: 15
     sortKey: "armor-s04-1-shaman"
 
   - name: "Armor - S04 Warlock"
-    range: 75 10
+    range: 10
     sortKey: "armor-s04-1-warlock"
 
   - name: "Armor - S04 Warrior"
-    range: 85 5
+    range: 5
     sortKey: "armor-s04-1-warrior"
 
   - name: "Armor - S04 Shared Cloth"
-    range: 90 9
+    range: 9
     sortKey: "armor-s04-2-1"
 
   - name: "Armor - S04 Shared Leather"
-    range: 99 12
+    range: 12
     sortKey: "armor-s04-2-2"
 
   - name: "Armor - S04 Shared Mail"
-    range: 111 12
+    range: 12
     sortKey: "armor-s04-2-3"
 
   - name: "Armor - S04 Shared Plate"
-    range: 123 12
+    range: 12
     sortKey: "armor-s04-2-4"
 
   - name: "Armor - S04 Shared Cloaks"
-    range: 135 4
+    range: 4
     sortKey: "armor-s04-2-5"
 
   - name: "Collections - S04"
-    range: 139 11
+    range: 11
     sortKey: "collections-s04"
 
   - name: "Weapons - S04 Agility"
-    range: 150 15
+    range: 15
     sortKey: "weapons-s04-1"
 
   - name: "Weapons - S04 Intellect"
-    range: 165 8
+    range: 8
     sortKey: "weapons-s04-2"
   
   - name: "Weapons - S04 Strength"
-    range: 173 8
+    range: 8
     sortKey: "weapons-s04-3"
 
   - name: "Weapons - S04 Misc"
-    range: 181 6
+    range: 6
     sortKey: "weapons-s04-4"
 
 sells:

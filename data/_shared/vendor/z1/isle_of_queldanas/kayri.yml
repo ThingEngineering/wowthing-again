@@ -8,35 +8,35 @@ locations:
 
 sets:
   - name: "Armor - S02 Shared Cloth"
-    range: 0 9
+    range: 9
     sortKey: "armor-s02-2-1"
 
   - name: "Armor - S02 Shared Leather"
-    range: 9 12
+    range: 12
     sortKey: "armor-s02-2-2"
 
   - name: "Armor - S02 Shared Mail"
-    range: 21 12
+    range: 12
     sortKey: "armor-s02-2-3"
 
   - name: "Armor - S02 Shared Plate"
-    range: 33 12
+    range: 12
     sortKey: "armor-s02-2-4"
 
   - name: "Armor - S03 Shared Cloth"
-    range: 45 9
+    range: 9
     sortKey: "armor-s03-2-1"
 
   - name: "Armor - S03 Shared Leather"
-    range: 54 12
+    range: 12
     sortKey: "armor-s03-2-2"
 
   - name: "Armor - S03 Shared Mail"
-    range: 66 12
+    range: 12
     sortKey: "armor-s03-2-3"
 
   - name: "Armor - S03 Shared Plate"
-    range: 78 12
+    range: 12
     sortKey: "armor-s03-2-4"
 
 sells:

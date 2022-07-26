@@ -8,11 +8,11 @@ locations:
 
 sets:
   - name: "Armor - Timewalking"
-    range: 5 17
+    range: 17 5
     sortKey: "armor-timewalking"
   
   - name: "Weapons - Timewalking"
-    range: 22 12
+    range: 12
     sortKey: "weapons-timewalking"
 
 sells:

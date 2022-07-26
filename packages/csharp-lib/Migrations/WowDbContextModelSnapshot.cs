@@ -746,6 +746,14 @@ namespace Wowthing.Lib.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("character_id");
 
+                    b.Property<string>("BindLocation")
+                        .HasColumnType("text")
+                        .HasColumnName("bind_location");
+
+                    b.Property<string>("CurrentLocation")
+                        .HasColumnType("text")
+                        .HasColumnName("current_location");
+
                     b.Property<Dictionary<int, Dictionary<int, List<int>>>>("GarrisonTrees")
                         .HasColumnType("jsonb")
                         .HasColumnName("garrison_trees");

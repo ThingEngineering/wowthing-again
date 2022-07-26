@@ -9,91 +9,91 @@ locations:
 
 sets:
   - name: "Armor - Death Knight"
-    range: 0 18
+    range: 18
     sortKey: "b-armor-1-deathknight"
   
   - name: "Armor - Druid"
-    range: 18 27
+    range: 27
     sortKey: "b-armor-1-druid"
 
   - name: "Armor - Hunter"
-    range: 45 9
+    range: 9
     sortKey: "b-armor-1-hunter"
   
   - name: "Armor - Mage"
-    range: 54 9
+    range: 9
     sortKey: "b-armor-1-mage"
   
   - name: "Armor - Monk"
-    range: 63 18
+    range: 18
     sortKey: "b-armor-1-monk"
   
   - name: "Armor - Paladin"
-    range: 81 27
+    range: 27
     sortKey: "b-armor-1-paladin"
   
   - name: "Armor - Priest"
-    range: 108 18
+    range: 18
     sortKey: "b-armor-1-priest"
   
   - name: "Armor - Rogue"
-    range: 126 9
+    range: 9
     sortKey: "b-armor-1-rogue"
   
   - name: "Armor - Shaman"
-    range: 135 27
+    range: 27
     sortKey: "b-armor-1-shaman"
   
   - name: "Armor - Warlock"
-    range: 162 9
+    range: 9
     sortKey: "b-armor-1-warlock"
   
   - name: "Armor - Warrior"
-    range: 171 18
+    range: 18
     sortKey: "b-armor-1-warrior"
 
   - name: "Weapons - Death Knight"
-    range: 189 3
+    range: 3
     sortKey: "b-weapons-1-deathknight"
 
   - name: "Weapons - Druid"
-    range: 192 3
+    range: 3
     sortKey: "b-weapons-1-druid"
 
   - name: "Weapons - Hunter"
-    range: 195 1
+    range: 1
     sortKey: "b-weapons-1-hunter"
 
   - name: "Weapons - Mage"
-    range: 196 2
+    range: 2
     sortKey: "b-weapons-1-mage"
 
   - name: "Weapons - Monk"
-    range: 198 3
+    range: 3
     sortKey: "b-weapons-1-monk"
 
   - name: "Weapons - Paladin"
-    range: 201 5
+    range: 5
     sortKey: "b-weapons-1-paladin"
 
   - name: "Weapons - Priest"
-    range: 206 3
+    range: 3
     sortKey: "b-weapons-1-priest"
 
   - name: "Weapons - Rogue"
-    range: 209 2
+    range: 2
     sortKey: "b-weapons-1-rogue"
 
   - name: "Weapons - Shaman"
-    range: 211 5
+    range: 5
     sortKey: "b-weapons-1-shaman"
 
   - name: "Weapons - Warlock"
-    range: 216 2
+    range: 2
     sortKey: "b-weapons-1-warlock"
 
   - name: "Weapons - Warrior"
-    range: 218 4
+    range: 4
     sortKey: "b-weapons-1-warrior"
 
 sells:

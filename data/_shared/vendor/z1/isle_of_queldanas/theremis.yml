@@ -8,39 +8,39 @@ locations:
     - 50.2 28.6
 sets:
   - name: "Armor - T06 Druid"
-    range: 0 9
+    range: 9
     sortKey: "armor-t06-1-druid"
 
   - name: "Armor - T06 Hunter"
-    range: 9 3
+    range: 3
     sortKey: "armor-t06-1-hunter"
 
   - name: "Armor - T06 Mage"
-    range: 12 3
+    range: 3
     sortKey: "armor-t06-1-mage"
 
   - name: "Armor - T06 Paladin"
-    range: 15 9
+    range: 9
     sortKey: "armor-t06-1-paladin"
 
   - name: "Armor - T06 Priest"
-    range: 24 6
+    range: 6
     sortKey: "armor-t06-1-priest"
 
   - name: "Armor - T06 Rogue"
-    range: 30 3
+    range: 3
     sortKey: "armor-t06-1-rogue"
 
   - name: "Armor - T06 Shaman"
-    range: 33 9
+    range: 9
     sortKey: "armor-t06-1-shaman"
 
   - name: "Armor - T06 Warlock"
-    range: 42 3
+    range: 3
     sortKey: "armor-t06-1-warlock"
 
   - name: "Armor - T06 Warrior"
-    range: 45 6
+    range: 6
     sortKey: "armor-t06-1-warrior"
 
 

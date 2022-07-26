@@ -7,7 +7,7 @@ locations:
 
 sets:
   - name: "Armor - The Undying"
-    range: 5 8
+    range: 8 5
     sortKey: "armor-undying"
 
 sells:

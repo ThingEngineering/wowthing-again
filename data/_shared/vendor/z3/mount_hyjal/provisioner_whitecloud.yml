@@ -9,7 +9,7 @@ locations:
 
 sets:
   - name: "Reputation - Guardians of Hyjal"
-    range: 0 11
+    range: -1
     sortKey: "a-rep-guardians"
     skipTooltip: true
 

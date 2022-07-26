@@ -3,6 +3,7 @@
     import type { UserCount } from '@/types'
 
     import Count from '@/components/collections/CollectionCount.svelte'
+    import ParsedText from '../common/ParsedText.svelte'
 
     export let count: UserCount
     export let title: string
@@ -40,7 +41,7 @@
 
 <div>
     <h3 class="{getPercentClass(percent)}">
-        {title}
+        <ParsedText text={title} />
     </h3>
     <Count counts={count} />
     <slot />

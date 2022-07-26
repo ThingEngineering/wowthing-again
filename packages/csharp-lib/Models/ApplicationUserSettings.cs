@@ -80,10 +80,12 @@ public class ApplicationUserSettings
     {
         "callings",
         "covenant",
+        "currentLocation",
         "emissariesBfa",
         "emissariesLegion",
         "gear",
         "gold",
+        "hearthLocation",
         "itemLevel",
         "keystone",
         "lockouts",

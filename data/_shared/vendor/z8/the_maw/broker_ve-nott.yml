@@ -7,15 +7,15 @@ locations:
 
 sets:
   - name: "Shoulders"
-    range: 1 11
+    range: 11 1
     sortKey: "shoulders"
 
   - name: "Weapons"
-    range: 12 11
+    range: 11
     sortKey: "weapons"
 
   - name: "Backs"
-    range: 23 4
+    range: 4
     sortKey: "back"
     
 sells:

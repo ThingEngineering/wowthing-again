@@ -23,6 +23,8 @@ public class UserApiCharacter
     public int RealmId { get; set; }
     public int RestedExperience { get; set; }
     public long Gold { get; }
+    public string CurrentLocation { get; set; }
+    public string HearthLocation { get; set; }
     public string Name { get; set; }
     public DateTime LastSeenAddon { get; set; }
     public WowFaction Faction { get; set; }
@@ -113,6 +115,9 @@ public class UserApiCharacter
             LastSeenAddon = character.LastSeenAddon;
             PlayedTotal = character.PlayedTotal;
             RestedExperience = character.RestedExperience;
+
+            CurrentLocation = character.AddonData?.CurrentLocation;
+            HearthLocation = character.AddonData?.BindLocation;
         }
 
         GarrisonTrees = character.AddonData?.GarrisonTrees;

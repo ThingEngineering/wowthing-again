@@ -8,23 +8,23 @@ locations:
 
 sets:
   - name: "Armor - Misc Cloth"
-    range: 0 9
+    range: 9
     sortKey: "1-armor-misc-cloth"
   
   - name: "Armor - Misc Leather"
-    range: 9 12
+    range: 12
     sortKey: "1-armor-misc-leather"
 
   - name: "Armor - Misc Mail"
-    range: 21 9
+    range: 9
     sortKey: "1-armor-misc-mail"
 
   - name: "Armor - Misc Plate"
-    range: 30 12
+    range: 12
     sortKey: "1-armor-misc-plate"
 
   - name: "Weapons - Misc"
-    range: 42 11
+    range: -1
     sortKey: "1-weapons-misc"
 
 sells:

@@ -14,6 +14,8 @@ public class UploadCharacter
     public int PlayedTotal { get; set; }
     public int RestedXp { get; set; }
     public long Copper { get; set; }
+    public string BindLocation { get; set; }
+    public string CurrentLocation { get; set; }
     public string GuildName { get; set; }
 
     public List<UploadCharacterAchievement> Achievements { get; set; }
@@ -34,7 +36,7 @@ public class UploadCharacter
     public List<UploadCharacterTorghast> Torghast { get; set; }
     public string Transmog { get; set; }
     public UploadCharacterVault[][] Vault { get; set; }
-        
+
     public List<int> DailyQuests { get; set; }
     public List<int> OtherQuests { get; set; }
     public List<string> ProgressQuests { get; set; }
@@ -46,7 +48,7 @@ public class UploadCharacterAchievement
     public int Id { get; set; }
     public List<int> Criteria { get; set; }
 }
-    
+
 public class UploadCharacterCalling
 {
     public bool Completed { get; set; }
@@ -67,7 +69,7 @@ public class UploadCharacterEmissaryReward
     public int Quality { get; set; }
     public int Quantity { get; set; }
 }
-    
+
 public class UploadCharacterCovenant
 {
     public int Anima { get; set; }
@@ -95,7 +97,7 @@ public class UploadCharacterCovenantSoulbind
     public List<int> Specs { get; set; }
     public List<List<int>> Tree { get; set; }
 }
-    
+
 public class UploadCharacterLockout
 {
     public bool Locked { get; set; }

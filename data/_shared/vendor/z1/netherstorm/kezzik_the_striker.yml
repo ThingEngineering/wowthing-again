@@ -12,75 +12,75 @@ tags:
 
 sets:
   - name: "Armor - S01 Druid"
-    range: 0 15
+    range: 15
     sortKey: "armor-s01-1-druid"
 
   - name: "Armor - S01 Hunter"
-    range: 15 5
+    range: 5
     sortKey: "armor-s01-1-hunter"
 
   - name: "Armor - S01 Mage"
-    range: 20 5
+    range: 5
     sortKey: "armor-s01-1-mage"
 
   - name: "Armor - S01 Paladin"
-    range: 25 15
+    range: 15
     sortKey: "armor-s01-1-paladin"
 
   - name: "Armor - S01 Priest"
-    range: 40 10
+    range: 10
     sortKey: "armor-s01-1-priest"
 
   - name: "Armor - S01 Rogue"
-    range: 50 5
+    range: 5
     sortKey: "armor-s01-1-rogue"
 
   - name: "Armor - S01 Shaman"
-    range: 55 15
+    range: 15
     sortKey: "armor-s01-1-shaman"
 
   - name: "Armor - S01 Warlock"
-    range: 70 10
+    range: 10
     sortKey: "armor-s01-1-warlock"
 
   - name: "Armor - S01 Warrior"
-    range: 80 5
+    range: 5
     sortKey: "armor-s01-1-warrior"
 
   - name: "Armor - S01 Shared Cloth"
-    range: 85 18
+    range: 18
     sortKey: "armor-s01-2-1"
 
   - name: "Armor - S01 Shared Leather"
-    range: 103 24
+    range: 24
     sortKey: "armor-s01-2-2"
 
   - name: "Armor - S01 Shared Mail"
-    range: 127 18
+    range: 18
     sortKey: "armor-s01-2-3"
 
   - name: "Armor - S01 Shared Plate"
-    range: 145 18
+    range: 18
     sortKey: "armor-s01-2-4"
 
   - name: "Collections - S01"
-    range: 163 9
+    range: 9
     sortKey: "collections-s01"
 
   - name: "Weapons - S01 Agility"
-    range: 172 10
+    range: 10
     sortKey: "weapons-s01-1"
 
   - name: "Weapons - S01 Intellect"
-    range: 182 5
+    range: 5
     sortKey: "weapons-s01-2"
   
   - name: "Weapons - S01 Strength"
-    range: 187 6
+    range: 6
     sortKey: "weapons-s01-3"
 
   - name: "Weapons - S01 Misc"
-    range: 193 3
+    range: 3
     sortKey: "weapons-s01-4"
 
 sells:

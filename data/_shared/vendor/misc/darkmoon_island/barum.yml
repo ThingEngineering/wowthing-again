@@ -6,39 +6,39 @@ locations:
 
 sets:
   - name: "Magister's Regalia"
-    range: 0 8
+    range: 8
     sortKey: "d1-1"
 
   - name: "Vestments of the Devout"
-    range: 8 8
+    range: 8
     sortKey: "d1-2"
   
   - name: "Dreadmist Raiment"
-    range: 16 8
+    range: 8
     sortKey: "d1-3"
   
   - name: "Wildheart Raiment"
-    range: 24 8
+    range: 8
     sortKey: "d1-4"
   
   - name: "Shadowcraft Armor"
-    range: 32 8
+    range: 8
     sortKey: "d1-5"
 
   - name: "Beaststalker Armor"
-    range: 40 8
+    range: 8
     sortKey: "d1-6"
   
   - name: "The Elements"
-    range: 48 8
+    range: 8
     sortKey: "d1-7"
   
   - name: "Lightforge Armor"
-    range: 56 8
+    range: 8
     sortKey: "d1-8"
   
   - name: "Battlegear of Valor"
-    range: 64 8
+    range: 8
     sortKey: "d1-9"
 
 sells:

@@ -8,39 +8,39 @@ locations:
 
 sets:
   - name: "Armor - T5 Druid"
-    range: 0 15
+    range: 15
     sortKey: "armor-t5-druid"
 
   - name: "Armor - T5 Hunter"
-    range: 15 5
+    range: 5
     sortKey: "armor-t5-hunter"
 
   - name: "Armor - T5 Mage"
-    range: 20 5
+    range: 5
     sortKey: "armor-t5-mage"
 
   - name: "Armor - T5 Paladin"
-    range: 25 15
+    range: 15
     sortKey: "armor-t5-paladin"
 
   - name: "Armor - T5 Priest"
-    range: 40 10
+    range: 10
     sortKey: "armor-t5-priest"
 
   - name: "Armor - T5 Rogue"
-    range: 50 5
+    range: 5
     sortKey: "armor-t5-rogue"
 
   - name: "Armor - T5 Shaman"
-    range: 55 15
+    range: 15
     sortKey: "armor-t5-shaman"
 
   - name: "Armor - T5 Warlock"
-    range: 70 5
+    range: 5
     sortKey: "armor-t5-warlock"
 
   - name: "Armor - T5 Warrior"
-    range: 75 10
+    range: 10
     sortKey: "armor-t5-warrior"
 
 sells:

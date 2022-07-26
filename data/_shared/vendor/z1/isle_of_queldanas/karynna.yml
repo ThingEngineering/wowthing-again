@@ -8,39 +8,39 @@ locations:
 
 sets:
   - name: "Armor - S01 Druid"
-    range: 0 15
+    range: 15
     sortKey: "armor-s01-1-druid"
 
   - name: "Armor - S01 Hunter"
-    range: 15 5
+    range: 5
     sortKey: "armor-s01-1-hunter"
 
   - name: "Armor - S01 Mage"
-    range: 20 5
+    range: 5
     sortKey: "armor-s01-1-mage"
 
   - name: "Armor - S01 Paladin"
-    range: 25 15
+    range: 15
     sortKey: "armor-s01-1-paladin"
 
   - name: "Armor - S01 Priest"
-    range: 40 10
+    range: 10
     sortKey: "armor-s01-1-priest"
 
   - name: "Armor - S01 Rogue"
-    range: 50 5
+    range: 5
     sortKey: "armor-s01-1-rogue"
 
   - name: "Armor - S01 Shaman"
-    range: 55 15
+    range: 15
     sortKey: "armor-s01-1-shaman"
 
   - name: "Armor - S01 Warlock"
-    range: 70 10
+    range: 10
     sortKey: "armor-s01-1-warlock"
 
   - name: "Armor - S01 Warrior"
-    range: 80 5
+    range: 5
     sortKey: "armor-s01-1-warrior"
 
 sells:

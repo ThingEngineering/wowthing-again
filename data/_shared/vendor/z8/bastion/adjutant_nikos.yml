@@ -6,8 +6,8 @@ locations:
     - 52.2 47.0
 
 sets:
-  - name: "Armor - The Ascended"
-    range: 4 8
+  - name: "Reputation - The Ascended"
+    range: -1 2
     sortKey: "armor-ascended"
 
 sells:

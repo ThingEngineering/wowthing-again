@@ -9,23 +9,23 @@ locations:
 
 sets:
   - name: "Armor - T07 Hunter"
-    range: 0 10
+    range: 10
     sortKey: "armor-t07-1-hunter"
 
   - name: "Armor - T08 Hunter"
-    range: 10 10
+    range: 10
     sortKey: "armor-t08-1-hunter"
 
   - name: "Armor - T07 Shaman"
-    range: 20 30
+    range: 30
     sortKey: "armor-t07-1-shaman"
 
   - name: "Armor - T08 Shaman"
-    range: 50 30
+    range: 30
     sortKey: "armor-t08-1-shaman"
 
   - name: "Armor - Misc Mail"
-    range: 80 18
+    range: -1
     sortKey: "armor-misc-1-3"
 
 sells:

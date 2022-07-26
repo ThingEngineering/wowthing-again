@@ -12,83 +12,83 @@ tags:
 
 sets:
   - name: "Armor - S08 Death Knight"
-    range: 0 5
+    range: 5
     sortKey: "armor-s08-1-deathknight"
 
   - name: "Armor - S08 Druid"
-    range: 5 15
+    range: 15
     sortKey: "armor-s08-1-druid"
 
   - name: "Armor - S08 Hunter"
-    range: 20 5
+    range: 5
     sortKey: "armor-s08-1-hunter"
 
   - name: "Armor - S08 Mage"
-    range: 25 5
+    range: 5
     sortKey: "armor-s08-1-mage"
 
   - name: "Armor - S08 Paladin"
-    range: 30 10
+    range: 10
     sortKey: "armor-s08-1-paladin"
 
   - name: "Armor - S08 Priest"
-    range: 40 10
+    range: 10
     sortKey: "armor-s08-1-priest"
 
   - name: "Armor - S08 Rogue"
-    range: 50 5
+    range: 5
     sortKey: "armor-s08-1-rogue"
 
   - name: "Armor - S08 Shaman"
-    range: 55 15
+    range: 15
     sortKey: "armor-s08-1-shaman"
 
   - name: "Armor - S08 Warlock"
-    range: 70 5
+    range: 5
     sortKey: "armor-s08-1-warlock"
 
   - name: "Armor - S08 Warrior"
-    range: 75 5
+    range: 5
     sortKey: "armor-s08-1-warrior"
 
   - name: "Armor - S08 Shared Cloth"
-    range: 80 11
+    range: 11
     sortKey: "armor-s08-2-1"
 
   - name: "Armor - S08 Shared Leather"
-    range: 91 9
+    range: 9
     sortKey: "armor-s08-2-2"
 
   - name: "Armor - S08 Shared Mail"
-    range: 100 9
+    range: 9
     sortKey: "armor-s08-2-3"
 
   - name: "Armor - S08 Shared Plate"
-    range: 109 8
+    range: 8
     sortKey: "armor-s08-2-4"
 
   - name: "Armor - S08 Shared Cloaks"
-    range: 117 7
+    range: 7
     sortKey: "armor-s08-2-5"
 
   - name: "Collections - S08"
-    range: 124 11
+    range: 11
     sortKey: "collections-s08"
 
   - name: "Weapons - S08 Agility"
-    range: 135 13
+    range: 13
     sortKey: "weapons-s08-1"
 
   - name: "Weapons - S08 Intellect"
-    range: 148 11
+    range: 11
     sortKey: "weapons-s08-2"
   
   - name: "Weapons - S08 Strength"
-    range: 159 8
+    range: 8
     sortKey: "weapons-s08-3"
 
   - name: "Weapons - S08 Misc"
-    range: 167 7
+    range: 7
     sortKey: "weapons-s08-4"
 
 sells:

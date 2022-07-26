@@ -7,7 +7,7 @@ locations:
 
 sets:
   - name: "Armor - Halaa"
-    range: 0 14
+    range: -1
 
 sells:
   - type: transmog

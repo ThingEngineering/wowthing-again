@@ -7,7 +7,7 @@ locations:
 
 sets:
   - name: "Armor - The Ascended"
-    range: 4 8
+    range: 8 4
     sortKey: "armor-ascended"
 
 sells:

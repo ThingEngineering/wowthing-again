@@ -14,7 +14,7 @@
         flex: 0 0 auto;
         font-size: 90%;
         font-weight: normal;
-        margin-left: 0.4rem;
+        margin-left: 0.5rem;
         word-spacing: -0.2ch;
     }
 </style>

@@ -9,99 +9,99 @@ locations:
 
 sets:
   - name: "Armor - S05 Death Knight"
-    range: 0 5
+    range: 5
     sortKey: "armor-s05-1-deathknight"
 
   - name: "Armor - S05 Druid"
-    range: 5 15
+    range: 15
     sortKey: "armor-s05-1-druid"
 
   - name: "Armor - S05 Hunter"
-    range: 20 5
+    range: 5
     sortKey: "armor-s05-1-hunter"
 
   - name: "Armor - S05 Mage"
-    range: 25 5
+    range: 5
     sortKey: "armor-s05-1-mage"
 
   - name: "Armor - S05 Paladin"
-    range: 30 10
+    range: 10
     sortKey: "armor-s05-1-paladin"
 
   - name: "Armor - S05 Priest"
-    range: 40 10
+    range: 10
     sortKey: "armor-s05-1-priest"
 
   - name: "Armor - S05 Rogue"
-    range: 50 5
+    range: 5
     sortKey: "armor-s05-1-rogue"
 
   - name: "Armor - S05 Shaman"
-    range: 55 15
+    range: 15
     sortKey: "armor-s05-1-shaman"
 
   - name: "Armor - S05 Warlock"
-    range: 70 5
+    range: 5
     sortKey: "armor-s05-1-warlock"
 
   - name: "Armor - S05 Warrior"
-    range: 75 5
+    range: 5
     sortKey: "armor-s05-1-warrior"
 
   - name: "Armor - Misc Cloth"
-    range: 80 3
+    range: 3
     sortKey: "armor-misc-1-1"
 
   - name: "Armor - Misc Leather"
-    range: 83 6
+    range: 6
     sortKey: "armor-misc-1-2"
 
   - name: "Armor - Misc Mail"
-    range: 89 6
+    range: 6
     sortKey: "armor-misc-1-3"
 
   - name: "Armor - Misc Plate"
-    range: 95 9
+    range: 9
     sortKey: "armor-misc-1-4"
 
   - name: "Armor - T08 Death Knight"
-    range: 104 4
+    range: 4
     sortKey: "armor-t08-1-deathknight"
 
   - name: "Armor - T08 Druid"
-    range: 108 6
+    range: 6
     sortKey: "armor-t08-1-druid"
 
   - name: "Armor - T08 Hunter"
-    range: 114 2
+    range: 2
     sortKey: "armor-t08-1-hunter"
 
   - name: "Armor - T08 Mage"
-    range: 116 2
+    range: 2
     sortKey: "armor-t08-1-mage"
 
   - name: "Armor - T08 Paladin"
-    range: 118 6
+    range: 6
     sortKey: "armor-t08-1-paladin"
 
   - name: "Armor - T08 Priest"
-    range: 124 4
+    range: 4
     sortKey: "armor-t08-1-priest"
 
   - name: "Armor - T08 Rogue"
-    range: 128 2
+    range: 2
     sortKey: "armor-t08-1-rogue"
 
   - name: "Armor - T08 Shaman"
-    range: 130 6
+    range: 6
     sortKey: "armor-t08-1-shaman"
 
   - name: "Armor - T08 Warlock"
-    range: 136 2
+    range: 2
     sortKey: "armor-t08-1-warlock"
 
   - name: "Armor - T08 Warrior"
-    range: 138 4
+    range: 4
     sortKey: "armor-t08-1-warrior"
 
 sells:

@@ -8,7 +8,7 @@ locations:
 
 sets:
   - name: "Reputation - The Aldor"
-    range: 0 5
+    range: -1
     sortKey: "0-rep-the-aldor"
     skipTooltip: true
 
