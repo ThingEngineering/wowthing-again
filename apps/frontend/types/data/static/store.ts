@@ -1,6 +1,7 @@
 import type { StaticDataBag, StaticDataBagArray } from './bag'
 import type { StaticDataCharacterClass, StaticDataCharacterRace, StaticDataCharacterSpecialization } from './character'
 import type { StaticDataCurrency, StaticDataCurrencyArray, StaticDataCurrencyCategory, StaticDataCurrencyCategoryArray } from './currency'
+import type { StaticDataIllusion } from './illusion'
 import type { StaticDataInstance, StaticDataInstanceArray } from './instance'
 import type { StaticDataItem, StaticDataItemArray } from './item'
 import type { StaticDataMount, StaticDataMountArray } from './mount'
@@ -15,6 +16,7 @@ import type { StaticDataToy, StaticDataToyArray } from './toy'
 
 export interface StaticData {
     connectedRealms: Record<number, StaticDataConnectedRealm>
+    illusions: Record<number, StaticDataIllusion>
     professions: Record<number, StaticDataProfession>
     raiderIoScoreTiers: Record<number, StaticDataRaiderIoScoreTiers>
     soulbinds: Record<number, StaticDataSoulbind[]>

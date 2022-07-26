@@ -7,6 +7,7 @@ export class ThingData {
     public linkId: number
     public linkType: string
     public quality: number
+    public tooltip: string
 
     constructor(
         public item: ManualDataVendorItem,

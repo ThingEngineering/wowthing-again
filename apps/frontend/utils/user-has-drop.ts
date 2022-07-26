@@ -23,7 +23,11 @@ export default function userHasDrop(
         return true
     }
 
-    if (type === RewardType.Toy &&userData.hasToy[id] === true) {
+    if (type === RewardType.Toy && userData.hasToy[id] === true) {
+        return true
+    }
+
+    if (type === RewardType.Illusion && userTransmogData.hasIllusion[appearanceIds[0]]) {
         return true
     }
 

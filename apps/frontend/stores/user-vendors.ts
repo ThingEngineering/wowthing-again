@@ -124,6 +124,8 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
 
                         group.sellsFiltered.push(item)
                     } // item of group.sells
+
+                    group.stats = groupStats
                 } // group of category.groups
             }
         }

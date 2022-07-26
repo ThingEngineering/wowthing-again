@@ -22,13 +22,14 @@ import {
 } from '@/types/data/manual'
 import { Faction, FarmResetType, PlayableClass, PlayableClassMask, RewardType } from '@/types/enums'
 import { getNextBiWeeklyReset, getNextDailyReset, getNextWeeklyReset } from '@/utils/get-next-reset'
+import { getCurrencyCosts, getSetCurrencyCostsString } from '@/utils/get-currency-costs'
 import getTransmogClassMask from '@/utils/get-transmog-class-mask'
+import { getVendorDropStats } from '@/utils/get-vendor-drop-stats'
 import type { ZoneMapState } from '@/stores/local-storage'
 import type { DropStatus, FancyStore, FarmStatus, Settings, UserAchievementData, UserData } from '@/types'
 import type { UserQuestData, UserTransmogData } from '@/types/data'
 import type { ManualData, ManualDataSetCategoryArray } from '@/types/data/manual'
 import type { StaticData } from '@/types/data/static'
-import { getCurrencyCosts, getSetCurrencyCostsString } from '@/utils/get-currency-costs'
 
 
 type classMaskStrings = keyof typeof PlayableClassMask
@@ -243,6 +244,10 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
     {
         // console.time('setupVendors')
 
+        for (const vendor of Object.values(state.data.shared.vendors)) {
+            vendor.createFarmData(state.data, staticData)
+        }
+
         for (const categories of state.data.vendors.sets) {
             if (categories === null) {
                 continue
@@ -325,6 +330,9 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                         else if (item.type === RewardType.Cosmetic || item.type === RewardType.Transmog) {
                             [groupKey, groupName] = ['90transmog', 'Transmog']
                         }
+                        else if (item.type === RewardType.Illusion) {
+                            [groupKey, groupName] = ['00illusions', 'Illusions']
+                        }
 
                         item.faction = vendor.faction
                         item.sortedCosts = getCurrencyCosts(state.data, staticData, item.costs)
@@ -365,8 +373,8 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
         userTransmogData: UserTransmogData,
         options: ZoneMapState,
     ) {
-
         const classMask = getTransmogClassMask(settings)
+        const masochist = settings.transmog.completionistMode
         const now = DateTime.utc()
 
         const farmData: Record<string, FarmStatus[]> = {}
@@ -431,6 +439,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                 const mapCounts = setCounts[mapKey] = new UserCount()
                 const mapTypeCounts: Record<number, UserCount> = typeCounts[mapKey] = {
                     [RewardType.Achievement]: new UserCount(),
+                    [RewardType.Illusion]: new UserCount(),
                     [RewardType.Item]: new UserCount(),
                     [RewardType.Mount]: new UserCount(),
                     [RewardType.Pet]: new UserCount(),
@@ -471,7 +480,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
 
                 const farms = [...map.farms]
                 for (const vendorId of (manualData.shared.vendorsByMap[map.mapName] || [])) {
-                    farms.push(...manualData.shared.vendors[vendorId].asFarms(manualData, staticData, map.mapName))
+                    farms.push(...manualData.shared.vendors[vendorId].asFarms(map.mapName))
                 }
 
                 const farmStatuses: FarmStatus[] = []
@@ -588,21 +597,19 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                                     )
                                 }
                                 else {
-                                    if (!userTransmogData.userHas[manualData.shared.items[drop.id]?.appearanceId ?? 0]) {
+                                    if (!userTransmogData.userHas[manualData.shared.items[drop.id]?.appearanceIds?.[0] ?? 0]) {
                                         dropStatus.need = true
                                     }
                                 }
                                 fixedType = RewardType.Transmog
                                 break
                             
+                            case RewardType.Illusion:
+                                dropStatus.need = userTransmogData.hasIllusion[drop.appearanceIds[0][0]]
+                                break
+
                             case RewardType.SetSpecial:
-                                dropStatus.setHave = drop.appearanceIds.filter(
-                                    (appearanceIds) => every(
-                                        appearanceIds,
-                                        (appearanceId) => userTransmogData.userHas[appearanceId]
-                                    )
-                                ).length
-                                dropStatus.setNeed = drop.appearanceIds.length
+                                [dropStatus.setHave, dropStatus.setNeed] = getVendorDropStats(userTransmogData, masochist, drop)
                                 dropStatus.need = dropStatus.setHave < dropStatus.setNeed
 
                                 dropStatus.setNote = getSetCurrencyCostsString(
@@ -635,31 +642,32 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
 
                             const seenId = drop.type === RewardType.Achievement ? drop.subType : drop.id
 
-                            overallCounts.total++
-                            if (categorySeen[drop.type][seenId] === undefined) {
-                                categoryCounts.total++
+                            const totalInc = dropStatus.setNeed || 1
+                            const haveInc = dropStatus.setHave || 1
+                            const special = drop.type === RewardType.SetSpecial
+
+                            overallCounts.total += totalInc
+                            if (categorySeen[drop.type][seenId] === undefined || special) {
+                                categoryCounts.total += totalInc
                             }
-                            if (mapSeen[drop.type][seenId] === undefined) {
-                                mapCounts.total++
-                                mapTypeCounts[fixedType].total++
+                            if (mapSeen[drop.type][seenId] === undefined || special) {
+                                mapCounts.total += totalInc
+                                mapTypeCounts[fixedType].total += totalInc
                             }
 
                             if (!dropStatus.need) {
-                                overallCounts.have++
-                                if (categorySeen[drop.type][seenId] === undefined) {
-                                    categoryCounts.have++
+                                overallCounts.have += haveInc
+                                if (categorySeen[drop.type][seenId] === undefined || special) {
+                                    categoryCounts.have += haveInc
                                 }
-                                if (mapSeen[drop.type][seenId] === undefined) {
-                                    mapCounts.have++
-                                    mapTypeCounts[fixedType].have++
+                                if (mapSeen[drop.type][seenId] === undefined || special) {
+                                    mapCounts.have += haveInc
+                                    mapTypeCounts[fixedType].have += haveInc
                                 }
                             }
 
                             categorySeen[drop.type][seenId] = true
-
-                            if (!mapSeen[drop.type][seenId]) {
-                                mapSeen[drop.type][seenId] = true
-                            }
+                            mapSeen[drop.type][seenId] = true
                         }
 
                         if (dropStatus.need && !dropStatus.skip) {
