@@ -9,7 +9,10 @@ public class PlayerCharacterAddonData
     [Key, ForeignKey("Character")]
     public int CharacterId { get; set; }
     public PlayerCharacter Character { get; set; }
-   
+
+    public string BindLocation { get; set; }
+    public string CurrentLocation { get; set; }
+
     public DateTime GarrisonTreesScannedAt { get; set; } = MiscConstants.DefaultDateTime;
     public DateTime MythicPlusScannedAt { get; set; } = MiscConstants.DefaultDateTime;
 

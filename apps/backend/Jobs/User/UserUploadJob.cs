@@ -331,6 +331,16 @@ public class UserUploadJob : JobBase
 
     private void HandleAddonData(PlayerCharacter character, UploadCharacter characterData)
     {
+        if (!string.IsNullOrWhiteSpace(characterData.BindLocation))
+        {
+            character.AddonData.BindLocation = characterData.BindLocation.Truncate(32);
+        }
+
+        if (!string.IsNullOrWhiteSpace(characterData.CurrentLocation))
+        {
+            character.AddonData.CurrentLocation = characterData.CurrentLocation.Truncate(32);
+        }
+
         // Garrison Trees
         if (characterData.GarrisonTrees != null &&
             characterData.ScanTimes.TryGetValue("garrisons", out int garrisonsTimestamp))

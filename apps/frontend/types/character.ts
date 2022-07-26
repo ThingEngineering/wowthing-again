@@ -6,10 +6,12 @@ export interface Character {
     activeSpecId: number
     chromieTime: number
     classId: number
+    currentLocation: string
     equippedItemLevel: number
     faction: Faction
     gender: number
     gold: number
+    hearthLocation: string
     id: number
     isResting: boolean
     isWarMode: boolean

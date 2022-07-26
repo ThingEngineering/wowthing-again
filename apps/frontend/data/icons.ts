@@ -80,6 +80,7 @@ export const imageStrings: Record<string, string> = {
     'covenant-necrolord': 'covenant_necrolord',
     'covenant-night-fae': 'covenant_night_fae',
     'covenant-venthyr': 'covenant_venthyr',
+    hearthstone: 'item/6948',
 }
 
 export const iconStrings: Record<string, IconifyIcon> = {

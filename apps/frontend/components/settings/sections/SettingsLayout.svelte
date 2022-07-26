@@ -27,6 +27,8 @@
         {key: 'gear', name: 'Gear'},
         {key: 'gold', name: 'Gold'},
         {key: 'itemLevel', name: 'Item level'},
+        {key: 'currentLocation', name: 'Location - Current'},
+        {key: 'hearthLocation', name: 'Location - Hearth'},
         {key: 'lockouts', name: 'Lockouts'},
         {key: 'mountSpeed', name: 'Mount speed'},
         {key: 'keystone', name: 'Mythic+ keystone'},

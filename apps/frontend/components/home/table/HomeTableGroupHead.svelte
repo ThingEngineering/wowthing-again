@@ -10,6 +10,8 @@
 
     import Checkbox from '@/components/forms/CheckboxInput.svelte'
     import HeadCovenant from './head/HomeTableHeadCovenant.svelte'
+    import HeadCurrentLocation from './head/HomeTableHeadCurrentLocation.svelte'
+    import HeadHearthLocation from './head/HomeTableHeadHearthLocation.svelte'
     import HeadLockouts from './head/HomeTableHeadLockouts.svelte'
     import HeadMount from './head/HomeTableHeadMount.svelte'
     import HeadMythicPlusScore from './head/HomeTableHeadMythicPlusScore.svelte'
@@ -76,6 +78,11 @@
                 <HeadCovenant />
             {/if}
         
+            {:else if field === 'currentLocation'}
+            {#if !$homeState.onlyWeekly}
+                <HeadCurrentLocation />
+            {/if}
+
         {:else if field === 'emissariesBfa'}
             {#if !$homeState.onlyWeekly}
                 <td use:tippy={"Battle for Azeroth Emissaries"}>
@@ -98,6 +105,11 @@
         {:else if field === 'gold'}
             {#if !isPublic && !$homeState.onlyWeekly}
                 <RowGold {gold} />
+            {/if}
+
+        {:else if field === 'hearthLocation'}
+            {#if !$homeState.onlyWeekly}
+                <HeadHearthLocation />
             {/if}
 
         {:else if field === 'itemLevel'}
@@ -134,7 +146,6 @@
             {#if !$homeState.onlyWeekly}
                 <td>Professions</td>
             {/if}
-
             
         {:else if field === 'professionsSecondary'}
             {#if !$homeState.onlyWeekly}

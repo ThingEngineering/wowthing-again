@@ -7,9 +7,11 @@
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import GroupHead from './table/HomeTableGroupHead.svelte'
     import RowCovenant from './table/row/HomeTableRowCovenant.svelte'
+    import RowCurrentLocation from './table/row/HomeTableRowCurrentLocation.svelte';
     import RowDailies from './table/row/HomeTableRowDailies.svelte'
     import RowGear from './table/row/HomeTableRowGear.svelte'
     import RowGold from './table/row/HomeTableRowGold.svelte'
+    import RowHearthLocation from './table/row/HomeTableRowHearthLocation.svelte'
     import RowItemLevel from '@/components/character-table/row/ItemLevel.svelte'
     import RowKeystone from '@/components/character-table/row/Keystone.svelte'
     import RowLockouts from './table/row/HomeTableRowLockouts.svelte'
@@ -50,6 +52,11 @@
                     <RowCovenant {character} />
                 {/if}
                 
+            {:else if field === 'currentLocation'}
+                {#if !$homeState.onlyWeekly}
+                    <RowCurrentLocation {character} />
+                {/if}
+
             {:else if field === 'emissariesBfa'}
                 {#if !$homeState.onlyWeekly}
                     <RowDailies
@@ -74,6 +81,11 @@
             {:else if field === 'gold'}
                 {#if !isPublic && !$homeState.onlyWeekly}
                     <RowGold gold={character.gold} />
+                {/if}
+
+            {:else if field === 'hearthLocation'}
+                {#if !$homeState.onlyWeekly}
+                    <RowHearthLocation {character} />
                 {/if}
 
             {:else if field === 'itemLevel'}
