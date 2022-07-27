@@ -4,7 +4,7 @@
     import { replace } from 'svelte-spa-router'
     import active from 'svelte-spa-router/active'
 
-    import { staticStore, userStore } from '@/stores'
+    import { userStore } from '@/stores'
     import { charactersState } from '@/stores/local-storage'
     import { Gender, Region } from '@/types/enums'
     import { splitOnce } from '@/utils/split-once'

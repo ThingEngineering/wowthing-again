@@ -18,7 +18,6 @@
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import WowheadLink from '@/components/links/WowheadLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
-import { find } from 'lodash';
 
     export let group: ManualDataVendorGroup
     export let stats: UserCount
