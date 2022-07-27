@@ -12,7 +12,7 @@ export class ManualDataSharedItem {
     )
     {
         this.appearanceIds = {}
-        for (const [modifier, appearanceId] of appearanceIds) {
+        for (const [modifier, appearanceId] of (appearanceIds || [])) {
             this.appearanceIds[modifier] = appearanceId
         }
     }
