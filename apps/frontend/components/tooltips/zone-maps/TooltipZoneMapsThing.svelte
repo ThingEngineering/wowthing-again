@@ -56,7 +56,7 @@ import find from 'lodash/find';
         else if (drop.type === RewardType.Illusion) {
             const enchantmentId = drop.appearanceIds[0][0]
             const illusion = find(
-                Object.values($staticStore.data.illusions),
+                Object.values($staticStore.data.illusions || {}),
                 (illusion) => illusion.enchantmentId === enchantmentId
             )
             return illusion?.name || `Illusion #${enchantmentId}`
