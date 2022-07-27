@@ -12,21 +12,21 @@ sets:
     range: 20
     sortKey: "armor-t09-1-deathknight"
 
-  - name: "Armor - T10 Death Knight"
-    range: 30
-    sortKey: "armor-t10-1-deathknight"
-
   - name: "Armor - T09 Paladin"
     range: 30
     sortKey: "armor-t09-1-paladin"
 
-  - name: "Armor - T10 Paladin"
-    range: 45
-    sortKey: "armor-t10-1-paladin"
-
   - name: "Armor - T09 Warrior"
     range: 20
     sortKey: "armor-t09-1-warrior"
+
+  - name: "Armor - T10 Death Knight"
+    range: 30
+    sortKey: "armor-t10-1-deathknight"
+
+  - name: "Armor - T10 Paladin"
+    range: 45
+    sortKey: "armor-t10-1-paladin"
 
   - name: "Armor - T10 Warrior"
     range: 30
@@ -134,6 +134,260 @@ sells:
     id: 48476 # Thassarian's Legplates of Conquest [plate legs]
     costs:
       0: 10 # Gold
+
+  # Paladin T9
+
+  - type: transmog
+    id: 48654 # Liadrin's Faceguard of Conquest [plate head]
+    costs:
+      0: 6 # Gold
+
+  - type: transmog
+    id: 48597 # Liadrin's Headpiece of Conquest [plate head]
+    costs:
+      0: 6 # Gold
+
+  - type: transmog
+    id: 48629 # Liadrin's Helm of Conquest [plate head]
+    costs:
+      0: 6 # Gold
+
+  - type: transmog
+    id: 48656 # Liadrin's Shoulderguards of Conquest [plate shoulders]
+    costs:
+      0: 6 # Gold
+
+  - type: transmog
+    id: 48627 # Liadrin's Shoulderplates of Conquest [plate shoulders]
+    costs:
+      0: 6 # Gold
+
+  - type: transmog
+    id: 48595 # Liadrin's Spaulders of Conquest [plate shoulders]
+    costs:
+      0: 6 # Gold
+
+  - type: transmog
+    id: 48631 # Liadrin's Battleplate of Conquest [plate chest]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 48652 # Liadrin's Breastplate of Conquest [plate chest]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 48599 # Liadrin's Tunic of Conquest [plate chest]
+    costs:
+      0: 9 # Gold
+
+  - type: transmog
+    id: 48630 # Liadrin's Gauntlets of Conquest [plate hands]
+    costs:
+      0: 4 # Gold
+
+  - type: transmog
+    id: 48598 # Liadrin's Gloves of Conquest [plate hands]
+    costs:
+      0: 4 # Gold
+
+  - type: transmog
+    id: 48653 # Liadrin's Handguards of Conquest [plate hands]
+    costs:
+      0: 4 # Gold
+
+  - type: transmog
+    id: 48596 # Liadrin's Greaves of Conquest [plate legs]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 48655 # Liadrin's Legguards of Conquest [plate legs]
+    costs:
+      0: 9 # Gold
+
+  - type: transmog
+    id: 48628 # Liadrin's Legplates of Conquest [plate legs]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 48634 # Turalyon's Faceguard of Conquest [plate head]
+    costs:
+      0: 6 # Gold
+
+  - type: transmog
+    id: 48564 # Turalyon's Headpiece of Conquest [plate head]
+    costs:
+      0: 6 # Gold
+
+  - type: transmog
+    id: 48604 # Turalyon's Helm of Conquest [plate head]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 48636 # Turalyon's Shoulderguards of Conquest [plate shoulders]
+    costs:
+      0: 6 # Gold
+
+  - type: transmog
+    id: 48606 # Turalyon's Shoulderplates of Conquest [plate shoulders]
+    costs:
+      0: 6 # Gold
+
+  - type: transmog
+    id: 48572 # Turalyon's Spaulders of Conquest [plate shoulders]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 48602 # Turalyon's Battleplate of Conquest [plate chest]
+    costs:
+      0: 9 # Gold
+
+  - type: transmog
+    id: 48632 # Turalyon's Breastplate of Conquest [plate chest]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 48566 # Turalyon's Tunic of Conquest [plate chest]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 48568 # Turalyon's Greaves of Conquest [plate legs]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 48635 # Turalyon's Legguards of Conquest [plate legs]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 48605 # Turalyon's Legplates of Conquest [plate legs]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 48603 # Turalyon's Gauntlets of Conquest [plate hands]
+    costs:
+      0: 4 # Gold
+
+  - type: transmog
+    id: 48574 # Turalyon's Gloves of Conquest [plate hands]
+    costs:
+      0: 4 # Gold
+
+  - type: transmog
+    id: 48633 # Turalyon's Handguards of Conquest [plate hands]
+    costs:
+      0: 4 # Gold
+
+  # Warrior T9
+
+  - type: transmog
+    id: 48458 # Hellscream's Greathelm of Conquest [plate head]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 48388 # Hellscream's Helmet of Conquest [plate head]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 48460 # Hellscream's Pauldrons of Conquest [plate shoulders]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 48390 # Hellscream's Shoulderplates of Conquest [plate shoulders]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 48386 # Hellscream's Battleplate of Conquest [plate chest]
+    costs:
+      0: 11 # Gold
+
+  - type: transmog
+    id: 48456 # Hellscream's Breastplate of Conquest [plate chest]
+    costs:
+      0: 10 # Gold
+
+  - type: transmog
+    id: 48387 # Hellscream's Gauntlets of Conquest [plate hands]
+    costs:
+      0: 5 # Gold
+
+  - type: transmog
+    id: 48457 # Hellscream's Handguards of Conquest [plate hands]
+    costs:
+      0: 5 # Gold
+
+  - type: transmog
+    id: 48459 # Hellscream's Legguards of Conquest [plate legs]
+    costs:
+      0: 10 # Gold
+
+  - type: transmog
+    id: 48389 # Hellscream's Legplates of Conquest [plate legs]
+    costs:
+      0: 11 # Gold
+
+  - type: transmog
+    id: 48429 # Wrynn's Greathelm of Conquest [plate head]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 48371 # Wrynn's Helmet of Conquest [plate head]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 48448 # Wrynn's Pauldrons of Conquest [plate shoulders]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 48374 # Wrynn's Shoulderplates of Conquest [plate shoulders]
+    costs:
+      0: 8 # Gold
+
+  - type: transmog
+    id: 48372 # Wrynn's Battleplate of Conquest [plate chest]
+    costs:
+      0: 11 # Gold
+
+  - type: transmog
+    id: 48436 # Wrynn's Breastplate of Conquest [plate chest]
+    costs:
+      0: 10 # Gold
+
+  - type: transmog
+    id: 48375 # Wrynn's Gauntlets of Conquest [plate hands]
+    costs:
+      0: 5 # Gold
+
+  - type: transmog
+    id: 48449 # Wrynn's Handguards of Conquest [plate hands]
+    costs:
+      0: 5 # Gold
+
+  - type: transmog
+    id: 48445 # Wrynn's Legguards of Conquest [plate legs]
+    costs:
+      0: 11 # Gold
+
+  - type: transmog
+    id: 48373 # Wrynn's Legplates of Conquest [plate legs]
+    costs:
+      0: 11 # Gold
 
   # Death Knight T10
 
@@ -306,158 +560,6 @@ sells:
     costs:
       1052028: 1
       1051126: 1
-
-  # Paladin T9
-
-  - type: transmog
-    id: 48654 # Liadrin's Faceguard of Conquest [plate head]
-    costs:
-      0: 6 # Gold
-
-  - type: transmog
-    id: 48597 # Liadrin's Headpiece of Conquest [plate head]
-    costs:
-      0: 6 # Gold
-
-  - type: transmog
-    id: 48629 # Liadrin's Helm of Conquest [plate head]
-    costs:
-      0: 6 # Gold
-
-  - type: transmog
-    id: 48656 # Liadrin's Shoulderguards of Conquest [plate shoulders]
-    costs:
-      0: 6 # Gold
-
-  - type: transmog
-    id: 48627 # Liadrin's Shoulderplates of Conquest [plate shoulders]
-    costs:
-      0: 6 # Gold
-
-  - type: transmog
-    id: 48595 # Liadrin's Spaulders of Conquest [plate shoulders]
-    costs:
-      0: 6 # Gold
-
-  - type: transmog
-    id: 48631 # Liadrin's Battleplate of Conquest [plate chest]
-    costs:
-      0: 8 # Gold
-
-  - type: transmog
-    id: 48652 # Liadrin's Breastplate of Conquest [plate chest]
-    costs:
-      0: 8 # Gold
-
-  - type: transmog
-    id: 48599 # Liadrin's Tunic of Conquest [plate chest]
-    costs:
-      0: 9 # Gold
-
-  - type: transmog
-    id: 48630 # Liadrin's Gauntlets of Conquest [plate hands]
-    costs:
-      0: 4 # Gold
-
-  - type: transmog
-    id: 48598 # Liadrin's Gloves of Conquest [plate hands]
-    costs:
-      0: 4 # Gold
-
-  - type: transmog
-    id: 48653 # Liadrin's Handguards of Conquest [plate hands]
-    costs:
-      0: 4 # Gold
-
-  - type: transmog
-    id: 48596 # Liadrin's Greaves of Conquest [plate legs]
-    costs:
-      0: 8 # Gold
-
-  - type: transmog
-    id: 48655 # Liadrin's Legguards of Conquest [plate legs]
-    costs:
-      0: 9 # Gold
-
-  - type: transmog
-    id: 48628 # Liadrin's Legplates of Conquest [plate legs]
-    costs:
-      0: 8 # Gold
-
-  - type: transmog
-    id: 48634 # Turalyon's Faceguard of Conquest [plate head]
-    costs:
-      0: 6 # Gold
-
-  - type: transmog
-    id: 48564 # Turalyon's Headpiece of Conquest [plate head]
-    costs:
-      0: 6 # Gold
-
-  - type: transmog
-    id: 48604 # Turalyon's Helm of Conquest [plate head]
-    costs:
-      0: 8 # Gold
-
-  - type: transmog
-    id: 48636 # Turalyon's Shoulderguards of Conquest [plate shoulders]
-    costs:
-      0: 6 # Gold
-
-  - type: transmog
-    id: 48606 # Turalyon's Shoulderplates of Conquest [plate shoulders]
-    costs:
-      0: 6 # Gold
-
-  - type: transmog
-    id: 48572 # Turalyon's Spaulders of Conquest [plate shoulders]
-    costs:
-      0: 8 # Gold
-
-  - type: transmog
-    id: 48602 # Turalyon's Battleplate of Conquest [plate chest]
-    costs:
-      0: 9 # Gold
-
-  - type: transmog
-    id: 48632 # Turalyon's Breastplate of Conquest [plate chest]
-    costs:
-      0: 8 # Gold
-
-  - type: transmog
-    id: 48566 # Turalyon's Tunic of Conquest [plate chest]
-    costs:
-      0: 8 # Gold
-
-  - type: transmog
-    id: 48568 # Turalyon's Greaves of Conquest [plate legs]
-    costs:
-      0: 8 # Gold
-
-  - type: transmog
-    id: 48635 # Turalyon's Legguards of Conquest [plate legs]
-    costs:
-      0: 8 # Gold
-
-  - type: transmog
-    id: 48605 # Turalyon's Legplates of Conquest [plate legs]
-    costs:
-      0: 8 # Gold
-
-  - type: transmog
-    id: 48603 # Turalyon's Gauntlets of Conquest [plate hands]
-    costs:
-      0: 4 # Gold
-
-  - type: transmog
-    id: 48574 # Turalyon's Gloves of Conquest [plate hands]
-    costs:
-      0: 4 # Gold
-
-  - type: transmog
-    id: 48633 # Turalyon's Handguards of Conquest [plate hands]
-    costs:
-      0: 4 # Gold
 
   # Paladin T10
 
@@ -715,108 +817,6 @@ sells:
     costs:
       1052030: 1
       1051161: 1
-
-  # Warrior T9
-
-  - type: transmog
-    id: 48458 # Hellscream's Greathelm of Conquest [plate head]
-    costs:
-      0: 8 # Gold
-
-  - type: transmog
-    id: 48388 # Hellscream's Helmet of Conquest [plate head]
-    costs:
-      0: 8 # Gold
-
-  - type: transmog
-    id: 48460 # Hellscream's Pauldrons of Conquest [plate shoulders]
-    costs:
-      0: 8 # Gold
-
-  - type: transmog
-    id: 48390 # Hellscream's Shoulderplates of Conquest [plate shoulders]
-    costs:
-      0: 8 # Gold
-
-  - type: transmog
-    id: 48386 # Hellscream's Battleplate of Conquest [plate chest]
-    costs:
-      0: 11 # Gold
-
-  - type: transmog
-    id: 48456 # Hellscream's Breastplate of Conquest [plate chest]
-    costs:
-      0: 10 # Gold
-
-  - type: transmog
-    id: 48387 # Hellscream's Gauntlets of Conquest [plate hands]
-    costs:
-      0: 5 # Gold
-
-  - type: transmog
-    id: 48457 # Hellscream's Handguards of Conquest [plate hands]
-    costs:
-      0: 5 # Gold
-
-  - type: transmog
-    id: 48459 # Hellscream's Legguards of Conquest [plate legs]
-    costs:
-      0: 10 # Gold
-
-  - type: transmog
-    id: 48389 # Hellscream's Legplates of Conquest [plate legs]
-    costs:
-      0: 11 # Gold
-
-  - type: transmog
-    id: 48429 # Wrynn's Greathelm of Conquest [plate head]
-    costs:
-      0: 8 # Gold
-
-  - type: transmog
-    id: 48371 # Wrynn's Helmet of Conquest [plate head]
-    costs:
-      0: 8 # Gold
-
-  - type: transmog
-    id: 48448 # Wrynn's Pauldrons of Conquest [plate shoulders]
-    costs:
-      0: 8 # Gold
-
-  - type: transmog
-    id: 48374 # Wrynn's Shoulderplates of Conquest [plate shoulders]
-    costs:
-      0: 8 # Gold
-
-  - type: transmog
-    id: 48372 # Wrynn's Battleplate of Conquest [plate chest]
-    costs:
-      0: 11 # Gold
-
-  - type: transmog
-    id: 48436 # Wrynn's Breastplate of Conquest [plate chest]
-    costs:
-      0: 10 # Gold
-
-  - type: transmog
-    id: 48375 # Wrynn's Gauntlets of Conquest [plate hands]
-    costs:
-      0: 5 # Gold
-
-  - type: transmog
-    id: 48449 # Wrynn's Handguards of Conquest [plate hands]
-    costs:
-      0: 5 # Gold
-
-  - type: transmog
-    id: 48445 # Wrynn's Legguards of Conquest [plate legs]
-    costs:
-      0: 11 # Gold
-
-  - type: transmog
-    id: 48373 # Wrynn's Legplates of Conquest [plate legs]
-    costs:
-      0: 11 # Gold
 
   # Warrior T10
 
