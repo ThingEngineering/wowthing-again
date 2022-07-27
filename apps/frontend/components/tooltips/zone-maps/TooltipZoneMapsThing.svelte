@@ -14,6 +14,7 @@
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+import find from 'lodash/find';
 
     export let drops: ManualDataZoneMapDrop[]
     export let farm: ManualDataZoneMapFarm
@@ -51,6 +52,14 @@
             else {
                 return $achievementStore.data.achievement[drop.id]?.name ?? `Achievement #${drop.id}`
             }
+        }
+        else if (drop.type === RewardType.Illusion) {
+            const enchantmentId = drop.appearanceIds[0][0]
+            const illusion = find(
+                Object.values($staticStore.data.illusions),
+                (illusion) => illusion.enchantmentId === enchantmentId
+            )
+            return illusion?.name || `Illusion #${enchantmentId}`
         }
         else if (drop.type === RewardType.Mount) {
             const mount = $staticStore.data.mounts[drop.id]

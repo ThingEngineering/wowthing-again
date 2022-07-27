@@ -142,6 +142,7 @@ public static partial class Hardcoded
         { 727, LegionDungeon }, // Maw of Souls
         { 740, LegionDungeon }, // Black Rook Hold
         { 762, LegionDungeon }, // Darkheart Thicket
+        { 767, LegionDungeon }, // Neltharion's Lair
         { 777, LegionDungeon }, // Assault on Violet Hold
         { 800, LegionDungeon }, // Court of Stars
         { 860, LegionDungeon }, // Return to Karazhan

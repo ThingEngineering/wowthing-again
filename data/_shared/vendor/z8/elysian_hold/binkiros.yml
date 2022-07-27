@@ -3,39 +3,32 @@ name: "Binkiros"
 note: "Mount Vendor"
 
 locations:
-  bastion:
-    - 63.2 17.2
-  unknown:
-    - 31.4 47.4
-    - 31.4 47.6
-    - 31.6 47.4
-    - 31.6 47.6
+  z8_elysian_hold:
+    - 32.1 48.5
+    #- 31.6 48.0
 
 sells:
-  # 0
-
-  - type: transmog
-    id: 180768 # Eternal Phalynx of Humility
+  - type: mount
+    id: 1402 # Eternal Phalynx of Humility
     costs:
       1813: 2500
 
-  - type: transmog
-    id: 180767 # Eternal Phalynx of Loyalty
+  - type: mount
+    id: 1401 # Eternal Phalynx of Loyalty
     costs:
       1813: 2500
 
-  - type: transmog
-    id: 181300 # Gruesome Flayedwing
+  - type: mount
+    id: 1408 # Gruesome Flayedwing
     costs:
       1813: 2500
 
-  - type: transmog
-    id: 180726 # Pale Acidmaw
+  - type: mount
+    id: 1392 # Pale Acidmaw
     costs:
       1813: 2500
 
-  - type: transmog
-    id: 181316 # Silvertip Dredwing
+  - type: mount
+    id: 1376 # Silvertip Dredwing
     costs:
       1813: 2500
-

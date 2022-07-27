@@ -64,7 +64,9 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
                             item.extraAppearances = 0
                         }
                         else if (transmogTypes.indexOf(item.type) >= 0) {
-                            const appearanceId = manualData.shared.items[item.id].appearanceId
+                            const appearanceId = item.appearanceIds?.length === 1
+                                ? item.appearanceIds[0]
+                                : manualData.shared.items[item.id].appearanceIds?.[0] || 0
                             if (appearanceId) {
                                 const existingItem = appearanceMap[appearanceId]
                                 if (existingItem) {
@@ -91,7 +93,7 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
                             item.id,
                             item.appearanceIds
                         )
-                        const thingKey = `${item.type}-${item.id}`
+                        const thingKey = `${item.type}|${item.id}|${(item.bonusIds || []).join(',')}`
 
                         if (!seen[thingKey]) {
                             overallStats.total++
@@ -122,6 +124,8 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
 
                         group.sellsFiltered.push(item)
                     } // item of group.sells
+
+                    group.stats = groupStats
                 } // group of category.groups
             }
         }

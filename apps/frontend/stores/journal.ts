@@ -101,11 +101,13 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                                 }
                             }
 
-                            for (const [appearanceIdStr, items] of Object.entries(appearanceMap)) {
+                            const usedItems: Record<number, boolean> = {}
+                            for (const [appearanceIdStr, appearanceItems] of Object.entries(appearanceMap)) {
                                 const appearanceId = parseInt(appearanceIdStr)
 
                                 const difficulties: Record<number, boolean> = {}
-                                for (const item of items) {
+                                let itemId = 0
+                                for (const item of appearanceItems) {
                                     for (const appearance of item.appearances) {
                                         if (appearance.appearanceId === appearanceId) {
                                             for (const difficulty of appearance.difficulties) {
@@ -114,15 +116,20 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                                             break
                                         }
                                     }
+
+                                    if (itemId === 0 && !usedItems[item.id]) {
+                                        itemId = item.id
+                                        usedItems[item.id] = true
+                                    }
                                 }
 
                                 const item = new JournalDataEncounterItem(
-                                    items[0].type,
-                                    items[0].id,
-                                    Math.max(...items.map((item) => item.quality)),
-                                    items[0].classId,
-                                    items[0].subclassId,
-                                    items.reduce((a, b) => a | b.classMask, 0),
+                                    appearanceItems[0].type,
+                                    itemId || appearanceItems[0].id,
+                                    Math.max(...appearanceItems.map((item) => item.quality)),
+                                    appearanceItems[0].classId,
+                                    appearanceItems[0].subclassId,
+                                    appearanceItems.reduce((a, b) => a | b.classMask, 0),
                                     [[
                                         appearanceId,
                                         0,
@@ -133,7 +140,7 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                                         )
                                     ]]
                                 )
-                                item.extraAppearances = items.length - 1
+                                item.extraAppearances = appearanceItems.length - 1
 
                                 keepItems.push(item)
                             }
@@ -149,6 +156,11 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                                     journalDifficultyOrder.indexOf(item.appearances[0].difficulties[0])
                                 ].join('|')
                             )
+
+                            if (encounter.name === 'Magmolatus') {
+                                console.log(appearanceMap)
+                                console.log(filteredItems)
+                            }
                         }
 
                         for (const item of filteredItems) {

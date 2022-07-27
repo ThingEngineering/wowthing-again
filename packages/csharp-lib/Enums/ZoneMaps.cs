@@ -57,5 +57,6 @@ public enum RewardType
     Weapon,
     Achievement,
     Item,
+    Illusion,
     Transmog = 100,
 }

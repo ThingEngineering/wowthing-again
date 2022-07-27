@@ -29,7 +29,7 @@ public class UserTransmogController : Controller
         _userService = userService;
         _context = context;
     }
-    
+
     [HttpGet("api/user/{username:username}/transmog")]
     public async Task<IActionResult> UserTransmogData([FromRoute] string username)
     {
@@ -49,7 +49,7 @@ public class UserTransmogController : Controller
         {
             return StatusCode((int)HttpStatusCode.NotModified);
         }
-        
+
         timer.AddPoint("LastModified");
 
         var allTransmog = await _context.AccountTransmogQuery
@@ -59,23 +59,24 @@ public class UserTransmogController : Controller
         var accountSources = await _context.PlayerAccountTransmogSources
             .Where(pats => pats.Account.UserId == apiResult.User.Id)
             .ToArrayAsync();
-        
+
         var allSources = new HashSet<string>();
         foreach (var sources in accountSources)
         {
             allSources.UnionWith(sources.Sources.EmptyIfNull());
         }
-            
+
         timer.AddPoint("Get Transmog");
 
         // Build response
         var data = new UserTransmogData
         {
+            Illusions = allTransmog.IllusionIds,
             Sources = allSources,
             Transmog = allTransmog.TransmogIds,
         };
         var json = JsonConvert.SerializeObject(data);
-    
+
         timer.AddPoint("Build response", true);
         _logger.LogDebug("{Timer}", timer);
 

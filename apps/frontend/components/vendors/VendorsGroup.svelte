@@ -30,7 +30,8 @@
     $: {
         things = []
         for (const thing of group.sellsFiltered) {
-            const userHas = $userVendorStore.data.userHas[`${thing.type}-${thing.id}`] === true
+            const thingKey = `${thing.type}|${thing.id}|${(thing.bonusIds || []).join(',')}`
+            const userHas = $userVendorStore.data.userHas[thingKey] === true
             if (($vendorState.showCollected && userHas) || ($vendorState.showUncollected && !userHas)) {
                 const thingData = new ThingData(thing, userHas)
 
@@ -161,6 +162,7 @@
                                 id={thing.linkId}
                                 type={thing.linkType}
                                 extraParams={thing.extraParams}
+                                tooltip={thing.tooltip}
                             >
                                 <WowthingImage
                                     name="{thing.linkType}/{thing.linkId}"

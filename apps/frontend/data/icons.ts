@@ -8,6 +8,7 @@ import mdiArrowDownBoldOutline from '@iconify/icons-mdi/arrow-down-bold-outline'
 import mdiArrowLeftBoldOutline from '@iconify/icons-mdi/arrow-left-bold-outline'
 import mdiArrowRightBoldOutline from '@iconify/icons-mdi/arrow-right-bold-outline'
 import mdiArrowUpBoldOutline from '@iconify/icons-mdi/arrow-up-bold-outline'
+import mdiAutoFix from '@iconify/icons-mdi/auto-fix'
 import mdiAxeBattle from '@iconify/icons-mdi/axe-battle'
 import mdiCalendar from '@iconify/icons-mdi/calendar-alert'
 import mdiCart from '@iconify/icons-mdi/cart'
@@ -142,6 +143,7 @@ export const rewardTypeIcons: Record<number, IconifyIcon> = {
     [RewardType.Achievement]: mdiTrophy,
     [RewardType.Armor]: mdiTshirtCrew,
     [RewardType.Cosmetic]: mdiWizardHat,
+    [RewardType.Illusion]: mdiAutoFix,
     [RewardType.Item]: mdiGiftOutline,
     [RewardType.Mount]: mdiUnicorn,
     [RewardType.Pet]: mdiDuck,

@@ -28,6 +28,7 @@ export enum RewardType {
     Weapon,
     Achievement,
     Item,
+    Illusion,
     Transmog = 100,
     InstanceSpecial = 1000,
     SetSpecial = 1001,

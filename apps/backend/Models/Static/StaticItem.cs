@@ -7,7 +7,7 @@ namespace Wowthing.Backend.Models.Static;
 [JsonConverter(typeof(StaticItemConverter))]
 public class StaticItem
 {
-    public int AppearanceId { get; set; }
+    public Dictionary<short, int> AppearanceIds { get; set; }
     public int Id { get; set; }
     public string Name { get; set; }
     public WowQuality Quality { get; set; }

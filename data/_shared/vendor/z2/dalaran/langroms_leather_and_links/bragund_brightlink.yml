@@ -12,13 +12,13 @@ sets:
     range: 10
     sortKey: "armor-t07-1-hunter"
 
-  - name: "Armor - T08 Hunter"
-    range: 10
-    sortKey: "armor-t08-1-hunter"
-
   - name: "Armor - T07 Shaman"
     range: 30
     sortKey: "armor-t07-1-shaman"
+
+  - name: "Armor - T08 Hunter"
+    range: 10
+    sortKey: "armor-t08-1-hunter"
 
   - name: "Armor - T08 Shaman"
     range: 30
@@ -80,58 +80,6 @@ sells:
     id: 40506 # Valorous Cryptstalker Legguards [mail legs]
     costs:
       1040635: 1
-
-  # Hunter - T8
-
-  - type: transmog
-    id: 45361 # Valorous Scourgestalker Headpiece [mail head]
-    costs:
-      1045648: 1
-
-  - type: transmog
-    id: 45363 # Valorous Scourgestalker Spaulders [mail shoulders]
-    costs:
-      1045660: 1
-
-  - type: transmog
-    id: 45364 # Valorous Scourgestalker Tunic [mail chest]
-    costs:
-      1045636: 1
-
-  - type: transmog
-    id: 45362 # Valorous Scourgestalker Legguards [mail legs]
-    costs:
-      1045651: 1
-
-  - type: transmog
-    id: 45360 # Valorous Scourgestalker Handguards [mail hands]
-    costs:
-      1045645: 1
-
-  - type: transmog
-    id: 46142 # Conqueror's Scourgestalker Handguards [mail hands]
-    costs:
-      1045642: 1
-
-  - type: transmog
-    id: 46145 # Conqueror's Scourgestalker Spaulders [mail shoulders]
-    costs:
-      1045657: 1
-
-  - type: transmog
-    id: 46143 # Conqueror's Scourgestalker Headpiece [mail head]
-    costs:
-      1045639: 1
-
-  - type: transmog
-    id: 46141 # Conqueror's Scourgestalker Tunic [mail chest]
-    costs:
-      1045633: 1
-
-  - type: transmog
-    id: 46144 # Conqueror's Scourgestalker Legguards [mail legs]
-    costs:
-      1045654: 1
 
   # T7 - Shaman
 
@@ -284,6 +232,58 @@ sells:
     id: 40522 # Valorous Earthshatter War-Kilt [mail legs]
     costs:
       1040635: 1
+
+  # Hunter - T8
+
+  - type: transmog
+    id: 45361 # Valorous Scourgestalker Headpiece [mail head]
+    costs:
+      1045648: 1
+
+  - type: transmog
+    id: 45363 # Valorous Scourgestalker Spaulders [mail shoulders]
+    costs:
+      1045660: 1
+
+  - type: transmog
+    id: 45364 # Valorous Scourgestalker Tunic [mail chest]
+    costs:
+      1045636: 1
+
+  - type: transmog
+    id: 45362 # Valorous Scourgestalker Legguards [mail legs]
+    costs:
+      1045651: 1
+
+  - type: transmog
+    id: 45360 # Valorous Scourgestalker Handguards [mail hands]
+    costs:
+      1045645: 1
+
+  - type: transmog
+    id: 46143 # Conqueror's Scourgestalker Headpiece [mail head]
+    costs:
+      1045639: 1
+
+  - type: transmog
+    id: 46145 # Conqueror's Scourgestalker Spaulders [mail shoulders]
+    costs:
+      1045657: 1
+
+  - type: transmog
+    id: 46141 # Conqueror's Scourgestalker Tunic [mail chest]
+    costs:
+      1045633: 1
+
+  - type: transmog
+    id: 46142 # Conqueror's Scourgestalker Handguards [mail hands]
+    costs:
+      1045642: 1
+
+  - type: transmog
+    id: 46144 # Conqueror's Scourgestalker Legguards [mail legs]
+    costs:
+      1045654: 1
 
   # T8 - Shaman
 

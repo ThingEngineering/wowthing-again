@@ -8,6 +8,8 @@ import type { StaticData } from '@/types/data/static'
 
 
 export class ManualDataSharedVendor {
+    private drops: ManualDataZoneMapDrop[]
+
     public faction: Faction
     public sells: ManualDataVendorItem[]
     public sets: ManualDataSharedVendorSet[]
@@ -48,11 +50,13 @@ export class ManualDataSharedVendor {
         }
     }
 
-    asFarms(manualData: ManualData, staticData: StaticData, mapName: string): ManualDataZoneMapFarm[] {
-        const ret: ManualDataZoneMapFarm[] = []
-        
-        const drops: ManualDataZoneMapDrop[] = []
+    createFarmData(
+        manualData: ManualData,
+        staticData: StaticData
+    ) {
         const seen: Record<number, boolean> = {}
+        const itemDrops: ManualDataZoneMapDrop[] = []
+        const setDrops: ManualDataZoneMapDrop[] = []
 
         if (this.sets) {
             let setPosition = 0;
@@ -80,21 +84,19 @@ export class ManualDataSharedVendor {
 
                     costs.push(item.costs)
                     
-                    if (item.appearanceIds?.length > 0) {
-                        appearanceIds.push(item.appearanceIds)
-                    }
-                    else {
-                        appearanceIds.push([manualData.shared.items[item.id]?.appearanceId ?? 0])
-                    }
+                    const itemAppearanceIds = item.appearanceIds?.[0] > 0
+                        ? item.appearanceIds
+                        : [manualData.shared.items[item.id]?.appearanceIds?.[0] || 0]
+                    appearanceIds.push(itemAppearanceIds)
 
-                    for (const appearanceId of appearanceIds[appearanceIds.length - 1]) {
+                    for (const appearanceId of itemAppearanceIds) {
                         if (appearanceId > 0) {
                             seen[appearanceId] = true
                         }
                     }
                 }
                 
-                drops.push({
+                setDrops.push({
                     id: 0,
                     type: RewardType.SetSpecial,
                     subType: 0,
@@ -106,22 +108,30 @@ export class ManualDataSharedVendor {
             }
 
             for (const item of this.sells) {
-                const itemSeen = item.appearanceIds?.length > 0
-                    ? every(item.appearanceIds, (appearanceId) => seen[appearanceId])
-                    : seen[manualData.shared.items[item.id]?.appearanceId ?? 0]
-
-                if (!itemSeen) {
-                    drops.push({
+                const appearanceIds = item.appearanceIds?.[0] > 0
+                    ? item.appearanceIds
+                    : [manualData.shared.items[item.id]?.appearanceIds?.[0] || 0]
+                
+                if (every(appearanceIds, (appearanceId) => appearanceId === 0 || !seen[appearanceId])) {
+                    itemDrops.push({
                         id: item.id,
                         type: item.type,
                         subType: item.subType,
                         classMask: item.classMask,
-                        appearanceIds: [item.appearanceIds],
+                        appearanceIds: [appearanceIds],
                         note: item.getNote(manualData, staticData),
                     })
                 }
             }
         }
+
+        this.drops = [...itemDrops, ...setDrops]
+    }
+
+    public asFarms(
+        mapName: string
+    ): ManualDataZoneMapFarm[] {
+        const ret: ManualDataZoneMapFarm[] = []
 
         for (const location of (this.locations[mapName] || [])) {
             ret.push(<ManualDataZoneMapFarm>{
@@ -134,11 +144,11 @@ export class ManualDataSharedVendor {
                 questIds: [],
                 reset: FarmResetType.None,
                 type: FarmType.Vendor,
-                drops: drops,
+                drops: this.drops,
             })
         }
 
-        return ret
+        return ret        
     }
 }
 export type ManualDataSharedVendorArray = ConstructorParameters<typeof ManualDataSharedVendor>

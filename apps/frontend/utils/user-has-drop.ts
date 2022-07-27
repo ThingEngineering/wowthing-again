@@ -23,7 +23,11 @@ export default function userHasDrop(
         return true
     }
 
-    if (type === RewardType.Toy &&userData.hasToy[id] === true) {
+    if (type === RewardType.Toy && userData.hasToy[id] === true) {
+        return true
+    }
+
+    if (type === RewardType.Illusion && userTransmogData.hasIllusion[appearanceIds[0]]) {
         return true
     }
 
@@ -35,7 +39,8 @@ export default function userHasDrop(
             )
         }
         else {
-            return userTransmogData.userHas[manualData.shared.items[id]?.appearanceId] === true
+            const appearanceId = manualData.shared.items[id]?.appearanceIds?.[0] || 0
+            return userTransmogData.userHas[appearanceId] === true
         }
             
     }

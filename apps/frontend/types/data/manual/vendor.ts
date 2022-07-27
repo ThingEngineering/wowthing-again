@@ -1,8 +1,9 @@
 import { Faction } from '@/types/enums'
 import { getCurrencyCostsString } from '@/utils/get-currency-costs'
-import type { RewardType, ItemQuality,  } from '@/types/enums'
 import type { ManualData } from './store'
+import type { UserCount } from '@/types'
 import type { StaticData } from '@/types/data/static/store'
+import type { RewardType, ItemQuality,  } from '@/types/enums'
 
 
 export class ManualDataVendorCategory {
@@ -24,6 +25,7 @@ export type ManualDataVendorCategoryArray = ConstructorParameters<typeof ManualD
 export class ManualDataVendorGroup {
     public sells: ManualDataVendorItem[]
     public sellsFiltered: ManualDataVendorItem[]
+    public stats: UserCount
 
     constructor(
         public name: string,

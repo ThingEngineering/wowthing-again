@@ -4,6 +4,7 @@ using Wowthing.Backend.Models.Data.Covenants;
 using Wowthing.Backend.Models.Data.Items;
 using Wowthing.Backend.Models.Data.Journal;
 using Wowthing.Backend.Models.Data.Professions;
+using Wowthing.Backend.Models.Data.Transmog;
 using Wowthing.Backend.Utilities;
 using Wowthing.Lib.Data;
 using Wowthing.Lib.Enums;
@@ -48,7 +49,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
         Type = JobType.ImportDumps,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(24),
-        Version = 19,
+        Version = 20,
     };
 
     private Dictionary<int, DumpItemXItemEffect[]> _itemEffectsMap;
@@ -78,43 +79,50 @@ public class ImportDumpsJob : JobBase, IScheduledJob
         await ImportStrings<DumpCreature>(
             StringType.WowCreatureName,
             "creature",
-            (creature) => creature.ID,
-            (creature) => creature.Name
+            creature => creature.ID,
+            creature => creature.Name
         );
 
         await ImportStrings<DumpJournalEncounter>(
             StringType.WowJournalEncounterName,
             "journalencounter",
-            (encounter) => encounter.ID,
-            (encounter) => encounter.Name
+            encounter => encounter.ID,
+            encounter => encounter.Name
         );
 
         await ImportStrings<DumpJournalInstance>(
             StringType.WowJournalInstanceName,
             "journalinstance",
-            (instance) => instance.ID,
-            (instance) => instance.Name
+            instance => instance.ID,
+            instance => instance.Name
         );
 
         await ImportStrings<DumpJournalTier>(
             StringType.WowJournalTierName,
             "journaltier",
-            (tier) => tier.ID,
-            (tier) => tier.Name
+            tier => tier.ID,
+            tier => tier.Name
         );
 
         await ImportStrings<DumpSkillLine>(
             StringType.WowSkillLineName,
             "skillline",
-            (line) => line.ID,
-            (line) => $"{line.DisplayName}|{line.HordeDisplayName}"
+            line => line.ID,
+            line => $"{line.DisplayName}|{line.HordeDisplayName}"
         );
 
         await ImportStrings<DumpSoulbind>(
             StringType.WowSoulbindName,
             "soulbind",
-            (soulbind) => soulbind.ID,
-            (soulbind) => soulbind.Name
+            soulbind => soulbind.ID,
+            soulbind => soulbind.Name
+        );
+
+        await ImportStrings<DumpSpellItemEnchantment>(
+            StringType.WowSpellItemEnchantmentName,
+            "spellitemenchantment",
+            ench => ench.ID,
+            ench => ench.Name
         );
 
         await Context.SaveChangesAsync();

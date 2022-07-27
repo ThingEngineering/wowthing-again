@@ -18,6 +18,7 @@ public class RedisStaticCache
     public Dictionary<short, StaticCharacterClass> CharacterClasses { get; set; }
     public Dictionary<short, StaticCharacterRace> CharacterRaces { get; set; }
     public Dictionary<short, StaticCharacterSpecialization> CharacterSpecializations { get; set; }
+    public Dictionary<int, StaticIllusion> Illusions { get; set; }
     public List<OutInstance> InstancesRaw { get; set; }
     public Dictionary<int, OutProfession> Professions { get; set; }
     public List<WowRealm> RealmsRaw { get; set; }

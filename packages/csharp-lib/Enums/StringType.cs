@@ -17,6 +17,7 @@ public enum StringType : short
     WowCurrencyCategoryName = 13,
     WowReputationName = 14,
     WowReputationDescription = 15,
+    WowSpellItemEnchantmentName = 16,
 
     // Hacky garbage
     WowJournalInstanceMapName = 1000,

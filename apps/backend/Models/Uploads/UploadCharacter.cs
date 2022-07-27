@@ -25,6 +25,7 @@ public class UploadCharacter
     public Dictionary<short, string> Currencies { get; set; }
     public Dictionary<int, List<UploadCharacterEmissary>> Emissaries { get; set; }
     public Dictionary<string, string[]> GarrisonTrees { get; set; }
+    public string Illusions { get; set; }
     public Dictionary<string, Dictionary<string, string>> Items { get; set; }
     public List<UploadCharacterLockout> Lockouts { get; set; }
     public List<int> Mounts { get; set; }
