@@ -21,7 +21,7 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
         // console.time('UserTransmogDataStore.initialize')
 
         data.hasIllusion = {}
-        for (const illusionId of data.illusions) {
+        for (const illusionId of (data.illusions || [])) {
             data.hasIllusion[illusionId] = true
         }
 
