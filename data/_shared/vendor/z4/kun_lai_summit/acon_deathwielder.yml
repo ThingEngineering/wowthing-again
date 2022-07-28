@@ -6,6 +6,10 @@ locations:
   z4_kun_lai_summit:
     - 35.6 83.2 horde
 
+tags:
+  - pvp
+  - pvp-s15
+
 sets:
   - name: "Armor - S15 Death Knight"
     range: 5
