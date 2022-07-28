@@ -267,7 +267,7 @@ for item in sorted_items:
             print(f'      1{cost[0]:06}: {cost[1]}')
     
     if item['standing'] > 0:
-        print(f'    reputation: 0 {STANDING[item["standing"]]}')
+        print(f'    reputation: 0 {STANDING.get(item["standing"], item["standing"])}')
 
     print('')
     #print('>', item)
