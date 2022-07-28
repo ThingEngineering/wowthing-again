@@ -100,5 +100,6 @@ misc/_misc.yml
 -
 
 pvp/_pvp.yml
+    pvp/mists_of_pandaria.yml
     pvp/wrath_of_the_lich_king.yml
     pvp/the_burning_crusade.yml
