@@ -184,7 +184,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         }
 
         // realm
-        character.realm = staticData.realms[character.realmId]
+        character.realm = staticData.realms[character.realmId] || staticData.realms[0]
         
         // item levels
         if (keys(character.equippedItems).length > 0) {
