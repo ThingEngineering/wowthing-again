@@ -20,6 +20,7 @@ public class PlayerAccount
     public bool Enabled { get; set; } = true;
 
     // Navigation properties
+    public PlayerAccountAddonData AddonData { get; set; }
     public List<PlayerCharacter> Characters { get; set; }
     public PlayerAccountPets Pets { get; set; }
     public PlayerAccountToys Toys { get; set; }
