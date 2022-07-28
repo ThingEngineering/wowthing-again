@@ -387,7 +387,7 @@ farms:
 - name: "Azeroth Mini Pack: Bondo's Yard"
   location: 81.0 39.0
   note: "Guaranteed from Beastbot and Reclamation Rig"
-  questId: 57134
+  questId: 57134 57135
   reset: weekly
   type: treasure
   drops:

@@ -1,7 +1,7 @@
-﻿using MoreLinq;
-using StackExchange.Redis;
+﻿using StackExchange.Redis;
 using Wowthing.Backend.Models.Data;
 using Wowthing.Backend.Models.Data.Collections;
+using Wowthing.Backend.Models.Data.Heirlooms;
 using Wowthing.Backend.Models.Data.Items;
 using Wowthing.Backend.Models.Data.Progress;
 using Wowthing.Backend.Models.Data.Transmog;
@@ -61,7 +61,7 @@ public class CacheManualJob : JobBase, IScheduledJob
 #else
         Interval = TimeSpan.FromHours(1),
 #endif
-        Version = 5,
+        Version = 6,
     };
 
     public override async Task Run(params string[] data)
@@ -200,9 +200,11 @@ public class CacheManualJob : JobBase, IScheduledJob
         cacheData.ToySets = FinalizeCollections(toySets);
         _timer.AddPoint("Toys");
 
+        // Heirlooms
+        cacheData.HeirloomSets = LoadHeirlooms();
+
         // Progress
         cacheData.ProgressSets = LoadProgress();
-        _timer.AddPoint("Progress");
 
         // Shared vendors
         cacheData.SharedVendors = LoadSharedVendors();
@@ -245,6 +247,29 @@ public class CacheManualJob : JobBase, IScheduledJob
         }
     }
 
+    private DataHeirloomGroup[] LoadHeirlooms()
+    {
+        var groups = DataUtilities.YamlDeserializer
+            .Deserialize<DataHeirloomGroup[]>(
+                File.OpenText(
+                    Path.Join(DataUtilities.DataPath, "heirlooms", "heirlooms.yml")
+                )
+            );
+
+        foreach (var group in groups)
+        {
+            foreach (var item in group.Items)
+            {
+                if (item.Upgrades == 0)
+                {
+                    item.Upgrades = 5;
+                }
+            }
+        }
+
+        return groups;
+    }
+
     private List<List<OutProgress>> LoadProgress()
     {
         var ret = new List<List<OutProgress>>();
@@ -264,6 +289,7 @@ public class CacheManualJob : JobBase, IScheduledJob
             );
         }
 
+        _timer.AddPoint("Progress");
         return ret;
     }
 

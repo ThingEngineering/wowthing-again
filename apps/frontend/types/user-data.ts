@@ -13,6 +13,7 @@ export interface UserData {
     accounts: Record<number, Account>
     characters: Character[]
     goldHistoryRealms: number[]
+    heirlooms: Record<number, number>
 
     backgrounds: Record<number, BackgroundImage>
     currentPeriod: Record<number, UserDataCurrentPeriod>

@@ -2,6 +2,7 @@ import type { RewardType } from '@/types/enums'
 import type { UserCount } from '@/types/user-count'
 import type { FarmStatus } from '@/types/zone-maps'
 
+import type { ManualDataHeirloomGroup, ManualDataHeirloomGroupArray } from './heirloom'
 import type { ManualDataProgressCategory } from './progress'
 import type { ManualDataSetCategory, ManualDataSetCategoryArray } from './set'
 import type { ManualDataSharedItem, ManualDataSharedItemArray } from './shared-item'
@@ -23,11 +24,13 @@ export interface ManualData {
     rawPetSets: ManualDataSetCategoryArray[][]
     rawToySets: ManualDataSetCategoryArray[][]
 
+    rawHeirloomGroups: ManualDataHeirloomGroupArray[]
     rawTransmogSets: ManualDataTransmogCategoryArray[][]
     rawVendorSets: ManualDataVendorCategoryArray[][]
     rawZoneMapSets: ManualDataZoneMapCategoryArray[][]
 
     // Computed data
+    heirlooms: ManualDataHeirloomGroup[]
     shared: ManualDataShared
     transmog: ManualDataTransmog
     vendors: ManualDataVendors

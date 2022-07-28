@@ -1,4 +1,5 @@
-﻿using MoreLinq.Extensions;
+﻿using MoreLinq;
+using MoreLinq.Extensions;
 using Wowthing.Backend.Data;
 using Wowthing.Backend.Models.Uploads;
 using Wowthing.Lib.Constants;
@@ -246,6 +247,37 @@ public class UserUploadJob : JobBase
         // Deal with account data
         if (accountId > 0)
         {
+            var accountAddonData = await Context.PlayerAccountAddonData.FindAsync(accountId);
+            if (accountAddonData == null)
+            {
+                accountAddonData = new PlayerAccountAddonData
+                {
+                    AccountId = accountId,
+                };
+                Context.PlayerAccountAddonData.Add(accountAddonData);
+            }
+
+            if (accountAddonData.Heirlooms == null)
+            {
+                accountAddonData.Heirlooms = new();
+            }
+
+            foreach (var heirloom in parsed.Heirlooms.EmptyIfNull())
+            {
+                var heirloomParts = heirloom.Split(':');
+                if (heirloomParts.Length == 3)
+                {
+                    var itemId = int.Parse(heirloomParts[0]);
+                    var userHas = heirloomParts[1] == "1";
+                    var upgradeLevel = short.Parse(heirloomParts[2]);
+
+                    if (userHas && upgradeLevel >= accountAddonData.Heirlooms.GetValueOrDefault(itemId))
+                    {
+                        accountAddonData.Heirlooms[itemId] = upgradeLevel;
+                    }
+                }
+            }
+
             var accountToys = await Context.PlayerAccountToys.FindAsync(accountId);
             if (accountToys == null)
             {
@@ -280,6 +312,12 @@ public class UserUploadJob : JobBase
                     .OrderBy(key => key)
                     .ToList();
             }
+
+            // Change detection for this is obnoxious, just update it
+            Context.Entry(accountAddonData)
+                .Property(ad => ad.Heirlooms)
+                .IsModified = true;
+
         }
         _timer.AddPoint("Account");
 

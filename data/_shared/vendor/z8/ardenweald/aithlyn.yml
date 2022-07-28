@@ -8,44 +8,22 @@ locations:
 sets:
   - name: "Reputation - The Wild Hunt"
     range: -1
+    skipTooltip: true
     sortKey: "rep-the-wild-hunt"
 
 sells:
+  - type: illusion
+    id: 183134 # Illusion: Hunt's Favor
+    appearanceId: 6264
+    costs:
+      0: 1250 # Gold
+    reputation: 2465 exalted # The Wild Hunt
+
   - type: mount
     id: 1361 # Duskflutter Ardenmoth
     costs:
       0: 30000 # Gold
     reputation: 2465 exalted # The Wild Hunt
-
-  - type: pet
-    id: 2910 # Floofa
-    costs:
-      1163036: 250 # Polished Pet Charm
-    reputation: 2465 friendly # The Wild Hunt
-
-  # - type: illusion
-  #   id: 183189 # Illusion: Hunt's Favor
-  #   costs:
-  #     0: 1250 # Gold
-  #   reputation: 2465 exalted # The Wild Hunt
-
-  - type: transmog
-    id: 178336 # Tabard of The Wild Hunt
-    costs:
-      0: 212 # Gold
-    reputation: 2465 exalted # The Wild Hunt
-
-  - type: transmog
-    id: 181309 # Faewoven Pack
-    costs:
-      1813: 3500 # Faewoven Pack
-    reputation: 2465 revered # The Wild Hunt
-
-  - type: transmog
-    id: 184754 # Glitterwing Scarf [back]
-    costs:
-      0: 400 # Gold
-    reputation: 2465 honored # The Wild Hunt
 
   - type: transmog
     id: 184751 # Cycle-Tender's Pantaloons [cloth]
@@ -72,6 +50,12 @@ sells:
     reputation: 2465 exalted # The Wild Hunt
 
   - type: transmog
+    id: 178336 # Tabard of The Wild Hunt
+    costs:
+      0: 212 # Gold
+    reputation: 2465 exalted # The Wild Hunt
+
+  - type: transmog
     id: 184747 # Gamekeeper's Slippers [cloth]
     costs:
       0: 203 # Gold
@@ -94,3 +78,21 @@ sells:
     costs:
       0: 202 # Gold
     reputation: 2465 revered # The Wild Hunt
+
+  - type: transmog
+    id: 181309 # Faewoven Pack [back]
+    costs:
+      1813: 3500 # Faewoven Pack
+    reputation: 2465 revered # The Wild Hunt
+
+  - type: transmog
+    id: 184754 # Glitterwing Scarf [back]
+    costs:
+      0: 400 # Gold
+    reputation: 2465 honored # The Wild Hunt
+
+  - type: pet
+    id: 2910 # Floofa
+    costs:
+      1163036: 250 # Polished Pet Charm
+    reputation: 2465 friendly # The Wild Hunt

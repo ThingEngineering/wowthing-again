@@ -13,7 +13,7 @@ sells:
     reputation: 2472 honored # The Archivist's Codex
     
   - type: transmog
-    id: 187545 # Attendant Scholar's Waistcord [cloth]
+    id: 187535 # Attendant Scholar's Waistcord [cloth]
     costs:
       1931: 4000 # Cataloged Research
 

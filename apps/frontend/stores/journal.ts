@@ -156,11 +156,6 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                                     journalDifficultyOrder.indexOf(item.appearances[0].difficulties[0])
                                 ].join('|')
                             )
-
-                            if (encounter.name === 'Magmolatus') {
-                                console.log(appearanceMap)
-                                console.log(filteredItems)
-                            }
                         }
 
                         for (const item of filteredItems) {

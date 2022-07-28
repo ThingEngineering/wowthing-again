@@ -7,6 +7,7 @@
     import Characters from '@/components/characters/Characters.svelte'
     import Currencies from '@/components/currencies/Currencies.svelte'
     import Gear from '@/components/gear/Gear.svelte'
+    import Heirlooms from '@/components/heirlooms/Heirlooms.svelte'
     import History from '@/components/history/History.svelte'
     import HomeCards from '@/components/home/HomeCards.svelte'
     import HomeTable from '@/components/home/HomeTable.svelte'
@@ -37,6 +38,7 @@
         '/auctions/:slug1?/:slug2?': Auctions,
         '/currencies/:slug?': Currencies,
         '/gear/*': Gear,
+        '/heirlooms': Heirlooms,
         '/history/:slug?': History,
         '/items/:slug?': Items,
         '/journal/:slug1?/:slug2?': Journal,

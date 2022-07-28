@@ -20,6 +20,7 @@ public class UserApi
     public Dictionary<int, WowPeriod> CurrentPeriod { get; init; }
     public Dictionary<string, GlobalDailies> GlobalDailies { get; set; }
     public Dictionary<int, string> GlobalDailyItems { get; set; }
+    public Dictionary<int, short> Heirlooms { get; set; }
     public Dictionary<string, string> Images { get; set; }
 
     public Dictionary<int, bool> AddonMounts { get; set; }

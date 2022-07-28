@@ -246,6 +246,7 @@ public class ApiController : Controller
         var tempAccounts = await _context.PlayerAccount
             .AsNoTracking()
             .Where(a => a.UserId == apiResult.User.Id)
+            .Include(pa => pa.AddonData)
             .Include(pa => pa.Pets)
             .Include(pa => pa.Toys)
             .ToListAsync();
@@ -403,6 +404,16 @@ public class ApiController : Controller
 
         timer.AddPoint("Periods");
 
+        // Heirlooms
+        var heirlooms = new Dictionary<int, short>();
+        foreach (var account in tempAccounts.Where(pa => pa.AddonData?.Heirlooms != null))
+        {
+            foreach (var (itemId, upgradeLevel) in account.AddonData.Heirlooms)
+            {
+                heirlooms[itemId] = upgradeLevel;
+            }
+        }
+
         // Mounts
         var mounts = await _context.MountQuery
             .FromSqlRaw(MountQuery.UserQuery, apiResult.User.Id)
@@ -462,6 +473,7 @@ public class ApiController : Controller
             CurrentPeriod = currentPeriods,
             GlobalDailies = globalDailies,
             GlobalDailyItems = gdItems,
+            Heirlooms = heirlooms,
             Images = images,
             Public = apiResult.Public,
 
