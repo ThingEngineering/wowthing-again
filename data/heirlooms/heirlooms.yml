@@ -217,3 +217,125 @@
     - id: 122391 # Flamescarred Draconian Deflector [shield]
 
     - id: 122392 # Weathered Observer's Shield [shield]
+
+- name: "Unavailable - Siege of Orgrimmar Normal"
+  items:
+    - id: 105672 # Hellscream's Cleaver [1h agi axe]
+      upgrades: 3
+
+    - id: 105675 # Hellscream's Warmace [1h int mace]
+      upgrades: 3
+
+    - id: 105678 # Hellscream's Doomblade [1h str sword]
+      upgrades: 3
+
+    - id: 105679 # Hellscream's Decapitator [2h str axe]
+      upgrades: 3
+
+    - id: 105671 # Hellscream's Razor [agi dagger]
+      upgrades: 3
+
+    - id: 105673 # Hellscream's Pig Sticker [agi polearm]
+      upgrades: 3
+
+    - id: 105677 # Hellscream's War Staff [int staff]
+      upgrades: 3
+
+    - id: 105670 # Hellscream's Warbow [bow]
+      upgrades: 3
+
+    - id: 105676 # Hellscream's Tome of Destruction [off-hand]
+      upgrades: 3
+
+    - id: 105674 # Hellscream's Barrier [shield]
+      upgrades: 3
+
+    - id: 105680 # Hellscream's Shield Wall [shield]
+      upgrades: 3
+
+- name: "Unavailable - Siege of Orgrimmar Heroic"
+  items:
+    - id: 104404 # Hellscream's Cleaver [1h agi axe]
+      upgrades: 3
+
+    - id: 104402 # Hellscream's Warmace [1h int mace]
+      upgrades: 3
+
+    - id: 104401 # Hellscream's Doomblade [1h str sword]
+      upgrades: 3
+
+    - id: 104405 # Hellscream's Decapitator [2h str axe]
+      upgrades: 3
+
+    - id: 104400 # Hellscream's Razor [agi dagger]
+      upgrades: 3
+
+    - id: 104403 # Hellscream's Pig Sticker [agi polearm]
+      upgrades: 3
+
+    - id: 104406 # Hellscream's War Staff [int staff]
+      upgrades: 3
+
+    - id: 104399 # Hellscream's Warbow [bow]
+      upgrades: 3
+
+    - id: 104408 # Hellscream's Tome of Destruction [off-hand]
+      upgrades: 3
+
+    - id: 104409 # Hellscream's Barrier [shield]
+      upgrades: 3
+
+    - id: 104407 # Hellscream's Shield Wall [shield]
+      upgrades: 3
+
+- name: "Unavailable - Siege of Orgrimmar Mythic"
+  items:
+    - id: 105685 # Hellscream's Cleaver [1h agi axe]
+      upgrades: 3
+
+    - id: 105688 # Hellscream's Warmace [1h int mace]
+      upgrades: 3
+
+    - id: 105691 # Hellscream's Doomblade [1h str sword]
+      upgrades: 3
+
+    - id: 105692 # Hellscream's Decapitator [2h str axe]
+      upgrades: 3
+
+    - id: 105684 # Hellscream's Razor [agi dagger]
+      upgrades: 3
+
+    - id: 105686 # Hellscream's Pig Sticker [agi polearm]
+      upgrades: 3
+
+    - id: 105690 # Hellscream's War Staff [int staff]
+      upgrades: 3
+
+    - id: 105683 # Hellscream's Warbow [bow]
+      upgrades: 3
+
+    - id: 105689 # Hellscream's Tome of Destruction [off-hand]
+      upgrades: 3
+
+    - id: 105687 # Hellscream's Barrier [shield]
+      upgrades: 3
+
+    - id: 105693 # Hellscream's Shield Wall [shield]
+      upgrades: 3
+
+- name: "Unavailable - Warlords Trinkets"
+  items:
+    - id: 133595 # Gronntooth War Horn
+      upgrades: 2
+
+    - id: 133597 # Infallible Tracing Charm
+      upgrades: 2
+
+    - id: 133585 # Judgment of the Naaru
+      upgrades: 2
+
+    - id: 133596 # Orb of Voidsight
+      upgrades: 2
+
+    - id: 133598 # Purified Shard of the Third Moon
+      upgrades: 2
