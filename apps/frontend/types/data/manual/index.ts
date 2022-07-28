@@ -1,3 +1,4 @@
+export * from './heirloom'
 export * from './progress'
 export * from './set'
 export * from './shared-item'

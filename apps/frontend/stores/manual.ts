@@ -11,6 +11,7 @@ import { covenantSlugMap } from '@/data/covenant'
 import { factionMap } from '@/data/faction'
 import { UserCount, WritableFancyStore } from '@/types'
 import {
+    ManualDataHeirloomGroup,
     ManualDataSetCategory,
     ManualDataSharedItem,
     ManualDataSharedVendor,
@@ -77,6 +78,9 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
             }
         }
         data.rawSharedVendors = null
+
+        data.heirlooms = data.rawHeirloomGroups.map((groupArray) => new ManualDataHeirloomGroup(...groupArray))
+        data.rawHeirloomGroups = null
 
         for (const categories of data.rawTransmogSets) {
             if (categories === null) {

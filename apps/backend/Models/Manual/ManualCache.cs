@@ -10,7 +10,7 @@ namespace Wowthing.Backend.Models.Manual;
 
 public class ManualCache
 {
-    [JsonProperty("rawHeirloomSets")]
+    [JsonProperty("rawHeirloomGroups")]
     public DataHeirloomGroup[] HeirloomSets { get; set; }
 
     [JsonProperty("rawMountSets")]
