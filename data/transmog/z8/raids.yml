@@ -1,7 +1,7 @@
 name: Raids
 groups:
 
-- name: Sepulcher of Damnation
+- name: Sepulcher of the First Ones
   type: class
   sets:
   - Mythic
@@ -12,7 +12,7 @@ groups:
     death-knight:
     # Mythic set=2351
     - name: The First Eidolon's Soulsteel
-      wowheadSetId:
+      wowheadSetId: 12084
       items:
         1:  56976 # Head
         3:  56977 # Shoulders
@@ -26,7 +26,7 @@ groups:
 
     # Heroic set=2350
     - name: The First Eidolon's Soulsteel
-      wowheadSetId:
+      wowheadSetId: 12083
       items:
         1:  56985 # Head
         3:  56986 # Shoulders
@@ -40,7 +40,7 @@ groups:
 
     # Normal set=2348
     - name: The First Eidolon's Soulsteel
-      wowheadSetId:
+      wowheadSetId: 12082
       items:
         1:  56994 # Head
         3:  56995 # Shoulders
@@ -54,7 +54,7 @@ groups:
 
     # Raid Finder set=2349
     - name: The First Eidolon's Soulsteel
-      wowheadSetId:
+      wowheadSetId: 12081
       items:
         1:  56967 # Head
         3:  56968 # Shoulders
@@ -69,7 +69,7 @@ groups:
     demon-hunter:
     # Mythic set=2357
     - name: Mercurial Punisher's Painweave
-      wowheadSetId:
+      wowheadSetId: 12097
       items:
         1:  56284 # Head
         3:  56285 # Shoulders
@@ -83,7 +83,7 @@ groups:
 
     # Heroic set=2356
     - name: Mercurial Punisher's Painweave
-      wowheadSetId:
+      wowheadSetId: 12096
       items:
         1:  56293 # Head
         3:  56294 # Shoulders
@@ -97,7 +97,7 @@ groups:
 
     # Normal set=2354
     - name: Mercurial Punisher's Painweave
-      wowheadSetId:
+      wowheadSetId: 12095
       items:
         1:  56309 # Head
         3:  56310 # Shoulders
@@ -111,7 +111,7 @@ groups:
 
     # Raid Finder set=2355
     - name: Mercurial Punisher's Painweave
-      wowheadSetId:
+      wowheadSetId: 12094
       items:
         1:  56275 # Head
         3:  56276 # Shoulders
@@ -126,7 +126,7 @@ groups:
     druid:
     # Mythic set=2363
     - name: Tapestry of the Fixed Stars
-      wowheadSetId:
+      wowheadSetId: 12076
       items:
         1:  56179 # Head
         3:  56180 # Shoulders
@@ -140,7 +140,7 @@ groups:
 
     # Heroic set=2362
     - name: Tapestry of the Fixed Stars
-      wowheadSetId:
+      wowheadSetId: 12075
       items:
         1:  56189 # Head
         3:  56190 # Shoulders
@@ -154,7 +154,7 @@ groups:
 
     # Normal set=2360
     - name: Tapestry of the Fixed Stars
-      wowheadSetId:
+      wowheadSetId: 12074
       items:
         1:  56199 # Head
         3:  56200 # Shoulders
@@ -168,7 +168,7 @@ groups:
 
     # Raid Finder set=2361
     - name: Tapestry of the Fixed Stars
-      wowheadSetId:
+      wowheadSetId: 12073
       items:
         1:  56169 # Head
         3:  56170 # Shoulders
@@ -183,7 +183,7 @@ groups:
     hunter:
     # Mythic set=2369
     - name: Godstalker's Battlegear
-      wowheadSetId:
+      wowheadSetId: 12105
       items:
         1:  56338 # Head
         3:  56339 # Shoulders
@@ -197,7 +197,7 @@ groups:
 
     # Heroic set=2368
     - name: Godstalker's Battlegear
-      wowheadSetId:
+      wowheadSetId: 12104
       items:
         1:  56347 # Head
         3:  56348 # Shoulders
@@ -211,7 +211,7 @@ groups:
 
     # Normal set=2366
     - name: Godstalker's Battlegear
-      wowheadSetId:
+      wowheadSetId: 12103
       items:
         1:  56356 # Head
         3:  56357 # Shoulders
@@ -225,7 +225,7 @@ groups:
 
     # Raid Finder set=2367
     - name: Godstalker's Battlegear
-      wowheadSetId:
+      wowheadSetId: 12102
       items:
         1:  56329 # Head
         3:  56330 # Shoulders
@@ -240,7 +240,7 @@ groups:
     mage:
     # Mythic set=2375
     - name: Erudite Occultist's Vestments
-      wowheadSetId:
+      wowheadSetId: 12068
       items:
         1:  56624 # Head
         3:  56625 # Shoulders
@@ -254,7 +254,7 @@ groups:
 
     # Heroic set=2374
     - name: Erudite Occultist's Vestments
-      wowheadSetId:
+      wowheadSetId: 12067
       items:
         1:  56654 # Head
         3:  56655 # Shoulders
@@ -268,7 +268,7 @@ groups:
 
     # Normal set=2372
     - name: Erudite Occultist's Vestments
-      wowheadSetId:
+      wowheadSetId: 12066
       items:
         1:  56664 # Head
         3:  56665 # Shoulders
@@ -282,7 +282,7 @@ groups:
 
     # Raid Finder set=2373
     - name: Erudite Occultist's Vestments
-      wowheadSetId:
+      wowheadSetId: 12065
       items:
         1:  56634 # Head
         3:  56635 # Shoulders
@@ -297,7 +297,7 @@ groups:
     monk:
     # Mythic set=2381
     - name: Garb of the Grand Upwelling
-      wowheadSetId:
+      wowheadSetId: 12093
       items:
         1:  56503 # Head
         3:  56504 # Shoulders
@@ -311,7 +311,7 @@ groups:
 
     # Heroic set=2380
     - name: Garb of the Grand Upwelling
-      wowheadSetId:
+      wowheadSetId: 12092
       items:
         1:  56512 # Head
         3:  56513 # Shoulders
@@ -325,7 +325,7 @@ groups:
 
     # Normal set=2378
     - name: Garb of the Grand Upwelling
-      wowheadSetId:
+      wowheadSetId: 12091
       items:
         1:  56521 # Head
         3:  56522 # Shoulders
@@ -339,7 +339,7 @@ groups:
 
     # Raid Finder set=2379
     - name: Garb of the Grand Upwelling
-      wowheadSetId:
+      wowheadSetId: 12090
       items:
         1:  56494 # Head
         3:  56495 # Shoulders
@@ -354,7 +354,7 @@ groups:
     paladin:
     # Mythic set=2387
     - name: Luminous Chevalier's Gallantry
-      wowheadSetId:
+      wowheadSetId: 12060
       items:
         1:  57086 # Head
         3:  57087 # Shoulders
@@ -368,7 +368,7 @@ groups:
 
     # Heroic set=2386
     - name: Luminous Chevalier's Gallantry
-      wowheadSetId:
+      wowheadSetId: 12059
       items:
         1:  57095 # Head
         3:  57096 # Shoulders
@@ -382,7 +382,7 @@ groups:
 
     # Normal set=2384
     - name: Luminous Chevalier's Gallantry
-      wowheadSetId:
+      wowheadSetId: 12057
       items:
         1:  57104 # Head
         3:  57105 # Shoulders
@@ -396,7 +396,7 @@ groups:
 
     # Raid Finder set=2385
     - name: Luminous Chevalier's Gallantry
-      wowheadSetId:
+      wowheadSetId: 12058
       items:
         1:  57077 # Head
         3:  57078 # Shoulders
@@ -411,7 +411,7 @@ groups:
     priest:
     # Mythic set=2393
     - name: Habiliments of the Empyrean
-      wowheadSetId:
+      wowheadSetId: 12064
       items:
         1:  55882 # Head
         3:  55883 # Shoulders
@@ -425,7 +425,7 @@ groups:
 
     # Heroic set=2392
     - name: Habiliments of the Empyrean
-      wowheadSetId:
+      wowheadSetId: 12063
       items:
         1:  55892 # Head
         3:  55893 # Shoulders
@@ -439,7 +439,7 @@ groups:
 
     # Normal set=2390
     - name: Habiliments of the Empyrean
-      wowheadSetId:
+      wowheadSetId: 12062
       items:
         1:  55902 # Head
         3:  55903 # Shoulders
@@ -453,7 +453,7 @@ groups:
 
     # Raid Finder set=2391
     - name: Habiliments of the Empyrean
-      wowheadSetId:
+      wowheadSetId: 12061
       items:
         1:  55872 # Head
         3:  55873 # Shoulders
@@ -468,7 +468,7 @@ groups:
     rogue:
     # Mythic set=2399
     - name: Soulblade Shadowhide
-      wowheadSetId:
+      wowheadSetId: 12089
       items:
         1:  56087 # Head
         3:  56088 # Shoulders
@@ -482,7 +482,7 @@ groups:
 
     # Heroic set=2398
     - name: Soulblade Shadowhide
-      wowheadSetId:
+      wowheadSetId: 12088
       items:
         1:  56063 # Head
         3:  56064 # Shoulders
@@ -496,7 +496,7 @@ groups:
 
     # Normal set=2396
     - name: Soulblade Shadowhide
-      wowheadSetId:
+      wowheadSetId: 12087
       items:
         1:  57003 # Head
         3:  57004 # Shoulders
@@ -510,7 +510,7 @@ groups:
 
     # Raid Finder set=2397
     - name: Soulblade Shadowhide
-      wowheadSetId:
+      wowheadSetId: 12086
       items:
         1:  56047 # Head
         3:  56048 # Shoulders
@@ -525,7 +525,7 @@ groups:
     shaman:
     # Mythic set=2405
     - name: Theurgic Starspeaker's Regalia
-      wowheadSetId:
+      wowheadSetId: 12101
       items:
         1:  56746 # Head
         3:  56747 # Shoulders
@@ -539,7 +539,7 @@ groups:
 
     # Heroic set=2404
     - name: Theurgic Starspeaker's Regalia
-      wowheadSetId:
+      wowheadSetId: 12100
       items:
         1:  56764 # Head
         3:  56765 # Shoulders
@@ -553,7 +553,7 @@ groups:
 
     # Normal set=2402
     - name: Theurgic Starspeaker's Regalia
-      wowheadSetId:
+      wowheadSetId: 12099
       items:
         1:  56728 # Head
         3:  56729 # Shoulders
@@ -567,7 +567,7 @@ groups:
 
     # Raid Finder set=2403
     - name: Theurgic Starspeaker's Regalia
-      wowheadSetId:
+      wowheadSetId: 12098
       items:
         1:  56755 # Head
         3:  56756 # Shoulders
@@ -582,7 +582,7 @@ groups:
     warlock:
     # Mythic set=2411
     - name: Shroud of the Demon Star
-      wowheadSetId:
+      wowheadSetId: 12080
       items:
         1:  56005 # Head
         3:  56006 # Shoulders
@@ -596,7 +596,7 @@ groups:
 
     # Heroic set=2410
     - name: Shroud of the Demon Star
-      wowheadSetId:
+      wowheadSetId: 12079
       items:
         1:  56014 # Head
         3:  56015 # Shoulders
@@ -610,7 +610,7 @@ groups:
 
     # Normal set=2408
     - name: Shroud of the Demon Star
-      wowheadSetId:
+      wowheadSetId: 12078
       items:
         1:  56023 # Head
         3:  56024 # Shoulders
@@ -624,7 +624,7 @@ groups:
 
     # Raid Finder set=2409
     - name: Shroud of the Demon Star
-      wowheadSetId:
+      wowheadSetId: 12077
       items:
         1:  55996 # Head
         3:  55997 # Shoulders
@@ -639,7 +639,7 @@ groups:
     warrior:
     # Mythic set=2417
     - name: Armaments of the Infinite Infantry
-      wowheadSetId:
+      wowheadSetId: 12072
       items:
         1:  56392 # Head
         3:  56393 # Shoulders
@@ -653,7 +653,7 @@ groups:
 
     # Heroic set=2416
     - name: Armaments of the Infinite Infantry
-      wowheadSetId:
+      wowheadSetId: 12071
       items:
         1:  56401 # Head
         3:  56402 # Shoulders
@@ -667,7 +667,7 @@ groups:
 
     # Normal set=2414
     - name: Armaments of the Infinite Infantry
-      wowheadSetId:
+      wowheadSetId: 12070
       items:
         1:  56410 # Head
         3:  56411 # Shoulders
@@ -681,7 +681,7 @@ groups:
 
     # Raid Finder set=2415
     - name: Armaments of the Infinite Infantry
-      wowheadSetId:
+      wowheadSetId: 12069
       items:
         1:  56383 # Head
         3:  56384 # Shoulders
