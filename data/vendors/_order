@@ -10,15 +10,12 @@ z8/_shadowlands.yml
     -
     z8/ardenweald.yml
     z8/heart_of_the_forest.yml
-    -
     z8/bastion.yml
     z8/elysian_hold.yml
-    -
     z8/maldraxxus.yml
     z8/seat_of_the_primus.yml
-    -
-    z8/sinfall.yml
     z8/revendreth.yml
+    z8/sinfall.yml
     -
     z8/oribos.yml
 
