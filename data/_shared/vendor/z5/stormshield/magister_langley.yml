@@ -1,18 +1,39 @@
 id: 128756
 name: "Magister Langley"
+note: "Stormshield Quartermaster"
+
 locations:
-  z5_stormshield:
+  unknown:
+    - 54.4 17.4 alliance
+    - 54.4 17.6 alliance
+    - 54.6 17.4 alliance
     - 54.6 17.6 alliance
+
 sells:
-  - type: mount
-    id: 639 # Pale Thorngrazer
-    costs:
-      0: 5000 # Gold
-      1137642: 100 # Mark of Honor
-    reputation: 1682 exalted # Wrynn's Vanguard
+  # 0
 
   - type: transmog
     id: 115517 # Wrynn's Vanguard Tabard [tabard]
     costs:
       0: 8 # Gold
-    reputation: 1682 exalted # Wrynn's Vanguard
+    reputation: 0 exalted
+
+  - type: transmog
+    id: 116776 # Pale Thorngrazer
+    costs:
+      0: 4250 # Gold
+    reputation: 0 exalted
+
+  - type: transmog
+    id: 116776 # Pale Thorngrazer
+    costs:
+      0: 4000 # Gold
+      1137642: 100
+    reputation: 0 exalted
+
+  - type: transmog
+    id: 114126 # Disposable Pocket Flying Machine
+    costs:
+      0: 8 # Gold
+    reputation: 0 friendly
+
