@@ -84,18 +84,18 @@
 
 - name: "Cloaks"
   items:
-    - id: 122262 # Ancient Bloodmoon Cloak
+    - id: 122261 # Inherited Cape of the Black Baron [agi]
 
-    - id: 122261 # Inherited Cape of the Black Baron
+    - id: 122262 # Ancient Bloodmoon Cloak [int]
 
-    - id: 122266 # Ripped Sandstorm Cloak
+    - id: 122266 # Ripped Sandstorm Cloak [str]
 
-    - id: 122260 # Worn Stoneskin Gargoyle Cape
+    - id: 122260 # Worn Stoneskin Gargoyle Cape [str]
 
-    - id: 166770 # Banded Gilnean Cloak
+    - id: 166770 # Banded Gilnean Cloak [all]
       faction: alliance
 
-    - id: 166752 # Stone Guard's Bladed Cloak
+    - id: 166752 # Stone Guard's Bladed Cloak [all]
       faction: horde
 
 - name: "Necks"
@@ -116,11 +116,11 @@
 
 - name: "Rings"
   items:
+    - id: 122529 # Dread Pirate Ring
+
     - id: 128173 # Admiral Taylor's Loyalty Ring
 
     - id: 128172 # Captain Sander's Returned Band
-
-    - id: 122529 # Dread Pirate Ring
 
     - id: 128169 # Signet of the Third Fleet
 
@@ -131,8 +131,6 @@
 
     - id: 122362 # Discerning Eye of the Beast
 
-    - id: 122530 # Inherited Mark of Tyranny
-
     - id: 126949 # Returning Champion
       upgrades: 3
 
@@ -140,12 +138,6 @@
 
     - id: 128318 # Touch of the Void
       upgrades: 3
-
-    - id: 122371 # Inherited Insignia of the Alliance
-      faction: alliance
-
-    - id: 122370 # Inherited Insignia of the Horde
-      faction: horde
 
     - id: 166766 # Tidesages' Warscroll
       faction: alliance
@@ -171,15 +163,23 @@
     - id: 166753 # Orcish War Horn
       faction: horde
 
+    - id: 122371 # Inherited Insignia of the Alliance
+      faction: alliance
+
+    - id: 122370 # Inherited Insignia of the Horde
+      faction: horde
+
+    - id: 122530 # Inherited Mark of Tyranny
+
 - name: "Weapons"
   items:
+    - id: 122385 # Venerable Mass of McGowan [1h agi mace]
+
     - id: 122354 # Devout Aurastone Hammer [1h int mace]
 
     - id: 122367 # The Blessed Hammer of Grace [1h int mace]
     
     - id: 122369 # Battleworn Thrash Blade [1h sword]
-
-    - id: 122385 # Venerable Mass of McGowan [1h agi mace]
 
     - id: 122351 # Venerable Dal'Rend's Sacred Charge [1h agi sword]
 
