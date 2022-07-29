@@ -19,6 +19,10 @@
             url += '?'
             let first = true
             for (const param in extraParams) {
+                if (extraParams[param] === undefined || extraParams[param] === '') {
+                    continue
+                }
+
                 if (first) {
                     first = false
                 }
