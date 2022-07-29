@@ -92,10 +92,13 @@ z1/_the_burning_crusade.yml
 
 -
 
-misc/_misc.yml
-    misc/darkmoon_island.yml
+other/_other.yml
+    other/darkmoon_island.yml
 
 -
+
+misc/_misc.yml
+    misc/timewalking.yml
 
 pvp/_pvp.yml
     pvp/mists_of_pandaria.yml
