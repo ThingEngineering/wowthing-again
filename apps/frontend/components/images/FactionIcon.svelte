@@ -7,10 +7,13 @@
     export let faction: Faction
     export let size = 20
     export let border = 1
+    export let useTooltip = true
 
     let tooltip: string
     $: {
-        tooltip = Faction[faction]
+        if (useTooltip) {
+            tooltip = Faction[faction]
+        }
     }
 </script>
 
