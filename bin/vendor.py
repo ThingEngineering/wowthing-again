@@ -135,7 +135,7 @@ STANDING = {
 
 mapper_re = re.compile(r'var g_mapperData = (.*?)\;$', re.MULTILINE)
 npc_re = re.compile(r'^\$\.extend\(g_npcs\[\d+], (.*?)\)\;$', re.MULTILINE)
-sells_re = re.compile(r'^new Listview\(.*?data: (.*?)\}\)\;$', re.MULTILINE)
+sells_re = re.compile(r'^new Listview\(.*?id: \'sells\'.*?data: (.*?)\}\)\;$', re.MULTILINE)
 
 requests_cache.install_cache('temp/requests_cache', expire_after=4 * 3600)
 
@@ -161,12 +161,22 @@ if not m:
     print('sells_re fail')
     sys.exit(1)
 
-items = json.loads(re.sub(r'(standing|react|stack|avail|cost):', r'"\1":', m.group(1)))
+item_json = re.sub(r'(standing|react|stack|avail|cost):', r'"\1":', m.group(1))
+item_json = re.sub(r',\]', ',0]', item_json)
+item_json = re.sub(r'\[,', '[0,', item_json)
+items = json.loads(item_json)
 
 
 faction = ''
 react = npc['react']
-if react[0] == 1 and react[1] <= 0:
+if len(react) == 1:
+    react.push(0)
+if react[0] is None:
+    react[0] = 0
+if react[1] is None:
+    react[1] = 0
+
+if react[0] == 1 and (len(react) == 1 or react[1] <= 0):
     faction = ' alliance'
 elif react[0] <= 0 and react[1] == 1:
     faction = ' horde'
