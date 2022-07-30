@@ -3,8 +3,15 @@ name: "Rushi the Fox"
 locations:
   z4_townlong_steppes:
     - 48.8 70.6
+
 tags:
   - "shado-pan"
+
+sets:
+  - name: "Reputation - Shado-Pan"
+    range: -1
+    sortKey: "0-rep-shado-pan-0"
+
 sells:
   - type: mount
     id: 506 # Blue Shado-Pan Riding Tiger

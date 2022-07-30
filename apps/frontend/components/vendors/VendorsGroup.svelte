@@ -120,6 +120,7 @@
         border: none;
         height: 24px;
         width: 24px;
+        pointer-events: none;
         position: absolute;
     }
     .icon-class {
@@ -168,7 +169,6 @@
                                     name="{thing.linkType}/{thing.linkId}"
                                     size={48}
                                     border={2}
-                                    lazy={false}
                                 />
                             </WowheadLink>
 
@@ -184,6 +184,7 @@
                                         faction={thing.item.faction}
                                         border={2}
                                         size={20}
+                                        useTooltip={false}
                                     />
                                 </div>
                             {/if}
@@ -194,6 +195,7 @@
                                         border={2}
                                         size={20}
                                         classId={thing.classId}
+                                        useTooltip={false}
                                     />
                                 </div>
                             {/if}
@@ -215,7 +217,6 @@
                                                     name="{costType}/{costId}"
                                                     size={16}
                                                     border={0}
-                                                    lazy={false}
                                                 />
                                             </CurrencyLink>
                                         </div>

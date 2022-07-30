@@ -12,14 +12,14 @@ sells:
       0: 1000 # Gold
     reputation: 1302 exalted # The Anglers
 
-  - type: toy
-    id: 85500 # Anglers Fishing Raft
-    costs:
-      0: 1000 # Gold
-    reputation: 1302 revered # The Anglers
-
   - type: transmog
     id: 89401 # Anglers Tabard
     costs:
       0: 10 # Gold
     reputation: 1302 exalted # The Anglers
+
+  - type: toy
+    id: 85500 # Anglers Fishing Raft
+    costs:
+      0: 1000 # Gold
+    reputation: 1302 revered # The Anglers

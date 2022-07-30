@@ -2,7 +2,7 @@ id: 85946
 name: "Shadow-Sage Brakoss"
 locations:
   z5_stormshield:
-    - 44.8 75.0 alliance
+    - 44.5 74.9 alliance
 sells:
   - type: mount
     id: 635 # Shadowmane Charger

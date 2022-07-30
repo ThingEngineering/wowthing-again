@@ -1,6 +1,7 @@
 <script lang="ts">
     import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
 
+    import { heirloomBonusIds } from '@/data/heirlooms'
     import { manualStore, userStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
     import type { ManualDataHeirloomGroup } from '@/types/data/manual'
@@ -16,6 +17,12 @@
             ['Available', $manualStore.data.heirlooms.filter((group) => !group.name.startsWith('Unavailable'))],
             ['Unavailable', $manualStore.data.heirlooms.filter((group) => group.name.startsWith('Unavailable'))],
         ]
+    }
+
+    function getHeirloomBonus(groupName: string, level: number, maxUpgrade: number): string {
+        return heirloomBonusIds[groupName]
+            ? heirloomBonusIds[groupName][level]
+            : heirloomBonusIds['default'][5 - maxUpgrade + (level)]
     }
 </script>
 
@@ -87,6 +94,9 @@
                                     <WowheadLink
                                         type="item"
                                         id={item.itemId}
+                                        extraParams={{
+                                            bonus: getHeirloomBonus(group.name, level || 0, item.maxUpgrade)
+                                        }}
                                     >
                                         <WowthingImage
                                             name="item/{item.itemId}"
@@ -94,7 +104,6 @@
                                             border={2}
                                         />
                                     </WowheadLink>
-
                                     {#if level !== undefined}
                                         <div class="pill {getPercentClass(level / item.maxUpgrade * 100)}">
                                             {level} / {item.maxUpgrade}

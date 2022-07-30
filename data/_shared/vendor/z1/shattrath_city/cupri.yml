@@ -9,11 +9,14 @@ locations:
 sets:
   - name: "Armor - Timewalking"
     range: 17 5
-    sortKey: "armor-timewalking"
+    sortKey: "1-armor-timewalking"
   
   - name: "Weapons - Timewalking"
-    range: 12
-    sortKey: "weapons-timewalking"
+    range: -1
+    sortKey: "1-weapons-timewalking"
+
+tags:
+  - "timewalking"
 
 sells:
   - type: mount

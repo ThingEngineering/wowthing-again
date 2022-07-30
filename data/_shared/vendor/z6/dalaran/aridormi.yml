@@ -1,11 +1,23 @@
-id: 180899
+id: 1180899
 name: "Aridorimi"
-note: "Only during Legion Timewalking"
+note: "Timewalking Vendor"
+
 locations:
   z6_dalaran:
-    - 68.8 49.6
+    - 68.6 49.6
+
 tags:
   - "timewalking"
+
+sets:
+  - name: "Armor - Timewalking"
+    range: 12 3
+    sortKey: "1-armor-timewalking"
+
+  - name: "Weapons - Timewalking"
+    range: -1
+    sortKey: "1-weapons-timewalking"
+
 sells:
   - type: mount
     id: 1521 # Val'sharah Hippogryph
@@ -21,6 +33,66 @@ sells:
     id: 188209 # Ensemble: Ravencrest's Battleplate
     costs:
       1166: 500 # Timewarped Badge
+
+  - type: transmog
+    id: 187580 # Nar'thalas Ceremonial Legwraps [cloth]
+    costs:
+      1166: 25 # Timewarped Badge
+
+  - type: transmog
+    id: 187579 # Nar'thalas Ceremonial Tunic [cloth]
+    costs:
+      1166: 25 # Timewarped Badge
+
+  - type: transmog
+    id: 187581 # Nar'thalas Scrollmantle [cloth]
+    costs:
+      1166: 35 # Timewarped Badge
+
+  - type: transmog
+    id: 187583 # Thorignir Breeches [leather]
+    costs:
+      1166: 25 # Timewarped Badge
+
+  - type: transmog
+    id: 187582 # Thorignir Heartguard [leather]
+    costs:
+      1166: 25 # Timewarped Badge
+  
+  - type: transmog
+    id: 187584 # Thorignir Spaulders [leather]
+    costs:
+      1166: 35 # Timewarped Badge
+
+  - type: transmog
+    id: 187585 # Leyguard Cuirass [mail]
+    costs:
+      1166: 25 # Timewarped Badge
+  
+  - type: transmog
+    id: 187586 # Leyguard Greaves [mail]
+    costs:
+      1166: 25 # Timewarped Badge
+
+  - type: transmog
+    id: 187585 # Leyguard Mantle [mail]
+    costs:
+      1166: 35 # Timewarped Badge
+  
+  - type: transmog
+    id: 187588 # Black Rook Elite Chestguard [plate]
+    costs:
+      1166: 25 # Timewarped Badge
+  
+  - type: transmog
+    id: 187589 # Black Rook Elite Legguards [plate]
+    costs:
+      1166: 25 # Timewarped Badge
+
+  - type: transmog
+    id: 187590 # Black Rook Elite Chestguard [plate]
+    costs:
+      1166: 35 # Timewarped Badge
 
   - type: transmog
     id: 187567 # Nightborne Arcsaber [1h agi sword]

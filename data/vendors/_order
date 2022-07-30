@@ -10,15 +10,12 @@ z8/_shadowlands.yml
     -
     z8/ardenweald.yml
     z8/heart_of_the_forest.yml
-    -
     z8/bastion.yml
     z8/elysian_hold.yml
-    -
     z8/maldraxxus.yml
     z8/seat_of_the_primus.yml
-    -
-    z8/sinfall.yml
     z8/revendreth.yml
+    z8/sinfall.yml
     -
     z8/oribos.yml
 
@@ -60,11 +57,11 @@ z5/_warlords_of_draenor.yml
     z5/warspear.yml
 
 z4/_mists_of_pandaria.yml
+    z4/isle_of_giants.yml
+    z4/isle_of_thunder.yml
     z4/timeless_isle.yml
     -
     z4/dread_wastes.yml
-    z4/isle_of_giants.yml
-    z4/isle_of_thunder.yml
     z4/jade_forest.yml
     z4/krasarang_wilds.yml
     z4/kun_lai_summit.yml
@@ -95,10 +92,13 @@ z1/_the_burning_crusade.yml
 
 -
 
-misc/_misc.yml
-    misc/darkmoon_island.yml
+other/_other.yml
+    other/darkmoon_island.yml
 
 -
+
+misc/_misc.yml
+    misc/timewalking.yml
 
 pvp/_pvp.yml
     pvp/mists_of_pandaria.yml

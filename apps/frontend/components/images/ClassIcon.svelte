@@ -11,12 +11,15 @@
     export let classId = 0
     export let size = 20
     export let border = 1
+    export let useTooltip = true
 
     let cls: StaticDataCharacterClass
     let tooltip: string
     $: {
         cls = characterClass || $staticStore.data.characterClasses[character?.classId ?? classId]
-        tooltip = getGenderedName(cls?.name ?? `Unknown class`, character?.gender ?? 0)
+        if (useTooltip) {
+            tooltip = getGenderedName(cls?.name ?? `Unknown class`, character?.gender ?? 0)
+        }
     }
 </script>
 

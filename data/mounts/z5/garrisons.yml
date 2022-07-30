@@ -30,7 +30,8 @@ groups:
 
 - name: Trading Post
   things:
-  - 618 645 # Armored Irontusk/Ironside Warwolf (Trading Post)
+  - 618 645 # Armored Irontusk/Ironside Warwolf
+  - 645 618 # ^ reversed
 
 - name: Vendors
   things:
