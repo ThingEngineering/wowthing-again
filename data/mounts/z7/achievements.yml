@@ -8,6 +8,7 @@ groups:
 - name: "Misc"
   things:
   - 1246 1245 # Ironclad Frostclaw/Bloodflank Charger (Two Sides to Every Tale)
+  - 1245 1246 # ^ reversed
   - 1247 # Mechacycle Model W (Mecha-Done)
   - 1238 # Snapback Scuttler (Undersea Usurper)
   - 1224 # Wonderwing 2.0 (Battle for Azeroth Pathfinder, Part Two)

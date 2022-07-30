@@ -20,7 +20,8 @@ groups:
   - 205 # Flying Machine
   - 470 # Geosynchronous World Spinner
   - 1028 # Mecha-Mogul Mk2
-  - 275 240 # Mekgineer's Chopper/Mechano-Hog
+  - 240 275 # Mechano-Hog/Mekgineer's Chopper
+  - 275 240 # ^ reversed
   - 522 # Sky Golem
   - 204 # Turbo-Charged Flying Machine
 

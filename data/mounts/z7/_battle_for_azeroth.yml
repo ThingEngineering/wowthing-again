@@ -11,6 +11,7 @@ groups:
   things:
   - 1249 # Child of Torcali (Wander Not Alone, Zuldazar)
   - 1255 1256 # Deepcoral Snapdragon/Snapdragon Kelpstalker (Wild Tame/Good Girl, Nazjatar)
+  - 1256 1255 # ^ reversed
   - 1043 # Kua'fon (Down, But Not Out, Zuldazar)
   - 1253 # Scrapforged Mechaspider (Drive It Away Today, Mechagon)
   - 1320 # Shadowbarb Drone (My Own Drone, Uldum)

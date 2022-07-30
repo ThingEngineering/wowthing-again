@@ -9,6 +9,7 @@ groups:
   - 986 # Bleakhoof Ruinstrider (...And Chew Mana Buns)
   - 804 # Ratstallion (Underbelly Tycoon)
   - 775 784 # Prestigious War Steed/Prestigious War Wolf (Free For All, More For Me)
+  - 784 775 # ^ reversed
 
 - name: Puzzles
   things:

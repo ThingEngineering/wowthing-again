@@ -28,6 +28,7 @@ groups:
   things:
   - 896 # Primal Flamesaber (Heroes of the Storm)
   - 440 441 # Spectral Gryphon/Spectral Wind Rider (Scroll of Resurrection)
+  - 441 440 # ^ reversed
   - 439 # Tyrael's Charger (Annual Pass)
 
 - name: Recruit-A-Friend

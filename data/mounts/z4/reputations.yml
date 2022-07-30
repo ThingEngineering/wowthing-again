@@ -49,8 +49,11 @@ groups:
 - name: War Factions
   things:
   - 528 529 # Grand Gryphon/Grand Wyvern (Operation: Shieldwall/Dominance Offensive)
+  - 529 528 # ^ reversed
   - 526 527 # Grand Armored Gryphon/Grand Armored Wyvern (Operation: Shieldwall/Dominance Offensive)
+  - 527 526 # ^ reversed
 
 - name: Isle of Thunder
   things:
   - 545 546 # Golden/Crimson Primal Direhorn (Kirin Tor Offensive/Sunreaver Onslaught)
+  - 546 545 # ^ reversed
