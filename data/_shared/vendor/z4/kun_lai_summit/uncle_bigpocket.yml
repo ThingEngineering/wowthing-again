@@ -1,9 +1,10 @@
 id: 64518
 name: "Uncle Bigpocket"
+
 locations:
   z4_kun_lai_summit:
     - 65.4 61.6
-tags: []
+
 sells:
   - type: mount
     id: 487 # Blonde Riding Yak
