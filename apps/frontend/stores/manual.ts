@@ -316,7 +316,10 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                         let groupKey: string
                         let groupName: string
 
-                        if (item.type === RewardType.Mount) {
+                        if (item.type === RewardType.Illusion) {
+                            [groupKey, groupName] = ['00illusions', 'Illusions']
+                        }
+                        else if (item.type === RewardType.Mount) {
                             [groupKey, groupName] = ['00mounts', 'Mounts']
                         }
                         else if (item.type === RewardType.Pet) {
@@ -333,9 +336,6 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                         }
                         else if (item.type === RewardType.Cosmetic || item.type === RewardType.Transmog) {
                             [groupKey, groupName] = ['90transmog', 'Transmog']
-                        }
-                        else if (item.type === RewardType.Illusion) {
-                            [groupKey, groupName] = ['00illusions', 'Illusions']
                         }
 
                         item.faction = vendor.faction
