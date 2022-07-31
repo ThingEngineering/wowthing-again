@@ -1,7 +1,7 @@
 <script lang="ts">
     import find from 'lodash/find'
-    import sortBy from 'lodash/sortBy'
 
+    import { Constants } from '@/data/constants'
     import { seasonMap, weeklyAffixes } from '@/data/dungeon'
     import { staticStore, userStore } from '@/stores'
     import { data as settingsData } from '@/stores/settings'
@@ -27,8 +27,6 @@
 
     export let slug: string
 
-    const firstSeason: MythicPlusSeason = sortBy(seasonMap, (s: MythicPlusSeason) => -s.id)[0]
-
     let affixes: MythicPlusAffix[]
     let isCurrentSeason: boolean
     let isThisWeek: boolean
@@ -40,7 +38,7 @@
     $: {
         if (slug === 'this-week') {
             isThisWeek = true
-            season = firstSeason
+            season = seasonMap[Constants.mythicPlusSeason]
             runsFunc = (char, dungeonId) => {
                 const currentPeriod = getCurrentPeriodForCharacter(char)
                 if (currentPeriod && char.mythicPlus?.currentPeriodId === currentPeriod.id) {
@@ -62,7 +60,7 @@
             )
         }
 
-        isCurrentSeason = season.id === firstSeason.id
+        isCurrentSeason = season.id === Constants.mythicPlusSeason
         if (isCurrentSeason) {
             const week = ($userStore.data.currentPeriod[1].id - 809) % weeklyAffixes.length
             affixes = weeklyAffixes[week]
