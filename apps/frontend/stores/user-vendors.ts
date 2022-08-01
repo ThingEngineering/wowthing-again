@@ -133,6 +133,20 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
                             continue
                         }
 
+                        if (
+                            (item.type === RewardType.Illusion && !vendorState.showIllusions) ||
+                            (item.type === RewardType.Mount && !vendorState.showMounts) ||
+                            (item.type === RewardType.Pet && !vendorState.showPets) ||
+                            (item.type === RewardType.Toy && !vendorState.showToys) ||
+                            (item.type === RewardType.Armor && item.subType === 1 && !vendorState.showCloth) ||
+                            (item.type === RewardType.Armor && item.subType === 2 && !vendorState.showLeather) ||
+                            (item.type === RewardType.Armor && item.subType === 3 && !vendorState.showMail) ||
+                            (item.type === RewardType.Armor && item.subType === 4 && !vendorState.showPlate) ||
+                            (item.type === RewardType.Weapon && !vendorState.showWeapons)
+                        ) {
+                            continue
+                        }
+
                         group.sellsFiltered.push(item)
                     } // item of group.sells
 
