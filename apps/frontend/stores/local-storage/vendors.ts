@@ -3,8 +3,12 @@ import { writable } from 'svelte/store'
 
 export class VendorState {
     public highlightMissing = true
+    
     public showCollected = true
     public showUncollected = true
+
+    public showPvp = true
+    public showTier = true
 }
 
 const key = 'state-vendors'

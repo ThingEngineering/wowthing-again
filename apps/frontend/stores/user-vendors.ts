@@ -10,6 +10,9 @@ import { getCurrencyCosts } from '@/utils/get-currency-costs'
 import type { StaticData } from '@/types/data/static'
 
 
+const pvpRegex = new RegExp(/ - S\d\d/)
+const tierRegex = new RegExp(/ - T\d\d/)
+
 export class UserVendorStore extends WritableFancyStore<UserVendorData> {
     setup(
         settingsData: Settings,
@@ -47,12 +50,20 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
 
                 for (let groupIndex = 0; groupIndex < category.groups.length; groupIndex++) {
                     const group = category.groups[groupIndex]
+                    group.sellsFiltered = []
+
+                    if (!vendorState.showPvp && pvpRegex.test(group.name)) {
+                        continue
+                    }
+                    if (!vendorState.showTier && tierRegex.test(group.name)) {
+                        continue
+                    }
+
                     const groupKey = `${catKey}--${groupIndex}`
                     const groupStats = stats[groupKey] = new UserCount()
 
                     const appearanceMap: Record<number, ManualDataVendorItem> = {}
 
-                    group.sellsFiltered = []
                     for (const item of group.sells) {
                         item.sortedCosts = getCurrencyCosts(manualData, staticData, item.costs)
 

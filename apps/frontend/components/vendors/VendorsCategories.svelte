@@ -128,6 +128,20 @@
                 bind:value={$vendorState.showUncollected}
             >Missing</CheckboxInput>
         </button>
+
+        <button class="margin-left">
+            <CheckboxInput
+                name="show_pvp"
+                bind:value={$vendorState.showPvp}
+            >PvP</CheckboxInput>
+        </button>
+
+        <button>
+            <CheckboxInput
+                name="show_tier"
+                bind:value={$vendorState.showTier}
+            >Tier</CheckboxInput>
+        </button>
     </div>
 
     {#if categories}
