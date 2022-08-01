@@ -59,6 +59,36 @@ export const weeklyAffixes: MythicPlusAffix[][] = [
 
 // MapChallengeMode.db2
 export const dungeons: Dungeon[] = [
+    // Warlords of Draenor
+    new Dungeon(
+        166,
+        'Grimrail Depot',
+        'GD',
+        'achievement/9043',
+        30
+    ),
+    new Dungeon(
+        169,
+        'Iron Docks',
+        'ID',
+        'achievement/9038',
+        32
+    ),
+    // Legion
+    new Dungeon(
+        227,
+        'Return to Karazhan: Lower',
+        'RKL',
+        'achievement/11338', // Dine and Dash
+        42
+    ),
+    new Dungeon(
+        234,
+        'Return to Karazhan: Upper',
+        'RKU',
+        'achievement/11429',
+        35
+    ),
     // Battle for Azeroth
     new Dungeon(
         244,
@@ -163,7 +193,9 @@ export const dungeons: Dungeon[] = [
     new Dungeon(
         377,
         'De Other Side',
-        'DOS', 'dungeon_de_other_side', 43
+        'DOS',
+        'dungeon_de_other_side',
+        43
     ),
     new Dungeon(
         378,
@@ -203,7 +235,7 @@ export const dungeons: Dungeon[] = [
         391,
         'Tazavesh: Streets of Wonder',
         'TSW',
-        'achievement/15177',
+        'achievement/15106', // Quality Control
         39
     ),
     new Dungeon(
@@ -257,11 +289,24 @@ const orderShadowlands2: number[] = [
     391, // Tazavesh: Streets of Wonder
 ]
 
+// 9.2.7
+const orderShadowlandsS4: number[] = [
+    166, // Grimrail Depot
+    169, // Iron Docks
+    227, // Return to Karazhan: Lower
+    234, // Return to Karazhan: Upper
+    369, // Operation: Mechagon - Junkyard
+    370, // Operation: Mechagon - Workshop
+    392, // Tazavesh: So'leah's Gambit
+    391, // Tazavesh: Streets of Wonder
+]
+
 export const seasonMap: Record<number, MythicPlusSeason> = {
-    7: new MythicPlusSeason(7, 'SL Season 3', 'sl-3', 60, [orderShadowlands2, orderShadowlands]),
+    8: new MythicPlusSeason(8, 'SL Season 4', 'sl-4', 60, [orderShadowlandsS4]),
+    7: new MythicPlusSeason(7, 'SL Season 3', 'sl-3', 60, [orderShadowlands, orderShadowlands2]),
     6: new MythicPlusSeason(6, 'SL Season 2', 'sl-2', 60, [orderShadowlands]),
     5: new MythicPlusSeason(5, 'SL Season 1', 'sl-1', 60, [orderShadowlands]),
-    4: new MythicPlusSeason(4, 'BfA Season 4', 'bfa-4', 50, [orderBattleForAzeroth2, orderBattleForAzeroth]),
+    4: new MythicPlusSeason(4, 'BfA Season 4', 'bfa-4', 50, [orderBattleForAzeroth, orderBattleForAzeroth2]),
     3: new MythicPlusSeason(3, 'BfA Season 3', 'bfa-3', 50, [orderBattleForAzeroth]),
     2: new MythicPlusSeason(2, 'BfA Season 2', 'bfa-2', 50, [orderBattleForAzeroth]),
     1: new MythicPlusSeason(1, 'BfA Season 1', 'bfa-1', 50, [orderBattleForAzeroth]),

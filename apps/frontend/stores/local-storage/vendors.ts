@@ -2,9 +2,25 @@ import { writable } from 'svelte/store'
 
 
 export class VendorState {
+    public filtersExpanded = true
+
     public highlightMissing = true
     public showCollected = true
     public showUncollected = true
+
+    public showCloth = true
+    public showLeather = true
+    public showMail = true
+    public showPlate = true
+    public showWeapons = true
+
+    public showIllusions = true
+    public showMounts = true
+    public showPets = true
+    public showToys = true
+
+    public showPvp = true
+    public showTier = true
 }
 
 const key = 'state-vendors'

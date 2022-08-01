@@ -10,6 +10,9 @@ import { getCurrencyCosts } from '@/utils/get-currency-costs'
 import type { StaticData } from '@/types/data/static'
 
 
+const pvpRegex = new RegExp(/ - S\d\d/)
+const tierRegex = new RegExp(/ - T\d\d/)
+
 export class UserVendorStore extends WritableFancyStore<UserVendorData> {
     setup(
         settingsData: Settings,
@@ -47,12 +50,20 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
 
                 for (let groupIndex = 0; groupIndex < category.groups.length; groupIndex++) {
                     const group = category.groups[groupIndex]
+                    group.sellsFiltered = []
+
+                    if (!vendorState.showPvp && pvpRegex.test(group.name)) {
+                        continue
+                    }
+                    if (!vendorState.showTier && tierRegex.test(group.name)) {
+                        continue
+                    }
+
                     const groupKey = `${catKey}--${groupIndex}`
                     const groupStats = stats[groupKey] = new UserCount()
 
                     const appearanceMap: Record<number, ManualDataVendorItem> = {}
 
-                    group.sellsFiltered = []
                     for (const item of group.sells) {
                         item.sortedCosts = getCurrencyCosts(manualData, staticData, item.costs)
 
@@ -119,6 +130,20 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
                             continue
                         }
                         if (!hasDrop && !vendorState.showUncollected) {
+                            continue
+                        }
+
+                        if (
+                            (item.type === RewardType.Illusion && !vendorState.showIllusions) ||
+                            (item.type === RewardType.Mount && !vendorState.showMounts) ||
+                            (item.type === RewardType.Pet && !vendorState.showPets) ||
+                            (item.type === RewardType.Toy && !vendorState.showToys) ||
+                            (item.type === RewardType.Armor && item.subType === 1 && !vendorState.showCloth) ||
+                            (item.type === RewardType.Armor && item.subType === 2 && !vendorState.showLeather) ||
+                            (item.type === RewardType.Armor && item.subType === 3 && !vendorState.showMail) ||
+                            (item.type === RewardType.Armor && item.subType === 4 && !vendorState.showPlate) ||
+                            (item.type === RewardType.Weapon && !vendorState.showWeapons)
+                        ) {
                             continue
                         }
 

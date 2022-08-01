@@ -7,39 +7,39 @@ locations:
     - 42.4 90.4
 
 sets:
-  - name: "Armor - T4 Druid"
+  - name: "Armor - T04 Druid"
     range: 15
     sortKey: "armor-t4-druid"
 
-  - name: "Armor - T4 Hunter"
+  - name: "Armor - T04 Hunter"
     range: 5
     sortKey: "armor-t4-hunter"
 
-  - name: "Armor - T4 Mage"
+  - name: "Armor - T04 Mage"
     range: 5
     sortKey: "armor-t4-mage"
 
-  - name: "Armor - T4 Paladin"
+  - name: "Armor - T04 Paladin"
     range: 15
     sortKey: "armor-t4-paladin"
 
-  - name: "Armor - T4 Priest"
+  - name: "Armor - T04 Priest"
     range: 10
     sortKey: "armor-t4-priest"
 
-  - name: "Armor - T4 Rogue"
+  - name: "Armor - T04 Rogue"
     range: 5
     sortKey: "armor-t4-rogue"
 
-  - name: "Armor - T4 Shaman"
+  - name: "Armor - T04 Shaman"
     range: 15
     sortKey: "armor-t4-shaman"
 
-  - name: "Armor - T4 Warlock"
+  - name: "Armor - T04 Warlock"
     range: 5
     sortKey: "armor-t4-warlock"
 
-  - name: "Armor - T4 Warrior"
+  - name: "Armor - T04 Warrior"
     range: 10
     sortKey: "armor-t4-warrior"
 
