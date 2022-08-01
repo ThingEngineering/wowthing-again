@@ -7,39 +7,39 @@ locations:
     - 24.8 27
 
 sets:
-  - name: "Armor - T5 Druid"
+  - name: "Armor - T05 Druid"
     range: 15
     sortKey: "armor-t5-druid"
 
-  - name: "Armor - T5 Hunter"
+  - name: "Armor - T05 Hunter"
     range: 5
     sortKey: "armor-t5-hunter"
 
-  - name: "Armor - T5 Mage"
+  - name: "Armor - T05 Mage"
     range: 5
     sortKey: "armor-t5-mage"
 
-  - name: "Armor - T5 Paladin"
+  - name: "Armor - T05 Paladin"
     range: 15
     sortKey: "armor-t5-paladin"
 
-  - name: "Armor - T5 Priest"
+  - name: "Armor - T05 Priest"
     range: 10
     sortKey: "armor-t5-priest"
 
-  - name: "Armor - T5 Rogue"
+  - name: "Armor - T05 Rogue"
     range: 5
     sortKey: "armor-t5-rogue"
 
-  - name: "Armor - T5 Shaman"
+  - name: "Armor - T05 Shaman"
     range: 15
     sortKey: "armor-t5-shaman"
 
-  - name: "Armor - T5 Warlock"
+  - name: "Armor - T05 Warlock"
     range: 5
     sortKey: "armor-t5-warlock"
 
-  - name: "Armor - T5 Warrior"
+  - name: "Armor - T05 Warrior"
     range: 10
     sortKey: "armor-t5-warrior"
 
