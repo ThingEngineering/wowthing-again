@@ -3,7 +3,7 @@
 
     import { journalStore } from '@/stores'
     import { journalState } from '@/stores/local-storage'
-    import type { JournalDataInstance, JournalDataTier } from '@/types/data'
+    import type { JournalDataEncounterItemGroup, JournalDataInstance, JournalDataTier } from '@/types/data'
 
     import EncounterStats from './JournalEncounterStats.svelte'
     import Group from './JournalGroup.svelte'
@@ -20,6 +20,10 @@
         if (tier) {
             instance = find(tier.instances, (instance) => instance.slug === slug2)
         }
+    }
+
+    const reduceFunc = function(a: number, b: JournalDataEncounterItemGroup) {
+        return a + b.filteredItems.filter((item) => item.show).reduce((a, b) => a + b.appearances.length, 0)
     }
 </script>
 
@@ -61,7 +65,7 @@
             {#each instance.encounters as encounter}
                 {#if $journalState.showTrash || encounter.name !== 'Trash Drops'}
                     {@const statsKey = `${slug1}--${slug2}--${encounter.name}`}
-                    {@const useV2 = encounter.groups.length > 3 && encounter.groups.reduce((a, b) => a + b.items.reduce((a, b) => a + b.appearances.length, 0), 0) > 30}
+                    {@const useV2 = encounter.groups.length > 3 && encounter.groups.reduce(reduceFunc, 0) > 30}
                     <SectionTitle
                         title={encounter.name}
                         count={$journalStore.data.stats[statsKey]}
