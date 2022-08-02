@@ -314,33 +314,33 @@ export const seasonMap: Record<number, MythicPlusSeason> = {
 
 // [rating, max item level] first match >= rating is used
 export const ratingItemLevelUpgrade: Array<Array<number>> = [
-    [2000, 272],
-    [1700, 268],
-    [1400, 265],
-    [1200, 262],
-    [1000, 259],
-    [600, 255],
-    [0, 252],
+    [2000, 298],
+    [1700, 294],
+    [1400, 291],
+    [1200, 288],
+    [1000, 285],
+    [600, 281],
+    [0, 278],
 ]
 
 // [key level, item level] first match >= key is used
 export const keyVaultItemLevel: Array<Array<number>> = [
-    [15, 278],
-    [14, 275],
-    [12, 272],
-    [11, 268],
-    [10, 265],
-    [8, 262],
-    [7, 259],
-    [5, 255],
-    [2, 252],
+    [15, 304],
+    [14, 301],
+    [12, 298],
+    [11, 294],
+    [10, 291],
+    [8, 288],
+    [7, 285],
+    [5, 281],
+    [2, 278],
 ]
 
 export const raidVaultItemLevel: Record<number, number> = {
-    17: 239, // LFR
-    14: 252, // Normal
-    15: 265, // Heroic
-    16: 278, // Mythic
+    17: 265, // LFR
+    14: 278, // Normal
+    15: 291, // Heroic
+    16: 304, // Mythic
 }
 
 export const keyTiers = [

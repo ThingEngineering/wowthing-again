@@ -6,6 +6,29 @@ public static partial class Hardcoded
     private static readonly int[] RaidDifficultiesLfrNormalHeroic = { 3, 4, 5, 6, 7 };
     private static readonly int[] RaidDifficultiesNoLfr = { 14, 15, 16 };
 
+    private static readonly List<ExtraItemDrop> FrozenHallsTrashDrops = new List<ExtraItemDrop>
+    {
+        // Cloth
+        new (49854, new[] { 1 }), // Mantle of Tattered Feathers [N]
+        // Leather
+        new (50318, new[] { 2 }), // Ghostly Wristwraps [H]
+        // Plate
+        new (49855, new[] { 1 }), // Plated Grips of Korth'azz [N]
+        new (49853, new[] { 1 }), // Titanium Links of Lore [N]
+        // Weapon
+        new (49852, new[] { 1 }), // Coffin Nail [N]
+        new (50315, new[] { 2 }), // Seven-Fingered Claws [H]
+        new (50319, new[] { 2 }), // Unsharpened Ice Razor [H]
+        // Battered Hilt
+        new (50046, new[] { 2}), // Quel'Delar, Cunning of the Shadows
+        new (50047, new[] { 2}), // Quel'Delar, Lens of the Mind
+        new (50048, new[] { 2}), // Quel'Delar, Might of the Faithful
+        new (50049, new[] { 2}), // Quel'Delar, Ferocity of the Scorned
+        new (50050, new[] { 2}), // Cudgel of Furious Justice
+        new (50051, new[] { 2}), // Hammer of Purified Flame
+        new (50052, new[] { 2}), // Lightborn Spire
+    };
+
     public static readonly Dictionary<int, List<ExtraItemDrop>> ExtraItemDrops = new()
     {
         {
@@ -560,8 +583,24 @@ public static partial class Hardcoded
         #endregion
 
         #region Wrath of the Lich King Trash
+        // Halls of Reflection > Trash
         {
-            1000754, // Naxxramas > Trash
+            1000276,
+            FrozenHallsTrashDrops
+        },
+        // Pit of Saron > Trash
+        {
+            1000278,
+            FrozenHallsTrashDrops
+        },
+        // Forge of Souls > Trash
+        {
+            1000280,
+            FrozenHallsTrashDrops
+        },
+        // Naxxramas > Trash
+        {
+            1000754,
             new List<ExtraItemDrop>
             {
                 // Leather
@@ -580,8 +619,9 @@ public static partial class Hardcoded
                 new (39468, new[] { 3 }), // The Stray
             }
         },
+        // Ulduar > Trash
         {
-            1000759, // Ulduar > Trash
+            1000759,
             new List<ExtraItemDrop>
             {
                 // Cloth

@@ -5,6 +5,7 @@ groups:
   things:
   - 2386 # Coastal Scuttler (Drustvar)
   - 2378 # River Otter (Drustvar, Stormsong Valley)
+  - 2381 # Shack Crab (Tiragarde Sound)
 
 - name: Mechagon
   things:
@@ -49,6 +50,7 @@ groups:
 - name: Stormsong Valley
   things:
   - 2374 # Freshwater Crawler (Stormsong Valley)
+  - 2399 # Hermit Crab (Vol'dun)
   - 2379 # Honey Bee (Stormsong Valley)
   - 2373 # River Frog (Stormsong Valley)
   - 2378 # River Otter (Drustvar, Stormsong Valley)
@@ -59,6 +61,7 @@ groups:
 
 - name: Tiragarde Sound
   things:
+  - 478 # Forest Moth
   - 2383 # Giant Woodworm (Tiragarde Sound)
   - 2382 # Inland Croaker (Tiragarde Sound)
   - 2380 # Parasitic Boarfly (Tiragarde Sound)
