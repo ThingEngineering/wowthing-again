@@ -560,6 +560,11 @@ sells:
   # Collections
 
   - type: transmog
+    id: 138628 # Arsenal: Warmongering Combatant's Weapons
+    costs:
+      1137642: 80
+
+  - type: transmog
     id: 138589 # Ensemble: Warmongering Combatant's Dreadplate Armor
     costs:
       1137642: 12
@@ -615,16 +620,6 @@ sells:
       1137642: 12
 
   # Weapons
-
-  - type: transmog
-    id: 120168 # Pre-Mixed Pot of Noodles
-    costs:
-      0: 2 # Gold
-
-  - type: transmog
-    id: 138628 # Arsenal: Warmongering Combatant's Weapons
-    costs:
-      1137642: 80
 
   - type: transmog
     id: 127379 # Warmongering Combatant's Chopper [1h ? axe]
