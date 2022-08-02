@@ -3,11 +3,11 @@ groups:
 
 - name: Azsuna
   things:
-  - 1731 # Felspider (Azsuna, Highmountain)
   - 1708 # Albatross Chick (Azsuna, Stormheim)
   - 1914 # Coastal Sandpiper (Azsuna, Suramar)
   - 1774 # Eldritch Manafiend (Azsuna)
   - 1773 # Erudite Manafiend (Azsuna)
+  - 1731 # Felspider (Azsuna, Highmountain)
   - 1709 # Fledgling Kingfeather (Azsuna)
   - 1710 # Fledgling Oliveback (Azsuna)
   - 1728 # Juvenile Scuttleback (Azsuna)
