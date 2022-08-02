@@ -11,6 +11,7 @@
     --image-border-width: 2px;
     
     break-inside: avoid;
+    overflow: hidden; /* Firefox fix */
 
     + .collection-v2-group {
         margin-top: 1rem;
