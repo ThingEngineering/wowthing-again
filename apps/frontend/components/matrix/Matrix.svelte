@@ -15,6 +15,7 @@
     import type { Character } from '@/types'
 
     import Checkbox from '@/components/forms/CheckboxInput.svelte'
+    import CovenantIcon from '@/components/images/CovenantIcon.svelte'
     import NumberInput from '@/components/forms/NumberInput.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
     import UnderConstruction from '@/components/common/UnderConstruction.svelte'
@@ -171,6 +172,9 @@
             background: mix($thing-background, $colour-fail, 90%);
         }
     }
+    .level {
+        --image-margin-top: -4px;
+    }
 </style>
 
 <div class="wrapper">
@@ -258,7 +262,12 @@
                             class:no-characters={characters.length === 0}
                         >
                             {#each characters as character}
-                                <div>{character.level}</div>
+                                <div class="level">
+                                    {#if character.shadowlands?.covenantId}
+                                        <CovenantIcon covenantId={character.shadowlands.covenantId} />
+                                    {/if}
+                                    {character.level}
+                                </div>
                             {:else}
                                 ---
                             {/each}
