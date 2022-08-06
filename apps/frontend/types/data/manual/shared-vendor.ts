@@ -58,11 +58,14 @@ export class ManualDataSharedVendor {
         const itemDrops: ManualDataZoneMapDrop[] = []
         const setDrops: ManualDataZoneMapDrop[] = []
 
+        const setItems: Record<number, boolean> = {}
+
         if (this.sets) {
             let setPosition = 0;
             for (const set of this.sets) {
                 const appearanceIds: number[][] = []
                 const costs: Record<number, number>[] = []
+                const vendorItems: ManualDataVendorItem[] = []
 
                 if (set.range[1] > 0) {
                     setPosition = set.range[1]
@@ -82,7 +85,10 @@ export class ManualDataSharedVendor {
                         break
                     }
 
+                    setItems[sellIndex] = true
+
                     costs.push(item.costs)
+                    vendorItems.push(item)
                     
                     const itemAppearanceIds = item.appearanceIds?.[0] > 0
                         ? item.appearanceIds
@@ -104,10 +110,16 @@ export class ManualDataSharedVendor {
                     appearanceIds: appearanceIds,
                     costs: costs,
                     limit: [set.name],
+                    vendorItems,
                 })
             }
 
-            for (const item of this.sells) {
+            for (let sellIndex = 0; sellIndex < this.sells.length; sellIndex++) {
+                if (setItems[sellIndex]) {
+                    continue
+                }
+
+                const item = this.sells[sellIndex]
                 const appearanceIds = item.appearanceIds?.[0] > 0
                     ? item.appearanceIds
                     : [manualData.shared.items[item.id]?.appearanceIds?.[0] || 0]
