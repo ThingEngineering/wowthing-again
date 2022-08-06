@@ -1,10 +1,8 @@
-import every from 'lodash/every'
 
 import userHasDrop from './user-has-drop'
 import type { UserTransmogData } from '@/types/data'
 import type { ManualData, ManualDataZoneMapDrop } from '@/types/data/manual'
 import type { UserData } from '@/types'
-import { RewardType } from '@/types/enums'
 
 
 export function getVendorDropStats(
@@ -16,7 +14,7 @@ export function getVendorDropStats(
 ): [number, number] {
     let have = 0
     let total = 0
-    const seen: Record<number, boolean> = {}
+    //const seen: Record<number, boolean> = {}
 
     for (const vendorItem of drop.vendorItems) {
         const hasDrop = userHasDrop(
