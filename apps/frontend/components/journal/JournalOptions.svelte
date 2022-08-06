@@ -5,7 +5,7 @@
     import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
 
-    
+
     function getFilters(state: JournalState): string {
         let byType: string[] = []
         let byMisc: string[] = []
@@ -146,133 +146,140 @@
     </button>
 </div>
 
-{#if $journalState.filtersExpanded}
-    <div class="options-container filters-container">
-        <button>
-            <CheckboxInput
-                name="show_cloth"
-                bind:value={$journalState.showCloth}
-            >Cloth</CheckboxInput>
-        </button>
+<div
+    class="options-container filters-container"
+    style:display={$journalState.filtersExpanded ? null : 'none'}
+>
+    <button>
+        <CheckboxInput
+            name="show_cloth"
+            bind:value={$journalState.showCloth}
+        >Cloth</CheckboxInput>
+    </button>
 
-        <button>
-            <CheckboxInput
-                name="show_leather"
-                bind:value={$journalState.showLeather}
-            >Leather</CheckboxInput>
-        </button>
+    <button>
+        <CheckboxInput
+            name="show_leather"
+            bind:value={$journalState.showLeather}
+        >Leather</CheckboxInput>
+    </button>
 
-        <button>
-            <CheckboxInput
-                name="show_mail"
-                bind:value={$journalState.showMail}
-            >Mail</CheckboxInput>
-        </button>
+    <button>
+        <CheckboxInput
+            name="show_mail"
+            bind:value={$journalState.showMail}
+        >Mail</CheckboxInput>
+    </button>
 
-        <button>
-            <CheckboxInput
-                name="show_plate"
-                bind:value={$journalState.showPlate}
-            >Plate</CheckboxInput>
-        </button>
+    <button>
+        <CheckboxInput
+            name="show_plate"
+            bind:value={$journalState.showPlate}
+        >Plate</CheckboxInput>
+    </button>
 
-        <button class="margin-left">
-            <CheckboxInput
-                name="show_cloaks"
-                bind:value={$journalState.showCloaks}
-            >Cloaks</CheckboxInput>
-        </button>
+    <button class="margin-left">
+        <CheckboxInput
+            name="show_cloaks"
+            bind:value={$journalState.showCloaks}
+        >Cloaks</CheckboxInput>
+    </button>
 
-        <button>
-            <CheckboxInput
-                name="show_weapons"
-                bind:value={$journalState.showWeapons}
-            >Weapons</CheckboxInput>
-        </button>
+    <button>
+        <CheckboxInput
+            name="show_weapons"
+            bind:value={$journalState.showWeapons}
+        >Weapons</CheckboxInput>
+    </button>
 
-        <button class="margin-left">
-            <CheckboxInput
-                name="show_trash"
-                bind:value={$journalState.showTrash}
-            >Trash Drops</CheckboxInput>
-        </button>
-    </div>
+    <button class="margin-left">
+        <CheckboxInput
+            name="show_trash"
+            bind:value={$journalState.showTrash}
+        >Trash Drops</CheckboxInput>
+    </button>
+</div>
 
-    <div class="options-container filters-container">
-        <span>Dungeons:</span>
+<div
+    class="options-container filters-container"
+    style:display={$journalState.filtersExpanded ? null : 'none'}
+>
+    <span>Dungeons:</span>
 
-        <button>
-            <CheckboxInput
-                name="show_dungeon_normal"
-                bind:value={$journalState.showDungeonNormal}
-            >Normal</CheckboxInput>
-        </button>
+    <button>
+        <CheckboxInput
+            name="show_dungeon_normal"
+            bind:value={$journalState.showDungeonNormal}
+        >Normal</CheckboxInput>
+    </button>
 
-        <button>
-            <CheckboxInput
-                name="show_dungeon_heroic"
-                bind:value={$journalState.showDungeonHeroic}
-            >Heroic</CheckboxInput>
-        </button>
+    <button>
+        <CheckboxInput
+            name="show_dungeon_heroic"
+            bind:value={$journalState.showDungeonHeroic}
+        >Heroic</CheckboxInput>
+    </button>
 
-        <button>
-            <CheckboxInput
-                name="show_dungeon_mythic"
-                bind:value={$journalState.showDungeonMythic}
-            >Mythic</CheckboxInput>
-        </button>
+    <button>
+        <CheckboxInput
+            name="show_dungeon_mythic"
+            bind:value={$journalState.showDungeonMythic}
+        >Mythic</CheckboxInput>
+    </button>
 
-        <button>
-            <CheckboxInput
-                name="show_dungeon_timewalking"
-                bind:value={$journalState.showDungeonTimewalking}
-            >Timewalking</CheckboxInput>
-        </button>
-    </div>
-    
-    <div class="options-container filters-container">
-        <span>Raids:</span>
+    <button>
+        <CheckboxInput
+            name="show_dungeon_timewalking"
+            bind:value={$journalState.showDungeonTimewalking}
+        >Timewalking</CheckboxInput>
+    </button>
+</div>
 
-        <button>
-            <CheckboxInput
-                name="show_raid_lfr"
-                bind:value={$journalState.showRaidLfr}
-            >LFR</CheckboxInput>
-        </button>
+<div
+    class="options-container filters-container"
+    style:display={$journalState.filtersExpanded ? null : 'none'}
+>
+    <span>Raids:</span>
 
-        <button>
-            <CheckboxInput
-                name="show_raid_normal"
-                bind:value={$journalState.showRaidNormal}
-            >Normal</CheckboxInput>
-        </button>
+    <button>
+        <CheckboxInput
+            name="show_raid_lfr"
+            bind:value={$journalState.showRaidLfr}
+        >LFR</CheckboxInput>
+    </button>
 
-        <button>
-            <CheckboxInput
-                name="show_raid_heroic"
-                bind:value={$journalState.showRaidHeroic}
-            >Heroic</CheckboxInput>
-        </button>
+    <button>
+        <CheckboxInput
+            name="show_raid_normal"
+            bind:value={$journalState.showRaidNormal}
+        >Normal</CheckboxInput>
+    </button>
 
-        <button>
-            <CheckboxInput
-                name="show_raid_mythic"
-                bind:value={$journalState.showRaidMythic}
-            >Mythic</CheckboxInput>
-        </button>
+    <button>
+        <CheckboxInput
+            name="show_raid_heroic"
+            bind:value={$journalState.showRaidHeroic}
+        >Heroic</CheckboxInput>
+    </button>
 
-        <button>
-            <CheckboxInput
-                name="show_raid_mythic_old"
-                bind:value={$journalState.showRaidMythicOld}
-            >Mythic (Old)</CheckboxInput>
-        </button>
+    <button>
+        <CheckboxInput
+            name="show_raid_mythic"
+            bind:value={$journalState.showRaidMythic}
+        >Mythic</CheckboxInput>
+    </button>
 
-        <button>
-            <CheckboxInput
-                name="show_raid_timewalking"
-                bind:value={$journalState.showRaidTimewalking}
-            >Timewalking</CheckboxInput>
-        </button>
-    </div>
-{/if}
+    <button>
+        <CheckboxInput
+            name="show_raid_mythic_old"
+            bind:value={$journalState.showRaidMythicOld}
+        >Mythic (Old)</CheckboxInput>
+    </button>
+
+    <button>
+        <CheckboxInput
+            name="show_raid_timewalking"
+            bind:value={$journalState.showRaidTimewalking}
+        >Timewalking</CheckboxInput>
+    </button>
+</div>

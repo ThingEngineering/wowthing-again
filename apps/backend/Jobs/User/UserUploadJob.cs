@@ -415,7 +415,7 @@ public class UserUploadJob : JobBase
         }
 
         // Mythic Plus
-        if (characterData.MythicPlus != null &&
+        if ((characterData.MythicPlus != null || characterData.MythicPlusV2 != null) &&
             characterData.ScanTimes.TryGetValue("mythicPlus", out int mythicPlusTimestamp))
         {
             var scanTime = mythicPlusTimestamp.AsUtcDateTime();
@@ -423,59 +423,156 @@ public class UserUploadJob : JobBase
             {
                 character.AddonData.MythicPlusScannedAt = scanTime;
 
-                if (character.AddonData.MythicPlus == null)
+                // V1 data
+                if (characterData.MythicPlus != null)
                 {
-                    character.AddonData.MythicPlus = new();
-                }
-
-                var season = character.AddonData.MythicPlus[characterData.MythicPlus.Season] = new();
-
-                foreach (var map in characterData.MythicPlus.Maps.EmptyIfNull())
-                {
-                    var mapData = season.Maps[map.MapId] = new PlayerCharacterAddonDataMythicPlusMap();
-                    mapData.OverallScore = map.OverallScore;
-
-                    foreach (var mapScore in map.AffixScores.EmptyIfNull())
+                    if (character.AddonData.MythicPlus == null)
                     {
-                        if (_fortifiedNames.Contains(mapScore.Name))
+                        character.AddonData.MythicPlus = new();
+                    }
+
+                    var season = character.AddonData.MythicPlus[characterData.MythicPlus.Season] = new();
+
+                    foreach (var map in characterData.MythicPlus.Maps.EmptyIfNull())
+                    {
+                        var mapData = season.Maps[map.MapId] = new PlayerCharacterAddonDataMythicPlusMap();
+                        mapData.OverallScore = map.OverallScore;
+
+                        foreach (var mapScore in map.AffixScores.EmptyIfNull())
                         {
-                            mapData.FortifiedScore = new PlayerCharacterAddonDataMythicPlusScore
+                            if (_fortifiedNames.Contains(mapScore.Name))
                             {
-                                OverTime = mapScore.OverTime,
-                                DurationSec = mapScore.DurationSec,
-                                Level = mapScore.Level,
-                                Score = mapScore.Score,
-                            };
-                        }
-                        else
-                        {
-                            mapData.TyrannicalScore = new PlayerCharacterAddonDataMythicPlusScore
+                                mapData.FortifiedScore = new PlayerCharacterAddonDataMythicPlusScore
+                                {
+                                    OverTime = mapScore.OverTime,
+                                    DurationSec = mapScore.DurationSec,
+                                    Level = mapScore.Level,
+                                    Score = mapScore.Score,
+                                };
+                            }
+                            else
                             {
-                                OverTime = mapScore.OverTime,
-                                DurationSec = mapScore.DurationSec,
-                                Level = mapScore.Level,
-                                Score = mapScore.Score,
-                            };
+                                mapData.TyrannicalScore = new PlayerCharacterAddonDataMythicPlusScore
+                                {
+                                    OverTime = mapScore.OverTime,
+                                    DurationSec = mapScore.DurationSec,
+                                    Level = mapScore.Level,
+                                    Score = mapScore.Score,
+                                };
+                            }
                         }
                     }
-                }
 
-                foreach (var runString in characterData.MythicPlus.Runs.EmptyIfNull())
-                {
-                    var runParts = runString.Split(':');
-                    season.Runs.Add(new PlayerCharacterAddonDataMythicPlusRun
+                    foreach (var runString in characterData.MythicPlus.Runs.EmptyIfNull())
                     {
-                        MapId = int.Parse(runParts[0]),
-                        Completed = runParts[1] == "1",
-                        Level = int.Parse(runParts[2]),
-                        Score = int.Parse(runParts[3]),
-                    });
+                        var runParts = runString.Split(':');
+                        season.Runs.Add(new PlayerCharacterAddonDataMythicPlusRun
+                        {
+                            MapId = int.Parse(runParts[0]),
+                            Completed = runParts[1] == "1",
+                            Level = int.Parse(runParts[2]),
+                            Score = int.Parse(runParts[3]),
+                        });
+                    }
+
+                    // Change detection for this is obnoxious, just update it
+                    Context.Entry(character.AddonData)
+                        .Property(ad => ad.MythicPlus)
+                        .IsModified = true;
                 }
 
-                // Change detection for this is obnoxious, just update it
-                Context.Entry(character.AddonData)
-                    .Property(ad => ad.MythicPlus)
-                    .IsModified = true;
+                // V2 data
+                if (characterData.MythicPlusV2 != null)
+                {
+                    // Seasons
+                    if (character.AddonData.MythicPlusSeasons == null)
+                    {
+                        character.AddonData.MythicPlusSeasons = new();
+                    }
+
+                    foreach (var (seasonId, maps) in characterData.MythicPlusV2.Seasons.EmptyIfNull())
+                    {
+                        var season = character.AddonData.MythicPlusSeasons[seasonId] = new();
+
+                        foreach (var map in maps)
+                        {
+                            var mapData = season[map.MapId] = new PlayerCharacterAddonDataMythicPlusMap();
+                            mapData.OverallScore = map.OverallScore;
+
+                            foreach (var mapScore in map.AffixScores.EmptyIfNull())
+                            {
+                                if (_fortifiedNames.Contains(mapScore.Name))
+                                {
+                                    mapData.FortifiedScore = new PlayerCharacterAddonDataMythicPlusScore
+                                    {
+                                        OverTime = mapScore.OverTime,
+                                        DurationSec = mapScore.DurationSec,
+                                        Level = mapScore.Level,
+                                        Score = mapScore.Score,
+                                    };
+                                }
+                                else
+                                {
+                                    mapData.TyrannicalScore = new PlayerCharacterAddonDataMythicPlusScore
+                                    {
+                                        OverTime = mapScore.OverTime,
+                                        DurationSec = mapScore.DurationSec,
+                                        Level = mapScore.Level,
+                                        Score = mapScore.Score,
+                                    };
+                                }
+                            }
+                        }
+                    }
+
+                    // Migrate any old data
+                    foreach (var (season, data) in character.AddonData.MythicPlus.EmptyIfNull())
+                    {
+                        if (!character.AddonData.MythicPlusSeasons.ContainsKey(season))
+                        {
+                            character.AddonData.MythicPlusSeasons[season] = data.Maps;
+                        }
+                    }
+
+                    // Weeks
+                    if (character.AddonData.MythicPlusWeeks == null)
+                    {
+                        character.AddonData.MythicPlusWeeks = new();
+                    }
+
+                    foreach (var (weekEnds, runStrings) in characterData.MythicPlusV2.Weeks.EmptyIfNull())
+                    {
+                        if (!character.AddonData.MythicPlusWeeks.TryGetValue(weekEnds, out var week))
+                        {
+                            week = character.AddonData.MythicPlusWeeks[weekEnds] = new();
+                        }
+
+                        if (week.Count > runStrings.Count)
+                        {
+                            continue;
+                        }
+
+                        foreach (var runString in runStrings)
+                        {
+                            var runParts = runString.Split(':');
+                            week.Add(new PlayerCharacterAddonDataMythicPlusRun
+                            {
+                                MapId = int.Parse(runParts[0]),
+                                Completed = runParts[1] == "1",
+                                Level = int.Parse(runParts[2]),
+                                Score = int.Parse(runParts[3]),
+                            });
+                        }
+                    }
+
+                    // Change detection for this is obnoxious, just update it
+                    Context.Entry(character.AddonData)
+                        .Property(ad => ad.MythicPlusSeasons)
+                        .IsModified = true;
+                    Context.Entry(character.AddonData)
+                        .Property(ad => ad.MythicPlusWeeks)
+                        .IsModified = true;
+                }
             }
         }
     }

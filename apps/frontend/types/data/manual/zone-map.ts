@@ -1,4 +1,5 @@
 import type { FarmIdType, FarmResetType, FarmType, RewardType } from '@/types/enums'
+import type { ManualDataVendorItem } from './vendor'
 
 
 export class ManualDataZoneMapCategory {
@@ -48,6 +49,7 @@ export type ManualDataZoneMapFarmArray = ConstructorParameters<typeof ManualData
 export class ManualDataZoneMapDrop {
     public appearanceIds?: number[][]
     public costs?: Record<number, number>[]
+    public vendorItems?: ManualDataVendorItem[]
 
     constructor(
         public id: number,

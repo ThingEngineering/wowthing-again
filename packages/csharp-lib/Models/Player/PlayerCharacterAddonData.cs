@@ -21,6 +21,12 @@ public class PlayerCharacterAddonData
 
     [Column(TypeName = "jsonb")]
     public Dictionary<int, PlayerCharacterAddonDataMythicPlus> MythicPlus { get; set; }
+
+    [Column(TypeName = "jsonb")]
+    public Dictionary<int, Dictionary<int, PlayerCharacterAddonDataMythicPlusMap>> MythicPlusSeasons { get; set; }
+
+    [Column(TypeName = "jsonb")]
+    public Dictionary<int, List<PlayerCharacterAddonDataMythicPlusRun>> MythicPlusWeeks { get; set; }
 }
 
 public class PlayerCharacterAddonDataMythicPlus

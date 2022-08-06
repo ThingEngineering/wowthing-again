@@ -80,14 +80,16 @@ export const dungeons: Dungeon[] = [
         'Return to Karazhan: Lower',
         'RKL',
         'achievement/11338', // Dine and Dash
-        42
+        42,
+        'LOWR'
     ),
     new Dungeon(
         234,
         'Return to Karazhan: Upper',
         'RKU',
         'achievement/11429',
-        35
+        35,
+        'UPPR'
     ),
     // Battle for Azeroth
     new Dungeon(
@@ -163,14 +165,14 @@ export const dungeons: Dungeon[] = [
     new Dungeon(
         369,
         'Operation: Mechagon - Junkyard',
-        'OMJ',
+        'YARD',
         'dungeon_operation_mechagon_junkyard',
-        0
+        0,
     ),
     new Dungeon(
         370,
         'Operation: Mechagon - Workshop',
-        'OMW',
+        'WORK',
         'dungeon_operation_mechagon_workshop',
         0
     ),
@@ -234,14 +236,14 @@ export const dungeons: Dungeon[] = [
     new Dungeon(
         391,
         'Tazavesh: Streets of Wonder',
-        'TSW',
+        'STRT',
         'achievement/15106', // Quality Control
         39
     ),
     new Dungeon(
         392,
         "Tazavesh: So'leah's Gambit",
-        'TSG',
+        'GMBT',
         'achievement/15177',
         30
     ),
@@ -271,7 +273,7 @@ const orderBattleForAzeroth2: number[] = [
     370, // Operation: Mechagon - Workshop
 ]
 
-// 9.0
+// Shadowlands S1/2
 const orderShadowlands: number[] = [
     377, // De Other Side
     378, // Halls of Atonement
@@ -283,13 +285,13 @@ const orderShadowlands: number[] = [
     382, // Theater of Pain
 ]
 
-// 9.2
-const orderShadowlands2: number[] = [
+// Shadowlands S3
+const orderShadowlandsExtraS3: number[] = [
     392, // Tazavesh: So'leah's Gambit
     391, // Tazavesh: Streets of Wonder
 ]
 
-// 9.2.7
+// Shadowlands S4
 const orderShadowlandsS4: number[] = [
     166, // Grimrail Depot
     169, // Iron Docks
@@ -303,7 +305,7 @@ const orderShadowlandsS4: number[] = [
 
 export const seasonMap: Record<number, MythicPlusSeason> = {
     8: new MythicPlusSeason(8, 'SL Season 4', 'sl-4', 60, [orderShadowlandsS4]),
-    7: new MythicPlusSeason(7, 'SL Season 3', 'sl-3', 60, [orderShadowlands, orderShadowlands2]),
+    7: new MythicPlusSeason(7, 'SL Season 3', 'sl-3', 60, [orderShadowlands, orderShadowlandsExtraS3]),
     6: new MythicPlusSeason(6, 'SL Season 2', 'sl-2', 60, [orderShadowlands]),
     5: new MythicPlusSeason(5, 'SL Season 1', 'sl-1', 60, [orderShadowlands]),
     4: new MythicPlusSeason(4, 'BfA Season 4', 'bfa-4', 50, [orderBattleForAzeroth, orderBattleForAzeroth2]),
@@ -319,7 +321,7 @@ export const ratingItemLevelUpgrade: Array<Array<number>> = [
     [1400, 291],
     [1200, 288],
     [1000, 285],
-    [600, 281],
+    [600, 282],
     [0, 278],
 ]
 

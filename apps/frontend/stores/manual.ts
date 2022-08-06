@@ -613,7 +613,13 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                                 break
 
                             case RewardType.SetSpecial:
-                                [dropStatus.setHave, dropStatus.setNeed] = getVendorDropStats(userTransmogData, masochist, drop)
+                                [dropStatus.setHave, dropStatus.setNeed] = getVendorDropStats(
+                                    manualData,
+                                    userData,
+                                    userTransmogData,
+                                    masochist,
+                                    drop
+                                )
                                 dropStatus.need = dropStatus.setHave < dropStatus.setNeed
 
                                 dropStatus.setNote = getSetCurrencyCostsString(

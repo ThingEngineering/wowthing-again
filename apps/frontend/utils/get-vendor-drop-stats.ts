@@ -1,19 +1,38 @@
-import every from 'lodash/every'
 
+import userHasDrop from './user-has-drop'
 import type { UserTransmogData } from '@/types/data'
-import type { ManualDataZoneMapDrop } from '@/types/data/manual'
+import type { ManualData, ManualDataZoneMapDrop } from '@/types/data/manual'
+import type { UserData } from '@/types'
 
 
 export function getVendorDropStats(
+    manualData: ManualData,
+    userData: UserData,
     userTransmogData: UserTransmogData,
     masochist: boolean,
     drop: ManualDataZoneMapDrop
 ): [number, number] {
     let have = 0
     let total = 0
-    const seen: Record<number, boolean> = {}
+    //const seen: Record<number, boolean> = {}
 
-    for (const appearanceIds of drop.appearanceIds) {
+    for (const vendorItem of drop.vendorItems) {
+        const hasDrop = userHasDrop(
+            manualData,
+            userData,
+            userTransmogData,
+            vendorItem.type,
+            vendorItem.id,
+            vendorItem.appearanceIds
+        )
+        
+        total++
+        if (hasDrop) {
+            have++
+        }
+    }
+
+    /*for (const appearanceIds of drop.appearanceIds) {
         if (!masochist) {
             if (every(appearanceIds, (appearanceId) => seen[appearanceId] === true)) {
                 continue
@@ -28,7 +47,7 @@ export function getVendorDropStats(
         }
 
         total++
-    }
+    }*/
 
     return [have, total]
 }

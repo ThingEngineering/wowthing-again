@@ -10,7 +10,7 @@
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
 
-    export let encounter: JournalDataEncounter
+    export let encounter: JournalDataEncounter = undefined
     export let statsKey: string
 
     let difficulties: [number, number, number, number][]
@@ -21,7 +21,7 @@
             const difficultyStats = $journalStore.data.stats[difficultyKey]
             if (difficultyStats) {
                 let kills = -1
-                const statisticId = encounter.statistics?.[difficulty] ?? 0
+                const statisticId = encounter?.statistics?.[difficulty] ?? 0
                 if (statisticId) {
                     kills = ($userAchievementStore.data.statistics?.[statisticId] || [])
                         .reduce((a, b) => a + b[1], 0)

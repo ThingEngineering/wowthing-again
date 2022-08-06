@@ -31,6 +31,7 @@ public class UploadCharacter
     public List<int> Mounts { get; set; }
     public UploadCharacterMythicDungeon[] MythicDungeons { get; set; }
     public UploadCharacterMythicPlus MythicPlus { get; set; }
+    public UploadCharacterMythicPlusV2 MythicPlusV2 { get; set; }
     public Dictionary<int, string> Paragons { get; set; }
     public Dictionary<int, int> Reputations { get; set; }
     public Dictionary<string, int> ScanTimes { get; set; }
@@ -122,6 +123,12 @@ public class UploadCharacterMythicPlus
     public int Season { get; set; }
     public List<UploadCharacterMythicPlusMap> Maps { get; set; }
     public List<string> Runs { get; set; }
+}
+
+public class UploadCharacterMythicPlusV2
+{
+    public Dictionary<int, List<UploadCharacterMythicPlusMap>> Seasons { get; set; }
+    public Dictionary<int, List<string>> Weeks { get; set; }
 }
 
 public class UploadCharacterMythicPlusMap

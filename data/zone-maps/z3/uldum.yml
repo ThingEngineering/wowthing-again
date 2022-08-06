@@ -29,7 +29,7 @@ farms:
 
 - name: "Armagedillo"
   location: 44.8 41.4
-  npcId: 50060
+  npcId: 50065
   drops:
     - type: transmog
       id: 67243 # Armagedillo's Tail [2h str mace]
