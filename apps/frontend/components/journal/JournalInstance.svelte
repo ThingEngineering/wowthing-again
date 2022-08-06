@@ -62,6 +62,15 @@
 
     {#if instance}
         <div class="collection thing-container" data-instance-id="{instance.id}">
+            <SectionTitle
+                title={instance.name}
+                count={$journalStore.data.stats[`${slug1}--${slug2}`]}
+            >
+                <EncounterStats
+                    statsKey={`${slug1}--${slug2}`}
+                />
+            </SectionTitle>
+
             {#each instance.encounters as encounter}
                 {#if $journalState.showTrash || encounter.name !== 'Trash Drops'}
                     {@const statsKey = `${slug1}--${slug2}--${encounter.name}`}
