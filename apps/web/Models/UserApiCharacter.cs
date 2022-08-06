@@ -39,6 +39,7 @@ public class UserApiCharacter
     public Dictionary<string, PlayerCharacterLockoutsLockout> Lockouts { get; }
     public UserApiCharacterMythicPlus MythicPlus { get; }
     public Dictionary<int, PlayerCharacterAddonDataMythicPlus> MythicPlusAddon { get; }
+    public Dictionary<int, Dictionary<int, PlayerCharacterAddonDataMythicPlusMap>> MythicPlusSeasons { get; set; }
     public Dictionary<int, Dictionary<int, PlayerCharacterProfessionTier>> Professions { get; }
     public int[] ProgressItems { get; set; }
     public Dictionary<int, PlayerCharacterRaiderIoSeasonScores> RaiderIo { get; }
@@ -160,6 +161,7 @@ public class UserApiCharacter
             }
 
             MythicPlusAddon = character.AddonData?.MythicPlus;
+            MythicPlusSeasons = character.AddonData?.MythicPlusSeasons;
             RaiderIo = character.RaiderIo?.Seasons;
         }
 
