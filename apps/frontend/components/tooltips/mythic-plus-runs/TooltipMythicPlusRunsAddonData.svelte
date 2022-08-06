@@ -1,29 +1,17 @@
 <script lang="ts">
     import { keyTiers } from '@/data/dungeon'
     import { getRunCounts } from '@/utils/dungeon'
+    import { getDungeonScores, type DungeonScores } from '@/utils/mythic-plus/get-dungeon-scores'
     import type { CharacterMythicPlusAddonMap, CharacterMythicPlusAddonRun } from '@/types'
 
     export let addonMap: CharacterMythicPlusAddonMap
     export let allRuns: CharacterMythicPlusAddonRun[]
 
-    let fortifiedInitial: number
-    let fortifiedFinal: number
-    let tyrannicalInitial: number
-    let tyrannicalFinal: number
     let runCounts: number[]
+    let scores: DungeonScores
     $: {
-        fortifiedInitial = addonMap?.fortifiedScore?.score ?? 0
-        tyrannicalInitial = addonMap?.tyrannicalScore?.score ?? 0
-        if (fortifiedInitial >= tyrannicalInitial) {
-            fortifiedFinal = fortifiedInitial * 1.5
-            tyrannicalFinal = tyrannicalInitial / 2
-        }
-        else {
-            fortifiedFinal = fortifiedInitial / 2
-            tyrannicalFinal = tyrannicalInitial * 1.5
-        }
-
         runCounts = getRunCounts(allRuns)
+        scores = getDungeonScores(addonMap)
     }
 </script>
 
@@ -51,23 +39,23 @@
     <div
         class="data-box border"
     >
-        Total: {fortifiedFinal + tyrannicalFinal}
+        Total: {scores.fortifiedFinal + scores.tyrannicalFinal}
     </div>
     <div
         class="data-box border"
-        class:border-fail={fortifiedInitial === 0}
-        class:border-shrug={fortifiedInitial > 0 && fortifiedInitial < tyrannicalInitial}
-        class:border-success={fortifiedInitial > 0 && fortifiedInitial > tyrannicalInitial}
+        class:border-fail={scores.fortifiedInitial === 0}
+        class:border-shrug={scores.fortifiedInitial > 0 && scores.fortifiedInitial < scores.tyrannicalInitial}
+        class:border-success={scores.fortifiedInitial > 0 && scores.fortifiedInitial > scores.tyrannicalInitial}
     >
-        Fort: {fortifiedInitial}
+        Fort: {scores.fortifiedInitial}
     </div>
     <div
         class="data-box border"
-        class:border-fail={tyrannicalInitial === 0}
-        class:border-shrug={tyrannicalInitial > 0 && tyrannicalInitial < fortifiedInitial}
-        class:border-success={tyrannicalInitial > 0 && tyrannicalInitial > fortifiedInitial}
+        class:border-fail={scores.tyrannicalInitial === 0}
+        class:border-shrug={scores.tyrannicalInitial > 0 && scores.tyrannicalInitial < scores.fortifiedInitial}
+        class:border-success={scores.tyrannicalInitial > 0 && scores.tyrannicalInitial > scores.fortifiedInitial}
     >
-        Tyr: {tyrannicalInitial}
+        Tyr: {scores.tyrannicalInitial}
     </div>
 </div>
 

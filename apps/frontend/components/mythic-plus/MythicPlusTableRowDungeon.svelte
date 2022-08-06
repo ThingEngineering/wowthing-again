@@ -29,14 +29,16 @@
             runs = [runs[0]]
         }
 
-        showBoth = seasonId >= 6 && (character.mythicPlusAddon?.[seasonId]?.runs || []).length > 0
+        const tempMap: CharacterMythicPlusAddonMap =
+                character.mythicPlusSeasons?.[seasonId]?.[dungeonId] ||
+                character.mythicPlusAddon?.[seasonId]?.maps?.[dungeonId]
 
-        if (character.mythicPlusAddon?.[seasonId]) {
-            const tempMap: CharacterMythicPlusAddonMap = character.mythicPlusAddon[seasonId].maps[dungeonId]
+        if (tempMap) {
+            showBoth = seasonId >= 6
             if (tempMap.fortifiedScore || tempMap.tyrannicalScore) {
                 addonMap = tempMap
-                allRuns = character.mythicPlusAddon[seasonId].runs
-                    .filter((run) => run.mapId === dungeonId)
+                //allRuns = character.mythicPlusAddon[seasonId].runs
+                //    .filter((run) => run.mapId === dungeonId)
             }
         }
     }

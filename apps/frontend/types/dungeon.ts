@@ -2,25 +2,17 @@ import type {Difficulty} from '@/types/difficulty'
 import type { TippyProps } from '@/types/tippy'
 
 export class Dungeon {
-    id: number
-    name: string
-    abbreviation: string
-    icon: string
     timer1: number
     timer2: number
     timer3: number
 
     constructor(
-        id: number,
-        name: string,
-        abbreviation: string,
-        icon: string,
+        public id: number,
+        public name: string,
+        public abbreviation: string,
+        public icon: string,
         timerMinutes: number,
     ) {
-        this.id = id
-        this.name = name
-        this.abbreviation = abbreviation
-        this.icon = icon
         this.timer1 = timerMinutes * 60 * 1000
         this.timer2 = this.timer1 * 0.8
         this.timer3 = this.timer1 * 0.6

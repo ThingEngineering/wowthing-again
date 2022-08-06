@@ -46,6 +46,7 @@ export interface Character {
     lockouts: Record<string, CharacterLockout>
     mythicPlus: CharacterMythicPlus
     mythicPlusAddon: Record<number, CharacterMythicPlusAddon>
+    mythicPlusSeasons: Record<number, Record<number, CharacterMythicPlusAddonMap>>
     paragons: Record<number, CharacterReputationParagon>
     progressItems: number[]
     raiderIo: Record<number, CharacterRaiderIoSeason>
