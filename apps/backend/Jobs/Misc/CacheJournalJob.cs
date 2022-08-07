@@ -26,7 +26,7 @@ public class CacheJournalJob : JobBase, IScheduledJob
         Type = JobType.CacheJournal,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(24),
-        Version = 23,
+        Version = 24,
     };
 
     public override async Task Run(params string[] data)
@@ -396,6 +396,11 @@ public class CacheJournalJob : JobBase, IScheduledJob
                                 {
                                     AddGroupSpecial(itemGroups, RewardType.Toy, item, difficulties);
                                 }
+                                else if (_stringMap[(StringType.WowItemName, Language.enUS, item.Id)]
+                                         .StartsWith("Illusion:"))
+                                {
+                                    AddGroupSpecial(itemGroups, RewardType.Illusion, item, difficulties);
+                                }
                                 // else
                                 // {
                                 //     Logger.Debug("No appearances for ID {Id}", item.Id);
@@ -623,20 +628,27 @@ public class CacheJournalJob : JobBase, IScheduledJob
     {
         string name = "???";
         int order = -1;
-        if (rewardType == RewardType.Mount)
+        switch (rewardType)
         {
-            name = "Mounts";
-            order = 0;
-        }
-        else if (rewardType == RewardType.Pet)
-        {
-            name = "Pets";
-            order = 1;
-        }
-        else if (rewardType == RewardType.Toy)
-        {
-            name = "Toys";
-            order = 2;
+            case RewardType.Illusion:
+                name = "Illusions";
+                order = 0;
+                break;
+
+            case RewardType.Mount:
+                name = "Mounts";
+                order = 1;
+                break;
+
+            case RewardType.Pet:
+                name = "Pets";
+                order = 2;
+                break;
+
+            case RewardType.Toy:
+                name = "Toys";
+                order = 3;
+                break;
         }
 
         if (!itemGroups.ContainsKey(name))
