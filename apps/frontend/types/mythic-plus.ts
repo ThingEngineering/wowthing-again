@@ -13,6 +13,8 @@ export class MythicPlusSeason {
         public slug: string,
         public minLevel: number,
         public orders: number[][],
+        public startPeriod?: number,
+        public endPeriod?: number
     )
     {}
 }
