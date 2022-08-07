@@ -33,6 +33,7 @@ export interface Character {
     calculatedItemLevel: string
     calculatedItemLevelQuality: number
     currencies: Record<number, CharacterCurrency>
+    mythicPlusSeasonScores: Record<number, number>
     professions: Record<number, Record<number, CharacterProfession>>
     realm: StaticDataRealm
     reputationData: Record<string, CharacterReputation>

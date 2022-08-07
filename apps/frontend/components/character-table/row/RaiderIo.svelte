@@ -2,7 +2,6 @@
     import { seasonMap } from '@/data/dungeon'
     import { staticStore } from '@/stores/static'
     import { Region } from '@/types/enums'
-    import { getDungeonScores } from '@/utils/mythic-plus/get-dungeon-scores'
     import getRaiderIoColor from'@/utils/get-raider-io-color'
     import { tippyComponent } from '@/utils/tippy'
     import type { Character, CharacterRaiderIoSeason, MythicPlusSeason } from '@/types'
@@ -14,7 +13,7 @@
     export let season: MythicPlusSeason = null
     export let seasonId = 0
 
-    let overallScore: string
+    let overallScore: number
     let region: string
     let scores: CharacterRaiderIoSeason
     let tiers: StaticDataRaiderIoScoreTiers
@@ -26,22 +25,7 @@
             scores = character.raiderIo?.[season.id]
             tiers = $staticStore.data.raiderIoScoreTiers[season.id]
 
-            let allScore = scores?.['all'] || 0
-
-            const mapScores = character.mythicPlusSeasons?.[season.id]
-            if (mapScores !== undefined) {
-                let total = 0
-                for (const addonMap of Object.values(mapScores)) {
-                    const scores = getDungeonScores(addonMap)
-                    total += scores.fortifiedFinal + scores.tyrannicalFinal
-                }
-
-                if (Math.abs(total - allScore) > 10) {
-                    allScore = total
-                }
-            }
- 
-            overallScore = allScore.toFixed(1)
+            overallScore = character.mythicPlusSeasonScores[season.id] || scores?.['all'] || 0
         }
         region = Region[character.realm.region].toLowerCase()
     }
@@ -56,10 +40,10 @@
     }
 </style>
 
-{#if scores?.all > 0}
+{#if overallScore > 0}
     <td
         class="score"
-        style:--link-color={getRaiderIoColor(scores, tiers, scores['all'])}
+        style:--link-color={getRaiderIoColor(tiers, overallScore)}
         use:tippyComponent={{
             component: Tooltip,
             props: {
@@ -75,7 +59,7 @@
             rel="noopener noreferrer"
             target="_blank"
         >
-            {overallScore}
+            {overallScore.toFixed(1)}
         </a>
     </td>
 {:else}

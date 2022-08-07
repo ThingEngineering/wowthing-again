@@ -15,7 +15,9 @@ import {
 } from '@/types'
 import { InventorySlot, TypedArray } from '@/types/enums'
 import base64ToRecord from '@/utils/base64-to-record'
+import { getGenderedName } from '@/utils/get-gendered-name'
 import getItemLevelQuality from '@/utils/get-item-level-quality'
+import { getDungeonScores } from '@/utils/mythic-plus/get-dungeon-scores'
 import type {
     Account,
     Character,
@@ -26,7 +28,6 @@ import type {
 } from '@/types'
 import type { StaticData } from '@/types/data/static'
 import type { ManualData, ManualDataSetCategory } from '@/types/data/manual'
-import { getGenderedName } from '@/utils/get-gendered-name'
 
 
 export class UserDataStore extends WritableFancyStore<UserData> {
@@ -243,7 +244,17 @@ export class UserDataStore extends WritableFancyStore<UserData> {
                 }
             }
         }
-    
+
+        character.mythicPlusSeasonScores = {}
+        for (const seasonId in (character.mythicPlusSeasons ?? {})) {
+            let total = 0
+            for (const addonMap of Object.values(character.mythicPlusSeasons[seasonId])) {
+                const scores = getDungeonScores(addonMap)
+                total += scores.fortifiedFinal + scores.tyrannicalFinal
+            }
+            character.mythicPlusSeasonScores[seasonId] = total
+        }
+        
         // reputation sets
         character.reputationData = {}
         for (const category of staticData.reputationSets) {
