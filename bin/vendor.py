@@ -143,11 +143,9 @@ requests_cache.install_cache('temp/requests_cache', expire_after=4 * 3600)
 r = requests.get(sys.argv[1], headers=HEADERS)
 
 m = mapper_re.search(r.text)
-if not m:
-    print('mapper_re fail')
-    sys.exit(1)
-
-mapper = json.loads(m.group(1))
+mapper = None
+if m:
+    mapper = json.loads(m.group(1))
 
 m = npc_re.search(r.text)
 if not m:
@@ -189,16 +187,17 @@ if 'tag' in npc:
 print()
 print('locations:')
 
-for map_set in mapper.values():
-    if isinstance(map_set, dict):
-        map_set = map_set.values()
+if mapper is not None:
+    for map_set in mapper.values():
+        if isinstance(map_set, dict):
+            map_set = map_set.values()
 
-    for map in map_set:
-        map_name = map.get('uiMapName', 'unknown').lower().replace(' ', '_').replace('-', '_').replace("'", '')
-        print(f'  {map_name}:')
-        
-        for coord in map['coords']:
-            print(f'    - {coord[0]} {coord[1]}{faction}')
+        for map in map_set:
+            map_name = map.get('uiMapName', 'unknown').lower().replace(' ', '_').replace('-', '_').replace("'", '')
+            print(f'  {map_name}:')
+            
+            for coord in map['coords']:
+                print(f'    - {coord[0]} {coord[1]}{faction}')
 
 print()
 
