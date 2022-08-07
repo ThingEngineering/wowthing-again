@@ -78,18 +78,16 @@ export const dungeons: Dungeon[] = [
     new Dungeon(
         227,
         'Return to Karazhan: Lower',
-        'RKL',
+        'LOWR',
         'achievement/11338', // Dine and Dash
         42,
-        'LOWR'
     ),
     new Dungeon(
         234,
         'Return to Karazhan: Upper',
-        'RKU',
+        'UPPR',
         'achievement/11429',
         35,
-        'UPPR'
     ),
     // Battle for Azeroth
     new Dungeon(
