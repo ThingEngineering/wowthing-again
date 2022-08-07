@@ -48,6 +48,7 @@ export interface Character {
     mythicPlus: CharacterMythicPlus
     mythicPlusAddon: Record<number, CharacterMythicPlusAddon>
     mythicPlusSeasons: Record<number, Record<number, CharacterMythicPlusAddonMap>>
+    mythicPlusWeeks: Record<number, Array<CharacterMythicPlusAddonRun>>
     paragons: Record<number, CharacterReputationParagon>
     progressItems: number[]
     raiderIo: Record<number, CharacterRaiderIoSeason>
