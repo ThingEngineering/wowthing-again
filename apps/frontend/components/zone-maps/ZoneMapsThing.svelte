@@ -33,7 +33,6 @@
             topOffset = (status.need && farm.type !== FarmType.Vendor) ? (big ? '7px' : '7px') : '0px'
         }
 
-
         show = true
         if (!$zoneMapState.showCompleted && !status.need) {
             show = false

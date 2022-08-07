@@ -26,7 +26,7 @@ public class CacheJournalJob : JobBase, IScheduledJob
         Type = JobType.CacheJournal,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(24),
-        Version = 22,
+        Version = 23,
     };
 
     public override async Task Run(params string[] data)
@@ -386,15 +386,15 @@ public class CacheJournalJob : JobBase, IScheduledJob
                             {
                                 if (_mountMap.TryGetValue(item.Id, out var mount))
                                 {
-                                    AddGroupSpecial(itemGroups, "Mounts", RewardType.Mount, item, difficulties);
+                                    AddGroupSpecial(itemGroups, RewardType.Mount, item, difficulties);
                                 }
                                 else if (_petMap.TryGetValue(item.Id, out var pet))
                                 {
-                                    AddGroupSpecial(itemGroups, "Pets", RewardType.Pet, item, difficulties);
+                                    AddGroupSpecial(itemGroups, RewardType.Pet, item, difficulties);
                                 }
                                 else if (_toyMap.TryGetValue(item.Id, out var toy))
                                 {
-                                    AddGroupSpecial(itemGroups, "Toys", RewardType.Toy, item, difficulties);
+                                    AddGroupSpecial(itemGroups, RewardType.Toy, item, difficulties);
                                 }
                                 // else
                                 // {
@@ -567,7 +567,7 @@ public class CacheJournalJob : JobBase, IScheduledJob
         if (cls == WowItemClass.Weapon)
         {
             groupName = "Weapons";
-            groupOrder = 10;
+            groupOrder = 20;
         }
         else if (cls == WowItemClass.Armor)
         {
@@ -575,32 +575,32 @@ public class CacheJournalJob : JobBase, IScheduledJob
             if (subClass == WowArmorSubclass.Cloth)
             {
                 groupName = "Cloth";
-                groupOrder = 1;
+                groupOrder = 10;
             }
             else if (subClass == WowArmorSubclass.Leather)
             {
                 groupName = "Leather";
-                groupOrder = 2;
+                groupOrder = 11;
             }
             else if (subClass == WowArmorSubclass.Mail)
             {
                 groupName = "Mail";
-                groupOrder = 3;
+                groupOrder = 12;
             }
             else if (subClass == WowArmorSubclass.Plate)
             {
                 groupName = "Plate";
-                groupOrder = 4;
+                groupOrder = 13;
             }
             else if (subClass == WowArmorSubclass.Cloak)
             {
                 groupName = "Cloaks";
-                groupOrder = 5;
+                groupOrder = 14;
             }
             else
             {
                 groupName = "Misc";
-                groupOrder = 9;
+                groupOrder = 15;
             }
         }
 
@@ -618,16 +618,33 @@ public class CacheJournalJob : JobBase, IScheduledJob
 
     private void AddGroupSpecial(
         Dictionary<string, OutJournalEncounterItemGroup> itemGroups,
-        string name,
         RewardType rewardType,
         WowItem item, int[] difficulties)
     {
+        string name = "???";
+        int order = -1;
+        if (rewardType == RewardType.Mount)
+        {
+            name = "Mounts";
+            order = 0;
+        }
+        else if (rewardType == RewardType.Pet)
+        {
+            name = "Pets";
+            order = 1;
+        }
+        else if (rewardType == RewardType.Toy)
+        {
+            name = "Toys";
+            order = 2;
+        }
+
         if (!itemGroups.ContainsKey(name))
         {
             itemGroups[name] = new OutJournalEncounterItemGroup
             {
                 Name = name,
-                Order = 0,
+                Order = order,
             };
         }
 

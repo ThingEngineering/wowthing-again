@@ -78,18 +78,16 @@ export const dungeons: Dungeon[] = [
     new Dungeon(
         227,
         'Return to Karazhan: Lower',
-        'RKL',
+        'LOWR',
         'achievement/11338', // Dine and Dash
         42,
-        'LOWR'
     ),
     new Dungeon(
         234,
         'Return to Karazhan: Upper',
-        'RKU',
+        'UPPR',
         'achievement/11429',
         35,
-        'UPPR'
     ),
     // Battle for Azeroth
     new Dungeon(
@@ -303,16 +301,68 @@ const orderShadowlandsS4: number[] = [
     391, // Tazavesh: Streets of Wonder
 ]
 
-export const seasonMap: Record<number, MythicPlusSeason> = {
-    8: new MythicPlusSeason(8, 'SL Season 4', 'sl-4', 60, [orderShadowlandsS4]),
-    7: new MythicPlusSeason(7, 'SL Season 3', 'sl-3', 60, [orderShadowlands, orderShadowlandsExtraS3]),
-    6: new MythicPlusSeason(6, 'SL Season 2', 'sl-2', 60, [orderShadowlands]),
-    5: new MythicPlusSeason(5, 'SL Season 1', 'sl-1', 60, [orderShadowlands]),
-    4: new MythicPlusSeason(4, 'BfA Season 4', 'bfa-4', 50, [orderBattleForAzeroth, orderBattleForAzeroth2]),
-    3: new MythicPlusSeason(3, 'BfA Season 3', 'bfa-3', 50, [orderBattleForAzeroth]),
-    2: new MythicPlusSeason(2, 'BfA Season 2', 'bfa-2', 50, [orderBattleForAzeroth]),
-    1: new MythicPlusSeason(1, 'BfA Season 1', 'bfa-1', 50, [orderBattleForAzeroth]),
-}
+export const seasonMap: Record<number, MythicPlusSeason> = Object.fromEntries(
+    [
+        new MythicPlusSeason(
+            8,
+            'SL Season 4',
+            'sl-4',
+            60,
+            [orderShadowlandsS4],
+            866, // 2022-08-02
+        ),
+        new MythicPlusSeason(
+            7,
+            'SL Season 3',
+            'sl-3',
+            60,
+            [orderShadowlands, orderShadowlandsExtraS3]
+        ),
+        new MythicPlusSeason(
+            6,
+            'SL Season 2',
+            'sl-2',
+            60,
+            [orderShadowlands]
+        ),
+        new MythicPlusSeason(
+            5,
+            'SL Season 1',
+            'sl-1',
+            60,
+            [orderShadowlands]
+        ),
+        new MythicPlusSeason(
+            4,
+            'BfA Season 4',
+            'bfa-4',
+            50,
+            [orderBattleForAzeroth, orderBattleForAzeroth2]
+        ),
+        new MythicPlusSeason(
+            3,
+            'BfA Season 3',
+            'bfa-3',
+            50,
+            [orderBattleForAzeroth]
+        ),
+        new MythicPlusSeason(
+            2,
+            'BfA Season 2',
+            'bfa-2',
+            50,
+            [orderBattleForAzeroth]
+        ),
+        new MythicPlusSeason(
+            1,
+            'BfA Season 1',
+            'bfa-1',
+            50,
+            [orderBattleForAzeroth]
+        ),
+    ]
+    .map((season) => [season.id, season])
+)
 
 // [rating, max item level] first match >= rating is used
 export const ratingItemLevelUpgrade: Array<Array<number>> = [

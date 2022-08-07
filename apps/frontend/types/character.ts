@@ -33,6 +33,7 @@ export interface Character {
     calculatedItemLevel: string
     calculatedItemLevelQuality: number
     currencies: Record<number, CharacterCurrency>
+    mythicPlusSeasonScores: Record<number, number>
     professions: Record<number, Record<number, CharacterProfession>>
     realm: StaticDataRealm
     reputationData: Record<string, CharacterReputation>
@@ -47,6 +48,7 @@ export interface Character {
     mythicPlus: CharacterMythicPlus
     mythicPlusAddon: Record<number, CharacterMythicPlusAddon>
     mythicPlusSeasons: Record<number, Record<number, CharacterMythicPlusAddonMap>>
+    mythicPlusWeeks: Record<number, Array<CharacterMythicPlusAddonRun>>
     paragons: Record<number, CharacterReputationParagon>
     progressItems: number[]
     raiderIo: Record<number, CharacterRaiderIoSeason>

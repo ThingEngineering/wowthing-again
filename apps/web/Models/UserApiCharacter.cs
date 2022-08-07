@@ -40,6 +40,7 @@ public class UserApiCharacter
     public UserApiCharacterMythicPlus MythicPlus { get; }
     public Dictionary<int, PlayerCharacterAddonDataMythicPlus> MythicPlusAddon { get; }
     public Dictionary<int, Dictionary<int, PlayerCharacterAddonDataMythicPlusMap>> MythicPlusSeasons { get; set; }
+    public Dictionary<int, List<PlayerCharacterAddonDataMythicPlusRun>> MythicPlusWeeks { get; set; }
     public Dictionary<int, Dictionary<int, PlayerCharacterProfessionTier>> Professions { get; }
     public int[] ProgressItems { get; set; }
     public Dictionary<int, PlayerCharacterRaiderIoSeasonScores> RaiderIo { get; }
@@ -162,6 +163,7 @@ public class UserApiCharacter
 
             MythicPlusAddon = character.AddonData?.MythicPlus;
             MythicPlusSeasons = character.AddonData?.MythicPlusSeasons;
+            MythicPlusWeeks = character.AddonData?.MythicPlusWeeks;
             RaiderIo = character.RaiderIo?.Seasons;
         }
 

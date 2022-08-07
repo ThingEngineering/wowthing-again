@@ -56,7 +56,11 @@
             sortFunc = getCharacterSortFunc(
                 $settingsData,
                 $staticStore.data,
-                (char) => leftPad(100000 - Math.floor(char.raiderIo?.[season.id]?.all ?? 0), 6, '0')
+                (char) => leftPad(
+                    100000 - Math.floor(char.mythicPlusSeasonScores[season.id] || char.raiderIo?.[season.id]?.all || 0),
+                    6,
+                    '0'
+                )
             )
         }
 

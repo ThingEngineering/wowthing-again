@@ -49,7 +49,7 @@
                         <td class="role">{raiderIoScores[scoreKey]}</td>
                         <td
                             class="score"
-                            style:color={getRaiderIoColor(scores, tiers, scores[scoreKey])}
+                            style:color={getRaiderIoColor(tiers, scores[scoreKey])}
                         >{scores[scoreKey].toFixed(1)}</td>
                     </tr>
                 {/each}

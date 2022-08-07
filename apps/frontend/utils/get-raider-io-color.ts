@@ -3,7 +3,6 @@ import type { StaticDataRaiderIoScoreTiers } from '@/types/data/static'
 
 
 export default function getRaiderIoColor(
-    scores: CharacterRaiderIoSeason,
     tiers: StaticDataRaiderIoScoreTiers,
     score: number
 ): string {
