@@ -2,6 +2,7 @@
 using Wowthing.Backend.Models.Data;
 using Wowthing.Backend.Models.Data.Items;
 using Wowthing.Backend.Models.Data.Journal;
+using Wowthing.Backend.Models.Data.Transmog;
 using Wowthing.Backend.Models.Redis;
 using Wowthing.Backend.Utilities;
 using Wowthing.Lib.Enums;
@@ -16,6 +17,7 @@ public class CacheJournalJob : JobBase, IScheduledJob
     private JankTimer _timer;
 
     private Dictionary<int, WowItem> _itemMap;
+    private Dictionary<int, int> _itemEffectIllusionMap;
     private Dictionary<int, WowMount> _mountMap;
     private Dictionary<int, WowPet> _petMap;
     private Dictionary<int, WowToy> _toyMap;
@@ -26,7 +28,7 @@ public class CacheJournalJob : JobBase, IScheduledJob
         Type = JobType.CacheJournal,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(24),
-        Version = 24,
+        Version = 25,
     };
 
     public override async Task Run(params string[] data)
@@ -133,6 +135,11 @@ public class CacheJournalJob : JobBase, IScheduledJob
             .AsNoTracking()
             .ToDictionaryAsync(item => item.Id);
 
+        _itemEffectIllusionMap = await Context.WowItemEffect
+            .AsNoTracking()
+            .Where(effect => effect.Effect == WowSpellEffectEffect.LearnTransmogIllusion)
+            .ToDictionaryAsync(effect => effect.ItemId, effect => effect.Values[0]);
+
         _mountMap = await Context.WowMount
             .AsNoTracking()
             .Where(mount => mount.ItemId > 0)
@@ -148,8 +155,8 @@ public class CacheJournalJob : JobBase, IScheduledJob
             .ToDictionaryAsync(toy => toy.ItemId);
 
         _stringMap = await Context.LanguageString
-            .Where(ls => _stringTypes.Contains(ls.Type))
             .AsNoTracking()
+            .Where(ls => _stringTypes.Contains(ls.Type))
             .ToDictionaryAsync(ls => (ls.Type, ls.Language, ls.Id), ls => ls.String);
 
         _timer.AddPoint("Database");
@@ -399,7 +406,7 @@ public class CacheJournalJob : JobBase, IScheduledJob
                                 else if (_stringMap[(StringType.WowItemName, Language.enUS, item.Id)]
                                          .StartsWith("Illusion:"))
                                 {
-                                    AddGroupSpecial(itemGroups, RewardType.Illusion, item, difficulties);
+                                    AddGroupSpecial(itemGroups, RewardType.Illusion, item, difficulties, _itemEffectIllusionMap[item.Id]);
                                 }
                                 // else
                                 // {
@@ -624,7 +631,9 @@ public class CacheJournalJob : JobBase, IScheduledJob
     private void AddGroupSpecial(
         Dictionary<string, OutJournalEncounterItemGroup> itemGroups,
         RewardType rewardType,
-        WowItem item, int[] difficulties)
+        WowItem item, int[] difficulties,
+        int appearanceId = 0
+    )
     {
         string name = "???";
         int order = -1;
@@ -680,7 +689,7 @@ public class CacheJournalJob : JobBase, IScheduledJob
             {
                 new OutJournalEncounterItemAppearance
                 {
-                    AppearanceId = 0,
+                    AppearanceId = appearanceId,
                     ModifierId = 0,
                     Difficulties = difficulties.ToList(),
                 }

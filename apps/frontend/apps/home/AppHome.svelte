@@ -87,6 +87,7 @@
                 $settings,
                 $journalStore.data,
                 $journalState,
+                $manualStore.data,
                 $staticStore.data,
                 $userStore.data,
                 $userTransmogStore.data

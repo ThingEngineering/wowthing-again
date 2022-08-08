@@ -11,6 +11,7 @@ import leftPad from '@/utils/left-pad'
 import type { JournalState } from '@/stores/local-storage'
 import type { Settings } from '@/types'
 import type { JournalData, UserTransmogData } from '@/types/data'
+import type { ManualData } from '@/types/data/manual'
 import type { StaticData } from '@/types/data/static'
 
 
@@ -41,6 +42,7 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
         settingsData: Settings,
         journalData: JournalData,
         journalState: JournalState,
+        manualData: ManualData,
         staticData: StaticData,
         userData: UserData,
         userTransmogData: UserTransmogData
@@ -177,7 +179,11 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                                 else {
                                     appearanceKey = `z-${item.type}-${item.id}`
 
-                                    if (item.type === RewardType.Mount) {
+                                    if (item.type === RewardType.Illusion) {
+                                        const enchantmentId = staticData.illusions[item.appearances[0].appearanceId].enchantmentId
+                                        userHas = userTransmogData.hasIllusion[enchantmentId]
+                                    }
+                                    else if (item.type === RewardType.Mount) {
                                         userHas = userData.hasMount[item.classId]
                                     }
                                     else if (item.type === RewardType.Pet) {

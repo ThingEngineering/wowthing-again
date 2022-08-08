@@ -3,7 +3,7 @@
     import xor from 'lodash/xor'
 
     import { difficultyMap, journalDifficultyOrder } from '@/data/difficulty'
-    import { userStore, userTransmogStore } from '@/stores'
+    import { staticStore, userStore, userTransmogStore } from '@/stores'
     import { journalState } from '@/stores/local-storage'
     import { data as settingsData } from '@/stores/settings'
     import { PlayableClass, PlayableClassMask, RewardType } from '@/types/enums'
@@ -21,7 +21,15 @@
     let appearances: [JournalDataEncounterItemAppearance, boolean][]
     let classId: number
     $: {
-        if (item.type === RewardType.Mount) {
+        if (item.type === RewardType.Illusion) {
+            appearances = item.appearances.map((appearance) => [
+                appearance,
+                $userTransmogStore.data.hasIllusion[
+                    $staticStore.data.illusions[appearance.appearanceId].enchantmentId
+                ],
+            ])
+        }
+        else if (item.type === RewardType.Mount) {
             appearances = item.appearances.map((appearance) => [
                 appearance,
                 $userStore.data.hasMount[item.classId],
