@@ -28,7 +28,7 @@ public class CacheJournalJob : JobBase, IScheduledJob
         Type = JobType.CacheJournal,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(24),
-        Version = 25,
+        Version = 26,
     };
 
     public override async Task Run(params string[] data)
@@ -683,6 +683,7 @@ public class CacheJournalJob : JobBase, IScheduledJob
         {
             Id = item.Id,
             ClassId = classId,
+            ClassMask = item.GetCalculatedClassMask(true),
             Quality = item.Quality,
             Type = rewardType,
             Appearances = new List<OutJournalEncounterItemAppearance>

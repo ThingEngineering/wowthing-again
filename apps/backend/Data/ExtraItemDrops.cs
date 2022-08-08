@@ -286,9 +286,9 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 // Plate
-                new (30027, new[] { 9 }), // Boots of Courage Unending
+                new (30027, new[] { 4 }), // Boots of Courage Unending
                 // Weapon
-                new (30021, new[] { 9 }), // Wildfury Greatstaff
+                new (30021, new[] { 4 }), // Wildfury Greatstaff
             }
         },
         {
@@ -296,13 +296,13 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 // Cloth
-                new (30020, new[] { 9 }), // Fire-Cord of the Magus
-                new (30024, new[] { 9 }), // Mantle of the Elven Kings
+                new (30020, new[] { 4 }), // Fire-Cord of the Magus
+                new (30024, new[] { 4 }), // Mantle of the Elven Kings
                 // Leather
-                new (30029, new[] { 9 }), // Bark-Gloves of Ancient Wisdom
+                new (30029, new[] { 4 }), // Bark-Gloves of Ancient Wisdom
                 // Mail
-                new (30026, new[] { 9 }), // Bands of the Celestial Archer
-                new (30030, new[] { 9 }), // Girdle of Fallen Stars
+                new (30026, new[] { 4 }), // Bands of the Celestial Archer
+                new (30030, new[] { 4 }), // Girdle of Fallen Stars
             }
         },
         {
@@ -310,16 +310,16 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 // Cloth
-                new (32609, new[] { 9 }), // Boots of the Divine Light
+                new (32609, new[] { 4 }), // Boots of the Divine Light
                 // Mail
-                new (32592, new[] { 9 }), // Chestguard of Relentless Storms
+                new (32592, new[] { 4 }), // Chestguard of Relentless Storms
                 // Cloak
-                new (32590, new[] { 9 }), // Nethervoid Cloak
-                new (34010, new[] { 9 }), // Pepe's Shroud of Pacification
+                new (32590, new[] { 4 }), // Nethervoid Cloak
+                new (34010, new[] { 4 }), // Pepe's Shroud of Pacification
                 // Weapon
-                new (34009, new[] { 9 }), // Hammer of Judgement
-                new (32946, new[] { 9 }), // Claw of Molten Fury
-                new (32945, new[] { 9 }), // Fist of Molten Fury
+                new (34009, new[] { 4 }), // Hammer of Judgement
+                new (32946, new[] { 4 }), // Claw of Molten Fury
+                new (32945, new[] { 4 }), // Fist of Molten Fury
             }
         },
         {
@@ -327,21 +327,21 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 // Cloth
-                new (32609, new[] { 9 }), // Boots of the Divine Light
+                new (32609, new[] { 4 }), // Boots of the Divine Light
                 // Leather
-                new (32593, new[] { 9 }), // Treads of the Den Mother
+                new (32593, new[] { 4 }), // Treads of the Den Mother
                 // Mail
-                new (32592, new[] { 9 }), // Chestguard of Relentless Storms
+                new (32592, new[] { 4 }), // Chestguard of Relentless Storms
                 // Plate
-                new (32606, new[] { 9 }), // Girdle of the Lightbearer
-                new (32608, new[] { 9 }), // Pillager's Gauntlets
+                new (32606, new[] { 4 }), // Girdle of the Lightbearer
+                new (32608, new[] { 4 }), // Pillager's Gauntlets
                 // Cloak
-                new (32590, new[] { 9 }), // Nethervoid Cloak
-                new (34012, new[] { 9 }), // Shroud of the Final Stand
+                new (32590, new[] { 4 }), // Nethervoid Cloak
+                new (34012, new[] { 4 }), // Shroud of the Final Stand
                 // Weapon
-                new (34009, new[] { 9 }), // Hammer of Judgement
-                new (32943, new[] { 9 }), // Swiftsteel Bludgeon
-                new (34011, new[] { 9 }), // Illidari Runeshield
+                new (34009, new[] { 4 }), // Hammer of Judgement
+                new (32943, new[] { 4 }), // Swiftsteel Bludgeon
+                new (34011, new[] { 4 }), // Illidari Runeshield
             }
         },
         {
@@ -349,16 +349,16 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 // Leather
-                new (34351, new[] { 9 }), // Tranquil Majesty Wraps
-                new (34407, new[] { 9 }), // Tranquil Moonlight Wraps
+                new (34351, new[] { 4 }), // Tranquil Majesty Wraps
+                new (34407, new[] { 4 }), // Tranquil Moonlight Wraps
                 // Mail
-                new (34350, new[] { 9 }), // Gauntlets of the Ancient Shadowmoon
-                new (34409, new[] { 9 }), // Gauntlets of the Ancient Frostwolf
+                new (34350, new[] { 4 }), // Gauntlets of the Ancient Shadowmoon
+                new (34409, new[] { 4 }), // Gauntlets of the Ancient Frostwolf
                 // Weapon
-                new (34346, new[] { 9 }), // Mounting Vengeance
-                new (34183, new[] { 9 }), // Shivering Felspine
-                new (34348, new[] { 9 }), // Wand of Cleansing Light
-                new (34347, new[] { 9 }), // Wand of the Demonsoul
+                new (34346, new[] { 4 }), // Mounting Vengeance
+                new (34183, new[] { 4 }), // Shivering Felspine
+                new (34348, new[] { 4 }), // Wand of Cleansing Light
+                new (34347, new[] { 4 }), // Wand of the Demonsoul
             }
         },
         #endregion
