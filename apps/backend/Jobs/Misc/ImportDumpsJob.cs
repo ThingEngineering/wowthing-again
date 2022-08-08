@@ -49,7 +49,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
         Type = JobType.ImportDumps,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(24),
-        Version = 20,
+        Version = 21,
     };
 
     private Dictionary<int, DumpItemXItemEffect[]> _itemEffectsMap;
@@ -676,7 +676,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
                     {
                         if (!dbMap.TryGetValue(itemXItemEffect.ID, out var dbItemEffect))
                         {
-                            dbItemEffect = dbMap[dumpItemEffect.ID] = new WowItemEffect
+                            dbItemEffect = dbMap[itemXItemEffect.ID] = new WowItemEffect
                             {
                                 ItemXItemEffectId = itemXItemEffect.ID,
                             };
