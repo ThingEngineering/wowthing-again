@@ -9,19 +9,19 @@ locations:
 sets:
   - name: "Armor - Sunmote Cloth"
     range: 5
-    sortKey: "armor-misc-1-sunmote"
+    sortKey: "1-armor-2-1"
 
   - name: "Armor - Sunmote Leather"
     range: 10
-    sortKey: "armor-misc-2-sunmote"
+    sortKey: "1-armor-2-2"
 
   - name: "Armor - Sunmote Mail"
     range: 5
-    sortKey: "armor-misc-3-sunmote"
+    sortKey: "1-armor-2-3"
 
   - name: "Armor - Sunmote Plate"
     range: 8
-    sortKey: "armor-misc-4-sunmote"
+    sortKey: "1-armor-2-4"
 
 sells:
 
