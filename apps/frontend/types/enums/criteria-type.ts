@@ -1,3 +1,17 @@
 export enum CriteriaType {
+    EarnAchievement = 8,
     CompleteQuest = 27,
+    HaveSpellCastOnYou = 28,
+    CastSpell = 29,
+    LearnOrKnowSpell = 34,
+    AcquireItem = 36,
+    UseItem = 41,
+    LootItem = 42,
+    ReputationGained = 46,
+    EquipItem = 57,
+    GarrisonMissionSucceeded = 174,
+    LearnToy = 185,
+    LearnHeirloom = 188,
+    LearnTransmog = 192,
+    CollectTransmogSet = 205,
 }

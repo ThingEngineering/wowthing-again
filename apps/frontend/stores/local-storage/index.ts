@@ -1,3 +1,4 @@
+export * from './achievements'
 export * from './auctions'
 export * from './characters'
 export * from './collection'
