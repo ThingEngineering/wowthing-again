@@ -1,4 +1,4 @@
-name: ">Unavailable"
+name: "Unavailable"
 groups:
 
 - name: "Arena"
@@ -6,7 +6,7 @@ groups:
   - 1363 # Sinful Gladiator's Soul Eater (Gladiator: Shadowlands Season 1)
   - 1480 # Unchained Gladiator's Soul Eater (Gladiator: Shadowlands Season 2)
   - 1572 # Cosmic Gladiator's Soul Eater (Gladiator: Shadowlands Season 3)
-  - 1599 # Eternal Gladiator's Soul Eater
+  - 1599 # Eternal Gladiator's Soul Eater (Gladiator: Shadowlands Season 4)
 
 - name: "Mythic+"
   things:

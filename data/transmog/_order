@@ -23,7 +23,7 @@ z2/_wrath_of_the_lich_king.yml
 
 z1/_the_burning_crusade.yml
 
-z0/_vanilla.yml
+z0/_classic.yml
 
 -
 
@@ -36,12 +36,12 @@ raids.yml
     z3/raids.yml Cataclysm
     z2/raids.yml Wrath of the Lich King
     z1/raids.yml The Burning Crusade
-    z0/raids.yml Vanilla
+    z0/raids.yml Classic
 
 dungeons.yml
     z4/dungeons.yml Mists of Pandaria
     z1/dungeons.yml The Burning Crusade
-    z0/dungeons.yml Vanilla
+    z0/dungeons.yml Classic
 
 pvp.yml
     z8/pvp.yml Shadowlands

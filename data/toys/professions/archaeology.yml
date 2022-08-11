@@ -1,7 +1,7 @@
 name: Archaeology
 groups:
 
-- name: Vanilla
+- name: Classic
   things:
   -  69776 # Ancient Amber (Fossil)
   -  64646 # Bones of Transformation (Night Elf)
