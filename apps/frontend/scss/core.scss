@@ -168,6 +168,7 @@ div.content {
     border: 1px solid $border-color;
     border-radius: $border-radius-small;
 }
+
 .pill {
     background-color: $highlight-background;
     border: 1px solid $border-color;
@@ -176,6 +177,12 @@ div.content {
     padding: 0 2px 1px 2px;
     text-align: center;
     white-space: nowrap;
+}
+
+.abs-center {
+    left: 50%;
+    position: absolute;
+    transform: translateX(-50%);
 }
 
 .text-overflow {
