@@ -12,7 +12,7 @@
     let score: number
     let upgrade: number
     $: {
-        score = character.raiderIo?.[season.id]?.all ?? 0
+        score = character.mythicPlusSeasonScores[season.id] || character.raiderIo?.[season.id]?.all || 0
         upgrade = getFirstMatch(ratingItemLevelUpgrade, score)
     }
 </script>
@@ -29,6 +29,9 @@
 <td
     use:tippyComponent={{
         component: Tooltip,
-        props: {character, score},
+        props: {
+            character,
+            score
+        },
     }}
 >{upgrade}</td>
