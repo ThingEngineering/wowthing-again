@@ -27,14 +27,14 @@ sells:
     reputation: 1711 exalted # Steamwheedle Preservation Society
 
   - type: pet
-    id: 1430 # Captured Forest Sproutling
+    id: 1571 # Albino River Calf
     costs:
       0: 1000 # Gold
       823: 2000
     reputation: 1711 revered # Steamwheedle Preservation Society
 
   - type: pet
-    id: 1571 # Indentured Albino River Calf
+    id: 1430 # Forest Sproutling
     costs:
       0: 1000 # Gold
       823: 2000
