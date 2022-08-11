@@ -1,4 +1,5 @@
-﻿using StackExchange.Redis;
+﻿using System.Text.RegularExpressions;
+using StackExchange.Redis;
 using Wowthing.Backend.Models.Data;
 using Wowthing.Backend.Models.Data.Collections;
 using Wowthing.Backend.Models.Data.Heirlooms;
@@ -154,12 +155,20 @@ public class CacheManualJob : JobBase, IScheduledJob
         var transmogSets = (await DataUtilities.LoadDumpCsvAsync<DumpTransmogSetItem>("transmogsetitem"))
             .ToGroupedDictionary(tsi => tsi.TransmogSetID);
 
-        _collectionItemToModifiedAppearances = await Context.WowItemEffect
+        var modifiedAppearances = await Context.WowItemEffect
             .AsNoTracking()
             .Where(wie => wie.Effect == WowSpellEffectEffect.LearnTransmogSet)
-            .ToDictionaryAsync(
-                wie => wie.ItemId,
-                wie => transmogSets[wie.Values[0]]
+            .ToArrayAsync();
+
+        _collectionItemToModifiedAppearances = modifiedAppearances
+            .GroupBy(wie => wie.ItemId)
+            .ToDictionary(
+                group => group.Key,
+                group => transmogSets[
+                        group.OrderByDescending(wie => wie.ItemXItemEffectId)
+                            .First()
+                            .Values[0]
+                    ]
                     .Select(tsi => tsi.ItemModifiedAppearanceID)
                     .ToArray()
             );
