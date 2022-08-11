@@ -106,8 +106,23 @@ SORT_SUBCLASS = {
     (4, 3): 22, # Mail
     (4, 4): 23, # Plate
     (4, -6): 30, # Cloak
-    (4, -5): 1000, # Off-hand
-    (4, 6): 10001, # Shield
+    (2, 0): 100, # 1h axe
+    (2, 4): 101, # 1h mace
+    (2, 8): 102, # 1h sword
+    (2, 1): 110, # 2h axe
+    (2, 5): 111, # 2h mace
+    (2, 9): 112, # 2h sword
+    (2, 15): 120, # dagger
+    (2, 13): 121, # fist
+    (2, 19): 122, # wand
+    (2, 9): 123, # warglaive
+    (2, 6): 130, # polearm
+    (2, 10): 131, # staff
+    (2, 2): 140, # bow
+    (2, 18): 141, # crossbow
+    (2, 3): 142, # gun
+    (4, -5): 150, # Off-hand
+    (4, 6): 151, # Shield
 }
 SORT_KEY = {
     1: 1,

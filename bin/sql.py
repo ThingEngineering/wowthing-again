@@ -12,6 +12,7 @@ WHERE   desired IS NOT NULL
 """
 
 blah = """
+
 """
 
 for line in blah.splitlines():
