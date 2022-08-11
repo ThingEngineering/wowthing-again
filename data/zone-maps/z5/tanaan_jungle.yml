@@ -588,6 +588,15 @@ farms:
     - type: toy
       id: 127859 # Dazzling Rod
 
+- name: "Fel-Drenched Satchel"
+  location: 47.0 44.5
+  objectId: 241745
+  reset: never
+  type: treasure
+  drops:
+    - type: transmog
+      id: 128218 # Fel-Proof Goggles
+
 - name: "Jewel of Hellfire"
   location: 28.7 23.3
   objectId: 240580

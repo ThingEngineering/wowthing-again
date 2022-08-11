@@ -4,6 +4,14 @@ farms:
 
 # Shared loot here is trinkets
 
+- name: "Clawlord Kril'mandar"
+  location: 12.6 82.0
+  note: "Use Clamshell Brand to summon"
+  npcId: 66936
+  drops:
+    - type: transmog
+      id: 90087 # Lobstmourne
+
 - name: "Zandalari Warbringer"
   location: 39.0 67.7
   npcId: 69842
