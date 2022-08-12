@@ -38,10 +38,10 @@
         {key: 'professionsSecondary', name: 'Professions - Sec'},
         {key: 'restedExperience', name: 'Rested XP'},
         {key: 'statusIcons', name: 'Status icons'},
+        {key: 'tasks', name: 'Tasks'},
         {key: 'vaultMythicPlus', name: 'Vault - Mythic+'},
         {key: 'vaultPvp', name: 'Vault - PvP'},
         {key: 'vaultRaid', name: 'Vault - Raid'},
-        {key: 'weeklies', name: 'Weeklies'},
     ]
 
     const commonActive = $settingsData.layout.commonFields.map(

@@ -4,14 +4,14 @@
     import Auctions from './sections/SettingsAuctions.svelte'
     import Account from './sections/SettingsAccount.svelte'
     import HideCharacters from './sections/SettingsHideCharacters.svelte'
+    import History from './sections/SettingsHistory.svelte'
     import Layout from './sections/SettingsLayout.svelte'
     import Lockouts from './sections/SettingsLockouts.svelte'
     import PinCharacters from './sections/SettingsPinCharacters.svelte'
     import Privacy from './sections/SettingsPrivacy.svelte'
     import SortCharacters from './sections/SettingsSortCharacters.svelte'
+    import Tasks from './sections/SettingsTasks.svelte'
     import Transmog from './sections/SettingsTransmog.svelte'
-    import Weeklies from './sections/SettingsWeeklies.svelte'
-    import History from './sections/SettingsHistory.svelte'
 
     export let slug1: string
     export let slug2: string
@@ -27,7 +27,7 @@
         'history': History,
         'layout': Layout,
         'layout/lockouts': Lockouts,
-        'layout/weeklies': Weeklies,
+        'layout/tasks': Tasks,
         'privacy': Privacy,
         'transmog': Transmog,
         'hide-characters': HideCharacters,

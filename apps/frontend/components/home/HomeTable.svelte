@@ -21,10 +21,10 @@
     import RowProfessions from './table/row/HomeTableRowProfessions.svelte'
     import RowRestedExperience from './table/row/HomeTableRowRestedExperience.svelte'
     import RowStatuses from './table/row/HomeTableRowStatuses.svelte'
+    import RowTasks from './table/row/HomeTableRowTasks.svelte'
     import RowVaultMythicPlus from '@/components/character-table/row/VaultMythicPlus.svelte'
     import RowVaultPvp from '@/components/character-table/row/VaultPvp.svelte'
     import RowVaultRaid from '@/components/character-table/row/VaultRaid.svelte'
-    import RowWeeklies from './table/row/HomeTableRowWeeklies.svelte'
 
     export let characterLimit = 0
 
@@ -141,6 +141,9 @@
                     <RowStatuses {character} />
                 {/if}
 
+            {:else if field === 'tasks'}
+                <RowTasks {character} />
+
             {:else if field === 'vaultMythicPlus'}
                 <RowVaultMythicPlus {character} />
 
@@ -149,9 +152,6 @@
 
             {:else if field === 'vaultRaid'}
                 <RowVaultRaid {character} />
-
-            {:else if field === 'weeklies'}
-                <RowWeeklies {character} />
 
             {:else}
                 <td>&nbsp;</td>
