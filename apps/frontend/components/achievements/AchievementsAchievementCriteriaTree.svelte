@@ -8,7 +8,7 @@ import { CriteriaType } from '@/types/enums';
 
     export let accountWide = false
     export let achievement: AchievementDataAchievement
-    export let child: boolean = false
+    export let child = false
     export let criteriaTreeId: number
     export let haveMap: Record<number, number> = null
 

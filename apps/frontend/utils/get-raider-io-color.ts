@@ -1,4 +1,3 @@
-import type { CharacterRaiderIoSeason } from '@/types'
 import type { StaticDataRaiderIoScoreTiers } from '@/types/data/static'
 
 
