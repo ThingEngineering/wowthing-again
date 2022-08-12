@@ -443,7 +443,7 @@ farms:
 - name: "Mor'geth"
   location: 68.9 44.0
   npcId: 178958
-  questId: 64531
+  questId: 64531 66618
   reset: weekly
   type: killBig
   drops:
