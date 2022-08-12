@@ -1,5 +1,6 @@
 <script lang="ts">
     import { achievementStore, userAchievementStore } from '@/stores'
+    import { achievementState } from '@/stores/local-storage'
     import type { AchievementDataAchievement } from '@/types'
 
     import AchievementCriteriaAccount from './AchievementsAchievementCriteriaAccount.svelte'
@@ -12,7 +13,7 @@
     let achievement: AchievementDataAchievement
     let earned: number
     let earnedDate: Date
-    let show = true
+    let show: boolean
     let chain: number[]
     let faction: number
     $: {
@@ -20,6 +21,7 @@
         earned = $userAchievementStore.data.achievements[achievementId]
         earnedDate = new Date(earned * 1000)
         chain = []
+        show = true
 
         // Why are achievement factions reversed? Who knows :|
         if (achievement.faction === 0) {
@@ -67,14 +69,23 @@
                 }
             }
         }
+
+        if ((earned && !$achievementState.showCompleted) ||
+            (!earned && !$achievementState.showIncomplete)) {
+            show = false
+        }
     }
 </script>
 
 <style lang="scss">
+    .wrapper {
+        width: 100%;
+    }
     .thing-container {
         --image-border-width: 1px;
 
         border: 1px solid $border-color;
+        break-inside: avoid;
         display: grid;
         grid-template-areas:
             "icon     info"
@@ -83,6 +94,7 @@
             "progress progress";
         grid-template-columns: calc(50px + 0.5rem) auto;
         margin-bottom: 0.5rem;
+        overflow: hidden; /* Firefox fix */
         padding: 0.5rem;
         width: 100%;
 
@@ -141,16 +153,7 @@
 
             span {
                 bottom: 1px;
-                left: 50%;
                 pointer-events: none;
-                position: absolute;
-                transform: translateX(-50%);
-
-                background: rgba(0, 0, 0, 0.7);
-                border-radius: $border-radius-small;
-                line-height: 1;
-                padding: 0 2px 1px 1px;
-                white-space: nowrap;
             }
         }
     }
@@ -162,7 +165,7 @@
             <WowthingImage name="achievement/{achievementId}" size={48} border={1} />
 
             {#if achievement.points > 0}
-                <span class="pill points">{achievement.points}</span>
+                <span class="pill abs-center points">{achievement.points}</span>
             {/if}
         </AchievementLink>
 
@@ -184,7 +187,9 @@
                             <WowthingImage name="achievement/{previousId}" size={40} border={1} />
                         </AchievementLink>
                         {#if $achievementStore.data.achievement[previousId]}
-                            <span>{$achievementStore.data.achievement[previousId].points}</span>
+                            <span class="pill abs-center">
+                                {$achievementStore.data.achievement[previousId].points}
+                            </span>
                         {/if}
                     </div>
                 {/each}

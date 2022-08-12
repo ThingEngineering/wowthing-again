@@ -10,7 +10,7 @@
     export let inactive: SettingsChoice[]
     export let key: string
     export let onFunc: () => void
-    export let title: string
+    export let title: string = undefined
 
     const keyType = `item/${key}`
 
@@ -74,7 +74,10 @@
 </style>
 
 <div class="columns">
-    <h3>{title}</h3>
+    {#if title}
+        <h3>{title}</h3>
+    {/if}
+    
     <div class="wrapper">
         <div class="column">
             <ListView

@@ -9,19 +9,19 @@ locations:
 sets:
   - name: "Armor - Misc Cloth"
     range: 9
-    sortKey: "armor-misc-1"
+    sortKey: "1-armor-1-1"
 
   - name: "Armor - Misc Leather"
     range: 12
-    sortKey: "armor-misc-2"
+    sortKey: "1-armor-1-2"
 
   - name: "Armor - Misc Mail"
     range: 9
-    sortKey: "armor-misc-3"
+    sortKey: "1-armor-1-3"
 
   - name: "Armor - Misc Plate"
     range: 12
-    sortKey: "armor-misc-4"
+    sortKey: "1-armor-1-4"
 
   - name: "Weapons - Misc"
     range: -1

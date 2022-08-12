@@ -65,19 +65,6 @@ export const holidayQuestCycle: string[] = [
     'holidayTimewalking',
 ]
 
-export const weekliesHead: Record<string, string> = {
-    holidayArenaSkirmishes: 'Skirm',
-    holidayBattlegrounds: 'BGs',
-    holidayDungeons: 'Dung',
-    holidayPetBattles: 'Pets',
-    holidayTimewalking: 'TW',
-    holidayWorldQuests: 'WQs',
-
-    slAnima: 'Anima',
-    slKorthia: 'Korth',
-    slZerethMortis: 'ZM',
-}
-
 export const dailyQuestLevel: Record<number, number> = {
     6: 45,
     7: 50,

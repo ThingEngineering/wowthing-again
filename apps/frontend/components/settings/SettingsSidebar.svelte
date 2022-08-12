@@ -19,8 +19,8 @@
                     slug: 'lockouts',
                 },
                 {
-                    name: 'Weeklies',
-                    slug: 'weeklies',
+                    name: 'Tasks',
+                    slug: 'tasks',
                 },
             ],
         },

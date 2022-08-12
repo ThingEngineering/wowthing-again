@@ -96,14 +96,16 @@ public class ApplicationUserSettings
         "professionsSecondary",
         "restedExperience",
         "statusIcons",
+        "tasks",
         "vaultMythicPlus",
         "vaultPvp",
         "vaultRaid",
-        "weeklies",
     };
 
-    private readonly HashSet<string> _validHomeWeeklies = new()
+    private readonly HashSet<string> _validHomeTasks = new()
     {
+        "dmfProfessions",
+
         "holidayArenaSkirmishes",
         "holidayBattlegrounds",
         "holidayDungeons",
@@ -176,6 +178,7 @@ public class ApplicationUserSettings
 
         Layout.HomeFields = Layout.HomeFields
             .EmptyIfNull()
+            .Select(field => field == "weeklies" ? "tasks" : field)
             .Where(field => _validHomeFields.Contains(field))
             .Distinct()
             .ToList();
@@ -187,9 +190,14 @@ public class ApplicationUserSettings
             Layout.HomeFields.Add("covenant");
         }
 
-        Layout.HomeWeeklies = Layout.HomeWeeklies
+        if (Layout.HomeTasks?.Count == 0)
+        {
+            Layout.HomeTasks = Layout.HomeWeeklies;
+        }
+
+        Layout.HomeTasks = Layout.HomeTasks
             .EmptyIfNull()
-            .Where(field => _validHomeWeeklies.Contains(field))
+            .Where(field => _validHomeTasks.Contains(field))
             .Distinct()
             .ToList();
     }
@@ -231,6 +239,7 @@ public class ApplicationUserSettingsLayout
     public List<string> CommonFields { get; set; } = new();
     public List<string> HomeFields { get; set; } = new();
     public List<int> HomeLockouts { get; set; } = new();
+    public List<string> HomeTasks { get; set; } = new();
     public List<string> HomeWeeklies { get; set; } = new();
 }
 

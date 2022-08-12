@@ -25,6 +25,9 @@
 </script>
 
 <style lang="scss">
+    h4 {
+        margin-bottom: 0.2rem;
+    }
     .collection-objects {
         min-height: 52px;
     }

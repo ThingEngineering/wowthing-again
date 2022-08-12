@@ -1,5 +1,12 @@
-name: ">Unavailable"
+name: "Unavailable"
 groups:
+
+- name: "Arena"
+  things:
+  - 541 # Malevolent Gladiator's Cloud Serpent
+  - 562 # Tryannical Gladiator's Cloud Serpent
+  - 563 # Grievous Gladiator's Cloud Serpent
+  - 564 # Prideful Gladiator's Cloud Serpent
 
 - name: "Brawler's Guild"
   things:
@@ -12,10 +19,10 @@ groups:
   - 519 # Emerald Pandaren Phoenix (CM)
   - 520 # Violet Pandaren Phoenix (CM)
 
-- name: "Instances"
-  things:
-  - 558 # Kor'kron War Wolf (Garrosh)
-
 - name: "Events"
   things:
   - 651 # Warlord's Deathwheel
+
+- name: "Instances"
+  things:
+  - 558 # Kor'kron War Wolf (Garrosh)

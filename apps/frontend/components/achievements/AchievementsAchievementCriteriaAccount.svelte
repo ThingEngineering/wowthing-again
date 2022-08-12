@@ -21,7 +21,7 @@
 
         progressBar = achievement?.isProgressBar || data.criteria[0]?.isProgressBar || false
 
-        if (achievement.id === 12866) {
+        if (achievement.id === 15648) {
             console.log('-- ACCOUNT --')
             console.log(achievement)
             console.log(criteriaTree)
@@ -32,17 +32,21 @@
 
 <style lang="scss">
     div {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
         grid-area: criteria;
         margin-top: 0.5rem;
         padding-top: 0.25rem;
         width: 100%;
     }
+    .tree {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
 </style>
 
 {#if criteriaTree}
-    <div>
+    <div
+        class:tree={!progressBar}
+    >
         {#if progressBar}
             <ProgressBar
                 title="{data.criteria[0].description}"

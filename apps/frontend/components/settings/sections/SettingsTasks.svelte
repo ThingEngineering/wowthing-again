@@ -7,7 +7,9 @@
 
     import MagicLists from '../SettingsMagicLists.svelte'
  
-    const weeklyChoices: SettingsChoice[] = [
+    const taskChoices: SettingsChoice[] = [
+        { key: 'dmfProfessions', name: 'Darkmoon Faire - Professions' },
+
         { key: 'holidayArenaSkirmishes', name: 'Holiday - Arena Skirmishes' },
         { key: 'holidayBattlegrounds', name: 'Holiday - Battlegrounds' },
         { key: 'holidayDungeons', name: 'Holiday - Mythic Dungeons' },
@@ -20,32 +22,32 @@
         { key: 'slZerethMortis', name: 'Shadowlands - Zereth Mortis' },
     ]
 
-    const weeklyActive = $settingsData.layout.homeWeeklies.map(
-        (f) => filter(weeklyChoices, (c) => c.key === f)[0]
+    const taskActive = $settingsData.layout.homeTasks.map(
+        (f) => filter(taskChoices, (c) => c.key === f)[0]
     )
-    const weeklyInactive = filter(weeklyChoices, (c) => weeklyActive.indexOf(c) < 0)
+    const taskInactive = filter(taskChoices, (c) => taskActive.indexOf(c) < 0)
 
-    const onWeeklyChange = debounce(() => {
+    const onTaskChange = debounce(() => {
         settingsData.update(state => {
-            state.layout.homeWeeklies = weeklyActive.map((c) => c.key)
+            state.layout.homeTasks = taskActive.map((c) => c.key)
             return state
         })
     }, 100)
 </script>
 
 <div class='thing-container settings-container'>
-    <h2>Weeklies</h2>
+    <h2>Tasks</h2>
 
     <p>
-        <code>Holiday</code> weeklies will only show that column when that holiday is active.
-        You'll also need to add <code>Weeklies</code> to <code>Home columns</code> in
+        <code>Holiday</code> tasks will only show that column when that holiday is active.
+        You'll also need to add <code>Tasks</code> to <code>Home columns</code> in
         <a href='#/settings/layout'>Settings->Layout</a>.
     </p>
+    
     <MagicLists
         key='lockouts'
-        title='Lockouts'
-        onFunc={onWeeklyChange}
-        active={weeklyActive}
-        inactive={weeklyInactive}
+        onFunc={onTaskChange}
+        active={taskActive}
+        inactive={taskInactive}
     />
 </div>

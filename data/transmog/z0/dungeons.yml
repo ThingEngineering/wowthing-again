@@ -5,7 +5,7 @@ skipClasses:
 - monk
 groups:
 
-- name: Vanilla Dungeons
+- name: Classic Dungeons
   type: class
   sets:
   - Dungeon Set 2

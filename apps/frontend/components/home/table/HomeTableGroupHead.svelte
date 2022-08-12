@@ -15,7 +15,7 @@
     import HeadLockouts from './head/HomeTableHeadLockouts.svelte'
     import HeadMount from './head/HomeTableHeadMount.svelte'
     import HeadMythicPlusScore from './head/HomeTableHeadMythicPlusScore.svelte'
-    import HeadWeeklies from './head/HomeTableHeadWeeklies.svelte'
+    import HeadTasks from './head/HomeTableHeadTasks.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import RowGold from './row/HomeTableRowGold.svelte'
     import RowPlayedTime from './row/HomeTableRowPlayedTime.svelte'
@@ -157,6 +157,11 @@
                 <td>Rest</td>
             {/if}
 
+        {:else if field === 'tasks'}
+            {#if !isPublic || $settings.privacy.publicQuests}
+                <HeadTasks />
+            {/if}
+
         {:else if field === 'vaultMythicPlus'}
             <td>M+ Vault</td>
 
@@ -165,11 +170,6 @@
 
         {:else if field === 'vaultRaid'}
             <td>Raid Vault</td>
-
-        {:else if field === 'weeklies'}
-            {#if !isPublic || $settings.privacy.publicQuests}
-                <HeadWeeklies />
-            {/if}
 
         {:else}
             {#if !$homeState.onlyWeekly}

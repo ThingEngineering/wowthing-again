@@ -50,10 +50,8 @@
 
 {#if criteriaTree}
     <div class="criteria">
-        {#if criteriaTree.children.length === 1}
-            {#if achievement?.isProgressBar === true}
-                <AchievementCriteriaBar {achievement} />
-            {/if}
+        {#if criteriaTree.children.length === 1 && achievement?.isProgressBar === true}
+            <AchievementCriteriaBar {achievement} />
         {:else}
             {#each criteriaTree.children as child}
                 <AchievementCriteriaTree

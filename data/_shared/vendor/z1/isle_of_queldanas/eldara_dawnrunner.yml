@@ -6,6 +6,11 @@ locations:
   z1_isle_of_queldanas:
     - 47.2 30.6
 
+sets:
+  - name: "Reputation - Shattered Sun"
+    range: -1
+    sortKey: "0-rep-shattered-sun"
+
 sells:
   - type: transmog
     id: 35221 # Tabard of the Shattered Sun [tabard]
