@@ -217,6 +217,10 @@
                 ALL
             {/each}
 
+            {#if $zoneMapState.maxLevelOnly}
+            | MAX
+            {/if}
+
             <IconifyIcon
                 icon={iconStrings['chevron-' + ($zoneMapState.classExpanded[slugKey] ? 'down' : 'right')]}
             />
@@ -231,6 +235,11 @@
                         bind:value={$zoneMapState.classFilters[slugKey][classId]}
                     >{PlayableClass[classId]}</Checkbox>
                 {/each}
+                <hr>
+                <Checkbox
+                    name="max_level"
+                    bind:value={$zoneMapState.maxLevelOnly}
+                >Max level only</Checkbox>
             </div>
         {/if}
 

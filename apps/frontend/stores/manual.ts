@@ -7,6 +7,7 @@ import sortBy from 'lodash/sortBy'
 import uniq from 'lodash/uniq'
 import { DateTime } from 'luxon'
 
+import { Constants } from '@/data/constants'
 import { covenantSlugMap } from '@/data/covenant'
 import { factionMap } from '@/data/faction'
 import { UserCount, WritableFancyStore } from '@/types'
@@ -478,6 +479,10 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                         (
                             mapClassMask === 0 ||
                             (mapClassMask & staticData.characterClasses[char.classId].mask) > 0
+                        ) &&
+                        (
+                            options.maxLevelOnly === false ||
+                            char.level === Constants.characterMaxLevel
                         )
                     )
                 )
