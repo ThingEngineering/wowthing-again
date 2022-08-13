@@ -582,6 +582,11 @@ public class CacheManualJob : JobBase, IScheduledJob
                     outFile.WriteLine("    -- Zone Maps: {0}", category.Name);
                     foreach (var farm in category.Farms)
                     {
+                        if (farm.Type == FarmType.Quest)
+                        {
+                            continue;
+                        }
+
                         foreach (var questId in farm.QuestIds)
                         {
                             if (questId > 0 && !seenQuests.Contains(questId))

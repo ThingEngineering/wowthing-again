@@ -155,3 +155,47 @@ farms:
     - *shared-3
     - *shared-4
     - *shared-5
+
+# Quest
+
+- name: "Heroic Deeds"
+  faction: alliance
+  location: 86.6 63.8
+  note: "From Taijing the Cyclone"
+  questId: 32900
+  reset: never
+  type: quest
+  drops:
+    - type: item
+      id: 98546
+
+- name: "Heroic Deeds"
+  faction: horde
+  location: 61.7 19.4
+  note: "From Jinho the Wind Breaker"
+  questId: 32901
+  reset: never
+  type: quest
+  drops:
+    - type: item
+      id: 98546
+
+- name: "The King and the Council"
+  location: 82.2 29.0
+  note: "From Lorewalker Cho"
+  questId: 32806
+  reset: never
+  type: quest
+  drops:
+    - type: item
+      id: 98133
+
+- name: "The Warchief and the Darkness"
+  location: 84.0 29.0
+  note: "From Lorewalker Cho"
+  questId: 32807
+  reset: never
+  type: quest
+  drops:
+    - type: item
+      id: 98133

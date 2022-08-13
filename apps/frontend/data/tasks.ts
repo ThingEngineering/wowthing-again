@@ -11,5 +11,6 @@ export const tasksHead: Record<string, string> = {
 
     slAnima: 'Anima',
     slKorthia: 'Korth',
+    slNewDeal: 'Deal',
     slZerethMortis: 'ZM',
 }
