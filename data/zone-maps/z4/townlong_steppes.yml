@@ -29,6 +29,69 @@ farms:
     - type: toy
       id: 90067 # B. F. F. Necklace
 
+- name: "Kah'tir"
+  location: 63.0 35.6
+  note: "Drops Big Bag of Arms that can contain BoEs"
+  npcId: 50355
+  drops: &big-bag
+    # Big Bag of Arms
+    - type: transmog
+      id: 90721 # Cournith Waterstrider's Silken Finery [cloth legs]
+
+    - type: transmog
+      id: 90725 # Gaarn's Leggings of Infestation [cloth legs]
+
+    - type: transmog
+      id: 90720 # Silent Leggings of the Ghostpaw [leather legs]
+
+    - type: transmog
+      id: 90724 # Spriggin's Sproggin' Leggin' [leather legs]
+
+    - type: transmog
+      id: 90723 # Arness's Scaled Leggings [mail legs]
+
+    - type: transmog
+      id: 90719 # Go-Kan's Golden Trousers [mail legs]
+
+    - type: transmog
+      id: 90717 # Qu'nas' Apocryphal Legplates [plate legs]
+
+    - type: transmog
+      id: 90718 # Torik-Ethis' Bloodied Legguards [plate legs]
+    
+    - type: transmog
+      id: 90722 # Torik-Ethis' Gilded Legplates [plate legs]
+
+    - type: transmog
+      id: 87646 # Needlefang Throatripper [1h agi axe]
+
+    - type: transmog
+      id: 87649 # Pool-Stirrer [1h int mace]
+
+    - type: transmog
+      id: 87652 # Ook-Breaker Mace [1h str mace]
+
+    - type: transmog
+      id: 87643 # Fangcracker Battlemace [2h str mace]
+
+    - type: transmog
+      id: 87642 # Darkstaff of Annihilation [int staff]
+
+    - type: transmog
+      id: 87651 # Pathwalker Greatstaff [agi staff]
+
+    - type: transmog
+      id: 87650 # Fishsticker Crossbow [crossbow]
+
+    - type: transmog
+      id: 87641 # Yaungol Battle Barrier [shield]
+
+- name: "Norlaxx"
+  location: 54.0 63.4
+  note: "Drops Big Bag of Mysteries that can contain BoEs"
+  npcId: 50344
+  drops: *big-bag
+
 - name: "Zandalari Warbringer"
   location: 36.6 85.6
   npcId: 69842
