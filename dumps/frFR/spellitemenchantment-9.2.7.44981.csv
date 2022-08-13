@@ -1,0 +1,4271 @@
+ID,Name_lang
+13,Aiguisé II
+14,Aiguisé III
+15,Renforcé (+$k1 à l’Armure)
+16,Renforcé (+$k1 à l’Armure)
+17,Renforcé (+$k1 à l’Armure)
+18,Renforcé (+$k1 à l’Armure)
+19,Lesté I
+20,Lesté II
+21,Lesté III
+24,+$k1 points de mana
+25,Huile des ténèbres
+26,Huile glaciale
+30,Lunette (+$k1 points de dégâts)
+32,Lunette (+$k1 points de dégâts)
+33,Lunette (+$k1 points de dégâts)
+34,Contrepoids (+$k1 à la Hâte)
+36,Enchanter : Éclat flamboyant
+37,Dragonne en acier
+38,+$k1 à l’Esquive
+40,Aiguisé I
+41,+$k1 aux points de vie
+43,Pointe en fer
+44,Absorption ($7423s1)
+63,Absorption ($7447s1)
+64,+$k1 à la Polyvalence
+66,+$k1 à l’Endurance
+67,+$k1 point de dégâts
+68,+$k1 à la Force
+69,+$k1 à la Force
+70,+$k1 à la Force
+71,+$k1 à l’Endurance
+72,+$k1 à l’Endurance
+73,+$k1 à l’Endurance
+74,+$k1 à l’Agilité
+75,+$k1 à l’Agilité
+76,+$k1 à l’Agilité
+77,+$k1 points de dégâts
+78,+$k1 points de dégâts
+79,+$k1 à l’Intelligence
+80,+$k1 à l’Intelligence
+81,+$k1 à l’Intelligence
+82,+$k1 à la Polyvalence
+83,+$k1 à la Polyvalence
+84,+$k1 à la Polyvalence
+85,+$k1 à l’Armure
+86,+$k1 à l’Armure
+87,+$k1 à l’Armure
+88,
+89,+$k1 à l’Armure
+90,+$k1 à l’Agilité
+91,+$k1 à l’Agilité
+92,+$k1 à l’Agilité
+93,+$k1 à l’Agilité
+94,+$k1 à l’Intelligence
+95,+$k1 à l’Intelligence
+96,+$k1 à l’Intelligence
+97,+$k1 à l’Intelligence
+98,+$k1 à la Polyvalence
+99,+$k1 à la Polyvalence
+100,+$k1 à la Polyvalence
+101,+$k1 à la Polyvalence
+102,+$k1 à l’Endurance
+103,+$k1 à l’Endurance
+104,+$k1 à l’Endurance
+105,+$k1 à l’Endurance
+106,+$k1 à la Force
+107,+$k1 à la Force
+108,+$k1 à la Force
+109,+$k1 à la Force
+110,+$k1 à l’Esquive
+111,+$k1 à l’Esquive
+112,+$k1 à l’Esquive
+113,+$k1 à l’Esquive
+114,+$k1 à l’Esquive
+115,+$k1 à l’Esquive
+116,+$k1 à l’Esquive
+117,+$k1 points de dégâts
+118,+$k1 points de dégâts
+119,+$k1 points de dégâts
+120,+$k1 points de dégâts
+121,+$k1 à l’Armure
+122,+$k1 à l’Armure
+123,+$k1 à l’Armure
+125,+1 à la compétence Epée
+126,+2 à la compétence Epée
+127,+3 à la compétence Epée
+128,+4 à la compétence Epée
+129,+5 à la compétence Epée
+130,+6 à la compétence Epée
+131,+7 à la compétence Epée
+132,+1 à la compétence Epée à deux mains
+133,+2 à la compétence Epée à deux mains
+134,+3 à la compétence Epée à deux mains
+135,+4 à la compétence Epée à deux mains
+136,+5 à la compétence Epée à deux mains
+137,+6 à la compétence Epée à deux mains
+138,+7 à la compétence Epée à deux mains
+139,+1 à la compétence Masse
+140,+2 à la compétence Masse
+141,+3 à la compétence Masse
+142,+4 à la compétence Masse
+143,+5 à la compétence Masse
+144,+6 à la compétence Masse
+145,+7 à la compétence Masse
+146,+1 à la compétence Masse à deux mains
+147,+2 à la compétence Masse à deux mains
+148,+3 à la compétence Masse à deux mains
+149,+4 à la compétence Masse à deux mains
+150,+5 à la compétence Masse à deux mains
+151,+6 à la compétence Masse à deux mains
+152,+7 à la compétence Masse à deux mains
+153,+1 à la compétence Hache
+154,+2 à la compétence Hache
+155,+3 à la compétence Hache
+156,+4 à la compétence Hache
+157,+5 à la compétence Hache
+158,+6 à la compétence Hache
+159,+7 à la compétence Hache
+160,+1 à la compétence Hache à deux mains
+161,+2 à la compétence Hache à deux mains
+162,+3 à la compétence Hache à deux mains
+163,+4 à la compétence Hache à deux mains
+164,+5 à la compétence Hache à deux mains
+165,+6 à la compétence Hache à deux mains
+166,+7 à la compétence Hache à deux mains
+167,+1 à la compétence Dague
+168,+2 à la compétence Dague
+169,+3 à la compétence Dague
+170,+4 à la compétence Dague
+171,+5 à la compétence Dague
+172,+6 à la compétence Dague
+173,+7 à la compétence Dague
+174,+1 à la compétence Arme à feu
+175,+2 à la compétence Arme à feu
+176,+3 à la compétence Arme à feu
+177,+4 à la compétence Arme à feu
+178,+5 à la compétence Arme à feu
+179,+6 à la compétence Arme à feu
+180,+7 à la compétence Arme à feu
+181,+1 à la compétence Arc
+182,+2 à la compétence Arc
+183,+3 à la compétence Arc
+184,+4 à la compétence Arc
+185,+5 à la compétence Arc
+186,+6 à la compétence Arc
+187,+7 à la compétence Arc
+191,+$7593s1 (Bêtes)
+192,+$7594s1 (Bêtes)
+193,+$7595s1 (Bêtes)
+194,+$7596s1 (Bêtes)
+195,+$k1 au score de Coup critique
+196,+$k1 au score de Coup critique
+197,+$k1 au score de Coup critique
+198,+$k1 au score de Coup critique
+199,10% quand touché : Trait de l’ombre (10 points de dégâts)
+200,10% quand touché : Trait de l’ombre (20 points de dégâts)
+201,10% quand touché : Trait de l’ombre (30 points de dégâts)
+202,10% quand touché : Trait de l’ombre (40 points de dégâts)
+203,10% quand touché : Trait de l’ombre (50 points de dégâts)
+204,10% quand touché : Trait de l’ombre (60 points de dégâts)
+205,10% quand touché : Trait de l’ombre (70 points de dégâts)
+241,+$k1 aux dégâts de l’arme
+242,+$k1 aux points de vie
+243,+$k1 à la Polyvalence
+244,+$k1 à l’Intelligence
+245,+$k1 à l’Armure
+246,+$k1 points de mana
+247,+$k1 à l’Agilité
+248,+$k1 à la Force
+249,+$7784s1 Tueur de bêtes
+250,+$k1 Dégâts de l’arme
+251,+$k1 à l’Intelligence
+252,+$k1 à la Polyvalence
+253,Absorption ($7848s1)
+254,+$k1 aux points de vie
+255,+$k1 à la Polyvalence
+257,+$k1 à l’Armure
+263,Appât de pêche (+$8082s1 compétence de pêche)
+264,Appât de pêche (+$8083s1 compétence de pêche)
+265,Appât de pêche (+$8084s1 compétence de pêche)
+266,Appât de pêche (+$8085s1 compétence de pêche)
+303,Orbe de feu
+343,+$k1 à l’Agilité
+344,+$k1 à l’Armure
+345,+$k1 à l’Armure
+346,+$k1 à l’Armure
+347,+$k1 à l’Armure
+348,+$k1 à l’Armure
+349,+$k1 à l’Agilité
+350,+$k1 à l’Intelligence
+351,+$k1 à la Polyvalence
+352,+$k1 à la Force
+353,+$k1 à l’Endurance
+354,+$k1 à l’Intelligence
+355,+$k1 à la Polyvalence
+356,+$k1 à l’Endurance
+357,+$k1 à la Force
+358,+$k1 à l’Agilité
+359,+$k1 à l’Intelligence
+360,+$k1 à la Polyvalence
+361,+$k1 à l’Endurance
+362,+$k1 à la Force
+363,+$k1 à l’Agilité
+364,+$k1 à l’Intelligence
+365,+$k1 à la Polyvalence
+366,+$k1 à l’Endurance
+367,+$k1 à la Force
+368,+$k1 à l’Agilité
+369,+$k1 à l’Intelligence
+370,+$k1 à la Polyvalence
+371,+$k1 à l’Endurance
+372,+$k1 à la Force
+383,+$k1 à l’Armure
+384,+$k1 à l’Armure
+385,+$k1 à l’Armure
+386,+$k1 à l’Armure
+387,+$k1 à l’Armure
+388,+$k1 à l’Armure
+389,+$k1 à l’Armure
+403,+$k1 à l’Agilité
+404,+$k1 à l’Agilité
+405,+$k1 à l’Intelligence
+406,+$k1 à l’Intelligence
+407,+$k1 à la Polyvalence
+408,+$k1 à la Polyvalence
+409,+$k1 à l’Endurance
+410,+$k1 à la Force
+411,+$k1 à l’Endurance
+412,+$k1 à la Force
+423,+$k1 à la Puissance des sorts
+424,+$k1 à la Puissance des sorts
+425,Leurre du Temple noir
+426,+$k1 à la Puissance des sorts
+427,+$9396s1 à la Puissance des sorts
+428,+$k1 à la Puissance des sorts
+429,+$k1 à la Puissance des sorts
+430,+$k1 à la Puissance des sorts
+431,+$k1 à la Puissance des sorts
+432,+$k1 à la Puissance des sorts
+436,+$k1 au score de Coup critique
+440,+$k1 à la Puissance des sorts
+441,+$k1 à la Puissance des sorts
+442,+$k1 à la Puissance des sorts
+463,Pointe en mithril
+464,+$7215s1% à la vitesse de la monture
+483,Aiguisé IV
+484,Lesté IV
+583,+$k1 à l’Agilité / +$k2 à la Polyvalence
+584,+$k1 à l’Agilité / +$k2 à l’Intelligence
+585,+$k1 à l’Agilité / +$k2 à l’Endurance
+586,+$k1 à l’Agilité / +$k2 à la Force
+587,+$k1 à l’Intelligence / +$k2 à la Polyvalence
+588,+$k1 à l’Intelligence / +$k2 à l’Endurance
+589,+$k1 à l’Intelligence / +$k2 à la Force
+590,+$k1 à la Polyvalence / +$k2 à l’Endurance
+591,+$k1 à la Polyvalence / +$k2 à la Force
+592,+$k1 à l’Endurance / +$k2 à la Force
+663,Lunette (+$k1 points de dégâts)
+664,Lunette (+$k1 points de dégâts)
+684,+$k1 à la Force
+723,+$k1 à l’Intelligence
+724,+$k1 à l’Endurance
+743,+$13418s1 Camouflage
+744,+$k1 à l’Armure
+763,+$k1 au blocage
+783,+$k1 à l’Armure
+803,Arme flamboyante
+805,+$k1 aux dégâts de l’arme
+823,+$k1 à la Force
+843,+$k1 points de mana
+844,+$13611s1 Minage
+845,+$13614s1 Herboristerie
+846,+$71691s1 en Pêche
+847,+$13624s1 à toutes les caractéristiques
+848,+$k1 à l’Armure
+849,+$k1 à l’Agilité
+850,+$k1 aux points de vie
+851,+$k1 à la Polyvalence
+852,+$k1 à l’Endurance
+853,+$13650s1 Tueur de bêtes
+854,+$13651s1 Tueur d’élémentaires
+856,+$k1 à la Force
+857,+$k1 points de mana
+863,+$k1 à la Parade
+865,+$13697s1 Dépeçage
+866,+$13625s1 à toutes les caractéristiques
+883,+$k1 à l’Agilité
+884,+$k1 à l’Armure
+904,+$k1 à l’Agilité
+905,+$k1 à l’Intelligence
+906,+$13838s1 Minage
+907,+$k1 à la Polyvalence
+908,+$k1 aux points de vie
+909,+$13839s1 Herboristerie
+910,+$k1 à l’Agilité et +$k2 à l’Esquive
+911,Augmentation mineure de Vitesse
+912,Tueur de démon
+913,+$k1 points de mana
+923,+$k1 à l’Esquive
+924,+$k1 à l’Esquive
+925,+$k1 à l’Esquive
+927,+$k1 à la Force
+928,+$13824s1 à toutes les caractéristiques
+929,+$k1 à l’Endurance
+930,+$13927s1% à la vitesse de la monture
+931,+$k1 à la Hâte
+943,+$k1 aux dégâts de l’arme
+963,+$k1 aux dégâts de l’arme
+983,+$k1 à l’Agilité
+1003,Poison de Peau-de-venin
+1043,+$k1 à la Force
+1044,+$k1 à la Force
+1045,+$k1 à la Force
+1046,+$k1 à la Force
+1047,+$k1 à la Force
+1048,+$k1 à la Force
+1049,+$k1 à la Force
+1050,+$k1 à la Force
+1051,+$k1 à la Force
+1052,+$k1 à la Force
+1053,+$k1 à la Force
+1054,+$k1 à la Force
+1055,+$k1 à la Force
+1056,+$k1 à la Force
+1057,+$k1 à la Force
+1058,+$k1 à la Force
+1059,+$k1 à la Force
+1060,+$k1 à la Force
+1061,+$k1 à la Force
+1062,+$k1 à la Force
+1063,+$k1 à la Force
+1064,+$k1 à la Force
+1065,+$k1 à la Force
+1066,+$k1 à la Force
+1067,+$k1 à la Force
+1068,+$k1 à l’Endurance
+1069,+$k1 à l’Endurance
+1070,+$k1 à l’Endurance
+1071,+$k1 à l’Endurance
+1072,+$k1 à l’Endurance
+1073,+$k1 à l’Endurance
+1074,+$k1 à l’Endurance
+1075,+$k1 à l’Endurance
+1076,+$k1 à l’Endurance
+1077,+$k1 à l’Endurance
+1078,+$k1 à l’Endurance
+1079,+$k1 à l’Endurance
+1080,+$k1 à l’Endurance
+1081,+$k1 à l’Endurance
+1082,+$k1 à l’Endurance
+1083,+$k1 à l’Endurance
+1084,+$k1 à l’Endurance
+1085,+$k1 à l’Endurance
+1086,+$k1 à l’Endurance
+1087,+$k1 à l’Endurance
+1088,+$k1 à l’Endurance
+1089,+$k1 à l’Endurance
+1090,+$k1 à l’Endurance
+1091,+$k1 à l’Endurance
+1092,+$k1 à l’Endurance
+1093,+$k1 à l’Endurance
+1094,+$k1 à l’Agilité
+1095,+$k1 à l’Agilité
+1096,+$k1 à l’Agilité
+1097,+$k1 à l’Agilité
+1098,+$k1 à l’Agilité
+1099,+$k1 à l’Agilité
+1100,+$k1 à l’Agilité
+1101,+$k1 à l’Agilité
+1102,+$k1 à l’Agilité
+1103,+$k1 à l’Agilité
+1104,+$k1 à l’Agilité
+1105,+$k1 à l’Agilité
+1106,+$k1 à l’Agilité
+1107,+$k1 à l’Agilité
+1108,+$k1 à l’Agilité
+1109,+$k1 à l’Agilité
+1110,+$k1 à l’Agilité
+1111,+$k1 à l’Agilité
+1112,+$k1 à l’Agilité
+1113,+$k1 à l’Agilité
+1114,+$k1 à l’Agilité
+1115,+$k1 à l’Agilité
+1116,+$k1 à l’Agilité
+1117,+$k1 à l’Agilité
+1118,+$k1 à l’Intelligence
+1119,+$k1 à l’Intelligence
+1120,+$k1 à l’Intelligence
+1121,+$k1 à l’Intelligence
+1122,+$k1 à l’Intelligence
+1123,+$k1 à l’Intelligence
+1124,+$k1 à l’Intelligence
+1125,+$k1 à l’Intelligence
+1126,+$k1 à l’Intelligence
+1127,+$k1 à l’Intelligence
+1128,+$k1 à l’Intelligence
+1129,+$k1 à l’Intelligence
+1130,+$k1 à l’Intelligence
+1131,+$k1 à l’Intelligence
+1132,+$k1 à l’Intelligence
+1133,+$k1 à l’Intelligence
+1134,+$k1 à l’Intelligence
+1135,+$k1 à l’Intelligence
+1136,+$k1 à l’Intelligence
+1137,+$k1 à l’Intelligence
+1138,+$k1 à l’Intelligence
+1139,+$k1 à l’Intelligence
+1140,+$k1 à l’Intelligence
+1141,+$k1 à l’Intelligence
+1142,+$k1 à l’Intelligence
+1143,+$k1 à l’Intelligence
+1144,+$k1 à la Polyvalence
+1145,+$k1 à la Polyvalence
+1146,+$k1 à la Polyvalence
+1147,+$k1 à la Polyvalence
+1148,+$k1 à la Polyvalence
+1149,+$k1 à la Polyvalence
+1150,+$k1 à la Polyvalence
+1151,+$k1 à la Polyvalence
+1152,+$k1 à la Polyvalence
+1153,+$k1 à la Polyvalence
+1154,+$k1 à la Polyvalence
+1155,+$k1 à la Polyvalence
+1156,+$k1 à la Polyvalence
+1157,+$k1 à la Polyvalence
+1158,+$k1 à la Polyvalence
+1159,+$k1 à la Polyvalence
+1160,+$k1 à la Polyvalence
+1161,+$k1 à la Polyvalence
+1162,+$k1 à la Polyvalence
+1163,+$k1 à la Polyvalence
+1164,+$k1 à la Polyvalence
+1165,+$k1 à la Polyvalence
+1166,+$k1 à la Polyvalence
+1167,+$k1 à la Polyvalence
+1168,+$k1 à la Polyvalence
+1183,+$k1 à la Polyvalence
+1203,+$k1 à la Force
+1204,+$k1 à la Force
+1205,+$k1 à la Force
+1206,+$k1 à la Force
+1207,+$k1 à la Force
+1208,+$k1 à la Force
+1209,+$k1 à l’Endurance
+1210,+$k1 à l’Endurance
+1211,+$k1 à l’Endurance
+1212,+$k1 à l’Endurance
+1213,+$k1 à l’Endurance
+1214,+$k1 à l’Endurance
+1215,+$k1 à l’Agilité
+1216,+$k1 à l’Agilité
+1217,+$k1 à l’Agilité
+1218,+$k1 à l’Agilité
+1219,+$k1 à l’Agilité
+1220,+$k1 à l’Agilité
+1221,+$k1 à l’Intelligence
+1222,+$k1 à l’Intelligence
+1223,+$k1 à l’Intelligence
+1224,+$k1 à l’Intelligence
+1225,+$k1 à l’Intelligence
+1226,+$k1 à l’Intelligence
+1227,+$k1 à la Polyvalence
+1228,+$k1 à la Polyvalence
+1229,+$k1 à la Polyvalence
+1230,+$k1 à la Polyvalence
+1231,+$k1 à la Polyvalence
+1232,+$k1 à la Polyvalence
+1243,+$k1 à la résistance aux Arcanes
+1244,+$k1 à la résistance aux Arcanes
+1245,+$k1 à la résistance aux Arcanes
+1246,+$k1 à la résistance aux Arcanes
+1247,+$k1 à la résistance aux Arcanes
+1248,+$k1 à la résistance aux Arcanes
+1249,+$k1 à la résistance aux Arcanes
+1250,+$k1 à la résistance aux Arcanes
+1251,+$k1 à la résistance aux Arcanes
+1252,+$k1 à la résistance aux Arcanes
+1253,+$k1 à la résistance aux Arcanes
+1254,+$k1 à la résistance aux Arcanes
+1255,+$k1 à la résistance aux Arcanes
+1256,+$k1 à la résistance aux Arcanes
+1257,+$k1 à la résistance aux Arcanes
+1258,+$k1 à la résistance aux Arcanes
+1259,+$k1 à la résistance aux Arcanes
+1260,+$k1 à la résistance aux Arcanes
+1261,+$k1 à la résistance aux Arcanes
+1262,+$k1 à la résistance aux Arcanes
+1263,+$k1 à la résistance aux Arcanes
+1264,+$k1 à la résistance aux Arcanes
+1265,+$k1 à la résistance aux Arcanes
+1266,+$k1 à la résistance aux Arcanes
+1267,+$k1 à la résistance aux Arcanes
+1268,+$k1 à la résistance aux Arcanes
+1269,+$k1 à la résistance aux Arcanes
+1270,+$k1 à la résistance aux Arcanes
+1271,+$k1 à la résistance aux Arcanes
+1272,+$k1 à la résistance aux Arcanes
+1273,+$k1 à la résistance aux arcanes
+1274,+$k1 à la résistance aux Arcanes
+1275,+$k1 à la résistance aux Arcanes
+1276,+$k1 à la résistance aux Arcanes
+1277,+$k1 à la résistance aux Arcanes
+1278,+$k1 à la résistance aux Arcanes
+1279,+$k1 à la résistance aux Arcanes
+1280,+$k1 à la résistance aux Arcanes
+1281,+$k1 à la résistance aux Arcanes
+1282,+$k1 à la résistance aux Arcanes
+1283,+$k1 à la résistance aux Arcanes
+1284,+$k1 à la résistance aux Arcanes
+1285,+$k1 à la résistance aux Arcanes
+1286,+$k1 à la résistance aux Arcanes
+1287,+$k1 à la résistance aux Arcanes
+1288,+$k1 à la résistance aux Arcanes
+1289,+$k1 à la résistance au Givre
+1290,+$k1 à la résistance au Givre
+1291,+$k1 à la résistance au Givre
+1292,+$k1 à la résistance au Givre
+1293,+$k1 à la résistance au Givre
+1294,+$k1 à la résistance au Givre
+1295,+$k1 à la résistance au Givre
+1296,+$k1 à la résistance au Givre
+1297,+$k1 à la résistance au Givre
+1298,+$k1 à la résistance au Givre
+1299,+$k1 à la résistance au Givre
+1300,+$k1 à la résistance au Givre
+1301,+$k1 à la résistance au Givre
+1302,+$k1 à la résistance au Givre
+1303,+$k1 à la résistance au Givre
+1304,+$k1 à la résistance au Givre
+1305,+$k1 à la résistance au Givre
+1306,+$k1 à la résistance au Givre
+1307,+$k1 à la résistance au Givre
+1308,+$k1 à la résistance au Givre
+1309,+$k1 à la résistance au Givre
+1310,+$k1 à la résistance au Givre
+1311,+$k1 à la résistance au Givre
+1312,+$k1 à la résistance au Givre
+1313,+$k1 à la résistance au Givre
+1314,+$k1 à la résistance au Givre
+1315,+$k1 à la résistance au Givre
+1316,+$k1 à la résistance au Givre
+1317,+$k1 à la résistance au Givre
+1318,+$k1 à la résistance au Givre
+1319,+$k1 à la résistance au Givre
+1320,+$k1 à la résistance au Givre
+1321,+$k1 à la résistance au Givre
+1322,+$k1 à la résistance au Givre
+1323,+$k1 à la résistance au Givre
+1324,+$k1 à la résistance au Givre
+1325,+$k1 à la résistance au Givre
+1326,+$k1 à la résistance au Givre
+1327,+$k1 à la résistance au Givre
+1328,+$k1 à la résistance au Givre
+1329,+$k1 à la résistance au Givre
+1330,+$k1 à la résistance au Givre
+1331,+$k1 à la résistance au Givre
+1332,+$k1 à la résistance au Givre
+1333,+$k1 à la résistance au Givre
+1334,+$k1 à la résistance au Givre
+1335,+$k1 à la résistance au Feu
+1336,+$k1 à la résistance au Feu
+1337,+$k1 à la résistance au Feu
+1338,+$k1 à la résistance au Feu
+1339,+$k1 à la résistance au Feu
+1340,+$k1 à la résistance au Feu
+1341,+$k1 à la résistance au Feu
+1342,+$k1 à la résistance au Feu
+1343,+$k1 à la résistance au Feu
+1344,+$k1 à la résistance au Feu
+1345,+$k1 à la résistance au Feu
+1346,+$k1 à la résistance au Feu
+1347,+$k1 à la résistance au Feu
+1348,+$k1 à la résistance au Feu
+1349,+$k1 à la résistance au Feu
+1350,+$k1 à la résistance au Feu
+1351,+$k1 à la résistance au Feu
+1352,+$k1 à la résistance au Feu
+1353,+$k1 à la résistance au Feu
+1354,+$k1 à la résistance au Feu
+1355,+$k1 à la résistance au Feu
+1356,+$k1 à la résistance au Feu
+1357,+$k1 à la résistance au Feu
+1358,+$k1 à la résistance au Feu
+1359,+$k1 à la résistance au Feu
+1360,+$k1 à la résistance au Feu
+1361,+$k1 à la résistance au Feu
+1362,+$k1 à la résistance au Feu
+1363,+$k1 à la résistance au Feu
+1364,+$k1 à la résistance au Feu
+1365,+$k1 à la résistance au Feu
+1366,+$k1 à la résistance au Feu
+1367,+$k1 à la résistance au Feu
+1368,+$k1 à la résistance au Feu
+1369,+$k1 à la résistance au Feu
+1370,+$k1 à la résistance au Feu
+1371,+$k1 à la résistance au Feu
+1372,+$k1 à la résistance au Feu
+1373,+$k1 à la résistance au Feu
+1374,+$k1 à la résistance au Feu
+1375,+$k1 à la résistance au Feu
+1376,+$k1 à la résistance au Feu
+1377,+$k1 à la résistance au Feu
+1378,+$k1 à la résistance au Feu
+1379,+$k1 à la résistance au Feu
+1380,+$k1 à la résistance au Feu
+1381,+$k1 à la résistance à la Nature
+1382,+$k1 à la résistance à la Nature
+1383,+$14624s1 à la résistance à la Nature
+1384,+$k1 à la résistance à la Nature
+1385,+$k1 à la résistance à la Nature
+1386,+$k1 à la résistance à la Nature
+1387,+$k1 à la résistance à la Nature
+1388,+$k1 à la résistance à la Nature
+1389,+$k1 à la résistance à la Nature
+1390,+$k1 à la résistance à la Nature
+1391,+$k1 à la résistance à la Nature
+1392,+$k1 à la résistance à la Nature
+1393,+$k1 à la résistance à la Nature
+1394,+$k1 à la résistance à la Nature
+1395,+$k1 à la résistance à la Nature
+1396,+$k1 à la résistance à la Nature
+1397,+$k1 à la résistance à la Nature
+1398,+$k1 à la résistance à la Nature
+1399,+$k1 à la résistance à la Nature
+1400,+$k1 à la résistance à la Nature
+1401,+$k1 à la résistance à la Nature
+1402,+$k1 à la résistance à la Nature
+1403,+$k1 à la résistance à la Nature
+1404,+$k1 à la résistance à la Nature
+1405,+$k1 à la résistance à la Nature
+1406,+$k1 à la résistance à la Nature
+1407,+$k1 à la résistance à la Nature
+1408,+$k1 à la résistance à la Nature
+1409,+$k1 à la résistance à la Nature
+1410,+$k1 à la résistance à la Nature
+1411,+$k1 à la résistance à la Nature
+1412,+$k1 à la résistance à la Nature
+1413,+$k1 à la résistance à la Nature
+1414,+$k1 à la résistance à la Nature
+1415,+$k1 à la résistance à la Nature
+1416,+$k1 à la résistance à la Nature
+1417,+$k1 à la résistance à la Nature
+1418,+$k1 à la résistance à la Nature
+1419,+$k1 à la résistance à la Nature
+1420,+$k1 à la résistance à la Nature
+1421,+$k1 à la résistance à la Nature
+1422,+$k1 à la résistance à la Nature
+1423,+$k1 à la résistance à la Nature
+1424,+$k1 à la résistance à la Nature
+1425,+$k1 à la résistance à la Nature
+1426,+$k1 à la résistance à la Nature
+1427,+$k1 à la résistance à l’Ombre
+1428,+$k1 à la résistance à l’Ombre
+1429,+$k1 à la résistance à l’Ombre
+1430,+$k1 à la résistance à l’Ombre
+1431,+$k1 à la résistance à l’Ombre
+1432,+$k1 à la résistance à l’Ombre
+1433,+$k1 à la résistance à l’Ombre
+1434,+$k1 à la résistance à l’Ombre
+1435,+$k1 à la résistance à l’Ombre
+1436,+$k1 à la résistance à l’Ombre
+1437,+$k1 à la résistance à l’Ombre
+1438,+$k1 à la résistance à l’Ombre
+1439,+$k1 à la résistance à l’Ombre
+1440,+$k1 à la résistance à l’Ombre
+1441,+$k1 à la résistance à l’Ombre
+1442,+$k1 à la résistance à l’Ombre
+1443,+$k1 à la résistance à l’Ombre
+1444,+$k1 à la résistance à l’Ombre
+1445,+$k1 à la résistance à l’Ombre
+1446,+$k1 à la résistance à l’Ombre
+1447,+$k1 à la résistance à l’Ombre
+1448,+$k1 à la résistance à l’Ombre
+1449,+$k1 à la résistance à l’Ombre
+1450,+$k1 à la résistance à l’Ombre
+1451,+$k1 à la résistance à l’Ombre
+1452,+$k1 à la résistance à l’Ombre
+1453,+$k1 à la résistance à l’Ombre
+1454,+$k1 à la résistance à l’Ombre
+1455,+$k1 à la résistance à l’Ombre
+1456,+$k1 à la résistance à l’Ombre
+1457,+$k1 à la résistance à l’Ombre
+1458,+$k1 à la résistance à l’Ombre
+1459,+$k1 à la résistance à l’Ombre
+1460,+$k1 à la résistance à l’Ombre
+1461,+$k1 à la résistance à l’Ombre
+1462,+$k1 à la résistance à l’Ombre
+1463,+$k1 à la résistance à l’Ombre
+1464,+$k1 à la résistance à l’Ombre
+1465,+$k1 à la résistance à l’Ombre
+1466,+$k1 à la résistance à l’Ombre
+1467,+$k1 à la résistance à l’Ombre
+1468,+$k1 à la résistance à l’Ombre
+1469,+$k1 à la résistance à l’Ombre
+1470,+$k1 à la résistance à l’Ombre
+1471,+$k1 à la résistance à l’Ombre
+1472,+$k1 à la résistance à l’Ombre
+1483,+$k1 points de mana
+1503,+$k1 aux points de vie
+1504,+$k1 à l’Armure
+1505,+$k1 à la résistance au Feu
+1506,+$k1 à la Force
+1507,+$k1 à l’Endurance
+1508,+$k1 à l’Agilité
+1509,+$k1 à l’Intelligence
+1510,+$k1 à la Polyvalence
+1523,+$k1 points de mana et +$k2 à la résistance au Feu
+1524,+$k1 PV et +$k2 à la résistance au Feu
+1525,+$k1 à l’Armure et +$k2 à la résistance au Feu
+1526,+$k1 à la Force et +$k2 à la résistance au Feu
+1527,+$k1 à l’Endurance et +$k2 à la résistance au Feu
+1528,+$k1 à l’Agilité et +$k2 à la résistance au Feu
+1529,+$k1 à l’Intelligence et +$k2 à la résistance au Feu
+1530,+$k1 à la Polyvalence et +$k2 à la résistance au Feu
+1531,+$k1 à la Force et +$k2 à l’Endurance
+1532,"+$k1 à la Force, +$k2 à l’Armure et +$k3 à la résistance au Feu"
+1543,"+$k1 à l’Intelligence, +$k2 points de mana et +$k3 à la résistance au Feu"
+1563,+$k1 à la Puissance d’attaque
+1583,+$k1 à la Puissance d’attaque
+1584,+$k1 à la Puissance d’attaque
+1585,+$k1 à la Puissance d’attaque
+1586,+$k1 à la Puissance d’attaque
+1587,+$k1 à la Puissance d’attaque
+1588,+$k1 à la Puissance d’attaque
+1589,+$k1 à la Puissance d’attaque
+1590,+$k1 à la Puissance d’attaque
+1591,+$k1 à la Puissance d’attaque
+1592,+$k1 à la Puissance d’attaque
+1593,+$k1 à la Puissance d’attaque
+1594,+$k1 à la Puissance d’attaque
+1595,+$k1 à la Puissance d’attaque
+1596,+$k1 à la Puissance d’attaque
+1597,+$k1 à la Puissance d’attaque
+1598,+$k1 à la Puissance d’attaque
+1599,+$k1 à la Puissance d’attaque
+1600,+$k1 à la Puissance d’attaque
+1601,+$k1 à la Puissance d’attaque
+1602,+$k1 à la Puissance d’attaque
+1603,+$k1 à la Puissance d’attaque
+1604,+$k1 à la Puissance d’attaque
+1605,+$k1 à la Puissance d’attaque
+1606,+$k1 à la Puissance d’attaque
+1607,+$k1 à la Puissance d’attaque
+1608,+$k1 à la Puissance d’attaque
+1609,+$k1 à la Puissance d’attaque
+1610,+$k1 à la Puissance d’attaque
+1611,+$k1 à la Puissance d’attaque
+1612,+$k1 à la Puissance d’attaque
+1613,+$k1 à la Puissance d’attaque
+1614,+$k1 à la Puissance d’attaque
+1615,+$k1 à la Puissance d’attaque
+1616,+$k1 à la Puissance d’attaque
+1617,+$k1 à la Puissance d’attaque
+1618,+$k1 à la Puissance d’attaque
+1619,+$k1 à la Puissance d’attaque
+1620,+$k1 à la Puissance d’attaque
+1621,+$k1 à la Puissance d’attaque
+1622,+$k1 à la Puissance d’attaque
+1623,+$k1 à la Puissance d’attaque
+1624,+$k1 à la Puissance d’attaque
+1625,+$k1 à la Puissance d’attaque
+1626,+$k1 à la Puissance d’attaque
+1627,+$k1 à la Puissance d’attaque
+1643,Aiguisé IV
+1703,Lesté V
+1704,Pointe en thorium
+1723,Augure de clarté
+1743,MHTest02
+1763,Sang froid
+1803,Pierre de feu 1
+1823,Pierre de feu 2
+1824,Pierre de feu 3
+1825,Pierre de feu 4
+1843,Renforcé (+$k1 à l’Armure)
+1883,+$k1 à l’Intelligence
+1884,+$k1 à la Polyvalence
+1885,+$k1 à la Force
+1886,+$k1 à l’Endurance
+1887,+$k1 à l’Agilité
+1889,+$k1 à l’Armure
+1890,+$k1 à la Polyvalence et +$k2 à l’Endurance
+1891,+$13625s1 à toutes les caractéristiques
+1892,+$19990s1 points de vie
+1893,+$k1 points de mana
+1894,Frisson glacial
+1896,+$k1 aux dégâts de l’arme
+1897,+$k1 aux dégâts de l’arme
+1898,Vol de vie
+1899,Arme impie
+1900,Croisé
+1901,+$k1 à l’Intelligence
+1903,+$k1 à la Polyvalence
+1904,+$k1 à l’Intelligence
+1943,+$k1 à l’Esquive
+1944,+$k1 à l’Esquive
+1945,+$k1 à l’Esquive
+1946,+$k1 à l’Esquive
+1947,+$k1 à l’Esquive
+1948,+$k1 à l’Esquive
+1949,+$k1 à l’Esquive
+1950,+$k1 à l’Esquive
+1951,+$k1 à l’Esquive
+1952,+$k1 à l’Esquive
+1953,+$k1 à l’Esquive
+1954,+$k1 à l’Esquive
+1955,+$k1 à l’Esquive
+1956,+$k1 à l’Esquive
+1957,+$k1 à l’Esquive
+1958,+$k1 à l’Esquive
+1959,+$k1 à l’Esquive
+1960,+$k1 à l’Esquive
+1961,+$k1 à l’Esquive
+1962,+$k1 à l’Esquive
+1963,+$k1 à l’Esquive
+1964,+$k1 à l’Esquive
+1965,+$k1 à l’Esquive
+1966,+$k1 à l’Esquive
+1967,+$k1 à l’Esquive
+1968,+$k1 à l’Esquive
+1969,+$k1 à l’Esquive
+1970,+$k1 à l’Esquive
+1971,+$k1 à l’Esquive
+1972,+$k1 à l’Esquive
+1973,+$k1 à l’Esquive
+1983,+$k1 au Blocage
+1984,+$k1 au Blocage
+1985,+$k1 au Blocage
+1986,+$k1 au Blocage
+1987,Bloquer niveau 14
+1988,Bloquer niveau 15
+1989,Bloquer niveau 16
+1990,Bloquer niveau 17
+1991,Bloquer niveau 18
+1992,Bloquer niveau 19
+1993,Bloquer niveau 20
+1994,Bloquer niveau 21
+1995,Bloquer niveau 22
+1996,Bloquer niveau 23
+1997,Bloquer niveau 24
+1998,Bloquer niveau 25
+1999,Bloquer niveau 26
+2000,Bloquer niveau 27
+2001,Bloquer niveau 28
+2002,Bloquer niveau 29
+2003,Bloquer niveau 30
+2004,Bloquer niveau 31
+2005,Bloquer niveau 32
+2006,Bloquer niveau 33
+2007,Bloquer niveau 34
+2008,Bloquer niveau 35
+2009,Bloquer niveau 36
+2010,Bloquer niveau 37
+2011,Bloquer niveau 38
+2012,Bloquer niveau 39
+2013,Bloquer niveau 40
+2014,Bloquer niveau 41
+2015,Bloquer niveau 42
+2016,Bloquer niveau 43
+2017,Bloquer niveau 44
+2018,Bloquer niveau 45
+2019,Bloquer niveau 46
+2020,Bloquer niveau 47
+2021,Bloquer niveau 48
+2022,Bloquer niveau 49
+2023,Bloquer niveau 50
+2024,Bloquer niveau 51
+2025,Bloquer niveau 52
+2026,Bloquer niveau 53
+2027,Bloquer niveau 54
+2028,Bloquer niveau 55
+2029,Bloquer niveau 56
+2030,Bloquer niveau 57
+2031,Bloquer niveau 58
+2032,Bloquer niveau 59
+2033,Bloquer niveau 60
+2034,Bloquer niveau 61
+2035,Bloquer niveau 62
+2036,Bloquer niveau 63
+2037,Bloquer niveau 64
+2038,Bloquer niveau 65
+2039,Bloquer niveau 66
+2040,+$k1 à la Puissance des attaques à distance
+2041,+$k1 à la Puissance des attaques à distance
+2042,+$k1 à la Puissance des attaques à distance
+2043,+$k1 à la Puissance des attaques à distance
+2044,+$k1 à la Puissance des attaques à distance
+2045,+$k1 à la Puissance des attaques à distance
+2046,+$k1 à la Puissance des attaques à distance
+2047,+$k1 à la Puissance des attaques à distance
+2048,+$k1 à la Puissance des attaques à distance
+2049,+$k1 à la Puissance des attaques à distance
+2050,+$k1 à la Puissance des attaques à distance
+2051,+$k1 à la Puissance des attaques à distance
+2052,+$k1 à la Puissance des attaques à distance
+2053,+$k1 à la Puissance des attaques à distance
+2054,+$k1 à la Puissance des attaques à distance
+2055,+$k1 à la Puissance des attaques à distance
+2056,+$k1 à la Puissance des attaques à distance
+2057,+$k1 à la Puissance des attaques à distance
+2058,+$k1 à la Puissance des attaques à distance
+2059,+$k1 à la Puissance des attaques à distance
+2060,+$k1 à la Puissance des attaques à distance
+2061,+$k1 à la Puissance des attaques à distance
+2062,+$k1 à la Puissance des attaques à distance
+2063,+$k1 à la Puissance des attaques à distance
+2064,+$k1 à la Puissance des attaques à distance
+2065,+$k1 à la Puissance des attaques à distance
+2066,+$k1 à la Puissance des attaques à distance
+2067,+$k1 à la Puissance des attaques à distance
+2068,+$k1 à la Puissance des attaques à distance
+2069,+$k1 à la Puissance des attaques à distance
+2070,+$k1 à la Puissance des attaques à distance
+2071,+$k1 à la Puissance des attaques à distance
+2072,+$k1 à la Puissance des attaques à distance
+2073,+$k1 à la Puissance des attaques à distance
+2074,+$k1 à la Puissance des attaques à distance
+2075,+$k1 à la Puissance des attaques à distance
+2076,+$k1 à la Puissance des attaques à distance
+2077,+$k1 à la Puissance des attaques à distance
+2078,+$k1 à l’Esquive
+2079,+$13590s1 aux dégâts des sorts des Arcanes
+2080,+$13591s1 aux dégâts des sorts des Arcanes
+2081,+$k1 aux dégâts des sorts des Arcanes
+2082,+$13593s1 aux dégâts des sorts des Arcanes
+2083,+$13594s1 aux dégâts des sorts des Arcanes
+2084,+$13595s1 aux dégâts des sorts des Arcanes
+2085,+$13596s1 aux dégâts des sorts des Arcanes
+2086,+$13597s1 aux dégâts des sorts des Arcanes
+2087,+$13598s1 aux dégâts des sorts des Arcanes
+2088,+$13599s1 aux dégâts des sorts des Arcanes
+2089,+$13601s1 aux dégâts des sorts des Arcanes
+2090,+$13602s1 aux dégâts des sorts des Arcanes
+2091,+$13603s1 aux dégâts des sorts des Arcanes
+2092,+$13604s1 aux dégâts des sorts des Arcanes
+2093,+$13605s1 aux dégâts des sorts des Arcanes
+2094,+$17821s1 aux dégâts des sorts des Arcanes
+2095,+24 aux dégâts des sorts des Arcanes
+2096,+$17823s1 aux dégâts des sorts des Arcanes
+2097,+$17824s1 aux dégâts des sorts des Arcanes
+2098,+$17825s1 aux dégâts des sorts des Arcanes
+2099,+$17826s1 aux dégâts des sorts des Arcanes
+2100,+$17827s1 aux dégâts des sorts des Arcanes
+2101,+$17828s1 aux dégâts des sorts des Arcanes
+2102,+$17829s1 aux dégâts des sorts des Arcanes
+2103,+$17830s1 aux dégâts des sorts des Arcanes
+2104,+$17832s1 aux dégâts des sorts des Arcanes
+2105,+$17837s1 aux dégâts des sorts des Arcanes
+2106,+$17838s1 aux dégâts des sorts des Arcanes
+2107,+$17839s1 aux dégâts des sorts des Arcanes
+2108,+$17840s1 aux dégâts des sorts des Arcanes
+2109,+$17841s1 aux dégâts des sorts des Arcanes
+2110,+$17842s1 aux dégâts des sorts des Arcanes
+2111,+$17844s1 aux dégâts des sorts des Arcanes
+2112,+$17845s1 aux dégâts des sorts des Arcanes
+2113,+$17846s1 aux dégâts des sorts des Arcanes
+2114,+$17847s1 aux dégâts des sorts des Arcanes
+2115,+$17848s1 aux dégâts des sorts des Arcanes
+2116,+$17849s1 aux dégâts des sorts des Arcanes
+2117,+$7704s1 aux dégâts des sorts d’Ombre
+2118,+$7705s1 aux dégâts des sorts d’Ombre
+2119,+$7706s1 aux dégâts des sorts d’Ombre
+2120,+$7707s1 aux dégâts des sorts d’Ombre
+2121,+$7708s1 aux dégâts des sorts d’Ombre
+2122,+$7710s1 aux dégâts des sorts d’Ombre
+2123,+$7709s1 aux dégâts des sorts d’Ombre
+2124,+$9412s1 aux dégâts des sorts d’Ombre
+2125,+$9413s1 aux dégâts des sorts d’Ombre
+2126,+$9414s1 aux dégâts des sorts d’Ombre
+2127,+$9324s1 aux dégâts des sorts d’Ombre
+2128,+$9325s1 aux dégâts des sorts d’Ombre
+2129,+$9326s1 aux dégâts des sorts d’Ombre
+2130,+$9327s1 aux dégâts des sorts d’Ombre
+2131,+$9328s1 aux dégâts des sorts d’Ombre
+2132,+$14793s1 aux dégâts des sorts d’Ombre
+2133,+$14794s1 aux dégâts des sorts d’Ombre
+2134,+$18008s1 aux dégâts des sorts d’Ombre
+2135,+$18009s1 aux dégâts des sorts d’Ombre
+2136,+$18010s1 aux dégâts des sorts d’Ombre
+2137,+$18011s1 aux dégâts des sorts d’Ombre
+2138,+$18012s1 aux dégâts des sorts d’Ombre
+2139,+$18013s1 aux dégâts des sorts d’Ombre
+2140,+$18014s1 aux dégâts des sorts d’Ombre
+2141,+$18015s1 aux dégâts des sorts d’Ombre
+2142,+$18016s1 aux dégâts des sorts d’Ombre
+2143,+$18017s1 aux dégâts des sorts d’Ombre
+2144,+$18018s1 aux dégâts des sorts d’Ombre
+2145,+$18019s1 aux dégâts des sorts d’Ombre
+2146,+$18020s1 aux dégâts des sorts d’Ombre
+2147,+$18021s1 aux dégâts des sorts d’Ombre
+2148,+$18022s1 aux dégâts des sorts d’Ombre
+2149,+$18023s1 aux dégâts des sorts d’Ombre
+2150,+$18024s1 aux dégâts des sorts d’Ombre
+2151,+$18025s1 aux dégâts des sorts d’Ombre
+2152,+$18026s1 aux dégâts des sorts d’Ombre
+2153,+$18027s1 aux dégâts des sorts d’Ombre
+2154,+$18028s1 aux dégâts des sorts d’Ombre
+2155,+$7683s1 aux dégâts des sorts de Feu
+2156,+$7684s1 aux dégâts des sorts de Feu
+2157,+$7685s1 aux dégâts des sorts de Feu
+2158,+$7686s1 aux dégâts des sorts de Feu
+2159,+$7687s1 aux dégâts des sorts de Feu
+2160,+$7688s1 aux dégâts des sorts de Feu
+2161,+$7689s1 aux dégâts des sorts de Feu
+2162,+$9399s1 aux dégâts des sorts de Feu
+2163,+$9400s1 aux dégâts des sorts de Feu
+2164,+$9401s1 aux dégâts des sorts de Feu
+2165,+$9294s1 aux dégâts des sorts de Feu
+2166,+$9295s1 aux dégâts des sorts de Feu
+2167,+$9296s1 aux dégâts des sorts de Feu
+2168,+$9297s1 aux dégâts des sorts de Feu
+2169,+$9298s1 aux dégâts des sorts de Feu
+2170,+$17747s1 aux dégâts des sorts de Feu
+2171,+$17866s1 aux dégâts des sorts de Feu
+2172,+$17867s1 aux dégâts des sorts de Feu
+2173,+$17868s1 aux dégâts des sorts de Feu
+2174,+$13830s1 aux dégâts des sorts de Feu
+2175,+$17869s1 aux dégâts des sorts de Feu
+2176,+$17870s1 aux dégâts des sorts de Feu
+2177,+$17871s1 aux dégâts des sorts de Feu
+2178,+$17872s1 aux dégâts des sorts de Feu
+2179,+$17873s1 aux dégâts des sorts de Feu
+2180,+$17874s1 aux dégâts des sorts de Feu
+2181,+$17684s1 aux dégâts des sorts de Feu
+2182,+$17875s1 aux dégâts des sorts de Feu
+2183,+$17876s1 aux dégâts des sorts de Feu
+2184,+$17878s1 aux dégâts des sorts de Feu
+2185,+$17879s1 aux dégâts des sorts de Feu
+2186,+$17880s1 aux dégâts des sorts de Feu
+2187,+$17881s1 aux dégâts des sorts de Feu
+2188,+$17882s1 aux dégâts des sorts de Feu
+2189,+$17884s1 aux dégâts des sorts de Feu
+2190,+$17885s1 aux dégâts des sorts de Feu
+2191,+$17886s1 aux dégâts des sorts de Feu
+2192,+$17887s1 aux dégâts des sorts de Feu
+2193,+$21499s1 aux dégâts des sorts du Sacré
+2194,+$21500s1 aux dégâts des sorts du Sacré
+2195,+$21501s1 aux dégâts des sorts du Sacré
+2196,+$21502s1 aux dégâts des sorts du Sacré
+2197,+$21503s1 aux dégâts des sorts du Sacré
+2198,+$21504s1 aux dégâts des sorts du Sacré
+2199,+$21505s1 aux dégâts des sorts du Sacré
+2200,+$21506s1 aux dégâts des sorts du Sacré
+2201,+$21507s1 aux dégâts des sorts du Sacré
+2202,+$21508s1 aux dégâts des sorts du Sacré
+2203,+$21509s1 aux dégâts des sorts du Sacré
+2204,+$21510s1 aux dégâts des sorts du Sacré
+2205,+$21511s1 aux dégâts des sorts du Sacré
+2206,+$21512s1 aux dégâts des sorts du Sacré
+2207,+$21513s1 aux dégâts des sorts du Sacré
+2208,+$21514s1 aux dégâts des sorts du Sacré
+2209,+$21515s1 aux dégâts des sorts du Sacré
+2210,+$21516s1 aux dégâts des sorts du Sacré
+2211,+$21517s1 aux dégâts des sorts du Sacré
+2212,+$21518s1 aux dégâts des sorts du Sacré
+2213,+$21519s1 aux dégâts des sorts du Sacré
+2214,+$21520s1 aux dégâts des sorts du Sacré
+2215,+$21521s1 aux dégâts des sorts du Sacré
+2216,+$21522s1 aux dégâts des sorts du Sacré
+2217,+$21523s1 aux dégâts des sorts du Sacré
+2218,+$21524s1 aux dégâts des sorts du Sacré
+2219,+$21525s1 aux dégâts des sorts du Sacré
+2220,+$21526s1 aux dégâts des sorts du Sacré
+2221,+$21527s1 aux dégâts des sorts du Sacré
+2222,+$21528s1 aux dégâts des sorts du Sacré
+2223,+$21529s1 aux dégâts des sorts du Sacré
+2224,+$21530s1 aux dégâts des sorts du Sacré
+2225,+$21531s1 aux dégâts des sorts du Sacré
+2226,+$21532s1 aux dégâts des sorts du Sacré
+2227,+$21533s1 aux dégâts des sorts du Sacré
+2228,+$21534s1 aux dégâts des sorts du Sacré
+2229,+$21535s1 aux dégâts des sorts du Sacré
+2230,+$21536s1 aux dégâts des sorts du Sacré
+2231,+$7697s1 aux dégâts des sorts de Givre
+2232,+$7698s1 aux dégâts des sorts de Givre
+2233,+$7699s1 aux dégâts des sorts de Givre
+2234,+$7700s1 aux dégâts des sorts de Givre
+2235,+$7701s1 aux dégâts des sorts de Givre
+2236,+$7702s1 aux dégâts des sorts de Givre
+2237,+$7703s1 aux dégâts des sorts de Givre
+2238,+$9402s1 aux dégâts des sorts de Givre
+2239,+$9403s1 aux dégâts des sorts de Givre
+2240,+$9404s1 aux dégâts des sorts de Givre
+2241,+$9304s1 aux dégâts des sorts de Givre
+2242,+$9305s1 aux dégâts des sorts de Givre
+2243,+$9306s1 aux dégâts des sorts de Givre
+2244,+$9307s1 aux dégâts des sorts de Givre
+2245,+$9308s1 aux dégâts des sorts de Givre
+2246,+$17889s1 aux dégâts des sorts de Givre
+2247,+$17890s1 aux dégâts des sorts de Givre
+2248,+$17891s1 aux dégâts des sorts de Givre
+2249,+$17892s1 aux dégâts des sorts de Givre
+2250,+$13831s1 aux dégâts des sorts de Givre
+2251,+$17893s1 aux dégâts des sorts de Givre
+2252,+$17894s1 aux dégâts des sorts de Givre
+2253,+$17895s1 aux dégâts des sorts de Givre
+2254,+$17896s1 aux dégâts des sorts de Givre
+2255,+$17897s1 aux dégâts des sorts de Givre
+2256,+$17898s1 aux dégâts des sorts de Givre
+2257,+$17899s1 aux dégâts des sorts de Givre
+2258,+$17900s1 aux dégâts des sorts de Givre
+2259,+$17901s1 aux dégâts des sorts de Givre
+2260,+$17902s1 aux dégâts des sorts de Givre
+2261,+$17903s1 aux dégâts des sorts de Givre
+2262,+$17905s1 aux dégâts des sorts de Givre
+2263,+$17906s1 aux dégâts des sorts de Givre
+2264,+$17907s1 aux dégâts des sorts de Givre
+2265,+$17908s1 aux dégâts des sorts de Givre
+2266,+$17909s1 aux dégâts des sorts de Givre
+2267,+53 aux dégâts des sorts de Givre
+2268,+$17911s1 aux dégâts des sorts de Givre
+2269,+$7690s1 aux dégâts des sorts de Nature
+2270,+$7691s1 aux dégâts des sorts de Nature
+2271,+$7692s1 aux dégâts des sorts de Nature
+2272,+$7693s1 aux dégâts des sorts de Nature
+2273,+$7694s1 aux dégâts des sorts de Nature
+2274,+$7695s1 aux dégâts des sorts de Nature
+2275,+$7696s1 aux dégâts des sorts de Nature
+2276,+$9409s1 aux dégâts des sorts de Nature
+2277,+13 aux dégâts des sorts de Nature
+2278,+$9411s1 aux dégâts des sorts de Nature
+2279,+$9357s1 aux dégâts des sorts de Nature
+2280,+$9358s1 aux dégâts des sorts de Nature
+2281,+$9359s1 aux dégâts des sorts de Nature
+2282,+$9360s1 aux dégâts des sorts de Nature
+2283,+$9361s1 aux dégâts des sorts de Nature
+2284,+$17987s1 aux dégâts des sorts de Nature
+2285,+$17988s1 aux dégâts des sorts de Nature
+2286,+$17989s1 aux dégâts des sorts de Nature
+2287,+$17990s1 aux dégâts des sorts de Nature
+2288,+$17819s1 aux dégâts des sorts de Nature
+2289,+$17991s1 aux dégâts des sorts de Nature
+2290,+31 aux dégâts des sorts de Nature
+2291,+$17993s1 aux dégâts des sorts de Nature
+2292,+$16638s1 aux dégâts des sorts de Nature
+2293,+$17994s1 aux dégâts des sorts de Nature
+2294,+$17995s1 aux dégâts des sorts de Nature
+2295,+$17996s1 aux dégâts des sorts de Nature
+2296,+$17997s1 aux dégâts des sorts de Nature
+2297,+$17998s1 aux dégâts des sorts de Nature
+2298,+$17999s1 aux dégâts des sorts de Nature
+2299,+$18000s1 aux dégâts des sorts de Nature
+2300,+$18001s1 aux dégâts des sorts de Nature
+2301,+$18002s1 aux dégâts des sorts de Nature
+2302,+$18003s1 aux dégâts des sorts de Nature
+2303,+$18004s1 aux dégâts des sorts de Nature
+2304,+$18005s1 aux dégâts des sorts de Nature
+2305,+$18006s1 aux dégâts des sorts de Nature
+2306,+$18007s1 aux dégâts des sorts de Nature
+2307,+$k1 à la Puissance des sorts
+2308,+$k1 à la Puissance des sorts
+2309,+$k1 à la Puissance des sorts
+2310,+$k1 à la Puissance des sorts
+2311,+$9396s1 à la Puissance des sorts
+2312,+$k1 à la Puissance des sorts
+2313,+$k1 à la Puissance des sorts
+2314,+$k1 à la Puissance des sorts
+2315,+$k1 à la Puissance des sorts
+2316,+$k1 à la Puissance des sorts
+2317,+$k1 à la Puissance des sorts
+2318,+$k1 à la Puissance des sorts
+2319,+$k1 à la Puissance des sorts
+2320,+$k1 à la Puissance des sorts
+2321,+$k1 à la Puissance des sorts
+2322,+$k1 à la Puissance des sorts
+2323,+$k1 à la Puissance des sorts
+2324,+$k1 à la Puissance des sorts
+2325,+$k1 à la Puissance des sorts
+2326,+$k1 à la Puissance des sorts
+2327,+$k1 à la Puissance des sorts
+2328,+$k1 à la Puissance des sorts
+2329,+$k1 à la Puissance des sorts
+2330,+$k1 à la Puissance des sorts
+2331,+$k1 à la Puissance des sorts
+2332,+$k1 à la Puissance des sorts
+2333,+$k1 à la Puissance des sorts
+2334,+$k1 à la Puissance des sorts
+2335,+$k1 à la Puissance des sorts
+2336,+$k1 à la Puissance des sorts
+2337,+$k1 à la Puissance des sorts
+2338,+$k1 à la Puissance des sorts
+2339,+$k1 à la Puissance des sorts
+2340,+$k1 à la Puissance des sorts
+2341,+$k1 à la Puissance des sorts
+2342,+$k1 à la Puissance des sorts
+2343,+$k1 à la Puissance des sorts
+2344,+$k1 à la Puissance des sorts
+2363,+$21359s1 point de mana toutes les 5 s
+2364,+$21621s1 point de mana toutes les 5 s
+2365,+$21622s1 point de mana toutes les 5 s
+2366,+$k1 points de mana toutes les 5 s
+2367,+$k1 points de mana toutes les 5 s
+2368,+$k1 points de mana toutes les 5 s
+2369,+$k1 points de mana toutes les 5 s
+2370,+$k1 points de mana toutes les 5 s
+2371,+$k1 points de mana toutes les 5 s
+2372,+$k1 points de mana toutes les 5 s
+2373,+$k1 points de mana toutes les 5 s
+2374,+$k1 points de mana toutes les 5 s
+2375,+$k1 points de mana toutes les 5 s
+2376,+$k1 points de mana toutes les 5 s
+2377,+$k1 points de mana toutes les 5 s
+2378,+$k1 points de mana toutes les 5 s
+2379,+$k1 points de mana toutes les 5 s
+2380,+$k1 points de mana toutes les 5 s
+2381,+$k1 à la Polyvalence
+2382,+$k1 points de mana toutes les 5 s
+2383,+$k1 points de mana toutes les 5 s
+2384,+$k1 points de mana toutes les 5 s
+2385,+$k1 points de mana toutes les 5 s
+2386,+$k1 à la Polyvalence
+2387,+$k1 à la Polyvalence
+2388,+$k1 à la Polyvalence
+2389,+$k1 à la Polyvalence
+2390,+$k1 à la Polyvalence
+2391,+$k1 à la Polyvalence
+2392,+$k1 à la Polyvalence
+2393,+$k1 à la Polyvalence
+2394,+$k1 à la Polyvalence
+2395,+$k1 à la Polyvalence
+2396,+$k1 points de mana toutes les 5 s
+2397,+$k1 points de mana toutes les 5 s
+2398,+$k1 points de mana toutes les 5 s
+2399,+$k1 points de mana toutes les 5 s
+2400,+$k1 points de mana toutes les 5 s
+2401,+$21587s1 point de vie toutes les 5 s
+2402,+$21588s1 point de vie toutes les 5 s
+2403,+$21589s1 point de vie toutes les 5 s
+2404,+1 point de vie toutes les 5 s
+2405,+1 point de vie toutes les 5 s
+2406,+$21346s1 points de vie toutes les 5 s
+2407,+2 points de vie toutes les 5 s
+2408,+2 points de vie toutes les 5 s
+2409,+2 points de vie toutes les 5 s
+2410,+3 points de vie toutes les 5 s
+2411,+3 points de vie toutes les 5 s
+2412,+$21596s1 points de vie toutes les 5 s
+2413,+$21597s1 points de vie toutes les 5 s
+2414,+4 points de vie toutes les 5 s
+2415,+4 points de vie toutes les 5 s
+2416,+4 points de vie toutes les 5 s
+2417,+4 points de vie toutes les 5 s
+2418,+5 points de vie toutes les 5 s
+2419,+5 points de vie toutes les 5 s
+2420,+5 points de vie toutes les 5 s
+2421,+5 points de vie toutes les 5 s
+2422,+6 points de vie toutes les 5 s
+2423,+6 points de vie toutes les 5 s
+2424,+6 points de vie toutes les 5 s
+2425,+6 points de vie toutes les 5 s
+2426,+7 points de vie toutes les 5 s
+2427,+7 points de vie toutes les 5 s
+2428,+7 points de vie toutes les 5 s
+2429,+7 points de vie toutes les 5 s
+2430,+8 points de vie toutes les 5 s
+2431,+8 points de vie toutes les 5 s
+2432,+8 points de vie toutes les 5 s
+2433,+8 points de vie toutes les 5 s
+2434,+$21614s1 points de vie toutes les 5 s
+2435,+9 points de vie toutes les 5 s
+2436,+9 points de vie toutes les 5 s
+2437,+9 points de vie toutes les 5 s
+2438,+10 points de vie toutes les 5 s
+2443,+$21930s1 aux dégâts des sorts de Givre
+2483,+$k1 à la résistance au Feu
+2484,+$k1 à la résistance au Givre
+2485,+$k1 à la résistance aux Arcanes
+2486,+$k1 à la résistance à la Nature
+2487,+$k1 à la résistance à l’Ombre
+2488,+$18676s1 à toutes les résistances
+2503,+$k1 à l’Esquive
+2504,+$k1 à la Puissance des sorts
+2505,+$k1 à la Puissance des sorts
+2506,+$k1 au score de Coup critique en mêlée
+2523,+$k1 au score de Coup critique à distance
+2543,+$k1 à la Hâte
+2544,+$k1 à la Puissance des sorts
+2545,+$k1 à l’Esquive
+2563,+$k1 à la Force
+2564,+$k1 à l’Agilité
+2565,+$k1 à la Polyvalence
+2566,+$k1 à la Puissance des sorts
+2567,+$k1 à la Polyvalence
+2568,+$k1 à l’Intelligence
+2583,"+$k1 à l’Esquive, +$k2 à l’Endurance et +$k3 à la Parade"
+2584,"+$k1 à l’Esquive, +$k2 à l’Endurance et +$k3 à l’Intelligence"
+2585,+$k1 à la Puissance d’attaque et +$k2 à l’Esquive
+2586,+$k1 à la Puissance des attaques à distance/+$k2 à l’Endurance/+$k3 au score de Coup critique
+2587,+$k1 à la Puissance des sorts et +$k2 à l’Intelligence
+2588,+$k1 à la Puissance des sorts et +$k2 au score de Coup critique
+2589,+$k1 à la Puissance des sorts et +$k2 à l’Endurance
+2590,"+$k1 à l’Intelligence, +$k2 à l’Endurance et +$k3 à la Polyvalence"
+2591,"+$k2 à l’Intelligence, +$k3 à l’Endurance et +$k1 à la Puissance des sorts"
+2603,+$24303s1 en Pêche
+2604,+$k1 à la Puissance des sorts
+2605,+$k1 à la Puissance des sorts
+2606,+$k1 à la Puissance d’attaque
+2607,+$k1 à la Puissance des sorts
+2608,+$k1 à la Puissance des sorts
+2609,+$k1 à la Puissance des sorts
+2610,+$k1 à la Puissance des sorts
+2611,zzOLDBlank
+2612,+$k1 à la Puissance des sorts
+2613,+$25063s1% à la menace
+2614,+$25064s1 à la Puissance des sorts d’Ombre
+2615,+$25066s1 à la Puissance des sorts de Givre
+2616,+$25065s1 à la Puissance des sorts de Feu
+2617,+$k1 à la Puissance des sorts
+2618,+$k1 à l’Agilité
+2621,Menace réduite de 2%
+2622,+$k1 à l’Esquive
+2623,Huile de sorcier mineure
+2624,Huile de mana mineure
+2625,Huile de mana inférieure
+2626,Huile de sorcier inférieure
+2627,Huile de sorcier
+2628,Huile de sorcier brillante
+2629,Huile de mana brillante
+2645,Pierre de feu 5
+2646,+$k1 à l’Agilité
+2647,+$k1 à la Force
+2648,+$k1 à l’Esquive
+2649,+$k1 à l’Endurance
+2650,+$k1 à la Puissance des sorts
+2651,+$k1 à la Puissance des sorts
+2652,+$k1 à la Puissance des sorts
+2653,+$k1 à l’Esquive
+2654,+$k1 à l’Intelligence
+2655,+$k1 à la Parade
+2656,+$k1 à la Polyvalence et +$k2 à l’Endurance
+2657,+$k1 à l’Agilité
+2658,+$k1 à la Hâte et +$k2 au score de Coup critique
+2659,+$k1 aux points de vie
+2660,+$k1 points de mana
+2661,+$144845s1 à toutes les caractéristiques
+2662,+$k1 à l’Armure
+2665,+$k1 à la Polyvalence
+2666,+$k1 à l’Intelligence
+2667,+$k1 à la Puissance d’attaque
+2668,+$k1 à la Force
+2669,+$k1 à la Puissance des sorts
+2670,+$k1 à l’Agilité
+2671,+$27979s1 à la Puissance des sorts de Feu et des Arcanes
+2672,+$27980s1 à la Puissance des sorts d’Ombre et de Givre
+2673,Mangouste
+2674,Éruption de sort
+2675,Maître de guerre
+2676,Huile de mana excellente
+2677,Huile de mana excellente
+2678,Huile de sorcier excellente
+2679,+$k1 à la Polyvalence
+2681,+$k1 à la résistance à la Nature
+2682,+$k1 à la résistance au Givre
+2683,+$k1 à la résistance à l’Ombre
+2684,+100 à la Puissance d’attaque contre les Morts-vivants
+2686,+$k1 à la Force
+2687,+$k1 à l’Agilité
+2688,+$k1 à l’Endurance
+2689,+$k1 à la Polyvalence
+2690,+$k1 à l’Intelligence
+2691,+$k1 à la Force
+2692,+$k1 à l’Intelligence
+2693,+$k1 à l’Agilité
+2694,+$k1 à l’Intelligence
+2695,+$k1 au score de Coup critique
+2696,+$k1 à l’Esquive
+2697,+$k1 au score de Coup critique
+2698,+$k1 à l’Endurance
+2699,+$k1 à la Polyvalence
+2700,+$k1 à la Polyvalence
+2701,+$k1 à la Polyvalence
+2702,+12 Agilité (2 gemmes rouges)
+2703,+4 Agilité pour chaque couleur de gemme
+2704,+$k1 à la Force avec 4 gemmes bleues équipées
+2705,+$k2 à la Hâte et +$k1 à l’Intelligence
+2706,+$k1 à l’Esquive et +$k2 à l’Endurance
+2707,+$k2 à l’Intelligence et +$k1 à la Polyvalence
+2708,+$k1 à l’Intelligence et +$k2 à l’Endurance
+2709,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+2710,+$k1 à l’Agilité et +$k2 à l’Endurance
+2711,+$k1 à la Force et +$k2 à l’Endurance
+2712,Aiguisé VI
+2713,Aiguisé VII
+2714,Pointe en gangracier
+2715,+$k1 à la Puissance des sorts et +$k2 à la Polyvalence
+2716,+$k1 à l’Endurance et +$k2 à l’Armure
+2717,+$k1 à la Puissance d’attaque et +$k2 au score de Coup critique
+2718,Rune de garde inférieure
+2719,Gardien de sauvegarde inférieur
+2720,Gardien de sauvegarde supérieur
+2721,+$k1 à la Puissance des sorts et +$k2 au score de Coup critique
+2722,Lunette (+$k1 points de dégâts)
+2723,Lunette (+$k1 points de dégâts)
+2724,Lunette (+$k1 au score de Coup critique)
+2725,+$k1 à la Force
+2726,+$k1 à l’Agilité
+2727,+$k1 à l’Intelligence
+2728,+$k1 à l’Intelligence
+2729,+$k1 à l’Agilité
+2730,+$k1 à l’Esquive
+2731,+$k1 à l’Endurance
+2732,+$k1 à la Polyvalence
+2733,+$k1 à la Polyvalence
+2734,+$k1 à l’Intelligence
+2735,+$k1 au score de Coup critique
+2736,+$k1 au score de Coup critique
+2737,+$k1 à l’Esquive
+2738,+$k1 à la Force et +$k2 à l’Endurance
+2739,+$k1 à l’Agilité et +$k2 à l’Endurance
+2740,+$k1 à l’Intelligence et +$k2 à l’Endurance
+2741,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+2742,+$k1 à l’Intelligence et +$k2 à la Hâte
+2743,+$k1 à l’Esquive et +$k2 à l’Endurance
+2744,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+2745,+$k1 à la Puissance des sorts et +$k2 à l’Endurance
+2746,+$k1 à la Puissance des sorts et +$k2 à l’Endurance
+2747,+$k1 à la Puissance des sorts et +$k2 à l’Endurance
+2748,+$k1 à la Puissance des sorts et +$k2 à l’Endurance
+2749,+$k1 à l’Intelligence
+2750,6 points de mana toutes les 5 s
+2751,+$k1 au score de Coup critique
+2752,+$k2 au score de Coup critique et +$k1 à la Force
+2753,+$k1 au score de Coup critique et +$k2 à la Force
+2754,+$k1 à la Parade
+2755,+$k2 au score de Coup critique et +$k1 à l’Agilité
+2756,+$k1 à l’Agilité et +$k2 au score de Coup critique
+2757,+$k2 au score de Coup critique et +$k1 à l’Endurance
+2758,+$k2 au score de Coup critique et +$k1 à l’Endurance
+2759,+$k1 à l’Armure
+2760,+$k2 au score de Coup critique et +$k1 à l’Intelligence
+2761,+$k1 à l’Intelligence et +$k2 au score de Coup critique
+2762,+$k1 au score de Coup critique et +$k2 à la Polyvalence
+2763,+$k1 au score de Coup critique et +$k2 à la Polyvalence
+2764,+$k1 au score de Coup critique
+2765,+$k1 à la Polyvalence
+2766,+$k1 à l’Intelligence
+2767,+$k1 au score de Coup critique
+2768,+$k1 à la Puissance des sorts
+2769,+$k1 au score de Coup critique
+2770,+$k1 à la Puissance des sorts
+2771,+$k1 au score de Coup critique
+2772,+$k1 au score de Coup critique
+2773,+$k1 au score de Coup critique
+2774,+$k1 à l’Intelligence
+2775,+$k1 au score de Coup critique
+2776,+$k1 à la Polyvalence
+2777,+$k1 à la Polyvalence
+2778,+$k1 à la Polyvalence
+2779,+$k1 à la Polyvalence
+2780,+$k1 à la Polyvalence
+2781,+$k1 à l’Endurance
+2782,+$k1 à l’Agilité
+2783,+$k1 au score de Coup critique
+2784,+$k1 au score de Coup critique
+2785,+$k1 au score de Coup critique
+2786,+$k1 au score de Coup critique
+2787,+$k1 au score de Coup critique
+2788,+$k1 à l’Armure
+2789,+$k1 à l’Armure
+2790,ZZOLD Rune de garde inférieure
+2791,Rune de garde supérieure
+2792,+$k1 à l’Endurance
+2793,+$k1 à l’Esquive
+2794,+$k1 à la Polyvalence
+2795,Semelles confortables
+2796,+$k1 à l’Esquive
+2797,+$k1 à l’Esquive
+2798,+$i à l’Intelligence (+$n/+$f)
+2799,+$i à l’Endurance (+$n/+$f)
+2800,+$i à l’Armure (+$n/+$f)
+2801,+$k1 à l’Armure
+2827,+$k1 au score de Coup critique et $11818s1% au renvoi des sorts
+2828,Chance d’augmenter la vitesse d’incantation des sorts
+2829,+$k1 au score de Coup critique et légère augmentation de la vitesse de course
+2830,+$k1 au score de Coup critique et durée des ralentissements/immobilisations réduite de $55378s1%
+2831,+$k1 à l’Endurance et durée des étourdissements réduite de 10%
+2832,+$k1 à l’Intelligence et menace réduite de 2%
+2833,+$k1 à l’Esquive et une chance de rendre des points de vie au toucher
+2834,+$k1 aux dégâts en mêlée et une chance d’étourdir la cible
+2835,+$k1 à l’Intelligence et une chance de rendre du mana lors des incantations
+2836,3 point de mana toutes les 5 s
+2837,+$k1 à la Polyvalence
+2838,+$k1 au score de Coup critique
+2839,+$k1 au score de Coup critique
+2840,+$k1 à l’Endurance
+2841,+$k1 à l’Endurance
+2842,+$k1 à la Polyvalence
+2843,+$k1 au score de Coup critique
+2844,+$k1 au score de Coup critique
+2845,+$k1 au score de Coup critique
+2846,4 points de mana toutes les 5 s
+2847,4 points de mana toutes les 5 s
+2848,5 points de mana toutes les 5 s
+2849,+7 à l’Esquive
+2850,+$k1 au score de Coup critique
+2851,+$k1 à l’Endurance
+2852,7 points de mana toutes les 5 s
+2853,8 points de mana toutes les 5 s
+2854,3 point de mana toutes les 5 s
+2855,5 points de mana toutes les 5 s
+2856,+$k1 à l’Armure
+2857,+$k1 au score de Coup critique
+2858,+$k1 au score de Coup critique
+2859,+$k1 à l’Armure
+2860,+$k1 au score de Coup critique
+2861,+$k1 à l’Esquive
+2862,+$k1 à l’Armure
+2863,+$k1 à l’Intelligence
+2864,+$k1 au score de Coup critique
+2865,+$k1 à la Polyvalence
+2866,+$k1 à la Polyvalence
+2867,+$k1 à l’Armure
+2868,+$k1 à l’Endurance
+2869,+$k1 à l’Intelligence
+2870,+$k1 à la Parade
+2871,+$k1 à l’Esquive
+2872,+$k1 à la Puissance des sorts
+2873,+$k1 au score de Coup critique
+2874,+$k1 au score de Coup critique
+2875,+$k1 au score de Coup critique
+2876,+$k1 à l’Esquive
+2877,+$k1 à l’Agilité
+2878,+$k1 à l’Armure
+2879,+$k1 à la Force
+2880,+$k1 au score de Coup critique
+2881,+2 à la polyvalence
+2882,+$k1 à l’Endurance
+2883,+$k1 à l’Endurance
+2884,+$k1 au score de Coup critique
+2885,+$k1 au score de Coup critique
+2886,+$k1 au score de Coup critique
+2887,+$k1 au score de Coup critique
+2889,+$k1 à la Puissance des sorts
+2890,+$k1 à la Polyvalence
+2891,+$k1 à l’Armure
+2892,+$k1 à la Force
+2893,+$k1 à l’Agilité
+2894,+$k1 à la Force
+2895,+$k1 à l’Endurance
+2896,+$k1 à l’Intelligence
+2897,"+$k1 à l’Endurance, +$k2 au score de Coup critique"
+2898,+$k1 à l’Endurance et +$k2 au score de Coup critique
+2899,+$k1 à l’Endurance et +$k2 au score de Coup critique
+2900,+$k1 à la Puissance des sorts
+2901,+$k1 à la Puissance des sorts
+2902,+$k1 au score de Coup critique
+2907,+$k1 à la Parade
+2908,+$k1 au score de Coup critique
+2909,+$k1 au score de Coup critique
+2910,+$k1 à la Puissance des sorts
+2911,+$k1 à la Force
+2912,+$k1 à l’Intelligence
+2913,+$k1 au score de Coup critique
+2914,+$k1 au score de Coup critique
+2915,"+$k1 à la Force, +$k2 au score de Coup critique"
+2916,+$k1 au score de Coup critique et +$k2 à l’Intelligence
+2917,test enchantement de gemme
+2918,"+$k1 à l’Endurance, +$k2 au score de Coup critique"
+2919,+$k1 à la Force
+2921,+$k1 à l’Endurance et +$k2 au score de Coup critique
+2922,+$k1 à la Force
+2923,+$k1 à l’Endurance et +$k2 au score de Coup critique
+2924,+$k1 à l’Intelligence
+2925,+$k1 à l’Endurance
+2926,+$k1 à l’Esquive
+2927,+$k1 à la Force
+2930,+$k1 à l’Intelligence
+2932,+$k1 à l’Esquive
+2933,+$k1 à l’Armure
+2934,+$k1 au score de Coup critique
+2935,+$k1 au score de Coup critique
+2936,+$k1 à la Puissance d’attaque
+2937,+$k1 à la Puissance des sorts
+2938,+$k1 à la caractéristique principale
+2939,Vitesse mineure et +$k2 Agilité
+2940,Vitesse mineure et +$k2 à l’Endurance
+2941,+$k1 au score de Coup critique
+2942,+$k1 au score de Coup critique
+2943,+$k1 à l’Agilité
+2944,+$k1 à l’Agilité
+2945,+$k1 à l’Agilité
+2946,+$k1 à l’Agilité et +$k2 au score de Coup critique
+2947,+$18674s1 à toutes les résistances
+2948,+$18675s1 à toutes les résistances
+2949,+$k1 à l’Agilité
+2950,+$k1 au score de Coup critique
+2951,+$k1 au score de Coup critique
+2952,+$k1 au score de Coup critique
+2953,+$k1 à la Puissance des sorts
+2954,Lesté VI
+2955,Lesté VII
+2956,+$k1 à la Force
+2957,+$k1 à l’Agilité
+2958,+$k1 à l’Intelligence
+2959,+$k1 à l’Intelligence
+2960,+$k1 à l’Agilité
+2961,+$k1 à l’Endurance
+2962,+$k1 à la Polyvalence
+2963,+$k1 à la Polyvalence
+2964,+$k1 à l’Intelligence
+2965,+$k1 au score de Coup critique
+2966,+$k1 au score de Coup critique
+2967,+$k1 au score de Coup critique
+2968,+$k1 à l’Esquive
+2969,+$k1 au score de Coup critique et légère augmentation de la vitesse de course
+2970,+$k1 à l’Intelligence et légère augmentation de la vitesse de course
+2971,+$k1 à l’Agilité
+2972,+$k1 au blocage
+2973,+$k1 à la Puissance d’attaque
+2974,+$k1 à la Puissance des sorts
+2976,+$k1 à l’Esquive
+2977,+$k1 à l’Esquive
+2978,+$k1 à l’Esquive et +$k2 à l’Endurance
+2979,+$k1 à la Puissance des sorts
+2980,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+2981,+$k1 à la Puissance des sorts
+2982,+$k1 à la Puissance des sorts et +$k2 au score de Coup critique
+2983,+$k1 à la Puissance d’attaque
+2984,+$k1 à l’Endurance
+2985,+$k1 à l’Endurance
+2986,+$k1 à la Puissance d’attaque et +$k2 au score de Coup critique
+2987,+$k1 à l’Endurance
+2988,+$k1 à l’Endurance
+2989,+$k1 à l’Endurance
+2990,+$k1 à l’Esquive
+2991,+$k2 à la Parade et +$k1 à l’Esquive
+2992,+$k1 à la Polyvalence
+2993,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+2994,+$k1 au score de Coup critique
+2995,+$k2 au score de Coup critique et +$k1 à la Puissance des sorts
+2996,+$k1 au score de Coup critique
+2997,+$k2 au score de Coup critique et +$k1 à la Puissance d’attaque
+2998,+$35442s1 à toutes les résistances
+2999,+$k2 à la Parade et +$k1 à l’Esquive
+3000,"+$k3 à l’Endurance, +$k2 à l’Esquive et +$k1 à l’Armure"
+3001,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+3002,+$k1 à la Puissance des sorts et +$k2 au score de Coup critique
+3003,+$k1 à la Puissance d’attaque et +$k2 au score de Coup critique
+3004,+$k2 à l’Endurance et +$k1 à l’Armure
+3005,+$k1 à la résistance à la Nature
+3006,+$k1 à la résistance aux Arcanes
+3007,+$k1 à la résistance au Feu
+3008,+$k1 à la résistance au Givre
+3009,+$k1 à la résistance à l’Ombre
+3010,+$k2 à la Puissance d’attaque et +$k1 au score de Coup critique
+3011,+$k1 à l’Endurance et +$k2 à l’Agilité
+3012,+$k2 à la Puissance d’attaque et +$k1 au score de Coup critique
+3013,+$k1 à l’Endurance et +$k2 à l’Agilité
+3015,+$k1 à la Force
+3016,+$k1 à l’Intelligence
+3017,+$k1 au blocage
+3045,+$k1 à la Force et +$k2 à l’Endurance
+3046,+$k1 à l’Intelligence et +$k2 à la Hâte
+3047,+$k1 au score de Coup critique et +$k2 à l’Endurance
+3048,+$k2 à l’Agilité et +$k1 à l’Endurance
+3049,+$k1 au score de Coup critique et +$k2 à la Polyvalence
+3050,+$k1 à l’Intelligence et +$k2 à la Hâte
+3051,+$k2 à l’Intelligence et +$k1 à l’Endurance
+3052,+$k1 à l’Agilité et +$k2 au score de Coup critique
+3053,+$k1 à la Parade et +$k2 à l’Esquive
+3054,+$k2 à l’Intelligence et +$k1 à l’Endurance
+3055,+$k1 à l’Agilité et +$k2 au score de Coup critique
+3056,+$k2 à la Parade et +$k1 à l’Esquive
+3057,+$k1 à la Force et +$k2 au score de Coup critique
+3058,+$k1 au score de Coup critique et +$k2 à la Polyvalence
+3059,+$k1 au score de Coup critique et $k2 points de mana toutes les 5 s
+3060,+$k1 à l’Esquive et +$k2 à l’Endurance
+3061,+$k1 à l’Intelligence et +$k2 au score de Coup critique
+3062,+$k1 au score de Coup critique et +$k2 à l’Endurance
+3063,+$k2 à la Parade et +$k1 à l’Endurance
+3064,+$k1 à la Polyvalence et +$k2 à l’Intelligence
+3065,+$k1 à la Force
+3066,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+3067,+$k1 à l’Agilité et +$k2 à l’Endurance
+3068,+$k1 à l’Esquive et +$k2 au score de Coup critique
+3069,+$k1 à l’Intelligence et +$k2 à l’Armure
+3070,+$k1 à l’Agilité et +$k2 au score de Coup critique
+3071,+$k1 à l’Intelligence et +$k2 à l’Endurance
+3072,+$k1 à la Force et +$k2 au score de Coup critique
+3073,+$k1 à l’Agilité et +$k2 à l’Esquive
+3074,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+3075,+$k1 à la Force et +$k2 à l’Esquive
+3076,+$k1 à l’Intelligence et +$k2 au score de Coup critique
+3077,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+3078,+$k1 à l’Endurance et +$k2 à l’Esquive
+3079,+$k1 à l’Agilité et +$k2 à l’Armure
+3080,+$k1 à l’Endurance et +$k2 à l’Armure
+3081,+$k2 à l’Intelligence et +$k1 au score de Coup critique
+3082,+$k1 à l’Esquive et +$k2 à l’Endurance
+3083,+$k2 à l’Intelligence et +$k1 à la Polyvalence
+3084,+$k1 à l’Armure et +$k2 à l’Endurance
+3085,+$k1 à l’Endurance et +$k2 au score de Coup critique
+3086,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+3087,+$k1 à la Force et +$k2 à l’Armure
+3088,+$k1 au score de Coup critique et +$k2 à l’Esquive
+3089,+$k1 au score de Coup critique et +$k2 à la Hâte
+3090,+$k1 à la Parade et +$k2 à l’Armure
+3091,+$k2 au score de Coup critique et +$k1 à la Polyvalence
+3092,+$k1 au score de Coup critique
+3093,+$37362s1 à la Puissance d’attaque contre les Morts-vivants et les démons
+3094,+$k1 à la Hâte
+3095,+$37890s1 à toutes les résistances
+3096,+$k1 à la Force et +$k2 à l’Intelligence
+3097,+$k1 à la Polyvalence
+3098,+$k1 à la Puissance des sorts
+3099,+$k1 à l’Intelligence et +$k2 à l’Endurance
+3100,+$k1 à l’Intelligence et +$k2 à l’Endurance
+3101,+$k1 à la Force et +$k2 à l’Endurance
+3102,Poison
+3103,+$k1 à la Force
+3104,+$k1 au score de Coup critique
+3105,+$k1 au score de Coup critique
+3106,+$k1 à l’Agilité et +$k2 à l’Endurance
+3107,+$k1 à l’Agilité et +$k2 à l’Endurance
+3108,+$k1 à l’Agilité et +$k2 à l’Endurance
+3109,+$k1 à l’Agilité et +$k2 au score de Coup critique
+3110,+$k2 à l’Intelligence et +$k1 au score de Coup critique
+3111,+$k1 à l’Intelligence et +$k2 au score de Coup critique
+3112,+$k1 à l’Agilité et +$k2 au score de Coup critique
+3113,+$k1 au score de Coup critique et +$k2 à l’Agilité
+3114,+$k1 à la Puissance d’attaque
+3115,+$k1 à la Force
+3116,+$k1 à l’Agilité
+3117,+$k1 à l’Intelligence
+3118,+$k1 à l’Intelligence
+3119,+$k1 à l’Agilité
+3120,+$k1 à l’Esquive
+3121,+$k1 à la Parade
+3122,+$k1 à l’Endurance
+3123,+$k1 à la Polyvalence
+3124,+$k1 à la Polyvalence
+3125,+$k1 à la Polyvalence
+3126,+$k1 à l’Intelligence
+3127,+$k1 au score de Coup critique
+3128,+$k1 au score de Coup critique
+3129,+$k1 au score de Coup critique
+3130,+$k1 à l’Esquive
+3131,+$k1 à l’Armure
+3132,+$k1 au score de Coup critique
+3133,+$k1 à la Force et +$k2 à l’Endurance
+3134,+$k1 à l’Agilité et +$k2 à l’Endurance
+3135,+$k1 à l’Agilité et +$k2 à l’Endurance
+3136,+$k1 à l’Agilité et +$k2 au score de Coup critique
+3137,+$k1 à l’Intelligence et +$k2 à l’Endurance
+3138,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+3139,+$k2 au score de Coup critique et +$k1 à la Force
+3140,+$k1 à l’Intelligence et +$k2 au score de Coup critique
+3141,+$k1 à l’Intelligence et +$k2 à la Hâte
+3142,+$k1 à l’Agilité et +$k2 au score de Coup critique
+3143,+$k1 à l’Intelligence et +$k2 au score de Coup critique
+3144,+$k1 à l’Agilité et +$k2 au score de Coup critique
+3145,+$k1 à l’Esquive et +$k2 à l’Endurance
+3146,+$k1 au score de Coup critique et +$k2 à la Polyvalence
+3147,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+3148,+$k2 au score de Coup critique et +$k1 à l’Endurance
+3149,+$k1 à l’Agilité
+3150,+$k1 à la Polyvalence
+3151,+$k1 à la Puissance des sorts
+3152,+$k1 au score de Coup critique
+3153,+$k1 à la Puissance des sorts
+3154,+$k1 à l’Agilité et effet critique augmenté de $44797s1%
+3155,Chance d’augmenter la vitesse d’attaque en mêlée/à distance
+3156,+$k1 à l’Agilité et +$k2 à l’Endurance
+3157,+$k1 à l’Intelligence et +$k2 à l’Endurance
+3158,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+3159,+$k1 à l’Agilité et +$k2 au score de Coup critique
+3160,+$k1 à l’Intelligence et +$k2 à la Hâte
+3161,+$k1 à l’Endurance et +$k2 au score de Coup critique
+3162,+$k1 au score de Coup critique et $40691s1% à la résistance aux étourdissements
+3163,+$k1 à l’Intelligence et 5% à la résistance aux étourdissements
+3164,+$k1 à l’Endurance
+3197,+$k1 à l’Agilité
+3198,+$k1 à la Puissance des sorts
+3199,+$k1 à l’Armure
+3200,+$k1 à la Polyvalence et +$k2 à la Puissance des sorts
+3201,+$k2 à l’Intelligence et +$k1 à la Polyvalence
+3202,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+3204,+$k1 au score de Coup critique
+3205,+$k1 au score de Coup critique
+3206,+$k1 à l’Agilité
+3207,+$k1 à la Force
+3208,+$k1 à l’Agilité
+3209,+$k1 à l’Agilité
+3210,+$k1 à l’Intelligence
+3211,+$k1 à l’Intelligence
+3212,+$k1 à l’Endurance
+3213,+$k1 à la Polyvalence
+3214,+$k1 à la Polyvalence
+3215,+$k1 à l’Armure
+3216,+$k1 à l’Intelligence
+3217,+$k1 au score de Coup critique
+3218,+$k1 au score de Coup critique
+3219,+$k1 au score de Coup critique
+3220,+$k1 au score de Coup critique
+3221,+$k1 à l’Esquive
+3222,+$k1 à l’Agilité
+3223,Dragonne en adamantite
+3224,+$k1 à l’Agilité
+3225,Bourreau
+3226,+$k1 à l’Armure et +$k2 à l’Endurance
+3227,+$k1 au score de Coup critique
+3228,+$k1 à la Puissance d’attaque
+3229,+$k1 à l’Armure
+3230,+$k1 à la résistance au Givre
+3231,+$k1 à la Hâte
+3232,+$k2 à l’Endurance et augmentation mineure de la vitesse
+3233,+$k1 points de mana
+3234,+$k1 au score de Coup critique
+3236,+$k1 aux points de vie
+3238,Récolteur
+3239,Arme brise-glace
+3240,+$k1 à la Puissance des sorts
+3241,Gardevie
+3242,+$18676s1 à toutes les résistances
+3243,+$k1 à la caractéristique principale
+3244,+$k1 à la Polyvalence et +$k2 à l’Endurance
+3245,+$k1 à l’Armure
+3246,+$k1 à la Puissance des sorts
+3247,+$44594s1 à la Puissance d’attaque contre les Morts-vivants
+3248,+$k1 à la Hâte
+3249,+$k1 au score de Coup critique
+3250,Marcheglace
+3251,Tueur de géants
+3252,+$44624s1 à toutes les caractéristiques
+3253,+$25063s1% à la menace et +$k2 à la parade
+3254,+$44627s1 à toutes les caractéristiques
+3255,+$k1 à la Puissance des sorts
+3256,+$k2 à l’Agilité et +$k1 à l’Armure
+3257,+$k1 à la Puissance des sorts
+3258,+$k1 à la Puissance des sorts
+3259,+$k1 à l’Endurance
+3260,+$k1 à l’Endurance
+3261,+$k1 au score de Coup critique et effet critique augmenté de $44797s1%
+3262,+$k1 à l’Endurance
+3263,+$k1 au score de Coup critique
+3264,"+150 à l’Armure, -10% à la vitesse"
+3265,Enduit d’arme béni
+3266,Enduit d’arme vertueux
+3267,+$k1 à la Hâte
+3268,+$k1 à l’Endurance
+3269,+$45698s1 en Pêche
+3270,+$k1 à la Hâte
+3271,+$k1 à l’Intelligence et +$k2 à la Hâte
+3272,+$k2 à la Hâte et +$k1 à l’Endurance
+3273,Givre mortel
+3274,+$k1 à l’Esquive et +$55283s1% à la valeur de blocage du bouclier
+3275,+$k1 à l’Intelligence et +$55275s1% au montant de mana maximum
+3276,+$k1 à la Puissance d’attaque
+3277,+$k1 à la Puissance des sorts
+3278,+$k1 à la Puissance des sorts
+3279,+$k1 à la Puissance des sorts
+3280,+$k1 à l’Esquive et +$k2 à l’Endurance
+3281,+$k1 à l’Agilité
+3282,+$k1 à l’Intelligence
+3283,+$k1 à l’Intelligence
+3284,+$k2 à l’Armure et +$k1 à l’Endurance
+3285,+$k2 à la Hâte et +$k1 à l’Endurance
+3286,+$k1 à l’Intelligence et +$k2 à la Hâte
+3287,+$k1 à la Hâte
+3288,Enchant. cravache d’équitation de test
+3289,+10% à la vitesse de la monture
+3290,Déployeur de cape à ressort
+3291,Test utilisation charges
+3292,+$k1 à l’Agilité
+3293,+$k1 à l’Endurance
+3294,+$k1 à l’Endurance
+3295,+$k1 à la Hâte
+3296,+$k2 à la polyvalence et menace réduite de 2%
+3297,+$k1 aux points de vie
+3298,Huile de mana exceptionnelle
+3299,Huile de sorcier exceptionnelle
+3300,+$k1 à la Puissance des sorts
+3301,+$k1 au score de Coup critique
+3302,+$k1 à l’Esquive
+3303,+$k1 à la Hâte
+3304,+$k1 à l’Esquive
+3305,+$k1 à l’Endurance
+3306,2 points de mana toutes les 5 s
+3307,+$k1 à l’Endurance
+3308,+$k1 à la Hâte
+3309,+$k1 à la Hâte
+3310,+$k1 à l’Intelligence
+3311,+$k1 à la Polyvalence
+3312,+$k1 à la Force
+3313,+$k1 à l’Agilité
+3314,+$k1 au score de Coup critique
+3315,+3% à la vitesse de la monture
+3316,+$k1 au score de Coup critique
+3318,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+3319,Test ajout de châsse enchantement
+3320,Test de compétence requise enchantement
+3321,+$k1 à l’Armure
+3322,Arme runique gelée
+3324,+$k1 au score de Coup critique
+3325,+$k1 à l’Endurance et +$k2 à l’Agilité
+3326,+$k2 à la Puissance d’attaque et +$k1 au score de Coup critique
+3327,+$k1 à l’Endurance et +$k2 à l’Agilité
+3328,+$k2 à la Puissance d’attaque et +$k1 au score de Coup critique
+3329,+$k1 à l’Endurance
+3330,+$k1 à l’Endurance
+3331,+$k1 à l’Endurance et +$k2 à l’Agilité
+3332,+$k2 à la Puissance d’attaque et +$k1 au score de Coup critique
+3333,QA Test Blank Purple Gem Enchant
+3334,Vol Norfendre
+3335,+$k1 à l’Agilité
+3336,+$k1 au score de Coup critique
+3337,+$k1 à l’Agilité et +$k2 au score de Coup critique
+3338,+$k1 à l’Intelligence et +$k2 au score de Coup critique
+3339,+$k1 à l’Intelligence
+3340,+$k1 au score de Coup critique
+3341,Arme runique gelée 2
+3342,Arme runique gelée 3
+3343,Arme runique gelée 4
+3344,Arme runique gelée 5
+3351,+$k1 au score de Coup critique
+3352,+$k1 à la Polyvalence
+3353,+$k1 à l’Intelligence
+3354,+$k1 à l’Endurance
+3355,+$k1 à l’Agilité
+3356,+$k1 à la Puissance d’attaque
+3357,+$k1 à la Force
+3358,+$k1 à l’Esquive
+3359,+$k1 à la Parade
+3360,+$k1 à la Parade
+3361,+$k1 au blocage
+3362,+$k1 à la Hâte
+3364,Charge de la lame runique
+3366,Rune de Lichemort
+3367,Rune de Fracasse-sort
+3368,Rune du Croisé déchu
+3370,Rune de Trancheglace
+3371,+$k1 à la Force
+3374,+$k1 à l’Agilité
+3375,+$k1 à l’Agilité
+3376,+$k1 à l’Esquive
+3377,+$k1 à la Parade
+3378,+$k1 au score de Coup critique
+3379,+$k1 à la Hâte
+3380,+$k1 à l’Intelligence
+3381,+$k1 à l’Intelligence
+3382,+$k1 au score de Coup critique
+3383,+$k1 au score de Coup critique
+3384,+$k1 à l’Esquive
+3385,+$k1 à l’Armure
+3386,+$k1 à la Hâte
+3387,+$k1 à l’Endurance
+3388,+$k1 à la Polyvalence
+3389,+$k1 à la Polyvalence
+3390,+$k1 à la Polyvalence
+3391,+$k1 au score de Coup critique et +$k2 à l’Endurance
+3392,+$k1 à la Force et +$k2 à l’Endurance
+3393,+$k1 à l’Agilité et +$k2 à l’Endurance
+3394,+$k1 à l’Intelligence et +$k2 à l’Endurance
+3395,+$k1 à l’Agilité et +$k2 à l’Endurance
+3396,+$k1 à l’Esquive et +$k2 à l’Endurance
+3397,+$k1 à la Parade et +$k2 à l’Endurance
+3398,+$k1 à la Hâte et +$k2 à l’Endurance
+3399,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+3400,+$k1 à l’Agilité et +$k2 au score de Coup critique
+3401,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+3402,+$k1 à l’Agilité et +$k2 au score de Coup critique
+3403,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+3404,+$k1 à l’Intelligence et +$k2 à la Hâte
+3405,+$k1 à la Force et +$k2 au score de Coup critique
+3406,+$k1 à l’Agilité et +$k2 au score de Coup critique
+3407,+$k1 à la Force et +$k2 à l’Esquive
+3408,+$k1 à la Force et +$k2 à l’Armure
+3409,+$k1 à la Force et +$k2 à la Hâte
+3410,+$k1 à l’Agilité et +$k2 au score de Coup critique
+3411,+$k1 à la Force et +$k2 au score de Coup critique
+3412,+$k1 à l’Agilité et +$k2 à l’Armure
+3413,+$k1 à l’Agilité et +$k2 à la Hâte
+3414,+$k1 à l’Intelligence et +$k2 au score de Coup critique
+3415,+$k1 à l’Intelligence et +$k2 au score de Coup critique
+3416,+$k1 à l’Intelligence et +$k2 à l’Armure
+3417,+$k1 à l’Intelligence et +$k2 à la Hâte
+3418,+$k1 à l’Esquive et +$k2 à la Parade
+3419,+$k1 à la Parade et +$k2 à l’Esquive
+3420,+$k1 à la Hâte et +$k2 au score de Coup critique
+3421,+$k1 à la Hâte et +$k2 à l’Esquive
+3422,+$k1 à l’Agilité et +$k2 au score de Coup critique
+3423,+$k1 à l’Agilité et +$k2 au score de Coup critique
+3424,+$k1 à l’Agilité et +$k2 à l’Armure
+3426,+$k1 à l’Agilité et +$k2 à la Hâte
+3427,+$k1 à l’Intelligence et +$k2 à l’Endurance
+3428,+$k1 au score de Coup critique et +$k2 à l’Endurance
+3429,+$k1 au score de Coup critique et +$k2 à l’Esquive
+3430,+$k1 à l’Esquive et +$k2 à l’Endurance
+3431,+$k1 à l’Armure et +$k2 à l’Endurance
+3432,+$k1 à la Hâte et +$k2 à l’Endurance
+3433,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+3434,+$k1 au score de Coup critique et +$k2 à la Polyvalence
+3435,+$k1 au score de Coup critique et +$k2 à la Hâte
+3436,+$k1 à l’Armure et +$k2 à la Polyvalence
+3437,+$k1 à la Hâte et +$k2 à la Polyvalence
+3438,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+3439,+$k1 au score de Coup critique et +$k2 à la Polyvalence
+3440,+$k1 au score de Coup critique et +$k2 à la Hâte
+3441,+$k1 à l’Armure et +$k2 à la Polyvalence
+3442,+$k1 à la Hâte et +$k2 à la Polyvalence
+3443,+$k1 au score de Coup critique et +$k2 à la Polyvalence
+3444,+$k1 au score de Coup critique et +$k2 à la Polyvalence
+3445,+$k1 à la Hâte et +$k2 à la Polyvalence
+3446,+$k1 à la Force
+3447,+$k1 à l’Agilité
+3449,+$k1 à l’Agilité
+3450,+$k1 à l’Esquive
+3451,+$k1 à la Parade
+3452,+$k1 au score de Coup critique
+3453,+$k1 à la Hâte
+3454,+$k1 à l’Endurance
+3455,+$k1 à la Polyvalence
+3456,+$k1 à la Polyvalence
+3457,+$k1 à la Polyvalence
+3459,+$k1 au score de Coup critique
+3460,+$k1 au score de Coup critique
+3461,+$k1 à l’Esquive
+3462,+$k1 à l’Armure
+3463,+$k1 à la Hâte
+3464,+$k1 à la Force et +$k2 à l’Endurance
+3465,+$k1 à l’Agilité et +$k2 à l’Endurance
+3466,+$k1 à l’Intelligence et +$k2 à l’Endurance
+3467,+$k1 à l’Agilité et +$k2 à l’Endurance
+3468,+$k1 à l’Esquive et +$k2 à l’Endurance
+3469,+$k1 à la Parade et +$k2 à l’Endurance
+3470,+$k1 au score de Coup critique et +$k2 à l’Endurance
+3471,+$k1 à la Hâte et +$k2 à l’Endurance
+3472,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+3473,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+3474,+$k1 à l’Agilité et +$k2 au score de Coup critique
+3475,+$k1 à l’Agilité et +$k2 au score de Coup critique
+3476,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+3477,+$k1 à la Force et +$k2 au score de Coup critique
+3478,+$k1 à la Force et +$k2 au score de Coup critique
+3479,+$k1 à la Force et +$k2 à l’Esquive
+3480,+$k1 à la Force et +$k2 à l’Armure
+3481,+$k1 à la Force et +$k2 à la Hâte
+3482,+$k1 à l’Agilité et +$k2 au score de Coup critique
+3483,+$k1 à l’Agilité et +$k2 au score de Coup critique
+3484,+$k1 à l’Agilité et +$k2 à l’Armure
+3485,+$k1 à l’Agilité et +$k2 à la Hâte
+3486,+$k1 à l’Intelligence et +$k2 à la Hâte
+3487,+$k1 à l’Intelligence et +$k2 au score de Coup critique
+3488,+$k1 à l’Intelligence et +$k2 au score de Coup critique
+3489,+$k1 à l’Intelligence et +$k2 à l’Armure
+3490,+$k1 à l’Intelligence et +$k2 à la Hâte
+3491,+$k1 à l’Agilité et +$k2 au score de Coup critique
+3492,+$k1 à l’Agilité et +$k2 au score de Coup critique
+3493,+$k1 à l’Agilité et +$k2 à l’Armure
+3494,+$k1 à l’Agilité et +$k2 à la Hâte
+3495,+$k1 à l’Esquive et +$k2 à la Parade
+3496,+$k1 à la Parade et +$k2 à l’Esquive
+3497,+$k1 à la Hâte et +$k2 au score de Coup critique
+3498,+$k1 à la Hâte et +$k2 à l’Esquive
+3499,+$k1 à l’Intelligence et +$k2 à l’Endurance
+3500,+$k1 au score de Coup critique et +$k2 à l’Endurance
+3501,+$k1 au score de Coup critique et +$k2 à l’Esquive
+3502,+$k1 à l’Esquive et +$k2 à l’Endurance
+3503,+$k1 à l’Armure et +$k2 à l’Endurance
+3504,+$k1 à la Hâte et +$k2 à l’Endurance
+3505,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+3506,+$k1 au score de Coup critique et +$k2 à la Polyvalence
+3507,+$k1 au score de Coup critique et +$k2 à la Hâte
+3508,+$k1 à l’Armure et +$k2 à la Polyvalence
+3509,+$k1 à la Hâte et +$k2 à la Polyvalence
+3510,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+3511,+$k1 au score de Coup critique et +$k2 à la Polyvalence
+3512,+$k1 au score de Coup critique et +$k2 à la Hâte
+3513,+$k1 à la Polyvalence et +$k2 à l’Armure
+3514,+$k1 à la Hâte et +$k2 à la Polyvalence
+3515,+$k1 au score de Coup critique et +$k2 à la Polyvalence
+3516,+$k1 au score de Coup critique et +$k2 à la Polyvalence
+3517,+$k1 à la Hâte et +$k2 à la Polyvalence
+3518,+$k1 à la Force
+3519,+$k1 à l’Agilité
+3520,+$k1 à l’Intelligence
+3521,+$k1 à l’Agilité
+3522,+$k1 à l’Esquive
+3523,+$k1 à la Parade
+3524,+$k1 à la Hâte
+3525,+$k1 au score de Coup critique
+3526,+$k1 à l’Intelligence
+3527,+$k1 au score de Coup critique
+3528,+$k1 au score de Coup critique
+3529,+$k1 à l’Esquive
+3530,+$k1 à l’Armure
+3531,+$k1 à la Hâte
+3532,+$k1 à l’Endurance
+3533,+$k1 à la Polyvalence
+3534,+$k1 à la Polyvalence
+3535,+$k1 à la Polyvalence
+3536,+$k1 à la Force et +$k2 à l’Endurance
+3537,+$k1 à l’Agilité et +$k2 à l’Endurance
+3538,+$k1 à l’Intelligence et +$k2 à l’Endurance
+3539,+$k1 à l’Agilité et +$k2 à l’Endurance
+3540,+$k1 à l’Esquive et +$k2 à l’Endurance
+3541,+$k1 à la Parade et +$k2 à l’Endurance
+3542,+$k1 à la Hâte et +$k2 à l’Endurance
+3543,+$k1 au score de Coup critique et +$k2 à l’Endurance
+3544,+$k1 à l’Agilité et +$k2 au score de Coup critique
+3545,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+3546,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+3547,+$k1 à l’Agilité et +$k2 au score de Coup critique
+3548,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+3549,+$k1 à la Force et +$k2 au score de Coup critique
+3550,+$k1 à la Force et +$k2 au score de Coup critique
+3551,+$k1 à la Force et +$k2 à l’Esquive
+3552,+$k1 à la Force et +$k2 à l’Armure
+3553,+$k1 à la Force et +$k2 à la Hâte
+3554,+$k1 à l’Agilité et +$k2 au score de Coup critique
+3555,+$k1 à l’Agilité et +$k2 au score de Coup critique
+3556,+$k1 à l’Agilité et +$k2 à l’Armure
+3557,+$k1 à l’Agilité et +$k2 à la Hâte
+3558,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+3559,+$k1 à l’Intelligence et +$k2 au score de Coup critique
+3560,+$k1 à l’Intelligence et +$k2 au score de Coup critique
+3561,+$k1 à l’Intelligence et +$k2 à l’Armure
+3563,+$k1 à l’Intelligence et +$k2 à la Hâte
+3564,+$k1 à l’Agilité et +$k2 au score de Coup critique
+3565,+$k1 à l’Agilité et +$k2 au score de Coup critique
+3566,+$k1 à l’Agilité et +$k2 à l’Armure
+3567,+$k1 à l’Agilité et +$k2 à la Hâte
+3568,+$k1 à l’Esquive et +$k2 à la Parade
+3569,+$k1 à la Parade et +$k2 à l’Esquive
+3570,+$k1 à la Hâte et +$k2 au score de Coup critique
+3571,+$k1 à la Hâte et +$k2 à l’Esquive
+3572,+$k1 à l’Intelligence et +$k2 à l’Endurance
+3573,+$k1 au score de Coup critique et +$k2 à l’Endurance
+3574,+$k1 au score de Coup critique et +$k2 à l’Esquive
+3575,+$k1 à l’Esquive et +$k2 à l’Endurance
+3576,+$k1 à l’Armure et +$k2 à l’Endurance
+3577,+$k1 à la Hâte et +$k2 à l’Endurance
+3578,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+3579,+$k1 au score de Coup critique et +$k2 à la Polyvalence
+3580,+$k1 au score de Coup critique et +$k2 à la Hâte
+3581,+$k1 à l’Armure et +$k2 à la Polyvalence
+3582,+$k1 à la Hâte et +$k2 à la Polyvalence
+3583,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+3584,+$k1 au score de Coup critique et +$k2 à la Polyvalence
+3585,+$k1 au score de Coup critique et +$k2 à la Hâte
+3586,+$k1 à l’Armure et +$k2 à la Polyvalence
+3587,+$k1 à la Hâte et +$k2 à la Polyvalence
+3588,+$k1 au score de Coup critique et +$k2 à la Polyvalence
+3589,+$k1 au score de Coup critique et +$k2 à la Polyvalence
+3590,+$k1 à la Hâte et +$k2 à la Polyvalence
+3591,Test +$k1 Intellect and +$k2 Versatility
+3592,+$54288s1 à la Puissance des sorts contre les Morts-vivants
+3593,+$54289s1 à la Puissance d’attaque contre les Morts-vivants
+3595,Rune de Brise-sort
+3596,+$k1 à la Puissance des sorts
+3597,Pierre de feu magistrale
+3599,Générateur personnel de pulsation électromagnétique
+3600,+$k1 à l’Armure
+3601,Ceinture à fragmentation
+3602,+$k1 à la Puissance des sorts
+3605,Doublure en toile de lin
+3607,+$k1 à la Hâte à distance
+3608,+$k1 au score de Coup critique
+3609,Pierre de feu
+3610,Pierre de feu
+3611,Pierre de feu supérieure
+3612,Pierre de feu majeure
+3613,Pierre de feu gangrenée
+3614,Pierre de feu grandiose
+3615,Pierre de sort
+3616,Pierre de sort supérieure
+3617,Pierre de sort majeure
+3618,Pierre de sort magistrale
+3619,Pierre de sort démoniaque
+3620,Pierre de sort grandiose
+3621,+$k1 au score de Coup critique et effet critique augmenté de $44797s1%
+3622,+$k1 au score de Coup critique et $11818s1% au renvoi des sorts
+3623,+$k1 à l’Intelligence et +$55275s1% au montant de mana maximum
+3624,+$k1 au score de Coup critique et durée des ralentissements/immobilisations réduite de $55378s1%
+3625,+$k1 au score de Coup critique et légère augmentation de la vitesse de course
+3626,+$k1 à l’Intelligence et menace réduite de 2%
+3627,+$k1 à l’Intelligence et une chance de rendre du mana lors des incantations
+3628,+$k1 à l’Agilité et effet critique augmenté de $44797s1%
+3630,+$k1 à l’Esquive et une chance de rendre des points de vie au toucher
+3631,+$k1 à l’Esquive et +$55283s1% à la valeur de blocage du bouclier
+3632,+$k1 à l’Intelligence et légère augmentation de la vitesse de course
+3633,+$k1 à la Polyvalence et effet critique augmenté de 3%
+3634,+$k1 à l’Endurance et dégâts des sorts subis réduits de 2%
+3635,+$k1 à l’Intelligence et durée de Silence réduite de 10%
+3636,+$k1 au score de Coup critique et durée de la peur réduite de $55357s1%
+3637,+$k1 à l’Endurance et augmente de 2% la valeur d’armure des objets
+3638,+$k1 au score de Coup critique et durée d’Etourdir réduite de $55358s1%
+3639,+$k1 à l’Intelligence et durée d’Etourdissement réduite de 10%
+3640,+$k1 à la Hâte et vous soigne parfois quand critique
+3641,+$k1 au score de Coup critique et +$55337s1% aux points de mana
+3642,+$k1 à l’Endurance et durée des étourdissements réduite de 10%
+3643,Chance d’augmenter la vitesse d’attaque en mêlée/à distance
+3644,+$k1 à l’Agilité
+3646,+$k1 à l’Esquive
+3647,+$k1 à la Hâte
+3648,+$k1 à la Parade
+3649,+$k1 à la Force
+3650,+$k1 à l’Intelligence
+3651,+$k1 à l’Agilité
+3652,+$k1 au score de Coup critique
+3653,+$k1 à la Polyvalence
+3654,+$k1 à la Polyvalence
+3655,+$k1 à l’Endurance
+3656,+$k1 à la Polyvalence
+3657,+$k1 au score de Coup critique
+3658,+$k1 à l’Esquive
+3659,+$k1 à la Hâte
+3660,+$k1 au score de Coup critique
+3661,+$k1 à l’Intelligence
+3662,+$k1 à l’Armure
+3663,+$k1 à l’Agilité et +$k2 au score de Coup critique
+3664,+$k1 à l’Agilité et +$k2 à l’Endurance
+3665,+$k1 au score de Coup critique et +$k2 à l’Endurance
+3666,+$k1 à l’Agilité et +$k2 au score de Coup critique
+3667,+$k1 à l’Agilité et +$k2 à l’Endurance
+3668,+$k1 à l’Esquive et +$k2 à l’Endurance
+3669,+$k1 à la Hâte et +$k2 à l’Endurance
+3670,+$k1 à la Parade et +$k2 à l’Endurance
+3671,+$k1 à la Force et +$k2 à l’Endurance
+3672,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+3673,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+3674,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+3675,+$k1 à l’Intelligence et +$k2 à l’Endurance
+3676,+$k1 à la Puissance d’attaque et +$k2 au score de Coup critique
+3677,+$k1 à l’Agilité et +$k2 à la Hâte
+3678,+$k1 à l’Agilité et +$k2 à la Hâte
+3679,+$k1 à l’Agilité et +$k2 au score de Coup critique
+3680,+$k1 à l’Agilité et +$k2 à l’Armure
+3681,+$k1 à la Force et +$k2 au score de Coup critique
+3682,+$k1 à la Force et +$k2 au score de Coup critique
+3683,+$k1 à la Force et +$k2 à l’Esquive
+3684,+$k1 à la Force et +$k2 à l’Armure
+3685,+$k1 à la Force et +$k2 à la Hâte
+3686,+$k1 à l’Agilité et +$k2 au score de Coup critique
+3687,+$k1 à l’Agilité et +$k2 au score de Coup critique
+3688,+$k1 à l’Agilité et +$k2 à l’Armure
+3689,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+3690,+$k1 à l’Intelligence et +$k2 au score de Coup critique
+3691,+$k1 à l’Intelligence et +$k2 au score de Coup critique
+3692,+$k1 à l’Intelligence et +$k2 à l’Armure
+3693,+$k1 à l’Intelligence et +$k2 à la Hâte
+3694,+$k1 à l’Esquive et +$k2 à la Parade
+3695,+$k1 à la Parade et +$k2 à l’Esquive
+3696,+$k1 à la Hâte et +$k2 au score de Coup critique
+3697,+$k1 à la Hâte et +$k2 à l’Esquive
+3698,+$k1 au score de Coup critique et +$k2 à la Polyvalence
+3699,+$k1 au score de Coup critique et +$k2 à l’Endurance
+3700,+$k1 à l’Esquive et +$k2 à l’Endurance
+3701,+$k1 à la Hâte et +$k2 à la Polyvalence
+3702,+$k1 à la Hâte et +$k2 à l’Endurance
+3703,+$k1 au score de Coup critique et +$k2 à la Hâte
+3704,+$k1 au score de Coup critique et +$k2 à l’Esquive
+3705,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+3706,+$k1 à l’Intelligence et +$k2 à l’Endurance
+3707,+$k1 à l’Armure et +$k2 à la Polyvalence
+3708,+$k1 à l’Armure et +$k2 à l’Endurance
+3709,+$k1 au score de Coup critique et +$k2 à la Polyvalence
+3710,+$k1 au score de Coup critique et +$k2 à la Polyvalence
+3711,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+3712,+$k1 au score de Coup critique et +$k2 à la Hâte
+3713,+$k1 à l’Armure et +$k2 à la Polyvalence
+3714,+$k1 à la Hâte et +$k2 à la Polyvalence
+3715,+$k1 au score de Coup critique et +$k2 à la Polyvalence
+3716,+$k1 à la Hâte et +$k2 à la Polyvalence
+3717,Châsse de brassard
+3718,+$k1 à la Puissance des sorts et +$k2 à la Polyvalence
+3719,+$k1 à la Puissance des sorts et +$k2 à la Polyvalence
+3720,+$k1 à la Puissance des sorts et +$k2 à l’Endurance
+3721,+$k1 à la Puissance des sorts et +$k2 à l’Endurance
+3723,Châsse de gants
+3729,Ceinture de châsse
+3731,Dragonne en titane
+3732,+$k1 à la Force
+3733,+$k1 à l’Agilité
+3734,+$k1 à l’Intelligence
+3735,+$k1 à la Polyvalence
+3736,+$k1 à la Polyvalence
+3737,+$k1 à l’Intelligence
+3738,+$k1 au score de Coup critique
+3739,+$k1 à la Hâte
+3740,+$k1 à l’Esquive
+3741,+$k1 à la Parade
+3742,+$k1 au score de Coup critique
+3743,+$k1 à l’Esquive
+3744,+$k1 à l’Armure
+3745,+$k1 au score de Coup critique
+3746,+$k1 à la Hâte
+3747,+$k1 à la Polyvalence
+3748,Pointe en titane
+3749,+$56527s1 à toutes les caractéristiques
+3750,+$56529s1 à toutes les caractéristiques
+3751,+$k1 à l’Esquive
+3752,+$k1 à la Puissance des sorts
+3753,+$k1 à la Puissance des sorts
+3754,+$k1 à la Puissance d’attaque +$k3 à l’Endurance +$k2 au score de Coup critique
+3755,+$k1 à la Puissance d’attaque +$k2 à l’Esquive
+3764,+$k1 à la Puissance d’attaque
+3765,+$k1 au score de Coup critique
+3766,+$k1 à l’Endurance
+3767,+$k1 à l’Agilité et +$k2 au score de Coup critique
+3775,+$k1 à la Puissance des sorts et +$k2 au score de Coup critique
+3776,+$k1 à la Puissance d’attaque et +$k2 au score de Coup critique
+3777,+$k2 à l’Esquive et +$k1 à l’Endurance
+3778,+$k1 à la Hâte
+3788,+$k1 au score de Coup critique
+3789,Berserker
+3790,Magie noire
+3792,+$k1 à l’Armure
+3793,+$k1 à la Puissance d’attaque
+3794,+$k1 à la Puissance des sorts
+3795,+$k1 à la Puissance d’attaque et +$k2 à l’Armure
+3796,+$k1 à la Puissance des sorts et +$k2 à l’Armure
+3797,+$k1 à la Puissance des sorts et +$k2 à l’Armure
+3798,+$k1 au score de Coup critique et légère augmentation de la vitesse de course
+3799,+$k1 à l’Intelligence et légère augmentation de la vitesse de course
+3800,+$k1 au score de Coup critique et durée de la peur réduite de $55357s1%
+3801,+$k1 au score de Coup critique et durée des ralentissements/immobilisations réduite de $55378s1%
+3802,+$k1 à l’Intelligence et durée de Silence réduite de 10%
+3803,+$k1 au score de Coup critique et durée des ralentissements/immobilisations réduite de $55378s1%
+3804,+$k1 à l’Endurance et durée des étourdissements réduite de 10%
+3805,+$k1 à l’Intelligence et durée d’Etourdissement réduite de 10%
+3806,+$k1 à la Puissance des sorts et +$k2 au score de Coup critique
+3807,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+3808,+$k1 à la Puissance d’attaque et +$k2 au score de Coup critique
+3809,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+3810,+$k1 à la Puissance des sorts et +$k2 au score de Coup critique
+3811,+$k1 à l’Esquive et +$k2 à l’Endurance
+3812,+$k1 à la résistance au Givre et +$k2 à l’Endurance
+3813,+$k1 à la résistance à la Nature et +$k2 à l’Endurance
+3814,+$k1 à la résistance à l’Ombre et +$k2 à l’Endurance
+3815,+$k1 à la résistance aux Arcanes et +$k2 à l’Endurance
+3816,+$k1 à la résistance au Feu et +$k2 à l’Endurance
+3817,+$k1 à la Puissance d’attaque et +$k2 au score de Coup critique
+3818,+$k1 à l’Endurance et +$k2 à l’Esquive
+3819,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+3820,+$k1 à l’Intelligence et +$k2 au score de Coup critique
+3821,+$k1 à l’Armure
+3822,+$k1 à l’Endurance et +$k2 à l’Agilité
+3823,+$k2 à la Puissance d’attaque et +$k1 au score de Coup critique
+3824,+$k1 à la Puissance d’attaque
+3825,+$k1 à la Hâte
+3826,+$k1 au score de Coup critique
+3827,+$k1 à la Puissance d’attaque
+3828,+$k1 à la Puissance d’attaque
+3829,+$k1 à la Puissance d’attaque
+3830,+$k1 à la Puissance des sorts
+3831,+$k1 à la Hâte
+3832,+$60694s1 à toutes les caractéristiques
+3833,+$k1 à la Puissance d’attaque
+3834,+$k1 à la Puissance des sorts
+3835,+$k1 à la Puissance d’attaque et +$k2 au score de Coup critique
+3836,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+3837,+$k2 à l’Esquive et +$k1 à l’Endurance
+3838,+$k1 à la Puissance des sorts et +$k2 au score de Coup critique
+3841,+$k1 à la Puissance des sorts
+3842,+$k1 à l’Endurance et +$k2 à l’Armure
+3843,Lunette (+$k1 points de dégâts)
+3844,+$k1 à la Polyvalence
+3845,+$k1 à la Puissance d’attaque
+3846,+$k1 à la Puissance des sorts
+3847,Rune de la gargouille peau de pierre
+3848,Châsse de bâton
+3849,Plaque en titane
+3850,+$k1 à l’Endurance
+3851,+$k1 à l’Endurance
+3852,+$k1 à l’Endurance et +$k2 à l’Armure
+3853,+$k1 à l’Armure et +$k2 à l’Endurance
+3854,+$k1 à la Puissance des sorts
+3855,+$k1 à la Puissance des sorts
+3856,+$k1 à l’Agilité
+3857,+$k1 à l’Esquive
+3858,+$k1 au score de Coup critique
+3859,Tissage arachnéen élastique
+3861,+$k1 à la Force
+3862,+$k1 à l’Agilité
+3863,+$k1 à l’Endurance
+3864,+$k1 à la Polyvalence
+3865,+$k1 à l’Intelligence
+3866,+$k1 à l’Intelligence
+3867,+$k1 au score de Coup critique
+3868,Appât de pêche (+$8085s1 compétence de pêche)
+3869,Garde lame
+3870,Drain de sang
+3871,+$k1 à la Parade
+3872,+$k1 à la Puissance des sorts et +$k2 à la Polyvalence
+3873,+$k1 à la Puissance des sorts et +$k2 à l’Endurance
+3875,+$k1 à la Puissance d’attaque et +$k2 au score de Coup critique
+3876,+$k1 à l’Esquive et +$k2 à la Parade
+3877,+$k1 à la Puissance d’attaque
+3879,+$68251s1 à toutes les caractéristiques
+3880,+$k1 au score de Coup critique
+3881,+$k1 à la Polyvalence
+3882,+$k1 au score de Coup critique
+3884,+$k1 à l’Endurance et +$k2 à l’Agilité
+3885,+$k1 à la Maîtrise et +$k2 à la Polyvalence
+3886,+$k2 à la Maîtrise et +$k1 au score de Coup critique
+3887,+$k2 à la Maîtrise et +$k1 à la Polyvalence
+3888,+$k2 à la Maîtrise et +$k1 au score de Coup critique
+3889,+$k1 à la Force
+3890,+$k1 à l’Agilité
+3891,+$k1 à la Parade
+3892,+$k1 à l’Intelligence
+3893,+$k1 à la Hâte
+3894,+$k1 à l’Endurance
+3895,+$k1 à la Polyvalence
+3896,+$k1 à la Polyvalence
+3897,+$k1 au score de Coup critique
+3898,+$k1 à l’Esquive
+3899,+$k1 à l’Armure
+3900,+$k1 à la Hâte
+3901,+$k1 à la Maîtrise
+3902,+$k1 à la Force et +$k2 à l’Endurance
+3903,+$k1 à la Parade et +$k2 à l’Endurance
+3904,+$k1 à l’Agilité et +$k2 à l’Endurance
+3905,+$k1 à l’Intelligence et +$k2 à l’Endurance
+3906,+$k1 à la Hâte et +$k2 à l’Endurance
+3907,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+3908,+$k1 à la Force et +$k2 au score de Coup critique
+3909,+$k1 à l’Agilité et +$k2 au score de Coup critique
+3910,+$k1 à la Parade et +$k2 au score de Coup critique
+3911,+$k1 à l’Intelligence et +$k2 au score de Coup critique
+3912,+$k1 à la Hâte et +$k2 au score de Coup critique
+3913,+$k1 à l’Agilité et +$k2 à l’Esquive
+3914,+$k1 à la Hâte et +$k2 à l’Esquive
+3915,+$k1 à la Force et +$k2 au score de Coup critique
+3916,+$k1 à l’Agilité et +$k2 au score de Coup critique
+3917,+$k1 à l’Intelligence et +$k2 au score de Coup critique
+3918,+$k1 à la Force et +$k2 à la Hâte
+3919,+$k1 à l’Agilité et +$k2 à la Hâte
+3920,+$k1 à l’Intelligence et +$k2 à la Hâte
+3921,+$k1 à la Force et +$k2 à la Maîtrise
+3922,+$k1 à l’Agilité et +$k2 à la Maîtrise
+3923,+$k1 à la Parade et +$k2 à la Maîtrise
+3924,+$k1 à l’Intelligence et +$k2 à la Maîtrise
+3925,+$k1 à la Hâte et +$k2 à la Maîtrise
+3926,+$k1 à l’Esquive et +$k2 à l’Endurance
+3927,+$k1 à l’Esquive et +$k2 au score de Coup critique
+3928,+$k1 au score de Coup critique et +$k2 à l’Endurance
+3929,+$k1 au score de Coup critique
+3930,+$k1 à l’Armure et +$k2 à l’Endurance
+3931,+$k1 à la Hâte et +$k2 à l’Endurance
+3932,+$k1 à la Hâte et +$k2 au score de Coup critique
+3933,+$k1 à la Maîtrise et +$k2 à l’Endurance
+3936,+$k1 au score de Coup critique
+3937,+$k1 à la Force et +$k2 au score de Coup critique
+3938,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+3939,+$k1 à la Hâte et +$k2 à l’Endurance
+3940,+$k1 à l’Intelligence et +$k2 à l’Endurance
+3941,+$k1 à la Parade et +$k2 à l’Endurance
+3942,+$k1 à l’Agilité et +$k2 à l’Endurance
+3943,+$k1 à la Force et +$k2 à l’Endurance
+3944,+$k1 à la Maîtrise
+3945,+$k1 à la Hâte
+3946,+$k1 à l’Armure
+3947,+$k1 au score de Coup critique
+3948,+$k1 à l’Esquive
+3949,+$k1 au score de Coup critique
+3950,+$k1 à la Polyvalence
+3951,+$k1 à la Polyvalence
+3952,+$k1 à l’Endurance
+3953,+$k1 à la Hâte
+3954,+$k1 à l’Intelligence
+3955,+$k1 à la Parade
+3956,+$k1 à l’Agilité
+3957,+$k1 à la Force
+3958,+$k1 à la Maîtrise et +$k2 à l’Endurance
+3959,+$k1 à la Hâte et +$k2 au score de Coup critique
+3960,+$k1 à la Hâte et +$k2 à l’Endurance
+3961,+$k1 à l’Armure et +$k2 à l’Endurance
+3962,+$k1 au score de Coup critique
+3963,+$k1 au score de Coup critique et +$k2 à l’Endurance
+3964,+$k1 à l’Esquive et +$k2 au score de Coup critique
+3965,+$k1 à l’Esquive et +$k2 à l’Endurance
+3966,+$k1 à la Hâte et +$k2 à la Maîtrise
+3967,+$k1 à l’Intelligence et +$k2 à la Maîtrise
+3968,+$k1 à la Parade et +$k2 à la Maîtrise
+3969,+$k1 à l’Agilité et +$k2 à la Maîtrise
+3970,+$k1 à la Force et +$k2 à la Maîtrise
+3971,+$k1 à l’Intelligence et +$k2 à la Hâte
+3972,+$k1 à l’Agilité et +$k2 à la Hâte
+3973,+$k1 à la Force et +$k2 à la Hâte
+3974,+$k1 à l’Intelligence et +$k2 au score de Coup critique
+3975,+$k1 à l’Agilité et +$k2 au score de Coup critique
+3976,+$k1 à la Force et +$k2 au score de Coup critique
+3977,+$k1 à la Hâte et +$k2 à l’Esquive
+3978,+$k1 à l’Agilité et +$k2 à l’Esquive
+3979,+$k1 à la Hâte et +$k2 au score de Coup critique
+3980,+$k1 à l’Intelligence et +$k2 au score de Coup critique
+3981,+$k1 à la Parade et +$k2 au score de Coup critique
+3982,+$k1 à l’Agilité et +$k2 au score de Coup critique
+3983,+$k1 à la Hâte et +$k2 au score de Coup critique
+3984,+$k1 à la Parade et +$k2 à l’Endurance
+3985,+$k1 à la Force et +$k2 au score de Coup critique
+3986,+$k1 à l’Intelligence et +$k2 au score de Coup critique
+3987,+$k1 à l’Agilité et +$k2 au score de Coup critique
+3988,+$k1 à la Hâte et +$k2 à l’Endurance
+3989,+$k1 à la Parade et +$k2 au score de Coup critique
+3990,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+3991,+$k1 à l’Agilité et +$k2 à l’Endurance
+3992,+$k1 à la Force et +$k2 à l’Endurance
+3993,+$k1 à l’Intelligence et +$k2 à l’Endurance
+3994,+$k1 à la Force
+3995,+$k1 à l’Intelligence
+3996,+$k1 à l’Agilité
+3997,+$k1 à la Parade
+3998,+$k1 à la Hâte
+3999,+$k1 à la Maîtrise
+4000,+$k1 à l’Armure
+4001,+$k1 à la Hâte
+4002,+$k1 au score de Coup critique
+4003,+$k1 à l’Esquive
+4004,+$k1 au score de Coup critique
+4005,+$k1 à l’Endurance
+4006,+$k1 à la Polyvalence
+4007,+$k1 à la Polyvalence
+4008,+$k1 à l’Agilité et +$k2 à la Maîtrise
+4009,+$k1 à l’Intelligence et +$k2 à la Maîtrise
+4010,+$k1 à l’Intelligence et +$k2 à la Hâte
+4011,+$k1 à l’Agilité et +$k2 au score de Coup critique
+4012,+$k1 à l’Agilité et +$k2 à la Hâte
+4013,+$k1 à la Force et +$k2 à la Hâte
+4014,+$k1 à la Parade et +$k2 à la Maîtrise
+4015,+$k1 à la Force et +$k2 au score de Coup critique
+4016,+$k1 à la Hâte et +$k2 à la Maîtrise
+4017,+$k1 à l’Agilité et +$k2 à l’Esquive
+4018,+$k1 à l’Intelligence et +$k2 au score de Coup critique
+4019,+$k1 à la Force et +$k2 à la Maîtrise
+4020,+$k1 à la Hâte et +$k2 à l’Esquive
+4021,+$k1 à la Hâte et +$k2 à l’Endurance
+4022,+$k1 au score de Coup critique et +$k2 à l’Endurance
+4023,+$k1 à la Hâte et +$k2 au score de Coup critique
+4024,+$k1 à l’Esquive et +$k2 au score de Coup critique
+4025,+$k1 au score de Coup critique
+4026,+$k1 à la Maîtrise et +$k2 à l’Endurance
+4027,+$k1 à l’Esquive et +$k2 à l’Endurance
+4028,+$k1 à la Maîtrise et +$k2 au score de Coup critique
+4029,+$k1 à l’Armure et +$k2 à l’Endurance
+4030,+$k1 à la Maîtrise et +$k2 à la Polyvalence
+4031,+$k1 à la Force
+4032,+$k1 à l’Intelligence
+4033,+$k1 à l’Agilité
+4034,+$k1 à la Parade
+4035,+$k1 à la Maîtrise
+4036,+$k1 à l’Armure
+4037,+$k1 à la Hâte
+4038,+$k1 à la Hâte
+4039,+$k1 au score de Coup critique
+4040,+$k1 au score de Coup critique
+4041,+$k1 à l’Endurance
+4042,+$k1 à la Polyvalence
+4043,+$k1 à la Polyvalence
+4044,+$k1 à l’Esquive
+4045,+$k1 à la Maîtrise et légère augmentation de la vitesse de course
+4046,+$k1 au score de Coup critique et effet critique augmenté de $44797s1%
+4047,+$k1 à l’Intelligence et menace réduite de 2%
+4048,+$k1 à l’Endurance et +$55283s1% à la valeur de blocage du bouclier
+4049,+$k1 à l’Endurance et augmente de 2% la valeur d’armure des objets
+4050,+$k1 à l’Endurance et dégâts des sorts subis réduits de 2%
+4051,+$k1 à l’Intelligence et +$46600s1% au maximum de mana
+4052,+$k1 à la Polyvalence et effet critique augmenté de 3%
+4053,+$k1 au score de Coup critique et $11818s1% au renvoi des sorts
+4054,+$k1 à l’Endurance et durée des étourdissements réduite de 10%
+4055,+$k1 au score de Coup critique et durée des ralentissements/immobilisations réduite de $55378s1%
+4056,+$k1 au score de Coup critique et durée de la peur réduite de $55357s1%
+4057,+$k1 à l’Intelligence et durée de Silence réduite de 10%
+4061,+$k1 à la Maîtrise
+4062,+$k1 à l’Endurance et vitesse de déplacement mineure
+4063,+$74190s1 à toutes les caractéristiques
+4064,+$k1 à la caractéristique principale
+4065,+$k1 à la Hâte
+4066,Guérison
+4067,Avalanche
+4068,+$k1 à la Hâte
+4069,+$k1 à la Hâte
+4070,+$k1 à l’Endurance
+4071,+$k1 au score de Coup critique
+4072,+$k1 à l’Intelligence
+4073,+$k1 à l’Endurance
+4074,Tueur d’élémentaires
+4075,+$k1 à la Force
+4076,+$k1 à l’Agilité
+4077,+$k1 à l’Armure
+4082,+$k1 à la Hâte
+4083,Ouragan
+4084,Chant du cœur
+4085,+$k1 à la Maîtrise
+4086,+$k1 à l’Esquive
+4087,+$k1 au score de Coup critique
+4088,+$k1 à la Polyvalence
+4089,+$k1 au score de Coup critique
+4090,+$k1 à l’Endurance
+4091,+$k1 à l’Intelligence
+4092,+$k1 au score de Coup critique
+4093,+$k1 à la Polyvalence
+4094,+$k1 à la Maîtrise
+4095,+$k1 à la Hâte
+4096,+$k1 à l’Intelligence
+4097,Torrent de puissance
+4098,Marche-vent
+4099,Glissement de terrain
+4100,+$k1 au score de Coup critique
+4101,+$k1 au score de Coup critique
+4102,+$74249s1 à toutes les caractéristiques
+4103,+$k1 à l’Endurance
+4104,+$k1 à la Maîtrise et vitesse de déplacement mineure
+4105,+$k1 à l’Agilité et vitesse de déplacement mineure
+4106,+$k1 à la Force
+4107,+$k1 à la Maîtrise
+4108,+$k1 à la Hâte
+4109,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+4110,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+4111,+$k1 à l’Intelligence et +$k2 à l’Endurance
+4112,+$k1 à l’Intelligence et +$k2 à l’Endurance
+4113,+$k1 à l’Intelligence et +$k2 à l’Endurance
+4114,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+4119,+$k1 à la Force
+4120,+$k1 à l’Endurance
+4121,+$k1 à l’Endurance
+4122,+$k2 à la Puissance d’attaque et +$k1 au score de Coup critique
+4123,+$k1 à la Maîtrise
+4124,+$k1 à l’Endurance et +$k2 à l’Agilité
+4125,+$k1 à la Polyvalence
+4126,+$k2 à la Puissance d’attaque et +$k1 au score de Coup critique
+4127,+$k1 à l’Endurance et +$k2 à l’Agilité
+4128,+$k1 à la Hâte
+4129,+$k1 à la Polyvalence
+4130,+$k1 au score de Coup critique
+4131,+$k1 au score de Coup critique
+4132,+$k1 au score de Coup critique
+4133,+$k1 à l’Agilité
+4134,+$k1 à l’Endurance
+4135,+$k1 à la Force
+4136,+$k1 à la Force
+4137,+$k1 à la Maîtrise
+4138,+$k1 à la Maîtrise
+4139,+$k1 à la Parade
+4140,+$k1 à la Hâte
+4141,+$k1 au score de Coup critique
+4142,+$k1 à la Polyvalence
+4143,+$k1 à l’Intelligence
+4144,+$k1 à l’Intelligence
+4145,+$k1 à l’Agilité
+4146,+$k1 à la Hâte
+4147,+$k1 à la Parade
+4148,+$k1 à la Parade
+4149,+$k1 à l’Intelligence
+4150,+$k1 à l’Intelligence
+4151,+$k1 au score de Coup critique
+4152,+$k1 au score de Coup critique
+4153,+$k1 au score de Coup critique
+4154,+$k1 à l’Endurance
+4155,+$k1 à l’Esquive
+4156,+$k1 à l’Esquive
+4157,+$k1 à l’Esquive
+4158,+$k1 à la Force
+4159,+$k1 à l’Endurance
+4160,+$k1 au score de Coup critique
+4161,+$k1 au score de Coup critique
+4162,+$k1 au score de Coup critique
+4163,+$k1 à la Hâte
+4164,+$k1 à la Hâte
+4165,+$k1 à la Hâte
+4166,+$k1 à l’Esquive
+4167,+$k1 au score de Coup critique
+4168,+$k1 à la Hâte
+4169,+$k1 à la Maîtrise
+4170,+$k1 à la Hâte
+4171,+$k1 à la Parade
+4172,+$k1 au score de Coup critique
+4173,+$k1 à la Polyvalence
+4175,Lunette gnome à rayons-X
+4176,+$k1 au score de Coup critique
+4177,+$k1 à la Hâte à distance
+4178,+$k1 à l’Armure
+4184,+$k1 à l’Armure
+4185,+$k1 à l’Armure
+4186,+$k1 à l’Armure
+4187,Champ d’invisibilité
+4188,Bouclier plasma de masse
+4193,+$k1 à l’Agilité et +$k2 à la Maîtrise
+4194,+$k1 à la Force et +$k2 au score de Coup critique
+4195,+$k1 à l’Endurance et +$k2 à l’Esquive
+4196,+$k1 à l’Intelligence et +$k2 à la Hâte
+4197,+$k1 à l’Endurance et +$k2 à l’Esquive
+4198,+$k1 à l’Endurance et +$k2 à l’Esquive
+4199,+$k1 à l’Intelligence et +$k2 à la Hâte
+4200,+$k1 à l’Intelligence et +$k2 à la Hâte
+4201,+$k1 à la Force et +$k2 au score de Coup critique
+4202,+$k1 à la Force et +$k2 au score de Coup critique
+4203,+$k1 à l’Agilité et +$k2 à la Maîtrise
+4204,+$k1 à l’Agilité et +$k2 à la Maîtrise
+4205,+$k1 à l’Agilité et +$k2 à la Maîtrise
+4206,+$k1 à l’Endurance et +$k2 à l’Esquive
+4207,+$k1 à l’Intelligence et +$k2 au score de Coup critique
+4208,+$k1 à la Force et +$k2 à la Maîtrise
+4209,+$k1 à l’Agilité et +$k2 à la Hâte
+4211,+$k1 à la Hâte
+4212,+$k1 à la Force
+4213,+$k1 à la Force
+4214,Assassin en carton
+4215,Pointe en élémentium
+4216,Pointe en pyrium
+4217,Dragonne en pyrium
+4222,Parabole d’amplification de l’esprit
+4223,Nitro-survolteurs
+4225,Appât de pêche (+$95243s1 compétence de pêche)
+4227,+$k1 à l’Agilité
+4236,+$k1 à l’Intelligence et +$k2 à l’Armure
+4237,+$k1 à l’Agilité et +$k2 à l’Armure
+4238,+$k1 à la Force et +$k2 à l’Armure
+4239,+$k1 à l’Armure
+4244,+$k1 à l’Armure et +$k2 à la Polyvalence
+4245,+$k1 à l’Intelligence et +$k2 à l’Armure
+4246,+$k1 à l’Agilité et +$k2 à l’Armure
+4247,+$k1 à la Force et +$k2 à l’Armure
+4248,+$k1 à l’Intelligence et +$k2 à l’Armure
+4249,+$k1 à la Force et +$k2 à l’Armure
+4250,+$k1 à l’Agilité et +$k2 à l’Armure
+4251,+$k1 à l’Agilité et effet critique augmenté de $44797s1%
+4252,+$k1 à la Force et effet critique augmenté de 3%
+4253,+$k1 à l’Intelligence et effet critique augmenté de 3%
+4256,+$k1 à la Force
+4257,+$k1 à l’Intelligence
+4258,+$k1 à l’Agilité
+4259,+$96285s1 en Pêche
+4262,+$k1 à l’Endurance
+4263,+$k1 à la Polyvalence
+4264,Appât de pêche (+$7825s1 compétence de pêche)
+4265,+$k1 à l’Intelligence
+4266,+$k1 à l’Agilité
+4267,Ronge-bois de Flintlocke
+4270,+$k1 à l’Endurance et +$k2 à l’Esquive
+4273,+$k1 au score de Coup critique
+4274,+$k1 à la Polyvalence
+4275,+$k1 à la Polyvalence
+4276,+$k1 à l’Endurance
+4277,+$k1 à la Polyvalence et +$k2 au score de Coup critique
+4278,+$k1 au score de Coup critique
+4279,+$k1 à la Hâte et +$k2 au score de Coup critique
+4280,+$k2 au score de Coup critique et +$k1 à la Maîtrise
+4281,+$k2 à la Polyvalence et +$k1 à la Maîtrise
+4282,+$k1 à la Polyvalence et +$k2 à la Maîtrise
+4283,+$k1 au score de Coup critique et +$k2 à l’Armure
+4284,+$k1 à la Polyvalence et +$k2 à l’Armure
+4285,+$k1 à la Polyvalence et +$k2 à l’Armure
+4286,+$k1 au score de Coup critique et +$k2 à la Polyvalence
+4287,+$k1 à la Hâte et +$k2 à la Polyvalence
+4288,+$k1 à la Hâte et +$k2 à la Polyvalence
+4289,+$k1 au score de Coup critique et +$k2 à l’Endurance
+4290,+$k1 à l’Esquive et +$k2 à l’Endurance
+4291,+$k1 à la Hâte et +$k2 à l’Endurance
+4292,+$k1 au score de Coup critique et +$k2 à l’Esquive
+4293,+$k1 à la Maîtrise et +$k2 à l’Endurance
+4294,+$k1 à l’Armure et +$k2 à l’Endurance
+4295,+$k1 à l’Agilité et +$k2 au score de Coup critique
+4296,+$k1 à la Hâte et +$k2 au score de Coup critique
+4297,+$k1 à l’Intelligence et +$k2 au score de Coup critique
+4298,+$k1 à la Force et +$k2 au score de Coup critique
+4299,+$k1 à l’Agilité et +$k2 à l’Esquive
+4300,+$k1 à la Hâte et +$k2 à l’Esquive
+4301,+$k1 à la Parade et +$k2 à l’Esquive
+4302,+$k1 à la Force et +$k2 à l’Esquive
+4303,+$k1 à l’Agilité et +$k2 à la Hâte
+4304,+$k1 à la Hâte
+4305,+$k1 à l’Intelligence et +$k2 à la Hâte
+4306,+$k1 à la Force et +$k2 à la Hâte
+4307,+$k1 à l’Agilité et +$k2 à la Maîtrise
+4308,+$k1 à la Hâte et +$k2 à la Maîtrise
+4309,+$k1 à l’Intelligence et +$k2 à la Maîtrise
+4310,+$k1 à la Parade et +$k2 à la Maîtrise
+4311,+$k1 à la Force et +$k2 à la Maîtrise
+4312,+$k1 à l’Agilité et +$k2 à l’Armure
+4313,+$k1 à la Hâte et +$k2 à l’Armure
+4314,+$k1 à l’Intelligence et +$k2 à l’Armure
+4315,+$k1 à la Parade et +$k2 à l’Armure
+4316,+$k1 à la Force et +$k2 à l’Armure
+4317,+$k1 à l’Agilité et +$k2 au score de Coup critique
+4318,+$k1 à la Hâte et +$k2 au score de Coup critique
+4319,+$k1 à l’Intelligence et +$k2 au score de Coup critique
+4320,+$k1 à la Parade et +$k2 au score de Coup critique
+4321,+$k1 à la Force et +$k2 au score de Coup critique
+4322,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+4323,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+4324,+$k1 à l’Agilité et +$k2 à l’Endurance
+4325,+$k1 à la Hâte et +$k2 à l’Endurance
+4326,+$k1 à l’Intelligence et +$k2 à l’Endurance
+4327,+$k1 à la Parade et +$k2 à l’Endurance
+4328,+$k1 à la Force et +$k2 à l’Endurance
+4329,+$k1 à l’Agilité
+4330,+$k1 à la Hâte
+4331,+$k1 à l’Intelligence
+4332,+$k1 à la Parade
+4333,+$k1 à la Force
+4334,+$k1 au score de Coup critique
+4335,+$k1 à l’Esquive
+4336,+$k1 à la Hâte
+4337,+$k1 à la Maîtrise
+4338,+$k1 à l’Armure
+4411,+$k1 à la Maîtrise
+4412,+$k1 à l’Esquive
+4414,+$k1 à l’Intelligence
+4415,+$k1 à la Force
+4416,+$k1 à l’Agilité
+4417,+$k1 à l’Armure
+4418,+$k1 à la Polyvalence
+4419,+$k1 à toutes les caractéristiques
+4420,+$k1 à l’Endurance
+4421,+$k1 au score de Coup critique
+4422,+$k1 à l’Endurance
+4423,+$k1 à l’Intelligence
+4424,+$k1 au score de Coup critique
+4426,+$k1 à la Hâte
+4427,+$k1 au score de Coup critique
+4428,+$k1 à l’Agilité et augmentation mineure de Vitesse
+4429,+$k1 à la Maîtrise et augmentation mineure de Vitesse
+4430,+$k1 à la Hâte
+4431,+$k1 à la Hâte
+4432,+$k1 à la Force
+4433,+$k1 à la Maîtrise
+4434,+$k1 à l’Intelligence
+4435,+$k1 à l’Endurance et +$k2 à l’Esquive
+4436,+$k1 à l’Endurance et +$k2 à l’Agilité
+4437,+$k2 à la Puissance d’attaque et +$k1 au score de Coup critique
+4438,+$k1 à l’Endurance et +$k2 à l’Esquive
+4439,+$k1 à l’Endurance et +$k2 à l’Agilité
+4440,+$k2 à la Puissance d’attaque et +$k1 au score de Coup critique
+4441,Chant-du-Vent
+4442,Esprit de jade
+4443,Force élémentaire
+4444,Danse d’acier
+4445,Colosse
+4446,Mélodie de la rivière
+4453,+$k1 au score de Coup critique
+4454,+$k1 à la Polyvalence
+4455,+$k1 à la Polyvalence
+4456,+$k1 à l’Endurance
+4457,+$k1 à la Polyvalence et +$k2 au score de Coup critique
+4458,+$k1 au score de Coup critique
+4459,+$k1 à la Hâte et +$k2 au score de Coup critique
+4460,+$k1 au score de Coup critique et +$k2 à la Maîtrise
+4461,+$k1 à la Polyvalence et +$k2 à la Maîtrise
+4462,+$k1 à la Polyvalence et +$k2 à la Maîtrise
+4463,+$k1 au score de Coup critique et +$k2 à l’Armure
+4464,+$k1 à la Polyvalence et +$k2 à l’Armure
+4465,+$k1 à la Polyvalence et +$k2 à l’Armure
+4466,+$k1 au score de Coup critique et +$k2 à la Polyvalence
+4467,+$k1 à la Hâte et +$k2 à la Polyvalence
+4468,+$k1 à la Hâte et +$k2 à la Polyvalence
+4469,+$k1 au score de Coup critique et +$k2 à l’Endurance
+4470,+$k1 à l’Esquive et +$k2 à l’Endurance
+4471,+$k1 à la Hâte et +$k2 à l’Endurance
+4472,+$k1 au score de Coup critique et +$k2 à l’Endurance
+4473,+$k1 à la Maîtrise et +$k2 à l’Endurance
+4474,+$k1 à l’Armure et +$k2 à l’Endurance
+4475,+$k1 à l’Agilité et +$k2 au score de Coup critique
+4476,+$k1 à la Hâte et +$k2 au score de Coup critique
+4477,+$k1 à l’Intelligence et +$k2 au score de Coup critique
+4478,+$k1 à la Force et +$k2 au score de Coup critique
+4479,+$k1 à l’Agilité et +$k2 à l’Esquive
+4480,+$k1 à la Hâte et +$k2 à l’Esquive
+4481,+$k1 à la Parade et +$k2 à l’Esquive
+4482,+$k1 à la Force et +$k2 à l’Esquive
+4483,+$k1 à l’Agilité et +$k2 à la Hâte
+4484,+$k1 à la Hâte
+4485,+$k1 à l’Intelligence et +$k2 à la Hâte
+4486,+$k1 à la Force et +$k2 à la Hâte
+4487,+$k1 à l’Agilité et +$k2 à la Maîtrise
+4488,+$k1 à la Hâte et +$k2 à la Maîtrise
+4489,+$k1 à l’Intelligence et +$k2 à la Maîtrise
+4490,+$k1 à la Parade et +$k2 à la Maîtrise
+4491,+$k1 à la Force et +$k2 à la Maîtrise
+4492,+$k1 à l’Agilité et +$k2 à l’Armure
+4493,+$k1 à la Hâte et +$k2 à l’Armure
+4494,+$k1 à l’Intelligence et +$k2 à l’Armure
+4495,+$k1 à la Parade et +$k2 à l’Armure
+4496,+$k1 à la Force et +$k2 à l’Armure
+4497,+$k1 à l’Agilité et +$k2 au score de Coup critique
+4498,+$k1 à la Hâte et +$k2 au score de Coup critique
+4499,+$k1 à l’Intelligence et +$k2 au score de Coup critique
+4500,+$k1 à la Parade et +$k2 au score de Coup critique
+4501,+$k1 à la Force et +$k2 au score de Coup critique
+4502,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+4503,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+4504,+$k1 à l’Agilité et +$k2 à l’Endurance
+4505,+$k1 à la Hâte et +$k2 à l’Endurance
+4506,+$k1 à l’Intelligence et +$k2 à l’Endurance
+4507,+$k1 à la Parade et +$k2 à l’Endurance
+4508,+$k1 à la Force et +$k2 à l’Endurance
+4509,+$k1 à l’Agilité
+4511,+$k1 à la Hâte
+4512,+$k1 à l’Intelligence
+4513,+$k1 à la Parade
+4514,+$k1 à la Force
+4515,+$k1 au score de Coup critique
+4516,+$k1 à l’Esquive
+4517,+$k1 à la Hâte
+4518,+$k1 à la Maîtrise
+4519,+$k1 à l’Armure
+4520,+$k1 au score de Coup critique
+4521,+$k1 à la Polyvalence
+4522,+$k1 à la Polyvalence
+4523,+$k1 à l’Endurance
+4524,+$k1 à la Polyvalence et +$k2 au score de Coup critique
+4525,+$k1 au score de Coup critique
+4526,+$k1 à la Hâte et +$k2 au score de Coup critique
+4527,+$k1 au score de Coup critique et +$k2 à la Maîtrise
+4528,+$k1 à la Polyvalence et +$k2 à la Maîtrise
+4529,+$k1 à la Polyvalence et +$k2 à la Maîtrise
+4530,+$k1 au score de Coup critique et +$k2 à l’Armure
+4531,+$k1 à la Polyvalence et +$k2 à l’Armure
+4532,+$k1 à la Polyvalence et +$k2 à l’Armure
+4533,+$k1 au score de Coup critique et +$k2 à la Polyvalence
+4535,+$k1 à la Hâte et +$k2 à la Polyvalence
+4536,+$k1 à la Hâte et +$k2 à la Polyvalence
+4537,+$k1 au score de Coup critique et +$k2 à l’Endurance
+4538,+$k1 à l’Esquive et +$k2 à l’Endurance
+4539,+$k1 à la Hâte et +$k2 à l’Endurance
+4540,+$k1 au score de Coup critique et +$k2 à l’Endurance
+4541,+$k1 à la Maîtrise et +$k2 à l’Endurance
+4542,+$k1 à l’Armure et +$k2 à l’Endurance
+4543,+$k1 à l’Agilité et +$k2 au score de Coup critique
+4544,+$k1 à la Hâte et +$k2 au score de Coup critique
+4545,+$k1 à l’Intelligence et +$k2 au score de Coup critique
+4546,+$k1 à la Force et +$k2 au score de Coup critique
+4547,+$k1 à l’Agilité et +$k2 à l’Esquive
+4548,+$k1 à la Hâte et +$k2 à l’Esquive
+4549,+$k1 à la Parade et +$k2 à l’Esquive
+4550,+$k1 à la Force et +$k2 à l’Esquive
+4551,+$k1 à l’Agilité et +$k2 à la Hâte
+4552,+$k1 à la Hâte
+4553,+$k1 à l’Intelligence et +$k2 à la Hâte
+4554,+$k1 à la Force et +$k2 à la Hâte
+4555,+$k1 à l’Agilité et +$k2 à la Maîtrise
+4556,+$k1 à la Hâte et +$k2 à la Maîtrise
+4557,+$k1 à l’Intelligence et +$k2 à la Maîtrise
+4558,+$k1 à la Parade et +$k2 à la Maîtrise
+4559,+$k1 à la Force et +$k2 à la Maîtrise
+4560,+$k1 à l’Agilité et +$k2 à l’Armure
+4561,+$k1 à la Hâte et +$k2 à l’Armure
+4562,+$k1 à l’Intelligence et +$k2 à l’Armure
+4563,+$k1 à la Parade et +$k2 à l’Armure
+4564,+$k1 à la Force et +$k2 à l’Armure
+4565,+$k1 à l’Agilité et +$k2 au score de Coup critique
+4566,+$k1 à la Hâte et +$k2 au score de Coup critique
+4567,+$k1 à l’Intelligence et +$k2 au score de Coup critique
+4568,+$k1 à la Parade et +$k2 au score de Coup critique
+4569,+$k1 à la Force et +$k2 au score de Coup critique
+4570,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+4571,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+4572,+$k1 à l’Agilité et +$k2 à l’Endurance
+4573,+$k1 à la Hâte et +$k2 à l’Endurance
+4574,+$k1 à l’Intelligence et +$k2 à l’Endurance
+4575,+$k1 à la Parade et +$k2 à l’Endurance
+4576,+$k1 à la Force et +$k2 à l’Endurance
+4577,+$k1 à l’Agilité
+4578,+$k1 à la Hâte
+4579,+$k1 à l’Intelligence
+4580,+$k1 à la Parade
+4581,+$k1 à la Force
+4582,+$k1 au score de Coup critique
+4583,+$k1 à l’Esquive
+4584,+$k1 à la Hâte
+4585,+$k1 à la Maîtrise
+4586,+$k1 à l’Armure
+4587,+$k1 au score de Coup critique
+4588,+$k1 à la Polyvalence
+4589,+$k1 à la Polyvalence
+4590,+$k1 à l’Endurance
+4591,+$k1 à la Polyvalence et +$k2 au score de Coup critique
+4592,+$k1 au score de Coup critique
+4593,+$k1 à la Hâte et +$k2 au score de Coup critique
+4594,+$k1 au score de Coup critique et +$k2 à la Maîtrise
+4595,+$k1 à la Polyvalence et +$k2 à la Maîtrise
+4596,+$k1 à la Polyvalence et +$k2 à la Maîtrise
+4597,+$k1 au score de Coup critique et +$k2 à l’Armure
+4598,+$k1 à la Polyvalence et +$k2 à l’Armure
+4599,+$k1 à la Polyvalence et +$k2 à l’Armure
+4600,+$k1 au score de Coup critique et +$k2 à la Polyvalence
+4601,+$k1 à la Hâte et +$k2 à la Polyvalence
+4602,+$k1 à la Hâte et +$k2 à la Polyvalence
+4603,+$k1 au score de Coup critique et +$k2 à l’Endurance
+4604,+$k1 à l’Esquive et +$k2 à l’Endurance
+4605,+$k1 à la Hâte et +$k2 à l’Endurance
+4606,+$k1 au score de Coup critique et +$k2 à l’Endurance
+4607,+$k1 à la Maîtrise et +$k2 à l’Endurance
+4608,+$k1 à l’Armure et +$k2 à l’Endurance
+4609,+$k1 à l’Agilité et +$k2 au score de Coup critique
+4610,+$k1 à la Hâte et +$k2 au score de Coup critique
+4611,+$k1 à l’Intelligence et +$k2 au score de Coup critique
+4612,+$k1 à la Force et +$k2 au score de Coup critique
+4613,+$k1 à l’Agilité et +$k2 à l’Esquive
+4614,+$k1 à la Hâte et +$k2 à l’Esquive
+4615,+$k1 à la Parade et +$k2 à l’Esquive
+4616,+$k1 à la Force et +$k2 à l’Esquive
+4617,+$k1 à l’Agilité et +$k2 à la Hâte
+4618,+$k1 à la Hâte
+4619,+$k1 à l’Intelligence et +$k2 à la Hâte
+4620,+$k1 à la Force et +$k2 à la Hâte
+4621,+$k1 à l’Agilité et +$k2 à la Maîtrise
+4622,+$k1 à la Hâte et +$k2 à la Maîtrise
+4623,+$k1 à l’Intelligence et +$k2 à la Maîtrise
+4624,+$k1 à la Parade et +$k2 à la Maîtrise
+4625,+$k1 à la Force et +$k2 à la Maîtrise
+4626,+$k1 à l’Agilité et +$k2 à l’Armure
+4627,+$k1 à la Hâte et +$k2 à l’Armure
+4628,+$k1 à l’Intelligence et +$k2 à l’Armure
+4629,+$k1 à la Parade et +$k2 à l’Armure
+4630,+$k1 à la Force et +$k2 à l’Armure
+4631,+$k1 à l’Agilité et +$k2 au score de Coup critique
+4632,+$k1 à la Hâte et +$k2 au score de Coup critique
+4633,+$k1 à l’Intelligence et +$k2 au score de Coup critique
+4634,+$k1 à la Parade et +$k2 au score de Coup critique
+4635,+$k1 à la Force et +$k2 au score de Coup critique
+4636,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+4637,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+4638,+$k1 à l’Agilité et +$k2 à l’Endurance
+4640,+$k1 à l’Intelligence et +$k2 à l’Endurance
+4641,+$k1 à la Parade et +$k2 à l’Endurance
+4642,+$k1 à la Force et +$k2 à l’Endurance
+4643,+$k1 à l’Agilité
+4644,+$k1 à l’Intelligence
+4645,+$k1 à la Parade
+4646,+$k1 à la Force
+4647,+$k1 au score de Coup critique
+4648,+$k1 à l’Esquive
+4649,+$k1 à la Hâte
+4650,+$k1 à la Maîtrise
+4651,+$k1 à l’Armure
+4652,+$k1 à la Hâte et +$k2 à l’Endurance
+4653,+$k1 à la Hâte
+4654,+$k1 au score de Coup critique
+4655,+$k1 à l’Intelligence et +$55275s1% au montant de mana maximum
+4656,+$k1 à l’Agilité et effet critique augmenté de $44797s1%
+4657,+$k1 à la Force et effet critique augmenté de $44797s1%
+4658,+$k1 à l’Intelligence et effet critique augmenté de +$44797s1%
+4659,+$k1 à la Maîtrise et légère augmentation de la vitesse de course
+4660,+$k1 à la Polyvalence et effet critique augmenté de 3%
+4661,+$k1 au score de Coup critique et $11818s1% au renvoi des sorts
+4662,+$k1 à l’Endurance et durée des étourdissements réduite de $55358s1%
+4664,+$k1 au score de Coup critique et durée des ralentissements/immobilisations réduite de $55378s1%
+4665,+$k1 au score de Coup critique et durée de la peur réduite de $55357s1%
+4666,+$k1 à l’Intelligence et durée de Silence réduite de $55366s1%
+4667,+$k1 à l’Endurance et augmente de $55344s1% la valeur d’armure des objets
+4668,+$k1 à l’Esquive et +$55283s1% à la valeur de blocage du bouclier
+4669,+$k1 à l’Endurance et réduit les dégâts des sorts reçus de $55345s1%
+4671,"+$k1 à la Force, +$k2 à la Parade et +$13839s1 au score de Coup critique"
+4672,+$k1 au score de Coup critique et +$k2 à l’Armure
+4673,+$k2 à la Polyvalence et +$k1 à la Maîtrise
+4674,+$k1 à l’Agilité et +$k2 à l’Armure
+4675,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+4676,+$k1 à l’Armure
+4677,+$k1 au score de Coup critique et +$k2 à la Polyvalence
+4678,+$k1 à la Force et +$k2 à l’Armure
+4679,+$k1 à la Hâte et +$k2 à la Polyvalence
+4680,+$k1 à la Parade et +$k2 à l’Armure
+4681,+$k1 à l’Armure et +$k2 à l’Endurance
+4682,+$k1 à la Polyvalence
+4683,+$k1 à la Hâte et +$k2 à l’Armure
+4684,+$k1 à la Polyvalence et +$k2 à l’Armure
+4685,+$k1 à la caractéristique principale et +$k2 à l’Armure
+4686,+$k1 à l’Intelligence et +$k2 à l’Armure
+4687,+$k2 Agilité
+4688,Samouraï
+4699,Lunette funeste du duc de Boumcogne
+4700,Lunette miroir
+4701,+$k1 à la Force
+4702,+$k1 à la Force
+4719,Enchantement d’épaule temporaire
+4720,+$k1 aux points de vie
+4721,+$k1 à l’Endurance
+4722,+$k1 à l’Endurance
+4723,+$k1 aux dégâts de l’arme
+4724,+$k1 à l’Agilité
+4725,+$k1 à l’Agilité
+4726,+$k1 à la Polyvalence
+4727,+$k1 à la Polyvalence
+4728,+$k1 à la Polyvalence
+4729,+$k1 à l’Intelligence
+4730,+$k1 à l’Endurance
+4731,+$k1 à l’Endurance
+4732,+$71691s1 en Pêche
+4733,+$k1 à l’Armure
+4734,+$k1 à l’Agilité
+4735,+$k1 à la Polyvalence
+4736,+$k1 à la Polyvalence
+4737,+$k1 à l’Endurance
+4738,+$k1 à l’Endurance
+4739,+$k1 à la Force
+4740,+$k1 à l’Agilité
+4741,+$k1 à la Polyvalence
+4742,+$k1 à la Force
+4743,+$k1 à l’Endurance
+4744,+$k1 à l’Endurance
+4745,+$k1 aux dégâts de l’arme
+4746,+$k1 aux dégâts de l’arme
+4747,+$k1 à l’Agilité
+4748,+$k1 à l’Agilité
+4750,Injecteur de soins rachidien
+4753,+$13624s1 à toutes les caractéristiques
+4755,+$13824s1 à toutes les caractéristiques
+4757,+$114519s1 à toutes les caractéristiques
+4759,+$114520s1 à toutes les caractéristiques
+4760,+$114524s1 à toutes les caractéristiques
+4761,+$13824s1 à toutes les caractéristiques
+4762,+$114519s1 à toutes les caractéristiques
+4803,+$k1 à la Force et +$k2 au score de Coup critique
+4804,+$k1 à l’Agilité et +$k2 au score de Coup critique
+4805,+$k1 à l’Endurance et +$k2 à l’Esquive
+4806,+$k1 à l’Intelligence et +$k2 au score de Coup critique
+4808,Arme magique
+4810,+$k1 à la Force
+4811,+$k1 à l’Intelligence
+4812,+$k1 à l’Agilité
+4813,+$k1 à la Parade
+4814,+$k1 à la Maîtrise
+4815,+$k1 à la Hâte
+4816,+$k1 à la Hâte
+4817,+$k1 au score de Coup critique
+4818,+$k1 au score de Coup critique
+4819,+$k1 à l’Esquive
+4820,+$k1 à l’Endurance
+4821,+$k1 à la Polyvalence
+4822,+$k1 à l’Agilité et +$k2 au score de Coup critique
+4823,+$k1 à la Force et +$k2 au score de Coup critique
+4824,+$k1 à l’Endurance et +$k2 à l’Esquive
+4825,+$k1 à l’Intelligence et +$k2 au score de Coup critique
+4826,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+4827,+$k1 à l’Agilité
+4828,+$k1 à l’Agilité
+4829,+$k1 à l’Agilité
+4830,+$k1 à la Force
+4831,+$k1 à l’Intelligence
+4832,+$k1 à l’Endurance
+4833,+$k1 au score de Coup critique
+4834,+$k1 à la Maîtrise
+4835,+$k1 au score de Coup critique
+4836,+$k1 à la Hâte
+4837,+$k1 à la Hâte
+4838,+$k1 au score de Coup critique
+4839,+$k1 au score de Coup critique
+4840,+$k1 au score de Coup critique
+4841,+$k1 à la Polyvalence
+4842,+$k1 à la Polyvalence
+4843,+$k1 au score de Coup critique
+4844,+$k1 au score de Coup critique
+4845,+$k1 à la Hâte
+4846,+$k1 à la Hâte
+4847,+$k1 au score de Coup critique
+4848,+$k1 à l’Intelligence
+4849,+$k1 à la Maîtrise
+4850,+$k1 au score de Coup critique
+4851,+$k1 à la Polyvalence
+4852,+$k1 au score de Coup critique
+4853,+$k1 à la Force
+4854,+$k1 à l’Endurance
+4855,+$k1 au score de Coup critique
+4856,+$k1 au score de Coup critique
+4857,+$k1 à la Hâte
+4858,+$k1 à la Hâte
+4859,+$k1 au score de Coup critique
+4860,+$k1 à l’Intelligence
+4861,+$k1 à la Maîtrise
+4862,+$k1 au score de Coup critique
+4863,+$k1 à la Polyvalence
+4864,+$k1 à la Polyvalence
+4865,+$k1 à la Polyvalence
+4866,+$k1 au score de Coup critique
+4867,+$k1 à l’Endurance
+4868,+$k1 à la Force
+4869,+$k1 à l’Endurance
+4870,+$k1 à l’Endurance et +$k2 à l’Esquive
+4871,+$k1 à l’Agilité et +$k2 au score de Coup critique
+4872,+$k1 à la Force et +$k2 au score de Coup critique
+4880,+$k1 à l’Agilité et +$k2 au score de Coup critique
+4881,+$k1 à la Force et +$k2 au score de Coup critique
+4882,+$k1 à l’Endurance et +$k2 à l’Esquive
+4883,+$k1 à l’Agilité et +$k2 au score de Coup critique
+4884,+$k1 à l’Endurance et +$k2 à l’Esquive
+4885,+$k1 à la Force et +$k2 au score de Coup critique
+4886,+$k1 à l’Agilité et +$k2 au score de Coup critique
+4887,+$k1 à l’Endurance et +$k2 à l’Esquive
+4888,+$k1 à la Force et +$k2 au score de Coup critique
+4891,Appât de pêche pandaren
+4895,+$k1 à l’Intelligence et +$k2 au score de Coup critique
+4896,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+4897,Planeur gobelin
+4899,+$k1 à la Parade
+4900,+$k1 à la Maîtrise
+4901,+$k1 à la Hâte
+4902,+$k1 à la Hâte
+4903,+$k1 au score de Coup critique
+4904,+$k1 au score de Coup critique
+4905,+$k1 à la Polyvalence
+4906,+$k1 à l’Esquive
+4907,+$k1 à la Force et +$k2 au score de Coup critique
+4908,+$k1 à l’Agilité et +$k2 au score de Coup critique
+4909,+$k1 à l’Intelligence et +$k2 au score de Coup critique
+4910,+$k1 à l’Endurance et +$k2 à l’Esquive
+4911,+$k1 à la Force et +$k2 au score de Coup critique
+4912,+$k1 à l’Endurance et +$k2 à l’Esquive
+4913,+$k1 à la Force et +$k2 au score de Coup critique
+4914,+$k1 à l’Agilité et +$k2 au score de Coup critique
+4915,+$k1 à l’Intelligence et +$k2 au score de Coup critique
+4916,+$k1 à la Polyvalence et +$k2 au score de Coup critique
+4918,Dragonne en acier vivant
+4919,Appât de pêche (+$128586s1 compétence de pêche)
+4920,+$k1 points de vie maximum
+4921,+$k1 à la Hâte et +$k2 au score de Coup critique
+4922,+$k1 à la Parade et +$k2 à l’Endurance
+4923,+$k1 à la Force et +$k2 au score de Coup critique
+4924,+$k1 à l’Agilité et +$k2 au score de Coup critique
+4925,+$k1 à la Hâte et +$k2 à l’Endurance
+4926,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+4927,+$k1 à la Parade et +$k2 au score de Coup critique
+4928,+$k1 à l’Agilité et +$k2 à l’Endurance
+4929,+$k1 à la Force et +$k2 à l’Endurance
+4930,+$k1 à l’Intelligence et +$k2 à l’Endurance
+4931,+$k1 à l’Intelligence et +$k2 au score de Coup critique
+4932,+$k1 au score de Coup critique et +$k2 à l’Armure
+4933,+$k1 à la Polyvalence et +$k2 à la Maîtrise
+4934,+$k1 à la Hâte et +$k2 à la Polyvalence
+4935,+$k1 à la Force et +$k2 au score de Coup critique
+4936,+$k1 à la Hâte et +$k2 à l’Endurance
+4937,+$k1 au score de Coup critique et +$k2 à l’Endurance
+4938,+$k1 à la Hâte et +$k2 au score de Coup critique
+4939,+$k1 à la Polyvalence et +$k2 au score de Coup critique
+4940,+$k1 au score de Coup critique et +$k2 à l’Endurance
+4941,+$k1 au score de Coup critique
+4942,+$k1 à la Maîtrise et +$k2 à l’Endurance
+4943,+$k1 au score de Coup critique et +$k2 à la Polyvalence
+4944,+$k1 à l’Esquive et +$k2 à l’Endurance
+4945,+$k1 au score de Coup critique et +$k2 à la Maîtrise
+4946,+$k1 à la Hâte et +$k2 à la Polyvalence
+4947,+$k1 à l’Armure et +$k2 à l’Endurance
+4948,+$k1 à la Polyvalence et +$k2 à l’Armure
+4949,+$k1 à la Polyvalence et +$k2 à l’Armure
+4950,+$k1 à la Polyvalence et +$k2 à la Maîtrise
+4951,+$k1 à l’Agilité et +$k2 à la Maîtrise
+4952,+$k1 à l’Intelligence et +$k2 à la Maîtrise
+4953,+$k1 à la Force et +$k2 à l’Esquive
+4954,+$k1 à la Hâte et +$k2 au score de Coup critique
+4955,+$k1 à l’Agilité et +$k2 au score de Coup critique
+4956,+$k1 à l’Agilité et +$k2 à la Hâte
+4957,+$k1 à la Force et +$k2 à la Hâte
+4958,+$k1 à la Parade et +$k2 à la Maîtrise
+4959,+$k1 à la Force et +$k2 au score de Coup critique
+4960,+$k1 à la Hâte et +$k2 à la Maîtrise
+4961,+$k1 à l’Agilité et +$k2 à l’Armure
+4962,+$k1 à l’Agilité et +$k2 à l’Esquive
+4963,+$k1 à l’Intelligence et +$k2 au score de Coup critique
+4964,+$k1 à l’Intelligence et +$k2 à la Hâte
+4965,+$k1 à la Hâte et +$k2 à l’Esquive
+4966,+$k1 à la Force et +$k2 à l’Armure
+4967,+$k1 à la Force et +$k2 à la Maîtrise
+4968,+$k1 à la Parade et +$k2 à l’Armure
+4969,+$k1 à la Parade et +$k2 à l’Esquive
+4970,+$k1 à la Hâte et +$k2 à l’Armure
+4971,+$k1 à la Hâte
+4972,+$k1 à l’Intelligence et +$k2 à l’Armure
+4973,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+4984,+$k1 à la Force et +$k2 à la Polyvalence
+4985,+$k1 à la Force et +$k2 à la Polyvalence
+4986,+$k1 à la Force et +$k2 à la Polyvalence
+4987,+$k1 à la Force et +$k2 à la Polyvalence
+4988,+$k1 à l’Agilité et +$k2 à la Polyvalence
+4989,+$k1 à l’Agilité et +$k2 à la Polyvalence
+4990,+$k1 à l’Agilité et +$k2 à la Polyvalence
+4991,+$k1 à l’Agilité et +$k2 à la Polyvalence
+4992,+$k1 à la Force (échelonnage)
+4993,+$k1 à la Parade
+4994,Souffle du prince agile
+4996,+$k1 à l’Agilité
+4997,+$k1 à la Force
+4998,+$k1 à l’Intelligence
+5000,Hydroglisseurs
+5001,Pointe en ectofer
+5002,Ceinture de châsse
+5003,+$k1 à l’Intelligence et +$k2 au score de Coup critique
+5004,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+5011,+$k1 à l’Agilité
+5012,+$k1 à l’Intelligence
+5013,+$k1 à la Force
+5015,Arme de châsse touchée par les sha
+5016,+$k1 à la Force et +$k2 à l’Armure
+5017,+$k1 à l’Agilité et +$k2 à l’Armure
+5018,+$k1 à l’Intelligence et +$k2 à l’Armure
+5019,+$k1 à la Force et +$k2 à la Polyvalence
+5020,+$k1 à l’Agilité et +$k2 à la Polyvalence
+5021,+$k1 à l’Intelligence et +$k2 à la Polyvalence
+5024,+$k1 au score de Coup critique et +$k2 à l’Esquive
+5025,+$k1 au score de Coup critique et +$k2 à l’Esquive
+5026,+$k1 au score de Coup critique et +$k2 à l’Esquive
+5027,+$k1 au score de Coup critique et +$k2 à l’Esquive
+5029,Personnalisé - Jaina - Foudre crépitante
+5030,+$k1 à l’Endurance et chance quand touché d’obtenir une réduction de $137593s1% des dégâts subis
+5031,+$k1 à l’Intelligence et chance sur un sort bénéfique de supprimer le coût en mana des sorts pendant 4 s
+5032,+$k1 au score de Coup critique et chance sur les attaques en mêlée / à distance d’obtenir Capacitance
+5033,+$k1 au score de Coup critique et chance sur dégâts des sorts d’augmenter de $137590s1% la Hâte des sorts
+5034,+$k1 à la Polyvalence et +$k2 à l’Armure
+5035,"+$k1 à la caractéristique principale, diminution de la durée de désarmement"
+5124,Esprit conquérant
+5125,Danse d’acier sanglante
+5147,+$k1 à l’Agilité
+5155,+$k1 à l’Agilité
+5156,+$k1 à l’Agilité
+5157,+$k1 à l’Intelligence
+5158,+$k1 à l’Agilité
+5159,+$k1 à l’Intelligence
+5160,+$k1 à la Polyvalence
+5161,+$k1 à l’Endurance
+5162,+$k1 à la Force
+5163,+$k1 à l’Esquive
+5164,+$k1 à l’Esquive
+5165,+$k1 à la Puissance des sorts
+5166,+$k1 à la Puissance des sorts
+5167,+$k1 à la Puissance des sorts
+5168,+$k1 à la Puissance d’attaque
+5169,+$k1 à la Puissance d’attaque
+5170,+$k1 à la Puissance d’attaque
+5171,+$k1 à la Puissance d’attaque
+5172,+$k1 à la Puissance d’attaque
+5173,+$k1 à la Puissance d’attaque
+5174,+$k1 à la Puissance d’attaque
+5175,+$k1 à l’Endurance
+5176,+$k1 à la Puissance des sorts
+5177,+$k1 à l’Intelligence
+5178,+$k1 à l’Intelligence
+5179,+$k1 au score de Coup critique
+5180,+$k1 à la Puissance des sorts
+5181,+$k1 au score de Coup critique
+5182,+$k1 à l’Agilité
+5183,+$k1 à la Puissance des sorts
+5184,+$k1 à la Puissance des sorts
+5185,+$k1 au score de Coup critique
+5186,+$k1 à la Polyvalence
+5187,+$k1 au score de Coup critique
+5188,+$k1 au score de Coup critique
+5189,+$k1 à l’Armure
+5190,+$k1 au score de Coup critique
+5191,+$k1 à l’Armure
+5192,+$k1 au score de Coup critique
+5193,+$k1 à l’Esquive
+5194,+$k1 à l’Armure
+5195,+$k1 à l’Intelligence
+5196,+$k1 au score de Coup critique
+5197,+$k1 au score de Coup critique
+5198,+$k1 à la Polyvalence
+5199,+$k1 à la Polyvalence
+5200,+$k1 à la Polyvalence
+5201,+$k1 à l’Armure
+5202,+$k1 à l’Endurance
+5203,+$k1 à l’Endurance
+5204,+$k1 à l’Intelligence
+5205,+$k1 à l’Intelligence
+5206,+$k1 à la Parade
+5207,+$k1 à l’Esquive
+5208,+$k1 à l’Esquive
+5209,+$k1 à la Puissance des sorts
+5210,+$k1 à la Puissance des sorts
+5211,+$k1 au score de Coup critique
+5212,+$k1 au score de Coup critique
+5213,+$k1 au score de Coup critique
+5214,+$k1 au score de Coup critique
+5215,+$k1 au score de Coup critique
+5216,+$k1 à l’Esquive
+5217,+$k1 à l’Agilité
+5218,+$k1 à l’Agilité
+5219,+$k1 à l’Armure
+5220,+$k1 à l’Armure
+5221,+$k1 à la Force
+5222,+$k1 au score de Coup critique
+5223,+$k1 au score de Coup critique
+5224,+2 à la polyvalence
+5225,+$k1 à l’Endurance
+5226,+$k1 à l’Endurance
+5227,+$k1 à l’Endurance
+5228,+$k1 au score de Coup critique
+5229,+$k1 au score de Coup critique
+5230,+$k1 au score de Coup critique
+5231,+$k1 à la Puissance des sorts
+5232,+$k1 à la Puissance des sorts
+5233,+$k1 à la Polyvalence
+5234,+$k1 à la Polyvalence
+5235,+$k1 à la Force
+5236,+$k1 à la Force
+5237,+$k1 à la Polyvalence
+5238,+$k1 à l’Agilité
+5239,+$k1 à l’Endurance
+5240,+$k1 à la Puissance des sorts
+5241,+$k1 au score de Coup critique
+5242,+$k1 à la Parade
+5243,+$k1 au score de Coup critique
+5244,+$k1 à l’Endurance
+5245,+$k1 à l’Esquive
+5246,+$k1 à la Force
+5247,+$k1 à la Force
+5248,+$k1 à la Puissance d’attaque
+5249,+$k1 à la Puissance d’attaque
+5250,+$k1 à la Force
+5251,+$k1 à la Puissance d’attaque
+5252,+$k1 à l’Esquive
+5253,+$k1 à la Force
+5254,+$k1 à la Hâte
+5255,+$k1 à la Puissance d’attaque
+5256,+$k1 à la Puissance d’attaque
+5257,+$k1 à la Puissance d’attaque
+5258,+$k1 à l’Agilité
+5259,+$k1 à l’Agilité
+5260,+$k1 à l’Esquive
+5264,+$k1 au score de Coup critique
+5265,+$k1 au score de Coup critique
+5266,+$k1 à la Hâte
+5267,+$k1 à la Hâte
+5269,Marteau à scories
+5270,Arme d’argile vivante
+5274,+$25065s1 à la Puissance des sorts de Feu
+5275,Fragmenteur de projectile d’Orguignard
+5276,Filament de mégawatt
+5281,+$k1 au score de Coup critique
+5284,+$k1 au score de Coup critique
+5285,+$k1 au score de Coup critique
+5286,+$k1 à l’Armure
+5287,+$k1 à l’Armure
+5288,+$k1 à l’Armure
+5292,+$k1 à la Hâte
+5293,+$k1 à la Maîtrise
+5294,+$k1 à la Hâte
+5295,+$k1 à la Polyvalence
+5296,+$k1 à la Polyvalence
+5297,+$k1 à la Hâte
+5298,+$k1 à la Hâte
+5299,+$k1 à la Maîtrise
+5300,+$k1 à la Maîtrise
+5301,+$k1 à la Maîtrise
+5302,+$k1 au score de Coup critique
+5303,+$k1 à la Polyvalence
+5304,+$k1 à la Polyvalence
+5305,+$k1 à la Polyvalence
+5306,+$k1 à la Polyvalence
+5309,+$k1 à l’Armure et +10% à la Vitesse
+5310,+$k1 au score de Coup critique et +$182495s1% à la Vitesse
+5311,+$k1 à la Hâte et +$182495s1% à la Vitesse
+5312,+$k1 à la Maîtrise et +$182495s1% à la vitesse
+5313,+$k1 au score de Coup critique et +$182495s1% à la Vitesse
+5314,+$k1 à la Polyvalence et +$182495s1% à la Vitesse
+5315,+$k1 à la Polyvalence et +10% à la Vitesse
+5316,+$k1 à l’Armure
+5317,+$k1 au score de Coup critique
+5318,+$k1 à la Hâte
+5319,+$k1 à la Maîtrise
+5320,+$k1 à la Hâte
+5321,+$k1 à la Polyvalence
+5322,+$k1 à la Polyvalence
+5323,+$k1 à l’Armure
+5324,+$k1 au score de Coup critique
+5325,+$k1 à la Hâte
+5326,+$k1 à la Maîtrise
+5327,+$k1 à la Maîtrise
+5328,+$k1 à la Polyvalence
+5329,+$k1 à la Polyvalence
+5330,Marque des Sire-Tonnerre
+5331,Marque de la Main-Brisée
+5332,Frostbrand Visual Only
+5333,Confère une chance lors d’une attaque en mêlée ou à distance d’augmenter Frappe multiple de $160222s1.
+5334,Marque du Loup-de-Givre
+5335,Marque d’Ombrelune
+5336,Marque de Rochenoire
+5337,Marque de Chanteguerre
+5339,+$k1 au score de Coup critique
+5340,+$k1 à la Hâte
+5342,+$k1 à la Maîtrise
+5343,+$k1 à la Hâte
+5344,+$k1 à la Polyvalence
+5345,+$k1 à l’Endurance
+5346,+$k1 au score de Coup critique
+5347,+$k1 à la Hâte
+5348,+$k1 à la Maîtrise
+5349,+$k1 à la Hâte
+5350,+$k1 à la Polyvalence
+5351,+$k1 à l’Endurance
+5352,Gloire des Sire-Tonnerre
+5353,Gloire aux Ombrelunes
+5354,Gloire des Rochenoires
+5355,Gloire des Chanteguerres
+5356,Gloire aux Loups-de-Givre
+5357,+4 à la compétence de pêche
+5360,Enchantement d’arme caché
+5364,Empoisonné
+5380,Papillons
+5383,Cherche-cœur d’Hemet
+5384,Marque de l’Orbite-Sanglante
+5385,Caché
+5386,Appât de pêche (+$174472s1 en Pêche)
+5387,Agilité
+5388,Puissance des sorts supérieure
+5389,Frappe
+5390,Maître de guerre
+5391,Berserker
+5392,Drain de sang
+5393,Croisé
+5394,Flammes de Ragnaros
+5395,Papillons
+5396,Tyrannie glorieuse
+5397,Victoire primordiale
+5398,Viveterre
+5399,Arme de givre
+5400,Langue de feu
+5401,Furie des vents
+5402,Croque-roc
+5404,Infusion sacrée
+5413,+$k1 au score de Coup critique
+5414,+$k1 à la Hâte
+5415,+$k1 à la Maîtrise
+5416,+$k1 à la Hâte
+5417,+$k1 à la Polyvalence
+5418,+$k1 à l’Endurance
+5419,+$k1 au score de Coup critique
+5420,+$k1 à la Hâte
+5421,+$k1 à la Maîtrise
+5423,+$k1 au score de Coup critique
+5424,+$k1 à la Hâte
+5425,+$k1 à la Maîtrise
+5426,+$k1 à la Polyvalence
+5427,+$k1 au score de Coup critique
+5428,+$k1 à la Hâte
+5429,+$k1 à la Maîtrise
+5430,+$k1 à la Polyvalence
+5431,+$k1 à la Force
+5432,+$k1 à l’Agilité
+5433,+$k1 à l’Intelligence
+5434,+$k1 à la Force
+5435,+$k1 à l’Agilité
+5436,+$k1 à l’Intelligence
+5437,Marque de la griffe
+5438,Marque de l’armée lointaine
+5439,Marque du Satyre caché
+5440,Collecte
+5441,Gemmologie
+5442,Glaneur
+5443,Boucherie
+5444,Herboristerie de la Légion
+5445,Minage de la Légion
+5446,Dépeçage de Legion
+5447,Levé de la Légion
+5448,Emprise de l’hiver
+5449,Test - BF - Bonus Rank - Sharpened Edge
+5450,Croque-roc
+5452,Test - DW - Bonus Rank - Iron Relic
+5454,Test - DW - Bonus Rank - Blood Relic
+5455,Test - DW - Bonus Rank - Shadow Relic
+5456,Test - DW - Bonus Rank - Fel Relic
+5457,Gemme d’arme prodigieuse de Val’sharah - Sacré
+5459,+$k1 au score de Coup critique
+5460,+$k1 à la Hâte
+5461,+$k1 à la Maîtrise
+5462,+$k1 à la Polyvalence
+5463,+$k1 au score de Coup critique
+5464,+$k1 à la Hâte
+5465,+$k1 à la Maîtrise
+5466,+$k1 à la Polyvalence
+5467,+$k1 à la Force
+5468,+$k1 à l’Agilité
+5469,+$k1 à l’Intelligence
+5488,Owen Test Relic
+5489,Cœur de l’Ignescence
+5493,Package 1 - Holy 1
+5494,Package 1 - Holy 2
+5495,Package 1 - Arcane 1
+5496,Package 1 - Arcane 2
+5497,Package 1 - Blood 1
+5498,Package 1 - Blood 2
+5499,Package 1 - Fel 1
+5500,Package 1 - Fel 2
+5501,Package 1 - Fire 1
+5502,Package 1 - Fire 2
+5503,Package 1 - Frost 1
+5504,Package 1 - Frost 2
+5505,Package 1 - Iron 1
+5506,Package 1 - Iron 2
+5507,Package 1 - Life 1
+5508,Package 1 - Life 2
+5509,Package 1 - Shadow 1
+5510,Package 1 - Shadow 2
+5511,Package 1 - Water 1
+5512,Package 1 - Water 2
+5513,Package 1 - Wind 1
+5514,Package 1 - Wind 2
+5515,Package 2 - Arcane 1
+5516,Package 2 - Blood 1
+5518,Package 2 - Fire 1
+5519,Package 2 - Frost 1
+5520,Package 2 - Holy 1
+5521,Package 2 - Iron 1
+5522,Package 2 - Life 1
+5523,Package 2 - Shadow 1
+5524,Package 2 - Water 1
+5525,Package 2 - Wind 1
+5526,Package 2 - Arcane 2
+5527,Package 2 - Blood 2
+5529,Package 2 - Fire 2
+5530,Package 2 - Frost 2
+5531,Package 2 - Holy 2
+5532,Package 2 - Iron 2
+5533,Package 2 - Life 2
+5534,Package 2 - Shadow 2
+5535,Package 2 - Water 2
+5536,Package 2 - Wind 2
+5537,Package 3 - Blood 1
+5538,Package 3 - Arcane 1
+5539,Package 3 - Fel 1
+5540,Package 3 - Fire 1
+5541,Package 3 - Frost 1
+5542,Package 3 - Holy 1
+5543,Package 3 - Iron 1
+5544,Package 3 - Life 1
+5545,Package 3 - Shadow 1
+5546,Package 3 - Water 1
+5547,Package 3 - Wind 1
+5548,Package 3 - Arcane 2
+5549,Package 3 - Blood 2
+5550,Package 3 - Fel 2
+5551,Package 3 - Fire 2
+5552,Package 3 - Frost 2
+5553,Package 3 - Holy 2
+5554,Package 3 - Iron 2
+5555,Package 3 - Life 2
+5556,Package 3 - Shadow 2
+5557,Package 3 - Water 2
+5558,Package 3 - Wind 2
+5564,Paquet 1 - Arcane 1
+5565,Paquet 1 - Arcane 2
+5566,Paquet 1 - Sang 1
+5567,Paquet 1 - Gangrène 1
+5568,Paquet 1 - Feu 1
+5569,Paquet 1 - Givre 1
+5570,Paquet 1 - Sacré 1
+5571,Paquet 1 - Fer 1
+5572,Paquet 1 - Vie 1
+5573,Paquet 1 - Ombre 1
+5574,Paquet 1 - Eau 1
+5575,Paquet 1 - Vent 1
+5576,Paquet 1 - Sang 2
+5577,Paquet 1 - Gangrène 2
+5578,Paquet 1 - Feu 2
+5579,Paquet 1 - Givre 2
+5580,Paquet 1 - Sacré 2
+5581,Paquet 1 - Fer 2
+5582,Paquet 1 - Vie 2
+5583,Paquet 1 - Ombre 2
+5584,Paquet 1 - Eau 2
+5585,Paquet 1 - Vent 2
+5586,Paquet 2 - Arcane 1
+5587,Paquet 2 - Sang 1
+5589,Paquet 2 - Feu 1
+5590,Paquet 2 - Givre 1
+5591,Paquet 2 - Sacré 1
+5592,Paquet 2 - Fer 1
+5593,Paquet 2 - Vie 1
+5594,Paquet 2 - Ombre 1
+5595,Paquet 2 - Eau 1
+5596,Paquet 2 - Vent 1
+5597,Paquet 2 - Arcane 2
+5598,Paquet 2 - Sang 2
+5600,Paquet 2 - Feu 2
+5601,Paquet 2 - Givre 2
+5602,Paquet 2 - Sacré 2
+5603,Paquet 2 - Fer 2
+5604,Paquet 2 - Vie 2
+5605,Paquet 2 - Ombre 2
+5606,Paquet 2 - Eau 2
+5607,Paquet 2 - Vent 2
+5608,Paquet 3 - Arcane 1
+5609,Paquet 3 - Sang 1
+5610,Paquet 3 - Gangrène 1
+5611,Paquet 3 - Feu 1
+5612,Paquet 3 - Givre 1
+5613,Paquet 3 - Sacré 1
+5614,Paquet 3 - Fer 1
+5615,Paquet 3 - Vie 1
+5616,Paquet 3 - Ombre 1
+5617,Paquet 3 - Eau 1
+5618,Paquet 3 - Vent 1
+5619,Paquet 4 - Arcane 1
+5620,Paquet 4 - Sang 1
+5621,Paquet 4 - Gangrène 1
+5622,Paquet 4 - Feu 1
+5624,Paquet 4 - Sacré 1
+5625,Paquet 4 - Fer 1
+5626,Paquet 4 - Vie 1
+5627,Paquet 4 - Ombre 1
+5628,Paquet 4 - Eau 1
+5629,Paquet 4 - Vent 1
+5632,Package 1 - Holy 1
+5633,Package 1 - Arcane 1
+5634,Package 1 - Blood 1
+5635,Package 1 - Fel 1
+5636,Package 1 - Fire 1
+5637,Package 1 - Frost 1
+5638,Package 1 - Iron 1
+5640,Package 1 - Life 1
+5641,Package 1 - Shadow 1
+5642,Package 1 - Water 1
+5643,Package 1 - Wind 1
+5644,Package 1 - Holy 2
+5645,Package 1 - Arcane 2
+5646,Package 1 - Blood 2
+5647,Package 1 - Fel 2
+5648,Package 1 - Fire 2
+5649,Package 1 - Frost 2
+5650,Package 1 - Iron 2
+5651,Package 1 - Life 2
+5652,Package 1 - Shadow 2
+5653,Package 1 - Water 2
+5654,Package 1 - Wind 2
+5655,Package 2 - Arcane 1
+5656,Package 2 - Arcane 2
+5657,Package 2 - Blood 1
+5658,Package 2 - Blood 2
+5659,Package 2 - Fel 1
+5660,Package 2 - Fel 2
+5661,Package 2 - Fire 1
+5662,Package 2 - Fire 2
+5663,Package 2 - Frost 1
+5664,Package 2 - Frost 2
+5665,Package 2 - Holy 1
+5666,Package 2 - Holy 2
+5667,Package 2 - Iron 1
+5668,Package 2 - Iron 2
+5669,Package 2 - Life 1
+5670,Package 2 - Life 2
+5671,Package 2 - Shadow 1
+5672,Package 2 - Shadow 2
+5673,Package 2 - Water 1
+5674,Package 2 - Water 2
+5675,Package 2 - Wind 1
+5676,Package 2 - Wind 2
+5677,Package 3 - Arcane 1
+5678,Package 3 - Arcane 2
+5679,Package 3 - Blood 1
+5680,Package 3 - Blood 2
+5681,Package 3 - Fel 1
+5682,Package 3 - Fel 2
+5683,Package 3 - Fire 1
+5684,Package 3 - Fire 2
+5685,Package 3 - Frost 1
+5686,Package 3 - Frost 2
+5687,Package 3 - Holy 1
+5688,Package 3 - Holy 2
+5689,Package 3 - Iron 1
+5690,Package 3 - Iron 2
+5691,Package 3 - Life 1
+5692,Package 3 - Life 2
+5693,Package 3 - Shadow 1
+5694,Package 3 - Shadow 2
+5695,Package 1 - Arcane 1
+5696,Package 1 - Blood 1
+5697,Package 1 - Fel 1
+5698,Package 1 - Fire 1
+5699,Package 1 - Frost 1
+5700,Package 1 - Iron 1
+5701,Package 1 - Life 1
+5702,Package 1 - Shadow 1
+5703,Package 1 - Water 1
+5704,Package 1 - Wind 1
+5705,Package 1 - Arcane 2
+5706,Package 1 - Blood 2
+5707,Package 1 - Fel 2
+5708,Package 1 - Fire 2
+5709,Package 1 - Frost 2
+5710,Package 1 - Iron 2
+5711,Package 1 - Life 2
+5712,Package 1 - Shadow 2
+5713,Package 1 - Water 2
+5714,Package 1 - Wind 2
+5715,Package 3 - Water 1
+5716,Package 3 - Water 2
+5717,Package 3 - Wind 1
+5718,Package 3 - Wind 2
+5719,Package 4 - Arcane 1
+5720,Package 4 - Blood 1
+5721,Package 4 - Fel 1
+5722,Package 4 - Fire 1
+5723,Package 4 - Frost 1
+5724,Package 4 - Holy 1
+5725,Package 4 - Iron 1
+5726,Package 4 - Life 1
+5727,Package 4 - Shadow 1
+5728,Package 4 - Water 1
+5729,Package 4 - Wind 1
+5730,Package 2 - Arcane 1
+5731,Package 2 - Blood 1
+5732,Package 2 - Fel 1
+5733,Package 2 - Fire 1
+5734,Package 2 - Frost 1
+5735,Package 2 - Iron 1
+5736,Package 2 - Life 1
+5737,Package 2 - Shadow 1
+5738,Package 2 - Holy 1
+5739,Package 2 - Water 1
+5740,Package 2 - Wind 1
+5741,Package 2 - Arcane 2
+5742,Package 2 - Blood 2
+5743,Package 2 - Fel 2
+5744,Package 2 - Fire 2
+5745,Package 2 - Frost 2
+5746,Package 2 - Holy 2
+5747,Package 2 - Iron 2
+5748,Package 2 - Life 2
+5749,Package 2 - Shadow 2
+5750,Package 2 - Water 2
+5751,Package 2 - Wind 2
+5753,Package 3 - Arcane 1
+5754,Package 3 - Blood 1
+5755,Package 3 - Fel 1
+5756,Package 3 - Fire 1
+5757,Package 3 - Frost 1
+5758,Package 3 - Holy 1
+5759,Package 3 - Iron 1
+5760,Package 3 - Life 1
+5761,Package 3 - Shadow 1
+5762,Package 3 - Water 1
+5763,Package 3 - Wind 1
+5764,Package 4 - Arcane 1
+5765,Package 4 - Blood 1
+5766,Package 4 - Fel 1
+5767,Package 4 - Fire 1
+5768,Package 4 - Frost 1
+5769,Package 4 - Holy 1
+5770,Package 4 - Iron 1
+5771,Package 4 - Life 1
+5772,Package 4 - Shadow 1
+5773,Package 4 - Water 1
+5774,Package 4 - Wind 1
+5775,Package 4 - Arcane 2
+5776,Package 4 - Blood 2
+5777,Package 4 - Fel 2
+5778,Package 4 - Fire 2
+5779,Package 4 - Frost 2
+5780,Package 4 - Holy 2
+5781,Package 4 - Iron 2
+5782,Package 4 - Life 2
+5783,Package 4 - Shadow 2
+5784,Package 4 - Water 2
+5785,Package 4 - Wind 2
+5786,Salles des Valeureux - Sang
+5787,Salles des Valeureux - Feu
+5788,Salles des Valeureux - Sacré
+5789,Gueule des âmes - Vent
+5790,Gueule des âmes - Ombre
+5791,Gueule des âmes - Eau
+5792,Salles des Valeureux - Fer
+5793,Salles des Valeureux - Gangrène
+5794,Gueule des âmes - Arcanes
+5797,Gain de niveau JcJ - Arcanes
+5798,Gain de niveau JcJ - Sang
+5799,Gain de niveau JcJ - Gangrène
+5800,Gain de niveau JcJ - Givre 1
+5801,Gain de niveau JcJ - Feu
+5802,Gain de niveau JcJ - Sacré
+5803,Gain de niveau JcJ - Fer
+5804,Gain de niveau JcJ - Vie
+5805,Gain de niveau JcJ - Ombre
+5806,Gain de niveau JcJ - Eau
+5807,Gain de niveau JcJ - Vent
+5808,+$k1 à la Hâte et +$k2 à la Maîtrise
+5809,Quest Reward Test - Frost 1
+5810,Archéologie - Arcanes
+5811,Archéologie - Givre
+5812,Archéologie - Feu
+5813,Archéologie - Fer
+5814,Archéologie - Vie
+5815,Archéologie - Ombre
+5817,+$k1 à la ponction
+5822,Forge - Sang
+5823,Forge - Fer
+5824,Forge - Sacré
+5825,Forge - Feu
+5826,Ingénierie - Gangrène
+5827,Ingénierie - Vent
+5828,Enchantement - Ombre
+5830,Enchantement - Arcanes
+5831,Calligraphie - Givre
+5832,Calligraphie - Vie
+5834,+$k1 au score de Coup critique
+5835,+$k1 à la Polyvalence
+5836,+$k1 à la Hâte
+5837,+$k1 à la Maîtrise
+5838,+$k1 au score de Coup critique
+5839,+$k1 à la Polyvalence
+5840,+$k1 à la Hâte
+5841,+$k1 à la Maîtrise
+5843,Chants de bataille
+5844,Chants de paix
+5845,Chants de la Légion
+5847,Amélioration de relique
+5848,Amélioration de relique
+5849,Amélioration de relique
+5850,Amélioration de relique
+5851,Amélioration de relique
+5852,Amélioration de relique
+5853,Amélioration de relique
+5854,Amélioration de relique
+5855,Amélioration de relique
+5857,Arme gangrimprégnée
+5860,Test Transmog Enchant
+5861,Tueur de bêtes
+5862,Garde de Titan
+5863,Froide-lumière
+5864,Flamme-du-Néant
+5865,Éclat solaire
+5866,Âme de givre
+5867,Lumière du Gardeterre
+5868,Souffle de Yu’lon
+5869,Rune de Trancheglace
+5870,Rune du Croisé déchu
+5871,Viveterre
+5872,Langue de feu
+5873,Arme de givre
+5874,Croque-roc
+5875,Furie des vents
+5876,Cauchemar
+5877,Chronos
+5881,Récupérateur
+5882,Cherche-mana
+5883,Chasseur sanglant
+5884,Chants de la Horde
+5885,Chants de l’Alliance
+5888,Résidu du Néant
+5889,Marque de la peau lourde
+5890,Marque du soldat aguerri
+5891,Marque de la prêtresse antique
+5892,Amélioration de relique
+5893,Amélioration de relique
+5895,+$k1 à la Maîtrise
+5896,+$k1 à la Polyvalence
+5897,+$k1 à la Hâte
+5898,+$k1 au score de Coup critique
+5899,Faveur du constructeur
+5900,Gardien de zoo
+5901,Amélioration de relique
+5902,Amélioration de relique
+5903,Amélioration de relique
+5904,Amélioration de relique
+5905,Amélioration de relique
+5906,Amélioration de relique
+5907,Amélioration de relique
+5908,Amélioration de relique
+5909,Amélioration de relique
+5910,Amélioration de relique
+5912,Amélioration de relique
+5913,Amélioration de relique
+5914,Amélioration de relique
+5915,Amélioration de relique
+5916,Amélioration de relique
+5917,Amélioration de relique
+5918,Amélioration de relique
+5919,Amélioration de relique
+5920,Amélioration de relique
+5921,Amélioration de relique
+5922,Amélioration de relique
+5923,Amélioration de relique
+5924,Tyrannie démoniaque
+5925,+$k1 au score de Coup critique
+5926,+$k1 à la Hâte
+5927,+$k1 à la Maîtrise
+5928,+$k1 à la Polyvalence
+5929,Inébranlable
+5930,+$254605s1 en Pêche
+5931,Porte-Lumière
+5932,Herboristerie de Kul Tiras
+5933,Minage de Kul Tiras
+5934,Dépeçage de Kul Tiras
+5935,Archéologie de Kul Tiras
+5936,Pierre de foyer rapide
+5937,Artisanat de Kul Tiras
+5938,+$k1 au score de Coup critique
+5939,+$k1 à la Hâte
+5940,+$k1 à la Maîtrise
+5941,+$k1 à la Polyvalence
+5942,+$k1 au score de Coup critique
+5943,+$k1 à la Hâte
+5944,+$k1 à la Maîtrise
+5945,+$k1 à la Polyvalence
+5946,Vague côtière
+5948,Siphonnage
+5949,Torrent des éléments
+5950,Frappe de grand vent
+5952,Projecteur d’horreur holographique
+5953,Amplificateur d’espace personnel
+5954,+5% à la vitesse de nage
+5955,Lunette du Nid-de-pie
+5956,Lunette d’empressement en monélite
+5957,Munitions incendiaires
+5958,Munitions givrées
+5960,_JKL - Item Enchantment Test
+5962,Navigation polyvalente
+5963,Navigation rapide
+5964,Navigation magistrale
+5965,Navigation meurtrière
+5966,Navigation assurée
+5967,Bouclier plasma miniaturisé
+5969,QA Enchant
+5970,Pierre de foyer sûre
+5971,Pierre de foyer refroidie
+6072,+$k1 au score de Coup critique
+6073,+$k1 au score de Coup critique
+6074,+$k1 au score de Coup critique
+6075,+$k1 à la Hâte
+6076,+$k1 à la Hâte
+6077,+$k1 à la Hâte
+6078,+$k1 à la Maîtrise
+6079,+$k1 à la Maîtrise
+6080,+$k1 à la Maîtrise
+6081,+$k1 à la Polyvalence
+6082,+$k1 à la Polyvalence
+6083,+$k1 à la Polyvalence
+6084,+$k1 à la Force
+6085,+$k1 à l’Agilité
+6086,+$k1 à l’Intelligence
+6087,Fil ensorcelé résistant
+6088,Fil ensorcelé discret
+6089,Fil ensorcelé plumeux
+6092,+3% à la vitesse de déplacement
+6096,Flammeffroi
+6097,Équipé : vos techniques ont une chance de vous conférer un bonus de $293142s1 à la Hâte pendant $293142d.
+6098,Utiliser : canalise une explosion cyclotronique qui inflige $293491s1 points de dégâts toutes les $293491t1 s pendant $293491D.
+6099,Utiliser : inflige $293512s1 points de dégâtsà un adversaire et augmente les dégâts infligés par l’appareil aux cibles de même nom.
+6100,+$k1 au score de Coup critique
+6101,+$k1 à la Hâte
+6102,+$k1 à la Maîtrise
+6103,+$k1 à la Polyvalence
+6104,Équipé : confère Respiration aquatique.
+6105,Équipé : confère un museleur neural qui vous rend insensible à certaines tracasseries.
+6106,"+$k1 à la Hâte, +$k2 à la Polyvalence"
+6107,Équipé : vous permet de pirater des créatures et assemblages de Mécagone.
+6108,+$k1 au score de Coup critique
+6109,+$k1 à la Hâte
+6110,+$k1 à la Maîtrise
+6111,+$k1 à la Polyvalence
+6112,Illumination de machiniste
+6113,Équipé : augmente le nombre de pièces détachées trouvées à Mécagone.
+6115,"Équipé : augmente votre vitesse de nage de $298705s1% toutes les $298703t1 s tant que vous êtes dans dans l’eau, jusqu’à un maximum de 100%."
+6116,Équipé : augmente votre capacité pulmonaire de 1000%.
+6117,+$k1 à la Polyvalence
+6118,+$k1 à la Hâte
+6119,+$k1 à la Maîtrise
+6120,+$k1 au score de Coup critique
+6121,+$k1 à la Force
+6122,+$k1 à l’Agilité
+6123,+$k1 à l’Intelligence
+6124,Équipé : prévient les dégâts de chute en cas d’urgence.
+6125,Équipé : détecte les créatures mécaniques proches et indique leur position sur la minicarte.
+6126,Équipé : réduit la puissance des effets négatifs affectant le déplacement.
+6127,"+$306402s1 au score de Coup critique, +$306402s2 à la Maîtrise"
+6128,"+$306403s1 au score de Coup critique, +$306403s2 à la Polyvalence"
+6129,"+$303590s1 au score de Coup critique, +$303590s2 à la Hâte"
+6130,"+$306406s1 à la Maîtrise, +$306406s2 à la Hâte"
+6131,"+$303595s1 à la Maîtrise, +$303595s2 au score de Coup critique"
+6132,"+$306407s1 à la Maîtrise, +$306407s2 à la Polyvalence"
+6133,"+$306405s1 à la Hâte, +$306405s2 à la Polyvalence"
+6134,"+$306404s1 à la Hâte, +$306404s2 à la Maîtrise"
+6135,"+$303592s1 à la Hâte, +$303592s2 au score de Coup critique"
+6136,"+$306410s1 à la Polyvalence, +$306410s2 à la Maîtrise"
+6137,"+$303596s1 à la Polyvalence, +$303596s2 au score de Coup critique"
+6138,"+$306409s1 à la Polyvalence, +$306409s2 à la Hâte"
+6139,Utiliser : permet de prendre le contrôle mental de la créature mécanique ciblée.
+6140,Équipé : rend $299047s1 points de vie toutes les $299047t1 s. Effet augmenté jusqu’à 200% en fonction des points de vie perdus.
+6141,Équipé : subir des dégâts physiques confère un bonus de $299053s1 à l’Esquive pendant $299054d1. Cet effet est cumulable.
+6142,"Équipé : tous les $299062s2 sorts, confère un bonus de $299064s1 à la Hâte pendant 12 s, puis une perte de $299065s2 points de Hâte pendant 6 s."
+6143,Équipé : soigner des alliés ayant moins de 50% de vie a une chance de vous rendre $299453s3 points de mana en $305129d.
+6144,Utiliser : déchaîne une horde d’automates mécagnomes qui piétinent vos ennemis.
+6145,Équiper : vos sorts ont une chance de redistribuer vos caractéristiques selon la carte-mère dont vous êtes équipé.
+6146,"Équiper : les soins critiques génèrent de la Capacitance, ce qui augmente vos prochains soins de $k."
+6147,Vitesse de déplacement augmentée de 5%.
+6148,Multiplicateur de force
+6149,Restauration océanique
+6150,Peau de Naga
+6151,Confère le pouvoir de l’eau aux créatures formées dans le coffre des Arcanes de Mardiva.
+6152,Confère le pouvoir du feu aux créatures formées dans le coffre des Arcanes de Mardiva.
+6153,Confère le pouvoir de la terre aux créatures formées dans le coffre des Arcanes de Mardiva.
+6154,"+$k1 à la Polyvalence, +$k2 à une caractéristique supplémentaire aléatoire"
+6155,"+$k1 à la Maîtrise, +$k2 à une caractéristique supplémentaire aléatoire"
+6156,"+$k1 à la Hâte, +$k2 à une caractéristique supplémentaire aléatoire"
+6157,"+$k1 au score de Coup critique, +$k2 à une caractéristique supplémentaire aléatoire"
+6158,Sables piquants
+6159,Test visuel d’enchantement - LIA
+6160,Amélioration de lien d’âme
+6161,Enchantement test
+6162,Froid éthéré
+6163,+$k1 au score de Coup critique
+6164,+$k1 au score de Coup critique
+6165,+$k1 à la Hâte
+6166,+$k1 à la Hâte
+6167,+$k1 à la Maîtrise
+6168,+$k1 à la Maîtrise
+6169,+$k1 à la Polyvalence
+6170,+$k1 à la Polyvalence
+6174,Tranchant du Vide
+6184,Test Enchant - Shadow
+6185,Sables piquants
+6186,9FX - Kyrian Covenant Weapon Enchant
+6188,Huile du cœur d’ombre
+6190,Huile d’embaumeur
+6192,Déphaseur dimensionnel
+6193,Électro-saut
+6194,Mesure de rétorsion
+6195,Visée réflexe infravert
+6196,Engrandisseur de cible optique
+6197,9FX - Generic - Revendreth - Weapon Enchant - High
+6198,Aiguisé VIII
+6199,Lesté VIII
+6200,Aiguisé IX
+6201,Lesté IX
+6202,+$k1 à l’Endurance et augmentation mineure de Vitesse
+6203,+$k1 à l’Endurance et +$k2 à l’Évitement
+6204,+$k1 à l’Endurance et +$k2 à la Ponction
+6205,Récolte d’Ombreterre
+6206,9FX - Generic - Revendreth - Weapon Enchant - Low
+6207,Bottines de l’âme
+6208,+$k1 à l’Endurance
+6209,+$k1 à la Force
+6210,+$k1 à la Force
+6211,+$k1 à l’Agilité
+6212,+$k1 à l’Agilité
+6213,+$k1 à l’Armure et +$k2 à la caractéristique principale
+6214,Escarmouche éternelle
+6216,+$k1 aux caractéristiques principales
+6217,+$k1 à l’Intelligence et +$323923s1 points de mana
+6219,+$k1 à l’Intelligence
+6220,+$k1 à l’Intelligence
+6222,Pierre de foyer d’ombre
+6223,Force enténébrée
+6224,Renforcé (+$k1 à l’Endurance)
+6225,Renforcé (+$k1 à l’Endurance)
+6226,Grâce éternelle
+6227,Vigueur transcendée
+6228,Révélation vicieuse
+6229,Direction céleste
+6230,+$k1 aux caractéristiques principales
+6231,+$k1 à la Polyvalence
+6232,+$k1 au score de Coup critique
+6233,+$k1 à la Maîtrise
+6234,+$k1 à la Hâte
+6235,+$k1 à la Polyvalence
+6236,+$k1 au score de Coup critique
+6237,+$k1 à la Maîtrise
+6238,+$k1 à la Hâte
+6239,Vitesse augmentée de $325335s2 pour chaque gemme d’Ombreterre sertie.
+6240,Rend $325492s2 points de vie toutes les $325492t1 s pour chaque gemme d’Ombreterre sertie.
+6241,Rune d’exsanguination
+6242,Rune de protection des sorts
+6243,Rune d’hystérie
+6244,Rune de soif intarissable
+6245,Rune de l’apocalypse
+6246,Kali Test Enchant - Various
+6247,Test Enchant - All Weapons - Maw
+6248,Giggy Test Enchant - Various
+6252,Renforcé (+$k1 à l’Endurance)
+6256,Esprit fidèle
+6257,Âme transcendante
+6258,Colère du vice
+6259,Tranchant du vice
+6261,Esprit immortel
+6262,Résolution inexorable
+6263,Âme sauvage
+6264,Faveur de l’Hallali
+6265,Intuition éternelle
+6266,Flamme vicieuse
+6267,Flamme vicieuse
+6269,Subir des dégâts magiques vous rend $350525S1 points de vie.
+6270,Prodiguer des soins à un allié en dessous de 30% de points de vie augmente votre Intelligence de $350530S1 pendant $350530D.
+6271,Vos coups critiques infligent $350511s1 points de dégâts d’Ombre supplémentaires en $350511d. Cumulable jusqu’à 3 fois.
+6272,Vos techniques bénéfiques envoient une nuée de sauterelles protéger la cible.
+6273,Votre nuée de sauterelles peut se propager à 3 alliés proches supplémentaires.
+6274,Nuée de sauterelles est automatiquement lancée sur un allié proche toutes les 60 s.
+6275,Nuée de sauterelles a 25% de chances d’être lancée 2 fois.
+6276,"Lorsque les alliés protégés par les sauterelles ont tous leurs points de vie, la nuée inflige des dégâts à un ennemi proche."
+6277,Vos attaques de mêlée ont une chance de drainer un fragment de l’âme de votre cible.
+6278,Vous pouvez à présent cumuler jusqu’à 10 fragments d’âme grâce à Moisson sinistre.
+6279,"Lorsque 10 fragments ont été cumulés, ils déchaînent Plaie du chaos, qui inflige des dégâts d’Ombre et augmente votre puissance."
+6280,Les dégâts de Plaie du chaos sont augmentés de 100%.
+6281,Plaie du chaos explose une nouvelle fois quand son effet prend fin.
+6282,Vos coups critiques ont une chance de verser le sang de vos ennemis sur le sol afin que vous puissiez l’absorber.
+6283,Les soins prodigués par les flaques de sang augmentent de 50%.
+6284,"Si 5 flaques de sang existent simultanément, elles forment une bête de sang."
+6285,"Lorsque vos points de vie descendent en dessous de 50%, votre sang se répand en 3 flaques de sang."
+6286,"Lorsque votre bête de sang disparaît, vous récupérez les points de vie qu’il lui restait."
+6287,9.1 - Enchantement de Sylvanas - Puissant
+6288,9.1 - Enchantement de Sylvanas - Faible
+6289,$355752@spelldesc355721
+6290,$355752@spelldesc355725
+6291,$355752@spelldesc355731
+6292,$355752@spelldesc355734
+6293,$355752@spelldesc355739
+6294,$355752@spelldesc355740
+6295,$355752@spelldesc355741
+6296,$355752@spelldesc355742
+6297,$355752@spelldesc355743
+6298,$355752@spelldesc355745
+6299,$355752@spelldesc355746
+6300,|cff71d5ff|Hspell:30455|h[Javelot de glace]|h|r
+6301,$355752@spelldesc355748
+6302,$355752@spelldesc355755
+6303,$355752@spelldesc355771
+6304,$355752@spelldesc355757
+6305,$355752@spelldesc355765
+6306,$355752@spelldesc355766
+6307,$355752@spelldesc355764
+6308,$355752@spelldesc357040
+6309,$355752@spelldesc357038
+6310,$355752@spelldesc357037
+6311,$355752@spelldesc357036
+6312,$355752@spelldesc357035
+6313,$355752@spelldesc357034
+6314,$355752@spelldesc357033
+6315,$355752@spelldesc357032
+6316,$355752@spelldesc357031
+6317,$355752@spelldesc357049
+6318,$355752@spelldesc357050
+6319,$spell@spelldesc357051
+6320,$355752@spelldesc357052
+6321,$355752@spelldesc357053
+6322,$spell@spelldesc357054
+6323,$355752@spelldesc357055
+6324,$355752@spelldesc357056
+6325,$spell@spelldesc357057
+6326,$spell@spelldesc357067
+6327,$355752@spelldesc357066
+6328,$spell@spelldesc357065
+6329,$355752@spelldesc357064
+6330,$355752@spelldesc357063
+6331,$355752@spelldesc357062
+6332,$355752@spelldesc357061
+6333,$spell@spelldesc357060
+6334,$spell@spelldesc357058
+6335,$spell@spelldesc357069
+6336,$spell@spelldesc357071
+6337,$spell@spelldesc357072
+6338,$spell@spelldesc357073
+6339,$spell@spelldesc357074
+6340,$spell@spelldesc357075
+6341,$spell@spelldesc357076
+6342,$spell@spelldesc357068
+6343,$spell@spelldesc357077
+6344,Furie déchaînée
+6346,JDP - Test - Weapon Enchant
+6347,JDP Test Enchant - Various
+6349,9.2 Generic - Progenitor v2 - Weapon Enchant - High
+6350,9.2 Generic - Progenitor v2 - Weapon Enchant - Low
+6351,Flux cosmique
+6352,$spell@spelldesc367265
+6353,$spell@spelldesc367255
+6354,$spell@spelldesc367261
+6355,$spell@spelldesc367262
+6356,$spell@spelldesc367267
+6357,$spell@spelldesc367260
+6358,$spell@spelldesc367266
+6359,$spell@spelldesc367173
+6360,$spell@spelldesc367259
+6361,$spell@spelldesc367257
+6362,$spell@spelldesc367254
+6363,$spell@spelldesc367256
+6364,$spell@spelldesc367264
+6365,$spell@spelldesc367263
+6366,$spell@spelldesc367258
+6367,$spell@spelldesc367272
+6368,$spell@spelldesc367271
+6369,$spell@spelldesc367270
+6370,$spell@spelldesc367269
+6371,$spell@spelldesc367268
+6378,Flux éternel
