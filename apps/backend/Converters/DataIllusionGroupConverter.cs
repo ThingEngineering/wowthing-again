@@ -17,12 +17,12 @@ public class DataIllusionGroupConverter : JsonConverter
             var itemArray = new JArray();
             itemArray.Add(item.Id);
 
-            if (item.Classes?.Count > 0)
+            if (!string.IsNullOrEmpty(item.Classes))
             {
                 var classArray = new JArray();
-                foreach (int classId in item.Classes)
+                foreach (string classId in item.Classes.Split(' '))
                 {
-                    classArray.Add(classId);
+                    classArray.Add(int.Parse(classId));
                 }
                 itemArray.Add(classArray);
             }

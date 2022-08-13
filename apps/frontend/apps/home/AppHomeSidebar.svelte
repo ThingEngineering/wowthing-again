@@ -237,6 +237,13 @@
         </a>
     </li>
 
+    <li use:active={'/illusions'}>
+        <a href="#/illusions">
+            <IconifyIcon icon={iconConstruction} dropShadow={true} />
+            Illusions
+        </a>
+    </li>
+
     <li use:active={'/cards'}>
         <a href="#/cards">
             <IconifyIcon icon={iconConstruction} dropShadow={true} />

@@ -11,6 +11,18 @@
     - id: 5394 # Flames of Ragnaros [Winter Veil, presents]
     - id: 5448 # Winter's Grasp [Winter Veil, presents]
 
+- name: "Promotions"
+  items:
+    - id: 6162 # Wraithchill [Shadowlands pre-order]
+
+- name: "PvP"
+  items:
+    - id: 6378 # Eternal Flux [Shadowlands Season 4]
+
+- name: "Recruit-A-Friend"
+  items:
+    - id: 6158 # Stinging Sands
+
 - name: "Reputations"
   items:
     - id: 3225 # Executioner [The Consortium, Revered]
@@ -20,13 +32,21 @@
     - id: 6259 # Sinsedge [Court of Harvesters, Exalted]
     - id: 6261 # Undying Spirit [The Undying Army, Exalted]
 
+- name: "Vendors"
+  items:
+    - id: 5364 # Poisoned
+      classes: 4 # Rogue
+
 - name: "Drops: Classic"
   items:
     - id: 5872 # Flametongue
+      classes: 7 # Shaman
 
 - name: "Drops: TBC"
   items:
     - id: 5873 # Frostbrand
+      classes: 7 # Shaman
+
     - id: 2673 # Mongoose
     - id: 5866 # Soulfrost
     - id: 5865 # Sunfire
@@ -35,14 +55,20 @@
   items:
     - id: 3869 # Blade Ward
     - id: 5392 # Blood Draining
+
     - id: 5871 # Earthliving
+      classes: 7 # Shaman
+
     - id: 5869 # Rune of Razorice
+      classes: 6 # Death Knight
 
 - name: "Drops: Cata"
   items:
     - id: 4097 # Power Torrent
+
     - id: 5875 # Windfury
-  
+      classes: 7 # Shaman
+
 - name: "Drops: MoP"
   items:
     - id: 4445 # Colossus
@@ -51,16 +77,22 @@
 - name: "Drops: WoD"
   items:
     - id: 5336 # Mark of Blackrock
+    - id: 5384 # Mark of Bleeding Hollow
     - id: 5335 # Mark of Shadowmoon
-    - id: 5384 # Mark of the Bleeding Hollow
     - id: 5331 # Mark of the Shattered Hand
+
     - id: 5874 # Rockbiter
+      classes: 7 # Shaman
 
 - name: "Drops: Legion"
   items:
     - id: 5877 # Chronos
     - id: 5876 # Nightmare
     - id: 5865 # Sunfire
+
+- name: "Drops: BfA"
+  items:
+    - id: 6174 # Void Edge [Visions]
 
 - name: "Tome: Azeroth"
   items:
@@ -108,14 +140,12 @@
     - id: 4444 # Dancing Steel
     - id: 4446 # River's Song
 
-- name: "Unknown"
+- name: "Unavailable - PvP"
   items:
-    - id: 5924 # Demonic Tyranny
-    - id: 6158 # Stinging Sands
-    - id: 6162 # Wraithchill
-    - id: 6174 # Void Edge
-    - id: 6096 # Dreadflame
-    - id: 6266 # Sinful Flame
-    - id: 6344 # Unchained Fury
-    - id: 6351 # Cosmic Flow
-    - id: 6378 # Eternal Flux  
+    - id: 5396 # Glorious Tyranny [Warlords Season 1/2/3]
+    - id: 5397 # Primal Victory [Warlords Season 1/2/3]
+    - id: 5924 # Demonic Tyranny [Legion Season 3/4/5/6/7]
+    - id: 6096 # Dreadflame [Battle for Azeroth Season 1/2/3/4
+    - id: 6266 # Sinful Flame [Shadowlands Season 1]
+    - id: 6344 # Unchained Fury [Shadowlands Season 2]
+    - id: 6351 # Cosmic Flow [Shadowlands Season 3]
