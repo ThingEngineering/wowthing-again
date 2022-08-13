@@ -13,6 +13,7 @@ import { factionMap } from '@/data/faction'
 import { UserCount, WritableFancyStore } from '@/types'
 import {
     ManualDataHeirloomGroup,
+    ManualDataIllusionGroup,
     ManualDataSetCategory,
     ManualDataSharedItem,
     ManualDataSharedVendor,
@@ -82,6 +83,9 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
 
         data.heirlooms = data.rawHeirloomGroups.map((groupArray) => new ManualDataHeirloomGroup(...groupArray))
         data.rawHeirloomGroups = null
+
+        data.illusions = data.rawIllusionGroups.map((groupArray) => new ManualDataIllusionGroup(...groupArray))
+        data.rawIllusionGroups = null
 
         for (const categories of data.rawTransmogSets) {
             if (categories === null) {

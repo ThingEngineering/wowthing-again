@@ -3,6 +3,7 @@ import type { UserCount } from '@/types/user-count'
 import type { FarmStatus } from '@/types/zone-maps'
 
 import type { ManualDataHeirloomGroup, ManualDataHeirloomGroupArray } from './heirloom'
+import type { ManualDataIllusionGroup, ManualDataIllusionGroupArray } from './illusion'
 import type { ManualDataProgressCategory } from './progress'
 import type { ManualDataSetCategory, ManualDataSetCategoryArray } from './set'
 import type { ManualDataSharedItem, ManualDataSharedItemArray } from './shared-item'
@@ -25,12 +26,14 @@ export interface ManualData {
     rawToySets: ManualDataSetCategoryArray[][]
 
     rawHeirloomGroups: ManualDataHeirloomGroupArray[]
+    rawIllusionGroups: ManualDataIllusionGroupArray[]
     rawTransmogSets: ManualDataTransmogCategoryArray[][]
     rawVendorSets: ManualDataVendorCategoryArray[][]
     rawZoneMapSets: ManualDataZoneMapCategoryArray[][]
 
     // Computed data
     heirlooms: ManualDataHeirloomGroup[]
+    illusions: ManualDataIllusionGroup[]
     shared: ManualDataShared
     transmog: ManualDataTransmog
     vendors: ManualDataVendors

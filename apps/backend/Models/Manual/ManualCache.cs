@@ -1,5 +1,6 @@
 ﻿using Wowthing.Backend.Models.Data.Collections;
 using Wowthing.Backend.Models.Data.Heirlooms;
+using Wowthing.Backend.Models.Data.Illusions;
 using Wowthing.Backend.Models.Data.Progress;
 using Wowthing.Backend.Models.Manual.Transmog;
 using Wowthing.Backend.Models.Manual.Vendors;
@@ -12,6 +13,9 @@ public class ManualCache
 {
     [JsonProperty("rawHeirloomGroups")]
     public DataHeirloomGroup[] HeirloomSets { get; set; }
+
+    [JsonProperty("rawIllusionGroups")]
+    public DataIllusionGroup[] IllusionSets { get; set; }
 
     [JsonProperty("rawMountSets")]
     public List<List<OutCollectionCategory>> MountSets { get; set; }

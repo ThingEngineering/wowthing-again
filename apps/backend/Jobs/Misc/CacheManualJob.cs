@@ -3,6 +3,7 @@ using StackExchange.Redis;
 using Wowthing.Backend.Models.Data;
 using Wowthing.Backend.Models.Data.Collections;
 using Wowthing.Backend.Models.Data.Heirlooms;
+using Wowthing.Backend.Models.Data.Illusions;
 using Wowthing.Backend.Models.Data.Items;
 using Wowthing.Backend.Models.Data.Progress;
 using Wowthing.Backend.Models.Data.Transmog;
@@ -62,7 +63,7 @@ public class CacheManualJob : JobBase, IScheduledJob
 #else
         Interval = TimeSpan.FromHours(1),
 #endif
-        Version = 6,
+        Version = 7,
     };
 
     public override async Task Run(params string[] data)
@@ -212,6 +213,9 @@ public class CacheManualJob : JobBase, IScheduledJob
         // Heirlooms
         cacheData.HeirloomSets = LoadHeirlooms();
 
+        // Illusions
+        cacheData.IllusionSets = LoadIllusions();
+
         // Progress
         cacheData.ProgressSets = LoadProgress();
 
@@ -275,6 +279,18 @@ public class CacheManualJob : JobBase, IScheduledJob
                 }
             }
         }
+
+        return groups;
+    }
+
+    private DataIllusionGroup[] LoadIllusions()
+    {
+        var groups = DataUtilities.YamlDeserializer
+            .Deserialize<DataIllusionGroup[]>(
+                File.OpenText(
+                    Path.Join(DataUtilities.DataPath, "illusions", "illusions.yml")
+                )
+            );
 
         return groups;
     }

@@ -11,6 +11,7 @@
     import History from '@/components/history/History.svelte'
     import HomeCards from '@/components/home/HomeCards.svelte'
     import HomeTable from '@/components/home/HomeTable.svelte'
+    import Illusions from  '@/components/illusions/Illusions.svelte'
     import Items from '@/components/items/Items.svelte'
     import Journal from '@/components/journal/Journal.svelte'
     import Lockouts from '@/components/lockouts/Lockouts.svelte'
@@ -40,6 +41,7 @@
         '/gear/*': Gear,
         '/heirlooms': Heirlooms,
         '/history/:slug?': History,
+        '/illusions': Illusions,
         '/items/:slug?': Items,
         '/journal/:slug1?/:slug2?': Journal,
         '/lockouts': Lockouts,
