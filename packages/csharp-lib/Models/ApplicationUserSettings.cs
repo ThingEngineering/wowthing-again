@@ -115,6 +115,7 @@ public class ApplicationUserSettings
 
         "slAnima",
         "slKorthia",
+        "slNewDeal",
         "slZerethMortis",
     };
 

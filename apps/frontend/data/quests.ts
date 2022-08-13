@@ -15,6 +15,7 @@ export const progressQuestMap: Record<string, string> = {
     holidayWorldQuests: 'weeklyHoliday',
 
     slKorthia: 'shapingFate',
+    slNewDeal: 'newDeal',
     slZerethMortis: 'patterns',
 }
 

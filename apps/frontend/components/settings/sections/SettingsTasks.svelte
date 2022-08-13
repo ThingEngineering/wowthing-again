@@ -20,6 +20,7 @@
         { key: 'slAnima', name: 'Shadowlands - Anima' },
         { key: 'slKorthia', name: 'Shadowlands - Korthia' },
         { key: 'slZerethMortis', name: 'Shadowlands - Zereth Mortis' },
+        { key: 'slNewDeal', name: 'Shadowlands - A New Deal (PvP)' },
     ]
 
     const taskActive = $settingsData.layout.homeTasks.map(
@@ -43,7 +44,7 @@
         You'll also need to add <code>Tasks</code> to <code>Home columns</code> in
         <a href='#/settings/layout'>Settings->Layout</a>.
     </p>
-    
+
     <MagicLists
         key='lockouts'
         onFunc={onTaskChange}
