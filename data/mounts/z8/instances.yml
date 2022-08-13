@@ -10,6 +10,7 @@ groups:
   things:
   - 1500 # Sanctum Gloomcharger (The Nine, Sanctum of Domination)
   - 1471 # Vengeance (Mythic Sylvanas, Sanctum of Domination)
+  - 1552 # Carcinized Zerethsteed (Heroic Jailer, Sepulcher of the First Ones)
   - 1587 # Zereth Overseer (Mythic Jailer, Sepulcher of the First Ones)
 
 - name: "Torghast"

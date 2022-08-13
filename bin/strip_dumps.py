@@ -27,6 +27,7 @@ COLUMNS = {
     'map': ['ID', 'MapName_lang'],
     'mount': ['ID', 'Name_lang'],
     'skillline': ['ID', 'DisplayName_lang', 'HordeDisplayName_lang'],
+    'spellitemenchantment': ['ID', 'Name_lang'],
     'transmogset': ['ID', 'Name_lang'],
     'transmogsetgroup': ['ID', 'Name_lang'],
 }
