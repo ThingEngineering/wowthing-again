@@ -22,7 +22,7 @@ import {
     ManualDataVendorItem,
     ManualDataZoneMapCategory,
 } from '@/types/data/manual'
-import { Faction, FarmResetType, PlayableClass, PlayableClassMask, RewardType } from '@/types/enums'
+import { Faction, FarmResetType, FarmType, PlayableClass, PlayableClassMask, RewardType } from '@/types/enums'
 import { getNextBiWeeklyReset, getNextDailyReset, getNextWeeklyReset } from '@/utils/get-next-reset'
 import { getCurrencyCosts, getSetCurrencyCostsString } from '@/utils/get-currency-costs'
 import getTransmogClassMask from '@/utils/get-transmog-class-mask'
@@ -639,6 +639,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                         }
 
                         dropStatus.skip = (
+                            (farm.type === FarmType.Quest && !options.trackQuests) ||
                             (drop.type === RewardType.Achievement && !options.trackAchievements) ||
                             (drop.type === RewardType.Mount && !options.trackMounts) ||
                             (drop.type === RewardType.Pet && !options.trackPets) ||
@@ -749,7 +750,6 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
 
                             // And finally, filter for characters that aren't locked
                             if (drop.questIds) {
-
                                 dropCharacters = filter(
                                     dropCharacters,
                                     (c) => expiredFunc(c.id) ||
@@ -761,17 +761,30 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                             }
 
                             for (const character of dropCharacters) {
-                                if (
-                                    expiredFunc(character.id) ||
-                                    every(
+                                if (farm.type === FarmType.Quest) {
+                                    if (every(
                                         farm.questIds,
-                                        (q) => userQuestData.characters[character.id]?.dailyQuests?.get(q) === undefined
-                                    )
-                                ) {
-                                    dropStatus.characterIds.push(character.id)
+                                        (q) => userQuestData.characters[character.id]?.quests?.get(q) === undefined)
+                                    ) {
+                                        dropStatus.characterIds.push(character.id)
+                                    }
+                                    else {
+                                        dropStatus.completedCharacterIds.push(character.id)
+                                    }
                                 }
                                 else {
-                                    dropStatus.completedCharacterIds.push(character.id)
+                                    if (
+                                        expiredFunc(character.id) ||
+                                        every(
+                                            farm.questIds,
+                                            (q) => userQuestData.characters[character.id]?.dailyQuests?.get(q) === undefined
+                                        )
+                                    ) {
+                                        dropStatus.characterIds.push(character.id)
+                                    }
+                                    else {
+                                        dropStatus.completedCharacterIds.push(character.id)
+                                    }
                                 }
                             }
 
