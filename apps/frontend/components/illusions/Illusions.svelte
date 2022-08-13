@@ -116,12 +116,12 @@
                         <div class="collection-objects">
                             {#each group.items as item}
                                 {@const illusion = find($staticStore.data.illusions, (illusion) => illusion.enchantmentId === item.enchantmentId)}
-                                {@const have = $userTransmogStore.data.hasIllusion[illusion.enchantmentId]}
+                                {@const have = $userTransmogStore.data.hasIllusion[illusion.enchantmentId] === true}
                                 <div
                                     class="collection-object"
                                     class:missing={
-                                        ($illusionState.highlightMissing && !have) ||
-                                        (!$illusionState.highlightMissing && have)
+                                        ($illusionState.highlightMissing && have) ||
+                                        (!$illusionState.highlightMissing && !have)
                                     }
                                     use:tippy={illusion.name}
                                 >
