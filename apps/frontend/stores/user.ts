@@ -252,7 +252,9 @@ export class UserDataStore extends WritableFancyStore<UserData> {
                 const scores = getDungeonScores(addonMap)
                 total += scores.fortifiedFinal + scores.tyrannicalFinal
             }
-            character.mythicPlusSeasonScores[seasonId] = total
+
+            const rioScore = character.raiderIo?.[seasonId]?.['all'] || 0
+            character.mythicPlusSeasonScores[seasonId] = Math.abs(total - rioScore) > 10 ? total : rioScore
         }
         
         // reputation sets
