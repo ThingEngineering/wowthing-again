@@ -12,14 +12,15 @@ public class DumpItemSparse
     public long AllowableRace { get; set; }
     public short ContainerSlots { get; set; }
     public short ExpansionID { get; set; }
-    public int ItemLevel { get; set; }
+    public short ItemLevel { get; set; }
     public int ItemNameDescriptionID { get; set; }
     public short OverallQualityID { get; set; }
+    public short RequiredLevel { get; set; }
     public int Stackable { get; set; }
 
     [Name("Flags[3]")]
     public WowItemFlags4 Flags4 { get; set; }
-        
+
     [Name("StatModifier_bonusStat[0]")]
     public int StatType0 { get; set; }
     [Name("StatModifier_bonusStat[1]")]
@@ -40,7 +41,7 @@ public class DumpItemSparse
     public int StatType8 { get; set; }
     [Name("StatModifier_bonusStat[9]")]
     public int StatType9 { get; set; }
-        
+
     [Name("Display_lang")]
     public string Name { get; set; }
 

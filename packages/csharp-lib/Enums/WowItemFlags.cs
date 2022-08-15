@@ -3,5 +3,5 @@
 [Flags]
 public enum WowItemFlags : short
 {
-    Cosmetic = 0x0001,
+    Cosmetic = 0b0001,
 }

@@ -49,7 +49,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
         Type = JobType.ImportDumps,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(24),
-        Version = 21,
+        Version = 22,
     };
 
     private Dictionary<int, DumpItemXItemEffect[]> _itemEffectsMap;
@@ -461,8 +461,11 @@ public class ImportDumpsJob : JobBase, IScheduledJob
             }
 
             dbItem.ContainerSlots = itemSparse.ContainerSlots;
+            dbItem.Expansion = itemSparse.ExpansionID;
+            dbItem.ItemLevel = itemSparse.ItemLevel;
             dbItem.Quality = (WowQuality)itemSparse.OverallQualityID;
             dbItem.RaceMask = itemSparse.AllowableRace;
+            dbItem.RequiredLevel = itemSparse.RequiredLevel;
             dbItem.Stackable = itemSparse.Stackable;
 
             // Flags
