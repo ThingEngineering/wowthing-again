@@ -71,9 +71,15 @@ public class UserTransmogController : Controller
         // Build response
         var data = new UserTransmogData
         {
-            Illusions = allTransmog.IllusionIds,
+            Illusions = allTransmog.IllusionIds
+                .OrderBy(id => id)
+                .ToList(),
+
             Sources = allSources,
-            Transmog = allTransmog.TransmogIds,
+
+            Transmog = allTransmog.TransmogIds
+                .OrderBy(id => id)
+                .ToList(),
         };
         var json = JsonConvert.SerializeObject(data);
 
