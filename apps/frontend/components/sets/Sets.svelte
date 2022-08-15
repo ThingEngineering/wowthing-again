@@ -3,15 +3,15 @@
 
     import getSavedRoute from '@/utils/get-saved-route'
 
-    import Sidebar from './AppearancesSidebar.svelte'
-    import Table from './AppearancesTable.svelte'
+    import Sidebar from './SetsSidebar.svelte'
+    import Table from './SetsTable.svelte'
 
     export let params: {
         slug1: string
         slug2: string
     }
 
-    afterUpdate(() => getSavedRoute('appearances', params.slug1, params.slug2))
+    afterUpdate(() => getSavedRoute('sets', params.slug1, params.slug2))
 </script>
 
 <style lang="scss">

@@ -10,7 +10,7 @@
     import ClassIcon from '@/components/images/ClassIcon.svelte'
     import CovenantIcon from '@/components/images/CovenantIcon.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
-    import TableSet from './AppearancesTableSet.svelte'
+    import TableSet from './SetsTableSet.svelte'
 
     export let category: ManualDataTransmogCategory
     export let skipClasses: Record<string, boolean>

@@ -30,7 +30,7 @@
 </style>
 
 <Sidebar
-    baseUrl="/appearances"
+    baseUrl="/sets"
     items={categories}
     width="16rem"
     {percentFunc}

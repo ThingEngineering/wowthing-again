@@ -7,7 +7,7 @@
     import {tippyComponent} from '@/utils/tippy'
     import type { ManualDataTransmogGroupData } from '@/types/data/manual'
 
-    import TooltipAppearanceSet from '@/components/tooltips/appearance-set/TooltipAppearanceSet.svelte'
+    import Tooltip from '@/components/tooltips/appearance-set/TooltipAppearanceSet.svelte'
     import WowheadTransmogSetLink from '@/components/links/WowheadTransmogSetLink.svelte'
 
     export let set: ManualDataTransmogGroupData
@@ -53,7 +53,7 @@
         class="{getPercentClass(percent)}"
         colspan="{span}"
         use:tippyComponent={{
-            component: TooltipAppearanceSet,
+            component: Tooltip,
             props: {set, slotHave, subType},
             tippyProps: {placement: 'left-end'},
         }}
