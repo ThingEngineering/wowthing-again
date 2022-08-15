@@ -1,6 +1,4 @@
-﻿using MoreLinq;
-using MoreLinq.Extensions;
-using Wowthing.Backend.Data;
+﻿using Wowthing.Backend.Data;
 using Wowthing.Backend.Models.Uploads;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Enums;
@@ -1197,26 +1195,41 @@ public class UserUploadJob : JobBase
                         {
                             var globalDailies = _globalDailiesMap[(region, expansion)];
 
-                            var questMap = new Dictionary<int, (int, UploadCharacterEmissaryReward)>();
+                            var questMap = new Dictionary<int, EmissaryData>();
                             for (int i = 0; i < globalDailies.QuestIds.Count; i++)
                             {
-                                questMap[globalDailies.QuestExpires[i]] = (globalDailies.QuestIds[i], null);
+                                questMap[globalDailies.QuestExpires[i]] = new EmissaryData
+                                {
+                                    QuestId = globalDailies.QuestIds[i],
+                                    OldReward = globalDailies.QuestRewards[i],
+                                };
                             }
 
                             foreach (var emissary in emissaries)
                             {
                                 if (emissary.QuestID > 0)
                                 {
-                                    questMap[emissary.Expires] = (
-                                        Hardcoded.CallingQuestLookup
-                                            .GetValueOrDefault(emissary.QuestID, emissary.QuestID),
-                                        emissary.Reward
-                                    );
+                                    if (questMap.TryGetValue(emissary.Expires, out var existing))
+                                    {
+                                        existing.QuestId = Hardcoded.CallingQuestLookup
+                                            .GetValueOrDefault(emissary.QuestID, emissary.QuestID);
+                                        existing.NewReward = emissary.Reward;
+                                    }
+                                    else
+                                    {
+                                        questMap[emissary.Expires] = new EmissaryData
+                                        {
+                                            QuestId = Hardcoded.CallingQuestLookup
+                                                .GetValueOrDefault(emissary.QuestID, emissary.QuestID),
+                                            NewReward = emissary.Reward,
+                                        };
+                                    }
                                 }
                             }
 
-                            var questPairs = Enumerable.TakeLast(questMap
-                                    .OrderBy(kvp => kvp.Key), 3)
+                            var questPairs = questMap
+                                .OrderBy(kvp => kvp.Key)
+                                .TakeLast(3)
                                 .ToList();
 
                             globalDailies.QuestExpires = questPairs
@@ -1224,19 +1237,38 @@ public class UserUploadJob : JobBase
                                 .ToList();
 
                             globalDailies.QuestIds = questPairs
-                                .Select(kvp => kvp.Value.Item1)
+                                .Select(kvp => kvp.Value.QuestId)
                                 .ToList();
 
-                            globalDailies.QuestRewards = questPairs
-                                .Select(kvp => new GlobalDailiesReward
+                            var rewards = new List<GlobalDailiesReward>();
+                            foreach (var (expires, emissaryData) in questPairs)
+                            {
+                                var gdReward = new GlobalDailiesReward
                                 {
-                                    CurrencyId = kvp.Value.Item2?.CurrencyID ?? 0,
-                                    ItemId = kvp.Value.Item2?.ItemID ?? 0,
-                                    Money = kvp.Value.Item2?.Money ?? 0,
-                                    Quality = kvp.Value.Item2?.Quality ?? 0,
-                                    Quantity = kvp.Value.Item2?.Quantity ?? 0,
-                                })
-                                .ToList();
+                                    CurrencyId = emissaryData.NewReward?.CurrencyID ?? 0,
+                                    ItemId = emissaryData.NewReward?.ItemID ?? 0,
+                                    Money = emissaryData.NewReward?.Money ?? 0,
+                                    Quality = emissaryData.NewReward?.Quality ?? 0,
+                                    Quantity = emissaryData.NewReward?.Quantity ?? 0,
+                                };
+
+                                if (emissaryData.OldReward == null ||
+                                    gdReward.CurrencyId > emissaryData.OldReward.CurrencyId ||
+                                    gdReward.ItemId > emissaryData.OldReward.ItemId ||
+                                    gdReward.Money > emissaryData.OldReward.Money ||
+                                    gdReward.Quality > emissaryData.OldReward.Quality ||
+                                    gdReward.Quantity > emissaryData.OldReward.Quantity
+                                )
+                                {
+                                    rewards.Add(gdReward);
+                                }
+                                else
+                                {
+                                    rewards.Add(emissaryData.OldReward);
+                                }
+                            }
+
+                            globalDailies.QuestRewards = rewards;
                         }
                     }
 
@@ -1392,5 +1424,12 @@ public class UserUploadJob : JobBase
                 Threshold = v.Threshold,
             })
             .ToList();
+    }
+
+    public class EmissaryData
+    {
+        public int QuestId { get; set; }
+        public UploadCharacterEmissaryReward NewReward { get; set; }
+        public GlobalDailiesReward OldReward { get; set; }
     }
 }
