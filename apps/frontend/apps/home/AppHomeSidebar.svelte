@@ -198,8 +198,8 @@
         <span class="drop-shadow percent {getPercentClass(journalPercent)}">{fancyPercent(journalPercent)} %</span>
     </li>
 
-    <li use:active={'/appearances/*'}>
-        <a href="#/appearances/">
+    <li use:active={'/sets/*'}>
+        <a href="#/sets/">
             <IconifyIcon icon={iconSets} dropShadow={true} />
             Sets
         </a>

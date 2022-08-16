@@ -4,6 +4,7 @@ export abstract class Constants {
     static readonly maxRenown: number = 80
     static readonly mythicPlusSeason: number = 8
     static readonly restedDuration: number = 10 * 24 * 60 * 60 // 10 days
+    static readonly valorCurrencyId: number = 1191
 
     static readonly holidayCycleStart: number = 845
 

@@ -63,7 +63,7 @@ public class CacheManualJob : JobBase, IScheduledJob
 #else
         Interval = TimeSpan.FromHours(1),
 #endif
-        Version = 7,
+        Version = 8,
     };
 
     public override async Task Run(params string[] data)
@@ -434,6 +434,8 @@ public class CacheManualJob : JobBase, IScheduledJob
             {
                 item.AppearanceIds = imas
                     .Select(ima => _itemModifiedAppearanceMap[ima].AppearanceId)
+                    .Distinct()
+                    .OrderBy(id => id)
                     .ToArray();
             }
 

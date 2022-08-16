@@ -2,7 +2,6 @@
     import Router from 'svelte-spa-router'
 
     import Achievements from '@/components/achievements/Achievements.svelte'
-    import Appearances from '@/components/appearances/Appearances.svelte'
     import Auctions from '@/components/auctions/Auctions.svelte'
     import Characters from '@/components/characters/Characters.svelte'
     import Currencies from '@/components/currencies/Currencies.svelte'
@@ -21,6 +20,7 @@
     import Pets from '@/components/collections/Pets.svelte'
     import Progress from '@/components/progress/Progress.svelte'
     import Reputations from '@/components/reputations/Reputations.svelte'
+    import Sets from '@/components/sets/Sets.svelte'
     import Settings from '@/components/settings/Settings.svelte'
     import Teams from '@/components/teams/Teams.svelte'
     import Toys from '@/components/collections/Toys.svelte'
@@ -35,7 +35,6 @@
         '/characters/:slug1?/:slug2?/:slug3?/:slug4?': Characters,
 
         '/achievements/:slug1?/:slug2?': Achievements,
-        '/appearances/:slug1?/:slug2?': Appearances,
         '/auctions/:slug1?/:slug2?': Auctions,
         '/currencies/:slug?': Currencies,
         '/gear/*': Gear,
@@ -49,6 +48,7 @@
         '/mythic-plus/:slug?': MythicPlus,
         '/progress/:slug1?/:slug2?': Progress,
         '/reputations/:slug?': Reputations,
+        '/sets/:slug1?/:slug2?': Sets,
         '/vendors/:slug1?/:slug2?': Vendors,
         '/zone-maps/:slug1?/:slug2?': ZoneMaps,
 

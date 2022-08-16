@@ -625,29 +625,29 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 // Cloth
-                new (45549, new[] { 4 }), // Grips of Chaos
-                new (46344, new[] { 3 }), // Iceshear Mantle
+                new (45549, new[] { 14 }), // Grips of Chaos
+                new (46344, new[] { 14 }), // Iceshear Mantle
                 // Leather
-                new (45548, new[] { 4 }), // Belt of the Sleeper
-                new (45547, new[] { 4 }), // Relic Hunter's Cord
+                new (45548, new[] { 14 }), // Belt of the Sleeper
+                new (45547, new[] { 14 }), // Relic Hunter's Cord
                 // Mail
-                new (46346, new[] { 3 }), // Boots of Unsettled Prey
-                new (45544, new[] { 4 }), // Leggings of the Tortured Earth
-                new (45543, new[] { 4 }), // Shoulders of Misfortune
+                new (46346, new[] { 14 }), // Boots of Unsettled Prey
+                new (45544, new[] { 14 }), // Leggings of the Tortured Earth
+                new (45543, new[] { 14 }), // Shoulders of Misfortune
                 // Plate
-                new (46345, new[] { 3 }), // Bracers of Righteous Reformation
-                new (46340, new[] { 3 }), // Adamant Handguards
-                new (45542, new[] { 4 }), // Greaves of the Stonewarder
+                new (46345, new[] { 14 }), // Bracers of Righteous Reformation
+                new (46340, new[] { 14 }), // Adamant Handguards
+                new (45542, new[] { 14 }), // Greaves of the Stonewarder
                 // Cloak
-                new (46347, new[] { 3 }), // Cloak of the Dormant Blaze
-                new (46341, new[] { 3 }), // Drape of the Spellweaver
-                new (45541, new[] { 4 }), // Shroud of Alteration
+                new (46347, new[] { 14 }), // Cloak of the Dormant Blaze
+                new (46341, new[] { 14 }), // Drape of the Spellweaver
+                new (45541, new[] { 14 }), // Shroud of Alteration
                 // Weapon
-                new (46351, new[] { 3 }), // Bloodcrush Cudgel
-                new (45605, new[] { 4 }), // Daschal's Bite
-                new (46342, new[] { 3 }), // Golemheart Longbow
-                new (46339, new[] { 3 }), // Mimiron's Repeater
-                new (46350, new[] { 3 }), // Pillar of Fortitude
+                new (46351, new[] { 14 }), // Bloodcrush Cudgel
+                new (45605, new[] { 14 }), // Daschal's Bite
+                new (46342, new[] { 14 }), // Golemheart Longbow
+                new (46339, new[] { 14 }), // Mimiron's Repeater
+                new (46350, new[] { 14 }), // Pillar of Fortitude
             }
         },
         {

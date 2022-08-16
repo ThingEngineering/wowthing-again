@@ -17,14 +17,19 @@
     $: {
         difficulties = []
         for (const difficulty of journalDifficultyOrder) {
+
             const difficultyKey = `${statsKey}--${difficulty}`
             const difficultyStats = $journalStore.data.stats[difficultyKey]
             if (difficultyStats) {
                 let kills = -1
-                const statisticId = encounter?.statistics?.[difficulty] ?? 0
-                if (statisticId) {
-                    kills = ($userAchievementStore.data.statistics?.[statisticId] || [])
-                        .reduce((a, b) => a + b[1], 0)
+
+                for (const difficultyId of (difficultyUgh[difficulty] || [difficulty])) {
+                    const statisticId = encounter?.statistics?.[difficultyId] ?? 0
+                    if (statisticId) {
+                        const newKills = ($userAchievementStore.data.statistics?.[statisticId] || [])
+                            .reduce((a, b) => a + b[1], 0)
+                        kills = kills === -1 ? newKills : kills + newKills
+                    }
                 }
 
                 difficulties.push([
@@ -35,6 +40,10 @@
                 ])
             }
         }
+    }
+
+    const difficultyUgh: Record<number, number[]> = {
+        14: [3, 4, 14], // Normal -> 10 Normal, 25 Normal, Normal
     }
 </script>
 
@@ -75,7 +84,11 @@
 {#if difficulties}
     <div class="difficulties">
         {#each difficulties as [difficulty, have, total, kills]}
-            <div class="stats" use:tippy={difficultyMap[difficulty].name}>
+            <div
+                class="stats"
+                data-id="{difficulty}"
+                use:tippy={difficultyMap[difficulty].name}
+            >
                 <span class="difficulty">
                     {difficultyMap[difficulty].shortName}
                 </span>

@@ -4,7 +4,7 @@
 
     import { manualStore, staticStore, userTransmogStore } from '@/stores'
     import { illusionState } from '@/stores/local-storage'
-    import getPercentClass from '@/utils/get-percent-class'
+    //import getPercentClass from '@/utils/get-percent-class'
     import tippy from '@/utils/tippy'
     import type { ManualDataIllusionGroup } from '@/types/data/manual'
 
@@ -116,12 +116,12 @@
                         <div class="collection-objects">
                             {#each group.items as item}
                                 {@const illusion = find($staticStore.data.illusions, (illusion) => illusion.enchantmentId === item.enchantmentId)}
-                                {@const have = $userTransmogStore.data.hasIllusion[illusion.enchantmentId]}
+                                {@const have = $userTransmogStore.data.hasIllusion[illusion.enchantmentId] === true}
                                 <div
                                     class="collection-object"
                                     class:missing={
-                                        ($illusionState.highlightMissing && !have) ||
-                                        (!$illusionState.highlightMissing && have)
+                                        ($illusionState.highlightMissing && have) ||
+                                        (!$illusionState.highlightMissing && !have)
                                     }
                                     use:tippy={illusion.name}
                                 >

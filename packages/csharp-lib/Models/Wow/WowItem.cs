@@ -18,6 +18,9 @@ public class WowItem
     public WowQuality Quality { get; set; }
     public WowStat PrimaryStat { get; set; }
     public WowItemFlags Flags { get; set; }
+    public short Expansion { get; set; }
+    public short ItemLevel { get; set; }
+    public short RequiredLevel { get; set; }
 
     public int GetCalculatedClassMask(bool legacyLoot = false)
     {
@@ -41,7 +44,7 @@ public class WowItem
                                 PrimaryStat == WowStat.None ||
                                 legacyLoot ||
                                 (
-                                    itemStats.Count > 0 && 
+                                    itemStats.Count > 0 &&
                                     t.Item2.Any(stat => itemStats.Contains(stat))
                                 )
                             )

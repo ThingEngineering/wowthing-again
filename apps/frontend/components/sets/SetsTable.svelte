@@ -7,7 +7,7 @@
     import getSkipClasses from '@/utils/get-skip-classes'
     import type { ManualDataTransmogCategory } from '@/types/data/manual'
 
-    import Category from './AppearancesTableCategory.svelte'
+    import Category from './SetsTableCategory.svelte'
 
     export let slug1: string
     export let slug2: string

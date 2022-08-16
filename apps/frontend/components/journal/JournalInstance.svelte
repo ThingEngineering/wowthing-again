@@ -31,7 +31,10 @@
     .wrapper {
         width: 100%;
     }
-    .collection-v2-section {
+    .collection > :global(div:first-child) {
+        margin-bottom: 0.5rem;
+    }
+   .collection-v2-section {
         --column-count: 1;
         --column-gap: 1rem;
         --column-width: 18rem;

@@ -28,7 +28,7 @@ public class CacheJournalJob : JobBase, IScheduledJob
         Type = JobType.CacheJournal,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(24),
-        Version = 26,
+        Version = 27,
     };
 
     public override async Task Run(params string[] data)
@@ -68,6 +68,24 @@ public class CacheJournalJob : JobBase, IScheduledJob
 
     private async Task BuildJournalData()
     {
+        var di = new DirectoryInfo(Path.Join(DataUtilities.DataPath, "statistics"));
+        var files = di.GetFiles("*.yml", SearchOption.AllDirectories)
+            .OrderBy(file => file.FullName)
+            .ToArray();
+
+        var statisticsMap = new Dictionary<int, Dictionary<int, int>>();
+        foreach (var file in files)
+        {
+            Logger.Debug("Parsing {file}", file.FullName);
+            var data = DataUtilities.YamlDeserializer
+                .Deserialize<Dictionary<int, Dictionary<int, int>>>(File.OpenText(file.FullName));
+            statisticsMap = statisticsMap
+                .Concat(data)
+                .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+        }
+
+        _timer.AddPoint("Data");
+
         var tiers = await DataUtilities.LoadDumpCsvAsync<DumpJournalTier>(Path.Join("enUS", "journaltier"));
         tiers.Reverse();
 
@@ -295,7 +313,7 @@ public class CacheJournalJob : JobBase, IScheduledJob
                             }
                         }
 
-                        Hardcoded.JournalEncounterStatistics.TryGetValue(encounter.ID, out var statistics);
+                        statisticsMap.TryGetValue(encounter.ID, out var statistics);
                         var encounterData = new OutJournalEncounter
                         {
                             Id = encounter.ID,
