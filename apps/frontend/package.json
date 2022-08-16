@@ -11,26 +11,26 @@
   },
   "dependencies": {
     "base64-arraybuffer": "^0.2.0",
-    "chart.js": "^3.6.2",
-    "chartjs-adapter-luxon": "^1.1.0",
-    "luxon": "^2.0.2",
-    "tippy.js": "^6.3.1"
+    "chart.js": "^3.9.1",
+    "chartjs-adapter-luxon": "^1.2.0",
+    "luxon": "^3.0.1",
+    "tippy.js": "^6.3.7"
   },
   "devDependencies": {
-    "@iconify/icons-emojione-monotone": "^1.1.0",
+    "@iconify/icons-emojione-monotone": "^1.2.3",
     "@iconify/icons-fa-solid": "^1.2.3",
-    "@iconify/icons-heroicons-solid": "^1.2.1",
-    "@iconify/icons-ic": "^1.1.17",
-    "@iconify/icons-mdi": "^1.1.36",
-    "@iconify/icons-noto": "^1.1.4",
-    "@iconify/svelte": "^2.0.0",
-    "@iconify/types": "^1.0.10",
-    "@types/luxon": "^2.0.3",
-    "autoprefixer": "^10.4.7",
+    "@iconify/icons-heroicons-solid": "^1.2.2",
+    "@iconify/icons-ic": "^1.2.10",
+    "@iconify/icons-mdi": "^1.2.28",
+    "@iconify/icons-noto": "^1.2.4",
+    "@iconify/svelte": "^2.2.1",
+    "@iconify/types": "^1.1.0",
+    "@types/luxon": "^3.0.0",
+    "autoprefixer": "^10.4.8",
     "svelte-drag-and-drop-actions": "^1.0.0",
-    "svelte-intersection-observer": "^0.9.2",
+    "svelte-intersection-observer": "^0.10.0",
     "svelte-media": "^0.1.5",
     "svelte-sortable-flat-list-view": "^1.0.0",
-    "svelte-spa-router": "^3.1.0"
+    "svelte-spa-router": "^3.3.0"
   }
 }
