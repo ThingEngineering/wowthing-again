@@ -4,7 +4,7 @@
 
     import { manualStore, staticStore, userTransmogStore } from '@/stores'
     import { illusionState } from '@/stores/local-storage'
-    import getPercentClass from '@/utils/get-percent-class'
+    //import getPercentClass from '@/utils/get-percent-class'
     import tippy from '@/utils/tippy'
     import type { ManualDataIllusionGroup } from '@/types/data/manual'
 

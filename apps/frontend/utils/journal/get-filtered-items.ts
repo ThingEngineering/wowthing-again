@@ -1,5 +1,4 @@
 import { Constants } from '@/data/constants'
-import { RewardType } from '@/types/enums'
 import type { JournalState } from '@/stores/local-storage'
 import type {
     JournalDataEncounterItem,
