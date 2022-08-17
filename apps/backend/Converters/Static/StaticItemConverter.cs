@@ -10,6 +10,7 @@ public class StaticItemConverter : JsonConverter
         var item = (StaticItem) value;
         var arr = new JArray();
         arr.Add(item.Id);
+        arr.Add(item.InventoryType);
         arr.Add(item.Quality);
 
         var appearArray = new JArray();
