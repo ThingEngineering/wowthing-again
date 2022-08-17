@@ -23,7 +23,17 @@
         valid = false
         if (character.level === Constants.characterMaxLevel) {
             valid = true
+            
             title = progressQuestTitle[quest]
+            if (title === undefined) {
+                for (const characterId in $userQuestStore.data.characters) {
+                    const characterQuest = $userQuestStore.data.characters[characterId]?.progressQuests?.[quest]
+                    if (characterQuest) {
+                        title = characterQuest.name
+                        break
+                    }
+                }
+            }
 
             if (quest === 'slAnima') {
                 const covenant = covenantMap[character.shadowlands?.covenantId]
