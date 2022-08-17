@@ -12,6 +12,10 @@ tags:
   - "pvp-s15"
 
 sets:
+  - name: "Illusions - S15"
+    range: 1
+    sortKeys: "9-armor-s15-0-illusions"
+
   - name: "Armor - S15 Death Knight"
     range: 5
     sortKey: "9-armor-s15-1-deathknight"
@@ -85,6 +89,14 @@ sets:
     sortKey: "9-weapons-s15"
 
 sells:
+  # Illusions
+
+  - type: illusion
+    id: 120286 # Enchanter's Illusion - Glorious Tyranny
+    appearanceId: 5396
+    costs:
+      1137642: 10
+
   # Death Knight
 
   - type: transmog
@@ -890,11 +902,6 @@ sells:
       1137642: 12
 
   # 0
-
-  - type: transmog
-    id: 120286 # Enchanter's Illusion - Glorious Tyranny
-    costs:
-      1137642: 10
 
   - type: transmog
     id: 102600 # Prideful Gladiator's Cleaver [1h ? axe]
