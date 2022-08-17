@@ -58,6 +58,7 @@ sells:
 
   - type: transmog
     id: 138803 # Illusion: Mending
+    appearanceId: 4066
     costs:
       0: 75 # Gold
     reputation: 1158 revered # Guardians of Hyjal

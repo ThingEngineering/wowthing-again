@@ -1,4 +1,4 @@
-import type { ItemQuality } from "@/types/enums";
+import type { InventoryType, ItemQuality } from '@/types/enums'
 
 
 export class ManualDataSharedItem {
@@ -6,6 +6,7 @@ export class ManualDataSharedItem {
 
     constructor(
         public id: number,
+        public inventoryType: InventoryType,
         public quality: ItemQuality,
         appearanceIds: number[][],
         public name: string

@@ -9,12 +9,14 @@ public class StaticItem
 {
     public Dictionary<short, int> AppearanceIds { get; set; }
     public int Id { get; set; }
+    public WowInventoryType InventoryType { get; set; }
     public string Name { get; set; }
     public WowQuality Quality { get; set; }
 
     public StaticItem(WowItem item)
     {
         Id = item.Id;
+        InventoryType = item.InventoryType;
         Quality = item.Quality;
     }
 }

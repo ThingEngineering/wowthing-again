@@ -12,8 +12,12 @@ tags:
   - "pvp-s18"
 
 sets:
+  - name: "Illusions - S18"
+    range: 1
+    sortKey: "9-armor-s18-0-illusions"
+
   - name: "Armor - S18 Death Knight"
-    range: 5 1
+    range: 5
     sortKey: "9-armor-s18-1-deathknight"
 
   - name: "Armor - S18 Druid"
