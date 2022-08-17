@@ -59,7 +59,10 @@ public class Startup
         services.AddPostgres(Configuration.GetConnectionString("Postgres"));
 
         // Auth
-        services.AddIdentity<ApplicationUser, IdentityRole<long>>()
+        services.AddIdentity<ApplicationUser, IdentityRole<long>>(options =>
+            {
+                options.User.AllowedUserNameCharacters = null;
+            })
             .AddEntityFrameworkStores<WowDbContext>();
 
         services.AddAuthentication()
@@ -133,7 +136,7 @@ public class Startup
                     .Build()
             );
         });
-            
+
         // Our services
         services.AddScoped<CacheService>();
         services.AddScoped<UploadService>();
@@ -176,7 +179,7 @@ public class Startup
 
         app.UseResponseCaching();
         app.UseRequestDecompression();
-            
+
         app.UseAuthentication();
         app.UseAuthorization();
 
@@ -184,7 +187,7 @@ public class Startup
         {
             endpoints.MapControllers();
         });
-            
+
         CreateRoles(serviceProvider).Wait();
     }
 

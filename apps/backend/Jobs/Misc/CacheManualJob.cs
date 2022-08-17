@@ -63,7 +63,7 @@ public class CacheManualJob : JobBase, IScheduledJob
 #else
         Interval = TimeSpan.FromHours(1),
 #endif
-        Version = 8,
+        Version = 9,
     };
 
     public override async Task Run(params string[] data)
@@ -156,12 +156,12 @@ public class CacheManualJob : JobBase, IScheduledJob
         var transmogSets = (await DataUtilities.LoadDumpCsvAsync<DumpTransmogSetItem>("transmogsetitem"))
             .ToGroupedDictionary(tsi => tsi.TransmogSetID);
 
-        var modifiedAppearances = await Context.WowItemEffect
+        var transmogSetEffects = await Context.WowItemEffect
             .AsNoTracking()
             .Where(wie => wie.Effect == WowSpellEffectEffect.LearnTransmogSet)
             .ToArrayAsync();
 
-        _collectionItemToModifiedAppearances = modifiedAppearances
+        _collectionItemToModifiedAppearances = transmogSetEffects
             .GroupBy(wie => wie.ItemId)
             .ToDictionary(
                 group => group.Key,
@@ -171,6 +171,7 @@ public class CacheManualJob : JobBase, IScheduledJob
                             .Values[0]
                     ]
                     .Select(tsi => tsi.ItemModifiedAppearanceID)
+                    .Where(id => _itemModifiedAppearanceMap[id].SourceType != 9) // NotValidForTransmog
                     .ToArray()
             );
 

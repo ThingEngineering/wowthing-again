@@ -6,4 +6,6 @@ public class WowItemModifiedAppearance
     public int ItemId { get; set; }
     public int AppearanceId { get; set; }
     public short Modifier { get; set; }
+    public short Order { get; set; }
+    public short SourceType { get; set; }
 }

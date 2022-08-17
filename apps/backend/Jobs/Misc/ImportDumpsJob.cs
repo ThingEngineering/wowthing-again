@@ -49,7 +49,7 @@ public class ImportDumpsJob : JobBase, IScheduledJob
         Type = JobType.ImportDumps,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(24),
-        Version = 22,
+        Version = 23,
     };
 
     private Dictionary<int, DumpItemXItemEffect[]> _itemEffectsMap;
@@ -636,6 +636,8 @@ public class ImportDumpsJob : JobBase, IScheduledJob
             dbAppearance.AppearanceId = ima.ItemAppearanceID;
             dbAppearance.ItemId = ima.ItemID;
             dbAppearance.Modifier = ima.ItemAppearanceModifierID;
+            dbAppearance.Order = ima.OrderIndex;
+            dbAppearance.SourceType = ima.TransmogSourceTypeEnum;
 
             // HACK fix Warglaives of Azzinoth appearance IDs
             if ((ima.ItemID == 32837 || ima.ItemID == 32838) && ima.ItemAppearanceModifierID == 0)
