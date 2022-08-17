@@ -1,4 +1,4 @@
-<script lang="ts">
+    <script lang="ts">
     import filter from 'lodash/filter'
     import find from 'lodash/find'
 
@@ -60,31 +60,43 @@
     }
 
     function getFilters(state: VendorState): string {
-        let byType: string[] = []
+        let byType1: string[] = []
+        let byType2: string[] = []
         let byThing: string[] = []
         let bySet: string[] = []
 
         if (state.showCloth) {
-            byType.push('C')
+            byType1.push('C')
         }
         if (state.showLeather) {
-            byType.push('L')
+            byType1.push('L')
         }
         if (state.showMail) {
-            byType.push('M')
+            byType1.push('M')
         }
         if (state.showPlate) {
-            byType.push('P')
-        }
-        if (state.showWeapons) {
-            byType.push('W')
+            byType1.push('P')
         }
 
-        if (byType.length === 0) {
-            byType = ['---']
+        if (byType1.length === 0) {
+            byType1 = ['---']
         }
-        else if (byType.length === 5) {
-            byType = ['ALL']
+        else if (byType1.length === 4) {
+            byType1 = ['ALL']
+        }
+
+        if (state.showCloaks) {
+            byType2.push('C')
+        }
+        if (state.showWeapons) {
+            byType2.push('W')
+        }
+
+        if (byType2.length === 0) {
+            byType2 = ['---']
+        }
+        else if (byType2.length === 2) {
+            byType2 = ['ALL']
         }
 
         if (state.showIllusions) {
@@ -121,7 +133,7 @@
             bySet = ['ALL']
         }
 
-        return `${byType.join('')} | ${byThing.join('')} | ${bySet.join('')}`
+        return `${byType1.join('')} | ${byType2.join('')} | ${byThing.join('')} | ${bySet.join('')}`
     }
 </script>
 
@@ -260,6 +272,12 @@
                 >Plate</CheckboxInput>
             </button>
 
+            <button class="margin-left">
+                <CheckboxInput
+                    name="show_cloaks"
+                    bind:value={$vendorState.showCloaks}
+                >Cloaks</CheckboxInput>
+            </button>
             <button>
                 <CheckboxInput
                     name="show_weapons"

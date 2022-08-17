@@ -5,7 +5,7 @@ import type { VendorState } from '@/stores/local-storage'
 import type { Settings, UserData } from '@/types'
 import type { UserTransmogData, UserVendorData } from '@/types/data'
 import type { ManualData, ManualDataVendorItem } from '@/types/data/manual'
-import { Faction, RewardType } from '@/types/enums'
+import { Faction, InventoryType, RewardType } from '@/types/enums'
 import { getCurrencyCosts } from '@/utils/get-currency-costs'
 import type { StaticData } from '@/types/data/static'
 
@@ -32,6 +32,15 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
         const userHas: Record<string, boolean> = {}
 
         const overallStats = stats['OVERALL'] = new UserCount()
+
+        const unavailableIllusions: number[] = []
+        for (const illusionGroup of manualData.illusions) {
+            if (illusionGroup.name.startsWith('Unavailable')) {
+                for (const illusionItem of illusionGroup.items) {
+                    unavailableIllusions.push(illusionItem.enchantmentId)
+                }
+            }
+        }
 
         for (const categories of manualData.vendors.sets) {
             if (categories === null) {
@@ -67,9 +76,16 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
                     for (const item of group.sells) {
                         item.sortedCosts = getCurrencyCosts(manualData, staticData, item.costs)
 
+                        // Skip items, they're not collectible
+                        if (item.type === RewardType.Item) {
+                            continue
+                        }
+
                         if (item.classMask > 0 && (item.classMask & classMask) === 0) {
                             continue
                         }
+
+                        const sharedItem = manualData.shared.items[item.id]
 
                         if (masochist) {
                             item.extraAppearances = 0
@@ -77,7 +93,7 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
                         else if (transmogTypes.indexOf(item.type) >= 0) {
                             const appearanceId = item.appearanceIds?.length === 1
                                 ? item.appearanceIds[0]
-                                : manualData.shared.items[item.id].appearanceIds?.[0] || 0
+                                : sharedItem.appearanceIds?.[0] || 0
                             if (appearanceId) {
                                 const existingItem = appearanceMap[appearanceId]
                                 if (existingItem) {
@@ -104,6 +120,33 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
                             item.id,
                             item.appearanceIds
                         )
+                        
+                        // Skip unavailable illusions
+                        if (
+                            item.type === RewardType.Illusion &&
+                            item.appearanceIds?.length > 0 &&
+                            unavailableIllusions.indexOf(item.appearanceIds[0]) >= 0 &&
+                            !hasDrop
+                        ) {
+                            continue
+                        }
+
+                        // Skip filtered things
+                        if (
+                            (item.type === RewardType.Illusion && !vendorState.showIllusions) ||
+                            (item.type === RewardType.Mount && !vendorState.showMounts) ||
+                            (item.type === RewardType.Pet && !vendorState.showPets) ||
+                            (item.type === RewardType.Toy && !vendorState.showToys) ||
+                            (item.type === RewardType.Armor && item.subType === 1 && !vendorState.showCloth) ||
+                            (item.type === RewardType.Armor && item.subType === 2 && !vendorState.showLeather) ||
+                            (item.type === RewardType.Armor && item.subType === 3 && !vendorState.showMail) ||
+                            (item.type === RewardType.Armor && item.subType === 4 && !vendorState.showPlate) ||
+                            (item.type === RewardType.Weapon && !vendorState.showWeapons) ||
+                            (sharedItem?.inventoryType === InventoryType.Back && !vendorState.showCloaks)
+                        ) {
+                            continue
+                        }
+
                         const thingKey = `${item.type}|${item.id}|${(item.bonusIds || []).join(',')}`
 
                         if (!seen[thingKey]) {
@@ -130,20 +173,6 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
                             continue
                         }
                         if (!hasDrop && !vendorState.showUncollected) {
-                            continue
-                        }
-
-                        if (
-                            (item.type === RewardType.Illusion && !vendorState.showIllusions) ||
-                            (item.type === RewardType.Mount && !vendorState.showMounts) ||
-                            (item.type === RewardType.Pet && !vendorState.showPets) ||
-                            (item.type === RewardType.Toy && !vendorState.showToys) ||
-                            (item.type === RewardType.Armor && item.subType === 1 && !vendorState.showCloth) ||
-                            (item.type === RewardType.Armor && item.subType === 2 && !vendorState.showLeather) ||
-                            (item.type === RewardType.Armor && item.subType === 3 && !vendorState.showMail) ||
-                            (item.type === RewardType.Armor && item.subType === 4 && !vendorState.showPlate) ||
-                            (item.type === RewardType.Weapon && !vendorState.showWeapons)
-                        ) {
                             continue
                         }
 

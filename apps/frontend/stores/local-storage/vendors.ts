@@ -12,6 +12,8 @@ export class VendorState {
     public showLeather = true
     public showMail = true
     public showPlate = true
+
+    public showCloaks = true
     public showWeapons = true
 
     public showIllusions = true
