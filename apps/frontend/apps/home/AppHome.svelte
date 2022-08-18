@@ -2,6 +2,7 @@
     import { onMount } from 'svelte'
 
     import {
+        appearanceStore,
         journalStore,
         manualStore,
         staticStore,
@@ -21,6 +22,7 @@
     import Sidebar from './AppHomeSidebar.svelte'
 
     onMount(async () => await Promise.all([
+        appearanceStore.fetch(),
         journalStore.fetch({ language: $settings.general.language }),
         manualStore.fetch({ language: $settings.general.language }),
         staticStore.fetch({ language: $settings.general.language }),
@@ -34,17 +36,19 @@
     let loaded: boolean
     let ready: boolean
     $: {
-        error = $staticStore.error
+        error = $appearanceStore.error
             || $journalStore.error
             || $manualStore.error
+            || $staticStore.error
             || $userAchievementStore.error
             || $userQuestStore.error
             || $userStore.error
             || $userTransmogStore.error
 
-        loaded = $staticStore.loaded
+        loaded = $appearanceStore.loaded
             && $journalStore.loaded
             && $manualStore.loaded
+            && $staticStore.loaded
             && $userAchievementStore.loaded
             && $userQuestStore.loaded
             && $userStore.loaded
@@ -81,6 +85,11 @@
                 $userStore.data,
                 $userTransmogStore.data,
                 $vendorState
+            )
+
+            appearanceStore.setup(
+                $appearanceStore.data,
+                $userTransmogStore.data
             )
 
             journalStore.setup(

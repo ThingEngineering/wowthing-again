@@ -230,6 +230,13 @@
         </a>
     </li>
 
+    <li use:active={'/appearances/*'}>
+        <a href="#/appearances">
+            <IconifyIcon icon={iconConstruction} dropShadow={true} />
+            Appearances
+        </a>
+    </li>
+
     <li use:active={'/heirlooms'}>
         <a href="#/heirlooms">
             <IconifyIcon icon={iconConstruction} dropShadow={true} />
