@@ -5,7 +5,7 @@
     import Count from '@/components/collections/CollectionCount.svelte'
     import ParsedText from '../common/ParsedText.svelte'
 
-    export let count: UserCount
+    export let count: UserCount = undefined
     export let title: string
 
     let percent: number
