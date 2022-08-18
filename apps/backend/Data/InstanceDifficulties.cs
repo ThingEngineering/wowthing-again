@@ -20,5 +20,13 @@ public static partial class Hardcoded
 
         { (68, 64), new[] { 1 } }, // Classic > Shadowfang Keep [N]
         { (73, 64), new[] { 2 } }, // Cata > Shadowfang Keep [H]
+
+        // Timewalking
+        { (395, 740), new[] { 1, 2, 23, 24 } }, // Legion > Black Rook Hold
+        { (395, 800), new[] { 1, 2, 23, 24 } }, // Legion > Court of Stars
+        { (395, 762), new[] { 1, 2, 23, 24 } }, // Legion > Darkheart Thicket
+        { (395, 716), new[] { 1, 2, 23, 24 } }, // Legion > Eye of Azshara
+        { (395, 767), new[] { 1, 2, 23, 24 } }, // Legion > Neltharion's Lair
+        { (395, 707), new[] { 1, 2, 23, 24 } }, // Legion > Vault of the Wardens
     };
 }

@@ -35,6 +35,14 @@ public static partial class Hardcoded
         { 23, 1727 }, // Mythic Keystone
     };
 
+    private static readonly Dictionary<int, int> LegionDungeonTimewalking = new()
+    {
+        { 2, 1726 }, // Heroic
+        { 8, 1727 }, // Mythic Keystone
+        { 23, 1727 }, // Mythic Keystone
+        { 24, 8760 }, // Timewalking
+    };
+
     private static readonly Dictionary<int, int> LegionEmerald = new()
     {
         { 15, 1805 }, // Heroic
@@ -135,16 +143,16 @@ public static partial class Hardcoded
         { 669, WodHellfire }, // Hellfire Citadel
 
         // Legion
-        { 707, LegionDungeon }, // Vault of the Wardens
-        { 716, LegionDungeon }, // Eye of Azshara
+        { 707, LegionDungeonTimewalking }, // Vault of the Wardens
+        { 716, LegionDungeonTimewalking }, // Eye of Azshara
         { 721, LegionDungeon }, // Halls of Valor
         { 726, LegionDungeon }, // The Arcway
         { 727, LegionDungeon }, // Maw of Souls
-        { 740, LegionDungeon }, // Black Rook Hold
-        { 762, LegionDungeon }, // Darkheart Thicket
-        { 767, LegionDungeon }, // Neltharion's Lair
+        { 740, LegionDungeonTimewalking }, // Black Rook Hold
+        { 762, LegionDungeonTimewalking }, // Darkheart Thicket
+        { 767, LegionDungeonTimewalking }, // Neltharion's Lair
         { 777, LegionDungeon }, // Assault on Violet Hold
-        { 800, LegionDungeon }, // Court of Stars
+        { 800, LegionDungeonTimewalking }, // Court of Stars
         { 860, LegionDungeon }, // Return to Karazhan
         { 900, LegionDungeon }, // Cathedral of Eternal Night
         { 945, LegionDungeon }, // Seat of the Triumvirate
