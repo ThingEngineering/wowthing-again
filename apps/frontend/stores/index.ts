@@ -1,4 +1,5 @@
 export * from './achievements'
+export * from './appearance'
 export * from './item-search'
 export * from './journal'
 export * from './manual'

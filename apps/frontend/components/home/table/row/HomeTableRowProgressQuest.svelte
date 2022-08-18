@@ -40,6 +40,10 @@
                 for (const characterId in $userQuestStore.data.characters) {
                     const characterQuest = $userQuestStore.data.characters[characterId]?.progressQuests?.[quest]
                     if (characterQuest) {
+                        if (quest === 'weeklyHoliday' && DateTime.fromSeconds(characterQuest.expires) < $timeStore) {
+                            continue
+                        }
+
                         title = characterQuest.name
                         break
                     }

@@ -9,6 +9,7 @@ public class UserViewModel
     public readonly ApplicationUserSettings Settings;
     public readonly string SettingsJson;
     public readonly string AchievementHash;
+    public readonly string AppearanceHash;
     public readonly string JournalHash;
     public readonly string ManualHash;
     public readonly string StaticHash;
@@ -20,12 +21,14 @@ public class UserViewModel
 
         var db = redis.GetDatabase();
         var achievementHash = db.StringGetAsync("cache:achievement-enUS:hash");
+        var appearanceHash = db.StringGetAsync("cache:appearance:hash");
         var journalHash = db.StringGetAsync("cache:journal-enUS:hash");
         var manualHash = db.StringGetAsync("cache:manual-enUS:hash");
         var staticHash = db.StringGetAsync("cache:static-enUS:hash");
-        Task.WaitAll(achievementHash, journalHash, staticHash);
+        Task.WaitAll(achievementHash, appearanceHash, journalHash, manualHash, staticHash);
 
         AchievementHash = achievementHash.Result;
+        AppearanceHash = appearanceHash.Result;
         JournalHash = journalHash.Result;
         ManualHash = manualHash.Result;
         StaticHash = staticHash.Result;

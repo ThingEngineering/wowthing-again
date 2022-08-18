@@ -39,7 +39,9 @@
         minusWidth = temp > 0 ? `${temp}rem` : '0px'
     }
 
+    let actualNoVisitRoot: boolean
     $: {
+        actualNoVisitRoot = noVisitRoot && item?.children?.length > 0
         if (item) {
             url = `${baseUrl}/${item.slug}`
             expanded = $location.startsWith(url) && item.children?.length > 0
@@ -51,7 +53,7 @@
                 percent = percentFunc(item, parentItem)
             }
 
-            if (noVisitRoot && expanded && $location === url ) {
+            if (actualNoVisitRoot && expanded && $location === url ) {
                 replace(`${url}/${item.children[0].slug}`)
             }
 
@@ -117,7 +119,7 @@
 {#if item}
     <a
         href="{url}"
-        style="--minusWidth: {minusWidth};{noVisitRoot ? '--link-color: #ffffff' : ''}"
+        style="--minusWidth: {minusWidth};{actualNoVisitRoot ? '--link-color: #ffffff' : ''}"
         use:link
         use:active={new RegExp(activeRegex)}
         use:tippy={item.name}
