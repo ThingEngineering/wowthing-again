@@ -88,7 +88,7 @@
                     target: span,
                     props: {
                         icon: iconStrings[dataString] || iconStrings.question,
-                        scale: '0.9',
+                        scale: '0.75',
                         dropShadow,
                     }
                 })

@@ -21,4 +21,11 @@
             quest={task}
         />
     {/if}
+
+    {#if task === activeHoliday && task === 'holidayTimewalking'}
+        <RowProgressQuest
+            {character}
+            quest={'timewalking'}
+        />
+    {/if}
 {/each}

@@ -86,6 +86,7 @@ export const imageStrings: Record<string, string> = {
 
 export const iconStrings: Record<string, IconifyIcon> = {
     exclamation: mdiExclamationThick,
+    item: mdiGiftOutline,
     lock: mdiLockOutline,
     no: mdiClose,
     question: mdiQuestion,
