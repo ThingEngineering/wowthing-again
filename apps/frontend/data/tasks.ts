@@ -6,8 +6,9 @@ export const tasksHead: Record<string, string> = {
     holidayBattlegrounds: 'BGs',
     holidayDungeons: 'Dung',
     holidayPetBattles: 'Pets',
-    holidayTimewalking: 'TW',
+    holidayTimewalking: 'TW :exclamation:',
     holidayWorldQuests: 'WQs',
+    timewalking: 'TW :item:',
 
     slAnima: 'Anima',
     slKorthia: 'Korth',

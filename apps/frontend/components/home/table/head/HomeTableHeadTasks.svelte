@@ -4,11 +4,33 @@
     import { data as settings } from '@/stores/settings'
     import { getActiveHoliday } from '@/utils/get-active-holiday'
 
+    import ParsedText from '@/components/common/ParsedText.svelte'
+
     $: activeHoliday = getActiveHoliday($userStore.data)
 </script>
 
+<style lang="scss">
+    td {
+        --scale: 0.5;
+
+        word-spacing: -0.2ch;
+
+        :global([data-string="exclamation"]) {
+            margin-left: -0.3rem;
+        }
+    }
+</style>
+
 {#each $settings.layout.homeTasks as task}
     {#if !task.startsWith('holiday') || task === activeHoliday}
-        <td>{tasksHead[task]}</td>
+        <td>
+            <ParsedText text={tasksHead[task]} />
+        </td>
+    {/if}
+
+    {#if task === activeHoliday && task === 'holidayTimewalking'}
+        <td>
+            <ParsedText text={tasksHead['timewalking']} />
+        </td>
     {/if}
 {/each}
