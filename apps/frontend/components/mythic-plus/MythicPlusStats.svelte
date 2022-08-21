@@ -2,7 +2,7 @@
     import find from 'lodash/find'
 
     import { keyTiers, seasonMap } from '@/data/dungeon'
-    import { userStore } from '@/stores';
+    import { userStore } from '@/stores'
     import { getRunCounts } from '@/utils/dungeon'
     import type { CharacterMythicPlusAddonRun } from '@/types'
 

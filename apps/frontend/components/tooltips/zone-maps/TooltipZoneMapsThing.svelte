@@ -1,5 +1,6 @@
 <script lang="ts">
     import difference from 'lodash/difference'
+    import find from 'lodash/find'
     import sortBy from 'lodash/sortBy'
 
     import { difficultyMap } from '@/data/difficulty'
@@ -14,7 +15,6 @@
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
-import find from 'lodash/find';
 
     export let drops: ManualDataZoneMapDrop[]
     export let farm: ManualDataZoneMapFarm

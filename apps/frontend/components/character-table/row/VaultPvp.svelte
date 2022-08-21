@@ -1,8 +1,8 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
     import { pvpVaultItemLevel } from '@/data/pvp'
+    import { toNiceNumber } from '@/utils/to-nice'
     import type { Character, CharacterWeeklyProgress } from '@/types'
-    import { toNiceNumber } from "../../../utils/to-nice";
 
     export let character: Character
 

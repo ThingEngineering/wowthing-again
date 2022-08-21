@@ -1,8 +1,8 @@
 <script lang="ts">
     import {Constants} from '@/data/constants'
-    import type {Character, CharacterWeeklyProgress} from '@/types'
-    import getRaidVaultItemLevel from '@/utils/get-raid-vault-item-level';
+    import getRaidVaultItemLevel from '@/utils/get-raid-vault-item-level'
     import { tippyComponent } from '@/utils/tippy'
+    import type {Character, CharacterWeeklyProgress} from '@/types'
 
     import TooltipVaultRaid from '@/components/tooltips/vault-raid/TooltipVaultRaid.svelte'
 

@@ -7,7 +7,7 @@
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import GroupHead from './table/HomeTableGroupHead.svelte'
     import RowCovenant from './table/row/HomeTableRowCovenant.svelte'
-    import RowCurrentLocation from './table/row/HomeTableRowCurrentLocation.svelte';
+    import RowCurrentLocation from './table/row/HomeTableRowCurrentLocation.svelte'
     import RowDailies from './table/row/HomeTableRowDailies.svelte'
     import RowGear from './table/row/HomeTableRowGear.svelte'
     import RowGold from './table/row/HomeTableRowGold.svelte'

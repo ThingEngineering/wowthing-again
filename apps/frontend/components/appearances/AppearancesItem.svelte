@@ -1,13 +1,13 @@
 <script lang="ts">
     import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
 
+    import { itemModifierMap } from '@/data/item-modifier'
     import { userTransmogStore } from '@/stores'
     import type { AppearanceDataAppearance } from '@/types/data/appearance'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import WowheadLink from '@/components/links/WowheadLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
-import { itemModifierMap } from '@/data/item-modifier';
 
     export let appearance: AppearanceDataAppearance
 
