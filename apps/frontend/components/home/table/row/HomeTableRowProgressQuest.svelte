@@ -3,7 +3,7 @@
 
     import { Constants } from '@/data/constants'
     import { covenantMap } from '@/data/covenant'
-    import { forcedReset, progressQuestMap, progressQuestTitle } from '@/data/quests'
+    import { forcedReset, progressQuestLevel, progressQuestMap, progressQuestTitle } from '@/data/quests'
     import { timeStore, userQuestStore } from '@/stores'
     import { tippyComponent } from '@/utils/tippy'
     import type { Character } from '@/types'
@@ -21,7 +21,10 @@
     let valid: boolean
     $: {
         valid = false
-        if (character.level === Constants.characterMaxLevel) {
+        if (
+            character.level === Constants.characterMaxLevel ||
+            progressQuestLevel[quest] && character.level >= progressQuestLevel[quest]
+        ) {
             valid = true
             
             title = progressQuestTitle[quest]
