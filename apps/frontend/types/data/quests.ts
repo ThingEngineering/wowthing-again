@@ -1,4 +1,4 @@
-import { Faction, ItemQuality } from "../enums";
+import { Faction, ItemQuality } from '@/types/enums'
 
 export class GlobalDailyQuest {
     constructor(

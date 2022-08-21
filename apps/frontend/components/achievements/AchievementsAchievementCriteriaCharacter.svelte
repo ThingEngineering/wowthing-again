@@ -22,6 +22,10 @@
             $userQuestStore.data,
             achievement
         )
+
+        if (achievement.id === 13691) {
+            console.log({achievement, criteriaTree, data})
+        }
     }
 </script>
 

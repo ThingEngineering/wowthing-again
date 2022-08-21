@@ -4,7 +4,7 @@
     import { getActiveHoliday } from '@/utils/get-active-holiday'
     import type { Character } from '@/types'
 
-    import RowDmfProfessions from './HomeTableRowDmfProfessions.svelte';
+    import RowDmfProfessions from './HomeTableRowDmfProfessions.svelte'
     import RowProgressQuest from './HomeTableRowProgressQuest.svelte'
 
     export let character: Character

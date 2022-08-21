@@ -10,7 +10,7 @@ import type {
 import type { UserQuestData } from '@/types/data'
 
 
-const debugId = 14307
+const debugId = 13691
 
 export function getCharacterData(
     achievementData: AchievementData,
@@ -44,6 +44,9 @@ export function getCharacterData(
         if (addStuff && criteriaTree.amount > 0) {
             ret.total += criteriaTree.amount
         }
+        else if (addStuff && criteriaTree.id !== rootCriteriaTree.id && rootCriteriaTree.operator === 4) {
+            ret.total += Math.max(1, criteriaTree.amount)
+        }
 
         if (!first) {
             ret.criteriaTrees.push([criteriaTree])
@@ -68,7 +71,8 @@ export function getCharacterData(
                 }
 
                 if (addStuff) {
-                    characterCounts[characterId] = (characterCounts[characterId] || 0) + Math.min(criteriaTree.amount, count)
+                    characterCounts[characterId] = (characterCounts[characterId] || 0) +
+                    Math.min(Math.max(1, criteriaTree.amount), count)
                 }
             }
         }

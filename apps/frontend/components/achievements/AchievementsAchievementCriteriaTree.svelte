@@ -1,10 +1,10 @@
 <script lang="ts">
     import { iconStrings } from '@/data/icons'
     import { achievementStore } from '@/stores'
+    import { CriteriaType } from '@/types/enums'
     import type { AchievementDataAchievement, AchievementDataCriteriaTree } from '@/types'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-import { CriteriaType } from '@/types/enums';
 
     export let accountWide = false
     export let achievement: AchievementDataAchievement
@@ -23,21 +23,21 @@ import { CriteriaType } from '@/types/enums';
         // Use Object Description
         if ((criteriaTree.flags & 0x20) > 0 || !description) {
             const criteria = $achievementStore.data.criteria[criteriaTree.criteriaId]
-            if (criteria.type === CriteriaType.EarnAchievement) {
+            if (criteria?.type === CriteriaType.EarnAchievement) {
                 description = $achievementStore.data.achievement[criteria.asset]?.name ?? `Achievement #${criteria.asset}`
             }
-            else if (criteria.type === CriteriaType.CastSpell) {
+            else if (criteria?.type === CriteriaType.CastSpell) {
                 description = `Cast spell #${criteria.asset}`
             }
-            else if (criteria.type === CriteriaType.GarrisonMissionSucceeded) {
+            else if (criteria?.type === CriteriaType.GarrisonMissionSucceeded) {
                 description = `Garrison mission #${criteria.asset}`
             }
-            console.log(criteria)
+            //console.log(criteria)
         }
 
-        if (achievement?.id === 13998) {
-                console.log(have, criteriaTree)
-            }
+        if (achievement?.id === 13691) {
+            console.log(have, criteriaTree)
+        }
     }
 </script>
 

@@ -6,6 +6,10 @@ export const progressQuests: Record<string, string[]> = {
     'allSouls': ['kyrianSouls', 'necrolordSouls', 'nightFaeSouls', 'venthyrSouls'],
 }
 
+export const progressQuestLevel: Record<string, number> = {
+    timewalking: 50,
+}
+
 export const progressQuestMap: Record<string, string> = {
     holidayArenaSkirmishes: 'weeklyHoliday',
     holidayBattlegrounds: 'weeklyHoliday',
