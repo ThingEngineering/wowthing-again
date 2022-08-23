@@ -117,6 +117,7 @@ public class ApplicationUserSettings
         "slKorthia",
         "slNewDeal",
         "slZerethMortis",
+        "slFatedWorldQuest",
     };
 
     private void Validate()

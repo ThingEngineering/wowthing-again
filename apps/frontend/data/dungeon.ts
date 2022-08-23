@@ -554,7 +554,7 @@ export const extraInstances: StaticDataInstance[] = [
         expansion: 8,
         id: 108006,
         name: 'Fated Shadowlands World Bosses',
-        shortName: 'Fate',
+        shortName: 'FWB',
     },
 
     // Holidays

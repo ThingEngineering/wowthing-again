@@ -14,4 +14,5 @@ export const tasksHead: Record<string, string> = {
     slKorthia: 'Korth',
     slNewDeal: 'Deal',
     slZerethMortis: 'ZM',
+    slFatedWorldQuest: 'FWQ',
 }
