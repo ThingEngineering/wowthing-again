@@ -5,6 +5,7 @@ import { Faction, FarmIdType, FarmResetType, FarmType, RewardType } from '@/type
 import type { ManualDataZoneMapDrop, ManualDataZoneMapFarm } from './zone-map'
 import type { ManualData } from './store'
 import type { StaticData } from '@/types/data/static'
+import type { ItemData } from '../item'
 
 
 export class ManualDataSharedVendor {
@@ -51,6 +52,7 @@ export class ManualDataSharedVendor {
     }
 
     createFarmData(
+        itemData: ItemData,
         manualData: ManualData,
         staticData: StaticData
     ) {
@@ -92,7 +94,7 @@ export class ManualDataSharedVendor {
                     
                     const itemAppearanceIds = item.appearanceIds?.[0] > 0
                         ? item.appearanceIds
-                        : [manualData.shared.items[item.id]?.appearanceIds?.[0] || 0]
+                        : [itemData.items[item.id]?.appearances?.[0]?.appearanceId || 0]
                     appearanceIds.push(itemAppearanceIds)
 
                     for (const appearanceId of itemAppearanceIds) {
@@ -122,7 +124,7 @@ export class ManualDataSharedVendor {
                 const item = this.sells[sellIndex]
                 const appearanceIds = item.appearanceIds?.[0] > 0
                     ? item.appearanceIds
-                    : [manualData.shared.items[item.id]?.appearanceIds?.[0] || 0]
+                    : [itemData.items[item.id]?.appearances?.[0]?.appearanceId || 0]
                 
                 if (every(appearanceIds, (appearanceId) => appearanceId === 0 || !seen[appearanceId])) {
                     itemDrops.push({
@@ -131,7 +133,7 @@ export class ManualDataSharedVendor {
                         subType: item.subType,
                         classMask: item.classMask,
                         appearanceIds: [appearanceIds],
-                        note: item.getNote(manualData, staticData),
+                        note: item.getNote(itemData, staticData),
                     })
                 }
             }

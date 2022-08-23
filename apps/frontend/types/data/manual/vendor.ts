@@ -1,7 +1,7 @@
 import { Faction } from '@/types/enums'
 import { getCurrencyCostsString } from '@/utils/get-currency-costs'
-import type { ManualData } from './store'
 import type { UserCount } from '@/types'
+import type { ItemData } from '@/types/data/item'
 import type { StaticData } from '@/types/data/static/store'
 import type { RewardType, ItemQuality,  } from '@/types/enums'
 
@@ -65,8 +65,8 @@ export class ManualDataVendorItem {
         }
     }
     
-    getNote(manualData: ManualData, staticData: StaticData): string | undefined {
-        return this.costs ? getCurrencyCostsString(manualData, staticData, this.costs, this.reputation) : this.note
+    getNote(itemData: ItemData, staticData: StaticData): string | undefined {
+        return this.costs ? getCurrencyCostsString(itemData, staticData, this.costs, this.reputation) : this.note
     }
 }
 export type ManualDataVendorItemArray = ConstructorParameters<typeof ManualDataVendorItem>

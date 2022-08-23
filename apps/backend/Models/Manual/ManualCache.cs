@@ -39,9 +39,6 @@ public class ManualCache
     public List<List<ManualZoneMapCategory>> ZoneMapSets { get; set; }
 
     // Shared
-    [JsonProperty("rawSharedItems")]
-    public StaticItem[] SharedItems { get; set; }
-
     [JsonProperty("rawSharedVendors")]
     public List<ManualSharedVendor> SharedVendors { get; set; }
 }

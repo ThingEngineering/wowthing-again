@@ -1,12 +1,13 @@
 import { UserCount, WritableFancyStore } from '@/types'
+import { Faction, InventoryType, RewardType } from '@/types/enums'
+import { getCurrencyCosts } from '@/utils/get-currency-costs'
 import getTransmogClassMask from '@/utils/get-transmog-class-mask'
 import userHasDrop from '@/utils/user-has-drop'
 import type { VendorState } from '@/stores/local-storage'
 import type { Settings, UserData } from '@/types'
 import type { UserTransmogData, UserVendorData } from '@/types/data'
 import type { ManualData, ManualDataVendorItem } from '@/types/data/manual'
-import { Faction, InventoryType, RewardType } from '@/types/enums'
-import { getCurrencyCosts } from '@/utils/get-currency-costs'
+import type { ItemData } from '@/types/data/item'
 import type { StaticData } from '@/types/data/static'
 
 
@@ -16,6 +17,7 @@ const tierRegex = new RegExp(/ - T\d\d/)
 export class UserVendorStore extends WritableFancyStore<UserVendorData> {
     setup(
         settingsData: Settings,
+        itemData: ItemData,
         manualData: ManualData,
         staticData: StaticData,
         userData: UserData,
@@ -74,7 +76,7 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
                     const appearanceMap: Record<number, ManualDataVendorItem> = {}
 
                     for (const item of group.sells) {
-                        item.sortedCosts = getCurrencyCosts(manualData, staticData, item.costs)
+                        item.sortedCosts = getCurrencyCosts(itemData, staticData, item.costs)
 
                         // Skip items, they're not collectible
                         if (item.type === RewardType.Item) {
@@ -85,7 +87,7 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
                             continue
                         }
 
-                        const sharedItem = manualData.shared.items[item.id]
+                        const sharedItem = itemData.items[item.id]
 
                         if (masochist) {
                             item.extraAppearances = 0
@@ -93,7 +95,7 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
                         else if (transmogTypes.indexOf(item.type) >= 0) {
                             const appearanceId = item.appearanceIds?.length === 1
                                 ? item.appearanceIds[0]
-                                : sharedItem.appearanceIds?.[0] || 0
+                                : sharedItem.appearances?.[0]?.appearanceId || 0
                             if (appearanceId) {
                                 const existingItem = appearanceMap[appearanceId]
                                 if (existingItem) {
@@ -113,7 +115,7 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
                         }
 
                         const hasDrop = userHasDrop(
-                            manualData,
+                            itemData,
                             userData,
                             userTransmogData,
                             item.type,

@@ -63,7 +63,7 @@ public class CacheManualJob : JobBase, IScheduledJob
 #else
         Interval = TimeSpan.FromHours(1),
 #endif
-        Version = 10,
+        Version = 11,
     };
 
     public override async Task Run(params string[] data)
@@ -240,15 +240,6 @@ public class CacheManualJob : JobBase, IScheduledJob
         foreach (var language in Enum.GetValues<Language>())
         {
             Logger.Information("{Lang}", language);
-
-            cacheData.SharedItems = _itemIds
-                .OrderBy(itemId => itemId)
-                .Select(itemId => new StaticItem(_itemMap[itemId])
-                {
-                    AppearanceIds = _itemToAppearance.GetValueOrDefault(itemId),
-                    Name = GetString(StringType.WowItemName, language, itemId),
-                })
-                .ToArray();
 
             var cacheJson = JsonConvert.SerializeObject(cacheData);
             // This ends up being the MD5 of enUS, close enough

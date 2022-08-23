@@ -1,14 +1,14 @@
 import every from 'lodash/every'
 
-import { RewardType } from '@/types/enums'
-import type { ManualData } from '@/types/data/manual'
-import type { UserData } from '@/types/user-data'
-import type { UserTransmogData } from '@/types/data'
 import { transmogTypes } from '@/stores/user-vendors'
+import { RewardType } from '@/types/enums'
+import type { UserTransmogData } from '@/types/data'
+import type { ItemData } from '@/types/data/item'
+import type { UserData } from '@/types/user-data'
 
 
 export default function userHasDrop(
-    manualData: ManualData,
+    itemData: ItemData,
     userData: UserData,
     userTransmogData: UserTransmogData,
     type: RewardType,
@@ -39,7 +39,7 @@ export default function userHasDrop(
             )
         }
         else {
-            const appearanceId = manualData.shared.items[id]?.appearanceIds?.[0] || 0
+            const appearanceId = itemData.items[id]?.appearances?.[0]?.appearanceId || 0
             return userTransmogData.userHas[appearanceId] === true
         }
             

@@ -1,9 +1,9 @@
 <script lang="ts">
-    import { manualStore, staticStore } from '@/stores'
+    import { itemStore, staticStore } from '@/stores'
     import { data as settingsData } from '@/stores/settings'
     import { getWowheadDomain } from '@/utils/get-wowhead-domain'
     import { tippyComponent } from '@/utils/tippy'
-    import type { ManualDataSharedItem } from '@/types/data/manual'
+    import type { ItemDataItem } from '@/types/data/item'
     import type { StaticDataCurrency } from '@/types/data/static'
 
     import Tooltip from '@/components/tooltips/currency/TooltipCurrency.svelte'
@@ -12,7 +12,7 @@
     export let currencyId: number = undefined
     export let itemId: number = undefined
 
-    let item: ManualDataSharedItem
+    let item: ItemDataItem
     let url: string
     $: {
         url = `https://${getWowheadDomain($settingsData.general.language)}.wowhead.com/`
@@ -23,7 +23,7 @@
         }
         else if (itemId !== undefined) {
             currency = undefined
-            item = $manualStore.data.shared.items[itemId]
+            item = $itemStore.data.items[itemId]
         }
         
         if (currency) {
