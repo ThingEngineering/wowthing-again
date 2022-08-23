@@ -2,7 +2,7 @@
     import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
     import IntersectionObserver from 'svelte-intersection-observer'
 
-    import { manualStore, staticStore } from '@/stores'
+    import { itemStore, staticStore } from '@/stores'
     import { vendorState } from '@/stores/local-storage'
     import { userVendorStore } from '@/stores/user-vendors'
     import { Faction, PlayableClass, PlayableClassMask, RewardType } from '@/types/enums'
@@ -35,7 +35,7 @@
             if (($vendorState.showCollected && userHas) || ($vendorState.showUncollected && !userHas)) {
                 const thingData = new ThingData(thing, userHas)
 
-                thingData.quality = thing.quality || $manualStore.data.shared.items[thing.id]?.quality || 0
+                thingData.quality = thing.quality || $itemStore.data.items[thing.id]?.quality || 0
 
                 if (thing.type === RewardType.Mount) {
                     thingData.linkType = 'spell'

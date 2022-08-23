@@ -4,7 +4,6 @@ import { costOrderMap } from '@/data/vendors'
 import leftPad from '@/utils/left-pad'
 import { toNiceNumber } from '@/utils/to-nice'
 import type { ItemData } from '@/types/data/item'
-import type { ManualData } from '@/types/data/manual'
 import type { StaticData } from '@/types/data/static'
 
 

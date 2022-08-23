@@ -6,7 +6,7 @@
     import { difficultyMap } from '@/data/difficulty'
     import { iconStrings, imageStrings, rewardTypeIcons } from '@/data/icons'
     import { weaponSubclassToString } from '@/data/weapons'
-    import { achievementStore, journalStore, manualStore, staticStore, userAchievementStore, userStore } from '@/stores'
+    import { achievementStore, itemStore, journalStore, staticStore, userAchievementStore, userStore } from '@/stores'
     import { ArmorType, RewardType, FarmResetType, FarmType, FarmIdType } from '@/types/enums'
     import leftPad from '@/utils/left-pad'
     import type { DropStatus, FarmStatus } from '@/types'
@@ -43,7 +43,7 @@
             drop.type === RewardType.Armor ||
             drop.type === RewardType.Weapon ||
             drop.type === RewardType.Transmog) {
-            return $manualStore.data.shared.items[drop.id]?.name || `Unknown item #${drop.id}`
+            return $itemStore.data.items[drop.id]?.name || `Unknown item #${drop.id}`
         }
         else if (drop.type === RewardType.Achievement) {
             if (drop.subType > 0) {
