@@ -3,7 +3,7 @@
     import find from 'lodash/find'
 
     import { iconStrings } from '@/data/icons'
-    import { manualStore, staticStore } from '@/stores'
+    import { itemStore, manualStore, staticStore } from '@/stores'
     import { VendorState, vendorState } from '@/stores/local-storage'
     import { userVendorStore } from '@/stores/user-vendors'
     import { getCurrencyCosts } from '@/utils/get-currency-costs'
@@ -345,7 +345,7 @@
                     count={$userVendorStore.data.stats[`${slug1}`]}
                 >
                     <span class="costs">
-                        {#each getCurrencyCosts($manualStore.data, $staticStore.data, totalCosts['OVERALL'], true, true) as [linkType, linkId, value]}
+                        {#each getCurrencyCosts($itemStore.data, $staticStore.data, totalCosts['OVERALL'], true, true) as [linkType, linkId, value]}
                             <div>
                                 <CurrencyLink
                                     currencyId={linkType === 'currency' ? linkId : undefined}
@@ -373,7 +373,7 @@
                 >
                     {#if totalCosts[category.slug]}
                         <span class="costs">
-                            {#each getCurrencyCosts($manualStore.data, $staticStore.data, totalCosts[category.slug], true, true) as [linkType, linkId, value]}
+                            {#each getCurrencyCosts($itemStore.data, $staticStore.data, totalCosts[category.slug], true, true) as [linkType, linkId, value]}
                                 <div>
                                     <CurrencyLink
                                         currencyId={linkType === 'currency' ? linkId : undefined}

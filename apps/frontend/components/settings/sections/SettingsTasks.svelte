@@ -21,6 +21,7 @@
         { key: 'slKorthia', name: 'Shadowlands - Korthia' },
         { key: 'slZerethMortis', name: 'Shadowlands - Zereth Mortis' },
         { key: 'slNewDeal', name: 'Shadowlands - A New Deal (PvP)' },
+        { key: 'slFatedWorldQuest', name: 'Shadowlands - Fated Raid WQ'},
     ]
 
     const taskActive = $settingsData.layout.homeTasks.map(

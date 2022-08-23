@@ -15,7 +15,6 @@ import {
     ManualDataHeirloomGroup,
     ManualDataIllusionGroup,
     ManualDataSetCategory,
-    ManualDataSharedItem,
     ManualDataSharedVendor,
     ManualDataTransmogCategory,
     ManualDataVendorCategory,
@@ -33,6 +32,7 @@ import type { DropStatus, FancyStore, FarmStatus, Settings, UserAchievementData,
 import type { UserQuestData, UserTransmogData } from '@/types/data'
 import type { ManualData, ManualDataSetCategoryArray } from '@/types/data/manual'
 import type { StaticData } from '@/types/data/static'
+import type { ItemData } from '@/types/data/item'
 
 
 type classMaskStrings = keyof typeof PlayableClassMask
@@ -44,7 +44,6 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
 
     initialize(data: ManualData): void {
         data.shared = {
-            items: {},
             vendors: {},
             vendorsByMap: {},
             vendorsByTag: {},
@@ -58,12 +57,6 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
         data.zoneMaps = {
             sets: [],
         }
-
-        for (const itemArray of data.rawSharedItems) {
-            const obj = new ManualDataSharedItem(...itemArray)
-            data.shared.items[obj.id] = obj
-        }
-        data.rawSharedItems = null
 
         for (const vendorArray of data.rawSharedVendors) {
             const obj = new ManualDataSharedVendor(...vendorArray)
@@ -176,6 +169,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
     setup(
         settings: Settings,
         manualData: ManualData,
+        itemData: ItemData,
         staticData: StaticData,
         userData: UserData,
         userAchievementData: UserAchievementData,
@@ -193,12 +187,14 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
 
             this.setupVendors(
                 state,
+                itemData,
                 staticData
             )
             
             this.setupZoneMaps(
                 state,
                 settings,
+                itemData,
                 manualData,
                 staticData,
                 userData,
@@ -248,13 +244,14 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
 
     private setupVendors(
         state: FancyStore<ManualData>,
+        itemData: ItemData,
         staticData: StaticData
     )
     {
         // console.time('setupVendors')
 
         for (const vendor of Object.values(state.data.shared.vendors)) {
-            vendor.createFarmData(state.data, staticData)
+            vendor.createFarmData(itemData, state.data, staticData)
         }
 
         for (const categories of state.data.vendors.sets) {
@@ -344,7 +341,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                         }
 
                         item.faction = vendor.faction
-                        item.sortedCosts = getCurrencyCosts(state.data, staticData, item.costs)
+                        item.sortedCosts = getCurrencyCosts(itemData, staticData, item.costs)
 
                         if (groupKey) {
                             const autoGroup = autoGroups[groupKey] ||= new ManualDataVendorGroup(groupName, [], true)
@@ -374,6 +371,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
     private setupZoneMaps(
         state: FancyStore<ManualData>,
         settings: Settings,
+        itemData: ItemData,
         manualData: ManualData,
         staticData: StaticData,
         userData: UserData,
@@ -610,7 +608,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                                     )
                                 }
                                 else {
-                                    if (!userTransmogData.userHas[manualData.shared.items[drop.id]?.appearanceIds?.[0] ?? 0]) {
+                                    if (!userTransmogData.userHas[itemData.items[drop.id]?.appearances?.[0]?.appearanceId ?? 0]) {
                                         dropStatus.need = true
                                     }
                                 }
@@ -623,7 +621,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
 
                             case RewardType.SetSpecial:
                                 [dropStatus.setHave, dropStatus.setNeed] = getVendorDropStats(
-                                    manualData,
+                                    itemData,
                                     userData,
                                     userTransmogData,
                                     masochist,
@@ -632,7 +630,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                                 dropStatus.need = dropStatus.setHave < dropStatus.setNeed
 
                                 dropStatus.setNote = getSetCurrencyCostsString(
-                                    manualData,
+                                    itemData,
                                     staticData,
                                     drop.appearanceIds,
                                     drop.costs,

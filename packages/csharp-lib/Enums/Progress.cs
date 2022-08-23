@@ -7,4 +7,5 @@ public enum ProgressDataType
     Criteria,
     AddonAchievement,
     SpentCyphers,
+    AddonQuest,
 }

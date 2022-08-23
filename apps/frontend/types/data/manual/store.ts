@@ -6,7 +6,6 @@ import type { ManualDataHeirloomGroup, ManualDataHeirloomGroupArray } from './he
 import type { ManualDataIllusionGroup, ManualDataIllusionGroupArray } from './illusion'
 import type { ManualDataProgressCategory } from './progress'
 import type { ManualDataSetCategory, ManualDataSetCategoryArray } from './set'
-import type { ManualDataSharedItem, ManualDataSharedItemArray } from './shared-item'
 import type { ManualDataSharedVendor, ManualDataSharedVendorArray } from './shared-vendor'
 import type { ManualDataTransmogCategory, ManualDataTransmogCategoryArray } from './transmog'
 import type { ManualDataVendorCategory, ManualDataVendorCategoryArray } from './vendor'
@@ -18,7 +17,6 @@ export interface ManualData {
     progressSets: ManualDataProgressCategory[][]
 
     // Packed data
-    rawSharedItems: ManualDataSharedItemArray[]
     rawSharedVendors: ManualDataSharedVendorArray[]
 
     rawMountSets: ManualDataSetCategoryArray[][]
@@ -45,7 +43,6 @@ export interface ManualData {
 }
 
 export interface ManualDataShared {
-    items: Record<number, ManualDataSharedItem>
     vendors: Record<number, ManualDataSharedVendor>
     vendorsByMap: Record<string, number[]>
     vendorsByTag: Record<string, number[]>

@@ -3,14 +3,14 @@ import every from 'lodash/every'
 import { costOrderMap } from '@/data/vendors'
 import leftPad from '@/utils/left-pad'
 import { toNiceNumber } from '@/utils/to-nice'
-import type { ManualData } from '@/types/data/manual'
+import type { ItemData } from '@/types/data/item'
 import type { StaticData } from '@/types/data/static'
 
 
 type CurrencyArray = [string, number, string, number, number]
 
 export function getCurrencyCosts(
-    manualData: ManualData,
+    itemData: ItemData,
     staticData: StaticData,
     costs: Record<number, number>,
     skipCostOrder?: boolean,
@@ -37,7 +37,7 @@ export function getCurrencyCosts(
             sortKey = leftPad(index, 6, '0')
         }
         else if (currencyData[0] === 'item') {
-            const item = manualData.shared.items[currencyData[1]]
+            const item = itemData.items[currencyData[1]]
             sortKey = [
                 '999999',
                 leftPad(999_999_999 - currencyData[4], 9, '0'),
@@ -61,13 +61,13 @@ export function getCurrencyCosts(
 }
 
 export function getCurrencyCostsString(
-    manualData: ManualData,
+    itemData: ItemData,
     staticData: StaticData,
     costs: Record<number, number>,
     reputation?: number[]
 ): string {
     const parts: string[] = []
-    const sortedCosts = getCurrencyCosts(manualData, staticData, costs)
+    const sortedCosts = getCurrencyCosts(itemData, staticData, costs)
     for (const [type, , , id, value] of sortedCosts) {
         let price: string
         if (type === 'currency' && id === 0) {
@@ -88,7 +88,7 @@ export function getCurrencyCostsString(
 }
 
 export function getSetCurrencyCostsString(
-    manualData: ManualData,
+    itemData: ItemData,
     staticData: StaticData,
     allAppearanceIds: number[][],
     costses: Record<number, number>[],
@@ -105,5 +105,5 @@ export function getSetCurrencyCostsString(
             totalCosts[keyNumber] = (totalCosts[keyNumber] || 0) + costses[i][keyNumber]
         }
     }
-    return getCurrencyCostsString(manualData, staticData, totalCosts)
+    return getCurrencyCostsString(itemData, staticData, totalCosts)
 }

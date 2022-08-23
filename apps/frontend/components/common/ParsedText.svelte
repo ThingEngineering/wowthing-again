@@ -2,7 +2,7 @@
     import { afterUpdate } from 'svelte'
 
     import { iconStrings, imageStrings } from '@/data/icons'
-    import { manualStore, staticStore } from '@/stores'
+    import { itemStore, staticStore } from '@/stores'
 
     import ClassIcon from '../images/ClassIcon.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
@@ -16,7 +16,7 @@
     let element: HTMLElement
     let html: string
     $: {
-        html = text
+        html = text || ''
 
         html = html.replaceAll(
             /\{repPrice:(\d+)\|(\d+)\|(\d+)(?:\|(\d+))?\}/g,
@@ -47,7 +47,7 @@
                 if (currencyId) {
                     if (currencyId > 1000000) {
                         const itemId = currencyId - 1000000
-                        const item = $manualStore.data.shared.items[itemId]
+                        const item = $itemStore.data.items[itemId]
                         if (item) {
                             return `${amount} <span data-icon="item/${itemId}"></span> ${item.name}`
                         }

@@ -54,4 +54,5 @@ public enum JobType
     CacheManual,
     CacheAchievements,
     CacheAppearances,
+    CacheItems,
 }

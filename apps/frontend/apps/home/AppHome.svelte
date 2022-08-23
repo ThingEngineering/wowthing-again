@@ -20,9 +20,11 @@
     import Refresh from './AppHomeRefresh.svelte'
     import Routes from './AppHomeRoutes.svelte'
     import Sidebar from './AppHomeSidebar.svelte'
+import { itemStore } from '@/stores/item';
 
     onMount(async () => await Promise.all([
         appearanceStore.fetch(),
+        itemStore.fetch({ language: $settings.general.language }),
         journalStore.fetch({ language: $settings.general.language }),
         manualStore.fetch({ language: $settings.general.language }),
         staticStore.fetch({ language: $settings.general.language }),
@@ -37,6 +39,7 @@
     let ready: boolean
     $: {
         error = $appearanceStore.error
+            || $itemStore.error
             || $journalStore.error
             || $manualStore.error
             || $staticStore.error
@@ -46,6 +49,7 @@
             || $userTransmogStore.error
 
         loaded = $appearanceStore.loaded
+            && $itemStore.loaded
             && $journalStore.loaded
             && $manualStore.loaded
             && $staticStore.loaded
@@ -58,6 +62,7 @@
             manualStore.setup(
                 $settings,
                 $manualStore.data,
+                $itemStore.data,
                 $staticStore.data,
                 $userStore.data,
                 $userAchievementStore.data,
@@ -80,6 +85,7 @@
 
             userVendorStore.setup(
                 $settings,
+                $itemStore.data,
                 $manualStore.data,
                 $staticStore.data,
                 $userStore.data,

@@ -6,13 +6,13 @@
     import { getCharacterNameRealm } from '@/utils/get-character-name-realm'
     import leftPad from '@/utils/left-pad'
     import type { Character } from '@/types'
-    import type { ManualDataSharedItem } from '@/types/data/manual'
+    import type { ItemDataItem } from '@/types/data/item'
     import type { StaticDataCurrency } from '@/types/data/static'
 
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let currency: StaticDataCurrency
-    export let item: ManualDataSharedItem
+    export let item: ItemDataItem
 
     let currencies: [Character, number][]
     $: {

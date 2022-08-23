@@ -32,6 +32,12 @@ export const progressQuestHead: Record<string, string> = {
     weeklySouls: 'Souls',
 }
 
+export const progressQuestId: Record<number, string> = {
+    66648: 'slFatedDinar1',
+    66649: 'slFatedDinar2',
+    66650: 'slFatedDinar3',
+}
+
 export const progressQuestTitle: Record<string, string> = {
     weeklyAnima: 'Replenish the Reservoir',
     weeklyHoliday: 'Weekly Holiday Quest',
