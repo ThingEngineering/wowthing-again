@@ -1,0 +1,35 @@
+name: "Fated"
+groups:
+
+- name: "Fated Raids 1"
+  icon: "item/192466" # Puzzling Cartel Dinar
+  iconText: "F1"
+  lookup: none
+  type: mixed
+  data:
+    0:
+      - name: "Crossing Fate"
+        type: "addonQuest"
+        value: 66648
+
+- name: "Fated Raids 2"
+  icon: "item/192466" # Puzzling Cartel Dinar
+  iconText: "F2"
+  lookup: none
+  type: mixed
+  data:
+    0:
+      - name: "Turning the Wheel"
+        type: "addonQuest"
+        value: 66649
+
+- name: "Fated Raids 3"
+  icon: "item/192466" # Puzzling Cartel Dinar
+  iconText: "F3"
+  lookup: none
+  type: mixed
+  data:
+    0:
+      - name: "???"
+        type: "addonQuest"
+        value: 66650

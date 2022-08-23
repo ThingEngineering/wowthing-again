@@ -5,7 +5,8 @@ import { toNiceNumber } from './to-nice'
 import { covenantMap } from '@/data/covenant'
 import { factionIdMap } from '@/data/faction'
 import { garrisonTrees } from '@/data/garrison'
-import { ProgressDataType } from '@/types/enums'
+import { progressQuestId } from '@/data/quests'
+import { ProgressDataType, QuestStatus } from '@/types/enums'
 import type { Character, UserAchievementData, UserData } from '@/types'
 import type { UserQuestData } from '@/types/data'
 import type {
@@ -142,6 +143,21 @@ export default function getProgress(
                             haveThis = spent >= (data.value || 0)
                             if (!haveThis) {
                                 descriptionText[dataIndex] = `${toNiceNumber(spent)} / ${toNiceNumber(data.value)}`
+                            }
+                            break
+                        }
+
+                        case ProgressDataType.AddonQuest: {
+                            const questKey = progressQuestId[data.value]
+                            const quest = userQuestData.characters[character.id]?.progressQuests?.[questKey]
+                            console.log(data.value, questKey, quest)
+                            if (questKey.startsWith('slFatedDinar')) {
+                                total = [0, 30, 15, 5][parseInt(questKey[questKey.length - 1])]
+                            }
+
+                            if (quest) {
+                                haveThis = quest.status === QuestStatus.Completed
+                                have = (haveThis ? total : quest.have) - 1
                             }
                             break
                         }
