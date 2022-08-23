@@ -39,9 +39,11 @@
             border-radius: $border-radius;
         }
     }
-
+    div {
+        position: relative;
+    }
     .pill {
-        bottom: 4px;
+        bottom: 0px;
     }
 </style>
 
@@ -49,8 +51,8 @@
     on:click={onClick}
     use:tippy={group.name}
 >
-    {#if icons.length === 2}
-        <div class="split-icon-yes">
+    <div class="split-icon-{icons.length === 2 ? 'yes' : 'no'}">
+        {#if icons.length === 2}
             <WowthingImage
                 name={icons[0]}
                 size={40}
@@ -61,22 +63,20 @@
                 size={40}
                 border={2}
             />
-        </div>
-    {:else}
-        <div class="split-icon-no">
+        {:else}
             <WowthingImage
                 name={icons[0]}
                 size={40}
                 border={2}
             />
-        </div>
-    {/if}
+        {/if}
 
-    {#if sortingBy}
-        <TableSortedBy />
-    {/if}
+        {#if sortingBy}
+            <TableSortedBy />
+        {/if}
 
-    {#if group.iconText}
-        <span class="pill">{group.iconText}</span>
-    {/if}
+        {#if group.iconText}
+            <span class="pill abs-center">{group.iconText}</span>
+        {/if}
+    </div>
 </th>
