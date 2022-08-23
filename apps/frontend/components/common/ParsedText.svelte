@@ -16,7 +16,7 @@
     let element: HTMLElement
     let html: string
     $: {
-        html = text
+        html = text || ''
 
         html = html.replaceAll(
             /\{repPrice:(\d+)\|(\d+)\|(\d+)(?:\|(\d+))?\}/g,
