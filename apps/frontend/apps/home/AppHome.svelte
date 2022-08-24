@@ -9,7 +9,7 @@
         timeStore,
         userAchievementStore,
         userQuestStore,
-        userStatsStore,
+        //userStatsStore,
         userStore,
         userTransmogStore,
     } from '@/stores'

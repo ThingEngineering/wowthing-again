@@ -13,8 +13,6 @@
     <tr class="faction{teamCharacter.character.faction}">
         <GearItems
             character={teamCharacter.character}
-            highlightMissingEnchants={false}
-            highlightMissingGems={false}
         />
     </tr>
 {/each}

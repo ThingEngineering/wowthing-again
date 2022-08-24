@@ -41,8 +41,6 @@
                         <GearItems
                             character={teamCharacter.character}
                             rowspan={2}
-                            highlightMissingEnchants={false}
-                            highlightMissingGems={false}
                         />
                     {/if}
                 </tr>

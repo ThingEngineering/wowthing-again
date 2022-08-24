@@ -9,9 +9,7 @@ import userHasDrop from '@/utils/user-has-drop'
 import type { VendorState } from '@/stores/local-storage'
 import type { Settings, UserData } from '@/types'
 import type { UserTransmogData, UserVendorData } from '@/types/data'
-import type { ManualData, ManualDataVendorItem } from '@/types/data/manual'
-import type { ItemData } from '@/types/data/item'
-import type { StaticData } from '@/types/data/static'
+import type { ManualDataVendorItem } from '@/types/data/manual'
 
 
 const pvpRegex = new RegExp(/ - S\d\d/)
