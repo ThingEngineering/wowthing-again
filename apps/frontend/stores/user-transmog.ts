@@ -1,11 +1,12 @@
 import some from 'lodash/some'
 import toPairs from 'lodash/toPairs'
+import { get } from 'svelte/store'
 
+import { manualStore } from './manual'
 import { UserCount, WritableFancyStore } from '@/types'
 import getSkipClasses from '@/utils/get-skip-classes'
 import type { Settings } from '@/types'
 import type { UserTransmogData } from '@/types/data'
-import type { ManualData } from '@/types/data/manual'
 
 
 export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> {
@@ -39,11 +40,12 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
     }
 
     setup(
-        settings: Settings,
-        manualData: ManualData,
-        userTransmogData: UserTransmogData
+        settings: Settings
     ): void {
         // console.time('UserTransmogDataStore.setup')
+
+        const manualData = get(manualStore).data
+        const userTransmogData = this.value.data
 
         const skipAlliance = !settings.transmog.showAllianceOnly
         const skipHorde = !settings.transmog.showHordeOnly

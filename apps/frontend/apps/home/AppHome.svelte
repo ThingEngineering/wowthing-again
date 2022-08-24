@@ -9,6 +9,7 @@
         timeStore,
         userAchievementStore,
         userQuestStore,
+        //userStatsStore,
         userStore,
         userTransmogStore,
     } from '@/stores'
@@ -61,9 +62,6 @@ import { itemStore } from '@/stores/item';
         if (!error && loaded) {
             manualStore.setup(
                 $settings,
-                $manualStore.data,
-                $itemStore.data,
-                $staticStore.data,
                 $userStore.data,
                 $userAchievementStore.data,
                 $userQuestStore.data,
@@ -72,22 +70,15 @@ import { itemStore } from '@/stores/item';
             )
 
             userStore.setup(
-                $manualStore.data,
-                $staticStore.data,
                 $userStore.data,
             )
 
             userTransmogStore.setup(
-                $settings,
-                $manualStore.data,
-                $userTransmogStore.data,
+                $settings
             )
 
             userVendorStore.setup(
                 $settings,
-                $itemStore.data,
-                $manualStore.data,
-                $staticStore.data,
                 $userStore.data,
                 $userTransmogStore.data,
                 $vendorState

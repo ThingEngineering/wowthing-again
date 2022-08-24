@@ -94,6 +94,9 @@ export interface CharacterGear {
     highlight: boolean
     missingEnchant: boolean
     missingGem: boolean
+    missingUpgrade: boolean
+    upgradeHas: number
+    upgradeMax: number
 }
 
 export interface CharacterLockout {

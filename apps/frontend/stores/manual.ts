@@ -6,10 +6,12 @@ import some from 'lodash/some'
 import sortBy from 'lodash/sortBy'
 import uniq from 'lodash/uniq'
 import { DateTime } from 'luxon'
+import { get } from 'svelte/store'
 
 import { Constants } from '@/data/constants'
 import { covenantSlugMap } from '@/data/covenant'
 import { factionMap } from '@/data/faction'
+import { itemStore, staticStore } from '@/stores'
 import { UserCount, WritableFancyStore } from '@/types'
 import {
     ManualDataHeirloomGroup,
@@ -31,8 +33,6 @@ import type { ZoneMapState } from '@/stores/local-storage'
 import type { DropStatus, FancyStore, FarmStatus, Settings, UserAchievementData, UserData } from '@/types'
 import type { UserQuestData, UserTransmogData } from '@/types/data'
 import type { ManualData, ManualDataSetCategoryArray } from '@/types/data/manual'
-import type { StaticData } from '@/types/data/static'
-import type { ItemData } from '@/types/data/item'
 
 
 type classMaskStrings = keyof typeof PlayableClassMask
@@ -74,57 +74,41 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
         }
         data.rawSharedVendors = null
 
-        data.heirlooms = data.rawHeirloomGroups.map((groupArray) => new ManualDataHeirloomGroup(...groupArray))
+        data.heirlooms = data.rawHeirloomGroups.map(
+            (groupArray) => new ManualDataHeirloomGroup(...groupArray)
+        )
         data.rawHeirloomGroups = null
 
-        data.illusions = data.rawIllusionGroups.map((groupArray) => new ManualDataIllusionGroup(...groupArray))
+        data.illusions = data.rawIllusionGroups.map(
+            (groupArray) => new ManualDataIllusionGroup(...groupArray)
+        )
         data.rawIllusionGroups = null
 
-        for (const categories of data.rawTransmogSets) {
-            if (categories === null) {
-                data.transmog.sets.push(null)
-            }
-            else {
-                data.transmog.sets.push(
-                    categories.map(
-                        (catArray) => catArray === null ? null : new ManualDataTransmogCategory(...catArray)
-                    )
-                )
-            }
-        }
+        data.transmog.sets = data.rawTransmogSets.map(
+            (categories) => categories === null ? null : categories.map(
+                (catArray) => catArray === null ? null : new ManualDataTransmogCategory(...catArray)
+            )
+        )
         data.rawTransmogSets = null
 
-        for (const categories of data.rawVendorSets) {
-            if (categories === null) {
-                data.vendors.sets.push(null)
-            }
-            else {
-                data.vendors.sets.push(
-                    categories.map(
-                        (catArray) => catArray === null ? null : new ManualDataVendorCategory(...catArray)
-                    )
-                )
-            }
-        }
+        data.vendors.sets = data.rawVendorSets.map(
+            (categories) => categories === null ? null : categories.map(
+                (catArray) => catArray === null ? null : new ManualDataVendorCategory(...catArray)
+            )
+        )
         data.rawVendorSets = null
 
-        for (const categories of data.rawZoneMapSets) {
-            if (categories === null) {
-                data.zoneMaps.sets.push(null)
-            }
-            else {
-                data.zoneMaps.sets.push(
-                    categories.map(
-                        (catArray) => catArray === null ? null : new ManualDataZoneMapCategory(...catArray)
-                    )
-                )
-            }
-        }
+        data.zoneMaps.sets = data.rawZoneMapSets.map(
+            (categories) => categories === null ? null : categories.map(
+                (catArray) => catArray === null ? null : new ManualDataZoneMapCategory(...catArray)
+            )
+        )
         data.rawZoneMapSets = null
 
-        data.mountSets = ManualDataStore.fixSets(data.rawMountSets)
-        data.petSets = ManualDataStore.fixSets(data.rawPetSets)
-        data.toySets = ManualDataStore.fixSets(data.rawToySets)
+        data.mountSets = this.fixCollectionSets(data.rawMountSets)
+        data.petSets = this.fixCollectionSets(data.rawPetSets)
+        data.toySets = this.fixCollectionSets(data.rawToySets)
+        data.transmog.sets = this.fixTransmogSets(data.transmog.sets)
 
         data.rawMountSets = null
         data.rawPetSets = null
@@ -133,7 +117,9 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
         //console.log(data)
     }
     
-    private static fixSets(allSets: ManualDataSetCategoryArray[][]): ManualDataSetCategory[][] {
+    private fixCollectionSets(
+        allSets: ManualDataSetCategoryArray[][]
+    ): ManualDataSetCategory[][] {
         const newSets: ManualDataSetCategory[][] = []
 
         for (const sets of allSets) {
@@ -165,58 +151,13 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
 
         return newSets
     }
-
-    setup(
-        settings: Settings,
-        manualData: ManualData,
-        itemData: ItemData,
-        staticData: StaticData,
-        userData: UserData,
-        userAchievementData: UserAchievementData,
-        userQuestData: UserQuestData,
-        userTransmogData: UserTransmogData,
-        zoneMapState: ZoneMapState,
-    ): void {
-        // console.time('ManualDataStore.setup')
-
-        this.update(state => {
-            this.setupTransmog(
-                state,
-                manualData
-            )
-
-            this.setupVendors(
-                state,
-                itemData,
-                staticData
-            )
-            
-            this.setupZoneMaps(
-                state,
-                settings,
-                itemData,
-                manualData,
-                staticData,
-                userData,
-                userAchievementData,
-                userQuestData,
-                userTransmogData,
-                zoneMapState
-            )
-
-            return state
-        })
-
-        // console.timeEnd('ManualDataStore.setup')
-    }
-
-    private setupTransmog(
-        state: FancyStore<ManualData>,
-        manualData: ManualData
-    ) {
+    
+    private fixTransmogSets(
+        allSets: ManualDataTransmogCategory[][]
+    ): ManualDataTransmogCategory[][] {
         const newSets: ManualDataTransmogCategory[][] = []
 
-        for (const sets of manualData.transmog.sets) {
+        for (const sets of allSets) {
             if (sets === null) {
                 newSets.push(null)
             }
@@ -239,15 +180,44 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
             }
         }
 
-        state.data.transmog.sets = newSets
+        return newSets
+    }
+
+    setup(
+        settings: Settings,
+        userData: UserData,
+        userAchievementData: UserAchievementData,
+        userQuestData: UserQuestData,
+        userTransmogData: UserTransmogData,
+        zoneMapState: ZoneMapState,
+    ): void {
+        // console.time('ManualDataStore.setup')
+
+        this.update(state => {
+            this.setupVendors(state)
+            
+            this.setupZoneMaps(
+                state,
+                settings,
+                userData,
+                userAchievementData,
+                userQuestData,
+                userTransmogData,
+                zoneMapState
+            )
+
+            return state
+        })
+
+        // console.timeEnd('ManualDataStore.setup')
     }
 
     private setupVendors(
-        state: FancyStore<ManualData>,
-        itemData: ItemData,
-        staticData: StaticData
+        state: FancyStore<ManualData>
     )
     {
+        const itemData = get(itemStore).data
+        const staticData = get(staticStore).data
         // console.time('setupVendors')
 
         for (const vendor of Object.values(state.data.shared.vendors)) {
@@ -371,15 +341,16 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
     private setupZoneMaps(
         state: FancyStore<ManualData>,
         settings: Settings,
-        itemData: ItemData,
-        manualData: ManualData,
-        staticData: StaticData,
         userData: UserData,
         userAchievementData: UserAchievementData,
         userQuestData: UserQuestData,
         userTransmogData: UserTransmogData,
         options: ZoneMapState,
     ) {
+        const itemData = get(itemStore).data
+        const manualData = this.value.data
+        const staticData = get(staticStore).data
+
         const classMask = getTransmogClassMask(settings)
         const masochist = settings.transmog.completionistMode
         const now = DateTime.utc()

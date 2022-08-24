@@ -6,6 +6,7 @@ import { get } from 'svelte/store'
 import { difficultyMap } from '@/data/difficulty'
 import { seasonMap } from '@/data/dungeon'
 import { slotOrder } from '@/data/inventory-slot'
+import { manualStore, staticStore } from '@/stores'
 import {
     CharacterCurrency,
     CharacterMythicPlusRunMember,
@@ -27,7 +28,7 @@ import type {
     UserData,
 } from '@/types'
 import type { StaticData } from '@/types/data/static'
-import type { ManualData, ManualDataSetCategory } from '@/types/data/manual'
+import type { ManualDataSetCategory } from '@/types/data/manual'
 
 
 export class UserDataStore extends WritableFancyStore<UserData> {
@@ -100,11 +101,12 @@ export class UserDataStore extends WritableFancyStore<UserData> {
     }
 
     setup(
-        manualData: ManualData,
-        staticData: StaticData,
         userData: UserData
     ): void {
         // console.time('UserDataStore.setup')
+
+        const manualData = get(manualStore).data
+        const staticData = get(staticStore).data
         
         // Initialize characters
         const allLockouts: Record<string, boolean> = {}

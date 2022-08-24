@@ -1,3 +1,6 @@
+import { get } from 'svelte/store'
+
+import { itemStore, manualStore, staticStore } from '@/stores'
 import { UserCount, WritableFancyStore } from '@/types'
 import { Faction, InventoryType, RewardType } from '@/types/enums'
 import { getCurrencyCosts } from '@/utils/get-currency-costs'
@@ -6,9 +9,7 @@ import userHasDrop from '@/utils/user-has-drop'
 import type { VendorState } from '@/stores/local-storage'
 import type { Settings, UserData } from '@/types'
 import type { UserTransmogData, UserVendorData } from '@/types/data'
-import type { ManualData, ManualDataVendorItem } from '@/types/data/manual'
-import type { ItemData } from '@/types/data/item'
-import type { StaticData } from '@/types/data/static'
+import type { ManualDataVendorItem } from '@/types/data/manual'
 
 
 const pvpRegex = new RegExp(/ - S\d\d/)
@@ -17,14 +18,15 @@ const tierRegex = new RegExp(/ - T\d\d/)
 export class UserVendorStore extends WritableFancyStore<UserVendorData> {
     setup(
         settingsData: Settings,
-        itemData: ItemData,
-        manualData: ManualData,
-        staticData: StaticData,
         userData: UserData,
         userTransmogData: UserTransmogData,
         vendorState: VendorState
     ): void {
         // console.time('UserVendorStore.setup')
+
+        const itemData = get(itemStore).data
+        const manualData = get(manualStore).data
+        const staticData = get(staticStore).data
 
         const classMask = getTransmogClassMask(settingsData)
         const masochist = settingsData.transmog.completionistMode

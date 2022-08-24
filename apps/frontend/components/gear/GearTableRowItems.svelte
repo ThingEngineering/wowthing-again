@@ -1,26 +1,25 @@
 <script lang="ts">
-    import { getContext } from 'svelte'
-
     import { characterBagSlots } from '@/data/inventory-slot'
     import { Constants } from '@/data/constants'
     import { staticStore, userStore } from '@/stores'
+    import { gearState } from '@/stores/local-storage'
     import getCharacterGear from '@/utils/get-character-gear'
     import { getItemUrl } from '@/utils/get-item-url'
     import type { Character, CharacterGear } from '@/types'
 
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    import IconifyIcon from '../images/IconifyIcon.svelte'
+    import { iconStrings } from '@/data/icons'
 
-    export let character: Character = undefined
-    export let highlightMissingEnchants: boolean
-    export let highlightMissingGems: boolean
+    export let character: Character
     export let rowspan = 0
 
     let characterGear: CharacterGear[]
     let useHighlighting = false
     $: {
-        character = character || getContext('character')
-        characterGear = getCharacterGear(character, {highlightMissingEnchants, highlightMissingGems})
-        useHighlighting = highlightMissingEnchants || highlightMissingGems
+        character = character
+        characterGear = getCharacterGear($gearState, character)
+        useHighlighting = $gearState.highlightAny
     }
 </script>
 
@@ -66,6 +65,18 @@
         top: -2px;
         z-index: 1;
     }
+    .icon {
+        --image-margin-top: -2px;
+        //--scale: 0.9;
+
+        background: $thing-background;
+        border: 2px solid var(--image-border-color);
+        border-radius: $border-radius;
+        color: $colour-success;
+        display: flex;
+        height: 24px;
+        width: 24px;
+    }
 </style>
 
 {#each characterGear as gear}
@@ -83,11 +94,27 @@
             {#if gear.highlight}
                 <div class="problems">
                     {#if gear.missingEnchant}
-                        <WowthingImage name="{Constants.icons.enchant}" size={20} border={2} />
+                        <WowthingImage
+                            name="{Constants.icons.enchant}"
+                            size={20}
+                            border={2}
+                        />
                     {/if}
 
                     {#if gear.missingGem}
-                        <WowthingImage name="{Constants.icons.gem}" size={20} border={2} />
+                        <WowthingImage
+                            name="{Constants.icons.gem}"
+                            size={20}
+                            border={2}
+                        />
+                    {/if}
+
+                    {#if gear.missingUpgrade}
+                        <div class="icon">
+                            <IconifyIcon
+                                icon={iconStrings['plus']}
+                            />
+                        </div>
                     {/if}
                 </div>
             {/if}

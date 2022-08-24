@@ -30,6 +30,7 @@ import mdiLockOutline from '@iconify/icons-mdi/lock-outline'
 import mdiMulticast from '@iconify/icons-mdi/multicast'
 import mdiPageFirst from '@iconify/icons-mdi/page-first'
 import mdiPageLast from '@iconify/icons-mdi/page-last'
+import mdiPlus from '@iconify/icons-mdi/plus'
 import mdiPuzzle from '@iconify/icons-mdi/puzzle'
 import mdiQuestion from '@iconify/icons-mdi/help-circle-outline'
 import mdiRocketLaunchOutline from '@iconify/icons-mdi/rocket-launch-outline'
@@ -89,6 +90,7 @@ export const iconStrings: Record<string, IconifyIcon> = {
     item: mdiGiftOutline,
     lock: mdiLockOutline,
     no: mdiClose,
+    plus: mdiPlus,
     question: mdiQuestion,
     rocket: mdiRocketLaunchOutline,
     yes: mdiCheck,
