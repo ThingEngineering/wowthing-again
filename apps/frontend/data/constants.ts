@@ -2,9 +2,10 @@ export abstract class Constants {
     static readonly characterMaxLevel: number = 60
     static readonly expansion: number = 8
     static readonly maxRenown: number = 80
-    static readonly mythicPlusSeason: number = 8
     static readonly restedDuration: number = 10 * 24 * 60 * 60 // 10 days
     static readonly valorCurrencyId: number = 1191
+
+    static readonly mythicPlusSeason: number = 8
 
     static readonly holidayCycleStart: number = 845
 
@@ -16,6 +17,7 @@ export abstract class Constants {
         gem: 'spell/25229', // Jewelcrafting
         resting: 'spell/140430', // Passed Out
         torghast: 'spell/334746', // Access to Torghast
+        upgrade: 'spell/331516', // Enhance Soulkeeper
         warMode: 'spell/304019', // Conflict and Strife
         weeklyAnima: 'spell/341209', // Overwhelming Anima
         weeklyShapingFate: 'item/186196', // Death's Advance War Chest
