@@ -150,9 +150,8 @@ export default function getProgress(
                         case ProgressDataType.AddonQuest: {
                             const questKey = progressQuestId[data.value]
                             const quest = userQuestData.characters[character.id]?.progressQuests?.[questKey]
-                            console.log(data.value, questKey, quest)
                             if (questKey.startsWith('slFatedDinar')) {
-                                total = [0, 30, 15, 5][parseInt(questKey[questKey.length - 1])]
+                                total = [30, 15, 5][parseInt(questKey[questKey.length - 1]) - 1]
                             }
 
                             if (quest) {
