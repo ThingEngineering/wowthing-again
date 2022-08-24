@@ -25,7 +25,7 @@ export interface WritableFancyStore<TData> extends Writable<FancyStore<TData>> {
 }
 
 export class WritableFancyStore<TData> {
-    private value: FancyStore<TData>
+    protected value: FancyStore<TData>
 
     constructor(data: TData = null) {
         this.value = {
@@ -51,11 +51,11 @@ export class WritableFancyStore<TData> {
     async fetch(options?: Partial<FancyStoreFetchOptions>): Promise<boolean> {
         const wasLoaded = get(this).loaded
         if (options?.evenIfLoaded !== true && wasLoaded) {
-            console.log('evenIfLoaded', options)
+            //console.log('evenIfLoaded', options)
             return false
         }
         if (options?.onlyIfLoaded === true && !wasLoaded) {
-            console.log('onlyIfLoaded', options)
+            //console.log('onlyIfLoaded', options)
             return false
         }
 
@@ -91,7 +91,7 @@ export class WritableFancyStore<TData> {
 
         // Redirected SHOULD mean it was a 304
         if (wasLoaded && redirected) {
-            console.log('wasLoaded', options)
+            //console.log('wasLoaded', options)
             return true
         }
 

@@ -1,3 +1,6 @@
+import { get } from 'svelte/store'
+
+import { itemStore, manualStore, staticStore } from '@/stores'
 import { UserCount, WritableFancyStore } from '@/types'
 import { Faction, InventoryType, RewardType } from '@/types/enums'
 import { getCurrencyCosts } from '@/utils/get-currency-costs'
@@ -17,14 +20,15 @@ const tierRegex = new RegExp(/ - T\d\d/)
 export class UserVendorStore extends WritableFancyStore<UserVendorData> {
     setup(
         settingsData: Settings,
-        itemData: ItemData,
-        manualData: ManualData,
-        staticData: StaticData,
         userData: UserData,
         userTransmogData: UserTransmogData,
         vendorState: VendorState
     ): void {
         // console.time('UserVendorStore.setup')
+
+        const itemData = get(itemStore).data
+        const manualData = get(manualStore).data
+        const staticData = get(staticStore).data
 
         const classMask = getTransmogClassMask(settingsData)
         const masochist = settingsData.transmog.completionistMode
