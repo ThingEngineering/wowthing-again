@@ -3,6 +3,7 @@
 
     import {
         appearanceStore,
+        itemStore,
         journalStore,
         manualStore,
         staticStore,
@@ -21,7 +22,6 @@
     import Refresh from './AppHomeRefresh.svelte'
     import Routes from './AppHomeRoutes.svelte'
     import Sidebar from './AppHomeSidebar.svelte'
-import { itemStore } from '@/stores/item';
 
     onMount(async () => await Promise.all([
         appearanceStore.fetch(),
