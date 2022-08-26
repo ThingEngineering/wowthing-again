@@ -11,8 +11,6 @@ import getPercentClass from '@/utils/get-percent-class';
     $: {
         profession = character.professions?.[primaryId]?.[subId]
         cls = profession ? getPercentClass(profession.currentSkill / profession.maxSkill * 100) : 'status-fail'
-        if (character.name === 'Yaken')
-        console.log(character.professions?.[primaryId])
     }
 </script>
 

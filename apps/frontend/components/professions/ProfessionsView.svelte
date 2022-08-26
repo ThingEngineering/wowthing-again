@@ -45,9 +45,13 @@
         {filterFunc}
     >
         <CharacterTableHead slot="head">
-            {#each expansionReverseOrder as expansion}
-                <td>{expansion.shortName}</td>
-            {/each}
+            {#if profession.slug === 'archaeology'}
+                <td>Ugh</td>
+            {:else}
+                {#each expansionReverseOrder as expansion}
+                    <td>{expansion.shortName}</td>
+                {/each}
+            {/if}
         </CharacterTableHead>
 
         <svelte:fragment slot="rowExtra" let:character>
@@ -55,6 +59,12 @@
                 <Profession
                     primaryId={profession.id}
                     subId={subProfession.id}
+                    {character}
+                />
+            {:else}
+                <Profession
+                    primaryId={profession.id}
+                    subId={profession.id}
                     {character}
                 />
             {/each}
