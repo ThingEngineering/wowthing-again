@@ -14,7 +14,6 @@
             Object.values($staticStore.data.professions),
             (prof) => [prof.type, prof.name]
         )
-        console.log(sorted)
 
         for (const profession of sorted.filter((prof) => prof.type === 0)) {
             categories.push({
@@ -23,7 +22,7 @@
             })
         }
         categories.push(null)
-        for (const profession of sorted.filter((prof) => prof.type === 1 && prof.slug !== 'archaeology')) {
+        for (const profession of sorted.filter((prof) => prof.type === 1)) {
             categories.push({
                 name: profession.name.split('|')[0],
                 slug: profession.slug,

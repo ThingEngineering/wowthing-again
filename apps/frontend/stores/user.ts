@@ -259,6 +259,12 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             character.mythicPlusSeasonScores[seasonId] = Math.abs(total - rioScore) > 10 ? total : rioScore
         }
         
+        // professions
+        // - force Archaeology to 950 max skill
+        if (character.professions?.[794] !== undefined) {
+            character.professions[794][794].maxSkill = 950
+        }
+
         // reputation sets
         character.reputationData = {}
         for (const category of staticData.reputationSets) {
