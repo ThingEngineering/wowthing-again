@@ -36,7 +36,7 @@ public class CacheStaticJob : JobBase, IScheduledJob
         Type = JobType.CacheStatic,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(1),
-        Version = 52,
+        Version = 53,
     };
 
     public override async Task Run(params string[] data)
@@ -342,6 +342,9 @@ public class CacheStaticJob : JobBase, IScheduledJob
                     {
                         Id = profession.ID,
                         Name = GetString(StringType.WowSkillLineName, language, profession.ID),
+                        Slug = GetString(StringType.WowSkillLineName, Language.enUS, profession.ID)
+                            .Split('|')[0]
+                            .Slugify(),
                         Type = Hardcoded.PrimaryProfessions.Contains(profession.ID) ? 0 : 1,
                         SubProfessions = subProfessions
                             .GetValueOrDefault(profession.ID)
