@@ -33,10 +33,11 @@
                     </td>
                     <CharacterName {teamCharacter} />
                     <td
-                        class="item-level quality{teamCharacter.character
-                            .calculatedItemLevelQuality}"
-                        >{teamCharacter.character.calculatedItemLevel}</td
+                        class="item-level quality{teamCharacter.character.calculatedItemLevelQuality}"
                     >
+                        {teamCharacter.character.calculatedItemLevel}
+                    </td>
+                    
                     {#if $location === '/' || $location === '/gear'}
                         <GearItems
                             character={teamCharacter.character}

@@ -19,6 +19,7 @@
     import Mounts from '@/components/collections/Mounts.svelte'
     import MythicPlus from '@/components/mythic-plus/MythicPlus.svelte'
     import Pets from '@/components/collections/Pets.svelte'
+    import Professions from '@/components/professions/Professions.svelte'
     import Progress from '@/components/progress/Progress.svelte'
     import Reputations from '@/components/reputations/Reputations.svelte'
     import Sets from '@/components/sets/Sets.svelte'
@@ -48,6 +49,7 @@
         '/lockouts': Lockouts,
         '/matrix': Matrix,
         '/mythic-plus/:slug?': MythicPlus,
+        '/professions/:slug1?': Professions,
         '/progress/:slug1?/:slug2?': Progress,
         '/reputations/:slug?': Reputations,
         '/sets/:slug1?/:slug2?': Sets,
