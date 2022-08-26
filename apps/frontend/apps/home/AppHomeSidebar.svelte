@@ -265,6 +265,13 @@
         </a>
     </li>
 
+    <li use:active={'/professions/*'}>
+        <a href="#/professions/">
+            <IconifyIcon icon={iconConstruction} dropShadow={true} />
+            Professions
+        </a>
+    </li>
+
     {#if $userStore.loaded && !$userStore.data.public}
         <li class="separator"></li>
 
