@@ -17,7 +17,7 @@ export class AppearanceDataStore extends WritableFancyStore<AppearanceData> {
     }
 
     initialize(data: AppearanceData): void {
-        console.time('AppearanceDataStore.initialize')
+        // console.time('AppearanceDataStore.initialize')
 
         data.appearances = {}
 
@@ -99,9 +99,7 @@ export class AppearanceDataStore extends WritableFancyStore<AppearanceData> {
             //console.log(expansion, sets)
         }
 
-        console.log(data)
-
-        console.timeEnd('AppearanceDataStore.initialize')
+        // console.timeEnd('AppearanceDataStore.initialize')
     }
 
     setup(
