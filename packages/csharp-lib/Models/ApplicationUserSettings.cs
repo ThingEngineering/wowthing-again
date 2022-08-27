@@ -8,6 +8,7 @@ namespace Wowthing.Lib.Models;
 
 public class ApplicationUserSettings
 {
+    public ApplicationUserSettingsAchievements? Achievements { get; set; } = new();
     public ApplicationUserSettingsAuctions? Auctions { get; set; } = new();
     public ApplicationUserSettingsCharacters? Characters { get; set; } = new();
     public ApplicationUserSettingsGeneral? General { get; set; } = new();
@@ -18,6 +19,7 @@ public class ApplicationUserSettings
 
     public void Migrate()
     {
+        Achievements ??= new ApplicationUserSettingsAchievements();
         Auctions ??= new ApplicationUserSettingsAuctions();
         Characters ??= new ApplicationUserSettingsCharacters();
         General ??= new ApplicationUserSettingsGeneral();
@@ -203,6 +205,11 @@ public class ApplicationUserSettings
             .Distinct()
             .ToList();
     }
+}
+
+public class ApplicationUserSettingsAchievements
+{
+    public bool ShowCharactersIfCompleted { get; set; } = false;
 }
 
 public class ApplicationUserSettingsAuctions

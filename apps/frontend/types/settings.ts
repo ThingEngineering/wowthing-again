@@ -2,6 +2,10 @@ import type { Language } from '@/types/enums'
 
 
 export interface Settings {
+    achievements: {
+        showCharactersIfCompleted: boolean
+    }
+
     auctions: {
         ignoredRealms: number[]
         minimumExtraPetsValue: number
