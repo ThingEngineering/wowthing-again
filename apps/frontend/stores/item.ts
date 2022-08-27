@@ -8,7 +8,7 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
     }
 
     initialize(data: ItemData) {
-        console.time('ItemDataStore.initialize')
+        // console.time('ItemDataStore.initialize')
 
         data.items = {}
         for (const itemArray of data.rawItems) {
@@ -17,7 +17,7 @@ export class ItemDataStore extends WritableFancyStore<ItemData> {
         }
         data.rawItems = null
 
-        console.timeEnd('ItemDataStore.initialize')
+        // console.timeEnd('ItemDataStore.initialize')
     }
 }
 

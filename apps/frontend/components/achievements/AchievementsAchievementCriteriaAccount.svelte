@@ -21,7 +21,7 @@
 
         progressBar = achievement?.isProgressBar || data.criteria[0]?.isProgressBar || false
 
-        if (achievement.id === 15648) {
+        if (achievement.id === 15336) {
             console.log('-- ACCOUNT --')
             console.log(achievement)
             console.log(criteriaTree)
@@ -57,9 +57,10 @@
             {#each criteriaTree.children as child}
                 <AchievementCriteriaTree
                     {achievement}
-                    criteriaTreeId={child}
                     accountWide={true}
+                    criteriaTreeId={child}
                     haveMap={data.have}
+                    rootCriteriaTree={criteriaTree}
                 />
             {/each}
         {/if}

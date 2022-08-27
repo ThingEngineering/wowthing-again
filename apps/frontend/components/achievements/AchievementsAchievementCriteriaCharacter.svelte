@@ -11,10 +11,11 @@
 
     export let achievement: AchievementDataAchievement
 
-    let criteriaTree: AchievementDataCriteriaTree
     let data: AchievementDataCharacter
+    let rootCriteriaTree: AchievementDataCriteriaTree
+    let selectedCharacterId: number
     $: {
-        criteriaTree = $achievementStore.data.criteriaTree[achievement.criteriaTreeId]
+        rootCriteriaTree = $achievementStore.data.criteriaTree[achievement.criteriaTreeId]
         data = getCharacterData(
             $achievementStore.data,
             $userAchievementStore.data,
@@ -23,8 +24,12 @@
             achievement
         )
 
+        if (!selectedCharacterId) {
+            selectedCharacterId = data.characters?.[0]?.[0] || 0
+        }
+
         if (achievement.id === 13691) {
-            console.log({achievement, criteriaTree, data})
+            console.log({achievement, criteriaTree: rootCriteriaTree, data})
         }
     }
 </script>
@@ -52,15 +57,17 @@
     }
 </style>
 
-{#if criteriaTree}
+{#if rootCriteriaTree}
     <div class="criteria">
-        {#if criteriaTree.children.length === 1 && achievement?.isProgressBar === true}
+        {#if rootCriteriaTree.children.length === 1 && achievement?.isProgressBar === true}
             <AchievementCriteriaBar {achievement} />
         {:else}
-            {#each criteriaTree.children as child}
+            {#each rootCriteriaTree.children as child}
                 <AchievementCriteriaTree
-                    {achievement}
+                    characterId={selectedCharacterId}
                     criteriaTreeId={child}
+                    {achievement}
+                    {rootCriteriaTree}
                 />
             {/each}
         {/if}
@@ -69,11 +76,16 @@
     {#if data.characters.length > 0}
         <div class="progress">
             {#each data.characters as [characterId, count]}
-                <ProgressBar
-                    title="{getCharacterNameRealm(characterId)}"
-                    have={count}
-                    total={data.total}
-                />
+                {@const selected = selectedCharacterId === characterId}
+                <div on:click={() => selectedCharacterId = characterId}>
+                    <ProgressBar
+                        title="{getCharacterNameRealm(characterId)}"
+                        have={count}
+                        textCls={selected ? 'status-success' : null}
+                        total={data.total}
+                        {selected}
+                    />
+                </div>
             {/each}
         </div>
     {/if}

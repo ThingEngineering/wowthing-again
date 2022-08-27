@@ -198,9 +198,13 @@
 
         {#if !earned}
             {#if achievement.isAccountWide}
-                <AchievementCriteriaAccount {achievement} />
+                <AchievementCriteriaAccount
+                    {achievement}
+                />
             {:else}
-                <AchievementCriteriaCharacter {achievement} />
+                <AchievementCriteriaCharacter
+                    {achievement}
+                />
             {/if}
         {/if}
     </div>

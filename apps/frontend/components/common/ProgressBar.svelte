@@ -1,7 +1,13 @@
 <script lang="ts">
+    import { iconStrings } from '@/data/icons'
+
+    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+
     export let cls: string = null
     export let title: string
     export let have = Math.floor(Math.random() * 100)
+    export let selected = false
+    export let textCls: string = null
     export let total = 100
 </script>
 
@@ -58,6 +64,13 @@
 <div class="progress-container {cls}">
     <div class="progress-bar"></div>
     <div class="progress-bar-hider" style="--width: {have / total * 100}%"></div>
-    <span class="left drop-shadow">{title}</span>
-    <span class="right drop-shadow">{have.toLocaleString()} / {total.toLocaleString()}</span>
+    <span class="left drop-shadow {textCls}">
+        {#if selected}
+            <IconifyIcon icon={iconStrings['arrow-right']} />
+        {/if}
+        {title}
+    </span>
+    <span class="right drop-shadow">
+        {have.toLocaleString()} / {total.toLocaleString()}
+    </span>
 </div>
