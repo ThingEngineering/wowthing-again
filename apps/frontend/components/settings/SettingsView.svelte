@@ -1,6 +1,7 @@
 <script lang="ts">
     import type { SvelteComponent } from 'svelte'
 
+    import Achievements from './sections/SettingsAchievements.svelte'
     import Auctions from './sections/SettingsAuctions.svelte'
     import Account from './sections/SettingsAccount.svelte'
     import HideCharacters from './sections/SettingsHideCharacters.svelte'
@@ -23,6 +24,7 @@
 
     const components: Record<string, typeof SvelteComponent> = {
         'account': Account,
+        'achievements': Achievements,
         'auctions': Auctions,
         'history': History,
         'layout': Layout,

@@ -1,6 +1,7 @@
 <script lang="ts">
     import { achievementStore, userAchievementStore } from '@/stores'
     import { achievementState } from '@/stores/local-storage'
+    import { data as settings } from '@/stores/settings'
     import type { AchievementDataAchievement } from '@/types'
 
     import AchievementCriteriaAccount from './AchievementsAchievementCriteriaAccount.svelte'
@@ -196,7 +197,7 @@
             </div>
         {/if}
 
-        {#if !earned}
+        {#if !earned || $settings.achievements.showCharactersIfCompleted}
             {#if achievement.isAccountWide}
                 <AchievementCriteriaAccount
                     {achievement}

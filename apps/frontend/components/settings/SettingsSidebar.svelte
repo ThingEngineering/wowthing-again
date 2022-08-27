@@ -43,6 +43,10 @@
         },
         null,
         {
+            name: 'Achievements',
+            slug: 'achievements',
+        },
+        {
             name: 'Auctions',
             slug: 'auctions',
         },
