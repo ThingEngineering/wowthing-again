@@ -3,6 +3,27 @@ minimumLevel: 60
 requiredQuestId: 59770 # Stand as One
 groups:
 
+- name: "A New Deal"
+  icon: "currency/1792"
+  iconText: "AND"
+  type: quest
+  data:
+    0:
+      - name: "{item:188778}" # Cosmic Gladiator's Devouring Malediction
+        id: 65753
+      
+      - name: "{item:188691}" # Cosmic Gladiator's Echoing Resolve
+        id: 65756
+      
+      - name: "{item:188775}" # Cosmic Gladiator's Eternal Aegis
+        id: 65754
+      
+      - name: "{item:188524}" # Cosmic Gladiator's Fastidious Resolve
+        id: 65757
+      
+      - name: "{item:188766}" # Cosmic Gladiator's Resonator
+        id: 65755
+
 - name: "Cyphers of the First Ones"
   icon: "currency/1979" # Cyphers of the First Ones
   iconText: "Cyphers"

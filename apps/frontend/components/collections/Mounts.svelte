@@ -1,9 +1,8 @@
 <script lang="ts">
     import some from 'lodash/some'
 
-    import { manualStore, userStore}  from '@/stores'
+    import { manualStore, staticStore, userStore}  from '@/stores'
     import { collectionState } from '@/stores/local-storage'
-    import { staticStore } from '@/stores/static'
     import { getFilteredSets } from '@/utils/collections'
     import type { MultiSlugParams } from '@/types'
     import type { ManualDataSetCategory } from '@/types/data/manual'

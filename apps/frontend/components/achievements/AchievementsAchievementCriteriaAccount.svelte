@@ -21,7 +21,7 @@
 
         progressBar = achievement?.isProgressBar || data.criteria[0]?.isProgressBar || false
 
-        if (achievement.id === 15336) {
+        if (achievement.id === 14744) {
             console.log('-- ACCOUNT --')
             console.log(achievement)
             console.log(criteriaTree)

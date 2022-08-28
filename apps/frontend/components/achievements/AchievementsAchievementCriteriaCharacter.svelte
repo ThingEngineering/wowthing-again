@@ -28,8 +28,8 @@
             selectedCharacterId = data.characters?.[0]?.[0] || 0
         }
 
-        if (achievement.id === 13691) {
-            console.log({achievement, criteriaTree: rootCriteriaTree, data})
+        if (achievement.id === 14744) {
+            //console.log({achievement, criteriaTree: rootCriteriaTree, data})
         }
     }
 </script>

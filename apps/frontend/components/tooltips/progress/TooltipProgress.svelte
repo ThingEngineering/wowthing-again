@@ -61,7 +61,8 @@
                         {haveIndexes.indexOf(dataIndex) >= 0 ? '✔' : '❌'}
                     </td>
                     <td class="name">
-                        {data.name}
+                        <ParsedText text={data.name} />
+
                         {#if description && haveIndexes.indexOf(dataIndex) === -1}
                             {#if cls === 'short'}&ndash;{/if}
                             <ParsedText

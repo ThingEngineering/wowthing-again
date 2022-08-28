@@ -71,6 +71,12 @@
             }
         )
 
+        // {item:id}
+        html = html.replaceAll(
+            /\{item:(\d+)\}/g,
+            (_, itemId) => $itemStore.data.items[parseInt(itemId)]?.name || `Item #${itemId}`
+        )
+
         html = html.replaceAll(/:class-(\d+):/g, '<span data-class="$1"></span>')
         html = html.replaceAll(/:race-(\d+):/g, '<span data-race="$1"></span>')
 
