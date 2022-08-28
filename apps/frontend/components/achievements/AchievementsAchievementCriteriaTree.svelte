@@ -61,8 +61,8 @@
 
         showStatus = accountWide || characterId > 0
 
-        if (achievement?.id === 15336) {
-            console.log(have, criteriaTree)
+        if (achievement?.id === 14744) {
+            //console.log(characterId, have, criteriaTree)
         }
     }
 </script>

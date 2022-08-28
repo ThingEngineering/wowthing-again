@@ -34,14 +34,9 @@
     }
 </style>
 
-
-<div class="sidebar-wrapper">
-    <UnderConstruction />
-
-    <Sidebar
-        baseUrl="/achievements"
-        items={categories}
-        width="17rem"
-        percentFunc={percentFunc}
-    />
-</div>
+<Sidebar
+    baseUrl="/achievements"
+    items={categories}
+    width="17rem"
+    percentFunc={percentFunc}
+/>
