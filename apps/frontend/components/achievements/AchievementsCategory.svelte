@@ -16,9 +16,9 @@
     let achievementIds: number[]
     let category: AchievementDataCategory
     $: {
-        category = find($achievementStore.data.categories, (c) => c.slug === slug1)
+        category = find($achievementStore.data.categories, (c) => c !== null && c.slug === slug1)
         if (slug2) {
-            category = find(category.children, (c) => c.slug === slug2)
+            category = find(category.children, (c) => c !== null && c.slug === slug2)
         }
 
         achievementIds = sortBy(category.achievementIds, id => [

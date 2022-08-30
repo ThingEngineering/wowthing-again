@@ -24,9 +24,13 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
         const categories = achievementData.categories
         const keepIds: Record<number, boolean> = {}
         for (const category of categories) {
+            if (category === null) {
+                continue
+            }
+
             if (category.name !== 'Feats of Strength' && category.name !== 'Legacy') {
                 keepIds[category.id] = true
-                for (const child of category.children) {
+                for (const child of category.children.filter((child) => child !== null)) {
                     keepIds[child.id] = true
                 }
             }
@@ -60,12 +64,12 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
             }
         }
 
-        for (const category of achievementData.categories) {
+        for (const category of achievementData.categories.filter((cat) => cat !== null)) {
             if (!cheevs[category.id]) {
                 cheevs[category.id] = new UserAchievementDataCategory(0, 0, 0)
             }
 
-            for (const child of category.children) {
+            for (const child of category.children.filter((child) => child !== null)) {
                 // Statistics
                 if (child.id === 1) {
                     continue
