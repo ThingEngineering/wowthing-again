@@ -1,7 +1,7 @@
 <script lang="ts">
     import { iconStrings } from '@/data/icons'
     import { achievementStore, userAchievementStore } from '@/stores'
-    import { CriteriaType } from '@/types/enums'
+    import { CriteriaTreeOperator, CriteriaType } from '@/types/enums'
     import type { AchievementDataAchievement, AchievementDataCriteriaTree } from '@/types'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
@@ -28,7 +28,7 @@
             have = (
                 charCriteria.length > 0 && (
                     (criteriaTree.amount > 0 && charCriteria[0][0] >= criteriaTree.amount) ||
-                    (rootCriteriaTree?.operator === 4 && charCriteria[0][0] > 0)
+                    (rootCriteriaTree?.operator === CriteriaTreeOperator.All && charCriteria[0][0] > 0)
                 )
             )
             //have = 
@@ -40,7 +40,7 @@
         else {
             have = (
                 (criteriaTree.amount > 0 && haveMap?.[criteriaTreeId] >= criteriaTree.amount) ||
-                (rootCriteriaTree?.operator === 4 && haveMap?.[criteriaTreeId] > 0)
+                (rootCriteriaTree?.operator === CriteriaTreeOperator.All && haveMap?.[criteriaTreeId] > 0)
             )
         }
 
@@ -76,21 +76,32 @@
         & :global(svg) {
             margin-top: -4px;
         }
+        & :global(svg.hide) {
+            opacity: 0;
+        }
     }
     .child {
-        padding-left: 1rem;
+        padding-left: 1.5rem;
     }
 </style>
 
-{#if criteriaTree && (criteriaTree.flags & 0x02) === 0}
+{#if criteriaTree && (criteriaTree.flags & 0x02) === 0 && (description || criteriaTree.children.length > 0)}
     <div
-        class="drop-shadow"
+        class:drop-shadow={!child}
         class:status-success={showStatus && have}
         class:status-fail={showStatus && !have}
         class:child
+        data-tree-id={criteriaTreeId}
     >
-        {#if showStatus}
-            <IconifyIcon icon={have ? iconStrings.yes : iconStrings.no} />
+        {#if description}
+            {#if showStatus}
+                <IconifyIcon icon={have ? iconStrings.yes : iconStrings.no} />
+            {:else}
+                <IconifyIcon
+                    icon={iconStrings.no}
+                    extraClass="hide"
+                />
+            {/if}
         {/if}
 
         {description}
@@ -102,6 +113,7 @@
                     criteriaTreeId={child}
                     {accountWide}
                     {achievement}
+                    {characterId}
                     {haveMap}
                     {rootCriteriaTree}
                 />

@@ -35,21 +35,19 @@
 </script>
 
 <style lang="scss">
-    div {
+    .criteria {
         border-top: 1px dashed $border-color;
+        display: grid;
+        grid-area: criteria;
+        grid-template-columns: 1fr 1fr;
         margin-top: 0.5rem;
         padding-top: 0.25rem;
         width: 100%;
     }
 
-    .criteria {
-        display: grid;
-        grid-area: criteria;
-        grid-template-columns: 1fr 1fr;
-    }
-
     .progress {
         grid-area: progress;
+        margin-top: 0.75rem;
 
         & :global(.progress-container:nth-child(n+2)) {
             margin-top: 0.3rem;
@@ -77,15 +75,14 @@
         <div class="progress">
             {#each data.characters as [characterId, count]}
                 {@const selected = selectedCharacterId === characterId}
-                <div on:click={() => selectedCharacterId = characterId}>
-                    <ProgressBar
-                        title="{getCharacterNameRealm(characterId)}"
-                        have={count}
-                        textCls={selected ? 'status-success' : null}
-                        total={data.total}
-                        {selected}
-                    />
-                </div>
+                <ProgressBar
+                    on:click={() => selectedCharacterId = characterId}
+                    title="{getCharacterNameRealm(characterId)}"
+                    have={count}
+                    textCls={selected ? 'status-success' : null}
+                    total={data.total}
+                    {selected}
+                />
             {/each}
         </div>
     {/if}
