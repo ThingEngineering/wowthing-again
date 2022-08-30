@@ -3,7 +3,6 @@
     import type { SidebarItem } from '@/types'
 
     import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
-    import UnderConstruction from '@/components/common/UnderConstruction.svelte'
 
     let categories: SidebarItem[]
     $: {
@@ -26,12 +25,6 @@
 </script>
 
 <style lang="scss">
-    .sidebar-wrapper {
-        display: flex;
-        flex-direction: column;
-        padding-right: 1rem;
-        width: 18rem;
-    }
 </style>
 
 <Sidebar

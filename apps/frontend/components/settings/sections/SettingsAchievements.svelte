@@ -2,8 +2,6 @@
     import {data as settingsData} from '@/stores/settings'
 
     import Checkbox from '@/components/forms/CheckboxInput.svelte'
-
-    const accountLink = window.location.href.split('#')[0]
 </script>
 
 <style lang="scss">

@@ -61,7 +61,10 @@
     }
 </style>
 
-<div class="progress-container {cls}">
+<div
+    class="progress-container {cls}"
+    on:click
+>
     <div class="progress-bar"></div>
     <div class="progress-bar-hider" style="--width: {have / total * 100}%"></div>
     <span class="left drop-shadow {textCls}">

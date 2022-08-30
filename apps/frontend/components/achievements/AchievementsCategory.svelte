@@ -1,6 +1,7 @@
 <script lang="ts">
     import find from 'lodash/find'
     import sortBy from 'lodash/sortBy'
+    import { replace } from 'svelte-spa-router'
 
     import { achievementStore, userAchievementStore } from '@/stores'
     import { achievementState } from '@/stores/local-storage'
@@ -16,9 +17,12 @@
     let achievementIds: number[]
     let category: AchievementDataCategory
     $: {
-        category = find($achievementStore.data.categories, (c) => c.slug === slug1)
+        category = find($achievementStore.data.categories, (c) => c !== null && c.slug === slug1)
         if (slug2) {
-            category = find(category.children, (c) => c.slug === slug2)
+            category = find(category.children, (c) => c !== null && c.slug === slug2)
+        }
+        else if (category.achievementIds.length === 0 && category.children.length > 0) {
+            replace(`/achievements/${slug1}/${category.children[0].slug}`)
         }
 
         achievementIds = sortBy(category.achievementIds, id => [

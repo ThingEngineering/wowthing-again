@@ -3,6 +3,18 @@
 
     import AchievementsAchievement from './AchievementsAchievement.svelte'
     import ProgressBar from '@/components/common/ProgressBar.svelte'
+    import type { AchievementDataCategory } from '@/types'
+
+    let categories: AchievementDataCategory[]
+    $: {
+        categories = []
+        for (const category of $achievementStore.data.categories) {
+            if (category === null) {
+                break
+            }
+            categories.push(category)
+        }
+    }
 </script>
 
 <style lang="scss">
@@ -45,7 +57,7 @@
         />
 
         <div class="summary-categories">
-            {#each $achievementStore.data.categories as category}
+            {#each categories as category}
                 <ProgressBar
                     title={category.name}
                     have={$userAchievementStore.data.achievementCategories[category.id].have}

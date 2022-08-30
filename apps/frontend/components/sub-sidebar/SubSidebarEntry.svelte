@@ -87,6 +87,8 @@
         }
     }
     .subtree {
+        --link-color: #64ffd1;
+
         :global(a) {
             padding-left: 1.0rem;
         }
