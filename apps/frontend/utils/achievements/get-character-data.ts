@@ -7,6 +7,7 @@ import type {
     UserAchievementData,
     UserData,
 } from '@/types'
+import { CriteriaTreeOperator } from '@/types/enums'
 import type { UserQuestData } from '@/types/data'
 
 
@@ -41,10 +42,10 @@ export function getCharacterData(
         //const criteriaTree = achievementData.criteriaTree[criteriaTreeId]
         const criteria = achievementData.criteria[criteriaTree.criteriaId]
 
-        if (addStuff && criteriaTree.amount > 0) {
+        if (addStuff && criteriaTree.amount > 0 && criteriaTree.operator !== CriteriaTreeOperator.All) {
             ret.total += criteriaTree.amount
         }
-        else if (addStuff && criteriaTree.id !== rootCriteriaTree.id && rootCriteriaTree.operator === 4) {
+        else if (addStuff && criteriaTree.id !== rootCriteriaTree.id && rootCriteriaTree.operator === CriteriaTreeOperator.All) {
             ret.total += Math.max(1, criteriaTree.amount)
         }
 
