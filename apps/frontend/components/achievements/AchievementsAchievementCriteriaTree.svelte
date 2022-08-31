@@ -55,11 +55,13 @@
             else if (criteria?.type === CriteriaType.GarrisonMissionSucceeded) {
                 description = `Garrison mission #${criteria.asset}`
             }
-            //console.log(criteria)
+            else {
+                console.log('Unknown criteria', criteria)
+            }
         }
 
-        if (achievement?.id === 14744) {
-            //console.log(characterId, have, criteriaTree)
+        if (achievement?.id === 9451) {
+            console.log(characterId, have, criteriaTree)
         }
     }
 </script>

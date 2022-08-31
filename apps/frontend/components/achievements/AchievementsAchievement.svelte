@@ -115,12 +115,6 @@
         :global(a) {
             grid-area: icon;
             position: relative;
-
-            :global(span) {
-                color: #fff;
-                left: 25px;
-                top: 30px;
-            }
         }
     }
 
@@ -140,6 +134,11 @@
         white-space: nowrap;
         width: 100%;
 
+    }
+    .points {
+        color: #fff;
+        left: 25px;
+        top: 32px;
     }
     .earned {
         grid-area: earned;
