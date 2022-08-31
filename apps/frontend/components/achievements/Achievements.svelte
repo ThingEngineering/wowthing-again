@@ -1,8 +1,9 @@
 <script lang="ts">
-    import { onMount } from 'svelte'
+    import { afterUpdate, onMount } from 'svelte'
 
     import { achievementStore, userAchievementStore } from '@/stores'
     import { data as settings } from '@/stores/settings'
+    import getSavedRoute from '@/utils/get-saved-route'
     
     import AchievementsCategory from './AchievementsCategory.svelte'
     import AchievementsSidebar from './AchievementsSidebar.svelte'
@@ -18,6 +19,8 @@
         achievementStore.fetch({ language: $settings.general.language }),
         //userAchievementStore.fetch(),
     ]))
+
+    afterUpdate(() => getSavedRoute('achievements', params.slug1, params.slug2))
 
     let error: boolean
     let loaded: boolean
@@ -52,7 +55,7 @@
         <AchievementsSidebar />
         {#if params.slug1 === 'summary'}
             <AchievementsScoreSummary />
-        {:else}
+        {:else if params.slug1}
             <AchievementsCategory slug1={params.slug1} slug2={params.slug2} />
         {/if}
     {/if}

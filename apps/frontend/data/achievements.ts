@@ -91,3 +91,10 @@ export const extraCategories: [string, [string, number, string?, string?][]][] =
         ['expansion-features/torghast', 2],
     ]],
 ]
+
+export const forceAddonCriteria: Record<number, number> = {
+    9450: 9452, // The Trap Game -> Trap Superstar
+    9565: 9452, // Master Trapper -> Trap Superstar
+    9451: 9452, // Trapper's Delight -> Trap Superstar
+    9452: 9452, // Trap Superstar -> Trap Superstar
+}

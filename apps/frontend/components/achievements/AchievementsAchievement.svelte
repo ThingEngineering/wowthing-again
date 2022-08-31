@@ -7,9 +7,13 @@
     import AchievementCriteriaAccount from './AchievementsAchievementCriteriaAccount.svelte'
     import AchievementCriteriaCharacter from './AchievementsAchievementCriteriaCharacter.svelte'
     import AchievementLink from '@/components/links/AchievementLink.svelte'
+    import FactionIcon from '@/components/images/FactionIcon.svelte'
+    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+import { iconStrings } from '@/data/icons';
 
     export let achievementId: number
+    export let alwaysShow = false
 
     let achievement: AchievementDataAchievement
     let earned: number
@@ -54,16 +58,19 @@
             show = false
         }
         else {
-            if (earned && achievement.supersedes) {
-                let sigh = achievement
-                while (sigh?.supersedes) {
-                    chain.push(sigh.supersedes)
-                    sigh = $achievementStore.data.achievement[sigh.supersedes]
-                }
-                chain.reverse()
+            let sigh = achievement
+            while (sigh?.supersedes) {
+                chain.push(sigh.supersedes)
+                sigh = $achievementStore.data.achievement[sigh.supersedes]
             }
-            else if (!earned && achievement.supersededBy) {
-                let sigh = achievement
+            chain.reverse()
+
+            if (chain.length > 0 || achievement.supersededBy) {
+                chain.push(achievement.id)
+            }
+
+            if (achievement.supersededBy) {
+                sigh = achievement
                 while (sigh?.supersededBy) {
                     chain.push(sigh.supersededBy)
                     sigh = $achievementStore.data.achievement[sigh.supersededBy]
@@ -71,8 +78,10 @@
             }
         }
 
-        if ((earned && !$achievementState.showCompleted) ||
-            (!earned && !$achievementState.showIncomplete)) {
+        if (!alwaysShow && (
+            (earned && !$achievementState.showCompleted) ||
+            (!earned && !$achievementState.showIncomplete)
+        )) {
             show = false
         }
     }
@@ -83,7 +92,7 @@
         width: 100%;
     }
     .thing-container {
-        --image-border-width: 1px;
+        --image-border-width: 2px;
 
         border: 1px solid $border-color;
         break-inside: avoid;
@@ -111,12 +120,6 @@
         :global(a) {
             grid-area: icon;
             position: relative;
-
-            :global(span) {
-                color: #fff;
-                left: 25px;
-                top: 30px;
-            }
         }
     }
 
@@ -125,7 +128,7 @@
         grid-area: info;
         grid-template-areas:
             "name earned"
-            "desc desc";
+            "desc extra";
         grid-template-columns: auto 5.5rem;
         grid-template-rows: 1.5rem auto;
     }
@@ -134,9 +137,20 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        width: 100%;
+
+    }
+    .points {
+        color: #fff;
+        left: 25px;
+        top: 32px;
     }
     .earned {
         grid-area: earned;
+        text-align: right;
+    }
+    .extra {
+        grid-area: extra;
         text-align: right;
     }
     .description {
@@ -147,30 +161,70 @@
         grid-area: chain;
         margin-top: 0.5rem;
 
-        div {
-            display: inline-block;
-            margin: 0 0.4rem 0.4rem 0;
-            position: relative;
+    }
+    .chain-icon {
+        display: inline-block;
+        margin: 0 0.4rem 0.4rem 0;
+        position: relative;
 
-            span {
-                bottom: 1px;
-                pointer-events: none;
+        &.completed {
+            opacity: 0.5;
+
+            :global(img) {
+                filter: grayscale(75%);
             }
         }
+
+        span {
+            bottom: 1px;
+            pointer-events: none;
+        }
+    }
+    .chain-current {
+        top: -2px;
+    }
+    .icon-faction {
+        --image-border-radius: 50%;
+        --image-margin-top: -4px;
+        --shadow-color: rgba(0, 0, 0, 0.8);
+
+        left: -3px;
+        pointer-events: none;
+        position: absolute;
+        top: -3px;
     }
 </style>
 
 {#if show}
-    <div class="thing-container faction{faction}" class:completed={earned}>
+    <div class="thing-container faction{faction}"
+        class:completed={earned}
+    >
         <AchievementLink id={achievementId}>
-            <WowthingImage name="achievement/{achievementId}" size={48} border={1} />
+            <WowthingImage
+                name="achievement/{achievementId}"
+                size={48}
+                border={2}
+            />
 
             {#if achievement.points > 0}
                 <span class="pill abs-center points">{achievement.points}</span>
             {/if}
+
+            {#if faction >= 0}
+                <div class="icon-faction drop-shadow">
+                    <FactionIcon
+                        border={2}
+                        size={20}
+                        useTooltip={false}
+                        {faction}
+                    />
+                </div>
+            {/if}
         </AchievementLink>
 
-        <div class="info">
+        <div
+            class="info"
+        >
             <h3>{achievement.name}</h3>
 
             <p class="description">{achievement.description}</p>
@@ -178,19 +232,39 @@
             {#if earned}
                 <span class="earned">{earnedDate.toLocaleDateString()}</span>
             {/if}
+
+            {#if achievement.isAccountWide}
+                <span class="extra">Account</span>
+            {/if}
         </div>
 
         {#if chain.length > 0}
             <div class="chain">
-                {#each chain as previousId}
-                    <div>
-                        <AchievementLink id={previousId}>
-                            <WowthingImage name="achievement/{previousId}" size={40} border={1} />
+                {#each chain as chainId}
+                    {@const chainEarned = $userAchievementStore.data.achievements[chainId] !== undefined}
+                    <div
+                        class="chain-icon"
+                        class:completed={chainEarned}
+                    >
+                        <AchievementLink id={chainId}>
+                            <WowthingImage
+                                name="achievement/{chainId}"
+                                size={40}
+                                border={2} />
                         </AchievementLink>
-                        {#if $achievementStore.data.achievement[previousId]}
+
+                        {#if $achievementStore.data.achievement[chainId]}
                             <span class="pill abs-center">
-                                {$achievementStore.data.achievement[previousId].points}
+                                {$achievementStore.data.achievement[chainId].points}
                             </span>
+                        {/if}
+
+                        {#if chainId === achievementId}
+                            <div class="abs-center chain-current drop-shadow">
+                                <IconifyIcon
+                                    icon={iconStrings['arrow-up']}
+                                />
+                            </div>
                         {/if}
                     </div>
                 {/each}

@@ -43,6 +43,10 @@
         margin-top: 0.5rem;
         padding-top: 0.25rem;
         width: 100%;
+
+        &:empty {
+            display: none;
+        }
     }
 
     .progress {

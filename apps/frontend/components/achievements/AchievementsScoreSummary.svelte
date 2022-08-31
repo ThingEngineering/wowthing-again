@@ -69,7 +69,10 @@
 
     <div class="summary-recent">
         {#each $userAchievementStore.data.achievementRecent as recent}
-            <AchievementsAchievement achievementId={recent} />
+            <AchievementsAchievement
+                achievementId={recent}
+                alwaysShow={true}
+            />
         {/each}
     </div>
 </div>
