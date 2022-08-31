@@ -224,7 +224,7 @@
     <li class="separator"></li>
 
     <li use:active={'/achievements/*'}>
-        <a href="#/achievements/summary">
+        <a href="#/achievements/">
             <IconifyIcon icon={iconConstruction} dropShadow={true} />
             Achievements
         </a>
