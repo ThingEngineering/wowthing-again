@@ -7,6 +7,7 @@
     import AchievementCriteriaAccount from './AchievementsAchievementCriteriaAccount.svelte'
     import AchievementCriteriaCharacter from './AchievementsAchievementCriteriaCharacter.svelte'
     import AchievementLink from '@/components/links/AchievementLink.svelte'
+    import FactionIcon from '@/components/images/FactionIcon.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let achievementId: number
@@ -83,7 +84,7 @@
         width: 100%;
     }
     .thing-container {
-        --image-border-width: 1px;
+        --image-border-width: 2px;
 
         border: 1px solid $border-color;
         break-inside: avoid;
@@ -125,7 +126,7 @@
         grid-area: info;
         grid-template-areas:
             "name earned"
-            "desc desc";
+            "desc extra";
         grid-template-columns: auto 5.5rem;
         grid-template-rows: 1.5rem auto;
     }
@@ -134,9 +135,15 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        width: 100%;
+
     }
     .earned {
         grid-area: earned;
+        text-align: right;
+    }
+    .extra {
+        grid-area: extra;
         text-align: right;
     }
     .description {
@@ -158,25 +165,58 @@
             }
         }
     }
+    .icon-faction {
+        --image-border-radius: 50%;
+        --image-margin-top: -4px;
+        --shadow-color: rgba(0, 0, 0, 0.8);
+
+        left: -3px;
+        pointer-events: none;
+        position: absolute;
+        top: -3px;
+    }
 </style>
 
 {#if show}
-    <div class="thing-container faction{faction}" class:completed={earned}>
+    <div class="thing-container faction{faction}"
+        class:completed={earned}
+    >
         <AchievementLink id={achievementId}>
-            <WowthingImage name="achievement/{achievementId}" size={48} border={1} />
+            <WowthingImage
+                name="achievement/{achievementId}"
+                size={48}
+                border={2}
+            />
 
             {#if achievement.points > 0}
                 <span class="pill abs-center points">{achievement.points}</span>
             {/if}
+
+            {#if faction >= 0}
+                <div class="icon-faction drop-shadow">
+                    <FactionIcon
+                        border={2}
+                        size={20}
+                        useTooltip={false}
+                        {faction}
+                    />
+                </div>
+            {/if}
         </AchievementLink>
 
-        <div class="info">
+        <div
+            class="info"
+        >
             <h3>{achievement.name}</h3>
 
             <p class="description">{achievement.description}</p>
 
             {#if earned}
                 <span class="earned">{earnedDate.toLocaleDateString()}</span>
+            {/if}
+
+            {#if achievement.isAccountWide}
+                <span class="extra">Account</span>
             {/if}
         </div>
 
