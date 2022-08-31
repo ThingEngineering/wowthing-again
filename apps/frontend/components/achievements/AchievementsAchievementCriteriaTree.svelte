@@ -17,7 +17,6 @@
     let criteriaTree: AchievementDataCriteriaTree
     let description: string
     let have: boolean
-    let showStatus: boolean
     $: {
         criteriaTree = $achievementStore.data.criteriaTree[criteriaTreeId]
         description = criteriaTree.description
@@ -59,8 +58,6 @@
             //console.log(criteria)
         }
 
-        showStatus = accountWide || characterId > 0
-
         if (achievement?.id === 14744) {
             //console.log(characterId, have, criteriaTree)
         }
@@ -76,9 +73,6 @@
         & :global(svg) {
             margin-top: -4px;
         }
-        & :global(svg.hide) {
-            opacity: 0;
-        }
     }
     .child {
         padding-left: 1.5rem;
@@ -88,20 +82,13 @@
 {#if criteriaTree && (criteriaTree.flags & 0x02) === 0 && (description || criteriaTree.children.length > 0)}
     <div
         class:drop-shadow={!child}
-        class:status-success={showStatus && have}
-        class:status-fail={showStatus && !have}
+        class:status-success={have}
+        class:status-fail={!have}
         class:child
         data-tree-id={criteriaTreeId}
     >
         {#if description}
-            {#if showStatus}
-                <IconifyIcon icon={have ? iconStrings.yes : iconStrings.no} />
-            {:else}
-                <IconifyIcon
-                    icon={iconStrings.no}
-                    extraClass="hide"
-                />
-            {/if}
+            <IconifyIcon icon={have ? iconStrings.yes : iconStrings.no} />
         {/if}
 
         {description}
