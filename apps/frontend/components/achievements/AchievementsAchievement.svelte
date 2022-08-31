@@ -11,6 +11,7 @@
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let achievementId: number
+    export let alwaysShow = false
 
     let achievement: AchievementDataAchievement
     let earned: number
@@ -72,8 +73,10 @@
             }
         }
 
-        if ((earned && !$achievementState.showCompleted) ||
-            (!earned && !$achievementState.showIncomplete)) {
+        if (!alwaysShow && (
+            (earned && !$achievementState.showCompleted) ||
+            (!earned && !$achievementState.showIncomplete)
+        )) {
             show = false
         }
     }
