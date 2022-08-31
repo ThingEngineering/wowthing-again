@@ -8,7 +8,9 @@
     import AchievementCriteriaCharacter from './AchievementsAchievementCriteriaCharacter.svelte'
     import AchievementLink from '@/components/links/AchievementLink.svelte'
     import FactionIcon from '@/components/images/FactionIcon.svelte'
+    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+import { iconStrings } from '@/data/icons';
 
     export let achievementId: number
     export let alwaysShow = false
@@ -56,16 +58,19 @@
             show = false
         }
         else {
-            if (earned && achievement.supersedes) {
-                let sigh = achievement
-                while (sigh?.supersedes) {
-                    chain.push(sigh.supersedes)
-                    sigh = $achievementStore.data.achievement[sigh.supersedes]
-                }
-                chain.reverse()
+            let sigh = achievement
+            while (sigh?.supersedes) {
+                chain.push(sigh.supersedes)
+                sigh = $achievementStore.data.achievement[sigh.supersedes]
             }
-            else if (!earned && achievement.supersededBy) {
-                let sigh = achievement
+            chain.reverse()
+
+            if (chain.length > 0 || achievement.supersededBy) {
+                chain.push(achievement.id)
+            }
+
+            if (achievement.supersededBy) {
+                sigh = achievement
                 while (sigh?.supersededBy) {
                     chain.push(sigh.supersededBy)
                     sigh = $achievementStore.data.achievement[sigh.supersededBy]
@@ -156,16 +161,27 @@
         grid-area: chain;
         margin-top: 0.5rem;
 
-        div {
-            display: inline-block;
-            margin: 0 0.4rem 0.4rem 0;
-            position: relative;
+    }
+    .chain-icon {
+        display: inline-block;
+        margin: 0 0.4rem 0.4rem 0;
+        position: relative;
 
-            span {
-                bottom: 1px;
-                pointer-events: none;
+        &.completed {
+            opacity: 0.5;
+
+            :global(img) {
+                filter: grayscale(75%);
             }
         }
+
+        span {
+            bottom: 1px;
+            pointer-events: none;
+        }
+    }
+    .chain-current {
+        top: -2px;
     }
     .icon-faction {
         --image-border-radius: 50%;
@@ -224,15 +240,31 @@
 
         {#if chain.length > 0}
             <div class="chain">
-                {#each chain as previousId}
-                    <div>
-                        <AchievementLink id={previousId}>
-                            <WowthingImage name="achievement/{previousId}" size={40} border={1} />
+                {#each chain as chainId}
+                    {@const chainEarned = $userAchievementStore.data.achievements[chainId] !== undefined}
+                    <div
+                        class="chain-icon"
+                        class:completed={chainEarned}
+                    >
+                        <AchievementLink id={chainId}>
+                            <WowthingImage
+                                name="achievement/{chainId}"
+                                size={40}
+                                border={2} />
                         </AchievementLink>
-                        {#if $achievementStore.data.achievement[previousId]}
+
+                        {#if $achievementStore.data.achievement[chainId]}
                             <span class="pill abs-center">
-                                {$achievementStore.data.achievement[previousId].points}
+                                {$achievementStore.data.achievement[chainId].points}
                             </span>
+                        {/if}
+
+                        {#if chainId === achievementId}
+                            <div class="abs-center chain-current drop-shadow">
+                                <IconifyIcon
+                                    icon={iconStrings['arrow-up']}
+                                />
+                            </div>
                         {/if}
                     </div>
                 {/each}
