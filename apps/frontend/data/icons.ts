@@ -15,6 +15,7 @@ import mdiCart from '@iconify/icons-mdi/cart'
 import mdiCheck from '@iconify/icons-mdi/check'
 import mdiChevronDown from '@iconify/icons-mdi/chevron-down'
 import mdiChevronRight from '@iconify/icons-mdi/chevron-right'
+import mdiChevronUp from '@iconify/icons-mdi/chevron-up'
 import mdiClose from '@iconify/icons-mdi/close'
 import mdiDiceMultiple from '@iconify/icons-mdi/dice-multiple'
 import mdiDuck from '@iconify/icons-mdi/duck'
@@ -104,6 +105,7 @@ export const iconStrings: Record<string, IconifyIcon> = {
 
     'chevron-down': mdiChevronDown,
     'chevron-right': mdiChevronRight,
+    'chevron-up': mdiChevronUp,
 
     'list': mdiFormatListCheckbox,
 

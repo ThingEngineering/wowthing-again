@@ -1,14 +1,13 @@
 <script lang="ts">
     import difference from 'lodash/difference'
-    import find from 'lodash/find'
     import sortBy from 'lodash/sortBy'
 
-    import { difficultyMap } from '@/data/difficulty'
     import { iconStrings, imageStrings, rewardTypeIcons } from '@/data/icons'
     import { weaponSubclassToString } from '@/data/weapons'
-    import { achievementStore, itemStore, journalStore, staticStore, userAchievementStore, userStore } from '@/stores'
+    import { achievementStore, journalStore, userAchievementStore, userStore } from '@/stores'
     import { ArmorType, RewardType, FarmResetType, FarmType, FarmIdType } from '@/types/enums'
     import leftPad from '@/utils/left-pad'
+    import { getDropName } from '@/utils/zone-maps/get-drop-name'
     import type { DropStatus, FarmStatus } from '@/types'
     import type { ManualDataZoneMapCategory, ManualDataZoneMapDrop, ManualDataZoneMapFarm } from '@/types/data/manual'
 
@@ -34,53 +33,6 @@
         if (farm.statisticId > 0) {
             statistic = ($userAchievementStore.data.statistics?.[farm.statisticId] || [])
                 .reduce((a, b) => a + b[1], 0)
-        }
-    }
-
-    const getDropName = (drop: ManualDataZoneMapDrop): string => {
-        if (drop.type === RewardType.Item ||
-            drop.type === RewardType.Cosmetic ||
-            drop.type === RewardType.Armor ||
-            drop.type === RewardType.Weapon ||
-            drop.type === RewardType.Transmog) {
-            return $itemStore.data.items[drop.id]?.name || `Unknown item #${drop.id}`
-        }
-        else if (drop.type === RewardType.Achievement) {
-            if (drop.subType > 0) {
-                return $achievementStore.data.criteriaTree[drop.subType]?.description ?? `Criteria #${drop.subType}`
-            }
-            else {
-                return $achievementStore.data.achievement[drop.id]?.name ?? `Achievement #${drop.id}`
-            }
-        }
-        else if (drop.type === RewardType.Illusion) {
-            const enchantmentId = drop.appearanceIds[0][0]
-            const illusion = find(
-                Object.values($staticStore.data.illusions || {}),
-                (illusion) => illusion.enchantmentId === enchantmentId
-            )
-            return illusion?.name || `Illusion #${enchantmentId}`
-        }
-        else if (drop.type === RewardType.Mount) {
-            const mount = $staticStore.data.mounts[drop.id]
-            return mount ? mount.name : `Unknown mount #${drop.id}`
-        }
-        else if (drop.type === RewardType.Pet) {
-            const pet = $staticStore.data.pets[drop.id]
-            return pet ? pet.name : `Unknown pet #${drop.id}`
-        }
-        else if (drop.type === RewardType.Toy) {
-            const toy = $staticStore.data.toys[drop.id]
-            return toy ? toy.name : `Unknown toy #${drop.id}`
-        }
-        else if (drop.type === RewardType.InstanceSpecial) {
-            return difficultyMap[drop.id].name
-        }
-        else if (drop.type === RewardType.SetSpecial) {
-            return drop.limit[0]
-        }
-        else {
-            return "???"
         }
     }
 

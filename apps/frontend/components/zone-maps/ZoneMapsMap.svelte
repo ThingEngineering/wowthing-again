@@ -3,11 +3,13 @@
     import find from 'lodash/find'
 
     import { classOrder } from '@/data/character-class'
-    import { iconStrings } from '@/data/icons'
+    import { farmTypeIcons, iconStrings, rewardTypeIcons } from '@/data/icons'
     import { manualStore } from '@/stores'
     import { zoneMapState } from '@/stores/local-storage/zone-map'
     import { zoneMapMedia } from '@/stores/media-queries/zone-map'
-    import { RewardType, PlayableClass } from '@/types/enums'
+    import { FarmType, PlayableClass, RewardType } from '@/types/enums'
+    import { getDropName } from '@/utils/zone-maps/get-drop-name'
+    import { getDropQuality } from '@/utils/zone-maps/get-drop-quality'
     import type { FarmStatus } from '@/types'
     import type { ManualDataZoneMapCategory, ManualDataZoneMapFarm } from '@/types/data/manual'
 
@@ -49,12 +51,63 @@
         }
     }
 
+    let loots: [number, number[]][]
+    $: {
+        loots = []
+        if (farms && $zoneMapState.lootExpanded[slugKey]) {
+            for (let farmIndex = 0; farmIndex < farms.length; farmIndex++) {
+                const farm = farms[farmIndex]
+                const farmStatus = farmStatuses[farmIndex]
+                if (farmStatus.need && lootFarmTypes.indexOf(farm.type) >= 0) {
+                    const needDrops: number[] = []
+
+                    for (let dropIndex = 0; dropIndex < farmStatus.drops.length; dropIndex++) {
+                        const drop = farm.drops[dropIndex]
+                        const dropStatus = farmStatus.drops[dropIndex]
+                        if (dropStatus.need && lootRewardTypes.indexOf(drop.type) >= 0) {
+                            needDrops.push(dropIndex)
+                        }
+                    }
+
+                    if (needDrops.length > 0) {
+                        loots.push([farmIndex, needDrops])
+                        console.log(farmIndex, farm, farmStatus)
+                    }
+                }
+            }
+        }
+    }
+
     $: {
         [width, height] = $zoneMapMedia
     }
+
+    const lootFarmTypes: FarmType[] = [
+        FarmType.Event,
+        FarmType.EventBig,
+        FarmType.Kill,
+        FarmType.KillBig,
+        FarmType.Treasure,
+    ]
+    const lootRewardTypes: RewardType[] = [
+        RewardType.Armor,
+        RewardType.Cosmetic,
+        RewardType.Illusion,
+        RewardType.Mount,
+        RewardType.Pet,
+        RewardType.Toy,
+        RewardType.Weapon,
+    ]
 </script>
 
 <style lang="scss">
+    .overlay-box {
+        background: $highlight-background;
+        border: 1px solid $border-color;
+        border-radius: $border-radius;
+        position: absolute;
+        z-index: 10;
+    }
     .farm {
         --image-border-radius: #{$border-radius-large};
         --image-border-width: 2px;
@@ -62,15 +115,10 @@
         position: relative;
     }
     .toggles {
-        background: $highlight-background;
-        border: 1px solid $border-color;
-        border-radius: $border-radius;
         display: flex;
         justify-content: center;
         padding: 0.2rem 0.3rem;
-        position: absolute;
         white-space: nowrap;
-        z-index: 10;
     }
     .setting-toggles {
         left: 50%;
@@ -115,6 +163,32 @@
         display: flex;
         flex-direction: column;
     }
+    .loot-list-toggle {
+        --image-margin-top: -4px;
+
+        bottom: 1px;
+        left: 1px;
+        padding: 0.2rem 0.4rem 0.2rem 0.4rem;
+    }
+    .loot-list {
+        --image-margin-top: -4px;
+        --scale: 0.9;
+
+        border-bottom-width: 0;
+        border-left-width: 0;
+        border-right-width: 0;
+        bottom: 33px;
+        left: 1px;
+
+        table {
+            td {
+                padding: 0.2rem;
+            }
+            .loot-drops {
+                padding-right: 0.5rem;
+            }
+        }
+    }
     .credits {
         bottom: 1px;
         display: flex;
@@ -126,17 +200,18 @@
         z-index: 10;
 
         div {
-            background: $highlight-background;
-            border: 1px solid $border-color;
-            border-radius: $border-radius;
             padding: 0.1rem 0.4rem 0.2rem;
+
+            & + div {
+                border-right: 1px solid $border-color;
+            }
         }
     }
 </style>
 
 {#if categories?.length > 0}
     <div class="farm">
-        <div class="toggles setting-toggles">
+        <div class="toggles setting-toggles overlay-box">
             <div class="toggle-group">
                 <Checkbox
                     name="show_completed"
@@ -206,7 +281,7 @@
         </div>
 
         <div
-            class="toggles class-toggles"
+            class="toggles class-toggles overlay-box"
             on:click={() => $zoneMapState.classExpanded[slugKey] = !$zoneMapState.classExpanded[slugKey]}
         >
             Class:
@@ -227,7 +302,7 @@
         </div>
 
         {#if $zoneMapState.classExpanded[slugKey]}
-            <div class="toggles class-list">
+            <div class="toggles class-list overlay-box">
                 {#each classOrder as classId}
                     <Checkbox
                         name="class_{classId}"
@@ -259,7 +334,53 @@
             />
         {/each}
 
-        <div class="credits">
+        <div
+            class="loot-list-toggle overlay-box"
+            on:click={() => $zoneMapState.lootExpanded[slugKey] = !$zoneMapState.lootExpanded[slugKey]}
+        >
+            Loot list
+
+            <IconifyIcon
+                icon={iconStrings['chevron-' + ($zoneMapState.lootExpanded[slugKey] ? 'up' : 'right')]}
+            />
+        </div>
+
+        {#if $zoneMapState.lootExpanded[slugKey] && loots?.length > 0}
+            <div class="loot-list overlay-box">
+                <table class="table table-striped">
+                    <tbody>
+                        {#each loots as [farmIndex, dropIndexes]}
+                            {@const farm = farms[farmIndex]}
+                            <tr>
+                                <td class="loot-name">
+                                    <IconifyIcon icon={farmTypeIcons[farm.type]} />
+                                    {farm.name}
+                                </td>
+                                <td class="loot-drops">
+                                    {#each dropIndexes.slice(0, 3) as dropIndex}
+                                        {@const drop = farm.drops[dropIndex]}
+                                        <div>
+                                            <IconifyIcon icon={rewardTypeIcons[drop.type]} />
+                                            <span class="quality{getDropQuality(drop)}">
+                                                {getDropName(drop)}
+                                            </span>
+                                        </div>
+                                    {/each}
+                                    
+                                    {#if dropIndexes.length > 3}
+                                        <div class="quality0">
+                                            ... and {dropIndexes.length - 3} more
+                                        </div>
+                                    {/if}
+                                </td>
+                            </tr>
+                        {/each}
+                    </tbody>
+                </table>
+            </div>
+        {/if}
+
+        <div class="credits overlay-box">
             <div>
                 Data sources:
                 <a href="https://github.com/zarillion/handynotes-plugins">HandyNotes Plugins</a> /
