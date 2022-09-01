@@ -3,6 +3,7 @@ groups:
 
 - name: "You Are Now Prepared!"
   icon: achievement/12066 # You Are Now Prepared!
+  minimumLevel: 45
   type: quest
   data:
     0:
