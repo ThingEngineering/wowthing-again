@@ -35,6 +35,7 @@ public class UserApiCharacter
     public List<UserApiCharacterCurrency> CurrenciesRaw { get; }
     public Dictionary<int, int> CurrencyItems { get; set; }
     public Dictionary<int, UserApiCharacterEquippedItem> EquippedItems { get; } = new();
+    public Dictionary<int, PlayerCharacterAddonDataGarrison> Garrisons { get; }
     public Dictionary<int, Dictionary<int, List<int>>> GarrisonTrees { get; }
     public Dictionary<string, PlayerCharacterLockoutsLockout> Lockouts { get; }
     public UserApiCharacterMythicPlus MythicPlus { get; }
@@ -122,6 +123,7 @@ public class UserApiCharacter
             HearthLocation = character.AddonData?.BindLocation;
         }
 
+        Garrisons = character.AddonData?.Garrisons;
         GarrisonTrees = character.AddonData?.GarrisonTrees;
 
         Bags = bagItems

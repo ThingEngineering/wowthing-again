@@ -1,3 +1,29 @@
+export const addonAchievements: Record<number, boolean> = Object.fromEntries(
+    [
+        14765, // Ramparts Racer
+        14766, // Parasoling
+    ].map((id) => [id, true])
+)
+
+export const forceAddonCriteria: Record<number, number> = {
+    9450: 9452, // The Trap Game -> Trap Superstar
+    9565: 9452, // Master Trapper -> Trap Superstar
+    9451: 9452, // Trapper's Delight -> Trap Superstar
+    9452: 9452, // Trap Superstar -> Trap Superstar
+}
+
+export const forceSupersededBy: Record<number, number> = {
+    5324: 5325, // In Service of the Horde -> Veteran of the Horde
+    5327: 5328, // In Service of the Alliance -> Veteran of the Alliance
+    13701: 13702, // Battlefield Brawler -> Battlefield Tactician
+    13702: 13703, // Battlefield Tactician -> Battlefield Master
+}
+
+export const forceSupersedes: Record<number, number> = Object.fromEntries(
+    Object.entries(forceSupersededBy)
+        .map(([dest, src]) => [src, parseInt(dest)])
+)
+
 export const extraCategories: [string, [string, number, string?, string?][]][] = [
     ['classic', [
         ['exploration/eastern-kingdoms', 3, 'exploration-eastern-kingdoms', 'Exploration > Eastern Kingdoms'],
@@ -91,10 +117,3 @@ export const extraCategories: [string, [string, number, string?, string?][]][] =
         ['expansion-features/torghast', 2],
     ]],
 ]
-
-export const forceAddonCriteria: Record<number, number> = {
-    9450: 9452, // The Trap Game -> Trap Superstar
-    9565: 9452, // Master Trapper -> Trap Superstar
-    9451: 9452, // Trapper's Delight -> Trap Superstar
-    9452: 9452, // Trap Superstar -> Trap Superstar
-}

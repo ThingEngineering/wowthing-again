@@ -24,6 +24,7 @@ public class UploadCharacter
     public List<UploadCharacterCovenant> Covenants { get; set; }
     public Dictionary<short, string> Currencies { get; set; }
     public Dictionary<int, List<UploadCharacterEmissary>> Emissaries { get; set; }
+    public List<UploadCharacterGarrison> Garrisons { get; set; }
     public Dictionary<string, string[]> GarrisonTrees { get; set; }
     public string Illusions { get; set; }
     public Dictionary<string, Dictionary<string, string>> Items { get; set; }
@@ -98,6 +99,22 @@ public class UploadCharacterCovenantSoulbind
     public bool Unlocked { get; set; }
     public List<int> Specs { get; set; }
     public List<List<int>> Tree { get; set; }
+}
+
+public class UploadCharacterGarrison
+{
+    public int Level { get; set; }
+    public int ScannedAt { get; set; }
+    public int Type { get; set; }
+    public List<UploadCharacterGarrisonBuilding> Buildings { get; set; }
+}
+
+public class UploadCharacterGarrisonBuilding
+{
+    public int BuildingId { get; set; }
+    public int PlotId { get; set; }
+    public int Rank { get; set; }
+    public string Name { get; set; }
 }
 
 public class UploadCharacterLockout

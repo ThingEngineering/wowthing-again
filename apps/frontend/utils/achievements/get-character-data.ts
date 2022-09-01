@@ -1,5 +1,7 @@
 import sortBy from 'lodash/sortBy'
 
+import { addonAchievements } from '@/data/achievements'
+import { CriteriaTreeOperator, CriteriaType } from '@/types/enums'
 import type {
     AchievementData,
     AchievementDataAchievement,
@@ -7,11 +9,10 @@ import type {
     UserAchievementData,
     UserData,
 } from '@/types'
-import { CriteriaTreeOperator } from '@/types/enums'
 import type { UserQuestData } from '@/types/data'
 
 
-const debugId = 999999
+const debugId = 12760
 
 export function getCharacterData(
     achievementData: AchievementData,
@@ -42,7 +43,12 @@ export function getCharacterData(
         //const criteriaTree = achievementData.criteriaTree[criteriaTreeId]
         const criteria = achievementData.criteria[criteriaTree.criteriaId]
 
-        if (addStuff && criteriaTree.amount > 0 && criteriaTree.operator !== CriteriaTreeOperator.All) {
+        if (addStuff &&
+            criteriaTree.amount > 0 &&
+            (
+                criteriaTree.operator !== CriteriaTreeOperator.All
+            )
+        ) {
             ret.total += criteriaTree.amount
         }
         else if (addStuff && criteriaTree.id !== rootCriteriaTree.id && rootCriteriaTree.operator === CriteriaTreeOperator.All) {
@@ -58,24 +64,54 @@ export function getCharacterData(
             console.log('--', userAchievementData.criteria[criteriaTree.id] ?? [])
         }
 
-        if (achievement.id === 14765 || achievement.id === 14766) {
+        if (addonAchievements[achievement.id]) {
             for (const characterId in userAchievementData.addonAchievements) {
                 const charData = userAchievementData.addonAchievements[characterId][achievement.id]
                 characterCounts[characterId] = (charData?.criteria ?? [0])[0]
             }
         }
         else {
-            // console.log('boo', criteria?.type, criteria?.asset)
-            for (const [characterId, count] of userAchievementData.criteria[criteriaTree.id] ?? []) {
-                if (achievement.id === debugId) {
-                    console.log(characterId, userData.characterMap[characterId].name, count, addStuff)
-                }
-
-                if (addStuff) {
-                    characterCounts[characterId] = (characterCounts[characterId] || 0) +
-                        Math.min(Math.max(1, criteriaTree.amount), count)
+            if (criteria?.type === CriteriaType.RaiseSkillLine) {
+                for (const character of userData.characters) {
+                    for (const subProfessions of Object.values(character.professions || {})) {
+                        const subProfession = subProfessions[criteria.asset]
+                        if (subProfession) {
+                            characterCounts[character.id] = (characterCounts[character.id] || 0) +
+                                subProfession.currentSkill
+                            break
+                        }
+                    }
                 }
             }
+            else if (criteria?.type === CriteriaType.ReputationGained) {
+                for (const character of userData.characters) {
+                    const reputation = character.reputations?.[criteria.asset] || 0
+                    if (reputation > 0) {
+                        characterCounts[character.id] = (characterCounts[character.id] || 0) +
+                            reputation
+                        continue
+                    }
+                }
+            }
+            else {
+                for (const [characterId, count] of userAchievementData.criteria[criteriaTree.id] ?? []) {
+                    // if (achievement.id === debugId) {
+                    //     console.log(characterId, userData.characterMap[characterId].name, count, addStuff)
+                    // }
+
+                    if (addStuff) {
+                        characterCounts[characterId] = (characterCounts[characterId] || 0) + (
+                            rootCriteriaTree.operator === CriteriaTreeOperator.SumChildren
+                                ? count
+                                : Math.min(Math.max(1, criteriaTree.amount), count)
+                        )
+                    }
+                }
+            }
+        }
+        
+        if (rootCriteriaTree.operator === CriteriaTreeOperator.SumChildren) {
+            addStuff = false
         }
 
         if (addStuff && criteriaTree.id !== rootCriteriaTree.id && criteriaTree.amount > 0) {

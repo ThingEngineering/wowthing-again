@@ -17,16 +17,35 @@ public class PlayerCharacterAddonData
     public DateTime MythicPlusScannedAt { get; set; } = MiscConstants.DefaultDateTime;
 
     [Column(TypeName = "jsonb")]
-    public Dictionary<int, Dictionary<int, List<int>>> GarrisonTrees { get; set; }
+    public Dictionary<int, PlayerCharacterAddonDataGarrison> Garrisons { get; set; } = new();
 
     [Column(TypeName = "jsonb")]
-    public Dictionary<int, PlayerCharacterAddonDataMythicPlus> MythicPlus { get; set; }
+    public Dictionary<int, Dictionary<int, List<int>>> GarrisonTrees { get; set; } = new();
 
     [Column(TypeName = "jsonb")]
-    public Dictionary<int, Dictionary<int, PlayerCharacterAddonDataMythicPlusMap>> MythicPlusSeasons { get; set; }
+    public Dictionary<int, PlayerCharacterAddonDataMythicPlus> MythicPlus { get; set; } = new();
 
     [Column(TypeName = "jsonb")]
-    public Dictionary<int, List<PlayerCharacterAddonDataMythicPlusRun>> MythicPlusWeeks { get; set; }
+    public Dictionary<int, Dictionary<int, PlayerCharacterAddonDataMythicPlusMap>> MythicPlusSeasons { get; set; } = new();
+
+    [Column(TypeName = "jsonb")]
+    public Dictionary<int, List<PlayerCharacterAddonDataMythicPlusRun>> MythicPlusWeeks { get; set; } = new();
+}
+
+public class PlayerCharacterAddonDataGarrison
+{
+    public int Level { get; set; }
+    public int Type { get; set; }
+    public DateTime ScannedAt { get; set; }
+    public List<PlayerCharacterAddonDataGarrisonBuilding> Buildings { get; set; }
+}
+
+public class PlayerCharacterAddonDataGarrisonBuilding
+{
+    public int BuildingId { get; set; }
+    public int PlotId { get; set; }
+    public int Rank { get; set; }
+    public string Name { get; set; }
 }
 
 public class PlayerCharacterAddonDataMythicPlus

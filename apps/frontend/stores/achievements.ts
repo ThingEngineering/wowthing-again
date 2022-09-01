@@ -1,6 +1,6 @@
 import find from 'lodash/find'
 
-import { extraCategories } from '@/data/achievements'
+import { extraCategories, forceSupersededBy, forceSupersedes } from '@/data/achievements'
 import {
     AchievementDataAchievement,
     AchievementDataCriteria,
@@ -22,6 +22,14 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
         data.achievement = {}
         for (const rawAchievement of data.achievementRaw) {
             const obj = new AchievementDataAchievement(...rawAchievement)
+
+            if (forceSupersedes[obj.id]) {
+                obj.supersedes = forceSupersedes[obj.id]
+            }
+            if (forceSupersededBy[obj.id]) {
+                obj.supersededBy = forceSupersededBy[obj.id]
+            }
+
             data.achievement[obj.id] = obj
         }
         data.achievementRaw = null
