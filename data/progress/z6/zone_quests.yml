@@ -7,7 +7,8 @@ groups:
   data:
     0:
     - name: "Visit spaceship"
-      id: 47224
+      id: 48440
+      description: "Unlocks Dalaran->Spaceship teleporter"
 
     - name: "Travel to Krokuul Hovel"
       id: 46816
