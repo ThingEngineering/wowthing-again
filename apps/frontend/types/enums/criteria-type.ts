@@ -1,4 +1,5 @@
 export enum CriteriaType {
+    RaiseSkillLine = 7,
     EarnAchievement = 8,
     CompleteQuest = 27,
     HaveSpellCastOnYou = 28,
