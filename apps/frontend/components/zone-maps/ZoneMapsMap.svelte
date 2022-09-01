@@ -71,8 +71,7 @@
 
                     if (needDrops.length > 0) {
                         loots.push([farmIndex, needDrops])
-                        console.log(farmIndex, farm, farmStatus)
-                    }
+                   }
                 }
             }
         }

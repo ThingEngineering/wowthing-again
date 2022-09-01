@@ -46,6 +46,7 @@ export interface StaticData {
     rawMounts: StaticDataMountArray[]
 
     pets: Record<number, StaticDataPet>
+    petsByName: Record<string, StaticDataPet>
     rawPets: StaticDataPetArray[]
 
     realms: Record<number, StaticDataRealm>

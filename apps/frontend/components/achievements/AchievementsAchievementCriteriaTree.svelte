@@ -1,6 +1,6 @@
 <script lang="ts">
     import { iconStrings } from '@/data/icons'
-    import { achievementStore, userAchievementStore } from '@/stores'
+    import { achievementStore, staticStore, userAchievementStore } from '@/stores'
     import { CriteriaTreeOperator, CriteriaType } from '@/types/enums'
     import type { AchievementDataAchievement, AchievementDataCriteria, AchievementDataCriteriaTree } from '@/types'
 
@@ -36,11 +36,6 @@
                     (rootCriteriaTree?.operator === CriteriaTreeOperator.All && charCriteria[0][0] > 0)
                 )
             )
-            //have = 
-            if (achievement.id === 14779) {
-                console.log(criteriaTree)
-                console.log(characterId, charCriteria, have)
-            }
         }
         else {
             have = (
@@ -59,7 +54,7 @@
                 description = `Cast spell #${criteria.asset}`
             }
             else if (criteria?.type === CriteriaType.CompleteQuest) {
-                console.log('quest', criteriaTree, criteria)
+                //console.log('quest', criteriaTree, criteria)
             }
             else if (criteria?.type === CriteriaType.GarrisonMissionSucceeded) {
                 description = `Garrison mission #${criteria.asset}`
@@ -101,13 +96,20 @@
                 linkType = 'npc'
                 linkId = criteria.asset
             }
-            else if (criteriaTree.description === 'Krokul Emergency Cache') {
+            else if (
+                criteria.type === CriteriaType.AccountKnowsPet ||
+                criteria.type === CriteriaType.ObtainPetThroughBattle
+            ) {
+                const pet = $staticStore.data.petsByName[criteriaTree.description]
+                if (pet) {
+                    linkType = 'npc'
+                    linkId = pet.creatureId
+                }
+            }
+            
+            if (criteriaTree.description === 'Engineers and Archaeologists') {
                 console.log(criteriaTree, criteria)
             }
-        }
-
-        if (achievement?.id === 9451) {
-            console.log(characterId, have, criteriaTree)
         }
     }
 </script>

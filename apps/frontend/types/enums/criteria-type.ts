@@ -12,6 +12,8 @@ export enum CriteriaType {
     ReputationGained = 46,
     EquipItem = 57,
     GainAura = 69,
+    AccountKnowsPet = 96,
+    ObtainPetThroughBattle = 157,
     GarrisonMissionSucceeded = 174,
     LearnToy = 185,
     LearnHeirloom = 188,
