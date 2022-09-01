@@ -9,7 +9,6 @@ import type { FarmStatus, UserData } from '@/types'
 import type { JournalData, JournalDataInstance } from '@/types/data'
 import type { ManualDataZoneMapDrop, ManualDataZoneMapFarm } from '@/types/data/manual'
 import type { StaticData } from '@/types/data/static'
-import type { CharacterStatus } from '@/types/zone-maps'
 
 
 export function getInstanceFarm(

@@ -14,6 +14,7 @@ export class ZoneMapState {
 
     public classExpanded: Record<string, boolean> = {}
     public classFilters: Record<string, Record<number, boolean>> = {}
+    public lootExpanded: Records<string, boolean> = {}
     public maxLevelOnly = false
 }
 
