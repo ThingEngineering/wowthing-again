@@ -2,6 +2,7 @@
 
 public class DataProgressGroup
 {
+    public int MinimumLevel { get; set; }
     public string Icon { get; set; }
     public string IconText { get; set; }
     public string Lookup { get; set; }
