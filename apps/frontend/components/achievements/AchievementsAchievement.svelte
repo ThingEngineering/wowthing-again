@@ -181,6 +181,7 @@ import { iconStrings } from '@/data/icons';
         }
     }
     .chain-current {
+        pointer-events: none;
         top: -2px;
     }
     .icon-faction {
