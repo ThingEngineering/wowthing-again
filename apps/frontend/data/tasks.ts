@@ -1,5 +1,7 @@
 
 export const tasksHead: Record<string, string> = {
+    somethingDifferent: 'Brawl',
+
     dmfProfessions: 'DMF',
     
     holidayArenaSkirmishes: 'Skirm',
