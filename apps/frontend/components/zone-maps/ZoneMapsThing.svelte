@@ -1,6 +1,6 @@
 <script lang="ts">
     import { farmTypeIcons } from '@/data/icons'
-    import { journalStore, staticStore } from '@/stores'
+    import { journalStore, staticStore, timeStore, userStore } from '@/stores'
     import { zoneMapState } from '@/stores/local-storage/zone-map'
     import { FarmIdType, FarmType } from '@/types/enums'
     import { tippyComponent } from '@/utils/tippy'
@@ -23,7 +23,13 @@
     let topOffset: string
     $: {
         if (farm.type === FarmType.Dungeon || farm.type === FarmType.Raid) {
-            [status, drops] = getInstanceFarm($journalStore.data, $staticStore.data, farm)
+            [status, drops] = getInstanceFarm(
+                $timeStore,
+                $journalStore.data,
+                $staticStore.data,
+                $userStore.data,
+                farm
+            )
             //big = farm.type === FarmType.Raid
             topOffset = '0px'
         }

@@ -1,17 +1,22 @@
 import sortBy from 'lodash/sortBy'
+import type { DateTime } from 'luxon'
 
 import { journalDifficultyOrder } from '@/data/difficulty'
 import { RewardType } from '@/types/enums'
-import type { FarmStatus } from '@/types'
+import leftPad from '@/utils/left-pad'
+import parseApiTime from '@/utils/parse-api-time'
+import type { FarmStatus, UserData } from '@/types'
 import type { JournalData, JournalDataInstance } from '@/types/data'
 import type { ManualDataZoneMapDrop, ManualDataZoneMapFarm } from '@/types/data/manual'
 import type { StaticData } from '@/types/data/static'
-import leftPad from './left-pad'
+import type { CharacterStatus } from '@/types/zone-maps'
 
 
 export function getInstanceFarm(
+    currentTime: DateTime,
     journalData: JournalData,
     staticData: StaticData,
+    userData: UserData,
     farm: ManualDataZoneMapFarm
 ): [FarmStatus, ManualDataZoneMapDrop[]] {
     const drops: ManualDataZoneMapDrop[] = []
@@ -21,6 +26,7 @@ export function getInstanceFarm(
         need: false,
     }
 
+    const characterData: Record<number, boolean> = {}
     let instance: JournalDataInstance
     for (const tier of journalData.tiers.filter((tier) => tier !== null)) {
         const instances = tier.instances.filter((instance) => instance.id === farm.id)
@@ -57,12 +63,32 @@ export function getInstanceFarm(
                     continue
                 }
 
+                const characterIds: number[] = []
+                const completedCharacterIds: number[] = []
+                const lockoutKey = `${instance.id}-${difficulty}`
+                for (const character of userData.characters.filter((char) => char.level > 10)) {
+                    const lockout = character.lockouts?.[lockoutKey]
+                    if (lockout) {
+                        if (parseApiTime(lockout.resetTime) > currentTime) {
+                            completedCharacterIds.push(character.id)
+                        }
+                        else {
+                            characterIds.push(character.id)
+                        }
+                    }
+                    else {
+                        characterIds.push(character.id)
+                    }
+                    
+                    characterData[character.id] = true
+                }
+
                 status.drops.push({
                     need: difficultyStats.have < difficultyStats.total,
                     skip: false,
                     validCharacters: true,
-                    characterIds: [],
-                    completedCharacterIds: [],
+                    characterIds,
+                    completedCharacterIds,
                 })
 
                 drops.push({
@@ -77,6 +103,12 @@ export function getInstanceFarm(
             break
         }
     }
+
+    status.characters = Object.keys(characterData)
+        .map((characterId) => ({
+            id: parseInt(characterId),
+            types: [RewardType.InstanceSpecial],
+        }))
 
     return [status, drops]
 }

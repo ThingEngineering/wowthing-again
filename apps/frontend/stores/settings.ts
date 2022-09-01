@@ -1,5 +1,6 @@
 import { writable } from 'svelte/store'
 
+import { userAchievementStore } from './user-achievements'
 import { userStore } from './user'
 import { userQuestStore } from './user-quests'
 import { userTransmogStore } from './user-transmog'
@@ -20,6 +21,7 @@ export const data = {
         if (settings.general.refreshInterval > 0) {
             interval = setInterval(
                 async () => await Promise.all([
+                    userAchievementStore.fetch({ evenIfLoaded: true }),
                     userQuestStore.fetch({ evenIfLoaded: true }),
                     userStore.fetch({ evenIfLoaded: true }),
                     userTransmogStore.fetch({ evenIfLoaded: true }),
