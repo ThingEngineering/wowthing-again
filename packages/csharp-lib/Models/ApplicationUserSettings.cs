@@ -106,6 +106,8 @@ public class ApplicationUserSettings
 
     private readonly HashSet<string> _validHomeTasks = new()
     {
+        "somethingDifferent",
+
         "dmfProfessions",
 
         "holidayArenaSkirmishes",

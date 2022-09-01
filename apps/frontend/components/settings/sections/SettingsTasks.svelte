@@ -8,6 +8,8 @@
     import MagicLists from '../SettingsMagicLists.svelte'
  
     const taskChoices: SettingsChoice[] = [
+        { key: 'somethingDifferent', name: 'PvP - Something Different (Brawl)'},
+
         { key: 'dmfProfessions', name: 'Darkmoon Faire - Professions' },
 
         { key: 'holidayArenaSkirmishes', name: 'Holiday - Arena Skirmishes' },
