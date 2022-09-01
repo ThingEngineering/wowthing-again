@@ -378,11 +378,45 @@ public class UserUploadJob : JobBase
             character.AddonData.CurrentLocation = characterData.CurrentLocation.Truncate(32);
         }
 
+        if (character.AddonData.Garrisons == null)
+        {
+            character.AddonData.Garrisons = new();
+        }
+
+        foreach (var dataGarrison in characterData.Garrisons.EmptyIfNull())
+        {
+            var scanTime = dataGarrison.ScannedAt.AsUtcDateTime();
+            if (!character.AddonData.Garrisons.TryGetValue(dataGarrison.Type, out var dbGarrison))
+            {
+                dbGarrison = character.AddonData.Garrisons[dataGarrison.Type] = new PlayerCharacterAddonDataGarrison
+                {
+                    Type = dataGarrison.Type,
+                };
+            }
+            else if (scanTime < dbGarrison.ScannedAt)
+            {
+                continue;
+            }
+
+            dbGarrison.Level = dataGarrison.Level;
+            dbGarrison.ScannedAt = scanTime;
+            dbGarrison.Buildings = dataGarrison.Buildings
+                .EmptyIfNull()
+                .Select(building => new PlayerCharacterAddonDataGarrisonBuilding
+                {
+                    BuildingId = building.BuildingId,
+                    PlotId = building.PlotId,
+                    Rank = building.Rank,
+                    Name = building.Name.Truncate(64),
+                })
+                .ToList();
+        }
+
         // Garrison Trees
         if (characterData.GarrisonTrees != null &&
-            characterData.ScanTimes.TryGetValue("garrisons", out int garrisonsTimestamp))
+            characterData.ScanTimes.TryGetValue("garrisonTrees", out int garrisonTreesTimestamp))
         {
-            var scanTime = garrisonsTimestamp.AsUtcDateTime();
+            var scanTime = garrisonTreesTimestamp.AsUtcDateTime();
             if (scanTime > character.AddonData.GarrisonTreesScannedAt)
             {
                 character.AddonData.GarrisonTreesScannedAt = scanTime;
