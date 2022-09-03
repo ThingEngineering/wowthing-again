@@ -1,0 +1,69 @@
+<script lang="ts">
+    import { farmTypeIcons, rewardTypeIcons } from '@/data/icons'
+    import { weaponSubclassToString } from '@/data/weapons'
+    import { ArmorType, RewardType } from '@/types/enums'
+    import { getDropData } from '@/utils/zone-maps/get-drop-data'
+
+    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import type { ManualDataZoneMapFarm } from '@/types/data/manual'
+    import WowheadLink from '@/components/links/WowheadLink.svelte'
+
+    export let loots: [ManualDataZoneMapFarm, number[]][]
+</script>
+
+<style lang="scss">
+    td {
+        padding: 0.2rem;
+    }
+    .drops,
+    .type {
+        padding-right: 0.5rem;
+    }
+</style>
+
+<table class="table table-striped">
+    <tbody>
+        {#each loots as [farm, dropIndexes]}
+            {@const dropDatas = dropIndexes.map((dropIndex) => getDropData(farm.drops[dropIndex]))}
+            <tr>
+                <td class="name">
+                    <IconifyIcon icon={farmTypeIcons[farm.type]} />
+                    {farm.name}
+                </td>
+                <td class="drops">
+                    {#each dropIndexes.slice(0, 3) as dropIndex, dataIndex}
+                        {@const drop = farm.drops[dropIndex]}
+                        {@const dropData = dropDatas[dataIndex]}
+                        <div>
+                            <IconifyIcon icon={rewardTypeIcons[drop.type]} />
+                            <span class="quality{dropData.quality}">
+                                <WowheadLink
+                                    id={dropData.linkId}
+                                    type={dropData.linkType}
+                                >
+                                    {dropData.name}
+                                </WowheadLink>
+                            </span>
+                        </div>
+                    {/each}
+                    
+                    {#if dropIndexes.length > 3}
+                        <div class="quality0">
+                            ... and {dropIndexes.length - 3} more
+                        </div>
+                    {/if}
+                </td>
+                <td class="type">
+                    {#each dropIndexes.slice(0, 3) as dropIndex}
+                        {@const drop = farm.drops[dropIndex]}
+                        {#if drop.type === RewardType.Armor}
+                            {ArmorType[drop.subType].toLowerCase()}
+                        {:else if drop.type === RewardType.Weapon}
+                            {weaponSubclassToString[drop.subType].toLowerCase()}
+                        {/if}
+                    {/each}
+                </td>
+            </tr>
+        {/each}
+    </tbody>
+</table>

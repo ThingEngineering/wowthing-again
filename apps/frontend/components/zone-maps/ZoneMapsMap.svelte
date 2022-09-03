@@ -3,13 +3,11 @@
     import find from 'lodash/find'
 
     import { classOrder } from '@/data/character-class'
-    import { farmTypeIcons, iconStrings, rewardTypeIcons } from '@/data/icons'
+    import { iconStrings } from '@/data/icons'
     import { manualStore } from '@/stores'
     import { zoneMapState } from '@/stores/local-storage/zone-map'
     import { zoneMapMedia } from '@/stores/media-queries/zone-map'
     import { FarmType, PlayableClass, RewardType } from '@/types/enums'
-    import { getDropName } from '@/utils/zone-maps/get-drop-name'
-    import { getDropQuality } from '@/utils/zone-maps/get-drop-quality'
     import type { FarmStatus } from '@/types'
     import type { ManualDataZoneMapCategory, ManualDataZoneMapFarm } from '@/types/data/manual'
 
@@ -18,6 +16,7 @@
     import Counter from './ZoneMapsCounter.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import Image from '@/components/images/Image.svelte'
+    import Loot from './ZoneMapsLoot.svelte'
     import Thing from './ZoneMapsThing.svelte'
 
     export let slug1: string
@@ -51,7 +50,7 @@
         }
     }
 
-    let loots: [number, number[]][]
+    let loots: [ManualDataZoneMapFarm, number[]][]
     $: {
         loots = []
         if (farms && $zoneMapState.lootExpanded[slugKey]) {
@@ -70,7 +69,7 @@
                     }
 
                     if (needDrops.length > 0) {
-                        loots.push([farmIndex, needDrops])
+                        loots.push([farms[farmIndex], needDrops])
                    }
                 }
             }
@@ -178,15 +177,6 @@
         border-right-width: 0;
         bottom: 33px;
         left: 1px;
-
-        table {
-            td {
-                padding: 0.2rem;
-            }
-            .loot-drops {
-                padding-right: 0.5rem;
-            }
-        }
     }
     .credits {
         bottom: 1px;
@@ -346,36 +336,7 @@
 
         {#if $zoneMapState.lootExpanded[slugKey] && loots?.length > 0}
             <div class="loot-list overlay-box">
-                <table class="table table-striped">
-                    <tbody>
-                        {#each loots as [farmIndex, dropIndexes]}
-                            {@const farm = farms[farmIndex]}
-                            <tr>
-                                <td class="loot-name">
-                                    <IconifyIcon icon={farmTypeIcons[farm.type]} />
-                                    {farm.name}
-                                </td>
-                                <td class="loot-drops">
-                                    {#each dropIndexes.slice(0, 3) as dropIndex}
-                                        {@const drop = farm.drops[dropIndex]}
-                                        <div>
-                                            <IconifyIcon icon={rewardTypeIcons[drop.type]} />
-                                            <span class="quality{getDropQuality(drop)}">
-                                                {getDropName(drop)}
-                                            </span>
-                                        </div>
-                                    {/each}
-                                    
-                                    {#if dropIndexes.length > 3}
-                                        <div class="quality0">
-                                            ... and {dropIndexes.length - 3} more
-                                        </div>
-                                    {/if}
-                                </td>
-                            </tr>
-                        {/each}
-                    </tbody>
-                </table>
+                <Loot {loots} />
             </div>
         {/if}
 
