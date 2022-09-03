@@ -117,11 +117,15 @@ public class ApplicationUserSettings
         "holidayTimewalking",
         "holidayWorldQuests",
 
+        "legWitheredTraining",
+
         "slAnima",
-        "slKorthia",
-        "slNewDeal",
-        "slZerethMortis",
         "slFatedWorldQuest",
+        "slKorthia",
+        "slMawAssault",
+        "slNewDeal",
+        "slTormentors",
+        "slZerethMortis",
     };
 
     private void Validate()

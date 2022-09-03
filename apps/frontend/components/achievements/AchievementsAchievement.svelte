@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { iconStrings } from '@/data/icons'
     import { achievementStore, userAchievementStore } from '@/stores'
     import { achievementState } from '@/stores/local-storage'
     import { data as settings } from '@/stores/settings'
@@ -10,7 +11,6 @@
     import FactionIcon from '@/components/images/FactionIcon.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
-import { iconStrings } from '@/data/icons';
 
     export let achievementId: number
     export let alwaysShow = false

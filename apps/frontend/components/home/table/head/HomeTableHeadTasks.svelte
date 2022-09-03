@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { tasksHead } from '@/data/tasks'
+    import { taskMap } from '@/data/tasks'
     import { userStore } from '@/stores'
     import { data as settings } from '@/stores/settings'
     import { getActiveHoliday } from '@/utils/get-active-holiday'
@@ -24,13 +24,13 @@
 {#each $settings.layout.homeTasks as task}
     {#if !task.startsWith('holiday') || task === activeHoliday}
         <td>
-            <ParsedText text={tasksHead[task]} />
+            <ParsedText text={taskMap[task].shortName} />
         </td>
     {/if}
 
     {#if task === activeHoliday && task === 'holidayTimewalking'}
         <td>
-            <ParsedText text={tasksHead['timewalking']} />
+            <ParsedText text={taskMap['timewalking'].shortName} />
         </td>
     {/if}
 {/each}

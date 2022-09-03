@@ -4,6 +4,7 @@
     import { Constants } from '@/data/constants'
     import { covenantMap } from '@/data/covenant'
     import { forcedReset, progressQuestLevel, progressQuestMap, progressQuestTitle } from '@/data/quests'
+    import { taskMap } from '@/data/tasks'
     import { timeStore, userQuestStore } from '@/stores'
     import { tippyComponent } from '@/utils/tippy'
     import type { Character } from '@/types'
@@ -51,6 +52,9 @@
                         break
                     }
                 }
+            }
+            if (title === undefined) {
+                title = taskMap[quest]?.name
             }
 
             progressQuest = $userQuestStore.data.characters[character.id]?.progressQuests?.[quest]
