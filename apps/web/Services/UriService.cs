@@ -61,13 +61,13 @@ public class UriService
                 builder.Scheme = _httpContextAccessor.HttpContext.Request.Scheme;
 
                 _baseUri = builder.Uri;
-                _logger.LogInformation("Base URI is {Uri}", _baseUri);
+                _logger.LogDebug("Base URI is {Uri}", _baseUri);
             }
 
             return _baseUri;
         }
     }
-        
+
     public string GetBaseAction(string controller, string action, object values = null)
     {
         return _linkGenerator.GetUriByAction(
@@ -92,7 +92,7 @@ public class UriService
                 username = user.UserName;
             }
         }
-            
+
         if (user == null)
         {
             _logger.LogInformation("user=null username={Name}", username);
@@ -105,7 +105,7 @@ public class UriService
         }
 
         _logger.LogInformation("Found user for username {Name}", username);
-            
+
         if (user?.CanUseSubdomain == true)
         {
             var builder = new UriBuilder(BaseUri);
@@ -119,7 +119,7 @@ public class UriService
 
         if (_httpContextAccessor != null)
         {
-            
+
             return _linkGenerator.GetUriByAction(
                 _httpContextAccessor.HttpContext,
                 controller: "User",
@@ -129,7 +129,7 @@ public class UriService
         }
 
         _logger.LogWarning("GetUriForUser had no useful result, uh-oh");
-            
+
         return "";
     }
 }
