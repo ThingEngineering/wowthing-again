@@ -39,8 +39,8 @@ export default function getProgress(
     const haveIndexes: number[] = []
 
     if (
-        character.level >= (category.minimumLevel ?? 0)
-        &&
+        character.level >= (category.minimumLevel || 0) &&
+        character.level >= (group.minimumLevel || 0) &&
         (
             category.requiredQuestIds.length === 0 ||
             some(

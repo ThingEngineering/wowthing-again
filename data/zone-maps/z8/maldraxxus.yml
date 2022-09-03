@@ -431,7 +431,7 @@ farms:
   location: 57.0 74.2
   npcId: 157226
   reset: daily
-  type: kill
+  type: event
   drops:
   - type: mount
     id: 1410 # Hulking Deathroc

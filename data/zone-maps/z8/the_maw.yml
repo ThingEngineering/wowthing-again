@@ -225,8 +225,9 @@ farms:
   - type: transmog
     id: 186214 # Maw Snakeskin Boots
 
-- name: "Krala <Death's Wings>"
+- name: "Krala"
   location: 30.8 68.7
+  note: "Death's Wings"
   npcId: 170692
   questId: 63381
   drops:
@@ -241,8 +242,9 @@ farms:
   - type: transmog
     id: 186625 # Hood of Malevolence
 
-- name: "Morguliax <Lord of Decapitation>"
+- name: "Morguliax"
   location: 16.9 51.0
+  note: "Lord of Decapitation"
   npcId: 162849
   questId: 60987
   drops:
@@ -260,8 +262,9 @@ farms:
   - type: transmog
     id: 186236 # Devourer's Shadehide Jerkin
 
-- name: "Obolos <Prime Adjutant>"
+- name: "Obolos"
   location: 48.8 18.3
+  note: "Prime Adjutant"
   npcId: 164064
   questId: 60667
   drops:
@@ -288,8 +291,9 @@ farms:
   - type: transmog
     id: 186211 # Pantaloons of the Condemned Bard
 
-- name: "Orrholyn <Lord of Bloodletting>"
+- name: "Orrholyn"
   location: 25.4 48.8
+  note: "Lord of Bloodletting"
   npcId: 162845
   questId: 60991
   drops:
@@ -304,8 +308,9 @@ farms:
   - type: transmog
     id: 186627 # Belt of Ten Thousand Tails
 
-- name: "Razkazzar <Lord of Axes>"
+- name: "Razkazzar"
   location: 26.2 37.4
+  note: "Lord of Axes"
   npcId: 162829
   questId: 60992
   drops:
@@ -373,8 +378,9 @@ farms:
   - type: transmog
     id: 184107 # Borogove Cloak
 
-- name: "Thanassos <Death's Voice>"
+- name: "Thanassos"
   location: 27.4 71.5
+  note: "Death's Voice"
   npcId: 170731
   questId: 60914
   drops:

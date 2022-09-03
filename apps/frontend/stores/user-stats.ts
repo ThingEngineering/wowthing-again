@@ -1,5 +1,5 @@
 import { WritableFancyStore } from '@/types'
-import type { UserStatsData } from '@/types/data/user-stats';
+import type { UserStatsData } from '@/types/data/user-stats'
 
 
 export class UserStatsDataStore extends WritableFancyStore<UserStatsData> {

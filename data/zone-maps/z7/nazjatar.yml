@@ -153,8 +153,9 @@ farms:
 
 # World bosses
 
-- name: "Ulmath <The Soulbinder>"
+- name: "Ulmath"
   location: 84.6 35.8
+  note: "The Soulbinder"
   npcId: 152697
   questId: 56057
   reset: weekly

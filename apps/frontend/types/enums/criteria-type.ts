@@ -1,4 +1,5 @@
 export enum CriteriaType {
+    KillNPC = 0,
     RaiseSkillLine = 7,
     EarnAchievement = 8,
     CompleteQuest = 27,
@@ -10,6 +11,9 @@ export enum CriteriaType {
     LootItem = 42,
     ReputationGained = 46,
     EquipItem = 57,
+    GainAura = 69,
+    AccountKnowsPet = 96,
+    ObtainPetThroughBattle = 157,
     GarrisonMissionSucceeded = 174,
     LearnToy = 185,
     LearnHeirloom = 188,

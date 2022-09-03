@@ -44,7 +44,9 @@
     <table class="table-striped">
         <tbody>
             <tr>
-                <td class="title">{progressQuest?.name ?? title}</td>
+                <td class="title">
+                    {progressQuest?.name ?? title}
+                </td>
             </tr>
             <tr>
                 <td class="progress status-{progressQuest?.status ?? 0}">

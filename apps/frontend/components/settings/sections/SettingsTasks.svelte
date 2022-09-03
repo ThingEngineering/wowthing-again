@@ -2,29 +2,13 @@
     import debounce from 'lodash/debounce'
     import filter from 'lodash/filter'
 
+    import { taskList } from '@/data/tasks'
     import { data as settingsData } from '@/stores/settings'
     import type { SettingsChoice } from '@/types'
 
     import MagicLists from '../SettingsMagicLists.svelte'
  
-    const taskChoices: SettingsChoice[] = [
-        { key: 'somethingDifferent', name: 'PvP - Something Different (Brawl)'},
-
-        { key: 'dmfProfessions', name: 'Darkmoon Faire - Professions' },
-
-        { key: 'holidayArenaSkirmishes', name: 'Holiday - Arena Skirmishes' },
-        { key: 'holidayBattlegrounds', name: 'Holiday - Battlegrounds' },
-        { key: 'holidayDungeons', name: 'Holiday - Mythic Dungeons' },
-        { key: 'holidayPetBattles', name: 'Holiday - Pet Battles' },
-        { key: 'holidayTimewalking', name: 'Holiday - Timewalking' },
-        { key: 'holidayWorldQuests', name: 'Holiday - World Quests' },
-
-        { key: 'slAnima', name: 'Shadowlands - Anima' },
-        { key: 'slKorthia', name: 'Shadowlands - Korthia' },
-        { key: 'slZerethMortis', name: 'Shadowlands - Zereth Mortis' },
-        { key: 'slNewDeal', name: 'Shadowlands - A New Deal (PvP)' },
-        { key: 'slFatedWorldQuest', name: 'Shadowlands - Fated Raid WQ'},
-    ]
+    const taskChoices: SettingsChoice[] = [...taskList]
 
     const taskActive = $settingsData.layout.homeTasks.map(
         (f) => filter(taskChoices, (c) => c.key === f)[0]

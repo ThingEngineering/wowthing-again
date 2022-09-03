@@ -39,7 +39,7 @@
     }
 </script>
 
-{#if id !== undefined}
+{#if id > 0}
     <a
         href="{url}"
         data-disable-wowhead-tooltip="{noTooltip ? 'true' : undefined}"

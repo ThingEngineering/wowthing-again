@@ -6,10 +6,6 @@ export const progressQuests: Record<string, string[]> = {
     'allSouls': ['kyrianSouls', 'necrolordSouls', 'nightFaeSouls', 'venthyrSouls'],
 }
 
-export const progressQuestLevel: Record<string, number> = {
-    timewalking: 50,
-}
-
 export const progressQuestMap: Record<string, string> = {
     holidayArenaSkirmishes: 'weeklyHoliday',
     holidayBattlegrounds: 'weeklyHoliday',
@@ -36,15 +32,6 @@ export const progressQuestId: Record<number, string> = {
     66648: 'slFatedDinar1',
     66649: 'slFatedDinar2',
     66650: 'slFatedDinar3',
-}
-
-export const progressQuestTitle: Record<string, string> = {
-    weeklyAnima: 'Replenish the Reservoir',
-    weeklyHoliday: 'Weekly Holiday Quest',
-    weeklyKorthia: 'Korthia',
-    weeklyPatterns: 'Patterns Within Patterns',
-    weeklyPvp: 'Weekly PvP Quest',
-    weeklySouls: 'Souls',
 }
 
 export const forcedReset: Record<string, boolean> = {

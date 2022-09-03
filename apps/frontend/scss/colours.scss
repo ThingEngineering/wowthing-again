@@ -1,10 +1,15 @@
 .status-success {
+    --link-color: $colour-success;
+
     color: $colour-success !important;
 }
 .status-shrug {
+    --link-color: $colour-shrug;
+
     color: $colour-shrug;
 }
 .status-fail {
+    --link-color: $colour-fail;
     --shadow-color: rgba(255, 30, 0, 0.2);
 
     color: $colour-fail;

@@ -1,10 +1,11 @@
 <script lang="ts">
     import { iconStrings } from '@/data/icons'
-    import { achievementStore, userAchievementStore } from '@/stores'
+    import { achievementStore, staticStore, userAchievementStore } from '@/stores'
     import { CriteriaTreeOperator, CriteriaType } from '@/types/enums'
-    import type { AchievementDataAchievement, AchievementDataCriteriaTree } from '@/types'
+    import type { AchievementDataAchievement, AchievementDataCriteria, AchievementDataCriteriaTree } from '@/types'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import WowheadLink from '@/components/links/WowheadLink.svelte'
 
     export let accountWide = false
     export let achievement: AchievementDataAchievement
@@ -14,11 +15,16 @@
     export let haveMap: Record<number, number> = null
     export let rootCriteriaTree: AchievementDataCriteriaTree
     
+    let criteria: AchievementDataCriteria
     let criteriaTree: AchievementDataCriteriaTree
     let description: string
     let have: boolean
+    let linkId: number
+    let linkParams: Record<string, string>
+    let linkType: string
     $: {
         criteriaTree = $achievementStore.data.criteriaTree[criteriaTreeId]
+        criteria = $achievementStore.data.criteria[criteriaTree?.criteriaId]
         description = criteriaTree.description
 
         if (characterId > 0) {
@@ -30,11 +36,6 @@
                     (rootCriteriaTree?.operator === CriteriaTreeOperator.All && charCriteria[0][0] > 0)
                 )
             )
-            //have = 
-            if (achievement.id === 14779) {
-                console.log(criteriaTree)
-                console.log(characterId, charCriteria, have)
-            }
         }
         else {
             have = (
@@ -52,16 +53,63 @@
             else if (criteria?.type === CriteriaType.CastSpell) {
                 description = `Cast spell #${criteria.asset}`
             }
+            else if (criteria?.type === CriteriaType.CompleteQuest) {
+                //console.log('quest', criteriaTree, criteria)
+            }
             else if (criteria?.type === CriteriaType.GarrisonMissionSucceeded) {
                 description = `Garrison mission #${criteria.asset}`
             }
+            else if (criteria?.type === CriteriaType.HaveSpellCastOnYou) {
+                description = `Have spell cast on you #${criteria.asset}`
+            }
+            else if (criteria?.type === CriteriaType.KillNPC) {
+                description = `NPC #${criteria.asset}`
+            }
+            else if (criteria?.type === CriteriaType.GainAura) {
+                description = `Gain aura #${criteria.asset}`
+            }
             else {
-                console.log('Unknown criteria', criteria)
+                console.log('Unknown criteria', criteriaTree, criteria)
             }
         }
 
-        if (achievement?.id === 9451) {
-            console.log(characterId, have, criteriaTree)
+        // Link type
+        linkId = 0
+        linkParams = {}
+        linkType = null
+        if (criteria) {
+            if (criteria.type === CriteriaType.CompleteQuest) {
+                linkType = 'quest'
+                linkId = criteria.asset
+            }
+            else if (criteria.type === CriteriaType.EarnAchievement) {
+                linkType = 'achievement'
+                linkId = criteria.asset
+                
+                const earned = $userAchievementStore.data.achievements[criteria.asset]
+                if (earned) {
+                    linkParams['who'] = 'You'
+                    linkParams['when'] = earned.toString() + '000'
+                }
+            }
+            else if (criteria.type === CriteriaType.KillNPC) {
+                linkType = 'npc'
+                linkId = criteria.asset
+            }
+            else if (
+                criteria.type === CriteriaType.AccountKnowsPet ||
+                criteria.type === CriteriaType.ObtainPetThroughBattle
+            ) {
+                const pet = $staticStore.data.petsByName[criteriaTree.description]
+                if (pet) {
+                    linkType = 'npc'
+                    linkId = pet.creatureId
+                }
+            }
+            
+            if (criteriaTree.description === 'Engineers and Archaeologists') {
+                console.log(criteriaTree, criteria)
+            }
         }
     }
 </script>
@@ -90,10 +138,16 @@
         data-tree-id={criteriaTreeId}
     >
         {#if description}
-            <IconifyIcon icon={have ? iconStrings.yes : iconStrings.no} />
-        {/if}
+            <WowheadLink
+                extraParams={linkParams}
+                id={linkId}
+                type={linkType}
+            >
+                <IconifyIcon icon={have ? iconStrings.yes : iconStrings.no} />
 
-        {description}
+                {description}
+            </WowheadLink>
+        {/if}
 
         {#if criteriaTree.children.length > 0}
             {#each criteriaTree.children as child}

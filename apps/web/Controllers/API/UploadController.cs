@@ -22,19 +22,21 @@ public class UploadController : Controller
         _uploadService = uploadService;
         _context = context;
     }
-    
+
     [HttpPost("api/upload")]
     public async Task<IActionResult> Upload([FromBody] ApiUpload apiUpload)
     {
         // TODO rate limit
         if (apiUpload?.ApiKey == null || apiUpload.LuaFile == null)
         {
+            _logger.LogWarning("Invalid request format");
             _logger.LogDebug("Upload: {0}", JsonConvert.SerializeObject(apiUpload));
             return BadRequest("Invalid request format");
         }
-            
+
         if (apiUpload.ApiKey.Length != ApplicationUser.ApiKeyLength * 2)
         {
+            _logger.LogWarning(("Invalid API key format"));
             return BadRequest("Invalid API key format");
         }
 
@@ -43,10 +45,14 @@ public class UploadController : Controller
             .FirstOrDefaultAsync();
         if (user == null)
         {
+            _logger.LogWarning("Invalid API key");
             return StatusCode((int) HttpStatusCode.Forbidden, "Invalid API key");
         }
 
         await _uploadService.Process(user.Id, apiUpload.LuaFile);
+
+        _logger.LogInformation("Accepted upload for user {userId}, {length} bytes",
+            user.Id, apiUpload.LuaFile.Length);
 
         return Ok("Upload accepted");
     }

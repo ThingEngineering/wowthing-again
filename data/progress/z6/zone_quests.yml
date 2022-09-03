@@ -3,11 +3,13 @@ groups:
 
 - name: "You Are Now Prepared!"
   icon: achievement/12066 # You Are Now Prepared!
+  minimumLevel: 45
   type: quest
   data:
     0:
     - name: "Visit spaceship"
-      id: 47224
+      id: 48440
+      description: "Unlocks Dalaran->Spaceship teleporter"
 
     - name: "Travel to Krokuul Hovel"
       id: 46816

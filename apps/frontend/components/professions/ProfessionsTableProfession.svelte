@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { Character, CharacterProfession } from '@/types'
-import getPercentClass from '@/utils/get-percent-class';
+    import getPercentClass from '@/utils/get-percent-class'
 
     export let character: Character
     export let primaryId: number

@@ -2,6 +2,9 @@
 
 public class OutProgressGroup
 {
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+    public int? MinimumLevel { get; set; }
+
     public string Icon { get; set; }
     public string Lookup { get; set; }
     public string Name { get; set; }
@@ -13,6 +16,11 @@ public class OutProgressGroup
 
     public OutProgressGroup(DataProgressGroup data)
     {
+        if (data.MinimumLevel > 0)
+        {
+            MinimumLevel = data.MinimumLevel;
+        }
+
         Icon = data.Icon;
         IconText = data.IconText;
         Lookup = data.Lookup;
