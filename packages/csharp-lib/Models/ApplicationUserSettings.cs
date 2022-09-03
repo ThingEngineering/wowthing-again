@@ -117,7 +117,7 @@ public class ApplicationUserSettings
         "holidayTimewalking",
         "holidayWorldQuests",
 
-        "legWitheredTraining",
+        "legionWitheredTraining",
 
         "slAnima",
         "slFatedWorldQuest",

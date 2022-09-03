@@ -49,13 +49,16 @@ export const taskList: Task[] = [
         key: 'timewalking',
         name: 'Holiday - Timewalking Item',
         shortName: 'TW :item:',
+        minimumLevel: 50,
     },
 
     // Legion
     {
-        key: 'legionWitheredArmy',
+        key: 'legionWitheredTraining',
         name: 'Legion - Withered Army Training',
         shortName: 'Wither',
+        minimumLevel: 45,
+        requiredQuestId: 44636, // Building an Army
     },
 
     // Shadowlands

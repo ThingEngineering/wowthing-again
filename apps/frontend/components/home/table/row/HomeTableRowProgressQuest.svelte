@@ -3,7 +3,7 @@
 
     import { Constants } from '@/data/constants'
     import { covenantMap } from '@/data/covenant'
-    import { forcedReset, progressQuestLevel, progressQuestMap, progressQuestTitle } from '@/data/quests'
+    import { forcedReset, progressQuestMap } from '@/data/quests'
     import { taskMap } from '@/data/tasks'
     import { timeStore, userQuestStore } from '@/stores'
     import { tippyComponent } from '@/utils/tippy'
@@ -22,13 +22,16 @@
     let valid: boolean
     $: {
         valid = false
+        const task = taskMap[quest]
         if (
-            character.level === Constants.characterMaxLevel ||
-            progressQuestLevel[quest] && character.level >= progressQuestLevel[quest]
+            character.level >= (task?.minimumLevel || Constants.characterMaxLevel) &&
+            (
+                !task?.requiredQuestId ||
+                $userQuestStore.data.characters[character.id]?.quests?.has(task.requiredQuestId)
+            )
         ) {
+            console.log(task)
             valid = true
-            
-            title = progressQuestTitle[quest]
 
             if (quest === 'slAnima') {
                 const covenant = covenantMap[character.shadowlands?.covenantId]
@@ -40,19 +43,20 @@
                 quest = progressQuestMap[quest] || quest
             }
 
-            if (title === undefined) {
-                for (const characterId in $userQuestStore.data.characters) {
-                    const characterQuest = $userQuestStore.data.characters[characterId]?.progressQuests?.[quest]
-                    if (characterQuest) {
-                        if (quest === 'weeklyHoliday' && DateTime.fromSeconds(characterQuest.expires) < $timeStore) {
-                            continue
-                        }
-
-                        title = characterQuest.name
-                        break
+            // Check other characters for a quest title
+            for (const characterId in $userQuestStore.data.characters) {
+                const characterQuest = $userQuestStore.data.characters[characterId]?.progressQuests?.[quest]
+                if (characterQuest) {
+                    if (quest === 'weeklyHoliday' && DateTime.fromSeconds(characterQuest.expires) < $timeStore) {
+                        continue
                     }
+
+                    title = characterQuest.name
+                    break
                 }
             }
+
+            // Use the fallback title
             if (title === undefined) {
                 title = taskMap[quest]?.name
             }
