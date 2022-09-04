@@ -11,6 +11,8 @@ export type AuctionStateSortBy =
 export class AuctionState {
     public perPage: AuctionStatePerPage = 50
 
+    public extraPetsIgnoreJournal = false
+    public missingPetsMaxLevel = false
     public region = '0'
 
     public sortBy: Record<string, AuctionStateSortBy> = {

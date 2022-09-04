@@ -2,16 +2,10 @@
     import sortBy from 'lodash/sortBy'
 
     import { timeLeft } from '@/data/auctions'
-    import {
-        staticStore,
-        userAuctionMissingMountStore,
-        userAuctionMissingPetStore,
-        userAuctionMissingToyStore,
-    } from '@/stores'
+    import { staticStore, userAuctionMissingStore } from '@/stores'
     import { auctionState } from '@/stores/local-storage/auctions'
     import connectedRealmName from '@/utils/connected-realm-name'
-    import type { UserAuctionDataStore } from '@/stores'
-    import type { UserAuctionDataAuction } from '@/types/data'
+    import type { UserAuctionData, UserAuctionDataAuction } from '@/types/data'
 
     import Paginate from '@/components/common/Paginate.svelte'
     import WowheadLink from '@/components/links/WowheadLink.svelte'
@@ -20,62 +14,18 @@
     export let page: number
     export let slug: string
 
-    let auctionStore: UserAuctionDataStore
-    let things: { id: number, name: string, auctions: UserAuctionDataAuction[] }[]
+    let searchType: string
     let thingType: string
-
     $: {
+        searchType = slug.replace('missing-', '')
         if (slug === 'missing-mounts') {
-            auctionStore = userAuctionMissingMountStore
             thingType = 'spell'
         }
         else if (slug === 'missing-pets') {
-            auctionStore = userAuctionMissingPetStore
             thingType = 'npc'
         }
         else if (slug === 'missing-toys') {
-            auctionStore = userAuctionMissingToyStore
             thingType = 'item'
-        }
-    }
-
-    $: {
-        things = []
-        if ($auctionStore.data?.auctions) {
-            const regionId = parseInt($auctionState.region)
-            for (const thingId in $auctionStore.data.auctions) {
-                let auctions = $auctionStore.data.auctions[thingId]
-                if (regionId > 0) {
-                    auctions = auctions.filter((auction) =>
-                        $staticStore.data.connectedRealms[auction.connectedRealmId].region === regionId)
-                    if (auctions.length === 0) {
-                        continue
-                    }
-                }
-
-                things.push({
-                    id: parseInt(thingId),
-                    name: $auctionStore.data.names[thingId],
-                    auctions: auctions,
-                })
-            }
-
-            const sortState = $auctionState.sortBy[slug] || 'name_up'
-            if (sortState === 'name_down') {
-                things = sortBy(things, (item) => item.name)
-                things.reverse()
-            }
-            else if (sortState === 'price_up') {
-                things = sortBy(things, (item) => item.auctions[0].bidPrice || item.auctions[0].buyoutPrice)
-            }
-            else if (sortState === 'price_down') {
-                things = sortBy(things, (item) => item.auctions[0].bidPrice || item.auctions[0].buyoutPrice)
-                things.reverse()
-            }
-            // name_up is default
-            else {
-                things = sortBy(things, (item) => item.name)
-            }
         }
     }
 </script>
@@ -114,10 +64,14 @@
     .realm {
         @include cell-width(12.0rem);
     }
+    .level {
+        text-align: right;
+    }
     .price {
-        @include cell-width(5.3rem);
+        @include cell-width(4.4rem);
 
         text-align: right;
+        white-space: nowrap;
 
         &.no-bid {
             color: #7f7f7f;
@@ -131,9 +85,9 @@
     }
 </style>
 
-{#await auctionStore.fetch()}
+{#await userAuctionMissingStore.search($auctionState, searchType)}
     <div class="wrapper">L O A D I N G . . .</div>
-{:then _}
+{:then things}
     <Paginate
         items={things || []}
         perPage={20}
@@ -145,7 +99,7 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th class="item" colspan="4">
+                            <th class="item" colspan="{slug === 'missing-pets' ? 5 : 4}">
                                 <WowheadLink
                                     type={thingType}
                                     id={item.id}
@@ -167,6 +121,11 @@
                                 <td class="realm text-overflow">
                                     {connectedRealmName(auction.connectedRealmId)}
                                 </td>
+                                {#if slug === 'missing-pets'}
+                                    <td class="level quality{auction.petQuality}">
+                                        {auction.petLevel}
+                                    </td>
+                                {/if}
                                 <td
                                     class="price"
                                     class:no-bid={auction.bidPrice === 0}
@@ -177,8 +136,15 @@
                                         &lt;no bid&gt;
                                     {/if}
                                 </td>
-                                <td class="price">
-                                    {Math.floor(auction.buyoutPrice / 10000).toLocaleString()} g
+                                <td
+                                    class="price"
+                                    class:no-bid={auction.bidPrice > 0 && auction.buyoutPrice === 0}
+                                >
+                                    {#if auction.bidPrice > 0 && auction.buyoutPrice === 0}
+                                        &lt;no b/o&gt;
+                                    {:else}
+                                        {Math.floor(auction.buyoutPrice / 10000).toLocaleString()} g
+                                    {/if}
                                 </td>
                                 <td
                                     class="time-left"

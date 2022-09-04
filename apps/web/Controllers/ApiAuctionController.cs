@@ -8,6 +8,7 @@ using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
 using Wowthing.Lib.Models.Wow;
 using Wowthing.Lib.Utilities;
+using Wowthing.Web.Forms;
 using Wowthing.Web.Models;
 
 namespace Wowthing.Web.Controllers;
@@ -26,9 +27,9 @@ public class ApiAuctionController : Controller
         _context = context;
     }
 
-    [HttpGet("extra-pets")]
+    [HttpPost("extra-pets")]
     [Authorize]
-    public async Task<IActionResult> ExtraPets()
+    public async Task<IActionResult> ExtraPets([FromBody] ApiExtraPetsForm form)
     {
         var timer = new JankTimer();
 
@@ -40,6 +41,7 @@ public class ApiAuctionController : Controller
         }
 
         var data = new UserAuctionData();
+        var allPets = new Dictionary<long, PlayerAccountPetsPet>();
 
         var accounts = await _context.PlayerAccount
             .AsNoTracking()
@@ -55,7 +57,6 @@ public class ApiAuctionController : Controller
             .OrderByDescending(pap => pap.UpdatedAt)
             .ToArray();
 
-        var allPets = new Dictionary<long, PlayerAccountPetsPet>();
         foreach (var pets in accountPets)
         {
             foreach (var (petId, pet) in pets.Pets)
@@ -163,7 +164,13 @@ public class ApiAuctionController : Controller
         }
 
         var extraPets = groupedPets
-            .Where(kvp => kvp.Value.Count > 1)
+            .Where(kvp => form.IgnoreJournal
+                ? (
+                    kvp.Value.Any(pet => pet.Location == ItemLocation.PetCollection) &&
+                    kvp.Value.Any(pet => pet.Location != ItemLocation.PetCollection)
+                )
+                : kvp.Value.Count > 1
+            )
             .ToDictionary(
                 kvp => kvp.Key,
                 kvp => kvp.Value
@@ -223,9 +230,9 @@ public class ApiAuctionController : Controller
         return Ok(data);
     }
 
-    [HttpGet("missing-{type:regex(^(mounts|pets|toys)$)}")]
+    [HttpPost("missing")]
     [Authorize]
-    public async Task<IActionResult> Missing([FromRoute] string type)
+    public async Task<IActionResult> Missing([FromBody] ApiMissingAuctionsForm form)
     {
         var timer = new JankTimer();
 
@@ -240,11 +247,11 @@ public class ApiAuctionController : Controller
             .AsNoTracking()
             .Where(pa => pa.UserId == user.Id);
 
-        if (type == "pets")
+        if (form.Type == "pets")
         {
             accountQuery = accountQuery.Include(pa => pa.Pets);
         }
-        else if (type == "toys")
+        else if (form.Type == "toys")
         {
             accountQuery = accountQuery.Include(pa => pa.Toys);
         }
@@ -264,7 +271,7 @@ public class ApiAuctionController : Controller
             .Where(ls => ls.Language == user.Settings.General.Language);
 
         var data = new UserAuctionData();
-        if (type == "mounts")
+        if (form.Type == "mounts")
         {
             // Missing
             var accountMounts = await _context.MountQuery
@@ -311,7 +318,7 @@ public class ApiAuctionController : Controller
                     ls => ls.String
                 );
         }
-        else if (type == "pets")
+        else if (form.Type == "pets")
         {
             // Missing
             var accountPetIds = accounts
@@ -345,11 +352,16 @@ public class ApiAuctionController : Controller
                 .ToArray();
 
             // Auctions
-
-            var petAuctions = await auctionQuery
+            var petAuctionQuery = auctionQuery
                 .Where(auction => missingPetItemIds.Contains(auction.ItemId) ||
-                                  missingPetSpeciesIds.Contains(auction.PetSpeciesId))
-                .ToArrayAsync();
+                                  missingPetSpeciesIds.Contains(auction.PetSpeciesId));
+
+            if (form.MissingPetsMaxLevel)
+            {
+                petAuctionQuery = petAuctionQuery.Where(auction => auction.PetLevel == 25);
+            }
+
+            var petAuctions = await petAuctionQuery.ToArrayAsync();
 
             data.Auctions = DoAuctionStuff(
                 petAuctions.GroupBy(auction => auction.PetSpeciesId > 0
@@ -373,7 +385,7 @@ public class ApiAuctionController : Controller
                 );
 
         }
-        else if (type == "toys")
+        else if (form.Type == "toys")
         {
             // Missing
             var accountToyIds = accounts
