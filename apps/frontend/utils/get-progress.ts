@@ -31,14 +31,14 @@ export default function getProgress(
 ): ProgressInfo {
     let have = 0
     let showCurrency = 0
-    const showReputation = 0
-    let nameOverride: Record<number, string> = {}
     let total = 0
     let icon = ''
+    const showReputation = 0
 
     let datas: ManualDataProgressData[]
     const descriptionText: Record<number, string> = {}
     const haveIndexes: number[] = []
+    const nameOverride: Record<number, string> = {}
 
     if (
         character.level >= (category.minimumLevel || 0) &&
