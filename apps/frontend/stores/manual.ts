@@ -475,13 +475,13 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
 
                     let expiredFunc: (characterId: number) => boolean
                     if (farm.reset === FarmResetType.Weekly) {
-                        expiredFunc = (characterId) => resetMap[characterId].weekly < now
+                        expiredFunc = (characterId) => resetMap[characterId]?.weekly < now
                     }
                     else if (farm.reset === FarmResetType.BiWeekly) {
-                        expiredFunc = (characterId) => resetMap[characterId].biWeekly < now
+                        expiredFunc = (characterId) => resetMap[characterId]?.biWeekly < now
                     }
                     else if (farm.reset === FarmResetType.Daily) {
-                        expiredFunc = (characterId) => resetMap[characterId].daily < now
+                        expiredFunc = (characterId) => resetMap[characterId]?.daily < now
                     }
                     else if (farm.reset === FarmResetType.None) {
                         expiredFunc = () => true
