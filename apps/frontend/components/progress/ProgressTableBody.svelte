@@ -6,6 +6,7 @@
     import type { ProgressInfo } from '@/utils/get-progress'
 
     import TooltipProgress from '@/components/tooltips/progress/TooltipProgress.svelte'
+    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
     export let group: ManualDataProgressGroup
@@ -19,6 +20,9 @@
         border-left: 1px solid $border-color;
         text-align: center;
     }
+    .has-icon {
+        width: 4.8rem;
+    }
     span {
         flex: 1;
     }
@@ -26,20 +30,34 @@
 
 {#if progressData.total > 0}
     <td
+        class:has-icon={!!progressData.icon}
         use:tippyComponent={{
             component: TooltipProgress,
             props: {
                 datas: progressData.datas,
                 descriptionText: progressData.descriptionText,
                 haveIndexes: progressData.haveIndexes,
+                iconOverride: progressData.icon,
+                nameOverride: progressData.nameOverride,
                 showCurrency: progressData.showCurrency,
                 character,
                 group,
             },
         }}
     >
-        <span class="{getPercentClass(progressData.have / progressData.total * 100)}">{progressData.have} / {progressData.total}</span>
+        {#if progressData.icon}
+            <WowthingImage
+                name={progressData.icon}
+                size={20}
+            />
+        {/if}
+
+        <span class="{getPercentClass(progressData.have / progressData.total * 100)}">
+            {progressData.have} / {progressData.total}
+        </span>
     </td>
+{:else if progressData.have === -1}
+    <td class="status-fail">---</td>
 {:else}
     <td>&nbsp;</td>
 {/if}

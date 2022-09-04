@@ -12,6 +12,8 @@
     export let descriptionText: Record<number, string>
     export let group: ManualDataProgressGroup
     export let haveIndexes: number[]
+    export let iconOverride: string
+    export let nameOverride: Record<number, string>
     export let showCurrency = 0
 
     let cls: string
@@ -27,6 +29,7 @@
 
 <style lang="scss">
     .progress {
+        padding-right: 0;
         vertical-align: top;
     }
     .name {
@@ -43,7 +46,7 @@
             margin-top: 0;
         }
     }
-    .bottom {
+    .wowthing-tooltip {
         --image-border-width: 1px;
     }
 </style>
@@ -58,10 +61,18 @@
                 {@const description = descriptionText[dataIndex] || data.description}
                 <tr>
                     <td class="progress">
-                        {haveIndexes.indexOf(dataIndex) >= 0 ? '✔' : '❌'}
+                        {#if iconOverride}
+                            <WowthingImage
+                                name="{iconOverride}"
+                                size={20}
+                                border={1}
+                            />
+                        {:else}
+                            {haveIndexes.indexOf(dataIndex) >= 0 ? '✔' : '❌'}
+                        {/if}
                     </td>
                     <td class="name">
-                        <ParsedText text={data.name} />
+                        <ParsedText text={nameOverride[dataIndex] || data.name} />
 
                         {#if description && haveIndexes.indexOf(dataIndex) === -1}
                             {#if cls === 'short'}&ndash;{/if}

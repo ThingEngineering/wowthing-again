@@ -1,5 +1,116 @@
 import type { GarrisonTree } from '@/types'
+import { imageStrings } from './icons'
 
+
+export const garrisonBuildingIcon: Record<number, string> = {
+    // All
+
+    // 64: '', // Fishing Shack 1
+    // 134: '', // Fishing Shack 2
+    // 135: '', // Fishing Shack 3
+
+    // 29: '', // Herb Garden 1
+    // 136: '', // Herb Garden 2
+    // 137: '', // Herb Garden 3
+
+    // 61: '', // Mine 1
+    // 62: '', // Mine 2
+    // 63: '', // Mine 3
+
+    // 42: '', // Pet Menagerie 1
+    // 167: '', // Pet Menagerie 1
+    // 168: '', // Pet Menagerie 1
+
+    // 205: 'achievement/10177', // Shipyard 1
+    // 206: 'achievement/10177', // Shipyard 2
+    // 207: 'achievement/10177', // Shipyard 3
+
+    // Large
+
+    26: 'achievement/9499', // Barracks 1
+    27: 'achievement/9499', // Barracks 2
+    28: 'achievement/9499', // Barracks 3
+
+    8: 'achievement/9129', // Dwarven Bunker/War Mill 1
+    9: 'achievement/9129', // Dwarven Bunker/War Mill 2
+    10: 'achievement/9129', // Dwarven Bunker/War Mill 3
+
+    162: 'achievement/9527', // Gnomish Gearworks/Goblin Workshop 1
+    163: 'achievement/9527', // Gnomish Gearworks/Goblin Workshop 2
+    164: 'achievement/9527', // Gnomish Gearworks/Goblin Workshop 3
+
+    37: 'achievement/9497', // Mage Tower/Spirit Lodge 1
+    38: 'achievement/9497', // Mage Tower/Spirit Lodge 2
+    39: 'achievement/9497', // Mage Tower/Spirit Lodge 3
+
+    65: 'achievement/9705', // Stables 1
+    66: 'achievement/9705', // Stables 2
+    67: 'achievement/9705', // Stables 3
+
+    // Medium
+
+    24: 'achievement/9452', // Barn 1
+    25: 'achievement/9452', // Barn 2
+    133: 'achievement/9452', // Barn 3
+    
+    159: 'achievement/9738', // Gladiator's Sanctum 1
+    160: 'achievement/9738', // Gladiator's Sanctum 2
+    161: 'achievement/9738', // Gladiator's Sanctum 3
+
+    34: 'achievement/9703', // Inn 1
+    35: 'achievement/9703', // Inn 2
+    36: 'achievement/9703', // Inn 3
+
+    40: 'achievement/9429', // Lumber Mill 1
+    41: 'achievement/9429', // Lumber Mill 2
+    138: 'achievement/9429', // Lumber Mill 3
+
+    111: 'achievement/9478', // Trading Post 1
+    144: 'achievement/9478', // Trading Post 2
+    145: 'achievement/9478', // Trading Post 3
+
+    // Small
+    
+    52: 'achievement/9468', // Salvage Yard 1
+    140: 'achievement/9468', // Salvage Yard 2
+    141: 'achievement/9468', // Salvage Yard 3
+
+    51: 'achievement/9487', // Storehouse 1
+    142: 'achievement/9487', // Storehouse 2
+    143: 'achievement/9487', // Storehouse 3
+
+    76: imageStrings.alchemy, // Alchemy Lab 1
+    119: imageStrings.alchemy, // Alchemy Lab 2
+    120: imageStrings.alchemy, // Alchemy Lab 3
+
+    93: imageStrings.enchanting, // Enchanter's Study 1
+    125: imageStrings.enchanting, // Enchanter's Study 2
+    126: imageStrings.enchanting, // Enchanter's Study 3
+
+    91: imageStrings.engineering, // Engineering Works 1
+    123: imageStrings.engineering, // Engineering Works 2
+    124: imageStrings.engineering, // Engineering Works 3
+
+    96: imageStrings.jewelcrafting, // Gem Boutique 1
+    131: imageStrings.jewelcrafting, // Gem Boutique 2
+    132: imageStrings.jewelcrafting, // Gem Boutique 3
+
+    95: imageStrings.inscription, // Scribe's Quarters 1
+    129: imageStrings.inscription, // Scribe's Quarters 1
+    130: imageStrings.inscription, // Scribe's Quarters 1
+
+    94: imageStrings.tailoring, // Tailoring Emporium 1
+    127: imageStrings.tailoring, // Tailoring Emporium 2
+    128: imageStrings.tailoring, // Tailoring Emporium 3
+
+    60: imageStrings.blacksmithing, // The Forge 1
+    117: imageStrings.blacksmithing, // The Forge 2
+    118: imageStrings.blacksmithing, // The Forge 3
+
+    90: imageStrings.skinning, // The Tannery 1
+    121: imageStrings.skinning, // The Tannery 2
+    122: imageStrings.skinning, // The Tannery 3
+}
 
 export const garrisonTrees: Record<string, GarrisonTree> = {
     // boxOfManyThings: {

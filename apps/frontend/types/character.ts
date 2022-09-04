@@ -43,6 +43,7 @@ export interface Character {
     currenciesRaw: CharacterCurrencyArray[]
     currencyItems: Record<number, number>
     equippedItems: Record<number, CharacterEquippedItem>
+    garrisons: Record<number, CharacterGarrison>
     garrisonTrees: Record<number, Record<number, number[]>>
     lockouts: Record<string, CharacterLockout>
     mythicPlus: CharacterMythicPlus
@@ -87,6 +88,19 @@ export interface CharacterEquippedItem {
     bonusIds: number[]
     enchantmentIds: number[]
     gemIds: number[]
+}
+
+export interface CharacterGarrison {
+    level: number
+    type: number
+    buildings: CharacterGarrisonBuilding[]
+}
+
+export interface CharacterGarrisonBuilding {
+    buildingId: number
+    name: string
+    plotId: number
+    rank: number
 }
 
 export interface CharacterGear {
