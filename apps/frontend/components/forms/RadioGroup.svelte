@@ -19,6 +19,10 @@
 
         :global(span) {
             margin-left: 0;
+
+            :global(svg) {
+                margin-right: -0.75rem;
+            }
         }
     }
 </style>

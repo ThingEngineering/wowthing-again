@@ -1,7 +1,10 @@
 <script lang="ts">
+    import sortBy from 'lodash/sortBy'
     import type { SvelteComponent } from 'svelte'
 
+    import { userStore } from '@/stores'
     import { auctionState } from '@/stores/local-storage/auctions'
+    import { Region } from '@/types/enums'
     import type { MultiSlugParams } from '@/types'
 
     import ExtraPets from './AuctionsExtraPets.svelte'
@@ -11,8 +14,22 @@
     export let params: MultiSlugParams
 
     let page: number
+    let regions: [string, string][]
     $: {
         page = parseInt(params.slug2) || 1
+        
+        const regionMap: Record<number, boolean> = {}
+        for (const character of $userStore.data.characters) {
+            regionMap[character.realm.region] = true
+        }
+
+        regions = [['0', 'All']]
+        for (const regionId of sortBy(Object.keys(regionMap), (key) => key)) {
+            regions.push([
+                regionId,
+                Region[parseInt(regionId)],
+            ])
+        }
     }
 
     const componentMap: Record<string, typeof SvelteComponent> = {
@@ -27,11 +44,22 @@
     .options-container {
         padding: 0.2rem 0.3rem;
     }
+    .radio-container {
+        display: flex;
+        gap: 0.5rem;
+
+        &:not(:last-child) {
+            border-right: 1px solid $border-color;
+            margin-right: 0.5rem;
+            padding-right: 0.5rem;
+        }
+    }
 </style>
 
 <div class="auctions">
     <div class="options-container border">
         <div class="radio-container">
+            Sort:
             <RadioGroup
                 bind:value={$auctionState.sortBy[params.slug1]}
                 name="sort_by"
@@ -41,6 +69,15 @@
                     ['price_up', 'Price :arrow-up:'],
                     ['price_down', 'Price :arrow-down:'],
                 ]}
+            />
+        </div>
+
+        <div class="radio-container">
+            Region:
+            <RadioGroup
+                bind:value={$auctionState.region}
+                name="region"
+                options={regions}
             />
         </div>
     </div>

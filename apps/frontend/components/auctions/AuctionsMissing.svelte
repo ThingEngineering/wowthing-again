@@ -3,6 +3,7 @@
 
     import { timeLeft } from '@/data/auctions'
     import {
+        staticStore,
         userAuctionMissingMountStore,
         userAuctionMissingPetStore,
         userAuctionMissingToyStore,
@@ -41,7 +42,17 @@
     $: {
         things = []
         if ($auctionStore.data?.auctions) {
+            const regionId = parseInt($auctionState.region)
             for (const thingId in $auctionStore.data.auctions) {
+                let auctions = $auctionStore.data.auctions[thingId]
+                if (regionId > 0) {
+                    auctions = auctions.filter((auction) =>
+                        $staticStore.data.connectedRealms[auction.connectedRealmId].region === regionId)
+                    if (auctions.length === 0) {
+                        continue
+                    }
+                }
+
                 things.push({
                     id: parseInt(thingId),
                     name: $auctionStore.data.names[thingId],
@@ -151,34 +162,34 @@
                     </thead>
 
                     <tbody>
-                    {#each item.auctions as auction}
-                        <tr>
-                            <td class="realm text-overflow">
-                                {connectedRealmName(auction.connectedRealmId)}
-                            </td>
-                            <td
-                                class="price"
-                                class:no-bid={auction.bidPrice === 0}
-                            >
-                                {#if auction.bidPrice > 0}
-                                    {Math.floor(auction.bidPrice / 10000).toLocaleString()} g
-                                {:else}
-                                    &lt;no bid&gt;
-                                {/if}
-                            </td>
-                            <td class="price">
-                                {Math.floor(auction.buyoutPrice / 10000).toLocaleString()} g
-                            </td>
-                            <td
-                                class="time-left"
-                                class:status-fail={auction.timeLeft === 0}
-                                class:status-shrug={auction.timeLeft === 1}
-                                class:status-success={auction.timeLeft > 1}
-                            >
-                                {timeLeft[auction.timeLeft]}
-                            </td>
-                        </tr>
-                    {/each}
+                        {#each item.auctions as auction}
+                            <tr>
+                                <td class="realm text-overflow">
+                                    {connectedRealmName(auction.connectedRealmId)}
+                                </td>
+                                <td
+                                    class="price"
+                                    class:no-bid={auction.bidPrice === 0}
+                                >
+                                    {#if auction.bidPrice > 0}
+                                        {Math.floor(auction.bidPrice / 10000).toLocaleString()} g
+                                    {:else}
+                                        &lt;no bid&gt;
+                                    {/if}
+                                </td>
+                                <td class="price">
+                                    {Math.floor(auction.buyoutPrice / 10000).toLocaleString()} g
+                                </td>
+                                <td
+                                    class="time-left"
+                                    class:status-fail={auction.timeLeft === 0}
+                                    class:status-shrug={auction.timeLeft === 1}
+                                    class:status-success={auction.timeLeft > 1}
+                                >
+                                    {timeLeft[auction.timeLeft]}
+                                </td>
+                            </tr>
+                        {/each}
                     </tbody>
                 </table>
             {:else}

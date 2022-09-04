@@ -30,7 +30,6 @@
                 $userQuestStore.data.characters[character.id]?.quests?.has(task.requiredQuestId)
             )
         ) {
-            console.log(task)
             valid = true
 
             if (quest === 'slAnima') {

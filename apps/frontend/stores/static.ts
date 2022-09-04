@@ -71,27 +71,31 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             data.realms = {
                 0: new StaticDataRealm(0, 1, 0, 'Honkstrasza', 'honkstrasza'),
             }
-            const connected: Record<number, string[]> = {}
+            const connected: Record<number, {region: number, names: string[]}> = {}
             for (const realmArray of data.realmsRaw) {
                 const obj = new StaticDataRealm(...realmArray)
                 data.realms[obj.id] = obj
 
                 if (obj.connectedRealmId > 0) {
                     if (connected[obj.connectedRealmId] === undefined) {
-                        connected[obj.connectedRealmId] = []
+                        connected[obj.connectedRealmId] = {
+                            region: obj.region,
+                            names: [],
+                        }
                     }
-                    connected[obj.connectedRealmId].push(obj.name)
+                    connected[obj.connectedRealmId].names.push(obj.name)
                 }
             }
             data.realmsRaw = null
 
             data.connectedRealms = {}
-            for (const crId in connected) {
-                connected[crId].sort()
-                data.connectedRealms[crId] = {
+            for (const [crId, {region, names}] of Object.entries(connected)) {
+                names.sort()
+                data.connectedRealms[parseInt(crId)] = {
                     id: parseInt(crId),
-                    displayText: connected[crId].join(' / '),
-                    realmNames: connected[crId],
+                    region: region,
+                    displayText: names.join(' / '),
+                    realmNames: names,
                 }
             }
         }
