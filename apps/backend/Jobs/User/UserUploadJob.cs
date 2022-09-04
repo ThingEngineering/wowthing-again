@@ -412,6 +412,11 @@ public class UserUploadJob : JobBase
                 .ToList();
         }
 
+        // Change detection for this is obnoxious, just update it
+        Context.Entry(character.AddonData)
+            .Property(ad => ad.Garrisons)
+            .IsModified = true;
+
         // Garrison Trees
         if (characterData.GarrisonTrees != null &&
             characterData.ScanTimes.TryGetValue("garrisonTrees", out int garrisonTreesTimestamp))
