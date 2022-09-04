@@ -11,6 +11,8 @@ export type AuctionStateSortBy =
 export class AuctionState {
     public perPage: AuctionStatePerPage = 50
 
+    public region = '0'
+
     public sortBy: Record<string, AuctionStateSortBy> = {
         'extra-pets': 'price_down',
         'missing-mounts': 'name_up',
@@ -26,7 +28,7 @@ const stored = JSON.parse(localStorage.getItem(key) ?? '{}') as AuctionState
 if (stored.perPage) {
     initialState.perPage = stored.perPage
 }
-Object.assign(initialState.sortBy, stored.sortBy || {})
+Object.assign(initialState, stored || {})
 
 export const auctionState = writable<AuctionState>(initialState)
 

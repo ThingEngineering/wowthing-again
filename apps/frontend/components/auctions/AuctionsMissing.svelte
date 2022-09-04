@@ -3,6 +3,7 @@
 
     import { timeLeft } from '@/data/auctions'
     import {
+        staticStore,
         userAuctionMissingMountStore,
         userAuctionMissingPetStore,
         userAuctionMissingToyStore,
@@ -41,7 +42,17 @@
     $: {
         things = []
         if ($auctionStore.data?.auctions) {
+            const regionId = parseInt($auctionState.region)
             for (const thingId in $auctionStore.data.auctions) {
+                let auctions = $auctionStore.data.auctions[thingId]
+                if (regionId > 0) {
+                    auctions = auctions.filter((auction) =>
+                        $staticStore.data.connectedRealms[auction.connectedRealmId].region === regionId)
+                    if (auctions.length === 0) {
+                        continue
+                    }
+                }
+
                 things.push({
                     id: parseInt(thingId),
                     name: $auctionStore.data.names[thingId],

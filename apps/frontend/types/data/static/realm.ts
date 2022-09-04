@@ -1,5 +1,6 @@
 export interface StaticDataConnectedRealm {
     id: number
+    region: number
     displayText: string
     realmNames: string[]
 }
