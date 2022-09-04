@@ -5,7 +5,7 @@ import some from 'lodash/some'
 import { toNiceNumber } from './to-nice'
 import { covenantMap } from '@/data/covenant'
 import { factionIdMap } from '@/data/faction'
-import { garrisonBuildingIcon, garrisonTrees } from '@/data/garrison'
+import { garrisonBuildingIcon, garrisonTrees, garrisonUnlockQuests } from '@/data/garrison'
 import { progressQuestId } from '@/data/quests'
 import { ProgressDataType, QuestStatus } from '@/types/enums'
 import type { Character, UserAchievementData, UserData } from '@/types'
@@ -168,8 +168,22 @@ export default function getProgress(
 
                             // Garrison level
                             if (data.value === undefined) {
-                                have = garrison?.level || 0
-                                total = 3
+                                if (garrison?.level > 0) {
+                                    have = garrison.level
+                                    total = 3
+                                }
+                                else {
+                                    if (some(
+                                        garrisonUnlockQuests,
+                                        (questId) => userQuestData.characters[character.id].quests?.has(questId)
+                                    )) {
+                                        total = 3
+                                    }
+                                    else {
+                                        have = -1
+                                        total = 0
+                                    }
+                                }
                             }
                             else if (garrison) {
                                 const building = find(
