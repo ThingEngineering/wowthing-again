@@ -1,14 +1,12 @@
 <script lang="ts">
-    import sortBy from 'lodash/sortBy'
-
     import { locationIcons } from '@/data/icons'
     import { petBreedMap } from '@/data/pet-breed'
-    import { userAuctionExtraPetStore } from '@/stores'
+    import { userAuctionExtraPetsStore } from '@/stores'
     import { auctionState } from '@/stores/local-storage/auctions'
+    import { ItemLocation } from '@/types/enums'
     import connectedRealmName from '@/utils/connected-realm-name'
     import petLocationTooltip from '@/utils/pet-location-tooltip'
     import tippy from '@/utils/tippy'
-    import type { UserAuctionDataAuction, UserAuctionDataPet } from '@/types/data'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import Paginate from '@/components/common/Paginate.svelte'
@@ -17,38 +15,6 @@
 
     export let page: number
     export let slug: string
-
-    let things: { id: number, name: string, auctions: UserAuctionDataAuction[], pets: UserAuctionDataPet[] }[]
-    $: {
-        things = []
-        if ($userAuctionExtraPetStore.data?.auctions) {
-            for (const creatureId in $userAuctionExtraPetStore.data.auctions) {
-                things.push({
-                    id: parseInt(creatureId),
-                    name: $userAuctionExtraPetStore.data.names[creatureId],
-                    auctions: $userAuctionExtraPetStore.data.auctions[creatureId],
-                    pets: $userAuctionExtraPetStore.data.pets[creatureId],
-                })
-            }
-
-            const sortState = $auctionState.sortBy[slug] || 'name_up'
-            if (sortState === 'name_down') {
-                things = sortBy(things, (item) => item.name)
-                things.reverse()
-            }
-            else if (sortState === 'price_up') {
-                things = sortBy(things, (item) => item.auctions[0].bidPrice || item.auctions[0].buyoutPrice)
-            }
-            else if (sortState === 'price_down') {
-                things = sortBy(things, (item) => item.auctions[0].bidPrice || item.auctions[0].buyoutPrice)
-                things.reverse()
-            }
-            // name_up is default
-            else {
-                things = sortBy(things, (item) => item.name)
-            }
-        }
-    }
 </script>
 
 <style lang="scss">
@@ -110,9 +76,9 @@
     }
 </style>
 
-{#await userAuctionExtraPetStore.fetch()}
+{#await userAuctionExtraPetsStore.search($auctionState)}
     <div class="wrapper">L O A D I N G . . .</div>
-{:then _}
+{:then things}
     <Paginate
         items={things}
         perPage={20}
@@ -169,23 +135,25 @@
                             </thead>
                             <tbody>
                                 {#each thing.pets as pet}
-                                    <tr>
-                                        <td
-                                            class="pet-location drop-shadow"
-                                            use:tippy={petLocationTooltip(pet)}
-                                        >
-                                            <IconifyIcon
-                                                icon={locationIcons[pet.location]}
-                                                scale="0.9"
-                                            />
-                                        </td>
-                                        <td class="pet-level quality{pet.quality}">
-                                            Level {pet.level}
-                                        </td>
-                                        <td class="pet-breed">
-                                            {petBreedMap[pet.breedId]}
-                                        </td>
-                                    </tr>
+                                    {#if !$auctionState.extraPetsIgnoreJournal || pet.location !== ItemLocation.PetCollection}
+                                        <tr>
+                                            <td
+                                                class="pet-location drop-shadow"
+                                                use:tippy={petLocationTooltip(pet)}
+                                            >
+                                                <IconifyIcon
+                                                    icon={locationIcons[pet.location]}
+                                                    scale="0.9"
+                                                />
+                                            </td>
+                                            <td class="pet-level quality{pet.quality}">
+                                                Level {pet.level}
+                                            </td>
+                                            <td class="pet-breed">
+                                                {petBreedMap[pet.breedId]}
+                                            </td>
+                                        </tr>
+                                    {/if}
                                 {/each}
                             </tbody>
                         </table>

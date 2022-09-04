@@ -7,6 +7,7 @@
     import { Region } from '@/types/enums'
     import type { MultiSlugParams } from '@/types'
 
+    import Checkbox from '@/components/forms/CheckboxInput.svelte'
     import ExtraPets from './AuctionsExtraPets.svelte'
     import Missing from './AuctionsMissing.svelte'
     import RadioGroup from '@/components/forms/RadioGroup.svelte'
@@ -44,7 +45,7 @@
     .options-container {
         padding: 0.2rem 0.3rem;
     }
-    .radio-container {
+    .options-group {
         display: flex;
         gap: 0.5rem;
 
@@ -58,7 +59,7 @@
 
 <div class="auctions">
     <div class="options-container border">
-        <div class="radio-container">
+        <div class="options-group">
             Sort:
             <RadioGroup
                 bind:value={$auctionState.sortBy[params.slug1]}
@@ -72,7 +73,7 @@
             />
         </div>
 
-        <div class="radio-container">
+        <div class="options-group">
             Region:
             <RadioGroup
                 bind:value={$auctionState.region}
@@ -80,6 +81,24 @@
                 options={regions}
             />
         </div>
+
+        {#if params.slug1 === 'extra-pets'}
+            <div class="options-group">
+                Extra pets:
+                <Checkbox
+                    name="extra_pets_ignore_journal"
+                    bind:value={$auctionState.extraPetsIgnoreJournal}
+                >Ignore journal</Checkbox>
+            </div>
+        {:else if params.slug1 === 'missing-pets'}
+            <div class="options-group">
+                Pets:
+                <Checkbox
+                    name="pets_max_level"
+                    bind:value={$auctionState.missingPetsMaxLevel}
+                >Max level</Checkbox>
+            </div>
+        {/if}
     </div>
 
     <svelte:component

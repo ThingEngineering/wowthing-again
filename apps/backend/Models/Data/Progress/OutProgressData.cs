@@ -8,11 +8,11 @@ public class OutProgressData
 
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public string Description { get; set; }
-        
+
     public string Name { get; set; }
-        
+
     public ProgressDataType Type { get; set; }
-        
+
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public int? Value { get; set; }
 
@@ -20,7 +20,7 @@ public class OutProgressData
     {
         Description = data.Description;
         Name = data.Name;
-            
+
         Ids = data.Id
             .EmptyIfNullOrWhitespace()
             .Split(' ', StringSplitOptions.RemoveEmptyEntries)
