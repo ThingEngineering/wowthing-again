@@ -1,10 +1,11 @@
 import filter from 'lodash/filter'
+import find from 'lodash/find'
 import some from 'lodash/some'
 
 import { toNiceNumber } from './to-nice'
 import { covenantMap } from '@/data/covenant'
 import { factionIdMap } from '@/data/faction'
-import { garrisonTrees } from '@/data/garrison'
+import { garrisonBuildingIcon, garrisonTrees } from '@/data/garrison'
 import { progressQuestId } from '@/data/quests'
 import { ProgressDataType, QuestStatus } from '@/types/enums'
 import type { Character, UserAchievementData, UserData } from '@/types'
@@ -31,6 +32,7 @@ export default function getProgress(
     let have = 0
     let showCurrency = 0
     const showReputation = 0
+    let nameOverride: Record<number, string> = {}
     let total = 0
     let icon = ''
 
@@ -160,6 +162,39 @@ export default function getProgress(
                             }
                             break
                         }
+
+                        case ProgressDataType.WodGarrison: {
+                            const garrison = character.garrisons?.[2]
+
+                            // Garrison level
+                            if (data.value === undefined) {
+                                have = garrison?.level || 0
+                                total = 3
+                            }
+                            else if (garrison) {
+                                const building = find(
+                                    garrison.buildings,
+                                    (building) => building.plotId === data.ids[0]
+                                )
+
+                                if (building) {
+                                    have = building.rank
+                                    total = 3
+                                    descriptionText[dataIndex] = `Rank ${have}`
+                                    icon = garrisonBuildingIcon[building.buildingId]
+                                    nameOverride[dataIndex] = building.name
+                                }
+                                else {
+                                    if (garrison.level >= data.value) {
+                                        have = -1
+                                    }
+                                    total = 0
+                                }
+                            }
+                            else {
+                                total = 0
+                            }
+                        }
                     }
                 }
 
@@ -177,6 +212,7 @@ export default function getProgress(
         have,
         haveIndexes,
         icon,
+        nameOverride,
         showCurrency,
         showReputation,
         total,
@@ -224,6 +260,7 @@ export interface ProgressInfo {
     have: number
     haveIndexes: number[]
     icon: string
+    nameOverride: Record<number, string>
     showCurrency: number
     showReputation: number
     total: number

@@ -8,4 +8,5 @@ public enum ProgressDataType
     AddonAchievement,
     SpentCyphers,
     AddonQuest,
+    WodGarrison,
 }

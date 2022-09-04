@@ -1,0 +1,150 @@
+name: "Garrison Buildings"
+minimumLevel: 10
+groups:
+
+- name: "Garrison Level"
+  icon: "achievement/9101 achievement/9546" # Even More Plots
+  type: mixed
+  data:
+    0:
+      - name: "Garrison Level"
+        type: wodGarrison
+
+- name: "Shipyard Level"
+  icon: "achievement/10168" # Admiral
+  type: mixed
+  data:
+    0:
+      - name: "Shipyard Level"
+        id: 98
+        type: wodGarrison
+        value: 3
+
+- name: separator
+
+- name: "Fishing Shack"
+  icon: "achievement/9462" # Draenor Angler
+  iconText: "Fish"
+  type: mixed
+  data:
+    0:
+      - name: "Fishing Shack"
+        id: 67
+        type: wodGarrison
+        value: 2
+
+- name: "Herb Garden"
+  icon: "achievement/9454" # Draenic Seed Collector
+  iconText: "Herb"
+  type: mixed
+  data:
+    0:
+      - name: "Herb Garden"
+        id: 63
+        type: wodGarrison
+        value: 2
+
+- name: "Mine"
+  icon: "achievement/9453" # Draenic Stone Collector
+  iconText: "Mine"
+  type: mixed
+  data:
+    0:
+      - name: "Mine"
+        id: 59
+        type: wodGarrison
+        value: 2
+
+- name: "Pet Menagerie"
+  icon: "achievement/9463" # Movin' On Up
+  iconText: "Pet"
+  type: mixed
+  data:
+    0:
+      - name: "Pet Menagerie"
+        id: 81
+        type: wodGarrison
+        value: 3
+
+- name: separator
+
+- name: "Small Building #1"
+  icon: "achievement/9098" # Movin' On Up
+  iconText: "S1"
+  type: mixed
+  data:
+    0:
+      - name: "Small Building #1"
+        id: 18
+        type: wodGarrison
+        value: 1
+
+- name: "Small Building #2"
+  icon: "achievement/9098" # Movin' On Up
+  iconText: "S2"
+  type: mixed
+  data:
+    0:
+      - name: "Small Building #2"
+        id: 19
+        type: wodGarrison
+        value: 2
+
+- name: "Small Building #3"
+  icon: "achievement/9098" # Movin' On Up
+  iconText: "S3"
+  type: mixed
+  data:
+    0:
+      - name: "Small Building #3"
+        id: 20
+        type: wodGarrison
+        value: 3
+
+- name: separator
+
+- name: "Medium Building #1"
+  icon: "achievement/9098" # Movin' On Up
+  iconText: "M1"
+  type: mixed
+  data:
+    0:
+      - name: "Medium Building #1"
+        id: 22
+        type: wodGarrison
+        value: 2
+
+- name: "Medium Building #2"
+  icon: "achievement/9098" # Movin' On Up
+  iconText: "M2"
+  type: mixed
+  data:
+    0:
+      - name: "Medium Building #2"
+        id: 25
+        type: wodGarrison
+        value: 3
+
+- name: separator
+
+- name: "Large Building #1"
+  icon: "achievement/9098" # Movin' On Up
+  iconText: "L1"
+  type: mixed
+  data:
+    0:
+      - name: "Large Building #1"
+        id: 23
+        type: wodGarrison
+        value: 1
+
+- name: "Large Building #2"
+  icon: "achievement/9098" # Movin' On Up
+  iconText: "L2"
+  type: mixed
+  data:
+    0:
+      - name: "Large Building #2"
+        id: 24
+        type: wodGarrison
+        value: 3
