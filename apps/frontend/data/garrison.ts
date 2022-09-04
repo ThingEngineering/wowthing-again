@@ -2,6 +2,11 @@ import type { GarrisonTree } from '@/types'
 import { imageStrings } from './icons'
 
 
+export const garrisonUnlockQuests: number[] = [
+    34586, // Alliance
+    35378, // Horde
+]
+
 export const garrisonBuildingIcon: Record<number, string> = {
     // All
 

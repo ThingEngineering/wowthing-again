@@ -2,6 +2,18 @@ name: "Garrisons"
 minimumLevel: 10
 groups:
 
+- name: "Pet Quests"
+  icon: "item/122457"
+  minimumLevel: 35
+  type: quest
+  data:
+    0:
+      - name: "Unearthed Magic"
+        id: 38241
+        description: "Rewards an Ultimate Battle-Training Stone"
+
+- name: separator
+
 - name: "Jukebox - Faction"
   icon: achievement/10016 # Full Discography
   iconText: "Faction"
