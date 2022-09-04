@@ -31,7 +31,7 @@ public class ApiAuctionController : Controller
     public async Task<IActionResult> ExtraPets()
     {
         var timer = new JankTimer();
-            
+
         var user = await _userManager.GetUserAsync(HttpContext.User);
         if (user == null)
         {
@@ -48,7 +48,7 @@ public class ApiAuctionController : Controller
             .ToArrayAsync();
 
         var accountIds = accounts.SelectArray(account => account.Id);
-            
+
         var accountPets = accounts
             .Where(pa => pa.Pets != null)
             .Select(pa => pa.Pets)
@@ -63,13 +63,11 @@ public class ApiAuctionController : Controller
                 allPets.TryAdd(petId, pet);
             }
         }
-            
+
         // Pet itemId -> id map
-        var petItemIdMap = await _context.WowPet
-            .Where(pet => (pet.Flags & 32) == 0 && pet.ItemId > 0)
-            .ToDictionaryAsync(pet => pet.ItemId, pet => pet.Id);
+        var petItemIdMap = await GetPetItems();
         var petItemIds = petItemIdMap.Keys.ToArray();
-            
+
         // Caged pets
         var guildCages = await _context
             .PlayerGuildItem
@@ -79,7 +77,7 @@ public class ApiAuctionController : Controller
                 pgi.Context > 0
             )
             .ToArrayAsync();
-            
+
         var playerCages = await _context
             .PlayerCharacterItem
             .Where(pci =>
@@ -97,7 +95,7 @@ public class ApiAuctionController : Controller
                 petItemIds.Contains(pgi.ItemId)
             )
             .ToArrayAsync();
-            
+
         var playerLearnable = await _context
             .PlayerCharacterItem
             .Where(pci =>
@@ -106,9 +104,9 @@ public class ApiAuctionController : Controller
                 petItemIds.Contains(pci.ItemId)
             )
             .ToArrayAsync();
-            
+
         var accountConnectedRealmIds = await GetConnectedRealmIds(user, accounts);
-            
+
         timer.AddPoint("Accounts");
 
         var groupedPets = allPets.Values
@@ -130,7 +128,7 @@ public class ApiAuctionController : Controller
 
             pets.Add(new UserAuctionDataPet(cagedPet, true));
         }
-            
+
         foreach (var cagedPet in playerCages)
         {
             int speciesId = cagedPet.Context;
@@ -149,7 +147,7 @@ public class ApiAuctionController : Controller
             {
                 pets = groupedPets[speciesId] = new List<UserAuctionDataPet>();
             }
-                
+
             pets.Add(new UserAuctionDataPet(learnablePet));
         }
 
@@ -160,7 +158,7 @@ public class ApiAuctionController : Controller
             {
                 pets = groupedPets[speciesId] = new List<UserAuctionDataPet>();
             }
-                
+
             pets.Add(new UserAuctionDataPet(learnablePet));
         }
 
@@ -194,7 +192,7 @@ public class ApiAuctionController : Controller
             .ToArrayAsync();
 
         data.Auctions = DoAuctionStuff(auctions.GroupBy(auction => petSpeciesMap[auction.PetSpeciesId]), false);
-            
+
         timer.AddPoint("Auctions");
 
         var creatureIds = extraSpeciesIds.Select(speciesId => petSpeciesMap[speciesId]);
@@ -209,7 +207,7 @@ public class ApiAuctionController : Controller
                 ls => ls.Id,
                 ls => ls.String
             );
-            
+
         timer.AddPoint("Strings");
 
         data.Pets = extraPets
@@ -217,20 +215,20 @@ public class ApiAuctionController : Controller
                 kvp => petSpeciesMap[kvp.Key],
                 kvp => kvp.Value
             );
-            
+
         timer.AddPoint("Data", true);
 
         _logger.LogInformation($"{timer}");
 
         return Ok(data);
     }
-        
+
     [HttpGet("missing-{type:regex(^(mounts|pets|toys)$)}")]
     [Authorize]
     public async Task<IActionResult> Missing([FromRoute] string type)
     {
         var timer = new JankTimer();
-            
+
         var user = await _userManager.GetUserAsync(HttpContext.User);
         if (user == null)
         {
@@ -278,7 +276,7 @@ public class ApiAuctionController : Controller
                 .Union(accountMounts.AddonMounts.EmptyIfNull())
                 .Distinct()
                 .ToArray();
-            
+
             var missingMounts = await _context.WowMount
                 .AsNoTracking()
                 .Where(mount =>
@@ -289,7 +287,7 @@ public class ApiAuctionController : Controller
 
             // Auctions
             var mountSpellMap = missingMounts.ToDictionary(mount => mount.ItemId, mount => mount.SpellId);
-            
+
             var mountAuctions = await auctionQuery
                 .Where(auction => missingMounts.Select(mount => mount.ItemId).Contains(auction.ItemId))
                 .ToArrayAsync();
@@ -302,7 +300,7 @@ public class ApiAuctionController : Controller
                     mount => mount.Id,
                     mount => mount.SpellId
                 );
-            
+
             data.Names = await languageQuery
                 .Where(ls =>
                     ls.Type == StringType.WowMountName &&
@@ -328,25 +326,42 @@ public class ApiAuctionController : Controller
             var missingPets = await _context.WowPet
                 .AsNoTracking()
                 .Where(pet =>
-                    (pet.Flags & 32) == 0 &&
-                    pet.SourceType != 4 && // WildPet
+                    (pet.Flags & 32) == 0 && // HideFromJournal
+                    //pet.SourceType != 4 && // WildPet
                     !accountPetIds.Contains(pet.Id))
                 .ToArrayAsync();
 
+            var petItemMap = missingPets
+                .Where(pet => pet.ItemId > 0)
+                .ToDictionary(pet => pet.ItemId, pet => pet.CreatureId);
+            var petSpeciesMap = missingPets
+                .ToDictionary(pet => pet.Id, pet => pet.CreatureId);
+
+            var missingPetItemIds = petItemMap
+                .Keys
+                .ToArray();
+            var missingPetSpeciesIds = petSpeciesMap
+                .Keys
+                .ToArray();
+
             // Auctions
-            var petSpeciesMap = missingPets.ToDictionary(pet => pet.Id, pet => pet.CreatureId);
-            
+
             var petAuctions = await auctionQuery
-                .Where(auction => missingPets.Select(pet => pet.Id).Contains(auction.PetSpeciesId))
+                .Where(auction => missingPetItemIds.Contains(auction.ItemId) ||
+                                  missingPetSpeciesIds.Contains(auction.PetSpeciesId))
                 .ToArrayAsync();
 
-            data.Auctions = DoAuctionStuff(petAuctions.GroupBy(auction => petSpeciesMap[auction.PetSpeciesId]));
-                
+            data.Auctions = DoAuctionStuff(
+                petAuctions.GroupBy(auction => auction.PetSpeciesId > 0
+                    ? petSpeciesMap[auction.PetSpeciesId]
+                    : petItemMap[auction.ItemId]
+            ));
+
             // Strings
             var allCreatureIds = missingPets
                 .Select(pet => pet.CreatureId)
                 .Distinct();
-            
+
             data.Names = await languageQuery
                 .Where(ls =>
                     ls.Type == StringType.WowCreatureName &&
@@ -366,7 +381,7 @@ public class ApiAuctionController : Controller
                 .SelectMany(account => account.Toys.ToyIds.EmptyIfNull())
                 .Distinct()
                 .ToArray();
-            
+
             var missingToys = await _context.WowToy
                 .AsNoTracking()
                 .Where(toy =>
@@ -374,10 +389,10 @@ public class ApiAuctionController : Controller
                     !accountToyIds.Contains(toy.ItemId)
                 )
                 .ToArrayAsync();
-            
+
             // Auctions
             var toyAuctions = await auctionQuery
-                .Where(auction => missingToys.Select(toy => toy.ItemId).Contains(auction.ItemId)) 
+                .Where(auction => missingToys.Select(toy => toy.ItemId).Contains(auction.ItemId))
                 .ToArrayAsync();
 
             data.Auctions = DoAuctionStuff(toyAuctions.GroupBy(auction => auction.ItemId));
@@ -397,14 +412,14 @@ public class ApiAuctionController : Controller
                     ls => ls.String
                 );
         }
-            
+
         timer.AddPoint("Data", true);
 
         _logger.LogInformation($"{timer}");
 
         return Ok(data);
     }
-        
+
     private static Dictionary<int, List<WowAuction>> DoAuctionStuff(IEnumerable<IGrouping<int, WowAuction>> groupedAuctions, bool includeLowBid = true)
     {
         var groupedThings = groupedAuctions
@@ -413,7 +428,7 @@ public class ApiAuctionController : Controller
                 group => group
                     .ToGroupedDictionary(auction => auction.ConnectedRealmId)
             );
-            
+
         var ret = new Dictionary<int, List<WowAuction>>();
         foreach (var (thingId, itemRealms) in groupedThings)
         {
@@ -460,7 +475,7 @@ public class ApiAuctionController : Controller
                 ret[thingId].Sort((a, b) => a.BuyoutPrice.CompareTo(b.BuyoutPrice));
             }
         }
-            
+
         return ret;
     }
 
@@ -483,5 +498,12 @@ public class ApiAuctionController : Controller
             .ToArrayAsync();
 
         return accountConnectedRealmIds;
+    }
+
+    private async Task<Dictionary<int, int>> GetPetItems()
+    {
+        return await _context.WowPet
+            .Where(pet => (pet.Flags & 32) == 0 && pet.ItemId > 0)
+            .ToDictionaryAsync(pet => pet.ItemId, pet => pet.Id);
     }
 }
