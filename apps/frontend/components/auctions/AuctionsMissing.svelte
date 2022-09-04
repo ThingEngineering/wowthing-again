@@ -56,7 +56,7 @@
                 things.push({
                     id: parseInt(thingId),
                     name: $auctionStore.data.names[thingId],
-                    auctions: $auctionStore.data.auctions[thingId],
+                    auctions: auctions,
                 })
             }
 
