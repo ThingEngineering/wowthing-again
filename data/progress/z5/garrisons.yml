@@ -35,6 +35,7 @@ groups:
 - name: "Fishing Shack"
   icon: "achievement/9462" # Draenor Angler
   iconText: "Fish"
+  minimumLevel: 20
   type: mixed
   data:
     0:
@@ -46,6 +47,7 @@ groups:
 - name: "Herb Garden"
   icon: "achievement/9454" # Draenic Seed Collector
   iconText: "Herb"
+  minimumLevel: 30
   type: mixed
   data:
     0:
@@ -57,6 +59,7 @@ groups:
 - name: "Mine"
   icon: "achievement/9453" # Draenic Stone Collector
   iconText: "Mine"
+  minimumLevel: 15
   type: mixed
   data:
     0:
