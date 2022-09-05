@@ -56,7 +56,7 @@
             {progressData.have} / {progressData.total}
         </span>
     </td>
-{:else if progressData.have === -1}
+{:else if progressData.have === -1 && progressData.total >= 0}
     <td class="status-fail">---</td>
 {:else}
     <td>&nbsp;</td>

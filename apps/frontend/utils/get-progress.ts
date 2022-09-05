@@ -3,22 +3,15 @@ import find from 'lodash/find'
 import some from 'lodash/some'
 
 import { toNiceNumber } from './to-nice'
-import { covenantMap } from '@/data/covenant'
+import { covenantFeatureOrder, covenantMap } from '@/data/covenant'
 import { factionIdMap } from '@/data/faction'
 import { garrisonBuildingIcon, garrisonTrees, garrisonUnlockQuests } from '@/data/garrison'
 import { progressQuestId } from '@/data/quests'
 import { ProgressDataType, QuestStatus } from '@/types/enums'
-import type { Character, UserAchievementData, UserData } from '@/types'
+import type { Character, CharacterShadowlandsCovenant, CharacterShadowlandsCovenantFeature, UserAchievementData, UserData } from '@/types'
 import type { UserQuestData } from '@/types/data'
-import type {
-    ManualDataProgressCategory,
-    ManualDataProgressData,
-    ManualDataProgressGroup,
-} from '@/types/data/manual'
-import type {
-    StaticData,
-} from '@/types/data/static'
-
+import type { ManualDataProgressCategory, ManualDataProgressData, ManualDataProgressGroup } from '@/types/data/manual'
+import type { StaticData } from '@/types/data/static'
 
 export default function getProgress(
     staticData: StaticData,
@@ -159,6 +152,28 @@ export default function getProgress(
                             if (quest) {
                                 haveThis = quest.status === QuestStatus.Completed
                                 have = (haveThis ? total : quest.have) - 1
+                            }
+                            break
+                        }
+
+                        case ProgressDataType.SlCovenant: {
+                            const covenant = character.shadowlands?.covenants?.[data.ids[0]]
+                            if (covenant && (
+                                    covenant.conductor?.rank > 0 ||
+                                    covenant.missions?.rank > 0 ||
+                                    covenant.transport?.rank > 0 ||
+                                    covenant.unique?.rank > 0
+                            )) {
+                                const [featureKey, , featureMaxRank] = covenantFeatureOrder[data.value - 1]
+                                const charBuilding = covenant[featureKey as keyof CharacterShadowlandsCovenant] as CharacterShadowlandsCovenantFeature
+
+                                have = charBuilding?.rank || 0
+                                total = featureMaxRank
+                                descriptionText[dataIndex] = `Rank ${have}/${total}`
+                            }
+                            else {
+                                have = -1
+                                total = -1
                             }
                             break
                         }
