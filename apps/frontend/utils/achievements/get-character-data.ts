@@ -12,7 +12,7 @@ import type {
 import type { UserQuestData } from '@/types/data'
 
 
-const debugId = 12760
+const debugId = 14748
 
 export function getCharacterData(
     achievementData: AchievementData,
@@ -46,12 +46,17 @@ export function getCharacterData(
         if (addStuff &&
             criteriaTree.amount > 0 &&
             (
-                criteriaTree.operator !== CriteriaTreeOperator.All
+                criteriaTree.operator !== CriteriaTreeOperator.All &&
+                criteriaTree.operator !== CriteriaTreeOperator.Any
             )
         ) {
             ret.total += criteriaTree.amount
         }
-        else if (addStuff && criteriaTree.id !== rootCriteriaTree.id && rootCriteriaTree.operator === CriteriaTreeOperator.All) {
+        else if (
+            addStuff &&
+            criteriaTree.id !== rootCriteriaTree.id &&
+            rootCriteriaTree.operator === CriteriaTreeOperator.All
+        ) {
             ret.total += Math.max(1, criteriaTree.amount)
         }
 
@@ -99,7 +104,7 @@ export function getCharacterData(
                     //     console.log(characterId, userData.characterMap[characterId].name, count, addStuff)
                     // }
 
-                    if (addStuff) {
+                    if (addStuff && !(criteriaTree.id === rootCriteriaTree.id && criteriaTree.children.length > 0)) {
                         characterCounts[characterId] = (characterCounts[characterId] || 0) + (
                             rootCriteriaTree.operator === CriteriaTreeOperator.SumChildren
                                 ? count
@@ -116,6 +121,10 @@ export function getCharacterData(
 
         if (addStuff && criteriaTree.id !== rootCriteriaTree.id && criteriaTree.amount > 0) {
             addStuff = false
+        }
+
+        if (achievement.id === debugId) {
+        console.log(characterCounts)
         }
 
         for (const criteriaTreeId of criteriaTree.children) {
