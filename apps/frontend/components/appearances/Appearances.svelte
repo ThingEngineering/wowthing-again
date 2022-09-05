@@ -2,7 +2,7 @@
     import { afterUpdate } from 'svelte'
 
     import getSavedRoute from '@/utils/get-saved-route'
-    import { appearanceStore } from '@/stores'
+    import { appearanceStore, userTransmogStore } from '@/stores'
     import type { MultiSlugParams } from '@/types'
 
     export let params: MultiSlugParams
@@ -11,6 +11,12 @@
     import View from './AppearancesView.svelte'
 
     afterUpdate(() => getSavedRoute('appearances', params.slug1))
+
+    $: {
+        if ($appearanceStore.loaded && !$appearanceStore.error) {
+            appearanceStore.setup($userTransmogStore.data)
+        }
+    }
 </script>
 
 <Sidebar />

@@ -7,6 +7,7 @@
 
     import ProgressBar from '@/components/common/ProgressBar.svelte'
     import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
+    import { weaponSubclassOrder, weaponSubclassToString } from '@/data/weapons'
 
     let categories: SidebarItem[] = []
     let stats: UserCount
@@ -41,6 +42,12 @@
                 slug: 'plate',
                 children: slots,
             },
+            null,
+            {
+                name: 'Weapons',
+                slug: 'weapons',
+                children: weaponChildren,
+            }
         ]
         stats = $appearanceStore.data.stats['OVERALL']
     }
@@ -89,6 +96,12 @@
             slug: 'feet',
         },
     ]
+
+    const weaponChildren: SidebarItem[] = weaponSubclassOrder
+        .map((subClass) => ({
+            name: weaponSubclassToString[subClass],
+            slug: weaponSubclassToString[subClass].toLowerCase().replace(/ /g, '-'),
+        }))
 </script>
 
 <style lang="scss">
