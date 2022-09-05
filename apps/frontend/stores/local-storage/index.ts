@@ -1,4 +1,5 @@
 export * from './achievements'
+export * from './appearances'
 export * from './auctions'
 export * from './characters'
 export * from './collection'

@@ -3,6 +3,7 @@
 
     import { itemModifierMap } from '@/data/item-modifier'
     import { userTransmogStore } from '@/stores'
+    import { appearanceState } from '@/stores/local-storage'
     import type { AppearanceDataAppearance } from '@/types/data/appearance'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
@@ -50,30 +51,38 @@
 
 </style>
 
-<div
-    class="appearance-item quality{appearance.modifiedAppearances[0].quality}"
-    class:missing={has}
->
-    <WowheadLink
-        id={appearance.modifiedAppearances[0].itemId}
-        type="item"
+{#if
+    (has && $appearanceState.showCollected) ||
+    (!has && $appearanceState.showUncollected)
+}
+    <div
+        class="appearance-item quality{appearance.modifiedAppearances[0].quality}"
+        class:missing={
+            (has && $appearanceState.highlightMissing) ||
+            (!has && !$appearanceState.highlightMissing)
+        }
     >
-        <WowthingImage
-            name={imageName}
-            size={48}
-            border={1}
-        />
+        <WowheadLink
+            id={appearance.modifiedAppearances[0].itemId}
+            type="item"
+        >
+            <WowthingImage
+                name={imageName}
+                size={48}
+                border={1}
+            />
 
-        {#if has}
-            <div class="collected-icon drop-shadow">
-                <IconifyIcon icon={mdiCheckboxOutline} />
+            {#if has}
+                <div class="collected-icon drop-shadow">
+                    <IconifyIcon icon={mdiCheckboxOutline} />
+                </div>
+            {/if}
+        </WowheadLink>
+
+        {#if difficulty}
+            <div class="pill difficulty">
+                {difficulty}
             </div>
         {/if}
-    </WowheadLink>
-
-    {#if difficulty}
-        <div class="pill difficulty">
-            {difficulty}
-        </div>
-    {/if}
-</div>
+    </div>
+{/if}

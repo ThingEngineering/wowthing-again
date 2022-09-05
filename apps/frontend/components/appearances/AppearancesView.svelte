@@ -3,9 +3,11 @@
 
     import { expansionMap } from '@/data/expansion'
     import { appearanceStore } from '@/stores'
+    import { appearanceState } from '@/stores/local-storage'
     import type { MultiSlugParams } from '@/types'
     import type { AppearanceDataSet } from '@/types/data/appearance'
 
+    import Checkbox from '@/components/forms/CheckboxInput.svelte'
     import SectionTitle from '@/components/collections/CollectionSectionTitle.svelte'
     import Set from './AppearancesSet.svelte'
 
@@ -44,6 +46,31 @@
 </style>
 
 <div class="wrapper">
+    <div class="options-container">
+        <button>
+            <Checkbox
+                name="highlight_missing"
+                bind:value={$appearanceState.highlightMissing}
+            >Highlight missing</Checkbox>
+        </button>
+
+        <span>Show:</span>
+
+        <button>
+            <Checkbox
+                name="show_collected"
+                bind:value={$appearanceState.showCollected}
+            >Collected</Checkbox>
+        </button>
+
+        <button>
+            <Checkbox
+                name="show_uncollected"
+                bind:value={$appearanceState.showUncollected}
+            >Missing</Checkbox>
+        </button>
+    </div>
+
     {#if name && sets}
         <div class="collection thing-container">
             <SectionTitle

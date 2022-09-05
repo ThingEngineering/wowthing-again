@@ -10,10 +10,10 @@
     import type { ManualDataSetCategory } from '@/types/data/manual'
     import type { CollectionContext } from '@/types/contexts'
 
-    import ParsedText from '@/components/common/ParsedText.svelte'
     import Checkbox from '@/components/forms/CheckboxInput.svelte'
     import CollectionThing from './CollectionThing.svelte'
     import CollectionThingPet from './CollectionThingPet.svelte'
+    import ParsedText from '@/components/common/ParsedText.svelte'
     import SectionTitle from './CollectionSectionTitle.svelte'
 
     export let slug1: string
