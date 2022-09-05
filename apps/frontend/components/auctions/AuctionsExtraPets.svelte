@@ -14,7 +14,6 @@
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let page: number
-    export let slug: string
 </script>
 
 <style lang="scss">

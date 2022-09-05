@@ -1,11 +1,8 @@
 <script lang="ts">
-    import sortBy from 'lodash/sortBy'
-
     import { timeLeft } from '@/data/auctions'
-    import { staticStore, userAuctionMissingStore } from '@/stores'
+    import { userAuctionMissingStore } from '@/stores'
     import { auctionState } from '@/stores/local-storage/auctions'
     import connectedRealmName from '@/utils/connected-realm-name'
-    import type { UserAuctionData, UserAuctionDataAuction } from '@/types/data'
 
     import Paginate from '@/components/common/Paginate.svelte'
     import WowheadLink from '@/components/links/WowheadLink.svelte'

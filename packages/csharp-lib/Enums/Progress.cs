@@ -9,4 +9,5 @@ public enum ProgressDataType
     SpentCyphers,
     AddonQuest,
     WodGarrison,
+    SlCovenant,
 }

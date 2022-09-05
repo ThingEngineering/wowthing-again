@@ -6,4 +6,5 @@ export enum ProgressDataType {
     SpentCyphers,
     AddonQuest,
     WodGarrison,
+    SlCovenant,
 }

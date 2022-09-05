@@ -1,7 +1,8 @@
 z8/_shadowlands.yml
     z8/fated.yml
     z8/zone_quests.yml
-    z8/covenants.yml
+    z8/covenant_story.yml
+    z8/covenant_upgrades.yml
     z8/upgrades.yml
     z8/raid_skips.yml
 
