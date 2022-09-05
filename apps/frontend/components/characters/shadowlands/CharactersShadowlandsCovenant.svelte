@@ -33,7 +33,7 @@
                 $manualStore.data.progressSets,
                 (progress) => progress?.[0].slug === 'shadowlands'
             ),
-            (category) => category?.name === 'Covenants'
+            (category) => category?.name === 'Covenant Story'
         )
         const progress = getProgress(
             $staticStore.data,
