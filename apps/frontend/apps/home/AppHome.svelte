@@ -39,7 +39,7 @@
     let loaded: boolean
     let ready: boolean
     $: {
-        error = $appearanceStore.error
+        error = false
             || $itemStore.error
             || $journalStore.error
             || $manualStore.error
@@ -49,7 +49,7 @@
             || $userStore.error
             || $userTransmogStore.error
 
-        loaded = $appearanceStore.loaded
+        loaded = true
             && $itemStore.loaded
             && $journalStore.loaded
             && $manualStore.loaded
@@ -82,11 +82,6 @@
                 $userStore.data,
                 $userTransmogStore.data,
                 $vendorState
-            )
-
-            appearanceStore.setup(
-                $appearanceStore.data,
-                $userTransmogStore.data
             )
 
             journalStore.setup(

@@ -21,7 +21,14 @@
                 name = find(expansionMap, (exp) => exp.slug === params.slug2).name
             }
             else {
-                name = `${params.slug1[0].toUpperCase()}${params.slug1.slice(1)} > ${params.slug2[0].toUpperCase()}${params.slug2.slice(1)}`
+                const element = document.getElementById('sub-sidebar')
+                    ?.querySelector(`a[href="#/appearances/${params.slug1}/${params.slug2}"] span`)
+                if (element) {
+                    name = `${params.slug1[0].toUpperCase()}${params.slug1.slice(1)} > ${element.innerHTML}`
+                }
+                else {
+                    name = `${params.slug1[0].toUpperCase()}${params.slug1.slice(1)} > ${params.slug2[0].toUpperCase()}${params.slug2.slice(1)}`
+                }
             }
             dataSlug = `${params.slug1}--${params.slug2}`
 

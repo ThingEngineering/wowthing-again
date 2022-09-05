@@ -79,9 +79,20 @@ export class AppearanceDataStore extends WritableFancyStore<AppearanceData> {
 
         for (const [expansion, sets] of sortBy(Object.entries(data.appearances), ([exp,]) => 100 - parseInt(exp))) {
             for (const set of sets) {
-                const matches = set.name.match(/^Armor - (Cloth|Leather|Mail|Plate) (Head|Shoulders|Chest|Wrist|Hands|Waist|Legs|Feet)/)
-                if (matches) {
-                    const typeName = `${matches[1].toLowerCase()}--${matches[2].toLowerCase()}`
+                let typeName: string
+
+                const armorMatches = set.name.match(/^Armor - (Cloth|Leather|Mail|Plate) (Head|Shoulders|Chest|Wrist|Hands|Waist|Legs|Feet)/)
+                if (armorMatches) {
+                    typeName = `${armorMatches[1].toLowerCase()}--${armorMatches[2].toLowerCase()}`
+                }
+                else {
+                    const weaponMatches = set.name.match(/^Weapon - (.*?)$/)
+                    if (weaponMatches) {
+                        typeName = `weapons--${weaponMatches[1].toLowerCase().replace(/ /g, '-')}`
+                    }
+                }
+
+                if (typeName) {
                     data.appearances[typeName] ||= []
 
                     const dataSet = new AppearanceDataSet(
@@ -103,7 +114,6 @@ export class AppearanceDataStore extends WritableFancyStore<AppearanceData> {
     }
 
     setup(
-        appearanceData: AppearanceData,
         userTransmogData: UserTransmogData,
     ) {
         const stats: Record<string, UserCount> = {}
@@ -111,7 +121,7 @@ export class AppearanceDataStore extends WritableFancyStore<AppearanceData> {
         const overallCount = stats['OVERALL'] = new UserCount()
         const overallSeen: Record<number, boolean> = {}
 
-        for (const [key, sets] of Object.entries(appearanceData.appearances)) {
+        for (const [key, sets] of Object.entries(this.value.data.appearances)) {
             const parentCount = stats[key.split('--')[0]] = new UserCount()
             const catCount = stats[key] = new UserCount()
 
