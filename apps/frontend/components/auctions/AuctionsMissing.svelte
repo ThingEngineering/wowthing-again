@@ -59,13 +59,16 @@
         text-align: left;
     }
     .realm {
-        @include cell-width(12.0rem);
+        @include cell-width(10.0rem);
     }
     .level {
+        @include cell-width(1.8rem);
+
         text-align: right;
+        white-space: nowrap;
     }
     .price {
-        @include cell-width(4.4rem);
+        @include cell-width(4.5rem);
 
         text-align: right;
         white-space: nowrap;
