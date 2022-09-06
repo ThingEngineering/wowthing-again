@@ -3,8 +3,10 @@
     import { userStore } from '@/stores'
     import { data as settings } from '@/stores/settings'
     import { getActiveHoliday } from '@/utils/get-active-holiday'
+    import { tippyComponent } from '@/utils/tippy'
 
     import ParsedText from '@/components/common/ParsedText.svelte'
+    import Tooltip from '@/components/tooltips/task/TooltipTaskHead.svelte'
 
     $: activeHoliday = getActiveHoliday($userStore.data)
 </script>
@@ -21,15 +23,29 @@
     }
 </style>
 
-{#each $settings.layout.homeTasks as task}
-    {#if !task.startsWith('holiday') || task === activeHoliday}
-        <td>
-            <ParsedText text={taskMap[task].shortName} />
+{#each $settings.layout.homeTasks as taskName}
+    {#if !taskName.startsWith('holiday') || taskName === activeHoliday}
+        <td
+            use:tippyComponent={{
+                component: Tooltip,
+                props: {
+                    taskName,
+                },
+            }}
+        >
+            <ParsedText text={taskMap[taskName].shortName} />
         </td>
     {/if}
 
-    {#if task === activeHoliday && task === 'holidayTimewalking'}
-        <td>
+    {#if taskName === activeHoliday && taskName === 'holidayTimewalking'}
+        <td
+            use:tippyComponent={{
+                component: Tooltip,
+                props: {
+                    taskName: 'timewalking',
+                },
+            }}
+        >
             <ParsedText text={taskMap['timewalking'].shortName} />
         </td>
     {/if}
