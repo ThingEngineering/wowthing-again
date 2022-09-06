@@ -12,7 +12,7 @@ import type {
 import type { UserQuestData } from '@/types/data'
 
 
-const debugId = 14748
+const debugId = 14329
 
 export function getCharacterData(
     achievementData: AchievementData,
@@ -121,10 +121,6 @@ export function getCharacterData(
 
         if (addStuff && criteriaTree.id !== rootCriteriaTree.id && criteriaTree.amount > 0) {
             addStuff = false
-        }
-
-        if (achievement.id === debugId) {
-        console.log(characterCounts)
         }
 
         for (const criteriaTreeId of criteriaTree.children) {
