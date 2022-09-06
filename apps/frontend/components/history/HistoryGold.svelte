@@ -18,7 +18,7 @@
     import sortBy from 'lodash/sortBy'
     import toPairs from 'lodash/toPairs'
     import { onMount } from 'svelte'
-    import type { DateTime } from 'luxon'
+    import { DateTime } from 'luxon'
 
     import { colors } from '@/data/colors'
     import { staticStore, timeStore, userHistoryStore } from '@/stores'
@@ -87,6 +87,17 @@
 
         const pointMap: Record<number, DateTime> = {}
 
+        let minTime: DateTime = DateTime.now().minus({ years: 10 })
+        if (historyState.timeFrame === '1month') {
+            minTime = DateTime.now().minus({ months: 1})
+        }
+        else if (historyState.timeFrame === '3month') {
+            minTime = DateTime.now().minus({ months: 3})
+        }
+        else if (historyState.timeFrame === '6month') {
+            minTime = DateTime.now().minus({ months: 6})
+        }
+
         let firstRealmId = -1
         for (let realmIndex = 0; realmIndex < realms.length; realmIndex++) {
             const [realmName, realmId] = realms[realmIndex]
@@ -98,10 +109,11 @@
 
             let points: DataPoint[]
             if (historyState.interval === 'hour') {
-                points = $userHistoryStore.data.gold[realmId].map((point) => ({
-                    x: parseApiTime(point[0]),
-                    y: point[1],
-                }))
+                points = $userHistoryStore.data.gold[realmId]
+                    .map((point) => ({
+                        x: parseApiTime(point[0]),
+                        y: point[1],
+                    }))
             }
             else {
                 const temp: Record<string, [DateTime, number]> = {}
@@ -142,15 +154,19 @@
 
                     temp[fakeTime.toISODate()] = [fakeTime, value]
                 }
+
                 points = sortBy(
                     toPairs(temp),
                     ([date]) => date
-                ).map(([, [time, value]]) => ({
+                )
+                .map(([, [time, value]]) => ({
                         x: time,
                         y: value,
                     })
                 )
             }
+
+            points = points.filter(({ x }) => x >= minTime)
 
             for (const point of points) {
                 pointMap[point.x.toUnixInteger()] = point.x
@@ -357,6 +373,19 @@
                     ['day', 'Daily'],
                     ['week', 'Weekly'],
                     ['month', 'Monthly'],
+                ]}
+            />
+        </div>
+
+        <div class="radio-container border">
+            <RadioGroup
+                bind:value={$historyState.timeFrame}
+                name="timeframe"
+                options={[
+                    ['all', 'All'],
+                    ['6month', '6 months'],
+                    ['3month', '3 months'],
+                    ['1month', '1 month'],
                 ]}
             />
         </div>
