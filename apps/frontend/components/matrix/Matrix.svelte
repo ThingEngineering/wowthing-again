@@ -30,7 +30,10 @@
         const sortedX = sortBy($matrixState.xAxis, (key) => axisOrder.indexOf(key))
         const sortedY = sortBy($matrixState.yAxis, (key) => axisOrder.indexOf(key))
 
-        const allAxis = [...sortedX, ...sortedY]
+        const allAxis = sortBy(
+            [...$matrixState.xAxis, ...$matrixState.yAxis],
+            (key) => axisOrder.indexOf(key)
+        )
         
         matrix = Object.fromEntries(
             sortBy(
@@ -43,23 +46,16 @@
                         ),
                         (char) => {
                             const parts: any[] = []
-                            for (const key of allAxis) {
-                                if (key === 'class') {
-                                    parts.push(char.classId)
-                                }
-                                else if (key === 'gender') {
-                                    parts.push(char.gender)
-                                }
-                                else if (key === 'race') {
-                                    parts.push(char.raceId)
-                                }
-                                else if (key === 'account') {
-                                    parts.push($userStore.data.accounts[char.accountId].tag || char.accountId)
-                                }
-                                else if (key === 'faction') {
-                                    parts.push(char.faction)
-                                }
-                            }
+
+                            parts.push(allAxis.indexOf('account') >= 0
+                                ? $userStore.data.accounts[char.accountId].tag || char.accountId
+                                : null)
+                            
+                            parts.push(allAxis.indexOf('faction') >= 0 ? char.faction : null)
+                            parts.push(allAxis.indexOf('gender') >= 0 ? char.gender : null)
+                            parts.push(allAxis.indexOf('race') >= 0 ? char.raceId : null)
+                            parts.push(allAxis.indexOf('class') >= 0 ? char.classId : null)
+
                             return parts
                         }
                     ) 
@@ -75,33 +71,57 @@
 
         for (let i = 0; i < 2; i++) {
             const axis = i === 0 ? sortedX : sortedY
+
             //const axisCombos
-            for (const key of axis) {
-                if (key === 'account') {
-                    combos.push(Object.keys($userStore.data.accounts)
-                        .map((accountId) => `${i === 0 ? 'X' : 'Y'}|${accountId}|${accountId}`)
-                    )
-                }
-                else if (key === 'faction') {
-                    combos.push([':alliance:', ':horde:']
-                        .map((faction, index) => `${i === 0 ? 'X' : 'Y'}|${index}|${faction}`)
-                    )
-                }
-                else if (key === 'gender') {
-                    combos.push(genderValues
-                        .map((gender) => `${i === 0 ? 'X' : 'Y'}|${gender}|${Gender[parseInt(gender)]}`)
-                    )
-                }
-                else if (key === 'race') {
-                    combos.push(Object.keys($staticStore.data.characterRaces)
-                        .map((raceId) => `${i === 0 ? 'X' : 'Y'}|${raceId}|:race-${raceId}:`)
-                    )
-                }
-                else if (key === 'class') {
-                    combos.push(classOrder
-                        .map((classId) => `${i === 0 ? 'X' : 'Y'}|${classId}|:class-${classId}:`)
-                    )
-                }
+                
+            if (axis.indexOf('account') >= 0) {
+                combos.push(sortBy(
+                    Object.keys($userStore.data.accounts)
+                        .map((accountId) => {
+                            const tag = $userStore.data.accounts[parseInt(accountId)].tag || accountId
+                            return `${tag}|${tag}`
+                        }),
+                    (key) => key.split('|')[0]
+                ))
+            }
+            else {
+                combos.push([''])
+            }
+
+            if (axis.indexOf('faction') >= 0) {
+                combos.push([':alliance:', ':horde:']
+                    .map((faction, index) => `${index}|${faction}`)
+                )
+            }
+            else {
+                combos.push([''])
+            }
+
+            if (axis.indexOf('gender') >= 0) {
+                combos.push(genderValues
+                    .map((gender) => `${gender}|${Gender[parseInt(gender)]}`)
+                )
+            }
+            else {
+                combos.push([''])
+            }
+
+            if (axis.indexOf('race') >= 0) {
+                combos.push(Object.keys($staticStore.data.characterRaces)
+                    .map((raceId) => `${raceId}|:race-${raceId}:`)
+                )
+            }
+            else {
+                combos.push([''])
+            }
+
+            if (axis.indexOf('class') >= 0) {
+                combos.push(classOrder
+                    .map((classId) => `${classId}|:class-${classId}:`)
+                )
+            }
+            else {
+                combos.push([''])
             }
         }
 
@@ -111,19 +131,22 @@
         yKeys = []
 
         const products = cartesianProduct(...combos)
-        for (const product of products.slice(0, 50)) {
-            const xParts = product.filter((s) => s.startsWith('X'))
-            const yParts = product.filter((s) => s.startsWith('Y'))
+        for (const product of products) {
+
+            const xParts = product.slice(0, 5)
+            const yParts = product.slice(5, 10)
+
+            // console.log(xParts, yParts)
 
             if (xParts.length > 0) {
                 const xSplit = xParts.map((s) => s.split('|'))
 
-                const xKey = xSplit.map((parts) => parts[1]).join(',')
+                const xKey = xSplit.map((parts) => parts[0]).join(',')
                 if (!some(xKeys, (key) => key === xKey)) {
                     xKeys.push(xKey)
                 }
 
-                const xEntry = xSplit.map((parts) => parts[2])
+                const xEntry = xSplit.map((parts) => parts[1] || '')
                 if (!some(xEntries, (entry) => xor(entry, xEntry).length === 0)) {
                     xEntries.push(xEntry)
                 }
@@ -131,29 +154,28 @@
             if (yParts.length > 0) {
                 const ySplit = yParts.map((s) => s.split('|'))
 
-                const yKey = ySplit.map((parts) => parts[1]).join(',')
+                const yKey = ySplit.map((parts) => parts[0]).join(',')
                 if (!some(yKeys, (key) => key === yKey)) {
                     yKeys.push(yKey)
                 }
 
-                const yEntry = ySplit.map((parts) => parts[2])
-                if (!some(xEntries, (entry) => xor(entry, yEntry).length === 0)) {
+                const yEntry = ySplit.map((parts) => parts[1] || '')
+                if (!some(yEntries, (entry) => xor(entry, yEntry).length === 0)) {
                     yEntries.push(yEntry)
                 }
             }
         }
 
-        // console.log(xKeys, xEntries)
-        // console.log(yKeys, yEntries)
+        // console.log('x', xKeys, xEntries)
+        // console.log('y', yKeys, yEntries)
 
-        if (xEntries.length === 0) {
-            xEntries.push(['All'])
-            xKeys.push('')
+        if (xEntries.length === 1 && !some(xEntries[0], (x) => x !== '')) {
+            xEntries[0] = ['All']
+            //xKeys.push('')
         }
 
-        if (yEntries.length === 0) {
-            yEntries.push(['All'])
-            yKeys.push('')
+        if (yEntries.length === 1 && !some(yEntries[0], (y) => y !== '')) {
+            yEntries[0] = ['All']
         }
     }
 
@@ -165,6 +187,17 @@
         ['race', 'Race'],
     ]
     const axisOrder = axisOptions.map(([key,]) => key)
+
+    const mergeKeys = (xKey: string, yKey: string): string => {
+        const xParts = xKey.split(',')
+        const yParts = yKey.split(',')
+        for (let index = 0; index < xParts.length; index++) {
+            if (yParts[index]) {
+                xParts[index] = yParts[index]
+            }
+        }
+        return xParts.join(',')
+    }
 </script>
 
 <style lang="scss">
@@ -275,7 +308,7 @@
                         {/each}
                     </td>
                     {#each xKeys as xKey}
-                        {@const key = `${xKey},${yKey}`.replace(/^,?(.*?),?$/, '$1')}
+                        {@const key = mergeKeys(xKey, yKey)}
                         {@const characters = matrix[key] || []}
                         <td
                             class="characters"
