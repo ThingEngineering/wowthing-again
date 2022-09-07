@@ -1,6 +1,7 @@
 <script lang="ts">
     import { lockoutOverride } from '@/data/dungeon'
     import { iconStrings } from '@/data/icons'
+    import { data as settings } from '@/stores/settings'
     import { tippyComponent } from '@/utils/tippy'
     import type { Character, CharacterLockout, InstanceDifficulty } from '@/types'
 
@@ -21,6 +22,7 @@
             }
         }
     }
+
 </script>
 
 <style lang="scss">
@@ -40,7 +42,8 @@
     <td
         use:tippyComponent={{component: TooltipLockout, props: {character, lockout}}}
         class:status-success={lockout.defeatedBosses >= maxBosses}
-        class:status-shrug={lockout.defeatedBosses < maxBosses}
+        class:status-shrug={lockout.defeatedBosses > 0 && lockout.defeatedBosses < maxBosses}
+        class:status-fail={lockout.defeatedBosses === 0}
         style="{!showNumbers ? '--less-width: 0.8rem;' : ''}"
     >
         {#if showNumbers}
@@ -48,8 +51,12 @@
             <span>/</span>
             <span>{maxBosses}</span>
         {:else}
-            {#if lockout.defeatedBosses >= maxBosses}
-                <IconifyIcon icon={iconStrings.yes} />
+            {#if lockout?.defeatedBosses >= maxBosses}
+                <IconifyIcon icon={iconStrings.starFull} />
+            {:else if lockout?.defeatedBosses > 0}
+                <IconifyIcon icon={iconStrings.starHalf} />
+            {:else if $settings.layout.showEmptyLockouts}
+                <IconifyIcon icon={iconStrings.starEmpty} />
             {/if}
         {/if}
     </td>

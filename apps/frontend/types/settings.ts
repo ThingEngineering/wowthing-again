@@ -38,6 +38,7 @@ export interface Settings {
         covenantColumn: 'current' | 'all'
         includeArchaeology: boolean
         padding: 'small' | 'medium' | 'large'
+        showEmptyLockouts: boolean
     }
 
     privacy: {
