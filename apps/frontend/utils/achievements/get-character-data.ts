@@ -12,7 +12,7 @@ import type {
 import type { UserQuestData } from '@/types/data'
 
 
-const debugId = 14329
+const debugId = 15055
 
 export function getCharacterData(
     achievementData: AchievementData,
@@ -30,8 +30,16 @@ export function getCharacterData(
     const characterCounts: Record<number, number> = {}
     const rootCriteriaTree = achievementData.criteriaTree[achievement.criteriaTreeId]
 
+    const characters = userData.characters
+        .filter((char) => (
+            (achievement.faction === 0 && char.faction === 1) ||
+            (achievement.faction === 1 && char.faction === 0) ||
+            (achievement.faction === -1)
+        ))
+    const characterIds = characters.map((char) => char.id)
 
     function recurse(
+        parentCriteriaTree: AchievementDataCriteriaTree,
         criteriaTree: AchievementDataCriteriaTree,
         addStuff = true,
         first = false,
@@ -47,7 +55,8 @@ export function getCharacterData(
             criteriaTree.amount > 0 &&
             (
                 criteriaTree.operator !== CriteriaTreeOperator.All &&
-                criteriaTree.operator !== CriteriaTreeOperator.Any
+                criteriaTree.operator !== CriteriaTreeOperator.Any &&
+                parentCriteriaTree?.operator !== CriteriaTreeOperator.SumChildren
             )
         ) {
             ret.total += criteriaTree.amount
@@ -65,7 +74,7 @@ export function getCharacterData(
         }
 
         if (achievement.id === debugId) {
-            console.log('-', criteriaTree, criteriaTree.criteriaId, criteria)
+            console.log('-', criteriaTree, criteriaTree.criteriaId, criteria, addStuff)
             console.log('--', userAchievementData.criteria[criteriaTree.id] ?? [])
         }
 
@@ -77,7 +86,7 @@ export function getCharacterData(
         }
         else {
             if (criteria?.type === CriteriaType.RaiseSkillLine) {
-                for (const character of userData.characters) {
+                for (const character of characters) {
                     for (const subProfessions of Object.values(character.professions || {})) {
                         const subProfession = subProfessions[criteria.asset]
                         if (subProfession) {
@@ -89,24 +98,28 @@ export function getCharacterData(
                 }
             }
             else if (criteria?.type === CriteriaType.ReputationGained) {
-                for (const character of userData.characters) {
+                for (const character of characters) {
                     const reputation = character.reputations?.[criteria.asset] || 0
                     if (reputation > 0) {
                         characterCounts[character.id] = (characterCounts[character.id] || 0) +
                             reputation
-                        continue
                     }
                 }
             }
             else {
                 for (const [characterId, count] of userAchievementData.criteria[criteriaTree.id] ?? []) {
-                    // if (achievement.id === debugId) {
-                    //     console.log(characterId, userData.characterMap[characterId].name, count, addStuff)
-                    // }
+                    if (characterIds.indexOf(characterId) < 0) {
+                        continue
+                    }
 
-                    if (addStuff && !(criteriaTree.id === rootCriteriaTree.id && criteriaTree.children.length > 0)) {
+                    if (achievement.id === debugId) {
+                        console.log(characterId, userData.characterMap[characterId].name, count, addStuff)
+                    }
+
+                    // && !(criteriaTree.id === rootCriteriaTree.id && criteriaTree.children.length > 0)
+                    if (addStuff) {
                         characterCounts[characterId] = (characterCounts[characterId] || 0) + (
-                            rootCriteriaTree.operator === CriteriaTreeOperator.SumChildren
+                            parentCriteriaTree?.operator === CriteriaTreeOperator.SumChildren
                                 ? count
                                 : Math.min(Math.max(1, criteriaTree.amount), count)
                         )
@@ -115,7 +128,7 @@ export function getCharacterData(
             }
         }
         
-        if (rootCriteriaTree.operator === CriteriaTreeOperator.SumChildren) {
+        if (parentCriteriaTree?.operator === CriteriaTreeOperator.SumChildren) {
             addStuff = false
         }
 
@@ -124,11 +137,11 @@ export function getCharacterData(
         }
 
         for (const criteriaTreeId of criteriaTree.children) {
-            recurse(achievementData.criteriaTree[criteriaTreeId], addStuff)
+            recurse(criteriaTree, achievementData.criteriaTree[criteriaTreeId], addStuff)
         }
     }
 
-    recurse(rootCriteriaTree, true, true)
+    recurse(null, rootCriteriaTree, true, true)
 
     ret.characters = sortBy(
         Object.entries(characterCounts)
