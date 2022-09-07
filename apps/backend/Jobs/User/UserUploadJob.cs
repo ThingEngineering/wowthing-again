@@ -255,6 +255,10 @@ public class UserUploadJob : JobBase
                 Context.PlayerAccountAddonData.Add(accountAddonData);
             }
 
+            accountAddonData.HonorCurrent = parsed.HonorCurrent;
+            accountAddonData.HonorLevel = parsed.HonorLevel;
+            accountAddonData.HonorMax = parsed.HonorMax;
+
             if (accountAddonData.Heirlooms == null)
             {
                 accountAddonData.Heirlooms = new();

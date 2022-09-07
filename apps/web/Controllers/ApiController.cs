@@ -414,6 +414,9 @@ public class ApiController : Controller
             }
         }
 
+        // Honor
+        var maxHonorAccount = tempAccounts.MaxBy(pa => pa.AddonData?.HonorLevel);
+
         // Mounts
         var mounts = await _context.MountQuery
             .FromSqlRaw(MountQuery.UserQuery, apiResult.User.Id)
@@ -474,6 +477,9 @@ public class ApiController : Controller
             GlobalDailies = globalDailies,
             GlobalDailyItems = gdItems,
             Heirlooms = heirlooms,
+            HonorCurrent = maxHonorAccount?.AddonData?.HonorCurrent ?? 0,
+            HonorLevel = maxHonorAccount?.AddonData?.HonorLevel ?? 0,
+            HonorMax = maxHonorAccount?.AddonData?.HonorMax ?? 0,
             Images = images,
             Public = apiResult.Public,
 

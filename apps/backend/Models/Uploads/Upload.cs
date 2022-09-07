@@ -5,6 +5,10 @@ public class Upload
     public int Version { get; set; }
     public string BattleTag { get; set; }
 
+    public short HonorCurrent { get; set; }
+    public short HonorLevel { get; set; }
+    public short HonorMax { get; set; }
+
     [JsonProperty("chars")]
     public Dictionary<string, UploadCharacter> Characters { get; set; }
 
