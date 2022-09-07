@@ -2,8 +2,58 @@ name: "Artifacts"
 requiredQuestId: 40715 40814 40646 40618 41085 40636 40408 40706 40840 41335 40684 40579
 groups:
 
-- name: "Balance of Power Appearances"
+- name: "Classic Appearances"
+  icon: "achievement/10461" # Fighting with Style: Classic
+  iconText: "Classic"
+  type: mixed
+  data:
+    0:
+      - name: "Default"
+        type: always
+
+      - name: "Recover a Pillar of Creation"
+        id: 40072 42454 40890 42213 43349
+        type: quest
+
+      - name: "Recover Light's Heart"
+        id: 44153
+        type: quest
+      
+      - name: "Order Hall Campaign: Chapter 2"
+        id: 51991
+        type: criteria
+        # id: 42116
+        # type: quest
+
+- name: "Upgraded Appearances"
+  icon: "achievement/10747" # Fighting with Stlye: Upgraded
+  iconText: "Upgrd"
+  type: mixed
+  data:
+    0:
+      - name: "Complete your Order Campaign"
+        id: 10747 0
+        type: addonAchievement
+        value: 1
+
+      - name: "Unlock every artifact trait"
+        id: 10747 1
+        type: addonAchievement
+        value: 1
+
+      - name: "Research the full history of your artifact"
+        id: 10747 2
+        type: addonAchievement
+        value: 1
+
+      - name: "Discover 8 rare archaeology projects"
+        id: 10747 3
+        type: addonAchievement
+        value: 1
+
+- name: "Valorous Appearances"
   icon: achievement/10748 # Fighting with Style: Valorous
+  iconText: "Valor"
   type: mixed
   data:
     0:
@@ -21,15 +71,192 @@ groups:
     - name: "Mythic +15 completed in time"
       id: 11162
       type: addonAchievement
-      description: "Must have done during Legion"
+      #description: "Must have done during Legion"
 
     - name: "Glory of the Legion Hero"
       id: 11163
       type: achievement
       description: "Account wide"
 
-- name: "Challenge Appearances"
+- name: "War-Torn Appearances"
+  icon: "achievement/10749" # Fighting with Style: War-Torn
+  iconText: "PvP"
+  type: mixed
+  data:
+    0:
+      - name: "Honor Level 10"
+        type: honorLevel
+        value: 10
+
+      - name: "Honor Level 30"
+        type: honorLevel
+        value: 30
+
+      - name: "Honor Level 50"
+        type: honorLevel
+        value: 50
+
+      - name: "Honor Level 80"
+        type: honorLevel
+        value: 80
+
+- name: separator
+
+- name: "Hidden Unlocks"
+  icon: achievement/10460 # Hidden Potential
+  iconText: "Hide 1"
+  lookup: class
+  type: quest
+  data:
+    death-knight:
+    - name: "Blood"
+      id: 43646
+
+    - name: "Frost"
+      id: 43647
+
+    - name: "Unholy"
+      id: 43648
+
+    demon-hunter:
+    - name: "Havoc"
+      id: 43649
+
+    - name: "Vengeance"
+      id: 43650
+
+    druid:
+    - name: "Balance"
+      id: 43651
+
+    - name: "Feral"
+      id: 43652
+
+    - name: "Guardian"
+      id: 43653
+
+    - name: "Restoration"
+      id: 43654
+
+    hunter:
+    - name: "Beast Mastery"
+      id: 43655
+
+    - name: "Marksmanship"
+      id: 43656
+
+    - name: "Survival"
+      id: 43657
+
+    mage:
+    - name: "Arcane"
+      id: 43658
+
+    - name: "Fire"
+      id: 43659
+
+    - name: "Frost"
+      id: 43660
+
+    monk:
+    - name: "Brewmaster"
+      id: 43661
+
+    - name: "Mistweaver"
+      id: 43662
+
+    - name: "Windwalker"
+      id: 43663
+
+    paladin:
+    - name: "Holy"
+      id: 43664
+
+    - name: "Protection"
+      id: 43665
+
+    - name: "Retribution"
+      id: 43666
+
+    priest:
+    - name: "Discipline"
+      id: 43667
+
+    - name: "Holy"
+      id: 43668
+
+    - name: "Shadow"
+      id: 43669
+
+    rogue:
+    - name: "Assassination"
+      id: 43670
+
+    - name: "Outlaw"
+      id: 43671
+
+    - name: "Subtlety"
+      id: 43672
+
+    shaman:
+    - name: "Elemental"
+      id: 43673
+
+    - name: "Enhancement"
+      id: 43674
+
+    - name: "Restoration"
+      id: 43675
+
+    warlock:
+    - name: "Affliction"
+      id: 43676
+
+    - name: "Demonology"
+      id: 43677
+
+    - name: "Destruction"
+      id: 43678
+
+    warrior:
+    - name: "Arms"
+      id: 43679
+
+    - name: "Fury"
+      id: 43680
+
+    - name: "Protection"
+      id: 43681
+
+- name: "Hidden Appearances"
+  icon: achievement/10750 # Fighting with Style: Hidden
+  iconText: "Hide 2"
+  type: mixed
+  data:
+    0:
+    - name: "Dungeons"
+      id: 11152
+      type: addonAchievement
+      value: 30
+      description: "[ %1 / %2 ]"
+
+    - name: "World Quests"
+      id: 11153
+      type: addonAchievement
+      value: 200
+      description: "[ %1 / %2 ]"
+
+    - name: "PvP Kills"
+      id: 11154
+      type: addonAchievement
+      value: 1000
+      description: "[ %1 / %2 ]"
+
+- name: separator
+
+- name: "Challenge Unlocks"
   icon: achievement/11612 # Fighting with Style: Challenging
+  iconText: "MT 1"
   lookup: class
   requiredQuestId: 44821 # In Dire Need
   type: quest
@@ -262,150 +489,25 @@ groups:
     - name: "Protection Challenge"
       id: 45416
 
-- name: "Hidden Unlocks"
-  icon: achievement/10460 # Hidden Potential
-  lookup: class
-  type: quest
-  data:
-    death-knight:
-    - name: "Blood"
-      id: 43646
-
-    - name: "Frost"
-      id: 43647
-
-    - name: "Unholy"
-      id: 43648
-
-    demon-hunter:
-    - name: "Havoc"
-      id: 43649
-
-    - name: "Vengeance"
-      id: 43650
-
-    druid:
-    - name: "Balance"
-      id: 43651
-
-    - name: "Feral"
-      id: 43652
-
-    - name: "Guardian"
-      id: 43653
-
-    - name: "Restoration"
-      id: 43654
-
-    hunter:
-    - name: "Beast Mastery"
-      id: 43655
-
-    - name: "Marksmanship"
-      id: 43656
-
-    - name: "Survival"
-      id: 43657
-
-    mage:
-    - name: "Arcane"
-      id: 43658
-
-    - name: "Fire"
-      id: 43659
-
-    - name: "Frost"
-      id: 43660
-
-    monk:
-    - name: "Brewmaster"
-      id: 43661
-
-    - name: "Mistweaver"
-      id: 43662
-
-    - name: "Windwalker"
-      id: 43663
-
-    paladin:
-    - name: "Holy"
-      id: 43664
-
-    - name: "Protection"
-      id: 43665
-
-    - name: "Retribution"
-      id: 43666
-
-    priest:
-    - name: "Discipline"
-      id: 43667
-
-    - name: "Holy"
-      id: 43668
-
-    - name: "Shadow"
-      id: 43669
-
-    rogue:
-    - name: "Assassination"
-      id: 43670
-
-    - name: "Outlaw"
-      id: 43671
-
-    - name: "Subtlety"
-      id: 43672
-
-    shaman:
-    - name: "Elemental"
-      id: 43673
-
-    - name: "Enhancement"
-      id: 43674
-
-    - name: "Restoration"
-      id: 43675
-
-    warlock:
-    - name: "Affliction"
-      id: 43676
-
-    - name: "Demonology"
-      id: 43677
-
-    - name: "Destruction"
-      id: 43678
-
-    warrior:
-    - name: "Arms"
-      id: 43679
-
-    - name: "Fury"
-      id: 43680
-
-    - name: "Protection"
-      id: 43681
-
-- name: "Hidden Variants"
-  icon: achievement/10750 # Fighting with Style: Hidden
+- name: "Challenge Appearances"
+  icon: "achievement/11612" # Fighting with Style: Challenging
+  iconText: "MT 2"
   type: mixed
   data:
     0:
-    - name: "Dungeons"
-      id: 11152
-      type: addonAchievement
-      value: 30
-      description: "[ %1 / %2 ]"
+      - name: "Defeat Kil'jaeden"
+        id: 11657 0
+        type: addonAchievement
+        value: 1
+      
+      - name: "Win 10 Rated Battlegrounds"
+        id: 11661
+        type: addonAchievement
+        value: 10
+        description: "RBG Wins [ %1 / %2 ]"
 
-    - name: "World Quests"
-      id: 11153
-      type: addonAchievement
-      value: 200
-      description: "[ %1 / %2 ]"
-
-    - name: "PvP Kills"
-      id: 11154
-      type: addonAchievement
-      value: 1000
-      description: "[ %1 / %2 ]"
+      - name: "Clear 10 different Legion dungeons"
+        id: 11665
+        type: addonAchievement
+        value: 10
+        description: "Dungeons [ %1 / %2 ]"
