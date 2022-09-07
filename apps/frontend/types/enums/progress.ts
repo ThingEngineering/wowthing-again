@@ -7,4 +7,6 @@ export enum ProgressDataType {
     AddonQuest,
     WodGarrison,
     SlCovenant,
+    Always,
+    HonorLevel,
 }

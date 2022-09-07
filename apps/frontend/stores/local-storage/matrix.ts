@@ -4,6 +4,9 @@ import { writable } from 'svelte/store'
 export class MatrixState {
     public minLevel = 0
 
+    public xAxis: string[] = []
+    public yAxis: string[] = []
+
     public x_class = false
     public x_gender = false
     public x_race = false

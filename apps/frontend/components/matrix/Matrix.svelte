@@ -11,11 +11,12 @@
     import { matrixState } from '@/stores/local-storage'
     import { data as settings } from '@/stores/settings'
     import { Faction, factionValues, Gender, genderValues } from '@/types/enums'
+    import { cartesianProduct } from '@/utils/cartesian-product'
     import { getGenderedName } from '@/utils/get-gendered-name'
     import type { Character } from '@/types'
 
-    import Checkbox from '@/components/forms/CheckboxInput.svelte'
     import CovenantIcon from '@/components/images/CovenantIcon.svelte'
+    import GroupedCheckbox from '@/components/forms/GroupedCheckboxInput.svelte'
     import NumberInput from '@/components/forms/NumberInput.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
     import UnderConstruction from '@/components/common/UnderConstruction.svelte'
@@ -26,6 +27,11 @@
     let yEntries: string[][]
     let yKeys: string[]
     $: {
+        const sortedX = sortBy($matrixState.xAxis, (key) => axisOrder.indexOf(key))
+        const sortedY = sortBy($matrixState.yAxis, (key) => axisOrder.indexOf(key))
+
+        const allAxis = [...sortedX, ...sortedY]
+        
         matrix = Object.fromEntries(
             sortBy(
                 Object.entries(
@@ -35,100 +41,130 @@
                             (char) => $settings.characters.hiddenCharacters.indexOf(char.id) === -1 &&
                                 char.level >= $matrixState.minLevel
                         ),
-                        (char) => [
-                            $matrixState.x_class ? char.classId : null,
-                            $matrixState.x_gender ? char.gender : null,
-                            $matrixState.x_race ? char.raceId : null,
-
-                            $matrixState.y_account ? $userStore.data.accounts[char.accountId].tag || char.accountId : null,
-                            $matrixState.y_faction ? char.faction : null,
-                        ]
-                    )
+                        (char) => {
+                            const parts: any[] = []
+                            for (const key of allAxis) {
+                                if (key === 'class') {
+                                    parts.push(char.classId)
+                                }
+                                else if (key === 'gender') {
+                                    parts.push(char.gender)
+                                }
+                                else if (key === 'race') {
+                                    parts.push(char.raceId)
+                                }
+                                else if (key === 'account') {
+                                    parts.push($userStore.data.accounts[char.accountId].tag || char.accountId)
+                                }
+                                else if (key === 'faction') {
+                                    parts.push(char.faction)
+                                }
+                            }
+                            return parts
+                        }
+                    ) 
                 ).map(([key, characters]) => [
                     key,
                     sortBy(characters, (char) => -char.level),
                 ]),
-                ([key, ]) => {
-                    const [classId, gender, raceId, accountId, faction] = key.split(',')
-
-                    const parts: string[] = []
-
-                    if (accountId !== '') {
-                        parts.push(accountId)
-                    }
-                    if (faction) {
-                        parts.push(faction)
-                    }
-                    if (gender) {
-                        parts.push(gender)
-                    }
-                    if (raceId) {
-                        parts.push(getGenderedName($staticStore.data.characterRaces[parseInt(raceId)].name, 0))
-                    }
-                    if (classId) {
-                        parts.push(getGenderedName($staticStore.data.characterClasses[parseInt(classId)].name, 0))
-                    }
-
-                    return parts.join('|')
-                }
+                ([key, ]) => key
             )
         )
 
+        const combos: string[][] = []
+
+        for (let i = 0; i < 2; i++) {
+            const axis = i === 0 ? sortedX : sortedY
+            //const axisCombos
+            for (const key of axis) {
+                if (key === 'account') {
+                    combos.push(Object.keys($userStore.data.accounts)
+                        .map((accountId) => `${i === 0 ? 'X' : 'Y'}|${accountId}|${accountId}`)
+                    )
+                }
+                else if (key === 'faction') {
+                    combos.push([':alliance:', ':horde:']
+                        .map((faction, index) => `${i === 0 ? 'X' : 'Y'}|${index}|${faction}`)
+                    )
+                }
+                else if (key === 'gender') {
+                    combos.push(genderValues
+                        .map((gender) => `${i === 0 ? 'X' : 'Y'}|${gender}|${Gender[parseInt(gender)]}`)
+                    )
+                }
+                else if (key === 'race') {
+                    combos.push(Object.keys($staticStore.data.characterRaces)
+                        .map((raceId) => `${i === 0 ? 'X' : 'Y'}|${raceId}|:race-${raceId}:`)
+                    )
+                }
+                else if (key === 'class') {
+                    combos.push(classOrder
+                        .map((classId) => `${i === 0 ? 'X' : 'Y'}|${classId}|:class-${classId}:`)
+                    )
+                }
+            }
+        }
+
         xEntries = []
         xKeys = []
-        for (const classId of $matrixState.x_class ? classOrder.map((c) => c.toString()) : ['']) {
-            for (const gender of $matrixState.x_gender ? genderValues : ['']) {
-                for (const raceId of $matrixState.x_race ? Object.keys($staticStore.data.characterRaces) : ['']) {
-                    xKeys.push(`${classId},${gender},${raceId}`)
-                    
-                    const xParts: string[] = []
-                    if (gender) {
-                        xParts.push(Gender[parseInt(gender)])
-                    }
-                    if (raceId) {
-                        xParts.push(`:race-${raceId}:`)
-                    }
-                    if (classId) {
-                        xParts.push(`:class-${classId}:`)
-                    }
-
-                    if (xParts.length > 0 && !some(xEntries, (entry) => xor(entry, xParts).length === 0)) {
-                        xEntries.push(xParts)
-                    }
-                }
-            }
-        }
-        if (xEntries.length === 0) {
-            xEntries.push(['All'])
-        }
-
         yEntries = []
         yKeys = []
-        for (const faction of $matrixState.y_faction ? factionValues : ['']) {
-            if (faction === '2' || faction === '10') {
-                continue // neutral
+
+        const products = cartesianProduct(...combos)
+        for (const product of products.slice(0, 50)) {
+            const xParts = product.filter((s) => s.startsWith('X'))
+            const yParts = product.filter((s) => s.startsWith('Y'))
+
+            if (xParts.length > 0) {
+                const xSplit = xParts.map((s) => s.split('|'))
+
+                const xKey = xSplit.map((parts) => parts[1]).join(',')
+                if (!some(xKeys, (key) => key === xKey)) {
+                    xKeys.push(xKey)
+                }
+
+                const xEntry = xSplit.map((parts) => parts[2])
+                if (!some(xEntries, (entry) => xor(entry, xEntry).length === 0)) {
+                    xEntries.push(xEntry)
+                }
             }
+            if (yParts.length > 0) {
+                const ySplit = yParts.map((s) => s.split('|'))
 
-            for (const accountId of $matrixState.y_account ? Object.keys($userStore.data.accounts) : ['']) {
-                yKeys.push(`${accountId},${faction}`)
+                const yKey = ySplit.map((parts) => parts[1]).join(',')
+                if (!some(yKeys, (key) => key === yKey)) {
+                    yKeys.push(yKey)
+                }
 
-                const yParts: string[] = []
-                if (accountId) {
-                    yParts.push(accountId)
-                }
-                if (faction) {
-                    yParts.push(`:${Faction[parseInt(faction)].toLowerCase()}:`)
-                }
-                
-                if (yParts.length > 0 && !some(yEntries, (entry) => xor(entry, yParts).length === 0)) {
-                    yEntries.push(yParts)
+                const yEntry = ySplit.map((parts) => parts[2])
+                if (!some(xEntries, (entry) => xor(entry, yEntry).length === 0)) {
+                    yEntries.push(yEntry)
                 }
             }
         }
+
+        // console.log(xKeys, xEntries)
+        // console.log(yKeys, yEntries)
+
+        if (xEntries.length === 0) {
+            xEntries.push(['All'])
+            xKeys.push('')
+        }
+
         if (yEntries.length === 0) {
             yEntries.push(['All'])
+            yKeys.push('')
         }
     }
+
+    const axisOptions: [string, string][] = [
+        ['account', 'Account'],
+        ['class', 'Class'],
+        ['faction', 'Faction'],
+        ['gender', 'Gender'],
+        ['race', 'Race'],
+    ]
+    const axisOrder = axisOptions.map(([key,]) => key)
 </script>
 
 <style lang="scss">
@@ -183,46 +219,30 @@
     <div class="options-container">
         <span>X axis:</span>
 
-        <button>
-            <Checkbox
-                name="y_gender"
-                bind:value={$matrixState.x_gender}
-                disabled={$matrixState.x_race && $matrixState.x_class}
-            >Gender</Checkbox>
-        </button>
+        {#each axisOptions as [value, label]}
+            <GroupedCheckbox
+                name="x_{value}"
+                disabled={$matrixState.yAxis.indexOf(value) >= 0}
+                {value}
+                bind:bindGroup={$matrixState.xAxis}
+            >{label}</GroupedCheckbox>
+        {/each}
+    </div>
 
-        <button>
-            <Checkbox
-                name="y_race"
-                bind:value={$matrixState.x_race}
-                disabled={$matrixState.x_gender && $matrixState.x_class}
-            >Race</Checkbox>
-        </button>
-
-        <button>
-            <Checkbox
-                name="y_class"
-                bind:value={$matrixState.x_class}
-                disabled={$matrixState.x_gender && $matrixState.x_race}
-            >Class</Checkbox>
-        </button>
-
+    <div class="options-container">
         <span>Y axis:</span>
 
-        <button>
-            <Checkbox
-                name="x_account"
-                bind:value={$matrixState.y_account}
-            >Account</Checkbox>
-        </button>
+        {#each axisOptions as [value, label]}
+            <GroupedCheckbox
+                name="y_{value}"
+                disabled={$matrixState.xAxis.indexOf(value) >= 0}
+                {value}
+                bind:bindGroup={$matrixState.yAxis}
+            >{label}</GroupedCheckbox>
+        {/each}
+    </div>
 
-        <button>
-            <Checkbox
-                name="x_faction"
-                bind:value={$matrixState.y_faction}
-            >Faction</Checkbox>
-        </button>
-
+    <div class="options-container">
         <span>Level >=</span>
 
         <NumberInput
@@ -255,7 +275,8 @@
                         {/each}
                     </td>
                     {#each xKeys as xKey}
-                        {@const characters = matrix[`${xKey},${yKey}`] || []}
+                        {@const key = `${xKey},${yKey}`.replace(/^,?(.*?),?$/, '$1')}
+                        {@const characters = matrix[key] || []}
                         <td
                             class="characters"
                             class:max-level={some(characters, (char) => char.level === Constants.characterMaxLevel)}

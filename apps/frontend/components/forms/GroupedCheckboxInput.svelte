@@ -5,6 +5,7 @@
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
 
     export let bindGroup: string[]
+    export let disabled = false
     export let name: string
     export let textClass = ''
     export let value = ''
@@ -31,7 +32,11 @@
     }
 </style>
 
-<fieldset class="fancy-checkbox" data-state="{checked}">
+<fieldset
+    class="fancy-checkbox"
+    class:disabled
+    data-state="{checked}"
+>
     <label for="input-{name}">
         <input
             id="input-{name}"
@@ -39,6 +44,7 @@
             type="checkbox"
             {value}
             {checked}
+            {disabled}
             on:change={onChange}
         >
         <IconifyIcon

@@ -115,6 +115,16 @@ export default function getProgress(
                                         .replace('%2', data.value.toString())
                                 }
                             }
+                            else if (data.description && data.value) {
+                                descriptionText[dataIndex] = data.description
+                                    .replace('%1', have.toString())
+                                    .replace('%2', data.value.toString())
+                            }
+                            break
+                        }
+
+                        case ProgressDataType.Always: {
+                            haveThis = true
                             break
                         }
 
@@ -124,6 +134,11 @@ export default function getProgress(
                                 ([characterId,]) => characterId === character.id
                             )
                             haveThis = (criteria.length === 1 && criteria[0][1] >= (data.value || 1))
+                            break
+                        }
+
+                        case ProgressDataType.HonorLevel: {
+                            haveThis = userData.honorLevel >= data.value
                             break
                         }
 

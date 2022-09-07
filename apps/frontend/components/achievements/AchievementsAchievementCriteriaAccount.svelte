@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { achievementStore, userAchievementStore } from '@/stores'
+    import { achievementStore, userAchievementStore, userStore } from '@/stores'
     import { AchievementDataAccount, getAccountData } from '@/utils/achievements'
     import type {AchievementDataAchievement, AchievementDataCriteriaTree} from '@/types'
 
@@ -16,6 +16,7 @@
         data = getAccountData(
             $achievementStore.data,
             $userAchievementStore.data,
+            $userStore.data,
             achievement
         )
 

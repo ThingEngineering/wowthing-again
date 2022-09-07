@@ -3,12 +3,18 @@ import type {
     AchievementData,
     AchievementDataAchievement,
     AchievementDataCriteriaTree,
-    UserAchievementData
+    UserAchievementData,
+    UserData
 } from '@/types'
+import { CriteriaType } from '@/types/enums'
+
+
+const debugId = 15654
 
 export function getAccountData(
     achievementData: AchievementData,
     userAchievementData: UserAchievementData,
+    userData: UserData,
     achievement: AchievementDataAchievement
 ): AchievementDataAccount {
     //const ctMap = get(achievementStore).data.criteriaTree
@@ -33,26 +39,43 @@ export function getAccountData(
             }
         }
 
-        console.log(achievement.id, forcedId, userAchievementData.addonAchievements)
-        console.log(userAchievementData.addonAchievements[forcedId])
+        //console.log(achievement.id, forcedId, userAchievementData.addonAchievements)
+        //console.log(userAchievementData.addonAchievements[forcedId])
     }
     else {
-        for (const child of rootCriteriaTree?.children ?? []) {
-            const childTree = achievementData.criteriaTree[child]
+        for (const childId of rootCriteriaTree?.children ?? []) {
+            const childTree = achievementData.criteriaTree[childId]
             if (childTree) {
                 ret.criteria.push(childTree)
+                const criteria = achievementData.criteria[childTree.criteriaId]
 
-                if (achievement.id === 9451) {
-                    console.log(childTree, achievementData.criteria[childTree.criteriaId], userAchievementData.criteria[child])
+                if (achievement.id === debugId) {
+                    console.log(childTree, achievementData.criteria[childTree.criteriaId], userAchievementData.criteria[childId])
                 }
 
-                const value: number[] = (userAchievementData.criteria[child] || [[]])[0]
-                ret.have[child] = value[1] || 0
+                if (criteria?.type === CriteriaType.EarnAchievement) {
+                    ret.have[childId] = userAchievementData.achievements[criteria.asset] !== undefined ? 1 : 0
+                }
+                else if (criteria?.type === CriteriaType.RaiseSkillLine) {
+                    for (const character of userData.characters) {
+                        for (const subProfessions of Object.values(character.professions || {})) {
+                            const subProfession = subProfessions[criteria.asset]
+                            if (subProfession?.currentSkill >= childTree.amount) {
+                                ret.have[childId] = 1
+                                break
+                            }
+                        }
+                    }
+                }
+                else {
+                    const value: number[] = (userAchievementData.criteria[childId] || [[]])[0]
+                    ret.have[childId] = value[1] || 0
 
-                if (ret.have[child] === 0) {
-                    for (const childChild of childTree.children) {
-                        const value: number[] = (userAchievementData.criteria[childChild] || [[]])[0]
-                        ret.have[child] = value[1] || 0
+                    if (ret.have[childId] === 0) {
+                        for (const childChild of childTree.children) {
+                            const value: number[] = (userAchievementData.criteria[childChild] || [[]])[0]
+                            ret.have[childId] = value[1] || 0
+                        }
                     }
                 }
             }

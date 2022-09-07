@@ -69,7 +69,7 @@
                 description = `Gain aura #${criteria.asset}`
             }
             else {
-                console.log('Unknown criteria', criteriaTree, criteria)
+                //console.log('Unknown criteria', criteriaTree, criteria)
             }
         }
 

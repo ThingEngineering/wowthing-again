@@ -56,11 +56,15 @@
                 <td class="type">
                     {#each dropIndexes.slice(0, 3) as dropIndex}
                         {@const drop = farm.drops[dropIndex]}
-                        {#if drop.type === RewardType.Armor}
-                            {ArmorType[drop.subType].toLowerCase()}
-                        {:else if drop.type === RewardType.Weapon}
-                            {weaponSubclassToString[drop.subType].toLowerCase()}
-                        {/if}
+                        <div>
+                            {#if drop.type === RewardType.Armor}
+                                {ArmorType[drop.subType].toLowerCase()}
+                            {:else if drop.type === RewardType.Weapon}
+                                {weaponSubclassToString[drop.subType].toLowerCase()}
+                            {:else}
+                                {RewardType[drop.type].toLowerCase()}
+                            {/if}
+                        </div>
                     {/each}
                 </td>
             </tr>

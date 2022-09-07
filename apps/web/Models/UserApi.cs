@@ -16,6 +16,10 @@ public class UserApi
 
     public List<int> GoldHistoryRealms { get; set; }
 
+    public short HonorCurrent { get; set; }
+    public short HonorLevel { get; set; }
+    public short HonorMax { get; set; }
+
     public Dictionary<int, BackgroundImage> Backgrounds { get; set; }
     public Dictionary<int, WowPeriod> CurrentPeriod { get; init; }
     public Dictionary<string, GlobalDailies> GlobalDailies { get; set; }

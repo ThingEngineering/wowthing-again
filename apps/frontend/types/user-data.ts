@@ -15,6 +15,10 @@ export interface UserData {
     goldHistoryRealms: number[]
     heirlooms: Record<number, number>
 
+    honorCurrent: number
+    honorLevel: number
+    honorMax: number
+
     backgrounds: Record<number, BackgroundImage>
     currentPeriod: Record<number, UserDataCurrentPeriod>
     globalDailies: Record<string, DailyQuests>
