@@ -207,9 +207,20 @@
         flex-direction: column;
         //width: 100%;
     }
+    .options-wrapper {
+        display: flex;
+        gap: 0.5rem 1rem;
+        flex-wrap: wrap;
+        margin-bottom: 1rem;
+    }
     .options-container {
+        margin-bottom: 0;
+        padding: 0.2rem 0.3rem;
+
         :global(input) {
             margin-top: 0;
+            padding-bottom: 0;
+            padding-top: 0;
         }
     }
     table {
@@ -249,41 +260,43 @@
 <div class="wrapper">
     <UnderConstruction />
 
-    <div class="options-container">
-        <span>X axis:</span>
+    <div class="options-wrapper">
+        <div class="options-container background-box">
+            <span>X axis:</span>
 
-        {#each axisOptions as [value, label]}
-            <GroupedCheckbox
-                name="x_{value}"
-                disabled={$matrixState.yAxis.indexOf(value) >= 0}
-                {value}
-                bind:bindGroup={$matrixState.xAxis}
-            >{label}</GroupedCheckbox>
-        {/each}
-    </div>
+            {#each axisOptions as [value, label]}
+                <GroupedCheckbox
+                    name="x_{value}"
+                    disabled={$matrixState.yAxis.indexOf(value) >= 0}
+                    {value}
+                    bind:bindGroup={$matrixState.xAxis}
+                >{label}</GroupedCheckbox>
+            {/each}
+        </div>
 
-    <div class="options-container">
-        <span>Y axis:</span>
+        <div class="options-container background-box">
+            <span>Y axis:</span>
 
-        {#each axisOptions as [value, label]}
-            <GroupedCheckbox
-                name="y_{value}"
-                disabled={$matrixState.xAxis.indexOf(value) >= 0}
-                {value}
-                bind:bindGroup={$matrixState.yAxis}
-            >{label}</GroupedCheckbox>
-        {/each}
-    </div>
+            {#each axisOptions as [value, label]}
+                <GroupedCheckbox
+                    name="y_{value}"
+                    disabled={$matrixState.xAxis.indexOf(value) >= 0}
+                    {value}
+                    bind:bindGroup={$matrixState.yAxis}
+                >{label}</GroupedCheckbox>
+            {/each}
+        </div>
 
-    <div class="options-container">
-        <span>Level >=</span>
+        <div class="options-container background-box">
+            <span>Level >=</span>
 
-        <NumberInput
-            name="general_RefreshInterval"
-            minValue={0}
-            maxValue={Constants.characterMaxLevel}
-            bind:value={$matrixState.minLevel}
-        />
+            <NumberInput
+                name="general_RefreshInterval"
+                minValue={0}
+                maxValue={Constants.characterMaxLevel}
+                bind:value={$matrixState.minLevel}
+            />
+        </div>
     </div>
 
     <table class="table table-striped">

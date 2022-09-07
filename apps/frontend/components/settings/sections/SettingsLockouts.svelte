@@ -7,8 +7,11 @@
     import { data as settingsData } from '@/stores/settings'
     import type { SettingsChoice } from '@/types'
 
+    import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
     import MagicLists from '../SettingsMagicLists.svelte'
     import TextInput from '@/components/forms/TextInput.svelte'
+import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+import { iconStrings } from '@/data/icons'
 
     let instanceFilter: string
 
@@ -65,6 +68,17 @@
 
 <div class="thing-container settings-container">
     <h2>Lockouts</h2>
+
+    <h3>Settings</h3>
+
+    <div class="setting setting-checkbox setting-layout">
+        <CheckboxInput
+            bind:value={$settingsData.layout.showEmptyLockouts}
+            name="layout_showEmptyLockouts"
+        >Show a <span class="status-fail"><IconifyIcon icon={iconStrings.starHalf} /></span> for empty lockouts.</CheckboxInput>
+    </div>
+
+    <h3>Lockouts</h3>
 
     <p>
         Search for instances and add them to the left list to have them show up under Lockouts.

@@ -251,6 +251,7 @@ public class ApplicationUserSettingsLayout
     public string CovenantColumn { get; set; } = "current";
     public bool IncludeArchaeology { get; set; } = false;
     public string Padding { get; set; } = "medium";
+    public bool ShowEmptyLockouts { get; set; } = false;
     public List<string> CommonFields { get; set; } = new();
     public List<string> HomeFields { get; set; } = new();
     public List<int> HomeLockouts { get; set; } = new();

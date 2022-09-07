@@ -41,6 +41,9 @@ import mdiSortAlphabeticalAscending from '@iconify/icons-mdi/sort-alphabetical-a
 import mdiSortAlphabeticalDescending from '@iconify/icons-mdi/sort-alphabetical-descending'
 import mdiSortNumericAscending from '@iconify/icons-mdi/sort-numeric-ascending'
 import mdiSortNumericDescending from '@iconify/icons-mdi/sort-numeric-descending'
+import mdiStarFace from '@iconify/icons-mdi/star-face'
+import mdiStarHalfFull from '@iconify/icons-mdi/star-half-full'
+import mdiStarOutline from '@iconify/icons-mdi/star-outline'
 import mdiSwordCross from '@iconify/icons-mdi/sword-cross'
 import mdiTimerSand from '@iconify/icons-mdi/timer-sand'
 import mdiTreasureChest from '@iconify/icons-mdi/treasure-chest'
@@ -116,6 +119,10 @@ export const iconStrings: Record<string, IconifyIcon> = {
     'sort-alpha-up': mdiSortAlphabeticalAscending,
     'sort-numeric-down': mdiSortNumericDescending,
     'sort-numeric-up': mdiSortNumericAscending,
+
+    starEmpty: mdiStarOutline,
+    starHalf: mdiStarHalfFull,
+    starFull: mdiStarFace,
 }
 
 export const locationIcons: Record<number, IconifyIcon> = {
