@@ -13,6 +13,7 @@ public class UserApi
     public Dictionary<int, UserApiAccount> Accounts { get; init; }
 
     public List<UserApiCharacter> Characters { get; init; }
+    public Dictionary<int, UserApiGuild> Guilds { get; set; }
 
     public List<int> GoldHistoryRealms { get; set; }
 

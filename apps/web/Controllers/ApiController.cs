@@ -258,6 +258,12 @@ public class ApiController : Controller
 
         timer.AddPoint("Accounts");
 
+        var guilds = await _context.PlayerGuild
+            .Where(pg => pg.UserId == apiResult.User.Id)
+            .ToArrayAsync();
+
+        timer.AddPoint("Guilds");
+
         var characterQuery = _context.PlayerCharacter
             .Where(c => c.Account.UserId == apiResult.User.Id)
             .Where(c => c.Level > 0);
@@ -463,6 +469,9 @@ public class ApiController : Controller
                     apiResult.Public,
                     apiResult.Privacy))
                 .ToList(),
+            Guilds = guilds
+                .Select(guild => new UserApiGuild(guild, apiResult.Public, apiResult.Privacy))
+                .ToDictionary(guild => guild.Id),
 
             GoldHistoryRealms = apiResult.Public ? null : await _context.PlayerAccountGoldSnapshot
                 .Where(pags => tempAccounts.Select(account => account.Id).Contains(pags.AccountId))

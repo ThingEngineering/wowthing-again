@@ -64,6 +64,9 @@
             margin-left: 0.5rem;
         }
     }
+    .guild-name {
+        color: #ffff88;
+    }
     p {
         margin: 0.25rem 0 0.5rem 0;
     }
@@ -93,9 +96,11 @@
     <div class="thing-container border">
         <h2>
             {character.name}
-            {#if true}
-                <span>&lt;Guild Name&gt;</span>
+
+            {#if character.guildId}
+                <span class="guild-name">&lt;{$userStore.data.guilds[character.guildId]?.name || 'Unknown Guild'}&gt;</span>
             {/if}
+
             <span>{Region[character.realm.region]}-{character.realm.name}</span>
         </h2>
 
