@@ -12,6 +12,10 @@ public class UserApiCharacter
 
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public int? AccountId { get; set; }
+
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+    public int? GuildId { get; set; }
+
     public int ActiveSpecId { get; }
     public int ChromieTime { get; set; }
     public int ClassId { get; set; }
@@ -71,6 +75,7 @@ public class UserApiCharacter
         EquippedItemLevel = character.EquippedItemLevel;
         Faction = character.Faction;
         Gender = character.Gender;
+        GuildId = character.GuildId;
         Id = character.Id;
         Level = character.Level;
         MountSkill = character.MountSkill;

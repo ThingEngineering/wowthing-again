@@ -10,9 +10,8 @@
     import { staticStore, userStore } from '@/stores'
     import { matrixState } from '@/stores/local-storage'
     import { data as settings } from '@/stores/settings'
-    import { Faction, factionValues, Gender, genderValues } from '@/types/enums'
+    import { Gender, genderValues } from '@/types/enums'
     import { cartesianProduct } from '@/utils/cartesian-product'
-    import { getGenderedName } from '@/utils/get-gendered-name'
     import type { Character } from '@/types'
 
     import CovenantIcon from '@/components/images/CovenantIcon.svelte'
@@ -45,7 +44,7 @@
                                 char.level >= $matrixState.minLevel
                         ),
                         (char) => {
-                            const parts: any[] = []
+                            const parts: (number|string)[] = []
 
                             parts.push(allAxis.indexOf('account') >= 0
                                 ? $userStore.data.accounts[char.accountId].tag || char.accountId

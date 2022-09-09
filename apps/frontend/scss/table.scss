@@ -77,6 +77,13 @@
                 background: $table-striped-alt-bg;
             }
         }
+        tr.highlight {
+            background: $table-hl-bg;
+
+            &:nth-child(odd) {
+                background: $table-striped-hl-bg;
+            }
+        }
     }
 }
 

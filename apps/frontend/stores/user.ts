@@ -118,6 +118,11 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             }
         }
 
+        // Initialize guilds
+        for (const guild of Object.values(userData.guilds)) {
+            guild.realm = staticData.realms[guild.realmId] || staticData.realms[0]
+        }
+
         // Pre-calculate lockouts
         userData.allLockouts = []
         userData.allLockoutsMap = {}

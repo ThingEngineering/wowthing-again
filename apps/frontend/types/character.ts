@@ -11,6 +11,7 @@ export interface Character {
     faction: Faction
     gender: number
     gold: number
+    guildId?: number
     hearthLocation: string
     id: number
     isResting: boolean

@@ -2,42 +2,30 @@
     import { userStore } from '@/stores'
     import { data as settings } from '@/stores/settings'
 
-    import HeadIcon from './head/Icon.svelte'
+    let colspan: number
+    $: {
+        colspan = $settings.layout.commonFields.length +
+            ($settings.layout.commonFields.indexOf('accountTag') >= 0
+                ? (userStore.useAccountTags ? 0 : -1)
+                : 0
+            )
+    }
 </script>
 
 <style lang="scss">
-    .level {
-        @include cell-width($width-level);
+    .head-text {
+        --image-margin-top: -4px;
 
-        text-align: right;
-    }
-    .name {
-        @include cell-width($width-name, $maxWidth: $width-name-max);
-    }
-    .realm {
-        @include cell-width($width-realm, $maxWidth: $width-realm-max);
+        padding-left: calc($width-padding * var(--padding, 1));
+        text-align: left;
     }
 </style>
 
 <thead>
     <tr>
-        {#each $settings.layout.commonFields as field}
-            {#if field === 'accountTag' && userStore.useAccountTags}
-                <th></th>
-
-            {:else if field.startsWith('characterIcon')}
-                <HeadIcon />
-
-            {:else if field === 'characterLevel'}
-                <th class="level"></th>
-
-            {:else if field === 'characterName'}
-                <th class="name"></th>
-
-            {:else if field === 'realmName'}
-                <th class="realm"></th>
-            {/if}
-        {/each}
+        <th class="head-text" colspan="{colspan}">
+            <slot name="headText" />
+        </th>
 
         <slot />
     </tr>

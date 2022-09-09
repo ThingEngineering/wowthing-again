@@ -44,9 +44,13 @@
 
             farmStatuses = $manualStore.data.zoneMaps.farmStatus[slugKey]
         }
+
         if ($zoneMapState.classFilters[slugKey] === undefined) {
             $zoneMapState.classExpanded[slugKey] = false
             $zoneMapState.classFilters[slugKey] = {}
+        }
+        for (const classId of classOrder) {
+            $zoneMapState.classFilters[slugKey][classId] ||= false
         }
     }
 

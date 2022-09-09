@@ -5,12 +5,11 @@ export interface ItemSearchResponseItem {
     itemId: number
     itemName: string
     characters: ItemSearchResponseCharacter[]
+    guildBanks: ItemSearchResponseGuildBank[]
 }
 
-export interface ItemSearchResponseCharacter {
-    characterId: number
+export interface ItemSearchResponseCommon {
     count: number
-    location: ItemLocation
     itemLevel: number
     quality: ItemQuality
     context?: number
@@ -18,4 +17,15 @@ export interface ItemSearchResponseCharacter {
     suffixId?: number
     bonusIds?: number[]
     gems?: number[]
+}
+
+export interface ItemSearchResponseCharacter extends ItemSearchResponseCommon {
+    characterId: number
+    location: ItemLocation
+}
+
+export interface ItemSearchResponseGuildBank extends ItemSearchResponseCommon {
+    guildId: number
+    tab: number
+    slot: number
 }

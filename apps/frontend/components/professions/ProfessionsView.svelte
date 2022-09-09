@@ -2,6 +2,7 @@
     import find from 'lodash/find'
 
     import { expansionReverseOrder } from '@/data/expansion'
+    import { imageStrings } from '@/data/icons'
     import { staticStore } from '@/stores'
     import type { Character } from '@/types'
     import type { StaticDataProfession, StaticDataSubProfession } from '@/types/data/static'
@@ -9,6 +10,7 @@
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
     import Profession from './ProfessionsTableProfession.svelte'
+    import WowthingImage from '../images/sources/WowthingImage.svelte'
 
     export let slug: string
 
@@ -38,6 +40,9 @@
         border-left: 1px solid $border-color;
         text-align: center;
     }
+    .profession-head {
+        padding: 0.3rem;
+    }
 </style>
 
 {#if profession}
@@ -45,11 +50,20 @@
         {filterFunc}
     >
         <CharacterTableHead slot="head">
+            <svelte:fragment slot="headText">
+                <WowthingImage
+                    name={imageStrings[profession.slug]}
+                    size={20}
+                    border={1}
+                />
+                {profession.name.split('|')[0]}
+            </svelte:fragment>
+
             {#if profession.slug === 'archaeology'}
-                <td>Ugh</td>
+                <td class="profession-head">Ugh</td>
             {:else}
                 {#each expansionReverseOrder as expansion}
-                    <td>{expansion.shortName}</td>
+                    <td class="profession-head">{expansion.shortName}</td>
                 {/each}
             {/if}
         </CharacterTableHead>

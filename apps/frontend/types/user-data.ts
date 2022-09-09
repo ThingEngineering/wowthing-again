@@ -3,6 +3,7 @@ import type { BackgroundImage } from './background-image'
 import type { Character } from './character'
 import type { InstanceDifficulty } from './dungeon'
 import type { ItemQuality } from './enums'
+import type { Guild } from './guild'
 import type { UserCount } from './user-count'
 
 
@@ -12,6 +13,7 @@ export interface UserData {
 
     accounts: Record<number, Account>
     characters: Character[]
+    guilds: Record<number, Guild>
     goldHistoryRealms: number[]
     heirlooms: Record<number, number>
 

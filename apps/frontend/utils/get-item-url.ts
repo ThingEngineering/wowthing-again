@@ -3,7 +3,7 @@ import { get } from 'svelte/store'
 import { data as settingsData } from '@/stores/settings'
 import { getWowheadDomain } from '@/utils/get-wowhead-domain'
 import type { CharacterEquippedItem } from '@/types'
-import type { ItemSearchResponseCharacter } from '@/types/items'
+import type { ItemSearchResponseCommon } from '@/types/items'
 
 export function getItemUrl(item: Partial<CharacterEquippedItem>): string {
     const settings = get(settingsData)
@@ -48,7 +48,10 @@ export function getItemUrl(item: Partial<CharacterEquippedItem>): string {
 }
 
 // TODO unify these once equipped item storage is updated
-export function getItemUrlSearch(itemId: number, item: ItemSearchResponseCharacter): string {
+export function getItemUrlSearch<T extends ItemSearchResponseCommon>(
+    itemId: number,
+    item: T
+): string {
     let url = getItemUrl({
         bonusIds: item.bonusIds ?? [],
         context: item.context ?? 0,

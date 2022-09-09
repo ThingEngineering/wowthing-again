@@ -5,10 +5,10 @@
 
     import { itemSearchState, userStore } from '@/stores'
     import { ItemLocation } from '@/types/enums'
-    import { getItemUrlSearch } from '@/utils/get-item-url'
     import { toNiceNumber } from '@/utils/to-nice'
     import type { ItemSearchResponseItem } from '@/types/items'
 
+    import Row from './ItemsSearchRow.svelte'
     import Select from '@/components/forms/Select.svelte'
     import TextInput from '@/components/forms/TextInput.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
@@ -114,24 +114,6 @@
         text-align: left;
         width: 100%;
     }
-    .name {
-        @include cell-width(5rem);
-
-        padding-right: 1rem;
-        white-space: nowrap;
-
-        a {
-            text-decoration: underline;
-        }
-    }
-    .realm {
-        @include cell-width(7rem);
-
-        white-space: nowrap;
-    }
-    .location {
-        @include cell-width($width-item-location, $paddingLeft: 1rem);
-    }
     .count {
         @include cell-width($width-item-count);
 
@@ -188,36 +170,28 @@
                                 {item.itemName}
                             </th>
                             <th class="count">
-                                {toNiceNumber(item.characters.reduce((a, b) => a + b.count, 0))}
+                                {toNiceNumber(
+                                    item.characters.reduce((a, b) => a + b.count, 0) + 
+                                    item.guildBanks.reduce((a, b) => a + b.count, 0)
+                                )}
                             </th>
                             <th class="item-level">ILvl</th>
                         </tr>
                     </thead>
 
                     <tbody>
-                        {#each item.characters as characterItem}
-                            <tr>
-                                <td class="name">
-                                    <a
-                                        class="quality{characterItem.quality}"
-                                        href={getItemUrlSearch(item.itemId, characterItem)}
-                                    >
-                                        {$userStore.data.characterMap[characterItem.characterId].name}
-                                    </a>
-                                </td>
-                                <td class="realm">
-                                    {$userStore.data.characterMap[characterItem.characterId].realm.name}
-                                </td>
-                                <td class="location">
-                                    {ItemLocation[characterItem.location]}
-                                </td>
-                                <td class="count">
-                                    {toNiceNumber(characterItem.count)}
-                                </td>
-                                <td class="item-level">
-                                    {characterItem.itemLevel}
-                                </td>
-                            </tr>
+                        {#each (item.characters || []) as characterItem}
+                            <Row
+                                itemId={item.itemId}
+                                {characterItem}
+                            />
+                        {/each}
+
+                        {#each (item.guildBanks || []) as guildBankItem}
+                            <Row
+                                itemId={item.itemId}
+                                {guildBankItem}
+                            />
                         {/each}
                     </tbody>
                 </table>

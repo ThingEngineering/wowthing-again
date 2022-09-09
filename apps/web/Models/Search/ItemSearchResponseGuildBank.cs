@@ -2,11 +2,13 @@
 
 namespace Wowthing.Web.Models.Search;
 
-public class ItemSearchResponseCharacter
+public class ItemSearchResponseGuildBank
 {
-    public int CharacterId { get; set; }
+    public int GuildId { get; set; }
+    public short Tab { get; set; }
+    public short Slot { get; set; }
+
     public int Count { get; set; }
-    public ItemLocation Location { get; set; }
     public short ItemLevel { get; set; }
     public short Quality { get; set; }
 

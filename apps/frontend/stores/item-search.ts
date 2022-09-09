@@ -1,7 +1,13 @@
-import { writable } from 'svelte/store'
+import sortBy from 'lodash/sortBy'
+import { get, writable } from 'svelte/store'
 
+import { userStore } from '@/stores'
 import { ItemLocation } from '@/types/enums'
-import type { ItemSearchResponseCharacter, ItemSearchResponseItem } from '@/types/items'
+import type {
+    ItemSearchResponseCharacter,
+    ItemSearchResponseGuildBank,
+    ItemSearchResponseItem
+} from '@/types/items'
 
 
 export class ItemSearchState {
@@ -31,10 +37,12 @@ export class ItemSearchState {
 
         if (response.ok) {
             const result = await response.json() as ItemSearchResponseItem[]
+            const userData = get(userStore).data
 
             for (const item of result) {
-                const itemMap: Record<string, ItemSearchResponseCharacter[]> = {}
-                for (const character of item.characters) {
+                // Combine character items into a single stack
+                const characterMap: Record<string, ItemSearchResponseCharacter[]> = {}
+                for (const character of (item.characters || [])) {
                     const key = [
                         character.characterId,
                         character.location,
@@ -43,20 +51,57 @@ export class ItemSearchState {
                         (character.bonusIds || []).join(':'),
                     ].join('|')
 
-                    if (!itemMap[key]) {
-                        itemMap[key] = []
-                    }
-                    itemMap[key].push(character)
+                    characterMap[key] ||= []
+                    characterMap[key].push(character)
                 }
 
                 const newCharacters: ItemSearchResponseCharacter[] = []
-                for (const key of Object.keys(itemMap)) {
-                    const character = itemMap[key][0]
-                    character.count = itemMap[key].reduce((a: number, b) => a + b.count, 0)
+                for (const key of Object.keys(characterMap)) {
+                    const character = characterMap[key][0]
+                    character.count = characterMap[key].reduce((a: number, b) => a + b.count, 0)
                     newCharacters.push(character)
                 }
 
-                item.characters = newCharacters
+                item.characters = sortBy(
+                    newCharacters,
+                    (char) => [
+                        userData.characterMap[char.characterId].realm.region,
+                        userData.characterMap[char.characterId].realm.name,
+                    ]
+                )
+
+                // Combine guild items into a single stack
+                const guildBankMap: Record<string, ItemSearchResponseGuildBank[]> = {}
+                for (const guildBank of (item.guildBanks || [])) {
+                    const key = [
+                        guildBank.guildId,
+                        guildBank.tab,
+                        guildBank.quality,
+                        guildBank.itemLevel,
+                        (guildBank.bonusIds || []).join(':'),
+                    ].join('|')
+
+                    guildBankMap[key] ||= []
+                    guildBankMap[key].push(guildBank)
+                }
+
+                const newGuildBanks: ItemSearchResponseGuildBank[] = []
+                for (const key of Object.keys(guildBankMap)) {
+                    const guildBank = guildBankMap[key][0]
+                    guildBank.count = guildBankMap[key].reduce((a: number, b) => a + b.count, 0)
+                    newGuildBanks.push(guildBank)
+                }
+
+                item.guildBanks = sortBy(
+                    newGuildBanks,
+                    (guild) => [
+                        userData.guilds[guild.guildId].realm.region,
+                        userData.guilds[guild.guildId].realm.name,
+                        userData.guilds[guild.guildId].name,
+                        guild.tab,
+                        guild.slot,
+                    ]
+                )
             }
 
             return result
