@@ -49,9 +49,6 @@
             $zoneMapState.classExpanded[slugKey] = false
             $zoneMapState.classFilters[slugKey] = {}
         }
-        for (const classId of classOrder) {
-            $zoneMapState.classFilters[slugKey][classId] ||= false
-        }
     }
 
     let loots: [ManualDataZoneMapFarm, number[]][]
