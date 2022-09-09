@@ -3,6 +3,7 @@ groups:
 
 - name: Instances
   things:
+  - 119211 # Golden Hearthstone Card: Lord Jaraxxus (Gul'dan, Nighthold)
   - 143544 # Skull of Corruption (The Nighthold - Gul'dan)
   - 153004 # Unstable Portal Emitter (Vixx the Collector, The Seat of thew Triumvirate)
   - 141331 # Vial of Green Goo (Engineer Omegaplugg, ??)
@@ -40,6 +41,11 @@ groups:
 - name: Vendors
   things:
   - 153204 # All-Seer's Eye (Orix the All-Seer, Antoran Wastes - 1000 eyes)
+  - 140336 # Brulfist Idol (Slyhoof the Shameless Shaman, Highmountain)
+  - 142452 # Lingering Wyrmtongue Essence (Treasure Master Iks'reeged, Broken Shore)
+  - 141862 # Mote of Light (Xur'ios, Dalaran)
+  - 140309 # Prismatic Bauble (The Mad Merchant, Dalaran)
+  - 130151 # The "Devilsaur" Lunchbox (Gift Shopkeeper, Suramar)
   -  97921 # Bom'bay's Color-Seein' Sauce (Ravika, Durotar/Echo Isles)
   -  97942 # Sen'jin Spirit Drum (Ravika, Durotar/Echo Isles)
   -  98552 # Xan'tish's Flute (Ravika, Durotar/Echo Isles)
