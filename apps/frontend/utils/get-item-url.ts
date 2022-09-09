@@ -3,7 +3,7 @@ import { get } from 'svelte/store'
 import { data as settingsData } from '@/stores/settings'
 import { getWowheadDomain } from '@/utils/get-wowhead-domain'
 import type { CharacterEquippedItem } from '@/types'
-import type { ItemSearchResponseCharacter, ItemSearchResponseCommon, ItemSearchResponseGuildBank } from '@/types/items'
+import type { ItemSearchResponseCommon } from '@/types/items'
 
 export function getItemUrl(item: Partial<CharacterEquippedItem>): string {
     const settings = get(settingsData)

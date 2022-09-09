@@ -19,17 +19,6 @@
         padding-left: calc($width-padding * var(--padding, 1));
         text-align: left;
     }
-    .level {
-        @include cell-width($width-level);
-
-        text-align: right;
-    }
-    .name {
-        @include cell-width($width-name, $maxWidth: $width-name-max);
-    }
-    .realm {
-        @include cell-width($width-realm, $maxWidth: $width-realm-max);
-    }
 </style>
 
 <thead>
