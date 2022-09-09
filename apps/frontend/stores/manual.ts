@@ -613,6 +613,7 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
 
                         dropStatus.skip = (
                             (farm.type === FarmType.Quest && !options.trackQuests) ||
+                            (farm.type === FarmType.Vendor && !options.trackVendors) ||
                             (drop.type === RewardType.Achievement && !options.trackAchievements) ||
                             (drop.type === RewardType.Mount && !options.trackMounts) ||
                             (drop.type === RewardType.Pet && !options.trackPets) ||

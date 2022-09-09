@@ -267,6 +267,15 @@
 
                     <Counter key={slugKey} type={RewardType.Transmog} />
                 </div>
+                
+                <div class="checkbox-counter">
+                    <Checkbox
+                        name="track_vendors"
+                        bind:value={$zoneMapState.trackVendors}
+                    >Vendors</Checkbox>
+
+                    <Counter key={slugKey} type={RewardType.Transmog} />
+                </div>
             </div>
         </div>
 
