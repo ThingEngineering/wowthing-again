@@ -7,6 +7,7 @@ export interface Settings {
     }
 
     auctions: {
+        customCategories: SettingsAuctionCategory[]
         ignoredRealms: number[]
         minimumExtraPetsValue: number
     }
@@ -72,6 +73,11 @@ export interface Settings {
         showWarlock: boolean
         showWarrior: boolean
     }
+}
+
+export interface SettingsAuctionCategory {
+    name: string
+    itemIds: number[]
 }
 
 export interface SettingsChoice {

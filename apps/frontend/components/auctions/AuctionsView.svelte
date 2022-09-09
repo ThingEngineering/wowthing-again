@@ -8,6 +8,7 @@
     import type { MultiSlugParams } from '@/types'
 
     import Checkbox from '@/components/forms/CheckboxInput.svelte'
+    import Custom from './AuctionsCustom.svelte'
     import ExtraPets from './AuctionsExtraPets.svelte'
     import Missing from './AuctionsMissing.svelte'
     import RadioGroup from '@/components/forms/RadioGroup.svelte'
@@ -34,6 +35,16 @@
     }
 
     const componentMap: Record<string, typeof SvelteComponent> = {
+        'custom-1': Custom,
+        'custom-2': Custom,
+        'custom-3': Custom,
+        'custom-4': Custom,
+        'custom-5': Custom,
+        'custom-6': Custom,
+        'custom-7': Custom,
+        'custom-8': Custom,
+        'custom-9': Custom,
+        'custom-10': Custom,
         'extra-pets': ExtraPets,
         'missing-mounts': Missing,
         'missing-pets': Missing,
