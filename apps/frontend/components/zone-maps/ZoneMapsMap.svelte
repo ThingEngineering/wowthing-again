@@ -273,8 +273,6 @@
                         name="track_vendors"
                         bind:value={$zoneMapState.trackVendors}
                     >Vendors</Checkbox>
-
-                    <Counter key={slugKey} type={RewardType.Transmog} />
                 </div>
             </div>
         </div>
