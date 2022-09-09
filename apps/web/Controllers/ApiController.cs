@@ -10,12 +10,10 @@ using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
-using Wowthing.Lib.Models.Wow;
 using Wowthing.Lib.Services;
 using Wowthing.Lib.Utilities;
 using Wowthing.Web.Forms;
 using Wowthing.Web.Models;
-using Wowthing.Web.Models.Search;
 using Wowthing.Web.Models.Team;
 using Wowthing.Web.Services;
 
@@ -83,77 +81,6 @@ public class ApiController : Controller
         await _userManager.UpdateAsync(user);
 
         return Json(new { key = user.ApiKey });
-    }
-
-    [HttpPost("item-search")]
-    [Authorize]
-    [ValidateAntiForgeryToken]
-    public async Task<IActionResult> ItemSearch([FromBody] ApiItemSearchForm form)
-    {
-        var user = await _userManager.GetUserAsync(HttpContext.User);
-        if (user == null)
-        {
-            return NotFound();
-        }
-
-        var parts = form.Terms.Split(' ', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
-        if (parts.Length == 0)
-        {
-            return BadRequest();
-        }
-
-        var itemQuery = _context.LanguageString
-            .Where(ls => ls.Language == user.Settings.General.Language && ls.Type == StringType.WowItemName);
-        foreach (string part in parts)
-        {
-            // Alias to avoid variable capture bullshit
-            string temp = part;
-            itemQuery = itemQuery.Where(item => EF.Functions.ILike(item.String, $"%{temp}%"));
-        }
-
-        var items = await itemQuery
-            .Select(ls => new { ls.Id, ls.String })
-            .Distinct()
-            //.Take(100)
-            .ToArrayAsync();
-
-        if (items.Length == 0)
-        {
-            return Json(Array.Empty<string>());
-        }
-
-        var itemIds = items.Select(item => item.Id).ToArray();
-        var itemMap = items.ToDictionary(item => item.Id, item => item.String);
-
-        var characterItems = await _context.PlayerCharacterItem
-            .Where(pci => pci.Character.Account.UserId == user.Id)
-            .Where(pci => itemIds.Contains(pci.ItemId))
-            .ToArrayAsync();
-
-        var ret = characterItems
-            .GroupBy(pci => pci.ItemId)
-            .Select(group => new ItemSearchResponseItem
-            {
-                ItemId = group.Key,
-                ItemName = itemMap[group.Key],
-                Characters = group.Select(result => new ItemSearchResponseCharacter
-                {
-                    CharacterId = result.CharacterId,
-                    Count = result.Count,
-                    Location = result.Location,
-                    ItemLevel = result.ItemLevel,
-                    Quality = result.Quality,
-                    Context = result.Context > 0 ? result.Context : null,
-                    EnchantId = result.EnchantId > 0 ? result.EnchantId : null,
-                    SuffixId = result.SuffixId > 0 ? result.SuffixId : null,
-                    BonusIds = result.BonusIds,
-                    Gems = result.Gems,
-                }).ToList()
-            })
-            .OrderBy(item => item.ItemName)
-            .ToList();
-
-        return Json(ret);
     }
 
     [HttpPost("settings")]
