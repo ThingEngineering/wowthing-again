@@ -21,7 +21,7 @@
         text-align: center;
     }
     .has-icon {
-        width: 4.8rem;
+        @include cell-width(4.2rem, $maxWidth: $width-progress-max);
     }
     span {
         flex: 1;
