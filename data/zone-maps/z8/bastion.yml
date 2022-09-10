@@ -48,8 +48,39 @@ farms:
   questId: 61002
   type: kill
   drops:
+
+  - type: transmog
+    id: 183606 # Bulwark of Echoing Courage
+
+  - type: transmog
+    id: 183605 # Devourer Wrought Warglaive
+
   - type: transmog
     id: 183608 # Evernote Vesper
+
+  - type: transmog
+    id: 183614 # Gavel of Harmonious Wisdom
+
+  - type: transmog
+    id: 183613 # Glinting Daybreak Dagger
+
+  - type: transmog
+    id: 183611 # Humble Ophelia's Greatblade
+
+  - type: transmog
+    id: 183612 # Loyal Champion's Hammer
+
+  - type: transmog
+    id: 183604 # Piercing Timbre Crossbow
+
+  - type: transmog
+    id: 183609 # Re-Powered Golliath Fists
+
+  - type: transmog
+    id: 183607 # Uncertain Aspirant's Spear
+
+  - type: transmog
+    id: 183610 # Warrior Poet's Poniard
 
 - name: "Dark Watcher"
   location: 27.8 30.1
@@ -66,6 +97,9 @@ farms:
   drops:
   - type: transmog
     id: 183606 # Bulwark of Echoing Courage
+
+  - type: transmog
+    id: 183605 # Devourer Wrought Warglaive
 
   - type: transmog
     id: 183608 # Evernote Vesper
@@ -193,6 +227,7 @@ farms:
   npcId: 171012
   questId: 61001 61046 61047
   drops:
+  
   - type: pet
     id: 2940 # Devoured Wader
 
