@@ -337,14 +337,15 @@ farms:
   - type: transmog
     id: 183619 # Everlasting Boneforged Greataxe
 
-#- name: "Cache of Eyes"
-#  location: 54.0 12.3
-#  reset: never
-#  type: treasure
-#  drops:
-#  - type: pet
-#    id: 171985
-#    name: "Luminous Webspinner"
+- name: "Cache of Eyes"
+  location: 54.0 12.3
+  note: "Spawns randomly inside"
+  objectId: 352433
+  type: treasure
+  drops:
+  - type: pet
+    id: 2947
+    name: "Luminous Webspinner"
 
 - name: "Giant Cache of Epic Treasure"
   location: 41.5 19.5
