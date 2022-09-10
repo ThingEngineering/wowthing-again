@@ -23,6 +23,7 @@ export default function getProgress(
     group: ManualDataProgressGroup
 ): ProgressInfo {
     let have = 0
+    let missingRequired = false
     let showCurrency = 0
     let total = 0
     let icon = ''
@@ -246,6 +247,9 @@ export default function getProgress(
                     haveIndexes.push(dataIndex)
                     have++
                 }
+                else if (!haveThis && data.required === true) {
+                    missingRequired = true
+                }
             }
         }
     }
@@ -256,6 +260,7 @@ export default function getProgress(
         have,
         haveIndexes,
         icon,
+        missingRequired,
         nameOverride,
         showCurrency,
         showReputation,
@@ -304,6 +309,7 @@ export interface ProgressInfo {
     have: number
     haveIndexes: number[]
     icon: string
+    missingRequired: boolean
     nameOverride: Record<number, string>
     showCurrency: number
     showReputation: number

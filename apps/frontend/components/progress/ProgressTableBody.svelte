@@ -52,9 +52,9 @@
             />
         {/if}
 
-        <span class="{getPercentClass(progressData.have / progressData.total * 100)}">
-            {progressData.have} / {progressData.total}
-        </span>
+        <span
+            class="{progressData.missingRequired ? 'status-fail' : getPercentClass(progressData.have / progressData.total * 100)}"
+        >{progressData.have} / {progressData.total}</span>
     </td>
 {:else if progressData.have === -1 && progressData.total >= 0}
     <td class="status-fail">---</td>
