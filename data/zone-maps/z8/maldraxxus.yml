@@ -331,6 +331,10 @@ farms:
     id: 184318 # Battlecry of Krexus
 
   - type: transmog
+    id: 181800 # Standard of the Blackhound Warband [back]
+    limit: covenant necrolord
+
+  - type: transmog
     id: 183619 # Everlasting Boneforged Greataxe
 
 #- name: "Cache of Eyes"
