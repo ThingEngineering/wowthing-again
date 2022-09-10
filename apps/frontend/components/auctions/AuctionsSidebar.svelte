@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { data as settings } from '@/stores/settings'
     import type { SidebarItem } from '@/types'
 
     import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
@@ -28,6 +29,17 @@
                 forceWildcard: true,
             },
         ]
+
+        if ($settings.auctions.customCategories?.length > 0) {
+            categories.push(null)
+            for (let catIndex = 0; catIndex < $settings.auctions.customCategories.length; catIndex++) {
+                categories.push({
+                    name: $settings.auctions.customCategories[catIndex].name,
+                    slug: `custom-${catIndex + 1}`,
+                    forceWildcard: true,
+                })
+            }
+        }
     }
 </script>
 

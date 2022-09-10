@@ -6,10 +6,6 @@ groups:
   - 122700 # Portable Audiophone (Azeroth's Top Twenty Tunes)
   - 122293 # Trans-Dimensional Bird Whistle (What A Strange, Interdimensional Trip It's Been)
 
-- name: Instances
-  things:
-  - 119211 # Golden Hearthstone Card: Lord Jaraxxus (Gul'dan, Nighthold)
-
 - name: PvP
   things:
   - 119219 # Warlord's Flag of Victory
@@ -32,10 +28,5 @@ groups:
 - name: Vendor
   things:
   - 113096 # Bloodmane Charm (Smugglers Run?)
-  - 140336 # Brulfist Idol (Slyhoof the Shameless Shaman, Highmountain)
   - 115501 # Kowalski's Music Box (Crafticus Mindbender, Ashran) vendor
   - 115505 116396 # LeBlanc's Recorder (Crafticus Mindebender, Ashran / Dazzerian, Ashran)
-  - 142452 # Lingering Wyrmtongue Essence (Treasure Master Iks'reeged, Broken Shore)
-  - 141862 # Mote of Light (Xur'ios, Dalaran)
-  - 140309 # Prismatic Bauble (The Mad Merchant, Dalaran?)
-  - 130151 # The "Devilsaur" Lunchbox (Gift Shopkeeper, Suramar)

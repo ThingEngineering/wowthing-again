@@ -49,6 +49,12 @@
         {
             name: 'Auctions',
             slug: 'auctions',
+            children: [
+                {
+                    name: 'Custom Categories',
+                    slug: 'custom',
+                }
+            ],
         },
         {
             name: 'History',

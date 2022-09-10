@@ -1,9 +1,9 @@
-import sortBy from 'lodash/sortBy'
 import { get } from 'svelte/store'
 
 import { staticStore } from './static'
 import type { AuctionState } from './local-storage'
 import type { UserAuctionData, UserAuctionDataAuction, UserAuctionDataPet } from '@/types/data'
+import { sortAuctions } from '@/utils/auctions/sort-auctions'
 
 
 export type UserExtraPetEntry = {
@@ -57,23 +57,7 @@ export class UserAuctionExtraPetsStore {
             }
         }
 
-        const sortState = auctionState.sortBy['extra-pets'] || 'name_up'
-        if (sortState === 'name_down') {
-            things = sortBy(things, (item) => item.name)
-            things.reverse()
-        }
-        else if (sortState === 'price_up') {
-            things = sortBy(things, (item) => item.auctions[0].bidPrice || item.auctions[0].buyoutPrice)
-        }
-        else if (sortState === 'price_down') {
-            things = sortBy(things, (item) => item.auctions[0].bidPrice || item.auctions[0].buyoutPrice)
-            things.reverse()
-        }
-        // name_up is default
-        else {
-            things = sortBy(things, (item) => item.name)
-        }
-
+        things = sortAuctions(auctionState.sortBy['extra-pets'], things)
         this.cache[cacheKey] = things
         return things
     }
@@ -140,24 +124,8 @@ export class UserAuctionMissingDataStore {
                 }
             }
         }
-        
-        const sortState = auctionState.sortBy[`missing-${type}`] || 'name_up'
-        if (sortState === 'name_down') {
-            things = sortBy(things, (item) => item.name)
-            things.reverse()
-        }
-        else if (sortState === 'price_up') {
-            things = sortBy(things, (item) => item.auctions[0].bidPrice || item.auctions[0].buyoutPrice)
-        }
-        else if (sortState === 'price_down') {
-            things = sortBy(things, (item) => item.auctions[0].bidPrice || item.auctions[0].buyoutPrice)
-            things.reverse()
-        }
-        // name_up is default
-        else {
-            things = sortBy(things, (item) => item.name)
-        }
 
+        things = sortAuctions(auctionState.sortBy[`missing-${type}`], things)
         this.cache[cacheKey] = things
         return things
     }

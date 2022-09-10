@@ -3,6 +3,7 @@
     import active from 'svelte-spa-router/active'
 
     import { iconStrings } from '@/data/icons'
+    import { subSidebarState } from '@/stores/local-storage'
     import getPercentClass from '@/utils/get-percent-class'
     import tippy from '@/utils/tippy'
     import type {SidebarItem} from '@/types'
@@ -19,6 +20,7 @@
     export let percentFunc: (entry: SidebarItem, parentEntry?: SidebarItem) => number = undefined
 
     let activeRegex: string
+    let allowExpand: boolean
     let decoration: string
     let expanded: boolean
     let minusWidth: string
@@ -40,11 +42,16 @@
     }
 
     let actualNoVisitRoot: boolean
+    let noCollapse: boolean
     $: {
         actualNoVisitRoot = noVisitRoot && item?.children?.length > 0
         if (item) {
             url = `${baseUrl}/${item.slug}`
-            expanded = $location.startsWith(url) && item.children?.length > 0
+
+            expanded = $subSidebarState.expanded[url] ||
+                ($location.startsWith(url) && !($location === url) && item.children?.length > 0)
+
+            //expanded = $location.startsWith(url) && item.children?.length > 0
 
             if (decorationFunc !== undefined) {
                 decoration = decorationFunc(item, parentItem)
@@ -53,7 +60,15 @@
                 percent = percentFunc(item, parentItem)
             }
 
-            if (actualNoVisitRoot && expanded && $location === url ) {
+            if (expanded && $location.startsWith(url) && $location !== url) {
+                noCollapse = true
+            }
+            else {
+                noCollapse = false
+            }
+
+            if (actualNoVisitRoot && $location === url ) {
+                $subSidebarState.expanded[url] = true
                 replace(`${url}/${item.children[0].slug}`)
             }
 
@@ -64,6 +79,11 @@
                 activeRegex = '^' + url.replace(/\//g, '\\/') + '(?:\\?.*?)?$'
             }
         }
+    }
+
+    const toggleExpanded = () => {
+        expanded = !expanded
+        $subSidebarState.expanded[url] = expanded
     }
 </script>
 
@@ -106,6 +126,12 @@
         top: 50%;
         transform: translateY(-50%);
     }
+    .expand-no {
+        opacity: $inactive-opacity;
+    }
+    .expand-clickable {
+        cursor: crosshair;
+    }
     .decoration {
         position: absolute;
         right: 0.5rem;
@@ -146,7 +172,12 @@
         {/if}
 
         {#if item.children?.length > 0}
-            <span class="expand">
+            <span
+                class="expand"
+                class:expand-clickable={!noCollapse}
+                class:expand-no={noCollapse}
+                on:click|preventDefault|stopPropagation={noCollapse ? null : toggleExpanded}
+            >
                 <IconifyIcon
                     icon={iconStrings['chevron-' + (expanded ? 'down' : 'right')]}
                 />
