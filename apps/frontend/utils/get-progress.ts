@@ -98,7 +98,7 @@ export default function getProgress(
                                     haveThis = true
                                 }
                                 else if (data.ids.length === 2) {
-                                    haveThis = cheev.criteria[data.ids[1]] >= (data.value || 1)
+                                    haveThis = (cheev.criteria?.[data.ids[1]] || 0) >= (data.value || 1)
                                 }
                                 else if (data.description && data.value) {
                                     // TODO do this properly
