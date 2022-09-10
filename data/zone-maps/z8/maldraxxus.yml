@@ -323,6 +323,7 @@ farms:
 - name: "Blackhound Cache"
   location: 44.1 39.9
   note: "Need a Necrolord to escort the guy here"
+  objectId: 352086
   questId: 60368
   reset: never
   type: treasure
@@ -367,6 +368,7 @@ farms:
 
 - name: "Oonar's Arm and Sorrowbane"
   location: 51.4 48.5
+  objectId: 335655
   questId: 61127 61128 #arm, sword?
   reset: never
   type: treasure
@@ -432,6 +434,7 @@ farms:
     id: 181825 # Phial of Ravenous Slime
 
 # Pool is weird
+
 - name: "Pool of Mixed Monstrosities"
   location: 57.0 74.2
   npcId: 157226
