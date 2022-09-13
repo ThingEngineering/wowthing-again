@@ -61,5 +61,9 @@
         {/if}
     </td>
 {:else}
-    <td>&nbsp;</td>
+    <td class="status-fail">
+        {#if $settings.layout.showEmptyLockouts}
+            <IconifyIcon icon={iconStrings.starEmpty} />
+        {/if}
+    </td>
 {/if}
