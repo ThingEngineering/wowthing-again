@@ -25,13 +25,14 @@
     <tbody>
         {#each loots as [farm, dropIndexes]}
             {@const dropDatas = dropIndexes.map((dropIndex) => getDropData(farm.drops[dropIndex]))}
+            {@const dropCount = dropIndexes.length > 4 ? 3 : 4}
             <tr>
                 <td class="name">
                     <IconifyIcon icon={farmTypeIcons[farm.type]} />
                     {farm.name}
                 </td>
                 <td class="drops">
-                    {#each dropIndexes.slice(0, 3) as dropIndex, dataIndex}
+                    {#each dropIndexes.slice(0, dropCount) as dropIndex, dataIndex}
                         {@const drop = farm.drops[dropIndex]}
                         {@const dropData = dropDatas[dataIndex]}
                         <div>
@@ -47,14 +48,14 @@
                         </div>
                     {/each}
                     
-                    {#if dropIndexes.length > 3}
+                    {#if dropIndexes.length > 4}
                         <div class="quality0">
                             ... and {dropIndexes.length - 3} more
                         </div>
                     {/if}
                 </td>
                 <td class="type">
-                    {#each dropIndexes.slice(0, 3) as dropIndex}
+                    {#each dropIndexes.slice(0, dropCount) as dropIndex}
                         {@const drop = farm.drops[dropIndex]}
                         <div>
                             {#if drop.type === RewardType.Armor}
