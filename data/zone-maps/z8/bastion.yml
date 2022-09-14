@@ -227,7 +227,7 @@ farms:
   npcId: 171012
   questId: 61001 61046 61047
   drops:
-  
+
   - type: pet
     id: 2940 # Devoured Wader
 
@@ -239,7 +239,7 @@ farms:
   location: 25.2 23.2
   minimumLevel: 60
   npcId: 167524
-  questId: 61813
+  questId: 61813 66614
   reset: weekly
   type: killBig
   drops:
