@@ -325,7 +325,7 @@ farms:
   note: "Need a Necrolord to escort the guy here"
   objectId: 352086
   questId: 60368
-  reset: never
+  reset: daily
   type: treasure
   drops:
   - type: toy
