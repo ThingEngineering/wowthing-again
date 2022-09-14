@@ -20,15 +20,20 @@
             set={reputation}
         />
     {:else}
-        <Entry
-            faction={Faction.Alliance}
-            reputation={reputation.alliance}
-            set={reputation}
-        />
-        <Entry
-            faction={Faction.Horde}
-            reputation={reputation.horde}
-            set={reputation}
-        />
+        {#if reputation.alliance}
+            <Entry
+                faction={Faction.Alliance}
+                reputation={reputation.alliance}
+                set={reputation}
+            />
+        {/if}
+
+        {#if reputation.horde}
+            <Entry
+                faction={Faction.Horde}
+                reputation={reputation.horde}
+                set={reputation}
+            />
+        {/if}
     {/if}
 </div>
