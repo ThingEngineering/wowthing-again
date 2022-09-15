@@ -222,7 +222,7 @@ public static partial class Hardcoded
                 new (21837, new[]{ 9 }), // Anubisath Warhammer
                 new (21856, new[]{ 9 }), // Neretzek, The Blood Drinker
 
-                new (21801, new[] { 3 }), // Gloves of the Fallen Prophet
+                new (21890, new[] { 3 }), // Gloves of the Fallen Prophet
             }
         },
         #endregion
