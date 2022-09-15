@@ -41,15 +41,20 @@
 
         // {price:amount} or {price:amount|currencyId}
         html = html.replaceAll(
-            /\{price:(\d+)(?:\|(\d+))?\}/g,
-            (_, amountString: string, currencyId: number) => {
+            /\{price(Short)?:(\d+)(?:\|(\d+))?\}/g,
+            (_, short: string, amountString: string, currencyId: number) => {
                 const amount = parseInt(amountString).toLocaleString()
                 if (currencyId) {
                     if (currencyId > 1000000) {
                         const itemId = currencyId - 1000000
                         const item = $itemStore.data.items[itemId]
                         if (item) {
-                            return `${amount} <span data-icon="item/${itemId}"></span> ${item.name}`
+                            if (short !== undefined) {
+                                return `<span data-icon="item/${itemId}"></span> ${amount}`
+                            }
+                            else {
+                                return `${amount} <span data-icon="item/${itemId}"></span> ${item.name}`
+                            }
                         }
                         else {
                             return `${amount} Item #${itemId}`
@@ -58,7 +63,12 @@
                     else {
                         const currency = $staticStore.data.currencies[currencyId]
                         if (currency) {
-                            return `${amount} <span data-icon="currency/${currencyId}"></span> ${currency.name}`
+                            if (short !== undefined) {
+                                return `<span data-icon="currency/${currencyId}"></span> ${amount}`
+                            }
+                            else {
+                                return `${amount} <span data-icon="currency/${currencyId}"></span> ${currency.name}`
+                            }
                         }
                         else {
                             return `${amount} Currency #${currencyId}`
