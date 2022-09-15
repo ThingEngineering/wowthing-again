@@ -14,7 +14,7 @@
     import Sidebar from '@/components/sub-sidebar/SubSidebar.svelte'
 
     let categories: SidebarItem[]
-    let decorationFunc: (entry: SidebarItem, parentEntry?: SidebarItem) => string
+    let decorationFunc: (entry: SidebarItem, parentEntries?: SidebarItem[]) => string
     $: {
         const realmCharacters: Record<string, Character[]> = groupBy(
             filter(
@@ -46,12 +46,12 @@
 
         categories = sortBy(categories, (category) => category.name)
 
-        decorationFunc = (entry: SidebarItem, parentEntry?: SidebarItem) => {
-            if (parentEntry === undefined) {
+        decorationFunc = (entry: SidebarItem, parentEntries?: SidebarItem[]) => {
+            if (parentEntries?.length < 1) {
                 return entry.children.length.toString()
             }
             else {
-                const [region, realm] = splitOnce(parentEntry.slug, '-')
+                const [region, realm] = splitOnce(parentEntries.slice(-1)[0].slug, '-')
                 const character = find(
                     $userStore.data.characters,
                     (character: Character) => (

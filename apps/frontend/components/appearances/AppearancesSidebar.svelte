@@ -52,12 +52,14 @@
         stats = $appearanceStore.data.stats['OVERALL']
     }
 
-    const percentFunc = function(entry: SidebarItem, parentEntry?: SidebarItem) {
-        if (!parentEntry && entry.name === 'Expansion') {
+    const percentFunc = function(entry: SidebarItem, parentEntries?: SidebarItem[]) {
+        if (parentEntries?.length < 1 && entry.name === 'Expansion') {
             return -1
         }
 
-        const slug = parentEntry ? `${parentEntry.slug}--${entry.slug}` : entry.slug
+        const slug = [...parentEntries, entry].slice(-2)
+            .map((entry) => entry.slug)
+            .join('--')
         const hasData = $appearanceStore.data.stats[slug]
         return (hasData?.have ?? 0) / (hasData?.total ?? 1) * 100
     }

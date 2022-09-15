@@ -20,7 +20,6 @@
     export let percentFunc: (entry: SidebarItem, parentEntries?: SidebarItem[]) => number = undefined
 
     let activeRegex: string
-    let allowExpand: boolean
     let decoration: string
     let expanded: boolean
     let minusWidth: string
@@ -113,7 +112,7 @@
     .subtree {
         --link-color: #64ffd1;
 
-        :global(> a) {
+        > :global(a) {
             padding-left: calc(1.0rem * var(--subtree-depth, 1));
         }
         :global(.separator) {
