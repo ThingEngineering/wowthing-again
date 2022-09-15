@@ -532,6 +532,10 @@ farms:
   - type: mount
     id: 1475 # Hand of Bahmethra
 
+  - type: pet
+    id: 3117 # Amaranthine Stinger
+    note: "Drops from Gralebboih"
+
   - type: transmog
     id: 186977 # Beastcaller's Skull Crescent
 
