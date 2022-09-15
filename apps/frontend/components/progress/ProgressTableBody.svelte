@@ -39,7 +39,7 @@
                 haveIndexes: progressData.haveIndexes,
                 iconOverride: progressData.icon,
                 nameOverride: progressData.nameOverride,
-                showCurrency: progressData.showCurrency,
+                showCurrencies: [progressData.showCurrency],
                 character,
                 group,
             },

@@ -37,6 +37,31 @@ export const covenantFeatureReputation: Record<string, number> = {
     '4-unique': 2462, // Stitchmasters
 }
 
+export const covenantFeatureCost: Record<number, number[][]> = {
+    1: [
+        [1, 1000],
+        [8, 5000],
+        [22, 10000],
+    ],
+    2: [
+        [1, 1000],
+        [8, 5000],
+        [22, 10000],
+    ],
+    3: [
+        [1, 1000],
+        [8, 5000],
+        [22, 10000],
+    ],
+    4: [
+        [6, 1500],
+        [12, 5000],
+        [22, 10000],
+        [40, 12500],
+        [70, 15000],
+    ],
+}
+
 // Necrolords
 // [criteriaId, spellId]
 export const abominations: [number, number][] = [
