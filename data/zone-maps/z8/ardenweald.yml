@@ -218,7 +218,7 @@ farms:
   location: 20.0 63.4
   minimumLevel: 60
   npcId: 167527
-  questId: 61815
+  questId: 61815 66616
   reset: weekly
   type: killBig
   drops:

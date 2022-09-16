@@ -46,6 +46,9 @@
         min-width: $width-reputation;
         width: $width-reputation;
     }
+    .faction0, .faction1 {
+        --image-border-width: 2px;
+    }
 </style>
 
 <th
@@ -63,13 +66,29 @@
                 border={2}
             />
         </div>
-    {:else}
+    {:else if reputation.alliance && reputation.horde}
         <div class="split-icon-yes">
             <WowthingImage
                 name={reputation.alliance.icon}
                 size={40}
                 border={2}
             />
+            <WowthingImage
+                name={reputation.horde.icon}
+                size={40}
+                border={2}
+            />
+        </div>
+    {:else if reputation.alliance}
+        <div class="faction0">
+            <WowthingImage
+                name={reputation.alliance.icon}
+                size={40}
+                border={2}
+            />
+        </div>
+    {:else if reputation.horde}
+        <div class="faction1">
             <WowthingImage
                 name={reputation.horde.icon}
                 size={40}

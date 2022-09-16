@@ -1,6 +1,8 @@
 <script lang="ts">
     import some from 'lodash/some'
 
+    import { covenantFeatureCost } from '@/data/covenant'
+    import { ProgressDataType } from '@/types/enums'
     import type { Character } from '@/types'
     import type { ManualDataProgressData, ManualDataProgressGroup } from '@/types/data/manual'
 
@@ -14,7 +16,7 @@
     export let haveIndexes: number[]
     export let iconOverride: string
     export let nameOverride: Record<number, string>
-    export let showCurrency = 0
+    export let showCurrencies: number[] = []
 
     let cls: string
     $: {
@@ -24,6 +26,35 @@
                 return true
             }
         }) ? 'long' : 'short'
+
+        if (datas.length === 1 && datas[0].type === ProgressDataType.SlCovenant) {
+            const currentRank = parseInt(descriptionText[0].split(' ')[1].split('/')[0])
+            const isSpecial = datas[0].value === 4
+            const prices = covenantFeatureCost[datas[0].value]
+
+            const newDatas: ManualDataProgressData[] = []
+            const newDescriptionText: Record<number, string> = {}
+            const newHaveIndexes: number[] = []
+
+            for (let rank = 1; rank <= (isSpecial ? 5 : 3); rank++) {
+                newDatas.push({
+                    ...datas[0],
+                    name: `Rank ${rank}`,
+                })
+
+                newDescriptionText[rank - 1] = `{priceShort:${prices[rank - 1][0]}|1810}&nbsp;&nbsp;{priceShort:${prices[rank - 1][1]}|1813}`
+
+                if (currentRank >= rank) {
+                    newHaveIndexes.push(rank - 1)
+                }
+            }
+
+            cls = 'short'
+            datas = newDatas
+            descriptionText = newDescriptionText
+            haveIndexes = newHaveIndexes
+            showCurrencies = [1810, 1813]
+        }
     }
 </script>
 
@@ -48,6 +79,11 @@
     }
     .wowthing-tooltip {
         --image-border-width: 1px;
+    }
+    .bottom {
+        span + span {
+            margin-left: 0.5rem;
+        }
     }
 </style>
 
@@ -87,17 +123,19 @@
         </tbody>
     </table>
 
-    {#if showCurrency > 0}
-        {@const characterCurrency = character.currencies?.[showCurrency]}
-        {#if characterCurrency}
-            <div class="bottom">
-                <WowthingImage
-                    name="currency/{showCurrency}"
-                    size={20}
-                    border={1}
-                />
-                {characterCurrency.quantity.toLocaleString()}
-            </div>
-        {/if}
+    {#if showCurrencies?.length > 0}
+        <div class="bottom">
+            {#each showCurrencies as currencyId}
+                {@const characterCurrency = character.currencies?.[currencyId]}
+                <span>
+                    <WowthingImage
+                        name="currency/{currencyId}"
+                        size={20}
+                        border={1}
+                    />
+                    {(characterCurrency?.quantity ?? 0).toLocaleString()}
+                </span>
+            {/each}
+        </div>
     {/if}
 </div>

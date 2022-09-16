@@ -222,7 +222,7 @@ public static partial class Hardcoded
                 new (21837, new[]{ 9 }), // Anubisath Warhammer
                 new (21856, new[]{ 9 }), // Neretzek, The Blood Drinker
 
-                new (21801, new[] { 3 }), // Gloves of the Fallen Prophet
+                new (21890, new[] { 3 }), // Gloves of the Fallen Prophet
             }
         },
         #endregion
@@ -988,6 +988,27 @@ public static partial class Hardcoded
         #endregion
 
         #region Legion Trash
+        {
+            1000768, // Emerald Nightmare > Trash
+            new List<ExtraItemDrop>
+            {
+                // Cloth
+                new(140993, RaidDifficultiesAll), // Gloves of Murmured Promises
+                // Leather
+                new(140996, RaidDifficultiesAll), // Grips of Silent Screams
+                // Mail
+                new(141694, RaidDifficultiesAll), // Gauntlets of Fractured Dreams
+                // Plate
+                new(141695, RaidDifficultiesAll), // Tarnished Dreamkeeper's Gauntlets
+            }
+        },
+        {
+            1000861, // Trial of Valor
+            new List<ExtraItemDrop>
+            {
+                new(142541, RaidDifficultiesAll), // Drape of the Forgotten Souls
+            }
+        },
         {
             1000786, // The Nighthold > Trash
             new List<ExtraItemDrop>

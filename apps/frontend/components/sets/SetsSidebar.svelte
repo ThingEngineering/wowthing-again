@@ -16,8 +16,10 @@
         overall = $userTransmogStore.data.stats['OVERALL']
     }
 
-    const percentFunc = function(entry: SidebarItem, parentEntry?: SidebarItem) {
-        const slug = parentEntry ? `${parentEntry.slug}--${entry.slug}` : entry.slug
+    const percentFunc = function(entry: SidebarItem, parentEntries?: SidebarItem[]) {
+        const slug = [...parentEntries, entry].slice(-2)
+            .map((entry) => entry.slug)
+            .join('--')
         const hasData = $userTransmogStore.data.stats[slug]
         return hasData.have / hasData.total * 100
     }

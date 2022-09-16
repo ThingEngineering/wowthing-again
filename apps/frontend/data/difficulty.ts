@@ -24,8 +24,17 @@ export const difficultyMap: Record<number, Difficulty> = {
     15: new Difficulty(15, 'Heroic', 'H', InstanceType.Raid, 10, 30),
     16: new Difficulty(16, 'Mythic', 'M', InstanceType.Raid, 20, 20),
     17: new Difficulty(17, 'Looking For Raid', 'L', InstanceType.Raid, 10, 30),
+    18: new Difficulty(18, 'Event?', 'E', InstanceType.Raid, 40, 40),
     33: new Difficulty(33, 'Timewalking', 'T', InstanceType.Raid, 10, 30),
 }
+
+export const dungeonDifficulties = Object.values(difficultyMap)
+    .filter((diff) => diff.instanceType === InstanceType.Dungeon)
+    .map((diff) => diff.id)
+
+export const raidDifficulties = Object.values(difficultyMap)
+    .filter((diff) => diff.instanceType === InstanceType.Raid)
+    .map((diff) => diff.id)
 
 export const journalDifficultyOrder: number[] = [
     1, // Dungeon Normal

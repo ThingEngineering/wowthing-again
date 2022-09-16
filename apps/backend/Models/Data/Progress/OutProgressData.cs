@@ -16,6 +16,9 @@ public class OutProgressData
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public int? Value { get; set; }
 
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+    public bool? Required { get; set; }
+
     public OutProgressData(DataProgressData data)
     {
         Description = data.Description;
@@ -35,6 +38,11 @@ public class OutProgressData
         if (data.Value > 0)
         {
             Value = data.Value;
+        }
+
+        if (data.Required)
+        {
+            Required = data.Required;
         }
     }
 }

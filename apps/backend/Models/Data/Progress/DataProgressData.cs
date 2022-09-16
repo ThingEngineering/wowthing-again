@@ -7,4 +7,5 @@ public class DataProgressData
     public string Name { get; set; }
     public string Type { get; set; }
     public int Value { get; set; }
+    public bool Required { get; set; }
 }

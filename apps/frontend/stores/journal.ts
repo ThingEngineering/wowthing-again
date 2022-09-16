@@ -1,9 +1,12 @@
 import findIndex from 'lodash/findIndex'
+import flattenDeep from 'lodash/flattenDeep'
 import sortBy from 'lodash/sortBy'
+import uniq from 'lodash/uniq'
+import without from 'lodash/without'
 
-import { journalDifficultyMap, journalDifficultyOrder } from '@/data/difficulty'
+import { journalDifficultyMap, journalDifficultyOrder, raidDifficulties } from '@/data/difficulty'
 import { UserCount, WritableFancyStore, type UserData } from '@/types'
-import { JournalDataEncounter, JournalDataEncounterItem } from '@/types/data'
+import { JournalDataEncounter, JournalDataEncounterItem, type JournalDataTier } from '@/types/data'
 import { RewardType } from '@/types/enums'
 import getTransmogClassMask from '@/utils/get-transmog-class-mask'
 import getFilteredItems from '@/utils/journal/get-filtered-items'
@@ -25,15 +28,66 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
     initialize(data: JournalData): void {
         // console.time('JournalDataStore.initialize')
 
+        const extraTiers: JournalDataTier[] = [
+            {
+                id: 1000001,
+                name: 'Dungeons',
+                slug: 'dungeons',
+                instances: [],
+                subTiers: [],
+            },
+            {
+                id: 1000002,
+                name: 'Raids',
+                slug: 'raids',
+                instances: [],
+                subTiers: [],
+            },
+        ]
+
         for (const tier of data.tiers.filter((tier) => tier !== null)) {
+            for (const extraTier of extraTiers) {
+                extraTier.subTiers.push({
+                    id: 1000000 + tier.id,
+                    name: tier.name,
+                    slug: tier.slug,
+                    instances: [],
+                })
+            }
+
             for (const instance of tier.instances) {
                 if (instance.encountersRaw !== null) {
                     instance.encounters = instance.encountersRaw
                         .map((encounterArray) => new JournalDataEncounter(...encounterArray))
                     instance.encountersRaw = null
+
+                    const difficulties = uniq(flattenDeep(instance.encounters.map(
+                        (encounter) => encounter.groups.map(
+                            (group) => group.items.map(
+                                (item) => item.appearances.map(
+                                    (appearance) => appearance.difficulties
+                                )
+                            )
+                        )
+                    )))
+
+                    const withoutRaid = without(difficulties, ...raidDifficulties)
+
+                    if (withoutRaid.length === 0) {
+                        extraTiers[1].subTiers[extraTiers[1].subTiers.length - 1].instances.push(instance)
+                        instance.isRaid = true
+                    }
+                    else {
+                        // Possibly not all dungeons but close enough
+                        extraTiers[0].subTiers[extraTiers[0].subTiers.length - 1].instances.push(instance)
+                        instance.isRaid = false
+                    }
                 }
             }
         }
+
+        data.tiers.push(null)
+        data.tiers.push(...extraTiers)
 
         // console.timeEnd('JournalDataStore.initialize')
     }
@@ -56,11 +110,17 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
         const overallStats = stats['OVERALL'] = new UserCount()
         const overallSeen: Record<string, boolean> = {}
 
-        for (const tier of journalData.tiers.filter((tier) => tier !== null)) {
+        for (const tier of journalData.tiers.filter((tier) => tier !== null && tier.slug !== 'dungeons' && tier.slug !== 'raids')) {
             const tierStats = stats[tier.slug] = new UserCount()
             const tierSeen: Record<string, boolean> = {}
 
             for (const instance of tier.instances) {
+                const overallStatsKey2 = instance.isRaid ? 'raids' : 'dungeons'
+                const overallStats2 = (stats[overallStatsKey2] ||= new UserCount())
+
+                const tierStatsKey2 = `${overallStatsKey2}--${tier.slug}`
+                const tierStats2 = (stats[tierStatsKey2] ||= new UserCount())
+
                 const instanceKey = `${tier.slug}--${instance.slug}`
                 const instanceStats = stats[instanceKey] = new UserCount()
                 const instanceSeen: Record<string, boolean> = {}
@@ -201,9 +261,11 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
 
                                 if (!overallSeen[appearanceKey]) {
                                     overallStats.total++
+                                    overallStats2.total++
                                 }
                                 if (!tierSeen[appearanceKey]) {
                                     tierStats.total++
+                                    tierStats2.total++
                                 }
                                 if (!instanceSeen[appearanceKey]) {
                                     instanceStats.total++
@@ -218,9 +280,11 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                                 if (userHas) {
                                     if (!overallSeen[appearanceKey]) {
                                         overallStats.have++
+                                        overallStats2.have++
                                     }
                                     if (!tierSeen[appearanceKey]) {
                                         tierStats.have++
+                                        tierStats2.have++
                                     }
                                     if (!instanceSeen[appearanceKey]) {
                                         instanceStats.have++

@@ -8,28 +8,31 @@
     export let currency: StaticDataCurrency
     export let sortingBy: boolean
 
-    const characterCurrency: CharacterCurrency = character.currencies?.[currency.id]
+    let characterCurrency: CharacterCurrency
     let amount = ''
     let per: number
     let tooltip = ''
-    if (characterCurrency) {
-        amount = toNiceNumber(characterCurrency.quantity)
+    $: {
+        characterCurrency = character.currencies?.[currency.id]
+        if (characterCurrency) {
+            amount = toNiceNumber(characterCurrency.quantity)
 
-        if (characterCurrency.isMovingMax && characterCurrency.max > 0) {
-            per = characterCurrency.totalQuantity / characterCurrency.max * 100
-            tooltip = `${characterCurrency.totalQuantity.toLocaleString()} / ${characterCurrency.max.toLocaleString()}`
-        }
-        else {
-            if (characterCurrency.max > 0) {
-                per = characterCurrency.quantity / characterCurrency.max * 100
-                tooltip = `${characterCurrency.quantity.toLocaleString()} / ${characterCurrency.max.toLocaleString()}`
+            if (characterCurrency.isMovingMax && characterCurrency.max > 0) {
+                per = characterCurrency.totalQuantity / characterCurrency.max * 100
+                tooltip = `${characterCurrency.totalQuantity.toLocaleString()} / ${characterCurrency.max.toLocaleString()}`
             }
             else {
-                per = 0
-                tooltip = characterCurrency.quantity.toLocaleString()
+                if (characterCurrency.max > 0) {
+                    per = characterCurrency.quantity / characterCurrency.max * 100
+                    tooltip = `${characterCurrency.quantity.toLocaleString()} / ${characterCurrency.max.toLocaleString()}`
+                }
+                else {
+                    per = 0
+                    tooltip = characterCurrency.quantity.toLocaleString()
+                }
             }
+            tooltip += ` ${currency.name}`
         }
-        tooltip += ` ${currency.name}`
     }
 </script>
 

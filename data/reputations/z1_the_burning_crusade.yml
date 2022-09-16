@@ -56,6 +56,10 @@ reputations:
       id: 967 # The Violet Eye
       icon: achievement/960
 
+- - horde:
+      id: 922 # Tranquillien
+      icon: "achievement/5163" # Classy Blood Elves
+
 # 9.0 dungeons?
 - - both:
       id: 942 # Cenarion Expedition

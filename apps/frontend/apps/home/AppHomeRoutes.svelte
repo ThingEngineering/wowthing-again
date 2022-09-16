@@ -45,7 +45,7 @@
         '/history/:slug?': History,
         '/illusions': Illusions,
         '/items/:slug?': Items,
-        '/journal/:slug1?/:slug2?': Journal,
+        '/journal/:slug1?/:slug2?/:slug3?': Journal,
         '/lockouts': Lockouts,
         '/matrix': Matrix,
         '/mythic-plus/:slug?': MythicPlus,

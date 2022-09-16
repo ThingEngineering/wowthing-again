@@ -15,12 +15,11 @@
     export let baseUrl: string
     export let item: SidebarItem
     export let noVisitRoot = false
-    export let parentItem: SidebarItem = undefined
-    export let decorationFunc: (entry: SidebarItem, parentEntry?: SidebarItem) => string = undefined
-    export let percentFunc: (entry: SidebarItem, parentEntry?: SidebarItem) => number = undefined
+    export let parentItems: SidebarItem[] = []
+    export let decorationFunc: (entry: SidebarItem, parentEntries?: SidebarItem[]) => string = undefined
+    export let percentFunc: (entry: SidebarItem, parentEntries?: SidebarItem[]) => number = undefined
 
     let activeRegex: string
-    let allowExpand: boolean
     let decoration: string
     let expanded: boolean
     let minusWidth: string
@@ -35,8 +34,8 @@
         if (anyChildren) {
             temp += 1.3
         }
-        if (parentItem) {
-            temp += 1 // TODO this should be 1.5 but that doesn't work properly, why?
+        if (parentItems) {
+            temp += (parentItems.length * 1) // TODO this should be 1.5 but that doesn't work properly, why?
         }
         minusWidth = temp > 0 ? `${temp}rem` : '0px'
     }
@@ -54,13 +53,13 @@
             //expanded = $location.startsWith(url) && item.children?.length > 0
 
             if (decorationFunc !== undefined) {
-                decoration = decorationFunc(item, parentItem)
+                decoration = decorationFunc(item, parentItems)
             }
             if (percentFunc !== undefined) {
-                percent = percentFunc(item, parentItem)
+                percent = percentFunc(item, parentItems)
             }
 
-            if (expanded && $location.startsWith(url) && $location !== url) {
+            if (actualNoVisitRoot && expanded && $location.startsWith(url) && $location !== url) {
                 noCollapse = true
             }
             else {
@@ -72,7 +71,7 @@
                 replace(`${url}/${item.children[0].slug}`)
             }
 
-            if (parentItem || item.forceWildcard === true) {
+            if (parentItems.length > 0 || item.forceWildcard === true) {
                 activeRegex = '^' + url.replace(/\//g, '\\/') + '(?:\\/|$)'
             }
             else {
@@ -84,6 +83,10 @@
     const toggleExpanded = () => {
         expanded = !expanded
         $subSidebarState.expanded[url] = expanded
+
+        if ($location.startsWith(url) && $location !== url) {
+            replace(url)
+        }
     }
 </script>
 
@@ -109,11 +112,15 @@
     .subtree {
         --link-color: #64ffd1;
 
-        :global(a) {
-            padding-left: 1.0rem;
+        > :global(a) {
+            padding-left: calc(1.0rem * var(--subtree-depth, 1));
         }
         :global(.separator) {
             margin: 0.2rem 1.7rem 0.2rem 1rem;
+        }
+
+        :global(.noVisitRoot) {
+            --link-color: #ccffd1;
         }
     }
     .separator {
@@ -142,12 +149,17 @@
     .decoration-children {
         right: 1.8rem;
     }
+    .noVisitRoot {
+        --link-color: #ffffff;
+    }
 </style>
 
 {#if item}
     <a
         href="{url}"
-        style="--minusWidth: {minusWidth};{actualNoVisitRoot ? '--link-color: #ffffff' : ''}"
+        style="--minusWidth: {minusWidth}"
+        style:--subtree-depth="{parentItems.length}"
+        class:noVisitRoot={actualNoVisitRoot}
         use:link
         use:active={new RegExp(activeRegex)}
         use:tippy={item.name}
@@ -189,10 +201,11 @@
         <div class="subtree">
             {#each item.children as child}
                 <svelte:self
-                    {anyChildren}
                     baseUrl={url}
                     item={child}
-                    parentItem={item}
+                    parentItems={[...parentItems, item]}
+                    {anyChildren}
+                    {noVisitRoot}
                     {decorationFunc}
                     {percentFunc}
                 />

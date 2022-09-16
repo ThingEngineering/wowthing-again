@@ -290,7 +290,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
                         repId = reputation.both.id
                     }
                     else {
-                        repId = character.faction === 0 ? reputation.alliance.id : reputation.horde.id
+                        repId = character.faction === 0 ? reputation.alliance?.id : reputation.horde?.id
                     }
     
                     setsData.push({

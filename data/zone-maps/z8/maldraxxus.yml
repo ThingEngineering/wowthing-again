@@ -299,7 +299,7 @@ farms:
   location: 31.7 66.5
   minimumLevel: 60
   npcId: 167525
-  questId: 61816
+  questId: 61816 66617
   reset: weekly
   type: killBig
   drops:
@@ -323,24 +323,30 @@ farms:
 - name: "Blackhound Cache"
   location: 44.1 39.9
   note: "Need a Necrolord to escort the guy here"
+  objectId: 352086
   questId: 60368
-  reset: never
+  reset: daily
   type: treasure
   drops:
   - type: toy
     id: 184318 # Battlecry of Krexus
 
   - type: transmog
+    id: 181800 # Standard of the Blackhound Warband [back]
+    limit: covenant necrolord
+
+  - type: transmog
     id: 183619 # Everlasting Boneforged Greataxe
 
-#- name: "Cache of Eyes"
-#  location: 54.0 12.3
-#  reset: never
-#  type: treasure
-#  drops:
-#  - type: pet
-#    id: 171985
-#    name: "Luminous Webspinner"
+- name: "Cache of Eyes"
+  location: 54.0 12.3
+  note: "Spawns randomly inside"
+  objectId: 352433
+  type: treasure
+  drops:
+  - type: pet
+    id: 2947
+    name: "Luminous Webspinner"
 
 - name: "Giant Cache of Epic Treasure"
   location: 41.5 19.5
@@ -362,6 +368,7 @@ farms:
 
 - name: "Oonar's Arm and Sorrowbane"
   location: 51.4 48.5
+  objectId: 335655
   questId: 61127 61128 #arm, sword?
   reset: never
   type: treasure
@@ -427,6 +434,7 @@ farms:
     id: 181825 # Phial of Ravenous Slime
 
 # Pool is weird
+
 - name: "Pool of Mixed Monstrosities"
   location: 57.0 74.2
   npcId: 157226

@@ -34,6 +34,7 @@ groups:
       - name: "Complete your Order Campaign"
         id: 10747 0
         type: addonAchievement
+        required: true
         value: 1
 
       - name: "Unlock every artifact trait"
@@ -60,6 +61,7 @@ groups:
     - name: "Balance of Power"
       id: 43533
       type: quest
+      required: true
       description: "Required for all of these!"
 
     - name: "Unleashed Monstrosities"

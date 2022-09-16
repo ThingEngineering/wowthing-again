@@ -2,6 +2,7 @@
     import { afterUpdate, onMount } from 'svelte'
 
     import { achievementStore, userAchievementStore } from '@/stores'
+    import { achievementState } from '@/stores/local-storage'
     import { data as settings } from '@/stores/settings'
     import getSavedRoute from '@/utils/get-saved-route'
     
@@ -30,9 +31,10 @@
         loaded = $achievementStore.loaded && $userAchievementStore.loaded
         ready = false
         if (!error && loaded) {
-            if (!$userAchievementStore.data.achievementCategories) {
-                userAchievementStore.setup($achievementStore.data)
-            }
+            userAchievementStore.setup(
+                $achievementState,
+                $achievementStore.data
+            )
             ready = true
         }
     }
