@@ -4,6 +4,9 @@ import { writable } from 'svelte/store'
 export class AchievementsState {
     public showCompleted = true
     public showIncomplete = true
+
+    public showAlliance = true
+    public showHorde = true
 }
 
 const key = 'state-achievements'

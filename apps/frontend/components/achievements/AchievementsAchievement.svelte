@@ -14,6 +14,7 @@
 
     export let achievementId: number
     export let alwaysShow = false
+    export let kindaAlwaysShow = false
 
     let achievement: AchievementDataAchievement
     let earned: number
@@ -78,11 +79,19 @@
             }
         }
 
-        if (!alwaysShow && (
-            (earned && !$achievementState.showCompleted) ||
-            (!earned && !$achievementState.showIncomplete)
-        )) {
-            show = false
+        if (alwaysShow) {
+            show = true
+        }
+        else {
+            if (
+                (earned && !$achievementState.showCompleted) ||
+                (!earned && !$achievementState.showIncomplete)
+            ) {
+                show = false
+            }
+            else if (kindaAlwaysShow) {
+                show = true
+            }
         }
     }
 </script>

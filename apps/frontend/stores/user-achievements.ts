@@ -2,6 +2,7 @@ import values from 'lodash/values'
 import { get } from 'svelte/store'
 
 import { UserAchievementDataCategory, WritableFancyStore } from '@/types'
+import type { AchievementsState } from '@/stores/local-storage'
 import type { AchievementData, UserAchievementData } from '@/types'
 
 
@@ -15,6 +16,7 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
     }
 
     setup(
+        achievementState: AchievementsState,
         achievementData: AchievementData
     ): void {
         // console.time('UserAchievementDataStore.setup')
@@ -41,6 +43,14 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
 
         const all: [number, number][] = []
         for (const achievement of values(achievementData.achievement)) {
+            if (
+                (achievement.faction === 1 && !achievementState.showHorde) ||
+                (achievement.faction === 0 && !achievementState.showAlliance)
+            ) {
+                console.log('skip', achievement)
+                continue
+            }
+
             if (!cheevs[achievement.categoryId]) {
                 cheevs[achievement.categoryId] = new UserAchievementDataCategory(0, 0, 0)
             }
@@ -75,9 +85,14 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
                     continue
                 }
 
-                cheevs[category.id].have += cheevs[child.id].have
-                cheevs[category.id].points += cheevs[child.id].points
-                cheevs[category.id].total += cheevs[child.id].total
+                const childStats = cheevs[child.id]
+                if (!childStats) {
+                    continue
+                }
+
+                cheevs[category.id].have += childStats.have
+                cheevs[category.id].points += childStats.points
+                cheevs[category.id].total += childStats.total
             }
         }
 

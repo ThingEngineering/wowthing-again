@@ -9,7 +9,7 @@ import type {
 import { CriteriaType } from '@/types/enums'
 
 
-const debugId = 15654
+const debugId = 1565411
 
 export function getAccountData(
     achievementData: AchievementData,

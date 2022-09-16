@@ -1,12 +1,13 @@
 <script lang="ts">
+    import { filter } from 'lodash'
     import find from 'lodash/find'
     import sortBy from 'lodash/sortBy'
     import { replace } from 'svelte-spa-router'
 
     import { achievementStore, userAchievementStore } from '@/stores'
     import { achievementState } from '@/stores/local-storage'
-    import type { AchievementDataCategory } from '@/types'
     import leftPad from '@/utils/left-pad'
+    import type { AchievementDataCategory } from '@/types'
 
     import AchievementsAchievement from './AchievementsAchievement.svelte'
     import Checkbox from '@/components/forms/CheckboxInput.svelte'
@@ -25,11 +26,24 @@
             replace(`/achievements/${slug1}/${category.children[0].slug}`)
         }
 
-        achievementIds = sortBy(category.achievementIds, id => [
-            $userAchievementStore.data.achievements[id] === undefined ? '1' : '0',
-            leftPad($achievementStore.data.achievement[id].order, 4, '0'),
-            leftPad(100000 - id, 6, '0')
-        ].join('|'))
+        achievementIds = filter(
+            category.slug === 'back-from-the-beyond' ? category.achievementIds : sortBy(
+                category.achievementIds,
+                id => [
+                    $userAchievementStore.data.achievements[id] === undefined ? '1' : '0',
+                    leftPad($achievementStore.data.achievement[id].order, 4, '0'),
+                    leftPad(100000 - id, 6, '0')
+                ].join('|')
+            ),
+            (id) => {
+                const faction = $achievementStore.data.achievement[id].faction
+                return (
+                    (faction === -1) ||
+                    (faction === 1 && $achievementState.showAlliance) ||
+                    (faction === 0 && $achievementState.showHorde)
+                )
+            }
+        )
     }
 </script>
 
@@ -48,6 +62,13 @@
             //display: grid;
             //grid-template-columns: 1fr 1fr;
         }
+    }
+    .faction0 {
+        border-color: $alliance-border;
+        margin-left: 1rem;
+    }
+    .faction1 {
+        border-color: $horde-border;
     }
 </style>
 
@@ -68,12 +89,29 @@
                 bind:value={$achievementState.showIncomplete}
             >Incomplete</Checkbox>
         </button>
+
+        <button class="faction0">
+            <Checkbox
+                name="show_alliance"
+                bind:value={$achievementState.showAlliance}
+            >Alliance</Checkbox>
+        </button>
+
+        <button class="faction1">
+            <Checkbox
+                name="show_horde"
+                bind:value={$achievementState.showHorde}
+            >Horde</Checkbox>
+        </button>
     </div>
 
     {#if category && achievementIds}
         <div class="achievements">
             {#each achievementIds as achievementId (achievementId)}
-                <AchievementsAchievement {achievementId} />
+                <AchievementsAchievement
+                    kindaAlwaysShow={category.slug === 'back-from-the-beyond'}
+                    {achievementId}
+                />
             {/each}
         </div>
     {/if}
