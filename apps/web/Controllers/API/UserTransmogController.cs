@@ -72,12 +72,14 @@ public class UserTransmogController : Controller
         var data = new UserTransmogData
         {
             Illusions = allTransmog.IllusionIds
+                .Distinct()
                 .OrderBy(id => id)
                 .ToList(),
 
             Sources = allSources,
 
             Transmog = allTransmog.TransmogIds
+                .Distinct()
                 .OrderBy(id => id)
                 .ToList(),
         };

@@ -63,16 +63,32 @@ public class ItemSearchController : Controller
             return Json(Array.Empty<string>());
         }
 
-        var itemIds = items.Select(item => item.Id).ToArray();
+        var itemIds = items
+            .Select(item => item.Id)
+            .ToArray();
         var itemMap = items.ToDictionary(item => item.Id, item => item.String);
 
+        var characterTemp = await _context.PlayerCharacter
+            .Where(pc => pc.Account.UserId == user.Id)
+            .Select(pc => new { pc.Id, pc.GuildId })
+            .ToArrayAsync();
+
+        var characterIds = characterTemp
+            .Select(t => t.Id)
+            .ToArray();
+
+        var guildIds = characterTemp
+            .Where(t => t.GuildId.HasValue)
+            .Select(t => t.GuildId.Value)
+            .ToArray();
+
         var characterItems = await _context.PlayerCharacterItem
-            .Where(pci => pci.Character.Account.UserId == user.Id)
+            .Where(pci => characterIds.Contains(pci.CharacterId))
             .Where(pci => itemIds.Contains(pci.ItemId))
             .ToArrayAsync();
 
         var guildItems = await _context.PlayerGuildItem
-            .Where(pgi => pgi.Guild.UserId == user.Id)
+            .Where(pgi => guildIds.Contains(pgi.GuildId))
             .Where(pgi => itemIds.Contains(pgi.ItemId))
             .ToArrayAsync();
 

@@ -510,6 +510,23 @@ farms:
   - type: pet
     id: 3098 # Lil'Abom
 
+- name: "Zovaal's Vault"
+  location: 44.7 51.5
+  note: "Find the box in the rift and sloooowly drag it back here"
+  objectId: 369262
+  questId: 64282
+  reset: daily
+  type: treasure
+  drops:
+    - type: toy
+      id: 187416 # Jailer's Cage
+    
+    - type: toy
+      id: 187113 # Personal Ball and Chain
+
+    - type: transmog
+      id: 187251 # Shaded Skull Shoulderguards
+
 # Events
 
 - name: "Hunt: Shadehounds"
