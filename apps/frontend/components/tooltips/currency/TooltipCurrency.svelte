@@ -15,6 +15,8 @@
     export let item: ItemDataItem
 
     let currencies: [Character, number][]
+    let currencyName: string
+    let iconName: string
     $: {
         currencies = []
         for (const character of $userStore.data.characters) {
@@ -24,12 +26,18 @@
 
             let quantity = 0
             if (currency) {
+                currencyName = currency.name
+                iconName = `currency/${currency.id}`
                 quantity = character.currencies?.[currency.id]?.quantity || 0
             }
             else if (item) {
+                currencyName = item.name
+                iconName = `item/${item.id}`
                 quantity = character.currencyItems[item.id] || 0
             }
             else {
+                currencyName = 'Gold'
+                iconName = 'currency/0'
                 quantity = character.gold || 0
             }
 
@@ -68,28 +76,12 @@
 
 <div class="wowthing-tooltip">
     <h4>
-        {#if currency}
-            <WowthingImage
-                name="currency/{currency.id}"
-                size={20}
-                border={1}
-            />
-            {currency.name}
-        {:else if item}
-            <WowthingImage
-                name="item/{item.id}"
-                size={20}
-                border={1}
-            />
-            {item.name}
-        {:else}
-            <WowthingImage
-                name="currency/0"
-                size={20}
-                border={1}
-            />
-            Gold
-        {/if}
+        <WowthingImage
+            name={iconName}
+            size={20}
+            border={1}
+        />
+        {currencyName}
     </h4>
 
     {#if currencies.length > 0}
@@ -110,5 +102,15 @@
                 {/if}
             </tbody>
         </table>
+        
+        <div class="bottom">
+            Total:
+            <WowthingImage
+                name={iconName}
+                size={20}
+                border={1}
+            />
+            {currencies.reduce((a, b) => a + b[1], 0).toLocaleString()}
+        </div>
     {/if}
 </div>
