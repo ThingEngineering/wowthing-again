@@ -24,7 +24,7 @@ sets:
     sortKey: "weapons-1-undying"
 
   - name: "Weapons - Wild Hunt"
-    range: 10
+    range: -1
     sortKey: "weapons-1-wild-hunt"
 
 sells:
