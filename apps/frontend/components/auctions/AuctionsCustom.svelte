@@ -16,7 +16,7 @@
         categoryId = parseInt(slug.replace('custom-', ''))
     }
 </script>
-
+ 
 <style lang="scss">
     .wrapper {
         column-count: 1;

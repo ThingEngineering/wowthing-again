@@ -5,6 +5,7 @@
 
     import { itemSearchState, userStore } from '@/stores'
     import { ItemLocation } from '@/types/enums'
+    import tippy from '@/utils/tippy'
     import { toNiceNumber } from '@/utils/to-nice'
     import type { ItemSearchResponseItem } from '@/types/items'
 
@@ -162,6 +163,8 @@
     {#if response !== undefined}
         <div class="results-container">
             {#each response as item}
+                {@const itemCount = item.characters.reduce((a, b) => a + b.count, 0) + 
+                    item.guildBanks.reduce((a, b) => a + b.count, 0)}
                 <table class="table table-striped">
                     <thead>
                         <tr class="item-row">
@@ -169,11 +172,11 @@
                                 <WowthingImage name="item/{item.itemId}" size={20} border={1} />
                                 {item.itemName}
                             </th>
-                            <th class="count">
-                                {toNiceNumber(
-                                    item.characters.reduce((a, b) => a + b.count, 0) + 
-                                    item.guildBanks.reduce((a, b) => a + b.count, 0)
-                                )}
+                            <th
+                                class="count"
+                                use:tippy={itemCount.toLocaleString()}
+                            >
+                                {toNiceNumber(itemCount)}
                             </th>
                             <th class="item-level">ILvl</th>
                         </tr>
