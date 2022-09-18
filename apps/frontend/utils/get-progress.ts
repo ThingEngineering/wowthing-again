@@ -68,7 +68,13 @@ export default function getProgress(
         }
 
         if (datas) {
-            total = datas.length
+            if (datas[0].type === ProgressDataType.GarrisonTree) {
+                total = datas.reduce((a, b) => a + b.value, 0)
+            }
+            else {
+                total = datas.length
+            }
+
             for (let dataIndex = 0; dataIndex < datas.length; dataIndex++) {
                 const data = datas[dataIndex]
                 let haveThis = false
@@ -174,11 +180,12 @@ export default function getProgress(
 
                         case ProgressDataType.GarrisonTree: {
                             const talent = character.garrisonTrees?.[data.ids[0]]?.[data.ids[1]]
-                            if (talent) {
+                            if (talent?.[0] > 0) {
+                                have += (data.value - 1)
                                 haveThis = talent[0] >= data.value
                             }
 
-                            descriptionText[dataIndex] = `Rank ${talent[0]}/${data.value}`
+                            descriptionText[dataIndex] = `Rank ${talent?.[0] || 0}/${data.value}`
                             showCurrency = 1904 // Tower Knowledge
 
                             break
@@ -310,7 +317,7 @@ function getSpentCyphers(character: Character): number {
                     continue
                 }
 
-                const rank = characterTree[talent.id][0]
+                const rank = characterTree[talent.id]?.[0] || 0
                 for (let i = 0; i < rank; i++) {
                     total += talent.costs[i]
                 }
