@@ -27,7 +27,7 @@ export const covenantFeatureOrder: [string, string, number][] = [
     ['conductor', 'Anima Conductor', 3],
     ['missions', 'Command Table', 3],
     ['transport', 'Transport Network', 3],
-    ['unique', 'Unique Feature', 5],
+    ['unique', 'Special Feature', 5],
 ]
 
 export const covenantFeatureReputation: Record<string, number> = {

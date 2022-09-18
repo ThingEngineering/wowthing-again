@@ -173,7 +173,9 @@ export default function getProgress(
                         }
 
                         case ProgressDataType.SlCovenant: {
-                            const covenant = character.shadowlands?.covenants?.[data.ids[0]]
+                            const covenant = character.shadowlands?.covenants?.[
+                                data.ids[0] === 0 ? character.shadowlands?.covenantId : data.ids[0]
+                            ]
                             if (covenant && (
                                     covenant.conductor?.rank > 0 ||
                                     covenant.missions?.rank > 0 ||
@@ -182,6 +184,10 @@ export default function getProgress(
                             )) {
                                 const [featureKey, , featureMaxRank] = covenantFeatureOrder[data.value - 1]
                                 const charBuilding = covenant[featureKey as keyof CharacterShadowlandsCovenant] as CharacterShadowlandsCovenantFeature
+
+                                if (data.ids[0] === 0) {
+                                    icon = covenantMap[character.shadowlands.covenantId].icon
+                                }
 
                                 have = charBuilding?.rank || 0
                                 total = featureMaxRank
