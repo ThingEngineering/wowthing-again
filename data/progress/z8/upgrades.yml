@@ -54,27 +54,116 @@ groups:
       type: spentCyphers
       value: 3700
 
+- name: "Pocopoc Customization"
+  icon: "achievement/15508" # Fashion of the First Ones
+  iconText: "Poco1"
+  type: quest
+  data:
+    0:
+      - name: "{item:190061}" # Admiral Pocopoc
+        id: 65529
+
+      - name: "{item:190060}" # Adventurous Pocopoc
+        id: 65527
+
+      - name: "{item:189451}" # Chef Pocopoc
+        id: 65524
+
+      - name: "{item:187833}" # Dapper Pocopoc
+        id: 65528
+
+      - name: "{item:190058}" # Peaceful Pocopoc
+        id: 65525
+
+      - name: "{item:190098}" # Pepepec
+        id: 65538
+
+      - name: "{item:190059}" # Pirate Pocopoc
+        id: 65526
+
+      - name: "{item:190096}" # Pocobold
+        id: 65534
+
+      - name: "{item:190062}" # Wicked Pocopoc
+        id: 64861
+
+- name: "Pocopoc Components"
+  icon: "achievement/15508" # Fashion of the First Ones
+  iconText: "Poco2"
+  type: quest
+  data:
+    0:
+      # Body
+
+      - name: "{item:189708}" # Pocopoc's Beryllium and Silver Body
+        id: 65472
+
+      - name: "{item:189707}" # Pocopoc's Bronze and Gold Body
+        id: 65471
+
+      - name: "{item:189709}" # Pocopoc's Cobalt and Copper Body
+        id: 65473
+
+      - name: "{item:189710}" # Pocopoc's Ruby and Platinum Body
+        id: 65474
+
+      # Components
+
+      - name: "{item:189713}" # Pocopoc's Copper and Cobalt Components
+        id: 65478
+
+      - name: "{item:189711}" # Pocopoc's Gold and Ruby Components
+        id: 65476
+
+      - name: "{item:189714}" # Pocopoc's Platinum and Emerald Components
+        id: 65479
+
+      - name: "{item:189712}" # Pocopoc's Silver and Beryllium Components
+        id: 65477
+
+      # Core
+
+      - name: "{item:189717}" # Pocopoc's Shielded Core
+        id: 65483
+
+      - name: "{item:189718}" # Pocopoc's Upgraded Core
+        id: 65484
+
+      # Face Decoration
+
+      - name: "{item:189716}" # Pocopoc's Face Decoration
+        id: 65482
+
+      # Vambraces
+
+      - name: "{item:189715}" # Pocopoc's Diamond Vambraces
+        id: 65481
+
 - name: "Zereth Mortis"
   icon: "achievement/15224" #  Explore Zereth Mortis
   iconText: "ZM"
   type: quest
   data:
     0:
-    - name: "Unlock mount crafting"
-      id: 65427 # A New Architect
-      description: "A New Architect quests"
-    
-    - name: "Unlock pet crafting"
-      id: 65419 # Protoform Synthesis
-      description: "Research Dealic Understanding and summon Pocopoc"
-    
-    - name: "+50% Cyphers of the First Ones"
-      id: 65282 # Improved Cypher Analysis Tool
-      description: "Buy from Olea Manu after Jiro to Hero quests"
-    
-    - name: "Enable weapon drops"
-      id: 66579 # Sounds of Healing
-      description: "Random drop after Jiro to Hero quests"
+      - name: "Jiro to Hero"
+        id: 65219
+        description: "Starts from Hanoa the Exile at 40,42"
+
+      - name: "+50% Cyphers of the First Ones"
+        id: 65282 # Improved Cypher Analysis Tool
+        description: "Buy from Olea Manu after Jiro to Hero quests"
+      
+      - name: "Enable weapon drops"
+        id: 66579 # Sounds of Healing
+        description: "Random drop after Jiro to Hero quests"
+
+      - name: "Unlock mount crafting"
+        id: 65427 # A New Architect
+        description: "A New Architect quests"
+      
+      - name: "Unlock pet crafting"
+        id: 65419 # Protoform Synthesis
+        description: "Research Dealic Understanding and summon Pocopoc"
 
 - name: separator
 
