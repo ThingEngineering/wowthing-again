@@ -123,7 +123,7 @@
         </tbody>
     </table>
 
-    {#if showCurrencies?.length > 0}
+    {#if showCurrencies?.length > 0 && !(showCurrencies.length === 1 && showCurrencies[0] === 0)}
         <div class="bottom">
             {#each showCurrencies as currencyId}
                 {@const characterCurrency = character.currencies?.[currencyId]}
