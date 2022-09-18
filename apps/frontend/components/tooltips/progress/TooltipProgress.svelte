@@ -110,7 +110,10 @@
                     <td class="name">
                         <ParsedText text={nameOverride[dataIndex] || data.name} />
 
-                        {#if description && haveIndexes.indexOf(dataIndex) === -1}
+                        {#if description && (
+                            haveIndexes.indexOf(dataIndex) === -1 ||
+                            datas[0].type === ProgressDataType.GarrisonTree
+                        )}
                             {#if cls === 'short'}&ndash;{/if}
                             <ParsedText
                                 cls="description-{cls}"

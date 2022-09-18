@@ -172,6 +172,18 @@ export default function getProgress(
                             break
                         }
 
+                        case ProgressDataType.GarrisonTree: {
+                            const talent = character.garrisonTrees?.[data.ids[0]]?.[data.ids[1]]
+                            if (talent) {
+                                haveThis = talent[0] >= data.value
+                            }
+
+                            descriptionText[dataIndex] = `Rank ${talent[0]}/${data.value}`
+                            showCurrency = 1904 // Tower Knowledge
+
+                            break
+                        }
+
                         case ProgressDataType.SlCovenant: {
                             const covenant = character.shadowlands?.covenants?.[
                                 data.ids[0] === 0 ? character.shadowlands?.covenantId : data.ids[0]
