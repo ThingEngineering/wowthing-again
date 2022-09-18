@@ -438,17 +438,28 @@ public class UserUploadJob : JobBase
                         continue;
                     }
 
-                    var tree = character.AddonData.GarrisonTrees[treeId] = new Dictionary<int, List<int>>();
+                    if (!character.AddonData.GarrisonTrees.TryGetValue(treeId, out var tree))
+                    {
+                        tree = character.AddonData.GarrisonTrees[treeId] = new Dictionary<int, List<int>>();
+                    }
+
                     foreach (var packed in packedData)
                     {
                         var parts = packed.Split(':');
                         if (parts.Length == 3)
                         {
-                            tree[int.Parse(parts[0])] = new List<int>
+                            int talentId = int.Parse(parts[0]);
+                            int talentRank = int.Parse(parts[1]);
+                            int talentResearch = int.Parse(parts[2]);
+
+                            if (!tree.ContainsKey(talentId) || tree[talentId][0] < talentRank)
                             {
-                                int.Parse(parts[1]),
-                                int.Parse(parts[2]),
-                            };
+                                tree[talentId] = new List<int>
+                                {
+                                    talentRank,
+                                    talentResearch,
+                                };
+                            }
                         }
                     }
                 }
