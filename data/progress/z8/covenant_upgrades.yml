@@ -2,6 +2,48 @@ name: "Covenant Upgrades"
 minimumLevel: 60
 groups:
 
+- name: "[covenant] Anima Conductor"
+  icon: "achievement/14632"
+  type: mixed
+  data:
+    0:
+      - name: "Anima Conductor"
+        id: 0
+        type: slCovenant
+        value: 1
+
+- name: "[covenant] Command Table"
+  icon: "achievement/14636" # Adventurer in Chief
+  type: mixed
+  data:
+    0:
+      - name: "Command Table"
+        id: 0
+        type: slCovenant
+        value: 2
+
+- name: "[covenant] Transport Network"
+  icon: "achievement/14633" # Master Navigator
+  type: mixed
+  data:
+    0:
+      - name: "Transport Network"
+        id: 0
+        type: slCovenant
+        value: 3
+
+- name: "[covenant] Special Feature"
+  icon: "achievement/15649" # Shadowlands Dilettante
+  type: mixed
+  data:
+    0:
+      - name: "Special Feature"
+        id: 0
+        type: slCovenant
+        value: 4
+
+- name: separator
+
 - name: "Kyrian Anima Conductor"
   icon: "achievement/14632" # Conducting Anima
   type: mixed
