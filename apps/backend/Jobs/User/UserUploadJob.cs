@@ -701,19 +701,17 @@ public class UserUploadJob : JobBase
         UploadCharacterCovenantFeature featureData
     )
     {
-        if (featureData == null || featureData.Rank == 0)
+        if (featureData == null)
         {
             return feature;
         }
-        else
+        
+        return new PlayerCharacterShadowlandsCovenantFeature
         {
-            return new PlayerCharacterShadowlandsCovenantFeature
-            {
-                Rank = Math.Max(0, Math.Min(5, featureData.Rank)),
-                ResearchEnds = featureData.ResearchEnds ?? 0,
-                Name = featureData.Name.EmptyIfNullOrWhitespace().Truncate(32),
-            };
-        }
+            Rank = Math.Max(0, Math.Min(5, featureData.Rank)),
+            ResearchEnds = featureData.ResearchEnds ?? 0,
+            Name = featureData.Name.EmptyIfNullOrWhitespace().Truncate(32),
+        };
     }
 
     private List<PlayerCharacterShadowlandsCovenantSoulbind> HandleCovenantsSoulbinds(
