@@ -38,26 +38,6 @@
         sorted = $lockoutState.sortBy > 0
         sortFunc = getCharacterSortFunc($settingsData, $staticStore.data, sorted ? hasSortedLockout : anyLockouts)
     }
-
-    $: {
-        sortedLockouts = sortBy(
-            $userStore.data.allLockouts,
-            (diff: InstanceDifficulty) => {
-                const instance: StaticDataInstance = $staticStore.data.instances[diff.instanceId]
-                if (!diff.difficulty || !instance) {
-                    return 'z'
-                }
-
-                const orderIndex = lockoutDifficultyOrder.indexOf(diff.difficulty.id)
-                return [
-                    leftPad(100 - instance.expansion, 2, '0'),
-                    leftPad(orderIndex >= 0 ? orderIndex : 99, 2, '0'),
-                    instance.shortName,
-                    diff.difficulty.shortName,
-                ].join('|')
-            }
-        )
-    }
 </script>
 
 <CharacterTable
@@ -66,13 +46,13 @@
     {sortFunc}
 >
     <CharacterTableHead slot="head">
-        {#each sortedLockouts as instanceDifficulty}
+        {#each $userStore.data.allLockouts as instanceDifficulty}
             <HeadInstance {instanceDifficulty} />
         {/each}
     </CharacterTableHead>
 
     <svelte:fragment slot="rowExtra" let:character>
-        {#each sortedLockouts as instanceDifficulty}
+        {#each $userStore.data.allLockouts as instanceDifficulty}
             <RowLockout {character} {instanceDifficulty} />
         {/each}
     </svelte:fragment>

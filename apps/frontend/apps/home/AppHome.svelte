@@ -70,6 +70,7 @@
             )
 
             userStore.setup(
+                $settings,
                 $userStore.data,
             )
 

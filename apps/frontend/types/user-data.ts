@@ -40,6 +40,7 @@ export interface UserData {
     allLockoutsMap: Record<string, InstanceDifficulty>
     backgroundList: BackgroundImage[]
     characterMap: Record<number, Character>
+    homeLockouts: InstanceDifficulty[]
 
     hasMount: Record<number, boolean>
     hasPet: Record<number, boolean>
