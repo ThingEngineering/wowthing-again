@@ -129,7 +129,10 @@
     }
 </style>
 
-{#if criteriaTree && (criteriaTree.flags & 0x02) === 0 && (description || criteriaTree.children.length > 0)}
+{#if criteriaTree &&
+    (criteriaTree.flags & 0x02) === 0 &&
+    (description || criteriaTree.children.length > 0)
+}
     <div
         class:drop-shadow={!child}
         class:status-success={have}
