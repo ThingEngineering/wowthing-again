@@ -705,7 +705,7 @@ public class UserUploadJob : JobBase
         {
             return feature;
         }
-        
+
         return new PlayerCharacterShadowlandsCovenantFeature
         {
             Rank = Math.Max(0, Math.Min(5, featureData.Rank)),
@@ -964,10 +964,12 @@ public class UserUploadJob : JobBase
         }
         else
         {
+            short.TryParse(parts[2].OrDefault("0"), out short context);
+            
             // count:id:context:enchant:ilvl:quality:suffix:bonusIDs:gems
             item.Count = int.Parse(parts[0]);
             item.ItemId = int.Parse(parts[1]);
-            item.Context = short.Parse(parts[2].OrDefault("0"));
+            item.Context = context;
             item.EnchantId = short.Parse(parts[3].OrDefault("0"));
             item.ItemLevel = short.Parse(parts[4].OrDefault("0"));
             item.Quality = short.Parse(parts[5].OrDefault("0"));
