@@ -6,6 +6,7 @@
     import Auctions from '@/components/auctions/Auctions.svelte'
     import Characters from '@/components/characters/Characters.svelte'
     import Currencies from '@/components/currencies/Currencies.svelte'
+    import Explore from '@/components/explore/Explore.svelte'
     import Gear from '@/components/gear/Gear.svelte'
     import Heirlooms from '@/components/heirlooms/Heirlooms.svelte'
     import History from '@/components/history/History.svelte'
@@ -63,6 +64,8 @@
         '/teams/:slug?': Teams,
 
         '/settings/:slug1?/:slug2?': Settings,
+
+        '/explore/:slug1?': Explore,
     }
 </script>
 
