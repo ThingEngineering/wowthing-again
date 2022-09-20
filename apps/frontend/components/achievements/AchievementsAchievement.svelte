@@ -118,8 +118,12 @@
         width: 100%;
 
         &.completed {
-            background: mix($thing-background, $colour-success, 90%);
-            border-color: mix($border-color, $colour-success, 90%);
+            background: mix($thing-background, $colour-success, 91%);
+            border-color: mix($border-color, $colour-success, 80%);
+
+            :global(.status-fail) {
+                --shadow-color: rgba(30, 30, 30, 0.5);
+            }
         }
 
         &.faction-1 {

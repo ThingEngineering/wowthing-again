@@ -701,19 +701,17 @@ public class UserUploadJob : JobBase
         UploadCharacterCovenantFeature featureData
     )
     {
-        if (featureData == null || featureData.Rank == 0)
+        if (featureData == null)
         {
             return feature;
         }
-        else
+
+        return new PlayerCharacterShadowlandsCovenantFeature
         {
-            return new PlayerCharacterShadowlandsCovenantFeature
-            {
-                Rank = Math.Max(0, Math.Min(5, featureData.Rank)),
-                ResearchEnds = featureData.ResearchEnds ?? 0,
-                Name = featureData.Name.EmptyIfNullOrWhitespace().Truncate(32),
-            };
-        }
+            Rank = Math.Max(0, Math.Min(5, featureData.Rank)),
+            ResearchEnds = featureData.ResearchEnds ?? 0,
+            Name = featureData.Name.EmptyIfNullOrWhitespace().Truncate(32),
+        };
     }
 
     private List<PlayerCharacterShadowlandsCovenantSoulbind> HandleCovenantsSoulbinds(
@@ -966,10 +964,12 @@ public class UserUploadJob : JobBase
         }
         else
         {
+            short.TryParse(parts[2].OrDefault("0"), out short context);
+            
             // count:id:context:enchant:ilvl:quality:suffix:bonusIDs:gems
             item.Count = int.Parse(parts[0]);
             item.ItemId = int.Parse(parts[1]);
-            item.Context = short.Parse(parts[2].OrDefault("0"));
+            item.Context = context;
             item.EnchantId = short.Parse(parts[3].OrDefault("0"));
             item.ItemLevel = short.Parse(parts[4].OrDefault("0"));
             item.Quality = short.Parse(parts[5].OrDefault("0"));

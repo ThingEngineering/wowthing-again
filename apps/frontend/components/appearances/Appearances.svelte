@@ -5,10 +5,10 @@
     import { appearanceStore, userTransmogStore } from '@/stores'
     import type { MultiSlugParams } from '@/types'
 
-    export let params: MultiSlugParams
-
     import Sidebar from './AppearancesSidebar.svelte'
     import View from './AppearancesView.svelte'
+
+    export let params: MultiSlugParams
 
     afterUpdate(() => getSavedRoute('appearances', params.slug1))
 

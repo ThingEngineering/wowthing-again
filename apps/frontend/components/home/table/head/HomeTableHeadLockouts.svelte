@@ -1,14 +1,16 @@
 <script lang="ts">
-    import { staticStore } from '@/stores'
-    import { data as settings } from '@/stores/settings'
+    import { staticStore, userStore } from '@/stores'
 </script>
 
 <style lang="scss">
     td {
-        @include cell-width(2.0rem);
+        @include cell-width(2.0rem, $maxWidth: 3.0rem);
     }
 </style>
 
-{#each $settings.layout.homeLockouts as instanceId}
-    <td>{$staticStore.data.instances[instanceId].shortName}</td>
+{#each $userStore.data.homeLockouts as {difficulty, instanceId}}
+    {@const instance = $staticStore.data.instances[instanceId]}
+    <td>
+        {difficulty ? difficulty.shortName + '-' : ''}{instance.shortName}
+    </td>
 {/each}
