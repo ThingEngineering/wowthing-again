@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { userStore } from '@/stores'
+    import { staticStore, userStore } from '@/stores'
     import { ItemLocation, Region } from '@/types/enums'
     import { getItemUrlSearch } from '@/utils/get-item-url'
     import { toNiceNumber } from '@/utils/to-nice'
@@ -35,6 +35,13 @@
 </script>
 
 <style lang="scss">
+    .tag {
+        background: $highlight-background;
+        border-right: 1px solid $border-color;
+        padding-left: $width-padding;
+        padding-right: $width-padding;
+        text-align: center;
+    }
     .name {
         @include cell-width(6rem);
 
@@ -63,9 +70,12 @@
 </style>
 
 <tr class:highlight={!!guildBankItem}>
+    {#if userStore.useAccountTags}
+        <td class="tag">{$userStore.data.accounts[character.accountId].tag || ''}</td>
+    {/if}
     <td class="name text-overflow">
         <a
-            class="quality{characterItem?.quality || guildBankItem?.quality || 0}"
+            class="quality{item.quality || 0}"
             href={getItemUrlSearch(itemId, item)}
         >
             {character?.name || guild?.name || 'Unknown Guild'}
