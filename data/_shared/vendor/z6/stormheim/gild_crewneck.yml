@@ -3,7 +3,7 @@ name: "Gild Crewneck"
 note: "Only up during Free T-Shirt Day"
 
 locations:
-  stormheim:
+  z6_stormheim:
     - 60.2 52.4
     
 tags:
