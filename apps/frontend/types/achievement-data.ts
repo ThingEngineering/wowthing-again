@@ -8,10 +8,12 @@ export interface AchievementData {
     achievement: Record<number, AchievementDataAchievement>
     criteria: Record<number, AchievementDataCriteria>
     criteriaTree: Record<number, AchievementDataCriteriaTree>
+    isHidden: Record<number, boolean>
 
     achievementRaw: AchievementDataAchievementArray[]
     criteriaRaw: AchievementDataCriteriaArray[]
     criteriaTreeRaw: AchievementDataCriteriaTreeArray[]
+    hideIds: number[]
 }
 
 export interface AchievementDataCategory {

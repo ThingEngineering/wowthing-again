@@ -89,6 +89,9 @@
             ) {
                 show = false
             }
+            else if (!earned && $achievementStore.data.isHidden[achievementId]) {
+                show = false
+            }
             else if (kindaAlwaysShow) {
                 show = true
             }

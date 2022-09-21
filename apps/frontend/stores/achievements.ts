@@ -48,6 +48,12 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
         }
         data.criteriaTreeRaw = null
 
+        data.isHidden = {}
+        for (const achievementId of data.hideIds) {
+            data.isHidden[achievementId] = true
+        }
+        data.hideIds = null
+
         data.categories.push(null)
         let categoryId = 100000
         for (const [baseSlug, children] of extraCategories) {
