@@ -146,12 +146,6 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             }
         }
 
-        userData.allLockouts.push({
-            difficulty: difficultyMap[14],
-            instanceId: 1190,
-            key: '1190-14',
-        })
-
         userData.allLockouts = sortBy(
             userData.allLockouts,
             (diff/*: InstanceDifficulty*/) => {

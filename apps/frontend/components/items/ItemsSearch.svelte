@@ -168,7 +168,7 @@
                 <table class="table table-striped">
                     <thead>
                         <tr class="item-row">
-                            <th class="item" colspan="3">
+                            <th class="item" colspan="{userStore.useAccountTags ? 4 : 3}">
                                 <WowthingImage name="item/{item.itemId}" size={20} border={1} />
                                 {item.itemName}
                             </th>

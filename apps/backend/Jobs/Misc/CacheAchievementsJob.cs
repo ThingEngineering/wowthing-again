@@ -1,4 +1,5 @@
-﻿using Wowthing.Backend.Data;
+﻿using System.Text.RegularExpressions;
+using Wowthing.Backend.Data;
 using Wowthing.Backend.Models.Data.Achievements;
 using Wowthing.Backend.Models.Redis;
 using Wowthing.Backend.Utilities;
@@ -17,8 +18,10 @@ public class CacheAchievementsJob : JobBase, IScheduledJob
         Type = JobType.CacheAchievements,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(24),
-        Version = 1,
+        Version = 2,
     };
+
+    private static readonly Regex GladiatorMountRegex = new(@"^Obtain.*?Gladiator.*? from .*?Season \d+", RegexOptions.Compiled);
 
     public override async Task Run(params string[] data)
     {
@@ -27,6 +30,28 @@ public class CacheAchievementsJob : JobBase, IScheduledJob
         var achievements = await LoadAchievements();
         var categories = await LoadAchievementCategories(achievements[Language.enUS]);
         var criteria = await LoadAchievementCriteria(achievements[Language.enUS]);
+
+        var hideIds = achievements[Language.enUS]
+            .Values
+            .Where(achievement =>
+                achievement.Name.StartsWith("Ahead of the Curve:") ||
+                achievement.Name.StartsWith("Challenge Master:") ||
+                achievement.Name.StartsWith("Cutting Edge:") ||
+                achievement.Name.StartsWith("Challenge Master:") ||
+                achievement.Name.StartsWith("Realm First!") ||
+                (
+                    achievement.Description.StartsWith("Obtain the ") &&
+                    (
+                        achievement.Description.Contains("Gladiator's") ||
+                        achievement.Description.Contains("Arena Season")
+                    ) &&
+                    !achievement.Description.Contains("Shadowlands Season 4")
+                )
+            )
+            .Select(achievement => achievement.Id)
+            .Distinct()
+            .OrderBy(id => id)
+            .ToArray();
 
         _timer.AddPoint("Load");
 
@@ -52,6 +77,8 @@ public class CacheAchievementsJob : JobBase, IScheduledJob
                 .Values
                 .OrderBy(ct => ct.Id)
                 .ToList();
+
+            cacheData.HideIds = hideIds;
 
             var cacheJson = JsonConvert.SerializeObject(cacheData);
             // This ends up being the MD5 of enUS, close enough
