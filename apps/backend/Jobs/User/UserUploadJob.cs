@@ -429,7 +429,11 @@ public class UserUploadJob : JobBase
             if (scanTime > character.AddonData.GarrisonTreesScannedAt)
             {
                 character.AddonData.GarrisonTreesScannedAt = scanTime;
-                character.AddonData.GarrisonTrees = new Dictionary<int, Dictionary<int, List<int>>>();
+
+                if (character.AddonData.GarrisonTrees == null)
+                {
+                    character.AddonData.GarrisonTrees = new Dictionary<int, Dictionary<int, List<int>>>();
+                }
 
                 foreach (var (key, packedData) in characterData.GarrisonTrees)
                 {
@@ -443,26 +447,43 @@ public class UserUploadJob : JobBase
                         tree = character.AddonData.GarrisonTrees[treeId] = new Dictionary<int, List<int>>();
                     }
 
+                    var unpacked = new List<(int, int, int)>();
+
                     foreach (var packed in packedData)
                     {
                         var parts = packed.Split(':');
                         if (parts.Length == 3)
                         {
-                            int talentId = int.Parse(parts[0]);
-                            int talentRank = int.Parse(parts[1]);
-                            int talentResearch = int.Parse(parts[2]);
+                            unpacked.Add((
+                                int.Parse(parts[0]), // id
+                                int.Parse(parts[1]), // rank
+                                int.Parse(parts[2])  // research time
+                            ));
+                        }
+                    }
 
-                            if (!tree.ContainsKey(talentId) || tree[talentId][0] < talentRank)
+                    if (unpacked.Sum(packed => packed.Item2) == 0)
+                    {
+                        continue;
+                    }
+
+                    foreach (var (talentId, talentRank, talentResearch) in unpacked)
+                    {
+                        if (!tree.ContainsKey(talentId) || tree[talentId][0] < talentRank)
+                        {
+                            tree[talentId] = new List<int>
                             {
-                                tree[talentId] = new List<int>
-                                {
-                                    talentRank,
-                                    talentResearch,
-                                };
-                            }
+                                talentRank,
+                                talentResearch,
+                            };
                         }
                     }
                 }
+
+                // Change detection for this is obnoxious, just update it
+                Context.Entry(character.AddonData)
+                    .Property(ad => ad.GarrisonTrees)
+                    .IsModified = true;
             }
         }
 
