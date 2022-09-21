@@ -11,11 +11,12 @@
     import type { Character, CharacterShadowlandsCovenant, CharacterShadowlandsCovenantFeature } from '@/types'
     import type { ManualDataProgressCategory } from '@/types/data/manual'
 
-    import Abominations from './CharactersShadowlandsAbominations.svelte'
     import EmberCourt from './CharactersShadowlandsEmberCourt.svelte'
+    import PathOfAscension from './CharactersShadowlandsPathOfAscension.svelte'
     import ReputationBar from '@/components/common/ReputationBar.svelte'
     import Soulbind from './CharactersShadowlandsSoulbind.svelte'
     import Soulshapes from './CharactersShadowlandsSoulshapes.svelte'
+    import Stitchyard from './CharactersShadowlandsStitchyard.svelte'
 
     export let character: Character
     export let covenantId: number
@@ -88,7 +89,8 @@
                     }
                     else {
                         const duration = toNiceDuration(ends.diff($timeStore).toMillis())
-                        featureData.researching = `Upgrades in <span class="status-shrug">${duration}</span>`
+                        featureData.rank++
+                        featureData.researching = `in <span class="status-shrug">${duration}</span>`
                     }
                 }
             }
@@ -178,12 +180,13 @@
             {#each features as feature, featureIndex}
                 <div class="info-row">
                     <div>{feature.name}</div>
-                    <div class="{getPercentClass(feature.rank / feature.maxRank * 100)}">Rank {feature.rank}</div>
+                    <div>
+                        <span class="{getPercentClass(feature.rank / feature.maxRank * 100)}">Rank {feature.rank}</span>
+                        {#if feature.researching}
+                            {@html feature.researching}
+                        {/if}
+                    </div>
                 </div>
-
-                {#if feature.researching}
-                    <div class="info-research">{@html feature.researching}</div>
-                {/if}
 
                 {#if feature.rank > 0 && covenantFeatureReputation[`${covenantId}-${feature.key}`]}
                     <ReputationBar
@@ -193,10 +196,15 @@
                 {/if}
 
                 {#if feature.key === 'unique' && feature.rank > 0}
-                    {#if covenantId === 2}
-                        <EmberCourt />
+                    {#if covenantId === 1}
+                        <PathOfAscension
+                            {character}
+                            {feature}
+                        />
+                    {:else if covenantId === 2}
+                        <EmberCourt {character} />
                     {:else if covenantId === 4}
-                        <Abominations {character} />
+                        <Stitchyard {character} />
                     {/if}
                 {/if}
 
