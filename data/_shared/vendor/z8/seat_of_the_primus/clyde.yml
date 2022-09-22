@@ -1,10 +1,10 @@
 id: 164795
 name: "Clyde"
-note: "Requires Necrolord + Abomination Stitching"
+note: "Requires Abomination Stitching"
 
 locations:
-  z8_maldraxxus:
-    - 56.1 68.3
+  z8_seat_of_the_primus:
+    - 50.6 15.0
 
 sets:
   - name: "Collections"
