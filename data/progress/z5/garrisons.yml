@@ -13,6 +13,7 @@ groups:
 - name: "Pet Quest"
   icon: "item/122457"
   minimumLevel: 35
+  requiredQuestId: 36615 36614 # My Very Own Castle/My Very Own Fortress
   type: quest
   data:
     0:

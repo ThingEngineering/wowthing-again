@@ -402,7 +402,7 @@ public class UserUploadJob : JobBase
                 continue;
             }
 
-            dbGarrison.Level = dataGarrison.Level;
+            dbGarrison.Level = Math.Max(dbGarrison.Level, dataGarrison.Level);
             dbGarrison.ScannedAt = scanTime;
             dbGarrison.Buildings = dataGarrison.Buildings
                 .EmptyIfNull()

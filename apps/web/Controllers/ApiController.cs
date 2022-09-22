@@ -114,6 +114,12 @@ public class ApiController : Controller
 
         await _context.SaveChangesAsync();
 
+        _logger.LogDebug("Resetting caches");
+        await _cacheService.SetLastModified(RedisKeys.UserLastModifiedAchievements, user.Id);
+        await _cacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, user.Id);
+        await _cacheService.SetLastModified(RedisKeys.UserLastModifiedQuests, user.Id);
+        await _cacheService.SetLastModified(RedisKeys.UserLastModifiedTransmog, user.Id);
+
         return Json(new
         {
             Accounts = accountMap.Values.ToList(),

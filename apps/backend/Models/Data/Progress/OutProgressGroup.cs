@@ -14,6 +14,9 @@ public class OutProgressGroup
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public string IconText { get; set; }
 
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+    public List<int> RequiredQuestIds { get; set; }
+
     public OutProgressGroup(DataProgressGroup data)
     {
         if (data.MinimumLevel > 0)
@@ -35,5 +38,13 @@ public class OutProgressGroup
                     .Select(v => new OutProgressData(v))
                     .ToList()
             );
+
+        if (!string.IsNullOrWhiteSpace(data.RequiredQuestId))
+        {
+            RequiredQuestIds = data.RequiredQuestId
+                .Split(' ')
+                .Select(int.Parse)
+                .ToList();
+        }
     }
 }
