@@ -11,23 +11,16 @@ groups:
   things:
   - 232 # Darting Hatchling - Dustwallow Marsh
   - 235 # Leaping Hatchling - The Barrens
-  - 1808 # Leyline Broodling ()
-  - 1604 # Nethaera's Light - Dalaran
   - 237 # Ravasaur Hatchling - Un'goro Crater
   - 238 # Razormaw Hatchling - Wetlands
   - 172 # Searing Scorchling
   - 382 # Sun Darter Hatchling (puzzle?)
-  - 1803 # Thistleleaf Adventurer ()
 
 - name: Vendor
   things:
   - 52 # Ancona Chicken - Thousand Needles
-  - 1888 # Celestial Calf ()
   - 47 # Cockatiel - Cape of Stranglethorn
-  - 2115 # Cross Gazer (Quest, A Pile of Intact Demon Eyes, Antoran Wastes - eye vendor?)
   - 1889 # Felbat Pup (Nethershard)
-  - 2017 # Infinite Hatchling (Timeless Isle - Mistweaver Xia)
-  - 2018 # Paradox Spirit (Timeless Isle - Mistweaver Xia)
   - 2022 # Tylarr Gronnden (Deeprun Tram/Brawl'gar Arena)
   - 306 # Winterspring Cub - Winterspring
 
@@ -49,13 +42,10 @@ groups:
 - name: Vendor - Dalaran
   things:
   - 74 # Albino Snake - Dalaran
-  - 1754 # Sewer-Pipe Jelly
-  - 1429 # Autumnal Sproutling (Dalaran - Draemus)
   - 254 # Blue Clockwork Rocket Bot - Dalaran
   - 224 # Calico Cat - Dalaran
   - 190 # Ghostly Skull - Dalaran
   - 236 # Obsidian Hatchling - Dalaran
-  - 2004 # Trashy (Dalaran - Conjurer Margoss)
   - 1727 # Nursery Spider
 
 - name: Vendor - Horde
@@ -74,8 +64,6 @@ groups:
   things:
   - 233 # Deviate Hatchling
   - 114 # Disgusting Oozeling
-  - 1245 # Filthling - Isle of Thunder
-  - 278 # Fox Kit - Tol Barad
   - 1428 # Zomstrok - Shadowmoon Valley (WoD)
 
 - name: Misc
@@ -87,17 +75,13 @@ groups:
 - name: Quests
   things:
   - 331 # Alliance Balloon
-  - 847 # Fishy
   - 332 # Horde Balloon
   - 1387 # Iron Starlette
   - 307 # Lashtail Hatchling
-  - 1446 # Meadowstomper Calf - Nagrand (WoD)
   - 83 # Mechanical Chicken
-  - 149 # Miniwing
   - 301 # Panther Cub
   - 1176 # Red Panda
   - 291 # Singing Sunflower
-  - 1185 # Spectral Porcupette
   - 287 # Tiny Flamefly
   - 84 # Westfall Chicken
   - 220 # Withers
@@ -108,8 +92,6 @@ groups:
   - 1320 # Lil' Bling - Blingtron
   - 1467 # Sky-Bo - Blingtron 5000
   - 1806 # Knockoff Blingtron (Blingtron 6000)
-
-
 
 # Rare Mobs
 - name: Other

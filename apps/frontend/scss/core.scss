@@ -195,3 +195,9 @@ div.content {
     border: 1px solid $border-color;
     border-radius: $border-radius;
 }
+.border-left {
+    border-left: 1px solid $border-color;
+}
+.border-right {
+    border-right: 1px solid $border-color;
+}

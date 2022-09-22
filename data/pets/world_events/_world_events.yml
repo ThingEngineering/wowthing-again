@@ -13,13 +13,13 @@ groups:
 
 - name: Day of the Dead
   things:
-  - 1351 # Macabre Marionette - Day of the Dead
+  - 1351 # Macabre Marionette
 
 - name: Feast of Winter Veil
   things:
   - 191 # Clockwork Rocket Bot
   - 119 # Father Winter's Helper
-  - 2114 # Globe Yeti (Feast of Winter Veil)
+  - 2114 # Globe Yeti
   - 1725 # Grumpling
   - 2622 # Jingles
   - 337 # Lumpy
@@ -48,8 +48,8 @@ groups:
 
 - name: Lunar Festival
   things:
-  - 342 # Festival Lantern - Lunar Festival
-  - 341 # Lunar Lantern - Lunar Festival
+  - 342 # Festival Lantern
+  - 341 # Lunar Lantern
 
 - name: Midsummer
   things:
@@ -66,5 +66,10 @@ groups:
 
 - name: Pilgrim's Bounty
   things:
-  - 1516 # Bush Chicken - Pilgrim's Bounty
-  - 201 # Plump Turkey - Pilgrim's Bounty
+  - 1516 # Bush Chicken
+  - 201 # Plump Turkey
+
+- name: Timewalking
+  things:
+  - 2017 # Infinite Hatchling (Timeless Isle - Mistweaver Xia)
+  - 2018 # Paradox Spirit (Timeless Isle - Mistweaver Xia)

@@ -86,7 +86,7 @@ const unlocks2 = [2, 3, 4, 5, 5, 5, 5]
 export const ascensionFights: AscensionFight[] = [
     {
         name: 'Kalisthene',
-        unlockQuestId: 0,
+        unlockQuestId: 60496,
         unlockRanks: unlocks1,
         fightQuestIds: [60917, 61023, 61033, 63102, 63103, 63104, 61043],
     },

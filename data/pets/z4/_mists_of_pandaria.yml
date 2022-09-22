@@ -5,6 +5,11 @@ groups:
   things:
   - 2591 # Happiness (Raiding with Leashes VI: Pets of Pandaria)
 
+- name: Quests
+  things:
+  - 847 # Fishy (Let Them Burn, The Jade Forest)
+  - 1185 # Spectral Porcupette (A Large Pile of Dinosaur Bones, Isle of Giants)
+
 - name: Quests - Daily
   things:
   - 1198 # Mountain Panda - MoP Trainer Daily
@@ -33,6 +38,8 @@ groups:
   - 1266 # Xu-Fu, Cub of Xuen
   - 1304 # Yu'la, Broodling of Yu'lon
   - 1305 # Zao, Calfling of Niuzao
+  - 2017 # Infinite Hatchling (Timeless Isle - Mistweaver Xia)
+  - 2018 # Paradox Spirit (Timeless Isle - Mistweaver Xia)
   - 1350 # Sky Lantern - Timeless Isle
   - 1344 # Vengeful Porcupette - Timeless Isle
 

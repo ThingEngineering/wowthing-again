@@ -48,7 +48,11 @@
         }
     }
     .name {
-        @include cell-width(10rem);
+        @include cell-width(9rem);
+    }
+    .progress {
+        padding-left: 2px;
+        padding-right: 2px;
     }
 </style>
 
@@ -81,10 +85,10 @@
     <thead>
         <tr>
             <th></th>
-            <th use:tippy={ascensionFightOrder[0]}>C</th>
+            <th class="border-left" use:tippy={ascensionFightOrder[0]}>C</th>
             <th use:tippy={ascensionFightOrder[1]}>L</th>
             <th use:tippy={ascensionFightOrder[2]}>W</th>
-            <th use:tippy={ascensionFightOrder[3]}>P</th>
+            <th class="border-left" use:tippy={ascensionFightOrder[3]}>P</th>
             <th use:tippy={ascensionFightOrder[4]}>K</th>
             <th use:tippy={ascensionFightOrder[5]}>M</th>
             <th use:tippy={ascensionFightOrder[6]}>H</th>
@@ -93,11 +97,17 @@
     <tbody>
         {#each ascensionFights as fight}
             <tr>
-                <td class="name text-overflow">{fight.name}</td>
+                <td
+                    class="name text-overflow"
+                    use:tippy={fight.name}
+                >
+                    {fight.name}
+                </td>
                 {#each fight.fightQuestIds as questId, questIndex}
                     {@const characterHas = quests?.has(questId)}
                     <td
                         class="progress"
+                        class:border-left={questIndex === 0 || questIndex === 3}
                         class:status-success={characterHas}
                         class:status-fail={!characterHas}
                         use:tippy={`${fight.name} - ${ascensionFightOrder[questIndex]}`}
@@ -120,6 +130,7 @@
                             />
                         {:else}
                             <IconifyIcon
+                                extraClass="status-shrug"
                                 icon={iconStrings.starEmpty}
                             />
                         {/if}

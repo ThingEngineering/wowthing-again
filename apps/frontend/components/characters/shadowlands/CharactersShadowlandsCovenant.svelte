@@ -90,7 +90,7 @@
                     else {
                         const duration = toNiceDuration(ends.diff($timeStore).toMillis())
                         featureData.rank++
-                        featureData.researching = `in <span class="status-shrug">${duration}</span>`
+                        featureData.researching = `<code class="status-shrug">${duration}</code> until&nbsp;`
                     }
                 }
             }
@@ -181,10 +181,10 @@
                 <div class="info-row">
                     <div>{feature.name}</div>
                     <div>
-                        <span class="{getPercentClass(feature.rank / feature.maxRank * 100)}">Rank {feature.rank}</span>
                         {#if feature.researching}
                             {@html feature.researching}
                         {/if}
+                        <span class="{getPercentClass(feature.rank / feature.maxRank * 100)}">Rank {feature.rank}</span>
                     </div>
                 </div>
 
