@@ -4,8 +4,6 @@ groups:
 - name: "Instances"
   things:
   - 199 # Amani War Bear (ZA)
-  - 110 # Swift Razzashi Raptor (ZG)
-  - 111 # Swift Zulian Tiger (ZG)
 
 - name: "Racial - Alliance"
   things:
