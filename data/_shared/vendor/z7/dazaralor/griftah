@@ -1,0 +1,13 @@
+id: 132114
+name: "Griftah"
+note: "Complete a short trading sequence to get the item required for the toy"
+
+locations:
+  z7_dazaralor:
+    - 52.8 89.8 horde
+
+sells:
+  - type: transmog
+    id: 156649 # Zandalari Effigy Amulet
+    costs:
+      1156659: 1 # Counterfeit Rastakhan Mask
