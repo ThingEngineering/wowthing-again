@@ -6,57 +6,57 @@ locations:
     - 45.2 28.6
     
 sets:
-  - name: "Death Knight"
+  - name: "Armor - Death Knight"
     range: 15
-    sortKey: "01deathknight"
+    sortKey: "1-armor-2-death-knight"
     
-  - name: "Demon Hunter"
+  - name: "Armor - Demon Hunter"
     range: 12
-    sortKey: "02demonhunter"
+    sortKey: "1-armor-2-demon-hunter"
     
-  - name: "Druid"
+  - name: "Armor - Druid"
     range: 21
-    sortKey: "03druid"
+    sortKey: "1-armor-2-druid"
     
-  - name: "Hunter"
+  - name: "Armor - Hunter"
     range: 15
-    sortKey: "04hunter"
+    sortKey: "1-armor-2-hunter"
     
-  - name: "Mage"
+  - name: "Armor - Mage"
     range: 16
-    sortKey: "05mage"
+    sortKey: "1-armor-2-mage"
     
-  - name: "Monk"
+  - name: "Armor - Monk"
     range: 19
-    sortKey: "06monk"
+    sortKey: "1-armor-2-monk"
     
-  - name: "Paladin"
+  - name: "Armor - Paladin"
     range: 15
-    sortKey: "07paladin"
+    sortKey: "1-armor-2-paladin"
     
-  - name: "Priest"
+  - name: "Armor - Priest"
     range: 18
-    sortKey: "08priest"
+    sortKey: "1-armor-2-priest"
     
-  - name: "Rogue"
+  - name: "Armor - Rogue"
     range: 13
-    sortKey: "09rogue"
+    sortKey: "1-armor-2-rogue"
     
-  - name: "Shaman"
+  - name: "Armor - Shaman"
     range: 15
-    sortKey: "10shaman"
+    sortKey: "1-armor-2-shaman"
     
-  - name: "Warlock"
+  - name: "Armor - Warlock"
     range: 14
-    sortKey: "11warlock"
+    sortKey: "1-armor-2-warlock"
     
-  - name: "Warrior"
+  - name: "Armor - Warrior"
     range: 13
-    sortKey: "12warrior"
+    sortKey: "1-armor-2-warrior"
     
-  - name: "Shared"
+  - name: "Armor - Shared"
     range: 4
-    sortKey: "13shared"
+    sortKey: "1-armor-2-shared"
 
 sells:
   # Death Knight

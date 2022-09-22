@@ -7,12 +7,11 @@ locations:
 
 sells:
   - type: pet
-    id: 1912 # Young Mutant Warturtles
-    costs:
-      1149: 1500 # Sightless Eye
-      
-  - type: pet
     id: 1754 # Sewer-Pipe Jelly
     costs:
       1149: 250 # Sightless Eye
 
+  - type: pet
+    id: 1912 # Young Mutant Warturtles
+    costs:
+      1149: 1500 # Sightless Eye

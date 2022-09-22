@@ -10,10 +10,11 @@ sells:
   - type: toy
     id: 147308 # Crate of Bobbers: Enchanted Bobber
     costs:
-      1146848: 100 #Fragmented Enchantment
-      
+      1146848: 100 # Fragmented Enchantment
+    reputation: 2097 best-friend
+
   - type: pet
     id: 2077 # Ghost Shark
     costs:
-      1146848: 50 #Fragmented Enchantment
-
+      1146848: 50 # Fragmented Enchantment
+    reputation: 2097 good-friend

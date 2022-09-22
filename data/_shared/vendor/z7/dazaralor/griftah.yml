@@ -7,7 +7,7 @@ locations:
     - 52.8 89.8 horde
 
 sells:
-  - type: transmog
+  - type: toy
     id: 156649 # Zandalari Effigy Amulet
     costs:
       1156659: 1 # Counterfeit Rastakhan Mask

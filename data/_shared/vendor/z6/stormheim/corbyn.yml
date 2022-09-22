@@ -8,11 +8,13 @@ locations:
 
 sells:
   - type: toy
-    id: 152574 # Corbyn's Beacon
-    costs:
-      1146961: 50 # Shiny Bauble
-
-  - type: toy
     id: 147307 # Crate of Bobbers: Carved Wooden Helm
     costs:
       1146961: 100 # Shiny Bauble
+    reputation: 2100 best-friend
+
+  - type: toy
+    id: 152574 # Corbyn's Beacon
+    costs:
+      1146961: 50 # Shiny Bauble
+    reputation: 2100 good-friend

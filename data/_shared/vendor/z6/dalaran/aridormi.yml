@@ -12,11 +12,11 @@ tags:
 sets:
   - name: "Armor - Timewalking"
     range: 12 3
-    sortKey: "1-armor-timewalking"
+    sortKey: "1-armor-1-timewalking"
 
   - name: "Weapons - Timewalking"
     range: -1
-    sortKey: "1-weapons-timewalking"
+    sortKey: "1-weapons-1-timewalking"
 
 sells:
   - type: mount

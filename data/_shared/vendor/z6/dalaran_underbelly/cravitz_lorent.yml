@@ -9,7 +9,7 @@ locations:
     - 52.2 40
 
 sells:
-  - type: transmog
+  - type: toy
     id: 136927 # Scarlet Confessional Book
     costs:
       0: 50 # Gold

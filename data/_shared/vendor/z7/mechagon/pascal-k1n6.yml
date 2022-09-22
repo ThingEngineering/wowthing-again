@@ -7,13 +7,6 @@ locations:
     - 71.4 32.6
     
 sells:    
-  - type: toy
-    id: 168907 # Holographic Digitalization Hearthstone
-    costs:
-      1169610: 4 # S.P.A.R.E. Crate
-      1166970: 5 # Energy Cell
-      1168327: 3 # Chain Ignitercoil
-
   - type: mount
     id: 1239 # X-995 Mechano-Cat
     costs:
@@ -34,6 +27,13 @@ sells:
       1169610: 3 # S.P.A.R.E. Crate
       1166970: 3 # Energy Cell
       1168327: 5 # Chain Ignitercoil
+
+  - type: toy
+    id: 168907 # Holographic Digitalization Hearthstone
+    costs:
+      1169610: 4 # S.P.A.R.E. Crate
+      1166970: 5 # Energy Cell
+      1168327: 3 # Chain Ignitercoil
 
   - type: transmog
     id: 169155 # Scrapmaster's Blowtorch

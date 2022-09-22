@@ -11,8 +11,10 @@ sells:
     id: 147310 # Crate of Bobbers: Floating Totem
     costs:
       1146960: 100 # Ancient Totem Fragment
+    reputation: 2099 best-friend
 
   - type: toy
     id: 152556 # Trawler Totem
     costs:
       1146960: 50 # Ancient Totem Fragment
+    reputation: 2099 good-friend
