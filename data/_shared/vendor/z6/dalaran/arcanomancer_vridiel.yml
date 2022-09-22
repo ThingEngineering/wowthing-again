@@ -56,7 +56,7 @@ sets:
     
   - name: "Armor - Shared"
     range: 4
-    sortKey: "1-armor-2-shared"
+    sortKey: "1-armor-3-shared"
 
 sells:
   # Death Knight
