@@ -9,6 +9,7 @@ groups:
   things:
   - 119217 # Alliance Flag of Victory
   - 119218 # Horde Flag of Victory
+  - 119219 # Warlord's Flag of Victory
 
 - name: Inn
   things:
