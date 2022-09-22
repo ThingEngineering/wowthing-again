@@ -23,6 +23,7 @@ export interface ManualDataProgressData {
     ids: number[]
     description?: string
     name: string
+    required?: boolean
     type: ProgressDataType
     value?: number
 }

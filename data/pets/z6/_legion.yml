@@ -32,7 +32,17 @@ groups:
   - 2050 # Orphaned Felbat (Armies of Legionfall, Paragon)
   - 2116 # Orphaned Marsuul (Argussian Reach, Honored)
   - 1885 # Sunborne Val'kyr (?)
+  - 1803 # Thistleleaf Adventurer (Dreamweavers, Emissary Chest)
 
 - name: Treasures
   things:
+  - 1808 # Leyline Broodling (?, Suramar)
   - 2042 # Scraps (Curious Wyrmtongue Cache, Broken Shore)
+
+- name: Vendors
+  things:
+  - 1429 # Autumnal Sproutling (Draemus, Dalaran)
+  - 1888 # Celestial Calf (The Mad Merchant, Dalaran)
+  - 2115 # Cross Gazer (Orix the All-Seer, Antoran Wastes)
+  - 1754 # Sewer-Pipe Jelly (Laura Malley, Dalaran Sewers)
+  - 2004 # Trashy (Conjurer Margoss, Dalaran)

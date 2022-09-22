@@ -9,6 +9,10 @@ groups:
   - 194 # Tickbird Hatchling (The Oracles)
   - 195 # White Tickbird hatchling (The Oracles)
 
+- name: Treasures
+  things:
+  - 1604 # Nethaera's Light (Dalaran)
+
 - name: World Drops
   things:
   - 234 # Gundrak Hatchling (Zul'Drak)

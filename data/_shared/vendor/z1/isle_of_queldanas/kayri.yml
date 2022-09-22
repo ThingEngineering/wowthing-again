@@ -4,7 +4,8 @@ note: "Exotic Gear Purveyor"
 
 locations:
   z1_isle_of_queldanas:
-    - 50 39.8
+    - 49.4 38.0
+    #- 49.4 39.8
 
 sets:
   - name: "Armor - S02 Shared Cloth"

@@ -1,0 +1,142 @@
+<script lang="ts">
+    import { ascensionFightOrder, ascensionFights, ascensionItems } from '@/data/covenant'
+    import { iconStrings } from '@/data/icons'
+    import { userQuestStore } from '@/stores'
+    import tippy from '@/utils/tippy'
+    import type { Character, CharacterShadowlandsCovenantFeature } from '@/types'
+
+    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import WowheadLink from '@/components/links/WowheadLink.svelte'
+    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+
+    export let character: Character
+    export let feature: CharacterShadowlandsCovenantFeature
+
+    let quests: Map<number, boolean>
+    $: {
+        quests = $userQuestStore.data.characters[character.id]?.quests
+    }
+</script>
+
+<style lang="scss">
+    .collection {
+        border-width: 0;
+        margin: 0 -0.25rem;
+    }
+    .collection-section {
+        margin-bottom: -0.25rem;
+        padding-bottom: 0;
+        padding-left: 0.25rem;
+    }
+    .collection-objects {
+        --image-border-width: 2px;
+
+        div + div {
+            margin-left: 0.2rem;
+        }
+    }
+    .fight-table {
+        margin-top: 1rem;
+
+        td {
+            padding-bottom: 0.3rem;
+            padding-top: 0.3rem;
+
+            :global(.unavailable) {
+                color: #555;
+            }
+        }
+    }
+    .name {
+        @include cell-width(9rem);
+    }
+    .progress {
+        padding-left: 2px;
+        padding-right: 2px;
+    }
+</style>
+
+<div class="collection thing-container">
+    <div class="collection-section">
+        <div class="collection-objects">
+            {#each ascensionItems as [itemId, questId]}
+                {@const characterHas = $userQuestStore.data.characters[character.id]?.quests?.has(questId)}
+                <div
+                    class="quality3"
+                    class:missing={!characterHas}
+                >
+                    <WowheadLink
+                        type="item"
+                        id={itemId}
+                    >
+                        <WowthingImage
+                            name="item/{itemId}"
+                            size={48}
+                            border={2}
+                        />
+                    </WowheadLink>
+                </div>
+            {/each}
+        </div>
+    </div>
+</div>
+
+<table class="fight-table table table-striped">
+    <thead>
+        <tr>
+            <th></th>
+            <th class="border-left" use:tippy={ascensionFightOrder[0]}>C</th>
+            <th use:tippy={ascensionFightOrder[1]}>L</th>
+            <th use:tippy={ascensionFightOrder[2]}>W</th>
+            <th class="border-left" use:tippy={ascensionFightOrder[3]}>P</th>
+            <th use:tippy={ascensionFightOrder[4]}>K</th>
+            <th use:tippy={ascensionFightOrder[5]}>M</th>
+            <th use:tippy={ascensionFightOrder[6]}>H</th>
+        </tr>
+    </thead>
+    <tbody>
+        {#each ascensionFights as fight}
+            <tr>
+                <td
+                    class="name text-overflow"
+                    use:tippy={fight.name}
+                >
+                    {fight.name}
+                </td>
+                {#each fight.fightQuestIds as questId, questIndex}
+                    {@const characterHas = quests?.has(questId)}
+                    <td
+                        class="progress"
+                        class:border-left={questIndex === 0 || questIndex === 3}
+                        class:status-success={characterHas}
+                        class:status-fail={!characterHas}
+                        use:tippy={`${fight.name} - ${ascensionFightOrder[questIndex]}`}
+                    >
+                        {#if characterHas}
+                            <IconifyIcon
+                                icon={iconStrings.starFull}
+                            />
+                        {:else if feature.rank < fight.unlockRanks[questIndex]}
+                            <IconifyIcon
+                                icon={iconStrings.lock}
+                                extraClass="unavailable"
+                            />
+                        {:else if (
+                            (questIndex > 0 && !quests?.has(fight.fightQuestIds[Math.min(2, questIndex-1)])) ||
+                            (!quests?.has(fight.unlockQuestId))
+                        )}
+                            <IconifyIcon
+                                icon={iconStrings.lock}
+                            />
+                        {:else}
+                            <IconifyIcon
+                                extraClass="status-shrug"
+                                icon={iconStrings.starEmpty}
+                            />
+                        {/if}
+                    </td>
+                {/each}
+            </tr>
+        {/each}
+    </tbody>
+</table>

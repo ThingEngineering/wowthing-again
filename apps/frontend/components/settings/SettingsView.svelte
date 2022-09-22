@@ -3,6 +3,7 @@
 
     import Achievements from './sections/SettingsAchievements.svelte'
     import Auctions from './sections/SettingsAuctions.svelte'
+    import AuctionsCustom from './sections/SettingsAuctionsCustom.svelte'
     import Account from './sections/SettingsAccount.svelte'
     import HideCharacters from './sections/SettingsHideCharacters.svelte'
     import History from './sections/SettingsHistory.svelte'
@@ -26,6 +27,7 @@
         'account': Account,
         'achievements': Achievements,
         'auctions': Auctions,
+        'auctions/custom': AuctionsCustom,
         'history': History,
         'layout': Layout,
         'layout/lockouts': Lockouts,

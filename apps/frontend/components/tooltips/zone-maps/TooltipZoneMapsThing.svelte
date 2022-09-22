@@ -207,7 +207,7 @@
                         {:else if drop.type === RewardType.Armor}
                             {ArmorType[drop.subType].toLowerCase()}
                         {:else if drop.type === RewardType.Weapon}
-                            {weaponSubclassToString[drop.subType]}
+                            {weaponSubclassToString[drop.subType].toLowerCase()}
                         {:else if drop.type === RewardType.InstanceSpecial}
                             {@html drop.limit[0]}
                         {:else if drop.type === RewardType.SetSpecial}

@@ -12,13 +12,25 @@
 
     export let slug1: string
     export let slug2: string
+    export let slug3: string
 
     let instance: JournalDataInstance
+    let slugKey: string
     $: {
         instance = undefined
         const tier: JournalDataTier = find($journalStore.data.tiers, (tier) => tier?.slug === slug1)
         if (tier) {
-            instance = find(tier.instances, (instance) => instance.slug === slug2)
+            if (tier.subTiers) {
+                const subTier = find(tier.subTiers, (subTier) => subTier.slug === slug2)
+                if (subTier) {
+                    instance = find(subTier.instances, (instance) => instance.slug === slug3)
+                    slugKey = `${slug2}--${slug3}`
+                }
+            }
+            else {
+                instance = find(tier.instances, (instance) => instance.slug === slug2)
+                slugKey = `${slug1}--${slug2}`
+            }
         }
     }
 
@@ -67,16 +79,16 @@
         <div class="collection thing-container" data-instance-id="{instance.id}">
             <SectionTitle
                 title={instance.name}
-                count={$journalStore.data.stats[`${slug1}--${slug2}`]}
+                count={$journalStore.data.stats[slugKey]}
             >
                 <EncounterStats
-                    statsKey={`${slug1}--${slug2}`}
+                    statsKey={slugKey}
                 />
             </SectionTitle>
 
             {#each instance.encounters as encounter}
                 {#if $journalState.showTrash || encounter.name !== 'Trash Drops'}
-                    {@const statsKey = `${slug1}--${slug2}--${encounter.name}`}
+                    {@const statsKey = `${slugKey}--${encounter.name}`}
                     {@const useV2 = encounter.groups.length > 3 && encounter.groups.reduce(reduceFunc, 0) > 30}
                     <SectionTitle
                         title={encounter.name}
@@ -92,7 +104,7 @@
                         {#each encounter.groups as group}
                             <Group
                                 bonusIds={instance.bonusIds}
-                                stats={$journalStore.data.stats[`${slug1}--${slug2}--${encounter.name}--${group.name}`]}
+                                stats={$journalStore.data.stats[`${slugKey}--${encounter.name}--${group.name}`]}
                                 {group}
                                 {useV2}
                             />

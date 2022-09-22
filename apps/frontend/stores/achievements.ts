@@ -48,6 +48,12 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
         }
         data.criteriaTreeRaw = null
 
+        data.isHidden = {}
+        for (const achievementId of data.hideIds) {
+            data.isHidden[achievementId] = true
+        }
+        data.hideIds = null
+
         data.categories.push(null)
         let categoryId = 100000
         for (const [baseSlug, children] of extraCategories) {
@@ -107,6 +113,68 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
 
             data.categories.push(category)
         }
+
+        data.categories.push(null)
+        data.categories.push({
+            id: categoryId,
+            name: 'Back from the Beyond',
+            slug: 'back-from-the-beyond',
+            achievementIds: [
+                15654, // Back from the Beyond
+
+                14715, // Castle Nathria
+                14961, // Chains of Domination
+                15647, // Dead Men Tell Some Tales
+                15178, // Fake It 'Til You Make It
+                
+                15336, // From A to Zereth
+                15331, // Treasures of Zereth Mortis
+                15392, // Dune Dominance
+                15391, // Adventurer of Zereth Mortis
+                15402, // Cyphers of the First Ones
+                15407, // Synthe-fived!
+                15220, // The Enlightened
+
+                15079, // Many, Many Things
+                15651, // Myths of the Shadowland Dungeons
+
+                15035, // On the Offensive
+
+                15646, // Re-Re-Re-Renowned
+                15025, // Sanctum Superior
+                15126, // Sanctum of Domination
+                15259, // Secrets of the First Ones
+                15417, // Sepulcher of the First Ones
+
+                15649, // Shadowlands Dilettante
+                14502, // Pursuing Loyalty
+                14752, // Things To Do When You're Dead
+                14684, // Abominable Lives
+                14751, // The Gang's All Here
+                14748, // Wardrobe Makeover
+                14753, // It's a Wrap
+                14775, // Mush Appreciated
+                14723, // Be Our Guest
+
+                15324, // Tower Ranger
+                15322, // Flawless Master (Layer 16)
+                15092, // Master of Torment
+                15093, // Avenge Me!
+                15095, // No Doubt
+                15094, // Rampage
+                15096, // Crowd Pleaser
+
+                15648, // Walking in Maw-mphis
+                14895, // 'Ghast Five
+                14744, // Better to Be Lucky Than Dead
+                14660, // It's About Sending a Message
+                14738, // Hunting Party
+                14656, // Trading Partners
+                14658, // Soulkeeper's Burden
+                14663, // Explore The Maw
+            ],
+            children: [],
+        })
 
         console.timeEnd('AchievementData.initialize')
     }

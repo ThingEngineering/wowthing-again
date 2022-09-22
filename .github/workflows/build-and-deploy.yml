@@ -3,7 +3,7 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - main
+      - live
 
   # Allow job to be manually started
   workflow_dispatch:
@@ -21,7 +21,7 @@ jobs:
         id: filter
         if: github.event_name != 'workflow_dispatch'
         with:
-          base: main
+          base: live
           filters: |
             backend:
               - 'apps/backend/**'

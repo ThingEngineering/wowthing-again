@@ -10,8 +10,8 @@
     export let id = 'sub-sidebar'
     export let noVisitRoot = false
     export let width = '10rem'
-    export let decorationFunc: (entry: SidebarItem, parentEntry?: SidebarItem) => string = undefined
-    export let percentFunc: (entry: SidebarItem, parentEntry?: SidebarItem) => number = undefined
+    export let decorationFunc: (entry: SidebarItem, parentEntries?: SidebarItem[]) => string = undefined
+    export let percentFunc: (entry: SidebarItem, parentEntries?: SidebarItem[]) => number = undefined
 
     let anyChildren: boolean
     $: {

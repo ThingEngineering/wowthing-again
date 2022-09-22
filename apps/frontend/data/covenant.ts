@@ -27,7 +27,7 @@ export const covenantFeatureOrder: [string, string, number][] = [
     ['conductor', 'Anima Conductor', 3],
     ['missions', 'Command Table', 3],
     ['transport', 'Transport Network', 3],
-    ['unique', 'Unique Feature', 5],
+    ['unique', 'Special Feature', 5],
 ]
 
 export const covenantFeatureReputation: Record<string, number> = {
@@ -36,6 +36,125 @@ export const covenantFeatureReputation: Record<string, number> = {
     '3-transport': 2463, // Marasmius
     '4-unique': 2462, // Stitchmasters
 }
+
+export const covenantFeatureCost: Record<number, number[][]> = {
+    1: [
+        [1, 1000],
+        [8, 5000],
+        [22, 10000],
+    ],
+    2: [
+        [1, 1000],
+        [8, 5000],
+        [22, 10000],
+    ],
+    3: [
+        [1, 1000],
+        [8, 5000],
+        [22, 10000],
+    ],
+    4: [
+        [6, 1500],
+        [12, 5000],
+        [22, 10000],
+        [40, 12500],
+        [70, 15000],
+    ],
+}
+
+// Kyrian
+// courage, loyalty, wisdom, humility
+export const ascensionFightOrder= [
+    'Courage',
+    'Loyalty',
+    'Wisdom',
+    'Humility: Pelagos',
+    'Humility: Kleia',
+    'Humility: Mikanikos',
+    'Humility: no charms',
+]
+
+type AscensionFight = {
+    fightQuestIds: number[]
+    name: string
+    unlockQuestId: number
+    unlockRanks: number[]
+}
+const unlocks1 = [1, 2, 3, 5, 5, 5, 5]
+const unlocks2 = [2, 3, 4, 5, 5, 5, 5]
+
+export const ascensionFights: AscensionFight[] = [
+    {
+        name: 'Kalisthene',
+        unlockQuestId: 60496,
+        unlockRanks: unlocks1,
+        fightQuestIds: [60917, 61023, 61033, 63102, 63103, 63104, 61043],
+    },
+    {
+        name: 'Echthra',
+        unlockQuestId: 61356,
+        unlockRanks: unlocks1,
+        fightQuestIds: [60918, 61022, 61032, 63105, 63106, 63107, 61042],
+    },
+    {
+        name: "Alderyn and Myn'ir",
+        unlockQuestId: 61358,
+        unlockRanks: unlocks1,
+        fightQuestIds: [60919, 61021, 61031, 63108, 63109, 63110, 61041],
+    },
+    {
+        name: 'Nuuminuuru',
+        unlockQuestId: 61361,
+        unlockRanks: unlocks1,
+        fightQuestIds: [60921, 61020, 61030, 63111, 63112, 63113, 61040],
+    },
+    {
+        name: 'Craven Corinth',
+        unlockQuestId: 61370,
+        unlockRanks: unlocks1,
+        fightQuestIds: [60922, 61019, 61029, 63114, 63115, 63116, 61039],
+    },
+    {
+        name: 'Splinterbark Nightmare',
+        unlockQuestId: 61365,
+        unlockRanks: unlocks1,
+        fightQuestIds: [60923, 61018, 61028, 63117, 63118, 63119, 61038],
+    },
+    {
+        name: "Thran'tiok",
+        unlockQuestId: 61367,
+        unlockRanks: unlocks2,
+        fightQuestIds: [60924, 61017, 61027, 63120, 63121, 63122, 61037],
+    },
+    {
+        name: 'Mad Mortimer',
+        unlockQuestId: 61363,
+        unlockRanks: unlocks2,
+        fightQuestIds: [60925, 61016, 61026, 63123, 63124, 63125, 61036],
+    },
+    {
+        name: 'Athanos',
+        unlockQuestId: 61371,
+        unlockRanks: unlocks2,
+        fightQuestIds: [60926, 61015, 61025, 63126, 63127, 63128, 61035],
+    },
+    {
+        name: 'Azaruux',
+        unlockQuestId: 61373,
+        unlockRanks: unlocks2,
+        fightQuestIds: [60927, 61014, 61024, 63129, 63130, 63131, 61034],
+    },
+]
+
+// itemId, questId
+export const ascensionItems: [number, number][] = [
+    [180579, 61473], // Herald's Footpads
+    [181499, 60945], // Deep Echo Trident
+    [184477, 62996], // Vial of Lichfrost
+    [184478, 60974], // Phial of Serenity
+    [184481, 62998], // Ring of Warding
+    [184475, 62995], // Spiritforged Aegis
+]
 
 // Necrolords
 // [criteriaId, spellId]

@@ -12,7 +12,7 @@ import type {
 import type { UserQuestData } from '@/types/data'
 
 
-const debugId = 15055
+const debugId = 12429
 
 export function getCharacterData(
     achievementData: AchievementData,
@@ -85,7 +85,14 @@ export function getCharacterData(
             }
         }
         else {
-            if (criteria?.type === CriteriaType.RaiseSkillLine) {
+            if (criteria?.type === CriteriaType.CompleteQuest) {
+                for (const character of characters) {
+                    if (userQuestData.characters[character.id]?.quests?.has(criteria.asset)) {
+                        characterCounts[character.id] = (characterCounts[character.id] || 0) + 1
+                    }
+                }
+            }
+            else if (criteria?.type === CriteriaType.RaiseSkillLine) {
                 for (const character of characters) {
                     for (const subProfessions of Object.values(character.professions || {})) {
                         const subProfession = subProfessions[criteria.asset]

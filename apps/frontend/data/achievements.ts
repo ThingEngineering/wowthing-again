@@ -13,10 +13,31 @@ export const forceAddonCriteria: Record<number, number> = {
 }
 
 export const forceSupersededBy: Record<number, number> = {
+    9: 14782, // Level 40 -> Level 50
     5324: 5325, // In Service of the Horde -> Veteran of the Horde
     5327: 5328, // In Service of the Alliance -> Veteran of the Alliance
     13701: 13702, // Battlefield Brawler -> Battlefield Tactician
     13702: 13703, // Battlefield Tactician -> Battlefield Master
+}
+
+export const forceGarrisonTalent: Record<number, [number, number]> = {
+    91802: [1863, 2], // Elite Slayer Rank 2
+    91803: [1783, 3], // Blessing Rank 3
+    91804: [1787, 2], // Emp. Swiftness Rank 2
+    91805: [1794, 1], // Efficent Looter
+    91806: [1784, 2], // Freed from torment Rank 2
+    91807: [1785, 3], // Emp Perservance Rank 3
+    91808: [1792, 3], // Discovered Cache Rank 3
+    91809: [1793, 5], // Undeterred Rank 5
+    91810: [1788, 1], // Adamant Vaults
+    91811: [1786, 5], // Inexplicable Power Rank 5
+    91812: [1789, 1], // Enduring Souls
+    91813: [1790, 2], // Good Reflexes Rank 2
+    91814: [1791, 3], // Death Denied Rank 3
+    91815: [1861, 5], // Unfllinching Rank 5
+    91816: [1865, 3], // Anima Plunder Rank 3
+    91817: [1864, 3], // Meddle with Fate 3
+    91818: [1878, 1], // Empowered Mastery
 }
 
 export const forceSupersedes: Record<number, number> = Object.fromEntries(

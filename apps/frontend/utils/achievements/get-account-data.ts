@@ -1,4 +1,5 @@
-import { forceAddonCriteria } from '@/data/achievements'
+import CharacterTable from '@/components/character-table/CharacterTable.svelte'
+import { forceAddonCriteria, forceGarrisonTalent } from '@/data/achievements'
 import type {
     AchievementData,
     AchievementDataAchievement,
@@ -9,7 +10,7 @@ import type {
 import { CriteriaType } from '@/types/enums'
 
 
-const debugId = 15654
+const debugId = 150791
 
 export function getAccountData(
     achievementData: AchievementData,
@@ -55,6 +56,23 @@ export function getAccountData(
 
                 if (criteria?.type === CriteriaType.EarnAchievement) {
                     ret.have[childId] = userAchievementData.achievements[criteria.asset] !== undefined ? 1 : 0
+                }
+                else if (criteria?.type === CriteriaType.GarrisonTalentCompleteResearchAny && forceGarrisonTalent[childId]) {
+                    const [talentId, minRank] = forceGarrisonTalent[childId]
+                    console.log('research', talentId, minRank)
+                    for (const character of userData.characters) {
+                        for (const garrisonTree of Object.values(character.garrisonTrees || {})) {
+                            if (garrisonTree[talentId]) {
+                                if (garrisonTree[talentId][0] > 0) console.log(garrisonTree[talentId])
+
+                                if (garrisonTree[talentId]?.[0] >= minRank) {
+                                    console.log('yay')
+                                    ret.have[childId] = 1
+                                }
+                                break
+                            }
+                        }
+                    }
                 }
                 else if (criteria?.type === CriteriaType.RaiseSkillLine) {
                     for (const character of userData.characters) {

@@ -351,12 +351,12 @@
                                     currencyId={linkType === 'currency' ? linkId : undefined}
                                     itemId={linkType === 'item' ? linkId : undefined}
                                 >
-                                    {value}
                                     <WowthingImage
                                         name="{linkType}/{linkId}"
                                         size={20}
                                         border={0}
                                     />
+                                    {value}
                                 </CurrencyLink>
                             </div>
                         {/each}
@@ -379,12 +379,12 @@
                                         currencyId={linkType === 'currency' ? linkId : undefined}
                                         itemId={linkType === 'item' ? linkId : undefined}
                                     >
-                                        {value}
                                         <WowthingImage
                                             name="{linkType}/{linkId}"
                                             size={20}
                                             border={0}
                                         />
+                                        {value}
                                     </CurrencyLink>
                                 </div>
                             {/each}

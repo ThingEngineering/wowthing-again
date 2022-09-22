@@ -9,4 +9,5 @@ export enum ProgressDataType {
     SlCovenant,
     Always,
     HonorLevel,
+    GarrisonTree,
 }

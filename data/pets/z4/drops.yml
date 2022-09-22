@@ -16,6 +16,7 @@ groups:
 
 - name: Isle of Thunder
   things:
+  - 1245 # Filthling (?)
   - 1178 # Sunreaver Micro-Sentry (Haywire Sunreaver Construct, Isle of Thunder)
 
 - name: Timeless Isle

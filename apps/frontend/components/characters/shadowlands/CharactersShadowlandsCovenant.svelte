@@ -11,11 +11,12 @@
     import type { Character, CharacterShadowlandsCovenant, CharacterShadowlandsCovenantFeature } from '@/types'
     import type { ManualDataProgressCategory } from '@/types/data/manual'
 
-    import Abominations from './CharactersShadowlandsAbominations.svelte'
     import EmberCourt from './CharactersShadowlandsEmberCourt.svelte'
+    import PathOfAscension from './CharactersShadowlandsPathOfAscension.svelte'
     import ReputationBar from '@/components/common/ReputationBar.svelte'
     import Soulbind from './CharactersShadowlandsSoulbind.svelte'
     import Soulshapes from './CharactersShadowlandsSoulshapes.svelte'
+    import Stitchyard from './CharactersShadowlandsStitchyard.svelte'
 
     export let character: Character
     export let covenantId: number
@@ -23,7 +24,14 @@
     let characterCovenant: CharacterShadowlandsCovenant
     let campaignHave: number
     let campaignTotal: number
-    let features: {key: string, maxRank: number, name: string, rank: number, researching: string}[]
+    let features: {
+        feature: CharacterShadowlandsCovenantFeature,
+        key: string,
+        maxRank: number,
+        name: string,
+        rank: number,
+        researching: string
+    }[]
     let renown: number
     $: {
         characterCovenant = character.shadowlands?.covenants?.[covenantId]
@@ -51,30 +59,15 @@
 
         features = []
         for (const [key, name, maxRank] of covenantFeatureOrder) {
+            const characterFeature = characterCovenant?.[key as keyof CharacterShadowlandsCovenant] as CharacterShadowlandsCovenantFeature
+
             const featureData = {
+                feature: characterFeature,
                 key,
                 maxRank,
                 name,
                 rank: 0,
                 researching: '',
-            }
-
-            // This is kinda gross but I couldn't work out a better way, something like this makes Typescript mad:
-            //   const characterFeature: foo = characterCovenant?.[key]
-            let characterFeature: CharacterShadowlandsCovenantFeature
-            switch (key) {
-                case 'conductor':
-                    characterFeature = characterCovenant?.conductor
-                    break
-                case 'missions':
-                    characterFeature = characterCovenant?.missions
-                    break
-                case 'transport':
-                    characterFeature = characterCovenant?.transport
-                    break
-                case 'unique':
-                    characterFeature = characterCovenant?.unique
-                    break
             }
 
             if (characterFeature) {
@@ -88,7 +81,8 @@
                     }
                     else {
                         const duration = toNiceDuration(ends.diff($timeStore).toMillis())
-                        featureData.researching = `Upgrades in <span class="status-shrug">${duration}</span>`
+                        featureData.rank++
+                        featureData.researching = `<code class="status-shrug">${duration}</code> until&nbsp;`
                     }
                 }
             }
@@ -175,28 +169,38 @@
 
             <div class="spacer"></div>
 
-            {#each features as feature, featureIndex}
+            {#each features as featureData, featureIndex}
                 <div class="info-row">
-                    <div>{feature.name}</div>
-                    <div class="{getPercentClass(feature.rank / feature.maxRank * 100)}">Rank {feature.rank}</div>
+                    <div>{featureData.name}</div>
+                    <div>
+                        {#if featureData.researching}
+                            {@html featureData.researching}
+                        {/if}
+                        <span class="{getPercentClass(featureData.rank / featureData.maxRank * 100)}">Rank {featureData.rank}</span>
+                    </div>
                 </div>
 
-                {#if feature.researching}
-                    <div class="info-research">{@html feature.researching}</div>
-                {/if}
-
-                {#if feature.rank > 0 && covenantFeatureReputation[`${covenantId}-${feature.key}`]}
+                {#if featureData.rank > 0 && covenantFeatureReputation[`${covenantId}-${featureData.key}`]}
                     <ReputationBar
-                        reputationId={covenantFeatureReputation[`${covenantId}-${feature.key}`]}
+                        reputationId={covenantFeatureReputation[`${covenantId}-${featureData.key}`]}
                         {character}
                     />
                 {/if}
 
-                {#if feature.key === 'unique' && feature.rank > 0}
-                    {#if covenantId === 2}
-                        <EmberCourt />
+                {#if featureData.key === 'unique' && featureData.rank > 0}
+                    {#if covenantId === 1}
+                        <PathOfAscension
+                            {character}
+                            feature={featureData.feature}
+                        />
+                    {:else if covenantId === 2}
+                        <EmberCourt
+                            {character}
+                        />
                     {:else if covenantId === 4}
-                        <Abominations {character} />
+                        <Stitchyard
+                            {character}
+                        />
                     {/if}
                 {/if}
 
@@ -208,7 +212,9 @@
         </div>
 
         {#if covenantId === 3}
-            <Soulshapes {character} />
+            <Soulshapes
+                {character}
+            />
         {/if}
     </div>
 

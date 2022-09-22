@@ -12,4 +12,5 @@ public enum ProgressDataType
     SlCovenant,
     Always,
     HonorLevel,
+    GarrisonTree,
 }

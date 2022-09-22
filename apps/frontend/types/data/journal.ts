@@ -12,6 +12,7 @@ export interface JournalDataTier {
     name: string
     slug: string
     instances: JournalDataInstance[]
+    subTiers?: JournalDataTier[]
 }
 
 export interface JournalDataInstance {
@@ -21,6 +22,7 @@ export interface JournalDataInstance {
     bonusIds?: Record<number, number>
     encounters: JournalDataEncounter[]
     encountersRaw: JournalDataEncounterArray[]
+    isRaid?: boolean
 }
 
 export class JournalDataEncounter {

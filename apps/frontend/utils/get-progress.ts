@@ -23,6 +23,7 @@ export default function getProgress(
     group: ManualDataProgressGroup
 ): ProgressInfo {
     let have = 0
+    let missingRequired = false
     let showCurrency = 0
     let total = 0
     let icon = ''
@@ -67,7 +68,13 @@ export default function getProgress(
         }
 
         if (datas) {
-            total = datas.length
+            if (datas[0].type === ProgressDataType.GarrisonTree) {
+                total = datas.reduce((a, b) => a + b.value, 0)
+            }
+            else {
+                total = datas.length
+            }
+
             for (let dataIndex = 0; dataIndex < datas.length; dataIndex++) {
                 const data = datas[dataIndex]
                 let haveThis = false
@@ -98,7 +105,7 @@ export default function getProgress(
                                     haveThis = true
                                 }
                                 else if (data.ids.length === 2) {
-                                    haveThis = cheev.criteria[data.ids[1]] >= (data.value || 1)
+                                    haveThis = (cheev.criteria?.[data.ids[1]] || 0) >= (data.value || 1)
                                 }
                                 else if (data.description && data.value) {
                                     // TODO do this properly
@@ -171,8 +178,23 @@ export default function getProgress(
                             break
                         }
 
+                        case ProgressDataType.GarrisonTree: {
+                            const talent = character.garrisonTrees?.[data.ids[0]]?.[data.ids[1]]
+                            if (talent?.[0] > 0) {
+                                have += (data.value - 1)
+                                haveThis = talent[0] >= data.value
+                            }
+
+                            descriptionText[dataIndex] = `Rank ${talent?.[0] || 0}/${data.value}`
+                            showCurrency = 1904 // Tower Knowledge
+
+                            break
+                        }
+
                         case ProgressDataType.SlCovenant: {
-                            const covenant = character.shadowlands?.covenants?.[data.ids[0]]
+                            const covenant = character.shadowlands?.covenants?.[
+                                data.ids[0] === 0 ? character.shadowlands?.covenantId : data.ids[0]
+                            ]
                             if (covenant && (
                                     covenant.conductor?.rank > 0 ||
                                     covenant.missions?.rank > 0 ||
@@ -181,6 +203,10 @@ export default function getProgress(
                             )) {
                                 const [featureKey, , featureMaxRank] = covenantFeatureOrder[data.value - 1]
                                 const charBuilding = covenant[featureKey as keyof CharacterShadowlandsCovenant] as CharacterShadowlandsCovenantFeature
+
+                                if (data.ids[0] === 0) {
+                                    icon = covenantMap[character.shadowlands.covenantId].icon
+                                }
 
                                 have = charBuilding?.rank || 0
                                 total = featureMaxRank
@@ -246,6 +272,9 @@ export default function getProgress(
                     haveIndexes.push(dataIndex)
                     have++
                 }
+                else if (!haveThis && data.required === true) {
+                    missingRequired = true
+                }
             }
         }
     }
@@ -256,6 +285,7 @@ export default function getProgress(
         have,
         haveIndexes,
         icon,
+        missingRequired,
         nameOverride,
         showCurrency,
         showReputation,
@@ -287,7 +317,7 @@ function getSpentCyphers(character: Character): number {
                     continue
                 }
 
-                const rank = characterTree[talent.id][0]
+                const rank = characterTree[talent.id]?.[0] || 0
                 for (let i = 0; i < rank; i++) {
                     total += talent.costs[i]
                 }
@@ -304,6 +334,7 @@ export interface ProgressInfo {
     have: number
     haveIndexes: number[]
     icon: string
+    missingRequired: boolean
     nameOverride: Record<number, string>
     showCurrency: number
     showReputation: number

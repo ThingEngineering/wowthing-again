@@ -80,7 +80,7 @@
             for (let groupIndex = 0; groupIndex < category.groups.length; groupIndex++) {
                 const group = category.groups[groupIndex]
                 for (const character of characters) {
-                    progress[`${category.slug}|${groupIndex}|${character.id}`] = getProgress(
+                    const data = progress[`${category.slug}|${groupIndex}|${character.id}`] = getProgress(
                         $staticStore.data,
                         $userStore.data,
                         $userAchievementStore.data,
@@ -89,6 +89,18 @@
                         category,
                         group,
                     )
+
+                    // Hardcoded hacks for Mage Tower artifact appearances
+                    if (group.name === 'Challenge Unlocks' && data.have === 0) {
+                        data.total = 0
+                    }
+                    else if (group.name === 'Challenge Appearances') {
+                        const prev = progress[`${category.slug}|${groupIndex - 1}|${character.id}`]
+                        if (prev.have === 0) {
+                            data.have = 0
+                            data.total = 0
+                        }
+                    }
                 }
             }
         }

@@ -11,10 +11,11 @@ export class ZoneMapState {
     public trackQuests = false
     public trackToys = true
     public trackTransmog = true
+    public trackVendors = true
 
     public classExpanded: Record<string, boolean> = {}
     public classFilters: Record<string, Record<number, boolean>> = {}
-    public lootExpanded: Records<string, boolean> = {}
+    public lootExpanded: Record<string, boolean> = {}
     public maxLevelOnly = false
 }
 

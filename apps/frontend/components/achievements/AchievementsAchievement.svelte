@@ -14,6 +14,7 @@
 
     export let achievementId: number
     export let alwaysShow = false
+    export let kindaAlwaysShow = false
 
     let achievement: AchievementDataAchievement
     let earned: number
@@ -78,11 +79,22 @@
             }
         }
 
-        if (!alwaysShow && (
-            (earned && !$achievementState.showCompleted) ||
-            (!earned && !$achievementState.showIncomplete)
-        )) {
-            show = false
+        if (alwaysShow) {
+            show = true
+        }
+        else {
+            if (
+                (earned && !$achievementState.showCompleted) ||
+                (!earned && !$achievementState.showIncomplete)
+            ) {
+                show = false
+            }
+            else if (!earned && $achievementStore.data.isHidden[achievementId]) {
+                show = false
+            }
+            else if (kindaAlwaysShow) {
+                show = true
+            }
         }
     }
 </script>
@@ -109,8 +121,12 @@
         width: 100%;
 
         &.completed {
-            background: mix($thing-background, $colour-success, 90%);
-            border-color: mix($border-color, $colour-success, 90%);
+            background: mix($thing-background, $colour-success, 91%);
+            border-color: mix($border-color, $colour-success, 80%);
+
+            :global(.status-fail) {
+                --shadow-color: rgba(30, 30, 30, 0.5);
+            }
         }
 
         &.faction-1 {

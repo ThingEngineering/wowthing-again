@@ -222,6 +222,14 @@ public class ApplicationUserSettingsAuctions
 {
     public List<int> IgnoredRealms { get; set; } = new();
     public int MinimumExtraPetsValue { get; set; } = 0;
+
+    public List<ApplicationUserSettingsAuctionCategory> CustomCategories { get; set; } = new();
+}
+
+public class ApplicationUserSettingsAuctionCategory
+{
+    public string Name { get; set; }
+    public List<int> ItemIds { get; set; }
 }
 
 public class ApplicationUserSettingsCharacters

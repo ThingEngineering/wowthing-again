@@ -21,7 +21,7 @@
         text-align: center;
     }
     .has-icon {
-        width: 4.8rem;
+        @include cell-width(4.2rem, $maxWidth: $width-progress-max);
     }
     span {
         flex: 1;
@@ -39,7 +39,7 @@
                 haveIndexes: progressData.haveIndexes,
                 iconOverride: progressData.icon,
                 nameOverride: progressData.nameOverride,
-                showCurrency: progressData.showCurrency,
+                showCurrencies: [progressData.showCurrency],
                 character,
                 group,
             },
@@ -52,9 +52,9 @@
             />
         {/if}
 
-        <span class="{getPercentClass(progressData.have / progressData.total * 100)}">
-            {progressData.have} / {progressData.total}
-        </span>
+        <span
+            class="{progressData.missingRequired ? 'status-fail' : getPercentClass(progressData.have / progressData.total * 100)}"
+        >{progressData.have} / {progressData.total}</span>
     </td>
 {:else if progressData.have === -1 && progressData.total >= 0}
     <td class="status-fail">---</td>

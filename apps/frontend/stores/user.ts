@@ -3,7 +3,7 @@ import some from 'lodash/some'
 import sortBy from 'lodash/sortBy'
 import { get } from 'svelte/store'
 
-import { difficultyMap } from '@/data/difficulty'
+import { difficultyMap, lockoutDifficultyOrder } from '@/data/difficulty'
 import { seasonMap } from '@/data/dungeon'
 import { slotOrder } from '@/data/inventory-slot'
 import { manualStore, staticStore } from '@/stores'
@@ -18,6 +18,7 @@ import { InventorySlot, TypedArray } from '@/types/enums'
 import base64ToRecord from '@/utils/base64-to-record'
 import { getGenderedName } from '@/utils/get-gendered-name'
 import getItemLevelQuality from '@/utils/get-item-level-quality'
+import leftPad from '@/utils/left-pad'
 import { getDungeonScores } from '@/utils/mythic-plus/get-dungeon-scores'
 import type {
     Account,
@@ -25,6 +26,7 @@ import type {
     CharacterMythicPlusRun,
     CharacterReputation,
     CharacterReputationReputation,
+    Settings,
     UserData,
 } from '@/types'
 import type { StaticData } from '@/types/data/static'
@@ -101,6 +103,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
     }
 
     setup(
+        settingsData: Settings,
         userData: UserData
     ): void {
         // console.time('UserDataStore.setup')
@@ -140,6 +143,44 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             }
             else {
                 console.log({instanceId, difficultyId, difficulty})
+            }
+        }
+
+        userData.allLockouts = sortBy(
+            userData.allLockouts,
+            (diff/*: InstanceDifficulty*/) => {
+                const instance = staticData.instances[diff.instanceId]
+                if (!diff.difficulty || !instance) {
+                    return 'z'
+                }
+
+                const orderIndex = lockoutDifficultyOrder.indexOf(diff.difficulty.id)
+                return [
+                    leftPad(100 - instance.expansion, 2, '0'),
+                    leftPad(orderIndex >= 0 ? orderIndex : 99, 2, '0'),
+                    instance.shortName,
+                    diff.difficulty.shortName,
+                ].join('|')
+            }
+        )
+
+        userData.homeLockouts = []
+        for (const instanceId of settingsData.layout.homeLockouts) {
+            let found = false
+            for (const difficulty of lockoutDifficultyOrder) {
+                const id = userData.allLockoutsMap[`${instanceId}-${difficulty}`]
+                if (id !== undefined) {
+                    userData.homeLockouts.push(id)
+                    found = true
+                }
+            }
+
+            if (!found) {
+                userData.homeLockouts.push({
+                    difficulty: null,
+                    instanceId,
+                    key: `${instanceId}-`
+                })
             }
         }
 
@@ -290,7 +331,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
                         repId = reputation.both.id
                     }
                     else {
-                        repId = character.faction === 0 ? reputation.alliance.id : reputation.horde.id
+                        repId = character.faction === 0 ? reputation.alliance?.id : reputation.horde?.id
                     }
     
                     setsData.push({

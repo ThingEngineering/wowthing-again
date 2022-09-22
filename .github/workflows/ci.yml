@@ -1,6 +1,14 @@
 name: Continuous Integration
 
-on: [pull_request, workflow_dispatch]
+on:
+  pull_request:
+
+  push:
+    branches:
+      - main
+
+  # Allow job to be manually started
+  workflow_dispatch:
 
 jobs:
   lint:
