@@ -1,15 +1,11 @@
 <script lang="ts">
     import some from 'lodash/some'
-    import sortBy from 'lodash/sortBy'
 
-    import { lockoutDifficultyOrder } from '@/data/difficulty'
     import { staticStore, userStore } from '@/stores'
     import { lockoutState } from '@/stores/local-storage'
     import { data as settingsData } from '@/stores/settings'
     import getCharacterSortFunc from '@/utils/get-character-sort-func'
-    import leftPad from '@/utils/left-pad'
-    import type { Character, InstanceDifficulty } from '@/types'
-    import type { StaticDataInstance } from '@/types/data/static'
+    import type { Character } from '@/types'
 
     import CharacterTable from '@/components/character-table/CharacterTable.svelte'
     import CharacterTableHead from '@/components/character-table/CharacterTableHead.svelte'
@@ -31,7 +27,6 @@
     }
 
     let sorted: boolean
-    let sortedLockouts: InstanceDifficulty[]
     let sortFunc: (char: Character) => string
 
     $: {

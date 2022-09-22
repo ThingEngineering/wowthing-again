@@ -1,80 +1,81 @@
 <script lang="ts">
-    import { timeLeft } from '@/data/auctions'
-    import { userAuctionMissingStore } from '@/stores'
-    import { auctionState } from '@/stores/local-storage/auctions'
-    import connectedRealmName from '@/utils/connected-realm-name'
+    // import { timeLeft } from '@/data/auctions'
+    // import { userAuctionMissingStore } from '@/stores'
+    // import { auctionState } from '@/stores/local-storage/auctions'
+    // import connectedRealmName from '@/utils/connected-realm-name'
 
-    import Paginate from '@/components/common/Paginate.svelte'
-    import WowheadLink from '@/components/links/WowheadLink.svelte'
-    import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
+    // import Paginate from '@/components/common/Paginate.svelte'
+    // import WowheadLink from '@/components/links/WowheadLink.svelte'
+    // import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
-    export let page: number
-    export let slug: string
+    // export let page: number
+    // export let slug: string
 
-    let categoryId: number
-    $: {
-        categoryId = parseInt(slug.replace('custom-', ''))
-    }
+    // let categoryId: number
+    // $: {
+    //     categoryId = parseInt(slug.replace('custom-', ''))
+    // }
 </script>
  
 <style lang="scss">
-    .wrapper {
-        column-count: 1;
-        width: 31rem;
+    // .wrapper {
+    //     column-count: 1;
+    //     width: 31rem;
 
-        @media screen and (min-width: 1430px) and (max-width: 1919px) {
-            column-count: 2;
-            gap: 1rem;
-            width: 63rem;
-        }
-        @media screen and (min-width: 1920px) {
-            column-count: 3;
-            gap: 1rem;
-            width: 95rem;
-        }
-    }
-    table {
-        --padding: 2;
+    //     @media screen and (min-width: 1430px) and (max-width: 1919px) {
+    //         column-count: 2;
+    //         gap: 1rem;
+    //         width: 63rem;
+    //     }
+    //     @media screen and (min-width: 1920px) {
+    //         column-count: 3;
+    //         gap: 1rem;
+    //         width: 95rem;
+    //     }
+    // }
+    // table {
+    //     --padding: 2;
 
-        display: inline-block;
-        margin-bottom: 0.5rem;
-    }
-    .item {
-        --image-border-width: 1px;
-        --image-margin-top: -4px;
+    //     display: inline-block;
+    //     margin-bottom: 0.5rem;
+    // }
+    // .item {
+    //     --image-border-width: 1px;
+    //     --image-margin-top: -4px;
 
-        background-color: $highlight-background;
-        font-weight: normal;
-        padding: 0.2rem $width-padding;
-        text-align: left;
-    }
-    .realm {
-        @include cell-width(10.0rem);
-    }
-    .level {
-        @include cell-width(1.8rem);
+    //     background-color: $highlight-background;
+    //     font-weight: normal;
+    //     padding: 0.2rem $width-padding;
+    //     text-align: left;
+    // }
+    // .realm {
+    //     @include cell-width(10.0rem);
+    // }
+    // .level {
+    //     @include cell-width(1.8rem);
 
-        text-align: right;
-        white-space: nowrap;
-    }
-    .price {
-        @include cell-width(4.5rem);
+    //     text-align: right;
+    //     white-space: nowrap;
+    // }
+    // .price {
+    //     @include cell-width(4.5rem);
 
-        text-align: right;
-        white-space: nowrap;
+    //     text-align: right;
+    //     white-space: nowrap;
 
-        &.no-bid {
-            color: #7f7f7f;
-        }
-    }
-    .time-left {
-        @include cell-width(4.2rem);
+    //     &.no-bid {
+    //         color: #7f7f7f;
+    //     }
+    // }
+    // .time-left {
+    //     @include cell-width(4.2rem);
 
-        text-align: right;
-        word-spacing: -0.2ch;
-    }
+    //     text-align: right;
+    //     word-spacing: -0.2ch;
+    // }
 </style>
 
+<!--
 {#await userAuctionMissingStore.search($auctionState, searchType)}
     <div class="wrapper">L O A D I N G . . .</div>
 {:then things}
@@ -154,3 +155,4 @@
         </div>
     </Paginate>
 {/await}
+-->

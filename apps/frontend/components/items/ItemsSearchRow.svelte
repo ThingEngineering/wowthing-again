@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { staticStore, userStore } from '@/stores'
+    import { userStore } from '@/stores'
     import { ItemLocation, Region } from '@/types/enums'
     import { getItemUrlSearch } from '@/utils/get-item-url'
     import { toNiceNumber } from '@/utils/to-nice'
