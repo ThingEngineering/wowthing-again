@@ -113,7 +113,13 @@ public class ManualSharedVendorConverter : JsonConverter
             {
                 var parts = item.Reputation.Split();
                 reputationArray.Add(int.Parse(parts[0]));
-                reputationArray.Add(Enum.Parse<RewardReputation>(parts[1].Replace("-", ""), true));
+
+                var repLevel = string.Join(
+                    "",
+                    parts[1].Split('-')
+                        .Select(part => part[0].ToString().ToUpper() + part.Substring(1))
+                );
+                reputationArray.Add(Enum.Parse<RewardReputation>(repLevel));
             }
             itemArray.Add(reputationArray);
         }
