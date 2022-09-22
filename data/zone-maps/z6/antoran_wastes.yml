@@ -62,7 +62,7 @@ farms:
     id: 979 # Crimson Slavermaw
 
 - name: "Doomcaster Suprax"
-  location: 77.4 74.9
+  location: 58.5 11.8
   npcId: 127703
   questId: 48968
   drops:
