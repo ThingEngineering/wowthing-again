@@ -43,6 +43,13 @@ export default function getProgress(
                 category.requiredQuestIds,
                 (questId) => userQuestData.characters[character.id]?.quests?.has(questId)
             )
+        ) &&
+        (
+            (group.requiredQuestIds?.length || 0) === 0 ||
+            some(
+                group.requiredQuestIds,
+                (questId) => userQuestData.characters[character.id]?.quests?.has(questId)
+            )
         )
     ) {
         switch (group.lookup) {

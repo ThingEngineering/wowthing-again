@@ -15,6 +15,7 @@ export interface ManualDataProgressGroup {
     lookup: string
     minimumLevel?: number
     name: string
+    requiredQuestIds?: number[]
     type: string
     data: Record<string, ManualDataProgressData[]>
 }
