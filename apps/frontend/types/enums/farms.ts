@@ -18,6 +18,18 @@ export enum FarmType
     Raid,
 }
 
+export enum RewardReputation {
+    Friendly = 1,
+    Honored = 2,
+    Revered = 3,
+    Exalted = 4,
+    Acquaintance = 10,
+    Buddy = 11,
+    Friend = 12,
+    GoodFriend = 13,
+    BestFriend = 14,
+}
+
 export enum RewardType {
     Pet = 1,
     Mount,

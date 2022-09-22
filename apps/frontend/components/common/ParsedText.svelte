@@ -3,6 +3,7 @@
 
     import { iconStrings, imageStrings } from '@/data/icons'
     import { itemStore, staticStore } from '@/stores'
+    import { RewardReputation } from '@/types/enums'
 
     import ClassIcon from '../images/ClassIcon.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
@@ -30,7 +31,10 @@
                 }
                 
                 parts.push('at')
-                parts.push(['??', 'Friendly', 'Honored', 'Revered', 'Exalted'][repLevel])
+                parts.push(RewardReputation[repLevel]
+                    .split(/(?=[A-Z])/)
+                    .join(' ')
+                )
                 parts.push('with')
 
                 parts.push($staticStore.data.reputations[repId]?.name ?? `Reputation #${repId}`)

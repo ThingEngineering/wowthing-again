@@ -44,6 +44,11 @@ public enum RewardReputation
     Honored = 2,
     Revered = 3,
     Exalted = 4,
+    Acquaintance = 10,
+    Buddy = 11,
+    Friend = 12,
+    GoodFriend = 13,
+    BestFriend = 14,
 }
 
 public enum RewardType
