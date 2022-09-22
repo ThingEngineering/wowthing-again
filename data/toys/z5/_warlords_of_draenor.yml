@@ -6,10 +6,6 @@ groups:
   - 122700 # Portable Audiophone (Azeroth's Top Twenty Tunes)
   - 122293 # Trans-Dimensional Bird Whistle (What A Strange, Interdimensional Trip It's Been)
 
-- name: PvP
-  things:
-  - 119219 # Warlord's Flag of Victory
-
 - name: Quests
   things:
   - 119145 # Firefury Totem
@@ -27,6 +23,6 @@ groups:
 
 - name: Vendor
   things:
-  - 113096 # Bloodmane Charm (Smugglers Run?)
-  - 115501 # Kowalski's Music Box (Crafticus Mindbender, Ashran) vendor
-  - 115505 116396 # LeBlanc's Recorder (Crafticus Mindebender, Ashran / Dazzerian, Ashran)
+  - 113096 # Bloodmane Charm (Sold by Linny "The Skinny" Leadpockets (Horde) / Honest Jim (Alliance), Spires of Arak)
+  - 115501 # Kowalski's Music Box (Sold by Dazzerian (Horde) / Tomas Riogain (Alliance), Ashran)
+  - 115505 116396 # LeBlanc's Recorder (Sold by Dazzerian (Horde) / Crafticus Mindebender (Alliance), Ashran)
