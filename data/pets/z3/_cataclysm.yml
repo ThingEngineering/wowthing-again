@@ -8,7 +8,8 @@ groups:
 
 - name: Drops
   things:
-  - 279 # Tiny Shale Spider - Jadefang
+  - 278 # Fox Kit (Foxes, Tol Barad)
+  - 279 # Tiny Shale Spider (Jadefang, Deepholm)
 
 - name: Reputations
   things:

@@ -1,6 +1,10 @@
 name: The Burning Crusade
 groups:
 
+- name: Quests
+  things:
+  - 149 # Miniwing (Skywing, Terrokar Forest)
+
 - name: Reputations
   things:
   - 186 # Nether Ray Fry (Exalted, Sha'tari Skyguard)
