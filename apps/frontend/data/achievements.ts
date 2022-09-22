@@ -13,6 +13,7 @@ export const forceAddonCriteria: Record<number, number> = {
 }
 
 export const forceSupersededBy: Record<number, number> = {
+    9: 14782, // Level 40 -> Level 50
     5324: 5325, // In Service of the Horde -> Veteran of the Horde
     5327: 5328, // In Service of the Alliance -> Veteran of the Alliance
     13701: 13702, // Battlefield Brawler -> Battlefield Tactician
