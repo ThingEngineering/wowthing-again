@@ -51,11 +51,6 @@ groups:
   -  97942 # Sen'jin Spirit Drum (Ravika, Durotar/Echo Isles)
   -  98552 # Xan'tish's Flute (Ravika, Durotar/Echo Isles)
   -  97919 # Whole-Body Shrinka' (Ravika, Durotar/Echo Isles)
-  - 140336 # Brulfist Idol (Slyhoof the Shameless Shaman, Highmountain)
-  - 142452 # Lingering Wyrmtongue Essence (Treasure Master Iks'reeged, Broken Shore)
-  - 141862 # Mote of Light (Xur'ios, Dalaran)
-  - 140309 # Prismatic Bauble (The Mad Merchant, Dalaran)
-  - 130151 # The "Devilsaur" Lunchbox (Gift Shopkeeper, Suramar)
 
 - name: Withered Training
   things:
