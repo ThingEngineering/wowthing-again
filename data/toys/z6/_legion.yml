@@ -5,8 +5,9 @@ groups:
   things:
   - 119211 # Golden Hearthstone Card: Lord Jaraxxus (Gul'dan, Nighthold)
   - 143544 # Skull of Corruption (The Nighthold - Gul'dan)
+  - 119211 # Golden Hearthstone Card: Lord Jaraxxus (Gul'dan, Nighthold)
   - 153004 # Unstable Portal Emitter (Vixx the Collector, The Seat of thew Triumvirate)
-  - 141331 # Vial of Green Goo (Engineer Omegaplugg, ??)
+  - 141331 # Vial of Green Goo (Engineer Omegaplugg, Gnomeregan)
   - 152982 # Vixx's Chest of Tricks (Vixx the Collector, The Seat of thew Triumvirate)
 
 - name: Order Halls
@@ -50,6 +51,11 @@ groups:
   -  97942 # Sen'jin Spirit Drum (Ravika, Durotar/Echo Isles)
   -  98552 # Xan'tish's Flute (Ravika, Durotar/Echo Isles)
   -  97919 # Whole-Body Shrinka' (Ravika, Durotar/Echo Isles)
+  - 140336 # Brulfist Idol (Slyhoof the Shameless Shaman, Highmountain)
+  - 142452 # Lingering Wyrmtongue Essence (Treasure Master Iks'reeged, Broken Shore)
+  - 141862 # Mote of Light (Xur'ios, Dalaran)
+  - 140309 # Prismatic Bauble (The Mad Merchant, Dalaran)
+  - 130151 # The "Devilsaur" Lunchbox (Gift Shopkeeper, Suramar)
 
 - name: Withered Training
   things:
