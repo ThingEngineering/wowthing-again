@@ -38,6 +38,13 @@ sells:
       0: 10 # Gold
     reputation: 1158 exalted # Guardians of Hyjal
 
+  - type: illusion
+    id: 138803 # Illusion: Mending
+    appearanceId: 4066
+    costs:
+      0: 75 # Gold
+    reputation: 1158 revered # Guardians of Hyjal
+
   - type: transmog
     id: 62381 # Aessina-Blessed Gloves [leather hands]
     costs:
@@ -54,13 +61,6 @@ sells:
     id: 62382 # Waywatcher's Boots [plate feet]
     costs:
       0: 7 # Gold
-    reputation: 1158 revered # Guardians of Hyjal
-
-  - type: transmog
-    id: 138803 # Illusion: Mending
-    appearanceId: 4066
-    costs:
-      0: 75 # Gold
     reputation: 1158 revered # Guardians of Hyjal
 
   - type: transmog
