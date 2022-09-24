@@ -148,13 +148,13 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
 
                 15649, // Shadowlands Dilettante
                 14502, // Pursuing Loyalty
+                14723, // Be Our Guest
                 14752, // Things To Do When You're Dead
                 14684, // Abominable Lives
                 14751, // The Gang's All Here
                 14748, // Wardrobe Makeover
                 14753, // It's a Wrap
                 14775, // Mush Appreciated
-                14723, // Be Our Guest
 
                 15324, // Tower Ranger
                 15322, // Flawless Master (Layer 16)
