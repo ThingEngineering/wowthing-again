@@ -4,9 +4,11 @@
 
     import CurrencyLink from '@/components/links/CurrencyLink.svelte'
     import TableSortedBy from '@/components/common/TableSortedBy.svelte'
+    import WowheadLink from '@/components/links/WowheadLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
-    export let currency: StaticDataCurrency
+    export let currency: StaticDataCurrency = undefined
+    export let itemId = 0
     export let slug: string
     export let sortingBy: boolean
 
@@ -14,7 +16,7 @@
     $: {
         onClick = function(event: Event) {
             event.preventDefault()
-            $currencyState.sortOrder[slug] = sortingBy ? 0 : currency.id
+            $currencyState.sortOrder[slug] = sortingBy ? 0 : (itemId || currency.id)
         }
     }
 </script>
@@ -38,12 +40,13 @@
 </style>
 
 <th>
-    <CurrencyLink
+    <WowheadLink
         on:click={onClick}
-        {currency}
+        type={itemId ? 'item' : 'currency'}
+        id={itemId || currency.id}
     >
         <WowthingImage
-            name="currency/{currency.id}"
+            name={itemId ? `item/${itemId}` : `currency/${currency.id}`}
             size={40}
             border={2}
         />
@@ -51,5 +54,5 @@
         {#if sortingBy}
             <TableSortedBy />
         {/if}
-    </CurrencyLink>
+    </WowheadLink>
 </th>

@@ -14,9 +14,47 @@ export const categoryOrder: number[] = [
     2, // Player vs. Player
 ]
 
+export const currencyItems: Record<number, number[]> = {
+    // Shadowlands
+    245: [
+        188957, // Genesis Mote
+    ],
+    // Battle for Azeroth
+    143: [
+        152668, // Expulsom
+        162460, // Hydrocore
+        168802, // Nazjatar Battle Commendation
+    ],
+    // Legion
+    141: [
+        124124, // Blood of Sargeras
+        146963, // Desecrated Seaweed
+        153021, // Intact Demon Eye
+    ],
+    // Warlords of Draenor
+    137: [
+        124099, // Blackfang Claw
+    ],
+    // Burning Crusade
+    23: [
+        26045, // Halaa Battle Token
+        26044, // Halaa Research Token
+    ],
+    // Player vs Player
+    2: [
+        137642, // Mark of Honor
+    ],
+    // Miscellaneous
+    1: [
+        163036, // Polished Pet Charm
+        116415, // Shiny Pet Charm
+    ],
+}
+
 const skipCurrencies: number[] = [
     // Shadowlands
     1743, // Fake Anima for Quest Tracking
+    1754, // Argent Commendation??
     1802, // Shadowlands PvP Weekly Reward Progress
     1811, // zzoldSanctum Architect
     1812, // zzoldSanctum Anima Weaver
@@ -41,28 +79,29 @@ const skipCurrencies: number[] = [
     1873, // Sanctum Anima Weaver-Night Fae
     1874, // Sanctum Anima Weaver-Necrolord
 
-    // Miscellaneous
-    2, // Currency Token Test Token 2
-    1, // Currency Token Test Token 4
-    4, // Currency Token Test Token 5
-    1836, // Linked Currency Test (Dst) - PTH
-    1835, // Linked Currency Test (Src) - PTH
-
-    // Player vs. Player
-    103, // Arena Points
-    104, // Honor Points DEPRECATED
-    181, // Honor Points DEPRECATED2
-    161, // Stone Keeper's Shard
-    201, // Venture Coin
-
     // Legion
     1355, // Felessence
+    1356, // Echoes of Battle
+    1357, // Echoes of Domination
 
     // Warlords of Draenor
     897, // UNUSED
 
-    // Shadowlands
-    1754, // Argent Commendation??
+    // Miscellaneous
+    1, // Currency Token Test Token 4
+    2, // Currency Token Test Token 2
+    4, // Currency Token Test Token 5
+    42, // Badge of Justice
+    1388, // Armor Scraps
+    1835, // Linked Currency Test (Src) - PTH
+    1836, // Linked Currency Test (Dst) - PTH
+
+    // Player vs. Player
+    103, // Arena Points
+    104, // Honor Points DEPRECATED
+    161, // Stone Keeper's Shard
+    181, // Honor Points DEPRECATED2
+    201, // Venture Coin
 ]
 
 export const skipCurrenciesMap: Record<number, boolean> = Object.fromEntries(

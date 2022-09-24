@@ -1,37 +1,47 @@
 <script lang="ts">
+    import { itemStore } from '@/stores'
     import tippy from '@/utils/tippy'
     import { toNiceNumber } from '@/utils/to-nice'
     import type { Character, CharacterCurrency } from '@/types'
     import type { StaticDataCurrency } from '@/types/data/static'
 
     export let character: Character
-    export let currency: StaticDataCurrency
+    export let currency: StaticDataCurrency = undefined
+    export let itemId = 0
     export let sortingBy: boolean
 
-    let characterCurrency: CharacterCurrency
     let amount = ''
     let per: number
     let tooltip = ''
     $: {
-        characterCurrency = character.currencies?.[currency.id]
-        if (characterCurrency) {
-            amount = toNiceNumber(characterCurrency.quantity)
+        if (currency) {
+            const characterCurrency = character.currencies?.[currency.id]
+            if (characterCurrency) {
+                amount = toNiceNumber(characterCurrency.quantity)
 
-            if (characterCurrency.isMovingMax && characterCurrency.max > 0) {
-                per = characterCurrency.totalQuantity / characterCurrency.max * 100
-                tooltip = `${characterCurrency.totalQuantity.toLocaleString()} / ${characterCurrency.max.toLocaleString()}`
-            }
-            else {
-                if (characterCurrency.max > 0) {
-                    per = characterCurrency.quantity / characterCurrency.max * 100
-                    tooltip = `${characterCurrency.quantity.toLocaleString()} / ${characterCurrency.max.toLocaleString()}`
+                if (characterCurrency.isMovingMax && characterCurrency.max > 0) {
+                    per = characterCurrency.totalQuantity / characterCurrency.max * 100
+                    tooltip = `${characterCurrency.totalQuantity.toLocaleString()} / ${characterCurrency.max.toLocaleString()}`
                 }
                 else {
-                    per = 0
-                    tooltip = characterCurrency.quantity.toLocaleString()
+                    if (characterCurrency.max > 0) {
+                        per = characterCurrency.quantity / characterCurrency.max * 100
+                        tooltip = `${characterCurrency.quantity.toLocaleString()} / ${characterCurrency.max.toLocaleString()}`
+                    }
+                    else {
+                        per = 0
+                        tooltip = characterCurrency.quantity.toLocaleString()
+                    }
                 }
+                tooltip += ` ${currency.name}`
             }
-            tooltip += ` ${currency.name}`
+        }
+        else {
+            const characterItemCount = character.currencyItems?.[itemId] || 0
+            const name = $itemStore.data.items[itemId]?.name || `Item #${itemId}`
+            
+            amount = toNiceNumber(characterItemCount)
+            tooltip = `${characterItemCount.toLocaleString()} ${name}`
         }
     }
 </script>
@@ -45,7 +55,7 @@
     }
 </style>
 
-{#if characterCurrency}
+{#if amount}
     <td
         class:alt={sortingBy}
         class:status-shrug={per > 50}
