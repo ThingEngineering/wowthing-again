@@ -25,6 +25,16 @@
             thingType = 'item'
         }
     }
+
+    const ignoreClick = function(id: number): void {
+        const ignored = $auctionState.ignored[slug] ||= {}
+        if (ignored[id]) {
+            delete ignored[id]
+        }
+        else {
+            ignored[id] = true
+        }
+    }
 </script>
 
 <style lang="scss">
@@ -48,18 +58,35 @@
 
         display: inline-block;
         margin-bottom: 0.5rem;
+        width: 100%;
+    }
+    th {
+        background-color: $highlight-background;
+        font-weight: normal;
     }
     .item {
         --image-border-width: 1px;
         --image-margin-top: -4px;
 
-        background-color: $highlight-background;
-        font-weight: normal;
         padding: 0.2rem $width-padding;
         text-align: left;
     }
+    .ignore {
+        font-weight: normal;
+        padding-right: 0.6rem;
+        text-align: right;
+        white-space: nowrap;
+
+        span {
+            cursor: pointer;
+
+            &:hover {
+                color: $link-color;
+            }
+        }
+    }
     .realm {
-        @include cell-width(10.0rem);
+        @include cell-width(11.0rem);
     }
     .level {
         @include cell-width(1.8rem);
@@ -83,23 +110,47 @@
         text-align: right;
         word-spacing: -0.2ch;
     }
+    .ignored {
+        opacity: 0.7;
+
+        th.item {
+            width: 30rem;
+        }
+
+        + .ignored {
+            margin-top: -0.7rem;
+        }
+
+        th {
+            &:first-child {
+                border-bottom-left-radius: $border-radius;
+            }
+            &:last-child {
+                border-bottom-right-radius: $border-radius;
+            }
+        }
+    }
 </style>
 
 {#await userAuctionMissingStore.search($auctionState, searchType)}
     <div class="wrapper">L O A D I N G . . .</div>
 {:then things}
     <Paginate
-        items={things || []}
+        items={(things || []).filter((thing) => $auctionState.hideIgnored ? $auctionState.ignored[slug]?.[thing.id] !== true : true)}
         perPage={20}
         {page}
         let:paginated
     >
         <div class="wrapper">
             {#each paginated as item}
-                <table class="table table-striped">
+                {@const ignored = $auctionState.ignored[slug]?.[item.id] === true}
+                <table
+                    class="table table-striped"
+                    class:ignored
+                >
                     <thead>
                         <tr>
-                            <th class="item" colspan="{slug === 'missing-pets' ? 5 : 4}">
+                            <th class="item" colspan="{slug === 'missing-pets' ? 4 : 3}">
                                 <WowheadLink
                                     type={thingType}
                                     id={item.id}
@@ -112,51 +163,60 @@
                                     {item.name}
                                 </WowheadLink>
                             </th>
+                            <th class="ignore">
+                                <span
+                                    on:click|preventDefault={() => ignoreClick(item.id)}
+                                >
+                                    {ignored ? 'Unignore' : 'Ignore'}
+                                </span>
+                            </th>
                         </tr>
                     </thead>
 
-                    <tbody>
-                        {#each item.auctions as auction}
-                            <tr>
-                                <td class="realm text-overflow">
-                                    {connectedRealmName(auction.connectedRealmId)}
-                                </td>
-                                {#if slug === 'missing-pets'}
-                                    <td class="level quality{auction.petQuality}">
-                                        {auction.petLevel}
+                    {#if !ignored}
+                        <tbody>
+                            {#each item.auctions as auction}
+                                <tr>
+                                    <td class="realm text-overflow">
+                                        {connectedRealmName(auction.connectedRealmId)}
                                     </td>
-                                {/if}
-                                <td
-                                    class="price"
-                                    class:no-bid={auction.bidPrice === 0}
-                                >
-                                    {#if auction.bidPrice > 0}
-                                        {Math.floor(auction.bidPrice / 10000).toLocaleString()} g
-                                    {:else}
-                                        &lt;no bid&gt;
+                                    {#if slug === 'missing-pets'}
+                                        <td class="level quality{auction.petQuality}">
+                                            {auction.petLevel}
+                                        </td>
                                     {/if}
-                                </td>
-                                <td
-                                    class="price"
-                                    class:no-bid={auction.bidPrice > 0 && auction.buyoutPrice === 0}
-                                >
-                                    {#if auction.bidPrice > 0 && auction.buyoutPrice === 0}
-                                        &lt;no b/o&gt;
-                                    {:else}
-                                        {Math.floor(auction.buyoutPrice / 10000).toLocaleString()} g
-                                    {/if}
-                                </td>
-                                <td
-                                    class="time-left"
-                                    class:status-fail={auction.timeLeft === 0}
-                                    class:status-shrug={auction.timeLeft === 1}
-                                    class:status-success={auction.timeLeft > 1}
-                                >
-                                    {timeLeft[auction.timeLeft]}
-                                </td>
-                            </tr>
-                        {/each}
-                    </tbody>
+                                    <td
+                                        class="price"
+                                        class:no-bid={auction.bidPrice === 0}
+                                    >
+                                        {#if auction.bidPrice > 0}
+                                            {Math.floor(auction.bidPrice / 10000).toLocaleString()} g
+                                        {:else}
+                                            &lt;no bid&gt;
+                                        {/if}
+                                    </td>
+                                    <td
+                                        class="price"
+                                        class:no-bid={auction.bidPrice > 0 && auction.buyoutPrice === 0}
+                                    >
+                                        {#if auction.bidPrice > 0 && auction.buyoutPrice === 0}
+                                            &lt;no b/o&gt;
+                                        {:else}
+                                            {Math.floor(auction.buyoutPrice / 10000).toLocaleString()} g
+                                        {/if}
+                                    </td>
+                                    <td
+                                        class="time-left"
+                                        class:status-fail={auction.timeLeft === 0}
+                                        class:status-shrug={auction.timeLeft === 1}
+                                        class:status-success={auction.timeLeft > 1}
+                                    >
+                                        {timeLeft[auction.timeLeft]}
+                                    </td>
+                                </tr>
+                            {/each}
+                        </tbody>
+                    {/if}
                 </table>
             {:else}
                 No results!
