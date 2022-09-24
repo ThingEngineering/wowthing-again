@@ -3,7 +3,7 @@
     import findKey from 'lodash/findKey'
     import sortBy from 'lodash/sortBy'
 
-    import { skipCurrenciesMap } from '@/data/currencies'
+    import { currencyItems, skipCurrenciesMap } from '@/data/currencies'
     import { currencyState } from '@/stores/local-storage'
     import { data as settingsData } from '@/stores/settings'
     import { staticStore } from '@/stores/static'
@@ -19,17 +19,22 @@
 
     export let slug: string
 
+    let categoryId: number
     let currencies: StaticDataCurrency[]
     let sorted: boolean
     let sortFunc: (char: Character) => string
     $: {
-        const categoryId = parseInt(findKey($staticStore.data.currencyCategories, (c) => c.slug === slug))
+        categoryId = parseInt(findKey($staticStore.data.currencyCategories, (c) => c.slug === slug))
         currencies = sortBy(filter($staticStore.data.currencies, (c) => !skipCurrenciesMap[c.id] && c.categoryId === categoryId), (c) => c.name)
 
         const order = $currencyState.sortOrder[slug]
         if (order > 0) {
             sorted = true
-            sortFunc = (char) => leftPad(1000000 - (char.currencies?.[order]?.quantity ?? -1), 7, '0')
+            sortFunc = (char) => leftPad(1000000 - (
+                char.currencyItems?.[order] ??
+                char.currencies?.[order]?.quantity ??
+                -1
+            ), 7, '0')
         }
         else {
             sorted = false
@@ -43,6 +48,7 @@
     {sortFunc}
 >
     <CharacterTableHead slot="head">
+        <th class="spacer"></th>
         {#key slug}
             {#each currencies as currency}
                 <HeadCurrency
@@ -51,10 +57,22 @@
                     {currency}
                 />
             {/each}
+
+            {#if currencyItems[categoryId]}
+                <th class="spacer"></th>
+                {#each currencyItems[categoryId] as itemId}
+                    <HeadCurrency
+                        sortingBy={$currencyState.sortOrder[slug] === itemId}
+                        {slug}
+                        {itemId}
+                    />
+                {/each}
+            {/if}
         {/key}
     </CharacterTableHead>
 
     <svelte:fragment slot="rowExtra" let:character>
+        <td class="spacer"></td>
         {#key slug}
             {#each currencies as currency}
                 <RowCurrency
@@ -63,6 +81,17 @@
                     {currency}
                 />
             {/each}
+
+            {#if currencyItems[categoryId]}
+                <td class="spacer"></td>
+                {#each currencyItems[categoryId] as itemId}
+                    <RowCurrency
+                        sortingBy={$currencyState.sortOrder[slug] === itemId}
+                        {character}
+                        {itemId}
+                    />
+                {/each}
+            {/if}
         {/key}
     </svelte:fragment>
 </CharacterTable>

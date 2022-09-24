@@ -1,14 +1,15 @@
 id: 48531
 name: "Pogg"
+note: "Hellscream's Reach Quartermaster"
 
 locations:
   z3_tol_barad_peninsula:
     - 54.6 81.0 horde
 
 sets:
-  - name: "Weapons"
-    range: 8 6
-    sortKey: "weapons"
+  - name: "Reputation - Hellscream's Reach"
+    range: -1 4
+    sortKey: "1-rep-hellscreams-reach"
 
 sells:
   - type: mount

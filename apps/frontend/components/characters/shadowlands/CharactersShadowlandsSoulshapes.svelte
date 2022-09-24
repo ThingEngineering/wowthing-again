@@ -1,20 +1,51 @@
 <script lang="ts">
     import { userQuestStore } from '@/stores'
 
-    import { crittershapes, soulshapes } from '@/data/covenant'
-    import type { Character } from '@/types'
+    import { crittershapes, shapeTooltip, soulshapes } from '@/data/covenant'
+    import { UserCount, type Character } from '@/types'
 
+    import Count from '@/components/collections/CollectionCount.svelte'
     import WowheadLink from '@/components/links/WowheadLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     export let character: Character
+
+    let allShapes: [questId: number, icon: string, has: boolean][][]
+    let stats: UserCount
+    $: {
+        allShapes = []
+        stats = new UserCount()
+
+        for (const shapesArray of [soulshapes, crittershapes]) {
+            const temp: [questId: number, icon: string, has: boolean][] = []
+            for (const [questId, icon] of shapesArray) {
+                const has = $userQuestStore.data.characters[character.id]?.quests?.has(questId)
+                if (has) {
+                    stats.have++
+                }
+                stats.total++
+
+                temp.push([
+                    questId,
+                    icon,
+                    has,
+                ])
+            }
+            allShapes.push(temp)
+        }
+    }
 </script>
 
 <style lang="scss">
-    h3 a {
-        float: right;
-        font-size: 1rem;
-        margin-top: 2px;
+    h3 {
+        border-bottom: 1px dashed $border-color;
+        padding-bottom: 0.2rem;
+
+        a {
+            float: right;
+            font-size: 1rem;
+            margin-top: 2px;
+        }
     }
     .collection {
         border-width: 0;
@@ -26,7 +57,7 @@
         padding-left: 0.25rem;
     }
     .collection-objects {
-        gap: 0.25rem;
+        gap: 0.35rem;
     }
     .collection-objects + .collection-objects {
         margin-top: 0.5rem;
@@ -42,49 +73,33 @@
 </style>
 
 <div class="collection thing-container">
-    <h3 class="border">
+    <h3>
         Soulshapes
-        <a href="https://www.wowhead.com/guides/soulshapes-night-fae-covenant">Wowhead guide</a>
+        <Count counts={stats} />
+        <a href="https://www.wowhead.com/guides/soulshapes-night-fae-covenant">Guide</a>
     </h3>
     <div class="collection-section">
-        <div class="collection-objects">
-            {#each soulshapes as [questId, icon]}
-                <div
-                    class="collection-object"
-                    class:missing={!$userQuestStore.data.characters[character.id]?.quests?.has(questId)}
-                >
-                    <WowheadLink
-                        type="quest"
-                        id={questId}
+        {#each allShapes as shapes}
+            <div class="collection-objects">
+                {#each shapes as [questId, icon, has]}
+                    <div
+                        class="collection-object"
+                        class:missing={!has}
                     >
-                        <WowthingImage
-                            name={icon}
-                            size={32}
-                            border={1}
-                        />
-                    </WowheadLink>
-                </div>
-            {/each}
-        </div>
-
-        <div class="collection-objects">
-            {#each crittershapes as [questId, icon]}
-                <div
-                    class="collection-object"
-                    class:missing={!$userQuestStore.data.characters[character.id]?.quests?.has(questId)}
-                >
-                    <WowheadLink
-                        type="quest"
-                        id={questId}
-                    >
-                        <WowthingImage
-                            name={icon}
-                            size={32}
-                            border={1}
-                        />
-                    </WowheadLink>
-                </div>
-            {/each}
-        </div>
+                        <WowheadLink
+                            type="quest"
+                            id={questId}
+                        >
+                            <WowthingImage
+                                name={icon}
+                                size={32}
+                                border={1}
+                                tooltip={shapeTooltip[questId]}
+                            />
+                        </WowheadLink>
+                    </div>
+                {/each}
+            </div>
+        {/each}
     </div>
 </div>

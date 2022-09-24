@@ -93,6 +93,15 @@
             />
         </div>
 
+        {#if params.slug1.startsWith('missing-')}
+            <div class="options-group">
+                <Checkbox
+                    name="hide_ignored"
+                    bind:value={$auctionState.hideIgnored}
+                >Hide ignored</Checkbox>
+            </div>
+        {/if}
+
         {#if params.slug1 === 'extra-pets'}
             <div class="options-group">
                 Extra pets:

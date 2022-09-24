@@ -84,9 +84,9 @@
         {currencyName}
     </h4>
 
-    {#if currencies.length > 0}
-        <table class="table-striped">
-            <tbody>
+    <table class="table-striped">
+        <tbody>
+            {#if currencies.length > 0}
                 {#each currencies.slice(0, 10) as [character, amount]}
                     <tr>
                         <td class="name">{getCharacterNameRealm(character.id)}</td>
@@ -94,15 +94,20 @@
                     </tr>
                 {/each}
 
-
                 {#if currencies.length > 10}
                     <tr>
                         <td colspan="2">... and {currencies.length - 10} more</td>
                     </tr>
                 {/if}
-            </tbody>
-        </table>
+            {:else}
+                <tr>
+                    <td>No character has this currency!</td>
+                </tr>
+            {/if}
+        </tbody>
+    </table>
         
+    {#if currencies.length > 0}
         <div class="bottom">
             Total:
             <WowthingImage

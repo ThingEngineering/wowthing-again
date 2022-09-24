@@ -41,6 +41,7 @@
 
 {#if id > 0}
     <a
+        on:click
         href="{url}"
         data-disable-wowhead-tooltip="{noTooltip ? 'true' : undefined}"
         data-wh-rename-link="{rename ? 'true' : undefined}"

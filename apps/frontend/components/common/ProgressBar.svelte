@@ -73,7 +73,9 @@
         {/if}
         {title}
     </span>
-    <span class="right drop-shadow">
-        {have.toLocaleString()} / {total.toLocaleString()}
-    </span>
+    {#if total > 0}
+        <span class="right drop-shadow">
+            {have.toLocaleString()} / {total.toLocaleString()}
+        </span>
+    {/if}
 </div>

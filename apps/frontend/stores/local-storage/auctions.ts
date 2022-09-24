@@ -12,8 +12,11 @@ export class AuctionState {
     public perPage: AuctionStatePerPage = 50
 
     public extraPetsIgnoreJournal = false
+    public hideIgnored = false
     public missingPetsMaxLevel = false
     public region = '0'
+
+    public ignored: Record<string, Record<number, boolean>> = {}
 
     public sortBy: Record<string, AuctionStateSortBy> = {
         'extra-pets': 'price_down',

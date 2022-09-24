@@ -131,6 +131,15 @@
         left: -1px;
         top: 29px;
     }
+    .title {
+        align-content: flex-start;
+        display: flex;
+        padding-right: 0.5rem;
+
+        h4 {
+            width: auto;
+        }
+    }
 </style>
 
 {#if things?.length > 0}
@@ -143,10 +152,12 @@
             bind:this={element}
             class="collection{useV2 ? '-v2' : ''}-group"
         >
-            <h4 class="drop-shadow {getPercentClass(percent)}">
-                {group.name}
+            <div class="title">
+                <h4 class="drop-shadow text-overflow {getPercentClass(percent)}">
+                    {group.name}
+                </h4>
                 <CollectionCount counts={stats} />
-            </h4>
+            </div>
 
             <div class="collection-objects">
                 {#each things as thing}

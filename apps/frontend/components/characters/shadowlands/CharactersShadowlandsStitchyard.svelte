@@ -38,6 +38,12 @@
         padding-bottom: 0;
         padding-left: 0.25rem;
     }
+    .abomination {
+        --image-border-width: 2px;
+    }
+    .status-success {
+        --image-border-color: #{darken($colour-success, 10%)};
+    }
 </style>
 
 <div class="collection thing-container">
@@ -45,7 +51,9 @@
         <div class="collection-objects">
             {#each charAboms as [criteriaId, spellId, charHas]}
                 <div
+                    class="abomination"
                     class:missing={!charHas}
+                    class:status-success={charHas}
                 >
                     <WowheadLink
                         type="{criteriaId === 88215 ? 'quest' : 'spell'}"
@@ -53,8 +61,8 @@
                     >
                         <WowthingImage
                             name="spell/{spellId}"
-                            size={32}
-                            border={1}
+                            size={48}
+                            border={2}
                         />
                     </WowheadLink>
                 </div>
