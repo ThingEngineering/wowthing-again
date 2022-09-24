@@ -240,6 +240,7 @@ export const crittershapes: [number, string][] = [
     [64961, 'item/187819'], // Cat
     [64982, 'item/155858'], // Cat (Well Fed)
     [64941, 'item/187813'], // Chicken
+    [64939, 'item/182671'], // Choofa/Squirrel
     [64938, 'item/158149'], // Corgi
     [64990, 'item/187871'], // Cricket
     [64994, 'item/187877'], // Frog
@@ -257,3 +258,9 @@ export const crittershapes: [number, string][] = [
     [64988, 'item/187862'], // Snake
     [65467, 'item/189705'], // Turkey
 ]
+
+export const shapeTooltip: Record<number, string> = {
+    64982: 'Cat (Well Fed) Crittershape',
+    64939: 'Choofa Crittershape',
+    64938: 'Corgi Crittershape',
+}
