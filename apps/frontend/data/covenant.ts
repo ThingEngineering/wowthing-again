@@ -264,3 +264,104 @@ export const shapeTooltip: Record<number, string> = {
     64939: 'Choofa Crittershape',
     64938: 'Corgi Crittershape',
 }
+
+// Venthyr
+export type EmberCourtFriend = {
+    name: string
+    friendQuestId: number
+    reputationId: number
+}
+export const emberCourtFriends: Array<Array<EmberCourtFriend>> = [
+    // Slot 1
+    [
+        {
+            name: 'Sika',
+            friendQuestId: 65140,
+            reputationId: 2459,
+        },
+        {
+            name: 'Plague Deviser Marileth',
+            friendQuestId: 65138,
+            reputationId: 2461,
+        },
+        {
+            name: 'Choofa',
+            friendQuestId: 65132,
+            reputationId: 2454,
+        },
+        {
+            name: 'Cryptkeeper Kassir',
+            friendQuestId: 65134,
+            reputationId: 2455,
+        },
+    ],
+    // Slot 2
+    [
+        {
+            name: 'Kleia & Pelagos',
+            friendQuestId: 65137,
+            reputationId: 2458,
+        },
+        {
+            name: 'Grandmaster Vole',
+            friendQuestId: 65136,
+            reputationId: 2457,
+        },
+        {
+            name: 'Droman Aliothe',
+            friendQuestId: 65135,
+            reputationId: 2456,
+        },
+        {
+            name: 'Stonehead',
+            friendQuestId: 65141,
+            reputationId: 2460,
+        },
+    ],
+    // Tier 3
+    [
+        {
+            name: 'Polemarch Adrestes',
+            friendQuestId: 65130,
+            reputationId: 2452,
+        },
+        {
+            name: 'Alexandros Mograine',
+            friendQuestId: 65128,
+            reputationId: 2454,
+        },
+        {
+            name: 'Hunt-Captain Korayn',
+            friendQuestId: 65129,
+            reputationId: 2451,
+        },
+        {
+            name: 'Rendle & Cudgelface',
+            friendQuestId: 65131,
+            reputationId: 2453,
+        },
+    ],
+    // Tier 4
+    [
+        {
+            name: 'Mikanikos',
+            friendQuestId: 65124,
+            reputationId: 2448,
+        },
+        {
+            name: 'Baroness Vashj',
+            friendQuestId: 65121,
+            reputationId: 2446,
+        },
+        {
+            name: 'Lady Moonberry',
+            friendQuestId: 65123,
+            reputationId: 2447,
+        },
+        {
+            name: 'The Countess',
+            friendQuestId: 65126,
+            reputationId: 2449,
+        },
+    ],
+]

@@ -2,11 +2,13 @@
     import { iconStrings } from '@/data/icons'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
+    import { toNiceNumber } from '@/utils/to-nice';
 
     export let cls: string = null
     export let title: string
     export let have = Math.floor(Math.random() * 100)
     export let selected = false
+    export let shortText = false
     export let textCls: string = null
     export let total = 100
 </script>
@@ -50,12 +52,19 @@
         position: absolute;
         top: 50%;
         transform: translateY(-50%);
+        white-space: nowrap;
 
         &.left {
             left: 0.8rem;
         }
         &.right {
             right: 0.8rem;
+            word-spacing: -0.1ch;
+        }
+        &.short {
+            font-size: 0.95rem;
+            text-align: center;
+            width: 100%;
             word-spacing: -0.1ch;
         }
     }
@@ -67,15 +76,25 @@
 >
     <div class="progress-bar"></div>
     <div class="progress-bar-hider" style="--width: {have / total * 100}%"></div>
-    <span class="left drop-shadow {textCls}">
-        {#if selected}
-            <IconifyIcon icon={iconStrings['arrow-right']} />
-        {/if}
-        {title}
-    </span>
+    {#if title}
+        <span class="left drop-shadow {textCls || ''}">
+            {#if selected}
+                <IconifyIcon icon={iconStrings['arrow-right']} />
+            {/if}
+            {title}
+        </span>
+    {/if}
     {#if total > 0}
-        <span class="right drop-shadow">
-            {have.toLocaleString()} / {total.toLocaleString()}
+        <span
+            class="drop-shadow"
+            class:short={shortText}
+            class:right={!shortText}
+        >
+            {#if shortText}
+                {toNiceNumber(have)} / {toNiceNumber(total)}
+            {:else}
+                {have.toLocaleString()} / {total.toLocaleString()}
+            {/if}
         </span>
     {/if}
 </div>

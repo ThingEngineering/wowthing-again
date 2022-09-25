@@ -8,6 +8,7 @@
 
     export let character: Character
     export let reputationId: number
+    export let small = false
 
     let tier: ReputationTier
     $: {
@@ -19,8 +20,9 @@
 </script>
 
 <ProgressBar
-    title={tier.name}
+    title={small ? '' : tier.name}
     have={tier.value}
+    shortText={small}
     total={tier.maxValue}
-    cls={`reputation${tier.tier}-border`}
+    cls={`reputation${tier.tier}`}
 />
