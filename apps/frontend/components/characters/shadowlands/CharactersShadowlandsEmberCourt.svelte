@@ -81,7 +81,7 @@
     {#each emberCourtFriends as slot}
         <div class="slot">
             {#each slot as friend}
-                {@const bff = Math.random() * 5 > 2 || quests?.has(friend.friendQuestId)}
+                {@const bff = quests?.has(friend.friendQuestId)}
                 <div
                     class="friend"
                     use:tippyComponent={{
