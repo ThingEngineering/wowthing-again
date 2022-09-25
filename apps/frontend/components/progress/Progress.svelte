@@ -1,6 +1,8 @@
 <script lang="ts">
-    import { afterUpdate } from 'svelte'
+    import { afterUpdate, onMount } from 'svelte'
 
+    import { achievementStore } from '@/stores'
+    import { data as settings } from '@/stores/settings'
     import getSavedRoute from '@/utils/get-saved-route'
     import type { MultiSlugParams } from '@/types'
 
@@ -10,6 +12,8 @@
     export let params: MultiSlugParams
 
     afterUpdate(() => getSavedRoute('progress', params.slug1, params.slug2))
+
+    onMount(async () => await achievementStore.fetch({ language: $settings.general.language }))
 </script>
 
 <style lang="scss">
@@ -22,7 +26,7 @@
 
 <div>
     <ProgressSidebar />
-    {#if params.slug1}
+    {#if params.slug1 && $achievementStore.loaded}
         <ProgressTable slug1={params.slug1} slug2={params.slug2} />
     {/if}
 </div>
