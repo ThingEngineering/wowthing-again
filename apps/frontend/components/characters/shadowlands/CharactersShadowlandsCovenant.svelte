@@ -116,8 +116,8 @@
         }*/
 
         :global(.progress-container) {
-            margin: 0.25rem -0.1rem 0 -0.1rem;
-            width: calc(100% + 0.2rem);
+            margin: 0.25rem 0 0 0;
+            width: 100%;
         }
     }
     .info-row {
