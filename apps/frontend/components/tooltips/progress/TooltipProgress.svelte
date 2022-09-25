@@ -3,6 +3,7 @@
 
     import { covenantFeatureCost } from '@/data/covenant'
     import { ProgressDataType } from '@/types/enums'
+    import { achievementStore, userAchievementStore } from '@/stores'
     import type { Character } from '@/types'
     import type { ManualDataProgressData, ManualDataProgressGroup } from '@/types/data/manual'
 
@@ -27,7 +28,21 @@
             }
         }) ? 'long' : 'short'
 
-        if (datas.length === 1 && datas[0].type === ProgressDataType.SlCovenant) {
+        // Special cases
+        if (group.name === 'Valorous Appearances') {
+            const cheev = $achievementStore.data.achievement[datas[1].ids[0]]
+            const rootTree = $achievementStore.data.criteriaTree[cheev.criteriaTreeId]
+            const charCheev = $userAchievementStore.data.addonAchievements[character.id]?.[cheev.id]
+            const newDesc = {...descriptionText}
+            if (charCheev?.earned !== true) {
+                for (let childIndex = 0; childIndex < rootTree.children.length; childIndex++) {
+                    const childTree = $achievementStore.data.criteriaTree[rootTree.children[childIndex]]
+                    newDesc[1] += `<br>${charCheev?.criteria?.[childIndex] > 0 ? '✔' : '❌'} ${childTree.description}`
+                }
+            }
+            descriptionText = newDesc
+        }
+        else if (datas.length === 1 && datas[0].type === ProgressDataType.SlCovenant) {
             const currentRank = parseInt(descriptionText[0].split(' ')[1].split('/')[0])
             const isSpecial = datas[0].value === 4
             const prices = covenantFeatureCost[datas[0].value]
