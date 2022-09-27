@@ -34,7 +34,6 @@ export function getAccountData(
                 for (let criteriaIndex = 0; criteriaIndex < characterAchievement.criteria.length; criteriaIndex++) {
                     ret.have[rootCriteriaTree.id] = characterAchievement.criteria[criteriaIndex]
                 }
-                console.log(characterAchievement, ret)
 
                 break
             }
@@ -59,14 +58,10 @@ export function getAccountData(
                 }
                 else if (criteria?.type === CriteriaType.GarrisonTalentCompleteResearchAny && forceGarrisonTalent[childId]) {
                     const [talentId, minRank] = forceGarrisonTalent[childId]
-                    console.log('research', talentId, minRank)
                     for (const character of userData.characters) {
                         for (const garrisonTree of Object.values(character.garrisonTrees || {})) {
                             if (garrisonTree[talentId]) {
-                                if (garrisonTree[talentId][0] > 0) console.log(garrisonTree[talentId])
-
                                 if (garrisonTree[talentId]?.[0] >= minRank) {
-                                    console.log('yay')
                                     ret.have[childId] = 1
                                 }
                                 break
@@ -100,8 +95,8 @@ export function getAccountData(
         }
     }
 
-    if (achievement.id === 9451) {
-        console.log(ret)
+    if (achievement.id === debugId) {
+        console.log('ret', ret)
     }
 
     return ret
