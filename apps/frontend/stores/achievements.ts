@@ -137,9 +137,7 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
 
                 15079, // Many, Many Things
                 15651, // Myths of the Shadowland Dungeons
-
                 15035, // On the Offensive
-
                 15646, // Re-Re-Re-Renowned
                 15025, // Sanctum Superior
                 15126, // Sanctum of Domination
@@ -158,6 +156,9 @@ export class AchievementDataStore extends WritableFancyStore<AchievementData> {
 
                 15324, // Tower Ranger
                 15322, // Flawless Master (Layer 16)
+                15067, // Adamant Vaults
+                14570, // Twisting Corridors: Layer 8
+                15254, // The Jailer's Gauntlet: Layer 4
                 15092, // Master of Torment
                 15093, // Avenge Me!
                 15095, // No Doubt
