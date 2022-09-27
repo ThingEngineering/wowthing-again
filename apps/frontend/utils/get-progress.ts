@@ -180,7 +180,7 @@ export default function getProgress(
 
                             if (quest) {
                                 haveThis = quest.status === QuestStatus.Completed
-                                have = (haveThis ? total : quest.have) - 1
+                                have = (haveThis ? total - 1 : quest.have)
                             }
                             break
                         }

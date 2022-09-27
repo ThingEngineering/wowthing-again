@@ -23,10 +23,12 @@
     $: {
         if (characterItem) {
             character = $userStore.data.characterMap[characterItem.characterId]
+            guild = undefined
             item = characterItem
             realm = character.realm
         }
         else {
+            character = undefined
             guild = $userStore.data.guilds[guildBankItem.guildId]
             item = guildBankItem
             realm = guild.realm
@@ -36,18 +38,22 @@
 
 <style lang="scss">
     .tag {
+        @include cell-width(0.5rem);
+
         background: $highlight-background;
         border-right: 1px solid $border-color;
-        padding-left: $width-padding;
-        padding-right: $width-padding;
         text-align: center;
     }
-    .name {
-        @include cell-width(6rem);
-
+    .name, .guild-name {
         a {
             text-decoration: underline;
         }
+    }
+    .name {
+        @include cell-width(8rem);
+    }
+    .guild-name {
+        @include cell-width(9.5rem);
     }
     .realm {
         @include cell-width(5rem);
@@ -56,6 +62,8 @@
     }
     .location {
         @include cell-width($width-item-location);
+
+        white-space: nowrap;
     }
     .count {
         @include cell-width($width-item-count);
@@ -70,17 +78,31 @@
 </style>
 
 <tr class:highlight={!!guildBankItem}>
-    {#if userStore.useAccountTags}
-        <td class="tag">{$userStore.data.accounts[character.accountId].tag || ''}</td>
+    {#if character}
+        {#if userStore.useAccountTags}
+            <td class="tag">
+                {$userStore.data.accounts[character.accountId].tag || ''}
+            </td>
+        {/if}
+        <td class="name text-overflow">
+            <a
+                class="quality{item.quality || 0}"
+                href={getItemUrlSearch(itemId, item)}
+            >
+                {character.name}
+            </a>
+        </td>
+    {:else}
+        <td class="guild-name text-overflow" colspan="2">
+            <a
+                class="quality{item.quality || 0}"
+                href={getItemUrlSearch(itemId, item)}
+            >
+                {guild?.name || 'Unknown Guild'}
+            </a>
+        </td>
     {/if}
-    <td class="name text-overflow">
-        <a
-            class="quality{item.quality || 0}"
-            href={getItemUrlSearch(itemId, item)}
-        >
-            {character?.name || guild?.name || 'Unknown Guild'}
-        </a>
-    </td>
+
     <td class="realm text-overflow">
         {Region[realm.region]}-{realm.name}
     </td>

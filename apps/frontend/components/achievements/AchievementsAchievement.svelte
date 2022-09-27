@@ -55,7 +55,7 @@
         )) {
             show = false
         }
-        else if (achievement.supersedes && $userAchievementStore.data.achievements[achievement.supersedes] === undefined) {
+        else if (!kindaAlwaysShow && achievement.supersedes && $userAchievementStore.data.achievements[achievement.supersedes] === undefined) {
             show = false
         }
         else {

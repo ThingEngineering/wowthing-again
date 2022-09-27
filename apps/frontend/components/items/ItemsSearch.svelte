@@ -81,9 +81,18 @@
         gap: 0.5rem;
     }
     .results-container {
-        column-count: 2;
+        column-count: 1;
         margin-top: 1rem;
-        width: 60rem;
+        width: 29.5rem;
+
+        @media screen and (min-width: 1350px) {
+            column-count: 2;
+            width: 60rem;
+        }
+        @media screen and (min-width: 1830px) {
+            column-count: 3;
+            width: 90.5rem;
+        }
     }
 
     .state-valid {
