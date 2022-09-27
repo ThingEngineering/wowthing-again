@@ -30,6 +30,6 @@ groups:
   type: mixed
   data:
     0:
-      - name: "???"
+      - name: "Fate's Finale"
         type: "addonQuest"
         value: 66650
