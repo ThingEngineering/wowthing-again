@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { userStore } from '@/stores'
+    import { itemStore, userStore } from '@/stores'
     import { ItemLocation, Region } from '@/types/enums'
     import { getItemUrlSearch } from '@/utils/get-item-url'
     import { toNiceNumber } from '@/utils/to-nice'
@@ -86,7 +86,7 @@
         {/if}
         <td class="name text-overflow">
             <a
-                class="quality{item.quality || 0}"
+                class="quality{item.quality || $itemStore.data.items[itemId].quality || 0}"
                 href={getItemUrlSearch(itemId, item)}
             >
                 {character.name}
