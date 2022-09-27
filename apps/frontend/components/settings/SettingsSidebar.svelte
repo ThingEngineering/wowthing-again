@@ -57,6 +57,10 @@
             ],
         },
         {
+            name: 'Collections',
+            slug: 'collections',
+        },
+        {
             name: 'History',
             slug: 'history',
         },

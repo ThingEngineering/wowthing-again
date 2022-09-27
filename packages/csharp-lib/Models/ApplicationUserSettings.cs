@@ -11,6 +11,7 @@ public class ApplicationUserSettings
     public ApplicationUserSettingsAchievements? Achievements { get; set; } = new();
     public ApplicationUserSettingsAuctions? Auctions { get; set; } = new();
     public ApplicationUserSettingsCharacters? Characters { get; set; } = new();
+    public ApplicationUserSettingsCollections Collections { get; set; } = new();
     public ApplicationUserSettingsGeneral? General { get; set; } = new();
     public ApplicationUserSettingsHistory? History { get; set; } = new();
     public ApplicationUserSettingsLayout? Layout { get; set; } = new();
@@ -22,6 +23,7 @@ public class ApplicationUserSettings
         Achievements ??= new ApplicationUserSettingsAchievements();
         Auctions ??= new ApplicationUserSettingsAuctions();
         Characters ??= new ApplicationUserSettingsCharacters();
+        Collections ??= new ApplicationUserSettingsCollections();
         General ??= new ApplicationUserSettingsGeneral();
         History ??= new ApplicationUserSettingsHistory();
         Layout ??= new ApplicationUserSettingsLayout();
@@ -236,6 +238,11 @@ public class ApplicationUserSettingsCharacters
 {
     public List<int> HiddenCharacters { get; set; } = new();
     public List<int> PinnedCharacters { get; set; } = new();
+}
+
+public class ApplicationUserSettingsCollections
+{
+    public bool HideUnavailable { get; set; } = false;
 }
 
 public class ApplicationUserSettingsGeneral
