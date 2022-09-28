@@ -3,7 +3,7 @@
     import { onMount } from 'svelte'
     import { location, querystring, replace } from 'svelte-spa-router'
 
-    import { itemSearchState, userStore } from '@/stores'
+    import { itemSearchState, itemStore, userStore } from '@/stores'
     import { ItemLocation } from '@/types/enums'
     import tippy from '@/utils/tippy'
     import { toNiceNumber } from '@/utils/to-nice'
@@ -128,6 +128,7 @@
         @include cell-width($width-item-count);
 
         text-align: right;
+        white-space: nowrap;
     }
     .item-level {
         @include cell-width($width-item-level);
@@ -177,7 +178,10 @@
                 <table class="table table-striped">
                     <thead>
                         <tr class="item-row">
-                            <th class="item" colspan="{userStore.useAccountTags ? 4 : 3}">
+                            <th
+                                class="item quality{$itemStore.data.items[item.itemId].quality}"
+                                colspan="{userStore.useAccountTags ? 4 : 3}"
+                            >
                                 <WowthingImage name="item/{item.itemId}" size={20} border={1} />
                                 {item.itemName}
                             </th>

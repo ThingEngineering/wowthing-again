@@ -26,7 +26,13 @@
         setKey = slugs.join('--')
 
         getPercent = function(groupIndex: number, setIndex: number): number {
-            const key = `${slugs[0]}--${category.slug}--${groupIndex}--${setIndex}`
+            let key: string
+            if (setIndex >= 0) {
+                key = `${slugs[0]}--${category.slug}--${groupIndex}--${setIndex}`
+            }
+            else {
+                key = `${slugs[0]}--${category.slug}--${groupIndex}`
+            }
             const hasData = $userTransmogStore.data.stats[key]
             return hasData ? hasData.have / hasData.total * 100 : 0
         }
@@ -87,6 +93,16 @@
         right: 0.5rem;
         word-spacing: -0.2ch;
     }
+    .percent-cell {
+        @include cell-width(2.8rem);
+
+        border-right: 1px solid $border-color;
+        text-align: right;
+        word-spacing: -0.2ch;
+    }
+    .group .percent-cell {
+        background-color: $highlight-background;
+    }
 </style>
 
 {#if startSpacer}
@@ -96,6 +112,7 @@
 {/if}
 
 {#each category.groups as group, groupIndex}
+    {@const showPercent = !isNaN(categoryPercent)}
     {#if groupIndex === 0 || (
         transmogSets[category.groups[groupIndex-1].type].type !== transmogSets[group.type].type &&
         [transmogSets[category.groups[groupIndex-1].type].type, transmogSets[group.type].type].indexOf('covenant') >= 0
@@ -108,11 +125,14 @@
         {/if}
 
         <tr class="sticky">
-            <td class="category-name">
+            <td class="category-name" colspan="{showPercent ? 2 : 1}">
                 {category.name}
-                <span class="drop-shadow percent {getPercentClass(categoryPercent)}">
-                     {Math.floor(categoryPercent).toFixed(0)} %
-                </span>
+                
+                {#if showPercent}
+                    <span class="drop-shadow percent {getPercentClass(categoryPercent)}">
+                        {Math.floor(categoryPercent).toFixed(0)} %
+                    </span>
+                {/if}
             </td>
 
             {#if transmogSets[group.type].type === 'covenant'}
@@ -189,34 +209,50 @@
     {/if}
 
     {#if groupIndex === 0 || category.groups[groupIndex-1].name !== group.name}
-        <tr>
+        <tr class="group">
+            {#if showPercent}
+                <td class="percent-cell">
+                    <span class="drop-shadow {getPercentClass(getPercent(groupIndex, -1))}">
+                        {Math.floor(getPercent(groupIndex, -1)).toFixed(0)} %
+                    </span>
+                </td>
+            {/if}
             <td class="name highlight" colspan="13">
-                {#if group.tag}<span class="tag">[{group.tag}]</span>{/if}
+                {#if group.tag}
+                    <span class="tag">
+                        [{group.tag}]
+                    </span>
+                {/if}
+
                 {group.name}
             </td>
         </tr>
     {/if}
 
-    {#each getFilteredSets($settingsData, group) as [setShow, setName], setIndex}
+    {#each getFilteredSets($settingsData, $userTransmogStore.data, group) as [setShow, setName], setIndex}
         {#if setShow}
-        <tr class:faded={setName.endsWith('*')}>
-            <td class="name">
-                &ndash; <ParsedText text={setName.replace('*', '')} />
-                <span class="drop-shadow percent {getPercentClass(getPercent(groupIndex, setIndex))}">
-                     {Math.floor(getPercent(groupIndex, setIndex)).toFixed(0)} %
-                </span>
-            </td>
-
-            {#each transmogSets[group.type].sets as transmogSet (`set--${setKey}--${setName}--${transmogSet.type}`)}
-                {#if !skipClasses[transmogSet.type]}
-                    <TableSet
-                        set={group.data?.[transmogSet.type]?.[setIndex]}
-                        span={getTransmogSpan(group, transmogSet, skipClasses)}
-                        subType={transmogSet.subType}
-                    />
+            <tr class:faded={setName.endsWith('*')}>
+                {#if showPercent}
+                    <td class="percent-cell">
+                        <span class="drop-shadow {getPercentClass(getPercent(groupIndex, setIndex))}">
+                            {Math.floor(getPercent(groupIndex, setIndex)).toFixed(0)} %
+                        </span>
+                    </td>
                 {/if}
-            {/each}
-        </tr>
-            {/if}
+                <td class="name">
+                    &ndash; <ParsedText text={setName.replace('*', '')} />
+                </td>
+
+                {#each transmogSets[group.type].sets as transmogSet (`set--${setKey}--${setName}--${transmogSet.type}`)}
+                    {#if !skipClasses[transmogSet.type]}
+                        <TableSet
+                            set={group.data?.[transmogSet.type]?.[setIndex]}
+                            span={getTransmogSpan(group, transmogSet, skipClasses)}
+                            subType={transmogSet.subType}
+                        />
+                    {/if}
+                {/each}
+            </tr>
+        {/if}
     {/each}
 {/each}

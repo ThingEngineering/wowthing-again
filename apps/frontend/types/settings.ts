@@ -18,6 +18,10 @@ export interface Settings {
         pinnedCharacters: number[]
     }
 
+    collections: {
+        hideUnavailable: boolean
+    }
+
     general: {
         desiredAccountName: string
         language: Language

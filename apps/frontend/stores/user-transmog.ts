@@ -76,6 +76,8 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
                         }
 
                         const groupKey = `${catKey}--${groupIndex}`
+                        const groupStats = stats[groupKey] = stats[groupKey] || new UserCount()
+
                         for (let setIndex = 0; setIndex < dataValue.length; setIndex++) {
                             const setName = group.sets[setIndex]
 
@@ -107,6 +109,7 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
                                 }
                                 baseStats.total++
                                 catStats.total++
+                                groupStats.total++
                                 setStats.total++
 
                                 for (const transmogId of transmogIds) {
@@ -116,6 +119,7 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
                                         }
                                         baseStats.have++
                                         catStats.have++
+                                        groupStats.have++
                                         setStats.have++
                                         break
                                     }
