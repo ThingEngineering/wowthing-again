@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { honorAchievements } from '@/data/achievements'
     import { achievementStore, userAchievementStore, userStore } from '@/stores'
     import { AchievementDataAccount, getAccountData } from '@/utils/achievements'
     import type {AchievementDataAchievement, AchievementDataCriteriaTree} from '@/types'
@@ -22,7 +23,7 @@
 
         progressBar = achievement?.isProgressBar || data.criteria[0]?.isProgressBar || false
 
-        if (achievement.id === 9451) {
+        if (achievement.id === 12909) {
             console.log('-- ACCOUNT --')
             console.log(achievement)
             console.log(criteriaTree)
@@ -46,9 +47,15 @@
 
 {#if criteriaTree}
     <div
-        class:tree={!progressBar}
+        class:tree={!honorAchievements[achievement.id] && !progressBar}
     >
-        {#if progressBar}
+        {#if honorAchievements[achievement.id]}
+            <ProgressBar
+                title="Honor Level"
+                have={$userStore.data.honorLevel || 0}
+                total={$achievementStore.data.criteria[data.criteria[0].criteriaId].asset}
+            />
+        {:else if progressBar}
             <ProgressBar
                 title="{data.criteria[0].description}"
                 have={data.have[data.criteria[0].id]}

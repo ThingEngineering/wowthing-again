@@ -45,6 +45,30 @@ export const forceSupersedes: Record<number, number> = Object.fromEntries(
         .map(([dest, src]) => [src, parseInt(dest)])
 )
 
+export const honorAchievements: Record<number, boolean> = Object.fromEntries([
+    12893, // Honor Level 5
+    12894, // Honor Level 10
+    12895, // Honor Level 15
+    12900, // Honor Level 20
+    12901, // Honor Level 25
+    12902, // Honor Level 30
+    12903, // Honor Level 40
+    12904, // Honor Level 50
+    12905, // Honor Level 60
+    12906, // Honor Level 70
+    12907, // Honor Level 80
+    12908, // Honor Level 90
+    12909, // Honor Level 100
+    12910, // Honor Level 125
+    12911, // Honor Level 150
+    12912, // Honor Level 175
+    12913, // Honor Level 200
+    12914, // Honor Level 250
+    12915, // Honor Level 300
+    12916, // Honor Level 400
+    12917, // Honor Level 500
+].map((id) => [id, true]))
+
 export const extraCategories: [string, [string, number, string?, string?][]][] = [
     ['classic', [
         ['exploration/eastern-kingdoms', 3, 'exploration-eastern-kingdoms', 'Exploration > Eastern Kingdoms'],

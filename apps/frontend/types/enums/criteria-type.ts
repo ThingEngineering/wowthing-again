@@ -20,4 +20,5 @@ export enum CriteriaType {
     LearnTransmog = 192,
     GarrisonTalentCompleteResearchAny = 197,
     CollectTransmogSet = 205,
+    HonorMaybe = 213,
 }
