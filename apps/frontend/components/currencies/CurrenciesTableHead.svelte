@@ -1,9 +1,11 @@
 <script lang="ts">
+    import { itemStore } from '@/stores'
     import { currencyState } from '@/stores/local-storage'
+    import { tippyComponent } from '@/utils/tippy'
     import type { StaticDataCurrency } from '@/types/data/static'
 
-    import CurrencyLink from '@/components/links/CurrencyLink.svelte'
     import TableSortedBy from '@/components/common/TableSortedBy.svelte'
+    import Tooltip from '@/components/tooltips/currency/TooltipCurrency.svelte'
     import WowheadLink from '@/components/links/WowheadLink.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
@@ -39,11 +41,20 @@
     }
 </style>
 
-<th>
+<th
+    use:tippyComponent={{
+        component: Tooltip,
+        props: {
+            currency,
+            item: $itemStore.data.items[itemId],
+        }
+    }}
+>
     <WowheadLink
         on:click={onClick}
         type={itemId ? 'item' : 'currency'}
         id={itemId || currency.id}
+        noTooltip={true}
     >
         <WowthingImage
             name={itemId ? `item/${itemId}` : `currency/${currency.id}`}

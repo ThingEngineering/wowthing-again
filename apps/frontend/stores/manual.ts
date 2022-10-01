@@ -579,7 +579,17 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                                     )
                                 }
                                 else {
-                                    if (!userTransmogData.userHas[itemData.items[drop.id]?.appearances?.[0]?.appearanceId ?? 0]) {
+                                    const itemAppearances = itemData.items[drop.id]?.appearances || {}
+                                    let appearanceId = itemAppearances?.[0]?.appearanceId || 0
+                                    // If there's no default appearanceId, check for there only being one possibility
+                                    if (appearanceId === 0) {
+                                        const keys = Object.keys(itemAppearances)
+                                        if (keys.length === 1) {
+                                            appearanceId = itemAppearances[parseInt(keys[0])].appearanceId
+                                        }
+                                    }
+                                    
+                                    if (!userTransmogData.userHas[appearanceId]) {
                                         dropStatus.need = true
                                     }
                                 }

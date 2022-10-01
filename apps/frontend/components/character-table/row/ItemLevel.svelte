@@ -14,4 +14,4 @@
     }
 </style>
 
-<td class="quality{character.calculatedItemLevelQuality}">{character.calculatedItemLevel}</td>
+<td class="border-left quality{character.calculatedItemLevelQuality}">{character.calculatedItemLevel}</td>

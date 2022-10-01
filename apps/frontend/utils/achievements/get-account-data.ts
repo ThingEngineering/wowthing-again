@@ -10,7 +10,7 @@ import type {
 import { CriteriaType } from '@/types/enums'
 
 
-const debugId = 150791
+const debugId = 12909
 
 export function getAccountData(
     achievementData: AchievementData,
@@ -79,6 +79,11 @@ export function getAccountData(
                             }
                         }
                     }
+                }
+                else if (criteria?.type === CriteriaType.HonorMaybe) {
+                    console.log(criteria)
+                    console.log(childTree)
+                    ret.have[childId] = userData.honorLevel || 0
                 }
                 else {
                     const value: number[] = (userAchievementData.criteria[childId] || [[]])[0]

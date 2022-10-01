@@ -110,7 +110,7 @@
                     />
                     <span
                         class:status-fail={!current || currentSkill === 0}
-                        class:status-success={currentSkill >0 && currentSkill >= charProfession.maxSkill}
+                        class:status-success={current && currentSkill > 0 && currentSkill >= charProfession.maxSkill}
                     >
                         {currentSkill || '---'}
                     </span>
