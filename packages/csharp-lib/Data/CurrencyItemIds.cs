@@ -17,6 +17,7 @@ public static partial class Hardcoded
         163036, // Polished Pet Charm
         168802, // Nazjatar Battle Commendation
         188957, // Genesis Mote
+        190189, // Sandworn Relic
 
         183888, // Apogee Anima Bead
         183889, // Thaumaturgic Anima Bead
