@@ -117,6 +117,6 @@
         {toNiceNumber(characterItem?.count || guildBankItem.count)}
     </td>
     <td class="item-level">
-        {characterItem?.itemLevel || guildBankItem?.itemLevel || 0}
+        {characterItem?.itemLevel || guildBankItem?.itemLevel || $itemStore.data.items[itemId].itemLevel || 0}
     </td>
 </tr>
