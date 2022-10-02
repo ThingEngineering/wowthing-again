@@ -238,7 +238,7 @@ farms:
   location: 65.9 39.9
   note: "Requires Light's Judgment power"
   objectId: 277205
-  questId: 0
+  questId: 49018
   type: treasure
   drops:
   - type: transmog
