@@ -1,5 +1,5 @@
 import type { UserCount } from '@/types'
-import type { RewardType } from '../enums'
+import type { RewardType } from '../../enums'
 
 
 export interface JournalData {

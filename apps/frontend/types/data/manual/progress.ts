@@ -1,4 +1,4 @@
-import type { ProgressDataType } from '@/types/enums'
+import type { ProgressDataType } from '@/enums'
 
 
 export interface ManualDataProgressCategory {

@@ -23,7 +23,7 @@
     import { colors } from '@/data/colors'
     import { staticStore, timeStore, userHistoryStore } from '@/stores'
     import { historyState } from '@/stores/local-storage'
-    import { Region } from '@/types/enums'
+    import { Region } from '@/enums'
     import parseApiTime from '@/utils/parse-api-time'
     import type { HistoryState } from '@/stores/local-storage'
     import type { StaticDataRealm } from '@/types/data/static'

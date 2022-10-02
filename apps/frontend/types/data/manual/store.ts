@@ -1,4 +1,4 @@
-import type { RewardType } from '@/types/enums'
+import type { RewardType } from '@/enums'
 import type { UserCount } from '@/types/user-count'
 import type { FarmStatus } from '@/types/zone-maps'
 

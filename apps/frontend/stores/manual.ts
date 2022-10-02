@@ -24,7 +24,7 @@ import {
     ManualDataVendorItem,
     ManualDataZoneMapCategory,
 } from '@/types/data/manual'
-import { Faction, FarmResetType, FarmType, PlayableClass, PlayableClassMask, RewardType } from '@/types/enums'
+import { Faction, FarmResetType, FarmType, PlayableClass, PlayableClassMask, RewardType } from '@/enums'
 import { getNextBiWeeklyReset, getNextDailyReset, getNextWeeklyReset } from '@/utils/get-next-reset'
 import { getCurrencyCosts, getSetCurrencyCostsString } from '@/utils/get-currency-costs'
 import getTransmogClassMask from '@/utils/get-transmog-class-mask'

@@ -1,4 +1,4 @@
-import { PlayableClass } from '@/types/enums'
+import { PlayableClass } from '@/enums'
 
 
 export const legendaryBonusIDs: Record<number, number> = {

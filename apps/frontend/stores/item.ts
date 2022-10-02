@@ -1,5 +1,3 @@
-import sortBy from 'lodash'
-
 import { WritableFancyStore } from '@/types'
 import { ItemDataItem, type ItemData } from '@/types/data/item'
 

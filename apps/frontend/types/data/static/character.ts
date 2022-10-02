@@ -1,4 +1,4 @@
-import type { Faction, PrimaryStat, Role } from '@/types/enums'
+import type { Faction, PrimaryStat, Role } from '@/enums'
 
 
 export interface StaticDataCharacterClass {

@@ -1,7 +1,7 @@
 <script lang="ts">
     import { farmTypeIcons, rewardTypeIcons } from '@/data/icons'
     import { weaponSubclassToString } from '@/data/weapons'
-    import { ArmorType, RewardType } from '@/types/enums'
+    import { ArmorType, RewardType } from '@/enums'
     import { getDropData } from '@/utils/zone-maps/get-drop-data'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'

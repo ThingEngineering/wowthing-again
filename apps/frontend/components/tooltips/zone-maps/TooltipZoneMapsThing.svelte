@@ -5,7 +5,7 @@
     import { iconStrings, imageStrings, rewardTypeIcons } from '@/data/icons'
     import { weaponSubclassToString } from '@/data/weapons'
     import { achievementStore, journalStore, userAchievementStore, userStore } from '@/stores'
-    import { ArmorType, RewardType, FarmResetType, FarmType, FarmIdType } from '@/types/enums'
+    import { ArmorType, RewardType, FarmResetType, FarmType, FarmIdType } from '@/enums'
     import leftPad from '@/utils/left-pad'
     import { getDropName } from '@/utils/zone-maps/get-drop-name'
     import type { DropStatus, FarmStatus } from '@/types'

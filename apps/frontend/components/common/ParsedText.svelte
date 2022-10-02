@@ -3,7 +3,7 @@
 
     import { iconStrings, imageStrings } from '@/data/icons'
     import { itemStore, staticStore } from '@/stores'
-    import { RewardReputation } from '@/types/enums'
+    import { RewardReputation } from '@/enums'
 
     import ClassIcon from '../images/ClassIcon.svelte'
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'

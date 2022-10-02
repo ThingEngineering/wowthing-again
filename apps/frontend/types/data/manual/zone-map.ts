@@ -1,4 +1,4 @@
-import type { FarmIdType, FarmResetType, FarmType, RewardType } from '@/types/enums'
+import type { FarmIdType, FarmResetType, FarmType, RewardType } from '@/enums'
 import type { ManualDataVendorItem } from './vendor'
 
 

@@ -1,4 +1,4 @@
-import type { InventoryType, ItemQuality, PrimaryStat } from '@/types/enums'
+import type { InventoryType, ItemQuality, PrimaryStat } from '@/enums'
 
 
 export class ItemDataItem {

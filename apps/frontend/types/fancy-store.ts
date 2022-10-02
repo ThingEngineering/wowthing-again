@@ -1,7 +1,7 @@
 import { get, writable } from 'svelte/store'
 import type { Writable } from 'svelte/store'
 
-import { Language } from '@/types/enums'
+import { Language } from '@/enums'
 import fetchJson from '@/utils/fetch-json'
 
 

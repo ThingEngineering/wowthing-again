@@ -4,7 +4,7 @@
 
     import { userStore } from '@/stores'
     import { auctionState } from '@/stores/local-storage/auctions'
-    import { Region } from '@/types/enums'
+    import { Region } from '@/enums'
     import type { MultiSlugParams } from '@/types'
 
     import Checkbox from '@/components/forms/CheckboxInput.svelte'

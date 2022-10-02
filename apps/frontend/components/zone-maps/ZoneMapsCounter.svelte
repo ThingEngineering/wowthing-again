@@ -2,7 +2,7 @@
     import { manualStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
     import type { UserCount } from '@/types'
-    import type { RewardType } from '@/types/enums'
+    import type { RewardType } from '@/enums'
 
     export let key: string
     export let type: RewardType

@@ -1,4 +1,3 @@
-import CharacterTable from '@/components/character-table/CharacterTable.svelte'
 import { forceAddonCriteria, forceGarrisonTalent } from '@/data/achievements'
 import type {
     AchievementData,
@@ -7,7 +6,7 @@ import type {
     UserAchievementData,
     UserData
 } from '@/types'
-import { CriteriaType } from '@/types/enums'
+import { CriteriaType } from '@/enums'
 
 
 const debugId = 12909

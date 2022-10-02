@@ -1,7 +1,7 @@
 <script lang="ts">
     import { iconStrings } from '@/data/icons'
     import { achievementStore, staticStore, userAchievementStore } from '@/stores'
-    import { CriteriaTreeOperator, CriteriaType } from '@/types/enums'
+    import { CriteriaTreeOperator, CriteriaType } from '@/enums'
     import type { AchievementDataAchievement, AchievementDataCriteria, AchievementDataCriteriaTree } from '@/types'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'

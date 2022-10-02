@@ -1,4 +1,4 @@
-import type { Gender } from '@/types/enums'
+import type { Gender } from '@/enums'
 
 
 export function getGenderedName(name: string, gender: Gender) {

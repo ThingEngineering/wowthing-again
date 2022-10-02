@@ -4,7 +4,7 @@
 
     import { data as settings } from '@/stores/settings'
     import { userStore } from '@/stores'
-    import { Region } from '@/types/enums'
+    import { Region } from '@/enums'
     import type { Character } from '@/types'
 
     import ClassIcon from '@/components/images/ClassIcon.svelte'

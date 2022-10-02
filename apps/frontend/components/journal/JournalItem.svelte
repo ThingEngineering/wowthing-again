@@ -6,7 +6,7 @@
     import { staticStore, userStore, userTransmogStore } from '@/stores'
     import { journalState } from '@/stores/local-storage'
     import { data as settingsData } from '@/stores/settings'
-    import { PlayableClass, PlayableClassMask, RewardType } from '@/types/enums'
+    import { PlayableClass, PlayableClassMask, RewardType } from '@/enums'
     import { getItemUrl } from '@/utils/get-item-url'
     import tippy from '@/utils/tippy'
     import type { JournalDataEncounterItem, JournalDataEncounterItemAppearance } from '@/types/data/journal'

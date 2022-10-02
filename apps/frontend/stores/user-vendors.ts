@@ -2,7 +2,7 @@ import { get } from 'svelte/store'
 
 import { itemStore, manualStore, staticStore } from '@/stores'
 import { UserCount, WritableFancyStore } from '@/types'
-import { Faction, InventoryType, RewardType } from '@/types/enums'
+import { Faction, InventoryType, RewardType } from '@/enums'
 import { getCurrencyCosts } from '@/utils/get-currency-costs'
 import getTransmogClassMask from '@/utils/get-transmog-class-mask'
 import userHasDrop from '@/utils/user-has-drop'

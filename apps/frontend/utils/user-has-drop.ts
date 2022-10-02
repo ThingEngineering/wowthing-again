@@ -1,7 +1,7 @@
 import every from 'lodash/every'
 
 import { transmogTypes } from '@/stores/user-vendors'
-import { RewardType } from '@/types/enums'
+import { RewardType } from '@/enums'
 import type { UserTransmogData } from '@/types/data'
 import type { ItemData } from '@/types/data/item'
 import type { UserData } from '@/types/user-data'
