@@ -1,3 +1,4 @@
+export * from './appearance-modifier'
 export * from './armor-subclass'
 export * from './armor-type'
 export * from './chromie-time'
