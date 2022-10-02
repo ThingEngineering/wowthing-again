@@ -1,0 +1,175 @@
+tags:
+  - "expansion:legion"
+  - "faction:alliance"
+  - "meta:unavailable"
+  - "pvp:season-23"
+  - "tier:elite"
+
+sets:
+  - id: "transmog:1352" # Fierce Gladiator's Dreadplate Armor [Alliance]
+    tags:
+      - "class:death-knight"
+    items:
+      - 148185 # Head
+      - 148189 # Shoulders
+      - 148179 # Chest
+      - 148191 # Waist
+      - 148187 # Legs
+      - 148181 # Feet
+      - 148193 # Wrists
+      - 148183 # Hands
+      - 148155 # Back
+
+  - id: "transmog:1358" # Fierce Gladiator's Felskin Armor [Alliance]
+    tags:
+      - "class:demon-hunter"
+    items:
+      - 148201 # Head
+      - 148205 # Shoulders
+      - 148195 # Chest
+      - 148207 # Waist
+      - 148203 # Legs
+      - 148197 # Feet
+      - 148209 # Wrists
+      - 148199 # Hands
+      - 148157 # Back
+
+  - id: "transmog:1380" # Fierce Gladiator's Dragonhide Armor [Alliance]
+    tags:
+      - "class:druid"
+    items:
+      - 148217 # Head
+      - 148221 # Shoulders
+      - 148211 # Chest
+      - 148223 # Waist
+      - 148219 # Legs
+      - 148213 # Feet
+      - 148225 # Wrists
+      - 148215 # Hands
+      - 148159 # Back
+
+  - id: "transmog:1382" # Fierce Gladiator's Chain Armor [Alliance]
+    tags:
+      - "class:hunter"
+    items:
+      - 148233 # Head
+      - 148237 # Shoulders
+      - 148227 # Chest
+      - 148239 # Waist
+      - 148235 # Legs
+      - 148229 # Feet
+      - 148241 # Wrists
+      - 148231 # Hands
+      - 148161 # Back
+
+  - id: "transmog:1384" # Fierce Gladiator's Silk Armor [Alliance]
+    tags:
+      - "class:mage"
+    items:
+      - 148247 # Head
+      - 148253 # Shoulders
+      - 148251 # Chest
+      - 148255 # Waist
+      - 148249 # Legs
+      - 148243 # Feet
+      - 148257 # Wrists
+      - 148245 # Hands
+      - 148163 # Back
+
+  - id: "transmog:1386" # Fierce Gladiator's Ironskin Armor [Alliance]
+    tags:
+      - "class:monk"
+    items:
+      - 148263 # Head
+      - 148267 # Shoulders
+      - 148269 # Chest
+      - 148271 # Waist
+      - 148265 # Legs
+      - 148259 # Feet
+      - 148273 # Wrists
+      - 148261 # Hands
+      - 148165 # Back
+
+  - id: "transmog:1388" # Fierce Gladiator's Scaled Armor [Alliance]
+    tags:
+      - "class:paladin"
+    items:
+      - 148287 # Head
+      - 148291 # Shoulders
+      - 148281 # Chest
+      - 148293 # Waist
+      - 148289 # Legs
+      - 148283 # Feet
+      - 148295 # Wrists
+      - 148285 # Hands
+      - 148167 # Back
+
+  - id: "transmog:1390" # Fierce Gladiator's Satin Armor [Alliance]
+    tags:
+      - "class:priest"
+    items:
+      - 148301 # Head
+      - 148307 # Shoulders
+      - 148305 # Chest
+      - 148309 # Waist
+      - 148303 # Legs
+      - 148297 # Feet
+      - 148311 # Wrists
+      - 148299 # Hands
+      - 148169 # Back
+
+  - id: "transmog:1392" # Fierce Gladiator's Leather Armor [Alliance]
+    tags:
+      - "class:rogue"
+    items:
+      - 148325 # Head
+      - 148329 # Shoulders
+      - 148319 # Chest
+      - 148331 # Waist
+      - 148327 # Legs
+      - 148321 # Feet
+      - 148333 # Wrists
+      - 148323 # Hands
+      - 148171 # Back
+
+  - id: "transmog:1394" # Fierce Gladiator's Ringmail Armor [Alliance]
+    tags:
+      - "class:shaman"
+    items:
+      - 148341 # Head
+      - 148345 # Shoulders
+      - 148335 # Chest
+      - 148347 # Waist
+      - 148343 # Legs
+      - 148337 # Feet
+      - 148349 # Wrists
+      - 148339 # Hands
+      - 148173 # Back
+
+  - id: "transmog:1396" # Fierce Gladiator's Felweave Armor [Alliance]
+    tags:
+      - "class:warlock"
+    items:
+      - 148373 # Head
+      - 148379 # Shoulders
+      - 148377 # Chest
+      - 148381 # Waist
+      - 148375 # Legs
+      - 148369 # Feet
+      - 148383 # Wrists
+      - 148371 # Hands
+      - 148175 # Back
+
+  - id: "transmog:1398" # Fierce Gladiator's Plate Armor [Horde]
+    tags:
+      - "class:warrior"
+    items:
+      - 148392 # Head
+      - 148396 # Shoulders
+      - 148386 # Chest
+      - 148398 # Waist
+      - 148394 # Legs
+      - 148388 # Feet
+      - 148400 # Wrists
+      - 148390 # Hands
+      - 148178 # Back
