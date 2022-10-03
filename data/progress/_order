@@ -42,6 +42,11 @@ z0/_classic.yml
 
 -
 
+world-events/_world_events.yml
+    world-events/brewfest.yml
+
+-
+
 raid_skips.yml
     z8/raid_skips.yml Shadowlands
     z7/raid_skips.yml Battle for Azeroth
