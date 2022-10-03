@@ -1,11 +1,13 @@
 <script lang="ts">
+    import find from 'lodash/find'
     import { DateTime } from 'luxon'
 
     import { Constants } from '@/data/constants'
     import { covenantMap } from '@/data/covenant'
     import { forcedReset, progressQuestMap } from '@/data/quests'
     import { taskMap } from '@/data/tasks'
-    import { timeStore, userQuestStore } from '@/stores'
+    import { manualStore, staticStore, timeStore, userQuestStore, userStore } from '@/stores'
+    import getProgress from '@/utils/get-progress'
     import { tippyComponent } from '@/utils/tippy'
     import type { Character } from '@/types'
     import type { UserQuestDataCharacterProgress } from '@/types/data'
@@ -15,12 +17,14 @@
     export let character: Character
     export let quest: string
 
+    let highlight: boolean
     let progressQuest: UserQuestDataCharacterProgress
     let status: string
     let text: string
     let title: string
     let valid: boolean
     $: {
+        highlight = false
         valid = false
         const task = taskMap[quest]
         if (
@@ -105,6 +109,26 @@
                 status = 'fail'
                 text = 'Get!'
             }
+
+            if (quest === 'newDeal') {
+                const category = find(
+                    find(
+                        $manualStore.data.progressSets,
+                        (progress) => progress?.[0].slug === 'shadowlands'
+                    ),
+                    (category) => category?.name === 'Upgrades'
+                )
+                const progress = getProgress(
+                    $staticStore.data,
+                    $userStore.data,
+                    null,
+                    $userQuestStore.data,
+                    character,
+                    category,
+                    category.groups[0],
+                )
+                highlight = progress?.have === 5
+            }
         }
     }
 </script>
@@ -127,6 +151,10 @@
         &.shrug-cycle {
             animation: 2s linear 0s infinite alternate shrug-success;
         }
+
+        &.highlight {
+            background: darken($colour-shrug, 35%);
+        }
     }
 
     @keyframes shrug-success {
@@ -143,6 +171,7 @@
     <td
         class="status-{status}"
         class:center={quest === 'weeklyHoliday' || progressQuest === undefined || progressQuest.status !== 1}
+        class:highlight={highlight && status !== 'success'}
         use:tippyComponent={{
             component: Tooltip,
             props: {
