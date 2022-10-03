@@ -52,6 +52,19 @@ SLOT_MAP = {
     20: 'Chest',
 }
 
+SLOT_ORDER = [
+    1,
+    3,
+    16,
+    5,
+    20,
+    9,
+    10,
+    6,
+    7,
+    8,
+]
+
 DESCRIPTION_MAP = {
      1641: 'Raid Finder',
      2015: 'Heroic',
@@ -203,9 +216,9 @@ def main():
                 faction = 'Horde'
 
             if faction:
-                print(f'  - id: "transmog:{set_id}" # {set["name"]} [{faction}]')
+                print(f'  - name: "transmog:{set_id}" # {set["name"]} [{faction}]')
             else:
-                print(f'  - id: "transmog:{set_id}" # {set["name"]}')
+                print(f'  - name: "transmog:{set_id}" # {set["name"]}')
             
             print(f'    tags:')
 
@@ -309,7 +322,7 @@ def print_items(appearance_ids, appearances, item_slot, output_items=False, set_
     #print(ugh)
     if set_mode:
         print(f'    items:')
-        for thing in sorted(ugh.items()):#, key=lambda u: SLOT_ORDER.index(u[0])):
+        for thing in sorted(ugh.items(), key=lambda u: SLOT_ORDER.index(u[0])):
             strings = [str(s) for s in output_items and thing[1] or sorted(thing[1])]
 
             print(f'      - {" ".join(strings)}', '#', SLOT_MAP[thing[0]])

@@ -11,13 +11,13 @@ sets:
     items:
       - 147939 # Head
       - 147943 # Shoulders
+      - 147909 # Back
       - 147933 # Chest
+      - 147947 # Wrists
+      - 147937 # Hands
       - 147945 # Waist
       - 147941 # Legs
       - 147935 # Feet
-      - 147947 # Wrists
-      - 147937 # Hands
-      - 147909 # Back
 
   - name: "transmog:1402" # Fierce Gladiator's Felskin Armor [Alliance]
     tags:
@@ -25,13 +25,13 @@ sets:
     items:
       - 147955 # Head
       - 147959 # Shoulders
+      - 147911 # Back
       - 147949 # Chest
+      - 147963 # Wrists
+      - 147953 # Hands
       - 147961 # Waist
       - 147957 # Legs
       - 147951 # Feet
-      - 147963 # Wrists
-      - 147953 # Hands
-      - 147911 # Back
 
   - name: "transmog:1404" # Fierce Gladiator's Dragonhide Armor [Alliance]
     tags:
@@ -39,13 +39,13 @@ sets:
     items:
       - 147971 # Head
       - 147975 # Shoulders
+      - 147913 # Back
       - 147965 # Chest
+      - 147979 # Wrists
+      - 147969 # Hands
       - 147977 # Waist
       - 147973 # Legs
       - 147967 # Feet
-      - 147979 # Wrists
-      - 147969 # Hands
-      - 147913 # Back
 
   - name: "transmog:1406" # Fierce Gladiator's Chain Armor [Alliance]
     tags:
@@ -53,13 +53,13 @@ sets:
     items:
       - 147987 # Head
       - 147991 # Shoulders
+      - 147915 # Back
       - 147981 # Chest
+      - 147995 # Wrists
+      - 147985 # Hands
       - 147993 # Waist
       - 147989 # Legs
       - 147983 # Feet
-      - 147995 # Wrists
-      - 147985 # Hands
-      - 147915 # Back
 
   - name: "transmog:1408" # Fierce Gladiator's Silk Armor [Alliance]
     tags:
@@ -67,13 +67,13 @@ sets:
     items:
       - 148001 # Head
       - 148007 # Shoulders
+      - 147917 # Back
       - 148005 # Chest
+      - 148011 # Wrists
+      - 147999 # Hands
       - 148009 # Waist
       - 148003 # Legs
       - 147997 # Feet
-      - 148011 # Wrists
-      - 147999 # Hands
-      - 147917 # Back
 
   - name: "transmog:1410" # Fierce Gladiator's Ironskin Armor [Alliance]
     tags:
@@ -81,13 +81,13 @@ sets:
     items:
       - 148017 # Head
       - 148021 # Shoulders
+      - 147919 # Back
       - 148023 # Chest
+      - 148027 # Wrists
+      - 148015 # Hands
       - 148025 # Waist
       - 148019 # Legs
       - 148013 # Feet
-      - 148027 # Wrists
-      - 148015 # Hands
-      - 147919 # Back
 
   - name: "transmog:1412" # Fierce Gladiator's Scaled Armor [Alliance]
     tags:
@@ -95,13 +95,13 @@ sets:
     items:
       - 148040 # Head
       - 148045 # Shoulders
+      - 147921 # Back
       - 148044 # Chest
+      - 148049 # Wrists
+      - 148038 # Hands
       - 148047 # Waist
       - 148042 # Legs
       - 148036 # Feet
-      - 148049 # Wrists
-      - 148038 # Hands
-      - 147921 # Back
 
   - name: "transmog:1414" # Fierce Gladiator's Satin Armor [Alliance]
     tags:
@@ -109,13 +109,13 @@ sets:
     items:
       - 148055 # Head
       - 148061 # Shoulders
+      - 147923 # Back
       - 148059 # Chest
+      - 148065 # Wrists
+      - 148053 # Hands
       - 148063 # Waist
       - 148057 # Legs
       - 148051 # Feet
-      - 148065 # Wrists
-      - 148053 # Hands
-      - 147923 # Back
 
   - name: "transmog:1416" # Fierce Gladiator's Leather Armor [Alliance]
     tags:
@@ -123,13 +123,13 @@ sets:
     items:
       - 148079 # Head
       - 148083 # Shoulders
+      - 147925 # Back
       - 148073 # Chest
+      - 148087 # Wrists
+      - 148077 # Hands
       - 148085 # Waist
       - 148081 # Legs
       - 148075 # Feet
-      - 148087 # Wrists
-      - 148077 # Hands
-      - 147925 # Back
 
   - name: "transmog:1418" # Fierce Gladiator's Ringmail Armor [Alliance]
     tags:
@@ -137,13 +137,13 @@ sets:
     items:
       - 148095 # Head
       - 148099 # Shoulders
+      - 147927 # Back
       - 148089 # Chest
+      - 148103 # Wrists
+      - 148093 # Hands
       - 148101 # Waist
       - 148097 # Legs
       - 148091 # Feet
-      - 148103 # Wrists
-      - 148093 # Hands
-      - 147927 # Back
 
   - name: "transmog:1420" # Fierce Gladiator's Felweave Armor [Alliance]
     tags:
@@ -151,13 +151,13 @@ sets:
     items:
       - 148127 # Head
       - 148133 # Shoulders
+      - 147929 # Back
       - 148131 # Chest
+      - 148137 # Wrists
+      - 148125 # Hands
       - 148135 # Waist
       - 148129 # Legs
       - 148123 # Feet
-      - 148137 # Wrists
-      - 148125 # Hands
-      - 147929 # Back
 
   - name: "transmog:1422" # Fierce Gladiator's Plate Armor [Alliance]
     tags:
@@ -165,10 +165,10 @@ sets:
     items:
       - 148145 # Head
       - 148149 # Shoulders
+      - 147931 # Back
       - 148139 # Chest
+      - 148153 # Wrists
+      - 148143 # Hands
       - 148151 # Waist
       - 148147 # Legs
       - 148141 # Feet
-      - 148153 # Wrists
-      - 148143 # Hands
-      - 147931 # Back
