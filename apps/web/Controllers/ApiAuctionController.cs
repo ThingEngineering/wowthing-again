@@ -274,7 +274,7 @@ public class ApiAuctionController : Controller
 
         if (form.Region > 0)
         {
-            var regionRealmIds = await _context.WowRealm
+            var validRealmIds = await _context.WowRealm
                 .AsNoTracking()
                 .Where(realm => realm.Region == form.Region)
                 .Select(realm => realm.ConnectedRealmId)
@@ -282,7 +282,13 @@ public class ApiAuctionController : Controller
                 .ToArrayAsync();
 
             auctionQuery = auctionQuery
-                .Where(auction => regionRealmIds.Contains(auction.ConnectedRealmId));
+                .Where(auction => validRealmIds.Contains(auction.ConnectedRealmId));
+        }
+        else
+        {
+            var validRealmIds = await GetRegionRealmIds(user, accounts);
+            auctionQuery = auctionQuery
+                .Where(auction => validRealmIds.Contains(auction.ConnectedRealmId));
         }
 
         var languageQuery = _context.LanguageString
@@ -513,8 +519,8 @@ public class ApiAuctionController : Controller
     private async Task<int[]> GetConnectedRealmIds(ApplicationUser user, PlayerAccount[] accounts)
     {
         var accountIds = accounts.SelectArray(account => account.Id);
-
         var ignoredRealms = user.Settings.Auctions?.IgnoredRealms.EmptyIfNull();
+
         var accountConnectedRealmIds = await _context.WowRealm
             .AsNoTracking()
             .Where(realm =>
@@ -529,6 +535,32 @@ public class ApiAuctionController : Controller
             .ToArrayAsync();
 
         return accountConnectedRealmIds;
+    }
+
+    private async Task<int[]> GetRegionRealmIds(ApplicationUser user, PlayerAccount[] accounts)
+    {
+        var accountIds = accounts.SelectArray(account => account.Id);
+        var ignoredRealms = user.Settings.Auctions?.IgnoredRealms.EmptyIfNull();
+
+        var regions = await _context.WowRealm
+            .AsNoTracking()
+            .Where(realm =>
+                _context.PlayerCharacter
+                    .Where(pc => pc.AccountId != null && accountIds.Contains(pc.AccountId.Value))
+                    .Select(pc => pc.RealmId)
+                    .Contains(realm.Id)
+            )
+            .Select(realm => realm.Region)
+            .Distinct()
+            .ToArrayAsync();
+
+        var regionRealmIds = await _context.WowRealm
+            .AsNoTracking()
+            .Where(realm => regions.Contains(realm.Region))
+            .Select(realm => realm.ConnectedRealmId)
+            .ToArrayAsync();
+
+        return regionRealmIds;
     }
 
     private async Task<Dictionary<int, int>> GetPetItems()
