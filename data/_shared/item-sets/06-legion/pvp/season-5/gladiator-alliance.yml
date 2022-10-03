@@ -5,7 +5,7 @@ tags:
   - "tier:gladiator"
 
 sets:
-  - id: "transmog:1400" # Fierce Gladiator's Dreadplate Armor [Alliance]
+  - name: "transmog:1400" # Fierce Gladiator's Dreadplate Armor [Alliance]
     tags:
       - "class:death-knight"
     items:
@@ -19,7 +19,7 @@ sets:
       - 147937 # Hands
       - 147909 # Back
 
-  - id: "transmog:1402" # Fierce Gladiator's Felskin Armor [Alliance]
+  - name: "transmog:1402" # Fierce Gladiator's Felskin Armor [Alliance]
     tags:
       - "class:demon-hunter"
     items:
@@ -33,7 +33,7 @@ sets:
       - 147953 # Hands
       - 147911 # Back
 
-  - id: "transmog:1404" # Fierce Gladiator's Dragonhide Armor [Alliance]
+  - name: "transmog:1404" # Fierce Gladiator's Dragonhide Armor [Alliance]
     tags:
       - "class:druid"
     items:
@@ -47,7 +47,7 @@ sets:
       - 147969 # Hands
       - 147913 # Back
 
-  - id: "transmog:1406" # Fierce Gladiator's Chain Armor [Alliance]
+  - name: "transmog:1406" # Fierce Gladiator's Chain Armor [Alliance]
     tags:
       - "class:hunter"
     items:
@@ -61,7 +61,7 @@ sets:
       - 147985 # Hands
       - 147915 # Back
 
-  - id: "transmog:1408" # Fierce Gladiator's Silk Armor [Alliance]
+  - name: "transmog:1408" # Fierce Gladiator's Silk Armor [Alliance]
     tags:
       - "class:mage"
     items:
@@ -75,7 +75,7 @@ sets:
       - 147999 # Hands
       - 147917 # Back
 
-  - id: "transmog:1410" # Fierce Gladiator's Ironskin Armor [Alliance]
+  - name: "transmog:1410" # Fierce Gladiator's Ironskin Armor [Alliance]
     tags:
       - "class:monk"
     items:
@@ -89,7 +89,7 @@ sets:
       - 148015 # Hands
       - 147919 # Back
 
-  - id: "transmog:1412" # Fierce Gladiator's Scaled Armor [Alliance]
+  - name: "transmog:1412" # Fierce Gladiator's Scaled Armor [Alliance]
     tags:
       - "class:paladin"
     items:
@@ -103,7 +103,7 @@ sets:
       - 148038 # Hands
       - 147921 # Back
 
-  - id: "transmog:1414" # Fierce Gladiator's Satin Armor [Alliance]
+  - name: "transmog:1414" # Fierce Gladiator's Satin Armor [Alliance]
     tags:
       - "class:priest"
     items:
@@ -117,7 +117,7 @@ sets:
       - 148053 # Hands
       - 147923 # Back
 
-  - id: "transmog:1416" # Fierce Gladiator's Leather Armor [Alliance]
+  - name: "transmog:1416" # Fierce Gladiator's Leather Armor [Alliance]
     tags:
       - "class:rogue"
     items:
@@ -131,7 +131,7 @@ sets:
       - 148077 # Hands
       - 147925 # Back
 
-  - id: "transmog:1418" # Fierce Gladiator's Ringmail Armor [Alliance]
+  - name: "transmog:1418" # Fierce Gladiator's Ringmail Armor [Alliance]
     tags:
       - "class:shaman"
     items:
@@ -145,7 +145,7 @@ sets:
       - 148093 # Hands
       - 147927 # Back
 
-  - id: "transmog:1420" # Fierce Gladiator's Felweave Armor [Alliance]
+  - name: "transmog:1420" # Fierce Gladiator's Felweave Armor [Alliance]
     tags:
       - "class:warlock"
     items:
@@ -159,7 +159,7 @@ sets:
       - 148125 # Hands
       - 147929 # Back
 
-  - id: "transmog:1422" # Fierce Gladiator's Plate Armor [Alliance]
+  - name: "transmog:1422" # Fierce Gladiator's Plate Armor [Alliance]
     tags:
       - "class:warrior"
     items:

@@ -5,7 +5,7 @@ tags:
   - "tier:combatant"
 
 sets:
-  - id: "transmog:1349" # Fierce Combatant's Dreadplate Armor [Horde]
+  - name: "transmog:1349" # Fierce Combatant's Dreadplate Armor [Horde]
     tags:
       - "class:death-knight"
     items:
@@ -19,7 +19,7 @@ sets:
       - 149534 # Hands
       - 149506 # Back
 
-  - id: "transmog:1355" # Fierce Combatant's Felskin Armor [Horde]
+  - name: "transmog:1355" # Fierce Combatant's Felskin Armor [Horde]
     tags:
       - "class:demon-hunter"
     items:
@@ -33,7 +33,7 @@ sets:
       - 149550 # Hands
       - 149508 # Back
 
-  - id: "transmog:1361" # Fierce Combatant's Dragonhide Armor [Horde]
+  - name: "transmog:1361" # Fierce Combatant's Dragonhide Armor [Horde]
     tags:
       - "class:druid"
     items:
@@ -47,7 +47,7 @@ sets:
       - 149566 # Hands
       - 149510 # Back
 
-  - id: "transmog:1363" # Fierce Combatant's Chain Armor [Horde]
+  - name: "transmog:1363" # Fierce Combatant's Chain Armor [Horde]
     tags:
       - "class:hunter"
     items:
@@ -61,7 +61,7 @@ sets:
       - 149583 # Hands
       - 149512 # Back
 
-  - id: "transmog:1365" # Fierce Combatant's Silk Armor [Horde]
+  - name: "transmog:1365" # Fierce Combatant's Silk Armor [Horde]
     tags:
       - "class:mage"
     items:
@@ -75,7 +75,7 @@ sets:
       - 149597 # Hands
       - 149514 # Back
 
-  - id: "transmog:1367" # Fierce Combatant's Ironskin Armor [Horde]
+  - name: "transmog:1367" # Fierce Combatant's Ironskin Armor [Horde]
     tags:
       - "class:monk"
     items:
@@ -89,7 +89,7 @@ sets:
       - 149613 # Hands
       - 149516 # Back
 
-  - id: "transmog:1369" # Fierce Combatant's Scaled Armor [Horde]
+  - name: "transmog:1369" # Fierce Combatant's Scaled Armor [Horde]
     tags:
       - "class:paladin"
     items:
@@ -103,7 +103,7 @@ sets:
       - 149637 # Hands
       - 149518 # Back
 
-  - id: "transmog:1371" # Fierce Combatant's Satin Armor [Horde]
+  - name: "transmog:1371" # Fierce Combatant's Satin Armor [Horde]
     tags:
       - "class:priest"
     items:
@@ -117,7 +117,7 @@ sets:
       - 149651 # Hands
       - 149520 # Back
 
-  - id: "transmog:1373" # Fierce Combatant's Leather Armor [Horde]
+  - name: "transmog:1373" # Fierce Combatant's Leather Armor [Horde]
     tags:
       - "class:rogue"
     items:
@@ -131,7 +131,7 @@ sets:
       - 149675 # Hands
       - 149522 # Back
 
-  - id: "transmog:1375" # Fierce Combatant's Ringmail Armor [Horde]
+  - name: "transmog:1375" # Fierce Combatant's Ringmail Armor [Horde]
     tags:
       - "class:shaman"
     items:
@@ -145,7 +145,7 @@ sets:
       - 149691 # Hands
       - 149524 # Back
 
-  - id: "transmog:1377" # Fierce Combatant's Felweave Armor
+  - name: "transmog:1377" # Fierce Combatant's Felweave Armor
     tags:
       - "class:warlock"
     items:
@@ -159,7 +159,7 @@ sets:
       - 149723 # Hands
       - 149526 # Back
 
-  - id: "transmog:1379" # Fierce Combatant's Plate Armor
+  - name: "transmog:1379" # Fierce Combatant's Plate Armor
     tags:
       - "class:warrior"
     items:
