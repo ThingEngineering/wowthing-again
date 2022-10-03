@@ -374,17 +374,22 @@ public class ApiAuctionController : Controller
                 .ToArray();
             var missingPetSpeciesIds = petSpeciesMap
                 .Keys
+                .Select(speciesId => (short)speciesId)
                 .ToArray();
 
             // Auctions
-            var petAuctionQuery = auctionQuery
-                .Where(auction => missingPetItemIds.Contains(auction.ItemId) ||
-                                  missingPetSpeciesIds.Contains(auction.PetSpeciesId));
+            var petAuctionQuery = auctionQuery;
 
             if (form.MissingPetsMaxLevel)
             {
                 petAuctionQuery = petAuctionQuery.Where(auction => auction.PetLevel == 25);
             }
+
+            petAuctionQuery = petAuctionQuery
+                .Where(auction => missingPetItemIds.Contains(auction.ItemId))
+                .Union(petAuctionQuery
+                    .Where(auction => missingPetSpeciesIds.Contains(auction.PetSpeciesId))
+                );
 
             var petAuctions = await petAuctionQuery.ToArrayAsync();
 
