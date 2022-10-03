@@ -4,8 +4,14 @@ public static partial class Hardcoded
 {
     public static readonly int[] CurrencyItemIds =
     {
+        21100, // Coin of Ancestry
+        23247, // Burning Blossom
         26044, // Halaa Research Token
         26045, // Halaa Battle Token
+        33226, // Tricky Treat
+        37829, // Brewfest Prize Token
+        44791, // Noblegarden Chocolate
+        49927, // Love Token
         116415, // Shiny Pet Charm
         124099, // Blackfang Claw
         124124, // Blood of Sargeras

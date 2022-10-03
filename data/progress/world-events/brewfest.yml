@@ -1,0 +1,55 @@
+name: "Brewfest"
+groups:
+
+- name: "Introductory Quests"
+  icon: "item/37829" # Brewfest Prize Token
+  lookup: faction
+  type: quest
+  data:
+    alliance:
+      - name: "Brewfest Chowdown"
+        id: 56764
+        description: "Rewards {price:25|1037829}"
+
+      - name: "Catch the Wild Wolpertinger!"
+        id: 11117
+        description: "Rewards {item:32233}"
+
+      - name: "Chug and Chuck!"
+        id: 12022
+        description: "Rewards {price:10|1037829}"
+
+      - name: "Pink Elekks On Parade"
+        id: 11118
+        description: "Rewards {price:40|1037829}"
+
+      - name: "Now This Is Ram Racing... Almost"
+        id: 11318
+
+      - name: "There and Back Again"
+        id: 11122
+        description: "Rewards {price:10|1037829}"
+
+    horde:
+      - name: "Brewfest Chowdown"
+        id: 56748
+        description: "Rewards {price:25|1037829}"
+
+      - name: "Catch the Wild Wolpertinger!"
+        id: 11431
+        description: "Rewards {item:32233}"
+
+      - name: "Chug and Chuck!"
+        id: 12191
+        description: "Rewards {price:10|1037829}"
+
+      - name: "Pink Elekks On Parade"
+        id: 11120
+        description: "Rewards {price:40|1037829}"
+
+      - name: "Now This Is Ram Racing... Almost"
+        id: 11409
+
+      - name: "There and Back Again"
+        id: 11412
+        description: "Rewards {price:10|1037829}"

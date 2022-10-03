@@ -88,7 +88,10 @@
         const pointMap: Record<number, DateTime> = {}
 
         let minTime: DateTime = DateTime.now().minus({ years: 10 })
-        if (historyState.timeFrame === '1month') {
+        if (historyState.timeFrame === '1week') {
+            minTime = DateTime.now().minus({ weeks: 1})
+        }
+        else if (historyState.timeFrame === '1month') {
             minTime = DateTime.now().minus({ months: 1})
         }
         else if (historyState.timeFrame === '3month') {
@@ -386,6 +389,7 @@
                     ['6month', '6 months'],
                     ['3month', '3 months'],
                     ['1month', '1 month'],
+                    ['1week', '1 week'],
                 ]}
             />
         </div>

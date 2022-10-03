@@ -93,10 +93,16 @@ z1/_the_burning_crusade.yml
 other/_other.yml
     other/darkmoon_island.yml
 
--
+world-events/_world_events.yml
+    world-events/brewfest.yml
+    world-events/hallows_end.yml
+    world-events/love_is_in_the_air.yml
+    world-events/lunar_festival.yml
+    world-events/midsummer_fire_festival.yml
+    world-events/noblegarden.yml
+    world-events/timewalking.yml
 
-misc/_misc.yml
-    misc/timewalking.yml
+-
 
 pvp/_pvp.yml
     pvp/mists_of_pandaria.yml

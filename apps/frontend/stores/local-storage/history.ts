@@ -4,7 +4,7 @@ import { writable } from 'svelte/store'
 export class HistoryState {
     public chartType = 'stacked-area'
     public interval = 'hour'
-    public timeFrame: 'all' | '1month' | '3month' | '6month' = 'all'
+    public timeFrame: 'all' | '1week' | '1month' | '3month' | '6month' = 'all'
     public scaleType: 'category' | 'linear' | 'logarithmic' | 'time' | 'timeseries' = 'logarithmic'
 }
 

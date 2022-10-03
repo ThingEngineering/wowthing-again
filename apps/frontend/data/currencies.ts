@@ -49,6 +49,12 @@ export const currencyItems: Record<number, number[]> = {
     1: [
         163036, // Polished Pet Charm
         116415, // Shiny Pet Charm
+        37829, // Brewfest Prize Token
+        23247, // Burning Blossom
+        21100, // Coin of Ancestry
+        49927, // Love Token
+        44791, // Noblegarden Chocolate
+        33226, // Tricky Treat
     ],
 }
 
