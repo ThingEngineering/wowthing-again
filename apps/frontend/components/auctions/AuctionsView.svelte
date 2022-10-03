@@ -96,6 +96,13 @@
         {#if params.slug1.startsWith('missing-')}
             <div class="options-group">
                 <Checkbox
+                    name="all_realms"
+                    bind:value={$auctionState.allRealms}
+                >All realms</Checkbox>
+            </div>
+
+            <div class="options-group">
+                <Checkbox
                     name="hide_ignored"
                     bind:value={$auctionState.hideIgnored}
                 >Hide ignored</Checkbox>

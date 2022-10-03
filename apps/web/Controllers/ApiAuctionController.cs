@@ -261,10 +261,29 @@ public class ApiAuctionController : Controller
         var accountConnectedRealmIds = await GetConnectedRealmIds(user, accounts);
 
         timer.AddPoint("Accounts");
+        Console.WriteLine("allrealms {0}", form.AllRealms);
 
         var auctionQuery = _context.WowAuction
-            .AsNoTracking()
-            .Where(auction => accountConnectedRealmIds.Contains(auction.ConnectedRealmId));
+            .AsNoTracking();
+
+        if (!form.AllRealms)
+        {
+            auctionQuery = auctionQuery
+                .Where(auction => accountConnectedRealmIds.Contains(auction.ConnectedRealmId));
+        }
+
+        if (form.Region > 0)
+        {
+            var regionRealmIds = await _context.WowRealm
+                .AsNoTracking()
+                .Where(realm => realm.Region == form.Region)
+                .Select(realm => realm.ConnectedRealmId)
+                .Distinct()
+                .ToArrayAsync();
+
+            auctionQuery = auctionQuery
+                .Where(auction => regionRealmIds.Contains(auction.ConnectedRealmId));
+        }
 
         var languageQuery = _context.LanguageString
             .AsNoTracking()

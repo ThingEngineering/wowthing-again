@@ -11,6 +11,7 @@ export type AuctionStateSortBy =
 export class AuctionState {
     public perPage: AuctionStatePerPage = 50
 
+    public allRealms = false
     public extraPetsIgnoreJournal = false
     public hideIgnored = false
     public missingPetsMaxLevel = false

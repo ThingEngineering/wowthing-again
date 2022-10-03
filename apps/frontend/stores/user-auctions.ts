@@ -1,6 +1,3 @@
-import { get } from 'svelte/store'
-
-import { staticStore } from './static'
 import type { AuctionState } from './local-storage'
 import type { UserAuctionData, UserAuctionDataAuction, UserAuctionDataPet } from '@/types/data'
 import { sortAuctions } from '@/utils/auctions/sort-auctions'
@@ -76,13 +73,15 @@ export class UserAuctionMissingDataStore {
     ): Promise<UserAuctionEntry[]> {
         let things: UserAuctionEntry[] = []
 
-        const cacheKey = `${type}--${auctionState.missingPetsMaxLevel ? 1 : 0}`
+        const cacheKey = `${type}--${auctionState.region}--${auctionState.allRealms ? 1 : 0}--${auctionState.missingPetsMaxLevel ? 1 : 0}`
         if (this.cache[cacheKey]) {
-            things =  this.cache[cacheKey]
+            things = this.cache[cacheKey]
         }
         else {
             const data = {
+                allRealms: auctionState.allRealms,
                 missingPetsMaxLevel: type === 'pets' && auctionState.missingPetsMaxLevel,
+                region: parseInt(auctionState.region) || 0,
                 type: type,
             }
 
@@ -102,23 +101,11 @@ export class UserAuctionMissingDataStore {
                 const responseData = await response.json() as UserAuctionData
 
                 if (responseData?.auctions) {
-                    const regionId = parseInt(auctionState.region)
-                    const staticData = get(staticStore).data
-
                     for (const thingId in responseData.auctions) {
-                        let auctions = responseData.auctions[thingId]
-                        if (regionId > 0) {
-                            auctions = auctions.filter((auction) =>
-                                staticData.connectedRealms[auction.connectedRealmId].region === regionId)
-                            if (auctions.length === 0) {
-                                continue
-                            }
-                        }
-        
                         things.push({
                             id: parseInt(thingId),
                             name: responseData.names[thingId],
-                            auctions: auctions,
+                            auctions: responseData.auctions[thingId],
                         })
                     }
                 }

@@ -1,8 +1,10 @@
 <script lang="ts">
     import { timeLeft } from '@/data/auctions'
-    import { userAuctionMissingStore } from '@/stores'
+    import { staticStore, userAuctionMissingStore } from '@/stores'
     import { auctionState } from '@/stores/local-storage/auctions'
     import connectedRealmName from '@/utils/connected-realm-name'
+    import tippy from '@/utils/tippy'
+    import { Region } from '@/enums'
 
     import Paginate from '@/components/common/Paginate.svelte'
     import WowheadLink from '@/components/links/WowheadLink.svelte'
@@ -86,7 +88,7 @@
         }
     }
     .realm {
-        @include cell-width(11.0rem);
+        @include cell-width(11.0rem, $paddingLeft: 0px);
     }
     .level {
         @include cell-width(1.8rem);
@@ -136,8 +138,10 @@
     <div class="wrapper">L O A D I N G . . .</div>
 {:then things}
     <Paginate
-        items={(things || []).filter((thing) => $auctionState.hideIgnored ? $auctionState.ignored[slug]?.[thing.id] !== true : true)}
-        perPage={20}
+        items={(things || []).filter((thing) => (
+            ($auctionState.hideIgnored && $auctionState.ignored[slug]?.[thing.id] !== true)
+        ))}
+        perPage={$auctionState.allRealms ? 6 : 20}
         {page}
         let:paginated
     >
@@ -176,8 +180,13 @@
                     {#if !ignored}
                         <tbody>
                             {#each item.auctions as auction}
+                                {@const connectedRealm = $staticStore.data.connectedRealms[auction.connectedRealmId]}
                                 <tr>
-                                    <td class="realm text-overflow">
+                                    <td
+                                        class="realm text-overflow"
+                                        use:tippy={connectedRealm.realmNames.join(' / ')}
+                                    >
+                                        <code>[{Region[connectedRealm.region]}]</code>
                                         {connectedRealmName(auction.connectedRealmId)}
                                     </td>
                                     {#if slug === 'missing-pets'}
