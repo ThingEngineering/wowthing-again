@@ -1,7 +1,7 @@
 <script lang="ts">
     import { seasonMap } from '@/data/dungeon'
     import { staticStore } from '@/stores/static'
-    import { Region } from '@/types/enums'
+    import { Region } from '@/enums'
     import getRaiderIoColor from'@/utils/get-raider-io-color'
     import { tippyComponent } from '@/utils/tippy'
     import type { Character, CharacterRaiderIoSeason, MythicPlusSeason } from '@/types'

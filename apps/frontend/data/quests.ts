@@ -1,5 +1,5 @@
 import { GlobalDailyQuest } from '@/types/data'
-import { ItemQuality } from '@/types/enums'
+import { ItemQuality } from '@/enums'
 
 export const progressQuests: Record<string, string[]> = {
     'allAnima': ['kyrianAnima', 'necrolordAnima', 'nightFaeAnima', 'venthyrAnima'],

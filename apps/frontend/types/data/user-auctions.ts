@@ -1,4 +1,4 @@
-import type { ItemLocation, ItemQuality } from '@/types/enums'
+import type { ItemLocation, ItemQuality } from '@/enums'
 
 
 export interface UserAuctionData {

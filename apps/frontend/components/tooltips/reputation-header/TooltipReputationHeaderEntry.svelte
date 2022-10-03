@@ -2,7 +2,7 @@
     import { Constants } from '@/data/constants'
     import { rewardTypeIcons } from '@/data/icons'
     import { staticStore, userStore, userTransmogStore } from '@/stores'
-    import { Faction, RewardType } from '@/types/enums'
+    import { Faction, RewardType } from '@/enums'
     import type { Character } from '@/types'
     import type { StaticDataReputationReputation, StaticDataReputationSet } from '@/types/data/static'
 

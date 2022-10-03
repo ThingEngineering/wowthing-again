@@ -23,7 +23,7 @@
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import Sidebar from '@/components/main-sidebar/MainSidebar.svelte'
-    import { RewardType } from '@/types/enums'
+    import { RewardType } from '@/enums'
 
     let journalPercent: number
     let mountsPercent: number

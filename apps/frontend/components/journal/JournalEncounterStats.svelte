@@ -3,7 +3,7 @@
     import { farmTypeIcons } from '@/data/icons'
 
     import { journalStore, userAchievementStore } from '@/stores'
-    import { FarmType } from '@/types/enums'
+    import { FarmType } from '@/enums'
     import getPercentClass from '@/utils/get-percent-class'
     import tippy from '@/utils/tippy'
     import type { JournalDataEncounter } from '@/types/data'

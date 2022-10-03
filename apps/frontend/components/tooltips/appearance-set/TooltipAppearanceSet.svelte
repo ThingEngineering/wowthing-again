@@ -1,7 +1,7 @@
 <script lang="ts">
     import { typeOrder } from '@/data/inventory-type'
     import type { ManualDataTransmogGroup } from '@/types/data/manual'
-    import {InventoryType} from '@/types/enums'
+    import {InventoryType} from '@/enums'
 
     export let set: ManualDataTransmogGroup
     export let slotHave: Record<number, boolean>

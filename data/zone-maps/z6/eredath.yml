@@ -177,6 +177,102 @@ farms:
 
  # Treasure
 
+- name: "Ancient Eredar Cache"
+  location: 53.0 66.5
+  note: "Lots of spawn points in this general area"
+  objectId: 273301
+  type: treasure
+  drops:
+    - type: transmog
+      id: 153336 # Eredath Lightseeker's Armguards
+
+    - type: transmog
+      id: 153335 # Eredath Lightseeker's Handguards
+
+    - type: transmog
+      id: 153331 # Eredath Lightseeker's Helmet
+
+    - type: transmog
+      id: 153337 # Eredath Lightseeker's Treads
+
+    - type: transmog
+      id: 153333 # Eredath Lightseeker's Waistplate
+
+    - type: transmog
+      id: 153272 # Forgotten Conservatory Gloves
+
+    - type: transmog
+      id: 153271 # Forgotten Conservatory Helm
+
+    - type: transmog
+      id: 153273 # Forgotten Conservatory Leggings
+
+    - type: transmog
+      id: 153288 # Forgotten Conservatory Robes
+
+    - type: transmog
+      id: 153277 # Forgotten Conservatory Wristwraps
+
+- name: "Ancient Eredar Cache"
+  location: 65.5 41.9
+  note: "Lots of spawn points in this general area"
+  objectId: 273414
+  type: treasure
+  drops:
+    - type: transmog
+      id: 153336 # Eredath Lightseeker's Armguards
+
+    - type: transmog
+      id: 153330 # Eredath Lightseeker's Greaves
+
+    - type: transmog
+      id: 153331 # Eredath Lightseeker's Helmet
+
+    - type: transmog
+      id: 153334 # Eredath Lightseeker's Spaulders
+
+    - type: transmog
+      id: 153333 # Eredath Lightseeker's Waistplate
+
+    - type: transmog
+      id: 153276 # Forgotten Conservatory Amice
+
+    - type: transmog
+      id: 153273 # Forgotten Conservatory Leggings
+
+- name: "Ancient Eredar Cache"
+  location: 48.6 21.0
+  note: "Lots of spawn points in this general area"
+  objectId: 273415
+  type: treasure
+  drops:
+    - type: transmog
+      id: 153336 # Eredath Lightseeker's Armguards
+
+    - type: transmog
+      id: 153332 # Eredath Lightseeker's Chestpiece
+
+    - type: transmog
+      id: 153330 # Eredath Lightseeker's Greaves
+
+    - type: transmog
+      id: 153335 # Eredath Lightseeker's Handguards
+
+    - type: transmog
+      id: 153331 # Eredath Lightseeker's Helmet
+
+    - type: transmog
+      id: 153337 # Eredath Lightseeker's Treads
+
+    - type: transmog
+      id: 153273 # Forgotten Conservatory Leggings
+
+    - type: transmog
+      id: 153275 # Forgotten Conservatory Slippers
+
+    - type: transmog
+      id: 153277 # Forgotten Conservatory Wristwraps
+
 - name: "Chest of Ill-Gotten Gains"
   location: 50.6 38.5
   note: "Requires Light's Judgment power"
@@ -187,6 +283,22 @@ farms:
   - type: transmog
     requiredQuestId: 47287 # The Vindicaar Matrix Core - Light's Judgment
     id: 153325 # Eredath Vigilant's Redoubt
+
+- name: "Deseperate Eredar's Cache"
+  location: 57.1 76.8
+  objectId: 276228
+  type: treasure
+  drops:
+  - type: transmog
+    id: 153267 # Enclave Aspirant's Hatchet [1h axe]
+
+- name: "Doomseeker's Treasure"
+  location: 43.5 54.4
+  objectId: 276230
+  type: treasure
+  drops:
+  - type: transmog
+    id: 153313 # Praetor's Ornamental Claymore [2h sword]
 
 - name: "Void-Tinged Chest"
   location: 40.2 51.5

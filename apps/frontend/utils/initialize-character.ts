@@ -6,7 +6,7 @@ import { seasonMap } from '@/data/dungeon'
 import { slotOrder } from '@/data/inventory-slot'
 import {staticStore} from '@/stores/static'
 import type { Character, CharacterMythicPlusRun, CharacterReputation, CharacterReputationReputation } from '@/types'
-import { InventorySlot } from '@/types/enums'
+import { InventorySlot } from '@/enums'
 import {CharacterMythicPlusRunMember} from '@/types'
 
 export default function initializeCharacter(character: Character): void {

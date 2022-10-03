@@ -4,7 +4,7 @@
     import { location, querystring, replace } from 'svelte-spa-router'
 
     import { itemSearchState, itemStore, userStore } from '@/stores'
-    import { ItemLocation } from '@/types/enums'
+    import { ItemLocation } from '@/enums'
     import tippy from '@/utils/tippy'
     import { toNiceNumber } from '@/utils/to-nice'
     import type { ItemSearchResponseItem } from '@/types/items'

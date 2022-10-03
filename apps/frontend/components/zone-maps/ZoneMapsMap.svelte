@@ -7,7 +7,7 @@
     import { manualStore } from '@/stores'
     import { zoneMapState } from '@/stores/local-storage/zone-map'
     import { zoneMapMedia } from '@/stores/media-queries/zone-map'
-    import { FarmType, PlayableClass, RewardType } from '@/types/enums'
+    import { FarmType, PlayableClass, RewardType } from '@/enums'
     import type { FarmStatus } from '@/types'
     import type { ManualDataZoneMapCategory, ManualDataZoneMapFarm } from '@/types/data/manual'
 

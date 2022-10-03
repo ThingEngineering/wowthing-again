@@ -6,7 +6,7 @@
     import { progressQuestMap } from '@/data/quests'
     import { taskMap } from '@/data/tasks'
     import { timeStore, userQuestStore, userStore } from '@/stores'
-    import { QuestStatus } from '@/types/enums'
+    import { QuestStatus } from '@/enums'
     
     export let taskName: string
 

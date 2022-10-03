@@ -1,7 +1,7 @@
 import every from 'lodash/every'
 
 import { ManualDataVendorItem, type ManualDataVendorItemArray } from './vendor'
-import { Faction, FarmIdType, FarmResetType, FarmType, RewardType } from '@/types/enums'
+import { Faction, FarmIdType, FarmResetType, FarmType, RewardType } from '@/enums'
 import type { ManualDataZoneMapDrop, ManualDataZoneMapFarm } from './zone-map'
 import type { ManualData } from './store'
 import type { StaticData } from '@/types/data/static'

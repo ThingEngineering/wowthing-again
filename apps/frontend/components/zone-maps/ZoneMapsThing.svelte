@@ -2,7 +2,7 @@
     import { farmTypeIcons } from '@/data/icons'
     import { journalStore, staticStore, timeStore, userStore } from '@/stores'
     import { zoneMapState } from '@/stores/local-storage/zone-map'
-    import { FarmIdType, FarmType } from '@/types/enums'
+    import { FarmIdType, FarmType } from '@/enums'
     import { tippyComponent } from '@/utils/tippy'
     import { getInstanceFarm } from '@/utils/get-instance-farm'
     import type { FarmStatus } from '@/types'

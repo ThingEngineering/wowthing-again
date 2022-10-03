@@ -52,6 +52,19 @@ SLOT_MAP = {
     20: 'Chest',
 }
 
+SLOT_ORDER = [
+    1,
+    3,
+    16,
+    5,
+    20,
+    9,
+    10,
+    6,
+    7,
+    8,
+]
+
 DESCRIPTION_MAP = {
      1641: 'Raid Finder',
      2015: 'Heroic',
@@ -140,6 +153,8 @@ def main():
             )
 
     combine = False
+    output_items = False
+    set_mode = False
     item_ids = []
     set_ids = []
 
@@ -157,6 +172,12 @@ def main():
             name_res.append(re.compile(set_name.replace('*', '.*?')))
         for name_re in name_res:
             set_ids.extend(k for k, v in sets.items() if name_re.match(v['name']))
+    elif sys.argv[1] == '2':
+        output_items = True
+        set_ids = sys.argv[2:]
+    elif sys.argv[1] == 'ts':
+        set_mode = True
+        set_ids = sys.argv[2:]
     else:
         set_ids = sys.argv[1:]
 
@@ -167,6 +188,8 @@ def main():
     with open(glob.glob('dumps/transmogsetitem-*.csv')[0]) as csv_file:
         # ID,TransmogSetID,ItemModifiedAppearanceID,Flags
         for row in csv.DictReader(csv_file):
+            if set_mode and (int(row['Flags']) & 0x1) == 0:
+                continue
             set_items.setdefault(int(row['TransmogSetID']), []).append(int(row['ItemModifiedAppearanceID']))
 
     appearances = {}
@@ -183,7 +206,29 @@ def main():
         for row in csv.DictReader(csv_file):
             item_slot[int(row['ID'])] = int(row['InventoryType'])
 
-    if item_ids:
+    if set_mode:
+        for set_id in set_ids:
+            set = sets[set_id]
+            faction = None
+            if (set['flags'] & 0x4) == 0x4:
+                faction = 'Alliance'
+            elif (set['flags'] & 0x8) == 0x8:
+                faction = 'Horde'
+
+            if faction:
+                print(f'  - name: "transmog:{set_id}" # {set["name"]} [{faction}]')
+            else:
+                print(f'  - name: "transmog:{set_id}" # {set["name"]}')
+            
+            print(f'    tags:')
+
+            mask = set['class_mask']
+            if mask in CLASS_MASK:
+                print(f'      - "class:{CLASS_MASK[mask]}"')
+
+            print_items(set_items[set_id], appearances, item_slot, output_items=True, set_mode=True)
+
+    elif item_ids:
         appearance_ids = []
         modifier_appearances = {}
         for item_id in item_ids:
@@ -194,7 +239,7 @@ def main():
 
         for modifier_id, appearance_ids in reversed(sorted(modifier_appearances.items())):
             print(f'      # modifier={modifier_id}')
-            print(f'      - name: Modifier {modifier_id}')
+            print(f'      - name: "Modifier {modifier_id}"')
             print_items(appearance_ids, appearances, item_slot)
 
     else:
@@ -213,7 +258,7 @@ def main():
             print_set_name = ' / '.join(list(dict.fromkeys(sets[s]['name'] for s in set_ids)))
 
             print(f'      # {get_description(sets, set_ids[0])} set={print_set_ids}')
-            print(f'      - name: {print_set_name}')
+            print(f'      - name: "{print_set_name}"')
 
             appearance_ids = []
             for set_id in set_ids:
@@ -233,9 +278,9 @@ def main():
 
             for (order, description, set_id) in sort_me:
                 print(f'      # {description} set={set_id}')
-                print(f'      - name: {sets[set_id]["name"]}')
+                print(f'      - name: "{sets[set_id]["name"]}"')
 
-                print_items(set_items[set_id], appearances, item_slot)
+                print_items(set_items[set_id], appearances, item_slot, output_items)
 
 
 def get_description(sets, set_id):
@@ -252,7 +297,7 @@ def get_description(sets, set_id):
 
     return description
 
-def print_items(appearance_ids, appearances, item_slot):
+def print_items(appearance_ids, appearances, item_slot, output_items=False, set_mode=False):
     ugh = {}
     for appearance_id in appearance_ids:
         if appearance_id not in appearances:
@@ -264,15 +309,32 @@ def print_items(appearance_ids, appearances, item_slot):
         # Why are there 2 chest slots?
         if slot == 20:
             slot = 5
-        ugh.setdefault(slot, set()).add(item_appearance_id)
+        
+        if output_items:
+            ugh.setdefault(slot, []).append(item_id)
+            if not set_mode:
+                ugh[slot].append(modifier_id)
+        else:
+            ugh.setdefault(slot, []).append(item_appearance_id)
+
 
     #print(sets[set_id])
     #print(ugh)
-    print(f'        wowheadSetId:')
-    print(f'        items:')
-    for thing in sorted(ugh.items()):#, key=lambda u: SLOT_ORDER.index(u[0])):
-        s = thing[0] < 10 and '  ' or ' '
-        print(f'          {thing[0]}:{s}{" ".join(str(s) for s in sorted(thing[1]))}', '#', SLOT_MAP[thing[0]])
+    if set_mode:
+        print(f'    items:')
+        for thing in sorted(ugh.items(), key=lambda u: SLOT_ORDER.index(u[0])):
+            strings = [str(s) for s in output_items and thing[1] or sorted(thing[1])]
+
+            print(f'      - {" ".join(strings)}', '#', SLOT_MAP[thing[0]])
+    else:
+        print(f'        wowheadSetId:')
+        print(f'        items:')
+        for thing in sorted(ugh.items()):#, key=lambda u: SLOT_ORDER.index(u[0])):
+            s = thing[0] < 10 and '  ' or ' '
+            strings = [str(s) for s in output_items and thing[1] or sorted(thing[1])]
+
+            print(f'          {thing[0]}:{s}{" ".join(strings)}', '#', SLOT_MAP[thing[0]])
+    
     print()
 
 

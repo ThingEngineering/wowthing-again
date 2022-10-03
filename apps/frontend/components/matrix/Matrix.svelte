@@ -10,7 +10,7 @@
     import { staticStore, userStore } from '@/stores'
     import { matrixState } from '@/stores/local-storage'
     import { data as settings } from '@/stores/settings'
-    import { Gender, genderValues } from '@/types/enums'
+    import { Gender, genderValues } from '@/enums'
     import { cartesianProduct } from '@/utils/cartesian-product'
     import type { Character } from '@/types'
 

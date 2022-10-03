@@ -1,4 +1,4 @@
-import type { Language } from '@/types/enums'
+import type { Language } from '@/enums'
 
 
 export interface Settings {

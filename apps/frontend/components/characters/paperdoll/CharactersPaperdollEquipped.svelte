@@ -1,7 +1,7 @@
 <script lang="ts">
     import { getItemUrl } from '@/utils/get-item-url'
     import type { Character, CharacterEquippedItem } from '@/types'
-    import type { InventorySlot } from '@/types/enums'
+    import type { InventorySlot } from '@/enums'
 
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 

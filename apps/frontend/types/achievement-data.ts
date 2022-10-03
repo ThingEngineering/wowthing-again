@@ -1,5 +1,5 @@
-import { AchievementFlags, CriteriaTreeFlags } from '@/types/enums'
-import type { CriteriaType } from '@/types/enums/criteria-type'
+import { AchievementFlags, CriteriaTreeFlags } from '@/enums'
+import type { CriteriaType } from '@/enums/criteria-type'
 
 
 export interface AchievementData {

@@ -6,7 +6,7 @@
 
     import { userStore } from '@/stores'
     import { charactersState } from '@/stores/local-storage'
-    import { Gender, Region } from '@/types/enums'
+    import { Gender, Region } from '@/enums'
     import { splitOnce } from '@/utils/split-once'
     import type { Character, MultiSlugParams } from '@/types'
 

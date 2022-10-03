@@ -4,7 +4,7 @@
 
     import { userStore } from '@/stores'
     import { auctionState } from '@/stores/local-storage/auctions'
-    import { Region } from '@/types/enums'
+    import { Region } from '@/enums'
     import type { MultiSlugParams } from '@/types'
 
     import Checkbox from '@/components/forms/CheckboxInput.svelte'
@@ -94,6 +94,13 @@
         </div>
 
         {#if params.slug1.startsWith('missing-')}
+            <div class="options-group">
+                <Checkbox
+                    name="all_realms"
+                    bind:value={$auctionState.allRealms}
+                >All realms</Checkbox>
+            </div>
+
             <div class="options-group">
                 <Checkbox
                     name="hide_ignored"

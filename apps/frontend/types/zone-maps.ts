@@ -1,4 +1,4 @@
-import type { RewardType } from '@/types/enums'
+import type { RewardType } from '@/enums'
 
 
 export interface FarmStatus {

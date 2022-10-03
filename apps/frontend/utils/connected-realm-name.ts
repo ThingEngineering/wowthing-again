@@ -24,6 +24,11 @@ export default function connectedRealmName(realmId: number): string {
         }
     }
 
+    if (useMe.length === 0) {
+        useMe.push(connectedRealm.realmNames[0])
+        extra = connectedRealm.realmNames.length - 1
+    }
+
     let ret = useMe.join(' / ')
     if (extra > 0) {
         ret += ` (+${extra})`

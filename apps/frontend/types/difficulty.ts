@@ -1,4 +1,4 @@
-import type { InstanceType } from '@/types/enums'
+import type { InstanceType } from '@/enums'
 
 export class Difficulty {
     constructor(

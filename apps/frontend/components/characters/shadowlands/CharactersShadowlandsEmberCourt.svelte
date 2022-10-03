@@ -1,15 +1,11 @@
 <script lang="ts">
-    import mdiCheckboxOutline from '@iconify/icons-mdi/check-circle-outline'
-
     import { covenantMap, covenantOrder, emberCourtFriends } from '@/data/covenant'
-    import { iconStrings } from '@/data/icons'
-    import { staticStore, userQuestStore, userStore } from '@/stores'
-    import tippy, { tippyComponent } from '@/utils/tippy'
+    import { staticStore, userQuestStore } from '@/stores'
+    import { tippyComponent } from '@/utils/tippy'
     import type { Character } from '@/types'
 
     export let character: Character
 
-    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import ReputationBar from '@/components/common/ReputationBar.svelte'
     import Tooltip from '@/components/tooltips/reputation/TooltipReputation.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'

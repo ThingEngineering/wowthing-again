@@ -75,9 +75,9 @@ groups:
 
 - name: Vale of Eternal Blossoms
   things:
+  - 2867 # Golden Chirper
   - 2866 # Voidglower
   - 2865 # Voidskimmer
-  - 2867 # Golden Chirper
 
 - name: "Vol'dun"
   things:

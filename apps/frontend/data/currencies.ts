@@ -18,6 +18,7 @@ export const currencyItems: Record<number, number[]> = {
     // Shadowlands
     245: [
         188957, // Genesis Mote
+        190189, // Sandworn Relic
     ],
     // Battle for Azeroth
     143: [

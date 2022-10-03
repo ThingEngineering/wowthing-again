@@ -1,5 +1,5 @@
 import type { UserAuctionDataPet } from '@/types/data'
-import { ItemLocation } from '@/types/enums'
+import { ItemLocation } from '@/enums'
 import { getCharacterNameRealm } from '@/utils/get-character-name-realm'
 
 export default function petLocationTooltip(pet: UserAuctionDataPet): string {

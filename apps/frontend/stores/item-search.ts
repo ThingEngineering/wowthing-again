@@ -2,7 +2,7 @@ import sortBy from 'lodash/sortBy'
 import { get, writable } from 'svelte/store'
 
 import { userStore } from '@/stores'
-import { ItemLocation } from '@/types/enums'
+import { ItemLocation } from '@/enums'
 import type {
     ItemSearchResponseCharacter,
     ItemSearchResponseGuildBank,

@@ -1,6 +1,6 @@
 <script lang="ts">
     import { imageStrings } from '@/data/icons'
-    import { Faction } from '@/types/enums'
+    import { Faction } from '@/enums'
 
     import WowthingImage from './sources/WowthingImage.svelte'
 

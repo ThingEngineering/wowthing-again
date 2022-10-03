@@ -2,7 +2,7 @@ import type { Account } from './account'
 import type { BackgroundImage } from './background-image'
 import type { Character } from './character'
 import type { InstanceDifficulty } from './dungeon'
-import type { ItemQuality } from './enums'
+import type { ItemQuality } from '../enums'
 import type { Guild } from './guild'
 import type { UserCount } from './user-count'
 
