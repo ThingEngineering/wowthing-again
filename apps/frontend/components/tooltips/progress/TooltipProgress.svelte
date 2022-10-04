@@ -144,14 +144,22 @@
     {#if showCurrencies?.length > 0 && !(showCurrencies.length === 1 && showCurrencies[0] === 0)}
         <div class="bottom">
             {#each showCurrencies as currencyId}
-                {@const characterCurrency = character.currencies?.[currencyId]}
                 <span>
-                    <WowthingImage
-                        name="currency/{currencyId}"
-                        size={20}
-                        border={1}
-                    />
-                    {(characterCurrency?.quantity ?? 0).toLocaleString()}
+                    {#if currencyId > 1000000}
+                        <WowthingImage
+                            name="item/{currencyId - 1000000}"
+                            size={20}
+                            border={1}
+                        />
+                        {(character.currencyItems?.[currencyId - 1000000] ?? 0).toLocaleString()}
+                    {:else}
+                        <WowthingImage
+                            name="currency/{currencyId}"
+                            size={20}
+                            border={1}
+                        />
+                        {(character.currencies?.[currencyId]?.quantity ?? 0).toLocaleString()}
+                    {/if}
                 </span>
             {/each}
         </div>
