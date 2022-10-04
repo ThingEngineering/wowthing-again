@@ -91,6 +91,10 @@ export default function getProgress(
                     (group.type === 'accountQuest' && checkAccountQuestIds(userQuestData, data.ids))
                 ) {
                     haveThis = true
+
+                    if (group.name === 'Brewfest Intro Quests') {
+                        showCurrency = 1037829 // Cyphers of the First Ones
+                    }
                 }
                 else if (group.type === 'item') {
                       haveThis = some(
