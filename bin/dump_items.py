@@ -49,8 +49,17 @@ SLOT_ORDER = [
 
 
 def main():
-    needle = sys.argv[1].lower()
+    inds = set()
+    if len(sys.argv) == 3:
+        ind = sys.argv[2].lower()
+        with open(glob.glob('dumps/enUS/itemnamedescription-*.csv')[0]) as csv_file:
+            for row in csv.DictReader(csv_file):
+                if row['Description_lang'].lower() == ind:
+                    inds.add(int(row['ID']))
+                    print(row['ID'], '->', row['Description_lang'])
+
     items = []
+    item_prefix = sys.argv[1].lower()
     with open(glob.glob('dumps/enUS/itemsparse-*.csv')[0]) as csv_file:
         # ID,AllowableRace,Description_lang,Display3_lang,Display2_lang,Display1_lang,Display_lang,
         # ExpansionID,DmgVariance,LimitCategory,DurationInInventory,QualityModifier,BagFamily,
@@ -65,8 +74,14 @@ def main():
         # Material,PageMaterialID,Bonding,DamageType,StatModifier_bonusStat[0-9],ContainerSlots,
         # MinReputation,RequiredPVPMedal,RequiredPVPRank,RequiredLevel,InventoryType,OverallQualityID
         for row in csv.DictReader(csv_file):
-            if row['Display_lang'].lower().startswith(needle):
-                items.append(row)
+            if not row['Display_lang'].lower().startswith(item_prefix):
+                continue
+                
+            if len(inds) > 0 and int(row['ItemNameDescriptionID']) not in inds:
+                print(row['ItemNameDescriptionID'])
+                continue
+            
+            items.append(row)
 
     grouped = {}
     for item in items:
@@ -86,7 +101,7 @@ def main():
     
     for (faction, cls), items in sorted(grouped.items()):
         print()
-        print(f'  - name: "{needle} {["Alliance", "Horde", "???"][faction]}"')
+        print(f'  - name: "{item_prefix} {["Alliance", "Horde", "???"][faction]}"')
         print(f'    tags:')
         print(f'      - "class:{cls}"')
         print(f'    items:')
