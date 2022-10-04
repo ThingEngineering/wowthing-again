@@ -1,12 +1,15 @@
 name: "Brewfest"
 groups:
 
-- name: "Introductory Quests"
+- name: "Brewfest Intro Quests"
   icon: "item/37829" # Brewfest Prize Token
   lookup: faction
   type: quest
   data:
     alliance:
+      - name: "Brewfest!"
+        id: 11441
+
       - name: "Brewfest Chowdown"
         id: 56764
         description: "Rewards {price:25|1037829}"
@@ -18,6 +21,10 @@ groups:
       - name: "Chug and Chuck!"
         id: 12022
         description: "Rewards {price:10|1037829}"
+
+      - name: "Direbrew's Dire Brew"
+        id: 12491
+        description: "Instance, rewards {price:40|1037829}"
 
       - name: "Pink Elekks On Parade"
         id: 11118
@@ -31,6 +38,9 @@ groups:
         description: "Rewards {price:10|1037829}"
 
     horde:
+      - name: "Brewfest!"
+        id: 11446
+
       - name: "Brewfest Chowdown"
         id: 56748
         description: "Rewards {price:25|1037829}"
@@ -42,6 +52,10 @@ groups:
       - name: "Chug and Chuck!"
         id: 12191
         description: "Rewards {price:10|1037829}"
+
+      - name: "Direbrew's Dire Brew"
+        id: 12492
+        description: "Instance, rewards {price:40|1037829}"
 
       - name: "Pink Elekks On Parade"
         id: 11120

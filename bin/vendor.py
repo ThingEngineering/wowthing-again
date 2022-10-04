@@ -1,5 +1,6 @@
 import json
 import math
+import os
 import re
 import requests
 import requests_cache
@@ -152,7 +153,8 @@ mapper_re = re.compile(r'var g_mapperData = (.*?)\;$', re.MULTILINE)
 npc_re = re.compile(r'^\$\.extend\(g_npcs\[\d+], (.*?)\)\;$', re.MULTILINE)
 sells_re = re.compile(r'^new Listview\(.*?id: \'sells\'.*?data: (.*?)\}\)\;$', re.MULTILINE)
 
-requests_cache.install_cache('temp/requests_cache', expire_after=4 * 3600)
+cache_path = os.path.join(os.path.dirname(__file__), '..', 'temp', 'requests_cache')
+requests_cache.install_cache(cache_path, expire_after=4 * 3600)
 
 
 r = requests.get(sys.argv[1], headers=HEADERS)
