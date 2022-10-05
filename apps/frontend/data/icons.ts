@@ -120,6 +120,11 @@ export const iconStrings: Record<string, IconifyIcon> = {
     'sort-numeric-down': mdiSortNumericDescending,
     'sort-numeric-up': mdiSortNumericAscending,
 
+    armorCloth: mdiLetterC,
+    armorLeather: mdiLetterL,
+    armorMail: mdiLetterM,
+    armorPlate: mdiLetterP,
+
     starEmpty: mdiStarOutline,
     starHalf: mdiStarHalfFull,
     starFull: mdiStarFace,
