@@ -3,6 +3,7 @@ import { writable } from 'svelte/store'
 
 export class MatrixState {
     public minLevel = 0
+    public showCovenant = true
 
     public xAxis: string[] = []
     public yAxis: string[] = []
