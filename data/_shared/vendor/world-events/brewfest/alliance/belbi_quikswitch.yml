@@ -107,7 +107,7 @@ sells:
     costs:
       1037829: 100 # Brewfest Prize Token
 
-  - type: transmog
-    id: 169448 # Bottomless Brewfest Stein [subclass=14]
-    costs:
-      1037829: 10 # Brewfest Prize Token
+  # - type: transmog
+  #   id: 169448 # Bottomless Brewfest Stein [subclass=14]
+  #   costs:
+  #     1037829: 10 # Brewfest Prize Token

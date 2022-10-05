@@ -4,7 +4,7 @@ const transmogSets: Record<string, TransmogSet> = {
     'all': new TransmogSet('all', [
         new TransmogSetData('all', 12),
     ]),
-    'armor': new TransmogSet('class', [
+    'armor': new TransmogSet('armor', [
         new TransmogSetData('cloth', 3, 'Cloth'),
         new TransmogSetData('leather', 4, 'Leather'),
         new TransmogSetData('mail', 2, 'Mail'),

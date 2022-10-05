@@ -2,7 +2,7 @@ query = """
 SELECT *
 FROM (
     SELECT  user_name,
-            REGEXP_REPLACE(settings#>>'{General,DesiredAccountName}', '[ "#]', '') AS desired
+            REGEXP_REPLACE(settings#>>'{General,DesiredAccountName}', '[ /"#\.'']', '') AS desired
     FROM    asp_net_users
 ) oof
 WHERE   desired IS NOT NULL

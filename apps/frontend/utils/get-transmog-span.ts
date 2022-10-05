@@ -1,8 +1,9 @@
-import type {TransmogSetData} from '@/types'
-import type {TransmogDataGroup} from '@/types/data'
+import type { TransmogSetData } from '@/types'
+import type { ManualDataTransmogGroup } from '@/types/data/manual'
+
 
 export default function getTransmogSpan(
-    group: TransmogDataGroup,
+    group: ManualDataTransmogGroup,
     set: TransmogSetData,
     skipClasses: Record<string, boolean>
 ): number {

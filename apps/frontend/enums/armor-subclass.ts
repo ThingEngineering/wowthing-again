@@ -13,4 +13,5 @@ export enum ArmorSubclass {
     Relic = 11,
 
     Cloak = 20,
+    Tabard = 21,
 }

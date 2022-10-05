@@ -13,7 +13,6 @@ using Wowthing.Backend.Models.Manual;
 using Wowthing.Backend.Models.Manual.Transmog;
 using Wowthing.Backend.Models.Manual.Vendors;
 using Wowthing.Backend.Models.Manual.ZoneMaps;
-using Wowthing.Backend.Models.Static;
 using Wowthing.Backend.Utilities;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Enums;
@@ -63,7 +62,7 @@ public class CacheManualJob : JobBase, IScheduledJob
 #else
         Interval = TimeSpan.FromHours(1),
 #endif
-        Version = 12,
+        Version = 13,
     };
 
     public override async Task Run(params string[] data)
@@ -447,7 +446,7 @@ public class CacheManualJob : JobBase, IScheduledJob
                         : 31;
                 }
                 else if (
-                    dropItem.SubclassId == 5 ||
+                    dropItem.SubclassId is (short)WowArmorSubclass.Cosmetic or (short)WowArmorSubclass.Tabard ||
                     (dropItem.SubclassId is not (>= 1 and <= 4) && dropItem.Flags.HasFlag(WowItemFlags.Cosmetic))
                 )
                 {

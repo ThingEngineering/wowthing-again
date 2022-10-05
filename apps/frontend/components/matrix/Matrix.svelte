@@ -19,6 +19,7 @@
     import NumberInput from '@/components/forms/NumberInput.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
     import UnderConstruction from '@/components/common/UnderConstruction.svelte'
+    import CheckboxInput from '../forms/CheckboxInput.svelte';
 
     let matrix: Record<string, Character[]>
     let xEntries: string[][]
@@ -287,14 +288,23 @@
         </div>
 
         <div class="options-container background-box">
-            <span>Level >=</span>
+            <span>Level &gt;=</span>
 
             <NumberInput
-                name="general_RefreshInterval"
+                name="min_level"
                 minValue={0}
                 maxValue={Constants.characterMaxLevel}
                 bind:value={$matrixState.minLevel}
             />
+        </div>
+
+        <div class="options-container background-box">
+            <CheckboxInput
+                name="show_covenant"
+                bind:value={$matrixState.showCovenant}
+            >
+                Show Covenant
+            </CheckboxInput>
         </div>
     </div>
 
@@ -329,7 +339,7 @@
                         >
                             {#each characters as character}
                                 <div class="level">
-                                    {#if character.shadowlands?.covenantId}
+                                    {#if $matrixState.showCovenant && character.shadowlands?.covenantId}
                                         <CovenantIcon covenantId={character.shadowlands.covenantId} />
                                     {/if}
                                     {character.level}
