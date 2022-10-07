@@ -121,8 +121,7 @@ sells:
     costs:
       1137642: 10
 
-  - type: transmog
-    id: 22999 # Tabard of the Argent Dawn [tabard]
-    costs:
-      0: 1 # Gold
-
+  # - type: transmog
+  #   id: 22999 # Tabard of the Argent Dawn [tabard]
+  #   costs:
+  #     0: 1 # Gold
