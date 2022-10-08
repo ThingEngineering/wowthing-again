@@ -30,7 +30,7 @@ sets:
   
   - name: "Collections"
     range: 1
-    sortKey: "collections"
+    sortKey: "collections-1"
 
   - name: "Weapons - Night Courtier"
     range: -1

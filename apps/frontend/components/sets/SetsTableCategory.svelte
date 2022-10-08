@@ -26,7 +26,6 @@
     let setKey: string
     $: {
         anyClass = some(category.groups, (group) => group.type === 'class')
-        console.log(anyClass)
 
         const categoryHas = $userTransmogStore.data.stats[`${slugs[0]}--${category.slug}`]
         categoryPercent = categoryHas.have / categoryHas.total * 100
