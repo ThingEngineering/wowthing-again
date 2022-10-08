@@ -64,7 +64,7 @@ public static class DataUtilities
 
         logger?.Debug("Loading {0}", orderFile);
 
-        var inGlobal = false;
+        bool inGlobal = false;
         List<string> globalFiles = new();
         List<TCategory> things = null;
         foreach (var line in File.ReadLines(Path.Join(basePath, "_order")))

@@ -1,11 +1,14 @@
-﻿using Wowthing.Backend.Models.Data.Collections;
+﻿using Newtonsoft.Json.Linq;
+using Wowthing.Backend.Models.Data.Collections;
 using Wowthing.Backend.Models.Data.Heirlooms;
 using Wowthing.Backend.Models.Data.Illusions;
+using Wowthing.Backend.Models.Data.ItemSets;
 using Wowthing.Backend.Models.Data.Progress;
+using Wowthing.Backend.Models.Data.TransmogSets;
 using Wowthing.Backend.Models.Manual.Transmog;
+using Wowthing.Backend.Models.Manual.TransmogSets;
 using Wowthing.Backend.Models.Manual.Vendors;
 using Wowthing.Backend.Models.Manual.ZoneMaps;
-using Wowthing.Backend.Models.Static;
 
 namespace Wowthing.Backend.Models.Manual;
 
@@ -32,6 +35,9 @@ public class ManualCache
     [JsonProperty("rawTransmogSets")]
     public List<List<ManualTransmogCategory>> TransmogSets { get; set; }
 
+    [JsonProperty("rawTransmogSetsV2")]
+    public List<List<ManualTransmogSetCategory>> TransmogSetsV2 { get; set; }
+
     [JsonProperty("rawVendorSets")]
     public List<List<ManualVendorCategory>> VendorSets { get; set; }
 
@@ -39,6 +45,13 @@ public class ManualCache
     public List<List<ManualZoneMapCategory>> ZoneMapSets { get; set; }
 
     // Shared
+    [JsonProperty("rawSharedItemSets")]
+    public List<ManualSharedItemSet> SharedItemSets { get; set; }
+
     [JsonProperty("rawSharedVendors")]
     public List<ManualSharedVendor> SharedVendors { get; set; }
+
+    // Tags
+    [JsonProperty("rawTags")]
+    public List<JArray> Tags { get; set; }
 }

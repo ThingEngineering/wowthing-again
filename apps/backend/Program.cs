@@ -80,7 +80,7 @@ public class Program
 
         var backendOptions = new WowthingBackendOptions();
         Configuration.GetSection("WowthingBackend").Bind(backendOptions);
-            
+
         // Databases
         services.AddPostgres(Configuration.GetConnectionString("Postgres"));
 
@@ -101,21 +101,21 @@ public class Program
 
         services.AddHostedService<AuthorizationService>();
         services.AddHostedService<GoldSnapshotService>();
-        services.AddHostedService<JobQueueService>(); 
+        services.AddHostedService<JobQueueService>();
         services.AddHostedService<SchedulerService>();
-            
+
         for (int i = 0; i < backendOptions.WorkerCountHigh; i++)
         {
             services.AddSingleton<IHostedService>(sp =>
                 ActivatorUtilities.CreateInstance<WorkerService>(sp, JobPriority.High));
         }
-            
+
         for (int i = 0; i < backendOptions.WorkerCountLow; i++)
         {
             services.AddSingleton<IHostedService>(sp =>
                 ActivatorUtilities.CreateInstance<WorkerService>(sp, JobPriority.Low));
         }
-            
+
         for (int i = 0; i < backendOptions.WorkerCountAuction; i++)
         {
             services.AddSingleton<IHostedService>(sp =>
