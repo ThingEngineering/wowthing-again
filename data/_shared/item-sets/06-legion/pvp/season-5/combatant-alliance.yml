@@ -5,7 +5,8 @@ tags:
   - "tier:combatant"
 
 sets:
-  - name: "transmog:1348" # Fierce Combatant's Dreadplate Armor [Alliance]
+
+  - name: "Fierce Combatant's Dreadplate Armor" # Alliance
     tags:
       - "class:death-knight"
     items:
@@ -19,7 +20,7 @@ sets:
       - 149537 # Legs
       - 149531 # Feet
 
-  - name: "transmog:1354" # Fierce Combatant's Felskin Armor [Alliance]
+  - name: "Fierce Combatant's Felskin Armor" # Alliance
     tags:
       - "class:demon-hunter"
     items:
@@ -33,7 +34,7 @@ sets:
       - 149553 # Legs
       - 149547 # Feet
 
-  - name: "transmog:1360" # Fierce Combatant's Dragonhide Armor [Alliance]
+  - name: "Fierce Combatant's Dragonhide Armor" # Alliance
     tags:
       - "class:druid"
     items:
@@ -47,7 +48,7 @@ sets:
       - 149569 # Legs
       - 149563 # Feet
 
-  - name: "transmog:1362" # Fierce Combatant's Chain Armor [Alliance]
+  - name: "Fierce Combatant's Chain Armor" # Alliance
     tags:
       - "class:hunter"
     items:
@@ -61,7 +62,7 @@ sets:
       - 149586 # Legs
       - 149580 # Feet
 
-  - name: "transmog:1364" # Fierce Combatant's Silk Armor [Alliance]
+  - name: "Fierce Combatant's Silk Armor" # Alliance
     tags:
       - "class:mage"
     items:
@@ -75,7 +76,7 @@ sets:
       - 149600 # Legs
       - 149594 # Feet
 
-  - name: "transmog:1366" # Fierce Combatant's Ironskin Armor [Alliance]
+  - name: "Fierce Combatant's Ironskin Armor" # Alliance
     tags:
       - "class:monk"
     items:
@@ -89,7 +90,7 @@ sets:
       - 149616 # Legs
       - 149610 # Feet
 
-  - name: "transmog:1368" # Fierce Combatant's Scaled Armor [Alliance]
+  - name: "Fierce Combatant's Scaled Armor" # Alliance
     tags:
       - "class:paladin"
     items:
@@ -103,7 +104,7 @@ sets:
       - 149640 # Legs
       - 149634 # Feet
 
-  - name: "transmog:1370" # Fierce Combatant's Satin Armor [Alliance]
+  - name: "Fierce Combatant's Satin Armor" # Alliance
     tags:
       - "class:priest"
     items:
@@ -117,7 +118,7 @@ sets:
       - 149654 # Legs
       - 149648 # Feet
 
-  - name: "transmog:1372" # Fierce Combatant's Leather Armor [Alliance]
+  - name: "Fierce Combatant's Leather Armor" # Alliance
     tags:
       - "class:rogue"
     items:
@@ -131,7 +132,7 @@ sets:
       - 149678 # Legs
       - 149672 # Feet
 
-  - name: "transmog:1374" # Fierce Combatant's Ringmail Armor [Alliance]
+  - name: "Fierce Combatant's Ringmail Armor" # Alliance
     tags:
       - "class:shaman"
     items:
@@ -145,7 +146,7 @@ sets:
       - 149694 # Legs
       - 149688 # Feet
 
-  - name: "transmog:1376" # Fierce Combatant's Felweave Armor [Alliance]
+  - name: "Fierce Combatant's Felweave Armor" # Alliance
     tags:
       - "class:warlock"
     items:
@@ -159,7 +160,7 @@ sets:
       - 149726 # Legs
       - 149720 # Feet
 
-  - name: "transmog:1378" # Fierce Combatant's Plate Armor [Alliance]
+  - name: "Fierce Combatant's Plate Armor" # Alliance
     tags:
       - "class:warrior"
     items:

@@ -5,7 +5,8 @@ tags:
   - "tier:gladiator"
 
 sets:
-  - name: "transmog:1401" # Fierce Gladiator's Dreadplate Armor [Horde]
+
+  - name: "Fierce Gladiator's Dreadplate Armor" # Horde
     tags:
       - "class:death-knight"
     items:
@@ -19,7 +20,7 @@ sets:
       - 147942 # Legs
       - 147936 # Feet
 
-  - name: "transmog:1403" # Fierce Gladiator's Felskin Armor [Horde]
+  - name: "Fierce Gladiator's Felskin Armor" # Horde
     tags:
       - "class:demon-hunter"
     items:
@@ -33,7 +34,7 @@ sets:
       - 147958 # Legs
       - 147952 # Feet
 
-  - name: "transmog:1405" # Fierce Gladiator's Dragonhide Armor [Horde]
+  - name: "Fierce Gladiator's Dragonhide Armor" # Horde
     tags:
       - "class:druid"
     items:
@@ -47,7 +48,7 @@ sets:
       - 147974 # Legs
       - 147968 # Feet
 
-  - name: "transmog:1407" # Fierce Gladiator's Chain Armor [Horde]
+  - name: "Fierce Gladiator's Chain Armor" # Horde
     tags:
       - "class:hunter"
     items:
@@ -61,7 +62,7 @@ sets:
       - 147990 # Legs
       - 147984 # Feet
 
-  - name: "transmog:1409" # Fierce Gladiator's Silk Armor [Horde]
+  - name: "Fierce Gladiator's Silk Armor" # Horde
     tags:
       - "class:mage"
     items:
@@ -75,7 +76,7 @@ sets:
       - 148004 # Legs
       - 147998 # Feet
 
-  - name: "transmog:1411" # Fierce Gladiator's Ironskin Armor [Horde]
+  - name: "Fierce Gladiator's Ironskin Armor" # Horde
     tags:
       - "class:monk"
     items:
@@ -89,7 +90,7 @@ sets:
       - 148020 # Legs
       - 148014 # Feet
 
-  - name: "transmog:1413" # Fierce Gladiator's Scaled Armor [Horde]
+  - name: "Fierce Gladiator's Scaled Armor" # Horde
     tags:
       - "class:paladin"
     items:
@@ -103,7 +104,7 @@ sets:
       - 148043 # Legs
       - 148037 # Feet
 
-  - name: "transmog:1415" # Fierce Gladiator's Satin Armor [Horde]
+  - name: "Fierce Gladiator's Satin Armor" # Horde
     tags:
       - "class:priest"
     items:
@@ -117,7 +118,7 @@ sets:
       - 148058 # Legs
       - 148052 # Feet
 
-  - name: "transmog:1417" # Fierce Gladiator's Leather Armor [Horde]
+  - name: "Fierce Gladiator's Leather Armor" # Horde
     tags:
       - "class:rogue"
     items:
@@ -131,7 +132,7 @@ sets:
       - 148082 # Legs
       - 148076 # Feet
 
-  - name: "transmog:1419" # Fierce Gladiator's Ringmail Armor [Horde]
+  - name: "Fierce Gladiator's Ringmail Armor" # Horde
     tags:
       - "class:shaman"
     items:
@@ -145,7 +146,7 @@ sets:
       - 148098 # Legs
       - 148092 # Feet
 
-  - name: "transmog:1421" # Fierce Gladiator's Felweave Armor [Horde]
+  - name: "Fierce Gladiator's Felweave Armor" # Horde
     tags:
       - "class:warlock"
     items:
@@ -159,7 +160,7 @@ sets:
       - 148130 # Legs
       - 148124 # Feet
 
-  - name: "transmog:1423" # Fierce Gladiator's Plate Armor [Horde]
+  - name: "Fierce Gladiator's Plate Armor" # Horde
     tags:
       - "class:warrior"
     items:
