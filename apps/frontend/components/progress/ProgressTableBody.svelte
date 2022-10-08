@@ -26,6 +26,11 @@
     span {
         flex: 1;
     }
+    td.status-fail {
+        span {
+            //opacity: 0.95;
+        }
+    }
 </style>
 
 {#if progressData.total > 0}
@@ -58,6 +63,10 @@
     </td>
 {:else if progressData.have === -1 && progressData.total >= 0}
     <td class="status-fail">---</td>
+{:else if (group.minimumLevel || 0) > character.level}
+    <td class="status-fail">
+        <span>{group.minimumLevel}+</span>
+    </td>
 {:else}
     <td>&nbsp;</td>
 {/if}
