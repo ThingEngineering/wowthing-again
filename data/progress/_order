@@ -25,6 +25,7 @@ z5/_warlords_of_draenor.yml
     z5/raid_skips.yml
 
 z4/_mists_of_pandaria.yml
+    z4/dungeons.yml
     z4/travel.yml
 
 z3/_cataclysm.yml
@@ -32,9 +33,11 @@ z3/_cataclysm.yml
 
 z2/_wrath_of_the_lich_king.yml
     z2/argent_tournament.yml
+    z2/dungeons.yml
     z2/travel.yml
 
 z1/_the_burning_crusade.yml
+    z1/dungeons.yml
     z1/travel.yml
 
 z0/_classic.yml
@@ -46,6 +49,11 @@ world-events/_world_events.yml
     world-events/brewfest.yml
 
 -
+
+dungeons.yml
+    z4/dungeons.yml Mists of Pandaria
+    z2/dungeons.yml Wrath of the Lich King
+    z1/dungeons.yml The Burning Crusade
 
 raid_skips.yml
     z8/raid_skips.yml Shadowlands
