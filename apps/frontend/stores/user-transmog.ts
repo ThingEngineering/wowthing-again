@@ -6,14 +6,13 @@ import { get } from 'svelte/store'
 
 import { itemStore } from './item'
 import { manualStore } from './manual'
-import { UserCount, WritableFancyStore, type FancyStore } from '@/types'
-import getSkipClasses from '@/utils/get-skip-classes'
-import type { Settings } from '@/types'
-import type { UserTransmogData } from '@/types/data'
-import type { ManualData, ManualDataSharedItemSet, ManualDataTransmogSetFiltered } from '@/types/data/manual'
 import { TransmogSetType } from '@/enums'
-import type { StaticData } from '@/types/data/static'
+import { UserCount, WritableFancyStore } from '@/types'
+import getSkipClasses from '@/utils/get-skip-classes'
+import type { FancyStore, Settings } from '@/types'
+import type { UserTransmogData } from '@/types/data'
 import type { ItemData } from '@/types/data/item'
+import type { ManualData, ManualDataSharedItemSet, ManualDataTransmogSetFiltered } from '@/types/data/manual'
 
 
 export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> {
@@ -187,9 +186,9 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
         const skipAlliance = !settings.transmog.showAllianceOnly
         const skipHorde = !settings.transmog.showHordeOnly
         const skipUnavailable = settings.collections.hideUnavailable
-        const skipClasses = getSkipClasses(settings)
+        //const skipClasses = getSkipClasses(settings)
 
-        const seen: Record<number, boolean> = {}
+        //const seen: Record<number, boolean> = {}
         const stats: Record<string, UserCount> = {}
 
         const overallStats = stats['OVERALL'] = new UserCount()

@@ -3,14 +3,10 @@
 
     import { transmogSets } from '@/data/transmog-sets'
     import { userTransmogStore } from '@/stores'
-    import { data as settingsData } from '@/stores/settings'
     import getPercentClass from '@/utils/get-percent-class'
-    import getTransmogSpan from '@/utils/get-transmog-span'
-    import getFilteredSets from '@/utils/transmog/get-filtered-sets'
     import type { ManualDataTransmogSetCategory } from '@/types/data/manual'
 
     import ClassIcon from '@/components/images/ClassIcon.svelte'
-    import CovenantIcon from '@/components/images/CovenantIcon.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
     import TableSet from './TransmogSetsTableSet.svelte'
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
@@ -285,7 +281,7 @@
                     <TableSet
                         {set}
                         setData={group.setData[setIndex][transmogSet.type]}
-                        span={anyClass ? getTransmogSpan(group, transmogSet, skipClasses) : 1}
+                        span={1}
                         stats={$userTransmogStore.data.statsV2[`${slugs[0]}--${category.slug}--${groupIndex}--${setIndex}--${transmogSet.type}`]}
                         subType={transmogSet.subType}
                     />

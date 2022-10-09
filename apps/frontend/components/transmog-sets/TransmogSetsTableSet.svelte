@@ -1,8 +1,4 @@
 <script lang="ts">
-    import keys from 'lodash/keys'
-    import toPairs from 'lodash/toPairs'
-
-    import {userTransmogStore} from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
     import {tippyComponent} from '@/utils/tippy'
     import type { UserCount } from '@/types'
@@ -27,22 +23,6 @@
         percent = total === 0 ? 0 : have / total * 100
 
         slotHave = {}
-
-        //console.log(set, setData, subType)
-        /*if (set?.items) {
-            for (const [slot, items] of toPairs(set.items)) {
-                slotHave[slot] = false
-                for (const itemId of items) {
-                    if ($userTransmogStore.data.userHas[itemId]) {
-                        have++
-                        slotHave[slot] = true
-                        break
-                    }
-                }
-            }
-            total = keys(set.items).length
-            percent = have / total * 100
-        }*/
     }
 </script>
 
