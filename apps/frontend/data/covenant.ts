@@ -328,7 +328,7 @@ export const emberCourtFriends: Array<Array<EmberCourtFriend>> = [
         {
             name: 'Alexandros Mograine',
             friendQuestId: 65128,
-            reputationId: 2454,
+            reputationId: 2450,
         },
         {
             name: 'Hunt-Captain Korayn',
