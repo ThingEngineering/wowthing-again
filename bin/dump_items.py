@@ -21,6 +21,21 @@ CLASS_MASK = {
     2048: 'demon-hunter',
 }
 
+ARMOR_NAME = {
+    'death-knight': 'Dreadplate',
+    'demon-hunter': 'Felskin',
+    'druid': 'Dragonhide',
+    'hunter': 'Chain',
+    'mage': 'Silk',
+    'monk': 'Ironskin',
+    'paladin': 'Scaled',
+    'priest': 'Satin',
+    'rogue': 'Leather',
+    'shaman': 'Ringmail',
+    'warlock': 'Felweave',
+    'warrior': 'Plate',
+}
+
 SLOT_MAP = {
      1: 'Head',
      3: 'Shoulders',
@@ -100,8 +115,11 @@ def main():
         grouped.setdefault((faction, CLASS_MASK[class_mask]), []).append(item)
     
     for (faction, cls), items in sorted(grouped.items()):
+        prefix = items[0]['Display_lang'].split("'s ")[0]
+        name = f"{prefix}'s {ARMOR_NAME[cls]} Armor"
+
         print()
-        print(f'  - name: "{item_prefix} {["Alliance", "Horde", "???"][faction]}"')
+        print(f'  - name: "{name}" # {["Alliance", "Horde", "???"][faction]}')
         print(f'    tags:')
         print(f'      - "class:{cls}"')
         print(f'    items:')

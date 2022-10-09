@@ -1,3 +1,4 @@
+import { TransmogSetType } from '@/enums'
 import {TransmogSet, TransmogSetData} from '@/types'
 
 const transmogSets: Record<string, TransmogSet> = {
@@ -32,5 +33,9 @@ const transmogSets: Record<string, TransmogSet> = {
         new TransmogSetData('venthyr2', 1, 'Venthyr'),
     ]),
 }
+
+transmogSets[TransmogSetType.Armor] = transmogSets['armor']
+transmogSets[TransmogSetType.Class] = transmogSets['class']
+transmogSets[TransmogSetType.Covenant] = transmogSets['covenant']
 
 export { transmogSets }

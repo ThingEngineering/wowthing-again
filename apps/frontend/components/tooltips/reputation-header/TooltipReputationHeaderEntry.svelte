@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Constants } from '@/data/constants'
     import { rewardTypeIcons } from '@/data/icons'
-    import { staticStore, userStore, userTransmogStore } from '@/stores'
+    import { itemStore, staticStore, userStore, userTransmogStore } from '@/stores'
     import { Faction, RewardType } from '@/enums'
     import type { Character } from '@/types'
     import type { StaticDataReputationReputation, StaticDataReputationSet } from '@/types/data/static'
@@ -49,8 +49,8 @@
                         name = toy ? toy.name : `Toy #${reward.id}`
                     }
                     else if (reward.type === RewardType.Transmog) {
-                        const item = $staticStore.data.items[reward.id]
-                        have = $userTransmogStore.data.userHas[item?.appearanceId || 0]
+                        const item = $itemStore.data.items[reward.id]
+                        have = $userTransmogStore.data.userHas[item?.appearances[0]?.appearanceId || 0]
                         name = item?.name || `Item #${reward.id}`
                     }
 

@@ -30,6 +30,7 @@
     let petsPercent: number
     let toysPercent: number
     let transmogPercent: number
+    let transmogSetsPercent: number
     let vendorPercent: number
     $: {
         const journalOverall = $journalStore.data.stats['OVERALL']
@@ -37,6 +38,7 @@
         const petsOverall = $userStore.data.setCounts['pets']['OVERALL']
         const toysOverall = $userStore.data.setCounts['toys']['OVERALL']
         const transmogOverall = $userTransmogStore.data.stats['OVERALL']
+        const transmogSetsOverall = $userTransmogStore.data.statsV2['OVERALL']
         const vendorOverall = $userVendorStore.data.stats['OVERALL']
 
         journalPercent = journalOverall.have / journalOverall.total * 100
@@ -44,6 +46,7 @@
         petsPercent = petsOverall.have / petsOverall.total * 100
         toysPercent = toysOverall.have / toysOverall.total * 100
         transmogPercent = transmogOverall.have / transmogOverall.total * 100
+        transmogSetsPercent = transmogSetsOverall.have / transmogSetsOverall.total * 100
         vendorPercent = vendorOverall.have / vendorOverall.total * 100
     }
 
@@ -270,6 +273,14 @@
             <IconifyIcon icon={iconConstruction} dropShadow={true} />
             Professions
         </a>
+    </li>
+
+    <li use:active={'/transmog-sets/*'}>
+        <a href="#/transmog-sets/">
+            <IconifyIcon icon={iconSets} dropShadow={true} />
+            Sets V2
+        </a>
+        <span class="drop-shadow percent {getPercentClass(transmogSetsPercent)}">{fancyPercent(transmogSetsPercent)} %</span>
     </li>
 
     {#if $userStore.loaded && !$userStore.data.public}

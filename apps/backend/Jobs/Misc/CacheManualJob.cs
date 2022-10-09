@@ -1,16 +1,20 @@
 ﻿using System.Text.RegularExpressions;
+using Newtonsoft.Json.Linq;
 using StackExchange.Redis;
 using Wowthing.Backend.Models.Data;
 using Wowthing.Backend.Models.Data.Collections;
 using Wowthing.Backend.Models.Data.Heirlooms;
 using Wowthing.Backend.Models.Data.Illusions;
 using Wowthing.Backend.Models.Data.Items;
+using Wowthing.Backend.Models.Data.ItemSets;
 using Wowthing.Backend.Models.Data.Progress;
 using Wowthing.Backend.Models.Data.Transmog;
+using Wowthing.Backend.Models.Data.TransmogSets;
 using Wowthing.Backend.Models.Data.Vendors;
 using Wowthing.Backend.Models.Data.ZoneMaps;
 using Wowthing.Backend.Models.Manual;
 using Wowthing.Backend.Models.Manual.Transmog;
+using Wowthing.Backend.Models.Manual.TransmogSets;
 using Wowthing.Backend.Models.Manual.Vendors;
 using Wowthing.Backend.Models.Manual.ZoneMaps;
 using Wowthing.Backend.Utilities;
@@ -46,6 +50,9 @@ public class CacheManualJob : JobBase, IScheduledJob
     private Dictionary<int, WowToy> _toyMap;
     private Dictionary<(StringType Type, Language Language, int Id), string> _stringMap;
 
+    private int _tagIndex = 1;
+    private readonly Dictionary<string, int> _tagMap = new();
+
     private readonly StringType[] _stringTypes =
     {
         StringType.WowCreatureName,
@@ -62,7 +69,7 @@ public class CacheManualJob : JobBase, IScheduledJob
 #else
         Interval = TimeSpan.FromHours(1),
 #endif
-        Version = 13,
+        Version = 14,
     };
 
     public override async Task Run(params string[] data)
@@ -210,26 +217,21 @@ public class CacheManualJob : JobBase, IScheduledJob
         cacheData.ToySets = FinalizeCollections(toySets);
         _timer.AddPoint("Toys");
 
-        // Heirlooms
         cacheData.HeirloomSets = LoadHeirlooms();
-
-        // Illusions
         cacheData.IllusionSets = LoadIllusions();
-
-        // Progress
         cacheData.ProgressSets = LoadProgress();
-
-        // Shared vendors
+        cacheData.SharedItemSets = LoadSharedItemSets();
         cacheData.SharedVendors = LoadSharedVendors();
-
-        // Transmog
         cacheData.TransmogSets = LoadTransmog();
-
-        // Vendors
+        cacheData.TransmogSetsV2 = LoadTransmogSets();
         cacheData.VendorSets = LoadVendors();
-
-        // Zone Maps
         cacheData.ZoneMapSets = LoadZoneMaps();
+
+        cacheData.Tags = _tagMap
+            .OrderBy(kvp => kvp.Value)
+            .Select(kvp => new JArray(kvp.Value, kvp.Key))
+            .ToList();
+
 #if DEBUG
         DumpZoneMapQuests(cacheData.ZoneMapSets);
 #endif
@@ -309,6 +311,51 @@ public class CacheManualJob : JobBase, IScheduledJob
         return ret;
     }
 
+    private void AddTags(List<string> tags)
+    {
+        foreach (string tag in tags.EmptyIfNull())
+        {
+            if (!_tagMap.ContainsKey(tag))
+            {
+                _tagMap[tag] = _tagIndex++;
+            }
+        }
+
+    }
+
+    private List<ManualSharedItemSet> LoadSharedItemSets()
+    {
+        var di = new DirectoryInfo(Path.Join(DataUtilities.DataPath, "_shared", "item-sets"));
+        var files = di.GetFiles("*.yml", SearchOption.AllDirectories)
+            .OrderBy(file => file.FullName)
+            .ToArray();
+
+        var ret = new List<ManualSharedItemSet>();
+
+        foreach (var file in files)
+        {
+            Logger.Debug("Parsing {file}", file.FullName);
+            var itemSets = _yaml.Deserialize<DataSharedItemSets>(File.OpenText(file.FullName));
+
+            AddTags(itemSets.Tags);
+
+            foreach (var itemSet in itemSets.Sets)
+            {
+                AddTags(itemSet.Tags.EmptyIfNull());
+
+                var tags = itemSets.Tags
+                    .Union(itemSet.Tags.EmptyIfNull())
+                    .Select(tag => _tagMap[tag])
+                    .OrderBy(tag => tag)
+                    .ToList();
+
+                ret.Add(new ManualSharedItemSet(itemSet, tags));
+            }
+        }
+
+        return ret;
+    }
+
     private List<ManualSharedVendor> LoadSharedVendors()
     {
         var di = new DirectoryInfo(Path.Join(DataUtilities.DataPath, "_shared", "vendor"));
@@ -358,6 +405,46 @@ public class CacheManualJob : JobBase, IScheduledJob
                     .ToList()
                 );
             }
+        }
+
+        return ret;
+    }
+
+    private List<List<ManualTransmogSetCategory>> LoadTransmogSets()
+    {
+        var transmogSets = DataUtilities.LoadData<DataTransmogSetCategory>("transmog-sets", Logger);
+
+        var ret = new List<List<ManualTransmogSetCategory>>();
+        foreach (var catList in transmogSets)
+        {
+            if (catList == null)
+            {
+                ret.Add(null);
+                continue;
+            }
+
+            var newCatList = new List<ManualTransmogSetCategory>();
+            foreach (var cat in catList)
+            {
+                if (cat == null)
+                {
+                    newCatList.Add(null);
+                    continue;
+                }
+
+                foreach (var group in cat.Groups.EmptyIfNull())
+                {
+                    AddTags(group.MatchTags);
+                }
+
+                foreach (var set in cat.Sets.EmptyIfNull())
+                {
+                    AddTags(set.MatchTags);
+                }
+
+                newCatList.Add(new ManualTransmogSetCategory(cat, _tagMap));
+            }
+            ret.Add(newCatList);
         }
 
         return ret;

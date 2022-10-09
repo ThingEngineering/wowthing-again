@@ -116,7 +116,7 @@
                             <IconifyIcon
                                 icon={iconStrings.starFull}
                             />
-                        {:else if feature.rank < fight.unlockRanks[questIndex]}
+                        {:else if feature?.rank < fight.unlockRanks[questIndex]}
                             <IconifyIcon
                                 icon={iconStrings.lock}
                                 extraClass="unavailable"

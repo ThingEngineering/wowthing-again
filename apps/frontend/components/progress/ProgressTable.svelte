@@ -21,7 +21,6 @@
     import RowCovenant from '@/components/home/table/row/HomeTableRowCovenant.svelte'
     import RowProgress from './ProgressTableBody.svelte'
     import RowProgressRaidSkip from './ProgressTableBodyRaidSkip.svelte'
-    import { Constants } from '@/data/constants';
 
     export let slug1: string
     export let slug2: string
@@ -65,7 +64,8 @@
                 !some(requiredQuestIds, (id) => $userQuestStore.data.characters[char.id]?.quests?.has(id))) {
                 return false
             }
-            if (categories[0].name === 'Dungeons' &&
+            if (
+                (categories[0].name === 'Dungeons' || firstCategory.name === 'Dungeons') &&
                 char.level >= 50
             ) {
                 return false

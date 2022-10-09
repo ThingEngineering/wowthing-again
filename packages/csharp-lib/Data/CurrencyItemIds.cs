@@ -22,6 +22,8 @@ public static partial class Hardcoded
         162460, // Hydrocore
         163036, // Polished Pet Charm
         168802, // Nazjatar Battle Commendation
+        178061, // Malleable Flesh
+        183744, // Superior Parts
         188957, // Genesis Mote
         190189, // Sandworn Relic
 

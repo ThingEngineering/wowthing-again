@@ -239,8 +239,8 @@ groups:
     - name: "A Hero's Weapon"
       id: 43415
 
-    - name: "Down the Rabbit Hole"
-      id: 46723
+    # - name: "Down the Rabbit Hole"
+    #   id: 46723
 
     monk:
     - name: "Prepare to Strike"
@@ -331,11 +331,11 @@ groups:
     - name: "A Hero's Weapon"
       id: 43424
 
-    - name: "The Ballad of Maximillian"
-      id: 24707
+    # - name: "The Ballad of Maximillian"
+    #   id: 24707
 
-    - name: "Where Art Thou, My Sweet"
-      id: 45813
+    # - name: "Where Art Thou, My Sweet"
+    #   id: 45813
 
     priest:
     - name: "A Legend You Can Hold"

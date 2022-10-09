@@ -27,6 +27,7 @@
     import Settings from '@/components/settings/Settings.svelte'
     import Teams from '@/components/teams/Teams.svelte'
     import Toys from '@/components/collections/Toys.svelte'
+    import TransmogSets from '@/components/transmog-sets/TransmogSets.svelte'
     import Vendors from '@/components/vendors/Vendors.svelte'
     import ZoneMaps from '@/components/zone-maps/ZoneMaps.svelte'
 
@@ -54,6 +55,7 @@
         '/progress/:slug1?/:slug2?': Progress,
         '/reputations/:slug?': Reputations,
         '/sets/:slug1?/:slug2?': Sets,
+        '/transmog-sets/:slug1?/:slug2?': TransmogSets,
         '/vendors/:slug1?/:slug2?': Vendors,
         '/zone-maps/:slug1?/:slug2?': ZoneMaps,
 

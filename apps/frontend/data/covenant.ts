@@ -158,23 +158,39 @@ export const ascensionItems: [number, number][] = [
 
 // Necrolords
 // [criteriaId, spellId]
-export const abominations: [number, number][] = [
-    [88203, 325454], // Atticus
-    [88196, 325284], // Chordy
-    [88201, 325453], // Flytrap
-    [88208, 326380], // Gas Bag
-    [88209, 338039], // Guillotine
-    [88212, 338037], // Iron Phillip
-    [88210, 326408], // Mama Tomalin
-    [88202, 325452], // Marz
-    [88213, 325458], // Miru
-    [88211, 338043], // Naxx
-    [88214, 326379], // Neena
-    [88207, 326406], // Professor
-    [88204, 325451], // Roseboil
-    [88205, 338040], // Sabrina
-    [88206, 326407], // Toothpick
-    [88215, 343436], // Unity
+export class CovenantAbomination {
+    constructor(
+        public requiredRank: number,
+        public criteriaId: number,
+        public spellId: number,
+        public name: string,
+        public flesh: number,
+        public parts: number,
+    )
+    {}
+}
+
+export const abominations: CovenantAbomination[] = [
+    new CovenantAbomination(1, 88203, 325454, 'Atticus', 10, 0),
+    new CovenantAbomination(1, 88196, 325284, 'Chordy', 1, 0),
+    new CovenantAbomination(1, 88201, 325453, 'Flytrap', 10, 2),
+    new CovenantAbomination(1, 88202, 325452, 'Marz', 10, 1),
+    new CovenantAbomination(1, 88213, 325458, 'Miru', 20, 0),
+    new CovenantAbomination(1, 88204, 325451, 'Roseboil', 10, 1),
+
+    new CovenantAbomination(2, 88214, 326379, 'Neena', 20, 0),
+    new CovenantAbomination(2, 88207, 326406, 'Professor', 15, 3),
+    new CovenantAbomination(2, 88205, 338040, 'Sabrina', 15, 4),
+    new CovenantAbomination(2, 88206, 326407, 'Toothpick', 15, 4),
+
+    new CovenantAbomination(3, 88208, 326380, 'Gas Bag', 20, 5),
+    new CovenantAbomination(3, 88209, 338039, 'Guillotine', 20, 7),
+    new CovenantAbomination(3, 88210, 326408, 'Mama Tomalin', 10, 1),
+
+    new CovenantAbomination(4, 88212, 338037, 'Iron Phillip', 20, 10),
+    new CovenantAbomination(4, 88211, 338043, 'Naxx', 20, 10),
+
+    new CovenantAbomination(5, 88215, 343436, 'Unity', 30, 5),
 ]
 
 // Night Fae
@@ -328,7 +344,7 @@ export const emberCourtFriends: Array<Array<EmberCourtFriend>> = [
         {
             name: 'Alexandros Mograine',
             friendQuestId: 65128,
-            reputationId: 2454,
+            reputationId: 2450,
         },
         {
             name: 'Hunt-Captain Korayn',

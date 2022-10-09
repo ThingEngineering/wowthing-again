@@ -2,6 +2,87 @@ name: "Garrisons"
 minimumLevel: 10
 groups:
 
+- name: "Garrison Campaign"
+  icon: "achievement/9492"
+  lookup: faction
+  type: quest
+  data:
+    alliance:
+      - name: "The Warlord's Council"
+        id: 35841
+
+      - name: "The Sargerei"
+        id: 35196
+
+      - name: "Darktide Roost"
+        id: 34450
+
+      - name: "Iron Siegeworks"
+        id: 34033
+
+      - name: "The Ring of Blood"
+        id: 36289
+
+      - name: "The Fall of Shattrath"
+        id: 35685
+
+      - name: "Bloodmaul Compound"
+        id: 34289
+
+      - name: "Broken Precipice"
+        id: 37517
+
+      - name: "The Exarch's Call"
+        id: 36169
+
+      - name: "Heart of the Breakers"
+        id: 34410
+
+      - name: "A Strike at the Heart"
+        id: 36162
+
+      - name: "Primal Fury"
+        id: 36341
+    
+    horde:
+      - name: "The Warlord's Council"
+        id: 35842
+
+      - name: "The Sargerei"
+        id: 35197
+
+      - name: "Darktide Roost"
+        id: 34450
+
+      - name: "Iron Siegeworks"
+        id: 34078
+
+      - name: "The Ring of Blood"
+        id: 36290
+
+      - name: "The Fall of Shattrath"
+        id: 35687
+
+      - name: "Bloodmaul Compound"
+        id: 34319
+
+      - name: "Broken Precipice"
+        id: 37516
+
+      - name: "Ours is the Fury"
+        id: 33427
+
+      - name: "Heart of the Breakers"
+        id: 34341
+
+      - name: "A Strike at the Heart"
+        id: 36248
+
+      - name: "Primal Fury"
+        id: 36342
+
+- name: separator
+
 - name: "Garrison Level"
   icon: "achievement/9101 achievement/9546" # Even More Plots
   type: mixed

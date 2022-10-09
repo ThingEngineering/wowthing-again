@@ -8,6 +8,8 @@ export interface UserTransmogData {
 
     hasIllusion?: Record<number, boolean>
     sourceHas?: Record<string, boolean>
-    stats?: Record<string, UserCount>
     userHas?: Record<number, boolean>
+
+    stats?: Record<string, UserCount>
+    statsV2?: Record<string, UserCount>
 }

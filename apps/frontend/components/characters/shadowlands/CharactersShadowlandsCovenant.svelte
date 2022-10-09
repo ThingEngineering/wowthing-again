@@ -180,14 +180,14 @@
                     </div>
                 </div>
 
-                {#if featureData.rank > 0 && covenantFeatureReputation[`${covenantId}-${featureData.key}`]}
+                {#if covenantFeatureReputation[`${covenantId}-${featureData.key}`]}
                     <ReputationBar
                         reputationId={covenantFeatureReputation[`${covenantId}-${featureData.key}`]}
                         {character}
                     />
                 {/if}
 
-                {#if featureData.key === 'unique' && featureData.rank > 0}
+                {#if featureData.key === 'unique'}
                     {#if covenantId === 1}
                         <PathOfAscension
                             {character}
@@ -200,6 +200,7 @@
                     {:else if covenantId === 4}
                         <Stitchyard
                             {character}
+                            feature={featureData.feature}
                         />
                     {/if}
                 {/if}
