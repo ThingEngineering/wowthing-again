@@ -18,10 +18,14 @@
         @include cell-width($width-progress, $maxWidth: $width-progress-max);
 
         border-left: 1px solid $border-color;
-        text-align: center;
+        text-align: right;
     }
     .has-icon {
-        @include cell-width(4.2rem, $maxWidth: $width-progress-max);
+        @include cell-width(3.7rem, $maxWidth: $width-progress-max);
+
+        :global(img) {
+            margin-right: 2px;
+        }
     }
     span {
         flex: 1;
