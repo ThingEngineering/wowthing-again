@@ -239,8 +239,8 @@ groups:
     - name: "A Hero's Weapon"
       id: 43415
 
-    - name: "Down the Rabbit Hole"
-      id: 46723
+    # - name: "Down the Rabbit Hole"
+    #   id: 46723
 
     monk:
     - name: "Prepare to Strike"
