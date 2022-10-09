@@ -34,18 +34,13 @@ import { covenantNameMap } from '@/data/covenant';
 
 <style lang="scss">
     th {
-        --image-border-color: $border-color;
-        --image-border-radius: $border-radius;
-        --image-border-width: 1px;
-
-        @include cell-width($width-progress, $maxWidth: $width-progress-max);
+        --image-border-width: 0;
 
         background: $thing-background;
         border: 1px solid $border-color;
         border-right-width: 0;
         border-top-width: 0;
-        padding-bottom: $width-padding;
-        padding-top: $width-padding;
+        padding: 0.1rem;
         text-align: center;
     }
     div {
@@ -76,18 +71,18 @@ import { covenantNameMap } from '@/data/covenant';
             <WowthingImage
                 name={icons[0]}
                 size={40}
-                border={2}
+                border={0}
             />
             <WowthingImage
                 name={icons[1]}
                 size={40}
-                border={2}
+                border={0}
             />
         {:else}
             <WowthingImage
                 name={icons[0]}
                 size={40}
-                border={2}
+                border={0}
             />
         {/if}
 
