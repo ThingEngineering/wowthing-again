@@ -1,6 +1,8 @@
 import filter from 'lodash/filter'
 import find from 'lodash/find'
 import some from 'lodash/some'
+import { DateTime } from 'luxon'
+import { get } from 'svelte/store'
 
 import { toNiceNumber } from './to-nice'
 import { covenantFeatureOrder, covenantMap } from '@/data/covenant'
@@ -8,6 +10,7 @@ import { factionIdMap } from '@/data/faction'
 import { garrisonBuildingIcon, garrisonTrees, garrisonUnlockQuests } from '@/data/garrison'
 import { progressQuestId } from '@/data/quests'
 import { ProgressDataType, QuestStatus } from '@/enums'
+import { timeStore } from '@/stores'
 import type { Character, CharacterShadowlandsCovenant, CharacterShadowlandsCovenantFeature, UserAchievementData, UserData } from '@/types'
 import type { UserQuestData } from '@/types/data'
 import type { ManualDataProgressCategory, ManualDataProgressData, ManualDataProgressGroup } from '@/types/data/manual'
@@ -22,6 +25,8 @@ export default function getProgress(
     category: ManualDataProgressCategory,
     group: ManualDataProgressGroup
 ): ProgressInfo {
+    const now = get(timeStore)
+
     let have = 0
     let missingRequired = false
     let showCurrency = 0
@@ -220,6 +225,18 @@ export default function getProgress(
                                 }
 
                                 have = charBuilding?.rank || 0
+
+                                if (charBuilding?.researchEnds > 0) {
+                                    // const ends: DateTime = DateTime.fromSeconds(charBuilding.researchEnds)
+                                    // if (ends <= now) {
+                                    have++
+                                    // }
+                                    // else {
+                                    //     const duration = toNiceDuration(ends.diff($timeStore).toMillis())
+                                    //     return `${feature.rank + 1} in<br><span class="status-shrug">${duration}</span>`
+                                    // }
+                                }
+                        
                                 total = featureMaxRank
                                 descriptionText[dataIndex] = `Rank ${have}/${total}`
                             }
