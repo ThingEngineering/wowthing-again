@@ -10,9 +10,10 @@
     import { staticStore, userStore } from '@/stores'
     import { matrixState } from '@/stores/local-storage'
     import { data as settings } from '@/stores/settings'
-    import { Gender, genderValues } from '@/enums'
+    import { Gender, genderValues, Region } from '@/enums'
     import { cartesianProduct } from '@/utils/cartesian-product'
     import type { Character } from '@/types'
+    import type { StaticDataRealm } from '@/types/data/static'
 
     import CovenantIcon from '@/components/images/CovenantIcon.svelte'
     import GroupedCheckbox from '@/components/forms/GroupedCheckboxInput.svelte'
@@ -27,6 +28,27 @@
     let yEntries: string[][]
     let yKeys: string[]
     $: {
+        const characters = filter(
+            $userStore.data.characters,
+            (char) => (
+                $settings.characters.hiddenCharacters.indexOf(char.id) === -1 &&
+                char.level >= $matrixState.minLevel
+            )
+        )
+
+        const realmMap: Record<number, StaticDataRealm> = {}
+        for (const character of characters) {
+            realmMap[character.realmId] = character.realm
+        }
+
+        const realms: [string, string, StaticDataRealm][] = Object.values(realmMap)
+            .map((realm) => [
+                Region[realm.region],
+                $staticStore.data.connectedRealms[realm.connectedRealmId].displayText,
+                realm,
+            ])
+        //realms.sort()
+
         const sortedX = sortBy($matrixState.xAxis, (key) => axisOrder.indexOf(key))
         const sortedY = sortBy($matrixState.yAxis, (key) => axisOrder.indexOf(key))
 
@@ -39,13 +61,11 @@
             sortBy(
                 Object.entries(
                     groupBy(
-                        filter(
-                            $userStore.data.characters,
-                            (char) => $settings.characters.hiddenCharacters.indexOf(char.id) === -1 &&
-                                char.level >= $matrixState.minLevel
-                        ),
+                        characters,
                         (char) => {
                             const parts: (number|string)[] = []
+
+                            parts.push(allAxis.indexOf('realm') >= 0 ? char.realm.connectedRealmId : null)
 
                             parts.push(allAxis.indexOf('account') >= 0
                                 ? $userStore.data.accounts[char.accountId].tag || char.accountId
@@ -74,6 +94,15 @@
 
             //const axisCombos
                 
+            if (axis.indexOf('realm') >= 0) {
+                combos.push(realms
+                    .map(([region, displayText, realm]) => `${realm.connectedRealmId}|[${region}] ${displayText}`)
+                )
+            }
+            else {
+                combos.push([''])
+            }
+
             if (axis.indexOf('account') >= 0) {
                 combos.push(sortBy(
                     Object.keys($userStore.data.accounts)
@@ -133,8 +162,8 @@
         const products = cartesianProduct(...combos)
         for (const product of products) {
 
-            const xParts = product.slice(0, 5)
-            const yParts = product.slice(5, 10)
+            const xParts = product.slice(0, 6)
+            const yParts = product.slice(6, 12)
 
             // console.log(xParts, yParts)
 
@@ -181,8 +210,9 @@
 
     const axisOptions: [string, string][] = [
         ['account', 'Account'],
-        ['class', 'Class'],
         ['faction', 'Faction'],
+        ['realm', 'Realm'],
+        ['class', 'Class'],
         ['gender', 'Gender'],
         ['race', 'Race'],
     ]
@@ -240,7 +270,7 @@
         }*/
     }
     .y-axis {
-        @include cell-width(4rem);
+        @include cell-width(4rem, $maxWidth: 10rem);
     }
     .characters {
         @include cell-width(4rem);
@@ -324,7 +354,7 @@
         <tbody>
             {#each yKeys as yKey, yIndex}
                 <tr>
-                    <td class="y-axis">
+                    <td class="y-axis text-overflow">
                         {#each yEntries[yIndex] as line}
                             <ParsedText text={line} />
                         {/each}
