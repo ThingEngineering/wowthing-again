@@ -8,6 +8,10 @@
             name: 'Achievements',
             slug: 'achievements',
         },
+        {
+            name: 'Quests',
+            slug: 'quests',
+        },
     ]
 </script>
 

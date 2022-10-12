@@ -1,8 +1,11 @@
 id: 120076
 name: "Treasure Master Iks'reeged"
+note: "Use the rope to get to him"
+
 locations:
   z6_broken_shore:
-    - 45.0 52.0
+    - 47.8 67.3
+
 sells:
   - type: toy
     id: 142452 # Lingering Wyrmtongue Essence

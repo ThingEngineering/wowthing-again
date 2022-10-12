@@ -159,7 +159,7 @@
                 <td class="icon" colspan="100"></td>
 
             {:else if currentType === 'armor'}
-                {#if !skipClasses['mage'] || !skipClasses['priest'] || !skipClasses['warlock']}
+                {#if !skipClasses['cloth']}
                     <td class="icon">
                         <WowthingImage
                             name="item/102289"
@@ -170,7 +170,7 @@
                     </td>
                 {/if}
                 
-                {#if !skipClasses['demon-hunter'] || !skipClasses['druid'] || !skipClasses['monk'] || !skipClasses['rogue']}
+                {#if !skipClasses['leather']}
                     <td class="icon">
                         <WowthingImage
                             name="item/102282"
@@ -181,7 +181,7 @@
                     </td>
                 {/if}
                 
-                {#if !skipClasses['hunter'] || !skipClasses['shaman']}
+                {#if !skipClasses['mail']}
                     <td class="icon">
                         <WowthingImage
                             name="item/102275"
@@ -192,7 +192,7 @@
                     </td>
                 {/if}
                 
-                {#if !skipClasses['death-knight'] || !skipClasses['paladin'] || !skipClasses['warrior']}
+                {#if !skipClasses['plate']}
                     <td class="icon">
                         <WowthingImage
                             name="item/102268"

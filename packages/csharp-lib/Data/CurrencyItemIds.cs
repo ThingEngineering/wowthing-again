@@ -26,6 +26,7 @@ public static partial class Hardcoded
         183744, // Superior Parts
         188957, // Genesis Mote
         190189, // Sandworn Relic
+        199202, // Attendant's Token of Merit [S4]
 
         183888, // Apogee Anima Bead
         183889, // Thaumaturgic Anima Bead

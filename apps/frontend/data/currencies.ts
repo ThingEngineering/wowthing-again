@@ -19,6 +19,7 @@ export const currencyItems: Record<number, number[]> = {
     245: [
         188957, // Genesis Mote
         190189, // Sandworn Relic
+        199202, // Attendant's Token of Merit [S4]
     ],
     // Battle for Azeroth
     143: [
