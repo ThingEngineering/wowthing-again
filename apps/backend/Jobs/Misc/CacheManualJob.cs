@@ -69,7 +69,7 @@ public class CacheManualJob : JobBase, IScheduledJob
 #else
         Interval = TimeSpan.FromHours(1),
 #endif
-        Version = 14,
+        Version = 15,
     };
 
     public override async Task Run(params string[] data)
