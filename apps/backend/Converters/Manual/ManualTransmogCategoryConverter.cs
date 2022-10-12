@@ -19,8 +19,17 @@ public class ManualTransmogCategoryConverter : JsonConverter
         {
             groupsArray.Add(CreateGroupArray(group));
         }
-
         catArray.Add(groupsArray);
+
+        if (category.SkipClasses?.Count > 0)
+        {
+            var skipArray = new JArray();
+            foreach (var skipClass in category.SkipClasses)
+            {
+                skipArray.Add(skipClass);
+            }
+            catArray.Add(skipArray);
+        }
 
         catArray.WriteTo(writer);
     }
