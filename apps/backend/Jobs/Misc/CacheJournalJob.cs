@@ -27,7 +27,7 @@ public class CacheJournalJob : JobBase, IScheduledJob
         Type = JobType.CacheJournal,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(24),
-        Version = 27,
+        Version = 28,
     };
 
     public override async Task Run(params string[] data)
@@ -185,6 +185,30 @@ public class CacheJournalJob : JobBase, IScheduledJob
         var db = Redis.GetDatabase();
 
 
+        foreach (var (tier, dungeons) in Hardcoded.ExtraTiers)
+        {
+            tiers.Add(tier);
+            tierToInstance[tier.ID] = dungeons
+                .Select(dungeon => dungeon.ID)
+                .ToArray();
+
+            foreach (var language in Enum.GetValues<Language>())
+            {
+                _stringMap[(StringType.WowJournalTierName, language, tier.ID)] = tier.Name;
+            }
+
+            foreach (var dungeon in dungeons)
+            {
+                instancesById[dungeon.ID] = dungeon;
+                encountersByInstanceId[dungeon.ID] = new List<DumpJournalEncounter>();
+
+                foreach (var language in Enum.GetValues<Language>())
+                {
+                    _stringMap[(StringType.WowJournalInstanceName, language, dungeon.ID)] = dungeon.Name;
+                }
+            }
+        }
+
         // Once per language, oh boy
         string cacheHash = null;
         foreach (var language in Enum.GetValues<Language>())
@@ -192,22 +216,6 @@ public class CacheJournalJob : JobBase, IScheduledJob
             Logger.Debug("Generating {Lang}", language);
 
             var cacheData = new RedisJournalCache();
-
-            foreach (var (tier, dungeons) in Hardcoded.ExtraTiers)
-            {
-                tiers.Add(tier);
-                tierToInstance[tier.ID] = dungeons
-                    .Select(dungeon => dungeon.ID)
-                    .ToArray();
-                _stringMap[(StringType.WowJournalTierName, language, tier.ID)] = tier.Name;
-
-                foreach (var dungeon in dungeons)
-                {
-                    instancesById[dungeon.ID] = dungeon;
-                    encountersByInstanceId[dungeon.ID] = new List<DumpJournalEncounter>();
-                    _stringMap[(StringType.WowJournalInstanceName, language, dungeon.ID)] = dungeon.Name;
-                }
-            }
 
             foreach (var tier in tiers)
             {
