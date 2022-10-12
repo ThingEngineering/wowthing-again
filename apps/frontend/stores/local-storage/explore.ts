@@ -3,6 +3,7 @@ import { writable } from 'svelte/store'
 
 export class ExploreState {
     public achievementId = 0
+    public questId = 0
 }
 
 const key = 'state-explore'
