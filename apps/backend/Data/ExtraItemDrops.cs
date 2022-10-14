@@ -326,20 +326,14 @@ public static partial class Hardcoded
             1000751, // Black Temple > Trash
             new List<ExtraItemDrop>
             {
-                // Cloth
-                new (32609, new[] { 4 }), // Boots of the Divine Light
                 // Leather
                 new (32593, new[] { 4 }), // Treads of the Den Mother
-                // Mail
-                new (32592, new[] { 4 }), // Chestguard of Relentless Storms
                 // Plate
                 new (32606, new[] { 4 }), // Girdle of the Lightbearer
                 new (32608, new[] { 4 }), // Pillager's Gauntlets
                 // Cloak
-                new (32590, new[] { 4 }), // Nethervoid Cloak
                 new (34012, new[] { 4 }), // Shroud of the Final Stand
                 // Weapon
-                new (34009, new[] { 4 }), // Hammer of Judgement
                 new (32943, new[] { 4 }), // Swiftsteel Bludgeon
                 new (34011, new[] { 4 }), // Illidari Runeshield
             }
