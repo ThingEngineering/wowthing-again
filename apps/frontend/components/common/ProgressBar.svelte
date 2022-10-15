@@ -2,7 +2,7 @@
     import { iconStrings } from '@/data/icons'
 
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-    import { toNiceNumber } from '@/utils/to-nice';
+    import { toNiceNumber } from '@/utils/to-nice'
 
     export let cls: string = null
     export let title: string
