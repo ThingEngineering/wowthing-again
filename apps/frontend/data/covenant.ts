@@ -286,6 +286,7 @@ export type EmberCourtFriend = {
     name: string
     friendQuestId: number
     reputationId: number
+    rsvpQuestId: number
 }
 export const emberCourtFriends: Array<Array<EmberCourtFriend>> = [
     // Slot 1
@@ -294,21 +295,25 @@ export const emberCourtFriends: Array<Array<EmberCourtFriend>> = [
             name: 'Sika',
             friendQuestId: 65140,
             reputationId: 2459,
+            rsvpQuestId: 59425,
         },
         {
             name: 'Plague Deviser Marileth',
             friendQuestId: 65138,
             reputationId: 2461,
+            rsvpQuestId: 59422,
         },
         {
             name: 'Choofa',
             friendQuestId: 65132,
             reputationId: 2454,
+            rsvpQuestId: 59407,
         },
         {
             name: 'Cryptkeeper Kassir',
             friendQuestId: 65134,
             reputationId: 2455,
+            rsvpQuestId: 59410,
         },
     ],
     // Slot 2
@@ -317,67 +322,183 @@ export const emberCourtFriends: Array<Array<EmberCourtFriend>> = [
             name: 'Kleia & Pelagos',
             friendQuestId: 65137,
             reputationId: 2458,
+            rsvpQuestId: 59419,
         },
         {
             name: 'Grandmaster Vole',
             friendQuestId: 65136,
             reputationId: 2457,
+            rsvpQuestId: 59416,
         },
         {
             name: 'Droman Aliothe',
             friendQuestId: 65135,
             reputationId: 2456,
+            rsvpQuestId: 59413,
         },
         {
             name: 'Stonehead',
             friendQuestId: 65141,
             reputationId: 2460,
+            rsvpQuestId: 59619,
         },
     ],
-    // Tier 3
+    // Slot 3
     [
         {
             name: 'Polemarch Adrestes',
             friendQuestId: 65130,
             reputationId: 2452,
+            rsvpQuestId: 59401,
         },
         {
             name: 'Alexandros Mograine',
             friendQuestId: 65128,
             reputationId: 2450,
+            rsvpQuestId: 59395,
         },
         {
             name: 'Hunt-Captain Korayn',
             friendQuestId: 65129,
             reputationId: 2451,
+            rsvpQuestId: 59398,
         },
         {
             name: 'Rendle & Cudgelface',
             friendQuestId: 65131,
             reputationId: 2453,
+            rsvpQuestId: 59404,
         },
     ],
-    // Tier 4
+    // Slot 4
     [
         {
             name: 'Mikanikos',
             friendQuestId: 65124,
             reputationId: 2448,
+            rsvpQuestId: 59389,
         },
         {
             name: 'Baroness Vashj',
             friendQuestId: 65121,
             reputationId: 2446,
+            rsvpQuestId: 59383,
         },
         {
             name: 'Lady Moonberry',
             friendQuestId: 65123,
             reputationId: 2447,
+            rsvpQuestId: 59386,
         },
         {
             name: 'The Countess',
             friendQuestId: 65126,
             reputationId: 2449,
+            rsvpQuestId: 59392,
         },
     ],
+]
+// ^ how are these invited the first time?
+
+export type EmberCourtFeature = {
+    name: string
+    unlockQuestId: number
+    unlockReputation?: number
+    types: {
+        icon: string
+        name: string
+        unlockQuestId: number
+        unlockReputation?: number
+    }[]
+}
+
+export const emberCourtFeatures: EmberCourtFeature[] = [
+    {
+        name: 'Entertainment',
+        unlockQuestId: 61706,
+        types: [
+            {
+                icon: 'achievement/14274', // Absolution for All
+                name: 'Atoning Rituals',
+                unlockQuestId: 61407,
+            },
+            {
+                icon: 'item/147804', // Wild Dreamrunner
+                name: 'Glimpse of the Wilds',
+                unlockQuestId: 61408,
+            },
+            {
+                icon: 'item/180062', // Heavenly Drum
+                name: 'Lost Chalice Band',
+                unlockQuestId: 61738,
+            },
+        ],
+    },
+    {
+        name: 'Refreshments',
+        unlockQuestId: 61705,
+        types: [
+            {
+                icon: 'item/186525', // The Mad Duke's Tea
+                name: "Tubbin's Tea Party",
+                unlockQuestId: 61404,
+            },
+            {
+                icon: 'item/140793', // Perfectly Preserved Cake
+                name: 'Divine Desserts',
+                unlockQuestId: 61405,
+            },
+            {
+                icon: 'item/108907', // Mushroom of Destiny
+                name: 'Mushroom Surprise',
+                unlockQuestId: 61406,
+            },
+        ]
+    },
+    {
+        name: 'Decorations', // Dredger Pool
+        unlockQuestId: 61493,
+        unlockReputation: 4, // Friendly
+        types: [
+            {
+                icon: 'item/163924', // Whiskerwax Candle
+                name: 'Traditional Theme',
+                unlockQuestId: 61398,
+            },
+            {
+                icon: 'item/181367', // Ta Cartel Restock List
+                name: 'Mortal Reminders',
+                unlockQuestId: 61399,
+            },
+            {
+                icon: 'item/182210', // Vanity Mirror
+                name: 'Mystery Mirrors',
+                unlockQuestId: 61400,
+                unlockReputation: 6, // Revered
+            },
+        ],
+    },
+    {
+        name: 'Security', // Guardhouse
+        unlockQuestId: 61494,
+        unlockReputation: 5, // Honored
+        types: [
+            {
+                icon: 'achievement/15033', // Taking the Tremaculum
+                name: 'Venthyr Volunteers',
+                unlockQuestId: 61401,
+            },
+            {
+                icon: 'item/113381', // Crumbling Statue
+                name: 'Stoneborn Reserves',
+                unlockQuestId: 61402,
+            },
+            {
+                icon: 'achievement/15032', // Breaking Their Hold
+                name: 'Maldraxxian Army',
+                unlockQuestId: 61403,
+                unlockReputation: 6, // Revered
+            },
+        ],
+    },
 ]

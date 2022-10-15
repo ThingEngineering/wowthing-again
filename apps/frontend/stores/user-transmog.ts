@@ -344,7 +344,7 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
 
                         }
 
-                        console.log(setData)
+                        // console.log(setData)
 
                         group.setData.push(setData)
                     }
@@ -414,11 +414,11 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
                         }
                     }*/
                 }
-                console.log(category)
+                // console.log(category)
             }
         }
 
-        console.log(stats)
+        // console.log(stats)
 
         state.data.statsV2 = stats
     }
