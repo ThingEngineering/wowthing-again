@@ -170,8 +170,8 @@
 {#if valid}
     <td
         class="status-{status}"
-        class:center={quest === 'weeklyHoliday' || progressQuest === undefined || progressQuest.status !== 1}
-        class:highlight={highlight && status !== 'success'}
+        class:center={quest === 'weeklyHoliday' || progressQuest?.status !== 1}
+        class:highlight
         use:tippyComponent={{
             component: Tooltip,
             props: {
