@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { characterBagSlots } from '@/data/inventory-slot'
+    import { bankBagSlots, characterBagSlots } from '@/data/inventory-slot'
     import { Constants } from '@/data/constants'
     import { staticStore, userStore } from '@/stores'
     import { gearState } from '@/stores/local-storage'
@@ -87,7 +87,11 @@
     >
         {#if gear.equipped !== undefined}
             <a class="quality{gear.equipped.quality}" href={getItemUrl(gear.equipped)}>
-                <WowthingImage name="item/{gear.equipped.itemId}" size={40} border={2} />
+                <WowthingImage
+                    name="item/{gear.equipped.itemId}"
+                    size={40}
+                    border={2}
+                />
                 <span class="item-level">{gear.equipped.itemLevel}</span>
             </a>
 
@@ -123,26 +127,28 @@
 {/each}
 
 {#if !$userStore.data.public}
-    <td class="spacer"></td>
+    {#each [characterBagSlots, bankBagSlots] as bagSlots}
+        <td class="spacer"></td>
 
-    {#each characterBagSlots as bagSlot}
-        {@const itemId = character.bags[bagSlot]}
-        {@const bag = $staticStore.data.bags[itemId]}
-        <td class="gear">
-            {#if itemId && bag}
-                <a
-                    class="quality{bag.quality}"
-                    href="{getItemUrl({ itemId })}"
-                >
-                    <WowthingImage
-                        name="item/{itemId}"
-                        size={40}
-                        border={2}
-                    />
+        {#each bagSlots as bagSlot}
+            {@const itemId = character.bags[bagSlot]}
+            {@const bag = $staticStore.data.bags[itemId]}
+            <td class="gear">
+                {#if itemId && bag}
+                    <a
+                        class="quality{bag.quality}"
+                        href="{getItemUrl({ itemId })}"
+                    >
+                        <WowthingImage
+                            name="item/{itemId}"
+                            size={40}
+                            border={2}
+                        />
 
-                    <span class="item-level">{bag.slots}</span>
-                </a>
-            {/if}
-        </td>
+                        <span class="item-level">{bag.slots}</span>
+                    </a>
+                {/if}
+            </td>
+        {/each}
     {/each}
 {/if}
