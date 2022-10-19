@@ -15,4 +15,7 @@ module.exports = {
 `,
         },
     }),
+    vitePlugin: {
+        // include, exclude, emitCss, hot, ignorePluginPreprocessors, disableDependencyReinclusion, experimental
+    },
 }

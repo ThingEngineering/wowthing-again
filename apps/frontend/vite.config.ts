@@ -58,6 +58,9 @@ const config = <UserConfig> defineConfig({
 	/*esbuild: {
 		keepNames: true,
 	},*/
+	optimizeDeps: {
+		disabled: false,
+	},
 	server: {
 		host: '0.0.0.0',
 		port: 55505,
@@ -73,7 +76,7 @@ const config = <UserConfig> defineConfig({
 })
 
 // Load path aliases from the tsconfig.json file
-const aliases = tsconfig.compilerOptions.paths
+const aliases = tsconfig.compilerOptions.paths as Record<string, string[]>
 
 for (const alias in aliases) {
 	const paths = aliases[alias].map((p: string) => path.resolve(__dirname, p))
