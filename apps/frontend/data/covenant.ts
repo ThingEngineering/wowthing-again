@@ -419,17 +419,17 @@ export const emberCourtFeatures: EmberCourtFeature[] = [
         types: [
             {
                 icon: 'achievement/14274', // Absolution for All
-                name: 'Atoning Rituals',
+                name: 'Entertainment: Atoning Rituals',
                 unlockQuestId: 61407,
             },
             {
                 icon: 'item/147804', // Wild Dreamrunner
-                name: 'Glimpse of the Wilds',
+                name: 'Entertainment: Glimpse of the Wilds',
                 unlockQuestId: 61408,
             },
             {
                 icon: 'item/180062', // Heavenly Drum
-                name: 'Lost Chalice Band',
+                name: 'Entertainment: Lost Chalice Band',
                 unlockQuestId: 61738,
             },
         ],
@@ -440,17 +440,17 @@ export const emberCourtFeatures: EmberCourtFeature[] = [
         types: [
             {
                 icon: 'item/186525', // The Mad Duke's Tea
-                name: "Tubbin's Tea Party",
+                name: "Refreshments: Tubbin's Tea Party",
                 unlockQuestId: 61404,
             },
             {
                 icon: 'item/140793', // Perfectly Preserved Cake
-                name: 'Divine Desserts',
+                name: 'Refreshments: Divine Desserts',
                 unlockQuestId: 61405,
             },
             {
                 icon: 'item/108907', // Mushroom of Destiny
-                name: 'Mushroom Surprise',
+                name: 'Refreshments: Mushroom Surprise',
                 unlockQuestId: 61406,
             },
         ]
@@ -462,17 +462,17 @@ export const emberCourtFeatures: EmberCourtFeature[] = [
         types: [
             {
                 icon: 'item/163924', // Whiskerwax Candle
-                name: 'Traditional Theme',
+                name: 'Decorations: Traditional Theme',
                 unlockQuestId: 61398,
             },
             {
                 icon: 'item/181367', // Ta Cartel Restock List
-                name: 'Mortal Reminders',
+                name: 'Decorations: Mortal Reminders',
                 unlockQuestId: 61399,
             },
             {
                 icon: 'item/182210', // Vanity Mirror
-                name: 'Mystery Mirrors',
+                name: 'Decorations: Mystery Mirrors',
                 unlockQuestId: 61400,
                 unlockReputation: 6, // Revered
             },
@@ -485,20 +485,83 @@ export const emberCourtFeatures: EmberCourtFeature[] = [
         types: [
             {
                 icon: 'achievement/15033', // Taking the Tremaculum
-                name: 'Venthyr Volunteers',
+                name: 'Security: Venthyr Volunteers',
                 unlockQuestId: 61401,
             },
             {
                 icon: 'item/113381', // Crumbling Statue
-                name: 'Stoneborn Reserves',
+                name: 'Security: Stoneborn Reserves',
                 unlockQuestId: 61402,
             },
             {
                 icon: 'achievement/15032', // Breaking Their Hold
-                name: 'Maldraxxian Army',
+                name: 'Security: Maldraxxian Army',
                 unlockQuestId: 61403,
                 unlockReputation: 6, // Revered
             },
         ],
+    },
+]
+
+export const emberCourtUpgrades: EmberCourtFeature[] = [
+    {
+        name: 'Ambassadors',
+        unlockQuestId: 0,
+        types: [
+            {
+                icon: 'item/181521',
+                name: 'Staff: Revendreth Ambassador (free reroll)',
+                unlockQuestId: 61501,
+                unlockReputation: 4, // Friendly
+            },
+            {
+                icon: 'item/181524',
+                name: 'Staff: Ardenweald Ambassador (free reroll)',
+                unlockQuestId: 61502,
+                unlockReputation: 5, // Honored
+            },
+            {
+                icon: 'item/182342',
+                name: 'Staff: Maldraxxus Ambassador (free reroll)',
+                unlockQuestId: 61887,
+                unlockReputation: 6, // Revered
+            },
+            {
+                icon: 'item/182343',
+                name: 'Staff: Bastion Ambassador (free reroll)',
+                unlockQuestId: 61888,
+                unlockReputation: 7, // Exalted
+            },
+        ]
+    },
+    {
+        name: 'Upgrades',
+        unlockQuestId: 0,
+        types: [
+            {
+                icon: 'item/181532',
+                name: 'Stock: Appetizers (+2 min)',
+                unlockQuestId: 61498,
+                unlockReputation: 4, // Friendly
+            },
+            {
+                icon: 'item/181533',
+                name: 'Stock: Anima Samples (+3 min)',
+                unlockQuestId: 61499,
+                unlockReputation: 5, // Honored
+            },
+            {
+                icon: 'item/181530',
+                name: 'Stock: Greeting Kits (+2 min)',
+                unlockQuestId: 61497,
+                unlockReputation: 6, // Revered
+            },
+            {
+                icon: 'item/181535',
+                name: 'Stock: Comfy Chairs (+5 min)',
+                unlockQuestId: 61500,
+                unlockReputation: 6, // Revered
+            },
+        ]
     },
 ]
