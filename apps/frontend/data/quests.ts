@@ -193,7 +193,7 @@ export const globalDailyQuests: Record<number, GlobalDailyQuest> = Object.fromEn
         
         // Misc
         new GlobalDailyQuest(
-            60424,
+            60458,
             ItemQuality.Rare,
             'Anima Salvage',
             null,
