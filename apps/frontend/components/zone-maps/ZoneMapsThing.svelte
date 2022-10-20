@@ -72,10 +72,13 @@
         text-align: center;
         width: 24px;
 
-        &:hover .icon {
-            color: #00ccff;
+        &:hover {
+            z-index: 99999 !important;
+            
+            .icon {
+                color: #00ccff;
+            }
         }
-
         &.active {
             z-index: 5;
         }
