@@ -4,6 +4,7 @@ public class DataZoneMapFarm
 {
     public int MinimumLevel { get; set; }
     public int InstanceId { get; set; }
+    public int GroupId { get; set; }
     public int NpcId { get; set; }
     public int ObjectId { get; set; }
     public int StatisticId { get; set; }

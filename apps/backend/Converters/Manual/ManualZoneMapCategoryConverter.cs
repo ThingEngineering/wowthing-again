@@ -58,35 +58,41 @@ public class ManualZoneMapCategoryConverter : JsonConverter
 
         farmArray.Add(dropsArray);
 
-        var useMinimumLevel = farm.MinimumLevel > 0;
-        var useStatisticId = farm.StatisticId > 0;
-        var useRequiredQuestIds = farm.RequiredQuestIds.Count > 0;
-        var useNote = !string.IsNullOrEmpty(farm.Note);
-        var useFaction = !string.IsNullOrEmpty(farm.Faction);
+        bool useMinimumLevel = farm.MinimumLevel > 0;
+        bool useStatisticId = farm.StatisticId > 0;
+        bool useRequiredQuestIds = farm.RequiredQuestIds.Count > 0;
+        bool useNote = !string.IsNullOrEmpty(farm.Note);
+        bool useFaction = !string.IsNullOrEmpty(farm.Faction);
+        bool useGroupId = farm.GroupId > 0;
 
-        if (useFaction || useNote || useRequiredQuestIds || useStatisticId || useMinimumLevel)
+        if (useGroupId || useFaction || useNote || useRequiredQuestIds || useStatisticId || useMinimumLevel)
         {
             farmArray.Add(farm.MinimumLevel ?? 0);
         }
 
-        if (useFaction || useNote || useRequiredQuestIds || useStatisticId)
+        if (useGroupId || useFaction || useNote || useRequiredQuestIds || useStatisticId)
         {
             farmArray.Add(farm.StatisticId ?? 0);
         }
 
-        if (useFaction || useNote || useRequiredQuestIds)
+        if (useGroupId || useFaction || useNote || useRequiredQuestIds)
         {
             farmArray.Add(new JArray(farm.RequiredQuestIds));
         }
 
-        if (useFaction || useNote)
+        if (useGroupId || useFaction || useNote)
         {
             farmArray.Add(farm.Note ?? "");
         }
 
-        if (useFaction)
+        if (useGroupId || useFaction)
         {
             farmArray.Add(farm.Faction);
+        }
+
+        if (useGroupId)
+        {
+            farmArray.Add(farm.GroupId);
         }
 
         return farmArray;

@@ -8,6 +8,9 @@ namespace Wowthing.Backend.Models.Manual.ZoneMaps;
 public class ManualZoneMapFarm
 {
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+    public int? GroupId { get; set; }
+
+    [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
     public int? MinimumLevel { get; set; }
 
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
@@ -66,6 +69,11 @@ public class ManualZoneMapFarm
             IdType = FarmIdType.Quest;
             Id = QuestIds.FirstOrDefault();
         }
+        else if (farm.Type == "group")
+        {
+            IdType = FarmIdType.Group;
+            Id = farm.GroupId;
+        }
         else if (farm.InstanceId > 0)
         {
             IdType = FarmIdType.Instance;
@@ -80,6 +88,11 @@ public class ManualZoneMapFarm
         {
             IdType = FarmIdType.Npc;
             Id = farm.NpcId;
+        }
+
+        if (farm.Type != "group" && farm.GroupId > 0)
+        {
+            GroupId = farm.GroupId;
         }
 
         if (farm.StatisticId > 0)
