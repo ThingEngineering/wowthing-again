@@ -88,13 +88,51 @@ farms:
   questId: 59221
   drops:
   - type: transmog
-    id: 179596 # Drust Mask of Dominance
+    id: 179596 # Drust Mask of Dominance [cosmetic]
 
-  - type: transmog
-    id: 179593 # Darkreach Mask
+  - &darkreach-mask
+    type: transmog
+    id: 179593 # Darkreach Mask [cloth head]
 
-  - type: transmog
-    id: 179594 # Witherscorn Guise
+  - &witherscorn-guise
+    type: transmog
+    id: 179594 # Witherscorn Guise [leather head]
+
+  - &darkreach-hacker
+    type: transmog
+    id: 180143 # Darkreach Hacker [agi 1h axe]
+  
+  - &deadstone-hatchet
+    type: transmog
+    id: 180142 # Deadstone Hatchet [int 1h axe]
+
+  - &witherscorn-handaxe
+    type: transmog
+    id: 180145 # Witherscorn Handaxe [str 1h axe]
+
+  - &darkreach-splitter
+    type: transmog
+    id: 180155 # Darkreach Splitter [str 2h axe]
+
+  - &drustwrought-executioner
+    type: transmog
+    id: 180153 # Drustwrought Executioner [str 2h axe]
+  
+  - &witherscorn-greataxe
+    type: transmog
+    id: 180156 # Witherscorn Greataxe [str 2h axe]
+
+  - &blackthorn-harvester
+    type: transmog
+    id: 180163 # Blackthorn Harvester [int staff]
+
+  - &drustwrought-scythe
+    type: transmog
+    id: 180162 # Drustwrought Scythe [int staff]
+  
+  - &witherscorn-reaper
+    type: transmog
+    id: 180165 # Witherscorn Reaper [int staff]
 
 - name: "Mymaen"
   location: 62.1 24.7
@@ -274,12 +312,53 @@ farms:
   questId: 61068
   reset: never
   type: treasure
-  drops:
-  - type: transmog
-    id: 179593 # Darkreach Mask
+  drops: &darkreach-supplies
+    - *darkreach-mask
+    - *witherscorn-guise
+    - *darkreach-hacker
+    - *deadstone-hatchet
+    - *witherscorn-handaxe
+    - *darkreach-splitter
+    - *drustwrought-executioner
+    - *witherscorn-greataxe
+    - *blackthorn-harvester
+    - *drustwrought-scythe
+    - *witherscorn-reaper
 
-  - type: transmog
-    id: 179594 # Witherscorn Guise
+- name: "Decayed Husk"
+  location: 54.4 49.7
+  objectId: 353306
+  questId: 60672
+  type: treasure
+  drops: *darkreach-supplies
+
+- name: "Decayed Husk"
+  location: 42.4 30.2
+  objectId: 353323
+  questId: 60715
+  type: treasure
+  drops: *darkreach-supplies
+
+- name: "Decayed Husk"
+  location: 72.8 28.9
+  objectId: 353324
+  questId: 60714
+  type: treasure
+  drops: *darkreach-supplies
+
+- name: "Decayed Husk"
+  location: 66.6 53.2
+  objectId: 353326
+  questId: 60711
+  type: treasure
+  drops: *darkreach-supplies
+
+- name: "Decayed Husk"
+  location: 53.3 78.4
+  objectId: 353327
+  questId: 60710
+  type: treasure
+  drops: *darkreach-supplies
 
 - name: "Desiccated Moth"
   location: 42.0 32.5
