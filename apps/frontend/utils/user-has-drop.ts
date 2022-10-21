@@ -32,7 +32,7 @@ export default function userHasDrop(
     }
 
     if (transmogTypes.indexOf(type) >= 0) {
-        if (appearanceIds) {
+        if (appearanceIds?.[0] > 0) {
             return every(
                 appearanceIds,
                 (appearanceId) => userTransmogData.userHas[appearanceId] === true
