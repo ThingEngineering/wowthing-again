@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using Wowthing.Backend.Models.API.Character;
 using Wowthing.Lib.Constants;
+using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
 using Wowthing.Lib.Utilities;
@@ -49,7 +50,7 @@ public class CharacterAchievementsJob : JobBase
             };
             Context.PlayerCharacterAchievements.Add(pcAchievements);
         }
-            
+
         timer.AddPoint("Select");
 
         // Parse API data
@@ -83,7 +84,7 @@ public class CharacterAchievementsJob : JobBase
         var achievementTimestamps = sortedAchievements
             .Select(kvp => kvp.Value)
             .ToList();
-            
+
         if (pcAchievements.AchievementIds == null || !achievementIds.SequenceEqual(pcAchievements.AchievementIds))
         {
             pcAchievements.AchievementIds = achievementIds;
@@ -93,7 +94,7 @@ public class CharacterAchievementsJob : JobBase
         {
             pcAchievements.AchievementTimestamps = achievementTimestamps;
         }
-            
+
         var sortedCriteria = criteria
             .Where(kvp => kvp.Value.Item2 || kvp.Value.Item1 > 0)
             .OrderBy(kvp => kvp.Key)
@@ -122,15 +123,15 @@ public class CharacterAchievementsJob : JobBase
         {
             pcAchievements.CriteriaCompleted = criteriaCompleted;
         }
-            
+
         timer.AddPoint("Process");
-            
+
         var updated = await Context.SaveChangesAsync();
         if (updated > 0)
         {
-            await CacheService.SetLastModified(RedisKeys.UserLastModifiedAchievements, query.UserId);
+            await JobRepository.AddJobAsync(JobPriority.High, JobType.UserCacheAchievements, query.UserId.ToString());
         }
-            
+
         timer.AddPoint("Update", true);
         Logger.Debug("{Timer}", timer.ToString());
     }

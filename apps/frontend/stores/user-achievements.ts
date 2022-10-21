@@ -15,13 +15,26 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
         return url
     }
 
+    initialize(data: UserAchievementData): void {
+        data.criteria = {}
+        for (const [criteriaId, ...criteriaArrays] of data.rawCriteria) {
+            data.criteria[criteriaId] = []
+            for (const [amount, ...characterIds] of criteriaArrays) {
+                for (const characterId of characterIds) {
+                    data.criteria[criteriaId].push([characterId, amount])
+                }
+            }
+        }
+        data.rawCriteria = null
+    }
+
     setup(
         achievementState: AchievementsState,
         achievementData: AchievementData
     ): void {
         // console.time('UserAchievementDataStore.setup')
 
-        const userAchievements = get(this).data.achievements
+        const userAchievements = this.value.data.achievements
 
         const categories = achievementData.categories
         const keepIds: Record<number, boolean> = {}

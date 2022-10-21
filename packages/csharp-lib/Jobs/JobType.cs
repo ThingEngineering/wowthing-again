@@ -32,6 +32,8 @@ public enum JobType
     // Internal jobs
     UserUpload = 900,
     Image,
+    UserCacheAchievements,
+    UserCacheTransmog,
 
     // Scheduled jobs
     CacheStatic = 1000,

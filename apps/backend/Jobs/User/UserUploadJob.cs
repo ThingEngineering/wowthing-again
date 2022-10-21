@@ -2,6 +2,7 @@
 using Wowthing.Backend.Models.Uploads;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Enums;
+using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models.Global;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Wow;
@@ -19,7 +20,7 @@ public class UserUploadJob : JobBase
     private bool _resetQuestCache;
     private bool _resetTransmogCache;
 
-    private HashSet<string> _fortifiedNames = new()
+    private readonly HashSet<string> _fortifiedNames = new()
     {
         "Verstärkt", // deDE
         "Fortified", // enGB/enUS
@@ -342,10 +343,10 @@ public class UserUploadJob : JobBase
             Logger.Debug("Resetting quest cache");
             await CacheService.SetLastModified(RedisKeys.UserLastModifiedQuests, userId);
         }
+
         if (_resetTransmogCache)
         {
-            Logger.Debug("Resetting transmog cache");
-            await CacheService.SetLastModified(RedisKeys.UserLastModifiedTransmog, userId);
+            await JobRepository.AddJobAsync(JobPriority.High, JobType.UserCacheTransmog, userId.ToString());
         }
 
         Logger.Debug("{Timer}", _timer.ToString());
