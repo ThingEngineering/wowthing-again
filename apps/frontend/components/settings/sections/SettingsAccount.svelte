@@ -154,8 +154,7 @@
     <h3 class="space-me">WoW Accounts</h3>
 
     <p>
-        Tag is some short text that will display on the far left of character tables if
-        "Account tag" is in your Common columns layout.
+        Tag is some short text that will display on character tables if "Account tag" is in your Common layout.
     </p>
 
     <table class="table-striped">
@@ -197,6 +196,13 @@
             {/each}
         </tbody>
     </table>
+
+    <div class="setting">
+        <Checkbox
+            name="characters_hideDisabledAccounts"
+            bind:value={$settingsData.characters.hideDisabledAccounts}
+        >Hide characters on disabled accounts</Checkbox>
+    </div>
 
     <h3 class="space-me">API Key</h3>
 
