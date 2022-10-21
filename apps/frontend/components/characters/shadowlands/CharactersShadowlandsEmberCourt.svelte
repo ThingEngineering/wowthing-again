@@ -1,8 +1,9 @@
 <script lang="ts">
-    import { emberCourtFeatures, emberCourtFriends } from '@/data/covenant'
-    import { staticStore, userQuestStore } from '@/stores'
+    import { emberCourtFeatures, emberCourtFriends, emberCourtUpgrades, type EmberCourtFeature } from '@/data/covenant'
+    import { staticStore, userQuestStore, userStore } from '@/stores'
+    import findReputationTier from '@/utils/find-reputation-tier'
     import tippy, { tippyComponent } from '@/utils/tippy'
-    import type { Character } from '@/types'
+    import type { Character, ReputationTier } from '@/types'
 
     export let character: Character
 
@@ -11,15 +12,23 @@
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
     let quests: Map<number, boolean>
+    let tier: ReputationTier
     $: {
+        tier = findReputationTier(
+            $staticStore.data.reputationTiers[$staticStore.data.reputations[2445].tierId],
+            character.reputations?.[2445] ?? 0
+        )
+
         quests = $userQuestStore.data.characters[character.id]?.quests
     }
+
+    const thingSets: [EmberCourtFeature[], number][] = [[emberCourtFeatures, 40], [emberCourtUpgrades, 32]]
 </script>
 
 <style lang="scss">
     .court {
         display: flex;
-        margin-top: 1rem;
+        margin-top: 0.75rem;
         overflow: hidden;
     }
     .guests {
@@ -54,10 +63,9 @@
         font-size: 0.9rem;
         padding: 0.2rem 0.2rem;
         text-align: center;
-
-        &.unlocked {
-            background: #103f10;
-        }
+    }
+    .unlocked {
+        background: #103f10;
     }
     .reputation {
         padding: 0.2rem 0;
@@ -72,6 +80,11 @@
         color: #88ff88;
     }
     .feature {
+        --image-border-width: 2px;
+        display: flex;
+        gap: 0.4rem;
+        justify-content: center;
+        padding: 0.3rem;
         width: 50%;
 
         &:nth-child(odd) {
@@ -81,19 +94,12 @@
             border-top: 1px solid $border-color;
         }
     }
-    .types {
-        --image-border-width: 2px;
-
-        display: flex;
-        gap: 0.5rem;
-        justify-content: center;
-        padding: 0.4rem 0.2rem;
-    }
     .type {
         &.locked {
-            --image-border-color: #{$colour-fail};
-
             filter: grayscale(100%);
+        }
+        &.available {
+            --image-border-color: #{$colour-fail};
         }
         &.unlocked {
             --image-border-color: #{$colour-success};
@@ -139,34 +145,31 @@
     {/each}
 </div>
 
-<div class="court features border">
-    {#each emberCourtFeatures as feature}
-        {@const featureUnlocked = quests?.has(feature.unlockQuestId)}
-        <div
-            class="feature"
-        >
+{#each thingSets as [things, iconSize]}
+    <div class="court features border">
+        {#each things as thing}
+            {@const featureUnlocked = quests?.has(thing.unlockQuestId)}
             <div
-                class="name"
+                class="feature"
                 class:unlocked={featureUnlocked}
-            >{feature.name}</div>
-
-            <div class="types">
-                {#each feature.types as featureType}
-                    {@const typeUnlocked = quests?.has(featureType.unlockQuestId)}
+            >
+                {#each thing.types as type}
+                    {@const typeUnlocked = quests?.has(type.unlockQuestId)}
                     <div
                         class="type"
-                        class:locked={!typeUnlocked}
+                        class:locked={!typeUnlocked && tier?.tier < type.unlockReputation}
+                        class:available={!typeUnlocked && tier?.tier >= type.unlockReputation}
                         class:unlocked={typeUnlocked}
-                        use:tippy={featureType.name}
+                        use:tippy={`${type.name}`}
                     >
                         <WowthingImage
-                            name={featureType.icon}
-                            size={40}
+                            name={type.icon}
+                            size={iconSize}
                             border={2}
                         />
                     </div>
                 {/each}
             </div>
-        </div>
-    {/each}
-</div>
+        {/each}
+    </div>
+{/each}

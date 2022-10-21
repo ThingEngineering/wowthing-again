@@ -416,17 +416,17 @@ groups:
         10: 7053 # Hands
 
     hunter:
-    # Gladiator set=974
-    - name: Gladiator's Scaled Armor
-      wowheadSetId: 752
-      items:
-        1: 6912 # Head
-        3: 6914 # Shoulders
-        5: 6910 # Chest
-        6: 7307 # Waist
-        7: 6913 # Legs
-        8: 7308 # Feet
-        10: 6911 # Hands
+      # Gladiator set=976
+      - name: "Gladiator's Chain Armor"
+        wowheadSetId: 714
+        items:
+          1:  7148 # Head
+          3:  7150 # Shoulders
+          5:  7151 # Chest
+          6:  7224 7224 # Waist
+          7:  7149 # Legs
+          8:  7223 7223 # Feet
+          10: 7152 # Hands
 
     mage:
     # Gladiator set=975

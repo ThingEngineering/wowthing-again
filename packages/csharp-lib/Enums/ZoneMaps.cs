@@ -26,6 +26,7 @@ public enum FarmIdType
     Object,
     Quest,
     Instance,
+    Group,
 }
 
 public enum FarmResetType

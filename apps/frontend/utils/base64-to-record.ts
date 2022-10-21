@@ -1,4 +1,4 @@
-import Base64ArrayBuffer from 'base64-arraybuffer'
+import { decode } from 'base64-arraybuffer'
 
 import {TypedArray} from '@/enums'
 
@@ -19,7 +19,7 @@ export default function base64ToRecord(arrayType: TypedArray, data: string): Rec
 export function base64ToAchievements(data: string): Record<number, number> {
     const ret: Record<number, number> = {}
     if (data !== null) {
-        const bytes = Base64ArrayBuffer.decode(data)
+        const bytes = decode(data)
         const view = new DataView(bytes)
         for (let i = 0; i < bytes.byteLength; i += 6) {
 
@@ -30,7 +30,7 @@ export function base64ToAchievements(data: string): Record<number, number> {
 }
 
 function base64ToArray(arrayType: TypedArray, data: string): ArrayLike<number> {
-    const bytes = Base64ArrayBuffer.decode(data)
+    const bytes = decode(data)
 
     switch (arrayType) {
         case TypedArray.Int16:

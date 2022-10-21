@@ -37,7 +37,11 @@
     $: {
         characters = filter(
             $userStore.data.characters,
-            (c) => $settingsData.characters.hiddenCharacters.indexOf(c.id) === -1
+            (c) => $settingsData.characters.hiddenCharacters.indexOf(c.id) === -1 &&
+                (
+                    $settingsData.characters.hideDisabledAccounts === false ||
+                    $userStore.data.accounts?.[c.accountId]?.enabled !== false
+                )
         )
         characters = filter(characters, filterFunc)
 

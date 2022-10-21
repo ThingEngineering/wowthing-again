@@ -141,10 +141,12 @@ export class UserVendorStore extends WritableFancyStore<UserVendorData> {
                             (item.type === RewardType.Mount && !vendorState.showMounts) ||
                             (item.type === RewardType.Pet && !vendorState.showPets) ||
                             (item.type === RewardType.Toy && !vendorState.showToys) ||
-                            (item.type === RewardType.Armor && item.subType === 1 && !vendorState.showCloth) ||
-                            (item.type === RewardType.Armor && item.subType === 2 && !vendorState.showLeather) ||
-                            (item.type === RewardType.Armor && item.subType === 3 && !vendorState.showMail) ||
-                            (item.type === RewardType.Armor && item.subType === 4 && !vendorState.showPlate) ||
+                            (item.type === RewardType.Armor &&
+                                (item.subType === 1 && !vendorState.showCloth) ||
+                                (item.subType === 2 && !vendorState.showLeather) ||
+                                (item.subType === 3 && !vendorState.showMail) ||
+                                (item.subType === 4 && !vendorState.showPlate)
+                            ) ||
                             (item.type === RewardType.Weapon && !vendorState.showWeapons) ||
                             (sharedItem?.inventoryType === InventoryType.Back && !vendorState.showCloaks)
                         ) {

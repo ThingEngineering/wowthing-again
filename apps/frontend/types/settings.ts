@@ -14,6 +14,7 @@ export interface Settings {
 
     characters: {
         defaultBackground: number
+        hideDisabledAccounts: boolean
         hiddenCharacters: number[]
         pinnedCharacters: number[]
     }

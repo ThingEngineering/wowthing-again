@@ -112,8 +112,11 @@
         white-space: nowrap;
     }
     .limit {
+        max-width: 10rem;
+        min-width: 5rem;
         text-align: left;
         white-space: nowrap;
+        width: 5rem;
         word-spacing: -0.2ch;
 
         :global(code) {

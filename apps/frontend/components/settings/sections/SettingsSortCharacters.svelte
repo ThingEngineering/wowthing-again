@@ -14,6 +14,7 @@
         {key: 'faction', name: 'Faction'},
         {key: 'maxlevel', name: 'Max level'},
         {key: 'pinned', name: 'Pinned'},
+        {key: 'realm', name: 'Connected realm'},
     ]
 
     const sortByChoices: SettingsChoice[] = [

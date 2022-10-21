@@ -37,7 +37,8 @@ export class ManualDataZoneMapFarm {
         public statisticId?: number,
         public requiredQuestIds?: number[],
         public note?: string,
-        public faction?: string
+        public faction?: string,
+        public groupId?: number,
     )
     {
         this.location = location.split(',')

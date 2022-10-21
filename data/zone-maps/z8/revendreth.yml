@@ -41,16 +41,16 @@ farms:
     id: 2892 # Bound Lightspawn
 
   - type: transmog
-    id: 179926 # Light-Infused Tunic
+    id: 179926 # Light-Infused Tunic [cloth chest]
 
   - type: transmog
-    id: 179924 # Light-Infused Jacket
+    id: 179924 # Light-Infused Jacket [leather chest]
 
   - type: transmog
-    id: 179653 # Light-Infused Hauberk
+    id: 179653 # Light-Infused Hauberk [mail chest]
 
   - type: transmog
-    id: 179925 # Light-Infused Breastplate
+    id: 179925 # Light-Infused Breastplate [plate chest]
 
 - name: "Amalgamation of Sin"
   location: 65.8 29.1
@@ -203,6 +203,14 @@ farms:
   - type: toy
     id: 180873 # Smolderheart
 
+- name: "Soulstalker Doina"
+  location: 78.5 49.7
+  npcId: 160392
+  questId: 58130
+  drops:
+    - type: transmog
+      id: 180490 # Soulstalker's Barbs [warglaive]
+
 - name: "Stonefist"
   location: 31.3 23.2
   npcId: 159503
@@ -226,6 +234,143 @@ farms:
   drops:
   - type: mount
     id: 1391 # Loyal Gorger
+
+# Kill - Inquisitors
+
+- name: "Inquisitor Otilia"
+  location: 64.6 46.6
+  npcId: 156918
+  requiredQuestId: 57929 # Hunting an Inquisitor
+  drops:
+    - &inquisitors-robes
+      type: transmog
+      id: 180493 # Inquisitor's Robes [cloth chest]
+
+    - &ritualists-soles
+      type: transmog
+      id: 184213 # Ritualist's Soles [leather feet]
+
+    - &chained-manacles
+      type: transmog
+      id: 184214 # Chained Manacles [mail wrist]
+
+    - &sinstone-stompers
+      type: transmog
+      id: 184217 # Sinstone Stompers [plate feet]
+
+- name: "Inquisitor Petre"
+  location: 67.2 43.6
+  npcId: 156919
+  requiredQuestId: 57929 # Hunting an Inquisitor
+  drops:
+    - *inquisitors-robes
+    - *ritualists-soles
+    - *chained-manacles
+    - *sinstone-stompers
+
+- name: "Inquisitor Sorian"
+  location: 69.6 47.6
+  npcId: 156916
+  requiredQuestId: 57929 # Hunting an Inquisitor
+  drops:
+    - *inquisitors-robes
+    - *ritualists-soles
+    - *chained-manacles
+    - *sinstone-stompers
+
+- name: "Inquisitor Traian"
+  location: 76.0 51.8
+  npcId: 159151
+  requiredQuestId: 57929 # Hunting an Inquisitor
+  drops:
+    - *inquisitors-robes
+    - *ritualists-soles
+    - *chained-manacles
+    - *sinstone-stompers
+
+- name: "High Inquisitor Dacian"
+  location: 72.0 53.0
+  npcId: 159155
+  requiredQuestId: 57929 # Hunting an Inquisitor
+  drops:
+    - &high-inquisitors-banded-cincture
+      type: transmog
+      id: 184211 # High Inquisitor's Banded Cincture [cloth waist]
+
+    - &intimidator-trainers-cuffs
+      type: transmog
+      id: 184212 # Intimidator Trainer's Cuffs [leather wrists]
+
+    - &depraved-houndmassters-grips
+      type: transmog
+      id: 184215 # Depraved Houndmasster's Grips [mail hands]
+
+    - &stoneborn-bodyguards-shoulderplates
+      type: transmog
+      id: 184216 # Stoneborn Bodyguard's Shoulderplates [plate shoulder]
+
+    - type: transmog
+      id: 180496 # High Inquisitor's Drape of Shame [back]
+
+- name: "High Inquisitor Gabi"
+  location: 75.2 44.2
+  npcId: 159152
+  requiredQuestId: 57929 # Hunting an Inquisitor
+  drops:
+    - *high-inquisitors-banded-cincture
+    - *intimidator-trainers-cuffs
+    - *depraved-houndmassters-grips
+    - *stoneborn-bodyguards-shoulderplates
+
+    - type: transmog
+      id: 180500 # High Inquisitor's Bloody Cloak [back]
+
+- name: "High Inquisitor Magda"
+  location: 69.6 52.0
+  npcId: 159154
+  requiredQuestId: 57929 # Hunting an Inquisitor
+  drops:
+    - *high-inquisitors-banded-cincture
+    - *intimidator-trainers-cuffs
+    - *depraved-houndmassters-grips
+    - *stoneborn-bodyguards-shoulderplates
+
+    - type: transmog
+      id: 180498 # High Inquisitor's Obscene Shawl [back]
+
+- name: "High Inquisitor Radu"
+  location: 71.4 42.2
+  npcId: 159153
+  requiredQuestId: 57929 # Hunting an Inquisitor
+  drops:
+    - *high-inquisitors-banded-cincture
+    - *intimidator-trainers-cuffs
+    - *depraved-houndmassters-grips
+    - *stoneborn-bodyguards-shoulderplates
+
+    - type: transmog
+      id: 180499 # High Inquisitor's Cloak of Fanatacism [back]
+
+- name: "Grand Inquisitor Aurica"
+  location: 69.6 45.2
+  npcId: 159157
+  requiredQuestId: 57929 # Hunting an Inquisitor
+  drops:
+    - &spiked-cudgel-of-the-inquisition
+      type: transmog
+      id: 184210 # Spiked Cudgle of the Inquisition [agi/str 1h mace]
+
+    - &grand-inquisitors-stave
+      type: transmog
+      id: 177803 # Grand Inquisitor's Stave [int staff]
+
+- name: "Grand Inquisitor Radu"
+  location: 64.6 52.6
+  npcId: 159156
+  requiredQuestId: 57929 # Hunting an Inquisitor
+  drops:
+    - *spiked-cudgel-of-the-inquisition
+    - *grand-inquisitors-stave
 
 # World boss
 - name: "Nurgash Muckformed"
