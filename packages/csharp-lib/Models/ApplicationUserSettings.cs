@@ -42,6 +42,7 @@ public class ApplicationUserSettings
         "faction",
         "maxlevel",
         "pinned",
+        "realm",
     };
     private readonly HashSet<string> _validSortBy = new()
     {

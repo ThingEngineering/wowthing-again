@@ -1,7 +1,7 @@
 import { get } from 'svelte/store'
 
 import {Constants} from '@/data/constants'
-import { userStore } from '@/stores'
+import { staticStore, userStore } from '@/stores'
 import type { Character, Settings } from '@/types'
 
 export default function getCharacterGroupFunc(settingsData: Settings): (char: Character) => string {
@@ -32,6 +32,9 @@ export default function getCharacterGroupFunc(settingsData: Settings): (char: Ch
             }
             else if (thing === 'pinned') {
                 out.push(settingsData.characters.pinnedCharacters.indexOf(char.id) >= 0 ? 'a' : 'z')
+            }
+            else if (thing === 'realm') {
+                out.push(get(staticStore).data.connectedRealms[char.realm.connectedRealmId].displayText)
             }
         }
 
