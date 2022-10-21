@@ -1,4 +1,4 @@
-import { writable } from 'svelte/store'
+import { get, writable } from 'svelte/store'
 
 import { userAchievementStore } from './user-achievements'
 import { userStore } from './user'
@@ -18,7 +18,7 @@ export const data = {
             interval = null
         }
 
-        if (settings.general.refreshInterval > 0) {
+        if (get(userStore).data.public === false && settings.general.refreshInterval > 0) {
             interval = setInterval(
                 async () => await Promise.all([
                     userAchievementStore.fetch({ evenIfLoaded: true }),
