@@ -250,6 +250,8 @@ public class ApiController : Controller
             .Select(character => character.Id)
             .ToArray();
 
+        timer.AddPoint("Characters");
+
         // Bags
         var bagItems = Array.Empty<PlayerCharacterItem>();
         if (!apiResult.Public)
@@ -272,7 +274,7 @@ public class ApiController : Controller
             .Where(pci => characterIds.Contains(pci.CharacterId) && Hardcoded.CurrencyItemIds.Contains(pci.ItemId))
             .ToArrayAsync();
 
-        timer.AddPoint("Characters");
+        timer.AddPoint("Items");
 
         var globalDailies = await _context.GlobalDailies
             .ToDictionaryAsync(gd => $"{gd.Expansion}-{(int)gd.Region}");
@@ -450,7 +452,7 @@ public class ApiController : Controller
         var json = JsonConvert.SerializeObject(apiData);
 
         timer.AddPoint("Build", true);
-        _logger.LogDebug("{Timer}", timer);
+        _logger.LogInformation("{Timer}", timer);
 
         if (lastModified > DateTimeOffset.MinValue)
         {

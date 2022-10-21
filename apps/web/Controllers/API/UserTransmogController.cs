@@ -2,10 +2,8 @@
 using Microsoft.Extensions.Logging;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Contexts;
-using Wowthing.Lib.Models.Query;
 using Wowthing.Lib.Services;
 using Wowthing.Lib.Utilities;
-using Wowthing.Web.Models;
 using Wowthing.Web.Services;
 
 namespace Wowthing.Web.Controllers.API;
@@ -52,40 +50,9 @@ public class UserTransmogController : Controller
 
         timer.AddPoint("LastModified");
 
-        var allTransmog = await _context.AccountTransmogQuery
-            .FromSqlRaw(AccountTransmogQuery.Sql, apiResult.User.Id)
-            .FirstAsync();
+        (string json, lastModified) = await _cacheService.GetOrCreateTransmogCacheAsync(_context, timer, apiResult.User.Id, lastModified);
 
-        var accountSources = await _context.PlayerAccountTransmogSources
-            .Where(pats => pats.Account.UserId == apiResult.User.Id)
-            .ToArrayAsync();
-
-        var allSources = new HashSet<string>();
-        foreach (var sources in accountSources)
-        {
-            allSources.UnionWith(sources.Sources.EmptyIfNull());
-        }
-
-        timer.AddPoint("Get Transmog");
-
-        // Build response
-        var data = new UserTransmogData
-        {
-            Illusions = allTransmog.IllusionIds
-                .Distinct()
-                .OrderBy(id => id)
-                .ToList(),
-
-            Sources = allSources,
-
-            Transmog = allTransmog.TransmogIds
-                .Distinct()
-                .OrderBy(id => id)
-                .ToList(),
-        };
-        var json = JsonConvert.SerializeObject(data);
-
-        timer.AddPoint("Build response", true);
+        timer.AddPoint("Build", true);
         _logger.LogDebug("{Timer}", timer);
 
         if (lastModified > DateTimeOffset.MinValue)

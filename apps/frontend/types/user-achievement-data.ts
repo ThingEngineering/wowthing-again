@@ -3,8 +3,10 @@ export interface UserAchievementData {
     achievementCategories?: Record<number, UserAchievementDataCategory>
     achievementRecent?: number[]
     addonAchievements: Record<number, Record<number, UserAchievementDataAddonAchievement>>
-    criteria: Record<number, number[][]>
+    rawCriteria: [number, ...number[][]][]
     statistics: Record<number, [number, number, string][]>
+
+    criteria: Record<number, number[][]>
 }
 
 export class UserAchievementDataAddonAchievement {
