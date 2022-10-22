@@ -15,6 +15,14 @@ spec:
       labels:
         app: wowthing-again-backend
     spec:
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: DoNotSchedule
+          labelSelector:
+            matchLabels:
+              app: wowthing-again-web
+
       containers:
         - name: wowthing-again-backend
           image: 'ghcr.io/thingengineering/wowthing-again/backend:_VERSION_'
@@ -27,3 +35,7 @@ spec:
           envFrom:
             - secretRef:
                 name: wowthing-again
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "1000m"
