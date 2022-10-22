@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Anemonis.AspNetCore.RequestDecompression;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
@@ -135,6 +136,12 @@ public class Startup
                     .AllowAnyHeader()
                     .Build()
             );
+        });
+
+        // JSON options
+        services.AddSingleton<JsonSerializerOptions>(new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
         });
 
         // Our services

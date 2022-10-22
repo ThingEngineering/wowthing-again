@@ -26,6 +26,7 @@ public class PlayerCharacterMythicPlusRun
     public int KeystoneLevel { get; set; }
     public bool Timed { get; set; }
 
+    [System.Text.Json.Serialization.JsonIgnore]
     public List<PlayerCharacterMythicPlusRunMember> Members { get; set; }
 }
 

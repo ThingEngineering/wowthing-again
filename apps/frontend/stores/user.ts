@@ -282,9 +282,10 @@ export class UserDataStore extends WritableFancyStore<UserData> {
                                 const runs = characterSeason[dungeonId] || []
                                 for (let runIndex = 0; runIndex < runs.length; runIndex++) {
                                     const run = runs[runIndex] as CharacterMythicPlusRun
-    
+
                                     // Members are packed arrays, convert them to useful objects
-                                    run.memberObjects = run.members.map(m => new CharacterMythicPlusRunMember(...m))
+                                    run.memberObjects = (run.members || [])
+                                        .map(m => new CharacterMythicPlusRunMember(...m))
                                 }
                             }
                         }

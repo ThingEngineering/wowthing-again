@@ -301,7 +301,7 @@ public class ApiAuctionController : Controller
             // Missing
             var accountMounts = await _context.MountQuery
                 .FromSqlRaw(MountQuery.UserQuery, user.Id)
-                .FirstAsync();
+                .SingleAsync();
 
             var allMountIds = accountMounts.Mounts
                 .EmptyIfNull()

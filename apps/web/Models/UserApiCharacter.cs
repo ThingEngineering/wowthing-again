@@ -195,7 +195,7 @@ public class UserApiCharacter
     }
 }
 
-[JsonConverter(typeof(UserApiCharacterCurrencyConverter))]
+[System.Text.Json.Serialization.JsonConverter(typeof(UserApiCharacterCurrencyConverter))]
 public class UserApiCharacterCurrency
 {
     public int Quantity { get; set; }

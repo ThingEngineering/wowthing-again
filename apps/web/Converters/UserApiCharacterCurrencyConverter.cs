@@ -1,34 +1,26 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json;
 using Wowthing.Web.Models;
 
 namespace Wowthing.Web.Converters;
 
-public class UserApiCharacterCurrencyConverter : JsonConverter
+public class UserApiCharacterCurrencyConverter : System.Text.Json.Serialization.JsonConverter<UserApiCharacterCurrency>
 {
-    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-    {
-        var currency = (UserApiCharacterCurrency) value;
-        var arr = new JArray();
-        arr.Add(currency.Id);
-        arr.Add(currency.Quantity);
-        arr.Add(currency.Max);
-        arr.Add(currency.WeekQuantity);
-        arr.Add(currency.WeekMax);
-        arr.Add(currency.TotalQuantity);
-        arr.Add(currency.IsWeekly ? 1 : 0);
-        arr.Add(currency.IsMovingMax ? 1 : 0);
-        arr.WriteTo(writer);
-    }
-
-    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+    public override UserApiCharacterCurrency Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         throw new NotImplementedException();
     }
 
-    public override bool CanConvert(Type objectType)
+    public override void Write(Utf8JsonWriter writer, UserApiCharacterCurrency value, JsonSerializerOptions options)
     {
-        return typeof(UserApiCharacterCurrency) == objectType;
+        writer.WriteStartArray();
+        writer.WriteNumberValue(value.Id);
+        writer.WriteNumberValue(value.Quantity);
+        writer.WriteNumberValue(value.Max);
+        writer.WriteNumberValue(value.WeekQuantity);
+        writer.WriteNumberValue(value.WeekMax);
+        writer.WriteNumberValue(value.TotalQuantity);
+        writer.WriteNumberValue(value.IsWeekly ? 1 : 0);
+        writer.WriteNumberValue(value.IsMovingMax ? 1 : 0);
+        writer.WriteEndArray();
     }
-
-    public override bool CanRead => false;
 }
