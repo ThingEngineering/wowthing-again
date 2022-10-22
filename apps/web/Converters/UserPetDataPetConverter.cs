@@ -1,30 +1,21 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json;
 using Wowthing.Web.Models;
 
 namespace Wowthing.Web.Converters;
 
-public class UserPetDataPetConverter: JsonConverter
+public class UserPetDataPetConverter : System.Text.Json.Serialization.JsonConverter<UserPetDataPet>
 {
-    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-    {
-        var pet = (UserPetDataPet) value;
-        var arr = new JArray();
-        arr.Add(pet.Level);
-        arr.Add(pet.Quality);
-        arr.Add(pet.BreedId);
-        arr.WriteTo(writer);
-    }
-
-    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+    public override UserPetDataPet Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         throw new NotImplementedException();
     }
 
-    public override bool CanConvert(Type objectType)
+    public override void Write(Utf8JsonWriter writer, UserPetDataPet value, JsonSerializerOptions options)
     {
-        return typeof(UserPetDataPet) == objectType;
+        writer.WriteStartArray();
+        writer.WriteNumberValue(value.Level);
+        writer.WriteNumberValue((short)value.Quality);
+        writer.WriteNumberValue(value.BreedId);
+        writer.WriteEndArray();
     }
-
-    public override bool CanRead => false;
-
 }

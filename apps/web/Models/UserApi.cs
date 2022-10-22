@@ -29,8 +29,7 @@ public class UserApi
 
     public Dictionary<int, bool> AddonMounts { get; set; }
 
-    [JsonProperty(PropertyName = "petsRaw")]
-    public Dictionary<int, List<UserPetDataPet>> Pets { get; set; }
+    public Dictionary<int, List<UserPetDataPet>> PetsRaw { get; set; }
 
     public string MountsPacked { get; init; }
     public string ToysPacked { get; init; }
