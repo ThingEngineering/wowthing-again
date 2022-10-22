@@ -5,17 +5,18 @@ using Wowthing.Lib.Enums;
 namespace Wowthing.Lib.Models.Player;
 
 [Index(nameof(CharacterId), nameof(ItemId), nameof(Location))]
+[Index(nameof(CharacterId), nameof(Slot))]
 public class PlayerCharacterItem : IPlayerItem
 {
     // Fields are ordered from largest to smallest for database table size reasons. Postgres doesn't go
     // smaller than a short (2 bytes), sadly.
     [Key]
     public long Id { get; set; }
-        
+
     [ForeignKey("Character")]
     public int CharacterId { get; set; }
     public PlayerCharacter Character { get; set; }
-        
+
     public int ItemId { get; set; }
     public int Count { get; set; }
 
