@@ -60,12 +60,6 @@ public class CacheService
         return (true, lastModified);
     }
 
-    public async Task<string> GetStringAsync(string key)
-    {
-        var db = _redis.GetDatabase();
-        return await db.StringGetAsync(key);
-    }
-
     #region Achievements
     public async Task<(string, DateTimeOffset)> GetOrCreateAchievementCacheAsync(
         WowDbContext context,
@@ -76,7 +70,7 @@ public class CacheService
     {
         var db = _redis.GetDatabase();
 
-        string json = await db.StringGetAsync(string.Format(RedisKeys.UserAchievements, userId));
+        string json = await db.CompressedStringGetAsync(string.Format(RedisKeys.UserAchievements, userId));
         if (string.IsNullOrEmpty(json))
         {
             (json, lastModified) = await CreateAchievementCacheAsync(context, db, timer, userId);
@@ -193,7 +187,7 @@ public class CacheService
 
         timer.AddPoint("JSON", true);
 
-        await db.StringSetAsync(string.Format(RedisKeys.UserAchievements, userId), json);
+        await db.CompressedStringSetAsync(string.Format(RedisKeys.UserAchievements, userId), json);
         var (_, lastModified) = await SetLastModified(RedisKeys.UserLastModifiedAchievements, userId);
 
         timer.AddPoint("Redis");
@@ -212,7 +206,7 @@ public class CacheService
     {
         var db = _redis.GetDatabase();
 
-        string json = await db.StringGetAsync(string.Format(RedisKeys.UserTransmog, userId));
+        string json = await db.CompressedStringGetAsync(string.Format(RedisKeys.UserTransmog, userId));
         if (string.IsNullOrEmpty(json))
         {
             (json, lastModified) = await CreateTransmogCacheAsync(context, db, timer, userId);
@@ -263,7 +257,7 @@ public class CacheService
 
         timer.AddPoint("JSON");
 
-        await db.StringSetAsync(string.Format(RedisKeys.UserTransmog, userId), json);
+        await db.CompressedStringSetAsync(string.Format(RedisKeys.UserTransmog, userId), json);
         var (_, lastModified) = await SetLastModified(RedisKeys.UserLastModifiedTransmog, userId);
 
         timer.AddPoint("Redis", true);
