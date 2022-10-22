@@ -361,7 +361,7 @@ public class ApiController : Controller
         // Mounts
         var mounts = await _context.MountQuery
             .FromSqlRaw(MountQuery.UserQuery, apiResult.User.Id)
-            .FirstAsync();
+            .SingleAsync();
 
         timer.AddPoint("Mounts");
 
