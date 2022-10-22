@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text;
+using K4os.Compression.LZ4;
+using Newtonsoft.Json;
 using StackExchange.Redis;
 
 namespace Wowthing.Lib.Extensions;
@@ -54,5 +56,17 @@ public static class DatabaseExtensions
     {
         await db.StringSetAsync($"cache:{key}:data", data);
         await db.StringSetAsync($"cache:{key}:hash", hash);
+    }
+
+    public static async Task<string> CompressedStringGetAsync(this IDatabase db, string key)
+    {
+        var value = await db.StringGetAsync(key);
+        return value == RedisValue.Null ? null : Encoding.UTF8.GetString(LZ4Pickler.Unpickle(value));
+    }
+
+    public static async Task<bool> CompressedStringSetAsync(this IDatabase db, string key, string value)
+    {
+        byte[] data = LZ4Pickler.Pickle(Encoding.UTF8.GetBytes(value));
+        return await db.StringSetAsync(key, data);
     }
 }
