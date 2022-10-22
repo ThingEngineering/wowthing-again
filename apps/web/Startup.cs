@@ -140,11 +140,7 @@ public class Startup
         });
 
         // JSON options
-        services.AddSingleton<JsonSerializerOptions>(new JsonSerializerOptions
-        {
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-        });
+        services.AddJsonOptions();
 
         // Our services
         services.AddScoped<CacheService>();

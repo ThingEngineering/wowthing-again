@@ -1,4 +1,5 @@
-﻿using Wowthing.Lib.Enums;
+﻿using System.Text.Json.Serialization;
+using Wowthing.Lib.Enums;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Web.Converters;
@@ -53,6 +54,7 @@ public class UserApiCharacter
     public Dictionary<int, int> Reputations { get; } = new();
 
     [JsonProperty("specializationsRaw")]
+    [JsonPropertyName("specializationsRaw")]
     public Dictionary<int, PlayerCharacterSpecializationsSpecialization> Specializations { get; }
 
     [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]

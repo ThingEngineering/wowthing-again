@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
+using System.Text.Json;
 using System.Web;
 using Serilog;
 using Serilog.Context;
@@ -20,7 +21,7 @@ using Wowthing.Lib.Utilities;
 
 namespace Wowthing.Backend.Jobs;
 
-public abstract class JobBase : IJob 
+public abstract class JobBase : IJob
 {
     private const string ApiUrl = "https://{0}.api.blizzard.com/{1}";
     private const string CacheKeyLastModified = "last_modified:{0}";
@@ -33,6 +34,7 @@ public abstract class JobBase : IJob
     internal StateService StateService;
     internal WowDbContext Context;
     internal CancellationToken CancellationToken;
+    internal JsonSerializerOptions JsonSerializerOptions;
 
     private static readonly Dictionary<ApiNamespace, string> NamespaceToString = EnumUtilities.GetValues<ApiNamespace>()
         .ToDictionary(k => k, v => v.ToString().ToLowerInvariant());
@@ -55,7 +57,7 @@ public abstract class JobBase : IJob
         var jobName = this.GetType().Name[0..^3];
         return LogContext.PushProperty("Task", $"{jobName} {realm.Region.ToString()} {realm.ConnectedRealmId}");
     }
-        
+
     protected IDisposable CharacterLog(SchedulerCharacterQuery query)
     {
         var jobName = this.GetType().Name[0..^3];
@@ -101,28 +103,29 @@ public abstract class JobBase : IJob
             timer = new JankTimer();
             timerOutput = true;
         }
-            
+
         var result = await GetBytes(uri, useAuthorization, useLastModified, lastModified, timer);
         if (result.NotModified)
         {
             return new JobHttpResult<T> { NotModified = true };
         }
-            
-        var obj = JsonConvert.DeserializeObject<T>(Encoding.UTF8.GetString(result.Data));
+
+        //var obj = JsonConvert.DeserializeObject<T>(Encoding.UTF8.GetString(result.Data));
+        var obj = System.Text.Json.JsonSerializer.Deserialize<T>(Encoding.UTF8.GetString(result.Data), JsonSerializerOptions);
         timer.AddPoint("JSON");
 
         if (timerOutput)
         {
             Logger.Debug("{0}", timer.ToString());
         }
-            
+
         return new JobHttpResult<T>
         {
             Data = obj,
             LastModified = result.LastModified,
         };
     }
-        
+
     protected async Task<JobHttpResult<byte[]>> GetBytes(
         Uri uri,
         bool useAuthorization = true,

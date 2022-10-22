@@ -1,4 +1,5 @@
 ﻿using System.Net.Http;
+using System.Text.Json;
 using Serilog;
 using StackExchange.Redis;
 using Wowthing.Backend.Services;
@@ -17,6 +18,7 @@ public class JobFactory
     private readonly IHttpClientFactory _clientFactory;
     private readonly ILogger _logger;
     private readonly JobRepository _jobRepository;
+    private readonly JsonSerializerOptions _jsonSerializerOptions;
     private readonly StateService _stateService;
     private readonly ConnectionMultiplexer _redis;
 
@@ -26,14 +28,16 @@ public class JobFactory
         IHttpClientFactory clientFactory,
         ILogger logger,
         JobRepository jobRepository,
+        JsonSerializerOptions jsonSerializerOptions,
         StateService stateService,
         string redisConnectionString)
     {
         _constructorMap = constructorMap;
-            
+
         _cacheService = cacheService;
         _clientFactory = clientFactory;
         _jobRepository = jobRepository;
+        _jsonSerializerOptions = jsonSerializerOptions;
         _logger = logger;
         _stateService = stateService;
 
@@ -46,6 +50,7 @@ public class JobFactory
         obj.CacheService = _cacheService;
         obj.Http = _clientFactory.CreateClient("limited");
         obj.JobRepository = _jobRepository;
+        obj.JsonSerializerOptions = _jsonSerializerOptions;
         obj.Logger = _logger;
         obj.Redis = _redis;
         obj.StateService = _stateService;

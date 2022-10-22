@@ -1,4 +1,6 @@
 using System.Net;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -94,6 +96,9 @@ public class Program
             })
             .AddHttpMessageHandler(() => new RateLimitHttpMessageHandler(RedisUtilities.GetConnection(redisConnectionString), backendOptions.ApiRateLimit))
             .SetHandlerLifetime(Timeout.InfiniteTimeSpan);
+
+        // JSON options
+        services.AddJsonOptions();
 
         // Services
         services.AddSingleton<CacheService>();
