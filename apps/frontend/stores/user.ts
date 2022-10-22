@@ -77,7 +77,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         for (const character of userData.characters) {
             userData.characterMap[character.id] = character
 
-            if (character.currenciesRaw !== null) {
+            if (character.currenciesRaw) {
                 character.currencies = {}
                 for (const rawCurrency of character.currenciesRaw) {
                     const obj = new CharacterCurrency(...rawCurrency)
@@ -86,7 +86,7 @@ export class UserDataStore extends WritableFancyStore<UserData> {
                 character.currenciesRaw = null
             }
 
-            if (character.specializationsRaw !== null) {
+            if (character.specializationsRaw) {
                 character.specializations = {}
                 for (const specializationId in character.specializationsRaw) {
                     const specData: Record<number, number> = {}
