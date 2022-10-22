@@ -95,7 +95,7 @@ public class UriService
 
         if (user == null)
         {
-            _logger.LogInformation("user=null username={Name}", username);
+            _logger.LogDebug("user=null username={Name}", username);
             user = await _userManager.FindByNameAsync(username);
             if (user == null)
             {
@@ -104,7 +104,7 @@ public class UriService
             }
         }
 
-        _logger.LogInformation("Found user for username {Name}", username);
+        _logger.LogDebug("Found user for username {Name}", username);
 
         if (user?.CanUseSubdomain == true)
         {
@@ -113,7 +113,7 @@ public class UriService
             {
                 builder.Host = $"{username}.{builder.Host}";
             }
-            _logger.LogInformation("User can use subdomain, final URI is {Uri}", builder.Uri);
+            _logger.LogDebug("User can use subdomain, final URI is {Uri}", builder.Uri);
             return builder.Uri.ToString();
         }
 
