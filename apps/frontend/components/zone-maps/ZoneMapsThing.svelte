@@ -19,6 +19,7 @@
     let big: boolean
     let classes: string[]
     let drops: ManualDataZoneMapDrop[]
+    let locations: [string, string][]
     let show: boolean
     let topOffset: string
     $: {
@@ -57,6 +58,11 @@
         }
         if (farm.type === FarmType.Raid) {
             classes.push('raid')
+        }
+
+        locations = []
+        for (let i = 0; i < farm.location.length; i += 2) {
+            locations.push([farm.location[i], farm.location[i + 1]])
         }
     }
 </script>
@@ -128,50 +134,52 @@
 </style>
 
 {#if show}
-    <div
-        class="wrapper"
-        class:active={status.need}
-        style="--left: {farm.location[0]}%; --top: {farm.location[1]}%; --top-offset: {topOffset};"
-        use:tippyComponent={{
-            component: Tooltip,
-            props: {
-                drops,
-                farm,
-                map,
-                status,
-            },
-        }}
-    >
-        {#if farm.type === FarmType.Dungeon || farm.type === FarmType.Raid}
-            <a href="#/journal/{status.link}">
-                <div class="{classes.join(' ')}">
-                    <IconifyIcon
-                        icon={farmTypeIcons[farm.type]}
-                        scale={'1'}
-                    />
-                </div>
-            </a>
-        {:else}
-            <WowheadLink
-                id={farm.id}
-                noTooltip={true}
-                toComments={true}
-                type={FarmIdType[farm.idType].toLowerCase()}
-            >
-                <div class="{classes.join(' ')}">
-                    <IconifyIcon
-                        icon={farmTypeIcons[farm.type]}
-                        scale={big ? '1.25' : '1'}
-                    />
-                </div>
+    {#each locations as [xPos, yPos]}
+        <div
+            class="wrapper"
+            class:active={status.need}
+            style="--left: {xPos}%; --top: {yPos}%; --top-offset: {topOffset};"
+            use:tippyComponent={{
+                component: Tooltip,
+                props: {
+                    drops,
+                    farm,
+                    map,
+                    status,
+                },
+            }}
+        >
+            {#if farm.type === FarmType.Dungeon || farm.type === FarmType.Raid}
+                <a href="#/journal/{status.link}">
+                    <div class="{classes.join(' ')}">
+                        <IconifyIcon
+                            icon={farmTypeIcons[farm.type]}
+                            scale={'1'}
+                        />
+                    </div>
+                </a>
+            {:else}
+                <WowheadLink
+                    id={farm.id}
+                    noTooltip={true}
+                    toComments={true}
+                    type={FarmIdType[farm.idType].toLowerCase()}
+                >
+                    <div class="{classes.join(' ')}">
+                        <IconifyIcon
+                            icon={farmTypeIcons[farm.type]}
+                            scale={big ? '1.25' : '1'}
+                        />
+                    </div>
 
-                {#if status.need && farm.type != FarmType.Vendor && map.mapName !== 'misc_exiles_reach'}
-                    <span
-                        class:big
-                        class:status-success={status.characters.length === 0}
-                    >{status.characters.length}</span>
-                {/if}
-            </WowheadLink>
-        {/if}
-    </div>
+                    {#if status.need && farm.type != FarmType.Vendor && map.mapName !== 'misc_exiles_reach'}
+                        <span
+                            class:big
+                            class:status-success={status.characters.length === 0}
+                        >{status.characters.length}</span>
+                    {/if}
+                </WowheadLink>
+            {/if}
+        </div>
+    {/each}
 {/if}
