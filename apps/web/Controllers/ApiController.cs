@@ -1,4 +1,5 @@
 ﻿using System.Net.Mime;
+using System.Text.Json;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
@@ -25,6 +26,7 @@ public class ApiController : Controller
     private readonly CacheService _cacheService;
     private readonly IConnectionMultiplexer _redis;
     private readonly ILogger<ApiController> _logger;
+    private readonly JsonSerializerOptions _jsonSerializerOptions;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly UserService _userService;
     private readonly WowDbContext _context;
@@ -33,6 +35,7 @@ public class ApiController : Controller
         CacheService cacheService,
         IConnectionMultiplexer redis,
         ILogger<ApiController> logger,
+        JsonSerializerOptions jsonSerializerOptions,
         UserManager<ApplicationUser> userManager,
         UserService userService,
         WowDbContext context
@@ -41,6 +44,7 @@ public class ApiController : Controller
         _cacheService = cacheService;
         _redis = redis;
         _logger = logger;
+        _jsonSerializerOptions = jsonSerializerOptions;
         _userManager = userManager;
         _userService = userService;
         _context = context;
@@ -279,31 +283,6 @@ public class ApiController : Controller
         var globalDailies = await _context.GlobalDailies
             .ToDictionaryAsync(gd => $"{gd.Expansion}-{(int)gd.Region}");
 
-        var gdItemIds = new HashSet<int>();
-        foreach (var gd in globalDailies.Values)
-        {
-            foreach (var questReward in gd.QuestRewards.EmptyIfNull())
-            {
-                if (questReward.ItemId > 0)
-                {
-                    gdItemIds.Add(questReward.ItemId);
-                }
-            }
-        }
-
-        Dictionary<int, string> gdItems = null;
-        if (gdItemIds.Count > 0)
-        {
-            gdItems = await _context.LanguageString
-                .Where(ls => ls.Language == apiResult.User.Settings.General.Language &&
-                             ls.Type == StringType.WowItemName &&
-                             gdItemIds.Contains(ls.Id))
-                .ToDictionaryAsync(
-                    ls => ls.Id,
-                    ls => ls.String
-                );
-        }
-
         timer.AddPoint("Dailies");
 
         var backgrounds = await _context.BackgroundImage
@@ -315,6 +294,13 @@ public class ApiController : Controller
                 (image.Type == ImageType.Character || image.Type == ImageType.CharacterFull) &&
                 characterIds.Contains(image.Id)
             )
+            .Select(image => new Image
+            {
+                Id = image.Id,
+                Format = image.Format,
+                Sha256 = image.Sha256,
+                Type = image.Type,
+            })
             .ToDictionaryAsync(
                 image => $"{image.Id.ToString()}-{((int)image.Type).ToString()}",
                 image => image.Url
@@ -391,35 +377,59 @@ public class ApiController : Controller
 
         timer.AddPoint("Toys");
 
+        List<int> goldHistoryRealms = null;
+        if (!apiResult.Public)
+        {
+            goldHistoryRealms = await _context.PlayerAccountGoldSnapshot
+                .Where(pags => tempAccounts.Select(account => account.Id).Contains(pags.AccountId))
+                .Select(pags => pags.RealmId)
+                .Distinct()
+                .ToListAsync();
+            timer.AddPoint("GoldHistory");
+        }
+
+        // Objects
+        var characterObjects = characters
+            .Select(character => new UserApiCharacter(
+                character,
+                bagItems.Where(bi => bi.CharacterId == character.Id),
+                currencyItems.Where(pi => pi.CharacterId == character.Id),
+                progressItems.Where(pi => pi.CharacterId == character.Id),
+                apiResult.Public,
+                apiResult.Privacy))
+            .ToList();
+
+        var guildObjects = guilds
+            .Select(guild => new UserApiGuild(guild, apiResult.Public, apiResult.Privacy))
+            .ToDictionary(guild => guild.Id);
+
+        var petObjects = allPets
+            .Values
+            .GroupBy(pet => pet.SpeciesId)
+            .ToDictionary(
+                group => group.Key,
+                group => group
+                    .OrderByDescending(pet => pet.Level)
+                    .ThenByDescending(pet => (int)pet.Quality)
+                    .Select(pet => new UserPetDataPet(pet))
+                    .ToList()
+            );
+
+        timer.AddPoint("Objects");
+
         // Build response
         var apiData = new UserApi
         {
             Accounts = accounts.ToDictionary(k => k.Id, v => new UserApiAccount(v)),
-            Characters = characters
-                .Select(character => new UserApiCharacter(
-                    character,
-                    bagItems.Where(bi => bi.CharacterId == character.Id),
-                    currencyItems.Where(pi => pi.CharacterId == character.Id),
-                    progressItems.Where(pi => pi.CharacterId == character.Id),
-                    apiResult.Public,
-                    apiResult.Privacy))
-                .ToList(),
-            Guilds = guilds
-                .Select(guild => new UserApiGuild(guild, apiResult.Public, apiResult.Privacy))
-                .ToDictionary(guild => guild.Id),
-
-            GoldHistoryRealms = apiResult.Public ? null : await _context.PlayerAccountGoldSnapshot
-                .Where(pags => tempAccounts.Select(account => account.Id).Contains(pags.AccountId))
-                .Select(pags => pags.RealmId)
-                .Distinct()
-                .ToListAsync(),
+            Characters = characterObjects,
+            Guilds = guildObjects,
 
             LastApiCheck = apiResult.Public ? null : apiResult.User.LastApiCheck,
 
             Backgrounds = backgrounds,
             CurrentPeriod = currentPeriods,
             GlobalDailies = globalDailies,
-            GlobalDailyItems = gdItems,
+            GoldHistoryRealms = goldHistoryRealms,
             Heirlooms = heirlooms,
             HonorCurrent = maxHonorAccount?.AddonData?.HonorCurrent ?? 0,
             HonorLevel = maxHonorAccount?.AddonData?.HonorLevel ?? 0,
@@ -435,24 +445,16 @@ public class ApiController : Controller
                 .EmptyIfNull()
                 .Select(m => (ushort)m).ToArray()),
 
-            Pets = allPets
-                .Values
-                .GroupBy(pet => pet.SpeciesId)
-                .ToDictionary(
-                    group => group.Key,
-                    group => group
-                        .OrderByDescending(pet => pet.Level)
-                        .ThenByDescending(pet => (int)pet.Quality)
-                        .Select(pet => new UserPetDataPet(pet))
-                        .ToList()
-                ),
+            Pets = petObjects,
 
             ToysPacked = SerializationUtilities.SerializeInt32Array(toyIds),
         };
-        var json = JsonConvert.SerializeObject(apiData);
+        //var json = JsonConvert.SerializeObject(apiData);
+        var json = System.Text.Json.JsonSerializer.Serialize(apiData, _jsonSerializerOptions);
 
         timer.AddPoint("Build", true);
-        _logger.LogInformation("{Timer}", timer);
+        _logger.LogInformation("{userId} | {userName} | {total} | {timer}",
+            apiResult.User.Id, apiResult.User.UserName, timer.TotalDuration, timer);
 
         if (lastModified > DateTimeOffset.MinValue)
         {

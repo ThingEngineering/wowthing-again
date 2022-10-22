@@ -2,7 +2,7 @@
     import type { DateTime } from 'luxon'
 
     import { iconStrings } from '@/data/icons'
-    import { staticStore, timeStore, userStore } from '@/stores'
+    import { itemStore, staticStore, timeStore, userStore } from '@/stores'
     import { toNiceDuration } from '@/utils/to-nice'
     import type { Character, DailyQuestsReward } from '@/types'
     import type { GlobalDailyQuest } from '@/types/data'
@@ -91,7 +91,7 @@
                                     border={1}
                                 />
 
-                                {@const itemName = $userStore.data.globalDailyItems?.[rewards.itemId]}
+                                {@const itemName = $itemStore.data.items[rewards.itemId]?.name}
                                 <span class="quality{rewards.quality}">{itemName || `Item ${rewards.itemId}`}</span>
 
                                 {#if rewards.quantity > 1}

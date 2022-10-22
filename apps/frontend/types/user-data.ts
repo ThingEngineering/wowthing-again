@@ -24,7 +24,6 @@ export interface UserData {
     backgrounds: Record<number, BackgroundImage>
     currentPeriod: Record<number, UserDataCurrentPeriod>
     globalDailies: Record<string, DailyQuests>
-    globalDailyItems?: Record<number, string>
     images: Record<string, string>
 
     addonMounts: Record<number, boolean>
