@@ -445,7 +445,7 @@ public class ApiController : Controller
                 .EmptyIfNull()
                 .Select(m => (ushort)m).ToArray()),
 
-            Pets = petObjects,
+            PetsRaw = petObjects,
 
             ToysPacked = SerializationUtilities.SerializeInt32Array(toyIds),
         };

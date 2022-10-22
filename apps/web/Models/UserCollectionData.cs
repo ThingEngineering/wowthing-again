@@ -13,7 +13,7 @@ public class UserCollectionData
     public Dictionary<int, List<UserPetDataPet>> Pets { get; set; }
 }
 
-[JsonConverter(typeof(UserPetDataPetConverter))]
+[System.Text.Json.Serialization.JsonConverter(typeof(UserPetDataPetConverter))]
 public class UserPetDataPet
 {
     public int BreedId { get; set; }

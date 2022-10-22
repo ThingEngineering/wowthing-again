@@ -22,8 +22,8 @@
     let intersected = false
     $: {
         accountEnabled =
-            character.accountId === undefined ||
-            $userStore.data.accounts[character.accountId].enabled
+            !character.accountId ||
+            $userStore.data.accounts[character.accountId]?.enabled
     }
 </script>
 
