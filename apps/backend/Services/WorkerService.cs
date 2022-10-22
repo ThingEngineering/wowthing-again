@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 using System.Net.Http;
+using System.Text.Json;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -32,6 +33,7 @@ public class WorkerService : BackgroundService
         IHttpClientFactory clientFactory,
         IServiceScopeFactory serviceScopeFactory,
         JobRepository jobRepository,
+        JsonSerializerOptions jsonSerializerOptions,
         StateService stateService
     )
     {
@@ -49,6 +51,7 @@ public class WorkerService : BackgroundService
             clientFactory,
             _logger,
             jobRepository,
+            jsonSerializerOptions,
             stateService,
             redisConnectionString
         );
@@ -75,7 +78,7 @@ public class WorkerService : BackgroundService
     protected override async Task ExecuteAsync(CancellationToken cancellationToken)
     {
         _logger.Information("Service starting");
-            
+
         // Give things a chance to get organized
         await Task.Delay(2000, cancellationToken);
 

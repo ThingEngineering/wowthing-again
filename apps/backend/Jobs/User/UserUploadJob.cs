@@ -86,7 +86,8 @@ public class UserUploadJob : JobBase
         _timer.AddPoint("Write");
 #endif
 
-        var parsed = JsonConvert.DeserializeObject<Upload[]>(json)[0]; // TODO work out why this is an array of objects
+        //var parsed = JsonConvert.DeserializeObject<Upload[]>(json)[0]; // TODO work out why this is an array of objects
+        var parsed = System.Text.Json.JsonSerializer.Deserialize<Upload[]>(json, JsonSerializerOptions)[0];
         _timer.AddPoint("Parse");
 
         // Fetch instance data for lockouts
