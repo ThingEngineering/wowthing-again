@@ -74,12 +74,12 @@ public class UserCharactersJob : JobBase
             {
                 if (e.Message != "404")
                 {
-                    Logger.Warning("HTTP request failed: {region} {e} {sigh}", region, e.Message, e.StatusCode);
+                    Logger.Error("HTTP request failed: {region} {e} {sigh}", region, e.Message, e.StatusCode);
                 }
             }
             catch (Exception ex ) when (ex is TimeoutException or TaskCanceledException)
             {
-                Logger.Warning("HTTP request timed out: {region} {msg}", region, ex.Message);
+                Logger.Error("HTTP request timed out: {region} {msg}", region, ex.Message);
             }
         }
 

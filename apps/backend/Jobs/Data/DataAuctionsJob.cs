@@ -1,4 +1,5 @@
-﻿using Npgsql;
+﻿using System.Net.Http;
+using Npgsql;
 using NpgsqlTypes;
 using Wowthing.Backend.Models;
 using Wowthing.Backend.Models.API;
@@ -74,9 +75,14 @@ COPY {0} (
         {
             result = await GetJson<ApiDataAuctions>(uri, timer: timer);
         }
-        catch (TimeoutException)
+        catch (HttpRequestException e)
         {
-            Logger.Error("request timed out!");
+            Logger.Error("HTTP request failed: {msg}", e.Message);
+            return;
+        }
+        catch (Exception e) when (e is TimeoutException or TaskCanceledException)
+        {
+            Logger.Error("HTTP request timed out: {msg}", e.Message);
             return;
         }
 
