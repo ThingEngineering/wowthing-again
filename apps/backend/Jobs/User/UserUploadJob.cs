@@ -985,27 +985,35 @@ public class UserUploadJob : JobBase
     {
         if (parts[0] == "pet")
         {
+            short.TryParse(parts[1], out short context);
+            short.TryParse(parts[2], out short itemLevel);
+            short.TryParse(parts[3], out short quality);
+
             // pet:speciesId:level:quality
             item.Count = 1;
             item.ItemId = 82800; // Pet Cage
-            item.Context = short.Parse(parts[1]); // SpeciesId
-            item.ItemLevel = short.Parse(parts[2]); // Level
-            item.Quality = short.Parse(parts[3]); // Quality
+            item.Context = context;
+            item.ItemLevel = itemLevel;
+            item.Quality = quality;
             item.BonusIds = new List<short>();
             item.Gems = new List<int>();
         }
         else
         {
             short.TryParse(parts[2].OrDefault("0"), out short context);
+            short.TryParse(parts[3].OrDefault("0"), out short enchantId);
+            short.TryParse(parts[4].OrDefault("0"), out short itemLevel);
+            short.TryParse(parts[5].OrDefault("0"), out short quality);
+            short.TryParse(parts[6].OrDefault("0"), out short suffixId);
 
             // count:id:context:enchant:ilvl:quality:suffix:bonusIDs:gems
             item.Count = int.Parse(parts[0]);
             item.ItemId = int.Parse(parts[1]);
             item.Context = context;
-            item.EnchantId = short.Parse(parts[3].OrDefault("0"));
-            item.ItemLevel = short.Parse(parts[4].OrDefault("0"));
-            item.Quality = short.Parse(parts[5].OrDefault("0"));
-            item.SuffixId = short.Parse(parts[6].OrDefault("0"));
+            item.EnchantId = enchantId;
+            item.ItemLevel = itemLevel;
+            item.Quality = quality;
+            item.SuffixId = suffixId;
 
             item.BonusIds = parts[7]
                 .EmptyIfNullOrWhitespace()
