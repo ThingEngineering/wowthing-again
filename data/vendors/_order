@@ -71,6 +71,10 @@ z3/_cataclysm.yml
     z3/molten_front.yml
     z3/tol_barad_peninsula.yml
     -
+    z3/vashjir_abyssal_depths.yml
+    z3/vashjir_kelpthar_forest.yml
+    z3/vashjir_shimmering_expanse.yml
+    -
     z3/deepholm.yml
     z3/mount_hyjal.yml
     z3/twilight_highlands.yml

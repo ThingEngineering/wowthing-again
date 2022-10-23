@@ -13,13 +13,15 @@ namespace Wowthing.Backend.Jobs;
 public class JobFactory
 {
     private readonly Dictionary<Type, Func<object>> _constructorMap;
+    private readonly Dictionary<Type, JobBase> _objectCache = new();
 
     private readonly CacheService _cacheService;
-    private readonly IHttpClientFactory _clientFactory;
     private readonly ILogger _logger;
     private readonly JobRepository _jobRepository;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
     private readonly StateService _stateService;
+
+    private readonly HttpClient _httpClient;
     private readonly ConnectionMultiplexer _redis;
 
     public JobFactory(
@@ -35,27 +37,37 @@ public class JobFactory
         _constructorMap = constructorMap;
 
         _cacheService = cacheService;
-        _clientFactory = clientFactory;
         _jobRepository = jobRepository;
         _jsonSerializerOptions = jsonSerializerOptions;
         _logger = logger;
         _stateService = stateService;
 
+        _httpClient = clientFactory.CreateClient("limited");
         _redis = RedisUtilities.GetConnection(redisConnectionString);
     }
 
-    public IJob Create(Type type, WowDbContext context, CancellationToken cancellationToken)
+    public JobBase Create(Type type, WowDbContext context, CancellationToken cancellationToken)
     {
-        var obj = (JobBase)_constructorMap[type]();
-        obj.CacheService = _cacheService;
-        obj.Http = _clientFactory.CreateClient("limited");
-        obj.JobRepository = _jobRepository;
-        obj.JsonSerializerOptions = _jsonSerializerOptions;
-        obj.Logger = _logger;
-        obj.Redis = _redis;
-        obj.StateService = _stateService;
+        if (!_objectCache.TryGetValue(type, out var obj))
+        {
+            obj = _objectCache[type] = (JobBase)_constructorMap[type]();
+            obj.CacheService = _cacheService;
+            obj.Http = _httpClient;
+            obj.JobRepository = _jobRepository;
+            obj.JsonSerializerOptions = _jsonSerializerOptions;
+            obj.Logger = _logger;
+            obj.Redis = _redis;
+            obj.StateService = _stateService;
+        }
+
         obj.Context = context;
         obj.CancellationToken = cancellationToken;
         return obj;
+    }
+
+    public static void Reset(JobBase job)
+    {
+        job.CancellationToken = CancellationToken.None;
+        job.Context = null;
     }
 }

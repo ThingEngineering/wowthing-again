@@ -44,7 +44,7 @@ public class ManualZoneMapFarm
             .EmptyIfNull()
             .Select(drop => new ManualZoneMapDrop(drop))
             .ToList();
-        Location = (farm.Location ?? "").Split();
+        Location = (farm.Location ?? "").Split(' ', StringSplitOptions.RemoveEmptyEntries);
         Name = farm.Name;
 
         QuestIds = farm.QuestId
