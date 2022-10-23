@@ -142,11 +142,11 @@ public class UserUploadJob : JobBase
             .ToDictionaryAsync(k => (k.Region, k.Name));
 
         // Fix some cases of realms being "KulTiras" in addon data but "Kul Tiras" here
-        foreach (var ((region, realmName), realm) in _realmMap)
+        foreach (var (region, realmName) in _realmMap.Keys.ToArray())
         {
             if (realmName.Contains(' '))
             {
-                _realmMap[(region, realmName.Replace(" ", ""))] = realm;
+                _realmMap[(region, realmName.Replace(" ", ""))] = _realmMap[(region, realmName)];
             }
         }
 
