@@ -16,12 +16,12 @@ public class JobFactory
     private readonly Dictionary<Type, JobBase> _objectCache = new();
 
     private readonly CacheService _cacheService;
+    private readonly IHttpClientFactory _clientFactory;
     private readonly ILogger _logger;
     private readonly JobRepository _jobRepository;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
     private readonly StateService _stateService;
 
-    private readonly HttpClient _httpClient;
     private readonly ConnectionMultiplexer _redis;
 
     public JobFactory(
@@ -37,12 +37,12 @@ public class JobFactory
         _constructorMap = constructorMap;
 
         _cacheService = cacheService;
+        _clientFactory = clientFactory;
         _jobRepository = jobRepository;
         _jsonSerializerOptions = jsonSerializerOptions;
         _logger = logger;
         _stateService = stateService;
 
-        _httpClient = clientFactory.CreateClient("limited");
         _redis = RedisUtilities.GetConnection(redisConnectionString);
     }
 
@@ -50,9 +50,8 @@ public class JobFactory
     {
         if (!_objectCache.TryGetValue(type, out var obj))
         {
-            obj = _objectCache[type] = (JobBase)_constructorMap[type]();
+            obj = /*_objectCache[type] =*/ (JobBase)_constructorMap[type]();
             obj.CacheService = _cacheService;
-            obj.Http = _httpClient;
             obj.JobRepository = _jobRepository;
             obj.JsonSerializerOptions = _jsonSerializerOptions;
             obj.Logger = _logger;
@@ -60,14 +59,20 @@ public class JobFactory
             obj.StateService = _stateService;
         }
 
-        obj.Context = context;
         obj.CancellationToken = cancellationToken;
+        obj.Context = context;
+        obj.Http = _clientFactory.CreateClient("limited");
         return obj;
     }
 
     public static void Reset(JobBase job)
     {
         job.CancellationToken = CancellationToken.None;
+
+        job.Context?.Dispose();
         job.Context = null;
+
+        job.Http?.Dispose();
+        job.Http = null;
     }
 }

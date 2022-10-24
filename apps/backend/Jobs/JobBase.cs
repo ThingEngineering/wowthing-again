@@ -207,6 +207,8 @@ public abstract class JobBase : IJob
             }
         }
 
+        response.Content.Dispose();
+
         if (timerOutput)
         {
             Logger.Debug("{0}", timer.ToString());
