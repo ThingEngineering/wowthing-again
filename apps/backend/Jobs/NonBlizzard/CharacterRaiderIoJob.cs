@@ -1,4 +1,5 @@
-﻿using Wowthing.Backend.Models.API.NonBlizzard;
+﻿using System.Net.Http;
+using Wowthing.Backend.Models.API.NonBlizzard;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
 
@@ -36,18 +37,23 @@ public class CharacterRaiderIoJob : JobBase
             Logger.Information("No matching seasons found: {Seasons}", string.Join(",", seasonIds.Select(id => id.ToString())));
             return;
         }
-            
+
         var oof = string.Join(":", oofParts);
-            
+
         // Fetch API data
         var uri = new Uri(string.Format(ApiUrl, query.Region.ToString().ToLowerInvariant(), query.RealmSlug, query.CharacterName, oof));
 
-        var result = await GetJson<ApiCharacterRaiderIo>(uri, useAuthorization: false, useLastModified: false);
-        /*if (result.NotModified)
+        ApiCharacterRaiderIo resultData;
+        try
         {
-            LogNotModified();
+            var result = await GetJson<ApiCharacterRaiderIo>(uri, useAuthorization: false, useLastModified: false);
+            resultData = result.Data
+        }
+        catch (HttpRequestException e)
+        {
+            Logger.Error("HTTP {0}", e.Message);
             return;
-        }*/
+        }
 
         // Fetch character data
         var raiderIo = await Context.PlayerCharacterRaiderIo.FindAsync(query.CharacterId);
@@ -61,7 +67,7 @@ public class CharacterRaiderIoJob : JobBase
         }
 
         var seasons = new Dictionary<int, PlayerCharacterRaiderIoSeasonScores>(raiderIo.Seasons.EmptyIfNull());
-        foreach (var season in result.Data.ScoresBySeason.EmptyIfNull())
+        foreach (var season in resultData.ScoresBySeason.EmptyIfNull())
         {
             seasons[season.SeasonId] = new PlayerCharacterRaiderIoSeasonScores
             {
