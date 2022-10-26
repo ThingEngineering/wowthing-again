@@ -1,10 +1,12 @@
 using System.Net;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using ComposableAsync;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Serialization;
+using RateLimiter;
 using Serilog;
 using Serilog.Templates;
 using Wowthing.Backend.Extensions;
@@ -94,7 +96,9 @@ public class Program
             {
                 config.Timeout = TimeSpan.FromSeconds(60);
             })
-            .AddHttpMessageHandler(() => new RateLimitHttpMessageHandler(RedisUtilities.GetConnection(redisConnectionString), backendOptions.ApiRateLimit))
+            .AddHttpMessageHandler(() => TimeLimiter
+                .GetFromMaxCountByInterval(backendOptions.ApiRateLimit, TimeSpan.FromSeconds(1))
+                .AsFixedDelegatingHandler())
             .SetHandlerLifetime(Timeout.InfiniteTimeSpan);
 
         // JSON options
