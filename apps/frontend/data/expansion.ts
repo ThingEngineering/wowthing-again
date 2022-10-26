@@ -16,6 +16,11 @@ export const expansionMap: Record<number, Expansion> = {
     9: new Expansion(9, 'Dragonflight', 'dragonflight', 'DF'),
 }
 
+export const expansionOrder: Expansion[] = sortBy(
+    Object.values(expansionMap),
+    (expansion) => expansion.id
+)
+
 export const expansionReverseOrder: Expansion[] = sortBy(
     Object.values(expansionMap),
     (expansion) => -expansion.id
