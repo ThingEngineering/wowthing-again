@@ -27,7 +27,7 @@ public class CacheJournalJob : JobBase, IScheduledJob
         Type = JobType.CacheJournal,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(24),
-        Version = 28,
+        Version = 29,
     };
 
     public override async Task Run(params string[] data)
@@ -86,7 +86,7 @@ public class CacheJournalJob : JobBase, IScheduledJob
         _timer.AddPoint("Data");
 
         var tiers = await DataUtilities.LoadDumpCsvAsync<DumpJournalTier>(Path.Join("enUS", "journaltier"));
-        tiers.Reverse();
+        //tiers.Reverse();
 
         var instancesById = (await DataUtilities.LoadDumpCsvAsync<DumpJournalInstance>(Path.Join("enUS", "journalinstance")))
             .ToDictionary(instance => instance.ID);
