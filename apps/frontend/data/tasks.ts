@@ -78,11 +78,6 @@ export const taskList: Task[] = [
         shortName: 'Maw ⚔',
     },
     {
-        key: 'slNewDeal',
-        name: 'Shadowlands - A New Deal (PvP)',
-        shortName: 'Deal',
-    },
-    {
         key: 'slTormentors',
         name: 'Shadowlands - Tormentors of Torghast',
         shortName: 'Torm',

@@ -1,0 +1,12 @@
+name: "Miscellaneous"
+groups:
+
+- name: "Dracthyr"
+  things:
+    - 1685 # Bronze Vorquin
+    - 1683 # Crimson Vorquin
+    - 1686 # Obsidian Vorquin
+    - 1684 # Sapphire Vorquin
+    - 1667 # Armored Vorquin Leystrider
+    - 1668 # Majestic Armored Vorquin
+    - 1665 # Swift Armored Vorquin

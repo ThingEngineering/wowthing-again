@@ -82,13 +82,6 @@ public class WorkerService : BackgroundService
         // Give things a chance to get organized
         await Task.Delay(2000, cancellationToken);
 
-        using var scope = _serviceScopeFactory.CreateScope();
-        var contextFactory = scope.ServiceProvider.GetService<IDbContextFactory<WowDbContext>>();
-        if (contextFactory == null)
-        {
-            throw new NullReferenceException("contextFactory is null??");
-        }
-
         await foreach (var result in _stateService.JobQueueReaders[_priority].ReadAllAsync(cancellationToken))
         {
             while (_stateService.AccessToken?.Valid != true)
@@ -97,27 +90,26 @@ public class WorkerService : BackgroundService
                 await Task.Delay(1000, cancellationToken);
             }
 
+            using var scope = _serviceScopeFactory.CreateScope();
+            var contextFactory = scope.ServiceProvider.GetService<IDbContextFactory<WowDbContext>>();
+            if (contextFactory == null)
+            {
+                throw new NullReferenceException("contextFactory is null??");
+            }
+
             (Type classType, string jobName) = JobTypeMap[result.Type];
             using (LogContext.PushProperty("Task", jobName))
             {
-                JobBase job = null;
                 try
                 {
                     await using var context = await contextFactory.CreateDbContextAsync(cancellationToken);
 
-                    job = _jobFactory.Create(classType, context, cancellationToken);
+                    var job = _jobFactory.Create(classType, context, cancellationToken);
                     await job.Run(result.Data);
                 }
                 catch (Exception ex)
                 {
                     _logger.Error(ex, "Job failed");
-                }
-                finally
-                {
-                    if (job != null)
-                    {
-                        JobFactory.Reset(job);
-                    }
                 }
             }
         }

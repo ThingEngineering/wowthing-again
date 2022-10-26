@@ -6,7 +6,7 @@
     import { covenantFeatureOrder, covenantFeatureReputation, covenantOrder } from '@/data/covenant'
     import { manualStore, staticStore, timeStore, userQuestStore, userStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
-    import getProgress from '@/utils/get-progress'
+    import tippy from '@/utils/tippy'
     import { toNiceDuration, toNiceNumber } from '@/utils/to-nice'
     import type { Character, CharacterShadowlandsCovenant, CharacterShadowlandsCovenantFeature } from '@/types'
     import type { ManualDataProgressCategory } from '@/types/data/manual'
@@ -17,13 +17,12 @@
     import Soulbind from './CharactersShadowlandsSoulbind.svelte'
     import Soulshapes from './CharactersShadowlandsSoulshapes.svelte'
     import Stitchyard from './CharactersShadowlandsStitchyard.svelte'
+    import WowthingImage from '@/components/images/sources/WowthingImage.svelte';
 
     export let character: Character
     export let covenantId: number
 
     let characterCovenant: CharacterShadowlandsCovenant
-    let campaignHave: number
-    let campaignTotal: number
     let features: {
         feature: CharacterShadowlandsCovenantFeature,
         key: string,
@@ -32,30 +31,19 @@
         rank: number,
         researching: string
     }[]
+
+    let anima: number
+    let progress: number
     let renown: number
+    let souls: number
+
     $: {
         characterCovenant = character.shadowlands?.covenants?.[covenantId]
-
-        const category: ManualDataProgressCategory = find(
-            find(
-                $manualStore.data.progressSets,
-                (progress) => progress?.[0].slug === 'shadowlands'
-            ),
-            (category) => category?.name === 'Covenant Story'
-        )
-        const progress = getProgress(
-            $staticStore.data,
-            $userStore.data,
-            null,
-            $userQuestStore.data,
-            character,
-            category,
-            category.groups[covenantOrder.indexOf(covenantId)],
-        )
-        campaignHave = progress.have
-        campaignTotal = progress.total
-
+        
+        anima = characterCovenant?.anima ?? 0
         renown = characterCovenant?.renown ?? 0
+        souls = characterCovenant?.souls ?? 0
+        progress = character.currencies?.[1889]?.quantity ?? 0
 
         features = []
         for (const [key, name, maxRank] of covenantFeatureOrder) {
@@ -128,6 +116,14 @@
             font-size: 1.1rem;
         }
     }
+    .info-icons {
+        gap: 1rem;
+        //justify-content: flex-start;
+    }
+    .info-icon {
+        --image-border-width: 2px;
+        --image-margin-top: -4px;
+    }
     .info-research {
         font-style: italic;
         text-align: right;
@@ -145,26 +141,59 @@
 <div class="covenant">
     <div class="left">
         <div class="info">
-            <div class="info-row large">
-                <div>Renown</div>
-                <div class="drop-shadow {getPercentClass(renown / Constants.maxRenown * 100)}">{renown}</div>
-            </div>
+            <div class="info-row large info-icons">
+                <div class="info-icon" use:tippy={`${renown} Renown`}>
+                    <WowthingImage
+                        name="spell/370359"
+                        size={40}
+                        border={2}
+                    />
+                    <span class="drop-shadow {getPercentClass(renown / Constants.maxRenown * 100)}">
+                        {renown}
+                    </span>
+                </div>
 
-            <div class="info-row large">
-                <div>9.0 Campaign</div>
-                <div class="drop-shadow {getPercentClass(campaignHave / campaignTotal * 100)}">{campaignHave} / {campaignTotal}</div>
-            </div>
+                <div
+                    class="info-icon"
+                    use:tippy={`${anima.toLocaleString()} Reservoir Anima`}
+                >
+                    <WowthingImage
+                        name="currency/1813"
+                        size={40}
+                        border={2}
+                    />
+                    <span class="drop-shadow">
+                        {toNiceNumber(anima)}
+                    </span>
+                </div>
 
-            <div class="spacer"></div>
+                <div
+                    class="info-icon"
+                    use:tippy={`${souls.toLocaleString()} Redeemed Souls`}
+                >
+                    <WowthingImage
+                        name="currency/1810"
+                        size={40}
+                        border={2}
+                    />
+                    <span class="drop-shadow">
+                        {toNiceNumber(souls)}
+                    </span>
+                </div>
 
-            <div class="info-row large">
-                <div>Anima</div>
-                <div>{toNiceNumber(characterCovenant?.anima ?? 0)}</div>
-            </div>
-
-            <div class="info-row large">
-                <div>Souls</div>
-                <div>{toNiceNumber(characterCovenant?.souls ?? 0)}</div>
+                <div
+                    class="info-icon"
+                    use:tippy={`${progress.toLocaleString()} Adventure Campaign Progress`}
+                >
+                    <WowthingImage
+                        name="currency/1889"
+                        size={40}
+                        border={2}
+                    />
+                    <span class="drop-shadow {getPercentClass(progress / 20 * 100)}">
+                        {toNiceNumber(progress)}
+                    </span>
+                </div>
             </div>
 
             <div class="spacer"></div>
