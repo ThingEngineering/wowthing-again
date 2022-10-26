@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { taskMap } from '@/data/tasks'
     import { userStore } from '@/stores'
     import { data as settings } from '@/stores/settings'
     import { getActiveHoliday } from '@/utils/get-active-holiday'
@@ -12,20 +13,23 @@
     $: activeHoliday = getActiveHoliday($userStore.data)
 </script>
 
-{#each $settings.layout.homeTasks as task}
-    {#if task === 'dmfProfessions'}
-        <RowDmfProfessions {character} />
-    {:else if !task.startsWith('holiday') || task === activeHoliday}
-        <RowProgressQuest
-            {character}
-            quest={task}
-        />
-    {/if}
+{#each $settings.layout.homeTasks as taskName}
+    {@const task = taskMap[taskName]}
+    {#if task}
+        {#if taskName === 'dmfProfessions'}
+            <RowDmfProfessions {character} />
+        {:else if !taskName.startsWith('holiday') || taskName === activeHoliday}
+            <RowProgressQuest
+                {character}
+                quest={taskName}
+            />
+        {/if}
 
-    {#if task === activeHoliday && task === 'holidayTimewalking'}
-        <RowProgressQuest
-            {character}
-            quest={'timewalking'}
-        />
+        {#if taskName === activeHoliday && taskName === 'holidayTimewalking'}
+            <RowProgressQuest
+                {character}
+                quest={'timewalking'}
+            />
+        {/if}
     {/if}
 {/each}

@@ -24,29 +24,32 @@
 </style>
 
 {#each $settings.layout.homeTasks as taskName}
-    {#if !taskName.startsWith('holiday') || taskName === activeHoliday}
-        <td
-            use:tippyComponent={{
-                component: Tooltip,
-                props: {
-                    taskName,
-                },
-            }}
-        >
-            <ParsedText text={taskMap[taskName].shortName} />
-        </td>
-    {/if}
+    {@const task = taskMap[taskName]}
+    {#if task}
+        {#if !taskName.startsWith('holiday') || taskName === activeHoliday}
+            <td
+                use:tippyComponent={{
+                    component: Tooltip,
+                    props: {
+                        taskName,
+                    },
+                }}
+            >
+                <ParsedText text={taskMap[taskName].shortName} />
+            </td>
+        {/if}
 
-    {#if taskName === activeHoliday && taskName === 'holidayTimewalking'}
-        <td
-            use:tippyComponent={{
-                component: Tooltip,
-                props: {
-                    taskName: 'timewalking',
-                },
-            }}
-        >
-            <ParsedText text={taskMap['timewalking'].shortName} />
-        </td>
+        {#if taskName === activeHoliday && taskName === 'holidayTimewalking'}
+            <td
+                use:tippyComponent={{
+                    component: Tooltip,
+                    props: {
+                        taskName: 'timewalking',
+                    },
+                }}
+            >
+                <ParsedText text={taskMap['timewalking'].shortName} />
+            </td>
+        {/if}
     {/if}
 {/each}
