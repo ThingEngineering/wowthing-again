@@ -1,12 +1,13 @@
 export const categoryOrder: number[] = [
-    245, // Shadowlands
-    143, // Battle for Azeroth
-    141, // Legion
-    137, // Warlords of Draenor
-    133, // Mists of Pandaria
-    81, // Cataclysm
-    21, // Wrath of the Lich King
     23, // Burning Crusade
+    21, // Wrath of the Lich King
+    81, // Cataclysm
+    133, // Mists of Pandaria
+    137, // Warlords of Draenor
+    141, // Legion
+    143, // Battle for Azeroth
+    245, // Shadowlands
+    250, // Dragonflight
     //4, // Classic
     0,
     22, // Dungeon and Raid
@@ -15,17 +16,14 @@ export const categoryOrder: number[] = [
 ]
 
 export const currencyItems: Record<number, number[]> = {
-    // Shadowlands
-    245: [
-        188957, // Genesis Mote
-        190189, // Sandworn Relic
-        199202, // Attendant's Token of Merit [S4]
+    // Burning Crusade
+    23: [
+        26045, // Halaa Battle Token
+        26044, // Halaa Research Token
     ],
-    // Battle for Azeroth
-    143: [
-        152668, // Expulsom
-        162460, // Hydrocore
-        168802, // Nazjatar Battle Commendation
+    // Warlords of Draenor
+    137: [
+        124099, // Blackfang Claw
     ],
     // Legion
     141: [
@@ -33,14 +31,17 @@ export const currencyItems: Record<number, number[]> = {
         146963, // Desecrated Seaweed
         153021, // Intact Demon Eye
     ],
-    // Warlords of Draenor
-    137: [
-        124099, // Blackfang Claw
+    // Battle for Azeroth
+    143: [
+        152668, // Expulsom
+        162460, // Hydrocore
+        168802, // Nazjatar Battle Commendation
     ],
-    // Burning Crusade
-    23: [
-        26045, // Halaa Battle Token
-        26044, // Halaa Research Token
+    // Shadowlands
+    245: [
+        188957, // Genesis Mote
+        190189, // Sandworn Relic
+        199202, // Attendant's Token of Merit [S4]
     ],
     // Player vs Player
     2: [
@@ -60,6 +61,14 @@ export const currencyItems: Record<number, number[]> = {
 }
 
 const skipCurrencies: number[] = [
+    // Warlords of Draenor
+    897, // UNUSED
+
+    // Legion
+    1355, // Felessence
+    1356, // Echoes of Battle
+    1357, // Echoes of Domination
+
     // Shadowlands
     1743, // Fake Anima for Quest Tracking
     1754, // Argent Commendation??
@@ -87,13 +96,8 @@ const skipCurrencies: number[] = [
     1873, // Sanctum Anima Weaver-Night Fae
     1874, // Sanctum Anima Weaver-Necrolord
 
-    // Legion
-    1355, // Felessence
-    1356, // Echoes of Battle
-    1357, // Echoes of Domination
-
-    // Warlords of Draenor
-    897, // UNUSED
+    // Dragonflight
+    2073, // [AC] Major Faction Test Currency
 
     // Miscellaneous
     1, // Currency Token Test Token 4
