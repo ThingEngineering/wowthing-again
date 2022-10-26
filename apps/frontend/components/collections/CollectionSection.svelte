@@ -102,7 +102,7 @@
                 {#each category.groups as group}
                     <div
                         class="collection{useV2 ? '-v2' : ''}-group"
-                        style={useV2 ? '' : `width: calc((${group.things.length} * 44px) + (${group.things.length - 1} * 0.3rem));`}
+                        style={useV2 ? '' : `width: min(100%, calc((${group.things.length} * 44px) + (${group.things.length - 1} * 0.3rem)));`}
                     >
                         <h4
                             class="drop-shadow text-overflow {getPercentClass($userStore.data.setCounts[route][`${slug1}--${category.slug}--${group.name}`])}"
