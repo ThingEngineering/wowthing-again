@@ -1,104 +1,104 @@
-z8/_shadowlands.yml
-    z8/zereth_mortis.yml
-    -
-    z8/korthia.yml
-    z8/the_maw.yml
-    -
-    z8/ardenweald.yml
-    z8/bastion.yml
-    z8/maldraxxus.yml
-    z8/revendreth.yml
-    -
-    z8/elysian_hold.yml
-    z8/heart_of_the_forest.yml
-    z8/seat_of_the_primus.yml
-    z8/sinfall.yml
-    -
-    z8/oribos.yml
+00-classic/_.yml
 
-z7/_battle_for_azeroth.yml
-    z7/mechagon.yml
-    z7/nazjatar.yml
+01-the-burning-crusade/_.yml
+    01-the-burning-crusade/isle_of_queldanas.yml
     -
-    z7/boralus.yml
-    z7/drustvar.yml
-    z7/stormsong_valley.yml
-    z7/tiragarde_sound.yml
+    01-the-burning-crusade/nagrand.yml
+    01-the-burning-crusade/netherstorm.yml
     -
-    z7/dazaralor.yml
-    z7/nazmir.yml
-    z7/voldun.yml
-    z7/zuldazar.yml
+    01-the-burning-crusade/shattrath_city.yml
 
-z6/_legion.yml
-    z6/antoran_wastes.yml
-    z6/vindicaar.yml
-    -
-    z6/broken_shore.yml
-    -
-    z6/azsuna.yml
-    z6/highmountain.yml
-    z6/stormheim.yml
-    z6/suramar.yml
-    z6/valsharah.yml
-    -
-    z6/dalaran.yml
-    z6/dalaran_underbelly.yml
+02-wrath-of-the-lich-king/_.yml
+    02-wrath-of-the-lich-king/dalaran.yml
+    02-wrath-of-the-lich-king/dalaran_underbelly.yml
 
-z5/_warlords_of_draenor.yml
-    z5/tanaan_jungle.yml
+03-cataclysm/_.yml
+    03-cataclysm/molten_front.yml
+    03-cataclysm/tol_barad_peninsula.yml
     -
-    z5/nagrand.yml
-    z5/spires_of_arak.yml
+    03-cataclysm/vashjir_abyssal_depths.yml
+    03-cataclysm/vashjir_kelpthar_forest.yml
+    03-cataclysm/vashjir_shimmering_expanse.yml
     -
-    z5/stormshield.yml
-    z5/warspear.yml
+    03-cataclysm/deepholm.yml
+    03-cataclysm/mount_hyjal.yml
+    03-cataclysm/twilight_highlands.yml
+    03-cataclysm/uldum.yml
 
-z4/_mists_of_pandaria.yml
-    z4/isle_of_giants.yml
-    z4/isle_of_thunder.yml
-    z4/timeless_isle.yml
+04-mists-of-pandaria/_.yml
+    04-mists-of-pandaria/isle_of_giants.yml
+    04-mists-of-pandaria/isle_of_thunder.yml
+    04-mists-of-pandaria/timeless_isle.yml
     -
-    z4/dread_wastes.yml
-    z4/jade_forest.yml
-    z4/krasarang_wilds.yml
-    z4/kun_lai_summit.yml
-    z4/townlong_steppes.yml
-    z4/vale_of_eternal_blossoms.yml
-    z4/valley_of_the_four_winds.yml
+    04-mists-of-pandaria/dread_wastes.yml
+    04-mists-of-pandaria/jade_forest.yml
+    04-mists-of-pandaria/krasarang_wilds.yml
+    04-mists-of-pandaria/kun_lai_summit.yml
+    04-mists-of-pandaria/townlong_steppes.yml
+    04-mists-of-pandaria/vale_of_eternal_blossoms.yml
+    04-mists-of-pandaria/valley_of_the_four_winds.yml
 
-z3/_cataclysm.yml
-    z3/molten_front.yml
-    z3/tol_barad_peninsula.yml
+05-warlords-of-draenor/_.yml
+    05-warlords-of-draenor/tanaan_jungle.yml
     -
-    z3/vashjir_abyssal_depths.yml
-    z3/vashjir_kelpthar_forest.yml
-    z3/vashjir_shimmering_expanse.yml
+    05-warlords-of-draenor/nagrand.yml
+    05-warlords-of-draenor/spires_of_arak.yml
     -
-    z3/deepholm.yml
-    z3/mount_hyjal.yml
-    z3/twilight_highlands.yml
-    z3/uldum.yml
+    05-warlords-of-draenor/stormshield.yml
+    05-warlords-of-draenor/warspear.yml
 
-z2/_wrath_of_the_lich_king.yml
-    z2/dalaran.yml
-    z2/dalaran_underbelly.yml
+06-legion/_.yml
+    06-legion/antoran_wastes.yml
+    06-legion/vindicaar.yml
+    -
+    06-legion/broken_shore.yml
+    -
+    06-legion/azsuna.yml
+    06-legion/highmountain.yml
+    06-legion/stormheim.yml
+    06-legion/suramar.yml
+    06-legion/valsharah.yml
+    -
+    06-legion/dalaran.yml
+    06-legion/dalaran_underbelly.yml
 
-z1/_the_burning_crusade.yml
-    z1/isle_of_queldanas.yml
+07-battle-for-azeroth/_.yml
+    07-battle-for-azeroth/mechagon.yml
+    07-battle-for-azeroth/nazjatar.yml
     -
-    z1/nagrand.yml
-    z1/netherstorm.yml
+    07-battle-for-azeroth/boralus.yml
+    07-battle-for-azeroth/drustvar.yml
+    07-battle-for-azeroth/stormsong_valley.yml
+    07-battle-for-azeroth/tiragarde_sound.yml
     -
-    z1/shattrath_city.yml
+    07-battle-for-azeroth/dazaralor.yml
+    07-battle-for-azeroth/nazmir.yml
+    07-battle-for-azeroth/voldun.yml
+    07-battle-for-azeroth/zuldazar.yml
+
+08-shadowlands/_.yml
+    08-shadowlands/zereth_mortis.yml
+    -
+    08-shadowlands/korthia.yml
+    08-shadowlands/the_maw.yml
+    -
+    08-shadowlands/ardenweald.yml
+    08-shadowlands/bastion.yml
+    08-shadowlands/maldraxxus.yml
+    08-shadowlands/revendreth.yml
+    -
+    08-shadowlands/elysian_hold.yml
+    08-shadowlands/heart_of_the_forest.yml
+    08-shadowlands/seat_of_the_primus.yml
+    08-shadowlands/sinfall.yml
+    -
+    08-shadowlands/oribos.yml
 
 -
 
-other/_other.yml
-    other/darkmoon_island.yml
-
 world-events/_world_events.yml
     world-events/brewfest.yml
+    world-events/darkmoon_faire.yml
     world-events/hallows_end.yml
     world-events/love_is_in_the_air.yml
     world-events/lunar_festival.yml
@@ -109,6 +109,6 @@ world-events/_world_events.yml
 -
 
 pvp/_pvp.yml
-    pvp/mists_of_pandaria.yml
-    pvp/wrath_of_the_lich_king.yml
-    pvp/the_burning_crusade.yml
+    pvp/01_the_burning_crusade.yml
+    pvp/02_wrath_of_the_lich_king.yml
+    pvp/04_mists_of_pandaria.yml
