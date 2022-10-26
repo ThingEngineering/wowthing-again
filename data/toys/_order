@@ -7,24 +7,24 @@
     treasures.yml
     vendors.yml
 
-00-classic/_classic.yml
+00-classic/_.yml
 
-01-the-burning-crusade/_the_burning_crusade.yml
+01-the-burning-crusade/_.yml
 
-02-wrath-of-the-lich-king/_wrath_of_the_lich_king.yml
+02-wrath-of-the-lich-king/_.yml
 
-03-cataclysm/_cataclysm.yml
+03-cataclysm/_.yml
 
-04-mists-of-pandaria/_mists_of_pandaria.yml
+04-mists-of-pandaria/_.yml
 
-05-warlords-of-draenor/_warlords_of_draenor.yml
+05-warlords-of-draenor/_.yml
     05-warlords-of-draenor/garrisons.yml
 
-06-legion/_legion.yml
+06-legion/_.yml
 
-07-battle-for-azeroth/_battle_for_azeroth.yml
+07-battle-for-azeroth/_.yml
 
-08-shadowlands/_shadowlands.yml
+08-shadowlands/_.yml
 
 09-dragonflight/_.yml
 
