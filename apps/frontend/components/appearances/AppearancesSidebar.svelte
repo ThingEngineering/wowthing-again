@@ -18,7 +18,7 @@
                 slug: 'expansion',
                 children: sortBy(
                     Object.values(expansionMap),
-                    (expansion) => 100 - expansion.id
+                    (expansion) => expansion.id
                 ),
             },
             null,

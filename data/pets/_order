@@ -6,38 +6,38 @@
     treasures.yml
     vendors.yml
 
-z8/_shadowlands.yml
-    z8/covenants.yml
-    z8/protoform_synthesis.yml
-    z8/pet_battles.yml
+00-classic/_.yml
+    00-classic/pet_battles_eastern_kingdoms.yml
+    00-classic/pet_battles_kalimdor.yml
 
-z7/_battle_for_azeroth.yml
-    z7/pet_battles.yml
+01-the-burning-crusade/_.yml
+    01-the-burning-crusade/pet_battles.yml
 
-z6/_legion.yml
-    z6/order_halls.yml
-    z6/pet_battles.yml
-
-z5/_warlords_of_draenor.yml
-    z5/garrisons.yml
-    z5/pet_battles.yml
-
-z4/_mists_of_pandaria.yml
-    z4/pet_battles.yml
-
-z3/_cataclysm.yml
-    z3/pet_battles.yml
-
-z2/_wrath_of_the_lich_king.yml
+02-wrath-of-the-lich-king/_.yml
     world_events/argent_tournament.yml
-    z2/pet_battles.yml
+    02-wrath-of-the-lich-king/pet_battles.yml
 
-z1/_the_burning_crusade.yml
-    z1/pet_battles.yml
+03-cataclysm/_.yml
+    03-cataclysm/pet_battles.yml
 
-z0/_classic.yml
-    z0/pet_battles_eastern_kingdoms.yml
-    z0/pet_battles_kalimdor.yml
+04-mists-of-pandaria/_.yml
+    04-mists-of-pandaria/pet_battles.yml
+
+05-warlords-of-draenor/_.yml
+    05-warlords-of-draenor/garrisons.yml
+    05-warlords-of-draenor/pet_battles.yml
+
+06-legion/_.yml
+    06-legion/order_halls.yml
+    06-legion/pet_battles.yml
+
+07-battle-for-azeroth/_.yml
+    07-battle-for-azeroth/pet_battles.yml
+
+08-shadowlands/_.yml
+    08-shadowlands/covenants.yml
+    08-shadowlands/protoform_synthesis.yml
+    08-shadowlands/pet_battles.yml
 
 09-dragonflight/_.yml
 
@@ -58,36 +58,36 @@ world_events/_world_events.yml
 -
 
 drops.yml
-    z8/drops.yml Shadowlands
-    z7/drops.yml Battle for Azeroth
-    z6/drops.yml Legion
-    z5/drops.yml Warlords of Draenor
-    z4/drops.yml Mists of Pandaria
+    04-mists-of-pandaria/drops.yml Mists of Pandaria
+    05-warlords-of-draenor/drops.yml Warlords of Draenor
+    06-legion/drops.yml Legion
+    07-battle-for-azeroth/drops.yml Battle for Azeroth
+    08-shadowlands/drops.yml Shadowlands
 
 instances.yml
-    z8/instances.yml Shadowlands
-    z7/instances.yml Battle for Azeroth
-    z4/instances.yml Mists of Pandaria
-    z3/instances.yml Cataclysm
-    z2/instances.yml Wrath of the Lich King
-    z1/instances.yml Burning Crusade
-    z0/instances.yml Classic
+    00-classic/instances.yml Classic
+    01-the-burning-crusade/instances.yml Burning Crusade
+    02-wrath-of-the-lich-king/instances.yml Wrath of the Lich King
+    03-cataclysm/instances.yml Cataclysm
+    04-mists-of-pandaria/instances.yml Mists of Pandaria
+    07-battle-for-azeroth/instances.yml Battle for Azeroth
+    08-shadowlands/instances.yml Shadowlands
 
 pet_battles.yml
-    z8/pet_battles.yml Shadowlands
-    z7/pet_battles.yml Battle for Azeroth
-    z6/pet_battles.yml Legion
-    z5/pet_battles.yml Warlords of Draenor
-    z4/pet_battles.yml Mists of Pandaria
-    z3/pet_battles.yml Cataclysm
-    z2/pet_battles.yml Wrath of the Lich King
-    z1/pet_battles.yml The Burning Crusade
-    z0/pet_battles_eastern_kingdoms.yml Classic - Eastern Kingdoms
-    z0/pet_battles_kalimdor.yml Classic - Kalimdor
+    00-classic/pet_battles_eastern_kingdoms.yml Classic - Eastern Kingdoms
+    00-classic/pet_battles_kalimdor.yml Classic - Kalimdor
+    01-the-burning-crusade/pet_battles.yml The Burning Crusade
+    02-wrath-of-the-lich-king/pet_battles.yml Wrath of the Lich King
+    03-cataclysm/pet_battles.yml Cataclysm
+    04-mists-of-pandaria/pet_battles.yml Mists of Pandaria
+    05-warlords-of-draenor/pet_battles.yml Warlords of Draenor
+    06-legion/pet_battles.yml Legion
+    07-battle-for-azeroth/pet_battles.yml Battle for Azeroth
+    08-shadowlands/pet_battles.yml Shadowlands
 
 reputations.yml
-    z8/reputations.yml Shadowlands
-    z7/reputations.yml Battle for Azeroth
+    07-battle-for-azeroth/reputations.yml Battle for Azeroth
+    08-shadowlands/reputations.yml Shadowlands
 
 -
 

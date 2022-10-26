@@ -1,7 +1,7 @@
 <script lang="ts">
     import find from 'lodash/find'
 
-    import { expansionReverseOrder } from '@/data/expansion'
+    import { expansionOrder } from '@/data/expansion'
     import { imageStrings } from '@/data/icons'
     import { staticStore } from '@/stores'
     import type { Character } from '@/types'
@@ -25,7 +25,7 @@
         
         if (profession) {
             filterFunc = (char) => !!char.professions?.[profession.id]
-            subProfessions = profession.subProfessions.slice().reverse()
+            subProfessions = profession.subProfessions.slice()
         }
         else {
             filterFunc = () => false
@@ -62,7 +62,7 @@
             {#if profession.slug === 'archaeology'}
                 <td class="profession-head">Ugh</td>
             {:else}
-                {#each expansionReverseOrder as expansion}
+                {#each expansionOrder as expansion}
                     <td class="profession-head">{expansion.shortName}</td>
                 {/each}
             {/if}

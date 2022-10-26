@@ -1,0 +1,35 @@
+name: "Dragonflight"
+minimumLevel: 60
+reputations:
+
+# 10.0
+-
+  - both:
+      id: 2507 # Dragonscale Expedition
+      icon: "achievement/16522" # A True Explorer
+    paragon: true
+
+  - both:
+      id: 2511 # Iskaara Tuskarr
+      icon: "achievement/16529" # Joining the Community
+    paragon: true
+  
+  - both:
+      id: 2503 # Maruuk Centaur
+      icon: "achievement/16528" # Joining the Khansguard
+    paragon: true
+  
+  - both:
+      id: 2510 # Valdrakken Accord
+      icon: "achievement/16530" # Ally of the Flights
+    paragon: true
+
+# 10.0 Friends
+-
+  - both:
+      id: 2518 # Sabellian
+      icon: "achievement/16532" # Friends with Sabellian
+
+  - both:
+      id: 2517 # Wrathion
+      icon: "achievement/16536" # True Friends with Wrathion

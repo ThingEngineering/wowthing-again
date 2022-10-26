@@ -1,7 +1,7 @@
 name: Engineering
 groups:
 
-- name: The Burning Crusade
+- name: "Burning Crusade"
   things:
   -  30542 # Dimensional Ripper - Area 52 (Outland 50)
   -  30544 # Ultrasafe Transporter: Toshley's Station (Outland 50)

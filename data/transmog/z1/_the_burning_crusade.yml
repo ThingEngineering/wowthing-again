@@ -1,8 +1,0 @@
-name: The Burning Crusade
-skipClasses:
-- death-knight
-- demon-hunter
-- monk
-groups:
-
-- name: Empty
