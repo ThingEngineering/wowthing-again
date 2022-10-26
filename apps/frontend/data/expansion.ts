@@ -5,7 +5,7 @@ import { Expansion } from '@/types'
 
 export const expansionMap: Record<number, Expansion> = {
     0: new Expansion(0, 'Classic', 'classic', 'Classic'),
-    1: new Expansion(1, 'The Burning Crusade', 'the-burning-crusade', 'TBC'),
+    1: new Expansion(1, 'Burning Crusade', 'burning-crusade', 'TBC'),
     2: new Expansion(2, 'Wrath of the Lich King', 'wrath-of-the-lich-king', 'WotLK'),
     3: new Expansion(3, 'Cataclysm', 'cataclysm', 'Cata'),
     4: new Expansion(4, 'Mists of Pandaria', 'mists-of-pandaria', 'MoP'),

@@ -13,7 +13,7 @@ groups:
   -  64383 # Kaldorei Wind Chimes (Night Elf)
   -  64651 # Wisp Amulet (Night Elf)
 
-- name: The Burning Crusade
+- name: "Burning Crusade"
   things:
   -  64456 # Arrival of the Naaru (Draenei)
 
