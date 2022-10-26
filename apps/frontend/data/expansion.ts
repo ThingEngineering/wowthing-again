@@ -13,6 +13,7 @@ export const expansionMap: Record<number, Expansion> = {
     6: new Expansion(6, 'Legion', 'legion', 'Legion'),
     7: new Expansion(7, 'Battle for Azeroth', 'battle-for-azeroth', 'BfA'),
     8: new Expansion(8, 'Shadowlands', 'shadowlands', 'SL'),
+    9: new Expansion(9, 'Dragonflight', 'dragonflight', 'DF'),
 }
 
 export const expansionReverseOrder: Expansion[] = sortBy(
