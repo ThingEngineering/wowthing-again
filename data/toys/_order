@@ -1,6 +1,7 @@
 *
     drops.yml
     instances.yml
+    professions.yml
     quests.yml
     reputations.yml
     treasures.yml
@@ -24,6 +25,8 @@ z2/_wrath_of_the_lich_king.yml
 z1/_the_burning_crusade.yml
 
 z0/_classic.yml
+
+09-dragonflight/_.yml
 
 -
 
