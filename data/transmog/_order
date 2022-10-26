@@ -4,55 +4,55 @@
     dungeons.yml
     pvp.yml
 
-z8/_shadowlands.yml
-    z8/zereth_mortis.yml
-    z8/korthia.yml
-    z8/covenants.yml
+00-classic/_.yml
 
-z7/_battle_for_azeroth.yml
+01-the-burning-crusade/_.yml
 
-z6/_legion.yml
+02-wrath-of-the-lich-king/_.yml
 
-z5/_warlords_of_draenor.yml
+03-cataclysm/_.yml
 
-z4/_mists_of_pandaria.yml
+04-mists-of-pandaria/_.yml
 
-z3/_cataclysm.yml
+05-warlords-of-draenor/_.yml
 
-z2/_wrath_of_the_lich_king.yml
+06-legion/_.yml
 
-z1/_the_burning_crusade.yml
+07-battle-for-azeroth/_.yml
 
-z0/_classic.yml
+08-shadowlands/_.yml
+    08-shadowlands/covenants.yml
+    08-shadowlands/korthia.yml
+    08-shadowlands/zereth_mortis.yml
 
 -
 
 raids.yml
-    z8/raids.yml Shadowlands
-    z7/raids.yml Battle for Azeroth
-    z6/raids.yml Legion
-    z5/raids.yml Warlords of Draenor
-    z4/raids.yml Mists of Pandaria
-    z3/raids.yml Cataclysm
-    z2/raids.yml Wrath of the Lich King
-    z1/raids.yml The Burning Crusade
-    z0/raids.yml Classic
+    00-classic/raids.yml Classic
+    01-the-burning-crusade/raids.yml The Burning Crusade
+    02-wrath-of-the-lich-king/raids.yml Wrath of the Lich King
+    03-cataclysm/raids.yml Cataclysm
+    04-mists-of-pandaria/raids.yml Mists of Pandaria
+    05-warlords-of-draenor/raids.yml Warlords of Draenor
+    06-legion/raids.yml Legion
+    07-battle-for-azeroth/raids.yml Battle for Azeroth
+    08-shadowlands/raids.yml Shadowlands
 
 dungeons.yml
-    z4/dungeons.yml Mists of Pandaria
-    z1/dungeons.yml The Burning Crusade
-    z0/dungeons.yml Classic
+    00-classic/dungeons.yml Classic
+    01-the-burning-crusade/dungeons.yml The Burning Crusade
+    04-mists-of-pandaria/dungeons.yml Mists of Pandaria
 
 pvp.yml
-    z8/pvp.yml Shadowlands
-    z7/pvp.yml Battle for Azeroth
-    z6/pvp.yml Legion
-    z5/pvp.yml Warlords of Draenor
-    z4/pvp.yml Mists of Pandaria
-    z3/pvp.yml Cataclysm
-    z2/pvp.yml Wrath of the Lich King
-    z1/pvp.yml The Burning Crusade
-    z0/pvp.yml Classic
+    00-classic/pvp.yml Classic
+    01-the-burning-crusade/pvp.yml The Burning Crusade
+    02-wrath-of-the-lich-king/pvp.yml Wrath of the Lich King
+    03-cataclysm/pvp.yml Cataclysm
+    04-mists-of-pandaria/pvp.yml Mists of Pandaria
+    05-warlords-of-draenor/pvp.yml Warlords of Draenor
+    06-legion/pvp.yml Legion
+    07-battle-for-azeroth/pvp.yml Battle for Azeroth
+    08-shadowlands/pvp.yml Shadowlands
 
 -
 
