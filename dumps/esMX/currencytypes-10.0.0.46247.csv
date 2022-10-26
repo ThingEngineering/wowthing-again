@@ -1,0 +1,452 @@
+ID,Name_lang
+1,Currency Token Test Token 4
+2,Currency Token Test Token 2
+4,Currency Token Test Token 5
+22,Birmingham Test Item 3
+42,Distintivo de justicia
+61,Muestra de joyero de Dalaran
+81,Premio epicúreo
+101,Emblema de heroísmo
+102,Emblema de valor
+103,Puntos de arena
+104,DEPRECATED Puntos de honor
+121,Marca de Honor del Valle de Alterac
+122,Marca de Honor de la Cuenca de Arathi
+123,Marca de Honor del Ojo de la Tormenta
+124,Marca de Honor de la Playa de los Ancestros
+125,Marca de Honor de la Garganta Grito de Guerra
+126,Marca de Honor de Conquista del Invierno
+161,Fragmento de vigilante de piedra
+181,DEPRECATED Puntos de honor
+201,Moneda de Ventura
+221,Emblema de conquista
+241,Sello de Campeón
+301,Emblema de triunfo
+321,Marca de Honor de la Isla de la Conquista
+341,Emblema de escarcha
+361,Muestra de ilustre joyero
+384,Fragmento de arqueología enana
+385,Fragmento de arqueología trol
+391,Mención de honor de Tol Barad
+393,Fragmento de arqueología fósil
+394,Fragmento de arqueología elfa de la noche
+395,Puntos de justicia
+396,Puntos de valor
+397,Fragmento de arqueología orca
+398,Fragmento de arqueología draenei
+399,Fragmento de arqueología vrykul
+400,Fragmento de arqueología nerubiana
+401,Fragmento de arqueología tol'vir
+402,Marca Zarpa Férrea
+416,Marca del Árbol del Mundo
+483,Meta de arena de conquista
+484,Meta de CB de conquista puntuado
+515,Vale de la Luna Negra
+614,Mota de oscuridad
+615,Esencia de Alamuerte corrupto
+676,Fragmento de arqueología pandaren
+677,Fragmento de arqueología mogu
+692,Meta de CB de conquista aleatorio
+697,Talismán ancestral de buena fortuna
+698,Marca de joyero zen
+738,Talismán inferior de buena fortuna
+752,Runa del destino mogu
+754,Fragmento de arqueología mántide
+776,Sello forjado por la guerra
+777,Moneda intemporal
+789,Moneda sangrienta
+810,Fragmento Hierro bruno
+821,Fragmento arqueológico de clanes de Draenor
+823,Cristal de ápices
+824,Recursos de la fortaleza
+828,Fragmento de arqueología ogra
+829,Fragmento de arqueología arakkoa
+830,n/d
+897,UNUSED
+910,El secreto de la alquimia de Draenor
+944,Fragmento del Artefacto
+980,Monedas de hierro deslucidas
+994,Sello del destino templado
+999,El secreto de la sastrería de Draenor
+1008,El secreto de la joyería de Draenor
+1017,El secreto de la peletería de Draenor
+1020,El secreto de la herrería de Draenor
+1101,Petróleo
+1129,Sello del destino inevitable
+1149,Ojo invidente
+1154,Monedas sombrías
+1155,Maná ancestral
+1166,Divisa cronoanómala
+1171,Conocimiento de artefacto
+1172,Fragmento de arqueología de Altonato
+1173,Fragmento de arqueología de tauren de Altamontaña
+1174,Fragmento de arqueología demoniaca
+1191,Valor
+1220,Recursos de la orden
+1226,Fragmento del vacío
+1268,Artefacto desgastado
+1273,Sello del Destino tábido
+1275,Moneda curiosa
+1299,Oro del Luchador
+1314,Fragmento de alma persistente
+1324,Mención de Qiraji de la Horda
+1325,Mención de Qiraji de la Alianza
+1342,Suministros bélicos de Legión caída
+1347,Edif - Leg caída - Rast personal - Torre de los Magos (oculto)
+1349,Edif - Leg caída - Rast personal - Torre de mando (oculto)
+1350,Edif - Leg caída - Rast personal - Torre de abisal (oculto)
+1355,Esenciavil
+1356,Ecos de batalla
+1357,Ecos de dominación
+1379,Ficha de Desafío de estilos
+1388,Restos de armadura
+1401,Suministros del bastión
+1416,Monedas de aire
+1501,Esencia retorcida
+1506,Piedra de camino de Argus
+1508,Argunita velada
+1533,Esencia del despertar
+1534,Fragmento arqueológico zandalari
+1535,Fragmento de arqueología drust
+1540,Madera
+1541,Hierro
+1553,Azerita
+1559,Esencia de tormenta
+1560,Recursos bélicos
+1565,Fragmento de azerita abundante
+1579,Campeones de Azeroth
+1580,Sello del destino bélico
+1585,Honor para toda la cuenta
+1586,Nivel de honor
+1587,Suministros bélicos
+1592,Orden de las Ascuas
+1593,Almirantazgo Valiente
+1594,Estela de la Tormenta
+1595,Expedición de Talanji
+1596,Voldunai
+1597,Imperio zandalari
+1598,Buscadores tortollanos
+1599,La Séptima Legión
+1600,Honorables
+1602,Conquista
+1703,Moneda de participación clasificada de la temporada de JcJ
+1704,Fragmento de espíritu
+1705,Warfronts - Personal Tracker - Iron in Chest (Hidden)
+1710,Doblón del navegante
+1714,Frentes de batalla - Rast personal - Madera en cofre (oculto)
+1715,Fragmento del progenitor
+1716,Medalla de servicio de los Honorables
+1717,Medalla de servicio de la Séptima Legión
+1718,Residuo titánico
+1719,Recuerdos corrompidos
+1721,Perla de maná prismática
+1722,Mena de azerita
+1723,Madera
+1728,Phantasma
+1738,Desencadenados
+1739,Ankoanos
+1740,Resistencia de Pernoxidado (oculto)
+1742,Resistencia de Pernoxidado
+1743,Ánima falsa para seguimiento de misión
+1744,Recuerdo corrompido
+1745,Aliada de Nazjatar - Neri Escama Letal
+1746,Aliado de Nazjatar - Vim Salmuerazón
+1747,Aliado de Nazjatar - Poen Branquen
+1748,Aliado de Nazjatar - Esgrimidor Inowari
+1749,Aliado de Nazjatar - Cazador Akana
+1750,Aliado de Nazjatar - Clarividente Ori
+1752,Colmena mielomo
+1754,Mención argenta
+1755,Visiones coalescentes
+1757,Acuerdo de Uldum
+1758,Rajani
+1761,Daño enemigo
+1762,Salud enemiga
+1763,Muertes
+1767,Estigia
+1769,"Experiencia de misión (estándar, oculta)"
+1792,Honor
+1794,Ánima de expiación
+1802,Progreso de la recompensa semanal de JcJ de Shadowlands
+1803,Ecos de Ny'alotha
+1804,Ascendidos
+1805,Ejército Inmortal
+1806,Cazadores salvajes
+1807,Corte de Cosechadores
+1808,Ánima canalizada
+1810,Alma redimida
+1811,zzoldSanctum Architect
+1812,zzoldSanctum Anima Weaver
+1813,Ánima de reserva
+1816,Fragmentos de piedra de pecados
+1819,Medallón de servicio
+1820,Rubí infundido
+1822,Reconocimiento
+1828,Ceniza de alma
+1829,Reconocimiento - Kyrian
+1830,Reconocimiento - Venthyr
+1831,Reconocimiento - Noctifeérico
+1832,Reconocimiento - Necroseñor
+1835,Linked Currency Test (Src) - PTH
+1836,Linked Currency Test (Dst) - PTH
+1837,La Corte de Brasas
+1838,La Condesa
+1839,Rendle y Garrotero
+1840,Cefalopétreo
+1841,Guardián de criptas Kassir
+1842,Baronesa Vashj
+1843,Maestro de plagas Marileth
+1844,Gran maestro Vole
+1845,Alexandros Mograine
+1846,Sika
+1847,Kleia y Pelagos
+1848,Polemarca Adrestes
+1849,Mikanikos
+1850,Chufa
+1851,Droman Aliothe
+1852,Capitana de los Cazadores Korayn
+1853,Lady Baya Lunar
+1859,Ánima de reserva-Kyrian
+1860,Ánima de reserva-Venthyr
+1861,Ánima de reserva-Noctifeérico
+1862,Ánima de reserva-Necroseñor
+1863,Alma redimida de kyrian
+1864,Alma redimida de venthyr
+1865,Alma redimida de noctifeérico
+1866,Alma redimida de necroseñor
+1867,Arquitecto de sagrario-Kyrian
+1868,Arquitecto de sagrario-Venthyr
+1869,Arquitecto de sagrario-Noctifeérico
+1870,Arquitecto de sagrario-Necroseñor
+1871,Tejeánima de sagrario-Kyrian
+1872,Tejeánima de sagrario-Venthyr
+1873,Tejeánima de sagrario-Noctifeérico
+1874,Tejeánima de sagrario-Necroseñor
+1877,Experiencia adicional
+1878,Maestros de puntadas
+1880,Ve'nari
+1883,Energía de conducto de lazo de alma
+1884,Los Declarados
+1885,Ofrenda de agradecimiento
+1887,Corte de la Noche
+1888,Marasmius
+1889,Progreso en la campaña de la aventura
+1891,Honor de actividades puntuadas
+1902,9.1 - Torghast XP - Prototype - LJS
+1903,Recompensa invisible
+1904,Conocimiento de la torre
+1906,Brasas de alma
+1907,Avanzada de la Muerte
+1909,Torghast - Marcador - Porcentaje despejado
+1910,Torghast - Marcador - Porcentaje de almas
+1911,Torghast - Marcador - Porcentaje de urnas
+1912,Torghast - Marcador - Porcentaje de buena racha
+1913,Torghast - Marcador - Tiempo total
+1914,Torghast - Marcador - Tiempo nominal
+1915,Torghast - Marcador - Conteo excesivo de muertes
+1916,Torghast - Marcador - Conteo inicial de muertes
+1917,Torghast - Marcador - Piso alcanzado
+1918,Torghast - Scoreboard - Toast Display - Time Score
+1919,Torghast - Scoreboard - Toast Display - Hot Streak Score
+1920,Torghast - Scoreboard - Toast Display - Deaths Excess Score
+1921,Torghast - Scoreboard - Toast Display - Total Score
+1922,Torghast - Scoreboard - Toast Display - Total Rewards
+1923,Torghast - Scoreboard - Toast Display - Bonus - Souls Rescued
+1924,Torghast - Scoreboard - Toast Display - Bonus - Urns Broken
+1925,Torghast - Scoreboard - Toast Display - Deaths Zero
+1926,Torghast - Scoreboard - Toast Display - Stars
+1931,Investigación catalogada
+1932,Torghast - Scoreboard - Toast Display - Boss Killed
+1933,Torghast - Scoreboard - Toast Display - Bonus - Chests Opened
+1934,Torghast - Scoreboard - Toast Display - Bonus - Escorts Complete
+1935,Torghast - Scoreboard - Toast Display - Bonus - No Trap Damage
+1936,Torghast - Scoreboard - Toast Display - Bonus - Kill Boss Fast
+1937,Torghast - Scoreboard - Toast Display - Bonus - Single Stacks
+1938,Torghast - Scoreboard - Toast Display - Bonus - 5 Stacks
+1939,Torghast - Scoreboard - Toast Display - Bonus - Broker Killer
+1940,Torghast - Scoreboard - Toast Display - Bonus - Elite Slayer
+1941,Torghast - Scoreboard - Toast Display - Bonus - 1000 Phantasma
+1942,Torghast - Scoreboard - Toast Display - Bonus - 500 Phant Left
+1943,Torghast - Scoreboard - Toast Display - Bonus - No Deaths
+1944,Torghast - Scoreboard - Toast Display - Bonus - No Epics
+1945,Torghast - Scoreboard - Toast Display - Bonus - Elite Unnatural
+1946,Torghast - Scoreboard - Toast Display - Total Rewards - AV Bonus
+1947,Valor adicional
+1948,Torghast - Scoreboard - Toast Display - Bonus - Kill Boss Faster
+1949,Torghast - Scoreboard - Toast Display - Bonus - 30+ Count
+1950,Torghast - Scoreboard - Toast Display - 1 Star Value
+1951,Torghast - Scoreboard - Toast Display - 2 Star Value
+1952,Torghast - Scoreboard - Toast Display - 3 Star Value
+1953,Torghast - Scoreboard - Toast Display - 4 Star Value
+1954,Torghast - Scoreboard - Toast Display - 5 Star Value
+1955,Torghast - Scoreboard - Toast Display - Points While Empowered
+1956,Torghast - Scoreboard - Toast Display - Points Empowered Score
+1957,Torghast - Scoreboard - Floor Clear Percent Floor 1
+1958,Torghast - Scoreboard - Floor Clear Percent Floor 2
+1959,Torghast - Scoreboard - Floor Clear Percent Floor 3
+1960,Torghast - Scoreboard - Floor Clear Percent Floor 4
+1961,Torghast - Scoreboard - Floor Empowered Percent Floor 1
+1962,Torghast - Scoreboard - Floor Empowered Percent Floor 2
+1963,Torghast - Scoreboard - Floor Empowered Percent Floor 3
+1964,Torghast - Scoreboard - Floor Empowered Percent Floor 4
+1965,Torghast - Scoreboard - Floor Time Floor 1
+1966,Torghast - Scoreboard - Floor Time Floor 2
+1967,Torghast - Scoreboard - Floor Time Floor 3
+1968,Torghast - Scoreboard - Floor Time Floor 4
+1969,Torghast - Scoreboard - Floor Par Time Floor 1
+1970,Torghast - Scoreboard - Floor Par Time Floor 2
+1971,Torghast - Scoreboard - Floor Par Time Floor 3
+1972,Torghast - Scoreboard - Floor Par Time Floor 4
+1976,Torghast - Scoreboard - Toast Display - Bonus - Phant Left Group
+1977,Ascuas estigias
+1979,Códigos de los Primeros
+1980,Torghast - Scoreboard - Run Layer
+1981,Torghast - Scoreboard - Run ID
+1982,Los Iluminados
+1997,Códice de los Archivistas
+2000,Motas del destino
+2002,Reconocimiento - Centauros Maruuk
+2003,Suministros de las Islas Dragón
+2005,Druid Talent Points (DNT)
+2006,Restoration Talent Points (DNT)
+2009,Flujo cósmico
+2010,[DNT] Byron Test Currency
+2011,Adornos de efigie
+2012,Death Knight Talent Points (DNT)
+2013,Frost Talent Points (DNT)
+2014,Unholy Talent Points (DNT)
+2015,Blood Talent Points (DNT)
+2016,Dragon Racing - Scoreboard - Race Complete Time
+2017,Carrera de dragones - Marcador - Tiempo de carrera completa - Fracción 1
+2018,Dragon Racing - Scoreboard - Race Quest ID
+2019,Dragon Racing - Scoreboard - Race Complete Time - Silver
+2020,Dragon Racing - Scoreboard - Race Complete Time - Gold
+2021,Reconocimiento - Expedición Dragontina
+2022,Dragon Racing - Multiplayer Race Placement
+2023,Conocimiento de herrería de las Islas Dragón
+2024,Conocimiento de alquimia de las Islas Dragón
+2025,Conocimiento de peletería de las Islas Dragón
+2026,Conocimiento de sastrería de las Islas Dragón
+2027,Conocimiento de ingeniería de las Islas Dragón
+2028,Conocimiento de inscripción de las Islas Dragón
+2029,Conocimiento de joyería de las Islas Dragón
+2030,Conocimiento de encantamiento de las Islas Dragón
+2031,Expedición Dragontina
+2033,Conocimiento de desuello de las Islas Dragón
+2034,Conocimiento de herboristería de las Islas Dragón
+2035,Conocimiento de minería de las Islas Dragón
+2036,Energía de portal antiguo
+2037,Carrera de dragones - Marcador - Tiempo de carrera completa - Fracción de plata 1
+2038,Carrera de dragones - Marcador - Tiempo de carrera completa - Fracción de oro 1
+2039,Dragon Racing - Scoreboard - Personal Best - Waking Shores 1
+2040,Dragon Racing - Scoreboard - Personal Best Time
+2041,Carrera de dragones - Marcador - Tiempo récord personal - Fracción 1
+2042,Dragon Racing - Personal Best Record - Waking Shores 01 Easy
+2043,Dragon Racing - Personal Best Record - Waking Shores 01 Medium
+2044,Dragon Racing - Personal Best Record - Waking Shores 01 Hard
+2045,Ascuas de glifo de dragón
+2046,Dragon Racing - Personal Best Record - Waking Shores 07 Easy
+2047,Carrera de dragones - Mejor récord personal - Costas del Despertar 07 Difícil
+2048,Carrera de dragones - Mejor récord personal - Costas del Despertar 02 Fácil
+2049,Carrera de dragones - Mejor récord personal - Costas del Despertar 02 Difícil
+2050,Carrera de dragones - Mejor récord personal - Costas del Despertar 08 Fácil
+2051,Carrera de dragones - Mejor récord personal - Costas del Despertar 08 Difícil
+2052,Carrera de dragones - Mejor récord personal - Costas del Despertar 03 Fácil
+2053,Carrera de dragones - Mejor récord personal - Costas del Despertar 03 Difícil
+2054,Carrera de dragones - Mejor récord personal - Costas del Despertar 04 Fácil
+2055,Carrera de dragones - Mejor récord personal - Costas del Despertar 04 Difícil
+2056,Carrera de dragones - Mejor récord personal - Costas del Despertar 05 Fácil
+2057,Carrera de dragones - Mejor récord personal - Costas del Despertar 05 Difícil
+2058,Carrera de dragones - Mejor récord personal - Costas del Despertar 06 Fácil
+2059,Carrera de dragones - Mejor récord personal - Costas del Despertar 06 Difícil
+2060,Carrera de dragones - Mejor récord personal - Llanuras de Ohn'ahra 01 Fácil
+2061,Carrera de dragones - Mejor récord personal - Llanuras de Ohn'ahra 01 Difícil
+2062,Carrera de dragones - Mejor récord personal - Llanuras de Ohn'ahra 02 Fácil
+2063,Carrera de dragones - Mejor récord personal - Llanuras de Ohn'ahra 02 Difícil
+2064,Carrera de dragones - Mejor récord personal - Llanuras de Ohn'ahra 03 Fácil
+2065,Carrera de dragones - Mejor récord personal - Llanuras de Ohn'ahra 03 Difícil
+2066,Carrera de dragones - Mejor récord personal - Llanuras de Ohn'ahra 04 Fácil
+2067,Carrera de dragones - Mejor récord personal - Llanuras de Ohn'ahra 04 Difícil
+2069,Carrera de dragones - Mejor récord personal - Llanuras de Ohn'ahra D05 Fácil
+2070,Carrera de dragones - Mejor récord personal - Llanuras de Ohn'ahra D06 Fácil
+2073,[AC] Major Faction Test Currency
+2074,Carrera de dragones - Mejor récord personal - Trecho Azur 01 Fácil
+2075,Carrera de dragones - Mejor récord personal - Trecho Azur 01 Difícil
+2076,Dragon Racing - Personal Best Record - Azure Span 02 Easy
+2077,Dragon Racing - Personal Best Record - Azure Span 02 Hard
+2078,Dragon Racing - Personal Best Record - Azure Span 03 Easy
+2079,Dragon Racing - Personal Best Record - Azure Span 03 Hard
+2080,Dragon Racing - Personal Best Record - Thaldraszus 01 Easy
+2081,Dragon Racing - Personal Best Record - Thaldraszus 01 Hard
+2082,Dragon Racing - Personal Best Record - Waking Shores MP 1
+2083,Dragon Racing - Personal Best Record - Azure Span 04 Easy
+2084,Dragon Racing - Personal Best Record - Azure Span 04 Hard
+2085,Dragon Racing - Personal Best Record - Azure Span 05 Easy
+2086,Dragon Racing - Personal Best Record - Azure Span 05 Hard
+2087,Reconocimiento - Colmillarr
+2088,Reconocimiento - Valdrakken
+2089,Dragon Racing - Personal Best Record - Azure Span 06 Easy
+2090,Dragon Racing - Personal Best Record - Azure Span 06 Hard
+2091,Dragon Racing - Tracking [DNT]
+2092,Dragon Racing - Personal Best Record - Thaldraszus 02 Easy
+2093,Dragon Racing - Personal Best Record - Thaldraszus 02 Hard
+2094,[DNT] AC Major Faction Test Renown
+2095,Dragon Racing - Personal Best Record - Thaldraszus MP 1
+2096,Carrera de dragones - Mejor récord personal - Thaldraszus 03 Fácil
+2097,Carrera de dragones - Mejor récord personal - Thaldraszus 03 Difícil
+2098,Carrera de dragones - Mejor récord personal - Thaldraszus 04 Fácil
+2099,Carrera de dragones - Mejor récord personal - Thaldraszus 04 Difícil
+2100,Dragon Racing - Versioning [DNT]
+2101,Carrera de dragones - Mejor récord personal - Thaldraszus 05 Fácil
+2102,Carrera de dragones - Mejor récord personal - Thaldraszus 05 Difícil
+2103,Carrera de dragones - Mejor récord personal - Thaldraszus 06 Fácil
+2104,Carrera de dragones - Mejor récord personal - Thaldraszus 06 Difícil
+2105,Energía arcana purificada
+2106,Acuerdo de Valdrakken
+2107,Sociedad de Artesanos
+2108,Centauros Maruuk
+2109,Colmillarr de Iskaara
+2110,Dragon Racing - Personal Best Record - Ohn'ahran Plains MP 1
+2111,Dragon Racing - Personal Best Record - Azure Span MP 1
+2113,Colmillarr - Red de pesca - Ubicación 01 - Red 01 - Botín
+2114,Colmillarr - Red de pesca - Ubicación 01 - Red 04 (Misión) - Botín
+2115,Colmillarr - Red de pesca - Ubicación 01 - Red 02 - Botín
+2116,Colmillarr - Red de pesca - Ubicación 01 - Red 03 - Botín
+2118,Derrame elemental
+2119,Carrera de dragones - Mejor récord personal - Llanuras de Ohn'ahra 07 Fácil
+2120,Carrera de dragones - Mejor récord personal - Llanuras de Ohn'ahra 07 Difícil
+2122,Sigilo de tormenta
+2123,Fichas sangrientas
+2124,Carrera de dragones - Marcador - Tiempo de carrera completa - Fracción 10
+2125,Carrera de dragones - Marcador - Tiempo de carrera completa - Fracción 100
+2126,Carrera de dragones - Marcador - Tiempo de carrera completa - Fracción de plata 10
+2128,Carrera de dragones - Marcador - Tiempo de carrera completa - Fracción de plata 100
+2129,Carrera de dragones - Marcador - Tiempo de carrera completa - Fracción de oro 10
+2130,Carrera de dragones - Marcador - Tiempo de carrera completa - Fracción de oro 100
+2131,Carrera de dragones - Marcador - Tiempo récord personal - Fracción 10
+2132,Carrera de dragones - Marcador - Tiempo récord personal - Fracción 100
+2133,Dragonriding - Accepting Passengers [DNT]
+2134,Asamblea Cobalto
+2135,Tuskarr - Fishing Net - Location 02 - Net 01 - Loot
+2136,Tuskarr - Fishing Net - Location 02 - Net 02 - Loot
+2137,Tuskarr - Fishing Net - Location 03 - Net 01 - Loot
+2138,Tuskarr - Fishing Net - Location 03 - Net 02 - Loot
+2139,Tuskarr - Fishing Net - Location 04 - Net 01 - Loot
+2140,Tuskarr - Fishing Net - Location 04 - Net 02 - Loot
+2141,Tuskarr - Fishing Net - Location 05 - Net 01 - Loot
+2142,Tuskarr - Fishing Net - Location 05 - Net 02 - Loot
+2148,Cría roja (Disparo de fuego)
+2149,Cría roja (Lanzar nova de fuego)
+2150,Cría roja (Soplo curativo)
+2151,Cría roja (Aliento reparador)
+2152,Cría roja (Calor soñoliento rubí)
+2153,Cría roja (Bajo alas rojas)
+2154,Carrera de dragones - Mejor récord personal - Costas del Despertar 01 Prueba
+2155,Dragon Racing - Best Time Display - Whole
+2156,Dragon Racing - Best Time Display - Fraction 1
+2157,Dragon Racing - Best Time Display - Fraction 10
+2158,Dragon Racing - Best Time Display - Fraction 100
+2159,Dragon Racing - Best Time Display - Advanced - Whole
+2160,Dragon Racing - Best Time Display - Advanced - Fraction 1
+2161,Dragon Racing - Best Time Display - Advanced - Fraction 10
+2162,Dragon Racing - Best Time Display - Advanced - Fraction 100
