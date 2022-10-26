@@ -8,46 +8,46 @@
     vendors.yml
     unavailable.yml
 
-z8/_shadowlands.yml
-    z8/covenant_kyrian.yml
-    z8/covenant_necrolord.yml
-    z8/covenant_night_fae.yml
-    z8/covenant_venthyr.yml
-    z8/protoform_synthesis.yml
+00-classic/_.yml
 
-z7/_battle_for_azeroth.yml
+01-the-burning-crusade/_.yml
 
-z6/_legion.yml
-    z6/order_halls.yml
-
-z5/_warlords_of_draenor.yml
-    z5/garrisons.yml
-
-z4/_mists_of_pandaria.yml
-
-z3/_cataclysm.yml
-
-z2/_wrath_of_the_lich_king.yml
+02-wrath-of-the-lich-king/_.yml
     world_events/argent_tournament.yml
 
-z1/_the_burning_crusade.yml
+03-cataclysm/_.yml
 
-z0/_classic.yml
+04-mists-of-pandaria/_.yml
+
+05-warlords-of-draenor/_.yml
+    05-warlords-of-draenor/garrisons.yml
+
+06-legion/_.yml
+    06-legion/order_halls.yml
+
+07-battle-for-azeroth/_.yml
+
+08-shadowlands/_.yml
+    08-shadowlands/covenant_kyrian.yml
+    08-shadowlands/covenant_necrolord.yml
+    08-shadowlands/covenant_night_fae.yml
+    08-shadowlands/covenant_venthyr.yml
+    08-shadowlands/protoform_synthesis.yml
 
 09-dragonflight/_.yml
 
 -
 
 achievements.yml
-    z8/achievements.yml Shadowlands
-    z7/achievements.yml Battle for Azeroth
+    08-shadowlands/achievements.yml Shadowlands
+    07-battle-for-azeroth/achievements.yml Battle for Azeroth
     pvp/achievements.yml PvP
 
 misc/_misc.yml
     misc/class.yml
     misc/racial_alliance.yml
     misc/racial_horde.yml
-    misc/racial_pandaren.yml
+    misc/racial_shared.yml
 
 money.yml
 
@@ -65,44 +65,44 @@ world_events/_blank.yml
 -
 
 drops.yml
-    z8/drops.yml Shadowlands
-    z7/drops.yml Battle for Azeroth
-    z6/drops.yml Legion
-    z5/drops.yml Warlords of Draenor
-    z4/drops.yml Mists of Pandaria
-    z3/drops.yml Cataclysm
-    z2/drops.yml Wrath of the Lich King
+    02-wrath-of-the-lich-king/drops.yml Wrath of the Lich King
+    03-cataclysm/drops.yml Cataclysm
+    04-mists-of-pandaria/drops.yml Mists of Pandaria
+    05-warlords-of-draenor/drops.yml Warlords of Draenor
+    06-legion/drops.yml Legion
+    07-battle-for-azeroth/drops.yml Battle for Azeroth
+    08-shadowlands/drops.yml Shadowlands
 
 instances.yml
-    z8/instances.yml Shadowlands
-    z7/instances.yml Battle for Azeroth
-    z6/instances.yml Legion
-    z5/instances.yml Warlords of Draenor
-    z4/instances.yml Mists of Pandaria
-    z3/instances.yml Cataclysm
-    z2/instances.yml Wrath of the Lich King
-    z1/instances.yml The Burning Crusade
-    z0/instances.yml Classic
+    00-classic/instances.yml Classic
+    01-the-burning-crusade/instances.yml The Burning Crusade
+    02-wrath-of-the-lich-king/instances.yml Wrath of the Lich King
+    03-cataclysm/instances.yml Cataclysm
+    04-mists-of-pandaria/instances.yml Mists of Pandaria
+    05-warlords-of-draenor/instances.yml Warlords of Draenor
+    06-legion/instances.yml Legion
+    07-battle-for-azeroth/instances.yml Battle for Azeroth
+    08-shadowlands/instances.yml Shadowlands
 
 reputations.yml
-    z8/reputations.yml Shadowlands
-    z7/reputations.yml Battle for Azeroth
-    z6/reputations.yml Legion
-    z5/reputations.yml Warlords of Draenor
-    z4/reputations.yml Mists of Pandaria
-    z3/reputations.yml Cataclysm
-    z2/reputations.yml Wrath of the Lich King
-    z1/reputations.yml The Burning Crusade
+    01-the-burning-crusade/reputations.yml The Burning Crusade
+    02-wrath-of-the-lich-king/reputations.yml Wrath of the Lich King
+    03-cataclysm/reputations.yml Cataclysm
+    04-mists-of-pandaria/reputations.yml Mists of Pandaria
+    05-warlords-of-draenor/reputations.yml Warlords of Draenor
+    06-legion/reputations.yml Legion
+    07-battle-for-azeroth/reputations.yml Battle for Azeroth
+    08-shadowlands/reputations.yml Shadowlands
 
 -
 
 unavailable/_unavailable.yml
-    z8/unavailable.yml Shadowlands
-    z7/unavailable.yml Battle for Azeroth
-    z6/unavailable.yml Legion
-    z5/unavailable.yml Warlords of Draenor
-    z4/unavailable.yml Mists of Pandaria
-    z3/unavailable.yml Cataclysm
-    z2/unavailable.yml Wrath of the Lich King
-    z1/unavailable.yml The Burning Crusade
-    z0/unavailable.yml Classic
+    00-classic/unavailable.yml Classic
+    01-the-burning-crusade/unavailable.yml The Burning Crusade
+    02-wrath-of-the-lich-king/unavailable.yml Wrath of the Lich King
+    03-cataclysm/unavailable.yml Cataclysm
+    04-mists-of-pandaria/unavailable.yml Mists of Pandaria
+    05-warlords-of-draenor/unavailable.yml Warlords of Draenor
+    06-legion/unavailable.yml Legion
+    07-battle-for-azeroth/unavailable.yml Battle for Azeroth
+    08-shadowlands/unavailable.yml Shadowlands
