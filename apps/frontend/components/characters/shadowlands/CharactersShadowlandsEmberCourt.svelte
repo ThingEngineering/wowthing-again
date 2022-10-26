@@ -77,7 +77,7 @@
     }
     .bff {
         //background: mix($thing-background, $colour-success, 90%);
-        color: #88ff88;
+        color: lighten($colour-success, 20%);
     }
     .feature {
         --image-border-width: 2px;
