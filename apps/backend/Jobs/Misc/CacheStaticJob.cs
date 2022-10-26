@@ -173,7 +173,7 @@ public class CacheStaticJob : JobBase, IScheduledJob
         _timer.AddPoint("Soulbinds");
 
         // Talents
-        cacheData.Talents = await LoadTalents();
+        //cacheData.Talents = await LoadTalents();
         _timer.AddPoint("Talents");
 
         // Basic database dumps

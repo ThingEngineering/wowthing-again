@@ -47,7 +47,7 @@ public class CharacterRaiderIoJob : JobBase
         try
         {
             var result = await GetJson<ApiCharacterRaiderIo>(uri, useAuthorization: false, useLastModified: false);
-            resultData = result.Data
+            resultData = result.Data;
         }
         catch (HttpRequestException e)
         {

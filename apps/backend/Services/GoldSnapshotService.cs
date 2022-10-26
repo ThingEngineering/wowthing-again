@@ -57,7 +57,7 @@ public class GoldSnapshotService : BackgroundService
             return;
         }
 
-        await using var context = contextFactory.CreateDbContext();
+        await using var context = await contextFactory.CreateDbContextAsync();
 
         // Use hh:mm:00 as the save time
         var now = DateTime.UtcNow;
