@@ -1,47 +1,49 @@
-z8/_shadowlands.yml
-    z8/fated.yml
-    z8/zone_quests.yml
-    z8/covenant_story.yml
-    z8/covenant_upgrades.yml
-    z8/upgrades.yml
-    z8/raid_skips.yml
+00-classic/_.yml
+    00-classic/travel.yml
 
-z7/_battle_for_azeroth.yml
-    z7/zone_quests.yml
-    z7/travel.yml
-    z7/raid_skips.yml
+01-the-burning-crusade/_.yml
+    01-the-burning-crusade/dungeons.yml
+    01-the-burning-crusade/travel.yml
 
-z6/_legion.yml
-    z6/zone_quests.yml
-    z6/order_halls.yml
-    z6/artifacts.yml
-    z6/balance_of_power.yml
-    z6/travel.yml
-    z6/raid_skips.yml
+02-wrath-of-the-lich-king/_.yml
+    02-wrath-of-the-lich-king/argent_tournament.yml
+    02-wrath-of-the-lich-king/dungeons.yml
+    02-wrath-of-the-lich-king/travel.yml
 
-z5/_warlords_of_draenor.yml
-    z5/garrisons.yml
-    z5/travel.yml
-    z5/raid_skips.yml
+03-cataclysm/_.yml
+    03-cataclysm/travel.yml
 
-z4/_mists_of_pandaria.yml
-    z4/dungeons.yml
-    z4/travel.yml
+04-mists-of-pandaria/_.yml
+    04-mists-of-pandaria/dungeons.yml
+    04-mists-of-pandaria/travel.yml
 
-z3/_cataclysm.yml
-    z3/travel.yml
+05-warlords-of-draenor/_.yml
+    05-warlords-of-draenor/garrisons.yml
+    05-warlords-of-draenor/travel.yml
+    05-warlords-of-draenor/raid_skips.yml
 
-z2/_wrath_of_the_lich_king.yml
-    z2/argent_tournament.yml
-    z2/dungeons.yml
-    z2/travel.yml
+06-legion/_.yml
+    06-legion/zone_quests.yml
+    06-legion/order_halls.yml
+    06-legion/artifacts.yml
+    06-legion/balance_of_power.yml
+    06-legion/travel.yml
+    06-legion/raid_skips.yml
 
-z1/_the_burning_crusade.yml
-    z1/dungeons.yml
-    z1/travel.yml
+07-battle-for-azeroth/_.yml
+    07-battle-for-azeroth/zone_quests.yml
+    07-battle-for-azeroth/travel.yml
+    07-battle-for-azeroth/raid_skips.yml
 
-z0/_classic.yml
-    z0/travel.yml
+08-shadowlands/_.yml
+    08-shadowlands/fated.yml
+    08-shadowlands/zone_quests.yml
+    08-shadowlands/covenant_story.yml
+    08-shadowlands/covenant_upgrades.yml
+    08-shadowlands/upgrades.yml
+    08-shadowlands/raid_skips.yml
+
+09-dragonflight/_.yml
 
 -
 
@@ -51,25 +53,25 @@ world-events/_world_events.yml
 -
 
 dungeons.yml
-    z4/dungeons.yml Mists of Pandaria
-    z2/dungeons.yml Wrath of the Lich King
-    z1/dungeons.yml The Burning Crusade
+    01-the-burning-crusade/dungeons.yml The Burning Crusade
+    02-wrath-of-the-lich-king/dungeons.yml Wrath of the Lich King
+    04-mists-of-pandaria/dungeons.yml Mists of Pandaria
 
 raid_skips.yml
-    z8/raid_skips.yml Shadowlands
-    z7/raid_skips.yml Battle for Azeroth
-    z6/raid_skips.yml Legion
-    z5/raid_skips.yml Warlords of Draenor
+    05-warlords-of-draenor/raid_skips.yml Warlords of Draenor
+    06-legion/raid_skips.yml Legion
+    07-battle-for-azeroth/raid_skips.yml Battle for Azeroth
+    08-shadowlands/raid_skips.yml Shadowlands
 
 travel.yml
-    z7/travel.yml Battle for Azeroth
-    z6/travel.yml Legion
-    z5/travel.yml Warlords of Draenor
-    z4/travel.yml Mists of Pandaria
-    z3/travel.yml Cataclysm
-    z2/travel.yml Wrath of the Lich King
-    z1/travel.yml The Burning Crusade
-    z0/travel.yml Classic
+    00-classic/travel.yml Classic
+    01-the-burning-crusade/travel.yml The Burning Crusade
+    02-wrath-of-the-lich-king/travel.yml Wrath of the Lich King
+    03-cataclysm/travel.yml Cataclysm
+    04-mists-of-pandaria/travel.yml Mists of Pandaria
+    05-warlords-of-draenor/travel.yml Warlords of Draenor
+    06-legion/travel.yml Legion
+    07-battle-for-azeroth/travel.yml Battle for Azeroth
 
 upgrades.yml
-    z8/upgrades.yml Shadowlands
+    08-shadowlands/upgrades.yml Shadowlands
