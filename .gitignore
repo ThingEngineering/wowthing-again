@@ -23,6 +23,7 @@ __pycache__/
 .c9/
 .settings/
 .vs/
+*.code-workspace
 *.launch
 *.sublime-workspace
 *.user
