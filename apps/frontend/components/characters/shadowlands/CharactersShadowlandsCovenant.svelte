@@ -117,12 +117,17 @@
         }
     }
     .info-icons {
-        gap: 1rem;
         //justify-content: flex-start;
     }
     .info-icon {
         --image-border-width: 2px;
         --image-margin-top: -4px;
+
+        width: 24%;
+
+        &:nth-child(4) {
+            width: 28%;
+        }
     }
     .info-research {
         font-style: italic;
@@ -155,15 +160,15 @@
 
                 <div
                     class="info-icon"
-                    use:tippy={`${anima.toLocaleString()} Reservoir Anima`}
+                    use:tippy={`${progress.toLocaleString()} Adventure Campaign Progress`}
                 >
                     <WowthingImage
-                        name="currency/1813"
+                        name="currency/1889"
                         size={40}
                         border={2}
                     />
-                    <span class="drop-shadow">
-                        {toNiceNumber(anima)}
+                    <span class="drop-shadow {getPercentClass(progress / 20 * 100)}">
+                        {toNiceNumber(progress)}
                     </span>
                 </div>
 
@@ -183,15 +188,15 @@
 
                 <div
                     class="info-icon"
-                    use:tippy={`${progress.toLocaleString()} Adventure Campaign Progress`}
+                    use:tippy={`${anima.toLocaleString()} Reservoir Anima`}
                 >
                     <WowthingImage
-                        name="currency/1889"
+                        name="currency/1813"
                         size={40}
                         border={2}
                     />
-                    <span class="drop-shadow {getPercentClass(progress / 20 * 100)}">
-                        {toNiceNumber(progress)}
+                    <span class="drop-shadow">
+                        {toNiceNumber(anima)}
                     </span>
                 </div>
             </div>
