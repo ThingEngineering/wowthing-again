@@ -1,6 +1,13 @@
 <script lang="ts">
-    import { emberCourtFeatures, emberCourtFriends, emberCourtUpgrades, type EmberCourtFeature } from '@/data/covenant'
-    import { staticStore, userQuestStore, userStore } from '@/stores'
+    import {
+        emberCourtFeatures,
+        emberCourtFriends,
+        emberCourtUpgrades,
+        emberCourtUpgrades2,
+        type EmberCourtFeature,
+        type EmberCourtFeatureType
+    } from '@/data/covenant'
+    import { staticStore, userQuestStore } from '@/stores'
     import findReputationTier from '@/utils/find-reputation-tier'
     import tippy, { tippyComponent } from '@/utils/tippy'
     import type { Character, ReputationTier } from '@/types'
@@ -22,7 +29,20 @@
         quests = $userQuestStore.data.characters[character.id]?.quests
     }
 
-    const thingSets: [EmberCourtFeature[], number][] = [[emberCourtFeatures, 40], [emberCourtUpgrades, 32]]
+    const thingSets: [EmberCourtFeature[], number][] = [
+        [emberCourtFeatures, 40],
+        [emberCourtUpgrades, 32],
+        [emberCourtUpgrades2, 48],
+    ]
+
+    const getTooltip = function(type: EmberCourtFeatureType): string {
+        let ret = type.name
+        if (type.unlockReputation > 0) {
+            const tierName = $staticStore.data.reputationTiers[0].names[type.unlockReputation]
+            ret += `<br><br>Requires <span class="reputation${type.unlockReputation}">${tierName}</span> reputation`
+        }
+        return ret
+    }
 </script>
 
 <style lang="scss">
@@ -93,6 +113,10 @@
         &:nth-child(n+3) {
             border-top: 1px solid $border-color;
         }
+        &:only-child {
+            border-right-width: 0;
+            width: 100%;
+        }
     }
     .type {
         &.locked {
@@ -160,7 +184,10 @@
                         class:locked={!typeUnlocked && tier?.tier < type.unlockReputation}
                         class:available={!typeUnlocked && tier?.tier >= type.unlockReputation}
                         class:unlocked={typeUnlocked}
-                        use:tippy={`${type.name}`}
+                        use:tippy={{
+                            allowHTML: true,
+                            content: getTooltip(type),
+                        }}
                     >
                         <WowthingImage
                             name={type.icon}

@@ -1,0 +1,15 @@
+name: "Quests"
+groups:
+
+- name: "Ohn'ahran Plains"
+  things:
+    - 1563 # Highland Drake
+    - 1639 # Lizi, Thunderspine Tramper
+
+- name: "Valdrakken"
+  things:
+    - 1591 # Cliffside Wylderdrake
+
+- name: "Waking Shores"
+  things:
+    - 1590 # Windborne Velocidrake

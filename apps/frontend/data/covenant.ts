@@ -400,16 +400,17 @@ export const emberCourtFriends: Array<Array<EmberCourtFriend>> = [
 ]
 // ^ how are these invited the first time?
 
+export type EmberCourtFeatureType = {
+    icon: string
+    name: string
+    unlockQuestId: number
+    unlockReputation?: number
+}
 export type EmberCourtFeature = {
     name: string
     unlockQuestId: number
     unlockReputation?: number
-    types: {
-        icon: string
-        name: string
-        unlockQuestId: number
-        unlockReputation?: number
-    }[]
+    types: EmberCourtFeatureType[]
 }
 
 export const emberCourtFeatures: EmberCourtFeature[] = [
@@ -561,6 +562,33 @@ export const emberCourtUpgrades: EmberCourtFeature[] = [
                 name: 'Stock: Comfy Chairs (+5 min)',
                 unlockQuestId: 61500,
                 unlockReputation: 6, // Revered
+            },
+        ]
+    },
+]
+
+export const emberCourtUpgrades2: EmberCourtFeature[] = [
+    {
+        name: 'Misc',
+        unlockQuestId: 0,
+        types: [
+            {
+                icon: 'item/181442',
+                name: 'Visions of Sire Denathrius (bonus happiness)',
+                unlockQuestId: 61458,
+                unlockReputation: 0,
+            },
+            {
+                icon: 'item/185741',
+                name: 'Restock and Repair (auto-restock/repair)',
+                unlockQuestId: 63765,
+                unlockReputation: 7, // Exalted
+            },
+            {
+                icon: 'item/181443',
+                name: "The Party Herald's Party Hat (+30% rep",
+                unlockQuestId: 61459,
+                unlockReputation: 7, // Exalted
             },
         ]
     },
