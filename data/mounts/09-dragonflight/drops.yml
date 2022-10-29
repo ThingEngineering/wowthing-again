@@ -1,6 +1,10 @@
 name: "Drops"
 groups:
 
+- name: "Azure Span, The"
+  things:
+    - 1553 # Liberated Slyvern
+
 - name: "Ohn'ahran Plains"
   things:
     - 1672 # Zenet Hatchling (Zenet Egg)

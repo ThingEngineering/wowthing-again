@@ -11,6 +11,7 @@ groups:
   - 1289 # Ensorcelled Everwyrm (Shadowlands Heroic Edition)
   - 1556 # Tangled Dreamweaver (Dragonflight Heroic Edition)
   - 1444 # Viridian Phase-Hunter (TBC Classic Deluxe Edition)
+  - 1602 # Tuskarr Shoreglider (WotLK Classic Whatever Edition)
 
 - name: Promotions
   things:
@@ -21,6 +22,8 @@ groups:
   - 243 # Big Blizzard Bear (BlizzCon 2008)
   - 959 960 # Stormwind Skychaser/Orgrimmar Interceptor (BlizzCon 2017)
   - 960 959 # ^ reversed
+  - 1679 # Frostbrood Proto-Wyrm (DK starter thing)
+  - 1581 # Nether-Gorged Greatwyrm (6 month sub?)
 
 - name: Store
   things:
