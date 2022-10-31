@@ -72,6 +72,7 @@ drops.yml
     06-legion/drops.yml Legion
     07-battle-for-azeroth/drops.yml Battle for Azeroth
     08-shadowlands/drops.yml Shadowlands
+    09-dragonflight/drops.yml Dragonflight
 
 instances.yml
     00-classic/instances.yml Classic
@@ -93,6 +94,7 @@ reputations.yml
     06-legion/reputations.yml Legion
     07-battle-for-azeroth/reputations.yml Battle for Azeroth
     08-shadowlands/reputations.yml Shadowlands
+    09-dragonflight/reputations.yml Dragonflight
 
 -
 
