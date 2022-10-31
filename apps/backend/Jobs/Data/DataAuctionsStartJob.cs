@@ -1,4 +1,5 @@
-﻿using Wowthing.Lib.Jobs;
+﻿using Wowthing.Lib.Enums;
+using Wowthing.Lib.Jobs;
 
 namespace Wowthing.Backend.Jobs.Data;
 
@@ -20,6 +21,7 @@ public class DataAuctionsStartJob : JobBase, IScheduledJob
 
         var connectedRealmIds = await Context.WowRealm
             .Where(wr => realmIds.Contains(wr.Id))
+            .Where(wr => wr.Region != WowRegion.KR && wr.Region != WowRegion.TW) // FIXME remove this if Blizzard ever fixes their broken APIs
             .Select(wr => wr.ConnectedRealmId)
             .Distinct()
             .ToArrayAsync();
