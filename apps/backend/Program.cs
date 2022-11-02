@@ -1,21 +1,17 @@
 using System.Net;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using ComposableAsync;
+using System.Net.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Serialization;
-using RateLimiter;
+using Polly;
 using Serilog;
 using Serilog.Templates;
 using Wowthing.Backend.Extensions;
 using Wowthing.Backend.Models;
 using Wowthing.Backend.Services;
-using Wowthing.Backend.Utilities;
 using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Services;
-using Wowthing.Lib.Utilities;
 
 namespace Wowthing.Backend;
 
@@ -92,13 +88,18 @@ public class Program
         services.AddRedis(redisConnectionString);
 
         // HTTP clients
-        services.AddHttpClient("limited", config =>
+        var rateLimitPolicy = Policy
+            .RateLimitAsync<HttpResponseMessage>(
+                backendOptions.ApiRateLimit,
+                TimeSpan.FromSeconds(1),
+                backendOptions.ApiRateLimit
+            );
+
+        services.AddHttpClient("limited", client =>
             {
-                config.Timeout = TimeSpan.FromSeconds(60);
+                client.Timeout = TimeSpan.FromSeconds(60);
             })
-            .AddHttpMessageHandler(() => TimeLimiter
-                .GetFromMaxCountByInterval(backendOptions.ApiRateLimit, TimeSpan.FromSeconds(1))
-                .AsFixedDelegatingHandler())
+            .AddPolicyHandler(rateLimitPolicy)
             .SetHandlerLifetime(Timeout.InfiniteTimeSpan);
 
         // JSON options
