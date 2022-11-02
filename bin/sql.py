@@ -8,6 +8,7 @@ FROM (
 WHERE   desired IS NOT NULL
         AND desired != ''
         AND desired != user_name
+        AND desired NOT IN ('Wow1', 'WoW-1')
 ;
 """
 
