@@ -100,26 +100,26 @@ public sealed class SchedulerService : TimerService
                 await using var context = await contextFactory.CreateDbContextAsync();
 
                 // Execute some sort of nasty database query to get users that need an API check
-                var userResults = await context.SchedulerUserQuery
-                    .FromSqlRaw(SchedulerUserQuery.SqlQuery)
-                    .ToArrayAsync();
-
-                if (userResults.Length > 0)
-                {
-                    var resultData = userResults
-                        .Select(ur => ur.UserId.ToString());
-
-                    // Queue user jobs
-                    Logger.Information("Queueing {Count} user job(s)", userResults.Length);
-                    await _jobRepository.AddJobsAsync(JobPriority.Low, JobType.UserCharacters, resultData);
-
-                    // Update user LastApiCheck
-                    var ids = userResults.Select(ur => ur.UserId);
-                    await context.BatchUpdate<ApplicationUser>()
-                        .Set(au => au.LastApiCheck, au => DateTime.UtcNow)
-                        .Where(au => ids.Contains(au.Id))
-                        .ExecuteAsync();
-                }
+                // var userResults = await context.SchedulerUserQuery
+                //     .FromSqlRaw(SchedulerUserQuery.SqlQuery)
+                //     .ToArrayAsync();
+                //
+                // if (userResults.Length > 0)
+                // {
+                //     var resultData = userResults
+                //         .Select(ur => ur.UserId.ToString());
+                //
+                //     // Queue user jobs
+                //     Logger.Information("Queueing {Count} user job(s)", userResults.Length);
+                //     await _jobRepository.AddJobsAsync(JobPriority.Low, JobType.UserCharacters, resultData);
+                //
+                //     // Update user LastApiCheck
+                //     var ids = userResults.Select(ur => ur.UserId);
+                //     await context.BatchUpdate<ApplicationUser>()
+                //         .Set(au => au.LastApiCheck, au => DateTime.UtcNow)
+                //         .Where(au => ids.Contains(au.Id))
+                //         .ExecuteAsync();
+                // }
 
                 // Execute some sort of nasty database query to get characters that need an API check
                 var characterResults = await context.SchedulerCharacterQuery
