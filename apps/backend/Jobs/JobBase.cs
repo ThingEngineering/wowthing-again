@@ -4,6 +4,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Web;
+using Polly.RateLimit;
 using Serilog;
 using Serilog.Context;
 using StackExchange.Redis;
@@ -155,31 +156,40 @@ public abstract class JobBase : IJob
             }
         }
 
-        using var request = new HttpRequestMessage(HttpMethod.Get, uri);
-
-        if (useAuthorization)
-        {
-            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", StateService.AccessToken.AccessToken);
-        }
-        if (lastModified > MiscConstants.DefaultDateTime)
-        {
-            request.Headers.IfModifiedSince = new DateTimeOffset(lastModified.Value);
-        }
-
         HttpResponseMessage response;
-        try
+        while (true)
         {
-            response = await Http.SendAsync(request, CancellationToken);
-        }
-        catch (OperationCanceledException ex)
-        {
-            if (ex.InnerException != null)
+            using var request = new HttpRequestMessage(HttpMethod.Get, uri);
+
+            if (useAuthorization)
             {
-                throw ex.InnerException;
+                request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", StateService.AccessToken.AccessToken);
             }
-            else
+            if (lastModified > MiscConstants.DefaultDateTime)
             {
-                throw new HttpRequestException("Operation canceled??");
+                request.Headers.IfModifiedSince = new DateTimeOffset(lastModified.Value);
+            }
+
+            try
+            {
+                response = await Http.SendAsync(request, CancellationToken);
+                break;
+            }
+            catch (RateLimitRejectedException ex)
+            {
+                Logger.Debug("Rate-limited, waiting {retry}", ex.RetryAfter);
+                await Task.Delay(ex.RetryAfter, CancellationToken);
+            }
+            catch (OperationCanceledException ex)
+            {
+                if (ex.InnerException != null)
+                {
+                    throw ex.InnerException;
+                }
+                else
+                {
+                    throw new HttpRequestException("Operation canceled??");
+                }
             }
         }
 
