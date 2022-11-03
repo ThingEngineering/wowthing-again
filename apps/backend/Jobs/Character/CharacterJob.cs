@@ -5,7 +5,6 @@ using Wowthing.Lib.Constants;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models.Player;
-using Wowthing.Lib.Models.Query;
 
 namespace Wowthing.Backend.Jobs.Character;
 
@@ -16,8 +15,7 @@ public class CharacterJob : JobBase
 
     public override async Task Run(params string[] data)
     {
-        var query = JsonConvert.DeserializeObject<SchedulerCharacterQuery>(data[0]) ??
-                    throw new InvalidJsonException(data[0]);
+        var query = DeserializeCharacterQuery(data[0]);
         using var shrug = CharacterLog(query);
 
         // Skip invalid character names
@@ -29,7 +27,7 @@ public class CharacterJob : JobBase
                 .ExecuteAsync();
             return;
         }
-            
+
         // Get character from API
         var uri = GenerateUri(query, ApiPath);
         ApiCharacter apiCharacter;
@@ -130,13 +128,13 @@ public class CharacterJob : JobBase
         {
             jobs.Add(JobType.CharacterMedia);
         }
-            
+
         // WTF: this exists even on lower level characters
         if (character.Level >= 50 && apiCharacter.MythicKeystoneProfileLink?.Href != null)
         {
             jobs.Add(JobType.CharacterMythicKeystoneProfile);
         }
-            
+
         if (apiCharacter.ProfessionsLink?.Href != null)
         {
             jobs.Add(JobType.CharacterProfessions);
@@ -162,7 +160,7 @@ public class CharacterJob : JobBase
         {
             jobs.Add(JobType.CharacterSoulbinds);
         }
-            
+
         // Pets
         if (query.AccountId.HasValue)
         {

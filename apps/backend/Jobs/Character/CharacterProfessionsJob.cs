@@ -2,7 +2,6 @@
 using Wowthing.Backend.Models.API.Character;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Models.Player;
-using Wowthing.Lib.Models.Query;
 
 namespace Wowthing.Backend.Jobs.Character;
 
@@ -12,8 +11,7 @@ public class CharacterProfessionsJob : JobBase
 
     public override async Task Run(params string[] data)
     {
-        var query = JsonConvert.DeserializeObject<SchedulerCharacterQuery>(data[0]) ??
-                    throw new InvalidJsonException(data[0]);
+        var query = DeserializeCharacterQuery(data[0]);
         using var shrug = CharacterLog(query);
 
         // Fetch API data

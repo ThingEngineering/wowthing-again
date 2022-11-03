@@ -73,6 +73,17 @@ public abstract class JobBase : IJob
 
     protected IDisposable UserLog(long userId) => UserLog(userId.ToString());
 
+    protected SchedulerCharacterQuery DeserializeCharacterQuery(string data)
+    {
+        var query = System.Text.Json.JsonSerializer.Deserialize<SchedulerCharacterQuery>(data, JsonSerializerOptions);
+        if (query == null)
+        {
+            throw new InvalidJsonException(data);
+        }
+
+        return query;
+    }
+
     protected static Uri GenerateUri(WowRegion region, ApiNamespace lamespace, string path)
     {
         var builder = new UriBuilder(string.Format(ApiUrl, RegionToString[region], path));
