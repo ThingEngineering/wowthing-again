@@ -1,12 +1,10 @@
-﻿using System.Net;
-using System.Reflection;
-using System.Runtime;
+﻿using System.Reflection;
+using System.Text.Json;
 using Microsoft.Extensions.DependencyInjection;
 using Wowthing.Backend.Jobs;
 using Wowthing.Backend.Services.Base;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Jobs;
-using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
 using Wowthing.Lib.Repositories;
@@ -18,6 +16,7 @@ public sealed class SchedulerService : TimerService
     private const int TimerInterval = 10;
 
     private readonly JobRepository _jobRepository;
+    private readonly JsonSerializerOptions _jsonSerializerOptions;
     private readonly IServiceScopeFactory _serviceScopeFactory;
     private readonly StateService _stateService;
 
@@ -26,11 +25,13 @@ public sealed class SchedulerService : TimerService
     public SchedulerService(
         IServiceScopeFactory serviceScopeFactory,
         JobRepository jobRepository,
+        JsonSerializerOptions jsonSerializerOptions,
         StateService stateService
     )
         : base("Scheduler", TimeSpan.FromSeconds(1), TimeSpan.FromSeconds(TimerInterval))
     {
         _jobRepository = jobRepository;
+        _jsonSerializerOptions = jsonSerializerOptions;
         _serviceScopeFactory = serviceScopeFactory;
         _stateService = stateService;
 
@@ -48,25 +49,6 @@ public sealed class SchedulerService : TimerService
 
     protected override async void TimerCallback(object state)
     {
-        var lockValue = Guid.NewGuid().ToString("N");
-
-        try
-        {
-            // Attempt to get exclusive scheduler lock
-            var lockSuccess = await _jobRepository.AcquireLockAsync("scheduler", lockValue,
-                TimeSpan.FromSeconds(TimerInterval * 5));
-            if (!lockSuccess)
-            {
-                Logger.Warning("Skipping scheduler, lock failed");
-                return;
-            }
-        }
-        catch (Exception ex)
-        {
-            Logger.Error(ex, "Kaboom!");
-            return;
-        }
-
         try
         {
             // Scheduled jobs run on an interval, see if any need to be started
@@ -127,13 +109,8 @@ public sealed class SchedulerService : TimerService
                     .ToArrayAsync();
                 if (characterResults.Length > 0)
                 {
-                    Logger.Debug("Pre-GC: {0}", GC.GetTotalMemory(false));
-                    GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
-                    var postGc = GC.GetTotalMemory(true);
-                    Logger.Debug("Post-GC: {0}", postGc);
-
                     var resultData = characterResults
-                        .Select(cr => JsonConvert.SerializeObject(cr));
+                        .Select(cr => System.Text.Json.JsonSerializer.Serialize(cr, _jsonSerializerOptions));
 
                     // Queue character jobs
                     Logger.Information("Queueing {0} character job(s)", characterResults.Length);
@@ -155,8 +132,5 @@ public sealed class SchedulerService : TimerService
         else {
             Logger.Warning("Low queue is too large!");
         }
-
-        // Release exclusive scheduler lock
-        await _jobRepository.ReleaseLockAsync("scheduler", lockValue);
     }
 }
