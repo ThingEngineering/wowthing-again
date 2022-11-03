@@ -864,7 +864,9 @@ public class UserUploadJob : JobBase
             .ToArray();
         if (deleteMe.Length > 0)
         {
-            await Context.DeleteRangeAsync<PlayerGuildItem>(item => deleteMe.Contains(item.Id));
+            await Context.PlayerGuildItem
+                .Where(pgi => deleteMe.Contains(pgi.Id))
+                .ExecuteDeleteAsync();
         }
     }
 
@@ -957,7 +959,9 @@ public class UserUploadJob : JobBase
             .ToArray();
         if (deleteMe.Length > 0)
         {
-            await Context.DeleteRangeAsync<PlayerCharacterItem>(item => deleteMe.Contains(item.Id));
+            await Context.PlayerCharacterItem
+                .Where(pci => deleteMe.Contains(pci.Id))
+                .ExecuteDeleteAsync();
         }
     }
 

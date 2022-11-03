@@ -1,17 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <UserSecretsId>dotnet-Wowthing.Backend-08E9B79A-EF3A-409C-B7C6-BDB114990FD2</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="CsvHelper" Version="29.0.0" />
     <PackageReference Include="Imageflow.AllPlatforms" Version="0.9.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.10" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="6.0.10" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="6.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.0-rc.2.22476.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="7.0.0-rc.2.22472.11" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.0-rc.2.22472.3" />
+    <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="7.0.0-rc.2.22476.2" />
     <PackageReference Include="morelinq" Version="3.3.2" />
     <PackageReference Include="Polly" Version="7.2.3" />
     <PackageReference Include="prometheus-net" Version="5.0.2" />
@@ -23,7 +23,6 @@
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
     <PackageReference Include="StackExchange.Redis" Version="2.6.70" />
     <PackageReference Include="YamlDotNet" Version="12.0.2" />
-    <PackageReference Include="Zack.EFCore.Batch.Npgsql_NET6" Version="6.1.3" />
   </ItemGroup>
 
   <ItemGroup>

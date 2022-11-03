@@ -1,6 +1,5 @@
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using Anemonis.AspNetCore.RequestDecompression;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
@@ -42,11 +41,7 @@ public class Startup
 
         services.AddResponseCaching();
 
-        services.AddRequestDecompression(options =>
-        {
-            options.Providers.Add<GzipDecompressionProvider>();
-            options.Providers.Add<BrotliDecompressionProvider>();
-        });
+        services.AddRequestDecompression();
 
         services.AddControllersWithViews()
             .AddNewtonsoftJson();

@@ -113,7 +113,6 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
         ));
 
         optionsBuilder.UseSnakeCaseNamingConvention();
-        optionsBuilder.UseBatchEF_Npgsql();
     }
 
     protected override void OnModelCreating(ModelBuilder builder)
