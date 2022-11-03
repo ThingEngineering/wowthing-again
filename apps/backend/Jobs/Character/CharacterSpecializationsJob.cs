@@ -2,7 +2,6 @@
 using Wowthing.Backend.Models.API.Character;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Models.Player;
-using Wowthing.Lib.Models.Query;
 
 namespace Wowthing.Backend.Jobs.Character;
 
@@ -12,8 +11,7 @@ public class CharacterSpecializationsJob : JobBase
 
     public override async Task Run(params string[] data)
     {
-        var query = JsonConvert.DeserializeObject<SchedulerCharacterQuery>(data[0]) ??
-                    throw new InvalidJsonException(data[0]);
+        var query = DeserializeCharacterQuery(data[0]);
         using var shrug = CharacterLog(query);
 
         // Fetch API data
@@ -52,7 +50,7 @@ public class CharacterSpecializationsJob : JobBase
         foreach (var specData in resultData.Specializations ?? new List<ApiCharacterSpecializationsSpecialization>())
         {
             var spec = new PlayerCharacterSpecializationsSpecialization();
-                
+
             foreach (var pvpTalent in specData.PvpTalents ?? new List<ApiCharacterSpecializationsPvpTalent>())
             {
                 if (pvpTalent.Selected?.SpellTooltip?.Spell?.Id != null)

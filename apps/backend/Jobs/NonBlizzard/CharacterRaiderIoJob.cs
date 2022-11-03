@@ -11,9 +11,7 @@ public class CharacterRaiderIoJob : JobBase
 
     public override async Task Run(params string[] data)
     {
-        var query = JsonConvert.DeserializeObject<SchedulerCharacterQuery>(data[0]) ??
-                    throw new InvalidJsonException(data[0]);
-        using var shrug = CharacterLog(query);
+        var query = DeserializeCharacterQuery(data[0]);        using var shrug = CharacterLog(query);
 
         // Fetch seasons
         var seasonIds = JsonConvert

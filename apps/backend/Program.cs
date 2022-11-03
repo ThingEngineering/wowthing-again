@@ -110,6 +110,7 @@ public class Program
         services.AddSingleton<StateService>();
 
         services.AddHostedService<AuthorizationService>();
+        services.AddHostedService<GarbageService>();
         services.AddHostedService<GoldSnapshotService>();
         services.AddHostedService<JobQueueService>();
         services.AddHostedService<SchedulerService>();

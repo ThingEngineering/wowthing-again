@@ -14,6 +14,7 @@ namespace Wowthing.Lib.Services;
 public class CacheService
 {
     private readonly IConnectionMultiplexer _redis;
+    private static readonly TimeSpan CacheDuration = TimeSpan.FromHours(24);
 
     public CacheService(IConnectionMultiplexer redis)
     {
@@ -187,7 +188,7 @@ public class CacheService
 
         timer.AddPoint("JSON", true);
 
-        await db.CompressedStringSetAsync(string.Format(RedisKeys.UserAchievements, userId), json);
+        await db.CompressedStringSetAsync(string.Format(RedisKeys.UserAchievements, userId), json, CacheDuration);
         var (_, lastModified) = await SetLastModified(RedisKeys.UserLastModifiedAchievements, userId);
 
         timer.AddPoint("Redis");
@@ -257,7 +258,7 @@ public class CacheService
 
         timer.AddPoint("JSON");
 
-        await db.CompressedStringSetAsync(string.Format(RedisKeys.UserTransmog, userId), json);
+        await db.CompressedStringSetAsync(string.Format(RedisKeys.UserTransmog, userId), json, CacheDuration);
         var (_, lastModified) = await SetLastModified(RedisKeys.UserLastModifiedTransmog, userId);
 
         timer.AddPoint("Redis", true);

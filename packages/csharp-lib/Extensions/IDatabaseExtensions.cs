@@ -64,9 +64,9 @@ public static class DatabaseExtensions
         return value == RedisValue.Null ? null : Encoding.UTF8.GetString(LZ4Pickler.Unpickle(value));
     }
 
-    public static async Task<bool> CompressedStringSetAsync(this IDatabase db, string key, string value)
+    public static async Task<bool> CompressedStringSetAsync(this IDatabase db, string key, string value, TimeSpan? expiry = null)
     {
         byte[] data = LZ4Pickler.Pickle(Encoding.UTF8.GetBytes(value));
-        return await db.StringSetAsync(key, data);
+        return await db.StringSetAsync(key, data, expiry);
     }
 }
