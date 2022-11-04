@@ -105,6 +105,14 @@
                         />
                     {/if}
 
+                    {#if gear.missingHeirloom}
+                        <WowthingImage
+                            name="{Constants.icons.gem}"
+                            size={20}
+                            border={2}
+                        />
+                    {/if}
+
                     {#if gear.missingGem}
                         <WowthingImage
                             name="{Constants.icons.gem}"
