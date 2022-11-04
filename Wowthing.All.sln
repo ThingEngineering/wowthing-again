@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wowthing.Discord", "apps\di
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wowthing.Benchmark", "apps\benchmark\Wowthing.Benchmark.csproj", "{2747929E-F2E9-4B1F-84A7-C9B7D44765E4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wowthing.LuaParser", "apps\luaparser\Wowthing.LuaParser.csproj", "{BF4E11FD-CA12-4462-8764-6DD440FEAF38}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -86,6 +88,18 @@ Global
 		{2747929E-F2E9-4B1F-84A7-C9B7D44765E4}.Release|x64.Build.0 = Release|Any CPU
 		{2747929E-F2E9-4B1F-84A7-C9B7D44765E4}.Release|x86.ActiveCfg = Release|Any CPU
 		{2747929E-F2E9-4B1F-84A7-C9B7D44765E4}.Release|x86.Build.0 = Release|Any CPU
+		{BF4E11FD-CA12-4462-8764-6DD440FEAF38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF4E11FD-CA12-4462-8764-6DD440FEAF38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF4E11FD-CA12-4462-8764-6DD440FEAF38}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BF4E11FD-CA12-4462-8764-6DD440FEAF38}.Debug|x64.Build.0 = Debug|Any CPU
+		{BF4E11FD-CA12-4462-8764-6DD440FEAF38}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BF4E11FD-CA12-4462-8764-6DD440FEAF38}.Debug|x86.Build.0 = Debug|Any CPU
+		{BF4E11FD-CA12-4462-8764-6DD440FEAF38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF4E11FD-CA12-4462-8764-6DD440FEAF38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF4E11FD-CA12-4462-8764-6DD440FEAF38}.Release|x64.ActiveCfg = Release|Any CPU
+		{BF4E11FD-CA12-4462-8764-6DD440FEAF38}.Release|x64.Build.0 = Release|Any CPU
+		{BF4E11FD-CA12-4462-8764-6DD440FEAF38}.Release|x86.ActiveCfg = Release|Any CPU
+		{BF4E11FD-CA12-4462-8764-6DD440FEAF38}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{D7AFDA0F-752C-403D-8E23-9A9245BBA621} = {4A6B7D4A-55F9-4CE6-892E-2D42A5E87899}
