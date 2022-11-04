@@ -3,7 +3,6 @@
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Running;
 using Wowthing.Lib.Utilities;
-using Wowthing.Lib.Utilities.LuaParser;
 
 [MemoryDiagnoser]
 public class JsonConverterBench
@@ -15,11 +14,14 @@ public class JsonConverterBench
         _data = File.ReadAllText("/home/freddie/projects/wowthing-again/temp/WoWthing_Collector.lua");
     }
 
-    [Benchmark]
-    public string Original() => LuaToJsonConverter.Convert(_data);
+    //[Benchmark]
+    public string V1() => LuaToJsonConverter.Convert(_data);
+
+    //[Benchmark]
+    public string V2() => LuaToJsonConverter2.Convert(_data);
 
     [Benchmark]
-    public string StringBuilder() => LuaToJsonConverter2.Convert(_data);
+    public string V3() => LuaToJsonConverter3.Convert(_data);
 }
 
 public class Program

@@ -138,7 +138,6 @@ public class LuaToJsonConverter2
                     .Append(subBuilder)
                     .Append('}');
             }
-
             builder.Append(',');
         }
 
