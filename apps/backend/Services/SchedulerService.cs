@@ -118,10 +118,11 @@ public sealed class SchedulerService : TimerService
 
                     // Update character LastApiCheck
                     var ids = characterResults.Select(s => s.CharacterId);
-                    await context.BatchUpdate<PlayerCharacter>()
-                        .Set(pc => pc.LastApiCheck, pc => DateTime.UtcNow)
+                    await context.PlayerCharacter
                         .Where(pc => ids.Contains(pc.Id))
-                        .ExecuteAsync();
+                        .ExecuteUpdateAsync(s => s
+                            .SetProperty(pc => pc.LastApiCheck, pc => DateTime.UtcNow)
+                        );
                 }
             }
             catch (Exception ex)

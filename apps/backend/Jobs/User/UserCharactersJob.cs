@@ -175,8 +175,9 @@ public class UserCharactersJob : JobBase
                 }
             }
 
-            int deleted = await Context
-                .DeleteRangeAsync<PlayerCharacter>(c => c.AccountId == accountId && !characterIds.Contains(c.Id));
+            int deleted = await Context.PlayerCharacter
+                .Where(pc => pc.AccountId == accountId && !characterIds.Contains(pc.Id))
+                .ExecuteDeleteAsync();
             if (deleted > 0)
             {
                 Logger.Information("Deleted {0} character(s) from account {1}/{2}", deleted, region, accountId);

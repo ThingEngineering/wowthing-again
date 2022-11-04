@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
   </PropertyGroup>
   
   <PropertyGroup>
@@ -10,17 +10,15 @@
   </PropertyGroup>
   
   <ItemGroup>
-    <PackageReference Include="Anemonis.AspNetCore.RequestDecompression" Version="1.14.0" />
-    <PackageReference Include="AspNet.Security.OAuth.BattleNet" Version="6.0.12" />
+    <PackageReference Include="AspNet.Security.OAuth.BattleNet" Version="6.0.14" />
     <PackageReference Include="LinqKit.Microsoft.EntityFrameworkCore" Version="6.1.2" />
-    <PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="6.0.10" />
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.10" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.10" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.10" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="6.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="7.0.0-rc.2.22476.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.0-rc.2.22476.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.0-rc.2.22476.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="7.0.0-rc.2.22476.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Analyzers" Version="7.0.0-rc.2.22472.11" />
     <PackageReference Include="prometheus-net" Version="5.0.2" />
     <PackageReference Include="prometheus-net.AspNetCore" Version="5.0.2" />
-    <PackageReference Include="Zack.EFCore.Batch.Npgsql_NET6" Version="6.1.3" />
   </ItemGroup>
 
   <ItemGroup>

@@ -47,6 +47,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddSingleton(new JsonSerializerOptions
         {
+            AllowTrailingCommas = true,
             DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
             PropertyNameCaseInsensitive = true,
             PropertyNamingPolicy = JsonNamingPolicy.CamelCase,

@@ -21,10 +21,11 @@ public class CharacterJob : JobBase
         // Skip invalid character names
         if (_numberRegex.IsMatch(query.CharacterName))
         {
-            await Context.BatchUpdate<PlayerCharacter>()
-                .Set(c => c.DelayHours, c => 1000)
+            await Context.PlayerCharacter
                 .Where(c => c.Id == query.CharacterId)
-                .ExecuteAsync();
+                .ExecuteUpdateAsync(s => s
+                    .SetProperty(pc => pc.DelayHours, pc => 1000)
+                );
             return;
         }
 
@@ -39,11 +40,11 @@ public class CharacterJob : JobBase
             {
                 LogNotModified();
 
-                await Context.BatchUpdate<PlayerCharacter>()
-                    .Set(c => c.DelayHours, c => 0)
-                    .Where(c => c.Id == query.CharacterId)
-                    .ExecuteAsync();
-
+                await Context.PlayerCharacter
+                    .Where(pc => pc.Id == query.CharacterId)
+                    .ExecuteUpdateAsync(s => s
+                        .SetProperty(pc => pc.DelayHours, pc => 0)
+                    );
                 return;
             }
 
@@ -67,11 +68,11 @@ public class CharacterJob : JobBase
                 delayHoursIncrement = 4;
             }
 
-            await Context.BatchUpdate<PlayerCharacter>()
-                .Set(c => c.DelayHours, c => c.DelayHours + delayHoursIncrement)
+            await Context.PlayerCharacter
                 .Where(c => c.Id == query.CharacterId)
-                .ExecuteAsync();
-
+                .ExecuteUpdateAsync(s => s
+                    .SetProperty(pc => pc.DelayHours, pc => pc.DelayHours + delayHoursIncrement)
+                );
             return;
         }
 
