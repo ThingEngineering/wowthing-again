@@ -60,11 +60,11 @@ public class LuaToJsonConverter3
             if (lineSpan[0] == '[')
             {
                 var keySpan = lineSpan[1..lineSpan.IndexOf(']')];
-                var value = lineSpan[(lineSpan.IndexOf(" = ") + 3)..];
+                var valueSpan = lineSpan[(lineSpan.IndexOf(" = ") + 3)..];
 
                 type = StructureType.Dictionary;
 
-                if (value[0] == '{')
+                if (valueSpan[0] == '{')
                 {
                     var (subType, subBuilder) = Recurse(ref enumerator);
                     if (subBuilder.Length > 0)
@@ -83,7 +83,7 @@ public class LuaToJsonConverter3
                     continue;
                 }
 
-                if (value[0] == '}')
+                if (valueSpan[0] == '}')
                 {
                     break;
                 }
@@ -97,7 +97,7 @@ public class LuaToJsonConverter3
                     builder.Append($"\"{keySpan}\":");
                 }
 
-                builder.Append($"{value},");
+                builder.Append($"{valueSpan},");
             }
             else
             {
