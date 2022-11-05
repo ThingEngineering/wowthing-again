@@ -19,7 +19,7 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
     get dataUrl(): string {
         let url = document.getElementById('app')?.getAttribute('data-user')
         if (url) {
-            url += '/transmog'
+            url = url.replace(/\/(?:public|private)/, '/transmog')
         }
         return url
     }

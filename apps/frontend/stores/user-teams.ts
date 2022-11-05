@@ -6,7 +6,7 @@ export class UserTeamDataStore extends WritableFancyStore<UserTeamData> {
     get dataUrl(): string {
         let url = document.getElementById('app')?.getAttribute('data-user')
         if (url) {
-            url += '/teams'
+            url = url.replace(/\/(?:public|private)/, '/teams')
         }
         return url
     }

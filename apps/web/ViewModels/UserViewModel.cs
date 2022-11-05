@@ -7,6 +7,7 @@ public class UserViewModel
 {
     public readonly ApplicationUser User;
     public readonly ApplicationUserSettings Settings;
+    public readonly bool IsPrivate;
     public readonly string SettingsJson;
     public readonly string AchievementHash;
     public readonly string AppearanceHash;
@@ -15,10 +16,11 @@ public class UserViewModel
     public readonly string ManualHash;
     public readonly string StaticHash;
 
-    public UserViewModel(IConnectionMultiplexer redis, ApplicationUser user)
+    public UserViewModel(IConnectionMultiplexer redis, ApplicationUser user, bool isPrivate)
     {
         User = user;
         Settings = user.Settings ?? new ApplicationUserSettings();
+        IsPrivate = isPrivate;
 
         var db = redis.GetDatabase();
         var achievementHash = db.StringGetAsync("cache:achievement-enUS:hash");
