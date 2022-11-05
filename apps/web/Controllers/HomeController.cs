@@ -20,7 +20,7 @@ public class HomeController : Controller
         _userManager = userManager;
         _webOptions = webOptions.Value;
     }
-        
+
     [HttpGet("")]
     public async Task<IActionResult> Index()
     {
@@ -42,10 +42,10 @@ public class HomeController : Controller
             {
                 return NotFound();
             }
-                
-            return View("~/Views/User/Index.cshtml", new UserViewModel(_redis, user));
+
+            return View("~/Views/User/Index.cshtml", new UserViewModel(_redis, user, User?.Identity?.Name == user.UserName));
         }
-            
+
         return View();
     }
 }

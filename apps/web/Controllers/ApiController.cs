@@ -149,8 +149,8 @@ public class ApiController : Controller
         return Ok(data);
     }
 
-    [HttpGet("user/{username:username}")]
-    public async Task<IActionResult> UserData([FromRoute] string username)
+    [HttpGet("user/{username:username}/{access:regex(^public|private)}")]
+    public async Task<IActionResult> UserData([FromRoute] string username, [FromRoute] string access = "public")
     {
         var timer = new JankTimer();
 
@@ -158,6 +158,16 @@ public class ApiController : Controller
         if (apiResult.NotFound)
         {
             return NotFound();
+        }
+
+        if (access == "private" && apiResult.Public)
+        {
+            return Forbid();
+        }
+
+        if (access == "public")
+        {
+            apiResult.Public = true;
         }
 
         timer.AddPoint("CheckUser");

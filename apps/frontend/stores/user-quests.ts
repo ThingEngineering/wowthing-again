@@ -8,7 +8,7 @@ export class UserQuestDataStore extends WritableFancyStore<UserQuestData> {
     get dataUrl(): string {
         let url = document.getElementById('app')?.getAttribute('data-user')
         if (url) {
-            url += '/quests'
+            url = url.replace(/\/(?:public|private)/, '/quests')
         }
         return url
     }

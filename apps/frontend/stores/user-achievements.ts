@@ -10,7 +10,7 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
     get dataUrl(): string {
         let url = document.getElementById('app')?.getAttribute('data-user')
         if (url) {
-            url += '/achievements'
+            url = url.replace(/\/(?:public|private)/, '/achievements')
         }
         return url
     }

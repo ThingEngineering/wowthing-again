@@ -21,6 +21,17 @@ export const slotOrder: InventorySlot[] = [
     InventorySlot.Trinket2,
 ]
 
+export const heirloomSlots: Record<number, boolean> = Object.fromEntries([
+    [InventorySlot.Head],
+    [InventorySlot.Neck],
+    [InventorySlot.Shoulders],
+    [InventorySlot.Back],
+    [InventorySlot.Chest],
+    [InventorySlot.Ring1],
+    [InventorySlot.Trinket1],
+    [InventorySlot.Trinket2],
+].map(n => [n, true]))
+
 export const validEnchants: Record<number, number[]> = {
     [InventorySlot.MainHand]: [
         3368, // Rune of the Fallen Crusader

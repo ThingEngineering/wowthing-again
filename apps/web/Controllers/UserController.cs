@@ -37,6 +37,6 @@ public class UserController : Controller
             return Redirect(expectedUri);
         }
 
-        return View(new UserViewModel(_redis, user));
+        return View(new UserViewModel(_redis, user, User.Identity?.Name == user.UserName));
     }
 }
