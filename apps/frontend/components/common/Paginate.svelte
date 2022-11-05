@@ -16,10 +16,11 @@
     let url: string
     $: {
         pages = Math.ceil(items.length / perPage)
-        url = '#' + $location.replace(/\/?\d+$/, '')
-
+        page = Math.max(1, Math.min(pages, page))
         start = (page - 1) * perPage
         end = start + perPage
+
+        url = '#' + $location.replace(/\/?\d+$/, '')
     }
 </script>
 
