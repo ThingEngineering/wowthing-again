@@ -12,7 +12,7 @@
 
     const taskActive = $settingsData.layout.homeTasks.map(
         (f) => filter(taskChoices, (c) => c.key === f)[0]
-    )
+    ).filter(f => f !== undefined)
     const taskInactive = filter(taskChoices, (c) => taskActive.indexOf(c) < 0)
 
     const onTaskChange = debounce(() => {
