@@ -78,8 +78,8 @@ public class UserUploadJob : JobBase
 
         Logger.Information("Processing upload...");
 
-        var json = LuaToJsonConverter3
-            .Convert(data[1].Replace("WWTCSaved = ", ""));
+        var json = LuaToJsonConverter4
+            .Convert(data[1].Replace("WWTCSaved = ", ""))[1..^1];
         _timer.AddPoint("Convert");
 
 #if DEBUG
@@ -393,6 +393,8 @@ public class UserUploadJob : JobBase
         {
             character.AddonData.CurrentLocation = characterData.CurrentLocation.Truncate(32);
         }
+
+        character.AddonData.Auras = characterData.Auras.EmptyIfNull();
 
         if (character.AddonData.Garrisons == null)
         {

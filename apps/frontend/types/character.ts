@@ -40,6 +40,7 @@ export interface Character {
     reputationData: Record<string, CharacterReputation>
     specializations: Record<number, Record<number, number>>
 
+    auras: number[]
     bags: Record<number, number>
     currenciesRaw: CharacterCurrencyArray[]
     currencyItems: Record<number, number>

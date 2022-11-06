@@ -16,6 +16,8 @@ public class PlayerCharacterAddonData
     public DateTime GarrisonTreesScannedAt { get; set; } = MiscConstants.DefaultDateTime;
     public DateTime MythicPlusScannedAt { get; set; } = MiscConstants.DefaultDateTime;
 
+    public List<int> Auras { get; set; } = new();
+
     [Column(TypeName = "jsonb")]
     public Dictionary<int, PlayerCharacterAddonDataGarrison> Garrisons { get; set; } = new();
 
