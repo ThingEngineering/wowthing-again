@@ -79,7 +79,7 @@ public class UserUploadJob : JobBase
         Logger.Information("Processing upload...");
 
         var json = LuaToJsonConverter4
-            .Convert(data[1].Replace("WWTCSaved = ", ""));
+            .Convert(data[1].Replace("WWTCSaved = ", ""))[1..^1];
         _timer.AddPoint("Convert");
 
 #if DEBUG
@@ -88,7 +88,7 @@ public class UserUploadJob : JobBase
 #endif
 
         //var parsed = JsonConvert.DeserializeObject<Upload[]>(json)[0]; // TODO work out why this is an array of objects
-        var parsed = System.Text.Json.JsonSerializer.Deserialize<Upload[]>(json, JsonSerializerOptions)[0];
+        var parsed = System.Text.Json.JsonSerializer.Deserialize<Upload>(json, JsonSerializerOptions);
         _timer.AddPoint("Parse");
 
         // Fetch instance data for lockouts
@@ -393,6 +393,8 @@ public class UserUploadJob : JobBase
         {
             character.AddonData.CurrentLocation = characterData.CurrentLocation.Truncate(32);
         }
+
+        character.AddonData.Auras = characterData.Auras.EmptyIfNull();
 
         if (character.AddonData.Garrisons == null)
         {

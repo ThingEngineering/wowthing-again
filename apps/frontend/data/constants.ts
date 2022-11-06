@@ -13,6 +13,7 @@ export abstract class Constants {
         alliance: 'achievement/13467', // Tides of Vengeance
         horde: 'achievement/13466', // Tides of Vengeance
 
+        anniversary: 'item/71134', // Celebration Package
         enchant: 'spell/7411', // Enchanting
         gem: 'spell/25229', // Jewelcrafting
         resting: 'spell/140430', // Passed Out

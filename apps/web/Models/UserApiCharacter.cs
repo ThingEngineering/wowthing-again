@@ -36,6 +36,7 @@ public class UserApiCharacter
     public WowGender Gender { get; set; }
     public WowMountSkill MountSkill { get; set; }
 
+    public List<int> Auras { get; set; }
     public Dictionary<short, int> Bags { get; set; }
     public List<UserApiCharacterCurrency> CurrenciesRaw { get; }
     public Dictionary<int, int> CurrencyItems { get; set; }
@@ -130,6 +131,7 @@ public class UserApiCharacter
             HearthLocation = character.AddonData?.BindLocation;
         }
 
+        Auras = character.AddonData?.Auras;
         Garrisons = character.AddonData?.Garrisons;
         GarrisonTrees = character.AddonData?.GarrisonTrees;
 

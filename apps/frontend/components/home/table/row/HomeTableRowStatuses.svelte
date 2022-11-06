@@ -10,6 +10,9 @@
     $: {
         images = []
         
+        if (character.auras?.indexOf(359530) >= 0) {
+            images.push([Constants.icons.anniversary, 'Anniversary Buff'])
+        }
         if (character.isResting && character.level < Constants.characterMaxLevel) {
             images.push([Constants.icons.resting, 'Resting'])
         }
