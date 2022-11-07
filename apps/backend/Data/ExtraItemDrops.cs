@@ -62,6 +62,153 @@ public static partial class Hardcoded
                 new (178169, new[]{ 1 }), // Decrepit Dragonscale Drape
             }
         },
+        // Anniversary World Bosses
+        {
+            100012, // Azuregos
+            new List<ExtraItemDrop>
+            {
+                // Cloth
+                new (150419, new[]{ 1 }), // Crystal Adorned Crown
+                new (150425, new[]{ 1 }), // Snowblind Shoes
+                // Leather
+                new (150543, new[]{ 1 }), // Sapphire-Encrusted Tunic
+                // Mail
+                new (150544, new[]{ 1 }), // Mana-Frosted Pauldrons
+                // Plate
+                new (150422, new[]{ 1 }), // Unmelting Ice Girdle
+                // Cloak
+                new (150417, new[]{ 1 }), // Drape of Benediction
+                // Weapon
+                new (150424, new[]{ 1 }), // Cold Snap
+                new (150428, new[]{ 1 }), // Eskhandar's Left Claw
+                new (150423, new[]{ 1 }), // Fang of the Mystics
+                new (150421, new[]{ 1 }), // Typhoon
+            }
+        },
+        {
+            100013, // Lord Kazzak
+            new List<ExtraItemDrop>
+            {
+                // Cloth
+                new (150386, new[]{ 1 }), // Blacklight Bracer
+                new (150385, new[]{ 1 }), // Fel Infused Leggings
+                // Leather
+                new (150382, new[]{ 1 }), // Doomhide Gauntlets
+                new (150381, new[]{ 1 }), // Flayed Doomguard Belt
+                // Mail
+                new (150379, new[]{ 1 }), // Infernal Headcage
+                // Cloak
+                new (150380, new[]{ 1 }), // Eskhandar's Pelt
+                // Weapon
+                new (150383, new[]{ 1 }), // Amberseal Keeper
+                new (150427, new[]{ 1 }), // Empyrean Demolisher
+            }
+        },
+        {
+            100014, // Dragons of Nightmare
+            new List<ExtraItemDrop>
+            {
+                // Cloak
+                new (150411, new[]{ 1 }), // Green Dragonskin Cloak
+                // Weapon
+                new (150429, new[]{ 1 }), // Emerald Dragonfang
+                new (150412, new[]{ 1 }), // Hammer of Bestial Fury
+                new (150393, new[]{ 1 }), // Nightmare Blade
+                new (150403, new[]{ 1 }), // Polished Ironwood Crossbow
+                new (150408, new[]{ 1 }), // Staff of Rampant Growth
+            }
+        },
+        {
+            100015, // Emeriss
+            new List<ExtraItemDrop>
+            {
+                // Cloth
+                new (150416, new[]{ 1 }), // Gloves of Delusional Power
+                // Leather
+                new (150405, new[]{ 1 }), // Circlet of Restless Dreams
+                new (150415, new[]{ 1 }), // Dragonspur Wraps
+                // Mail
+                new (150406, new[]{ 1 }), // Boots of the Endless Moor
+                // Plate
+                new (150410, new[]{ 1 }), // Acid Inscribed Greaves
+            }
+        },
+        {
+            100016, // Lethon
+            new List<ExtraItemDrop>
+            {
+                // Cloth
+                new (150399, new[]{ 1 }), // Black Bark Wristbands
+                // Leather
+                new (150398, new[]{ 1 }), // Dark Heart Pants
+                new (150401, new[]{ 1 }), // Deviate Growth Cap
+                // Mail
+                new (150400, new[]{ 1 }), // Malignant Footguards
+                // Plate
+                new (150402, new[]{ 1 }), // Gauntlets of the Shining Light
+            }
+        },
+        {
+            100017, // Taerar
+            new List<ExtraItemDrop>
+            {
+                // Cloth
+                new (150394, new[]{ 1 }), // Mendicant's Slippers
+                // Leather
+                new (150395, new[]{ 1 }), // Unnatural Leather Spaulders
+                // Mail
+                new (150414, new[]{ 1 }), // Ancient Corroded Leggings
+                // Plate
+                new (150413, new[]{ 1 }), // Dragonbone Wristguards
+                new (150390, new[]{ 1 }), // Strangely Glyphed Legplates
+            }
+        },
+        {
+            100018, // Ysondre
+            new List<ExtraItemDrop>
+            {
+                // Cloth
+                new (150397, new[]{ 1 }), // Belt of the Dark Bog
+                new (150391, new[]{ 1 }), // Jade Inlaid Vestments
+                // Leather
+                new (150396, new[]{ 1 }), // Boots of Fright
+                // Mail
+                new (150389, new[]{ 1 }), // Leggings of the Demented Mind
+                // Plate
+                new (150387, new[]{ 1 }), // Acid Inscribed Pauldrons
+                // Weapon
+                new (150409, new[]{ 1 }), // Trance Stone
+            }
+        },
+        {
+            100019, // Doomwalker
+            new List<ExtraItemDrop>
+            {
+                // Mount
+                new (186469, new[]{ 1 }), // Illidari Doomhawk
+                // Toy
+                new (186501, new[]{ 1 }), // Doomwalker Trophy Stand
+                // Cloth
+                new (186460, new[]{ 1 }), // Anger-Spark Gloves
+                new (186461, new[]{ 1 }), // Gilded Trousers of Benediction
+                // Leather
+                new (186475, new[]{ 1 }), // Hellstitched Mantle
+                new (186463, new[]{ 1 }), // Terrorweave Tunic
+                // Mail
+                new (186481, new[]{ 1 }), // Darkcrest Waistguard
+                new (186464, new[]{ 1 }), // Fathom-Helm of the Deeps
+                // Plate
+                new (186465, new[]{ 1 }), // Faceguard of the Endless Watch
+                new (186484, new[]{ 1 }), // Voidforged Greaves
+                // Cloak
+                new (186462, new[]{ 1 }), // Black-Iron Battlecloak
+                // Weapon
+                new (186506, new[]{ 1 }), // Akama's Edge
+                new (186467, new[]{ 1 }), // Barrel-Blade Longrifle
+                new (186466, new[]{ 1 }), // Ethereum Nexus-Reaver
+                new (186468, new[]{ 1 }), // Talon of the Tempest
+            }
+        },
         #endregion
 
         #region Classic
