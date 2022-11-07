@@ -21,6 +21,12 @@ public static partial class Hardcoded
                     OrderIndex = 1,
                     Name = "Darkmaul Citadel",
                 },
+                new DumpJournalInstance
+                {
+                    ID = 2,
+                    OrderIndex = 2,
+                    Name = "Anniversary World Bosses",
+                },
             }
         )
     };

@@ -16,6 +16,21 @@ public static partial class Hardcoded
                 new ExtraEncounter("Gor'groth"),
             }
         },
+        // ??? > Anniversary World Bosses
+        {
+            2,
+            new[]
+            {
+                new ExtraEncounter("Azuregos"),
+                new ExtraEncounter("Lord Kazzak"),
+                new ExtraEncounter("Dragons of Nightmare"),
+                new ExtraEncounter("Emeriss"),
+                new ExtraEncounter("Lethon"),
+                new ExtraEncounter("Taerar"),
+                new ExtraEncounter("Ysondre"),
+                new ExtraEncounter("Doomwalker"),
+            }
+        },
         #endregion
 
         #region Classic
