@@ -407,14 +407,6 @@ export const keyTiers = [
 
 // Fake "instances" for tracking world bosses
 export const extraInstances: StaticDataInstance[] = [
-    // Anniversary bosses
-    {
-        expansion: 1,
-        id: 100017,
-        name: 'Doomwalker',
-        shortName: 'DW',
-    },
-
     // Mists of Pandaria
     {
         expansion: 4,
@@ -559,28 +551,54 @@ export const extraInstances: StaticDataInstance[] = [
 
     // Holidays
     {
-        expansion: 0,
+        expansion: 100,
         id: 200285,
         name: "The Headless Horseman",
         shortName: 'HH',
     },
     {
-        expansion: 0,
+        expansion: 100,
         id: 200286,
         name: "The Frost Lord Ahune",
         shortName: 'FLA',
     },
     {
-        expansion: 0,
+        expansion: 100,
         id: 200287,
         name: "Coren Direbrew",
         shortName: 'CD',
     },
     {
-        expansion: 0,
+        expansion: 100,
         id: 200288,
         name: "The Crown Chemical Co.",
         shortName: 'CCC',
+    },
+
+    // Anniversary
+    {
+        expansion: 100,
+        id: 100001,
+        name: 'Lord Kazzak',
+        shortName: 'LK',
+    },
+    {
+        expansion: 100,
+        id: 100002,
+        name: 'Azuregos',
+        shortName: 'Azu',
+    },
+    {
+        expansion: 100,
+        id: 100003,
+        name: 'Dragon of Nightmare',
+        shortName: 'DoN',
+    },
+    {
+        expansion: 100,
+        id: 100017,
+        name: 'Doomwalker',
+        shortName: 'DW',
     },
 ]
 
