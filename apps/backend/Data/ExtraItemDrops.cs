@@ -64,7 +64,7 @@ public static partial class Hardcoded
         },
         // Anniversary World Bosses
         {
-            100012, // Azuregos
+            100020, // Azuregos
             new List<ExtraItemDrop>
             {
                 // Cloth
@@ -86,7 +86,7 @@ public static partial class Hardcoded
             }
         },
         {
-            100013, // Lord Kazzak
+            100021, // Lord Kazzak
             new List<ExtraItemDrop>
             {
                 // Cloth
@@ -105,7 +105,7 @@ public static partial class Hardcoded
             }
         },
         {
-            100014, // Dragons of Nightmare
+            100022, // Dragons of Nightmare
             new List<ExtraItemDrop>
             {
                 // Cloak
@@ -119,7 +119,7 @@ public static partial class Hardcoded
             }
         },
         {
-            100015, // Emeriss
+            100023, // Emeriss
             new List<ExtraItemDrop>
             {
                 // Cloth
@@ -134,7 +134,7 @@ public static partial class Hardcoded
             }
         },
         {
-            100016, // Lethon
+            100024, // Lethon
             new List<ExtraItemDrop>
             {
                 // Cloth
@@ -149,7 +149,7 @@ public static partial class Hardcoded
             }
         },
         {
-            100017, // Taerar
+            100025, // Taerar
             new List<ExtraItemDrop>
             {
                 // Cloth
@@ -164,7 +164,7 @@ public static partial class Hardcoded
             }
         },
         {
-            100018, // Ysondre
+            100026, // Ysondre
             new List<ExtraItemDrop>
             {
                 // Cloth
@@ -181,7 +181,7 @@ public static partial class Hardcoded
             }
         },
         {
-            100019, // Doomwalker
+            100027, // Doomwalker
             new List<ExtraItemDrop>
             {
                 // Mount
