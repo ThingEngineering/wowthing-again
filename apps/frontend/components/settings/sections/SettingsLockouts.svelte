@@ -58,10 +58,11 @@ import { iconStrings } from '@/data/icons'
         position: relative;
 
         :global(fieldset) {
-            bottom: -2rem;
+            background: $highlight-background;
+            bottom: -2.6rem;
             position: absolute;
             right: -4px;
-            width: 13rem;
+            width: 12rem;
         }
     }
 </style>
