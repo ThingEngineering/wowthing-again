@@ -2,22 +2,31 @@
 using Microsoft.Extensions.Options;
 using StackExchange.Redis;
 using Wowthing.Lib.Models;
+using Wowthing.Lib.Services;
 using Wowthing.Web.Misc;
 using Wowthing.Web.Models;
+using Wowthing.Web.Services;
 using Wowthing.Web.ViewModels;
 
 namespace Wowthing.Web.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly IConnectionMultiplexer _redis;
+    private readonly CacheService _cacheService;
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly UserService _userService;
     private readonly WowthingWebOptions _webOptions;
 
-    public HomeController(IConnectionMultiplexer redis, IOptions<WowthingWebOptions> webOptions, UserManager<ApplicationUser> userManager)
+    public HomeController(
+        CacheService cacheService,
+        IOptions<WowthingWebOptions> webOptions,
+        UserManager<ApplicationUser> userManager,
+        UserService userService
+    )
     {
-        _redis = redis;
+        _cacheService = cacheService;
         _userManager = userManager;
+        _userService = userService;
         _webOptions = webOptions.Value;
     }
 
@@ -43,7 +52,8 @@ public class HomeController : Controller
                 return NotFound();
             }
 
-            return View("~/Views/User/Index.cshtml", new UserViewModel(_redis, user, User?.Identity?.Name == user.UserName));
+            var viewModel = await _userService.CreateViewModel(User, user);
+            return View("~/Views/User/Index.cshtml", viewModel);
         }
 
         return View();

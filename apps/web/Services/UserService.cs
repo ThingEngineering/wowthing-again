@@ -1,23 +1,33 @@
 ﻿using System.Security.Claims;
+using System.Text.Json;
 using Microsoft.AspNetCore.Identity;
 using Wowthing.Lib.Models;
-using Wowthing.Web.Models;
+using Wowthing.Lib.Services;
+using Wowthing.Web.ViewModels;
 
 namespace Wowthing.Web.Services;
 
 public class UserService
 {
+    private readonly CacheService _cacheService;
+    private readonly JsonSerializerOptions _jsonSerializerOptions;
     private readonly UserManager<ApplicationUser> _userManager;
 
-    public UserService(UserManager<ApplicationUser> userManager)
+    public UserService(
+        CacheService cacheService,
+        JsonSerializerOptions jsonSerializerOptions,
+        UserManager<ApplicationUser> userManager
+    )
     {
+        _cacheService = cacheService;
+        _jsonSerializerOptions = jsonSerializerOptions;
         _userManager = userManager;
     }
-    
+
     public async Task<ApiUserResult> CheckUser(ClaimsPrincipal currentUser, string username)
     {
         var ret = new ApiUserResult();
-            
+
         var foundUser = await _userManager.FindByNameAsync(username);
         if (foundUser == null)
         {
@@ -33,8 +43,25 @@ public class UserService
             ret.NotFound = true;
             return ret;
         }
-            
+
         ret.User = foundUser;
         return ret;
+    }
+
+    public async Task<UserViewModel> CreateViewModel(ClaimsPrincipal claimsPrincipal, ApplicationUser user)
+    {
+        var hashes = await _cacheService.GetCachedHashes();
+
+        var settings = user.Settings ?? new ApplicationUserSettings();
+        settings.Migrate();
+        var settingsJson = System.Text.Json.JsonSerializer.Serialize(settings, _jsonSerializerOptions);
+
+        return new UserViewModel(
+            hashes,
+            user,
+            settings,
+            settingsJson,
+            claimsPrincipal?.Identity?.Name == user.UserName
+        );
     }
 }

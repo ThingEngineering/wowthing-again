@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using StackExchange.Redis;
@@ -13,12 +14,18 @@ namespace Wowthing.Lib.Services;
 
 public class CacheService
 {
-    private readonly IConnectionMultiplexer _redis;
     private static readonly TimeSpan CacheDuration = TimeSpan.FromHours(24);
 
-    public CacheService(IConnectionMultiplexer redis)
+    private readonly IConnectionMultiplexer _redis;
+    private readonly IMemoryCache _memoryCache;
+
+    public CacheService(
+        IConnectionMultiplexer redis,
+        IMemoryCache memoryCache
+    )
     {
         _redis = redis;
+        _memoryCache = memoryCache;
     }
 
     public async Task<DateTimeOffset> GetLastModified(string key, ApiUserResult apiUserResult)
@@ -59,6 +66,37 @@ public class CacheService
         }
 
         return (true, lastModified);
+    }
+
+    public async Task<Dictionary<string, string>> GetCachedHashes()
+    {
+        return await _memoryCache.GetOrCreateAsync(
+            MemoryCacheKeys.UserViewHashes,
+            cacheEntry =>
+            {
+                cacheEntry.SlidingExpiration = TimeSpan.FromMinutes(1);
+
+                var db = _redis.GetDatabase();
+
+                var achievementHash = db.StringGetAsync("cache:achievement-enUS:hash");
+                var appearanceHash = db.StringGetAsync("cache:appearance:hash");
+                var itemHash = db.StringGetAsync("cache:item-enUS:hash");
+                var journalHash = db.StringGetAsync("cache:journal-enUS:hash");
+                var manualHash = db.StringGetAsync("cache:manual-enUS:hash");
+                var staticHash = db.StringGetAsync("cache:static-enUS:hash");
+                Task.WaitAll(achievementHash, appearanceHash, itemHash, journalHash, manualHash, staticHash);
+
+                return Task.FromResult(new Dictionary<string, string>
+                {
+                    { "Achievement", achievementHash.Result },
+                    { "Appearance", appearanceHash.Result },
+                    { "Item", itemHash.Result },
+                    { "Journal", journalHash.Result },
+                    { "Manual", manualHash.Result },
+                    { "Static", staticHash.Result },
+                });
+            }
+        );
     }
 
     #region Achievements

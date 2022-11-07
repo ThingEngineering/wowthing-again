@@ -39,6 +39,7 @@ public class Startup
 
         services.Configure<WowthingWebOptions>(wowthingWebConfig);
 
+        services.AddMemoryCache();
         services.AddResponseCaching();
 
         services.AddRequestDecompression();
