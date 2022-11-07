@@ -3,24 +3,27 @@
     import filter from 'lodash/filter'
     import sortBy from 'lodash/sortBy'
 
+    import { expansionMap } from '@/data/expansion'
+    import { iconStrings } from '@/data/icons'
     import { staticStore } from '@/stores'
     import { data as settingsData } from '@/stores/settings'
     import type { SettingsChoice } from '@/types'
 
     import CheckboxInput from '@/components/forms/CheckboxInput.svelte'
+    import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import MagicLists from '../SettingsMagicLists.svelte'
     import TextInput from '@/components/forms/TextInput.svelte'
-import IconifyIcon from '@/components/images/IconifyIcon.svelte'
-import { iconStrings } from '@/data/icons'
 
     let instanceFilter: string
 
-    const allInstances: SettingsChoice[] = Object.values($staticStore.data.instances)
-        .map((instance) => ({
-                key: instance.id.toString(),
-                name: instance.name,
-            })
-        )
+    const allInstances: SettingsChoice[] = sortBy(
+        Object.values($staticStore.data.instances),
+        (instance) => instance.expansion
+    ).map((instance) => ({
+        key: instance.id.toString(),
+        name: `<code>[${expansionMap[instance.expansion].shortName}]</code> ${instance.name}`,
+    })
+)
 
     let inactiveInstances: SettingsChoice[]
     const activeInstance = sortBy(
