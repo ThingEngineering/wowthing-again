@@ -58,7 +58,6 @@ public static class StringExtensions
     }
 
     // https://www.meziantou.net/split-a-string-into-lines-without-allocation.htm
-
     #region Span SplitLines
 
     public static LineSplitEnumerator SplitLines(this string str)

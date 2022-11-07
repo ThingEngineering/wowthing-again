@@ -11,24 +11,21 @@ public class UserService
 {
     private readonly CacheService _cacheService;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
-    private readonly UserManager<ApplicationUser> _userManager;
 
     public UserService(
         CacheService cacheService,
-        JsonSerializerOptions jsonSerializerOptions,
-        UserManager<ApplicationUser> userManager
+        JsonSerializerOptions jsonSerializerOptions
     )
     {
         _cacheService = cacheService;
         _jsonSerializerOptions = jsonSerializerOptions;
-        _userManager = userManager;
     }
 
     public async Task<ApiUserResult> CheckUser(ClaimsPrincipal currentUser, string username)
     {
         var ret = new ApiUserResult();
 
-        var foundUser = await _userManager.FindByNameAsync(username);
+        var foundUser = await _cacheService.FindUserByNameAsync(username);
         if (foundUser == null)
         {
             ret.NotFound = true;

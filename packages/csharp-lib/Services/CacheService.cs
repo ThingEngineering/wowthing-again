@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -18,14 +19,17 @@ public class CacheService
 
     private readonly IConnectionMultiplexer _redis;
     private readonly IMemoryCache _memoryCache;
+    private readonly UserManager<ApplicationUser> _userManager;
 
     public CacheService(
         IConnectionMultiplexer redis,
-        IMemoryCache memoryCache
+        IMemoryCache memoryCache,
+        UserManager<ApplicationUser> userManager
     )
     {
         _redis = redis;
         _memoryCache = memoryCache;
+        _userManager = userManager;
     }
 
     public async Task<DateTimeOffset> GetLastModified(string key, ApiUserResult apiUserResult)
@@ -95,6 +99,18 @@ public class CacheService
                     { "Manual", manualHash.Result },
                     { "Static", staticHash.Result },
                 });
+            }
+        );
+    }
+
+    public async Task<ApplicationUser?> FindUserByNameAsync(string username)
+    {
+        return await _memoryCache.GetOrCreateAsync(
+            string.Format(MemoryCacheKeys.User, username.ToLowerInvariant()),
+            cacheEntry =>
+            {
+                cacheEntry.SlidingExpiration = TimeSpan.FromMinutes(1);
+                return _userManager.FindByNameAsync(username);
             }
         );
     }
