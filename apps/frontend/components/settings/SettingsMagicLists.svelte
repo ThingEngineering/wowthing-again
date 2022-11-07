@@ -95,7 +95,7 @@
                 on:sorted-items={onFunc}
                 let:Item
             >
-                {Item.name}
+                <span class="name">{@html Item.name}</span>
                 <IconifyIcon icon={iconStrings.yes} />
             </ListView>
         </div>
@@ -113,7 +113,7 @@
                 withTransitions={false}
                 let:Item
             >
-                {Item.name}
+                <span class="name">{@html Item.name}</span>
                 <IconifyIcon icon={iconStrings.no} />
             </ListView>
         </div>
