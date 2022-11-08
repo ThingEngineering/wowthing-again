@@ -4,6 +4,7 @@ public static class RedisKeys
 {
     public const string UserAchievements = "user:{0}:achievements";
     //public const string UserMounts = "collections:{0}:mounts";
+    public const string UserQuests = "user:{0}:quests";
     public const string UserTransmog = "user:{0}:transmog";
 
     public const string ManualLastModified = "manual:last_modified";

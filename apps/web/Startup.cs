@@ -39,6 +39,7 @@ public class Startup
 
         services.Configure<WowthingWebOptions>(wowthingWebConfig);
 
+        services.AddMemoryCache();
         services.AddResponseCaching();
 
         services.AddRequestDecompression();
@@ -142,6 +143,8 @@ public class Startup
         services.AddScoped<UploadService>();
         services.AddScoped<UriService>();
         services.AddScoped<UserService>();
+
+        services.AddTransient<MemoryCacheService>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

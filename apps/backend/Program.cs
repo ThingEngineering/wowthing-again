@@ -81,6 +81,9 @@ public class Program
         var backendOptions = new WowthingBackendOptions();
         Configuration.GetSection("WowthingBackend").Bind(backendOptions);
 
+        // Memory cache
+        services.AddMemoryCache();
+
         // Databases
         services.AddPostgres(Configuration.GetConnectionString("Postgres"));
 

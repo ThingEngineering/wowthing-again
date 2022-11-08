@@ -40,7 +40,6 @@ public class CachedJsonController : Controller
         }
 
         string key = _hasLanguages.Contains(type) ? $"{type}-{language.ToString()}" : type;
-        _logger.LogDebug("key = {key}", key);
 
         string jsonHash = await db.StringGetAsync($"cache:{key}:hash");
         if (hash != jsonHash)

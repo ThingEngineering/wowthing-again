@@ -26,4 +26,8 @@
     <ProjectReference Include="..\..\packages\csharp-lib\Wowthing.Lib.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Constants" />
+  </ItemGroup>
+
 </Project>

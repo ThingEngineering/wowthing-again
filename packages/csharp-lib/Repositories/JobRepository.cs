@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using Newtonsoft.Json;
 using StackExchange.Redis;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Jobs;
@@ -8,9 +9,14 @@ namespace Wowthing.Lib.Repositories;
 public class JobRepository
 {
     private readonly IConnectionMultiplexer _redis;
+    private readonly JsonSerializerOptions _jsonSerializerOptions;
 
-    public JobRepository(IConnectionMultiplexer redis)
+    public JobRepository(
+        IConnectionMultiplexer redis,
+        JsonSerializerOptions jsonSerializerOptions
+    )
     {
+        _jsonSerializerOptions = jsonSerializerOptions;
         _redis = redis;
     }
 
@@ -23,7 +29,7 @@ public class JobRepository
             Type = type,
             Data = data,
         };
-        await sub.PublishAsync("jobs", JsonConvert.SerializeObject(job));
+        await sub.PublishAsync("jobs", System.Text.Json.JsonSerializer.Serialize(job, _jsonSerializerOptions));
     }
 
     public async Task AddJobsAsync(JobPriority priority, JobType type, IEnumerable<string[]> datas)
@@ -37,7 +43,7 @@ public class JobRepository
                 Type = type,
                 Data = data,
             };
-            await sub.PublishAsync("jobs", JsonConvert.SerializeObject(job));
+            await sub.PublishAsync("jobs", System.Text.Json.JsonSerializer.Serialize(job, _jsonSerializerOptions));
         }
     }
 

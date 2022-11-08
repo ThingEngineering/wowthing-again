@@ -1,6 +1,7 @@
 ﻿using System.Net.Http;
 using Wowthing.Backend.Models.API.Character;
 using Wowthing.Lib.Constants;
+using Wowthing.Lib.Jobs;
 using Wowthing.Lib.Models.Player;
 
 namespace Wowthing.Backend.Jobs.Character;
@@ -59,7 +60,7 @@ public class CharacterQuestsCompletedJob : JobBase
         int updated = await Context.SaveChangesAsync();
         if (updated > 0)
         {
-            await CacheService.SetLastModified(RedisKeys.UserLastModifiedQuests, query.UserId);
+            await JobRepository.AddJobAsync(JobPriority.High, JobType.UserCacheQuests, data[0]);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.Text.Json;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using StackExchange.Redis;
@@ -13,11 +14,17 @@ namespace Wowthing.Lib.Services;
 
 public class CacheService
 {
-    private readonly IConnectionMultiplexer _redis;
     private static readonly TimeSpan CacheDuration = TimeSpan.FromHours(24);
 
-    public CacheService(IConnectionMultiplexer redis)
+    private readonly IConnectionMultiplexer _redis;
+    private readonly JsonSerializerOptions _jsonSerializerOptions;
+
+    public CacheService(
+        IConnectionMultiplexer redis,
+        JsonSerializerOptions jsonSerializerOptions
+    )
     {
+        _jsonSerializerOptions = jsonSerializerOptions;
         _redis = redis;
     }
 
@@ -177,14 +184,14 @@ public class CacheService
         timer.AddPoint("AddonAchievements");
 
         // Build response
-        string json = JsonConvert.SerializeObject(new ApiUserAchievements
+        string json = System.Text.Json.JsonSerializer.Serialize(new ApiUserAchievements
         {
             Achievements = achievementsCompleted,
             AddonAchievements = addonAchievements,
             RawCriteria = packedCriteria,
             Statistics = statistics
                 .ToGroupedDictionary(stat => stat.StatisticId),
-        });
+        }, _jsonSerializerOptions);
 
         timer.AddPoint("JSON", true);
 
@@ -192,6 +199,79 @@ public class CacheService
         var (_, lastModified) = await SetLastModified(RedisKeys.UserLastModifiedAchievements, userId);
 
         timer.AddPoint("Redis");
+
+        return (json, lastModified);
+    }
+    #endregion
+
+    #region Quests
+    public async Task<(string, DateTimeOffset)> GetOrCreateQuestCacheAsync(
+        WowDbContext context,
+        JankTimer timer,
+        long userId,
+        DateTimeOffset lastModified
+    )
+    {
+        var db = _redis.GetDatabase();
+
+        string json = await db.CompressedStringGetAsync(string.Format(RedisKeys.UserQuests, userId));
+        if (string.IsNullOrEmpty(json))
+        {
+            (json, lastModified) = await CreateQuestCacheAsync(context, db, timer, userId);
+        }
+
+        return (json, lastModified);
+    }
+
+    public async Task<(string, DateTimeOffset)> CreateQuestCacheAsync(
+        WowDbContext context,
+        IDatabase db,
+        JankTimer timer,
+        long userId
+    )
+    {
+        var characters = await context.PlayerCharacter
+            .Where(pc => pc.Account.UserId == userId)
+            .Include(pc => pc.AddonQuests)
+            .Include(pc => pc.Quests)
+            .Select(pc => new
+            {
+                pc.Id,
+                pc.AddonQuests,
+                pc.Quests,
+            })
+            .ToArrayAsync();
+
+        var characterData = characters.ToDictionary(
+            c => c.Id,
+            c => new ApiUserQuestsCharacter
+            {
+                ScannedAt = c.AddonQuests?.QuestsScannedAt ?? MiscConstants.DefaultDateTime,
+                Dailies = c.AddonQuests?.Dailies.EmptyIfNull(),
+                DailyQuestList = c.AddonQuests?.DailyQuests ?? new List<int>(),
+                QuestList = (c.Quests?.CompletedIds ?? new List<int>())
+                    .Union(c.AddonQuests?.OtherQuests ?? new List<int>())
+                    .Distinct()
+                    .ToList(),
+                ProgressQuests = c.AddonQuests?.ProgressQuests.EmptyIfNull(),
+            }
+        );
+
+        timer.AddPoint("Database");
+
+        // Build response
+        var data = new ApiUserQuests
+        {
+            Characters = characterData,
+        };
+        var json = System.Text.Json.JsonSerializer.Serialize(data, _jsonSerializerOptions);
+
+        timer.AddPoint("JSON");
+
+        await db.CompressedStringSetAsync(string.Format(RedisKeys.UserQuests, userId), json, CacheDuration);
+        var (_, lastModified) = await SetLastModified(RedisKeys.UserLastModifiedQuests, userId);
+
+        timer.AddPoint("Redis", true);
 
         return (json, lastModified);
     }
@@ -239,7 +319,7 @@ public class CacheService
             allSources.UnionWith(sources.Sources.EmptyIfNull());
         }
 
-        var json = JsonConvert.SerializeObject(new ApiUserTransmog
+        var json = System.Text.Json.JsonSerializer.Serialize(new ApiUserTransmog
         {
             Illusions = allTransmog.IllusionIds
                 .Distinct()
@@ -254,7 +334,7 @@ public class CacheService
                 .Distinct()
                 .OrderBy(id => id)
                 .ToArray(),
-        });
+        }, _jsonSerializerOptions);
 
         timer.AddPoint("JSON");
 

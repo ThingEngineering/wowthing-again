@@ -27,6 +27,7 @@ public class ApiController : Controller
     private readonly IConnectionMultiplexer _redis;
     private readonly ILogger<ApiController> _logger;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
+    private readonly MemoryCacheService _memoryCacheService;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly UserService _userService;
     private readonly WowDbContext _context;
@@ -36,6 +37,7 @@ public class ApiController : Controller
         IConnectionMultiplexer redis,
         ILogger<ApiController> logger,
         JsonSerializerOptions jsonSerializerOptions,
+        MemoryCacheService memoryCacheService,
         UserManager<ApplicationUser> userManager,
         UserService userService,
         WowDbContext context
@@ -45,6 +47,7 @@ public class ApiController : Controller
         _redis = redis;
         _logger = logger;
         _jsonSerializerOptions = jsonSerializerOptions;
+        _memoryCacheService = memoryCacheService;
         _userManager = userManager;
         _userService = userService;
         _context = context;
@@ -295,9 +298,7 @@ public class ApiController : Controller
 
         timer.AddPoint("Dailies");
 
-        var backgrounds = await _context.BackgroundImage
-            .Where(bi => bi.Role == null)
-            .ToDictionaryAsync(bi => bi.Id);
+        var backgrounds = await _memoryCacheService.GetBackgroundImages();
 
         var images = await _context.Image
             .Where(image =>
@@ -318,26 +319,7 @@ public class ApiController : Controller
 
         timer.AddPoint("Images");
 
-        var currentPeriods = _context.WowPeriod
-            .AsEnumerable()
-            .GroupBy(p => p.Region)
-            .ToDictionary(
-                grp => (int)grp.Key,
-                grp => grp
-                    .OrderByDescending(p => p.Starts)
-                    .First()
-            );
-
-        var now = DateTime.UtcNow;
-        foreach (var region in currentPeriods.Keys)
-        {
-            while (currentPeriods[region].Ends < now)
-            {
-                currentPeriods[region].Id++;
-                currentPeriods[region].Starts = currentPeriods[region].Starts.AddDays(7);
-                currentPeriods[region].Ends = currentPeriods[region].Ends.AddDays(7);
-            }
-        }
+        var currentPeriods = await _memoryCacheService.GetPeriods();
 
         timer.AddPoint("Periods");
 
