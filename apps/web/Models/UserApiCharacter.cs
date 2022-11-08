@@ -38,7 +38,7 @@ public class UserApiCharacter
 
     public List<int> Auras { get; set; }
     public Dictionary<short, int> Bags { get; set; }
-    public List<UserApiCharacterCurrency> CurrenciesRaw { get; }
+    public List<PlayerCharacterAddonDataCurrency> CurrenciesRaw { get; }
     public Dictionary<int, int> CurrencyItems { get; set; }
     public Dictionary<int, UserApiCharacterEquippedItem> EquippedItems { get; } = new();
     public Dictionary<int, PlayerCharacterAddonDataGarrison> Garrisons { get; }
@@ -104,10 +104,8 @@ public class UserApiCharacter
 
         if (!pub || privacy?.PublicCurrencies == true)
         {
-            CurrenciesRaw = character.Currencies
-                .EmptyIfNull()
-                .Select(pcc => new UserApiCharacterCurrency(pcc))
-                .ToList();
+            var currencyValues = character.AddonData?.Currencies?.Values.ToList();
+            CurrenciesRaw = currencyValues.EmptyIfNull();
 
             CurrencyItems = currencyItems
                 .GroupBy(ci => ci.ItemId)

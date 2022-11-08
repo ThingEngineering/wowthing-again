@@ -232,12 +232,6 @@ public class ApiController : Controller
             .Include(c => c.Specializations)
             .Include(c => c.Weekly);
 
-        if (!apiResult.Public || apiResult.Privacy.PublicCurrencies)
-        {
-            characterQuery = characterQuery
-                .Include(c => c.Currencies);
-        }
-
         if (!apiResult.Public || apiResult.Privacy.PublicLockouts)
         {
             characterQuery = characterQuery
