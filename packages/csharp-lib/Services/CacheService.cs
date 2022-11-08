@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using System.Text.Json.Nodes;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -146,26 +147,6 @@ public class CacheService
             }
         }
 
-        var packedCriteria = new JArray();
-        foreach (var (criteriaId, criteriaData) in groupedCriteria.OrderBy(kvp => kvp.Key))
-        {
-            var critArray = new JArray();
-            critArray.Add(criteriaId);
-
-            foreach (var (amount, characterIds) in criteriaData.OrderByDescending(kvp => kvp.Key))
-            {
-                var amountArray = new JArray();
-                amountArray.Add(amount);
-                foreach (int characterId in characterIds)
-                {
-                    amountArray.Add(characterId);
-                }
-                critArray.Add(amountArray);
-            }
-
-            packedCriteria.Add(critArray);
-        }
-
         timer.AddPoint("Criteria2b");
 
         var statistics = await context.StatisticsQuery
@@ -188,7 +169,7 @@ public class CacheService
         {
             Achievements = achievementsCompleted,
             AddonAchievements = addonAchievements,
-            RawCriteria = packedCriteria,
+            RawCriteria = groupedCriteria,
             Statistics = statistics
                 .ToGroupedDictionary(stat => stat.StatisticId),
         }, _jsonSerializerOptions);
