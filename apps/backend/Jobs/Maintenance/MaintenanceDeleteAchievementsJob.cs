@@ -15,9 +15,13 @@ public class MaintenanceDeleteAchievementsJob : JobBase, IScheduledJob
     private const string DeleteQuery = @"
 DELETE FROM player_character_achievements
 WHERE   character_id IN (
-    SELECT  id
-    FROM    player_character
-    WHERE   account_id IS NULL
+    SELECT  character_id
+    FROM    player_character_achievements
+    WHERE   character_id IN (
+        SELECT  id
+        FROM    player_character pc
+        WHERE   account_id IS NULL
+    )
     LIMIT 10000
 )
 ";
