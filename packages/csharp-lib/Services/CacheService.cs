@@ -1,7 +1,5 @@
 ﻿using System.Text.Json;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using StackExchange.Redis;
@@ -186,14 +184,14 @@ public class CacheService
         timer.AddPoint("AddonAchievements");
 
         // Build response
-        string json = JsonConvert.SerializeObject(new ApiUserAchievements
+        string json = System.Text.Json.JsonSerializer.Serialize(new ApiUserAchievements
         {
             Achievements = achievementsCompleted,
             AddonAchievements = addonAchievements,
             RawCriteria = packedCriteria,
             Statistics = statistics
                 .ToGroupedDictionary(stat => stat.StatisticId),
-        });
+        }, _jsonSerializerOptions);
 
         timer.AddPoint("JSON", true);
 
@@ -321,7 +319,7 @@ public class CacheService
             allSources.UnionWith(sources.Sources.EmptyIfNull());
         }
 
-        var json = JsonConvert.SerializeObject(new ApiUserTransmog
+        var json = System.Text.Json.JsonSerializer.Serialize(new ApiUserTransmog
         {
             Illusions = allTransmog.IllusionIds
                 .Distinct()
@@ -336,7 +334,7 @@ public class CacheService
                 .Distinct()
                 .OrderBy(id => id)
                 .ToArray(),
-        });
+        }, _jsonSerializerOptions);
 
         timer.AddPoint("JSON");
 

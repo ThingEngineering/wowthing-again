@@ -1,4 +1,5 @@
-﻿using System.Threading.Channels;
+﻿using System.Text.Json;
+using System.Threading.Channels;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using StackExchange.Redis;
@@ -11,11 +12,17 @@ public class JobQueueService : BackgroundService
 {
     private readonly Dictionary<JobPriority, Channel<WorkerJob>> _channels = new();
     private readonly ILogger _logger;
-        
-    public JobQueueService(StateService stateService, IConnectionMultiplexer redis)
+    private readonly JsonSerializerOptions _jsonSerializerOptions;
+
+    public JobQueueService(
+        IConnectionMultiplexer redis,
+        JsonSerializerOptions jsonSerializerOptions,
+        StateService stateService
+    )
     {
+        _jsonSerializerOptions = jsonSerializerOptions;
         _logger = Log.ForContext("Service", $"JobQueue");
-            
+
         foreach (var priority in EnumUtilities.GetValues<JobPriority>())
         {
             _channels[priority] = Channel.CreateUnbounded<WorkerJob>(new UnboundedChannelOptions
@@ -28,7 +35,7 @@ public class JobQueueService : BackgroundService
 
         redis.GetSubscriber().Subscribe("jobs").OnMessage(async msg =>
         {
-            var job = JsonConvert.DeserializeObject<WorkerJob>(msg.Message);
+            var job = System.Text.Json.JsonSerializer.Deserialize<WorkerJob>(msg.Message, _jsonSerializerOptions);
             await _channels[job.Priority].Writer.WriteAsync(job);
         });
     }
@@ -41,7 +48,7 @@ public class JobQueueService : BackgroundService
 
             foreach (var priority in EnumUtilities.GetValues<JobPriority>())
             {
-                var count = _channels[priority].Reader.Count;
+                int count = _channels[priority].Reader.Count;
                 if (count > 1000)
                 {
                     _logger.Warning("{Priority} queue is at {Count}!", priority.ToString(), count);
