@@ -1,5 +1,6 @@
 ﻿using Wowthing.Backend.Data;
 using Wowthing.Backend.Models.Uploads;
+using Wowthing.Lib.Comparers;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Jobs;
@@ -17,8 +18,12 @@ public class UserUploadJob : JobBase
     private Dictionary<(WowRegion Region, string Name), WowRealm> _realmMap;
     private Dictionary<string, int> _instanceNameToIdMap;
 
+    private bool _resetAchievementCache;
     private bool _resetQuestCache;
     private bool _resetTransmogCache;
+
+    private static DictionaryComparer<int, PlayerCharacterAddonAchievementsAchievement> _achievementComparer =
+        new(new PlayerCharacterAddonAchievementsAchievementComparer());
 
     private readonly HashSet<string> _fortifiedNames = new()
     {
@@ -349,15 +354,19 @@ public class UserUploadJob : JobBase
             await CacheService.SetLastModified(RedisKeys.UserLastModifiedGeneral, userId);
         }
 
+        if (_resetAchievementCache)
+        {
+            await JobRepository.AddJobAsync(JobPriority.High, JobType.UserCacheAchievements, data[0]);
+        }
+
         if (_resetQuestCache)
         {
-            Logger.Debug("Resetting quest cache");
-            await CacheService.SetLastModified(RedisKeys.UserLastModifiedQuests, userId);
+            await JobRepository.AddJobAsync(JobPriority.High, JobType.UserCacheQuests, data[0]);
         }
 
         if (_resetTransmogCache)
         {
-            await JobRepository.AddJobAsync(JobPriority.High, JobType.UserCacheTransmog, userId.ToString());
+            await JobRepository.AddJobAsync(JobPriority.High, JobType.UserCacheTransmog, data[0]);
         }
 
         Logger.Debug("{Timer}", _timer.ToString());
@@ -687,8 +696,8 @@ public class UserUploadJob : JobBase
             return;
         }
 
-        character.AddonAchievements.ScannedAt = scanTime;
-        character.AddonAchievements.Achievements = characterData.Achievements
+        var newAchievements = characterData.Achievements
+            .EmptyIfNull()
             .ToDictionary(
                 ach => ach.Id,
                 ach => new PlayerCharacterAddonAchievementsAchievement
@@ -697,6 +706,22 @@ public class UserUploadJob : JobBase
                     Criteria = ach.Criteria,
                 }
             );
+
+        if (!_achievementComparer.Equals(character.AddonAchievements.Achievements.EmptyIfNull(), newAchievements))
+        {
+            character.AddonAchievements.ScannedAt = scanTime;
+            character.AddonAchievements.Achievements = characterData.Achievements
+                .ToDictionary(
+                    ach => ach.Id,
+                    ach => new PlayerCharacterAddonAchievementsAchievement
+                    {
+                        Earned = ach.Earned,
+                        Criteria = ach.Criteria,
+                    }
+                );
+
+            _resetAchievementCache = true;
+        }
     }
 
     private void HandleCovenants(PlayerCharacter character, UploadCharacter characterData)

@@ -50,7 +50,8 @@ public class UserTransmogController : Controller
 
         timer.AddPoint("LastModified");
 
-        (string json, lastModified) = await _cacheService.GetOrCreateTransmogCacheAsync(_context, timer, apiResult.User.Id, lastModified);
+        (string json, lastModified) = await _cacheService
+            .GetOrCreateTransmogCacheAsync(_context, timer, apiResult.User.Id, lastModified);
 
         timer.AddPoint("Build", true);
         _logger.LogDebug("{Timer}", timer);

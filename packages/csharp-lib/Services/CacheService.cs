@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.Text.Json;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
@@ -18,18 +19,15 @@ public class CacheService
     private static readonly TimeSpan CacheDuration = TimeSpan.FromHours(24);
 
     private readonly IConnectionMultiplexer _redis;
-    private readonly IMemoryCache _memoryCache;
-    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly JsonSerializerOptions _jsonSerializerOptions;
 
     public CacheService(
         IConnectionMultiplexer redis,
-        IMemoryCache memoryCache,
-        UserManager<ApplicationUser> userManager
+        JsonSerializerOptions jsonSerializerOptions
     )
     {
+        _jsonSerializerOptions = jsonSerializerOptions;
         _redis = redis;
-        _memoryCache = memoryCache;
-        _userManager = userManager;
     }
 
     public async Task<DateTimeOffset> GetLastModified(string key, ApiUserResult apiUserResult)
@@ -70,49 +68,6 @@ public class CacheService
         }
 
         return (true, lastModified);
-    }
-
-    public async Task<Dictionary<string, string>> GetCachedHashes()
-    {
-        return await _memoryCache.GetOrCreateAsync(
-            MemoryCacheKeys.UserViewHashes,
-            cacheEntry =>
-            {
-                cacheEntry.SlidingExpiration = TimeSpan.FromMinutes(1);
-
-                var db = _redis.GetDatabase();
-
-                var achievementHash = db.StringGetAsync("cache:achievement-enUS:hash");
-                var appearanceHash = db.StringGetAsync("cache:appearance:hash");
-                var itemHash = db.StringGetAsync("cache:item-enUS:hash");
-                var journalHash = db.StringGetAsync("cache:journal-enUS:hash");
-                var manualHash = db.StringGetAsync("cache:manual-enUS:hash");
-                var staticHash = db.StringGetAsync("cache:static-enUS:hash");
-                Task.WaitAll(achievementHash, appearanceHash, itemHash, journalHash, manualHash, staticHash);
-
-                return Task.FromResult(new Dictionary<string, string>
-                {
-                    { "Achievement", achievementHash.Result },
-                    { "Appearance", appearanceHash.Result },
-                    { "Item", itemHash.Result },
-                    { "Journal", journalHash.Result },
-                    { "Manual", manualHash.Result },
-                    { "Static", staticHash.Result },
-                });
-            }
-        );
-    }
-
-    public async Task<ApplicationUser?> FindUserByNameAsync(string username)
-    {
-        return await _memoryCache.GetOrCreateAsync(
-            string.Format(MemoryCacheKeys.User, username.ToLowerInvariant()),
-            cacheEntry =>
-            {
-                cacheEntry.SlidingExpiration = TimeSpan.FromMinutes(1);
-                return _userManager.FindByNameAsync(username);
-            }
-        );
     }
 
     #region Achievements
@@ -246,6 +201,79 @@ public class CacheService
         var (_, lastModified) = await SetLastModified(RedisKeys.UserLastModifiedAchievements, userId);
 
         timer.AddPoint("Redis");
+
+        return (json, lastModified);
+    }
+    #endregion
+
+    #region Quests
+    public async Task<(string, DateTimeOffset)> GetOrCreateQuestCacheAsync(
+        WowDbContext context,
+        JankTimer timer,
+        long userId,
+        DateTimeOffset lastModified
+    )
+    {
+        var db = _redis.GetDatabase();
+
+        string json = await db.CompressedStringGetAsync(string.Format(RedisKeys.UserQuests, userId));
+        if (string.IsNullOrEmpty(json))
+        {
+            (json, lastModified) = await CreateQuestCacheAsync(context, db, timer, userId);
+        }
+
+        return (json, lastModified);
+    }
+
+    public async Task<(string, DateTimeOffset)> CreateQuestCacheAsync(
+        WowDbContext context,
+        IDatabase db,
+        JankTimer timer,
+        long userId
+    )
+    {
+        var characters = await context.PlayerCharacter
+            .Where(pc => pc.Account.UserId == userId)
+            .Include(pc => pc.AddonQuests)
+            .Include(pc => pc.Quests)
+            .Select(pc => new
+            {
+                pc.Id,
+                pc.AddonQuests,
+                pc.Quests,
+            })
+            .ToArrayAsync();
+
+        var characterData = characters.ToDictionary(
+            c => c.Id,
+            c => new ApiUserQuestsCharacter
+            {
+                ScannedAt = c.AddonQuests?.QuestsScannedAt ?? MiscConstants.DefaultDateTime,
+                Dailies = c.AddonQuests?.Dailies.EmptyIfNull(),
+                DailyQuestList = c.AddonQuests?.DailyQuests ?? new List<int>(),
+                QuestList = (c.Quests?.CompletedIds ?? new List<int>())
+                    .Union(c.AddonQuests?.OtherQuests ?? new List<int>())
+                    .Distinct()
+                    .ToList(),
+                ProgressQuests = c.AddonQuests?.ProgressQuests.EmptyIfNull(),
+            }
+        );
+
+        timer.AddPoint("Database");
+
+        // Build response
+        var data = new ApiUserQuests
+        {
+            Characters = characterData,
+        };
+        var json = System.Text.Json.JsonSerializer.Serialize(data, _jsonSerializerOptions);
+
+        timer.AddPoint("JSON");
+
+        await db.CompressedStringSetAsync(string.Format(RedisKeys.UserQuests, userId), json, CacheDuration);
+        var (_, lastModified) = await SetLastModified(RedisKeys.UserLastModifiedQuests, userId);
+
+        timer.AddPoint("Redis", true);
 
         return (json, lastModified);
     }

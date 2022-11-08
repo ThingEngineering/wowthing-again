@@ -4,7 +4,6 @@ using Wowthing.Lib.Constants;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Services;
 using Wowthing.Lib.Utilities;
-using Wowthing.Web.Models;
 using Wowthing.Web.Services;
 
 namespace Wowthing.Web.Controllers.API;
@@ -53,46 +52,13 @@ public class UserQuestController : Controller
         {
             return StatusCode((int)HttpStatusCode.NotModified);
         }
-        
+
         timer.AddPoint("LastModified");
 
-        var characters = await _context.PlayerCharacter
-            .Where(pc => pc.Account.UserId == apiResult.User.Id)
-            .Include(pc => pc.AddonQuests)
-            .Include(pc => pc.Quests)
-            .Select(pc => new
-            {
-                pc.Id,
-                pc.AddonQuests,
-                pc.Quests,
-            })
-            .ToArrayAsync();
+        (string json, lastModified) = await _cacheService
+            .GetOrCreateQuestCacheAsync(_context, timer, apiResult.User.Id, lastModified);
 
-        var characterData = characters.ToDictionary(
-            c => c.Id,
-            c => new UserQuestDataCharacter
-            {
-                ScannedAt = c.AddonQuests?.QuestsScannedAt ?? MiscConstants.DefaultDateTime,
-                Dailies = c.AddonQuests?.Dailies.EmptyIfNull(),
-                DailyQuestList = c.AddonQuests?.DailyQuests ?? new List<int>(),
-                QuestList = (c.Quests?.CompletedIds ?? new List<int>())
-                    .Union(c.AddonQuests?.OtherQuests ?? new List<int>())
-                    .Distinct()
-                    .ToList(),
-                ProgressQuests = c.AddonQuests?.ProgressQuests.EmptyIfNull(),
-            }
-        );
-
-        timer.AddPoint("Database");
-
-        // Build response
-        var data = new UserQuestData
-        {
-            Characters = characterData,
-        };
-        var json = JsonConvert.SerializeObject(data);
-
-        timer.AddPoint("JSON", true);
+        timer.AddPoint("Build", true);
         _logger.LogDebug("{Timer}", timer);
 
         if (lastModified > DateTimeOffset.MinValue)

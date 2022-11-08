@@ -34,6 +34,7 @@ public enum JobType
     Image,
     UserCacheAchievements,
     UserCacheTransmog,
+    UserCacheQuests,
 
     // Scheduled jobs
     CacheStatic = 1000,
