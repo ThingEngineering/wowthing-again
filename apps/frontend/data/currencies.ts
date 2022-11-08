@@ -69,6 +69,9 @@ const skipCurrencies: number[] = [
     1356, // Echoes of Battle
     1357, // Echoes of Domination
 
+    // Battle for Azeroth
+    1587, // War Supplies
+
     // Shadowlands
     1743, // Fake Anima for Quest Tracking
     1754, // Argent Commendation??
@@ -107,6 +110,12 @@ const skipCurrencies: number[] = [
     1388, // Armor Scraps
     1835, // Linked Currency Test (Src) - PTH
     1836, // Linked Currency Test (Dst) - PTH
+    2005, // Druid Talent Points (DNT)
+    2006, // Restoration Talent Points (DNT)
+    2012, // Death Knight Talent Points (DNT)
+    2013, // Frost Talent Points (DNT)
+    2014, // Unholy Talent Points (DNT)
+    2015, // Blood Talent Points (DNT)
 
     // Player vs. Player
     103, // Arena Points
