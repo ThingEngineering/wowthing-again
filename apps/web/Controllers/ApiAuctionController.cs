@@ -261,7 +261,6 @@ public class ApiAuctionController : Controller
         var accountConnectedRealmIds = await GetConnectedRealmIds(user, accounts);
 
         timer.AddPoint("Accounts");
-        Console.WriteLine("allrealms {0}", form.AllRealms);
 
         var auctionQuery = _context.WowAuction
             .AsNoTracking();

@@ -44,7 +44,7 @@ public class UserController : Controller
         var actualUri = HttpContext.Request.GetEncodedUrl();
         if (actualUri != expectedUri)
         {
-            Console.WriteLine("expected: {0} | actual: {1}", expectedUri, actualUri);
+            //Console.WriteLine("expected: {0} | actual: {1}", expectedUri, actualUri);
             return Redirect(expectedUri);
         }
 
