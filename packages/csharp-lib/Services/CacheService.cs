@@ -1,8 +1,5 @@
 ﻿using System.Text.Json;
-using System.Text.Json.Nodes;
 using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using StackExchange.Redis;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Contexts;
@@ -105,6 +102,7 @@ public class CacheService
         timer.AddPoint("Achievements");
 
         var criterias = await context.PlayerCharacterAchievements
+            .AsNoTracking()
             .Where(pca => pca.Character.Account.UserId == userId)
             .Select(pca => new
             {
@@ -156,6 +154,7 @@ public class CacheService
         timer.AddPoint("Statistics");
 
         var addonAchievements = await context.PlayerCharacterAddonAchievements
+            .AsNoTracking()
             .Where(pcaa => pcaa.Character.Account.UserId == userId)
             .ToDictionaryAsync(
                 pcaa => pcaa.CharacterId,
@@ -212,6 +211,7 @@ public class CacheService
     )
     {
         var characters = await context.PlayerCharacter
+            .AsNoTracking()
             .Where(pc => pc.Account.UserId == userId)
             .Include(pc => pc.AddonQuests)
             .Include(pc => pc.Quests)
@@ -289,6 +289,7 @@ public class CacheService
             .SingleAsync();
 
         var accountSources = await context.PlayerAccountTransmogSources
+            .AsNoTracking()
             .Where(pats => pats.Account.UserId == userId)
             .ToArrayAsync();
 
