@@ -121,7 +121,7 @@ public class UserUploadJob : JobBase
             .Include(c => c.AddonData)
             .Include(c => c.AddonMounts)
             .Include(c => c.AddonQuests)
-            .Include(c => c.Currencies)
+            //.Include(c => c.Currencies)
             .Include(c => c.Items)
             .Include(c => c.Lockouts)
             //.Include(c => c.MythicPlusAddon)
@@ -239,7 +239,7 @@ public class UserUploadJob : JobBase
 
             HandleAchievements(character, characterData);
             HandleCovenants(character, characterData);
-            HandleCurrencies(character, characterData);
+            //HandleCurrencies(character, characterData);
             await HandleItems(character, characterData);
             HandleLockouts(character, characterData);
             HandleMounts(character, characterData);
@@ -405,11 +405,42 @@ public class UserUploadJob : JobBase
 
         character.AddonData.Auras = characterData.Auras.EmptyIfNull();
 
-        if (character.AddonData.Garrisons == null)
+        // Currencies
+        character.AddonData.Currencies ??= new();
+        foreach (var (currencyId, currencyString) in characterData.Currencies.EmptyIfNull())
         {
-            character.AddonData.Garrisons = new();
+            // quantity:max:isWeekly:weekQuantity:weekMax:isMovingMax:totalQuantity
+            var parts = currencyString.Split(":");
+            if (parts.Length != 7)
+            {
+                Logger.Warning("Invalid currency string: {String}", currencyString);
+                continue;
+            }
+
+            if (!character.AddonData.Currencies.TryGetValue(currencyId, out var currency))
+            {
+                character.AddonData.Currencies[currencyId] = currency = new PlayerCharacterAddonDataCurrency
+                {
+                    CurrencyId = currencyId,
+                };
+            }
+
+            currency.Quantity = int.Parse(parts[0].OrDefault("0"));
+            currency.Max = int.Parse(parts[1].OrDefault("0"));
+            currency.IsWeekly = parts[2] == "1";
+            currency.WeekQuantity = int.Parse(parts[3].OrDefault("0"));
+            currency.WeekMax = int.Parse(parts[4].OrDefault("0"));
+            currency.IsMovingMax = parts[5] == "1";
+            currency.TotalQuantity = int.Parse(parts[6].OrDefault("0"));
         }
 
+        // Change detection for this is obnoxious, just update it
+        Context.Entry(character.AddonData)
+            .Property(ad => ad.Currencies)
+            .IsModified = true;
+
+        // Garrisons
+        character.AddonData.Garrisons ??= new();
         foreach (var dataGarrison in characterData.Garrisons.EmptyIfNull())
         {
             var scanTime = dataGarrison.ScannedAt.AsUtcDateTime();
