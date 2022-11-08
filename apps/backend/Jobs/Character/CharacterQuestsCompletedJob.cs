@@ -60,7 +60,7 @@ public class CharacterQuestsCompletedJob : JobBase
         int updated = await Context.SaveChangesAsync();
         if (updated > 0)
         {
-            await JobRepository.AddJobAsync(JobPriority.High, JobType.UserCacheQuests, data[0]);
+            await JobRepository.AddJobAsync(JobPriority.High, JobType.UserCacheQuests, query.UserId.ToString());
         }
     }
 }
