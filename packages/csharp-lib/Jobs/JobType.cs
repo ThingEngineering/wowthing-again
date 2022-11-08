@@ -60,4 +60,5 @@ public enum JobType
     CacheItems,
 
     MaintenanceUnlinkCharacters = 2000,
+    MaintenanceDeleteAchievements,
 }
