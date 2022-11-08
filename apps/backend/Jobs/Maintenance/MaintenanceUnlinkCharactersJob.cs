@@ -8,7 +8,7 @@ public class MaintenanceUnlinkCharactersJob : JobBase, IScheduledJob
     {
         Type = JobType.MaintenanceUnlinkCharacters,
         Priority = JobPriority.High,
-        Interval = TimeSpan.FromHours(24),
+        Interval = TimeSpan.FromHours(1),
         Version = 1,
     };
 
@@ -23,6 +23,7 @@ WHERE   account_id IN (
         FROM    asp_net_users
         WHERE   last_api_check < (CURRENT_TIMESTAMP - '3 months'::interval)
     )
+    LIMIT 10000
 )
 ";
 
@@ -33,6 +34,9 @@ WHERE   account_id IN (
         await using var command = connection.CreateCommand();
         command.CommandText = UnlinkQuery;
         int updated = await command.ExecuteNonQueryAsync();
-        Logger.Information("Unlinked {count} character(s)", updated);
+        if (updated > 0)
+        {
+            Logger.Information("Unlinked {count} character(s)", updated);
+        }
     }
 }
