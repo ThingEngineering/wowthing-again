@@ -66,9 +66,9 @@ public class UserApiCharacter
 
     public UserApiCharacter(
         PlayerCharacter character,
-        IEnumerable<PlayerCharacterItem> bagItems,
-        IEnumerable<PlayerCharacterItem> currencyItems,
-        IEnumerable<PlayerCharacterItem> progressItems,
+        PlayerCharacterItem[] bagItems,
+        PlayerCharacterItem[] currencyItems,
+        PlayerCharacterItem[] progressItems,
         bool pub = false,
         ApplicationUserSettingsPrivacy privacy = null
     )
@@ -108,6 +108,7 @@ public class UserApiCharacter
             CurrenciesRaw = currencyValues.EmptyIfNull();
 
             CurrencyItems = currencyItems
+                .EmptyIfNull()
                 .GroupBy(ci => ci.ItemId)
                 .ToDictionary(
                     group => group.Key,
@@ -134,6 +135,7 @@ public class UserApiCharacter
         GarrisonTrees = character.AddonData?.GarrisonTrees;
 
         Bags = bagItems
+            .EmptyIfNull()
             .GroupBy(bi => bi.BagId)
             .ToDictionary(
                 group => group.Key,
@@ -141,6 +143,7 @@ public class UserApiCharacter
             );
 
         ProgressItems = progressItems
+            .EmptyIfNull()
             .Select(pi => pi.ItemId)
             .Distinct()
             .ToArray();

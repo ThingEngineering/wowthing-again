@@ -264,26 +264,36 @@ public class ApiController : Controller
         timer.AddPoint("Characters");
 
         // Bags
-        var bagItems = Array.Empty<PlayerCharacterItem>();
+        var bagItems = new Dictionary<int, PlayerCharacterItem[]>();
         if (!apiResult.Public)
         {
-            bagItems = await _context.PlayerCharacterItem
-                .AsNoTracking()
-                .Where(pci => characterIds.Contains(pci.CharacterId) && pci.Slot == 0)
-                .ToArrayAsync();
+            bagItems = (
+                    await _context.PlayerCharacterItem
+                        .AsNoTracking()
+                        .Where(pci => characterIds.Contains(pci.CharacterId) && pci.Slot == 0)
+                        .ToArrayAsync()
+                )
+                .ToGroupedDictionary(pci => pci.CharacterId);
         }
 
         // Progress items
-        var progressItems = await _context.PlayerCharacterItem
-            .AsNoTracking()
-            .Where(pci => characterIds.Contains(pci.CharacterId) && Hardcoded.ProgressItemIds.Contains(pci.ItemId))
-            .ToArrayAsync();
+        var progressItems = (
+                await _context.PlayerCharacterItem
+                    .AsNoTracking()
+                    .Where(pci => characterIds.Contains(pci.CharacterId) && Hardcoded.ProgressItemIds.Contains(pci.ItemId))
+                    .ToArrayAsync()
+            )
+            .ToGroupedDictionary(pci => pci.CharacterId);
 
         // Currency items
-        var currencyItems = await _context.PlayerCharacterItem
-            .AsNoTracking()
-            .Where(pci => characterIds.Contains(pci.CharacterId) && Hardcoded.CurrencyItemIds.Contains(pci.ItemId))
-            .ToArrayAsync();
+        var currencyItems = (
+                await _context.PlayerCharacterItem
+                    .AsNoTracking()
+                    .Where(pci =>
+                        characterIds.Contains(pci.CharacterId) && Hardcoded.CurrencyItemIds.Contains(pci.ItemId))
+                    .ToArrayAsync()
+            )
+            .ToGroupedDictionary(pci => pci.CharacterId);
 
         timer.AddPoint("Items");
 
@@ -378,9 +388,9 @@ public class ApiController : Controller
         var characterObjects = characters
             .Select(character => new UserApiCharacter(
                 character,
-                bagItems.Where(bi => bi.CharacterId == character.Id),
-                currencyItems.Where(pi => pi.CharacterId == character.Id),
-                progressItems.Where(pi => pi.CharacterId == character.Id),
+                bagItems.GetValueOrDefault(character.Id),
+                currencyItems.GetValueOrDefault(character.Id),
+                progressItems.GetValueOrDefault(character.Id),
                 apiResult.Public,
                 apiResult.Privacy))
             .ToList();
