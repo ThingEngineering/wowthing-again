@@ -342,3 +342,10 @@ export const globalDailyQuests: Record<number, GlobalDailyQuest> = Object.fromEn
     ]
     .map((gdq) => [gdq.id, gdq])
 )
+
+export const questToLockout: Record<number, number> = {
+    47461: 100001, // Lord Kazzak
+    47462: 100002, // Azuregos
+    47463: 100003, // Dragon of Nightmare
+    60214: 100017, // Doomwalker
+}
