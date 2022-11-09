@@ -5,6 +5,7 @@ groups:
   things:
   - 166778 # Horde's Might Firework
   - 166777 # Lion's Pride Firework
+  - 112324 # Nightmarish Hitching Post
   - 166779 # Transmorpher Beacon
 
 - name: Game Editions
@@ -29,7 +30,6 @@ groups:
   -  54212 # Instant Statue Pedestal
   -  72159 # Magical Ogre Idol
   -  33079 # Murloc Costume
-  - 112324 # Nightmarish Hitching Post
   -  46780 # Ogre Pinata
   -  34499 # Paper Flying Machine Kit
   -  49703 # Perpetual Purple Firework
