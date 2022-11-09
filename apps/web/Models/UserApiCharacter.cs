@@ -38,7 +38,7 @@ public class UserApiCharacter
 
     public List<int> Auras { get; set; }
     public Dictionary<short, int> Bags { get; set; }
-    public List<UserApiCharacterCurrency> CurrenciesRaw { get; }
+    public List<PlayerCharacterAddonDataCurrency> CurrenciesRaw { get; }
     public Dictionary<int, int> CurrencyItems { get; set; }
     public Dictionary<int, UserApiCharacterEquippedItem> EquippedItems { get; } = new();
     public Dictionary<int, PlayerCharacterAddonDataGarrison> Garrisons { get; }
@@ -66,9 +66,9 @@ public class UserApiCharacter
 
     public UserApiCharacter(
         PlayerCharacter character,
-        IEnumerable<PlayerCharacterItem> bagItems,
-        IEnumerable<PlayerCharacterItem> currencyItems,
-        IEnumerable<PlayerCharacterItem> progressItems,
+        PlayerCharacterItem[] bagItems,
+        PlayerCharacterItem[] currencyItems,
+        PlayerCharacterItem[] progressItems,
         bool pub = false,
         ApplicationUserSettingsPrivacy privacy = null
     )
@@ -104,12 +104,11 @@ public class UserApiCharacter
 
         if (!pub || privacy?.PublicCurrencies == true)
         {
-            CurrenciesRaw = character.Currencies
-                .EmptyIfNull()
-                .Select(pcc => new UserApiCharacterCurrency(pcc))
-                .ToList();
+            var currencyValues = character.AddonData?.Currencies?.Values.ToList();
+            CurrenciesRaw = currencyValues.EmptyIfNull();
 
             CurrencyItems = currencyItems
+                .EmptyIfNull()
                 .GroupBy(ci => ci.ItemId)
                 .ToDictionary(
                     group => group.Key,
@@ -136,6 +135,7 @@ public class UserApiCharacter
         GarrisonTrees = character.AddonData?.GarrisonTrees;
 
         Bags = bagItems
+            .EmptyIfNull()
             .GroupBy(bi => bi.BagId)
             .ToDictionary(
                 group => group.Key,
@@ -143,6 +143,7 @@ public class UserApiCharacter
             );
 
         ProgressItems = progressItems
+            .EmptyIfNull()
             .Select(pi => pi.ItemId)
             .Distinct()
             .ToArray();

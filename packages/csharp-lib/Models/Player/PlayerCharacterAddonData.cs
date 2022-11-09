@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Wowthing.Lib.Constants;
+using Wowthing.Lib.Converters;
 
 namespace Wowthing.Lib.Models.Player;
 
@@ -19,6 +20,9 @@ public class PlayerCharacterAddonData
     public List<int> Auras { get; set; } = new();
 
     [Column(TypeName = "jsonb")]
+    public Dictionary<int, PlayerCharacterAddonDataCurrency> Currencies { get; set; } = new();
+
+    [Column(TypeName = "jsonb")]
     public Dictionary<int, PlayerCharacterAddonDataGarrison> Garrisons { get; set; } = new();
 
     [Column(TypeName = "jsonb")]
@@ -32,6 +36,21 @@ public class PlayerCharacterAddonData
 
     [Column(TypeName = "jsonb")]
     public Dictionary<int, List<PlayerCharacterAddonDataMythicPlusRun>> MythicPlusWeeks { get; set; } = new();
+}
+
+[System.Text.Json.Serialization.JsonConverter(typeof(PlayerCharacterAddonDataCurrencyConverter))]
+public class PlayerCharacterAddonDataCurrency
+{
+    public int Quantity { get; set; }
+    public int Max { get; set; }
+    public int WeekQuantity { get; set; }
+    public int WeekMax { get; set; }
+    public int TotalQuantity { get; set; }
+
+    public short CurrencyId { get; set; }
+
+    public bool IsWeekly { get; set; }
+    public bool IsMovingMax { get; set; }
 }
 
 public class PlayerCharacterAddonDataGarrison

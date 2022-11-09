@@ -1,7 +1,5 @@
 ﻿using System.Text.Json;
 using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using StackExchange.Redis;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Contexts;
@@ -104,6 +102,7 @@ public class CacheService
         timer.AddPoint("Achievements");
 
         var criterias = await context.PlayerCharacterAchievements
+            .AsNoTracking()
             .Where(pca => pca.Character.Account.UserId == userId)
             .Select(pca => new
             {
@@ -146,26 +145,6 @@ public class CacheService
             }
         }
 
-        var packedCriteria = new JArray();
-        foreach (var (criteriaId, criteriaData) in groupedCriteria.OrderBy(kvp => kvp.Key))
-        {
-            var critArray = new JArray();
-            critArray.Add(criteriaId);
-
-            foreach (var (amount, characterIds) in criteriaData.OrderByDescending(kvp => kvp.Key))
-            {
-                var amountArray = new JArray();
-                amountArray.Add(amount);
-                foreach (int characterId in characterIds)
-                {
-                    amountArray.Add(characterId);
-                }
-                critArray.Add(amountArray);
-            }
-
-            packedCriteria.Add(critArray);
-        }
-
         timer.AddPoint("Criteria2b");
 
         var statistics = await context.StatisticsQuery
@@ -175,6 +154,7 @@ public class CacheService
         timer.AddPoint("Statistics");
 
         var addonAchievements = await context.PlayerCharacterAddonAchievements
+            .AsNoTracking()
             .Where(pcaa => pcaa.Character.Account.UserId == userId)
             .ToDictionaryAsync(
                 pcaa => pcaa.CharacterId,
@@ -188,7 +168,7 @@ public class CacheService
         {
             Achievements = achievementsCompleted,
             AddonAchievements = addonAchievements,
-            RawCriteria = packedCriteria,
+            RawCriteria = groupedCriteria,
             Statistics = statistics
                 .ToGroupedDictionary(stat => stat.StatisticId),
         }, _jsonSerializerOptions);
@@ -231,6 +211,7 @@ public class CacheService
     )
     {
         var characters = await context.PlayerCharacter
+            .AsNoTracking()
             .Where(pc => pc.Account.UserId == userId)
             .Include(pc => pc.AddonQuests)
             .Include(pc => pc.Quests)
@@ -308,6 +289,7 @@ public class CacheService
             .SingleAsync();
 
         var accountSources = await context.PlayerAccountTransmogSources
+            .AsNoTracking()
             .Where(pats => pats.Account.UserId == userId)
             .ToArrayAsync();
 
@@ -319,7 +301,7 @@ public class CacheService
             allSources.UnionWith(sources.Sources.EmptyIfNull());
         }
 
-        var json = System.Text.Json.JsonSerializer.Serialize(new ApiUserTransmog
+        var json = JsonSerializer.Serialize(new ApiUserTransmog
         {
             Illusions = allTransmog.IllusionIds
                 .Distinct()

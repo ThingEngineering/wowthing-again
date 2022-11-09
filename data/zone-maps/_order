@@ -1,3 +1,13 @@
+00-classic/_.yml
+    00-classic/blasted_lands.yml
+    00-classic/duskwood.yml
+    00-classic/the_hinterlands.yml
+    -
+    00-classic/ashenvale.yml
+    00-classic/azshara.yml
+    00-classic/feralas.yml
+    00-classic/tanaris.yml
+
 01-the-burning-crusade/_.yml
     01-the-burning-crusade/isle_of_queldanas.yml
     -

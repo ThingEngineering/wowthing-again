@@ -11,6 +11,7 @@ import { get } from 'svelte/store'
 import { Constants } from '@/data/constants'
 import { covenantSlugMap } from '@/data/covenant'
 import { factionMap } from '@/data/faction'
+import { questToLockout } from '@/data/quests'
 import { itemStore, staticStore } from '@/stores'
 import { UserCount, WritableFancyStore } from '@/types'
 import {
@@ -813,7 +814,9 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                                 if (farm.type === FarmType.Quest) {
                                     if (every(
                                         farm.questIds,
-                                        (q) => userQuestData.characters[character.id]?.quests?.get(q) === undefined)
+                                        (q) =>
+                                            userQuestData.characters[character.id]?.quests?.get(q) === undefined
+                                    )
                                     ) {
                                         dropStatus.characterIds.push(character.id)
                                     }
@@ -826,7 +829,9 @@ export class ManualDataStore extends WritableFancyStore<ManualData> {
                                         expiredFunc(character.id) ||
                                         every(
                                             farm.questIds,
-                                            (q) => userQuestData.characters[character.id]?.dailyQuests?.get(q) === undefined
+                                            (q) =>
+                                                userQuestData.characters[character.id]?.dailyQuests?.get(q) === undefined &&
+                                                character.lockouts?.[`${questToLockout[q] || 0}-0`] === undefined
                                         )
                                     ) {
                                         dropStatus.characterIds.push(character.id)

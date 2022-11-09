@@ -7,9 +7,10 @@ groups:
 
 - name: Anniversary
   things:
+  - 293 # Illidari Dragonhawk
   - 1292 1285 # Stormpike Battle Ram/Frostwolf Snarler (Alterac Valley of Olde)
   - 1285 1292 # ^ reversed
-
+  
 - name: Brewfest
   things:
   - 226 # Great Brewfest Kodo
