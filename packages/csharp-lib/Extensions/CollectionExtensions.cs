@@ -26,7 +26,7 @@ public static class CollectionExtensions
             .Select(resultFunc)
             .ToArray();
     }
-        
+
     public static IEnumerable<T> SelectManyRecursive<T>(this IEnumerable<T> source, Func<T, IEnumerable<T>> selector)
     {
         var result = source
@@ -67,7 +67,7 @@ public static class CollectionExtensions
 
     public static Dictionary<TKey, TReturn[]> ToGroupedDictionary<TObject, TKey, TReturn>(
         this IEnumerable<TObject> things,
-        Func<TObject, TKey> keyFunc, 
+        Func<TObject, TKey> keyFunc,
         Func<TObject, TReturn> valueFunc
     )
     {
@@ -79,5 +79,15 @@ public static class CollectionExtensions
                     .Select(valueFunc)
                     .ToArray()
             );
+    }
+
+    public static TValue GetOrNew<TKey, TValue>(this IDictionary<TKey, TValue> dict, TKey key)
+        where TValue : new()
+    {
+        if (!dict.TryGetValue(key, out var value))
+        {
+            dict[key] = value = new TValue();
+        }
+        return value;
     }
 }

@@ -301,7 +301,7 @@ public class CacheService
             allSources.UnionWith(sources.Sources.EmptyIfNull());
         }
 
-        var json = System.Text.Json.JsonSerializer.Serialize(new ApiUserTransmog
+        var json = JsonSerializer.Serialize(new ApiUserTransmog
         {
             Illusions = allTransmog.IllusionIds
                 .Distinct()
