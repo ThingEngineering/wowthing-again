@@ -3,6 +3,7 @@ import some from 'lodash/some'
 import sortBy from 'lodash/sortBy'
 import { get } from 'svelte/store'
 
+import { userModifiedStore } from './user-modified'
 import { difficultyMap, lockoutDifficultyOrder } from '@/data/difficulty'
 import { seasonMap } from '@/data/dungeon'
 import { slotOrder } from '@/data/inventory-slot'
@@ -35,7 +36,12 @@ import type { ManualDataSetCategory } from '@/types/data/manual'
 
 export class UserDataStore extends WritableFancyStore<UserData> {
     get dataUrl(): string {
-        return document.getElementById('app')?.getAttribute('data-user')
+        let url = document.getElementById('app')?.getAttribute('data-user')
+        if (url) {
+            const modified = get(userModifiedStore).data.general
+            url = url.replace('-0.json', `-${modified}.json`)
+        }
+        return url
     }
 
     get useAccountTags(): boolean {

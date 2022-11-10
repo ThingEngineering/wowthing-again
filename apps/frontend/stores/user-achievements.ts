@@ -1,6 +1,7 @@
 import values from 'lodash/values'
 import { get } from 'svelte/store'
 
+import { userModifiedStore } from './user-modified'
 import { UserAchievementDataCategory, WritableFancyStore } from '@/types'
 import type { AchievementsState } from '@/stores/local-storage'
 import type { AchievementData, UserAchievementData } from '@/types'
@@ -10,7 +11,8 @@ export class UserAchievementDataStore extends WritableFancyStore<UserAchievement
     get dataUrl(): string {
         let url = document.getElementById('app')?.getAttribute('data-user')
         if (url) {
-            url = url.replace(/\/(?:public|private)/, '/achievements')
+            const modified = get(userModifiedStore).data.achievements
+            url = url.replace(/\/(?:public|private).+$/, `/achievements-${modified}.json`)
         }
         return url
     }

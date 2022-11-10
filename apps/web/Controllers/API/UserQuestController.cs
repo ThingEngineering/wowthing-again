@@ -28,8 +28,8 @@ public class UserQuestController : Controller
         _context = context;
     }
 
-    [HttpGet("api/user/{username:username}/quests")]
-    public async Task<IActionResult> UserQuestData([FromRoute] string username)
+    [HttpGet("api/user/{username:username}/quests-{modified:long}.json")]
+    public async Task<IActionResult> UserQuestData([FromRoute] string username, [FromRoute] long modified)
     {
         var timer = new JankTimer();
 
@@ -42,10 +42,11 @@ public class UserQuestController : Controller
         timer.AddPoint("CheckUser");
 
         var (isModified, lastModified) =
-            await _cacheService.CheckLastModified(RedisKeys.UserLastModifiedQuests, Request, apiResult);
-        if (!isModified)
+            await _cacheService.CheckLastModified(RedisKeys.UserLastModifiedQuests, null, apiResult);
+        var lastUnix = lastModified.ToUnixTimeSeconds();
+        if (lastUnix != modified)
         {
-            return StatusCode((int)HttpStatusCode.NotModified);
+            return RedirectToAction("UserQuestData", new { username, modified = lastUnix });
         }
 
         timer.AddPoint("LastModified");
@@ -58,7 +59,7 @@ public class UserQuestController : Controller
 
         if (lastModified > DateTimeOffset.MinValue)
         {
-            Response.AddApiCacheHeaders(apiResult.Public, lastModified);
+            Response.AddLongApiCacheHeaders(lastModified);
         }
 
         return Content(json, MediaTypeNames.Application.Json);

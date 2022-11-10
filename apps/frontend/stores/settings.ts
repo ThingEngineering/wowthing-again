@@ -1,5 +1,6 @@
-import { writable } from 'svelte/store'
+import { get, writable } from 'svelte/store'
 
+import { userModifiedStore } from './user-modified'
 import { userAchievementStore } from './user-achievements'
 import { userStore } from './user'
 import { userQuestStore } from './user-quests'
@@ -20,12 +21,29 @@ export const data = {
 
         if (settings.general.refreshInterval > 0) {
             interval = setInterval(
-                async () => await Promise.all([
-                    userAchievementStore.fetch({ evenIfLoaded: true }),
-                    userQuestStore.fetch({ evenIfLoaded: true }),
-                    userStore.fetch({ evenIfLoaded: true }),
-                    userTransmogStore.fetch({ evenIfLoaded: true }),
-                ]),
+                async () => {
+                    const oldData = get(userModifiedStore).data
+                    const oldAchievements = oldData.achievements
+                    const oldGeneral = oldData.general
+                    const oldQuests = oldData.quests
+                    const oldTransmog = oldData.transmog
+
+                    await userModifiedStore.fetch({ evenIfLoaded: true })
+
+                    const newData = get(userModifiedStore).data
+                    if (oldAchievements < newData.achievements) {
+                        userAchievementStore.fetch({ evenIfLoaded: true })
+                    }
+                    if (oldGeneral < newData.general) {
+                        userStore.fetch({ evenIfLoaded: true })
+                    }
+                    if (oldQuests < newData.quests) {
+                        userQuestStore.fetch({ evenIfLoaded: true })
+                    }
+                    if (oldTransmog < newData.transmog) {
+                        userTransmogStore.fetch({ evenIfLoaded: true })
+                    }
+                },
                 settings.general.refreshInterval * 1000 * 60
             )
         }

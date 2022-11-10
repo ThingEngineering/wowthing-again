@@ -6,6 +6,7 @@ import { get } from 'svelte/store'
 
 import { itemStore } from './item'
 import { manualStore } from './manual'
+import { userModifiedStore } from './user-modified'
 import { TransmogSetType } from '@/enums'
 import { UserCount, WritableFancyStore } from '@/types'
 import getSkipClasses from '@/utils/get-skip-classes'
@@ -19,7 +20,8 @@ export class UserTransmogDataStore extends WritableFancyStore<UserTransmogData> 
     get dataUrl(): string {
         let url = document.getElementById('app')?.getAttribute('data-user')
         if (url) {
-            url = url.replace(/\/(?:public|private)/, '/transmog')
+            const modified = get(userModifiedStore).data.transmog
+            url = url.replace(/\/(?:public|private).+$/, `/transmog-${modified}.json`)
         }
         return url
     }
