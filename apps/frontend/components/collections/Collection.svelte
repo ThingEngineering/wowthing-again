@@ -27,8 +27,6 @@
     }
 
     afterUpdate(() => {
-        window.__tip?.watchElligibleElements()
-
         getSavedRoute(route, params.slug1, params.slug2)
     })
 </script>
