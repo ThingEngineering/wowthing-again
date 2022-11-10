@@ -38,6 +38,7 @@
 
 <div id="app"
      data-base-uri="@_uriService.BaseUri"
+     data-modified="@Model.ModifiedJson"
      data-settings="@Model.SettingsJson"
      data-achievements="@Url.Action("CachedJson", "CachedJson", new { type = "achievement", languageCode = "zzZZ", hash = Model.AchievementHash })"
      data-appearance="@Url.Action("CachedJson", "CachedJson", new { type = "appearance", languageCode = "zzZZ", hash = Model.AppearanceHash })"

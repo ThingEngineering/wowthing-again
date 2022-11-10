@@ -32,15 +32,15 @@ public class UserController : Controller
     {
         var timer = new JankTimer();
 
-        var user = await _userManager.FindByNameAsync(username);
-        if (user == null || (User.Identity?.Name != user.UserName && user.Settings?.Privacy?.Public != true))
+        var apiResult = await _userService.CheckUser(User, username);
+        if (apiResult.NotFound)
         {
             return NotFound();
         }
 
         timer.AddPoint("user");
 
-        var expectedUri = await _uriService.GetUriForUser(user: user);
+        var expectedUri = await _uriService.GetUriForUser(user: apiResult.User);
         var actualUri = HttpContext.Request.GetEncodedUrl();
         if (actualUri != expectedUri)
         {
@@ -50,7 +50,7 @@ public class UserController : Controller
 
         timer.AddPoint("uri");
 
-        var viewModel = await _userService.CreateViewModel(User, user);
+        var viewModel = await _userService.CreateViewModel(User, apiResult);
         timer.AddPoint("viewmodel", true);
 
         _logger.LogDebug("{Timer}", timer);

@@ -13,6 +13,7 @@ namespace Wowthing.Web.Controllers;
 public class HomeController : Controller
 {
     private readonly CacheService _cacheService;
+    private readonly MemoryCacheService _memoryCacheService;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly UserService _userService;
     private readonly WowthingWebOptions _webOptions;
@@ -20,11 +21,13 @@ public class HomeController : Controller
     public HomeController(
         CacheService cacheService,
         IOptions<WowthingWebOptions> webOptions,
+        MemoryCacheService memoryCacheService,
         UserManager<ApplicationUser> userManager,
         UserService userService
     )
     {
         _cacheService = cacheService;
+        _memoryCacheService = memoryCacheService;
         _userManager = userManager;
         _userService = userService;
         _webOptions = webOptions.Value;
@@ -43,16 +46,13 @@ public class HomeController : Controller
                 return NotFound();
             }
 
-            var user = await _userManager.FindByNameAsync(username);
-            if (user == null ||
-                (User?.Identity?.Name != user.UserName && user.Settings?.Privacy?.Public != true) ||
-                !user.CanUseSubdomain
-               )
+            var apiResult = await _userService.CheckUser(User, username);
+            if (apiResult.NotFound || !apiResult.User.CanUseSubdomain)
             {
                 return NotFound();
             }
 
-            var viewModel = await _userService.CreateViewModel(User, user);
+            var viewModel = await _userService.CreateViewModel(User, apiResult);
             return View("~/Views/User/Index.cshtml", viewModel);
         }
 

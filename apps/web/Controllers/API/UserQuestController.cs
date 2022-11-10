@@ -39,11 +39,6 @@ public class UserQuestController : Controller
             return NotFound();
         }
 
-        if (apiResult.Public && !apiResult.Privacy.PublicQuests)
-        {
-            return Forbid();
-        }
-
         timer.AddPoint("CheckUser");
 
         var (isModified, lastModified) =

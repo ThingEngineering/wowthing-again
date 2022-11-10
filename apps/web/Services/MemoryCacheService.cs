@@ -1,27 +1,32 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Caching.Memory;
 using StackExchange.Redis;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Models;
 using Wowthing.Lib.Models.Wow;
+using Wowthing.Lib.Services;
 
 namespace Wowthing.Web.Services;
 
 public class MemoryCacheService
 {
+    private readonly CacheService _cacheService;
     private readonly IConnectionMultiplexer _redis;
     private readonly IMemoryCache _memoryCache;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly WowDbContext _context;
 
     public MemoryCacheService(
+        CacheService cacheService,
         IConnectionMultiplexer redis,
         IMemoryCache memoryCache,
         UserManager<ApplicationUser> userManager,
         WowDbContext context
     )
     {
+        _cacheService = cacheService;
         _context = context;
         _memoryCache = memoryCache;
         _redis = redis;
@@ -118,5 +123,36 @@ public class MemoryCacheService
                 return _userManager.FindByNameAsync(username);
             }
         );
+    }
+
+    public async Task<string> GetUserModifiedJsonAsync(ApiUserResult apiResult)
+    {
+        return await _memoryCache.GetOrCreateAsync(
+            string.Format(MemoryCacheKeys.UserModified, apiResult.User.NormalizedUserName),
+            cacheEntry =>
+            {
+                cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(1);
+                return GetUserModifiedJsonTask(apiResult);
+            }
+        );
+    }
+
+    private async Task<string> GetUserModifiedJsonTask(ApiUserResult apiResult)
+    {
+        var wait = new Dictionary<string, Task<(bool, DateTimeOffset)>>
+        {
+            ["achievements"] = _cacheService.CheckLastModified(RedisKeys.UserLastModifiedAchievements, null, apiResult),
+            ["general"] = _cacheService.CheckLastModified(RedisKeys.UserLastModifiedGeneral, null, apiResult),
+            ["quests"] = _cacheService.CheckLastModified(RedisKeys.UserLastModifiedQuests, null, apiResult),
+            ["transmog"] = _cacheService.CheckLastModified(RedisKeys.UserLastModifiedTransmog, null, apiResult),
+        };
+        await Task.WhenAll(wait.Values.ToArray());
+
+        var times = wait.ToDictionary(
+            task => task.Key,
+            task => task.Value.Result.Item2.ToUnixTimeSeconds()
+        );
+        string json = System.Text.Json.JsonSerializer.Serialize(times);
+        return json;
     }
 }

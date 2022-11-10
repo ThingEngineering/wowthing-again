@@ -69,25 +69,4 @@
             Allow visitors to see your Mythic+ data
         </p>
     </div>
-
-
-    <div class="setting">
-        <Checkbox
-            name="privacy_public_quests"
-            bind:value={$settingsData.privacy.publicQuests}
-        >Public Quests</Checkbox>
-        <p>
-            Allow visitors to see your Quest data (Farms, Progress, weekly quests, etc)
-        </p>
-    </div>
-
-    <div class="setting">
-        <Checkbox
-            name="privacy_public_transmog"
-            bind:value={$settingsData.privacy.publicTransmog}
-        >Public Transmog</Checkbox>
-        <p>
-            Allow visitors to see your Transmog data
-        </p>
-    </div>
 </div>

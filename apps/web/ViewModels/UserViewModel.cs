@@ -7,6 +7,7 @@ public class UserViewModel
     public readonly ApplicationUser User;
     public readonly ApplicationUserSettings Settings;
     public readonly bool IsPrivate;
+    public readonly string ModifiedJson;
     public readonly string SettingsJson;
     public readonly string AchievementHash;
     public readonly string AppearanceHash;
@@ -19,12 +20,14 @@ public class UserViewModel
         Dictionary<string, string> hashes,
         ApplicationUser user,
         ApplicationUserSettings settings,
+        string modifiedJson,
         string settingsJson,
         bool isPrivate
     )
     {
         User = user;
         Settings = settings;
+        ModifiedJson = modifiedJson;
         SettingsJson = settingsJson;
         IsPrivate = isPrivate;
 

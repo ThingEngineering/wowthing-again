@@ -54,11 +54,11 @@ public class CacheService
         if (lastModified == DateTimeOffset.MinValue)
         {
             lastModified = DateTimeOffset.UtcNow;
-            await db.DateTimeOffsetSetAsync(redisKey, lastModified);
+            await db.DateTimeOffsetSetAsync(redisKey, lastModified, CommandFlags.FireAndForget);
         }
 
-        var headers = request.GetTypedHeaders();
-        if (headers.IfModifiedSince.HasValue && lastModified <= headers.IfModifiedSince)
+        var headers = request?.GetTypedHeaders();
+        if (headers?.IfModifiedSince != null && lastModified <= headers.IfModifiedSince)
         {
             return (false, lastModified);
         }
