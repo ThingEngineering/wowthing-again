@@ -8,6 +8,7 @@ export default async function fetchJson(
 
     const response = await fetch(request)
     if (!response.ok) {
+        console.error(response)
         throw response.statusText
     }
     return [await response.text() ?? null, response.redirected]
