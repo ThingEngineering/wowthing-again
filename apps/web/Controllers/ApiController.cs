@@ -176,11 +176,11 @@ public class ApiController : Controller
         timer.AddPoint("CheckUser");
 
         var (isModified, lastModified) =
-            await _cacheService.CheckLastModified(RedisKeys.UserLastModifiedGeneral, Request, apiResult);
+            await _cacheService.CheckLastModified(RedisKeys.UserLastModifiedGeneral, null, apiResult);
         var lastUnix = lastModified.ToUnixTimeSeconds();
         if (lastUnix != modified)
         {
-            return StatusCode((int)HttpStatusCode.NotModified);
+            return RedirectToAction("UserData", new { username, access, modified = lastUnix });
         }
 
         timer.AddPoint("LastModified");

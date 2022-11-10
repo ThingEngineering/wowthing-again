@@ -42,7 +42,7 @@ public class UserTransmogController : Controller
         timer.AddPoint("CheckUser");
 
         var (isModified, lastModified) =
-            await _cacheService.CheckLastModified(RedisKeys.UserLastModifiedTransmog, Request, apiResult);
+            await _cacheService.CheckLastModified(RedisKeys.UserLastModifiedTransmog, null, apiResult);
         var lastUnix = lastModified.ToUnixTimeSeconds();
         if (lastUnix != modified)
         {

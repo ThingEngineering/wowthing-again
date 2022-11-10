@@ -42,11 +42,11 @@ public class UserAchievementController : Controller
         timer.AddPoint("CheckUser");
 
         var (isModified, lastModified) =
-            await _cacheService.CheckLastModified(RedisKeys.UserLastModifiedAchievements, Request, apiResult);
+            await _cacheService.CheckLastModified(RedisKeys.UserLastModifiedAchievements, null, apiResult);
         var lastUnix = lastModified.ToUnixTimeSeconds();
         if (lastUnix != modified)
         {
-            return StatusCode((int)HttpStatusCode.NotModified);
+            return RedirectToAction("UserAchievementData", new { username, modified = lastUnix });
         }
 
         timer.AddPoint("LastModified");
