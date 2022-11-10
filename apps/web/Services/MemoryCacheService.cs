@@ -83,7 +83,7 @@ public class MemoryCacheService
             MemoryCacheKeys.UserViewHashes,
             cacheEntry =>
             {
-                cacheEntry.SlidingExpiration = TimeSpan.FromMinutes(1);
+                cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(1);
 
                 var db = _redis.GetDatabase();
 
@@ -114,7 +114,7 @@ public class MemoryCacheService
             string.Format(MemoryCacheKeys.User, username.ToLowerInvariant()),
             cacheEntry =>
             {
-                cacheEntry.SlidingExpiration = TimeSpan.FromMinutes(1);
+                cacheEntry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(1);
                 return _userManager.FindByNameAsync(username);
             }
         );
