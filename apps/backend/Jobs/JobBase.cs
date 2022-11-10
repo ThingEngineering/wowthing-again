@@ -188,7 +188,7 @@ public abstract class JobBase : IJob
             }
             catch (RateLimitRejectedException ex)
             {
-                Logger.Debug("Rate-limited, waiting {retry}", ex.RetryAfter);
+                // Logger.Debug("Rate-limited, waiting {retry}", ex.RetryAfter);
                 await Task.Delay(ex.RetryAfter, CancellationToken);
             }
             catch (OperationCanceledException ex)
