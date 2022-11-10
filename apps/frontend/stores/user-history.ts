@@ -6,7 +6,7 @@ export class UserHistoryDataStore extends WritableFancyStore<UserHistoryData> {
     get dataUrl(): string {
         let url = document.getElementById('app')?.getAttribute('data-user')
         if (url) {
-            url = url.replace(/\/(?:public|private)/, '/history')
+            url = url.replace(/\/(?:public|private).+$/, '/history')
         }
         return url
     }

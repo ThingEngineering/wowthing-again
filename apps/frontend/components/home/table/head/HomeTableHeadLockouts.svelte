@@ -4,7 +4,7 @@
 
 <style lang="scss">
     td {
-        @include cell-width(2.0rem, $maxWidth: 3.0rem);
+        @include cell-width(2.0rem, $maxWidth: 5.0rem);
     }
 </style>
 

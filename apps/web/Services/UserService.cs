@@ -43,20 +43,23 @@ public class UserService
         return ret;
     }
 
-    public async Task<UserViewModel> CreateViewModel(ClaimsPrincipal claimsPrincipal, ApplicationUser user)
+    public async Task<UserViewModel> CreateViewModel(ClaimsPrincipal claimsPrincipal, ApiUserResult apiResult)
     {
         var hashes = await _memoryCacheService.GetCachedHashes();
 
-        var settings = user.Settings ?? new ApplicationUserSettings();
+        var settings = apiResult.User.Settings ?? new ApplicationUserSettings();
         settings.Migrate();
-        var settingsJson = System.Text.Json.JsonSerializer.Serialize(settings, _jsonSerializerOptions);
+        string settingsJson = System.Text.Json.JsonSerializer.Serialize(settings, _jsonSerializerOptions);
+
+        string modifiedJson = await _memoryCacheService.GetUserModifiedJsonAsync(apiResult);
 
         return new UserViewModel(
             hashes,
-            user,
+            apiResult.User,
             settings,
+            modifiedJson,
             settingsJson,
-            claimsPrincipal?.Identity?.Name == user.UserName
+            !apiResult.Public
         );
     }
 }

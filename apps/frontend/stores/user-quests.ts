@@ -1,14 +1,17 @@
 import toPairs from 'lodash/toPairs'
+import { get } from 'svelte/store'
 
-import {WritableFancyStore} from '@/types'
-import type {UserQuestData} from '@/types/data'
+import { userModifiedStore } from './user-modified'
+import { WritableFancyStore } from '@/types'
+import type { UserQuestData } from '@/types/data'
 
 
 export class UserQuestDataStore extends WritableFancyStore<UserQuestData> {
     get dataUrl(): string {
         let url = document.getElementById('app')?.getAttribute('data-user')
         if (url) {
-            url = url.replace(/\/(?:public|private)/, '/quests')
+            const modified = get(userModifiedStore).data.quests
+            url = url.replace(/\/(?:public|private).+$/, `/quests-${modified}.json`)
         }
         return url
     }

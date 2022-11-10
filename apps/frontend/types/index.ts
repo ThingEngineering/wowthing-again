@@ -21,12 +21,5 @@ export * from './transmog'
 export * from './user-achievement-data'
 export * from './user-count'
 export * from './user-data'
+export * from './user-modified'
 export * from './zone-maps'
-
-declare global {
-    interface Window {
-        __tip?: {
-            watchElligibleElements: () => void
-        }
-    }
-}

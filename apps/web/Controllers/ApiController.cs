@@ -152,8 +152,8 @@ public class ApiController : Controller
         return Ok(data);
     }
 
-    [HttpGet("user/{username:username}/{access:regex(^public|private)}")]
-    public async Task<IActionResult> UserData([FromRoute] string username, [FromRoute] string access = "public")
+    [HttpGet("user/{username:username}/{access:regex(^public|private)}-{modified:long}.json")]
+    public async Task<IActionResult> UserData([FromRoute] string username, [FromRoute] string access, [FromRoute] long modified)
     {
         var timer = new JankTimer();
 
@@ -177,7 +177,8 @@ public class ApiController : Controller
 
         var (isModified, lastModified) =
             await _cacheService.CheckLastModified(RedisKeys.UserLastModifiedGeneral, Request, apiResult);
-        if (!isModified)
+        var lastUnix = lastModified.ToUnixTimeSeconds();
+        if (lastUnix != modified)
         {
             return StatusCode((int)HttpStatusCode.NotModified);
         }
@@ -454,7 +455,14 @@ public class ApiController : Controller
 
         if (lastModified > DateTimeOffset.MinValue)
         {
-            Response.AddApiCacheHeaders(apiResult.Public, lastModified);
+            if (access == "private")
+            {
+                Response.AddApiCacheHeaders(false, lastModified);
+            }
+            else
+            {
+                Response.AddLongApiCacheHeaders(lastModified);
+            }
         }
 
         return Content(json, MediaTypeNames.Application.Json);

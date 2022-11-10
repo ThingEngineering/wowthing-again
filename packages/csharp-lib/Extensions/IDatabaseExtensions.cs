@@ -13,9 +13,14 @@ public static class DatabaseExtensions
         return value == null ? DateTimeOffset.MinValue : DateTimeOffset.FromUnixTimeSeconds(int.Parse(value));
     }
 
-    public static async Task<bool> DateTimeOffsetSetAsync(this IDatabase db, string key, DateTimeOffset dateTimeOffset)
+    public static async Task<bool> DateTimeOffsetSetAsync(
+        this IDatabase db,
+        string key,
+        DateTimeOffset dateTimeOffset,
+        CommandFlags flags = CommandFlags.None
+    )
     {
-        return await db.StringSetAsync(key, dateTimeOffset.ToUnixTimeSeconds().ToString());
+        return await db.StringSetAsync(key, dateTimeOffset.ToUnixTimeSeconds().ToString(), flags: flags);
     }
 
     public static async Task<string[]> GetSetMembersAsync(this IDatabase db, string key)

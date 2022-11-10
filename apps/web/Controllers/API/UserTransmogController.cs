@@ -28,8 +28,8 @@ public class UserTransmogController : Controller
         _context = context;
     }
 
-    [HttpGet("api/user/{username:username}/transmog")]
-    public async Task<IActionResult> UserTransmogData([FromRoute] string username)
+    [HttpGet("api/user/{username:username}/transmog-{modified:long}.json")]
+    public async Task<IActionResult> UserTransmogData([FromRoute] string username, [FromRoute] long modified)
     {
         var timer = new JankTimer();
 
@@ -43,9 +43,10 @@ public class UserTransmogController : Controller
 
         var (isModified, lastModified) =
             await _cacheService.CheckLastModified(RedisKeys.UserLastModifiedTransmog, Request, apiResult);
-        if (!isModified)
+        var lastUnix = lastModified.ToUnixTimeSeconds();
+        if (lastUnix != modified)
         {
-            return StatusCode((int)HttpStatusCode.NotModified);
+            return RedirectToAction("UserTransmogData", new { username, modified = lastUnix });
         }
 
         timer.AddPoint("LastModified");
@@ -58,7 +59,7 @@ public class UserTransmogController : Controller
 
         if (lastModified > DateTimeOffset.MinValue)
         {
-            Response.AddApiCacheHeaders(apiResult.Public, lastModified);
+            Response.AddLongApiCacheHeaders(lastModified);
         }
 
         return Content(json, MediaTypeNames.Application.Json);

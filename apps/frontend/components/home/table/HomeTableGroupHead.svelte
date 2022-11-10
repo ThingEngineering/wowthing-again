@@ -158,9 +158,7 @@
             {/if}
 
         {:else if field === 'tasks'}
-            {#if !isPublic || $settings.privacy.publicQuests}
-                <HeadTasks />
-            {/if}
+            <HeadTasks />
 
         {:else if field === 'vaultMythicPlus'}
             <td>M+ Vault</td>

@@ -28,8 +28,8 @@ public class UserAchievementController : Controller
         _context = context;
     }
 
-    [HttpGet("api/user/{username:username}/achievements")]
-    public async Task<IActionResult> UserAchievementData([FromRoute] string username)
+    [HttpGet("api/user/{username:username}/achievements-{modified:long}.json")]
+    public async Task<IActionResult> UserAchievementData([FromRoute] string username, [FromRoute] long modified)
     {
         var timer = new JankTimer();
 
@@ -43,21 +43,23 @@ public class UserAchievementController : Controller
 
         var (isModified, lastModified) =
             await _cacheService.CheckLastModified(RedisKeys.UserLastModifiedAchievements, Request, apiResult);
-        if (!isModified)
+        var lastUnix = lastModified.ToUnixTimeSeconds();
+        if (lastUnix != modified)
         {
             return StatusCode((int)HttpStatusCode.NotModified);
         }
 
         timer.AddPoint("LastModified");
 
-        (string json, lastModified) = await _cacheService.GetOrCreateAchievementCacheAsync(_context, timer, apiResult.User.Id, lastModified);
+        (string json, lastModified) = await _cacheService
+            .GetOrCreateAchievementCacheAsync(_context, timer, apiResult.User.Id, lastModified);
 
         timer.AddPoint("Build", true);
         _logger.LogDebug("{Timer}", timer);
 
         if (lastModified > DateTimeOffset.MinValue)
         {
-            Response.AddApiCacheHeaders(apiResult.Public, lastModified);
+            Response.AddLongApiCacheHeaders(lastModified);
         }
 
         return Content(json, MediaTypeNames.Application.Json);
