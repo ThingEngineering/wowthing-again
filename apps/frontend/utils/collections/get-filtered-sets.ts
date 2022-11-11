@@ -1,34 +1,50 @@
 import { ManualDataSetCategory, ManualDataSetGroup } from '@/types/data/manual'
 import type { CollectionState } from '@/stores/local-storage'
+import type { Settings } from '@/types'
 import type { ManualDataSetGroupArray } from '@/types/data/manual'
 
 
 export function getFilteredSets(
+    settings: Settings,
     collectionState: CollectionState,
     collectionKey: string,
-    sets: ManualDataSetCategory[][],
+    categories: ManualDataSetCategory[][],
     hasFunc: (things: number[]) => boolean
 ): ManualDataSetCategory[][] {
+    const hideUnavailable = settings.collections.hideUnavailable
     const showCollected = collectionState.showCollected[collectionKey]
     const showUncollected = collectionState.showUncollected[collectionKey]
 
-    if (showCollected && showUncollected) {
-        return sets
+    if (!hideUnavailable && showCollected && showUncollected) {
+        return categories
     }
 
     const ret: ManualDataSetCategory[][] = []
-    for (const categories of sets) {
-        if (categories === null) {
+    for (const category of categories) {
+        if (category === null) {
             ret.push(null)
             continue
         }
 
-        const newCategories: ManualDataSetCategory[] = []
-        for (const category of categories) {
+        const categoryUnavailable = category[0].slug === 'unavailable'
+
+        const newCategory: ManualDataSetCategory[] = []
+        for (const set of category) {
+            const setUnavailable = set.slug === 'unavailable'
             const newGroups: ManualDataSetGroup[] = []
-            for (const group of category.groups) {
+            for (const group of set.groups) {
+                const groupUnavailable = group.name.indexOf('Unavailable') >= 0
                 const newThings: number[][] = group.things.filter((thing) => {
                     const userHas = hasFunc(thing)
+
+                    if (
+                        hideUnavailable &&
+                        (categoryUnavailable || setUnavailable || groupUnavailable) &&
+                        !userHas
+                    ) {
+                        return false
+                    }
+
                     return (showCollected && userHas) || (showUncollected && !userHas)
                 })
 
@@ -38,10 +54,10 @@ export function getFilteredSets(
             }
 
             const newGroupArrays: ManualDataSetGroupArray[] = newGroups.map((group) => [group.name, group.things])
-            newCategories.push(new ManualDataSetCategory(category.name, category.slug, newGroupArrays))
+            newCategory.push(new ManualDataSetCategory(set.name, set.slug, newGroupArrays))
         }
 
-        ret.push(newCategories)
+        ret.push(newCategory)
     }
 
     return ret

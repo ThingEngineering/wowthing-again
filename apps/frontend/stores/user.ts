@@ -198,16 +198,19 @@ export class UserDataStore extends WritableFancyStore<UserData> {
         }
 
         UserDataStore.doSetCounts(
+            settingsData,
             setCounts['mounts'],
             manualData.mountSets,
             userData.hasMount
         )
         UserDataStore.doSetCounts(
+            settingsData,
             setCounts['pets'],
             manualData.petSets,
             userData.hasPet
         )
         UserDataStore.doSetCounts(
+            settingsData,
             setCounts['toys'],
             manualData.toySets,
             userData.hasToy
@@ -355,12 +358,15 @@ export class UserDataStore extends WritableFancyStore<UserData> {
     }
 
     private static doSetCounts(
+        settings: Settings,
         setCounts: Record<string, UserCount>,
         categories: ManualDataSetCategory[][],
         userHas: Record<number, boolean>
     ): void {
+        const showUnavailable = !settings.collections.hideUnavailable
+
         const overallData = setCounts['OVERALL'] = new UserCount()
-        const seen: Record<number, boolean> = {}
+        const overallSeen: Record<number, boolean> = {}
 
         for (const category of categories) {
             if (category === null) {
@@ -368,61 +374,62 @@ export class UserDataStore extends WritableFancyStore<UserData> {
             }
 
             const categoryData = setCounts[category[0].slug] = new UserCount()
+            const categoryUnavailable = category[0].slug === 'unavailable'
 
             for (const set of category) {
                 const setData = setCounts[`${category[0].slug}--${set.slug}`] = new UserCount()
+                const setUnavailable = set.slug === 'unavailable'
 
                 for (const group of set.groups) {
-                    // We only want to increase some counts if the set is not
-                    // unavailable
-                    const doCategory = (
-                        category[0].slug === 'unavailable' ||
-                        (
-                            set.slug !== 'unavailable' &&
-                            group.name.indexOf('Unavailable') < 0
-                        )
-                    )
                     const groupData = setCounts[`${category[0].slug}--${set.slug}--${group.name}`] = new UserCount()
+                    const groupUnavailable = group.name.indexOf('Unavailable') >= 0
 
                     for (const things of group.things) {
                         const hasThing = some(things, (t) => userHas[t])
-                        const seenThing = some(things, (t) => seen[t])
+                        const seenOverall = some(things, (t) => overallSeen[t])
 
                         const doOverall = (
-                            !seenThing &&
-                            (
-                                hasThing ||
-                                (
-                                    category[0].slug !== 'unavailable' &&
-                                    doCategory
-                                )
-                            )
+                            !seenOverall &&
+                            (hasThing || (!categoryUnavailable && !setUnavailable && !groupUnavailable))
+                        )
+                        const doCategory = (
+                            (hasThing || (
+                                (!setUnavailable && !groupUnavailable) &&
+                                (showUnavailable || !categoryUnavailable)
+                            ))
+                        )
+                        const doSet = (
+                            hasThing ||
+                            showUnavailable ||
+                            (!groupUnavailable && !setUnavailable && !categoryUnavailable)
                         )
 
-                        if (doCategory) {
-                            categoryData.total++
-                        }
                         if (doOverall) {
                             overallData.total++
                         }
-
-                        setData.total++
-                        groupData.total++
+                        if (doCategory) {
+                            categoryData.total++
+                        }
+                        if (doSet) {
+                            setData.total++
+                            groupData.total++
+                        }
 
                         if (hasThing) {
-                            if (doCategory) {
-                                categoryData.have++
-                            }
                             if (doOverall) {
                                 overallData.have++
                             }
-
-                            setData.have++
-                            groupData.have++
+                            if (doCategory) {
+                                categoryData.have++
+                            }
+                            if (doSet) {
+                                setData.have++
+                                groupData.have++
+                            }
                         }
 
                         for (const thing of things) {
-                            seen[thing] = true
+                            overallSeen[thing] = true
                         }
                     }
                 }
