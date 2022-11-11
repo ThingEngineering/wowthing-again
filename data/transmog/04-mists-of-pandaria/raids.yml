@@ -958,7 +958,7 @@ groups:
         6:  19070 # Waist
         7:  19042 # Legs
         8:  19098 # Feet
-        9:  19060 # Wrists
+        #9:  19060 # Wrists - not actually available, take pity on Critty
         10: 19040 19044 # Hands
 
     # Normal set=563
