@@ -39,9 +39,13 @@ export const currencyItems: Record<number, number[]> = {
     ],
     // Shadowlands
     245: [
+        199202, // Attendant's Token of Merit [S4]
         188957, // Genesis Mote
         190189, // Sandworn Relic
-        199202, // Attendant's Token of Merit [S4]
+    ],
+    // Dragonflight
+    250: [
+        199211, // Primeval Essence [DF invasion event]
     ],
     // Player vs Player
     2: [
