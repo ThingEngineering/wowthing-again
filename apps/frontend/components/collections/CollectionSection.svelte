@@ -3,18 +3,12 @@
     import find from 'lodash/find'
     import { getContext } from 'svelte'
 
-    import { userStore } from '@/stores'
     import { collectionState } from '@/stores/local-storage'
-    import getPercentClass from '@/utils/get-percent-class'
-    import tippy from '@/utils/tippy'
     import type { ManualDataSetCategory } from '@/types/data/manual'
     import type { CollectionContext } from '@/types/contexts'
 
+    import Category from './CollectionCategory.svelte'
     import Checkbox from '@/components/forms/CheckboxInput.svelte'
-    import CollectionThing from './CollectionThing.svelte'
-    import CollectionThingPet from './CollectionThingPet.svelte'
-    import ParsedText from '@/components/common/ParsedText.svelte'
-    import SectionTitle from './CollectionSectionTitle.svelte'
 
     export let slug1: string
     export let slug2: string
@@ -39,26 +33,6 @@
         display: flex;
         flex-direction: column;
         width: 100%;
-    }
-    .collection-v2-section {
-        --column-count: 1;
-        --column-gap: 1.25rem;
-        --column-width: 18.75rem;
-
-        width: 18.75rem;
-        
-        @media screen and (min-width: 1130px) {
-            --column-count: 2;
-            width: 39.5rem;
-        }
-        @media screen and (min-width: 1445px) {
-            --column-count: 3;
-            width: 59.5rem;
-        }
-        @media screen and (min-width: 1770px) {
-            --column-count: 4;
-            width: 79.5rem;
-        }
     }
 </style>
 
@@ -89,44 +63,11 @@
     </div>
 
     {#each categories as category}
-        {@const useV2 = category.groups.length > 2 && category.groups.reduce((a, b) => a + b.things.length, 0) > 30}
-        <div class="collection thing-container">
-            {#if category.name}
-                <SectionTitle
-                    title={category.name}
-                    count={$userStore.data.setCounts[route][`${slug1}--${category.slug}`]}
-                />
-            {/if}
-
-            <div class="collection{useV2 ? '-v2' : ''}-section">
-                {#each category.groups as group}
-                    <div
-                        class="collection{useV2 ? '-v2' : ''}-group"
-                        style={useV2 ? '' : `width: min(100%, calc((${group.things.length} * 44px) + (${group.things.length - 1} * 0.3rem)));`}
-                    >
-                        <h4
-                            class="drop-shadow text-overflow {getPercentClass($userStore.data.setCounts[route][`${slug1}--${category.slug}--${group.name}`])}"
-                            use:tippy={group.name}
-                        >
-                            <ParsedText text={group.name} />
-                        </h4>
-
-                        <div class="collection-objects">
-                            {#each group.things as things}
-                                {#if thingType === 'npc'}
-                                    <CollectionThingPet
-                                        {things}
-                                    />
-                                {:else}
-                                    <CollectionThing
-                                        {things}
-                                    />
-                                {/if}
-                            {/each}
-                        </div>
-                    </div>
-                {/each}
-            </div>
-        </div>
+        <Category
+            {category}
+            {route}
+            {slug1}
+            {thingType}
+        />
     {/each}
 </div>

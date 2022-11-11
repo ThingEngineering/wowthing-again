@@ -12,7 +12,16 @@
             name="collections_hideUnavailable"
             bind:value={$settingsData.collections.hideUnavailable}
         >Hide Unavailable</Checkbox>
-        <p>Stuff
-        </p>
+        <div>
+            <p>
+                Hide unavailable collectibles that you have not already collected. Work in progress, only works in:
+            </p>
+            <ul>
+                <li>Mounts</li>
+                <li>Pets</li>
+                <li>Toys</li>
+                <li>Sets V2</li>
+            </ul>
+        </div>
     </div>
 </div>

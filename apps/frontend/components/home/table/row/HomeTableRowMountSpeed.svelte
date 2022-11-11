@@ -9,7 +9,7 @@
 
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
 
-    const character: Character = getContext('character')
+    export let character: Character
 
     let speed: number
     let spellId: number

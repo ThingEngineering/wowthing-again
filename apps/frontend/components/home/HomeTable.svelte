@@ -95,7 +95,7 @@
 
             {:else if field === 'mountSpeed'}
                 {#if !$homeState.onlyWeekly}
-                    <RowMountSpeed />
+                    <RowMountSpeed {character} />
                 {/if}
 
             {:else if field === 'keystone'}

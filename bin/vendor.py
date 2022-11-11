@@ -183,13 +183,16 @@ items = json.loads(item_json)
 
 
 faction = ''
-react = npc['react']
-if len(react) == 1:
-    react.push(0)
-if react[0] is None:
-    react[0] = 0
-if react[1] is None:
-    react[1] = 0
+react = npc.get('react')
+if react is None:
+    react = [0, 9]
+else:
+    if len(react) == 1:
+        react.push(0)
+    if react[0] is None:
+        react[0] = 0
+    if react[1] is None:
+        react[1] = 0
 
 if react[0] == 1 and (len(react) == 1 or react[1] <= 0):
     faction = ' alliance'
