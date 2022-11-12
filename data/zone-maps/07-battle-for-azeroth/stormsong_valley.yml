@@ -166,6 +166,15 @@ farms:
   - type: transmog
     id: 163678 # Pinku'shon's Impaler
 
+- name: "Poacher Zane"
+  location: 34.6 67.8
+  npcId: 141286
+  questId: 52469
+  type: kill
+  drops:
+    - type: item
+      id: 163036 # Polished Pet Charm
+
 - name: "Ragna"
   location: 41.6 74.2
   npcId: 134884
@@ -261,6 +270,7 @@ farms:
       id: 163036 # Polished Pet Charm
 
 # World boss
+
 - name: "Warbringer Yenajz"
   location: 82.7 48.8
   npcId: 140163

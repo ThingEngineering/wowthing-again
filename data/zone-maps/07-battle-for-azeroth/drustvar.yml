@@ -110,6 +110,15 @@ farms:
   - type: transmog
     id: 160450 # Leadshot Heavy Rifle
 
+- name: "Cottontail Matron"
+  location: 52.1 46.9
+  npcId: 129904
+  questId: 49216
+  type: kill
+  drops:
+    - type: item
+      id: 163036 # Polished Pet Charm
+
 - name: "Emily Mayville"
   location: 63.4 40.1
   npcId: 129995
