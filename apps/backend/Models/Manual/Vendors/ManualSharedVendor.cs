@@ -1,6 +1,5 @@
 ﻿using Wowthing.Backend.Converters.Manual;
 using Wowthing.Backend.Models.Data.Vendors;
-using Wowthing.Backend.Models.Manual.Vendors;
 
 namespace Wowthing.Backend.Models.Manual.Vendors;
 

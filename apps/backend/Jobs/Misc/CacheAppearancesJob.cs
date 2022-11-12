@@ -40,7 +40,7 @@ public class CacheAppearancesJob : JobBase, IScheduledJob
                 continue;
             }
 
-            itemsByIconId.TryGetValue(appearance.DefaultIconFileDataID, out var iconItems);
+            //itemsByIconId.TryGetValue(appearance.DefaultIconFileDataID, out var iconItems);
 
             foreach (var modifiedAppearance in modifiedAppearances)
             {

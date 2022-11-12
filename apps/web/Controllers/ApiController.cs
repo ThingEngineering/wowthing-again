@@ -3,7 +3,6 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
-using StackExchange.Redis;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Data;
@@ -24,7 +23,6 @@ namespace Wowthing.Web.Controllers;
 public class ApiController : Controller
 {
     private readonly CacheService _cacheService;
-    private readonly IConnectionMultiplexer _redis;
     private readonly ILogger<ApiController> _logger;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
     private readonly MemoryCacheService _memoryCacheService;
@@ -34,7 +32,6 @@ public class ApiController : Controller
 
     public ApiController(
         CacheService cacheService,
-        IConnectionMultiplexer redis,
         ILogger<ApiController> logger,
         JsonSerializerOptions jsonSerializerOptions,
         MemoryCacheService memoryCacheService,
@@ -44,7 +41,6 @@ public class ApiController : Controller
     )
     {
         _cacheService = cacheService;
-        _redis = redis;
         _logger = logger;
         _jsonSerializerOptions = jsonSerializerOptions;
         _memoryCacheService = memoryCacheService;

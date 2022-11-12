@@ -6,7 +6,7 @@ namespace Wowthing.Backend.Converters.Manual;
 
 public class ManualSharedVendorConverter : JsonConverter
 {
-    private static readonly int[] _emptyAppearances = { 0 };
+    private static readonly int[] EmptyAppearances = { 0 };
 
     public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
     {
@@ -127,7 +127,7 @@ public class ManualSharedVendorConverter : JsonConverter
         if (useNote || useBonusIds || useAppearance)
         {
             var appearanceArray = new JArray();
-            foreach (var appearanceId in item.AppearanceIds ?? _emptyAppearances)
+            foreach (var appearanceId in item.AppearanceIds ?? EmptyAppearances)
             {
                 appearanceArray.Add(appearanceId);
             }

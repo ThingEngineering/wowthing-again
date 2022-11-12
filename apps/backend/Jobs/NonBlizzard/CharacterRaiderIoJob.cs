@@ -1,7 +1,6 @@
 ﻿using System.Net.Http;
 using Wowthing.Backend.Models.API.NonBlizzard;
 using Wowthing.Lib.Models.Player;
-using Wowthing.Lib.Models.Query;
 
 namespace Wowthing.Backend.Jobs.NonBlizzard;
 

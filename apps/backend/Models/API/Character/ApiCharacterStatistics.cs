@@ -1,6 +1,4 @@
-﻿using System.Runtime.Serialization;
-using System.Text.Json.Serialization;
-using Newtonsoft.Json.Serialization;
+﻿using System.Text.Json.Serialization;
 
 namespace Wowthing.Backend.Models.API.Character;
 

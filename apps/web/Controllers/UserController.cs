@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http.Extensions;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
-using Wowthing.Lib.Models;
 using Wowthing.Lib.Utilities;
 using Wowthing.Web.Services;
 
@@ -12,18 +10,15 @@ public class UserController : Controller
     private readonly ILogger<UserController> _logger;
     private readonly UriService _uriService;
     private readonly UserService _userService;
-    private readonly UserManager<ApplicationUser> _userManager;
 
     public UserController(
         ILogger<UserController> logger,
         UriService uriService,
-        UserManager<ApplicationUser> userManager,
         UserService userService
     )
     {
         _logger = logger;
         _uriService = uriService;
-        _userManager = userManager;
         _userService = userService;
     }
 

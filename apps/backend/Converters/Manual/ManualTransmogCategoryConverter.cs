@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json.Linq;
-using Wowthing.Backend.Models.Data.Transmog;
 using Wowthing.Backend.Models.Manual.Transmog;
 
 namespace Wowthing.Backend.Converters.Manual;

@@ -164,7 +164,7 @@ public class CacheService
         timer.AddPoint("AddonAchievements");
 
         // Build response
-        string json = System.Text.Json.JsonSerializer.Serialize(new ApiUserAchievements
+        string json = JsonSerializer.Serialize(new ApiUserAchievements
         {
             Achievements = achievementsCompleted,
             AddonAchievements = addonAchievements,
@@ -245,7 +245,7 @@ public class CacheService
         {
             Characters = characterData,
         };
-        var json = System.Text.Json.JsonSerializer.Serialize(data, _jsonSerializerOptions);
+        var json = JsonSerializer.Serialize(data, _jsonSerializerOptions);
 
         timer.AddPoint("JSON");
 

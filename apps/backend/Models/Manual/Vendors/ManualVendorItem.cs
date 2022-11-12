@@ -1,5 +1,4 @@
-﻿using MoreLinq.Extensions;
-using Wowthing.Backend.Models.Data.Vendors;
+﻿using Wowthing.Backend.Models.Data.Vendors;
 using Wowthing.Lib.Enums;
 
 namespace Wowthing.Backend.Models.Manual.Vendors;
@@ -15,7 +14,7 @@ public class ManualVendorItem
     public RewardType Type { get; set; }
     public Dictionary<int, int> Costs { get; set; }
 
-    public int[]? AppearanceIds { get; set; }
+    public int[] AppearanceIds { get; set; }
     public int[] BonusIds { get; set; }
 
     public ManualVendorItem()

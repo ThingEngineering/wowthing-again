@@ -8,10 +8,12 @@ namespace Wowthing.Lib.Models;
 
 public class ApplicationUserSettings
 {
+    private static readonly Regex FixDesiredAccountNameRegex = new Regex(@"[ #""]", RegexOptions.Compiled);
+
     public ApplicationUserSettingsAchievements? Achievements { get; set; } = new();
     public ApplicationUserSettingsAuctions? Auctions { get; set; } = new();
     public ApplicationUserSettingsCharacters? Characters { get; set; } = new();
-    public ApplicationUserSettingsCollections Collections { get; set; } = new();
+    public ApplicationUserSettingsCollections? Collections { get; set; } = new();
     public ApplicationUserSettingsGeneral? General { get; set; } = new();
     public ApplicationUserSettingsHistory? History { get; set; } = new();
     public ApplicationUserSettingsLayout? Layout { get; set; } = new();
@@ -32,8 +34,6 @@ public class ApplicationUserSettings
 
         Validate();
     }
-
-    private readonly Regex FixDesiredAccountNameRegex = new Regex(@"[ #""]", RegexOptions.Compiled);
 
     private readonly HashSet<string> _validGroupBy = new()
     {
@@ -203,7 +203,7 @@ public class ApplicationUserSettings
             Layout.HomeFields.Add("covenant");
         }
 
-        if (Layout.HomeTasks?.Count == 0)
+        if (Layout.HomeTasks.Count == 0)
         {
             Layout.HomeTasks = Layout.HomeWeeklies;
         }
@@ -231,8 +231,8 @@ public class ApplicationUserSettingsAuctions
 
 public class ApplicationUserSettingsAuctionCategory
 {
-    public string Name { get; set; }
-    public List<int> ItemIds { get; set; }
+    public string Name { get; set; } = "Unnamed";
+    public List<int> ItemIds { get; set; } = new();
 }
 
 public class ApplicationUserSettingsCharacters

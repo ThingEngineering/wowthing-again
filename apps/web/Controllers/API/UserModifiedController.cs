@@ -1,7 +1,5 @@
 ﻿using System.Net.Mime;
 using Microsoft.Extensions.Logging;
-using Wowthing.Lib.Constants;
-using Wowthing.Lib.Services;
 using Wowthing.Web.Services;
 
 namespace Wowthing.Web.Controllers.API;

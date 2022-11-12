@@ -1,5 +1,4 @@
 ﻿using Wowthing.Backend.Models.Data.TransmogSets;
-using Wowthing.Lib.Enums;
 
 namespace Wowthing.Backend.Models.Manual.TransmogSets;
 
