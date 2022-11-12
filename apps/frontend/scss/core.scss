@@ -28,7 +28,15 @@ footer {
         li {
             display: inline-block;
 
-            & + li {
+            img {
+                margin-top: -4px;
+            }
+
+            &.margin-left {
+                margin-left: 3rem;
+            }
+
+            & + li:not(.margin-left) {
                 border-left: 1px solid #888;
                 margin-left: 0.4rem;
                 padding-left: 0.6rem;
@@ -61,6 +69,10 @@ footer {
 
         li {
             display: inline-block;
+
+            img {
+                margin-top: -4px;
+            }
 
             & + li {
                 border-left: 1px solid #888;
