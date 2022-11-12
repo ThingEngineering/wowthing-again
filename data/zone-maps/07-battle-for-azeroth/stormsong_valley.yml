@@ -249,6 +249,16 @@ farms:
 
 # Treasures
 
+- name: "Sunken Strongbox"
+  location: 67.22 43.2
+  note: "Under the ship"
+  objectId: 282153
+  questId: 50734
+  reset: never
+  type: treasure
+  drops:
+    - type: item
+      id: 163036 # Polished Pet Charm
 
 # World boss
 - name: "Warbringer Yenajz"

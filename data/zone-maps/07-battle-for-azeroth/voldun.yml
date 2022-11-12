@@ -247,6 +247,27 @@ farms:
 
 # Treasures
 
+- name: "Deadwood Chest"
+  location: 40.5 85.7
+  objectId: 294317
+  questId: 52994
+  reset: never
+  type: treasure
+  drops:
+    - type: item
+      id: 163036 # Polished Pet Charm
+
+- name: "Sandsunken Treasure"
+  location: 26.5 45.4
+  note: "Click the abandoned bobber"
+  objectId: 294319
+  questId: 53004
+  reset: never
+  type: treasure
+  drops:
+    - type: item
+      id: 163036 # Polished Pet Charm
+
 # World boss
 
 - name: "Dunegorger Kraulok"

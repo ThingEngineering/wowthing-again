@@ -265,6 +265,16 @@ farms:
   - type: transmog
     id: 155571 # Garyl's Riding Blanket
 
+- name: "Precarious Noble Cache"
+  location: 56.03 33.19
+  objectId: 293962
+  questId: 52866
+  reset: never
+  type: treasure
+  drops:
+    - type: item
+      id: 163036 # Polished Pet Charm
+
 # World boss
 - name: "Azurethos"
   location: 62.0 24.0
