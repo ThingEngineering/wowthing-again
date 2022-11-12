@@ -1,6 +1,4 @@
-﻿using Wowthing.Lib.Models;
-
-namespace Wowthing.Lib.Models;
+﻿namespace Wowthing.Lib.Models;
 
 public class ApiUserResult
 {

@@ -1,6 +1,5 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
-using Microsoft.EntityFrameworkCore.Query;
 using Wowthing.Backend.Models.Uploads;
 using Wowthing.Lib.Utilities;
 
@@ -37,7 +36,7 @@ foreach (string version in new[] { version1, version2, version3, version4 })
 {
     try
     {
-        var foo = JsonSerializer.Deserialize<Upload>(version, options);
+        JsonSerializer.Deserialize<Upload>(version, options);
         Console.WriteLine("Parse OK");
     }
     catch (Exception ex)

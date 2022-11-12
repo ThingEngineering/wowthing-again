@@ -1,5 +1,4 @@
-﻿using System.Net;
-using System.Net.Http;
+﻿using System.Net.Http;
 using Wowthing.Backend.Models.API;
 using Wowthing.Backend.Models.API.Profile;
 using Wowthing.Lib.Constants;

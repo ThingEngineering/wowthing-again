@@ -1,6 +1,4 @@
-﻿using Wowthing.Lib.Enums;
-
-namespace Wowthing.Web.Models.Search;
+﻿namespace Wowthing.Web.Models.Search;
 
 public class ItemSearchResponseGuildBank
 {

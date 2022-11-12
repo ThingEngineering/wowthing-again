@@ -1,4 +1,4 @@
-﻿using Wowthing.Backend.Converters;
+﻿using Wowthing.Backend.Converters.Manual;
 using Wowthing.Backend.Models.Data.TransmogSets;
 
 namespace Wowthing.Backend.Models.Manual.TransmogSets;

@@ -1,21 +1,21 @@
 ﻿@model UserViewModel
-@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostEnv
-@inject UriService _uriService
+@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment HostEnv
+@inject UriService UriService
 @{
     ViewData["Title"] = Model.User.UserName;
 }
 
-@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery _xsrf
+@inject Microsoft.AspNetCore.Antiforgery.IAntiforgery Xsrf
 @functions {
     private string GetAntiXsrfRequestToken()
     {
-        return _xsrf.GetAndStoreTokens(Context).RequestToken;
+        return Xsrf.GetAndStoreTokens(Context).RequestToken;
     }
 }
 
 @section scripts
 {
-    @if (hostEnv.EnvironmentName == "Development")
+    @if (HostEnv.EnvironmentName == "Development")
     {
         <script type="module" src="http://localhost:55505/apps/home.ts"></script>
     }
@@ -37,7 +37,7 @@
 }
 
 <div id="app"
-     data-base-uri="@_uriService.BaseUri"
+     data-base-uri="@UriService.BaseUri"
      data-modified="@Model.ModifiedJson"
      data-settings="@Model.SettingsJson"
      data-achievements="@Url.Action("CachedJson", "CachedJson", new { type = "achievement", languageCode = "zzZZ", hash = Model.AchievementHash })"

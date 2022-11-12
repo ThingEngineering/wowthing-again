@@ -1,34 +1,20 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Options;
-using StackExchange.Redis;
-using Wowthing.Lib.Models;
-using Wowthing.Lib.Services;
+﻿using Microsoft.Extensions.Options;
 using Wowthing.Web.Misc;
 using Wowthing.Web.Models;
 using Wowthing.Web.Services;
-using Wowthing.Web.ViewModels;
 
 namespace Wowthing.Web.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly CacheService _cacheService;
-    private readonly MemoryCacheService _memoryCacheService;
-    private readonly UserManager<ApplicationUser> _userManager;
     private readonly UserService _userService;
     private readonly WowthingWebOptions _webOptions;
 
     public HomeController(
-        CacheService cacheService,
         IOptions<WowthingWebOptions> webOptions,
-        MemoryCacheService memoryCacheService,
-        UserManager<ApplicationUser> userManager,
         UserService userService
     )
     {
-        _cacheService = cacheService;
-        _memoryCacheService = memoryCacheService;
-        _userManager = userManager;
         _userService = userService;
         _webOptions = webOptions.Value;
     }

@@ -4,7 +4,6 @@ using Wowthing.Backend.Models.Data.Heirlooms;
 using Wowthing.Backend.Models.Data.Illusions;
 using Wowthing.Backend.Models.Data.ItemSets;
 using Wowthing.Backend.Models.Data.Progress;
-using Wowthing.Backend.Models.Data.TransmogSets;
 using Wowthing.Backend.Models.Manual.Transmog;
 using Wowthing.Backend.Models.Manual.TransmogSets;
 using Wowthing.Backend.Models.Manual.Vendors;

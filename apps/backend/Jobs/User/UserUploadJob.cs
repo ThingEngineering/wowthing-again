@@ -14,7 +14,7 @@ namespace Wowthing.Backend.Jobs.User;
 public class UserUploadJob : JobBase
 {
     private JankTimer _timer;
-    private Dictionary<(WowRegion Region, int Expansion), GlobalDailies> _globalDailiesMap = null;
+    private Dictionary<(WowRegion Region, int Expansion), GlobalDailies> _globalDailiesMap;
     private Dictionary<(WowRegion Region, string Name), WowRealm> _realmMap;
     private Dictionary<string, int> _instanceNameToIdMap;
 
@@ -1398,7 +1398,7 @@ public class UserUploadJob : JobBase
                                 .ToList();
 
                             var rewards = new List<GlobalDailiesReward>();
-                            foreach (var (expires, emissaryData) in questPairs)
+                            foreach (var (_, emissaryData) in questPairs)
                             {
                                 var gdReward = new GlobalDailiesReward
                                 {

@@ -1,5 +1,4 @@
-﻿using System.Text.RegularExpressions;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using StackExchange.Redis;
 using Wowthing.Backend.Models.Data;
 using Wowthing.Backend.Models.Data.Collections;
@@ -567,7 +566,7 @@ public class CacheManualJob : JobBase, IScheduledJob
         }
 
         // Costs with an ID >1 million are items
-        foreach (var (currencyId, amount) in item.Costs.EmptyIfNull())
+        foreach (var (currencyId, _) in item.Costs.EmptyIfNull())
         {
             if (currencyId > 1_000_000)
             {

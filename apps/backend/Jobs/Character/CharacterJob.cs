@@ -4,7 +4,6 @@ using Wowthing.Backend.Models.API.Character;
 using Wowthing.Lib.Constants;
 using Wowthing.Lib.Enums;
 using Wowthing.Lib.Jobs;
-using Wowthing.Lib.Models.Player;
 
 namespace Wowthing.Backend.Jobs.Character;
 

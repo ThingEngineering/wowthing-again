@@ -1,6 +1,4 @@
-﻿using Wowthing.Backend.Converters;
-
-namespace Wowthing.Backend.Models.Data.TransmogSets;
+﻿namespace Wowthing.Backend.Models.Data.TransmogSets;
 
 public class DataTransmogSetCategory : ICloneable, IDataCategory
 {

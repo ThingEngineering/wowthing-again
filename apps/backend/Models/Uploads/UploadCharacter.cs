@@ -1,4 +1,5 @@
-﻿namespace Wowthing.Backend.Models.Uploads;
+﻿// ReSharper disable InconsistentNaming
+namespace Wowthing.Backend.Models.Uploads;
 
 public class UploadCharacter
 {

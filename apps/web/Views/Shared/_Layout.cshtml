@@ -1,5 +1,5 @@
-﻿@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment hostEnv
-@inject UriService _uriService
+﻿@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment HostEnv
+@inject UriService UriService
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +8,7 @@
     <title>@ViewData["Title"] - WoWthing</title>
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" asp-append-version="true">
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" asp-append-version="true">
-    @if (hostEnv.EnvironmentName == "Development")
+    @if (HostEnv.EnvironmentName == "Development")
     {
         <script type="module" src="http://localhost:55505/scss/global.scss"></script>
     }
@@ -17,22 +17,35 @@
         <link rel="stylesheet" asp-href-include="~/dist/vendor.*css">
         <link rel="stylesheet" asp-href-include="~/dist/home.*css">
     }
-    @RenderSection("head", required: false)
+
+    @await RenderSectionAsync("head", required: false)
 </head>
 <body>
     <header>
         <nav class="nav">
             <ul id="nav-left">
                 <!--<li class="header-title">
-                    <a href="@_uriService.GetBaseAction("Home", "Index")">WoWthing</a>
+                    <a href="@UriService.GetBaseAction("Home", "Index")">WoWthing</a>
                 </li>-->
-                @if (User.Identity.IsAuthenticated)
+                @if (User.Identity?.IsAuthenticated == true)
                 {
                     <li>
-                        <a href="@await _uriService.GetUriForUser()">My Page</a>
+                        <a href="@await UriService.GetUriForUser()">My Page</a>
                     </li>
                     <li>
                         <a asp-controller="Upload" asp-action="Index">Upload Addon Data</a>
+                    </li>
+
+                    <li class="margin-left">
+                        <a href="https://discord.gg/4UkTT5y" target="_blank" rel="nofollow noopener noreferrer">
+                            <img src="/external/discord_blurple.png" height="24" width="24" alt="Discord logo"> Discord
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="https://ko-fi.com/thingengineering" target="_blank" rel="nofollow noopener noreferrer">
+                            <img src="/external/kofi_pixel_logo.png" height="20" width="30" alt="Ko-fi logo"> Buy me a coffee?
+                        </a>
                     </li>
                 }
             </ul>
@@ -41,17 +54,17 @@
             </ul>
 
             <ul id="nav-right">
-                @if (User.Identity.IsAuthenticated)
+                @if (User.Identity?.IsAuthenticated == true)
                 {
                     <li id="user-name">@User.Identity.Name</li>
                     <li>
-                        <a href="@_uriService.GetBaseAction("Authentication", "Logout")">Logout</a>
+                        <a href="@UriService.GetBaseAction("Authentication", "Logout")">Logout</a>
                     </li>
                 }
                 else
                 {
                     <li>
-                        <a href="@_uriService.GetBaseAction("Authentication", "Login")">Login/Register with Battle.Net</a>
+                        <a href="@UriService.GetBaseAction("Authentication", "Login")">Login/Register with Battle.Net</a>
                     </li>
                 }
             </ul>
@@ -63,13 +76,21 @@
         <footer>
             <ul>
                 <li>
-                    <a href="https://discord.gg/4UkTT5y">Discord</a>
+                    <a href="https://github.com/ThingEngineering/wowthing-again" target="_blank" rel="nofollow noopener noreferrer">
+                        Github (code/issues)
+                    </a>
                 </li>
+
                 <li>
-                    <a href="https://github.com/ThingEngineering/wowthing-again">Github (code/issues)</a>
+                    <a href="https://discord.gg/4UkTT5y" target="_blank" rel="nofollow noopener noreferrer">
+                        <img src="/external/discord_blurple.png" height="24" width="24" alt="Discord logo"> Discord
+                    </a>
                 </li>
+
                 <li>
-                    <a href="https://ko-fi.com/thingengineering">Buy me a coffee?</a>
+                    <a href="https://ko-fi.com/thingengineering" target="_blank" rel="nofollow noopener noreferrer">
+                        <img src="/external/kofi_pixel_logo.png" height="20" width="30" alt="Ko-fi logo"> Buy me a coffee?
+                    </a>
                 </li>
             </ul>
             <ul>
@@ -80,6 +101,6 @@
         </footer>
     </main>
 
-    @RenderSection("scripts", required: false)
+    @await RenderSectionAsync("scripts", required: false)
 </body>
 </html>

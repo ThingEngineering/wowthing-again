@@ -416,15 +416,15 @@ public class CacheJournalJob : JobBase, IScheduledJob
 
                             if (!appearancesByItemId.TryGetValue(item.Id, out var appearances))
                             {
-                                if (_mountMap.TryGetValue(item.Id, out var mount))
+                                if (_mountMap.ContainsKey(item.Id))
                                 {
                                     AddGroupSpecial(itemGroups, RewardType.Mount, item, difficulties);
                                 }
-                                else if (_petMap.TryGetValue(item.Id, out var pet))
+                                else if (_petMap.ContainsKey(item.Id))
                                 {
                                     AddGroupSpecial(itemGroups, RewardType.Pet, item, difficulties);
                                 }
-                                else if (_toyMap.TryGetValue(item.Id, out var toy))
+                                else if (_toyMap.ContainsKey(item.Id))
                                 {
                                     AddGroupSpecial(itemGroups, RewardType.Toy, item, difficulties);
                                 }

@@ -5,7 +5,6 @@ using Wowthing.Backend.Jobs;
 using Wowthing.Backend.Services.Base;
 using Wowthing.Lib.Contexts;
 using Wowthing.Lib.Jobs;
-using Wowthing.Lib.Models.Player;
 using Wowthing.Lib.Models.Query;
 using Wowthing.Lib.Repositories;
 

@@ -1,5 +1,4 @@
-﻿using System.Text.RegularExpressions;
-using Wowthing.Backend.Data;
+﻿using Wowthing.Backend.Data;
 using Wowthing.Backend.Models.Data.Achievements;
 using Wowthing.Backend.Models.Redis;
 using Wowthing.Backend.Utilities;
@@ -20,8 +19,6 @@ public class CacheAchievementsJob : JobBase, IScheduledJob
         Interval = TimeSpan.FromHours(24),
         Version = 2,
     };
-
-    private static readonly Regex GladiatorMountRegex = new(@"^Obtain.*?Gladiator.*? from .*?Season \d+", RegexOptions.Compiled);
 
     public override async Task Run(params string[] data)
     {

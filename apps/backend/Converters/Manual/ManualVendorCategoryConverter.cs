@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json.Linq;
-using Wowthing.Backend.Models.Manual;
 using Wowthing.Backend.Models.Manual.Vendors;
 
 namespace Wowthing.Backend.Converters.Manual;

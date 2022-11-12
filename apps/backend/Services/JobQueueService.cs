@@ -12,7 +12,6 @@ public class JobQueueService : BackgroundService
 {
     private readonly Dictionary<JobPriority, Channel<WorkerJob>> _channels = new();
     private readonly ILogger _logger;
-    private readonly JsonSerializerOptions _jsonSerializerOptions;
 
     public JobQueueService(
         IConnectionMultiplexer redis,
@@ -20,7 +19,6 @@ public class JobQueueService : BackgroundService
         StateService stateService
     )
     {
-        _jsonSerializerOptions = jsonSerializerOptions;
         _logger = Log.ForContext("Service", $"JobQueue");
 
         foreach (var priority in EnumUtilities.GetValues<JobPriority>())
@@ -35,7 +33,7 @@ public class JobQueueService : BackgroundService
 
         redis.GetSubscriber().Subscribe("jobs").OnMessage(async msg =>
         {
-            var job = System.Text.Json.JsonSerializer.Deserialize<WorkerJob>(msg.Message, _jsonSerializerOptions);
+            var job = System.Text.Json.JsonSerializer.Deserialize<WorkerJob>(msg.Message, jsonSerializerOptions);
             await _channels[job.Priority].Writer.WriteAsync(job);
         });
     }

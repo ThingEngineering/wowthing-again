@@ -2,7 +2,7 @@
 using Wowthing.Backend.Models.Data.TransmogSets;
 using Wowthing.Backend.Models.Manual.TransmogSets;
 
-namespace Wowthing.Backend.Converters;
+namespace Wowthing.Backend.Converters.Manual;
 
 public class ManualTransmogSetCategoryConverter : JsonConverter
 {
