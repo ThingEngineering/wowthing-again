@@ -178,7 +178,7 @@ public static class DataUtilities
 
     public static Dictionary<int, int[]> LoadItemExpansions()
     {
-        var di = new DirectoryInfo(Path.Join(DataPath, "_shared", "item_expansion"));
+        var di = new DirectoryInfo(Path.Join(DataPath, "_shared", "item-expansion"));
         var files = di.GetFiles("*.yml", SearchOption.AllDirectories)
             .OrderBy(file => file.FullName)
             .ToArray();
