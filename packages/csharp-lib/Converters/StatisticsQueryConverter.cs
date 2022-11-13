@@ -1,34 +1,25 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 using Wowthing.Lib.Models.Query;
 
 namespace Wowthing.Lib.Converters;
 
-public class StatisticsQueryConverter : JsonConverter
+public class StatisticsQueryConverter : JsonConverter<StatisticsQuery>
 {
-    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-    {
-        var stat = (StatisticsQuery)value;
-        var arr = new JArray();
-        arr.Add(stat.CharacterId);
-        arr.Add(stat.Quantity);
-        if (stat.Description != null)
-        {
-            arr.Add(stat.Description);
-        }
-        arr.WriteTo(writer);
-    }
-
-    public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
-        JsonSerializer serializer)
+    public override StatisticsQuery Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         throw new NotImplementedException();
     }
 
-    public override bool CanConvert(Type objectType)
+    public override void Write(Utf8JsonWriter writer, StatisticsQuery value, JsonSerializerOptions options)
     {
-        return typeof(StatisticsQuery) == objectType;
+        writer.WriteStartArray();
+        writer.WriteNumberValue(value.CharacterId);
+        writer.WriteNumberValue(value.Quantity);
+        if (value.Description != null)
+        {
+            writer.WriteStringValue(value.Description);
+        }
+        writer.WriteEndArray();
     }
-
-    public override bool CanRead => false;
 }
