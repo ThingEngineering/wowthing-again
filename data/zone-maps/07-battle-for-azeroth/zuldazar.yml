@@ -195,7 +195,32 @@ farms:
   - type: transmog
     id: 161040 # Arid Dune Stompers
 
+# Treasure
+
+- name: "Jani's Stash"
+  location: 71.6 41.3
+  note: "Farm a Golden Ravasaur Egg from the ravasaurs"
+  objectId: 281176
+  questId: 50308
+  requiredQuestId: 51145 47442 # Curse of Jani [A, H]
+  reset: never
+  type: treasure
+  drops:
+    - type: item
+      id: 163036 # Polished Pet Charm
+
+- name: "The Exile's Lament"
+  location: 71.8 16.7
+  objectId: 284455
+  questId: 50949
+  reset: never
+  type: treasure
+  drops:
+    - type: item
+      id: 163036 # Polished Pet Charm
+
 # World boss
+
 - name: "Ji'arak"
   location: 69.0 31.0
   npcId: 132253

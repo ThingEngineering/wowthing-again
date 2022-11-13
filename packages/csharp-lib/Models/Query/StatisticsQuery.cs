@@ -1,5 +1,4 @@
-﻿
-using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 using Wowthing.Lib.Converters;
 
 namespace Wowthing.Lib.Models.Query;
@@ -16,7 +15,7 @@ public class StatisticsQuery
     public static string UserQuery = @"
 SELECT *
 FROM (
-    SELECT  pcs.character_id,  
+    SELECT  pcs.character_id,
             UNNEST(pcs.statistic_ids) AS statistic_id,
             UNNEST(pcs.statistic_quantities) AS quantity,
             UNNEST(pcs.statistic_descriptions) AS description
