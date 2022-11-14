@@ -933,15 +933,14 @@ public class UserUploadJob : JobBase
     {
         var itemMap = character.Items
             .EmptyIfNull()
-            .GroupBy(item => (item.Location, item.BagId, item.Slot))
-            .ToDictionary(
-                group => group.Key,
-                group => group
-                    .OrderBy(item => item.Id)
-                    .First()
-            );
+            .ToGroupedDictionary(item => (item.Location, item.BagId, item.Slot));
 
-        var seen = new HashSet<(ItemLocation, short, short)>();
+        var itemIds = new HashSet<long>(
+            character.Items
+                .EmptyIfNull()
+                .Select(item => item.Id)
+        );
+        var seenIds = new HashSet<long>();
 
         foreach (var (location, itemId) in characterData.Bags.EmptyIfNull())
         {
@@ -955,7 +954,8 @@ public class UserUploadJob : JobBase
             ItemLocation locationType = GetBagLocation(bagId);
 
             var key = (locationType, bagId, (short)0);
-            if (!itemMap.TryGetValue(key, out var item))
+            PlayerCharacterItem item;
+            if (!itemMap.TryGetValue(key, out var items))
             {
                 item = new PlayerCharacterItem
                 {
@@ -966,10 +966,14 @@ public class UserUploadJob : JobBase
                 };
                 Context.PlayerCharacterItem.Add(item);
             }
+            else
+            {
+                item = items.FirstOrDefault(pci => pci.ItemId == itemId) ?? items.First();
+                seenIds.Add(item.Id);
+            }
 
             item.Count = 1;
             item.ItemId = itemId;
-            seen.Add(key);
         }
 
         foreach (var (location, contents) in characterData.Items.EmptyIfNull())
@@ -995,7 +999,8 @@ public class UserUploadJob : JobBase
                 }
 
                 var key = (locationType, bagId, slot);
-                if (!itemMap.TryGetValue(key, out var item))
+                PlayerCharacterItem item;
+                if (!itemMap.TryGetValue(key, out var items))
                 {
                     item = new PlayerCharacterItem
                     {
@@ -1006,15 +1011,18 @@ public class UserUploadJob : JobBase
                     };
                     Context.PlayerCharacterItem.Add(item);
                 }
+                else
+                {
+                    item = items.FirstOrDefault(pci => pci.ItemId == int.Parse(parts[1])) ?? items.First();
+                    seenIds.Add(item.Id);
+                }
 
                 AddItemDetails(item, parts);
-                seen.Add(key);
             }
         }
 
-        var deleteMe = itemMap
-            .Where(kvp => !seen.Contains(kvp.Key))
-            .Select(kvp => kvp.Value.Id)
+        var deleteMe = itemIds
+            .Except(seenIds)
             .ToArray();
         if (deleteMe.Length > 0)
         {
