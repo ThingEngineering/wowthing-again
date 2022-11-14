@@ -876,16 +876,16 @@ public class UserUploadJob : JobBase
     {
         var itemMap = guild.Items
             .EmptyIfNull()
-            .GroupBy(item => (item.TabId, item.Slot))
-            .ToDictionary(
-                group => group.Key,
-                group => group
-                    .OrderBy(item => item.Id)
-                    .First()
-            );
+            .ToGroupedDictionary(pgi => (pgi.TabId, pgi.Slot));
+
+        var itemIds = new HashSet<long>(
+            guild.Items
+                .EmptyIfNull()
+                .Select(item => item.Id)
+        );
+        var seenIds = new HashSet<long>();
 
         // (tab, slot)
-        var seen = new HashSet<(short, short)>();
         foreach (var (tab, contents) in guildData.Items.EmptyIfNull())
         {
             short tabId = short.Parse(tab[1..]);
@@ -901,7 +901,8 @@ public class UserUploadJob : JobBase
                 }
 
                 var key = (tabId, slot);
-                if (!itemMap.TryGetValue(key, out var item))
+                PlayerGuildItem item;
+                if (!itemMap.TryGetValue(key, out var items))
                 {
                     item = new PlayerGuildItem
                     {
@@ -911,15 +912,18 @@ public class UserUploadJob : JobBase
                     };
                     Context.PlayerGuildItem.Add(item);
                 }
+                else
+                {
+                    item = items.FirstOrDefault(pci => pci.ItemId == int.Parse(parts[1])) ?? items.First();
+                    seenIds.Add(item.Id);
+                }
 
                 AddItemDetails(item, parts);
-                seen.Add(key);
             }
         }
 
-        var deleteMe = itemMap
-            .Where(kvp => !seen.Contains(kvp.Key))
-            .Select(kvp => kvp.Value.Id)
+        var deleteMe = itemIds
+            .Except(seenIds)
             .ToArray();
         if (deleteMe.Length > 0)
         {
