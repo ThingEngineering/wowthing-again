@@ -97,11 +97,16 @@ public class CacheStaticJob : JobBase, IScheduledJob
         _itemToAppearance = itemModifiedAppearances
             .GroupBy(ima => ima.ItemId)
             .ToDictionary(
-                group => group.Key,
-                group => group.ToDictionary(
-                    ima => ima.Modifier,
-                    ima => ima.AppearanceId
-                )
+                itemIdGroup => itemIdGroup.Key,
+                itemIdGroup => itemIdGroup
+                    .GroupBy(ima => ima.Modifier)
+                    .ToDictionary(
+                        modifierGroup => modifierGroup.Key,
+                        modifierGroup => modifierGroup
+                            .OrderByDescending(ima => ima.Id)
+                            .Select(ima => ima.AppearanceId)
+                            .First()
+                    )
             );
 
         _timer.AddPoint("Database");
@@ -535,9 +540,7 @@ public class CacheStaticJob : JobBase, IScheduledJob
             .GroupBy(instance => instance.MapID)
             .ToDictionary(
                 k => k.Key,
-                v => v.OrderByDescending(instance => instance.OrderIndex)
-                    .First()
-                    .ID
+                v => v.First().ID
             );
 
         var mapsById = (await DataUtilities.LoadDumpCsvAsync<DumpMap>("map"))

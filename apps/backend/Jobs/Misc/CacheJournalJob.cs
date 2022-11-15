@@ -86,7 +86,9 @@ public class CacheJournalJob : JobBase, IScheduledJob
         _timer.AddPoint("Data");
 
         var tiers = await DataUtilities.LoadDumpCsvAsync<DumpJournalTier>(Path.Join("enUS", "journaltier"));
-        //tiers.Reverse();
+
+        var mapsById = (await DataUtilities.LoadDumpCsvAsync<DumpMap>("map"))
+            .ToDictionary(map => map.ID);
 
         var instancesById = (await DataUtilities.LoadDumpCsvAsync<DumpJournalInstance>(Path.Join("enUS", "journalinstance")))
             .ToDictionary(instance => instance.ID);
@@ -96,7 +98,11 @@ public class CacheJournalJob : JobBase, IScheduledJob
             .ToDictionary(
                 group => group.Key,
                 group => group
-                    .Select(x => x.JournalInstanceID)
+                    .OrderBy(jtxi => mapsById[instancesById[jtxi.JournalInstanceID].MapID].InstanceType)
+                    //.ThenBy(jtxi => mapsById[instancesById[jtxi.JournalInstanceID].MapID].ExpansionID)
+                    .ThenBy(jtxi => jtxi.OrderIndex)
+                    .ThenBy(jtxi => instancesById[jtxi.JournalInstanceID].Name)
+                    .Select(jtxi => jtxi.JournalInstanceID)
                     .ToArray()
             );
 
@@ -128,11 +134,16 @@ public class CacheJournalJob : JobBase, IScheduledJob
         var appearancesByItemId = (await Context.WowItemModifiedAppearance.ToArrayAsync())
             .GroupBy(ima => ima.ItemId)
             .ToDictionary(
-                group => group.Key,
-                group => group.ToDictionary(
-                    group2 => group2.Modifier,
-                    group2 => group2.AppearanceId
-                )
+                itemIdGroup => itemIdGroup.Key,
+                itemIdGroup => itemIdGroup
+                    .GroupBy(ima => ima.Modifier)
+                    .ToDictionary(
+                        modifierGroup => modifierGroup.Key,
+                        modifierGroup => modifierGroup
+                            .OrderByDescending(ima => ima.Id)
+                            .Select(ima => ima.AppearanceId)
+                            .First()
+                    )
             );
 
         var bonusAppearanceModifiers = (await DataUtilities.LoadDumpCsvAsync<DumpItemBonus>("itembonus"))
@@ -228,10 +239,7 @@ public class CacheJournalJob : JobBase, IScheduledJob
 
                 var legacyLoot = tier.ID <= 396; // Battle for Azeroth
 
-                var instanceIds = tierToInstance[tier.ID]
-                    .OrderBy(instanceId => instancesById[instanceId].OrderIndex)
-                    .ToArray();
-                foreach (var instanceId in instanceIds)
+                foreach (var instanceId in tierToInstance[tier.ID])
                 {
                     var instance = instancesById[instanceId];
                     var mapDifficulties = difficultiesByMapId[instance.MapID];
