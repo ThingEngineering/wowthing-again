@@ -27,7 +27,7 @@ public class CacheJournalJob : JobBase, IScheduledJob
         Type = JobType.CacheJournal,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(24),
-        Version = 29,
+        Version = 30,
     };
 
     public override async Task Run(params string[] data)
@@ -239,9 +239,21 @@ public class CacheJournalJob : JobBase, IScheduledJob
 
                 var legacyLoot = tier.ID <= 396; // Battle for Azeroth
 
+                int lastInstanceType = -1;
                 foreach (var instanceId in tierToInstance[tier.ID])
                 {
                     var instance = instancesById[instanceId];
+                    var map = mapsById[instance.MapID];
+                    if (lastInstanceType == -1)
+                    {
+                        lastInstanceType = map.InstanceType;
+                    }
+                    else if (lastInstanceType != map.InstanceType)
+                    {
+                        lastInstanceType = map.InstanceType;
+                        tierData.Instances.Add(null);
+                    }
+
                     var mapDifficulties = difficultiesByMapId[instance.MapID];
 
                     var hadDifficulties = Hardcoded.InstanceDifficulties
