@@ -25,6 +25,7 @@
             $staticStore.data.reputationTiers[$staticStore.data.reputations[2445].tierId],
             character.reputations?.[2445] ?? 0
         )
+        console.log($staticStore.data.reputationTiers[$staticStore.data.reputations[2445].tierId])
 
         quests = $userQuestStore.data.characters[character.id]?.quests
     }
@@ -38,7 +39,7 @@
     const getTooltip = function(type: EmberCourtFeatureType): string {
         let ret = type.name
         if (type.unlockReputation > 0) {
-            const tierName = $staticStore.data.reputationTiers[0].names[type.unlockReputation]
+            const tierName = $staticStore.data.reputationTiers[0].names[8 - type.unlockReputation]
             ret += `<br><br>Requires <span class="reputation${type.unlockReputation}">${tierName}</span> reputation`
         }
         return ret
@@ -179,10 +180,11 @@
             >
                 {#each thing.types as type}
                     {@const typeUnlocked = quests?.has(type.unlockQuestId)}
+                    {@const typeReputation = type.unlockReputation || thing.unlockReputation || 0}
                     <div
                         class="type"
-                        class:locked={!typeUnlocked && tier?.tier < type.unlockReputation}
-                        class:available={!typeUnlocked && tier?.tier >= type.unlockReputation}
+                        class:locked={!typeUnlocked && tier?.tier > typeReputation}
+                        class:available={!typeUnlocked && tier?.tier <= typeReputation}
                         class:unlocked={typeUnlocked}
                         use:tippy={{
                             allowHTML: true,

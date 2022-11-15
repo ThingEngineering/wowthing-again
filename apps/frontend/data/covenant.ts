@@ -403,6 +403,7 @@ export const emberCourtFriends: Array<Array<EmberCourtFriend>> = [
 export type EmberCourtFeatureType = {
     icon: string
     name: string
+    requiredQuestId?: number
     unlockQuestId: number
     unlockReputation?: number
 }
@@ -432,6 +433,7 @@ export const emberCourtFeatures: EmberCourtFeature[] = [
                 icon: 'item/180062', // Heavenly Drum
                 name: 'Entertainment: Lost Chalice Band',
                 unlockQuestId: 61738,
+                unlockReputation: 3, // Honored
             },
         ],
     },
@@ -453,6 +455,7 @@ export const emberCourtFeatures: EmberCourtFeature[] = [
                 icon: 'item/108907', // Mushroom of Destiny
                 name: 'Refreshments: Mushroom Surprise',
                 unlockQuestId: 61406,
+                unlockReputation: 3, // Honored
             },
         ]
     },
@@ -475,14 +478,14 @@ export const emberCourtFeatures: EmberCourtFeature[] = [
                 icon: 'item/182210', // Vanity Mirror
                 name: 'Decorations: Mystery Mirrors',
                 unlockQuestId: 61400,
-                unlockReputation: 6, // Revered
+                unlockReputation: 2, // Revered
             },
         ],
     },
     {
         name: 'Security', // Guardhouse
         unlockQuestId: 61494,
-        unlockReputation: 5, // Honored
+        unlockReputation: 3, // Honored
         types: [
             {
                 icon: 'achievement/15033', // Taking the Tremaculum
@@ -498,7 +501,7 @@ export const emberCourtFeatures: EmberCourtFeature[] = [
                 icon: 'achievement/15032', // Breaking Their Hold
                 name: 'Security: Maldraxxian Army',
                 unlockQuestId: 61403,
-                unlockReputation: 6, // Revered
+                unlockReputation: 2, // Revered
             },
         ],
     },
@@ -519,19 +522,19 @@ export const emberCourtUpgrades: EmberCourtFeature[] = [
                 icon: 'item/181524',
                 name: 'Staff: Ardenweald Ambassador (free reroll)',
                 unlockQuestId: 61502,
-                unlockReputation: 5, // Honored
+                unlockReputation: 3, // Honored
             },
             {
                 icon: 'item/182342',
                 name: 'Staff: Maldraxxus Ambassador (free reroll)',
                 unlockQuestId: 61887,
-                unlockReputation: 6, // Revered
+                unlockReputation: 2, // Revered
             },
             {
                 icon: 'item/182343',
                 name: 'Staff: Bastion Ambassador (free reroll)',
                 unlockQuestId: 61888,
-                unlockReputation: 7, // Exalted
+                unlockReputation: 1, // Exalted
             },
         ]
     },
@@ -549,19 +552,19 @@ export const emberCourtUpgrades: EmberCourtFeature[] = [
                 icon: 'item/181533',
                 name: 'Stock: Anima Samples (+3 min)',
                 unlockQuestId: 61499,
-                unlockReputation: 5, // Honored
+                unlockReputation: 3, // Honored
             },
             {
                 icon: 'item/181530',
                 name: 'Stock: Greeting Kits (+2 min)',
                 unlockQuestId: 61497,
-                unlockReputation: 6, // Revered
+                unlockReputation: 2, // Revered
             },
             {
                 icon: 'item/181535',
                 name: 'Stock: Comfy Chairs (+5 min)',
                 unlockQuestId: 61500,
-                unlockReputation: 6, // Revered
+                unlockReputation: 2, // Revered
             },
         ]
     },
@@ -576,19 +579,18 @@ export const emberCourtUpgrades2: EmberCourtFeature[] = [
                 icon: 'item/181442',
                 name: 'Visions of Sire Denathrius (bonus happiness)',
                 unlockQuestId: 61458,
-                unlockReputation: 0,
             },
             {
                 icon: 'item/185741',
                 name: 'Restock and Repair (auto-restock/repair)',
                 unlockQuestId: 63765,
-                unlockReputation: 7, // Exalted
+                unlockReputation: 1, // Exalted
             },
             {
                 icon: 'item/181443',
-                name: "The Party Herald's Party Hat (+30% rep",
+                name: "The Party Herald's Party Hat (+30% rep)",
                 unlockQuestId: 61459,
-                unlockReputation: 7, // Exalted
+                unlockReputation: 1, // Exalted
             },
         ]
     },
