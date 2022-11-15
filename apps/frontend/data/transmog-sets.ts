@@ -8,7 +8,7 @@ const transmogSets: Record<string, TransmogSet> = {
     'armor': new TransmogSet('armor', [
         new TransmogSetData('cloth', 3, 'Cloth'),
         new TransmogSetData('leather', 4, 'Leather'),
-        new TransmogSetData('mail', 2, 'Mail'),
+        new TransmogSetData('mail', 3, 'Mail'),
         new TransmogSetData('plate', 3, 'Plate'),
     ]),
     'class': new TransmogSet('class', [
@@ -19,6 +19,7 @@ const transmogSets: Record<string, TransmogSet> = {
         new TransmogSetData('druid', 1, 'Druid'),
         new TransmogSetData('monk', 1, 'Monk'),
         new TransmogSetData('rogue', 1, 'Rogue'),
+        new TransmogSetData('evoker', 1, 'Evoker'),
         new TransmogSetData('hunter', 1, 'Hunter'),
         new TransmogSetData('shaman', 1, 'Shaman'),
         new TransmogSetData('death-knight', 1, 'Death Knight'),

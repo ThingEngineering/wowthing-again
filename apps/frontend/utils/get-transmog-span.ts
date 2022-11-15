@@ -35,6 +35,9 @@ export default function getTransmogSpan(
             }
         }
         else if (set.type === 'mail') {
+            if (skipClasses['evoker'] === true) {
+                span--
+            }
             if (skipClasses['hunter'] === true) {
                 span--
             }

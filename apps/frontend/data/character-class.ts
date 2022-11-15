@@ -11,6 +11,7 @@ export const classOrder: number[] = [
     PlayableClass.Monk,
     PlayableClass.Rogue,
 
+    PlayableClass.Evoker,
     PlayableClass.Hunter,
     PlayableClass.Shaman,
 

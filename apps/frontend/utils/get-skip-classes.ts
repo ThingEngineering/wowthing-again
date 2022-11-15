@@ -1,3 +1,4 @@
+import some from 'lodash/some'
 import sumBy from 'lodash/sumBy'
 
 import type { Settings } from '@/types'
@@ -13,6 +14,7 @@ export default function getSkipClasses(
     skipClasses['death-knight'] = !settingsData.transmog.showDeathKnight
     skipClasses['demon-hunter'] = !settingsData.transmog.showDemonHunter
     skipClasses['druid'] = !settingsData.transmog.showDruid
+    skipClasses['evoker'] = !settingsData.transmog.showEvoker
     skipClasses['hunter'] = !settingsData.transmog.showHunter
     skipClasses['mage'] = !settingsData.transmog.showMage
     skipClasses['monk'] = !settingsData.transmog.showMonk
@@ -29,26 +31,27 @@ export default function getSkipClasses(
         }
     }
 
-    skipClasses['cloth'] = sumBy([
-        !skipClasses['mage'],
-        !skipClasses['priest'],
-        !skipClasses['warlock'],
-    ], (s) => Number(s)) === 0
-    skipClasses['leather'] = sumBy([
-        !skipClasses['demon-hunter'],
-        !skipClasses['druid'],
-        !skipClasses['monk'],
-        !skipClasses['rogue'],
-    ], (s) => Number(s)) === 0
-    skipClasses['mail'] = sumBy([
-        !skipClasses['hunter'],
-        !skipClasses['shaman'],
-    ], (s) => Number(s)) === 0
-    skipClasses['plate'] = sumBy([
-        !skipClasses['death-knight'],
-        !skipClasses['paladin'],
-        !skipClasses['warrior'],
-    ], (s) => Number(s)) === 0
+    skipClasses['cloth'] = !some([
+        skipClasses['mage'],
+        skipClasses['priest'],
+        skipClasses['warlock'],
+    ])
+    skipClasses['leather'] = !some([
+        skipClasses['demon-hunter'],
+        skipClasses['druid'],
+        skipClasses['monk'],
+        skipClasses['rogue'],
+    ]),
+    skipClasses['mail'] = !some([
+        skipClasses['evoker'],
+        skipClasses['hunter'],
+        skipClasses['shaman'],
+    ])
+    skipClasses['plate'] = !some([
+        skipClasses['death-knight'],
+        skipClasses['paladin'],
+        skipClasses['warrior'],
+    ])
 
     return skipClasses
 }
