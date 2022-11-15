@@ -22,7 +22,7 @@ public class UserUploadJob : JobBase
     private bool _resetQuestCache;
     private bool _resetTransmogCache;
 
-    private static DictionaryComparer<int, PlayerCharacterAddonAchievementsAchievement> _achievementComparer =
+    private static readonly DictionaryComparer<int, PlayerCharacterAddonAchievementsAchievement> _achievementComparer =
         new(new PlayerCharacterAddonAchievementsAchievementComparer());
 
     private readonly HashSet<string> _fortifiedNames = new()
@@ -47,10 +47,13 @@ public class UserUploadJob : JobBase
         long userId = long.Parse(data[0]);
         using var shrug = UserLog(userId);
 
-        var trustedRole = Context.Roles
-            .Where(r => r.Name == "Trusted")
-            .Select(r => r.Id)
-            .First();
+        _instanceNameToIdMap = (await MemoryCacheService.GetJournalInstanceMap())
+            .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+
+        _realmMap = (await MemoryCacheService.GetRealmMap())
+            .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+
+        var trustedRole = await MemoryCacheService.GetTrustedRole();
         bool hasTrustedRole = await Context.UserRoles
             .Where(ur => ur.UserId == userId && ur.RoleId == trustedRole)
             .AnyAsync();
@@ -96,27 +99,34 @@ public class UserUploadJob : JobBase
         var parsed = System.Text.Json.JsonSerializer.Deserialize<Upload>(json, JsonSerializerOptions);
         _timer.AddPoint("Parse");
 
-        // Fetch instance data for lockouts
-        var instances = await Context.LanguageString
-            .Where(ls => ls.Type == StringType.WowJournalInstanceMapName)
-            .AsNoTracking()
-            .ToArrayAsync();
-
-        _instanceNameToIdMap = new();
-        foreach (var instance in instances)
-        {
-            _instanceNameToIdMap[instance.String] = instance.Id;
-        }
-
         // Fetch guild data
         var guildMap = await Context.PlayerGuild
             .Where(pg => pg.UserId == userId)
             .Include(pg => pg.Items)
             .ToDictionaryAsync(pg => (pg.RealmId, pg.Name));
 
+        // Oh dear
+        var characterPredicate = PredicateBuilder.False<PlayerCharacter>();
+        foreach (var (addonId, characterData) in parsed.Characters.EmptyIfNull())
+        {
+            var (realm, characterName) = ParseAddonId(addonId);
+            if (realm == null)
+            {
+                continue;
+            }
+
+            var lastSeen = characterData.LastSeen.AsUtcDateTime();
+            characterPredicate = characterPredicate.Or(pc =>
+                pc.RealmId == realm.Id &&
+                pc.Name == characterName &&
+                pc.LastSeenAddon < lastSeen
+            );
+        }
+
         // Fetch character data
         var characterMap = await Context.PlayerCharacter
             .Where(c => c.Account.UserId == userId)
+            .Where(characterPredicate)
             .Include(c => c.AddonAchievements)
             .Include(c => c.AddonData)
             .Include(c => c.AddonMounts)
@@ -131,30 +141,6 @@ public class UserUploadJob : JobBase
             .Include(c => c.Weekly)
             .AsSplitQuery()
             .ToDictionaryAsync(k => (k.RealmId, k.Name));
-
-        var realmIds = characterMap.Values
-            .Select(c => c.RealmId)
-            .Distinct()
-            .ToArray();
-
-        var connectedRealmId = Context.WowRealm
-            .AsNoTracking()
-            .Where(r => realmIds.Contains(r.Id))
-            .Select(r => r.ConnectedRealmId);
-
-        _realmMap = await Context.WowRealm
-            .AsNoTracking()
-            .Where(r => connectedRealmId.Contains(r.ConnectedRealmId))
-            .ToDictionaryAsync(k => (k.Region, k.Name));
-
-        // Fix some cases of realms being "KulTiras" in addon data but "Kul Tiras" here
-        foreach (var (region, realmName) in _realmMap.Keys.ToArray())
-        {
-            if (realmName.Contains(' '))
-            {
-                _realmMap[(region, realmName.Replace(" ", ""))] = _realmMap[(region, realmName)];
-            }
-        }
 
         _timer.AddPoint("Load");
 
@@ -199,14 +185,15 @@ public class UserUploadJob : JobBase
 
             if (!characterMap.TryGetValue((realm.Id, characterName), out PlayerCharacter character))
             {
-                Logger.Warning("Invalid character: {AddonId}", addonId);
+                //Logger.Warning("Invalid character: {AddonId}", addonId);
                 continue;
             }
 
             //Logger.Debug("Found character: {0} => {1}", addonId, character.Id);
-            accountId = character.AccountId.Value;
+            accountId = character.AccountId!.Value;
+            var lastSeen = characterData.LastSeen.AsUtcDateTime();
 
-            character.LastSeenAddon = characterData.LastSeen.AsUtcDateTime();
+            character.LastSeenAddon = lastSeen;
 
             character.ChromieTime = characterData.ChromieTime;
             character.Copper = characterData.Copper;
@@ -249,7 +236,6 @@ public class UserUploadJob : JobBase
             HandleTransmog(character, characterData);
             HandleWeekly(character, characterData);
 
-            var lastSeen = characterData.LastSeen.AsUtcDateTime();
             if (lastSeen > character.LastApiCheck)
             {
                 character.LastApiCheck = MiscConstants.DefaultDateTime;

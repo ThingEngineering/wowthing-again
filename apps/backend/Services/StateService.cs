@@ -6,6 +6,6 @@ namespace Wowthing.Backend.Services;
 
 public class StateService
 {
-    public Dictionary<JobPriority, ChannelReader<WorkerJob>> JobQueueReaders = new();
+    public readonly Dictionary<JobPriority, ChannelReader<WorkerJob>> JobQueueReaders = new();
     public RedisAccessToken AccessToken;
 }

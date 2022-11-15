@@ -34,6 +34,7 @@ public class WorkerService : BackgroundService
         IServiceScopeFactory serviceScopeFactory,
         JobRepository jobRepository,
         JsonSerializerOptions jsonSerializerOptions,
+        MemoryCacheService memoryCacheService,
         StateService stateService
     )
     {
@@ -52,6 +53,7 @@ public class WorkerService : BackgroundService
             _logger,
             jobRepository,
             jsonSerializerOptions,
+            memoryCacheService,
             stateService,
             redisConnectionString
         );
