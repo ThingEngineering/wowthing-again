@@ -1,6 +1,7 @@
 import keys from 'lodash/keys'
 import some from 'lodash/some'
 import sortBy from 'lodash/sortBy'
+import uniq from 'lodash/uniq'
 import { get } from 'svelte/store'
 
 import { userModifiedStore } from './user-modified'
@@ -126,6 +127,14 @@ export class UserDataStore extends WritableFancyStore<UserData> {
                 allLockouts[key] = true
             }
         }
+
+        userData.allRegions = sortBy(
+            uniq(
+                userData.characters
+                    .map((char) => char.realm.region)
+            ),
+            (region) => region
+        )
 
         // Initialize guilds
         for (const guild of Object.values(userData.guilds)) {

@@ -37,6 +37,7 @@ export interface UserData {
     // Calculated
     allLockouts: InstanceDifficulty[]
     allLockoutsMap: Record<string, InstanceDifficulty>
+    allRegions: number[]
     backgroundList: BackgroundImage[]
     characterMap: Record<number, Character>
     homeLockouts: InstanceDifficulty[]
