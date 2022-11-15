@@ -47,9 +47,10 @@ export default function getCharacterSortFunc(
                         out.push('L')
                         break
                     
-                    // Hunter, Shaman
+                    // Hunter, Shaman, Evoker
                     case 3:
                     case 7:
+                    case 13:
                         out.push('M')
                         break
                     

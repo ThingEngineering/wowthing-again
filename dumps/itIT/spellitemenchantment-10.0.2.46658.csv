@@ -1,0 +1,4580 @@
+ID,Name_lang
+13,Affilato II
+14,Affilato III
+15,Rinforzato (+$k1 Armatura)
+16,Rinforzato (+$k1 Armatura)
+17,Rinforzato (+$k1 Armatura)
+18,Rinforzato (+$k1 Armatura)
+19,Appesantito I
+20,Appesantito II
+21,Appesantito III
+24,+$k1 Mana
+25,Olio d'Ombra
+26,Olio del Freddo
+30,Mirino (+$k1 Danni)
+32,Mirino (+$k1 Danni)
+33,Mirino (+$k1 Danni)
+34,Contrappeso (+$k1 Indice di Celerità)
+36,Brezzardente
+37,Catena per Arma d'Acciaio
+38,+$k1 Indice di Schivata
+40,Affilato I
+41,+$k1 Salute
+43,Chiodatura di Ferro
+44,Assorbimento ($7423s1)
+63,Assorbimento ($7447s1)
+64,+$k1 Indice di Versatilità
+66,+$k1 Tempra
+67,+$k1 Danni
+68,+$k1 Forza
+69,+$k1 Forza
+70,+$k1 Forza
+71,+$k1 Tempra
+72,+$k1 Tempra
+73,+$k1 Tempra
+74,+$k1 Agilità
+75,+$k1 Agilità
+76,+$k1 Agilità
+77,+$k1 Danni
+78,+$k1 Danni
+79,+$k1 Intelletto
+80,+$k1 Intelletto
+81,+$k1 Intelletto
+82,+$k1 Indice di Versatilità
+83,+$k1 Indice di Versatilità
+84,+$k1 Indice di Versatilità
+85,+$k1 Armatura
+86,+$k1 Armatura
+87,+$k1 Armatura
+88,
+89,+$k1 Armatura
+90,+$k1 Agilità
+91,+$k1 Agilità
+92,+$k1 Agilità
+93,+$k1 Agilità
+94,+$k1 Intelletto
+95,+$k1 Intelletto
+96,+$k1 Intelletto
+97,+$k1 Intelletto
+98,+$k1 Indice di Versatilità
+99,+$k1 Indice di Versatilità
+100,+$k1 Indice di Versatilità
+101,+$k1 Indice di Versatilità
+102,+$k1 Tempra
+103,+$k1 Tempra
+104,+$k1 Tempra
+105,+$k1 Tempra
+106,+$k1 Forza
+107,+$k1 Forza
+108,+$k1 Forza
+109,+$k1 Forza
+110,+$k1 Indice di Schivata
+111,+$k1 Indice di Schivata
+112,+$k1 Indice di Schivata
+113,+$k1 Indice di Schivata
+114,+$k1 Indice di Schivata
+115,+$k1 Indice di Schivata
+116,+$k1 Indice di Schivata
+117,+$k1 Danni
+118,+$k1 Danni
+119,+$k1 Danni
+120,+$k1 Danni
+121,+$k1 Armatura
+122,+$k1 Armatura
+123,+$k1 Armatura
+125,+1 Competenza con le Spade
+126,+2 Competenza con le Spade
+127,+3 Competenza con le Spade
+128,+4 Competenza con le Spade
+129,+5 Competenza con le Spade
+130,+6 Competenza con le Spade
+131,+7 Competenza con le Spade
+132,+1 Competenza con le Spade a Due Mani
+133,+2 Competenza con le Spade a Due Mani
+134,+3 Competenza con le Spade a Due Mani
+135,+4 Competenza con le Spade a Due Mani
+136,+5 Competenza con le Spade a Due Mani
+137,+6 Competenza con le Spade a Due Mani
+138,+7 Competenza con le Spade a Due Mani
+139,+1 Competenza con le Mazze
+140,+2 Competenza con le Mazze
+141,+3 Competenza con le Mazze
+142,+4 Competenza con le Mazze
+143,+5 Competenza con le Mazze
+144,+6 Competenza con le Mazze
+145,+7 Competenza con le Mazze
+146,+1 Competenza con le Mazze a Due Mani
+147,+2 Competenza con le Mazze a Due Mani
+148,+3 Competenza con le Mazze a Due Mani
+149,+4 Competenza con le Mazze a Due Mani
+150,+5 Competenza con le Mazze a Due Mani
+151,+6 Competenza con le Mazze a Due Mani
+152,+7 Competenza con le Mazze a Due Mani
+153,+1 Competenza con le Asce
+154,+2 Competenza con le Asce
+155,+3 Competenza con le Asce
+156,+4 Competenza con le Asce
+157,+5 Competenza con le Asce
+158,+6 Competenza con le Asce
+159,+7 Competenza con le Asce
+160,+1 Competenza con le Asce a Due Mani
+161,+2 Competenza con le Asce a Due Mani
+162,+3 Competenza con le Asce a Due Mani
+163,+4 Competenza con le Asce a Due Mani
+164,+5 Competenza con le Asce a Due Mani
+165,+6 Competenza con le Asce a Due Mani
+166,+7 Competenza con le Asce a Due Mani
+167,+1 Competenza con le Daghe
+168,+2 Competenza con le Daghe
+169,+3 Competenza con le Daghe
+170,+4 Competenza con le Daghe
+171,+5 Competenza con le Daghe
+172,+6 Competenza con le Daghe
+173,+7 Competenza con le Daghe
+174,+1 Competenza con le Armi da Fuoco
+175,+2 Competenza con le Armi da Fuoco
+176,+3 Competenza con le Armi da Fuoco
+177,+4 Competenza con le Armi da Fuoco
+178,+5 Competenza con le Armi da Fuoco
+179,+6 Competenza con le Armi da Fuoco
+180,+7 Competenza con le Armi da Fuoco
+181,+1 Competenza con gli Archi
+182,+2 Competenza con gli Archi
+183,+3 Competenza con gli Archi
+184,+4 Competenza con gli Archi
+185,+5 Competenza con gli Archi
+186,+6 Competenza con gli Archi
+187,+7 Competenza con gli Archi
+191,+$7593s1 Contro le Bestie
+192,+$7594s1 Contro le Bestie
+193,+$7595s1 Contro le Bestie
+194,+$7596s1 Contro le Bestie
+195,+$k1 Indice di Critico
+196,+$k1 Indice di Critico
+197,+$k1 Indice di Critico
+198,+$k1 Indice di Critico
+199,10% di Probabilità a Impatto: Dardo d'Ombra (+10 Danni)
+200,10% di Probabilità a Impatto: Dardo d'Ombra (+20 Danni)
+201,10% di Probabilità a Impatto: Dardo d'Ombra (+30 Danni)
+202,10% di Probabilità a Impatto: Dardo d'Ombra (+40 Danni)
+203,10% di Probabilità a Impatto: Dardo d'Ombra (+50 Danni)
+204,10% di Probabilità a Impatto: Dardo d'Ombra (+60 Danni)
+205,10% di Probabilità a Impatto: Dardo d'Ombra (+70 Danni)
+241,+$k1 Danni dell'Arma
+242,+$k1 Salute
+243,+$k1 Indice di Versatilità
+244,+$k1 Intelletto
+245,+$k1 Armatura
+246,+$k1 Mana
+247,+$k1 Agilità
+248,+$k1 Forza
+249,+$7784s1 Contro le Bestie
+250,+$k1 Danni dell'Arma
+251,+$k1 Intelletto
+252,+$k1 Indice di Versatilità
+253,Assorbimento ($7848s1)
+254,+$k1 Salute
+255,+$k1 Indice di Versatilità
+257,+$k1 Armatura
+263,Esca (+$8082s1 Pesca)
+264,Esca (+$8083s1 Pesca)
+265,Esca (+$8084s1 Pesca)
+266,Esca (+$8085s1 Pesca)
+303,Globo del Fuoco
+343,+$k1 Agilità
+344,+$k1 Armatura
+345,+$k1 Armatura
+346,+$k1 Armatura
+347,+$k1 Armatura
+348,+$k1 Armatura
+349,+$k1 Agilità
+350,+$k1 Intelletto
+351,+$k1 Indice di Versatilità
+352,+$k1 Forza
+353,+$k1 Tempra
+354,+$k1 Intelletto
+355,+$k1 Indice di Versatilità
+356,+$k1 Tempra
+357,+$k1 Forza
+358,+$k1 Agilità
+359,+$k1 Intelletto
+360,+$k1 Indice di Versatilità
+361,+$k1 Tempra
+362,+$k1 Forza
+363,+$k1 Agilità
+364,+$k1 Intelletto
+365,+$k1 Indice di Versatilità
+366,+$k1 Tempra
+367,+$k1 Forza
+368,+$k1 Agilità
+369,+$k1 Intelletto
+370,+$k1 Indice di Versatilità
+371,+$k1 Tempra
+372,+$k1 Forza
+383,+$k1 Armatura
+384,+$k1 Armatura
+385,+$k1 Armatura
+386,+$k1 Armatura
+387,+$k1 Armatura
+388,+$k1 Armatura
+389,+$k1 Armatura
+403,+$k1 Agilità
+404,+$k1 Agilità
+405,+$k1 Intelletto
+406,+$k1 Intelletto
+407,+$k1 Indice di Versatilità
+408,+$k1 Indice di Versatilità
+409,+$k1 Tempra
+410,+$k1 Forza
+411,+$k1 Tempra
+412,+$k1 Forza
+423,+$k1 Potenza Magica
+424,+$k1 Potenza Magica
+425,Manichino del Tempio Nero
+426,+$k1 Potenza Magica
+427,+$9396s1 Potenza Magica
+428,+$k1 Potenza Magica
+429,+$k1 Potenza Magica
+430,+$k1 Potenza Magica
+431,+$k1 Potenza Magica
+432,+$k1 Potenza Magica
+436,+$k1 Indice di Critico
+440,+$k1 Potenza Magica
+441,+$k1 Potenza Magica
+442,+$k1 Potenza Magica
+463,Chiodatura di Mithril
+464,+$7215s1% Velocità su Cavalcatura
+483,Affilato IV
+484,Appesantito IV
+583,+$k1 Agilità / +$k2 Indice di Versatilità
+584,+$k1 Agilità e +$k2 Intelletto
+585,+$k1 Agilità e +$k2 Tempra
+586,+$k1 Agilità e +$k2 Forza
+587,+$k1 Intelletto / +$k2 Indice di Versatilità
+588,+$k1 Intelletto e +$k2 Tempra
+589,+$k1 Intelletto e +$k2 Forza
+590,+$k1 Indice di Versatilità / +$k2 Tempra
+591,+$k1 Indice di Versatilità / +$k2 Forza
+592,+$k1 Tempra e +$k2 Forza
+663,Mirino (+$k1 Danni)
+664,Mirino (+$k1 Danni)
+684,+$k1 Forza
+723,+$k1 Intelletto
+724,+$k1 Tempra
+743,+$13418s1 Furtività
+744,+$k1 Armatura
+763,+$k1 Indice di Blocco
+783,+$k1 Armatura
+803,Armardente
+805,+$k1 Danni dell'Arma
+823,+$k1 Forza
+843,+$k1 Mana
+844,+$13611s1 Estrazione
+845,+$13614s1 Erbalismo
+846,+$71691s1 Pesca
+847,+$13624s1 Tutti gli Attributi
+848,+$k1 Armatura
+849,+$k1 Agilità
+850,+$k1 Salute
+851,+$k1 Indice di Versatilità
+852,+$k1 Tempra
+853,+$13650s1 Contro le Bestie
+854,+$13651s1 Contro gli Elementali
+856,+$k1 Forza
+857,+$k1 Mana
+863,+$k1 Indice di Parata
+865,+$13697s1 Scuoiatura
+866,+$13625s1 Tutti gli Attributi
+883,+$k1 Agilità
+884,+$k1 Armatura
+904,+$k1 Agilità
+905,+$k1 Intelletto
+906,+$13838s1 Estrazione
+907,+$k1 Indice di Versatilità
+908,+$k1 Salute
+909,+$13839s1 Erbalismo
+910,+$k1 Agilità e +$k2 Indice di Schivata
+911,Leggero Aumento di Velocità
+912,Caccia ai Demoni
+913,+$k1 Mana
+923,+$k1 Indice di Schivata
+924,+$k1 Indice di Schivata
+925,+$k1 Indice di Schivata
+927,+$k1 Forza
+928,+$13824s1 Tutti gli Attributi
+929,+$k1 Tempra
+930,+$13927s1% Velocità su Cavalcatura
+931,+$k1 Indice di Celerità
+943,+$k1 Danni dell'Arma
+963,+$k1 Danni dell'Arma
+983,+$k1 Agilità
+1003,Veleno di Malapelle
+1043,+$k1 Forza
+1044,+$k1 Forza
+1045,+$k1 Forza
+1046,+$k1 Forza
+1047,+$k1 Forza
+1048,+$k1 Forza
+1049,+$k1 Forza
+1050,+$k1 Forza
+1051,+$k1 Forza
+1052,+$k1 Forza
+1053,+$k1 Forza
+1054,+$k1 Forza
+1055,+$k1 Forza
+1056,+$k1 Forza
+1057,+$k1 Forza
+1058,+$k1 Forza
+1059,+$k1 Forza
+1060,+$k1 Forza
+1061,+$k1 Forza
+1062,+$k1 Forza
+1063,+$k1 Forza
+1064,+$k1 Forza
+1065,+$k1 Forza
+1066,+$k1 Forza
+1067,+$k1 Forza
+1068,+$k1 Tempra
+1069,+$k1 Tempra
+1070,+$k1 Tempra
+1071,+$k1 Tempra
+1072,+$k1 Tempra
+1073,+$k1 Tempra
+1074,+$k1 Tempra
+1075,+$k1 Tempra
+1076,+$k1 Tempra
+1077,+$k1 Tempra
+1078,+$k1 Tempra
+1079,+$k1 Tempra
+1080,+$k1 Tempra
+1081,+$k1 Tempra
+1082,+$k1 Tempra
+1083,+$k1 Tempra
+1084,+$k1 Tempra
+1085,+$k1 Tempra
+1086,+$k1 Tempra
+1087,+$k1 Tempra
+1088,+$k1 Tempra
+1089,+$k1 Tempra
+1090,+$k1 Tempra
+1091,+$k1 Tempra
+1092,+$k1 Tempra
+1093,+$k1 Tempra
+1094,+$k1 Agilità
+1095,+$k1 Agilità
+1096,+$k1 Agilità
+1097,+$k1 Agilità
+1098,+$k1 Agilità
+1099,+$k1 Agilità
+1100,+$k1 Agilità
+1101,+$k1 Agilità
+1102,+$k1 Agilità
+1103,+$k1 Agilità
+1104,+$k1 Agilità
+1105,+$k1 Agilità
+1106,+$k1 Agilità
+1107,+$k1 Agilità
+1108,+$k1 Agilità
+1109,+$k1 Agilità
+1110,+$k1 Agilità
+1111,+$k1 Agilità
+1112,+$k1 Agilità
+1113,+$k1 Agilità
+1114,+$k1 Agilità
+1115,+$k1 Agilità
+1116,+$k1 Agilità
+1117,+$k1 Agilità
+1118,+$k1 Intelletto
+1119,+$k1 Intelletto
+1120,+$k1 Intelletto
+1121,+$k1 Intelletto
+1122,+$k1 Intelletto
+1123,+$k1 Intelletto
+1124,+$k1 Intelletto
+1125,+$k1 Intelletto
+1126,+$k1 Intelletto
+1127,+$k1 Intelletto
+1128,+$k1 Intelletto
+1129,+$k1 Intelletto
+1130,+$k1 Intelletto
+1131,+$k1 Intelletto
+1132,+$k1 Intelletto
+1133,+$k1 Intelletto
+1134,+$k1 Intelletto
+1135,+$k1 Intelletto
+1136,+$k1 Intelletto
+1137,+$k1 Intelletto
+1138,+$k1 Intelletto
+1139,+$k1 Intelletto
+1140,+$k1 Intelletto
+1141,+$k1 Intelletto
+1142,+$k1 Intelletto
+1143,+$k1 Intelletto
+1144,+$k1 Indice di Versatilità
+1145,+$k1 Indice di Versatilità
+1146,+$k1 Indice di Versatilità
+1147,+$k1 Indice di Versatilità
+1148,+$k1 Indice di Versatilità
+1149,+$k1 Indice di Versatilità
+1150,+$k1 Indice di Versatilità
+1151,+$k1 Indice di Versatilità
+1152,+$k1 Indice di Versatilità
+1153,+$k1 Indice di Versatilità
+1154,+$k1 Indice di Versatilità
+1155,+$k1 Indice di Versatilità
+1156,+$k1 Indice di Versatilità
+1157,+$k1 Indice di Versatilità
+1158,+$k1 Indice di Versatilità
+1159,+$k1 Indice di Versatilità
+1160,+$k1 Indice di Versatilità
+1161,+$k1 Indice di Versatilità
+1162,+$k1 Indice di Versatilità
+1163,+$k1 Indice di Versatilità
+1164,+$k1 Indice di Versatilità
+1165,+$k1 Indice di Versatilità
+1166,+$k1 Indice di Versatilità
+1167,+$k1 Indice di Versatilità
+1168,+$k1 Indice di Versatilità
+1183,+$k1 Indice di Versatilità
+1203,+$k1 Forza
+1204,+$k1 Forza
+1205,+$k1 Forza
+1206,+$k1 Forza
+1207,+$k1 Forza
+1208,+$k1 Forza
+1209,+$k1 Tempra
+1210,+$k1 Tempra
+1211,+$k1 Tempra
+1212,+$k1 Tempra
+1213,+$k1 Tempra
+1214,+$k1 Tempra
+1215,+$k1 Agilità
+1216,+$k1 Agilità
+1217,+$k1 Agilità
+1218,+$k1 Agilità
+1219,+$k1 Agilità
+1220,+$k1 Agilità
+1221,+$k1 Intelletto
+1222,+$k1 Intelletto
+1223,+$k1 Intelletto
+1224,+$k1 Intelletto
+1225,+$k1 Intelletto
+1226,+$k1 Intelletto
+1227,+$k1 Indice di Versatilità
+1228,+$k1 Indice di Versatilità
+1229,+$k1 Indice di Versatilità
+1230,+$k1 Indice di Versatilità
+1231,+$k1 Indice di Versatilità
+1232,+$k1 Indice di Versatilità
+1243,+$k1 Resistenza all'Arcano
+1244,+$k1 Resistenza all'Arcano
+1245,+$k1 Resistenza all'Arcano
+1246,+$k1 Resistenza all'Arcano
+1247,+$k1 Resistenza all'Arcano
+1248,+$k1 Resistenza all'Arcano
+1249,+$k1 Resistenza all'Arcano
+1250,+$k1 Resistenza all'Arcano
+1251,+$k1 Resistenza all'Arcano
+1252,+$k1 Resistenza all'Arcano
+1253,+$k1 Resistenza all'Arcano
+1254,+$k1 Resistenza all'Arcano
+1255,+$k1 Resistenza all'Arcano
+1256,+$k1 Resistenza all'Arcano
+1257,+$k1 Resistenza all'Arcano
+1258,+$k1 Resistenza all'Arcano
+1259,+$k1 Resistenza all'Arcano
+1260,+$k1 Resistenza all'Arcano
+1261,+$k1 Resistenza all'Arcano
+1262,+$k1 Resistenza all'Arcano
+1263,+$k1 Resistenza all'Arcano
+1264,+$k1 Resistenza all'Arcano
+1265,+$k1 Resistenza all'Arcano
+1266,+$k1 Resistenza all'Arcano
+1267,+$k1 Resistenza all'Arcano
+1268,+$k1 Resistenza all'Arcano
+1269,+$k1 Resistenza all'Arcano
+1270,+$k1 Resistenza all'Arcano
+1271,+$k1 Resistenza all'Arcano
+1272,+$k1 Resistenza all'Arcano
+1273,+$k1 Resistenza all'Arcano
+1274,+$k1 Resistenza all'Arcano
+1275,+$k1 Resistenza all'Arcano
+1276,+$k1 Resistenza all'Arcano
+1277,+$k1 Resistenza all'Arcano
+1278,+$k1 Resistenza all'Arcano
+1279,+$k1 Resistenza all'Arcano
+1280,+$k1 Resistenza all'Arcano
+1281,+$k1 Resistenza all'Arcano
+1282,+$k1 Resistenza all'Arcano
+1283,+$k1 Resistenza all'Arcano
+1284,+$k1 Resistenza all'Arcano
+1285,+$k1 Resistenza all'Arcano
+1286,+$k1 Resistenza all'Arcano
+1287,+$k1 Resistenza all'Arcano
+1288,+$k1 Resistenza all'Arcano
+1289,+$k1 Resistenza al Gelo
+1290,+$k1 Resistenza al Gelo
+1291,+$k1 Resistenza al Gelo
+1292,+$k1 Resistenza al Gelo
+1293,+$k1 Resistenza al Gelo
+1294,+$k1 Resistenza al Gelo
+1295,+$k1 Resistenza al Gelo
+1296,+$k1 Resistenza al Gelo
+1297,+$k1 Resistenza al Gelo
+1298,+$k1 Resistenza al Gelo
+1299,+$k1 Resistenza al Gelo
+1300,+$k1 Resistenza al Gelo
+1301,+$k1 Resistenza al Gelo
+1302,+$k1 Resistenza al Gelo
+1303,+$k1 Resistenza al Gelo
+1304,+$k1 Resistenza al Gelo
+1305,+$k1 Resistenza al Gelo
+1306,+$k1 Resistenza al Gelo
+1307,+$k1 Resistenza al Gelo
+1308,+$k1 Resistenza al Gelo
+1309,+$k1 Resistenza al Gelo
+1310,+$k1 Resistenza al Gelo
+1311,+$k1 Resistenza al Gelo
+1312,+$k1 Resistenza al Gelo
+1313,+$k1 Resistenza al Gelo
+1314,+$k1 Resistenza al Gelo
+1315,+$k1 Resistenza al Gelo
+1316,+$k1 Resistenza al Gelo
+1317,+$k1 Resistenza al Gelo
+1318,+$k1 Resistenza al Gelo
+1319,+$k1 Resistenza al Gelo
+1320,+$k1 Resistenza al Gelo
+1321,+$k1 Resistenza al Gelo
+1322,+$k1 Resistenza al Gelo
+1323,+$k1 Resistenza al Gelo
+1324,+$k1 Resistenza al Gelo
+1325,+$k1 Resistenza al Gelo
+1326,+$k1 Resistenza al Gelo
+1327,+$k1 Resistenza al Gelo
+1328,+$k1 Resistenza al Gelo
+1329,+$k1 Resistenza al Gelo
+1330,+$k1 Resistenza al Gelo
+1331,+$k1 Resistenza al Gelo
+1332,+$k1 Resistenza al Gelo
+1333,+$k1 Resistenza al Gelo
+1334,+$k1 Resistenza al Gelo
+1335,+$k1 Resistenza al Fuoco
+1336,+$k1 Resistenza al Fuoco
+1337,+$k1 Resistenza al Fuoco
+1338,+$k1 Resistenza al Fuoco
+1339,+$k1 Resistenza al Fuoco
+1340,+$k1 Resistenza al Fuoco
+1341,+$k1 Resistenza al Fuoco
+1342,+$k1 Resistenza al Fuoco
+1343,+$k1 Resistenza al Fuoco
+1344,+$k1 Resistenza al Fuoco
+1345,+$k1 Resistenza al Fuoco
+1346,+$k1 Resistenza al Fuoco
+1347,+$k1 Resistenza al Fuoco
+1348,+$k1 Resistenza al Fuoco
+1349,+$k1 Resistenza al Fuoco
+1350,+$k1 Resistenza al Fuoco
+1351,+$k1 Resistenza al Fuoco
+1352,+$k1 Resistenza al Fuoco
+1353,+$k1 Resistenza al Fuoco
+1354,+$k1 Resistenza al Fuoco
+1355,+$k1 Resistenza al Fuoco
+1356,+$k1 Resistenza al Fuoco
+1357,+$k1 Resistenza al Fuoco
+1358,+$k1 Resistenza al Fuoco
+1359,+$k1 Resistenza al Fuoco
+1360,+$k1 Resistenza al Fuoco
+1361,+$k1 Resistenza al Fuoco
+1362,+$k1 Resistenza al Fuoco
+1363,+$k1 Resistenza al Fuoco
+1364,+$k1 Resistenza al Fuoco
+1365,+$k1 Resistenza al Fuoco
+1366,+$k1 Resistenza al Fuoco
+1367,+$k1 Resistenza al Fuoco
+1368,+$k1 Resistenza al Fuoco
+1369,+$k1 Resistenza al Fuoco
+1370,+$k1 Resistenza al Fuoco
+1371,+$k1 Resistenza al Fuoco
+1372,+$k1 Resistenza al Fuoco
+1373,+$k1 Resistenza al Fuoco
+1374,+$k1 Resistenza al Fuoco
+1375,+$k1 Resistenza al Fuoco
+1376,+$k1 Resistenza al Fuoco
+1377,+$k1 Resistenza al Fuoco
+1378,+$k1 Resistenza al Fuoco
+1379,+$k1 Resistenza al Fuoco
+1380,+$k1 Resistenza al Fuoco
+1381,+$k1 Resistenza alla Natura
+1382,+$k1 Resistenza alla Natura
+1383,+$14624s1 Resistenza alla Natura
+1384,+$k1 Resistenza alla Natura
+1385,+$k1 Resistenza alla Natura
+1386,+$k1 Resistenza alla Natura
+1387,+$k1 Resistenza alla Natura
+1388,+$k1 Resistenza alla Natura
+1389,+$k1 Resistenza alla Natura
+1390,+$k1 Resistenza alla Natura
+1391,+$k1 Resistenza alla Natura
+1392,+$k1 Resistenza alla Natura
+1393,+$k1 Resistenza alla Natura
+1394,+$k1 Resistenza alla Natura
+1395,+$k1 Resistenza alla Natura
+1396,+$k1 Resistenza alla Natura
+1397,+$k1 Resistenza alla Natura
+1398,+$k1 Resistenza alla Natura
+1399,+$k1 Resistenza alla Natura
+1400,+$k1 Resistenza alla Natura
+1401,+$k1 Resistenza alla Natura
+1402,+$k1 Resistenza alla Natura
+1403,+$k1 Resistenza alla Natura
+1404,+$k1 Resistenza alla Natura
+1405,+$k1 Resistenza alla Natura
+1406,+$k1 Resistenza alla Natura
+1407,+$k1 Resistenza alla Natura
+1408,+$k1 Resistenza alla Natura
+1409,+$k1 Resistenza alla Natura
+1410,+$k1 Resistenza alla Natura
+1411,+$k1 Resistenza alla Natura
+1412,+$k1 Resistenza alla Natura
+1413,+$k1 Resistenza alla Natura
+1414,+$k1 Resistenza alla Natura
+1415,+$k1 Resistenza alla Natura
+1416,+$k1 Resistenza alla Natura
+1417,+$k1 Resistenza alla Natura
+1418,+$k1 Resistenza alla Natura
+1419,+$k1 Resistenza alla Natura
+1420,+$k1 Resistenza alla Natura
+1421,+$k1 Resistenza alla Natura
+1422,+$k1 Resistenza alla Natura
+1423,+$k1 Resistenza alla Natura
+1424,+$k1 Resistenza alla Natura
+1425,+$k1 Resistenza alla Natura
+1426,+$k1 Resistenza alla Natura
+1427,+$k1 Resistenza all'Ombra
+1428,+$k1 Resistenza all'Ombra
+1429,+$k1 Resistenza all'Ombra
+1430,+$k1 Resistenza all'Ombra
+1431,+$k1 Resistenza all'Ombra
+1432,+$k1 Resistenza all'Ombra
+1433,+$k1 Resistenza all'Ombra
+1434,+$k1 Resistenza all'Ombra
+1435,+$k1 Resistenza all'Ombra
+1436,+$k1 Resistenza all'Ombra
+1437,+$k1 Resistenza all'Ombra
+1438,+$k1 Resistenza all'Ombra
+1439,+$k1 Resistenza all'Ombra
+1440,+$k1 Resistenza all'Ombra
+1441,+$k1 Resistenza all'Ombra
+1442,+$k1 Resistenza all'Ombra
+1443,+$k1 Resistenza all'Ombra
+1444,+$k1 Resistenza all'Ombra
+1445,+$k1 Resistenza all'Ombra
+1446,+$k1 Resistenza all'Ombra
+1447,+$k1 Resistenza all'Ombra
+1448,+$k1 Resistenza all'Ombra
+1449,+$k1 Resistenza all'Ombra
+1450,+$k1 Resistenza all'Ombra
+1451,+$k1 Resistenza all'Ombra
+1452,+$k1 Resistenza all'Ombra
+1453,+$k1 Resistenza all'Ombra
+1454,+$k1 Resistenza all'Ombra
+1455,+$k1 Resistenza all'Ombra
+1456,+$k1 Resistenza all'Ombra
+1457,+$k1 Resistenza all'Ombra
+1458,+$k1 Resistenza all'Ombra
+1459,+$k1 Resistenza all'Ombra
+1460,+$k1 Resistenza all'Ombra
+1461,+$k1 Resistenza all'Ombra
+1462,+$k1 Resistenza all'Ombra
+1463,+$k1 Resistenza all'Ombra
+1464,+$k1 Resistenza all'Ombra
+1465,+$k1 Resistenza all'Ombra
+1466,+$k1 Resistenza all'Ombra
+1467,+$k1 Resistenza all'Ombra
+1468,+$k1 Resistenza all'Ombra
+1469,+$k1 Resistenza all'Ombra
+1470,+$k1 Resistenza all'Ombra
+1471,+$k1 Resistenza all'Ombra
+1472,+$k1 Resistenza all'Ombra
+1483,+$k1 Mana
+1503,+$k1 Salute
+1504,+$k1 Armatura
+1505,+$k1 Resistenza al Fuoco
+1506,+$k1 Forza
+1507,+$k1 Tempra
+1508,+$k1 Agilità
+1509,+$k1 Intelletto
+1510,+$k1 Indice di Versatilità
+1523,+$k1 Mana e +$k2 Resistenza al Fuoco
+1524,+$k1 Salute e +$k2 Resistenza al Fuoco
+1525,+$k1 Armatura e +$k2 Resistenza al Fuoco
+1526,+$k1 Forza e +$k2 Resistenza al Fuoco
+1527,+$k1 Tempra e +$k2 Resistenza al Fuoco
+1528,+$k1 Agilità e +$k2 Resistenza al Fuoco
+1529,+$k1 Intelletto e +$k2 Resistenza al Fuoco
+1530,+$k1 Indice di Versatilità e +$k2 Resistenza al Fuoco
+1531,+$k1 Forza e +$k2 Tempra
+1532,"+$k1 Forza, +$k2 Armatura e +$k3 Resistenza al Fuoco"
+1543,"+$k1 Intelletto, +$k2 Mana e +$k3 Resistenza al Fuoco"
+1563,+$k1 Potenza d'Attacco
+1583,+$k1 Potenza d'Attacco
+1584,+$k1 Potenza d'Attacco
+1585,+$k1 Potenza d'Attacco
+1586,+$k1 Potenza d'Attacco
+1587,+$k1 Potenza d'Attacco
+1588,+$k1 Potenza d'Attacco
+1589,+$k1 Potenza d'Attacco
+1590,+$k1 Potenza d'Attacco
+1591,+$k1 Potenza d'Attacco
+1592,+$k1 Potenza d'Attacco
+1593,+$k1 Potenza d'Attacco
+1594,+$k1 Potenza d'Attacco
+1595,+$k1 Potenza d'Attacco
+1596,+$k1 Potenza d'Attacco
+1597,+$k1 Potenza d'Attacco
+1598,+$k1 Potenza d'Attacco
+1599,+$k1 Potenza d'Attacco
+1600,+$k1 Potenza d'Attacco
+1601,+$k1 Potenza d'Attacco
+1602,+$k1 Potenza d'Attacco
+1603,+$k1 Potenza d'Attacco
+1604,+$k1 Potenza d'Attacco
+1605,+$k1 Potenza d'Attacco
+1606,+$k1 Potenza d'Attacco
+1607,+$k1 Potenza d'Attacco
+1608,+$k1 Potenza d'Attacco
+1609,+$k1 Potenza d'Attacco
+1610,+$k1 Potenza d'Attacco
+1611,+$k1 Potenza d'Attacco
+1612,+$k1 Potenza d'Attacco
+1613,+$k1 Potenza d'Attacco
+1614,+$k1 Potenza d'Attacco
+1615,+$k1 Potenza d'Attacco
+1616,+$k1 Potenza d'Attacco
+1617,+$k1 Potenza d'Attacco
+1618,+$k1 Potenza d'Attacco
+1619,+$k1 Potenza d'Attacco
+1620,+$k1 Potenza d'Attacco
+1621,+$k1 Potenza d'Attacco
+1622,+$k1 Potenza d'Attacco
+1623,+$k1 Potenza d'Attacco
+1624,+$k1 Potenza d'Attacco
+1625,+$k1 Potenza d'Attacco
+1626,+$k1 Potenza d'Attacco
+1627,+$k1 Potenza d'Attacco
+1643,Affilato V
+1703,Appesantito V
+1704,Chiodatura di Torio
+1723,Presagio di Lucidità
+1743,MHTest02
+1763,Sangue Freddo
+1803,Pietra del Fuoco 1
+1823,Pietra del Fuoco 2
+1824,Pietra del Fuoco 3
+1825,Pietra del Fuoco 4
+1843,Rinforzato (+$k1 Armatura)
+1883,+$k1 Intelletto
+1884,+$k1 Indice di Versatilità
+1885,+$k1 Forza
+1886,+$k1 Tempra
+1887,+$k1 Agilità
+1889,+$k1 Armatura
+1890,+$k1 Indice di Versatilità e +$k2 Tempra
+1891,+$13625s1 Tutti gli Attributi
+1892,+$19990s1 Salute
+1893,+$k1 Mana
+1894,Toccogelido
+1896,+$k1 Danni dell'Arma
+1897,+$k1 Danni dell'Arma
+1898,Rubavita
+1899,Arma Empia
+1900,Crociato
+1901,+$k1 Intelletto
+1903,+$k1 Indice di Versatilità
+1904,+$k1 Intelletto
+1943,+$k1 Indice di Schivata
+1944,+$k1 Indice di Schivata
+1945,+$k1 Indice di Schivata
+1946,+$k1 Indice di Schivata
+1947,+$k1 Indice di Schivata
+1948,+$k1 Indice di Schivata
+1949,+$k1 Indice di Schivata
+1950,+$k1 Indice di Schivata
+1951,+$k1 Indice di Schivata
+1952,+$k1 Indice di Schivata
+1953,+$k1 Indice di Schivata
+1954,+$k1 Indice di Schivata
+1955,+$k1 Indice di Schivata
+1956,+$k1 Indice di Schivata
+1957,+$k1 Indice di Schivata
+1958,+$k1 Indice di Schivata
+1959,+$k1 Indice di Schivata
+1960,+$k1 Indice di Schivata
+1961,+$k1 Indice di Schivata
+1962,+$k1 Indice di Schivata
+1963,+$k1 Indice di Schivata
+1964,+$k1 Indice di Schivata
+1965,+$k1 Indice di Schivata
+1966,+$k1 Indice di Schivata
+1967,+$k1 Indice di Schivata
+1968,+$k1 Indice di Schivata
+1969,+$k1 Indice di Schivata
+1970,+$k1 Indice di Schivata
+1971,+$k1 Indice di Schivata
+1972,+$k1 Indice di Schivata
+1973,+$k1 Indice di Schivata
+1983,+$k1 Indice di Blocco
+1984,+$k1 Indice di Blocco
+1985,+$k1 Indice di Blocco
+1986,+$k1 Indice di Blocco
+1987,Blocco Livello 14
+1988,Blocco Livello 15
+1989,Blocco Livello 16
+1990,Blocco Livello 17
+1991,Blocco Livello 18
+1992,Blocco Livello 19
+1993,Blocco Livello 20
+1994,Blocco Livello 21
+1995,Blocco Livello 22
+1996,Blocco Livello 23
+1997,Blocco Livello 24
+1998,Blocco Livello 25
+1999,Blocco Livello 26
+2000,Blocco Livello 27
+2001,Blocco Livello 28
+2002,Blocco Livello 29
+2003,Blocco Livello 30
+2004,Blocco Livello 31
+2005,Blocco Livello 32
+2006,Blocco Livello 33
+2007,Blocco Livello 34
+2008,Blocco Livello 35
+2009,Blocco Livello 36
+2010,Blocco Livello 37
+2011,Blocco Livello 38
+2012,Blocco Livello 39
+2013,Blocco Livello 40
+2014,Blocco Livello 41
+2015,Blocco Livello 42
+2016,Blocco Livello 43
+2017,Blocco Livello 44
+2018,Blocco Livello 45
+2019,Blocco Livello 46
+2020,Blocco Livello 47
+2021,Blocco Livello 48
+2022,Blocco Livello 49
+2023,Blocco Livello 50
+2024,Blocco Livello 51
+2025,Blocco Livello 52
+2026,Blocco Livello 53
+2027,Blocco Livello 54
+2028,Blocco Livello 55
+2029,Blocco Livello 56
+2030,Blocco Livello 57
+2031,Blocco Livello 58
+2032,Blocco Livello 59
+2033,Blocco Livello 60
+2034,Blocco Livello 61
+2035,Blocco Livello 62
+2036,Blocco Livello 63
+2037,Blocco Livello 64
+2038,Blocco Livello 65
+2039,Blocco Livello 66
+2040,+$k1 Potenza d'Attacco a Distanza
+2041,+$k1 Potenza d'Attacco a Distanza
+2042,+$k1 Potenza d'Attacco a Distanza
+2043,+$k1 Potenza d'Attacco a Distanza
+2044,+$k1 Potenza d'Attacco a Distanza
+2045,+$k1 Potenza d'Attacco a Distanza
+2046,+$k1 Potenza d'Attacco a Distanza
+2047,+$k1 Potenza d'Attacco a Distanza
+2048,+$k1 Potenza d'Attacco a Distanza
+2049,+$k1 Potenza d'Attacco a Distanza
+2050,+$k1 Potenza d'Attacco a Distanza
+2051,+$k1 Potenza d'Attacco a Distanza
+2052,+$k1 Potenza d'Attacco a Distanza
+2053,+$k1 Potenza d'Attacco a Distanza
+2054,+$k1 Potenza d'Attacco a Distanza
+2055,+$k1 Potenza d'Attacco a Distanza
+2056,+$k1 Potenza d'Attacco a Distanza
+2057,+$k1 Potenza d'Attacco a Distanza
+2058,+$k1 Potenza d'Attacco a Distanza
+2059,+$k1 Potenza d'Attacco a Distanza
+2060,+$k1 Potenza d'Attacco a Distanza
+2061,+$k1 Potenza d'Attacco a Distanza
+2062,+$k1 Potenza d'Attacco a Distanza
+2063,+$k1 Potenza d'Attacco a Distanza
+2064,+$k1 Potenza d'Attacco a Distanza
+2065,+$k1 Potenza d'Attacco a Distanza
+2066,+$k1 Potenza d'Attacco a Distanza
+2067,+$k1 Potenza d'Attacco a Distanza
+2068,+$k1 Potenza d'Attacco a Distanza
+2069,+$k1 Potenza d'Attacco a Distanza
+2070,+$k1 Potenza d'Attacco a Distanza
+2071,+$k1 Potenza d'Attacco a Distanza
+2072,+$k1 Potenza d'Attacco a Distanza
+2073,+$k1 Potenza d'Attacco a Distanza
+2074,+$k1 Potenza d'Attacco a Distanza
+2075,+$k1 Potenza d'Attacco a Distanza
+2076,+$k1 Potenza d'Attacco a Distanza
+2077,+$k1 Potenza d'Attacco a Distanza
+2078,+$k1 Indice di Schivata
+2079,+$13590s1 Potenza Magica (Arcano)
+2080,+$13591s1 Potenza Magica (Arcano)
+2081,+$k1 Potenza Magica (Arcano)
+2082,+$13593s1 Potenza Magica (Arcano)
+2083,+$13594s1 Potenza Magica (Arcano)
+2084,+$13595s1 Potenza Magica (Arcano)
+2085,+$13596s1 Potenza Magica (Arcano)
+2086,+$13597s1 Potenza Magica (Arcano)
+2087,+$13598s1 Potenza Magica (Arcano)
+2088,+$13599s1 Potenza Magica (Arcano)
+2089,+$13601s1 Potenza Magica (Arcano)
+2090,+$13602s1 Potenza Magica (Arcano)
+2091,+$13603s1 Potenza Magica (Arcano)
+2092,+$13604s1 Potenza Magica (Arcano)
+2093,+$13605s1 Potenza Magica (Arcano)
+2094,+$17821s1 Potenza Magica (Arcano)
+2095,+24 Potenza Magica (Arcano)
+2096,+$17823s1 Potenza Magica (Arcano)
+2097,+$17824s1 Potenza Magica (Arcano)
+2098,+$17825s1 Potenza Magica (Arcano)
+2099,+$17826s1 Potenza Magica (Arcano)
+2100,+$17827s1 Potenza Magica (Arcano)
+2101,+$17828s1 Potenza Magica (Arcano)
+2102,+$17829s1 Potenza Magica (Arcano)
+2103,+$17830s1 Potenza Magica (Arcano)
+2104,+$17832s1 Potenza Magica (Arcano)
+2105,+$17837s1 Potenza Magica (Arcano)
+2106,+$17838s1 Potenza Magica (Arcano)
+2107,+$17839s1 Potenza Magica (Arcano)
+2108,+$17840s1 Potenza Magica (Arcano)
+2109,+$17841s1 Potenza Magica (Arcano)
+2110,+$17842s1 Potenza Magica (Arcano)
+2111,+$17844s1 Potenza Magica (Arcano)
+2112,+$17845s1 Potenza Magica (Arcano)
+2113,+$17846s1 Potenza Magica (Arcano)
+2114,+$17847s1 Potenza Magica (Arcano)
+2115,+$17848s1 Potenza Magica (Arcano)
+2116,+$17849s1 Potenza Magica (Arcano)
+2117,+$7704s1 Potenza Magica (Ombra)
+2118,+$7705s1 Potenza Magica (Ombra)
+2119,+$7706s1 Potenza Magica (Ombra)
+2120,+$7707s1 Potenza Magica (Ombra)
+2121,+$7708s1 Potenza Magica (Ombra)
+2122,+$7710s1 Potenza Magica (Ombra)
+2123,+$7709s1 Potenza Magica (Ombra)
+2124,+$9412s1 Potenza Magica (Ombra)
+2125,+$9413s1 Potenza Magica (Ombra)
+2126,+$9414s1 Potenza Magica (Ombra)
+2127,+$9324s1 Potenza Magica (Ombra)
+2128,+$9325s1 Potenza Magica (Ombra)
+2129,+$9326s1 Potenza Magica (Ombra)
+2130,+$9327s1 Potenza Magica (Ombra)
+2131,+$9328s1 Potenza Magica (Ombra)
+2132,+$14793s1 Potenza Magica (Ombra)
+2133,+$14794s1 Potenza Magica (Ombra)
+2134,+$18008s1 Potenza Magica (Ombra)
+2135,+$18009s1 Potenza Magica (Ombra)
+2136,+$18010s1 Potenza Magica (Ombra)
+2137,+$18011s1 Potenza Magica (Ombra)
+2138,+$18012s1 Potenza Magica (Ombra)
+2139,+$18013s1 Potenza Magica (Ombra)
+2140,+$18014s1 Potenza Magica (Ombra)
+2141,+$18015s1 Potenza Magica (Ombra)
+2142,+$18016s1 Potenza Magica (Ombra)
+2143,+$18017s1 Potenza Magica (Ombra)
+2144,+$18018s1 Potenza Magica (Ombra)
+2145,+$18019s1 Potenza Magica (Ombra)
+2146,+$18020s1 Potenza Magica (Ombra)
+2147,+$18021s1 Potenza Magica (Ombra)
+2148,+$18022s1 Potenza Magica (Ombra)
+2149,+$18023s1 Potenza Magica (Ombra)
+2150,+$18024s1 Potenza Magica (Ombra)
+2151,+$18025s1 Potenza Magica (Ombra)
+2152,+$18026s1 Potenza Magica (Ombra)
+2153,+$18027s1 Potenza Magica (Ombra)
+2154,+$18028s1 Potenza Magica (Ombra)
+2155,+$7683s1 Potenza Magica (Fuoco)
+2156,+$7684s1 Potenza Magica (Fuoco)
+2157,+$7685s1 Potenza Magica (Fuoco)
+2158,+$7686s1 Potenza Magica (Fuoco)
+2159,+$7687s1 Potenza Magica (Fuoco)
+2160,+$7688s1 Potenza Magica (Fuoco)
+2161,+$7689s1 Potenza Magica (Fuoco)
+2162,+$9399s1 Potenza Magica (Fuoco)
+2163,+$9400s1 Potenza Magica (Fuoco)
+2164,+$9401s1 Potenza Magica (Fuoco)
+2165,+$9294s1 Potenza Magica (Fuoco)
+2166,+$9295s1 Potenza Magica (Fuoco)
+2167,+$9296s1 Potenza Magica (Fuoco)
+2168,+$9297s1 Potenza Magica (Fuoco)
+2169,+$9298s1 Potenza Magica (Fuoco)
+2170,+$17747s1 Potenza Magica (Fuoco)
+2171,+$17866s1 Potenza Magica (Fuoco)
+2172,+$17867s1 Potenza Magica (Fuoco)
+2173,+$17868s1 Potenza Magica (Fuoco)
+2174,+$13830s1 Potenza Magica (Fuoco)
+2175,+$17869s1 Potenza Magica (Fuoco)
+2176,+$17870s1 Potenza Magica (Fuoco)
+2177,+$17871s1 Potenza Magica (Fuoco)
+2178,+$17872s1 Potenza Magica (Fuoco)
+2179,+$17873s1 Potenza Magica (Fuoco)
+2180,+$17874s1 Potenza Magica (Fuoco)
+2181,+$17684s1 Potenza Magica (Fuoco)
+2182,+$17875s1 Potenza Magica (Fuoco)
+2183,+$17876s1 Potenza Magica (Fuoco)
+2184,+$17878s1 Potenza Magica (Fuoco)
+2185,+$17879s1 Potenza Magica (Fuoco)
+2186,+$17880s1 Potenza Magica (Fuoco)
+2187,+$17881s1 Potenza Magica (Fuoco)
+2188,+$17882s1 Potenza Magica (Fuoco)
+2189,+$17884s1 Potenza Magica (Fuoco)
+2190,+$17885s1 Potenza Magica (Fuoco)
+2191,+$17886s1 Potenza Magica (Fuoco)
+2192,+$17887s1 Potenza Magica (Fuoco)
+2193,+$21499s1 Potenza Magica (Sacro)
+2194,+$21500s1 Potenza Magica (Sacro)
+2195,+$21501s1 Potenza Magica (Sacro)
+2196,+$21502s1 Potenza Magica (Sacro)
+2197,+$21503s1 Potenza Magica (Sacro)
+2198,+$21504s1 Potenza Magica (Sacro)
+2199,+$21505s1 Potenza Magica (Sacro)
+2200,+$21506s1 Potenza Magica (Sacro)
+2201,+$21507s1 Potenza Magica (Sacro)
+2202,+$21508s1 Potenza Magica (Sacro)
+2203,+$21509s1 Potenza Magica (Sacro)
+2204,+$21510s1 Potenza Magica (Sacro)
+2205,+$21511s1 Potenza Magica (Sacro)
+2206,+$21512s1 Potenza Magica (Sacro)
+2207,+$21513s1 Potenza Magica (Sacro)
+2208,+$21514s1 Potenza Magica (Sacro)
+2209,+$21515s1 Potenza Magica (Sacro)
+2210,+$21516s1 Potenza Magica (Sacro)
+2211,+$21517s1 Potenza Magica (Sacro)
+2212,+$21518s1 Potenza Magica (Sacro)
+2213,+$21519s1 Potenza Magica (Sacro)
+2214,+$21520s1 Potenza Magica (Sacro)
+2215,+$21521s1 Potenza Magica (Sacro)
+2216,+$21522s1 Potenza Magica (Sacro)
+2217,+$21523s1 Potenza Magica (Sacro)
+2218,+$21524s1 Potenza Magica (Sacro)
+2219,+$21525s1 Potenza Magica (Sacro)
+2220,+$21526s1 Potenza Magica (Sacro)
+2221,+$21527s1 Potenza Magica (Sacro)
+2222,+$21528s1 Potenza Magica (Sacro)
+2223,+$21529s1 Potenza Magica (Sacro)
+2224,+$21530s1 Potenza Magica (Sacro)
+2225,+$21531s1 Potenza Magica (Sacro)
+2226,+$21532s1 Potenza Magica (Sacro)
+2227,+$21533s1 Potenza Magica (Sacro)
+2228,+$21534s1 Potenza Magica (Sacro)
+2229,+$21535s1 Potenza Magica (Sacro)
+2230,+$21536s1 Potenza Magica (Sacro)
+2231,+$7697s1 Potenza Magica (Gelo)
+2232,+$7698s1 Potenza Magica (Gelo)
+2233,+$7699s1 Potenza Magica (Gelo)
+2234,+$7700s1 Potenza Magica (Gelo)
+2235,+$7701s1 Potenza Magica (Gelo)
+2236,+$7702s1 Potenza Magica (Gelo)
+2237,+$7703s1 Potenza Magica (Gelo)
+2238,+$9402s1 Potenza Magica (Gelo)
+2239,+$9403s1 Potenza Magica (Gelo)
+2240,+$9404s1 Potenza Magica (Gelo)
+2241,+$9304s1 Potenza Magica (Gelo)
+2242,+$9305s1 Potenza Magica (Gelo)
+2243,+$9306s1 Potenza Magica (Gelo)
+2244,+$9307s1 Potenza Magica (Gelo)
+2245,+$9308s1 Potenza Magica (Gelo)
+2246,+$17889s1 Potenza Magica (Gelo)
+2247,+$17890s1 Potenza Magica (Gelo)
+2248,+$17891s1 Potenza Magica (Gelo)
+2249,+$17892s1 Potenza Magica (Gelo)
+2250,+$13831s1 Potenza Magica (Gelo)
+2251,+$17893s1 Potenza Magica (Gelo)
+2252,+$17894s1 Potenza Magica (Gelo)
+2253,+$17895s1 Potenza Magica (Gelo)
+2254,+$17896s1 Potenza Magica (Gelo)
+2255,+$17897s1 Potenza Magica (Gelo)
+2256,+$17898s1 Potenza Magica (Gelo)
+2257,+$17899s1 Potenza Magica (Gelo)
+2258,+$17900s1 Potenza Magica (Gelo)
+2259,+$17901s1 Potenza Magica (Gelo)
+2260,+$17902s1 Potenza Magica (Gelo)
+2261,+$17903s1 Potenza Magica (Gelo)
+2262,+$17905s1 Potenza Magica (Gelo)
+2263,+$17906s1 Potenza Magica (Gelo)
+2264,+$17907s1 Potenza Magica (Gelo)
+2265,+$17908s1 Potenza Magica (Gelo)
+2266,+$17909s1 Potenza Magica (Gelo)
+2267,+53 Potenza Magica (Gelo)
+2268,+$17911s1 Potenza Magica (Gelo)
+2269,+$7690s1 Potenza Magica (Natura)
+2270,+$7691s1 Potenza Magica (Natura)
+2271,+$7692s1 Potenza Magica (Natura)
+2272,+$7693s1 Potenza Magica (Natura)
+2273,+$7694s1 Potenza Magica (Natura)
+2274,+$7695s1 Potenza Magica (Natura)
+2275,+$7696s1 Potenza Magica (Natura)
+2276,+$9409s1 Potenza Magica (Natura)
+2277,+13 Potenza Magica (Natura)
+2278,+$9411s1 Potenza Magica (Natura)
+2279,+$9357s1 Potenza Magica (Natura)
+2280,+$9358s1 Potenza Magica (Natura)
+2281,+$9359s1 Potenza Magica (Natura)
+2282,+$9360s1 Potenza Magica (Natura)
+2283,+$9361s1 Potenza Magica (Natura)
+2284,+$17987s1 Potenza Magica (Natura)
+2285,+$17988s1 Potenza Magica (Natura)
+2286,+$17989s1 Potenza Magica (Natura)
+2287,+$17990s1 Potenza Magica (Natura)
+2288,+$17819s1 Potenza Magica (Natura)
+2289,+$17991s1 Potenza Magica (Natura)
+2290,+31 Potenza Magica (Natura)
+2291,+$17993s1 Potenza Magica (Natura)
+2292,+$16638s1 Potenza Magica (Natura)
+2293,+$17994s1 Potenza Magica (Natura)
+2294,+$17995s1 Potenza Magica (Natura)
+2295,+$17996s1 Potenza Magica (Natura)
+2296,+$17997s1 Potenza Magica (Natura)
+2297,+$17998s1 Potenza Magica (Natura)
+2298,+$17999s1 Potenza Magica (Natura)
+2299,+$18000s1 Potenza Magica (Natura)
+2300,+$18001s1 Potenza Magica (Natura)
+2301,+$18002s1 Potenza Magica (Natura)
+2302,+$18003s1 Potenza Magica (Natura)
+2303,+$18004s1 Potenza Magica (Natura)
+2304,+$18005s1 Potenza Magica (Natura)
+2305,+$18006s1 Potenza Magica (Natura)
+2306,+$18007s1 Potenza Magica (Natura)
+2307,+$k1 Potenza Magica
+2308,+$k1 Potenza Magica
+2309,+$k1 Potenza Magica
+2310,+$k1 Potenza Magica
+2311,+$9396s1 Potenza Magica
+2312,+$k1 Potenza Magica
+2313,+$k1 Potenza Magica
+2314,+$k1 Potenza Magica
+2315,+$k1 Potenza Magica
+2316,+$k1 Potenza Magica
+2317,+$k1 Potenza Magica
+2318,+$k1 Potenza Magica
+2319,+$k1 Potenza Magica
+2320,+$k1 Potenza Magica
+2321,+$k1 Potenza Magica
+2322,+$k1 Potenza Magica
+2323,+$k1 Potenza Magica
+2324,+$k1 Potenza Magica
+2325,+$k1 Potenza Magica
+2326,+$k1 Potenza Magica
+2327,+$k1 Potenza Magica
+2328,+$k1 Potenza Magica
+2329,+$k1 Potenza Magica
+2330,+$k1 Potenza Magica
+2331,+$k1 Potenza Magica
+2332,+$k1 Potenza Magica
+2333,+$k1 Potenza Magica
+2334,+$k1 Potenza Magica
+2335,+$k1 Potenza Magica
+2336,+$k1 Potenza Magica
+2337,+$k1 Potenza Magica
+2338,+$k1 Potenza Magica
+2339,+$k1 Potenza Magica
+2340,+$k1 Potenza Magica
+2341,+$k1 Potenza Magica
+2342,+$k1 Potenza Magica
+2343,+$k1 Potenza Magica
+2344,+$k1 Potenza Magica
+2363,+$21359s1 Mana ogni 5 s
+2364,+$21621s1 Mana ogni 5 s
+2365,+$21622s1 Mana ogni 5 s
+2366,+$k1 Mana ogni 5 s
+2367,+$k1 Mana ogni 5 s
+2368,+$k1 Mana ogni 5 s
+2369,+$k1 Mana ogni 5 s
+2370,+$k1 Mana ogni 5 s
+2371,+$k1 Mana ogni 5 s
+2372,+$k1 Mana ogni 5 s
+2373,+$k1 Mana ogni 5 s
+2374,+$k1 Mana ogni 5 s
+2375,+$k1 Mana ogni 5 s
+2376,+$k1 Mana ogni 5 s
+2377,+$k1 Mana ogni 5 s
+2378,+$k1 Mana ogni 5 s
+2379,+$k1 Mana ogni 5 s
+2380,+$k1 Mana ogni 5 s
+2381,+$k1 Indice di Versatilità
+2382,+$k1 Mana ogni 5 s
+2383,+$k1 Mana ogni 5 s
+2384,+$k1 Mana ogni 5 s
+2385,+$k1 Mana ogni 5 s
+2386,+$k1 Indice di Versatilità
+2387,+$k1 Indice di Versatilità
+2388,+$k1 Indice di Versatilità
+2389,+$k1 Indice di Versatilità
+2390,+$k1 Indice di Versatilità
+2391,+$k1 Indice di Versatilità
+2392,+$k1 Indice di Versatilità
+2393,+$k1 Indice di Versatilità
+2394,+$k1 Indice di Versatilità
+2395,+$k1 Indice di Versatilità
+2396,+$k1 Mana ogni 5 s
+2397,+$k1 Mana ogni 5 s
+2398,+$k1 Mana ogni 5 s
+2399,+$k1 Mana ogni 5 s
+2400,+$k1 Mana ogni 5 s
+2401,+$21587s1 Salute ogni 5 s
+2402,+$21588s1 Salute ogni 5 s
+2403,+$21589s1 Salute ogni 5 s
+2404,+1 Salute ogni 5 s
+2405,+1 Salute ogni 5 s
+2406,+$21346s1 Salute ogni 5 s
+2407,+2 Salute ogni 5 s
+2408,+2 Salute ogni 5 s
+2409,+2 Salute ogni 5 s
+2410,+3 Salute ogni 5 s
+2411,+3 Salute ogni 5 s
+2412,+$21596s1 Salute ogni 5 s
+2413,+$21597s1 Salute ogni 5 s
+2414,+4 Salute ogni 5 s
+2415,+4 Salute ogni 5 s
+2416,+4 Salute ogni 5 s
+2417,+4 Salute ogni 5 s
+2418,+5 Salute ogni 5 s
+2419,+5 Salute ogni 5 s
+2420,+5 Salute ogni 5 s
+2421,+5 Salute ogni 5 s
+2422,+6 Salute ogni 5 s
+2423,+6 Salute ogni 5 s
+2424,+6 Salute ogni 5 s
+2425,+6 Salute ogni 5 s
+2426,+7 Salute ogni 5 s
+2427,+7 Salute ogni 5 s
+2428,+7 Salute ogni 5 s
+2429,+7 Salute ogni 5 s
+2430,+8 Salute ogni 5 s
+2431,+8 Salute ogni 5 s
+2432,+8 Salute ogni 5 s
+2433,+8 Salute ogni 5 s
+2434,+$21614s1 Salute ogni 5 s
+2435,+9 Salute ogni 5 s
+2436,+9 Salute ogni 5 s
+2437,+9 Salute ogni 5 s
+2438,+10 Salute ogni 5 s
+2443,+$21930s1 Potenza Magica (Gelo)
+2483,+$k1 Resistenza al Fuoco
+2484,+$k1 Resistenza al Gelo
+2485,+$k1 Resistenza all'Arcano
+2486,+$k1 Resistenza alla Natura
+2487,+$k1 Resistenza all'Ombra
+2488,+$18676s1 Tutte le Resistenze
+2503,+$k1 Indice di Schivata
+2504,+$k1 Potenza Magica
+2505,+$k1 Potenza Magica
+2506,+$k1 Indice di Critico in Mischia
+2523,+$k1 Indice di Critico
+2543,+$k1 Indice di Celerità
+2544,+$k1 Potenza Magica
+2545,+$k1 Indice di Schivata
+2563,+$k1 Forza
+2564,+$k1 Agilità
+2565,+$k1 Indice di Versatilità
+2566,+$k1 Potenza Magica
+2567,+$k1 Indice di Versatilità
+2568,+$k1 Intelletto
+2583,"+$k1 Indice di Schivata, +$k2 Stamina e +$k3 Indice di Parata"
+2584,"+$k1 Indice di Schivata, +$k2 Stamina e +$k3 Intelletto"
+2585,+$k1 Potenza d'Attacco e +$k2 Indice di Schivata
+2586,"+$k1 Potenza d'Attacco a Distanza, +$k2 Tempra e +$k3 Indice di Critico"
+2587,+$k1 Potenza Magica e +$k2 Intelletto
+2588,+$k1 Potenza Magica e +$k2 Indice di Critico
+2589,+$k1 Potenza Magica e +$k2 Tempra
+2590,"+$k1 Intelletto, +$k2 Tempra e +$k3 Indice di Versatilità"
+2591,"+$k2 Intelletto, +$k3 Tempra +$k1 Potenza Magica"
+2603,+$24303s1 Pesca
+2604,+$k1 Potenza Magica
+2605,+$k1 Potenza Magica
+2606,+$k1 Potenza d'Attacco
+2607,+$k1 Potenza Magica
+2608,+$k1 Potenza Magica
+2609,+$k1 Potenza Magica
+2610,+$k1 Potenza Magica
+2611,zzOLDBlank
+2612,+$k1 Potenza Magica
+2613,+$25063s1% Minaccia
+2614,+$25064s1 Potenza Magica (Ombra)
+2615,+$25066s1 Potenza Magica (Gelo)
+2616,+$25065s1 Potenza Magica (Fuoco)
+2617,+$k1 Potenza Magica
+2618,+$k1 Agilità
+2621,2% Riduzione della Minaccia
+2622,+$k1 Indice di Schivata
+2623,Olio Magico Minore
+2624,Olio di Mana Minore
+2625,Olio di Mana Inferiore
+2626,Olio Magico Inferiore
+2627,Olio Magico
+2628,Olio Magico Brillante
+2629,Olio di Mana Brillante
+2645,Pietra del Fuoco 5
+2646,+$k1 Agilità
+2647,+$k1 Forza
+2648,+$k1 Indice di Schivata
+2649,+$k1 Tempra
+2650,+$k1 Potenza Magica
+2651,+$k1 Potenza Magica
+2652,+$k1 Potenza Magica
+2653,+$k1 Indice di Schivata
+2654,+$k1 Intelletto
+2655,+$k1 Indice di Parata
+2656,+$k1 Indice di Versatilità e +$k2 Tempra
+2657,+$k1 Agilità
+2658,+$k1 Indice di Celerità e +$k2 Indice di Critico
+2659,+$k1 Salute
+2660,+$k1 Mana
+2661,+$144845s1 Tutti gli Attributi
+2662,+$k1 Armatura
+2665,+$k1 Indice di Versatilità
+2666,+$k1 Intelletto
+2667,+$k1 Potenza d'Attacco
+2668,+$k1 Forza
+2669,+$k1 Potenza Magica
+2670,+$k1 Agilità
+2671,+$27979s1 Potenza Magica (Arcano e Fuoco)
+2672,+$27980s1 Potenza Magica (Ombra e Gelo)
+2673,Mangusta
+2674,Vampamagica
+2675,Maestro di Guerra
+2676,Olio di Mana Pregevole
+2677,Olio di Mana Pregevole
+2678,Olio Magico Pregevole
+2679,+$k1 Indice di Versatilità
+2681,+$k1 Resistenza alla Natura
+2682,+$k1 Resistenza al Gelo
+2683,+$k1 Resistenza all'Ombra
+2684,+100 Potenza d'Attacco contro non morti
+2686,+$k1 Forza
+2687,+$k1 Agilità
+2688,+$k1 Tempra
+2689,+$k1 Indice di Versatilità
+2690,+$k1 Intelletto
+2691,+$k1 Forza
+2692,+$k1 Intelletto
+2693,+$k1 Agilità
+2694,+$k1 Intelletto
+2695,+$k1 Indice di Critico
+2696,+$k1 Indice di Schivata
+2697,+$k1 Indice di Critico
+2698,+$k1 Tempra
+2699,+$k1 Indice di Versatilità
+2700,+$k1 Indice di Versatilità
+2701,+$k1 Indice di Versatilità
+2702,+12 Agilità (2 gemme rosse)
+2703,+4 Agilità (per gemma di colore differente)
+2704,+$k1 Forza (4 gemme blu)
+2705,+$k2 Indice di Celerità e +$k1 Intelletto
+2706,+$k1 Indice di Schivata e +$k2 Tempra
+2707,+$k2 Intelletto e +$k1 Indice di Versatilità
+2708,+$k1 Intelletto e +$k2 Tempra
+2709,+$k1 Intelletto e +$k2 Indice di Versatilità
+2710,+$k1 Agilità e +$k2 Tempra
+2711,+$k1 Forza e +$k2 Tempra
+2712,Affilato VI
+2713,Affilato VII
+2714,Chiodatura di Vilacciaio
+2715,+$k1 Potenza Magica e +$k2 Indice di Versatilità
+2716,+$k1 Tempra e +$k2 Armatura
+2717,+$k1 Potenza d'Attacco e +$k2 Indice di Critico
+2718,Runa di Protezione Inferiore
+2719,Runa dello Scudo Inferiore
+2720,Runa dello Scudo Superiore
+2721,+$k1 Potenza Magica e +$k2 Indice di Critico
+2722,Mirino (+$k1 Danni)
+2723,Mirino (+$k1 Danni)
+2724,Mirino (+$k1 Indice di Critico)
+2725,+$k1 Forza
+2726,+$k1 Agilità
+2727,+$k1 Intelletto
+2728,+$k1 Intelletto
+2729,+$k1 Agilità
+2730,+$k1 Indice di Schivata
+2731,+$k1 Tempra
+2732,+$k1 Indice di Versatilità
+2733,+$k1 Indice di Versatilità
+2734,+$k1 Intelletto
+2735,+$k1 Indice di Critico
+2736,+$k1 Indice di Critico
+2737,+$k1 Indice di Schivata
+2738,+$k1 Forza e +$k2 Tempra
+2739,+$k1 Agilità e +$k2 Tempra
+2740,+$k1 Intelletto e +$k2 Tempra
+2741,+$k1 Intelletto e +$k2 Indice di Versatilità
+2742,+$k1 Intelletto e +$k2 Indice di Celerità
+2743,+$k1 Indice di Schivata e +$k2 Tempra
+2744,+$k1 Intelletto e +$k2 Indice di Versatilità
+2745,+$k1 Potenza Magica e +$k2 Tempra
+2746,+$k1 Potenza Magica e +$k2 Tempra
+2747,+$k1 Potenza Magica e +$k2 Tempra
+2748,+$k1 Potenza Magica e +$k2 Tempra
+2749,+$k1 Intelletto
+2750,6 Mana ogni 5 s
+2751,+$k1 Indice di Critico
+2752,+$k2 Indice di Critico e +$k1 Forza
+2753,+$k1 Indice di Critico e +$k2 Forza
+2754,+$k1 Indice di Parata
+2755,+$k2 Indice di Critico e +$k1 Agilità
+2756,+$k1 Agilità e +$k2 Indice di Critico
+2757,+$k2 Indice di Critico e +$k1 Tempra
+2758,+$k2 Indice di Critico e +$k1 Tempra
+2759,+$k1 Armatura
+2760,+$k2 Indice di Critico e +$k1 Intelletto
+2761,+$k1 Intelletto e +$k2 Indice di Critico
+2762,+$k1 Indice di Critico e +$k2 Indice di Versatilità
+2763,+$k1 Indice di Critico e +$k2 Indice di Versatilità
+2764,+$k1 Indice di Critico
+2765,+$k1 Indice di Versatilità
+2766,+$k1 Intelletto
+2767,+$k1 Indice di Critico
+2768,+$k1 Potenza Magica
+2769,+$k1 Indice di Critico
+2770,+$k1 Potenza Magica
+2771,+$k1 Indice di Critico
+2772,+$k1 Indice di Critico
+2773,+$k1 Indice di Critico
+2774,+$k1 Intelletto
+2775,+$k1 Indice di Critico
+2776,+$k1 Indice di Versatilità
+2777,+$k1 Indice di Versatilità
+2778,+$k1 Indice di Versatilità
+2779,+$k1 Indice di Versatilità
+2780,+$k1 Indice di Versatilità
+2781,+$k1 Tempra
+2782,+$k1 Agilità
+2783,+$k1 Indice di Critico
+2784,+$k1 Indice di Critico
+2785,+$k1 Indice di Critico
+2786,+$k1 Indice di Critico
+2787,+$k1 Indice di Critico
+2788,+$k1 Armatura
+2789,+$k1 Armatura
+2790,Runa di Protezione Inferiore
+2791,Runa di Protezione Superiore
+2792,+$k1 Tempra
+2793,+$k1 Indice di Schivata
+2794,+$k1 Indice di Versatilità
+2795,Solette Confortevoli
+2796,+$k1 Indice di Schivata
+2797,+$k1 Indice di Schivata
+2798,+$i Intelletto (+$n/+$f)
+2799,+$i Tempra (+$n/+$f)
+2800,+$i Armatura (+$n/+$f)
+2801,+$k1 Armatura
+2827,+$k1 Indice di Critico e $11818s1% Riflessione Incantesimo
+2828,Possibilità di Aumento della Celerità Magica
+2829,+$k1 Indice di Critico e Leggero Aumento di Velocità
+2830,+$k1 Indice di Critico e $55378s1% Riduzione Durata Immobilizzazione/Rallentamento
+2831,+$k1 Tempra e 10% Riduzione Durata Stordimento
+2832,+$k1 Intelletto e 2% Riduzione della Minaccia
+2833,+$k1 Indice di Schivata e Possibilità di Recupero Salute a Impatto
+2834,+$k1 Danni in Mischia e Possibilità di Stordire il Bersaglio
+2835,+$k1 Intelletto e Possibilità di Recupero Mana al Lancio
+2836,3 Mana ogni 5 s
+2837,+$k1 Indice di Versatilità
+2838,+$k1 Indice di Critico
+2839,+$k1 Indice di Critico
+2840,+$k1 Tempra
+2841,+$k1 Tempra
+2842,+$k1 Indice di Versatilità
+2843,+$k1 Indice di Critico
+2844,+$k1 Indice di Critico
+2845,+$k1 Indice di Critico
+2846,4 Mana ogni 5 s
+2847,4 Mana ogni 5 s
+2848,5 Mana ogni 5 s
+2849,+7 Indice di Schivata
+2850,+$k1 Indice di Critico
+2851,+$k1 Tempra
+2852,7 Mana ogni 5 s
+2853,8 Mana ogni 5 s
+2854,3 Mana ogni 5 s
+2855,5 Mana ogni 5 s
+2856,+$k1 Armatura
+2857,+$k1 Indice di Critico
+2858,+$k1 Indice di Critico
+2859,+$k1 Armatura
+2860,+$k1 Indice di Critico
+2861,+$k1 Indice di Schivata
+2862,+$k1 Armatura
+2863,+$k1 Intelletto
+2864,+$k1 Indice di Critico
+2865,+$k1 Indice di Versatilità
+2866,+$k1 Indice di Versatilità
+2867,+$k1 Armatura
+2868,+$k1 Tempra
+2869,+$k1 Intelletto
+2870,+$k1 Indice di Parata
+2871,+$k1 Indice di Schivata
+2872,+$k1 Potenza Magica
+2873,+$k1 Indice di Critico
+2874,+$k1 Indice di Critico
+2875,+$k1 Indice di Critico
+2876,+$k1 Indice di Schivata
+2877,+$k1 Agilità
+2878,+$k1 Armatura
+2879,+$k1 Forza
+2880,+$k1 Indice di Critico
+2881,+2 Indice di Versatilità
+2882,+$k1 Tempra
+2883,+$k1 Tempra
+2884,+$k1 Indice di Critico
+2885,+$k1 Indice di Critico
+2886,+$k1 Indice di Critico
+2887,+$k1 Indice di Critico
+2889,+$k1 Potenza Magica
+2890,+$k1 Indice di Versatilità
+2891,+$k1 Armatura
+2892,+$k1 Forza
+2893,+$k1 Agilità
+2894,+$k1 Forza
+2895,+$k1 Tempra
+2896,+$k1 Intelletto
+2897,+$k1 Tempra e +$k2 Indice di Critico
+2898,+$k1 Tempra e +$k2 Indice di Critico
+2899,+$k1 Tempra e +$k2 Indice di Critico
+2900,+$k1 Potenza Magica
+2901,+$k1 Potenza Magica
+2902,+$k1 Indice di Critico
+2907,+$k1 Indice di Parata
+2908,+$k1 Indice di Critico
+2909,+$k1 Indice di Critico
+2910,+$k1 Potenza Magica
+2911,+$k1 Forza
+2912,+$k1 Intelletto
+2913,+$k1 Indice di Critico
+2914,+$k1 Indice di Critico
+2915,+$k1 Forza e +$k2 Indice di Critico
+2916,+$k1 Indice di Critico e +$k2 Intelletto
+2917,gem test enchantment
+2918,+$k1 Tempra e +$k2 Indice di Critico
+2919,+$k1 Forza
+2921,+$k1 Tempra e +$k2 Indice di Critico
+2922,+$k1 Forza
+2923,+$k1 Tempra e +$k2 Indice di Critico
+2924,+$k1 Intelletto
+2925,+$k1 Tempra
+2926,+$k1 Indice di Schivata
+2927,+$k1 Forza
+2930,+$k1 Intelletto
+2932,+$k1 Indice di Schivata
+2933,+$k1 Armatura
+2934,+$k1 Indice di Critico
+2935,+$k1 Indice di Critico
+2936,+$k1 Potenza d'Attacco
+2937,+$k1 Potenza Magica
+2938,+$k1 Attributo Primario
+2939,+$k2 Agilità e Leggero Aumento di Velocità
+2940,+$k2 Tempra e Leggero Aumento di Velocità
+2941,+$k1 Indice di Critico
+2942,+$k1 Indice di Critico
+2943,+$k1 Agilità
+2944,+$k1 Agilità
+2945,+$k1 Agilità
+2946,+$k1 Agilità e +$k2 Indice di Critico
+2947,+$18674s1 Tutte le Resistenze
+2948,+$18675s1 Tutte le Resistenze
+2949,+$k1 Agilità
+2950,+$k1 Indice di Critico
+2951,+$k1 Indice di Critico
+2952,+$k1 Indice di Critico
+2953,+$k1 Potenza Magica
+2954,Appesantito VI
+2955,Appesantito VII
+2956,+$k1 Forza
+2957,+$k1 Agilità
+2958,+$k1 Intelletto
+2959,+$k1 Intelletto
+2960,+$k1 Agilità
+2961,+$k1 Tempra
+2962,+$k1 Indice di Versatilità
+2963,+$k1 Indice di Versatilità
+2964,+$k1 Intelletto
+2965,+$k1 Indice di Critico
+2966,+$k1 Indice di Critico
+2967,+$k1 Indice di Critico
+2968,+$k1 Indice di Schivata
+2969,+$k1 Indice di Critico e Leggero Aumento di Velocità
+2970,+$k1 Intelletto e Leggero Aumento di Velocità
+2971,+$k1 Agilità
+2972,+$k1 Indice di Blocco
+2973,+$k1 Potenza d'Attacco
+2974,+$k1 Potenza Magica
+2976,+$k1 Indice di Schivata
+2977,+$k1 Indice di Schivata
+2978,+$k1 Indice di Schivata e +$k2 Tempra
+2979,+$k1 Potenza Magica
+2980,+$k1 Intelletto e +$k2 Indice di Versatilità
+2981,+$k1 Potenza Magica
+2982,+$k1 Potenza Magica e +$k2 Indice di Critico
+2983,+$k1 Potenza d'Attacco
+2984,+$k1 Tempra
+2985,+$k1 Tempra
+2986,+$k1 Potenza d'Attacco e +$k2 Indice di Critico
+2987,+$k1 Tempra
+2988,+$k1 Tempra
+2989,+$k1 Tempra
+2990,+$k1 Indice di Schivata
+2991,+$k2 Indice di Parata e +$k1 Indice di Schivata
+2992,+$k1 Indice di Versatilità
+2993,+$k1 Intelletto e +$k2 Indice di Versatilità
+2994,+$k1 Indice di Critico
+2995,+$k2 Indice di Critico e +$k1 Potenza Magica
+2996,+$k1 Indice di Critico
+2997,+$k2 Indice di Critico e +$k1 Potenza d'Attacco
+2998,+$35442s1 Tutte le Resistenze
+2999,+$k2 Indice di Parata e +$k1 Indice di Schivata
+3000,"+$k3 Tempra, +$k2 Indice di Schivata e +$k1 Armatura"
+3001,+$k1 Intelletto e +$k2 Indice di Versatilità
+3002,+$k1 Potenza Magica e +$k2 Indice di Critico
+3003,+$k1 Potenza d'Attacco e +$k2 Indice di Critico
+3004,+$k2 Tempra e +$k1 Armatura
+3005,+$k1 Resistenza alla Natura
+3006,+$k1 Resistenza all'Arcano
+3007,+$k1 Resistenza al Fuoco
+3008,+$k1 Resistenza al Gelo
+3009,+$k1 Resistenza all'Ombra
+3010,+$k2 Potenza d'Attacco e +$k1 Indice di Critico
+3011,+$k1 Tempra e +$k2 Agilità
+3012,+$k2 Potenza d'Attacco e +$k1 Indice di Critico
+3013,+$k1 Tempra e +$k2 Agilità
+3015,+$k1 Forza
+3016,+$k1 Intelletto
+3017,+$k1 Indice di Blocco
+3045,+$k1 Forza e +$k2 Tempra
+3046,+$k1 Intelletto e +$k2 Indice di Celerità
+3047,+$k1 Indice di Critico e +$k2 Tempra
+3048,+$k2 Agilità e +$k1 Tempra
+3049,+$k1 Indice di Critico e +$k2 Indice di Versatilità
+3050,+$k1 Intelletto e +$k2 Indice di Celerità
+3051,+$k2 Intelletto e +$k1 Tempra
+3052,+$k1 Agilità e +$k2 Indice di Critico
+3053,+$k1 Indice di Parata e +$k2 Indice di Schivata
+3054,+$k2 Intelletto e +$k1 Tempra
+3055,+$k1 Agilità e +$k2 Indice di Critico
+3056,+$k2 Indice di Parata e +$k1 Indice di Schivata
+3057,+$k1 Forza e +$k2 Indice di Critico
+3058,+$k1 Indice di Critico e +$k2 Indice di Versatilità
+3059,+$k1 Indice di Critico e $k2 Mana ogni 5 s
+3060,+$k1 Indice di Schivata e +$k2 Tempra
+3061,+$k1 Intelletto e +$k2 Indice di Critico
+3062,+$k1 Indice di Critico e +$k2 Tempra
+3063,+$k2 Indice di Parata e +$k1 Tempra
+3064,+$k1 Indice di Versatilità e +$k2 Intelletto
+3065,+$k1 Forza
+3066,+$k1 Intelletto e +$k2 Indice di Versatilità
+3067,+$k1 Agilità e +$k2 Tempra
+3068,+$k1 Indice di Schivata e +$k2 Indice di Critico
+3069,+$k1 Intelletto e +$k2 Armatura
+3070,+$k1 Agilità e +$k2 Indice di Critico
+3071,+$k1 Intelletto e +$k2 Tempra
+3072,+$k1 Forza e +$k2 Indice di Critico
+3073,+$k1 Agilità e +$k2 Indice di Schivata
+3074,+$k1 Intelletto e +$k2 Indice di Versatilità
+3075,+$k1 Forza e +$k2 Indice di Schivata
+3076,+$k1 Intelletto e +$k2 Indice di Critico
+3077,+$k1 Intelletto e +$k2 Indice di Versatilità
+3078,+$k1 Tempra e +$k2 Indice di Schivata
+3079,+$k1 Agilità e +$k2 Armatura
+3080,+$k1 Tempra e +$k2 Armatura
+3081,+$k2 Intelletto e +$k1 Indice di Critico
+3082,+$k1 Indice di Schivata e +$k2 Tempra
+3083,+$k2 Intelletto e +$k1 Indice di Versatilità
+3084,+$k1 Armatura e +$k2 Tempra
+3085,+$k1 Tempra e +$k2 Indice di Critico
+3086,+$k1 Intelletto e +$k2 Indice di Versatilità
+3087,+$k1 Forza e +$k2 Armatura
+3088,+$k1 Indice di Critico e +$k2 Indice di Schivata
+3089,+$k1 Indice di Critico e +$k2 Indice di Celerità
+3090,+$k1 Indice di Parata e +$k2 Armatura
+3091,+$k2 Indice di Critico e +$k1 Indice di Versatilità
+3092,+$k1 Indice di Critico
+3093,+$37362s1 Potenza d'Attacco Contro Non Morti e Demoni
+3094,+$k1 Indice di Celerità
+3095,+$37890s1 Tutte le Resistenze
+3096,+$k1 Forza e +$k2 Intelletto
+3097,+$k1 Indice di Versatilità
+3098,+$k1 Potenza Magica
+3099,+$k1 Intelletto e +$k2 Tempra
+3100,+$k1 Intelletto e +$k2 Tempra
+3101,+$k1 Forza e +$k2 Tempra
+3102,Veleno
+3103,+$k1 Forza
+3104,+$k1 Indice di Critico
+3105,+$k1 Indice di Critico
+3106,+$k1 Agilità e +$k2 Tempra
+3107,+$k1 Agilità e +$k2 Tempra
+3108,+$k1 Agilità e +$k2 Tempra
+3109,+$k1 Agilità e +$k2 Indice di Critico
+3110,+$k2 Intelletto e +$k1 Indice di Critico
+3111,+$k1 Intelletto e +$k2 Indice di Critico
+3112,+$k1 Agilità e +$k2 Indice di Critico
+3113,+$k1 Indice di Critico e +$k2 Agilità
+3114,+$k1 Potenza d'Attacco
+3115,+$k1 Forza
+3116,+$k1 Agilità
+3117,+$k1 Intelletto
+3118,+$k1 Intelletto
+3119,+$k1 Agilità
+3120,+$k1 Indice di Schivata
+3121,+$k1 Indice di Parata
+3122,+$k1 Tempra
+3123,+$k1 Indice di Versatilità
+3124,+$k1 Indice di Versatilità
+3125,+$k1 Indice di Versatilità
+3126,+$k1 Intelletto
+3127,+$k1 Indice di Critico
+3128,+$k1 Indice di Critico
+3129,+$k1 Indice di Critico
+3130,+$k1 Indice di Schivata
+3131,+$k1 Armatura
+3132,+$k1 Indice di Critico
+3133,+$k1 Forza e +$k2 Tempra
+3134,+$k1 Agilità e +$k2 Tempra
+3135,+$k1 Agilità e +$k2 Tempra
+3136,+$k1 Agilità e +$k2 Indice di Critico
+3137,+$k1 Intelletto e +$k2 Tempra
+3138,+$k1 Intelletto e +$k2 Indice di Versatilità
+3139,+$k2 Indice di Critico e +$k1 Forza
+3140,+$k1 Intelletto e +$k2 Indice di Critico
+3141,+$k1 Intelletto e +$k2 Indice di Celerità
+3142,+$k1 Agilità e +$k2 Indice di Critico
+3143,+$k1 Intelletto e +$k2 Indice di Critico
+3144,+$k1 Agilità e +$k2 Indice di Critico
+3145,+$k1 Indice di Schivata e +$k2 Tempra
+3146,+$k1 Indice di Critico e +$k2 Indice di Versatilità
+3147,+$k1 Intelletto e +$k2 Indice di Versatilità
+3148,+$k2 Indice di Critico e +$k1 Tempra
+3149,+$k1 Agilità
+3150,+$k1 Indice di Versatilità
+3151,+$k1 Potenza Magica
+3152,+$k1 Indice di Critico
+3153,+$k1 Potenza Magica
+3154,+$k1 Agilità e $44797s1% Aumento Effetti Critici
+3155,Possibilità di Aumento della Celerità in Mischia/a Distanza
+3156,+$k1 Agilità e +$k2 Tempra
+3157,+$k1 Intelletto e +$k2 Tempra
+3158,+$k1 Intelletto e +$k2 Indice di Versatilità
+3159,+$k1 Agilità e +$k2 Indice di Critico
+3160,+$k1 Intelletto e +$k2 Indice di Celerità
+3161,+$k1 Tempra e +$k2 Indice di Critico
+3162,+$k1 Indice di Critico e $40691s1% Resistenza allo Stordimento
+3163,+$k1 Intelletto e 5% Riduzione Durata Stordimento
+3164,+$k1 Tempra
+3197,+$k1 Agilità
+3198,+$k1 Potenza Magica
+3199,+$k1 Armatura
+3200,+$k1 Indice di Versatilità e +$k2 Potenza Magica
+3201,+$k2 Intelletto e +$k1 Indice di Versatilità
+3202,+$k1 Intelletto e +$k2 Indice di Versatilità
+3204,+$k1 Indice di Critico
+3205,+$k1 Indice di Critico
+3206,+$k1 Agilità
+3207,+$k1 Forza
+3208,+$k1 Agilità
+3209,+$k1 Agilità
+3210,+$k1 Intelletto
+3211,+$k1 Intelletto
+3212,+$k1 Tempra
+3213,+$k1 Indice di Versatilità
+3214,+$k1 Indice di Versatilità
+3215,+$k1 Armatura
+3216,+$k1 Intelletto
+3217,+$k1 Indice di Critico
+3218,+$k1 Indice di Critico
+3219,+$k1 Indice di Critico
+3220,+$k1 Indice di Critico
+3221,+$k1 Indice di Schivata
+3222,+$k1 Agilità
+3223,Catena per Arma d'Adamantite
+3224,+$k1 Agilità
+3225,Carnefice
+3226,+$k1 Armatura e +$k2 Tempra
+3227,+$k1 Indice di Critico
+3228,+$k1 Potenza d'Attacco
+3229,+$k1 Armatura
+3230,+$k1 Resistenza al Gelo
+3231,+$k1 Indice di Celerità
+3232,+$k2 Tempra e Leggero Aumento di Velocità
+3233,+$k1 Mana
+3234,+$k1 Indice di Critico
+3236,+$k1 Salute
+3238,Raccolta
+3239,Spezzaghiaccio
+3240,+$k1 Potenza Magica
+3241,Protezione Vitale
+3242,+$18676s1 Tutte le Resistenze
+3243,+$k1 Attributo Primario
+3244,+$k1 Indice di Versatilità e +$k2 Tempra
+3245,+$k1 Armatura
+3246,+$k1 Potenza Magica
+3247,+$44594s1 Potenza d'Attacco Contro Non Morti
+3248,+$k1 Indice di Celerità
+3249,+$k1 Indice di Critico
+3250,Calcaghiacci
+3251,Ammazzagiganti
+3252,+$44624s1 Tutti gli Attributi
+3253,+$25063s1% Minaccia e +$k2 Indice di Parata
+3254,+$44627s1 Tutti gli Attributi
+3255,+$k1 Potenza Magica
+3256,+$k2 Agilità e +$k1 Armatura
+3257,+$k1 Potenza Magica
+3258,+$k1 Potenza Magica
+3259,+$k1 Tempra
+3260,+$k1 Tempra
+3261,+$k1 Indice di Critico e $44797s1% Aumento Effetti Critici
+3262,+$k1 Tempra
+3263,+$k1 Indice di Critico
+3264,+150 Armatura e -10% Velocità
+3265,Olio dell'Arma Benedetta
+3266,Olio dell'Arma Virtuosa
+3267,+$k1 Indice di Celerità
+3268,+$k1 Tempra
+3269,+$45698s1 Pesca
+3270,+$k1 Indice di Celerità
+3271,+$k1 Intelletto e +$k2 Indice di Celerità
+3272,+$k2 Indice di Celerità e +$k1 Tempra
+3273,Mortefredda
+3274,+$k1 Indice di Schivata e +$55283s1% Indice di Blocco
+3275,+$k1 Intelletto e +$55275s1% Mana Massimo
+3276,+$k1 Potenza d'Attacco
+3277,+$k1 Potenza Magica
+3278,+$k1 Potenza Magica
+3279,+$k1 Potenza Magica
+3280,+$k1 Indice di Schivata e +$k2 Tempra
+3281,+$k1 Agilità
+3282,+$k1 Intelletto
+3283,+$k1 Intelletto
+3284,+$k2 Armatura e +$k1 Tempra
+3285,+$k2 Indice di Celerità e +$k1 Tempra
+3286,+$k1 Intelletto e +$k2 Indice di Celerità
+3287,+$k1 Indice di Celerità
+3288,Test Riding Crop Enchant
+3289,+10% Velocità su Cavalcatura
+3290,Espandicappa a Molla
+3291,Test On Use Charges
+3292,+$k1 Agilità
+3293,+$k1 Tempra
+3294,+$k1 Tempra
+3295,+$k1 Indice di Celerità
+3296,+$k2 Indice di Versatilità e 2% Riduzione della Minaccia
+3297,+$k1 Salute
+3298,Olio di Mana Eccezionale
+3299,Olio Magico Eccezionale
+3300,+$k1 Potenza Magica
+3301,+$k1 Indice di Critico
+3302,+$k1 Indice di Schivata
+3303,+$k1 Indice di Celerità
+3304,+$k1 Indice di Schivata
+3305,+$k1 Tempra
+3306,2 Mana ogni 5 s
+3307,+$k1 Tempra
+3308,+$k1 Indice di Celerità
+3309,+$k1 Indice di Celerità
+3310,+$k1 Intelletto
+3311,+$k1 Indice di Versatilità
+3312,+$k1 Forza
+3313,+$k1 Agilità
+3314,+$k1 Indice di Critico
+3315,+3% Velocità su Cavalcatura
+3316,+$k1 Indice di Critico
+3318,+$k1 Intelletto e +$k2 Indice di Versatilità
+3319,Test Add Sockets Enchant
+3320,Test Skill Req Enchant
+3321,+$k1 Armatura
+3322,Arma Runica Gelida
+3324,+$k1 Indice di Critico
+3325,+$k1 Tempra e +$k2 Agilità
+3326,+$k2 Potenza d'Attacco e +$k1 Indice di Critico
+3327,+$k1 Tempra e +$k2 Agilità
+3328,+$k2 Potenza d'Attacco e +$k1 Indice di Critico
+3329,+$k1 Tempra
+3330,+$k1 Tempra
+3331,+$k1 Tempra e +$k2 Agilità
+3332,+$k2 Potenza d'Attacco e +$k1 Indice di Critico
+3333,QA Test Blank Purple Gem Enchant
+3334,Volo di Nordania
+3335,+$k1 Agilità
+3336,+$k1 Indice di Critico
+3337,+$k1 Agilità e +$k2 Indice di Critico
+3338,+$k1 Intelletto e +$k2 Indice di Critico
+3339,+$k1 Intelletto
+3340,+$k1 Indice di Critico
+3341,Arma Runica Gelida 2
+3342,Arma Runica Gelida 3
+3343,Arma Runica Gelida 4
+3344,Arma Runica Gelida 5
+3351,+$k1 Indice di Critico
+3352,+$k1 Indice di Versatilità
+3353,+$k1 Intelletto
+3354,+$k1 Tempra
+3355,+$k1 Agilità
+3356,+$k1 Potenza d'Attacco
+3357,+$k1 Forza
+3358,+$k1 Indice di Schivata
+3359,+$k1 Indice di Parata
+3360,+$k1 Indice di Parata
+3361,+$k1 Indice di Blocco
+3362,+$k1 Indice di Celerità
+3364,Attivazione Runica
+3366,Runa del Tormento dei Non Morti
+3367,Runa dell'Incantesimo Infranto
+3368,Runa del Crociato Caduto
+3370,Runa della Lama di Ghiaccio
+3371,+$k1 Forza
+3374,+$k1 Agilità
+3375,+$k1 Agilità
+3376,+$k1 Indice di Schivata
+3377,+$k1 Indice di Parata
+3378,+$k1 Indice di Critico
+3379,+$k1 Indice di Celerità
+3380,+$k1 Intelletto
+3381,+$k1 Intelletto
+3382,+$k1 Indice di Critico
+3383,+$k1 Indice di Critico
+3384,+$k1 Indice di Schivata
+3385,+$k1 Armatura
+3386,+$k1 Indice di Celerità
+3387,+$k1 Tempra
+3388,+$k1 Indice di Versatilità
+3389,+$k1 Indice di Versatilità
+3390,+$k1 Indice di Versatilità
+3391,+$k1 Indice di Critico e +$k2 Tempra
+3392,+$k1 Forza e +$k2 Tempra
+3393,+$k1 Agilità e +$k2 Tempra
+3394,+$k1 Intelletto e +$k2 Tempra
+3395,+$k1 Agilità e +$k2 Tempra
+3396,+$k1 Indice di Schivata e +$k2 Tempra
+3397,+$k1 Indice di Parata e +$k2 Tempra
+3398,+$k1 Indice di Celerità e +$k2 Tempra
+3399,+$k1 Intelletto e +$k2 Indice di Versatilità
+3400,+$k1 Agilità e +$k2 Indice di Critico
+3401,+$k1 Intelletto e +$k2 Indice di Versatilità
+3402,+$k1 Agilità e +$k2 Indice di Critico
+3403,+$k1 Intelletto e +$k2 Indice di Versatilità
+3404,+$k1 Intelletto e +$k2 Indice di Celerità
+3405,+$k1 Forza e +$k2 Indice di Critico
+3406,+$k1 Agilità e +$k2 Indice di Critico
+3407,+$k1 Forza e +$k2 Indice di Schivata
+3408,+$k1 Forza e +$k2 Armatura
+3409,+$k1 Forza e +$k2 Indice di Celerità
+3410,+$k1 Agilità e +$k2 Indice di Critico
+3411,+$k1 Forza e +$k2 Indice di Critico
+3412,+$k1 Agilità e +$k2 Armatura
+3413,+$k1 Agilità e +$k2 Indice di Celerità
+3414,+$k1 Intelletto e +$k2 Indice di Critico
+3415,+$k1 Intelletto e +$k2 Indice di Critico
+3416,+$k1 Intelletto e +$k2 Armatura
+3417,+$k1 Intelletto e +$k2 Indice di Celerità
+3418,+$k1 Indice di Schivata e +$k2 Indice di Parata
+3419,+$k1 Indice di Parata e +$k2 Indice di Schivata
+3420,+$k1 Indice di Celerità e +$k2 Indice di Critico
+3421,+$k1 Indice di Celerità e +$k2 Indice di Schivata
+3422,+$k1 Agilità e +$k2 Indice di Critico
+3423,+$k1 Agilità e +$k2 Indice di Critico
+3424,+$k1 Agilità e +$k2 Armatura
+3426,+$k1 Agilità e +$k2 Indice di Celerità
+3427,+$k1 Intelletto e +$k2 Tempra
+3428,+$k1 Indice di Critico e +$k2 Tempra
+3429,+$k1 Indice di Critico e +$k2 Indice di Schivata
+3430,+$k1 Indice di Schivata e +$k2 Tempra
+3431,+$k1 Armatura e +$k2 Tempra
+3432,+$k1 Indice di Celerità e +$k2 Tempra
+3433,+$k1 Intelletto e +$k2 Indice di Versatilità
+3434,+$k1 Indice di Critico e +$k2 Indice di Versatilità
+3435,+$k1 Indice di Critico e +$k2 Indice di Celerità
+3436,+$k1 Armatura e +$k2 Indice di Versatilità
+3437,+$k1 Indice di Celerità e +$k2 Indice di Versatilità
+3438,+$k1 Intelletto e +$k2 Indice di Versatilità
+3439,+$k1 Indice di Critico e +$k2 Indice di Versatilità
+3440,+$k1 Indice di Critico e +$k2 Indice di Celerità
+3441,+$k1 Armatura e +$k2 Indice di Versatilità
+3442,+$k1 Indice di Celerità e +$k2 Indice di Versatilità
+3443,+$k1 Indice di Critico e +$k2 Indice di Versatilità
+3444,+$k1 Indice di Critico e +$k2 Indice di Versatilità
+3445,+$k1 Indice di Celerità e +$k2 Indice di Versatilità
+3446,+$k1 Forza
+3447,+$k1 Agilità
+3449,+$k1 Agilità
+3450,+$k1 Indice di Schivata
+3451,+$k1 Indice di Parata
+3452,+$k1 Indice di Critico
+3453,+$k1 Indice di Celerità
+3454,+$k1 Tempra
+3455,+$k1 Indice di Versatilità
+3456,+$k1 Indice di Versatilità
+3457,+$k1 Indice di Versatilità
+3459,+$k1 Indice di Critico
+3460,+$k1 Indice di Critico
+3461,+$k1 Indice di Schivata
+3462,+$k1 Armatura
+3463,+$k1 Indice di Celerità
+3464,+$k1 Forza e +$k2 Tempra
+3465,+$k1 Agilità e +$k2 Tempra
+3466,+$k1 Intelletto e +$k2 Tempra
+3467,+$k1 Agilità e +$k2 Tempra
+3468,+$k1 Indice di Schivata e +$k2 Tempra
+3469,+$k1 Indice di Parata e +$k2 Tempra
+3470,+$k1 Indice di Critico e +$k2 Tempra
+3471,+$k1 Indice di Celerità e +$k2 Tempra
+3472,+$k1 Intelletto e +$k2 Indice di Versatilità
+3473,+$k1 Intelletto e +$k2 Indice di Versatilità
+3474,+$k1 Agilità e +$k2 Indice di Critico
+3475,+$k1 Agilità e +$k2 Indice di Critico
+3476,+$k1 Intelletto e +$k2 Indice di Versatilità
+3477,+$k1 Forza e +$k2 Indice di Critico
+3478,+$k1 Forza e +$k2 Indice di Critico
+3479,+$k1 Forza e +$k2 Indice di Schivata
+3480,+$k1 Forza e +$k2 Armatura
+3481,+$k1 Forza e +$k2 Indice di Celerità
+3482,+$k1 Agilità e +$k2 Indice di Critico
+3483,+$k1 Agilità e +$k2 Indice di Critico
+3484,+$k1 Agilità e +$k2 Armatura
+3485,+$k1 Agilità e +$k2 Indice di Celerità
+3486,+$k1 Intelletto e +$k2 Indice di Celerità
+3487,+$k1 Intelletto e +$k2 Indice di Critico
+3488,+$k1 Intelletto e +$k2 Indice di Critico
+3489,+$k1 Intelletto e +$k2 Armatura
+3490,+$k1 Intelletto e +$k2 Indice di Celerità
+3491,+$k1 Agilità e +$k2 Indice di Critico
+3492,+$k1 Agilità e +$k2 Indice di Critico
+3493,+$k1 Agilità e +$k2 Armatura
+3494,+$k1 Agilità e +$k2 Indice di Celerità
+3495,+$k1 Indice di Schivata e +$k2 Indice di Parata
+3496,+$k1 Indice di Parata e +$k2 Indice di Schivata
+3497,+$k1 Indice di Celerità e +$k2 Indice di Critico
+3498,+$k1 Indice di Celerità e +$k2 Indice di Schivata
+3499,+$k1 Intelletto e +$k2 Tempra
+3500,+$k1 Indice di Critico e +$k2 Tempra
+3501,+$k1 Indice di Critico e +$k2 Indice di Schivata
+3502,+$k1 Indice di Schivata e +$k2 Tempra
+3503,+$k1 Armatura e +$k2 Tempra
+3504,+$k1 Indice di Celerità e +$k2 Tempra
+3505,+$k1 Intelletto e +$k2 Indice di Versatilità
+3506,+$k1 Indice di Critico e +$k2 Indice di Versatilità
+3507,+$k1 Indice di Critico e +$k2 Indice di Celerità
+3508,+$k1 Armatura e +$k2 Indice di Versatilità
+3509,+$k1 Indice di Celerità e +$k2 Indice di Versatilità
+3510,+$k1 Intelletto e +$k2 Indice di Versatilità
+3511,+$k1 Indice di Critico e +$k2 Indice di Versatilità
+3512,+$k1 Indice di Critico e +$k2 Indice di Celerità
+3513,+$k1 Indice di Versatilità e +$k2 Armatura
+3514,+$k1 Indice di Celerità e +$k2 Indice di Versatilità
+3515,+$k1 Indice di Critico e +$k2 Indice di Versatilità
+3516,+$k1 Indice di Critico e +$k2 Indice di Versatilità
+3517,+$k1 Indice di Celerità e +$k2 Indice di Versatilità
+3518,+$k1 Forza
+3519,+$k1 Agilità
+3520,+$k1 Intelletto
+3521,+$k1 Agilità
+3522,+$k1 Indice di Schivata
+3523,+$k1 Indice di Parata
+3524,+$k1 Indice di Celerità
+3525,+$k1 Indice di Critico
+3526,+$k1 Intelletto
+3527,+$k1 Indice di Critico
+3528,+$k1 Indice di Critico
+3529,+$k1 Indice di Schivata
+3530,+$k1 Armatura
+3531,+$k1 Indice di Celerità
+3532,+$k1 Tempra
+3533,+$k1 Indice di Versatilità
+3534,+$k1 Indice di Versatilità
+3535,+$k1 Indice di Versatilità
+3536,+$k1 Forza e +$k2 Tempra
+3537,+$k1 Agilità e +$k2 Tempra
+3538,+$k1 Intelletto e +$k2 Tempra
+3539,+$k1 Agilità e +$k2 Tempra
+3540,+$k1 Indice di Schivata e +$k2 Tempra
+3541,+$k1 Indice di Parata e +$k2 Tempra
+3542,+$k1 Indice di Celerità e +$k2 Tempra
+3543,+$k1 Indice di Critico e +$k2 Tempra
+3544,+$k1 Agilità e +$k2 Indice di Critico
+3545,+$k1 Intelletto e +$k2 Indice di Versatilità
+3546,+$k1 Intelletto e +$k2 Indice di Versatilità
+3547,+$k1 Agilità e +$k2 Indice di Critico
+3548,+$k1 Intelletto e +$k2 Indice di Versatilità
+3549,+$k1 Forza e +$k2 Indice di Critico
+3550,+$k1 Forza e +$k2 Indice di Critico
+3551,+$k1 Forza e +$k2 Indice di Schivata
+3552,+$k1 Forza e +$k2 Armatura
+3553,+$k1 Forza e +$k2 Indice di Celerità
+3554,+$k1 Agilità e +$k2 Indice di Critico
+3555,+$k1 Agilità e +$k2 Indice di Critico
+3556,+$k1 Agilità e +$k2 Armatura
+3557,+$k1 Agilità e +$k2 Indice di Celerità
+3558,+$k1 Intelletto e +$k2 Indice di Versatilità
+3559,+$k1 Intelletto e +$k2 Indice di Critico
+3560,+$k1 Intelletto e +$k2 Indice di Critico
+3561,+$k1 Intelletto e +$k2 Armatura
+3563,+$k1 Intelletto e +$k2 Indice di Celerità
+3564,+$k1 Agilità e +$k2 Indice di Critico
+3565,+$k1 Agilità e +$k2 Indice di Critico
+3566,+$k1 Agilità e +$k2 Armatura
+3567,+$k1 Agilità e +$k2 Indice di Celerità
+3568,+$k1 Indice di Schivata e +$k2 Indice di Parata
+3569,+$k1 Indice di Parata e +$k2 Indice di Schivata
+3570,+$k1 Indice di Celerità e +$k2 Indice di Critico
+3571,+$k1 Indice di Celerità e +$k2 Indice di Schivata
+3572,+$k1 Intelletto e +$k2 Tempra
+3573,+$k1 Indice di Critico e +$k2 Tempra
+3574,+$k1 Indice di Critico e +$k2 Indice di Schivata
+3575,+$k1 Indice di Schivata e +$k2 Tempra
+3576,+$k1 Armatura e +$k2 Tempra
+3577,+$k1 Indice di Celerità e +$k2 Tempra
+3578,+$k1 Intelletto e +$k2 Indice di Versatilità
+3579,+$k1 Indice di Critico e +$k2 Indice di Versatilità
+3580,+$k1 Indice di Critico e +$k2 Indice di Celerità
+3581,+$k1 Armatura e +$k2 Indice di Versatilità
+3582,+$k1 Indice di Celerità e +$k2 Indice di Versatilità
+3583,+$k1 Intelletto e +$k2 Indice di Versatilità
+3584,+$k1 Indice di Critico e +$k2 Indice di Versatilità
+3585,+$k1 Indice di Critico e +$k2 Indice di Celerità
+3586,+$k1 Armatura e +$k2 Indice di Versatilità
+3587,+$k1 Indice di Celerità e +$k2 Indice di Versatilità
+3588,+$k1 Indice di Critico e +$k2 Indice di Versatilità
+3589,+$k1 Indice di Critico e +$k2 Indice di Versatilità
+3590,+$k1 Indice di Celerità e +$k2 Indice di Versatilità
+3591,Test +$k1 Intellect and +$k2 Versatility
+3592,+$54288s1 Potenza Magica Contro Non Morti
+3593,+$54289s1 Potenza d'Attacco Contro Non Morti
+3595,Runa dell'Incantesimo Spezzato
+3596,+$k1 Potenza Magica
+3597,Pietra del Fuoco Massima
+3599,Generatore di Elettroimpulsi
+3600,+$k1 Armatura
+3601,Carica per Cintura
+3602,+$k1 Potenza Magica
+3605,Sottotela Flessibile
+3607,+$k1 Indice di Celerità a Distanza
+3608,+$k1 Indice di Critico
+3609,Pietra del Fuoco
+3610,Pietra del Fuoco
+3611,Pietra del Fuoco Superiore
+3612,Pietra del Fuoco Maggiore
+3613,Pietra della Vilmagia
+3614,Pietra del Fuoco Suprema
+3615,Pietra della Magia
+3616,Pietra della Magia Superiore
+3617,Pietra della Magia Maggiore
+3618,Pietra della Magia Massima
+3619,Pietra della Magia Demoniaca
+3620,Pietra della Magia Suprema
+3621,+$k1 Indice di Critico e $44797s1% Aumento Effetti Critici
+3622,+$k1 Indice di Critico e $11818s1% Riflessione Incantesimo
+3623,+$k1 Intelletto e +$55275s1% Mana Massimo
+3624,+$k1 Indice di Critico e $55378s1% Riduzione Durata Immobilizzazione/Rallentamento
+3625,+$k1 Indice di Critico e Leggero Aumento di Velocità
+3626,+$k1 Intelletto e 2% Riduzione della Minaccia
+3627,+$k1 Intelletto e Possibilità di Recupero Mana al Lancio
+3628,+$k1 Agilità e $44797s1% Aumento Effetti Critici
+3630,+$k1 Indice di Schivata e Possibilità di Recupero Salute a Impatto
+3631,+$k1 Indice di Schivata e +$55283s1% Indice di Blocco
+3632,+$k1 Intelletto e Leggero Aumento di Velocità
+3633,+$k1 Indice di Versatilità e 3% Aumento Effetti Critici
+3634,+$k1 Tempra e 2% Riduzione Danni Magici
+3635,+$k1 Intelletto e 10% Riduzione Durata Silenzio
+3636,+$k1 Indice di Critico e $55357s1% Riduzione Durata Paura
+3637,+$k1 Tempra e 2% Aumento Armatura dagli Oggetti
+3638,+$k1 Indice di Critico e $55358s1% Riduzione Durata Stordimento
+3639,+$k1 Intelletto e 10% Riduzione Durata Stordimento
+3640,+$k1 Indice di Celerità e Possibilità di Recupero Salute a Critico
+3641,+$k1 Indice di Critico e +$55337s1% Mana
+3642,+$k1 Tempra e 10% Riduzione Durata Stordimento
+3643,Possibilità di Aumento della Celerità in Mischia/a Distanza
+3644,+$k1 Agilità
+3646,+$k1 Indice di Schivata
+3647,+$k1 Indice di Celerità
+3648,+$k1 Indice di Parata
+3649,+$k1 Forza
+3650,+$k1 Intelletto
+3651,+$k1 Agilità
+3652,+$k1 Indice di Critico
+3653,+$k1 Indice di Versatilità
+3654,+$k1 Indice di Versatilità
+3655,+$k1 Tempra
+3656,+$k1 Indice di Versatilità
+3657,+$k1 Indice di Critico
+3658,+$k1 Indice di Schivata
+3659,+$k1 Indice di Celerità
+3660,+$k1 Indice di Critico
+3661,+$k1 Intelletto
+3662,+$k1 Armatura
+3663,+$k1 Agilità e +$k2 Indice di Critico
+3664,+$k1 Agilità e +$k2 Tempra
+3665,+$k1 Indice di Critico e +$k2 Tempra
+3666,+$k1 Agilità e +$k2 Indice di Critico
+3667,+$k1 Agilità e +$k2 Tempra
+3668,+$k1 Indice di Schivata e +$k2 Tempra
+3669,+$k1 Indice di Celerità e +$k2 Tempra
+3670,+$k1 Indice di Parata e +$k2 Tempra
+3671,+$k1 Forza e +$k2 Tempra
+3672,+$k1 Intelletto e +$k2 Indice di Versatilità
+3673,+$k1 Intelletto e +$k2 Indice di Versatilità
+3674,+$k1 Intelletto e +$k2 Indice di Versatilità
+3675,+$k1 Intelletto e +$k2 Tempra
+3676,+$k1 Potenza d'Attacco e +$k2 Indice di Critico
+3677,+$k1 Agilità e +$k2 Indice di Celerità
+3678,+$k1 Agilità e +$k2 Indice di Celerità
+3679,+$k1 Agilità e +$k2 Indice di Critico
+3680,+$k1 Agilità e +$k2 Armatura
+3681,+$k1 Forza e +$k2 Indice di Critico
+3682,+$k1 Forza e +$k2 Indice di Critico
+3683,+$k1 Forza e +$k2 Indice di Schivata
+3684,+$k1 Forza e +$k2 Armatura
+3685,+$k1 Forza e +$k2 Indice di Celerità
+3686,+$k1 Agilità e +$k2 Indice di Critico
+3687,+$k1 Agilità e +$k2 Indice di Critico
+3688,+$k1 Agilità e +$k2 Armatura
+3689,+$k1 Intelletto e +$k2 Indice di Versatilità
+3690,+$k1 Intelletto e +$k2 Indice di Critico
+3691,+$k1 Intelletto e +$k2 Indice di Critico
+3692,+$k1 Intelletto e +$k2 Armatura
+3693,+$k1 Intelletto e +$k2 Indice di Celerità
+3694,+$k1 Indice di Schivata e +$k2 Indice di Parata
+3695,+$k1 Indice di Parata e +$k2 Indice di Schivata
+3696,+$k1 Indice di Celerità e +$k2 Indice di Critico
+3697,+$k1 Indice di Celerità e +$k2 Indice di Schivata
+3698,+$k1 Indice di Critico e +$k2 Indice di Versatilità
+3699,+$k1 Indice di Critico e +$k2 Tempra
+3700,+$k1 Indice di Schivata e +$k2 Tempra
+3701,+$k1 Indice di Celerità e +$k2 Indice di Versatilità
+3702,+$k1 Indice di Celerità e +$k2 Tempra
+3703,+$k1 Indice di Critico e +$k2 Indice di Celerità
+3704,+$k1 Indice di Critico e +$k2 Indice di Schivata
+3705,+$k1 Intelletto e +$k2 Indice di Versatilità
+3706,+$k1 Intelletto e +$k2 Tempra
+3707,+$k1 Armatura e +$k2 Indice di Versatilità
+3708,+$k1 Armatura e +$k2 Tempra
+3709,+$k1 Indice di Critico e +$k2 Indice di Versatilità
+3710,+$k1 Indice di Critico e +$k2 Indice di Versatilità
+3711,+$k1 Intelletto e +$k2 Indice di Versatilità
+3712,+$k1 Indice di Critico e +$k2 Indice di Celerità
+3713,+$k1 Armatura e +$k2 Indice di Versatilità
+3714,+$k1 Indice di Celerità e +$k2 Indice di Versatilità
+3715,+$k1 Indice di Critico e +$k2 Indice di Versatilità
+3716,+$k1 Indice di Celerità e +$k2 Indice di Versatilità
+3717,Incavo per Bracciali
+3718,+$k1 Potenza Magica e +$k2 Indice di Versatilità
+3719,+$k1 Potenza Magica e +$k2 Indice di Versatilità
+3720,+$k1 Potenza Magica e +$k2 Tempra
+3721,+$k1 Potenza Magica e +$k2 Tempra
+3723,Incavo per Guanti
+3729,Incavo per Cintura
+3731,Catena per Arma di Titanio
+3732,+$k1 Forza
+3733,+$k1 Agilità
+3734,+$k1 Intelletto
+3735,+$k1 Indice di Versatilità
+3736,+$k1 Indice di Versatilità
+3737,+$k1 Intelletto
+3738,+$k1 Indice di Critico
+3739,+$k1 Indice di Celerità
+3740,+$k1 Indice di Schivata
+3741,+$k1 Indice di Parata
+3742,+$k1 Indice di Critico
+3743,+$k1 Indice di Schivata
+3744,+$k1 Armatura
+3745,+$k1 Indice di Critico
+3746,+$k1 Indice di Celerità
+3747,+$k1 Indice di Versatilità
+3748,Chiodatura di Titanio
+3749,+$56527s1 Tutti gli Attributi
+3750,+$56529s1 Tutti gli Attributi
+3751,+$k1 Indice di Schivata
+3752,+$k1 Potenza Magica
+3753,+$k1 Potenza Magica
+3754,"+$k1 Potenza d'Attacco, +$k3 Tempra e +$k2 Indice di Critico"
+3755,+$k1 Potenza d'Attacco e +$k2 Indice di Schivata
+3764,+$k1 Potenza d'Attacco
+3765,+$k1 Indice di Critico
+3766,+$k1 Tempra
+3767,+$k1 Agilità e +$k2 Indice di Critico
+3775,+$k1 Potenza Magica e +$k2 Indice di Critico
+3776,+$k1 Potenza d'Attacco e +$k2 Indice di Critico
+3777,+$k2 Indice di Schivata e +$k1 Tempra
+3778,+$k1 Indice di Celerità
+3788,+$k1 Indice di Critico
+3789,Berserker
+3790,Magia Nera
+3792,+$k1 Armatura
+3793,+$k1 Potenza d'Attacco
+3794,+$k1 Potenza Magica
+3795,+$k1 Potenza d'Attacco e +$k2 Armatura
+3796,+$k1 Potenza Magica e +$k2 Armatura
+3797,+$k1 Potenza Magica e +$k2 Armatura
+3798,+$k1 Indice di Critico e Leggero Aumento di Velocità
+3799,+$k1 Intelletto e Leggero Aumento di Velocità
+3800,+$k1 Indice di Critico e $55357s1% Riduzione Durata Paura
+3801,+$k1 Indice di Critico e $55378s1% Riduzione Durata Immobilizzazione/Rallentamento
+3802,+$k1 Intelletto e 10% Riduzione Durata Silenzio
+3803,+$k1 Indice di Critico e $55378s1% Riduzione Durata Immobilizzazione/Rallentamento
+3804,+$k1 Tempra e 10% Riduzione Durata Stordimento
+3805,+$k1 Intelletto e 10% Riduzione Durata Stordimento
+3806,+$k1 Potenza Magica e +$k2 Indice di Critico
+3807,+$k1 Intelletto e +$k2 Indice di Versatilità
+3808,+$k1 Potenza d'Attacco e +$k2 Indice di Critico
+3809,+$k1 Intelletto e +$k2 Indice di Versatilità
+3810,+$k1 Potenza Magica e +$k2 Indice di Critico
+3811,+$k1 Indice di Schivata e +$k2 Tempra
+3812,+$k2 Tempra e +$k1 Resistenza al Gelo
+3813,+$k2 Tempra e +$k1 Resistenza alla Natura
+3814,+$k2 Tempra e +$k1 Resistenza all'Ombra
+3815,+$k2 Tempra e +$k1 Resistenza all'Arcano
+3816,+$k2 Tempra e +$k1 Resistenza al Fuoco
+3817,+$k1 Potenza d'Attacco e +$k2 Indice di Critico
+3818,+$k1 Tempra e +$k2 Indice di Schivata
+3819,+$k1 Intelletto e +$k2 Indice di Versatilità
+3820,+$k1 Intelletto e +$k2 Indice di Critico
+3821,+$k1 Armatura
+3822,+$k1 Tempra e +$k2 Agilità
+3823,+$k2 Potenza d'Attacco e +$k1 Indice di Critico
+3824,+$k1 Potenza d'Attacco
+3825,+$k1 Indice di Celerità
+3826,+$k1 Indice di Critico
+3827,+$k1 Potenza d'Attacco
+3828,+$k1 Potenza d'Attacco
+3829,+$k1 Potenza d'Attacco
+3830,+$k1 Potenza Magica
+3831,+$k1 Indice di Celerità
+3832,+$60694s1 Tutti gli Attributi
+3833,+$k1 Potenza d'Attacco
+3834,+$k1 Potenza Magica
+3835,+$k1 Potenza d'Attacco e +$k2 Indice di Critico
+3836,+$k1 Intelletto e +$k2 Indice di Versatilità
+3837,+$k2 Indice di Schivata e +$k1 Tempra
+3838,+$k1 Potenza Magica e +$k2 Indice di Critico
+3841,+$k1 Potenza Magica
+3842,+$k1 Tempra e +$k2 Armatura
+3843,Mirino (+$k1 Danni)
+3844,+$k1 Indice di Versatilità
+3845,+$k1 Potenza d'Attacco
+3846,+$k1 Potenza Magica
+3847,Runa del Gargoyle Pellepietrosa
+3848,Incavo per Bastone
+3849,Placca di Titanio
+3850,+$k1 Tempra
+3851,+$k1 Tempra
+3852,+$k1 Tempra e +$k2 Armatura
+3853,+$k1 Armatura e +$k2 Tempra
+3854,+$k1 Potenza Magica
+3855,+$k1 Potenza Magica
+3856,+$k1 Agilità
+3857,+$k1 Indice di Schivata
+3858,+$k1 Indice di Critico
+3859,Intelaiatura Elastica
+3861,+$k1 Forza
+3862,+$k1 Agilità
+3863,+$k1 Tempra
+3864,+$k1 Indice di Versatilità
+3865,+$k1 Intelletto
+3866,+$k1 Intelletto
+3867,+$k1 Indice di Critico
+3868,Esca (+$8085s1 Pesca)
+3869,Guardialama
+3870,Succhiasangue
+3871,+$k1 Indice di Parata
+3872,+$k1 Potenza Magica e +$k2 Indice di Versatilità
+3873,+$k1 Potenza Magica e +$k2 Tempra
+3875,+$k1 Potenza d'Attacco e +$k2 Indice di Critico
+3876,+$k1 Indice di Schivata e +$k2 Indice di Parata
+3877,+$k1 Potenza d'Attacco
+3879,+$68251s1 tutti gli attributi
+3880,+$k1 Indice di Critico
+3881,+$k1 Indice di Versatilità
+3882,+$k1 Indice di Critico
+3884,+$k1 Tempra e +$k2 Agilità
+3885,+$k1 Indice di Maestria e +$k2 Indice di Versatilità
+3886,+$k2 Indice di Maestria e +$k1 Indice di Critico
+3887,+$k2 Indice di Maestria e +$k1 Indice di Versatilità
+3888,+$k2 Indice di Maestria e +$k1 Indice di Critico
+3889,+$k1 Forza
+3890,+$k1 Agilità
+3891,+$k1 Indice di Parata
+3892,+$k1 Intelletto
+3893,+$k1 Indice di Celerità
+3894,+$k1 Tempra
+3895,+$k1 Indice di Versatilità
+3896,+$k1 Indice di Versatilità
+3897,+$k1 Indice di Critico
+3898,+$k1 Indice di Schivata
+3899,+$k1 Armatura
+3900,+$k1 Indice di Celerità
+3901,+$k1 Indice di Maestria
+3902,+$k1 Forza e +$k2 Tempra
+3903,+$k1 Indice di Parata e +$k2 Tempra
+3904,+$k1 Agilità e +$k2 Tempra
+3905,+$k1 Intelletto e +$k2 Tempra
+3906,+$k1 Indice di Celerità e +$k2 Tempra
+3907,+$k1 Intelletto e +$k2 Indice di Versatilità
+3908,+$k1 Forza e +$k2 Indice di Critico
+3909,+$k1 Agilità e +$k2 Indice di Critico
+3910,+$k1 Indice di Parata e +$k2 Indice di Critico
+3911,+$k1 Intelletto e +$k2 Indice di Critico
+3912,+$k1 Indice di Celerità e +$k2 Indice di Critico
+3913,+$k1 Agilità e +$k2 Indice di Schivata
+3914,+$k1 Indice di Celerità e +$k2 Indice di Schivata
+3915,+$k1 Forza e +$k2 Indice di Critico
+3916,+$k1 Agilità e +$k2 Indice di Critico
+3917,+$k1 Intelletto e +$k2 Indice di Critico
+3918,+$k1 Forza e +$k2 Indice di Celerità
+3919,+$k1 Agilità e +$k2 Indice di Celerità
+3920,+$k1 Intelletto e +$k2 Indice di Celerità
+3921,+$k1 Forza e +$k2 Indice di Maestria
+3922,+$k1 Agilità e +$k2 Indice di Maestria
+3923,+$k1 Indice di Parata e +$k2 Indice di Maestria
+3924,+$k1 Intelletto e +$k2 Indice di Maestria
+3925,+$k1 Indice di Celerità e +$k2 Indice di Maestria
+3926,+$k1 Indice di Schivata e +$k2 Tempra
+3927,+$k1 Indice di Schivata e +$k2 Indice di Critico
+3928,+$k1 Indice di Critico e +$k2 Tempra
+3929,+$k1 Indice di Critico
+3930,+$k1 Armatura e +$k2 Tempra
+3931,+$k1 Indice di Celerità e +$k2 Tempra
+3932,+$k1 Indice di Celerità e +$k2 Indice di Critico
+3933,+$k1 Indice di Maestria e +$k2 Tempra
+3936,+$k1 Indice di Critico
+3937,+$k1 Forza e +$k2 Indice di Critico
+3938,+$k1 Intelletto e +$k2 Indice di Versatilità
+3939,+$k1 Indice di Celerità e +$k2 Tempra
+3940,+$k1 Intelletto e +$k2 Tempra
+3941,+$k1 Indice di Parata e +$k2 Tempra
+3942,+$k1 Agilità e +$k2 Tempra
+3943,+$k1 Forza e +$k2 Tempra
+3944,+$k1 Indice di Maestria
+3945,+$k1 Indice di Celerità
+3946,+$k1 Armatura
+3947,+$k1 Indice di Critico
+3948,+$k1 Indice di Schivata
+3949,+$k1 Indice di Critico
+3950,+$k1 Indice di Versatilità
+3951,+$k1 Indice di Versatilità
+3952,+$k1 Tempra
+3953,+$k1 Indice di Celerità
+3954,+$k1 Intelletto
+3955,+$k1 Indice di Parata
+3956,+$k1 Agilità
+3957,+$k1 Forza
+3958,+$k1 Indice di Maestria e +$k2 Tempra
+3959,+$k1 Indice di Celerità e +$k2 Indice di Critico
+3960,+$k1 Indice di Celerità e +$k2 Tempra
+3961,+$k1 Armatura e +$k2 Tempra
+3962,+$k1 Indice di Critico
+3963,+$k1 Indice di Critico e +$k2 Tempra
+3964,+$k1 Indice di Schivata e +$k2 Indice di Critico
+3965,+$k1 Indice di Schivata e +$k2 Tempra
+3966,+$k1 Indice di Celerità e +$k2 Indice di Maestria
+3967,+$k1 Intelletto e +$k2 Indice di Maestria
+3968,+$k1 Indice di Parata e +$k2 Indice di Maestria
+3969,+$k1 Agilità e +$k2 Indice di Maestria
+3970,+$k1 Forza e +$k2 Indice di Maestria
+3971,+$k1 Intelletto e +$k2 Indice di Celerità
+3972,+$k1 Agilità e +$k2 Indice di Celerità
+3973,+$k1 Forza e +$k2 Indice di Celerità
+3974,+$k1 Intelletto e +$k2 Indice di Critico
+3975,+$k1 Agilità e +$k2 Indice di Critico
+3976,+$k1 Forza e +$k2 Indice di Critico
+3977,+$k1 Indice di Celerità e +$k2 Indice di Schivata
+3978,+$k1 Agilità e +$k2 Indice di Schivata
+3979,+$k1 Indice di Celerità e +$k2 Indice di Critico
+3980,+$k1 Intelletto e +$k2 Indice di Critico
+3981,+$k1 Indice di Parata e +$k2 Indice di Critico
+3982,+$k1 Agilità e +$k2 Indice di Critico
+3983,+$k1 Indice di Celerità e +$k2 Indice di Critico
+3984,+$k1 Indice di Parata e +$k2 Tempra
+3985,+$k1 Forza e +$k2 Indice di Critico
+3986,+$k1 Intelletto e +$k2 Indice di Critico
+3987,+$k1 Agilità e +$k2 Indice di Critico
+3988,+$k1 Indice di Celerità e +$k2 Tempra
+3989,+$k1 Indice di Parata e +$k2 Indice di Critico
+3990,+$k1 Intelletto e +$k2 Indice di Versatilità
+3991,+$k1 Agilità e +$k2 Tempra
+3992,+$k1 Forza e +$k2 Tempra
+3993,+$k1 Intelletto e +$k2 Tempra
+3994,+$k1 Forza
+3995,+$k1 Intelletto
+3996,+$k1 Agilità
+3997,+$k1 Indice di Parata
+3998,+$k1 Indice di Celerità
+3999,+$k1 Indice di Maestria
+4000,+$k1 Armatura
+4001,+$k1 Indice di Celerità
+4002,+$k1 Indice di Critico
+4003,+$k1 Indice di Schivata
+4004,+$k1 Indice di Critico
+4005,+$k1 Tempra
+4006,+$k1 Indice di Versatilità
+4007,+$k1 Indice di Versatilità
+4008,+$k1 Agilità e +$k2 Indice di Maestria
+4009,+$k1 Intelletto e +$k2 Indice di Maestria
+4010,+$k1 Intelletto e +$k2 Indice di Celerità
+4011,+$k1 Agilità e +$k2 Indice di Critico
+4012,+$k1 Agilità e +$k2 Indice di Celerità
+4013,+$k1 Forza e +$k2 Indice di Celerità
+4014,+$k1 Indice di Parata e +$k2 Indice di Maestria
+4015,+$k1 Forza e +$k2 Indice di Critico
+4016,+$k1 Indice di Celerità e +$k2 Indice di Maestria
+4017,+$k1 Agilità e +$k2 Indice di Schivata
+4018,+$k1 Intelletto e +$k2 Indice di Critico
+4019,+$k1 Forza e +$k2 Indice di Maestria
+4020,+$k1 Indice di Celerità e +$k2 Indice di Schivata
+4021,+$k1 Indice di Celerità e +$k2 Tempra
+4022,+$k1 Indice di Critico e +$k2 Tempra
+4023,+$k1 Indice di Celerità e +$k2 Indice di Critico
+4024,+$k1 Indice di Schivata e +$k2 Indice di Critico
+4025,+$k1 Indice di Critico
+4026,+$k1 Indice di Maestria e +$k2 Tempra
+4027,+$k1 Indice di Schivata e +$k2 Tempra
+4028,+$k1 Indice di Maestria e +$k2 Indice di Critico
+4029,+$k1 Armatura e +$k2 Tempra
+4030,+$k1 Indice di Maestria e +$k2 Indice di Versatilità
+4031,+$k1 Forza
+4032,+$k1 Intelletto
+4033,+$k1 Agilità
+4034,+$k1 Indice di Parata
+4035,+$k1 Indice di Maestria
+4036,+$k1 Armatura
+4037,+$k1 Indice di Celerità
+4038,+$k1 Indice di Celerità
+4039,+$k1 Indice di Critico
+4040,+$k1 Indice di Critico
+4041,+$k1 Tempra
+4042,+$k1 Indice di Versatilità
+4043,+$k1 Indice di Versatilità
+4044,+$k1 Indice di Schivata
+4045,+$k1 Indice di Maestria e Leggero Aumento di Velocità
+4046,+$k1 Indice di Critico e $44797s1% Aumento Effetti Critici
+4047,+$k1 Intelletto e 2% Riduzione della Minaccia
+4048,+$k1 Tempra e +$55283s1% Indice di Blocco
+4049,+$k1 Tempra e 2% Aumento Armatura dagli Oggetti
+4050,+$k1 Tempra e 2% Riduzione Danni Magici
+4051,+$k1 Intelletto e +$46600s1% Mana Massimo
+4052,+$k1 Indice di Versatilità e 3% Aumento Effetti Critici
+4053,+$k1 Indice di Critico e $11818s1% Riflessione Incantesimo
+4054,+$k1 Tempra e 10% Riduzione Durata Stordimento
+4055,+$k1 Indice di Critico e $55378s1% Riduzione Durata Immobilizzazione/Rallentamento
+4056,+$k1 Indice di Critico e $55357s1% Riduzione Durata Paura
+4057,+$k1 Intelletto e 10% Riduzione Durata Silenzio
+4061,+$k1 Indice di Maestria
+4062,+$k1 Tempra e Leggero Aumento di Velocità
+4063,+$74190s1 Tutti gli Attributi
+4064,+$k1 Attributo Primario
+4065,+$k1 Indice di Celerità
+4066,Guarigione
+4067,Slavina
+4068,+$k1 Indice di Celerità
+4069,+$k1 Indice di Celerità
+4070,+$k1 Tempra
+4071,+$k1 Indice di Critico
+4072,+$k1 Intelletto
+4073,+$k1 Tempra
+4074,Cacciatore di Elementali
+4075,+$k1 Forza
+4076,+$k1 Agilità
+4077,+$k1 Armatura
+4082,+$k1 Indice di Celerità
+4083,Uragano
+4084,Cantacuore
+4085,+$k1 Indice di Maestria
+4086,+$k1 Indice di Schivata
+4087,+$k1 Indice di Critico
+4088,+$k1 Indice di Versatilità
+4089,+$k1 Indice di Critico
+4090,+$k1 Tempra
+4091,+$k1 Intelletto
+4092,+$k1 Indice di Critico
+4093,+$k1 Indice di Versatilità
+4094,+$k1 Indice di Maestria
+4095,+$k1 Indice di Celerità
+4096,+$k1 Intelletto
+4097,Torrente di Potere
+4098,Calcaventi
+4099,Valanga
+4100,+$k1 Indice di Critico
+4101,+$k1 Indice di Critico
+4102,+$74249s1 Tutti gli Attributi
+4103,+$k1 Tempra
+4104,+$k1 Indice di Maestria e Leggero Aumento di Velocità
+4105,+$k1 Agilità e Leggero Aumento di Velocità
+4106,+$k1 Forza
+4107,+$k1 Indice di Maestria
+4108,+$k1 Indice di Celerità
+4109,+$k1 Intelletto e +$k2 Indice di Versatilità
+4110,+$k1 Intelletto e +$k2 Indice di Versatilità
+4111,+$k1 Intelletto e +$k2 Tempra
+4112,+$k1 Intelletto e +$k2 Tempra
+4113,+$k1 Intelletto e +$k2 Tempra
+4114,+$k1 Intelletto e +$k2 Indice di Versatilità
+4119,+$k1 Forza
+4120,+$k1 Tempra
+4121,+$k1 Tempra
+4122,+$k2 Potenza d'Attacco e +$k1 Indice di Critico
+4123,+$k1 Indice di Maestria
+4124,+$k1 Tempra e +$k2 Agilità
+4125,+$k1 Indice di Versatilità
+4126,+$k2 Potenza d'Attacco e +$k1 Indice di Critico
+4127,+$k1 Tempra e +$k2 Agilità
+4128,+$k1 Indice di Celerità
+4129,+$k1 Indice di Versatilità
+4130,+$k1 Indice di Critico
+4131,+$k1 Indice di Critico
+4132,+$k1 Indice di Critico
+4133,+$k1 Agilità
+4134,+$k1 Tempra
+4135,+$k1 Forza
+4136,+$k1 Forza
+4137,+$k1 Indice di Maestria
+4138,+$k1 Indice di Maestria
+4139,+$k1 Indice di Parata
+4140,+$k1 Indice di Celerità
+4141,+$k1 Indice di Critico
+4142,+$k1 Indice di Versatilità
+4143,+$k1 Intelletto
+4144,+$k1 Intelletto
+4145,+$k1 Agilità
+4146,+$k1 Indice di Celerità
+4147,+$k1 Indice di Parata
+4148,+$k1 Indice di Parata
+4149,+$k1 Intelletto
+4150,+$k1 Intelletto
+4151,+$k1 Indice di Critico
+4152,+$k1 Indice di Critico
+4153,+$k1 Indice di Critico
+4154,+$k1 Tempra
+4155,+$k1 Indice di Schivata
+4156,+$k1 Indice di Schivata
+4157,+$k1 Indice di Schivata
+4158,+$k1 Forza
+4159,+$k1 Tempra
+4160,+$k1 Indice di Critico
+4161,+$k1 Indice di Critico
+4162,+$k1 Indice di Critico
+4163,+$k1 Indice di Celerità
+4164,+$k1 Indice di Celerità
+4165,+$k1 Indice di Celerità
+4166,+$k1 Indice di Schivata
+4167,+$k1 Indice di Critico
+4168,+$k1 Indice di Celerità
+4169,+$k1 Indice di Maestria
+4170,+$k1 Indice di Celerità
+4171,+$k1 Indice di Parata
+4172,+$k1 Indice di Critico
+4173,+$k1 Indice di Versatilità
+4175,Mirino a Raggi X Gnomesco
+4176,+$k1 Indice di Critico
+4177,+$k1 Indice di Celerità a Distanza
+4178,+$k1 Armatura
+4184,+$k1 Armatura
+4185,+$k1 Armatura
+4186,+$k1 Armatura
+4187,Campo d'Invisibilità
+4188,Generatore di Scudo al Plasma
+4193,+$k1 Agilità e +$k2 Indice di Maestria
+4194,+$k1 Forza e +$k2 Indice di Critico
+4195,+$k1 Tempra e +$k2 Indice di Schivata
+4196,+$k1 Intelletto e +$k2 Indice di Celerità
+4197,+$k1 Tempra e +$k2 Indice di Schivata
+4198,+$k1 Tempra e +$k2 Indice di Schivata
+4199,+$k1 Intelletto e +$k2 Indice di Celerità
+4200,+$k1 Intelletto e +$k2 Indice di Celerità
+4201,+$k1 Forza e +$k2 Indice di Critico
+4202,+$k1 Forza e +$k2 Indice di Critico
+4203,+$k1 Agilità e +$k2 Indice di Maestria
+4204,+$k1 Agilità e +$k2 Indice di Maestria
+4205,+$k1 Agilità e +$k2 Indice di Maestria
+4206,+$k1 Tempra e +$k2 Indice di Schivata
+4207,+$k1 Intelletto e +$k2 Indice di Critico
+4208,+$k1 Forza e +$k2 Indice di Maestria
+4209,+$k1 Agilità e +$k2 Indice di Celerità
+4211,+$k1 Indice di Celerità
+4212,+$k1 Forza
+4213,+$k1 Forza
+4214,Assassino Cartonizzato
+4215,Chiodatura d'Elementio
+4216,Chiodatura di Pirio
+4217,Catena per Arma di Pirio
+4222,Disco di Amplificazione Mentale
+4223,Acceleratori Nitrogeni
+4225,Esca (+$95243s1 Pesca)
+4227,+$k1 Agilità
+4236,+$k1 Intelletto e +$k2 Armatura
+4237,+$k1 Agilità e +$k2 Armatura
+4238,+$k1 Forza e +$k2 Armatura
+4239,+$k1 Armatura
+4244,+$k1 Armatura e +$k2 Indice di Versatilità
+4245,+$k1 Intelletto e +$k2 Armatura
+4246,+$k1 Agilità e +$k2 Armatura
+4247,+$k1 Forza e +$k2 Armatura
+4248,+$k1 Intelletto e +$k2 Armatura
+4249,+$k1 Forza e +$k2 Armatura
+4250,+$k1 Agilità e +$k2 Armatura
+4251,+$k1 Agilità e $44797s1% Aumento Effetti Critici
+4252,+$k1 Forza e 3% Aumento Effetti Critici
+4253,+$k1 Intelletto e 3% Aumento Effetti Critici
+4256,+$k1 Forza
+4257,+$k1 Intelletto
+4258,+$k1 Agilità
+4259,+$96285s1 Pesca
+4262,+$k1 Tempra
+4263,+$k1 Indice di Versatilità
+4264,Esca (+$7825s1 Pesca)
+4265,+$k1 Intelletto
+4266,+$k1 Agilità
+4267,Spararatti di Spezzaselce
+4270,+$k1 Tempra e +$k2 Indice di Schivata
+4273,+$k1 Indice di Critico
+4274,+$k1 Indice di Versatilità
+4275,+$k1 Indice di Versatilità
+4276,+$k1 Tempra
+4277,+$k1 Indice di Versatilità e +$k2 Indice di Critico
+4278,+$k1 Indice di Critico
+4279,+$k1 Indice di Celerità e +$k2 Indice di Critico
+4280,+$k2 Indice di Critico e +$k1 Indice di Maestria
+4281,+$k2 Indice di Versatilità e +$k1 Indice di Maestria
+4282,+$k1 Indice di Versatilità e +$k2 Indice di Maestria
+4283,+$k1 Indice di Critico e +$k2 Armatura
+4284,+$k1 Indice di Versatilità e +$k2 Armatura
+4285,+$k1 Indice di Versatilità e +$k2 Armatura
+4286,+$k1 Indice di Critico e +$k2 Indice di Versatilità
+4287,+$k1 Indice di Celerità e +$k2 Indice di Versatilità
+4288,+$k1 Indice di Celerità e +$k2 Indice di Versatilità
+4289,+$k1 Indice di Critico e +$k2 Tempra
+4290,+$k1 Indice di Schivata e +$k2 Tempra
+4291,+$k1 Indice di Celerità e +$k2 Tempra
+4292,+$k1 Indice di Critico e +$k2 Indice di Schivata
+4293,+$k1 Indice di Maestria e +$k2 Tempra
+4294,+$k1 Armatura e +$k2 Tempra
+4295,+$k1 Agilità e +$k2 Indice di Critico
+4296,+$k1 Indice di Celerità e +$k2 Indice di Critico
+4297,+$k1 Intelletto e +$k2 Indice di Critico
+4298,+$k1 Forza e +$k2 Indice di Critico
+4299,+$k1 Agilità e +$k2 Indice di Schivata
+4300,+$k1 Indice di Celerità e +$k2 Indice di Schivata
+4301,+$k1 Indice di Parata e +$k2 Indice di Schivata
+4302,+$k1 Forza e +$k2 Indice di Schivata
+4303,+$k1 Agilità e +$k2 Indice di Celerità
+4304,+$k1 Indice di Celerità
+4305,+$k1 Intelletto e +$k2 Indice di Celerità
+4306,+$k1 Forza e +$k2 Indice di Celerità
+4307,+$k1 Agilità e +$k2 Indice di Maestria
+4308,+$k1 Indice di Celerità e +$k2 Indice di Maestria
+4309,+$k1 Intelletto e +$k2 Indice di Maestria
+4310,+$k1 Indice di Parata e +$k2 Indice di Maestria
+4311,+$k1 Forza e +$k2 Indice di Maestria
+4312,+$k1 Agilità e +$k2 Armatura
+4313,+$k1 Indice di Celerità e +$k2 Armatura
+4314,+$k1 Intelletto e +$k2 Armatura
+4315,+$k1 Indice di Parata e +$k2 Armatura
+4316,+$k1 Forza e +$k2 Armatura
+4317,+$k1 Agilità e +$k2 Indice di Critico
+4318,+$k1 Indice di Celerità e +$k2 Indice di Critico
+4319,+$k1 Intelletto e +$k2 Indice di Critico
+4320,+$k1 Indice di Parata e +$k2 Indice di Critico
+4321,+$k1 Forza e +$k2 Indice di Critico
+4322,+$k1 Intelletto e +$k2 Indice di Versatilità
+4323,+$k1 Intelletto e +$k2 Indice di Versatilità
+4324,+$k1 Agilità e +$k2 Tempra
+4325,+$k1 Indice di Celerità e +$k2 Tempra
+4326,+$k1 Intelletto e +$k2 Tempra
+4327,+$k1 Indice di Parata e +$k2 Tempra
+4328,+$k1 Forza e +$k2 Tempra
+4329,+$k1 Agilità
+4330,+$k1 Indice di Celerità
+4331,+$k1 Intelletto
+4332,+$k1 Indice di Parata
+4333,+$k1 Forza
+4334,+$k1 Indice di Critico
+4335,+$k1 Indice di Schivata
+4336,+$k1 Indice di Celerità
+4337,+$k1 Indice di Maestria
+4338,+$k1 Armatura
+4411,+$k1 Indice di Maestria
+4412,+$k1 Indice di Schivata
+4414,+$k1 Intelletto
+4415,+$k1 Forza
+4416,+$k1 Agilità
+4417,+$k1 Armatura
+4418,+$k1 Indice di Versatilità
+4419,+$k1 Tutti gli Attributi
+4420,+$k1 Tempra
+4421,+$k1 Indice di Critico
+4422,+$k1 Tempra
+4423,+$k1 Intelletto
+4424,+$k1 Indice di Critico
+4426,+$k1 Indice di Celerità
+4427,+$k1 Indice di Critico
+4428,+$k1 Agilità e Leggero Aumento di Velocità
+4429,+$k1 Indice di Maestria e Leggero Aumento di Velocità
+4430,+$k1 Indice di Celerità
+4431,+$k1 Indice di Celerità
+4432,+$k1 Forza
+4433,+$k1 Indice di Maestria
+4434,+$k1 Intelletto
+4435,+$k1 Tempra e +$k2 Indice di Schivata
+4436,+$k1 Tempra e +$k2 Agilità
+4437,+$k2 Potenza d'Attacco e +$k1 Indice di Critico
+4438,+$k1 Tempra e +$k2 Indice di Schivata
+4439,+$k1 Tempra e +$k2 Agilità
+4440,+$k2 Potenza d'Attacco e +$k1 Indice di Critico
+4441,Soffiavento
+4442,Spirito di Giada
+4443,Forza Elementale
+4444,Acciaio Danzante
+4445,Colosso
+4446,Canto del Fiume
+4453,+$k1 Indice di Critico
+4454,+$k1 Indice di Versatilità
+4455,+$k1 Indice di Versatilità
+4456,+$k1 Tempra
+4457,+$k1 Indice di Versatilità e +$k2 Indice di Critico
+4458,+$k1 Indice di Critico
+4459,+$k1 Indice di Celerità e +$k2 Indice di Critico
+4460,+$k1 Indice di Critico e +$k2 Indice di Maestria
+4461,+$k1 Indice di Versatilità e +$k2 Indice di Maestria
+4462,+$k1 Indice di Versatilità e +$k2 Indice di Maestria
+4463,+$k1 Indice di Critico e +$k2 Armatura
+4464,+$k1 Indice di Versatilità e +$k2 Armatura
+4465,+$k1 Indice di Versatilità e +$k2 Armatura
+4466,+$k1 Indice di Critico e +$k2 Indice di Versatilità
+4467,+$k1 Indice di Celerità e +$k2 Indice di Versatilità
+4468,+$k1 Indice di Celerità e +$k2 Indice di Versatilità
+4469,+$k1 Indice di Critico e +$k2 Tempra
+4470,+$k1 Indice di Schivata e +$k2 Tempra
+4471,+$k1 Indice di Celerità e +$k2 Tempra
+4472,+$k1 Indice di Critico e +$k2 Tempra
+4473,+$k1 Indice di Maestria e +$k2 Tempra
+4474,+$k1 Armatura e +$k2 Tempra
+4475,+$k1 Agilità e +$k2 Indice di Critico
+4476,+$k1 Indice di Celerità e +$k2 Indice di Critico
+4477,+$k1 Intelletto e +$k2 Indice di Critico
+4478,+$k1 Forza e +$k2 Indice di Critico
+4479,+$k1 Agilità e +$k2 Indice di Schivata
+4480,+$k1 Indice di Celerità e +$k2 Indice di Schivata
+4481,+$k1 Indice di Parata e +$k2 Indice di Schivata
+4482,+$k1 Forza e +$k2 Indice di Schivata
+4483,+$k1 Agilità e +$k2 Indice di Celerità
+4484,+$k1 Indice di Celerità
+4485,+$k1 Intelletto e +$k2 Indice di Celerità
+4486,+$k1 Forza e +$k2 Indice di Celerità
+4487,+$k1 Agilità e +$k2 Indice di Maestria
+4488,+$k1 Indice di Celerità e +$k2 Indice di Maestria
+4489,+$k1 Intelletto e +$k2 Indice di Maestria
+4490,+$k1 Indice di Parata e +$k2 Indice di Maestria
+4491,+$k1 Forza e +$k2 Indice di Maestria
+4492,+$k1 Agilità e +$k2 Armatura
+4493,+$k1 Indice di Celerità e +$k2 Armatura
+4494,+$k1 Intelletto e +$k2 Armatura
+4495,+$k1 Indice di Parata e +$k2 Armatura
+4496,+$k1 Forza e +$k2 Armatura
+4497,+$k1 Agilità e +$k2 Indice di Critico
+4498,+$k1 Indice di Celerità e +$k2 Indice di Critico
+4499,+$k1 Intelletto e +$k2 Indice di Critico
+4500,+$k1 Indice di Parata e +$k2 Indice di Critico
+4501,+$k1 Forza e +$k2 Indice di Critico
+4502,+$k1 Intelletto e +$k2 Indice di Versatilità
+4503,+$k1 Intelletto e +$k2 Indice di Versatilità
+4504,+$k1 Agilità e +$k2 Tempra
+4505,+$k1 Indice di Celerità e +$k2 Tempra
+4506,+$k1 Intelletto e +$k2 Tempra
+4507,+$k1 Indice di Parata e +$k2 Tempra
+4508,+$k1 Forza e +$k2 Tempra
+4509,+$k1 Agilità
+4511,+$k1 Indice di Celerità
+4512,+$k1 Intelletto
+4513,+$k1 Indice di Parata
+4514,+$k1 Forza
+4515,+$k1 Indice di Critico
+4516,+$k1 Indice di Schivata
+4517,+$k1 Indice di Celerità
+4518,+$k1 Indice di Maestria
+4519,+$k1 Armatura
+4520,+$k1 Indice di Critico
+4521,+$k1 Indice di Versatilità
+4522,+$k1 Indice di Versatilità
+4523,+$k1 Tempra
+4524,+$k1 Indice di Versatilità e +$k2 Indice di Critico
+4525,+$k1 Indice di Critico
+4526,+$k1 Indice di Celerità e +$k2 Indice di Critico
+4527,+$k1 Indice di Critico e +$k2 Indice di Maestria
+4528,+$k1 Indice di Versatilità e +$k2 Indice di Maestria
+4529,+$k1 Indice di Versatilità e +$k2 Indice di Maestria
+4530,+$k1 Indice di Critico e +$k2 Armatura
+4531,+$k1 Indice di Versatilità e +$k2 Armatura
+4532,+$k1 Indice di Versatilità e +$k2 Armatura
+4533,+$k1 Indice di Critico e +$k2 Indice di Versatilità
+4535,+$k1 Indice di Celerità e +$k2 Indice di Versatilità
+4536,+$k1 Indice di Celerità e +$k2 Indice di Versatilità
+4537,+$k1 Indice di Critico e +$k2 Tempra
+4538,+$k1 Indice di Schivata e +$k2 Tempra
+4539,+$k1 Indice di Celerità e +$k2 Tempra
+4540,+$k1 Indice di Critico e +$k2 Tempra
+4541,+$k1 Indice di Maestria e +$k2 Tempra
+4542,+$k1 Armatura e +$k2 Tempra
+4543,+$k1 Agilità e +$k2 Indice di Critico
+4544,+$k1 Indice di Celerità e +$k2 Indice di Critico
+4545,+$k1 Intelletto e +$k2 Indice di Critico
+4546,+$k1 Forza e +$k2 Indice di Critico
+4547,+$k1 Agilità e +$k2 Indice di Schivata
+4548,+$k1 Indice di Celerità e +$k2 Indice di Schivata
+4549,+$k1 Indice di Parata e +$k2 Indice di Schivata
+4550,+$k1 Forza e +$k2 Indice di Schivata
+4551,+$k1 Agilità e +$k2 Indice di Celerità
+4552,+$k1 Indice di Celerità
+4553,+$k1 Intelletto e +$k2 Indice di Celerità
+4554,+$k1 Forza e +$k2 Indice di Celerità
+4555,+$k1 Agilità e +$k2 Indice di Maestria
+4556,+$k1 Indice di Celerità e +$k2 Indice di Maestria
+4557,+$k1 Intelletto e +$k2 Indice di Maestria
+4558,+$k1 Indice di Parata e +$k2 Indice di Maestria
+4559,+$k1 Forza e +$k2 Indice di Maestria
+4560,+$k1 Agilità e +$k2 Armatura
+4561,+$k1 Indice di Celerità e +$k2 Armatura
+4562,+$k1 Intelletto e +$k2 Armatura
+4563,+$k1 Indice di Parata e +$k2 Armatura
+4564,+$k1 Forza e +$k2 Armatura
+4565,+$k1 Agilità e +$k2 Indice di Critico
+4566,+$k1 Indice di Celerità e +$k2 Indice di Critico
+4567,+$k1 Intelletto e +$k2 Indice di Critico
+4568,+$k1 Indice di Parata e +$k2 Indice di Critico
+4569,+$k1 Forza e +$k2 Indice di Critico
+4570,+$k1 Intelletto e +$k2 Indice di Versatilità
+4571,+$k1 Intelletto e +$k2 Indice di Versatilità
+4572,+$k1 Agilità e +$k2 Tempra
+4573,+$k1 Indice di Celerità e +$k2 Tempra
+4574,+$k1 Intelletto e +$k2 Tempra
+4575,+$k1 Indice di Parata e +$k2 Tempra
+4576,+$k1 Forza e +$k2 Tempra
+4577,+$k1 Agilità
+4578,+$k1 Indice di Celerità
+4579,+$k1 Intelletto
+4580,+$k1 Indice di Parata
+4581,+$k1 Forza
+4582,+$k1 Indice di Critico
+4583,+$k1 Indice di Schivata
+4584,+$k1 Indice di Celerità
+4585,+$k1 Indice di Maestria
+4586,+$k1 Armatura
+4587,+$k1 Indice di Critico
+4588,+$k1 Indice di Versatilità
+4589,+$k1 Indice di Versatilità
+4590,+$k1 Tempra
+4591,+$k1 Indice di Versatilità e +$k2 Indice di Critico
+4592,+$k1 Indice di Critico
+4593,+$k1 Indice di Celerità e +$k2 Indice di Critico
+4594,+$k1 Indice di Critico e +$k2 Indice di Maestria
+4595,+$k1 Indice di Versatilità e +$k2 Indice di Maestria
+4596,+$k1 Indice di Versatilità e +$k2 Indice di Maestria
+4597,+$k1 Indice di Critico e +$k2 Armatura
+4598,+$k1 Indice di Versatilità e +$k2 Armatura
+4599,+$k1 Indice di Versatilità e +$k2 Armatura
+4600,+$k1 Indice di Critico e +$k2 Indice di Versatilità
+4601,+$k1 Indice di Celerità e +$k2 Indice di Versatilità
+4602,+$k1 Indice di Celerità e +$k2 Indice di Versatilità
+4603,+$k1 Indice di Critico e +$k2 Tempra
+4604,+$k1 Indice di Schivata e +$k2 Tempra
+4605,+$k1 Indice di Celerità e +$k2 Tempra
+4606,+$k1 Indice di Critico e +$k2 Tempra
+4607,+$k1 Indice di Maestria e +$k2 Tempra
+4608,+$k1 Armatura e +$k2 Tempra
+4609,+$k1 Agilità e +$k2 Indice di Critico
+4610,+$k1 Indice di Celerità e +$k2 Indice di Critico
+4611,+$k1 Intelletto e +$k2 Indice di Critico
+4612,+$k1 Forza e +$k2 Indice di Critico
+4613,+$k1 Agilità e +$k2 Indice di Schivata
+4614,+$k1 Indice di Celerità e +$k2 Indice di Schivata
+4615,+$k1 Indice di Parata e +$k2 Indice di Schivata
+4616,+$k1 Forza e +$k2 Indice di Schivata
+4617,+$k1 Agilità e +$k2 Indice di Celerità
+4618,+$k1 Indice di Celerità
+4619,+$k1 Intelletto e +$k2 Indice di Celerità
+4620,+$k1 Forza e +$k2 Indice di Celerità
+4621,+$k1 Agilità e +$k2 Indice di Maestria
+4622,+$k1 Indice di Celerità e +$k2 Indice di Maestria
+4623,+$k1 Intelletto e +$k2 Indice di Maestria
+4624,+$k1 Indice di Parata e +$k2 Indice di Maestria
+4625,+$k1 Forza e +$k2 Indice di Maestria
+4626,+$k1 Agilità e +$k2 Armatura
+4627,+$k1 Indice di Celerità e +$k2 Armatura
+4628,+$k1 Intelletto e +$k2 Armatura
+4629,+$k1 Indice di Parata e +$k2 Armatura
+4630,+$k1 Forza e +$k2 Armatura
+4631,+$k1 Agilità e +$k2 Indice di Critico
+4632,+$k1 Indice di Celerità e +$k2 Indice di Critico
+4633,+$k1 Intelletto e +$k2 Indice di Critico
+4634,+$k1 Indice di Parata e +$k2 Indice di Critico
+4635,+$k1 Forza e +$k2 Indice di Critico
+4636,+$k1 Intelletto e +$k2 Indice di Versatilità
+4637,+$k1 Intelletto e +$k2 Indice di Versatilità
+4638,+$k1 Agilità e +$k2 Tempra
+4640,+$k1 Intelletto e +$k2 Tempra
+4641,+$k1 Indice di Parata e +$k2 Tempra
+4642,+$k1 Forza e +$k2 Tempra
+4643,+$k1 Agilità
+4644,+$k1 Intelletto
+4645,+$k1 Indice di Parata
+4646,+$k1 Forza
+4647,+$k1 Indice di Critico
+4648,+$k1 Indice di Schivata
+4649,+$k1 Indice di Celerità
+4650,+$k1 Indice di Maestria
+4651,+$k1 Armatura
+4652,+$k1 Indice di Celerità e +$k2 Tempra
+4653,+$k1 Indice di Celerità
+4654,+$k1 Indice di Critico
+4655,+$k1 Intelletto e +$55275s1% Mana Massimo
+4656,+$k1 Agilità e $44797s1% Aumento Effetti Critici
+4657,+$k1 Forza e $44797s1% Aumento Effetti Critici
+4658,+$k1 Intelletto e $44797s1% Aumento Effetti Critici
+4659,+$k1 Indice di Maestria e Leggero Aumento di Velocità
+4660,+$k1 Indice di Versatilità e 3% Aumento Effetti Critici
+4661,+$k1 Indice di Critico e $11818s1% Riflessione Incantesimo
+4662,+$k1 Tempra e $55358s1% Riduzione Durata Stordimento
+4664,+$k1 Indice di Critico e $55378s1% Riduzione Durata Immobilizzazione/Rallentamento
+4665,+$k1 Indice di Critico e $55357s1% Riduzione Durata Paura
+4666,+$k1 Intelletto e $55366s1% Riduzione Durata Silenzio
+4667,+$k1 Tempra e $55344s1% Aumento Armatura dagli Oggetti
+4668,+$k1 Indice di Schivata e +$55283s1% Indice di Blocco
+4669,+$k1 Tempra e $55345s1% Riduzione Danni Magici
+4671,"+$k1 Forza, +$k2 Indice di Parata e +$13839s1 Indice di Critico"
+4672,+$k1 Indice di Critico e +$k2 Armatura
+4673,+$k2 Indice di Versatilità e +$k1 Indice di Maestria
+4674,+$k1 Agilità e +$k2 Armatura
+4675,+$k1 Intelletto e +$k2 Indice di Versatilità
+4676,+$k1 Armatura
+4677,+$k1 Indice di Critico e +$k2 Indice di Versatilità
+4678,+$k1 Forza e +$k2 Armatura
+4679,+$k1 Indice di Celerità e +$k2 Indice di Versatilità
+4680,+$k1 Indice di Parata e +$k2 Armatura
+4681,+$k1 Armatura e +$k2 Tempra
+4682,+$k1 Indice di Versatilità
+4683,+$k1 Indice di Celerità e +$k2 Armatura
+4684,+$k1 Indice di Versatilità e +$k2 Armatura
+4685,+$k1 Attributo Primario e +$k2 Armatura
+4686,+$k1 Intelletto e +$k2 Armatura
+4687,+$k2 Agilità
+4688,Samurai
+4699,Mirino Fatale di Ser Nerofumo
+4700,Mirino Speculare
+4701,+$k1 Forza
+4702,+$k1 Forza
+4719,Placeholder Shoulder Enchant
+4720,+$k1 Salute
+4721,+$k1 Tempra
+4722,+$k1 Tempra
+4723,+$k1 Danni dell'Arma
+4724,+$k1 Agilità
+4725,+$k1 Agilità
+4726,+$k1 Indice di Versatilità
+4727,+$k1 Indice di Versatilità
+4728,+$k1 Indice di Versatilità
+4729,+$k1 Intelletto
+4730,+$k1 Tempra
+4731,+$k1 Tempra
+4732,+$71691s1 Pesca
+4733,+$k1 Armatura
+4734,+$k1 Agilità
+4735,+$k1 Indice di Versatilità
+4736,+$k1 Indice di Versatilità
+4737,+$k1 Tempra
+4738,+$k1 Tempra
+4739,+$k1 Forza
+4740,+$k1 Agilità
+4741,+$k1 Indice di Versatilità
+4742,+$k1 Forza
+4743,+$k1 Tempra
+4744,+$k1 Tempra
+4745,+$k1 Danni dell'Arma
+4746,+$k1 Danni dell'Arma
+4747,+$k1 Agilità
+4748,+$k1 Agilità
+4750,Iniettore Spinale di Cura
+4753,+$13624s1 Tutti gli Attributi
+4755,+$13824s1 Tutti gli Attributi
+4757,+$114519s1 Tutti gli Attributi
+4759,+$114520s1 Tutti gli Attributi
+4760,+$114524s1 Tutti gli Attributi
+4761,+$13824s1 Tutti gli Attributi
+4762,+$114519s1 Tutti gli Attributi
+4803,+$k1 Forza e +$k2 Indice di Critico
+4804,+$k1 Agilità e +$k2 Indice di Critico
+4805,+$k1 Tempra e +$k2 Indice di Schivata
+4806,+$k1 Intelletto e +$k2 Indice di Critico
+4808,Arma Magica
+4810,+$k1 Forza
+4811,+$k1 Intelletto
+4812,+$k1 Agilità
+4813,+$k1 Indice di Parata
+4814,+$k1 Indice di Maestria
+4815,+$k1 Indice di Celerità
+4816,+$k1 Indice di Celerità
+4817,+$k1 Indice di Critico
+4818,+$k1 Indice di Critico
+4819,+$k1 Indice di Schivata
+4820,+$k1 Tempra
+4821,+$k1 Indice di Versatilità
+4822,+$k1 Agilità e +$k2 Indice di Critico
+4823,+$k1 Forza e +$k2 Indice di Critico
+4824,+$k1 Tempra e +$k2 Indice di Schivata
+4825,+$k1 Intelletto e +$k2 Indice di Critico
+4826,+$k1 Intelletto e +$k2 Indice di Versatilità
+4827,+$k1 Agilità
+4828,+$k1 Agilità
+4829,+$k1 Agilità
+4830,+$k1 Forza
+4831,+$k1 Intelletto
+4832,+$k1 Tempra
+4833,+$k1 Indice di Critico
+4834,+$k1 Indice di Maestria
+4835,+$k1 Indice di Critico
+4836,+$k1 Indice di Celerità
+4837,+$k1 Indice di Celerità
+4838,+$k1 Indice di Critico
+4839,+$k1 Indice di Critico
+4840,+$k1 Indice di Critico
+4841,+$k1 Indice di Versatilità
+4842,+$k1 Indice di Versatilità
+4843,+$k1 Indice di Critico
+4844,+$k1 Indice di Critico
+4845,+$k1 Indice di Celerità
+4846,+$k1 Indice di Celerità
+4847,+$k1 Indice di Critico
+4848,+$k1 Intelletto
+4849,+$k1 Indice di Maestria
+4850,+$k1 Indice di Critico
+4851,+$k1 Indice di Versatilità
+4852,+$k1 Indice di Critico
+4853,+$k1 Forza
+4854,+$k1 Tempra
+4855,+$k1 Indice di Critico
+4856,+$k1 Indice di Critico
+4857,+$k1 Indice di Celerità
+4858,+$k1 Indice di Celerità
+4859,+$k1 Indice di Critico
+4860,+$k1 Intelletto
+4861,+$k1 Indice di Maestria
+4862,+$k1 Indice di Critico
+4863,+$k1 Indice di Versatilità
+4864,+$k1 Indice di Versatilità
+4865,+$k1 Indice di Versatilità
+4866,+$k1 Indice di Critico
+4867,+$k1 Tempra
+4868,+$k1 Forza
+4869,+$k1 Tempra
+4870,+$k1 Tempra e +$k2 Indice di Schivata
+4871,+$k1 Agilità e +$k2 Indice di Critico
+4872,+$k1 Forza e +$k2 Indice di Critico
+4880,+$k1 Agilità e +$k2 Indice di Critico
+4881,+$k1 Forza e +$k2 Indice di Critico
+4882,+$k1 Tempra e +$k2 Indice di Schivata
+4883,+$k1 Agilità e +$k2 Indice di Critico
+4884,+$k1 Tempra e +$k2 Indice di Schivata
+4885,+$k1 Forza e +$k2 Indice di Critico
+4886,+$k1 Agilità e +$k2 Indice di Critico
+4887,+$k1 Tempra e +$k2 Indice di Schivata
+4888,+$k1 Forza e +$k2 Indice di Critico
+4891,Esca dei Pandaren
+4895,+$k1 Intelletto e +$k2 Indice di Critico
+4896,+$k1 Intelletto e +$k2 Indice di Versatilità
+4897,Aliante dei Goblin
+4899,+$k1 Indice di Parata
+4900,+$k1 Indice di Maestria
+4901,+$k1 Indice di Celerità
+4902,+$k1 Indice di Celerità
+4903,+$k1 Indice di Critico
+4904,+$k1 Indice di Critico
+4905,+$k1 Indice di Versatilità
+4906,+$k1 Indice di Schivata
+4907,+$k1 Forza e +$k2 Indice di Critico
+4908,+$k1 Agilità e +$k2 Indice di Critico
+4909,+$k1 Intelletto e +$k2 Indice di Critico
+4910,+$k1 Tempra e +$k2 Indice di Schivata
+4911,+$k1 Forza e +$k2 Indice di Critico
+4912,+$k1 Tempra e +$k2 Indice di Schivata
+4913,+$k1 Forza e +$k2 Indice di Critico
+4914,+$k1 Agilità e +$k2 Indice di Critico
+4915,+$k1 Intelletto e +$k2 Indice di Critico
+4916,+$k1 Indice di Versatilità e +$k2 Indice di Critico
+4918,Catena per Arma d'Acciaio Vivente
+4919,Esca (+$128586s1 Pesca)
+4920,+$k1 Salute Massima
+4921,+$k1 Indice di Celerità e +$k2 Indice di Critico
+4922,+$k1 Indice di Parata e +$k2 Tempra
+4923,+$k1 Forza e +$k2 Indice di Critico
+4924,+$k1 Agilità e +$k2 Indice di Critico
+4925,+$k1 Indice di Celerità e +$k2 Tempra
+4926,+$k1 Intelletto e +$k2 Indice di Versatilità
+4927,+$k1 Indice di Parata e +$k2 Indice di Critico
+4928,+$k1 Agilità e +$k2 Tempra
+4929,+$k1 Forza e +$k2 Tempra
+4930,+$k1 Intelletto e +$k2 Tempra
+4931,+$k1 Intelletto e +$k2 Indice di Critico
+4932,+$k1 Indice di Critico e +$k2 Armatura
+4933,+$k1 Indice di Versatilità e +$k2 Indice di Maestria
+4934,+$k1 Indice di Celerità e +$k2 Indice di Versatilità
+4935,+$k1 Forza e +$k2 Indice di Critico
+4936,+$k1 Indice di Celerità e +$k2 Tempra
+4937,+$k1 Indice di Critico e +$k2 Tempra
+4938,+$k1 Indice di Celerità e +$k2 Indice di Critico
+4939,+$k1 Indice di Versatilità e +$k2 Indice di Critico
+4940,+$k1 Indice di Critico e +$k2 Tempra
+4941,+$k1 Indice di Critico
+4942,+$k1 Indice di Maestria e +$k2 Tempra
+4943,+$k1 Indice di Critico e +$k2 Indice di Versatilità
+4944,+$k1 Indice di Schivata e +$k2 Tempra
+4945,+$k1 Indice di Critico e +$k2 Indice di Maestria
+4946,+$k1 Indice di Celerità e +$k2 Indice di Versatilità
+4947,+$k1 Armatura e +$k2 Tempra
+4948,+$k1 Indice di Versatilità e +$k2 Armatura
+4949,+$k1 Indice di Versatilità e +$k2 Armatura
+4950,+$k1 Indice di Versatilità e +$k2 Indice di Maestria
+4951,+$k1 Agilità e +$k2 Indice di Maestria
+4952,+$k1 Intelletto e +$k2 Indice di Maestria
+4953,+$k1 Forza e +$k2 Indice di Schivata
+4954,+$k1 Indice di Celerità e +$k2 Indice di Critico
+4955,+$k1 Agilità e +$k2 Indice di Critico
+4956,+$k1 Agilità e +$k2 Indice di Celerità
+4957,+$k1 Forza e +$k2 Indice di Celerità
+4958,+$k1 Indice di Parata e +$k2 Indice di Maestria
+4959,+$k1 Forza e +$k2 Indice di Critico
+4960,+$k1 Indice di Celerità e +$k2 Indice di Maestria
+4961,+$k1 Agilità e +$k2 Armatura
+4962,+$k1 Agilità e +$k2 Indice di Schivata
+4963,+$k1 Intelletto e +$k2 Indice di Critico
+4964,+$k1 Intelletto e +$k2 Indice di Celerità
+4965,+$k1 Indice di Celerità e +$k2 Indice di Schivata
+4966,+$k1 Forza e +$k2 Armatura
+4967,+$k1 Forza e +$k2 Indice di Maestria
+4968,+$k1 Indice di Parata e +$k2 Armatura
+4969,+$k1 Indice di Parata e +$k2 Indice di Schivata
+4970,+$k1 Indice di Celerità e +$k2 Armatura
+4971,+$k1 Indice di Celerità
+4972,+$k1 Intelletto e +$k2 Armatura
+4973,+$k1 Intelletto e +$k2 Indice di Versatilità
+4984,+$k1 Forza e +$k2 Indice di Versatilità
+4985,+$k1 Forza e +$k2 Indice di Versatilità
+4986,+$k1 Forza e +$k2 Indice di Versatilità
+4987,+$k1 Forza e +$k2 Indice di Versatilità
+4988,+$k1 Agilità e +$k2 Indice di Versatilità
+4989,+$k1 Agilità e +$k2 Indice di Versatilità
+4990,+$k1 Agilità e +$k2 Indice di Versatilità
+4991,+$k1 Agilità e +$k2 Indice di Versatilità
+4992,+$k1 Forza (Graduale)
+4993,+$k1 Indice di Parata
+4994,Soffio dell'Agile Principe
+4996,+$k1 Agilità
+4997,+$k1 Forza
+4998,+$k1 Intelletto
+5000,Razzi Acquatici
+5001,Chiodatura di Ectoferro
+5002,Incavo per Cintura
+5003,+$k1 Intelletto e +$k2 Indice di Critico
+5004,+$k1 Intelletto e +$k2 Indice di Versatilità
+5011,+$k1 Agilità
+5012,+$k1 Intelletto
+5013,+$k1 Forza
+5015,Incavo per armi Toccate dallo Sha
+5016,+$k1 Forza e +$k2 Armatura
+5017,+$k1 Agilità e +$k2 Armatura
+5018,+$k1 Intelletto e +$k2 Armatura
+5019,+$k1 Forza e +$k2 Indice di Versatilità
+5020,+$k1 Agilità e +$k2 Indice di Versatilità
+5021,+$k1 Intelletto e +$k2 Indice di Versatilità
+5024,+$k1 Indice di Critico e +$k2 Indice di Schivata
+5025,+$k1 Indice di Critico e +$k2 Indice di Schivata
+5026,+$k1 Indice di Critico e +$k2 Indice di Schivata
+5027,+$k1 Indice di Critico e +$k2 Indice di Schivata
+5029,Custom - Jaina - Crackling Lightning
+5030,+$k1 Tempra e Probabilità all'impatto subito di ridurre del $137593s1% i danni subiti
+5031,+$k1 Intelletto e Probabilità di azzerare per 4 s il costo degli incantesimi dopo uno benefico
+5032,+$k1 Indice di Critico e Probabilità all'impatto inflitto di attivare Reattanza
+5033,+$k1 Indice di Critico e Probabilità all'impatto magico di aumentare del $137590s1% la celerità
+5034,+$k1 Indice di Versatilità e +$k2 Armatura
+5035,+$k1 Attributo Primario e Riduzione Durata di Disarmo
+5124,Spirito della Conquista
+5125,Acciaio Danzante Sanguinario
+5147,+$k1 Agilità
+5155,+$k1 Agilità
+5156,+$k1 Agilità
+5157,+$k1 Intelletto
+5158,+$k1 Agilità
+5159,+$k1 Intelletto
+5160,+$k1 Indice di Versatilità
+5161,+$k1 Tempra
+5162,+$k1 Forza
+5163,+$k1 Indice di Schivata
+5164,+$k1 Indice di Schivata
+5165,+$k1 Potenza Magica
+5166,+$k1 Potenza Magica
+5167,+$k1 Potenza Magica
+5168,+$k1 Potenza d'Attacco
+5169,+$k1 Potenza d'Attacco
+5170,+$k1 Potenza d'Attacco
+5171,+$k1 Potenza d'Attacco
+5172,+$k1 Potenza d'Attacco
+5173,+$k1 Potenza d'Attacco
+5174,+$k1 Potenza d'Attacco
+5175,+$k1 Tempra
+5176,+$k1 Potenza Magica
+5177,+$k1 Intelletto
+5178,+$k1 Intelletto
+5179,+$k1 Indice di Critico
+5180,+$k1 Potenza Magica
+5181,+$k1 Indice di Critico
+5182,+$k1 Agilità
+5183,+$k1 Potenza Magica
+5184,+$k1 Potenza Magica
+5185,+$k1 Indice di Critico
+5186,+$k1 Indice di Versatilità
+5187,+$k1 Indice di Critico
+5188,+$k1 Indice di Critico
+5189,+$k1 Armatura
+5190,+$k1 Indice di Critico
+5191,+$k1 Armatura
+5192,+$k1 Indice di Critico
+5193,+$k1 Indice di Schivata
+5194,+$k1 Armatura
+5195,+$k1 Intelletto
+5196,+$k1 Indice di Critico
+5197,+$k1 Indice di Critico
+5198,+$k1 Indice di Versatilità
+5199,+$k1 Indice di Versatilità
+5200,+$k1 Indice di Versatilità
+5201,+$k1 Armatura
+5202,+$k1 Tempra
+5203,+$k1 Tempra
+5204,+$k1 Intelletto
+5205,+$k1 Intelletto
+5206,+$k1 Indice di Parata
+5207,+$k1 Indice di Schivata
+5208,+$k1 Indice di Schivata
+5209,+$k1 Potenza Magica
+5210,+$k1 Potenza Magica
+5211,+$k1 Indice di Critico
+5212,+$k1 Indice di Critico
+5213,+$k1 Indice di Critico
+5214,+$k1 Indice di Critico
+5215,+$k1 Indice di Critico
+5216,+$k1 Indice di Schivata
+5217,+$k1 Agilità
+5218,+$k1 Agilità
+5219,+$k1 Armatura
+5220,+$k1 Armatura
+5221,+$k1 Forza
+5222,+$k1 Indice di Critico
+5223,+$k1 Indice di Critico
+5224,+2 Indice di Versatilità
+5225,+$k1 Tempra
+5226,+$k1 Tempra
+5227,+$k1 Tempra
+5228,+$k1 Indice di Critico
+5229,+$k1 Indice di Critico
+5230,+$k1 Indice di Critico
+5231,+$k1 Potenza Magica
+5232,+$k1 Potenza Magica
+5233,+$k1 Indice di Versatilità
+5234,+$k1 Indice di Versatilità
+5235,+$k1 Forza
+5236,+$k1 Forza
+5237,+$k1 Indice di Versatilità
+5238,+$k1 Agilità
+5239,+$k1 Tempra
+5240,+$k1 Potenza Magica
+5241,+$k1 Indice di Critico
+5242,+$k1 Indice di Parata
+5243,+$k1 Indice di Critico
+5244,+$k1 Tempra
+5245,+$k1 Indice di Schivata
+5246,+$k1 Forza
+5247,+$k1 Forza
+5248,+$k1 Potenza d'Attacco
+5249,+$k1 Potenza d'Attacco
+5250,+$k1 Forza
+5251,+$k1 Potenza d'Attacco
+5252,+$k1 Indice di Schivata
+5253,+$k1 Forza
+5254,+$k1 Indice di Celerità
+5255,+$k1 Potenza d'Attacco
+5256,+$k1 Potenza d'Attacco
+5257,+$k1 Potenza d'Attacco
+5258,+$k1 Agilità
+5259,+$k1 Agilità
+5260,+$k1 Indice di Schivata
+5264,+$k1 Indice di Critico
+5265,+$k1 Indice di Critico
+5266,+$k1 Indice di Celerità
+5267,+$k1 Indice di Celerità
+5269,Mazzascoria
+5270,Arma d'Argilla Vivente
+5274,+$25065s1 Potenza Magica (Fuoco)
+5275,Spaccamissile di Oglethorpe
+5276,Filamento di Megawatt
+5281,+$k1 Indice di Critico
+5284,+$k1 Indice di Critico
+5285,+$k1 Indice di Critico
+5286,+$k1 Armatura
+5287,+$k1 Armatura
+5288,+$k1 Armatura
+5292,+$k1 Indice di Celerità
+5293,+$k1 Indice di Maestria
+5294,+$k1 Indice di Celerità
+5295,+$k1 Indice di Versatilità
+5296,+$k1 Indice di Versatilità
+5297,+$k1 Indice di Celerità
+5298,+$k1 Indice di Celerità
+5299,+$k1 Indice di Maestria
+5300,+$k1 Indice di Maestria
+5301,+$k1 Indice di Maestria
+5302,+$k1 Indice di Critico
+5303,+$k1 Indice di Versatilità
+5304,+$k1 Indice di Versatilità
+5305,+$k1 Indice di Versatilità
+5306,+$k1 Indice di Versatilità
+5309,+$k1 Armatura e 10% Aumento di Velocità
+5310,+$k1 Indice di Critico e +$182495s1% Aumento di Velocità
+5311,+$k1 Indice di Celerità e +$182495s1% Aumento di Velocità
+5312,+$k1 Indice di Maestria e +$182495s1% Aumento di Velocità
+5313,+$k1 Indice di Critico e +$182495s1% Aumento di Velocità
+5314,+$k1 Indice di Versatilità e +$182495s1% Aumento di Velocità
+5315,+$k1 Indice di Versatilità e +10% Aumento di Velocità
+5316,+$k1 Armatura
+5317,+$k1 Indice di Critico
+5318,+$k1 Indice di Celerità
+5319,+$k1 Indice di Maestria
+5320,+$k1 Indice di Celerità
+5321,+$k1 Indice di Versatilità
+5322,+$k1 Indice di Versatilità
+5323,+$k1 Armatura
+5324,+$k1 Indice di Critico
+5325,+$k1 Indice di Celerità
+5326,+$k1 Indice di Maestria
+5327,+$k1 Indice di Maestria
+5328,+$k1 Indice di Versatilità
+5329,+$k1 Indice di Versatilità
+5330,Marchio degli Spaccatuono
+5331,Marchio dei Manomozza
+5332,Frostbrand Visual Only
+5333,Probabilità all'impatto in mischia o a distanza a Talador di aumentare l'Indice di Replicazione di $160222s1.
+5334,Marchio dei Lupi Bianchi
+5335,Marchio dei Torvaluna
+5336,Marchio dei Roccianera
+5337,Marchio dei Cantaguerra
+5339,+$k1 Indice di Critico
+5340,+$k1 Indice di Celerità
+5342,+$k1 Indice di Maestria
+5343,+$k1 Indice di Celerità
+5344,+$k1 Indice di Versatilità
+5345,+$k1 Tempra
+5346,+$k1 Indice di Critico
+5347,+$k1 Indice di Celerità
+5348,+$k1 Indice di Maestria
+5349,+$k1 Indice di Celerità
+5350,+$k1 Indice di Versatilità
+5351,+$k1 Tempra
+5352,Gloria degli Spaccatuono
+5353,Gloria dei Torvaluna
+5354,Gloria dei Roccianera
+5355,Gloria dei Cantaguerra
+5356,Gloria dei Lupi Bianchi
+5357,+4 Pesca
+5360,Incantamento Arma Nascosto
+5364,Veleno
+5380,Farfalle
+5383,Centracuori di Hemet
+5384,Marchio dei Guerci Insanguinati
+5385,Nascosto
+5386,Esca (+$174472s1 Pesca)
+5387,Agilità
+5388,Potenza Magica Superiore
+5389,Aggressione
+5390,Maestro di Guerra
+5391,Berserker
+5392,Succhiasangue
+5393,Crociato
+5394,Fiamme di Ragnaros
+5395,Farfalle
+5396,Tirannia Gloriosa
+5397,Vittoria Primordiale
+5398,Terra Benefica
+5399,Marchio del Gelo
+5400,Lingua di Fuoco
+5401,Furia del Vento
+5402,Roccia Dura
+5404,Infusione Sacra
+5413,+$k1 Indice di Critico
+5414,+$k1 Indice di Celerità
+5415,+$k1 Indice di Maestria
+5416,+$k1 Indice di Celerità
+5417,+$k1 Indice di Versatilità
+5418,+$k1 Tempra
+5419,+$k1 Indice di Critico
+5420,+$k1 Indice di Celerità
+5421,+$k1 Indice di Maestria
+5423,+$k1 Indice di Critico
+5424,+$k1 Indice di Celerità
+5425,+$k1 Indice di Maestria
+5426,+$k1 Indice di Versatilità
+5427,+$k1 Indice di Critico
+5428,+$k1 Indice di Celerità
+5429,+$k1 Indice di Maestria
+5430,+$k1 Indice di Versatilità
+5431,+$k1 Forza
+5432,+$k1 Agilità
+5433,+$k1 Intelletto
+5434,+$k1 Forza
+5435,+$k1 Agilità
+5436,+$k1 Intelletto
+5437,Marchio dell'Artiglio
+5438,Marchio degli Arcieri di Supporto
+5439,Marchio del Satiro Nascosto
+5440,Depredatore
+5441,Trovagemme
+5442,Raccoglitore
+5443,Macellaio
+5444,Erbalismo di Legion
+5445,Estrazione di Legion
+5446,Scuoiatura di Legion
+5447,Rilevamento di Legion
+5448,Stretta dell'Inverno
+5449,Test - BF - Bonus Rank - Sharpened Edge
+5450,Roccia Dura
+5452,Test - DW - Bonus Rank - Iron Relic
+5454,Test - DW - Bonus Rank - Blood Relic
+5455,Test - DW - Bonus Rank - Shadow Relic
+5456,Test - DW - Bonus Rank - Fel Relic
+5457,Gemma Sacra dell'Artefatto di Val'sharah
+5459,+$k1 Indice di Critico
+5460,+$k1 Indice di Celerità
+5461,+$k1 Indice di Maestria
+5462,+$k1 Indice di Versatilità
+5463,+$k1 Indice di Critico
+5464,+$k1 Indice di Celerità
+5465,+$k1 Indice di Maestria
+5466,+$k1 Indice di Versatilità
+5467,+$k1 Forza
+5468,+$k1 Agilità
+5469,+$k1 Intelletto
+5488,Owen Test Relic
+5489,Cuore dell'Inferno
+5493,Pacchetto 1 - Sacro 1
+5494,Pacchetto 1 - Sacro 2
+5495,Pacchetto 1 - Arcano 1
+5496,Pacchetto 1 - Arcano 2
+5497,Pacchetto 1 - Sangue 1
+5498,Pacchetto 1 - Sangue 2
+5499,Pacchetto 1 - Vile 1
+5500,Pacchetto 1 - Vile 2
+5501,Pacchetto 1 - Fuoco 1
+5502,Pacchetto 1 - Fuoco 2
+5503,Pacchetto 1 - Gelo 1
+5504,Pacchetto 1 - Gelo 2
+5505,Pacchetto 1 - Ferro 1
+5506,Pacchetto 1 - Ferro 2
+5507,Pacchetto 1 - Vita 1
+5508,Pacchetto 1 - Vita 2
+5509,Pacchetto 1 - Ombra 1
+5510,Pacchetto 1 - Ombra 2
+5511,Pacchetto 1 - Acqua 1
+5512,Pacchetto 1 - Acqua 2
+5513,Pacchetto 1 - Vento 1
+5514,Pacchetto 1 - Vento 2
+5515,Pacchetto 2 - Arcano 1
+5516,Pacchetto 2 - Sangue 1
+5518,Pacchetto 2 - Fuoco 1
+5519,Pacchetto 2 - Gelo 1
+5520,Pacchetto 2 - Sacro 1
+5521,Pacchetto 2 - Ferro 1
+5522,Pacchetto 2 - Vita 1
+5523,Pacchetto 2 - Ombra 1
+5524,Pacchetto 2 - Acqua 1
+5525,Pacchetto 2 - Vento 1
+5526,Pacchetto 2 - Arcano 2
+5527,Pacchetto 2 - Sangue 2
+5529,Pacchetto 2 - Fuoco 2
+5530,Pacchetto 2 - Gelo 2
+5531,Pacchetto 2 - Sacro 2
+5532,Pacchetto 2 - Ferro 2
+5533,Pacchetto 2 - Vita 2
+5534,Pacchetto 2 - Ombra 2
+5535,Pacchetto 2 - Acqua 2
+5536,Pacchetto 2 - Vento 2
+5537,Pacchetto 3 - Sangue 1
+5538,Pacchetto 3 - Arcano 1
+5539,Pacchetto 3 - Vile 1
+5540,Pacchetto 3 - Fuoco 1
+5541,Pacchetto 3 - Gelo 1
+5542,Pacchetto 3 - Sacro 1
+5543,Pacchetto 3 - Ferro 1
+5544,Pacchetto 3 - Vita 1
+5545,Pacchetto 3 - Ombra 1
+5546,Pacchetto 3 - Acqua 1
+5547,Pacchetto 3 - Vento 1
+5548,Pacchetto 3 - Arcano 2
+5549,Pacchetto 3 - Sangue 2
+5550,Pacchetto 3 - Vile 2
+5551,Pacchetto 3 - Fuoco 2
+5552,Pacchetto 3 - Gelo 2
+5553,Pacchetto 3 - Sacro 2
+5554,Pacchetto 3 - Ferro 2
+5555,Pacchetto 3 - Vita 2
+5556,Pacchetto 3 - Ombra 2
+5557,Pacchetto 3 - Acqua 2
+5558,Pacchetto 3 - Vento 2
+5564,Pacchetto 1 - Arcano 1
+5565,Pacchetto 1 - Arcano 2
+5566,Pacchetto 1 - Sangue 1
+5567,Pacchetto 1 - Vile 1
+5568,Pacchetto 1 - Fuoco 1
+5569,Pacchetto 1 - Gelo 1
+5570,Pacchetto 1 - Sacro 1
+5571,Pacchetto 1 - Ferro 1
+5572,Pacchetto 1 - Vita 1
+5573,Pacchetto 1 - Ombra 1
+5574,Pacchetto 1 - Acqua 1
+5575,Pacchetto 1 - Vento 1
+5576,Pacchetto 1 - Sangue 2
+5577,Pacchetto 1 - Vile 2
+5578,Pacchetto 1 - Fuoco 2
+5579,Pacchetto 1 - Gelo 2
+5580,Pacchetto 1 - Sacro 2
+5581,Pacchetto 1 - Ferro 2
+5582,Pacchetto 1 - Vita 2
+5583,Pacchetto 1 - Ombra 2
+5584,Pacchetto 1 - Acqua 2
+5585,Pacchetto 1 - Vento 2
+5586,Pacchetto 2 - Arcano 1
+5587,Pacchetto 2 - Sangue 1
+5589,Pacchetto 2 - Fuoco 1
+5590,Pacchetto 2 - Gelo 1
+5591,Pacchetto 2 - Sacro 1
+5592,Pacchetto 2 - Ferro 1
+5593,Pacchetto 2 - Vita 1
+5594,Pacchetto 2 - Ombra 1
+5595,Pacchetto 2 - Acqua 1
+5596,Pacchetto 2 - Vento 1
+5597,Pacchetto 2 - Arcano 2
+5598,Pacchetto 2 - Sangue 2
+5600,Pacchetto 2 - Fuoco 2
+5601,Pacchetto 2 - Gelo 2
+5602,Pacchetto 2 - Sacro 2
+5603,Pacchetto 2 - Ferro 2
+5604,Pacchetto 2 - Vita 2
+5605,Pacchetto 2 - Ombra 2
+5606,Pacchetto 2 - Acqua 2
+5607,Pacchetto 2 - Vento 2
+5608,Pacchetto 3 - Arcano 1
+5609,Pacchetto 3 - Sangue 1
+5610,Pacchetto 3 - Vile 1
+5611,Pacchetto 3 - Fuoco 1
+5612,Pacchetto 3 - Gelo 1
+5613,Pacchetto 3 - Sacro 1
+5614,Pacchetto 3 - Ferro 1
+5615,Pacchetto 3 - Vita 1
+5616,Pacchetto 3 - Ombra 1
+5617,Pacchetto 3 - Acqua 1
+5618,Pacchetto 3 - Vento 1
+5619,Pacchetto 4 - Arcano 1
+5620,Pacchetto 4 - Sangue 1
+5621,Pacchetto 4 - Vile 1
+5622,Pacchetto 4 - Fuoco 1
+5624,Pacchetto 4 - Sacro 1
+5625,Pacchetto 4 - Ferro 1
+5626,Pacchetto 4 - Vita 1
+5627,Pacchetto 4 - Ombra 1
+5628,Pacchetto 4 - Acqua 1
+5629,Pacchetto 4 - Vento 1
+5632,Pacchetto 1 - Sacro 1
+5633,Pacchetto 1 - Arcano 1
+5634,Pacchetto 1 - Sangue 1
+5635,Pacchetto 1 - Vile 1
+5636,Pacchetto 1 - Fuoco 1
+5637,Pacchetto 1 - Gelo 1
+5638,Pacchetto 1 - Ferro 1
+5640,Pacchetto 1 - Vita 1
+5641,Pacchetto 1 - Ombra 1
+5642,Pacchetto 1 - Acqua 1
+5643,Pacchetto 1 - Vento 1
+5644,Pacchetto 1 - Sacro 2
+5645,Pacchetto 1 - Arcano 2
+5646,Pacchetto 1 - Sangue 2
+5647,Pacchetto 1 - Vile 2
+5648,Pacchetto 1 - Fuoco 2
+5649,Pacchetto 1 - Gelo 2
+5650,Pacchetto 1 - Ferro 2
+5651,Pacchetto 1 - Vita 2
+5652,Pacchetto 1 - Ombra 2
+5653,Pacchetto 1 - Acqua 2
+5654,Pacchetto 1 - Vento 2
+5655,Pacchetto 2 - Arcano 1
+5656,Pacchetto 2 - Arcano 2
+5657,Pacchetto 2 - Sangue 1
+5658,Pacchetto 2 - Sangue 2
+5659,Pacchetto 2 - Vile 1
+5660,Pacchetto 2 - Vile 2
+5661,Pacchetto 2 - Fuoco 1
+5662,Pacchetto 2 - Fuoco 2
+5663,Pacchetto 2 - Gelo 1
+5664,Pacchetto 2 - Gelo 2
+5665,Pacchetto 2 - Sacro 1
+5666,Pacchetto 2 - Sacro 2
+5667,Pacchetto 2 - Ferro 1
+5668,Pacchetto 2 - Ferro 2
+5669,Pacchetto 2 - Vita 1
+5670,Pacchetto 2 - Vita 2
+5671,Pacchetto 2 - Ombra 1
+5672,Pacchetto 2 - Ombra 2
+5673,Pacchetto 2 - Acqua 1
+5674,Pacchetto 2 - Acqua 2
+5675,Pacchetto 2 - Vento 1
+5676,Pacchetto 2 - Vento 2
+5677,Pacchetto 3 - Arcano 1
+5678,Pacchetto 3 - Arcano 2
+5679,Pacchetto 3 - Sangue 1
+5680,Pacchetto 3 - Sangue 2
+5681,Pacchetto 3 - Vile 1
+5682,Pacchetto 3 - Vile 2
+5683,Pacchetto 3 - Fuoco 1
+5684,Pacchetto 3 - Fuoco 2
+5685,Pacchetto 3 - Gelo 1
+5686,Pacchetto 3 - Gelo 2
+5687,Pacchetto 3 - Sacro 1
+5688,Pacchetto 3 - Sacro 2
+5689,Pacchetto 3 - Ferro 1
+5690,Pacchetto 3 - Ferro 2
+5691,Pacchetto 3 - Vita 1
+5692,Pacchetto 3 - Vita 2
+5693,Pacchetto 3 - Ombra 1
+5694,Pacchetto 3 - Ombra 2
+5695,Pacchetto 1 - Arcano 1
+5696,Pacchetto 1 - Sangue 1
+5697,Pacchetto 1 - Vile 1
+5698,Pacchetto 1 - Fuoco 1
+5699,Pacchetto 1 - Gelo 1
+5700,Pacchetto 1 - Ferro 1
+5701,Pacchetto 1 - Vita 1
+5702,Pacchetto 1 - Ombra 1
+5703,Pacchetto 1 - Acqua 1
+5704,Pacchetto 1 - Vento 1
+5705,Pacchetto 1 - Arcano 2
+5706,Pacchetto 1 - Sangue 2
+5707,Pacchetto 1 - Vile 2
+5708,Pacchetto 1 - Fuoco 2
+5709,Pacchetto 1 - Gelo 2
+5710,Pacchetto 1 - Ferro 2
+5711,Pacchetto 1 - Vita 2
+5712,Pacchetto 1 - Ombra 2
+5713,Pacchetto 1 - Acqua 2
+5714,Pacchetto 1 - Vento 2
+5715,Pacchetto 3 - Acqua 1
+5716,Pacchetto 3 - Acqua 2
+5717,Pacchetto 3 - Vento 1
+5718,Pacchetto 3 - Vento 2
+5719,Pacchetto 4 - Arcano 1
+5720,Pacchetto 4 - Sangue 1
+5721,Pacchetto 4 - Vile 1
+5722,Pacchetto 4 - Fuoco 1
+5723,Pacchetto 4 - Gelo 1
+5724,Pacchetto 4 - Sacro 1
+5725,Pacchetto 4 - Ferro 1
+5726,Pacchetto 4 - Vita 1
+5727,Pacchetto 4 - Ombra 1
+5728,Pacchetto 4 - Acqua 1
+5729,Pacchetto 4 - Vento 1
+5730,Pacchetto 2 - Arcano 1
+5731,Pacchetto 2 - Sangue 1
+5732,Pacchetto 2 - Vile 1
+5733,Pacchetto 2 - Fuoco 1
+5734,Pacchetto 2 - Gelo 1
+5735,Pacchetto 2 - Ferro 1
+5736,Pacchetto 2 - Vita 1
+5737,Pacchetto 2 - Ombra 1
+5738,Pacchetto 2 - Sacro 1
+5739,Pacchetto 2 - Acqua 1
+5740,Pacchetto 2 - Vento 1
+5741,Pacchetto 2 - Arcano 2
+5742,Pacchetto 2 - Sangue 2
+5743,Pacchetto 2 - Vile 2
+5744,Pacchetto 2 - Fuoco 2
+5745,Pacchetto 2 - Gelo 2
+5746,Pacchetto 2 - Sacro 2
+5747,Pacchetto 2 - Ferro 2
+5748,Pacchetto 2 - Vita 2
+5749,Pacchetto 2 - Ombra 2
+5750,Pacchetto 2 - Acqua 2
+5751,Pacchetto 2 - Vento 2
+5753,Pacchetto 3 - Arcano 1
+5754,Pacchetto 3 - Sangue 1
+5755,Pacchetto 3 - Vile 1
+5756,Pacchetto 3 - Fuoco 1
+5757,Pacchetto 3 - Gelo 1
+5758,Pacchetto 3 - Sacro 1
+5759,Pacchetto 3 - Ferro 1
+5760,Pacchetto 3 - Vita 1
+5761,Pacchetto 3 - Ombra 1
+5762,Pacchetto 3 - Acqua 1
+5763,Pacchetto 3 - Vento 1
+5764,Pacchetto 4 - Arcano 1
+5765,Pacchetto 4 - Sangue 1
+5766,Pacchetto 4 - Vile 1
+5767,Pacchetto 4 - Fuoco 1
+5768,Pacchetto 4 - Gelo 1
+5769,Pacchetto 4 - Sacro 1
+5770,Pacchetto 4 - Ferro 1
+5771,Pacchetto 4 - Vita 1
+5772,Pacchetto 4 - Ombra 1
+5773,Pacchetto 4 - Acqua 1
+5774,Pacchetto 4 - Vento 1
+5775,Pacchetto 4 - Arcano 2
+5776,Pacchetto 4 - Sangue 2
+5777,Pacchetto 4 - Vile 2
+5778,Pacchetto 4 - Fuoco 2
+5779,Pacchetto 4 - Gelo 2
+5780,Pacchetto 4 - Sacro 2
+5781,Pacchetto 4 - Ferro 2
+5782,Pacchetto 4 - Vita 2
+5783,Pacchetto 4 - Ombra 2
+5784,Pacchetto 4 - Acqua 2
+5785,Pacchetto 4 - Vento 2
+5786,Sale del Valore - Sangue
+5787,Sale del Valore - Fuoco
+5788,Sale del Valore - Sacro
+5789,Fauci delle Anime - Vento
+5790,Fauci delle Anime - Ombra
+5791,Fauci delle Anime - Acqua
+5792,Sale del Valore - Ferro
+5793,Sale del Valore - Vile
+5794,Fauci delle Anime - Arcano
+5797,Potenziamento PvP - Arcano
+5798,Potenziamento PvP - Sangue
+5799,Potenziamento PvP - Vile
+5800,Potenziamento PvP - Gelo 1
+5801,Potenziamento PvP - Fuoco
+5802,Potenziamento PvP - Sacro
+5803,Potenziamento PvP - Ferro
+5804,Potenziamento PvP - Vita
+5805,Potenziamento PvP - Ombra
+5806,Potenziamento PvP - Acqua
+5807,Potenziamento PvP - Vento
+5808,+$k1 Indice di Celerità e +$k2 Indice di Maestria
+5809,Ricompensa di Missione - Gelo 1
+5810,Archeologia - Arcano
+5811,Archeologia - Gelo
+5812,Archeologia - Fuoco
+5813,Archeologia - Ferro
+5814,Archeologia - Vita
+5815,Archeologia - Ombra
+5817,+$k1 Ritorno Vitale
+5822,Forgiatura - Sangue
+5823,Forgiatura - Ferro
+5824,Forgiatura - Sacro
+5825,Forgiatura - Fuoco
+5826,Ingegneria - Vile
+5827,Ingegneria - Vento
+5828,Incantamento - Ombra
+5830,Incantamento - Arcano
+5831,Runografia - Gelo
+5832,Runografia - Vita
+5834,+$k1 Indice di Critico
+5835,+$k1 Indice di Versatilità
+5836,+$k1 Indice di Celerità
+5837,+$k1 Indice di Maestria
+5838,+$k1 Indice di Critico
+5839,+$k1 Indice di Versatilità
+5840,+$k1 Indice di Celerità
+5841,+$k1 Indice di Maestria
+5843,Canti della Battaglia
+5844,Canti della Pace
+5845,Canti della Legione
+5847,Potenziamento Reliquia
+5848,Potenziamento Reliquia
+5849,Potenziamento Reliquia
+5850,Potenziamento Reliquia
+5851,Potenziamento Reliquia
+5852,Potenziamento Reliquia
+5853,Potenziamento Reliquia
+5854,Potenziamento Reliquia
+5855,Potenziamento Reliquia
+5857,Arma Vilinfusa
+5860,Test Transmog Enchant
+5861,Cacciatore di Bestie
+5862,Guardia Titanica
+5863,Lucefredda
+5864,Fiammafatua
+5865,Fuoco Solare
+5866,Freddanima
+5867,Luce del Custode della Terra
+5868,Soffio di Yu'lon
+5869,Runa della Lama di Ghiaccio
+5870,Runa del Crociato Caduto
+5871,Terra Benefica
+5872,Lingua di Fuoco
+5873,Marchio del Gelo
+5874,Roccia Dura
+5875,Furia del Vento
+5876,Incubo
+5877,Cronos
+5881,Recuperatore
+5882,Cercamana
+5883,Cacciatore del Sangue
+5884,Canti dell'Orda
+5885,Canti dell'Alleanza
+5888,Vagafatuo
+5889,Marchio della Pelle Pesante
+5890,Marchio del Soldato Addestrato
+5891,Marchio dell'Antica Sacerdotessa
+5892,Potenziamento Reliquia
+5893,Potenziamento Reliquia
+5895,+$k1 Indice di Maestria
+5896,+$k1 Indice di Versatilità
+5897,+$k1 Indice di Celerità
+5898,+$k1 Indice di Critico
+5899,Dono del Costruttore
+5900,Animalista
+5901,Potenziamento Reliquia
+5902,Potenziamento Reliquia
+5903,Potenziamento Reliquia
+5904,Potenziamento Reliquia
+5905,Potenziamento Reliquia
+5906,Potenziamento Reliquia
+5907,Potenziamento Reliquia
+5908,Potenziamento Reliquia
+5909,Potenziamento Reliquia
+5910,Potenziamento Reliquia
+5912,Potenziamento Reliquia
+5913,Potenziamento Reliquia
+5914,Potenziamento Reliquia
+5915,Potenziamento Reliquia
+5916,Potenziamento Reliquia
+5917,Potenziamento Reliquia
+5918,Potenziamento Reliquia
+5919,Potenziamento Reliquia
+5920,Potenziamento Reliquia
+5921,Potenziamento Reliquia
+5922,Potenziamento Reliquia
+5923,Potenziamento Reliquia
+5924,Tirannia Demoniaca
+5925,+$k1 Indice di Critico
+5926,+$k1 Indice di Celerità
+5927,+$k1 Indice di Maestria
+5928,+$k1 Indice di Versatilità
+5929,Risoluto
+5930,+$254605s1 Pesca
+5931,Portaluce
+5932,Erbalismo di Kul Tiras
+5933,Estrazione di Kul Tiras
+5934,Scuoiatura di Kul Tiras
+5935,Rilevamento di Kul Tiras
+5936,Ritorno Rapido
+5937,Artigianato di Kul Tiras
+5938,+$k1 Indice di Critico
+5939,+$k1 Indice di Celerità
+5940,+$k1 Indice di Maestria
+5941,+$k1 Indice di Versatilità
+5942,+$k1 Indice di Critico
+5943,+$k1 Indice di Celerità
+5944,+$k1 Indice di Maestria
+5945,+$k1 Indice di Versatilità
+5946,Impeto delle Coste
+5948,Aspirazione
+5949,Torrente degli Elementi
+5950,Assalto della Burrasca
+5952,Proiettore Olografico Orrorifico
+5953,Amplificatore Spaziale Personale
+5954,+5% Velocità di Nuoto
+5955,Mirino della Coffa
+5956,Mirino di Monelite dell'Alacrità
+5957,Munizione Incendiaria
+5958,Munizione Gelida
+5960,
+5962,Navigazione Versatile
+5963,Navigazione Rapida
+5964,Navigazione Magistrale
+5965,Navigazione Mortale
+5966,Navigazione Animosa
+5967,Scudo al Plasma Miniaturizzato
+5969,
+5970,Ritorno Sicuro
+5971,Ritorno Rilassato
+6072,+$k1 Indice di Critico
+6073,+$k1 Indice di Critico
+6074,+$k1 Indice di Critico
+6075,+$k1 Indice di Celerità
+6076,+$k1 Indice di Celerità
+6077,+$k1 Indice di Celerità
+6078,+$k1 Indice di Maestria
+6079,+$k1 Indice di Maestria
+6080,+$k1 Indice di Maestria
+6081,+$k1 Indice di Versatilità
+6082,+$k1 Indice di Versatilità
+6083,+$k1 Indice di Versatilità
+6084,+$k1 Forza
+6085,+$k1 Agilità
+6086,+$k1 Intelletto
+6087,Ornamento Magico Resiliente
+6088,Ornamento Magico Discreto
+6089,Ornamento Magico Piumato
+6092,+$k1 Velocità
+6096,Fiamma Terrificante
+6097,Equipaggia: Le abilità hanno una probabilità di aumentare l'indice di celerità di $293142s1 per $293142d
+6098,"Usa: Canalizza una detonazione ciclonica, infliggendo $293491s1 danni ogni $293491t1 s per $293491D."
+6099,Usa: Infligge $293512s1 danni a un nemico e aumenta i danni del dispositivo su bersagli con lo stesso nome.
+6100,+$k1 Indice di Critico
+6101,+$k1 Indice di Celerità
+6102,+$k1 Indice di Maestria
+6103,+$k1 Indice di Versatilità
+6104,Equipaggia: Fornisce Respiro Acquatico
+6105,"Equipaggia: Fornisce Silenziatore Neurale, rendendo immuni ad alcuni fastidi"
+6106,+$k1 Indice di Celerità e +$k2 Indice di Versatilità
+6107,Equipaggia: Permette di manomettere alcune creature e costrutti a Meccagon
+6108,+$k1 Indice di Critico
+6109,+$k1 Indice di Celerità
+6110,+$k1 Indice di Maestria
+6111,+$k1 Indice di Versatilità
+6112,Acume del Macchinista
+6113,Equipaggia: Aumenta i Pezzi di Ricambio recuperati a Meccagon
+6115,"Equipaggia: Aumenta la velocità di nuoto del $298705s1% ogni $298703t1 s quando si è in acqua, fino a un massimo del 100%"
+6116,Equipaggia: Aumenta la capacità dei polmoni del 1.000%
+6117,+$k1 Indice di Versatilità
+6118,+$k1 Indice di Celerità
+6119,+$k1 Indice di Maestria
+6120,+$k1 Indice di Critico
+6121,+$k1 Forza
+6122,+$k1 Agilità
+6123,+$k1 Intelletto
+6124,"Equipaggia: In caso d'emergenza, azzera i danni da caduta"
+6125,"Equipaggia: Individua le creature meccaniche vicine, mostrandone la posizione sulla minimappa"
+6126,Equipaggia: Riduce l'efficacia degli effetti di movimento forzato
+6127,"+$306402s1 indice di critico, +$306402s2 indice di maestria"
+6128,"+$306403s1 indice di critico, +$306403s2 indice di versatilità"
+6129,"+$303590s1 indice di critico, +$303590s2 indice di celerità"
+6130,"+$306406s1 indice di maestria, +$306406s2 indice di celerità"
+6131,"+$303595s1 indice di maestria, +$303595s2 indice di critico"
+6132,"+$306407s1 indice di maestria, +$306407s2 indice di versatilità"
+6133,"+$306405s1 indice di celerità, +$306405s2 indice di versatilità"
+6134,"+$306404s1 indice di celerità, +$306404s2 indice di maestria"
+6135,"+$303592s1 indice di celerità, +$303592s2 indice di critico"
+6136,"+$306410s1 indice di versatilità, +$306410s2 indice di maestria"
+6137,"+$303596s1 indice di versatilità, +$303596s2 indice di critico"
+6138,"+$306409s1 indice di versatilità, +$306409s2 indice di celerità"
+6139,Usa: Fornisce Controllo Mentale sulle creature meccaniche bersaglio.
+6140,"Equipaggia: Rigenera $299047s1 salute ogni $299047t1 s, aumentando fino al 200% in base alla salute mancante"
+6141,Equipaggia: Subire danni fisici fornisce $299053s1 indice di schivata per $299054d1. Si accumula
+6142,"Equipaggia: Ogni $299062s2 incantesimi, aumenta l'indice di celerità di $299064s1 per 12 s, quindi riduce l'indice di celerità di $299065s2 per 6 s"
+6143,Equipaggia: Curare gli alleati al di sotto del 50% della salute massima fornisce una probabilità di rigenerare $299453s3 mana in $305129d
+6144,Usa: Crea un'ondata di Meccagnomi che travolge i nemici.
+6145,Equipaggia: Gli incantesimi hanno una probabilità di ridistribuire i tuoi attributi in base alla Scheda Logica equipaggiata.
+6146,"Equipaggia: Le cure critiche forniscono Reattanza, aumentando la successiva cura fornita di $k."
+6147,+$k1 Velocità
+6148,Moltiplicatore di Forza
+6149,Rigenerazione Oceanica
+6150,Pelle di Naga
+6151,Potenzia le creature dello Scrigno Arcano di Mardivas con il potere dell'acqua.
+6152,Potenzia le creature dello Scrigno Arcano di Mardivas con il potere del fuoco.
+6153,Potenzia le creature dello Scrigno Arcano di Mardivas con il potere della terra.
+6154,"+$k1 Indice di Versatilità, +$k2 attributo secondario casuale"
+6155,"+$k1 Indice di Maestria, +$k2 attributo secondario casuale"
+6156,"+$k1 Indice di Celerità, +$k2 attributo secondario casuale"
+6157,+$k1 Indice di Critico e +$k2 attributo secondario casuale
+6158,Sabbie Pungenti
+6159,Enchant Visual Test - LIA
+6160,Potenziamento Vincolo dell'Anima
+6161,Incantamento di Prova
+6162,Brivido Fantasma
+6163,+$k1 Indice di Critico
+6164,+$k1 Indice di Critico
+6165,+$k1 Indice di Celerità
+6166,+$k1 Indice di Celerità
+6167,+$k1 Indice di Maestria
+6168,+$k1 Indice di Maestria
+6169,+$k1 Indice di Versatilità
+6170,+$k1 Indice di Versatilità
+6174,Confine del Vuoto
+6184,Test Enchant - Shadow
+6185,Sabbie Pungenti
+6186,9FX - Kyrian Covenant Weapon Enchant
+6188,Olio di Nucleombra
+6190,Olio dell'Imbalsamatore
+6192,Sfasatore Dimensionale
+6193,Elettrosalto
+6194,Restituitore di Danni
+6195,Mirino a Raggi Infraverdi
+6196,Ingrossatore Ottico del Bersaglio
+6197,9FX - Generic - Revendreth - Weapon Enchant - High
+6198,Affilato VIII
+6199,Appesantito VIII
+6200,Affilato IX
+6201,Appesantito IX
+6202,+$k1 Tempra e Leggero Aumento di Velocità
+6203,+$k1 Tempra e +$k2 Indice di elusione
+6204,+$k1 Tempra e +$k2 Ritorno Vitale
+6205,Raccolta di Shadowlands
+6206,9FX - Generic - Revendreth - Weapon Enchant - Low
+6207,Stivaletti dell'Anima
+6208,+$k1 Tempra
+6209,+$k1 Forza
+6210,+$k1 Forza
+6211,+$k1 Agilità
+6212,+$k1 Agilità
+6213,+$k1 Armatura e +$k2 Attributo Primario
+6214,Schermaglia Eterna
+6216,Attributi primari +$k1
+6217,+$k1 Intelletto e +$323923s1% Mana
+6219,+$k1 Intelletto
+6220,+$k1 Intelletto
+6222,Ritorno Ombroso
+6223,Forza Oscura
+6224,Rinforzato (+$k1 Tempra)
+6225,Rinforzato (+$k1 Tempra)
+6226,Grazia Eterna
+6227,Vigore Asceso
+6228,Rivelazione Peccaminosa
+6229,Guida Celestiale
+6230,Attributi primari +$k1
+6231,+$k1 Indice di Versatilità
+6232,+$k1 Indice di Critico
+6233,+$k1 Indice di Maestria
+6234,+$k1 Indice di Celerità
+6235,+$k1 Indice di Versatilità
+6236,+$k1 Indice di Critico
+6237,+$k1 Indice di Maestria
+6238,+$k1 Indice di Celerità
+6239,Velocità di movimento aumentata di $325335s2 per ogni gemma di Shadowlands incastonata.
+6240,Rigenera $325492s2 salute ogni $325492t1 s per ogni gemma di Shadowlands incastonata.
+6241,Runa del Dissanguamento
+6242,Runa della Protezione Magica
+6243,Runa dell'Isteria
+6244,Runa della Sete Implacabile
+6245,Runa dell'Apocalisse
+6246,Kali Test Enchant - Various
+6247,Test Enchant - All Weapons - Maw
+6248,Giggy Test Enchant - Various
+6252,Rinforzato (+$k1 Tempra)
+6256,Spirito Devoto
+6257,Anima Trascendente
+6258,Ira del Peccato
+6259,Lama del Peccato
+6261,Spirito Imperituro
+6262,Risolutezza Indistruttibile
+6263,Anima Selvaggia
+6264,Favore della Caccia
+6265,Consapevolezza Eterna
+6266,Fiamma Peccaminosa
+6267,Fiamma Peccaminosa
+6269,Subire danni magici ti cura di $350525S1.
+6270,Curare un bersaglio con meno del 30% di salute rimasta aumenta l'Intelletto di $350530S1 per $350530D.
+6271,I colpi critici infliggono $350511s1 danni da ombra aggiuntivi in $350511d. Si accumula fino a 3 volte.
+6272,Le tue abilità benefiche inviano uno Sciame di Locuste a protezione del tuo alleato.
+6273,Sciame di Locuste rimbalza su un massimo di 3 alleati aggiuntivi.
+6274,Lancia automaticamente Sciame di Locuste su un alleato vicino ogni 60 s.
+6275,Sciame di Locuste ha una probabilità del 25% di attivarsi due volte al lancio.
+6276,"Quando la salute degli alleati con Sciame di Locuste viene completamente ripristinata, lo sciame infligge danni a un nemico vicino."
+6277,Gli attacchi in mischia hanno una probabilità di risucchiare un Frammento dell'Anima dal bersaglio.
+6278,I Frammenti d'Anima ottenuti da Oscura Mietitura si accumulano fino a 10 volte.
+6279,"Al raggiungimento di 10 accumuli scatena Flagello del Caos, infliggendo danni da ombra e fornendo ulteriore potere."
+6280,Aumenta i danni inflitti da Flagello del Caos del 100%.
+6281,Flagello del Caos esplode di nuovo al termine dell'effetto.
+6282,"I colpi critici hanno una probabilità di versare il sangue del nemico sul terreno, che può essere assorbito."
+6283,Aumenta le cure fornite da Macchie di Sangue del 50%.
+6284,"Se sono presenti 5 Macchie di Sangue contemporaneamente, si uniscono in una Bestia di Sangue."
+6285,"Quando la salute restante è al di sotto del 50%, il tuo sangue si sparge in 3 Macchie di Sangue."
+6286,Fornisce cure pari alla salute rimasta di Bestia di Sangue al termine dell'effetto.
+6287,9.1 - Incantamento di Sylvanas - Alto
+6288,9.1 - Incantamento di Sylvanas - Basso
+6289,$355752@spelldesc355721
+6290,$355752@spelldesc355725
+6291,$355752@spelldesc355731
+6292,$355752@spelldesc355734
+6293,$355752@spelldesc355739
+6294,$355752@spelldesc355740
+6295,$355752@spelldesc355741
+6296,$355752@spelldesc355742
+6297,$355752@spelldesc355743
+6298,$355752@spelldesc355745
+6299,$355752@spelldesc355746
+6300,|cff71d5ff|Hspell:30455|h[Lancia di Ghiaccio]|h|r
+6301,$355752@spelldesc355748
+6302,$355752@spelldesc355755
+6303,$355752@spelldesc355771
+6304,$355752@spelldesc355757
+6305,$355752@spelldesc355765
+6306,$355752@spelldesc355766
+6307,$355752@spelldesc355764
+6308,$355752@spelldesc357040
+6309,$355752@spelldesc357038
+6310,$355752@spelldesc357037
+6311,$355752@spelldesc357036
+6312,$355752@spelldesc357035
+6313,$355752@spelldesc357034
+6314,$355752@spelldesc357033
+6315,$355752@spelldesc357032
+6316,$355752@spelldesc357031
+6317,$355752@spelldesc357049
+6318,$355752@spelldesc357050
+6319,$spell@spelldesc357051
+6320,$355752@spelldesc357052
+6321,$355752@spelldesc357053
+6322,$spell@spelldesc357054
+6323,$355752@spelldesc357055
+6324,$355752@spelldesc357056
+6325,$spell@spelldesc357057
+6326,$spell@spelldesc357067
+6327,$355752@spelldesc357066
+6328,$spell@spelldesc357065
+6329,$355752@spelldesc357064
+6330,$355752@spelldesc357063
+6331,$355752@spelldesc357062
+6332,$355752@spelldesc357061
+6333,$spell@spelldesc357060
+6334,$spell@spelldesc357058
+6335,$spell@spelldesc357069
+6336,$spell@spelldesc357071
+6337,$spell@spelldesc357072
+6338,$spell@spelldesc357073
+6339,$spell@spelldesc357074
+6340,$spell@spelldesc357075
+6341,$spell@spelldesc357076
+6342,$spell@spelldesc357068
+6343,$spell@spelldesc357077
+6344,Furia Libera
+6346,JDP - Test - Weapon Enchant
+6347,JDP Test Enchant - Various
+6349,9.2 Generic - Progenitor v2 - Weapon Enchant - High
+6350,9.2 Generic - Progenitor v2 - Weapon Enchant - Low
+6351,Flusso Cosmico
+6352,$spell@spelldesc367265
+6353,$spell@spelldesc367255
+6354,$spell@spelldesc367261
+6355,$spell@spelldesc367262
+6356,$spell@spelldesc367267
+6357,$spell@spelldesc367260
+6358,$spell@spelldesc367266
+6359,$spell@spelldesc367173
+6360,$spell@spelldesc367259
+6361,$spell@spelldesc367257
+6362,$spell@spelldesc367254
+6363,$spell@spelldesc367256
+6364,$spell@spelldesc367264
+6365,$spell@spelldesc367263
+6366,$spell@spelldesc367258
+6367,$spell@spelldesc367272
+6368,$spell@spelldesc367271
+6369,$spell@spelldesc367270
+6370,$spell@spelldesc367269
+6371,$spell@spelldesc367268
+6378,Flusso Eterno
+6379,Sharpened: +$k1 Attack Power |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6380,Sharpened: +$k1 Attack Power |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6381,Sharpened: +$k1 Attack Power |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6382,Razor Sharp: +$k1 Finesse |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6383,Razor Sharp: +$k1 Finesse |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6384,Razor Sharp: +$k1 Finesse |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6385,10FX - Generic - Fire - Weapon Enchant - High
+6386,10FX - Generic - Wind - Weapon Enchant - High
+6389,10FX - Generic - Frost - Weapon Enchant - High
+6390,10FX - Generic - Earth - Weapon Enchant - High
+6391,+$k1 Ispirazione
+6392,+$k1 Critical Strike and +$k2 Haste |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6393,+$k1 Critical Strike and +$k2 Haste |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6394,+$k1 Critical Strike and +$k2 Haste |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6395,+$k1 Critical Strike and +$k2 Haste |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6396,+$k1 Critical Strike and +$k2 Haste |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6397,+$k1 Critical Strike and +$k2 Haste |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6398,+$k1 Primary Stat and +$k2 Haste |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6399,+$k1 Primary Stat and +$k2 Haste |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6400,+$k1 Primary Stat and +$k2 Haste |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6401,+$k1 Versatility and +$k2 Mastery |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6402,+$k1 Versatility and +$k2 Mastery |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6403,+$k1 Versatility and +$k2 Mastery |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6404,+$k1 Haste and +$k2 Versatility |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6405,+$k1 Haste and +$k2 Versatility |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6406,+$k1 Haste and +$k2 Versatility |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6407,+$k1 Mastery and +$k2 Critical Strike |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6408,+$k1 Mastery and +$k2 Critical Strike |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6409,+$k1 Mastery and +$k2 Critical Strike |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6410,+$k1 Stamina |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6411,+$k1 Stamina |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6412,+$k1 Stamina |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6413,+$k1 Critical Strike and +$k2 Mastery |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6414,+$k1 Critical Strike and +$k2 Mastery |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6415,+$k1 Critical Strike and +$k2 Mastery |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6416,+$k1 Critical Strike and +$k2 Versatility |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6417,+$k1 Critical Strike and +$k2 Versatility |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6418,+$k1 Critical Strike and +$k2 Versatility |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6419,+$k1 Critical Strike |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6420,+$k1 Critical Strike |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6421,+$k1 Critical Strike |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6422,+$k1 Versatility and +$k2 Haste |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6423,+$k1 Versatility and +$k2 Haste |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6424,+$k1 Versatility and +$k2 Haste |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6425,+$k1 Versatility and +$k2 Mastery |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6426,+$k1 Versatility and +$k2 Mastery |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6427,+$k1 Versatility and +$k2 Mastery |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6428,+$k1 Versatility and +$k2 Critical Strike |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6429,+$k1 Versatility and +$k2 Critical Strike |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6430,+$k1 Versatility and +$k2 Critical Strike |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6431,+$k1 Versatility |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6432,+$k1 Versatility |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6433,+$k1 Versatility |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6434,+$k1 Haste and +$k2 Versatility |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6435,+$k1 Haste and +$k2 Versatility |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6436,+$k1 Haste and +$k2 Versatility |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6437,+$k1 Haste and +$k2 Mastery |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6438,+$k1 Haste and +$k2 Mastery |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6439,+$k1 Haste and +$k2 Mastery |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6440,+$k1 Haste and +$k2 Critical Strike |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6441,+$k1 Haste and +$k2 Critical Strike |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6442,+$k1 Haste and +$k2 Critical Strike |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6443,+$k1 Haste |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6444,+$k1 Haste |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6445,+$k1 Haste |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6446,+$k1 Mastery and +$k2 Versatility |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6447,+$k1 Mastery and +$k2 Versatility |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6448,+$k1 Mastery and +$k2 Versatility |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6449,+$k1 Mastery and +$k2 Haste |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6450,+$k1 Mastery and +$k2 Haste |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6451,+$k1 Mastery and +$k2 Haste |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6452,+$k1 Mastery and +$k2 Critical Strike |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6453,+$k1 Mastery and +$k2 Critical Strike |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6454,+$k1 Mastery and +$k2 Critical Strike |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6455,+$k1 Mastery |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6456,+$k1 Mastery |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6457,+$k1 Mastery |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6458,+$k1 Stamina and +$k2 Critical Strike |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6459,+$k1 Stamina and +$k2 Critical Strike |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6460,+$k1 Stamina and +$k2 Critical Strike |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6461,+$k1 Stamina and +$k2 Haste |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6462,+$k1 Stamina and +$k2 Haste |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6463,+$k1 Stamina and +$k2 Haste |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6464,+$k1 Stamina and +$k2 Mastery |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6465,+$k1 Stamina and +$k2 Mastery |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6466,+$k1 Stamina and +$k2 Mastery |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6467,+$k1 Stamina and +$k2 Versatility |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6468,+$k1 Stamina and +$k2 Versatility |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6469,+$k1 Stamina and +$k2 Versatility |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6470,+$k1 Primary Stat and +$k2 Critical Strike |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6471,+$k1 Primary Stat and +$k2 Critical Strike |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6472,+$k1 Primary Stat and +$k2 Critical Strike |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6473,+$k1 Primary Stat and +$k2 Mastery |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6474,+$k1 Primary Stat and +$k2 Mastery |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6475,+$k1 Primary Stat and +$k2 Mastery |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6476,+$k1 Primary Stat and +$k2 Versatility |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6477,+$k1 Primary Stat and +$k2 Versatility |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6478,+$k1 Primary Stat and +$k2 Versatility |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6485,Velocità di movimento aumentata di $k1 |A:Professions-Icon-Quality-Tier1-Small:20:20|a.
+6486,Velocità di movimento aumentata di $k1 |A:Professions-Icon-Quality-Tier2-Small:20:20|a.
+6487,Velocità di movimento aumentata di $k1 |A:Professions-Icon-Quality-Tier3-Small:20:20|a.
+6488,Fierce Armor Kit |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6489,Fierce Armor Kit |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6490,Fierce Armor Kit |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6491,Reinforced Armor Kit |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6492,Reinforced Armor Kit |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6493,Reinforced Armor Kit |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6494,Frosted Armor Kit |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6495,Frosted Armor Kit |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6496,Frosted Armor Kit |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6498,Terra Benefica
+6499,$@spelldesc115069
+6500,+$k1 Indice di Celerità
+6502,$spell@spelldesc384044
+6504,$spell@spelldesc384081
+6505,$spell@spelldesc384098
+6506,$spell@spelldesc384141
+6507,$spell@spelldesc384266
+6508,$@spelldesc115069
+6509,+$k1 Indice di Celerità
+6510,+$k1 Indice di Celerità
+6511,Imbottito
+6512,Buzzing Rune
+6513,Buzzing Rune
+6514,Buzzing Rune
+6515,Chirping Rune
+6516,Howling Rune
+6517,Howling Rune
+6518,Howling Rune
+6519,Questo dispositivo funziona sempre male.
+6520,Caleidoscopio Giroscopico |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6521,Caleidoscopio Giroscopico |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6522,Caleidoscopio Giroscopico |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6523,Blocco di Propulsione dei Proiettili |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6524,Blocco di Propulsione dei Proiettili |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6525,Blocco di Propulsione dei Proiettili |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6526,Scansionatore Termico ad Alta Intensità |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6527,Scansionatore Termico ad Alta Intensità |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6528,Scansionatore Termico ad Alta Intensità |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6529,Completely Safe Rockets |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6530,Completely Safe Rockets |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6531,Completely Safe Rockets |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6532,Endless Stack of Needles |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6533,Endless Stack of Needles |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6534,Endless Stack of Needles |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6535,$spell@spelldesc386674 |n$spell@spelldesc386681
+6536,+$k1 Intellect |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6537,+$k1 Intellect |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6538,+$k1 Intellect |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6539,+$k1 Intellect & +$k2 Stamina |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6540,+$k1 Intellect & +$k2 Stamina |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6541,+$k1 Intellect & +$k2 Stamina |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6542,+$k1 Intellect & +$387302s1% Mana |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6543,+$k1 Intellect & +$387303s1% Mana |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6544,+$k1 Intellect & +$387306s1% Mana |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6545,+$k1 Critical Strike |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6546,+$k1 Critical Strike |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6547,+$k1 Critical Strike |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6548,+$k1 Critical Strike |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6549,+$k1 Critical Strike |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6550,+$k1 Critical Strike |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6551,+$k1 Haste |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6552,+$k1 Haste |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6553,+$k1 Haste |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6554,+$k1 Haste |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6555,+$k1 Haste |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6556,+$k1 Haste |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6557,+$k1 Mastery |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6558,+$k1 Mastery |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6559,+$k1 Mastery |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6560,+$k1 Mastery |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6561,+$k1 Mastery |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6562,+$k1 Mastery |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6563,+$k1 Versatility |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6564,+$k1 Versatility |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6565,+$k1 Versatility |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6566,+$k1 Versatility |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6567,+$k1 Versatility |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6568,+$k1 Versatility |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6569,+$k1 Avoidance |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6570,+$k1 Avoidance |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6571,+$k1 Avoidance |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6572,+$k1 Avoidance |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6573,+$k1 Avoidance |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6574,+$k1 Avoidance |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6575,+$k1 Leech |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6576,+$k1 Leech |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6577,+$k1 Leech |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6578,+$k1 Leech |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6579,+$k1 Leech |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6580,+$k1 Leech |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6581,+$k1 Speed |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6582,+$k1 Speed |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6583,+$k1 Speed |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6584,+$k1 Speed |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6585,+$k1 Speed |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6586,+$k1 Speed |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6587,+$k1 Avoidance |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6588,+$k1 Avoidance |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6589,+$k1 Avoidance |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6590,Graceful Avoidance |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6591,Graceful Avoidance |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6592,Graceful Avoidance |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6593,+$k1 Leech |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6594,+$k1 Leech |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6595,+$k1 Leech |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6596,Regenerative Leech |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6597,Regenerative Leech |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6598,Regenerative Leech |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6599,+$k1 Speed |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6600,+$k1 Speed |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6601,+$k1 Speed |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6602,Homebound Speed |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6603,Homebound Speed |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6604,Homebound Speed |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6605,Plainsrunner's Breeze |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6606,Plainsrunner's Breeze |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6607,Plainsrunner's Breeze |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6608,Sicurezza del Cavaliere |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6609,Sicurezza del Cavaliere |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6610,Sicurezza del Cavaliere |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6611,Watcher's Loam |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6612,Watcher's Loam |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6613,Watcher's Loam |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6614,Accelerated Agility |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6615,Accelerated Agility |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6616,Accelerated Agility |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6617,Reserve of Intellect |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6618,Reserve of Intellect |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6619,Reserve of Intellect |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6620,Sustained Strength |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6621,Sustained Strength |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6622,Sustained Strength |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6623,Waking Stats |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6624,Waking Stats |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6625,Waking Stats |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6626,Encomio Bruciante |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6627,Encomio Bruciante |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6628,Encomio Bruciante |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6629,Devozione Bruciante |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6630,Devozione Bruciante |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6631,Devozione Bruciante |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6632,Encomio Terrigeno |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6633,Encomio Terrigeno |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6634,Encomio Terrigeno |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6635,Devozione Terrigena |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6636,Devozione Terrigena |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6637,Devozione Terrigena |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6638,Encomio Sofico |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6639,Encomio Sofico |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6640,Encomio Sofico |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6641,Devozione Sofica |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6642,Devozione Sofica |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6643,Devozione Sofica |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6644,Encomio Gelido |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6645,Encomio Gelido |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6646,Encomio Gelido |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6647,Devozione Gelida |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6648,Devozione Gelida |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6649,Devozione Gelida |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6650,Wafting Writ |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6651,Wafting Writ |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6652,Wafting Writ |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6653,Wafting Devotion |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6654,Wafting Devotion |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6655,Wafting Devotion |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6656,+$k1 Deftness |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6657,+$k1 Deftness |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6658,+$k1 Deftness |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6659,+$k1 Finesse |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6660,+$k1 Finesse |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6661,+$k1 Finesse |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6662,+$k1 Inspiration |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6663,+$k1 Inspiration |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6664,+$k1 Inspiration |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6665,+$k1 Perception |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6666,+$k1 Perception |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6667,+$k1 Perception |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6668,+$k1 Resourcefulness |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6669,+$k1 Resourcefulness |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6670,+$k1 Resourcefulness |A:Professions-Icon-Quality-Tier3-Small:20:20|a
+6671,Ornamento Illusorio - Fuoco
+6672,Maestria Primordiale
+6673,Ornamento Illusorio - Fuoco
+6674,Ornamento Illusorio - Fuoco
+6675,Aria Primordiale
+6676,Terra Primordiale
+6677,Fuoco Primordiale
+6678,Gelo Primordiale
+6679,Ornamento Illusorio - Gelo
+6680,Ornamento Illusorio - Gelo
+6681,Ornamento Illusorio - Gelo
+6682,Ornamento Illusorio - Aria
+6683,Ornamento Illusorio - Aria
+6684,Ornamento Illusorio - Aria
+6685,Ornamento Illusorio - Terra
+6686,Ornamento Illusorio - Terra
+6687,Ornamento Illusorio - Terra
+6688,Ornamento Illusorio - Ordine
+6689,Ornamento Illusorio - Ordine
+6690,Ornamento Illusorio - Ordine
+6691,$spell@spelldesc393795
+6692,$spell@spelldesc384266
+6693,$spell@spelldesc384266
+6694,Chirping Rune
+6695,Chirping Rune
+6696,Weighted: +$k1 Attack Power |A:Professions-Icon-Quality-Tier1-Small:20:20|a
+6697,Weighted: +$k1 Attack Power |A:Professions-Icon-Quality-Tier2-Small:20:20|a
+6698,Weighted: +$k1 Attack Power |A:Professions-Icon-Quality-Tier3-Small:20:20|a

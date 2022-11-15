@@ -18,13 +18,11 @@ public static partial class Hardcoded
                 {
                     ID = 1,
                     MapID = 2236,
-                    OrderIndex = 1,
                     Name = "Darkmaul Citadel",
                 },
                 new DumpJournalInstance
                 {
                     ID = 2,
-                    OrderIndex = 2,
                     Name = "Anniversary World Bosses",
                 },
             }

@@ -30,6 +30,9 @@ farms:
   questId: 57363
   type: kill
   drops:
+  - type: mount
+    id: 1328 # Xinlao
+
   - &mogu1
     type: transmog
     id: 174225 # Bulwark of the Traitorous Disciple

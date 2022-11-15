@@ -23,12 +23,12 @@
             if (tier.subTiers) {
                 const subTier = find(tier.subTiers, (subTier) => subTier.slug === slug2)
                 if (subTier) {
-                    instance = find(subTier.instances, (instance) => instance.slug === slug3)
+                    instance = find(subTier.instances, (instance) => instance?.slug === slug3)
                     slugKey = `${slug2}--${slug3}`
                 }
             }
             else {
-                instance = find(tier.instances, (instance) => instance.slug === slug2)
+                instance = find(tier.instances, (instance) => instance?.slug === slug2)
                 slugKey = `${slug1}--${slug2}`
             }
         }

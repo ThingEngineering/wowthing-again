@@ -19,6 +19,7 @@ public class JobFactory
     private readonly ILogger _logger;
     private readonly JobRepository _jobRepository;
     private readonly JsonSerializerOptions _jsonSerializerOptions;
+    private readonly MemoryCacheService _memoryCacheService;
     private readonly StateService _stateService;
 
     private readonly ConnectionMultiplexer _redis;
@@ -30,6 +31,7 @@ public class JobFactory
         ILogger logger,
         JobRepository jobRepository,
         JsonSerializerOptions jsonSerializerOptions,
+        MemoryCacheService memoryCacheService,
         StateService stateService,
         string redisConnectionString)
     {
@@ -40,6 +42,7 @@ public class JobFactory
         _jobRepository = jobRepository;
         _jsonSerializerOptions = jsonSerializerOptions;
         _logger = logger;
+        _memoryCacheService = memoryCacheService;
         _stateService = stateService;
 
         _redis = RedisUtilities.GetConnection(redisConnectionString);
@@ -49,6 +52,7 @@ public class JobFactory
     {
         var obj = (JobBase)_constructorMap[type]();
         obj.CacheService = _cacheService;
+        obj.MemoryCacheService = _memoryCacheService;
         obj.JobRepository = _jobRepository;
         obj.JsonSerializerOptions = _jsonSerializerOptions;
         obj.Logger = _logger;

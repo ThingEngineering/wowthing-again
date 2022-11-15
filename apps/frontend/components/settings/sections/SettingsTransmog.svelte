@@ -92,6 +92,11 @@
         <h4>Mail</h4>
 
         <Checkbox
+            name="transmog_showEvoker"
+            bind:value={$settingsData.transmog.showEvoker}
+            textClass="class-evoker"
+        >Evoker</Checkbox>
+        <Checkbox
             name="transmog_showHunter"
             bind:value={$settingsData.transmog.showHunter}
             textClass="class-hunter"

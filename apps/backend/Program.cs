@@ -110,6 +110,7 @@ public class Program
 
         // Services
         services.AddSingleton<CacheService>();
+        services.AddSingleton<MemoryCacheService>();
         services.AddSingleton<StateService>();
 
         services.AddHostedService<AuthorizationService>();

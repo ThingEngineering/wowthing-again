@@ -7,4 +7,5 @@ public class DumpJournalTierXInstance
 
     public int JournalInstanceID { get; set; }
     public int JournalTierID { get; set; }
+    public int OrderIndex { get; set; }
 }

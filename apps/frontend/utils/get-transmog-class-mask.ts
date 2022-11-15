@@ -28,6 +28,9 @@ export default function getTransmogClassMask(settingsData: Settings): number {
         classMask |= PlayableClassMask.Rogue
     }
 
+    if (settingsData.transmog.showEvoker) {
+        classMask |= PlayableClassMask.Evoker
+    }
     if (settingsData.transmog.showHunter) {
         classMask |= PlayableClassMask.Hunter
     }

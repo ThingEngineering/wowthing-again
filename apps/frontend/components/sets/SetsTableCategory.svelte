@@ -241,6 +241,11 @@
                         <ClassIcon size={40} classId={4} />
                     </td>
                 {/if}
+                {#if !skipClasses['evoker']}
+                    <td class="icon">
+                        <ClassIcon size={40} classId={13} />
+                    </td>
+                {/if}
                 {#if !skipClasses['hunter']}
                     <td class="icon">
                         <ClassIcon size={40} classId={3} />

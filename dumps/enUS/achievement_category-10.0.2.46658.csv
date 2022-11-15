@@ -1,0 +1,191 @@
+Name_lang,ID,Parent,Ui_order
+Statistics,1,-1,15
+Player vs. Player,21,1,9
+Feats of Strength,81,-1,12
+Character,92,-1,1
+Player vs. Player,95,-1,4
+Quests,96,-1,2
+Exploration,97,-1,3
+Deaths,122,1,3
+Kills,128,1,2
+Character,130,1,1
+Social,131,1,7
+Skills,132,1,5
+Quests,133,1,4
+Travel,134,1,6
+Creatures,135,128,1
+Honorable Kills,136,128,2
+Killing Blows,137,128,3
+Wealth,140,130,1
+Consumables,145,130,2
+Rated Arenas,152,21,1
+Battlegrounds,153,21,2
+World,154,21,3
+World Events,155,-1,8
+Winter Veil,156,155,9
+Hallow's End,158,155,7
+Noblegarden,159,155,3
+Lunar Festival,160,155,1
+Midsummer,161,155,5
+Brewfest,162,155,6
+Children's Week,163,155,4
+Arena,165,95,16
+Dungeons & Raids,168,-1,5
+Professions,169,-1,6
+Cooking,170,169,1
+Fishing,171,169,2
+Professions,172,15234,6
+Professions,173,132,2
+Secondary Skills,178,132,1
+Love is in the Air,187,155,2
+Reputation,201,-1,7
+Eastern Kingdoms,14777,97,1
+Kalimdor,14778,97,2
+Outland,14779,97,3
+Northrend,14780,97,4
+Alterac Valley,14801,95,5
+Arathi Basin,14802,95,3
+Eye of the Storm,14803,95,4
+Warsong Gulch,14804,95,2
+The Burning Crusade,14805,168,2
+Lich King Dungeon,14806,168,3
+Dungeons & Raids,14807,1,8
+Classic,14808,168,1
+Classic,14821,14807,1
+The Burning Crusade,14822,14807,2
+Wrath of the Lich King,14823,14807,3
+Eastern Kingdoms,14861,96,1
+Outland,14862,96,3
+Northrend,14863,96,4
+Classic,14864,201,1
+The Burning Crusade,14865,201,2
+Wrath of the Lich King,14866,201,3
+Wintergrasp,14901,95,8
+Lich King Raid,14922,168,4
+Argent Tournament,14941,15301,1
+Pilgrim's Bounty,14981,155,8
+Isle of Conquest,15003,95,7
+Cataclysm Dungeon,15067,168,5
+Cataclysm Raid,15068,168,6
+Cataclysm,15069,97,5
+Cataclysm,15070,96,5
+Archaeology,15071,169,3
+Cataclysm,15072,201,4
+Battle for Gilneas,15073,95,9
+Twin Peaks,15074,95,10
+Tol Barad,15075,15301,2
+Guild,15076,-1,14
+Quests,15077,15076,2
+Player vs. Player,15078,15076,3
+Dungeons & Raids,15079,15076,4
+Professions,15080,15076,5
+Kalimdor,15081,96,2
+Classic,15082,15079,1
+Cataclysm Dungeon,15083,15079,5
+The Burning Crusade,15084,15079,2
+Lich King Dungeon,15085,15079,3
+Lich King Raid,15086,15079,4
+Cataclysm Raid,15087,15079,6
+General,15088,15076,1
+Reputation,15089,15076,6
+Battlegrounds,15090,15078,1
+Arena,15091,15078,2
+Rated Battleground,15092,95,15
+Guild Feats of Strength,15093,15076,7
+Cataclysm,15096,14807,4
+Darkmoon Faire,15101,155,10
+Pandaria Dungeon,15106,168,7
+Pandaria Raid,15107,168,8
+Pandaria,15110,96,6
+Pandaria,15113,97,6
+Pandaria,15114,201,5
+Pet Battles,15117,-1,9
+Collect,15118,15117,1
+Battle,15119,15117,2
+Level,15120,15117,3
+Pandaria Dungeon,15153,15079,7
+Pandaria Raid,15154,15079,8
+Silvershard Mines,15162,95,11
+Temple of Kotmogu,15163,95,12
+Mists of Pandaria,15164,14807,5
+Legacy,15176,1,12
+Deepwind Gorge,15218,95,14
+Pet Battles,15219,1,10
+Draenor,15220,96,7
+Proving Grounds,15222,15301,4
+Proving Grounds,15227,1,11
+Draenor Dungeon,15228,168,9
+Draenor Raid,15231,168,10
+Draenor,15232,201,6
+Warlords of Draenor,15233,14807,6
+Legacy,15234,-1,13
+Draenor,15235,97,7
+Draenor Dungeon,15243,15079,9
+Draenor Raid,15244,15079,10
+Collections,15246,-1,10
+Toy Box,15247,15246,1
+Mounts,15248,15246,2
+Legion,15252,96,8
+Legion Dungeon,15254,168,11
+Legion Raid,15255,168,12
+Legion,15257,97,8
+Legion,15258,201,7
+Appearances,15259,15246,3
+Legion Dungeon,15262,15079,11
+Legion Raid,15263,15079,12
+Legion,15264,14807,7
+Honor,15266,95,1
+Promotions,15268,81,7
+Mounts,15269,81,1
+Player vs. Player,15270,81,4
+Raids,15271,81,3
+Dungeons,15272,81,2
+Reputation,15273,81,5
+Events,15274,81,6
+Dungeons,15277,15234,4
+Raids,15278,15234,5
+Player vs. Player,15279,15234,3
+Currencies,15280,15234,7
+World,15283,95,17
+Battle for Azeroth,15284,96,9
+Battle Dungeon,15285,168,13
+Battle Raid,15286,168,14
+Seething Shore,15292,95,13
+Battle for Azeroth,15298,97,9
+Battle Dungeon,15299,15079,13
+Battle Raid,15300,15079,14
+Expansion Features,15301,-1,11
+Pandaria Scenarios,15302,15301,3
+Draenor Garrison,15303,15301,5
+Legion Class Hall,15304,15301,6
+Battle for Azeroth,15305,201,8
+Island Expeditions,15307,15301,7
+War Effort,15308,15301,8
+Battle for Azeroth,15409,14807,8
+Expansion Features,15411,15234,9
+Ashran,15414,95,6
+World Events,15416,15234,8
+Heart of Azeroth,15417,15301,9
+Shadowlands,15422,96,10
+Visions of N'Zoth,15426,15301,10
+Shadowlands Dungeon,15428,168,15
+Shadowlands Dungeon,15429,15079,15
+Shadowlands,15430,14807,9
+Shadowlands,15436,97,10
+Shadowlands Raid,15438,168,16
+Shadowlands,15439,201,9
+Torghast,15440,15301,11
+Covenant Sanctums,15441,15301,12
+Shadowlands Raid,15442,15079,16
+Character,15446,15234,1
+Quests,15447,15234,2
+Timewalking,15454,155,11
+Dragonflight,15455,96,11
+Dragonriding,15462,15301,13
+Dragon Isles,15465,97,11
+Dragonflight,15466,201,10
+Dragonflight Dungeon,15467,168,17
+Dragonflight Raid,15468,168,18
+Dragonflight,15469,14807,10
+Dragonflight Dungeon,15470,15079,17
+Dragonflight Raid,15471,15079,18

@@ -68,6 +68,7 @@ export interface Settings {
         showDeathKnight: boolean
         showDemonHunter: boolean
         showDruid: boolean
+        showEvoker: boolean
         showHunter: boolean
         showMage: boolean
         showMonk: boolean

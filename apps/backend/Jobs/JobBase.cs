@@ -32,6 +32,7 @@ public abstract class JobBase : IJob
     internal JobRepository JobRepository;
     internal ILogger Logger;
     internal IConnectionMultiplexer Redis;
+    internal MemoryCacheService MemoryCacheService;
     internal StateService StateService;
     internal WowDbContext Context;
     internal CancellationToken CancellationToken;

@@ -8,7 +8,11 @@
     import ParsedText from '@/components/common/ParsedText.svelte'
     import Tooltip from '@/components/tooltips/task/TooltipTaskHead.svelte'
 
-    $: activeHoliday = getActiveHoliday($userStore.data)
+    let activeHoliday: string
+    $: {
+        const firstRegion = $userStore.data.allRegions?.[0] || 1
+        activeHoliday = getActiveHoliday($userStore.data, firstRegion)
+    }
 </script>
 
 <style lang="scss">
