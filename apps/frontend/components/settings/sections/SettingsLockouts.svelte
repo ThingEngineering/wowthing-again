@@ -17,7 +17,8 @@
     let instanceFilter: string
 
     const allInstances: SettingsChoice[] = sortBy(
-        Object.values($staticStore.data.instances),
+        Object.values($staticStore.data.instances)
+            .filter((instance) => instance !== null),
         (instance) => instance.expansion
     ).map((instance) => ({
         key: instance.id.toString(),
