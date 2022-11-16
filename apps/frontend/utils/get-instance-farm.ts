@@ -28,7 +28,7 @@ export function getInstanceFarm(
     const characterData: Record<number, boolean> = {}
     let instance: JournalDataInstance
     for (const tier of journalData.tiers.filter((tier) => tier !== null)) {
-        const instances = tier.instances.filter((instance) => instance.id === farm.id)
+        const instances = tier.instances.filter((instance) => instance?.id === farm.id)
         if (instances.length > 0) {
             instance = instances[0]
             
