@@ -3,7 +3,7 @@ using Wowthing.Lib.Models.Wow;
 
 namespace Wowthing.Backend.Models.Static;
 
-[JsonConverter(typeof(StaticReputationConverter))]
+[System.Text.Json.Serialization.JsonConverter(typeof(StaticReputationConverter))]
 public class StaticReputation : WowReputation
 {
     public string Description { get; set; }

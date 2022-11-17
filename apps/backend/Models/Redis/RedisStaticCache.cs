@@ -14,10 +14,10 @@ public class RedisStaticCache
     public Dictionary<short, StaticCharacterClass> CharacterClasses { get; set; }
     public Dictionary<short, StaticCharacterRace> CharacterRaces { get; set; }
     public Dictionary<short, StaticCharacterSpecialization> CharacterSpecializations { get; set; }
-    public Dictionary<int, StaticIllusion> Illusions { get; set; }
+    public StaticIllusion[] Illusions { get; set; }
     public List<OutInstance> InstancesRaw { get; set; }
     public Dictionary<int, OutProfession> Professions { get; set; }
-    public List<WowRealm> RealmsRaw { get; set; }
+    public List<WowRealm> RawRealms { get; set; }
     public Dictionary<int, OutRaiderIoScoreTiers> RaiderIoScoreTiers { get; set; }
     public SortedDictionary<int, WowReputationTier> ReputationTiers { get; set; }
     public Dictionary<int, List<OutSoulbind>> Soulbinds { get; set; }
@@ -25,11 +25,10 @@ public class RedisStaticCache
 
     public StaticCurrency[] RawCurrencies { get; set; }
     public StaticCurrencyCategory[] RawCurrencyCategories { get; set; }
-    public StaticItem[] RawItems { get; set; }
-    public List<JArray> RawMounts { get; set; }
-    public List<JArray> RawPets { get; set; }
+    public StaticMount[] RawMounts { get; set; }
+    public StaticPet[] RawPets { get; set; }
     public StaticReputation[] RawReputations { get; set; }
-    public List<JArray> RawToys { get; set; }
+    public StaticToy[] RawToys { get; set; }
 
-    public List<DataReputationCategory> RawReputationSets { get; set; }
+    public List<StaticReputationCategory> RawReputationSets { get; set; }
 }

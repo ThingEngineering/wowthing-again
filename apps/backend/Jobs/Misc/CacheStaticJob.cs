@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
+﻿//using Newtonsoft.Json.Linq;
 using Wowthing.Backend.Data;
 using Wowthing.Backend.Jobs.NonBlizzard;
 using Wowthing.Backend.Models.Data;
@@ -27,7 +27,6 @@ public class CacheStaticJob : JobBase, IScheduledJob
     private Dictionary<int, WowToy> _toyMap;
 
     private Dictionary<int, Dictionary<short, int>> _itemToAppearance;
-    private readonly HashSet<int> _itemIds = new();
 
     private Dictionary<(StringType Type, Language Language, int Id), string> _stringMap;
 
@@ -36,7 +35,7 @@ public class CacheStaticJob : JobBase, IScheduledJob
         Type = JobType.CacheStatic,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(1),
-        Version = 53,
+        Version = 54,
     };
 
     public override async Task Run(params string[] data)
@@ -49,7 +48,7 @@ public class CacheStaticJob : JobBase, IScheduledJob
         Logger.Information("{0}", _timer.ToString());
     }
 
-    public static readonly StringType[] StringTypes = {
+    private static readonly StringType[] StringTypes = {
         StringType.WowCharacterClassName,
         StringType.WowCharacterRaceName,
         StringType.WowCharacterSpecializationName,
@@ -129,41 +128,58 @@ public class CacheStaticJob : JobBase, IScheduledJob
             .ToList();
 
         // Character stuff
-        var classes =  await Context.WowCharacterClass
+        cacheData.CharacterClasses = await Context.WowCharacterClass
             .OrderBy(cls => cls.Id)
-            .ToArrayAsync();
+            .ToDictionaryAsync(
+                cls => cls.Id,
+                cls => new StaticCharacterClass(cls)
+            );
 
-        var races = await Context.WowCharacterRace
+        cacheData.CharacterRaces = await Context.WowCharacterRace
             .OrderBy(race => race.Id)
-            .ToArrayAsync();
+            .ToDictionaryAsync(
+                race => race.Id,
+                race => new StaticCharacterRace(race)
+            );
 
-        var specs = await Context.WowCharacterSpecialization
+        cacheData.CharacterSpecializations = await Context.WowCharacterSpecialization
             .Where(spec => spec.Order < 4)
             .OrderBy(spec => spec.Id)
-            .ToArrayAsync();
+            .ToDictionaryAsync(
+                spec => spec.Id,
+                spec => new StaticCharacterSpecialization(spec)
+            );
 
         // Currencies
-        var currencies = await Context.WowCurrency
+        cacheData.RawCurrencies = await Context.WowCurrency
             .Where(currency => !Hardcoded.IgnoredCurrencies.Contains(currency.Id))
             .OrderBy(currency => currency.Id)
+            .Select(currency => new StaticCurrency(currency))
             .ToArrayAsync();
 
-        var currencyCategories = await Context.WowCurrencyCategory
+        cacheData.RawCurrencyCategories = await Context.WowCurrencyCategory
             .OrderBy(category => category.Id)
+            .Select(category => new StaticCurrencyCategory(category))
             .ToArrayAsync();
+
+        foreach (var category in cacheData.RawCurrencyCategories)
+        {
+            category.Slug = GetString(StringType.WowCurrencyCategoryName, Language.enUS, category.Id).Slugify();
+        }
 
         _timer.AddPoint("Currencies");
 
         // Illusions
-        var illusions = await LoadIllusions();
+        cacheData.Illusions = await LoadIllusions();
         _timer.AddPoint("Illusions");
 
         // Instances
-        var instances = await LoadInstances();
+        cacheData.InstancesRaw = await LoadInstances();
         _timer.AddPoint("Instances");
 
         // Professions
         var professions = await LoadProfessions();
+        _timer.AddPoint("Professions");
 
         // Reputations
         var reputations = await Context.WowReputation
@@ -182,7 +198,7 @@ public class CacheStaticJob : JobBase, IScheduledJob
         _timer.AddPoint("Talents");
 
         // Basic database dumps
-        cacheData.RealmsRaw = await Context.WowRealm
+        cacheData.RawRealms = await Context.WowRealm
             .OrderBy(realm => realm.Id)
             .ToListAsync();
 
@@ -190,72 +206,93 @@ public class CacheStaticJob : JobBase, IScheduledJob
 
         _timer.AddPoint("Database");
 
+        // Initial object creation
+        cacheData.ReputationTiers = reputationTiers;
+
+        cacheData.RawReputations = reputations.Select(rep => new StaticReputation(rep))
+            .ToArray();
+
+        cacheData.RawMounts = _mountMap
+            .Values
+            .OrderBy(mount => mount.Id)
+            .Select(mount => new StaticMount(mount))
+            .ToArray();
+
+        cacheData.RawPets = _petMap
+            .Values
+            .OrderBy(pet => pet.Id)
+            .Select(pet => new StaticPet(pet))
+            .ToArray();
+
+        cacheData.RawToys = _toyMap
+            .Values
+            .OrderBy(toy => toy.Id)
+            .Select(toy => new StaticToy(toy))
+            .ToArray();
+
         // Add anything that uses strings
         string cacheHash = null;
         foreach (var language in Enum.GetValues<Language>())
         {
             Logger.Information("{Lang}", language);
 
-            cacheData.CharacterClasses = classes.Select(cls => new StaticCharacterClass(cls)
-            {
-                Name = GetString(StringType.WowCharacterClassName, language, cls.Id),
-            }).ToDictionary(cls => cls.Id);
-
-            cacheData.CharacterRaces = races.Select(race => new StaticCharacterRace(race)
-            {
-                Name = GetString(StringType.WowCharacterRaceName, language, race.Id),
-            }).ToDictionary(race => race.Id);
-
-            cacheData.CharacterSpecializations = specs.Select(spec => new StaticCharacterSpecialization(spec)
-            {
-                Name = GetString(StringType.WowCharacterSpecializationName, language, spec.Id),
-            }).ToDictionary(spec => spec.Id);
-
-            cacheData.Illusions = illusions.Select(illusion => new StaticIllusion(illusion)
-            {
-                Name = GetString(StringType.WowSpellItemEnchantmentName, language, illusion.SpellItemEnchantmentID)
-            }).ToDictionary(illusion => illusion.Id);
-
-            cacheData.RawCurrencies = currencies.Select(currency => new StaticCurrency(currency)
-            {
-                Name = GetString(StringType.WowCurrencyName, language, currency.Id),
-            }).ToArray();
-
-            cacheData.RawCurrencyCategories = currencyCategories.Select(category => new StaticCurrencyCategory(category)
-            {
-                Name = GetString(StringType.WowCurrencyCategoryName, language, category.Id),
-                Slug = GetString(StringType.WowCurrencyCategoryName, Language.enUS, category.Id).Slugify(),
-            }).ToArray();
-
-            cacheData.RawItems = _itemIds
-                .OrderBy(itemId => itemId)
-                .Select(itemId => new StaticItem(_itemMap[itemId])
-                {
-                    AppearanceIds = _itemToAppearance.GetValueOrDefault(itemId),
-                    Name = GetString(StringType.WowItemName, language, itemId),
-                }).ToArray();
-
-            cacheData.RawReputations = reputations.Select(rep => new StaticReputation(rep)
-            {
-                Name = GetString(StringType.WowReputationName, language, rep.Id),
-                Description = GetString(StringType.WowReputationDescription, language, rep.Id),
-            }).ToArray();
-
-            cacheData.InstancesRaw = instances;
             cacheData.Professions = professions[language];
-            cacheData.ReputationTiers = reputationTiers;
             cacheData.Soulbinds = soulbinds[language];
 
-            cacheData.RawMounts = RawMounts(language);
-            cacheData.RawPets = RawPets(language);
-            cacheData.RawToys = RawToys(language);
-
-            var cacheJson = JsonConvert.SerializeObject(cacheData);
-            // This ends up being the MD5 of enUS, close enough
-            if (cacheHash == null)
+            foreach (var characterClass in cacheData.CharacterClasses.Values)
             {
-                cacheHash = cacheJson.Md5();
+                characterClass.Name = GetString(StringType.WowCharacterClassName, language, characterClass.Id);
             }
+
+            foreach (var characterRace in cacheData.CharacterRaces.Values)
+            {
+                characterRace.Name = GetString(StringType.WowCharacterRaceName, language, characterRace.Id);
+            }
+
+            foreach (var characterSpec in cacheData.CharacterSpecializations.Values)
+            {
+                characterSpec.Name = GetString(StringType.WowCharacterSpecializationName, language, characterSpec.Id);
+            }
+
+            foreach (var illusion in cacheData.Illusions)
+            {
+                illusion.Name = GetString(StringType.WowSpellItemEnchantmentName, language, illusion.EnchantmentId);
+            }
+
+            foreach (var currency in cacheData.RawCurrencies)
+            {
+                currency.Name = GetString(StringType.WowCurrencyName, language, currency.Id);
+            }
+
+            foreach (var currencyCategory in cacheData.RawCurrencyCategories)
+            {
+                currencyCategory.Name = GetString(StringType.WowCurrencyCategoryName, language, currencyCategory.Id);
+            }
+
+            foreach (var reputation in cacheData.RawReputations)
+            {
+                reputation.Name = GetString(StringType.WowReputationName, language, reputation.Id);
+                reputation.Description = GetString(StringType.WowReputationDescription, language, reputation.Id);
+            }
+
+            foreach (var mount in cacheData.RawMounts)
+            {
+                mount.Name = GetString(StringType.WowMountName, language, mount.Id);
+            }
+
+            foreach (var pet in cacheData.RawPets)
+            {
+                pet.Name = GetString(StringType.WowCreatureName, language, pet.CreatureId);
+            }
+
+            foreach (var toy in cacheData.RawToys)
+            {
+                toy.Name = GetString(StringType.WowItemName, language, toy.Id);
+            }
+
+            string cacheJson = System.Text.Json.JsonSerializer.Serialize(cacheData, JsonSerializerOptions);
+            // This ends up being the MD5 of enUS, close enough
+            cacheHash ??= cacheJson.Md5();
 
             await db.SetCacheDataAndHash($"static-{language.ToString()}", cacheJson, cacheHash);
         }
@@ -274,9 +311,9 @@ public class CacheStaticJob : JobBase, IScheduledJob
         return languageName;
     }
 
-    private List<DataReputationCategory> LoadReputationSets()
+    private List<StaticReputationCategory> LoadReputationSets()
     {
-        var categories = new List<DataReputationCategory>();
+        var categories = new List<StaticReputationCategory>();
 
         var basePath = Path.Join(DataUtilities.DataPath, "reputations");
         foreach (var line in File.ReadLines(Path.Join(basePath, "_order")))
@@ -288,38 +325,11 @@ public class CacheStaticJob : JobBase, IScheduledJob
             else
             {
                 var filePath = Path.Join(basePath, line);
-                categories.Add(DataUtilities.YamlDeserializer.Deserialize<DataReputationCategory>(File.OpenText(filePath)));
-            }
-        }
-
-        foreach (var category in categories.Where(category => category != null))
-        {
-            foreach (var reputationSet in category.Reputations)
-            {
-                foreach (var reputation in reputationSet)
-                {
-                    AddReputationItems(reputation.Both);
-                    AddReputationItems(reputation.Alliance);
-                    AddReputationItems(reputation.Horde);
-                }
+                categories.Add(DataUtilities.YamlDeserializer.Deserialize<StaticReputationCategory>(File.OpenText(filePath)));
             }
         }
 
         return categories;
-    }
-
-    private void AddReputationItems(DataReputation reputation)
-    {
-        if (reputation?.Rewards != null)
-        {
-            foreach (var reward in reputation.Rewards)
-            {
-                if (reward.Type == "transmog")
-                {
-                    _itemIds.Add(reward.Id);
-                }
-            }
-        }
     }
 
     private async Task<Dictionary<Language, Dictionary<int, OutProfession>>> LoadProfessions()
@@ -522,10 +532,11 @@ public class CacheStaticJob : JobBase, IScheduledJob
         return ret;
     }
 
-    private async Task<List<DumpTransmogIllusion>> LoadIllusions()
+    private async Task<StaticIllusion[]> LoadIllusions()
     {
-        return await DataUtilities
-            .LoadDumpCsvAsync<DumpTransmogIllusion>("transmogillusion");
+        return (await DataUtilities
+            .LoadDumpCsvAsync<DumpTransmogIllusion>("transmogillusion"))
+            .SelectArray(illusion => new StaticIllusion(illusion));
     }
 
     private static readonly HashSet<int> InstanceTypes = new HashSet<int>() {
@@ -587,51 +598,6 @@ public class CacheStaticJob : JobBase, IScheduledJob
         return sigh.Values
             .OrderBy(instance => instance.Expansion)
             .ThenBy(instance => instance.Id)
-            .ToList();
-    }
-
-    private List<JArray> RawMounts(Language language)
-    {
-        return _mountMap
-            .Values
-            .OrderBy(mount => mount.Id)
-            .Select(mount => new JArray(
-                mount.Id,
-                mount.SourceType,
-                mount.ItemId,
-                mount.SpellId,
-                GetString(StringType.WowMountName, language, mount.Id)
-            ))
-            .ToList();
-    }
-
-    private List<JArray> RawPets(Language language)
-    {
-        return _petMap
-            .Values
-            .OrderBy(pet => pet.Id)
-            .Select(pet => new JArray(
-                pet.Id,
-                pet.SourceType,
-                pet.PetType,
-                pet.CreatureId,
-                pet.SpellId,
-                GetString(StringType.WowCreatureName, language, pet.CreatureId)
-            ))
-            .ToList();
-    }
-
-    private List<JArray> RawToys(Language language)
-    {
-        return _toyMap
-            .Values
-            .OrderBy(toy => toy.Id)
-            .Select(toy => new JArray(
-                toy.Id,
-                toy.SourceType,
-                toy.ItemId,
-                GetString(StringType.WowItemName, language, toy.ItemId)
-            ))
             .ToList();
     }
     #endregion

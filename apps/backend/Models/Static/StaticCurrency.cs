@@ -3,7 +3,7 @@ using Wowthing.Lib.Models.Wow;
 
 namespace Wowthing.Backend.Models.Static;
 
-[JsonConverter(typeof(StaticCurrencyConverter))]
+[System.Text.Json.Serialization.JsonConverter(typeof(StaticCurrencyConverter))]
 public class StaticCurrency
 {
     public int Id { get; set; }
