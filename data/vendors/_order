@@ -94,6 +94,14 @@
     -
     08-shadowlands/oribos.yml
 
+09-dragonflight/_.yml
+    09-dragonflight/azure_span.yml
+    09-dragonflight/ohnahran_plains.yml
+    09-dragonflight/thaldraszus.yml
+    09-dragonflight/waking_shores.yml
+    -
+    09-dragonflight/valdrakken.yml
+
 -
 
 world-events/_world_events.yml
