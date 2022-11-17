@@ -131,10 +131,15 @@ public class CacheManualJob : JobBase, IScheduledJob
             .GroupBy(ima => ima.ItemId)
             .ToDictionary(
                 group => group.Key,
-                group => group.ToDictionary(
-                    ima => ima.Modifier,
-                    ima => ima.AppearanceId
-                )
+                group => group
+                    .GroupBy(ima => ima.Modifier)
+                    .ToDictionary(
+                        modifierGroup => modifierGroup.Key,
+                        modifierGroup => modifierGroup
+                            .OrderByDescending(ima => ima.Id)
+                            .First()
+                            .AppearanceId
+                    )
             );
 
         _mountMap = await Context.WowMount
