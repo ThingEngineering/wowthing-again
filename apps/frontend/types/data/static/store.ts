@@ -39,9 +39,6 @@ export interface StaticData {
     instances: Record<number, StaticDataInstance>
     instancesRaw: StaticDataInstanceArray[]
 
-    items: Record<number, StaticDataItem>
-    rawItems: StaticDataItemArray[]
-
     mounts: Record<number, StaticDataMount>
     rawMounts: StaticDataMountArray[]
 
@@ -50,7 +47,7 @@ export interface StaticData {
     rawPets: StaticDataPetArray[]
 
     realms: Record<number, StaticDataRealm>
-    realmsRaw: StaticDataRealmArray[]
+    rawRealms: StaticDataRealmArray[]
 
     reputations: Record<number, StaticDataReputation>
     rawReputations: StaticDataReputationArray[]

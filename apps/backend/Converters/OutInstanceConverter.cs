@@ -1,30 +1,22 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json;
 using Wowthing.Backend.Models.Data;
 
 namespace Wowthing.Backend.Converters;
 
-public class OutInstanceConverter : JsonConverter
+public class OutInstanceConverter : System.Text.Json.Serialization.JsonConverter<OutInstance>
 {
-    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-    {
-        var instance = (OutInstance) value;
-        var arr = new JArray();
-        arr.Add(instance.Id);
-        arr.Add(instance.Expansion);
-        arr.Add(instance.Name);
-        arr.Add(instance.ShortName);
-        arr.WriteTo(writer);
-    }
-
-    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+    public override OutInstance Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         throw new NotImplementedException();
     }
 
-    public override bool CanConvert(Type objectType)
+    public override void Write(Utf8JsonWriter writer, OutInstance value, JsonSerializerOptions options)
     {
-        return typeof(OutInstance) == objectType;
+        writer.WriteStartArray();
+        writer.WriteNumberValue(value.Id);
+        writer.WriteNumberValue(value.Expansion);
+        writer.WriteStringValue(value.Name);
+        writer.WriteStringValue(value.ShortName);
+        writer.WriteEndArray();
     }
-
-    public override bool CanRead => false;
 }

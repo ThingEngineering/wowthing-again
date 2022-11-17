@@ -1,36 +1,32 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json;
+using Newtonsoft.Json.Linq;
 using Wowthing.Backend.Models.Static;
+using JsonSerializer = Newtonsoft.Json.JsonSerializer;
 
 namespace Wowthing.Backend.Converters.Static;
 
-public class StaticReputationConverter : JsonConverter
+public class StaticReputationConverter : System.Text.Json.Serialization.JsonConverter<StaticReputation>
 {
-    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-    {
-        var instance = (StaticReputation) value;
-        var arr = new JArray();
-        arr.Add(instance.Id);
-        arr.Add(instance.Expansion);
-        arr.Add(instance.TierId);
-        arr.Add(instance.ParentId);
-        arr.Add(instance.ParagonId);
-        arr.Add(instance.Name);
-        if (!string.IsNullOrWhiteSpace(instance.Description))
-        {
-            arr.Add(instance.Description);
-        }
-        arr.WriteTo(writer);
-    }
-
-    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+    public override StaticReputation Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         throw new NotImplementedException();
     }
 
-    public override bool CanConvert(Type objectType)
+    public override void Write(Utf8JsonWriter writer, StaticReputation value, JsonSerializerOptions options)
     {
-        return typeof(StaticReputation) == objectType;
-    }
+        writer.WriteStartArray();
+        writer.WriteNumberValue(value.Id);
+        writer.WriteNumberValue(value.Expansion);
+        writer.WriteNumberValue(value.TierId);
+        writer.WriteNumberValue(value.ParentId);
+        writer.WriteNumberValue(value.ParagonId);
+        writer.WriteStringValue(value.Name);
 
-    public override bool CanRead => false;
+        if (!string.IsNullOrWhiteSpace(value.Description))
+        {
+            writer.WriteStringValue(value.Description);
+        }
+
+        writer.WriteEndArray();
+    }
 }

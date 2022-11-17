@@ -74,8 +74,6 @@ public class PlayerCharacter
     public PlayerCharacterAddonAchievements AddonAchievements { get; set; }
     public PlayerCharacterAddonMounts AddonMounts { get; set; }
     public PlayerCharacterAddonQuests AddonQuests { get; set; }
-
-    public List<PlayerCharacterCurrency> Currencies { get; set; }
     public List<PlayerCharacterItem> Items { get; set; }
     public List<PlayerCharacterMythicPlusSeason> MythicPlusSeasons { get; set; }
 }

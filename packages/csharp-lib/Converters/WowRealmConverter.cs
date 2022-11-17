@@ -1,33 +1,23 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+﻿using System.Text.Json;
 using Wowthing.Lib.Models.Wow;
 
 namespace Wowthing.Lib.Converters;
 
-public class WowRealmConverter : JsonConverter
+public class WowRealmConverter : System.Text.Json.Serialization.JsonConverter<WowRealm>
 {
-    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-    {
-        var member = (WowRealm)value;
-        var arr = new JArray();
-        arr.Add(member.Id);
-        arr.Add(member.Region);
-        arr.Add(member.ConnectedRealmId);
-        arr.Add(member.Name);
-        arr.Add(member.Slug);
-        arr.WriteTo(writer);
-    }
-
-    public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
-        JsonSerializer serializer)
+    public override WowRealm Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         throw new NotImplementedException();
     }
 
-    public override bool CanConvert(Type objectType)
+    public override void Write(Utf8JsonWriter writer, WowRealm value, JsonSerializerOptions options)
     {
-        return typeof(WowRealm) == objectType;
+        writer.WriteStartArray();
+        writer.WriteNumberValue(value.Id);
+        writer.WriteNumberValue((int)value.Region);
+        writer.WriteNumberValue(value.ConnectedRealmId);
+        writer.WriteStringValue(value.Name);
+        writer.WriteStringValue(value.Slug);
+        writer.WriteEndArray();
     }
-
-    public override bool CanRead => false;
 }

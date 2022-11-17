@@ -53,11 +53,6 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             data.rawCurrencyCategories = null
         }
 
-        if (data.rawItems !== null) {
-            data.items = StaticDataStore.createObjects(data.rawItems, StaticDataItem)
-            data.rawItems = null
-        }
-
         if (data.instancesRaw !== null) {
             data.instances = StaticDataStore.createObjects(data.instancesRaw, StaticDataInstance)
             data.instancesRaw = null
@@ -67,12 +62,12 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
             }
         }
 
-        if (data.realmsRaw !== null) {
+        if (data.rawRealms !== null) {
             data.realms = {
                 0: new StaticDataRealm(0, 1, 0, 'Honkstrasza', 'honkstrasza'),
             }
             const connected: Record<number, {region: number, names: string[]}> = {}
-            for (const realmArray of data.realmsRaw) {
+            for (const realmArray of data.rawRealms) {
                 const obj = new StaticDataRealm(...realmArray)
                 data.realms[obj.id] = obj
 
@@ -86,7 +81,7 @@ export class StaticDataStore extends WritableFancyStore<StaticData> {
                     connected[obj.connectedRealmId].names.push(obj.name)
                 }
             }
-            data.realmsRaw = null
+            data.rawRealms = null
 
             data.connectedRealms = {}
             for (const [crId, {region, names}] of Object.entries(connected)) {

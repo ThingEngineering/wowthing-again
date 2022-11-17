@@ -11,19 +11,16 @@ tags:
 
 sets:
   - name: "Armor - Cloth"
-    range: 8 1
+    range: 9 1
 
   - name: "Armor - Leather"
-    range: 8
+    range: 9
 
   - name: "Armor - Mail"
-    range: 8
+    range: 9
 
   - name: "Armor - Plate"
-    range: 8
-
-  - name: "Armor - Cloak"
-    range: 4
+    range: 9
 
   - name: "Weapons"
     range: -1
@@ -44,6 +41,11 @@ sells:
     id: 199353 # Cloudburst Mantle [cloth shoulders]
     costs:
       1199211: 35
+
+  - type: transmog
+    id: 199384 # Cloudburst Wrap [cloak]
+    costs:
+      1199211: 25
 
   - type: transmog
     id: 199348 # Cloudburst Robes [cloth chest]
@@ -86,6 +88,11 @@ sells:
       1199211: 35
 
   - type: transmog
+    id: 199385 # Dust Devil Cloak [cloak]
+    costs:
+      1199211: 25
+
+  - type: transmog
     id: 199356 # Dust Devil Raiment [leather chest]
     costs:
       1199211: 45
@@ -124,6 +131,11 @@ sells:
     id: 199369 # Cyclonic Spaulders [mail shoulders]
     costs:
       1199211: 35
+
+  - type: transmog
+    id: 199380 # Cyclonic Drape [cloak]
+    costs:
+      1199211: 25
 
   - type: transmog
     id: 199364 # Cyclonic Chainmail [mail chest]
@@ -166,6 +178,11 @@ sells:
       1199211: 35
 
   - type: transmog
+    id: 199386 # Firestorm Cape [cloak]
+    costs:
+      1199211: 25
+
+  - type: transmog
     id: 199372 # Firestorm Chestplate [plate chest]
     costs:
       1199211: 45
@@ -195,31 +212,6 @@ sells:
     costs:
       1199211: 35
 
-  - type: transmog
-    id: 199384 # Cloudburst Wrap [cloak]
-    costs:
-      1199211: 25
-
-  - type: transmog
-    id: 199380 # Cyclonic Drape [cloak]
-    costs:
-      1199211: 25
-
-  - type: transmog
-    id: 199385 # Dust Devil Cloak [cloak]
-    costs:
-      1199211: 25
-
-  - type: transmog
-    id: 199386 # Firestorm Cape [cloak]
-    costs:
-      1199211: 25
-
-  # Skipped id=199645 name=Storm Hunter's Insignia slot=12
-  # Skipped id=199555 name=Versatile Storm Lure slot=12
-  # Skipped id=199383 name=Torc of Calamities slot=2
-  # Skipped id=199382 name=Catastrophe Signet slot=11
-  # Skipped id=199381 name=Seal of Elemental Disasters slot=11
   - type: transmog
     id: 199401 # Stormbender Scroll [off-hand]
     costs:

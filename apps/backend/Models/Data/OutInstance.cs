@@ -3,7 +3,7 @@ using Wowthing.Backend.Data;
 
 namespace Wowthing.Backend.Models.Data;
 
-[JsonConverter(typeof(OutInstanceConverter))]
+[System.Text.Json.Serialization.JsonConverter(typeof(OutInstanceConverter))]
 public class OutInstance
 {
     public int Expansion { get; set; }

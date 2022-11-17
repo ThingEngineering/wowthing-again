@@ -1,31 +1,23 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json;
 using Wowthing.Backend.Models.Static;
 
 namespace Wowthing.Backend.Converters.Static;
 
-public class StaticCurrencyConverter : JsonConverter
+public class StaticCurrencyConverter : System.Text.Json.Serialization.JsonConverter<StaticCurrency>
 {
-    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-    {
-        var currency = (StaticCurrency) value;
-        var arr = new JArray();
-        arr.Add(currency.Id);
-        arr.Add(currency.CategoryId);
-        arr.Add(currency.MaxPerWeek);
-        arr.Add(currency.MaxTotal);
-        arr.Add(currency.Name);
-        arr.WriteTo(writer);
-    }
-
-    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+    public override StaticCurrency Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         throw new NotImplementedException();
     }
 
-    public override bool CanConvert(Type objectType)
+    public override void Write(Utf8JsonWriter writer, StaticCurrency value, JsonSerializerOptions options)
     {
-        return typeof(StaticCurrency) == objectType;
+        writer.WriteStartArray();
+        writer.WriteNumberValue(value.Id);
+        writer.WriteNumberValue(value.CategoryId);
+        writer.WriteNumberValue(value.MaxPerWeek);
+        writer.WriteNumberValue(value.MaxTotal);
+        writer.WriteStringValue(value.Name);
+        writer.WriteEndArray();
     }
-
-    public override bool CanRead => false;
 }

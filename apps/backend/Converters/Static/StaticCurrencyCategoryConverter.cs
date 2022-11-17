@@ -1,29 +1,21 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Text.Json;
 using Wowthing.Backend.Models.Static;
 
 namespace Wowthing.Backend.Converters.Static;
 
-public class StaticCurrencyCategoryConverter : JsonConverter
+public class StaticCurrencyCategoryConverter : System.Text.Json.Serialization.JsonConverter<StaticCurrencyCategory>
 {
-    public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-    {
-        var category = (StaticCurrencyCategory) value;
-        var arr = new JArray();
-        arr.Add(category.Id);
-        arr.Add(category.Name);
-        arr.Add(category.Slug);
-        arr.WriteTo(writer);
-    }
-
-    public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+    public override StaticCurrencyCategory Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
         throw new NotImplementedException();
     }
 
-    public override bool CanConvert(Type objectType)
+    public override void Write(Utf8JsonWriter writer, StaticCurrencyCategory value, JsonSerializerOptions options)
     {
-        return typeof(StaticCurrencyCategory) == objectType;
+        writer.WriteStartArray();
+        writer.WriteNumberValue(value.Id);
+        writer.WriteStringValue(value.Name);
+        writer.WriteStringValue(value.Slug);
+        writer.WriteEndArray();
     }
-
-    public override bool CanRead => false;
 }

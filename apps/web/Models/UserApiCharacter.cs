@@ -200,33 +200,6 @@ public class UserApiCharacter
     }
 }
 
-[System.Text.Json.Serialization.JsonConverter(typeof(UserApiCharacterCurrencyConverter))]
-public class UserApiCharacterCurrency
-{
-    public int Quantity { get; set; }
-    public int Max { get; set; }
-    public int WeekQuantity { get; set; }
-    public int WeekMax { get; set; }
-    public int TotalQuantity { get; set; }
-
-    public short Id { get; set; }
-
-    public bool IsWeekly { get; set; }
-    public bool IsMovingMax { get; set; }
-
-    public UserApiCharacterCurrency(PlayerCharacterCurrency currency)
-    {
-        Quantity = currency.Quantity;
-        Max = currency.Max;
-        WeekQuantity = currency.WeekQuantity;
-        WeekMax = currency.WeekMax;
-        TotalQuantity = currency.TotalQuantity;
-        Id = currency.CurrencyId;
-        IsWeekly = currency.IsWeekly;
-        IsMovingMax = currency.IsMovingMax;
-    }
-}
-
 public class UserApiCharacterEquippedItem
 {
     public int Context { get; set; }
