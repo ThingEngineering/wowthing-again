@@ -895,7 +895,7 @@ public class UserUploadJob : JobBase
         );
         var seenIds = new HashSet<long>();
 
-        foreach (var (location, itemId) in characterData.Bags.EmptyIfNull())
+        foreach ((string location, int itemId) in characterData.Bags.EmptyIfNull())
         {
             if (!location.StartsWith("b"))
             {
@@ -904,7 +904,7 @@ public class UserUploadJob : JobBase
             }
 
             short bagId = short.Parse(location[1..]);
-            ItemLocation locationType = GetBagLocation(bagId);
+            var locationType = GetBagLocation(bagId);
 
             var key = (locationType, bagId, (short)0);
             PlayerCharacterItem item;
@@ -929,7 +929,7 @@ public class UserUploadJob : JobBase
             item.ItemId = itemId;
         }
 
-        foreach (var (location, contents) in characterData.Items.EmptyIfNull())
+        foreach ((string location, var contents) in characterData.Items.EmptyIfNull())
         {
             if (!location.StartsWith("b"))
             {
@@ -938,9 +938,9 @@ public class UserUploadJob : JobBase
             }
 
             short bagId = short.Parse(location[1..]);
-            ItemLocation locationType = GetBagLocation(bagId);
+            var locationType = GetBagLocation(bagId);
 
-            foreach (var (slotString, itemString) in contents)
+            foreach ((string slotString, string itemString) in contents)
             {
                 var slot = short.Parse(slotString[1..]);
                 // count:id:context:enchant:ilvl:quality:suffix:bonusIDs:gems
