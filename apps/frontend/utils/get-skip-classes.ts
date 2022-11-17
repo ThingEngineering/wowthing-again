@@ -1,4 +1,4 @@
-import some from 'lodash/some'
+import every from 'lodash/every'
 import sumBy from 'lodash/sumBy'
 
 import type { Settings } from '@/types'
@@ -31,23 +31,23 @@ export default function getSkipClasses(
         }
     }
 
-    skipClasses['cloth'] = !some([
+    skipClasses['cloth'] = every([
         skipClasses['mage'],
         skipClasses['priest'],
         skipClasses['warlock'],
     ])
-    skipClasses['leather'] = !some([
+    skipClasses['leather'] = every([
         skipClasses['demon-hunter'],
         skipClasses['druid'],
         skipClasses['monk'],
         skipClasses['rogue'],
     ]),
-    skipClasses['mail'] = !some([
+    skipClasses['mail'] = every([
         skipClasses['evoker'],
         skipClasses['hunter'],
         skipClasses['shaman'],
     ])
-    skipClasses['plate'] = !some([
+    skipClasses['plate'] = every([
         skipClasses['death-knight'],
         skipClasses['paladin'],
         skipClasses['warrior'],
