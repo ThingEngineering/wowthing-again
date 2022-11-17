@@ -29,13 +29,7 @@ namespace Wowthing.Backend.Jobs.Misc;
 
 public class CacheManualJob : JobBase, IScheduledJob
 {
-    private readonly HashSet<int> _itemIds = new();
     private readonly JankTimer _timer = new JankTimer();
-
-    private readonly IDeserializer _yaml = new DeserializerBuilder()
-        .WithNamingConvention(CamelCaseNamingConvention.Instance)
-        .IgnoreUnmatchedProperties()
-        .Build();
 
     private IDatabase _db;
 
@@ -52,7 +46,7 @@ public class CacheManualJob : JobBase, IScheduledJob
     private int _tagIndex = 1;
     private readonly Dictionary<string, int> _tagMap = new();
 
-    private readonly StringType[] _stringTypes =
+    private static readonly StringType[] StringTypes =
     {
         StringType.WowCreatureName,
         StringType.WowItemName,
@@ -97,8 +91,6 @@ public class CacheManualJob : JobBase, IScheduledJob
 
         await LoadBasicData();
         await CacheData();
-
-        _timer.AddPoint("Cache", true);
 
         Logger.Information("{Timer}", _timer.ToString());
     }
@@ -157,7 +149,7 @@ public class CacheManualJob : JobBase, IScheduledJob
 
         _stringMap = await Context.LanguageString
             .AsNoTracking()
-            .Where(ls => _stringTypes.Contains(ls.Type))
+            .Where(ls => StringTypes.Contains(ls.Type))
             .ToDictionaryAsync(
                 ls => (ls.Type, ls.Language, ls.Id),
                 ls => ls.String
@@ -222,39 +214,52 @@ public class CacheManualJob : JobBase, IScheduledJob
         _timer.AddPoint("Toys");
 
         cacheData.HeirloomSets = LoadHeirlooms();
+        _timer.AddPoint("Heirlooms");
+
         cacheData.IllusionSets = LoadIllusions();
-        cacheData.ProgressSets = LoadProgress();
+        _timer.AddPoint("Illusions");
+
         cacheData.SharedItemSets = LoadSharedItemSets();
-        cacheData.SharedVendors = LoadSharedVendors();
+        _timer.AddPoint("ItemSets");
+
+        cacheData.ProgressSets = LoadProgress();
+        _timer.AddPoint("Progress");
+
         cacheData.TransmogSets = LoadTransmog();
         cacheData.TransmogSetsV2 = LoadTransmogSets();
+        _timer.AddPoint("Transmog");
+
+        cacheData.SharedVendors = LoadSharedVendors();
         cacheData.VendorSets = LoadVendors();
+        _timer.AddPoint("Vendors");
+
         cacheData.ZoneMapSets = LoadZoneMaps();
+        _timer.AddPoint("ZoneMaps");
 
         cacheData.Tags = _tagMap
             .OrderBy(kvp => kvp.Value)
             .Select(kvp => new JArray(kvp.Value, kvp.Key))
             .ToList();
 
+        _timer.AddPoint("Tags");
+
 #if DEBUG
         DumpZoneMapQuests(cacheData.ZoneMapSets);
 #endif
 
         // Save the data to Redis
-        string cacheHash = null;
+        string cacheJson = JsonConvert.SerializeObject(cacheData);
+        string cacheHash = cacheJson.Md5();
+        _timer.AddPoint("JSON");
+
         foreach (var language in Enum.GetValues<Language>())
         {
             Logger.Information("{Lang}", language);
 
-            var cacheJson = JsonConvert.SerializeObject(cacheData);
-            // This ends up being the MD5 of enUS, close enough
-            if (cacheHash == null)
-            {
-                cacheHash = cacheJson.Md5();
-            }
-
             await _db.SetCacheDataAndHash($"manual-{language.ToString()}", cacheJson, cacheHash);
         }
+
+        _timer.AddPoint("Cache");
     }
 
     private DataHeirloomGroup[] LoadHeirlooms()
@@ -294,9 +299,8 @@ public class CacheManualJob : JobBase, IScheduledJob
 
     private List<List<OutProgress>> LoadProgress()
     {
-        var ret = new List<List<OutProgress>>();
-
         var progressSets = DataUtilities.LoadData<DataProgress>("progress", Logger);
+        var ret = new List<List<OutProgress>>(progressSets.Count);
         foreach (var progressSet in progressSets)
         {
             if (progressSet == null)
@@ -339,7 +343,7 @@ public class CacheManualJob : JobBase, IScheduledJob
         foreach (var file in files)
         {
             Logger.Debug("Parsing {file}", file.FullName);
-            var itemSets = _yaml.Deserialize<DataSharedItemSets>(File.OpenText(file.FullName));
+            var itemSets = DataUtilities.YamlDeserializer.Deserialize<DataSharedItemSets>(File.OpenText(file.FullName));
 
             AddTags(itemSets.Tags);
 
@@ -367,12 +371,12 @@ public class CacheManualJob : JobBase, IScheduledJob
             .OrderBy(file => file.FullName)
             .ToArray();
 
-        var ret = new List<ManualSharedVendor>();
+        var ret = new List<ManualSharedVendor>(files.Length);
 
         foreach (var file in files)
         {
             Logger.Debug("Parsing {file}", file.FullName);
-            var vendor = _yaml.Deserialize<DataSharedVendor>(File.OpenText(file.FullName));
+            var vendor = DataUtilities.YamlDeserializer.Deserialize<DataSharedVendor>(File.OpenText(file.FullName));
             ret.Add(new ManualSharedVendor(vendor));
         }
 
@@ -394,7 +398,7 @@ public class CacheManualJob : JobBase, IScheduledJob
     {
         var transmogSets = DataUtilities.LoadData<DataTransmogCategory>("transmog", Logger);
 
-        var ret = new List<List<ManualTransmogCategory>>();
+        var ret = new List<List<ManualTransmogCategory>>(transmogSets.Count);
 
         foreach (var catList in transmogSets)
         {
@@ -418,7 +422,7 @@ public class CacheManualJob : JobBase, IScheduledJob
     {
         var transmogSets = DataUtilities.LoadData<DataTransmogSetCategory>("transmog-sets", Logger);
 
-        var ret = new List<List<ManualTransmogSetCategory>>();
+        var ret = new List<List<ManualTransmogSetCategory>>(transmogSets.Count);
         foreach (var catList in transmogSets)
         {
             if (catList == null)
@@ -427,7 +431,7 @@ public class CacheManualJob : JobBase, IScheduledJob
                 continue;
             }
 
-            var newCatList = new List<ManualTransmogSetCategory>();
+            var newCatList = new List<ManualTransmogSetCategory>(catList.Count);
             foreach (var cat in catList)
             {
                 if (cat == null)
@@ -458,7 +462,7 @@ public class CacheManualJob : JobBase, IScheduledJob
     {
         var vendorSets = DataUtilities.LoadData<DataVendorCategory>("vendors", Logger);
 
-        var ret = new List<List<ManualVendorCategory>>();
+        var ret = new List<List<ManualVendorCategory>>(vendorSets.Count);
         foreach (var catList in vendorSets)
         {
             if (catList == null)
@@ -495,8 +499,6 @@ public class CacheManualJob : JobBase, IScheduledJob
     {
         if (item.Type is RewardType.Item or RewardType.Transmog)
         {
-            _itemIds.Add(item.Id);
-
             if ((item.AppearanceIds?.Length ?? 0) == 0 && item.BonusIds?.Length > 0)
             {
                 foreach (int bonusId in item.BonusIds)
@@ -569,22 +571,13 @@ public class CacheManualJob : JobBase, IScheduledJob
                 item.Quality = _itemMap[item.Id].Quality;
             }
         }
-
-        // Costs with an ID >1 million are items
-        foreach (var (currencyId, _) in item.Costs.EmptyIfNull())
-        {
-            if (currencyId > 1_000_000)
-            {
-                _itemIds.Add(currencyId - 1_000_000);
-            }
-        }
     }
 
     private List<List<ManualZoneMapCategory>> LoadZoneMaps()
     {
         var zoneMapSets = DataUtilities.LoadData<DataZoneMapCategory>("zone-maps", Logger);
 
-        var ret = new List<List<ManualZoneMapCategory>>();
+        var ret = new List<List<ManualZoneMapCategory>>(zoneMapSets.Count);
 
         foreach (var catList in zoneMapSets)
         {
@@ -619,16 +612,11 @@ public class CacheManualJob : JobBase, IScheduledJob
                             case "mount":
                             case "pet":
                             case "toy":
-                                break;
-
                             case "item":
-                                _itemIds.Add(drop.Id);
                                 break;
 
                             case "transmog":
                             {
-                                _itemIds.Add(drop.Id);
-
                                 var dropItem = _itemMap[drop.Id];
                                 if (dropItem.ClassId == 2)
                                 {
@@ -731,11 +719,11 @@ public class CacheManualJob : JobBase, IScheduledJob
         var skipPath = Path.Join(DataUtilities.DataPath, dirName, "_skip.yml");
         if (File.Exists(skipPath))
         {
-            var newSkip = _yaml.Deserialize<string[]>(File.OpenText(skipPath));
+            var newSkip = DataUtilities.YamlDeserializer.Deserialize<string[]>(File.OpenText(skipPath));
             if (newSkip != null)
             {
                 skip = newSkip.SelectMany(s => s
-                        .Split(' '))
+                    .Split(' '))
                     .Select(int.Parse)
                     .ToArray();
             }
@@ -793,7 +781,7 @@ public class CacheManualJob : JobBase, IScheduledJob
 
     private List<List<OutCollectionCategory>> FinalizeCollections(List<List<DataCollectionCategory>> categorySets)
     {
-        var ret = new List<List<OutCollectionCategory>>();
+        var ret = new List<List<OutCollectionCategory>>(categorySets.Count);
 
         foreach (var categorySet in categorySets)
         {

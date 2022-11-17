@@ -15,8 +15,8 @@ public static class DataUtilities
     public static readonly string DataPath = Path.Join("..", "..", "data");
     public static readonly string DumpsPath = Path.Join("..", "..", "dumps");
 #else
-        public static readonly string DataPath = "data";
-        public static readonly string DumpsPath = "dumps";
+    public static readonly string DataPath = "data";
+    public static readonly string DumpsPath = "dumps";
 #endif
 
     public static readonly IDeserializer YamlDeserializer = new DeserializerBuilder()
@@ -40,7 +40,9 @@ public static class DataUtilities
             config.HeaderValidated = null;
             config.MissingFieldFound = null;
         }
-        var csvReader = new CsvReader(File.OpenText(filePath), config);
+
+        using var reader = new StreamReader(filePath);
+        using var csvReader = new CsvReader(reader, config);
 
         var ret = new List<T>();
         await foreach (T record in csvReader.GetRecordsAsync<T>())
