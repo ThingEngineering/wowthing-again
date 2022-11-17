@@ -226,7 +226,6 @@ public class UserUploadJob : JobBase
 
             HandleAchievements(character, characterData);
             HandleCovenants(character, characterData);
-            //HandleCurrencies(character, characterData);
             await HandleItems(character, characterData);
             HandleLockouts(character, characterData);
             HandleMounts(character, characterData);
@@ -820,42 +819,6 @@ public class UserUploadJob : JobBase
         }
 
         return soulbindMap.Values.ToList();
-    }
-
-    private void HandleCurrencies(PlayerCharacter character, UploadCharacter characterData)
-    {
-        var currencyMap = character.Currencies
-            .EmptyIfNull()
-            .ToDictionary(currency => currency.CurrencyId);
-
-        foreach (var (currencyId, currencyString) in characterData.Currencies.EmptyIfNull())
-        {
-            // quantity:max:isWeekly:weekQuantity:weekMax:isMovingMax:totalQuantity
-            var parts = currencyString.Split(":");
-            if (parts.Length != 7)
-            {
-                Logger.Warning("Invalid currency string: {String}", currencyString);
-                continue;
-            }
-
-            if (!currencyMap.TryGetValue(currencyId, out var currency))
-            {
-                currency = new PlayerCharacterCurrency
-                {
-                    CharacterId = character.Id,
-                    CurrencyId = currencyId,
-                };
-                Context.PlayerCharacterCurrency.Add(currency);
-            }
-
-            currency.Quantity = int.Parse(parts[0].OrDefault("0"));
-            currency.Max = int.Parse(parts[1].OrDefault("0"));
-            currency.IsWeekly = parts[2] == "1";
-            currency.WeekQuantity = int.Parse(parts[3].OrDefault("0"));
-            currency.WeekMax = int.Parse(parts[4].OrDefault("0"));
-            currency.IsMovingMax = parts[5] == "1";
-            currency.TotalQuantity = int.Parse(parts[6].OrDefault("0"));
-        }
     }
 
     private async Task HandleGuildItems(PlayerGuild guild, UploadGuild guildData)

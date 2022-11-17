@@ -51,7 +51,6 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
     public DbSet<PlayerCharacter> PlayerCharacter { get; set; }
     public DbSet<PlayerCharacterAchievements> PlayerCharacterAchievements { get; set; }
     public DbSet<PlayerCharacterAddonData> PlayerCharacterAddonData { get; set; }
-    public DbSet<PlayerCharacterCurrency> PlayerCharacterCurrency { get; set; }
     public DbSet<PlayerCharacterEquippedItems> PlayerCharacterEquippedItems { get; set; }
     public DbSet<PlayerCharacterItem> PlayerCharacterItem { get; set; }
     public DbSet<PlayerCharacterLockouts> PlayerCharacterLockouts { get; set; }
@@ -136,9 +135,6 @@ public class WowDbContext : IdentityDbContext<ApplicationUser, IdentityRole<long
 
         builder.Entity<GlobalDailies>()
             .HasKey(gd => new { gd.Expansion, gd.Region });
-
-        builder.Entity<PlayerCharacterCurrency>()
-            .HasKey(pcc => new { pcc.CharacterId, pcc.CurrencyId });
 
         builder.Entity<PlayerCharacterMythicPlusSeason>()
             .HasKey(mps => new { mps.CharacterId, mps.Season });
