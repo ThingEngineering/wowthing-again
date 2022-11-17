@@ -1,5 +1,4 @@
-﻿//using Newtonsoft.Json.Linq;
-using Wowthing.Backend.Data;
+﻿using Wowthing.Backend.Data;
 using Wowthing.Backend.Jobs.NonBlizzard;
 using Wowthing.Backend.Models.Data;
 using Wowthing.Backend.Models.Data.Achievements;
@@ -129,6 +128,7 @@ public class CacheStaticJob : JobBase, IScheduledJob
 
         // Character stuff
         cacheData.CharacterClasses = await Context.WowCharacterClass
+            .AsNoTracking()
             .OrderBy(cls => cls.Id)
             .ToDictionaryAsync(
                 cls => cls.Id,
@@ -136,6 +136,7 @@ public class CacheStaticJob : JobBase, IScheduledJob
             );
 
         cacheData.CharacterRaces = await Context.WowCharacterRace
+            .AsNoTracking()
             .OrderBy(race => race.Id)
             .ToDictionaryAsync(
                 race => race.Id,
@@ -143,6 +144,7 @@ public class CacheStaticJob : JobBase, IScheduledJob
             );
 
         cacheData.CharacterSpecializations = await Context.WowCharacterSpecialization
+            .AsNoTracking()
             .Where(spec => spec.Order < 4)
             .OrderBy(spec => spec.Id)
             .ToDictionaryAsync(
@@ -152,12 +154,14 @@ public class CacheStaticJob : JobBase, IScheduledJob
 
         // Currencies
         cacheData.RawCurrencies = await Context.WowCurrency
+            .AsNoTracking()
             .Where(currency => !Hardcoded.IgnoredCurrencies.Contains(currency.Id))
             .OrderBy(currency => currency.Id)
             .Select(currency => new StaticCurrency(currency))
             .ToArrayAsync();
 
         cacheData.RawCurrencyCategories = await Context.WowCurrencyCategory
+            .AsNoTracking()
             .OrderBy(category => category.Id)
             .Select(category => new StaticCurrencyCategory(category))
             .ToArrayAsync();
@@ -183,6 +187,7 @@ public class CacheStaticJob : JobBase, IScheduledJob
 
         // Reputations
         var reputations = await Context.WowReputation
+            .AsNoTracking()
             .OrderBy(rep => rep.Id)
             .ToArrayAsync();
 
@@ -199,16 +204,19 @@ public class CacheStaticJob : JobBase, IScheduledJob
 
         // Basic database dumps
         cacheData.RawRealms = await Context.WowRealm
+            .AsNoTracking()
             .OrderBy(realm => realm.Id)
             .ToListAsync();
 
-        var reputationTiers = new SortedDictionary<int, WowReputationTier>(await Context.WowReputationTier.ToDictionaryAsync(c => c.Id));
+        cacheData.ReputationTiers = new SortedDictionary<int, WowReputationTier>(
+            await Context.WowReputationTier
+                .AsNoTracking()
+                .ToDictionaryAsync(c => c.Id)
+        );
 
         _timer.AddPoint("Database");
 
         // Initial object creation
-        cacheData.ReputationTiers = reputationTiers;
-
         cacheData.RawReputations = reputations.Select(rep => new StaticReputation(rep))
             .ToArray();
 
@@ -229,6 +237,8 @@ public class CacheStaticJob : JobBase, IScheduledJob
             .OrderBy(toy => toy.Id)
             .Select(toy => new StaticToy(toy))
             .ToArray();
+
+        _timer.AddPoint("Objects");
 
         // Add anything that uses strings
         string cacheHash = null;
