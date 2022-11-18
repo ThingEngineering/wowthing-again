@@ -5,6 +5,7 @@ import uniq from 'lodash/uniq'
 import without from 'lodash/without'
 
 import { journalDifficultyMap, journalDifficultyOrder, raidDifficulties } from '@/data/difficulty'
+import { worldBossInstanceIds } from '@/data/dungeon'
 import { UserCount, WritableFancyStore, type UserData } from '@/types'
 import { JournalDataEncounter, JournalDataEncounterItem, type JournalDataTier } from '@/types/data'
 import { RewardType } from '@/enums'
@@ -43,16 +44,24 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                 instances: [],
                 subTiers: [],
             },
+            {
+                id: 1000099,
+                name: 'World Bosses',
+                slug: 'world-bosses',
+                instances: [],
+            },
         ]
 
         for (const tier of data.tiers.filter((tier) => tier !== null)) {
             for (const extraTier of extraTiers) {
-                extraTier.subTiers.push({
-                    id: 1000000 + tier.id,
-                    name: tier.name,
-                    slug: tier.slug,
-                    instances: [],
-                })
+                if (extraTier.id !== 1000099) {
+                    extraTier.subTiers.push({
+                        id: 1000000 + tier.id,
+                        name: tier.name,
+                        slug: tier.slug,
+                        instances: [],
+                    })
+                }
             }
 
             for (const instance of tier.instances.filter(instance => instance !== null)) {
@@ -73,7 +82,16 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
 
                     const withoutRaid = without(difficulties, ...raidDifficulties)
 
-                    if (withoutRaid.length === 0) {
+                    if (worldBossInstanceIds.indexOf(instance.id) >= 0) {
+                        const wbInstance = {
+                            ...instance,
+                            name: tier.name,
+                            slug: tier.slug,
+                        }
+                        extraTiers[2].instances.push(wbInstance)
+                        instance.isRaid = true
+                    }
+                    else if (withoutRaid.length === 0) {
                         extraTiers[1].subTiers[extraTiers[1].subTiers.length - 1].instances.push(instance)
                         instance.isRaid = true
                     }

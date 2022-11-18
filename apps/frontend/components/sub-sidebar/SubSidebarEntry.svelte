@@ -197,7 +197,7 @@
         {/if}
     </a>
 
-    {#if expanded}
+    {#if expanded && item.children}
         <div class="subtree">
             {#each item.children as child}
                 <svelte:self
