@@ -2,7 +2,8 @@
     import { staticStore } from '@/stores'
     import type { Character } from '@/types'
 
-    import Talents from './CharacterSpecializationsTalents.svelte'
+    //import Talents from './CharacterSpecializationsTalents.svelte'
+    import UnderConstruction from '@/components/common/UnderConstruction.svelte'
 
     export let character: Character
 
@@ -22,10 +23,11 @@
 </style>
 
 <div class="specializations">
-    {#each specIds as specializationId}
+    <UnderConstruction />
+    <!--{#each specIds as specializationId}
         <Talents
             {character}
             {specializationId}
         />
-    {/each}
+    {/each}-->
 </div>
