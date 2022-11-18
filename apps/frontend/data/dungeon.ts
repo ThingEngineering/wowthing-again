@@ -609,3 +609,12 @@ export const extraInstanceMap: Record<number, StaticDataInstance> = Object.fromE
 export const lockoutOverride: Record<number, number> = {
     777: 3, // Legion: Assault on Violet Hold
 }
+
+export const worldBossInstanceIds: number[] = [
+    322, // Mists of Pandaria
+    557, // Warlords of Draenor
+    822, // Legion
+    1028, // Battle for Azeroth
+    1192, // Shadowlands
+    1205, // Dragonflight
+]
