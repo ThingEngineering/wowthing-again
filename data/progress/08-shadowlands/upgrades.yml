@@ -227,7 +227,7 @@ groups:
       - name: "Empowered Perseverance"
         id: 461 1785
         type: garrisonTree
-        value: 3
+        value: 2
 
       - name: "Discovered Cache"
         id: 461 1792
