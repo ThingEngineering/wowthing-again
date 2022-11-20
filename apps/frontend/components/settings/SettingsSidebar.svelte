@@ -132,6 +132,7 @@
 </style>
 
 <Sidebar
+    alwaysExpand={true}
     baseUrl="/settings"
     items={categories}
     width="10rem"
