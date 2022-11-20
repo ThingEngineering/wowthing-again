@@ -11,6 +11,7 @@
     import IconifyIcon from '@/components/images/IconifyIcon.svelte'
     import ParsedText from '@/components/common/ParsedText.svelte'
 
+    export let alwaysExpand: boolean
     export let anyChildren: boolean
     export let baseUrl: string
     export let item: SidebarItem
@@ -47,7 +48,8 @@
         if (item) {
             url = `${baseUrl}/${item.slug}`
 
-            expanded = $subSidebarState.expanded[url] ||
+            expanded = alwaysExpand ||
+                $subSidebarState.expanded[url] ||
                 ($location.startsWith(url) && !($location === url) && item.children?.length > 0)
 
             //expanded = $location.startsWith(url) && item.children?.length > 0
@@ -60,6 +62,9 @@
             }
 
             if (actualNoVisitRoot && expanded && $location.startsWith(url) && $location !== url) {
+                noCollapse = true
+            }
+            else if (alwaysExpand) {
                 noCollapse = true
             }
             else {

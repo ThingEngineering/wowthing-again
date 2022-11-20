@@ -5,6 +5,7 @@
 
     import SidebarEntry from './SubSidebarEntry.svelte'
 
+    export let alwaysExpand = false
     export let baseUrl: string
     export let items: SidebarItem[]
     export let id = 'sub-sidebar'
@@ -43,6 +44,7 @@
     <nav id="{id}" class="thing-container">
         {#each items as item}
             <SidebarEntry
+                {alwaysExpand}
                 {anyChildren}
                 {baseUrl}
                 {item}
