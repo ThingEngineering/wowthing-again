@@ -5,6 +5,7 @@
     import { gearState } from '@/stores/local-storage'
     import getCharacterGear from '@/utils/get-character-gear'
     import { getItemUrl } from '@/utils/get-item-url'
+    import tippy from '@/utils/tippy'
     import type { Character, CharacterGear } from '@/types'
 
     import WowthingImage from '@/components/images/sources/WowthingImage.svelte'
@@ -76,6 +77,21 @@
         display: flex;
         height: 24px;
         width: 24px;
+    }
+    .empty {
+        background: $highlight-background;
+        border: 2px solid $colour-fail;
+        border-radius: $border-radius;
+        display: flex;
+        flex-direction: column;
+        font-size: 0.9rem;
+        height: 44px;
+        justify-content: center;
+        line-height: 1.1;
+        opacity: 0.6;
+        vertical-align: center;
+        width: 44px;
+        white-space: normal;
     }
 </style>
 
@@ -155,6 +171,19 @@
 
                         <span class="item-level">{bag.slots}</span>
                     </a>
+                {:else}
+                    <div
+                        class="empty"
+                        use:tippy={"Empty bag slot"}
+                    >
+                        {#if bagSlot < 5}
+                            Bag<br>{bagSlot}
+                        {:else if bagSlot === 5}
+                            Rea<br>gent
+                        {:else}
+                            Bank<br>{bagSlot - 5}
+                        {/if}
+                    </div>
                 {/if}
             </td>
         {/each}

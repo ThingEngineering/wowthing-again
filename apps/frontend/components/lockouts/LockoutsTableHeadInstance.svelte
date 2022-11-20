@@ -1,30 +1,22 @@
 <script lang="ts">
     import { lockoutState } from '@/stores/local-storage'
     import { staticStore } from '@/stores/static'
-    import tippy from '@/utils/tippy'
-    import type {InstanceDifficulty,} from '@/types'
+    import { tippyComponent } from '@/utils/tippy'
+    import type { Difficulty, InstanceDifficulty } from '@/types'
+    import type { StaticDataInstance } from '@/types/data/static'
 
     import TableSortedBy from '@/components/common/TableSortedBy.svelte'
+    import Tooltip from '@/components/tooltips/lockout-header/TooltipLockoutHeader.svelte'
 
     export let instanceDifficulty: InstanceDifficulty
 
-    let instanceName: string
+    let difficulty: Difficulty
+    let instance: StaticDataInstance
     let sortingBy: boolean
-    let tooltip: string
 
     $: {
-        const difficulty = instanceDifficulty.difficulty
-        const instance = $staticStore.data.instances[instanceDifficulty.instanceId]
-
-        if (instance) {
-            instanceName = instance.shortName
-            tooltip = `${instance.name}`
-        }
-        else {
-            instanceName = instanceDifficulty.instanceId.toString()
-            tooltip = `Unknown instance #${instanceName}`
-        }
-        tooltip += `<br><span class="quality2">${difficulty.name}</span>`
+        difficulty = instanceDifficulty.difficulty
+        instance = $staticStore.data.instances[instanceDifficulty.instanceId]
     }
 
     $: {
@@ -49,12 +41,15 @@
 
 <th
     on:click|preventDefault={onClick}
-    use:tippy={{
-        allowHTML: true,
-        content: tooltip,
+    use:tippyComponent={{
+        component: Tooltip,
+        props: {
+            difficulty,
+            instanceId: instanceDifficulty.instanceId,
+        },
     }}
 >
-    {instanceDifficulty.difficulty.shortName}-{instanceName}
+    {instanceDifficulty.difficulty.shortName}-{instance?.shortName ?? instanceDifficulty.instanceId.toString()}
 
     {#if sortingBy}
         <TableSortedBy />

@@ -299,6 +299,7 @@ public class ApplicationUserSettingsTransmog
     public bool ShowDeathKnight { get; set; } = true;
     public bool ShowDemonHunter { get; set; } = true;
     public bool ShowDruid { get; set; } = true;
+    public bool ShowEvoker { get; set; } = true;
     public bool ShowHunter { get; set; } = true;
     public bool ShowMage { get; set; } = true;
     public bool ShowMonk { get; set; } = true;

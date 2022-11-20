@@ -74,6 +74,9 @@ public class ManualTransmogCategoryConverter : JsonConverter
 
     private JArray CreateSetArray(ManualTransmogSet set)
     {
+        bool useAchievementId = set.AchievementId > 0;
+        bool useWowheadSetId = set.WowheadSetId > 0;
+
         var setArray = new JArray();
         setArray.Add(set.Name);
 
@@ -90,9 +93,14 @@ public class ManualTransmogCategoryConverter : JsonConverter
         }
         setArray.Add(itemsObject);
 
-        if (set.WowheadSetId > 0)
+        if (useAchievementId || useWowheadSetId)
         {
             setArray.Add(set.WowheadSetId);
+        }
+
+        if (useAchievementId)
+        {
+            setArray.Add(set.AchievementId);
         }
 
         return setArray;
