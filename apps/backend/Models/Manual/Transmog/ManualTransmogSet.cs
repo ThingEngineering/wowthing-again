@@ -4,14 +4,17 @@ namespace Wowthing.Backend.Models.Manual.Transmog;
 
 public class ManualTransmogSet
 {
+    public int AchievementId { get; set; }
     public int WowheadSetId { get; set; }
     public string Name { get; set; }
     public Dictionary<string, List<int>> Items { get; set; }
 
     public ManualTransmogSet(DataTransmogSet set)
     {
+        AchievementId = set.AchievementId;
         WowheadSetId = set.WowheadSetId;
         Name = set.Name;
+
         Items = set.Items
             .EmptyIfNull()
             .ToDictionary(

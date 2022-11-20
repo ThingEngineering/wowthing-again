@@ -36,7 +36,8 @@ export class ManualDataTransmogGroupData {
     constructor(
         public name: string,
         public items: Record<number, number[]>,
-        public wowheadSetId?: number
+        public wowheadSetId?: number,
+        public achievementId?: number
     )
     { }
 }
