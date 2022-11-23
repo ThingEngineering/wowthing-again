@@ -900,7 +900,7 @@ public static partial class Hardcoded
         #endregion
 
         #region Mists of Pandaria
-        // Schjolomance > Doctor Theolen Krastinov
+        // Scholomance > Doctor Theolen Krastinov
         {
             102460,
             new List<ExtraItemDrop>
@@ -914,6 +914,41 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 new(112935, new[]{ 16 }), // Tusks of Mannoroth - Mythic
+            }
+        },
+        // World Bosses > Salyis's Warband (Galleon)
+        {
+            322,
+            new List<ExtraItemDrop>
+            {
+                // Cloth
+                new(86884, new[]{ 14 }), // Belt of Embodied Terror [waist]
+                new(86895, new[]{ 14 }), // Healer's Belt of Final Winter [waist]
+                new(86896, new[]{ 14 }), // Invoker's Belt of Final Winter [waist]
+                new(86897, new[]{ 14 }), // Sorcerer's Belt of Final Winter [waist]
+                new(86850, new[]{ 14 }), // Darting Damselfly Cuffs [wrists]
+                new(86844, new[]{ 14 }), // Gleaming Moth Cuffs [wrists]
+                new(86841, new[]{ 14 }), // Shining Cicada Bracers [wrists]
+
+                // Leather
+                new(86899, new[]{ 14 }), // Stalker's Cord of Eternal Autumn [waist]
+                new(86898, new[]{ 14 }), // Weaver's Cord of Eternal Autumn [waist]
+                new(86845, new[]{ 14 }), // Pearlescent Butterfly Wristbands [wrists]
+                new(86843, new[]{ 14 }), // Smooth Beetle Wristbands [wrists]
+
+                // Mail
+                new(86900, new[]{ 14 }), // Binder's Chain of Unending Summer [waist]
+                new(86904, new[]{ 14 }), // Patroller's Girdle of Endless Spring [waist]
+                new(86847, new[]{ 14 }), // Jagged Hornet Bracers [wrists]
+                new(86842, new[]{ 14 }), // Luminescent Firefly Wristguards [wrists]
+
+                // Plate
+                new(86902, new[]{ 14 }), // Mender's Girdle of Endless Spring [waist]
+                new(86903, new[]{ 14 }), // Protector's Girdle of Endless Spring [waist]
+                new(86901, new[]{ 14 }), // Ranger's Chain of Unending Summer [waist]
+                new(86846, new[]{ 14 }), // Inlaid Cricket Bracers [wrists]
+                new(86849, new[]{ 14 }), // Plated Locust Bracers [wrists]
+                new(86848, new[]{ 14 }), // Serrated Wasp Bracers [wrists]
             }
         },
         #endregion
