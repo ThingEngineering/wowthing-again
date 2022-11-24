@@ -209,6 +209,7 @@
                     baseUrl={url}
                     item={child}
                     parentItems={[...parentItems, item]}
+                    {alwaysExpand}
                     {anyChildren}
                     {noVisitRoot}
                     {decorationFunc}
