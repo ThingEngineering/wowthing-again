@@ -27,21 +27,21 @@ export interface JournalDataInstance {
 
 export class JournalDataEncounter {
     public groups: JournalDataEncounterItemGroup[]
-    public statistics?: Record<number, number>
+    public statistics?: Record<number, number[]>
 
     constructor(
         public id: number,
         public name: string,
         groupsRaw: JournalDataEncounterItemGroupArray[],
-        statisticsRaw?: [number, number][]
+        statisticsRaw?: [number, number[]][]
     )
     {
         this.groups = groupsRaw
             .map((groupArray) => new JournalDataEncounterItemGroup(...groupArray))
         
         this.statistics = {}
-        for (const [difficulty, statisticId] of (statisticsRaw || [])) {
-            this.statistics[difficulty] = statisticId
+        for (const [difficulty, statisticIds] of (statisticsRaw || [])) {
+            this.statistics[difficulty] = statisticIds
         }
     }
 }

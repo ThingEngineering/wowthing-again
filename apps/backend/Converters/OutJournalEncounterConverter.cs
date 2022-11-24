@@ -53,11 +53,18 @@ public class OutJournalEncounterConverter : JsonConverter
         if (encounter.Statistics != null)
         {
             var statsArray = new JArray();
-            foreach (var (difficulty, statisticId) in encounter.Statistics)
+            foreach (var (difficulty, statisticIds) in encounter.Statistics)
             {
                 var diffArray = new JArray();
                 diffArray.Add(difficulty);
-                diffArray.Add(statisticId);
+
+                var statisticsArray = new JArray();
+                foreach (int statisticId in statisticIds)
+                {
+                    statisticsArray.Add(statisticId);
+                }
+                diffArray.Add(statisticsArray);
+                
                 statsArray.Add(diffArray);
             }
             encounterArray.Add(statsArray);
