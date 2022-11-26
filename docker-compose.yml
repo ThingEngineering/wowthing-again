@@ -64,7 +64,9 @@ services:
       - frontend-nm:/app/node_modules/
 
   postgres:
-    image: postgres:13
+    build:
+      context: .
+      dockerfile: apps/postgres/Dockerfile
     environment:
       POSTGRES_PASSWORD: topsecret
       POSTGRES_USER: wowthing

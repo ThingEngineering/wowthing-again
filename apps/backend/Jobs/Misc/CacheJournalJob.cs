@@ -27,7 +27,7 @@ public class CacheJournalJob : JobBase, IScheduledJob
         Type = JobType.CacheJournal,
         Priority = JobPriority.High,
         Interval = TimeSpan.FromHours(24),
-        Version = 30,
+        Version = 31,
     };
 
     public override async Task Run(params string[] data)
@@ -72,15 +72,28 @@ public class CacheJournalJob : JobBase, IScheduledJob
             .OrderBy(file => file.FullName)
             .ToArray();
 
-        var statisticsMap = new Dictionary<int, Dictionary<int, int>>();
+        var statisticsMap = new Dictionary<int, Dictionary<int, int[]>>();
         foreach (var file in files)
         {
             Logger.Debug("Parsing {file}", file.FullName);
             var data = DataUtilities.YamlDeserializer
-                .Deserialize<Dictionary<int, Dictionary<int, int>>>(File.OpenText(file.FullName));
-            statisticsMap = statisticsMap
-                .Concat(data)
-                .ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+                .Deserialize<Dictionary<int, Dictionary<int, string>>>(File.OpenText(file.FullName));
+
+            foreach (var (encounterId, difficulties) in data)
+            {
+                if (!statisticsMap.ContainsKey(encounterId))
+                {
+                    statisticsMap[encounterId] = new();
+                }
+
+                foreach (var (difficulty, statisticIds) in difficulties)
+                {
+                    statisticsMap[encounterId][difficulty] = statisticIds
+                        .Split()
+                        .Select(int.Parse)
+                        .ToArray();
+                }
+            }
         }
 
         _timer.AddPoint("Data");

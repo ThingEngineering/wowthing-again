@@ -24,10 +24,13 @@
                 let kills = -1
 
                 for (const difficultyId of (difficultyUgh[difficulty] || [difficulty])) {
-                    const statisticId = encounter?.statistics?.[difficultyId] ?? 0
-                    if (statisticId) {
-                        const newKills = ($userAchievementStore.data.statistics?.[statisticId] || [])
-                            .reduce((a, b) => a + b[1], 0)
+                    const statisticIds = encounter?.statistics?.[difficultyId] ?? []
+                    if (statisticIds.length > 0) {
+                        console.log(statisticIds)
+                        const newKills = statisticIds.reduce(
+                            (a, b) => a + ($userAchievementStore.data.statistics?.[b] || [])
+                                .reduce((c, d) => c + d[1], 0)
+                        , 0)
                         kills = kills === -1 ? newKills : kills + newKills
                     }
                 }

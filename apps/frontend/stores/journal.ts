@@ -146,6 +146,10 @@ export class JournalDataStore extends WritableFancyStore<JournalData> {
                 const instanceExpansion = staticData.instances[instance.id]?.expansion ?? 0
 
                 for (const encounter of instance.encounters) {
+                    if (encounter.id === 857) {
+                        encounter.name = staticData.reputations[1341].name
+                    }
+
                     const encounterKey = `${instanceKey}--${encounter.name}`
                     const encounterStats = stats[encounterKey] = new UserCount()
                     const encounterSeen: Record<string, boolean> = {}

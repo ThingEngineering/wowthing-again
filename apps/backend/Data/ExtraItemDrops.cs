@@ -2,6 +2,15 @@
 
 public static partial class Hardcoded
 {
+    private static readonly int[] DungeonDifficultiesNormal = { 1 };
+    private static readonly int[] DungeonDifficultiesHeroic = { 2 };
+    private static readonly int[] RaidDifficultiesLegacy10Normal = { 3 };
+    private static readonly int[] RaidDifficultiesLegacy25Normal = { 4 };
+    private static readonly int[] RaidDifficultiesLegacy10Heroic = { 5 };
+    private static readonly int[] RaidDifficultiesLegacy25Heroic = { 6 };
+    private static readonly int[] RaidDifficultiesLegacy40 = { 9 };
+    private static readonly int[] RaidDifficultiesNormal = { 14 };
+
     private static readonly int[] RaidDifficultiesAll = { 17, 14, 15, 16 };
     private static readonly int[] RaidDifficultiesLfrNormalHeroic = { 3, 4, 5, 6, 7 };
     private static readonly int[] RaidDifficultiesNoLfr = { 14, 15, 16 };
@@ -9,24 +18,24 @@ public static partial class Hardcoded
     private static readonly List<ExtraItemDrop> FrozenHallsTrashDrops = new List<ExtraItemDrop>
     {
         // Cloth
-        new (49854, new[] { 1 }), // Mantle of Tattered Feathers [N]
+        new (49854, DungeonDifficultiesNormal), // Mantle of Tattered Feathers [N]
         // Leather
-        new (50318, new[] { 2 }), // Ghostly Wristwraps [H]
+        new (50318, DungeonDifficultiesHeroic), // Ghostly Wristwraps [H]
         // Plate
-        new (49855, new[] { 1 }), // Plated Grips of Korth'azz [N]
-        new (49853, new[] { 1 }), // Titanium Links of Lore [N]
+        new (49855, DungeonDifficultiesNormal), // Plated Grips of Korth'azz [N]
+        new (49853, DungeonDifficultiesNormal), // Titanium Links of Lore [N]
         // Weapon
-        new (49852, new[] { 1 }), // Coffin Nail [N]
-        new (50315, new[] { 2 }), // Seven-Fingered Claws [H]
-        new (50319, new[] { 2 }), // Unsharpened Ice Razor [H]
+        new (49852, DungeonDifficultiesNormal), // Coffin Nail [N]
+        new (50315, DungeonDifficultiesHeroic), // Seven-Fingered Claws [H]
+        new (50319, DungeonDifficultiesHeroic), // Unsharpened Ice Razor [H]
         // Battered Hilt
-        new (50046, new[] { 2}), // Quel'Delar, Cunning of the Shadows
-        new (50047, new[] { 2}), // Quel'Delar, Lens of the Mind
-        new (50048, new[] { 2}), // Quel'Delar, Might of the Faithful
-        new (50049, new[] { 2}), // Quel'Delar, Ferocity of the Scorned
-        new (50050, new[] { 2}), // Cudgel of Furious Justice
-        new (50051, new[] { 2}), // Hammer of Purified Flame
-        new (50052, new[] { 2}), // Lightborn Spire
+        new (50046, DungeonDifficultiesHeroic), // Quel'Delar, Cunning of the Shadows
+        new (50047, DungeonDifficultiesHeroic), // Quel'Delar, Lens of the Mind
+        new (50048, DungeonDifficultiesHeroic), // Quel'Delar, Might of the Faithful
+        new (50049, DungeonDifficultiesHeroic), // Quel'Delar, Ferocity of the Scorned
+        new (50050, DungeonDifficultiesHeroic), // Cudgel of Furious Justice
+        new (50051, DungeonDifficultiesHeroic), // Hammer of Purified Flame
+        new (50052, DungeonDifficultiesHeroic), // Lightborn Spire
     };
 
     public static readonly Dictionary<int, List<ExtraItemDrop>> ExtraItemDrops = new()
@@ -35,7 +44,7 @@ public static partial class Hardcoded
             895, // Razorfen Kraul > Roogug
             new List<ExtraItemDrop>
             {
-                new(151443, new[]{ 1 }), // Roogug's Swinesteel Girdle - Normal
+                new(151443, DungeonDifficultiesNormal), // Roogug's Swinesteel Girdle - Normal
             }
         },
 
@@ -45,21 +54,21 @@ public static partial class Hardcoded
             100010, // Tunk
             new List<ExtraItemDrop>
             {
-                new (178162, new[]{ 1 }), // Tunk's Whomper
-                new (178163, new[]{ 1 }), // Tunk's Shinguard
-                new (178164, new[]{ 1 }), // Tunk's Needle
-                new (178165, new[]{ 1 }), // Tunk's Tooth
-                new (178166, new[]{ 1 }), // Tunk's Toothpick
-                new (178167, new[]{ 1 }), // Tunk's Lil' Whomper
-                new (179360, new[]{ 1 }), // Tunk's Tiny Bow
-                //new (179362, new[]{ 1 }), // Tunk's Backscratcher -- doesn't actually exist
+                new (178162, DungeonDifficultiesNormal), // Tunk's Whomper
+                new (178163, DungeonDifficultiesNormal), // Tunk's Shinguard
+                new (178164, DungeonDifficultiesNormal), // Tunk's Needle
+                new (178165, DungeonDifficultiesNormal), // Tunk's Tooth
+                new (178166, DungeonDifficultiesNormal), // Tunk's Toothpick
+                new (178167, DungeonDifficultiesNormal), // Tunk's Lil' Whomper
+                new (179360, DungeonDifficultiesNormal), // Tunk's Tiny Bow
+                //new (179362, DungeonDifficultiesNormal), // Tunk's Backscratcher -- doesn't actually exist
             }
         },
         {
             100011, // Gor'groth
             new List<ExtraItemDrop>
             {
-                new (178169, new[]{ 1 }), // Decrepit Dragonscale Drape
+                new (178169, DungeonDifficultiesNormal), // Decrepit Dragonscale Drape
             }
         },
         // Anniversary World Bosses
@@ -68,21 +77,21 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 // Cloth
-                new (150419, new[]{ 1 }), // Crystal Adorned Crown
-                new (150425, new[]{ 1 }), // Snowblind Shoes
+                new (150419, DungeonDifficultiesNormal), // Crystal Adorned Crown
+                new (150425, DungeonDifficultiesNormal), // Snowblind Shoes
                 // Leather
-                new (150543, new[]{ 1 }), // Sapphire-Encrusted Tunic
+                new (150543, DungeonDifficultiesNormal), // Sapphire-Encrusted Tunic
                 // Mail
-                new (150544, new[]{ 1 }), // Mana-Frosted Pauldrons
+                new (150544, DungeonDifficultiesNormal), // Mana-Frosted Pauldrons
                 // Plate
-                new (150422, new[]{ 1 }), // Unmelting Ice Girdle
+                new (150422, DungeonDifficultiesNormal), // Unmelting Ice Girdle
                 // Cloak
-                new (150417, new[]{ 1 }), // Drape of Benediction
+                new (150417, DungeonDifficultiesNormal), // Drape of Benediction
                 // Weapon
-                new (150424, new[]{ 1 }), // Cold Snap
-                new (150428, new[]{ 1 }), // Eskhandar's Left Claw
-                new (150423, new[]{ 1 }), // Fang of the Mystics
-                new (150421, new[]{ 1 }), // Typhoon
+                new (150424, DungeonDifficultiesNormal), // Cold Snap
+                new (150428, DungeonDifficultiesNormal), // Eskhandar's Left Claw
+                new (150423, DungeonDifficultiesNormal), // Fang of the Mystics
+                new (150421, DungeonDifficultiesNormal), // Typhoon
             }
         },
         {
@@ -90,18 +99,18 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 // Cloth
-                new (150386, new[]{ 1 }), // Blacklight Bracer
-                new (150385, new[]{ 1 }), // Fel Infused Leggings
+                new (150386, DungeonDifficultiesNormal), // Blacklight Bracer
+                new (150385, DungeonDifficultiesNormal), // Fel Infused Leggings
                 // Leather
-                new (150382, new[]{ 1 }), // Doomhide Gauntlets
-                new (150381, new[]{ 1 }), // Flayed Doomguard Belt
+                new (150382, DungeonDifficultiesNormal), // Doomhide Gauntlets
+                new (150381, DungeonDifficultiesNormal), // Flayed Doomguard Belt
                 // Mail
-                new (150379, new[]{ 1 }), // Infernal Headcage
+                new (150379, DungeonDifficultiesNormal), // Infernal Headcage
                 // Cloak
-                new (150380, new[]{ 1 }), // Eskhandar's Pelt
+                new (150380, DungeonDifficultiesNormal), // Eskhandar's Pelt
                 // Weapon
-                new (150383, new[]{ 1 }), // Amberseal Keeper
-                new (150427, new[]{ 1 }), // Empyrean Demolisher
+                new (150383, DungeonDifficultiesNormal), // Amberseal Keeper
+                new (150427, DungeonDifficultiesNormal), // Empyrean Demolisher
             }
         },
         {
@@ -109,13 +118,13 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 // Cloak
-                new (150411, new[]{ 1 }), // Green Dragonskin Cloak
+                new (150411, DungeonDifficultiesNormal), // Green Dragonskin Cloak
                 // Weapon
-                new (150429, new[]{ 1 }), // Emerald Dragonfang
-                new (150412, new[]{ 1 }), // Hammer of Bestial Fury
-                new (150393, new[]{ 1 }), // Nightmare Blade
-                new (150403, new[]{ 1 }), // Polished Ironwood Crossbow
-                new (150408, new[]{ 1 }), // Staff of Rampant Growth
+                new (150429, DungeonDifficultiesNormal), // Emerald Dragonfang
+                new (150412, DungeonDifficultiesNormal), // Hammer of Bestial Fury
+                new (150393, DungeonDifficultiesNormal), // Nightmare Blade
+                new (150403, DungeonDifficultiesNormal), // Polished Ironwood Crossbow
+                new (150408, DungeonDifficultiesNormal), // Staff of Rampant Growth
             }
         },
         {
@@ -123,14 +132,14 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 // Cloth
-                new (150416, new[]{ 1 }), // Gloves of Delusional Power
+                new (150416, DungeonDifficultiesNormal), // Gloves of Delusional Power
                 // Leather
-                new (150405, new[]{ 1 }), // Circlet of Restless Dreams
-                new (150415, new[]{ 1 }), // Dragonspur Wraps
+                new (150405, DungeonDifficultiesNormal), // Circlet of Restless Dreams
+                new (150415, DungeonDifficultiesNormal), // Dragonspur Wraps
                 // Mail
-                new (150406, new[]{ 1 }), // Boots of the Endless Moor
+                new (150406, DungeonDifficultiesNormal), // Boots of the Endless Moor
                 // Plate
-                new (150410, new[]{ 1 }), // Acid Inscribed Greaves
+                new (150410, DungeonDifficultiesNormal), // Acid Inscribed Greaves
             }
         },
         {
@@ -138,14 +147,14 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 // Cloth
-                new (150399, new[]{ 1 }), // Black Bark Wristbands
+                new (150399, DungeonDifficultiesNormal), // Black Bark Wristbands
                 // Leather
-                new (150398, new[]{ 1 }), // Dark Heart Pants
-                new (150401, new[]{ 1 }), // Deviate Growth Cap
+                new (150398, DungeonDifficultiesNormal), // Dark Heart Pants
+                new (150401, DungeonDifficultiesNormal), // Deviate Growth Cap
                 // Mail
-                new (150400, new[]{ 1 }), // Malignant Footguards
+                new (150400, DungeonDifficultiesNormal), // Malignant Footguards
                 // Plate
-                new (150402, new[]{ 1 }), // Gauntlets of the Shining Light
+                new (150402, DungeonDifficultiesNormal), // Gauntlets of the Shining Light
             }
         },
         {
@@ -153,14 +162,14 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 // Cloth
-                new (150394, new[]{ 1 }), // Mendicant's Slippers
+                new (150394, DungeonDifficultiesNormal), // Mendicant's Slippers
                 // Leather
-                new (150395, new[]{ 1 }), // Unnatural Leather Spaulders
+                new (150395, DungeonDifficultiesNormal), // Unnatural Leather Spaulders
                 // Mail
-                new (150414, new[]{ 1 }), // Ancient Corroded Leggings
+                new (150414, DungeonDifficultiesNormal), // Ancient Corroded Leggings
                 // Plate
-                new (150413, new[]{ 1 }), // Dragonbone Wristguards
-                new (150390, new[]{ 1 }), // Strangely Glyphed Legplates
+                new (150413, DungeonDifficultiesNormal), // Dragonbone Wristguards
+                new (150390, DungeonDifficultiesNormal), // Strangely Glyphed Legplates
             }
         },
         {
@@ -168,16 +177,16 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 // Cloth
-                new (150397, new[]{ 1 }), // Belt of the Dark Bog
-                new (150391, new[]{ 1 }), // Jade Inlaid Vestments
+                new (150397, DungeonDifficultiesNormal), // Belt of the Dark Bog
+                new (150391, DungeonDifficultiesNormal), // Jade Inlaid Vestments
                 // Leather
-                new (150396, new[]{ 1 }), // Boots of Fright
+                new (150396, DungeonDifficultiesNormal), // Boots of Fright
                 // Mail
-                new (150389, new[]{ 1 }), // Leggings of the Demented Mind
+                new (150389, DungeonDifficultiesNormal), // Leggings of the Demented Mind
                 // Plate
-                new (150387, new[]{ 1 }), // Acid Inscribed Pauldrons
+                new (150387, DungeonDifficultiesNormal), // Acid Inscribed Pauldrons
                 // Weapon
-                new (150409, new[]{ 1 }), // Trance Stone
+                new (150409, DungeonDifficultiesNormal), // Trance Stone
             }
         },
         {
@@ -185,28 +194,28 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 // Mount
-                new (186469, new[]{ 1 }), // Illidari Doomhawk
+                new (186469, DungeonDifficultiesNormal), // Illidari Doomhawk
                 // Toy
-                new (186501, new[]{ 1 }), // Doomwalker Trophy Stand
+                new (186501, DungeonDifficultiesNormal), // Doomwalker Trophy Stand
                 // Cloth
-                new (186460, new[]{ 1 }), // Anger-Spark Gloves
-                new (186461, new[]{ 1 }), // Gilded Trousers of Benediction
+                new (186460, DungeonDifficultiesNormal), // Anger-Spark Gloves
+                new (186461, DungeonDifficultiesNormal), // Gilded Trousers of Benediction
                 // Leather
-                new (186475, new[]{ 1 }), // Hellstitched Mantle
-                new (186463, new[]{ 1 }), // Terrorweave Tunic
+                new (186475, DungeonDifficultiesNormal), // Hellstitched Mantle
+                new (186463, DungeonDifficultiesNormal), // Terrorweave Tunic
                 // Mail
-                new (186481, new[]{ 1 }), // Darkcrest Waistguard
-                new (186464, new[]{ 1 }), // Fathom-Helm of the Deeps
+                new (186481, DungeonDifficultiesNormal), // Darkcrest Waistguard
+                new (186464, DungeonDifficultiesNormal), // Fathom-Helm of the Deeps
                 // Plate
-                new (186465, new[]{ 1 }), // Faceguard of the Endless Watch
-                new (186484, new[]{ 1 }), // Voidforged Greaves
+                new (186465, DungeonDifficultiesNormal), // Faceguard of the Endless Watch
+                new (186484, DungeonDifficultiesNormal), // Voidforged Greaves
                 // Cloak
-                new (186462, new[]{ 1 }), // Black-Iron Battlecloak
+                new (186462, DungeonDifficultiesNormal), // Black-Iron Battlecloak
                 // Weapon
-                new (186506, new[]{ 1 }), // Akama's Edge
-                new (186467, new[]{ 1 }), // Barrel-Blade Longrifle
-                new (186466, new[]{ 1 }), // Ethereum Nexus-Reaver
-                new (186468, new[]{ 1 }), // Talon of the Tempest
+                new (186506, DungeonDifficultiesNormal), // Akama's Edge
+                new (186467, DungeonDifficultiesNormal), // Barrel-Blade Longrifle
+                new (186466, DungeonDifficultiesNormal), // Ethereum Nexus-Reaver
+                new (186468, DungeonDifficultiesNormal), // Talon of the Tempest
             }
         },
         #endregion
@@ -218,29 +227,29 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 // Cloth
-                new (18532, new[] { 1 }), // Mindsurge Robe
-                new (18475, new[] { 1 }), // Oddly Magical Belt
+                new (18532, DungeonDifficultiesNormal), // Mindsurge Robe
+                new (18475, DungeonDifficultiesNormal), // Oddly Magical Belt
                 // Leather
-                new (18528, new[] { 1 }), // Cyclone Spaulders
-                new (18478, new[] { 1 }), // Hyena Hide Jerkin
-                new (18476, new[] { 1 }), // Mud Stained Boots
-                new (18477, new[] { 1 }), // Shaggy Leggings
+                new (18528, DungeonDifficultiesNormal), // Cyclone Spaulders
+                new (18478, DungeonDifficultiesNormal), // Hyena Hide Jerkin
+                new (18476, DungeonDifficultiesNormal), // Mud Stained Boots
+                new (18477, DungeonDifficultiesNormal), // Shaggy Leggings
                 // Mail
-                new (18479, new[] { 1 }), // Carrion Scorpid Helm
-                new (18530, new[] { 1 }), // Ogre Forged Hauberk
+                new (18479, DungeonDifficultiesNormal), // Carrion Scorpid Helm
+                new (18530, DungeonDifficultiesNormal), // Ogre Forged Hauberk
                 // Plate
-                new (18529, new[] { 1 }), // Elemental Plate Girdle
-                new (18533, new[] { 1 }), // Gordok Bracers of Power
-                new (18480, new[] { 1 }), // Scarab Plate Helm
+                new (18529, DungeonDifficultiesNormal), // Elemental Plate Girdle
+                new (18533, DungeonDifficultiesNormal), // Gordok Bracers of Power
+                new (18480, DungeonDifficultiesNormal), // Scarab Plate Helm
                 // Cloak
-                new (18495, new[] { 1 }), // Redoubt Cloak
+                new (18495, DungeonDifficultiesNormal), // Redoubt Cloak
                 // Weapon
-                new (18538, new[] { 1 }), // Treant's Bane
-                new (18481, new[] { 1 }), // Skullcracking Mace
-                new (18531, new[] { 1 }), // Unyielding Maul
-                new (18534, new[] { 1 }), // Rod of the Ogre Magi
-                new (18482, new[] { 1 }), // Ogre Toothpick Shooter
-                new (18499, new[] { 1 }), // Barrier Shield
+                new (18538, DungeonDifficultiesNormal), // Treant's Bane
+                new (18481, DungeonDifficultiesNormal), // Skullcracking Mace
+                new (18531, DungeonDifficultiesNormal), // Unyielding Maul
+                new (18534, DungeonDifficultiesNormal), // Rod of the Ogre Magi
+                new (18482, DungeonDifficultiesNormal), // Ogre Toothpick Shooter
+                new (18499, DungeonDifficultiesNormal), // Barrier Shield
             }
         },
         // Gnomeregan > Endgineer Omegaplugg
@@ -249,7 +258,7 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 // Toy
-                new (141331, new[] { 1 }), // Vial of Green Goo
+                new (141331, DungeonDifficultiesNormal), // Vial of Green Goo
             }
         },
         // Stratholme > Postmaster Malown
@@ -258,12 +267,12 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 // Cloth
-                new (13390, new[] { 1 }), // The Postmaster's Band
-                new (13391, new[] { 1 }), // The Postmaster's Treads
-                new (13389, new[] { 1 }), // The Postmaster's Trousers
-                new (13388, new[] { 1 }), // The Postmaster's Tunic
+                new (13390, DungeonDifficultiesNormal), // The Postmaster's Band
+                new (13391, DungeonDifficultiesNormal), // The Postmaster's Treads
+                new (13389, DungeonDifficultiesNormal), // The Postmaster's Trousers
+                new (13388, DungeonDifficultiesNormal), // The Postmaster's Tunic
                 // Weapon
-                new (13393, new[] { 1 }), // Malown's Slam
+                new (13393, DungeonDifficultiesNormal), // Malown's Slam
             }
         },
         // Stratholme > Skul
@@ -272,11 +281,11 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 // Leather
-                new (13395, new[]{ 1 }), // Skul's Fingerbone Claws
+                new (13395, DungeonDifficultiesNormal), // Skul's Fingerbone Claws
                 // Plate
-                new (13394, new[]{ 1 }), // Skul's Cold Embrace
+                new (13394, DungeonDifficultiesNormal), // Skul's Cold Embrace
                 // Weapon
-                new (13396, new[]{ 1 }), // Skul's Ghastly Touch
+                new (13396, DungeonDifficultiesNormal), // Skul's Ghastly Touch
             }
         },
         // Stratholme > Stonespine
@@ -285,11 +294,11 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 // Cloth
-                new (13954, new[] { 1 }), // Verdant Footpads
+                new (13954, DungeonDifficultiesNormal), // Verdant Footpads
                 // Cloak
-                new (13397, new[] { 1 }), // Stoneskin Gargoyle Cape
+                new (13397, DungeonDifficultiesNormal), // Stoneskin Gargoyle Cape
                 // Weapon
-                new (13399, new[] { 1 }), // Gargoyle Shredder Talons
+                new (13399, DungeonDifficultiesNormal), // Gargoyle Shredder Talons
             }
         },
         #endregion
@@ -300,27 +309,27 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 // Cloth
-                new (16802, new[]{ 9 }), // Arcanist Belt
-                new (16799, new[]{ 9 }), // Arcanist Bindings
-                new (16817, new[]{ 9 }), // Girdle of Prophecy
-                new (16806, new[]{ 9 }), // Felheart Belt
-                new (16804, new[]{ 9 }), // Felheart Bracers
-                new (16819, new[]{ 9 }), // Vambraces of Prophecy
+                new (16802, RaidDifficultiesLegacy40), // Arcanist Belt
+                new (16799, RaidDifficultiesLegacy40), // Arcanist Bindings
+                new (16817, RaidDifficultiesLegacy40), // Girdle of Prophecy
+                new (16806, RaidDifficultiesLegacy40), // Felheart Belt
+                new (16804, RaidDifficultiesLegacy40), // Felheart Bracers
+                new (16819, RaidDifficultiesLegacy40), // Vambraces of Prophecy
                 // Leather
-                new (16828, new[]{ 9 }), // Cenarion Belt
-                new (16830, new[]{ 9 }), // Cenarion Bracers
-                new (16827, new[]{ 9 }), // Nightslayer Belt
-                new (16825, new[]{ 9 }), // Nightslayer Bracelets
+                new (16828, RaidDifficultiesLegacy40), // Cenarion Belt
+                new (16830, RaidDifficultiesLegacy40), // Cenarion Bracers
+                new (16827, RaidDifficultiesLegacy40), // Nightslayer Belt
+                new (16825, RaidDifficultiesLegacy40), // Nightslayer Bracelets
                 // Mail
-                new (16838, new[]{ 9 }), // Earthfury Belt
-                new (16840, new[]{ 9 }), // Earthfury Bracers
-                new (16851, new[]{ 9 }), // Giantstalker's Belt
-                new (16850, new[]{ 9 }), // Giantstalker's Bracers
+                new (16838, RaidDifficultiesLegacy40), // Earthfury Belt
+                new (16840, RaidDifficultiesLegacy40), // Earthfury Bracers
+                new (16851, RaidDifficultiesLegacy40), // Giantstalker's Belt
+                new (16850, RaidDifficultiesLegacy40), // Giantstalker's Bracers
                 // Plate
-                new (16864, new[]{ 9 }), // Belt of Might
-                new (16861, new[]{ 9 }), // Bracers of Might
-                new (16858, new[]{ 9 }), // Lawbringer Belt
-                new (16857, new[]{ 9 }), // Lawbringer Bracers
+                new (16864, RaidDifficultiesLegacy40), // Belt of Might
+                new (16861, RaidDifficultiesLegacy40), // Bracers of Might
+                new (16858, RaidDifficultiesLegacy40), // Lawbringer Belt
+                new (16857, RaidDifficultiesLegacy40), // Lawbringer Bracers
             }
         },
         {
@@ -328,17 +337,17 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 // Cloth
-                new (19437, new[]{ 9 }), // Boots of Pure Thought
-                new (19438, new[]{ 9 }), // Ringo's Blizzard Boots
+                new (19437, RaidDifficultiesLegacy40), // Boots of Pure Thought
+                new (19438, RaidDifficultiesLegacy40), // Ringo's Blizzard Boots
                 // Leather
-                new (19439, new[]{ 9 }), // Interlaced Shadow Jerkin
+                new (19439, RaidDifficultiesLegacy40), // Interlaced Shadow Jerkin
                 // Cloak
-                new (19436, new[]{ 9 }), // Cloak of Draconic Might
+                new (19436, RaidDifficultiesLegacy40), // Cloak of Draconic Might
                 // Weapon
-                new (19362, new[]{ 9 }), // Doom's Edge
-                new (19354, new[]{ 9 }), // Draconic Avenger
-                new (19358, new[]{ 9 }), // Draconic Maul
-                new (19435, new[]{ 9 }), // Essence Gatherer
+                new (19362, RaidDifficultiesLegacy40), // Doom's Edge
+                new (19354, RaidDifficultiesLegacy40), // Draconic Avenger
+                new (19358, RaidDifficultiesLegacy40), // Draconic Maul
+                new (19435, RaidDifficultiesLegacy40), // Essence Gatherer
             }
         },
         {
@@ -346,14 +355,14 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 // Mail
-                new (21804, new[] { 3 }), // Coif of Elemental Fury
+                new (21804, RaidDifficultiesLegacy10Normal), // Coif of Elemental Fury
                 // Plate
-                new (21803, new[] { 3 }), // Helm of the Holy Avenger
-                new (21805, new[] { 3 }), // Polished Obsidian Pauldrons
+                new (21803, RaidDifficultiesLegacy10Normal), // Helm of the Holy Avenger
+                new (21805, RaidDifficultiesLegacy10Normal), // Polished Obsidian Pauldrons
                 // Weapon
-                new (21801, new[] { 3 }), // Antenna of Invigoration
-                new (21800, new[] { 3 }), // Silithid Husked Launcher
-                new (21802, new[] { 3 }), // The Lost Kris of Zedd
+                new (21801, RaidDifficultiesLegacy10Normal), // Antenna of Invigoration
+                new (21800, RaidDifficultiesLegacy10Normal), // Silithid Husked Launcher
+                new (21802, RaidDifficultiesLegacy10Normal), // The Lost Kris of Zedd
             }
         },
         {
@@ -361,15 +370,15 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 // Cloth
-                new (21838, new[]{ 9 }), // Garb of Royal Ascension
-                new (21888, new[]{ 9 }), // Gloves of the Immortal
+                new (21838, RaidDifficultiesLegacy40), // Garb of Royal Ascension
+                new (21888, RaidDifficultiesLegacy40), // Gloves of the Immortal
                 // Plate
-                new (21889, new[]{ 9 }), // Gloves of the Redeemed Prophecy
+                new (21889, RaidDifficultiesLegacy40), // Gloves of the Redeemed Prophecy
                 // Weapon
-                new (21837, new[]{ 9 }), // Anubisath Warhammer
-                new (21856, new[]{ 9 }), // Neretzek, The Blood Drinker
+                new (21837, RaidDifficultiesLegacy40), // Anubisath Warhammer
+                new (21856, RaidDifficultiesLegacy40), // Neretzek, The Blood Drinker
 
-                new (21890, new[] { 3 }), // Gloves of the Fallen Prophet
+                new (21890, RaidDifficultiesLegacy40), // Gloves of the Fallen Prophet
             }
         },
         #endregion
@@ -381,7 +390,7 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 // Toy
-                new (134019, new[] { 2 }), // Don Carlos' Famous Hat
+                new (134019, DungeonDifficultiesHeroic), // Don Carlos' Famous Hat
             }
         },
         // Karazhan / Nightbane
@@ -390,21 +399,21 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 // Cloth
-                new (28602, new[] { 3 }), // Robe of the Elder Scribes
+                new (28602, RaidDifficultiesLegacy10Normal), // Robe of the Elder Scribes
                 // Leather
-                new (28601, new[] { 3 }), // Chestguard of the Conniver
-                new (28600, new[] { 3 }), // Stonebough Jerkin
+                new (28601, RaidDifficultiesLegacy10Normal), // Chestguard of the Conniver
+                new (28600, RaidDifficultiesLegacy10Normal), // Stonebough Jerkin
                 // Mail
-                new (28610, new[] { 3 }), // Ferocious Swift-Kickers
-                new (28599, new[] { 3 }), // Scaled Breastplate of Carnage
+                new (28610, RaidDifficultiesLegacy10Normal), // Ferocious Swift-Kickers
+                new (28599, RaidDifficultiesLegacy10Normal), // Scaled Breastplate of Carnage
                 // Plate
-                new (28608, new[] { 3 }), // Ironstriders of Urgency
-                new (28597, new[] { 3 }), // Panzar'Thar Breastplate
+                new (28608, RaidDifficultiesLegacy10Normal), // Ironstriders of Urgency
+                new (28597, RaidDifficultiesLegacy10Normal), // Panzar'Thar Breastplate
                 // Weapon
-                new (28604, new[] { 3 }), // Nightstaff of the Everliving
-                new (28603, new[] { 3 }), // Talisman of Nightbane
-                new (28611, new[] { 3 }), // Dragonheart Flameshield
-                new (28606, new[] { 3 }), // Shield of Impenetrable Darkness
+                new (28604, RaidDifficultiesLegacy10Normal), // Nightstaff of the Everliving
+                new (28603, RaidDifficultiesLegacy10Normal), // Talisman of Nightbane
+                new (28611, RaidDifficultiesLegacy10Normal), // Dragonheart Flameshield
+                new (28606, RaidDifficultiesLegacy10Normal), // Shield of Impenetrable Darkness
             }
         },
         #endregion
@@ -415,17 +424,17 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 // Cloth
-                new (30668, new[] { 3 }), // Grasp of the Dead
-                new (30673, new[] { 3 }), // Inferno Waist Cord
+                new (30668, RaidDifficultiesLegacy10Normal), // Grasp of the Dead
+                new (30673, RaidDifficultiesLegacy10Normal), // Inferno Waist Cord
                 // Leather
-                new (30644, new[] { 3 }), // Grips of Deftness
-                new (30674, new[] { 3 }), // Zierhut's Lost Treads
+                new (30644, RaidDifficultiesLegacy10Normal), // Grips of Deftness
+                new (30674, RaidDifficultiesLegacy10Normal), // Zierhut's Lost Treads
                 // Mail
-                new (30643, new[] { 3 }), // Belt of the Tracker
+                new (30643, RaidDifficultiesLegacy10Normal), // Belt of the Tracker
                 // Plate
-                new (30641, new[] { 3 }), // Boots of Elusion
+                new (30641, RaidDifficultiesLegacy10Normal), // Boots of Elusion
                 // Cloak
-                new (30642, new[] { 3 }), // Drape of the Righteous
+                new (30642, RaidDifficultiesLegacy10Normal), // Drape of the Righteous
             }
         },
         {
@@ -433,9 +442,9 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 // Plate
-                new (30027, new[] { 4 }), // Boots of Courage Unending
+                new (30027, RaidDifficultiesLegacy25Normal), // Boots of Courage Unending
                 // Weapon
-                new (30021, new[] { 4 }), // Wildfury Greatstaff
+                new (30021, RaidDifficultiesLegacy25Normal), // Wildfury Greatstaff
             }
         },
         {
@@ -443,13 +452,13 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 // Cloth
-                new (30020, new[] { 4 }), // Fire-Cord of the Magus
-                new (30024, new[] { 4 }), // Mantle of the Elven Kings
+                new (30020, RaidDifficultiesLegacy25Normal), // Fire-Cord of the Magus
+                new (30024, RaidDifficultiesLegacy25Normal), // Mantle of the Elven Kings
                 // Leather
-                new (30029, new[] { 4 }), // Bark-Gloves of Ancient Wisdom
+                new (30029, RaidDifficultiesLegacy25Normal), // Bark-Gloves of Ancient Wisdom
                 // Mail
-                new (30026, new[] { 4 }), // Bands of the Celestial Archer
-                new (30030, new[] { 4 }), // Girdle of Fallen Stars
+                new (30026, RaidDifficultiesLegacy25Normal), // Bands of the Celestial Archer
+                new (30030, RaidDifficultiesLegacy25Normal), // Girdle of Fallen Stars
             }
         },
         {
@@ -457,16 +466,16 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 // Cloth
-                new (32609, new[] { 4 }), // Boots of the Divine Light
+                new (32609, RaidDifficultiesLegacy25Normal), // Boots of the Divine Light
                 // Mail
-                new (32592, new[] { 4 }), // Chestguard of Relentless Storms
+                new (32592, RaidDifficultiesLegacy25Normal), // Chestguard of Relentless Storms
                 // Cloak
-                new (32590, new[] { 4 }), // Nethervoid Cloak
-                new (34010, new[] { 4 }), // Pepe's Shroud of Pacification
+                new (32590, RaidDifficultiesLegacy25Normal), // Nethervoid Cloak
+                new (34010, RaidDifficultiesLegacy25Normal), // Pepe's Shroud of Pacification
                 // Weapon
-                new (34009, new[] { 4 }), // Hammer of Judgement
-                new (32946, new[] { 4 }), // Claw of Molten Fury
-                new (32945, new[] { 4 }), // Fist of Molten Fury
+                new (34009, RaidDifficultiesLegacy25Normal), // Hammer of Judgement
+                new (32946, RaidDifficultiesLegacy25Normal), // Claw of Molten Fury
+                new (32945, RaidDifficultiesLegacy25Normal), // Fist of Molten Fury
             }
         },
         {
@@ -474,15 +483,15 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 // Leather
-                new (32593, new[] { 4 }), // Treads of the Den Mother
+                new (32593, RaidDifficultiesLegacy25Normal), // Treads of the Den Mother
                 // Plate
-                new (32606, new[] { 4 }), // Girdle of the Lightbearer
-                new (32608, new[] { 4 }), // Pillager's Gauntlets
+                new (32606, RaidDifficultiesLegacy25Normal), // Girdle of the Lightbearer
+                new (32608, RaidDifficultiesLegacy25Normal), // Pillager's Gauntlets
                 // Cloak
-                new (34012, new[] { 4 }), // Shroud of the Final Stand
+                new (34012, RaidDifficultiesLegacy25Normal), // Shroud of the Final Stand
                 // Weapon
-                new (32943, new[] { 4 }), // Swiftsteel Bludgeon
-                new (34011, new[] { 4 }), // Illidari Runeshield
+                new (32943, RaidDifficultiesLegacy25Normal), // Swiftsteel Bludgeon
+                new (34011, RaidDifficultiesLegacy25Normal), // Illidari Runeshield
             }
         },
         {
@@ -490,16 +499,16 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 // Leather
-                new (34351, new[] { 4 }), // Tranquil Majesty Wraps
-                new (34407, new[] { 4 }), // Tranquil Moonlight Wraps
+                new (34351, RaidDifficultiesLegacy25Normal), // Tranquil Majesty Wraps
+                new (34407, RaidDifficultiesLegacy25Normal), // Tranquil Moonlight Wraps
                 // Mail
-                new (34350, new[] { 4 }), // Gauntlets of the Ancient Shadowmoon
-                new (34409, new[] { 4 }), // Gauntlets of the Ancient Frostwolf
+                new (34350, RaidDifficultiesLegacy25Normal), // Gauntlets of the Ancient Shadowmoon
+                new (34409, RaidDifficultiesLegacy25Normal), // Gauntlets of the Ancient Frostwolf
                 // Weapon
-                new (34346, new[] { 4 }), // Mounting Vengeance
-                new (34183, new[] { 4 }), // Shivering Felspine
-                new (34348, new[] { 4 }), // Wand of Cleansing Light
-                new (34347, new[] { 4 }), // Wand of the Demonsoul
+                new (34346, RaidDifficultiesLegacy25Normal), // Mounting Vengeance
+                new (34183, RaidDifficultiesLegacy25Normal), // Shivering Felspine
+                new (34348, RaidDifficultiesLegacy25Normal), // Wand of Cleansing Light
+                new (34347, RaidDifficultiesLegacy25Normal), // Wand of the Demonsoul
             }
         },
         #endregion
@@ -510,7 +519,7 @@ public static partial class Hardcoded
             102790,
             new List<ExtraItemDrop>
             {
-                new(43951, new[]{ 2 }), // Reins of the Bronze Drake
+                new(43951, DungeonDifficultiesHeroic), // Reins of the Bronze Drake
             }
         },
         // Icecrown Citadel > Sanctified T10
@@ -519,206 +528,206 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 // Conqueror's Mark of Sanctification [10H]
-                new (51160, new[]{ 5 }),
-                new (51161, new[]{ 5 }),
-                new (51162, new[]{ 5 }),
-                new (51163, new[]{ 5 }),
-                new (51164, new[]{ 5 }),
-                new (51165, new[]{ 5 }),
-                new (51166, new[]{ 5 }),
-                new (51167, new[]{ 5 }),
-                new (51168, new[]{ 5 }),
-                new (51169, new[]{ 5 }),
-                new (51170, new[]{ 5 }),
-                new (51171, new[]{ 5 }),
-                new (51172, new[]{ 5 }),
-                new (51173, new[]{ 5 }),
-                new (51174, new[]{ 5 }),
-                new (51175, new[]{ 5 }),
-                new (51176, new[]{ 5 }),
-                new (51177, new[]{ 5 }),
-                new (51178, new[]{ 5 }),
-                new (51179, new[]{ 5 }),
-                new (51180, new[]{ 5 }),
-                new (51181, new[]{ 5 }),
-                new (51182, new[]{ 5 }),
-                new (51183, new[]{ 5 }),
-                new (51184, new[]{ 5 }),
-                new (51205, new[]{ 5 }),
-                new (51206, new[]{ 5 }),
-                new (51207, new[]{ 5 }),
-                new (51208, new[]{ 5 }),
-                new (51209, new[]{ 5 }),
+                new (51160, RaidDifficultiesLegacy10Heroic),
+                new (51161, RaidDifficultiesLegacy10Heroic),
+                new (51162, RaidDifficultiesLegacy10Heroic),
+                new (51163, RaidDifficultiesLegacy10Heroic),
+                new (51164, RaidDifficultiesLegacy10Heroic),
+                new (51165, RaidDifficultiesLegacy10Heroic),
+                new (51166, RaidDifficultiesLegacy10Heroic),
+                new (51167, RaidDifficultiesLegacy10Heroic),
+                new (51168, RaidDifficultiesLegacy10Heroic),
+                new (51169, RaidDifficultiesLegacy10Heroic),
+                new (51170, RaidDifficultiesLegacy10Heroic),
+                new (51171, RaidDifficultiesLegacy10Heroic),
+                new (51172, RaidDifficultiesLegacy10Heroic),
+                new (51173, RaidDifficultiesLegacy10Heroic),
+                new (51174, RaidDifficultiesLegacy10Heroic),
+                new (51175, RaidDifficultiesLegacy10Heroic),
+                new (51176, RaidDifficultiesLegacy10Heroic),
+                new (51177, RaidDifficultiesLegacy10Heroic),
+                new (51178, RaidDifficultiesLegacy10Heroic),
+                new (51179, RaidDifficultiesLegacy10Heroic),
+                new (51180, RaidDifficultiesLegacy10Heroic),
+                new (51181, RaidDifficultiesLegacy10Heroic),
+                new (51182, RaidDifficultiesLegacy10Heroic),
+                new (51183, RaidDifficultiesLegacy10Heroic),
+                new (51184, RaidDifficultiesLegacy10Heroic),
+                new (51205, RaidDifficultiesLegacy10Heroic),
+                new (51206, RaidDifficultiesLegacy10Heroic),
+                new (51207, RaidDifficultiesLegacy10Heroic),
+                new (51208, RaidDifficultiesLegacy10Heroic),
+                new (51209, RaidDifficultiesLegacy10Heroic),
 
                 // Conqueror's Mark of Sanctification [25H]
-                new (51230, new[]{ 6 }),
-                new (51231, new[]{ 6 }),
-                new (51232, new[]{ 6 }),
-                new (51233, new[]{ 6 }),
-                new (51234, new[]{ 6 }),
-                new (51255, new[]{ 6 }),
-                new (51256, new[]{ 6 }),
-                new (51257, new[]{ 6 }),
-                new (51258, new[]{ 6 }),
-                new (51259, new[]{ 6 }),
-                new (51260, new[]{ 6 }),
-                new (51261, new[]{ 6 }),
-                new (51262, new[]{ 6 }),
-                new (51263, new[]{ 6 }),
-                new (51264, new[]{ 6 }),
-                new (51265, new[]{ 6 }),
-                new (51266, new[]{ 6 }),
-                new (51267, new[]{ 6 }),
-                new (51268, new[]{ 6 }),
-                new (51269, new[]{ 6 }),
-                new (51270, new[]{ 6 }),
-                new (51271, new[]{ 6 }),
-                new (51272, new[]{ 6 }),
-                new (51273, new[]{ 6 }),
-                new (51274, new[]{ 6 }),
-                new (51275, new[]{ 6 }),
-                new (51276, new[]{ 6 }),
-                new (51277, new[]{ 6 }),
-                new (51278, new[]{ 6 }),
-                new (51279, new[]{ 6 }),
+                new (51230, RaidDifficultiesLegacy25Heroic),
+                new (51231, RaidDifficultiesLegacy25Heroic),
+                new (51232, RaidDifficultiesLegacy25Heroic),
+                new (51233, RaidDifficultiesLegacy25Heroic),
+                new (51234, RaidDifficultiesLegacy25Heroic),
+                new (51255, RaidDifficultiesLegacy25Heroic),
+                new (51256, RaidDifficultiesLegacy25Heroic),
+                new (51257, RaidDifficultiesLegacy25Heroic),
+                new (51258, RaidDifficultiesLegacy25Heroic),
+                new (51259, RaidDifficultiesLegacy25Heroic),
+                new (51260, RaidDifficultiesLegacy25Heroic),
+                new (51261, RaidDifficultiesLegacy25Heroic),
+                new (51262, RaidDifficultiesLegacy25Heroic),
+                new (51263, RaidDifficultiesLegacy25Heroic),
+                new (51264, RaidDifficultiesLegacy25Heroic),
+                new (51265, RaidDifficultiesLegacy25Heroic),
+                new (51266, RaidDifficultiesLegacy25Heroic),
+                new (51267, RaidDifficultiesLegacy25Heroic),
+                new (51268, RaidDifficultiesLegacy25Heroic),
+                new (51269, RaidDifficultiesLegacy25Heroic),
+                new (51270, RaidDifficultiesLegacy25Heroic),
+                new (51271, RaidDifficultiesLegacy25Heroic),
+                new (51272, RaidDifficultiesLegacy25Heroic),
+                new (51273, RaidDifficultiesLegacy25Heroic),
+                new (51274, RaidDifficultiesLegacy25Heroic),
+                new (51275, RaidDifficultiesLegacy25Heroic),
+                new (51276, RaidDifficultiesLegacy25Heroic),
+                new (51277, RaidDifficultiesLegacy25Heroic),
+                new (51278, RaidDifficultiesLegacy25Heroic),
+                new (51279, RaidDifficultiesLegacy25Heroic),
 
                 // Protector's Mark of Sanctification [10H]
-                new (51150, new[]{ 5 }),
-                new (51151, new[]{ 5 }),
-                new (51152, new[]{ 5 }),
-                new (51153, new[]{ 5 }),
-                new (51154, new[]{ 5 }),
-                new (51190, new[]{ 5 }),
-                new (51191, new[]{ 5 }),
-                new (51192, new[]{ 5 }),
-                new (51193, new[]{ 5 }),
-                new (51194, new[]{ 5 }),
-                new (51195, new[]{ 5 }),
-                new (51196, new[]{ 5 }),
-                new (51197, new[]{ 5 }),
-                new (51198, new[]{ 5 }),
-                new (51199, new[]{ 5 }),
-                new (51200, new[]{ 5 }),
-                new (51201, new[]{ 5 }),
-                new (51202, new[]{ 5 }),
-                new (51203, new[]{ 5 }),
-                new (51204, new[]{ 5 }),
-                new (51210, new[]{ 5 }),
-                new (51211, new[]{ 5 }),
-                new (51212, new[]{ 5 }),
-                new (51213, new[]{ 5 }),
-                new (51214, new[]{ 5 }),
-                new (51215, new[]{ 5 }),
-                new (51216, new[]{ 5 }),
-                new (51217, new[]{ 5 }),
-                new (51218, new[]{ 5 }),
-                new (51219, new[]{ 5 }),
+                new (51150, RaidDifficultiesLegacy10Heroic),
+                new (51151, RaidDifficultiesLegacy10Heroic),
+                new (51152, RaidDifficultiesLegacy10Heroic),
+                new (51153, RaidDifficultiesLegacy10Heroic),
+                new (51154, RaidDifficultiesLegacy10Heroic),
+                new (51190, RaidDifficultiesLegacy10Heroic),
+                new (51191, RaidDifficultiesLegacy10Heroic),
+                new (51192, RaidDifficultiesLegacy10Heroic),
+                new (51193, RaidDifficultiesLegacy10Heroic),
+                new (51194, RaidDifficultiesLegacy10Heroic),
+                new (51195, RaidDifficultiesLegacy10Heroic),
+                new (51196, RaidDifficultiesLegacy10Heroic),
+                new (51197, RaidDifficultiesLegacy10Heroic),
+                new (51198, RaidDifficultiesLegacy10Heroic),
+                new (51199, RaidDifficultiesLegacy10Heroic),
+                new (51200, RaidDifficultiesLegacy10Heroic),
+                new (51201, RaidDifficultiesLegacy10Heroic),
+                new (51202, RaidDifficultiesLegacy10Heroic),
+                new (51203, RaidDifficultiesLegacy10Heroic),
+                new (51204, RaidDifficultiesLegacy10Heroic),
+                new (51210, RaidDifficultiesLegacy10Heroic),
+                new (51211, RaidDifficultiesLegacy10Heroic),
+                new (51212, RaidDifficultiesLegacy10Heroic),
+                new (51213, RaidDifficultiesLegacy10Heroic),
+                new (51214, RaidDifficultiesLegacy10Heroic),
+                new (51215, RaidDifficultiesLegacy10Heroic),
+                new (51216, RaidDifficultiesLegacy10Heroic),
+                new (51217, RaidDifficultiesLegacy10Heroic),
+                new (51218, RaidDifficultiesLegacy10Heroic),
+                new (51219, RaidDifficultiesLegacy10Heroic),
 
                 // Protector's Mark of Sanctification [25H]
-                new (51220, new[]{ 6 }),
-                new (51221, new[]{ 6 }),
-                new (51222, new[]{ 6 }),
-                new (51223, new[]{ 6 }),
-                new (51224, new[]{ 6 }),
-                new (51225, new[]{ 6 }),
-                new (51226, new[]{ 6 }),
-                new (51227, new[]{ 6 }),
-                new (51228, new[]{ 6 }),
-                new (51229, new[]{ 6 }),
-                new (51235, new[]{ 6 }),
-                new (51236, new[]{ 6 }),
-                new (51237, new[]{ 6 }),
-                new (51238, new[]{ 6 }),
-                new (51239, new[]{ 6 }),
-                new (51240, new[]{ 6 }),
-                new (51241, new[]{ 6 }),
-                new (51242, new[]{ 6 }),
-                new (51243, new[]{ 6 }),
-                new (51244, new[]{ 6 }),
-                new (51245, new[]{ 6 }),
-                new (51246, new[]{ 6 }),
-                new (51247, new[]{ 6 }),
-                new (51248, new[]{ 6 }),
-                new (51249, new[]{ 6 }),
-                new (51285, new[]{ 6 }),
-                new (51286, new[]{ 6 }),
-                new (51287, new[]{ 6 }),
-                new (51288, new[]{ 6 }),
-                new (51289, new[]{ 6 }),
+                new (51220, RaidDifficultiesLegacy25Heroic),
+                new (51221, RaidDifficultiesLegacy25Heroic),
+                new (51222, RaidDifficultiesLegacy25Heroic),
+                new (51223, RaidDifficultiesLegacy25Heroic),
+                new (51224, RaidDifficultiesLegacy25Heroic),
+                new (51225, RaidDifficultiesLegacy25Heroic),
+                new (51226, RaidDifficultiesLegacy25Heroic),
+                new (51227, RaidDifficultiesLegacy25Heroic),
+                new (51228, RaidDifficultiesLegacy25Heroic),
+                new (51229, RaidDifficultiesLegacy25Heroic),
+                new (51235, RaidDifficultiesLegacy25Heroic),
+                new (51236, RaidDifficultiesLegacy25Heroic),
+                new (51237, RaidDifficultiesLegacy25Heroic),
+                new (51238, RaidDifficultiesLegacy25Heroic),
+                new (51239, RaidDifficultiesLegacy25Heroic),
+                new (51240, RaidDifficultiesLegacy25Heroic),
+                new (51241, RaidDifficultiesLegacy25Heroic),
+                new (51242, RaidDifficultiesLegacy25Heroic),
+                new (51243, RaidDifficultiesLegacy25Heroic),
+                new (51244, RaidDifficultiesLegacy25Heroic),
+                new (51245, RaidDifficultiesLegacy25Heroic),
+                new (51246, RaidDifficultiesLegacy25Heroic),
+                new (51247, RaidDifficultiesLegacy25Heroic),
+                new (51248, RaidDifficultiesLegacy25Heroic),
+                new (51249, RaidDifficultiesLegacy25Heroic),
+                new (51285, RaidDifficultiesLegacy25Heroic),
+                new (51286, RaidDifficultiesLegacy25Heroic),
+                new (51287, RaidDifficultiesLegacy25Heroic),
+                new (51288, RaidDifficultiesLegacy25Heroic),
+                new (51289, RaidDifficultiesLegacy25Heroic),
 
                 // Vanquisher's Mark of Sanctification [10H]
-                new (51125, new[]{ 5 }),
-                new (51126, new[]{ 5 }),
-                new (51127, new[]{ 5 }),
-                new (51128, new[]{ 5 }),
-                new (51129, new[]{ 5 }),
-                new (51130, new[]{ 5 }),
-                new (51131, new[]{ 5 }),
-                new (51132, new[]{ 5 }),
-                new (51133, new[]{ 5 }),
-                new (51134, new[]{ 5 }),
-                new (51135, new[]{ 5 }),
-                new (51136, new[]{ 5 }),
-                new (51137, new[]{ 5 }),
-                new (51138, new[]{ 5 }),
-                new (51139, new[]{ 5 }),
-                new (51140, new[]{ 5 }),
-                new (51141, new[]{ 5 }),
-                new (51142, new[]{ 5 }),
-                new (51143, new[]{ 5 }),
-                new (51144, new[]{ 5 }),
-                new (51145, new[]{ 5 }),
-                new (51146, new[]{ 5 }),
-                new (51147, new[]{ 5 }),
-                new (51148, new[]{ 5 }),
-                new (51149, new[]{ 5 }),
-                new (51155, new[]{ 5 }),
-                new (51156, new[]{ 5 }),
-                new (51157, new[]{ 5 }),
-                new (51158, new[]{ 5 }),
-                new (51159, new[]{ 5 }),
-                new (51185, new[]{ 5 }),
-                new (51186, new[]{ 5 }),
-                new (51187, new[]{ 5 }),
-                new (51188, new[]{ 5 }),
-                new (51189, new[]{ 5 }),
+                new (51125, RaidDifficultiesLegacy10Heroic),
+                new (51126, RaidDifficultiesLegacy10Heroic),
+                new (51127, RaidDifficultiesLegacy10Heroic),
+                new (51128, RaidDifficultiesLegacy10Heroic),
+                new (51129, RaidDifficultiesLegacy10Heroic),
+                new (51130, RaidDifficultiesLegacy10Heroic),
+                new (51131, RaidDifficultiesLegacy10Heroic),
+                new (51132, RaidDifficultiesLegacy10Heroic),
+                new (51133, RaidDifficultiesLegacy10Heroic),
+                new (51134, RaidDifficultiesLegacy10Heroic),
+                new (51135, RaidDifficultiesLegacy10Heroic),
+                new (51136, RaidDifficultiesLegacy10Heroic),
+                new (51137, RaidDifficultiesLegacy10Heroic),
+                new (51138, RaidDifficultiesLegacy10Heroic),
+                new (51139, RaidDifficultiesLegacy10Heroic),
+                new (51140, RaidDifficultiesLegacy10Heroic),
+                new (51141, RaidDifficultiesLegacy10Heroic),
+                new (51142, RaidDifficultiesLegacy10Heroic),
+                new (51143, RaidDifficultiesLegacy10Heroic),
+                new (51144, RaidDifficultiesLegacy10Heroic),
+                new (51145, RaidDifficultiesLegacy10Heroic),
+                new (51146, RaidDifficultiesLegacy10Heroic),
+                new (51147, RaidDifficultiesLegacy10Heroic),
+                new (51148, RaidDifficultiesLegacy10Heroic),
+                new (51149, RaidDifficultiesLegacy10Heroic),
+                new (51155, RaidDifficultiesLegacy10Heroic),
+                new (51156, RaidDifficultiesLegacy10Heroic),
+                new (51157, RaidDifficultiesLegacy10Heroic),
+                new (51158, RaidDifficultiesLegacy10Heroic),
+                new (51159, RaidDifficultiesLegacy10Heroic),
+                new (51185, RaidDifficultiesLegacy10Heroic),
+                new (51186, RaidDifficultiesLegacy10Heroic),
+                new (51187, RaidDifficultiesLegacy10Heroic),
+                new (51188, RaidDifficultiesLegacy10Heroic),
+                new (51189, RaidDifficultiesLegacy10Heroic),
 
                 // Vanquisher's Mark of Sanctification [25H]
-                new (51250, new[]{ 6 }),
-                new (51251, new[]{ 6 }),
-                new (51252, new[]{ 6 }),
-                new (51253, new[]{ 6 }),
-                new (51254, new[]{ 6 }),
-                new (51280, new[]{ 6 }),
-                new (51281, new[]{ 6 }),
-                new (51282, new[]{ 6 }),
-                new (51283, new[]{ 6 }),
-                new (51284, new[]{ 6 }),
-                new (51290, new[]{ 6 }),
-                new (51291, new[]{ 6 }),
-                new (51292, new[]{ 6 }),
-                new (51293, new[]{ 6 }),
-                new (51294, new[]{ 6 }),
-                new (51295, new[]{ 6 }),
-                new (51296, new[]{ 6 }),
-                new (51297, new[]{ 6 }),
-                new (51298, new[]{ 6 }),
-                new (51299, new[]{ 6 }),
-                new (51300, new[]{ 6 }),
-                new (51301, new[]{ 6 }),
-                new (51302, new[]{ 6 }),
-                new (51303, new[]{ 6 }),
-                new (51304, new[]{ 6 }),
-                new (51305, new[]{ 6 }),
-                new (51306, new[]{ 6 }),
-                new (51307, new[]{ 6 }),
-                new (51308, new[]{ 6 }),
-                new (51309, new[]{ 6 }),
-                new (51310, new[]{ 6 }),
-                new (51311, new[]{ 6 }),
-                new (51312, new[]{ 6 }),
-                new (51313, new[]{ 6 }),
-                new (51314, new[]{ 6 }),
+                new (51250, RaidDifficultiesLegacy25Heroic),
+                new (51251, RaidDifficultiesLegacy25Heroic),
+                new (51252, RaidDifficultiesLegacy25Heroic),
+                new (51253, RaidDifficultiesLegacy25Heroic),
+                new (51254, RaidDifficultiesLegacy25Heroic),
+                new (51280, RaidDifficultiesLegacy25Heroic),
+                new (51281, RaidDifficultiesLegacy25Heroic),
+                new (51282, RaidDifficultiesLegacy25Heroic),
+                new (51283, RaidDifficultiesLegacy25Heroic),
+                new (51284, RaidDifficultiesLegacy25Heroic),
+                new (51290, RaidDifficultiesLegacy25Heroic),
+                new (51291, RaidDifficultiesLegacy25Heroic),
+                new (51292, RaidDifficultiesLegacy25Heroic),
+                new (51293, RaidDifficultiesLegacy25Heroic),
+                new (51294, RaidDifficultiesLegacy25Heroic),
+                new (51295, RaidDifficultiesLegacy25Heroic),
+                new (51296, RaidDifficultiesLegacy25Heroic),
+                new (51297, RaidDifficultiesLegacy25Heroic),
+                new (51298, RaidDifficultiesLegacy25Heroic),
+                new (51299, RaidDifficultiesLegacy25Heroic),
+                new (51300, RaidDifficultiesLegacy25Heroic),
+                new (51301, RaidDifficultiesLegacy25Heroic),
+                new (51302, RaidDifficultiesLegacy25Heroic),
+                new (51303, RaidDifficultiesLegacy25Heroic),
+                new (51304, RaidDifficultiesLegacy25Heroic),
+                new (51305, RaidDifficultiesLegacy25Heroic),
+                new (51306, RaidDifficultiesLegacy25Heroic),
+                new (51307, RaidDifficultiesLegacy25Heroic),
+                new (51308, RaidDifficultiesLegacy25Heroic),
+                new (51309, RaidDifficultiesLegacy25Heroic),
+                new (51310, RaidDifficultiesLegacy25Heroic),
+                new (51311, RaidDifficultiesLegacy25Heroic),
+                new (51312, RaidDifficultiesLegacy25Heroic),
+                new (51313, RaidDifficultiesLegacy25Heroic),
+                new (51314, RaidDifficultiesLegacy25Heroic),
             }
         },
         #endregion
@@ -745,19 +754,19 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 // Leather
-                new (40409, new[] { 4 }), // Boots of the Escaped Captive
+                new (40409, RaidDifficultiesLegacy25Normal), // Boots of the Escaped Captive
                 // Plate
-                new (39467, new[] { 3 }), // Minion Bracers
-                new (40414, new[] { 4 }), // Shoulderguards of the Undaunted
+                new (39467, RaidDifficultiesLegacy10Normal), // Minion Bracers
+                new (40414, RaidDifficultiesLegacy25Normal), // Shoulderguards of the Undaunted
                 // Cloak
-                new (40410, new[] { 4 }), // Shadow of the Ghoul
+                new (40410, RaidDifficultiesLegacy25Normal), // Shadow of the Ghoul
                 // Weapon
-                new (39473, new[] { 3 }), // Contortion
-                new (40408, new[] { 4 }), // Haunting Call
-                new (40406, new[] { 4 }), // Inevitable Defeat
-                new (39427, new[] { 3 }), // Omen of Ruin
-                new (40407, new[] { 4 }), // Silent Crusader
-                new (39468, new[] { 3 }), // The Stray
+                new (39473, RaidDifficultiesLegacy10Normal), // Contortion
+                new (40408, RaidDifficultiesLegacy25Normal), // Haunting Call
+                new (40406, RaidDifficultiesLegacy25Normal), // Inevitable Defeat
+                new (39427, RaidDifficultiesLegacy10Normal), // Omen of Ruin
+                new (40407, RaidDifficultiesLegacy25Normal), // Silent Crusader
+                new (39468, RaidDifficultiesLegacy10Normal), // The Stray
             }
         },
         // Ulduar > Trash
@@ -766,29 +775,29 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 // Cloth
-                new (45549, new[] { 14 }), // Grips of Chaos
-                new (46344, new[] { 14 }), // Iceshear Mantle
+                new (45549, RaidDifficultiesNormal), // Grips of Chaos
+                new (46344, RaidDifficultiesNormal), // Iceshear Mantle
                 // Leather
-                new (45548, new[] { 14 }), // Belt of the Sleeper
-                new (45547, new[] { 14 }), // Relic Hunter's Cord
+                new (45548, RaidDifficultiesNormal), // Belt of the Sleeper
+                new (45547, RaidDifficultiesNormal), // Relic Hunter's Cord
                 // Mail
-                new (46346, new[] { 14 }), // Boots of Unsettled Prey
-                new (45544, new[] { 14 }), // Leggings of the Tortured Earth
-                new (45543, new[] { 14 }), // Shoulders of Misfortune
+                new (46346, RaidDifficultiesNormal), // Boots of Unsettled Prey
+                new (45544, RaidDifficultiesNormal), // Leggings of the Tortured Earth
+                new (45543, RaidDifficultiesNormal), // Shoulders of Misfortune
                 // Plate
-                new (46345, new[] { 14 }), // Bracers of Righteous Reformation
-                new (46340, new[] { 14 }), // Adamant Handguards
-                new (45542, new[] { 14 }), // Greaves of the Stonewarder
+                new (46345, RaidDifficultiesNormal), // Bracers of Righteous Reformation
+                new (46340, RaidDifficultiesNormal), // Adamant Handguards
+                new (45542, RaidDifficultiesNormal), // Greaves of the Stonewarder
                 // Cloak
-                new (46347, new[] { 14 }), // Cloak of the Dormant Blaze
-                new (46341, new[] { 14 }), // Drape of the Spellweaver
-                new (45541, new[] { 14 }), // Shroud of Alteration
+                new (46347, RaidDifficultiesNormal), // Cloak of the Dormant Blaze
+                new (46341, RaidDifficultiesNormal), // Drape of the Spellweaver
+                new (45541, RaidDifficultiesNormal), // Shroud of Alteration
                 // Weapon
-                new (46351, new[] { 14 }), // Bloodcrush Cudgel
-                new (45605, new[] { 14 }), // Daschal's Bite
-                new (46342, new[] { 14 }), // Golemheart Longbow
-                new (46339, new[] { 14 }), // Mimiron's Repeater
-                new (46350, new[] { 14 }), // Pillar of Fortitude
+                new (46351, RaidDifficultiesNormal), // Bloodcrush Cudgel
+                new (45605, RaidDifficultiesNormal), // Daschal's Bite
+                new (46342, RaidDifficultiesNormal), // Golemheart Longbow
+                new (46339, RaidDifficultiesNormal), // Mimiron's Repeater
+                new (46350, RaidDifficultiesNormal), // Pillar of Fortitude
             }
         },
         {
@@ -796,13 +805,13 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 // Cloth
-                new (50449, new[] { 4 }), // Stiffened Corpse Shoulderpads
+                new (50449, RaidDifficultiesLegacy25Normal), // Stiffened Corpse Shoulderpads
                 // Mail
-                new (50450, new[] { 4 }), // Leggings of Dubious Charms
+                new (50450, RaidDifficultiesLegacy25Normal), // Leggings of Dubious Charms
                 // Plate
-                new (50451, new[] { 4 }), // Belt of the Lonely Noble
+                new (50451, RaidDifficultiesLegacy25Normal), // Belt of the Lonely Noble
                 // Weapon
-                new (50444, new[] { 4 }), // Rowan's Rifle of Silver Bullets
+                new (50444, RaidDifficultiesLegacy25Normal), // Rowan's Rifle of Silver Bullets
             }
         },
         #endregion
@@ -823,32 +832,32 @@ public static partial class Hardcoded
             1000072, // The Bastion of Twilight > Trash
             new List<ExtraItemDrop>
             {
-                new (60211, new[] { 14 }), // Bracers of the Dark Pool
-                new (60202, new[] { 14 }), // Tsanga's Helm
-                new (60201, new[] { 14 }), // Phase-Twister Leggings
-                new (59901, new[] { 14 }), // Heaving Plates of Protection
-                new (59520, new[] { 14 }), // Unheeded Warning
-                new (59521, new[] { 14 }), // Soul Blade
-                new (59525, new[] { 14 }), // Chelley's Staff of Dark Mending
-                new (60210, new[] { 14 }), // Crossfire Carbine
+                new (60211, RaidDifficultiesNormal), // Bracers of the Dark Pool
+                new (60202, RaidDifficultiesNormal), // Tsanga's Helm
+                new (60201, RaidDifficultiesNormal), // Phase-Twister Leggings
+                new (59901, RaidDifficultiesNormal), // Heaving Plates of Protection
+                new (59520, RaidDifficultiesNormal), // Unheeded Warning
+                new (59521, RaidDifficultiesNormal), // Soul Blade
+                new (59525, RaidDifficultiesNormal), // Chelley's Staff of Dark Mending
+                new (60210, RaidDifficultiesNormal), // Crossfire Carbine
             }
         },
         {
             1000073, // Blackwing Depths > Trash
             new List<ExtraItemDrop>
             {
-                new (59466, new[] { 14 }), // Ironstar's Impenetrable Cover
-                new (59468, new[] { 14 }), // Shadowforge's Lightbound Smock
-                new (59467, new[] { 14 }), // Hide of Chromaggus
-                new (59465, new[] { 14 }), // Corehammer's Riveted Girdle
-                new (59464, new[] { 14 }), // Treads of Savage Beatings
-                new (59461, new[] { 14 }), // Fury of Angerforge
-                new (59462, new[] { 14 }), // Maimgor's Bite
-                new (59463, new[] { 14 }), // Maldo's Sword Cane
-                new (63537, new[] { 14 }), // Claws of Torment
-                new (63538, new[] { 14 }), // Claws of Agony
-                new (68601, new[] { 14 }), // Scaleslicer
-                new (59460, new[] { 14 }), // Theresa's Booklight
+                new (59466, RaidDifficultiesNormal), // Ironstar's Impenetrable Cover
+                new (59468, RaidDifficultiesNormal), // Shadowforge's Lightbound Smock
+                new (59467, RaidDifficultiesNormal), // Hide of Chromaggus
+                new (59465, RaidDifficultiesNormal), // Corehammer's Riveted Girdle
+                new (59464, RaidDifficultiesNormal), // Treads of Savage Beatings
+                new (59461, RaidDifficultiesNormal), // Fury of Angerforge
+                new (59462, RaidDifficultiesNormal), // Maimgor's Bite
+                new (59463, RaidDifficultiesNormal), // Maldo's Sword Cane
+                new (63537, RaidDifficultiesNormal), // Claws of Torment
+                new (63538, RaidDifficultiesNormal), // Claws of Agony
+                new (68601, RaidDifficultiesNormal), // Scaleslicer
+                new (59460, RaidDifficultiesNormal), // Theresa's Booklight
             }
         },
         {
@@ -856,21 +865,21 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 // Leather
-                new (71640, new[] { 14 }), // Riplimb's Lost Collar
+                new (71640, RaidDifficultiesNormal), // Riplimb's Lost Collar
                 //new (71641, new[] { 15 }), // Riplimb's Lost Collar
                 // Mail
-                new (71365, new[] { 14 }), // Hide-Bound Chains
+                new (71365, RaidDifficultiesNormal), // Hide-Bound Chains
                 //new (71561, new[] { 15 }), // Hide-Bound Chains
                 // Weapon
-                new (71359, new[] { 14 }), // Chelley's Sterilized Scalpel
+                new (71359, RaidDifficultiesNormal), // Chelley's Sterilized Scalpel
                 //new (71560, new[] { 15 }), // Chelley's Sterilized Scalpel
-                new (71366, new[] { 14 }), // Lava Bolt Crossbow
+                new (71366, RaidDifficultiesNormal), // Lava Bolt Crossbow
                 //new (71558, new[] { 15 }), // Lava Bolt Crossbow
-                new (71362, new[] { 14 }), // Obsidium Cleaver
+                new (71362, RaidDifficultiesNormal), // Obsidium Cleaver
                 //new (71562, new[] { 15 }), // Obsidium Cleaver
-                new (71361, new[] { 14 }), // Ranseur of Hatred
+                new (71361, RaidDifficultiesNormal), // Ranseur of Hatred
                 //new (71557, new[] { 15 }), // Ranseur of Hatred
-                new (71360, new[] { 14 }), // Spire of Scarlet Pain
+                new (71360, RaidDifficultiesNormal), // Spire of Scarlet Pain
                 //new (71559, new[] { 15 }), // Spire of Scarlet Pain
             }
         },
@@ -879,33 +888,33 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 // Cloth
-                new (78879, new[] { 14 }), // Sash of Relentless Truth
+                new (78879, RaidDifficultiesNormal), // Sash of Relentless Truth
                 // Leather
-                new (78884, new[] { 14 }), // Girdle of Fungal Dreams
-                new (78882, new[] { 14 }), // Nightblind Cinch
+                new (78884, RaidDifficultiesNormal), // Girdle of Fungal Dreams
+                new (78882, RaidDifficultiesNormal), // Nightblind Cinch
                 // Mail
-                new (78886, new[] { 14 }), // Belt of Ghostly Graces
-                new (78885, new[] { 14 }), // Dragoncarver Belt
+                new (78886, RaidDifficultiesNormal), // Belt of Ghostly Graces
+                new (78885, RaidDifficultiesNormal), // Dragoncarver Belt
                 // Plate
-                new (78887, new[] { 14 }), // Girdle of Soulful Mending
-                new (78888, new[] { 14 }), // Waistguard of Bleeding Bone
-                new (78889, new[] { 14 }), // Waistplate of the Desecrated Future
+                new (78887, RaidDifficultiesNormal), // Girdle of Soulful Mending
+                new (78888, RaidDifficultiesNormal), // Waistguard of Bleeding Bone
+                new (78889, RaidDifficultiesNormal), // Waistplate of the Desecrated Future
                 // Weapon
-                new (77938, new[] { 14 }), // Dragonfire Orb
-                new (77192, new[] { 14 }), // Ruinblaster Shotgun
-                new (78878, new[] { 14 }), // Spine of the Thousand Cuts
+                new (77938, RaidDifficultiesNormal), // Dragonfire Orb
+                new (77192, RaidDifficultiesNormal), // Ruinblaster Shotgun
+                new (78878, RaidDifficultiesNormal), // Spine of the Thousand Cuts
             }
         },
 
         #endregion
 
         #region Mists of Pandaria
-        // Schjolomance > Doctor Theolen Krastinov
+        // Scholomance > Doctor Theolen Krastinov
         {
             102460,
             new List<ExtraItemDrop>
             {
-                new(88566, new[]{ 2 }), // Krastinov's Bag of Horrors - Heroic
+                new(88566, DungeonDifficultiesHeroic), // Krastinov's Bag of Horrors - Heroic
             }
         },
         // Siege of Orgrimmar > Garrosh Hellscream
@@ -914,6 +923,41 @@ public static partial class Hardcoded
             new List<ExtraItemDrop>
             {
                 new(112935, new[]{ 16 }), // Tusks of Mannoroth - Mythic
+            }
+        },
+        // World Bosses > Salyis's Warband (Galleon)
+        {
+            725,
+            new List<ExtraItemDrop>
+            {
+                // Cloth
+                new(86884, RaidDifficultiesNormal), // Belt of Embodied Terror [waist]
+                new(86895, RaidDifficultiesNormal), // Healer's Belt of Final Winter [waist]
+                new(86896, RaidDifficultiesNormal), // Invoker's Belt of Final Winter [waist]
+                new(86897, RaidDifficultiesNormal), // Sorcerer's Belt of Final Winter [waist]
+                new(86850, RaidDifficultiesNormal), // Darting Damselfly Cuffs [wrists]
+                new(86844, RaidDifficultiesNormal), // Gleaming Moth Cuffs [wrists]
+                new(86841, RaidDifficultiesNormal), // Shining Cicada Bracers [wrists]
+
+                // Leather
+                new(86899, RaidDifficultiesNormal), // Stalker's Cord of Eternal Autumn [waist]
+                new(86898, RaidDifficultiesNormal), // Weaver's Cord of Eternal Autumn [waist]
+                new(86845, RaidDifficultiesNormal), // Pearlescent Butterfly Wristbands [wrists]
+                new(86843, RaidDifficultiesNormal), // Smooth Beetle Wristbands [wrists]
+
+                // Mail
+                new(86900, RaidDifficultiesNormal), // Binder's Chain of Unending Summer [waist]
+                new(86904, RaidDifficultiesNormal), // Patroller's Girdle of Endless Spring [waist]
+                new(86847, RaidDifficultiesNormal), // Jagged Hornet Bracers [wrists]
+                new(86842, RaidDifficultiesNormal), // Luminescent Firefly Wristguards [wrists]
+
+                // Plate
+                new(86902, RaidDifficultiesNormal), // Mender's Girdle of Endless Spring [waist]
+                new(86903, RaidDifficultiesNormal), // Protector's Girdle of Endless Spring [waist]
+                new(86901, RaidDifficultiesNormal), // Ranger's Chain of Unending Summer [waist]
+                new(86846, RaidDifficultiesNormal), // Inlaid Cricket Bracers [wrists]
+                new(86849, RaidDifficultiesNormal), // Plated Locust Bracers [wrists]
+                new(86848, RaidDifficultiesNormal), // Serrated Wasp Bracers [wrists]
             }
         },
         #endregion
@@ -925,28 +969,28 @@ public static partial class Hardcoded
             {
                 // Cloth
                 new (86850, new[]{ 17 }), // Darting Damselfly Cuffs
-                new (86192, new[]{ 14 }), // Darting Damselfly Cuffs
+                new (86192, RaidDifficultiesNormal), // Darting Damselfly Cuffs
                 new (86844, new[]{ 17 }), // Gleaming Moth Cuffs
-                new (86186, new[]{ 14 }), // Gleaming Moth Cuffs
+                new (86186, RaidDifficultiesNormal), // Gleaming Moth Cuffs
                 new (86841, new[]{ 17 }), // Shining Cicada Bracers
-                new (86183, new[]{ 14 }), // Shining Cicada Bracers
+                new (86183, RaidDifficultiesNormal), // Shining Cicada Bracers
                 // Leather
                 new (86845, new[]{ 17 }), // Pearlescent Butterfly Wristbands
-                new (86187, new[]{ 14 }), // Pearlescent Butterfly Wristbands
+                new (86187, RaidDifficultiesNormal), // Pearlescent Butterfly Wristbands
                 new (86843, new[]{ 17 }), // Smooth Beetle Wristbands
-                new (86185, new[]{ 14 }), // Smooth Beetle Wristbands
+                new (86185, RaidDifficultiesNormal), // Smooth Beetle Wristbands
                 // Mail
                 new (86847, new[]{ 17 }), // Jagged Hornet Bracers
-                new (86189, new[]{ 14 }), // Jagged Hornet Bracers
+                new (86189, RaidDifficultiesNormal), // Jagged Hornet Bracers
                 new (86842, new[]{ 17 }), // Luminescent Firefly Wristguards
-                new (86184, new[]{ 14 }), // Luminescent Firefly Wristguards
+                new (86184, RaidDifficultiesNormal), // Luminescent Firefly Wristguards
                 // Plate
                 new (86846, new[]{ 17 }), // Inlaid Cricket Bracers
-                new (86188, new[]{ 14 }), // Inlaid Cricket Bracers
+                new (86188, RaidDifficultiesNormal), // Inlaid Cricket Bracers
                 new (86849, new[]{ 17 }), // Plated Locust Bracers
-                new (86191, new[]{ 14 }), // Plated Locust Bracers
+                new (86191, RaidDifficultiesNormal), // Plated Locust Bracers
                 new (86848, new[]{ 17 }), // Serrated Wasp Bracers
-                new (86190, new[]{ 14 }), // Serrated Wasp Bracers
+                new (86190, RaidDifficultiesNormal), // Serrated Wasp Bracers
             }
         },
         {
@@ -1229,7 +1273,7 @@ public static partial class Hardcoded
             2213,
             new List<ExtraItemDrop>
             {
-                new(163828, new[]{ 14 }), // Toy Siege Tower
+                new(163828, RaidDifficultiesNormal), // Toy Siege Tower
             }
         },
         // Azeroth > The Lion's Roar
@@ -1237,7 +1281,7 @@ public static partial class Hardcoded
             2214,
             new List<ExtraItemDrop>
             {
-                new(163829, new[]{ 14 }), // Toy War Machine
+                new(163829, RaidDifficultiesNormal), // Toy War Machine
             }
         },
         // The Eternal Palace > Za'qul

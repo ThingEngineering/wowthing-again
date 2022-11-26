@@ -15,4 +15,5 @@ public enum WowCharacterClassMask
     Monk = 512,
     Druid = 1024,
     DemonHunter = 2048,
+    Evoker = 4096,
 }
