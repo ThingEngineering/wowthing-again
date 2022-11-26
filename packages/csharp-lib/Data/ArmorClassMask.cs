@@ -9,15 +9,16 @@ public static partial class Hardcoded
         { 1, (int)(WowCharacterClassMask.Mage |
                    WowCharacterClassMask.Priest |
                    WowCharacterClassMask.Warlock) }, // Cloth
-            
+
         { 2, (int)(WowCharacterClassMask.DemonHunter |
                    WowCharacterClassMask.Druid |
                    WowCharacterClassMask.Monk |
                    WowCharacterClassMask.Rogue) }, // Leather
-            
-        { 3, (int)(WowCharacterClassMask.Hunter |
+
+        { 3, (int)(WowCharacterClassMask.Evoker |
+                   WowCharacterClassMask.Hunter |
                    WowCharacterClassMask.Shaman) }, // Mail
-            
+
         { 4, (int)(WowCharacterClassMask.DeathKnight |
                    WowCharacterClassMask.Paladin |
                    WowCharacterClassMask.Warrior) }, // Plate
