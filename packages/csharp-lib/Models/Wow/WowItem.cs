@@ -38,17 +38,18 @@ public class WowItem
             foreach (var classData in Hardcoded.Characters)
             {
                 if (classData.WeaponTypes
-                    .Any((t =>
-                            (short)t.Item1 == SubclassId &&
+                    .Any(t =>
+                        (short)t.Item1 == SubclassId &&
+                        (
+                            PrimaryStat == WowStat.None ||
+                            legacyLoot ||
                             (
-                                PrimaryStat == WowStat.None ||
-                                legacyLoot ||
-                                (
-                                    itemStats.Count > 0 &&
-                                    t.Item2.Any(stat => itemStats.Contains(stat))
-                                )
+                                itemStats.Count > 0 &&
+                                t.Item2.Any(stat => itemStats.Contains(stat))
                             )
-                        )))
+                        )
+                    )
+                )
                 {
                     classMask |= (int)classData.Mask;
                 }
@@ -65,19 +66,18 @@ public class WowItem
             {
                 if (classData.ArmorTypes
                     .EmptyIfNull()
-                    .Any((t =>
-                            (int)t.Item1 == SubclassId &&
+                    .Any(t =>
+                        (short)t.Item1 == SubclassId &&
+                        (
+                            PrimaryStat == WowStat.None ||
+                            legacyLoot ||
                             (
-                                PrimaryStat == WowStat.None ||
-                                legacyLoot ||
-                                (
-                                    itemStats.Count > 0 &&
-                                    t.Item2.Any(stat => itemStats.Contains(stat))
-                                )
+                                itemStats.Count > 0 &&
+                                t.Item2.Any(stat => itemStats.Contains(stat))
                             )
                         )
                     )
-                   )
+                )
                 {
                     classMask |= (int)classData.Mask;
                 }
