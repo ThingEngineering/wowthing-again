@@ -65,6 +65,26 @@ public static partial class Hardcoded
         },
         new CharacterClassData
         {
+            Mask = WowCharacterClassMask.Evoker,
+            ArmorTypes = new List<(WowArmorSubclass, WowStat[])>
+            {
+                (WowArmorSubclass.Cloak, new[] { WowStat.Intellect }),
+                (WowArmorSubclass.Miscellaneous, new[] { WowStat.Intellect }),
+            },
+            WeaponTypes = new List<(WowWeaponSubclass, WowStat[])>
+            {
+                (WowWeaponSubclass.OneHandedAxe, new[] { WowStat.Intellect }),
+                (WowWeaponSubclass.OneHandedMace, new[] { WowStat.Intellect }),
+                (WowWeaponSubclass.OneHandedSword, new[] { WowStat.Intellect }),
+                (WowWeaponSubclass.Dagger, new[] { WowStat.Intellect }),
+                (WowWeaponSubclass.Fist, new[] { WowStat.Intellect }),
+                (WowWeaponSubclass.Stave, new[] { WowStat.Intellect }),
+
+                (WowWeaponSubclass.OffHand, new[] { WowStat.Intellect }),
+            },
+        },
+        new CharacterClassData
+        {
             Mask = WowCharacterClassMask.Hunter,
             ArmorTypes = new List<(WowArmorSubclass, WowStat[])>
             {
@@ -79,7 +99,7 @@ public static partial class Hardcoded
                 (WowWeaponSubclass.Bow, new[] { WowStat.Agility }),
                 (WowWeaponSubclass.Crossbow, new[] { WowStat.Agility }),
                 (WowWeaponSubclass.Gun, new[] { WowStat.Agility }),
-                    
+
                 (WowWeaponSubclass.OneHandedAxe, new[] { WowStat.TransmogOnly }),
                 (WowWeaponSubclass.OneHandedSword, new[] { WowStat.TransmogOnly }),
                 (WowWeaponSubclass.Dagger, new[] { WowStat.TransmogOnly }),
@@ -144,7 +164,7 @@ public static partial class Hardcoded
                 (WowWeaponSubclass.TwoHandedMace, new[] { WowStat.Intellect, WowStat.Strength }),
                 (WowWeaponSubclass.TwoHandedSword, new[] { WowStat.Intellect, WowStat.Strength }),
                 (WowWeaponSubclass.Polearm, new[] { WowStat.Intellect, WowStat.Strength }),
-                    
+
                 (WowWeaponSubclass.OffHand, new[] { WowStat.Strength }),
                 (WowWeaponSubclass.Shield, new[] { WowStat.Intellect, WowStat.Strength }),
             },
@@ -181,7 +201,7 @@ public static partial class Hardcoded
                 (WowWeaponSubclass.OneHandedSword, new[] { WowStat.Agility }),
                 (WowWeaponSubclass.Dagger, new[] { WowStat.Agility }),
                 (WowWeaponSubclass.Fist, new[] { WowStat.Agility }),
-                    
+
                 (WowWeaponSubclass.Bow, new[] { WowStat.TransmogOnly }),
                 (WowWeaponSubclass.Crossbow, new[] { WowStat.TransmogOnly }),
                 (WowWeaponSubclass.Gun, new[] { WowStat.TransmogOnly }),
@@ -206,7 +226,7 @@ public static partial class Hardcoded
                 (WowWeaponSubclass.Dagger, new[] { WowStat.Intellect }),
                 (WowWeaponSubclass.Fist, new[] { WowStat.Agility, WowStat.Intellect }),
                 (WowWeaponSubclass.Stave, new[] { WowStat.Intellect }),
-                    
+
                 (WowWeaponSubclass.TwoHandedAxe, new[] { WowStat.TransmogOnly }),
                 (WowWeaponSubclass.TwoHandedMace, new[] { WowStat.TransmogOnly }),
 
@@ -252,7 +272,7 @@ public static partial class Hardcoded
                 (WowWeaponSubclass.Fist, new[] { WowStat.Strength }),
                 (WowWeaponSubclass.Polearm, new[] { WowStat.Strength }),
                 (WowWeaponSubclass.Stave, new[] { WowStat.Strength }),
-                    
+
                 (WowWeaponSubclass.Bow, new[] { WowStat.TransmogOnly }),
                 (WowWeaponSubclass.Crossbow, new[] { WowStat.TransmogOnly }),
                 (WowWeaponSubclass.Gun, new[] { WowStat.TransmogOnly }),

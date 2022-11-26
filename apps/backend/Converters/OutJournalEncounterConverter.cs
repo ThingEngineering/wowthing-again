@@ -64,7 +64,7 @@ public class OutJournalEncounterConverter : JsonConverter
                     statisticsArray.Add(statisticId);
                 }
                 diffArray.Add(statisticsArray);
-                
+
                 statsArray.Add(diffArray);
             }
             encounterArray.Add(statsArray);

@@ -130,6 +130,16 @@
         border-color: #{$colour-class-12};
     }
 }
+.class-13,
+.class-evoker {
+    --colour-class: #{$colour-class-13};
+    --image-border-color: #{colour-class-13};
+    color: $colour-class-13;
+
+    > img {
+        border-color: #{$colour-class-13};
+    }
+}
 
 // Junk
 .quality0 {
