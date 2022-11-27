@@ -91,7 +91,8 @@
         &.race-2,  // Orc
         &.race-36, // Mag'har Orc
         &.race-8,  // Troll
-        &.race-31  // Zandalari Troll
+        &.race-31, // Zandalari Troll
+        &.race-52  // Dracthyr
         {
             --scale: 0.75;
         }
