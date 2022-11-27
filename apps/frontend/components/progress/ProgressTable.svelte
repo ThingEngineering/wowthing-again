@@ -117,10 +117,10 @@
         const order: string = $progressState.sortOrder[slugKey]
         if (order) {
             sorted = true
-            sortFunc = (char) => {
+            sortFunc = getCharacterSortFunc($settingsData, $staticStore.data, (char) => {
                 const data = progress[`${order}|${char.id}`]
                 return leftPad(100 - (data?.total > 0 ? (data?.have ?? 0) : -1), 3, '0')
-            }
+            })
         }
         else {
             sorted = false
