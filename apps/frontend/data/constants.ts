@@ -1,11 +1,11 @@
 export abstract class Constants {
-    static readonly characterMaxLevel: number = 60
-    static readonly expansion: number = 8
+    static readonly characterMaxLevel: number = 70
+    static readonly expansion: number = 9
     static readonly maxRenown: number = 80
     static readonly restedDuration: number = 10 * 24 * 60 * 60 // 10 days
     static readonly valorCurrencyId: number = 1191
 
-    static readonly mythicPlusSeason: number = 8
+    static readonly mythicPlusSeason: number = 9
 
     static readonly holidayCycleStart: number = 845
 
