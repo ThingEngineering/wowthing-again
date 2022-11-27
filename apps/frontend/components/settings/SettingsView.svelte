@@ -6,15 +6,16 @@
     import AuctionsCustom from './sections/SettingsAuctionsCustom.svelte'
     import Account from './sections/SettingsAccount.svelte'
     import Collections from './sections/SettingsCollections.svelte'
-    import HideCharacters from './sections/SettingsHideCharacters.svelte'
     import History from './sections/SettingsHistory.svelte'
     import Layout from './sections/SettingsLayout.svelte'
     import Lockouts from './sections/SettingsLockouts.svelte'
-    import PinCharacters from './sections/SettingsPinCharacters.svelte'
     import Privacy from './sections/SettingsPrivacy.svelte'
-    import SortCharacters from './sections/SettingsSortCharacters.svelte'
     import Tasks from './sections/SettingsTasks.svelte'
     import Transmog from './sections/SettingsTransmog.svelte'
+
+    import CharactersToggles from './sections/characters/SettingsCharactersToggles.svelte'
+    import CharactersPin from './sections/characters/SettingsCharactersPin.svelte'
+    import CharactersSort from './sections/characters/SettingsCharactersSort.svelte'
 
     export let slug1: string
     export let slug2: string
@@ -31,14 +32,16 @@
         'auctions/custom': AuctionsCustom,
         'collections': Collections,
         'history': History,
+        'privacy': Privacy,
+        'transmog': Transmog,
+        
+        'characters/pin': CharactersPin,
+        'characters/sort': CharactersSort,
+        'characters/toggles': CharactersToggles,
+
         'layout': Layout,
         'layout/lockouts': Lockouts,
         'layout/tasks': Tasks,
-        'privacy': Privacy,
-        'transmog': Transmog,
-        'hide-characters': HideCharacters,
-        'pin-characters': PinCharacters,
-        'sort-characters': SortCharacters,
     }
 </script>
 

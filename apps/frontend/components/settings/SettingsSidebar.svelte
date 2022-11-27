@@ -30,16 +30,23 @@
         },
         null,
         {
-            name: 'Hide Characters',
-            slug: 'hide-characters',
-        },
-        {
-            name: 'Pin Characters',
-            slug: 'pin-characters',
-        },
-        {
-            name: 'Sort Characters',
-            slug: 'sort-characters',
+            name: 'Characters',
+            slug: 'characters',
+            forceNoVisit: true,
+            children: [
+                {
+                    name: 'Pin',
+                    slug: 'pin',
+                },
+                {
+                    name: 'Sort',
+                    slug: 'sort',
+                },
+                {
+                    name: 'Toggles',
+                    slug: 'toggles',
+                },
+            ],
         },
         null,
         {

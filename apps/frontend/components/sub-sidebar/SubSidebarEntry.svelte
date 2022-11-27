@@ -44,7 +44,7 @@
     let actualNoVisitRoot: boolean
     let noCollapse: boolean
     $: {
-        actualNoVisitRoot = noVisitRoot && item?.children?.length > 0
+        actualNoVisitRoot = (noVisitRoot && item?.children?.length > 0) || item?.forceNoVisit
         if (item) {
             url = `${baseUrl}/${item.slug}`
 

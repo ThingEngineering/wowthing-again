@@ -5,6 +5,7 @@ export interface SidebarItem {
     name: string
     slug: string
     children?: SidebarItem[]
+    forceNoVisit?: boolean
     forceWildcard?: boolean
     id?: number
     percent?: number
