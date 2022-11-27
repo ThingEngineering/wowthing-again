@@ -112,6 +112,11 @@ public class MemoryCacheService
         );
     }
 
+    public void ExpireUserByName(string username)
+    {
+        _memoryCache.Remove(string.Format(MemoryCacheKeys.User, username.ToLowerInvariant()));
+    }
+
     public async Task<ApplicationUser?> FindUserByNameAsync(string username)
     {
         return await _memoryCache.GetOrCreateAsync(
