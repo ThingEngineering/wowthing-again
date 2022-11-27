@@ -2,3 +2,23 @@ name: "Azure Span"
 mapName: "09-dragonflight/azure_span"
 minimumLevel: 60
 farms:
+
+- name: "Lost Compass"
+  location: 74.9 55.0
+  objectId: 381160
+  questId: 70606
+  reset: never
+  type: treasure
+  drops:
+    - type: toy
+      id: 202711 # Lost Compass
+
+- name: "Pepper Hammer"
+  location: 26.5 46.3
+  note: "Climb the tree then use the sap"
+  questId: 70441
+  reset: never
+  type: treasure
+  drops:
+    - type: pet
+      id: 3321 # Blackfeather Nester
