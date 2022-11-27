@@ -64,6 +64,7 @@
 {#if category?.reputations}
     <CharacterTable
         skipGrouping={sorted}
+        skipIgnored={true}
         {filterFunc}
         {sortFunc}
     >

@@ -76,6 +76,7 @@
 
 <CharacterTable
     skipGrouping={slug !== 'this-week'}
+    skipIgnored={true}
     {filterFunc}
     {sortFunc}
 >

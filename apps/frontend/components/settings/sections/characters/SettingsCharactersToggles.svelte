@@ -42,6 +42,8 @@
     $: debouncedUpdateSettings(hiddenCharacters, ignoredCharacters)
 
     const debouncedUpdateSettings = debounce((hiddenChars: string[], ignoredChars: string[]) => {
+        console.log(hiddenChars, ignoredChars)
+
         $settingsData.characters.hiddenCharacters = allCharacterIds
             .filter((charId) => hiddenChars.indexOf(charId) >= 0)
             .map((charId) => parseInt(charId))

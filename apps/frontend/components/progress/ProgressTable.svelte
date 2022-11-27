@@ -130,6 +130,7 @@
 
 <CharacterTable
     skipGrouping={sorted}
+    skipIgnored={true}
     {filterFunc}
     {sortFunc}
 >

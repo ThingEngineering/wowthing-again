@@ -37,6 +37,7 @@
 
 <CharacterTable
     skipGrouping={true}
+    skipIgnored={true}
     {filterFunc}
     {sortFunc}
 >

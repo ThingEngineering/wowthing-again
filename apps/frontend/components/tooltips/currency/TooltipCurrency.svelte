@@ -4,6 +4,7 @@
     import { userStore } from '@/stores'
     import { data as settings } from '@/stores/settings'
     import { getCharacterNameRealm } from '@/utils/get-character-name-realm'
+    import { getFilteredCharacters } from '@/utils/get-filtered-characters'
     import leftPad from '@/utils/left-pad'
     import type { Character } from '@/types'
     import type { ItemDataItem } from '@/types/data/item'
@@ -19,11 +20,7 @@
     let iconName: string
     $: {
         currencies = []
-        for (const character of $userStore.data.characters) {
-            if ($settings.characters.hiddenCharacters.indexOf(character.id) >= 0) {
-                continue
-            }
-
+        for (const character of getFilteredCharacters($settings, $userStore.data)) {
             let quantity = 0
             if (currency) {
                 currencyName = currency.name

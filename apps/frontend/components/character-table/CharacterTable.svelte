@@ -14,6 +14,7 @@
 
     export let characterLimit = 0
     export let skipGrouping = false
+    export let skipIgnored = false
     export let filterFunc: (char: Character) => boolean = undefined
     export let sortFunc: (char: Character) => string = undefined
 
@@ -38,6 +39,7 @@
         characters = filter(
             $userStore.data.characters,
             (c) => $settingsData.characters.hiddenCharacters.indexOf(c.id) === -1 &&
+                (!skipIgnored || $settingsData.characters.ignoredCharacters.indexOf(c.id) === -1) &&
                 (
                     $settingsData.characters.hideDisabledAccounts === false ||
                     $userStore.data.accounts?.[c.accountId]?.enabled !== false
