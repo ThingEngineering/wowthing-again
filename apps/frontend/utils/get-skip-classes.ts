@@ -1,5 +1,4 @@
 import every from 'lodash/every'
-import sumBy from 'lodash/sumBy'
 
 import type { Settings } from '@/types'
 import type { ManualDataTransmogCategory } from '@/types/data/manual'

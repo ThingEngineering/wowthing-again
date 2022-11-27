@@ -6,7 +6,6 @@ import {
     StaticDataCurrency,
     StaticDataCurrencyCategory,
     StaticDataInstance,
-    StaticDataItem,
     StaticDataMount,
     StaticDataPet,
     StaticDataRealm,

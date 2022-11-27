@@ -194,6 +194,7 @@
                 class:expand-clickable={!noCollapse}
                 class:expand-no={noCollapse}
                 on:click|preventDefault|stopPropagation={noCollapse ? null : toggleExpanded}
+                on:keypress|preventDefault|stopPropagation={noCollapse ? null : toggleExpanded}
             >
                 <IconifyIcon
                     icon={iconStrings['chevron-' + (expanded ? 'down' : 'right')]}

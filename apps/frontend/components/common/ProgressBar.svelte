@@ -73,6 +73,7 @@
 <div
     class="progress-container {cls}"
     on:click
+    on:keypress
 >
     <div class="progress-bar"></div>
     <div class="progress-bar-hider" style="--width: {have / total * 100}%"></div>

@@ -1,15 +1,13 @@
 <script lang="ts">
-    import find from 'lodash/find'
     import { DateTime } from 'luxon'
 
     import { Constants } from '@/data/constants'
-    import { covenantFeatureOrder, covenantFeatureReputation, covenantOrder } from '@/data/covenant'
-    import { manualStore, staticStore, timeStore, userQuestStore, userStore } from '@/stores'
+    import { covenantFeatureOrder, covenantFeatureReputation } from '@/data/covenant'
+    import { staticStore, timeStore } from '@/stores'
     import getPercentClass from '@/utils/get-percent-class'
     import tippy from '@/utils/tippy'
     import { toNiceDuration, toNiceNumber } from '@/utils/to-nice'
     import type { Character, CharacterShadowlandsCovenant, CharacterShadowlandsCovenantFeature } from '@/types'
-    import type { ManualDataProgressCategory } from '@/types/data/manual'
 
     import EmberCourt from './CharactersShadowlandsEmberCourt.svelte'
     import PathOfAscension from './CharactersShadowlandsPathOfAscension.svelte'
